@@ -1,0 +1,34 @@
+import express from 'express';
+import { corsMiddleware } from './middleware/cors.middleware.js';
+import { errorMiddleware } from './middleware/error.middleware.js';
+import storybookRoutes from './routes/storybook.routes.js';
+import imageRoutes from './routes/image.routes.js';
+import ttsRoutes from './routes/tts.routes.js';
+import translationRoutes from './routes/translation.routes.js';
+import quizRoutes from './routes/quiz.routes.js';
+
+export function createApp() {
+  const app = express();
+
+  // 미들웨어
+  app.use(corsMiddleware);
+  app.use(express.json({ limit: '10mb' }));
+  app.use(express.urlencoded({ extended: true }));
+
+  // 헬스 체크
+  app.get('/health', (_req, res) => {
+    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  });
+
+  // API 라우터
+  app.use('/api/storybooks', storybookRoutes);
+  app.use('/api/images', imageRoutes);
+  app.use('/api/tts', ttsRoutes);
+  app.use('/api/translation', translationRoutes);
+  app.use('/api/quiz', quizRoutes);
+
+  // 에러 핸들러 (마지막에 등록)
+  app.use(errorMiddleware);
+
+  return app;
+}
