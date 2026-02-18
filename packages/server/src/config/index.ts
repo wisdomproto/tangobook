@@ -16,6 +16,8 @@ export const config = {
     apiKey: requireEnv('GEMINI_API_KEY'),
     textModel: process.env.GEMINI_TEXT_MODEL ?? 'gemini-2.5-flash',
     imageModel: process.env.GEMINI_IMAGE_MODEL ?? 'gemini-3-pro-image-preview',
+    ttsModel: process.env.GEMINI_TTS_MODEL ?? 'gemini-2.5-flash-preview-tts',
+    ttsVoice: process.env.GEMINI_TTS_VOICE ?? 'Leda',
   },
 
   r2: {

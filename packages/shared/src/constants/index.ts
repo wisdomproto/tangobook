@@ -26,5 +26,18 @@ export const SUPPORTED_LANGUAGES = [
 export const TTS_PROVIDERS = ['gemini', 'minimax', 'elevenlabs'] as const;
 export type TtsProvider = (typeof TTS_PROVIDERS)[number];
 
+export const TTS_VOICES = [
+  { id: 'Leda', label: '레다', description: 'Youthful' },
+  { id: 'Sulafat', label: '술라파트', description: 'Warm' },
+  { id: 'Vindemiatrix', label: '빈데미아트릭스', description: 'Gentle' },
+  { id: 'Achird', label: '아키르드', description: 'Friendly' },
+  { id: 'Sadachbia', label: '사다크비아', description: 'Lively' },
+  { id: 'Puck', label: '퍽', description: 'Upbeat' },
+  { id: 'Kore', label: '코레', description: 'Firm' },
+  { id: 'Achernar', label: '아케르나르', description: 'Soft' },
+  { id: 'Zephyr', label: '제피르', description: 'Bright' },
+  { id: 'Aoede', label: '아오에데', description: 'Breezy' },
+] as const;
+
 export const MAX_IMAGE_HISTORY = 10;
 export const MAX_FILE_SIZE_MB = 5;

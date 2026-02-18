@@ -1,5 +1,6 @@
 import { R2Repository } from '../repositories/r2.repository.js';
 import { AppError } from '../middleware/error.middleware.js';
+import { generateGeminiTts } from '../providers/gemini-tts.provider.js';
 
 interface TtsRequest {
   text: string;
@@ -23,23 +24,31 @@ export const TtsService = {
     const { provider, text, voice, language, storybookId, pageNumber } = req;
 
     let audioBuffer: Buffer;
+    let ext: string;
+    let mimeType: string;
 
     switch (provider) {
       case 'gemini':
-        audioBuffer = await generateGeminiTts(text, voice, language);
+        audioBuffer = await generateGeminiTts({ text, voice, language });
+        ext = 'wav';
+        mimeType = 'audio/wav';
         break;
       case 'minimax':
         audioBuffer = await generateMinimaxTts(text, voice, language);
+        ext = 'mp3';
+        mimeType = 'audio/mpeg';
         break;
       case 'elevenlabs':
         audioBuffer = await generateElevenLabsTts(text, voice);
+        ext = 'mp3';
+        mimeType = 'audio/mpeg';
         break;
       default:
         throw new AppError(400, '지원하지 않는 TTS 프로바이더입니다.');
     }
 
-    const key = `${storybookId}-tts-page${pageNumber}-${Date.now()}.mp3`;
-    return R2Repository.uploadBuffer(audioBuffer, key, 'audio/mpeg');
+    const key = `${storybookId}-tts-page${pageNumber}-${Date.now()}.${ext}`;
+    return R2Repository.uploadBuffer(audioBuffer, key, mimeType);
   },
 
   async batch(
@@ -67,27 +76,16 @@ export const TtsService = {
   },
 };
 
-// --- TTS 프로바이더 구현 (Phase 2에서 마이그레이션) ---
-
-async function generateGeminiTts(
-  _text: string,
-  _voice?: string,
-  _language?: string
-): Promise<Buffer> {
-  // TODO: Phase 2에서 기존 서버의 Gemini TTS 로직 마이그레이션
-  throw new AppError(501, 'Gemini TTS는 Phase 2에서 구현 예정입니다.');
-}
+// --- Minimax / ElevenLabs stubs ---
 
 async function generateMinimaxTts(
   _text: string,
   _voice?: string,
   _language?: string
 ): Promise<Buffer> {
-  // TODO: Phase 2에서 기존 서버의 Minimax TTS 로직 마이그레이션
-  throw new AppError(501, 'Minimax TTS는 Phase 2에서 구현 예정입니다.');
+  throw new AppError(501, 'Minimax TTS는 아직 구현되지 않았습니다.');
 }
 
 async function generateElevenLabsTts(_text: string, _voice?: string): Promise<Buffer> {
-  // TODO: Phase 2에서 기존 서버의 ElevenLabs TTS 로직 마이그레이션
-  throw new AppError(501, 'ElevenLabs TTS는 Phase 2에서 구현 예정입니다.');
+  throw new AppError(501, 'ElevenLabs TTS는 아직 구현되지 않았습니다.');
 }
