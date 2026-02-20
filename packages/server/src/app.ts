@@ -1,5 +1,8 @@
 import path from 'path';
+import { fileURLToPath } from 'url';
 import express from 'express';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import { corsMiddleware } from './middleware/cors.middleware.js';
 import { errorMiddleware } from './middleware/error.middleware.js';
 import storybookRoutes from './routes/storybook.routes.js';
