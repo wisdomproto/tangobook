@@ -16,17 +16,13 @@ import {
 } from '@dnd-kit/sortable';
 import { PageCard } from './PageCard';
 import { Button } from '@/components/Button';
+import { BatchProgressBar } from '@/components/BatchProgressBar';
+import { ImageModelSelector } from '@/components/ImageModelSelector';
 import { illustrationApi } from '../api/illustration.api';
 import { ttsApi } from '@/features/tts/api/tts.api';
 import { translationApi } from '@/features/translation/api/translation.api';
-import {
-  TTS_VOICES,
-  SUPPORTED_LANGUAGES,
-  MAX_IMAGE_HISTORY,
-  ASPECT_RATIOS,
-  IMAGE_MODELS,
-  DEFAULT_IMAGE_MODEL,
-} from '@tangobook/shared';
+import { pushImageHistory } from '@/lib/image-history';
+import { TTS_VOICES, SUPPORTED_LANGUAGES, ASPECT_RATIOS } from '@tangobook/shared';
 import type { Storybook, Page } from '@tangobook/shared';
 
 const ALL_LANGS = [{ code: 'ko', label: '한국어' }, ...SUPPORTED_LANGUAGES];
@@ -140,12 +136,7 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
         prevIllUrl = data.imageUrl;
         onUpdate((draft) => {
           const p = draft.pages[i];
-          if (p.illustrationUrl) {
-            p.illustrationHistory = [p.illustrationUrl, ...(p.illustrationHistory ?? [])].slice(
-              0,
-              MAX_IMAGE_HISTORY
-            );
-          }
+          p.illustrationHistory = pushImageHistory(p.illustrationHistory, p.illustrationUrl);
           p.illustrationUrl = data.imageUrl;
         });
       }
@@ -306,26 +297,17 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
 
       {/* 삽화 모델 선택 */}
       {isKorean && (
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-slate-700 dark:text-slate-200">삽화 모델</span>
-          <select
-            value={storybook.imageModels?.illustration ?? DEFAULT_IMAGE_MODEL}
-            onChange={(e) => {
-              onUpdate((d) => {
-                if (!d.imageModels) d.imageModels = {};
-                d.imageModels.illustration = e.target.value;
-              });
-              onSave();
-            }}
-            className="text-sm border border-slate-200 rounded-lg px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-violet-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
-          >
-            {IMAGE_MODELS.map((m) => (
-              <option key={m.id} value={m.id}>
-                {m.label}
-              </option>
-            ))}
-          </select>
-        </div>
+        <ImageModelSelector
+          value={storybook.imageModels?.illustration}
+          onChange={(modelId) => {
+            onUpdate((d) => {
+              if (!d.imageModels) d.imageModels = {};
+              d.imageModels.illustration = modelId;
+            });
+            onSave();
+          }}
+          label="삽화 모델"
+        />
       )}
 
       {/* Batch action buttons - contextual based on active language */}
@@ -405,27 +387,12 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
 
       {/* Progress bar */}
       {batchProgress && (
-        <div className="bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-800 rounded-lg p-3">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-violet-800 dark:text-violet-200">
-              {batchProgress.type} ({batchProgress.current}/{batchProgress.total})
-            </span>
-            <button
-              onClick={handleCancelBatch}
-              className="text-xs text-red-500 hover:text-red-600 font-medium"
-            >
-              취소
-            </button>
-          </div>
-          <div className="w-full bg-violet-200 dark:bg-violet-800 rounded-full h-2">
-            <div
-              className="bg-violet-600 h-2 rounded-full transition-all duration-300"
-              style={{
-                width: `${batchProgress.total > 0 ? (batchProgress.current / batchProgress.total) * 100 : 0}%`,
-              }}
-            />
-          </div>
-        </div>
+        <BatchProgressBar
+          current={batchProgress.current}
+          total={batchProgress.total}
+          label={batchProgress.type}
+          onCancel={handleCancelBatch}
+        />
       )}
 
       {/* Error display */}

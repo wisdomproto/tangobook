@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { GoogleGenAI, type Part as GenAIPart } from '@google/genai';
 import { config } from '../config/index.js';
+import { withGeminiRetry } from '../utils/gemini-retry.js';
 
 // Lazy initialization - API 키가 없어도 서버 시작 가능
 let _genAI: GoogleGenerativeAI | null = null;
@@ -53,8 +54,8 @@ export async function generateImageWithGemini(options: ImageGenerationOptions): 
 
   parts.push({ text: prompt });
 
-  for (let attempt = 1; attempt <= retries; attempt++) {
-    try {
+  return withGeminiRetry(
+    async () => {
       const result = await getAI().models.generateContent({
         model: imageModel,
         contents: [{ role: 'user', parts }],
@@ -73,44 +74,17 @@ export async function generateImageWithGemini(options: ImageGenerationOptions): 
       }
 
       return imagePart.inlineData.data;
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      const isRetryable =
-        msg.includes('503') ||
-        msg.includes('UNAVAILABLE') ||
-        msg.includes('429') ||
-        msg.includes('RESOURCE_EXHAUSTED');
-      if (!isRetryable || attempt === retries) throw err;
-      const delay = attempt * 3000; // 3s, 6s
-      console.warn(
-        `[Gemini] 일시적 오류 (attempt ${attempt}/${retries}), ${delay / 1000}초 후 재시도: ${msg.slice(0, 100)}`
-      );
-      await new Promise((resolve) => setTimeout(resolve, delay));
-    }
-  }
-
-  throw new Error('이미지 생성에 실패했습니다.');
+    },
+    { retries, context: 'Gemini Image' }
+  );
 }
 
 export async function generateTextWithGemini(prompt: string, retries = 3): Promise<string> {
-  for (let attempt = 1; attempt <= retries; attempt++) {
-    try {
+  return withGeminiRetry(
+    async () => {
       const result = await getTextModel().generateContent(prompt);
       return result.response.text();
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      const isRetryable =
-        msg.includes('503') ||
-        msg.includes('UNAVAILABLE') ||
-        msg.includes('429') ||
-        msg.includes('RESOURCE_EXHAUSTED');
-      if (!isRetryable || attempt === retries) throw err;
-      const delay = attempt * 3000;
-      console.warn(
-        `[Gemini Text] 일시적 오류 (attempt ${attempt}/${retries}), ${delay / 1000}초 후 재시도: ${msg.slice(0, 100)}`
-      );
-      await new Promise((resolve) => setTimeout(resolve, delay));
-    }
-  }
-  throw new Error('텍스트 생성에 실패했습니다.');
+    },
+    { retries, context: 'Gemini Text' }
+  );
 }

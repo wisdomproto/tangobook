@@ -5,10 +5,13 @@ import { CSS } from '@dnd-kit/utilities';
 import { Button } from '@/components/Button';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { ImageDropZone } from '@/components/ImageDropZone';
+import { ImagePreview } from '@/components/ImagePreview';
+import { DownloadButton } from '@/components/DownloadButton';
 import { UploadMenu } from '@/components/UploadMenu';
 import { illustrationApi } from '../api/illustration.api';
 import { ttsApi } from '@/features/tts/api/tts.api';
 import { translationApi } from '@/features/translation/api/translation.api';
+import { pushImageHistory } from '@/lib/image-history';
 import { TTS_VOICES } from '@tangobook/shared';
 import type { Storybook, Page } from '@tangobook/shared';
 
@@ -77,12 +80,7 @@ export function PageCard({
     onSuccess: (data) => {
       onUpdate((draft) => {
         const p = draft.pages[pageIndex];
-        if (p.illustrationUrl) {
-          p.illustrationHistory = [p.illustrationUrl, ...(p.illustrationHistory ?? [])].slice(
-            0,
-            10
-          );
-        }
+        p.illustrationHistory = pushImageHistory(p.illustrationHistory, p.illustrationUrl, 10);
         p.illustrationUrl = data.imageUrl;
         p.customModifications = modifications || undefined;
       });
@@ -97,12 +95,7 @@ export function PageCard({
     onSuccess: (url) => {
       onUpdate((draft) => {
         const p = draft.pages[pageIndex];
-        if (p.illustrationUrl) {
-          p.illustrationHistory = [p.illustrationUrl, ...(p.illustrationHistory ?? [])].slice(
-            0,
-            10
-          );
-        }
+        p.illustrationHistory = pushImageHistory(p.illustrationHistory, p.illustrationUrl, 10);
         p.illustrationUrl = url;
       });
       onSave();
@@ -211,60 +204,19 @@ export function PageCard({
         >
           {(openFilePicker) => (
             <div>
-              <div
-                className={`relative rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 group/img${imageUrl ? ' cursor-pointer hover:ring-2 hover:ring-violet-400 transition' : ''}`}
-                style={{
-                  aspectRatio: (storybook.illustrationAspectRatio ?? '16:9').replace(':', '/'),
-                }}
+              <ImagePreview
+                src={imageUrl}
+                alt={`Page ${page.pageNumber}`}
+                aspectRatio={(storybook.illustrationAspectRatio ?? '16:9').replace(':', '/')}
+                className="rounded-lg border border-slate-200 dark:border-slate-700 hover:ring-2 hover:ring-violet-400 transition"
                 onClick={() => imageUrl && setLightboxSrc(imageUrl)}
-              >
-                {imageUrl ? (
-                  <>
-                    <img
-                      src={imageUrl}
-                      alt={`Page ${page.pageNumber}`}
-                      className="w-full h-full object-cover"
-                    />
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onUpdate((draft) => {
-                          draft.pages[pageIndex].illustrationUrl = undefined;
-                        });
-                        onSave();
-                      }}
-                      className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/50 text-white flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition hover:bg-red-500"
-                      title="이미지 삭제"
-                    >
-                      <svg
-                        className="w-3 h-3"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-                  </>
-                ) : (
-                  <div className="flex flex-col items-center justify-center h-full text-slate-300 dark:text-slate-600 text-xs gap-1">
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
-                      />
-                    </svg>
-                    <span>드래그 또는 업로드</span>
-                  </div>
-                )}
-              </div>
+                onDelete={() => {
+                  onUpdate((draft) => {
+                    draft.pages[pageIndex].illustrationUrl = undefined;
+                  });
+                  onSave();
+                }}
+              />
 
               {/* History */}
               {page.illustrationHistory && page.illustrationHistory.length > 0 && (
@@ -304,29 +256,7 @@ export function PageCard({
                   {imageUrl ? '재생성' : '삽화 생성'}
                 </Button>
                 {imageUrl && (
-                  <a
-                    href={imageUrl}
-                    download={`page-${page.pageNumber}.png`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-2 py-1 text-xs font-medium border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition"
-                    title="다운로드"
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                  </a>
+                  <DownloadButton href={imageUrl} filename={`page-${page.pageNumber}.png`} />
                 )}
                 <UploadMenu
                   onFile={handleFileUpload}

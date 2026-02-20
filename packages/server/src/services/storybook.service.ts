@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { R2Repository } from '../repositories/r2.repository.js';
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
+import { parseGeminiJSON } from '../utils/parse-gemini-json.js';
 import type {
   Storybook,
   StorybookSummary,
@@ -40,15 +41,10 @@ export const StorybookService = {
 
     const prompt = buildStoryOnlyPrompt(title, targetAge, referenceContent);
     const raw = await generateTextWithGemini(prompt);
-
-    let parsed: { pages: StoryDraftPage[] };
-    try {
-      const jsonMatch = raw.match(/```json\n?([\s\S]*?)\n?```/) ?? raw.match(/(\{[\s\S]*\})/);
-      parsed = JSON.parse(jsonMatch?.[1] ?? raw);
-    } catch {
-      throw new AppError(500, 'AI 응답을 파싱하는데 실패했습니다.');
-    }
-
+    const parsed = parseGeminiJSON<{ pages: StoryDraftPage[] }>(
+      raw,
+      'AI 응답을 파싱하는데 실패했습니다.'
+    );
     return parsed.pages ?? [];
   },
 
@@ -59,14 +55,7 @@ export const StorybookService = {
       ? buildStorybookFromDraftPrompt(title, targetAge, artStyle, draftPages, referenceContent)
       : buildStorybookPrompt(title, targetAge, artStyle, referenceContent);
     const raw = await generateTextWithGemini(prompt);
-
-    let parsed: Partial<Storybook>;
-    try {
-      const jsonMatch = raw.match(/```json\n?([\s\S]*?)\n?```/) ?? raw.match(/(\{[\s\S]*\})/);
-      parsed = JSON.parse(jsonMatch?.[1] ?? raw);
-    } catch {
-      throw new AppError(500, 'AI 응답을 파싱하는데 실패했습니다.');
-    }
+    const parsed = parseGeminiJSON<Partial<Storybook>>(raw, 'AI 응답을 파싱하는데 실패했습니다.');
 
     // draftPages가 있으면 사용자가 확정한 텍스트를 유지
     const pages = parsed.pages ?? [];

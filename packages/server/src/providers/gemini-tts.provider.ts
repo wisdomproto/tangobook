@@ -1,7 +1,13 @@
 import { GoogleGenAI } from '@google/genai';
 import { config } from '../config/index.js';
+import { withGeminiRetry } from '../utils/gemini-retry.js';
 
-const ai = new GoogleGenAI({ apiKey: config.gemini.apiKey });
+// Lazy initialization
+let _ai: GoogleGenAI | null = null;
+function getAI() {
+  if (!_ai) _ai = new GoogleGenAI({ apiKey: config.gemini.apiKey });
+  return _ai;
+}
 
 function pcmToWav(pcm: Buffer, sampleRate = 24000, channels = 1, bitDepth = 16): Buffer {
   const byteRate = sampleRate * channels * (bitDepth / 8);
@@ -41,9 +47,9 @@ export async function generateGeminiTts(options: TtsOptions): Promise<Buffer> {
       ? `다음 한국어 텍스트를 따뜻하고 부드러운 동화 낭독 톤으로 읽어주세요: ${text}`
       : `Read the following text in a warm, gentle storytelling voice: ${text}`;
 
-  for (let attempt = 1; attempt <= retries; attempt++) {
-    try {
-      const response = await ai.models.generateContent({
+  return withGeminiRetry(
+    async () => {
+      const response = await getAI().models.generateContent({
         model: config.gemini.ttsModel,
         contents: [{ parts: [{ text: prompt }] }],
         config: {
@@ -63,11 +69,7 @@ export async function generateGeminiTts(options: TtsOptions): Promise<Buffer> {
 
       const pcmBuffer = Buffer.from(audioPart.inlineData.data, 'base64');
       return pcmToWav(pcmBuffer);
-    } catch (err) {
-      if (attempt === retries) throw err;
-      await new Promise((resolve) => setTimeout(resolve, attempt * 2000));
-    }
-  }
-
-  throw new Error('TTS 생성에 실패했습니다.');
+    },
+    { retries, baseDelayMs: 2000, context: 'Gemini TTS' }
+  );
 }

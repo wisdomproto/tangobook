@@ -1,13 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
 import { QuizService } from '../services/quiz.service.js';
+import { asyncHandler } from '../middleware/async-handler.js';
 
 export const QuizController = {
-  async generate(req: Request, res: Response, next: NextFunction) {
-    try {
-      const quiz = await QuizService.generate(req.body);
-      res.json({ success: true, data: quiz });
-    } catch (err) {
-      next(err);
-    }
-  },
+  generate: asyncHandler(async (req, res) => {
+    const quiz = await QuizService.generate(req.body);
+    res.json({ success: true, data: quiz });
+  }),
 };

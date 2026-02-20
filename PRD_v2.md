@@ -1,9 +1,9 @@
 # TangoBook Platform - Product Requirements Document (PRD) v2.0
 
 ## Document Info
-- **Version**: 2.0
-- **Date**: 2026-02-18
-- **Status**: Draft
+- **Version**: 2.1
+- **Date**: 2026-02-20
+- **Status**: In Progress (Phase 2-3 완료)
 - **Tech Stack**: React + TypeScript + Vite (Frontend) / Express + TypeScript (Backend)
 
 ---
@@ -617,216 +617,228 @@ interface LearningSession {
 └──────────────────────────────────────────────────┘
 ```
 
-### 7.2 Frontend Architecture (React + TypeScript + Vite)
+### 7.2 Frontend Architecture (React 18 + TypeScript + Vite)
+
+**실제 구현된 구조** (✅ = 구현 완료)
 ```
-src/
-├── app/
-│   ├── App.tsx                     # Root component + Router
-│   ├── providers/                  # Context providers
-│   │   ├── AuthProvider.tsx
-│   │   ├── StorybookProvider.tsx
-│   │   └── ThemeProvider.tsx
-│   └── router/
-│       └── index.tsx               # Route definitions
+packages/client/src/
+├── components/                      # ✅ 공통 재사용 컴포넌트
+│   ├── AppLayout.tsx                # 전체 레이아웃 (TopBar + content)
+│   ├── TopBar.tsx                   # 상단 네비게이션 바
+│   ├── Button.tsx                   # 공통 버튼 컴포넌트
+│   ├── Modal.tsx                    # 공통 모달
+│   ├── Spinner.tsx                  # 로딩 스피너
+│   ├── EmptyState.tsx               # 빈 상태 UI
+│   ├── ImagePreview.tsx             # 이미지 미리보기 (삭제 오버레이, 로딩, 빈 상태)
+│   ├── ImageDropZone.tsx            # 이미지 드래그 & 드롭 영역
+│   ├── ImageLightbox.tsx            # 이미지 확대 뷰
+│   ├── ImageModelSelector.tsx       # AI 이미지 모델 선택 드롭다운
+│   ├── DownloadButton.tsx           # 다운로드 버튼
+│   ├── BatchProgressBar.tsx         # 배치 작업 진행률 바 + 취소 버튼
+│   └── UploadMenu.tsx               # 업로드 메뉴 (파일/URL 선택)
 │
-├── features/                       # Feature-based modules
-│   ├── auth/
-│   │   ├── components/
-│   │   │   ├── LoginForm.tsx
-│   │   │   ├── RegisterForm.tsx
-│   │   │   └── SocialLoginButtons.tsx
-│   │   ├── hooks/
-│   │   │   └── useAuth.ts
-│   │   ├── services/
-│   │   │   └── authService.ts
-│   │   └── types.ts
+├── features/                        # ✅ 기능별 모듈 (12개)
+│   ├── storybook/                   # 동화책 CRUD + 사이드바
+│   │   ├── api/storybook.api.ts
+│   │   ├── hooks/useStorybooks.ts
+│   │   ├── hooks/useStorybookMutations.ts
+│   │   ├── components/Sidebar.tsx
+│   │   ├── components/SidebarCard.tsx
+│   │   ├── components/StorybookGrid.tsx
+│   │   ├── components/StorybookCard.tsx
+│   │   ├── components/CreateStorybookModal.tsx
+│   │   ├── components/CreateStorybookForm.tsx
+│   │   └── components/DeleteConfirmModal.tsx
 │   │
-│   ├── author/                     # 저작도구
-│   │   ├── components/
-│   │   │   ├── StoryEditor/
-│   │   │   │   ├── StoryForm.tsx
-│   │   │   │   ├── PageEditor.tsx
-│   │   │   │   └── PageList.tsx
-│   │   │   ├── CharacterPanel/
-│   │   │   │   ├── CharacterList.tsx
-│   │   │   │   ├── CharacterCard.tsx
-│   │   │   │   └── ReferenceGenerator.tsx
-│   │   │   ├── CoverPanel/
-│   │   │   ├── KeyObjectPanel/
-│   │   │   ├── TTSPanel/
-│   │   │   ├── TranslationPanel/
-│   │   │   ├── QuizPanel/
-│   │   │   ├── MusicPanel/
-│   │   │   ├── DownloadPanel/
-│   │   │   └── SettingsPanel/
-│   │   ├── hooks/
-│   │   │   ├── useStorybook.ts
-│   │   │   ├── useCharacters.ts
-│   │   │   ├── usePages.ts
-│   │   │   ├── useImageGeneration.ts
-│   │   │   └── useTTS.ts
-│   │   ├── services/
-│   │   │   ├── storyService.ts
-│   │   │   ├── imageService.ts
-│   │   │   ├── ttsService.ts
-│   │   │   └── translationService.ts
-│   │   └── types.ts
+│   ├── editor/                      # 에디터 레이아웃 + 탭 관리
+│   │   ├── components/EditorLayout.tsx
+│   │   ├── components/EditorHeader.tsx
+│   │   ├── components/EditorContent.tsx
+│   │   └── components/TabBar.tsx
 │   │
-│   ├── viewer/                     # 동화책 뷰어
-│   │   ├── components/
-│   │   │   ├── BookShelf/
-│   │   │   ├── BookReader/
-│   │   │   ├── RecommendationBar/
-│   │   │   └── LanguageSwitcher/
-│   │   ├── hooks/
-│   │   └── services/
+│   ├── character/                   # 캐릭터 레퍼런스 이미지
+│   │   ├── api/character.api.ts
+│   │   └── components/CharacterTab.tsx
 │   │
-│   ├── phonics/                    # 파닉스 학습 (NEW)
-│   │   ├── components/
-│   │   │   ├── PhonicsHome/
-│   │   │   ├── KoreanPhonics/
-│   │   │   ├── EnglishPhonics/
-│   │   │   ├── PhonicsGame/
-│   │   │   └── ProgressTracker/
-│   │   ├── hooks/
-│   │   │   ├── usePhonics.ts
-│   │   │   └── usePhonicsGame.ts
-│   │   ├── services/
-│   │   │   └── phonicsService.ts
-│   │   ├── engine/                 # 게임 엔진
-│   │   │   ├── GameBase.ts
-│   │   │   ├── CanvasUtil.ts
-│   │   │   └── SoundManager.ts
-│   │   └── types.ts
+│   ├── cover/                       # 표지 이미지
+│   │   ├── api/cover.api.ts
+│   │   └── components/CoverTab.tsx
 │   │
-│   ├── games/                      # 학습 게임
-│   │   ├── components/
-│   │   │   ├── MemoryMatch/
-│   │   │   ├── StoryQuiz/
-│   │   │   ├── StorySequence/
-│   │   │   └── WordWriting/
-│   │   └── engine/
+│   ├── illustration/                # 페이지 삽화
+│   │   ├── api/illustration.api.ts
+│   │   ├── components/PagesTab.tsx
+│   │   └── components/PageCard.tsx
 │   │
-│   └── report/                     # 학부모 리포팅
-│       ├── components/
-│       │   ├── Dashboard/
-│       │   ├── WeeklyReport/
-│       │   ├── PhonicsProgress/
-│       │   └── VocabularyTracker/
-│       ├── hooks/
-│       └── services/
+│   ├── key-object/                  # 핵심 사물 이미지
+│   │   ├── api/keyObject.api.ts
+│   │   └── components/KeyObjectTab.tsx
+│   │
+│   ├── tts/                         # TTS 음성 생성
+│   │   ├── api/tts.api.ts
+│   │   └── components/TtsTab.tsx
+│   │
+│   ├── translation/                 # 다국어 번역
+│   │   ├── api/translation.api.ts
+│   │   └── components/TranslationTab.tsx
+│   │
+│   ├── quiz/                        # 퀴즈 생성
+│   │   ├── api/quiz.api.ts
+│   │   └── components/QuizTab.tsx
+│   │
+│   ├── audiobook/                   # 오디오북/영상 생성
+│   │   ├── api/audiobook.api.ts
+│   │   ├── hooks/useAudiobookGenerate.ts
+│   │   ├── components/AudiobookTab.tsx
+│   │   └── components/AudiobookProjectCard.tsx
+│   │
+│   ├── settings/                    # 동화책 설정
+│   │   ├── api/settings.api.ts
+│   │   └── components/SettingsTab.tsx
+│   │
+│   └── viewer/                      # 동화책 뷰어 (읽기 모드)
+│       ├── components/ViewerContainer.tsx
+│       ├── components/ViewerToolbar.tsx
+│       ├── components/ViewerControls.tsx
+│       ├── components/PageView.tsx
+│       ├── hooks/useAudioPlayer.ts
+│       ├── hooks/useReadingProgress.ts
+│       ├── hooks/useSwipe.ts
+│       └── hooks/useViewerSettings.ts
 │
-├── shared/                         # 공유 모듈
-│   ├── components/
-│   │   ├── ui/                     # 공통 UI (Button, Modal, Card...)
-│   │   ├── layout/                 # Layout components
-│   │   └── feedback/               # Toast, Loading, Error...
-│   ├── hooks/
-│   │   ├── useApi.ts
-│   │   └── useUpload.ts
-│   ├── services/
-│   │   └── apiClient.ts            # Axios instance + interceptors
-│   ├── types/                      # 공유 타입
-│   │   ├── storybook.ts
-│   │   ├── user.ts
-│   │   └── api.ts
-│   └── utils/
-│       ├── formatters.ts
-│       └── validators.ts
+├── lib/                             # ✅ 유틸리티 & 클라이언트 설정
+│   ├── axios.ts                     # apiGet, apiPost, apiDelete 헬퍼
+│   ├── query-client.ts              # TanStack Query 설정
+│   └── image-history.ts             # pushImageHistory() 유틸
 │
-├── assets/
-│   ├── images/
-│   └── sounds/
+├── pages/                           # ✅ 라우트 페이지
+│   ├── HomePage.tsx                 # 홈 (동화책 그리드)
+│   ├── LibraryPage.tsx              # 라이브러리 (검색/필터)
+│   ├── EditorPage.tsx               # 에디터 (탭 기반)
+│   ├── ViewerPage.tsx               # 뷰어 (읽기 모드)
+│   └── NotFoundPage.tsx             # 404
 │
-└── styles/
-    └── globals.css                 # Tailwind imports
+├── router/index.tsx                 # ✅ React Router 라우트 정의
+├── store/
+│   ├── editor.store.ts              # ✅ Zustand: UI 상태 (탭, 선택, 모달)
+│   └── theme.store.ts               # ✅ Zustand: 다크모드 (localStorage)
+├── main.tsx                         # 앱 진입점
+└── index.css                        # Tailwind imports
 ```
 
-### 7.3 Backend Architecture (Express + TypeScript)
+**공통 컴포넌트 재사용 매트릭스**
+| 컴포넌트 | CoverTab | CharacterTab | PagesTab | KeyObjectTab |
+|----------|----------|-------------|----------|-------------|
+| ImagePreview | ✅ | ✅ | ✅ | ✅ |
+| DownloadButton | ✅ | ✅ | ✅ | ✅ |
+| ImageModelSelector | ✅ | ✅ | ✅ | ✅ |
+| BatchProgressBar | - | ✅ | ✅ | ✅ |
+| pushImageHistory | ✅ | ✅ | ✅ | - |
+
+### 7.3 Backend Architecture (Express 5 + TypeScript)
+
+**실제 구현된 구조** (✅ = 구현 완료)
 ```
-server/
-├── src/
-│   ├── app.ts                      # Express app setup
-│   ├── server.ts                   # Server entry point
-│   │
-│   ├── config/
-│   │   ├── env.ts                  # Environment variables
-│   │   ├── cors.ts
-│   │   └── constants.ts
-│   │
-│   ├── middleware/
-│   │   ├── auth.ts                 # JWT authentication
-│   │   ├── errorHandler.ts         # Global error handling
-│   │   ├── rateLimiter.ts          # API rate limiting
-│   │   ├── validator.ts            # Request validation
-│   │   └── upload.ts               # Multer file upload
-│   │
-│   ├── routes/
-│   │   ├── index.ts                # Route aggregator
-│   │   ├── auth.routes.ts          # /api/auth/*
-│   │   ├── storybook.routes.ts     # /api/storybooks/*
-│   │   ├── image.routes.ts         # /api/images/*
-│   │   ├── tts.routes.ts           # /api/tts/*
-│   │   ├── translation.routes.ts   # /api/translations/*
-│   │   ├── quiz.routes.ts          # /api/quiz/*
-│   │   ├── phonics.routes.ts       # /api/phonics/* (NEW)
-│   │   ├── viewer.routes.ts        # /api/viewer/*
-│   │   └── upload.routes.ts        # /api/upload/*
-│   │
-│   ├── controllers/
-│   │   ├── auth.controller.ts
-│   │   ├── storybook.controller.ts
-│   │   ├── image.controller.ts
-│   │   ├── tts.controller.ts
-│   │   ├── translation.controller.ts
-│   │   ├── quiz.controller.ts
-│   │   ├── phonics.controller.ts   # NEW
-│   │   ├── viewer.controller.ts
-│   │   └── upload.controller.ts
-│   │
-│   ├── services/
-│   │   ├── auth.service.ts         # JWT, password hashing
-│   │   ├── user.service.ts         # User CRUD
-│   │   ├── storybook.service.ts    # Storybook CRUD
-│   │   ├── gemini.service.ts       # Gemini AI API
-│   │   ├── image.service.ts        # Image generation
-│   │   ├── tts.service.ts          # TTS generation
-│   │   ├── translation.service.ts
-│   │   ├── quiz.service.ts
-│   │   ├── phonics.service.ts      # NEW
-│   │   └── r2.service.ts           # Cloudflare R2
-│   │
-│   ├── models/
-│   │   ├── user.model.ts
-│   │   ├── storybook.model.ts
-│   │   ├── phonics.model.ts        # NEW
-│   │   └── session.model.ts        # NEW
-│   │
-│   ├── types/
-│   │   ├── express.d.ts            # Express type extensions
-│   │   ├── api.types.ts
-│   │   └── gemini.types.ts
-│   │
-│   └── utils/
-│       ├── logger.ts
-│       ├── errors.ts               # Custom error classes
-│       └── helpers.ts
+packages/server/src/
+├── app.ts                           # ✅ Express 앱 (CORS, JSON, 라우트, SPA 폴백, 에러)
+├── server.ts                        # ✅ 서버 진입점 (포트 바인딩)
 │
-├── prompts/                        # AI System Prompts
-│   ├── story-generation.txt
-│   ├── image-generation.txt
-│   ├── phonics-extraction.txt      # NEW
-│   └── quiz-generation.txt
+├── config/
+│   └── index.ts                     # ✅ 환경변수 (requireEnv로 필수값 검증)
 │
-├── tsconfig.json
-└── package.json
+├── middleware/
+│   ├── async-handler.ts             # ✅ asyncHandler() + requireFile()
+│   ├── cors.middleware.ts           # ✅ CORS 설정
+│   └── error.middleware.ts          # ✅ AppError 클래스 + 중앙 에러 핸들러
+│
+├── routes/                          # ✅ Express 라우터 (URL 매핑만)
+│   ├── storybook.routes.ts          # /api/storybooks/*
+│   ├── image.routes.ts              # /api/images/*
+│   ├── tts.routes.ts                # /api/tts/*
+│   ├── translation.routes.ts        # /api/translations/*
+│   ├── quiz.routes.ts               # /api/quiz/*
+│   └── audiobook.routes.ts          # /api/audiobooks/*
+│
+├── controllers/                     # ✅ req 파싱 → 서비스 호출 → res 응답
+│   ├── storybook.controller.ts      # 6 핸들러 (list, getById, save, delete, generate, generateStory)
+│   ├── image.controller.ts          # 10 핸들러 (character, cover, illustration 등)
+│   ├── tts.controller.ts            # 3 핸들러 (generate, batch, upload)
+│   ├── translation.controller.ts    # 2 핸들러 (translate, batchTranslate)
+│   ├── quiz.controller.ts           # 1 핸들러 (generate)
+│   └── audiobook.controller.ts      # 2 핸들러 (generate, getProgress)
+│
+├── services/                        # ✅ 비즈니스 로직 (핵심 레이어)
+│   ├── storybook.service.ts         # AI 스토리 생성, JSON 파싱
+│   ├── image.service.ts             # 캐릭터/삽화/표지/키오브젝트/어휘 이미지 생성
+│   ├── tts.service.ts               # TTS 생성 (Gemini/Minimax/ElevenLabs)
+│   ├── translation.service.ts       # 다국어 번역
+│   ├── quiz.service.ts              # 퀴즈 생성
+│   └── audiobook.service.ts         # 오디오북 영상 생성 (Python ffmpeg)
+│
+├── providers/                       # ✅ 외부 API 클라이언트 (싱글톤, lazy init)
+│   ├── gemini.provider.ts           # Gemini 텍스트 + 이미지 생성
+│   ├── gemini-tts.provider.ts       # Gemini TTS (PCM→WAV 변환 포함)
+│   ├── r2.provider.ts               # Cloudflare R2 S3 클라이언트
+│   └── audiobook.provider.ts        # Python 오디오북 스크립트 호출
+│
+├── repositories/
+│   └── r2.repository.ts             # ✅ R2 CRUD (동화책 JSON, 이미지, 오디오)
+│
+└── utils/                           # ✅ 공유 유틸리티
+    ├── gemini-retry.ts              # withGeminiRetry() - API 재시도 래퍼
+    ├── parse-gemini-json.ts         # parseGeminiJSON() - 응답 JSON 추출
+    └── r2-key.ts                    # buildR2Key() + sanitizeFilename()
+```
+
+**백엔드 레이어 흐름**
+```
+Request → routes (URL 매핑 + requireFile 미들웨어)
+        → controllers (asyncHandler로 래핑, req 파싱)
+        → services (비즈니스 로직, AppError 던지기)
+        → providers (Gemini AI, R2 SDK)
+        → repositories (R2 데이터 CRUD)
+        → errorMiddleware (중앙 에러 처리)
+```
+
+**서버 유틸리티 재사용 매트릭스**
+| 유틸리티 | 사용처 |
+|----------|--------|
+| asyncHandler() | 모든 6개 컨트롤러 |
+| requireFile() | image.routes (3곳), tts.routes (1곳) |
+| withGeminiRetry() | gemini.provider, gemini-tts.provider |
+| parseGeminiJSON() | storybook.service, quiz.service |
+| buildR2Key() | image.service, tts.service, audiobook.service |
+
+### 7.4 Shared Package (`@tangobook/shared`)
+```
+packages/shared/src/
+├── types/
+│   ├── storybook.ts                 # Storybook, Character, Page, KeyObject, AudiobookProject 등
+│   └── api.ts                       # ApiResponse<T>, GenerateStoryRequest 등
+├── constants/
+│   └── index.ts                     # TARGET_AGES, ART_STYLES, IMAGE_MODELS, TTS_VOICES 등
+└── index.ts                         # re-exports
+```
+
+### 7.5 Monorepo 구조
+```
+tangobook/                           # pnpm workspace root
+├── packages/
+│   ├── shared/                      # @tangobook/shared (타입 + 상수)
+│   ├── server/                      # @tangobook/server (Express API)
+│   └── client/                      # @tangobook/client (React SPA)
+├── Dockerfile                       # Railway 배포용 (Node 20 Alpine)
+├── railway.toml                     # Railway 설정
+├── .dockerignore
+├── CLAUDE.md                        # 프로젝트 가이드
+├── PRD_v2.md                        # 이 문서
+└── pnpm-workspace.yaml
 ```
 
 ---
 
 ## 8. API Specification
 
-### 8.1 Authentication APIs
+### 8.1 Authentication APIs (향후 구현 - Phase 4)
 
 ```
 POST   /api/auth/register          # 회원가입
@@ -839,86 +851,95 @@ PUT    /api/auth/me                # 사용자 정보 수정
 PUT    /api/auth/password          # 비밀번호 변경
 ```
 
-### 8.2 Storybook APIs (인증 필요)
+### 8.2 Storybook APIs ✅
 
 ```
-# CRUD (본인 동화책만)
-GET    /api/storybooks             # 내 동화책 목록
-GET    /api/storybooks/:id         # 동화책 상세
-POST   /api/storybooks             # 동화책 저장
-PUT    /api/storybooks/:id         # 동화책 수정
-DELETE /api/storybooks/:id         # 동화책 삭제
-PUT    /api/storybooks/:id/publish # 공개/비공개 설정
+GET    /api/storybooks                  # 동화책 목록 (요약)
+GET    /api/storybooks/:id              # 동화책 상세 (전체 JSON)
+POST   /api/storybooks                  # 동화책 저장 (생성/수정)
+DELETE /api/storybooks/:id              # 동화책 삭제
 
 # AI 생성
-POST   /api/storybooks/generate    # AI 스토리 생성
+POST   /api/storybooks/generate         # 전체 동화책 생성 (스토리 + 캐릭터 + 키오브젝트)
+POST   /api/storybooks/generate-story   # 스토리 텍스트만 생성
 ```
 
-### 8.3 Image APIs (인증 필요)
+### 8.3 Image APIs ✅
 
 ```
-POST   /api/images/character       # 캐릭터 레퍼런스 생성
-POST   /api/images/illustration    # 페이지 삽화 생성
-POST   /api/images/cover           # 표지 이미지 생성
-POST   /api/images/key-object      # Key Object 이미지 생성
-POST   /api/images/vocabulary      # 학습 단어 이미지 생성
-DELETE /api/images/cleanup         # 히스토리 이미지 삭제
+POST   /api/images/character            # 캐릭터 레퍼런스 이미지 생성
+POST   /api/images/illustration         # 페이지 삽화 생성
+POST   /api/images/cover                # 표지 이미지 생성
+POST   /api/images/key-object           # Key Object 이미지 생성
+POST   /api/images/vocabulary           # 학습 단어 이미지 배치 생성
+POST   /api/images/upload               # 이미지 파일 업로드 (Multer)
+POST   /api/images/analyze-style        # 이미지 그림체 분석 (AI)
+POST   /api/images/upload-audio         # 오디오 파일 업로드
+POST   /api/images/bgm-list             # BGM 프리셋 목록 조회
+DELETE /api/images/cleanup              # 사용하지 않는 이미지 삭제
 ```
 
-### 8.4 TTS APIs (인증 필요)
+### 8.4 TTS APIs ✅
 
 ```
-POST   /api/tts/generate           # 단일 TTS 생성
-POST   /api/tts/generate-all       # 전체 TTS 배치 생성
+POST   /api/tts/generate                # 단일 페이지 TTS 생성
+POST   /api/tts/batch                   # 전체 페이지 TTS 배치 생성
+POST   /api/tts/upload                  # TTS 오디오 파일 업로드
 ```
 
-### 8.5 Translation APIs (인증 필요)
+### 8.5 Translation APIs ✅
 
 ```
-POST   /api/translations/page      # 단일 페이지 번역
-POST   /api/translations/all       # 전체 페이지 배치 번역
+POST   /api/translations/page           # 단일 페이지 번역
+POST   /api/translations/all            # 전체 페이지 배치 번역
 ```
 
-### 8.6 Quiz APIs (인증 필요)
+### 8.6 Quiz APIs ✅
 
 ```
-POST   /api/quiz/generate          # 퀴즈 생성
+POST   /api/quiz/generate               # 퀴즈 자동 생성
 ```
 
-### 8.7 Upload APIs (인증 필요)
+### 8.7 Audiobook APIs ✅
 
 ```
-POST   /api/upload/image           # 이미지 업로드
-POST   /api/upload/audio           # 오디오 업로드
-POST   /api/upload/music           # 배경음악 업로드
+POST   /api/audiobooks/generate         # 오디오북 영상 생성
+GET    /api/audiobooks/progress/:projectId  # 생성 진행률 조회 (SSE-like polling)
 ```
 
-### 8.8 Viewer APIs (공개/인증 선택)
+### 8.8 System APIs ✅
 
 ```
-GET    /api/viewer/storybooks      # 공개 동화책 목록
-GET    /api/viewer/storybooks/:id  # 공개 동화책 상세
-GET    /api/viewer/recommended     # AI 추천 동화책
-POST   /api/viewer/reading-session # 읽기 세션 기록
+GET    /health                          # 서버 헬스체크
+GET    *                                # SPA 폴백 (클라이언트 index.html)
 ```
 
-### 8.9 Phonics APIs (NEW, 인증 필요)
+### 8.9 Viewer APIs (향후 구현)
 
 ```
-GET    /api/phonics/progress/:childId         # 파닉스 진도 조회
-PUT    /api/phonics/progress/:childId         # 파닉스 진도 업데이트
-POST   /api/phonics/extract/:storybookId      # 동화책에서 어휘 추출
-POST   /api/phonics/generate-game             # 맞춤 학습 게임 생성
-GET    /api/phonics/weaknesses/:childId       # 약점 분석
+GET    /api/viewer/storybooks           # 공개 동화책 목록
+GET    /api/viewer/storybooks/:id       # 공개 동화책 상세
+GET    /api/viewer/recommended          # AI 추천 동화책
+POST   /api/viewer/reading-session      # 읽기 세션 기록
 ```
 
-### 8.10 Report APIs (인증 필요)
+### 8.10 Phonics APIs (향후 구현)
 
 ```
-GET    /api/reports/weekly/:childId           # 주간 리포트
-GET    /api/reports/vocabulary/:childId       # 어휘 습득 현황
-GET    /api/reports/phonics/:childId          # 파닉스 진도
-GET    /api/reports/preferences/:childId      # 선호도 분석
+GET    /api/phonics/progress/:childId          # 파닉스 진도 조회
+PUT    /api/phonics/progress/:childId          # 파닉스 진도 업데이트
+POST   /api/phonics/extract/:storybookId       # 동화책에서 어휘 추출
+POST   /api/phonics/generate-game              # 맞춤 학습 게임 생성
+GET    /api/phonics/weaknesses/:childId        # 약점 분석
+```
+
+### 8.11 Report APIs (향후 구현)
+
+```
+GET    /api/reports/weekly/:childId            # 주간 리포트
+GET    /api/reports/vocabulary/:childId        # 어휘 습득 현황
+GET    /api/reports/phonics/:childId           # 파닉스 진도
+GET    /api/reports/preferences/:childId       # 선호도 분석
 ```
 
 ---
@@ -928,50 +949,51 @@ GET    /api/reports/preferences/:childId      # 선호도 분석
 ### 9.1 Frontend
 | 기술 | 용도 | 버전 |
 |------|------|------|
-| React | UI 프레임워크 | 19.x |
-| TypeScript | 타입 안전성 | 5.x |
+| React | UI 프레임워크 | 18.3.x |
+| TypeScript | 타입 안전성 | 5.7.x |
 | Vite | 빌드 도구 | 6.x |
-| React Router | 라우팅 | 7.x |
+| React Router DOM | 라우팅 | 6.28.x |
 | Zustand | 상태 관리 | 5.x |
 | TanStack Query | 서버 상태 관리 | 5.x |
-| Tailwind CSS | 스타일링 | 4.x |
-| Axios | HTTP 클라이언트 | 1.x |
-| React Hook Form | 폼 관리 | 7.x |
-| Zod | 스키마 검증 | 3.x |
+| Tailwind CSS | 스타일링 | 3.4.x |
+| Axios | HTTP 클라이언트 | 1.7.x |
+| @dnd-kit | 드래그 & 드롭 | 6.3.x |
 
 ### 9.2 Backend
 | 기술 | 용도 | 버전 |
 |------|------|------|
 | Node.js | 런타임 | 20.x LTS |
 | Express | 웹 프레임워크 | 5.x |
-| TypeScript | 타입 안전성 | 5.x |
-| jsonwebtoken | JWT 인증 | 9.x |
-| bcrypt | 비밀번호 해싱 | 5.x |
-| @google/generative-ai | Gemini API | latest |
+| TypeScript | 타입 안전성 | 5.7.x |
+| @google/generative-ai | Gemini API (텍스트) | 0.24.x |
+| @google/genai | Gemini API (이미지/TTS) | 1.41.x |
 | @aws-sdk/client-s3 | R2 스토리지 | 3.x |
 | multer | 파일 업로드 | 2.x |
-| cors | CORS | 2.x |
-| dotenv | 환경 변수 | 16.x |
-| zod | 요청 검증 | 3.x |
-| helmet | 보안 헤더 | 8.x |
+| cors | CORS | 2.8.x |
+| dotenv | 환경 변수 | 17.x |
+| axios | HTTP 클라이언트 (외부 URL 다운로드) | 1.7.x |
+| tsx | 개발 서버 런타임 | 4.19.x |
 
 ### 9.3 AI Models
-| 모델 | 용도 |
-|------|------|
-| Gemini 2.5 Flash | 스토리 생성, 번역, 퀴즈, 어휘 추출 |
-| Gemini 3 Pro Image | 이미지 생성 (캐릭터, 삽화, 표지, Key Object) |
-| Gemini 2.5 Flash TTS | 음성 합성 |
-| Minimax TTS | 고품질 다국어 TTS |
-| ElevenLabs TTS | 프리미엄 TTS |
+| 모델 | 용도 | 상태 |
+|------|------|------|
+| Gemini 2.5 Flash | 스토리 생성, 번역, 퀴즈, 그림체 분석 | ✅ 구현 |
+| Gemini 2.5 Flash Image | 이미지 생성 (기본) | ✅ 구현 |
+| Gemini 3 Pro Image | 이미지 생성 (고품질) | ✅ 구현 |
+| Imagen 4 | 이미지 생성 (최고품질) | ✅ 구현 |
+| Gemini 2.5 Flash TTS | 음성 합성 | ✅ 구현 |
+| Minimax TTS | 고품질 다국어 TTS | 🔲 스텁 |
+| ElevenLabs TTS | 프리미엄 TTS | 🔲 스텁 |
 
 ### 9.4 Infrastructure
-| 기술 | 용도 |
-|------|------|
-| Cloudflare R2 | 이미지/오디오/JSON 스토리지 |
-| Railway | 프로덕션 배포 (Docker) |
-| ESLint | 코드 린팅 |
-| Prettier | 코드 포맷팅 |
-| Husky + lint-staged | pre-commit 훅 |
+| 기술 | 용도 | 상태 |
+|------|------|------|
+| Cloudflare R2 | 이미지/오디오/JSON 스토리지 | ✅ |
+| Railway | 프로덕션 배포 (Docker) | ✅ |
+| pnpm workspaces | 모노레포 패키지 관리 | ✅ |
+| ESLint | 코드 린팅 | ✅ |
+| Prettier | 코드 포맷팅 | ✅ |
+| Husky + lint-staged | pre-commit 훅 | ✅ |
 
 ### 9.5 Deployment
 | 항목 | 설명 |
@@ -1004,13 +1026,19 @@ GET    /api/reports/preferences/:childId      # 선호도 분석
 | 변수 | 필수 | 설명 |
 |------|------|------|
 | `GEMINI_API_KEY` | Y | Google Gemini API 키 |
+| `GEMINI_TEXT_MODEL` | N | 텍스트 모델명 (기본: gemini-2.5-flash-preview-05-20) |
+| `GEMINI_IMAGE_MODEL` | N | 이미지 모델명 (기본: gemini-2.5-flash-preview-image-generation) |
+| `GEMINI_TTS_MODEL` | N | TTS 모델명 (기본: gemini-2.5-flash-preview-tts) |
+| `GEMINI_TTS_VOICE` | N | TTS 음성 (기본: Kore) |
 | `R2_ACCOUNT_ID` | Y | Cloudflare R2 계정 ID |
 | `R2_ACCESS_KEY_ID` | Y | R2 액세스 키 |
 | `R2_SECRET_ACCESS_KEY` | Y | R2 시크릿 키 |
 | `R2_BUCKET_NAME` | Y | R2 버킷명 |
 | `R2_PUBLIC_URL` | Y | R2 퍼블릭 URL |
+| `PORT` | N | 서버 포트 (기본: 3000) |
 | `NODE_ENV` | N | `production` (기본: development) |
 | `MINIMAX_API_KEY` | N | Minimax TTS API 키 |
+| `MINIMAX_GROUP_ID` | N | Minimax 그룹 ID |
 | `ELEVENLABS_API_KEY` | N | ElevenLabs TTS API 키 |
 
 ---
@@ -1076,53 +1104,68 @@ tangobook-bucket/
 
 ## 11. Development Phases
 
-### Phase 1: Foundation (2-3주)
-- [ ] 프로젝트 scaffolding (Vite + React + TypeScript)
-- [ ] 백엔드 구조 (Express + TypeScript + 레이어 분리)
-- [ ] 인증 시스템 (회원가입, 로그인, JWT)
-- [ ] R2 스토리지 연동 (사용자 격리)
-- [ ] 기본 레이아웃 & 라우팅
+### Phase 1: Foundation ✅ 완료
+- [x] 프로젝트 scaffolding (pnpm monorepo + Vite + React + TypeScript)
+- [x] 백엔드 구조 (Express 5 + TypeScript + 레이어 분리)
+- [x] R2 스토리지 연동
+- [x] 기본 레이아웃 & 라우팅 (AppLayout, TopBar, React Router)
+- [x] Railway 배포 (Docker, 단일 서비스)
+- [ ] 인증 시스템 (회원가입, 로그인, JWT) → Phase 4로 이동
 
-### Phase 2: Author Tool Core (3-4주)
-- [ ] 동화책 목록 (CRUD)
-- [ ] AI 스토리 생성
-- [ ] 캐릭터 관리 + 레퍼런스 이미지 생성
-- [ ] 페이지 편집 + 삽화 생성
-- [ ] 표지 생성
-- [ ] Key Objects
+### Phase 2: Author Tool Core ✅ 완료
+- [x] 동화책 목록 (CRUD) + 사이드바 + 그리드 뷰
+- [x] AI 스토리 생성 (Gemini 2.5 Flash)
+- [x] 캐릭터 관리 + 레퍼런스 이미지 생성 (개별/배치)
+- [x] 페이지 편집 + 삽화 생성 (개별/배치 병렬·순차)
+- [x] 표지 이미지 생성
+- [x] Key Objects 이미지 생성 (개별/배치)
+- [x] 이미지 히스토리 관리 (최근 10개)
+- [x] 이미지 업로드 (파일 + URL)
+- [x] 그림체 분석 (이미지 → AI 프롬프트)
 
-### Phase 3: Author Tool Extended (2-3주)
-- [ ] TTS 생성
-- [ ] 번역
-- [ ] 퀴즈 생성
-- [ ] 배경음악
-- [ ] 다운로드
-- [ ] 동화책 공개/비공개
+### Phase 3: Author Tool Extended ✅ 완료
+- [x] TTS 생성 (Gemini TTS, 배치)
+- [x] 다국어 번역 (6개 언어, 배치)
+- [x] 퀴즈 생성 (AI 자동)
+- [x] 배경음악 (프리셋 라이브러리 + 업로드)
+- [x] 오디오북/영상 생성 (ffmpeg, 자막, BGM)
+- [x] 동화책 설정 (제목, 연령, 그림체 등)
+- [x] 다크모드 (Zustand + localStorage)
+- [x] 동화책 뷰어 (읽기 모드, TTS 재생, 스와이프)
+- [x] 코드 리팩토링 (공통 컴포넌트/유틸리티 추출)
+- [ ] 동화책 공개/비공개 설정
+- [ ] 다운로드 (전체 텍스트/이미지/오디오)
 
-### Phase 4: Viewer App (3-4주)
-- [ ] 동화책 리스트 (홈)
-- [ ] 동화책 리더 (읽기)
-- [ ] 언어 전환
-- [ ] TTS 재생
+### Phase 4: Auth & Multi-user (예정)
+- [ ] 인증 시스템 (이메일 + JWT)
+- [ ] 소셜 로그인 (Google, Kakao, Naver)
+- [ ] 사용자 데이터 격리 (R2 경로 재구성)
+- [ ] 동화책 공개/비공개 설정
+- [ ] 기존 데이터 마이그레이션
+
+### Phase 5: Viewer App (예정)
+- [ ] 공개 동화책 리스트 (홈)
+- [ ] 동화책 리더 (터치 최적화)
+- [ ] 실시간 언어 전환
+- [ ] TTS 오디오 재생 + 배경음악
+- [ ] AI 맞춤 추천
 - [ ] 학습 게임 (4종)
-- [ ] AI 추천
 
-### Phase 5: Phonics System (4-5주)
+### Phase 6: Phonics System (예정)
 - [ ] 어휘 추출 엔진 (NLP)
 - [ ] 한글 파닉스 (자모음 분해, 학습 게임)
 - [ ] 영어 파닉스 (알파벳, CVC, 블렌드)
 - [ ] 약점 분석 & 맞춤 게임 생성
 - [ ] 파닉스 진도 추적
 
-### Phase 6: Reporting & Polish (2-3주)
+### Phase 7: Reporting & Polish (예정)
 - [ ] 학부모 대시보드
 - [ ] 주간 리포트
 - [ ] 선호도 분석
 - [ ] UI/UX 폴리시
 - [ ] 성능 최적화
 
-### Phase 7: Growth (ongoing)
-- [ ] 소셜 로그인 (Kakao, Naver)
+### Phase 8: Growth (ongoing)
 - [ ] 크리에이터 마켓플레이스
 - [ ] 구독 모델
 - [ ] 글로벌 확장 (다국어)
@@ -1194,5 +1237,5 @@ tangobook-bucket/
 ---
 
 *Document End*
-*Last Updated: 2026-02-18*
-*Next Review: Phase 1 완료 후*
+*Last Updated: 2026-02-20*
+*Next Review: Phase 4 (Auth) 시작 전*

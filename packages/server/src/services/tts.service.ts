@@ -1,6 +1,7 @@
 import { R2Repository } from '../repositories/r2.repository.js';
 import { AppError } from '../middleware/error.middleware.js';
 import { generateGeminiTts } from '../providers/gemini-tts.provider.js';
+import { buildR2Key } from '../utils/r2-key.js';
 
 interface TtsRequest {
   text: string;
@@ -47,7 +48,12 @@ export const TtsService = {
         throw new AppError(400, '지원하지 않는 TTS 프로바이더입니다.');
     }
 
-    const key = `${storybookId}-tts-page${pageNumber}-${Date.now()}.${ext}`;
+    const key = buildR2Key({
+      storybookId,
+      fileType: 'tts',
+      identifier: `page${pageNumber}`,
+      extension: ext,
+    });
     return R2Repository.uploadBuffer(audioBuffer, key, mimeType);
   },
 
@@ -71,7 +77,12 @@ export const TtsService = {
   },
 
   async uploadAudio(file: Express.Multer.File, body: Record<string, string>): Promise<string> {
-    const key = `${body.storybookId}-tts-page${body.pageNumber}-${Date.now()}.${file.originalname.split('.').pop() ?? 'mp3'}`;
+    const key = buildR2Key({
+      storybookId: body.storybookId,
+      fileType: 'tts',
+      identifier: `page${body.pageNumber}`,
+      extension: file.originalname.split('.').pop() ?? 'mp3',
+    });
     return R2Repository.uploadBuffer(file.buffer, key, file.mimetype);
   },
 };

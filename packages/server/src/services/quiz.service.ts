@@ -1,6 +1,6 @@
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
+import { parseGeminiJSON } from '../utils/parse-gemini-json.js';
 import type { QuizItem } from '@tangobook/shared';
-import { AppError } from '../middleware/error.middleware.js';
 
 interface QuizRequest {
   storyTitle: string;
@@ -35,12 +35,6 @@ JSON 배열 형식으로 응답:
 JSON만 응답하세요.`;
 
     const raw = await generateTextWithGemini(prompt);
-
-    try {
-      const jsonMatch = raw.match(/```json\n?([\s\S]*?)\n?```/) ?? raw.match(/(\[[\s\S]*\])/);
-      return JSON.parse(jsonMatch?.[1] ?? raw) as QuizItem[];
-    } catch {
-      throw new AppError(500, '퀴즈 생성 결과를 파싱하는데 실패했습니다.');
-    }
+    return parseGeminiJSON<QuizItem[]>(raw, '퀴즈 생성 결과를 파싱하는데 실패했습니다.');
   },
 };

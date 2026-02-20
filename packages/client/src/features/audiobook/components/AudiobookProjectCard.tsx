@@ -50,10 +50,15 @@ export function AudiobookProjectCard({
   onDelete,
   storybookBgmUrl,
 }: AudiobookProjectCardProps) {
+  const [editingName, setEditingName] = useState(project.name);
   const [generating, setGenerating] = useState(false);
   const [progress, setProgress] = useState<AudiobookProgress | null>(null);
   const progressTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const generateMutation = useAudiobookGenerate();
+
+  useEffect(() => {
+    setEditingName(project.name);
+  }, [project.name]);
   const [bgmLibrary, setBgmLibrary] = useState<BgmItem[]>([]);
   const [previewingId, setPreviewingId] = useState<string | null>(null);
   const previewAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -149,8 +154,14 @@ export function AudiobookProjectCard({
 
         <input
           type="text"
-          value={project.name}
-          onChange={(e) => onUpdate({ name: e.target.value })}
+          value={editingName}
+          onChange={(e) => setEditingName(e.target.value)}
+          onBlur={() => {
+            if (editingName !== project.name) onUpdate({ name: editingName });
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+          }}
           onClick={(e) => e.stopPropagation()}
           className="flex-1 text-sm font-medium text-slate-800 dark:text-slate-100 bg-transparent border-none outline-none focus:ring-0 truncate"
         />

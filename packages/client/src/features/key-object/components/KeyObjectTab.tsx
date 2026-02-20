@@ -3,11 +3,14 @@ import { useMutation } from '@tanstack/react-query';
 import { Button } from '@/components/Button';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { ImageDropZone } from '@/components/ImageDropZone';
+import { ImagePreview } from '@/components/ImagePreview';
+import { DownloadButton } from '@/components/DownloadButton';
+import { ImageModelSelector } from '@/components/ImageModelSelector';
+import { BatchProgressBar } from '@/components/BatchProgressBar';
 import { UploadMenu } from '@/components/UploadMenu';
 import { keyObjectApi } from '../api/keyObject.api';
-import { IMAGE_MODELS, DEFAULT_IMAGE_MODEL } from '@tangobook/shared';
-import type { Storybook, KeyObject, ImageGenerationResult } from '@tangobook/shared';
 import { apiClient } from '@/lib/axios';
+import type { Storybook, KeyObject, ImageGenerationResult } from '@tangobook/shared';
 
 interface KeyObjectTabProps {
   storybook: Storybook;
@@ -199,51 +202,25 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
         </div>
       </div>
 
-      {/* 모델 선택 */}
-      <div className="flex items-center gap-2">
-        <span className="text-sm font-medium text-slate-700 dark:text-slate-200">모델</span>
-        <select
-          value={storybook.imageModels?.keyObject ?? DEFAULT_IMAGE_MODEL}
-          onChange={(e) => {
-            onUpdate((d) => {
-              if (!d.imageModels) d.imageModels = {};
-              d.imageModels.keyObject = e.target.value;
-            });
-            onSave();
-          }}
-          className="text-sm border border-slate-200 rounded-lg px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-violet-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
-        >
-          {IMAGE_MODELS.map((m) => (
-            <option key={m.id} value={m.id}>
-              {m.label}
-            </option>
-          ))}
-        </select>
-      </div>
+      <ImageModelSelector
+        value={storybook.imageModels?.keyObject}
+        onChange={(modelId) => {
+          onUpdate((d) => {
+            if (!d.imageModels) d.imageModels = {};
+            d.imageModels.keyObject = modelId;
+          });
+          onSave();
+        }}
+        label="모델"
+      />
 
-      {/* Progress bar */}
       {batchProgress && (
-        <div className="bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-800 rounded-lg p-3">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-violet-800 dark:text-violet-200">
-              사물 생성 ({batchProgress.current}/{batchProgress.total})
-            </span>
-            <button
-              onClick={handleCancelAll}
-              className="text-xs text-red-500 hover:text-red-600 font-medium"
-            >
-              취소
-            </button>
-          </div>
-          <div className="w-full bg-violet-200 dark:bg-violet-800 rounded-full h-2">
-            <div
-              className="bg-violet-600 h-2 rounded-full transition-all duration-300"
-              style={{
-                width: `${batchProgress.total > 0 ? (batchProgress.current / batchProgress.total) * 100 : 0}%`,
-              }}
-            />
-          </div>
-        </div>
+        <BatchProgressBar
+          current={batchProgress.current}
+          total={batchProgress.total}
+          label="사물 생성"
+          onCancel={handleCancelAll}
+        />
       )}
 
       {showAddForm && (
@@ -319,64 +296,21 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
                       </svg>
                     </button>
 
-                    <div
-                      className={`relative w-full aspect-square rounded bg-slate-100 dark:bg-slate-800 overflow-hidden mb-2 group/img ${img?.imageUrl ? 'cursor-pointer' : ''}`}
+                    <ImagePreview
+                      src={img?.imageUrl}
+                      alt={obj.name}
+                      className="mb-2"
                       onClick={() => img?.imageUrl && setLightboxUrl(img.imageUrl)}
-                    >
-                      {img?.imageUrl ? (
-                        <>
-                          <img
-                            src={img.imageUrl}
-                            alt={obj.name}
-                            className="w-full h-full object-cover"
-                          />
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              onUpdate((draft) => {
-                                const imgs = draft.keyObjectImages ?? [];
-                                const i = imgs.findIndex((o) => o.objectName === obj.name);
-                                if (i >= 0) imgs.splice(i, 1);
-                              });
-                              onSave();
-                            }}
-                            className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/50 text-white flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition hover:bg-red-500"
-                            title="이미지 삭제"
-                          >
-                            <svg
-                              className="w-3 h-3"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M6 18L18 6M6 6l12 12"
-                              />
-                            </svg>
-                          </button>
-                        </>
-                      ) : (
-                        <div className="flex flex-col items-center justify-center h-full text-slate-300 dark:text-slate-600 text-xs gap-1">
-                          <svg
-                            className="w-6 h-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={1.5}
-                              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
-                            />
-                          </svg>
-                          <span>드래그 또는 업로드</span>
-                        </div>
-                      )}
-                    </div>
+                      onDelete={() => {
+                        onUpdate((draft) => {
+                          const imgs = draft.keyObjectImages ?? [];
+                          const i = imgs.findIndex((o) => o.objectName === obj.name);
+                          if (i >= 0) imgs.splice(i, 1);
+                        });
+                        onSave();
+                      }}
+                    />
+
                     <p className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">
                       {obj.korean || obj.name}
                     </p>
@@ -444,29 +378,10 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
                         {img?.imageUrl ? '재생성' : '생성'}
                       </Button>
                       {img?.imageUrl && (
-                        <a
+                        <DownloadButton
                           href={img.imageUrl}
-                          download={`${obj.korean || obj.name}.png`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center px-2 py-1 text-xs font-medium border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition"
-                          title="다운로드"
-                        >
-                          <svg
-                            width="14"
-                            height="14"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                            <polyline points="7 10 12 15 17 10" />
-                            <line x1="12" y1="15" x2="12" y2="3" />
-                          </svg>
-                        </a>
+                          filename={`${obj.korean || obj.name}.png`}
+                        />
                       )}
                       <UploadMenu
                         onFile={(file) => handleUpload(idx, file)}

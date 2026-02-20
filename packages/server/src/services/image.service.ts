@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { generateImageWithGemini, getTextModel } from '../providers/gemini.provider.js';
 import { R2Repository } from '../repositories/r2.repository.js';
+import { buildR2Key } from '../utils/r2-key.js';
 import type { Character, Page, KeyObject, VocabularyItem } from '@tangobook/shared';
 
 interface ImageSettings {
@@ -100,10 +101,6 @@ async function urlToBase64(url: string): Promise<{ base64: string; mimeType: str
   }
 }
 
-function sanitizeFilename(name: string): string {
-  return name.replace(/[^a-zA-Z0-9가-힣_-]/g, '').slice(0, 30);
-}
-
 export const ImageService = {
   async generateCharacter(req: CharacterImageRequest): Promise<string> {
     const { character, artStyle, settings, storybookId, storybookTitle, currentImageUrl, model } =
@@ -124,7 +121,13 @@ export const ImageService = {
       systemInstruction: IMAGE_SYSTEM_INSTRUCTION,
       model,
     });
-    const key = `${storybookId}-${sanitizeFilename(storybookTitle)}-character-${sanitizeFilename(character.name)}-${Date.now()}.png`;
+    const key = buildR2Key({
+      storybookId,
+      storybookTitle,
+      fileType: 'character',
+      identifier: character.name,
+      extension: 'png',
+    });
     return R2Repository.uploadImage(base64, key);
   },
 
@@ -190,7 +193,13 @@ export const ImageService = {
       aspectRatio,
       model,
     });
-    const key = `${storybookId}-${sanitizeFilename(storybookTitle)}-illustration-page${page.pageNumber}-${Date.now()}.png`;
+    const key = buildR2Key({
+      storybookId,
+      storybookTitle,
+      fileType: 'illustration',
+      identifier: `page${page.pageNumber}`,
+      extension: 'png',
+    });
     return R2Repository.uploadImage(base64, key);
   },
 
@@ -221,7 +230,11 @@ export const ImageService = {
       aspectRatio,
       model,
     });
-    const key = `cover-${sanitizeFilename(storybook.title)}-${Date.now()}.png`;
+    const key = buildR2Key({
+      storybookTitle: storybook.title,
+      fileType: 'cover',
+      extension: 'png',
+    });
     return R2Repository.uploadImage(base64, key);
   },
 
@@ -243,7 +256,13 @@ export const ImageService = {
       systemInstruction: IMAGE_SYSTEM_INSTRUCTION,
       model,
     });
-    const key = `${storybookId}-${sanitizeFilename(storybookTitle)}-keyobj-${sanitizeFilename(keyObject.name)}-${Date.now()}.png`;
+    const key = buildR2Key({
+      storybookId,
+      storybookTitle,
+      fileType: 'keyobj',
+      identifier: keyObject.name,
+      extension: 'png',
+    });
     return R2Repository.uploadImage(base64, key);
   },
 
@@ -264,7 +283,13 @@ Clean white background. No text in the image.`;
           prompt,
           systemInstruction: IMAGE_SYSTEM_INSTRUCTION,
         });
-        const key = `${storybookId}-${sanitizeFilename(storybookTitle)}-vocab-${sanitizeFilename(item.word)}-${Date.now()}.png`;
+        const key = buildR2Key({
+          storybookId,
+          storybookTitle,
+          fileType: 'vocab',
+          identifier: item.word,
+          extension: 'png',
+        });
         const imageUrl = await R2Repository.uploadImage(base64, key);
         return { word: item.word, korean: item.korean, imageUrl, success: true };
       })
@@ -291,7 +316,13 @@ Clean white background. No text in the image.`;
     const ext = file.originalname.split('.').pop() ?? 'png';
     const typePart = type ?? 'upload';
     const namePart = characterName ?? (pageNumber ? `page${pageNumber}` : 'misc');
-    const key = `${storybookId}-${sanitizeFilename(storybookTitle ?? '')}-${typePart}-${sanitizeFilename(namePart)}-${Date.now()}.${ext}`;
+    const key = buildR2Key({
+      storybookId,
+      storybookTitle: storybookTitle ?? '',
+      fileType: typePart,
+      identifier: namePart,
+      extension: ext,
+    });
     return R2Repository.uploadBuffer(file.buffer, key, file.mimetype);
   },
 
@@ -319,7 +350,12 @@ Clean white background. No text in the image.`;
   async uploadAudio(file: Express.Multer.File, body: Record<string, string>): Promise<string> {
     const { storybookId, storybookTitle } = body;
     const ext = file.originalname.split('.').pop() ?? 'mp3';
-    const key = `${storybookId ?? 'shared'}-${sanitizeFilename(storybookTitle ?? '')}-bgm-${Date.now()}.${ext}`;
+    const key = buildR2Key({
+      storybookId,
+      storybookTitle: storybookTitle ?? '',
+      fileType: 'bgm',
+      extension: ext,
+    });
     return R2Repository.uploadBuffer(file.buffer, key, file.mimetype);
   },
 

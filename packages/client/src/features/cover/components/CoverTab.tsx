@@ -3,15 +3,14 @@ import { useMutation } from '@tanstack/react-query';
 import { Button } from '@/components/Button';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { ImageDropZone } from '@/components/ImageDropZone';
+import { ImagePreview } from '@/components/ImagePreview';
+import { DownloadButton } from '@/components/DownloadButton';
+import { ImageModelSelector } from '@/components/ImageModelSelector';
 import { UploadMenu } from '@/components/UploadMenu';
 import { coverApi } from '../api/cover.api';
 import { apiClient } from '@/lib/axios';
-import {
-  MAX_IMAGE_HISTORY,
-  ASPECT_RATIOS,
-  IMAGE_MODELS,
-  DEFAULT_IMAGE_MODEL,
-} from '@tangobook/shared';
+import { pushImageHistory } from '@/lib/image-history';
+import { ASPECT_RATIOS } from '@tangobook/shared';
 import type { Storybook, ImageGenerationResult } from '@tangobook/shared';
 
 interface CoverTabProps {
@@ -51,12 +50,7 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
     },
     onSuccess: (data) => {
       onUpdate((draft) => {
-        if (draft.coverImage) {
-          draft.coverImageHistory = [draft.coverImage, ...(draft.coverImageHistory ?? [])].slice(
-            0,
-            MAX_IMAGE_HISTORY
-          );
-        }
+        draft.coverImageHistory = pushImageHistory(draft.coverImageHistory, draft.coverImage);
         draft.coverImage = data.imageUrl;
         draft.coverPrompt = coverPrompt;
         draft.coverCharacterRefs = selectedChars;
@@ -101,12 +95,7 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
       );
       const imageUrl = res.data.data.imageUrl;
       onUpdate((draft) => {
-        if (draft.coverImage) {
-          draft.coverImageHistory = [draft.coverImage, ...(draft.coverImageHistory ?? [])].slice(
-            0,
-            MAX_IMAGE_HISTORY
-          );
-        }
+        draft.coverImageHistory = pushImageHistory(draft.coverImageHistory, draft.coverImage);
         draft.coverImage = imageUrl;
       });
       onSave();
@@ -130,63 +119,21 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Preview */}
             <div>
-              <div
-                className={`relative w-full rounded-xl overflow-hidden bg-gradient-to-br from-violet-50 to-slate-100 dark:from-slate-800 dark:to-slate-700 border border-slate-200 dark:border-slate-700 flex items-center justify-center group/img ${storybook.coverImage ? 'cursor-pointer' : ''}`}
-                style={{ aspectRatio: '16/9' }}
+              <ImagePreview
+                src={storybook.coverImage}
+                alt="표지"
+                size="lg"
+                aspectRatio="16/9"
+                objectFit="contain"
+                emptyText="이미지를 드래그하거나 붙여넣기 (Ctrl+V)"
                 onClick={() => storybook.coverImage && setLightboxUrl(storybook.coverImage)}
-              >
-                {storybook.coverImage ? (
-                  <>
-                    <img
-                      src={storybook.coverImage}
-                      alt="표지"
-                      className="w-full h-full object-contain"
-                    />
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onUpdate((draft) => {
-                          draft.coverImage = undefined;
-                        });
-                        onSave();
-                      }}
-                      className="absolute top-2 right-2 w-6 h-6 rounded-full bg-black/50 text-white flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition hover:bg-red-500"
-                      title="이미지 삭제"
-                    >
-                      <svg
-                        className="w-3.5 h-3.5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-                  </>
-                ) : (
-                  <div className="flex flex-col items-center justify-center h-full text-slate-300 dark:text-slate-600 gap-2">
-                    <svg
-                      className="w-16 h-16"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
-                      />
-                    </svg>
-                    <span className="text-sm">이미지를 드래그하거나 붙여넣기 (Ctrl+V)</span>
-                  </div>
-                )}
-              </div>
+                onDelete={() => {
+                  onUpdate((draft) => {
+                    draft.coverImage = undefined;
+                  });
+                  onSave();
+                }}
+              />
 
               {/* History */}
               {storybook.coverImageHistory && storybook.coverImageHistory.length > 0 && (
@@ -230,28 +177,17 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
-                  이미지 모델
-                </label>
-                <select
-                  value={storybook.imageModels?.cover ?? DEFAULT_IMAGE_MODEL}
-                  onChange={(e) => {
-                    onUpdate((d) => {
-                      if (!d.imageModels) d.imageModels = {};
-                      d.imageModels.cover = e.target.value;
-                    });
-                    onSave();
-                  }}
-                  className="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-violet-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
-                >
-                  {IMAGE_MODELS.map((m) => (
-                    <option key={m.id} value={m.id}>
-                      {m.label} - {m.description}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <ImageModelSelector
+                value={storybook.imageModels?.cover}
+                onChange={(modelId) => {
+                  onUpdate((d) => {
+                    if (!d.imageModels) d.imageModels = {};
+                    d.imageModels.cover = modelId;
+                  });
+                  onSave();
+                }}
+                layout="block"
+              />
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
@@ -303,29 +239,11 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
                   표지 생성
                 </Button>
                 {storybook.coverImage && (
-                  <a
+                  <DownloadButton
                     href={storybook.coverImage}
-                    download={`cover-${storybook.title}.png`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-3 py-2 text-sm font-medium border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition"
-                    title="다운로드"
-                  >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                  </a>
+                    filename={`cover-${storybook.title}.png`}
+                    size="md"
+                  />
                 )}
                 <UploadMenu
                   onFile={handleUpload}

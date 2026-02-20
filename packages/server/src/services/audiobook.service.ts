@@ -6,14 +6,11 @@ import type { AudiobookProject, Page } from '@tangobook/shared';
 import { AppError } from '../middleware/error.middleware.js';
 import { R2Repository } from '../repositories/r2.repository.js';
 import { generateAudiobook } from '../providers/audiobook.provider.js';
+import { buildR2Key } from '../utils/r2-key.js';
 import type { AudiobookPageData, ProgressInfo } from '../providers/audiobook.provider.js';
 
 // 프로젝트별 진행률 저장 (메모리)
 const progressMap = new Map<string, ProgressInfo>();
-
-function sanitizeFilename(name: string): string {
-  return name.replace(/[^a-zA-Z0-9가-힣_-]/g, '').slice(0, 30);
-}
 
 export const AudiobookService = {
   getProgress(projectId: string): ProgressInfo | null {
@@ -109,7 +106,13 @@ export const AudiobookService = {
 
       // 9. 결과 파일을 R2에 업로드
       const videoBuffer = fs.readFileSync(outputPath);
-      const key = `${storybookId}-${sanitizeFilename(storybook.title)}-audiobook-${sanitizeFilename(project.name)}-${Date.now()}.mp4`;
+      const key = buildR2Key({
+        storybookId,
+        storybookTitle: storybook.title,
+        fileType: 'audiobook',
+        identifier: project.name,
+        extension: 'mp4',
+      });
       const outputUrl = await R2Repository.uploadBuffer(videoBuffer, key, 'video/mp4');
 
       // 10. 결과 URL을 스토리북에 저장 (서버 측 영구 저장)

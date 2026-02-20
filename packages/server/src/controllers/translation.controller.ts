@@ -1,22 +1,14 @@
-import { Request, Response, NextFunction } from 'express';
 import { TranslationService } from '../services/translation.service.js';
+import { asyncHandler } from '../middleware/async-handler.js';
 
 export const TranslationController = {
-  async translatePage(req: Request, res: Response, next: NextFunction) {
-    try {
-      const result = await TranslationService.translatePage(req.body);
-      res.json({ success: true, data: result });
-    } catch (err) {
-      next(err);
-    }
-  },
+  translatePage: asyncHandler(async (req, res) => {
+    const result = await TranslationService.translatePage(req.body);
+    res.json({ success: true, data: result });
+  }),
 
-  async translateBatch(req: Request, res: Response, next: NextFunction) {
-    try {
-      const results = await TranslationService.translateBatch(req.body);
-      res.json({ success: true, data: results });
-    } catch (err) {
-      next(err);
-    }
-  },
+  translateBatch: asyncHandler(async (req, res) => {
+    const results = await TranslationService.translateBatch(req.body);
+    res.json({ success: true, data: results });
+  }),
 };
