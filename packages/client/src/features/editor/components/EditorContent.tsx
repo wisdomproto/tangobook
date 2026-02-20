@@ -20,30 +20,37 @@ interface EditorContentProps {
 export function EditorContent({ storybook, saving, onSave, onUpdate }: EditorContentProps) {
   const activeTab = useEditorStore((s) => s.activeTab);
 
-  const tabContent = () => {
-    switch (activeTab) {
-      case 'settings':
-        return <SettingsTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />;
-      case 'character':
-        return <CharacterTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />;
-      case 'cover':
-        return <CoverTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />;
-      case 'pages':
-        return <PagesTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />;
-      case 'key-objects':
-        return <KeyObjectTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />;
-      case 'quiz':
-        return <QuizTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />;
-      case 'audiobook':
-        return <AudiobookTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />;
-    }
-  };
+  const tabs = [
+    {
+      id: 'settings',
+      el: <SettingsTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
+    },
+    {
+      id: 'character',
+      el: <CharacterTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
+    },
+    { id: 'cover', el: <CoverTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} /> },
+    { id: 'pages', el: <PagesTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} /> },
+    {
+      id: 'key-objects',
+      el: <KeyObjectTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
+    },
+    { id: 'quiz', el: <QuizTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} /> },
+    {
+      id: 'audiobook',
+      el: <AudiobookTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
+    },
+  ] as const;
 
   return (
     <div>
       <EditorHeader storybook={storybook} saving={saving} onSave={onSave} onUpdate={onUpdate} />
       <TabBar />
-      <div className="p-6">{tabContent()}</div>
+      {tabs.map(({ id, el }) => (
+        <div key={id} className="p-6" style={{ display: activeTab === id ? 'block' : 'none' }}>
+          {el}
+        </div>
+      ))}
     </div>
   );
 }
