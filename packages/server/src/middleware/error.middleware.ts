@@ -28,22 +28,14 @@ export function errorMiddleware(
     return;
   }
 
-  // Gemini API 할당량 초과
-  if (err.message.includes('429')) {
-    res.status(429).json({
+  // Google API 에러 (status 속성이 있는 경우) → 상태코드와 메시지 그대로 전달
+  const apiStatus = (err as unknown as Record<string, unknown>).status;
+  if (typeof apiStatus === 'number' && apiStatus >= 400) {
+    console.error(`[Google API ${apiStatus}]`, err.message);
+    res.status(apiStatus).json({
       success: false,
-      error: 'API 할당량 초과. 잠시 후 다시 시도해주세요.',
-      code: 'RATE_LIMIT',
-    } satisfies ApiError);
-    return;
-  }
-
-  // Gemini API 서버 과부하
-  if (err.message.includes('503') || err.message.includes('UNAVAILABLE')) {
-    res.status(503).json({
-      success: false,
-      error: 'AI 서버가 일시적으로 과부하 상태입니다. 잠시 후 다시 시도해주세요.',
-      code: 'SERVICE_UNAVAILABLE',
+      error: err.message,
+      code: `GOOGLE_API_${apiStatus}`,
     } satisfies ApiError);
     return;
   }
