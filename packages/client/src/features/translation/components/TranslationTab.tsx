@@ -13,11 +13,12 @@ interface TranslationTabProps {
 
 export function TranslationTab({ storybook, onUpdate, onSave }: TranslationTabProps) {
   const [language, setLanguage] = useState<string>(SUPPORTED_LANGUAGES[0].code);
+  const pages = storybook.pages ?? [];
 
   const batchMutation = useMutation({
     mutationFn: () =>
       translationApi.batch({
-        pages: storybook.pages.map((p) => ({ pageNumber: p.pageNumber, text: p.text })),
+        pages: pages.map((p) => ({ pageNumber: p.pageNumber, text: p.text })),
         targetLanguage: language,
         storybookId: storybook.id,
       }),
@@ -72,7 +73,7 @@ export function TranslationTab({ storybook, onUpdate, onSave }: TranslationTabPr
 
       {/* Pages with translations */}
       <div className="space-y-3">
-        {storybook.pages.map((page) => {
+        {pages.map((page) => {
           const translation = page.translations?.[language];
           return (
             <div

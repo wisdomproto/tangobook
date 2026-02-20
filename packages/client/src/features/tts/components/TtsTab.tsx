@@ -14,10 +14,11 @@ interface TtsTabProps {
 export function TtsTab({ storybook, onUpdate, onSave }: TtsTabProps) {
   const [voice, setVoice] = useState<string>(TTS_VOICES[0].id);
   const [generatingPage, setGeneratingPage] = useState<number | null>(null);
+  const pages = storybook.pages ?? [];
 
   const generateMutation = useMutation({
     mutationFn: (pageNumber: number) => {
-      const page = storybook.pages.find((p) => p.pageNumber === pageNumber);
+      const page = pages.find((p) => p.pageNumber === pageNumber);
       if (!page) throw new Error('페이지를 찾을 수 없습니다.');
       return ttsApi.generate({
         text: page.text,
@@ -41,7 +42,7 @@ export function TtsTab({ storybook, onUpdate, onSave }: TtsTabProps) {
   const batchMutation = useMutation({
     mutationFn: () =>
       ttsApi.batch({
-        pages: storybook.pages.map((p) => ({ pageNumber: p.pageNumber, text: p.text })),
+        pages: pages.map((p) => ({ pageNumber: p.pageNumber, text: p.text })),
         provider: 'gemini',
         voice,
         storybookId: storybook.id,
@@ -100,7 +101,7 @@ export function TtsTab({ storybook, onUpdate, onSave }: TtsTabProps) {
 
       {/* Pages list */}
       <div className="space-y-2">
-        {storybook.pages.map((page) => (
+        {pages.map((page) => (
           <div
             key={page.pageNumber}
             className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-3 flex items-center gap-3"
