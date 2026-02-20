@@ -2,6 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { GoogleGenAI, type Part as GenAIPart } from '@google/genai';
 import { config } from '../config/index.js';
 import { withGeminiRetry } from '../utils/gemini-retry.js';
+import { AppError } from '../middleware/error.middleware.js';
 
 // Lazy initialization - API 키가 없어도 서버 시작 가능
 let _genAI: GoogleGenerativeAI | null = null;
@@ -70,7 +71,46 @@ export async function generateImageWithGemini(options: ImageGenerationOptions): 
       const imagePart = candidate?.content?.parts?.find((p) => p.inlineData);
 
       if (!imagePart?.inlineData?.data) {
-        throw new Error('이미지 생성 결과가 없습니다.');
+        const finishReason = candidate?.finishReason;
+        const textPart = candidate?.content?.parts?.find((p) => p.text)?.text;
+        const blockReason = result.promptFeedback?.blockReason;
+
+        console.error(
+          '[Gemini Image] 이미지 없는 응답:',
+          JSON.stringify(
+            {
+              finishReason,
+              textPart,
+              blockReason,
+              safetyRatings: candidate?.safetyRatings,
+            },
+            null,
+            2
+          )
+        );
+
+        // SAFETY/BLOCKED → 프롬프트 수정 필요 (재시도 무의미)
+        if (finishReason === 'SAFETY' || blockReason) {
+          throw new AppError(
+            400,
+            `이미지 차단됨: ${blockReason || finishReason}. 프롬프트나 참조 이미지에 부적절한 내용이 있을 수 있습니다.`
+          );
+        }
+
+        // OTHER → 저작권/상표권 필터링 가능성 높음 (재시도 1회만 시도 후 안내)
+        if (finishReason === 'OTHER' || finishReason === 'IMAGE_OTHER') {
+          throw new Error(
+            `이미지 생성 실패 [${imageModel}]: 콘텐츠 정책 필터링 (OTHER). ` +
+              `저작권/상표권 관련 캐릭터명이나 디자인이 프롬프트에 포함되어 있을 수 있습니다. ` +
+              `프롬프트를 일반적인 묘사로 바꿔보세요.` +
+              (textPart ? ` (응답: ${textPart})` : '')
+          );
+        }
+
+        // 기타 → 일시적 문제 (재시도)
+        throw new Error(
+          `이미지 생성 실패 [${imageModel}]: ${finishReason || textPart || 'empty response'}`
+        );
       }
 
       return imagePart.inlineData.data;

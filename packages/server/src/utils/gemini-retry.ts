@@ -1,12 +1,12 @@
 /**
  * Gemini API 호출에 대한 공통 재시도 래퍼.
- * 503/UNAVAILABLE/429/RESOURCE_EXHAUSTED 에러에 대해 자동 재시도.
+ * Exponential backoff + jitter로 재시도.
  */
 export async function withGeminiRetry<T>(
   fn: () => Promise<T>,
   options: { retries?: number; baseDelayMs?: number; context?: string } = {}
 ): Promise<T> {
-  const { retries = 3, baseDelayMs = 3000, context = 'Gemini' } = options;
+  const { retries = 5, baseDelayMs = 1000, context = 'Gemini' } = options;
 
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
@@ -17,11 +17,13 @@ export async function withGeminiRetry<T>(
         msg.includes('503') ||
         msg.includes('UNAVAILABLE') ||
         msg.includes('429') ||
-        msg.includes('RESOURCE_EXHAUSTED');
+        msg.includes('RESOURCE_EXHAUSTED') ||
+        msg.includes('이미지 생성 실패');
       if (!isRetryable || attempt === retries) throw err;
-      const delay = attempt * baseDelayMs;
+      // Exponential backoff: 1s, 2s, 4s, 8s... + jitter (0~500ms)
+      const delay = baseDelayMs * Math.pow(2, attempt - 1) + Math.random() * 500;
       console.warn(
-        `[${context}] 일시적 오류 (attempt ${attempt}/${retries}), ${delay / 1000}초 후 재시도: ${msg.slice(0, 100)}`
+        `[${context}] 재시도 ${attempt}/${retries} (${(delay / 1000).toFixed(1)}초 후): ${msg.slice(0, 120)}`
       );
       await new Promise((resolve) => setTimeout(resolve, delay));
     }

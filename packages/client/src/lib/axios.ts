@@ -20,10 +20,14 @@ apiClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    const message =
-      (error.response?.data as ApiResponse<unknown> & { error?: string })?.error ??
-      error.message ??
-      '서버 오류가 발생했습니다.';
+    const data = error.response?.data;
+    const serverMsg = data && typeof data === 'object' && 'error' in data ? data.error : null;
+    const status = error.response?.status;
+    const message = serverMsg
+      ? status
+        ? `[${status}] ${serverMsg}`
+        : serverMsg
+      : (error.message ?? '서버 오류가 발생했습니다.');
     return Promise.reject(new Error(message));
   }
 );
