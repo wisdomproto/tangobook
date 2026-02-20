@@ -22,6 +22,7 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
   const [generatingSet, setGeneratingSet] = useState<Set<number>>(new Set());
   const [errorMap, setErrorMap] = useState<Map<number, string>>(new Map());
   const [expandedPrompt, setExpandedPrompt] = useState<number | null>(null);
+  const [editingPrompt, setEditingPrompt] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
   const [lightboxUrl, setLightboxUrl] = useState<string | null>(null);
   const [newChar, setNewChar] = useState({ name: '', role: '조연', description: '' });
@@ -321,7 +322,11 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
 
                   {/* Prompt accordion */}
                   <button
-                    onClick={() => setExpandedPrompt(expandedPrompt === idx ? null : idx)}
+                    onClick={() => {
+                      const next = expandedPrompt === idx ? null : idx;
+                      if (next !== null) setEditingPrompt(char.customPrompt ?? char.description);
+                      setExpandedPrompt(next);
+                    }}
                     className="text-xs text-violet-600 hover:text-violet-700 font-medium mt-1 flex items-center justify-center gap-0.5 w-full"
                   >
                     프롬프트
@@ -341,14 +346,14 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
                   </button>
                   {expandedPrompt === idx && (
                     <textarea
-                      value={char.customPrompt ?? char.description}
-                      onChange={(e) => {
-                        const val = e.target.value;
+                      value={editingPrompt}
+                      onChange={(e) => setEditingPrompt(e.target.value)}
+                      onBlur={() => {
                         onUpdate((draft) => {
-                          draft.characters[idx].customPrompt = val;
+                          draft.characters[idx].customPrompt = editingPrompt;
                         });
+                        onSave();
                       }}
-                      onBlur={onSave}
                       rows={3}
                       className="w-full mt-1 px-2 py-1.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-violet-500 outline-none resize-none text-xs text-slate-600 dark:text-slate-300 text-left dark:bg-slate-700 dark:border-slate-600"
                       placeholder="캐릭터 이미지 생성 프롬프트 수정..."

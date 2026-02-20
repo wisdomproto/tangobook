@@ -23,6 +23,7 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
   const keyObjectImages = storybook.keyObjectImages ?? [];
   const [generatingIdx, setGeneratingIdx] = useState<number | null>(null);
   const [expandedPrompt, setExpandedPrompt] = useState<number | null>(null);
+  const [editingPrompt, setEditingPrompt] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
   const [newObj, setNewObj] = useState({ name: '', korean: '', description: '' });
   const [lightboxUrl, setLightboxUrl] = useState<string | null>(null);
@@ -332,7 +333,11 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
 
                     {/* Prompt accordion */}
                     <button
-                      onClick={() => setExpandedPrompt(expandedPrompt === idx ? null : idx)}
+                      onClick={() => {
+                        const next = expandedPrompt === idx ? null : idx;
+                        if (next !== null) setEditingPrompt(obj.customPrompt ?? '');
+                        setExpandedPrompt(next);
+                      }}
                       className="text-xs text-violet-600 hover:text-violet-700 font-medium mt-1 flex items-center justify-center gap-0.5 w-full"
                     >
                       프롬프트
@@ -352,15 +357,15 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
                     </button>
                     {expandedPrompt === idx && (
                       <textarea
-                        value={obj.customPrompt ?? ''}
-                        onChange={(e) => {
-                          const val = e.target.value;
+                        value={editingPrompt}
+                        onChange={(e) => setEditingPrompt(e.target.value)}
+                        onBlur={() => {
                           onUpdate((draft) => {
                             const objs = draft.key_objects ?? [];
-                            if (objs[idx]) objs[idx].customPrompt = val;
+                            if (objs[idx]) objs[idx].customPrompt = editingPrompt;
                           });
+                          onSave();
                         }}
-                        onBlur={onSave}
                         rows={3}
                         className="w-full mt-1 px-2 py-1.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-violet-500 outline-none resize-none text-xs text-slate-600 text-left dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
                         placeholder="이미지 생성 시 참조할 프롬프트..."
