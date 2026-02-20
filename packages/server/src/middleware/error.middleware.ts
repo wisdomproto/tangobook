@@ -51,7 +51,7 @@ export function errorMiddleware(
   console.error('[Server Error]', err.message, err.stack);
   res.status(500).json({
     success: false,
-    error: process.env.NODE_ENV === 'production' ? '서버 오류가 발생했습니다.' : err.message,
+    error: err.message || '서버 오류가 발생했습니다.',
     code: 'INTERNAL_ERROR',
   } satisfies ApiError);
 }

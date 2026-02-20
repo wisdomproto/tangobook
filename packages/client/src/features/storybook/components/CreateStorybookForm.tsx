@@ -16,9 +16,10 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Button } from '@/components/Button';
+import { TextModelSelector } from '@/components/TextModelSelector';
 import { useGenerateStory, useGenerateStorybook } from '../hooks/useStorybookMutations';
 import { useEditorStore } from '@/store/editor.store';
-import { TARGET_AGES, ART_STYLES } from '@tangobook/shared';
+import { TARGET_AGES, ART_STYLES, DEFAULT_TEXT_MODEL } from '@tangobook/shared';
 import type { StoryDraftPage } from '@tangobook/shared';
 
 // === Sortable Draft Page Card ===
@@ -162,6 +163,7 @@ export function CreateStorybookForm() {
   const [title, setTitle] = useState('');
   const [targetAge, setTargetAge] = useState<(typeof TARGET_AGES)[number]>(TARGET_AGES[0]);
   const [referenceContent, setReferenceContent] = useState('');
+  const [textModel, setTextModel] = useState(DEFAULT_TEXT_MODEL as string);
   const [refOpen, setRefOpen] = useState(false);
 
   // Step 2: draft pages from AI
@@ -176,7 +178,12 @@ export function CreateStorybookForm() {
   const handleGenerateStory = () => {
     if (!title.trim()) return;
     storyMutation.mutate(
-      { title: title.trim(), targetAge, referenceContent: referenceContent.trim() || undefined },
+      {
+        title: title.trim(),
+        targetAge,
+        referenceContent: referenceContent.trim() || undefined,
+        model: textModel,
+      },
       {
         onSuccess: (pages) => {
           setDraftPages(pages);
@@ -196,6 +203,7 @@ export function CreateStorybookForm() {
         artStyle: ART_STYLES[0].prompt,
         referenceContent: referenceContent.trim() || undefined,
         draftPages,
+        model: textModel,
       },
       {
         onSuccess: (data) => {
@@ -329,6 +337,8 @@ export function CreateStorybookForm() {
                 ))}
               </div>
             </div>
+
+            <TextModelSelector value={textModel} onChange={setTextModel} layout="block" />
           </div>
         </section>
 

@@ -32,6 +32,7 @@ export interface GenerateStoryRequest {
   title: string;
   targetAge: '4-5' | '5-7' | '7-8';
   referenceContent?: string;
+  model?: string;
 }
 
 export interface StoryDraftPage {
@@ -47,6 +48,7 @@ export interface GenerateStorybookRequest {
   artStyle: string;
   referenceContent?: string;
   draftPages?: StoryDraftPage[];
+  model?: string;
 }
 
 // 오디오북 생성 요청/응답

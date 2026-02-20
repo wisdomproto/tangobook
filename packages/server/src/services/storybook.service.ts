@@ -37,10 +37,10 @@ export const StorybookService = {
   },
 
   async generateStory(req: GenerateStoryRequest): Promise<StoryDraftPage[]> {
-    const { title, targetAge, referenceContent } = req;
+    const { title, targetAge, referenceContent, model } = req;
 
     const prompt = buildStoryOnlyPrompt(title, targetAge, referenceContent);
-    const raw = await generateTextWithGemini(prompt);
+    const raw = await generateTextWithGemini(prompt, 3, model);
     const parsed = parseGeminiJSON<{ pages: StoryDraftPage[] }>(
       raw,
       'AI 응답을 파싱하는데 실패했습니다.'
@@ -49,12 +49,12 @@ export const StorybookService = {
   },
 
   async generate(req: GenerateStorybookRequest): Promise<Storybook> {
-    const { title, targetAge, artStyle, referenceContent, draftPages } = req;
+    const { title, targetAge, artStyle, referenceContent, draftPages, model } = req;
 
     const prompt = draftPages?.length
       ? buildStorybookFromDraftPrompt(title, targetAge, artStyle, draftPages, referenceContent)
       : buildStorybookPrompt(title, targetAge, artStyle, referenceContent);
-    const raw = await generateTextWithGemini(prompt);
+    const raw = await generateTextWithGemini(prompt, 3, model);
     const parsed = parseGeminiJSON<Partial<Storybook>>(raw, 'AI 응답을 파싱하는데 실패했습니다.');
 
     // draftPages가 있으면 사용자가 확정한 텍스트를 유지

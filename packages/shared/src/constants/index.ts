@@ -60,5 +60,19 @@ export type ImageModelId = (typeof IMAGE_MODELS)[number]['id'];
 
 export const DEFAULT_IMAGE_MODEL = 'gemini-3-pro-image-preview' satisfies ImageModelId;
 
+export const TEXT_MODELS = [
+  { id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash', description: '빠르고 효율적' },
+  { id: 'gemini-2.5-pro', label: 'Gemini 2.5 Pro', description: '고품질, 정교한 추론' },
+  { id: 'gemini-3-flash-preview', label: 'Gemini 3 Flash', description: '차세대 빠른 모델' },
+  { id: 'gemini-3-pro-preview', label: 'Gemini 3 Pro', description: '차세대 고급 추론' },
+  {
+    id: 'gemini-3.1-pro-preview',
+    label: 'Gemini 3.1 Pro',
+    description: '최신, 100만 토큰 컨텍스트',
+  },
+] as const;
+export type TextModelId = (typeof TEXT_MODELS)[number]['id'];
+export const DEFAULT_TEXT_MODEL = 'gemini-2.5-flash' satisfies TextModelId;
+
 export const MAX_IMAGE_HISTORY = 10;
 export const MAX_FILE_SIZE_MB = 5;

@@ -79,10 +79,15 @@ export async function generateImageWithGemini(options: ImageGenerationOptions): 
   );
 }
 
-export async function generateTextWithGemini(prompt: string, retries = 3): Promise<string> {
+export async function generateTextWithGemini(
+  prompt: string,
+  retries = 3,
+  model?: string
+): Promise<string> {
+  const textModel = model ? getGenAI().getGenerativeModel({ model }) : getTextModel();
   return withGeminiRetry(
     async () => {
-      const result = await getTextModel().generateContent(prompt);
+      const result = await textModel.generateContent(prompt);
       return result.response.text();
     },
     { retries, context: 'Gemini Text' }
