@@ -11,6 +11,7 @@ import json
 import sys
 import os
 import re
+import gc
 import tempfile
 import requests
 from pathlib import Path
@@ -26,14 +27,14 @@ from moviepy import (
 )
 
 RESOLUTIONS = {
-    "16:9": (1920, 1080),
-    "9:16": (1080, 1920),
-    "3:4": (1080, 1440),
-    "4:3": (1440, 1080),
-    "1:1": (1080, 1080),
+    "16:9": (1280, 720),
+    "9:16": (720, 1280),
+    "3:4": (720, 960),
+    "4:3": (960, 720),
+    "1:1": (720, 720),
 }
 
-SUBTITLE_SIZES = {"sm": 28, "md": 36, "lg": 48}
+SUBTITLE_SIZES = {"sm": 20, "md": 26, "lg": 34}
 
 FONT_PATHS = [
     "C:/Windows/Fonts/malgun.ttf",
@@ -276,6 +277,10 @@ def main():
             report_progress(page_progress, f"페이지 {i + 1} 클립 생성 실패: {e}")
             continue
 
+        # 메모리 절약: 매 5페이지마다 가비지 컬렉션
+        if (i + 1) % 5 == 0:
+            gc.collect()
+
     if not clips:
         report_progress(100, "생성할 클립이 없습니다")
         sys.exit(1)
@@ -311,8 +316,8 @@ def main():
         fps=24,
         codec="libx264",
         audio_codec="aac",
-        preset="medium",
-        threads=2,
+        preset="ultrafast",
+        threads=1,
         logger=None,
     )
 

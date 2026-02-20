@@ -78,9 +78,15 @@ export async function generateAudiobook(
       }
     });
 
-    proc.on('close', (code) => {
+    proc.on('close', (code, signal) => {
       if (code !== 0) {
-        reject(new Error(`오디오북 생성 실패 (exit code ${code}): ${stderrBuf}`));
+        const reason =
+          signal === 'SIGKILL'
+            ? '메모리 부족(OOM)으로 프로세스가 강제 종료되었습니다. 페이지 수를 줄이거나 해상도를 낮춰보세요.'
+            : signal
+              ? `시그널 ${signal}로 종료됨`
+              : stderrBuf;
+        reject(new Error(`오디오북 생성 실패 (exit code ${code}, signal ${signal}): ${reason}`));
         return;
       }
 
