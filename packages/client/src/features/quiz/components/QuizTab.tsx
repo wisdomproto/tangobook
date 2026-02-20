@@ -28,6 +28,13 @@ export function QuizTab({ storybook, onUpdate, onSave }: QuizTabProps) {
       }),
     onSuccess: (results) => {
       onUpdate((draft) => {
+        if (!draft.educational_content)
+          draft.educational_content = {
+            learning_objectives: [],
+            moral_lesson: '',
+            vocabulary: [],
+            quiz: [],
+          };
         draft.educational_content.quiz = results;
       });
       onSave();
@@ -50,17 +57,22 @@ export function QuizTab({ storybook, onUpdate, onSave }: QuizTabProps) {
       </div>
 
       {/* Learning objectives */}
-      <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
-        <h3 className="text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">학습 목표</h3>
-        <ul className="text-sm text-slate-600 dark:text-slate-300 space-y-1 list-disc list-inside">
-          {storybook.educational_content.learning_objectives.map((obj, i) => (
-            <li key={i}>{obj}</li>
-          ))}
-        </ul>
-        <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">
-          <span className="font-medium">교훈:</span> {storybook.educational_content.moral_lesson}
-        </p>
-      </div>
+      {storybook.educational_content && (
+        <div className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4">
+          <h3 className="text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">학습 목표</h3>
+          <ul className="text-sm text-slate-600 dark:text-slate-300 space-y-1 list-disc list-inside">
+            {(storybook.educational_content.learning_objectives ?? []).map((obj, i) => (
+              <li key={i}>{obj}</li>
+            ))}
+          </ul>
+          {storybook.educational_content.moral_lesson && (
+            <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">
+              <span className="font-medium">교훈:</span>{' '}
+              {storybook.educational_content.moral_lesson}
+            </p>
+          )}
+        </div>
+      )}
 
       {/* Quiz questions */}
       {quiz.length === 0 ? (

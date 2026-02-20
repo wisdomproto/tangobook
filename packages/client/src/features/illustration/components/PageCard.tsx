@@ -58,13 +58,13 @@ export function PageCard({
   // --- Illustration ---
   const generateMutation = useMutation({
     mutationFn: () => {
-      const charRefs = storybook.characters
+      const charRefs = (storybook.characters ?? [])
         .filter((c) => c.referenceImage)
         .map((c) => ({
           ...c,
           imageUrl: c.referenceImage,
         }));
-      const prevPage = pageIndex > 0 ? storybook.pages[pageIndex - 1] : undefined;
+      const prevPage = pageIndex > 0 ? (storybook.pages ?? [])[pageIndex - 1] : undefined;
       return illustrationApi.generate({
         page,
         artStyle: storybook.artStyle,

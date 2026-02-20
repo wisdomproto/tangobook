@@ -35,7 +35,7 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
 
   const handleGenerate = useCallback(
     async (idx: number, signal?: AbortSignal) => {
-      const char = storybook.characters[idx];
+      const char = (storybook.characters ?? [])[idx];
       if (!char) return;
 
       setGeneratingSet((prev) => new Set(prev).add(idx));
@@ -149,7 +149,7 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
 
   const handleUpload = useCallback(
     async (idx: number, file: File) => {
-      const char = storybook.characters[idx];
+      const char = (storybook.characters ?? [])[idx];
       if (!char) return;
       setUploadingIdx(idx);
       try {

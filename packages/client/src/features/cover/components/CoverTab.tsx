@@ -25,6 +25,7 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
   const [lightboxUrl, setLightboxUrl] = useState<string | null>(null);
   const aspectRatio = storybook.coverAspectRatio ?? '3:4';
   const [uploading, setUploading] = useState(false);
+  const characters = storybook.characters ?? [];
 
   const setAspectRatio = (ratio: string) => {
     onUpdate((draft) => {
@@ -35,7 +36,7 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
 
   const generateMutation = useMutation({
     mutationFn: () => {
-      const refs = selectedChars.map((i) => storybook.characters[i]).filter(Boolean);
+      const refs = selectedChars.map((i) => characters[i]).filter(Boolean);
       return coverApi.generate({
         storybook: {
           title: storybook.title,
@@ -207,7 +208,7 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
                   참조 캐릭터
                 </label>
                 <div className="space-y-2">
-                  {storybook.characters.map((char, idx) => (
+                  {characters.map((char, idx) => (
                     <label key={idx} className="flex items-center gap-2 cursor-pointer">
                       <input
                         type="checkbox"
