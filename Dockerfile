@@ -17,4 +17,4 @@ RUN pnpm build
 
 EXPOSE 3000
 
-CMD ["node", "packages/server/dist/server.js"]
+CMD ["node", "packages/server/dist/server/src/server.js"]

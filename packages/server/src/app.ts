@@ -31,7 +31,7 @@ export function createApp() {
   app.use('/api/audiobooks', audiobookRoutes);
 
   // 프로덕션: 클라이언트 정적 파일 서빙
-  const clientDist = path.join(__dirname, '../../client/dist');
+  const clientDist = path.join(__dirname, '../../../../client/dist');
   app.use(express.static(clientDist));
   app.get('*', (_req, res) => {
     res.sendFile(path.join(clientDist, 'index.html'));
