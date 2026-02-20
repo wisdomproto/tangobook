@@ -1,19 +1,11 @@
 import 'dotenv/config';
 
-function requireEnv(key: string): string {
-  const value = process.env[key];
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${key}`);
-  }
-  return value;
-}
-
 export const config = {
   port: parseInt(process.env.PORT ?? '3000', 10),
   nodeEnv: process.env.NODE_ENV ?? 'development',
 
   gemini: {
-    apiKey: requireEnv('GEMINI_API_KEY'),
+    apiKey: process.env.GEMINI_API_KEY ?? '',
     textModel: process.env.GEMINI_TEXT_MODEL ?? 'gemini-2.5-flash',
     imageModel: process.env.GEMINI_IMAGE_MODEL ?? 'gemini-3-pro-image-preview',
     ttsModel: process.env.GEMINI_TTS_MODEL ?? 'gemini-2.5-flash-preview-tts',
