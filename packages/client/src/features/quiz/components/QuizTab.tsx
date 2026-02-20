@@ -16,13 +16,13 @@ const difficultyMap: Record<string, 'easy' | 'medium' | 'hard'> = {
 };
 
 export function QuizTab({ storybook, onUpdate, onSave }: QuizTabProps) {
-  const quiz = storybook.educational_content.quiz;
+  const quiz = storybook.educational_content?.quiz ?? [];
 
   const generateMutation = useMutation({
     mutationFn: () =>
       quizApi.generate({
         storyTitle: storybook.title,
-        pages: storybook.pages.map((p) => ({ text: p.text })),
+        pages: (storybook.pages ?? []).map((p) => ({ text: p.text })),
         difficulty: difficultyMap[storybook.targetAge] ?? 'medium',
         count: 5,
       }),

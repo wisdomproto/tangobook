@@ -18,6 +18,7 @@ interface CharacterTabProps {
 }
 
 export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps) {
+  const characters = storybook.characters ?? [];
   const [generatingSet, setGeneratingSet] = useState<Set<number>>(new Set());
   const [errorMap, setErrorMap] = useState<Map<number, string>>(new Map());
   const [expandedPrompt, setExpandedPrompt] = useState<number | null>(null);
@@ -81,12 +82,12 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
   const handleGenerateAll = async () => {
     const ac = new AbortController();
     abortControllerRef.current = ac;
-    const total = storybook.characters.length;
+    const total = characters.length;
     let completed = 0;
     setBatchProgress({ current: 0, total });
     try {
       const CONCURRENCY = 3;
-      const indices = storybook.characters.map((_, i) => i);
+      const indices = characters.map((_, i) => i);
       for (let i = 0; i < indices.length; i += CONCURRENCY) {
         ac.signal.throwIfAborted();
         const batch = indices.slice(i, i + CONCURRENCY);
@@ -172,7 +173,7 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
-          캐릭터 ({storybook.characters.length}명)
+          캐릭터 ({characters.length}명)
         </h2>
         <div className="flex gap-2">
           <Button size="sm" variant="secondary" onClick={() => setShowAddForm(!showAddForm)}>
@@ -180,7 +181,7 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
           </Button>
           <Button size="sm" onClick={handleGenerateAll} disabled={isAnyGenerating}>
             {isAnyGenerating
-              ? `생성 중 (${generatingSet.size}/${storybook.characters.length})`
+              ? `생성 중 (${generatingSet.size}/${characters.length})`
               : '모든 레퍼런스 생성'}
           </Button>
         </div>
@@ -249,11 +250,11 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
         </div>
       )}
 
-      {storybook.characters.length === 0 ? (
+      {characters.length === 0 ? (
         <p className="text-sm text-slate-400 dark:text-slate-500">캐릭터가 없습니다.</p>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {storybook.characters.map((char, idx) => (
+          {characters.map((char, idx) => (
             <ImageDropZone
               key={idx}
               onFile={(file) => handleUpload(idx, file)}

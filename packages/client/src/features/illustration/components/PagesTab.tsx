@@ -34,6 +34,7 @@ interface PagesTabProps {
 }
 
 export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
+  const pages = storybook.pages ?? [];
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
@@ -110,8 +111,8 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
     mutationFn: async () => {
       const ac = new AbortController();
       abortControllerRef.current = ac;
-      const pages = storybook.pages;
-      const charRefs = storybook.characters
+      const pages = storybook.pages ?? [];
+      const charRefs = (storybook.characters ?? [])
         .filter((c) => c.referenceImage)
         .map((c) => ({ ...c, imageUrl: c.referenceImage }));
 
@@ -151,7 +152,7 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
   // === Batch: Generate All TTS (for current activeLang) ===
   const batchTtsMutation = useMutation({
     mutationFn: ({ lang, voice }: { lang: string; voice: string }) => {
-      const pages = storybook.pages
+      const pages = (storybook.pages ?? [])
         .map((p) => {
           const text = lang === 'ko' ? p.text : p.translations?.[lang]?.text;
           return text ? { pageNumber: p.pageNumber, text } : null;
@@ -190,7 +191,7 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
   // === Batch: Translate All Pages (for current activeLang) ===
   const batchTranslateMutation = useMutation({
     mutationFn: (lang: string) => {
-      const pages = storybook.pages
+      const pages = (storybook.pages ?? [])
         .filter((p) => p.text)
         .map((p) => ({ pageNumber: p.pageNumber, text: p.text }));
 
@@ -223,8 +224,8 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
 
   // Count how many pages have translation for a given lang
   const langStatus = (code: string) => {
-    if (code === 'ko') return storybook.pages.length;
-    return storybook.pages.filter((p) => p.translations?.[code]?.text).length;
+    if (code === 'ko') return pages.length;
+    return pages.filter((p) => p.translations?.[code]?.text).length;
   };
 
   return (
@@ -232,7 +233,7 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
       {/* Header with page count + add button */}
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
-          페이지 ({storybook.pages.length}쪽)
+          페이지 ({pages.length}쪽)
         </h2>
         <Button size="sm" variant="secondary" onClick={handleAddPage}>
           + 페이지 추가
@@ -260,7 +261,7 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
               {lang.label}
               {lang.code !== 'ko' && count > 0 && (
                 <span className="ml-1 text-[10px] text-violet-500">
-                  {count}/{storybook.pages.length}
+                  {count}/{pages.length}
                 </span>
               )}
             </button>
@@ -317,7 +318,7 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
           <Button
             size="sm"
             onClick={() => batchIllustrationMutation.mutate()}
-            disabled={isBatchRunning || storybook.pages.length === 0}
+            disabled={isBatchRunning || pages.length === 0}
             loading={batchIllustrationMutation.isPending}
           >
             전체 삽화 생성
@@ -329,7 +330,7 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
           <Button
             size="sm"
             onClick={() => batchTranslateMutation.mutate(activeLang)}
-            disabled={isBatchRunning || storybook.pages.length === 0}
+            disabled={isBatchRunning || pages.length === 0}
             loading={batchTranslateMutation.isPending}
           >
             전체 번역
@@ -409,11 +410,11 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
       {/* Page list */}
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext
-          items={storybook.pages.map((p) => p.pageNumber)}
+          items={pages.map((p) => p.pageNumber)}
           strategy={verticalListSortingStrategy}
         >
           <div className="space-y-4">
-            {storybook.pages.map((page, idx) => (
+            {pages.map((page, idx) => (
               <PageCard
                 key={page.pageNumber}
                 page={page}

@@ -48,7 +48,7 @@ export function EditorHeader({ storybook, saving, onSave, onUpdate }: EditorHead
           </h1>
           <div className="flex items-center gap-2 mt-0.5">
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              {storybook.targetAge}세 · {storybook.pages.length}쪽 ·{' '}
+              {storybook.targetAge}세 · {storybook.pages?.length ?? 0}쪽 ·{' '}
               {new Date(storybook.createdAt).toLocaleDateString('ko-KR')}
             </p>
             {storybook.category && (
