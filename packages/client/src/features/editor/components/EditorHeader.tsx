@@ -94,7 +94,9 @@ export function EditorHeader({ storybook, saving, onSave, onUpdate }: EditorHead
                       <input
                         value={newFolder}
                         onChange={(e) => setNewFolder(e.target.value)}
-                        onKeyDown={(e) => e.key === 'Enter' && handleCreateAndSet()}
+                        onKeyDown={(e) =>
+                          e.key === 'Enter' && !e.nativeEvent.isComposing && handleCreateAndSet()
+                        }
                         placeholder="새 폴더..."
                         className="flex-1 px-2 py-1 text-xs border border-slate-200 rounded focus:ring-1 focus:ring-violet-500 outline-none dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
                       />

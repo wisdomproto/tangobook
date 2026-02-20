@@ -160,7 +160,8 @@ export function AudiobookProjectCard({
             if (editingName !== project.name) onUpdate({ name: editingName });
           }}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+            if (e.key === 'Enter' && !e.nativeEvent.isComposing)
+              (e.target as HTMLInputElement).blur();
           }}
           onClick={(e) => e.stopPropagation()}
           className="flex-1 text-sm font-medium text-slate-800 dark:text-slate-100 bg-transparent border-none outline-none focus:ring-0 truncate"

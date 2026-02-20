@@ -1,6 +1,7 @@
 export interface Character {
   name: string;
   description: string;
+  descriptionEn?: string;
   age?: number;
   role: string;
   height: number;
@@ -14,12 +15,16 @@ export interface SceneStructure {
   characters: string;
   background: string;
   atmosphere: string;
+  characters_en?: string;
+  background_en?: string;
+  atmosphere_en?: string;
 }
 
 export interface Page {
   pageNumber: number;
   text: string;
   scene_description: string;
+  scene_description_en?: string;
   scene_structure: SceneStructure;
   key_objects?: string;
   illustrationUrl?: string;

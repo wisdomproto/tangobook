@@ -337,7 +337,9 @@ export function Sidebar() {
               <input
                 value={newFolderName}
                 onChange={(e) => setNewFolderName(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleCreateFolder()}
+                onKeyDown={(e) =>
+                  e.key === 'Enter' && !e.nativeEvent.isComposing && handleCreateFolder()
+                }
                 placeholder="폴더 이름"
                 className="flex-1 px-2 py-1 text-xs border border-slate-200 rounded focus:ring-1 focus:ring-violet-500 outline-none dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
                 autoFocus

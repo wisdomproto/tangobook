@@ -422,10 +422,11 @@ function buildCharacterPrompt(
     ? `\nReal-world Height: approximately ${char.heightCm}cm. Draw body proportions appropriate for this height.`
     : '';
   const displayName = alias ?? char.name;
+  const appearance = char.descriptionEn ?? char.description;
   return `Create a professional character design reference sheet for a children's storybook.
 
 Character: ${displayName}
-Appearance (Korean description — follow faithfully): ${char.description}
+Appearance: ${appearance}
 Age: ${char.age ?? 'unknown'}${heightInfo}
 Relative Height Scale: ${char.height}/200 (used for sizing relative to other characters)
 Aspect Ratio: ${aspectRatio}
@@ -473,14 +474,25 @@ function buildIllustrationPrompt(
     : '';
 
   // 수정사항이 있으면 기존 장면 텍스트 무시, 현재 이미지 + 수정사항만 반영
+  const sceneDesc = san(page.scene_description_en ?? page.scene_description);
+  const sceneChars = san(
+    page.scene_structure?.characters_en ?? page.scene_structure?.characters ?? ''
+  );
+  const sceneBg = san(
+    page.scene_structure?.background_en ?? page.scene_structure?.background ?? ''
+  );
+  const sceneAtmo = san(
+    page.scene_structure?.atmosphere_en ?? page.scene_structure?.atmosphere ?? ''
+  );
+
   const sceneSection = page.customModifications
     ? `MODIFICATION REQUEST: Modify the current illustration based on the following instructions. The current image is provided as a reference — keep everything NOT mentioned in the modifications unchanged.
 
 Modifications: ${page.customModifications}`
-    : `Scene: ${san(page.scene_description)}
-Characters & Actions: ${san(page.scene_structure.characters)}
-Background: ${san(page.scene_structure.background)}
-Atmosphere: ${san(page.scene_structure.atmosphere)}`;
+    : `Scene: ${sceneDesc}
+Characters & Actions: ${sceneChars}
+Background: ${sceneBg}
+Atmosphere: ${sceneAtmo}`;
 
   return `Create a storybook illustration for children.
 
