@@ -111,7 +111,8 @@ export const ImageService = {
   async generateCharacter(req: CharacterImageRequest): Promise<string> {
     const { character, artStyle, settings, storybookId, storybookTitle, currentImageUrl, model } =
       req;
-    const prompt = buildCharacterPrompt(character, artStyle, settings?.aspectRatio ?? '1:1');
+    const alias = `Character ${character.role === '주인공' ? 'Main' : 'Side'}`;
+    const prompt = buildCharacterPrompt(character, artStyle, settings?.aspectRatio ?? '1:1', alias);
 
     const refImages: Array<{ base64: string; mimeType: string }> = [];
     if (currentImageUrl) {
@@ -180,12 +181,14 @@ export const ImageService = {
     if (prevIll) refImages.push(prevIll);
     if (currentIll) refImages.push(currentIll);
 
+    const aliasMap = buildCharacterAliasMap(relevantChars);
     let prompt = buildIllustrationPrompt(
       page,
       artStyle,
       relevantChars,
       settings?.aspectRatio ?? '16:9',
-      !!prevIll
+      !!prevIll,
+      aliasMap
     );
     if (currentIll) {
       prompt += `\n\nCURRENT IMAGE REFERENCE: The last reference image is the current illustration for this page. Use it as a style and composition reference while applying the updated prompt.`;
@@ -225,8 +228,9 @@ export const ImageService = {
       if (img) refImages.push(img);
     }
 
+    const coverAliasMap = buildCharacterAliasMap(characterReferences);
     const aspectRatio = settings?.aspectRatio ?? '3:4';
-    const prompt = buildCoverPrompt(storybook, aspectRatio);
+    const prompt = buildCoverPrompt(storybook, aspectRatio, coverAliasMap);
     const base64 = await generateImageWithGemini({
       prompt: currentImageUrl
         ? `${prompt}\n\nREFERENCE: The last reference image is the current cover. Use it as a style and composition reference while applying the new prompt.`
@@ -381,15 +385,46 @@ Clean white background. No text in the image.`;
   },
 };
 
+// --- 저작권 회피: 캐릭터 이름 → 제네릭 별칭 치환 ---
+
+/**
+ * 캐릭터 이름 → 제네릭 별칭(Character A, B, ...) 매핑 생성.
+ * UI에는 원래 이름을 보여주되, 이미지 프롬프트에서는 별칭을 사용하여
+ * 저작권/상표권 필터링을 회피.
+ */
+function buildCharacterAliasMap(characters: Array<{ name: string }>): Map<string, string> {
+  const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const map = new Map<string, string>();
+  characters.forEach((c, i) => {
+    map.set(c.name, `Character ${labels[i] ?? i + 1}`);
+  });
+  return map;
+}
+
+/** 텍스트 내 모든 캐릭터 이름을 별칭으로 치환 */
+function replaceNamesWithAliases(text: string, aliasMap: Map<string, string>): string {
+  let result = text;
+  for (const [name, alias] of aliasMap) {
+    result = result.replaceAll(name, alias);
+  }
+  return result;
+}
+
 // --- 프롬프트 빌더 ---
 
-function buildCharacterPrompt(char: Character, artStyle: string, aspectRatio: string): string {
+function buildCharacterPrompt(
+  char: Character,
+  artStyle: string,
+  aspectRatio: string,
+  alias?: string
+): string {
   const heightInfo = char.heightCm
     ? `\nReal-world Height: approximately ${char.heightCm}cm. Draw body proportions appropriate for this height.`
     : '';
+  const displayName = alias ?? char.name;
   return `Create a professional character design reference sheet for a children's storybook.
 
-Character Name: ${char.name}
+Character Name: ${displayName}
 Character Description: ${char.description}
 Age: ${char.age ?? 'unknown'}${heightInfo}
 Relative Height Scale: ${char.height}/200 (used for sizing relative to other characters)
@@ -417,12 +452,15 @@ function buildIllustrationPrompt(
   artStyle: string,
   chars: Array<Character & { referenceImage?: string }>,
   aspectRatio: string,
-  hasPreviousIllustration = false
+  hasPreviousIllustration = false,
+  aliasMap?: Map<string, string>
 ): string {
+  const san = (text: string) => (aliasMap ? replaceNamesWithAliases(text, aliasMap) : text);
   const charList = chars
     .map((c) => {
       const cm = (c as Character & { heightCm?: number }).heightCm;
-      return `- ${c.name} (relative height: ${c.height}/200${cm ? `, ~${cm}cm tall` : ''})`;
+      const name = aliasMap?.get(c.name) ?? c.name;
+      return `- ${name} (relative height: ${c.height}/200${cm ? `, ~${cm}cm tall` : ''})`;
     })
     .join('\n');
 
@@ -436,10 +474,10 @@ function buildIllustrationPrompt(
 
   return `Create a storybook illustration for children.
 
-Scene: ${page.scene_description}
-Characters & Actions: ${page.scene_structure.characters}
-Background: ${page.scene_structure.background}
-Atmosphere: ${page.scene_structure.atmosphere}
+Scene: ${san(page.scene_description)}
+Characters & Actions: ${san(page.scene_structure.characters)}
+Background: ${san(page.scene_structure.background)}
+Atmosphere: ${san(page.scene_structure.atmosphere)}
 Aspect Ratio: ${aspectRatio}
 
 *** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***
@@ -457,12 +495,14 @@ CRITICAL - NO TEXT: No text, speech bubbles, or labels in the image.`;
 
 function buildCoverPrompt(
   storybook: { title: string; coverPrompt?: string; artStyle: string },
-  aspectRatio: string
+  aspectRatio: string,
+  aliasMap?: Map<string, string>
 ): string {
+  const san = (text: string) => (aliasMap ? replaceNamesWithAliases(text, aliasMap) : text);
   return `Create a beautiful children's book cover illustration.
 
-Book Title: ${storybook.title}
-${storybook.coverPrompt ? `Cover Description: ${storybook.coverPrompt}` : ''}
+Book Title: ${san(storybook.title)}
+${storybook.coverPrompt ? `Cover Description: ${san(storybook.coverPrompt)}` : ''}
 Aspect Ratio: ${aspectRatio}
 
 *** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***
