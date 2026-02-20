@@ -36,7 +36,7 @@ export function createApp() {
   // 프로덕션: 클라이언트 정적 파일 서빙
   const clientDist = path.join(__dirname, '../../../../client/dist');
   app.use(express.static(clientDist));
-  app.get('*', (_req, res) => {
+  app.get('{*path}', (_req, res) => {
     res.sendFile(path.join(clientDist, 'index.html'));
   });
 
