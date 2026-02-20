@@ -1,0 +1,466 @@
+import { useState, useCallback, useRef } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { PageCard } from './PageCard';
+import { Button } from '@/components/Button';
+import { illustrationApi } from '../api/illustration.api';
+import { ttsApi } from '@/features/tts/api/tts.api';
+import { translationApi } from '@/features/translation/api/translation.api';
+import {
+  TTS_VOICES,
+  SUPPORTED_LANGUAGES,
+  MAX_IMAGE_HISTORY,
+  ASPECT_RATIOS,
+  IMAGE_MODELS,
+  DEFAULT_IMAGE_MODEL,
+} from '@tangobook/shared';
+import type { Storybook, Page } from '@tangobook/shared';
+
+const ALL_LANGS = [{ code: 'ko', label: '한국어' }, ...SUPPORTED_LANGUAGES];
+
+interface PagesTabProps {
+  storybook: Storybook;
+  onUpdate: (updater: (draft: Storybook) => void) => void;
+  onSave: () => void;
+}
+
+export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  );
+
+  // Language sub-tab
+  const [activeLang, setActiveLang] = useState('ko');
+
+  // Batch state
+  const [globalVoice, setGlobalVoice] = useState<string>(TTS_VOICES[0].id);
+  const [batchProgress, setBatchProgress] = useState<{
+    type: string;
+    current: number;
+    total: number;
+  } | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  // Dropdown visibility
+  const [showTtsDropdown, setShowTtsDropdown] = useState(false);
+
+  const isBatchRunning = batchProgress !== null;
+  const isKorean = activeLang === 'ko';
+
+  const handleDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      const { active, over } = event;
+      if (!over || active.id === over.id) return;
+
+      onUpdate((draft) => {
+        const oldIndex = draft.pages.findIndex((p) => p.pageNumber === active.id);
+        const newIndex = draft.pages.findIndex((p) => p.pageNumber === over.id);
+        if (oldIndex < 0 || newIndex < 0) return;
+
+        const [moved] = draft.pages.splice(oldIndex, 1);
+        draft.pages.splice(newIndex, 0, moved);
+        draft.pages.forEach((p, i) => {
+          p.pageNumber = i + 1;
+        });
+      });
+      onSave();
+    },
+    [onUpdate, onSave]
+  );
+
+  const handleAddPage = () => {
+    onUpdate((draft) => {
+      const newPageNumber = draft.pages.length + 1;
+      const newPage: Page = {
+        pageNumber: newPageNumber,
+        text: '',
+        scene_description: '',
+        scene_structure: { characters: '', background: '', atmosphere: '' },
+      };
+      draft.pages.push(newPage);
+    });
+    onSave();
+  };
+
+  const handleDeletePage = useCallback(
+    (pageIndex: number) => {
+      onUpdate((draft) => {
+        draft.pages.splice(pageIndex, 1);
+        draft.pages.forEach((p, i) => {
+          p.pageNumber = i + 1;
+        });
+      });
+      onSave();
+    },
+    [onUpdate, onSave]
+  );
+
+  // === Batch: Generate All Illustrations ===
+  const batchIllustrationMutation = useMutation({
+    mutationFn: async () => {
+      const ac = new AbortController();
+      abortControllerRef.current = ac;
+      const pages = storybook.pages;
+      const charRefs = storybook.characters
+        .filter((c) => c.referenceImage)
+        .map((c) => ({ ...c, imageUrl: c.referenceImage }));
+
+      let prevIllUrl: string | undefined;
+      for (let i = 0; i < pages.length; i++) {
+        ac.signal.throwIfAborted();
+        setBatchProgress({ type: '삽화 생성', current: i + 1, total: pages.length });
+        const data = await illustrationApi.generate(
+          {
+            page: pages[i],
+            artStyle: storybook.artStyle,
+            characterReferences: charRefs,
+            previousIllustrationUrl: prevIllUrl,
+            currentImageUrl: pages[i].illustrationUrl,
+            settings: { aspectRatio: storybook.illustrationAspectRatio ?? '16:9' },
+            storybookId: storybook.id,
+            storybookTitle: storybook.title,
+            model: storybook.imageModels?.illustration,
+          },
+          ac.signal
+        );
+        prevIllUrl = data.imageUrl;
+        onUpdate((draft) => {
+          const p = draft.pages[i];
+          if (p.illustrationUrl) {
+            p.illustrationHistory = [p.illustrationUrl, ...(p.illustrationHistory ?? [])].slice(
+              0,
+              MAX_IMAGE_HISTORY
+            );
+          }
+          p.illustrationUrl = data.imageUrl;
+        });
+      }
+    },
+    onSettled: () => {
+      abortControllerRef.current = null;
+      setBatchProgress(null);
+      onSave();
+    },
+  });
+
+  // === Batch: Generate All TTS (for current activeLang) ===
+  const batchTtsMutation = useMutation({
+    mutationFn: ({ lang, voice }: { lang: string; voice: string }) => {
+      const pages = storybook.pages
+        .map((p) => {
+          const text = lang === 'ko' ? p.text : p.translations?.[lang]?.text;
+          return text ? { pageNumber: p.pageNumber, text } : null;
+        })
+        .filter((p): p is { pageNumber: number; text: string } => p !== null);
+
+      setBatchProgress({ type: 'TTS 생성', current: 0, total: pages.length });
+      return ttsApi.batch({
+        pages,
+        provider: 'gemini',
+        voice,
+        language: lang,
+        storybookId: storybook.id,
+      });
+    },
+    onSuccess: (results, { lang }) => {
+      onUpdate((draft) => {
+        for (const r of results) {
+          if (!r.success || !r.audioUrl) continue;
+          const page = draft.pages.find((p) => p.pageNumber === r.pageNumber);
+          if (!page) continue;
+          if (lang === 'ko') {
+            page.ttsUrl = r.audioUrl;
+          } else {
+            if (!page.translations) page.translations = {};
+            if (!page.translations[lang]) page.translations[lang] = { text: '' };
+            page.translations[lang].ttsUrl = r.audioUrl;
+          }
+        }
+      });
+      onSave();
+    },
+    onSettled: () => setBatchProgress(null),
+  });
+
+  // === Batch: Translate All Pages (for current activeLang) ===
+  const batchTranslateMutation = useMutation({
+    mutationFn: (lang: string) => {
+      const pages = storybook.pages
+        .filter((p) => p.text)
+        .map((p) => ({ pageNumber: p.pageNumber, text: p.text }));
+
+      setBatchProgress({ type: '번역', current: 0, total: pages.length });
+      return translationApi.batch({
+        pages,
+        targetLanguage: lang,
+        storybookId: storybook.id,
+      });
+    },
+    onSuccess: (results, lang) => {
+      onUpdate((draft) => {
+        const pagesWithText = draft.pages.filter((p) => p.text);
+        results.forEach((r, i) => {
+          const page = pagesWithText[i];
+          if (!page) return;
+          if (!page.translations) page.translations = {};
+          const existing = page.translations[lang];
+          page.translations[lang] = { text: r.text, ttsUrl: existing?.ttsUrl };
+        });
+      });
+      onSave();
+    },
+    onSettled: () => setBatchProgress(null),
+  });
+
+  const handleCancelBatch = () => {
+    abortControllerRef.current?.abort();
+  };
+
+  // Count how many pages have translation for a given lang
+  const langStatus = (code: string) => {
+    if (code === 'ko') return storybook.pages.length;
+    return storybook.pages.filter((p) => p.translations?.[code]?.text).length;
+  };
+
+  return (
+    <div className="space-y-4">
+      {/* Header with page count + add button */}
+      <div className="flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
+          페이지 ({storybook.pages.length}쪽)
+        </h2>
+        <Button size="sm" variant="secondary" onClick={handleAddPage}>
+          + 페이지 추가
+        </Button>
+      </div>
+
+      {/* Language sub-tabs */}
+      <div className="flex items-center gap-1 flex-wrap border-b border-slate-200 dark:border-slate-700 pb-2">
+        {ALL_LANGS.map((lang) => {
+          const isActive = activeLang === lang.code;
+          const count = langStatus(lang.code);
+          const hasContent = lang.code === 'ko' || count > 0;
+          return (
+            <button
+              key={lang.code}
+              onClick={() => setActiveLang(lang.code)}
+              className={`px-3 py-1.5 rounded-t text-sm font-medium border-b-2 transition-colors ${
+                isActive
+                  ? 'border-violet-600 text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-900/30'
+                  : hasContent
+                    ? 'border-transparent text-slate-600 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-violet-50/50 dark:hover:bg-violet-900/20'
+                    : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-500'
+              }`}
+            >
+              {lang.label}
+              {lang.code !== 'ko' && count > 0 && (
+                <span className="ml-1 text-[10px] text-violet-500">
+                  {count}/{storybook.pages.length}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Illustration aspect ratio selector (Korean tab only) */}
+      {isKorean && (
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-slate-700 dark:text-slate-200">삽화 비율</span>
+          <div className="flex gap-1">
+            {ASPECT_RATIOS.map((r) => (
+              <button
+                key={r}
+                onClick={() => {
+                  onUpdate((draft) => {
+                    draft.illustrationAspectRatio = r;
+                  });
+                  onSave();
+                }}
+                className={`px-2.5 py-1 rounded text-xs font-medium border transition-colors ${
+                  (storybook.illustrationAspectRatio ?? '16:9') === r
+                    ? 'bg-violet-600 text-white border-violet-600'
+                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-violet-300'
+                }`}
+              >
+                {r}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 삽화 모델 선택 */}
+      {isKorean && (
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-slate-700 dark:text-slate-200">삽화 모델</span>
+          <select
+            value={storybook.imageModels?.illustration ?? DEFAULT_IMAGE_MODEL}
+            onChange={(e) => {
+              onUpdate((d) => {
+                if (!d.imageModels) d.imageModels = {};
+                d.imageModels.illustration = e.target.value;
+              });
+              onSave();
+            }}
+            className="text-sm border border-slate-200 rounded-lg px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-violet-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
+          >
+            {IMAGE_MODELS.map((m) => (
+              <option key={m.id} value={m.id}>
+                {m.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      {/* Batch action buttons - contextual based on active language */}
+      <div className="flex items-center gap-2 flex-wrap">
+        {/* Always show: Generate all illustrations (only on Korean tab) */}
+        {isKorean && (
+          <Button
+            size="sm"
+            onClick={() => batchIllustrationMutation.mutate()}
+            disabled={isBatchRunning || storybook.pages.length === 0}
+            loading={batchIllustrationMutation.isPending}
+          >
+            전체 삽화 생성
+          </Button>
+        )}
+
+        {/* Not Korean: Translate all */}
+        {!isKorean && (
+          <Button
+            size="sm"
+            onClick={() => batchTranslateMutation.mutate(activeLang)}
+            disabled={isBatchRunning || storybook.pages.length === 0}
+            loading={batchTranslateMutation.isPending}
+          >
+            전체 번역
+          </Button>
+        )}
+
+        {/* TTS: dropdown with voice selector */}
+        <div className="relative">
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={() => setShowTtsDropdown(!showTtsDropdown)}
+            disabled={isBatchRunning}
+          >
+            전체 TTS 생성 ▾
+          </Button>
+          {showTtsDropdown && (
+            <div className="absolute left-0 top-full mt-1 z-20 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-lg p-3 w-64 space-y-3">
+              <div>
+                <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
+                  목소리
+                </label>
+                <select
+                  value={globalVoice}
+                  onChange={(e) => setGlobalVoice(e.target.value)}
+                  className="w-full px-2 py-1.5 border border-slate-200 rounded text-sm focus:ring-2 focus:ring-violet-500 outline-none dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
+                >
+                  {TTS_VOICES.map((v) => (
+                    <option key={v.id} value={v.id}>
+                      {v.label} ({v.description})
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <p className="text-xs text-slate-400 dark:text-slate-500">
+                현재 탭:{' '}
+                <span className="font-medium text-slate-600 dark:text-slate-300">
+                  {ALL_LANGS.find((l) => l.code === activeLang)?.label}
+                </span>
+              </p>
+              <Button
+                size="sm"
+                className="w-full"
+                onClick={() => {
+                  setShowTtsDropdown(false);
+                  batchTtsMutation.mutate({ lang: activeLang, voice: globalVoice });
+                }}
+              >
+                TTS 생성 시작
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Progress bar */}
+      {batchProgress && (
+        <div className="bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-800 rounded-lg p-3">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm font-medium text-violet-800 dark:text-violet-200">
+              {batchProgress.type} ({batchProgress.current}/{batchProgress.total})
+            </span>
+            <button
+              onClick={handleCancelBatch}
+              className="text-xs text-red-500 hover:text-red-600 font-medium"
+            >
+              취소
+            </button>
+          </div>
+          <div className="w-full bg-violet-200 dark:bg-violet-800 rounded-full h-2">
+            <div
+              className="bg-violet-600 h-2 rounded-full transition-all duration-300"
+              style={{
+                width: `${batchProgress.total > 0 ? (batchProgress.current / batchProgress.total) * 100 : 0}%`,
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Error display */}
+      {(batchIllustrationMutation.isError ||
+        batchTtsMutation.isError ||
+        batchTranslateMutation.isError) && (
+        <p className="text-sm text-red-500">
+          {batchIllustrationMutation.error?.message ||
+            batchTtsMutation.error?.message ||
+            batchTranslateMutation.error?.message}
+        </p>
+      )}
+
+      {/* Page list */}
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext
+          items={storybook.pages.map((p) => p.pageNumber)}
+          strategy={verticalListSortingStrategy}
+        >
+          <div className="space-y-4">
+            {storybook.pages.map((page, idx) => (
+              <PageCard
+                key={page.pageNumber}
+                page={page}
+                pageIndex={idx}
+                storybook={storybook}
+                activeLang={activeLang}
+                onUpdate={onUpdate}
+                onSave={onSave}
+                onDelete={() => handleDeletePage(idx)}
+              />
+            ))}
+          </div>
+        </SortableContext>
+      </DndContext>
+    </div>
+  );
+}

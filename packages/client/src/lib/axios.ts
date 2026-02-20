@@ -33,8 +33,12 @@ export async function apiGet<T>(url: string): Promise<T> {
   return (res.data as { success: true; data: T }).data;
 }
 
-export async function apiPost<T>(url: string, data?: unknown): Promise<T> {
-  const res = await apiClient.post<ApiResponse<T>>(url, data);
+export async function apiPost<T>(
+  url: string,
+  data?: unknown,
+  config?: { signal?: AbortSignal }
+): Promise<T> {
+  const res = await apiClient.post<ApiResponse<T>>(url, data, config);
   return (res.data as { success: true; data: T }).data;
 }
 

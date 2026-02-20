@@ -1,0 +1,36 @@
+import { useEditorStore } from '@/store/editor.store';
+
+const TABS = [
+  { id: 'settings' as const, label: '기본설정' },
+  { id: 'character' as const, label: '캐릭터' },
+  { id: 'cover' as const, label: '표지' },
+  { id: 'key-objects' as const, label: '핵심사물' },
+  { id: 'pages' as const, label: '페이지' },
+  { id: 'quiz' as const, label: '퀴즈' },
+  { id: 'audiobook' as const, label: '오디오북' },
+];
+
+export function TabBar() {
+  const activeTab = useEditorStore((s) => s.activeTab);
+  const setActiveTab = useEditorStore((s) => s.setActiveTab);
+
+  return (
+    <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 overflow-x-auto sticky top-[7.25rem] z-20">
+      <div className="px-6 flex gap-1">
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+              activeTab === tab.id
+                ? 'border-violet-600 text-violet-600'
+                : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}

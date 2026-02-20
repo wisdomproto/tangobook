@@ -4,6 +4,7 @@ export interface Character {
   age?: number;
   role: string;
   height: number;
+  heightCm?: number;
   referenceImage?: string;
   imageHistory?: string[];
   customPrompt?: string;
@@ -64,10 +65,12 @@ export interface EducationalContent {
 
 export interface KeyObject {
   name: string;
+  korean?: string;
   description: string;
   pages: number[];
   sizeCm?: number;
   sizeCategory?: 'small' | 'medium' | 'large';
+  customPrompt?: string;
 }
 
 export interface KeyObjectImage {
@@ -81,9 +84,24 @@ export interface Storybook {
   title: string;
   targetAge: '4-5' | '5-7' | '7-8';
   artStyle: string;
+  category?: string;
+  folder?: string;
+  isPublic?: boolean;
   referenceContent?: string;
   createdAt: string;
   updatedAt?: string;
+
+  // 이미지 비율 설정
+  coverAspectRatio?: string;
+  illustrationAspectRatio?: string;
+
+  // 이미지 생성 모델 (타입별)
+  imageModels?: {
+    character?: string;
+    cover?: string;
+    keyObject?: string;
+    illustration?: string;
+  };
 
   // 표지
   coverPrompt?: string;
@@ -110,9 +128,46 @@ export interface Storybook {
 
   // 배경음악
   backgroundMusicUrl?: string;
+
+  // 오디오북 프로젝트
+  audiobookProjects?: AudiobookProject[];
+}
+
+export interface AudiobookProject {
+  id: string;
+  name: string;
+  format: 'youtube' | 'instagram-reel' | 'instagram-post' | 'custom';
+  aspectRatio: string;
+  language: string;
+  layout: 'fullscreen' | 'split';
+  startPage: number;
+  endPage: number;
+  includeCover: boolean;
+  coverDuration: number;
+  includeTts: boolean;
+  includeBgm: boolean;
+  bgmUrl?: string;
+  bgmVolume: number;
+  includeSubtitles: boolean;
+  subtitleColor: string;
+  subtitleSize: 'sm' | 'md' | 'lg';
+  subtitlePosition: 'top' | 'center' | 'bottom';
+  subtitleBg: string;
+  outputUrl?: string;
+  createdAt?: string;
 }
 
 export type StorybookSummary = Pick<
   Storybook,
-  'id' | 'title' | 'targetAge' | 'artStyle' | 'createdAt' | 'coverImage'
->;
+  | 'id'
+  | 'title'
+  | 'targetAge'
+  | 'artStyle'
+  | 'createdAt'
+  | 'coverImage'
+  | 'category'
+  | 'folder'
+  | 'isPublic'
+> & {
+  pageCount?: number;
+};

@@ -68,4 +68,39 @@ export const ImageController = {
       next(err);
     }
   },
+
+  async analyzeStyle(req: Request, res: Response, next: NextFunction) {
+    try {
+      if (!req.file) {
+        res.status(400).json({ success: false, error: '이미지 파일이 없습니다.' });
+        return;
+      }
+      const prompt = await ImageService.analyzeArtStyle(req.file);
+      res.json({ success: true, data: { prompt } });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async uploadAudio(req: Request, res: Response, next: NextFunction) {
+    try {
+      if (!req.file) {
+        res.status(400).json({ success: false, error: '오디오 파일이 없습니다.' });
+        return;
+      }
+      const audioUrl = await ImageService.uploadAudio(req.file, req.body);
+      res.json({ success: true, data: { audioUrl } });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async bgmList(_req: Request, res: Response, next: NextFunction) {
+    try {
+      const list = await ImageService.getBgmList();
+      res.json({ success: true, data: list });
+    } catch (err) {
+      next(err);
+    }
+  },
 };

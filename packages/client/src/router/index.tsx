@@ -1,17 +1,17 @@
 import { createBrowserRouter } from 'react-router-dom';
-import HomePage from '../pages/HomePage';
-import EditorPage from '../pages/EditorPage';
+import { AppLayout } from '../components/AppLayout';
+import LibraryPage from '../pages/LibraryPage';
 import ViewerPage from '../pages/ViewerPage';
 import NotFoundPage from '../pages/NotFoundPage';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
+    element: <AppLayout />,
   },
   {
-    path: '/editor/:id',
-    element: <EditorPage />,
+    path: '/library',
+    element: <LibraryPage />,
   },
   {
     path: '/viewer/:id',

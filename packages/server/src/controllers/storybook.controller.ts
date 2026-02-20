@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { StorybookService } from '../services/storybook.service.js';
-import type { GenerateStorybookRequest } from '@tangobook/shared';
+import type { GenerateStorybookRequest, GenerateStoryRequest } from '@tangobook/shared';
 
 export const StorybookController = {
   async list(_req: Request, res: Response, next: NextFunction) {
@@ -38,6 +38,16 @@ export const StorybookController = {
     try {
       await StorybookService.delete(req.params['id'] as string);
       res.json({ success: true, data: { message: '동화책이 삭제되었습니다.' } });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async generateStory(req: Request, res: Response, next: NextFunction) {
+    try {
+      const body = req.body as GenerateStoryRequest;
+      const pages = await StorybookService.generateStory(body);
+      res.json({ success: true, data: pages });
     } catch (err) {
       next(err);
     }

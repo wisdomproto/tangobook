@@ -7,6 +7,7 @@ router.get('/', StorybookController.list);
 router.get('/:id', StorybookController.getById);
 router.post('/', StorybookController.save);
 router.delete('/:id', StorybookController.delete);
+router.post('/generate-story', StorybookController.generateStory);
 router.post('/generate', StorybookController.generate);
 
 export default router;

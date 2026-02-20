@@ -11,7 +11,7 @@ export const ART_STYLES = [
   { id: 'pencil-sketch', label: '연필 스케치', prompt: 'Pencil Sketch' },
 ] as const;
 
-export const ASPECT_RATIOS = ['1:1', '4:3', '16:9', '3:4', '9:16'] as const;
+export const ASPECT_RATIOS = ['16:9', '9:16', '4:3', '3:4', '3:2', '2:3', '1:1'] as const;
 export type AspectRatio = (typeof ASPECT_RATIOS)[number];
 
 export const SUPPORTED_LANGUAGES = [
@@ -38,6 +38,27 @@ export const TTS_VOICES = [
   { id: 'Zephyr', label: '제피르', description: 'Bright' },
   { id: 'Aoede', label: '아오에데', description: 'Breezy' },
 ] as const;
+
+export const IMAGE_MODELS = [
+  {
+    id: 'gemini-2.5-flash-image',
+    label: 'Gemini 2.5 Flash Image',
+    description: '빠르고 효율적, 대량 생성에 적합',
+  },
+  {
+    id: 'gemini-3-pro-image-preview',
+    label: 'Gemini 3 Pro Image',
+    description: '고품질, 복잡한 지시 이해력 우수',
+  },
+  {
+    id: 'imagen-4.0-generate-preview-06-06',
+    label: 'Imagen 4',
+    description: '텍스트→이미지 특화, 빠른 생성',
+  },
+] as const;
+export type ImageModelId = (typeof IMAGE_MODELS)[number]['id'];
+
+export const DEFAULT_IMAGE_MODEL = 'gemini-3-pro-image-preview' satisfies ImageModelId;
 
 export const MAX_IMAGE_HISTORY = 10;
 export const MAX_FILE_SIZE_MB = 5;

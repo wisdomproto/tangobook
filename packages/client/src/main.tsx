@@ -6,6 +6,7 @@ import { RouterProvider } from 'react-router-dom';
 import { queryClient } from './lib/query-client';
 import { router } from './router';
 import './index.css';
+import './store/theme.store';
 
 const root = document.getElementById('root');
 if (!root) throw new Error('Root element not found');

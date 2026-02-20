@@ -6,6 +6,7 @@ import imageRoutes from './routes/image.routes.js';
 import ttsRoutes from './routes/tts.routes.js';
 import translationRoutes from './routes/translation.routes.js';
 import quizRoutes from './routes/quiz.routes.js';
+import audiobookRoutes from './routes/audiobook.routes.js';
 
 export function createApp() {
   const app = express();
@@ -26,6 +27,7 @@ export function createApp() {
   app.use('/api/tts', ttsRoutes);
   app.use('/api/translation', translationRoutes);
   app.use('/api/quiz', quizRoutes);
+  app.use('/api/audiobooks', audiobookRoutes);
 
   // 에러 핸들러 (마지막에 등록)
   app.use(errorMiddleware);
