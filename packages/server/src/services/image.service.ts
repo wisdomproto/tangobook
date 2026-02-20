@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { generateImageWithGemini, textModel } from '../providers/gemini.provider.js';
+import { generateImageWithGemini, getTextModel } from '../providers/gemini.provider.js';
 import { R2Repository } from '../repositories/r2.repository.js';
 import type { Character, Page, KeyObject, VocabularyItem } from '@tangobook/shared';
 
@@ -299,7 +299,7 @@ Clean white background. No text in the image.`;
     const base64 = file.buffer.toString('base64');
     const mimeType = file.mimetype as 'image/png' | 'image/jpeg' | 'image/webp';
 
-    const result = await textModel.generateContent({
+    const result = await getTextModel().generateContent({
       contents: [
         {
           role: 'user',

@@ -2,12 +2,23 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { GoogleGenAI, type Part as GenAIPart } from '@google/genai';
 import { config } from '../config/index.js';
 
-// Legacy SDK - text model only
-const genAI = new GoogleGenerativeAI(config.gemini.apiKey);
-export const textModel = genAI.getGenerativeModel({ model: config.gemini.textModel });
+// Lazy initialization - API 키가 없어도 서버 시작 가능
+let _genAI: GoogleGenerativeAI | null = null;
+let _ai: GoogleGenAI | null = null;
 
-// New SDK - image generation with systemInstruction + imageConfig support
-const ai = new GoogleGenAI({ apiKey: config.gemini.apiKey });
+function getGenAI() {
+  if (!_genAI) _genAI = new GoogleGenerativeAI(config.gemini.apiKey);
+  return _genAI;
+}
+
+function getAI() {
+  if (!_ai) _ai = new GoogleGenAI({ apiKey: config.gemini.apiKey });
+  return _ai;
+}
+
+export function getTextModel() {
+  return getGenAI().getGenerativeModel({ model: config.gemini.textModel });
+}
 
 export interface ImageGenerationOptions {
   prompt: string;
@@ -44,7 +55,7 @@ export async function generateImageWithGemini(options: ImageGenerationOptions): 
 
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
-      const result = await ai.models.generateContent({
+      const result = await getAI().models.generateContent({
         model: imageModel,
         contents: [{ role: 'user', parts }],
         config: {
@@ -84,7 +95,7 @@ export async function generateImageWithGemini(options: ImageGenerationOptions): 
 export async function generateTextWithGemini(prompt: string, retries = 3): Promise<string> {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
-      const result = await textModel.generateContent(prompt);
+      const result = await getTextModel().generateContent(prompt);
       return result.response.text();
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
