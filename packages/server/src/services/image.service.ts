@@ -35,6 +35,12 @@ OBJECT & SCALE CONSISTENCY:
 - Key story objects (e.g., a magic mirror, a poisoned apple) must look identical every time they appear.
 - Real-world scale relationships must be respected: a house is bigger than a person, a flower is smaller than a child's hand.
 
+COPYRIGHT AVOIDANCE:
+- NEVER reproduce copyrighted character designs (Disney, Pixar, Ghibli, etc.).
+- If character descriptions evoke a well-known IP, reinterpret with original designs: change hair color, outfit style, and accessories to be distinctly different.
+- Avoid iconic visual combinations associated with specific franchises (e.g., blonde hair + blue gown + glass slippers, black-haired girl + yellow/blue dress + red headband).
+- Create original, unique character appearances inspired by the fairy tale's cultural setting, not by any specific movie or animation adaptation.
+
 COMPOSITION:
 - Compositions should be clear and easy for young children (ages 4-8) to understand.
 - Use child-friendly, warm, and inviting visual aesthetics.

@@ -122,7 +122,28 @@
 | `height`      | 상대적 높이 (50-200 사이 숫자)                              | -                        |
 | `heightCm`    | 실제 키 (cm). 예: 어린이=110, 성인=170, 난쟁이=90, 거인=300 | -                        |
 
-### 2.3 캐릭터 이미지 생성 규칙
+### 2.3 저작권 회피 규칙 (매우 중요)
+
+AI 이미지 생성 모델은 저작권/상표권 필터링이 있어, 유명 캐릭터와 유사한 외모 설명이 포함되면 이미지 생성이 차단(OTHER 에러)됩니다.
+
+#### 캐릭터 description 작성 시 필수 규칙:
+
+1. **고유명사 금지**: description(영어)에 디즈니/픽사/지브리 등 특정 IP의 캐릭터명을 절대 포함하지 않음
+   - ❌ "Cinderella in a blue ball gown", "Snow White with red lips"
+   - ⭕ "A young girl with braided brown hair wearing a tattered gray dress and wooden clogs"
+
+2. **상징적 디자인 회피**: 유명 캐릭터의 대표적 시각 요소 조합을 피함
+   - ❌ 금발 + 하늘색 드레스 + 유리구두 (디즈니 신데렐라)
+   - ❌ 빨간 머리띠 + 노란 드레스 + 파란 조끼 (디즈니 백설공주)
+   - ⭕ 원작 동화의 설정을 참고하되, 독자적인 외모/의상 디자인을 창작
+
+3. **독창적 디자인 우선**: 동화 원작의 시대/문화적 배경을 살리면서도 기존 유명 작품과 확실히 다른 외모 설계
+   - 머리색, 의상 색상, 스타일을 원작과 다르게 변형
+   - 예: 신데렐라 → "A kind-looking girl (age 16) with wavy auburn hair in a messy bun, wearing a patched linen apron over a moss-green dress, bare feet smudged with soot"
+
+4. **coverPrompt, scene_description에도 동일 적용**: 고유명사 대신 외모 묘사로 캐릭터를 지칭
+
+### 2.4 캐릭터 이미지 생성 규칙
 
 - **레퍼런스 시트** 형태로 생성 (정면/측면/3/4 각도 + 표정 3종)
 - description을 기반으로 외모를 **매우 구체적으로** 작성 (영어)
