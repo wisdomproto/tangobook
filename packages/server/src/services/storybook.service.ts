@@ -36,6 +36,55 @@ export const StorybookService = {
     await R2Repository.deleteStorybook(id);
   },
 
+  async copy(id: string): Promise<Storybook> {
+    const original = await R2Repository.getStorybook(id);
+    if (!original) throw new AppError(404, '동화책을 찾을 수 없습니다.');
+
+    // 복사본 번호 계산: "제목-복사본(1)", "(2)", ...
+    const allBooks = await R2Repository.listStorybooks();
+    const baseTitle = original.title.replace(/-복사본\(\d+\)$/, '');
+    const pattern = new RegExp(
+      `^${baseTitle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}-복사본\\((\\d+)\\)$`
+    );
+    let maxNum = 0;
+    for (const sb of allBooks) {
+      const match = sb.title.match(pattern);
+      if (match) maxNum = Math.max(maxNum, parseInt(match[1], 10));
+    }
+
+    const copy: Storybook = {
+      ...original,
+      id: Date.now().toString(),
+      title: `${baseTitle}-복사본(${maxNum + 1})`,
+      createdAt: new Date().toISOString(),
+      updatedAt: undefined,
+      // 표지 이미지 제거
+      coverImage: undefined,
+      coverImageHistory: undefined,
+      // 캐릭터 이미지 제거
+      characters: original.characters.map((c) => ({
+        ...c,
+        referenceImage: undefined,
+        imageHistory: undefined,
+      })),
+      // 페이지 삽화/TTS 제거
+      pages: original.pages.map((p) => ({
+        ...p,
+        illustrationUrl: undefined,
+        illustrationHistory: undefined,
+        ttsUrl: undefined,
+      })),
+      // 사물/어휘 이미지 제거
+      keyObjectImages: undefined,
+      vocabularyImages: undefined,
+      // 오디오북 제거
+      audiobookProjects: undefined,
+      backgroundMusicUrl: undefined,
+    };
+
+    return R2Repository.saveStorybook(copy);
+  },
+
   async generateStory(req: GenerateStoryRequest): Promise<StoryDraftPage[]> {
     const { title, targetAge, referenceContent, model } = req;
 
@@ -173,7 +222,7 @@ ${pagesText}
   "characters": [
     {
       "name": "캐릭터 이름 (한글)",
-      "description": "캐릭터 상세 외모 설명 (영어, 이미지 생성용. 디즈니 등 유명 캐릭터와 다른 독창적 외모 디자인. 고유명사/상징적 디자인 조합 금지)",
+      "description": "캐릭터 상세 외모 설명 (한글, 이미지 생성용. 머리색/눈색/체형/의상 등 구체적으로. 디즈니 등 유명 캐릭터와 다른 독창적 외모 디자인. 고유명사/상징적 디자인 조합 금지)",
       "age": 나이(숫자),
       "role": "주인공|조력자|악역|조연",
       "height": 상대적높이(50-200사이숫자),
@@ -211,7 +260,7 @@ ${pagesText}
 요구사항:
 - 페이지 수: 사용자 확정 텍스트와 동일한 ${draftPages.length}페이지
 - 캐릭터: 2페이지 이상 등장하는 모든 캐릭터 포함 (수 제한 없음). 그룹 캐릭터는 개별 분리 (예: 일곱 난쟁이 → 난쟁이1~7, 의붓언니들 → 큰언니/작은언니)
-- **저작권 회피 (매우 중요)**: characters의 description(영어)에 디즈니/픽사/지브리 등 유명 캐릭터의 고유명사(Cinderella, Snow White 등)를 절대 포함하지 마세요. 또한 유명 캐릭터의 상징적 외모 조합(금발+하늘색드레스+유리구두 등)을 피하고, 원작 동화의 배경을 살리되 완전히 독창적인 외모/의상을 디자인하세요. coverPrompt와 scene_description에서도 고유명사 대신 외모 묘사로 캐릭터를 지칭하세요.
+- **저작권 회피 (매우 중요)**: characters의 description(한글)에 디즈니/픽사/지브리 등 유명 캐릭터의 고유명사(Cinderella, Snow White 등)를 절대 포함하지 마세요. 또한 유명 캐릭터의 상징적 외모 조합(금발+하늘색드레스+유리구두 등)을 피하고, 원작 동화의 배경을 살리되 완전히 독창적인 외모/의상을 디자인하세요. coverPrompt와 scene_description에서도 고유명사 대신 외모 묘사로 캐릭터를 지칭하세요.
 - 학습 단어: 6-8개
 - 퀴즈: 5개
 - key_objects는 반드시 동화책에 등장하는 사물(명사)만 선정. 인물/대명사/추상명사 절대 불가. 5-8개 선정.
@@ -251,7 +300,7 @@ ${referenceContent ? `- 참고 내용: ${referenceContent}` : ''}
   "characters": [
     {
       "name": "캐릭터 이름 (한글)",
-      "description": "캐릭터 상세 외모 설명 (영어, 머리색/눈색/체형/의상 등 구체적으로. 이미지 생성용. 디즈니 등 유명 캐릭터와 다른 독창적 외모 디자인. 고유명사/상징적 디자인 조합 금지)",
+      "description": "캐릭터 상세 외모 설명 (한글, 이미지 생성용. 머리색/눈색/체형/의상 등 구체적으로. 디즈니 등 유명 캐릭터와 다른 독창적 외모 디자인. 고유명사/상징적 디자인 조합 금지)",
       "age": 나이(숫자),
       "role": "주인공|조력자|악역|조연",
       "height": 상대적높이(50-200사이숫자),
@@ -290,11 +339,11 @@ ${referenceContent ? `- 참고 내용: ${referenceContent}` : ''}
 - 페이지 수: 가이드의 연령별 페이지 수 준수
 - 한 페이지 = 한 장면: 각 페이지 텍스트는 하나의 장면만 묘사. 장면이 바뀌면 반드시 새 페이지로 분리.
 - 캐릭터: 2페이지 이상 등장하는 모든 캐릭터 포함 (수 제한 없음). 그룹 캐릭터는 개별 분리 (예: 일곱 난쟁이 → 난쟁이1~7, 의붓언니들 → 큰언니/작은언니)
-- **저작권 회피 (매우 중요)**: characters의 description(영어)에 디즈니/픽사/지브리 등 유명 캐릭터의 고유명사(Cinderella, Snow White 등)를 절대 포함하지 마세요. 또한 유명 캐릭터의 상징적 외모 조합(금발+하늘색드레스+유리구두 등)을 피하고, 원작 동화의 배경을 살리되 완전히 독창적인 외모/의상을 디자인하세요. coverPrompt와 scene_description에서도 고유명사 대신 외모 묘사로 캐릭터를 지칭하세요.
+- **저작권 회피 (매우 중요)**: characters의 description(한글)에 디즈니/픽사/지브리 등 유명 캐릭터의 고유명사(Cinderella, Snow White 등)를 절대 포함하지 마세요. 또한 유명 캐릭터의 상징적 외모 조합(금발+하늘색드레스+유리구두 등)을 피하고, 원작 동화의 배경을 살리되 완전히 독창적인 외모/의상을 디자인하세요. coverPrompt와 scene_description에서도 고유명사 대신 외모 묘사로 캐릭터를 지칭하세요.
 - 학습 단어: 6-8개 (스토리 핵심 단어, 명사 중심)
 - 퀴즈: 5개 (이해도 확인 + 감정/동기 추론 + 교훈 관련)
 - scene_description은 한글로 작성. 삽화에 그려질 장면을 구체적이고 시각적으로 묘사 (캐릭터 행동/표정, 배경, 분위기)
-- characters의 description은 캐릭터 이미지 생성에 사용되므로 외모를 매우 구체적으로 작성 (영어)
+- characters의 description은 캐릭터 이미지 생성에 사용되므로 외모를 매우 구체적으로 작성 (한글)
 - key_objects는 반드시 동화책에 등장하는 사물(명사)만 선정. 인물/대명사/추상명사 절대 불가. 5-8개 선정.
 - JSON만 응답 (다른 텍스트 없이)
 `.trim();

@@ -424,8 +424,8 @@ function buildCharacterPrompt(
   const displayName = alias ?? char.name;
   return `Create a professional character design reference sheet for a children's storybook.
 
-Character Name: ${displayName}
-Character Description: ${char.description}
+Character: ${displayName}
+Appearance (Korean description — follow faithfully): ${char.description}
 Age: ${char.age ?? 'unknown'}${heightInfo}
 Relative Height Scale: ${char.height}/200 (used for sizing relative to other characters)
 Aspect Ratio: ${aspectRatio}
@@ -472,12 +472,19 @@ function buildIllustrationPrompt(
 - Keep character proportions and object sizes consistent with the previous page.\n`
     : '';
 
-  return `Create a storybook illustration for children.
+  // 수정사항이 있으면 기존 장면 텍스트 무시, 현재 이미지 + 수정사항만 반영
+  const sceneSection = page.customModifications
+    ? `MODIFICATION REQUEST: Modify the current illustration based on the following instructions. The current image is provided as a reference — keep everything NOT mentioned in the modifications unchanged.
 
-Scene: ${san(page.scene_description)}
+Modifications: ${page.customModifications}`
+    : `Scene: ${san(page.scene_description)}
 Characters & Actions: ${san(page.scene_structure.characters)}
 Background: ${san(page.scene_structure.background)}
-Atmosphere: ${san(page.scene_structure.atmosphere)}
+Atmosphere: ${san(page.scene_structure.atmosphere)}`;
+
+  return `Create a storybook illustration for children.
+
+${sceneSection}
 Aspect Ratio: ${aspectRatio}
 
 *** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***
@@ -488,7 +495,6 @@ The entire illustration MUST be rendered strictly in the art style described abo
 Characters present (match EXACTLY to reference images):
 ${charList}
 ${prevRef}
-${page.customModifications ? `Additional requirements: ${page.customModifications}` : ''}
 
 CRITICAL - NO TEXT: No text, speech bubbles, or labels in the image.`;
 }

@@ -9,7 +9,12 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { useStorybooks, useDeleteStorybook, usePatchStorybook } from '@/features/storybook';
+import {
+  useStorybooks,
+  useDeleteStorybook,
+  usePatchStorybook,
+  useCopyStorybook,
+} from '@/features/storybook';
 import { useEditorStore } from '@/store/editor.store';
 import { Button } from '@/components/Button';
 import { Spinner } from '@/components/Spinner';
@@ -105,6 +110,7 @@ export function Sidebar() {
   const { data: storybooks, isLoading } = useStorybooks();
   const deleteMutation = useDeleteStorybook();
   const patchMutation = usePatchStorybook();
+  const copyMutation = useCopyStorybook();
 
   const selectedId = useEditorStore((s) => s.selectedStorybookId);
   const setSelectedId = useEditorStore((s) => s.setSelectedStorybookId);
@@ -207,6 +213,12 @@ export function Sidebar() {
         setDeleteTarget(null);
         if (selectedId === deleteTarget.id) setSelectedId(null);
       },
+    });
+  };
+
+  const handleCopy = (id: string) => {
+    copyMutation.mutate(id, {
+      onSuccess: (data) => setSelectedId(data.id),
     });
   };
 
@@ -425,6 +437,7 @@ export function Sidebar() {
                 onSelect={() => setSelectedId(sb.id)}
                 onDelete={() => setDeleteTarget({ id: sb.id, title: sb.title })}
                 onView={() => handleView(sb.id)}
+                onCopy={() => handleCopy(sb.id)}
                 onTogglePublic={handleTogglePublic}
                 onChangeCategory={handleChangeCategory}
                 onRename={handleRename}

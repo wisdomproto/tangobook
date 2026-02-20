@@ -28,6 +28,11 @@ export const StorybookController = {
     res.json({ success: true, data: { message: '동화책이 삭제되었습니다.' } });
   }),
 
+  copy: asyncHandler(async (req, res) => {
+    const storybook = await StorybookService.copy(req.params['id'] as string);
+    res.json({ success: true, data: storybook });
+  }),
+
   generateStory: asyncHandler(async (req, res) => {
     const body = req.body as GenerateStoryRequest;
     const pages = await StorybookService.generateStory(body);

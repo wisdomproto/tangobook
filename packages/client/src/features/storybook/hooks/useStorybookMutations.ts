@@ -28,6 +28,17 @@ export function usePatchStorybook() {
   });
 }
 
+export function useCopyStorybook() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => storybookApi.copy(id),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: ['storybooks'] });
+      qc.setQueryData(['storybook', data.id], data);
+    },
+  });
+}
+
 export function useDeleteStorybook() {
   const qc = useQueryClient();
   return useMutation({
