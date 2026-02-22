@@ -474,7 +474,7 @@ function buildIllustrationPrompt(
     : '';
 
   // 수정사항이 있으면 기존 장면 텍스트 무시, 현재 이미지 + 수정사항만 반영
-  const sceneDesc = san(page.scene_description_en ?? page.scene_description);
+  const sceneDesc = san(page.scene_description_en ?? page.scene_description ?? '');
   const sceneChars = san(
     page.scene_structure?.characters_en ?? page.scene_structure?.characters ?? ''
   );

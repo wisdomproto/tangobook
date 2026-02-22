@@ -66,7 +66,7 @@ export function PageCard({
         }));
       const prevPage = pageIndex > 0 ? (storybook.pages ?? [])[pageIndex - 1] : undefined;
       return illustrationApi.generate({
-        page,
+        page: { ...page, customModifications: modifications || undefined },
         artStyle: storybook.artStyle,
         characterReferences: charRefs,
         previousIllustrationUrl: prevPage?.illustrationUrl,
