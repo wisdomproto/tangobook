@@ -6,4 +6,5 @@ export {
   useCopyStorybook,
   useDeleteStorybook,
   useGenerateStorybook,
+  useGeneratePhonicsBook,
 } from './hooks/useStorybookMutations';

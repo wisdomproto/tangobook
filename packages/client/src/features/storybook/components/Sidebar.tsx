@@ -16,18 +16,11 @@ import {
   useCopyStorybook,
 } from '@/features/storybook';
 import { useEditorStore } from '@/store/editor.store';
+import { STORYBOOK_CATEGORIES, PHONICS_CATEGORIES } from '@tangobook/shared';
 import { Button } from '@/components/Button';
 import { Spinner } from '@/components/Spinner';
 import { SidebarCard } from './SidebarCard';
 import { DeleteConfirmModal } from './DeleteConfirmModal';
-
-const CATEGORIES = [
-  { value: 'all', label: '전체' },
-  { value: '세계 명작', label: '세계 명작' },
-  { value: '전래 동화', label: '전래 동화' },
-  { value: '자연 관찰', label: '자연 관찰' },
-  { value: '기타', label: '기타' },
-] as const;
 
 function DroppableFolder({
   folderId,
@@ -115,6 +108,9 @@ export function Sidebar() {
   const selectedId = useEditorStore((s) => s.selectedStorybookId);
   const setSelectedId = useEditorStore((s) => s.setSelectedStorybookId);
   const setShowCreateForm = useEditorStore((s) => s.setShowCreateForm);
+  const setCreateFormType = useEditorStore((s) => s.setCreateFormType);
+  const typeFilter = useEditorStore((s) => s.sidebarTypeFilter);
+  const setTypeFilter = useEditorStore((s) => s.setSidebarTypeFilter);
   const search = useEditorStore((s) => s.sidebarSearch);
   const setSearch = useEditorStore((s) => s.setSidebarSearch);
   const category = useEditorStore((s) => s.sidebarCategory);
@@ -133,6 +129,12 @@ export function Sidebar() {
   const [showNewFolder, setShowNewFolder] = useState(false);
   const [newFolderName, setNewFolderName] = useState('');
   const [draggingId, setDraggingId] = useState<string | null>(null);
+
+  // 타입별 카테고리 목록
+  const categories = useMemo(() => {
+    const items = typeFilter === 'phonics' ? PHONICS_CATEGORIES : STORYBOOK_CATEGORIES;
+    return [{ value: 'all', label: '전체' }, ...items.map((c) => ({ value: c, label: c }))];
+  }, [typeFilter]);
 
   // Require 8px movement to start drag (prevents conflict with click)
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 8 } }));
@@ -162,6 +164,9 @@ export function Sidebar() {
     if (!storybooks) return [];
     let list = [...storybooks];
 
+    // Type filter
+    list = list.filter((s) => (s.type ?? 'storybook') === typeFilter);
+
     // Folder filter
     if (folder !== 'all') {
       if (folder === '__none__') {
@@ -173,11 +178,7 @@ export function Sidebar() {
 
     // Category filter
     if (category !== 'all') {
-      list = list.filter((s) => {
-        const cat = s.category || '';
-        if (category === '기타') return cat === '기타' || !cat;
-        return cat === category;
-      });
+      list = list.filter((s) => (s.category || '') === category);
     }
 
     // Visibility filter
@@ -199,7 +200,7 @@ export function Sidebar() {
     }
 
     return list;
-  }, [storybooks, search, category, visibility, sort, folder]);
+  }, [storybooks, search, category, visibility, sort, folder, typeFilter]);
 
   const draggingStorybook = useMemo(() => {
     if (!draggingId || !storybooks) return null;
@@ -286,11 +287,51 @@ export function Sidebar() {
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <aside className="w-72 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 fixed top-14 left-0 bottom-0 flex flex-col z-30">
-        {/* 새 동화책 버튼 */}
+        {/* 타입 탭 */}
+        <div className="flex border-b border-slate-200 dark:border-slate-700">
+          {(['storybook', 'phonics'] as const).map((t) => (
+            <button
+              key={t}
+              onClick={() => {
+                setTypeFilter(t);
+                setCategory('all');
+              }}
+              className={`flex-1 py-3 text-sm font-semibold text-center transition-colors border-b-2 ${
+                typeFilter === t
+                  ? t === 'phonics'
+                    ? 'border-emerald-600 text-emerald-600 dark:text-emerald-400'
+                    : 'border-violet-600 text-violet-600 dark:text-violet-400'
+                  : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
+              }`}
+            >
+              {t === 'storybook' ? '동화책' : '파닉스 유닛'}
+            </button>
+          ))}
+        </div>
+
+        {/* 새로 만들기 버튼 (선택된 탭에 맞는 것만) */}
         <div className="p-3">
-          <Button className="w-full" onClick={() => setShowCreateForm(true)}>
-            + 새 동화책 만들기
-          </Button>
+          {typeFilter === 'phonics' ? (
+            <button
+              onClick={() => {
+                setCreateFormType('phonics');
+                setShowCreateForm(true);
+              }}
+              className="w-full px-3 py-2 text-sm font-medium rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition-colors"
+            >
+              + 새 파닉스 유닛 만들기
+            </button>
+          ) : (
+            <Button
+              className="w-full"
+              onClick={() => {
+                setCreateFormType('storybook');
+                setShowCreateForm(true);
+              }}
+            >
+              + 새 동화책 만들기
+            </Button>
+          )}
         </div>
 
         {/* 검색 */}
@@ -396,7 +437,7 @@ export function Sidebar() {
               onChange={(e) => setCategory(e.target.value)}
               className="text-[11px] text-slate-400 dark:text-slate-500 border-none outline-none bg-transparent cursor-pointer"
             >
-              {CATEGORIES.map((cat) => (
+              {categories.map((cat) => (
                 <option key={cat.value} value={cat.value}>
                   {cat.label}
                 </option>

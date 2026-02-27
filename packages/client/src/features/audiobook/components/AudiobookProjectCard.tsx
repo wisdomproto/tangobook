@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
-import type { AudiobookProject } from '@tangobook/shared';
+import type { AudiobookProject, CoverImageItem } from '@tangobook/shared';
 import { useAudiobookGenerate } from '../hooks/useAudiobookGenerate';
 import { audiobookApi } from '../api/audiobook.api';
 import type { AudiobookProgress } from '../api/audiobook.api';
@@ -16,6 +16,8 @@ interface AudiobookProjectCardProps {
   onUpdate: (patch: Partial<AudiobookProject>) => void;
   onDelete: () => void;
   storybookBgmUrl?: string;
+  coverImages?: CoverImageItem[];
+  defaultCoverImage?: string;
 }
 
 const ASPECT_RATIOS = [
@@ -49,6 +51,8 @@ export function AudiobookProjectCard({
   onUpdate,
   onDelete,
   storybookBgmUrl,
+  coverImages,
+  defaultCoverImage,
 }: AudiobookProjectCardProps) {
   const [editingName, setEditingName] = useState(project.name);
   const [generating, setGenerating] = useState(false);
@@ -276,6 +280,40 @@ export function AudiobookProjectCard({
                     </div>
                   )}
                 </div>
+                {/* 표지 선택 (2개 이상일 때) */}
+                {project.includeCover &&
+                  coverImages &&
+                  coverImages.filter((c) => c.imageUrl).length >= 2 && (
+                    <div className="mt-2 space-y-1.5">
+                      <p className="text-[10px] text-slate-400 dark:text-slate-500">표지 선택</p>
+                      <div className="flex gap-1.5 flex-wrap">
+                        {coverImages
+                          .filter((c) => c.imageUrl)
+                          .map((item) => {
+                            const isSelected = project.coverImageUrl
+                              ? project.coverImageUrl === item.imageUrl
+                              : item.imageUrl === defaultCoverImage;
+                            return (
+                              <button
+                                key={item.id}
+                                onClick={() => onUpdate({ coverImageUrl: item.imageUrl })}
+                                className={`w-12 h-14 rounded border-2 overflow-hidden transition-colors ${
+                                  isSelected
+                                    ? 'border-violet-500 ring-1 ring-violet-300'
+                                    : 'border-slate-200 dark:border-slate-700 hover:border-violet-300'
+                                }`}
+                              >
+                                <img
+                                  src={item.imageUrl}
+                                  alt=""
+                                  className="w-full h-full object-cover"
+                                />
+                              </button>
+                            );
+                          })}
+                      </div>
+                    </div>
+                  )}
               </div>
 
               <div>

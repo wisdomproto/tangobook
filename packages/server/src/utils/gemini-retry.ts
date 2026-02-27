@@ -18,7 +18,8 @@ export async function withGeminiRetry<T>(
         msg.includes('UNAVAILABLE') ||
         msg.includes('429') ||
         msg.includes('RESOURCE_EXHAUSTED') ||
-        msg.includes('이미지 생성 실패');
+        msg.includes('이미지 생성 실패') ||
+        msg.includes('오디오 데이터가 없습니다');
       if (!isRetryable || attempt === retries) throw err;
       // Exponential backoff: 1s, 2s, 4s, 8s... + jitter (0~500ms)
       const delay = baseDelayMs * Math.pow(2, attempt - 1) + Math.random() * 500;

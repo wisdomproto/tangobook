@@ -15,6 +15,8 @@ import { pushImageHistory } from '@/lib/image-history';
 import { TTS_VOICES } from '@tangobook/shared';
 import type { Storybook, Page } from '@tangobook/shared';
 
+const stripBold = (s: string) => s.replace(/\*\*/g, '');
+
 interface PageCardProps {
   page: Page;
   pageIndex: number;
@@ -35,7 +37,7 @@ export function PageCard({
   onDelete,
 }: PageCardProps) {
   const [editing, setEditing] = useState(false);
-  const [text, setText] = useState(page.text);
+  const [text, setText] = useState(stripBold(page.text));
   const [modifications, setModifications] = useState(page.customModifications ?? '');
   const [showScene, setShowScene] = useState(false);
   const [showMods, setShowMods] = useState(false);
@@ -65,6 +67,12 @@ export function PageCard({
           imageUrl: c.referenceImage,
         }));
       const prevPage = pageIndex > 0 ? (storybook.pages ?? [])[pageIndex - 1] : undefined;
+      // 핵심단어 이미지 레퍼런스 (페이지 텍스트에 등장하는 단어만)
+      const flashcards = storybook.flashcards ?? [];
+      const pageText = (page.text ?? '').toLowerCase();
+      const flashcardImageRefs = flashcards
+        .filter((fc) => fc.imageUrl && fc.word && pageText.includes(fc.word.toLowerCase()))
+        .map((fc) => ({ word: fc.word, imageUrl: fc.imageUrl! }));
       return illustrationApi.generate({
         page: { ...page, customModifications: modifications || undefined },
         artStyle: storybook.artStyle,
@@ -75,6 +83,7 @@ export function PageCard({
         storybookId: storybook.id,
         storybookTitle: storybook.title,
         model: storybook.imageModels?.illustration,
+        flashcardImageRefs: flashcardImageRefs.length > 0 ? flashcardImageRefs : undefined,
       });
     },
     onSuccess: (data) => {
@@ -405,7 +414,7 @@ export function PageCard({
                       size="sm"
                       variant="ghost"
                       onClick={() => {
-                        setText(page.text);
+                        setText(stripBold(page.text));
                         setEditing(false);
                       }}
                     >
@@ -418,16 +427,16 @@ export function PageCard({
                   className="text-sm text-slate-700 dark:text-slate-200 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 rounded p-2 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition"
                   onClick={() => setEditing(true)}
                 >
-                  {page.text || '(텍스트를 입력하세요)'}
+                  {stripBold(page.text) || '(텍스트를 입력하세요)'}
                 </p>
               )
             ) : currentText ? (
               <div className="space-y-1">
                 <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed p-2 bg-slate-50/50 dark:bg-slate-900/50 rounded">
-                  {page.text}
+                  {stripBold(page.text)}
                 </p>
                 <p className="text-sm text-blue-700 bg-blue-50/50 dark:bg-blue-900/20 rounded p-2">
-                  {currentText}
+                  {stripBold(currentText)}
                 </p>
                 <Button
                   size="sm"
@@ -441,7 +450,7 @@ export function PageCard({
             ) : (
               <div className="space-y-1">
                 <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed p-2 bg-slate-50/50 dark:bg-slate-900/50 rounded">
-                  {page.text}
+                  {stripBold(page.text)}
                 </p>
                 <div className="flex items-center gap-2 p-2 bg-slate-50 dark:bg-slate-900 rounded">
                   <p className="text-xs text-slate-400 dark:text-slate-500 italic flex-1">

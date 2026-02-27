@@ -80,6 +80,40 @@ export const StorybookService = {
       // 오디오북 제거
       audiobookProjects: undefined,
       backgroundMusicUrl: undefined,
+      // 파닉스: 텍스트 데이터는 유지, 미디어 URL 제거
+      ...(original.type === 'phonics'
+        ? {
+            flashcards: original.flashcards?.map((f) => ({
+              ...f,
+              imageUrl: undefined,
+              imageHistory: undefined,
+              ttsUrl: undefined,
+            })),
+            chant: original.chant
+              ? { ...original.chant, ttsUrl: undefined, bgmUrl: undefined }
+              : undefined,
+            worksheets: original.worksheets?.map((w) => ({
+              ...w,
+              pdfUrl: undefined,
+              items: w.items.map((i) => ({ ...i, imageUrl: undefined })),
+            })),
+            phonicsLesson: original.phonicsLesson
+              ? {
+                  ...original.phonicsLesson,
+                  blending: original.phonicsLesson.blending.map((b) => ({
+                    ...b,
+                    vowelImageUrl: undefined,
+                    consonantImageUrl: undefined,
+                    exampleWordImageUrl: undefined,
+                  })),
+                  wordFamilies: original.phonicsLesson.wordFamilies.map((wf) => ({
+                    ...wf,
+                    words: wf.words.map((w) => ({ ...w, imageUrl: undefined, ttsUrl: undefined })),
+                  })),
+                }
+              : undefined,
+          }
+        : {}),
     };
 
     return R2Repository.saveStorybook(copy);

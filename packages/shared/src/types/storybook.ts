@@ -1,3 +1,364 @@
+// === StorybookType 구분 ===
+export type StorybookType = 'storybook' | 'phonics';
+
+// === 파닉스 음원 라이브러리 (글로벌) ===
+export type PhonicsAudioCategory = 'mod_phonics' | 'mod_english';
+
+export interface PhonicsAudioItem {
+  sound: string;
+  url: string;
+  category: PhonicsAudioCategory;
+}
+
+// === PhonicsBook 전용 타입 ===
+
+export type PhonicsBookType =
+  | 'letter-sounds'
+  | 'short-vowels'
+  | 'long-vowels'
+  | 'blends-digraphs'
+  | 'vowel-teams-r-controlled';
+
+export interface PhonicsConfig {
+  language: 'korean' | 'english';
+  level: string; // 'book1' ~ 'book5' (EN) / 'step1' ~ 'step3' (KR)
+  targetUnit: string; // 유닛 제목
+  targetPhonemes: string[]; // 타겟 음소
+  targetWords: string[]; // 타겟 단어
+  targetPatterns: string[]; // 타겟 패턴 (CVC, _at 등)
+  bookType?: PhonicsBookType; // 권 유형 (영어 전용)
+}
+
+export interface ChantLine {
+  text: string;
+  highlightWords?: string[];
+  timing?: number; // ms
+}
+
+export interface PhonicsChant {
+  title: string;
+  lyrics: ChantLine[];
+  bpm?: number;
+  tone?: 'cheerful' | 'calm' | 'hiphop' | 'lullaby';
+  ttsUrl?: string;
+  bgmUrl?: string;
+  bgmPreset?: string;
+}
+
+export interface PhonicsFlashcard {
+  id?: string;
+  word: string;
+  localWord: string;
+  phonemes: string[];
+  phonicPattern?: string;
+  sentence: string;
+  imageDescription?: string;
+  imageUrl?: string;
+  imageHistory?: string[];
+  ttsUrl?: string;
+  sentenceTtsUrl?: string;
+}
+
+export type WorksheetType = 'matching' | 'fill-blank' | 'tracing' | 'circle-sound';
+
+export interface WorksheetItem {
+  prompt: string;
+  answer: string;
+  options?: string[];
+  imageUrl?: string;
+}
+
+export interface PhonicsWorksheet {
+  id?: string;
+  type: WorksheetType;
+  title: string;
+  instructions: string;
+  items: WorksheetItem[];
+  pdfUrl?: string;
+}
+
+export interface PhonicsQuizItem {
+  id?: string;
+  question: string;
+  questionType: 'sound-match' | 'word-recognition' | 'rhyme' | 'phoneme-count';
+  options: string[];
+  correctAnswer: number;
+  audioUrl?: string;
+  targetPhoneme?: string;
+  targetWord?: string;
+  difficulty?: 'easy' | 'medium' | 'hard';
+}
+
+// 음가 블렌딩 연습 (a + t = at → bat)
+export interface BlendingExercise {
+  vowel: string;
+  vowelImageUrl?: string;
+  vowelImageHistory?: string[];
+  vowelTtsUrl?: string;
+  consonant: string;
+  consonantImageUrl?: string;
+  consonantImageHistory?: string[];
+  consonantTtsUrl?: string;
+  blend: string;
+  blendTtsUrl?: string;
+  blendingSequenceTtsUrl?: string;
+  exampleWord: string;
+  exampleWordImageDescription?: string;
+  exampleWordImageUrl?: string;
+  exampleWordImageHistory?: string[];
+  exampleWordTtsUrl?: string;
+  exampleWordOnsetTtsUrl?: string;
+
+  // 두 번째 예시단어 (Level 2-5)
+  exampleWord2?: string;
+  exampleWord2ImageDescription?: string;
+  exampleWord2ImageUrl?: string;
+  exampleWord2ImageHistory?: string[];
+  exampleWord2TtsUrl?: string;
+  exampleWord2OnsetTtsUrl?: string;
+
+  // Level 1 전체 장면 삽화 (글자별 1장)
+  illustrationUrl?: string;
+  illustrationHistory?: string[];
+  illustrationDescription?: string;
+}
+
+// 삽화 내 단어 터치 영역 (정규화 좌표 0~1)
+export interface WordHotspot {
+  x: number; // 좌상단 x
+  y: number; // 좌상단 y
+  w: number; // 너비
+  h: number; // 높이
+}
+
+// 단어 패밀리 내 단어
+export interface WordFamilyWord {
+  word: string;
+  onset: string;
+  korean?: string;
+  imageUrl?: string;
+  imageHistory?: string[];
+  ttsUrl?: string;
+  hotspot?: WordHotspot;
+}
+
+// 단어 패밀리 그룹
+export interface WordFamily {
+  pattern: string;
+  words: WordFamilyWord[];
+}
+
+// 파닉스 학습 콘텐츠 (Learn + Learn More)
+export interface PhonicsLesson {
+  title: string;
+  blending: BlendingExercise[];
+  wordFamilies: WordFamily[];
+  sightWords?: string[]; // Level 1 Read & Do용 사이트 워드
+}
+
+// === 학습 게임 시스템 ===
+
+/** 게임 타입 ID — 새 게임 추가 시 여기에 1줄 추가 */
+export type GameTypeId =
+  | 'vocabulary-matching'
+  | 'word-writing'
+  | 'connect-the-dots'
+  | 'word-quiz'
+  | 'picture-sequence'
+  | 'odd-one-out'
+  | 'word-image-matching'
+  | 'blending-listening';
+
+export type GameDifficulty = 'easy' | 'medium' | 'hard';
+
+/** 게임 인스턴스 (Storybook.games[] 배열의 요소) */
+export interface GameInstance {
+  id: string;
+  gameType: GameTypeId;
+  title: string;
+  difficulty: GameDifficulty;
+  createdAt: string;
+  config: GameConfig;
+  data: GameData;
+}
+
+/** 게임별 설정 (discriminated union — type 필드로 구분) */
+export type GameConfig =
+  | VocabularyMatchingConfig
+  | WordWritingConfig
+  | ConnectTheDotsConfig
+  | WordQuizConfig
+  | PictureSequenceConfig
+  | OddOneOutConfig
+  | WordImageMatchingConfig
+  | BlendingListeningConfig;
+
+/** 게임별 데이터 (discriminated union) */
+export type GameData =
+  | VocabularyMatchingData
+  | WordWritingData
+  | ConnectTheDotsData
+  | WordQuizData
+  | PictureSequenceData
+  | OddOneOutData
+  | WordImageMatchingData
+  | BlendingListeningData;
+
+// --- 단어 매칭 ---
+export interface VocabularyMatchingConfig {
+  type: 'vocabulary-matching';
+  itemCount: number;
+  includeKeyObjects: boolean;
+  includeCharacters: boolean;
+}
+export interface VocabularyMatchingItem {
+  word: string;
+  korean: string;
+  imageUrl: string;
+  ttsUrl?: string;
+}
+export interface VocabularyMatchingData {
+  type: 'vocabulary-matching';
+  items: VocabularyMatchingItem[];
+}
+
+// --- 낱말 쓰기 ---
+export interface WordWritingConfig {
+  type: 'word-writing';
+  language: 'korean' | 'english';
+  wordSource: 'vocabulary' | 'phonics' | 'custom';
+  customWords?: string[];
+  selectedWords?: string[]; // vocabulary/phonics 소스에서 선택된 단어 (영어 word 기준)
+  showGuide: boolean;
+  accuracyThreshold: number;
+}
+export interface WordWritingItem {
+  word: string;
+  displayWord: string;
+  imageUrl?: string;
+  referenceImageUrl: string;
+  ttsUrl?: string;
+}
+export interface WordWritingData {
+  type: 'word-writing';
+  items: WordWritingItem[];
+}
+
+// --- 점잇기 ---
+export interface ConnectTheDotsConfig {
+  type: 'connect-the-dots';
+  sourcePages: number[];
+  pointCount: number;
+  showNumbers: boolean;
+  showFaintOutline: boolean;
+}
+export interface DotKeypoint {
+  x: number;
+  y: number;
+  order: number;
+}
+export interface ConnectTheDotsItem {
+  pageNumber: number;
+  originalImageUrl: string;
+  keypoints: DotKeypoint[];
+}
+export interface ConnectTheDotsData {
+  type: 'connect-the-dots';
+  items: ConnectTheDotsItem[];
+}
+
+// --- 단어 퀴즈 ---
+export interface WordQuizConfig {
+  type: 'word-quiz';
+  questionCount: number;
+  questionTypes: Array<'meaning' | 'spelling' | 'picture'>;
+}
+export interface WordQuizQuestion {
+  question: string;
+  imageUrl?: string;
+  options: string[];
+  correctAnswer: number;
+  ttsUrl?: string;
+}
+export interface WordQuizData {
+  type: 'word-quiz';
+  questions: WordQuizQuestion[];
+}
+
+// --- 그림 순서 맞추기 ---
+export interface PictureSequenceConfig {
+  type: 'picture-sequence';
+  imageCount: number;
+}
+export interface PictureSequenceImage {
+  imageUrl: string;
+  correctOrder: number;
+  caption?: string;
+}
+export interface PictureSequenceData {
+  type: 'picture-sequence';
+  images: PictureSequenceImage[];
+}
+
+// --- 다른 것 찾기 ---
+export interface OddOneOutConfig {
+  type: 'odd-one-out';
+  roundCount: number;
+  optionsPerRound: number;
+}
+export interface OddOneOutOption {
+  word: string;
+  korean: string;
+  imageUrl: string;
+  isOddOneOut: boolean;
+}
+export interface OddOneOutRound {
+  category: string;
+  options: OddOneOutOption[];
+  explanation: string;
+}
+export interface OddOneOutData {
+  type: 'odd-one-out';
+  rounds: OddOneOutRound[];
+}
+
+// --- 단어-그림 선긋기 (파닉스 전용) ---
+export interface WordImageMatchingConfig {
+  type: 'word-image-matching';
+}
+export interface WordImageMatchingGroupItem {
+  word: string;
+  imageUrl: string;
+  ttsUrl?: string;
+}
+export interface WordImageMatchingGroup {
+  blend: string;
+  items: WordImageMatchingGroupItem[];
+}
+export interface WordImageMatchingData {
+  type: 'word-image-matching';
+  groups: WordImageMatchingGroup[];
+}
+
+// --- 블렌딩 듣기 맞추기 (파닉스 전용) ---
+export interface BlendingListeningConfig {
+  type: 'blending-listening';
+}
+export interface BlendingListeningRound {
+  targetWord: string;
+  targetImageUrl: string;
+  targetTtsUrl: string;
+  distractorWord: string;
+  distractorImageUrl: string;
+  blend: string;
+}
+export interface BlendingListeningData {
+  type: 'blending-listening';
+  rounds: BlendingListeningRound[];
+}
+
+// === 기존 타입 ===
+
 export interface Character {
   name: string;
   description: string;
@@ -84,9 +445,18 @@ export interface KeyObjectImage {
   success: boolean;
 }
 
+export interface CoverImageItem {
+  id: string;
+  imageUrl: string;
+  prompt?: string;
+  characterRefs?: number[];
+  history?: string[];
+}
+
 export interface Storybook {
   id: string;
   title: string;
+  type?: StorybookType; // undefined = 'storybook' (하위호환)
   targetAge: '4-5' | '5-7' | '7-8';
   artStyle: string;
   category?: string;
@@ -99,6 +469,7 @@ export interface Storybook {
   // 이미지 비율 설정
   coverAspectRatio?: string;
   illustrationAspectRatio?: string;
+  phonicsAspectRatio?: string;
 
   // 이미지 생성 모델 (타입별)
   imageModels?: {
@@ -106,6 +477,7 @@ export interface Storybook {
     cover?: string;
     keyObject?: string;
     illustration?: string;
+    phonics?: string;
   };
 
   // 표지
@@ -113,6 +485,8 @@ export interface Storybook {
   coverImage?: string;
   coverImageHistory?: string[];
   coverCharacterRefs?: number[];
+  coverImages?: CoverImageItem[];
+  coverTitleTemplates?: Array<{ id: string; imageUrl: string }>;
 
   // 캐릭터
   characters: Character[];
@@ -136,6 +510,23 @@ export interface Storybook {
 
   // 오디오북 프로젝트
   audiobookProjects?: AudiobookProject[];
+
+  // 학습 게임
+  games?: GameInstance[];
+
+  // 시스템 사운드 (정답/오답 효과음)
+  systemSounds?: {
+    correctUrl?: string;
+    incorrectUrl?: string;
+  };
+
+  // === PhonicsBook 전용 필드 (type === 'phonics'일 때만 사용) ===
+  phonicsConfig?: PhonicsConfig;
+  phonicsLesson?: PhonicsLesson;
+  chant?: PhonicsChant;
+  flashcards?: PhonicsFlashcard[];
+  worksheets?: PhonicsWorksheet[];
+  phonicsQuiz?: PhonicsQuizItem[];
 }
 
 export interface AudiobookProject {
@@ -149,6 +540,7 @@ export interface AudiobookProject {
   endPage: number;
   includeCover: boolean;
   coverDuration: number;
+  coverImageUrl?: string; // 선택된 표지 이미지 (미선택 시 storybook.coverImage 사용)
   includeTts: boolean;
   includeBgm: boolean;
   bgmUrl?: string;
@@ -166,6 +558,7 @@ export type StorybookSummary = Pick<
   Storybook,
   | 'id'
   | 'title'
+  | 'type'
   | 'targetAge'
   | 'artStyle'
   | 'createdAt'
@@ -175,4 +568,5 @@ export type StorybookSummary = Pick<
   | 'isPublic'
 > & {
   pageCount?: number;
+  phonicsLanguage?: 'korean' | 'english';
 };

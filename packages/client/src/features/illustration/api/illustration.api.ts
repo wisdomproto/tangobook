@@ -11,6 +11,7 @@ interface GenerateIllustrationRequest {
   storybookId: string;
   storybookTitle: string;
   model?: string;
+  flashcardImageRefs?: Array<{ word: string; imageUrl: string }>;
 }
 
 export const illustrationApi = {

@@ -79,6 +79,7 @@ export const R2Repository = {
           summaries.push({
             id: sb.id,
             title: sb.title,
+            type: sb.type,
             targetAge: sb.targetAge,
             artStyle: sb.artStyle,
             category: sb.category,
@@ -87,6 +88,7 @@ export const R2Repository = {
             createdAt: sb.createdAt,
             coverImage: sb.coverImage,
             pageCount: sb.pages?.length ?? 0,
+            phonicsLanguage: sb.phonicsConfig?.language,
           });
         } catch {
           // 개별 파일 로드 실패 무시

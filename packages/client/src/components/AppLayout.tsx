@@ -7,6 +7,7 @@ import { Spinner } from './Spinner';
 import { useEditorStore } from '@/store/editor.store';
 import { useStorybook, useSaveStorybook } from '@/features/storybook';
 import { CreateStorybookForm } from '@/features/storybook/components/CreateStorybookForm';
+import { CreatePhonicsBookForm } from '@/features/storybook/components/CreatePhonicsBookForm';
 import { EditorContent } from '@/features/editor/components/EditorContent';
 import type { Storybook } from '@tangobook/shared';
 
@@ -14,6 +15,9 @@ export function AppLayout() {
   const selectedId = useEditorStore((s) => s.selectedStorybookId);
   const showCreateForm = useEditorStore((s) => s.showCreateForm);
   const setShowCreateForm = useEditorStore((s) => s.setShowCreateForm);
+  const createFormType = useEditorStore((s) => s.createFormType);
+  const setCreateFormType = useEditorStore((s) => s.setCreateFormType);
+  const typeFilter = useEditorStore((s) => s.sidebarTypeFilter);
 
   return (
     <div className="min-h-screen">
@@ -21,7 +25,11 @@ export function AppLayout() {
       <Sidebar />
       <main className="ml-72 mt-14 min-h-[calc(100vh-3.5rem)]">
         {showCreateForm ? (
-          <CreateStorybookForm />
+          createFormType === 'phonics' ? (
+            <CreatePhonicsBookForm />
+          ) : (
+            <CreateStorybookForm />
+          )
         ) : selectedId ? (
           <EditorPanel storybookId={selectedId} />
         ) : (
@@ -42,9 +50,34 @@ export function AppLayout() {
                   />
                 </svg>
               }
-              title="동화책을 선택하세요"
-              description="왼쪽 목록에서 동화책을 선택하거나, 새 동화책을 만들어보세요."
-              action={<Button onClick={() => setShowCreateForm(true)}>+ 새 동화책 만들기</Button>}
+              title={typeFilter === 'phonics' ? '파닉스 유닛을 선택하세요' : '동화책을 선택하세요'}
+              description={
+                typeFilter === 'phonics'
+                  ? '왼쪽 목록에서 파닉스 유닛을 선택하거나, 새 유닛을 만들어보세요.'
+                  : '왼쪽 목록에서 동화책을 선택하거나, 새 동화책을 만들어보세요.'
+              }
+              action={
+                typeFilter === 'phonics' ? (
+                  <button
+                    onClick={() => {
+                      setCreateFormType('phonics');
+                      setShowCreateForm(true);
+                    }}
+                    className="px-4 py-2 text-sm font-medium rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition-colors"
+                  >
+                    + 새 파닉스 유닛 만들기
+                  </button>
+                ) : (
+                  <Button
+                    onClick={() => {
+                      setCreateFormType('storybook');
+                      setShowCreateForm(true);
+                    }}
+                  >
+                    + 새 동화책 만들기
+                  </Button>
+                )
+              }
             />
           </div>
         )}

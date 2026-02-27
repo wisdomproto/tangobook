@@ -31,6 +31,10 @@ export interface ImageGenerationOptions {
   model?: string;
 }
 
+function isImagenModel(model: string): boolean {
+  return model.startsWith('imagen-');
+}
+
 export async function generateImageWithGemini(options: ImageGenerationOptions): Promise<string> {
   const {
     prompt,
@@ -42,6 +46,35 @@ export async function generateImageWithGemini(options: ImageGenerationOptions): 
   } = options;
   const imageModel = model || config.gemini.imageModel;
 
+  // Imagen 4 모델은 별도 API 사용
+  if (isImagenModel(imageModel)) {
+    return withGeminiRetry(
+      async () => {
+        const result = await getAI().models.generateImages({
+          model: imageModel,
+          prompt,
+          config: {
+            numberOfImages: 1,
+            ...(aspectRatio ? { aspectRatio } : {}),
+          },
+        });
+
+        const imageData = result.generatedImages?.[0]?.image?.imageBytes;
+        if (!imageData) {
+          const reason = result.generatedImages?.[0]?.raiFilteredReason;
+          if (reason) {
+            throw new AppError(400, `이미지 차단됨 [${imageModel}]: ${reason}`);
+          }
+          throw new Error(`이미지 생성 실패 [${imageModel}]: empty response`);
+        }
+
+        return imageData;
+      },
+      { retries, context: 'Imagen' }
+    );
+  }
+
+  // Gemini 멀티모달 이미지 모델 (Nano Banana / Nano Banana Pro)
   const parts: GenAIPart[] = [];
 
   for (const ref of referenceImages) {
@@ -100,10 +133,12 @@ export async function generateImageWithGemini(options: ImageGenerationOptions): 
         // OTHER → 저작권/상표권 필터링 가능성 높음 (재시도 1회만 시도 후 안내)
         if (finishReason === 'OTHER' || finishReason === 'IMAGE_OTHER') {
           throw new Error(
-            `이미지 생성 실패 [${imageModel}]: 콘텐츠 정책 필터링 (OTHER). ` +
-              `저작권/상표권 관련 캐릭터명이나 디자인이 프롬프트에 포함되어 있을 수 있습니다. ` +
-              `프롬프트를 일반적인 묘사로 바꿔보세요.` +
-              (textPart ? ` (응답: ${textPart})` : '')
+            `이미지 생성 실패 [${imageModel}]: 콘텐츠 정책 필터링. ` +
+              `원인: 1) 아트 스타일에 "픽사", "디즈니", "지브리" 등 저작권 키워드 포함 ` +
+              `2) 캐릭터 묘사가 특정 IP와 유사 ` +
+              `3) 프롬프트에 상표명 포함. ` +
+              `해결: 아트 스타일을 "밝고 따뜻한 수채화", "귀여운 동화풍" 등 일반적인 표현으로 변경해보세요.` +
+              (textPart ? ` (AI 응답: ${textPart})` : '')
           );
         }
 

@@ -7,7 +7,14 @@ type EditorTab =
   | 'pages'
   | 'key-objects'
   | 'quiz'
-  | 'audiobook';
+  | 'audiobook'
+  | 'learning-cards'
+  | 'chant'
+  | 'flashcards'
+  | 'games';
+
+type CreateFormType = 'storybook' | 'phonics';
+type SidebarTypeFilter = 'storybook' | 'phonics';
 
 interface EditorStore {
   // 선택된 동화책 ID
@@ -17,6 +24,12 @@ interface EditorStore {
   // 새 동화책 만들기 폼 표시
   showCreateForm: boolean;
   setShowCreateForm: (show: boolean) => void;
+  createFormType: CreateFormType;
+  setCreateFormType: (type: CreateFormType) => void;
+
+  // 사이드바 타입 필터
+  sidebarTypeFilter: SidebarTypeFilter;
+  setSidebarTypeFilter: (filter: SidebarTypeFilter) => void;
 
   // 현재 에디터 탭
   activeTab: EditorTab;
@@ -50,6 +63,11 @@ export const useEditorStore = create<EditorStore>((set) => ({
   showCreateForm: false,
   setShowCreateForm: (show) =>
     set(show ? { showCreateForm: true, selectedStorybookId: null } : { showCreateForm: false }),
+  createFormType: 'storybook',
+  setCreateFormType: (type) => set({ createFormType: type }),
+
+  sidebarTypeFilter: 'storybook',
+  setSidebarTypeFilter: (filter) => set({ sidebarTypeFilter: filter }),
 
   activeTab: 'character',
   setActiveTab: (tab) => set({ activeTab: tab }),

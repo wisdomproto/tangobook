@@ -9,7 +9,8 @@ interface TtsRequest {
   voice?: string;
   language?: string;
   storybookId: string;
-  pageNumber: number;
+  pageNumber?: number;
+  identifier?: string; // 범용 식별자 (phonics-word-bat 등)
 }
 
 interface TtsBatchRequest {
@@ -22,7 +23,7 @@ interface TtsBatchRequest {
 
 export const TtsService = {
   async generate(req: TtsRequest): Promise<string> {
-    const { provider, text, voice, language, storybookId, pageNumber } = req;
+    const { provider, text, voice, language, storybookId, pageNumber, identifier } = req;
 
     let audioBuffer: Buffer;
     let ext: string;
@@ -51,7 +52,7 @@ export const TtsService = {
     const key = buildR2Key({
       storybookId,
       fileType: 'tts',
-      identifier: `page${pageNumber}`,
+      identifier: identifier ?? `page${pageNumber}`,
       extension: ext,
     });
     return R2Repository.uploadBuffer(audioBuffer, key, mimeType);
@@ -77,10 +78,11 @@ export const TtsService = {
   },
 
   async uploadAudio(file: Express.Multer.File, body: Record<string, string>): Promise<string> {
+    const identifier = body.identifier ?? `page${body.pageNumber}`;
     const key = buildR2Key({
       storybookId: body.storybookId,
       fileType: 'tts',
-      identifier: `page${body.pageNumber}`,
+      identifier,
       extension: file.originalname.split('.').pop() ?? 'mp3',
     });
     return R2Repository.uploadBuffer(file.buffer, key, file.mimetype);

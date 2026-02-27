@@ -1,8 +1,9 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { ART_STYLES } from '@tangobook/shared';
 import type { Storybook } from '@tangobook/shared';
 import { settingsApi } from '../api/settings.api';
 import type { BgmItem } from '../api/settings.api';
+import { PhonicsAudioLibrary } from './PhonicsAudioLibrary';
 
 interface SettingsTabProps {
   storybook: Storybook;
@@ -176,6 +177,67 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
     }
     setPreviewingId(null);
   };
+
+  // --- 시스템 사운드 ---
+  const isPhonics = storybook.type === 'phonics';
+  const [uploadingSoundKey, setUploadingSoundKey] = useState<string | null>(null);
+  const soundFileRef = useRef<HTMLInputElement>(null);
+  const pendingSoundType = useRef<'correct' | 'incorrect' | null>(null);
+  const soundAudioRefs = useMemo(
+    () => ({
+      correct: { current: null as HTMLAudioElement | null },
+      incorrect: { current: null as HTMLAudioElement | null },
+    }),
+    []
+  );
+
+  const handleSoundUpload = useCallback(
+    async (file: File, type: 'correct' | 'incorrect') => {
+      setUploadingSoundKey(type);
+      try {
+        const { audioUrl } = await settingsApi.uploadBgm(file, storybook.id, storybook.title);
+        onUpdate((d) => {
+          if (!d.systemSounds) d.systemSounds = {};
+          if (type === 'correct') d.systemSounds.correctUrl = audioUrl;
+          else d.systemSounds.incorrectUrl = audioUrl;
+        });
+        onSave();
+      } catch {
+        /* silent */
+      } finally {
+        setUploadingSoundKey(null);
+      }
+    },
+    [storybook.id, storybook.title, onUpdate, onSave]
+  );
+
+  const handleSoundDelete = useCallback(
+    (type: 'correct' | 'incorrect') => {
+      onUpdate((d) => {
+        if (!d.systemSounds) return;
+        if (type === 'correct') d.systemSounds.correctUrl = undefined;
+        else d.systemSounds.incorrectUrl = undefined;
+      });
+      onSave();
+    },
+    [onUpdate, onSave]
+  );
+
+  const playSound = useCallback(
+    (type: 'correct' | 'incorrect') => {
+      const url =
+        type === 'correct'
+          ? storybook.systemSounds?.correctUrl
+          : storybook.systemSounds?.incorrectUrl;
+      if (!url) return;
+      const ref = soundAudioRefs[type];
+      if (!ref.current) ref.current = new Audio(url);
+      else ref.current.src = url;
+      ref.current.currentTime = 0;
+      ref.current.play().catch(() => {});
+    },
+    [storybook.systemSounds, soundAudioRefs]
+  );
 
   const currentPresetId =
     ART_STYLES.find((s) => s.prompt === storybook.artStyle)?.id ?? '__custom__';
@@ -501,6 +563,162 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
           </div>
         </div>
       </section>
+
+      {/* 시스템 사운드 (파닉스 전용) */}
+      {isPhonics && (
+        <section className="space-y-4">
+          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">시스템 사운드</h3>
+          <p className="text-xs text-slate-400 dark:text-slate-500">
+            글자 쓰기 연습에서 사용될 정답/오답 효과음을 설정합니다.
+          </p>
+
+          {/* 정답 효과음 */}
+          <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+            <span className="text-lg">&#x2705;</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">정답 효과음</p>
+              {storybook.systemSounds?.correctUrl ? (
+                <p className="text-xs text-slate-400 dark:text-slate-500 truncate">
+                  {storybook.systemSounds.correctUrl.split('/').pop()}
+                </p>
+              ) : (
+                <p className="text-xs text-slate-400 dark:text-slate-500">설정되지 않음</p>
+              )}
+            </div>
+            <div className="flex items-center gap-1.5 shrink-0">
+              {storybook.systemSounds?.correctUrl && (
+                <>
+                  <button
+                    onClick={() => playSound('correct')}
+                    className="p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-800 text-violet-600 transition-colors"
+                    title="미리듣기"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => handleSoundDelete('correct')}
+                    className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 text-slate-400 hover:text-red-500 transition-colors"
+                    title="삭제"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </>
+              )}
+              <button
+                onClick={() => {
+                  pendingSoundType.current = 'correct';
+                  soundFileRef.current?.click();
+                }}
+                disabled={uploadingSoundKey === 'correct'}
+                className="px-3 py-1.5 text-xs bg-violet-600 hover:bg-violet-700 disabled:bg-slate-300 text-white rounded-lg transition-colors"
+              >
+                {uploadingSoundKey === 'correct' ? '업로드 중...' : '업로드'}
+              </button>
+            </div>
+          </div>
+
+          {/* 오답 효과음 */}
+          <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+            <span className="text-lg">&#x274C;</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">오답 효과음</p>
+              {storybook.systemSounds?.incorrectUrl ? (
+                <p className="text-xs text-slate-400 dark:text-slate-500 truncate">
+                  {storybook.systemSounds.incorrectUrl.split('/').pop()}
+                </p>
+              ) : (
+                <p className="text-xs text-slate-400 dark:text-slate-500">설정되지 않음</p>
+              )}
+            </div>
+            <div className="flex items-center gap-1.5 shrink-0">
+              {storybook.systemSounds?.incorrectUrl && (
+                <>
+                  <button
+                    onClick={() => playSound('incorrect')}
+                    className="p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-800 text-violet-600 transition-colors"
+                    title="미리듣기"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => handleSoundDelete('incorrect')}
+                    className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 text-slate-400 hover:text-red-500 transition-colors"
+                    title="삭제"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </>
+              )}
+              <button
+                onClick={() => {
+                  pendingSoundType.current = 'incorrect';
+                  soundFileRef.current?.click();
+                }}
+                disabled={uploadingSoundKey === 'incorrect'}
+                className="px-3 py-1.5 text-xs bg-violet-600 hover:bg-violet-700 disabled:bg-slate-300 text-white rounded-lg transition-colors"
+              >
+                {uploadingSoundKey === 'incorrect' ? '업로드 중...' : '업로드'}
+              </button>
+            </div>
+          </div>
+
+          <input
+            ref={soundFileRef}
+            type="file"
+            accept="audio/mpeg,audio/wav,audio/ogg,audio/mp3"
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file && pendingSoundType.current)
+                handleSoundUpload(file, pendingSoundType.current);
+              e.target.value = '';
+            }}
+          />
+        </section>
+      )}
+
+      {/* 파닉스 음원 라이브러리 (파닉스 전용) */}
+      {isPhonics && <PhonicsAudioLibrary />}
     </div>
   );
 }

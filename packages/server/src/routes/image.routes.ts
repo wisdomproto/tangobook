@@ -11,6 +11,8 @@ router.post('/cover', ImageController.generateCover);
 router.post('/illustration', ImageController.generateIllustration);
 router.post('/key-object', ImageController.generateKeyObject);
 router.post('/vocabulary', ImageController.generateVocabulary);
+router.post('/phonics-word', ImageController.generatePhonicsWord);
+router.post('/phonics-flashcards', ImageController.generatePhonicsFlashcards);
 router.delete('/cleanup', ImageController.cleanup);
 router.post(
   '/upload',

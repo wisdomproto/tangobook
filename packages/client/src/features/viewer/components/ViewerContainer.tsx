@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStorybook } from '@/features/storybook';
 import type { Page } from '@tangobook/shared';
 import { useViewerSettings } from '../hooks/useViewerSettings';
@@ -9,6 +9,8 @@ import { useReadingProgress } from '../hooks/useReadingProgress';
 import { ViewerToolbar } from './ViewerToolbar';
 import { PageView, CoverView, EndView } from './PageView';
 import { ViewerControls } from './ViewerControls';
+import { QuizViewer } from './QuizViewer';
+import { PhonicsViewer } from './PhonicsViewer';
 
 interface ViewerContainerProps {
   storybookId: string | undefined;
@@ -16,6 +18,8 @@ interface ViewerContainerProps {
 
 export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const mode = searchParams.get('mode');
   const { data: storybook, isLoading, error } = useStorybook(storybookId);
   const [settings, updateSettings] = useViewerSettings();
   const { lastPage, saveProgress } = useReadingProgress(storybookId);
@@ -152,6 +156,16 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     );
   }
 
+  // 파닉스 콘텐츠 → PhonicsViewer (story 모드는 일반 동화책 뷰어 재사용)
+  if (storybook.type === 'phonics' && mode !== 'story') {
+    return <PhonicsViewer storybook={storybook} mode={mode} />;
+  }
+
+  // 퀴즈 모드 → QuizViewer
+  if (mode === 'quiz') {
+    return <QuizViewer storybook={storybook} />;
+  }
+
   const hasTts = !!getTtsUrl(currentStoryPage);
   const hasBgm = !!storybook.backgroundMusicUrl;
 
@@ -166,6 +180,14 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         title={storybook.title}
         settings={settings}
         onUpdateSettings={updateSettings}
+        onBack={
+          storybook.type === 'phonics'
+            ? () => {
+                stopTts();
+                navigate(`/viewer/${storybook.id}`);
+              }
+            : undefined
+        }
       />
 
       <div className="flex-1 flex items-center justify-center overflow-hidden">

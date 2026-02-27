@@ -24,9 +24,11 @@ const TEXT_SIZE_CLASS: Record<ViewerSettings['textSize'], string> = {
   lg: 'text-2xl',
 };
 
+const stripBold = (s: string) => s.replace(/\*\*/g, '');
+
 function getPageText(page: Page, language: string): string {
-  if (language === 'ko') return page.text;
-  return page.translations?.[language]?.text || page.text;
+  const text = language === 'ko' ? page.text : page.translations?.[language]?.text || page.text;
+  return stripBold(text);
 }
 
 export function PageView({ page, settings }: PageViewProps) {
@@ -78,7 +80,7 @@ export function CoverView({ coverImage, title, settings }: CoverViewProps) {
         <img
           src={coverImage}
           alt="표지"
-          className="max-h-[55vh] max-w-full object-contain rounded-xl shadow-2xl"
+          className="max-h-[65vh] max-w-full object-contain rounded-xl shadow-2xl aspect-[4/3]"
         />
       ) : (
         <div className="w-72 h-72 flex items-center justify-center bg-white/5 rounded-xl border border-white/10">

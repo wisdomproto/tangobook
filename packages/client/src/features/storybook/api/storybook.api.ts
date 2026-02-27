@@ -4,6 +4,7 @@ import type {
   StorybookSummary,
   GenerateStorybookRequest,
   GenerateStoryRequest,
+  GeneratePhonicsBookRequest,
   StoryDraftPage,
 } from '@tangobook/shared';
 
@@ -16,4 +17,6 @@ export const storybookApi = {
   generateStory: (req: GenerateStoryRequest) =>
     apiPost<StoryDraftPage[]>('/storybooks/generate-story', req),
   generate: (req: GenerateStorybookRequest) => apiPost<Storybook>('/storybooks/generate', req),
+  generatePhonicsBook: (req: GeneratePhonicsBookRequest) =>
+    apiPost<Storybook>('/phonics/generate', req),
 };

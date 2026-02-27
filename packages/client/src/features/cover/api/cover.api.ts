@@ -7,6 +7,12 @@ interface GenerateCoverRequest {
   settings?: { aspectRatio?: string };
   currentImageUrl?: string;
   model?: string;
+  phonicsCover?: {
+    titleText: string;
+    blendingWords: string[];
+    characters: string[];
+  };
+  titleTemplateUrl?: string;
 }
 
 export const coverApi = {

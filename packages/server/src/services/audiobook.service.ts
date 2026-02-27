@@ -67,10 +67,11 @@ export const AudiobookService = {
     const outputPath = path.join(workDir, 'output.mp4');
 
     try {
-      // 6. 표지 데이터
+      // 6. 표지 데이터 (프로젝트에서 선택한 표지 우선, 없으면 대표 표지)
+      const coverUrl = project.coverImageUrl ?? storybook.coverImage;
       const cover =
-        project.includeCover && storybook.coverImage
-          ? { imageUrl: storybook.coverImage, duration: project.coverDuration ?? 3 }
+        project.includeCover && coverUrl
+          ? { imageUrl: coverUrl, duration: project.coverDuration ?? 3 }
           : undefined;
 
       // 7. BGM URL 결정

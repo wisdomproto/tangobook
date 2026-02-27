@@ -42,10 +42,19 @@ export interface TtsOptions {
 export async function generateGeminiTts(options: TtsOptions): Promise<Buffer> {
   const { text, voice = config.gemini.ttsVoice, language = 'ko', retries = 3 } = options;
 
-  const prompt =
-    language === 'ko'
-      ? `다음 한국어 텍스트를 따뜻하고 부드러운 동화 낭독 톤으로 읽어주세요: ${text}`
-      : `Read the following text in a warm, gentle storytelling voice: ${text}`;
+  // TTS 모델은 복잡한 지시문 대신 읽을 텍스트만 전달해야 함
+  // IPA 표기(/k/, /æ/ 등)의 슬래시 제거
+  const cleaned = text.replace(/\//g, '').trim();
+  let prompt: string;
+  if (cleaned.length <= 3 && language !== 'ko') {
+    // 단일 글자/짧은 음가: 너무 짧으면 TTS가 오디오 미생성 → 반복으로 패딩
+    prompt = `${cleaned}, ${cleaned}, ${cleaned}`;
+  } else if (cleaned.includes('...')) {
+    // 블렌딩 시퀀스 (a ... t ... at): 쉼표로 변환
+    prompt = cleaned.replace(/\.\.\./g, ',');
+  } else {
+    prompt = cleaned;
+  }
 
   return withGeminiRetry(
     async () => {

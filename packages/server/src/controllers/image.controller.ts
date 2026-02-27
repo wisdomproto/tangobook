@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import { ImageService } from '../services/image.service.js';
 import { asyncHandler } from '../middleware/async-handler.js';
 
@@ -25,6 +24,16 @@ export const ImageController = {
 
   generateVocabulary: asyncHandler(async (req, res) => {
     const results = await ImageService.generateVocabulary(req.body);
+    res.json({ success: true, data: results });
+  }),
+
+  generatePhonicsWord: asyncHandler(async (req, res) => {
+    const imageUrl = await ImageService.generatePhonicsWord(req.body);
+    res.json({ success: true, data: { imageUrl } });
+  }),
+
+  generatePhonicsFlashcards: asyncHandler(async (req, res) => {
+    const results = await ImageService.generatePhonicsFlashcards(req.body);
     res.json({ success: true, data: results });
   }),
 

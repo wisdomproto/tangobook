@@ -51,6 +51,19 @@ export interface GenerateStorybookRequest {
   model?: string;
 }
 
+// 파닉스북 생성 요청
+export interface GeneratePhonicsBookRequest {
+  title: string;
+  targetAge: '4-5' | '5-7' | '7-8';
+  artStyle: string;
+  language: 'korean' | 'english';
+  level: string; // 커리큘럼 레벨 ID
+  unitId: string; // 커리큘럼 유닛 ID
+  storyTheme?: string; // 동화 테마
+  referenceContent?: string;
+  model?: string;
+}
+
 // 오디오북 생성 요청/응답
 export interface AudiobookGenerateRequest {
   storybookId: string;

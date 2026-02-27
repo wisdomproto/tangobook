@@ -114,6 +114,8 @@ export function AudiobookTab({ storybook, onUpdate, onSave }: AudiobookTabProps)
               onUpdate={(patch) => updateProject(project.id, patch)}
               onDelete={() => deleteProject(project.id)}
               storybookBgmUrl={storybook.backgroundMusicUrl}
+              coverImages={storybook.coverImages}
+              defaultCoverImage={storybook.coverImage}
             />
           ))}
         </div>

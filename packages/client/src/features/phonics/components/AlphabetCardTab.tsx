@@ -1,0 +1,686 @@
+import { useState, useCallback } from 'react';
+import type { Storybook } from '@tangobook/shared';
+import { ASPECT_RATIOS } from '@tangobook/shared';
+import { Button } from '@/components/Button';
+import { ImageLightbox } from '@/components/ImageLightbox';
+import { ImageDropZone } from '@/components/ImageDropZone';
+import { ImagePreview } from '@/components/ImagePreview';
+import { DownloadButton } from '@/components/DownloadButton';
+import { UploadMenu } from '@/components/UploadMenu';
+import { ImageModelSelector } from '@/components/ImageModelSelector';
+import { BatchProgressBar } from '@/components/BatchProgressBar';
+import { pushImageHistory } from '@/lib/image-history';
+import { usePhonicsCardActions } from '../hooks/usePhonicsCardActions';
+import type { ImageTask, TtsTask } from '../hooks/usePhonicsCardActions';
+import { TtsRow } from './TtsRow';
+import { ImageDescriptionInput } from './ImageDescriptionInput';
+import { ImageHistory } from './ImageHistory';
+import { LetterWritingCanvas } from './LetterWritingCanvas';
+import { HotspotEditorModal } from './HotspotEditorModal';
+import { LearningCardPreviewModal } from './LearningCardPreviewModal';
+
+/**
+ * Level 1 전용 학습 카드 탭 (알파벳 음가)
+ *
+ * 글자별 구성:
+ * - 전체 장면 삽화 (글자의 단어들이 자연스럽게 등장하는 한 장면)
+ * - 글자 음원 (대문자/소문자/음가 TTS)
+ * - 단어 목록 (wordFamilies) + 개별 TTS
+ */
+
+interface AlphabetCardTabProps {
+  storybook: Storybook;
+  onUpdate: (updater: (draft: Storybook) => void) => void;
+  onSave: () => void;
+}
+
+export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTabProps) {
+  const lesson = storybook.phonicsLesson;
+  const sightWords = lesson?.sightWords ?? [];
+
+  const {
+    aspectRatio,
+    isBusy,
+    generatingImages,
+    generatingTts,
+    uploadingKey,
+    lightboxUrl,
+    setLightboxUrl,
+    batchType,
+    batchProgress,
+    abortRef,
+    ttsError,
+    setTtsError,
+    imageError,
+    setImageError,
+    getTtsText,
+    setTtsText,
+    ttsTexts,
+    setAspectRatio,
+    imageMutation,
+    generateTts,
+    handleUpload,
+    handleTtsUpload,
+    runBatchImages,
+    runBatchTts,
+  } = usePhonicsCardActions({ storybook, onUpdate, onSave });
+
+  const [writingPractice, setWritingPractice] = useState<{ idx: number; letter: string } | null>(
+    null
+  );
+  const [hotspotEditIdx, setHotspotEditIdx] = useState<number | null>(null);
+  const [previewIdx, setPreviewIdx] = useState<number | null>(null);
+
+  // --- 삽화 히스토리 복원 ---
+  const restoreIllustrationHistory = useCallback(
+    (blendIdx: number, hIdx: number) => {
+      onUpdate((draft) => {
+        if (!draft.phonicsLesson) return;
+        const b = draft.phonicsLesson.blending[blendIdx];
+        const history = b.illustrationHistory ?? [];
+        const restored = history[hIdx];
+        if (!restored) return;
+        if (b.illustrationUrl) history[hIdx] = b.illustrationUrl;
+        else history.splice(hIdx, 1);
+        b.illustrationUrl = restored;
+        b.illustrationHistory = history;
+      });
+      onSave();
+    },
+    [onUpdate, onSave]
+  );
+
+  // 레거시 이미지 히스토리 복원 (exampleWordImageUrl용)
+  const restoreLegacyHistory = useCallback(
+    (blendIdx: number, hIdx: number) => {
+      onUpdate((draft) => {
+        if (!draft.phonicsLesson) return;
+        const b = draft.phonicsLesson.blending[blendIdx];
+        const history = b.exampleWordImageHistory ?? [];
+        const restored = history[hIdx];
+        if (!restored) return;
+        if (b.exampleWordImageUrl) history[hIdx] = b.exampleWordImageUrl;
+        else history.splice(hIdx, 1);
+        b.exampleWordImageUrl = restored;
+        b.exampleWordImageHistory = history;
+      });
+      onSave();
+    },
+    [onUpdate, onSave]
+  );
+
+  // --- 배치 삽화 생성 ---
+  const handleBatchImages = useCallback(async () => {
+    const tasks: ImageTask[] = [];
+    if (lesson) {
+      lesson.blending.forEach((item, idx) => {
+        if (!item.illustrationUrl && !item.exampleWordImageUrl) {
+          tasks.push({
+            word: item.exampleWord,
+            description: item.illustrationDescription ?? item.exampleWordImageDescription,
+            updater: (d, url) => {
+              if (!d.phonicsLesson) return;
+              const b = d.phonicsLesson.blending[idx];
+              b.illustrationHistory = pushImageHistory(b.illustrationHistory, b.illustrationUrl);
+              b.illustrationUrl = url;
+            },
+          });
+        }
+      });
+    }
+    await runBatchImages(tasks);
+  }, [lesson, runBatchImages]);
+
+  // --- 배치 TTS 생성 ---
+  const handleBatchTts = useCallback(async () => {
+    const tasks: TtsTask[] = [];
+    if (lesson) {
+      lesson.wordFamilies.forEach((wf, wfIdx) => {
+        const blend = (lesson.blending[wfIdx]?.blend ?? '').replace(/\//g, '');
+        wf.words.forEach((w, wIdx) => {
+          if (!w.ttsUrl) {
+            const defaultText = blend ? `${blend} ${blend} ${w.word}` : w.word;
+            tasks.push({
+              word: ttsTexts[`wf-${wfIdx}-${wIdx}`] ?? defaultText,
+              key: `wf-${wfIdx}-${wIdx}`,
+              updater: (d, url) => {
+                if (d.phonicsLesson) d.phonicsLesson.wordFamilies[wfIdx].words[wIdx].ttsUrl = url;
+              },
+            });
+          }
+        });
+      });
+    }
+    await runBatchTts(tasks);
+  }, [lesson, ttsTexts, runBatchTts]);
+
+  const letters = lesson?.blending ?? [];
+  const wordFamilies = lesson?.wordFamilies ?? [];
+  const hasLetters = letters.length > 0;
+
+  if (!hasLetters) {
+    return (
+      <div className="text-center py-12 text-slate-400 dark:text-slate-500">
+        <p className="text-lg mb-2">학습 카드가 없습니다</p>
+        <p className="text-sm">파닉스 유닛을 생성하면 알파벳 음가 카드가 자동으로 포함됩니다.</p>
+      </div>
+    );
+  }
+
+  const missingImages = countMissing(letters, wordFamilies, 'image');
+  const missingTts = countMissing(letters, wordFamilies, 'tts');
+
+  return (
+    <div className="max-w-5xl mx-auto space-y-6">
+      {/* 헤더 */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">
+          {lesson?.title ?? '알파벳 음가'}
+        </h2>
+        <div className="flex gap-2 flex-wrap">
+          {missingImages > 0 && (
+            <Button size="sm" variant="secondary" onClick={handleBatchImages} disabled={isBusy}>
+              삽화 전체 생성 ({missingImages})
+            </Button>
+          )}
+          {missingTts > 0 && (
+            <Button size="sm" variant="secondary" onClick={handleBatchTts} disabled={isBusy}>
+              TTS 전체 생성 ({missingTts})
+            </Button>
+          )}
+        </div>
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-4">
+        <ImageModelSelector
+          value={storybook.imageModels?.phonics}
+          onChange={(modelId) => {
+            onUpdate((d) => {
+              if (!d.imageModels) d.imageModels = {};
+              d.imageModels.phonics = modelId;
+            });
+            onSave();
+          }}
+          label="이미지 모델"
+        />
+        <div>
+          <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
+            이미지 비율
+          </label>
+          <div className="flex gap-1.5 flex-wrap">
+            {ASPECT_RATIOS.map((r) => (
+              <button
+                key={r}
+                onClick={() => setAspectRatio(r)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+                  aspectRatio === r
+                    ? 'bg-violet-600 text-white border-violet-600'
+                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-violet-300'
+                }`}
+              >
+                {r}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {batchType && (
+        <BatchProgressBar
+          current={batchProgress.current}
+          total={batchProgress.total}
+          label={batchType === 'image' ? '삽화 생성' : 'TTS 생성'}
+          onCancel={() => abortRef.current?.abort()}
+        />
+      )}
+
+      {ttsError && (
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
+          <p className="flex-1 text-sm text-red-600 dark:text-red-400">{ttsError}</p>
+          <button
+            onClick={() => setTtsError(null)}
+            className="text-red-400 hover:text-red-600 dark:hover:text-red-300 text-xs font-medium"
+          >
+            닫기
+          </button>
+        </div>
+      )}
+
+      {imageError && (
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
+          <p className="flex-1 text-sm text-red-600 dark:text-red-400">{imageError}</p>
+          <button
+            onClick={() => setImageError(null)}
+            className="text-red-400 hover:text-red-600 dark:hover:text-red-300 text-xs font-medium"
+          >
+            닫기
+          </button>
+        </div>
+      )}
+
+      {/* === 글자별 카드 === */}
+      {hasLetters && (
+        <section>
+          <div className="flex items-center gap-2 mb-4">
+            <span className="px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-sm font-bold">
+              Learn
+            </span>
+            <span className="text-sm text-slate-500 dark:text-slate-400">알파벳 음가</span>
+          </div>
+          <div className="space-y-6">
+            {letters.map((item, idx) => {
+              const imgKey = `letter-illust-${idx}`;
+              const isGenImg = generatingImages.has(imgKey);
+              const isUploading = uploadingKey === imgKey;
+              const wf = wordFamilies[idx];
+
+              // 삽화 이미지 (신규 illustrationUrl 우선, 레거시 exampleWordImageUrl 폴백)
+              const displayImageUrl = item.illustrationUrl ?? item.exampleWordImageUrl;
+              const displayDescription =
+                item.illustrationDescription ?? item.exampleWordImageDescription;
+              const displayHistory = item.illustrationHistory ?? item.exampleWordImageHistory;
+              const isNewFormat = !!item.illustrationUrl || !item.exampleWordImageUrl;
+
+              const cleanBlend = item.blend.replace(/\//g, '');
+
+              const makeUpdater = (d: Storybook, url: string) => {
+                if (!d.phonicsLesson) return;
+                const b = d.phonicsLesson.blending[idx];
+                b.illustrationHistory = pushImageHistory(b.illustrationHistory, b.illustrationUrl);
+                b.illustrationUrl = url;
+              };
+
+              return (
+                <div
+                  key={idx}
+                  className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden"
+                >
+                  {/* 헤더: 글자 표시 */}
+                  <div className="px-5 py-3 bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700 flex items-center gap-3">
+                    <input
+                      value={item.vowel}
+                      onChange={(e) => {
+                        onUpdate((d) => {
+                          if (d.phonicsLesson) d.phonicsLesson.blending[idx].vowel = e.target.value;
+                        });
+                        onSave();
+                      }}
+                      className="text-3xl font-black text-amber-600 dark:text-amber-400 bg-transparent border-b border-dashed border-amber-300 dark:border-amber-600 w-12 text-center focus:outline-none"
+                    />
+                    <input
+                      value={item.consonant}
+                      onChange={(e) => {
+                        onUpdate((d) => {
+                          if (d.phonicsLesson)
+                            d.phonicsLesson.blending[idx].consonant = e.target.value;
+                        });
+                        onSave();
+                      }}
+                      className="text-3xl font-black text-sky-600 dark:text-sky-400 bg-transparent border-b border-dashed border-sky-300 dark:border-sky-600 w-12 text-center focus:outline-none"
+                    />
+                    <input
+                      value={item.blend}
+                      onChange={(e) => {
+                        onUpdate((d) => {
+                          if (d.phonicsLesson) d.phonicsLesson.blending[idx].blend = e.target.value;
+                        });
+                        onSave();
+                      }}
+                      className="text-lg text-slate-400 dark:text-slate-500 font-mono ml-1 bg-transparent border-b border-dashed border-slate-300 dark:border-slate-600 w-16 text-center focus:outline-none"
+                    />
+                    <input
+                      value={item.exampleWord}
+                      onChange={(e) => {
+                        onUpdate((d) => {
+                          if (d.phonicsLesson)
+                            d.phonicsLesson.blending[idx].exampleWord = e.target.value;
+                        });
+                        onSave();
+                      }}
+                      className="text-sm font-medium text-slate-600 dark:text-slate-300 bg-transparent border-b border-dashed border-slate-300 dark:border-slate-600 w-24 focus:outline-none"
+                      placeholder="단어"
+                    />
+                    <button
+                      onClick={() => setPreviewIdx(idx)}
+                      className="ml-auto px-2.5 py-1 text-xs text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 rounded-md hover:bg-violet-100 dark:hover:bg-violet-900/50 transition-colors"
+                    >
+                      미리보기
+                    </button>
+                  </div>
+
+                  <div className="p-5 space-y-5">
+                    {/* 삽화 (와이드) */}
+                    <ImageDropZone
+                      onFile={(f) => handleUpload(f, imgKey, makeUpdater)}
+                      disabled={isBusy}
+                      enablePaste={false}
+                    >
+                      {(openFilePicker) => (
+                        <div className="space-y-2">
+                          {/* 삽화 + 핫스팟 미리보기 */}
+                          <div className="relative">
+                            <ImagePreview
+                              src={displayImageUrl}
+                              alt={`${item.vowel}${item.consonant} illustration`}
+                              loading={isGenImg || isUploading}
+                              size="lg"
+                              aspectRatio={aspectRatio.replace(':', '/')}
+                              emptyText={`${item.vowel}${item.consonant} 장면 삽화`}
+                              onClick={() => displayImageUrl && setLightboxUrl(displayImageUrl)}
+                            />
+                            {/* 핫스팟 미리보기 오버레이 */}
+                            {displayImageUrl && wf && wf.words.some((w) => w.hotspot) && (
+                              <div className="absolute inset-0 pointer-events-none">
+                                <svg
+                                  className="w-full h-full"
+                                  viewBox="0 0 1 1"
+                                  preserveAspectRatio="none"
+                                >
+                                  {wf.words.map((w, wIdx) => {
+                                    if (!w.hotspot) return null;
+                                    const h = w.hotspot;
+                                    return (
+                                      <rect
+                                        key={wIdx}
+                                        x={h.x}
+                                        y={h.y}
+                                        width={h.w}
+                                        height={h.h}
+                                        fill="rgba(16,185,129,0.15)"
+                                        stroke="#10b981"
+                                        strokeWidth={0.003}
+                                        rx={0.005}
+                                      />
+                                    );
+                                  })}
+                                </svg>
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Button
+                              size="sm"
+                              variant="secondary"
+                              className="flex-1"
+                              onClick={() =>
+                                imageMutation.mutate({
+                                  word: item.exampleWord,
+                                  description: displayDescription,
+                                  key: imgKey,
+                                  updater: makeUpdater,
+                                })
+                              }
+                              loading={isGenImg}
+                              disabled={isBusy}
+                            >
+                              {displayImageUrl ? '삽화 재생성' : '삽화 생성'}
+                            </Button>
+                            {displayImageUrl && (
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => setHotspotEditIdx(idx)}
+                                disabled={isBusy}
+                              >
+                                핫스팟
+                              </Button>
+                            )}
+                            {displayImageUrl && (
+                              <DownloadButton
+                                href={displayImageUrl}
+                                filename={`${item.vowel}${item.consonant}-illustration.png`}
+                              />
+                            )}
+                            <UploadMenu
+                              onFile={(f) => handleUpload(f, imgKey, makeUpdater)}
+                              openFilePicker={openFilePicker}
+                              disabled={isBusy}
+                            />
+                          </div>
+                          <ImageDescriptionInput
+                            value={displayDescription}
+                            onChange={(v) => {
+                              onUpdate((d) => {
+                                if (d.phonicsLesson)
+                                  d.phonicsLesson.blending[idx].illustrationDescription = v;
+                              });
+                              onSave();
+                            }}
+                          />
+                          {displayHistory && displayHistory.length > 0 && (
+                            <ImageHistory
+                              history={displayHistory}
+                              onRestore={(h) =>
+                                isNewFormat
+                                  ? restoreIllustrationHistory(idx, h)
+                                  : restoreLegacyHistory(idx, h)
+                              }
+                            />
+                          )}
+                        </div>
+                      )}
+                    </ImageDropZone>
+
+                    {/* 단어 목록 (wordFamilies) */}
+                    {wf && wf.words.length > 0 && (
+                      <div>
+                        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">
+                          단어 ({wf.words.length}개)
+                        </p>
+                        <div className="space-y-2">
+                          {wf.words.map((w, wIdx) => (
+                            <div key={wIdx} className="space-y-0.5">
+                              <div className="flex items-center gap-2 px-3">
+                                <input
+                                  value={w.word}
+                                  onChange={(e) => {
+                                    onUpdate((d) => {
+                                      if (d.phonicsLesson)
+                                        d.phonicsLesson.wordFamilies[idx].words[wIdx].word =
+                                          e.target.value;
+                                    });
+                                    onSave();
+                                  }}
+                                  className="text-sm font-bold font-mono bg-transparent border-b border-dashed border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300 w-24 focus:outline-none"
+                                />
+                                <input
+                                  value={w.korean ?? ''}
+                                  onChange={(e) => {
+                                    onUpdate((d) => {
+                                      if (d.phonicsLesson)
+                                        d.phonicsLesson.wordFamilies[idx].words[wIdx].korean =
+                                          e.target.value || undefined;
+                                    });
+                                    onSave();
+                                  }}
+                                  className="text-xs bg-transparent border-b border-dashed border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400 w-24 focus:outline-none"
+                                  placeholder="한글"
+                                />
+                              </div>
+                              <TtsRow
+                                label={`${cleanBlend} ${cleanBlend} ${w.word}`}
+                                tag="단어"
+                                color="emerald"
+                                url={w.ttsUrl}
+                                generating={generatingTts.has(`wf-${idx}-${wIdx}`)}
+                                disabled={isBusy}
+                                downloadFilename={`${w.word}.wav`}
+                                editableText={getTtsText(
+                                  `wf-${idx}-${wIdx}`,
+                                  `${cleanBlend} ${cleanBlend} ${w.word}`
+                                )}
+                                onTextChange={(t) => setTtsText(`wf-${idx}-${wIdx}`, t)}
+                                onGenerate={() =>
+                                  generateTts(
+                                    getTtsText(
+                                      `wf-${idx}-${wIdx}`,
+                                      `${cleanBlend} ${cleanBlend} ${w.word}`
+                                    ),
+                                    `wf-${idx}-${wIdx}`,
+                                    (d, url) => {
+                                      if (d.phonicsLesson)
+                                        d.phonicsLesson.wordFamilies[idx].words[wIdx].ttsUrl = url;
+                                    }
+                                  )
+                                }
+                                onUpload={(f) =>
+                                  handleTtsUpload(f, `wf-${idx}-${wIdx}`, (d, url) => {
+                                    if (d.phonicsLesson)
+                                      d.phonicsLesson.wordFamilies[idx].words[wIdx].ttsUrl = url;
+                                  })
+                                }
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 글자 쓰기 연습 */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                          글자 쓰기 연습
+                        </p>
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() =>
+                            setWritingPractice(
+                              writingPractice?.idx === idx && writingPractice?.letter === item.vowel
+                                ? null
+                                : { idx, letter: item.vowel }
+                            )
+                          }
+                          className={`px-4 py-2 rounded-lg text-sm font-bold border transition-colors ${
+                            writingPractice?.idx === idx && writingPractice?.letter === item.vowel
+                              ? 'bg-amber-50 border-amber-300 text-amber-700 dark:bg-amber-900/30 dark:border-amber-600 dark:text-amber-300'
+                              : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-amber-300'
+                          }`}
+                        >
+                          {item.vowel} 쓰기
+                        </button>
+                        <button
+                          onClick={() =>
+                            setWritingPractice(
+                              writingPractice?.idx === idx &&
+                                writingPractice?.letter === item.consonant
+                                ? null
+                                : { idx, letter: item.consonant }
+                            )
+                          }
+                          className={`px-4 py-2 rounded-lg text-sm font-bold border transition-colors ${
+                            writingPractice?.idx === idx &&
+                            writingPractice?.letter === item.consonant
+                              ? 'bg-sky-50 border-sky-300 text-sky-700 dark:bg-sky-900/30 dark:border-sky-600 dark:text-sky-300'
+                              : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-sky-300'
+                          }`}
+                        >
+                          {item.consonant} 쓰기
+                        </button>
+                      </div>
+                      {writingPractice?.idx === idx && (
+                        <div className="mt-3">
+                          <LetterWritingCanvas
+                            letter={writingPractice.letter}
+                            correctSoundUrl={storybook.systemSounds?.correctUrl}
+                            incorrectSoundUrl={storybook.systemSounds?.incorrectUrl}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* === 사이트 워드 === */}
+      {sightWords.length > 0 && (
+        <section>
+          <div className="flex items-center gap-2 mb-3">
+            <span className="px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-sm font-bold">
+              Sight Words
+            </span>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            {sightWords.map((word, i) => (
+              <span
+                key={i}
+                className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-200"
+              >
+                {word}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {lightboxUrl && (
+        <ImageLightbox src={lightboxUrl} alt="학습 카드" onClose={() => setLightboxUrl(null)} />
+      )}
+
+      {/* 핫스팟 편집 모달 */}
+      {hotspotEditIdx !== null &&
+        (() => {
+          const blendItem = letters[hotspotEditIdx];
+          const wfItem = wordFamilies[hotspotEditIdx];
+          const imgUrl = blendItem?.illustrationUrl ?? blendItem?.exampleWordImageUrl;
+          if (!imgUrl || !wfItem) return null;
+          return (
+            <HotspotEditorModal
+              imageUrl={imgUrl}
+              aspectRatio={aspectRatio.replace(':', '/')}
+              words={wfItem.words.map((w) => ({
+                word: w.word,
+                korean: w.korean,
+                hotspot: w.hotspot,
+              }))}
+              onSave={(hotspots) => {
+                onUpdate((d) => {
+                  if (!d.phonicsLesson) return;
+                  const words = d.phonicsLesson.wordFamilies[hotspotEditIdx].words;
+                  hotspots.forEach((h, i) => {
+                    if (words[i]) words[i].hotspot = h;
+                  });
+                });
+                onSave();
+                setHotspotEditIdx(null);
+              }}
+              onClose={() => setHotspotEditIdx(null)}
+            />
+          );
+        })()}
+
+      {/* 학습카드 미리보기 모달 */}
+      {previewIdx !== null && lesson && letters[previewIdx] && (
+        <LearningCardPreviewModal
+          item={letters[previewIdx]}
+          wordFamily={wordFamilies[previewIdx]}
+          systemSounds={storybook.systemSounds}
+          aspectRatio={aspectRatio.replace(':', '/')}
+          onClose={() => setPreviewIdx(null)}
+        />
+      )}
+    </div>
+  );
+}
+
+// --- 유틸리티 ---
+function countMissing(
+  letters: { illustrationUrl?: string; exampleWordImageUrl?: string }[],
+  wordFamilies: { words: { ttsUrl?: string }[] }[],
+  type: 'image' | 'tts'
+) {
+  let c = 0;
+  if (type === 'image') {
+    for (const b of letters) if (!b.illustrationUrl && !b.exampleWordImageUrl) c++;
+  } else {
+    for (const wf of wordFamilies) {
+      for (const w of wf.words) if (!w.ttsUrl) c++;
+    }
+  }
+  return c;
+}

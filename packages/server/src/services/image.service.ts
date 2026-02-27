@@ -2,7 +2,13 @@ import axios from 'axios';
 import { generateImageWithGemini, getTextModel } from '../providers/gemini.provider.js';
 import { R2Repository } from '../repositories/r2.repository.js';
 import { buildR2Key } from '../utils/r2-key.js';
-import type { Character, Page, KeyObject, VocabularyItem } from '@tangobook/shared';
+import type {
+  Character,
+  Page,
+  KeyObject,
+  VocabularyItem,
+  PhonicsFlashcard,
+} from '@tangobook/shared';
 
 interface ImageSettings {
   aspectRatio?: string;
@@ -49,6 +55,15 @@ COMPOSITION:
 - Backgrounds should be detailed but not cluttered, supporting the main scene focus.
 - Avoid any scary, violent, or inappropriate content for children.`;
 
+// 표지 이미지 전용 system instruction (제목 텍스트 허용)
+const COVER_SYSTEM_INSTRUCTION = IMAGE_SYSTEM_INSTRUCTION.replace(
+  'ABSOLUTE RULE:\n- NEVER include any text, letters, numbers, words, labels, captions, speech bubbles, or watermarks in the image. This is the most critical rule.',
+  `COVER TITLE RULE:
+- The book title text MUST be included prominently on the cover. Use decorative, child-friendly typography that matches the art style.
+- Position the title for maximum visual impact (typically upper area).
+- NEVER include any other text besides the book title — no subtitles, author names, labels, captions, speech bubbles, or watermarks.`
+);
+
 interface CharacterImageRequest {
   character: Character;
   artStyle: string;
@@ -69,6 +84,7 @@ interface IllustrationRequest {
   storybookId: string;
   storybookTitle: string;
   model?: string;
+  flashcardImageRefs?: Array<{ word: string; imageUrl: string }>;
 }
 
 interface CoverRequest {
@@ -77,6 +93,12 @@ interface CoverRequest {
   settings?: ImageSettings;
   currentImageUrl?: string;
   model?: string;
+  phonicsCover?: {
+    titleText: string;
+    blendingWords: string[];
+    characters: string[];
+  };
+  titleTemplateUrl?: string;
 }
 
 interface KeyObjectRequest {
@@ -94,6 +116,31 @@ interface VocabularyRequest {
   settings?: ImageSettings;
   storybookId: string;
   storybookTitle: string;
+}
+
+interface PhonicsWordImageRequest {
+  word: string;
+  description?: string;
+  artStyle: string;
+  storybookId: string;
+  storybookTitle: string;
+  isolatedObject?: boolean;
+  model?: string;
+  aspectRatio?: string;
+  characterReferences?: Array<{
+    name: string;
+    description?: string;
+    descriptionEn?: string;
+    referenceImage?: string;
+  }>;
+}
+
+interface PhonicsFlashcardImageRequest {
+  flashcards: PhonicsFlashcard[];
+  artStyle: string;
+  storybookId: string;
+  storybookTitle: string;
+  model?: string;
 }
 
 async function urlToBase64(url: string): Promise<{ base64: string; mimeType: string } | null> {
@@ -149,6 +196,7 @@ export const ImageService = {
       storybookId,
       storybookTitle,
       model,
+      flashcardImageRefs,
     } = req;
 
     // Filter character references to only those mentioned in this page's context
@@ -163,6 +211,9 @@ export const ImageService = {
       .filter((c) => c.referenceImage)
       .map((c) => urlToBase64(c.referenceImage!));
 
+    // 핵심단어 이미지 레퍼런스 로딩
+    const fcRefPromises = (flashcardImageRefs ?? []).map((fc) => urlToBase64(fc.imageUrl));
+
     const prevIllPromise = previousIllustrationUrl
       ? urlToBase64(previousIllustrationUrl)
       : Promise.resolve(null);
@@ -171,15 +222,24 @@ export const ImageService = {
       ? urlToBase64(currentImageUrl)
       : Promise.resolve(null);
 
-    const [charRefs, prevIll, currentIll] = await Promise.all([
+    const [charRefs, fcRefs, prevIll, currentIll] = await Promise.all([
       Promise.all(charRefPromises),
+      Promise.all(fcRefPromises),
       prevIllPromise,
       currentIllPromise,
     ]);
 
+    // 순서: 캐릭터 → 핵심단어 이미지 → 이전 페이지 → 현재 페이지
     const refImages = charRefs.filter(Boolean) as Array<{ base64: string; mimeType: string }>;
+    const validFcRefs = fcRefs.filter(Boolean) as Array<{ base64: string; mimeType: string }>;
+    refImages.push(...validFcRefs);
     if (prevIll) refImages.push(prevIll);
     if (currentIll) refImages.push(currentIll);
+
+    const fcWords =
+      validFcRefs.length > 0
+        ? (flashcardImageRefs ?? []).filter((_, i) => fcRefs[i]).map((fc) => fc.word)
+        : [];
 
     const aliasMap = buildCharacterAliasMap(relevantChars);
     let prompt = buildIllustrationPrompt(
@@ -188,7 +248,8 @@ export const ImageService = {
       relevantChars,
       settings?.aspectRatio ?? '16:9',
       !!prevIll,
-      aliasMap
+      aliasMap,
+      fcWords
     );
     if (currentIll) {
       prompt += `\n\nCURRENT IMAGE REFERENCE: The last reference image is the current illustration for this page. Use it as a style and composition reference while applying the updated prompt.`;
@@ -213,7 +274,15 @@ export const ImageService = {
   },
 
   async generateCover(req: CoverRequest): Promise<string> {
-    const { storybook, characterReferences, settings, currentImageUrl, model } = req;
+    const {
+      storybook,
+      characterReferences,
+      settings,
+      currentImageUrl,
+      model,
+      phonicsCover,
+      titleTemplateUrl,
+    } = req;
 
     const refImages = (
       await Promise.all(
@@ -223,6 +292,13 @@ export const ImageService = {
       )
     ).filter(Boolean) as Array<{ base64: string; mimeType: string }>;
 
+    // 제목 템플릿 이미지 → refImages 맨 앞에 삽입
+    const hasTitleTemplate = !!titleTemplateUrl;
+    if (titleTemplateUrl) {
+      const tplImg = await urlToBase64(titleTemplateUrl);
+      if (tplImg) refImages.unshift(tplImg);
+    }
+
     if (currentImageUrl) {
       const img = await urlToBase64(currentImageUrl);
       if (img) refImages.push(img);
@@ -230,13 +306,21 @@ export const ImageService = {
 
     const coverAliasMap = buildCharacterAliasMap(characterReferences);
     const aspectRatio = settings?.aspectRatio ?? '3:4';
-    const prompt = buildCoverPrompt(storybook, aspectRatio, coverAliasMap);
+    const prompt = phonicsCover
+      ? buildPhonicsCoverPrompt(
+          storybook,
+          phonicsCover,
+          aspectRatio,
+          coverAliasMap,
+          hasTitleTemplate
+        )
+      : buildCoverPrompt(storybook, aspectRatio, coverAliasMap, hasTitleTemplate);
     const base64 = await generateImageWithGemini({
       prompt: currentImageUrl
         ? `${prompt}\n\nREFERENCE: The last reference image is the current cover. Use it as a style and composition reference while applying the new prompt.`
         : prompt,
       referenceImages: refImages,
-      systemInstruction: IMAGE_SYSTEM_INSTRUCTION,
+      systemInstruction: COVER_SYSTEM_INSTRUCTION,
       aspectRatio,
       model,
     });
@@ -314,6 +398,137 @@ Clean white background. No text in the image.`;
             imageUrl: '',
             success: false,
           }
+    );
+  },
+
+  async generatePhonicsWord(req: PhonicsWordImageRequest): Promise<string> {
+    const {
+      word,
+      description,
+      artStyle,
+      storybookId,
+      storybookTitle,
+      model,
+      aspectRatio,
+      characterReferences,
+      isolatedObject,
+    } = req;
+    const ratio = aspectRatio ?? '16:9';
+    // isolatedObject: 어휘 플래시카드 — 장면 설명·캐릭터 레퍼런스 제외, 대상만 단독 렌더
+    if (isolatedObject) {
+      const descHint = description ? `\n구체적 묘사: ${description}` : '';
+      const prompt = `"${word}"를 주제로 4-8세 아이를 위한 선명하고 교육적인 삽화를 그려주세요.${descHint}
+Aspect Ratio: ${ratio}
+
+*** 필수 아트 스타일 (반드시 따를 것) ***
+${artStyle}
+*** 아트 스타일 끝 ***
+모든 삽화는 반드시 위에 명시된 아트 스타일로 그려야 합니다. 기본 카툰이나 디지털 아트 스타일로 대체하지 마세요.
+
+완전히 깨끗한 순백색(#FFFFFF) 배경에 "${word}"가 뜻하는 사물/동물/대상 딱 하나만 그려주세요.${description ? ` 위 "구체적 묘사"를 반드시 반영하세요.` : ''} 배경, 그림자, 바닥면, 장식, 다른 인물, 다른 사물 일절 없이 대상만 중앙에 크게 배치하세요. 어휘 플래시카드이므로 대상 외 아무것도 그리지 마세요. 이미지에 텍스트, 글자, 라벨을 포함하지 마세요.`;
+
+      const base64 = await generateImageWithGemini({
+        prompt,
+        systemInstruction: IMAGE_SYSTEM_INSTRUCTION,
+        aspectRatio: ratio,
+        model,
+      });
+      const key = buildR2Key({
+        storybookId,
+        storybookTitle,
+        fileType: 'phonics',
+        identifier: word,
+        extension: 'png',
+      });
+      return R2Repository.uploadImage(base64, key);
+    }
+
+    // 비-isolated: 장면 설명 + 캐릭터 레퍼런스 포함
+    const descLine = description ? `\n장면: ${description}` : '';
+
+    const chars = characterReferences ?? [];
+    const charDescriptions = chars
+      .map((c) => `- ${c.name}: ${c.descriptionEn ?? c.description ?? ''}`)
+      .filter((line) => line.length > 5)
+      .join('\n');
+
+    const charNames = chars.map((c) => c.name);
+    const descMentionsChar = description && charNames.some((name) => description.includes(name));
+    const charRefSection = descMentionsChar
+      ? `\n\n*** 캐릭터 레퍼런스 ***\n이 동화책에 등장하는 캐릭터입니다. 장면 설명에 언급된 캐릭터는 아래 설명대로 정확히 그려주세요:\n${charDescriptions}\n*** 캐릭터 레퍼런스 끝 ***`
+      : '';
+
+    const prompt = `"${word}"를 주제로 4-8세 아이를 위한 선명하고 교육적인 삽화를 그려주세요.${descLine}${charRefSection}
+Aspect Ratio: ${ratio}
+
+*** 필수 아트 스타일 (반드시 따를 것) ***
+${artStyle}
+*** 아트 스타일 끝 ***
+모든 삽화는 반드시 위에 명시된 아트 스타일로 그려야 합니다. 기본 카툰이나 디지털 아트 스타일로 대체하지 마세요.
+
+깨끗한 흰 배경에 단어의 뜻을 직관적으로 보여주는 간결한 삽화를 그려주세요. 복잡한 배경이나 불필요한 요소 없이 핵심 대상만 명확하게 표현하세요. 이미지에 텍스트, 글자, 라벨을 포함하지 마세요.`;
+
+    // 캐릭터 레퍼런스 이미지 로딩 (장면에 캐릭터가 언급된 경우만)
+    const refImages = descMentionsChar
+      ? ((
+          await Promise.all(
+            chars.filter((c) => c.referenceImage).map((c) => urlToBase64(c.referenceImage!))
+          )
+        ).filter(Boolean) as Array<{ base64: string; mimeType: string }>)
+      : [];
+
+    const base64 = await generateImageWithGemini({
+      prompt,
+      referenceImages: refImages.length > 0 ? refImages : undefined,
+      systemInstruction: IMAGE_SYSTEM_INSTRUCTION,
+      aspectRatio: ratio,
+      model,
+    });
+    const key = buildR2Key({
+      storybookId,
+      storybookTitle,
+      fileType: 'phonics',
+      identifier: word,
+      extension: 'png',
+    });
+    return R2Repository.uploadImage(base64, key);
+  },
+
+  async generatePhonicsFlashcards(req: PhonicsFlashcardImageRequest) {
+    const { flashcards, artStyle, storybookId, storybookTitle, model } = req;
+
+    const results = await Promise.allSettled(
+      flashcards.map(async (card) => {
+        const prompt = `"${card.word}" (${card.localWord})를 주제로 4-8세 아이를 위한 선명하고 교육적인 삽화를 그려주세요.
+
+*** 필수 아트 스타일 (반드시 따를 것) ***
+${artStyle}
+*** 아트 스타일 끝 ***
+모든 삽화는 반드시 위에 명시된 아트 스타일로 그려야 합니다. 기본 카툰이나 디지털 아트 스타일로 대체하지 마세요.
+
+완전히 깨끗한 순백색(#FFFFFF) 배경에 "${card.word}"가 뜻하는 사물/동물/대상 딱 하나만 그려주세요. 배경, 그림자, 바닥면, 장식, 다른 인물, 다른 사물 일절 없이 대상만 중앙에 크게 배치하세요. 어휘 플래시카드이므로 대상 외 아무것도 그리지 마세요. 이미지에 텍스트, 글자, 라벨을 포함하지 마세요.`;
+
+        const base64 = await generateImageWithGemini({
+          prompt,
+          systemInstruction: IMAGE_SYSTEM_INSTRUCTION,
+          model,
+        });
+        const key = buildR2Key({
+          storybookId,
+          storybookTitle,
+          fileType: 'phonics-fc',
+          identifier: card.word,
+          extension: 'png',
+        });
+        const imageUrl = await R2Repository.uploadImage(base64, key);
+        return { word: card.word, imageUrl, success: true };
+      })
+    );
+
+    return results.map((r, i) =>
+      r.status === 'fulfilled'
+        ? r.value
+        : { word: flashcards[i].word, imageUrl: '', success: false }
     );
   },
 
@@ -454,7 +669,8 @@ function buildIllustrationPrompt(
   chars: Array<Character & { referenceImage?: string }>,
   aspectRatio: string,
   hasPreviousIllustration = false,
-  aliasMap?: Map<string, string>
+  aliasMap?: Map<string, string>,
+  flashcardWords: string[] = []
 ): string {
   const san = (text: string) => (aliasMap ? replaceNamesWithAliases(text, aliasMap) : text);
   const charList = chars
@@ -506,7 +722,14 @@ The entire illustration MUST be rendered strictly in the art style described abo
 
 Characters present (match EXACTLY to reference images):
 ${charList}
-${prevRef}
+${
+  flashcardWords.length > 0
+    ? `
+VOCABULARY REFERENCE IMAGES: Reference images for specific vocabulary words are provided (after character references). These show the EXACT visual appearance of each word's object. When these words appear in the scene, draw the objects matching these reference images exactly — same type, color, and shape. This is critical for words with multiple meanings (e.g., "fan" could be a folding fan or electric fan — use the one shown in the reference).
+Words with reference images: ${flashcardWords.map((w) => `"${w}"`).join(', ')}
+`
+    : ''
+}${prevRef}
 
 CRITICAL - NO TEXT: No text, speech bubbles, or labels in the image.`;
 }
@@ -514,9 +737,13 @@ CRITICAL - NO TEXT: No text, speech bubbles, or labels in the image.`;
 function buildCoverPrompt(
   storybook: { title: string; coverPrompt?: string; artStyle: string },
   aspectRatio: string,
-  aliasMap?: Map<string, string>
+  aliasMap?: Map<string, string>,
+  hasTitleTemplate = false
 ): string {
   const san = (text: string) => (aliasMap ? replaceNamesWithAliases(text, aliasMap) : text);
+  const titleRef = hasTitleTemplate
+    ? '\n\nTITLE STYLE REFERENCE: The first reference image shows the desired title text layout and typography style. Follow this style closely for the title placement, font style, colors, and decorative elements.'
+    : '';
   return `Create a beautiful children's book cover illustration.
 
 Book Title: ${san(storybook.title)}
@@ -529,7 +756,47 @@ ${storybook.artStyle}
 The entire illustration MUST be rendered strictly in the art style described above. Every element — line work, coloring technique, texture, shading, and overall aesthetic — must match this style precisely. Do NOT default to generic cartoon or digital art style.
 
 Quality: Professional children's book cover, vibrant and eye-catching.
-CRITICAL - NO TEXT: No text, title, or labels in the image.`;
+TITLE TEXT: Include the book title "${storybook.title}" prominently on the cover using decorative, child-friendly typography. No other text.${titleRef}`;
+}
+
+function buildPhonicsCoverPrompt(
+  storybook: { title: string; coverPrompt?: string; artStyle: string },
+  phonics: { titleText: string; blendingWords: string[]; characters: string[] },
+  aspectRatio: string,
+  aliasMap?: Map<string, string>,
+  hasTitleTemplate = false
+): string {
+  const san = (text: string) => (aliasMap ? replaceNamesWithAliases(text, aliasMap) : text);
+  const wordsStr =
+    phonics.blendingWords.length > 0 ? `\nBlending Words: ${phonics.blendingWords.join(', ')}` : '';
+  const charsStr =
+    phonics.characters.length > 0
+      ? `\nCharacters: ${phonics.characters.map((c) => san(c)).join(', ')}`
+      : '';
+  const sceneDesc = storybook.coverPrompt
+    ? `\nScene Description: ${san(storybook.coverPrompt)}`
+    : '';
+
+  const mainTitle = san(storybook.title);
+
+  return `Create a children's phonics workbook cover illustration.
+This is a phonics learning material cover, not a storybook cover.
+
+Level/Unit Label: "${phonics.titleText}"
+Main Title: "${mainTitle}"${wordsStr}${charsStr}${sceneDesc}
+Aspect Ratio: ${aspectRatio}
+
+*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***
+${storybook.artStyle}
+*** END ART STYLE ***
+The entire illustration MUST be rendered strictly in the art style described above.
+
+=== LAYOUT INSTRUCTIONS ===
+1. TOP-LEFT CORNER: Place "${phonics.titleText}" in small, simple text (subtitle size). Use a small rounded badge or subtle label style. This is NOT the main title — keep it small and unobtrusive.
+2. CENTER/TOP AREA: Place the main title "${mainTitle}" prominently using large, bold, colorful, child-friendly decorative typography. This is the biggest text on the cover. Use a banner, ribbon, or rounded rectangle background for contrast.
+3. MAIN ILLUSTRATION AREA: Draw the characters in a fun, dynamic scene that relates to the blending words. ${phonics.blendingWords.length > 0 ? `Incorporate visual hints of the words (${phonics.blendingWords.slice(0, 4).join(', ')}) naturally into the scene as objects or actions.` : ''}
+4. STYLE: Bright, colorful, professional children's educational workbook cover. Clean layout with clear visual hierarchy.
+5. Only two text elements allowed: the small "${phonics.titleText}" label (top-left) and the large "${mainTitle}" title. Do NOT add word labels, speech bubbles, or any other text.${hasTitleTemplate ? '\n\nTITLE STYLE REFERENCE: The first reference image shows the desired title text layout and typography style. Follow this style closely for the title placement, font style, colors, and decorative elements.' : ''}`;
 }
 
 function buildKeyObjectPrompt(obj: KeyObject, artStyle: string): string {

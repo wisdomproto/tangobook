@@ -68,8 +68,16 @@ export function useAudioPlayer({ backgroundMusicUrl, onTtsEnded }: UseAudioPlaye
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      ttsRef.current?.pause();
-      bgmRef.current?.pause();
+      if (ttsRef.current) {
+        ttsRef.current.pause();
+        ttsRef.current.src = '';
+        ttsRef.current = null;
+      }
+      if (bgmRef.current) {
+        bgmRef.current.pause();
+        bgmRef.current.src = '';
+        bgmRef.current = null;
+      }
     };
   }, []);
 

@@ -1,0 +1,380 @@
+import { useState, useRef, useCallback, useMemo, useEffect } from 'react';
+import type { GamePlayerProps } from '../../registry/game-registry';
+import type { WordImageMatchingData, WordImageMatchingGroupItem } from '@tangobook/shared';
+
+interface FlatItem extends WordImageMatchingGroupItem {
+  blend: string;
+  groupIdx: number;
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+export function WordImageMatchingPlayer({ gameData, onComplete, onBack }: GamePlayerProps) {
+  const data = gameData as WordImageMatchingData;
+  const [left, right] = data.groups;
+
+  const allItems = useMemo<FlatItem[]>(
+    () => [
+      ...left.items.map((it, _i) => ({ ...it, blend: left.blend, groupIdx: 0 })),
+      ...right.items.map((it, _i) => ({ ...it, blend: right.blend, groupIdx: 1 })),
+    ],
+    [left, right]
+  );
+
+  const [shuffledWords, setShuffledWords] = useState<FlatItem[]>(() => shuffle(allItems));
+  const [selectedWord, setSelectedWord] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [matchedWords, setMatchedWords] = useState<Set<string>>(new Set());
+  const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
+  const [feedbackWord, setFeedbackWord] = useState<string | null>(null);
+  const [score, setScore] = useState(0);
+  const [finished, setFinished] = useState(false);
+  const [lineVersion, setLineVersion] = useState(0);
+
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const wordElRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const imageElRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setLineVersion((v) => v + 1));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const playAudio = useCallback((url?: string) => {
+    if (!url) return;
+    if (!audioRef.current) audioRef.current = new Audio();
+    audioRef.current.src = url;
+    audioRef.current.currentTime = 0;
+    audioRef.current.play().catch(() => {});
+  }, []);
+
+  const playDefaultSound = useCallback((correct: boolean) => {
+    try {
+      const ctx = new AudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      if (correct) {
+        osc.frequency.setValueAtTime(523, ctx.currentTime);
+        osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
+        osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.4);
+      } else {
+        osc.frequency.setValueAtTime(330, ctx.currentTime);
+        osc.frequency.setValueAtTime(262, ctx.currentTime + 0.15);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.35);
+      }
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  const validateMatch = useCallback(
+    (wordId: string, imageId: string) => {
+      const isCorrect = wordId === imageId;
+      setFeedback(isCorrect ? 'correct' : 'wrong');
+      setFeedbackWord(wordId);
+      playDefaultSound(isCorrect);
+
+      if (isCorrect) {
+        const item = allItems.find((w) => w.word === wordId);
+        if (item?.ttsUrl) setTimeout(() => playAudio(item.ttsUrl), 200);
+        setScore((s) => s + 1);
+        const newMatched = new Set(matchedWords);
+        newMatched.add(wordId);
+        setMatchedWords(newMatched);
+        setTimeout(() => {
+          setSelectedWord(null);
+          setSelectedImage(null);
+          setFeedback(null);
+          setFeedbackWord(null);
+          if (newMatched.size >= allItems.length) setFinished(true);
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          setSelectedWord(null);
+          setSelectedImage(null);
+          setFeedback(null);
+          setFeedbackWord(null);
+        }, 800);
+      }
+    },
+    [allItems, matchedWords, playDefaultSound, playAudio]
+  );
+
+  const handleWordClick = useCallback(
+    (word: string) => {
+      if (feedback || matchedWords.has(word)) return;
+      setSelectedWord(word);
+      if (selectedImage) validateMatch(word, selectedImage);
+    },
+    [feedback, matchedWords, selectedImage, validateMatch]
+  );
+
+  const handleImageClick = useCallback(
+    (targetWord: string) => {
+      if (feedback || matchedWords.has(targetWord)) return;
+      setSelectedImage(targetWord);
+      if (selectedWord) validateMatch(selectedWord, targetWord);
+    },
+    [feedback, matchedWords, selectedWord, validateMatch]
+  );
+
+  const handleRestart = useCallback(() => {
+    setShuffledWords(shuffle(allItems));
+    setSelectedWord(null);
+    setSelectedImage(null);
+    setMatchedWords(new Set());
+    setFeedback(null);
+    setFeedbackWord(null);
+    setScore(0);
+    setFinished(false);
+  }, [allItems]);
+
+  const getLinePath = useCallback(
+    (word: string): string | null => {
+      const container = containerRef.current;
+      const wordEl = wordElRefs.current.get(word);
+      const imageEl = imageElRefs.current.get(word);
+      if (!container || !wordEl || !imageEl) return null;
+      const cRect = container.getBoundingClientRect();
+      const wRect = wordEl.getBoundingClientRect();
+      const iRect = imageEl.getBoundingClientRect();
+      const wCy = wRect.top + wRect.height / 2 - cRect.top;
+      const iCx = iRect.left + iRect.width / 2 - cRect.left;
+      const iCy = iRect.top + iRect.height / 2 - cRect.top;
+      const isLeft = iCx < cRect.width / 2;
+      const wX = isLeft ? wRect.left - cRect.left : wRect.right - cRect.left;
+      const cpX = (wX + iCx) / 2;
+      const cpY = Math.min(wCy, iCy) - 15;
+      return `M ${wX} ${wCy} Q ${cpX} ${cpY} ${iCx} ${iCy}`;
+    },
+    [lineVersion]
+  );
+
+  useEffect(() => {
+    if (finished) onComplete(score, allItems.length);
+  }, [finished, score, allItems.length, onComplete]);
+
+  if (finished) {
+    const total = allItems.length;
+    return (
+      <div className="text-center py-12">
+        <div className="text-5xl mb-3">{score === total ? '🎉' : '👏'}</div>
+        <p className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-1">
+          {score} / {total}
+        </p>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
+          {score === total ? '완벽해요!' : '잘했어요!'}
+        </p>
+        <div className="flex gap-3 justify-center">
+          <button
+            onClick={handleRestart}
+            className="px-6 py-3 bg-violet-600 text-white rounded-xl text-sm font-bold hover:bg-violet-700 transition-colors"
+          >
+            다시 하기
+          </button>
+          <button
+            onClick={onBack}
+            className="px-6 py-3 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-sm font-bold hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+          >
+            ← 돌아가기
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const badges = ['①', '②', '③', '④'];
+
+  return (
+    <div ref={containerRef} className="relative space-y-4">
+      <div className="flex items-center justify-between px-1">
+        <span className="text-sm font-bold text-violet-600 dark:text-violet-400">
+          {score} / {allItems.length}
+        </span>
+        <span className="text-xs text-slate-400 dark:text-slate-500">단어와 그림을 연결하세요</span>
+      </div>
+      <div className="flex items-start justify-center gap-2 sm:gap-6">
+        {/* 왼쪽 */}
+        <div className="flex flex-col items-center gap-3 w-[110px] sm:w-[140px]">
+          <div className="px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700">
+            <span className="text-sm font-black text-amber-800 dark:text-amber-300">
+              {left.blend}
+            </span>
+          </div>
+          {left.items.map((item, i) => (
+            <ImageCircle
+              key={item.word}
+              item={item}
+              badge={badges[i * 2]}
+              ring="purple"
+              isSelected={selectedImage === item.word}
+              isMatched={matchedWords.has(item.word)}
+              feedback={
+                feedbackWord === item.word || (selectedImage === item.word && feedback === 'wrong')
+                  ? feedback
+                  : null
+              }
+              onClick={() => handleImageClick(item.word)}
+              refCb={(el) => {
+                if (el) imageElRefs.current.set(item.word, el);
+              }}
+            />
+          ))}
+        </div>
+        {/* 가운데 */}
+        <div className="flex flex-col items-center gap-3 justify-center pt-10 min-h-[280px]">
+          {shuffledWords.map((item) => {
+            const isSelected = selectedWord === item.word;
+            const isMatched = matchedWords.has(item.word);
+            const isFb = feedbackWord === item.word || (isSelected && !!feedback);
+            let cls =
+              'px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all select-none ';
+            if (isMatched)
+              cls +=
+                'bg-slate-100 dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-400 dark:text-slate-500 cursor-default';
+            else if (isFb && feedback === 'correct')
+              cls +=
+                'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-400 text-emerald-700 dark:text-emerald-300 scale-105';
+            else if (isFb && feedback === 'wrong')
+              cls +=
+                'bg-red-50 dark:bg-red-900/30 border-red-400 text-red-600 dark:text-red-400 animate-shake';
+            else if (isSelected)
+              cls +=
+                'bg-amber-100 dark:bg-amber-900/30 border-amber-400 text-amber-900 dark:text-amber-200 scale-105';
+            else
+              cls +=
+                'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-700 text-amber-900 dark:text-amber-200 hover:border-amber-400 cursor-pointer';
+            return (
+              <button
+                key={item.word}
+                ref={(el) => {
+                  if (el) wordElRefs.current.set(item.word, el);
+                }}
+                onClick={() => handleWordClick(item.word)}
+                disabled={isMatched}
+                className={cls}
+              >
+                {item.word}
+              </button>
+            );
+          })}
+        </div>
+        {/* 오른쪽 */}
+        <div className="flex flex-col items-center gap-3 w-[110px] sm:w-[140px]">
+          <div className="px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700">
+            <span className="text-sm font-black text-amber-800 dark:text-amber-300">
+              {right.blend}
+            </span>
+          </div>
+          {right.items.map((item, i) => (
+            <ImageCircle
+              key={item.word}
+              item={item}
+              badge={badges[i * 2 + 1]}
+              ring="blue"
+              isSelected={selectedImage === item.word}
+              isMatched={matchedWords.has(item.word)}
+              feedback={
+                feedbackWord === item.word || (selectedImage === item.word && feedback === 'wrong')
+                  ? feedback
+                  : null
+              }
+              onClick={() => handleImageClick(item.word)}
+              refCb={(el) => {
+                if (el) imageElRefs.current.set(item.word, el);
+              }}
+            />
+          ))}
+        </div>
+      </div>
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 10 }}>
+        {Array.from(matchedWords).map((word) => {
+          const d = getLinePath(word);
+          return d ? (
+            <path
+              key={word}
+              d={d}
+              stroke="#e53e3e"
+              strokeWidth="3.5"
+              fill="none"
+              strokeLinecap="round"
+            />
+          ) : null;
+        })}
+      </svg>
+      <p className="text-center text-xs text-slate-400 dark:text-slate-500">
+        {!selectedWord && !selectedImage
+          ? '단어를 선택한 다음 알맞은 그림을 눌러주세요'
+          : selectedWord
+            ? '알맞은 그림을 찾아 눌러주세요'
+            : '알맞은 단어를 찾아 눌러주세요'}
+      </p>
+      <style>{`
+        @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+        .animate-shake { animation: shake 0.4s ease-in-out; }
+      `}</style>
+    </div>
+  );
+}
+
+function ImageCircle({
+  item,
+  badge,
+  ring,
+  isSelected,
+  isMatched,
+  feedback,
+  onClick,
+  refCb,
+}: {
+  item: { word: string; imageUrl: string };
+  badge: string;
+  ring: 'purple' | 'blue';
+  isSelected: boolean;
+  isMatched: boolean;
+  feedback: 'correct' | 'wrong' | null;
+  onClick: () => void;
+  refCb: (el: HTMLDivElement | null) => void;
+}) {
+  const ringColor =
+    ring === 'purple' ? 'ring-purple-200 dark:ring-purple-700' : 'ring-sky-200 dark:ring-sky-700';
+  let extra = '';
+  if (isMatched) extra = 'opacity-40 pointer-events-none';
+  else if (feedback === 'correct') extra = 'ring-emerald-400 dark:ring-emerald-500 scale-110';
+  else if (feedback === 'wrong') extra = 'ring-red-400 dark:ring-red-500 animate-shake';
+  else if (isSelected) extra = 'ring-amber-400 dark:ring-amber-500 scale-105';
+
+  return (
+    <div className="relative">
+      <span className="absolute -left-4 -top-1 w-6 h-6 flex items-center justify-center rounded-full bg-amber-400 text-white text-xs font-bold shadow-sm z-10">
+        {badge}
+      </span>
+      <div
+        ref={refCb}
+        onClick={onClick}
+        className={`w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden ring-[6px] cursor-pointer transition-all duration-200 bg-white dark:bg-slate-800 ${isMatched ? '' : ringColor} ${extra}`}
+      >
+        <img src={item.imageUrl} alt={item.word} className="w-full h-full object-cover" />
+      </div>
+    </div>
+  );
+}

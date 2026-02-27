@@ -6,6 +6,7 @@ interface ViewerToolbarProps {
   title: string;
   settings: ViewerSettings;
   onUpdateSettings: (patch: Partial<ViewerSettings>) => void;
+  onBack?: () => void;
 }
 
 const TEXT_SIZE_LABELS: Record<ViewerSettings['textSize'], string> = {
@@ -16,7 +17,7 @@ const TEXT_SIZE_LABELS: Record<ViewerSettings['textSize'], string> = {
 
 const TEXT_SIZE_CYCLE: ViewerSettings['textSize'][] = ['sm', 'md', 'lg'];
 
-export function ViewerToolbar({ title, settings, onUpdateSettings }: ViewerToolbarProps) {
+export function ViewerToolbar({ title, settings, onUpdateSettings, onBack }: ViewerToolbarProps) {
   const navigate = useNavigate();
 
   const cycleTextSize = () => {
@@ -36,7 +37,7 @@ export function ViewerToolbar({ title, settings, onUpdateSettings }: ViewerToolb
     <div className="flex items-center gap-2 px-4 py-2 bg-black/40 backdrop-blur-sm">
       {/* 뒤로가기 */}
       <button
-        onClick={() => navigate('/library')}
+        onClick={() => (onBack ? onBack() : navigate('/library'))}
         className="p-2 rounded-lg hover:bg-white/10 text-white/80 hover:text-white transition-colors"
         title="목록으로"
       >

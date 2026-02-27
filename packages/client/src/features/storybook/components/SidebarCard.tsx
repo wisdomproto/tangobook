@@ -1,14 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import type { StorybookSummary } from '@tangobook/shared';
-
-const CATEGORY_OPTIONS = [
-  { value: '', label: '없음' },
-  { value: '세계 명작', label: '세계 명작' },
-  { value: '전래 동화', label: '전래 동화' },
-  { value: '자연 관찰', label: '자연 관찰' },
-  { value: '기타', label: '기타' },
-];
+import { STORYBOOK_CATEGORIES, PHONICS_CATEGORIES } from '@tangobook/shared';
 
 interface SidebarCardProps {
   storybook: StorybookSummary;
@@ -33,6 +26,11 @@ export function SidebarCard({
   onChangeCategory,
   onRename,
 }: SidebarCardProps) {
+  const categoryOptions = useMemo(() => {
+    const items = storybook.type === 'phonics' ? PHONICS_CATEGORIES : STORYBOOK_CATEGORIES;
+    return [{ value: '', label: '없음' }, ...items.map((c) => ({ value: c, label: c }))];
+  }, [storybook.type]);
+
   const [hovered, setHovered] = useState(false);
   const [showCategoryMenu, setShowCategoryMenu] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -134,6 +132,11 @@ export function SidebarCard({
             </p>
           )}
           <div className="flex items-center gap-1 mt-0.5">
+            {storybook.type === 'phonics' && (
+              <span className="text-[9px] px-1 py-px rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 font-medium">
+                P
+              </span>
+            )}
             <p className="text-xs text-slate-500 dark:text-slate-400">
               {storybook.targetAge}세 · {pageCount}쪽
             </p>
@@ -154,7 +157,7 @@ export function SidebarCard({
               </button>
               {showCategoryMenu && (
                 <div className="absolute left-0 top-full mt-0.5 z-50 bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 shadow-lg py-0.5 w-24">
-                  {CATEGORY_OPTIONS.map((opt) => (
+                  {categoryOptions.map((opt) => (
                     <button
                       key={opt.value}
                       onClick={(e) => {

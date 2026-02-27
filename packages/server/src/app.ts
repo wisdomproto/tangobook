@@ -11,6 +11,10 @@ import ttsRoutes from './routes/tts.routes.js';
 import translationRoutes from './routes/translation.routes.js';
 import quizRoutes from './routes/quiz.routes.js';
 import audiobookRoutes from './routes/audiobook.routes.js';
+import phonicsRoutes from './routes/phonics.routes.js';
+import gameRoutes from './routes/game.routes.js';
+import phonicsLibraryRoutes from './routes/phonics-library.routes.js';
+import settingsRoutes from './routes/settings.routes.js';
 
 export function createApp() {
   const app = express();
@@ -32,6 +36,10 @@ export function createApp() {
   app.use('/api/translation', translationRoutes);
   app.use('/api/quiz', quizRoutes);
   app.use('/api/audiobooks', audiobookRoutes);
+  app.use('/api/phonics', phonicsRoutes);
+  app.use('/api/games', gameRoutes);
+  app.use('/api/phonics-library', phonicsLibraryRoutes);
+  app.use('/api/settings', settingsRoutes);
 
   // 프로덕션: 클라이언트 정적 파일 서빙
   const clientDist = path.join(__dirname, '../../../../client/dist');

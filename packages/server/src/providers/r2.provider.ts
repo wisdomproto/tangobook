@@ -2,7 +2,9 @@ import {
   S3Client,
   PutObjectCommand,
   DeleteObjectCommand,
+  GetObjectCommand,
   ListObjectsV2Command,
+  type _Object,
 } from '@aws-sdk/client-s3';
 import { config } from '../config/index.js';
 
@@ -44,6 +46,18 @@ export async function uploadJsonToR2(data: unknown, key: string): Promise<string
   return uploadBufferToR2(buffer, key, 'application/json');
 }
 
+export async function downloadFromR2(key: string): Promise<Buffer> {
+  const result = await r2Client.send(
+    new GetObjectCommand({
+      Bucket: r2BucketName,
+      Key: key,
+    })
+  );
+  const bytes = await result.Body?.transformToByteArray();
+  if (!bytes) throw new Error(`R2 파일 없음: ${key}`);
+  return Buffer.from(bytes);
+}
+
 export async function deleteFromR2(key: string): Promise<void> {
   await r2Client.send(
     new DeleteObjectCommand({
@@ -58,11 +72,20 @@ export function urlToR2Key(url: string): string {
 }
 
 export async function listR2Objects(prefix: string) {
-  const result = await r2Client.send(
-    new ListObjectsV2Command({
-      Bucket: r2BucketName,
-      Prefix: prefix,
-    })
-  );
-  return result.Contents ?? [];
+  const allContents: _Object[] = [];
+  let continuationToken: string | undefined;
+
+  do {
+    const result = await r2Client.send(
+      new ListObjectsV2Command({
+        Bucket: r2BucketName,
+        Prefix: prefix,
+        ContinuationToken: continuationToken,
+      })
+    );
+    if (result.Contents) allContents.push(...result.Contents);
+    continuationToken = result.IsTruncated ? result.NextContinuationToken : undefined;
+  } while (continuationToken);
+
+  return allContents;
 }

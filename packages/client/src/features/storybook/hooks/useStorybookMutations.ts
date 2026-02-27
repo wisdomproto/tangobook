@@ -1,6 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { storybookApi } from '../api/storybook.api';
-import type { Storybook, GenerateStorybookRequest, GenerateStoryRequest } from '@tangobook/shared';
+import type {
+  Storybook,
+  GenerateStorybookRequest,
+  GenerateStoryRequest,
+  GeneratePhonicsBookRequest,
+} from '@tangobook/shared';
 
 export function useSaveStorybook() {
   const qc = useQueryClient();
@@ -59,6 +64,17 @@ export function useGenerateStorybook() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (req: GenerateStorybookRequest) => storybookApi.generate(req),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: ['storybooks'] });
+      qc.setQueryData(['storybook', data.id], data);
+    },
+  });
+}
+
+export function useGeneratePhonicsBook() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (req: GeneratePhonicsBookRequest) => storybookApi.generatePhonicsBook(req),
     onSuccess: (data) => {
       qc.invalidateQueries({ queryKey: ['storybooks'] });
       qc.setQueryData(['storybook', data.id], data);
