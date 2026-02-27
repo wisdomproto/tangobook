@@ -10,7 +10,7 @@ import { UploadMenu } from '@/components/UploadMenu';
 import { coverApi } from '../api/cover.api';
 import { apiClient } from '@/lib/axios';
 import { pushImageHistory } from '@/lib/image-history';
-import { settingsApi } from '@/features/settings/api/settings.api';
+import { settingsApi, type TitleTemplate } from '@/features/settings/api/settings.api';
 import { ASPECT_RATIOS } from '@tangobook/shared';
 import type { Storybook, CoverImageItem, ImageGenerationResult } from '@tangobook/shared';
 
@@ -286,7 +286,10 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
       return settingsApi.addTitleTemplate(imageUrl);
     },
     onSuccess: (template) => {
-      queryClient.invalidateQueries({ queryKey: ['title-templates'] });
+      queryClient.setQueryData<TitleTemplate[]>(['title-templates'], (old) => [
+        ...(old ?? []),
+        template,
+      ]);
       setSelectedTemplateId(template.id);
       setTemplateModalOpen(false);
     },
@@ -295,7 +298,9 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
   const deleteTemplateMutation = useMutation({
     mutationFn: (id: string) => settingsApi.deleteTitleTemplate(id),
     onSuccess: (_, id) => {
-      queryClient.invalidateQueries({ queryKey: ['title-templates'] });
+      queryClient.setQueryData<TitleTemplate[]>(['title-templates'], (old) =>
+        (old ?? []).filter((t) => t.id !== id)
+      );
       if (selectedTemplateId === id) setSelectedTemplateId(null);
     },
   });

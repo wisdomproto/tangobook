@@ -55,6 +55,10 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
   // Dropdown visibility
   const [showTtsDropdown, setShowTtsDropdown] = useState(false);
 
+  // Bulk text input
+  const [showBulkText, setShowBulkText] = useState(false);
+  const [bulkTextValue, setBulkTextValue] = useState('');
+
   const isBatchRunning = batchProgress !== null;
   const isKorean = activeLang === 'ko';
 
@@ -222,6 +226,22 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
     abortControllerRef.current?.abort();
   };
 
+  // Bulk text: parse and apply
+  const handleApplyBulkText = () => {
+    const chunks = bulkTextValue.split('---').map((s) => s.trim());
+    const applyCount = Math.min(chunks.length, pages.length);
+    if (applyCount === 0) return;
+
+    onUpdate((draft) => {
+      for (let i = 0; i < applyCount; i++) {
+        draft.pages[i].text = chunks[i];
+      }
+    });
+    onSave();
+    setShowBulkText(false);
+    setBulkTextValue('');
+  };
+
   // Count how many pages have translation for a given lang
   const langStatus = (code: string) => {
     if (code === 'ko') return pages.length;
@@ -337,6 +357,25 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
           </Button>
         )}
 
+        {/* Bulk text input (Korean tab only) */}
+        {isKorean && (
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={() => {
+              if (!showBulkText) {
+                // Pre-fill with current page texts
+                const current = pages.map((p) => p.text || '').join('\n---\n');
+                setBulkTextValue(current);
+              }
+              setShowBulkText(!showBulkText);
+            }}
+            disabled={isBatchRunning || pages.length === 0}
+          >
+            텍스트 일괄 입력
+          </Button>
+        )}
+
         {/* TTS: dropdown with voice selector */}
         <div className="relative">
           <Button
@@ -385,6 +424,60 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
           )}
         </div>
       </div>
+
+      {/* Bulk text editor */}
+      {showBulkText && (
+        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 space-y-3">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
+              페이지 텍스트 일괄 입력
+            </p>
+            <p className="text-xs text-slate-400">
+              <code className="bg-slate-100 dark:bg-slate-700 px-1 rounded">---</code> 로 페이지
+              구분
+            </p>
+          </div>
+          <textarea
+            value={bulkTextValue}
+            onChange={(e) => setBulkTextValue(e.target.value)}
+            rows={12}
+            className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg text-sm focus:ring-2 focus:ring-violet-500 outline-none resize-y dark:bg-slate-700 dark:text-slate-100"
+            placeholder={`1페이지 텍스트\n---\n2페이지 텍스트\n---\n3페이지 텍스트`}
+          />
+          {(() => {
+            const chunks = bulkTextValue.split('---').map((s) => s.trim());
+            const applyCount = Math.min(chunks.length, pages.length);
+            const overflow = chunks.length > pages.length;
+            return (
+              <div className="flex items-center justify-between">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  {applyCount}개 페이지에 텍스트 적용
+                  {overflow && (
+                    <span className="text-amber-500 ml-1">
+                      (입력 {chunks.length}개 중 {chunks.length - pages.length}개 초과분 무시)
+                    </span>
+                  )}
+                </p>
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => {
+                      setShowBulkText(false);
+                      setBulkTextValue('');
+                    }}
+                  >
+                    취소
+                  </Button>
+                  <Button size="sm" onClick={handleApplyBulkText} disabled={applyCount === 0}>
+                    적용
+                  </Button>
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+      )}
 
       {/* Progress bar */}
       {batchProgress && (

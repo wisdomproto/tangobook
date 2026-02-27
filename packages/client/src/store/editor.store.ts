@@ -14,7 +14,7 @@ type EditorTab =
   | 'games';
 
 type CreateFormType = 'storybook' | 'phonics';
-type SidebarTypeFilter = 'storybook' | 'phonics';
+type SidebarTypeFilter = 'storybook' | 'phonics-ko' | 'phonics-en';
 
 interface EditorStore {
   // 선택된 동화책 ID
@@ -49,6 +49,11 @@ interface EditorStore {
   customFolders: string[];
   addCustomFolder: (folder: string) => void;
   removeCustomFolder: (folder: string) => void;
+  // Per-tab folder state
+  foldersByTab: Record<string, { folder: string; customFolders: string[] }>;
+  setFolderForTab: (tab: string, folder: string) => void;
+  addCustomFolderForTab: (tab: string, folder: string) => void;
+  removeCustomFolderForTab: (tab: string, folder: string) => void;
 
   // 생성 진행률 (0-100)
   generationProgress: Record<string, number>;
@@ -91,6 +96,44 @@ export const useEditorStore = create<EditorStore>((set) => ({
     })),
   removeCustomFolder: (folder) =>
     set((state) => ({ customFolders: state.customFolders.filter((f) => f !== folder) })),
+
+  foldersByTab: {},
+  setFolderForTab: (tab, folder) =>
+    set((state) => ({
+      foldersByTab: {
+        ...state.foldersByTab,
+        [tab]: { ...(state.foldersByTab[tab] ?? { folder: 'all', customFolders: [] }), folder },
+      },
+    })),
+  addCustomFolderForTab: (tab, folder) =>
+    set((state) => {
+      const prev = state.foldersByTab[tab] ?? { folder: 'all', customFolders: [] };
+      return {
+        foldersByTab: {
+          ...state.foldersByTab,
+          [tab]: {
+            ...prev,
+            customFolders: prev.customFolders.includes(folder)
+              ? prev.customFolders
+              : [...prev.customFolders, folder],
+          },
+        },
+      };
+    }),
+  removeCustomFolderForTab: (tab, folder) =>
+    set((state) => {
+      const prev = state.foldersByTab[tab] ?? { folder: 'all', customFolders: [] };
+      return {
+        foldersByTab: {
+          ...state.foldersByTab,
+          [tab]: {
+            ...prev,
+            folder: prev.folder === folder ? 'all' : prev.folder,
+            customFolders: prev.customFolders.filter((f) => f !== folder),
+          },
+        },
+      };
+    }),
 
   generationProgress: {},
   setGenerationProgress: (key, progress) =>

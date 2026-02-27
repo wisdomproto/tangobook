@@ -119,11 +119,18 @@ export function Sidebar() {
   const setVisibility = useEditorStore((s) => s.setSidebarVisibility);
   const sort = useEditorStore((s) => s.sidebarSort);
   const setSort = useEditorStore((s) => s.setSidebarSort);
-  const folder = useEditorStore((s) => s.sidebarFolder);
-  const setFolder = useEditorStore((s) => s.setSidebarFolder);
-  const customFolders = useEditorStore((s) => s.customFolders);
-  const addCustomFolder = useEditorStore((s) => s.addCustomFolder);
-  const removeCustomFolder = useEditorStore((s) => s.removeCustomFolder);
+  const foldersByTab = useEditorStore((s) => s.foldersByTab);
+  const setFolderForTab = useEditorStore((s) => s.setFolderForTab);
+  const addCustomFolderForTab = useEditorStore((s) => s.addCustomFolderForTab);
+  const removeCustomFolderForTab = useEditorStore((s) => s.removeCustomFolderForTab);
+
+  // Per-tab folder state
+  const tabFolderState = foldersByTab[typeFilter] ?? { folder: 'all', customFolders: [] };
+  const folder = tabFolderState.folder;
+  const setFolder = (f: string) => setFolderForTab(typeFilter, f);
+  const customFolders = tabFolderState.customFolders;
+  const addCustomFolder = (f: string) => addCustomFolderForTab(typeFilter, f);
+  const removeCustomFolder = (f: string) => removeCustomFolderForTab(typeFilter, f);
 
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; title: string } | null>(null);
   const [showNewFolder, setShowNewFolder] = useState(false);
@@ -131,41 +138,47 @@ export function Sidebar() {
   const [draggingId, setDraggingId] = useState<string | null>(null);
 
   // 타입별 카테고리 목록
+  const isPhonics = typeFilter === 'phonics-ko' || typeFilter === 'phonics-en';
   const categories = useMemo(() => {
-    const items = typeFilter === 'phonics' ? PHONICS_CATEGORIES : STORYBOOK_CATEGORIES;
+    const items = isPhonics ? PHONICS_CATEGORIES : STORYBOOK_CATEGORIES;
     return [{ value: 'all', label: '전체' }, ...items.map((c) => ({ value: c, label: c }))];
-  }, [typeFilter]);
+  }, [isPhonics]);
 
   // Require 8px movement to start drag (prevents conflict with click)
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 8 } }));
 
-  // Extract unique folders from storybooks + custom folders
+  // Filter storybooks by active type tab
+  const typeFiltered = useMemo(() => {
+    if (!storybooks) return [];
+    if (typeFilter === 'storybook') {
+      return storybooks.filter((s) => (s.type ?? 'storybook') === 'storybook');
+    }
+    const lang = typeFilter === 'phonics-ko' ? 'korean' : 'english';
+    return storybooks.filter((s) => s.type === 'phonics' && s.phonicsLanguage === lang);
+  }, [storybooks, typeFilter]);
+
+  // Extract unique folders from type-filtered storybooks + custom folders
   const folders = useMemo(() => {
     const set = new Set<string>();
-    storybooks?.forEach((s) => {
+    typeFiltered.forEach((s) => {
       if (s.folder) set.add(s.folder);
     });
     customFolders.forEach((f) => set.add(f));
     return Array.from(set).sort((a, b) => a.localeCompare(b, 'ko'));
-  }, [storybooks, customFolders]);
+  }, [typeFiltered, customFolders]);
 
-  // Folder counts
+  // Folder counts (scoped to active type)
   const folderCounts = useMemo(() => {
-    if (!storybooks) return {};
     const counts: Record<string, number> = {};
-    storybooks.forEach((s) => {
+    typeFiltered.forEach((s) => {
       const f = s.folder || '';
       counts[f] = (counts[f] || 0) + 1;
     });
     return counts;
-  }, [storybooks]);
+  }, [typeFiltered]);
 
   const filtered = useMemo(() => {
-    if (!storybooks) return [];
-    let list = [...storybooks];
-
-    // Type filter
-    list = list.filter((s) => (s.type ?? 'storybook') === typeFilter);
+    let list = [...typeFiltered];
 
     // Folder filter
     if (folder !== 'all') {
@@ -200,7 +213,7 @@ export function Sidebar() {
     }
 
     return list;
-  }, [storybooks, search, category, visibility, sort, folder, typeFilter]);
+  }, [typeFiltered, search, category, visibility, sort, folder]);
 
   const draggingStorybook = useMemo(() => {
     if (!draggingId || !storybooks) return null;
@@ -289,39 +302,37 @@ export function Sidebar() {
       <aside className="w-72 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 fixed top-14 left-0 bottom-0 flex flex-col z-30">
         {/* 타입 탭 */}
         <div className="flex border-b border-slate-200 dark:border-slate-700">
-          {(['storybook', 'phonics'] as const).map((t) => (
+          {(
+            [
+              { key: 'storybook', label: '동화책', color: 'violet' },
+              { key: 'phonics-ko', label: '한글파닉스', color: 'emerald' },
+              { key: 'phonics-en', label: '영어파닉스', color: 'blue' },
+            ] as const
+          ).map((t) => (
             <button
-              key={t}
+              key={t.key}
               onClick={() => {
-                setTypeFilter(t);
+                setTypeFilter(t.key);
                 setCategory('all');
               }}
-              className={`flex-1 py-3 text-sm font-semibold text-center transition-colors border-b-2 ${
-                typeFilter === t
-                  ? t === 'phonics'
+              className={`flex-1 py-3 text-xs font-semibold text-center transition-colors border-b-2 ${
+                typeFilter === t.key
+                  ? t.color === 'emerald'
                     ? 'border-emerald-600 text-emerald-600 dark:text-emerald-400'
-                    : 'border-violet-600 text-violet-600 dark:text-violet-400'
+                    : t.color === 'blue'
+                      ? 'border-blue-600 text-blue-600 dark:text-blue-400'
+                      : 'border-violet-600 text-violet-600 dark:text-violet-400'
                   : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
               }`}
             >
-              {t === 'storybook' ? '동화책' : '파닉스 유닛'}
+              {t.label}
             </button>
           ))}
         </div>
 
         {/* 새로 만들기 버튼 (선택된 탭에 맞는 것만) */}
         <div className="p-3">
-          {typeFilter === 'phonics' ? (
-            <button
-              onClick={() => {
-                setCreateFormType('phonics');
-                setShowCreateForm(true);
-              }}
-              className="w-full px-3 py-2 text-sm font-medium rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition-colors"
-            >
-              + 새 파닉스 유닛 만들기
-            </button>
-          ) : (
+          {typeFilter === 'storybook' ? (
             <Button
               className="w-full"
               onClick={() => {
@@ -331,6 +342,20 @@ export function Sidebar() {
             >
               + 새 동화책 만들기
             </Button>
+          ) : (
+            <button
+              onClick={() => {
+                setCreateFormType('phonics');
+                setShowCreateForm(true);
+              }}
+              className={`w-full px-3 py-2 text-sm font-medium rounded-lg text-white transition-colors ${
+                typeFilter === 'phonics-en'
+                  ? 'bg-blue-600 hover:bg-blue-700'
+                  : 'bg-emerald-600 hover:bg-emerald-700'
+              }`}
+            >
+              + 새 {typeFilter === 'phonics-ko' ? '한글' : '영어'} 파닉스 만들기
+            </button>
           )}
         </div>
 
@@ -398,7 +423,7 @@ export function Sidebar() {
             <DroppableFolder
               folderId="all"
               label="전체"
-              count={storybooks?.length ?? 0}
+              count={typeFiltered.length}
               isActive={folder === 'all'}
               isOver={false}
               onClick={() => setFolder('all')}

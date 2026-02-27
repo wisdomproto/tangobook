@@ -50,14 +50,16 @@ export function AppLayout() {
                   />
                 </svg>
               }
-              title={typeFilter === 'phonics' ? '파닉스 유닛을 선택하세요' : '동화책을 선택하세요'}
+              title={
+                typeFilter !== 'storybook' ? '파닉스 유닛을 선택하세요' : '동화책을 선택하세요'
+              }
               description={
-                typeFilter === 'phonics'
+                typeFilter !== 'storybook'
                   ? '왼쪽 목록에서 파닉스 유닛을 선택하거나, 새 유닛을 만들어보세요.'
                   : '왼쪽 목록에서 동화책을 선택하거나, 새 동화책을 만들어보세요.'
               }
               action={
-                typeFilter === 'phonics' ? (
+                typeFilter !== 'storybook' ? (
                   <button
                     onClick={() => {
                       setCreateFormType('phonics');
