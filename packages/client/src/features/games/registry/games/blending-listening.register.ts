@@ -8,6 +8,7 @@ registerGame({
   descriptionKo: '단어를 듣고 알맞은 그림을 골라요',
   icon: '🔊',
   supportedTypes: ['phonics'],
+  supportedLevels: [2, 3, 4, 5],
   contentRequirements: {
     needsVocabularyImages: false,
     needsKeyObjectImages: false,

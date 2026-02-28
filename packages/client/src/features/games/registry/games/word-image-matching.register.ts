@@ -8,6 +8,7 @@ registerGame({
   descriptionKo: '단어와 그림을 선으로 연결하세요',
   icon: '🖇️',
   supportedTypes: ['phonics'],
+  supportedLevels: [2, 3, 4, 5],
   contentRequirements: {
     needsVocabularyImages: false,
     needsKeyObjectImages: false,

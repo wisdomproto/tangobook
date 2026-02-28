@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import type { Storybook } from '@tangobook/shared';
 import { Button } from '@/components/Button';
 import { ImageLightbox } from '@/components/ImageLightbox';
@@ -14,6 +14,8 @@ import type { ImageTask, TtsTask } from '../hooks/usePhonicsCardActions';
 import { TtsRow } from './TtsRow';
 import { ImageDescriptionInput } from './ImageDescriptionInput';
 import { ImageHistory } from './ImageHistory';
+import { TracingPointEditorModal } from './TracingPointEditorModal';
+import { TracingGamePreviewModal } from './TracingGamePreviewModal';
 
 interface FlashcardTabProps {
   storybook: Storybook;
@@ -25,6 +27,8 @@ const stripBold = (s: string) => s.replace(/\*\*/g, '');
 
 export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps) {
   const flashcards = storybook.flashcards ?? [];
+  const [tracingEditIdx, setTracingEditIdx] = useState<number | null>(null);
+  const [tracingPreviewIdx, setTracingPreviewIdx] = useState<number | null>(null);
 
   const {
     isBusy,
@@ -375,6 +379,31 @@ export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps)
                               onRestore={(h) => restoreFlashcardHistory(idx, h)}
                             />
                           )}
+                          {/* 점선 따라그리기 */}
+                          {card.imageUrl && (
+                            <Button
+                              size="sm"
+                              variant="secondary"
+                              className="w-full mt-1"
+                              onClick={() => setTracingEditIdx(idx)}
+                              disabled={isBusy}
+                            >
+                              {card.tracingPoints?.length
+                                ? `점선 편집 (${card.tracingPoints.length})`
+                                : '점선 그리기'}
+                            </Button>
+                          )}
+                          {card.imageUrl && (
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="w-full"
+                              onClick={() => setTracingPreviewIdx(idx)}
+                              disabled={(card.tracingPoints?.length ?? 0) < 2}
+                            >
+                              따라그리기 미리보기
+                            </Button>
+                          )}
                         </div>
                       </div>
 
@@ -460,6 +489,35 @@ export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps)
       {lightboxUrl && (
         <ImageLightbox src={lightboxUrl} alt="핵심단어" onClose={() => setLightboxUrl(null)} />
       )}
+
+      {tracingEditIdx !== null && flashcards[tracingEditIdx]?.imageUrl && (
+        <TracingPointEditorModal
+          imageUrl={flashcards[tracingEditIdx].imageUrl!}
+          word={flashcards[tracingEditIdx].word}
+          initialPoints={flashcards[tracingEditIdx].tracingPoints}
+          aspectRatio="1/1"
+          onSave={(points) => {
+            onUpdate((d) => {
+              d.flashcards![tracingEditIdx].tracingPoints = points;
+            });
+            onSave();
+            setTracingEditIdx(null);
+          }}
+          onClose={() => setTracingEditIdx(null)}
+        />
+      )}
+
+      {tracingPreviewIdx !== null &&
+        flashcards[tracingPreviewIdx]?.imageUrl &&
+        (flashcards[tracingPreviewIdx].tracingPoints?.length ?? 0) >= 2 && (
+          <TracingGamePreviewModal
+            imageUrl={flashcards[tracingPreviewIdx].imageUrl!}
+            word={flashcards[tracingPreviewIdx].word}
+            tracingPoints={flashcards[tracingPreviewIdx].tracingPoints!}
+            ttsUrl={flashcards[tracingPreviewIdx].ttsUrl}
+            onClose={() => setTracingPreviewIdx(null)}
+          />
+        )}
     </div>
   );
 }

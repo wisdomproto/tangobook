@@ -200,12 +200,24 @@ export const ImageService = {
     } = req;
 
     // Filter character references to only those mentioned in this page's context
-    const pageContext = [
+    // 한글 + 영어 양쪽 컨텍스트에서 대소문자 무시하여 매칭
+    const pageContextKo = [
       page.text ?? '',
       page.scene_description ?? '',
       page.scene_structure?.characters ?? '',
-    ].join(' ');
-    const relevantChars = characterReferences.filter((c) => pageContext.includes(c.name));
+    ]
+      .join(' ')
+      .toLowerCase();
+    const pageContextEn = [
+      page.scene_description_en ?? '',
+      page.scene_structure?.characters_en ?? '',
+    ]
+      .join(' ')
+      .toLowerCase();
+    const relevantChars = characterReferences.filter((c) => {
+      const name = c.name.toLowerCase();
+      return pageContextKo.includes(name) || pageContextEn.includes(name);
+    });
 
     const charRefPromises = relevantChars
       .filter((c) => c.referenceImage)
@@ -367,10 +379,7 @@ export const ImageService = {
       vocabularyItems.map(async (item) => {
         const prompt = `Create a clear, educational illustration of "${item.word}" (${item.korean}) for children aged 4-8.
 
-*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***
-${artStyle}
-*** END ART STYLE ***
-The entire illustration MUST be rendered strictly in the art style described above. Do NOT default to generic cartoon or digital art style.
+${artStyleBlock(artStyle)}
 
 Clean white background. No text in the image.`;
         const base64 = await generateImageWithGemini({
@@ -420,12 +429,9 @@ Clean white background. No text in the image.`;
       const prompt = `"${word}"를 주제로 4-8세 아이를 위한 선명하고 교육적인 삽화를 그려주세요.${descHint}
 Aspect Ratio: ${ratio}
 
-*** 필수 아트 스타일 (반드시 따를 것) ***
-${artStyle}
-*** 아트 스타일 끝 ***
-모든 삽화는 반드시 위에 명시된 아트 스타일로 그려야 합니다. 기본 카툰이나 디지털 아트 스타일로 대체하지 마세요.
+${artStyleBlock(artStyle, 'ko')}
 
-완전히 깨끗한 순백색(#FFFFFF) 배경에 "${word}"가 뜻하는 사물/동물/대상 딱 하나만 그려주세요.${description ? ` 위 "구체적 묘사"를 반드시 반영하세요.` : ''} 배경, 그림자, 바닥면, 장식, 다른 인물, 다른 사물 일절 없이 대상만 중앙에 크게 배치하세요. 어휘 플래시카드이므로 대상 외 아무것도 그리지 마세요. 이미지에 텍스트, 글자, 라벨을 포함하지 마세요.`;
+${isolatedObjectPrompt(word, !!description)}`;
 
       const base64 = await generateImageWithGemini({
         prompt,
@@ -443,7 +449,7 @@ ${artStyle}
       return R2Repository.uploadImage(base64, key);
     }
 
-    // 비-isolated: 장면 설명 + 캐릭터 레퍼런스 포함
+    // 비-isolated: 장면 설명 + 캐릭터 레퍼런스 항상 포함
     const descLine = description ? `\n장면: ${description}` : '';
 
     const chars = characterReferences ?? [];
@@ -452,30 +458,33 @@ ${artStyle}
       .filter((line) => line.length > 5)
       .join('\n');
 
-    const charNames = chars.map((c) => c.name);
-    const descMentionsChar = description && charNames.some((name) => description.includes(name));
-    const charRefSection = descMentionsChar
-      ? `\n\n*** 캐릭터 레퍼런스 ***\n이 동화책에 등장하는 캐릭터입니다. 장면 설명에 언급된 캐릭터는 아래 설명대로 정확히 그려주세요:\n${charDescriptions}\n*** 캐릭터 레퍼런스 끝 ***`
-      : '';
+    const charRefSection =
+      charDescriptions.length > 0
+        ? `\n\n*** 캐릭터 레퍼런스 ***\n이 동화책에 등장하는 캐릭터입니다. 장면 설명의 캐릭터는 아래 설명과 첨부된 레퍼런스 이미지대로 정확히 그려주세요:\n${charDescriptions}\n*** 캐릭터 레퍼런스 끝 ***`
+        : '';
 
-    const prompt = `"${word}"를 주제로 4-8세 아이를 위한 선명하고 교육적인 삽화를 그려주세요.${descLine}${charRefSection}
+    const hasChars = charDescriptions.length > 0;
+    const prompt = `4-8세 유아용 파닉스 교재의 학습카드 장면 삽화를 그려주세요.${descLine}${charRefSection}
 Aspect Ratio: ${ratio}
 
-*** 필수 아트 스타일 (반드시 따를 것) ***
-${artStyle}
-*** 아트 스타일 끝 ***
-모든 삽화는 반드시 위에 명시된 아트 스타일로 그려야 합니다. 기본 카툰이나 디지털 아트 스타일로 대체하지 마세요.
+${artStyleBlock(artStyle, 'ko')}
 
-깨끗한 흰 배경에 단어의 뜻을 직관적으로 보여주는 간결한 삽화를 그려주세요. 복잡한 배경이나 불필요한 요소 없이 핵심 대상만 명확하게 표현하세요. 이미지에 텍스트, 글자, 라벨을 포함하지 마세요.`;
+${
+  hasChars
+    ? `*** 중요: 캐릭터 일관성 ***
+첨부된 캐릭터 레퍼런스 이미지를 반드시 참고하여, 캐릭터의 외모(옷, 머리색, 체형, 얼굴 특징)를 정확히 일치시키세요. 장면 설명에 캐릭터가 등장하면 레퍼런스와 동일한 모습으로 그려야 합니다.
+*** 캐릭터 일관성 끝 ***
 
-    // 캐릭터 레퍼런스 이미지 로딩 (장면에 캐릭터가 언급된 경우만)
-    const refImages = descMentionsChar
-      ? ((
-          await Promise.all(
-            chars.filter((c) => c.referenceImage).map((c) => urlToBase64(c.referenceImage!))
-          )
-        ).filter(Boolean) as Array<{ base64: string; mimeType: string }>)
-      : [];
+`
+    : ''
+}장면 설명대로 캐릭터와 사물이 자연스럽게 상호작용하는 풍부한 장면을 그려주세요. 구체적인 배경(공원, 숲, 마당 등)을 포함하고 밝고 따뜻한 분위기로 표현하세요. 이미지에 텍스트, 글자, 라벨을 포함하지 마세요.`;
+
+    // 캐릭터 레퍼런스 이미지 항상 로딩
+    const refImages = (
+      await Promise.all(
+        chars.filter((c) => c.referenceImage).map((c) => urlToBase64(c.referenceImage!))
+      )
+    ).filter(Boolean) as Array<{ base64: string; mimeType: string }>;
 
     const base64 = await generateImageWithGemini({
       prompt,
@@ -501,12 +510,9 @@ ${artStyle}
       flashcards.map(async (card) => {
         const prompt = `"${card.word}" (${card.localWord})를 주제로 4-8세 아이를 위한 선명하고 교육적인 삽화를 그려주세요.
 
-*** 필수 아트 스타일 (반드시 따를 것) ***
-${artStyle}
-*** 아트 스타일 끝 ***
-모든 삽화는 반드시 위에 명시된 아트 스타일로 그려야 합니다. 기본 카툰이나 디지털 아트 스타일로 대체하지 마세요.
+${artStyleBlock(artStyle, 'ko')}
 
-완전히 깨끗한 순백색(#FFFFFF) 배경에 "${card.word}"가 뜻하는 사물/동물/대상 딱 하나만 그려주세요. 배경, 그림자, 바닥면, 장식, 다른 인물, 다른 사물 일절 없이 대상만 중앙에 크게 배치하세요. 어휘 플래시카드이므로 대상 외 아무것도 그리지 마세요. 이미지에 텍스트, 글자, 라벨을 포함하지 마세요.`;
+${isolatedObjectPrompt(card.word)}`;
 
         const base64 = await generateImageWithGemini({
           prompt,
@@ -625,6 +631,27 @@ function replaceNamesWithAliases(text: string, aliasMap: Map<string, string>): s
   return result;
 }
 
+// --- 공통 프롬프트 블록 ---
+
+function artStyleBlock(artStyle: string, lang: 'en' | 'ko' = 'en'): string {
+  if (lang === 'ko') {
+    return `*** 필수 아트 스타일 (반드시 따를 것) ***
+${artStyle}
+*** 아트 스타일 끝 ***
+모든 삽화는 반드시 위에 명시된 아트 스타일로 그려야 합니다. 기본 카툰이나 디지털 아트 스타일로 대체하지 마세요.`;
+  }
+  return `*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***
+${artStyle}
+*** END ART STYLE ***
+The entire illustration MUST be rendered strictly in the art style described above. Every element — line work, coloring technique, texture, shading, and overall aesthetic — must match this style precisely. Do NOT default to generic cartoon or digital art style.`;
+}
+
+function isolatedObjectPrompt(word: string, hasDescription = false): string {
+  return `완전히 깨끗한 순백색(#FFFFFF) 배경에 "${word}"가 뜻하는 사물/동물/대상 딱 하나만 그려주세요.${hasDescription ? ` 위 "구체적 묘사"를 반드시 반영하세요.` : ''} 배경, 그림자, 바닥면, 장식, 다른 인물, 다른 사물 일절 없이 대상만 중앙에 크게 배치하세요. 어휘 플래시카드이므로 대상 외 아무것도 그리지 마세요. 이미지에 텍스트, 글자, 라벨을 포함하지 마세요.
+
+Add a thick bold white border around the entire outer edge following the silhouette precisely. Inside the white border, add a colorful dotted line pattern using pastel colors (pink, purple, blue, yellow, mint green) creating a decorative inner border. Cute sticker style with double border effect.`;
+}
+
 // --- 프롬프트 빌더 ---
 
 function buildCharacterPrompt(
@@ -646,10 +673,7 @@ Age: ${char.age ?? 'unknown'}${heightInfo}
 Relative Height Scale: ${char.height}/200 (used for sizing relative to other characters)
 Aspect Ratio: ${aspectRatio}
 
-*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***
-${artStyle}
-*** END ART STYLE ***
-The entire illustration MUST be rendered strictly in the art style described above. Every element — line work, coloring technique, texture, shading, and overall aesthetic — must match this style precisely. Do NOT default to generic cartoon or digital art style.
+${artStyleBlock(artStyle)}
 
 Layout: Show the character in multiple views in a single image:
 - Front view (center, main pose)
@@ -715,10 +739,7 @@ Atmosphere: ${sceneAtmo}`;
 ${sceneSection}
 Aspect Ratio: ${aspectRatio}
 
-*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***
-${artStyle}
-*** END ART STYLE ***
-The entire illustration MUST be rendered strictly in the art style described above. Every element — line work, coloring technique, texture, shading, and overall aesthetic — must match this style precisely. Do NOT default to generic cartoon or digital art style.
+${artStyleBlock(artStyle)}
 
 Characters present (match EXACTLY to reference images):
 ${charList}
@@ -750,10 +771,7 @@ Book Title: ${san(storybook.title)}
 ${storybook.coverPrompt ? `Cover Description: ${san(storybook.coverPrompt)}` : ''}
 Aspect Ratio: ${aspectRatio}
 
-*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***
-${storybook.artStyle}
-*** END ART STYLE ***
-The entire illustration MUST be rendered strictly in the art style described above. Every element — line work, coloring technique, texture, shading, and overall aesthetic — must match this style precisely. Do NOT default to generic cartoon or digital art style.
+${artStyleBlock(storybook.artStyle)}
 
 Quality: Professional children's book cover, vibrant and eye-catching.
 TITLE TEXT: Include the book title "${storybook.title}" prominently on the cover using decorative, child-friendly typography. No other text.${titleRef}`;
@@ -786,10 +804,7 @@ Level/Unit Label: "${phonics.titleText}"
 Main Title: "${mainTitle}"${wordsStr}${charsStr}${sceneDesc}
 Aspect Ratio: ${aspectRatio}
 
-*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***
-${storybook.artStyle}
-*** END ART STYLE ***
-The entire illustration MUST be rendered strictly in the art style described above.
+${artStyleBlock(storybook.artStyle)}
 
 === LAYOUT INSTRUCTIONS ===
 1. TOP-LEFT CORNER: Place "${phonics.titleText}" in small, simple text (subtitle size). Use a small rounded badge or subtle label style. This is NOT the main title — keep it small and unobtrusive.
@@ -810,10 +825,7 @@ function buildKeyObjectPrompt(obj: KeyObject, artStyle: string): string {
 Object: ${obj.name}${obj.korean ? ` (${obj.korean})` : ''}
 Description: ${obj.description}${sizeInfo}
 
-*** MANDATORY ART STYLE (MUST FOLLOW EXACTLY) ***
-${artStyle}
-*** END ART STYLE ***
-The entire illustration MUST be rendered strictly in the art style described above. Every element — line work, coloring technique, texture, shading, and overall aesthetic — must match this style precisely. Do NOT default to generic cartoon or digital art style.
+${artStyleBlock(artStyle)}
 
 White or transparent background.
 CRITICAL - NO TEXT: No text or labels in the image.`;

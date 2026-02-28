@@ -32,6 +32,7 @@ export interface GameRegistryEntry {
   descriptionKo: string;
   icon: string;
   supportedTypes: Array<'storybook' | 'phonics'>;
+  supportedLevels?: number[]; // 파닉스 전용: [1] = Level1, [2,3,4,5] = Level2~5
   contentRequirements: ContentRequirement;
   defaultConfig: GameConfig;
   ConfigPanel: ComponentType<GameConfigPanelProps>;
@@ -54,4 +55,14 @@ export function getAllGames(): GameRegistryEntry[] {
 
 export function getGamesForType(storybookType: 'storybook' | 'phonics'): GameRegistryEntry[] {
   return getAllGames().filter((g) => g.supportedTypes.includes(storybookType));
+}
+
+/** 파닉스 레벨(book1~book5)에 맞는 게임만 필터링 */
+export function getGamesForPhonicsLevel(level: string): GameRegistryEntry[] {
+  const phonicsGames = getGamesForType('phonics');
+  const levelNum = parseInt(level.replace(/\D/g, ''), 10) || 0;
+  return phonicsGames.filter((g) => {
+    if (!g.supportedLevels) return true;
+    return g.supportedLevels.includes(levelNum);
+  });
 }

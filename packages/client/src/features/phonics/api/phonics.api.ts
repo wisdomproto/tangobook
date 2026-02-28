@@ -2,22 +2,25 @@ import { apiPost, apiClient } from '@/lib/axios';
 import type { PhonicsFlashcard } from '@tangobook/shared';
 
 export const phonicsApi = {
-  generateWordImage: (data: {
-    word: string;
-    description?: string;
-    artStyle: string;
-    storybookId: string;
-    storybookTitle: string;
-    model?: string;
-    aspectRatio?: string;
-    characterReferences?: Array<{
-      name: string;
+  generateWordImage: (
+    data: {
+      word: string;
       description?: string;
-      descriptionEn?: string;
-      referenceImage?: string;
-    }>;
-    isolatedObject?: boolean;
-  }) => apiPost<{ imageUrl: string }>('/images/phonics-word', data),
+      artStyle: string;
+      storybookId: string;
+      storybookTitle: string;
+      model?: string;
+      aspectRatio?: string;
+      characterReferences?: Array<{
+        name: string;
+        description?: string;
+        descriptionEn?: string;
+        referenceImage?: string;
+      }>;
+      isolatedObject?: boolean;
+    },
+    signal?: AbortSignal
+  ) => apiPost<{ imageUrl: string }>('/images/phonics-word', data, { signal }),
 
   generateFlashcardImages: (data: {
     flashcards: PhonicsFlashcard[];
@@ -31,17 +34,22 @@ export const phonicsApi = {
       data
     ),
 
-  generateWordTts: (data: {
-    text: string;
-    provider: 'gemini' | 'minimax' | 'elevenlabs';
-    voice?: string;
-    language?: string;
-    storybookId: string;
-    identifier: string;
-  }) => apiPost<{ audioUrl: string }>('/tts/generate', data),
+  generateWordTts: (
+    data: {
+      text: string;
+      provider: 'gemini' | 'minimax' | 'elevenlabs';
+      voice?: string;
+      language?: string;
+      storybookId: string;
+      identifier: string;
+    },
+    signal?: AbortSignal
+  ) => apiPost<{ audioUrl: string }>('/tts/generate', data, { signal }),
 
-  concatPhonicsAudio: (data: { text: string; storybookId: string; identifier: string }) =>
-    apiPost<{ audioUrl: string }>('/phonics-library/concat', data),
+  concatPhonicsAudio: (
+    data: { text: string; storybookId: string; identifier: string },
+    signal?: AbortSignal
+  ) => apiPost<{ audioUrl: string }>('/phonics-library/concat', data, { signal }),
 
   uploadTts: async (file: File, storybookId: string, identifier: string) => {
     const form = new FormData();
@@ -55,6 +63,8 @@ export const phonicsApi = {
     );
     return res.data.data;
   },
+
+  deleteImage: (imageUrl: string) => apiPost<{ message: string }>('/images/cleanup', { imageUrl }),
 
   uploadImage: async (
     file: File,

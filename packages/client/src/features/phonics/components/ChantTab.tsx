@@ -12,6 +12,7 @@ interface ChantTabProps {
 export function ChantTab({ storybook, onUpdate, onSave }: ChantTabProps) {
   const chant = storybook.chant;
   const [generating, setGenerating] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleGenerateTts = async () => {
@@ -35,6 +36,22 @@ export function ChantTab({ storybook, onUpdate, onSave }: ChantTabProps) {
       setError((e as Error).message);
     } finally {
       setGenerating(false);
+    }
+  };
+
+  const handleUploadTts = async (file: File) => {
+    setUploading(true);
+    setError(null);
+    try {
+      const { audioUrl } = await phonicsApi.uploadTts(file, storybook.id, 'chant-tts');
+      onUpdate((d) => {
+        d.chant!.ttsUrl = audioUrl;
+      });
+      onSave();
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -87,9 +104,11 @@ export function ChantTab({ storybook, onUpdate, onSave }: ChantTabProps) {
           url={chant.ttsUrl}
           label={chant.ttsUrl ? '챈트 TTS' : '챈트 TTS 생성'}
           generating={generating}
-          disabled={generating}
+          uploading={uploading}
+          disabled={generating || uploading}
           downloadFilename={chant.ttsUrl ? 'chant.wav' : undefined}
           onGenerate={handleGenerateTts}
+          onUpload={handleUploadTts}
         />
         {!chant.ttsUrl && !generating && (
           <p className="mt-2 text-xs text-slate-400">가사 전체를 음성으로 변환합니다</p>

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Button } from '@/components/Button';
-import { getGamesForType } from '../registry';
+import { getGamesForType, getGamesForPhonicsLevel } from '../registry';
 import type { GameRegistryEntry } from '../registry';
 import type { Storybook, GameConfig, GameDifficulty, GameTypeId } from '@tangobook/shared';
 
@@ -31,7 +31,10 @@ export function GameCreatorModal({
   const [difficulty, setDifficulty] = useState<GameDifficulty>('easy');
 
   const storybookType = storybook.type ?? 'storybook';
-  const availableGames = getGamesForType(storybookType as 'storybook' | 'phonics');
+  const availableGames =
+    storybookType === 'phonics'
+      ? getGamesForPhonicsLevel(storybook.phonicsConfig?.level ?? '')
+      : getGamesForType('storybook');
 
   const handleSelectType = useCallback((entry: GameRegistryEntry) => {
     setSelectedEntry(entry);

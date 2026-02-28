@@ -1,23 +1,25 @@
 import { useState, useCallback } from 'react';
 import type { Storybook } from '@tangobook/shared';
-import { ASPECT_RATIOS } from '@tangobook/shared';
 import { Button } from '@/components/Button';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { ImageDropZone } from '@/components/ImageDropZone';
 import { ImagePreview } from '@/components/ImagePreview';
 import { DownloadButton } from '@/components/DownloadButton';
 import { UploadMenu } from '@/components/UploadMenu';
-import { ImageModelSelector } from '@/components/ImageModelSelector';
 import { BatchProgressBar } from '@/components/BatchProgressBar';
 import { pushImageHistory } from '@/lib/image-history';
+import { phonicsApi } from '../api/phonics.api';
 import { usePhonicsCardActions } from '../hooks/usePhonicsCardActions';
 import type { ImageTask, TtsTask } from '../hooks/usePhonicsCardActions';
 import { TtsRow } from './TtsRow';
 import { ImageDescriptionInput } from './ImageDescriptionInput';
 import { ImageHistory } from './ImageHistory';
-import { LetterWritingCanvas } from './LetterWritingCanvas';
+import { WritingPracticeSection } from './WritingPracticeSection';
+import { ImageConfigPanel } from './ImageConfigPanel';
 import { HotspotEditorModal } from './HotspotEditorModal';
 import { LearningCardPreviewModal } from './LearningCardPreviewModal';
+import { TracingPointEditorModal } from './TracingPointEditorModal';
+import { TracingGamePreviewModal } from './TracingGamePreviewModal';
 
 /**
  * Level 1 전용 학습 카드 탭 (알파벳 음가)
@@ -70,6 +72,8 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
   );
   const [hotspotEditIdx, setHotspotEditIdx] = useState<number | null>(null);
   const [previewIdx, setPreviewIdx] = useState<number | null>(null);
+  const [tracingEditIdx, setTracingEditIdx] = useState<number | null>(null);
+  const [tracingPreviewIdx, setTracingPreviewIdx] = useState<number | null>(null);
 
   // --- 삽화 히스토리 복원 ---
   const restoreIllustrationHistory = useCallback(
@@ -191,39 +195,18 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-4">
-        <ImageModelSelector
-          value={storybook.imageModels?.phonics}
-          onChange={(modelId) => {
-            onUpdate((d) => {
-              if (!d.imageModels) d.imageModels = {};
-              d.imageModels.phonics = modelId;
-            });
-            onSave();
-          }}
-          label="이미지 모델"
-        />
-        <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
-            이미지 비율
-          </label>
-          <div className="flex gap-1.5 flex-wrap">
-            {ASPECT_RATIOS.map((r) => (
-              <button
-                key={r}
-                onClick={() => setAspectRatio(r)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
-                  aspectRatio === r
-                    ? 'bg-violet-600 text-white border-violet-600'
-                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-violet-300'
-                }`}
-              >
-                {r}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+      <ImageConfigPanel
+        modelValue={storybook.imageModels?.phonics}
+        onModelChange={(modelId) => {
+          onUpdate((d) => {
+            if (!d.imageModels) d.imageModels = {};
+            d.imageModels.phonics = modelId;
+          });
+          onSave();
+        }}
+        aspectRatio={aspectRatio}
+        onAspectRatioChange={setAspectRatio}
+      />
 
       {batchType && (
         <BatchProgressBar
@@ -367,6 +350,32 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
                               aspectRatio={aspectRatio.replace(':', '/')}
                               emptyText={`${item.vowel}${item.consonant} 장면 삽화`}
                               onClick={() => displayImageUrl && setLightboxUrl(displayImageUrl)}
+                              onDelete={
+                                displayImageUrl
+                                  ? () => {
+                                      // 현재 이미지 + 히스토리 이미지 모두 서버에서 삭제
+                                      const urlsToDelete = [
+                                        displayImageUrl,
+                                        ...(displayHistory ?? []),
+                                      ];
+                                      onUpdate((d) => {
+                                        if (!d.phonicsLesson) return;
+                                        const b = d.phonicsLesson.blending[idx];
+                                        if (b.illustrationUrl) {
+                                          b.illustrationUrl = undefined;
+                                          b.illustrationHistory = [];
+                                        } else if (b.exampleWordImageUrl) {
+                                          b.exampleWordImageUrl = undefined;
+                                          b.exampleWordImageHistory = [];
+                                        }
+                                      });
+                                      onSave();
+                                      for (const url of urlsToDelete) {
+                                        phonicsApi.deleteImage(url).catch(() => {});
+                                      }
+                                    }
+                                  : undefined
+                              }
                             />
                             {/* 핫스팟 미리보기 오버레이 */}
                             {displayImageUrl && wf && wf.words.some((w) => w.hotspot) && (
@@ -457,6 +466,31 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
                               }
                             />
                           )}
+                          {/* 점선 따라그리기 */}
+                          {displayImageUrl && (
+                            <Button
+                              size="sm"
+                              variant="secondary"
+                              className="w-full mt-2"
+                              onClick={() => setTracingEditIdx(idx)}
+                              disabled={isBusy}
+                            >
+                              {item.exampleWordTracingPoints?.length
+                                ? `점선 편집 (${item.exampleWordTracingPoints.length})`
+                                : '점선 그리기'}
+                            </Button>
+                          )}
+                          {displayImageUrl && (
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="w-full"
+                              onClick={() => setTracingPreviewIdx(idx)}
+                              disabled={(item.exampleWordTracingPoints?.length ?? 0) < 2}
+                            >
+                              따라그리기 미리보기
+                            </Button>
+                          )}
                         </div>
                       )}
                     </ImageDropZone>
@@ -472,24 +506,28 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
                             <div key={wIdx} className="space-y-0.5">
                               <div className="flex items-center gap-2 px-3">
                                 <input
-                                  value={w.word}
-                                  onChange={(e) => {
+                                  defaultValue={w.word}
+                                  key={`word-${idx}-${wIdx}-${w.word}`}
+                                  onBlur={(e) => {
+                                    const val = e.target.value;
+                                    if (val === w.word) return;
                                     onUpdate((d) => {
                                       if (d.phonicsLesson)
-                                        d.phonicsLesson.wordFamilies[idx].words[wIdx].word =
-                                          e.target.value;
+                                        d.phonicsLesson.wordFamilies[idx].words[wIdx].word = val;
                                     });
                                     onSave();
                                   }}
                                   className="text-sm font-bold font-mono bg-transparent border-b border-dashed border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300 w-24 focus:outline-none"
                                 />
                                 <input
-                                  value={w.korean ?? ''}
-                                  onChange={(e) => {
+                                  defaultValue={w.korean ?? ''}
+                                  key={`korean-${idx}-${wIdx}-${w.korean ?? ''}`}
+                                  onBlur={(e) => {
+                                    const val = e.target.value || undefined;
+                                    if (val === w.korean) return;
                                     onUpdate((d) => {
                                       if (d.phonicsLesson)
-                                        d.phonicsLesson.wordFamilies[idx].words[wIdx].korean =
-                                          e.target.value || undefined;
+                                        d.phonicsLesson.wordFamilies[idx].words[wIdx].korean = val;
                                     });
                                     onSave();
                                   }}
@@ -537,58 +575,15 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
                     )}
 
                     {/* 글자 쓰기 연습 */}
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                          글자 쓰기 연습
-                        </p>
-                      </div>
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() =>
-                            setWritingPractice(
-                              writingPractice?.idx === idx && writingPractice?.letter === item.vowel
-                                ? null
-                                : { idx, letter: item.vowel }
-                            )
-                          }
-                          className={`px-4 py-2 rounded-lg text-sm font-bold border transition-colors ${
-                            writingPractice?.idx === idx && writingPractice?.letter === item.vowel
-                              ? 'bg-amber-50 border-amber-300 text-amber-700 dark:bg-amber-900/30 dark:border-amber-600 dark:text-amber-300'
-                              : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-amber-300'
-                          }`}
-                        >
-                          {item.vowel} 쓰기
-                        </button>
-                        <button
-                          onClick={() =>
-                            setWritingPractice(
-                              writingPractice?.idx === idx &&
-                                writingPractice?.letter === item.consonant
-                                ? null
-                                : { idx, letter: item.consonant }
-                            )
-                          }
-                          className={`px-4 py-2 rounded-lg text-sm font-bold border transition-colors ${
-                            writingPractice?.idx === idx &&
-                            writingPractice?.letter === item.consonant
-                              ? 'bg-sky-50 border-sky-300 text-sky-700 dark:bg-sky-900/30 dark:border-sky-600 dark:text-sky-300'
-                              : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-sky-300'
-                          }`}
-                        >
-                          {item.consonant} 쓰기
-                        </button>
-                      </div>
-                      {writingPractice?.idx === idx && (
-                        <div className="mt-3">
-                          <LetterWritingCanvas
-                            letter={writingPractice.letter}
-                            correctSoundUrl={storybook.systemSounds?.correctUrl}
-                            incorrectSoundUrl={storybook.systemSounds?.incorrectUrl}
-                          />
-                        </div>
-                      )}
-                    </div>
+                    <WritingPracticeSection
+                      vowel={item.vowel}
+                      consonant={item.consonant}
+                      idx={idx}
+                      active={writingPractice}
+                      onToggle={setWritingPractice}
+                      correctSoundUrl={storybook.systemSounds?.correctUrl}
+                      incorrectSoundUrl={storybook.systemSounds?.incorrectUrl}
+                    />
                   </div>
                 </div>
               );
@@ -638,13 +633,22 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
                 korean: w.korean,
                 hotspot: w.hotspot,
               }))}
-              onSave={(hotspots) => {
+              onSave={(hotspots, order) => {
                 onUpdate((d) => {
                   if (!d.phonicsLesson) return;
-                  const words = d.phonicsLesson.wordFamilies[hotspotEditIdx].words;
+                  const wf = d.phonicsLesson.wordFamilies[hotspotEditIdx];
+                  // 핫스팟 반영
                   hotspots.forEach((h, i) => {
-                    if (words[i]) words[i].hotspot = h;
+                    if (wf.words[i]) wf.words[i].hotspot = h;
                   });
+                  // 레이어 순서에 따라 단어 배열 재정렬
+                  const isReordered = order.some((v, i) => v !== i);
+                  if (isReordered) {
+                    const snapshot = wf.words.slice();
+                    order.forEach((origIdx, newPos) => {
+                      wf.words[newPos] = snapshot[origIdx];
+                    });
+                  }
                 });
                 onSave();
                 setHotspotEditIdx(null);
@@ -664,6 +668,49 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
           onClose={() => setPreviewIdx(null)}
         />
       )}
+
+      {/* 점선 따라그리기 편집 모달 */}
+      {tracingEditIdx !== null &&
+        (() => {
+          const blendItem = letters[tracingEditIdx];
+          const imgUrl = blendItem?.illustrationUrl ?? blendItem?.exampleWordImageUrl;
+          if (!imgUrl) return null;
+          return (
+            <TracingPointEditorModal
+              imageUrl={imgUrl}
+              word={blendItem.exampleWord}
+              initialPoints={blendItem.exampleWordTracingPoints}
+              aspectRatio={aspectRatio.replace(':', '/')}
+              onSave={(points) => {
+                onUpdate((d) => {
+                  if (d.phonicsLesson)
+                    d.phonicsLesson.blending[tracingEditIdx].exampleWordTracingPoints = points;
+                });
+                onSave();
+                setTracingEditIdx(null);
+              }}
+              onClose={() => setTracingEditIdx(null)}
+            />
+          );
+        })()}
+
+      {/* 따라그리기 게임 미리보기 */}
+      {tracingPreviewIdx !== null &&
+        (() => {
+          const blendItem = letters[tracingPreviewIdx];
+          const imgUrl = blendItem?.illustrationUrl ?? blendItem?.exampleWordImageUrl;
+          const points = blendItem?.exampleWordTracingPoints;
+          if (!imgUrl || !points || points.length < 2) return null;
+          return (
+            <TracingGamePreviewModal
+              imageUrl={imgUrl}
+              word={blendItem.exampleWord}
+              tracingPoints={points}
+              systemSounds={storybook.systemSounds}
+              onClose={() => setTracingPreviewIdx(null)}
+            />
+          );
+        })()}
     </div>
   );
 }

@@ -156,6 +156,7 @@ export function LearningCardPreviewModal({
                               left: `${h.x * 100}%`,
                               top: `${h.y * 100}%`,
                               transform: 'translate(-25%, -25%)',
+                              zIndex: words.length - i,
                             }}
                           >
                             <div className="w-8 h-8 rounded-full bg-white/80 dark:bg-slate-800/80 shadow-md flex items-center justify-center">

@@ -1,22 +1,18 @@
 import { useState, useCallback, useRef } from 'react';
 import type { Storybook, BlendingExercise } from '@tangobook/shared';
-import { ASPECT_RATIOS } from '@tangobook/shared';
 import { Button } from '@/components/Button';
 import { ImageLightbox } from '@/components/ImageLightbox';
-import { ImageDropZone } from '@/components/ImageDropZone';
-import { ImagePreview } from '@/components/ImagePreview';
-import { DownloadButton } from '@/components/DownloadButton';
-import { UploadMenu } from '@/components/UploadMenu';
-import { ImageModelSelector } from '@/components/ImageModelSelector';
 import { BatchProgressBar } from '@/components/BatchProgressBar';
 import { pushImageHistory } from '@/lib/image-history';
 import { usePhonicsCardActions } from '../hooks/usePhonicsCardActions';
 import type { ImageTask, TtsTask } from '../hooks/usePhonicsCardActions';
 import { TtsRow } from './TtsRow';
-import { ImageDescriptionInput } from './ImageDescriptionInput';
-import { ImageHistory } from './ImageHistory';
-import { LetterWritingCanvas } from './LetterWritingCanvas';
+import { WritingPracticeSection } from './WritingPracticeSection';
+import { ImageConfigPanel } from './ImageConfigPanel';
+import { ExampleWordCard } from './ExampleWordCard';
 import { LearningCardPreviewModal } from './LearningCardPreviewModal';
+import { TracingPointEditorModal } from './TracingPointEditorModal';
+import { TracingGamePreviewModal } from './TracingGamePreviewModal';
 
 interface LearningCardTabProps {
   storybook: Storybook;
@@ -57,6 +53,10 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
     null
   );
   const [previewIdx, setPreviewIdx] = useState<number | null>(null);
+  const [tracingEdit, setTracingEdit] = useState<{ idx: number; wordNum: 1 | 2 } | null>(null);
+  const [tracingPreview, setTracingPreview] = useState<{ idx: number; wordNum: 1 | 2 } | null>(
+    null
+  );
 
   // 편집 중인 이미지 설명 draft를 실시간 추적 (저장 전에도 재생성에서 참조)
   const liveDescs = useRef<Record<string, string | undefined>>({});
@@ -259,39 +259,18 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
       </div>
 
       {/* 이미지 모델 + 비율 선택 */}
-      <div className="flex flex-col sm:flex-row gap-4">
-        <ImageModelSelector
-          value={storybook.imageModels?.phonics}
-          onChange={(modelId) => {
-            onUpdate((d) => {
-              if (!d.imageModels) d.imageModels = {};
-              d.imageModels.phonics = modelId;
-            });
-            onSave();
-          }}
-          label="이미지 모델"
-        />
-        <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
-            이미지 비율
-          </label>
-          <div className="flex gap-1.5 flex-wrap">
-            {ASPECT_RATIOS.map((r) => (
-              <button
-                key={r}
-                onClick={() => setAspectRatio(r)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
-                  aspectRatio === r
-                    ? 'bg-violet-600 text-white border-violet-600'
-                    : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-violet-300'
-                }`}
-              >
-                {r}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+      <ImageConfigPanel
+        modelValue={storybook.imageModels?.phonics}
+        onModelChange={(modelId) => {
+          onUpdate((d) => {
+            if (!d.imageModels) d.imageModels = {};
+            d.imageModels.phonics = modelId;
+          });
+          onSave();
+        }}
+        aspectRatio={aspectRatio}
+        onAspectRatioChange={setAspectRatio}
+      />
 
       {batchType && (
         <BatchProgressBar
@@ -423,176 +402,68 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
 
                   {/* 하단: 예시단어 2개 */}
                   <div className="divide-y divide-slate-100 dark:divide-slate-700/50">
-                    {/* 예시단어 1 */}
-                    <div className="p-5">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="px-3 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-sm font-bold">
-                          {onset1}
-                        </span>
-                        <span className="text-xs text-slate-400 font-bold">+</span>
-                        <span className="px-3 py-1 rounded-lg bg-sky-100 dark:bg-sky-900/40 text-red-500 dark:text-red-400 text-sm font-bold">
-                          {item.blend}
-                        </span>
-                        <span className="text-xs text-slate-400 font-bold">&rarr;</span>
-                        <input
-                          value={item.exampleWord}
-                          onChange={(e) => {
-                            onUpdate((d) => {
-                              if (d.phonicsLesson)
-                                d.phonicsLesson.blending[idx].exampleWord = e.target.value;
-                            });
-                            onSave();
-                          }}
-                          className="w-28 text-lg font-bold text-slate-800 dark:text-slate-100 bg-transparent border-b border-dashed border-slate-300 dark:border-slate-600 focus:outline-none focus:border-violet-500"
-                        />
-                      </div>
-                      <div className="flex flex-col sm:flex-row gap-4">
-                        <div className="flex-shrink-0 w-full sm:w-40">
-                          <ImageDropZone
-                            onFile={(f) => handleUpload(f, imgKey1, makeUpdater1)}
-                            disabled={isBusy}
-                            enablePaste={false}
-                          >
-                            {(openFilePicker) => (
-                              <div className="space-y-2">
-                                <ImagePreview
-                                  src={item.exampleWordImageUrl}
-                                  alt={item.exampleWord}
-                                  loading={isGenImg1 || isUploading1}
-                                  size="sm"
-                                  aspectRatio="1/1"
-                                  emptyText={item.exampleWord}
-                                  onClick={() =>
-                                    item.exampleWordImageUrl &&
-                                    setLightboxUrl(item.exampleWordImageUrl)
-                                  }
-                                  onDelete={
-                                    item.exampleWordImageUrl
-                                      ? () => {
-                                          onUpdate((d) => {
-                                            if (d.phonicsLesson)
-                                              d.phonicsLesson.blending[idx].exampleWordImageUrl =
-                                                undefined;
-                                          });
-                                          onSave();
-                                        }
-                                      : undefined
-                                  }
-                                />
-                                <div className="flex items-center gap-1">
-                                  <Button
-                                    size="sm"
-                                    variant="secondary"
-                                    className="flex-1"
-                                    onClick={() =>
-                                      imageMutation.mutate({
-                                        word: item.exampleWord,
-                                        description:
-                                          liveDescs.current[`${idx}-1`] ??
-                                          item.exampleWordImageDescription,
-                                        key: imgKey1,
-                                        updater: makeUpdater1,
-                                        isolatedObject: true,
-                                      })
-                                    }
-                                    loading={isGenImg1}
-                                    disabled={isBusy}
-                                  >
-                                    {item.exampleWordImageUrl ? '재생성' : '생성'}
-                                  </Button>
-                                  {item.exampleWordImageUrl && (
-                                    <DownloadButton
-                                      href={item.exampleWordImageUrl}
-                                      filename={`${item.exampleWord}.png`}
-                                    />
-                                  )}
-                                  <UploadMenu
-                                    onFile={(f) => handleUpload(f, imgKey1, makeUpdater1)}
-                                    openFilePicker={openFilePicker}
-                                    disabled={isBusy}
-                                  />
-                                </div>
-                                <ImageDescriptionInput
-                                  value={item.exampleWordImageDescription}
-                                  onChange={(v) => {
-                                    onUpdate((d) => {
-                                      if (d.phonicsLesson)
-                                        d.phonicsLesson.blending[idx].exampleWordImageDescription =
-                                          v;
-                                    });
-                                    onSave();
-                                  }}
-                                  onDraftChange={(v) => {
-                                    liveDescs.current[`${idx}-1`] = v;
-                                  }}
-                                />
-                                <ImageHistory
-                                  history={item.exampleWordImageHistory}
-                                  onRestore={(h) => restoreBlendingHistory(idx, 1, h)}
-                                />
-                              </div>
-                            )}
-                          </ImageDropZone>
-                        </div>
-                        <div className="flex-1 min-w-0 space-y-1.5">
-                          <TtsRow
-                            label={item.exampleWord}
-                            tag="단어"
-                            color="red"
-                            url={item.exampleWordTtsUrl}
-                            generating={generatingTts.has(`exword-${idx}`)}
-                            disabled={isBusy}
-                            downloadFilename={`${item.exampleWord}.wav`}
-                            editableText={getTtsText(`exword-${idx}`, item.exampleWord)}
-                            onTextChange={(t) => setTtsText(`exword-${idx}`, t)}
-                            onGenerate={() =>
-                              generateTts(
-                                getTtsText(`exword-${idx}`, item.exampleWord),
-                                `exword-${idx}`,
-                                (d, url) => {
-                                  if (d.phonicsLesson)
-                                    d.phonicsLesson.blending[idx].exampleWordTtsUrl = url;
-                                }
-                              )
-                            }
-                            onUpload={(f) =>
-                              handleTtsUpload(f, `exword-${idx}`, (d, url) => {
-                                if (d.phonicsLesson)
-                                  d.phonicsLesson.blending[idx].exampleWordTtsUrl = url;
-                              })
-                            }
-                          />
-                          <TtsRow
-                            label={onset1}
-                            tag="onset"
-                            color="amber"
-                            url={item.exampleWordOnsetTtsUrl}
-                            generating={generatingTts.has(`onset-${idx}`)}
-                            disabled={isBusy}
-                            downloadFilename={`${onset1}.wav`}
-                            editableText={getTtsText(`onset-${idx}`, onset1)}
-                            onTextChange={(t) => setTtsText(`onset-${idx}`, t)}
-                            onGenerate={() =>
-                              generateTts(
-                                getTtsText(`onset-${idx}`, onset1),
-                                `onset-${idx}`,
-                                (d, url) => {
-                                  if (d.phonicsLesson)
-                                    d.phonicsLesson.blending[idx].exampleWordOnsetTtsUrl = url;
-                                }
-                              )
-                            }
-                            onUpload={(f) =>
-                              handleTtsUpload(f, `onset-${idx}`, (d, url) => {
-                                if (d.phonicsLesson)
-                                  d.phonicsLesson.blending[idx].exampleWordOnsetTtsUrl = url;
-                              })
-                            }
-                          />
-                        </div>
-                      </div>
-                    </div>
-
+                    <ExampleWordCard
+                      word={item.exampleWord}
+                      onset={onset1}
+                      blend={item.blend}
+                      imageUrl={item.exampleWordImageUrl}
+                      imageDescription={
+                        liveDescs.current[`${idx}-1`] ?? item.exampleWordImageDescription
+                      }
+                      imageHistory={item.exampleWordImageHistory}
+                      wordTtsUrl={item.exampleWordTtsUrl}
+                      onsetTtsUrl={item.exampleWordOnsetTtsUrl}
+                      imgKey={imgKey1}
+                      wordTtsKey={`exword-${idx}`}
+                      onsetTtsKey={`onset-${idx}`}
+                      imageUpdater={makeUpdater1}
+                      wordTtsUpdater={(d, url) => {
+                        if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWordTtsUrl = url;
+                      }}
+                      onsetTtsUpdater={(d, url) => {
+                        if (d.phonicsLesson)
+                          d.phonicsLesson.blending[idx].exampleWordOnsetTtsUrl = url;
+                      }}
+                      onWordChange={(v) => {
+                        onUpdate((d) => {
+                          if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWord = v;
+                        });
+                        onSave();
+                      }}
+                      onImageDelete={() => {
+                        onUpdate((d) => {
+                          if (d.phonicsLesson)
+                            d.phonicsLesson.blending[idx].exampleWordImageUrl = undefined;
+                        });
+                        onSave();
+                      }}
+                      onImageDescChange={(v) => {
+                        onUpdate((d) => {
+                          if (d.phonicsLesson)
+                            d.phonicsLesson.blending[idx].exampleWordImageDescription = v;
+                        });
+                        onSave();
+                      }}
+                      onImageDescDraft={(v) => {
+                        liveDescs.current[`${idx}-1`] = v;
+                      }}
+                      onHistoryRestore={(h) => restoreBlendingHistory(idx, 1, h)}
+                      isBusy={isBusy}
+                      generatingImage={isGenImg1}
+                      uploading={isUploading1}
+                      generatingWordTts={generatingTts.has(`exword-${idx}`)}
+                      generatingOnsetTts={generatingTts.has(`onset-${idx}`)}
+                      tracingPoints={item.exampleWordTracingPoints}
+                      onTracingEdit={() => setTracingEdit({ idx, wordNum: 1 })}
+                      onTracingPreview={() => setTracingPreview({ idx, wordNum: 1 })}
+                      imageMutate={imageMutation.mutate}
+                      handleUpload={handleUpload}
+                      generateTts={generateTts}
+                      handleTtsUpload={handleTtsUpload}
+                      getTtsText={getTtsText}
+                      setTtsText={setTtsText}
+                      setLightboxUrl={setLightboxUrl}
+                    />
                     {/* 예시단어 2 */}
                     <div className="p-5">
                       <div className="flex items-center gap-2 mb-3">
@@ -618,152 +489,70 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
                         />
                       </div>
                       {item.exampleWord2 ? (
-                        <div className="flex flex-col sm:flex-row gap-4">
-                          <div className="flex-shrink-0 w-full sm:w-40">
-                            <ImageDropZone
-                              onFile={(f) => handleUpload(f, imgKey2, makeUpdater2)}
-                              disabled={isBusy}
-                              enablePaste={false}
-                            >
-                              {(openFilePicker) => (
-                                <div className="space-y-2">
-                                  <ImagePreview
-                                    src={item.exampleWord2ImageUrl}
-                                    alt={item.exampleWord2 ?? ''}
-                                    loading={isGenImg2 || isUploading2}
-                                    size="sm"
-                                    aspectRatio="1/1"
-                                    emptyText={item.exampleWord2}
-                                    onClick={() =>
-                                      item.exampleWord2ImageUrl &&
-                                      setLightboxUrl(item.exampleWord2ImageUrl)
-                                    }
-                                    onDelete={
-                                      item.exampleWord2ImageUrl
-                                        ? () => {
-                                            onUpdate((d) => {
-                                              if (d.phonicsLesson)
-                                                d.phonicsLesson.blending[idx].exampleWord2ImageUrl =
-                                                  undefined;
-                                            });
-                                            onSave();
-                                          }
-                                        : undefined
-                                    }
-                                  />
-                                  <div className="flex items-center gap-1">
-                                    <Button
-                                      size="sm"
-                                      variant="secondary"
-                                      className="flex-1"
-                                      onClick={() =>
-                                        imageMutation.mutate({
-                                          word: item.exampleWord2!,
-                                          description:
-                                            liveDescs.current[`${idx}-2`] ??
-                                            item.exampleWord2ImageDescription,
-                                          key: imgKey2,
-                                          updater: makeUpdater2,
-                                          isolatedObject: true,
-                                        })
-                                      }
-                                      loading={isGenImg2}
-                                      disabled={isBusy}
-                                    >
-                                      {item.exampleWord2ImageUrl ? '재생성' : '생성'}
-                                    </Button>
-                                    {item.exampleWord2ImageUrl && (
-                                      <DownloadButton
-                                        href={item.exampleWord2ImageUrl}
-                                        filename={`${item.exampleWord2}.png`}
-                                      />
-                                    )}
-                                    <UploadMenu
-                                      onFile={(f) => handleUpload(f, imgKey2, makeUpdater2)}
-                                      openFilePicker={openFilePicker}
-                                      disabled={isBusy}
-                                    />
-                                  </div>
-                                  <ImageDescriptionInput
-                                    value={item.exampleWord2ImageDescription}
-                                    onChange={(v) => {
-                                      onUpdate((d) => {
-                                        if (d.phonicsLesson)
-                                          d.phonicsLesson.blending[
-                                            idx
-                                          ].exampleWord2ImageDescription = v;
-                                      });
-                                      onSave();
-                                    }}
-                                    onDraftChange={(v) => {
-                                      liveDescs.current[`${idx}-2`] = v;
-                                    }}
-                                  />
-                                  <ImageHistory
-                                    history={item.exampleWord2ImageHistory}
-                                    onRestore={(h) => restoreBlendingHistory(idx, 2, h)}
-                                  />
-                                </div>
-                              )}
-                            </ImageDropZone>
-                          </div>
-                          <div className="flex-1 min-w-0 space-y-1.5">
-                            <TtsRow
-                              label={item.exampleWord2}
-                              tag="단어"
-                              color="red"
-                              url={item.exampleWord2TtsUrl}
-                              generating={generatingTts.has(`exword2-${idx}`)}
-                              disabled={isBusy}
-                              downloadFilename={`${item.exampleWord2}.wav`}
-                              editableText={getTtsText(`exword2-${idx}`, item.exampleWord2)}
-                              onTextChange={(t) => setTtsText(`exword2-${idx}`, t)}
-                              onGenerate={() =>
-                                generateTts(
-                                  getTtsText(`exword2-${idx}`, item.exampleWord2!),
-                                  `exword2-${idx}`,
-                                  (d, url) => {
-                                    if (d.phonicsLesson)
-                                      d.phonicsLesson.blending[idx].exampleWord2TtsUrl = url;
-                                  }
-                                )
-                              }
-                              onUpload={(f) =>
-                                handleTtsUpload(f, `exword2-${idx}`, (d, url) => {
-                                  if (d.phonicsLesson)
-                                    d.phonicsLesson.blending[idx].exampleWord2TtsUrl = url;
-                                })
-                              }
-                            />
-                            <TtsRow
-                              label={onset2}
-                              tag="onset"
-                              color="amber"
-                              url={item.exampleWord2OnsetTtsUrl}
-                              generating={generatingTts.has(`onset2-${idx}`)}
-                              disabled={isBusy}
-                              downloadFilename={`${onset2}.wav`}
-                              editableText={getTtsText(`onset2-${idx}`, onset2)}
-                              onTextChange={(t) => setTtsText(`onset2-${idx}`, t)}
-                              onGenerate={() =>
-                                generateTts(
-                                  getTtsText(`onset2-${idx}`, onset2),
-                                  `onset2-${idx}`,
-                                  (d, url) => {
-                                    if (d.phonicsLesson)
-                                      d.phonicsLesson.blending[idx].exampleWord2OnsetTtsUrl = url;
-                                  }
-                                )
-                              }
-                              onUpload={(f) =>
-                                handleTtsUpload(f, `onset2-${idx}`, (d, url) => {
-                                  if (d.phonicsLesson)
-                                    d.phonicsLesson.blending[idx].exampleWord2OnsetTtsUrl = url;
-                                })
-                              }
-                            />
-                          </div>
-                        </div>
+                        <ExampleWordCard
+                          showHeader={false}
+                          word={item.exampleWord2}
+                          onset={onset2}
+                          blend={item.blend}
+                          imageUrl={item.exampleWord2ImageUrl}
+                          imageDescription={
+                            liveDescs.current[`${idx}-2`] ?? item.exampleWord2ImageDescription
+                          }
+                          imageHistory={item.exampleWord2ImageHistory}
+                          wordTtsUrl={item.exampleWord2TtsUrl}
+                          onsetTtsUrl={item.exampleWord2OnsetTtsUrl}
+                          imgKey={imgKey2}
+                          wordTtsKey={`exword2-${idx}`}
+                          onsetTtsKey={`onset2-${idx}`}
+                          imageUpdater={makeUpdater2}
+                          wordTtsUpdater={(d, url) => {
+                            if (d.phonicsLesson)
+                              d.phonicsLesson.blending[idx].exampleWord2TtsUrl = url;
+                          }}
+                          onsetTtsUpdater={(d, url) => {
+                            if (d.phonicsLesson)
+                              d.phonicsLesson.blending[idx].exampleWord2OnsetTtsUrl = url;
+                          }}
+                          onWordChange={(v) => {
+                            onUpdate((d) => {
+                              if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWord2 = v;
+                            });
+                            onSave();
+                          }}
+                          onImageDelete={() => {
+                            onUpdate((d) => {
+                              if (d.phonicsLesson)
+                                d.phonicsLesson.blending[idx].exampleWord2ImageUrl = undefined;
+                            });
+                            onSave();
+                          }}
+                          onImageDescChange={(v) => {
+                            onUpdate((d) => {
+                              if (d.phonicsLesson)
+                                d.phonicsLesson.blending[idx].exampleWord2ImageDescription = v;
+                            });
+                            onSave();
+                          }}
+                          onImageDescDraft={(v) => {
+                            liveDescs.current[`${idx}-2`] = v;
+                          }}
+                          onHistoryRestore={(h) => restoreBlendingHistory(idx, 2, h)}
+                          isBusy={isBusy}
+                          generatingImage={isGenImg2}
+                          uploading={isUploading2}
+                          generatingWordTts={generatingTts.has(`exword2-${idx}`)}
+                          generatingOnsetTts={generatingTts.has(`onset2-${idx}`)}
+                          tracingPoints={item.exampleWord2TracingPoints}
+                          onTracingEdit={() => setTracingEdit({ idx, wordNum: 2 })}
+                          onTracingPreview={() => setTracingPreview({ idx, wordNum: 2 })}
+                          imageMutate={imageMutation.mutate}
+                          handleUpload={handleUpload}
+                          generateTts={generateTts}
+                          handleTtsUpload={handleTtsUpload}
+                          getTtsText={getTtsText}
+                          setTtsText={setTtsText}
+                          setLightboxUrl={setLightboxUrl}
+                        />
                       ) : (
                         <p className="text-xs text-slate-400 dark:text-slate-500 italic">
                           예시단어 2를 입력하면 이미지/TTS 에셋을 생성할 수 있습니다.
@@ -893,55 +682,15 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
 
                   {/* 글자 쓰기 연습 */}
                   <div className="px-5 pb-5 pt-3">
-                    <div className="flex items-center gap-2 mb-2">
-                      <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                        글자 쓰기 연습
-                      </p>
-                    </div>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() =>
-                          setWritingPractice(
-                            writingPractice?.idx === idx && writingPractice?.letter === item.vowel
-                              ? null
-                              : { idx, letter: item.vowel }
-                          )
-                        }
-                        className={`px-4 py-2 rounded-lg text-sm font-bold border transition-colors ${
-                          writingPractice?.idx === idx && writingPractice?.letter === item.vowel
-                            ? 'bg-amber-50 border-amber-300 text-amber-700 dark:bg-amber-900/30 dark:border-amber-600 dark:text-amber-300'
-                            : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-amber-300'
-                        }`}
-                      >
-                        {item.vowel} 쓰기
-                      </button>
-                      <button
-                        onClick={() =>
-                          setWritingPractice(
-                            writingPractice?.idx === idx &&
-                              writingPractice?.letter === item.consonant
-                              ? null
-                              : { idx, letter: item.consonant }
-                          )
-                        }
-                        className={`px-4 py-2 rounded-lg text-sm font-bold border transition-colors ${
-                          writingPractice?.idx === idx && writingPractice?.letter === item.consonant
-                            ? 'bg-sky-50 border-sky-300 text-sky-700 dark:bg-sky-900/30 dark:border-sky-600 dark:text-sky-300'
-                            : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-sky-300'
-                        }`}
-                      >
-                        {item.consonant} 쓰기
-                      </button>
-                    </div>
-                    {writingPractice?.idx === idx && (
-                      <div className="mt-3">
-                        <LetterWritingCanvas
-                          letter={writingPractice.letter}
-                          correctSoundUrl={storybook.systemSounds?.correctUrl}
-                          incorrectSoundUrl={storybook.systemSounds?.incorrectUrl}
-                        />
-                      </div>
-                    )}
+                    <WritingPracticeSection
+                      vowel={item.vowel}
+                      consonant={item.consonant}
+                      idx={idx}
+                      active={writingPractice}
+                      onToggle={setWritingPractice}
+                      correctSoundUrl={storybook.systemSounds?.correctUrl}
+                      incorrectSoundUrl={storybook.systemSounds?.incorrectUrl}
+                    />
                   </div>
                 </div>
               );
@@ -965,6 +714,68 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
           onClose={() => setPreviewIdx(null)}
         />
       )}
+
+      {/* 점선 따라그리기 편집 모달 */}
+      {tracingEdit !== null &&
+        (() => {
+          const item = lesson!.blending[tracingEdit.idx];
+          const imgUrl =
+            tracingEdit.wordNum === 1 ? item.exampleWordImageUrl : item.exampleWord2ImageUrl;
+          const word = tracingEdit.wordNum === 1 ? item.exampleWord : (item.exampleWord2 ?? '');
+          const points =
+            tracingEdit.wordNum === 1
+              ? item.exampleWordTracingPoints
+              : item.exampleWord2TracingPoints;
+          if (!imgUrl) return null;
+          return (
+            <TracingPointEditorModal
+              imageUrl={imgUrl}
+              word={word}
+              initialPoints={points}
+              aspectRatio="1/1"
+              onSave={(pts) => {
+                onUpdate((d) => {
+                  if (!d.phonicsLesson) return;
+                  const b = d.phonicsLesson.blending[tracingEdit.idx];
+                  if (tracingEdit.wordNum === 1) {
+                    b.exampleWordTracingPoints = pts;
+                  } else {
+                    b.exampleWord2TracingPoints = pts;
+                  }
+                });
+                onSave();
+                setTracingEdit(null);
+              }}
+              onClose={() => setTracingEdit(null)}
+            />
+          );
+        })()}
+
+      {/* 따라그리기 게임 미리보기 */}
+      {tracingPreview !== null &&
+        (() => {
+          const item = lesson!.blending[tracingPreview.idx];
+          const imgUrl =
+            tracingPreview.wordNum === 1 ? item.exampleWordImageUrl : item.exampleWord2ImageUrl;
+          const w = tracingPreview.wordNum === 1 ? item.exampleWord : (item.exampleWord2 ?? '');
+          const points =
+            tracingPreview.wordNum === 1
+              ? item.exampleWordTracingPoints
+              : item.exampleWord2TracingPoints;
+          const tts =
+            tracingPreview.wordNum === 1 ? item.exampleWordTtsUrl : item.exampleWord2TtsUrl;
+          if (!imgUrl || !points || points.length < 2) return null;
+          return (
+            <TracingGamePreviewModal
+              imageUrl={imgUrl}
+              word={w}
+              tracingPoints={points}
+              ttsUrl={tts}
+              systemSounds={storybook.systemSounds}
+              onClose={() => setTracingPreview(null)}
+            />
+          );
+        })()}
     </div>
   );
 }

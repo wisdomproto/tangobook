@@ -1,17 +1,28 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type {
-  Storybook,
-  BlendingExercise,
-  WordFamily,
-  PhonicsFlashcard,
-  PhonicsQuizItem,
-} from '@tangobook/shared';
+import type { Storybook, BlendingExercise, WordFamily } from '@tangobook/shared';
 import { LetterWritingCanvas } from '@/features/phonics/components/LetterWritingCanvas';
 import { ListeningQuizGame } from './ListeningQuizGame';
 import { LetterMatchingGame } from './LetterMatchingGame';
 import { WordImageMatchingGame } from './WordImageMatchingGame';
 import { BlendingListeningQuiz } from './BlendingListeningQuiz';
+import { FlashcardPractice } from './FlashcardPractice';
+import { ChantPlayer } from './ChantPlayer';
+import { PhonicsQuizPlayer } from './PhonicsQuizPlayer';
+import { LetterSoundGame } from './LetterSoundGame';
+import { InitialSoundGame } from './InitialSoundGame';
+import { OutlineTracingGame } from './OutlineTracingGame';
+import {
+  V_CARD_BG,
+  V_CARD_SHADOW,
+  V_SHINE,
+  V_DIVIDER,
+  V_FONT,
+  VBtn3D,
+  VOpGlyph,
+  VBtnPill,
+  VWordRow3D,
+} from './Viewer3DKit';
 
 type PhonicsMode =
   | 'learn'
@@ -25,6 +36,9 @@ type PhonicsMode =
   | 'letter-matching'
   | 'word-image-matching'
   | 'blending-listening'
+  | 'letter-sound'
+  | 'initial-sound'
+  | 'outline-tracing'
   | null;
 
 const MODE_LABELS: Record<string, string> = {
@@ -39,6 +53,9 @@ const MODE_LABELS: Record<string, string> = {
   'letter-matching': '글자 매칭',
   'word-image-matching': '선긋기 게임',
   'blending-listening': '듣기 맞추기',
+  'letter-sound': '음가 듣기',
+  'initial-sound': '첫소리 찾기',
+  'outline-tracing': '단어연습',
 };
 
 interface PhonicsViewerProps {
@@ -72,6 +89,9 @@ export function PhonicsViewer({ storybook, mode: rawMode }: PhonicsViewerProps) 
                 'letter-matching',
                 'word-image-matching',
                 'blending-listening',
+                'letter-sound',
+                'initial-sound',
+                'outline-tracing',
               ];
               if (mode && gameModes.includes(mode)) {
                 navigate(`/viewer/${storybook.id}?mode=games`, { replace: true });
@@ -133,9 +153,17 @@ export function PhonicsViewer({ storybook, mode: rawMode }: PhonicsViewerProps) 
               <WritingSection letters={letters} systemSounds={storybook.systemSounds} standalone />
             )}
 
-            {/* flashcard 모드 */}
+            {/* flashcard 모드 (단어연습) */}
             {mode === 'flashcard' &&
-              (flashcards.length > 0 ? (
+              (flashcards.some((c) => c.tracingPoints?.length && c.tracingPoints.length >= 2) ? (
+                <OutlineTracingGame
+                  letters={[]}
+                  wordFamilies={[]}
+                  flashcards={flashcards}
+                  systemSounds={storybook.systemSounds}
+                  onClose={() => navigate(`/viewer/${storybook.id}`)}
+                />
+              ) : flashcards.length > 0 ? (
                 <FlashcardPractice flashcards={flashcards} />
               ) : (
                 <div className="text-center py-20 text-slate-400 dark:text-slate-500">
@@ -149,6 +177,7 @@ export function PhonicsViewer({ storybook, mode: rawMode }: PhonicsViewerProps) 
                 onSelectGame={(m) =>
                   navigate(`/viewer/${storybook.id}?mode=${m}`, { replace: true })
                 }
+                level={storybook.phonicsConfig?.level ?? ''}
               />
             )}
 
@@ -193,6 +222,35 @@ export function PhonicsViewer({ storybook, mode: rawMode }: PhonicsViewerProps) 
                 letters={letters}
                 wordFamilies={wordFamilies}
                 systemSounds={storybook.systemSounds}
+              />
+            )}
+
+            {/* letter-sound 모드 */}
+            {mode === 'letter-sound' && (
+              <LetterSoundGame
+                letters={letters}
+                wordFamilies={wordFamilies}
+                systemSounds={storybook.systemSounds}
+              />
+            )}
+
+            {/* initial-sound 모드 */}
+            {mode === 'initial-sound' && (
+              <InitialSoundGame
+                letters={letters}
+                wordFamilies={wordFamilies}
+                systemSounds={storybook.systemSounds}
+              />
+            )}
+
+            {/* outline-tracing 모드 */}
+            {mode === 'outline-tracing' && (
+              <OutlineTracingGame
+                letters={letters}
+                wordFamilies={wordFamilies}
+                flashcards={storybook.flashcards}
+                systemSounds={storybook.systemSounds}
+                onClose={() => navigate(`/viewer/${storybook.id}?mode=games`, { replace: true })}
               />
             )}
 
@@ -306,156 +364,30 @@ function PhonicsMenu({
   );
 }
 
-// --- 단어연습 (플래시카드) ---
-function FlashcardPractice({ flashcards }: { flashcards: PhonicsFlashcard[] }) {
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [revealed, setRevealed] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  const card = flashcards[currentIdx];
-
-  const playAudio = useCallback((url?: string) => {
-    if (!url) return;
-    if (!audioRef.current) audioRef.current = new Audio();
-    audioRef.current.src = url;
-    audioRef.current.currentTime = 0;
-    audioRef.current.play().catch(() => {});
-  }, []);
-
-  const reveal = useCallback(() => {
-    setRevealed(true);
-    playAudio(card.ttsUrl);
-  }, [card.ttsUrl, playAudio]);
-
-  const next = useCallback(() => {
-    if (currentIdx < flashcards.length - 1) {
-      setCurrentIdx((i) => i + 1);
-      setRevealed(false);
-    }
-  }, [currentIdx, flashcards.length]);
-
-  const prev = useCallback(() => {
-    if (currentIdx > 0) {
-      setCurrentIdx((i) => i - 1);
-      setRevealed(false);
-    }
-  }, [currentIdx]);
-
-  return (
-    <div className="flex flex-col h-full">
-      <div className="text-center py-2">
-        <span className="text-sm text-slate-500 dark:text-slate-400">
-          {currentIdx + 1} / {flashcards.length}
-        </span>
-      </div>
-      <div
-        className="flex-1 flex flex-col bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm cursor-pointer select-none"
-        onClick={() => !revealed && reveal()}
-      >
-        {card.imageUrl && (
-          <div className="relative flex-1 min-h-0">
-            <img src={card.imageUrl} alt="" className="w-full h-full object-contain" />
-            {/* 이미지 위 좌우 네비게이션 */}
-            {currentIdx > 0 && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  prev();
-                }}
-                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/30 text-white/90 hover:bg-black/50 transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-            )}
-            {currentIdx < flashcards.length - 1 && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  next();
-                }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/30 text-white/90 hover:bg-black/50 transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
-            )}
-          </div>
-        )}
-        <div className="p-6 text-center flex-shrink-0">
-          {revealed ? (
-            <>
-              <p className="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-1">
-                {card.word}
-              </p>
-              <p className="text-lg text-slate-500 dark:text-slate-400 mb-2">{card.localWord}</p>
-              {card.phonemes.length > 0 && (
-                <p className="text-sm text-violet-400 font-mono mb-3">
-                  {card.phonemes.join(' · ')}
-                </p>
-              )}
-              {card.sentence && (
-                <p className="text-base text-slate-600 dark:text-slate-300 italic">
-                  {card.sentence.replace(/\*\*/g, '')}
-                </p>
-              )}
-              <div className="flex items-center justify-center gap-3 mt-5">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    playAudio(card.ttsUrl);
-                  }}
-                  className="px-5 py-2.5 rounded-full bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-300 text-sm font-medium hover:bg-violet-100 dark:hover:bg-violet-900/50"
-                >
-                  ▶ 단어
-                </button>
-                {card.sentenceTtsUrl && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      playAudio(card.sentenceTtsUrl);
-                    }}
-                    className="px-5 py-2.5 rounded-full bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-300 text-sm font-medium hover:bg-sky-100 dark:hover:bg-sky-900/50"
-                  >
-                    ▶ 예문
-                  </button>
-                )}
-              </div>
-            </>
-          ) : (
-            <div className="py-4">
-              <p className="text-5xl mb-2">?</p>
-              <p className="text-lg text-slate-400 dark:text-slate-500">탭하여 단어 확인</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // --- 학습게임 선택 메뉴 ---
-function GamesMenu({ onSelectGame }: { onSelectGame: (mode: string) => void }) {
-  const games = [
+function GamesMenu({
+  onSelectGame,
+  level,
+}: {
+  onSelectGame: (mode: string) => void;
+  level: string;
+}) {
+  const isLevel1 = level === 'book1';
+
+  const level1Games = [
+    { mode: 'letter-matching', label: '글자 매칭', icon: '🔗', desc: '대소문자를 연결하기' },
+    { mode: 'letter-sound', label: '음가 듣기', icon: '🔤', desc: '소리를 듣고 알파벳 찾기' },
+    { mode: 'initial-sound', label: '첫소리 찾기', icon: '🖼️', desc: '그림을 보고 첫소리 맞추기' },
+    { mode: 'outline-tracing', label: '단어연습', icon: '✏️', desc: '점선을 따라 그려보세요' },
+  ];
+
+  const level2to5Games = [
     {
       mode: 'listening-quiz',
       label: '듣기 퀴즈',
       icon: '🎧',
       desc: '소리를 듣고 알맞은 단어 맞추기',
     },
-    { mode: 'letter-matching', label: '글자 매칭', icon: '🔗', desc: '글자와 소리를 연결하기' },
     {
       mode: 'word-image-matching',
       label: '선긋기 게임',
@@ -468,7 +400,10 @@ function GamesMenu({ onSelectGame }: { onSelectGame: (mode: string) => void }) {
       icon: '👂',
       desc: '블렌딩 소리를 구분하기',
     },
+    { mode: 'outline-tracing', label: '단어연습', icon: '✏️', desc: '점선을 따라 그려보세요' },
   ];
+
+  const games = isLevel1 ? level1Games : level2to5Games;
 
   return (
     <div className="max-w-md mx-auto">
@@ -650,6 +585,7 @@ function LetterCard({
                             width: '1.5rem',
                             height: '1.5rem',
                             transform: 'translate(-20%, -20%)',
+                            zIndex: words.length - i,
                           }}
                         >
                           <span
@@ -971,198 +907,6 @@ function WritingSection({
   );
 }
 
-// --- 3D 버튼 스타일 상수 (Pixar-style) ---
-const V_BTN = {
-  white: {
-    background: 'linear-gradient(155deg, #ffffff 0%, #e4f2ff 100%)',
-    color: '#1a3a5c',
-    boxShadow:
-      '0 7px 0 #9ab8d8, 0 10px 18px rgba(0,80,160,0.22), inset 0 1px 0 rgba(255,255,255,0.98), inset 0 -3px 6px rgba(0,80,160,0.07)',
-  },
-  yellow: {
-    background: 'linear-gradient(155deg, #ffe94d 0%, #ffd600 50%, #f5c200 100%)',
-    color: '#5a3a00',
-    boxShadow:
-      '0 7px 0 #b88c00, 0 10px 18px rgba(170,120,0,0.28), inset 0 1px 0 rgba(255,255,240,0.92), inset 0 -3px 6px rgba(150,100,0,0.14)',
-  },
-  blue: {
-    background: 'linear-gradient(155deg, #60baff 0%, #2e9fe8 50%, #1880cc 100%)',
-    color: '#ff3333',
-    boxShadow:
-      '0 7px 0 #0c5a9e, 0 10px 18px rgba(0,80,160,0.32), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -3px 6px rgba(0,60,130,0.22)',
-  },
-  word: {
-    background: 'linear-gradient(155deg, #fff8e8 0%, #ffe8b0 50%, #ffd880 100%)',
-    color: '#3a2800',
-    boxShadow:
-      '0 7px 0 #c08040, 0 10px 18px rgba(150,90,0,0.24), inset 0 1px 0 rgba(255,255,240,0.95), inset 0 -3px 6px rgba(120,70,0,0.10)',
-  },
-} as const;
-
-const V_OP_STYLE: React.CSSProperties = {
-  textShadow: '0 2px 6px rgba(0,80,160,0.4), 0 -1px 0 rgba(255,255,255,0.6)',
-  filter: 'drop-shadow(0 3px 0 rgba(0,80,150,0.25))',
-};
-
-const V_FRAME_SHADOW =
-  '0 0 0 4px #fffdf5, 0 0 0 8px #d4a050, 0 0 0 10px #f0c878, 0 10px 0 8px #a06828, 0 14px 22px rgba(100,60,0,0.3), inset 0 2px 8px rgba(0,0,0,0.06)';
-const V_CARD_BG = 'linear-gradient(150deg, #d6eeff 0%, #c2e6fc 40%, #d8f0ff 100%)';
-const V_CARD_SHADOW =
-  '0 2px 0 rgba(255,255,255,0.9) inset, 0 -4px 0 rgba(100,170,220,0.4) inset, 0 8px 24px rgba(0,70,130,0.14)';
-const V_SHINE = 'linear-gradient(180deg, rgba(255,255,255,0.28) 0%, transparent 100%)';
-const V_DIVIDER =
-  'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 15%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.55) 85%, transparent 100%)';
-const V_BTN_SHINE = 'rgba(255,255,255,0.55)';
-const V_FONT = "'Nunito', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif";
-
-// --- 3D 큐브 버튼 ---
-function VBtn3D({
-  variant,
-  label,
-  onClick,
-  hasAudio,
-  wide,
-}: {
-  variant: keyof typeof V_BTN;
-  label: string;
-  onClick: () => void;
-  hasAudio: boolean;
-  wide?: boolean;
-}) {
-  const s = V_BTN[variant];
-  return (
-    <button
-      onClick={onClick}
-      disabled={!hasAudio}
-      className={`relative inline-flex items-center justify-center font-black rounded-[22px] border-none select-none
-        transition-transform duration-100 ease-out
-        ${hasAudio ? 'hover:-translate-y-1 active:translate-y-1 cursor-pointer' : 'cursor-default opacity-60'}
-        ${wide ? 'w-[120px] sm:w-[180px] h-[96px] sm:h-[140px]' : 'w-[96px] sm:w-[140px] h-[96px] sm:h-[140px]'}
-        text-[2.4rem] sm:text-[3.5rem]`}
-      style={{ ...s, fontFamily: V_FONT }}
-    >
-      <div
-        className="absolute top-[5px] left-[10px] w-[45%] h-[28%] rounded-full pointer-events-none"
-        style={{ background: V_BTN_SHINE }}
-      />
-      <span className="relative">{label}</span>
-    </button>
-  );
-}
-
-// --- 연산자 기호 ---
-function VOpGlyph({ children }: { children: React.ReactNode }) {
-  return (
-    <span
-      className="text-[2.4rem] sm:text-[3.5rem] font-black text-white select-none leading-none flex-shrink-0"
-      style={V_OP_STYLE}
-    >
-      {children}
-    </span>
-  );
-}
-
-// --- 소형 알약 버튼 ---
-function VBtnPill({
-  label,
-  onClick,
-  active,
-}: {
-  label: string;
-  onClick: () => void;
-  active?: boolean;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-sm sm:text-base font-bold select-none transition-transform duration-100 hover:-translate-y-0.5 active:translate-y-0.5"
-      style={{
-        background: active
-          ? 'linear-gradient(155deg, #e0d4ff 0%, #c8b8ff 100%)'
-          : 'linear-gradient(155deg, #ffffff 0%, #f0e8ff 100%)',
-        color: active ? '#4c1d95' : '#6b21a8',
-        boxShadow: active
-          ? '0 4px 0 #a78bfa, 0 6px 14px rgba(100,50,200,0.25), inset 0 1px 0 rgba(255,255,255,0.7)'
-          : '0 4px 0 #c4b5fd, 0 6px 12px rgba(100,50,200,0.12), inset 0 1px 0 rgba(255,255,255,0.95)',
-        border: active ? '2px solid #a78bfa' : '2px solid rgba(196,181,253,0.5)',
-        fontFamily: V_FONT,
-      }}
-    >
-      {label}
-    </button>
-  );
-}
-
-// --- 예시단어 3D 행 ---
-function VWordRow3D({
-  onset,
-  blend,
-  word,
-  imageUrl,
-  ttsUrl,
-  blendTtsUrl,
-  onsetTtsUrl,
-  playAudio,
-}: {
-  onset: string;
-  blend: string;
-  word: string;
-  imageUrl?: string;
-  ttsUrl?: string;
-  blendTtsUrl?: string;
-  onsetTtsUrl?: string;
-  playAudio: (url?: string) => void;
-}) {
-  return (
-    <div className="flex items-center justify-center gap-3 sm:gap-8 flex-wrap">
-      <VBtn3D
-        variant="yellow"
-        label={onset}
-        onClick={() => playAudio(onsetTtsUrl)}
-        hasAudio={!!onsetTtsUrl}
-      />
-      <VOpGlyph>+</VOpGlyph>
-      <VBtn3D
-        variant="blue"
-        label={blend}
-        onClick={() => playAudio(blendTtsUrl)}
-        hasAudio={!!blendTtsUrl}
-        wide
-      />
-      <VOpGlyph>→</VOpGlyph>
-      <button
-        onClick={() => playAudio(ttsUrl)}
-        disabled={!ttsUrl}
-        className={`relative inline-flex items-center justify-center font-black rounded-[22px] border-none select-none
-          w-[140px] sm:w-[200px] h-[96px] sm:h-[140px] text-[2rem] sm:text-[3rem]
-          transition-transform duration-100 ease-out
-          ${ttsUrl ? 'hover:-translate-y-1 active:translate-y-1 cursor-pointer' : 'cursor-default opacity-60'}`}
-        style={{ ...V_BTN.word, fontFamily: V_FONT }}
-      >
-        <div
-          className="absolute top-[5px] left-[10px] w-[45%] h-[28%] rounded-full pointer-events-none"
-          style={{ background: V_BTN_SHINE }}
-        />
-        <span className="relative">{word}</span>
-      </button>
-      {imageUrl && (
-        <div
-          className="relative w-[110px] h-[110px] sm:w-[160px] sm:h-[160px] rounded-[22px] flex-shrink-0 overflow-hidden transition-transform duration-150 hover:-translate-y-1 hover:rotate-[-1.5deg] hover:scale-[1.04]"
-          style={{ background: '#fffdf5', boxShadow: V_FRAME_SHADOW }}
-        >
-          <img src={imageUrl} alt={word} className="w-full h-full object-cover rounded-[18px]" />
-          <div
-            className="absolute top-[6px] left-[10px] w-[38%] h-[28%] rounded-full pointer-events-none"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.72) 0%, transparent 100%)',
-            }}
-          />
-        </div>
-      )}
-    </div>
-  );
-}
-
 // --- TTS 재생 버튼 ---
 function TtsButton({
   label,
@@ -1197,153 +941,5 @@ function TtsButton({
       <span>{url ? '▶' : '—'}</span>
       {label}
     </button>
-  );
-}
-
-// --- 챈트 플레이어 ---
-function ChantPlayer({ chant }: { chant: NonNullable<Storybook['chant']> }) {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [playing, setPlaying] = useState(false);
-
-  const toggle = () => {
-    const url = chant.ttsUrl;
-    if (!url) return;
-    if (!audioRef.current) {
-      audioRef.current = new Audio(url);
-      audioRef.current.addEventListener('ended', () => setPlaying(false));
-    }
-    if (playing) {
-      audioRef.current.pause();
-      setPlaying(false);
-    } else {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().catch(() => {});
-      setPlaying(true);
-    }
-  };
-
-  return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4">
-      <div className="flex items-center gap-3 mb-3">
-        <button
-          onClick={toggle}
-          disabled={!chant.ttsUrl}
-          className="w-10 h-10 rounded-full bg-violet-600 text-white flex items-center justify-center hover:bg-violet-700 transition-colors disabled:bg-slate-300"
-        >
-          {playing ? '⏸' : '▶'}
-        </button>
-        <div>
-          <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{chant.title}</p>
-          {chant.bpm && <p className="text-xs text-slate-400">BPM {chant.bpm}</p>}
-        </div>
-      </div>
-      {chant.lyrics.length > 0 && (
-        <div className="bg-slate-50 dark:bg-slate-900/50 rounded-lg p-3 text-sm text-slate-600 dark:text-slate-300 space-y-1">
-          {chant.lyrics.map((line, i) => (
-            <p key={i}>{line.text}</p>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-// --- 파닉스 퀴즈 ---
-function PhonicsQuizPlayer({ items }: { items: PhonicsQuizItem[] }) {
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [selected, setSelected] = useState<number | null>(null);
-  const [score, setScore] = useState(0);
-  const [finished, setFinished] = useState(false);
-
-  const current = items[currentIdx];
-
-  const handleSelect = (i: number) => {
-    if (selected !== null) return;
-    setSelected(i);
-    if (i === current.correctAnswer) setScore((s) => s + 1);
-  };
-
-  const handleNext = () => {
-    if (currentIdx + 1 >= items.length) {
-      setFinished(true);
-    } else {
-      setCurrentIdx((i) => i + 1);
-      setSelected(null);
-    }
-  };
-
-  const handleRestart = () => {
-    setCurrentIdx(0);
-    setSelected(null);
-    setScore(0);
-    setFinished(false);
-  };
-
-  if (finished) {
-    return (
-      <div className="text-center py-8">
-        <div className="text-4xl mb-2">{score === items.length ? '🎉' : '👏'}</div>
-        <p className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-1">
-          {score} / {items.length} 점
-        </p>
-        <button
-          onClick={handleRestart}
-          className="mt-3 px-4 py-2 bg-violet-600 text-white rounded-lg text-sm hover:bg-violet-700"
-        >
-          다시 하기
-        </button>
-      </div>
-    );
-  }
-
-  return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5">
-      <div className="flex justify-between mb-4">
-        <span className="text-sm font-medium text-violet-600 dark:text-violet-400">
-          Q{currentIdx + 1}.
-        </span>
-        <span className="text-xs text-slate-400">
-          {currentIdx + 1} / {items.length}
-        </span>
-      </div>
-      <p className="text-base font-semibold text-slate-800 dark:text-slate-100 mb-4">
-        {current.question}
-      </p>
-      <div className="space-y-2">
-        {current.options.map((opt, i) => {
-          const isCorrect = i === current.correctAnswer;
-          const isChosen = i === selected;
-          let cls = 'border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200';
-          if (selected !== null) {
-            if (isCorrect)
-              cls =
-                'border-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300';
-            else if (isChosen)
-              cls = 'border-red-400 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300';
-            else cls = 'border-slate-200 dark:border-slate-600 text-slate-400';
-          }
-          return (
-            <button
-              key={i}
-              onClick={() => handleSelect(i)}
-              disabled={selected !== null}
-              className={`w-full text-left px-4 py-2.5 rounded-lg border text-sm font-medium ${cls}`}
-            >
-              {opt}
-            </button>
-          );
-        })}
-      </div>
-      {selected !== null && (
-        <div className="mt-4 flex justify-end">
-          <button
-            onClick={handleNext}
-            className="px-4 py-2 bg-violet-600 text-white rounded-lg text-sm hover:bg-violet-700"
-          >
-            {currentIdx + 1 >= items.length ? '결과 보기' : '다음 →'}
-          </button>
-        </div>
-      )}
-    </div>
   );
 }

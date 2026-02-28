@@ -17,7 +17,7 @@ interface HotspotEditorModalProps {
   words: { word: string; korean?: string; hotspot?: WordHotspot }[];
   /** CSS aspect-ratio (e.g. '16/9'). 지정 시 이미지를 해당 비율로 crop하여 편집 */
   aspectRatio?: string;
-  onSave: (hotspots: (WordHotspot | undefined)[]) => void;
+  onSave: (hotspots: (WordHotspot | undefined)[], order: number[]) => void;
   onClose: () => void;
 }
 
@@ -39,6 +39,11 @@ export function HotspotEditorModal({
   const [drawCurrent, setDrawCurrent] = useState<{ x: number; y: number } | null>(null);
   const dragOriginRef = useRef<{ mx: number; my: number; rect: WordHotspot } | null>(null);
 
+  // 레이어 순서: displayOrder[0] = 가장 앞(위), displayOrder[N-1] = 가장 뒤
+  const [displayOrder, setDisplayOrder] = useState<number[]>(words.map((_, i) => i));
+  const [dragFromPos, setDragFromPos] = useState<number | null>(null);
+  const [dragOverPos, setDragOverPos] = useState<number | null>(null);
+
   const overlayRef = useRef<HTMLDivElement>(null);
 
   const toNorm = useCallback((e: React.PointerEvent | React.MouseEvent) => {
@@ -51,17 +56,17 @@ export function HotspotEditorModal({
 
   const color = (idx: number) => WORD_COLORS[idx % WORD_COLORS.length];
 
-  // 클릭한 위치에 기존 핫스팟이 있는지 확인
+  // 클릭한 위치에 기존 핫스팟이 있는지 확인 (레이어 순서 우선)
   const hitTest = useCallback(
     (nx: number, ny: number): number | null => {
-      for (let i = hotspots.length - 1; i >= 0; i--) {
-        const h = hotspots[i];
+      for (const origIdx of displayOrder) {
+        const h = hotspots[origIdx];
         if (!h) continue;
-        if (nx >= h.x && nx <= h.x + h.w && ny >= h.y && ny <= h.y + h.h) return i;
+        if (nx >= h.x && nx <= h.x + h.w && ny >= h.y && ny <= h.y + h.h) return origIdx;
       }
       return null;
     },
-    [hotspots]
+    [hotspots, displayOrder]
   );
 
   // 모서리 히트 테스트 (px 기반)
@@ -83,13 +88,13 @@ export function HotspotEditorModal({
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     const pt = toNorm(e);
 
-    // 기존 핫스팟의 모서리/본체 드래그 확인
-    for (let i = hotspots.length - 1; i >= 0; i--) {
-      const h = hotspots[i];
+    // 레이어 순서대로 모서리/본체 드래그 확인
+    for (const origIdx of displayOrder) {
+      const h = hotspots[origIdx];
       if (!h) continue;
       const corner = cornerHitTest(pt.x, pt.y, h);
       if (corner) {
-        setSelectedIdx(i);
+        setSelectedIdx(origIdx);
         setDragMode(corner);
         dragOriginRef.current = { mx: pt.x, my: pt.y, rect: { ...h } };
         return;
@@ -221,7 +226,36 @@ export function HotspotEditorModal({
     }
   };
 
-  const handleSave = () => onSave(hotspots);
+  const handleSave = () => onSave(hotspots, displayOrder);
+
+  // 단어 버튼 드래그앤드롭 (레이어 순서 변경)
+  const handleWordDragStart = (displayPos: number) => {
+    setDragFromPos(displayPos);
+  };
+
+  const handleWordDragOver = (e: React.DragEvent, displayPos: number) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    setDragOverPos(displayPos);
+  };
+
+  const handleWordDrop = (displayPos: number) => {
+    if (dragFromPos !== null && dragFromPos !== displayPos) {
+      setDisplayOrder((prev) => {
+        const next = [...prev];
+        const [removed] = next.splice(dragFromPos, 1);
+        next.splice(displayPos, 0, removed);
+        return next;
+      });
+    }
+    setDragFromPos(null);
+    setDragOverPos(null);
+  };
+
+  const handleWordDragEnd = () => {
+    setDragFromPos(null);
+    setDragOverPos(null);
+  };
 
   // 그리기 중인 임시 사각형
   const drawingRect =
@@ -233,6 +267,9 @@ export function HotspotEditorModal({
           h: Math.abs(drawCurrent.y - drawStart.y),
         }
       : null;
+
+  // SVG 렌더링 순서: 뒤쪽부터 → 앞쪽(레이어 상위)이 마지막에 그려져 위에 보임
+  const svgRenderOrder = [...displayOrder].reverse();
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
@@ -253,33 +290,53 @@ export function HotspotEditorModal({
           </div>
         </div>
 
-        {/* 단어 선택 */}
-        <div className="flex gap-2 px-4 pt-3 flex-wrap">
-          {words.map((w, i) => {
-            const c = color(i);
-            const hasHotspot = !!hotspots[i];
-            return (
-              <button
-                key={i}
-                onClick={() => setSelectedIdx(i)}
-                className={`px-3 py-1.5 rounded-lg text-sm font-medium border-2 transition-all ${
-                  i === selectedIdx ? 'ring-2 ring-offset-1 shadow-md' : ''
-                }`}
-                style={{
-                  borderColor: c.border,
-                  backgroundColor: i === selectedIdx ? c.bg : 'transparent',
-                  color: c.text,
-                  ...(i === selectedIdx
-                    ? ({ '--tw-ring-color': c.border } as React.CSSProperties)
-                    : {}),
-                }}
-              >
-                {hasHotspot ? '\u2705 ' : '\u2B1C '}
-                {w.word}
-                {w.korean ? ` (${w.korean})` : ''}
-              </button>
-            );
-          })}
+        {/* 단어 선택 (드래그앤드롭으로 레이어 순서 변경) */}
+        <div className="px-4 pt-3">
+          <div className="flex items-center gap-1 mb-1.5">
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
+              레이어 순서
+            </span>
+            <span className="text-[10px] text-slate-400 dark:text-slate-500">
+              (드래그하여 변경 · 왼쪽 = 앞)
+            </span>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            {displayOrder.map((origIdx, displayPos) => {
+              const w = words[origIdx];
+              const c = color(origIdx);
+              const hasHotspot = !!hotspots[origIdx];
+              const isDragOver =
+                dragOverPos === displayPos && dragFromPos !== null && dragFromPos !== displayPos;
+              return (
+                <button
+                  key={origIdx}
+                  draggable
+                  onDragStart={() => handleWordDragStart(displayPos)}
+                  onDragOver={(e) => handleWordDragOver(e, displayPos)}
+                  onDragLeave={() => setDragOverPos(null)}
+                  onDrop={() => handleWordDrop(displayPos)}
+                  onDragEnd={handleWordDragEnd}
+                  onClick={() => setSelectedIdx(origIdx)}
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium border-2 transition-all cursor-grab active:cursor-grabbing ${
+                    origIdx === selectedIdx ? 'ring-2 ring-offset-1 shadow-md' : ''
+                  } ${isDragOver ? 'scale-105 shadow-lg' : ''}`}
+                  style={{
+                    borderColor: isDragOver ? '#6366f1' : c.border,
+                    backgroundColor: origIdx === selectedIdx ? c.bg : 'transparent',
+                    color: c.text,
+                    ...(origIdx === selectedIdx
+                      ? ({ '--tw-ring-color': c.border } as React.CSSProperties)
+                      : {}),
+                  }}
+                >
+                  <span className="text-[10px] text-slate-400 mr-0.5">{displayPos + 1}</span>
+                  {hasHotspot ? '\u2705 ' : '\u2B1C '}
+                  {w.word}
+                  {w.korean ? ` (${w.korean})` : ''}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* 에디터 */}
@@ -314,13 +371,15 @@ export function HotspotEditorModal({
                 viewBox="0 0 1 1"
                 preserveAspectRatio="none"
               >
-                {/* 저장된 핫스팟 */}
-                {hotspots.map((h, i) => {
+                {/* 뒤쪽부터 렌더하여 앞쪽 레이어가 위에 표시 */}
+                {svgRenderOrder.map((origIdx) => {
+                  const h = hotspots[origIdx];
                   if (!h) return null;
-                  const c = color(i);
-                  const isSelected = i === selectedIdx;
+                  const c = color(origIdx);
+                  const isSelected = origIdx === selectedIdx;
+                  const layerNum = displayOrder.indexOf(origIdx) + 1;
                   return (
-                    <g key={i}>
+                    <g key={origIdx}>
                       <rect
                         x={h.x}
                         y={h.y}
@@ -340,7 +399,26 @@ export function HotspotEditorModal({
                         fontSize="0.03"
                         fontWeight="bold"
                       >
-                        {words[i].word}
+                        {words[origIdx].word}
+                      </text>
+                      {/* 레이어 번호 뱃지 */}
+                      <circle
+                        cx={h.x + h.w - 0.015}
+                        cy={h.y + 0.015}
+                        r={0.018}
+                        fill={c.border}
+                        opacity={0.9}
+                      />
+                      <text
+                        x={h.x + h.w - 0.015}
+                        y={h.y + 0.015}
+                        textAnchor="middle"
+                        dominantBaseline="central"
+                        fill="white"
+                        fontSize="0.02"
+                        fontWeight="bold"
+                      >
+                        {layerNum}
                       </text>
                       {/* 리사이즈 핸들 (선택 시) */}
                       {isSelected && (
@@ -402,7 +480,7 @@ export function HotspotEditorModal({
 
           <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">
             단어 선택 후 드래그: 사각형 그리기 · 사각형 드래그: 이동 · 모서리 드래그: 크기 조정 ·
-            더블클릭: 삭제
+            더블클릭: 삭제 · 단어 버튼 드래그: 레이어 순서 변경
           </p>
         </div>
       </div>

@@ -7,8 +7,16 @@ import './games/picture-sequence.register';
 import './games/odd-one-out.register';
 import './games/word-image-matching.register';
 import './games/blending-listening.register';
+import './games/letter-sound.register';
+import './games/initial-sound.register';
 
-export { getAllGames, getGameEntry, getGamesForType, registerGame } from './game-registry';
+export {
+  getAllGames,
+  getGameEntry,
+  getGamesForType,
+  getGamesForPhonicsLevel,
+  registerGame,
+} from './game-registry';
 
 export type {
   GameRegistryEntry,

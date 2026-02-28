@@ -25,6 +25,10 @@ import type {
   WordImageMatchingData,
   BlendingListeningData,
   BlendingListeningRound,
+  LetterSoundData,
+  LetterSoundRound,
+  InitialSoundData,
+  InitialSoundRound,
 } from '@tangobook/shared';
 
 type GameGenerator = (storybook: Storybook, config: GameConfig) => Promise<GameData>;
@@ -39,6 +43,8 @@ const generators: Partial<Record<GameTypeId, GameGenerator>> = {
   'connect-the-dots': generateConnectTheDots,
   'word-image-matching': generateWordImageMatching,
   'blending-listening': generateBlendingListening,
+  'letter-sound': generateLetterSound,
+  'initial-sound': generateInitialSound,
 };
 
 export const GameService = {
@@ -474,4 +480,134 @@ async function generateBlendingListening(storybook: Storybook): Promise<Blending
   // 셔플
   rounds.sort(() => Math.random() - 0.5);
   return { type: 'blending-listening', rounds };
+}
+
+// --- 음가 듣기: Level 1 알파벳 음가 TTS를 듣고 글자 맞추기 ---
+async function generateLetterSound(storybook: Storybook): Promise<LetterSoundData> {
+  const blending = storybook.phonicsLesson?.blending ?? [];
+  const wordFamilies = storybook.phonicsLesson?.wordFamilies ?? [];
+
+  // Level 1 알파벳 항목 중 TTS 있는 것만
+  const alphaItems: { letter: string; ttsUrl: string }[] = [];
+  const seen = new Set<string>();
+
+  for (let i = 0; i < blending.length; i++) {
+    const item = blending[i];
+    if (item.vowel.length !== 1 || !/^[A-Za-z]$/.test(item.vowel)) continue;
+    const upper = item.vowel.toUpperCase();
+    if (seen.has(upper)) continue;
+
+    // Level 1: TTS는 wordFamilies[i].words[j].ttsUrl에 저장됨
+    let ttsUrl =
+      item.vowelTtsUrl ||
+      item.consonantTtsUrl ||
+      item.blendTtsUrl ||
+      item.blendingSequenceTtsUrl ||
+      item.exampleWordTtsUrl;
+
+    if (!ttsUrl) {
+      const wf = wordFamilies[i];
+      if (wf) {
+        const wordWithTts = wf.words.find((w) => w.ttsUrl);
+        if (wordWithTts) ttsUrl = wordWithTts.ttsUrl;
+      }
+    }
+    if (!ttsUrl) continue;
+    seen.add(upper);
+    alphaItems.push({ letter: upper, ttsUrl });
+  }
+
+  if (alphaItems.length < 2) {
+    throw new AppError(400, '음가 듣기 게임에 TTS가 있는 알파벳이 2개 이상 필요합니다.');
+  }
+
+  const shuffled = alphaItems.sort(() => Math.random() - 0.5);
+  const rounds: LetterSoundRound[] = shuffled.map((target) => {
+    const others = alphaItems.filter((i) => i.letter !== target.letter);
+    const distractors = others
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3)
+      .map((i) => i.letter);
+    const options = [target.letter, ...distractors].sort(() => Math.random() - 0.5);
+    return { targetLetter: target.letter, ttsUrl: target.ttsUrl, options };
+  });
+
+  return { type: 'letter-sound', rounds };
+}
+
+// --- 첫소리 찾기: Level 1 단어 이미지를 보고 첫소리 알파벳 맞추기 ---
+async function generateInitialSound(storybook: Storybook): Promise<InitialSoundData> {
+  const blending = storybook.phonicsLesson?.blending ?? [];
+  const wordFamilies = storybook.phonicsLesson?.wordFamilies ?? [];
+
+  const items: InitialSoundRound[] = [];
+  const allLetters = new Set<string>();
+  const seenWords = new Set<string>();
+
+  for (let i = 0; i < blending.length; i++) {
+    const item = blending[i];
+    if (item.vowel.length !== 1 || !/^[A-Za-z]$/.test(item.vowel)) continue;
+    const upper = item.vowel.toUpperCase();
+    allLetters.add(upper);
+
+    // exampleWordImageUrl 우선
+    if (item.exampleWordImageUrl && !seenWords.has(item.exampleWord)) {
+      seenWords.add(item.exampleWord);
+      items.push({
+        letter: upper,
+        word: item.exampleWord,
+        imageUrl: item.exampleWordImageUrl,
+        wordTtsUrl: item.exampleWordTtsUrl,
+        options: [], // 아래에서 채움
+      });
+    }
+
+    // wordFamily에서 보충
+    const wf = wordFamilies[i];
+    if (wf) {
+      for (const w of wf.words) {
+        if (!w.imageUrl || seenWords.has(w.word)) continue;
+        seenWords.add(w.word);
+        items.push({
+          letter: upper,
+          word: w.word,
+          imageUrl: w.imageUrl,
+          wordTtsUrl: w.ttsUrl,
+          options: [],
+        });
+      }
+    }
+
+    // Level 1 fallback: illustrationUrl (전체 삽화)
+    if (!items.some((it) => it.letter === upper) && item.illustrationUrl) {
+      const word = item.exampleWord || upper;
+      if (!seenWords.has(word)) {
+        seenWords.add(word);
+        items.push({
+          letter: upper,
+          word,
+          imageUrl: item.illustrationUrl,
+          wordTtsUrl: item.exampleWordTtsUrl,
+          options: [],
+        });
+      }
+    }
+  }
+
+  if (items.length < 2 || allLetters.size < 2) {
+    throw new AppError(400, '첫소리 찾기 게임에 이미지가 있는 알파벳이 2개 이상 필요합니다.');
+  }
+
+  const letterPool = Array.from(allLetters);
+
+  // 셔플 + 디스트랙터 생성
+  items.sort(() => Math.random() - 0.5);
+  const rounds: InitialSoundRound[] = items.map((item) => {
+    const others = letterPool.filter((l) => l !== item.letter);
+    const distractors = others.sort(() => Math.random() - 0.5).slice(0, 3);
+    const options = [item.letter, ...distractors].sort(() => Math.random() - 0.5);
+    return { ...item, options };
+  });
+
+  return { type: 'initial-sound', rounds };
 }

@@ -20,6 +20,51 @@ export interface TtsTask {
   useAiTts?: boolean;
 }
 
+interface BatchTask<T> {
+  execute: (signal: AbortSignal) => Promise<T>;
+  onSuccess: (result: T) => void;
+}
+
+interface BatchContext {
+  abortRef: { current: AbortController | null };
+  setBatchType: (t: 'image' | 'tts' | null) => void;
+  setBatchProgress: (p: { current: number; total: number }) => void;
+  setError: (v: string | null | ((prev: string | null) => string | null)) => void;
+  onSave: () => void;
+  type: 'image' | 'tts';
+}
+
+async function runBatch<T>(tasks: BatchTask<T>[], ctx: BatchContext) {
+  if (!tasks.length) return;
+  const ctrl = new AbortController();
+  ctx.abortRef.current = ctrl;
+  ctx.setBatchType(ctx.type);
+  ctx.setBatchProgress({ current: 0, total: tasks.length });
+  ctx.setError(null);
+  let done = 0;
+
+  for (let i = 0; i < tasks.length; i += 3) {
+    if (ctrl.signal.aborted) break;
+    const chunk = tasks.slice(i, i + 3);
+    const results = await Promise.allSettled(chunk.map((t) => t.execute(ctrl.signal)));
+    if (ctrl.signal.aborted) break;
+    for (let j = 0; j < results.length; j++) {
+      done++;
+      ctx.setBatchProgress({ current: done, total: tasks.length });
+      const r = results[j];
+      if (r.status === 'fulfilled') {
+        chunk[j].onSuccess(r.value);
+      } else if (!ctrl.signal.aborted) {
+        const msg = r.reason instanceof Error ? r.reason.message : '알 수 없는 오류';
+        ctx.setError((prev) => (prev ? `${prev}\n${msg}` : msg));
+      }
+    }
+    if (!ctrl.signal.aborted) ctx.onSave();
+  }
+  ctx.setBatchType(null);
+  ctx.abortRef.current = null;
+}
+
 interface UsePhonicsCardActionsParams {
   storybook: Storybook;
   onUpdate: (updater: (draft: Storybook) => void) => void;
@@ -197,102 +242,68 @@ export function usePhonicsCardActions({
   );
 
   // --- 배치 이미지 생성 ---
+  type BatchResult = { updater: StorybookUpdater; url: string };
   const runBatchImages = useCallback(
-    async (tasks: ImageTask[]) => {
-      if (!tasks.length) return;
-      const ctrl = new AbortController();
-      abortRef.current = ctrl;
-      setBatchType('image');
-      setBatchProgress({ current: 0, total: tasks.length });
-      setImageError(null);
-      let done = 0;
-      for (let i = 0; i < tasks.length; i += 3) {
-        if (ctrl.signal.aborted) break;
-        const chunk = tasks.slice(i, i + 3);
-        const results = await Promise.allSettled(
-          chunk.map(async (t) => {
-            const { imageUrl } = await phonicsApi.generateWordImage({
-              word: t.word,
-              description: t.description,
-              artStyle: storybook.artStyle,
-              storybookId: storybook.id,
-              storybookTitle: storybook.title,
-              model: storybook.imageModels?.phonics,
-              aspectRatio,
-              characterReferences: charRefs,
-              isolatedObject: t.isolatedObject,
-            });
-            return { ...t, imageUrl };
-          })
-        );
-        for (const r of results) {
-          done++;
-          setBatchProgress({ current: done, total: tasks.length });
-          if (r.status === 'fulfilled') {
-            onUpdate((d) => r.value.updater(d, r.value.imageUrl));
-          } else {
-            const msg = r.reason instanceof Error ? r.reason.message : '알 수 없는 오류';
-            setImageError((prev) => (prev ? `${prev}\n${msg}` : msg));
-          }
-        }
-        onSave();
-      }
-      setBatchType(null);
-      abortRef.current = null;
-    },
-    [storybook, onUpdate, onSave]
+    (tasks: ImageTask[]) =>
+      runBatch<BatchResult>(
+        tasks.map((t) => ({
+          execute: (signal: AbortSignal) =>
+            phonicsApi
+              .generateWordImage(
+                {
+                  word: t.word,
+                  description: t.description,
+                  artStyle: storybook.artStyle,
+                  storybookId: storybook.id,
+                  storybookTitle: storybook.title,
+                  model: storybook.imageModels?.phonics,
+                  aspectRatio,
+                  characterReferences: charRefs,
+                  isolatedObject: t.isolatedObject,
+                },
+                signal
+              )
+              .then(({ imageUrl }) => ({ updater: t.updater, url: imageUrl })),
+          onSuccess: (result: { updater: StorybookUpdater; url: string }) =>
+            onUpdate((d) => result.updater(d, result.url)),
+        })),
+        { abortRef, setBatchType, setBatchProgress, setError: setImageError, onSave, type: 'image' }
+      ),
+    [storybook, onUpdate, onSave, aspectRatio, charRefs]
   );
 
   // --- 배치 TTS 생성 ---
   const runBatchTts = useCallback(
-    async (tasks: TtsTask[]) => {
-      if (!tasks.length) return;
-      const ctrl = new AbortController();
-      abortRef.current = ctrl;
-      setBatchType('tts');
-      setBatchProgress({ current: 0, total: tasks.length });
-      setTtsError(null);
-      let done = 0;
-      for (let i = 0; i < tasks.length; i += 3) {
-        if (ctrl.signal.aborted) break;
-        const chunk = tasks.slice(i, i + 3);
-        const results = await Promise.allSettled(
-          chunk.map(async (t) => {
-            let audioUrl: string;
-            if (t.useAiTts) {
-              const result = await phonicsApi.generateWordTts({
-                text: t.word,
-                provider: 'gemini',
-                storybookId: storybook.id,
-                identifier: `phonics-${t.key}`,
-              });
-              audioUrl = result.audioUrl;
-            } else {
-              const result = await phonicsApi.concatPhonicsAudio({
-                text: t.word,
-                storybookId: storybook.id,
-                identifier: `phonics-${t.key}`,
-              });
-              audioUrl = result.audioUrl;
-            }
-            return { ...t, audioUrl };
-          })
-        );
-        for (const r of results) {
-          done++;
-          setBatchProgress({ current: done, total: tasks.length });
-          if (r.status === 'fulfilled') {
-            onUpdate((d) => r.value.updater(d, r.value.audioUrl));
-          } else {
-            const msg = r.reason instanceof Error ? r.reason.message : '알 수 없는 오류';
-            setTtsError((prev) => (prev ? `${prev}\n${msg}` : msg));
-          }
-        }
-        onSave();
-      }
-      setBatchType(null);
-      abortRef.current = null;
-    },
+    (tasks: TtsTask[]) =>
+      runBatch<BatchResult>(
+        tasks.map((t) => ({
+          execute: async (
+            signal: AbortSignal
+          ): Promise<{ updater: StorybookUpdater; url: string }> => {
+            const apiFn = t.useAiTts
+              ? () =>
+                  phonicsApi.generateWordTts(
+                    {
+                      text: t.word,
+                      provider: 'gemini' as const,
+                      storybookId: storybook.id,
+                      identifier: `phonics-${t.key}`,
+                    },
+                    signal
+                  )
+              : () =>
+                  phonicsApi.concatPhonicsAudio(
+                    { text: t.word, storybookId: storybook.id, identifier: `phonics-${t.key}` },
+                    signal
+                  );
+            const { audioUrl } = await apiFn();
+            return { updater: t.updater, url: audioUrl };
+          },
+          onSuccess: (result: { updater: StorybookUpdater; url: string }) =>
+            onUpdate((d) => result.updater(d, result.url)),
+        })),
+        { abortRef, setBatchType, setBatchProgress, setError: setTtsError, onSave, type: 'tts' }
+      ),
     [storybook, onUpdate, onSave]
   );
 

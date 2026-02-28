@@ -57,6 +57,8 @@ export interface PhonicsFlashcard {
   imageHistory?: string[];
   ttsUrl?: string;
   sentenceTtsUrl?: string;
+  outlineUrl?: string;
+  tracingPoints?: TracingPoint[];
 }
 
 export type WorksheetType = 'matching' | 'fill-blank' | 'tracing' | 'circle-sound';
@@ -117,10 +119,24 @@ export interface BlendingExercise {
   exampleWord2TtsUrl?: string;
   exampleWord2OnsetTtsUrl?: string;
 
+  // 윤곽선 따라그리기 이미지 (레거시)
+  exampleWordOutlineUrl?: string;
+  exampleWord2OutlineUrl?: string;
+
+  // 점선 따라그리기 포인트
+  exampleWordTracingPoints?: TracingPoint[];
+  exampleWord2TracingPoints?: TracingPoint[];
+
   // Level 1 전체 장면 삽화 (글자별 1장)
   illustrationUrl?: string;
   illustrationHistory?: string[];
   illustrationDescription?: string;
+}
+
+// 점선 따라그리기 포인트 (정규화 좌표 0~1)
+export interface TracingPoint {
+  x: number;
+  y: number;
 }
 
 // 삽화 내 단어 터치 영역 (정규화 좌표 0~1)
@@ -167,7 +183,9 @@ export type GameTypeId =
   | 'picture-sequence'
   | 'odd-one-out'
   | 'word-image-matching'
-  | 'blending-listening';
+  | 'blending-listening'
+  | 'letter-sound'
+  | 'initial-sound';
 
 export type GameDifficulty = 'easy' | 'medium' | 'hard';
 
@@ -191,7 +209,9 @@ export type GameConfig =
   | PictureSequenceConfig
   | OddOneOutConfig
   | WordImageMatchingConfig
-  | BlendingListeningConfig;
+  | BlendingListeningConfig
+  | LetterSoundConfig
+  | InitialSoundConfig;
 
 /** 게임별 데이터 (discriminated union) */
 export type GameData =
@@ -202,7 +222,9 @@ export type GameData =
   | PictureSequenceData
   | OddOneOutData
   | WordImageMatchingData
-  | BlendingListeningData;
+  | BlendingListeningData
+  | LetterSoundData
+  | InitialSoundData;
 
 // --- 단어 매칭 ---
 export interface VocabularyMatchingConfig {
@@ -355,6 +377,36 @@ export interface BlendingListeningRound {
 export interface BlendingListeningData {
   type: 'blending-listening';
   rounds: BlendingListeningRound[];
+}
+
+// --- 음가 듣기 (파닉스 Level 1 전용) ---
+export interface LetterSoundConfig {
+  type: 'letter-sound';
+}
+export interface LetterSoundRound {
+  targetLetter: string;
+  ttsUrl: string;
+  options: string[];
+}
+export interface LetterSoundData {
+  type: 'letter-sound';
+  rounds: LetterSoundRound[];
+}
+
+// --- 첫소리 찾기 (파닉스 Level 1 전용) ---
+export interface InitialSoundConfig {
+  type: 'initial-sound';
+}
+export interface InitialSoundRound {
+  letter: string;
+  word: string;
+  imageUrl: string;
+  wordTtsUrl?: string;
+  options: string[];
+}
+export interface InitialSoundData {
+  type: 'initial-sound';
+  rounds: InitialSoundRound[];
 }
 
 // === 기존 타입 ===
