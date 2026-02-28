@@ -2,7 +2,12 @@ import { R2Repository } from '../repositories/r2.repository.js';
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
 import { parseGeminiJSON } from '../utils/parse-gemini-json.js';
 import { ENGLISH_PHONICS_CURRICULUM, KOREAN_PHONICS_CURRICULUM } from '@tangobook/shared';
-import type { Storybook, GeneratePhonicsBookRequest, PhonicsBookType } from '@tangobook/shared';
+import type {
+  Storybook,
+  GeneratePhonicsBookRequest,
+  PhonicsBookType,
+  BlendingExercise,
+} from '@tangobook/shared';
 import { AppError } from '../middleware/error.middleware.js';
 
 /** 레벨 문자열에서 권 유형 파악 */
@@ -16,6 +21,30 @@ function getBookType(language: string, level: string): PhonicsBookType | undefin
     book5: 'vowel-teams-r-controlled',
   };
   return map[level];
+}
+
+/** 한글 파닉스용 레슨 지시 (커리큘럼 sampleWords 사용) */
+function buildKoreanLessonInstructions(unit: {
+  sampleWords: readonly string[];
+  phonemes: readonly string[];
+}): string {
+  const words = unit.sampleWords;
+  const word1 = words[0] ?? '';
+  const word2 = words[1] ?? '';
+  const consonant = unit.phonemes[0] ?? '';
+
+  return `3. **학습 콘텐츠 (phonicsLesson)**:
+   - title: 유닛 주제 (예: "자음 ${consonant} 배우기")
+   - blending: **반드시 타겟 단어 목록에서** 예시단어를 선택하세요.
+     한글 블렌딩은 자음+모음 순서입니다: consonant(자음) + vowel(모음) = blend(결합 음절).
+     타겟 단어 2개를 exampleWord, exampleWord2로 사용합니다.
+     각 예시단어에서 블렌딩 음절이 들어간 위치를 파악하세요 (예: "${word1}"에서 첫 음절 "${word1[0] ?? ''}"이 blend).
+     vowel에 모음(예:"ㅏ"), consonant에 자음(예:"${consonant}"), blend에 결합 음절(예:"${word1[0] ?? ''}"), exampleWord에 "${word1}", exampleWord2에 "${word2}".
+     exampleWordImageDescription, exampleWord2ImageDescription: 단어가 뜻하는 대상 하나만 짧게 한글로 묘사 (5-10단어). 캐릭터/배경/다른사물 불포함.
+     **illustrationDescription**: 한글 파닉스 교재 학습카드 이미지 묘사 (한글 2-3문장).
+     blending 배열에는 타겟 단어 수에 맞춰 ${Math.min(Math.floor(words.length / 2), 3)}개 항목을 만드세요. 각 항목은 서로 다른 blend 음절과 예시단어 쌍을 사용합니다.
+   - wordFamilies: blending 항목 수와 동일. 각 그룹에 타겟 단어 중 해당 음절을 포함하는 단어 2-4개. word(전체단어) + onset(blend 앞 부분 또는 빈 문자열).
+     예: {pattern:"가-", words:[{word:"${word1}",onset:"${word1[0] ?? ''}",korean:"${word1}"}, {word:"${word2}",onset:"${word2[0] ?? ''}",korean:"${word2}"}]}`;
 }
 
 /** 권별 phonicsLesson 프롬프트 생성 지시 */
@@ -54,7 +83,7 @@ function buildLessonInstructions(bookType?: PhonicsBookType): string {
    - wordFamilies: 각 모음 패턴마다 1개 그룹, 각 그룹에 4-6개 단어. pattern에 모음 패턴명.
      예: {pattern:"ee", words:[{word:"bee",onset:"b"}, {word:"feet",onset:"f"}, {word:"tree",onset:"tr"}, {word:"green",onset:"gr"}]}`;
 
-    // short-vowels, long-vowels, 한국어 등
+    // short-vowels, long-vowels 등 영어 기본
     default:
       return `3. **학습 콘텐츠 (phonicsLesson)**:
    - title: 유닛 주제 (예: "Short Vowel a")
@@ -99,7 +128,9 @@ function buildPhonicsPrompt(
         ? '5-7세: 페이지 10-12개, 문장 3-4개/페이지, 중간 수준 어휘'
         : '7-8세: 페이지 12-14개, 문장 4-5개/페이지, 풍부한 어휘';
 
-  const lessonInstructions = buildLessonInstructions(bookType);
+  const lessonInstructions = isKorean
+    ? buildKoreanLessonInstructions(unit)
+    : buildLessonInstructions(bookType);
   const includeFlashcards = true;
 
   return `
@@ -119,6 +150,36 @@ function buildPhonicsPrompt(
 - 대상 연령: ${targetAge}세 (${ageGuide})
 ${storyTheme ? `- 동화 테마: ${storyTheme}` : ''}
 ${referenceContent ? `- 참고 내용: ${referenceContent}` : ''}
+${
+  isKorean
+    ? `
+=== 한글 숲 세계관 ===
+배경: "한글 숲"은 마법의 글자들이 자연 속에 숨어 있는 신비로운 숲입니다.
+나무껍질, 꽃잎, 돌멩이, 시냇물, 바람 소리 속에 한글 글자들이 살아 숨쉬고 있어요.
+12지신 동물 캐릭터들이 숲을 탐험하며 숨겨진 글자를 발견하고, 그 글자로 새로운 단어를 만들어냅니다.
+
+주요 장소:
+- 글자 초원(Letter Meadow): 봄꽃이 가득, 꽃잎에 글자가 새겨져 있음. 바람이 불면 꽃잎 글자가 날아다님.
+- 속삭임 나무(Whisper Tree): 오래된 나무 껍질에 자음이 새겨져 있음. 귀를 대면 글자 소리가 들림.
+- 메아리 동굴(Echo Cave): 동굴 벽에 글자가 빛나며 메아리로 발음 연습. 소리치면 정확한 발음이 메아리로 돌아옴.
+- 별빛 연못(Starlight Pond): 연못 수면에 글자가 반짝이며 나타남. 달밤에 글자가 물 위에 떠오름.
+- 바람 언덕(Wind Hill): 바람에 실려 글자들이 날아다님. 바람을 잡으면 글자가 손에 잡힘.
+- 구름 언덕(Cloud Hill): 구름에 글자가 새겨져 부드럽게 변함. 구름이 글자 모양으로 변함.
+- 꿀 폭포(Honey Falls): 폭포 물방울에 글자가 새겨져 달콤한 소리를 냄. 폭포 소리가 받침 발음처럼 들림.
+- 글자 다리(Letter Bridge): 돌다리 위 돌멩이에 글자가 새겨져 있음. 돌을 밟으면 글자 소리가 남.
+- 햇살 언덕(Sunshine Hill): 이른 아침 햇살이 나무에 글자 그림자를 만듦.
+
+마법 법칙:
+1. 숲속 자연물에 숨어있는 글자를 발견해야만 배울 수 있음
+2. 발음을 정확히 하면 숲에서 빛이 나고, 틀리면 나뭇잎이 떨어짐
+3. 단어를 완성하면 해당 단어가 실제로 숲속에 나타남 (예: "사자"를 쓰면 귀여운 사자 구름이 생김)
+4. 혼자서는 찾기 어려운 글자도 친구와 함께하면 쉽게 발견할 수 있음
+5. 발견한 글자는 "글자 나무"에 새겨지고, 복습할 때마다 빛이 더 밝아짐
+
+**중요**: 위 세계관과 동화 테마를 기반으로 일관된 스토리를 만드세요. 캐릭터는 동화 테마에 명시된 캐릭터를 사용하고, 장소 묘사도 한글 숲의 장소를 활용하세요.
+`
+    : ''
+}
 
 === 핵심 규칙 ===
 1. **스토리**: ${storyLang}로 작성.
@@ -254,6 +315,49 @@ ${includeFlashcards ? '5. **플래시카드**: 타겟 단어마다 1개. word(�
 `.trim();
 }
 
+/**
+ * 한글 커리큘럼 blending 데이터로 전체 블렌딩 카드 빌드.
+ * AI가 생성한 imageDescription이 있으면 매칭하여 재활용.
+ */
+function buildKoreanBlending(
+  unitId: string,
+  level: string,
+  aiBlending: BlendingExercise[]
+): BlendingExercise[] | null {
+  const lvl = KOREAN_PHONICS_CURRICULUM.find((l) => l.level === level);
+  if (!lvl) return null;
+  const unit = lvl.units.find((u) => u.id === unitId);
+  if (!unit || unit.blending.length === 0) return null;
+
+  const words = [...unit.sampleWords];
+
+  return unit.blending.map((triple) => {
+    const consonant = triple[0];
+    const vowel = triple[1];
+    const blend = triple[triple.length - 1]; // 3-element: 결과, 4-element: 결과
+
+    // AI가 같은 blend로 생성한 항목이 있으면 imageDescription 재활용
+    const aiMatch = aiBlending.find((b) => b.blend === blend);
+
+    // sampleWords에서 이 blend 음절로 시작하는 단어 찾기
+    const w1Idx = words.findIndex((w) => w.startsWith(blend));
+    const word1 = w1Idx >= 0 ? words.splice(w1Idx, 1)[0] : undefined;
+    const w2Idx = words.findIndex((w) => w.startsWith(blend));
+    const word2 = w2Idx >= 0 ? words.splice(w2Idx, 1)[0] : undefined;
+
+    return {
+      consonant,
+      vowel,
+      blend,
+      exampleWord: aiMatch?.exampleWord ?? word1 ?? '',
+      exampleWordImageDescription: aiMatch?.exampleWordImageDescription,
+      exampleWord2: aiMatch?.exampleWord2 ?? word2,
+      exampleWord2ImageDescription: aiMatch?.exampleWord2ImageDescription,
+      illustrationDescription: aiMatch?.illustrationDescription,
+    } as BlendingExercise;
+  });
+}
+
 export const PhonicsService = {
   async generate(req: GeneratePhonicsBookRequest): Promise<Storybook> {
     const { title, targetAge, artStyle, language, level, unitId, referenceContent, model } = req;
@@ -262,6 +366,22 @@ export const PhonicsService = {
     const prompt = buildPhonicsPrompt(req, levelInfo, unit);
     const raw = await generateTextWithGemini(prompt, 3, model);
     const parsed = parseGeminiJSON<Partial<Storybook>>(raw, 'AI 응답을 파싱하는데 실패했습니다.');
+
+    // 한글: 커리큘럼 blending 데이터로 전체 음절 카드 빌드
+    let phonicsLesson = parsed.phonicsLesson;
+    if (language === 'korean' && phonicsLesson) {
+      const fullBlending = buildKoreanBlending(unitId, level, phonicsLesson.blending ?? []);
+      if (fullBlending) {
+        phonicsLesson = {
+          ...phonicsLesson,
+          blending: fullBlending,
+          // wordFamilies 배열을 blending 수에 맞춤
+          wordFamilies: fullBlending.map(
+            (_, i) => phonicsLesson!.wordFamilies[i] ?? { pattern: '', words: [] }
+          ),
+        };
+      }
+    }
 
     const storybook: Storybook = {
       id: Date.now().toString(),
@@ -292,7 +412,7 @@ export const PhonicsService = {
         targetPatterns: [...unit.patterns],
         bookType: getBookType(language, level),
       },
-      phonicsLesson: parsed.phonicsLesson,
+      phonicsLesson,
       chant: parsed.chant,
       flashcards: parsed.flashcards ?? [],
       worksheets: parsed.worksheets ?? [],

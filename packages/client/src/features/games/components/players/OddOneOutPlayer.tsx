@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { Button } from '@/components/Button';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { OddOneOutData } from '@tangobook/shared';
+import { GameProgressBar } from '../GameProgressBar';
 
 export function OddOneOutPlayer({ gameData, onComplete, onBack }: GamePlayerProps) {
   const { rounds } = gameData as OddOneOutData;
@@ -58,10 +59,12 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack }: GamePlayerProp
       </div>
 
       {/* 진행률 */}
-      <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full mb-8">
-        <div
-          className="h-full bg-violet-500 rounded-full transition-all duration-300"
-          style={{ width: `${((currentIdx + 1) / rounds.length) * 100}%` }}
+      <div className="mb-8">
+        <GameProgressBar
+          current={currentIdx}
+          total={rounds.length}
+          score={score}
+          accentColor="violet"
         />
       </div>
 

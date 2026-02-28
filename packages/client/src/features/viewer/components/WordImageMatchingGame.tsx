@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useMemo, useEffect } from 'react';
-import type { BlendingExercise, WordFamily } from '@tangobook/shared';
+import type { BlendingExercise, WordFamily, PhonicsFlashcard } from '@tangobook/shared';
 
 // --- 타입 ---
 
@@ -19,6 +19,7 @@ interface GameGroup {
 interface WordImageMatchingGameProps {
   letters: BlendingExercise[];
   wordFamilies: WordFamily[];
+  flashcards?: PhonicsFlashcard[];
   systemSounds?: { correctUrl?: string; incorrectUrl?: string };
 }
 
@@ -35,7 +36,8 @@ function shuffle<T>(arr: T[]): T[] {
 
 function buildGroups(
   letters: BlendingExercise[],
-  wordFamilies: WordFamily[]
+  wordFamilies: WordFamily[],
+  flashcards?: PhonicsFlashcard[]
 ): { left: GameGroup; right: GameGroup } | null {
   // 블렌딩별로 이미지 있는 단어 수집
   const groupMap = new Map<string, WordImageItem[]>();
@@ -81,21 +83,52 @@ function buildGroups(
     .filter(([, items]) => items.length >= 1)
     .map(([blend, items]) => ({ blend, items: items.slice(0, 2) }));
 
-  if (qualifying.length < 2) return null;
+  if (qualifying.length >= 2) {
+    const total = qualifying[0].items.length + qualifying[1].items.length;
+    if (total >= 2) {
+      const [g1, g2] = qualifying.slice(0, 2);
+      g1.items.forEach((item) => {
+        item.groupIdx = 0;
+      });
+      g2.items.forEach((item) => {
+        item.groupIdx = 1;
+      });
+      return { left: g1, right: g2 };
+    }
+  }
 
-  // 합계 최소 2개
-  const total = qualifying[0].items.length + qualifying[1].items.length;
-  if (total < 2) return null;
+  // 블렌딩 데이터 부족 시 flashcards에서 보충
+  const fcWithImages = (flashcards ?? []).filter((fc) => fc.imageUrl && fc.word);
+  if (fcWithImages.length < 2) return null;
 
-  const [g1, g2] = qualifying.slice(0, 2);
-  g1.items.forEach((item) => {
-    item.groupIdx = 0;
-  });
-  g2.items.forEach((item) => {
-    item.groupIdx = 1;
-  });
+  const shuffled = [...fcWithImages].sort(() => Math.random() - 0.5);
+  const half = Math.ceil(shuffled.length / 2);
+  const leftItems = shuffled.slice(0, half);
+  const rightItems = shuffled.slice(half);
+  if (rightItems.length === 0) return null;
 
-  return { left: g1, right: g2 };
+  return {
+    left: {
+      blend: '단어',
+      items: leftItems.map((fc) => ({
+        word: fc.localWord || fc.word,
+        imageUrl: fc.imageUrl!,
+        ttsUrl: fc.ttsUrl,
+        blend: '단어',
+        groupIdx: 0,
+      })),
+    },
+    right: {
+      blend: '그림',
+      items: rightItems.map((fc) => ({
+        word: fc.localWord || fc.word,
+        imageUrl: fc.imageUrl!,
+        ttsUrl: fc.ttsUrl,
+        blend: '그림',
+        groupIdx: 1,
+      })),
+    },
+  };
 }
 
 // --- 컴포넌트 ---
@@ -103,9 +136,13 @@ function buildGroups(
 export function WordImageMatchingGame({
   letters,
   wordFamilies,
+  flashcards,
   systemSounds,
 }: WordImageMatchingGameProps) {
-  const groups = useMemo(() => buildGroups(letters, wordFamilies), [letters, wordFamilies]);
+  const groups = useMemo(
+    () => buildGroups(letters, wordFamilies, flashcards),
+    [letters, wordFamilies, flashcards]
+  );
 
   const [shuffledWords, setShuffledWords] = useState<WordImageItem[]>(() => {
     if (!groups) return [];

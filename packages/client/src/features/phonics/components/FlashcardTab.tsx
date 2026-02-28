@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import type { Storybook } from '@tangobook/shared';
 import { Button } from '@/components/Button';
 import { ImageLightbox } from '@/components/ImageLightbox';
@@ -25,8 +25,23 @@ interface FlashcardTabProps {
 
 const stripBold = (s: string) => s.replace(/\*\*/g, '');
 
+/** 단어를 음절(글자) 단위로 분리 — 라이브러리에서 개별 조회 후 연결 */
+const toSyllables = (word: string) => word.split('').join(' ');
+
 export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps) {
   const flashcards = storybook.flashcards ?? [];
+  const isKorean = storybook.phonicsConfig?.language === 'korean';
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const debouncedSave = useCallback(() => {
+    if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+    saveTimerRef.current = setTimeout(() => onSave(), 600);
+  }, [onSave]);
+  useEffect(
+    () => () => {
+      if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+    },
+    []
+  );
   const [tracingEditIdx, setTracingEditIdx] = useState<number | null>(null);
   const [tracingPreviewIdx, setTracingPreviewIdx] = useState<number | null>(null);
 
@@ -124,7 +139,7 @@ export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps)
     flashcards.forEach((card, idx) => {
       if (!card.ttsUrl && card.word) {
         tasks.push({
-          word: getTtsText(`fc-${idx}`, card.word),
+          word: getTtsText(`fc-${idx}`, toSyllables(card.word)),
           key: `fc-${idx}`,
           updater: (d, url) => {
             d.flashcards![idx].ttsUrl = url;
@@ -255,27 +270,39 @@ export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps)
                     {/* 헤더 */}
                     <div className="px-5 py-3 bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700 flex items-center gap-3">
                       <input
-                        value={card.word}
+                        key={`word-${card.id ?? idx}`}
+                        defaultValue={card.word}
                         onChange={(e) => {
                           onUpdate((d) => {
                             d.flashcards![idx].word = e.target.value;
                           });
+                          debouncedSave();
+                        }}
+                        onBlur={() => {
+                          if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
                           onSave();
                         }}
                         className="w-28 text-lg font-bold text-slate-800 dark:text-slate-100 bg-transparent border-b border-dashed border-slate-300 dark:border-slate-600 focus:outline-none focus:border-violet-500"
-                        placeholder="영어 단어"
+                        placeholder={isKorean ? '단어' : '영어 단어'}
                       />
-                      <input
-                        value={card.localWord}
-                        onChange={(e) => {
-                          onUpdate((d) => {
-                            d.flashcards![idx].localWord = e.target.value;
-                          });
-                          onSave();
-                        }}
-                        className="w-24 text-sm text-slate-500 dark:text-slate-400 bg-transparent border-b border-dashed border-slate-200 dark:border-slate-700 focus:outline-none focus:border-violet-400"
-                        placeholder="한글 뜻"
-                      />
+                      {!isKorean && (
+                        <input
+                          key={`local-${card.id ?? idx}`}
+                          defaultValue={card.localWord}
+                          onChange={(e) => {
+                            onUpdate((d) => {
+                              d.flashcards![idx].localWord = e.target.value;
+                            });
+                            debouncedSave();
+                          }}
+                          onBlur={() => {
+                            if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+                            onSave();
+                          }}
+                          className="w-24 text-sm text-slate-500 dark:text-slate-400 bg-transparent border-b border-dashed border-slate-200 dark:border-slate-700 focus:outline-none focus:border-violet-400"
+                          placeholder="한글 뜻"
+                        />
+                      )}
                       <div className="flex gap-1 flex-wrap">
                         {card.phonemes.map((p, i) => (
                           <span
@@ -410,11 +437,16 @@ export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps)
                       {/* 오른쪽: 예문 + TTS */}
                       <div className="flex-1 min-w-0">
                         <input
-                          value={stripBold(card.sentence)}
+                          key={`sent-${card.id ?? idx}`}
+                          defaultValue={stripBold(card.sentence)}
                           onChange={(e) => {
                             onUpdate((d) => {
                               d.flashcards![idx].sentence = e.target.value;
                             });
+                            debouncedSave();
+                          }}
+                          onBlur={() => {
+                            if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
                             onSave();
                           }}
                           className="w-full text-sm text-slate-600 dark:text-slate-300 italic mb-4 bg-transparent border-b border-dashed border-slate-200 dark:border-slate-700 focus:outline-none focus:border-violet-400 px-1 py-0.5"
@@ -432,11 +464,11 @@ export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps)
                             generating={generatingTts.has(`fc-${idx}`)}
                             disabled={isBusy || !card.word}
                             downloadFilename={`${card.word}.wav`}
-                            editableText={getTtsText(`fc-${idx}`, card.word)}
+                            editableText={getTtsText(`fc-${idx}`, toSyllables(card.word))}
                             onTextChange={(t) => setTtsText(`fc-${idx}`, t)}
                             onGenerate={() =>
                               generateTts(
-                                getTtsText(`fc-${idx}`, card.word),
+                                getTtsText(`fc-${idx}`, toSyllables(card.word)),
                                 `fc-${idx}`,
                                 (d, url) => {
                                   d.flashcards![idx].ttsUrl = url;

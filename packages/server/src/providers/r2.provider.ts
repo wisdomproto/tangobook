@@ -2,6 +2,7 @@ import {
   S3Client,
   PutObjectCommand,
   DeleteObjectCommand,
+  DeleteObjectsCommand,
   GetObjectCommand,
   ListObjectsV2Command,
   type _Object,
@@ -65,6 +66,20 @@ export async function deleteFromR2(key: string): Promise<void> {
       Key: key,
     })
   );
+}
+
+export async function deleteManyFromR2(keys: string[]): Promise<void> {
+  if (keys.length === 0) return;
+  // S3 DeleteObjects는 1회 최대 1000개
+  for (let i = 0; i < keys.length; i += 1000) {
+    const batch = keys.slice(i, i + 1000);
+    await r2Client.send(
+      new DeleteObjectsCommand({
+        Bucket: r2BucketName,
+        Delete: { Objects: batch.map((Key) => ({ Key })), Quiet: true },
+      })
+    );
+  }
 }
 
 export function urlToR2Key(url: string): string {

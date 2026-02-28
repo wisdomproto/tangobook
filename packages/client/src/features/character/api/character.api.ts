@@ -1,5 +1,5 @@
-import { apiPost, apiClient } from '@/lib/axios';
-import type { Character, ImageGenerationResult } from '@tangobook/shared';
+import { apiGet, apiPost, apiDelete, apiClient } from '@/lib/axios';
+import type { Character, SavedCharacter, ImageGenerationResult } from '@tangobook/shared';
 
 interface GenerateCharacterRequest {
   character: Character;
@@ -38,4 +38,14 @@ export const characterApi = {
   },
 
   cleanup: (imageUrl: string) => apiPost<{ message: string }>('/images/cleanup', { imageUrl }),
+
+  // 캐릭터 라이브러리
+  getLibrary: () => apiGet<SavedCharacter[]>('/character-library'),
+  saveToLibrary: (character: Character) => apiPost<SavedCharacter>('/character-library', character),
+  updateInLibrary: (name: string, updates: Partial<Character>) =>
+    apiClient
+      .patch(`/character-library/by-name/${encodeURIComponent(name)}`, updates)
+      .then((r) => (r.data as { success: true; data: SavedCharacter | null }).data),
+  removeFromLibrary: (id: string) => apiDelete<void>(`/character-library/${id}`),
+  removeAllFromLibrary: () => apiDelete<void>('/character-library/all'),
 };

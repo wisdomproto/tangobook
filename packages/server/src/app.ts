@@ -15,6 +15,9 @@ import phonicsRoutes from './routes/phonics.routes.js';
 import gameRoutes from './routes/game.routes.js';
 import phonicsLibraryRoutes from './routes/phonics-library.routes.js';
 import settingsRoutes from './routes/settings.routes.js';
+import systemSoundsRoutes from './routes/system-sounds.routes.js';
+import characterLibraryRoutes from './routes/character-library.routes.js';
+import artStyleLibraryRoutes from './routes/art-style-library.routes.js';
 
 export function createApp() {
   const app = express();
@@ -40,6 +43,9 @@ export function createApp() {
   app.use('/api/games', gameRoutes);
   app.use('/api/phonics-library', phonicsLibraryRoutes);
   app.use('/api/settings', settingsRoutes);
+  app.use('/api/system-sounds', systemSoundsRoutes);
+  app.use('/api/character-library', characterLibraryRoutes);
+  app.use('/api/art-style-library', artStyleLibraryRoutes);
 
   // 프로덕션: 클라이언트 정적 파일 서빙
   const clientDist = path.join(__dirname, '../../../../client/dist');

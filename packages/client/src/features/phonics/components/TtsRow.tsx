@@ -43,9 +43,11 @@ export function TtsRow({
       >
         {tag}
       </span>
-      <span className="text-sm font-mono font-bold text-slate-700 dark:text-slate-200 min-w-[3rem] truncate">
-        {label}
-      </span>
+      {!(editableText !== undefined && onTextChange) && (
+        <span className="text-sm font-mono font-bold text-slate-700 dark:text-slate-200 min-w-[3rem] truncate">
+          {label}
+        </span>
+      )}
       {editableText !== undefined && onTextChange && (
         <input
           type="text"

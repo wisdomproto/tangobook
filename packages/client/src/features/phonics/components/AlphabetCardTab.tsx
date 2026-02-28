@@ -39,6 +39,7 @@ interface AlphabetCardTabProps {
 export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTabProps) {
   const lesson = storybook.phonicsLesson;
   const sightWords = lesson?.sightWords ?? [];
+  const isKorean = storybook.phonicsConfig?.language === 'korean';
 
   const {
     aspectRatio,
@@ -143,7 +144,8 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
         const blend = (lesson.blending[wfIdx]?.blend ?? '').replace(/\//g, '');
         wf.words.forEach((w, wIdx) => {
           if (!w.ttsUrl) {
-            const defaultText = blend ? `${blend} ${blend} ${w.word}` : w.word;
+            const displayWord = isKorean ? (w.korean ?? w.word) : w.word;
+            const defaultText = blend ? `${blend} ${blend} ${displayWord}` : displayWord;
             tasks.push({
               word: ttsTexts[`wf-${wfIdx}-${wIdx}`] ?? defaultText,
               key: `wf-${wfIdx}-${wIdx}`,
@@ -502,74 +504,89 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
                           단어 ({wf.words.length}개)
                         </p>
                         <div className="space-y-2">
-                          {wf.words.map((w, wIdx) => (
-                            <div key={wIdx} className="space-y-0.5">
-                              <div className="flex items-center gap-2 px-3">
-                                <input
-                                  defaultValue={w.word}
-                                  key={`word-${idx}-${wIdx}-${w.word}`}
-                                  onBlur={(e) => {
-                                    const val = e.target.value;
-                                    if (val === w.word) return;
-                                    onUpdate((d) => {
-                                      if (d.phonicsLesson)
-                                        d.phonicsLesson.wordFamilies[idx].words[wIdx].word = val;
-                                    });
-                                    onSave();
-                                  }}
-                                  className="text-sm font-bold font-mono bg-transparent border-b border-dashed border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300 w-24 focus:outline-none"
-                                />
-                                <input
-                                  defaultValue={w.korean ?? ''}
-                                  key={`korean-${idx}-${wIdx}-${w.korean ?? ''}`}
-                                  onBlur={(e) => {
-                                    const val = e.target.value || undefined;
-                                    if (val === w.korean) return;
-                                    onUpdate((d) => {
-                                      if (d.phonicsLesson)
-                                        d.phonicsLesson.wordFamilies[idx].words[wIdx].korean = val;
-                                    });
-                                    onSave();
-                                  }}
-                                  className="text-xs bg-transparent border-b border-dashed border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400 w-24 focus:outline-none"
-                                  placeholder="한글"
-                                />
-                              </div>
-                              <TtsRow
-                                label={`${cleanBlend} ${cleanBlend} ${w.word}`}
-                                tag="단어"
-                                color="emerald"
-                                url={w.ttsUrl}
-                                generating={generatingTts.has(`wf-${idx}-${wIdx}`)}
-                                disabled={isBusy}
-                                downloadFilename={`${w.word}.wav`}
-                                editableText={getTtsText(
-                                  `wf-${idx}-${wIdx}`,
-                                  `${cleanBlend} ${cleanBlend} ${w.word}`
-                                )}
-                                onTextChange={(t) => setTtsText(`wf-${idx}-${wIdx}`, t)}
-                                onGenerate={() =>
-                                  generateTts(
-                                    getTtsText(
-                                      `wf-${idx}-${wIdx}`,
-                                      `${cleanBlend} ${cleanBlend} ${w.word}`
-                                    ),
+                          {wf.words.map((w, wIdx) => {
+                            const primaryWord = isKorean ? (w.korean ?? '') : w.word;
+                            const secondaryWord = isKorean ? w.word : (w.korean ?? '');
+                            return (
+                              <div key={wIdx} className="space-y-0.5">
+                                <div className="flex items-center gap-2 px-3">
+                                  <input
+                                    defaultValue={primaryWord}
+                                    key={`primary-${idx}-${wIdx}-${primaryWord}`}
+                                    onBlur={(e) => {
+                                      const val = isKorean
+                                        ? e.target.value || undefined
+                                        : e.target.value;
+                                      const field = isKorean ? 'korean' : 'word';
+                                      if (val === (isKorean ? w.korean : w.word)) return;
+                                      onUpdate((d) => {
+                                        if (d.phonicsLesson)
+                                          (d.phonicsLesson.wordFamilies[idx].words[wIdx] as any)[
+                                            field
+                                          ] = val;
+                                      });
+                                      onSave();
+                                    }}
+                                    className="text-sm font-bold font-mono bg-transparent border-b border-dashed border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300 w-24 focus:outline-none"
+                                  />
+                                  <input
+                                    defaultValue={secondaryWord}
+                                    key={`secondary-${idx}-${wIdx}-${secondaryWord}`}
+                                    onBlur={(e) => {
+                                      const val = isKorean
+                                        ? e.target.value
+                                        : e.target.value || undefined;
+                                      const field = isKorean ? 'word' : 'korean';
+                                      if (val === (isKorean ? w.word : w.korean)) return;
+                                      onUpdate((d) => {
+                                        if (d.phonicsLesson)
+                                          (d.phonicsLesson.wordFamilies[idx].words[wIdx] as any)[
+                                            field
+                                          ] = val;
+                                      });
+                                      onSave();
+                                    }}
+                                    className="text-xs bg-transparent border-b border-dashed border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400 w-24 focus:outline-none"
+                                    placeholder={isKorean ? '영어' : '한글'}
+                                  />
+                                </div>
+                                <TtsRow
+                                  label={`${cleanBlend} ${cleanBlend} ${isKorean ? (w.korean ?? w.word) : w.word}`}
+                                  tag="단어"
+                                  color="emerald"
+                                  url={w.ttsUrl}
+                                  generating={generatingTts.has(`wf-${idx}-${wIdx}`)}
+                                  disabled={isBusy}
+                                  downloadFilename={`${isKorean ? (w.korean ?? w.word) : w.word}.wav`}
+                                  editableText={getTtsText(
                                     `wf-${idx}-${wIdx}`,
-                                    (d, url) => {
+                                    `${cleanBlend} ${cleanBlend} ${isKorean ? (w.korean ?? w.word) : w.word}`
+                                  )}
+                                  onTextChange={(t) => setTtsText(`wf-${idx}-${wIdx}`, t)}
+                                  onGenerate={() =>
+                                    generateTts(
+                                      getTtsText(
+                                        `wf-${idx}-${wIdx}`,
+                                        `${cleanBlend} ${cleanBlend} ${isKorean ? (w.korean ?? w.word) : w.word}`
+                                      ),
+                                      `wf-${idx}-${wIdx}`,
+                                      (d, url) => {
+                                        if (d.phonicsLesson)
+                                          d.phonicsLesson.wordFamilies[idx].words[wIdx].ttsUrl =
+                                            url;
+                                      }
+                                    )
+                                  }
+                                  onUpload={(f) =>
+                                    handleTtsUpload(f, `wf-${idx}-${wIdx}`, (d, url) => {
                                       if (d.phonicsLesson)
                                         d.phonicsLesson.wordFamilies[idx].words[wIdx].ttsUrl = url;
-                                    }
-                                  )
-                                }
-                                onUpload={(f) =>
-                                  handleTtsUpload(f, `wf-${idx}-${wIdx}`, (d, url) => {
-                                    if (d.phonicsLesson)
-                                      d.phonicsLesson.wordFamilies[idx].words[wIdx].ttsUrl = url;
-                                  })
-                                }
-                              />
-                            </div>
-                          ))}
+                                    })
+                                  }
+                                />
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                     )}
@@ -578,6 +595,7 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
                     <WritingPracticeSection
                       vowel={item.vowel}
                       consonant={item.consonant}
+                      blend={item.blend}
                       idx={idx}
                       active={writingPractice}
                       onToggle={setWritingPractice}

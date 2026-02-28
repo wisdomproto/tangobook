@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { Button } from '@/components/Button';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordQuizData } from '@tangobook/shared';
+import { GameProgressBar } from '../GameProgressBar';
 
 export function WordQuizPlayer({ gameData, onComplete, onBack }: GamePlayerProps) {
   const { questions } = gameData as WordQuizData;
@@ -60,10 +61,12 @@ export function WordQuizPlayer({ gameData, onComplete, onBack }: GamePlayerProps
       </div>
 
       {/* 진행률 바 */}
-      <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full mb-8">
-        <div
-          className="h-full bg-violet-500 rounded-full transition-all duration-300"
-          style={{ width: `${((currentIdx + 1) / questions.length) * 100}%` }}
+      <div className="mb-8">
+        <GameProgressBar
+          current={currentIdx}
+          total={questions.length}
+          score={score}
+          accentColor="violet"
         />
       </div>
 

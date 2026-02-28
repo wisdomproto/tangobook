@@ -109,6 +109,61 @@ features/phonics/
 - TtsRow의 `editableText` prop으로 TTS 텍스트 편집 가능
 - 공백 규칙: 1개 = 0.3초 무음, 2개 = 0.6초 무음
 
+## 게임 Feature 구조
+```
+features/games/
+  registry/                          # 게임 등록 시스템
+    game-registry.ts                 # 레지스트리 코어 (registerGame, getGameEntry 등)
+    index.ts                         # side-effect imports + re-exports
+    games/*.register.ts              # 게임별 등록 (1게임 = 1파일)
+  components/
+    players/*.tsx                    # 게임 플레이어 UI (10개)
+    config/*.tsx                     # 게임 설정 패널 (10개)
+    GameResultScreen.tsx             # 공통 결과 화면 (점수, 재시작/뒤로)
+    GameProgressBar.tsx              # 공통 진행바 (Q카운터 + 바 + 점수)
+    config/ConfigControls.tsx        # 공통 설정 컨트롤 (NumberSelector, ConfigCheckbox)
+  hooks/
+    useGameAudio.ts                  # 오디오 재생 + 피드백 효과음 (playAudio, playFeedbackSound)
+  utils/
+    shuffle.ts                       # Fisher-Yates 셔플
+```
+
+### 게임 목록 (10종)
+| ID | 이름 | 지원 타입 |
+|----|------|-----------|
+| vocabulary-matching | 어휘 매칭 | storybook |
+| word-writing | 단어 쓰기 | storybook |
+| connect-the-dots | 점잇기 | storybook |
+| word-quiz | 단어 퀴즈 | storybook |
+| picture-sequence | 그림 순서 | storybook |
+| odd-one-out | 다른 그림 찾기 | storybook |
+| word-image-matching | 단어-그림 매칭 | phonics |
+| blending-listening | 블렌딩 듣기 | phonics |
+| letter-sound | 글자 소리 | phonics |
+| word-listening | 듣고 단어 맞추기 | phonics |
+
+### 새 게임 추가 방법
+1. `shared/types/storybook.ts`에 Config/Data 타입 추가, GameTypeId·GameConfig·GameData 유니온 확장
+2. `server/services/game.service.ts`에 `generate{GameName}()` 함수 + switch case 추가
+3. `client/features/games/components/players/{GameName}Player.tsx` 생성
+4. `client/features/games/components/config/{GameName}ConfigPanel.tsx` 생성
+5. `client/features/games/registry/games/{game-id}.register.ts` 생성 (registerGame 호출)
+6. `client/features/games/registry/index.ts`에 side-effect import 1줄 추가
+
+### 한글/영어 파닉스 데이터 차이
+- **한글**: `blend`=음절(가, 나), `illustrationUrl`=삽화, `phonicsConfig.language === 'korean'`
+- **영어**: `vowel`=모음 글자(a, e), `exampleWordImageUrl`=단어 이미지, `phonicsConfig.language === 'english'`
+- 감지: `isKoreanPhonics(storybook)` 사용 (`server/utils/phonics-data-helpers.ts`)
+- 데이터 수집: `collectPhonicsWordPool()` (파닉스용), `collectStorybookImagePool()` (동화책용)
+
+## 서버 유틸리티
+```
+server/src/utils/
+  gemini-retry.ts           # withGeminiRetry() 재시도 래퍼
+  shuffle.ts                # Fisher-Yates 셔플 (game.service.ts에서 사용)
+  phonics-data-helpers.ts   # isKoreanPhonics(), collectPhonicsWordPool(), collectStorybookImagePool()
+```
+
 ## 새 Feature 추가 방법
 1. `features/{name}/api/{name}.api.ts` - API 함수 정의
 2. `features/{name}/hooks/use{Name}.ts` - TanStack Query 훅

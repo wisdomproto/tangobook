@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from 'react';
 import { Button } from '@/components/Button';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { ConnectTheDotsData, ConnectTheDotsItem } from '@tangobook/shared';
+import { GameProgressBar } from '../GameProgressBar';
 
 const DOT_RADIUS_PX = 18;
 
@@ -78,19 +79,16 @@ export function ConnectTheDotsPlayer({ gameData, onComplete, onBack }: GamePlaye
   return (
     <div className="flex flex-col items-center gap-4">
       {/* 진행 */}
-      <div className="w-full flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
-        <span>
-          {itemIdx + 1} / {items.length}
-        </span>
-        <button onClick={onBack} className="hover:text-slate-700 dark:hover:text-slate-200">
+      <div className="w-full flex items-center gap-2">
+        <div className="flex-1">
+          <GameProgressBar current={itemIdx} total={items.length} accentColor="violet" />
+        </div>
+        <button
+          onClick={onBack}
+          className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+        >
           ✕
         </button>
-      </div>
-      <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-violet-500 transition-all"
-          style={{ width: `${(itemIdx / items.length) * 100}%` }}
-        />
       </div>
 
       {/* 안내 */}

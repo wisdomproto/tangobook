@@ -649,7 +649,7 @@ The entire illustration MUST be rendered strictly in the art style described abo
 function isolatedObjectPrompt(word: string, hasDescription = false): string {
   return `완전히 깨끗한 순백색(#FFFFFF) 배경에 "${word}"가 뜻하는 사물/동물/대상 딱 하나만 그려주세요.${hasDescription ? ` 위 "구체적 묘사"를 반드시 반영하세요.` : ''} 배경, 그림자, 바닥면, 장식, 다른 인물, 다른 사물 일절 없이 대상만 중앙에 크게 배치하세요. 어휘 플래시카드이므로 대상 외 아무것도 그리지 마세요. 이미지에 텍스트, 글자, 라벨을 포함하지 마세요.
 
-Add a thick bold white border around the entire outer edge following the silhouette precisely. Inside the white border, add a colorful dotted line pattern using pastel colors (pink, purple, blue, yellow, mint green) creating a decorative inner border. Cute sticker style with double border effect.`;
+Add a thick bold white border around the entire outer edge following the silhouette precisely. Inside the white border, add a colorful dotted line pattern using pastel colors (pink, purple, blue, yellow, mint green) creating a decorative inner border. Sticker style with double border effect.`;
 }
 
 // --- 프롬프트 빌더 ---
@@ -822,7 +822,7 @@ function buildKeyObjectPrompt(obj: KeyObject, artStyle: string): string {
       : '';
   return `Create a clear educational illustration of an object for a children's storybook.
 
-Object: ${obj.name}${obj.korean ? ` (${obj.korean})` : ''}
+Object: ${obj.nameEn ?? obj.name}${obj.korean ? ` (${obj.korean})` : obj.nameEn ? ` (${obj.name})` : ''}
 Description: ${obj.description}${sizeInfo}
 
 ${artStyleBlock(artStyle)}

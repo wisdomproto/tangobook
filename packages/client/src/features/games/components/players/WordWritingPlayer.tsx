@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Button } from '@/components/Button';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData } from '@tangobook/shared';
+import { GameProgressBar } from '../GameProgressBar';
 
 const CANVAS_W = 500;
 const CANVAS_H = 250;
@@ -270,19 +271,16 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
   return (
     <div className="flex flex-col items-center gap-4">
       {/* 진행 */}
-      <div className="w-full flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
-        <span>
-          {currentIndex + 1} / {items.length}
-        </span>
-        <button onClick={onBack} className="hover:text-slate-700 dark:hover:text-slate-200">
+      <div className="w-full flex items-center gap-2">
+        <div className="flex-1">
+          <GameProgressBar current={currentIndex} total={items.length} accentColor="violet" />
+        </div>
+        <button
+          onClick={onBack}
+          className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+        >
           ✕
         </button>
-      </div>
-      <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-violet-500 transition-all"
-          style={{ width: `${(currentIndex / items.length) * 100}%` }}
-        />
       </div>
 
       {/* 단어 정보 */}

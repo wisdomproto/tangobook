@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import type { GameConfigPanelProps } from '../../registry/game-registry';
 import type { WordWritingConfig } from '@tangobook/shared';
+import { ConfigCheckbox } from './ConfigControls';
 
 interface WordOption {
   key: string; // 식별자 (영어 word)
@@ -185,15 +186,11 @@ export function WordWritingConfigPanel({ storybook, config, onChange }: GameConf
       )}
 
       {/* 가이드 표시 */}
-      <label className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200">
-        <input
-          type="checkbox"
-          checked={c.showGuide}
-          onChange={(e) => onChange({ ...c, showGuide: e.target.checked })}
-          className="rounded border-slate-300 text-violet-600 focus:ring-violet-500"
-        />
-        글자 가이드 표시
-      </label>
+      <ConfigCheckbox
+        label="글자 가이드 표시"
+        checked={c.showGuide}
+        onChange={(v) => onChange({ ...c, showGuide: v })}
+      />
     </div>
   );
 }

@@ -2,12 +2,23 @@
 export type StorybookType = 'storybook' | 'phonics';
 
 // === 파닉스 음원 라이브러리 (글로벌) ===
-export type PhonicsAudioCategory = 'mod_phonics' | 'mod_english';
+export type PhonicsAudioCategory = 'mod_phonics' | 'mod_english' | 'mod_korean';
 
 export interface PhonicsAudioItem {
   sound: string;
   url: string;
   category: PhonicsAudioCategory;
+}
+
+// === 시스템 사운드 라이브러리 (글로벌) ===
+export type SystemSoundLanguage = 'korean' | 'english';
+export type SystemSoundType = 'correct' | 'wrong';
+
+export interface SystemSoundItem {
+  name: string;
+  url: string;
+  language: SystemSoundLanguage;
+  type: SystemSoundType;
 }
 
 // === PhonicsBook 전용 타입 ===
@@ -21,7 +32,7 @@ export type PhonicsBookType =
 
 export interface PhonicsConfig {
   language: 'korean' | 'english';
-  level: string; // 'book1' ~ 'book5' (EN) / 'step1' ~ 'step3' (KR)
+  level: string; // 'book1' ~ 'book5' (EN) / 'hangul1' ~ 'hangul4' (KR)
   targetUnit: string; // 유닛 제목
   targetPhonemes: string[]; // 타겟 음소
   targetWords: string[]; // 타겟 단어
@@ -185,7 +196,7 @@ export type GameTypeId =
   | 'word-image-matching'
   | 'blending-listening'
   | 'letter-sound'
-  | 'initial-sound';
+  | 'word-listening';
 
 export type GameDifficulty = 'easy' | 'medium' | 'hard';
 
@@ -211,7 +222,7 @@ export type GameConfig =
   | WordImageMatchingConfig
   | BlendingListeningConfig
   | LetterSoundConfig
-  | InitialSoundConfig;
+  | WordListeningConfig;
 
 /** 게임별 데이터 (discriminated union) */
 export type GameData =
@@ -224,7 +235,7 @@ export type GameData =
   | WordImageMatchingData
   | BlendingListeningData
   | LetterSoundData
-  | InitialSoundData;
+  | WordListeningData;
 
 // --- 단어 매칭 ---
 export interface VocabularyMatchingConfig {
@@ -393,20 +404,22 @@ export interface LetterSoundData {
   rounds: LetterSoundRound[];
 }
 
-// --- 첫소리 찾기 (파닉스 Level 1 전용) ---
-export interface InitialSoundConfig {
-  type: 'initial-sound';
+// --- 듣고 단어 맞추기 ---
+export interface WordListeningConfig {
+  type: 'word-listening';
 }
-export interface InitialSoundRound {
-  letter: string;
+export interface WordListeningOption {
   word: string;
   imageUrl: string;
-  wordTtsUrl?: string;
-  options: string[];
 }
-export interface InitialSoundData {
-  type: 'initial-sound';
-  rounds: InitialSoundRound[];
+export interface WordListeningRound {
+  targetWord: string;
+  targetTtsUrl: string;
+  options: WordListeningOption[];
+}
+export interface WordListeningData {
+  type: 'word-listening';
+  rounds: WordListeningRound[];
 }
 
 // === 기존 타입 ===
@@ -422,6 +435,19 @@ export interface Character {
   referenceImage?: string;
   imageHistory?: string[];
   customPrompt?: string;
+}
+
+export interface SavedCharacter extends Character {
+  id: string;
+  createdAt: string;
+}
+
+export interface SavedArtStyle {
+  id: string;
+  createdAt: string;
+  name: string;
+  prompt: string;
+  referenceImageUrl?: string;
 }
 
 export interface SceneStructure {
@@ -484,6 +510,7 @@ export interface EducationalContent {
 export interface KeyObject {
   name: string;
   korean?: string;
+  nameEn?: string;
   description: string;
   pages: number[];
   sizeCm?: number;

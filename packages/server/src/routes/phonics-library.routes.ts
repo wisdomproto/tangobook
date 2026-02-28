@@ -11,6 +11,7 @@ const upload = multer({
 router.post('/upload', upload.array('files', 100), PhonicsLibraryController.upload);
 router.post('/concat', PhonicsLibraryController.concat);
 router.get('/', PhonicsLibraryController.list);
+router.delete('/:category', PhonicsLibraryController.removeAll);
 router.delete('/:category/:sound', PhonicsLibraryController.remove);
 
 export default router;

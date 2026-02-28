@@ -13,19 +13,24 @@ interface LetterWritingCanvasProps {
   letter: string;
   onResult?: (passed: boolean, score: number) => void;
   correctSoundUrl?: string;
+  correctSoundUrls?: string[];
   incorrectSoundUrl?: string;
   threshold?: number;
+  autoCheck?: boolean;
 }
 
 export function LetterWritingCanvas({
   letter,
   onResult,
   correctSoundUrl,
+  correctSoundUrls,
   incorrectSoundUrl,
   threshold = DEFAULT_THRESHOLD,
+  autoCheck,
 }: LetterWritingCanvasProps) {
   const [hasDrawn, setHasDrawn] = useState(false);
   const [result, setResult] = useState<{ passed: boolean; score: number } | null>(null);
+  const [liveScore, setLiveScore] = useState<number | null>(null);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
@@ -75,6 +80,7 @@ export function LetterWritingCanvas({
     lastPointRef.current = null;
     setHasDrawn(false);
     setResult(null);
+    setLiveScore(null);
     drawGuide(ctx, letter);
   }, [letter, drawGuide]);
 
@@ -123,9 +129,18 @@ export function LetterWritingCanvas({
     lastPointRef.current = pt;
   };
 
+  const autoCheckTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const handlePointerUp = () => {
     isDrawingRef.current = false;
     lastPointRef.current = null;
+    if (hasDrawn && !result) {
+      setLiveScore(calculateAccuracy());
+      if (autoCheck) {
+        if (autoCheckTimerRef.current) clearTimeout(autoCheckTimerRef.current);
+        autoCheckTimerRef.current = setTimeout(() => handleCheck(true), 800);
+      }
+    }
   };
 
   const handleClear = () => {
@@ -135,6 +150,7 @@ export function LetterWritingCanvas({
     lastPointRef.current = null;
     setHasDrawn(false);
     setResult(null);
+    setLiveScore(null);
     drawGuide(ctx, letter);
   };
 
@@ -165,7 +181,7 @@ export function LetterWritingCanvas({
     }
   };
 
-  const playSound = (url: string | undefined, correct: boolean) => {
+  const playSound = useCallback((url: string | undefined, correct: boolean) => {
     if (!url) {
       playDefaultSound(correct);
       return;
@@ -174,7 +190,7 @@ export function LetterWritingCanvas({
     else audioRef.current.src = url;
     audioRef.current.currentTime = 0;
     audioRef.current.play().catch(() => {});
-  };
+  }, []);
 
   // Distance Transform 채점
   const computeDistanceTransform = (imageData: ImageData): Float32Array => {
@@ -214,7 +230,7 @@ export function LetterWritingCanvas({
     return dist;
   };
 
-  const calculateAccuracy = (): number => {
+  const calculateAccuracy = useCallback((): number => {
     const guideCanvas = document.createElement('canvas');
     guideCanvas.width = CANVAS_W;
     guideCanvas.height = CANVAS_H;
@@ -281,16 +297,36 @@ export function LetterWritingCanvas({
     const efficiency = Math.min(1, (guidePixels * 1.5) / userPixels);
     const rawScore = proximity * 0.6 + coverage * 0.4;
     return Math.round(rawScore * efficiency * 100);
-  };
+  }, [letter, calcFont]);
 
-  const handleCheck = () => {
-    if (!hasDrawn) return;
-    const score = calculateAccuracy();
-    const passed = score >= threshold;
-    setResult({ passed, score });
-    playSound(passed ? correctSoundUrl : incorrectSoundUrl, passed);
-    onResult?.(passed, score);
-  };
+  const pickCorrectSound = useCallback(() => {
+    if (correctSoundUrls && correctSoundUrls.length > 0) {
+      return correctSoundUrls[Math.floor(Math.random() * correctSoundUrls.length)];
+    }
+    return correctSoundUrl;
+  }, [correctSoundUrls, correctSoundUrl]);
+
+  const handleCheck = useCallback(
+    (silent?: boolean) => {
+      if (!hasDrawn) return;
+      const score = calculateAccuracy();
+      const passed = score >= threshold;
+      // autoCheck(silent) 모드: 통과일 때만 결과 표시, 미달이면 무시
+      if (silent && !passed) return;
+      setResult({ passed, score });
+      playSound(passed ? pickCorrectSound() : incorrectSoundUrl, passed);
+      onResult?.(passed, score);
+    },
+    [
+      hasDrawn,
+      threshold,
+      pickCorrectSound,
+      incorrectSoundUrl,
+      onResult,
+      calculateAccuracy,
+      playSound,
+    ]
+  );
 
   return (
     <div className="flex flex-col items-center gap-3">
@@ -308,9 +344,38 @@ export function LetterWritingCanvas({
         />
       </div>
 
+      {/* 실시간 점수 표시 */}
+      {liveScore !== null && !result && (
+        <p
+          className={`text-sm font-bold ${liveScore >= threshold ? 'text-emerald-500' : 'text-slate-400'}`}
+        >
+          {liveScore}%
+        </p>
+      )}
+
       {result && (
-        <div className="text-center">
-          <div className="text-3xl mb-0.5">{result.passed ? '🎉' : '💪'}</div>
+        <div className="text-center relative">
+          {result.passed && (
+            <div className="absolute inset-0 pointer-events-none overflow-visible">
+              {['⭐', '✨', '🌟', '💫', '⭐', '✨'].map((emoji, i) => (
+                <span
+                  key={i}
+                  className="absolute text-2xl animate-[celebrate_1s_ease-out_forwards]"
+                  style={{
+                    left: `${50 + 40 * Math.cos((i * Math.PI * 2) / 6)}%`,
+                    top: `${50 + 40 * Math.sin((i * Math.PI * 2) / 6)}%`,
+                    animationDelay: `${i * 0.08}s`,
+                    opacity: 0,
+                  }}
+                >
+                  {emoji}
+                </span>
+              ))}
+            </div>
+          )}
+          <div className={`text-3xl mb-0.5 ${result.passed ? 'animate-bounce' : ''}`}>
+            {result.passed ? '🎉' : '💪'}
+          </div>
           <p
             className={`text-sm font-bold ${result.passed ? 'text-emerald-600' : 'text-amber-600'}`}
           >
@@ -319,12 +384,20 @@ export function LetterWritingCanvas({
         </div>
       )}
 
+      <style>{`
+        @keyframes celebrate {
+          0% { transform: scale(0) rotate(0deg); opacity: 1; }
+          50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
+          100% { transform: scale(0.8) rotate(360deg) translateY(-20px); opacity: 0; }
+        }
+      `}</style>
+
       <div className="flex gap-2">
         <Button variant="ghost" size="sm" onClick={handleClear}>
           {result ? '다시 쓰기' : '지우기'}
         </Button>
         {!result && (
-          <Button size="sm" onClick={handleCheck} disabled={!hasDrawn}>
+          <Button size="sm" onClick={() => handleCheck()} disabled={!hasDrawn}>
             확인
           </Button>
         )}

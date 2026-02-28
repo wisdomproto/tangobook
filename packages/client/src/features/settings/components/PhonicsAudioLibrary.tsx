@@ -2,7 +2,11 @@ import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import type { PhonicsAudioCategory, PhonicsAudioItem } from '@tangobook/shared';
 import { settingsApi } from '../api/settings.api';
 
-type Library = { mod_phonics: PhonicsAudioItem[]; mod_english: PhonicsAudioItem[] };
+type Library = {
+  mod_phonics: PhonicsAudioItem[];
+  mod_english: PhonicsAudioItem[];
+  mod_korean: PhonicsAudioItem[];
+};
 
 /** FileSystemEntry에서 재귀적으로 모든 .mp3 File을 수집 */
 async function collectMp3Files(entries: FileSystemEntry[]): Promise<File[]> {
@@ -39,13 +43,18 @@ async function collectMp3Files(entries: FileSystemEntry[]): Promise<File[]> {
 const BATCH_SIZE = 5;
 
 export function PhonicsAudioLibrary() {
-  const [library, setLibrary] = useState<Library>({ mod_phonics: [], mod_english: [] });
+  const [library, setLibrary] = useState<Library>({
+    mod_phonics: [],
+    mod_english: [],
+    mod_korean: [],
+  });
   const [activeTab, setActiveTab] = useState<PhonicsAudioCategory>('mod_phonics');
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [playingSound, setPlayingSound] = useState<string | null>(null);
   const [deletingSound, setDeletingSound] = useState<string | null>(null);
+  const [deletingAll, setDeletingAll] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const dragCounter = useRef(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -162,6 +171,22 @@ export function PhonicsAudioLibrary() {
     }
   };
 
+  const handleDeleteAll = async () => {
+    const count = library[activeTab].length;
+    if (count === 0) return;
+    if (!window.confirm(`${activeTab} 카테고리의 음원 ${count}개를 모두 삭제하시겠습니까?`)) return;
+    setDeletingAll(true);
+    try {
+      await settingsApi.deleteAllPhonicsAudio(activeTab);
+      setLibrary((prev) => ({ ...prev, [activeTab]: [] }));
+      setSearchQuery('');
+    } catch {
+      /* silent */
+    } finally {
+      setDeletingAll(false);
+    }
+  };
+
   const togglePlay = (item: PhonicsAudioItem) => {
     if (playingSound === item.sound) {
       audioRef.current?.pause();
@@ -186,6 +211,7 @@ export function PhonicsAudioLibrary() {
   const tabs: { key: PhonicsAudioCategory; label: string }[] = [
     { key: 'mod_phonics', label: 'MOD Phonics' },
     { key: 'mod_english', label: 'MOD English' },
+    { key: 'mod_korean', label: 'MOD Korean' },
   ];
 
   return (
@@ -292,14 +318,23 @@ export function PhonicsAudioLibrary() {
       {/* 검색 + 파일 목록 */}
       {allItems.length > 0 && (
         <div className="space-y-2">
-          {/* 검색 */}
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="음원 검색..."
-            className="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
-          />
+          {/* 검색 + 전체 삭제 */}
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="음원 검색..."
+              className="flex-1 text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
+            />
+            <button
+              onClick={handleDeleteAll}
+              disabled={deletingAll || uploading}
+              className="px-3 py-2 text-xs font-medium text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50 whitespace-nowrap"
+            >
+              {deletingAll ? '삭제 중...' : `전체 삭제 (${allItems.length})`}
+            </button>
+          </div>
 
           {/* 스크롤 가능한 목록 */}
           <div className="max-h-80 overflow-y-auto space-y-1 rounded-lg">

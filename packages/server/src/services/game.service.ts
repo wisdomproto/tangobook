@@ -2,6 +2,12 @@ import { R2Repository } from '../repositories/r2.repository.js';
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
 import { parseGeminiJSON } from '../utils/parse-gemini-json.js';
 import { AppError } from '../middleware/error.middleware.js';
+import { shuffle } from '../utils/shuffle.js';
+import {
+  isKoreanPhonics,
+  collectStorybookImagePool,
+  collectPhonicsWordPool,
+} from '../utils/phonics-data-helpers.js';
 import type {
   Storybook,
   GameTypeId,
@@ -9,7 +15,6 @@ import type {
   GameData,
   VocabularyMatchingConfig,
   VocabularyMatchingData,
-  VocabularyMatchingItem,
   PictureSequenceConfig,
   PictureSequenceData,
   WordQuizConfig,
@@ -27,8 +32,9 @@ import type {
   BlendingListeningRound,
   LetterSoundData,
   LetterSoundRound,
-  InitialSoundData,
-  InitialSoundRound,
+  WordListeningData,
+  WordListeningRound,
+  WordListeningOption,
 } from '@tangobook/shared';
 
 type GameGenerator = (storybook: Storybook, config: GameConfig) => Promise<GameData>;
@@ -44,7 +50,7 @@ const generators: Partial<Record<GameTypeId, GameGenerator>> = {
   'word-image-matching': generateWordImageMatching,
   'blending-listening': generateBlendingListening,
   'letter-sound': generateLetterSound,
-  'initial-sound': generateInitialSound,
+  'word-listening': generateWordListening,
 };
 
 export const GameService = {
@@ -59,65 +65,33 @@ export const GameService = {
   },
 };
 
-// --- 단어 매칭: vocabularyImages + keyObjectImages에서 데이터 추출 (AI 불필요) ---
+// --- 단어 매칭: vocabImages + keyObjectImages + flashcards에서 추출 ---
 async function generateVocabularyMatching(
   storybook: Storybook,
   config: GameConfig
 ): Promise<VocabularyMatchingData> {
   const c = config as VocabularyMatchingConfig;
-  const pool: VocabularyMatchingItem[] = [];
 
-  // 어휘 이미지 수집
-  const vocabImages = storybook.vocabularyImages ?? [];
-  for (const vi of vocabImages) {
-    if (!vi.success || !vi.imageUrl) continue;
-    if (!c.includeCharacters && vi.isCharacter) continue;
-    pool.push({
-      word: vi.word,
-      korean: vi.korean,
-      imageUrl: vi.imageUrl,
-    });
-  }
-
-  // 핵심사물 이미지 수집
-  if (c.includeKeyObjects) {
-    const koImages = storybook.keyObjectImages ?? [];
-    const koObjects = storybook.key_objects ?? [];
-    for (const ki of koImages) {
-      if (!ki.success || !ki.imageUrl) continue;
-      const obj = koObjects.find((o) => o.name === ki.objectName);
-      pool.push({
-        word: ki.objectName,
-        korean: obj?.korean ?? ki.objectName,
-        imageUrl: ki.imageUrl,
-      });
-    }
-  }
-
-  // 파닉스 플래시카드 이미지
-  const flashcards = storybook.flashcards ?? [];
-  for (const fc of flashcards) {
-    if (!fc.imageUrl) continue;
-    pool.push({
-      word: fc.word,
-      korean: fc.localWord,
-      imageUrl: fc.imageUrl,
-      ttsUrl: fc.ttsUrl,
-    });
-  }
+  const pool = collectStorybookImagePool(storybook, {
+    includeCharacters: c.includeCharacters,
+    includeKeyObjects: c.includeKeyObjects,
+    includeFlashcards: true,
+  }).map((item) => ({
+    word: item.word,
+    korean: item.korean,
+    imageUrl: item.imageUrl,
+    ttsUrl: item.ttsUrl,
+  }));
 
   if (pool.length < 2) {
     throw new AppError(400, '매칭 게임을 만들기 위한 이미지가 부족합니다. (최소 2개 필요)');
   }
 
-  // 셔플 후 itemCount만큼 선택
-  const shuffled = pool.sort(() => Math.random() - 0.5);
-  const items = shuffled.slice(0, Math.min(c.itemCount, shuffled.length));
-
+  const items = shuffle(pool).slice(0, Math.min(c.itemCount, pool.length));
   return { type: 'vocabulary-matching', items };
 }
 
-// --- 그림 순서 맞추기: 페이지 삽화에서 데이터 추출 (AI 불필요) ---
+// --- 그림 순서 맞추기: 페이지 삽화에서 데이터 추출 ---
 async function generatePictureSequence(
   storybook: Storybook,
   config: GameConfig
@@ -129,7 +103,6 @@ async function generatePictureSequence(
     throw new AppError(400, '삽화가 있는 페이지가 3개 이상 필요합니다.');
   }
 
-  // 균등 간격으로 선택
   const count = Math.min(c.imageCount, pagesWithIllustration.length);
   const step = pagesWithIllustration.length / count;
   const selected = Array.from({ length: count }, (_, i) => {
@@ -146,11 +119,10 @@ async function generatePictureSequence(
   return { type: 'picture-sequence', images };
 }
 
-// --- 단어 퀴즈: Gemini 텍스트 생성으로 어휘 퀴즈 생성 ---
+// --- 단어 퀴즈: Gemini 텍스트 생성 ---
 async function generateWordQuiz(storybook: Storybook, config: GameConfig): Promise<WordQuizData> {
   const c = config as WordQuizConfig;
 
-  // 어휘 목록 수집
   const vocab = storybook.educational_content?.vocabulary ?? [];
   const flashcards = storybook.flashcards ?? [];
 
@@ -196,23 +168,14 @@ JSON 배열로 응답:
   return { type: 'word-quiz', questions };
 }
 
-// --- 다른 것 찾기: Gemini로 카테고리 분류 후 이질 항목 배치 ---
+// --- 다른 것 찾기: Gemini로 카테고리 분류 ---
 async function generateOddOneOut(storybook: Storybook, config: GameConfig): Promise<OddOneOutData> {
   const c = config as OddOneOutConfig;
 
-  // 이미지가 있는 어휘 수집
-  const vocabWithImages = (storybook.vocabularyImages ?? [])
-    .filter((v) => v.success && v.imageUrl)
-    .map((v) => ({ word: v.word, korean: v.korean, imageUrl: v.imageUrl }));
-
-  const koImages = (storybook.keyObjectImages ?? [])
-    .filter((k) => k.success && k.imageUrl)
-    .map((k) => {
-      const obj = (storybook.key_objects ?? []).find((o) => o.name === k.objectName);
-      return { word: k.objectName, korean: obj?.korean ?? k.objectName, imageUrl: k.imageUrl };
-    });
-
-  const pool = [...vocabWithImages, ...koImages];
+  const pool = collectStorybookImagePool(storybook, {
+    includeCharacters: true,
+    includeKeyObjects: true,
+  });
 
   if (pool.length < c.optionsPerRound + 1) {
     throw new AppError(
@@ -256,7 +219,6 @@ JSON 배열로 응답:
 
   const rawRounds = parseGeminiJSON<RawRound[]>(raw, '다른 것 찾기 생성 결과 파싱 실패');
 
-  // Gemini 결과를 GameData 형식으로 변환 (이미지 URL 매칭)
   const rounds: OddOneOutRound[] = rawRounds.map((r) => {
     const allWords = [...r.words, r.oddOneOut];
     const options = allWords.map((w) => {
@@ -268,15 +230,13 @@ JSON 배열로 응답:
         isOddOneOut: w.toLowerCase() === r.oddOneOut.toLowerCase(),
       };
     });
-    // 셔플
-    options.sort(() => Math.random() - 0.5);
-    return { category: r.category, options, explanation: r.explanation };
+    return { category: r.category, options: shuffle(options), explanation: r.explanation };
   });
 
   return { type: 'odd-one-out', rounds };
 }
 
-// --- 낱말 쓰기: 어휘에서 단어 추출 (AI 불필요) ---
+// --- 낱말 쓰기: 어휘에서 단어 추출 ---
 async function generateWordWriting(
   storybook: Storybook,
   config: GameConfig
@@ -330,7 +290,7 @@ async function generateWordWriting(
   return { type: 'word-writing', items };
 }
 
-// --- 점잇기: 삽화 페이지 추출 (AI 불필요, 키포인트는 저작도구에서 수동 편집) ---
+// --- 점잇기: 삽화 페이지 추출 ---
 async function generateConnectTheDots(
   storybook: Storybook,
   config: GameConfig
@@ -360,7 +320,6 @@ async function generateWordImageMatching(storybook: Storybook): Promise<WordImag
   const blending = storybook.phonicsLesson?.blending ?? [];
   const wordFamilies = storybook.phonicsLesson?.wordFamilies ?? [];
 
-  // 블렌딩별로 이미지 있는 단어 수집
   const groupMap = new Map<string, { word: string; imageUrl: string; ttsUrl?: string }[]>();
 
   for (let i = 0; i < blending.length; i++) {
@@ -387,7 +346,6 @@ async function generateWordImageMatching(storybook: Storybook): Promise<WordImag
         ttsUrl: ex.exampleWord2TtsUrl,
       });
     }
-    // wordFamily에서 보충
     const wf = wordFamilies[i];
     if (wf) {
       for (const w of wf.words) {
@@ -396,28 +354,58 @@ async function generateWordImageMatching(storybook: Storybook): Promise<WordImag
         }
       }
     }
+    if (arr.length === 0 && ex.illustrationUrl && ex.exampleWord) {
+      arr.push({
+        word: ex.exampleWord,
+        imageUrl: ex.illustrationUrl,
+        ttsUrl: ex.exampleWordTtsUrl,
+      });
+    }
   }
 
-  // 이미지가 1개 이상인 그룹만, 최대 2개씩
   const qualifying = Array.from(groupMap.entries())
     .filter(([, items]) => items.length >= 1)
     .map(([blend, items]) => ({ blend, items: items.slice(0, 2) }));
 
-  if (qualifying.length < 2) {
-    throw new AppError(400, '선긋기 게임에 이미지가 있는 블렌딩 그룹이 2개 이상 필요합니다.');
+  if (qualifying.length >= 2) {
+    const groups = shuffle(qualifying).slice(0, 2);
+    const totalItems = groups.reduce((s, g) => s + g.items.length, 0);
+    if (totalItems >= 2) {
+      return { type: 'word-image-matching', groups };
+    }
   }
 
-  // 2개 그룹 선택 — 각 그룹 최소 1개, 합계 최소 2개
-  const groups = qualifying.slice(0, 2);
-  const totalItems = groups.reduce((s, g) => s + g.items.length, 0);
-  if (totalItems < 2) {
+  const flashcards = storybook.flashcards ?? [];
+  const fcWithImages = flashcards.filter((fc) => fc.imageUrl && fc.word);
+  if (fcWithImages.length < 2) {
     throw new AppError(400, '선긋기 게임에 이미지가 있는 단어가 2개 이상 필요합니다.');
   }
+
+  const shuffledFc = shuffle(fcWithImages);
+  const half = Math.ceil(shuffledFc.length / 2);
+  const groups = [
+    {
+      blend: '단어',
+      items: shuffledFc.slice(0, half).map((fc) => ({
+        word: fc.localWord || fc.word,
+        imageUrl: fc.imageUrl!,
+        ttsUrl: fc.ttsUrl,
+      })),
+    },
+    {
+      blend: '그림',
+      items: shuffledFc.slice(half).map((fc) => ({
+        word: fc.localWord || fc.word,
+        imageUrl: fc.imageUrl!,
+        ttsUrl: fc.ttsUrl,
+      })),
+    },
+  ];
 
   return { type: 'word-image-matching', groups };
 }
 
-// --- 블렌딩 듣기 맞추기: 블렌딩별 단어 쌍을 라운드로 구성 ---
+// --- 블렌딩 듣기 맞추기: 블렌딩별 단어 쌍 라운드 구성 ---
 async function generateBlendingListening(storybook: Storybook): Promise<BlendingListeningData> {
   const blending = storybook.phonicsLesson?.blending ?? [];
   const wordFamilies = storybook.phonicsLesson?.wordFamilies ?? [];
@@ -442,7 +430,6 @@ async function generateBlendingListening(storybook: Storybook): Promise<Blending
         ttsUrl: ex.exampleWord2TtsUrl,
       });
     }
-    // wordFamily에서 보충
     const wf = wordFamilies[i];
     if (wf && candidates.length < 2) {
       for (const w of wf.words) {
@@ -477,33 +464,42 @@ async function generateBlendingListening(storybook: Storybook): Promise<Blending
     throw new AppError(400, '듣기 퀴즈에 이미지와 TTS가 있는 단어 쌍이 필요합니다.');
   }
 
-  // 셔플
-  rounds.sort(() => Math.random() - 0.5);
-  return { type: 'blending-listening', rounds };
+  return { type: 'blending-listening', rounds: shuffle(rounds) };
 }
 
 // --- 음가 듣기: Level 1 알파벳 음가 TTS를 듣고 글자 맞추기 ---
 async function generateLetterSound(storybook: Storybook): Promise<LetterSoundData> {
   const blending = storybook.phonicsLesson?.blending ?? [];
   const wordFamilies = storybook.phonicsLesson?.wordFamilies ?? [];
+  const isKorean = isKoreanPhonics(storybook);
 
-  // Level 1 알파벳 항목 중 TTS 있는 것만
   const alphaItems: { letter: string; ttsUrl: string }[] = [];
   const seen = new Set<string>();
 
   for (let i = 0; i < blending.length; i++) {
     const item = blending[i];
-    if (item.vowel.length !== 1 || !/^[A-Za-z]$/.test(item.vowel)) continue;
-    const upper = item.vowel.toUpperCase();
-    if (seen.has(upper)) continue;
+    let letter: string;
 
-    // Level 1: TTS는 wordFamilies[i].words[j].ttsUrl에 저장됨
-    let ttsUrl =
-      item.vowelTtsUrl ||
-      item.consonantTtsUrl ||
-      item.blendTtsUrl ||
-      item.blendingSequenceTtsUrl ||
-      item.exampleWordTtsUrl;
+    if (isKorean) {
+      if (!item.blend || !/^[가-힣]$/.test(item.blend)) continue;
+      letter = item.blend;
+    } else {
+      if (item.vowel.length !== 1 || !/^[A-Za-z]$/.test(item.vowel)) continue;
+      letter = item.vowel.toUpperCase();
+    }
+    if (seen.has(letter)) continue;
+
+    let ttsUrl = isKorean
+      ? item.blendTtsUrl ||
+        item.blendingSequenceTtsUrl ||
+        item.vowelTtsUrl ||
+        item.consonantTtsUrl ||
+        item.exampleWordTtsUrl
+      : item.vowelTtsUrl ||
+        item.consonantTtsUrl ||
+        item.blendTtsUrl ||
+        item.blendingSequenceTtsUrl ||
+        item.exampleWordTtsUrl;
 
     if (!ttsUrl) {
       const wf = wordFamilies[i];
@@ -513,101 +509,56 @@ async function generateLetterSound(storybook: Storybook): Promise<LetterSoundDat
       }
     }
     if (!ttsUrl) continue;
-    seen.add(upper);
-    alphaItems.push({ letter: upper, ttsUrl });
+    seen.add(letter);
+    alphaItems.push({ letter, ttsUrl });
   }
 
   if (alphaItems.length < 2) {
     throw new AppError(400, '음가 듣기 게임에 TTS가 있는 알파벳이 2개 이상 필요합니다.');
   }
 
-  const shuffled = alphaItems.sort(() => Math.random() - 0.5);
+  const shuffled = shuffle(alphaItems);
   const rounds: LetterSoundRound[] = shuffled.map((target) => {
-    const others = alphaItems.filter((i) => i.letter !== target.letter);
-    const distractors = others
-      .sort(() => Math.random() - 0.5)
+    const distractors = shuffle(alphaItems.filter((i) => i.letter !== target.letter))
       .slice(0, 3)
       .map((i) => i.letter);
-    const options = [target.letter, ...distractors].sort(() => Math.random() - 0.5);
+    const options = shuffle([target.letter, ...distractors]);
     return { targetLetter: target.letter, ttsUrl: target.ttsUrl, options };
   });
 
   return { type: 'letter-sound', rounds };
 }
 
-// --- 첫소리 찾기: Level 1 단어 이미지를 보고 첫소리 알파벳 맞추기 ---
-async function generateInitialSound(storybook: Storybook): Promise<InitialSoundData> {
-  const blending = storybook.phonicsLesson?.blending ?? [];
-  const wordFamilies = storybook.phonicsLesson?.wordFamilies ?? [];
+// --- 듣고 단어 맞추기: TTS를 듣고 올바른 그림 클릭 ---
+async function generateWordListening(storybook: Storybook): Promise<WordListeningData> {
+  const pool = collectPhonicsWordPool(storybook);
 
-  const items: InitialSoundRound[] = [];
-  const allLetters = new Set<string>();
-  const seenWords = new Set<string>();
-
-  for (let i = 0; i < blending.length; i++) {
-    const item = blending[i];
-    if (item.vowel.length !== 1 || !/^[A-Za-z]$/.test(item.vowel)) continue;
-    const upper = item.vowel.toUpperCase();
-    allLetters.add(upper);
-
-    // exampleWordImageUrl 우선
-    if (item.exampleWordImageUrl && !seenWords.has(item.exampleWord)) {
-      seenWords.add(item.exampleWord);
-      items.push({
-        letter: upper,
-        word: item.exampleWord,
-        imageUrl: item.exampleWordImageUrl,
-        wordTtsUrl: item.exampleWordTtsUrl,
-        options: [], // 아래에서 채움
-      });
-    }
-
-    // wordFamily에서 보충
-    const wf = wordFamilies[i];
-    if (wf) {
-      for (const w of wf.words) {
-        if (!w.imageUrl || seenWords.has(w.word)) continue;
-        seenWords.add(w.word);
-        items.push({
-          letter: upper,
-          word: w.word,
-          imageUrl: w.imageUrl,
-          wordTtsUrl: w.ttsUrl,
-          options: [],
-        });
-      }
-    }
-
-    // Level 1 fallback: illustrationUrl (전체 삽화)
-    if (!items.some((it) => it.letter === upper) && item.illustrationUrl) {
-      const word = item.exampleWord || upper;
-      if (!seenWords.has(word)) {
-        seenWords.add(word);
-        items.push({
-          letter: upper,
-          word,
-          imageUrl: item.illustrationUrl,
-          wordTtsUrl: item.exampleWordTtsUrl,
-          options: [],
-        });
-      }
-    }
+  if (pool.length < 2) {
+    throw new AppError(
+      400,
+      '듣고 단어 맞추기 게임에 이미지와 TTS가 있는 단어가 2개 이상 필요합니다.'
+    );
   }
 
-  if (items.length < 2 || allLetters.size < 2) {
-    throw new AppError(400, '첫소리 찾기 게임에 이미지가 있는 알파벳이 2개 이상 필요합니다.');
+  const shuffled = shuffle(pool);
+  const maxRounds = Math.min(shuffled.length, 10);
+  const rounds: WordListeningRound[] = [];
+
+  for (let i = 0; i < maxRounds; i++) {
+    const target = shuffled[i];
+    const distractorCount = Math.min(pool.length - 1, 3);
+    const distractors = shuffle(pool.filter((p) => p.word !== target.word)).slice(
+      0,
+      distractorCount
+    );
+
+    const options: WordListeningOption[] = shuffle([
+      { word: target.word, imageUrl: target.imageUrl },
+      ...distractors.map((d) => ({ word: d.word, imageUrl: d.imageUrl })),
+    ]);
+
+    rounds.push({ targetWord: target.word, targetTtsUrl: target.ttsUrl, options });
   }
 
-  const letterPool = Array.from(allLetters);
-
-  // 셔플 + 디스트랙터 생성
-  items.sort(() => Math.random() - 0.5);
-  const rounds: InitialSoundRound[] = items.map((item) => {
-    const others = letterPool.filter((l) => l !== item.letter);
-    const distractors = others.sort(() => Math.random() - 0.5).slice(0, 3);
-    const options = [item.letter, ...distractors].sort(() => Math.random() - 0.5);
-    return { ...item, options };
-  });
-
-  return { type: 'initial-sound', rounds };
+  return { type: 'word-listening', rounds };
 }

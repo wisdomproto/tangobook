@@ -292,7 +292,7 @@ ${pagesText}
     "moral_lesson": "이야기의 교훈 (한글)"
   },
   "key_objects": [
-    { "name": "사물 이름 (영어)", "korean": "한글 이름", "description": "사물 시각적 특징 상세 묘사 (한글, 색상/재질/크기/장식 등)", "pages": [1, 3], "sizeCm": 실제크기cm, "sizeCategory": "small|medium|large" }
+    { "name": "사물 이름 (한글)", "nameEn": "English name", "description": "사물 시각적 특징 상세 묘사 (한글, 색상/재질/크기/장식 등)", "pages": [1, 3], "sizeCm": 실제크기cm, "sizeCategory": "small|medium|large" }
   ]
 }
 
@@ -376,7 +376,7 @@ ${referenceContent ? `- 참고 내용: ${referenceContent}` : ''}
     "moral_lesson": "이야기의 교훈 (한글, 직접적 설교 대신 자연스러운 문장)"
   },
   "key_objects": [
-    { "name": "사물 이름 (영어)", "korean": "한글 이름", "description": "사물 시각적 특징 상세 묘사 (한글, 색상/재질/크기/장식 등)", "pages": [1, 3], "sizeCm": 실제크기cm(예:사과8,거울50,성150,꽃15), "sizeCategory": "small|medium|large" }
+    { "name": "사물 이름 (한글)", "nameEn": "English name", "description": "사물 시각적 특징 상세 묘사 (한글, 색상/재질/크기/장식 등)", "pages": [1, 3], "sizeCm": 실제크기cm(예:사과8,거울50,성150,꽃15), "sizeCategory": "small|medium|large" }
   ]
 }
 

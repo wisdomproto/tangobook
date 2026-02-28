@@ -47,7 +47,7 @@ export const phonicsApi = {
   ) => apiPost<{ audioUrl: string }>('/tts/generate', data, { signal }),
 
   concatPhonicsAudio: (
-    data: { text: string; storybookId: string; identifier: string },
+    data: { text: string; storybookId: string; identifier: string; language?: string },
     signal?: AbortSignal
   ) => apiPost<{ audioUrl: string }>('/phonics-library/concat', data, { signal }),
 

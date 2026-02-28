@@ -1,29 +1,38 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/Button';
 import { TextModelSelector } from '@/components/TextModelSelector';
 import { useGeneratePhonicsBook } from '../hooks/useStorybookMutations';
+import { storybookApi } from '../api/storybook.api';
+import { characterApi } from '@/features/character/api/character.api';
 import { useEditorStore } from '@/store/editor.store';
 import {
   TARGET_AGES,
   ART_STYLES,
   DEFAULT_TEXT_MODEL,
-  PHONICS_LANGUAGES,
   ENGLISH_PHONICS_CURRICULUM,
   KOREAN_PHONICS_CURRICULUM,
+  KOREAN_UNIT_STORY_DEFAULTS,
 } from '@tangobook/shared';
 
 export function CreatePhonicsBookForm() {
   const generateMutation = useGeneratePhonicsBook();
+  const qc = useQueryClient();
   const setSelectedId = useEditorStore((s) => s.setSelectedStorybookId);
   const setShowCreateForm = useEditorStore((s) => s.setShowCreateForm);
+  const sidebarTypeFilter = useEditorStore((s) => s.sidebarTypeFilter);
+
+  // 사이드바 필터에 따라 언어 고정
+  const language: 'english' | 'korean' = sidebarTypeFilter === 'phonics-ko' ? 'korean' : 'english';
 
   const [title, setTitle] = useState('');
   const [targetAge, setTargetAge] = useState<(typeof TARGET_AGES)[number]>(TARGET_AGES[0]);
-  const [language, setLanguage] = useState<'english' | 'korean'>('english');
   const [level, setLevel] = useState('');
   const [unitId, setUnitId] = useState('');
   const [storyTheme, setStoryTheme] = useState('');
   const [textModel, setTextModel] = useState(DEFAULT_TEXT_MODEL as string);
+  // 자동 채워진 스토리 테마인지 추적 (유닛 변경 시 덮어쓰기 여부 판단)
+  const autoFilledRef = useRef(false);
 
   const curriculum =
     language === 'english' ? ENGLISH_PHONICS_CURRICULUM : KOREAN_PHONICS_CURRICULUM;
@@ -33,15 +42,32 @@ export function CreatePhonicsBookForm() {
   const selectedLevel = useMemo(() => levels.find((l) => l.level === level), [levels, level]);
   const units = selectedLevel?.units ?? [];
 
-  const handleLanguageChange = (lang: 'english' | 'korean') => {
-    setLanguage(lang);
-    setLevel('');
-    setUnitId('');
-  };
-
   const handleLevelChange = (lv: string) => {
     setLevel(lv);
     setUnitId('');
+    // 레벨 변경 시 자동 채워진 테마 초기화
+    if (autoFilledRef.current) {
+      setStoryTheme('');
+      autoFilledRef.current = false;
+    }
+  };
+
+  const handleUnitChange = (newUnitId: string) => {
+    setUnitId(newUnitId);
+    // 한글 유닛 선택 시 기본 스토리 테마 자동 채우기
+    if (language === 'korean' && newUnitId) {
+      const defaults = KOREAN_UNIT_STORY_DEFAULTS[newUnitId];
+      if (defaults && (storyTheme === '' || autoFilledRef.current)) {
+        setStoryTheme(defaults.storyTheme);
+        autoFilledRef.current = true;
+      }
+    }
+  };
+
+  const handleStoryThemeChange = (value: string) => {
+    setStoryTheme(value);
+    // 사용자가 직접 수정하면 자동 채우기 플래그 해제
+    autoFilledRef.current = false;
   };
 
   const handleGenerate = () => {
@@ -58,8 +84,30 @@ export function CreatePhonicsBookForm() {
         model: textModel,
       },
       {
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
           setSelectedId(data.id);
+          // 한글 유닛: 캐릭터 라이브러리에서 자동으로 캐릭터 불러오기
+          if (language === 'korean' && unitId) {
+            const defaults = KOREAN_UNIT_STORY_DEFAULTS[unitId];
+            if (defaults?.characterNames.length) {
+              try {
+                const library = await characterApi.getLibrary();
+                const namesSet = new Set(defaults.characterNames.map((n) => n.toLowerCase()));
+                const matching = library
+                  .filter((c) => namesSet.has(c.name.toLowerCase()))
+                  .map(({ id: _id, createdAt: _createdAt, ...char }) => char);
+                if (matching.length > 0) {
+                  const updated = await storybookApi.save({
+                    ...data,
+                    characters: [...(data.characters ?? []), ...matching],
+                  });
+                  qc.setQueryData(['storybook', data.id], updated);
+                }
+              } catch {
+                // 캐릭터 불러오기 실패 시 무시 — 수동으로 추가 가능
+              }
+            }
+          }
         },
       }
     );
@@ -118,7 +166,7 @@ export function CreatePhonicsBookForm() {
           &larr; 돌아가기
         </button>
         <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mt-2">
-          새 파닉스 유닛 만들기
+          새 {language === 'korean' ? '한글' : '영어'} 파닉스 유닛 만들기
         </h2>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
           커리큘럼을 선택하면 AI가 스토리, 챈트, 플래시카드, 워크시트, 퀴즈를 자동 생성합니다.
@@ -162,28 +210,6 @@ export function CreatePhonicsBookForm() {
           </div>
         </div>
 
-        {/* 파닉스 언어 */}
-        <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
-            파닉스 언어
-          </label>
-          <div className="flex gap-2">
-            {PHONICS_LANGUAGES.map((lang) => (
-              <button
-                key={lang.id}
-                onClick={() => handleLanguageChange(lang.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  language === lang.id
-                    ? 'bg-emerald-600 text-white'
-                    : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
-                }`}
-              >
-                {lang.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* 레벨 선택 */}
         <div>
           <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
@@ -216,7 +242,7 @@ export function CreatePhonicsBookForm() {
             </label>
             <select
               value={unitId}
-              onChange={(e) => setUnitId(e.target.value)}
+              onChange={(e) => handleUnitChange(e.target.value)}
               className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-300 focus:border-emerald-500 outline-none dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
             >
               <option value="">유닛을 선택하세요</option>
@@ -243,6 +269,12 @@ export function CreatePhonicsBookForm() {
                       {unit.sampleWords.slice(0, 8).join(', ')}
                       {unit.sampleWords.length > 8 ? '...' : ''}
                     </p>
+                    {language === 'korean' && KOREAN_UNIT_STORY_DEFAULTS[unitId] && (
+                      <p>
+                        <span className="font-medium">등장 캐릭터:</span>{' '}
+                        {KOREAN_UNIT_STORY_DEFAULTS[unitId].characterNames.join(', ')}
+                      </p>
+                    )}
                   </div>
                 );
               })()}
@@ -257,7 +289,7 @@ export function CreatePhonicsBookForm() {
           <input
             type="text"
             value={storyTheme}
-            onChange={(e) => setStoryTheme(e.target.value)}
+            onChange={(e) => handleStoryThemeChange(e.target.value)}
             placeholder="예: 동물 친구들의 소풍, 마법의 숲 모험"
             className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-300 focus:border-emerald-500 outline-none dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
           />

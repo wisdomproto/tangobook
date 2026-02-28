@@ -21,13 +21,24 @@ export const PhonicsLibraryController = {
   remove: asyncHandler(async (req, res) => {
     const category = req.params.category as string;
     const sound = req.params.sound as string;
-    await PhonicsLibraryService.remove(category as 'mod_phonics' | 'mod_english', sound);
+    await PhonicsLibraryService.remove(
+      category as 'mod_phonics' | 'mod_english' | 'mod_korean',
+      sound
+    );
     res.json({ success: true });
   }),
 
+  removeAll: asyncHandler(async (req, res) => {
+    const category = req.params.category as string;
+    const result = await PhonicsLibraryService.removeAll(
+      category as 'mod_phonics' | 'mod_english' | 'mod_korean'
+    );
+    res.json({ success: true, data: result });
+  }),
+
   concat: asyncHandler(async (req, res) => {
-    const { text, storybookId, identifier } = req.body;
-    const result = await PhonicsLibraryService.concat(text, storybookId, identifier);
+    const { text, storybookId, identifier, language } = req.body;
+    const result = await PhonicsLibraryService.concat(text, storybookId, identifier, language);
     res.json({ success: true, data: result });
   }),
 };

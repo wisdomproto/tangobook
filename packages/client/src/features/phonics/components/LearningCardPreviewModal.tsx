@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import type { BlendingExercise, WordFamily } from '@tangobook/shared';
 import { LetterWritingCanvas } from './LetterWritingCanvas';
 
@@ -44,13 +44,84 @@ const SHINE_BG = 'linear-gradient(180deg, rgba(255,255,255,0.28) 0%, transparent
 const DIVIDER_BG =
   'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 15%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.55) 85%, transparent 100%)';
 const BTN_SHINE = 'rgba(255,255,255,0.55)';
-const FONT_FAMILY = "'Nunito', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif";
+const FONT_FAMILY =
+  "'Nunito', 'Comic Sans MS', 'Chalkboard SE', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif";
+
+/* ── 어두운 3D 버튼 스타일 (누르기 전/후) ── */
+const DARK_BTN = {
+  first: {
+    idle: {
+      background: 'linear-gradient(155deg, #524770 0%, #42395e 50%, #352d4e 100%)',
+      color: '#d4cef0',
+      boxShadow:
+        '0 7px 0 #2a2244, 0 10px 18px rgba(40,20,80,0.30), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -3px 6px rgba(30,15,60,0.15)',
+    },
+    pressed: {
+      background: 'linear-gradient(155deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%)',
+      color: '#451a03',
+      boxShadow:
+        '0 7px 0 #92400e, 0 10px 18px rgba(180,120,0,0.35), inset 0 1px 0 rgba(255,255,240,0.7), inset 0 -3px 6px rgba(120,80,0,0.15)',
+    },
+  },
+  second: {
+    idle: {
+      background: 'linear-gradient(155deg, #524770 0%, #42395e 50%, #352d4e 100%)',
+      color: '#d4cef0',
+      boxShadow:
+        '0 7px 0 #2a2244, 0 10px 18px rgba(40,20,80,0.30), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -3px 6px rgba(30,15,60,0.15)',
+    },
+    pressed: {
+      background: 'linear-gradient(155deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%)',
+      color: '#eff6ff',
+      boxShadow:
+        '0 7px 0 #1d4ed8, 0 10px 18px rgba(37,99,235,0.35), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -3px 6px rgba(30,64,175,0.2)',
+    },
+  },
+  blend: {
+    idle: {
+      background: 'linear-gradient(155deg, #524770 0%, #42395e 50%, #352d4e 100%)',
+      color: '#d4cef0',
+      boxShadow:
+        '0 7px 0 #2a2244, 0 10px 18px rgba(40,20,80,0.30), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -3px 6px rgba(30,15,60,0.15)',
+    },
+    pressed: {
+      background: 'linear-gradient(155deg, #34d399 0%, #10b981 50%, #059669 100%)',
+      color: '#ecfdf5',
+      boxShadow:
+        '0 7px 0 #047857, 0 10px 18px rgba(5,150,105,0.35), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -3px 6px rgba(6,95,70,0.2)',
+    },
+  },
+} as const;
+
+// --- 한글 자음 이름 ---
+const CONSONANT_NAMES: Record<string, string> = {
+  ㄱ: '기역',
+  ㄲ: '쌍기역',
+  ㄴ: '니은',
+  ㄷ: '디귿',
+  ㄸ: '쌍디귿',
+  ㄹ: '리을',
+  ㅁ: '미음',
+  ㅂ: '비읍',
+  ㅃ: '쌍비읍',
+  ㅅ: '시옷',
+  ㅆ: '쌍시옷',
+  ㅇ: '이응',
+  ㅈ: '지읒',
+  ㅉ: '쌍지읒',
+  ㅊ: '치읓',
+  ㅋ: '키읔',
+  ㅌ: '티읕',
+  ㅍ: '피읖',
+  ㅎ: '히읗',
+};
 
 interface LearningCardPreviewModalProps {
   item: BlendingExercise;
   wordFamily?: WordFamily;
   systemSounds?: { correctUrl?: string; incorrectUrl?: string };
   aspectRatio?: string;
+  isKorean?: boolean;
   onClose: () => void;
 }
 
@@ -59,9 +130,12 @@ export function LearningCardPreviewModal({
   wordFamily,
   systemSounds,
   aspectRatio = '16/9',
+  isKorean = false,
   onClose,
 }: LearningCardPreviewModalProps) {
   const [writingLetter, setWritingLetter] = useState<string | null>(null);
+  const [pressedBtns, setPressedBtns] = useState<Set<string>>(new Set());
+  const [showPraise, setShowPraise] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const playAudio = useCallback((url?: string) => {
@@ -71,6 +145,32 @@ export function LearningCardPreviewModal({
     audioRef.current.currentTime = 0;
     audioRef.current.play().catch(() => {});
   }, []);
+
+  const TOTAL_DARK_BTNS = 9; // 3 rows × 3 buttons
+
+  const handleDarkBtnPress = useCallback(
+    (key: string, audioUrl?: string) => {
+      playAudio(audioUrl);
+      setPressedBtns((prev) => {
+        const next = new Set(prev);
+        next.add(key);
+        return next;
+      });
+    },
+    [playAudio]
+  );
+
+  // 전부 누르면 칭찬 + 시퀀스 TTS
+  useEffect(() => {
+    if (pressedBtns.size >= TOTAL_DARK_BTNS && !showPraise) {
+      setShowPraise(true);
+      // 잠시 후 시퀀스 TTS 재생
+      const timer = setTimeout(() => {
+        playAudio(item.blendingSequenceTtsUrl);
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+  }, [pressedBtns.size, showPraise, playAudio, item.blendingSequenceTtsUrl]);
 
   const words = wordFamily?.words ?? [];
 
@@ -264,86 +364,138 @@ export function LearningCardPreviewModal({
               style={{ background: SHINE_BG }}
             />
 
+            {/* 칭찬 애니메이션 오버레이 */}
+            {showPraise && (
+              <div className="absolute inset-0 pointer-events-none z-10 flex items-center justify-center">
+                <div className="animate-bounce text-center">
+                  <div className="text-6xl sm:text-7xl mb-2">🎉</div>
+                  <p
+                    className="text-2xl sm:text-3xl font-black text-amber-500 drop-shadow-lg"
+                    style={{
+                      fontFamily: FONT_FAMILY,
+                      textShadow: '0 2px 8px rgba(245,158,11,0.4), 0 0 20px rgba(245,158,11,0.2)',
+                    }}
+                  >
+                    잘했어요!
+                  </p>
+                </div>
+                {/* 파티클 효과 */}
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <span
+                    key={i}
+                    className="absolute text-2xl animate-ping"
+                    style={{
+                      left: `${15 + (i % 4) * 22}%`,
+                      top: `${10 + Math.floor(i / 4) * 30}%`,
+                      animationDelay: `${i * 0.12}s`,
+                      animationDuration: '1.5s',
+                    }}
+                  >
+                    {['⭐', '✨', '🌟'][i % 3]}
+                  </span>
+                ))}
+              </div>
+            )}
+
             <div
-              className="relative px-6 sm:px-10 py-10 space-y-8"
+              className="relative px-6 sm:px-10 py-10 space-y-6"
               style={{ fontFamily: FONT_FAMILY }}
             >
-              {/* 상단: 블렌딩 공식 (a + n → an) */}
-              <div className="flex items-center justify-center gap-4 sm:gap-5 flex-wrap">
-                <Btn3D
-                  variant="white"
-                  label={item.vowel}
-                  onClick={() => playAudio(item.vowelTtsUrl)}
-                  hasAudio={!!item.vowelTtsUrl}
-                />
-                <OpGlyph>+</OpGlyph>
-                <Btn3D
-                  variant="white"
-                  label={item.consonant}
-                  onClick={() => playAudio(item.consonantTtsUrl)}
-                  hasAudio={!!item.consonantTtsUrl}
-                />
-                <OpGlyph>→</OpGlyph>
-                <Btn3D
-                  variant="white"
-                  label={item.blend}
-                  onClick={() => playAudio(item.blendTtsUrl)}
-                  hasAudio={!!item.blendTtsUrl}
-                  wide
-                />
-              </div>
-
-              {/* 시퀀스 TTS (오른쪽 하단 배치) */}
-              {item.blendingSequenceTtsUrl && (
-                <div className="flex justify-end -mt-4">
-                  <BtnPill
-                    label={`▶ ${item.vowel} · ${item.consonant} · ${item.blend}`}
-                    onClick={() => playAudio(item.blendingSequenceTtsUrl)}
+              {/* 자음 음가 연습 (한글만) */}
+              {isKorean && (
+                <>
+                  <div className="flex flex-col items-center py-1">
+                    <span
+                      className="inline-block px-2.5 py-0.5 rounded-full text-[0.65rem] font-bold mb-2 tracking-wider"
+                      style={{
+                        background: 'linear-gradient(135deg, #4ecdc4, #3bb8c3)',
+                        color: 'white',
+                      }}
+                    >
+                      음가 연습
+                    </span>
+                    <button
+                      onClick={() => playAudio(item.consonantTtsUrl)}
+                      disabled={!item.consonantTtsUrl}
+                      className={`relative w-[76px] h-[76px] sm:w-[96px] sm:h-[96px] rounded-full flex items-center justify-center transition-transform duration-150 ${
+                        item.consonantTtsUrl
+                          ? 'hover:scale-105 active:scale-95 cursor-pointer'
+                          : 'cursor-default opacity-60'
+                      }`}
+                      style={{
+                        background:
+                          'radial-gradient(circle at 35% 35%, #c8f5f2 0%, #4ecdc4 70%, #3bb8c3 100%)',
+                        boxShadow:
+                          '0 6px 20px rgba(78,205,196,0.4), 0 3px 6px rgba(0,0,0,0.08), inset 0 -3px 6px rgba(0,80,80,0.15)',
+                      }}
+                    >
+                      <span
+                        className="text-[2.2rem] sm:text-[2.8rem] font-black text-white leading-none"
+                        style={{ textShadow: '0 2px 6px rgba(0,0,0,0.15)' }}
+                      >
+                        {item.consonant}
+                      </span>
+                      {item.consonantTtsUrl && (
+                        <span className="absolute -bottom-1 -right-1 w-6 h-6 sm:w-7 sm:h-7 bg-white rounded-full flex items-center justify-center shadow-lg text-xs sm:text-sm">
+                          🔊
+                        </span>
+                      )}
+                    </button>
+                    <p className="text-xs sm:text-sm font-bold mt-1.5" style={{ color: '#1a3a5c' }}>
+                      {CONSONANT_NAMES[item.consonant] || ''}
+                    </p>
+                    <p className="text-[0.65rem] sm:text-xs mt-0.5" style={{ color: '#5a8fa8' }}>
+                      눌러서 소리를 들어보세요
+                    </p>
+                  </div>
+                  <div
+                    className="mx-[12%] h-[2px] rounded-full"
+                    style={{
+                      background:
+                        'linear-gradient(90deg, transparent, rgba(78,205,196,0.4), rgba(59,184,195,0.4), transparent)',
+                    }}
                   />
-                </div>
+                </>
               )}
+
+              {/* 블렌딩 공식 3줄 반복 — 어두운 버튼, 누르면 색 변경 */}
+              {[0, 1, 2].map((rowIdx) => {
+                const firstLabel = isKorean ? item.consonant : item.vowel;
+                const firstAudio = isKorean ? item.consonantTtsUrl : item.vowelTtsUrl;
+                const secondLabel = isKorean ? item.vowel : item.consonant;
+                const secondAudio = isKorean ? item.vowelTtsUrl : item.consonantTtsUrl;
+                return (
+                  <div
+                    key={rowIdx}
+                    className="flex items-center justify-center gap-4 sm:gap-5 flex-wrap"
+                  >
+                    <DarkBtn3D
+                      variant="first"
+                      label={firstLabel}
+                      pressed={pressedBtns.has(`${rowIdx}-first`)}
+                      onClick={() => handleDarkBtnPress(`${rowIdx}-first`, firstAudio)}
+                    />
+                    <OpGlyph>+</OpGlyph>
+                    <DarkBtn3D
+                      variant="second"
+                      label={secondLabel}
+                      pressed={pressedBtns.has(`${rowIdx}-second`)}
+                      onClick={() => handleDarkBtnPress(`${rowIdx}-second`, secondAudio)}
+                    />
+                    <OpGlyph>→</OpGlyph>
+                    <DarkBtn3D
+                      variant="blend"
+                      label={item.blend}
+                      pressed={pressedBtns.has(`${rowIdx}-blend`)}
+                      onClick={() => handleDarkBtnPress(`${rowIdx}-blend`, item.blendTtsUrl)}
+                      wide
+                    />
+                  </div>
+                );
+              })}
 
               {/* 구분선 */}
               <div className="mx-[8%] h-[3px] rounded-full" style={{ background: DIVIDER_BG }} />
-
-              {/* 예시단어 행 */}
-              <div className="space-y-7">
-                {[
-                  {
-                    word: item.exampleWord,
-                    imageUrl: item.exampleWordImageUrl,
-                    ttsUrl: item.exampleWordTtsUrl,
-                    onsetTtsUrl: item.exampleWordOnsetTtsUrl,
-                  },
-                  ...(item.exampleWord2
-                    ? [
-                        {
-                          word: item.exampleWord2,
-                          imageUrl: item.exampleWord2ImageUrl,
-                          ttsUrl: item.exampleWord2TtsUrl,
-                          onsetTtsUrl: item.exampleWord2OnsetTtsUrl,
-                        },
-                      ]
-                    : []),
-                ].map(({ word, imageUrl, ttsUrl, onsetTtsUrl }, i) => {
-                  const onset = word.endsWith(item.blend)
-                    ? word.slice(0, -item.blend.length)
-                    : (word[0] ?? '');
-                  return (
-                    <WordRow3D
-                      key={i}
-                      onset={onset}
-                      blend={item.blend}
-                      word={word}
-                      imageUrl={imageUrl}
-                      ttsUrl={ttsUrl}
-                      blendTtsUrl={item.blendTtsUrl}
-                      onsetTtsUrl={onsetTtsUrl}
-                      playAudio={playAudio}
-                    />
-                  );
-                })}
-              </div>
 
               {/* 글자 쓰기 */}
               <BtnPill
@@ -399,6 +551,41 @@ function Btn3D({
       <div
         className="absolute top-[5px] left-[10px] w-[45%] h-[28%] rounded-full pointer-events-none"
         style={{ background: BTN_SHINE }}
+      />
+      <span className="relative">{label}</span>
+    </button>
+  );
+}
+
+/* ── 어두운 3D 버튼 (누르면 색 변경) ── */
+function DarkBtn3D({
+  variant,
+  label,
+  pressed,
+  onClick,
+  wide,
+}: {
+  variant: keyof typeof DARK_BTN;
+  label: string;
+  pressed: boolean;
+  onClick: () => void;
+  wide?: boolean;
+}) {
+  const s = pressed ? DARK_BTN[variant].pressed : DARK_BTN[variant].idle;
+  return (
+    <button
+      onClick={onClick}
+      className={`relative inline-flex items-center justify-center font-black rounded-[18px] border-none select-none
+        transition-all duration-200 ease-out
+        hover:-translate-y-1 active:translate-y-1 cursor-pointer
+        ${wide ? 'w-[96px] sm:w-[106px] h-[76px] sm:h-[84px]' : 'w-[76px] sm:w-[84px] h-[76px] sm:h-[84px]'}
+        text-[1.8rem] sm:text-[2.1rem]
+        ${pressed ? 'scale-[1.05]' : ''}`}
+      style={{ ...s, fontFamily: FONT_FAMILY }}
+    >
+      <div
+        className="absolute top-[5px] left-[10px] w-[45%] h-[28%] rounded-full pointer-events-none"
+        style={{ background: pressed ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.08)' }}
       />
       <span className="relative">{label}</span>
     </button>

@@ -23,6 +23,7 @@ interface OutlineTracingGameProps {
   wordFamilies: WordFamily[];
   flashcards?: PhonicsFlashcard[];
   systemSounds?: { correctUrl?: string; incorrectUrl?: string };
+  chantUrl?: string;
   onClose?: () => void;
 }
 
@@ -108,6 +109,7 @@ export function OutlineTracingGame({
   wordFamilies,
   flashcards,
   systemSounds,
+  chantUrl,
   onClose,
 }: OutlineTracingGameProps) {
   const allItems = buildItems(letters, wordFamilies, flashcards);
@@ -367,11 +369,29 @@ export function OutlineTracingGame({
     canvas.height = container.clientHeight;
   }, [innerSize]);
 
+  const chantAudioRef = useRef<HTMLAudioElement | null>(null);
+
   const handleRestart = useCallback(() => {
+    if (chantAudioRef.current) {
+      chantAudioRef.current.pause();
+      chantAudioRef.current = null;
+    }
     setCurrentIdx(0);
     setScore(0);
     setFinished(false);
   }, []);
+
+  // 전부 완료 시 챈트 재생
+  useEffect(() => {
+    if (!finished || !chantUrl) return;
+    const audio = new Audio(chantUrl);
+    chantAudioRef.current = audio;
+    audio.play().catch(() => {});
+    return () => {
+      audio.pause();
+      chantAudioRef.current = null;
+    };
+  }, [finished, chantUrl]);
 
   if (allItems.length === 0) {
     return (

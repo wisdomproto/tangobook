@@ -1,19 +1,13 @@
 import { useState, useRef, useCallback, useMemo, useEffect } from 'react';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordImageMatchingData, WordImageMatchingGroupItem } from '@tangobook/shared';
+import { useGameAudio } from '../../hooks/useGameAudio';
+import { GameResultScreen } from '../GameResultScreen';
+import { shuffle } from '../../utils/shuffle';
 
 interface FlatItem extends WordImageMatchingGroupItem {
   blend: string;
   groupIdx: number;
-}
-
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
 }
 
 export function WordImageMatchingPlayer({ gameData, onComplete, onBack }: GamePlayerProps) {
@@ -38,7 +32,7 @@ export function WordImageMatchingPlayer({ gameData, onComplete, onBack }: GamePl
   const [finished, setFinished] = useState(false);
   const [lineVersion, setLineVersion] = useState(0);
 
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { playAudio, playFeedbackSound } = useGameAudio();
   const containerRef = useRef<HTMLDivElement>(null);
   const wordElRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
   const imageElRefs = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -51,47 +45,12 @@ export function WordImageMatchingPlayer({ gameData, onComplete, onBack }: GamePl
     return () => ro.disconnect();
   }, []);
 
-  const playAudio = useCallback((url?: string) => {
-    if (!url) return;
-    if (!audioRef.current) audioRef.current = new Audio();
-    audioRef.current.src = url;
-    audioRef.current.currentTime = 0;
-    audioRef.current.play().catch(() => {});
-  }, []);
-
-  const playDefaultSound = useCallback((correct: boolean) => {
-    try {
-      const ctx = new AudioContext();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      gain.gain.setValueAtTime(0.3, ctx.currentTime);
-      if (correct) {
-        osc.frequency.setValueAtTime(523, ctx.currentTime);
-        osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
-        osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.4);
-      } else {
-        osc.frequency.setValueAtTime(330, ctx.currentTime);
-        osc.frequency.setValueAtTime(262, ctx.currentTime + 0.15);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.35);
-      }
-    } catch {
-      /* ignore */
-    }
-  }, []);
-
   const validateMatch = useCallback(
     (wordId: string, imageId: string) => {
       const isCorrect = wordId === imageId;
       setFeedback(isCorrect ? 'correct' : 'wrong');
       setFeedbackWord(wordId);
-      playDefaultSound(isCorrect);
+      playFeedbackSound(isCorrect);
 
       if (isCorrect) {
         const item = allItems.find((w) => w.word === wordId);
@@ -116,7 +75,7 @@ export function WordImageMatchingPlayer({ gameData, onComplete, onBack }: GamePl
         }, 800);
       }
     },
-    [allItems, matchedWords, playDefaultSound, playAudio]
+    [allItems, matchedWords, playFeedbackSound, playAudio]
   );
 
   const handleWordClick = useCallback(
@@ -174,31 +133,14 @@ export function WordImageMatchingPlayer({ gameData, onComplete, onBack }: GamePl
   }, [finished, score, allItems.length, onComplete]);
 
   if (finished) {
-    const total = allItems.length;
     return (
-      <div className="text-center py-12">
-        <div className="text-5xl mb-3">{score === total ? '🎉' : '👏'}</div>
-        <p className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-1">
-          {score} / {total}
-        </p>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
-          {score === total ? '완벽해요!' : '잘했어요!'}
-        </p>
-        <div className="flex gap-3 justify-center">
-          <button
-            onClick={handleRestart}
-            className="px-6 py-3 bg-violet-600 text-white rounded-xl text-sm font-bold hover:bg-violet-700 transition-colors"
-          >
-            다시 하기
-          </button>
-          <button
-            onClick={onBack}
-            className="px-6 py-3 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-sm font-bold hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
-          >
-            ← 돌아가기
-          </button>
-        </div>
-      </div>
+      <GameResultScreen
+        score={score}
+        total={allItems.length}
+        accentColor="violet"
+        onRestart={handleRestart}
+        onBack={onBack}
+      />
     );
   }
 
@@ -328,10 +270,6 @@ export function WordImageMatchingPlayer({ gameData, onComplete, onBack }: GamePl
             ? '알맞은 그림을 찾아 눌러주세요'
             : '알맞은 단어를 찾아 눌러주세요'}
       </p>
-      <style>{`
-        @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
-        .animate-shake { animation: shake 0.4s ease-in-out; }
-      `}</style>
     </div>
   );
 }

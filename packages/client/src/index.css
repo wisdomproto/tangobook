@@ -7,3 +7,18 @@
     @apply bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200;
   }
 }
+
+/* 자연 배경 애니메이션 (파닉스 뷰어) */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(6px, -8px) rotate(5deg); }
+  66% { transform: translate(-4px, -4px) rotate(-3deg); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.15; transform: scale(0.8); }
+}

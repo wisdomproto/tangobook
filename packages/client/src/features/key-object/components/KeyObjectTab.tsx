@@ -25,7 +25,7 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
   const [expandedPrompt, setExpandedPrompt] = useState<number | null>(null);
   const [editingPrompt, setEditingPrompt] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
-  const [newObj, setNewObj] = useState({ name: '', korean: '', description: '' });
+  const [newObj, setNewObj] = useState({ name: '', nameEn: '', description: '' });
   const [lightboxUrl, setLightboxUrl] = useState<string | null>(null);
   const [uploadingIdx, setUploadingIdx] = useState<number | null>(null);
 
@@ -126,7 +126,7 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
     if (!newObj.name.trim()) return;
     const obj: KeyObject = {
       name: newObj.name.trim(),
-      korean: newObj.korean.trim() || undefined,
+      nameEn: newObj.nameEn.trim() || undefined,
       description: newObj.description.trim(),
       pages: [],
     };
@@ -135,7 +135,7 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
       draft.key_objects.push(obj);
     });
     onSave();
-    setNewObj({ name: '', korean: '', description: '' });
+    setNewObj({ name: '', nameEn: '', description: '' });
     setShowAddForm(false);
   };
 
@@ -233,13 +233,13 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
             <input
               value={newObj.name}
               onChange={(e) => setNewObj({ ...newObj, name: e.target.value })}
-              placeholder="영어 이름"
+              placeholder="사물 이름 (한글)"
               className="px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-violet-500 outline-none dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
             />
             <input
-              value={newObj.korean}
-              onChange={(e) => setNewObj({ ...newObj, korean: e.target.value })}
-              placeholder="한글 이름 (선택)"
+              value={newObj.nameEn}
+              onChange={(e) => setNewObj({ ...newObj, nameEn: e.target.value })}
+              placeholder="영어 이름 (선택)"
               className="px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-violet-500 outline-none dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
             />
           </div>
@@ -315,9 +315,9 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
                     <p className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">
                       {obj.korean || obj.name}
                     </p>
-                    {obj.korean && obj.name !== obj.korean && (
+                    {(obj.nameEn || (obj.korean && obj.name !== obj.korean)) && (
                       <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
-                        {obj.name}
+                        {obj.nameEn || obj.name}
                       </p>
                     )}
                     {obj.description && obj.description !== obj.name && (

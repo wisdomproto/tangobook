@@ -83,6 +83,7 @@ export function usePhonicsCardActions({
   onSave,
 }: UsePhonicsCardActionsParams) {
   const aspectRatio = storybook.phonicsAspectRatio ?? '16:9';
+  const phonicsLanguage = storybook.phonicsConfig?.language;
   const charRefs = (storybook.characters ?? []).map((c) => ({
     name: c.name,
     description: c.description,
@@ -183,6 +184,7 @@ export function usePhonicsCardActions({
             text: word,
             storybookId: storybook.id,
             identifier: `phonics-${key}`,
+            language: phonicsLanguage,
           });
           audioUrl = result.audioUrl;
         }
@@ -199,7 +201,7 @@ export function usePhonicsCardActions({
         });
       }
     },
-    [storybook.id, onUpdate, onSave]
+    [storybook.id, phonicsLanguage, onUpdate, onSave]
   );
 
   // --- 이미지 업로드 ---
@@ -293,7 +295,12 @@ export function usePhonicsCardActions({
                   )
               : () =>
                   phonicsApi.concatPhonicsAudio(
-                    { text: t.word, storybookId: storybook.id, identifier: `phonics-${t.key}` },
+                    {
+                      text: t.word,
+                      storybookId: storybook.id,
+                      identifier: `phonics-${t.key}`,
+                      language: phonicsLanguage,
+                    },
                     signal
                   );
             const { audioUrl } = await apiFn();

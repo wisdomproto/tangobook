@@ -1,5 +1,12 @@
 import { apiClient, apiGet, apiPost, apiDelete } from '@/lib/axios';
-import type { PhonicsAudioCategory, PhonicsAudioItem } from '@tangobook/shared';
+import type {
+  PhonicsAudioCategory,
+  PhonicsAudioItem,
+  SystemSoundLanguage,
+  SystemSoundType,
+  SystemSoundItem,
+  SavedArtStyle,
+} from '@tangobook/shared';
 
 export interface TitleTemplate {
   id: string;
@@ -43,9 +50,11 @@ export const settingsApi = {
 
   // 파닉스 음원 라이브러리
   getPhonicsLibrary: () =>
-    apiGet<{ mod_phonics: PhonicsAudioItem[]; mod_english: PhonicsAudioItem[] }>(
-      '/phonics-library'
-    ),
+    apiGet<{
+      mod_phonics: PhonicsAudioItem[];
+      mod_english: PhonicsAudioItem[];
+      mod_korean: PhonicsAudioItem[];
+    }>('/phonics-library'),
 
   uploadPhonicsAudio: async (
     files: File[],
@@ -64,6 +73,49 @@ export const settingsApi = {
     await apiClient.delete(`/phonics-library/${category}/${encodeURIComponent(sound)}`);
   },
 
+  deleteAllPhonicsAudio: async (category: PhonicsAudioCategory): Promise<{ deleted: number }> => {
+    const res = await apiClient.delete(`/phonics-library/${category}`);
+    return (res.data as { success: true; data: { deleted: number } }).data;
+  },
+
+  // 시스템 사운드 라이브러리
+  getSystemSounds: () =>
+    apiGet<{
+      korean: { correct: SystemSoundItem[]; wrong: SystemSoundItem[] };
+      english: { correct: SystemSoundItem[]; wrong: SystemSoundItem[] };
+    }>('/system-sounds'),
+
+  uploadSystemSounds: async (
+    files: File[],
+    language: SystemSoundLanguage,
+    type: SystemSoundType
+  ): Promise<SystemSoundItem[]> => {
+    const formData = new FormData();
+    formData.append('language', language);
+    formData.append('type', type);
+    files.forEach((f) => formData.append('files', f));
+    const res = await apiClient.post('/system-sounds/upload', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return (res.data as { success: true; data: SystemSoundItem[] }).data;
+  },
+
+  deleteSystemSound: async (
+    language: SystemSoundLanguage,
+    type: SystemSoundType,
+    name: string
+  ): Promise<void> => {
+    await apiClient.delete(`/system-sounds/${language}/${type}/${encodeURIComponent(name)}`);
+  },
+
+  deleteAllSystemSounds: async (
+    language: SystemSoundLanguage,
+    type: SystemSoundType
+  ): Promise<{ deleted: number }> => {
+    const res = await apiClient.delete(`/system-sounds/${language}/${type}`);
+    return (res.data as { success: true; data: { deleted: number } }).data;
+  },
+
   // 제목 스타일 템플릿 (전역)
   getTitleTemplates: () => apiGet<TitleTemplate[]>('/settings/title-templates'),
 
@@ -71,4 +123,11 @@ export const settingsApi = {
     apiPost<TitleTemplate>('/settings/title-templates', { imageUrl }),
 
   deleteTitleTemplate: (id: string) => apiDelete<void>(`/settings/title-templates/${id}`),
+
+  // 그림체 라이브러리
+  getArtStyleLibrary: () => apiGet<SavedArtStyle[]>('/art-style-library'),
+  saveArtStyle: (data: { name: string; prompt: string; referenceImageUrl?: string }) =>
+    apiPost<SavedArtStyle>('/art-style-library', data),
+  removeArtStyle: (id: string) => apiDelete<void>(`/art-style-library/${id}`),
+  removeAllArtStyles: () => apiDelete<void>('/art-style-library/all'),
 };

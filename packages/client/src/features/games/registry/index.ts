@@ -8,7 +8,7 @@ import './games/odd-one-out.register';
 import './games/word-image-matching.register';
 import './games/blending-listening.register';
 import './games/letter-sound.register';
-import './games/initial-sound.register';
+import './games/word-listening.register';
 
 export {
   getAllGames,

@@ -2,15 +2,7 @@ import { useState, useCallback, useRef } from 'react';
 import { Button } from '@/components/Button';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { PictureSequenceData, PictureSequenceImage } from '@tangobook/shared';
-
-function shuffle<T>(arr: T[]): T[] {
-  const result = [...arr];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-}
+import { shuffle } from '../../utils/shuffle';
 
 export function PictureSequencePlayer({ gameData, onComplete, onBack }: GamePlayerProps) {
   const { images } = gameData as PictureSequenceData;

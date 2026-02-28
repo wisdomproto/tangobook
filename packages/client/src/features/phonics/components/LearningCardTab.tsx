@@ -21,6 +21,7 @@ interface LearningCardTabProps {
 }
 
 export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTabProps) {
+  const isKorean = storybook.phonicsConfig?.language === 'korean';
   const lesson = storybook.phonicsLesson;
 
   const {
@@ -90,12 +91,12 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
     [onUpdate, onSave]
   );
 
-  // --- 배치 이미지 생성 ---
+  // --- 배치 이미지 생성 (영어만 — 한글은 예시단어 이미지 없음) ---
   const handleBatchImages = useCallback(async () => {
+    if (isKorean) return;
     const tasks: ImageTask[] = [];
     if (lesson) {
       lesson.blending.forEach((item, idx) => {
-        // 예시단어 1
         if (!item.exampleWordImageUrl) {
           tasks.push({
             word: item.exampleWord,
@@ -112,7 +113,6 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
             },
           });
         }
-        // 예시단어 2
         if (item.exampleWord2 && !item.exampleWord2ImageUrl) {
           tasks.push({
             word: item.exampleWord2,
@@ -132,7 +132,7 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
       });
     }
     await runBatchImages(tasks);
-  }, [lesson, runBatchImages]);
+  }, [isKorean, lesson, runBatchImages]);
 
   // --- 배치 TTS 생성 ---
   const handleBatchTts = useCallback(async () => {
@@ -168,54 +168,61 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
         }
         if (!item.blendingSequenceTtsUrl) {
           tasks.push({
-            word: getTtsText(`seq-${idx}`, `${item.vowel} ${item.consonant} ${item.blend}`),
+            word: getTtsText(
+              `seq-${idx}`,
+              isKorean
+                ? `${item.consonant} ${item.vowel} ${item.blend}`
+                : `${item.vowel} ${item.consonant} ${item.blend}`
+            ),
             key: `seq-${idx}`,
             updater: (d, url) => {
               if (d.phonicsLesson) d.phonicsLesson.blending[idx].blendingSequenceTtsUrl = url;
             },
           });
         }
-        if (!item.exampleWordTtsUrl) {
-          tasks.push({
-            word: getTtsText(`exword-${idx}`, item.exampleWord),
-            key: `exword-${idx}`,
-            updater: (d, url) => {
-              if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWordTtsUrl = url;
-            },
-          });
-        }
-        // onset TTS (예: c, f)
-        {
-          const onset1 = getOnset(item.exampleWord, item.blend);
-          if (onset1 && !item.exampleWordOnsetTtsUrl) {
+        // 예시단어 TTS (영어만)
+        if (!isKorean) {
+          if (!item.exampleWordTtsUrl) {
             tasks.push({
-              word: getTtsText(`onset-${idx}`, onset1),
-              key: `onset-${idx}`,
+              word: getTtsText(`exword-${idx}`, item.exampleWord),
+              key: `exword-${idx}`,
               updater: (d, url) => {
-                if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWordOnsetTtsUrl = url;
+                if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWordTtsUrl = url;
               },
             });
           }
-        }
-        if (item.exampleWord2 && !item.exampleWord2TtsUrl) {
-          tasks.push({
-            word: getTtsText(`exword2-${idx}`, item.exampleWord2),
-            key: `exword2-${idx}`,
-            updater: (d, url) => {
-              if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWord2TtsUrl = url;
-            },
-          });
-        }
-        if (item.exampleWord2) {
-          const onset2 = getOnset(item.exampleWord2, item.blend);
-          if (onset2 && !item.exampleWord2OnsetTtsUrl) {
+          {
+            const onset1 = getOnset(item.exampleWord, item.blend);
+            if (onset1 && !item.exampleWordOnsetTtsUrl) {
+              tasks.push({
+                word: getTtsText(`onset-${idx}`, onset1),
+                key: `onset-${idx}`,
+                updater: (d, url) => {
+                  if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWordOnsetTtsUrl = url;
+                },
+              });
+            }
+          }
+          if (item.exampleWord2 && !item.exampleWord2TtsUrl) {
             tasks.push({
-              word: getTtsText(`onset2-${idx}`, onset2),
-              key: `onset2-${idx}`,
+              word: getTtsText(`exword2-${idx}`, item.exampleWord2),
+              key: `exword2-${idx}`,
               updater: (d, url) => {
-                if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWord2OnsetTtsUrl = url;
+                if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWord2TtsUrl = url;
               },
             });
+          }
+          if (item.exampleWord2) {
+            const onset2 = getOnset(item.exampleWord2, item.blend);
+            if (onset2 && !item.exampleWord2OnsetTtsUrl) {
+              tasks.push({
+                word: getTtsText(`onset2-${idx}`, onset2),
+                key: `onset2-${idx}`,
+                updater: (d, url) => {
+                  if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWord2OnsetTtsUrl = url;
+                },
+              });
+            }
           }
         }
       });
@@ -234,8 +241,8 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
     );
   }
 
-  const missingImages = countMissingImages(lesson?.blending ?? []);
-  const missingTts = countMissingTts(lesson?.blending ?? []);
+  const missingImages = isKorean ? 0 : countMissingImages(lesson?.blending ?? []);
+  const missingTts = countMissingTts(lesson?.blending ?? [], isKorean);
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
@@ -342,21 +349,25 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
               };
               const onset1 = getOnset(item.exampleWord, item.blend);
               const onset2 = item.exampleWord2 ? getOnset(item.exampleWord2, item.blend) : '';
+              // 한글: blend가 단어 앞에 옴 (가+구=가구) → first=blend, second=rest
+              const rest1 = getRest(item.exampleWord, item.blend);
+              const rest2 = item.exampleWord2 ? getRest(item.exampleWord2, item.blend) : '';
               return (
                 <div
                   key={idx}
                   className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden"
                 >
-                  {/* 상단: 블렌딩 공식 — vowel + consonant = blend */}
+                  {/* 상단: 블렌딩 공식 — 한글: 자음+모음=결합 / 영어: 모음+자음=블렌드 */}
                   <div className="px-5 py-4 bg-sky-50 dark:bg-sky-900/20 border-b border-slate-200 dark:border-slate-700">
                     <div className="flex items-center justify-center gap-3">
                       <span className="px-4 py-2 rounded-full bg-white dark:bg-slate-800 shadow-sm text-2xl font-bold text-slate-800 dark:text-slate-100">
                         <input
-                          value={item.vowel}
+                          value={isKorean ? item.consonant : item.vowel}
                           onChange={(e) => {
                             onUpdate((d) => {
                               if (d.phonicsLesson)
-                                d.phonicsLesson.blending[idx].vowel = e.target.value;
+                                d.phonicsLesson.blending[idx][isKorean ? 'consonant' : 'vowel'] =
+                                  e.target.value;
                             });
                             onSave();
                           }}
@@ -366,11 +377,12 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
                       <span className="text-lg text-slate-400 font-bold">+</span>
                       <span className="px-4 py-2 rounded-full bg-white dark:bg-slate-800 shadow-sm text-2xl font-bold text-slate-800 dark:text-slate-100">
                         <input
-                          value={item.consonant}
+                          value={isKorean ? item.vowel : item.consonant}
                           onChange={(e) => {
                             onUpdate((d) => {
                               if (d.phonicsLesson)
-                                d.phonicsLesson.blending[idx].consonant = e.target.value;
+                                d.phonicsLesson.blending[idx][isKorean ? 'vowel' : 'consonant'] =
+                                  e.target.value;
                             });
                             onSave();
                           }}
@@ -400,166 +412,169 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
                     </div>
                   </div>
 
-                  {/* 하단: 예시단어 2개 */}
-                  <div className="divide-y divide-slate-100 dark:divide-slate-700/50">
-                    <ExampleWordCard
-                      word={item.exampleWord}
-                      onset={onset1}
-                      blend={item.blend}
-                      imageUrl={item.exampleWordImageUrl}
-                      imageDescription={
-                        liveDescs.current[`${idx}-1`] ?? item.exampleWordImageDescription
-                      }
-                      imageHistory={item.exampleWordImageHistory}
-                      wordTtsUrl={item.exampleWordTtsUrl}
-                      onsetTtsUrl={item.exampleWordOnsetTtsUrl}
-                      imgKey={imgKey1}
-                      wordTtsKey={`exword-${idx}`}
-                      onsetTtsKey={`onset-${idx}`}
-                      imageUpdater={makeUpdater1}
-                      wordTtsUpdater={(d, url) => {
-                        if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWordTtsUrl = url;
-                      }}
-                      onsetTtsUpdater={(d, url) => {
-                        if (d.phonicsLesson)
-                          d.phonicsLesson.blending[idx].exampleWordOnsetTtsUrl = url;
-                      }}
-                      onWordChange={(v) => {
-                        onUpdate((d) => {
-                          if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWord = v;
-                        });
-                        onSave();
-                      }}
-                      onImageDelete={() => {
-                        onUpdate((d) => {
+                  {/* 하단: 예시단어 2개 (영어만) */}
+                  {!isKorean && (
+                    <div className="divide-y divide-slate-100 dark:divide-slate-700/50">
+                      <ExampleWordCard
+                        word={item.exampleWord}
+                        onset={onset1}
+                        blend={item.blend}
+                        imageUrl={item.exampleWordImageUrl}
+                        imageDescription={
+                          liveDescs.current[`${idx}-1`] ?? item.exampleWordImageDescription
+                        }
+                        imageHistory={item.exampleWordImageHistory}
+                        wordTtsUrl={item.exampleWordTtsUrl}
+                        onsetTtsUrl={item.exampleWordOnsetTtsUrl}
+                        imgKey={imgKey1}
+                        wordTtsKey={`exword-${idx}`}
+                        onsetTtsKey={`onset-${idx}`}
+                        imageUpdater={makeUpdater1}
+                        wordTtsUpdater={(d, url) => {
                           if (d.phonicsLesson)
-                            d.phonicsLesson.blending[idx].exampleWordImageUrl = undefined;
-                        });
-                        onSave();
-                      }}
-                      onImageDescChange={(v) => {
-                        onUpdate((d) => {
+                            d.phonicsLesson.blending[idx].exampleWordTtsUrl = url;
+                        }}
+                        onsetTtsUpdater={(d, url) => {
                           if (d.phonicsLesson)
-                            d.phonicsLesson.blending[idx].exampleWordImageDescription = v;
-                        });
-                        onSave();
-                      }}
-                      onImageDescDraft={(v) => {
-                        liveDescs.current[`${idx}-1`] = v;
-                      }}
-                      onHistoryRestore={(h) => restoreBlendingHistory(idx, 1, h)}
-                      isBusy={isBusy}
-                      generatingImage={isGenImg1}
-                      uploading={isUploading1}
-                      generatingWordTts={generatingTts.has(`exword-${idx}`)}
-                      generatingOnsetTts={generatingTts.has(`onset-${idx}`)}
-                      tracingPoints={item.exampleWordTracingPoints}
-                      onTracingEdit={() => setTracingEdit({ idx, wordNum: 1 })}
-                      onTracingPreview={() => setTracingPreview({ idx, wordNum: 1 })}
-                      imageMutate={imageMutation.mutate}
-                      handleUpload={handleUpload}
-                      generateTts={generateTts}
-                      handleTtsUpload={handleTtsUpload}
-                      getTtsText={getTtsText}
-                      setTtsText={setTtsText}
-                      setLightboxUrl={setLightboxUrl}
-                    />
-                    {/* 예시단어 2 */}
-                    <div className="p-5">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="px-3 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-sm font-bold">
-                          {onset2}
-                        </span>
-                        <span className="text-xs text-slate-400 font-bold">+</span>
-                        <span className="px-3 py-1 rounded-lg bg-sky-100 dark:bg-sky-900/40 text-red-500 dark:text-red-400 text-sm font-bold">
-                          {item.blend}
-                        </span>
-                        <span className="text-xs text-slate-400 font-bold">&rarr;</span>
-                        <input
-                          value={item.exampleWord2 ?? ''}
-                          onChange={(e) => {
-                            onUpdate((d) => {
+                            d.phonicsLesson.blending[idx].exampleWordOnsetTtsUrl = url;
+                        }}
+                        onWordChange={(v) => {
+                          onUpdate((d) => {
+                            if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWord = v;
+                          });
+                          onSave();
+                        }}
+                        onImageDelete={() => {
+                          onUpdate((d) => {
+                            if (d.phonicsLesson)
+                              d.phonicsLesson.blending[idx].exampleWordImageUrl = undefined;
+                          });
+                          onSave();
+                        }}
+                        onImageDescChange={(v) => {
+                          onUpdate((d) => {
+                            if (d.phonicsLesson)
+                              d.phonicsLesson.blending[idx].exampleWordImageDescription = v;
+                          });
+                          onSave();
+                        }}
+                        onImageDescDraft={(v) => {
+                          liveDescs.current[`${idx}-1`] = v;
+                        }}
+                        onHistoryRestore={(h) => restoreBlendingHistory(idx, 1, h)}
+                        isBusy={isBusy}
+                        generatingImage={isGenImg1}
+                        uploading={isUploading1}
+                        generatingWordTts={generatingTts.has(`exword-${idx}`)}
+                        generatingOnsetTts={generatingTts.has(`onset-${idx}`)}
+                        tracingPoints={item.exampleWordTracingPoints}
+                        onTracingEdit={() => setTracingEdit({ idx, wordNum: 1 })}
+                        onTracingPreview={() => setTracingPreview({ idx, wordNum: 1 })}
+                        imageMutate={imageMutation.mutate}
+                        handleUpload={handleUpload}
+                        generateTts={generateTts}
+                        handleTtsUpload={handleTtsUpload}
+                        getTtsText={getTtsText}
+                        setTtsText={setTtsText}
+                        setLightboxUrl={setLightboxUrl}
+                      />
+                      {/* 예시단어 2 */}
+                      <div className="p-5">
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className="px-3 py-1 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-sm font-bold">
+                            {onset2}
+                          </span>
+                          <span className="text-xs text-slate-400 font-bold">+</span>
+                          <span className="px-3 py-1 rounded-lg bg-sky-100 dark:bg-sky-900/40 text-red-500 dark:text-red-400 text-sm font-bold">
+                            {item.blend}
+                          </span>
+                          <span className="text-xs text-slate-400 font-bold">&rarr;</span>
+                          <input
+                            value={item.exampleWord2 ?? ''}
+                            onChange={(e) => {
+                              onUpdate((d) => {
+                                if (d.phonicsLesson)
+                                  d.phonicsLesson.blending[idx].exampleWord2 = e.target.value;
+                              });
+                              onSave();
+                            }}
+                            placeholder="예시단어 2"
+                            className="w-28 text-lg font-bold text-slate-800 dark:text-slate-100 bg-transparent border-b border-dashed border-slate-300 dark:border-slate-600 focus:outline-none focus:border-violet-500"
+                          />
+                        </div>
+                        {item.exampleWord2 ? (
+                          <ExampleWordCard
+                            showHeader={false}
+                            word={item.exampleWord2}
+                            onset={onset2}
+                            blend={item.blend}
+                            imageUrl={item.exampleWord2ImageUrl}
+                            imageDescription={
+                              liveDescs.current[`${idx}-2`] ?? item.exampleWord2ImageDescription
+                            }
+                            imageHistory={item.exampleWord2ImageHistory}
+                            wordTtsUrl={item.exampleWord2TtsUrl}
+                            onsetTtsUrl={item.exampleWord2OnsetTtsUrl}
+                            imgKey={imgKey2}
+                            wordTtsKey={`exword2-${idx}`}
+                            onsetTtsKey={`onset2-${idx}`}
+                            imageUpdater={makeUpdater2}
+                            wordTtsUpdater={(d, url) => {
                               if (d.phonicsLesson)
-                                d.phonicsLesson.blending[idx].exampleWord2 = e.target.value;
-                            });
-                            onSave();
-                          }}
-                          placeholder="예시단어 2"
-                          className="w-28 text-lg font-bold text-slate-800 dark:text-slate-100 bg-transparent border-b border-dashed border-slate-300 dark:border-slate-600 focus:outline-none focus:border-violet-500"
-                        />
+                                d.phonicsLesson.blending[idx].exampleWord2TtsUrl = url;
+                            }}
+                            onsetTtsUpdater={(d, url) => {
+                              if (d.phonicsLesson)
+                                d.phonicsLesson.blending[idx].exampleWord2OnsetTtsUrl = url;
+                            }}
+                            onWordChange={(v) => {
+                              onUpdate((d) => {
+                                if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWord2 = v;
+                              });
+                              onSave();
+                            }}
+                            onImageDelete={() => {
+                              onUpdate((d) => {
+                                if (d.phonicsLesson)
+                                  d.phonicsLesson.blending[idx].exampleWord2ImageUrl = undefined;
+                              });
+                              onSave();
+                            }}
+                            onImageDescChange={(v) => {
+                              onUpdate((d) => {
+                                if (d.phonicsLesson)
+                                  d.phonicsLesson.blending[idx].exampleWord2ImageDescription = v;
+                              });
+                              onSave();
+                            }}
+                            onImageDescDraft={(v) => {
+                              liveDescs.current[`${idx}-2`] = v;
+                            }}
+                            onHistoryRestore={(h) => restoreBlendingHistory(idx, 2, h)}
+                            isBusy={isBusy}
+                            generatingImage={isGenImg2}
+                            uploading={isUploading2}
+                            generatingWordTts={generatingTts.has(`exword2-${idx}`)}
+                            generatingOnsetTts={generatingTts.has(`onset2-${idx}`)}
+                            tracingPoints={item.exampleWord2TracingPoints}
+                            onTracingEdit={() => setTracingEdit({ idx, wordNum: 2 })}
+                            onTracingPreview={() => setTracingPreview({ idx, wordNum: 2 })}
+                            imageMutate={imageMutation.mutate}
+                            handleUpload={handleUpload}
+                            generateTts={generateTts}
+                            handleTtsUpload={handleTtsUpload}
+                            getTtsText={getTtsText}
+                            setTtsText={setTtsText}
+                            setLightboxUrl={setLightboxUrl}
+                          />
+                        ) : (
+                          <p className="text-xs text-slate-400 dark:text-slate-500 italic">
+                            예시단어 2를 입력하면 이미지/TTS 에셋을 생성할 수 있습니다.
+                          </p>
+                        )}
                       </div>
-                      {item.exampleWord2 ? (
-                        <ExampleWordCard
-                          showHeader={false}
-                          word={item.exampleWord2}
-                          onset={onset2}
-                          blend={item.blend}
-                          imageUrl={item.exampleWord2ImageUrl}
-                          imageDescription={
-                            liveDescs.current[`${idx}-2`] ?? item.exampleWord2ImageDescription
-                          }
-                          imageHistory={item.exampleWord2ImageHistory}
-                          wordTtsUrl={item.exampleWord2TtsUrl}
-                          onsetTtsUrl={item.exampleWord2OnsetTtsUrl}
-                          imgKey={imgKey2}
-                          wordTtsKey={`exword2-${idx}`}
-                          onsetTtsKey={`onset2-${idx}`}
-                          imageUpdater={makeUpdater2}
-                          wordTtsUpdater={(d, url) => {
-                            if (d.phonicsLesson)
-                              d.phonicsLesson.blending[idx].exampleWord2TtsUrl = url;
-                          }}
-                          onsetTtsUpdater={(d, url) => {
-                            if (d.phonicsLesson)
-                              d.phonicsLesson.blending[idx].exampleWord2OnsetTtsUrl = url;
-                          }}
-                          onWordChange={(v) => {
-                            onUpdate((d) => {
-                              if (d.phonicsLesson) d.phonicsLesson.blending[idx].exampleWord2 = v;
-                            });
-                            onSave();
-                          }}
-                          onImageDelete={() => {
-                            onUpdate((d) => {
-                              if (d.phonicsLesson)
-                                d.phonicsLesson.blending[idx].exampleWord2ImageUrl = undefined;
-                            });
-                            onSave();
-                          }}
-                          onImageDescChange={(v) => {
-                            onUpdate((d) => {
-                              if (d.phonicsLesson)
-                                d.phonicsLesson.blending[idx].exampleWord2ImageDescription = v;
-                            });
-                            onSave();
-                          }}
-                          onImageDescDraft={(v) => {
-                            liveDescs.current[`${idx}-2`] = v;
-                          }}
-                          onHistoryRestore={(h) => restoreBlendingHistory(idx, 2, h)}
-                          isBusy={isBusy}
-                          generatingImage={isGenImg2}
-                          uploading={isUploading2}
-                          generatingWordTts={generatingTts.has(`exword2-${idx}`)}
-                          generatingOnsetTts={generatingTts.has(`onset2-${idx}`)}
-                          tracingPoints={item.exampleWord2TracingPoints}
-                          onTracingEdit={() => setTracingEdit({ idx, wordNum: 2 })}
-                          onTracingPreview={() => setTracingPreview({ idx, wordNum: 2 })}
-                          imageMutate={imageMutation.mutate}
-                          handleUpload={handleUpload}
-                          generateTts={generateTts}
-                          handleTtsUpload={handleTtsUpload}
-                          getTtsText={getTtsText}
-                          setTtsText={setTtsText}
-                          setLightboxUrl={setLightboxUrl}
-                        />
-                      ) : (
-                        <p className="text-xs text-slate-400 dark:text-slate-500 italic">
-                          예시단어 2를 입력하면 이미지/TTS 에셋을 생성할 수 있습니다.
-                        </p>
-                      )}
                     </div>
-                  </div>
+                  )}
 
                   {/* 블렌딩 TTS 에셋 */}
                   <div className="px-5 py-4 bg-slate-50 dark:bg-slate-900/30 border-t border-slate-200 dark:border-slate-700">
@@ -567,58 +582,46 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
                       블렌딩 TTS 에셋
                     </p>
                     <div className="space-y-1.5">
-                      <TtsRow
-                        label={item.vowel}
-                        tag="모음"
-                        color="amber"
-                        url={item.vowelTtsUrl}
-                        generating={generatingTts.has(`vowel-${idx}`)}
-                        disabled={isBusy}
-                        downloadFilename={`${item.vowel}.wav`}
-                        editableText={getTtsText(`vowel-${idx}`, item.vowel)}
-                        onTextChange={(t) => setTtsText(`vowel-${idx}`, t)}
-                        onGenerate={() =>
-                          generateTts(
-                            getTtsText(`vowel-${idx}`, item.vowel),
-                            `vowel-${idx}`,
-                            (d, url) => {
-                              if (d.phonicsLesson) d.phonicsLesson.blending[idx].vowelTtsUrl = url;
+                      {/* 한글: 자음 먼저 / 영어: 모음 먼저 */}
+                      {(isKorean
+                        ? (['consonant', 'vowel'] as const)
+                        : (['vowel', 'consonant'] as const)
+                      ).map((role) => {
+                        const isVowel = role === 'vowel';
+                        const value = isVowel ? item.vowel : item.consonant;
+                        const ttsKey = isVowel ? `vowel-${idx}` : `consonant-${idx}`;
+                        const urlField = isVowel ? item.vowelTtsUrl : item.consonantTtsUrl;
+                        return (
+                          <TtsRow
+                            key={role}
+                            label={value}
+                            tag={isVowel ? '모음' : '자음'}
+                            color={isVowel ? 'amber' : 'sky'}
+                            url={urlField}
+                            generating={generatingTts.has(ttsKey)}
+                            disabled={isBusy}
+                            downloadFilename={`${value}.wav`}
+                            editableText={getTtsText(ttsKey, value)}
+                            onTextChange={(t) => setTtsText(ttsKey, t)}
+                            onGenerate={() =>
+                              generateTts(getTtsText(ttsKey, value), ttsKey, (d, url) => {
+                                if (d.phonicsLesson)
+                                  d.phonicsLesson.blending[idx][
+                                    isVowel ? 'vowelTtsUrl' : 'consonantTtsUrl'
+                                  ] = url;
+                              })
                             }
-                          )
-                        }
-                        onUpload={(f) =>
-                          handleTtsUpload(f, `vowel-${idx}`, (d, url) => {
-                            if (d.phonicsLesson) d.phonicsLesson.blending[idx].vowelTtsUrl = url;
-                          })
-                        }
-                      />
-                      <TtsRow
-                        label={item.consonant}
-                        tag="자음"
-                        color="sky"
-                        url={item.consonantTtsUrl}
-                        generating={generatingTts.has(`consonant-${idx}`)}
-                        disabled={isBusy}
-                        downloadFilename={`${item.consonant}.wav`}
-                        editableText={getTtsText(`consonant-${idx}`, item.consonant)}
-                        onTextChange={(t) => setTtsText(`consonant-${idx}`, t)}
-                        onGenerate={() =>
-                          generateTts(
-                            getTtsText(`consonant-${idx}`, item.consonant),
-                            `consonant-${idx}`,
-                            (d, url) => {
-                              if (d.phonicsLesson)
-                                d.phonicsLesson.blending[idx].consonantTtsUrl = url;
+                            onUpload={(f) =>
+                              handleTtsUpload(f, ttsKey, (d, url) => {
+                                if (d.phonicsLesson)
+                                  d.phonicsLesson.blending[idx][
+                                    isVowel ? 'vowelTtsUrl' : 'consonantTtsUrl'
+                                  ] = url;
+                              })
                             }
-                          )
-                        }
-                        onUpload={(f) =>
-                          handleTtsUpload(f, `consonant-${idx}`, (d, url) => {
-                            if (d.phonicsLesson)
-                              d.phonicsLesson.blending[idx].consonantTtsUrl = url;
-                          })
-                        }
-                      />
+                          />
+                        );
+                      })}
                       <TtsRow
                         label={item.blend}
                         tag="블렌드"
@@ -645,7 +648,11 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
                         }
                       />
                       <TtsRow
-                        label={`${item.vowel} → ${item.consonant} → ${item.blend}`}
+                        label={
+                          isKorean
+                            ? `${item.consonant} → ${item.vowel} → ${item.blend}`
+                            : `${item.vowel} → ${item.consonant} → ${item.blend}`
+                        }
                         tag="시퀀스"
                         color="purple"
                         url={item.blendingSequenceTtsUrl}
@@ -654,14 +661,18 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
                         downloadFilename={`${item.blend}-sequence.wav`}
                         editableText={getTtsText(
                           `seq-${idx}`,
-                          `${item.vowel} ${item.consonant} ${item.blend}`
+                          isKorean
+                            ? `${item.consonant} ${item.vowel} ${item.blend}`
+                            : `${item.vowel} ${item.consonant} ${item.blend}`
                         )}
                         onTextChange={(t) => setTtsText(`seq-${idx}`, t)}
                         onGenerate={() =>
                           generateTts(
                             getTtsText(
                               `seq-${idx}`,
-                              `${item.vowel} ${item.consonant} ${item.blend}`
+                              isKorean
+                                ? `${item.consonant} ${item.vowel} ${item.blend}`
+                                : `${item.vowel} ${item.consonant} ${item.blend}`
                             ),
                             `seq-${idx}`,
                             (d, url) => {
@@ -685,6 +696,7 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
                     <WritingPracticeSection
                       vowel={item.vowel}
                       consonant={item.consonant}
+                      blend={item.blend}
                       idx={idx}
                       active={writingPractice}
                       onToggle={setWritingPractice}
@@ -711,12 +723,14 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
           wordFamily={lesson.wordFamilies[previewIdx]}
           systemSounds={storybook.systemSounds}
           aspectRatio={aspectRatio.replace(':', '/')}
+          isKorean={isKorean}
           onClose={() => setPreviewIdx(null)}
         />
       )}
 
-      {/* 점선 따라그리기 편집 모달 */}
-      {tracingEdit !== null &&
+      {/* 점선 따라그리기 편집 모달 (영어만) */}
+      {!isKorean &&
+        tracingEdit !== null &&
         (() => {
           const item = lesson!.blending[tracingEdit.idx];
           const imgUrl =
@@ -751,8 +765,9 @@ export function LearningCardTab({ storybook, onUpdate, onSave }: LearningCardTab
           );
         })()}
 
-      {/* 따라그리기 게임 미리보기 */}
-      {tracingPreview !== null &&
+      {/* 따라그리기 게임 미리보기 (영어만) */}
+      {!isKorean &&
+        tracingPreview !== null &&
         (() => {
           const item = lesson!.blending[tracingPreview.idx];
           const imgUrl =
@@ -787,6 +802,12 @@ function getOnset(word: string, blend: string): string {
   return word[0] ?? '';
 }
 
+/** 한글용: blend가 단어 앞에 올 때 나머지 부분 (가구 → 구) */
+function getRest(word: string, blend: string): string {
+  if (word.startsWith(blend)) return word.slice(blend.length);
+  return word.slice(1);
+}
+
 function countMissingImages(blending: BlendingExercise[]) {
   let c = 0;
   for (const b of blending) {
@@ -796,17 +817,19 @@ function countMissingImages(blending: BlendingExercise[]) {
   return c;
 }
 
-function countMissingTts(blending: BlendingExercise[]) {
+function countMissingTts(blending: BlendingExercise[], isKorean = false) {
   let c = 0;
   for (const b of blending) {
     if (!b.vowelTtsUrl) c++;
     if (!b.consonantTtsUrl) c++;
     if (!b.blendTtsUrl) c++;
     if (!b.blendingSequenceTtsUrl) c++;
-    if (!b.exampleWordTtsUrl) c++;
-    if (!b.exampleWordOnsetTtsUrl) c++;
-    if (b.exampleWord2 && !b.exampleWord2TtsUrl) c++;
-    if (b.exampleWord2 && !b.exampleWord2OnsetTtsUrl) c++;
+    if (!isKorean) {
+      if (!b.exampleWordTtsUrl) c++;
+      if (!b.exampleWordOnsetTtsUrl) c++;
+      if (b.exampleWord2 && !b.exampleWord2TtsUrl) c++;
+      if (b.exampleWord2 && !b.exampleWord2OnsetTtsUrl) c++;
+    }
   }
   return c;
 }

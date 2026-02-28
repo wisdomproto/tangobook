@@ -9,6 +9,7 @@ import { BatchProgressBar } from '@/components/BatchProgressBar';
 import { UploadMenu } from '@/components/UploadMenu';
 import { characterApi } from '../api/character.api';
 import { pushImageHistory } from '@/lib/image-history';
+import { CharacterLibraryModal } from './CharacterLibraryModal';
 import type { Storybook, Character } from '@tangobook/shared';
 
 interface CharacterTabProps {
@@ -27,6 +28,9 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
   const [lightboxUrl, setLightboxUrl] = useState<string | null>(null);
   const [newChar, setNewChar] = useState({ name: '', role: '조연', description: '' });
   const [uploadingIdx, setUploadingIdx] = useState<number | null>(null);
+  const [showLibrary, setShowLibrary] = useState(false);
+  const [savingIdx, setSavingIdx] = useState<number | null>(null);
+  const [savedIdx, setSavedIdx] = useState<number | null>(null);
 
   const isAnyGenerating = generatingSet.size > 0;
   const [batchProgress, setBatchProgress] = useState<{ current: number; total: number } | null>(
@@ -64,6 +68,8 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
           c.referenceImage = data.imageUrl;
         });
         onSave();
+        // 라이브러리 자동 동기화
+        characterApi.updateInLibrary(char.name, { referenceImage: data.imageUrl }).catch(() => {});
       } catch (err) {
         if (signal?.aborted) return;
         setErrorMap((prev) =>
@@ -148,6 +154,28 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
     onSave();
   };
 
+  const handleSaveToLibrary = async (idx: number) => {
+    const char = (storybook.characters ?? [])[idx];
+    if (!char) return;
+    setSavingIdx(idx);
+    try {
+      await characterApi.saveToLibrary(char);
+      setSavedIdx(idx);
+      setTimeout(() => setSavedIdx(null), 2000);
+    } catch {
+      /* silent */
+    } finally {
+      setSavingIdx(null);
+    }
+  };
+
+  const handleImportFromLibrary = (character: Character) => {
+    onUpdate((draft) => {
+      draft.characters.push(character);
+    });
+    onSave();
+  };
+
   const handleUpload = useCallback(
     async (idx: number, file: File) => {
       const char = (storybook.characters ?? [])[idx];
@@ -161,6 +189,8 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
           c.referenceImage = data.imageUrl;
         });
         onSave();
+        // 라이브러리 자동 동기화
+        characterApi.updateInLibrary(char.name, { referenceImage: data.imageUrl }).catch(() => {});
       } catch {
         setErrorMap((prev) => new Map(prev).set(idx, '업로드 실패'));
       } finally {
@@ -177,6 +207,9 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
           캐릭터 ({characters.length}명)
         </h2>
         <div className="flex gap-2">
+          <Button size="sm" variant="secondary" onClick={() => setShowLibrary(true)}>
+            라이브러리
+          </Button>
           <Button size="sm" variant="secondary" onClick={() => setShowAddForm(!showAddForm)}>
             + 캐릭터 추가
           </Button>
@@ -398,6 +431,44 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
                       openFilePicker={openFilePicker}
                       disabled={generatingSet.has(idx) || uploadingIdx === idx}
                     />
+                    <button
+                      onClick={() => handleSaveToLibrary(idx)}
+                      disabled={savingIdx === idx}
+                      className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-amber-50 dark:hover:bg-amber-900/30 hover:border-amber-300 dark:hover:border-amber-600 text-slate-400 hover:text-amber-500 transition-colors disabled:opacity-50"
+                      title="라이브러리에 저장"
+                    >
+                      {savingIdx === idx ? (
+                        <div className="w-4 h-4 animate-spin border-2 border-amber-400 border-t-transparent rounded-full" />
+                      ) : savedIdx === idx ? (
+                        <svg
+                          className="w-4 h-4 text-green-500"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"
+                          />
+                        </svg>
+                      )}
+                    </button>
                   </div>
 
                   {errorMap.has(idx) && (
@@ -412,6 +483,14 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
 
       {lightboxUrl && (
         <ImageLightbox src={lightboxUrl} alt="캐릭터" onClose={() => setLightboxUrl(null)} />
+      )}
+
+      {showLibrary && (
+        <CharacterLibraryModal
+          existingNames={characters.map((c) => c.name)}
+          onImport={handleImportFromLibrary}
+          onClose={() => setShowLibrary(false)}
+        />
       )}
     </div>
   );
