@@ -43,6 +43,7 @@ export interface GameRegistryEntry {
   supportedLevels?: number[]; // 파닉스 전용: [1] = Level1, [2,3,4,5] = Level2~5
   contentRequirements: ContentRequirement;
   defaultConfig: GameConfig;
+  hidden?: boolean; // 목록에 표시하지 않음 (레거시 호환용)
   ConfigPanel: ComponentType<GameConfigPanelProps>;
   PlayerComponent: ComponentType<GamePlayerProps>;
 }
@@ -58,7 +59,7 @@ export function getGameEntry(id: GameTypeId): GameRegistryEntry | undefined {
 }
 
 export function getAllGames(): GameRegistryEntry[] {
-  return Array.from(GAME_REGISTRY.values());
+  return Array.from(GAME_REGISTRY.values()).filter((g) => !g.hidden);
 }
 
 export function getGamesForType(storybookType: 'storybook' | 'phonics'): GameRegistryEntry[] {

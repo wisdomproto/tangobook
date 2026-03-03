@@ -3,22 +3,21 @@ import { WordWritingConfigPanel } from '../../components/config/WordWritingConfi
 import { WordWritingPlayer } from '../../components/players/WordWritingPlayer';
 
 registerGame({
-  id: 'word-writing',
-  hidden: true, // 레거시 호환용 — korean-word-writing / english-word-writing으로 대체
+  id: 'korean-word-writing',
   category: 'common',
-  nameKo: '낱말 쓰기',
-  descriptionKo: '단어를 직접 따라 써보세요',
+  nameKo: '한글 단어 따라쓰기',
+  descriptionKo: '한글 단어를 따라 써보세요',
   icon: '✍️',
   supportedTypes: ['storybook', 'phonics'],
   contentRequirements: {
-    needsVocabularyImages: true,
+    needsVocabularyImages: false,
     needsKeyObjectImages: false,
     needsCharacterImages: false,
     needsIllustrations: false,
     needsPhonicsData: false,
   },
   defaultConfig: {
-    type: 'word-writing',
+    type: 'korean-word-writing',
     language: 'korean',
     wordSource: 'vocabulary',
     showGuide: true,

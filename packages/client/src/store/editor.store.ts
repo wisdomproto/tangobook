@@ -8,6 +8,8 @@ type EditorTab =
   | 'key-objects'
   | 'quiz'
   | 'audiobook'
+  | 'blog'
+  | 'card-news'
   | 'learning-cards'
   | 'chant'
   | 'flashcards'

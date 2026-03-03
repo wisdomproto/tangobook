@@ -182,12 +182,65 @@ features/games/
 - `keyObjectImages`, `vocabularyImages`, `illustrationUrl` = camelCase (나중에 추가된 필드)
 - 새 필드는 항상 camelCase로 추가
 
+## 마케팅 Feature 구조 (블로그 + 카드뉴스)
+```
+features/blog/
+  api/blog.api.ts                     # generate, generateConfig, regenerateSection, searchKeywords
+  utils/seo-score.ts                  # computeSeoScore() — C-Rank + D.I.A.+ (100점)
+  components/
+    BlogTab.tsx                       # 2단계 플로우 (설정 폼 → 생성)
+    BlogConfigForm.tsx                # 제목/주제/키워드/모델 설정
+    BlogPostCard.tsx                  # 블로그 글 편집 (드래그 정렬, SEO 뱃지)
+    BlogSectionEditor.tsx             # 리치텍스트 에디터 + AI 글쓰기 + 이미지
+    BlogPreviewModal.tsx              # HTML/텍스트 복사 미리보기
+    SeoScoreDisplay.tsx               # SeoScoreBadge + SeoScorePanel 컴포넌트
+    KeywordSection.tsx                # 키워드 칩 + 네이버 검색 테이블
+  index.ts
+
+features/card-news/
+  api/card-news.api.ts                # generate (소스: storybook | blog)
+  components/
+    CardNewsTab.tsx                   # 2단계 플로우 (설정 폼 → 생성)
+    CardNewsConfigForm.tsx            # 소스 선택 + 테마 + 슬라이드 수
+    CardNewsProjectCard.tsx           # 프로젝트 편집 (테마, 슬라이드 그리드)
+    CardNewsSlideEditor.tsx           # 슬라이드 편집 (이미지 + 텍스트 + 색상)
+    CardNewsPreviewModal.tsx          # Canvas 기반 PNG 내보내기 + 미리보기
+  index.ts
+```
+
+### 마케팅 서버 구조
+```
+server/src/
+  services/marketing.service.ts       # 블로그/카드뉴스 생성 비즈니스 로직
+  utils/marketing-helpers.ts          # 공통 헬퍼 (컨텍스트 추출, 이미지 풀, 키워드 매핑)
+  providers/naver.provider.ts         # 네이버 검색광고 API (키워드 검색량 조회)
+  controllers/marketing.controller.ts # 라우트 핸들러
+  routes/marketing.routes.ts          # POST /blog/generate, /card-news/generate 등
+```
+
+### 마케팅 2단계 생성 플로우
+1. 설정 폼 표시 (`showConfigForm` state)
+2. 사용자가 설정 입력 → 생성 버튼 클릭
+3. API 호출 → 결과를 storybook에 push → 저장
+4. 설정 폼 닫고 프로젝트 카드 표시
+
+### 리치텍스트 에디터 (RichTextEditor)
+- `contentEditable` + `document.execCommand()` 기반 WYSIWYG
+- 툴바: 단락(H2/H3/H4), 폰트 크기, B/I/U/S, 목록, 텍스트 색상, 형광펜, 서식 제거
+- `packages/client/src/components/RichTextEditor.tsx`
+- 블로그 섹션 편집에서 사용. HTML 문자열 입출력.
+
+### 공유 클라이언트 유틸리티
+- `lib/build-available-images.ts` — 동화책 이미지 풀 구성 (표지/삽화/캐릭터/핵심단어)
+- `lib/generate-id.ts` — 랜덤 ID 생성 (`generateId(prefix?)`)
+
 ## 서버 유틸리티
 ```
 server/src/utils/
   gemini-retry.ts           # withGeminiRetry() 재시도 래퍼
   shuffle.ts                # Fisher-Yates 셔플 (game.service.ts에서 사용)
   phonics-data-helpers.ts   # isKoreanPhonics(), collectPhonicsWordPool(), collectStorybookImagePool()
+  marketing-helpers.ts      # extractContext(), buildImagePool(), mapNaverItemToResult() 등
 ```
 
 ## 새 Feature 추가 방법
@@ -269,4 +322,5 @@ features/viewer/
 - `PRD_01_AuthorTool_Storybook.md` - 동화책 저작도구
 - `PRD_02_AuthorTool_Phonics.md` - 파닉스 저작도구
 - `PRD_03_Viewer.md` - 뷰어 앱 (동화책 + 파닉스 통합)
+- `PRD_04_Marketing.md` - 마케팅 콘텐츠 (블로그 + 카드뉴스)
 - `PRD_UIUX_AuthorTool.md` - UI/UX 상세 스펙

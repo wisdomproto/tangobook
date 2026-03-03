@@ -199,7 +199,9 @@ export type GameTypeId =
   | 'word-listening'
   | 'korean-block'
   | 'english-block'
-  | 'storybook-quiz';
+  | 'storybook-quiz'
+  | 'korean-word-writing'
+  | 'english-word-writing';
 
 export type GameDifficulty = 'easy' | 'medium' | 'hard';
 
@@ -274,7 +276,7 @@ export interface VocabularyMatchingData {
 
 // --- 낱말 쓰기 ---
 export interface WordWritingConfig {
-  type: 'word-writing';
+  type: 'word-writing' | 'korean-word-writing' | 'english-word-writing';
   language: 'korean' | 'english';
   wordSource: 'vocabulary' | 'phonics' | 'custom';
   customWords?: string[];
@@ -290,7 +292,7 @@ export interface WordWritingItem {
   ttsUrl?: string;
 }
 export interface WordWritingData {
-  type: 'word-writing';
+  type: 'word-writing' | 'korean-word-writing' | 'english-word-writing';
   items: WordWritingItem[];
 }
 
@@ -669,6 +671,12 @@ export interface Storybook {
   // 오디오북 프로젝트
   audiobookProjects?: AudiobookProject[];
 
+  // 블로그 글
+  blogPosts?: BlogPost[];
+
+  // 카드뉴스 프로젝트
+  cardNewsProjects?: CardNewsProject[];
+
   // 학습 게임
   games?: GameInstance[];
 
@@ -710,6 +718,74 @@ export interface AudiobookProject {
   subtitleBg: string;
   outputUrl?: string;
   createdAt?: string;
+}
+
+// === 블로그 ===
+
+export interface BlogGenerateConfig {
+  storybookId: string;
+  title?: string;
+  topic?: string;
+  keywords?: string[];
+  model?: string;
+}
+
+export interface NaverKeywordResult {
+  keyword: string;
+  monthlyPcSearch: number;
+  monthlyMobileSearch: number;
+  totalSearch: number;
+  competition: string;
+}
+
+/** @deprecated Use NaverKeywordResult instead */
+export type NaverBlogSearchResult = NaverKeywordResult;
+
+export interface BlogAutoConfig {
+  title: string;
+  topic: string;
+  keywords: NaverKeywordResult[];
+}
+
+export interface BlogSection {
+  id: string;
+  header: string;
+  text: string;
+  imageUrl?: string;
+  imageCaption?: string;
+}
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  summary: string;
+  tags: string[];
+  sections: BlogSection[];
+  createdAt: string;
+  config?: BlogGenerateConfig;
+  seoScore?: number;
+}
+
+// === 카드뉴스 ===
+
+export type CardNewsSlideType = 'cover' | 'body' | 'outro';
+
+export interface CardNewsSlide {
+  id: string;
+  slideType: CardNewsSlideType;
+  headline: string;
+  subtext: string;
+  imageUrl?: string;
+  backgroundColor: string;
+  textColor: string;
+}
+
+export interface CardNewsProject {
+  id: string;
+  title: string;
+  colorTheme: string;
+  slides: CardNewsSlide[];
+  createdAt: string;
 }
 
 // === 글로벌 어휘 DB ===

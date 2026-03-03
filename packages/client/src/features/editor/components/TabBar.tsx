@@ -10,6 +10,8 @@ const STORYBOOK_TABS = [
   { id: 'quiz' as const, label: '퀴즈' },
   { id: 'games' as const, label: '학습게임' },
   { id: 'audiobook' as const, label: '오디오북' },
+  { id: 'blog' as const, label: '블로그' },
+  { id: 'card-news' as const, label: '카드뉴스' },
 ];
 
 const PHONICS_TABS = [
@@ -22,6 +24,8 @@ const PHONICS_TABS = [
   { id: 'pages' as const, label: '동화책_페이지' },
   { id: 'games' as const, label: '학습게임' },
   { id: 'audiobook' as const, label: '오디오북' },
+  { id: 'blog' as const, label: '블로그' },
+  { id: 'card-news' as const, label: '카드뉴스' },
 ];
 
 interface TabBarProps {

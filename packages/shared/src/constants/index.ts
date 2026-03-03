@@ -1692,6 +1692,17 @@ export const CHANT_TONES = [
   { id: 'lullaby' as const, label: '자장가' },
 ] as const;
 
+// === 카드뉴스 테마 프리셋 ===
+
+export const CARD_NEWS_THEMES = [
+  { id: 'warm', label: '따뜻한', bg: '#FFF8F0', text: '#4A2C0A', accent: '#FF9F43' },
+  { id: 'cool', label: '시원한', bg: '#F0F4FF', text: '#1A2744', accent: '#4A90D9' },
+  { id: 'nature', label: '자연', bg: '#F0FFF4', text: '#1A3A2A', accent: '#48BB78' },
+  { id: 'pastel', label: '파스텔', bg: '#FFF0F6', text: '#4A1A3A', accent: '#ED64A6' },
+  { id: 'modern', label: '모던', bg: '#F7FAFC', text: '#2D3748', accent: '#5A67D8' },
+] as const;
+export type CardNewsThemeId = (typeof CARD_NEWS_THEMES)[number]['id'];
+
 // === 카테고리 ===
 export const STORYBOOK_CATEGORIES = ['자연 관찰', '기타'] as const;
 export const PHONICS_CATEGORIES = ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'] as const;

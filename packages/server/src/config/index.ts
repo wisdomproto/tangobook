@@ -28,4 +28,10 @@ export const config = {
   elevenlabs: {
     apiKey: process.env.ELEVENLABS_API_KEY ?? '',
   },
+
+  naverAd: {
+    apiKey: process.env.NAVER_AD_API_KEY ?? '',
+    secretKey: process.env.NAVER_AD_SECRET_KEY ?? '',
+    customerId: process.env.NAVER_AD_CUSTOMER_ID ?? '',
+  },
 } as const;

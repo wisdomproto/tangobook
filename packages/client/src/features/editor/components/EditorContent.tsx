@@ -10,6 +10,8 @@ import { AudiobookTab } from '@/features/audiobook';
 import { SettingsTab } from '@/features/settings';
 import { ChantTab, LearningCardTab, AlphabetCardTab, FlashcardTab } from '@/features/phonics';
 import { GamesTab } from '@/features/games';
+import { BlogTab } from '@/features/blog';
+import { CardNewsTab } from '@/features/card-news';
 import type { Storybook } from '@tangobook/shared';
 
 interface EditorContentProps {
@@ -78,6 +80,11 @@ export function EditorContent({ storybook, saving, onSave, onUpdate }: EditorCon
     {
       id: 'audiobook',
       el: <AudiobookTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
+    },
+    { id: 'blog', el: <BlogTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} /> },
+    {
+      id: 'card-news',
+      el: <CardNewsTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
     },
   ];
 

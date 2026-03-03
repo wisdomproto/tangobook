@@ -54,6 +54,8 @@ const generators: Partial<Record<GameTypeId, GameGenerator>> = {
   'word-quiz': generateWordQuiz,
   'odd-one-out': generateOddOneOut,
   'word-writing': generateWordWriting,
+  'korean-word-writing': generateWordWriting,
+  'english-word-writing': generateWordWriting,
   'connect-the-dots': generateConnectTheDots,
   'word-image-matching': generateWordImageMatching,
   'blending-listening': generateBlendingListening,
@@ -299,7 +301,7 @@ async function generateWordWriting(
     throw new AppError(400, '낱말 쓰기에 사용할 단어가 없습니다.');
   }
 
-  return { type: 'word-writing', items };
+  return { type: c.type, items };
 }
 
 // --- 점잇기: 핵심단어 이미지 (신규) / 삽화 페이지 (레거시) ---

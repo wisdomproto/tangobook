@@ -13,6 +13,7 @@ interface WordOption {
 export function WordWritingConfigPanel({ storybook, config, onChange }: GameConfigPanelProps) {
   const c = config as WordWritingConfig;
   const hasPhonics = storybook.type === 'phonics';
+  const languageLocked = c.type === 'korean-word-writing' || c.type === 'english-word-writing';
 
   // 단어 소스별 사용 가능한 단어 목록
   const availableWords = useMemo<WordOption[]>(() => {
@@ -54,27 +55,29 @@ export function WordWritingConfigPanel({ storybook, config, onChange }: GameConf
 
   return (
     <div className="space-y-4">
-      {/* 언어 */}
-      <div>
-        <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
-          언어
-        </label>
-        <div className="flex gap-2">
-          {(['korean', 'english'] as const).map((lang) => (
-            <button
-              key={lang}
-              onClick={() => onChange({ ...c, language: lang })}
-              className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
-                c.language === lang
-                  ? 'bg-violet-50 border-violet-300 text-violet-700 dark:bg-violet-900/30 dark:border-violet-600 dark:text-violet-300'
-                  : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300'
-              }`}
-            >
-              {{ korean: '한국어', english: '영어' }[lang]}
-            </button>
-          ))}
+      {/* 언어 (타입으로 고정된 경우 숨김) */}
+      {!languageLocked && (
+        <div>
+          <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
+            언어
+          </label>
+          <div className="flex gap-2">
+            {(['korean', 'english'] as const).map((lang) => (
+              <button
+                key={lang}
+                onClick={() => onChange({ ...c, language: lang })}
+                className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
+                  c.language === lang
+                    ? 'bg-violet-50 border-violet-300 text-violet-700 dark:bg-violet-900/30 dark:border-violet-600 dark:text-violet-300'
+                    : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300'
+                }`}
+              >
+                {{ korean: '한국어', english: '영어' }[lang]}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* 단어 소스 */}
       <div>
