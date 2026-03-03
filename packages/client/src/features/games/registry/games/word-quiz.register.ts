@@ -4,10 +4,11 @@ import { WordQuizPlayer } from '../../components/players/WordQuizPlayer';
 
 registerGame({
   id: 'word-quiz',
+  category: 'common',
   nameKo: '단어 퀴즈',
   descriptionKo: '단어의 뜻과 철자를 맞춰보세요',
   icon: '❓',
-  supportedTypes: ['storybook'],
+  supportedTypes: ['storybook', 'phonics'],
   contentRequirements: {
     needsVocabularyImages: true,
     needsKeyObjectImages: false,

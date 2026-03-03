@@ -4,10 +4,11 @@ import { VocabularyMatchingPlayer } from '../../components/players/VocabularyMat
 
 registerGame({
   id: 'vocabulary-matching',
+  category: 'common',
   nameKo: '단어 매칭',
   descriptionKo: '단어와 그림을 짝지어 보세요',
   icon: '🔗',
-  supportedTypes: ['storybook'],
+  supportedTypes: ['storybook', 'phonics'],
   contentRequirements: {
     needsVocabularyImages: true,
     needsKeyObjectImages: true,

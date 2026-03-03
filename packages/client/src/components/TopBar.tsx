@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useThemeStore } from '@/store/theme.store';
+import { VocabTreeModal } from '@/features/vocabulary/components/VocabTreeModal';
 
 export function TopBar() {
   const navigate = useNavigate();
   const { isDark, toggle } = useThemeStore();
+  const [vocabOpen, setVocabOpen] = useState(false);
 
   return (
     <header className="h-14 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between px-4 fixed top-0 left-0 right-0 z-50">
@@ -42,6 +45,20 @@ export function TopBar() {
           )}
         </button>
         <button
+          onClick={() => setVocabOpen(true)}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-lg transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 10h16M4 14h16M4 18h16"
+            />
+          </svg>
+          어휘 DB
+        </button>
+        <button
           onClick={() => navigate('/library')}
           className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-900/30 rounded-lg transition-colors"
         >
@@ -62,6 +79,7 @@ export function TopBar() {
           동화책 뷰어
         </button>
       </div>
+      <VocabTreeModal open={vocabOpen} onClose={() => setVocabOpen(false)} />
     </header>
   );
 }

@@ -12,6 +12,7 @@ import type {
   StoryDraftPage,
 } from '@tangobook/shared';
 import { AppError } from '../middleware/error.middleware.js';
+import { VocabularyDbService } from './vocabulary-db.service.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROMPT_GUIDE = fs.readFileSync(path.resolve(__dirname, '../../prompt_guide.md'), 'utf-8');
@@ -27,13 +28,22 @@ export const StorybookService = {
 
   async save(storybook: Storybook): Promise<Storybook> {
     if (!storybook.id) throw new AppError(400, '동화책 ID가 없습니다.');
-    return R2Repository.saveStorybook(storybook);
+    const saved = await R2Repository.saveStorybook(storybook);
+    // 어휘 DB 자동 동기화 (fire-and-forget)
+    VocabularyDbService.syncFromStorybook(saved).catch((err) =>
+      console.error('[VocabDB] sync failed:', (err as Error).message)
+    );
+    return saved;
   },
 
   async delete(id: string): Promise<void> {
     const storybook = await R2Repository.getStorybook(id);
     if (!storybook) throw new AppError(404, '동화책을 찾을 수 없습니다.');
     await R2Repository.deleteStorybook(id);
+    // 어휘 DB 출처 정리 (fire-and-forget)
+    VocabularyDbService.removeSourcesByStorybookId(id).catch((err) =>
+      console.error('[VocabDB] cleanup failed:', (err as Error).message)
+    );
   },
 
   async copy(id: string): Promise<Storybook> {

@@ -1,5 +1,11 @@
 import type { ComponentType } from 'react';
-import type { GameTypeId, GameConfig, GameDifficulty, Storybook } from '@tangobook/shared';
+import type {
+  GameTypeId,
+  GameConfig,
+  GameDifficulty,
+  GameCategory,
+  Storybook,
+} from '@tangobook/shared';
 
 /** 게임이 필요로 하는 컨텐츠 조건 */
 export interface ContentRequirement {
@@ -28,6 +34,7 @@ export interface GameConfigPanelProps {
 /** 레지스트리 엔트리 — 게임 1개의 메타데이터 + 컴포넌트 */
 export interface GameRegistryEntry {
   id: GameTypeId;
+  category: GameCategory;
   nameKo: string;
   descriptionKo: string;
   icon: string;
@@ -65,4 +72,71 @@ export function getGamesForPhonicsLevel(level: string): GameRegistryEntry[] {
     if (!g.supportedLevels) return true;
     return g.supportedLevels.includes(levelNum);
   });
+}
+
+// ─── 카테고리 기반 필터링 ───
+
+export const GAME_CATEGORY_LABELS: Record<GameCategory, string> = {
+  common: '공통 게임',
+  storybook: '동화책 전용',
+  phonics: '파닉스 공통',
+  'english-phonics': '영어 파닉스 전용',
+  'korean-phonics': '한글 파닉스 전용',
+};
+
+/** 스토리북 컨텍스트에 맞는 게임 목록 반환 (카테고리 + 레벨 필터) */
+export function getGamesForContext(
+  storybookType: 'storybook' | 'phonics',
+  phonicsLanguage?: string,
+  phonicsLevel?: string
+): GameRegistryEntry[] {
+  const all = getAllGames();
+
+  let allowed: GameCategory[];
+  if (storybookType === 'storybook') {
+    allowed = ['common', 'storybook'];
+  } else if (phonicsLanguage === 'korean') {
+    allowed = ['common', 'phonics', 'korean-phonics'];
+  } else {
+    allowed = ['common', 'phonics', 'english-phonics'];
+  }
+
+  let filtered = all.filter((g) => allowed.includes(g.category));
+
+  if (storybookType === 'phonics' && phonicsLevel) {
+    const levelNum = parseInt(phonicsLevel.replace(/\D/g, ''), 10) || 0;
+    filtered = filtered.filter((g) => {
+      if (!g.supportedLevels) return true;
+      return g.supportedLevels.includes(levelNum);
+    });
+  }
+
+  return filtered;
+}
+
+/** 게임 목록을 카테고리별로 그룹화 (UI 표시용) */
+export function groupGamesByCategory(
+  games: GameRegistryEntry[]
+): { category: GameCategory; label: string; games: GameRegistryEntry[] }[] {
+  const order: GameCategory[] = [
+    'common',
+    'storybook',
+    'phonics',
+    'korean-phonics',
+    'english-phonics',
+  ];
+  const grouped = new Map<GameCategory, GameRegistryEntry[]>();
+
+  for (const game of games) {
+    if (!grouped.has(game.category)) grouped.set(game.category, []);
+    grouped.get(game.category)!.push(game);
+  }
+
+  return order
+    .filter((cat) => grouped.has(cat))
+    .map((cat) => ({
+      category: cat,
+      label: GAME_CATEGORY_LABELS[cat],
+      games: grouped.get(cat)!,
+    }));
 }

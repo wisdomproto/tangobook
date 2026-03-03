@@ -9,7 +9,7 @@ import { useReadingProgress } from '../hooks/useReadingProgress';
 import { ViewerToolbar } from './ViewerToolbar';
 import { PageView, CoverView, EndView } from './PageView';
 import { ViewerControls } from './ViewerControls';
-import { QuizViewer } from './QuizViewer';
+import { GameListViewer } from './GameListViewer';
 import { PhonicsViewer } from './PhonicsViewer';
 
 interface ViewerContainerProps {
@@ -70,7 +70,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
 
   // Auto-play TTS on page change + auto-advance to next page
   useEffect(() => {
-    if (!settings.autoPlayTts) return;
+    if (!settings.autoPlayTts || mode === 'games') return;
     const isLastPage = currentPage >= totalPages - 1;
 
     // Update the auto-advance callback
@@ -101,6 +101,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     playTts,
     totalPages,
     goToPage,
+    mode,
   ]);
 
   // Keyboard navigation
@@ -156,14 +157,14 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     );
   }
 
+  // 게임 모드 → GameListViewer (동화책/파닉스 공통)
+  if (mode === 'games') {
+    return <GameListViewer storybook={storybook} />;
+  }
+
   // 파닉스 콘텐츠 → PhonicsViewer (story 모드는 일반 동화책 뷰어 재사용)
   if (storybook.type === 'phonics' && mode !== 'story') {
     return <PhonicsViewer storybook={storybook} mode={mode} />;
-  }
-
-  // 퀴즈 모드 → QuizViewer
-  if (mode === 'quiz') {
-    return <QuizViewer storybook={storybook} />;
   }
 
   const hasTts = !!getTtsUrl(currentStoryPage);

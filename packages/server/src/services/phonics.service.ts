@@ -1,7 +1,14 @@
 import { R2Repository } from '../repositories/r2.repository.js';
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
 import { parseGeminiJSON } from '../utils/parse-gemini-json.js';
-import { ENGLISH_PHONICS_CURRICULUM, KOREAN_PHONICS_CURRICULUM } from '@tangobook/shared';
+import {
+  ENGLISH_PHONICS_CURRICULUM,
+  KOREAN_PHONICS_CURRICULUM,
+  ENGLISH_UNIT_STORY_DEFAULTS,
+  KOREAN_UNIT_STORY_DEFAULTS,
+  HANGUL_FOREST_CHARACTER_NAMES,
+  HANGUL_FOREST_CHARACTER_PROFILES,
+} from '@tangobook/shared';
 import type {
   Storybook,
   GeneratePhonicsBookRequest,
@@ -116,17 +123,40 @@ function buildPhonicsPrompt(
     sampleWords: readonly string[];
   }
 ) {
-  const { title, targetAge, language, level, storyTheme, referenceContent } = req;
+  const { title, targetAge, language, level, unitId, storyTheme, referenceContent } = req;
+
+  // 유닛별 기본 캐릭터 조회
+  const unitDefaults =
+    language === 'korean'
+      ? KOREAN_UNIT_STORY_DEFAULTS[unitId]
+      : ENGLISH_UNIT_STORY_DEFAULTS[unitId];
+  const characterNameList =
+    unitDefaults?.characterNames.map((korName) =>
+      language === 'english' ? (HANGUL_FOREST_CHARACTER_NAMES[korName] ?? korName) : korName
+    ) ?? [];
+  const characterNames = characterNameList.join(', ');
+  // 캐릭터별 동물/특징 가이드 (AI가 동물을 혼동하지 않도록)
+  const characterGuide = characterNameList
+    .map((name) => {
+      const engName = language === 'english' ? name : (HANGUL_FOREST_CHARACTER_NAMES[name] ?? name);
+      const profile = HANGUL_FOREST_CHARACTER_PROFILES[engName];
+      if (!profile) return null;
+      return language === 'english'
+        ? `${name} (${profile.animalEn}): ${profile.trait}`
+        : `${name} (${profile.animal}): ${profile.trait}`;
+    })
+    .filter(Boolean)
+    .join('\n   - ');
 
   const bookType = getBookType(language, level);
   const isKorean = language === 'korean';
   const storyLang = isKorean ? '한국어' : '영어';
   const ageGuide =
     targetAge === '4-5'
-      ? '4-5세: 페이지 8-10개, 문장 2-3개/페이지, 간단한 어휘'
+      ? '4-5세: 페이지는 타겟 단어 수만큼 (단어 1개 = 1페이지) + 도입/마무리 각 1페이지, 문장 1-2개/페이지 (5-8단어 이내), 가장 쉬운 어휘'
       : targetAge === '5-7'
-        ? '5-7세: 페이지 10-12개, 문장 3-4개/페이지, 중간 수준 어휘'
-        : '7-8세: 페이지 12-14개, 문장 4-5개/페이지, 풍부한 어휘';
+        ? '5-7세: 페이지 10-12개, 문장 2-3개/페이지, 중간 수준 어휘'
+        : '7-8세: 페이지 12-14개, 문장 3-5개/페이지, 풍부한 어휘';
 
   const lessonInstructions = isKorean
     ? buildKoreanLessonInstructions(unit)
@@ -150,12 +180,10 @@ function buildPhonicsPrompt(
 - 대상 연령: ${targetAge}세 (${ageGuide})
 ${storyTheme ? `- 동화 테마: ${storyTheme}` : ''}
 ${referenceContent ? `- 참고 내용: ${referenceContent}` : ''}
-${
-  isKorean
-    ? `
+
 === 한글 숲 세계관 ===
 배경: "한글 숲"은 마법의 글자들이 자연 속에 숨어 있는 신비로운 숲입니다.
-나무껍질, 꽃잎, 돌멩이, 시냇물, 바람 소리 속에 한글 글자들이 살아 숨쉬고 있어요.
+나무껍질, 꽃잎, 돌멩이, 시냇물, 바람 소리 속에 글자들이 살아 숨쉬고 있어요.
 12지신 동물 캐릭터들이 숲을 탐험하며 숨겨진 글자를 발견하고, 그 글자로 새로운 단어를 만들어냅니다.
 
 주요 장소:
@@ -172,23 +200,51 @@ ${
 마법 법칙:
 1. 숲속 자연물에 숨어있는 글자를 발견해야만 배울 수 있음
 2. 발음을 정확히 하면 숲에서 빛이 나고, 틀리면 나뭇잎이 떨어짐
-3. 단어를 완성하면 해당 단어가 실제로 숲속에 나타남 (예: "사자"를 쓰면 귀여운 사자 구름이 생김)
+3. 단어를 완성하면 해당 단어가 실제로 숲속에 나타남 (예: "cat"을 쓰면 귀여운 고양이 구름이 생김)
 4. 혼자서는 찾기 어려운 글자도 친구와 함께하면 쉽게 발견할 수 있음
 5. 발견한 글자는 "글자 나무"에 새겨지고, 복습할 때마다 빛이 더 밝아짐
 
 **중요**: 위 세계관과 동화 테마를 기반으로 일관된 스토리를 만드세요. 캐릭터는 동화 테마에 명시된 캐릭터를 사용하고, 장소 묘사도 한글 숲의 장소를 활용하세요.
+${
+  !isKorean
+    ? `
+**중요 (영어 파닉스)**:
+- 스토리 본문(text)은 반드시 영어로 작성하세요.
+- 캐릭터 이름은 동화 테마에 명시된 영어 이름을 사용하세요 (예: Jjikky, Hoppy, Moomoo, Hodori, Drako, Slither, Gallop, Fluffy, Bouncy, Kokko, Woof, Oink).
+- 장소 이름은 영어 표기를 사용하세요 (Letter Meadow, Echo Cave, Starlight Pond, Wind Hill, Cloud Hill, Honey Waterfall, Letter Bridge, Sunshine Hill, Whispering Tree).
+- **장면 묘사(scene_description)에서 숲속에 보이는 글자는 반드시 영어 알파벳/영어 단어여야 합니다. 한글(ㄱ,ㄴ,ㄷ 등)이 절대 나오면 안 됩니다.** 예: 꽃잎에 'c', 'a', 't' 알파벳이 새겨져 있다 (O), 꽃잎에 'ㅁ', 'ㅂ' 한글이 새겨져 있다 (X).
 `
     : ''
 }
 
 === 핵심 규칙 ===
-1. **스토리**: ${storyLang}로 작성.
+${
+  targetAge === '4-5'
+    ? `1. **스토리**: ${storyLang}로 작성.
+   - **핵심**: 한 페이지에 핵심단어 딱 1개만 등장시키세요.
+   - **문장**: 페이지당 1-2문장, 영어 5-8단어 이내로 아주 짧게.
+   - **반복 패턴**: 같은 문장 구조를 반복하고 핵심단어만 바꾸세요.
+     예: "Look!" said [캐릭터]. "A [단어]!" / The [단어] ... (짧은 묘사).
+   - **페이지 구성**: 도입 1페이지 + 핵심단어별 각 1페이지 + 마무리 1페이지.
+   - **어휘 제한**: 핵심단어 외에는 sight words만 사용 (I, the, a, is, on, it, can, see, look, has, big, little, said, and 등).
+   - **대사**: 짧은 감탄문 위주. "Look!" "Wow!" "I see a ___!"
+   - **스토리라인**: 단순한 하나의 상황 (산책하며 발견, 보물찾기, 숨바꼭질 등).
+   - 페이지 본문(text)에 마크다운 볼드(**단어**)를 사용하지 마세요. 순수 텍스트만 작성.`
+    : `1. **스토리**: ${storyLang}로 작성.
    - 명확한 기승전결 구조를 갖춘 하나의 일관된 이야기를 만드세요. 캐릭터에게 목표/문제를 부여하고, 타겟 단어들이 그 과정에서 자연스럽게 등장하도록 하세요.
    - 각 페이지가 자연스럽게 다음 페이지로 이어져야 합니다. 장면 전환이 갑작스럽지 않도록 하세요.
    - 타겟 단어를 억지로 나열하지 말고, 스토리 전개 속에 자연스럽게 녹여내세요.
    - 각 타겟 단어는 최소 2회 반복.
-   - 페이지 본문(text)에 마크다운 볼드(**단어**)를 사용하지 마세요. 순수 텍스트만 작성.
-2. **캐릭터**: 스토리에 2페이지 이상 등장하는 캐릭터 설정 (외모 구체적으로).
+   - 페이지 본문(text)에 마크다운 볼드(**단어**)를 사용하지 마세요. 순수 텍스트만 작성.`
+}
+2. **캐릭터**: ${
+    characterNames
+      ? `반드시 다음 캐릭터만 사용하세요. 다른 캐릭터를 만들지 마세요.
+   - ${characterGuide}
+   **중요**: 각 캐릭터의 동물 종류를 절대 혼동하지 마세요. scene_description, scene_structure.characters에 캐릭터 이름과 동물을 정확히 명시하세요.
+   예: "토끼 Hoppy가 깡충깡충 뛰어다닌다" (O), "호랑이 Hoppy" (X — Hoppy는 토끼입니다).`
+      : '스토리에 2페이지 이상 등장하는 캐릭터 설정.'
+  } (외모 구체적으로).
 ${lessonInstructions}
   **중요: 학습카드 이미지 설명 규칙**
   - **illustrationDescription** (Level 1): 반드시 스토리의 캐릭터를 등장시키세요. 캐릭터가 단어 사물과 상호작용하는 풍부한 장면을 묘사.

@@ -15,6 +15,7 @@ interface AudiobookProjectCardProps {
   onToggle: () => void;
   onUpdate: (patch: Partial<AudiobookProject>) => void;
   onDelete: () => void;
+  onSave: () => void;
   storybookBgmUrl?: string;
   coverImages?: CoverImageItem[];
   defaultCoverImage?: string;
@@ -50,6 +51,7 @@ export function AudiobookProjectCard({
   onToggle,
   onUpdate,
   onDelete,
+  onSave,
   storybookBgmUrl,
   coverImages,
   defaultCoverImage,
@@ -119,6 +121,10 @@ export function AudiobookProjectCard({
   };
 
   const handleGenerate = async () => {
+    // 생성 전 최신 상태 R2 저장 보장 (BGM 등 설정이 누락되지 않도록)
+    onSave();
+    // onSave가 비동기이므로 짧은 딜레이
+    await new Promise((r) => setTimeout(r, 500));
     setGenerating(true);
     startProgressPolling();
     try {

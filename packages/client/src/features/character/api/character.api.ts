@@ -48,4 +48,6 @@ export const characterApi = {
       .then((r) => (r.data as { success: true; data: SavedCharacter | null }).data),
   removeFromLibrary: (id: string) => apiDelete<void>(`/character-library/${id}`),
   removeAllFromLibrary: () => apiDelete<void>('/character-library/all'),
+  applyEnglishNames: () =>
+    apiPost<{ updated: number }>('/character-library/apply-english-names', {}),
 };

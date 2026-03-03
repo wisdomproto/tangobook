@@ -4,6 +4,7 @@ import { BlendingListeningPlayer } from '../../components/players/BlendingListen
 
 registerGame({
   id: 'blending-listening',
+  category: 'english-phonics',
   nameKo: '듣기 맞추기',
   descriptionKo: '단어를 듣고 알맞은 그림을 골라요',
   icon: '🔊',

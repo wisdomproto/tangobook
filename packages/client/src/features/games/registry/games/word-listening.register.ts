@@ -4,6 +4,7 @@ import { WordListeningPlayer } from '../../components/players/WordListeningPlaye
 
 registerGame({
   id: 'word-listening',
+  category: 'phonics',
   nameKo: '듣고 단어 맞추기',
   descriptionKo: '소리를 듣고 알맞은 그림을 골라요',
   icon: '👂',

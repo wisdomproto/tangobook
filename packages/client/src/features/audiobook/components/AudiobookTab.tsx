@@ -113,6 +113,7 @@ export function AudiobookTab({ storybook, onUpdate, onSave }: AudiobookTabProps)
               onToggle={() => setExpandedId(expandedId === project.id ? null : project.id)}
               onUpdate={(patch) => updateProject(project.id, patch)}
               onDelete={() => deleteProject(project.id)}
+              onSave={onSave}
               storybookBgmUrl={storybook.backgroundMusicUrl}
               coverImages={storybook.coverImages}
               defaultCoverImage={storybook.coverImage}

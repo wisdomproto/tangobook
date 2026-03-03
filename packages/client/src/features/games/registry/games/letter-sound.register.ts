@@ -4,6 +4,7 @@ import { LetterSoundPlayer } from '../../components/players/LetterSoundPlayer';
 
 registerGame({
   id: 'letter-sound',
+  category: 'korean-phonics',
   nameKo: '음가 듣기',
   descriptionKo: '소리를 듣고 알파벳을 찾아요',
   icon: '🔤',

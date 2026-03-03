@@ -25,8 +25,8 @@ interface FlashcardTabProps {
 
 const stripBold = (s: string) => s.replace(/\*\*/g, '');
 
-/** 단어를 음절(글자) 단위로 분리 — 라이브러리에서 개별 조회 후 연결 */
-const toSyllables = (word: string) => word.split('').join(' ');
+/** 한글: 음절 단위 분리 (고양이→고 양 이), 영어: 그대로 유지 */
+const toSyllables = (word: string, korean: boolean) => (korean ? word.split('').join(' ') : word);
 
 export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps) {
   const flashcards = storybook.flashcards ?? [];
@@ -139,7 +139,7 @@ export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps)
     flashcards.forEach((card, idx) => {
       if (!card.ttsUrl && card.word) {
         tasks.push({
-          word: getTtsText(`fc-${idx}`, toSyllables(card.word)),
+          word: getTtsText(`fc-${idx}`, toSyllables(card.word, isKorean)),
           key: `fc-${idx}`,
           updater: (d, url) => {
             d.flashcards![idx].ttsUrl = url;
@@ -464,11 +464,11 @@ export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps)
                             generating={generatingTts.has(`fc-${idx}`)}
                             disabled={isBusy || !card.word}
                             downloadFilename={`${card.word}.wav`}
-                            editableText={getTtsText(`fc-${idx}`, toSyllables(card.word))}
+                            editableText={getTtsText(`fc-${idx}`, toSyllables(card.word, isKorean))}
                             onTextChange={(t) => setTtsText(`fc-${idx}`, t)}
                             onGenerate={() =>
                               generateTts(
-                                getTtsText(`fc-${idx}`, toSyllables(card.word)),
+                                getTtsText(`fc-${idx}`, toSyllables(card.word, isKorean)),
                                 `fc-${idx}`,
                                 (d, url) => {
                                   d.flashcards![idx].ttsUrl = url;

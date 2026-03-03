@@ -207,22 +207,28 @@ export default function LibraryPage() {
                           보기
                         </button>
                         <button
-                          onClick={() => navigate(`/viewer/${book.id}?mode=quiz`)}
-                          className="flex-1 py-2 text-sm font-semibold rounded-lg bg-amber-500 text-white hover:bg-amber-600 transition-colors"
+                          onClick={() => navigate(`/viewer/${book.id}?mode=games`)}
+                          className="flex-1 py-2 text-sm font-semibold rounded-lg bg-emerald-500 text-white hover:bg-emerald-600 transition-colors"
                         >
-                          퀴즈
+                          게임
                         </button>
                       </div>
                     )}
 
-                    {/* 파닉스 열기 버튼 (선택 시) */}
+                    {/* 파닉스 액션 버튼 (선택 시) */}
                     {isSelected && activeTab !== 'storybook' && (
-                      <div className="flex gap-1.5 mt-2 px-0.5">
+                      <div className="flex gap-2 mt-2 px-0.5">
                         <button
                           onClick={() => navigate(`/viewer/${book.id}`)}
                           className="flex-1 py-2 text-sm font-semibold rounded-lg bg-violet-600 text-white hover:bg-violet-700 transition-colors"
                         >
                           열기
+                        </button>
+                        <button
+                          onClick={() => navigate(`/viewer/${book.id}?mode=games`)}
+                          className="flex-1 py-2 text-sm font-semibold rounded-lg bg-emerald-500 text-white hover:bg-emerald-600 transition-colors"
+                        >
+                          게임
                         </button>
                       </div>
                     )}

@@ -4,10 +4,11 @@ import { WordWritingPlayer } from '../../components/players/WordWritingPlayer';
 
 registerGame({
   id: 'word-writing',
+  category: 'common',
   nameKo: '낱말 쓰기',
   descriptionKo: '단어를 직접 따라 써보세요',
   icon: '✍️',
-  supportedTypes: ['storybook'],
+  supportedTypes: ['storybook', 'phonics'],
   contentRequirements: {
     needsVocabularyImages: true,
     needsKeyObjectImages: false,

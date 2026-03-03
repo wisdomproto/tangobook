@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { uploadJsonToR2, r2PublicUrl } from '../providers/r2.provider.js';
+import { HANGUL_FOREST_CHARACTER_NAMES } from '@tangobook/shared';
 import type { Character, SavedCharacter } from '@tangobook/shared';
 
 const LIBRARY_KEY = 'character-library.json';
@@ -55,5 +56,19 @@ export const CharacterLibraryService = {
     const count = library.length;
     await saveLibrary([]);
     return { deleted: count };
+  },
+
+  async applyEnglishNames(): Promise<{ updated: number }> {
+    const library = await getLibrary();
+    let updated = 0;
+    for (const char of library) {
+      const engName = HANGUL_FOREST_CHARACTER_NAMES[char.name];
+      if (engName && char.nameEn !== engName) {
+        char.nameEn = engName;
+        updated++;
+      }
+    }
+    if (updated > 0) await saveLibrary(library);
+    return { updated };
   },
 };

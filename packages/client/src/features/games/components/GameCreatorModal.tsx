@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Button } from '@/components/Button';
-import { getGamesForType, getGamesForPhonicsLevel } from '../registry';
+import { getGamesForContext, groupGamesByCategory } from '../registry';
 import type { GameRegistryEntry } from '../registry';
 import type { Storybook, GameConfig, GameDifficulty, GameTypeId } from '@tangobook/shared';
 
@@ -31,10 +31,16 @@ export function GameCreatorModal({
   const [difficulty, setDifficulty] = useState<GameDifficulty>('easy');
 
   const storybookType = storybook.type ?? 'storybook';
-  const availableGames =
-    storybookType === 'phonics'
-      ? getGamesForPhonicsLevel(storybook.phonicsConfig?.level ?? '')
-      : getGamesForType('storybook');
+  const availableGames = useMemo(
+    () =>
+      getGamesForContext(
+        storybookType,
+        storybook.phonicsConfig?.language,
+        storybook.phonicsConfig?.level
+      ),
+    [storybookType, storybook.phonicsConfig?.language, storybook.phonicsConfig?.level]
+  );
+  const groupedGames = useMemo(() => groupGamesByCategory(availableGames), [availableGames]);
 
   const handleSelectType = useCallback((entry: GameRegistryEntry) => {
     setSelectedEntry(entry);
@@ -66,25 +72,36 @@ export function GameCreatorModal({
 
         <div className="p-6">
           {step === 'select-type' ? (
-            <div className="space-y-3">
-              {availableGames.map((entry) => (
-                <button
-                  key={entry.id}
-                  onClick={() => handleSelectType(entry)}
-                  className="w-full text-left p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-violet-300 dark:hover:border-violet-600 hover:bg-violet-50 dark:hover:bg-violet-900/10 transition-colors"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">{entry.icon}</span>
-                    <div>
-                      <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100">
-                        {entry.nameKo}
-                      </h3>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                        {entry.descriptionKo}
-                      </p>
-                    </div>
+            <div className="space-y-5">
+              {groupedGames.map((group) => (
+                <div key={group.category}>
+                  {groupedGames.length > 1 && (
+                    <h3 className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 px-1">
+                      {group.label}
+                    </h3>
+                  )}
+                  <div className="space-y-2">
+                    {group.games.map((entry) => (
+                      <button
+                        key={entry.id}
+                        onClick={() => handleSelectType(entry)}
+                        className="w-full text-left p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-violet-300 dark:hover:border-violet-600 hover:bg-violet-50 dark:hover:bg-violet-900/10 transition-colors"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">{entry.icon}</span>
+                          <div>
+                            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                              {entry.nameKo}
+                            </h3>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                              {entry.descriptionKo}
+                            </p>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
                   </div>
-                </button>
+                </div>
               ))}
 
               {availableGames.length === 0 && (

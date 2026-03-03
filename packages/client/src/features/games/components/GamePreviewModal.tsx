@@ -32,9 +32,9 @@ export function GamePreviewModal({ game, onClose }: GamePreviewModalProps) {
   const PlayerComponent = entry.PlayerComponent;
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-2">
       <div
-        className="rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-auto p-6 relative"
+        className="rounded-2xl w-full h-full max-h-[98vh] overflow-auto p-8 relative"
         style={{ background: NATURE_BG_GRADIENT }}
       >
         <NatureBg />

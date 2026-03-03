@@ -4,6 +4,7 @@ import { WordImageMatchingPlayer } from '../../components/players/WordImageMatch
 
 registerGame({
   id: 'word-image-matching',
+  category: 'phonics',
   nameKo: '선긋기 게임',
   descriptionKo: '단어와 그림을 선으로 연결하세요',
   icon: '🖇️',

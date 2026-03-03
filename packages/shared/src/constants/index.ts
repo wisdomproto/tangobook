@@ -1381,6 +1381,248 @@ export const KOREAN_UNIT_STORY_DEFAULTS: Record<
   },
 };
 
+/** 한글 숲 친구들 — 한글 이름 → 영어 이름 매핑 (캐릭터 라이브러리 연동용) */
+export const HANGUL_FOREST_CHARACTER_NAMES: Record<string, string> = {
+  호돌이: 'Jjikky',
+  찍찍이: 'Moomoo',
+  음메: 'Hodori',
+  통통이: 'Hoppy',
+  용용이: 'Drako',
+  스르르: 'Slither',
+  달달이: 'Gallop',
+  몽실이: 'Fluffy',
+  깡총이: 'Bouncy',
+  꼬꼬: 'Kokko',
+  멍멍이: 'Woof',
+  꿀꿀이: 'Oink',
+};
+
+/** 캐릭터 프로필 — AI 프롬프트에 동물/특징 정보를 제공하여 혼동 방지 */
+export const HANGUL_FOREST_CHARACTER_PROFILES: Record<
+  string,
+  { animal: string; animalEn: string; trait: string }
+> = {
+  Jjikky: { animal: '호랑이', animalEn: 'Tiger', trait: '리더, 용감하고 친절, 주황 줄무늬' },
+  Moomoo: { animal: '쥐', animalEn: 'Mouse', trait: '빠르고 똑똑, 미니 안경, 작은 체구' },
+  Hodori: { animal: '소', animalEn: 'Cow', trait: '느긋하고 성실, 초록색 스카프, 큰 체구' },
+  Hoppy: { animal: '토끼', animalEn: 'Rabbit', trait: '활발, 깡충깡충, 당근 사랑, 긴 귀' },
+  Drako: { animal: '용', animalEn: 'Dragon', trait: '상상력, 마법 능력, 작은 날개' },
+  Slither: { animal: '뱀', animalEn: 'Snake', trait: '차분, 글자 모양으로 변신, 긴 몸' },
+  Gallop: { animal: '말', animalEn: 'Horse', trait: '활동적, 달리기, 무지개 갈기' },
+  Fluffy: { animal: '양', animalEn: 'Sheep', trait: '온화, 구름 같은 하얀 털, 꿈꾸는 성격' },
+  Bouncy: { animal: '원숭이', animalEn: 'Monkey', trait: '장난꾸러기, 똑똑, 긴 꼬리' },
+  Kokko: { animal: '닭', animalEn: 'Chicken', trait: '부지런, 아침형, 빨간 볏' },
+  Woof: { animal: '개', animalEn: 'Dog', trait: '충직, 격려, 꼬리 흔들기' },
+  Oink: { animal: '돼지', animalEn: 'Pig', trait: '낙천적, 간식 사랑, 동그란 배' },
+};
+
+/** 영어 파닉스 — 유닛별 기본 스토리 테마 + 등장 캐릭터 (12지신, 한글 이름 = 라이브러리 조회용) */
+export const ENGLISH_UNIT_STORY_DEFAULTS: Record<
+  string,
+  { storyTheme: string; characterNames: string[] }
+> = {
+  // ── Book 1: Single Letter Sounds ──
+  'en-b1-u1': {
+    storyTheme:
+      'The Apple Party at Letter Meadow — 장소: 글자 초원(Letter Meadow). 한글 숲 글자 초원에서 Jjikky가 친구들을 모아 파닉스 파티를 열었어요. Hoppy가 사과(apple)를 가져오고, Moomoo는 책(book)과 가방(bag)을 들고 깡총 뛰어왔어요. 친구들은 A, B, C 소리를 노래하며 달콤한 사과를 함께 먹었답니다.',
+    characterNames: ['호돌이', '통통이', '찍찍이'],
+  },
+  'en-b1-u2': {
+    storyTheme:
+      'A Hot Day at Echo Cave — 장소: 메아리 동굴(Echo Cave). 더운 여름날, Gallop이 메아리 동굴로 달려왔어요. Woof는 부채(fan)를 흔들고, Kokko는 오리(duck)와 코끼리(elephant) 그림카드를 보여주었어요. 동굴에서 D, E, F 소리를 외치면 메아리가 되어 돌아왔어요.',
+    characterNames: ['달달이', '멍멍이', '꼬꼬'],
+  },
+  'en-b1-u3': {
+    storyTheme:
+      'The Magic Gift at Starlight Pond — 장소: 별빛 연못(Starlight Pond). 별빛 연못 근처에서 Bouncy가 선물 상자를 발견했어요. Drako가 마법을 써서 상자를 열자 고릴라(gorilla) 인형, 하마(hippo) 장난감, 이구아나(iguana) 스티커가 나왔어요. Hodori는 느긋하게 G, H, I 소리를 하나씩 알려주었어요.',
+    characterNames: ['깡총이', '용용이', '음메'],
+  },
+  'en-b1-u4': {
+    storyTheme:
+      "The King's Lemon at Wind Hill — 장소: 바람 언덕(Wind Hill). 바람 언덕에 왕관(king)을 쓴 Oink가 레몬(lemon) 주스를 만들고 있었어요. Slither가 S자로 몸을 구부려 J, K, L 글자 모양을 만들어 보여주었어요. Jjikky가 재킷(jacket)을 입고 나타나 모두 함께 J, K, L 소리를 연습했답니다.",
+    characterNames: ['꿀꿀이', '스르르', '호돌이'],
+  },
+  'en-b1-u5': {
+    storyTheme:
+      'The Map to the Nutty Nest — 장소: 글자 다리(Letter Bridge). Hodori가 글자 다리에서 지도(map)를 발견했어요. Fluffy와 Hoppy가 함께 새 둥지(nest)를 찾아 지도를 따라 걸었는데, 문어(octopus) 조각상 옆에 숨겨져 있었어요. 셋이서 M, N, O 소리를 노래하며 신나게 걸었답니다.',
+    characterNames: ['음메', '몽실이', '통통이'],
+  },
+  'en-b1-u6': {
+    storyTheme:
+      "The Robot Queen's Ring — 장소: 구름 언덕(Cloud Hill). Drako가 마법 구름 언덕에 로봇(robot) 여왕(queen)을 상상으로 만들었어요. Bouncy가 반지(ring)를 훔치려다가 팬더(panda) 경비원에게 걸렸어요! Slither가 차분하게 P, Q, R 글자를 하나씩 설명해주었답니다.",
+    characterNames: ['용용이', '깡총이', '스르르'],
+  },
+  'en-b1-u7': {
+    storyTheme:
+      'The Violin in the Sun — 장소: 햇살 언덕(Sunshine Hill). 햇살 언덕에서 Oink가 우산(umbrella) 아래 앉아 바이올린(violin)을 켜고 있었어요. Gallop이 신나게 달리며 노래에 맞춰 춤을 추었어요. Slither가 S자 포즈로 모래(sand)를 그리며 S, T, U, V 소리를 멋지게 가르쳐주었답니다.',
+    characterNames: ['스르르', '달달이', '꿀꿀이'],
+  },
+  'en-b1-u8': {
+    storyTheme:
+      "The Zebra's Zoo at the Waterfall — 장소: 꿀 폭포(Honey Waterfall). 꿀 폭포 근처 동물원(zoo)에서 얼룩말(zebra)이 요요(yo-yo)로 놀고 있었어요. Moomoo가 망원경으로 여우(fox)와 상자(box)를 발견하고, Kokko는 시계(watch)를 보며 시간을 외쳤어요. Woof가 'Great! You know all the letters!' 하며 모두를 축하했답니다.",
+    characterNames: ['찍찍이', '꼬꼬', '멍멍이'],
+  },
+  // ── Book 2: Short Vowels ──
+  'en-b2-u1': {
+    storyTheme:
+      "The Cat on the Mat at Letter Meadow — 장소: 글자 초원(Letter Meadow). 글자 초원에서 Hoppy가 깡충 뛰다가 고양이(cat)를 발견했어요. 고양이는 부채(fan) 옆 매트(mat) 위에서 낮잠을 자고 있었답니다. Hodori가 '_at, _an' 단어들을 느릿느릿 하나씩 알려주니 Hoppy가 금세 따라했어요.",
+    characterNames: ['통통이', '음메', '호돌이'],
+  },
+  'en-b2-u2': {
+    storyTheme:
+      "Dad's Cap and Jam under the Tap — 장소: 꿀 폭포(Honey Waterfall). Oink의 아빠(dad)가 모자(cap)를 쓰고 수도꼭지(tap) 아래서 잼(jam)을 만들고 있었어요. Gallop이 빠르게 달려와 지도(map)를 펼치며 '꿀 폭포로 가자!' 했어요. Moomoo가 빠르게 _ap, _ad, _am 단어 카드를 정리해주었답니다.",
+    characterNames: ['꿀꿀이', '달달이', '찍찍이'],
+  },
+  'en-b2-u3': {
+    storyTheme:
+      'Hip Hip! Sit and Mix at Echo Cave — 장소: 메아리 동굴(Echo Cave). 메아리 동굴에서 Bouncy가 장난을 치며 Hoppy의 입술(lip)을 간질였어요! Hoppy가 매트에 앉아(sit) 여섯(six) 가지 재료를 섞어(mix) 마법 주스를 만들었어요. Slither가 차분하게 _ip, _it, _ix 패턴을 몸으로 표현하며 가르쳐주었답니다.',
+    characterNames: ['통통이', '깡총이', '스르르'],
+  },
+  'en-b2-u4': {
+    storyTheme:
+      "The Kid with the Wig and Pin — 장소: 속삭임 나무(Whispering Tree). Moomoo(kid 역할)가 재미있는 가발(wig)을 쓰고 핀(pin)으로 고정했어요. Woof가 '잘했어! Great wig!' 하며 응원하고, Kokko가 아침 일찍 손잡이(lid) 있는 상자를 가져왔어요. 셋이서 _ib, _id, _ig, _in 패턴 단어를 신나게 배웠답니다.",
+    characterNames: ['찍찍이', '멍멍이', '꼬꼬'],
+  },
+  'en-b2-u5': {
+    storyTheme:
+      "The Wet Hen's Red Pen — 장소: 글자 초원(Letter Meadow). 비가 온 뒤 Kokko(hen)가 젖어(wet) 빨간색(red) 펜(pen)을 찾고 있었어요. Hodori가 침대(bed)에서 느긋하게 일어나 수의사(vet)한테 가자고 했어요. Gallop이 빨리 달려 그물(net)을 가져와 셋이서 _et, _ed, _en 단어를 함께 정리했답니다.",
+    characterNames: ['꼬꼬', '음메', '달달이'],
+  },
+  'en-b2-u6': {
+    storyTheme:
+      'The Dog on the Log and Fox in the Box — 장소: 메아리 동굴(Echo Cave). 통나무(log) 위에 Woof가 올라가 여우(fox)가 상자(box) 속에 숨는 걸 봤어요! Bouncy가 대걸레(mop)로 장난을 치다 뜨거운 냄비(pot)를 건드릴 뻔 했어요. Jjikky가 _og, _op, _ot, _ox 단어들을 크게 외치며 모두를 안전하게 도왔답니다.',
+    characterNames: ['멍멍이', '깡총이', '호돌이'],
+  },
+  'en-b2-u7': {
+    storyTheme:
+      'The Bug in the Mug at the Tub — 장소: 별빛 연못(Starlight Pond). Oink가 욕조(tub) 옆 컵(mug)에 벌레(bug)가 들어 있는 것을 발견했어요! Hoppy가 깡충 뛰며 강아지(pup)를 데리고 와서 함께 살펴보았어요. Slither가 차분하게 _ug, _ub, _up 단어들을 미끄러지듯 설명해주었답니다.',
+    characterNames: ['꿀꿀이', '통통이', '스르르'],
+  },
+  'en-b2-u8': {
+    storyTheme:
+      "The Bun in the Sun and Nut in the Mud — 장소: 햇살 언덕(Sunshine Hill). 햇살 언덕에서 Gallop이 빵(bun)을 태양(sun) 아래 두었더니 따뜻해졌어요. Kokko가 아침 일찍 진흙(mud) 속 견과류(nut)를 캐다가 뒹굴었어요! Hodori가 느긋하게 '재미있다~' 하며 _un, _ud, _ut 단어들을 하나씩 가르쳐주었답니다.",
+    characterNames: ['달달이', '꼬꼬', '음메'],
+  },
+  // ── Book 3: Long Vowels (Magic e) ──
+  'en-b3-u1': {
+    storyTheme:
+      "The Magic Cake at the Cave — 장소: 메아리 동굴(Echo Cave). Drako가 마법 e를 흔들자 동굴(cave) 앞에 케이크(cake)가 뚝 나타났어요! Oink가 망토(cape)를 두르고 달려와 케이크에 테이프(tape)로 장식을 붙였어요. Hoppy가 갈퀴(rake)로 낙엽을 치우며 'Magic e makes the vowel say its name!' 했답니다.",
+    characterNames: ['용용이', '꿀꿀이', '통통이'],
+  },
+  'en-b3-u2': {
+    storyTheme:
+      'The Gate at the Lane of Names — 장소: 바람 언덕(Wind Hill). Jjikky가 이름(name) 게임을 하며 작은 길(lane)을 달렸어요. Gallop이 게이트(gate) 앞에서 꽃병(vase)을 들고 기다리고 있었어요. Slither가 글자 모양으로 _ame, _ane, _ase, _ate 패턴을 몸으로 표현해주었답니다.',
+    characterNames: ['호돌이', '달달이', '스르르'],
+  },
+  'en-b3-u3': {
+    storyTheme:
+      "Nine on a Vine: Bike Ride Time! — 장소: 글자 초원(Letter Meadow) 포도밭. Bouncy가 포도나무(vine)에 매달려 아홉(nine) 개의 레몬(lime)을 따고 있었어요! Moomoo가 자전거(bike)를 타고 빠르게 도착해서 함께 수확했어요. Kokko가 '시간(time)이 됐다! 챈트 하자!' 하며 _ine, _ike, _ime 패턴을 알려주었답니다.",
+    characterNames: ['찍찍이', '깡총이', '꼬꼬'],
+  },
+  'en-b3-u4': {
+    storyTheme:
+      "A Kite Ride: Hide and Drive! — 장소: 바람 언덕(Wind Hill). Gallop이 연(kite)을 들고 언덕을 달리다가 동굴에 숨어(hide) 버렸어요! Drako가 파이프(pipe)로 마법 바람을 불어 연을 하늘로 날렸어요. Woof가 '잘했어! Five stars!' 하며 다섯(five) 개 별을 주었답니다.",
+    characterNames: ['달달이', '용용이', '멍멍이'],
+  },
+  'en-b3-u5': {
+    storyTheme:
+      'The Rose, the Rope, and a Note — 장소: 구름 언덕(Cloud Hill). 구름 언덕에서 Fluffy가 장미(rose)를 발견하고 쪽지(note)를 붙여 두었어요. Slither가 밧줄(rope) 모양으로 구불구불 기어와 긴 o 소리를 설명해 주었어요. Hodori가 코(nose)를 킁킁거리며 장미 향기를 맡고는 함께 연습했답니다.',
+    characterNames: ['몽실이', '스르르', '음메'],
+  },
+  'en-b3-u6': {
+    storyTheme:
+      "Mole's Home by the Cone Pole — 장소: 글자 다리(Letter Bridge). Oink가 원뿔(cone) 옆 기둥(pole) 근처에 두더지(mole) 집을 발견했어요! Bouncy가 집(home) 안을 기웃거리다 뼈(bone)를 발견하고 깜짝 놀랐어요. Gallop이 신나게 달리며 _ole, _ome, _one 단어들을 노래로 불렀답니다.",
+    characterNames: ['꿀꿀이', '깡총이', '달달이'],
+  },
+  'en-b3-u7': {
+    storyTheme:
+      "The Cute Mule Plays a June Tune — 장소: 별빛 연못(Starlight Pond). Drako가 6월(June)에 귀여운 노새(mule)를 마법으로 불러냈어요! Moomoo가 큐브(cube)와 튜브(tube)로 악기를 만들어 멜로디(tune)를 연주했어요. Fluffy가 부드러운 목소리로 '참 귀엽다(cute)~' 하며 _ube, _ute, _une, _ule을 가르쳐주었답니다.",
+    characterNames: ['용용이', '찍찍이', '몽실이'],
+  },
+  // ── Book 4: Consonant Blends & Digraphs ──
+  'en-b4-u1': {
+    storyTheme:
+      'Blue Flag and the Clapping Clam — 장소: 글자 다리(Letter Bridge). Gallop이 파란(blue) 깃발(flag)을 들고 글자 다리를 신나게 달렸어요! Bouncy가 조개(clam)를 발견하고 손뼉(clap)을 치며 좋아했어요. Slither가 bl, cl, fl 자음군을 차근차근 연결하며 가르쳐주었답니다.',
+    characterNames: ['달달이', '깡총이', '스르르'],
+  },
+  'en-b4-u2': {
+    storyTheme:
+      "The Brave Crab Crosses the Bridge — 장소: 글자 다리(Letter Bridge). Jjikky가 용감하게(brave) 다리(bridge)를 건너다 게(crab)를 발견했어요! Hodori가 느긋하게 크레인(crane)을 보며 br, cr, fr 소리를 하나씩 연습했어요. Kokko가 '개구리(frog) 앞으로!' 하며 신나게 외쳤답니다.",
+    characterNames: ['호돌이', '음메', '꼬꼬'],
+  },
+  'en-b4-u3': {
+    storyTheme:
+      'The Globe and Sled Glide — 장소: 구름 언덕(Cloud Hill). Drako가 지구본(globe)을 들고 빛나는 별빛 연못 위를 날았어요! Fluffy가 썰매(sled)를 타고 구름 언덕을 미끄러져 내려왔어요. Moomoo가 식물(plant)을 관찰하며 gl, pl, sl 단어들을 빠르게 정리했답니다.',
+    characterNames: ['용용이', '몽실이', '찍찍이'],
+  },
+  'en-b4-u4': {
+    storyTheme:
+      "Dragon's Drum and the Prize Truck — 장소: 바람 언덕(Wind Hill). Gallop이 용(dragon)이 트럭(truck)에 북(drum)을 싣고 달리는 꿈을 꾸었어요! Bouncy가 상(prize)을 받으러 달려가다 Oink와 부딪혔어요. 셋이서 dr, pr, tr 소리를 북 리듬에 맞추어 신나게 연습했답니다.",
+    characterNames: ['달달이', '깡총이', '꿀꿀이'],
+  },
+  'en-b4-u5': {
+    storyTheme:
+      'The Swan Swims by the Smoking Stone — 장소: 별빛 연못(Starlight Pond). 백조(swan)가 별빛 연못에서 수영(swim)하다 연기 나는 돌(stone) 옆을 지났어요! Slither가 뱀(snake) 모양으로 냄새(smell)를 맡으며 sm, sn, st, sw를 설명했어요. Woof가 미소(smile) 지으며 응원하고, Hoppy가 깡충 뛰며 단어를 외쳤답니다.',
+    characterNames: ['스르르', '멍멍이', '통통이'],
+  },
+  'en-b4-u6': {
+    storyTheme:
+      "The King Sings by the Pink Bank — 장소: 글자 초원(Letter Meadow). 왕(king)이 된 Bouncy가 분홍색(pink) 은행(bank) 앞에서 노래(sing)를 불렀어요! Hodori가 쿵(dunk) 하고 넘어지자 Kokko가 달려와 '괜찮아?' 하며 도왔어요. 셋이서 _ng, _nk 단어들을 노래에 맞추어 신나게 연습했답니다.",
+    characterNames: ['깡총이', '음메', '꼬꼬'],
+  },
+  'en-b4-u7': {
+    storyTheme:
+      "The Cherry Ship and Chin Chase — 장소: 꿀 폭포(Honey Waterfall). Bouncy가 체리(cherry)를 든 채 배(ship)에 올라탔어요! Gallop이 가게(shop)를 향해 달리다 Moomoo의 턱(chin)에 부딪힐 뻔 했어요. Moomoo가 빠르게 ch, sh 카드를 정리하며 '두 글자지만 한 소리야!' 설명했답니다.",
+    characterNames: ['깡총이', '달달이', '찍찍이'],
+  },
+  'en-b4-u8': {
+    storyTheme:
+      'The Whale Whispers by the Phone — 장소: 속삭임 나무(Whispering Tree). 고래(whale)가 속삭임 나무 옆에서 속삭이며(whisper) 전화(phone) 소리를 들었어요! Drako가 마법으로 사진(photo)과 돌고래(dolphin)를 불러냈어요. Fluffy가 부드럽게 ph, th, wh 소리를 설명하며 치아(teeth)를 보여주었답니다.',
+    characterNames: ['찍찍이', '용용이', '몽실이'],
+  },
+  // ── Book 5: Double Letter Vowels & R-Controlled ──
+  'en-b5-u1': {
+    storyTheme:
+      'Green Tree Bees by the Sea — 장소: 속삭임 나무(Whispering Tree). Kokko가 초록(green) 나무(tree) 위의 꿀벌(bee)을 발견했어요! Fluffy가 바다(sea) 옆에서 봉인된(seal) 조개와 찻잎(tea)을 찾았어요. Hoppy가 나뭇잎(leaf) 위를 깡충 뛰며 ee, ea 소리를 신나게 연습했답니다.',
+    characterNames: ['꼬꼬', '몽실이', '통통이'],
+  },
+  'en-b5-u2': {
+    storyTheme:
+      "The Goat's Boat in the Yellow Snow — 장소: 구름 언덕(Cloud Hill). 염소(goat)가 배(boat)를 타고 노란(yellow) 눈(snow) 언덕으로 갔어요! Gallop이 창문(window) 옆에서 바람(blow)에 갈기를 날리며 노래했어요. Oink가 비누(soap)로 배를 닦으며 oa, ow 단어들을 배웠답니다.",
+    characterNames: ['음메', '달달이', '꿀꿀이'],
+  },
+  'en-b5-u3': {
+    storyTheme:
+      "The Mail Train on a Rainy Day — 장소: 바람 언덕(Wind Hill). Moomoo가 비(rain) 오는 날 기차(train)로 우편(mail)을 배달하고 있었어요! Jjikky가 쟁반(tray)에 점토(clay)를 들고 '같이 만들자!' 했어요. Bouncy가 '놀자(play)! 회색(gray) 진흙으로!' 하며 ai, ay 단어들을 외쳤답니다.",
+    characterNames: ['찍찍이', '호돌이', '깡총이'],
+  },
+  'en-b5-u4': {
+    storyTheme:
+      "The Boy's Joy: Oil Point Coins! — 장소: 별빛 연못(Starlight Pond). Drako가 마법으로 금화(coin)를 꼬임(coil) 모양 보물 지도에 숨겼어요! Bouncy(boy)가 기름(oil) 웅덩이를 피해 포인트(point)를 찍으며 보물을 찾아갔어요. Oink가 '기뻐(joy)! 나도!' 하며 oi, oy 소리를 즐겁게 배웠답니다.",
+    characterNames: ['깡총이', '용용이', '꿀꿀이'],
+  },
+  'en-b5-u5': {
+    storyTheme:
+      'The Crown Owl and the Cloud House — 장소: 구름 언덕(Cloud Hill). 왕관(crown)을 쓴 부엉이(owl)가 구름(cloud) 집(house)에 살고 있었어요! Gallop이 달려오다 갈색(brown) 소(cow)와 가운(gown)을 발견했어요. Slither가 차분하게 ow, ou 소리를 구름처럼 천천히 설명해주었답니다.',
+    characterNames: ['달달이', '통통이', '스르르'],
+  },
+  'en-b5-u6': {
+    storyTheme:
+      "The Bird's Shirt and the Turtle Nurse — 장소: 햇살 언덕(Sunshine Hill). Kokko(bird)가 새 셔츠(shirt)를 입고 아침 일찍 나타났어요! 거북이 간호사(turtle nurse)가 치마(skirt)를 입은 소녀(girl)를 돌보고 있었어요. Slither가 er, ir, ur 소리가 모두 같은 소리라고 차분하게 설명해주었답니다.",
+    characterNames: ['꼬꼬', '스르르', '몽실이'],
+  },
+  'en-b5-u7': {
+    storyTheme:
+      "The Star Farm: Car Park at the Store — 장소: 글자 초원(Letter Meadow) 별 농장. Gallop이 별(star) 농장(farm)으로 달려가 주차장(park)에 차(car)를 세웠어요! Hodori가 가게(store) 옆 옥수수(corn) 밭에서 포크(fork)로 음식을 먹고 있었어요. Jjikky가 'ar은 /ɑːr/, or은 /ɔːr/ - 다른 소리야!' 하며 명확하게 알려주었답니다.",
+    characterNames: ['달달이', '음메', '호돌이'],
+  },
+  'en-b5-u8': {
+    storyTheme:
+      "The Goose at the Moon Pool Zoo — 장소: 꿀 폭포(Honey Waterfall). Oink가 동물원(zoo)의 달빛(moon) 연못(pool)에서 거위(goose)를 만났어요! Drako가 마법 숟가락(spoon)으로 연못 물을 젓자 별빛 음식(food)이 나타났어요. Moomoo가 빠르게 요리책(book)을 열어 'oo는 두 가지 소리야!' 하며 가르쳐주었답니다.",
+    characterNames: ['꿀꿀이', '용용이', '찍찍이'],
+  },
+};
+
 /** 한글 자모 → 발음 텍스트 매핑 (자음: 자음+ㅡ, 모음: ㅇ+모음) */
 export const KOREAN_PHONEME_MAP: Record<string, string> = {
   // 기본 자음 (14)

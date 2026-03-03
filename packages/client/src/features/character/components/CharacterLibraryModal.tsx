@@ -20,6 +20,10 @@ export function CharacterLibraryModal({
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [deletingAll, setDeletingAll] = useState(false);
   const [uploadingId, setUploadingId] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editName, setEditName] = useState('');
+  const [editNameEn, setEditNameEn] = useState('');
+  const [applyingEn, setApplyingEn] = useState(false);
 
   const fetchLibrary = useCallback(async () => {
     try {
@@ -67,6 +71,39 @@ export function CharacterLibraryModal({
     onImport(character);
   };
 
+  const startEditing = (char: SavedCharacter) => {
+    setEditingId(char.id);
+    setEditName(char.name);
+    setEditNameEn(char.nameEn ?? '');
+  };
+
+  const handleSaveName = async (char: SavedCharacter) => {
+    const updates: Partial<Character> = {};
+    if (editName.trim() && editName.trim() !== char.name) updates.name = editName.trim();
+    if (editNameEn.trim() !== (char.nameEn ?? '')) updates.nameEn = editNameEn.trim() || undefined;
+    if (Object.keys(updates).length > 0) {
+      try {
+        await characterApi.updateInLibrary(char.name, updates);
+        setLibrary((prev) => prev.map((c) => (c.id === char.id ? { ...c, ...updates } : c)));
+      } catch {
+        /* silent */
+      }
+    }
+    setEditingId(null);
+  };
+
+  const handleApplyEnglishNames = async () => {
+    setApplyingEn(true);
+    try {
+      await characterApi.applyEnglishNames();
+      await fetchLibrary();
+    } catch {
+      /* silent */
+    } finally {
+      setApplyingEn(false);
+    }
+  };
+
   const handleImageDelete = async (char: SavedCharacter) => {
     setUploadingId(char.id);
     try {
@@ -108,13 +145,22 @@ export function CharacterLibraryModal({
           </h2>
           <div className="flex items-center gap-2">
             {library.length > 0 && (
-              <button
-                onClick={handleDeleteAll}
-                disabled={deletingAll}
-                className="px-2 py-1 text-xs font-medium text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50"
-              >
-                {deletingAll ? '삭제 중...' : `전체 삭제 (${library.length})`}
-              </button>
+              <>
+                <button
+                  onClick={handleApplyEnglishNames}
+                  disabled={applyingEn}
+                  className="px-2 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors disabled:opacity-50"
+                >
+                  {applyingEn ? '적용 중...' : '영어이름 자동적용'}
+                </button>
+                <button
+                  onClick={handleDeleteAll}
+                  disabled={deletingAll}
+                  className="px-2 py-1 text-xs font-medium text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors disabled:opacity-50"
+                >
+                  {deletingAll ? '삭제 중...' : `전체 삭제 (${library.length})`}
+                </button>
+              </>
             )}
             <button
               onClick={onClose}
@@ -260,14 +306,56 @@ export function CharacterLibraryModal({
                           </div>
                         )}
 
-                        {/* 이름 & 역할 */}
-                        <p className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">
-                          {char.name}
-                        </p>
-                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-violet-50 dark:bg-violet-900/30 text-violet-600 font-medium">
-                          {char.role}
-                        </span>
-                        {char.description && (
+                        {/* 이름 & 영어이름 */}
+                        {editingId === char.id ? (
+                          <div className="space-y-1 mt-1">
+                            <input
+                              value={editName}
+                              onChange={(e) => setEditName(e.target.value)}
+                              placeholder="한글 이름"
+                              className="w-full px-2 py-1 text-xs border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-700 dark:text-slate-100 outline-none focus:ring-1 focus:ring-violet-400"
+                            />
+                            <input
+                              value={editNameEn}
+                              onChange={(e) => setEditNameEn(e.target.value)}
+                              placeholder="English name"
+                              className="w-full px-2 py-1 text-xs border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-700 dark:text-slate-100 outline-none focus:ring-1 focus:ring-violet-400"
+                            />
+                            <div className="flex gap-1">
+                              <button
+                                onClick={() => handleSaveName(char)}
+                                className="flex-1 px-2 py-1 text-[10px] font-medium bg-violet-500 text-white rounded hover:bg-violet-600 transition-colors"
+                              >
+                                저장
+                              </button>
+                              <button
+                                onClick={() => setEditingId(null)}
+                                className="flex-1 px-2 py-1 text-[10px] font-medium bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300 rounded hover:bg-slate-300 dark:hover:bg-slate-500 transition-colors"
+                              >
+                                취소
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div
+                            className="cursor-pointer"
+                            onClick={() => startEditing(char)}
+                            title="클릭하여 이름 수정"
+                          >
+                            <p className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">
+                              {char.name}
+                            </p>
+                            {char.nameEn && (
+                              <p className="text-[10px] text-emerald-600 dark:text-emerald-400 truncate">
+                                {char.nameEn}
+                              </p>
+                            )}
+                            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-violet-50 dark:bg-violet-900/30 text-violet-600 font-medium">
+                              {char.role}
+                            </span>
+                          </div>
+                        )}
+                        {editingId !== char.id && char.description && (
                           <p className="text-xs text-slate-400 dark:text-slate-500 truncate mt-1">
                             {char.description}
                           </p>

@@ -13,6 +13,8 @@ import {
   ENGLISH_PHONICS_CURRICULUM,
   KOREAN_PHONICS_CURRICULUM,
   KOREAN_UNIT_STORY_DEFAULTS,
+  ENGLISH_UNIT_STORY_DEFAULTS,
+  HANGUL_FOREST_CHARACTER_NAMES,
 } from '@tangobook/shared';
 
 export function CreatePhonicsBookForm() {
@@ -54,9 +56,12 @@ export function CreatePhonicsBookForm() {
 
   const handleUnitChange = (newUnitId: string) => {
     setUnitId(newUnitId);
-    // 한글 유닛 선택 시 기본 스토리 테마 자동 채우기
-    if (language === 'korean' && newUnitId) {
-      const defaults = KOREAN_UNIT_STORY_DEFAULTS[newUnitId];
+    // 유닛 선택 시 기본 스토리 테마 자동 채우기
+    if (newUnitId) {
+      const defaults =
+        language === 'korean'
+          ? KOREAN_UNIT_STORY_DEFAULTS[newUnitId]
+          : ENGLISH_UNIT_STORY_DEFAULTS[newUnitId];
       if (defaults && (storyTheme === '' || autoFilledRef.current)) {
         setStoryTheme(defaults.storyTheme);
         autoFilledRef.current = true;
@@ -85,29 +90,52 @@ export function CreatePhonicsBookForm() {
       },
       {
         onSuccess: async (data) => {
-          setSelectedId(data.id);
-          // 한글 유닛: 캐릭터 라이브러리에서 자동으로 캐릭터 불러오기
-          if (language === 'korean' && unitId) {
-            const defaults = KOREAN_UNIT_STORY_DEFAULTS[unitId];
+          // 유닛: 캐릭터 라이브러리에서 불러오기 (없으면 AI 생성본 사용)
+          // 중요: setSelectedId 전에 저장해야 에디터가 최신 데이터를 로드함
+          let finalData = data;
+          if (unitId) {
+            const defaults =
+              language === 'korean'
+                ? KOREAN_UNIT_STORY_DEFAULTS[unitId]
+                : ENGLISH_UNIT_STORY_DEFAULTS[unitId];
             if (defaults?.characterNames.length) {
               try {
                 const library = await characterApi.getLibrary();
-                const namesSet = new Set(defaults.characterNames.map((n) => n.toLowerCase()));
-                const matching = library
-                  .filter((c) => namesSet.has(c.name.toLowerCase()))
-                  .map(({ id: _id, createdAt: _createdAt, ...char }) => char);
-                if (matching.length > 0) {
-                  const updated = await storybookApi.save({
-                    ...data,
-                    characters: [...(data.characters ?? []), ...matching],
+                const libByName = new Map(library.map((c) => [c.name, c]));
+                const libByNameEn = new Map(
+                  library.filter((c) => c.nameEn).map((c) => [c.nameEn!.toLowerCase(), c])
+                );
+
+                const characters = defaults.characterNames.map((korName) => {
+                  const lib = libByName.get(korName);
+                  if (lib) {
+                    const { id: _id, createdAt: _ca, ...character } = lib;
+                    if (language === 'english' && character.nameEn) {
+                      return { ...character, name: character.nameEn };
+                    }
+                    return character;
+                  }
+                  const aiChar = (data.characters ?? []).find((ch) => {
+                    if (language === 'english') {
+                      const libMatch = libByNameEn.get(ch.name.toLowerCase());
+                      return libMatch?.name === korName;
+                    }
+                    return ch.name.toLowerCase() === korName.toLowerCase();
                   });
-                  qc.setQueryData(['storybook', data.id], updated);
-                }
+                  return aiChar ?? { name: korName, description: '', role: '', height: 1 };
+                });
+
+                finalData = await storybookApi.save({
+                  ...data,
+                  characters,
+                });
               } catch {
-                // 캐릭터 불러오기 실패 시 무시 — 수동으로 추가 가능
+                // 라이브러리 불러오기 실패 시 AI 생성본 사용
               }
             }
           }
+          qc.setQueryData(['storybook', finalData.id], finalData);
+          setSelectedId(finalData.id);
         },
       }
     );
@@ -269,12 +297,25 @@ export function CreatePhonicsBookForm() {
                       {unit.sampleWords.slice(0, 8).join(', ')}
                       {unit.sampleWords.length > 8 ? '...' : ''}
                     </p>
-                    {language === 'korean' && KOREAN_UNIT_STORY_DEFAULTS[unitId] && (
-                      <p>
-                        <span className="font-medium">등장 캐릭터:</span>{' '}
-                        {KOREAN_UNIT_STORY_DEFAULTS[unitId].characterNames.join(', ')}
-                      </p>
-                    )}
+                    {(() => {
+                      const defaults =
+                        language === 'korean'
+                          ? KOREAN_UNIT_STORY_DEFAULTS[unitId]
+                          : ENGLISH_UNIT_STORY_DEFAULTS[unitId];
+                      if (!defaults) return null;
+                      const displayNames =
+                        language === 'english'
+                          ? defaults.characterNames.map(
+                              (n) => HANGUL_FOREST_CHARACTER_NAMES[n] ?? n
+                            )
+                          : defaults.characterNames;
+                      return (
+                        <p>
+                          <span className="font-medium">등장 캐릭터:</span>{' '}
+                          {displayNames.join(', ')}
+                        </p>
+                      );
+                    })()}
                   </div>
                 );
               })()}

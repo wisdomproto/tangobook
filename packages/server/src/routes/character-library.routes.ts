@@ -6,6 +6,7 @@ const router = Router();
 router.get('/', CharacterLibraryController.list);
 router.post('/', CharacterLibraryController.save);
 router.patch('/by-name/:name', CharacterLibraryController.updateByName);
+router.post('/apply-english-names', CharacterLibraryController.applyEnglishNames);
 router.delete('/all', CharacterLibraryController.removeAll);
 router.delete('/:id', CharacterLibraryController.remove);
 

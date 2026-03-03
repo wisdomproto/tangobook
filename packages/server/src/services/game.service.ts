@@ -35,7 +35,10 @@ import type {
   WordListeningData,
   WordListeningRound,
   WordListeningOption,
+  KoreanBlockConfig,
+  KoreanBlockData,
 } from '@tangobook/shared';
+import { decomposeWord, isHangulSyllable } from '@tangobook/shared';
 
 type GameGenerator = (storybook: Storybook, config: GameConfig) => Promise<GameData>;
 
@@ -51,6 +54,7 @@ const generators: Partial<Record<GameTypeId, GameGenerator>> = {
   'blending-listening': generateBlendingListening,
   'letter-sound': generateLetterSound,
   'word-listening': generateWordListening,
+  'korean-block': generateKoreanBlock,
 };
 
 export const GameService = {
@@ -175,6 +179,7 @@ async function generateOddOneOut(storybook: Storybook, config: GameConfig): Prom
   const pool = collectStorybookImagePool(storybook, {
     includeCharacters: true,
     includeKeyObjects: true,
+    includeFlashcards: true,
   });
 
   if (pool.length < c.optionsPerRound + 1) {
@@ -561,4 +566,36 @@ async function generateWordListening(storybook: Storybook): Promise<WordListenin
   }
 
   return { type: 'word-listening', rounds };
+}
+
+// --- 한글 블록 맞추기: 이미지 풀에서 한글 단어 추출 + 자모 분해 ---
+async function generateKoreanBlock(
+  storybook: Storybook,
+  config: GameConfig
+): Promise<KoreanBlockData> {
+  const c = config as KoreanBlockConfig;
+
+  const pool = collectStorybookImagePool(storybook, {
+    includeCharacters: c.includeCharacters,
+    includeKeyObjects: c.includeKeyObjects,
+    includeFlashcards: true,
+  });
+
+  // 한글 단어가 있는 항목만 필터
+  const koreanPool = pool.filter((item) => item.korean && [...item.korean].some(isHangulSyllable));
+
+  if (koreanPool.length < 1) {
+    throw new AppError(400, '한글 블록 게임을 만들기 위한 한글 단어가 부족합니다.');
+  }
+
+  const selected = shuffle(koreanPool).slice(0, Math.min(c.itemCount, koreanPool.length));
+
+  const items = selected.map((item) => ({
+    word: item.korean,
+    imageUrl: item.imageUrl,
+    ttsUrl: item.ttsUrl,
+    syllables: decomposeWord(item.korean),
+  }));
+
+  return { type: 'korean-block', items };
 }

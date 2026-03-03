@@ -4,10 +4,11 @@ import { OddOneOutPlayer } from '../../components/players/OddOneOutPlayer';
 
 registerGame({
   id: 'odd-one-out',
+  category: 'common',
   nameKo: '다른 것 찾기',
   descriptionKo: '나머지와 다른 하나를 찾아보세요',
   icon: '🔍',
-  supportedTypes: ['storybook'],
+  supportedTypes: ['storybook', 'phonics'],
   contentRequirements: {
     needsVocabularyImages: true,
     needsKeyObjectImages: true,

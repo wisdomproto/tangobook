@@ -74,10 +74,15 @@ export const AudiobookService = {
           ? { imageUrl: coverUrl, duration: project.coverDuration ?? 3 }
           : undefined;
 
-      // 7. BGM URL 결정
+      // 7. BGM URL 결정 (프로젝트 선택 BGM 우선, 없으면 동화책 기본 BGM)
       const bgmUrl = project.includeBgm
         ? (project.bgmUrl ?? storybook.backgroundMusicUrl)
         : undefined;
+      if (project.includeBgm) {
+        console.warn(
+          `[audiobook] BGM: project.bgmUrl=${project.bgmUrl ? '있음' : '없음'}, storybook.backgroundMusicUrl=${storybook.backgroundMusicUrl ? '있음' : '없음'}, 최종=${bgmUrl ? bgmUrl.substring(0, 80) : '없음'}`
+        );
+      }
 
       // 8. Python 스크립트 호출
       progressMap.set(projectId, { progress: 0, step: '시작' });

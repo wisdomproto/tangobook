@@ -196,9 +196,18 @@ export type GameTypeId =
   | 'word-image-matching'
   | 'blending-listening'
   | 'letter-sound'
-  | 'word-listening';
+  | 'word-listening'
+  | 'korean-block';
 
 export type GameDifficulty = 'easy' | 'medium' | 'hard';
+
+/** 게임 카테고리 — 공통/동화책전용/파닉스공통/영어파닉스전용/한글파닉스전용 */
+export type GameCategory =
+  | 'common'
+  | 'storybook'
+  | 'phonics'
+  | 'english-phonics'
+  | 'korean-phonics';
 
 /** 게임 인스턴스 (Storybook.games[] 배열의 요소) */
 export interface GameInstance {
@@ -222,7 +231,8 @@ export type GameConfig =
   | WordImageMatchingConfig
   | BlendingListeningConfig
   | LetterSoundConfig
-  | WordListeningConfig;
+  | WordListeningConfig
+  | KoreanBlockConfig;
 
 /** 게임별 데이터 (discriminated union) */
 export type GameData =
@@ -235,7 +245,8 @@ export type GameData =
   | WordImageMatchingData
   | BlendingListeningData
   | LetterSoundData
-  | WordListeningData;
+  | WordListeningData
+  | KoreanBlockData;
 
 // --- 단어 매칭 ---
 export interface VocabularyMatchingConfig {
@@ -422,10 +433,35 @@ export interface WordListeningData {
   rounds: WordListeningRound[];
 }
 
+// --- 한글 블록 맞추기 ---
+export interface KoreanBlockConfig {
+  type: 'korean-block';
+  itemCount: number;
+  includeKeyObjects: boolean;
+  includeCharacters: boolean;
+}
+export interface KoreanBlockSyllable {
+  char: string;
+  cho: string;
+  jung: string;
+  jong: string | null;
+}
+export interface KoreanBlockItem {
+  word: string;
+  imageUrl: string;
+  ttsUrl?: string;
+  syllables: KoreanBlockSyllable[];
+}
+export interface KoreanBlockData {
+  type: 'korean-block';
+  items: KoreanBlockItem[];
+}
+
 // === 기존 타입 ===
 
 export interface Character {
   name: string;
+  nameEn?: string;
   description: string;
   descriptionEn?: string;
   age?: number;
@@ -631,6 +667,45 @@ export interface AudiobookProject {
   subtitleBg: string;
   outputUrl?: string;
   createdAt?: string;
+}
+
+// === 글로벌 어휘 DB ===
+
+export type VocabSourceType =
+  | 'storybook-vocabulary'
+  | 'storybook-key-object'
+  | 'phonics-flashcard'
+  | 'phonics-blending'
+  | 'phonics-word-family';
+
+export interface VocabSource {
+  storybookId: string;
+  storybookTitle: string;
+  sourceType: VocabSourceType;
+  pages?: number[];
+  sentences?: string[];
+  phonicPattern?: string;
+  phonicsUnit?: string;
+  phonicsLevel?: string;
+  imageUrl?: string;
+  ttsUrl?: string;
+}
+
+export interface VocabEntry {
+  word: string;
+  korean: string;
+  definition?: string;
+  phonemes?: string[];
+  phonicPattern?: string;
+  sources: VocabSource[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface VocabularyDatabase {
+  version: 1;
+  updatedAt: string;
+  entries: VocabEntry[];
 }
 
 export type StorybookSummary = Pick<

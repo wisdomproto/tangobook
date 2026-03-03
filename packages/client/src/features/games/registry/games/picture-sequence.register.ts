@@ -4,6 +4,7 @@ import { PictureSequencePlayer } from '../../components/players/PictureSequenceP
 
 registerGame({
   id: 'picture-sequence',
+  category: 'storybook',
   nameKo: '그림 순서 맞추기',
   descriptionKo: '그림을 올바른 순서로 배열하세요',
   icon: '🔢',

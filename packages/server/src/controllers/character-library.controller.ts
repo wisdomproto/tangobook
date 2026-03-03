@@ -30,4 +30,9 @@ export const CharacterLibraryController = {
     const result = await CharacterLibraryService.removeAll();
     res.json({ success: true, data: result });
   }),
+
+  applyEnglishNames: asyncHandler(async (_req, res) => {
+    const result = await CharacterLibraryService.applyEnglishNames();
+    res.json({ success: true, data: result });
+  }),
 };
