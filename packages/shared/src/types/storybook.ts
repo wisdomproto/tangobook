@@ -197,7 +197,9 @@ export type GameTypeId =
   | 'blending-listening'
   | 'letter-sound'
   | 'word-listening'
-  | 'korean-block';
+  | 'korean-block'
+  | 'english-block'
+  | 'storybook-quiz';
 
 export type GameDifficulty = 'easy' | 'medium' | 'hard';
 
@@ -232,7 +234,9 @@ export type GameConfig =
   | BlendingListeningConfig
   | LetterSoundConfig
   | WordListeningConfig
-  | KoreanBlockConfig;
+  | KoreanBlockConfig
+  | EnglishBlockConfig
+  | StorybookQuizConfig;
 
 /** 게임별 데이터 (discriminated union) */
 export type GameData =
@@ -246,7 +250,9 @@ export type GameData =
   | BlendingListeningData
   | LetterSoundData
   | WordListeningData
-  | KoreanBlockData;
+  | KoreanBlockData
+  | EnglishBlockData
+  | StorybookQuizData;
 
 // --- 단어 매칭 ---
 export interface VocabularyMatchingConfig {
@@ -292,6 +298,8 @@ export interface WordWritingData {
 export interface ConnectTheDotsConfig {
   type: 'connect-the-dots';
   sourcePages: number[];
+  sourceObjects?: string[];
+  sourceMode?: 'objects' | 'pages';
   pointCount: number;
   showNumbers: boolean;
   showFaintOutline: boolean;
@@ -305,6 +313,7 @@ export interface ConnectTheDotsItem {
   pageNumber: number;
   originalImageUrl: string;
   keypoints: DotKeypoint[];
+  objectName?: string;
 }
 export interface ConnectTheDotsData {
   type: 'connect-the-dots';
@@ -457,6 +466,39 @@ export interface KoreanBlockData {
   items: KoreanBlockItem[];
 }
 
+// --- 영어 블록 맞추기 ---
+export interface EnglishBlockConfig {
+  type: 'english-block';
+  itemCount: number;
+  includeKeyObjects: boolean;
+  includeCharacters: boolean;
+}
+export interface EnglishBlockLetter {
+  char: string;
+  isVowel: boolean;
+}
+export interface EnglishBlockItem {
+  word: string;
+  korean: string;
+  imageUrl: string;
+  ttsUrl?: string;
+  letters: EnglishBlockLetter[];
+}
+export interface EnglishBlockData {
+  type: 'english-block';
+  items: EnglishBlockItem[];
+}
+
+// --- 동화책 퀴즈 ---
+export interface StorybookQuizConfig {
+  type: 'storybook-quiz';
+  questionCount: number;
+}
+export interface StorybookQuizData {
+  type: 'storybook-quiz';
+  questions: QuizItem[];
+}
+
 // === 기존 타입 ===
 
 export interface Character {
@@ -558,6 +600,7 @@ export interface KeyObjectImage {
   objectName: string;
   imageUrl: string;
   success: boolean;
+  keypoints?: DotKeypoint[];
 }
 
 export interface CoverImageItem {

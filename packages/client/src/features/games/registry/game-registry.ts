@@ -22,6 +22,7 @@ export interface GamePlayerProps {
   difficulty: GameDifficulty;
   onComplete: (score: number, maxScore: number) => void;
   onBack: () => void;
+  systemSounds?: { correctUrl?: string; incorrectUrl?: string };
 }
 
 /** 게임 설정 패널 컴포넌트가 받는 props */

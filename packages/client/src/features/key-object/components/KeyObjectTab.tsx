@@ -8,6 +8,7 @@ import { DownloadButton } from '@/components/DownloadButton';
 import { ImageModelSelector } from '@/components/ImageModelSelector';
 import { BatchProgressBar } from '@/components/BatchProgressBar';
 import { UploadMenu } from '@/components/UploadMenu';
+import { KeyObjectDotEditorModal } from './KeyObjectDotEditorModal';
 import { keyObjectApi } from '../api/keyObject.api';
 import { apiClient } from '@/lib/axios';
 import type { Storybook, KeyObject, ImageGenerationResult } from '@tangobook/shared';
@@ -28,6 +29,7 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
   const [newObj, setNewObj] = useState({ name: '', nameEn: '', description: '' });
   const [lightboxUrl, setLightboxUrl] = useState<string | null>(null);
   const [uploadingIdx, setUploadingIdx] = useState<number | null>(null);
+  const [dotEditIdx, setDotEditIdx] = useState<number | null>(null);
 
   const generateMutation = useMutation({
     mutationFn: (idx: number) => {
@@ -50,7 +52,12 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
         const existing = draft.keyObjectImages.findIndex(
           (o) => o.objectName === keyObjects[idx].name
         );
-        const entry = { objectName: keyObjects[idx].name, imageUrl: data.imageUrl, success: true };
+        const entry = {
+          objectName: keyObjects[idx].name,
+          imageUrl: data.imageUrl,
+          success: true,
+          keypoints: undefined,
+        };
         if (existing >= 0) draft.keyObjectImages[existing] = entry;
         else draft.keyObjectImages.push(entry);
       });
@@ -96,7 +103,12 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
             onUpdate((draft) => {
               if (!draft.keyObjectImages) draft.keyObjectImages = [];
               const existing = draft.keyObjectImages.findIndex((o) => o.objectName === obj.name);
-              const entry = { objectName: obj.name, imageUrl: data.imageUrl, success: true };
+              const entry = {
+                objectName: obj.name,
+                imageUrl: data.imageUrl,
+                success: true,
+                keypoints: undefined,
+              };
               if (existing >= 0) draft.keyObjectImages[existing] = entry;
               else draft.keyObjectImages.push(entry);
             });
@@ -170,7 +182,7 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
       onUpdate((draft) => {
         if (!draft.keyObjectImages) draft.keyObjectImages = [];
         const existing = draft.keyObjectImages.findIndex((o) => o.objectName === obj.name);
-        const entry = { objectName: obj.name, imageUrl, success: true };
+        const entry = { objectName: obj.name, imageUrl, success: true, keypoints: undefined };
         if (existing >= 0) draft.keyObjectImages[existing] = entry;
         else draft.keyObjectImages.push(entry);
       });
@@ -394,6 +406,16 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
                         disabled={generatingIdx === idx || uploadingIdx === idx}
                       />
                     </div>
+                    {img?.imageUrl && (
+                      <button
+                        onClick={() => setDotEditIdx(idx)}
+                        className="w-full mt-1.5 px-2 py-1.5 rounded-lg text-xs font-medium border transition-colors bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-violet-300 hover:text-violet-600"
+                      >
+                        {(img.keypoints?.length ?? 0) > 0
+                          ? `점 ${img.keypoints!.length}개`
+                          : '점 등록'}
+                      </button>
+                    )}
                   </div>
                 )}
               </ImageDropZone>
@@ -411,6 +433,31 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
       {lightboxUrl && (
         <ImageLightbox src={lightboxUrl} alt="핵심 사물" onClose={() => setLightboxUrl(null)} />
       )}
+
+      {dotEditIdx !== null &&
+        (() => {
+          const obj = keyObjects[dotEditIdx];
+          const img = keyObjectImages.find((o) => o.objectName === obj?.name);
+          if (!obj || !img?.imageUrl) return null;
+          return (
+            <KeyObjectDotEditorModal
+              objectName={obj.korean || obj.name}
+              imageUrl={img.imageUrl}
+              initialKeypoints={img.keypoints ?? []}
+              onSave={(keypoints) => {
+                onUpdate((draft) => {
+                  const target = (draft.keyObjectImages ?? []).find(
+                    (o) => o.objectName === obj.name
+                  );
+                  if (target) target.keypoints = keypoints;
+                });
+                onSave();
+                setDotEditIdx(null);
+              }}
+              onClose={() => setDotEditIdx(null)}
+            />
+          );
+        })()}
     </div>
   );
 }

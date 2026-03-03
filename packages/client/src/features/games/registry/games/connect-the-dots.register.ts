@@ -11,14 +11,16 @@ registerGame({
   supportedTypes: ['storybook', 'phonics'],
   contentRequirements: {
     needsVocabularyImages: false,
-    needsKeyObjectImages: false,
+    needsKeyObjectImages: true,
     needsCharacterImages: false,
-    needsIllustrations: true,
+    needsIllustrations: false,
     needsPhonicsData: false,
   },
   defaultConfig: {
     type: 'connect-the-dots',
     sourcePages: [],
+    sourceObjects: [],
+    sourceMode: 'objects' as const,
     pointCount: 15,
     showNumbers: true,
     showFaintOutline: true,

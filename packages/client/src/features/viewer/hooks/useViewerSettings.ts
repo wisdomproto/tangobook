@@ -6,6 +6,7 @@ export interface ViewerSettings {
   darkMode: boolean;
   autoPlayTts: boolean;
   showText: boolean;
+  fullscreenImage: boolean;
 }
 
 const STORAGE_KEY = 'tangobook-viewer-settings';
@@ -16,6 +17,7 @@ const DEFAULT_SETTINGS: ViewerSettings = {
   darkMode: true,
   autoPlayTts: false,
   showText: true,
+  fullscreenImage: false,
 };
 
 function loadSettings(): ViewerSettings {

@@ -561,8 +561,8 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
       {/* 파닉스 음원 라이브러리 (파닉스 전용) */}
       {isPhonics && <PhonicsAudioLibrary />}
 
-      {/* 시스템 사운드 라이브러리 (파닉스 전용) */}
-      {isPhonics && <SystemSoundsLibrary />}
+      {/* 시스템 사운드 라이브러리 */}
+      <SystemSoundsLibrary />
 
       {/* 그림체 라이브러리 모달 */}
       {showStyleLibrary && (

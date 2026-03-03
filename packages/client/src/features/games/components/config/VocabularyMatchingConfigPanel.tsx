@@ -17,7 +17,7 @@ export function VocabularyMatchingConfigPanel({ config, onChange }: GameConfigPa
 
       <div className="space-y-2">
         <ConfigCheckbox
-          label="핵심사물 이미지 포함"
+          label="핵심단어 이미지 포함"
           checked={c.includeKeyObjects}
           onChange={(v) => onChange({ ...c, includeKeyObjects: v })}
         />

@@ -3,6 +3,9 @@ import { Button } from '@/components/Button';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData } from '@tangobook/shared';
 import { GameProgressBar } from '../GameProgressBar';
+import { useGameAudio } from '../../hooks/useGameAudio';
+import { PraiseOverlay } from '../PraiseOverlay';
+import { GamePlayerLayout } from '../GamePlayerLayout';
 
 const CANVAS_W = 500;
 const CANVAS_H = 250;
@@ -10,7 +13,7 @@ const LINE_WIDTH = 8;
 const GUIDE_COLOR = '#d4d4d8'; // zinc-300
 const DRAW_COLOR = '#1e293b'; // slate-800
 
-export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerProps) {
+export function WordWritingPlayer({ gameData, onComplete, onBack, systemSounds }: GamePlayerProps) {
   const data = gameData as WordWritingData;
   const items = data.items;
 
@@ -26,8 +29,8 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
   const pathsRef = useRef<Array<Array<{ x: number; y: number }>>>([]);
 
   const currentItem = items[currentIndex];
+  const { playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
 
-  // 가이드 텍스트에 맞는 폰트 크기 계산
   const calcFont = useCallback((ctx: CanvasRenderingContext2D, word: string) => {
     let size = CANVAS_H * 0.65;
     ctx.font = `bold ${size}px sans-serif`;
@@ -38,7 +41,6 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
     return `bold ${size}px sans-serif`;
   }, []);
 
-  // 가이드 텍스트 렌더링
   const drawGuide = useCallback(
     (ctx: CanvasRenderingContext2D, word: string) => {
       ctx.fillStyle = '#ffffff';
@@ -52,7 +54,6 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
     [calcFont]
   );
 
-  // 캔버스 초기화
   useEffect(() => {
     const ctx = canvasRef.current?.getContext('2d');
     if (!ctx) return;
@@ -61,7 +62,6 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
     drawGuide(ctx, currentItem.word);
   }, [currentIndex, currentItem.word, drawGuide]);
 
-  // 캔버스 좌표 변환
   const toCanvas = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const rect = canvasRef.current!.getBoundingClientRect();
     return {
@@ -112,7 +112,6 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
     lastPointRef.current = null;
   };
 
-  // 지우기
   const handleClear = () => {
     const ctx = canvasRef.current?.getContext('2d');
     if (!ctx) return;
@@ -122,18 +121,15 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
     drawGuide(ctx, currentItem.word);
   };
 
-  // Distance Transform: 각 픽셀에서 가장 가까운 글자 픽셀까지의 거리 계산
   const computeDistanceTransform = (imageData: ImageData): Float32Array => {
     const { width, height, data } = imageData;
     const size = width * height;
     const dist = new Float32Array(size);
 
-    // 초기화: 글자 픽셀=0, 배경=Infinity
     for (let i = 0; i < size; i++) {
       dist[i] = data[i * 4] < 128 ? 0 : 1e6;
     }
 
-    // Forward pass (좌상→우하)
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const idx = y * width + x;
@@ -146,7 +142,6 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
       }
     }
 
-    // Backward pass (우하→좌상)
     for (let y = height - 1; y >= 0; y--) {
       for (let x = width - 1; x >= 0; x--) {
         const idx = y * width + x;
@@ -163,11 +158,9 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
     return dist;
   };
 
-  // 정확도 계산 (Distance Transform 기반)
   const calculateAccuracy = (): number => {
-    const TOLERANCE = 10; // 이 거리 이내면 부분 점수, 넘으면 0점
+    const TOLERANCE = 10;
 
-    // 1. 가이드 텍스트 렌더링 (검정색)
     const guideCanvas = document.createElement('canvas');
     guideCanvas.width = CANVAS_W;
     guideCanvas.height = CANVAS_H;
@@ -180,7 +173,6 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
     gCtx.textBaseline = 'middle';
     gCtx.fillText(currentItem.word, CANVAS_W / 2, CANVAS_H / 2);
 
-    // 2. 사용자 필기 렌더링 (검정색)
     const userCanvas = document.createElement('canvas');
     userCanvas.width = CANVAS_W;
     userCanvas.height = CANVAS_H;
@@ -206,7 +198,6 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
       uCtx.stroke();
     }
 
-    // 3. Distance Transform 계산
     const guideImgData = gCtx.getImageData(0, 0, CANVAS_W, CANVAS_H);
     const userImgData = uCtx.getImageData(0, 0, CANVAS_W, CANVAS_H);
     const distMap = computeDistanceTransform(guideImgData);
@@ -225,35 +216,21 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
       if (isGuide && isUser) coveredPixels++;
       if (isUser) {
         userPixels++;
-        // 글자에 가까울수록 높은 점수 (0=글자 위=1점, TOLERANCE 이상=0점)
         proximitySum += Math.max(0, 1 - distMap[i] / TOLERANCE);
       }
     }
 
     if (guidePixels === 0 || userPixels === 0) return 0;
 
-    // proximity: 사용자 획이 글자에 얼마나 가까운지
     const proximity = proximitySum / userPixels;
-    // coverage: 글자 영역을 얼마나 따라 썼는지
     const coverage = coveredPixels / guidePixels;
-    // efficiency: 과잉 필기 페널티 (글자 대비 1.5배 이상 그리면 감점)
-    // 낙서로 캔버스 전체를 덮으면 efficiency가 크게 떨어짐
     const efficiency = Math.min(1, (guidePixels * 1.5) / userPixels);
 
     const rawScore = proximity * 0.6 + coverage * 0.4;
     return Math.round(rawScore * efficiency * 100);
   };
 
-  // 확인
-  const handleCheck = () => {
-    if (!hasDrawn) return;
-    const score = calculateAccuracy();
-    setCurrentScore(score);
-    setShowResult(true);
-  };
-
-  // 다음 단어
-  const handleNext = () => {
+  const advanceToNext = useCallback(() => {
     const newScores = [...scores, currentScore];
     setScores(newScores);
     setShowResult(false);
@@ -266,84 +243,107 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
     } else {
       setCurrentIndex(currentIndex + 1);
     }
+  }, [scores, currentScore, currentIndex, items.length, onComplete]);
+
+  const handleCheck = () => {
+    if (!hasDrawn) return;
+    const accuracy = calculateAccuracy();
+    setCurrentScore(accuracy);
+    setShowResult(true);
+
+    if (accuracy >= 50) {
+      playCorrectSequence({
+        systemSounds,
+        onDone: () => {
+          const newScores = [...scores, accuracy];
+          setScores(newScores);
+          setShowResult(false);
+          setCurrentScore(0);
+          setHasDrawn(false);
+          if (currentIndex + 1 >= items.length) {
+            const total = newScores.reduce((a, b) => a + b, 0);
+            onComplete(total, items.length * 100);
+          } else {
+            setCurrentIndex(currentIndex + 1);
+          }
+        },
+      });
+    } else {
+      playFeedbackSound(false);
+    }
   };
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      {/* 진행 */}
-      <div className="w-full flex items-center gap-2">
-        <div className="flex-1">
-          <GameProgressBar current={currentIndex} total={items.length} accentColor="violet" />
-        </div>
-        <button
-          onClick={onBack}
-          className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
-        >
-          ✕
-        </button>
-      </div>
+    <GamePlayerLayout maxWidth="lg" onBack={onBack}>
+      <PraiseOverlay visible={praiseVisible} />
+      <div className="flex flex-col items-center gap-3 sm:gap-4 w-full">
+        {/* 진행 */}
+        <GameProgressBar current={currentIndex} total={items.length} accentColor="violet" />
 
-      {/* 단어 정보 */}
-      <div className="flex items-center gap-4">
-        {currentItem.imageUrl && (
-          <img
-            src={currentItem.imageUrl}
-            alt={currentItem.word}
-            className="w-16 h-16 object-cover rounded-lg"
-          />
-        )}
-        <div className="text-center">
-          <p className="text-2xl font-bold text-slate-800 dark:text-slate-100">
-            {currentItem.displayWord}
-          </p>
-          <p className="text-sm text-slate-500 dark:text-slate-400">따라 써보세요</p>
-        </div>
-      </div>
-
-      {/* Canvas */}
-      <div className="w-full max-w-lg border-2 border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden bg-white">
-        <canvas
-          ref={canvasRef}
-          width={CANVAS_W}
-          height={CANVAS_H}
-          className="w-full"
-          style={{ touchAction: 'none' }}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerLeave={handlePointerUp}
-        />
-      </div>
-
-      {/* 결과 */}
-      {showResult && (
-        <div className="text-center">
-          <div className="text-4xl mb-1">
-            {currentScore >= 80 ? '🎉' : currentScore >= 50 ? '👍' : '💪'}
+        {/* 단어 정보 */}
+        <div className="flex items-center gap-4">
+          {currentItem.imageUrl && (
+            <img
+              src={currentItem.imageUrl}
+              alt={currentItem.word}
+              className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg"
+            />
+          )}
+          <div className="text-center">
+            <p className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100">
+              {currentItem.displayWord}
+            </p>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">따라 써보세요</p>
           </div>
-          <p className="text-lg font-bold text-slate-800 dark:text-slate-100">
-            정확도: {currentScore}%
-          </p>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            {currentScore >= 80 ? '잘했어요!' : currentScore >= 50 ? '괜찮아요!' : '다시 해볼까요?'}
-          </p>
         </div>
-      )}
 
-      {/* 컨트롤 */}
-      <div className="flex gap-3">
-        {!showResult ? (
-          <>
-            <Button variant="ghost" size="sm" onClick={handleClear}>
-              지우기
-            </Button>
-            <Button size="sm" onClick={handleCheck} disabled={!hasDrawn}>
-              확인
-            </Button>
-          </>
-        ) : (
-          <>
-            {currentScore < 50 && (
+        {/* Canvas */}
+        <div className="w-full border-2 border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden bg-white">
+          <canvas
+            ref={canvasRef}
+            width={CANVAS_W}
+            height={CANVAS_H}
+            className="w-full"
+            style={{ touchAction: 'none' }}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerLeave={handlePointerUp}
+          />
+        </div>
+
+        {/* 결과 */}
+        {showResult && (
+          <div className="text-center">
+            <div className="text-3xl sm:text-4xl mb-1">
+              {currentScore >= 80 ? '🎉' : currentScore >= 50 ? '👍' : '💪'}
+            </div>
+            <p className="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100">
+              정확도: {currentScore}%
+            </p>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+              {currentScore >= 80
+                ? '잘했어요!'
+                : currentScore >= 50
+                  ? '괜찮아요!'
+                  : '다시 해볼까요?'}
+            </p>
+          </div>
+        )}
+
+        {/* 컨트롤 */}
+        <div className="flex gap-3">
+          {!showResult ? (
+            <>
+              <Button variant="ghost" size="sm" onClick={handleClear}>
+                지우기
+              </Button>
+              <Button size="sm" onClick={handleCheck} disabled={!hasDrawn}>
+                확인
+              </Button>
+            </>
+          ) : currentScore < 50 ? (
+            <>
               <Button
                 variant="ghost"
                 size="sm"
@@ -354,13 +354,13 @@ export function WordWritingPlayer({ gameData, onComplete, onBack }: GamePlayerPr
               >
                 다시 쓰기
               </Button>
-            )}
-            <Button size="sm" onClick={handleNext}>
-              {currentIndex + 1 >= items.length ? '결과 보기' : '다음 단어'}
-            </Button>
-          </>
-        )}
+              <Button size="sm" onClick={advanceToNext}>
+                {currentIndex + 1 >= items.length ? '결과 보기' : '다음 단어'}
+              </Button>
+            </>
+          ) : null}
+        </div>
       </div>
-    </div>
+    </GamePlayerLayout>
   );
 }

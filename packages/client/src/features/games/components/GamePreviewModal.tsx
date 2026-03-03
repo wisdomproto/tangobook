@@ -1,14 +1,15 @@
 import { useCallback, useState } from 'react';
 import { getGameEntry } from '../registry';
-import type { GameInstance } from '@tangobook/shared';
+import type { GameInstance, Storybook } from '@tangobook/shared';
 import { NatureBg, NATURE_BG_GRADIENT } from '@/features/viewer/components/Viewer3DKit';
 
 interface GamePreviewModalProps {
   game: GameInstance;
+  storybook?: Storybook;
   onClose: () => void;
 }
 
-export function GamePreviewModal({ game, onClose }: GamePreviewModalProps) {
+export function GamePreviewModal({ game, storybook, onClose }: GamePreviewModalProps) {
   const entry = getGameEntry(game.gameType);
   const [result, setResult] = useState<{ score: number; maxScore: number } | null>(null);
 
@@ -47,7 +48,7 @@ export function GamePreviewModal({ game, onClose }: GamePreviewModalProps) {
         </button>
 
         {/* 결과 표시 */}
-        <div className="relative z-10">
+        <div className="relative z-10 min-h-full">
           {result ? (
             <div className="flex flex-col items-center justify-center py-16">
               <div className="text-6xl mb-4">{result.score === result.maxScore ? '🎉' : '👏'}</div>
@@ -78,6 +79,7 @@ export function GamePreviewModal({ game, onClose }: GamePreviewModalProps) {
               difficulty={game.difficulty}
               onComplete={handleComplete}
               onBack={onClose}
+              systemSounds={storybook?.systemSounds}
             />
           )}
         </div>

@@ -123,6 +123,24 @@ export function ViewerToolbar({ title, settings, onUpdateSettings, onBack }: Vie
         )}
       </button>
 
+      {/* 이미지 풀스크린 */}
+      <button
+        onClick={() => onUpdateSettings({ fullscreenImage: !settings.fullscreenImage })}
+        className={`p-2 rounded-lg hover:bg-white/10 transition-colors ${
+          settings.fullscreenImage ? 'text-violet-400' : 'text-white/80 hover:text-white'
+        }`}
+        title={settings.fullscreenImage ? '일반 보기' : '이미지 풀스크린'}
+      >
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
+        </svg>
+      </button>
+
       {/* 전체화면 */}
       <button
         onClick={toggleFullscreen}

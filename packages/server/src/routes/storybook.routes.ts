@@ -10,5 +10,6 @@ router.delete('/:id', StorybookController.delete);
 router.post('/:id/copy', StorybookController.copy);
 router.post('/generate-story', StorybookController.generateStory);
 router.post('/generate', StorybookController.generate);
+router.post('/simplify-key-objects', StorybookController.simplifyKeyObjects);
 
 export default router;

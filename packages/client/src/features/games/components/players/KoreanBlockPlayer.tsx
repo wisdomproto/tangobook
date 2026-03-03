@@ -6,6 +6,8 @@ import { GameProgressBar } from '../GameProgressBar';
 import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { settingsApi } from '@/features/settings/api/settings.api';
+import { PraiseOverlay } from '../PraiseOverlay';
+import { GamePlayerLayout } from '../GamePlayerLayout';
 
 type JamoType = 'cho' | 'jung' | 'jong';
 
@@ -46,11 +48,16 @@ function tryCompose(slots: (string | null)[]): string | null {
   return composeHangul(consonants[0], vowels[0], consonants.length >= 2 ? consonants[1] : null);
 }
 
-// 셀/블록 크기
-const CELL = 'w-20 h-20';
-const BLOCK = 'w-16 h-16';
+// 셀/블록 크기 (반응형)
+const CELL = 'w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20';
+const BLOCK = 'w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16';
 
-export function KoreanBlockPlayer({ gameData, onComplete: _onComplete, onBack }: GamePlayerProps) {
+export function KoreanBlockPlayer({
+  gameData,
+  onComplete: _onComplete,
+  onBack,
+  systemSounds,
+}: GamePlayerProps) {
   const data = gameData as KoreanBlockData;
   const items = data.items;
 
@@ -77,7 +84,7 @@ export function KoreanBlockPlayer({ gameData, onComplete: _onComplete, onBack }:
 
   const [grid, setGrid] = useState<(string | null)[][]>(() => initGrid(syllables));
 
-  const { playAudio, playFeedbackSound } = useGameAudio();
+  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   const dragBlockRef = useRef<JamoBlock | null>(null);
   const touchGhostRef = useRef<HTMLDivElement | null>(null);
   const gridCellRefs = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -216,9 +223,23 @@ export function KoreanBlockPlayer({ gameData, onComplete: _onComplete, onBack }:
     }
     if (allCorrect) {
       if (!hasTriedThisRound) setScore((s) => s + 1);
-      playFeedbackSound(true);
-      if (currentItem.ttsUrl) setTimeout(() => playAudio(currentItem.ttsUrl), 400);
       setRoundCorrect(true);
+      playCorrectSequence({
+        ttsUrl: currentItem.ttsUrl,
+        systemSounds,
+        onDone: () => {
+          if (currentIndex + 1 < items.length) {
+            const nextIdx = currentIndex + 1;
+            setCurrentIndex(nextIdx);
+            setGrid(initGrid(items[nextIdx].syllables));
+            setHasTriedThisRound(false);
+            setRoundCorrect(false);
+            setWrongCols(new Set());
+          } else {
+            setFinished(true);
+          }
+        },
+      });
     } else {
       playFeedbackSound(false);
       setHasTriedThisRound(true);
@@ -230,23 +251,14 @@ export function KoreanBlockPlayer({ gameData, onComplete: _onComplete, onBack }:
     syllables,
     hasTriedThisRound,
     currentItem.ttsUrl,
+    currentIndex,
+    items,
+    initGrid,
     playFeedbackSound,
-    playAudio,
+    playCorrectSequence,
+    systemSounds,
     roundCorrect,
   ]);
-
-  const handleNext = useCallback(() => {
-    if (currentIndex + 1 < items.length) {
-      const nextIdx = currentIndex + 1;
-      setCurrentIndex(nextIdx);
-      setGrid(initGrid(items[nextIdx].syllables));
-      setHasTriedThisRound(false);
-      setRoundCorrect(false);
-      setWrongCols(new Set());
-    } else {
-      setFinished(true);
-    }
-  }, [currentIndex, items, initGrid]);
 
   const handleRestart = useCallback(() => {
     setCurrentIndex(0);
@@ -285,7 +297,7 @@ export function KoreanBlockPlayer({ gameData, onComplete: _onComplete, onBack }:
         onDragOver={handleDragOver}
         onDrop={(e) => handleDrop(sylIdx, slot, e)}
         onClick={() => handleCellClick(sylIdx, slot)}
-        className={`${CELL} rounded-xl border-2 border-dashed flex items-center justify-center text-4xl font-bold transition-all cursor-pointer select-none ${
+        className={`${CELL} rounded-xl border-2 border-dashed flex items-center justify-center text-2xl sm:text-3xl lg:text-4xl font-bold transition-all cursor-pointer select-none ${
           char
             ? isWrong
               ? 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
@@ -309,7 +321,7 @@ export function KoreanBlockPlayer({ gameData, onComplete: _onComplete, onBack }:
       onTouchStart={(e) => handleTouchStart(block, e)}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      className={`${BLOCK} rounded-xl flex items-center justify-center text-2xl font-bold cursor-grab active:cursor-grabbing select-none shadow-sm ${
+      className={`${BLOCK} rounded-xl flex items-center justify-center text-lg sm:text-xl lg:text-2xl font-bold cursor-grab active:cursor-grabbing select-none shadow-sm ${
         isVowel(block.char)
           ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700'
           : 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-700'
@@ -320,105 +332,104 @@ export function KoreanBlockPlayer({ gameData, onComplete: _onComplete, onBack }:
   );
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-full space-y-10 py-8">
-      <GameProgressBar
-        current={currentIndex}
-        total={items.length}
-        score={score}
-        accentColor="emerald"
-      />
+    <GamePlayerLayout maxWidth="5xl" onBack={onBack}>
+      <PraiseOverlay visible={praiseVisible} />
+      <div className="flex flex-col items-center gap-6 sm:gap-8 lg:gap-10 w-full">
+        <GameProgressBar
+          current={currentIndex}
+          total={items.length}
+          score={score}
+          accentColor="emerald"
+        />
 
-      {/* 이미지 + 단어 */}
-      <div className="flex flex-col items-center gap-5">
-        {currentItem.imageUrl && (
-          <img
-            src={currentItem.imageUrl}
-            alt={currentItem.word}
-            className="w-80 h-80 object-contain rounded-3xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"
-          />
-        )}
-        <p className="text-7xl font-black text-slate-800 dark:text-slate-100">{currentItem.word}</p>
-      </div>
+        {/* 이미지 + 단어 */}
+        <div className="flex flex-col items-center gap-5">
+          {currentItem.imageUrl && (
+            <img
+              src={currentItem.imageUrl}
+              alt={currentItem.word}
+              className="w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 object-contain rounded-3xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"
+            />
+          )}
+          <p className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-800 dark:text-slate-100">
+            {currentItem.word}
+          </p>
+        </div>
 
-      {/* 격자 + 블록 영역 */}
-      <div className="flex gap-12 justify-center items-start">
-        {/* 음절 격자들 */}
-        <div className="flex flex-wrap gap-6 justify-center">
-          {Array.from({ length: syllableCount }, (_, sylIdx) => (
-            <div key={sylIdx} className="flex flex-col items-center gap-3">
-              {/* 2×3 격자 */}
-              <div
-                className={`grid grid-cols-2 gap-1.5 p-3 rounded-2xl border-2 ${
-                  wrongCols.has(sylIdx)
-                    ? 'border-red-300 dark:border-red-700 bg-red-50/50 dark:bg-red-900/10'
-                    : roundCorrect
-                      ? 'border-emerald-300 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-900/10'
-                      : 'border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50'
-                }`}
-              >
-                {Array.from({ length: 6 }, (_, slot) => renderCell(sylIdx, slot))}
-              </div>
-              {/* 조합 미리보기 */}
-              <span
-                className={`text-6xl font-black ${
-                  composedPreview[sylIdx]
-                    ? wrongCols.has(sylIdx)
-                      ? 'text-red-500'
+        {/* 격자 + 블록 영역 */}
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 justify-center items-center lg:items-start">
+          {/* 음절 격자들 */}
+          <div className="flex flex-wrap gap-6 justify-center">
+            {Array.from({ length: syllableCount }, (_, sylIdx) => (
+              <div key={sylIdx} className="flex flex-col items-center gap-3">
+                {/* 2×3 격자 */}
+                <div
+                  className={`grid grid-cols-2 gap-1.5 p-3 rounded-2xl border-2 ${
+                    wrongCols.has(sylIdx)
+                      ? 'border-red-300 dark:border-red-700 bg-red-50/50 dark:bg-red-900/10'
                       : roundCorrect
-                        ? 'text-emerald-600 dark:text-emerald-400'
-                        : 'text-slate-700 dark:text-slate-200'
-                    : 'text-slate-300 dark:text-slate-600'
-                }`}
-              >
-                {composedPreview[sylIdx] || '?'}
-              </span>
-            </div>
-          ))}
-        </div>
+                        ? 'border-emerald-300 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-900/10'
+                        : 'border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50'
+                  }`}
+                >
+                  {Array.from({ length: 6 }, (_, slot) => renderCell(sylIdx, slot))}
+                </div>
+                {/* 조합 미리보기 */}
+                <span
+                  className={`text-4xl sm:text-5xl lg:text-6xl font-black ${
+                    composedPreview[sylIdx]
+                      ? wrongCols.has(sylIdx)
+                        ? 'text-red-500'
+                        : roundCorrect
+                          ? 'text-emerald-600 dark:text-emerald-400'
+                          : 'text-slate-700 dark:text-slate-200'
+                      : 'text-slate-300 dark:text-slate-600'
+                  }`}
+                >
+                  {composedPreview[sylIdx] || '?'}
+                </span>
+              </div>
+            ))}
+          </div>
 
-        {/* 자모 팔레트 — 자음·모음 가로 배치 */}
-        <div className="flex gap-4 flex-shrink-0">
-          {/* 자음 (19개) */}
-          <div className="rounded-2xl border-2 border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-4">
-            <p className="text-base font-bold text-amber-500 dark:text-amber-400 text-center mb-3">
-              자음
-            </p>
-            <div className="grid grid-cols-4 gap-2 justify-items-center">
-              {ALL_CONSONANTS.map(renderBlock)}
+          {/* 자모 팔레트 — 자음·모음 가로 배치 */}
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 flex-shrink-0">
+            {/* 자음 (19개) */}
+            <div className="rounded-2xl border-2 border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-4">
+              <p className="text-base font-bold text-amber-500 dark:text-amber-400 text-center mb-3">
+                자음
+              </p>
+              <div className="grid grid-cols-4 gap-2 justify-items-center">
+                {ALL_CONSONANTS.map(renderBlock)}
+              </div>
+            </div>
+            {/* 모음 (21개) */}
+            <div className="rounded-2xl border-2 border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
+              <p className="text-base font-bold text-emerald-500 dark:text-emerald-400 text-center mb-3">
+                모음
+              </p>
+              <div className="grid grid-cols-4 gap-2 justify-items-center">
+                {ALL_VOWELS.map(renderBlock)}
+              </div>
             </div>
           </div>
-          {/* 모음 (21개) */}
-          <div className="rounded-2xl border-2 border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
-            <p className="text-base font-bold text-emerald-500 dark:text-emerald-400 text-center mb-3">
-              모음
-            </p>
-            <div className="grid grid-cols-4 gap-2 justify-items-center">
-              {ALL_VOWELS.map(renderBlock)}
-            </div>
-          </div>
+        </div>
+
+        {/* 확인 버튼 */}
+        <div className="flex justify-center">
+          <button
+            onClick={handleCheck}
+            disabled={roundCorrect}
+            className={`px-8 py-3 sm:px-10 sm:py-4 lg:px-14 lg:py-5 rounded-2xl text-lg sm:text-xl lg:text-2xl font-bold transition-colors ${
+              roundCorrect
+                ? 'bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 cursor-not-allowed'
+                : 'bg-emerald-600 hover:bg-emerald-700 text-white'
+            }`}
+          >
+            확인
+          </button>
         </div>
       </div>
-
-      {/* 버튼 */}
-      <div className="flex justify-center gap-5">
-        <button
-          onClick={handleCheck}
-          disabled={roundCorrect}
-          className={`px-14 py-5 rounded-2xl text-2xl font-bold transition-colors ${
-            roundCorrect
-              ? 'bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 cursor-not-allowed'
-              : 'bg-emerald-600 hover:bg-emerald-700 text-white'
-          }`}
-        >
-          확인
-        </button>
-        <button
-          onClick={handleNext}
-          className="px-14 py-5 bg-violet-600 hover:bg-violet-700 text-white rounded-2xl text-2xl font-bold transition-colors"
-        >
-          {currentIndex + 1 < items.length ? '다음 →' : '결과 보기'}
-        </button>
-      </div>
-    </div>
+    </GamePlayerLayout>
   );
 }

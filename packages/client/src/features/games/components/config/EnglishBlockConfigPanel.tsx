@@ -1,9 +1,9 @@
 import type { GameConfigPanelProps } from '../../registry/game-registry';
-import type { KoreanBlockConfig } from '@tangobook/shared';
+import type { EnglishBlockConfig } from '@tangobook/shared';
 import { NumberSelector, ConfigCheckbox } from './ConfigControls';
 
-export function KoreanBlockConfigPanel({ config, onChange }: GameConfigPanelProps) {
-  const c = config as KoreanBlockConfig;
+export function EnglishBlockConfigPanel({ config, onChange }: GameConfigPanelProps) {
+  const c = config as EnglishBlockConfig;
 
   return (
     <div className="space-y-4">

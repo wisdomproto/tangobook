@@ -134,7 +134,13 @@ export function GamesTab({ storybook, onUpdate, onSave }: GamesTabProps) {
       )}
 
       {/* 미리보기 모달 */}
-      {previewGame && <GamePreviewModal game={previewGame} onClose={() => setPreviewGame(null)} />}
+      {previewGame && (
+        <GamePreviewModal
+          game={previewGame}
+          storybook={storybook}
+          onClose={() => setPreviewGame(null)}
+        />
+      )}
 
       {/* 점잇기 편집 모달 */}
       {editDotGame && (

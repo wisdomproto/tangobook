@@ -4,8 +4,10 @@ import type { LetterSoundData, LetterSoundRound } from '@tangobook/shared';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { GameResultScreen } from '../GameResultScreen';
 import { GameProgressBar } from '../GameProgressBar';
+import { PraiseOverlay } from '../PraiseOverlay';
+import { GamePlayerLayout } from '../GamePlayerLayout';
 
-export function LetterSoundPlayer({ gameData, onComplete, onBack }: GamePlayerProps) {
+export function LetterSoundPlayer({ gameData, onComplete, onBack, systemSounds }: GamePlayerProps) {
   const data = gameData as LetterSoundData;
   const rounds = data.rounds;
 
@@ -14,11 +16,10 @@ export function LetterSoundPlayer({ gameData, onComplete, onBack }: GamePlayerPr
   const [selected, setSelected] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
   const [finished, setFinished] = useState(false);
-  const { playAudio, playFeedbackSound } = useGameAudio();
+  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
 
   const current = rounds[currentIdx] as LetterSoundRound | undefined;
 
-  // 자동 TTS 재생
   useEffect(() => {
     if (!current || finished) return;
     const timer = setTimeout(() => playAudio(current.ttsUrl), 400);
@@ -31,24 +32,35 @@ export function LetterSoundPlayer({ gameData, onComplete, onBack }: GamePlayerPr
       const isCorrect = letter === current.targetLetter;
       setSelected(letter);
       setFeedback(isCorrect ? 'correct' : 'wrong');
-      playFeedbackSound(isCorrect);
 
       if (isCorrect) {
         setScore((s) => s + 1);
-        setTimeout(() => {
-          if (currentIdx + 1 >= rounds.length) setFinished(true);
-          else setCurrentIdx((i) => i + 1);
-          setSelected(null);
-          setFeedback(null);
-        }, 1000);
+        playCorrectSequence({
+          systemSounds,
+          onDone: () => {
+            if (currentIdx + 1 >= rounds.length) setFinished(true);
+            else setCurrentIdx((i) => i + 1);
+            setSelected(null);
+            setFeedback(null);
+          },
+        });
       } else {
+        playFeedbackSound(false);
         setTimeout(() => {
           setSelected(null);
           setFeedback(null);
         }, 800);
       }
     },
-    [feedback, current, currentIdx, rounds.length, playFeedbackSound]
+    [
+      feedback,
+      current,
+      currentIdx,
+      rounds.length,
+      playFeedbackSound,
+      playCorrectSequence,
+      systemSounds,
+    ]
   );
 
   const handleRestart = useCallback(() => {
@@ -79,7 +91,7 @@ export function LetterSoundPlayer({ gameData, onComplete, onBack }: GamePlayerPr
 
   const getOptionClass = (letter: string) => {
     const base =
-      'w-24 h-24 sm:w-28 sm:h-28 rounded-2xl text-3xl sm:text-4xl font-black border-3 transition-all';
+      'w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-2xl text-2xl sm:text-3xl lg:text-4xl font-black border-3 transition-all';
     if (selected === letter) {
       if (feedback === 'correct')
         return `${base} border-emerald-400 bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300 scale-110`;
@@ -92,42 +104,44 @@ export function LetterSoundPlayer({ gameData, onComplete, onBack }: GamePlayerPr
   };
 
   return (
-    <div className="space-y-6">
-      {/* 진행 바 */}
-      <GameProgressBar
-        current={currentIdx}
-        total={rounds.length}
-        score={score}
-        accentColor="violet"
-      />
+    <GamePlayerLayout maxWidth="lg" onBack={onBack}>
+      <PraiseOverlay visible={praiseVisible} />
+      <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">
+        <GameProgressBar
+          current={currentIdx}
+          total={rounds.length}
+          score={score}
+          accentColor="violet"
+        />
 
-      {/* 안내 + 듣기 버튼 */}
-      <div className="text-center space-y-3">
-        <p className="text-base font-bold text-slate-700 dark:text-slate-200">
-          어떤 알파벳의 소리일까요?
-        </p>
-        <button
-          onClick={() => playAudio(current.ttsUrl)}
-          className="inline-flex items-center gap-3 px-8 py-5 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300 font-bold hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-all hover:scale-105"
-        >
-          <span className="text-3xl">🔊</span>
-          <span className="text-lg">다시 듣기</span>
-        </button>
-      </div>
-
-      {/* 글자 선택 (한 줄) */}
-      <div className="flex justify-center gap-3 sm:gap-4">
-        {current.options.map((letter) => (
+        {/* 안내 + 듣기 버튼 */}
+        <div className="text-center space-y-3">
+          <p className="text-sm sm:text-base font-bold text-slate-700 dark:text-slate-200">
+            어떤 알파벳의 소리일까요?
+          </p>
           <button
-            key={letter}
-            onClick={() => handleSelect(letter)}
-            disabled={!!feedback}
-            className={getOptionClass(letter)}
+            onClick={() => playAudio(current.ttsUrl)}
+            className="inline-flex items-center gap-3 px-6 py-4 sm:px-8 sm:py-5 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300 font-bold hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-all hover:scale-105"
           >
-            {letter}
+            <span className="text-2xl sm:text-3xl">🔊</span>
+            <span className="text-base sm:text-lg">다시 듣기</span>
           </button>
-        ))}
+        </div>
+
+        {/* 글자 선택 */}
+        <div className="flex justify-center gap-2 sm:gap-3 lg:gap-4 flex-wrap">
+          {current.options.map((letter) => (
+            <button
+              key={letter}
+              onClick={() => handleSelect(letter)}
+              disabled={!!feedback}
+              className={getOptionClass(letter)}
+            >
+              {letter}
+            </button>
+          ))}
+        </div>
       </div>
-    </div>
+    </GamePlayerLayout>
   );
 }

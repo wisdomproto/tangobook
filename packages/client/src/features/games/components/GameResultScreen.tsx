@@ -23,7 +23,7 @@ export function GameResultScreen({
   const { btn } = ACCENT_CLASSES[accentColor];
 
   return (
-    <div className="text-center py-12">
+    <div className="min-h-full flex flex-col items-center justify-center text-center py-12">
       <div className="text-5xl mb-3">{isPerfect ? '🎉' : '👏'}</div>
       <p className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-1">
         {score} / {total}

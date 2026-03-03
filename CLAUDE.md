@@ -156,6 +156,32 @@ features/games/
 - 감지: `isKoreanPhonics(storybook)` 사용 (`server/utils/phonics-data-helpers.ts`)
 - 데이터 수집: `collectPhonicsWordPool()` (파닉스용), `collectStorybookImagePool()` (동화책용)
 
+### 단어/이미지 데이터 구조 매핑 (타입별)
+동화책·파닉스는 "핵심단어"라는 같은 개념을 다른 필드명으로 저장. R2 호환성 때문에 리팩토링하지 않음.
+
+| 데이터 | 동화책 | 파닉스 | 비고 |
+|--------|:------:|:------:|------|
+| **핵심단어 메타** | `key_objects[]` (KeyObject) | `flashcards[]` (PhonicsFlashcard) | 이름은 다르나 역할 동일 |
+| **핵심단어 이미지** | `keyObjectImages[]` (별도 배열) | `flashcards[].imageUrl` (객체 내부) | 저장 방식 상이 |
+| **학습 어휘** | `educational_content.vocabulary[]` | `educational_content.vocabulary[]` | 동일 구조 |
+| **어휘 이미지** | `vocabularyImages[]` (별도 배열) | N/A | 동화책 전용 |
+| **블렌딩/단어패밀리** | N/A | `phonicsLesson.blending[]` / `.wordFamilies[]` | 파닉스 전용 |
+
+**통합 지점:**
+- `VocabularyDbService` — 모든 소스를 `VocabEntry { word, korean, sources[] }`로 통합
+- `collectStorybookImagePool()` → `{ word, korean, imageUrl, ttsUrl? }` (동화책용 게임)
+- `collectPhonicsWordPool()` → `{ word, imageUrl, ttsUrl }` (파닉스용 게임)
+
+**알려진 코드 중복 (허용 수준):**
+- flashcard 추출 로직: `phonics-data-helpers.ts` + `game.service.ts` 내 3곳
+- 한글/영어 단어 선택: `isKorean ? localWord : word` 패턴 4곳
+- 향후 중복이 심해지면 공통 `collectUnifiedWordPool()` 함수 도입 검토
+
+**snake_case 혼용 (레거시, 변경 불가):**
+- `key_objects`, `educational_content`, `scene_description` = snake_case (R2 기존 데이터)
+- `keyObjectImages`, `vocabularyImages`, `illustrationUrl` = camelCase (나중에 추가된 필드)
+- 새 필드는 항상 camelCase로 추가
+
 ## 서버 유틸리티
 ```
 server/src/utils/

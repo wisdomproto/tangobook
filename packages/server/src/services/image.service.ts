@@ -815,18 +815,16 @@ ${artStyleBlock(storybook.artStyle)}
 }
 
 function buildKeyObjectPrompt(obj: KeyObject, artStyle: string): string {
+  const word = obj.nameEn ?? obj.name;
   const sizeInfo = obj.sizeCm
     ? `\nReal-world Size: approximately ${obj.sizeCm}cm (${obj.sizeCategory ?? 'medium'}). Draw the object at proportions that reflect this real-world size.`
     : obj.sizeCategory
       ? `\nSize Category: ${obj.sizeCategory}. Draw the object at proportions appropriate for a ${obj.sizeCategory}-sized object.`
       : '';
-  return `Create a clear educational illustration of an object for a children's storybook.
-
-Object: ${obj.nameEn ?? obj.name}${obj.korean ? ` (${obj.korean})` : obj.nameEn ? ` (${obj.name})` : ''}
+  const hasCustom = !!obj.customPrompt;
+  return `${isolatedObjectPrompt(word, hasCustom)}
+${hasCustom ? `\n구체적 묘사: ${obj.customPrompt}` : ''}
 Description: ${obj.description}${sizeInfo}
 
-${artStyleBlock(artStyle)}
-
-White or transparent background.
-CRITICAL - NO TEXT: No text or labels in the image.`;
+${artStyleBlock(artStyle)}`;
 }

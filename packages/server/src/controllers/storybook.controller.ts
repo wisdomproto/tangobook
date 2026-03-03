@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import { StorybookService } from '../services/storybook.service.js';
 import { asyncHandler } from '../middleware/async-handler.js';
 import type { GenerateStorybookRequest, GenerateStoryRequest } from '@tangobook/shared';
@@ -43,5 +42,10 @@ export const StorybookController = {
     const body = req.body as GenerateStorybookRequest;
     const storybook = await StorybookService.generate(body);
     res.json({ success: true, data: storybook });
+  }),
+
+  simplifyKeyObjects: asyncHandler(async (_req, res) => {
+    const result = await StorybookService.simplifyKeyObjectNames();
+    res.json({ success: true, data: result });
   }),
 };

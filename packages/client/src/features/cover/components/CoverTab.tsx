@@ -567,7 +567,7 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
                     loading={generateMutation.isPending || uploading}
                     className="flex-1"
                   >
-                    표지 생성
+                    {selected.imageUrl ? '표지 재생성' : '표지 생성'}
                   </Button>
                   {selected.imageUrl && (
                     <DownloadButton

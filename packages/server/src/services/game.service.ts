@@ -37,8 +37,13 @@ import type {
   WordListeningOption,
   KoreanBlockConfig,
   KoreanBlockData,
+  EnglishBlockConfig,
+  EnglishBlockData,
+  StorybookQuizConfig,
+  StorybookQuizData,
 } from '@tangobook/shared';
 import { decomposeWord, isHangulSyllable } from '@tangobook/shared';
+import { decomposeEnglishWord } from '@tangobook/shared';
 
 type GameGenerator = (storybook: Storybook, config: GameConfig) => Promise<GameData>;
 
@@ -55,6 +60,8 @@ const generators: Partial<Record<GameTypeId, GameGenerator>> = {
   'letter-sound': generateLetterSound,
   'word-listening': generateWordListening,
   'korean-block': generateKoreanBlock,
+  'english-block': generateEnglishBlock,
+  'storybook-quiz': generateStorybookQuiz,
 };
 
 export const GameService = {
@@ -117,7 +124,7 @@ async function generatePictureSequence(
   const images = selected.map((p, i) => ({
     imageUrl: p.illustrationUrl!,
     correctOrder: i + 1,
-    caption: p.text.length > 30 ? p.text.slice(0, 30) + '...' : p.text,
+    caption: p.text,
   }));
 
   return { type: 'picture-sequence', images };
@@ -295,12 +302,43 @@ async function generateWordWriting(
   return { type: 'word-writing', items };
 }
 
-// --- 점잇기: 삽화 페이지 추출 ---
+// --- 점잇기: 핵심단어 이미지 (신규) / 삽화 페이지 (레거시) ---
 async function generateConnectTheDots(
   storybook: Storybook,
   config: GameConfig
 ): Promise<ConnectTheDotsData> {
   const c = config as ConnectTheDotsConfig;
+  const mode = c.sourceMode ?? 'pages';
+
+  if (mode === 'objects') {
+    const keyObjectImages = storybook.keyObjectImages ?? [];
+    const selectedNames = c.sourceObjects ?? [];
+
+    const candidates = keyObjectImages.filter((img) => {
+      if (!img.imageUrl || !img.success) return false;
+      if (!img.keypoints || img.keypoints.length < 2) return false;
+      if (selectedNames.length > 0) return selectedNames.includes(img.objectName);
+      return true;
+    });
+
+    if (candidates.length === 0) {
+      throw new AppError(
+        400,
+        '점이 등록된 핵심단어 이미지가 없습니다. 핵심사물 탭에서 점을 먼저 등록해주세요.'
+      );
+    }
+
+    const items = candidates.map((img) => ({
+      pageNumber: 0,
+      objectName: img.objectName,
+      originalImageUrl: img.imageUrl,
+      keypoints: [...img.keypoints!],
+    }));
+
+    return { type: 'connect-the-dots', items };
+  }
+
+  // 레거시: 페이지 삽화 기반
   const pages = storybook.pages ?? [];
   const targetPages =
     c.sourcePages.length > 0
@@ -598,4 +636,57 @@ async function generateKoreanBlock(
   }));
 
   return { type: 'korean-block', items };
+}
+
+// --- 영어 블록 맞추기: 이미지 풀에서 영어 단어 추출 + 글자 분해 ---
+async function generateEnglishBlock(
+  storybook: Storybook,
+  config: GameConfig
+): Promise<EnglishBlockData> {
+  const c = config as EnglishBlockConfig;
+
+  const pool = collectStorybookImagePool(storybook, {
+    includeCharacters: c.includeCharacters,
+    includeKeyObjects: c.includeKeyObjects,
+    includeFlashcards: true,
+  });
+
+  // 영어 단어가 있고, 소문자 알파벳만으로 구성되고, 6글자 이하인 항목만 필터
+  const englishPool = pool.filter((item) => {
+    const w = item.word?.toLowerCase();
+    return w && /^[a-z]+$/.test(w) && w.length <= 6;
+  });
+
+  if (englishPool.length < 1) {
+    throw new AppError(400, '영어 블록 게임을 만들기 위한 영어 단어가 부족합니다.');
+  }
+
+  const selected = shuffle(englishPool).slice(0, Math.min(c.itemCount, englishPool.length));
+
+  const items = selected.map((item) => ({
+    word: item.word.toLowerCase(),
+    korean: item.korean,
+    imageUrl: item.imageUrl,
+    ttsUrl: item.ttsUrl,
+    letters: decomposeEnglishWord(item.word),
+  }));
+
+  return { type: 'english-block', items };
+}
+
+// --- 동화책 퀴즈: educational_content.quiz에서 직접 추출 ---
+async function generateStorybookQuiz(
+  storybook: Storybook,
+  config: GameConfig
+): Promise<StorybookQuizData> {
+  const c = config as StorybookQuizConfig;
+  const allQuiz = storybook.educational_content?.quiz ?? [];
+
+  if (allQuiz.length === 0) {
+    throw new AppError(400, '동화책에 퀴즈 데이터가 없습니다.');
+  }
+
+  const count = Math.min(c.questionCount, allQuiz.length);
+  const questions = shuffle([...allQuiz]).slice(0, count);
+  return { type: 'storybook-quiz', questions };
 }

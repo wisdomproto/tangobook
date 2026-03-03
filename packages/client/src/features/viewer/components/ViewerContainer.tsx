@@ -170,28 +170,40 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const hasTts = !!getTtsUrl(currentStoryPage);
   const hasBgm = !!storybook.backgroundMusicUrl;
 
+  const isFullImg = settings.fullscreenImage && currentStoryPage;
+
   return (
     <div
       ref={containerRef}
-      className={`min-h-screen flex flex-col select-none ${
-        settings.darkMode ? 'bg-gray-900' : 'bg-gray-50'
+      className={`min-h-screen flex flex-col select-none relative ${
+        isFullImg ? 'bg-black' : settings.darkMode ? 'bg-gray-900' : 'bg-gray-50'
       }`}
     >
-      <ViewerToolbar
-        title={storybook.title}
-        settings={settings}
-        onUpdateSettings={updateSettings}
-        onBack={
-          storybook.type === 'phonics'
-            ? () => {
-                stopTts();
-                navigate(`/viewer/${storybook.id}`);
-              }
-            : undefined
+      <div
+        className={
+          isFullImg
+            ? 'absolute top-0 left-0 right-0 z-20 opacity-0 hover:opacity-100 transition-opacity duration-300'
+            : ''
         }
-      />
+      >
+        <ViewerToolbar
+          title={storybook.title}
+          settings={settings}
+          onUpdateSettings={updateSettings}
+          onBack={
+            storybook.type === 'phonics'
+              ? () => {
+                  stopTts();
+                  navigate(`/viewer/${storybook.id}`);
+                }
+              : undefined
+          }
+        />
+      </div>
 
-      <div className="flex-1 flex items-center justify-center overflow-hidden">
+      <div
+        className={`flex-1 flex items-center justify-center overflow-hidden ${isFullImg ? 'relative' : ''}`}
+      >
         {currentPage === 0 && (
           <CoverView
             coverImage={storybook.coverImage}
@@ -209,22 +221,30 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         )}
       </div>
 
-      <ViewerControls
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPrev={goPrev}
-        onNext={goNext}
-        onGoToPage={goToPage}
-        hasTts={hasTts}
-        isTtsPlaying={isTtsPlaying}
-        onToggleTts={handleToggleTts}
-        hasBgm={hasBgm}
-        isBgmPlaying={isBgmPlaying}
-        onToggleBgm={toggleBgm}
-        autoPlayTts={settings.autoPlayTts}
-        onToggleAutoPlay={() => updateSettings({ autoPlayTts: !settings.autoPlayTts })}
-        darkMode={settings.darkMode}
-      />
+      <div
+        className={
+          isFullImg
+            ? 'absolute bottom-0 left-0 right-0 z-20 opacity-0 hover:opacity-100 transition-opacity duration-300'
+            : ''
+        }
+      >
+        <ViewerControls
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPrev={goPrev}
+          onNext={goNext}
+          onGoToPage={goToPage}
+          hasTts={hasTts}
+          isTtsPlaying={isTtsPlaying}
+          onToggleTts={handleToggleTts}
+          hasBgm={hasBgm}
+          isBgmPlaying={isBgmPlaying}
+          onToggleBgm={toggleBgm}
+          autoPlayTts={settings.autoPlayTts}
+          onToggleAutoPlay={() => updateSettings({ autoPlayTts: !settings.autoPlayTts })}
+          darkMode={settings.darkMode}
+        />
+      </div>
     </div>
   );
 }

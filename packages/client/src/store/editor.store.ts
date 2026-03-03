@@ -63,7 +63,8 @@ interface EditorStore {
 
 export const useEditorStore = create<EditorStore>((set) => ({
   selectedStorybookId: null,
-  setSelectedStorybookId: (id) => set({ selectedStorybookId: id, showCreateForm: false }),
+  setSelectedStorybookId: (id) =>
+    set({ selectedStorybookId: id, showCreateForm: false, activeTab: 'settings' }),
 
   showCreateForm: false,
   setShowCreateForm: (show) =>

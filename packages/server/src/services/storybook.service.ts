@@ -180,6 +180,89 @@ export const StorybookService = {
 
     return R2Repository.saveStorybook(storybook);
   },
+
+  /** 기존 동화책들의 핵심단어를 단일 단어로 일괄 변환 */
+  async simplifyKeyObjectNames(): Promise<{
+    updated: number;
+    details: { id: string; title: string; changes: string[] }[];
+  }> {
+    const allBooks = await R2Repository.listStorybooks();
+    const details: { id: string; title: string; changes: string[] }[] = [];
+
+    for (const summary of allBooks) {
+      if (summary.type === 'phonics') continue;
+      const storybook = await R2Repository.getStorybook(summary.id);
+      if (!storybook) continue;
+
+      const changes: string[] = [];
+      let changed = false;
+
+      // name → 단일 단어 변환 매핑 (keyObjectImages 업데이트용)
+      const nameMap = new Map<string, string>();
+
+      for (const ko of storybook.key_objects ?? []) {
+        if (ko.name && ko.name.includes(' ')) {
+          const newName = ko.name.split(' ').pop()!;
+          nameMap.set(ko.name, newName);
+          changes.push(`name: "${ko.name}" → "${newName}"`);
+          ko.name = newName;
+          changed = true;
+        }
+        if (ko.korean && ko.korean.includes(' ')) {
+          const newKorean = ko.korean.split(' ').pop()!;
+          changes.push(`korean: "${ko.korean}" → "${newKorean}"`);
+          ko.korean = newKorean;
+          changed = true;
+        }
+        if (ko.nameEn && ko.nameEn.includes(' ')) {
+          const newNameEn = ko.nameEn.split(' ').pop()!;
+          changes.push(`nameEn: "${ko.nameEn}" → "${newNameEn}"`);
+          ko.nameEn = newNameEn;
+          changed = true;
+        }
+      }
+
+      // keyObjectImages의 objectName도 동기화
+      for (const img of storybook.keyObjectImages ?? []) {
+        if (!img.objectName) continue;
+        const mapped = nameMap.get(img.objectName);
+        if (mapped) {
+          changes.push(`image.objectName: "${img.objectName}" → "${mapped}"`);
+          img.objectName = mapped;
+          changed = true;
+        } else if (img.objectName.includes(' ')) {
+          // 이미 name이 변환된 경우에도 objectName에 공백이 남아있으면 처리
+          const simplified = img.objectName.split(' ').pop()!;
+          changes.push(`image.objectName: "${img.objectName}" → "${simplified}"`);
+          img.objectName = simplified;
+          changed = true;
+        }
+      }
+
+      // educational_content.vocabulary도 처리
+      for (const v of storybook.educational_content?.vocabulary ?? []) {
+        if (v.word && v.word.includes(' ')) {
+          const newWord = v.word.split(' ').pop()!;
+          changes.push(`vocab.word: "${v.word}" → "${newWord}"`);
+          v.word = newWord;
+          changed = true;
+        }
+        if (v.korean && v.korean.includes(' ')) {
+          const newKorean = v.korean.split(' ').pop()!;
+          changes.push(`vocab.korean: "${v.korean}" → "${newKorean}"`);
+          v.korean = newKorean;
+          changed = true;
+        }
+      }
+
+      if (changed) {
+        await R2Repository.saveStorybook(storybook);
+        details.push({ id: storybook.id, title: storybook.title, changes });
+      }
+    }
+
+    return { updated: details.length, details };
+  },
 };
 
 function buildStoryOnlyPrompt(title: string, targetAge: string, referenceContent?: string): string {
@@ -314,6 +397,7 @@ ${pagesText}
 - 학습 단어: 6-8개
 - 퀴즈: 5개
 - key_objects는 반드시 동화책에 등장하는 사물(명사)만 선정. 인물/대명사/추상명사 절대 불가. 5-8개 선정.
+- key_objects의 name/nameEn은 반드시 **단일 단어**만 사용. 수식어/형용사 붙이지 않음. (O: 콩/bean, 하프/harp, 구두/slipper) (X: 마법 콩/magic bean, 황금 하프/golden harp)
 - JSON만 응답
 `.trim();
 }
@@ -401,6 +485,7 @@ ${referenceContent ? `- 참고 내용: ${referenceContent}` : ''}
 - scene_description은 한글과 영어 모두 작성. 삽화에 그려질 장면을 구체적이고 시각적으로 묘사
 - characters의 description(한글)과 descriptionEn(영어) 모두 외모를 매우 구체적으로 작성
 - key_objects는 반드시 동화책에 등장하는 사물(명사)만 선정. 인물/대명사/추상명사 절대 불가. 5-8개 선정.
+- key_objects의 name/nameEn은 반드시 **단일 단어**만 사용. 수식어/형용사 붙이지 않음. (O: 콩/bean, 하프/harp, 구두/slipper) (X: 마법 콩/magic bean, 황금 하프/golden harp)
 - JSON만 응답 (다른 텍스트 없이)
 `.trim();
 }
