@@ -608,71 +608,64 @@ async function generateWordListening(storybook: Storybook): Promise<WordListenin
   return { type: 'word-listening', rounds };
 }
 
-// --- 한글 블록 맞추기: 이미지 풀에서 한글 단어 추출 + 자모 분해 ---
+// --- 블록 맞추기 공통 헬퍼 ---
+function generateBlockGame<T>(
+  storybook: Storybook,
+  config: GameConfig,
+  opts: {
+    filterPool: (pool: ReturnType<typeof collectStorybookImagePool>) => typeof pool;
+    mapItem: (item: ReturnType<typeof collectStorybookImagePool>[number]) => T;
+    errorMessage: string;
+  }
+): T[] {
+  const c = config as KoreanBlockConfig | EnglishBlockConfig;
+  const pool = collectStorybookImagePool(storybook, {
+    includeCharacters: c.includeCharacters,
+    includeKeyObjects: c.includeKeyObjects,
+    includeFlashcards: true,
+  });
+  const filtered = opts.filterPool(pool);
+  if (filtered.length < 1) throw new AppError(400, opts.errorMessage);
+  return shuffle(filtered).slice(0, Math.min(c.itemCount, filtered.length)).map(opts.mapItem);
+}
+
 async function generateKoreanBlock(
   storybook: Storybook,
   config: GameConfig
 ): Promise<KoreanBlockData> {
-  const c = config as KoreanBlockConfig;
-
-  const pool = collectStorybookImagePool(storybook, {
-    includeCharacters: c.includeCharacters,
-    includeKeyObjects: c.includeKeyObjects,
-    includeFlashcards: true,
+  const items = generateBlockGame(storybook, config, {
+    filterPool: (pool) =>
+      pool.filter((item) => item.korean && [...item.korean].some(isHangulSyllable)),
+    mapItem: (item) => ({
+      word: item.korean,
+      imageUrl: item.imageUrl,
+      ttsUrl: item.ttsUrl,
+      syllables: decomposeWord(item.korean),
+    }),
+    errorMessage: '한글 블록 게임을 만들기 위한 한글 단어가 부족합니다.',
   });
-
-  // 한글 단어가 있는 항목만 필터
-  const koreanPool = pool.filter((item) => item.korean && [...item.korean].some(isHangulSyllable));
-
-  if (koreanPool.length < 1) {
-    throw new AppError(400, '한글 블록 게임을 만들기 위한 한글 단어가 부족합니다.');
-  }
-
-  const selected = shuffle(koreanPool).slice(0, Math.min(c.itemCount, koreanPool.length));
-
-  const items = selected.map((item) => ({
-    word: item.korean,
-    imageUrl: item.imageUrl,
-    ttsUrl: item.ttsUrl,
-    syllables: decomposeWord(item.korean),
-  }));
-
   return { type: 'korean-block', items };
 }
 
-// --- 영어 블록 맞추기: 이미지 풀에서 영어 단어 추출 + 글자 분해 ---
 async function generateEnglishBlock(
   storybook: Storybook,
   config: GameConfig
 ): Promise<EnglishBlockData> {
-  const c = config as EnglishBlockConfig;
-
-  const pool = collectStorybookImagePool(storybook, {
-    includeCharacters: c.includeCharacters,
-    includeKeyObjects: c.includeKeyObjects,
-    includeFlashcards: true,
+  const items = generateBlockGame(storybook, config, {
+    filterPool: (pool) =>
+      pool.filter((item) => {
+        const w = item.word?.toLowerCase();
+        return w && /^[a-z]+$/.test(w) && w.length <= 6;
+      }),
+    mapItem: (item) => ({
+      word: item.word.toLowerCase(),
+      korean: item.korean,
+      imageUrl: item.imageUrl,
+      ttsUrl: item.ttsUrl,
+      letters: decomposeEnglishWord(item.word),
+    }),
+    errorMessage: '영어 블록 게임을 만들기 위한 영어 단어가 부족합니다.',
   });
-
-  // 영어 단어가 있고, 소문자 알파벳만으로 구성되고, 6글자 이하인 항목만 필터
-  const englishPool = pool.filter((item) => {
-    const w = item.word?.toLowerCase();
-    return w && /^[a-z]+$/.test(w) && w.length <= 6;
-  });
-
-  if (englishPool.length < 1) {
-    throw new AppError(400, '영어 블록 게임을 만들기 위한 영어 단어가 부족합니다.');
-  }
-
-  const selected = shuffle(englishPool).slice(0, Math.min(c.itemCount, englishPool.length));
-
-  const items = selected.map((item) => ({
-    word: item.word.toLowerCase(),
-    korean: item.korean,
-    imageUrl: item.imageUrl,
-    ttsUrl: item.ttsUrl,
-    letters: decomposeEnglishWord(item.word),
-  }));
-
   return { type: 'english-block', items };
 }
 

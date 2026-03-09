@@ -1,11 +1,12 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { EnglishBlockData, EnglishBlockLetter } from '@tangobook/shared';
 import { VOWELS, CONSONANTS, isEnglishVowel } from '@tangobook/shared';
 import { GameProgressBar } from '../GameProgressBar';
 import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { settingsApi } from '@/features/settings/api/settings.api';
+import { useBlockDrag } from '../../hooks/useBlockDrag';
+import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { PraiseOverlay } from '../PraiseOverlay';
 
 interface LetterBlock {
@@ -25,8 +26,18 @@ const ALL_VOWELS: LetterBlock[] = VOWELS.map((ch, i) => ({
   isVowel: true,
 }));
 
-// 단어 글자별 색상 팔레트
 const WORD_COLORS = ['#f97316', '#eab308', '#3b82f6', '#ec4899', '#8b5cf6', '#06b6d4', '#10b981'];
+
+function createEnglishGhost(char: string): HTMLDivElement {
+  const ghost = document.createElement('div');
+  const barColor = isEnglishVowel(char) ? '#fb7185' : '#60a5fa';
+  ghost.innerHTML = `<span style="flex:1;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#1e293b">${char}</span><div style="width:100%;height:6px;background:${barColor};border-radius:0 0 14px 14px"></div>`;
+  ghost.setAttribute(
+    'style',
+    `width:52px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:14px;background:white;box-shadow:0 8px 24px rgba(0,0,0,.2);overflow:hidden`
+  );
+  return ghost;
+}
 
 export function EnglishBlockPlayer({
   gameData,
@@ -56,35 +67,25 @@ export function EnglishBlockPlayer({
   const [grid, setGrid] = useState<(string | null)[]>(() => initGrid(currentItem.letters));
 
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
-  const dragBlockRef = useRef<LetterBlock | null>(null);
-  const touchGhostRef = useRef<HTMLDivElement | null>(null);
-  const gridCellRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const phonicsMapRef = usePhonicsMap(['mod_phonics', 'mod_english']);
+  const drag = useBlockDrag<LetterBlock>({
+    createGhost: createEnglishGhost,
+    ghostOffset: [26, 32],
+  });
 
-  const phonicsMapRef = useRef<Map<string, string>>(new Map());
+  // 글자 배치 시 음원 자동 재생
+  const prevGridRef = useRef<(string | null)[]>([]);
   useEffect(() => {
-    settingsApi
-      .getPhonicsLibrary()
-      .then((lib) => {
-        const map = new Map<string, string>();
-        for (const item of lib.mod_phonics) map.set(item.sound, item.url);
-        for (const item of lib.mod_english) {
-          if (!map.has(item.sound)) map.set(item.sound, item.url);
-        }
-        phonicsMapRef.current = map;
-      })
-      .catch(() => {});
-  }, []);
-
-  const handleDragStart = useCallback((block: LetterBlock, e: React.DragEvent) => {
-    dragBlockRef.current = block;
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/plain', block.id);
-  }, []);
-
-  const handleDragOver = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-  }, []);
+    const prev = prevGridRef.current;
+    for (let i = 0; i < grid.length; i++) {
+      const cur = grid[i];
+      if (cur && cur !== prev[i]) {
+        const url = phonicsMapRef.current.get(cur);
+        if (url) playAudio(url);
+      }
+    }
+    prevGridRef.current = [...grid];
+  }, [grid, playAudio, phonicsMapRef]);
 
   const placeBlock = useCallback(
     (slot: number, block: LetterBlock) => {
@@ -99,63 +100,9 @@ export function EnglishBlockPlayer({
     [grid]
   );
 
-  const prevGridRef = useRef<(string | null)[]>([]);
-  useEffect(() => {
-    const prev = prevGridRef.current;
-    for (let i = 0; i < grid.length; i++) {
-      const cur = grid[i];
-      if (cur && cur !== prev[i]) {
-        const url = phonicsMapRef.current.get(cur);
-        if (url) playAudio(url);
-      }
-    }
-    prevGridRef.current = [...grid];
-  }, [grid, playAudio]);
-
-  const handleDrop = useCallback(
-    (slot: number, e: React.DragEvent) => {
-      e.preventDefault();
-      if (!dragBlockRef.current) return;
-      placeBlock(slot, dragBlockRef.current);
-      dragBlockRef.current = null;
-    },
-    [placeBlock]
-  );
-
-  const handleTouchStart = useCallback((block: LetterBlock, e: React.TouchEvent) => {
-    dragBlockRef.current = block;
-    const ghost = document.createElement('div');
-    const barColor = block.isVowel ? '#fb7185' : '#60a5fa';
-    ghost.innerHTML = `<span style="flex:1;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#1e293b">${block.char}</span><div style="width:100%;height:6px;background:${barColor};border-radius:0 0 14px 14px"></div>`;
-    ghost.setAttribute(
-      'style',
-      `position:fixed;pointer-events:none;z-index:9999;width:52px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:14px;background:white;box-shadow:0 8px 24px rgba(0,0,0,.2);overflow:hidden;left:${e.touches[0].clientX - 26}px;top:${e.touches[0].clientY - 32}px`
-    );
-    document.body.appendChild(ghost);
-    touchGhostRef.current = ghost;
-  }, []);
-
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!touchGhostRef.current) return;
-    touchGhostRef.current.style.left = `${e.touches[0].clientX - 26}px`;
-    touchGhostRef.current.style.top = `${e.touches[0].clientY - 32}px`;
-  }, []);
-
-  const handleTouchEnd = useCallback(
-    (e: React.TouchEvent) => {
-      touchGhostRef.current?.remove();
-      touchGhostRef.current = null;
-      const block = dragBlockRef.current;
-      if (!block) return;
-      const { clientX: x, clientY: y } = e.changedTouches[0];
-      for (const [key, el] of gridCellRefs.current) {
-        const r = el.getBoundingClientRect();
-        if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) {
-          placeBlock(parseInt(key), block);
-          break;
-        }
-      }
-      dragBlockRef.current = null;
+  const onPlace = useCallback(
+    (key: string, block: LetterBlock) => {
+      placeBlock(parseInt(key), block);
     },
     [placeBlock]
   );
@@ -260,7 +207,6 @@ export function EnglishBlockPlayer({
     );
   }
 
-  // 슬롯 렌더링
   const renderCell = (slot: number) => {
     const cellKey = `${slot}`;
     const char = grid[slot];
@@ -277,12 +223,9 @@ export function EnglishBlockPlayer({
     return (
       <div
         key={cellKey}
-        ref={(el) => {
-          if (el) gridCellRefs.current.set(cellKey, el);
-          else gridCellRefs.current.delete(cellKey);
-        }}
-        onDragOver={handleDragOver}
-        onDrop={(e) => handleDrop(slot, e)}
+        ref={drag.cellRef(cellKey)}
+        onDragOver={drag.handleDragOver}
+        onDrop={(e) => drag.handleDrop(cellKey, e, onPlace)}
         onClick={() => handleCellClick(slot)}
         className={`w-12 h-14 sm:w-16 sm:h-[4.5rem] lg:w-[4.5rem] lg:h-[5.5rem] rounded-2xl flex flex-col items-center justify-center overflow-hidden transition-all cursor-pointer select-none ${
           char
@@ -310,15 +253,14 @@ export function EnglishBlockPlayer({
     );
   };
 
-  // 블록 렌더링
   const renderBlock = (block: LetterBlock) => (
     <div
       key={block.id}
       draggable
-      onDragStart={(e) => handleDragStart(block, e)}
-      onTouchStart={(e) => handleTouchStart(block, e)}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
+      onDragStart={(e) => drag.handleDragStart(block, e)}
+      onTouchStart={(e) => drag.handleTouchStart(block, e)}
+      onTouchMove={drag.handleTouchMove}
+      onTouchEnd={(e) => drag.handleTouchEnd(e, onPlace)}
       className="w-10 h-12 sm:w-12 sm:h-14 lg:w-14 lg:h-[4rem] rounded-xl sm:rounded-2xl flex flex-col items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing select-none bg-white shadow-md hover:shadow-xl hover:-translate-y-1 transition-all"
     >
       <span className="flex-1 flex items-center justify-center text-lg sm:text-xl lg:text-2xl font-black text-slate-800">
@@ -332,9 +274,7 @@ export function EnglishBlockPlayer({
     <div className="min-h-full flex flex-col">
       <PraiseOverlay visible={praiseVisible} />
 
-      {/* 상단 영역 — 이미지 + 단어 + 슬롯 */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 sm:py-6 gap-4 sm:gap-6">
-        {/* 진행률 (작게) */}
         <div className="w-full max-w-md">
           <GameProgressBar
             current={currentIndex}
@@ -344,7 +284,6 @@ export function EnglishBlockPlayer({
           />
         </div>
 
-        {/* 이미지 */}
         {currentItem.imageUrl && (
           <div className="relative">
             <div className="absolute inset-0 rounded-3xl bg-amber-200/30 blur-2xl scale-110" />
@@ -356,9 +295,7 @@ export function EnglishBlockPlayer({
           </div>
         )}
 
-        {/* 단어 + 슬롯 (같은 줄) */}
         <div className="flex items-center gap-3 sm:gap-5">
-          {/* 컬러 단어 */}
           <span className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-wide">
             {currentItem.word.split('').map((ch, i) => (
               <span key={i} style={{ color: WORD_COLORS[i % WORD_COLORS.length] }}>
@@ -366,14 +303,11 @@ export function EnglishBlockPlayer({
               </span>
             ))}
           </span>
-
-          {/* 슬롯 */}
           <div className="flex gap-1.5 sm:gap-2">
             {Array.from({ length: letterCount }, (_, slot) => renderCell(slot))}
           </div>
         </div>
 
-        {/* 버튼 */}
         <div className="flex justify-center gap-3 sm:gap-4">
           <button
             onClick={handleCheck}
@@ -395,7 +329,6 @@ export function EnglishBlockPlayer({
         </div>
       </div>
 
-      {/* 하단 영역 — 알파벳 팔레트 (따뜻한 배경, 좌우 배치) */}
       <div
         className="shrink-0 px-3 sm:px-6 py-4 sm:py-6 flex flex-col sm:flex-row gap-4 sm:gap-6"
         style={{
@@ -403,22 +336,18 @@ export function EnglishBlockPlayer({
             'linear-gradient(180deg, rgba(251,191,146,0.15) 0%, rgba(251,191,146,0.3) 100%)',
         }}
       >
-        {/* 자음 (왼쪽) */}
         <div className="flex-1 min-w-0">
           <p className="text-sm sm:text-base font-black text-slate-700 mb-2 sm:mb-3 ml-1">
             Consonants
           </p>
           <div className="flex flex-wrap gap-1.5 sm:gap-2">{ALL_CONSONANTS.map(renderBlock)}</div>
         </div>
-
-        {/* 모음 (오른쪽) */}
         <div className="shrink-0">
           <p className="text-sm sm:text-base font-black text-slate-700 mb-2 sm:mb-3 ml-1">Vowels</p>
           <div className="flex flex-wrap gap-1.5 sm:gap-2">{ALL_VOWELS.map(renderBlock)}</div>
         </div>
       </div>
 
-      {/* 돌아가기 */}
       <button
         onClick={onBack}
         className="shrink-0 py-3 text-sm text-emerald-700/60 hover:text-emerald-800 transition-colors text-center"

@@ -5,7 +5,8 @@ import { CHOSUNG, JUNGSUNG, composeHangul } from '@tangobook/shared';
 import { GameProgressBar } from '../GameProgressBar';
 import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { settingsApi } from '@/features/settings/api/settings.api';
+import { useBlockDrag } from '../../hooks/useBlockDrag';
+import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { PraiseOverlay } from '../PraiseOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 
@@ -22,7 +23,6 @@ function isVowel(char: string) {
   return JUNGSUNG_SET.has(char);
 }
 
-// 전체 자음/모음 팔레트 (키보드처럼 항상 표시)
 const ALL_CONSONANTS: JamoBlock[] = CHOSUNG.map((ch, i) => ({
   id: `cho-${i}`,
   char: ch,
@@ -34,7 +34,6 @@ const ALL_VOWELS: JamoBlock[] = JUNGSUNG.map((ch, i) => ({
   jamoType: 'jung' as JamoType,
 }));
 
-/** 2×3 격자(6슬롯)에서 자모를 수집 → 한글 음절 조합 시도 */
 function tryCompose(slots: (string | null)[]): string | null {
   const filled = slots.filter((s): s is string => s !== null);
   if (filled.length < 2) return null;
@@ -48,9 +47,19 @@ function tryCompose(slots: (string | null)[]): string | null {
   return composeHangul(consonants[0], vowels[0], consonants.length >= 2 ? consonants[1] : null);
 }
 
-// 셀/블록 크기 (반응형 — 컴팩트)
 const CELL = 'w-11 h-11 sm:w-13 sm:h-13 lg:w-14 lg:h-14';
 const BLOCK = 'w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12';
+
+function createKoreanGhost(char: string): HTMLDivElement {
+  const ghost = document.createElement('div');
+  ghost.textContent = char;
+  const bg = isVowel(char) ? '#059669' : '#d97706';
+  ghost.setAttribute(
+    'style',
+    `width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:${bg};color:white;font-size:16px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,.3)`
+  );
+  return ghost;
+}
 
 export function KoreanBlockPlayer({
   gameData,
@@ -72,7 +81,6 @@ export function KoreanBlockPlayer({
   const syllables = currentItem.syllables;
   const syllableCount = syllables.length;
 
-  // 각 음절 = 6슬롯 (2열×3행)
   const SLOTS_PER_SYLLABLE = 6;
   const initGrid = useCallback(
     (syls: KoreanBlockSyllable[]) =>
@@ -85,27 +93,13 @@ export function KoreanBlockPlayer({
   const [grid, setGrid] = useState<(string | null)[][]>(() => initGrid(syllables));
 
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
-  const dragBlockRef = useRef<JamoBlock | null>(null);
-  const touchGhostRef = useRef<HTMLDivElement | null>(null);
-  const gridCellRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const phonicsMapRef = usePhonicsMap(['mod_korean', 'mod_phonics']);
+  const drag = useBlockDrag<JamoBlock>({
+    createGhost: createKoreanGhost,
+    ghostOffset: [20, 20],
+  });
 
   const composedPreview = useMemo(() => grid.map((slots) => tryCompose(slots)), [grid]);
-
-  // 파닉스 음원 맵 (mod_korean: 음절→URL)
-  const phonicsMapRef = useRef<Map<string, string>>(new Map());
-  useEffect(() => {
-    settingsApi
-      .getPhonicsLibrary()
-      .then((lib) => {
-        const map = new Map<string, string>();
-        for (const item of lib.mod_korean) map.set(item.sound, item.url);
-        for (const item of lib.mod_phonics) {
-          if (!map.has(item.sound)) map.set(item.sound, item.url);
-        }
-        phonicsMapRef.current = map;
-      })
-      .catch(() => {});
-  }, []);
 
   // 음절 조합 시 해당 음원 자동 재생
   const prevComposedRef = useRef<(string | null)[]>([]);
@@ -119,19 +113,7 @@ export function KoreanBlockPlayer({
       }
     }
     prevComposedRef.current = [...composedPreview];
-  }, [composedPreview, playAudio]);
-
-  // --- 드래그 ---
-  const handleDragStart = useCallback((block: JamoBlock, e: React.DragEvent) => {
-    dragBlockRef.current = block;
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/plain', block.id);
-  }, []);
-
-  const handleDragOver = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-  }, []);
+  }, [composedPreview, playAudio, phonicsMapRef]);
 
   const placeBlock = useCallback(
     (col: number, slot: number, block: JamoBlock) => {
@@ -146,51 +128,10 @@ export function KoreanBlockPlayer({
     [grid]
   );
 
-  const handleDrop = useCallback(
-    (col: number, slot: number, e: React.DragEvent) => {
-      e.preventDefault();
-      if (!dragBlockRef.current) return;
-      placeBlock(col, slot, dragBlockRef.current);
-      dragBlockRef.current = null;
-    },
-    [placeBlock]
-  );
-
-  const handleTouchStart = useCallback((block: JamoBlock, e: React.TouchEvent) => {
-    dragBlockRef.current = block;
-    const ghost = document.createElement('div');
-    ghost.textContent = block.char;
-    const bg = isVowel(block.char) ? '#059669' : '#d97706';
-    ghost.setAttribute(
-      'style',
-      `position:fixed;pointer-events:none;z-index:9999;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:${bg};color:white;font-size:16px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,.3);left:${e.touches[0].clientX - 20}px;top:${e.touches[0].clientY - 20}px`
-    );
-    document.body.appendChild(ghost);
-    touchGhostRef.current = ghost;
-  }, []);
-
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!touchGhostRef.current) return;
-    touchGhostRef.current.style.left = `${e.touches[0].clientX - 20}px`;
-    touchGhostRef.current.style.top = `${e.touches[0].clientY - 20}px`;
-  }, []);
-
-  const handleTouchEnd = useCallback(
-    (e: React.TouchEvent) => {
-      touchGhostRef.current?.remove();
-      touchGhostRef.current = null;
-      const block = dragBlockRef.current;
-      if (!block) return;
-      const { clientX: x, clientY: y } = e.changedTouches[0];
-      for (const [key, el] of gridCellRefs.current) {
-        const r = el.getBoundingClientRect();
-        if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) {
-          const [c, s] = key.split('-');
-          placeBlock(parseInt(c), parseInt(s), block);
-          break;
-        }
-      }
-      dragBlockRef.current = null;
+  const onPlace = useCallback(
+    (key: string, block: JamoBlock) => {
+      const [c, s] = key.split('-');
+      placeBlock(parseInt(c), parseInt(s), block);
     },
     [placeBlock]
   );
@@ -282,7 +223,6 @@ export function KoreanBlockPlayer({
     );
   }
 
-  // 2×3 격자 셀 렌더링 (row, col 기반 → slot = row*2 + cellCol)
   const renderCell = (sylIdx: number, slot: number) => {
     const cellKey = `${sylIdx}-${slot}`;
     const char = grid[sylIdx][slot];
@@ -290,12 +230,9 @@ export function KoreanBlockPlayer({
     return (
       <div
         key={cellKey}
-        ref={(el) => {
-          if (el) gridCellRefs.current.set(cellKey, el);
-          else gridCellRefs.current.delete(cellKey);
-        }}
-        onDragOver={handleDragOver}
-        onDrop={(e) => handleDrop(sylIdx, slot, e)}
+        ref={drag.cellRef(cellKey)}
+        onDragOver={drag.handleDragOver}
+        onDrop={(e) => drag.handleDrop(cellKey, e, onPlace)}
         onClick={() => handleCellClick(sylIdx, slot)}
         className={`${CELL} rounded-xl border-2 border-dashed flex items-center justify-center text-2xl sm:text-3xl lg:text-4xl font-bold transition-all cursor-pointer select-none ${
           char
@@ -312,15 +249,14 @@ export function KoreanBlockPlayer({
     );
   };
 
-  // 블록 렌더링 헬퍼
   const renderBlock = (block: JamoBlock) => (
     <div
       key={block.id}
       draggable
-      onDragStart={(e) => handleDragStart(block, e)}
-      onTouchStart={(e) => handleTouchStart(block, e)}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
+      onDragStart={(e) => drag.handleDragStart(block, e)}
+      onTouchStart={(e) => drag.handleTouchStart(block, e)}
+      onTouchMove={drag.handleTouchMove}
+      onTouchEnd={(e) => drag.handleTouchEnd(e, onPlace)}
       className={`${BLOCK} rounded-xl flex items-center justify-center text-lg sm:text-xl lg:text-2xl font-bold cursor-grab active:cursor-grabbing select-none shadow-sm ${
         isVowel(block.char)
           ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700'
@@ -342,7 +278,6 @@ export function KoreanBlockPlayer({
           accentColor="emerald"
         />
 
-        {/* 이미지 + 단어 */}
         <div className="flex items-center gap-4 sm:gap-6">
           {currentItem.imageUrl && (
             <img
@@ -356,13 +291,10 @@ export function KoreanBlockPlayer({
           </p>
         </div>
 
-        {/* 격자 + 블록 영역 — 항상 가로 배치 */}
         <div className="flex flex-row gap-4 sm:gap-6 lg:gap-8 justify-center items-start w-full">
-          {/* 음절 격자들 */}
           <div className="flex flex-wrap gap-4 justify-center shrink-0">
             {Array.from({ length: syllableCount }, (_, sylIdx) => (
               <div key={sylIdx} className="flex flex-col items-center gap-2">
-                {/* 2×3 격자 */}
                 <div
                   className={`grid grid-cols-2 gap-1 p-2 rounded-2xl border-2 ${
                     wrongCols.has(sylIdx)
@@ -374,7 +306,6 @@ export function KoreanBlockPlayer({
                 >
                   {Array.from({ length: 6 }, (_, slot) => renderCell(sylIdx, slot))}
                 </div>
-                {/* 조합 미리보기 */}
                 <span
                   className={`text-3xl sm:text-4xl lg:text-5xl font-black ${
                     composedPreview[sylIdx]
@@ -392,9 +323,7 @@ export function KoreanBlockPlayer({
             ))}
           </div>
 
-          {/* 자모 팔레트 — 자음·모음 가로 배치, 스크롤 가능 */}
           <div className="flex flex-row gap-2 sm:gap-3 overflow-x-auto min-w-0">
-            {/* 자음 (19개) */}
             <div className="rounded-2xl border-2 border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-2 sm:p-3 shrink-0">
               <p className="text-sm font-bold text-amber-500 dark:text-amber-400 text-center mb-2">
                 자음
@@ -403,7 +332,6 @@ export function KoreanBlockPlayer({
                 {ALL_CONSONANTS.map(renderBlock)}
               </div>
             </div>
-            {/* 모음 (21개) */}
             <div className="rounded-2xl border-2 border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-2 sm:p-3 shrink-0">
               <p className="text-sm font-bold text-emerald-500 dark:text-emerald-400 text-center mb-2">
                 모음
@@ -415,7 +343,6 @@ export function KoreanBlockPlayer({
           </div>
         </div>
 
-        {/* 확인 버튼 */}
         <div className="flex justify-center pb-2">
           <button
             onClick={handleCheck}
