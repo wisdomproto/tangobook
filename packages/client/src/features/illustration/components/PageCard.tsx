@@ -43,6 +43,7 @@ export function PageCard({
   const [showMods, setShowMods] = useState(false);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [voice, setVoice] = useState<string>(TTS_VOICES[0].id);
+  const [ttsVersion, setTtsVersion] = useState(0);
 
   const isKorean = activeLang === 'ko';
 
@@ -116,7 +117,11 @@ export function PageCard({
   // --- TTS ---
   const ttsMutation = useMutation({
     mutationFn: () => {
-      const ttsText = isKorean ? text : page.translations?.[activeLang]?.text;
+      const ttsText = isKorean
+        ? editing
+          ? text
+          : stripBold(page.text)
+        : page.translations?.[activeLang]?.text;
       if (!ttsText) throw new Error('텍스트가 없습니다.');
       return ttsApi.generate({
         text: ttsText,
@@ -138,6 +143,7 @@ export function PageCard({
           p.translations[activeLang].ttsUrl = data.audioUrl;
         }
       });
+      setTtsVersion((v) => v + 1); // audio 엘리먼트 강제 재생성
       onSave();
     },
   });
@@ -494,7 +500,11 @@ export function PageCard({
                 {currentTtsUrl ? 'TTS 재생성' : 'TTS 생성'}
               </Button>
               {currentTtsUrl && (
-                <audio controls className="h-8 flex-1 min-w-0">
+                <audio
+                  key={`${currentTtsUrl}-${ttsVersion}`}
+                  controls
+                  className="h-8 flex-1 min-w-0"
+                >
                   <source src={currentTtsUrl} type="audio/wav" />
                 </audio>
               )}
