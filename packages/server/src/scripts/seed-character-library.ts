@@ -42,7 +42,7 @@ const characters: SavedCharacter[] = [
   {
     id: String(Date.now() + 3),
     createdAt: new Date().toISOString(),
-    name: '통통이',
+    name: '깡충이',
     role: '조연',
     height: 80,
     description:
@@ -97,7 +97,7 @@ const characters: SavedCharacter[] = [
   {
     id: String(Date.now() + 8),
     createdAt: new Date().toISOString(),
-    name: '깡총이',
+    name: '재재이',
     role: '조연',
     height: 90,
     description:

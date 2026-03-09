@@ -210,7 +210,7 @@ ${
     ? `
 **중요 (영어 파닉스)**:
 - 스토리 본문(text)은 반드시 영어로 작성하세요.
-- 캐릭터 이름은 동화 테마에 명시된 영어 이름을 사용하세요 (예: Jjikky, Hoppy, Moomoo, Hodori, Drako, Slither, Gallop, Fluffy, Bouncy, Kokko, Woof, Oink).
+- 캐릭터 이름은 동화 테마에 명시된 영어 이름을 사용하세요 (예: Stripes, Hoppy, Squeak, Moomoo, Drako, Slither, Gallop, Fluffy, Chimp, Kokko, Woof, Oink).
 - 장소 이름은 영어 표기를 사용하세요 (Letter Meadow, Echo Cave, Starlight Pond, Wind Hill, Cloud Hill, Honey Waterfall, Letter Bridge, Sunshine Hill, Whispering Tree).
 - **장면 묘사(scene_description)에서 숲속에 보이는 글자는 반드시 영어 알파벳/영어 단어여야 합니다. 한글(ㄱ,ㄴ,ㄷ 등)이 절대 나오면 안 됩니다.** 예: 꽃잎에 'c', 'a', 't' 알파벳이 새겨져 있다 (O), 꽃잎에 'ㅁ', 'ㅂ' 한글이 새겨져 있다 (X).
 `

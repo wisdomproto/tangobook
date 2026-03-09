@@ -116,7 +116,7 @@ export function PageCard({
   // --- TTS ---
   const ttsMutation = useMutation({
     mutationFn: () => {
-      const ttsText = isKorean ? page.text : page.translations?.[activeLang]?.text;
+      const ttsText = isKorean ? text : page.translations?.[activeLang]?.text;
       if (!ttsText) throw new Error('텍스트가 없습니다.');
       return ttsApi.generate({
         text: ttsText,

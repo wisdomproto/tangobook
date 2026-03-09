@@ -48,9 +48,9 @@ function tryCompose(slots: (string | null)[]): string | null {
   return composeHangul(consonants[0], vowels[0], consonants.length >= 2 ? consonants[1] : null);
 }
 
-// 셀/블록 크기 (반응형)
-const CELL = 'w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20';
-const BLOCK = 'w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16';
+// 셀/블록 크기 (반응형 — 컴팩트)
+const CELL = 'w-11 h-11 sm:w-13 sm:h-13 lg:w-14 lg:h-14';
+const BLOCK = 'w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12';
 
 export function KoreanBlockPlayer({
   gameData,
@@ -332,9 +332,9 @@ export function KoreanBlockPlayer({
   );
 
   return (
-    <GamePlayerLayout maxWidth="5xl" onBack={onBack}>
+    <GamePlayerLayout maxWidth="full" onBack={onBack}>
       <PraiseOverlay visible={praiseVisible} />
-      <div className="flex flex-col items-center gap-6 sm:gap-8 lg:gap-10 w-full">
+      <div className="flex flex-col items-center gap-4 sm:gap-5 w-full max-h-[calc(100vh-4rem)] overflow-y-auto px-2">
         <GameProgressBar
           current={currentIndex}
           total={items.length}
@@ -343,28 +343,28 @@ export function KoreanBlockPlayer({
         />
 
         {/* 이미지 + 단어 */}
-        <div className="flex flex-col items-center gap-5">
+        <div className="flex items-center gap-4 sm:gap-6">
           {currentItem.imageUrl && (
             <img
               src={currentItem.imageUrl}
               alt={currentItem.word}
-              className="w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 object-contain rounded-3xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"
+              className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 object-contain rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"
             />
           )}
-          <p className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-800 dark:text-slate-100">
+          <p className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-800 dark:text-slate-100">
             {currentItem.word}
           </p>
         </div>
 
-        {/* 격자 + 블록 영역 */}
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 justify-center items-center lg:items-start">
+        {/* 격자 + 블록 영역 — 항상 가로 배치 */}
+        <div className="flex flex-row gap-4 sm:gap-6 lg:gap-8 justify-center items-start w-full">
           {/* 음절 격자들 */}
-          <div className="flex flex-wrap gap-6 justify-center">
+          <div className="flex flex-wrap gap-4 justify-center shrink-0">
             {Array.from({ length: syllableCount }, (_, sylIdx) => (
-              <div key={sylIdx} className="flex flex-col items-center gap-3">
+              <div key={sylIdx} className="flex flex-col items-center gap-2">
                 {/* 2×3 격자 */}
                 <div
-                  className={`grid grid-cols-2 gap-1.5 p-3 rounded-2xl border-2 ${
+                  className={`grid grid-cols-2 gap-1 p-2 rounded-2xl border-2 ${
                     wrongCols.has(sylIdx)
                       ? 'border-red-300 dark:border-red-700 bg-red-50/50 dark:bg-red-900/10'
                       : roundCorrect
@@ -376,7 +376,7 @@ export function KoreanBlockPlayer({
                 </div>
                 {/* 조합 미리보기 */}
                 <span
-                  className={`text-4xl sm:text-5xl lg:text-6xl font-black ${
+                  className={`text-3xl sm:text-4xl lg:text-5xl font-black ${
                     composedPreview[sylIdx]
                       ? wrongCols.has(sylIdx)
                         ? 'text-red-500'
@@ -392,23 +392,23 @@ export function KoreanBlockPlayer({
             ))}
           </div>
 
-          {/* 자모 팔레트 — 자음·모음 가로 배치 */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 flex-shrink-0">
+          {/* 자모 팔레트 — 자음·모음 가로 배치, 스크롤 가능 */}
+          <div className="flex flex-row gap-2 sm:gap-3 overflow-x-auto min-w-0">
             {/* 자음 (19개) */}
-            <div className="rounded-2xl border-2 border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-4">
-              <p className="text-base font-bold text-amber-500 dark:text-amber-400 text-center mb-3">
+            <div className="rounded-2xl border-2 border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-2 sm:p-3 shrink-0">
+              <p className="text-sm font-bold text-amber-500 dark:text-amber-400 text-center mb-2">
                 자음
               </p>
-              <div className="grid grid-cols-4 gap-2 justify-items-center">
+              <div className="grid grid-cols-4 gap-1.5 justify-items-center">
                 {ALL_CONSONANTS.map(renderBlock)}
               </div>
             </div>
             {/* 모음 (21개) */}
-            <div className="rounded-2xl border-2 border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
-              <p className="text-base font-bold text-emerald-500 dark:text-emerald-400 text-center mb-3">
+            <div className="rounded-2xl border-2 border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-2 sm:p-3 shrink-0">
+              <p className="text-sm font-bold text-emerald-500 dark:text-emerald-400 text-center mb-2">
                 모음
               </p>
-              <div className="grid grid-cols-4 gap-2 justify-items-center">
+              <div className="grid grid-cols-4 gap-1.5 justify-items-center">
                 {ALL_VOWELS.map(renderBlock)}
               </div>
             </div>
@@ -416,11 +416,11 @@ export function KoreanBlockPlayer({
         </div>
 
         {/* 확인 버튼 */}
-        <div className="flex justify-center">
+        <div className="flex justify-center pb-2">
           <button
             onClick={handleCheck}
             disabled={roundCorrect}
-            className={`px-8 py-3 sm:px-10 sm:py-4 lg:px-14 lg:py-5 rounded-2xl text-lg sm:text-xl lg:text-2xl font-bold transition-colors ${
+            className={`px-8 py-3 sm:px-10 sm:py-3 rounded-2xl text-lg sm:text-xl font-bold transition-colors ${
               roundCorrect
                 ? 'bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 cursor-not-allowed'
                 : 'bg-emerald-600 hover:bg-emerald-700 text-white'
