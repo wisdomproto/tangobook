@@ -1,6 +1,8 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Button } from '@/components/Button';
 import { useGenerateGame } from '../hooks/useGameMutations';
+import { gamesApi } from '../api/games.api';
+import { getGamesForContext } from '../registry';
 import { GameCard } from './GameCard';
 import { GameCreatorModal } from './GameCreatorModal';
 import { GamePreviewModal } from './GamePreviewModal';
@@ -25,8 +27,22 @@ export function GamesTab({ storybook, onUpdate, onSave }: GamesTabProps) {
   const [showCreator, setShowCreator] = useState(false);
   const [previewGame, setPreviewGame] = useState<GameInstance | null>(null);
   const [editDotGame, setEditDotGame] = useState<GameInstance | null>(null);
+  const [batchProgress, setBatchProgress] = useState<{ current: number; total: number } | null>(
+    null
+  );
 
   const generateMutation = useGenerateGame();
+
+  const storybookType = storybook.type ?? 'storybook';
+  const availableGames = useMemo(
+    () =>
+      getGamesForContext(
+        storybookType,
+        storybook.phonicsConfig?.language,
+        storybook.phonicsConfig?.level
+      ),
+    [storybookType, storybook.phonicsConfig?.language, storybook.phonicsConfig?.level]
+  );
 
   const handleGenerate = useCallback(
     (gameType: GameTypeId, title: string, difficulty: GameDifficulty, config: GameConfig) => {
@@ -55,6 +71,53 @@ export function GamesTab({ storybook, onUpdate, onSave }: GamesTabProps) {
     },
     [storybook.id, generateMutation, onUpdate, onSave]
   );
+
+  const handleGenerateAll = useCallback(async () => {
+    // 이미 생성된 게임 타입 제외
+    const existingTypes = new Set((storybook.games ?? []).map((g) => g.gameType));
+    const toGenerate = availableGames.filter((entry) => !existingTypes.has(entry.id));
+
+    if (toGenerate.length === 0) {
+      alert('모든 게임이 이미 생성되어 있습니다.');
+      return;
+    }
+
+    if (!confirm(`${toGenerate.length}개 게임을 모두 생성하시겠습니까?`)) return;
+
+    setBatchProgress({ current: 0, total: toGenerate.length });
+
+    for (let i = 0; i < toGenerate.length; i++) {
+      const entry = toGenerate[i];
+      setBatchProgress({ current: i + 1, total: toGenerate.length });
+
+      try {
+        const data = await gamesApi.generate({
+          storybookId: storybook.id,
+          gameType: entry.id,
+          config: entry.defaultConfig,
+        });
+
+        const newGame: GameInstance = {
+          id: crypto.randomUUID(),
+          gameType: entry.id,
+          title: entry.nameKo,
+          difficulty: 'easy',
+          createdAt: new Date().toISOString(),
+          config: entry.defaultConfig,
+          data,
+        };
+        onUpdate((draft) => {
+          if (!draft.games) draft.games = [];
+          draft.games.push(newGame);
+        });
+        onSave();
+      } catch (err) {
+        console.error(`${entry.nameKo} 생성 실패:`, err);
+      }
+    }
+
+    setBatchProgress(null);
+  }, [storybook.id, storybook.games, availableGames, onUpdate, onSave]);
 
   const handleDelete = useCallback(
     (gameId: string) => {
@@ -88,9 +151,21 @@ export function GamesTab({ storybook, onUpdate, onSave }: GamesTabProps) {
         <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
           학습게임 ({games.length}개)
         </h2>
-        <Button size="sm" onClick={() => setShowCreator(true)}>
-          + 게임 추가
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={handleGenerateAll}
+            loading={!!batchProgress}
+          >
+            {batchProgress
+              ? `생성 중 (${batchProgress.current}/${batchProgress.total})`
+              : '모든 게임 만들기'}
+          </Button>
+          <Button size="sm" onClick={() => setShowCreator(true)}>
+            + 게임 추가
+          </Button>
+        </div>
       </div>
 
       {/* 게임 목록 */}

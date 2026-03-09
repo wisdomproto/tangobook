@@ -5,7 +5,6 @@ import type { Page } from '@tangobook/shared';
 import { useViewerSettings } from '../hooks/useViewerSettings';
 import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { useSwipe } from '../hooks/useSwipe';
-import { useReadingProgress } from '../hooks/useReadingProgress';
 import { ViewerToolbar } from './ViewerToolbar';
 import { PageView, CoverView, EndView } from './PageView';
 import { ViewerControls } from './ViewerControls';
@@ -22,12 +21,10 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const mode = searchParams.get('mode');
   const { data: storybook, isLoading, error } = useStorybook(storybookId);
   const [settings, updateSettings] = useViewerSettings();
-  const { lastPage, saveProgress } = useReadingProgress(storybookId);
-
   // Total pages: cover + story pages + end
   const pages = storybook?.pages ?? [];
   const totalPages = pages.length + 2; // +1 cover, +1 end
-  const [currentPage, setCurrentPage] = useState(lastPage);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -59,10 +56,9 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     (page: number) => {
       const clamped = Math.max(0, Math.min(page, totalPages - 1));
       setCurrentPage(clamped);
-      saveProgress(clamped);
       stopTts();
     },
-    [totalPages, saveProgress, stopTts]
+    [totalPages, stopTts]
   );
 
   const goNext = useCallback(() => goToPage(currentPage + 1), [currentPage, goToPage]);
