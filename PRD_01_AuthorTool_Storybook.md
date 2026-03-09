@@ -280,7 +280,49 @@ features/
 
 ---
 
-## 6. 미구현 기능 (TODO)
+## 6. 학습 게임 (Learning Games) ✅
+
+### 6.1 게임 시스템 개요
+
+동화책/파닉스 콘텐츠 기반으로 다양한 학습 게임을 자동 생성하는 시스템.
+게임 데이터는 서버에서 AI 없이 콘텐츠 풀로부터 자동 구성됨.
+
+### 6.2 게임 목록 (15종)
+
+| ID | 이름 | 지원 타입 | 설명 |
+|----|------|-----------|------|
+| vocabulary-matching | 어휘 매칭 | storybook | 단어-뜻 매칭 |
+| word-writing | 낱말쓰기 (한글) | storybook | 한글 단어 따라 쓰기 |
+| english-word-writing | 낱말쓰기 (영어) | storybook | 영어 단어 따라 쓰기 |
+| connect-the-dots | 점잇기 | storybook | 숫자 순서대로 점 연결 |
+| word-quiz | 단어 퀴즈 | storybook | 4지선다 단어 퀴즈 |
+| picture-sequence | 그림 순서 | storybook | 스토리 순서 맞추기 |
+| odd-one-out | 다른 그림 찾기 | storybook | 다른 하나 고르기 |
+| storybook-quiz | 스토리북 퀴즈 | storybook | 내용 이해 퀴즈 |
+| korean-block | 한글 블록 맞추기 | storybook | 자모음 조합으로 글자 만들기 |
+| english-block | 영어 블록 맞추기 | storybook | 알파벳 조합으로 단어 만들기 |
+| word-image-matching | 단어-그림 매칭 | phonics | 단어와 그림 연결 |
+| blending-listening | 블렌딩 듣기 | phonics | 블렌딩 음원 듣고 맞추기 |
+| letter-sound | 글자 소리 | phonics | 글자와 음가 매칭 |
+| word-listening | 듣고 단어 맞추기 | phonics | 음원 듣고 단어 선택 |
+| korean-word-listening | 듣고 단어 맞추기 (한글) | phonics | 한글 음원 듣고 단어 선택 |
+
+### 6.3 일괄 생성 (모든 게임 만들기)
+
+- GamesTab에서 "모든 게임 만들기" 버튼으로 미생성 게임 일괄 생성
+- 이미 생성된 게임 타입은 건너뜀
+- 진행 상황 실시간 표시 (n/m)
+- 개별 실패 시 다음 게임 계속 진행
+
+### 6.4 게임 레지스트리
+
+- `registerGame()` 으로 게임 등록 (1게임 = 1등록 파일)
+- `getGamesForContext()` — 동화책 타입·언어·레벨에 따라 사용 가능한 게임 필터링
+- 새 게임 추가 시 등록 파일 1개 + Player/Config 컴포넌트 + 서버 generate 함수
+
+---
+
+## 7. 미구현 기능 (TODO)
 
 - [ ] 동화책 공개/비공개 설정
 - [ ] 다운로드 (전체 텍스트/이미지/오디오)
@@ -289,4 +331,4 @@ features/
 ---
 
 *Document End*
-*Last Updated: 2026-02-23*
+*Last Updated: 2026-03-09*
