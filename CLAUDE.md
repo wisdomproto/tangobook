@@ -124,11 +124,18 @@ features/games/
     config/ConfigControls.tsx        # 공통 설정 컨트롤 (NumberSelector, ConfigCheckbox)
   hooks/
     useGameAudio.ts                  # 오디오 재생 + 피드백 효과음 (playAudio, playFeedbackSound)
+    useBlockDrag.ts                  # 블록 게임 공통 드래그/터치 핸들링 (Korean/English 공용)
+    usePhonicsMap.ts                 # 파닉스 음원 라이브러리 sound→URL 맵 로딩
   utils/
     shuffle.ts                       # Fisher-Yates 셔플
 ```
 
-### 게임 목록 (10종)
+### GamesTab 기능
+- **개별 생성**: 모달에서 게임 타입 선택 → 설정 → 생성
+- **일괄 생성**: "모든 게임 만들기" 버튼 → 미생성 게임만 기본 설정으로 순차 생성
+- **gamesApi.generate()** 직접 호출 (일괄 생성 시 useMutation 미사용)
+
+### 게임 목록 (15종)
 | ID | 이름 | 지원 타입 |
 |----|------|-----------|
 | vocabulary-matching | 어휘 매칭 | storybook |
@@ -141,10 +148,15 @@ features/games/
 | blending-listening | 블렌딩 듣기 | phonics |
 | letter-sound | 글자 소리 | phonics |
 | word-listening | 듣고 단어 맞추기 | phonics |
+| korean-block | 한글 블록 맞추기 | storybook |
+| english-block | 영어 블록 맞추기 | storybook |
+| korean-word-writing | 한글 낱말쓰기 | storybook |
+| english-word-writing | 영어 낱말쓰기 | storybook |
+| storybook-quiz | 동화책 퀴즈 | storybook |
 
 ### 새 게임 추가 방법
 1. `shared/types/storybook.ts`에 Config/Data 타입 추가, GameTypeId·GameConfig·GameData 유니온 확장
-2. `server/services/game.service.ts`에 `generate{GameName}()` 함수 + switch case 추가
+2. `server/services/game.service.ts`에 `generate{GameName}()` 함수 + switch case 추가 (블록류는 `generateBlockGame` 헬퍼 활용)
 3. `client/features/games/components/players/{GameName}Player.tsx` 생성
 4. `client/features/games/components/config/{GameName}ConfigPanel.tsx` 생성
 5. `client/features/games/registry/games/{game-id}.register.ts` 생성 (registerGame 호출)
@@ -230,7 +242,8 @@ server/src/
 - `packages/client/src/components/RichTextEditor.tsx`
 - 블로그 섹션 편집에서 사용. HTML 문자열 입출력.
 
-### 공유 클라이언트 유틸리티
+### 공유 클라이언트 컴포넌트/유틸리티
+- `components/DotEditorCanvas.tsx` — 점잇기 편집 캔버스 (DotEditorModal/KeyObjectDotEditorModal 공용)
 - `lib/build-available-images.ts` — 동화책 이미지 풀 구성 (표지/삽화/캐릭터/핵심단어)
 - `lib/generate-id.ts` — 랜덤 ID 생성 (`generateId(prefix?)`)
 
@@ -307,8 +320,11 @@ features/viewer/
     useViewerSettings.ts          # 뷰어 설정 (다크모드, 언어, 텍스트크기 등)
     useAudioPlayer.ts             # TTS/BGM 오디오 재생 (자동 정리)
     useSwipe.ts                   # 스와이프 제스처
-    useReadingProgress.ts         # 읽기 진도 (localStorage)
 ```
+
+### 뷰어 동작
+- 진입 시 항상 표지(0페이지)부터 시작 (읽기 진도 저장 없음)
+- TTS 자동재생 → 페이지 자동 넘김 (autoPlayTts 설정)
 
 ### 뷰어 라우팅 규칙
 - `ViewerContainer`가 storybook.type과 mode 쿼리로 분기
