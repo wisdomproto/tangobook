@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   uploadBase64ToR2,
   uploadBufferToR2,
@@ -6,7 +5,7 @@ import {
   deleteFromR2,
   urlToR2Key,
   listR2Objects,
-  r2PublicUrl,
+  downloadFromR2,
 } from '../providers/r2.provider.js';
 import type { Storybook, StorybookSummary } from '@tangobook/shared';
 
@@ -70,31 +69,35 @@ export const R2Repository = {
 
     const jsonObjects = objects.filter((obj) => obj.Key?.endsWith('.json'));
 
-    await Promise.all(
-      jsonObjects.map(async (obj) => {
-        try {
-          const url = `${r2PublicUrl}/${obj.Key}`;
-          const res = await axios.get<Storybook>(url, { timeout: 5000 });
-          const sb = res.data;
-          summaries.push({
-            id: sb.id,
-            title: sb.title,
-            type: sb.type,
-            targetAge: sb.targetAge,
-            artStyle: sb.artStyle,
-            category: sb.category,
-            folder: sb.folder,
-            isPublic: sb.isPublic,
-            createdAt: sb.createdAt,
-            coverImage: sb.coverImage,
-            pageCount: sb.pages?.length ?? 0,
-            phonicsLanguage: sb.phonicsConfig?.language,
-          });
-        } catch {
-          // 개별 파일 로드 실패 무시
-        }
-      })
-    );
+    // S3 SDK로 직접 읽기 (public URL HTTP 요청 대신) + 동시 요청 5개 제한
+    const CONCURRENCY = 5;
+    for (let i = 0; i < jsonObjects.length; i += CONCURRENCY) {
+      const batch = jsonObjects.slice(i, i + CONCURRENCY);
+      await Promise.all(
+        batch.map(async (obj) => {
+          try {
+            const buffer = await downloadFromR2(obj.Key!);
+            const sb = JSON.parse(buffer.toString('utf-8')) as Storybook;
+            summaries.push({
+              id: sb.id,
+              title: sb.title,
+              type: sb.type,
+              targetAge: sb.targetAge,
+              artStyle: sb.artStyle,
+              category: sb.category,
+              folder: sb.folder,
+              isPublic: sb.isPublic,
+              createdAt: sb.createdAt,
+              coverImage: sb.coverImage,
+              pageCount: sb.pages?.length ?? 0,
+              phonicsLanguage: sb.phonicsConfig?.language,
+            });
+          } catch {
+            // 개별 파일 로드 실패 무시
+          }
+        })
+      );
+    }
 
     return summaries.sort(
       (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -103,9 +106,8 @@ export const R2Repository = {
 
   async getStorybook(id: string): Promise<Storybook | null> {
     try {
-      const url = `${r2PublicUrl}/${storybookKey(id)}`;
-      const res = await axios.get<Record<string, unknown>>(url, { timeout: 10000 });
-      return normalizeStorybook(res.data);
+      const buffer = await downloadFromR2(storybookKey(id));
+      return normalizeStorybook(JSON.parse(buffer.toString('utf-8')));
     } catch {
       return null;
     }
