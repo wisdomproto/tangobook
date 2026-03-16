@@ -419,7 +419,7 @@ export function Sidebar() {
               </button>
             </div>
           )}
-          <div className="space-y-0.5">
+          <div className="space-y-0.5 max-h-40 overflow-y-auto">
             <DroppableFolder
               folderId="all"
               label="전체"
