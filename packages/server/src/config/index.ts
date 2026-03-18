@@ -34,4 +34,9 @@ export const config = {
     secretKey: process.env.NAVER_AD_SECRET_KEY ?? '',
     customerId: process.env.NAVER_AD_CUSTOMER_ID ?? '',
   },
+
+  // Optional: required only when generating videos via Grok
+  xai: {
+    apiKey: process.env.XAI_API_KEY ?? '',
+  },
 } as const;
