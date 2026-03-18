@@ -4,6 +4,7 @@ import { StepBar } from './StepBar';
 import { LongformProjectHeader } from './LongformProjectHeader';
 import { PromptAnalysisStep } from './PromptAnalysisStep';
 import { VideoGenerationStep } from './VideoGenerationStep';
+import { RenderStep } from './RenderStep';
 
 interface LongformVideoTabProps {
   storybook: Storybook;
@@ -178,7 +179,19 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
                   <StepClipGeneration project={selectedProject} storybookId={storybook.id} />
                 )}
                 {currentStep === 4 && (
-                  <StepRendering project={selectedProject} storybookId={storybook.id} />
+                  <RenderStep
+                    storybookId={storybook.id}
+                    project={selectedProject}
+                    onUpdate={(updates) => {
+                      onUpdate((draft) => {
+                        const proj = draft.longformProjects?.find(
+                          (p) => p.id === selectedProject.id
+                        );
+                        if (proj) Object.assign(proj, updates);
+                      });
+                      onSave();
+                    }}
+                  />
                 )}
               </div>
             </div>
@@ -215,44 +228,6 @@ function StepClipGeneration({
           </p>
         )}
       </div>
-    </div>
-  );
-}
-
-// ===== 스텝 4: 렌더링 =====
-function StepRendering({
-  project,
-  storybookId: _storybookId,
-}: {
-  project: LongformProject;
-  storybookId: string;
-}) {
-  return (
-    <div className="space-y-4">
-      <div className="rounded-lg bg-slate-50 dark:bg-slate-800/50 p-4 text-sm text-slate-600 dark:text-slate-400">
-        <p className="font-medium text-slate-700 dark:text-slate-300 mb-1">최종 렌더링</p>
-        <p>생성된 클립을 합쳐 최종 영상을 렌더링합니다.</p>
-      </div>
-      {project.outputUrl ? (
-        <div className="flex items-center gap-2 text-sm text-green-600 dark:text-green-400">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-          렌더링 완료
-          <a
-            href={project.outputUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline text-violet-600 dark:text-violet-400 ml-1"
-          >
-            영상 보기
-          </a>
-        </div>
-      ) : (
-        <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-6">
-          렌더링된 영상이 없습니다.
-        </p>
-      )}
     </div>
   );
 }
