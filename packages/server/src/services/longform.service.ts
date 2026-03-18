@@ -14,6 +14,8 @@ import { AppError } from '../middleware/error.middleware.js';
 import { R2Repository } from '../repositories/r2.repository.js';
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
 import { GrokProvider } from '../providers/grok.provider.js';
+import { generateLongform } from '../providers/longform.provider.js';
+import type { LongformRenderOptions } from '../providers/longform.provider.js';
 import { PromptPresetService } from './prompt-preset.service.js';
 
 const execFileAsync = promisify(execFile);
@@ -354,24 +356,83 @@ export const LongformService = {
     return progressMap.get(projectId) ?? null;
   },
 
-  // ----- Render final video (stub) -----
+  // ----- Render final video -----
   async render(storybookId: string, projectId: string): Promise<{ outputUrl?: string }> {
     const storybook = await loadStorybook(storybookId);
     const project = loadProject(storybook, projectId);
 
-    // Stub: Python rendering script will be created in Task 11
-    renderProgressMap.set(projectId, { progress: 0, step: '렌더링 대기 중 (미구현)' });
+    if (project.scenes.length === 0) {
+      throw new AppError(400, '장면이 없습니다. 먼저 분석을 실행하세요.');
+    }
 
-    // For now, just mark the output key path
-    const _key = outputKey(storybookId, projectId);
+    // 클립이 없는 장면 확인
+    const readyScenes = project.scenes.filter((s) => s.clipUrl);
+    if (readyScenes.length === 0) {
+      throw new AppError(400, '생성된 클립이 없습니다. 먼저 클립을 생성하세요.');
+    }
 
-    renderProgressMap.set(projectId, {
-      progress: 100,
-      step: '렌더링 미구현 (Task 11에서 구현 예정)',
-    });
-    setTimeout(() => renderProgressMap.delete(projectId), 30_000);
+    // 임시 작업 디렉토리 생성
+    const workDir = path.join(os.tmpdir(), `tangobook-longform-render-${Date.now()}`);
+    fs.mkdirSync(workDir, { recursive: true });
+    const outputPath = path.join(workDir, 'output.mp4');
 
-    return { outputUrl: project.outputUrl };
+    try {
+      // 렌더 옵션 준비
+      const renderOptions: LongformRenderOptions = {
+        scenes: readyScenes
+          .sort((a, b) => a.order - b.order)
+          .map((scene) => ({
+            clipUrl: scene.clipUrl!,
+            sfxUrl: scene.sfxUrl,
+            sfxVolume: scene.sfxVolume,
+            ttsUrl: scene.ttsUrl,
+            subtitles: scene.subtitles.map((sub) => ({
+              text: sub.text,
+              startTime: sub.startTime,
+              endTime: sub.endTime,
+            })),
+            clipDuration: scene.clipDuration,
+          })),
+        bgmUrl: project.bgmUrl,
+        bgmVolume: project.bgmVolume,
+        aspectRatio: project.aspectRatio,
+        subtitleStyle: {
+          fontSize: project.subtitleStyle.fontSize,
+          position: project.subtitleStyle.position,
+          textColor: project.subtitleStyle.textColor,
+          outlineColor: project.subtitleStyle.outlineColor,
+          bgColor: project.subtitleStyle.bgColor,
+        },
+        workDir,
+        outputPath,
+      };
+
+      // Python 렌더링 스크립트 실행
+      renderProgressMap.set(projectId, { progress: 0, step: '렌더링 시작' });
+      await generateLongform(renderOptions, (info) => {
+        renderProgressMap.set(projectId, info);
+      });
+
+      renderProgressMap.set(projectId, { progress: 95, step: 'R2 업로드 중' });
+
+      // 결과 파일을 R2에 업로드
+      const videoBuffer = fs.readFileSync(outputPath);
+      const key = outputKey(storybookId, projectId);
+      const outputUrl = await R2Repository.uploadBuffer(videoBuffer, key, 'video/mp4');
+
+      // 결과 URL을 스토리북에 저장
+      project.outputUrl = outputUrl;
+      project.createdAt = new Date().toISOString();
+      await R2Repository.saveStorybook(storybook);
+
+      renderProgressMap.set(projectId, { progress: 100, step: '완료' });
+      setTimeout(() => renderProgressMap.delete(projectId), 30_000);
+
+      return { outputUrl };
+    } finally {
+      // 임시 디렉토리 정리
+      fs.rmSync(workDir, { recursive: true, force: true });
+    }
   },
 
   // ----- Get render progress -----
