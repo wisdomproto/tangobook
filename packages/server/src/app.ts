@@ -21,6 +21,7 @@ import artStyleLibraryRoutes from './routes/art-style-library.routes.js';
 import vocabularyDbRoutes from './routes/vocabulary-db.routes.js';
 import marketingRoutes from './routes/marketing.routes.js';
 import promptPresetRoutes from './routes/prompt-preset.routes.js';
+import longformRoutes from './routes/longform.routes.js';
 
 export function createApp() {
   const app = express();
@@ -52,6 +53,7 @@ export function createApp() {
   app.use('/api/vocabulary-db', vocabularyDbRoutes);
   app.use('/api/marketing', marketingRoutes);
   app.use('/api/prompt-presets', promptPresetRoutes);
+  app.use('/api/longform', longformRoutes);
 
   // 프로덕션: 클라이언트 정적 파일 서빙
   const clientDist = path.join(__dirname, '../../../../client/dist');
