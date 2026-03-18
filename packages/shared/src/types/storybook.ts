@@ -677,6 +677,9 @@ export interface Storybook {
   // 카드뉴스 프로젝트
   cardNewsProjects?: CardNewsProject[];
 
+  // 롱폼 영상 프로젝트
+  longformProjects?: LongformProject[];
+
   // 학습 게임
   games?: GameInstance[];
 
@@ -843,3 +846,55 @@ export type StorybookSummary = Pick<
   pageCount?: number;
   phonicsLanguage?: 'korean' | 'english';
 };
+
+// ===== Longform Video =====
+export interface LongformProject {
+  id: string;
+  name: string;
+  aspectRatio: '16:9' | '9:16' | '1:1';
+  language: string;
+  promptPresetId?: string;
+  scenes: LongformScene[];
+  bgmUrl?: string;
+  bgmVolume: number;
+  subtitleStyle: LongformSubtitleStyle;
+  outputUrl?: string;
+  createdAt?: string;
+}
+
+export interface LongformScene {
+  id: string;
+  pageNumber: number;
+  videoPrompt: string;
+  clipUrl?: string;
+  clipDuration: number;
+  sfxUrl?: string;
+  sfxVolume: number;
+  ttsUrl?: string;
+  ttsDuration?: number;
+  subtitles: LongformSubtitleEntry[];
+  order: number;
+}
+
+export interface LongformSubtitleEntry {
+  id: string;
+  text: string;
+  startTime: number;
+  endTime: number;
+}
+
+export interface LongformSubtitleStyle {
+  fontSize: 'sm' | 'md' | 'lg';
+  position: 'top' | 'center' | 'bottom';
+  textColor: string;
+  outlineColor: string;
+  bgColor: string;
+}
+
+export interface PromptPreset {
+  id: string;
+  name: string;
+  systemPrompt: string;
+  createdAt: string;
+  updatedAt: string;
+}
