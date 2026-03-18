@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { StepBar } from './StepBar';
 import { LongformProjectHeader } from './LongformProjectHeader';
 import { PromptAnalysisStep } from './PromptAnalysisStep';
+import { VideoGenerationStep } from './VideoGenerationStep';
 
 interface LongformVideoTabProps {
   storybook: Storybook;
@@ -159,7 +160,19 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
                   />
                 )}
                 {currentStep === 2 && (
-                  <StepSceneAnalysis project={selectedProject} storybookId={storybook.id} />
+                  <VideoGenerationStep
+                    storybook={storybook}
+                    project={selectedProject}
+                    onUpdate={(updates) => {
+                      onUpdate((draft) => {
+                        const proj = draft.longformProjects?.find(
+                          (p) => p.id === selectedProject.id
+                        );
+                        if (proj) Object.assign(proj, updates);
+                      });
+                      onSave();
+                    }}
+                  />
                 )}
                 {currentStep === 3 && (
                   <StepClipGeneration project={selectedProject} storybookId={storybook.id} />
@@ -172,31 +185,6 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
           )}
         </div>
       )}
-    </div>
-  );
-}
-
-// ===== 스텝 2: 씬 분석 =====
-function StepSceneAnalysis({
-  project,
-  storybookId: _storybookId,
-}: {
-  project: LongformProject;
-  storybookId: string;
-}) {
-  return (
-    <div className="space-y-4">
-      <div className="rounded-lg bg-slate-50 dark:bg-slate-800/50 p-4 text-sm text-slate-600 dark:text-slate-400">
-        <p className="font-medium text-slate-700 dark:text-slate-300 mb-1">씬 분석</p>
-        <p>AI가 동화책 페이지를 분석하여 영상 씬을 생성합니다.</p>
-      </div>
-      <div className="text-sm text-slate-500 dark:text-slate-400">
-        {project.scenes.length === 0 ? (
-          <p className="text-center py-6">씬이 없습니다. 분석을 시작하세요.</p>
-        ) : (
-          <p>{project.scenes.length}개 씬이 분석되었습니다.</p>
-        )}
-      </div>
     </div>
   );
 }
