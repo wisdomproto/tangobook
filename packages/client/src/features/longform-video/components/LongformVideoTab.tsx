@@ -1,18 +1,14 @@
 import type { Storybook, LongformProject } from '@tangobook/shared';
 import { useState } from 'react';
+import { StepBar } from './StepBar';
+import { LongformProjectHeader } from './LongformProjectHeader';
+import { PromptAnalysisStep } from './PromptAnalysisStep';
 
 interface LongformVideoTabProps {
   storybook: Storybook;
   onUpdate: (updater: (draft: Storybook) => void) => void;
   onSave: () => void;
 }
-
-const STEPS = [
-  { step: 1, label: '프로젝트 설정' },
-  { step: 2, label: '씬 분석' },
-  { step: 3, label: '클립 생성' },
-  { step: 4, label: '렌더링' },
-];
 
 function makeDefaultProject(): Omit<LongformProject, 'id'> {
   return {
@@ -130,69 +126,33 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
           {selectedProject && (
             <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
               {/* 프로젝트 헤더 */}
-              <div className="flex items-center justify-between px-5 py-4 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
-                <div>
-                  <h3 className="font-semibold text-slate-800 dark:text-slate-100">
-                    {selectedProject.name}
-                  </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                    {selectedProject.aspectRatio} · {selectedProject.language.toUpperCase()} ·{' '}
-                    {selectedProject.scenes.length}개 씬
-                  </p>
-                </div>
-                <button
-                  onClick={() => deleteProject(selectedProject.id)}
-                  className="p-1.5 text-slate-400 hover:text-red-500 dark:hover:text-red-400 transition-colors rounded"
-                  title="프로젝트 삭제"
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                    />
-                  </svg>
-                </button>
-              </div>
+              <LongformProjectHeader
+                project={selectedProject}
+                onUpdate={(patch) => {
+                  onUpdate((draft) => {
+                    const proj = draft.longformProjects?.find((p) => p.id === selectedProject.id);
+                    if (proj) Object.assign(proj, patch);
+                  });
+                  onSave();
+                }}
+                onDelete={() => deleteProject(selectedProject.id)}
+              />
 
               {/* 스텝 바 */}
-              <div className="flex border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
-                {STEPS.map(({ step, label }) => (
-                  <button
-                    key={step}
-                    onClick={() => setCurrentStep(step)}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${
-                      currentStep === step
-                        ? 'border-b-2 border-violet-600 text-violet-600'
-                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
-                    }`}
-                  >
-                    <span
-                      className={`w-5 h-5 rounded-full flex items-center justify-center text-xs ${
-                        currentStep === step
-                          ? 'bg-violet-600 text-white'
-                          : 'bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300'
-                      }`}
-                    >
-                      {step}
-                    </span>
-                    <span className="hidden sm:inline">{label}</span>
-                  </button>
-                ))}
-              </div>
+              <StepBar currentStep={currentStep} onStepChange={setCurrentStep} />
 
               {/* 스텝 컨텐츠 */}
               <div className="p-5">
                 {currentStep === 1 && (
-                  <StepProjectSettings
+                  <PromptAnalysisStep
+                    storybook={storybook}
                     project={selectedProject}
-                    onUpdate={(patch) => {
+                    onUpdate={(updates) => {
                       onUpdate((draft) => {
                         const proj = draft.longformProjects?.find(
                           (p) => p.id === selectedProject.id
                         );
-                        if (proj) Object.assign(proj, patch);
+                        if (proj) Object.assign(proj, updates);
                       });
                       onSave();
                     }}
@@ -212,73 +172,6 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
           )}
         </div>
       )}
-    </div>
-  );
-}
-
-// ===== 스텝 1: 프로젝트 설정 =====
-function StepProjectSettings({
-  project,
-  onUpdate,
-}: {
-  project: LongformProject;
-  onUpdate: (patch: Partial<LongformProject>) => void;
-}) {
-  return (
-    <div className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-          프로젝트 이름
-        </label>
-        <input
-          type="text"
-          value={project.name}
-          onChange={(e) => onUpdate({ name: e.target.value })}
-          className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-500"
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-          화면 비율
-        </label>
-        <select
-          value={project.aspectRatio}
-          onChange={(e) =>
-            onUpdate({ aspectRatio: e.target.value as LongformProject['aspectRatio'] })
-          }
-          className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-500"
-        >
-          <option value="16:9">16:9 (유튜브)</option>
-          <option value="9:16">9:16 (쇼츠/릴스)</option>
-          <option value="1:1">1:1 (정사각형)</option>
-        </select>
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-          언어
-        </label>
-        <select
-          value={project.language}
-          onChange={(e) => onUpdate({ language: e.target.value })}
-          className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-500"
-        >
-          <option value="ko">한국어</option>
-          <option value="en">영어</option>
-        </select>
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-          BGM 볼륨 ({project.bgmVolume}%)
-        </label>
-        <input
-          type="range"
-          min={0}
-          max={100}
-          value={project.bgmVolume}
-          onChange={(e) => onUpdate({ bgmVolume: Number(e.target.value) })}
-          className="w-full"
-        />
-      </div>
     </div>
   );
 }
