@@ -12,6 +12,7 @@ import { ChantTab, LearningCardTab, AlphabetCardTab, FlashcardTab } from '@/feat
 import { GamesTab } from '@/features/games';
 import { BlogTab } from '@/features/blog';
 import { CardNewsTab } from '@/features/card-news';
+import { LongformVideoTab } from '@/features/longform-video';
 import type { Storybook } from '@tangobook/shared';
 
 interface EditorContentProps {
@@ -85,6 +86,10 @@ export function EditorContent({ storybook, saving, onSave, onUpdate }: EditorCon
     {
       id: 'card-news',
       el: <CardNewsTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
+    },
+    {
+      id: 'longform-video',
+      el: <LongformVideoTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
     },
   ];
 

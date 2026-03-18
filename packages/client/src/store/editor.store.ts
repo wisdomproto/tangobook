@@ -13,7 +13,8 @@ type EditorTab =
   | 'learning-cards'
   | 'chant'
   | 'flashcards'
-  | 'games';
+  | 'games'
+  | 'longform-video';
 
 type CreateFormType = 'storybook' | 'phonics';
 type SidebarTypeFilter = 'storybook' | 'phonics-ko' | 'phonics-en';
