@@ -5,6 +5,7 @@ import { LongformProjectHeader } from './LongformProjectHeader';
 import { PromptAnalysisStep } from './PromptAnalysisStep';
 import { VideoGenerationStep } from './VideoGenerationStep';
 import { RenderStep } from './RenderStep';
+import { TimelineEditorStep } from './TimelineEditorStep';
 
 interface LongformVideoTabProps {
   storybook: Storybook;
@@ -176,7 +177,19 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
                   />
                 )}
                 {currentStep === 3 && (
-                  <StepClipGeneration project={selectedProject} storybookId={storybook.id} />
+                  <TimelineEditorStep
+                    storybook={storybook}
+                    project={selectedProject}
+                    onUpdate={(updates) => {
+                      onUpdate((draft) => {
+                        const proj = draft.longformProjects?.find(
+                          (p) => p.id === selectedProject.id
+                        );
+                        if (proj) Object.assign(proj, updates);
+                      });
+                      onSave();
+                    }}
+                  />
                 )}
                 {currentStep === 4 && (
                   <RenderStep
@@ -198,36 +211,6 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
           )}
         </div>
       )}
-    </div>
-  );
-}
-
-// ===== 스텝 3: 클립 생성 =====
-function StepClipGeneration({
-  project,
-  storybookId: _storybookId,
-}: {
-  project: LongformProject;
-  storybookId: string;
-}) {
-  const doneCount = project.scenes.filter((s) => s.clipUrl).length;
-  const totalCount = project.scenes.length;
-
-  return (
-    <div className="space-y-4">
-      <div className="rounded-lg bg-slate-50 dark:bg-slate-800/50 p-4 text-sm text-slate-600 dark:text-slate-400">
-        <p className="font-medium text-slate-700 dark:text-slate-300 mb-1">클립 생성</p>
-        <p>각 씬에 대한 영상 클립을 생성합니다.</p>
-      </div>
-      <div className="text-sm text-slate-500 dark:text-slate-400">
-        {totalCount === 0 ? (
-          <p className="text-center py-6">먼저 씬 분석을 완료하세요.</p>
-        ) : (
-          <p>
-            {doneCount} / {totalCount} 클립 완료
-          </p>
-        )}
-      </div>
     </div>
   );
 }
