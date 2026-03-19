@@ -12,15 +12,19 @@ export interface LongformRenderOptions {
     clipUrl: string;
     sfxUrl?: string;
     sfxVolume: number;
+    sfxOffset?: number;
     ttsUrl?: string;
+    ttsOffset?: number;
     subtitles: Array<{ text: string; startTime: number; endTime: number }>;
     clipDuration: number;
+    trimStart?: number;
+    trimEnd?: number;
   }>;
   bgmUrl?: string;
   bgmVolume: number;
   aspectRatio: string;
   subtitleStyle: {
-    fontSize: string;
+    fontSize: number;
     position: string;
     textColor: string;
     outlineColor: string;

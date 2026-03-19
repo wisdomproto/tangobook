@@ -10,7 +10,7 @@ export const PromptPresetController = {
 
   create: asyncHandler(async (req, res) => {
     const { name, systemPrompt } = req.body as { name?: string; systemPrompt?: string };
-    if (!name || !systemPrompt) {
+    if (!name || systemPrompt == null) {
       throw new AppError(400, 'name과 systemPrompt는 필수입니다.');
     }
     const preset = await PromptPresetService.create({ name, systemPrompt });

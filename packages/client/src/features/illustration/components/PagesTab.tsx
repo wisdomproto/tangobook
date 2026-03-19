@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { apiClient } from '@/lib/axios';
 import {
   DndContext,
   closestCenter,
@@ -21,6 +22,7 @@ import { ImageModelSelector } from '@/components/ImageModelSelector';
 import { illustrationApi } from '../api/illustration.api';
 import { ttsApi } from '@/features/tts/api/tts.api';
 import { translationApi } from '@/features/translation/api/translation.api';
+import { storybookApi } from '@/features/storybook/api/storybook.api';
 import { pushImageHistory } from '@/lib/image-history';
 import { TTS_VOICES, SUPPORTED_LANGUAGES, ASPECT_RATIOS } from '@tangobook/shared';
 import type { Storybook, Page } from '@tangobook/shared';
@@ -65,6 +67,58 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
 
   const isBatchRunning = batchProgress !== null;
   const isKorean = activeLang === 'ko';
+  const [downloading, setDownloading] = useState<'images' | null>(null);
+
+  const downloadAllImages = async () => {
+    const imagePages = pages.filter((p) => p.illustrationUrl);
+    if (imagePages.length === 0) return alert('다운로드할 이미지가 없습니다.');
+
+    setDownloading('images');
+    try {
+      const safeName = storybook.title.replace(/[<>:"/\\|?*]+/g, '_').slice(0, 50);
+      const images = imagePages.map((p) => {
+        const ext = p.illustrationUrl!.split('.').pop()?.split('?')[0] || 'jpg';
+        return {
+          url: p.illustrationUrl!,
+          name: `page-${String(p.pageNumber).padStart(2, '0')}.${ext}`,
+        };
+      });
+      const res = await apiClient.post(
+        '/images/download-zip',
+        {
+          images,
+          filename: `${safeName}_images.zip`,
+        },
+        { responseType: 'blob' }
+      );
+      const url = URL.createObjectURL(res.data as Blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${safeName}_images.zip`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error(e);
+      alert('이미지 다운로드 중 오류가 발생했습니다.');
+    } finally {
+      setDownloading(null);
+    }
+  };
+
+  const downloadAllText = () => {
+    if (pages.length === 0) return alert('다운로드할 텍스트가 없습니다.');
+
+    const lines = pages.map((p) => `[${p.pageNumber}페이지]\n${p.text}`).join('\n\n');
+    const content = `${storybook.title}\n${'='.repeat(40)}\n\n${lines}\n`;
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const safeName = storybook.title.replace(/[<>:"/\\|?*]+/g, '_').slice(0, 50);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${safeName}_text.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
@@ -226,6 +280,40 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
     onSettled: () => setBatchProgress(null),
   });
 
+  // === Batch: Generate All Scene Prompts ===
+  const batchScenePromptMutation = useMutation({
+    mutationFn: async () => {
+      const ac = new AbortController();
+      abortControllerRef.current = ac;
+      const allPages = storybook.pages ?? [];
+      const pagesWithText = allPages.filter((p) => p.text);
+      const total = pagesWithText.length;
+
+      for (let i = 0; i < total; i++) {
+        ac.signal.throwIfAborted();
+        setBatchProgress({ type: '장면 프롬프트 생성', current: i + 1, total });
+        const p = pagesWithText[i];
+        const results = await storybookApi.generateScenePrompts([
+          { pageNumber: p.pageNumber, text: p.text, imageUrl: p.illustrationUrl },
+        ]);
+        const r = results[0];
+        if (!r) continue;
+        onUpdate((draft) => {
+          const page = draft.pages.find((dp) => dp.pageNumber === r.pageNumber);
+          if (!page) return;
+          page.scene_description = r.scene_description;
+          page.scene_description_en = r.scene_description_en;
+          page.scene_structure = r.scene_structure;
+        });
+      }
+    },
+    onSettled: () => {
+      abortControllerRef.current = null;
+      setBatchProgress(null);
+      onSave();
+    },
+  });
+
   const handleCancelBatch = () => {
     abortControllerRef.current?.abort();
   };
@@ -270,14 +358,33 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
 
   return (
     <div className="space-y-4">
-      {/* Header with page count + add button */}
+      {/* Header with page count + action buttons */}
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
           페이지 ({pages.length}쪽)
         </h2>
-        <Button size="sm" variant="secondary" onClick={handleAddPage}>
-          + 페이지 추가
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={downloadAllImages}
+            disabled={downloading === 'images' || pages.length === 0}
+            loading={downloading === 'images'}
+          >
+            전체 이미지 다운로드
+          </Button>
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={downloadAllText}
+            disabled={pages.length === 0}
+          >
+            전체 텍스트 다운로드
+          </Button>
+          <Button size="sm" variant="secondary" onClick={handleAddPage}>
+            + 페이지 추가
+          </Button>
+        </div>
       </div>
 
       {/* Language sub-tabs */}
@@ -362,6 +469,18 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
             loading={batchIllustrationMutation.isPending}
           >
             전체 삽화 생성
+          </Button>
+        )}
+
+        {/* Generate all scene prompts (Korean tab only) */}
+        {isKorean && (
+          <Button
+            size="sm"
+            onClick={() => batchScenePromptMutation.mutate()}
+            disabled={isBatchRunning || pages.length === 0}
+            loading={batchScenePromptMutation.isPending}
+          >
+            전체 장면 프롬프트 생성
           </Button>
         )}
 
@@ -584,10 +703,12 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
       {/* Error display */}
       {(batchIllustrationMutation.isError ||
         batchTtsMutation.isError ||
-        batchTranslateMutation.isError) && (
+        batchTranslateMutation.isError ||
+        batchScenePromptMutation.isError) && (
         <p className="text-sm text-red-500">
           {batchIllustrationMutation.error?.message ||
             batchTtsMutation.error?.message ||
+            batchScenePromptMutation.error?.message ||
             batchTranslateMutation.error?.message}
         </p>
       )}

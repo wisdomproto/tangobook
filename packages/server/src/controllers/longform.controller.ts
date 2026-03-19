@@ -4,18 +4,25 @@ import { asyncHandler } from '../middleware/async-handler.js';
 
 export const LongformController = {
   analyze: asyncHandler(async (req: Request, res: Response) => {
-    const { storybookId, projectId, promptPresetId } = req.body;
-    const result = await LongformService.analyze(storybookId, projectId, promptPresetId);
+    const { storybookId, projectId, promptPresetId, model } = req.body;
+    const result = await LongformService.analyze(storybookId, projectId, promptPresetId, model);
     res.json({ success: true, data: result });
   }),
 
+  getAnalyzeProgress(req: Request, res: Response) {
+    const projectId = req.params.projectId as string;
+    const progress = LongformService.getAnalyzeProgress(projectId);
+    res.json({ success: true, data: progress });
+  },
+
   analyzeScene: asyncHandler(async (req: Request, res: Response) => {
-    const { storybookId, projectId, sceneId, promptPresetId } = req.body;
+    const { storybookId, projectId, sceneId, promptPresetId, model } = req.body;
     const result = await LongformService.analyzeScene(
       storybookId,
       projectId,
       sceneId,
-      promptPresetId
+      promptPresetId,
+      model
     );
     res.json({ success: true, data: result });
   }),
@@ -27,9 +34,9 @@ export const LongformController = {
   }),
 
   generateAll: asyncHandler(async (req: Request, res: Response) => {
-    const { storybookId, projectId } = req.body;
+    const { storybookId, projectId, startPage, endPage } = req.body;
     // Fire and forget - client polls progress
-    LongformService.generateAll(storybookId, projectId).catch((err) => {
+    LongformService.generateAll(storybookId, projectId, startPage, endPage).catch((err) => {
       console.error('[longform] generateAll error:', err);
     });
     res.json({ success: true, data: { message: '일괄 생성이 시작되었습니다.' } });

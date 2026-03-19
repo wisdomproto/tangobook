@@ -1,5 +1,6 @@
 import type { LongformProject, LongformScene } from '@tangobook/shared';
 import type { TrackType } from '../hooks/useTimeline';
+import { getEffectiveDuration, getSceneStartTime } from '../utils/timeline.utils';
 import { TimelineClip } from './TimelineClip';
 
 interface TimelineTrackProps {
@@ -12,6 +13,9 @@ interface TimelineTrackProps {
   selectedTrack: TrackType | null;
   onSelectClip: (trackType: TrackType | null, clipId: string | null) => void;
   onSubtitleTimingChange?: (subtitleId: string, startTime: number, endTime: number) => void;
+  onTrimChange?: (sceneId: string, trimStart: number, trimEnd: number) => void;
+  onMoveOffset?: (sceneId: string, offset: number) => void;
+  onReorder?: (fromIndex: number, toIndex: number) => void;
 }
 
 const TRACK_LABELS: Record<TrackType, string> = {
@@ -21,14 +25,6 @@ const TRACK_LABELS: Record<TrackType, string> = {
   tts: 'TTS',
   bgm: 'BGM',
 };
-
-function getSceneStartTime(scenes: LongformScene[], index: number): number {
-  let t = 0;
-  for (let i = 0; i < index; i++) {
-    t += scenes[i].clipDuration;
-  }
-  return t;
-}
 
 export function TimelineTrack({
   trackType,
@@ -40,6 +36,9 @@ export function TimelineTrack({
   selectedTrack,
   onSelectClip,
   onSubtitleTimingChange,
+  onTrimChange,
+  onMoveOffset,
+  onReorder,
 }: TimelineTrackProps) {
   const totalWidth = timeToPixel(totalDuration);
   const clips = buildClips(trackType, project);
@@ -65,15 +64,29 @@ export function TimelineTrack({
             label={clip.label}
             startTime={clip.startTime}
             duration={clip.duration}
+            sceneIndex={clip.sceneIndex}
             timeToPixel={timeToPixel}
             pixelToTime={pixelToTime}
             isSelected={selectedTrack === trackType && selectedClipId === clip.id}
             onSelect={onSelectClip}
+            trimStart={clip.trimStart}
+            trimEnd={clip.trimEnd}
             onTimingChange={
               trackType === 'subtitle' && onSubtitleTimingChange
                 ? (start, end) => onSubtitleTimingChange(clip.id, start, end)
                 : undefined
             }
+            onTrimChange={
+              (trackType === 'video' || trackType === 'sfx') && onTrimChange && clip.sceneId
+                ? (ts, te) => onTrimChange(clip.sceneId!, ts, te)
+                : undefined
+            }
+            onMove={
+              (trackType === 'sfx' || trackType === 'tts') && onMoveOffset && clip.sceneId
+                ? (offset) => onMoveOffset(clip.sceneId!, offset)
+                : undefined
+            }
+            onReorder={trackType === 'video' && onReorder ? onReorder : undefined}
           />
         ))}
       </div>
@@ -88,6 +101,10 @@ interface ClipData {
   label: string;
   startTime: number;
   duration: number;
+  sceneId?: string;
+  sceneIndex?: number;
+  trimStart?: number;
+  trimEnd?: number;
 }
 
 function buildClips(trackType: TrackType, project: LongformProject): ClipData[] {
@@ -99,19 +116,28 @@ function buildClips(trackType: TrackType, project: LongformProject): ClipData[] 
         id: scene.id,
         label: `장면 ${i + 1}`,
         startTime: getSceneStartTime(scenes, i),
-        duration: scene.clipDuration,
+        duration: getEffectiveDuration(scene),
+        sceneId: scene.id,
+        sceneIndex: i,
+        trimStart: scene.trimStart ?? 0,
+        trimEnd: scene.trimEnd ?? 0,
       }));
 
     case 'sfx':
       return scenes
         .filter((s) => s.sfxUrl)
-        .map((scene, _i) => {
+        .map((scene) => {
           const idx = scenes.indexOf(scene);
+          const sceneStart = getSceneStartTime(scenes, idx);
           return {
             id: `sfx-${scene.id}`,
             label: `SFX ${idx + 1}`,
-            startTime: getSceneStartTime(scenes, idx),
-            duration: scene.clipDuration,
+            startTime: sceneStart + (scene.sfxOffset ?? 0),
+            duration: getEffectiveDuration(scene) - (scene.sfxOffset ?? 0),
+            sceneId: scene.id,
+            sceneIndex: idx,
+            trimStart: scene.trimStart ?? 0,
+            trimEnd: scene.trimEnd ?? 0,
           };
         });
 
@@ -131,11 +157,14 @@ function buildClips(trackType: TrackType, project: LongformProject): ClipData[] 
         .filter((s) => s.ttsUrl)
         .map((scene) => {
           const idx = scenes.indexOf(scene);
+          const sceneStart = getSceneStartTime(scenes, idx);
           return {
             id: `tts-${scene.id}`,
             label: `TTS ${idx + 1}`,
-            startTime: getSceneStartTime(scenes, idx),
-            duration: scene.ttsDuration ?? scene.clipDuration,
+            startTime: sceneStart + (scene.ttsOffset ?? 0),
+            duration: (scene.ttsDuration ?? getEffectiveDuration(scene)) - (scene.ttsOffset ?? 0),
+            sceneId: scene.id,
+            sceneIndex: idx,
           };
         });
 
@@ -146,7 +175,7 @@ function buildClips(trackType: TrackType, project: LongformProject): ClipData[] 
           id: 'bgm',
           label: 'BGM',
           startTime: 0,
-          duration: scenes.reduce((sum, s) => sum + s.clipDuration, 0),
+          duration: scenes.reduce((sum, s) => sum + getEffectiveDuration(s), 0),
         },
       ];
 

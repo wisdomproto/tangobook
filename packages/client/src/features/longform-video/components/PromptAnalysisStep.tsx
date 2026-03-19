@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import type { Storybook, LongformProject, LongformScene } from '@tangobook/shared';
 import type { PromptPreset } from '@tangobook/shared';
+import { DEFAULT_TEXT_MODEL } from '@tangobook/shared';
 import { Button } from '@/components/Button';
 import { Spinner } from '@/components/Spinner';
+import { TextModelSelector } from '@/components/TextModelSelector';
 import { PromptPresetModal } from './PromptPresetModal';
 import { usePresetList } from '../hooks/usePromptPresets';
 import { longformApi } from '../api/longform.api';
@@ -199,10 +201,24 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
   const [selectedPresetId, setSelectedPresetId] = useState<string>(
     project.promptPresetId ?? presets[0]?.id ?? ''
   );
+  const [selectedModel, setSelectedModel] = useState<string>(DEFAULT_TEXT_MODEL);
   const [modalMode, setModalMode] = useState<'edit' | 'manage' | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analyzeProgress, setAnalyzeProgress] = useState<{ progress: number; step: string } | null>(
+    null
+  );
   const [analyzingSceneId, setAnalyzingSceneId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const stopPolling = useCallback(() => {
+    if (pollRef.current) {
+      clearInterval(pollRef.current);
+      pollRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => () => stopPolling(), [stopPolling]);
 
   // Sync selectedPresetId when presets load and no selection yet
   const effectivePresetId =
@@ -217,17 +233,33 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
     }
     setError(null);
     setIsAnalyzing(true);
+    setAnalyzeProgress({ progress: 0, step: '분석 시작...' });
+
+    // Start polling for progress
+    stopPolling();
+    pollRef.current = setInterval(async () => {
+      try {
+        const progress = await longformApi.getAnalyzeProgress(project.id);
+        if (progress) setAnalyzeProgress(progress);
+      } catch {
+        // ignore polling errors
+      }
+    }, 1500);
+
     try {
       const result = await longformApi.analyze({
         storybookId: storybook.id,
         projectId: project.id,
         promptPresetId: effectivePresetId,
+        model: selectedModel,
       });
       onUpdate({ scenes: result.scenes, promptPresetId: effectivePresetId });
     } catch (e) {
       setError(e instanceof Error ? e.message : '분석 중 오류가 발생했습니다.');
     } finally {
+      stopPolling();
       setIsAnalyzing(false);
+      setAnalyzeProgress(null);
     }
   };
 
@@ -244,6 +276,7 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
         projectId: project.id,
         sceneId,
         promptPresetId: effectivePresetId,
+        model: selectedModel,
       });
       const updatedScenes = project.scenes.map((s) => (s.id === sceneId ? result.scene : s));
       onUpdate({ scenes: updatedScenes });
@@ -263,10 +296,14 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
 
   return (
     <div className="space-y-5">
-      {/* 시스템 프롬프트 바 */}
+      {/* AI 모델 + 시스템 프롬프트 바 */}
       <div className="flex items-center gap-2 flex-wrap">
+        <TextModelSelector value={selectedModel} onChange={setSelectedModel} label="AI 모델" />
+
+        <span className="text-slate-300 dark:text-slate-600">|</span>
+
         <label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex-shrink-0">
-          시스템 프롬프트
+          프롬프트
         </label>
         {presetsLoading ? (
           <Spinner size="sm" className="w-6 h-6" />
@@ -306,20 +343,37 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
         </div>
       )}
 
-      {/* 전체 분석 시작 버튼 */}
-      <div className="flex items-center gap-3">
-        <Button
-          onClick={handleAnalyzeAll}
-          disabled={isAnalyzing || !effectivePresetId}
-          loading={isAnalyzing}
-          size="md"
-        >
-          {isAnalyzing ? '분석 중...' : '전체 분석 시작'}
-        </Button>
-        {project.scenes.length > 0 && (
-          <span className="text-sm text-slate-500 dark:text-slate-400">
-            {project.scenes.filter((s) => s.videoPrompt).length} / {project.scenes.length}개 씬 완료
-          </span>
+      {/* 전체 분석 시작 버튼 + 진행률 */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-3">
+          <Button
+            onClick={handleAnalyzeAll}
+            disabled={isAnalyzing || !effectivePresetId}
+            loading={isAnalyzing}
+            size="md"
+          >
+            {isAnalyzing ? '분석 중...' : '전체 분석 시작'}
+          </Button>
+          {!isAnalyzing && project.scenes.length > 0 && (
+            <span className="text-sm text-slate-500 dark:text-slate-400">
+              {project.scenes.filter((s) => s.videoPrompt).length} / {project.scenes.length}개 씬
+              완료
+            </span>
+          )}
+        </div>
+        {isAnalyzing && analyzeProgress && (
+          <div className="space-y-1">
+            <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+              <span>{analyzeProgress.step}</span>
+              <span>{analyzeProgress.progress}%</span>
+            </div>
+            <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-violet-500 rounded-full transition-all duration-500"
+                style={{ width: `${analyzeProgress.progress}%` }}
+              />
+            </div>
+          </div>
         )}
       </div>
 

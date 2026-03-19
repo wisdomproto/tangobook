@@ -38,5 +38,6 @@ router.post(
   ImageController.uploadAudio
 );
 router.get('/bgm-list', ImageController.bgmList);
+router.post('/download-zip', ImageController.downloadZip);
 
 export default router;

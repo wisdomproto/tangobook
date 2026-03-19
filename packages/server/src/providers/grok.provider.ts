@@ -4,6 +4,7 @@ import { AppError } from '../middleware/error.middleware.js';
 export interface VideoGenOptions {
   aspectRatio: '16:9' | '9:16' | '1:1';
   duration?: number;
+  imageUrl?: string;
 }
 
 export interface VideoGenerationProvider {
@@ -18,7 +19,7 @@ const POLLING_INTERVAL_MS = 5_000;
 const MAX_POLL_ATTEMPTS = 60; // 5 min / 5 sec
 
 async function pollForCompletion(
-  generationId: string,
+  requestId: string,
   apiKey: string,
   signal: AbortSignal
 ): Promise<Buffer> {
@@ -31,7 +32,7 @@ async function pollForCompletion(
       });
     });
 
-    const statusRes = await fetch(`https://api.x.ai/v1/video/generations/${generationId}`, {
+    const statusRes = await fetch(`https://api.x.ai/v1/videos/${requestId}`, {
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
@@ -48,18 +49,25 @@ async function pollForCompletion(
     }
 
     const statusData = (await statusRes.json()) as {
-      id: string;
-      status: 'pending' | 'processing' | 'succeeded' | 'failed';
+      request_id: string;
+      status: 'pending' | 'done' | 'expired' | 'failed';
       video?: { url?: string };
       error?: string;
     };
+
+    console.log(`[grok] poll #${attempt + 1} status=${statusData.status}`);
 
     if (statusData.status === 'failed') {
       throw new AppError(500, `Grok 영상 생성 실패: ${statusData.error ?? 'unknown error'}`);
     }
 
-    if (statusData.status === 'succeeded') {
+    if (statusData.status === 'expired') {
+      throw new AppError(500, 'Grok 영상 생성 만료됨');
+    }
+
+    if (statusData.status === 'done') {
       const videoUrl = statusData.video?.url;
+      console.log(`[grok] done! videoUrl=${videoUrl?.slice(0, 100)}...`);
       if (!videoUrl) {
         throw new AppError(500, 'Grok 영상 생성 완료 응답에 URL이 없음');
       }
@@ -70,10 +78,11 @@ async function pollForCompletion(
       }
 
       const arrayBuffer = await videoRes.arrayBuffer();
+      console.log(`[grok] downloaded video: ${arrayBuffer.byteLength} bytes`);
       return Buffer.from(arrayBuffer);
     }
 
-    // still pending/processing - continue polling
+    // still pending - continue polling
   }
 
   throw new AppError(504, 'Grok 영상 생성 타임아웃: 최대 폴링 횟수 초과');
@@ -91,6 +100,7 @@ export const GrokProvider: VideoGenerationProvider = {
 
     try {
       const requestBody: Record<string, unknown> = {
+        model: 'grok-imagine-video',
         prompt,
         aspect_ratio: options.aspectRatio,
       };
@@ -99,7 +109,20 @@ export const GrokProvider: VideoGenerationProvider = {
         requestBody.duration = options.duration;
       }
 
-      const res = await fetch('https://api.x.ai/v1/video/generations', {
+      if (options.imageUrl) {
+        // Grok API uses "image": { "url": "..." } for image-to-video
+        requestBody.image = { url: encodeURI(options.imageUrl) };
+        console.log(`[grok] image reference: ${encodeURI(options.imageUrl).slice(0, 80)}...`);
+      }
+
+      console.log(
+        '[grok] request body keys:',
+        Object.keys(requestBody),
+        'has image:',
+        !!requestBody.image
+      );
+
+      const res = await fetch('https://api.x.ai/v1/videos/generations', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${apiKey}`,
@@ -111,18 +134,19 @@ export const GrokProvider: VideoGenerationProvider = {
 
       if (!res.ok) {
         const errorText = await res.text().catch(() => '');
+        console.error('[grok] API error:', res.status, errorText);
         throw new AppError(res.status, `Grok 영상 생성 요청 실패 (${res.status}): ${errorText}`);
       }
 
       const data = (await res.json()) as {
-        id?: string;
+        request_id?: string;
         status?: string;
         video?: { url?: string };
-        // Direct binary response (content-type: video/*)
       };
+      console.log('[grok] initial response:', JSON.stringify(data));
 
       // Case 1: Synchronous response - video URL returned immediately
-      if (data.video?.url) {
+      if (data.status === 'done' && data.video?.url) {
         const videoRes = await fetch(data.video.url, { signal: controller.signal });
         if (!videoRes.ok) {
           throw new AppError(videoRes.status, `Grok 영상 다운로드 실패 (${videoRes.status})`);
@@ -132,8 +156,8 @@ export const GrokProvider: VideoGenerationProvider = {
       }
 
       // Case 2: Asynchronous - poll until done
-      if (data.id) {
-        return await pollForCompletion(data.id, apiKey, controller.signal);
+      if (data.request_id) {
+        return await pollForCompletion(data.request_id, apiKey, controller.signal);
       }
 
       throw new AppError(500, 'Grok API 응답 형식이 예상과 다릅니다');

@@ -7,12 +7,6 @@ interface SubtitleStyleModalProps {
   onClose: () => void;
 }
 
-const FONT_SIZES: { value: LongformSubtitleStyle['fontSize']; label: string }[] = [
-  { value: 'sm', label: '작게' },
-  { value: 'md', label: '보통' },
-  { value: 'lg', label: '크게' },
-];
-
 const POSITIONS: { value: LongformSubtitleStyle['position']; label: string }[] = [
   { value: 'top', label: '상단' },
   { value: 'center', label: '중앙' },
@@ -64,25 +58,29 @@ export function SubtitleStyleModal({ style, onSave, onClose }: SubtitleStyleModa
         <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100">자막 스타일</h3>
 
         {/* Font size */}
-        <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+        <div className="flex items-center gap-3">
+          <label className="text-sm font-medium text-slate-700 dark:text-slate-300 w-20">
             글자 크기
           </label>
-          <div className="flex gap-2">
-            {FONT_SIZES.map((fs) => (
-              <button
-                key={fs.value}
-                onClick={() => update('fontSize', fs.value)}
-                className={`flex-1 py-1.5 text-sm rounded-lg border transition-colors ${
-                  draft.fontSize === fs.value
-                    ? 'border-violet-500 bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300'
-                    : 'border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:border-slate-300'
-                }`}
-              >
-                {fs.label}
-              </button>
-            ))}
-          </div>
+          <input
+            type="number"
+            min={12}
+            max={80}
+            value={draft.fontSize}
+            onChange={(e) =>
+              update('fontSize', Math.max(12, Math.min(80, parseInt(e.target.value) || 28)))
+            }
+            className="w-20 px-2 py-1.5 border border-slate-300 dark:border-slate-600 rounded-lg text-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-500 text-center"
+          />
+          <input
+            type="range"
+            min={12}
+            max={80}
+            value={draft.fontSize}
+            onChange={(e) => update('fontSize', parseInt(e.target.value))}
+            className="flex-1 h-1 accent-violet-600"
+          />
+          <span className="text-xs text-slate-500 w-8">{draft.fontSize}px</span>
         </div>
 
         {/* Position */}
@@ -169,14 +167,9 @@ export function SubtitleStyleModal({ style, onSave, onClose }: SubtitleStyleModa
         {/* Preview */}
         <div className="flex justify-center py-3 bg-slate-900 rounded-lg">
           <span
-            className={`inline-block px-3 py-1.5 rounded font-medium ${
-              draft.fontSize === 'sm'
-                ? 'text-sm'
-                : draft.fontSize === 'lg'
-                  ? 'text-xl'
-                  : 'text-base'
-            }`}
+            className="inline-block px-3 py-1.5 rounded font-medium"
             style={{
+              fontSize: `${draft.fontSize}px`,
               color: draft.textColor,
               backgroundColor: draft.bgColor,
               WebkitTextStroke: `1px ${draft.outlineColor}`,

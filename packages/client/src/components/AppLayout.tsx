@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { TopBar } from './TopBar';
 import { Sidebar } from '@/features/storybook/components/Sidebar';
 import { EmptyState } from './EmptyState';
@@ -95,6 +95,7 @@ function EditorPanel({ storybookId }: { storybookId: string }) {
 
   const localRef = useRef<Storybook | null>(null);
   const prevIdRef = useRef<string | null>(null);
+  const [tick, setTick] = useState(0);
 
   // Reset local ref when storybook changes
   if (storybook && prevIdRef.current !== storybook.id) {
@@ -104,12 +105,15 @@ function EditorPanel({ storybookId }: { storybookId: string }) {
 
   const handleUpdate = useCallback((updater: (draft: Storybook) => void) => {
     if (!localRef.current) return;
-    updater(localRef.current);
+    const clone = structuredClone(localRef.current);
+    updater(clone);
+    localRef.current = clone;
+    setTick((n) => n + 1);
   }, []);
 
   const handleSave = useCallback(() => {
     if (!localRef.current) return;
-    saveMutation.mutate(localRef.current);
+    saveMutation.mutate(structuredClone(localRef.current));
   }, [saveMutation]);
 
   if (isLoading) return <Spinner size="lg" className="mt-20" />;
@@ -127,11 +131,11 @@ function EditorPanel({ storybookId }: { storybookId: string }) {
     );
   }
 
-  const local = localRef.current ?? storybook;
+  const current = localRef.current ?? storybook;
 
   return (
     <EditorContent
-      storybook={local}
+      storybook={current}
       saving={saveMutation.isPending}
       onSave={handleSave}
       onUpdate={handleUpdate}

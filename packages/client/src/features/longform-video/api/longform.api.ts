@@ -2,18 +2,29 @@ import { apiGet, apiPost, apiDelete } from '@/lib/axios';
 import type { LongformScene, PromptPreset } from '@tangobook/shared';
 
 export const longformApi = {
-  analyze: (req: { storybookId: string; projectId: string; promptPresetId: string }) =>
-    apiPost<{ scenes: LongformScene[] }>('/longform/analyze', req),
+  analyze: (req: {
+    storybookId: string;
+    projectId: string;
+    promptPresetId: string;
+    model?: string;
+  }) => apiPost<{ scenes: LongformScene[] }>('/longform/analyze', req),
+  getAnalyzeProgress: (projectId: string) =>
+    apiGet<{ progress: number; step: string } | null>(`/longform/analyze-progress/${projectId}`),
   analyzeScene: (req: {
     storybookId: string;
     projectId: string;
     sceneId: string;
     promptPresetId: string;
+    model?: string;
   }) => apiPost<{ scene: LongformScene }>('/longform/analyze-scene', req),
   generateClip: (req: { storybookId: string; projectId: string; sceneId: string }) =>
     apiPost<{ clipUrl: string; sfxUrl: string }>('/longform/generate-clip', req),
-  generateAll: (req: { storybookId: string; projectId: string }) =>
-    apiPost<{ message: string }>('/longform/generate-all', req),
+  generateAll: (req: {
+    storybookId: string;
+    projectId: string;
+    startPage?: number;
+    endPage?: number;
+  }) => apiPost<{ message: string }>('/longform/generate-all', req),
   getProgress: (projectId: string) =>
     apiGet<{ progress: number; step: string; currentScene?: number } | null>(
       `/longform/progress/${projectId}`

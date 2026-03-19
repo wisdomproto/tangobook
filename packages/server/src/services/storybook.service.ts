@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { R2Repository } from '../repositories/r2.repository.js';
-import { generateTextWithGemini } from '../providers/gemini.provider.js';
+import { generateTextWithGemini, getTextModel } from '../providers/gemini.provider.js';
 import { parseGeminiJSON } from '../utils/parse-gemini-json.js';
 import type {
   Storybook,
@@ -10,6 +10,7 @@ import type {
   GenerateStorybookRequest,
   GenerateStoryRequest,
   StoryDraftPage,
+  SceneStructure,
 } from '@tangobook/shared';
 import { AppError } from '../middleware/error.middleware.js';
 import { VocabularyDbService } from './vocabulary-db.service.js';
@@ -488,4 +489,80 @@ ${referenceContent ? `- 참고 내용: ${referenceContent}` : ''}
 - key_objects의 name/nameEn은 반드시 **단일 단어**만 사용. 수식어/형용사 붙이지 않음. (O: 콩/bean, 하프/harp, 구두/slipper) (X: 마법 콩/magic bean, 황금 하프/golden harp)
 - JSON만 응답 (다른 텍스트 없이)
 `.trim();
+}
+
+// === 장면 프롬프트 생성 ===
+
+export interface GenerateScenePromptRequest {
+  pageNumber: number;
+  text: string;
+  imageUrl?: string;
+}
+
+export interface GenerateScenePromptResult {
+  pageNumber: number;
+  scene_description: string;
+  scene_description_en: string;
+  scene_structure: SceneStructure;
+}
+
+export async function generateScenePrompts(
+  pages: GenerateScenePromptRequest[]
+): Promise<GenerateScenePromptResult[]> {
+  const results: GenerateScenePromptResult[] = [];
+
+  for (const page of pages) {
+    const parts: Array<{ text: string } | { inlineData: { data: string; mimeType: string } }> = [];
+
+    if (page.imageUrl) {
+      try {
+        const res = await fetch(page.imageUrl);
+        const buffer = Buffer.from(await res.arrayBuffer());
+        const mimeType = res.headers.get('content-type') || 'image/jpeg';
+        parts.push({ inlineData: { data: buffer.toString('base64'), mimeType } });
+      } catch (e) {
+        console.warn(
+          `[ScenePrompt] 이미지 로드 실패 (page ${page.pageNumber}):`,
+          (e as Error).message
+        );
+      }
+    }
+
+    parts.push({
+      text: `당신은 유아동 동화책 삽화 전문가입니다. 아래 정보를 바탕으로 이 페이지의 장면 설명 프롬프트를 작성해주세요.
+
+페이지 ${page.pageNumber}의 텍스트:
+"${page.text}"
+
+${page.imageUrl ? '위에 첨부된 이미지는 이 페이지의 현재 삽화입니다. 이미지의 시각적 요소(캐릭터 외모/포즈/표정, 배경, 색감, 분위기)를 분석하여 장면 설명에 반영하세요.' : '이미지가 없으므로 텍스트만으로 장면을 상상하여 작성하세요.'}
+
+다음 JSON 형식으로 응답하세요 (JSON만, 다른 텍스트 없이):
+{
+  "scene_description": "장면 설명 (한글, 2-3문장. 캐릭터 행동/표정, 배경, 분위기 포함)",
+  "scene_description_en": "Same scene description in English (2-3 sentences. Character actions/expressions, background, atmosphere. NO copyrighted character names - describe by appearance only)",
+  "scene_structure": {
+    "characters": "등장 캐릭터와 행동 (한글)",
+    "background": "배경 묘사 (한글)",
+    "atmosphere": "분위기 (한글)",
+    "characters_en": "Characters and their actions (English - describe by appearance, no copyrighted names)",
+    "background_en": "Background description (English)",
+    "atmosphere_en": "Atmosphere/mood (English)"
+  }
+}`,
+    });
+
+    const model = getTextModel();
+    const result = await model.generateContent({
+      contents: [{ role: 'user', parts }],
+    });
+    const raw = result.response.text();
+    const parsed = parseGeminiJSON<Omit<GenerateScenePromptResult, 'pageNumber'>>(
+      raw,
+      `페이지 ${page.pageNumber}의 장면 프롬프트 생성 실패`
+    );
+
+    results.push({ pageNumber: page.pageNumber, ...parsed });
+  }
+
+  return results;
 }

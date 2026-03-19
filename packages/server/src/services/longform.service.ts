@@ -28,6 +28,7 @@ interface ProgressInfo {
   failed?: string[];
 }
 
+const analyzeProgressMap = new Map<string, ProgressInfo>();
 const progressMap = new Map<string, ProgressInfo>();
 const renderProgressMap = new Map<string, ProgressInfo>();
 
@@ -123,7 +124,8 @@ export const LongformService = {
   async analyze(
     storybookId: string,
     projectId: string,
-    promptPresetId?: string
+    promptPresetId?: string,
+    model?: string
   ): Promise<LongformProject> {
     const storybook = await loadStorybook(storybookId);
     const project = loadProject(storybook, projectId);
@@ -143,17 +145,31 @@ export const LongformService = {
 
     const lang = project.language ?? 'ko';
     const scenes: LongformScene[] = [];
+    const total = pages.length;
+
+    analyzeProgressMap.set(projectId, { progress: 0, step: `분석 시작 (${total}페이지)` });
+
+    let prevVideoPrompt = '';
 
     for (let i = 0; i < pages.length; i++) {
       const page = pages[i];
       const pageText = getPageText(page, lang);
       const ttsUrl = getPageTtsUrl(page, lang);
 
+      analyzeProgressMap.set(projectId, {
+        progress: Math.round((i / total) * 100),
+        step: `페이지 ${i + 1}/${total} 분석 중`,
+      });
+
       // Generate video prompt via Gemini
       const geminiPrompt = [
         systemPrompt ? `[System]\n${systemPrompt}\n` : '',
         `다음 동화책 페이지를 분석하고, 이 장면을 5-10초 영상으로 만들기 위한 영어 영상 프롬프트를 작성해주세요.`,
         `장면 설명에 카메라 움직임, 조명, 분위기를 포함해주세요.`,
+        prevVideoPrompt
+          ? `이전 장면과의 시각적 연속성을 위해, 이전 장면의 카메라 방향과 움직임을 참고하여 자연스럽게 이어지도록 해주세요.\n[이전 장면 프롬프트]\n${prevVideoPrompt}\n`
+          : '',
+        `중요: 영상에 텍스트, 자막, 말풍선, 음성, 음악이 포함되지 않도록 프롬프트에 "no text, no subtitles, no speech, no voice-over, no music"를 반드시 포함해주세요.`,
         `\n[페이지 텍스트]\n${pageText}`,
         page.scene_description ? `\n[장면 묘사]\n${page.scene_description}` : '',
         page.illustrationUrl ? `\n[삽화 URL]\n${page.illustrationUrl}` : '',
@@ -162,17 +178,20 @@ export const LongformService = {
         .filter(Boolean)
         .join('\n');
 
-      const videoPrompt = await generateTextWithGemini(geminiPrompt);
+      const videoPrompt = await generateTextWithGemini(geminiPrompt, 3, model);
 
       // Split text into sentences for subtitles
       const sentences = splitSentences(pageText);
       const clipDuration = 10; // default
       const subtitles = buildSubtitles(sentences, clipDuration);
 
+      const trimmedPrompt = videoPrompt.trim();
+      prevVideoPrompt = trimmedPrompt;
+
       scenes.push({
         id: crypto.randomUUID(),
         pageNumber: page.pageNumber,
-        videoPrompt: videoPrompt.trim(),
+        videoPrompt: trimmedPrompt,
         clipDuration,
         sfxVolume: 50,
         ttsUrl,
@@ -186,6 +205,9 @@ export const LongformService = {
     if (presetId) project.promptPresetId = presetId;
     await R2Repository.saveStorybook(storybook);
 
+    analyzeProgressMap.set(projectId, { progress: 100, step: '분석 완료' });
+    setTimeout(() => analyzeProgressMap.delete(projectId), 30_000);
+
     return project;
   },
 
@@ -194,7 +216,8 @@ export const LongformService = {
     storybookId: string,
     projectId: string,
     sceneId: string,
-    promptPresetId?: string
+    promptPresetId?: string,
+    model?: string
   ): Promise<LongformScene> {
     const storybook = await loadStorybook(storybookId);
     const project = loadProject(storybook, projectId);
@@ -221,10 +244,20 @@ export const LongformService = {
       }
     }
 
+    // Motion Matching: 이전 장면의 프롬프트를 참고
+    const prevScene = project.scenes
+      .filter((s) => s.order < scene.order)
+      .sort((a, b) => b.order - a.order)[0];
+    const prevVideoPrompt = prevScene?.videoPrompt ?? '';
+
     const geminiPrompt = [
       systemPrompt ? `[System]\n${systemPrompt}\n` : '',
       `다음 동화책 페이지를 분석하고, 이 장면을 5-10초 영상으로 만들기 위한 영어 영상 프롬프트를 작성해주세요.`,
       `장면 설명에 카메라 움직임, 조명, 분위기를 포함해주세요.`,
+      prevVideoPrompt
+        ? `이전 장면과의 시각적 연속성을 위해, 이전 장면의 카메라 방향과 움직임을 참고하여 자연스럽게 이어지도록 해주세요.\n[이전 장면 프롬프트]\n${prevVideoPrompt}\n`
+        : '',
+      `중요: 영상에 텍스트, 자막, 말풍선, 음성, 음악이 포함되지 않도록 프롬프트에 "no text, no subtitles, no speech, no voice-over, no music"를 반드시 포함해주세요.`,
       `\n[페이지 텍스트]\n${pageText}`,
       page.scene_description ? `\n[장면 묘사]\n${page.scene_description}` : '',
       page.illustrationUrl ? `\n[삽화 URL]\n${page.illustrationUrl}` : '',
@@ -233,7 +266,7 @@ export const LongformService = {
       .filter(Boolean)
       .join('\n');
 
-    const videoPrompt = await generateTextWithGemini(geminiPrompt);
+    const videoPrompt = await generateTextWithGemini(geminiPrompt, 3, model);
     const ttsUrl = getPageTtsUrl(page, lang);
     const sentences = splitSentences(pageText);
     const subtitles = buildSubtitles(sentences, scene.clipDuration);
@@ -260,10 +293,21 @@ export const LongformService = {
     if (!scene.videoPrompt)
       throw new AppError(400, '영상 프롬프트가 없습니다. 먼저 분석을 실행하세요.');
 
-    // Generate video via Grok
-    const videoBuffer = await GrokProvider.generateClip(scene.videoPrompt, {
+    // Find the page illustration to use as first frame
+    const page = storybook.pages.find((p) => p.pageNumber === scene.pageNumber);
+    const imageUrl = page?.illustrationUrl;
+    console.log(
+      `[longform] generateClip scene=${scene.id} pageNumber=${scene.pageNumber} imageUrl=${imageUrl ? imageUrl.slice(0, 80) + '...' : 'NONE'}`
+    );
+
+    // Generate video via Grok (append "no music" to avoid baked-in BGM)
+    const prompt = scene.videoPrompt.includes('no music')
+      ? scene.videoPrompt
+      : `${scene.videoPrompt}, no music`;
+    const videoBuffer = await GrokProvider.generateClip(prompt, {
       aspectRatio: project.aspectRatio,
       duration: scene.clipDuration,
+      imageUrl,
     });
 
     // Write to temp files and process with ffmpeg
@@ -276,17 +320,19 @@ export const LongformService = {
 
     try {
       fs.writeFileSync(inputPath, videoBuffer);
+      console.log(
+        `[longform] video buffer size: ${videoBuffer.length} bytes, saved to ${inputPath}`
+      );
 
-      // Extract audio (SFX) and create muted video in parallel
-      await Promise.all([extractAudio(inputPath, audioPath), muteVideo(inputPath, mutedPath)]);
+      // Extract audio (SFX) separately for timeline use
+      await extractAudio(inputPath, audioPath);
 
-      // Upload to R2
-      const mutedBuffer = fs.readFileSync(mutedPath);
+      // Upload original video (with sound) and extracted audio to R2
       const audioBuffer = fs.readFileSync(audioPath);
 
       const [clipUrl, sfxUrl] = await Promise.all([
         R2Repository.uploadBuffer(
-          mutedBuffer,
+          videoBuffer,
           clipKey(storybookId, projectId, scene.order),
           'video/mp4'
         ),
@@ -297,19 +343,31 @@ export const LongformService = {
         ),
       ]);
 
+      // Save old clip to history before overwriting
+      if (scene.clipUrl) {
+        if (!scene.clipHistory) scene.clipHistory = [];
+        scene.clipHistory.push(scene.clipUrl);
+      }
+
       // Update scene in storybook
       scene.clipUrl = clipUrl;
       scene.sfxUrl = sfxUrl;
       await R2Repository.saveStorybook(storybook);
 
+      console.log(`[longform] clip uploaded: ${clipUrl.slice(0, 80)}...`);
       return { clipUrl, sfxUrl };
     } finally {
       fs.rmSync(workDir, { recursive: true, force: true });
     }
   },
 
-  // ----- Generate all clips -----
-  async generateAll(storybookId: string, projectId: string): Promise<void> {
+  // ----- Generate all clips (with optional range) -----
+  async generateAll(
+    storybookId: string,
+    projectId: string,
+    startPage?: number,
+    endPage?: number
+  ): Promise<void> {
     const storybook = await loadStorybook(storybookId);
     const project = loadProject(storybook, projectId);
 
@@ -317,17 +375,32 @@ export const LongformService = {
       throw new AppError(400, '장면이 없습니다. 먼저 분석을 실행하세요.');
     }
 
-    const total = project.scenes.length;
-    const failed: string[] = [];
+    // Filter scenes by page range if specified
+    const targetScenes = project.scenes.filter((s) => {
+      if (startPage != null && s.pageNumber < startPage) return false;
+      if (endPage != null && s.pageNumber > endPage) return false;
+      return true;
+    });
 
-    progressMap.set(projectId, { progress: 0, step: '일괄 생성 시작' });
+    if (targetScenes.length === 0) {
+      throw new AppError(400, '지정된 범위에 해당하는 장면이 없습니다.');
+    }
+
+    const total = targetScenes.length;
+    const failed: string[] = [];
+    const rangeLabel =
+      startPage != null || endPage != null
+        ? ` (p.${startPage ?? 1}~${endPage ?? project.scenes.length})`
+        : '';
+
+    progressMap.set(projectId, { progress: 0, step: `일괄 생성 시작${rangeLabel}` });
 
     // Process scenes sequentially to avoid API rate limits
     for (let i = 0; i < total; i++) {
-      const scene = project.scenes[i];
+      const scene = targetScenes[i];
       progressMap.set(projectId, {
         progress: Math.round((i / total) * 100),
-        step: `장면 ${i + 1}/${total} 생성 중`,
+        step: `장면 ${i + 1}/${total} 생성 중 (p.${scene.pageNumber})`,
         failed: failed.length > 0 ? failed : undefined,
       });
 
@@ -349,6 +422,11 @@ export const LongformService = {
 
     // Clean up progress after 30s
     setTimeout(() => progressMap.delete(projectId), 30_000);
+  },
+
+  // ----- Get analyze progress -----
+  getAnalyzeProgress(projectId: string): ProgressInfo | null {
+    return analyzeProgressMap.get(projectId) ?? null;
   },
 
   // ----- Get generation progress -----
@@ -385,13 +463,17 @@ export const LongformService = {
             clipUrl: scene.clipUrl!,
             sfxUrl: scene.sfxUrl,
             sfxVolume: scene.sfxVolume,
+            sfxOffset: scene.sfxOffset,
             ttsUrl: scene.ttsUrl,
+            ttsOffset: scene.ttsOffset,
             subtitles: scene.subtitles.map((sub) => ({
               text: sub.text,
               startTime: sub.startTime,
               endTime: sub.endTime,
             })),
             clipDuration: scene.clipDuration,
+            trimStart: scene.trimStart,
+            trimEnd: scene.trimEnd,
           })),
         bgmUrl: project.bgmUrl,
         bgmVolume: project.bgmVolume,

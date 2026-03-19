@@ -1,5 +1,6 @@
 import { useState, useCallback, useMemo, useRef } from 'react';
 import type { LongformProject, LongformScene, LongformSubtitleEntry } from '@tangobook/shared';
+import { getEffectiveDuration } from '../utils/timeline.utils';
 
 // ===== Types =====
 
@@ -12,36 +13,17 @@ interface TimelineState {
   selectedTrack: TrackType | null;
 }
 
-interface TimelineActions {
-  play: () => void;
-  pause: () => void;
-  seek: (time: number) => void;
-  selectClip: (trackType: TrackType | null, clipId: string | null) => void;
-  updateSubtitleTiming: (subtitleId: string, startTime: number, endTime: number) => void;
-  updateSubtitleText: (subtitleId: string, text: string) => void;
-  reorderScenes: (fromIndex: number, toIndex: number) => void;
-  getSceneAtTime: (time: number) => LongformScene | null;
-  timeToPixel: (time: number) => number;
-  pixelToTime: (px: number) => number;
-}
-
-export interface UseTimelineReturn extends TimelineState, TimelineActions {
-  totalDuration: number;
-  pixelsPerSecond: number;
-  setPixelsPerSecond: (pps: number) => void;
-  animationRef: ReturnType<typeof useRef<number | null>>;
-}
-
 // ===== Constants =====
 
 const DEFAULT_PPS = 40; // pixels per second
+const MIN_CLIP_DURATION = 1; // seconds
 
 // ===== Hook =====
 
 export function useTimeline(
   project: LongformProject,
   onUpdate: (updates: Partial<Omit<LongformProject, 'id'>>) => void
-): UseTimelineReturn {
+) {
   const [state, setState] = useState<TimelineState>({
     currentTime: 0,
     isPlaying: false,
@@ -51,30 +33,37 @@ export function useTimeline(
   const [pixelsPerSecond, setPixelsPerSecond] = useState(DEFAULT_PPS);
   const animationRef = useRef<number | null>(null);
   const lastFrameRef = useRef<number>(0);
+  const isPlayingRef = useRef(false);
 
-  // Compute total duration from scenes
+  // Compute total duration from scenes (using effective duration)
   const totalDuration = useMemo(
-    () => project.scenes.reduce((sum, s) => sum + s.clipDuration, 0),
+    () => project.scenes.reduce((sum, s) => sum + getEffectiveDuration(s), 0),
     [project.scenes]
   );
 
   const play = useCallback(() => {
+    isPlayingRef.current = true;
     setState((prev) => ({ ...prev, isPlaying: true }));
     lastFrameRef.current = performance.now();
 
     const tick = (now: number) => {
+      if (!isPlayingRef.current) {
+        animationRef.current = null;
+        return;
+      }
+
       const dt = (now - lastFrameRef.current) / 1000;
       lastFrameRef.current = now;
 
       setState((prev) => {
         const next = prev.currentTime + dt;
         if (next >= totalDuration) {
+          isPlayingRef.current = false;
           return { ...prev, currentTime: totalDuration, isPlaying: false };
         }
         return { ...prev, currentTime: next };
       });
 
-      // Check if still playing (read from ref won't work, rely on next setState)
       animationRef.current = requestAnimationFrame(tick);
     };
 
@@ -82,6 +71,7 @@ export function useTimeline(
   }, [totalDuration]);
 
   const pause = useCallback(() => {
+    isPlayingRef.current = false;
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
       animationRef.current = null;
@@ -101,6 +91,59 @@ export function useTimeline(
     setState((prev) => ({ ...prev, selectedTrack: trackType, selectedClipId: clipId }));
   }, []);
 
+  // ----- Scene trim (Phase 1) -----
+  const updateSceneTrim = useCallback(
+    (sceneId: string, trimStart: number, trimEnd: number) => {
+      const updatedScenes = project.scenes.map((s) => {
+        if (s.id !== sceneId) return s;
+        const ts = Math.max(0, trimStart);
+        const te = Math.max(0, trimEnd);
+        // Ensure effective duration stays >= MIN_CLIP_DURATION
+        if (s.clipDuration - ts - te < MIN_CLIP_DURATION) return s;
+        return { ...s, trimStart: ts, trimEnd: te };
+      });
+      onUpdate({ scenes: updatedScenes });
+    },
+    [project.scenes, onUpdate]
+  );
+
+  // ----- Clip duration (Phase 2) -----
+  const updateClipDuration = useCallback(
+    (sceneId: string, newDuration: number) => {
+      const updatedScenes = project.scenes.map((s) =>
+        s.id === sceneId ? { ...s, clipDuration: Math.max(MIN_CLIP_DURATION, newDuration) } : s
+      );
+      onUpdate({ scenes: updatedScenes });
+    },
+    [project.scenes, onUpdate]
+  );
+
+  // ----- SFX/TTS offset (Phase 3) -----
+  const updateSfxOffset = useCallback(
+    (sceneId: string, offset: number) => {
+      const updatedScenes = project.scenes.map((s) => {
+        if (s.id !== sceneId) return s;
+        const maxOffset = getEffectiveDuration(s);
+        return { ...s, sfxOffset: Math.max(0, Math.min(offset, maxOffset)) };
+      });
+      onUpdate({ scenes: updatedScenes });
+    },
+    [project.scenes, onUpdate]
+  );
+
+  const updateTtsOffset = useCallback(
+    (sceneId: string, offset: number) => {
+      const updatedScenes = project.scenes.map((s) => {
+        if (s.id !== sceneId) return s;
+        const maxOffset = getEffectiveDuration(s);
+        return { ...s, ttsOffset: Math.max(0, Math.min(offset, maxOffset)) };
+      });
+      onUpdate({ scenes: updatedScenes });
+    },
+    [project.scenes, onUpdate]
+  );
+
+  // ----- Subtitle timing/text -----
   const updateSubtitleTiming = useCallback(
     (subtitleId: string, startTime: number, endTime: number) => {
       const updatedScenes = project.scenes.map((scene) => ({
@@ -127,26 +170,77 @@ export function useTimeline(
     [project.scenes, onUpdate]
   );
 
+  // ----- Scene reorder (Phase 4) -----
   const reorderScenes = useCallback(
     (fromIndex: number, toIndex: number) => {
       const newScenes = [...project.scenes];
       const [moved] = newScenes.splice(fromIndex, 1);
       newScenes.splice(toIndex, 0, moved);
-      // Update order field
       const reordered = newScenes.map((s, i) => ({ ...s, order: i }));
       onUpdate({ scenes: reordered });
     },
     [project.scenes, onUpdate]
   );
 
+  // ----- Scene split (Phase 5) -----
+  const splitScene = useCallback(
+    (sceneId: string, splitTimeGlobal: number) => {
+      const sceneIndex = project.scenes.findIndex((s) => s.id === sceneId);
+      if (sceneIndex < 0) return;
+      const scene = project.scenes[sceneIndex];
+
+      // Calculate local split time within the scene
+      let sceneStart = 0;
+      for (let i = 0; i < sceneIndex; i++) {
+        sceneStart += getEffectiveDuration(project.scenes[i]);
+      }
+      const localSplit = splitTimeGlobal - sceneStart;
+      const effDuration = getEffectiveDuration(scene);
+      if (localSplit <= 0.5 || localSplit >= effDuration - 0.5) return; // too close to edges
+
+      const trimS = scene.trimStart ?? 0;
+
+      const sceneA: LongformScene = {
+        ...scene,
+        id: crypto.randomUUID(),
+        trimEnd: scene.clipDuration - trimS - localSplit,
+        subtitles: scene.subtitles
+          .filter((sub) => sub.startTime < localSplit)
+          .map((sub) => ({ ...sub, endTime: Math.min(sub.endTime, localSplit) })),
+      };
+
+      const sceneB: LongformScene = {
+        ...scene,
+        id: crypto.randomUUID(),
+        trimStart: trimS + localSplit,
+        subtitles: scene.subtitles
+          .filter((sub) => sub.endTime > localSplit)
+          .map((sub) => ({
+            ...sub,
+            id: crypto.randomUUID(),
+            startTime: Math.max(0, sub.startTime - localSplit),
+            endTime: sub.endTime - localSplit,
+          })),
+      };
+
+      const newScenes = [...project.scenes];
+      newScenes.splice(sceneIndex, 1, sceneA, sceneB);
+      const reordered = newScenes.map((s, i) => ({ ...s, order: i }));
+      onUpdate({ scenes: reordered });
+    },
+    [project.scenes, onUpdate]
+  );
+
+  // ----- Queries -----
   const getSceneAtTime = useCallback(
     (time: number): LongformScene | null => {
       let accumulated = 0;
       for (const scene of project.scenes) {
-        if (time >= accumulated && time < accumulated + scene.clipDuration) {
+        const eff = getEffectiveDuration(scene);
+        if (time >= accumulated && time < accumulated + eff) {
           return scene;
         }
-        accumulated += scene.clipDuration;
+        accumulated += eff;
       }
       return project.scenes[project.scenes.length - 1] ?? null;
     },
@@ -154,11 +248,9 @@ export function useTimeline(
   );
 
   const timeToPixel = useCallback((time: number) => time * pixelsPerSecond, [pixelsPerSecond]);
-
   const pixelToTime = useCallback((px: number) => px / pixelsPerSecond, [pixelsPerSecond]);
 
-  // Stop animation when isPlaying goes false
-  // (handled in pause, but also safeguard)
+  // Stop animation when isPlaying goes false (safeguard)
   if (!state.isPlaying && animationRef.current) {
     cancelAnimationFrame(animationRef.current);
     animationRef.current = null;
@@ -174,9 +266,14 @@ export function useTimeline(
     pause,
     seek,
     selectClip,
+    updateSceneTrim,
+    updateClipDuration,
+    updateSfxOffset,
+    updateTtsOffset,
     updateSubtitleTiming,
     updateSubtitleText,
     reorderScenes,
+    splitScene,
     getSceneAtTime,
     timeToPixel,
     pixelToTime,

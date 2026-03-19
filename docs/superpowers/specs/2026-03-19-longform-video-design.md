@@ -8,7 +8,7 @@
 
 ### Storybook 확장
 
-`Storybook.longformProjects?: LongformProject[]` 추가.
+`packages/shared/src/types/storybook.ts`의 `Storybook` 인터페이스에 `longformProjects?: LongformProject[]` 필드 추가.
 
 ```typescript
 interface LongformProject {
@@ -73,7 +73,7 @@ R2 경로: `prompt-presets/{id}.json`
 
 ### 탭 구조
 
-`longform-video` 탭을 EditorContent에 추가. EditorTab 유니온에 `'longform-video'` 추가.
+`longform-video` 탭을 EditorContent에 추가. `packages/client/src/store/editor.store.ts`의 EditorTab 유니온에 `'longform-video'` 추가.
 
 ```
 LongformVideoTab
@@ -157,35 +157,47 @@ server/src/
 
 ### API 엔드포인트
 
+모든 응답은 `{ success: true, data: T }` 또는 `{ success: false, error: string }` 형식.
+
 ```
+# 프로젝트 CRUD (데이터는 storybook.longformProjects[]에 포함되어 저장)
+# 프로젝트 생성/삭제/수정은 storybook 전체를 저장하는 기존 PUT /api/storybooks/:id 재사용.
+# 클라이언트에서 storybook.longformProjects[]를 조작 후 storybook 전체 저장.
+
 # 장면 분석
 POST /api/longform/analyze              # 전체 장면 프롬프트 생성 (Gemini)
-  Request:  { storybookId, projectId }
-  Response: { scenes: LongformScene[] }
+  Request:  { storybookId, projectId, promptPresetId }
+  Response: { data: { scenes: LongformScene[] } }
 
 POST /api/longform/analyze-scene        # 개별 장면 재분석
-  Request:  { storybookId, projectId, sceneId }
-  Response: { scene: LongformScene }
+  Request:  { storybookId, projectId, sceneId, promptPresetId }
+  Response: { data: { scene: LongformScene } }
 
 # 영상 클립 생성
 POST /api/longform/generate-clip        # 개별 클립 생성 (Grok)
   Request:  { storybookId, projectId, sceneId }
-  Response: { clipUrl, sfxUrl }
+  Response: { data: { clipUrl, sfxUrl } }
 
-POST /api/longform/generate-all         # 전체 클립 일괄 생성
+POST /api/longform/generate-all         # 전체 클립 일괄 생성 (비동기, 폴링으로 추적)
   Request:  { storybookId, projectId }
-  Response: { success: true }
+  Response: { data: { message: '생성 시작됨' } }
 
 GET  /api/longform/progress/:projectId  # 생성 진행률
-  Response: { progress: 0-100, step: string, currentScene?: number }
+  Response: { data: { progress: 0-100, step: string, currentScene?: number } | null }
 
 # 렌더링
-POST /api/longform/render               # 최종 합성
+POST /api/longform/render               # 최종 합성 (비동기, 폴링으로 추적)
   Request:  { storybookId, projectId }
-  Response: { outputUrl }
+  Response: { data: { message: '렌더링 시작됨' } }
 
 GET  /api/longform/render-progress/:projectId
-  Response: { progress: 0-100, step: string }
+  Response: { data: { progress: 0-100, step: string, outputUrl?: string } | null }
+  # outputUrl은 렌더링 완료(progress=100) 시에만 포함
+
+# BGM 업로드
+POST /api/longform/upload-bgm           # BGM 파일 업로드 (multipart/form-data)
+  Request:  file + { storybookId, projectId }
+  Response: { data: { bgmUrl: string } }
 
 # 프리셋 관리
 GET    /api/prompt-presets               # 목록
@@ -198,11 +210,14 @@ DELETE /api/prompt-presets/:id           # 삭제
 
 ```typescript
 // providers/grok.provider.ts
+interface VideoGenOptions {
+  aspectRatio: '16:9' | '9:16' | '1:1';
+  duration?: number;
+}
+
 interface VideoGenerationProvider {
-  generateClip(prompt: string, options: VideoGenOptions): Promise<{
-    videoBuffer: Buffer;
-    audioBuffer: Buffer;   // 효과음 자동 분리
-  }>;
+  generateClip(prompt: string, options: VideoGenOptions): Promise<Buffer>;
+  // 원본 영상(audio 포함) 반환. ffmpeg 분리는 서비스 레이어에서 처리.
 }
 
 export const GrokProvider: VideoGenerationProvider = { ... };
@@ -213,23 +228,63 @@ export const GrokProvider: VideoGenerationProvider = { ... };
 
 ```
 분석:   페이지(삽화+텍스트) → Gemini → videoPrompt → storybook.longformProjects[].scenes[] 저장
-생성:   videoPrompt → Grok API → 영상(video+audio)
-        → ffmpeg 분리 → clipUrl(음소거) + sfxUrl(효과음) → R2 업로드
+생성:   videoPrompt → Grok API → 영상(video+audio) → 서비스 레이어
+        → ffmpeg-static으로 오디오 분리 → clipUrl(음소거) + sfxUrl(효과음) → R2 업로드
 렌더링: scenes[] + subtitles + TTS + SFX + BGM → Python/MoviePy → MP4 → R2 → outputUrl
 ```
+
+### 자막 자동 생성
+
+분석 단계(Step 1)에서 각 장면의 `subtitles[]`를 자동 생성:
+1. 페이지 텍스트를 문장 단위로 분리 (기존 `split_sentences()` 로직과 동일: `.!?。` 기준)
+2. TTS가 있으면 TTS 길이 기준으로 문장별 시간 배분 (글자 수 비율)
+3. TTS가 없으면 `clipDuration` 기준으로 균등 배분
+4. 사용자가 Step 3 타임라인에서 자유롭게 편집 가능
+
+### TTS 로딩
+
+- 기본: 각 페이지의 기존 `page.ttsUrl`(또는 해당 언어의 `translations[lang].ttsUrl`)을 자동 로드
+- TTS가 없는 페이지는 타임라인에서 TTS 트랙이 비어있는 상태로 표시
+- 타임라인에서 TTS 업로드/삭제/교체 가능 (기존 TTS 업로드 API 재사용)
+
+### ffmpeg 의존성
+
+기존 프로젝트에서 `ffmpeg-static`을 사용 중 (파닉스 음원 연결). 영상 오디오 분리에도 동일하게 사용:
+```bash
+ffmpeg -i input.mp4 -vn -acodec libmp3lame output.mp3   # 오디오 추출
+ffmpeg -i input.mp4 -an -vcodec copy output_muted.mp4    # 음소거 영상
+```
+서비스 레이어(`longform.service.ts`)에서 `child_process.execFile`로 ffmpeg-static 호출.
+
+### 에러 처리
+
+- **분석 실패**: 개별 장면 실패 시 해당 장면만 에러 표시, 나머지 계속 진행. 재분석 가능.
+- **클립 생성 실패**: 개별 실패 시 해당 장면 에러 상태. 일괄 생성은 실패한 장면 건너뛰고 계속. 재생성 가능.
+- **렌더링 실패**: 에러 메시지 표시 + 재시도 버튼. Python 프로세스 타임아웃 10분.
+- **Grok API 타임아웃**: 클립당 최대 5분 대기. 초과 시 실패 처리.
 
 ### R2 저장 경로
 
 ```
 storybooks/{id}/longform/{projectId}/clips/scene-{order}.mp4
 storybooks/{id}/longform/{projectId}/sfx/scene-{order}.mp3
+storybooks/{id}/longform/{projectId}/bgm.mp3
 storybooks/{id}/longform/{projectId}/output.mp4
 prompt-presets/{presetId}.json
 ```
 
+### 타임라인 구현 방식
+
+DOM 기반 구현 (Canvas 아님). 각 트랙은 `position: relative` 컨테이너, 클립은 `position: absolute`로 시간 비례 배치.
+- 클립 너비 = (duration / totalDuration) * 컨테이너 너비
+- 클립 left = (startTime / totalDuration) * 컨테이너 너비
+- 재생 헤드: CSS transform으로 애니메이션
+- 프리뷰: 영상 트랙의 클립 클릭 시 해당 클립만 재생, 재생 헤드 이동 시 전체 타임라인 재생
+
 ### 렌더링 파이프라인 (Python)
 
-기존 `generate_audiobook.py`와 유사한 구조로 `generate_longform.py` 생성:
+기존 `generate_audiobook.py`와 유사한 구조로 `generate_longform.py` 생성.
+`child_process.spawn`으로 Python 호출 (기존 audiobook.provider.ts와 동일 패턴):
 
 1. 각 장면의 영상 클립 다운로드
 2. 자막 이미지 생성 (기존 `create_subtitle_image` 재사용, 테두리색 추가)

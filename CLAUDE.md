@@ -333,10 +333,58 @@ features/viewer/
 - `mode === 'quiz'` → QuizViewer
 - 그 외 → 일반 동화책 뷰어
 
+## 롱폼 영상 Feature 구조
+```
+features/longform-video/
+  api/longform.api.ts               # analyze, generateClip, generateAll, render, progress 폴링
+  utils/timeline.utils.ts           # getEffectiveDuration, getSceneStartTime
+  hooks/
+    useLongformProject.ts           # 프로젝트 생성/삭제/기본값
+    useTimeline.ts                  # 타임라인 상태 (play/pause/seek/trim/split/reorder)
+    usePromptPresets.ts             # 프롬프트 프리셋 CRUD
+  components/
+    LongformVideoTab.tsx            # 메인 탭 (4단계 스텝 라우팅)
+    PromptAnalysisStep.tsx          # Step 1: AI 프롬프트 분석 (Gemini + Motion Matching)
+    VideoGenerationStep.tsx         # Step 2: Grok 영상 생성 (개별/전체)
+    TimelineEditorStep.tsx          # Step 3: 타임라인 편집 (오케스트레이터)
+    TimelinePreview.tsx             # 비디오 프리뷰 + 자막 오버레이
+    TimelineControls.tsx            # 재생/시크/분할 버튼
+    TimelineTrack.tsx               # 트랙 컨테이너 (video/sfx/subtitle/tts/bgm)
+    TimelineClip.tsx                # 개별 클립 (리사이즈/이동/재정렬 드래그)
+    SubtitleStyleModal.tsx          # 자막 스타일 (크기/색/위치)
+    RenderStep.tsx                  # Step 4: MoviePy 렌더링 + 결과 미리보기
+    PromptPresetModal.tsx           # 프롬프트 프리셋 관리
+```
+
+### 롱폼 영상 서버 구조
+```
+server/src/
+  services/longform.service.ts      # 분석/생성/렌더/진행률 (analyzeProgressMap, progressMap, renderProgressMap)
+  controllers/longform.controller.ts
+  routes/longform.routes.ts
+  providers/grok.provider.ts        # xAI Grok 영상 생성 API (image-to-video)
+  providers/longform.provider.ts    # Python 렌더링 스크립트 호출 (LongformRenderOptions)
+  scripts/generate_longform.py      # MoviePy 렌더링 (자막, 크로스디졸브, J-Cut, BGM)
+```
+
+### 롱폼 영상 파이프라인
+1. **프롬프트 분석** (Gemini): 페이지별 영상 프롬프트 생성 + Motion Matching (이전 장면 카메라 참조)
+2. **클립 생성** (Grok xAI): image-to-video, "no music/text/subtitles" 자동 포함
+3. **타임라인 편집**: 트리밍(trimStart/trimEnd), SFX/TTS 오프셋, 장면 순서 드래그, 분할
+4. **렌더링** (MoviePy): Cross-Dissolve 전환 + J-Cut 오디오 선행 + 자막 오버레이 + BGM 믹싱
+
+### 롱폼 데이터 모델 (LongformScene 핵심 필드)
+- `clipDuration`, `trimStart?`, `trimEnd?` — 클립 트리밍
+- `sfxUrl`, `sfxOffset?`, `sfxVolume` — 효과음
+- `ttsUrl`, `ttsOffset?`, `ttsDuration?` — 나레이션
+- `subtitles[]` — 자막 (startTime/endTime 상대값)
+- `clipHistory[]` — 이전 클립 히스토리
+
 ## PRD 문서
 - `PRD_00_Master.md` - 마스터 로드맵
 - `PRD_01_AuthorTool_Storybook.md` - 동화책 저작도구
 - `PRD_02_AuthorTool_Phonics.md` - 파닉스 저작도구
 - `PRD_03_Viewer.md` - 뷰어 앱 (동화책 + 파닉스 통합)
 - `PRD_04_Marketing.md` - 마케팅 콘텐츠 (블로그 + 카드뉴스)
+- `PRD_v2.md` - 롱폼 영상 생성
 - `PRD_UIUX_AuthorTool.md` - UI/UX 상세 스펙

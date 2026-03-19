@@ -1,3 +1,4 @@
+import JSZip from 'jszip';
 import { ImageService } from '../services/image.service.js';
 import { asyncHandler } from '../middleware/async-handler.js';
 
@@ -61,5 +62,33 @@ export const ImageController = {
   bgmList: asyncHandler(async (_req, res) => {
     const list = await ImageService.getBgmList();
     res.json({ success: true, data: list });
+  }),
+
+  downloadZip: asyncHandler(async (req, res) => {
+    const { images, filename } = req.body as {
+      images: Array<{ url: string; name: string }>;
+      filename: string;
+    };
+
+    const zip = new JSZip();
+    await Promise.all(
+      images.map(async (img) => {
+        try {
+          const r = await fetch(img.url);
+          if (!r.ok) return;
+          const buf = Buffer.from(await r.arrayBuffer());
+          zip.file(img.name, buf);
+        } catch {
+          // skip failed downloads
+        }
+      })
+    );
+
+    const zipBuf = await zip.generateAsync({ type: 'nodebuffer' });
+    res.set({
+      'Content-Type': 'application/zip',
+      'Content-Disposition': `attachment; filename="${encodeURIComponent(filename)}"`,
+    });
+    res.send(zipBuf);
   }),
 };

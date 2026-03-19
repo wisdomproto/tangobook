@@ -1,4 +1,8 @@
 import { StorybookService } from '../services/storybook.service.js';
+import {
+  generateScenePrompts,
+  type GenerateScenePromptRequest,
+} from '../services/storybook.service.js';
 import { asyncHandler } from '../middleware/async-handler.js';
 import type { GenerateStorybookRequest, GenerateStoryRequest } from '@tangobook/shared';
 
@@ -47,5 +51,11 @@ export const StorybookController = {
   simplifyKeyObjects: asyncHandler(async (_req, res) => {
     const result = await StorybookService.simplifyKeyObjectNames();
     res.json({ success: true, data: result });
+  }),
+
+  generateScenePrompts: asyncHandler(async (req, res) => {
+    const { pages } = req.body as { pages: GenerateScenePromptRequest[] };
+    const results = await generateScenePrompts(pages);
+    res.json({ success: true, data: results });
   }),
 };

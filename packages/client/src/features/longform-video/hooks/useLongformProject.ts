@@ -9,7 +9,7 @@ function makeDefaultProject(): LongformProject {
     scenes: [],
     bgmVolume: 30,
     subtitleStyle: {
-      fontSize: 'md',
+      fontSize: 28,
       position: 'bottom',
       textColor: '#ffffff',
       outlineColor: '#000000',

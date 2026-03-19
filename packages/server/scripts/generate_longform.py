@@ -25,12 +25,17 @@ from moviepy import (
     concatenate_videoclips,
     concatenate_audioclips,
 )
+from moviepy.video.fx import CrossFadeIn, CrossFadeOut
+from moviepy.audio.fx import AudioFadeIn
 
 RESOLUTIONS = {
     "16:9": (1280, 720),
     "9:16": (720, 1280),
     "1:1": (720, 720),
 }
+
+CROSSFADE_DURATION = 0.5  # seconds of cross-dissolve between scenes
+J_CUT_DURATION = 1.0  # seconds of audio pre-lap before scene transition
 
 SUBTITLE_SIZES = {"sm": 20, "md": 26, "lg": 34}
 
@@ -139,10 +144,13 @@ def create_scene_clip(scene, resolution, subtitle_style, font_path, work_dir, sc
 
     video_clip = VideoFileClip(clip_path)
 
-    # clipDuration이 지정되면 해당 길이로 조정
+    # 트리밍 적용: trimStart/trimEnd로 클립의 시작/끝을 잘라냄
+    trim_start = scene.get("trimStart", 0) or 0
+    trim_end = scene.get("trimEnd", 0) or 0
     target_duration = scene.get("clipDuration", video_clip.duration)
-    if video_clip.duration > target_duration:
-        video_clip = video_clip.subclipped(0, target_duration)
+    clip_end = min(video_clip.duration, target_duration - trim_end)
+    clip_start = min(trim_start, clip_end - 0.1)
+    video_clip = video_clip.subclipped(clip_start, clip_end)
 
     duration = video_clip.duration
 
@@ -154,7 +162,8 @@ def create_scene_clip(scene, resolution, subtitle_style, font_path, work_dir, sc
     # 자막 오버레이
     subtitles = scene.get("subtitles", [])
     if subtitles:
-        font_size = SUBTITLE_SIZES.get(subtitle_style.get("fontSize", "md"), 26)
+        raw_size = subtitle_style.get("fontSize", 28)
+        font_size = raw_size if isinstance(raw_size, int) else SUBTITLE_SIZES.get(raw_size, 26)
         text_color = subtitle_style.get("textColor", "#ffffff")
         outline_color = subtitle_style.get("outlineColor", "#000000")
         bg_color = subtitle_style.get("bgColor", "#00000080")
@@ -187,45 +196,53 @@ def create_scene_clip(scene, resolution, subtitle_style, font_path, work_dir, sc
                 layers.append(sub_clip)
 
     composite = CompositeVideoClip(layers, size=(w, h))
+    # 오디오 없이 반환 (J-Cut을 위해 main에서 별도 처리)
+    composite = composite.without_audio()
+    return composite
 
-    # 오디오 믹싱: SFX + TTS
+
+def download_scene_audio(scene, work_dir, scene_idx, duration):
+    """장면의 SFX/TTS 오디오를 다운로드하여 믹싱된 AudioClip 반환."""
     audio_tracks = []
 
     # SFX (영상에서 분리된 효과음)
     sfx_url = scene.get("sfxUrl")
     sfx_volume = scene.get("sfxVolume", 100) / 100.0
+    sfx_offset = scene.get("sfxOffset", 0) or 0
     if sfx_url:
         sfx_path = os.path.join(work_dir, f"scene_{scene_idx}_sfx.mp3")
         try:
             download_file(sfx_url, sfx_path)
             sfx_audio = AudioFileClip(sfx_path).with_volume_scaled(sfx_volume)
-            if sfx_audio.duration > duration:
-                sfx_audio = sfx_audio.subclipped(0, duration)
+            if sfx_audio.duration > duration - sfx_offset:
+                sfx_audio = sfx_audio.subclipped(0, duration - sfx_offset)
+            if sfx_offset > 0:
+                sfx_audio = sfx_audio.with_start(sfx_offset)
             audio_tracks.append(sfx_audio)
         except Exception as e:
             report_progress(-1, f"SFX 로드 실패 (장면 {scene_idx}): {e}")
 
     # TTS
     tts_url = scene.get("ttsUrl")
+    tts_offset = scene.get("ttsOffset", 0) or 0
     if tts_url:
         tts_path = os.path.join(work_dir, f"scene_{scene_idx}_tts.mp3")
         try:
             download_file(tts_url, tts_path)
             tts_audio = AudioFileClip(tts_path)
-            if tts_audio.duration > duration:
-                tts_audio = tts_audio.subclipped(0, duration)
+            if tts_audio.duration > duration - tts_offset:
+                tts_audio = tts_audio.subclipped(0, duration - tts_offset)
+            if tts_offset > 0:
+                tts_audio = tts_audio.with_start(tts_offset)
             audio_tracks.append(tts_audio)
         except Exception as e:
             report_progress(-1, f"TTS 로드 실패 (장면 {scene_idx}): {e}")
 
-    if audio_tracks:
-        mixed_audio = CompositeAudioClip(audio_tracks)
-        composite = composite.with_audio(mixed_audio)
-    else:
-        # 오디오 트랙이 없으면 무음
-        composite = composite.without_audio()
-
-    return composite
+    if not audio_tracks:
+        return None
+    if len(audio_tracks) == 1:
+        return audio_tracks[0]
+    return CompositeAudioClip(audio_tracks)
 
 
 def main():
@@ -251,6 +268,8 @@ def main():
     Path(work_dir).mkdir(parents=True, exist_ok=True)
 
     clips = []
+    clip_durations = []
+    audio_scene_data = []  # (scene, scene_idx, duration)
     report_progress(0, "시작")
 
     # 장면별 클립 생성 (5%~80%)
@@ -267,6 +286,8 @@ def main():
                 scene, resolution, subtitle_style, font_path, work_dir, i,
             )
             clips.append(clip)
+            clip_durations.append(clip.duration)
+            audio_scene_data.append((scene, i, clip.duration))
         except Exception as e:
             report_progress(scene_progress, f"장면 {i + 1} 클립 생성 실패: {e}")
             continue
@@ -279,8 +300,48 @@ def main():
         report_progress(100, "생성할 클립이 없습니다")
         sys.exit(1)
 
-    report_progress(80, "클립 연결 중")
-    final = concatenate_videoclips(clips, method="compose")
+    report_progress(80, "클립 연결 중 (크로스 디졸브 적용)")
+
+    # Apply cross-dissolve transitions between clips
+    transition = options.get("transitionDuration", CROSSFADE_DURATION)
+    if len(clips) > 1 and transition > 0:
+        for i in range(len(clips)):
+            if i > 0:
+                clips[i] = clips[i].with_effects([CrossFadeIn(transition)])
+            if i < len(clips) - 1:
+                clips[i] = clips[i].with_effects([CrossFadeOut(transition)])
+        final = concatenate_videoclips(clips, method="compose", padding=-transition)
+    else:
+        final = concatenate_videoclips(clips, method="compose")
+
+    # J-Cut 오디오 믹싱: 장면별 오디오를 별도로 위치시킴
+    j_cut = options.get("jCutDuration", J_CUT_DURATION)
+
+    # 장면 시작 시간 계산 (크로스 디졸브 패딩 반영)
+    scene_starts = []
+    t = 0.0
+    for i, dur in enumerate(clip_durations):
+        scene_starts.append(t)
+        overlap = transition if (len(clips) > 1 and transition > 0 and i < len(clip_durations) - 1) else 0
+        t += dur - overlap
+
+    report_progress(81, "오디오 믹싱 (J-Cut 적용)")
+
+    all_audio = []
+    for idx, (scene, scene_idx, duration) in enumerate(audio_scene_data):
+        scene_audio = download_scene_audio(scene, work_dir, scene_idx, duration)
+        if scene_audio is None:
+            continue
+
+        if idx > 0 and j_cut > 0:
+            # J-Cut: 다음 장면 오디오를 j_cut초 앞에서 페이드인 시작
+            audio_start = max(0, scene_starts[idx] - j_cut)
+            scene_audio = scene_audio.with_effects([AudioFadeIn(j_cut)])
+        else:
+            audio_start = scene_starts[idx]
+
+        scene_audio = scene_audio.with_start(audio_start)
+        all_audio.append(scene_audio)
 
     # BGM 믹싱
     if bgm_url:
@@ -295,14 +356,12 @@ def main():
                 bgm_audio = concatenate_audioclips([bgm_audio] * loops_needed)
 
             bgm_audio = bgm_audio.subclipped(0, final.duration)
-
-            if final.audio:
-                mixed = CompositeAudioClip([final.audio, bgm_audio])
-                final = final.with_audio(mixed)
-            else:
-                final = final.with_audio(bgm_audio)
+            all_audio.append(bgm_audio)
         except Exception as e:
             report_progress(85, f"BGM 처리 실패 (계속 진행): {e}")
+
+    if all_audio:
+        final = final.with_audio(CompositeAudioClip(all_audio))
 
     report_progress(85, "MP4 인코딩 중")
     final.write_videofile(

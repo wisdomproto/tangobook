@@ -1,5 +1,6 @@
 import { useRef, useEffect, useMemo } from 'react';
 import type { LongformProject, LongformScene, LongformSubtitleStyle } from '@tangobook/shared';
+import { getEffectiveDuration } from '../utils/timeline.utils';
 
 interface TimelinePreviewProps {
   project: LongformProject;
@@ -18,7 +19,7 @@ function getSceneLocalTime(scenes: LongformScene[], scene: LongformScene): numbe
   let accumulated = 0;
   for (const s of scenes) {
     if (s.id === scene.id) return accumulated;
-    accumulated += s.clipDuration;
+    accumulated += getEffectiveDuration(s);
   }
   return 0;
 }
@@ -44,16 +45,10 @@ function subtitlePositionClass(position: LongformSubtitleStyle['position']): str
   }
 }
 
-function subtitleFontSizeClass(size: LongformSubtitleStyle['fontSize']): string {
-  switch (size) {
-    case 'sm':
-      return 'text-sm';
-    case 'lg':
-      return 'text-xl';
-    case 'md':
-    default:
-      return 'text-base';
-  }
+function subtitleFontSize(size: LongformSubtitleStyle['fontSize']): number {
+  if (typeof size === 'number') return size;
+  // Legacy fallback for old string values
+  return size === 'sm' ? 14 : size === 'lg' ? 24 : 18;
 }
 
 export function TimelinePreview({
@@ -63,8 +58,11 @@ export function TimelinePreview({
   getSceneAtTime,
 }: TimelinePreviewProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const sfxRef = useRef<HTMLAudioElement>(null);
+  const bgmRef = useRef<HTMLAudioElement>(null);
   const currentScene = getSceneAtTime(currentTime);
   const currentClipUrl = currentScene?.clipUrl ?? null;
+  const currentSfxUrl = currentScene?.sfxUrl ?? null;
 
   // Calculate local time within current scene
   const localTime = useMemo(() => {
@@ -76,24 +74,48 @@ export function TimelinePreview({
   const activeSubtitle = currentScene ? getActiveSubtitle(currentScene, localTime) : null;
   const { subtitleStyle } = project;
 
-  // Sync video element with playback state
+  // Sync video + SFX with playback state and keep in sync during playback
   useEffect(() => {
     const video = videoRef.current;
+    const sfx = sfxRef.current;
     if (!video || !currentClipUrl) return;
 
     if (isPlaying) {
+      // Correct drift: if video is off by more than 0.3s, re-sync
+      if (Math.abs(video.currentTime - localTime) > 0.3) {
+        video.currentTime = localTime;
+      }
+      if (sfx && Math.abs(sfx.currentTime - localTime) > 0.3) {
+        sfx.currentTime = localTime;
+      }
       video.play().catch(() => {});
+      sfx?.play().catch(() => {});
     } else {
       video.pause();
+      sfx?.pause();
+      video.currentTime = localTime;
+      if (sfx) sfx.currentTime = localTime;
     }
-  }, [isPlaying, currentClipUrl]);
+  }, [isPlaying, currentClipUrl, localTime]);
 
-  // Seek video to local time when not playing
+  // Sync BGM playback
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !currentClipUrl || isPlaying) return;
-    video.currentTime = localTime;
-  }, [localTime, currentClipUrl, isPlaying]);
+    const bgm = bgmRef.current;
+    if (!bgm) return;
+
+    bgm.volume = (project.bgmVolume ?? 30) / 100;
+
+    if (isPlaying) {
+      // Only seek BGM if drifted
+      if (Math.abs(bgm.currentTime - currentTime) > 0.5) {
+        bgm.currentTime = currentTime;
+      }
+      bgm.play().catch(() => {});
+    } else {
+      bgm.pause();
+      bgm.currentTime = currentTime;
+    }
+  }, [isPlaying, project.bgmUrl, project.bgmVolume, currentTime]);
 
   return (
     <div className="relative bg-black rounded-lg overflow-hidden aspect-video">
@@ -105,14 +127,21 @@ export function TimelinePreview({
         </div>
       )}
 
+      {/* SFX audio (separate from video) */}
+      {currentSfxUrl && <audio ref={sfxRef} src={currentSfxUrl} preload="auto" />}
+
+      {/* BGM audio */}
+      {project.bgmUrl && <audio ref={bgmRef} src={project.bgmUrl} preload="auto" loop />}
+
       {/* Subtitle overlay */}
       {activeSubtitle && (
         <div
           className={`absolute left-0 right-0 flex justify-center px-4 ${subtitlePositionClass(subtitleStyle.position)}`}
         >
           <span
-            className={`inline-block px-3 py-1.5 rounded ${subtitleFontSizeClass(subtitleStyle.fontSize)} font-medium`}
+            className="inline-block px-3 py-1.5 rounded font-medium"
             style={{
+              fontSize: `${subtitleFontSize(subtitleStyle.fontSize)}px`,
               color: subtitleStyle.textColor,
               backgroundColor: subtitleStyle.bgColor,
               WebkitTextStroke: `1px ${subtitleStyle.outlineColor}`,

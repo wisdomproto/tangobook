@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback, type ChangeEvent } from 'react';
 import type { Storybook, LongformProject, LongformScene } from '@tangobook/shared';
 import { Button } from '@/components/Button';
+import { storybookApi } from '@/features/storybook';
 import { longformApi } from '../api/longform.api';
 
 // ===== Types =====
@@ -56,6 +57,7 @@ function getSceneStatus(
 
 interface SceneCardProps {
   scene: LongformScene;
+  illustrationUrl?: string;
   storybookId: string;
   projectId: string;
   isGenerating: boolean;
@@ -65,10 +67,14 @@ interface SceneCardProps {
   onGeneratingChange: (sceneId: string, value: boolean) => void;
   onErrorChange: (sceneId: string, error: string | null) => void;
   onUpload: (sceneId: string, file: File) => void;
+  onPromptChange: (sceneId: string, prompt: string) => void;
+  onDeleteClip: (sceneId: string) => void;
+  onRestoreClip: (sceneId: string, clipUrl: string) => void;
 }
 
 function SceneCard({
   scene,
+  illustrationUrl,
   storybookId,
   projectId,
   isGenerating,
@@ -77,9 +83,14 @@ function SceneCard({
   onClipGenerated,
   onGeneratingChange,
   onErrorChange,
+  onPromptChange,
+  onDeleteClip,
+  onRestoreClip,
   onUpload,
 }: SceneCardProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isEditingPrompt, setIsEditingPrompt] = useState(false);
+  const [editedPrompt, setEditedPrompt] = useState(scene.videoPrompt ?? '');
   const status = getSceneStatus(scene, isGenerating, !!error);
 
   const handleGenerate = async () => {
@@ -107,10 +118,6 @@ function SceneCard({
     // reset input so same file can be re-selected
     e.target.value = '';
   };
-
-  const promptSummary = scene.videoPrompt
-    ? scene.videoPrompt.slice(0, 100) + (scene.videoPrompt.length > 100 ? '…' : '')
-    : null;
 
   const isDisabled = isGenerating || isBatchRunning;
 
@@ -146,108 +153,193 @@ function SceneCard({
       </div>
 
       {/* Body */}
-      <div className="p-4 space-y-3">
-        {/* Prompt summary */}
-        {promptSummary ? (
-          <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-2">{promptSummary}</p>
-        ) : (
-          <p className="text-sm text-slate-400 dark:text-slate-500 italic">
-            영상 프롬프트가 없습니다. Step 1에서 분석을 먼저 완료하세요.
-          </p>
-        )}
-
-        {/* Error message */}
-        {error && (
-          <p className="text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded px-3 py-2">
-            {error}
-          </p>
-        )}
-
-        {/* Progress bar during generation */}
-        {isGenerating && (
-          <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-1.5 overflow-hidden">
-            <div className="h-full bg-violet-500 rounded-full animate-pulse w-full" />
+      <div className="flex gap-4 p-4">
+        {/* Reference image */}
+        {illustrationUrl && (
+          <div className="flex-shrink-0 w-32">
+            <img
+              src={illustrationUrl}
+              alt={`페이지 ${scene.pageNumber}`}
+              className="rounded-lg w-full h-auto border border-slate-200 dark:border-slate-700"
+            />
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 text-center mt-1">
+              레퍼런스
+            </p>
           </div>
         )}
 
-        {/* Video preview */}
-        {scene.clipUrl && (
-          <video src={scene.clipUrl} controls className="rounded-lg w-full max-h-48 bg-black" />
-        )}
-
-        {/* Action buttons */}
-        <div className="flex items-center gap-2 flex-wrap">
-          {/* Generate / Regenerate */}
-          {!scene.clipUrl ? (
-            <button
-              onClick={handleGenerate}
-              disabled={isDisabled || !scene.videoPrompt}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-violet-600 hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs rounded-lg transition-colors"
-            >
-              {isGenerating ? (
-                <>
-                  <svg className="animate-spin w-3 h-3" fill="none" viewBox="0 0 24 24">
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                    />
-                  </svg>
-                  생성중...
-                </>
-              ) : (
-                '생성'
-              )}
-            </button>
+        {/* Content */}
+        <div className="flex-1 min-w-0 space-y-3">
+          {/* Editable prompt */}
+          {scene.videoPrompt != null ? (
+            isEditingPrompt ? (
+              <div className="space-y-2">
+                <textarea
+                  value={editedPrompt}
+                  onChange={(e) => setEditedPrompt(e.target.value)}
+                  rows={4}
+                  className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-500 resize-y"
+                />
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => {
+                      onPromptChange(scene.id, editedPrompt);
+                      setIsEditingPrompt(false);
+                    }}
+                    className="px-2.5 py-1 bg-violet-600 hover:bg-violet-700 text-white text-xs rounded-lg transition-colors"
+                  >
+                    저장
+                  </button>
+                  <button
+                    onClick={() => {
+                      setEditedPrompt(scene.videoPrompt ?? '');
+                      setIsEditingPrompt(false);
+                    }}
+                    className="px-2.5 py-1 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 text-xs rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                  >
+                    취소
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <p
+                onClick={() => setIsEditingPrompt(true)}
+                className="text-sm text-slate-600 dark:text-slate-300 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded px-2 py-1.5 -mx-2 transition-colors"
+                title="클릭하여 프롬프트 수정"
+              >
+                {scene.videoPrompt}
+              </p>
+            )
           ) : (
+            <p className="text-sm text-slate-400 dark:text-slate-500 italic">
+              영상 프롬프트가 없습니다. Step 1에서 분석을 먼저 완료하세요.
+            </p>
+          )}
+
+          {/* Error message */}
+          {error && (
+            <p className="text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded px-3 py-2">
+              {error}
+            </p>
+          )}
+
+          {/* Progress bar during generation */}
+          {isGenerating && (
+            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-1.5 overflow-hidden">
+              <div className="h-full bg-violet-500 rounded-full animate-pulse w-full" />
+            </div>
+          )}
+
+          {/* Video preview */}
+          {scene.clipUrl && (
+            <div className="space-y-1">
+              <video src={scene.clipUrl} controls className="rounded-lg w-full max-h-48 bg-black" />
+              <button
+                onClick={() => onDeleteClip(scene.id)}
+                disabled={isGenerating}
+                className="text-xs text-red-500 hover:text-red-600 disabled:opacity-50"
+              >
+                영상 삭제
+              </button>
+            </div>
+          )}
+
+          {/* Clip history */}
+          {scene.clipHistory && scene.clipHistory.length > 0 && (
+            <details className="text-xs">
+              <summary className="text-slate-500 dark:text-slate-400 cursor-pointer hover:text-slate-700 dark:hover:text-slate-300">
+                이전 영상 ({scene.clipHistory.length}개)
+              </summary>
+              <div className="mt-2 space-y-2">
+                {scene.clipHistory.map((url, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <video src={url} controls className="rounded w-48 h-auto bg-black" />
+                    <button
+                      onClick={() => onRestoreClip(scene.id, url)}
+                      className="px-2 py-1 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 rounded hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex-shrink-0"
+                    >
+                      복원
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </details>
+          )}
+
+          {/* Action buttons */}
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Generate / Regenerate */}
+            {!scene.clipUrl ? (
+              <button
+                onClick={handleGenerate}
+                disabled={isDisabled || !scene.videoPrompt}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-violet-600 hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs rounded-lg transition-colors"
+              >
+                {isGenerating ? (
+                  <>
+                    <svg className="animate-spin w-3 h-3" fill="none" viewBox="0 0 24 24">
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                      />
+                    </svg>
+                    생성중...
+                  </>
+                ) : (
+                  '생성'
+                )}
+              </button>
+            ) : (
+              <button
+                onClick={handleGenerate}
+                disabled={isDisabled}
+                className="flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 dark:border-slate-600 hover:border-violet-400 hover:text-violet-600 dark:hover:text-violet-400 disabled:opacity-50 disabled:cursor-not-allowed text-slate-600 dark:text-slate-400 text-xs rounded-lg transition-colors"
+              >
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  />
+                </svg>
+                재생성
+              </button>
+            )}
+
+            {/* Upload button */}
             <button
-              onClick={handleGenerate}
-              disabled={isDisabled}
-              className="flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 dark:border-slate-600 hover:border-violet-400 hover:text-violet-600 dark:hover:text-violet-400 disabled:opacity-50 disabled:cursor-not-allowed text-slate-600 dark:text-slate-400 text-xs rounded-lg transition-colors"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isGenerating}
+              className="flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 dark:border-slate-600 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-50 disabled:cursor-not-allowed text-slate-600 dark:text-slate-400 text-xs rounded-lg transition-colors"
             >
               <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
                 />
               </svg>
-              재생성
+              업로드
             </button>
-          )}
-
-          {/* Upload button */}
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            disabled={isGenerating}
-            className="flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 dark:border-slate-600 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-50 disabled:cursor-not-allowed text-slate-600 dark:text-slate-400 text-xs rounded-lg transition-colors"
-          >
-            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
-              />
-            </svg>
-            업로드
-          </button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="video/*"
-            className="hidden"
-            onChange={handleFileChange}
-          />
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="video/*"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -267,6 +359,8 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
     step: string;
   } | null>(null);
   const [globalError, setGlobalError] = useState<string | null>(null);
+  const [startPage, setStartPage] = useState<string>('');
+  const [endPage, setEndPage] = useState<string>('');
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Cleanup polling on unmount
@@ -287,9 +381,38 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
 
   const handleClipGenerated = useCallback(
     (sceneId: string, clipUrl: string, sfxUrl: string) => {
-      const updatedScenes = project.scenes.map((s) =>
-        s.id === sceneId ? { ...s, clipUrl, sfxUrl } : s
-      );
+      const updatedScenes = project.scenes.map((s) => {
+        if (s.id !== sceneId) return s;
+        // Move current clip to history
+        const clipHistory = [...(s.clipHistory ?? [])];
+        if (s.clipUrl) clipHistory.push(s.clipUrl);
+        return { ...s, clipUrl, sfxUrl, clipHistory };
+      });
+      onUpdate({ scenes: updatedScenes });
+    },
+    [project.scenes, onUpdate]
+  );
+
+  const handleDeleteClip = useCallback(
+    (sceneId: string) => {
+      const updatedScenes = project.scenes.map((s) => {
+        if (s.id !== sceneId) return s;
+        return { ...s, clipUrl: undefined, sfxUrl: undefined };
+      });
+      onUpdate({ scenes: updatedScenes });
+    },
+    [project.scenes, onUpdate]
+  );
+
+  const handleRestoreClip = useCallback(
+    (sceneId: string, clipUrl: string) => {
+      const updatedScenes = project.scenes.map((s) => {
+        if (s.id !== sceneId) return s;
+        // Remove restored URL from history, move current to history
+        const clipHistory = (s.clipHistory ?? []).filter((u) => u !== clipUrl);
+        if (s.clipUrl) clipHistory.push(s.clipUrl);
+        return { ...s, clipUrl, clipHistory };
+      });
       onUpdate({ scenes: updatedScenes });
     },
     [project.scenes, onUpdate]
@@ -310,6 +433,16 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
     });
   }, []);
 
+  const handlePromptChange = useCallback(
+    (sceneId: string, prompt: string) => {
+      const updatedScenes = project.scenes.map((s) =>
+        s.id === sceneId ? { ...s, videoPrompt: prompt } : s
+      );
+      onUpdate({ scenes: updatedScenes });
+    },
+    [project.scenes, onUpdate]
+  );
+
   const handleUpload = useCallback(
     (sceneId: string, file: File) => {
       // Create a local object URL for preview — in production this would upload to server/R2
@@ -328,10 +461,14 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
     setBatchProgress({ progress: 0, step: '시작 중...' });
 
     try {
-      await longformApi.generateAll({
-        storybookId: storybook.id,
-        projectId: project.id,
-      });
+      const req: { storybookId: string; projectId: string; startPage?: number; endPage?: number } =
+        {
+          storybookId: storybook.id,
+          projectId: project.id,
+        };
+      if (startPage) req.startPage = parseInt(startPage);
+      if (endPage) req.endPage = parseInt(endPage);
+      await longformApi.generateAll(req);
 
       // Start polling for progress
       pollingRef.current = setInterval(async () => {
@@ -342,6 +479,16 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
             stopPolling();
             setIsBatchRunning(false);
             setBatchProgress(null);
+            // Reload storybook to get updated clipUrls
+            try {
+              const updated = await storybookApi.getById(storybook.id);
+              const updatedProject = updated.longformProjects?.find((p) => p.id === project.id);
+              if (updatedProject) {
+                onUpdate({ scenes: updatedProject.scenes });
+              }
+            } catch {
+              // ignore
+            }
             return;
           }
 
@@ -355,6 +502,16 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
             stopPolling();
             setIsBatchRunning(false);
             setBatchProgress(null);
+            // Reload storybook to get updated clipUrls
+            try {
+              const updated = await storybookApi.getById(storybook.id);
+              const updatedProject = updated.longformProjects?.find((p) => p.id === project.id);
+              if (updatedProject) {
+                onUpdate({ scenes: updatedProject.scenes });
+              }
+            } catch {
+              // ignore reload error
+            }
           }
         } catch {
           // Ignore polling errors silently
@@ -400,14 +557,38 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
           </select>
         </div>
 
-        {/* Generate all button */}
+        {/* Page range */}
+        <div className="flex items-center gap-1.5">
+          <span className="text-sm text-slate-500 dark:text-slate-400">범위:</span>
+          <input
+            type="number"
+            min={1}
+            max={totalCount}
+            value={startPage}
+            onChange={(e) => setStartPage(e.target.value)}
+            placeholder="시작"
+            className="w-16 px-2 py-1.5 border border-slate-300 dark:border-slate-600 rounded-lg text-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-500 text-center"
+          />
+          <span className="text-slate-400">~</span>
+          <input
+            type="number"
+            min={1}
+            max={totalCount}
+            value={endPage}
+            onChange={(e) => setEndPage(e.target.value)}
+            placeholder="끝"
+            className="w-16 px-2 py-1.5 border border-slate-300 dark:border-slate-600 rounded-lg text-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-500 text-center"
+          />
+        </div>
+
+        {/* Generate button */}
         <Button
           onClick={handleGenerateAll}
           disabled={isBatchRunning || !hasScenes || !hasPrompts}
           loading={isBatchRunning}
           size="md"
         >
-          {isBatchRunning ? '생성 중...' : '전체 생성'}
+          {isBatchRunning ? '생성 중...' : startPage || endPage ? '범위 생성' : '전체 생성'}
         </Button>
 
         {/* Progress summary */}
@@ -481,6 +662,9 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
             <SceneCard
               key={scene.id}
               scene={scene}
+              illustrationUrl={
+                storybook.pages.find((p) => p.pageNumber === scene.pageNumber)?.illustrationUrl
+              }
               storybookId={storybook.id}
               projectId={project.id}
               isGenerating={!!generatingScenes[scene.id]}
@@ -489,6 +673,9 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
               onClipGenerated={handleClipGenerated}
               onGeneratingChange={handleGeneratingChange}
               onErrorChange={handleErrorChange}
+              onPromptChange={handlePromptChange}
+              onDeleteClip={handleDeleteClip}
+              onRestoreClip={handleRestoreClip}
               onUpload={handleUpload}
             />
           ))}

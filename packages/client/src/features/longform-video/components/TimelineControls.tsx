@@ -6,6 +6,8 @@ interface TimelineControlsProps {
   onPause: () => void;
   onSeek: (time: number) => void;
   onOpenSubtitleStyle: () => void;
+  onSplit?: () => void;
+  canSplit?: boolean;
 }
 
 function formatTime(seconds: number): string {
@@ -22,6 +24,8 @@ export function TimelineControls({
   onPause,
   onSeek,
   onOpenSubtitleStyle,
+  onSplit,
+  canSplit,
 }: TimelineControlsProps) {
   const handleToggle = () => {
     if (isPlaying) {
@@ -88,10 +92,30 @@ export function TimelineControls({
         className="flex-1 h-1 bg-slate-300 dark:bg-slate-600 rounded-full appearance-none cursor-pointer accent-violet-600"
       />
 
+      {/* Split button */}
+      {onSplit && (
+        <button
+          onClick={onSplit}
+          disabled={!canSplit}
+          className="flex items-center gap-1 px-2 py-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          title="현재 위치에서 장면 분할"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-7 7m7-7l-7-7"
+            />
+          </svg>
+          <span className="text-xs">분할</span>
+        </button>
+      )}
+
       {/* Subtitle style button */}
       <button
         onClick={onOpenSubtitleStyle}
-        className="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors"
+        className="flex items-center gap-1 px-2 py-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors"
         title="자막 스타일"
       >
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -102,6 +126,7 @@ export function TimelineControls({
             d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
           />
         </svg>
+        <span className="text-xs">자막 스타일</span>
       </button>
     </div>
   );

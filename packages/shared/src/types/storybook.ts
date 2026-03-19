@@ -867,11 +867,16 @@ export interface LongformScene {
   pageNumber: number;
   videoPrompt: string;
   clipUrl?: string;
+  clipHistory?: string[];
   clipDuration: number;
+  trimStart?: number;
+  trimEnd?: number;
   sfxUrl?: string;
   sfxVolume: number;
+  sfxOffset?: number;
   ttsUrl?: string;
   ttsDuration?: number;
+  ttsOffset?: number;
   subtitles: LongformSubtitleEntry[];
   order: number;
 }
@@ -884,7 +889,7 @@ export interface LongformSubtitleEntry {
 }
 
 export interface LongformSubtitleStyle {
-  fontSize: 'sm' | 'md' | 'lg';
+  fontSize: number;
   position: 'top' | 'center' | 'bottom';
   textColor: string;
   outlineColor: string;

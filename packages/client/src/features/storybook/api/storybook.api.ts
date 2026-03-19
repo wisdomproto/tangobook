@@ -6,6 +6,7 @@ import type {
   GenerateStoryRequest,
   GeneratePhonicsBookRequest,
   StoryDraftPage,
+  SceneStructure,
 } from '@tangobook/shared';
 
 export const storybookApi = {
@@ -19,4 +20,13 @@ export const storybookApi = {
   generate: (req: GenerateStorybookRequest) => apiPost<Storybook>('/storybooks/generate', req),
   generatePhonicsBook: (req: GeneratePhonicsBookRequest) =>
     apiPost<Storybook>('/phonics/generate', req),
+  generateScenePrompts: (pages: Array<{ pageNumber: number; text: string; imageUrl?: string }>) =>
+    apiPost<
+      Array<{
+        pageNumber: number;
+        scene_description: string;
+        scene_description_en: string;
+        scene_structure: SceneStructure;
+      }>
+    >('/storybooks/generate-scene-prompts', { pages }),
 };

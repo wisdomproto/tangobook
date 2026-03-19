@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import type { LongformProject } from '@tangobook/shared';
 import { Button } from '@/components/Button';
 import { DownloadButton } from '@/components/DownloadButton';
+import { storybookApi } from '@/features/storybook';
 import { longformApi } from '../api/longform.api';
 
 interface RenderStepProps {
@@ -47,19 +48,38 @@ export function RenderStep({ storybookId, project, onUpdate }: RenderStepProps) 
         try {
           const data = await longformApi.getRenderProgress(project.id);
           if (!data) {
+            // Progress cleaned up — render finished, reload to get outputUrl
             stopPolling();
             setIsRendering(false);
             setProgress(null);
+            try {
+              const updated = await storybookApi.getById(storybookId);
+              const updatedProject = updated.longformProjects?.find((p) => p.id === project.id);
+              if (updatedProject?.outputUrl) {
+                onUpdate({ outputUrl: updatedProject.outputUrl });
+              }
+            } catch {
+              /* ignore */
+            }
             return;
           }
 
           setProgress({ progress: data.progress, step: data.step });
 
-          if (data.progress >= 100 && data.outputUrl) {
+          if (data.progress >= 100) {
             stopPolling();
             setIsRendering(false);
             setProgress(null);
-            onUpdate({ outputUrl: data.outputUrl });
+            // Reload storybook to get outputUrl
+            try {
+              const updated = await storybookApi.getById(storybookId);
+              const updatedProject = updated.longformProjects?.find((p) => p.id === project.id);
+              if (updatedProject?.outputUrl) {
+                onUpdate({ outputUrl: updatedProject.outputUrl });
+              }
+            } catch {
+              /* ignore */
+            }
           }
         } catch {
           // Ignore polling errors
