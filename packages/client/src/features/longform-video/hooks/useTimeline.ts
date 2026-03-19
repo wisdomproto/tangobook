@@ -247,6 +247,19 @@ export function useTimeline(
     [project.scenes]
   );
 
+  // ----- Reset timeline edits -----
+  const resetTimeline = useCallback(() => {
+    const updatedScenes = project.scenes.map((s) => ({
+      ...s,
+      trimStart: undefined,
+      trimEnd: undefined,
+      sfxOffset: undefined,
+      ttsOffset: undefined,
+    }));
+    onUpdate({ scenes: updatedScenes });
+    setState((prev) => ({ ...prev, currentTime: 0, selectedClipId: null, selectedTrack: null }));
+  }, [project.scenes, onUpdate]);
+
   const timeToPixel = useCallback((time: number) => time * pixelsPerSecond, [pixelsPerSecond]);
   const pixelToTime = useCallback((px: number) => px / pixelsPerSecond, [pixelsPerSecond]);
 
@@ -274,6 +287,7 @@ export function useTimeline(
     updateSubtitleText,
     reorderScenes,
     splitScene,
+    resetTimeline,
     getSceneAtTime,
     timeToPixel,
     pixelToTime,

@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
+import { useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
 import type { TrackType } from '../hooks/useTimeline';
 
 interface TimelineClipProps {
@@ -12,13 +12,18 @@ interface TimelineClipProps {
   pixelToTime: (px: number) => number;
   isSelected: boolean;
   onSelect: (trackType: TrackType, clipId: string) => void;
+  /** Subtitle: resize edges change start/end timing */
   onTimingChange?: (startTime: number, endTime: number) => void;
+  /** Video/SFX: resize edges change trim */
   onTrimChange?: (trimStart: number, trimEnd: number) => void;
-  onMove?: (newOffset: number) => void;
+  /** SFX/TTS/Subtitle: body drag to move (receives relative offset) */
+  onMove?: (newRelativeOffset: number) => void;
+  /** Video: body drag to reorder scenes */
   onReorder?: (fromIndex: number, toIndex: number) => void;
-  /** Original trim values for drag delta calculation */
   trimStart?: number;
   trimEnd?: number;
+  /** Current relative offset within scene (for SFX/TTS move) */
+  currentOffset?: number;
 }
 
 const TRACK_COLORS: Record<TrackType, { bg: string; border: string; text: string }> = {
@@ -66,170 +71,127 @@ export function TimelineClip({
   onReorder,
   trimStart: initTrimStart = 0,
   trimEnd: initTrimEnd = 0,
+  currentOffset = 0,
 }: TimelineClipProps) {
   const colors = TRACK_COLORS[trackType];
   const left = timeToPixel(startTime);
   const width = Math.max(timeToPixel(duration), 4);
 
   const canResize =
-    (trackType === 'subtitle' && !!onTimingChange) ||
-    ((trackType === 'video' || trackType === 'sfx') && !!onTrimChange);
-  const canMove = (trackType === 'sfx' || trackType === 'tts') && !!onMove;
+    (trackType === 'subtitle' && !!onTimingChange) || (trackType === 'video' && !!onTrimChange);
+  const canMove = !!onMove;
   const canReorder = trackType === 'video' && !!onReorder && sceneIndex !== undefined;
 
-  const [dragState, setDragState] = useState<
+  const [dragDx, setDragDx] = useState(0);
+  const [dragType, setDragType] = useState<
     'resize-start' | 'resize-end' | 'move' | 'reorder' | null
   >(null);
-  const dragStartX = useRef(0);
-  const dragStartTime = useRef(0);
-  const dragEndTime = useRef(0);
-  const dragTrimStart = useRef(0);
-  const dragTrimEnd = useRef(0);
-  const dragOffset = useRef(0);
+  const isDragging = dragType !== null;
 
-  // ----- Resize (edges) -----
-  const handleResizeMouseDown = useCallback(
-    (edge: 'start' | 'end', e: ReactMouseEvent<HTMLDivElement>) => {
-      if (!canResize) return;
-      e.stopPropagation();
-      e.preventDefault();
-      setDragState(edge === 'start' ? 'resize-start' : 'resize-end');
-      dragStartX.current = e.clientX;
-      dragStartTime.current = startTime;
-      dragEndTime.current = startTime + duration;
-      dragTrimStart.current = initTrimStart;
-      dragTrimEnd.current = initTrimEnd;
+  // Refs to snapshot values at drag start (immune to re-renders)
+  const refs = useRef({
+    startX: 0,
+    startTime: 0,
+    endTime: 0,
+    trimStart: 0,
+    trimEnd: 0,
+    offset: 0,
+  });
 
-      const handleMouseMove = (ev: MouseEvent) => {
-        const dx = ev.clientX - dragStartX.current;
-        const dt = pixelToTime(dx);
+  // Use refs for callbacks to avoid stale closures during drag
+  const callbackRefs = useRef({ onTimingChange, onTrimChange, onMove, onReorder });
+  callbackRefs.current = { onTimingChange, onTrimChange, onMove, onReorder };
 
+  const startDrag = (type: typeof dragType, e: ReactMouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setDragType(type);
+    setDragDx(0);
+    refs.current = {
+      startX: e.clientX,
+      startTime: startTime,
+      endTime: startTime + duration,
+      trimStart: initTrimStart,
+      trimEnd: initTrimEnd,
+      offset: currentOffset,
+    };
+
+    const handleMouseMove = (ev: MouseEvent) => {
+      const dx = ev.clientX - refs.current.startX;
+      setDragDx(dx);
+      const dt = pixelToTime(dx);
+
+      if (type === 'resize-start' || type === 'resize-end') {
         if (trackType === 'subtitle') {
-          // Subtitle: adjust start/end timing
-          let newStart = dragStartTime.current;
-          let newEnd = dragEndTime.current;
-          if (edge === 'start') {
-            newStart = Math.max(0, dragStartTime.current + dt);
-            if (newStart >= newEnd - 0.1) newStart = newEnd - 0.1;
+          let s = refs.current.startTime;
+          let end = refs.current.endTime;
+          if (type === 'resize-start') {
+            s = Math.max(0, refs.current.startTime + dt);
+            if (s >= end - 0.1) s = end - 0.1;
           } else {
-            newEnd = dragEndTime.current + dt;
-            if (newEnd <= newStart + 0.1) newEnd = newStart + 0.1;
+            end = refs.current.endTime + dt;
+            if (end <= s + 0.1) end = s + 0.1;
           }
-          onTimingChange?.(newStart, newEnd);
+          callbackRefs.current.onTimingChange?.(s, end);
         } else {
-          // Video/SFX: adjust trim
-          let newTrimStart = dragTrimStart.current;
-          let newTrimEnd = dragTrimEnd.current;
-          if (edge === 'start') {
-            newTrimStart = Math.max(0, dragTrimStart.current + dt);
+          let ts = refs.current.trimStart;
+          let te = refs.current.trimEnd;
+          if (type === 'resize-start') {
+            ts = Math.max(0, refs.current.trimStart + dt);
           } else {
-            newTrimEnd = Math.max(0, dragTrimEnd.current - dt);
+            te = Math.max(0, refs.current.trimEnd - dt);
           }
-          onTrimChange?.(newTrimStart, newTrimEnd);
+          callbackRefs.current.onTrimChange?.(ts, te);
         }
-      };
+      } else if (type === 'move') {
+        // Pass new relative offset directly
+        const newOffset = Math.max(0, refs.current.offset + dt);
+        callbackRefs.current.onMove?.(newOffset);
+      }
+      // reorder: visual only during drag, commit on mouseup
+    };
 
-      const handleMouseUp = () => {
-        setDragState(null);
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-      };
+    const handleMouseUp = (ev: MouseEvent) => {
+      setDragType(null);
+      setDragDx(0);
 
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-    },
-    [
-      canResize,
-      trackType,
-      startTime,
-      duration,
-      initTrimStart,
-      initTrimEnd,
-      pixelToTime,
-      onTimingChange,
-      onTrimChange,
-    ]
-  );
-
-  // ----- Move (horizontal drag for SFX/TTS offset) -----
-  const handleMoveMouseDown = useCallback(
-    (e: ReactMouseEvent<HTMLDivElement>) => {
-      if (!canMove) return;
-      e.stopPropagation();
-      e.preventDefault();
-      setDragState('move');
-      dragStartX.current = e.clientX;
-      dragOffset.current = startTime; // current absolute position
-
-      const handleMouseMove = (ev: MouseEvent) => {
-        const dx = ev.clientX - dragStartX.current;
-        const dt = pixelToTime(dx);
-        const newOffset = Math.max(0, dragOffset.current + dt);
-        onMove?.(newOffset);
-      };
-
-      const handleMouseUp = () => {
-        setDragState(null);
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-      };
-
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-    },
-    [canMove, startTime, pixelToTime, onMove]
-  );
-
-  // ----- Reorder (drag video clips to reorder scenes) -----
-  const handleReorderMouseDown = useCallback(
-    (e: ReactMouseEvent<HTMLDivElement>) => {
-      if (!canReorder) return;
-      e.stopPropagation();
-      e.preventDefault();
-      setDragState('reorder');
-      dragStartX.current = e.clientX;
-
-      const handleMouseMove = () => {
-        // Visual feedback is handled via dragState
-      };
-
-      const handleMouseUp = (ev: MouseEvent) => {
-        setDragState(null);
-        const dx = ev.clientX - dragStartX.current;
-        const dt = pixelToTime(dx);
-        // Calculate how many scene slots we moved
-        const direction = dt > 0 ? 1 : -1;
-        // If moved more than half the clip width, trigger reorder
-        if (Math.abs(dt) > duration * 0.3) {
-          const toIndex = Math.max(0, sceneIndex! + direction);
+      if (type === 'reorder') {
+        const dx2 = ev.clientX - refs.current.startX;
+        const dt2 = pixelToTime(dx2);
+        if (Math.abs(dt2) > duration * 0.25 && sceneIndex !== undefined) {
+          const slots = Math.round(dt2 / Math.max(duration, 1));
+          const toIndex = Math.max(0, sceneIndex + slots);
           if (toIndex !== sceneIndex) {
-            onReorder?.(sceneIndex!, toIndex);
+            callbackRefs.current.onReorder?.(sceneIndex, toIndex);
           }
         }
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-      };
+      }
 
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-    },
-    [canReorder, sceneIndex, duration, pixelToTime, onReorder]
-  );
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
 
   const handleBodyMouseDown = (e: ReactMouseEvent<HTMLDivElement>) => {
     if (canMove) {
-      handleMoveMouseDown(e);
+      startDrag('move', e);
     } else if (canReorder) {
-      handleReorderMouseDown(e);
+      startDrag('reorder', e);
     }
   };
 
+  // Visual offset during reorder drag
+  const visualLeft = dragType === 'reorder' ? left + dragDx : left;
+
   const bodyCursor = canMove
-    ? dragState === 'move'
+    ? dragType === 'move'
       ? 'cursor-grabbing'
       : 'cursor-grab'
     : canReorder
-      ? dragState === 'reorder'
+      ? dragType === 'reorder'
         ? 'cursor-grabbing'
         : 'cursor-grab'
       : 'cursor-pointer';
@@ -238,38 +200,38 @@ export function TimelineClip({
     <div
       className={`absolute top-1 bottom-1 rounded border ${colors.bg} ${colors.border} ${
         isSelected ? 'ring-2 ring-violet-500 z-10' : ''
-      } ${dragState === 'reorder' ? 'opacity-50' : ''} overflow-hidden select-none`}
-      style={{ left: `${left}px`, width: `${width}px` }}
+      } ${isDragging ? 'z-20' : ''} ${dragType === 'reorder' ? 'opacity-60' : ''} overflow-hidden select-none`}
+      style={{ left: `${visualLeft}px`, width: `${width}px` }}
       onClick={(e) => {
         e.stopPropagation();
         onSelect(trackType, id);
       }}
     >
-      {/* Left resize handle */}
-      {canResize && (
-        <div
-          className={`absolute left-0 top-0 bottom-0 w-1.5 cursor-col-resize z-10 hover:bg-white/30 ${
-            dragState === 'resize-start' ? 'bg-white/30' : ''
-          }`}
-          onMouseDown={(e) => handleResizeMouseDown('start', e)}
-        />
-      )}
-
-      {/* Body (label + drag area) */}
+      {/* Body (label + drag area) — full clip area, under resize handles */}
       <div
-        className={`px-1.5 text-[10px] leading-tight truncate ${colors.text} py-0.5 h-full ${bodyCursor}`}
+        className={`absolute inset-0 flex items-center px-2 text-[10px] leading-tight truncate ${colors.text} ${bodyCursor}`}
         onMouseDown={handleBodyMouseDown}
       >
         {label}
       </div>
 
-      {/* Right resize handle */}
+      {/* Left resize handle — on top of body */}
       {canResize && (
         <div
-          className={`absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize z-10 hover:bg-white/30 ${
-            dragState === 'resize-end' ? 'bg-white/30' : ''
+          className={`absolute left-0 top-0 bottom-0 w-2 cursor-col-resize z-10 hover:bg-white/40 ${
+            dragType === 'resize-start' ? 'bg-white/40' : ''
           }`}
-          onMouseDown={(e) => handleResizeMouseDown('end', e)}
+          onMouseDown={(e) => startDrag('resize-start', e)}
+        />
+      )}
+
+      {/* Right resize handle — on top of body */}
+      {canResize && (
+        <div
+          className={`absolute right-0 top-0 bottom-0 w-2 cursor-col-resize z-10 hover:bg-white/40 ${
+            dragType === 'resize-end' ? 'bg-white/40' : ''
+          }`}
+          onMouseDown={(e) => startDrag('resize-end', e)}
         />
       )}
     </div>

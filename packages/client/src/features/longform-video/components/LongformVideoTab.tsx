@@ -130,6 +130,7 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
             <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
               {/* 프로젝트 헤더 */}
               <LongformProjectHeader
+                storybook={storybook}
                 project={selectedProject}
                 onUpdate={(patch) => {
                   onUpdate((draft) => {

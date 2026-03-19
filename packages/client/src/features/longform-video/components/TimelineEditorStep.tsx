@@ -80,14 +80,16 @@ export function TimelineEditorStep({ storybook, project, onUpdate }: TimelineEdi
     [timeline]
   );
 
-  const handleMoveOffset = useCallback(
+  const handleSfxMoveOffset = useCallback(
     (sceneId: string, offset: number) => {
-      // Determine if SFX or TTS based on selected track
-      if (timeline.selectedTrack === 'tts') {
-        timeline.updateTtsOffset(sceneId, offset);
-      } else {
-        timeline.updateSfxOffset(sceneId, offset);
-      }
+      timeline.updateSfxOffset(sceneId, offset);
+    },
+    [timeline]
+  );
+
+  const handleTtsMoveOffset = useCallback(
+    (sceneId: string, offset: number) => {
+      timeline.updateTtsOffset(sceneId, offset);
     },
     [timeline]
   );
@@ -162,6 +164,7 @@ export function TimelineEditorStep({ storybook, project, onUpdate }: TimelineEdi
           const scene = timeline.getSceneAtTime(timeline.currentTime);
           if (scene) timeline.splitScene(scene.id, timeline.currentTime);
         }}
+        onReset={timeline.resetTimeline}
       />
 
       {/* Timeline tracks */}
@@ -181,11 +184,13 @@ export function TimelineEditorStep({ storybook, project, onUpdate }: TimelineEdi
               onSubtitleTimingChange={
                 trackType === 'subtitle' ? handleSubtitleTimingChange : undefined
               }
-              onTrimChange={
-                trackType === 'video' || trackType === 'sfx' ? handleTrimChange : undefined
-              }
+              onTrimChange={trackType === 'video' ? handleTrimChange : undefined}
               onMoveOffset={
-                trackType === 'sfx' || trackType === 'tts' ? handleMoveOffset : undefined
+                trackType === 'sfx'
+                  ? handleSfxMoveOffset
+                  : trackType === 'tts'
+                    ? handleTtsMoveOffset
+                    : undefined
               }
               onReorder={trackType === 'video' ? timeline.reorderScenes : undefined}
             />

@@ -71,6 +71,7 @@ export function TimelineTrack({
             onSelect={onSelectClip}
             trimStart={clip.trimStart}
             trimEnd={clip.trimEnd}
+            currentOffset={clip.currentOffset ?? 0}
             onTimingChange={
               trackType === 'subtitle' && onSubtitleTimingChange
                 ? (start, end) => onSubtitleTimingChange(clip.id, start, end)
@@ -82,9 +83,20 @@ export function TimelineTrack({
                 : undefined
             }
             onMove={
-              (trackType === 'sfx' || trackType === 'tts') && onMoveOffset && clip.sceneId
-                ? (offset) => onMoveOffset(clip.sceneId!, offset)
-                : undefined
+              // SFX/TTS: move offset. Subtitle: move timing.
+              trackType === 'sfx' || trackType === 'tts'
+                ? onMoveOffset && clip.sceneId
+                  ? (newOffset) => onMoveOffset(clip.sceneId!, newOffset)
+                  : undefined
+                : trackType === 'subtitle' && onSubtitleTimingChange
+                  ? (newOffset) => {
+                      // Move subtitle: shift start/end by delta from current position
+                      const delta = newOffset - (clip.currentOffset ?? 0);
+                      const newStart = Math.max(0, clip.startTime + delta);
+                      const newEnd = newStart + clip.duration;
+                      onSubtitleTimingChange(clip.id, newStart, newEnd);
+                    }
+                  : undefined
             }
             onReorder={trackType === 'video' && onReorder ? onReorder : undefined}
           />
@@ -105,6 +117,7 @@ interface ClipData {
   sceneIndex?: number;
   trimStart?: number;
   trimEnd?: number;
+  currentOffset?: number;
 }
 
 function buildClips(trackType: TrackType, project: LongformProject): ClipData[] {
@@ -129,15 +142,17 @@ function buildClips(trackType: TrackType, project: LongformProject): ClipData[] 
         .map((scene) => {
           const idx = scenes.indexOf(scene);
           const sceneStart = getSceneStartTime(scenes, idx);
+          const offset = scene.sfxOffset ?? 0;
           return {
             id: `sfx-${scene.id}`,
             label: `SFX ${idx + 1}`,
-            startTime: sceneStart + (scene.sfxOffset ?? 0),
-            duration: getEffectiveDuration(scene) - (scene.sfxOffset ?? 0),
+            startTime: sceneStart + offset,
+            duration: getEffectiveDuration(scene) - offset,
             sceneId: scene.id,
             sceneIndex: idx,
             trimStart: scene.trimStart ?? 0,
             trimEnd: scene.trimEnd ?? 0,
+            currentOffset: offset,
           };
         });
 
@@ -149,6 +164,8 @@ function buildClips(trackType: TrackType, project: LongformProject): ClipData[] 
           label: sub.text.slice(0, 20),
           startTime: sceneStart + sub.startTime,
           duration: sub.endTime - sub.startTime,
+          currentOffset: sub.startTime,
+          sceneId: scene.id,
         }));
       });
 
@@ -158,13 +175,15 @@ function buildClips(trackType: TrackType, project: LongformProject): ClipData[] 
         .map((scene) => {
           const idx = scenes.indexOf(scene);
           const sceneStart = getSceneStartTime(scenes, idx);
+          const offset = scene.ttsOffset ?? 0;
           return {
             id: `tts-${scene.id}`,
             label: `TTS ${idx + 1}`,
-            startTime: sceneStart + (scene.ttsOffset ?? 0),
-            duration: (scene.ttsDuration ?? getEffectiveDuration(scene)) - (scene.ttsOffset ?? 0),
+            startTime: sceneStart + offset,
+            duration: (scene.ttsDuration ?? getEffectiveDuration(scene)) - offset,
             sceneId: scene.id,
             sceneIndex: idx,
+            currentOffset: offset,
           };
         });
 

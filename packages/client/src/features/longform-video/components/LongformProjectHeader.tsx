@@ -1,6 +1,9 @@
-import type { LongformProject } from '@tangobook/shared';
+import { useMemo } from 'react';
+import type { LongformProject, Storybook } from '@tangobook/shared';
+import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 
 interface LongformProjectHeaderProps {
+  storybook: Storybook;
   project: LongformProject;
   onUpdate: (updates: Partial<Omit<LongformProject, 'id'>>) => void;
   onDelete: () => void;
@@ -12,12 +15,39 @@ const ASPECT_RATIO_LABELS: Record<LongformProject['aspectRatio'], string> = {
   '1:1': '1:1',
 };
 
-const LANGUAGE_LABELS: Record<string, string> = {
-  ko: 'KO',
-  en: 'EN',
-};
+export function LongformProjectHeader({
+  storybook,
+  project,
+  onUpdate,
+  onDelete,
+}: LongformProjectHeaderProps) {
+  // Collect available languages from storybook pages' translations
+  const availableLanguages = useMemo(() => {
+    const langSet = new Set<string>();
+    langSet.add('ko'); // Korean is always available (default)
+    for (const page of storybook.pages ?? []) {
+      if (page.translations) {
+        for (const code of Object.keys(page.translations)) {
+          if (page.translations[code]?.text) langSet.add(code);
+        }
+      }
+    }
 
-export function LongformProjectHeader({ project, onUpdate, onDelete }: LongformProjectHeaderProps) {
+    const langs = [{ code: 'ko', label: '한국어' }];
+    for (const sl of SUPPORTED_LANGUAGES) {
+      if (langSet.has(sl.code)) {
+        langs.push(sl);
+      }
+    }
+    // Add any extra languages not in SUPPORTED_LANGUAGES
+    for (const code of langSet) {
+      if (code !== 'ko' && !SUPPORTED_LANGUAGES.some((sl) => sl.code === code)) {
+        langs.push({ code, label: code.toUpperCase() });
+      }
+    }
+    return langs;
+  }, [storybook.pages]);
+
   return (
     <div className="flex items-center justify-between px-5 py-4 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
       <div className="flex items-center gap-3 min-w-0">
@@ -31,9 +61,20 @@ export function LongformProjectHeader({ project, onUpdate, onDelete }: LongformP
         <span className="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300">
           {ASPECT_RATIO_LABELS[project.aspectRatio] ?? project.aspectRatio}
         </span>
-        <span className="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
-          {LANGUAGE_LABELS[project.language] ?? project.language.toUpperCase()}
-        </span>
+
+        {/* Language selector */}
+        <select
+          value={project.language}
+          onChange={(e) => onUpdate({ language: e.target.value })}
+          className="flex-shrink-0 px-2 py-0.5 rounded text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-none focus:outline-none focus:ring-1 focus:ring-violet-500 cursor-pointer"
+        >
+          {availableLanguages.map((lang) => (
+            <option key={lang.code} value={lang.code}>
+              {lang.label}
+            </option>
+          ))}
+        </select>
+
         <span className="flex-shrink-0 text-xs text-slate-400 dark:text-slate-500">
           {project.scenes.length}개 씬
         </span>
