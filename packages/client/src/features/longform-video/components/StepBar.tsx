@@ -4,10 +4,9 @@ interface StepBarProps {
 }
 
 const STEPS = [
-  { step: 1, label: '프롬프트 분석' },
-  { step: 2, label: '영상 생성' },
-  { step: 3, label: '타임라인 편집' },
-  { step: 4, label: '렌더링' },
+  { step: 1, label: '영상 제작' },
+  { step: 2, label: '타임라인 편집' },
+  { step: 3, label: '렌더링' },
 ];
 
 export function StepBar({ currentStep, onStepChange }: StepBarProps) {

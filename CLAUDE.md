@@ -359,19 +359,33 @@ features/longform-video/
 ### 롱폼 영상 서버 구조
 ```
 server/src/
-  services/longform.service.ts      # 분석/생성/렌더/진행률 (analyzeProgressMap, progressMap, renderProgressMap)
+  services/longform.service.ts      # 분석/생성/렌더/진행률/YouTube업로드/AI메타생성
+  services/youtube-preset.service.ts # YouTube 프롬프트 프리셋 CRUD (R2 저장)
   controllers/longform.controller.ts
-  routes/longform.routes.ts
-  providers/grok.provider.ts        # xAI Grok 영상 생성 API (image-to-video)
+  controllers/youtube-preset.controller.ts
+  routes/longform.routes.ts         # /api/longform/* + /youtube/*
+  routes/youtube-preset.routes.ts   # /api/youtube-presets/*
+  providers/grok.provider.ts        # xAI Grok 영상 생성 API (image-to-video, 720p)
+  providers/youtube.provider.ts     # Google YouTube API (OAuth2 + upload + thumbnail)
   providers/longform.provider.ts    # Python 렌더링 스크립트 호출 (LongformRenderOptions)
   scripts/generate_longform.py      # MoviePy 렌더링 (자막, 크로스디졸브, J-Cut, BGM)
 ```
 
 ### 롱폼 영상 파이프라인
 1. **프롬프트 분석** (Gemini): 페이지별 영상 프롬프트 생성 + Motion Matching (이전 장면 카메라 참조)
-2. **클립 생성** (Grok xAI): image-to-video, "no music/text/subtitles" 자동 포함
+2. **클립 생성** (Grok xAI): image-to-video, "no music/text/subtitles" 자동 포함, 720p
 3. **타임라인 편집**: 트리밍(trimStart/trimEnd), SFX/TTS 오프셋, 장면 순서 드래그, 분할
 4. **렌더링** (MoviePy): Cross-Dissolve 전환 + J-Cut 오디오 선행 + 자막 오버레이 + BGM 믹싱
+5. **YouTube 업로드**: OAuth2 연결 → AI 설정값 생성(프롬프트 프리셋) → 업로드 + 썸네일
+
+### YouTube 자동 업로드
+- **OAuth2**: Google YouTube Data API v3, 토큰 R2 저장 (`system/youtube-tokens.json`)
+- **AI 설정값 생성**: 프롬프트 프리셋 시스템 (프롬프트 저장/불러오기/편집)
+  - 프롬프트 + 동화책 정보를 Gemini에 전송 → title/description/tags/privacy/category/language JSON 반환
+  - `POST /api/longform/youtube/generate-meta`
+- **프리셋**: `YouTubePreset { id, name, prompt, createdAt }` — R2에 JSON 저장
+- **업로드**: 렌더링 영상 R2 → YouTube, 썸네일 sharp로 1280x720 JPEG 변환 후 업로드
+- **진행률**: fire-and-forget + polling 패턴
 
 ### 롱폼 데이터 모델 (LongformScene 핵심 필드)
 - `clipDuration`, `trimStart?`, `trimEnd?` — 클립 트리밍

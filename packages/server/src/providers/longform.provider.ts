@@ -1,4 +1,4 @@
-import { spawn } from 'child_process';
+import { spawn, type ChildProcess } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -39,6 +39,22 @@ export interface ProgressInfo {
   step: string;
 }
 
+// Active render processes, keyed by projectId
+const activeProcesses = new Map<string, ChildProcess>();
+
+/**
+ * Cancel an active render process.
+ */
+export function cancelRender(projectId: string): boolean {
+  const proc = activeProcesses.get(projectId);
+  if (proc) {
+    proc.kill('SIGTERM');
+    activeProcesses.delete(projectId);
+    return true;
+  }
+  return false;
+}
+
 /**
  * Python 스크립트(generate_longform.py)를 spawn으로 실행하여 롱폼 영상 생성.
  * JSON을 stdin으로 전달하고, stdout에서 결과를 받음.
@@ -46,13 +62,18 @@ export interface ProgressInfo {
  */
 export async function generateLongform(
   options: LongformRenderOptions,
-  onProgress?: (info: ProgressInfo) => void
+  onProgress?: (info: ProgressInfo) => void,
+  projectId?: string
 ): Promise<string> {
   return new Promise((resolve, reject) => {
     const proc = spawn('python', ['-u', SCRIPT_PATH], {
       stdio: ['pipe', 'pipe', 'pipe'],
       env: { ...process.env, PYTHONIOENCODING: 'utf-8' },
     });
+
+    if (projectId) {
+      activeProcesses.set(projectId, proc);
+    }
 
     let stdout = '';
     let stderrBuf = '';
@@ -64,15 +85,19 @@ export async function generateLongform(
       proc.kill('SIGKILL');
     }, TIMEOUT_MS);
 
+    const cleanup = () => {
+      clearTimeout(timer);
+      if (projectId) activeProcesses.delete(projectId);
+    };
+
     proc.stdout.on('data', (chunk: Buffer) => {
       stdout += chunk.toString('utf-8');
     });
 
     proc.stderr.on('data', (chunk: Buffer) => {
       stderrBuf += chunk.toString('utf-8');
-      // stderr에서 JSON lines 파싱
       const lines = stderrBuf.split('\n');
-      stderrBuf = lines.pop() ?? ''; // 마지막 불완전한 줄은 버퍼에 유지
+      stderrBuf = lines.pop() ?? '';
       for (const line of lines) {
         const trimmed = line.trim();
         if (!trimmed) continue;
@@ -88,12 +113,17 @@ export async function generateLongform(
     });
 
     proc.on('close', (code, signal) => {
-      clearTimeout(timer);
+      cleanup();
 
       if (timedOut) {
         reject(
           new Error('롱폼 렌더링 타임아웃 (10분 초과). 장면 수를 줄이거나 해상도를 낮춰보세요.')
         );
+        return;
+      }
+
+      if (signal === 'SIGTERM') {
+        reject(new Error('렌더링이 취소되었습니다.'));
         return;
       }
 
@@ -117,7 +147,7 @@ export async function generateLongform(
     });
 
     proc.on('error', (err) => {
-      clearTimeout(timer);
+      cleanup();
       reject(new Error(`Python 스크립트 실행 실패: ${err.message}`));
     });
 

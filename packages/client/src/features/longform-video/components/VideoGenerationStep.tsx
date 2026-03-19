@@ -654,7 +654,7 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
             />
           </svg>
           <p className="text-sm">아직 분석된 씬이 없습니다.</p>
-          <p className="text-xs mt-1">Step 1에서 프롬프트 분석을 먼저 완료하세요.</p>
+          <p className="text-xs mt-1">위에서 영상 프롬프트 생성을 먼저 완료하세요.</p>
         </div>
       ) : (
         <div className="space-y-3">

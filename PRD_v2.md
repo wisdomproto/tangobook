@@ -226,6 +226,16 @@ AI를 활용하여 비전문가도 고품질 동화책을 제작할 수 있는 �
 - 해상도: 16:9 (1280×720), 9:16, 1:1
 - "no text, no music, no speech" 프롬프트 자동 포함
 
+**Step 5: YouTube 업로드**
+- Google OAuth2로 YouTube 계정 연결 (토큰 R2 저장)
+- AI 설정값 생성: 프롬프트 프리셋에 저장된 프롬프트 + 동화책 정보를 Gemini에 전송
+  - 자동 생성: 제목, 설명, 태그, 공개설정, 카테고리, 언어
+  - 생성 후 수동 수정 가능
+- 프롬프트 프리셋: 컨텐츠별 맞춤 프롬프트 저장/불러오기/편집/삭제
+- 썸네일: 동화책 표지 이미지를 sharp로 1280×720 JPEG 변환 후 자동 업로드
+- 업로드 진행률 실시간 폴링
+- 업로드 완료 시 YouTube 영상 URL 표시
+
 ---
 
 ## 4. Product 2: 동화책 & 파닉스 뷰어 앱
@@ -1265,5 +1275,5 @@ tangobook-bucket/
 ---
 
 *Document End*
-*Last Updated: 2026-02-20*
+*Last Updated: 2026-03-20*
 *Next Review: Phase 4 (Auth) 시작 전*

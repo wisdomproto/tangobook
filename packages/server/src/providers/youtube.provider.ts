@@ -154,7 +154,7 @@ export const YouTubeProvider = {
     await youtube.thumbnails.set({
       videoId,
       media: {
-        mimeType: 'image/png',
+        mimeType: 'image/jpeg',
         body: Readable.from(imageBuffer),
       },
     });

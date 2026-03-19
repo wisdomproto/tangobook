@@ -1,5 +1,11 @@
 import { apiGet, apiPost, apiDelete } from '@/lib/axios';
-import type { LongformScene, PromptPreset, YouTubeUploadMeta } from '@tangobook/shared';
+import type {
+  LongformScene,
+  PromptPreset,
+  YouTubeUploadMeta,
+  YouTubePreset,
+  YouTubeGeneratedMeta,
+} from '@tangobook/shared';
 
 export const longformApi = {
   analyze: (req: {
@@ -31,6 +37,8 @@ export const longformApi = {
     ),
   render: (req: { storybookId: string; projectId: string }) =>
     apiPost<{ message: string }>('/longform/render', req),
+  cancelRender: (projectId: string) =>
+    apiPost<{ cancelled: boolean }>('/longform/cancel-render', { projectId }),
   getRenderProgress: (projectId: string) =>
     apiGet<{ progress: number; step: string; outputUrl?: string } | null>(
       `/longform/render-progress/${projectId}`
@@ -48,6 +56,17 @@ export const longformApi = {
     apiPost<{ message: string }>('/longform/youtube/upload', req),
   getYouTubeProgress: (projectId: string) =>
     apiGet<{ progress: number; step: string } | null>(`/longform/youtube/progress/${projectId}`),
+  generateYouTubeMeta: (req: { storybookId: string; projectId: string; prompt: string }) =>
+    apiPost<YouTubeGeneratedMeta>('/longform/youtube/generate-meta', req),
+};
+
+export const ytPresetApi = {
+  list: () => apiGet<YouTubePreset[]>('/youtube-presets'),
+  create: (data: { name: string; prompt: string }) =>
+    apiPost<YouTubePreset>('/youtube-presets', data),
+  update: (id: string, data: { name?: string; prompt?: string }) =>
+    apiPost<YouTubePreset>(`/youtube-presets/${id}`, data),
+  remove: (id: string) => apiDelete(`/youtube-presets/${id}`),
 };
 
 export const presetApi = {

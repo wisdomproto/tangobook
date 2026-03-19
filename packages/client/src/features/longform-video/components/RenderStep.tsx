@@ -1,15 +1,18 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import type { LongformProject, YouTubeUploadMeta } from '@tangobook/shared';
+import type { LongformProject, YouTubeUploadMeta, YouTubePreset } from '@tangobook/shared';
 import { YOUTUBE_CATEGORIES, YOUTUBE_PRIVACY_OPTIONS } from '@tangobook/shared';
 import { Button } from '@/components/Button';
 import { DownloadButton } from '@/components/DownloadButton';
 import { storybookApi } from '@/features/storybook';
-import { longformApi } from '../api/longform.api';
+import { longformApi, ytPresetApi } from '../api/longform.api';
 
 interface RenderStepProps {
   storybookId: string;
   project: LongformProject;
+  allProjects: LongformProject[];
   onUpdate: (updates: Partial<Omit<LongformProject, 'id'>>) => void;
+  onUpdateProject: (projectId: string, updates: Partial<Omit<LongformProject, 'id'>>) => void;
+  onSelectVersion: (projectId: string) => void;
 }
 
 const ASPECT_LABELS: Record<string, string> = {
@@ -18,7 +21,25 @@ const ASPECT_LABELS: Record<string, string> = {
   '1:1': '1080 × 1080 (1:1)',
 };
 
-export function RenderStep({ storybookId, project, onUpdate }: RenderStepProps) {
+const DEFAULT_YT_PROMPT = `당신은 YouTube 동화 채널 운영자입니다.
+주어진 동화책 정보를 바탕으로 YouTube 업로드에 최적화된 설정값을 생성해주세요.
+
+요구사항:
+- title: SEO에 최적화된 매력적인 제목 (60자 이내)
+- description: 동화 내용 요약 + 해시태그 포함 (500자 이내)
+- tags: 검색 노출을 위한 관련 태그 10~15개
+- privacy: "public" (공개)
+- categoryId: "27" (교육)
+- language: 동화책 언어에 맞게 설정`;
+
+export function RenderStep({
+  storybookId,
+  project,
+  allProjects,
+  onUpdate,
+  onUpdateProject,
+  onSelectVersion,
+}: RenderStepProps) {
   // ----- Render state -----
   const [isRendering, setIsRendering] = useState(false);
   const [progress, setProgress] = useState<{ progress: number; step: string } | null>(null);
@@ -32,13 +53,98 @@ export function RenderStep({ storybookId, project, onUpdate }: RenderStepProps) 
   const [ytError, setYtError] = useState<string | null>(null);
   const ytPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // YouTube form state
+  // YouTube form state (AI가 생성한 값이 들어감)
   const [ytTitle, setYtTitle] = useState(project.name || '');
   const [ytDescription, setYtDescription] = useState('');
   const [ytPrivacy, setYtPrivacy] = useState<'public' | 'private' | 'unlisted'>('unlisted');
-  const [ytCategory, setYtCategory] = useState('27'); // Education
+  const [ytCategory, setYtCategory] = useState('27');
   const [ytTags, setYtTags] = useState('');
   const [ytLanguage, setYtLanguage] = useState(project.language || 'ko');
+
+  // AI 프롬프트 상태
+  const [aiPrompt, setAiPrompt] = useState(DEFAULT_YT_PROMPT);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [showPromptEditor, setShowPromptEditor] = useState(false);
+
+  // 프리셋 상태
+  const [ytPresets, setYtPresets] = useState<YouTubePreset[]>([]);
+  const [selectedPresetId, setSelectedPresetId] = useState<string>('');
+  const [presetName, setPresetName] = useState('');
+  const [showPresetSave, setShowPresetSave] = useState(false);
+
+  // Load YouTube presets
+  useEffect(() => {
+    ytPresetApi
+      .list()
+      .then(setYtPresets)
+      .catch(() => {});
+  }, []);
+
+  // ----- 프리셋 핸들러 (프롬프트 기반) -----
+  const handleLoadPreset = (preset: YouTubePreset) => {
+    setAiPrompt(preset.prompt);
+    setSelectedPresetId(preset.id);
+  };
+
+  const handleSavePreset = async () => {
+    if (!presetName.trim()) return;
+    try {
+      if (selectedPresetId) {
+        const updated = await ytPresetApi.update(selectedPresetId, {
+          name: presetName.trim(),
+          prompt: aiPrompt,
+        });
+        setYtPresets((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
+      } else {
+        const created = await ytPresetApi.create({
+          name: presetName.trim(),
+          prompt: aiPrompt,
+        });
+        setYtPresets((prev) => [...prev, created]);
+        setSelectedPresetId(created.id);
+      }
+      setShowPresetSave(false);
+      setPresetName('');
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const handleDeletePreset = async (id: string) => {
+    try {
+      await ytPresetApi.remove(id);
+      setYtPresets((prev) => prev.filter((p) => p.id !== id));
+      if (selectedPresetId === id) {
+        setSelectedPresetId('');
+        setAiPrompt(DEFAULT_YT_PROMPT);
+      }
+    } catch {
+      /* ignore */
+    }
+  };
+
+  // ----- AI 설정값 생성 -----
+  const handleGenerateMeta = async () => {
+    setIsGenerating(true);
+    setYtError(null);
+    try {
+      const meta = await longformApi.generateYouTubeMeta({
+        storybookId,
+        projectId: project.id,
+        prompt: aiPrompt,
+      });
+      setYtTitle(meta.title);
+      setYtDescription(meta.description);
+      setYtTags(meta.tags.join(', '));
+      setYtPrivacy(meta.privacy);
+      setYtCategory(meta.categoryId);
+      setYtLanguage(meta.language);
+    } catch (e) {
+      setYtError(e instanceof Error ? e.message : 'AI 설정값 생성에 실패했습니다.');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   useEffect(() => {
     return () => {
@@ -54,6 +160,55 @@ export function RenderStep({ storybookId, project, onUpdate }: RenderStepProps) 
       .then((data) => setYtConnected(data.connected))
       .catch(() => setYtConnected(false));
   }, []);
+
+  // Resume polling if render is in progress when component mounts
+  useEffect(() => {
+    let cancelled = false;
+    longformApi
+      .getRenderProgress(project.id)
+      .then((data) => {
+        if (cancelled || !data || data.progress >= 100) return;
+        setIsRendering(true);
+        setProgress({ progress: data.progress, step: data.step });
+        pollingRef.current = setInterval(async () => {
+          try {
+            const d = await longformApi.getRenderProgress(project.id);
+            if (!d) {
+              stopPolling();
+              setIsRendering(false);
+              setProgress(null);
+              try {
+                const updated = await storybookApi.getById(storybookId);
+                const up = updated.longformProjects?.find((p) => p.id === project.id);
+                if (up?.outputUrl) onUpdate({ outputUrl: up.outputUrl });
+              } catch {
+                /* ignore */
+              }
+              return;
+            }
+            setProgress({ progress: d.progress, step: d.step });
+            if (d.progress >= 100) {
+              stopPolling();
+              setIsRendering(false);
+              setProgress(null);
+              try {
+                const updated = await storybookApi.getById(storybookId);
+                const up = updated.longformProjects?.find((p) => p.id === project.id);
+                if (up?.outputUrl) onUpdate({ outputUrl: up.outputUrl });
+              } catch {
+                /* ignore */
+              }
+            }
+          } catch {
+            /* ignore */
+          }
+        }, 2000);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [project.id]);
 
   const stopPolling = useCallback(() => {
     if (pollingRef.current) {
@@ -124,7 +279,12 @@ export function RenderStep({ storybookId, project, onUpdate }: RenderStepProps) 
     }
   };
 
-  const handleCancel = () => {
+  const handleCancel = async () => {
+    try {
+      await longformApi.cancelRender(project.id);
+    } catch {
+      /* ignore */
+    }
     stopPolling();
     setIsRendering(false);
     setProgress(null);
@@ -154,6 +314,15 @@ export function RenderStep({ storybookId, project, onUpdate }: RenderStepProps) 
     setYtUploading(true);
     setYtProgress({ progress: 0, step: '업로드 준비 중...' });
 
+    // Get cover image for thumbnail
+    let thumbnailUrl: string | undefined;
+    try {
+      const sb = await storybookApi.getById(storybookId);
+      thumbnailUrl = sb.coverImage || undefined;
+    } catch {
+      /* ignore */
+    }
+
     const meta: YouTubeUploadMeta = {
       title: ytTitle,
       description: ytDescription,
@@ -164,6 +333,7 @@ export function RenderStep({ storybookId, project, onUpdate }: RenderStepProps) 
         .map((t) => t.trim())
         .filter(Boolean),
       language: ytLanguage,
+      thumbnailUrl,
     };
 
     try {
@@ -176,7 +346,6 @@ export function RenderStep({ storybookId, project, onUpdate }: RenderStepProps) 
             stopYtPolling();
             setYtUploading(false);
             setYtProgress(null);
-            // Reload to get youtubeUpload result
             try {
               const updated = await storybookApi.getById(storybookId);
               const updatedProject = updated.longformProjects?.find((p) => p.id === project.id);
@@ -222,6 +391,27 @@ export function RenderStep({ storybookId, project, onUpdate }: RenderStepProps) 
 
   return (
     <div className="space-y-5">
+      {/* Version tabs */}
+      {allProjects.length > 1 && (
+        <div className="flex gap-1.5 overflow-x-auto pb-1">
+          {allProjects.map((p) => (
+            <button
+              key={p.id}
+              onClick={() => onSelectVersion(p.id)}
+              className={`flex-shrink-0 px-3 py-1.5 text-sm rounded-lg border transition-colors ${
+                p.id === project.id
+                  ? 'border-violet-500 bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300'
+                  : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-400'
+              }`}
+            >
+              {p.name}
+              <span className="ml-1 text-xs opacity-50">{p.language?.toUpperCase() ?? 'KO'}</span>
+              {p.outputUrl && <span className="ml-1 text-green-500">✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Resolution info */}
       <div className="flex items-center gap-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 px-4 py-3">
         <svg
@@ -315,6 +505,24 @@ export function RenderStep({ storybookId, project, onUpdate }: RenderStepProps) 
               렌더링 완료
             </span>
             <DownloadButton href={project.outputUrl} filename={`${project.name}.mp4`} size="sm" />
+            <button
+              onClick={() => {
+                if (window.confirm('렌더링 결과를 삭제하시겠습니까?')) {
+                  onUpdate({ outputUrl: undefined, youtubeUpload: undefined });
+                }
+              }}
+              className="p-1 text-slate-400 hover:text-red-500 transition-colors"
+              title="렌더링 삭제"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                />
+              </svg>
+            </button>
           </div>
           <video
             src={project.outputUrl}
@@ -394,111 +602,230 @@ export function RenderStep({ storybookId, project, onUpdate }: RenderStepProps) 
 
               {/* Upload form */}
               {!ytUploading && (
-                <div className="space-y-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
-                  {/* Title */}
-                  <div>
-                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-                      제목
-                    </label>
-                    <input
-                      type="text"
-                      value={ytTitle}
-                      onChange={(e) => setYtTitle(e.target.value)}
-                      className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
-                      placeholder="영상 제목"
-                    />
-                  </div>
-
-                  {/* Description */}
-                  <div>
-                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-                      설명
-                    </label>
-                    <textarea
-                      value={ytDescription}
-                      onChange={(e) => setYtDescription(e.target.value)}
-                      rows={3}
-                      className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 resize-none"
-                      placeholder="영상 설명"
-                    />
-                  </div>
-
-                  {/* Privacy + Category row */}
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-                        공개 설정
+                <div className="space-y-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
+                  {/* === AI 프롬프트 프리셋 + 설정값 생성 === */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-semibold text-violet-700 dark:text-violet-400 uppercase tracking-wide">
+                        AI 설정값 생성
                       </label>
-                      <select
-                        value={ytPrivacy}
-                        onChange={(e) => setYtPrivacy(e.target.value as typeof ytPrivacy)}
-                        className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+                      <button
+                        onClick={() => setShowPromptEditor(!showPromptEditor)}
+                        className="text-xs text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
                       >
-                        {YOUTUBE_PRIVACY_OPTIONS.map((opt) => (
-                          <option key={opt.value} value={opt.value}>
-                            {opt.label}
+                        {showPromptEditor ? '프롬프트 접기 ▲' : '프롬프트 편집 ▼'}
+                      </button>
+                    </div>
+
+                    {/* 프리셋 셀렉터 */}
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <select
+                        value={selectedPresetId}
+                        onChange={(e) => {
+                          const id = e.target.value;
+                          setSelectedPresetId(id);
+                          const preset = ytPresets.find((p) => p.id === id);
+                          if (preset) handleLoadPreset(preset);
+                          else setAiPrompt(DEFAULT_YT_PROMPT);
+                        }}
+                        className="flex-1 min-w-0 px-3 py-1.5 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+                      >
+                        <option value="">기본 프롬프트</option>
+                        {ytPresets.map((p) => (
+                          <option key={p.id} value={p.id}>
+                            {p.name}
                           </option>
                         ))}
                       </select>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-                        카테고리
-                      </label>
-                      <select
-                        value={ytCategory}
-                        onChange={(e) => setYtCategory(e.target.value)}
-                        className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+                      <button
+                        onClick={() => {
+                          setPresetName(
+                            selectedPresetId
+                              ? ytPresets.find((p) => p.id === selectedPresetId)?.name || ''
+                              : ''
+                          );
+                          setShowPresetSave(true);
+                        }}
+                        className="px-3 py-1.5 text-xs font-medium rounded-md bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 hover:bg-violet-200 dark:hover:bg-violet-900/50 transition-colors whitespace-nowrap"
                       >
-                        {YOUTUBE_CATEGORIES.map((cat) => (
-                          <option key={cat.id} value={cat.id}>
-                            {cat.label}
-                          </option>
-                        ))}
-                      </select>
+                        {selectedPresetId ? '프리셋 수정' : '프리셋 저장'}
+                      </button>
+                      {selectedPresetId && (
+                        <button
+                          onClick={() => {
+                            if (confirm('이 프리셋을 삭제할까요?'))
+                              handleDeletePreset(selectedPresetId);
+                          }}
+                          className="px-2 py-1.5 text-xs text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors"
+                        >
+                          삭제
+                        </button>
+                      )}
                     </div>
-                  </div>
 
-                  {/* Tags */}
-                  <div>
-                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-                      태그 (쉼표 구분)
-                    </label>
-                    <input
-                      type="text"
-                      value={ytTags}
-                      onChange={(e) => setYtTags(e.target.value)}
-                      className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
-                      placeholder="동화, 어린이, 교육"
-                    />
-                  </div>
+                    {/* 프리셋 저장 다이얼로그 */}
+                    {showPresetSave && (
+                      <div className="flex items-center gap-2 p-2 bg-violet-50 dark:bg-violet-900/20 rounded-md border border-violet-200 dark:border-violet-800">
+                        <input
+                          type="text"
+                          value={presetName}
+                          onChange={(e) => setPresetName(e.target.value)}
+                          placeholder="프리셋 이름 (예: 동화 한국어)"
+                          className="flex-1 px-2 py-1 text-sm border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+                          onKeyDown={(e) => e.key === 'Enter' && handleSavePreset()}
+                        />
+                        <button
+                          onClick={handleSavePreset}
+                          disabled={!presetName.trim()}
+                          className="px-3 py-1 text-xs font-medium rounded bg-violet-600 text-white hover:bg-violet-700 disabled:opacity-40 transition-colors"
+                        >
+                          저장
+                        </button>
+                        <button
+                          onClick={() => setShowPresetSave(false)}
+                          className="px-2 py-1 text-xs text-slate-500 hover:text-slate-700"
+                        >
+                          취소
+                        </button>
+                      </div>
+                    )}
 
-                  {/* Language */}
-                  <div>
-                    <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
-                      언어
-                    </label>
-                    <select
-                      value={ytLanguage}
-                      onChange={(e) => setYtLanguage(e.target.value)}
-                      className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+                    {/* 프롬프트 에디터 (토글) */}
+                    {showPromptEditor && (
+                      <textarea
+                        value={aiPrompt}
+                        onChange={(e) => setAiPrompt(e.target.value)}
+                        rows={8}
+                        className="w-full px-3 py-2 text-sm border border-violet-300 dark:border-violet-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 resize-y font-mono"
+                        placeholder="YouTube 설정값을 생성할 AI 프롬프트를 입력하세요..."
+                      />
+                    )}
+
+                    {/* 설정값 생성 버튼 */}
+                    <Button
+                      onClick={handleGenerateMeta}
+                      disabled={isGenerating || !aiPrompt.trim()}
+                      loading={isGenerating}
+                      size="sm"
+                      className="!bg-violet-600 hover:!bg-violet-700"
                     >
-                      <option value="ko">한국어</option>
-                      <option value="en">English</option>
-                      <option value="ja">日本語</option>
-                      <option value="zh">中文</option>
-                    </select>
+                      {isGenerating ? 'AI 생성 중...' : '✨ 설정값 생성'}
+                    </Button>
                   </div>
 
-                  {/* Upload button */}
-                  <Button
-                    onClick={handleYoutubeUpload}
-                    disabled={!ytTitle.trim() || ytUploading}
-                    size="md"
-                    className="!bg-red-600 hover:!bg-red-700"
-                  >
-                    YouTube에 업로드
-                  </Button>
+                  <hr className="border-slate-200 dark:border-slate-700" />
+
+                  {/* === 생성된 YouTube 설정값 폼 === */}
+                  <div className="space-y-3">
+                    <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                      업로드 설정값
+                    </label>
+
+                    {/* Title */}
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                        제목
+                      </label>
+                      <input
+                        type="text"
+                        value={ytTitle}
+                        onChange={(e) => setYtTitle(e.target.value)}
+                        className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+                        placeholder="영상 제목"
+                      />
+                    </div>
+
+                    {/* Description */}
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                        설명
+                      </label>
+                      <textarea
+                        value={ytDescription}
+                        onChange={(e) => setYtDescription(e.target.value)}
+                        rows={3}
+                        className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 resize-none"
+                        placeholder="영상 설명"
+                      />
+                    </div>
+
+                    {/* Privacy + Category row */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                          공개 설정
+                        </label>
+                        <select
+                          value={ytPrivacy}
+                          onChange={(e) => setYtPrivacy(e.target.value as typeof ytPrivacy)}
+                          className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+                        >
+                          {YOUTUBE_PRIVACY_OPTIONS.map((opt) => (
+                            <option key={opt.value} value={opt.value}>
+                              {opt.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                          카테고리
+                        </label>
+                        <select
+                          value={ytCategory}
+                          onChange={(e) => setYtCategory(e.target.value)}
+                          className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+                        >
+                          {YOUTUBE_CATEGORIES.map((cat) => (
+                            <option key={cat.id} value={cat.id}>
+                              {cat.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Tags */}
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                        태그 (쉼표 구분)
+                      </label>
+                      <input
+                        type="text"
+                        value={ytTags}
+                        onChange={(e) => setYtTags(e.target.value)}
+                        className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+                        placeholder="동화, 어린이, 교육"
+                      />
+                    </div>
+
+                    {/* Language */}
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                        언어
+                      </label>
+                      <select
+                        value={ytLanguage}
+                        onChange={(e) => setYtLanguage(e.target.value)}
+                        className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+                      >
+                        <option value="ko">한국어</option>
+                        <option value="en">English</option>
+                        <option value="ja">日本語</option>
+                        <option value="zh">中文</option>
+                      </select>
+                    </div>
+
+                    {/* Upload button */}
+                    <Button
+                      onClick={handleYoutubeUpload}
+                      disabled={!ytTitle.trim() || ytUploading}
+                      size="md"
+                      className="!bg-red-600 hover:!bg-red-700"
+                    >
+                      YouTube에 업로드
+                    </Button>
+                  </div>
                 </div>
               )}
 
@@ -530,6 +857,76 @@ export function RenderStep({ storybookId, project, onUpdate }: RenderStepProps) 
               )}
             </>
           )}
+        </div>
+      )}
+
+      {/* Other projects' rendered videos */}
+      {allProjects.filter((p) => p.id !== project.id && p.outputUrl).length > 0 && (
+        <div className="mt-6 border-t border-slate-200 dark:border-slate-700 pt-5 space-y-4">
+          <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+            다른 영상 ({allProjects.filter((p) => p.id !== project.id && p.outputUrl).length}개)
+          </h3>
+          <div className="space-y-4">
+            {allProjects
+              .filter((p) => p.id !== project.id && p.outputUrl)
+              .map((p) => (
+                <div
+                  key={p.id}
+                  className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden"
+                >
+                  <div className="flex items-center justify-between px-4 py-2 bg-slate-50 dark:bg-slate-800/50">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                        {p.name}
+                      </span>
+                      <span className="text-xs px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400">
+                        {p.language?.toUpperCase() ?? 'KO'}
+                      </span>
+                      {p.youtubeUpload && (
+                        <a
+                          href={p.youtubeUpload.videoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-red-500 hover:text-red-600"
+                        >
+                          YouTube ↗
+                        </a>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <DownloadButton href={p.outputUrl!} filename={`${p.name}.mp4`} size="sm" />
+                      <button
+                        onClick={() => {
+                          if (window.confirm(`"${p.name}" 렌더링 결과를 삭제하시겠습니까?`)) {
+                            onUpdateProject(p.id, {
+                              outputUrl: undefined,
+                              youtubeUpload: undefined,
+                            });
+                          }
+                        }}
+                        className="p-1 text-slate-400 hover:text-red-500 transition-colors"
+                        title="렌더링 삭제"
+                      >
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <video src={p.outputUrl} controls className="w-full max-h-[300px] bg-black" />
+                </div>
+              ))}
+          </div>
         </div>
       )}
 

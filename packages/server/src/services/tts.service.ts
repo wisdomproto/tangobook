@@ -62,19 +62,25 @@ export const TtsService = {
     req: TtsBatchRequest
   ): Promise<Array<{ pageNumber: number; audioUrl: string; success: boolean }>> {
     const { pages, ...opts } = req;
+    const DELAY_MS = 1500; // rate limit 방지용 딜레이
+    const results: Array<{ pageNumber: number; audioUrl: string; success: boolean }> = [];
 
-    const results = await Promise.allSettled(
-      pages.map(async (page) => {
+    for (let i = 0; i < pages.length; i++) {
+      const page = pages[i];
+      try {
         const audioUrl = await TtsService.generate({ ...opts, ...page });
-        return { pageNumber: page.pageNumber, audioUrl, success: true };
-      })
-    );
+        results.push({ pageNumber: page.pageNumber, audioUrl, success: true });
+      } catch (err) {
+        console.error(`[tts] batch page ${page.pageNumber} failed:`, err);
+        results.push({ pageNumber: page.pageNumber, audioUrl: '', success: false });
+      }
+      // 마지막이 아닌 경우 딜레이
+      if (i < pages.length - 1) {
+        await new Promise((r) => setTimeout(r, DELAY_MS));
+      }
+    }
 
-    return results.map((r, i) =>
-      r.status === 'fulfilled'
-        ? r.value
-        : { pageNumber: pages[i].pageNumber, audioUrl: '', success: false }
-    );
+    return results;
   },
 
   async uploadAudio(file: Express.Multer.File, body: Record<string, string>): Promise<string> {

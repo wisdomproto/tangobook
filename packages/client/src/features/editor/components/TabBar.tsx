@@ -12,7 +12,7 @@ const STORYBOOK_TABS = [
   { id: 'audiobook' as const, label: '오디오북' },
   { id: 'blog' as const, label: '블로그' },
   { id: 'card-news' as const, label: '카드뉴스' },
-  { id: 'longform-video' as const, label: '롱폼 영상' },
+  { id: 'longform-video' as const, label: '동영상 제작' },
 ];
 
 const PHONICS_TABS = [
@@ -27,7 +27,7 @@ const PHONICS_TABS = [
   { id: 'audiobook' as const, label: '오디오북' },
   { id: 'blog' as const, label: '블로그' },
   { id: 'card-news' as const, label: '카드뉴스' },
-  { id: 'longform-video' as const, label: '롱폼 영상' },
+  { id: 'longform-video' as const, label: '동영상 제작' },
 ];
 
 interface TabBarProps {

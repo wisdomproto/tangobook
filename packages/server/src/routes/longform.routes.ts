@@ -14,6 +14,7 @@ router.post('/generate-all', LongformController.generateAll);
 router.get('/progress/:projectId', LongformController.getProgress);
 router.post('/render', LongformController.render);
 router.get('/render-progress/:projectId', LongformController.getRenderProgress);
+router.post('/cancel-render', LongformController.cancelRender);
 router.post(
   '/upload-bgm',
   upload.single('file'),
@@ -28,5 +29,6 @@ router.get('/youtube/status', LongformController.youtubeStatus);
 router.post('/youtube/disconnect', LongformController.youtubeDisconnect);
 router.post('/youtube/upload', LongformController.youtubeUpload);
 router.get('/youtube/progress/:projectId', LongformController.getYouTubeProgress);
+router.post('/youtube/generate-meta', LongformController.generateYouTubeMeta);
 
 export default router;

@@ -80,10 +80,53 @@ def hex_to_rgba(hex_color: str):
     return (*hex_to_rgb(hex_color), 255)
 
 
+def wrap_text(text: str, font, max_width: int, draw) -> list[str]:
+    """텍스트를 max_width 내로 자동 줄바꿈."""
+    words = text.split()
+    if not words:
+        return [text]
+
+    lines = []
+    current_line = words[0]
+
+    for word in words[1:]:
+        test_line = current_line + " " + word
+        bbox = draw.textbbox((0, 0), test_line, font=font)
+        if bbox[2] - bbox[0] <= max_width:
+            current_line = test_line
+        else:
+            lines.append(current_line)
+            current_line = word
+
+    lines.append(current_line)
+
+    # 한글 등 공백 없는 긴 텍스트 처리: 글자 단위로 자르기
+    result = []
+    for line in lines:
+        bbox = draw.textbbox((0, 0), line, font=font)
+        if bbox[2] - bbox[0] <= max_width:
+            result.append(line)
+        else:
+            # 글자 단위로 자르기
+            buf = ""
+            for ch in line:
+                test = buf + ch
+                bb = draw.textbbox((0, 0), test, font=font)
+                if bb[2] - bb[0] > max_width and buf:
+                    result.append(buf)
+                    buf = ch
+                else:
+                    buf = test
+            if buf:
+                result.append(buf)
+
+    return result
+
+
 def create_subtitle_image(text: str, width: int, font_size: int,
                           text_color: str, outline_color: str,
                           bg_color: str, font_path, padding: int = 20):
-    """자막 이미지 생성 (외곽선 지원)."""
+    """자막 이미지 생성 (외곽선 + 자동 줄바꿈 지원)."""
     if not text.strip():
         return None
 
@@ -99,9 +142,15 @@ def create_subtitle_image(text: str, width: int, font_size: int,
     dummy = Image.new("RGBA", (1, 1))
     draw = ImageDraw.Draw(dummy)
 
-    # stroke를 포함한 bbox 계산
     stroke_width = 2
-    bbox = draw.textbbox((0, 0), text, font=font, stroke_width=stroke_width)
+    max_text_width = width - 80  # 양쪽 여백
+
+    # 자동 줄바꿈
+    lines = wrap_text(text, font, max_text_width, draw)
+    wrapped_text = "\n".join(lines)
+
+    # 줄바꿈된 텍스트 전체 bbox 계산
+    bbox = draw.textbbox((0, 0), wrapped_text, font=font, stroke_width=stroke_width)
     tw = bbox[2] - bbox[0]
     th = bbox[3] - bbox[1]
 
@@ -113,30 +162,33 @@ def create_subtitle_image(text: str, width: int, font_size: int,
     draw = ImageDraw.Draw(img)
     draw.text(
         ((img_w - tw) // 2, pad_y),
-        text,
+        wrapped_text,
         fill=(*rgb_text, 255),
         font=font,
         stroke_width=stroke_width,
         stroke_fill=(*rgb_outline, 255),
+        align="center",
     )
 
     tmp = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
     img.save(tmp.name, "PNG")
-    return tmp.name
+    return tmp.name, img_h
 
 
 def get_subtitle_y(position: str, h: int, sub_h: int = 60) -> int:
-    """자막 위치 Y좌표 계산."""
+    """자막 위치 Y좌표 계산. sub_h는 실제 자막 이미지 높이."""
+    margin = 40
     if position == "top":
-        return 60
+        return margin
     elif position == "center":
         return (h - sub_h) // 2
     else:  # bottom
-        return h - sub_h - 60
+        return h - sub_h - margin
 
 
-def create_scene_clip(scene, resolution, subtitle_style, font_path, work_dir, scene_idx):
-    """한 장면의 비디오 클립 생성 (비디오 + SFX + TTS + 자막)."""
+def create_scene_clip(scene, resolution, subtitle_style, font_path, work_dir, scene_idx, transition_offset=0):
+    """한 장면의 비디오 클립 생성 (비디오 + 자막).
+    transition_offset: 크로스 디졸브로 인해 자막/오디오를 지연시킬 초 (첫 장면 제외)."""
     w, h = resolution
 
     clip_path = os.path.join(work_dir, f"scene_{scene_idx}_clip.mp4")
@@ -174,8 +226,8 @@ def create_scene_clip(scene, resolution, subtitle_style, font_path, work_dir, sc
             if not sub_text:
                 continue
 
-            start_time = sub.get("startTime", 0)
-            end_time = sub.get("endTime", duration)
+            start_time = sub.get("startTime", 0) + transition_offset
+            end_time = sub.get("endTime", duration) + transition_offset
 
             # 클립 길이를 초과하지 않도록 제한
             start_time = min(start_time, duration)
@@ -183,15 +235,16 @@ def create_scene_clip(scene, resolution, subtitle_style, font_path, work_dir, sc
             if end_time <= start_time:
                 continue
 
-            sub_img_path = create_subtitle_image(
+            sub_result = create_subtitle_image(
                 sub_text, w, font_size, text_color, outline_color, bg_color, font_path,
             )
-            if sub_img_path:
+            if sub_result:
+                sub_img_path, sub_img_h = sub_result
                 sub_duration = end_time - start_time
                 sub_clip = (
                     ImageClip(sub_img_path, duration=sub_duration)
                     .with_start(start_time)
-                    .with_position(("center", get_subtitle_y(position, h)))
+                    .with_position(("center", get_subtitle_y(position, h, sub_img_h)))
                 )
                 layers.append(sub_clip)
 
@@ -201,14 +254,15 @@ def create_scene_clip(scene, resolution, subtitle_style, font_path, work_dir, sc
     return composite
 
 
-def download_scene_audio(scene, work_dir, scene_idx, duration):
-    """장면의 SFX/TTS 오디오를 다운로드하여 믹싱된 AudioClip 반환."""
+def download_scene_audio(scene, work_dir, scene_idx, duration, transition_offset=0):
+    """장면의 SFX/TTS 오디오를 다운로드하여 믹싱된 AudioClip 반환.
+    transition_offset: 크로스 디졸브로 인해 오디오를 지연시킬 초."""
     audio_tracks = []
 
     # SFX (영상에서 분리된 효과음)
     sfx_url = scene.get("sfxUrl")
     sfx_volume = scene.get("sfxVolume", 100) / 100.0
-    sfx_offset = scene.get("sfxOffset", 0) or 0
+    sfx_offset = (scene.get("sfxOffset", 0) or 0) + transition_offset
     if sfx_url:
         sfx_path = os.path.join(work_dir, f"scene_{scene_idx}_sfx.mp3")
         try:
@@ -222,9 +276,10 @@ def download_scene_audio(scene, work_dir, scene_idx, duration):
         except Exception as e:
             report_progress(-1, f"SFX 로드 실패 (장면 {scene_idx}): {e}")
 
-    # TTS
+    # TTS (0.5s delay for natural pacing after scene transition)
+    TTS_DELAY = 0.5
     tts_url = scene.get("ttsUrl")
-    tts_offset = scene.get("ttsOffset", 0) or 0
+    tts_offset = (scene.get("ttsOffset", 0) or 0) + transition_offset + TTS_DELAY
     if tts_url:
         tts_path = os.path.join(work_dir, f"scene_{scene_idx}_tts.mp3")
         try:
@@ -267,9 +322,11 @@ def main():
 
     Path(work_dir).mkdir(parents=True, exist_ok=True)
 
+    transition = options.get("transitionDuration", CROSSFADE_DURATION)
+
     clips = []
     clip_durations = []
-    audio_scene_data = []  # (scene, scene_idx, duration)
+    audio_scene_data = []  # (scene, scene_idx, duration, transition_offset)
     report_progress(0, "시작")
 
     # 장면별 클립 생성 (5%~80%)
@@ -281,13 +338,16 @@ def main():
             report_progress(scene_progress, f"장면 {i + 1} 클립 URL 없음 (건너뜀)")
             continue
 
+        # 첫 장면 이후에는 크로스 디졸브 오버랩만큼 자막/오디오를 지연
+        t_offset = transition if (i > 0 and total_scenes > 1 and transition > 0) else 0
+
         try:
             clip = create_scene_clip(
-                scene, resolution, subtitle_style, font_path, work_dir, i,
+                scene, resolution, subtitle_style, font_path, work_dir, i, t_offset,
             )
             clips.append(clip)
             clip_durations.append(clip.duration)
-            audio_scene_data.append((scene, i, clip.duration))
+            audio_scene_data.append((scene, i, clip.duration, t_offset))
         except Exception as e:
             report_progress(scene_progress, f"장면 {i + 1} 클립 생성 실패: {e}")
             continue
@@ -303,7 +363,6 @@ def main():
     report_progress(80, "클립 연결 중 (크로스 디졸브 적용)")
 
     # Apply cross-dissolve transitions between clips
-    transition = options.get("transitionDuration", CROSSFADE_DURATION)
     if len(clips) > 1 and transition > 0:
         for i in range(len(clips)):
             if i > 0:
@@ -328,8 +387,8 @@ def main():
     report_progress(81, "오디오 믹싱 (J-Cut 적용)")
 
     all_audio = []
-    for idx, (scene, scene_idx, duration) in enumerate(audio_scene_data):
-        scene_audio = download_scene_audio(scene, work_dir, scene_idx, duration)
+    for idx, (scene, scene_idx, duration, t_offset) in enumerate(audio_scene_data):
+        scene_audio = download_scene_audio(scene, work_dir, scene_idx, duration, t_offset)
         if scene_audio is None:
             continue
 

@@ -64,6 +64,12 @@ export const LongformController = {
     res.json({ success: true, data: progress });
   },
 
+  cancelRender: asyncHandler(async (req: Request, res: Response) => {
+    const { projectId } = req.body;
+    const cancelled = LongformService.cancelRender(projectId);
+    res.json({ success: true, data: { cancelled } });
+  }),
+
   uploadBgm: asyncHandler(async (req: Request, res: Response) => {
     const { storybookId, projectId } = req.body;
     const result = await LongformService.uploadBgm(req.file!, storybookId, projectId);
@@ -83,7 +89,8 @@ export const LongformController = {
       return;
     }
     await YouTubeProvider.handleCallback(code);
-    res.redirect('/?youtube=connected');
+    const clientUrl = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:5173/';
+    res.redirect(`${clientUrl}?youtube=connected`);
   }),
 
   youtubeStatus: asyncHandler(async (_req: Request, res: Response) => {
@@ -109,4 +116,10 @@ export const LongformController = {
     const progress = LongformService.getYouTubeProgress(projectId);
     res.json({ success: true, data: progress });
   },
+
+  generateYouTubeMeta: asyncHandler(async (req: Request, res: Response) => {
+    const { storybookId, projectId, prompt } = req.body;
+    const meta = await LongformService.generateYouTubeMeta(storybookId, projectId, prompt);
+    res.json({ success: true, data: meta });
+  }),
 };

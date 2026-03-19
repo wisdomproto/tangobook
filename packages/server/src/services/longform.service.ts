@@ -10,13 +10,14 @@ import type {
   Page,
   Storybook,
   YouTubeUploadMeta,
+  YouTubeGeneratedMeta,
 } from '@tangobook/shared';
 import { AppError } from '../middleware/error.middleware.js';
 import { R2Repository } from '../repositories/r2.repository.js';
 import { downloadFromR2, urlToR2Key } from '../providers/r2.provider.js';
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
 import { GrokProvider } from '../providers/grok.provider.js';
-import { generateLongform } from '../providers/longform.provider.js';
+import { generateLongform, cancelRender } from '../providers/longform.provider.js';
 import type { LongformRenderOptions } from '../providers/longform.provider.js';
 import { YouTubeProvider } from '../providers/youtube.provider.js';
 import { PromptPresetService } from './prompt-preset.service.js';
@@ -495,9 +496,13 @@ export const LongformService = {
 
       // Python 렌더링 스크립트 실행
       renderProgressMap.set(projectId, { progress: 0, step: '렌더링 시작' });
-      await generateLongform(renderOptions, (info) => {
-        renderProgressMap.set(projectId, info);
-      });
+      await generateLongform(
+        renderOptions,
+        (info) => {
+          renderProgressMap.set(projectId, info);
+        },
+        projectId
+      );
 
       renderProgressMap.set(projectId, { progress: 95, step: 'R2 업로드 중' });
 
@@ -524,6 +529,16 @@ export const LongformService = {
   // ----- Get render progress -----
   getRenderProgress(projectId: string): ProgressInfo | null {
     return renderProgressMap.get(projectId) ?? null;
+  },
+
+  // ----- Cancel render -----
+  cancelRender(projectId: string): boolean {
+    const cancelled = cancelRender(projectId);
+    if (cancelled) {
+      renderProgressMap.set(projectId, { progress: -1, step: '취소됨' });
+      setTimeout(() => renderProgressMap.delete(projectId), 5_000);
+    }
+    return cancelled;
   },
 
   // ----- Upload BGM -----
@@ -574,12 +589,40 @@ export const LongformService = {
       });
     });
 
-    // 3. Optional: upload thumbnail
+    // 3. Optional: upload thumbnail (30s timeout, skip on failure)
+    console.log(`[youtube] thumbnailUrl: ${meta.thumbnailUrl ?? 'NONE'}`);
     if (meta.thumbnailUrl) {
       youtubeProgressMap.set(projectId, { progress: 96, step: '썸네일 업로드 중' });
-      const thumbKey = urlToR2Key(meta.thumbnailUrl);
-      const thumbBuffer = await downloadFromR2(thumbKey);
-      await YouTubeProvider.setThumbnail(result.videoId, thumbBuffer);
+      try {
+        const thumbKey = urlToR2Key(meta.thumbnailUrl);
+        console.log(`[youtube] thumbnail R2 key: ${thumbKey}`);
+        const rawBuffer = await downloadFromR2(thumbKey);
+        console.log(`[youtube] thumbnail downloaded: ${rawBuffer.length} bytes`);
+
+        // Resize to 1280x720 JPEG for YouTube (max 2MB)
+        const sharp = (await import('sharp')).default;
+        const thumbBuffer = await sharp(rawBuffer)
+          .resize(1280, 720, { fit: 'cover' })
+          .jpeg({ quality: 85 })
+          .toBuffer();
+        console.log(`[youtube] thumbnail compressed: ${thumbBuffer.length} bytes (JPEG 1280x720)`);
+
+        const thumbTimeout = new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error('썸네일 업로드 타임아웃')), 30_000)
+        );
+        await Promise.race([
+          YouTubeProvider.setThumbnail(result.videoId, thumbBuffer),
+          thumbTimeout,
+        ]);
+        console.log('[youtube] Thumbnail uploaded successfully');
+      } catch (err) {
+        console.warn(
+          '[youtube] Thumbnail upload failed (skipping):',
+          err instanceof Error ? err.message : err
+        );
+      }
+    } else {
+      console.log('[youtube] No thumbnail URL provided, skipping');
     }
 
     // 4. Save result to storybook
@@ -597,5 +640,76 @@ export const LongformService = {
 
   getYouTubeProgress(projectId: string): ProgressInfo | null {
     return youtubeProgressMap.get(projectId) ?? null;
+  },
+
+  // ----- Generate YouTube metadata via Gemini -----
+  async generateYouTubeMeta(
+    storybookId: string,
+    projectId: string,
+    prompt: string
+  ): Promise<YouTubeGeneratedMeta> {
+    const storybook = await loadStorybook(storybookId);
+    const project = loadProject(storybook, projectId);
+    const pages = storybook.pages ?? [];
+    const lang = project.language ?? 'ko';
+
+    // 동화책 정보 요약
+    const storybookInfo = [
+      `제목: ${storybook.title}`,
+      storybook.category ? `카테고리: ${storybook.category}` : '',
+      `언어: ${lang}`,
+      `페이지 수: ${pages.length}`,
+      `장면 수: ${project.scenes.length}`,
+      pages.length > 0
+        ? `내용 요약:\n${pages
+            .slice(0, 10)
+            .map((p) => `- p${p.pageNumber}: ${getPageText(p, lang).slice(0, 100)}`)
+            .join('\n')}`
+        : '',
+    ]
+      .filter(Boolean)
+      .join('\n');
+
+    const geminiPrompt = [
+      prompt,
+      '',
+      '=== 동화책 정보 ===',
+      storybookInfo,
+      '',
+      '위 정보를 참고하여 YouTube 업로드 설정값을 JSON 형식으로 생성해주세요.',
+      '반드시 아래 형식의 JSON만 출력하세요 (다른 텍스트 없이):',
+      '{',
+      '  "title": "영상 제목",',
+      '  "description": "영상 설명",',
+      '  "tags": ["태그1", "태그2", "태그3"],',
+      '  "privacy": "public | private | unlisted",',
+      '  "categoryId": "YouTube 카테고리 ID (교육: 27, 엔터테인먼트: 24, 사람/블로그: 22)",',
+      '  "language": "ko | en"',
+      '}',
+    ].join('\n');
+
+    const raw = await generateTextWithGemini(geminiPrompt, 3);
+
+    // JSON 파싱 (코드블록 제거)
+    const cleaned = raw
+      .replace(/```json?\s*/g, '')
+      .replace(/```\s*/g, '')
+      .trim();
+    try {
+      const parsed = JSON.parse(cleaned) as YouTubeGeneratedMeta;
+      return {
+        title: parsed.title || storybook.title,
+        description: parsed.description || '',
+        tags: Array.isArray(parsed.tags) ? parsed.tags : [],
+        privacy: ['public', 'private', 'unlisted'].includes(parsed.privacy)
+          ? parsed.privacy
+          : 'private',
+        categoryId: parsed.categoryId || '27',
+        language: parsed.language || lang,
+      };
+    } catch {
+      console.error('[longform] Failed to parse Gemini YouTube meta response:', cleaned);
+      throw new AppError(500, 'AI 응답을 파싱할 수 없습니다. 프롬프트를 수정해보세요.');
+    }
   },
 };

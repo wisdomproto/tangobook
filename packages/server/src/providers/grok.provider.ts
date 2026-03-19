@@ -103,6 +103,7 @@ export const GrokProvider: VideoGenerationProvider = {
         model: 'grok-imagine-video',
         prompt,
         aspect_ratio: options.aspectRatio,
+        resolution: '720p',
       };
 
       if (options.duration !== undefined) {

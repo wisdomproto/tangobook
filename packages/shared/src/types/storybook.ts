@@ -861,6 +861,8 @@ export interface LongformProject {
   outputUrl?: string;
   createdAt?: string;
   youtubeUpload?: YouTubeUploadResult;
+  /** If set, this is a "version" (timeline edit) of the master project */
+  parentProjectId?: string;
 }
 
 export interface YouTubeUploadMeta {
@@ -878,6 +880,23 @@ export interface YouTubeUploadResult {
   videoUrl: string;
   uploadedAt: string;
   privacy: string;
+}
+
+export interface YouTubePreset {
+  id: string;
+  name: string;
+  prompt: string; // AI 프롬프트 텍스트 (Gemini에 보낼 프롬프트)
+  createdAt: string;
+}
+
+/** Gemini가 생성한 YouTube 메타데이터 */
+export interface YouTubeGeneratedMeta {
+  title: string;
+  description: string;
+  tags: string[];
+  privacy: 'public' | 'private' | 'unlisted';
+  categoryId: string;
+  language: string;
 }
 
 export interface LongformScene {
