@@ -9,13 +9,16 @@ import type {
   LongformSubtitleEntry,
   Page,
   Storybook,
+  YouTubeUploadMeta,
 } from '@tangobook/shared';
 import { AppError } from '../middleware/error.middleware.js';
 import { R2Repository } from '../repositories/r2.repository.js';
+import { downloadFromR2, urlToR2Key } from '../providers/r2.provider.js';
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
 import { GrokProvider } from '../providers/grok.provider.js';
 import { generateLongform } from '../providers/longform.provider.js';
 import type { LongformRenderOptions } from '../providers/longform.provider.js';
+import { YouTubeProvider } from '../providers/youtube.provider.js';
 import { PromptPresetService } from './prompt-preset.service.js';
 
 const execFileAsync = promisify(execFile);
@@ -31,6 +34,7 @@ interface ProgressInfo {
 const analyzeProgressMap = new Map<string, ProgressInfo>();
 const progressMap = new Map<string, ProgressInfo>();
 const renderProgressMap = new Map<string, ProgressInfo>();
+const youtubeProgressMap = new Map<string, ProgressInfo>();
 
 // ===== ffmpeg helpers =====
 
@@ -538,5 +542,60 @@ export const LongformService = {
     await R2Repository.saveStorybook(storybook);
 
     return { bgmUrl };
+  },
+
+  // ----- YouTube upload -----
+  async uploadToYouTube(
+    storybookId: string,
+    projectId: string,
+    meta: YouTubeUploadMeta
+  ): Promise<void> {
+    const storybook = await loadStorybook(storybookId);
+    const project = loadProject(storybook, projectId);
+
+    if (!project.outputUrl) {
+      throw new AppError(400, '렌더링된 영상이 없습니다.');
+    }
+
+    youtubeProgressMap.set(projectId, { progress: 0, step: 'R2에서 영상 다운로드 중' });
+
+    // 1. Download video from R2
+    const r2Key = urlToR2Key(project.outputUrl);
+    const videoBuffer = await downloadFromR2(r2Key);
+
+    youtubeProgressMap.set(projectId, { progress: 10, step: 'YouTube 업로드 중' });
+
+    // 2. Upload to YouTube
+    const result = await YouTubeProvider.uploadVideo(videoBuffer, meta, (percent) => {
+      const mapped = 10 + Math.round(percent * 0.85);
+      youtubeProgressMap.set(projectId, {
+        progress: mapped,
+        step: `YouTube 업로드 중 (${mapped}%)`,
+      });
+    });
+
+    // 3. Optional: upload thumbnail
+    if (meta.thumbnailUrl) {
+      youtubeProgressMap.set(projectId, { progress: 96, step: '썸네일 업로드 중' });
+      const thumbKey = urlToR2Key(meta.thumbnailUrl);
+      const thumbBuffer = await downloadFromR2(thumbKey);
+      await YouTubeProvider.setThumbnail(result.videoId, thumbBuffer);
+    }
+
+    // 4. Save result to storybook
+    project.youtubeUpload = {
+      videoId: result.videoId,
+      videoUrl: result.videoUrl,
+      uploadedAt: new Date().toISOString(),
+      privacy: meta.privacy,
+    };
+    await R2Repository.saveStorybook(storybook);
+
+    youtubeProgressMap.set(projectId, { progress: 100, step: '업로드 완료' });
+    setTimeout(() => youtubeProgressMap.delete(projectId), 30_000);
+  },
+
+  getYouTubeProgress(projectId: string): ProgressInfo | null {
+    return youtubeProgressMap.get(projectId) ?? null;
   },
 };

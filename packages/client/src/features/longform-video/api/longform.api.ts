@@ -1,5 +1,5 @@
 import { apiGet, apiPost, apiDelete } from '@/lib/axios';
-import type { LongformScene, PromptPreset } from '@tangobook/shared';
+import type { LongformScene, PromptPreset, YouTubeUploadMeta } from '@tangobook/shared';
 
 export const longformApi = {
   analyze: (req: {
@@ -39,6 +39,15 @@ export const longformApi = {
     apiPost<{ bgmUrl: string }>('/longform/upload-bgm', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     } as any),
+
+  // YouTube
+  youtubeAuthUrl: () => apiGet<{ url: string }>('/longform/youtube/auth-url'),
+  youtubeStatus: () => apiGet<{ connected: boolean }>('/longform/youtube/status'),
+  youtubeDisconnect: () => apiPost<{ disconnected: boolean }>('/longform/youtube/disconnect'),
+  youtubeUpload: (req: { storybookId: string; projectId: string; meta: YouTubeUploadMeta }) =>
+    apiPost<{ message: string }>('/longform/youtube/upload', req),
+  getYouTubeProgress: (projectId: string) =>
+    apiGet<{ progress: number; step: string } | null>(`/longform/youtube/progress/${projectId}`),
 };
 
 export const presetApi = {

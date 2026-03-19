@@ -860,6 +860,24 @@ export interface LongformProject {
   subtitleStyle: LongformSubtitleStyle;
   outputUrl?: string;
   createdAt?: string;
+  youtubeUpload?: YouTubeUploadResult;
+}
+
+export interface YouTubeUploadMeta {
+  title: string;
+  description: string;
+  privacy: 'public' | 'private' | 'unlisted';
+  categoryId: string;
+  tags: string[];
+  language?: string;
+  thumbnailUrl?: string;
+}
+
+export interface YouTubeUploadResult {
+  videoId: string;
+  videoUrl: string;
+  uploadedAt: string;
+  privacy: string;
 }
 
 export interface LongformScene {

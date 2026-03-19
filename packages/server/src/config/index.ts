@@ -39,4 +39,13 @@ export const config = {
   xai: {
     apiKey: process.env.XAI_API_KEY ?? '',
   },
+
+  // Optional: required only for YouTube auto-upload
+  youtube: {
+    clientId: process.env.YOUTUBE_CLIENT_ID ?? '',
+    clientSecret: process.env.YOUTUBE_CLIENT_SECRET ?? '',
+    redirectUri:
+      process.env.YOUTUBE_REDIRECT_URI ??
+      'http://localhost:3000/api/longform/youtube/oauth/callback',
+  },
 } as const;

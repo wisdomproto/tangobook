@@ -1,4 +1,4 @@
-import { useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
+import { useRef, useState, useCallback, type MouseEvent as ReactMouseEvent } from 'react';
 import type { TrackType } from '../hooks/useTimeline';
 
 interface TimelineClipProps {
@@ -14,7 +14,7 @@ interface TimelineClipProps {
   onSelect: (trackType: TrackType, clipId: string) => void;
   /** Subtitle: resize edges change start/end timing */
   onTimingChange?: (startTime: number, endTime: number) => void;
-  /** Video/SFX: resize edges change trim */
+  /** Video: resize edges change trim */
   onTrimChange?: (trimStart: number, trimEnd: number) => void;
   /** SFX/TTS/Subtitle: body drag to move (receives relative offset) */
   onMove?: (newRelativeOffset: number) => void;
@@ -82,14 +82,15 @@ export function TimelineClip({
   const canMove = !!onMove;
   const canReorder = trackType === 'video' && !!onReorder && sceneIndex !== undefined;
 
+  // Visual drag offset (pixels) — only for visual feedback during drag
   const [dragDx, setDragDx] = useState(0);
   const [dragType, setDragType] = useState<
     'resize-start' | 'resize-end' | 'move' | 'reorder' | null
   >(null);
   const isDragging = dragType !== null;
 
-  // Refs to snapshot values at drag start (immune to re-renders)
-  const refs = useRef({
+  // Snapshot values at drag start
+  const dragRef = useRef({
     startX: 0,
     startTime: 0,
     endTime: 0,
@@ -98,93 +99,114 @@ export function TimelineClip({
     offset: 0,
   });
 
-  // Use refs for callbacks to avoid stale closures during drag
-  const callbackRefs = useRef({ onTimingChange, onTrimChange, onMove, onReorder });
-  callbackRefs.current = { onTimingChange, onTrimChange, onMove, onReorder };
+  // Use refs for callbacks to always get latest (avoids stale closures)
+  const cbRef = useRef({ onTimingChange, onTrimChange, onMove, onReorder });
+  cbRef.current = { onTimingChange, onTrimChange, onMove, onReorder };
 
-  const startDrag = (type: typeof dragType, e: ReactMouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    e.preventDefault();
-    setDragType(type);
-    setDragDx(0);
-    refs.current = {
-      startX: e.clientX,
-      startTime: startTime,
-      endTime: startTime + duration,
-      trimStart: initTrimStart,
-      trimEnd: initTrimEnd,
-      offset: currentOffset,
-    };
+  const startDrag = useCallback(
+    (type: NonNullable<typeof dragType>, e: ReactMouseEvent<HTMLDivElement>) => {
+      e.stopPropagation();
+      e.preventDefault();
 
-    const handleMouseMove = (ev: MouseEvent) => {
-      const dx = ev.clientX - refs.current.startX;
-      setDragDx(dx);
-      const dt = pixelToTime(dx);
-
-      if (type === 'resize-start' || type === 'resize-end') {
-        if (trackType === 'subtitle') {
-          let s = refs.current.startTime;
-          let end = refs.current.endTime;
-          if (type === 'resize-start') {
-            s = Math.max(0, refs.current.startTime + dt);
-            if (s >= end - 0.1) s = end - 0.1;
-          } else {
-            end = refs.current.endTime + dt;
-            if (end <= s + 0.1) end = s + 0.1;
-          }
-          callbackRefs.current.onTimingChange?.(s, end);
-        } else {
-          let ts = refs.current.trimStart;
-          let te = refs.current.trimEnd;
-          if (type === 'resize-start') {
-            ts = Math.max(0, refs.current.trimStart + dt);
-          } else {
-            te = Math.max(0, refs.current.trimEnd - dt);
-          }
-          callbackRefs.current.onTrimChange?.(ts, te);
-        }
-      } else if (type === 'move') {
-        // Pass new relative offset directly
-        const newOffset = Math.max(0, refs.current.offset + dt);
-        callbackRefs.current.onMove?.(newOffset);
-      }
-      // reorder: visual only during drag, commit on mouseup
-    };
-
-    const handleMouseUp = (ev: MouseEvent) => {
-      setDragType(null);
+      setDragType(type);
       setDragDx(0);
 
-      if (type === 'reorder') {
-        const dx2 = ev.clientX - refs.current.startX;
-        const dt2 = pixelToTime(dx2);
-        if (Math.abs(dt2) > duration * 0.25 && sceneIndex !== undefined) {
-          const slots = Math.round(dt2 / Math.max(duration, 1));
-          const toIndex = Math.max(0, sceneIndex + slots);
-          if (toIndex !== sceneIndex) {
-            callbackRefs.current.onReorder?.(sceneIndex, toIndex);
+      dragRef.current = {
+        startX: e.clientX,
+        startTime,
+        endTime: startTime + duration,
+        trimStart: initTrimStart,
+        trimEnd: initTrimEnd,
+        offset: currentOffset,
+      };
+
+      const handleMouseMove = (ev: MouseEvent) => {
+        const dx = ev.clientX - dragRef.current.startX;
+        const dt = pixelToTime(dx);
+
+        if (type === 'resize-start' || type === 'resize-end') {
+          // Resize commits every frame (small state changes)
+          if (trackType === 'subtitle') {
+            let s = dragRef.current.startTime;
+            let end = dragRef.current.endTime;
+            if (type === 'resize-start') {
+              s = Math.max(0, dragRef.current.startTime + dt);
+              if (s >= end - 0.1) s = end - 0.1;
+            } else {
+              end = dragRef.current.endTime + dt;
+              if (end <= s + 0.1) end = s + 0.1;
+            }
+            cbRef.current.onTimingChange?.(s, end);
+          } else {
+            let ts = dragRef.current.trimStart;
+            let te = dragRef.current.trimEnd;
+            if (type === 'resize-start') {
+              ts = Math.max(0, dragRef.current.trimStart + dt);
+            } else {
+              te = Math.max(0, dragRef.current.trimEnd - dt);
+            }
+            cbRef.current.onTrimChange?.(ts, te);
+          }
+        } else {
+          // Move and reorder: visual feedback only, commit on mouseup
+          setDragDx(dx);
+        }
+      };
+
+      const handleMouseUp = (ev: MouseEvent) => {
+        const dx = ev.clientX - dragRef.current.startX;
+        const dt = pixelToTime(dx);
+
+        if (type === 'move') {
+          // Commit final move offset
+          const newOffset = Math.max(0, dragRef.current.offset + dt);
+          cbRef.current.onMove?.(newOffset);
+        } else if (type === 'reorder') {
+          // Commit reorder if dragged far enough
+          if (Math.abs(dt) > duration * 0.25 && sceneIndex !== undefined) {
+            const slots = Math.round(dt / Math.max(duration, 1));
+            const toIndex = Math.max(0, sceneIndex + slots);
+            if (toIndex !== sceneIndex) {
+              cbRef.current.onReorder?.(sceneIndex, toIndex);
+            }
           }
         }
+
+        setDragType(null);
+        setDragDx(0);
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      };
+
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    },
+    [
+      startTime,
+      duration,
+      initTrimStart,
+      initTrimEnd,
+      currentOffset,
+      pixelToTime,
+      trackType,
+      sceneIndex,
+    ]
+  );
+
+  const handleBodyMouseDown = useCallback(
+    (e: ReactMouseEvent<HTMLDivElement>) => {
+      if (canMove) {
+        startDrag('move', e);
+      } else if (canReorder) {
+        startDrag('reorder', e);
       }
+    },
+    [canMove, canReorder, startDrag]
+  );
 
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-  };
-
-  const handleBodyMouseDown = (e: ReactMouseEvent<HTMLDivElement>) => {
-    if (canMove) {
-      startDrag('move', e);
-    } else if (canReorder) {
-      startDrag('reorder', e);
-    }
-  };
-
-  // Visual offset during reorder drag
-  const visualLeft = dragType === 'reorder' ? left + dragDx : left;
+  // During move/reorder drag, apply visual offset via CSS
+  const visualLeft =
+    isDragging && (dragType === 'move' || dragType === 'reorder') ? left + dragDx : left;
 
   const bodyCursor = canMove
     ? dragType === 'move'
@@ -204,7 +226,7 @@ export function TimelineClip({
       style={{ left: `${visualLeft}px`, width: `${width}px` }}
       onClick={(e) => {
         e.stopPropagation();
-        onSelect(trackType, id);
+        if (!isDragging) onSelect(trackType, id);
       }}
     >
       {/* Body (label + drag area) — full clip area, under resize handles */}

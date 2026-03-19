@@ -21,4 +21,12 @@ router.post(
   LongformController.uploadBgm
 );
 
+// YouTube
+router.get('/youtube/auth-url', LongformController.youtubeAuthUrl);
+router.get('/youtube/oauth/callback', LongformController.youtubeCallback);
+router.get('/youtube/status', LongformController.youtubeStatus);
+router.post('/youtube/disconnect', LongformController.youtubeDisconnect);
+router.post('/youtube/upload', LongformController.youtubeUpload);
+router.get('/youtube/progress/:projectId', LongformController.getYouTubeProgress);
+
 export default router;

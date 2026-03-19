@@ -1706,3 +1706,6 @@ export type CardNewsThemeId = (typeof CARD_NEWS_THEMES)[number]['id'];
 // === 카테고리 ===
 export const STORYBOOK_CATEGORIES = ['자연 관찰', '기타'] as const;
 export const PHONICS_CATEGORIES = ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'] as const;
+
+// === YouTube ===
+export { YOUTUBE_CATEGORIES, YOUTUBE_PRIVACY_OPTIONS } from './youtube.js';

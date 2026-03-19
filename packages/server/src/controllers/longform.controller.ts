@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 import { LongformService } from '../services/longform.service.js';
+import { YouTubeProvider } from '../providers/youtube.provider.js';
 import { asyncHandler } from '../middleware/async-handler.js';
 
 export const LongformController = {
@@ -68,4 +69,44 @@ export const LongformController = {
     const result = await LongformService.uploadBgm(req.file!, storybookId, projectId);
     res.json({ success: true, data: result });
   }),
+
+  // ----- YouTube -----
+  youtubeAuthUrl: asyncHandler(async (_req: Request, res: Response) => {
+    const url = YouTubeProvider.getAuthUrl();
+    res.json({ success: true, data: { url } });
+  }),
+
+  youtubeCallback: asyncHandler(async (req: Request, res: Response) => {
+    const { code } = req.query;
+    if (!code || typeof code !== 'string') {
+      res.status(400).json({ success: false, error: 'Authorization code가 없습니다.' });
+      return;
+    }
+    await YouTubeProvider.handleCallback(code);
+    res.redirect('/?youtube=connected');
+  }),
+
+  youtubeStatus: asyncHandler(async (_req: Request, res: Response) => {
+    const connected = await YouTubeProvider.isConnected();
+    res.json({ success: true, data: { connected } });
+  }),
+
+  youtubeDisconnect: asyncHandler(async (_req: Request, res: Response) => {
+    await YouTubeProvider.disconnect();
+    res.json({ success: true, data: { disconnected: true } });
+  }),
+
+  youtubeUpload: asyncHandler(async (req: Request, res: Response) => {
+    const { storybookId, projectId, meta } = req.body;
+    LongformService.uploadToYouTube(storybookId, projectId, meta).catch((err) => {
+      console.error('[longform] YouTube upload error:', err);
+    });
+    res.json({ success: true, data: { message: 'YouTube 업로드가 시작되었습니다.' } });
+  }),
+
+  getYouTubeProgress(req: Request, res: Response) {
+    const projectId = req.params.projectId as string;
+    const progress = LongformService.getYouTubeProgress(projectId);
+    res.json({ success: true, data: progress });
+  },
 };
