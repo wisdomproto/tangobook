@@ -72,6 +72,7 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
         promptPresetId: effectivePresetId,
         model: selectedModel,
       });
+
       onUpdate({ scenes: result.scenes, promptPresetId: effectivePresetId });
     } catch (e) {
       setError(e instanceof Error ? e.message : '분석 중 오류가 발생했습니다.');

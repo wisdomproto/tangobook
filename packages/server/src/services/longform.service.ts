@@ -57,45 +57,41 @@ async function muteVideo(inputPath: string, outputPath: string): Promise<void> {
   await execFileAsync(ffmpegPath!, ['-i', inputPath, '-an', '-vcodec', 'copy', '-y', outputPath]);
 }
 
-/** Get audio duration in seconds from a URL (WAV/MP3). Downloads header only for WAV, full for MP3. */
+/** Get audio duration in seconds from a URL using ffmpeg (most reliable). */
 async function getAudioDuration(audioUrl: string): Promise<number> {
   const res = await fetch(audioUrl);
   if (!res.ok) throw new Error(`Failed to fetch audio: ${res.status}`);
   const buffer = Buffer.from(await res.arrayBuffer());
 
-  // WAV: parse header for duration
-  if (buffer.length > 44 && buffer.toString('ascii', 0, 4) === 'RIFF') {
-    // Find 'data' chunk
-    let offset = 12;
-    while (offset < buffer.length - 8) {
-      const chunkId = buffer.toString('ascii', offset, offset + 4);
-      const chunkSize = buffer.readUInt32LE(offset + 4);
-      if (chunkId === 'data') {
-        const sampleRate = buffer.readUInt32LE(28);
-        const bitsPerSample = buffer.readUInt16LE(34);
-        const numChannels = buffer.readUInt16LE(22);
-        const bytesPerSample = (bitsPerSample / 8) * numChannels;
-        return chunkSize / (sampleRate * bytesPerSample);
-      }
-      offset += 8 + chunkSize;
-    }
-  }
-
-  // Fallback: use ffprobe
   const tmpFile = path.join(os.tmpdir(), `tts-probe-${Date.now()}.wav`);
   try {
     fs.writeFileSync(tmpFile, buffer);
-    const ffprobePath = (await import('ffmpeg-static')).default!.replace('ffmpeg', 'ffprobe');
-    const { stdout } = await execFileAsync(ffprobePath, [
-      '-v',
-      'error',
-      '-show_entries',
-      'format=duration',
-      '-of',
-      'default=noprint_wrappers=1:nokey=1',
-      tmpFile,
-    ]);
-    return parseFloat(stdout.trim());
+    // Use ffmpeg -i to get duration (ffprobe may not be bundled with ffmpeg-static)
+    const ffmpegPath = (await import('ffmpeg-static')).default!;
+    const { stderr } = await execFileAsync(ffmpegPath, ['-i', tmpFile, '-f', 'null', '-'], {
+      // ffmpeg writes info to stderr
+    }).catch((err: { stderr?: string }) => ({ stderr: err.stderr ?? '', stdout: '' }));
+
+    // Parse "Duration: HH:MM:SS.ss" from ffmpeg output
+    const match = stderr.match(/Duration:\s*(\d+):(\d+):(\d+)\.(\d+)/);
+    if (match) {
+      const hours = parseInt(match[1]);
+      const minutes = parseInt(match[2]);
+      const seconds = parseInt(match[3]);
+      const centiseconds = parseInt(match[4]);
+      const duration = hours * 3600 + minutes * 60 + seconds + centiseconds / 100;
+      return duration;
+    }
+
+    // Fallback: WAV header parsing
+    if (buffer.length > 44 && buffer.toString('ascii', 0, 4) === 'RIFF') {
+      const byteRate = buffer.readUInt32LE(28); // bytes per second
+      // Total file size minus 44-byte header, divided by byte rate
+      const dataSize = buffer.length - 44;
+      if (byteRate > 0) return dataSize / byteRate;
+    }
+
+    throw new Error('Could not determine audio duration');
   } finally {
     if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
   }
