@@ -57,6 +57,50 @@ async function muteVideo(inputPath: string, outputPath: string): Promise<void> {
   await execFileAsync(ffmpegPath!, ['-i', inputPath, '-an', '-vcodec', 'copy', '-y', outputPath]);
 }
 
+/** Get audio duration in seconds from a URL (WAV/MP3). Downloads header only for WAV, full for MP3. */
+async function getAudioDuration(audioUrl: string): Promise<number> {
+  const res = await fetch(audioUrl);
+  if (!res.ok) throw new Error(`Failed to fetch audio: ${res.status}`);
+  const buffer = Buffer.from(await res.arrayBuffer());
+
+  // WAV: parse header for duration
+  if (buffer.length > 44 && buffer.toString('ascii', 0, 4) === 'RIFF') {
+    // Find 'data' chunk
+    let offset = 12;
+    while (offset < buffer.length - 8) {
+      const chunkId = buffer.toString('ascii', offset, offset + 4);
+      const chunkSize = buffer.readUInt32LE(offset + 4);
+      if (chunkId === 'data') {
+        const sampleRate = buffer.readUInt32LE(28);
+        const bitsPerSample = buffer.readUInt16LE(34);
+        const numChannels = buffer.readUInt16LE(22);
+        const bytesPerSample = (bitsPerSample / 8) * numChannels;
+        return chunkSize / (sampleRate * bytesPerSample);
+      }
+      offset += 8 + chunkSize;
+    }
+  }
+
+  // Fallback: use ffprobe
+  const tmpFile = path.join(os.tmpdir(), `tts-probe-${Date.now()}.wav`);
+  try {
+    fs.writeFileSync(tmpFile, buffer);
+    const ffprobePath = (await import('ffmpeg-static')).default!.replace('ffmpeg', 'ffprobe');
+    const { stdout } = await execFileAsync(ffprobePath, [
+      '-v',
+      'error',
+      '-show_entries',
+      'format=duration',
+      '-of',
+      'default=noprint_wrappers=1:nokey=1',
+      tmpFile,
+    ]);
+    return parseFloat(stdout.trim());
+  } finally {
+    if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
+  }
+}
+
 // ===== R2 key builders =====
 
 function clipKey(storybookId: string, projectId: string, order: number): string {
@@ -185,9 +229,19 @@ export const LongformService = {
 
       const videoPrompt = await generateTextWithGemini(geminiPrompt, 3, model);
 
+      // Calculate clip duration from TTS audio length (tts + 2s, max 15s, min 5s)
+      let ttsDuration: number | undefined;
+      if (ttsUrl) {
+        try {
+          ttsDuration = await getAudioDuration(ttsUrl);
+        } catch {
+          console.warn(`[longform] TTS 길이 측정 실패 page=${page.pageNumber}, 기본값 사용`);
+        }
+      }
+      const clipDuration = ttsDuration ? Math.min(15, Math.max(5, Math.ceil(ttsDuration) + 2)) : 10;
+
       // Split text into sentences for subtitles
       const sentences = splitSentences(pageText);
-      const clipDuration = 10; // default
       const subtitles = buildSubtitles(sentences, clipDuration);
 
       const trimmedPrompt = videoPrompt.trim();
@@ -200,6 +254,7 @@ export const LongformService = {
         clipDuration,
         sfxVolume: 50,
         ttsUrl,
+        ttsDuration,
         subtitles,
         order: i,
       });
@@ -273,6 +328,21 @@ export const LongformService = {
 
     const videoPrompt = await generateTextWithGemini(geminiPrompt, 3, model);
     const ttsUrl = getPageTtsUrl(page, lang);
+
+    // Calculate clip duration from TTS length
+    let ttsDuration: number | undefined;
+    if (ttsUrl) {
+      try {
+        ttsDuration = await getAudioDuration(ttsUrl);
+      } catch {
+        console.warn(`[longform] TTS 길이 측정 실패 scene=${sceneId}, 기본값 유지`);
+      }
+    }
+    if (ttsDuration) {
+      scene.clipDuration = Math.min(15, Math.max(5, Math.ceil(ttsDuration) + 2));
+      scene.ttsDuration = ttsDuration;
+    }
+
     const sentences = splitSentences(pageText);
     const subtitles = buildSubtitles(sentences, scene.clipDuration);
 
