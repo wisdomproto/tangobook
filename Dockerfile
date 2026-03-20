@@ -39,8 +39,11 @@ RUN pnpm build
 # tsc가 복사하지 않는 비-TS 파일 복사
 RUN cp packages/server/prompt_guide.md packages/server/dist/server/prompt_guide.md \
     && mkdir -p packages/server/dist/server/scripts \
-    && cp packages/server/scripts/generate_audiobook.py packages/server/dist/server/scripts/
+    && cp packages/server/scripts/generate_audiobook.py packages/server/dist/server/scripts/ \
+    && cp packages/server/scripts/generate_longform.py packages/server/dist/server/scripts/
 
 EXPOSE 3000
+
+ENV NODE_ENV=production
 
 CMD ["node", "packages/server/dist/server/src/server.js"]
