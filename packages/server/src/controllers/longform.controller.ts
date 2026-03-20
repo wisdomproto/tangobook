@@ -122,4 +122,10 @@ export const LongformController = {
     const meta = await LongformService.generateYouTubeMeta(storybookId, projectId, prompt);
     res.json({ success: true, data: meta });
   }),
+
+  recoverClips: asyncHandler(async (req: Request, res: Response) => {
+    const { storybookId, projectId } = req.body;
+    const result = await LongformService.recoverClips(storybookId, projectId);
+    res.json({ success: true, data: result });
+  }),
 };

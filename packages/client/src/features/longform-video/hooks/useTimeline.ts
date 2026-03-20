@@ -170,6 +170,100 @@ export function useTimeline(
     [project.scenes, onUpdate]
   );
 
+  // Add new subtitle to a scene
+  const addSubtitle = useCallback(
+    (sceneId: string, startTime: number, endTime: number, text = '') => {
+      const newSub: LongformSubtitleEntry = {
+        id: crypto.randomUUID(),
+        text,
+        startTime,
+        endTime,
+      };
+      const updatedScenes = project.scenes.map((scene) =>
+        scene.id === sceneId
+          ? {
+              ...scene,
+              subtitles: [...scene.subtitles, newSub].sort((a, b) => a.startTime - b.startTime),
+            }
+          : scene
+      );
+      onUpdate({ scenes: updatedScenes });
+    },
+    [project.scenes, onUpdate]
+  );
+
+  // Delete a subtitle
+  const deleteSubtitle = useCallback(
+    (subtitleId: string) => {
+      const updatedScenes = project.scenes.map((scene) => ({
+        ...scene,
+        subtitles: scene.subtitles.filter((sub: LongformSubtitleEntry) => sub.id !== subtitleId),
+      }));
+      onUpdate({ scenes: updatedScenes });
+    },
+    [project.scenes, onUpdate]
+  );
+
+  // Merge two adjacent subtitles (combine text, extend time range)
+  const mergeSubtitles = useCallback(
+    (subtitleIdA: string, subtitleIdB: string) => {
+      const updatedScenes = project.scenes.map((scene) => {
+        const a = scene.subtitles.find((s: LongformSubtitleEntry) => s.id === subtitleIdA);
+        const b = scene.subtitles.find((s: LongformSubtitleEntry) => s.id === subtitleIdB);
+        if (!a || !b) return scene;
+
+        const merged: LongformSubtitleEntry = {
+          id: a.id,
+          text: `${a.text} ${b.text}`.trim(),
+          startTime: Math.min(a.startTime, b.startTime),
+          endTime: Math.max(a.endTime, b.endTime),
+        };
+        return {
+          ...scene,
+          subtitles: scene.subtitles
+            .filter((s: LongformSubtitleEntry) => s.id !== subtitleIdB)
+            .map((s: LongformSubtitleEntry) => (s.id === subtitleIdA ? merged : s)),
+        };
+      });
+      onUpdate({ scenes: updatedScenes });
+    },
+    [project.scenes, onUpdate]
+  );
+
+  // Split a subtitle at a given local time
+  const splitSubtitle = useCallback(
+    (subtitleId: string, splitTime: number) => {
+      const updatedScenes = project.scenes.map((scene) => {
+        const sub = scene.subtitles.find((s: LongformSubtitleEntry) => s.id === subtitleId);
+        if (!sub || splitTime <= sub.startTime || splitTime >= sub.endTime) return scene;
+
+        const subA: LongformSubtitleEntry = {
+          id: sub.id,
+          text: sub.text,
+          startTime: sub.startTime,
+          endTime: splitTime,
+        };
+        const subB: LongformSubtitleEntry = {
+          id: crypto.randomUUID(),
+          text: '',
+          startTime: splitTime,
+          endTime: sub.endTime,
+        };
+        return {
+          ...scene,
+          subtitles: scene.subtitles
+            .map((s: LongformSubtitleEntry) => (s.id === subtitleId ? subA : s))
+            .concat(subB)
+            .sort(
+              (a: LongformSubtitleEntry, b: LongformSubtitleEntry) => a.startTime - b.startTime
+            ),
+        };
+      });
+      onUpdate({ scenes: updatedScenes });
+    },
+    [project.scenes, onUpdate]
+  );
+
   // ----- Scene reorder (Phase 4) -----
   const reorderScenes = useCallback(
     (fromIndex: number, toIndex: number) => {
@@ -248,17 +342,23 @@ export function useTimeline(
   );
 
   // ----- Reset timeline edits -----
-  const resetTimeline = useCallback(() => {
-    const updatedScenes = project.scenes.map((s) => ({
-      ...s,
-      trimStart: undefined,
-      trimEnd: undefined,
-      sfxOffset: undefined,
-      ttsOffset: undefined,
-    }));
-    onUpdate({ scenes: updatedScenes });
-    setState((prev) => ({ ...prev, currentTime: 0, selectedClipId: null, selectedTrack: null }));
-  }, [project.scenes, onUpdate]);
+  // Accepts optional rebuilt scenes from the caller (for full reset with subtitle regeneration)
+  const resetTimeline = useCallback(
+    (rebuiltScenes?: LongformScene[]) => {
+      const scenesToUse = rebuiltScenes ?? project.scenes;
+      const updatedScenes = scenesToUse.map((s) => {
+        const cleaned = { ...s };
+        delete cleaned.trimStart;
+        delete cleaned.trimEnd;
+        delete cleaned.sfxOffset;
+        delete cleaned.ttsOffset;
+        return cleaned;
+      });
+      onUpdate({ scenes: updatedScenes });
+      setState((prev) => ({ ...prev, currentTime: 0, selectedClipId: null, selectedTrack: null }));
+    },
+    [project.scenes, onUpdate]
+  );
 
   const timeToPixel = useCallback((time: number) => time * pixelsPerSecond, [pixelsPerSecond]);
   const pixelToTime = useCallback((px: number) => px / pixelsPerSecond, [pixelsPerSecond]);
@@ -285,6 +385,10 @@ export function useTimeline(
     updateTtsOffset,
     updateSubtitleTiming,
     updateSubtitleText,
+    addSubtitle,
+    deleteSubtitle,
+    mergeSubtitles,
+    splitSubtitle,
     reorderScenes,
     splitScene,
     resetTimeline,

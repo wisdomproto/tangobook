@@ -70,6 +70,7 @@ interface SceneCardProps {
   onPromptChange: (sceneId: string, prompt: string) => void;
   onDeleteClip: (sceneId: string) => void;
   onRestoreClip: (sceneId: string, clipUrl: string) => void;
+  onDeleteScene: (sceneId: string) => void;
 }
 
 function SceneCard({
@@ -87,6 +88,7 @@ function SceneCard({
   onDeleteClip,
   onRestoreClip,
   onUpload,
+  onDeleteScene,
 }: SceneCardProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isEditingPrompt, setIsEditingPrompt] = useState(false);
@@ -125,9 +127,29 @@ function SceneCard({
     <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-700/50">
-        <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
-          페이지 {scene.pageNumber}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
+            페이지 {scene.pageNumber}
+          </span>
+          <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
+            {scene.ttsDuration != null && (
+              <span title="TTS 길이">TTS {scene.ttsDuration.toFixed(1)}s</span>
+            )}
+            {scene.ttsDuration != null && <span className="mx-1">→</span>}
+            <span title="영상 길이">{scene.clipDuration}s</span>
+          </span>
+          <button
+            onClick={() => {
+              if (confirm(`페이지 ${scene.pageNumber} 장면을 삭제하시겠습니까?`)) {
+                onDeleteScene(scene.id);
+              }
+            }}
+            className="text-[10px] text-slate-400 hover:text-red-500 transition-colors"
+            title="장면 삭제"
+          >
+            ✕
+          </button>
+        </div>
         <span
           className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${STATUS_COLORS[status]}`}
         >
@@ -677,6 +699,12 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
               onDeleteClip={handleDeleteClip}
               onRestoreClip={handleRestoreClip}
               onUpload={handleUpload}
+              onDeleteScene={(sceneId) => {
+                const updated = project.scenes
+                  .filter((s) => s.id !== sceneId)
+                  .map((s, i) => ({ ...s, order: i }));
+                onUpdate({ scenes: updated });
+              }}
             />
           ))}
         </div>

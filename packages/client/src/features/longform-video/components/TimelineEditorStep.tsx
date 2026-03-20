@@ -1,7 +1,13 @@
 import { useState, useRef, useCallback, useEffect, useMemo, type ChangeEvent } from 'react';
-import type { Storybook, LongformProject } from '@tangobook/shared';
+import type {
+  Storybook,
+  LongformProject,
+  LongformScene,
+  LongformSubtitleEntry,
+} from '@tangobook/shared';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 import { useTimeline, type TrackType } from '../hooks/useTimeline';
+import { getEffectiveDuration } from '../utils/timeline.utils';
 import { TimelinePreview } from './TimelinePreview';
 import { TimelineControls } from './TimelineControls';
 import { TimelineTrack } from './TimelineTrack';
@@ -299,7 +305,64 @@ export function TimelineEditorStep({
           const scene = timeline.getSceneAtTime(timeline.currentTime);
           if (scene) timeline.splitScene(scene.id, timeline.currentTime);
         }}
-        onReset={timeline.resetTimeline}
+        onReset={() => {
+          if (
+            !confirm(
+              '타임라인을 초기화하시겠습니까?\n트리밍, 오프셋, 분할, 자막 편집이 모두 원래대로 돌아갑니다.'
+            )
+          )
+            return;
+
+          // 1. Merge split scenes back (same pageNumber → keep the one with clipUrl)
+          const pageMap = new Map<number, LongformScene>();
+          for (const scene of project.scenes) {
+            const existing = pageMap.get(scene.pageNumber);
+            if (!existing) {
+              pageMap.set(scene.pageNumber, scene);
+            } else {
+              // Keep whichever has a clipUrl, prefer existing
+              if (!existing.clipUrl && scene.clipUrl) {
+                pageMap.set(scene.pageNumber, scene);
+              }
+            }
+          }
+          const mergedScenes = Array.from(pageMap.values())
+            .sort((a, b) => a.pageNumber - b.pageNumber)
+            .map((s, i) => ({ ...s, order: i }));
+
+          // 2. Regenerate subtitles from storybook page text
+          const rebuilt = mergedScenes.map((scene) => {
+            const page = storybook.pages.find((p) => p.pageNumber === scene.pageNumber);
+            const text = page?.text || '';
+            if (!text.trim()) {
+              return { ...scene, subtitles: [] };
+            }
+            // Split text into sentences
+            const sentences = text
+              .split(/(?<=[.!?。！？])\s*/)
+              .map((s) => s.trim())
+              .filter(Boolean);
+            if (sentences.length === 0) {
+              return {
+                ...scene,
+                subtitles: [
+                  { id: crypto.randomUUID(), text, startTime: 0, endTime: scene.clipDuration },
+                ],
+              };
+            }
+            const dur = scene.clipDuration;
+            const sliceDur = dur / sentences.length;
+            const subtitles: LongformSubtitleEntry[] = sentences.map((sent, i) => ({
+              id: crypto.randomUUID(),
+              text: sent,
+              startTime: Math.round(i * sliceDur * 100) / 100,
+              endTime: Math.round((i + 1) * sliceDur * 100) / 100,
+            }));
+            return { ...scene, subtitles };
+          });
+
+          timeline.resetTimeline(rebuilt);
+        }}
       />
 
       {/* Timeline tracks */}
@@ -347,6 +410,11 @@ export function TimelineEditorStep({
             project={project}
             subtitleId={timeline.selectedClipId}
             onUpdateText={timeline.updateSubtitleText}
+            onDelete={timeline.deleteSubtitle}
+            onSplit={timeline.splitSubtitle}
+            onMergeNext={timeline.mergeSubtitles}
+            onAdd={timeline.addSubtitle}
+            currentTime={timeline.currentTime}
           />
         )}
 
@@ -520,30 +588,107 @@ function SelectedSubtitleEditor({
   project,
   subtitleId,
   onUpdateText,
+  onDelete,
+  onSplit,
+  onMergeNext,
+  onAdd,
+  currentTime,
 }: {
   project: LongformProject;
   subtitleId: string;
   onUpdateText: (id: string, text: string) => void;
+  onDelete: (id: string) => void;
+  onSplit: (id: string, time: number) => void;
+  onMergeNext: (idA: string, idB: string) => void;
+  onAdd: (sceneId: string, startTime: number, endTime: number, text: string) => void;
+  currentTime: number;
 }) {
-  // Find the subtitle across all scenes
-  let subtitleText = '';
+  // Find the subtitle and its scene across all scenes
+  let subtitle: LongformSubtitleEntry | null = null;
+  let parentScene: LongformScene | null = null;
+  let nextSubtitle: LongformSubtitleEntry | null = null;
+
   for (const scene of project.scenes) {
-    const sub = scene.subtitles.find((s) => s.id === subtitleId);
-    if (sub) {
-      subtitleText = sub.text;
+    const idx = scene.subtitles.findIndex((s) => s.id === subtitleId);
+    if (idx >= 0) {
+      subtitle = scene.subtitles[idx];
+      parentScene = scene;
+      nextSubtitle = scene.subtitles[idx + 1] ?? null;
       break;
     }
   }
 
+  if (!subtitle || !parentScene) return null;
+
+  // Calculate local time within the subtitle for split
+  let sceneStart = 0;
+  for (const s of project.scenes) {
+    if (s.id === parentScene.id) break;
+    sceneStart += getEffectiveDuration(s);
+  }
+  const localTime = currentTime - sceneStart;
+  const canSplit = localTime > subtitle.startTime + 0.3 && localTime < subtitle.endTime - 0.3;
+
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 flex-wrap">
       <label className="text-xs text-slate-500 dark:text-slate-400 flex-shrink-0">자막:</label>
       <input
         type="text"
-        value={subtitleText}
+        value={subtitle.text}
         onChange={(e) => onUpdateText(subtitleId, e.target.value)}
         className="px-2 py-1 text-sm border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-violet-500 min-w-[200px]"
       />
+      <span className="text-[10px] text-slate-400">
+        {subtitle.startTime.toFixed(1)}s ~ {subtitle.endTime.toFixed(1)}s
+      </span>
+
+      {/* Split subtitle at playhead */}
+      {canSplit && (
+        <button
+          onClick={() => onSplit(subtitleId, localTime)}
+          className="px-2 py-0.5 text-[11px] rounded border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:border-violet-400 hover:text-violet-600 transition-colors"
+          title="플레이헤드 위치에서 자막 분할"
+        >
+          분할
+        </button>
+      )}
+
+      {/* Merge with next subtitle */}
+      {nextSubtitle && (
+        <button
+          onClick={() => onMergeNext(subtitleId, nextSubtitle!.id)}
+          className="px-2 py-0.5 text-[11px] rounded border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:border-blue-400 hover:text-blue-600 transition-colors"
+          title="다음 자막과 합치기"
+        >
+          합치기
+        </button>
+      )}
+
+      {/* Add new subtitle after this one */}
+      <button
+        onClick={() => {
+          const gap = 0.5;
+          const sceneEnd = getEffectiveDuration(parentScene!);
+          const newStart = Math.min(subtitle!.endTime + gap, sceneEnd - 1);
+          const newEnd = Math.min(newStart + 2, sceneEnd);
+          if (newEnd > newStart + 0.2) {
+            onAdd(parentScene!.id, newStart, newEnd, '');
+          }
+        }}
+        className="px-2 py-0.5 text-[11px] rounded border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:border-green-400 hover:text-green-600 transition-colors"
+        title="이 뒤에 새 자막 추가"
+      >
+        +추가
+      </button>
+
+      {/* Delete subtitle */}
+      <button
+        onClick={() => onDelete(subtitleId)}
+        className="px-2 py-0.5 text-[11px] rounded border border-red-300 dark:border-red-700 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
+        title="자막 삭제"
+      >
+        삭제
+      </button>
     </div>
   );
 }

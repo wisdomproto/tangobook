@@ -83,16 +83,16 @@ export function TimelineTrack({
                 : undefined
             }
             onMove={
-              // SFX/TTS: move offset. Subtitle: move timing.
+              // SFX/TTS: move offset within scene.
               trackType === 'sfx' || trackType === 'tts'
                 ? onMoveOffset && clip.sceneId
                   ? (newOffset) => onMoveOffset(clip.sceneId!, newOffset)
                   : undefined
                 : trackType === 'subtitle' && onSubtitleTimingChange
                   ? (newOffset) => {
-                      // Move subtitle: shift start/end by delta from current position
-                      const delta = newOffset - (clip.currentOffset ?? 0);
-                      const newStart = Math.max(0, clip.startTime + delta);
+                      // Move subtitle: newOffset = new local startTime within scene
+                      // clip.currentOffset = current local startTime (sub.startTime)
+                      const newStart = Math.max(0, newOffset);
                       const newEnd = newStart + clip.duration;
                       onSubtitleTimingChange(clip.id, newStart, newEnd);
                     }

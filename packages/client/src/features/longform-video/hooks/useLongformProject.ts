@@ -5,7 +5,7 @@ function makeDefaultProject(): LongformProject {
     id: `lf-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     name: '새 롱폼 영상',
     aspectRatio: '16:9',
-    language: 'ko',
+    language: 'en',
     scenes: [],
     bgmVolume: 30,
     subtitleStyle: {

@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import type { Storybook, LongformProject } from '@tangobook/shared';
 import type { PromptPreset } from '@tangobook/shared';
-import { DEFAULT_TEXT_MODEL } from '@tangobook/shared';
+import { DEFAULT_TEXT_MODEL, SUPPORTED_LANGUAGES } from '@tangobook/shared';
 import { Button } from '@/components/Button';
 import { Spinner } from '@/components/Spinner';
 import { TextModelSelector } from '@/components/TextModelSelector';
@@ -45,6 +45,29 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
 
   const selectedPreset: PromptPreset | undefined = presets.find((p) => p.id === effectivePresetId);
 
+  // Available languages from storybook translations
+  const availableLanguages = useMemo(() => {
+    const langSet = new Set<string>();
+    langSet.add('ko');
+    for (const page of storybook.pages ?? []) {
+      if (page.translations) {
+        for (const code of Object.keys(page.translations)) {
+          if (page.translations[code]?.text) langSet.add(code);
+        }
+      }
+    }
+    const langs = [{ code: 'ko', label: '한국어' }];
+    for (const sl of SUPPORTED_LANGUAGES) {
+      if (langSet.has(sl.code)) langs.push(sl);
+    }
+    for (const code of langSet) {
+      if (code !== 'ko' && !SUPPORTED_LANGUAGES.some((sl) => sl.code === code)) {
+        langs.push({ code, label: code.toUpperCase() });
+      }
+    }
+    return langs;
+  }, [storybook.pages]);
+
   const handleAnalyzeAll = async () => {
     if (!effectivePresetId) {
       setError('프리셋을 선택하세요.');
@@ -87,6 +110,23 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
     <div className="space-y-5">
       {/* AI 모델 + 시스템 프롬프트 바 */}
       <div className="flex items-center gap-2 flex-wrap">
+        <label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex-shrink-0">
+          언어
+        </label>
+        <select
+          value={project.language ?? 'ko'}
+          onChange={(e) => onUpdate({ language: e.target.value })}
+          className="px-3 py-1.5 border border-slate-300 dark:border-slate-600 rounded-lg text-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-500"
+        >
+          {availableLanguages.map((lang) => (
+            <option key={lang.code} value={lang.code}>
+              {lang.label}
+            </option>
+          ))}
+        </select>
+
+        <span className="text-slate-300 dark:text-slate-600">|</span>
+
         <TextModelSelector value={selectedModel} onChange={setSelectedModel} label="AI 모델" />
 
         <span className="text-slate-300 dark:text-slate-600">|</span>

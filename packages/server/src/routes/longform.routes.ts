@@ -31,4 +31,7 @@ router.post('/youtube/upload', LongformController.youtubeUpload);
 router.get('/youtube/progress/:projectId', LongformController.getYouTubeProgress);
 router.post('/youtube/generate-meta', LongformController.generateYouTubeMeta);
 
+// Recovery
+router.post('/recover-clips', LongformController.recoverClips);
+
 export default router;

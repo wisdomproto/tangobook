@@ -14,7 +14,12 @@ import type {
 } from '@tangobook/shared';
 import { AppError } from '../middleware/error.middleware.js';
 import { R2Repository } from '../repositories/r2.repository.js';
-import { downloadFromR2, urlToR2Key } from '../providers/r2.provider.js';
+import {
+  downloadFromR2,
+  urlToR2Key,
+  r2PublicUrl,
+  listR2Objects,
+} from '../providers/r2.provider.js';
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
 import { GrokProvider } from '../providers/grok.provider.js';
 import { generateLongform, cancelRender } from '../providers/longform.provider.js';
@@ -119,21 +124,51 @@ function outputKey(storybookId: string, projectId: string): string {
 
 function splitSentences(text: string): string[] {
   // Split by sentence-ending punctuation, keeping non-empty results
-  return text
+  const raw = text
     .split(/(?<=[.!?。])\s*/)
     .map((s) => s.trim())
     .filter((s) => s.length > 0);
+
+  // Clean up: strip leading/trailing lone quotes
+  const cleaned = raw
+    .map((s) =>
+      s
+        .replace(/\s*[""''"']\s*$/, '')
+        .replace(/^[""''"']\s*/, '')
+        .trim()
+    )
+    .filter((s) => s.length > 0);
+
+  // Merge fragments that are too short (< 5 chars)
+  const merged: string[] = [];
+  for (const s of cleaned) {
+    if (s.length < 5 && merged.length > 0) {
+      merged[merged.length - 1] += ' ' + s;
+    } else if (s.length < 5) {
+      // skip leading tiny fragments
+    } else {
+      merged.push(s);
+    }
+  }
+  return merged;
 }
 
 function buildSubtitles(sentences: string[], totalDuration: number): LongformSubtitleEntry[] {
   if (sentences.length === 0) return [];
-  const perSentence = totalDuration / sentences.length;
-  return sentences.map((text, i) => ({
-    id: crypto.randomUUID(),
-    text,
-    startTime: +(i * perSentence).toFixed(2),
-    endTime: +((i + 1) * perSentence).toFixed(2),
-  }));
+
+  // Weight by text length so longer sentences get more time
+  const totalChars = sentences.reduce((sum, s) => sum + s.length, 0);
+  if (totalChars === 0) return [];
+
+  let cursor = 0;
+  return sentences.map((text) => {
+    const weight = text.length / totalChars;
+    const duration = totalDuration * weight;
+    const startTime = +cursor.toFixed(2);
+    cursor += duration;
+    const endTime = +cursor.toFixed(2);
+    return { id: crypto.randomUUID(), text, startTime, endTime };
+  });
 }
 
 function loadProject(storybook: Storybook, projectId: string): LongformProject {
@@ -351,10 +386,15 @@ export const LongformService = {
   },
 
   // ----- Generate single clip -----
+  /**
+   * Generate a single clip. Uploads to R2 and returns URLs.
+   * If skipSave=true, caller is responsible for saving storybook (used by generateAll).
+   */
   async generateClip(
     storybookId: string,
     projectId: string,
-    sceneId: string
+    sceneId: string,
+    { skipSave = false }: { skipSave?: boolean } = {}
   ): Promise<{ clipUrl: string; sfxUrl: string }> {
     const storybook = await loadStorybook(storybookId);
     const project = loadProject(storybook, projectId);
@@ -367,9 +407,6 @@ export const LongformService = {
     // Find the page illustration to use as first frame
     const page = storybook.pages.find((p) => p.pageNumber === scene.pageNumber);
     const imageUrl = page?.illustrationUrl;
-    console.log(
-      `[longform] generateClip scene=${scene.id} pageNumber=${scene.pageNumber} imageUrl=${imageUrl ? imageUrl.slice(0, 80) + '...' : 'NONE'}`
-    );
 
     // Generate video via Grok (append "no music" to avoid baked-in BGM)
     const prompt = scene.videoPrompt.includes('no music')
@@ -382,18 +419,14 @@ export const LongformService = {
     });
 
     // Write to temp files and process with ffmpeg
-    const workDir = path.join(os.tmpdir(), `tangobook-longform-${Date.now()}`);
+    const workDir = path.join(os.tmpdir(), `tangobook-longform-${Date.now()}-${sceneId}`);
     fs.mkdirSync(workDir, { recursive: true });
 
     const inputPath = path.join(workDir, 'input.mp4');
     const audioPath = path.join(workDir, 'audio.mp3');
-    const mutedPath = path.join(workDir, 'muted.mp4');
 
     try {
       fs.writeFileSync(inputPath, videoBuffer);
-      console.log(
-        `[longform] video buffer size: ${videoBuffer.length} bytes, saved to ${inputPath}`
-      );
 
       // Extract audio (SFX) separately for timeline use
       await extractAudio(inputPath, audioPath);
@@ -414,18 +447,17 @@ export const LongformService = {
         ),
       ]);
 
-      // Save old clip to history before overwriting
-      if (scene.clipUrl) {
-        if (!scene.clipHistory) scene.clipHistory = [];
-        scene.clipHistory.push(scene.clipUrl);
+      if (!skipSave) {
+        // Single clip generation: update scene and save immediately
+        if (scene.clipUrl) {
+          if (!scene.clipHistory) scene.clipHistory = [];
+          scene.clipHistory.push(scene.clipUrl);
+        }
+        scene.clipUrl = clipUrl;
+        scene.sfxUrl = sfxUrl;
+        await R2Repository.saveStorybook(storybook);
       }
 
-      // Update scene in storybook
-      scene.clipUrl = clipUrl;
-      scene.sfxUrl = sfxUrl;
-      await R2Repository.saveStorybook(storybook);
-
-      console.log(`[longform] clip uploaded: ${clipUrl.slice(0, 80)}...`);
       return { clipUrl, sfxUrl };
     } finally {
       fs.rmSync(workDir, { recursive: true, force: true });
@@ -464,25 +496,54 @@ export const LongformService = {
         ? ` (p.${startPage ?? 1}~${endPage ?? project.scenes.length})`
         : '';
 
+    const CONCURRENCY = 3;
+    let completed = 0;
+
     progressMap.set(projectId, { progress: 0, step: `일괄 생성 시작${rangeLabel}` });
 
-    // Process scenes sequentially to avoid API rate limits
-    for (let i = 0; i < total; i++) {
-      const scene = targetScenes[i];
+    // Process scenes in parallel batches (3 concurrent)
+    // Use skipSave to avoid concurrent write conflicts, then batch-save after each group
+    for (let i = 0; i < total; i += CONCURRENCY) {
+      const batch = targetScenes.slice(i, i + CONCURRENCY);
+
       progressMap.set(projectId, {
-        progress: Math.round((i / total) * 100),
-        step: `장면 ${i + 1}/${total} 생성 중 (p.${scene.pageNumber})`,
+        progress: Math.round((completed / total) * 100),
+        step: `장면 ${completed + 1}~${Math.min(completed + batch.length, total)}/${total} 생성 중`,
         failed: failed.length > 0 ? failed : undefined,
       });
 
-      try {
-        await LongformService.generateClip(storybookId, projectId, scene.id);
-      } catch (err) {
-        const msg = err instanceof Error ? err.message : String(err);
-        console.error(`[longform] 장면 ${scene.id} 생성 실패:`, msg);
-        failed.push(`scene-${scene.order}: ${msg}`);
-        // Skip and continue
+      const results = await Promise.allSettled(
+        batch.map((scene) =>
+          LongformService.generateClip(storybookId, projectId, scene.id, { skipSave: true })
+        )
+      );
+
+      // Reload storybook once, apply all results from this batch, save once
+      const freshStorybook = await loadStorybook(storybookId);
+      const freshProject = loadProject(freshStorybook, projectId);
+
+      for (let j = 0; j < results.length; j++) {
+        const result = results[j];
+        const scene = freshProject.scenes.find((s) => s.id === batch[j].id);
+        if (!scene) continue;
+
+        if (result.status === 'fulfilled') {
+          if (scene.clipUrl) {
+            if (!scene.clipHistory) scene.clipHistory = [];
+            scene.clipHistory.push(scene.clipUrl);
+          }
+          scene.clipUrl = result.value.clipUrl;
+          scene.sfxUrl = result.value.sfxUrl;
+        } else {
+          const msg =
+            result.reason instanceof Error ? result.reason.message : String(result.reason);
+          console.error(`[longform] 장면 ${batch[j].id} 생성 실패:`, msg);
+          failed.push(`p.${batch[j].pageNumber}: ${msg}`);
+        }
       }
+
+      await R2Repository.saveStorybook(freshStorybook);
+      completed += batch.length;
     }
 
     progressMap.set(projectId, {
@@ -719,15 +780,14 @@ export const LongformService = {
     const pages = storybook.pages ?? [];
     const lang = project.language ?? 'ko';
 
-    // 동화책 정보 요약
     const storybookInfo = [
-      `제목: ${storybook.title}`,
-      storybook.category ? `카테고리: ${storybook.category}` : '',
-      `언어: ${lang}`,
-      `페이지 수: ${pages.length}`,
-      `장면 수: ${project.scenes.length}`,
+      `Title: ${storybook.title}`,
+      storybook.category ? `Category: ${storybook.category}` : '',
+      `Content Language: ${lang}`,
+      `Pages: ${pages.length}`,
+      `Scenes: ${project.scenes.length}`,
       pages.length > 0
-        ? `내용 요약:\n${pages
+        ? `Content Summary:\n${pages
             .slice(0, 10)
             .map((p) => `- p${p.pageNumber}: ${getPageText(p, lang).slice(0, 100)}`)
             .join('\n')}`
@@ -739,19 +799,21 @@ export const LongformService = {
     const geminiPrompt = [
       prompt,
       '',
-      '=== 동화책 정보 ===',
+      '=== Storybook Info ===',
       storybookInfo,
       '',
-      '위 정보를 참고하여 YouTube 업로드 설정값을 JSON 형식으로 생성해주세요.',
-      '반드시 아래 형식의 JSON만 출력하세요 (다른 텍스트 없이):',
+      'Based on the above info and the user prompt, generate YouTube upload settings as JSON.',
+      'Output ONLY the JSON below (no other text):',
       '{',
-      '  "title": "영상 제목",',
-      '  "description": "영상 설명",',
-      '  "tags": ["태그1", "태그2", "태그3"],',
+      '  "title": "video title",',
+      '  "description": "video description",',
+      '  "tags": ["tag1", "tag2", "tag3"],',
       '  "privacy": "public | private | unlisted",',
-      '  "categoryId": "YouTube 카테고리 ID (교육: 27, 엔터테인먼트: 24, 사람/블로그: 22)",',
+      '  "categoryId": "YouTube category ID (Education: 27, Entertainment: 24, People/Blogs: 22)",',
       '  "language": "ko | en"',
       '}',
+      '',
+      `IMPORTANT: The video content is in "${lang === 'ko' ? 'Korean' : 'English'}". Write the title, description, and tags in ${lang === 'ko' ? 'Korean' : 'English'}.`,
     ].join('\n');
 
     const raw = await generateTextWithGemini(geminiPrompt, 3);
@@ -777,5 +839,56 @@ export const LongformService = {
       console.error('[longform] Failed to parse Gemini YouTube meta response:', cleaned);
       throw new AppError(500, 'AI 응답을 파싱할 수 없습니다. 프롬프트를 수정해보세요.');
     }
+  },
+
+  // ----- Recover missing clipUrls from R2 -----
+  async recoverClips(
+    storybookId: string,
+    projectId: string
+  ): Promise<{ recovered: number; total: number }> {
+    const storybook = await loadStorybook(storybookId);
+    const project = loadProject(storybook, projectId);
+
+    const clipPrefix = `storybooks/${storybookId}/longform/${projectId}/clips/`;
+    const sfxPrefix = `storybooks/${storybookId}/longform/${projectId}/sfx/`;
+
+    const [clipObjects, sfxObjects] = await Promise.all([
+      listR2Objects(clipPrefix),
+      listR2Objects(sfxPrefix),
+    ]);
+
+    // Build lookup: order → url
+    const clipMap = new Map<number, string>();
+    for (const obj of clipObjects) {
+      if (!obj.Key) continue;
+      const match = obj.Key.match(/scene-(\d+)\.mp4$/);
+      if (match) clipMap.set(Number(match[1]), `${r2PublicUrl}/${obj.Key}`);
+    }
+
+    const sfxMap = new Map<number, string>();
+    for (const obj of sfxObjects) {
+      if (!obj.Key) continue;
+      const match = obj.Key.match(/scene-(\d+)\.mp3$/);
+      if (match) sfxMap.set(Number(match[1]), `${r2PublicUrl}/${obj.Key}`);
+    }
+
+    let recovered = 0;
+    for (const scene of project.scenes) {
+      const rClip = clipMap.get(scene.order);
+      const rSfx = sfxMap.get(scene.order);
+
+      if (!scene.clipUrl && rClip) {
+        scene.clipUrl = rClip;
+        if (rSfx) scene.sfxUrl = rSfx;
+        recovered++;
+        console.warn(`[recover] scene order=${scene.order} page=${scene.pageNumber} → recovered`);
+      }
+    }
+
+    if (recovered > 0) {
+      await R2Repository.saveStorybook(storybook);
+    }
+
+    return { recovered, total: project.scenes.length };
   },
 };
