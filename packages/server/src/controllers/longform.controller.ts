@@ -5,8 +5,14 @@ import { asyncHandler } from '../middleware/async-handler.js';
 
 export const LongformController = {
   analyze: asyncHandler(async (req: Request, res: Response) => {
-    const { storybookId, projectId, promptPresetId, model } = req.body;
-    const result = await LongformService.analyze(storybookId, projectId, promptPresetId, model);
+    const { storybookId, projectId, promptPresetId, model, excludePages } = req.body;
+    const result = await LongformService.analyze(
+      storybookId,
+      projectId,
+      promptPresetId,
+      model,
+      excludePages
+    );
     res.json({ success: true, data: result });
   }),
 

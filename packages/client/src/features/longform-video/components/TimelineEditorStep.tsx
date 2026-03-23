@@ -330,12 +330,20 @@ export function TimelineEditorStep({
             .sort((a, b) => a.pageNumber - b.pageNumber)
             .map((s, i) => ({ ...s, order: i }));
 
-          // 2. Regenerate subtitles from storybook page text
+          // 2. Regenerate subtitles from storybook page text (language-aware)
+          const lang = project.language ?? 'ko';
           const rebuilt = mergedScenes.map((scene) => {
             const page = storybook.pages.find((p) => p.pageNumber === scene.pageNumber);
-            const text = page?.text || '';
+            const text =
+              lang !== 'ko' && page?.translations?.[lang]?.text
+                ? page.translations[lang].text
+                : page?.text || '';
+            const ttsUrl =
+              lang !== 'ko' && page?.translations?.[lang]?.ttsUrl
+                ? page.translations[lang].ttsUrl
+                : page?.ttsUrl;
             if (!text.trim()) {
-              return { ...scene, subtitles: [] };
+              return { ...scene, ttsUrl, subtitles: [] };
             }
             // Split text into sentences
             const sentences = text
@@ -345,6 +353,7 @@ export function TimelineEditorStep({
             if (sentences.length === 0) {
               return {
                 ...scene,
+                ttsUrl,
                 subtitles: [
                   { id: crypto.randomUUID(), text, startTime: 0, endTime: scene.clipDuration },
                 ],
@@ -358,7 +367,7 @@ export function TimelineEditorStep({
               startTime: Math.round(i * sliceDur * 100) / 100,
               endTime: Math.round((i + 1) * sliceDur * 100) / 100,
             }));
-            return { ...scene, subtitles };
+            return { ...scene, ttsUrl, subtitles };
           });
 
           timeline.resetTimeline(rebuilt);

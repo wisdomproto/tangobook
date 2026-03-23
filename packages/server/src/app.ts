@@ -57,17 +57,17 @@ export function createApp() {
   app.use('/api/longform', longformRoutes);
   app.use('/api/youtube-presets', youtubePresetRoutes);
 
-  // 에러 핸들러 (API 라우트 뒤, catch-all 앞에 등록)
-  app.use(errorMiddleware);
-
   // 프로덕션: 클라이언트 정적 파일 서빙 (개발 모드에서는 Vite가 처리)
   if (process.env.NODE_ENV === 'production') {
     const clientDist = path.join(process.cwd(), 'packages/client/dist');
     app.use(express.static(clientDist));
-    app.get('{*path}', (_req, res) => {
+    app.get('/{*path}', (_req, res) => {
       res.sendFile(path.join(clientDist, 'index.html'));
     });
   }
+
+  // 에러 핸들러 (catch-all 뒤에 등록)
+  app.use(errorMiddleware);
 
   return app;
 }

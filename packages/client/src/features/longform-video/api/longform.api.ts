@@ -13,6 +13,7 @@ export const longformApi = {
     projectId: string;
     promptPresetId: string;
     model?: string;
+    excludePages?: number[];
   }) => apiPost<{ scenes: LongformScene[] }>('/longform/analyze', req),
   getAnalyzeProgress: (projectId: string) =>
     apiGet<{ progress: number; step: string } | null>(`/longform/analyze-progress/${projectId}`),

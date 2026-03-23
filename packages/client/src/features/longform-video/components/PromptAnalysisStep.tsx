@@ -68,6 +68,21 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
     return langs;
   }, [storybook.pages]);
 
+  // Pages that will be analyzed (can be excluded by user)
+  const [excludedPages, setExcludedPages] = useState<Set<number>>(new Set());
+
+  const toggleExcludePage = useCallback((pageNumber: number) => {
+    setExcludedPages((prev) => {
+      const next = new Set(prev);
+      if (next.has(pageNumber)) next.delete(pageNumber);
+      else next.add(pageNumber);
+      return next;
+    });
+  }, []);
+
+  const pages = storybook.pages ?? [];
+  const includedPages = pages.filter((p) => !excludedPages.has(p.pageNumber));
+
   const handleAnalyzeAll = async () => {
     if (!effectivePresetId) {
       setError('프리셋을 선택하세요.');
@@ -94,6 +109,7 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
         projectId: project.id,
         promptPresetId: effectivePresetId,
         model: selectedModel,
+        excludePages: excludedPages.size > 0 ? Array.from(excludedPages) : undefined,
       });
 
       onUpdate({ scenes: result.scenes, promptPresetId: effectivePresetId });
@@ -164,6 +180,45 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
           관리
         </button>
       </div>
+
+      {/* 페이지 목록 (분석 전 제외 가능) */}
+      {pages.length > 0 && (
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+              페이지 ({includedPages.length}/{pages.length})
+            </span>
+            {excludedPages.size > 0 && (
+              <button
+                onClick={() => setExcludedPages(new Set())}
+                className="text-xs text-violet-600 hover:text-violet-700"
+              >
+                전체 선택
+              </button>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {pages.map((page) => {
+              const excluded = excludedPages.has(page.pageNumber);
+              return (
+                <button
+                  key={page.pageNumber}
+                  onClick={() => toggleExcludePage(page.pageNumber)}
+                  className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs border transition-colors ${
+                    excluded
+                      ? 'border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 line-through'
+                      : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:border-violet-400'
+                  }`}
+                  title={excluded ? '클릭하여 포함' : '클릭하여 제외'}
+                >
+                  <span>P{page.pageNumber}</span>
+                  {!excluded && <span className="text-slate-400 hover:text-red-500">✕</span>}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* 오류 메시지 */}
       {error && (

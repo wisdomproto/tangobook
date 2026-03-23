@@ -146,12 +146,20 @@ export function useTimeline(
   // ----- Subtitle timing/text -----
   const updateSubtitleTiming = useCallback(
     (subtitleId: string, startTime: number, endTime: number) => {
-      const updatedScenes = project.scenes.map((scene) => ({
-        ...scene,
-        subtitles: scene.subtitles.map((sub: LongformSubtitleEntry) =>
-          sub.id === subtitleId ? { ...sub, startTime, endTime } : sub
-        ),
-      }));
+      const updatedScenes = project.scenes.map((scene) => {
+        const hasSubtitle = scene.subtitles.some((s: LongformSubtitleEntry) => s.id === subtitleId);
+        if (!hasSubtitle) return scene;
+        // Clamp within scene bounds
+        const sceneDur = getEffectiveDuration(scene);
+        const clampedStart = Math.max(0, Math.min(startTime, sceneDur));
+        const clampedEnd = Math.max(clampedStart + 0.1, Math.min(endTime, sceneDur));
+        return {
+          ...scene,
+          subtitles: scene.subtitles.map((sub: LongformSubtitleEntry) =>
+            sub.id === subtitleId ? { ...sub, startTime: clampedStart, endTime: clampedEnd } : sub
+          ),
+        };
+      });
       onUpdate({ scenes: updatedScenes });
     },
     [project.scenes, onUpdate]

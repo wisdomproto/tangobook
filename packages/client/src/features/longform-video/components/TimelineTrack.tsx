@@ -78,7 +78,7 @@ export function TimelineTrack({
                 : undefined
             }
             onTrimChange={
-              (trackType === 'video' || trackType === 'sfx') && onTrimChange && clip.sceneId
+              trackType === 'video' && onTrimChange && clip.sceneId
                 ? (ts, te) => onTrimChange(clip.sceneId!, ts, te)
                 : undefined
             }
@@ -90,10 +90,11 @@ export function TimelineTrack({
                   : undefined
                 : trackType === 'subtitle' && onSubtitleTimingChange
                   ? (newOffset) => {
-                      // Move subtitle: newOffset = new local startTime within scene
-                      // clip.currentOffset = current local startTime (sub.startTime)
-                      const newStart = Math.max(0, newOffset);
-                      const newEnd = newStart + clip.duration;
+                      // Move subtitle: clamp within parent scene bounds
+                      const parentScene = project.scenes.find((s) => s.id === clip.sceneId);
+                      const sceneDur = parentScene ? getEffectiveDuration(parentScene) : Infinity;
+                      const newStart = Math.max(0, Math.min(newOffset, sceneDur - clip.duration));
+                      const newEnd = Math.min(newStart + clip.duration, sceneDur);
                       onSubtitleTimingChange(clip.id, newStart, newEnd);
                     }
                   : undefined

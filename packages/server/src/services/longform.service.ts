@@ -205,11 +205,15 @@ export const LongformService = {
     storybookId: string,
     projectId: string,
     promptPresetId?: string,
-    model?: string
+    model?: string,
+    excludePages?: number[]
   ): Promise<LongformProject> {
     const storybook = await loadStorybook(storybookId);
     const project = loadProject(storybook, projectId);
-    const pages = storybook.pages ?? [];
+    const allPages = storybook.pages ?? [];
+    const pages = excludePages?.length
+      ? allPages.filter((p) => !excludePages.includes(p.pageNumber))
+      : allPages;
 
     // Load system prompt from preset if provided
     let systemPrompt = '';
