@@ -586,6 +586,9 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
       setBulkProgress({ current: 0, total: count });
       setGlobalError(null);
 
+      // Collect results then apply all at once to avoid stale closure
+      const results = new Map<string, { clipUrl: string; sfxUrl: string }>();
+
       for (let i = 0; i < count; i++) {
         setBulkProgress({ current: i + 1, total: count });
         const scene = sortedScenes[i];
@@ -597,20 +600,26 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
         formData.append('sceneId', scene.id);
         try {
           const result = await longformApi.uploadClip(formData);
-          onUpdate({
-            scenes: project.scenes.map((s) => {
-              if (s.id !== scene.id) return s;
-              const clipHistory = [...(s.clipHistory ?? [])];
-              if (s.clipUrl) clipHistory.push(s.clipUrl);
-              return { ...s, clipUrl: result.clipUrl, sfxUrl: result.sfxUrl, clipHistory };
-            }),
-          });
+          results.set(scene.id, result);
         } catch (e) {
           setGlobalError(
             `페이지 ${scene.pageNumber} 업로드 실패: ${e instanceof Error ? e.message : '알 수 없는 오류'}`
           );
           break;
         }
+      }
+
+      // Apply all results at once
+      if (results.size > 0) {
+        onUpdate({
+          scenes: project.scenes.map((s) => {
+            const result = results.get(s.id);
+            if (!result) return s;
+            const clipHistory = [...(s.clipHistory ?? [])];
+            if (s.clipUrl) clipHistory.push(s.clipUrl);
+            return { ...s, clipUrl: result.clipUrl, sfxUrl: result.sfxUrl, clipHistory };
+          }),
+        });
       }
 
       setBulkUploading(false);
