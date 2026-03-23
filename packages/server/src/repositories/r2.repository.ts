@@ -11,6 +11,32 @@ import type { Storybook, StorybookSummary } from '@tangobook/shared';
 
 const STORYBOOK_PREFIX = 'storybook-';
 
+// ===== In-memory list cache =====
+let listCache: StorybookSummary[] | null = null;
+let listCacheTime = 0;
+const LIST_CACHE_TTL = 5 * 60 * 1000; // 5분
+
+function toSummary(sb: Storybook): StorybookSummary {
+  return {
+    id: sb.id,
+    title: sb.title,
+    type: sb.type,
+    targetAge: sb.targetAge,
+    artStyle: sb.artStyle,
+    category: sb.category,
+    folder: sb.folder,
+    isPublic: sb.isPublic,
+    createdAt: sb.createdAt,
+    coverImage: sb.coverImage,
+    pageCount: sb.pages?.length ?? 0,
+    phonicsLanguage: sb.phonicsConfig?.language,
+  };
+}
+
+function invalidateListCache() {
+  listCache = null;
+}
+
 function storybookKey(id: string): string {
   return `${STORYBOOK_PREFIX}${id}.json`;
 }
@@ -64,13 +90,18 @@ function normalizeStorybook(sb: Record<string, unknown>): Storybook {
 
 export const R2Repository = {
   async listStorybooks(): Promise<StorybookSummary[]> {
+    // Return cached list if still fresh
+    if (listCache && Date.now() - listCacheTime < LIST_CACHE_TTL) {
+      return listCache;
+    }
+
     const objects = await listR2Objects(STORYBOOK_PREFIX);
     const summaries: StorybookSummary[] = [];
 
     const jsonObjects = objects.filter((obj) => obj.Key?.endsWith('.json'));
 
-    // S3 SDK로 직접 읽기 (public URL HTTP 요청 대신) + 동시 요청 5개 제한
-    const CONCURRENCY = 5;
+    // S3 SDK로 직접 읽기 (public URL HTTP 요청 대신) + 동시 요청 10개 제한
+    const CONCURRENCY = 10;
     for (let i = 0; i < jsonObjects.length; i += CONCURRENCY) {
       const batch = jsonObjects.slice(i, i + CONCURRENCY);
       await Promise.all(
@@ -78,20 +109,7 @@ export const R2Repository = {
           try {
             const buffer = await downloadFromR2(obj.Key!);
             const sb = JSON.parse(buffer.toString('utf-8')) as Storybook;
-            summaries.push({
-              id: sb.id,
-              title: sb.title,
-              type: sb.type,
-              targetAge: sb.targetAge,
-              artStyle: sb.artStyle,
-              category: sb.category,
-              folder: sb.folder,
-              isPublic: sb.isPublic,
-              createdAt: sb.createdAt,
-              coverImage: sb.coverImage,
-              pageCount: sb.pages?.length ?? 0,
-              phonicsLanguage: sb.phonicsConfig?.language,
-            });
+            summaries.push(toSummary(sb));
           } catch {
             // 개별 파일 로드 실패 무시
           }
@@ -99,9 +117,15 @@ export const R2Repository = {
       );
     }
 
-    return summaries.sort(
+    const sorted = summaries.sort(
       (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
+
+    // Update cache
+    listCache = sorted;
+    listCacheTime = Date.now();
+
+    return sorted;
   },
 
   async getStorybook(id: string): Promise<Storybook | null> {
@@ -116,11 +140,21 @@ export const R2Repository = {
   async saveStorybook(storybook: Storybook): Promise<Storybook> {
     const updated = { ...storybook, updatedAt: new Date().toISOString() };
     await uploadJsonToR2(updated, storybookKey(storybook.id));
+    // Update cache entry in-place
+    if (listCache) {
+      const idx = listCache.findIndex((s) => s.id === storybook.id);
+      const summary = toSummary(updated);
+      if (idx >= 0) listCache[idx] = summary;
+      else listCache.unshift(summary);
+    }
     return updated;
   },
 
   async deleteStorybook(id: string): Promise<void> {
     await deleteFromR2(storybookKey(id));
+    if (listCache) {
+      listCache = listCache.filter((s) => s.id !== id);
+    }
   },
 
   async uploadImage(base64: string, key: string): Promise<string> {
