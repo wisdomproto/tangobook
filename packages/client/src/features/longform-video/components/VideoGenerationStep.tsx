@@ -701,23 +701,21 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
         </Button>
 
         {/* Bulk upload toggle */}
-        {hasScenes && (
-          <button
-            onClick={() => setShowBulkUpload((v) => !v)}
-            disabled={isBatchRunning || bulkUploading}
-            className="flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 dark:border-slate-600 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-50 text-slate-600 dark:text-slate-400 text-sm rounded-lg transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
-              />
-            </svg>
-            전체 업로드
-          </button>
-        )}
+        <button
+          onClick={() => setShowBulkUpload((v) => !v)}
+          disabled={isBatchRunning || bulkUploading || !hasScenes}
+          className="flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 dark:border-slate-600 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-50 text-slate-600 dark:text-slate-400 text-sm rounded-lg transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+            />
+          </svg>
+          전체 업로드
+        </button>
 
         {/* Progress summary */}
         {hasScenes && (
