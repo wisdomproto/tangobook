@@ -245,10 +245,21 @@ export const LongformService = {
         step: `페이지 ${i + 1}/${total} 분석 중`,
       });
 
+      // Calculate clip duration from TTS audio length first (needed for prompt)
+      let ttsDuration: number | undefined;
+      if (ttsUrl) {
+        try {
+          ttsDuration = await getAudioDuration(ttsUrl);
+        } catch {
+          console.warn(`[longform] TTS 길이 측정 실패 page=${page.pageNumber}, 기본값 사용`);
+        }
+      }
+      const clipDuration = ttsDuration ? Math.min(15, Math.max(5, Math.ceil(ttsDuration) + 2)) : 10;
+
       // Generate video prompt via Gemini
       const geminiPrompt = [
         systemPrompt ? `[System]\n${systemPrompt}\n` : '',
-        `다음 동화책 페이지를 분석하고, 이 장면을 5-10초 영상으로 만들기 위한 영어 영상 프롬프트를 작성해주세요.`,
+        `다음 동화책 페이지를 분석하고, 이 장면을 ${clipDuration}초 영상으로 만들기 위한 영어 영상 프롬프트를 작성해주세요.`,
         `장면 설명에 카메라 움직임, 조명, 분위기를 포함해주세요.`,
         prevVideoPrompt
           ? `이전 장면과의 시각적 연속성을 위해, 이전 장면의 카메라 방향과 움직임을 참고하여 자연스럽게 이어지도록 해주세요.\n[이전 장면 프롬프트]\n${prevVideoPrompt}\n`
@@ -263,17 +274,6 @@ export const LongformService = {
         .join('\n');
 
       const videoPrompt = await generateTextWithGemini(geminiPrompt, 3, model);
-
-      // Calculate clip duration from TTS audio length (tts + 2s, max 15s, min 5s)
-      let ttsDuration: number | undefined;
-      if (ttsUrl) {
-        try {
-          ttsDuration = await getAudioDuration(ttsUrl);
-        } catch {
-          console.warn(`[longform] TTS 길이 측정 실패 page=${page.pageNumber}, 기본값 사용`);
-        }
-      }
-      const clipDuration = ttsDuration ? Math.min(15, Math.max(5, Math.ceil(ttsDuration) + 2)) : 10;
 
       // Split text into sentences for subtitles
       const sentences = splitSentences(pageText);
@@ -345,9 +345,25 @@ export const LongformService = {
       .sort((a, b) => b.order - a.order)[0];
     const prevVideoPrompt = prevScene?.videoPrompt ?? '';
 
+    const ttsUrl = getPageTtsUrl(page, lang);
+
+    // Calculate clip duration from TTS length first (needed for prompt)
+    let ttsDuration: number | undefined;
+    if (ttsUrl) {
+      try {
+        ttsDuration = await getAudioDuration(ttsUrl);
+      } catch {
+        console.warn(`[longform] TTS 길이 측정 실패 scene=${sceneId}, 기본값 유지`);
+      }
+    }
+    if (ttsDuration) {
+      scene.clipDuration = Math.min(15, Math.max(5, Math.ceil(ttsDuration) + 2));
+      scene.ttsDuration = ttsDuration;
+    }
+
     const geminiPrompt = [
       systemPrompt ? `[System]\n${systemPrompt}\n` : '',
-      `다음 동화책 페이지를 분석하고, 이 장면을 5-10초 영상으로 만들기 위한 영어 영상 프롬프트를 작성해주세요.`,
+      `다음 동화책 페이지를 분석하고, 이 장면을 ${scene.clipDuration}초 영상으로 만들기 위한 영어 영상 프롬프트를 작성해주세요.`,
       `장면 설명에 카메라 움직임, 조명, 분위기를 포함해주세요.`,
       prevVideoPrompt
         ? `이전 장면과의 시각적 연속성을 위해, 이전 장면의 카메라 방향과 움직임을 참고하여 자연스럽게 이어지도록 해주세요.\n[이전 장면 프롬프트]\n${prevVideoPrompt}\n`
@@ -362,21 +378,6 @@ export const LongformService = {
       .join('\n');
 
     const videoPrompt = await generateTextWithGemini(geminiPrompt, 3, model);
-    const ttsUrl = getPageTtsUrl(page, lang);
-
-    // Calculate clip duration from TTS length
-    let ttsDuration: number | undefined;
-    if (ttsUrl) {
-      try {
-        ttsDuration = await getAudioDuration(ttsUrl);
-      } catch {
-        console.warn(`[longform] TTS 길이 측정 실패 scene=${sceneId}, 기본값 유지`);
-      }
-    }
-    if (ttsDuration) {
-      scene.clipDuration = Math.min(15, Math.max(5, Math.ceil(ttsDuration) + 2));
-      scene.ttsDuration = ttsDuration;
-    }
 
     const sentences = splitSentences(pageText);
     const subtitles = buildSubtitles(sentences, scene.clipDuration);
@@ -670,6 +671,73 @@ export const LongformService = {
       setTimeout(() => renderProgressMap.delete(projectId), 5_000);
     }
     return cancelled;
+  },
+
+  // ----- Upload clip (user-provided video file) -----
+  async uploadClip(
+    file: Express.Multer.File,
+    storybookId: string,
+    projectId: string,
+    sceneId: string
+  ): Promise<{ clipUrl: string; sfxUrl: string }> {
+    const storybook = await loadStorybook(storybookId);
+    const project = loadProject(storybook, projectId);
+
+    const scene = project.scenes.find((s) => s.id === sceneId);
+    if (!scene) throw new AppError(404, '장면을 찾을 수 없습니다.');
+
+    // Write to temp file and extract audio
+    const workDir = path.join(os.tmpdir(), `tangobook-clip-upload-${Date.now()}-${sceneId}`);
+    fs.mkdirSync(workDir, { recursive: true });
+
+    const inputPath = path.join(workDir, 'input.mp4');
+    const audioPath = path.join(workDir, 'audio.mp3');
+
+    try {
+      fs.writeFileSync(inputPath, file.buffer);
+
+      // Extract audio (SFX)
+      let audioBuffer: Buffer | undefined;
+      try {
+        await extractAudio(inputPath, audioPath);
+        audioBuffer = fs.readFileSync(audioPath);
+      } catch {
+        // Video may have no audio track — skip SFX
+      }
+
+      // Upload video + audio to R2
+      const uploadPromises: Promise<string>[] = [
+        R2Repository.uploadBuffer(
+          file.buffer,
+          clipKey(storybookId, projectId, scene.order),
+          'video/mp4'
+        ),
+      ];
+      if (audioBuffer) {
+        uploadPromises.push(
+          R2Repository.uploadBuffer(
+            audioBuffer,
+            sfxKey(storybookId, projectId, scene.order),
+            'audio/mpeg'
+          )
+        );
+      }
+
+      const [clipUrl, sfxUrl] = await Promise.all(uploadPromises);
+
+      // Move current clip to history
+      if (scene.clipUrl) {
+        if (!scene.clipHistory) scene.clipHistory = [];
+        scene.clipHistory.push(scene.clipUrl);
+      }
+      scene.clipUrl = clipUrl;
+      if (sfxUrl) scene.sfxUrl = sfxUrl;
+
+      await R2Repository.saveStorybook(storybook);
+      return { clipUrl, sfxUrl: sfxUrl ?? '' };
+    } finally {
+      fs.rmSync(workDir, { recursive: true, force: true });
+    }
   },
 
   // ----- Upload BGM -----

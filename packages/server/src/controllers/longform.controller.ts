@@ -76,6 +76,12 @@ export const LongformController = {
     res.json({ success: true, data: { cancelled } });
   }),
 
+  uploadClip: asyncHandler(async (req: Request, res: Response) => {
+    const { storybookId, projectId, sceneId } = req.body;
+    const result = await LongformService.uploadClip(req.file!, storybookId, projectId, sceneId);
+    res.json({ success: true, data: result });
+  }),
+
   uploadBgm: asyncHandler(async (req: Request, res: Response) => {
     const { storybookId, projectId } = req.body;
     const result = await LongformService.uploadBgm(req.file!, storybookId, projectId);

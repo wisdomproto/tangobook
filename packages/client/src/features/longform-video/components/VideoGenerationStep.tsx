@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, type ChangeEvent } from 'react';
+import { useState, useRef, useEffect, useCallback, type ChangeEvent, type DragEvent } from 'react';
 import type { Storybook, LongformProject, LongformScene } from '@tangobook/shared';
 import { Button } from '@/components/Button';
 import { storybookApi } from '@/features/storybook';
@@ -383,6 +383,10 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [startPage, setStartPage] = useState<string>('');
   const [endPage, setEndPage] = useState<string>('');
+  const [showBulkUpload, setShowBulkUpload] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [bulkUploading, setBulkUploading] = useState(false);
+  const [bulkProgress, setBulkProgress] = useState<{ current: number; total: number } | null>(null);
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Cleanup polling on unmount
@@ -466,15 +470,29 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
   );
 
   const handleUpload = useCallback(
-    (sceneId: string, file: File) => {
-      // Create a local object URL for preview — in production this would upload to server/R2
-      const localUrl = URL.createObjectURL(file);
-      const updatedScenes = project.scenes.map((s) =>
-        s.id === sceneId ? { ...s, clipUrl: localUrl } : s
-      );
-      onUpdate({ scenes: updatedScenes });
+    async (sceneId: string, file: File) => {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('storybookId', storybook.id);
+      formData.append('projectId', project.id);
+      formData.append('sceneId', sceneId);
+      try {
+        const result = await longformApi.uploadClip(formData);
+        const updatedScenes = project.scenes.map((s) => {
+          if (s.id !== sceneId) return s;
+          const clipHistory = [...(s.clipHistory ?? [])];
+          if (s.clipUrl) clipHistory.push(s.clipUrl);
+          return { ...s, clipUrl: result.clipUrl, sfxUrl: result.sfxUrl, clipHistory };
+        });
+        onUpdate({ scenes: updatedScenes });
+      } catch (e) {
+        setSceneErrors((prev) => ({
+          ...prev,
+          [sceneId]: e instanceof Error ? e.message : '업로드 실패',
+        }));
+      }
     },
-    [project.scenes, onUpdate]
+    [storybook.id, project.id, project.scenes, onUpdate]
   );
 
   const handleGenerateAll = async () => {
@@ -552,6 +570,75 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
     setBatchProgress(null);
   };
 
+  // ----- Bulk upload (drag & drop) -----
+  const handleBulkFiles = useCallback(
+    async (files: File[]) => {
+      if (files.length === 0 || project.scenes.length === 0) return;
+
+      // Sort files by name
+      const sorted = [...files].sort((a, b) =>
+        a.name.localeCompare(b.name, undefined, { numeric: true })
+      );
+      const sortedScenes = [...project.scenes].sort((a, b) => a.order - b.order);
+      const count = Math.min(sorted.length, sortedScenes.length);
+
+      setBulkUploading(true);
+      setBulkProgress({ current: 0, total: count });
+      setGlobalError(null);
+
+      for (let i = 0; i < count; i++) {
+        setBulkProgress({ current: i + 1, total: count });
+        const scene = sortedScenes[i];
+        const file = sorted[i];
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('storybookId', storybook.id);
+        formData.append('projectId', project.id);
+        formData.append('sceneId', scene.id);
+        try {
+          const result = await longformApi.uploadClip(formData);
+          onUpdate({
+            scenes: project.scenes.map((s) => {
+              if (s.id !== scene.id) return s;
+              const clipHistory = [...(s.clipHistory ?? [])];
+              if (s.clipUrl) clipHistory.push(s.clipUrl);
+              return { ...s, clipUrl: result.clipUrl, sfxUrl: result.sfxUrl, clipHistory };
+            }),
+          });
+        } catch (e) {
+          setGlobalError(
+            `페이지 ${scene.pageNumber} 업로드 실패: ${e instanceof Error ? e.message : '알 수 없는 오류'}`
+          );
+          break;
+        }
+      }
+
+      setBulkUploading(false);
+      setBulkProgress(null);
+      setShowBulkUpload(false);
+    },
+    [storybook.id, project.id, project.scenes, onUpdate]
+  );
+
+  const handleDrop = useCallback(
+    (e: DragEvent) => {
+      e.preventDefault();
+      setIsDragging(false);
+      const files = Array.from(e.dataTransfer.files).filter((f) => f.type.startsWith('video/'));
+      handleBulkFiles(files);
+    },
+    [handleBulkFiles]
+  );
+
+  const handleBulkFileSelect = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const files = Array.from(e.target.files ?? []);
+      handleBulkFiles(files);
+      e.target.value = '';
+    },
+    [handleBulkFiles]
+  );
+
   const doneCount = project.scenes.filter((s) => s.clipUrl).length;
   const totalCount = project.scenes.length;
   const hasScenes = totalCount > 0;
@@ -613,6 +700,25 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
           {isBatchRunning ? '생성 중...' : startPage || endPage ? '범위 생성' : '전체 생성'}
         </Button>
 
+        {/* Bulk upload toggle */}
+        {hasScenes && (
+          <button
+            onClick={() => setShowBulkUpload((v) => !v)}
+            disabled={isBatchRunning || bulkUploading}
+            className="flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 dark:border-slate-600 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-50 text-slate-600 dark:text-slate-400 text-sm rounded-lg transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+              />
+            </svg>
+            전체 업로드
+          </button>
+        )}
+
         {/* Progress summary */}
         {hasScenes && (
           <span className="text-sm text-slate-500 dark:text-slate-400">
@@ -656,6 +762,69 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
           <p className="text-xs text-violet-600 dark:text-violet-400 mt-1 text-right">
             {Math.round(batchProgress.progress)}%
           </p>
+        </div>
+      )}
+
+      {/* Bulk upload drop zone */}
+      {showBulkUpload && (
+        <div
+          onDragOver={(e) => {
+            e.preventDefault();
+            setIsDragging(true);
+          }}
+          onDragLeave={() => setIsDragging(false)}
+          onDrop={handleDrop}
+          className={`relative rounded-xl border-2 border-dashed p-8 text-center transition-colors ${
+            isDragging
+              ? 'border-blue-400 bg-blue-50 dark:bg-blue-900/20'
+              : 'border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50'
+          }`}
+        >
+          {bulkUploading && bulkProgress ? (
+            <div className="space-y-3">
+              <p className="text-sm font-medium text-blue-700 dark:text-blue-300">
+                업로드 중... ({bulkProgress.current} / {bulkProgress.total})
+              </p>
+              <div className="w-full max-w-xs mx-auto bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                <div
+                  className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                  style={{ width: `${(bulkProgress.current / bulkProgress.total) * 100}%` }}
+                />
+              </div>
+            </div>
+          ) : (
+            <>
+              <svg
+                className="w-10 h-10 mx-auto mb-3 text-slate-400 dark:text-slate-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                />
+              </svg>
+              <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">
+                영상 파일을 드래그 앤 드롭하세요
+              </p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">
+                파일명 순서대로 {totalCount}개 씬에 하나씩 매칭됩니다
+              </p>
+              <label className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg cursor-pointer transition-colors">
+                파일 선택
+                <input
+                  type="file"
+                  accept="video/*"
+                  multiple
+                  className="hidden"
+                  onChange={handleBulkFileSelect}
+                />
+              </label>
+            </>
+          )}
         </div>
       )}
 

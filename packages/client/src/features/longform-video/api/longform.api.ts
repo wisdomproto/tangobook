@@ -44,6 +44,10 @@ export const longformApi = {
     apiGet<{ progress: number; step: string; outputUrl?: string } | null>(
       `/longform/render-progress/${projectId}`
     ),
+  uploadClip: (formData: FormData) =>
+    apiPost<{ clipUrl: string; sfxUrl: string }>('/longform/upload-clip', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    } as any),
   uploadBgm: (formData: FormData) =>
     apiPost<{ bgmUrl: string }>('/longform/upload-bgm', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },

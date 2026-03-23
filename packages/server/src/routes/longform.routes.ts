@@ -16,6 +16,12 @@ router.post('/render', LongformController.render);
 router.get('/render-progress/:projectId', LongformController.getRenderProgress);
 router.post('/cancel-render', LongformController.cancelRender);
 router.post(
+  '/upload-clip',
+  upload.single('file'),
+  requireFile('영상 파일이 없습니다.'),
+  LongformController.uploadClip
+);
+router.post(
   '/upload-bgm',
   upload.single('file'),
   requireFile('BGM 파일이 없습니다.'),
