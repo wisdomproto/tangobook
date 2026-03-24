@@ -757,7 +757,7 @@ export const LongformService = {
 
         if (subs.length > 0) {
           // drawtext 필터로 자막 burn-in
-          const fontSize = project.subtitleStyle.fontSize || 26;
+          const fontSize = project.subtitleStyle.fontSize || 44;
           const textColor = project.subtitleStyle.textColor.replace('#', '');
           const outlineColor = project.subtitleStyle.outlineColor.replace('#', '');
           const pos = project.subtitleStyle.position;

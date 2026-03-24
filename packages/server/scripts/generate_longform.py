@@ -239,8 +239,8 @@ def process_scene(scene, scene_idx, downloaded, resolution, subtitle_style, font
         return output_path
 
     # 자막 PNG 생성 (Pillow)
-    raw_size = subtitle_style.get("fontSize", 28)
-    font_size = raw_size if isinstance(raw_size, int) else SUBTITLE_SIZES.get(raw_size, 26)
+    raw_size = subtitle_style.get("fontSize", 44)
+    font_size = raw_size if isinstance(raw_size, int) else SUBTITLE_SIZES.get(raw_size, 44)
     text_color = subtitle_style.get("textColor", "#ffffff")
     outline_color = subtitle_style.get("outlineColor", "#000000")
     bg_color = subtitle_style.get("bgColor", "#00000080")
