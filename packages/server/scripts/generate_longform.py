@@ -1,7 +1,7 @@
 """
-롱폼 동영상 렌더링 스크립트.
+롱폼 동영상 렌더링 스크립트 (ffmpeg 네이티브 버전).
 
-Node.js에서 child_process.spawn으로 호출.
+MoviePy 제거 → Pillow(자막 PNG) + ffmpeg subprocess로 처리.
 - stdin: JSON (LongformRenderOptions)
 - stdout: JSON { "outputPath": "..." }
 - stderr: 진행 상황 JSON lines { "progress": 0-100, "step": "..." }
@@ -10,25 +10,14 @@ Node.js에서 child_process.spawn으로 호출.
 import json
 import sys
 import os
-import gc
 import time
+import shutil
+import subprocess
 import tempfile
 import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
-
-from moviepy import (
-    VideoFileClip,
-    ImageClip,
-    AudioFileClip,
-    CompositeVideoClip,
-    CompositeAudioClip,
-    concatenate_videoclips,
-    concatenate_audioclips,
-)
-from moviepy.video.fx import CrossFadeIn, CrossFadeOut
-from moviepy.audio.fx import AudioFadeIn
 
 RESOLUTIONS = {
     "16:9": (1280, 720),
@@ -36,21 +25,22 @@ RESOLUTIONS = {
     "1:1": (720, 720),
 }
 
-CROSSFADE_DURATION = 0.5  # seconds of cross-dissolve between scenes
-J_CUT_DURATION = 1.0  # seconds of audio pre-lap before scene transition
-
+CROSSFADE_DURATION = 0.5
+J_CUT_DURATION = 1.0
 SUBTITLE_SIZES = {"sm": 20, "md": 26, "lg": 34}
 
 FONT_PATHS = [
+    "/usr/share/fonts/truetype/nanum/NanumGothic.ttf",
     "C:/Windows/Fonts/malgun.ttf",
     "C:/Windows/Fonts/NanumGothic.ttf",
-    "/usr/share/fonts/truetype/nanum/NanumGothic.ttf",
     "/System/Library/Fonts/AppleSDGothicNeo.ttc",
 ]
 
+# ffmpeg 경로: 시스템 ffmpeg 우선, 없으면 ffmpeg-static
+FFMPEG = shutil.which("ffmpeg") or "ffmpeg"
+
 
 def report_progress(progress: int, step: str):
-    """stderr로 진행률 JSON 전송."""
     msg = json.dumps({"progress": progress, "step": step}, ensure_ascii=False)
     print(msg, file=sys.stderr, flush=True)
 
@@ -70,6 +60,32 @@ def download_file(url: str, dest: str) -> str:
     return dest
 
 
+def run_ffmpeg(args: list[str], timeout=300):
+    """ffmpeg 실행. 실패 시 예외."""
+    result = subprocess.run(
+        [FFMPEG] + args,
+        capture_output=True, text=True, timeout=timeout,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"ffmpeg 실패: {result.stderr[-500:]}")
+    return result
+
+
+def get_duration(filepath: str) -> float:
+    """ffprobe로 duration 조회."""
+    ffprobe = shutil.which("ffprobe") or "ffprobe"
+    result = subprocess.run(
+        [ffprobe, "-v", "quiet", "-print_format", "json", "-show_format", filepath],
+        capture_output=True, text=True, timeout=30,
+    )
+    if result.returncode == 0:
+        info = json.loads(result.stdout)
+        return float(info.get("format", {}).get("duration", 0))
+    return 0
+
+
+# ===== Pillow 자막 이미지 (기존 로직 그대로) =====
+
 def hex_to_rgb(hex_color: str):
     h = hex_color.lstrip("#")
     return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))[:3]
@@ -83,14 +99,11 @@ def hex_to_rgba(hex_color: str):
 
 
 def wrap_text(text: str, font, max_width: int, draw) -> list[str]:
-    """텍스트를 max_width 내로 자동 줄바꿈."""
     words = text.split()
     if not words:
         return [text]
-
     lines = []
     current_line = words[0]
-
     for word in words[1:]:
         test_line = current_line + " " + word
         bbox = draw.textbbox((0, 0), test_line, font=font)
@@ -99,17 +112,14 @@ def wrap_text(text: str, font, max_width: int, draw) -> list[str]:
         else:
             lines.append(current_line)
             current_line = word
-
     lines.append(current_line)
 
-    # 한글 등 공백 없는 긴 텍스트 처리: 글자 단위로 자르기
     result = []
     for line in lines:
         bbox = draw.textbbox((0, 0), line, font=font)
         if bbox[2] - bbox[0] <= max_width:
             result.append(line)
         else:
-            # 글자 단위로 자르기
             buf = ""
             for ch in line:
                 test = buf + ch
@@ -121,21 +131,15 @@ def wrap_text(text: str, font, max_width: int, draw) -> list[str]:
                     buf = test
             if buf:
                 result.append(buf)
-
     return result
 
 
-def create_subtitle_image(text: str, width: int, font_size: int,
-                          text_color: str, outline_color: str,
-                          bg_color: str, font_path, padding: int = 20):
-    """자막 이미지 생성 (외곽선 + 자동 줄바꿈 지원)."""
+def create_subtitle_image(text, width, font_size, text_color, outline_color, bg_color, font_path, padding=20):
     if not text.strip():
         return None
-
     rgba_bg = hex_to_rgba(bg_color)
     rgb_text = hex_to_rgb(text_color)
     rgb_outline = hex_to_rgb(outline_color)
-
     try:
         font = ImageFont.truetype(font_path, font_size) if font_path else ImageFont.load_default()
     except Exception:
@@ -143,19 +147,13 @@ def create_subtitle_image(text: str, width: int, font_size: int,
 
     dummy = Image.new("RGBA", (1, 1))
     draw = ImageDraw.Draw(dummy)
-
     stroke_width = 2
-    max_text_width = width - 80  # 양쪽 여백
-
-    # 자동 줄바꿈
+    max_text_width = width - 80
     lines = wrap_text(text, font, max_text_width, draw)
     wrapped_text = "\n".join(lines)
-
-    # 줄바꿈된 텍스트 전체 bbox 계산
     bbox = draw.textbbox((0, 0), wrapped_text, font=font, stroke_width=stroke_width)
     tw = bbox[2] - bbox[0]
     th = bbox[3] - bbox[1]
-
     pad_x, pad_y = padding + 4, padding
     img_w = min(tw + pad_x * 2, width - 40)
     img_h = th + pad_y * 2
@@ -163,182 +161,148 @@ def create_subtitle_image(text: str, width: int, font_size: int,
     img = Image.new("RGBA", (img_w, img_h), rgba_bg)
     draw = ImageDraw.Draw(img)
     draw.text(
-        ((img_w - tw) // 2, pad_y),
-        wrapped_text,
-        fill=(*rgb_text, 255),
-        font=font,
-        stroke_width=stroke_width,
-        stroke_fill=(*rgb_outline, 255),
-        align="center",
+        ((img_w - tw) // 2, pad_y), wrapped_text,
+        fill=(*rgb_text, 255), font=font,
+        stroke_width=stroke_width, stroke_fill=(*rgb_outline, 255), align="center",
     )
-
     tmp = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
     img.save(tmp.name, "PNG")
     return tmp.name, img_h
 
 
-def get_subtitle_y(position: str, h: int, sub_h: int = 60) -> int:
-    """자막 위치 Y좌표 계산. sub_h는 실제 자막 이미지 높이."""
+def get_subtitle_y(position, h, sub_h=60):
     margin = 40
     if position == "top":
         return margin
     elif position == "center":
         return (h - sub_h) // 2
-    else:  # bottom
-        return h - sub_h - margin
+    return h - sub_h - margin
 
 
 # ===== 병렬 다운로드 =====
 
 def download_all_files(scenes, work_dir, bgm_url=None):
-    """모든 장면의 clip/sfx/tts + BGM을 병렬 다운로드. {key: local_path} 반환."""
-    tasks = {}  # key -> (url, dest)
-
+    tasks = {}
     for i, scene in enumerate(scenes):
-        clip_url = scene.get("clipUrl")
-        if clip_url:
-            tasks[f"clip_{i}"] = (clip_url, os.path.join(work_dir, f"scene_{i}_clip.mp4"))
-
-        sfx_url = scene.get("sfxUrl")
-        if sfx_url:
-            tasks[f"sfx_{i}"] = (sfx_url, os.path.join(work_dir, f"scene_{i}_sfx.mp3"))
-
-        tts_url = scene.get("ttsUrl")
-        if tts_url:
-            tasks[f"tts_{i}"] = (tts_url, os.path.join(work_dir, f"scene_{i}_tts.mp3"))
-
+        if scene.get("clipUrl"):
+            tasks[f"clip_{i}"] = (scene["clipUrl"], os.path.join(work_dir, f"scene_{i}.mp4"))
+        if scene.get("sfxUrl"):
+            tasks[f"sfx_{i}"] = (scene["sfxUrl"], os.path.join(work_dir, f"sfx_{i}.mp3"))
+        if scene.get("ttsUrl"):
+            tasks[f"tts_{i}"] = (scene["ttsUrl"], os.path.join(work_dir, f"tts_{i}.mp3"))
     if bgm_url:
         tasks["bgm"] = (bgm_url, os.path.join(work_dir, "bgm.mp3"))
 
     results = {}
     total = len(tasks)
     done = 0
-
     with ThreadPoolExecutor(max_workers=6) as executor:
-        futures = {
-            executor.submit(download_file, url, dest): key
-            for key, (url, dest) in tasks.items()
-        }
+        futures = {executor.submit(download_file, url, dest): key for key, (url, dest) in tasks.items()}
         for future in as_completed(futures):
             key = futures[future]
             done += 1
             try:
                 results[key] = future.result()
-                report_progress(
-                    2 + int((done / max(total, 1)) * 28),
-                    f"다운로드 {done}/{total} ({key})",
-                )
+                report_progress(2 + int((done / max(total, 1)) * 18), f"다운로드 {done}/{total}")
             except Exception as e:
                 report_progress(-1, f"다운로드 실패 ({key}): {e}")
-
     return results
 
 
-def create_scene_clip(scene, resolution, subtitle_style, font_path, clip_path, scene_idx, transition_offset=0):
-    """한 장면의 비디오 클립 생성 (비디오 + 자막).
-    transition_offset: 크로스 디졸브로 인해 자막/오디오를 지연시킬 초 (첫 장면 제외)."""
+# ===== 씬별 처리: Pillow 자막 PNG + ffmpeg overlay =====
+
+def process_scene(scene, scene_idx, downloaded, resolution, subtitle_style, font_path, work_dir):
+    """씬 하나를 처리: trim + scale + 자막 overlay → processed_{i}.mp4"""
     w, h = resolution
+    clip_path = downloaded.get(f"clip_{scene_idx}")
+    if not clip_path:
+        return None
 
-    video_clip = VideoFileClip(clip_path)
-
-    # 트리밍 적용: trimStart/trimEnd로 클립의 시작/끝을 잘라냄
+    output_path = os.path.join(work_dir, f"processed_{scene_idx}.mp4")
     trim_start = scene.get("trimStart", 0) or 0
     trim_end = scene.get("trimEnd", 0) or 0
-    target_duration = scene.get("clipDuration", video_clip.duration)
-    clip_end = min(video_clip.duration, target_duration - trim_end)
-    clip_start = min(trim_start, clip_end - 0.1)
-    video_clip = video_clip.subclipped(clip_start, clip_end)
+    clip_duration = scene.get("clipDuration", 10)
+    duration = clip_duration - trim_start - trim_end
 
-    duration = video_clip.duration
+    subtitles = [s for s in scene.get("subtitles", []) if s.get("text", "").strip()]
 
-    # 비디오 크기를 해상도에 맞게 리사이즈
-    video_clip = video_clip.resized((w, h))
+    if not subtitles:
+        # 자막 없음 → trim + scale만
+        run_ffmpeg([
+            "-i", clip_path,
+            *(["-ss", str(trim_start)] if trim_start > 0 else []),
+            "-t", str(duration),
+            "-vf", f"scale={w}:{h}",
+            "-c:v", "libx264", "-preset", "ultrafast", "-threads", "4",
+            "-an", "-y", output_path,
+        ])
+        return output_path
 
-    layers = [video_clip]
+    # 자막 PNG 생성 (Pillow)
+    raw_size = subtitle_style.get("fontSize", 28)
+    font_size = raw_size if isinstance(raw_size, int) else SUBTITLE_SIZES.get(raw_size, 26)
+    text_color = subtitle_style.get("textColor", "#ffffff")
+    outline_color = subtitle_style.get("outlineColor", "#000000")
+    bg_color = subtitle_style.get("bgColor", "#00000080")
+    position = subtitle_style.get("position", "bottom")
 
-    # 자막 오버레이
-    subtitles = scene.get("subtitles", [])
-    if subtitles:
-        raw_size = subtitle_style.get("fontSize", 28)
-        font_size = raw_size if isinstance(raw_size, int) else SUBTITLE_SIZES.get(raw_size, 26)
-        text_color = subtitle_style.get("textColor", "#ffffff")
-        outline_color = subtitle_style.get("outlineColor", "#000000")
-        bg_color = subtitle_style.get("bgColor", "#00000080")
-        position = subtitle_style.get("position", "bottom")
+    sub_images = []
+    for si, sub in enumerate(subtitles):
+        result = create_subtitle_image(sub["text"], w, font_size, text_color, outline_color, bg_color, font_path)
+        if result:
+            png_path, img_h = result
+            y = get_subtitle_y(position, h, img_h)
+            sub_images.append({
+                "path": png_path, "y": y,
+                "start": sub.get("startTime", 0), "end": sub.get("endTime", duration),
+            })
 
-        for sub in subtitles:
-            sub_text = sub.get("text", "").strip()
-            if not sub_text:
-                continue
+    if not sub_images:
+        run_ffmpeg([
+            "-i", clip_path,
+            *(["-ss", str(trim_start)] if trim_start > 0 else []),
+            "-t", str(duration),
+            "-vf", f"scale={w}:{h}",
+            "-c:v", "libx264", "-preset", "ultrafast", "-threads", "4",
+            "-an", "-y", output_path,
+        ])
+        return output_path
 
-            start_time = sub.get("startTime", 0) + transition_offset
-            end_time = sub.get("endTime", duration) + transition_offset
+    # ffmpeg: 자막 PNG overlay
+    inputs = ["-i", clip_path]
+    for si in sub_images:
+        inputs += ["-i", si["path"]]
 
-            # 클립 길이를 초과하지 않도록 제한
-            start_time = min(start_time, duration)
-            end_time = min(end_time, duration)
-            if end_time <= start_time:
-                continue
+    # filter_complex 조립
+    filters = [f"[0:v]scale={w}:{h}[base]"]
+    prev = "base"
+    for idx, si in enumerate(sub_images):
+        out = "vout" if idx == len(sub_images) - 1 else f"v{idx}"
+        enable = f"between(t,{si['start']},{si['end']})"
+        filters.append(f"[{prev}][{idx+1}:v]overlay=(W-w)/2:{si['y']}:enable='{enable}'[{out}]")
+        prev = out
 
-            sub_result = create_subtitle_image(
-                sub_text, w, font_size, text_color, outline_color, bg_color, font_path,
-            )
-            if sub_result:
-                sub_img_path, sub_img_h = sub_result
-                sub_duration = end_time - start_time
-                sub_clip = (
-                    ImageClip(sub_img_path, duration=sub_duration)
-                    .with_start(start_time)
-                    .with_position(("center", get_subtitle_y(position, h, sub_img_h)))
-                )
-                layers.append(sub_clip)
+    run_ffmpeg([
+        *inputs,
+        *(["-ss", str(trim_start)] if trim_start > 0 else []),
+        "-t", str(duration),
+        "-filter_complex", ";".join(filters),
+        "-map", "[vout]",
+        "-c:v", "libx264", "-preset", "ultrafast", "-threads", "4",
+        "-an", "-y", output_path,
+    ])
 
-    composite = CompositeVideoClip(layers, size=(w, h))
-    # 오디오 없이 반환 (J-Cut을 위해 main에서 별도 처리)
-    composite = composite.without_audio()
-    return composite
-
-
-def build_scene_audio(scene, downloaded, scene_idx, duration, transition_offset=0):
-    """장면의 SFX/TTS 오디오를 로드하여 믹싱된 AudioClip 반환. (이미 다운로드된 파일 사용)"""
-    audio_tracks = []
-
-    # SFX (영상에서 분리된 효과음)
-    sfx_volume = scene.get("sfxVolume", 100) / 100.0
-    sfx_offset = (scene.get("sfxOffset", 0) or 0) + transition_offset
-    sfx_path = downloaded.get(f"sfx_{scene_idx}")
-    if sfx_path:
+    # PNG 정리
+    for si in sub_images:
         try:
-            sfx_audio = AudioFileClip(sfx_path).with_volume_scaled(sfx_volume)
-            if sfx_audio.duration > duration - sfx_offset:
-                sfx_audio = sfx_audio.subclipped(0, duration - sfx_offset)
-            if sfx_offset > 0:
-                sfx_audio = sfx_audio.with_start(sfx_offset)
-            audio_tracks.append(sfx_audio)
-        except Exception as e:
-            report_progress(-1, f"SFX 로드 실패 (장면 {scene_idx}): {e}")
+            os.unlink(si["path"])
+        except OSError:
+            pass
 
-    # TTS (0.5s delay for natural pacing after scene transition)
-    TTS_DELAY = 0.5
-    tts_offset = (scene.get("ttsOffset", 0) or 0) + transition_offset + TTS_DELAY
-    tts_path = downloaded.get(f"tts_{scene_idx}")
-    if tts_path:
-        try:
-            tts_audio = AudioFileClip(tts_path)
-            if tts_audio.duration > duration - tts_offset:
-                tts_audio = tts_audio.subclipped(0, duration - tts_offset)
-            if tts_offset > 0:
-                tts_audio = tts_audio.with_start(tts_offset)
-            audio_tracks.append(tts_audio)
-        except Exception as e:
-            report_progress(-1, f"TTS 로드 실패 (장면 {scene_idx}): {e}")
+    return output_path
 
-    if not audio_tracks:
-        return None
-    if len(audio_tracks) == 1:
-        return audio_tracks[0]
-    return CompositeAudioClip(audio_tracks)
 
+# ===== 메인 =====
 
 def main():
     sys.stdin.reconfigure(encoding='utf-8')
@@ -361,165 +325,130 @@ def main():
     total_scenes = len(scenes)
 
     Path(work_dir).mkdir(parents=True, exist_ok=True)
-
-    transition = options.get("transitionDuration", CROSSFADE_DURATION)
-
     report_progress(0, "시작")
 
-    # Phase 1: 모든 파일 병렬 다운로드 (0%~30%)
-    report_progress(1, f"파일 다운로드 시작 ({total_scenes}장면)")
-    t_start = time.time()
+    # Phase 1: 병렬 다운로드 (0~20%)
+    report_progress(1, f"다운로드 시작 ({total_scenes}장면)")
+    t0 = time.time()
     downloaded = download_all_files(scenes, work_dir, bgm_url)
-    dl_elapsed = time.time() - t_start
-    report_progress(30, f"다운로드 완료 ({dl_elapsed:.1f}초)")
+    report_progress(20, f"다운로드 완료 ({time.time()-t0:.1f}초)")
 
-    # Phase 2: 장면별 클립 생성 (30%~70%)
-    clips = []
-    clip_durations = []
-    audio_scene_data = []  # (scene, scene_idx, duration, transition_offset)
-
+    # Phase 2: 씬별 처리 — Pillow 자막 PNG + ffmpeg overlay (20~70%)
+    processed = []
+    scene_durations = []
     for i, scene in enumerate(scenes):
-        scene_progress = 30 + int((i / max(total_scenes, 1)) * 40)
-        report_progress(scene_progress, f"장면 {i + 1}/{total_scenes} 클립 생성 중")
+        pct = 20 + int((i / max(total_scenes, 1)) * 50)
+        report_progress(pct, f"장면 {i+1}/{total_scenes} 처리 중")
 
-        clip_path = downloaded.get(f"clip_{i}")
-        if not clip_path:
-            report_progress(scene_progress, f"장면 {i + 1} 클립 없음 (건너뜀)")
-            continue
+        result = process_scene(scene, i, downloaded, resolution, subtitle_style, font_path, work_dir)
+        if result:
+            processed.append(result)
+            dur = get_duration(result)
+            scene_durations.append(dur if dur > 0 else (scene.get("clipDuration", 5) - (scene.get("trimStart", 0) or 0) - (scene.get("trimEnd", 0) or 0)))
 
-        # 첫 장면 이후에는 크로스 디졸브 오버랩만큼 자막/오디오를 지연
-        t_offset = transition if (i > 0 and total_scenes > 1 and transition > 0) else 0
-
-        try:
-            clip = create_scene_clip(
-                scene, resolution, subtitle_style, font_path, clip_path, i, t_offset,
-            )
-            clips.append(clip)
-            clip_durations.append(clip.duration)
-            audio_scene_data.append((scene, i, clip.duration, t_offset))
-        except Exception as e:
-            report_progress(scene_progress, f"장면 {i + 1} 클립 생성 실패: {e}")
-            continue
-
-        # 메모리 절약: 매 5장면마다 가비지 컬렉션
-        if (i + 1) % 5 == 0:
-            gc.collect()
-
-    if not clips:
-        report_progress(100, "생성할 클립이 없습니다")
+    if not processed:
+        report_progress(100, "처리할 클립이 없습니다")
         sys.exit(1)
 
-    # Phase 3: 클립 연결 + 오디오 (70%~85%)
-    report_progress(70, "클립 연결 중 (크로스 디졸브 적용)")
+    # Phase 3: Concat (70~75%)
+    report_progress(70, "장면 연결 중")
+    concat_path = os.path.join(work_dir, "concat_video.mp4")
 
-    # Apply cross-dissolve transitions between clips
-    if len(clips) > 1 and transition > 0:
-        for i in range(len(clips)):
-            if i > 0:
-                clips[i] = clips[i].with_effects([CrossFadeIn(transition)])
-            if i < len(clips) - 1:
-                clips[i] = clips[i].with_effects([CrossFadeOut(transition)])
-        final = concatenate_videoclips(clips, method="compose", padding=-transition)
+    if len(processed) == 1:
+        shutil.copy2(processed[0], concat_path)
     else:
-        final = concatenate_videoclips(clips, method="compose")
+        concat_list = os.path.join(work_dir, "concat.txt")
+        with open(concat_list, "w") as f:
+            for p in processed:
+                f.write(f"file '{p}'\n")
+        run_ffmpeg(["-f", "concat", "-safe", "0", "-i", concat_list, "-c", "copy", "-y", concat_path])
 
-    # J-Cut 오디오 믹싱: 장면별 오디오를 별도로 위치시킴
-    j_cut = options.get("jCutDuration", J_CUT_DURATION)
+    # Phase 4: 오디오 믹싱 (75~90%)
+    report_progress(75, "오디오 믹싱 중")
 
-    # 장면 시작 시간 계산 (크로스 디졸브 패딩 반영)
-    scene_starts = []
+    # 장면 시작 오프셋 계산
+    scene_offsets = []
     t = 0.0
-    for i, dur in enumerate(clip_durations):
-        scene_starts.append(t)
-        overlap = transition if (len(clips) > 1 and transition > 0 and i < len(clip_durations) - 1) else 0
-        t += dur - overlap
+    for dur in scene_durations:
+        scene_offsets.append(t)
+        t += dur
 
-    report_progress(75, "오디오 믹싱 (J-Cut 적용)")
+    # 오디오 입력 수집
+    audio_inputs = []  # (filepath, delay_ms, volume)
+    ready_scenes = [s for s in scenes if s.get("clipUrl")]
 
-    all_audio = []
-    for idx, (scene, scene_idx, duration, t_offset) in enumerate(audio_scene_data):
-        scene_audio = build_scene_audio(scene, downloaded, scene_idx, duration, t_offset)
-        if scene_audio is None:
-            continue
+    for i, scene in enumerate(ready_scenes):
+        if i >= len(scene_offsets):
+            break
+        offset = scene_offsets[i]
 
-        if idx > 0 and j_cut > 0:
-            # J-Cut: 다음 장면 오디오를 j_cut초 앞에서 페이드인 시작
-            audio_start = max(0, scene_starts[idx] - j_cut)
-            scene_audio = scene_audio.with_effects([AudioFadeIn(j_cut)])
-        else:
-            audio_start = scene_starts[idx]
+        sfx_path = downloaded.get(f"sfx_{i}")
+        if sfx_path:
+            delay = max(0, int((offset + (scene.get("sfxOffset", 0) or 0)) * 1000))
+            vol = scene.get("sfxVolume", 100) / 100.0
+            audio_inputs.append((sfx_path, delay, vol))
 
-        scene_audio = scene_audio.with_start(audio_start)
-        all_audio.append(scene_audio)
+        tts_path = downloaded.get(f"tts_{i}")
+        if tts_path:
+            delay = max(0, int((offset + (scene.get("ttsOffset", 0) or 0) + 0.5) * 1000))
+            audio_inputs.append((tts_path, delay, 1.0))
 
-    # BGM 믹싱
     bgm_path = downloaded.get("bgm")
-    if bgm_path:
-        report_progress(80, "배경음악 믹싱")
+    has_audio = len(audio_inputs) > 0 or bgm_path
+
+    if not has_audio:
+        # 오디오 없음 → concat 결과가 최종
+        shutil.copy2(concat_path, output_path)
+    else:
+        # ffmpeg amix로 오디오 믹싱
+        args = ["-i", concat_path]
+        filter_parts = []
+        labels = []
+
+        # 무음 베이스 (영상에 오디오가 없으므로)
+        total_dur = sum(scene_durations)
+        filter_parts.append(f"anullsrc=channel_layout=stereo:sample_rate=44100:d={total_dur}[silence]")
+        labels.append("[silence]")
+
+        input_idx = 1
+        for filepath, delay_ms, vol in audio_inputs:
+            args += ["-i", filepath]
+            label = f"a{input_idx}"
+            delay_f = f"adelay={delay_ms}|{delay_ms}," if delay_ms > 0 else ""
+            vol_f = f"volume={vol:.2f}," if vol != 1.0 else ""
+            filter_parts.append(f"[{input_idx}:a]{delay_f}{vol_f}aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo[{label}]")
+            labels.append(f"[{label}]")
+            input_idx += 1
+
+        if bgm_path:
+            args += ["-i", bgm_path]
+            label = "bgm"
+            vol_f = f"volume={bgm_volume:.2f}," if bgm_volume != 1.0 else ""
+            filter_parts.append(f"[{input_idx}:a]{vol_f}aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo[{label}]")
+            labels.append(f"[{label}]")
+
+        mix_inputs = "".join(labels)
+        n = len(labels)
+        filter_parts.append(f"{mix_inputs}amix=inputs={n}:duration=first:dropout_transition=2[aout]")
+
+        report_progress(80, f"오디오 믹싱 ({n}트랙)")
+
+        args += [
+            "-filter_complex", ";".join(filter_parts),
+            "-map", "0:v", "-map", "[aout]",
+            "-c:v", "copy", "-c:a", "aac",
+            "-shortest", "-y", output_path,
+        ]
+        run_ffmpeg(args, timeout=600)
+
+    report_progress(95, "완료")
+
+    # 정리
+    for p in processed:
         try:
-            bgm_audio = AudioFileClip(bgm_path).with_volume_scaled(bgm_volume)
-
-            if bgm_audio.duration < final.duration:
-                loops_needed = int(final.duration / bgm_audio.duration) + 1
-                bgm_audio = concatenate_audioclips([bgm_audio] * loops_needed)
-
-            bgm_audio = bgm_audio.subclipped(0, final.duration)
-            all_audio.append(bgm_audio)
-        except Exception as e:
-            report_progress(82, f"BGM 처리 실패 (계속 진행): {e}")
-
-    if all_audio:
-        final = final.with_audio(CompositeAudioClip(all_audio))
-
-    # Phase 4: MP4 인코딩 (85%~98%)
-    encode_threads = 4
-    total_duration = final.duration
-    report_progress(85, f"MP4 인코딩 시작 ({total_duration:.1f}초 영상, threads={encode_threads})")
-
-    encode_start = time.time()
-
-    # 인코딩 진행률 로거 (proglog ProgressBarLogger 서브클래스)
-    from proglog import ProgressBarLogger
-
-    class EncodeLogger(ProgressBarLogger):
-        def __init__(self):
-            super().__init__()
-            self.last_report = time.time()
-
-        def bars_callback(self, bar, attr, value, old_value=None):
-            now = time.time()
-            if now - self.last_report < 3:  # 3초마다 리포트
-                return
-            self.last_report = now
-            elapsed = now - encode_start
-            total = self.bars.get(bar, {}).get("total", 0)
-            if total and value:
-                pct = value / total
-                encode_progress = 85 + int(pct * 13)  # 85~98
-                eta = (elapsed / max(pct, 0.01)) * (1 - pct)
-                report_progress(
-                    min(encode_progress, 97),
-                    f"인코딩 {pct:.0%} (경과 {elapsed:.0f}초, 예상 잔여 {eta:.0f}초)",
-                )
-
-    logger = EncodeLogger()
-
-    final.write_videofile(
-        output_path,
-        fps=24,
-        codec="libx264",
-        audio_codec="aac",
-        preset="ultrafast",
-        threads=encode_threads,
-        logger=logger,
-    )
-
-    encode_elapsed = time.time() - encode_start
-    report_progress(98, f"인코딩 완료 ({encode_elapsed:.1f}초)")
-
-    final.close()
-    for clip in clips:
-        clip.close()
+            os.unlink(p)
+        except OSError:
+            pass
 
     print(json.dumps({"outputPath": output_path}))
 

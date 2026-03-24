@@ -5,8 +5,6 @@ import { Button } from '@/components/Button';
 import { DownloadButton } from '@/components/DownloadButton';
 import { storybookApi } from '@/features/storybook';
 import { longformApi, ytPresetApi } from '../api/longform.api';
-import { renderOnClient } from '../utils/client-renderer';
-import { isFFmpegSupported } from '../utils/ffmpeg-loader';
 
 interface RenderStepProps {
   storybookId: string;
@@ -227,8 +225,6 @@ export function RenderStep({
   }, []);
 
   // ----- Render handlers -----
-  const useClientRender = useRef(false);
-
   const handleServerRender = async () => {
     try {
       await longformApi.render({ storybookId, projectId: project.id });
@@ -282,102 +278,17 @@ export function RenderStep({
   const handleRender = async () => {
     setError(null);
     setIsRendering(true);
-    setProgress(null);
-
-    // FFmpeg.wasm 미지원 → 서버 전체 렌더링 fallback
-    if (!isFFmpegSupported()) {
-      useClientRender.current = false;
-      setProgress({ progress: 0, step: '렌더링 시작 중...' });
-      await handleServerRender();
-      return;
-    }
-
-    useClientRender.current = true;
-
-    try {
-      // Phase 1: 서버에서 씬별 자막 burn-in (fire-and-forget + polling)
-      setProgress({ progress: 0, step: '서버 전처리 시작...' });
-      await longformApi.prepareRender({ storybookId, projectId: project.id });
-
-      // polling으로 전처리 완료 대기
-      await new Promise<void>((resolve, reject) => {
-        pollingRef.current = setInterval(async () => {
-          try {
-            const data = await longformApi.getRenderProgress(project.id);
-            if (!data) {
-              stopPolling();
-              resolve();
-              return;
-            }
-            // 서버 전처리 진행률을 0~40% 구간에 매핑
-            const mappedProgress = Math.floor((data.progress / 100) * 40);
-            setProgress({ progress: mappedProgress, step: data.step });
-            if (data.progress >= 100) {
-              stopPolling();
-              resolve();
-            }
-          } catch (e) {
-            stopPolling();
-            reject(e);
-          }
-        }, 2000);
-      });
-
-      // Phase 2: 서버에서 전처리된 매니페스트 가져오기
-      setProgress({ progress: 40, step: '매니페스트 로딩...' });
-      const manifest = await longformApi.renderManifest({
-        storybookId,
-        projectId: project.id,
-      });
-
-      // Phase 3: 클라이언트에서 concat + 오디오 믹싱 (re-encode 없음)
-      setProgress({ progress: 42, step: 'FFmpeg 로딩 중...' });
-      const videoData = await renderOnClient(manifest, (p, step) => {
-        // renderOnClient 진행률(0-90)을 42~90% 구간에 매핑
-        const mappedProgress = 42 + Math.floor((p / 90) * 48);
-        setProgress({ progress: mappedProgress, step });
-      });
-
-      // Phase 4: Presigned URL로 R2 업로드
-      setProgress({ progress: 92, step: 'R2 업로드 중...' });
-      const { uploadUrl, publicUrl } = await longformApi.presignedUpload({
-        storybookId,
-        projectId: project.id,
-      });
-
-      await fetch(uploadUrl, {
-        method: 'PUT',
-        body: new Blob([videoData.buffer as ArrayBuffer], { type: 'video/mp4' }),
-        headers: { 'Content-Type': 'video/mp4' },
-      });
-
-      // Phase 5: 서버에 완료 알림
-      setProgress({ progress: 98, step: '저장 중...' });
-      await longformApi.confirmRender({
-        storybookId,
-        projectId: project.id,
-        outputUrl: publicUrl,
-      });
-
-      onUpdate({ outputUrl: publicUrl });
-      setProgress({ progress: 100, step: '완료' });
-    } catch (err: any) {
-      setError(err.message || '렌더링 실패');
-    } finally {
-      setIsRendering(false);
-    }
+    setProgress({ progress: 0, step: '렌더링 시작 중...' });
+    await handleServerRender();
   };
 
   const handleCancel = async () => {
-    if (!useClientRender.current) {
-      // Server-side: cancel via API
-      try {
-        await longformApi.cancelRender(project.id);
-      } catch {
-        /* ignore */
-      }
-      stopPolling();
+    try {
+      await longformApi.cancelRender(project.id);
+    } catch {
+      /* ignore */
     }
+    stopPolling();
     setIsRendering(false);
     setProgress(null);
   };
