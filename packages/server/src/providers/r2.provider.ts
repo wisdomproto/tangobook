@@ -97,7 +97,9 @@ export async function createPresignedUploadUrl(
     Key: key,
     ContentType: contentType,
   });
-  const uploadUrl = await getSignedUrl(r2Client, command, { expiresIn });
+  // @smithy/types 버전 충돌 회피 (presigner vs client-s3)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const uploadUrl = await getSignedUrl(r2Client as any, command as any, { expiresIn });
   const publicUrl = `${r2PublicUrl}/${key}`;
   return { uploadUrl, publicUrl };
 }
