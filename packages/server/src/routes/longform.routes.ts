@@ -37,6 +37,11 @@ router.post('/youtube/upload', LongformController.youtubeUpload);
 router.get('/youtube/progress/:projectId', LongformController.getYouTubeProgress);
 router.post('/youtube/generate-meta', LongformController.generateYouTubeMeta);
 
+// Client-side rendering
+router.post('/render-manifest', LongformController.renderManifest);
+router.post('/presigned-upload', LongformController.presignedUpload);
+router.post('/confirm-render', LongformController.confirmRender);
+
 // Recovery
 router.post('/recover-clips', LongformController.recoverClips);
 

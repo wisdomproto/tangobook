@@ -19,6 +19,7 @@ import {
   urlToR2Key,
   r2PublicUrl,
   listR2Objects,
+  createPresignedUploadUrl,
 } from '../providers/r2.provider.js';
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
 import { GrokProvider } from '../providers/grok.provider.js';
@@ -656,6 +657,69 @@ export const LongformService = {
       // 임시 디렉토리 정리
       fs.rmSync(workDir, { recursive: true, force: true });
     }
+  },
+
+  // ----- Render manifest (클라이언트-사이드 렌더링용) -----
+  async renderManifest(storybookId: string, projectId: string) {
+    const storybook = await loadStorybook(storybookId);
+    const project = loadProject(storybook, projectId);
+
+    if (project.scenes.length === 0) {
+      throw new AppError(400, '장면이 없습니다.');
+    }
+    const readyScenes = project.scenes.filter((s) => s.clipUrl);
+    if (readyScenes.length === 0) {
+      throw new AppError(400, '생성된 클립이 없습니다.');
+    }
+
+    return {
+      scenes: readyScenes
+        .sort((a, b) => a.order - b.order)
+        .map((scene) => ({
+          clipUrl: scene.clipUrl!,
+          sfxUrl: scene.sfxUrl,
+          sfxVolume: scene.sfxVolume,
+          sfxOffset: scene.sfxOffset,
+          ttsUrl: scene.ttsUrl,
+          ttsOffset: scene.ttsOffset,
+          subtitles: scene.subtitles.map((sub) => ({
+            text: sub.text,
+            startTime: sub.startTime,
+            endTime: sub.endTime,
+          })),
+          clipDuration: scene.clipDuration,
+          trimStart: scene.trimStart,
+          trimEnd: scene.trimEnd,
+        })),
+      bgmUrl: project.bgmUrl,
+      bgmVolume: project.bgmVolume,
+      aspectRatio: project.aspectRatio,
+      subtitleStyle: {
+        fontSize: project.subtitleStyle.fontSize,
+        position: project.subtitleStyle.position,
+        textColor: project.subtitleStyle.textColor,
+        outlineColor: project.subtitleStyle.outlineColor,
+        bgColor: project.subtitleStyle.bgColor,
+      },
+      transitionDuration: 0.5,
+      jCutDuration: 1.0,
+    };
+  },
+
+  // ----- Presigned upload URL -----
+  async presignedUpload(storybookId: string, projectId: string) {
+    const key = outputKey(storybookId, projectId);
+    return createPresignedUploadUrl(key, 'video/mp4');
+  },
+
+  // ----- Confirm render (클라이언트 업로드 완료 후) -----
+  async confirmRender(storybookId: string, projectId: string, outputUrl: string) {
+    const storybook = await loadStorybook(storybookId);
+    const project = loadProject(storybook, projectId);
+    project.outputUrl = outputUrl;
+    project.createdAt = new Date().toISOString();
+    await R2Repository.saveStorybook(storybook);
+    return { outputUrl };
   },
 
   // ----- Get render progress -----

@@ -140,4 +140,22 @@ export const LongformController = {
     const result = await LongformService.recoverClips(storybookId, projectId);
     res.json({ success: true, data: result });
   }),
+
+  renderManifest: asyncHandler(async (req: Request, res: Response) => {
+    const { storybookId, projectId } = req.body;
+    const manifest = await LongformService.renderManifest(storybookId, projectId);
+    res.json({ success: true, data: manifest });
+  }),
+
+  presignedUpload: asyncHandler(async (req: Request, res: Response) => {
+    const { storybookId, projectId } = req.body;
+    const result = await LongformService.presignedUpload(storybookId, projectId);
+    res.json({ success: true, data: result });
+  }),
+
+  confirmRender: asyncHandler(async (req: Request, res: Response) => {
+    const { storybookId, projectId, outputUrl } = req.body;
+    const result = await LongformService.confirmRender(storybookId, projectId, outputUrl);
+    res.json({ success: true, data: result });
+  }),
 };
