@@ -7,6 +7,7 @@ import {
   ListObjectsV2Command,
   type _Object,
 } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { config } from '../config/index.js';
 
 export const r2Client = new S3Client({
@@ -84,6 +85,21 @@ export async function deleteManyFromR2(keys: string[]): Promise<void> {
 
 export function urlToR2Key(url: string): string {
   return url.replace(`${r2PublicUrl}/`, '');
+}
+
+export async function createPresignedUploadUrl(
+  key: string,
+  contentType: string,
+  expiresIn = 1800
+): Promise<{ uploadUrl: string; publicUrl: string }> {
+  const command = new PutObjectCommand({
+    Bucket: r2BucketName,
+    Key: key,
+    ContentType: contentType,
+  });
+  const uploadUrl = await getSignedUrl(r2Client, command, { expiresIn });
+  const publicUrl = `${r2PublicUrl}/${key}`;
+  return { uploadUrl, publicUrl };
 }
 
 export async function listR2Objects(prefix: string) {
