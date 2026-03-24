@@ -429,7 +429,7 @@ def main():
 
         mix_inputs = "".join(labels)
         n = len(labels)
-        filter_parts.append(f"{mix_inputs}amix=inputs={n}:duration=first:dropout_transition=2[aout]")
+        filter_parts.append(f"{mix_inputs}amix=inputs={n}:duration=first:dropout_transition=2:normalize=0[aout]")
 
         report_progress(80, f"오디오 믹싱 ({n}트랙)")
 
