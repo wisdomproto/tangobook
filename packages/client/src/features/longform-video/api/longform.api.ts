@@ -6,6 +6,7 @@ import type {
   YouTubePreset,
   YouTubeGeneratedMeta,
 } from '@tangobook/shared';
+import type { RenderManifest } from '../utils/client-renderer';
 
 export const longformApi = {
   analyze: (req: {
@@ -52,6 +53,16 @@ export const longformApi = {
     apiPost<{ bgmUrl: string }>('/longform/upload-bgm', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     } as any),
+
+  // Client-side rendering
+  renderManifest: (req: { storybookId: string; projectId: string }) =>
+    apiPost<RenderManifest>('/longform/render-manifest', req),
+
+  presignedUpload: (req: { storybookId: string; projectId: string }) =>
+    apiPost<{ uploadUrl: string; publicUrl: string }>('/longform/presigned-upload', req),
+
+  confirmRender: (req: { storybookId: string; projectId: string; outputUrl: string }) =>
+    apiPost<{ outputUrl: string }>('/longform/confirm-render', req),
 
   // YouTube
   youtubeAuthUrl: () => apiGet<{ url: string }>('/longform/youtube/auth-url'),
