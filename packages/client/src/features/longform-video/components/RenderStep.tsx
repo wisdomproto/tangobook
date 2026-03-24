@@ -5,6 +5,8 @@ import { Button } from '@/components/Button';
 import { DownloadButton } from '@/components/DownloadButton';
 import { storybookApi } from '@/features/storybook';
 import { longformApi, ytPresetApi } from '../api/longform.api';
+import { renderOnClient } from '../utils/client-renderer';
+import { isFFmpegSupported } from '../utils/ffmpeg-loader';
 
 interface RenderStepProps {
   storybookId: string;
@@ -225,11 +227,9 @@ export function RenderStep({
   }, []);
 
   // ----- Render handlers -----
-  const handleRender = async () => {
-    setError(null);
-    setIsRendering(true);
-    setProgress({ progress: 0, step: '렌더링 시작 중...' });
+  const useClientRender = useRef(false);
 
+  const handleServerRender = async () => {
     try {
       await longformApi.render({ storybookId, projectId: project.id });
 
@@ -273,19 +273,82 @@ export function RenderStep({
         }
       }, 2000);
     } catch (e) {
-      setError(e instanceof Error ? e.message : '렌더링 중 오류가 발생했습니다.');
+      setError(e instanceof Error ? e.message : '서버 렌더링 실패');
       setIsRendering(false);
       setProgress(null);
     }
   };
 
-  const handleCancel = async () => {
-    try {
-      await longformApi.cancelRender(project.id);
-    } catch {
-      /* ignore */
+  const handleRender = async () => {
+    setError(null);
+    setIsRendering(true);
+    setProgress(null);
+
+    // Check if browser supports FFmpeg.wasm
+    if (!isFFmpegSupported()) {
+      useClientRender.current = false;
+      setProgress({ progress: 0, step: '렌더링 시작 중...' });
+      await handleServerRender();
+      return;
     }
-    stopPolling();
+
+    useClientRender.current = true;
+
+    try {
+      setProgress({ progress: 0, step: 'FFmpeg 로딩 중...' });
+
+      // 1. Get render manifest from server
+      const manifest = await longformApi.renderManifest({
+        storybookId,
+        projectId: project.id,
+      });
+
+      // 2. Render on client with FFmpeg.wasm
+      const videoData = await renderOnClient(manifest, (p, step) => {
+        setProgress({ progress: p, step });
+      });
+
+      // 3. Get presigned upload URL
+      setProgress({ progress: 90, step: 'R2 업로드 중...' });
+      const { uploadUrl, publicUrl } = await longformApi.presignedUpload({
+        storybookId,
+        projectId: project.id,
+      });
+
+      // 4. Upload directly to R2
+      await fetch(uploadUrl, {
+        method: 'PUT',
+        body: new Blob([videoData.buffer as ArrayBuffer], { type: 'video/mp4' }),
+        headers: { 'Content-Type': 'video/mp4' },
+      });
+
+      // 5. Confirm render to server (saves outputUrl)
+      setProgress({ progress: 98, step: '저장 중...' });
+      await longformApi.confirmRender({
+        storybookId,
+        projectId: project.id,
+        outputUrl: publicUrl,
+      });
+
+      onUpdate({ outputUrl: publicUrl });
+      setProgress({ progress: 100, step: '완료' });
+    } catch (err: any) {
+      setError(err.message || '렌더링 실패');
+    } finally {
+      setIsRendering(false);
+    }
+  };
+
+  const handleCancel = async () => {
+    if (!useClientRender.current) {
+      // Server-side: cancel via API
+      try {
+        await longformApi.cancelRender(project.id);
+      } catch {
+        /* ignore */
+      }
+      stopPolling();
+    }
     setIsRendering(false);
     setProgress(null);
   };
