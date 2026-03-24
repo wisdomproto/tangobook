@@ -1051,6 +1051,11 @@ export const LongformService = {
     return youtubeProgressMap.get(projectId) ?? null;
   },
 
+  setYouTubeError(projectId: string, message: string) {
+    youtubeProgressMap.set(projectId, { progress: -1, step: message });
+    setTimeout(() => youtubeProgressMap.delete(projectId), 30_000);
+  },
+
   // ----- Generate YouTube metadata via Gemini -----
   async generateYouTubeMeta(
     storybookId: string,

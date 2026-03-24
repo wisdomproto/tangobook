@@ -119,6 +119,11 @@ export const LongformController = {
     const { storybookId, projectId, meta } = req.body;
     LongformService.uploadToYouTube(storybookId, projectId, meta).catch((err) => {
       console.error('[longform] YouTube upload error:', err);
+      // 클라이언트 polling에서 감지할 수 있도록 실패 기록
+      LongformService.setYouTubeError(
+        projectId,
+        err instanceof Error ? err.message : 'YouTube 업로드 실패'
+      );
     });
     res.json({ success: true, data: { message: 'YouTube 업로드가 시작되었습니다.' } });
   }),
