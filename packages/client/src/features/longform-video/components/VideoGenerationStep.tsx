@@ -131,7 +131,7 @@ function SceneCard({
           <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
             페이지 {scene.pageNumber}
           </span>
-          <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
             {scene.ttsDuration != null && (
               <span title="TTS 길이">TTS {scene.ttsDuration.toFixed(1)}s</span>
             )}
@@ -387,6 +387,8 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
   const [isDragging, setIsDragging] = useState(false);
   const [bulkUploading, setBulkUploading] = useState(false);
   const [bulkProgress, setBulkProgress] = useState<{ current: number; total: number } | null>(null);
+  const [showPromptUpload, setShowPromptUpload] = useState(false);
+  const [promptText, setPromptText] = useState('');
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Cleanup polling on unmount
@@ -570,6 +572,30 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
     setBatchProgress(null);
   };
 
+  // ----- Prompt bulk upload -----
+  const handlePromptUpload = useCallback(() => {
+    if (!promptText.trim() || project.scenes.length === 0) return;
+
+    // Split by empty lines → one prompt per scene
+    const prompts = promptText
+      .split(/\n\s*\n/)
+      .map((p) => p.trim())
+      .filter(Boolean);
+
+    const sortedScenes = [...project.scenes].sort((a, b) => a.order - b.order);
+    const updatedScenes = project.scenes.map((s) => {
+      const idx = sortedScenes.findIndex((ss) => ss.id === s.id);
+      if (idx >= 0 && idx < prompts.length) {
+        return { ...s, videoPrompt: prompts[idx] };
+      }
+      return s;
+    });
+
+    onUpdate({ scenes: updatedScenes });
+    setPromptText('');
+    setShowPromptUpload(false);
+  }, [promptText, project.scenes, onUpdate]);
+
   // ----- Bulk upload (drag & drop) -----
   const handleBulkFiles = useCallback(
     async (files: File[]) => {
@@ -726,6 +752,23 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
           전체 업로드
         </button>
 
+        {/* Prompt bulk upload toggle */}
+        <button
+          onClick={() => setShowPromptUpload((v) => !v)}
+          disabled={!hasScenes}
+          className="flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 dark:border-slate-600 hover:border-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-400 disabled:opacity-50 text-slate-600 dark:text-slate-400 text-sm rounded-lg transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            />
+          </svg>
+          프롬프트 업로드
+        </button>
+
         {/* Progress summary */}
         {hasScenes && (
           <span className="text-sm text-slate-500 dark:text-slate-400">
@@ -769,6 +812,42 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
           <p className="text-xs text-violet-600 dark:text-violet-400 mt-1 text-right">
             {Math.round(batchProgress.progress)}%
           </p>
+        </div>
+      )}
+
+      {/* Prompt bulk upload */}
+      {showPromptUpload && (
+        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 p-4 space-y-3">
+          <p className="text-sm text-slate-600 dark:text-slate-300">
+            페이지별 프롬프트를 빈 줄로 구분하여 입력하세요 ({totalCount}개 씬)
+          </p>
+          <textarea
+            value={promptText}
+            onChange={(e) => setPromptText(e.target.value)}
+            rows={12}
+            placeholder={`페이지 1 프롬프트...\n\n페이지 2 프롬프트...\n\n페이지 3 프롬프트...`}
+            className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y font-mono"
+          />
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handlePromptUpload}
+              disabled={!promptText.trim()}
+              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-sm rounded-lg transition-colors"
+            >
+              적용 (
+              {promptText.trim() ? promptText.split(/\n\s*\n/).filter((p) => p.trim()).length : 0}
+              개)
+            </button>
+            <button
+              onClick={() => {
+                setShowPromptUpload(false);
+                setPromptText('');
+              }}
+              className="px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 text-sm rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+            >
+              취소
+            </button>
+          </div>
         </div>
       )}
 
