@@ -349,15 +349,27 @@ export function RenderStep({
             stopYtPolling();
             setYtUploading(false);
             setYtProgress(null);
+            // progress 없으면 완료 또는 실패 — storybook에서 결과 확인
             try {
               const updated = await storybookApi.getById(storybookId);
               const updatedProject = updated.longformProjects?.find((p) => p.id === project.id);
               if (updatedProject?.youtubeUpload) {
                 onUpdate({ youtubeUpload: updatedProject.youtubeUpload });
+              } else {
+                setYtError('YouTube 업로드에 실패했습니다. 다시 시도해주세요.');
               }
             } catch {
-              /* ignore */
+              setYtError('업로드 결과를 확인할 수 없습니다.');
             }
+            return;
+          }
+
+          // 실패 감지 (progress < 0)
+          if (data.progress < 0) {
+            stopYtPolling();
+            setYtUploading(false);
+            setYtProgress(null);
+            setYtError(data.step || 'YouTube 업로드에 실패했습니다.');
             return;
           }
 
@@ -378,7 +390,7 @@ export function RenderStep({
             }
           }
         } catch {
-          /* ignore */
+          /* ignore polling errors */
         }
       }, 2000);
     } catch (e) {
