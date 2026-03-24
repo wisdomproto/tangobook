@@ -131,7 +131,7 @@ function SceneCard({
           <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
             페이지 {scene.pageNumber}
           </span>
-          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+          <span className="text-base font-mono font-semibold text-slate-600 dark:text-slate-300">
             {scene.ttsDuration != null && (
               <span title="TTS 길이">TTS {scene.ttsDuration.toFixed(1)}s</span>
             )}
