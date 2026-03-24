@@ -58,6 +58,19 @@ export async function renderOnClient(
 // Phase 1: Download pre-processed clips + audio
 // ---------------------------------------------------------------------------
 
+/**
+ * R2 public URL → 서버 프록시 URL 변환.
+ * pub-xxx.r2.dev는 CORS 미지원이므로 서버를 경유.
+ */
+function toProxyUrl(r2Url: string): string {
+  // https://pub-xxx.r2.dev/some/key.mp4 → /api/r2-proxy?key=some/key.mp4
+  const match = r2Url.match(/r2\.dev\/(.+)$/);
+  if (match) {
+    return `/api/r2-proxy?key=${encodeURIComponent(match[1])}`;
+  }
+  return r2Url; // 이미 프록시 URL이거나 다른 URL
+}
+
 async function downloadAllFiles(
   ffmpeg: FFmpeg,
   manifest: RenderManifest,
@@ -71,13 +84,13 @@ async function downloadAllFiles(
   const tasks: DownloadTask[] = [];
 
   manifest.scenes.forEach((scene, i) => {
-    tasks.push({ url: scene.processedClipUrl, filename: `scene_${i}.mp4` });
-    if (scene.sfxUrl) tasks.push({ url: scene.sfxUrl, filename: `sfx_${i}.mp3` });
-    if (scene.ttsUrl) tasks.push({ url: scene.ttsUrl, filename: `tts_${i}.mp3` });
+    tasks.push({ url: toProxyUrl(scene.processedClipUrl), filename: `scene_${i}.mp4` });
+    if (scene.sfxUrl) tasks.push({ url: toProxyUrl(scene.sfxUrl), filename: `sfx_${i}.mp3` });
+    if (scene.ttsUrl) tasks.push({ url: toProxyUrl(scene.ttsUrl), filename: `tts_${i}.mp3` });
   });
 
   if (manifest.bgmUrl) {
-    tasks.push({ url: manifest.bgmUrl, filename: 'bgm.mp3' });
+    tasks.push({ url: toProxyUrl(manifest.bgmUrl), filename: 'bgm.mp3' });
   }
 
   let done = 0;

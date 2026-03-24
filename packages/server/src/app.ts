@@ -5,6 +5,7 @@ import express from 'express';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import { corsMiddleware } from './middleware/cors.middleware.js';
 import { errorMiddleware } from './middleware/error.middleware.js';
+import { downloadFromR2 } from './providers/r2.provider.js';
 import storybookRoutes from './routes/storybook.routes.js';
 import imageRoutes from './routes/image.routes.js';
 import ttsRoutes from './routes/tts.routes.js';
@@ -64,6 +65,32 @@ export function createApp() {
   app.use('/api/prompt-presets', promptPresetRoutes);
   app.use('/api/longform', longformRoutes);
   app.use('/api/youtube-presets', youtubePresetRoutes);
+
+  // R2 프록시 — pub-xxx.r2.dev CORS 미지원 우회
+  // GET /api/r2-proxy?key=storybooks/xxx/scene.mp4
+  app.get('/api/r2-proxy', async (req, res, next) => {
+    try {
+      const key = req.query.key as string;
+      if (!key) {
+        res.status(400).json({ error: 'key required' });
+        return;
+      }
+      const buffer = await downloadFromR2(key);
+      const ext = key.split('.').pop()?.toLowerCase();
+      const contentTypes: Record<string, string> = {
+        mp4: 'video/mp4',
+        mp3: 'audio/mpeg',
+        wav: 'audio/wav',
+        png: 'image/png',
+        jpg: 'image/jpeg',
+      };
+      res.setHeader('Content-Type', contentTypes[ext ?? ''] ?? 'application/octet-stream');
+      res.setHeader('Cache-Control', 'public, max-age=3600');
+      res.send(buffer);
+    } catch (err) {
+      next(err);
+    }
+  });
 
   // 프로덕션: 클라이언트 정적 파일 서빙 (개발 모드에서는 Vite가 처리)
   if (process.env.NODE_ENV === 'production') {
