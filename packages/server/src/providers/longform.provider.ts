@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SCRIPT_PATH = path.resolve(__dirname, '../../scripts/generate_longform.py');
 
-const TIMEOUT_MS = 10 * 60 * 1000; // 10 minutes
+const TIMEOUT_MS = 20 * 60 * 1000; // 20 minutes
 
 export interface LongformRenderOptions {
   scenes: Array<{

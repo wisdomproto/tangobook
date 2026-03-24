@@ -422,14 +422,15 @@ def main():
     if all_audio:
         final = final.with_audio(CompositeAudioClip(all_audio))
 
-    report_progress(85, "MP4 인코딩 중")
+    encode_threads = 4
+    report_progress(85, f"MP4 인코딩 중 (threads={encode_threads})")
     final.write_videofile(
         output_path,
         fps=24,
         codec="libx264",
         audio_codec="aac",
         preset="ultrafast",
-        threads=1,
+        threads=encode_threads,
         logger=None,
     )
 
