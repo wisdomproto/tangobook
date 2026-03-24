@@ -11,8 +11,10 @@ import json
 import sys
 import os
 import gc
+import time
 import tempfile
 import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
@@ -186,13 +188,56 @@ def get_subtitle_y(position: str, h: int, sub_h: int = 60) -> int:
         return h - sub_h - margin
 
 
-def create_scene_clip(scene, resolution, subtitle_style, font_path, work_dir, scene_idx, transition_offset=0):
+# ===== 병렬 다운로드 =====
+
+def download_all_files(scenes, work_dir, bgm_url=None):
+    """모든 장면의 clip/sfx/tts + BGM을 병렬 다운로드. {key: local_path} 반환."""
+    tasks = {}  # key -> (url, dest)
+
+    for i, scene in enumerate(scenes):
+        clip_url = scene.get("clipUrl")
+        if clip_url:
+            tasks[f"clip_{i}"] = (clip_url, os.path.join(work_dir, f"scene_{i}_clip.mp4"))
+
+        sfx_url = scene.get("sfxUrl")
+        if sfx_url:
+            tasks[f"sfx_{i}"] = (sfx_url, os.path.join(work_dir, f"scene_{i}_sfx.mp3"))
+
+        tts_url = scene.get("ttsUrl")
+        if tts_url:
+            tasks[f"tts_{i}"] = (tts_url, os.path.join(work_dir, f"scene_{i}_tts.mp3"))
+
+    if bgm_url:
+        tasks["bgm"] = (bgm_url, os.path.join(work_dir, "bgm.mp3"))
+
+    results = {}
+    total = len(tasks)
+    done = 0
+
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        futures = {
+            executor.submit(download_file, url, dest): key
+            for key, (url, dest) in tasks.items()
+        }
+        for future in as_completed(futures):
+            key = futures[future]
+            done += 1
+            try:
+                results[key] = future.result()
+                report_progress(
+                    2 + int((done / max(total, 1)) * 28),
+                    f"다운로드 {done}/{total} ({key})",
+                )
+            except Exception as e:
+                report_progress(-1, f"다운로드 실패 ({key}): {e}")
+
+    return results
+
+
+def create_scene_clip(scene, resolution, subtitle_style, font_path, clip_path, scene_idx, transition_offset=0):
     """한 장면의 비디오 클립 생성 (비디오 + 자막).
     transition_offset: 크로스 디졸브로 인해 자막/오디오를 지연시킬 초 (첫 장면 제외)."""
     w, h = resolution
-
-    clip_path = os.path.join(work_dir, f"scene_{scene_idx}_clip.mp4")
-    download_file(scene["clipUrl"], clip_path)
 
     video_clip = VideoFileClip(clip_path)
 
@@ -254,19 +299,16 @@ def create_scene_clip(scene, resolution, subtitle_style, font_path, work_dir, sc
     return composite
 
 
-def download_scene_audio(scene, work_dir, scene_idx, duration, transition_offset=0):
-    """장면의 SFX/TTS 오디오를 다운로드하여 믹싱된 AudioClip 반환.
-    transition_offset: 크로스 디졸브로 인해 오디오를 지연시킬 초."""
+def build_scene_audio(scene, downloaded, scene_idx, duration, transition_offset=0):
+    """장면의 SFX/TTS 오디오를 로드하여 믹싱된 AudioClip 반환. (이미 다운로드된 파일 사용)"""
     audio_tracks = []
 
     # SFX (영상에서 분리된 효과음)
-    sfx_url = scene.get("sfxUrl")
     sfx_volume = scene.get("sfxVolume", 100) / 100.0
     sfx_offset = (scene.get("sfxOffset", 0) or 0) + transition_offset
-    if sfx_url:
-        sfx_path = os.path.join(work_dir, f"scene_{scene_idx}_sfx.mp3")
+    sfx_path = downloaded.get(f"sfx_{scene_idx}")
+    if sfx_path:
         try:
-            download_file(sfx_url, sfx_path)
             sfx_audio = AudioFileClip(sfx_path).with_volume_scaled(sfx_volume)
             if sfx_audio.duration > duration - sfx_offset:
                 sfx_audio = sfx_audio.subclipped(0, duration - sfx_offset)
@@ -278,12 +320,10 @@ def download_scene_audio(scene, work_dir, scene_idx, duration, transition_offset
 
     # TTS (0.5s delay for natural pacing after scene transition)
     TTS_DELAY = 0.5
-    tts_url = scene.get("ttsUrl")
     tts_offset = (scene.get("ttsOffset", 0) or 0) + transition_offset + TTS_DELAY
-    if tts_url:
-        tts_path = os.path.join(work_dir, f"scene_{scene_idx}_tts.mp3")
+    tts_path = downloaded.get(f"tts_{scene_idx}")
+    if tts_path:
         try:
-            download_file(tts_url, tts_path)
             tts_audio = AudioFileClip(tts_path)
             if tts_audio.duration > duration - tts_offset:
                 tts_audio = tts_audio.subclipped(0, duration - tts_offset)
@@ -324,18 +364,27 @@ def main():
 
     transition = options.get("transitionDuration", CROSSFADE_DURATION)
 
+    report_progress(0, "시작")
+
+    # Phase 1: 모든 파일 병렬 다운로드 (0%~30%)
+    report_progress(1, f"파일 다운로드 시작 ({total_scenes}장면)")
+    t_start = time.time()
+    downloaded = download_all_files(scenes, work_dir, bgm_url)
+    dl_elapsed = time.time() - t_start
+    report_progress(30, f"다운로드 완료 ({dl_elapsed:.1f}초)")
+
+    # Phase 2: 장면별 클립 생성 (30%~70%)
     clips = []
     clip_durations = []
     audio_scene_data = []  # (scene, scene_idx, duration, transition_offset)
-    report_progress(0, "시작")
 
-    # 장면별 클립 생성 (5%~80%)
     for i, scene in enumerate(scenes):
-        scene_progress = 5 + int((i / max(total_scenes, 1)) * 75)
-        report_progress(scene_progress, f"장면 {i + 1}/{total_scenes} 처리 중")
+        scene_progress = 30 + int((i / max(total_scenes, 1)) * 40)
+        report_progress(scene_progress, f"장면 {i + 1}/{total_scenes} 클립 생성 중")
 
-        if not scene.get("clipUrl"):
-            report_progress(scene_progress, f"장면 {i + 1} 클립 URL 없음 (건너뜀)")
+        clip_path = downloaded.get(f"clip_{i}")
+        if not clip_path:
+            report_progress(scene_progress, f"장면 {i + 1} 클립 없음 (건너뜀)")
             continue
 
         # 첫 장면 이후에는 크로스 디졸브 오버랩만큼 자막/오디오를 지연
@@ -343,7 +392,7 @@ def main():
 
         try:
             clip = create_scene_clip(
-                scene, resolution, subtitle_style, font_path, work_dir, i, t_offset,
+                scene, resolution, subtitle_style, font_path, clip_path, i, t_offset,
             )
             clips.append(clip)
             clip_durations.append(clip.duration)
@@ -360,7 +409,8 @@ def main():
         report_progress(100, "생성할 클립이 없습니다")
         sys.exit(1)
 
-    report_progress(80, "클립 연결 중 (크로스 디졸브 적용)")
+    # Phase 3: 클립 연결 + 오디오 (70%~85%)
+    report_progress(70, "클립 연결 중 (크로스 디졸브 적용)")
 
     # Apply cross-dissolve transitions between clips
     if len(clips) > 1 and transition > 0:
@@ -384,11 +434,11 @@ def main():
         overlap = transition if (len(clips) > 1 and transition > 0 and i < len(clip_durations) - 1) else 0
         t += dur - overlap
 
-    report_progress(81, "오디오 믹싱 (J-Cut 적용)")
+    report_progress(75, "오디오 믹싱 (J-Cut 적용)")
 
     all_audio = []
     for idx, (scene, scene_idx, duration, t_offset) in enumerate(audio_scene_data):
-        scene_audio = download_scene_audio(scene, work_dir, scene_idx, duration, t_offset)
+        scene_audio = build_scene_audio(scene, downloaded, scene_idx, duration, t_offset)
         if scene_audio is None:
             continue
 
@@ -403,11 +453,10 @@ def main():
         all_audio.append(scene_audio)
 
     # BGM 믹싱
-    if bgm_url:
-        report_progress(83, "배경음악 믹싱")
-        bgm_path = os.path.join(work_dir, "bgm.mp3")
+    bgm_path = downloaded.get("bgm")
+    if bgm_path:
+        report_progress(80, "배경음악 믹싱")
         try:
-            download_file(bgm_url, bgm_path)
             bgm_audio = AudioFileClip(bgm_path).with_volume_scaled(bgm_volume)
 
             if bgm_audio.duration < final.duration:
@@ -417,13 +466,44 @@ def main():
             bgm_audio = bgm_audio.subclipped(0, final.duration)
             all_audio.append(bgm_audio)
         except Exception as e:
-            report_progress(85, f"BGM 처리 실패 (계속 진행): {e}")
+            report_progress(82, f"BGM 처리 실패 (계속 진행): {e}")
 
     if all_audio:
         final = final.with_audio(CompositeAudioClip(all_audio))
 
+    # Phase 4: MP4 인코딩 (85%~98%)
     encode_threads = 4
-    report_progress(85, f"MP4 인코딩 중 (threads={encode_threads})")
+    total_duration = final.duration
+    report_progress(85, f"MP4 인코딩 시작 ({total_duration:.1f}초 영상, threads={encode_threads})")
+
+    encode_start = time.time()
+
+    # 인코딩 진행률 로거 (proglog ProgressBarLogger 서브클래스)
+    from proglog import ProgressBarLogger
+
+    class EncodeLogger(ProgressBarLogger):
+        def __init__(self):
+            super().__init__()
+            self.last_report = time.time()
+
+        def bars_callback(self, bar, attr, value, old_value=None):
+            now = time.time()
+            if now - self.last_report < 3:  # 3초마다 리포트
+                return
+            self.last_report = now
+            elapsed = now - encode_start
+            total = self.bars.get(bar, {}).get("total", 0)
+            if total and value:
+                pct = value / total
+                encode_progress = 85 + int(pct * 13)  # 85~98
+                eta = (elapsed / max(pct, 0.01)) * (1 - pct)
+                report_progress(
+                    min(encode_progress, 97),
+                    f"인코딩 {pct:.0%} (경과 {elapsed:.0f}초, 예상 잔여 {eta:.0f}초)",
+                )
+
+    logger = EncodeLogger()
+
     final.write_videofile(
         output_path,
         fps=24,
@@ -431,10 +511,12 @@ def main():
         audio_codec="aac",
         preset="ultrafast",
         threads=encode_threads,
-        logger=None,
+        logger=logger,
     )
 
-    report_progress(98, "업로드 준비")
+    encode_elapsed = time.time() - encode_start
+    report_progress(98, f"인코딩 완료 ({encode_elapsed:.1f}초)")
+
     final.close()
     for clip in clips:
         clip.close()
