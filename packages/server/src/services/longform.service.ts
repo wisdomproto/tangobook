@@ -998,23 +998,27 @@ export const LongformService = {
       });
     });
 
-    // 3. Optional: upload thumbnail (30s timeout, skip on failure)
-    console.log(`[youtube] thumbnailUrl: ${meta.thumbnailUrl ?? 'NONE'}`);
+    // 3. 결과 먼저 저장 (썸네일 실패해도 영상 업로드 결과는 보존)
+    project.youtubeUpload = {
+      videoId: result.videoId,
+      videoUrl: result.videoUrl,
+      uploadedAt: new Date().toISOString(),
+      privacy: meta.privacy,
+    };
+    await R2Repository.saveStorybook(storybook);
+
+    // 4. Optional: upload thumbnail (실패해도 무시)
     if (meta.thumbnailUrl) {
       youtubeProgressMap.set(projectId, { progress: 96, step: '썸네일 업로드 중' });
       try {
         const thumbKey = urlToR2Key(meta.thumbnailUrl);
-        console.log(`[youtube] thumbnail R2 key: ${thumbKey}`);
         const rawBuffer = await downloadFromR2(thumbKey);
-        console.log(`[youtube] thumbnail downloaded: ${rawBuffer.length} bytes`);
 
-        // Resize to 1280x720 JPEG for YouTube (max 2MB)
         const sharp = (await import('sharp')).default;
         const thumbBuffer = await sharp(rawBuffer)
           .resize(1280, 720, { fit: 'cover' })
           .jpeg({ quality: 85 })
           .toBuffer();
-        console.log(`[youtube] thumbnail compressed: ${thumbBuffer.length} bytes (JPEG 1280x720)`);
 
         const thumbTimeout = new Promise<never>((_, reject) =>
           setTimeout(() => reject(new Error('썸네일 업로드 타임아웃')), 30_000)
@@ -1023,25 +1027,13 @@ export const LongformService = {
           YouTubeProvider.setThumbnail(result.videoId, thumbBuffer),
           thumbTimeout,
         ]);
-        console.log('[youtube] Thumbnail uploaded successfully');
       } catch (err) {
         console.warn(
-          '[youtube] Thumbnail upload failed (skipping):',
+          '[youtube] Thumbnail failed (skipping):',
           err instanceof Error ? err.message : err
         );
       }
-    } else {
-      console.log('[youtube] No thumbnail URL provided, skipping');
     }
-
-    // 4. Save result to storybook
-    project.youtubeUpload = {
-      videoId: result.videoId,
-      videoUrl: result.videoUrl,
-      uploadedAt: new Date().toISOString(),
-      privacy: meta.privacy,
-    };
-    await R2Repository.saveStorybook(storybook);
 
     youtubeProgressMap.set(projectId, { progress: 100, step: '업로드 완료' });
     setTimeout(() => youtubeProgressMap.delete(projectId), 30_000);
