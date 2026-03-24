@@ -284,7 +284,7 @@ export function RenderStep({
     setIsRendering(true);
     setProgress(null);
 
-    // Check if browser supports FFmpeg.wasm
+    // FFmpeg.wasm 미지원 → 서버 전체 렌더링 fallback
     if (!isFFmpegSupported()) {
       useClientRender.current = false;
       setProgress({ progress: 0, step: '렌더링 시작 중...' });
@@ -295,34 +295,63 @@ export function RenderStep({
     useClientRender.current = true;
 
     try {
-      setProgress({ progress: 0, step: 'FFmpeg 로딩 중...' });
+      // Phase 1: 서버에서 씬별 자막 burn-in (fire-and-forget + polling)
+      setProgress({ progress: 0, step: '서버 전처리 시작...' });
+      await longformApi.prepareRender({ storybookId, projectId: project.id });
 
-      // 1. Get render manifest from server
+      // polling으로 전처리 완료 대기
+      await new Promise<void>((resolve, reject) => {
+        pollingRef.current = setInterval(async () => {
+          try {
+            const data = await longformApi.getRenderProgress(project.id);
+            if (!data) {
+              stopPolling();
+              resolve();
+              return;
+            }
+            // 서버 전처리 진행률을 0~40% 구간에 매핑
+            const mappedProgress = Math.floor((data.progress / 100) * 40);
+            setProgress({ progress: mappedProgress, step: data.step });
+            if (data.progress >= 100) {
+              stopPolling();
+              resolve();
+            }
+          } catch (e) {
+            stopPolling();
+            reject(e);
+          }
+        }, 2000);
+      });
+
+      // Phase 2: 서버에서 전처리된 매니페스트 가져오기
+      setProgress({ progress: 40, step: '매니페스트 로딩...' });
       const manifest = await longformApi.renderManifest({
         storybookId,
         projectId: project.id,
       });
 
-      // 2. Render on client with FFmpeg.wasm
+      // Phase 3: 클라이언트에서 concat + 오디오 믹싱 (re-encode 없음)
+      setProgress({ progress: 42, step: 'FFmpeg 로딩 중...' });
       const videoData = await renderOnClient(manifest, (p, step) => {
-        setProgress({ progress: p, step });
+        // renderOnClient 진행률(0-90)을 42~90% 구간에 매핑
+        const mappedProgress = 42 + Math.floor((p / 90) * 48);
+        setProgress({ progress: mappedProgress, step });
       });
 
-      // 3. Get presigned upload URL
-      setProgress({ progress: 90, step: 'R2 업로드 중...' });
+      // Phase 4: Presigned URL로 R2 업로드
+      setProgress({ progress: 92, step: 'R2 업로드 중...' });
       const { uploadUrl, publicUrl } = await longformApi.presignedUpload({
         storybookId,
         projectId: project.id,
       });
 
-      // 4. Upload directly to R2
       await fetch(uploadUrl, {
         method: 'PUT',
         body: new Blob([videoData.buffer as ArrayBuffer], { type: 'video/mp4' }),
         headers: { 'Content-Type': 'video/mp4' },
       });
 
-      // 5. Confirm render to server (saves outputUrl)
+      // Phase 5: 서버에 완료 알림
       setProgress({ progress: 98, step: '저장 중...' });
       await longformApi.confirmRender({
         storybookId,

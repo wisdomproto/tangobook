@@ -659,51 +659,186 @@ export const LongformService = {
     }
   },
 
-  // ----- Render manifest (클라이언트-사이드 렌더링용) -----
+  // ----- Render manifest (전처리된 씬 URL 반환) -----
   async renderManifest(storybookId: string, projectId: string) {
     const storybook = await loadStorybook(storybookId);
     const project = loadProject(storybook, projectId);
 
-    if (project.scenes.length === 0) {
-      throw new AppError(400, '장면이 없습니다.');
-    }
-    const readyScenes = project.scenes.filter((s) => s.clipUrl);
-    if (readyScenes.length === 0) {
-      throw new AppError(400, '생성된 클립이 없습니다.');
-    }
+    const readyScenes = project.scenes.filter((s) => s.clipUrl).sort((a, b) => a.order - b.order);
+    if (readyScenes.length === 0) throw new AppError(400, '생성된 클립이 없습니다.');
 
     return {
-      scenes: readyScenes
-        .sort((a, b) => a.order - b.order)
-        .map((scene) => ({
-          clipUrl: scene.clipUrl!,
+      scenes: readyScenes.map((scene, i) => {
+        // 전처리된 클립 URL (prepareRender에서 업로드됨)
+        const processedClipUrl = `${r2PublicUrl}/storybooks/${storybookId}/longform/${projectId}/prepared/scene_${i}.mp4`;
+        return {
+          processedClipUrl,
           sfxUrl: scene.sfxUrl,
           sfxVolume: scene.sfxVolume,
           sfxOffset: scene.sfxOffset,
           ttsUrl: scene.ttsUrl,
           ttsOffset: scene.ttsOffset,
-          subtitles: scene.subtitles.map((sub) => ({
-            text: sub.text,
-            startTime: sub.startTime,
-            endTime: sub.endTime,
-          })),
           clipDuration: scene.clipDuration,
           trimStart: scene.trimStart,
           trimEnd: scene.trimEnd,
-        })),
+        };
+      }),
       bgmUrl: project.bgmUrl,
       bgmVolume: project.bgmVolume,
       aspectRatio: project.aspectRatio,
-      subtitleStyle: {
-        fontSize: project.subtitleStyle.fontSize,
-        position: project.subtitleStyle.position,
-        textColor: project.subtitleStyle.textColor,
-        outlineColor: project.subtitleStyle.outlineColor,
-        bgColor: project.subtitleStyle.bgColor,
-      },
-      transitionDuration: 0.5,
-      jCutDuration: 1.0,
     };
+  },
+
+  // ----- Prepare render (씬별 자막 burn-in → R2 업로드) -----
+  async prepareRender(storybookId: string, projectId: string) {
+    const storybook = await loadStorybook(storybookId);
+    const project = loadProject(storybook, projectId);
+
+    if (project.scenes.length === 0) throw new AppError(400, '장면이 없습니다.');
+    const readyScenes = project.scenes.filter((s) => s.clipUrl).sort((a, b) => a.order - b.order);
+    if (readyScenes.length === 0) throw new AppError(400, '생성된 클립이 없습니다.');
+
+    const total = readyScenes.length;
+    renderProgressMap.set(projectId, { progress: 0, step: '씬 전처리 시작' });
+
+    const ffmpegPath = (await import('ffmpeg-static')).default!;
+    const workDir = path.join(os.tmpdir(), `tangobook-prepare-${Date.now()}`);
+    fs.mkdirSync(workDir, { recursive: true });
+
+    const [w, h] =
+      project.aspectRatio === '9:16'
+        ? [720, 1280]
+        : project.aspectRatio === '1:1'
+          ? [720, 720]
+          : [1280, 720];
+
+    const processedScenes: Array<{
+      processedClipUrl: string;
+      sfxUrl?: string;
+      sfxVolume: number;
+      sfxOffset?: number;
+      ttsUrl?: string;
+      ttsOffset?: number;
+      clipDuration: number;
+      trimStart?: number;
+      trimEnd?: number;
+    }> = [];
+
+    try {
+      for (let i = 0; i < total; i++) {
+        const scene = readyScenes[i];
+        renderProgressMap.set(projectId, {
+          progress: Math.floor((i / total) * 90),
+          step: `씬 ${i + 1}/${total} 자막 처리 중`,
+        });
+
+        // 클립 다운로드
+        const clipKey = urlToR2Key(scene.clipUrl!);
+        const clipBuf = await downloadFromR2(clipKey);
+        const clipPath = path.join(workDir, `scene_${i}.mp4`);
+        fs.writeFileSync(clipPath, clipBuf);
+
+        const outputPath = path.join(workDir, `processed_${i}.mp4`);
+        const trimStart = scene.trimStart ?? 0;
+        const trimEnd = scene.trimEnd ?? 0;
+        const duration = scene.clipDuration - trimStart - trimEnd;
+
+        const subs = scene.subtitles.filter((s) => s.text.trim());
+
+        if (subs.length > 0) {
+          // drawtext 필터로 자막 burn-in
+          const fontSize = project.subtitleStyle.fontSize || 26;
+          const textColor = project.subtitleStyle.textColor.replace('#', '');
+          const outlineColor = project.subtitleStyle.outlineColor.replace('#', '');
+          const pos = project.subtitleStyle.position;
+          const yExpr = pos === 'top' ? '40' : pos === 'center' ? '(h-th)/2' : `h-th-40`;
+
+          // 여러 자막을 drawtext 필터 체인으로 연결
+          const drawtextFilters = subs.map((sub) => {
+            const escapedText = sub.text
+              .replace(/\\/g, '\\\\\\\\')
+              .replace(/'/g, "'\\\\\\''")
+              .replace(/:/g, '\\\\:')
+              .replace(/,/g, '\\\\,');
+            return `drawtext=text='${escapedText}':fontsize=${fontSize}:fontcolor=0x${textColor}:borderw=2:bordercolor=0x${outlineColor}:x=(w-tw)/2:y=${yExpr}:enable='between(t,${sub.startTime},${sub.endTime})'`;
+          });
+
+          const filterStr = `scale=${w}:${h},${drawtextFilters.join(',')}`;
+
+          const args = [
+            '-i',
+            clipPath,
+            ...(trimStart > 0 ? ['-ss', String(trimStart)] : []),
+            '-t',
+            String(duration),
+            '-vf',
+            filterStr,
+            '-c:v',
+            'libx264',
+            '-preset',
+            'ultrafast',
+            '-an', // 오디오 제거 (클라이언트에서 별도 믹싱)
+            '-y',
+            outputPath,
+          ];
+
+          await execFileAsync(ffmpegPath, args, { timeout: 120_000 });
+        } else {
+          // 자막 없으면 trim + scale만
+          const args = [
+            '-i',
+            clipPath,
+            ...(trimStart > 0 ? ['-ss', String(trimStart)] : []),
+            '-t',
+            String(duration),
+            '-vf',
+            `scale=${w}:${h}`,
+            '-c:v',
+            'libx264',
+            '-preset',
+            'ultrafast',
+            '-an',
+            '-y',
+            outputPath,
+          ];
+
+          await execFileAsync(ffmpegPath, args, { timeout: 120_000 });
+        }
+
+        // R2 업로드
+        const outBuf = fs.readFileSync(outputPath);
+        const outKey = `storybooks/${storybookId}/longform/${projectId}/prepared/scene_${i}.mp4`;
+        const outUrl = await R2Repository.uploadBuffer(outBuf, outKey, 'video/mp4');
+
+        processedScenes.push({
+          processedClipUrl: outUrl,
+          sfxUrl: scene.sfxUrl,
+          sfxVolume: scene.sfxVolume,
+          sfxOffset: scene.sfxOffset,
+          ttsUrl: scene.ttsUrl,
+          ttsOffset: scene.ttsOffset,
+          clipDuration: scene.clipDuration,
+          trimStart: scene.trimStart,
+          trimEnd: scene.trimEnd,
+        });
+      }
+
+      renderProgressMap.set(projectId, { progress: 95, step: '매니페스트 생성' });
+
+      const manifest = {
+        scenes: processedScenes,
+        bgmUrl: project.bgmUrl,
+        bgmVolume: project.bgmVolume,
+        aspectRatio: project.aspectRatio,
+      };
+
+      renderProgressMap.set(projectId, { progress: 100, step: '전처리 완료' });
+      setTimeout(() => renderProgressMap.delete(projectId), 30_000);
+
+      return manifest;
+    } finally {
+      fs.rmSync(workDir, { recursive: true, force: true });
+    }
   },
 
   // ----- Presigned upload URL -----

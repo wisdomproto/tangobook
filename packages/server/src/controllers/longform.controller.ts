@@ -141,6 +141,15 @@ export const LongformController = {
     res.json({ success: true, data: result });
   }),
 
+  prepareRender: asyncHandler(async (req: Request, res: Response) => {
+    const { storybookId, projectId } = req.body;
+    // Fire and forget - client polls renderProgress
+    LongformService.prepareRender(storybookId, projectId).catch((err) => {
+      console.error('[longform] prepareRender error:', err);
+    });
+    res.json({ success: true, data: { message: '씬 전처리가 시작되었습니다.' } });
+  }),
+
   renderManifest: asyncHandler(async (req: Request, res: Response) => {
     const { storybookId, projectId } = req.body;
     const manifest = await LongformService.renderManifest(storybookId, projectId);

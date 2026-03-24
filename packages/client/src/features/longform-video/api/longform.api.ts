@@ -54,7 +54,10 @@ export const longformApi = {
       headers: { 'Content-Type': 'multipart/form-data' },
     } as any),
 
-  // Client-side rendering
+  // Client-side rendering (hybrid)
+  prepareRender: (req: { storybookId: string; projectId: string }) =>
+    apiPost<{ message: string }>('/longform/prepare-render', req),
+
   renderManifest: (req: { storybookId: string; projectId: string }) =>
     apiPost<RenderManifest>('/longform/render-manifest', req),
 
