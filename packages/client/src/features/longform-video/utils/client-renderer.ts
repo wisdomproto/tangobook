@@ -189,13 +189,13 @@ async function processScene(
     args.push('-filter_complex', filters.join(';'));
     args.push('-map', '[vout]');
     args.push('-map', '0:a?');
+    // 자막 overlay는 re-encode 필수
+    args.push('-c:v', 'libx264', '-preset', 'ultrafast', '-c:a', 'aac');
   } else {
-    // No subtitles: just scale
-    args.push('-vf', `scale=${w}:${h}`);
+    // 자막 없음 → stream copy (re-encode 없이 즉시 완료)
+    args.push('-c', 'copy');
   }
 
-  // Encode settings
-  args.push('-c:v', 'libx264', '-preset', 'ultrafast', '-c:a', 'aac');
   args.push('-y', `processed_${idx}.mp4`);
 
   const exitCode = await ffmpeg.exec(args);
