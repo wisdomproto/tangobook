@@ -218,12 +218,13 @@ AI를 활용하여 비전문가도 고품질 동화책을 제작할 수 있는 �
 - BGM 라이브러리 선택 + 볼륨 조절
 - 프리뷰 재생 (비디오 + SFX + BGM 동기화)
 
-**Step 4: 렌더링 (MoviePy)**
-- Cross-Dissolve 전환 (장면 간 0.5초)
-- J-Cut 오디오 선행 (다음 장면 SFX/TTS 1초 전 페이드인)
-- 자막 오버레이 (PIL 렌더링, 외곽선 지원)
-- BGM 루프 + 볼륨 믹싱
+**Step 4: 렌더링 (네이티브 ffmpeg, MoviePy 제거됨)**
+- Pillow로 자막 PNG 생성 (한글 자동 줄바꿈, 외곽선, 반투명 배경) → ffmpeg overlay
+- ffmpeg xfade 크로스디졸브 전환 (장면 간 0.5초)
+- ffmpeg amix 오디오 믹싱 (SFX/TTS adelay + BGM, normalize=0)
+- `-movflags +faststart` 브라우저 스트리밍 재생 지원
 - 해상도: 16:9 (1280×720), 9:16, 1:1
+- 프로덕션: 시스템 ffmpeg + NanumGothic 폰트 (Dockerfile)
 - "no text, no music, no speech" 프롬프트 자동 포함
 
 **Step 5: YouTube 업로드**

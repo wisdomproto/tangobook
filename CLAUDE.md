@@ -338,6 +338,9 @@ features/viewer/
 features/longform-video/
   api/longform.api.ts               # analyze, generateClip, generateAll, render, progress 폴링
   utils/timeline.utils.ts           # getEffectiveDuration, getSceneStartTime
+  utils/ffmpeg-loader.ts            # FFmpeg.wasm 싱글톤 로더 (fallback용)
+  utils/subtitle-canvas.ts          # Canvas API 자막 이미지 생성 (fallback용)
+  utils/client-renderer.ts          # 클라이언트 렌더러 (fallback용, 현재 미사용)
   hooks/
     useLongformProject.ts           # 프로젝트 생성/삭제/기본값
     useTimeline.ts                  # 타임라인 상태 (play/pause/seek/trim/split/reorder)
@@ -352,7 +355,7 @@ features/longform-video/
     TimelineTrack.tsx               # 트랙 컨테이너 (video/sfx/subtitle/tts/bgm)
     TimelineClip.tsx                # 개별 클립 (리사이즈/이동/재정렬 드래그)
     SubtitleStyleModal.tsx          # 자막 스타일 (크기/색/위치)
-    RenderStep.tsx                  # Step 4: MoviePy 렌더링 + 결과 미리보기
+    RenderStep.tsx                  # Step 4: 서버 렌더링 + YouTube 업로드 + 결과 미리보기
     PromptPresetModal.tsx           # 프롬프트 프리셋 관리
 ```
 
@@ -368,15 +371,25 @@ server/src/
   providers/grok.provider.ts        # xAI Grok 영상 생성 API (image-to-video, 720p)
   providers/youtube.provider.ts     # Google YouTube API (OAuth2 + upload + thumbnail)
   providers/longform.provider.ts    # Python 렌더링 스크립트 호출 (LongformRenderOptions)
-  scripts/generate_longform.py      # MoviePy 렌더링 (자막, 크로스디졸브, J-Cut, BGM)
+  providers/r2.provider.ts          # R2 CRUD + presigned upload URL
+  scripts/generate_longform.py      # 네이티브 ffmpeg 렌더링 (Pillow 자막 PNG + ffmpeg overlay/concat/amix)
 ```
 
 ### 롱폼 영상 파이프라인
 1. **프롬프트 분석** (Gemini): 페이지별 영상 프롬프트 생성 + Motion Matching (이전 장면 카메라 참조)
 2. **클립 생성** (Grok xAI): image-to-video, "no music/text/subtitles" 자동 포함, 720p
 3. **타임라인 편집**: 트리밍(trimStart/trimEnd), SFX/TTS 오프셋, 장면 순서 드래그, 분할
-4. **렌더링** (MoviePy): Cross-Dissolve 전환 + J-Cut 오디오 선행 + 자막 오버레이 + BGM 믹싱
+4. **렌더링** (네이티브 ffmpeg): Pillow 자막 PNG → ffmpeg overlay → xfade 크로스디졸브 → amix 오디오(SFX/TTS/BGM) → MP4 (MoviePy 제거됨)
 5. **YouTube 업로드**: OAuth2 연결 → AI 설정값 생성(프롬프트 프리셋) → 업로드 + 썸네일
+
+### 렌더링 상세 (generate_longform.py)
+- **MoviePy 완전 제거** → Pillow(자막 PNG) + 네이티브 ffmpeg subprocess
+- Phase 1: 병렬 다운로드 (ThreadPoolExecutor, 6워커)
+- Phase 2: 씬별 Pillow 자막 PNG 생성 → ffmpeg overlay (한글 자동 줄바꿈, 외곽선, 반투명 배경)
+- Phase 3: ffmpeg xfade 크로스디졸브 (기본 0.5초)
+- Phase 4: ffmpeg amix 오디오 믹싱 (SFX/TTS adelay + BGM, normalize=0)
+- 최종: `-movflags +faststart` (브라우저 스트리밍 재생 지원)
+- 프로덕션에서 시스템 ffmpeg 사용 (drawtext/libfreetype 지원), 로컬은 ffmpeg-static
 
 ### YouTube 자동 업로드
 - **OAuth2**: Google YouTube Data API v3, 토큰 R2 저장 (`system/youtube-tokens.json`)
