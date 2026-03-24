@@ -701,7 +701,9 @@ export const LongformService = {
     const total = readyScenes.length;
     renderProgressMap.set(projectId, { progress: 0, step: '씬 전처리 시작' });
 
-    const ffmpegPath = (await import('ffmpeg-static')).default!;
+    // drawtext 필터는 libfreetype 필요 → 프로덕션에서는 시스템 ffmpeg 사용
+    const ffmpegPath =
+      process.env.NODE_ENV === 'production' ? 'ffmpeg' : (await import('ffmpeg-static')).default!;
     const workDir = path.join(os.tmpdir(), `tangobook-prepare-${Date.now()}`);
     fs.mkdirSync(workDir, { recursive: true });
 
@@ -711,6 +713,14 @@ export const LongformService = {
         : project.aspectRatio === '1:1'
           ? [720, 720]
           : [1280, 720];
+
+    // 한글 폰트 (Dockerfile에서 NanumGothic 설치됨)
+    const FONT_PATHS = [
+      '/usr/share/fonts/truetype/nanum/NanumGothic.ttf',
+      'C:/Windows/Fonts/malgun.ttf',
+      'C:/Windows/Fonts/NanumGothic.ttf',
+    ];
+    const fontFile = FONT_PATHS.find((p) => fs.existsSync(p)) ?? '';
 
     const processedScenes: Array<{
       processedClipUrl: string;
@@ -760,7 +770,8 @@ export const LongformService = {
               .replace(/'/g, "'\\\\\\''")
               .replace(/:/g, '\\\\:')
               .replace(/,/g, '\\\\,');
-            return `drawtext=text='${escapedText}':fontsize=${fontSize}:fontcolor=0x${textColor}:borderw=2:bordercolor=0x${outlineColor}:x=(w-tw)/2:y=${yExpr}:enable='between(t,${sub.startTime},${sub.endTime})'`;
+            const fontParam = fontFile ? `:fontfile='${fontFile}'` : '';
+            return `drawtext=text='${escapedText}':fontsize=${fontSize}${fontParam}:fontcolor=0x${textColor}:borderw=2:bordercolor=0x${outlineColor}:x=(w-tw)/2:y=${yExpr}:enable='between(t,${sub.startTime},${sub.endTime})'`;
           });
 
           const filterStr = `scale=${w}:${h},${drawtextFilters.join(',')}`;
