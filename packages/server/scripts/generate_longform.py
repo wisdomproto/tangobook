@@ -469,7 +469,7 @@ def main():
             "-filter_complex", ";".join(filter_parts),
             "-map", "0:v", "-map", "[aout]",
             "-c:v", "copy", "-c:a", "aac",
-            "-shortest", "-y", output_path,
+            "-shortest", "-movflags", "+faststart", "-y", output_path,
         ]
         run_ffmpeg(args, timeout=600)
 
