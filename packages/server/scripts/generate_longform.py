@@ -350,28 +350,60 @@ def main():
         report_progress(100, "처리할 클립이 없습니다")
         sys.exit(1)
 
-    # Phase 3: Concat (70~75%)
-    report_progress(70, "장면 연결 중")
+    # Phase 3: 크로스디졸브 연결 (70~80%)
+    transition = options.get("transitionDuration", CROSSFADE_DURATION)
+    report_progress(70, "크로스디졸브 연결 중")
     concat_path = os.path.join(work_dir, "concat_video.mp4")
 
     if len(processed) == 1:
         shutil.copy2(processed[0], concat_path)
-    else:
+    elif transition <= 0 or len(processed) <= 1:
+        # 크로스디졸브 없이 단순 concat
         concat_list = os.path.join(work_dir, "concat.txt")
         with open(concat_list, "w") as f:
             for p in processed:
                 f.write(f"file '{p}'\n")
         run_ffmpeg(["-f", "concat", "-safe", "0", "-i", concat_list, "-c", "copy", "-y", concat_path])
+    else:
+        # xfade 체인으로 크로스디졸브 적용
+        # ffmpeg -i s0.mp4 -i s1.mp4 -i s2.mp4 -filter_complex
+        #   "[0][1]xfade=transition=fade:duration=0.5:offset=X[v01];
+        #    [v01][2]xfade=transition=fade:duration=0.5:offset=Y[v012]"
+        args = []
+        for p in processed:
+            args += ["-i", p]
 
-    # Phase 4: 오디오 믹싱 (75~90%)
-    report_progress(75, "오디오 믹싱 중")
+        n = len(processed)
+        filters = []
+        offset = scene_durations[0] - transition  # 첫 xfade 시작점
 
-    # 장면 시작 오프셋 계산
+        for i in range(1, n):
+            in0 = f"[v{i-1}]" if i > 1 else "[0:v]"
+            in1 = f"[{i}:v]"
+            out = f"[v{i}]" if i < n - 1 else "[vout]"
+            filters.append(f"{in0}{in1}xfade=transition=fade:duration={transition}:offset={offset:.3f}{out}")
+            if i < n - 1:
+                offset += scene_durations[i] - transition
+
+        report_progress(73, f"xfade 필터 ({n}장면, {len(filters)}전환)")
+        args += [
+            "-filter_complex", ";".join(filters),
+            "-map", "[vout]",
+            "-c:v", "libx264", "-preset", "ultrafast", "-threads", "4",
+            "-an", "-y", concat_path,
+        ]
+        run_ffmpeg(args, timeout=600)
+
+    # Phase 4: 오디오 믹싱 (80~90%)
+    report_progress(80, "오디오 믹싱 중")
+
+    # 장면 시작 오프셋 계산 (크로스디졸브 반영)
     scene_offsets = []
     t = 0.0
-    for dur in scene_durations:
+    for i, dur in enumerate(scene_durations):
         scene_offsets.append(t)
-        t += dur
+        overlap = transition if (transition > 0 and i < len(scene_durations) - 1) else 0
+        t += dur - overlap
 
     # 오디오 입력 수집
     audio_inputs = []  # (filepath, delay_ms, volume)
