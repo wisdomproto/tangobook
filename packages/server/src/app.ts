@@ -29,6 +29,14 @@ export function createApp() {
 
   // 미들웨어
   app.use(corsMiddleware);
+
+  // COOP/COEP headers for FFmpeg.wasm (SharedArrayBuffer)
+  app.use((_req, res, next) => {
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+    res.setHeader('Cross-Origin-Embedder-Policy', 'credentialless');
+    next();
+  });
+
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true }));
 
