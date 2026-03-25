@@ -212,8 +212,11 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
   });
 
   // === Batch: Generate All TTS (for current activeLang) ===
+  // 삽화 배치와 동일한 패턴: 클라이언트에서 페이지별 순차 호출 + 실시간 진행률
   const batchTtsMutation = useMutation({
-    mutationFn: ({ lang, voice }: { lang: string; voice: string }) => {
+    mutationFn: async ({ lang, voice }: { lang: string; voice: string }) => {
+      const ac = new AbortController();
+      abortControllerRef.current = ac;
       const pages = (storybook.pages ?? [])
         .map((p) => {
           const text = lang === 'ko' ? p.text : p.translations?.[lang]?.text;
@@ -221,33 +224,40 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
         })
         .filter((p): p is { pageNumber: number; text: string } => p !== null);
 
-      setBatchProgress({ type: 'TTS 생성', current: 0, total: pages.length });
-      return ttsApi.batch({
-        pages,
-        provider: 'gemini',
-        voice,
-        language: lang,
-        storybookId: storybook.id,
-      });
-    },
-    onSuccess: (results, { lang }) => {
-      onUpdate((draft) => {
-        for (const r of results) {
-          if (!r.success || !r.audioUrl) continue;
-          const page = draft.pages.find((p) => p.pageNumber === r.pageNumber);
-          if (!page) continue;
-          if (lang === 'ko') {
-            page.ttsUrl = r.audioUrl;
-          } else {
-            if (!page.translations) page.translations = {};
-            if (!page.translations[lang]) page.translations[lang] = { text: '' };
-            page.translations[lang].ttsUrl = r.audioUrl;
-          }
+      for (let i = 0; i < pages.length; i++) {
+        ac.signal.throwIfAborted();
+        setBatchProgress({ type: 'TTS 생성', current: i + 1, total: pages.length });
+        try {
+          const result = await ttsApi.generate({
+            text: pages[i].text,
+            provider: 'gemini',
+            voice,
+            language: lang,
+            storybookId: storybook.id,
+            pageNumber: pages[i].pageNumber,
+          });
+          onUpdate((draft) => {
+            const page = draft.pages.find((p) => p.pageNumber === pages[i].pageNumber);
+            if (!page) return;
+            if (lang === 'ko') {
+              page.ttsUrl = result.audioUrl;
+            } else {
+              if (!page.translations) page.translations = {};
+              if (!page.translations[lang]) page.translations[lang] = { text: '' };
+              page.translations[lang].ttsUrl = result.audioUrl;
+            }
+          });
+        } catch (err) {
+          console.error(`[TTS batch] page ${pages[i].pageNumber} failed:`, err);
+          // 실패한 페이지는 건너뛰고 계속 진행
         }
-      });
+      }
+    },
+    onSettled: () => {
+      abortControllerRef.current = null;
+      setBatchProgress(null);
       onSave();
     },
-    onSettled: () => setBatchProgress(null),
   });
 
   // === Batch: Translate All Pages (for current activeLang) ===
