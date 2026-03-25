@@ -5,6 +5,7 @@ import type { AudiobookRenderProps } from '@tangobook/remotion';
 import { SUPPORTED_LANGUAGES, buildAudiobookRenderData } from '@tangobook/shared';
 import type { AudiobookProject, CoverImageItem, Storybook } from '@tangobook/shared';
 import { useAudiobookRender } from '../hooks/useAudiobookRender';
+import { useTtsDurations } from '../hooks/useTtsDurations';
 import { audiobookApi } from '../api/audiobook.api';
 import type { AudiobookRenderProgress } from '../api/audiobook.api';
 import { settingsApi } from '@/features/settings/api/settings.api';
@@ -163,8 +164,9 @@ export function AudiobookProjectCard({
     }
   };
 
-  // Remotion Player data
-  const renderData = buildAudiobookRenderData(storybook, project);
+  // Remotion Player data — probe TTS durations for accurate preview timing
+  const rawRenderData = buildAudiobookRenderData(storybook, project);
+  const renderData = useTtsDurations(rawRenderData);
   const totalFrames = calculateTotalFrames(renderData as AudiobookRenderProps);
   const resolution = RESOLUTIONS[renderData.aspectRatio] ?? RESOLUTIONS['16:9'];
 
