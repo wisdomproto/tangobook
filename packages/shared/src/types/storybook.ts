@@ -721,6 +721,8 @@ export interface AudiobookProject {
   subtitleBg: string;
   outputUrl?: string;
   createdAt?: string;
+  enableParticles?: boolean;
+  youtubeUpload?: YouTubeUploadResult;
 }
 
 // === 블로그 ===
