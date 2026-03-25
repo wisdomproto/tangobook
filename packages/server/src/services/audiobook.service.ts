@@ -1,116 +1,94 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import type { AudiobookGenerateRequest, AudiobookResult } from '@tangobook/shared';
-import type { AudiobookProject, Page } from '@tangobook/shared';
+import { fileURLToPath } from 'url';
+import { bundle } from '@remotion/bundler';
+import { renderMedia, selectComposition } from '@remotion/renderer';
 import { AppError } from '../middleware/error.middleware.js';
 import { R2Repository } from '../repositories/r2.repository.js';
-import { generateAudiobook } from '../providers/audiobook.provider.js';
 import { buildR2Key } from '../utils/r2-key.js';
-import type { AudiobookPageData, ProgressInfo } from '../providers/audiobook.provider.js';
+import { buildAudiobookRenderData } from '@tangobook/shared';
+import type { AudiobookProject } from '@tangobook/shared';
 
-// 프로젝트별 진행률 저장 (메모리)
-const progressMap = new Map<string, ProgressInfo>();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+type RenderProgress = { progress: number; step: string; error?: string };
+const renderProgressMap = new Map<string, RenderProgress>();
+
+let cachedBundlePath: string | null = null;
+
+async function getBundlePath(): Promise<string> {
+  if (cachedBundlePath && fs.existsSync(cachedBundlePath)) {
+    return cachedBundlePath;
+  }
+  // entry.ts contains registerRoot() — required for Remotion bundling
+  const remotionEntry = path.resolve(__dirname, '../../../remotion/src/entry.ts');
+  cachedBundlePath = await bundle({ entryPoint: remotionEntry });
+  return cachedBundlePath;
+}
 
 export const AudiobookService = {
-  getProgress(projectId: string): ProgressInfo | null {
-    return progressMap.get(projectId) ?? null;
+  getRenderProgress(projectId: string): RenderProgress | null {
+    return renderProgressMap.get(projectId) ?? null;
   },
 
-  async generate(req: AudiobookGenerateRequest): Promise<AudiobookResult> {
+  async render(req: { storybookId: string; projectId: string }): Promise<{ outputUrl: string }> {
     const { storybookId, projectId } = req;
 
     if (!storybookId) throw new AppError(400, 'storybookId는 필수입니다.');
     if (!projectId) throw new AppError(400, 'projectId는 필수입니다.');
 
-    // 1. 동화책 로드
+    // 1. Load storybook
     const storybook = await R2Repository.getStorybook(storybookId);
     if (!storybook) throw new AppError(404, '동화책을 찾을 수 없습니다.');
 
-    // 2. 프로젝트 설정 찾기
     const project = storybook.audiobookProjects?.find((p: AudiobookProject) => p.id === projectId);
     if (!project) throw new AppError(404, '오디오북 프로젝트를 찾을 수 없습니다.');
 
-    // 3. 페이지 범위 추출
-    const allPages = storybook.pages ?? [];
-    const startIdx = Math.max(0, (project.startPage ?? 1) - 1);
-    const endIdx = Math.min(allPages.length, project.endPage ?? allPages.length);
-    const pages = allPages.slice(startIdx, endIdx);
+    // 2. Build render props
+    const renderData = buildAudiobookRenderData(storybook, project);
+    if (renderData.slides.length === 0) {
+      throw new AppError(400, '렌더링할 페이지가 없습니다 (삽화가 있는 페이지 필요).');
+    }
 
-    if (pages.length === 0) throw new AppError(400, '선택된 페이지가 없습니다.');
+    renderProgressMap.set(projectId, { progress: 0, step: '준비 중' });
 
-    // 4. 페이지 데이터 준비 (언어별 텍스트/TTS 선택)
-    const lang = project.language ?? 'ko';
-    const pageData: AudiobookPageData[] = pages.map((page: Page) => {
-      let text = page.text;
-      let audioUrl = page.ttsUrl;
-
-      if (lang !== 'ko' && page.translations?.[lang]) {
-        text = page.translations[lang].text ?? text;
-        audioUrl = page.translations[lang].ttsUrl ?? audioUrl;
-      }
-
-      return {
-        imageUrl: page.illustrationUrl ?? '',
-        audioUrl: audioUrl ?? undefined,
-        text,
-      };
-    });
-
-    // 삽화가 없는 페이지 필터링 경고 (삽화 없으면 건너뜀)
-    const validPages = pageData.filter((p) => p.imageUrl);
-    if (validPages.length === 0) throw new AppError(400, '삽화가 있는 페이지가 없습니다.');
-
-    // 5. 임시 작업 디렉토리 생성
-    const workDir = path.join(os.tmpdir(), `tangobook-audiobook-${Date.now()}`);
+    const workDir = path.join(os.tmpdir(), `audiobook-${projectId}-${Date.now()}`);
     fs.mkdirSync(workDir, { recursive: true });
-    const outputPath = path.join(workDir, 'output.mp4');
 
     try {
-      // 6. 표지 데이터 (프로젝트에서 선택한 표지 우선, 없으면 대표 표지)
-      const coverUrl = project.coverImageUrl ?? storybook.coverImage;
-      const cover =
-        project.includeCover && coverUrl
-          ? { imageUrl: coverUrl, duration: project.coverDuration ?? 3 }
-          : undefined;
+      // 3. Bundle (cached)
+      renderProgressMap.set(projectId, { progress: 5, step: 'Remotion 번들링' });
+      const bundlePath = await getBundlePath();
 
-      // 7. BGM URL 결정 (프로젝트 선택 BGM 우선, 없으면 동화책 기본 BGM)
-      const bgmUrl = project.includeBgm
-        ? (project.bgmUrl ?? storybook.backgroundMusicUrl)
-        : undefined;
-      if (project.includeBgm) {
-        console.warn(
-          `[audiobook] BGM: project.bgmUrl=${project.bgmUrl ? '있음' : '없음'}, storybook.backgroundMusicUrl=${storybook.backgroundMusicUrl ? '있음' : '없음'}, 최종=${bgmUrl ? bgmUrl.substring(0, 80) : '없음'}`
-        );
-      }
+      // 4. Select composition
+      renderProgressMap.set(projectId, { progress: 10, step: '컴포지션 준비' });
+      const composition = await selectComposition({
+        serveUrl: bundlePath,
+        id: 'Audiobook',
+        inputProps: renderData,
+      });
 
-      // 8. Python 스크립트 호출
-      progressMap.set(projectId, { progress: 0, step: '시작' });
-      await generateAudiobook(
-        {
-          pages: validPages,
-          cover,
-          format: project.format,
-          aspectRatio: project.aspectRatio,
-          layout: project.layout,
-          bgmUrl: bgmUrl ?? undefined,
-          bgmVolume: project.bgmVolume ?? 30,
-          includeSubtitles: project.includeSubtitles ?? true,
-          subtitleColor: project.subtitleColor ?? '#ffffff',
-          subtitleSize: project.subtitleSize ?? 'md',
-          subtitlePosition: project.subtitlePosition ?? 'bottom',
-          subtitleBg: project.subtitleBg ?? '#00000080',
-          workDir,
-          outputPath,
+      // 5. Render
+      const outputPath = path.join(workDir, 'output.mp4');
+      renderProgressMap.set(projectId, { progress: 15, step: '렌더링 중' });
+
+      await renderMedia({
+        composition,
+        serveUrl: bundlePath,
+        codec: 'h264',
+        outputLocation: outputPath,
+        inputProps: renderData,
+        timeoutInMilliseconds: 600000, // 10 minutes
+        onProgress: ({ progress }) => {
+          const percent = 15 + Math.round(progress * 75); // 15-90%
+          renderProgressMap.set(projectId, { progress: percent, step: '렌더링 중' });
         },
-        (info) => {
-          progressMap.set(projectId, info);
-        }
-      );
+      });
 
-      progressMap.set(projectId, { progress: 95, step: 'R2 업로드 중' });
-
-      // 9. 결과 파일을 R2에 업로드
+      // 6. Upload to R2
+      renderProgressMap.set(projectId, { progress: 92, step: 'R2 업로드 중' });
       const videoBuffer = fs.readFileSync(outputPath);
       const key = buildR2Key({
         storybookId,
@@ -121,7 +99,7 @@ export const AudiobookService = {
       });
       const outputUrl = await R2Repository.uploadBuffer(videoBuffer, key, 'video/mp4');
 
-      // 10. 결과 URL을 스토리북에 저장 (서버 측 영구 저장)
+      // 7. Update storybook
       const proj = storybook.audiobookProjects?.find((p: AudiobookProject) => p.id === projectId);
       if (proj) {
         proj.outputUrl = outputUrl;
@@ -129,12 +107,19 @@ export const AudiobookService = {
         await R2Repository.saveStorybook(storybook);
       }
 
-      progressMap.set(projectId, { progress: 100, step: '완료' });
-      setTimeout(() => progressMap.delete(projectId), 30_000);
+      renderProgressMap.set(projectId, { progress: 100, step: '완료' });
+      setTimeout(() => renderProgressMap.delete(projectId), 30_000);
 
       return { outputUrl };
+    } catch (err: any) {
+      renderProgressMap.set(projectId, {
+        progress: -1,
+        step: '렌더링 실패',
+        error: err.message || '알 수 없는 오류',
+      });
+      setTimeout(() => renderProgressMap.delete(projectId), 30_000);
+      throw err;
     } finally {
-      // 10. 임시 디렉토리 정리
       fs.rmSync(workDir, { recursive: true, force: true });
     }
   },

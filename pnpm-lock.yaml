@@ -65,6 +65,12 @@ importers:
       '@ffmpeg/util':
         specifier: ^0.12.2
         version: 0.12.2
+      '@remotion/player':
+        specifier: ^4.0.440
+        version: 4.0.440(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tangobook/remotion':
+        specifier: workspace:*
+        version: link:../remotion
       '@tangobook/shared':
         specifier: workspace:*
         version: link:../shared
@@ -89,6 +95,9 @@ importers:
       react-router-dom:
         specifier: ^6.28.0
         version: 6.30.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      remotion:
+        specifier: ^4.0.440
+        version: 4.0.440(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       zustand:
         specifier: ^5.0.0
         version: 5.0.11(@types/react@18.3.28)(react@18.3.1)
@@ -163,6 +172,15 @@ importers:
       '@google/generative-ai':
         specifier: ^0.24.1
         version: 0.24.1
+      '@remotion/bundler':
+        specifier: ^4.0.440
+        version: 4.0.440(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@remotion/renderer':
+        specifier: ^4.0.440
+        version: 4.0.440(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tangobook/remotion':
+        specifier: workspace:*
+        version: link:../remotion
       '@tangobook/shared':
         specifier: workspace:*
         version: link:../shared
@@ -190,6 +208,9 @@ importers:
       multer:
         specifier: ^2.0.0
         version: 2.0.2
+      remotion:
+        specifier: ^4.0.440
+        version: 4.0.440(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
@@ -5840,7 +5861,7 @@ snapshots:
       react-refresh: 0.18.0
       remotion: 4.0.440(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       source-map: 0.7.3
-      style-loader: 4.0.0(webpack@5.105.0)
+      style-loader: 4.0.0(webpack@5.105.0(esbuild@0.25.0))
       webpack: 5.105.0(esbuild@0.25.0)
     transitivePeerDependencies:
       - '@swc/core'
@@ -9301,7 +9322,7 @@ snapshots:
 
   strnum@2.2.2: {}
 
-  style-loader@4.0.0(webpack@5.105.0):
+  style-loader@4.0.0(webpack@5.105.0(esbuild@0.25.0)):
     dependencies:
       webpack: 5.105.0(esbuild@0.25.0)
 
@@ -9355,7 +9376,7 @@ snapshots:
 
   tapable@2.3.2: {}
 
-  terser-webpack-plugin@5.4.0(esbuild@0.25.0)(webpack@5.105.0):
+  terser-webpack-plugin@5.4.0(esbuild@0.25.0)(webpack@5.105.0(esbuild@0.25.0)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
@@ -9544,7 +9565,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.2
-      terser-webpack-plugin: 5.4.0(esbuild@0.25.0)(webpack@5.105.0)
+      terser-webpack-plugin: 5.4.0(esbuild@0.25.0)(webpack@5.105.0(esbuild@0.25.0))
       watchpack: 2.5.1
       webpack-sources: 3.3.4
     transitivePeerDependencies:
