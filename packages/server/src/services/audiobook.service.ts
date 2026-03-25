@@ -8,7 +8,9 @@ import { AppError } from '../middleware/error.middleware.js';
 import { R2Repository } from '../repositories/r2.repository.js';
 import { buildR2Key } from '../utils/r2-key.js';
 import { buildAudiobookRenderData } from '@tangobook/shared';
+import type { AudiobookRenderData } from '@tangobook/shared';
 import type { AudiobookProject } from '@tangobook/shared';
+import { getAudioDuration } from '../utils/audio-duration.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,6 +28,23 @@ async function getBundlePath(): Promise<string> {
   const remotionEntry = path.resolve(__dirname, '../../../remotion/src/entry.ts');
   cachedBundlePath = await bundle({ entryPoint: remotionEntry });
   return cachedBundlePath;
+}
+
+/** Probe TTS durations for slides that have TTS URLs. Mutates renderData in-place. */
+async function probeTtsDurations(
+  renderData: AudiobookRenderData,
+  onProgress?: (current: number, total: number) => void
+): Promise<void> {
+  const slidesWithTts = renderData.slides.filter((s) => s.ttsUrl);
+  for (let i = 0; i < slidesWithTts.length; i++) {
+    const slide = slidesWithTts[i];
+    try {
+      slide.ttsDuration = await getAudioDuration(slide.ttsUrl!);
+    } catch {
+      console.warn(`[audiobook] TTS 길이 측정 실패: ${slide.ttsUrl}, 기본값(3초) 사용`);
+    }
+    onProgress?.(i + 1, slidesWithTts.length);
+  }
 }
 
 export const AudiobookService = {
@@ -52,7 +71,16 @@ export const AudiobookService = {
       throw new AppError(400, '렌더링할 페이지가 없습니다 (삽화가 있는 페이지 필요).');
     }
 
-    renderProgressMap.set(projectId, { progress: 0, step: '준비 중' });
+    renderProgressMap.set(projectId, { progress: 0, step: 'TTS 길이 측정 중' });
+
+    // 2.5. Probe TTS durations for accurate slide timing
+    await probeTtsDurations(renderData, (i, total) => {
+      const percent = Math.round((i / total) * 4); // 0-4%
+      renderProgressMap.set(projectId, {
+        progress: percent,
+        step: `TTS 길이 측정 중 (${i}/${total})`,
+      });
+    });
 
     const workDir = path.join(os.tmpdir(), `audiobook-${projectId}-${Date.now()}`);
     fs.mkdirSync(workDir, { recursive: true });

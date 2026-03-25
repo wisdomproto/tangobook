@@ -27,6 +27,7 @@ import { generateLongform, cancelRender } from '../providers/longform.provider.j
 import type { LongformRenderOptions } from '../providers/longform.provider.js';
 import { YouTubeProvider } from '../providers/youtube.provider.js';
 import { PromptPresetService } from './prompt-preset.service.js';
+import { getAudioDuration } from '../utils/audio-duration.js';
 
 const execFileAsync = promisify(execFile);
 
@@ -63,45 +64,7 @@ async function muteVideo(inputPath: string, outputPath: string): Promise<void> {
   await execFileAsync(ffmpegPath!, ['-i', inputPath, '-an', '-vcodec', 'copy', '-y', outputPath]);
 }
 
-/** Get audio duration in seconds from a URL using ffmpeg (most reliable). */
-async function getAudioDuration(audioUrl: string): Promise<number> {
-  const res = await fetch(audioUrl);
-  if (!res.ok) throw new Error(`Failed to fetch audio: ${res.status}`);
-  const buffer = Buffer.from(await res.arrayBuffer());
-
-  const tmpFile = path.join(os.tmpdir(), `tts-probe-${Date.now()}.wav`);
-  try {
-    fs.writeFileSync(tmpFile, buffer);
-    // Use ffmpeg -i to get duration (ffprobe may not be bundled with ffmpeg-static)
-    const ffmpegPath = (await import('ffmpeg-static')).default!;
-    const { stderr } = await execFileAsync(ffmpegPath, ['-i', tmpFile, '-f', 'null', '-'], {
-      // ffmpeg writes info to stderr
-    }).catch((err: { stderr?: string }) => ({ stderr: err.stderr ?? '', stdout: '' }));
-
-    // Parse "Duration: HH:MM:SS.ss" from ffmpeg output
-    const match = stderr.match(/Duration:\s*(\d+):(\d+):(\d+)\.(\d+)/);
-    if (match) {
-      const hours = parseInt(match[1]);
-      const minutes = parseInt(match[2]);
-      const seconds = parseInt(match[3]);
-      const centiseconds = parseInt(match[4]);
-      const duration = hours * 3600 + minutes * 60 + seconds + centiseconds / 100;
-      return duration;
-    }
-
-    // Fallback: WAV header parsing
-    if (buffer.length > 44 && buffer.toString('ascii', 0, 4) === 'RIFF') {
-      const byteRate = buffer.readUInt32LE(28); // bytes per second
-      // Total file size minus 44-byte header, divided by byte rate
-      const dataSize = buffer.length - 44;
-      if (byteRate > 0) return dataSize / byteRate;
-    }
-
-    throw new Error('Could not determine audio duration');
-  } finally {
-    if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
-  }
-}
+// getAudioDuration moved to ../utils/audio-duration.ts
 
 // ===== R2 key builders =====
 
