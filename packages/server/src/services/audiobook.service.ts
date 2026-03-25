@@ -2,8 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import { fileURLToPath } from 'url';
-import { bundle } from '@remotion/bundler';
-import { renderMedia, selectComposition } from '@remotion/renderer';
 import { AppError } from '../middleware/error.middleware.js';
 import { R2Repository } from '../repositories/r2.repository.js';
 import { buildR2Key } from '../utils/r2-key.js';
@@ -11,6 +9,19 @@ import { buildAudiobookRenderData } from '@tangobook/shared';
 import type { AudiobookRenderData } from '@tangobook/shared';
 import type { AudiobookProject } from '@tangobook/shared';
 import { getAudioDuration } from '../utils/audio-duration.js';
+
+// Remotion은 Chromium이 필요하므로 서버 시작 시가 아닌 렌더링 요청 시에만 lazy import
+async function loadRemotion() {
+  const [bundler, renderer] = await Promise.all([
+    import('@remotion/bundler'),
+    import('@remotion/renderer'),
+  ]);
+  return {
+    bundle: bundler.bundle,
+    renderMedia: renderer.renderMedia,
+    selectComposition: renderer.selectComposition,
+  };
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,6 +35,7 @@ async function getBundlePath(): Promise<string> {
   if (cachedBundlePath && fs.existsSync(cachedBundlePath)) {
     return cachedBundlePath;
   }
+  const { bundle } = await loadRemotion();
   // entry.ts contains registerRoot() — required for Remotion bundling
   const remotionEntry = path.resolve(__dirname, '../../../remotion/src/entry.ts');
   cachedBundlePath = await bundle({ entryPoint: remotionEntry });
@@ -90,8 +102,9 @@ export const AudiobookService = {
       renderProgressMap.set(projectId, { progress: 5, step: 'Remotion 번들링' });
       const bundlePath = await getBundlePath();
 
-      // 4. Select composition
+      // 4. Load Remotion + Select composition
       renderProgressMap.set(projectId, { progress: 10, step: '컴포지션 준비' });
+      const { selectComposition, renderMedia } = await loadRemotion();
       const composition = await selectComposition({
         serveUrl: bundlePath,
         id: 'Audiobook',
