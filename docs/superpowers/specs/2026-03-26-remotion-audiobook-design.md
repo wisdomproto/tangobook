@@ -208,22 +208,26 @@ interface AudiobookProject {
   id: string;
   name: string;
   format: 'youtube' | 'instagram-reel' | 'instagram-post' | 'custom';
-  aspectRatio: '16:9' | '9:16' | '1:1';
+  aspectRatio: string;                 // '16:9' | '9:16' | '1:1' | '3:4' | '4:3' (기존 호환)
+  language: string;                    // 언어 코드 (기존 필드 유지)
   startPage: number;
   endPage: number;
   includeCover: boolean;
   coverDuration: number;
+  coverImageUrl?: string;              // 표지 이미지 선택 (기존 필드 유지)
   includeTts: boolean;
   includeBgm: boolean;
   includeSubtitles: boolean;
   subtitleColor: string;
-  subtitleSize: number;
+  subtitleSize: 'sm' | 'md' | 'lg';   // 기존 enum 유지 → Remotion에서 px 매핑 (sm:18, md:24, lg:32)
   subtitlePosition: 'top' | 'center' | 'bottom';
+  subtitleBg: string;                  // 자막 배경색 (기존 필드 유지, 예: '#00000080')
   bgmUrl?: string;
-  bgmVolume?: number;
+  bgmVolume: number;                   // 기본값 30 (기존 required 유지)
   outputUrl?: string;
+  createdAt?: string;                  // 생성 시간 (기존 필드 유지)
 
-  // 제거: layout (Remotion은 항상 fullscreen + overlay)
+  // 제거: layout (Remotion은 항상 fullscreen + overlay, 기존 값 무시)
 
   // 추가
   enableParticles?: boolean;           // 파티클 on/off (기본 true)
@@ -243,13 +247,14 @@ interface AudiobookSlide {
 
 interface AudiobookRenderProps {
   slides: AudiobookSlide[];
-  aspectRatio: '16:9' | '9:16' | '1:1';
+  aspectRatio: '16:9' | '9:16' | '1:1' | '3:4' | '4:3';
   cover?: { imageUrl: string; title: string; duration: number };
   bgmUrl?: string;
-  bgmVolume?: number;
+  bgmVolume?: number;  // 기본값 30
   subtitleStyle: {
-    fontSize: number;
+    fontSize: number;  // px 값 (AudiobookProject의 sm/md/lg에서 변환)
     color: string;
+    backgroundColor: string;  // 반투명 배경 (예: '#00000080')
     position: 'top' | 'center' | 'bottom';
   };
   enableParticles?: boolean;
@@ -257,7 +262,12 @@ interface AudiobookRenderProps {
 }
 ```
 
-Storybook → AudiobookRenderProps 변환 헬퍼는 서버/클라이언트 각각에서 구현.
+Storybook → AudiobookRenderProps 변환 헬퍼는 `packages/shared/`에 배치하여 서버/클라이언트가 공유.
+- `subtitleSize` 매핑: `sm → 18px`, `md → 24px`, `lg → 32px`
+- `subtitleBg` → `subtitleStyle.backgroundColor`
+- `language` 기반 페이지 텍스트/TTS 선택
+- `coverImageUrl` → `cover.imageUrl` (미지정 시 storybook 첫 번째 표지)
+
 remotion 패키지 자체는 Storybook 타입에 의존하지 않음 (나중에 분리 가능).
 
 ## 의존성
@@ -282,7 +292,41 @@ remotion 패키지 자체는 Storybook 타입에 의존하지 않음 (나중에 
 
 ## 해상도
 
-기존과 동일:
+기존과 동일 + 추가:
 - `16:9` → 1280×720
 - `9:16` → 720×1280
 - `1:1` → 720×720
+- `3:4` → 720×960
+- `4:3` → 960×720
+
+## 에러 처리
+
+### 렌더링 실패
+- `renderMedia()` 타임아웃: 10분 (긴 동화책 대비)
+- 실패 시 renderProgressMap에 `{ status: 'error', message }` 기록
+- 클라이언트는 폴링 중 error 상태 감지 → 에러 메시지 표시
+- 임시 파일(다운로드한 이미지/TTS) 정리: finally 블록에서 삭제
+
+### 번들 캐싱
+- `bundle()` 결과를 메모리 캐싱 (번들 경로 저장)
+- 서버 재시작 시 자동 무효화 (메모리 초기화)
+- 수동 무효화 불필요 — 배포 시 서버 재시작이 발생하므로
+
+## YouTube 엔드포인트 상세
+
+기존 롱폼 탭의 `youtube.provider.ts`를 그대로 재사용.
+OAuth2 토큰은 `system/youtube-tokens.json`에 하나만 저장 (롱폼/오디오북 공유).
+YouTube 연결/해제는 롱폼 탭의 기존 엔드포인트를 공유 사용.
+오디오북에서는 업로드와 메타 생성만 별도 엔드포인트로 노출.
+
+## Vite + Remotion Player 호환성
+
+Remotion Player v4+는 Vite를 공식 지원.
+별도 플러그인 불필요. `@remotion/player`를 직접 import하여 사용.
+Remotion 코어 패키지(`remotion`)의 `Composition`, `Sequence` 등은
+클라이언트에서 Player용으로만 사용하므로 webpack 번들링과 충돌 없음.
+
+## format 필드
+
+`format`은 UI 레이블 + 기본 aspectRatio 프리셋 매핑 용도.
+렌더링 동작에는 `aspectRatio`만 영향. 기존 동작 유지.
