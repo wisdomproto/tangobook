@@ -13,7 +13,7 @@ RUN apk add --no-cache \
     && apk add --no-cache --virtual .build-deps \
        gcc musl-dev python3-dev jpeg-dev zlib-dev freetype-dev \
     && pip3 install --break-system-packages --no-cache-dir \
-       moviepy Pillow requests \
+       Pillow requests \
     && apk del .build-deps \
     && ln -sf /usr/bin/python3 /usr/bin/python \
     && mkdir -p /usr/share/fonts/truetype/nanum \
@@ -27,6 +27,7 @@ WORKDIR /app
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 COPY packages/shared/package.json packages/shared/
+COPY packages/remotion/package.json packages/remotion/
 COPY packages/server/package.json packages/server/
 COPY packages/client/package.json packages/client/
 
@@ -39,7 +40,6 @@ RUN pnpm build
 # tsc가 복사하지 않는 비-TS 파일 복사
 RUN cp packages/server/prompt_guide.md packages/server/dist/server/prompt_guide.md \
     && mkdir -p packages/server/dist/server/scripts \
-    && cp packages/server/scripts/generate_audiobook.py packages/server/dist/server/scripts/ \
     && cp packages/server/scripts/generate_longform.py packages/server/dist/server/scripts/
 
 EXPOSE 3000
