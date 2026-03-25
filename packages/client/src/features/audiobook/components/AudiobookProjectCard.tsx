@@ -1,14 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
-import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
-import type { AudiobookProject, CoverImageItem } from '@tangobook/shared';
-import { useAudiobookGenerate } from '../hooks/useAudiobookGenerate';
+import { Player } from '@remotion/player';
+import { AudiobookComposition, calculateTotalFrames, RESOLUTIONS } from '@tangobook/remotion';
+import type { AudiobookRenderProps } from '@tangobook/remotion';
+import { SUPPORTED_LANGUAGES, buildAudiobookRenderData } from '@tangobook/shared';
+import type { AudiobookProject, CoverImageItem, Storybook } from '@tangobook/shared';
+import { useAudiobookRender } from '../hooks/useAudiobookRender';
 import { audiobookApi } from '../api/audiobook.api';
-import type { AudiobookProgress } from '../api/audiobook.api';
+import type { AudiobookRenderProgress } from '../api/audiobook.api';
 import { settingsApi } from '@/features/settings/api/settings.api';
 import type { BgmItem } from '@/features/settings/api/settings.api';
 
 interface AudiobookProjectCardProps {
   project: AudiobookProject;
+  storybook: Storybook;
   storybookId: string;
   totalPages: number;
   expanded: boolean;
@@ -45,6 +49,7 @@ const SUBTITLE_BG_OPTIONS = [
 
 export function AudiobookProjectCard({
   project,
+  storybook,
   storybookId,
   totalPages,
   expanded,
@@ -57,10 +62,11 @@ export function AudiobookProjectCard({
   defaultCoverImage,
 }: AudiobookProjectCardProps) {
   const [editingName, setEditingName] = useState(project.name);
-  const [generating, setGenerating] = useState(false);
-  const [progress, setProgress] = useState<AudiobookProgress | null>(null);
+  const [rendering, setRendering] = useState(false);
+  const [progress, setProgress] = useState<AudiobookRenderProgress | null>(null);
+  const [youtubeUploading, setYoutubeUploading] = useState(false);
   const progressTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const generateMutation = useAudiobookGenerate();
+  const renderMutation = useAudiobookRender();
 
   useEffect(() => {
     setEditingName(project.name);
@@ -104,7 +110,7 @@ export function AudiobookProjectCard({
     setProgress({ progress: 0, step: '시작' });
     progressTimerRef.current = setInterval(async () => {
       try {
-        const data = await audiobookApi.getProgress(project.id);
+        const data = await audiobookApi.getRenderProgress(project.id);
         if (data) setProgress(data);
       } catch {
         /* ignore */
@@ -120,15 +126,13 @@ export function AudiobookProjectCard({
     setProgress(null);
   };
 
-  const handleGenerate = async () => {
-    // 생성 전 최신 상태 R2 저장 보장 (BGM 등 설정이 누락되지 않도록)
+  const handleRender = async () => {
     onSave();
-    // onSave가 비동기이므로 짧은 딜레이
     await new Promise((r) => setTimeout(r, 500));
-    setGenerating(true);
+    setRendering(true);
     startProgressPolling();
     try {
-      const result = await generateMutation.mutateAsync({
+      const result = await renderMutation.mutateAsync({
         storybookId,
         projectId: project.id,
       });
@@ -137,9 +141,32 @@ export function AudiobookProjectCard({
       // error handled by mutation
     } finally {
       stopProgressPolling();
-      setGenerating(false);
+      setRendering(false);
     }
   };
+
+  const handleYoutubeUpload = async () => {
+    setYoutubeUploading(true);
+    try {
+      const status = await audiobookApi.youtubeStatus();
+      if (!status.connected) {
+        const auth = await audiobookApi.youtubeAuthUrl();
+        window.open(auth.url, '_blank');
+        return;
+      }
+      await audiobookApi.youtubeUpload({ storybookId, projectId: project.id });
+      onUpdate({ youtubeUpload: { videoId: 'uploaded', url: '' } } as any);
+    } catch (err: any) {
+      alert(err.message || 'YouTube 업로드 실패');
+    } finally {
+      setYoutubeUploading(false);
+    }
+  };
+
+  // Remotion Player data
+  const renderData = buildAudiobookRenderData(storybook, project);
+  const totalFrames = calculateTotalFrames(renderData as AudiobookRenderProps);
+  const resolution = RESOLUTIONS[renderData.aspectRatio] ?? RESOLUTIONS['16:9'];
 
   const labelClass = 'text-xs font-medium text-slate-500 dark:text-slate-400';
   const selectClass =
@@ -183,7 +210,7 @@ export function AudiobookProjectCard({
 
         {project.outputUrl && <span className="text-xs text-emerald-500 shrink-0">생성완료</span>}
 
-        {generating && progress ? (
+        {rendering && progress ? (
           <div className="flex items-center gap-2 shrink-0" onClick={(e) => e.stopPropagation()}>
             <div className="w-24 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
               <div
@@ -197,12 +224,12 @@ export function AudiobookProjectCard({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              handleGenerate();
+              handleRender();
             }}
-            disabled={generating}
+            disabled={rendering}
             className="px-3 py-1 text-xs bg-violet-600 hover:bg-violet-700 disabled:bg-violet-300 text-white rounded-md transition-colors shrink-0"
           >
-            생성
+            렌더링
           </button>
         )}
 
@@ -228,10 +255,33 @@ export function AudiobookProjectCard({
       {/* 펼친 콘텐츠 */}
       {expanded && (
         <div className="px-4 pb-4 space-y-5 border-t border-slate-100 dark:border-slate-700 pt-4">
+          {/* Remotion Player 프리뷰 */}
+          <section className="space-y-2">
+            <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-200">프리뷰</h4>
+            {renderData.slides.length > 0 ? (
+              <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+                <Player
+                  component={AudiobookComposition}
+                  inputProps={renderData as AudiobookRenderProps}
+                  durationInFrames={Math.max(totalFrames, 30)}
+                  compositionWidth={resolution.width}
+                  compositionHeight={resolution.height}
+                  fps={30}
+                  controls
+                  style={{ width: '100%' }}
+                />
+              </div>
+            ) : (
+              <div className="text-center py-8 text-slate-400 dark:text-slate-500 text-sm border border-dashed border-slate-200 dark:border-slate-700 rounded-lg">
+                삽화가 있는 페이지가 없습니다
+              </div>
+            )}
+          </section>
+
           {/* 기본 설정 */}
           <section className="space-y-3">
             <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-200">기본 설정</h4>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               <div>
                 <label className={labelClass}>비율</label>
                 <select
@@ -320,20 +370,6 @@ export function AudiobookProjectCard({
                       </div>
                     </div>
                   )}
-              </div>
-
-              <div>
-                <label className={labelClass}>레이아웃</label>
-                <select
-                  value={project.layout}
-                  onChange={(e) =>
-                    onUpdate({ layout: e.target.value as AudiobookProject['layout'] })
-                  }
-                  className={`${selectClass} w-full mt-1`}
-                >
-                  <option value="fullscreen">전체화면 (이미지+자막 오버레이)</option>
-                  <option value="split">분할 (텍스트/이미지/자막)</option>
-                </select>
               </div>
             </div>
           </section>
@@ -644,12 +680,26 @@ export function AudiobookProjectCard({
             </div>
           </section>
 
-          {/* 생성 진행률 */}
-          {generating && progress && (
+          {/* 효과 설정 */}
+          <section className="space-y-3">
+            <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-200">효과</h4>
+            <label className="flex items-center gap-1.5">
+              <input
+                type="checkbox"
+                checked={project.enableParticles ?? true}
+                onChange={(e) => onUpdate({ enableParticles: e.target.checked })}
+                className={checkboxClass}
+              />
+              <span className="text-sm text-slate-600 dark:text-slate-300">반짝이 파티클 효과</span>
+            </label>
+          </section>
+
+          {/* 렌더링 진행률 */}
+          {rendering && progress && (
             <div className="space-y-2 bg-violet-50 dark:bg-violet-900/30 px-4 py-3 rounded-lg">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-violet-700 dark:text-violet-300">
-                  오디오북 생성 중
+                  렌더링 중
                 </span>
                 <span className="text-sm text-violet-600">{progress.progress}%</span>
               </div>
@@ -664,21 +714,37 @@ export function AudiobookProjectCard({
           )}
 
           {/* 에러 표시 */}
-          {generateMutation.error && (
+          {renderMutation.error && (
             <div className="text-sm text-red-500 bg-red-50 px-3 py-2 rounded-md">
-              {generateMutation.error.message}
+              {renderMutation.error.message}
             </div>
           )}
 
-          {/* 결과 플레이어 */}
-          {project.outputUrl && (
-            <section className="space-y-2">
-              <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-200">미리보기</h4>
+          {/* 렌더링 결과 + 액션 */}
+          {project.outputUrl && !rendering && (
+            <section className="space-y-3">
+              <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-200">결과</h4>
               <video
                 src={project.outputUrl}
                 controls
                 className="w-full max-w-lg rounded-lg border border-slate-200 dark:border-slate-700"
               />
+              <div className="flex items-center gap-2">
+                <a
+                  href={project.outputUrl}
+                  download
+                  className="px-3 py-1.5 text-xs bg-emerald-600 hover:bg-emerald-700 text-white rounded-md transition-colors"
+                >
+                  다운로드
+                </a>
+                <button
+                  onClick={handleYoutubeUpload}
+                  disabled={youtubeUploading}
+                  className="px-3 py-1.5 text-xs bg-red-600 hover:bg-red-700 disabled:bg-red-300 text-white rounded-md transition-colors"
+                >
+                  {youtubeUploading ? 'YouTube 업로드 중...' : 'YouTube 업로드'}
+                </button>
+              </div>
               <p className="text-xs text-slate-400 dark:text-slate-500">
                 생성일:{' '}
                 {project.createdAt ? new Date(project.createdAt).toLocaleString('ko-KR') : '-'}

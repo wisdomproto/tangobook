@@ -15,6 +15,7 @@ function makeDefaultProject(totalPages: number): Omit<AudiobookProject, 'id'> {
     aspectRatio: '16:9',
     language: 'ko',
     layout: 'fullscreen',
+    enableParticles: true,
     startPage: 1,
     endPage: totalPages,
     includeCover: true,
@@ -107,6 +108,7 @@ export function AudiobookTab({ storybook, onUpdate, onSave }: AudiobookTabProps)
             <AudiobookProjectCard
               key={project.id}
               project={project}
+              storybook={storybook}
               storybookId={storybook.id}
               totalPages={totalPages}
               expanded={expandedId === project.id}

@@ -4,12 +4,13 @@
 AI 기반 유아동 동화책 + 파닉스 저작도구. Gemini AI로 스토리/이미지/TTS를 자동 생성.
 
 ## 기술 스택
-- **Monorepo**: pnpm workspaces (`packages/client`, `packages/server`, `packages/shared`)
+- **Monorepo**: pnpm workspaces (`packages/client`, `packages/server`, `packages/shared`, `packages/remotion`)
 - **Frontend**: React 18 + TypeScript + Vite + TanStack Query v5 + Zustand v5 + TailwindCSS v3
 - **Backend**: Express v5 + TypeScript + tsx (dev)
 - **AI**: Google Gemini 2.5 Flash (텍스트), Gemini 3 Pro Image (이미지)
 - **Storage**: Cloudflare R2 (S3 호환)
 - **Audio**: ffmpeg-static (파닉스 음원 연결)
+- **Video**: Remotion v4 (오디오북 영상 생성 — Player 프리뷰 + 서버 렌더링)
 
 ## 폴더 구조 요약
 ```
@@ -27,6 +28,14 @@ packages/
     repositories/r2.repository.ts  # R2 CRUD
     providers/            # 외부 API 클라이언트 (Gemini, R2)
     middleware/error.middleware.ts # 중앙 에러 핸들러
+
+  remotion/src/
+    types.ts              # AudiobookRenderProps (Storybook에 독립적)
+    compositions/AudiobookComposition.tsx  # 메인 컴포지션
+    components/           # KenBurnsSlide, TypewriterSubtitle, SparkleParticles 등
+    utils/                # ken-burns.ts, duration.ts
+    Root.tsx              # Composition 등록 + calculateMetadata
+    entry.ts              # registerRoot() — 서버 bundle() 진입점
 
   client/src/
     lib/axios.ts          # apiGet/apiPost/apiDelete 헬퍼
