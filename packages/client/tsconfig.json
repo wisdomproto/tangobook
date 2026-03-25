@@ -13,7 +13,7 @@
     "allowImportingTsExtensions": true,
     "paths": {
       "@tangobook/shared": ["../shared/src/index.ts"],
-      "@tangobook/remotion": ["../remotion/dist/index.d.ts"],
+      "@tangobook/remotion": ["../remotion/src/index.ts"],
       "@/*": ["./src/*"]
     }
   },
