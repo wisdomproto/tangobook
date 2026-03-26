@@ -15,6 +15,7 @@ router.get('/progress/:projectId', LongformController.getProgress);
 router.post('/render', LongformController.render);
 router.get('/render-progress/:projectId', LongformController.getRenderProgress);
 router.post('/cancel-render', LongformController.cancelRender);
+router.post('/delete-render', LongformController.deleteRender);
 router.post(
   '/upload-clip',
   upload.single('file'),
@@ -32,6 +33,8 @@ router.post(
 router.get('/youtube/auth-url', LongformController.youtubeAuthUrl);
 router.get('/youtube/oauth/callback', LongformController.youtubeCallback);
 router.get('/youtube/status', LongformController.youtubeStatus);
+router.get('/youtube/channels', LongformController.youtubeChannels);
+router.post('/youtube/remove-channel', LongformController.youtubeRemoveChannel);
 router.post('/youtube/disconnect', LongformController.youtubeDisconnect);
 router.post('/youtube/upload', LongformController.youtubeUpload);
 router.get('/youtube/progress/:projectId', LongformController.getYouTubeProgress);

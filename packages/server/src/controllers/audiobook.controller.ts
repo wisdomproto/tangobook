@@ -14,18 +14,18 @@ export const AudiobookController = {
     res.json({ success: true, data: progress });
   },
 
+  deleteRender: asyncHandler(async (req, res) => {
+    await AudiobookService.deleteRender(req.body);
+    res.json({ success: true, data: { message: '렌더링 파일 삭제 완료' } });
+  }),
+
   // YouTube — fire-and-forget upload
   youtubeUpload: asyncHandler(async (req, res) => {
-    const { storybookId, projectId, meta } = req.body;
-    console.log('[audiobook-youtube] Controller received:', {
-      storybookId,
-      projectId,
-      hasMeta: !!meta,
-    });
+    const { storybookId, projectId, meta, channelId } = req.body;
     // Return immediately, run upload in background
     res.json({ success: true, data: { message: 'YouTube 업로드 시작' } });
 
-    AudiobookService.uploadToYouTube(storybookId, projectId, meta).catch((err) => {
+    AudiobookService.uploadToYouTube(storybookId, projectId, meta, channelId).catch((err) => {
       console.error('[audiobook-youtube] Upload failed:', err.message || err);
       AudiobookService.setYouTubeError(
         projectId,

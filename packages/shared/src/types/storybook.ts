@@ -710,6 +710,7 @@ export interface AudiobookProject {
   includeCover: boolean;
   coverDuration: number;
   coverImageUrl?: string; // 선택된 표지 이미지 (미선택 시 storybook.coverImage 사용)
+  showCoverTitle?: boolean; // 표지에 제목 표시 여부 (기본 true)
   includeTts: boolean;
   includeBgm: boolean;
   bgmUrl?: string;
@@ -886,6 +887,14 @@ export interface YouTubeUploadResult {
   uploadedAt: string;
   privacy: string;
   captionsUploaded?: string[]; // 업로드 완료된 자막 언어 목록
+}
+
+export interface YouTubeChannel {
+  id: string;
+  name: string; // 사용자가 지정한 이름 (예: "메인 채널", "영어 채널")
+  channelId?: string; // YouTube 채널 ID
+  channelTitle?: string; // YouTube 채널 이름
+  connectedAt: string;
 }
 
 export interface YouTubePreset {

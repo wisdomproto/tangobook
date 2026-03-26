@@ -16,7 +16,7 @@ import type {
 } from '@tangobook/shared';
 import { getAudioDuration } from '../utils/audio-duration.js';
 import { YouTubeProvider } from '../providers/youtube.provider.js';
-import { downloadFromR2, urlToR2Key } from '../providers/r2.provider.js';
+import { deleteFromR2, downloadFromR2, urlToR2Key } from '../providers/r2.provider.js';
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
 import { generateSrt } from '../utils/srt-generator.js';
 import { translateSrt } from '../utils/srt-translator.js';
@@ -96,6 +96,17 @@ export const AudiobookService = {
 
     const project = storybook.audiobookProjects?.find((p: AudiobookProject) => p.id === projectId);
     if (!project) throw new AppError(404, '오디오북 프로젝트를 찾을 수 없습니다.');
+
+    // 1.5. Delete previous render output from R2 if exists
+    if (project.outputUrl) {
+      try {
+        const oldKey = urlToR2Key(project.outputUrl);
+        await deleteFromR2(oldKey);
+        console.log('[audiobook] Deleted previous render:', oldKey);
+      } catch {
+        // Ignore deletion errors — old file may already be gone
+      }
+    }
 
     // 2. Build render props
     const renderData = buildAudiobookRenderData(storybook, project);
@@ -200,6 +211,29 @@ export const AudiobookService = {
     }
   },
 
+  async deleteRender(req: { storybookId: string; projectId: string }): Promise<void> {
+    const { storybookId, projectId } = req;
+    const storybook = await R2Repository.getStorybook(storybookId);
+    if (!storybook) throw new AppError(404, '동화책을 찾을 수 없습니다.');
+
+    const project = storybook.audiobookProjects?.find((p: AudiobookProject) => p.id === projectId);
+    if (!project) throw new AppError(404, '오디오북 프로젝트를 찾을 수 없습니다.');
+    if (!project.outputUrl) throw new AppError(400, '삭제할 렌더링 파일이 없습니다.');
+
+    // Delete from R2
+    try {
+      const key = urlToR2Key(project.outputUrl);
+      await deleteFromR2(key);
+      console.log('[audiobook] Render deleted:', key);
+    } catch {
+      // Ignore — file may already be gone
+    }
+
+    // Clear outputUrl
+    project.outputUrl = undefined;
+    await R2Repository.saveStorybook(storybook);
+  },
+
   // ----- YouTube -----
 
   getYouTubeProgress(projectId: string): RenderProgress | null {
@@ -214,7 +248,8 @@ export const AudiobookService = {
   async uploadToYouTube(
     storybookId: string,
     projectId: string,
-    meta: YouTubeUploadMeta
+    meta: YouTubeUploadMeta,
+    channelId?: string
   ): Promise<void> {
     console.log('[audiobook-youtube] Starting upload:', { storybookId, projectId });
 
@@ -237,13 +272,18 @@ export const AudiobookService = {
     youtubeProgressMap.set(projectId, { progress: 10, step: 'YouTube 업로드 중' });
 
     // 2. Upload to YouTube
-    const result = await YouTubeProvider.uploadVideo(videoBuffer, meta, (percent) => {
-      const mapped = 10 + Math.round(percent * 0.85);
-      youtubeProgressMap.set(projectId, {
-        progress: mapped,
-        step: `YouTube 업로드 중 (${mapped}%)`,
-      });
-    });
+    const result = await YouTubeProvider.uploadVideo(
+      videoBuffer,
+      meta,
+      (percent) => {
+        const mapped = 10 + Math.round(percent * 0.85);
+        youtubeProgressMap.set(projectId, {
+          progress: mapped,
+          step: `YouTube 업로드 중 (${mapped}%)`,
+        });
+      },
+      channelId
+    );
 
     // 3. Save result immediately (before thumbnail — prevents loss on thumbnail failure)
     project.youtubeUpload = {
@@ -271,7 +311,7 @@ export const AudiobookService = {
           setTimeout(() => reject(new Error('썸네일 업로드 타임아웃')), 30_000)
         );
         await Promise.race([
-          YouTubeProvider.setThumbnail(result.videoId, thumbBuffer),
+          YouTubeProvider.setThumbnail(result.videoId, thumbBuffer, channelId),
           thumbTimeout,
         ]);
       } catch (err) {

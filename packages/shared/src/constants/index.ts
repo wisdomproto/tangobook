@@ -15,6 +15,7 @@ export const ASPECT_RATIOS = ['16:9', '9:16', '4:3', '3:4', '3:2', '2:3', '1:1']
 export type AspectRatio = (typeof ASPECT_RATIOS)[number];
 
 export const SUPPORTED_LANGUAGES = [
+  { code: 'ko', label: '한국어' },
   { code: 'en', label: '영어' },
   { code: 'ja', label: '일본어' },
   { code: 'zh', label: '중국어' },

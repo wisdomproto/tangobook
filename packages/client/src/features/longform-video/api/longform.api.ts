@@ -5,6 +5,7 @@ import type {
   YouTubeUploadMeta,
   YouTubePreset,
   YouTubeGeneratedMeta,
+  YouTubeChannel,
 } from '@tangobook/shared';
 import type { RenderManifest } from '../utils/client-renderer';
 
@@ -41,6 +42,8 @@ export const longformApi = {
     apiPost<{ message: string }>('/longform/render', req),
   cancelRender: (projectId: string) =>
     apiPost<{ cancelled: boolean }>('/longform/cancel-render', { projectId }),
+  deleteRender: (data: { storybookId: string; projectId: string }) =>
+    apiPost('/longform/delete-render', data),
   getRenderProgress: (projectId: string) =>
     apiGet<{ progress: number; step: string; outputUrl?: string } | null>(
       `/longform/render-progress/${projectId}`
@@ -68,11 +71,21 @@ export const longformApi = {
     apiPost<{ outputUrl: string }>('/longform/confirm-render', req),
 
   // YouTube
-  youtubeAuthUrl: () => apiGet<{ url: string }>('/longform/youtube/auth-url'),
+  youtubeAuthUrl: (name?: string) =>
+    apiGet<{ url: string }>(
+      `/longform/youtube/auth-url${name ? `?name=${encodeURIComponent(name)}` : ''}`
+    ),
   youtubeStatus: () => apiGet<{ connected: boolean }>('/longform/youtube/status'),
+  youtubeChannels: () => apiGet<YouTubeChannel[]>('/longform/youtube/channels'),
+  youtubeRemoveChannel: (channelId: string) =>
+    apiPost('/longform/youtube/remove-channel', { channelId }),
   youtubeDisconnect: () => apiPost<{ disconnected: boolean }>('/longform/youtube/disconnect'),
-  youtubeUpload: (req: { storybookId: string; projectId: string; meta: YouTubeUploadMeta }) =>
-    apiPost<{ message: string }>('/longform/youtube/upload', req),
+  youtubeUpload: (req: {
+    storybookId: string;
+    projectId: string;
+    meta: YouTubeUploadMeta;
+    channelId?: string;
+  }) => apiPost<{ message: string }>('/longform/youtube/upload', req),
   getYouTubeProgress: (projectId: string) =>
     apiGet<{ progress: number; step: string } | null>(`/longform/youtube/progress/${projectId}`),
   generateYouTubeMeta: (req: { storybookId: string; projectId: string; prompt: string }) =>

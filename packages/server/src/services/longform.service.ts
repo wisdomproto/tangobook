@@ -15,6 +15,7 @@ import type {
 import { AppError } from '../middleware/error.middleware.js';
 import { R2Repository } from '../repositories/r2.repository.js';
 import {
+  deleteFromR2,
   downloadFromR2,
   urlToR2Key,
   r2PublicUrl,
@@ -553,6 +554,17 @@ export const LongformService = {
       throw new AppError(400, '생성된 클립이 없습니다. 먼저 클립을 생성하세요.');
     }
 
+    // Delete previous render output from R2 if exists
+    if (project.outputUrl) {
+      try {
+        const oldKey = urlToR2Key(project.outputUrl);
+        await deleteFromR2(oldKey);
+        console.log('[longform] Deleted previous render:', oldKey);
+      } catch {
+        // Ignore — old file may already be gone
+      }
+    }
+
     // 임시 작업 디렉토리 생성
     const workDir = path.join(os.tmpdir(), `tangobook-longform-render-${Date.now()}`);
     fs.mkdirSync(workDir, { recursive: true });
@@ -834,6 +846,24 @@ export const LongformService = {
     return { outputUrl };
   },
 
+  // ----- Delete render -----
+  async deleteRender(storybookId: string, projectId: string): Promise<void> {
+    const storybook = await loadStorybook(storybookId);
+    const project = loadProject(storybook, projectId);
+    if (!project.outputUrl) throw new AppError(400, '삭제할 렌더링 파일이 없습니다.');
+
+    try {
+      const key = urlToR2Key(project.outputUrl);
+      await deleteFromR2(key);
+      console.log('[longform] Render deleted:', key);
+    } catch {
+      // Ignore — file may already be gone
+    }
+
+    project.outputUrl = undefined;
+    await R2Repository.saveStorybook(storybook);
+  },
+
   // ----- Get render progress -----
   getRenderProgress(projectId: string): ProgressInfo | null {
     return renderProgressMap.get(projectId) ?? null;
@@ -938,7 +968,8 @@ export const LongformService = {
   async uploadToYouTube(
     storybookId: string,
     projectId: string,
-    meta: YouTubeUploadMeta
+    meta: YouTubeUploadMeta,
+    channelId?: string
   ): Promise<void> {
     const storybook = await loadStorybook(storybookId);
     const project = loadProject(storybook, projectId);
@@ -956,13 +987,18 @@ export const LongformService = {
     youtubeProgressMap.set(projectId, { progress: 10, step: 'YouTube 업로드 중' });
 
     // 2. Upload to YouTube
-    const result = await YouTubeProvider.uploadVideo(videoBuffer, meta, (percent) => {
-      const mapped = 10 + Math.round(percent * 0.85);
-      youtubeProgressMap.set(projectId, {
-        progress: mapped,
-        step: `YouTube 업로드 중 (${mapped}%)`,
-      });
-    });
+    const result = await YouTubeProvider.uploadVideo(
+      videoBuffer,
+      meta,
+      (percent) => {
+        const mapped = 10 + Math.round(percent * 0.85);
+        youtubeProgressMap.set(projectId, {
+          progress: mapped,
+          step: `YouTube 업로드 중 (${mapped}%)`,
+        });
+      },
+      channelId
+    );
 
     // 3. 결과 먼저 저장 (썸네일 실패해도 영상 업로드 결과는 보존)
     project.youtubeUpload = {
@@ -990,7 +1026,7 @@ export const LongformService = {
           setTimeout(() => reject(new Error('썸네일 업로드 타임아웃')), 30_000)
         );
         await Promise.race([
-          YouTubeProvider.setThumbnail(result.videoId, thumbBuffer),
+          YouTubeProvider.setThumbnail(result.videoId, thumbBuffer, channelId),
           thumbTimeout,
         ]);
       } catch (err) {

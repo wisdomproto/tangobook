@@ -1,5 +1,10 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import type { LongformProject, YouTubeUploadMeta, YouTubePreset } from '@tangobook/shared';
+import type {
+  LongformProject,
+  YouTubeUploadMeta,
+  YouTubePreset,
+  YouTubeChannel,
+} from '@tangobook/shared';
 import {
   YOUTUBE_CATEGORIES,
   YOUTUBE_PRIVACY_OPTIONS,
@@ -51,6 +56,10 @@ export function RenderStep({
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // ----- YouTube state -----
+  const [ytChannels, setYtChannels] = useState<YouTubeChannel[]>([]);
+  const [selectedChannelId, setSelectedChannelId] = useState<string>('');
+  const [newChannelName, setNewChannelName] = useState('');
+  const [showAddChannel, setShowAddChannel] = useState(false);
   const [ytConnected, setYtConnected] = useState<boolean | null>(null);
   const [ytUploading, setYtUploading] = useState(false);
   const [ytProgress, setYtProgress] = useState<{ progress: number; step: string } | null>(null);
@@ -167,12 +176,22 @@ export function RenderStep({
     };
   }, []);
 
-  // Check YouTube connection on mount
-  useEffect(() => {
+  // Load YouTube channels on mount
+  const loadChannels = useCallback(() => {
     longformApi
-      .youtubeStatus()
-      .then((data) => setYtConnected(data.connected))
+      .youtubeChannels()
+      .then((channels) => {
+        setYtChannels(channels);
+        setYtConnected(channels.length > 0);
+        if (channels.length > 0 && !selectedChannelId) {
+          setSelectedChannelId(channels[0].id);
+        }
+      })
       .catch(() => setYtConnected(false));
+  }, []);
+
+  useEffect(() => {
+    loadChannels();
   }, []);
 
   // Resume polling if render is in progress when component mounts
@@ -308,21 +327,22 @@ export function RenderStep({
   };
 
   // ----- YouTube handlers -----
-  const handleYoutubeConnect = async () => {
+  const handleAddChannel = async () => {
     try {
-      const data = await longformApi.youtubeAuthUrl();
+      const name = newChannelName.trim() || undefined;
+      const data = await longformApi.youtubeAuthUrl(name);
       window.location.href = data.url;
     } catch {
       setYtError('YouTube 연결 URL을 가져오지 못했습니다.');
     }
   };
 
-  const handleYoutubeDisconnect = async () => {
+  const handleRemoveChannel = async (channelId: string) => {
     try {
-      await longformApi.youtubeDisconnect();
-      setYtConnected(false);
+      await longformApi.youtubeRemoveChannel(channelId);
+      loadChannels();
     } catch {
-      setYtError('YouTube 연결 해제에 실패했습니다.');
+      setYtError('채널 삭제에 실패했습니다.');
     }
   };
 
@@ -354,7 +374,12 @@ export function RenderStep({
     };
 
     try {
-      await longformApi.youtubeUpload({ storybookId, projectId: project.id, meta });
+      await longformApi.youtubeUpload({
+        storybookId,
+        projectId: project.id,
+        meta,
+        channelId: selectedChannelId || undefined,
+      });
 
       ytPollRef.current = setInterval(async () => {
         try {
@@ -615,9 +640,13 @@ export function RenderStep({
             </span>
             <DownloadButton href={project.outputUrl} filename={`${project.name}.mp4`} size="sm" />
             <button
-              onClick={() => {
-                if (window.confirm('렌더링 결과를 삭제하시겠습니까?')) {
+              onClick={async () => {
+                if (!window.confirm('렌더링 결과를 삭제하시겠습니까?')) return;
+                try {
+                  await longformApi.deleteRender({ storybookId, projectId: project.id });
                   onUpdate({ outputUrl: undefined, youtubeUpload: undefined });
+                } catch (e: any) {
+                  alert(e.message || '삭제 실패');
                 }
               }}
               className="p-1 text-slate-400 hover:text-red-500 transition-colors"
@@ -651,42 +680,81 @@ export function RenderStep({
             YouTube 업로드
           </h3>
 
-          {/* Connection status */}
+          {/* Channel management */}
           {ytConnected === null ? (
             <p className="text-xs text-slate-400">연결 상태 확인 중...</p>
-          ) : !ytConnected ? (
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-slate-500 dark:text-slate-400">YouTube 미연결</span>
-              <Button size="sm" onClick={handleYoutubeConnect}>
-                YouTube 연결
-              </Button>
-            </div>
           ) : (
             <>
-              <div className="flex items-center gap-3">
-                <span className="text-sm text-green-600 dark:text-green-400 flex items-center gap-1">
-                  <svg
-                    className="w-3.5 h-3.5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+              {/* Connected channels */}
+              {ytChannels.length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                    연결된 채널
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {ytChannels.map((ch) => (
+                      <div
+                        key={ch.id}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs cursor-pointer transition-colors ${
+                          selectedChannelId === ch.id
+                            ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 ring-1 ring-red-300'
+                            : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-red-50'
+                        }`}
+                        onClick={() => setSelectedChannelId(ch.id)}
+                      >
+                        <span>{ch.channelTitle || ch.name}</span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveChannel(ch.id);
+                          }}
+                          className="text-slate-400 hover:text-red-500 transition-colors"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Add channel */}
+              {showAddChannel ? (
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={newChannelName}
+                    onChange={(e) => setNewChannelName(e.target.value)}
+                    placeholder="채널 이름 (선택)"
+                    className="text-xs border border-slate-200 dark:border-slate-600 rounded px-2 py-1.5 bg-white dark:bg-slate-700 dark:text-slate-100"
+                  />
+                  <Button size="sm" onClick={handleAddChannel}>
+                    연결
+                  </Button>
+                  <button
+                    onClick={() => setShowAddChannel(false)}
+                    className="text-xs text-slate-400 hover:text-slate-600"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  YouTube 연결됨
-                </span>
+                    취소
+                  </button>
+                </div>
+              ) : (
                 <button
-                  onClick={handleYoutubeDisconnect}
-                  className="text-xs text-slate-400 hover:text-red-500 transition-colors"
+                  onClick={() => setShowAddChannel(true)}
+                  className="text-xs text-red-600 hover:text-red-700 hover:underline"
                 >
-                  연결 해제
+                  + 채널 추가
                 </button>
-              </div>
+              )}
+
+              {ytChannels.length === 0 && !showAddChannel && (
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-slate-500 dark:text-slate-400">YouTube 미연결</span>
+                  <Button size="sm" onClick={() => setShowAddChannel(true)}>
+                    YouTube 연결
+                  </Button>
+                </div>
+              )}
 
               {/* Already uploaded */}
               {project.youtubeUpload && (
@@ -1090,12 +1158,17 @@ export function RenderStep({
                     <div className="flex items-center gap-1">
                       <DownloadButton href={p.outputUrl!} filename={`${p.name}.mp4`} size="sm" />
                       <button
-                        onClick={() => {
-                          if (window.confirm(`"${p.name}" 렌더링 결과를 삭제하시겠습니까?`)) {
+                        onClick={async () => {
+                          if (!window.confirm(`"${p.name}" 렌더링 결과를 삭제하시겠습니까?`))
+                            return;
+                          try {
+                            await longformApi.deleteRender({ storybookId, projectId: p.id });
                             onUpdateProject(p.id, {
                               outputUrl: undefined,
                               youtubeUpload: undefined,
                             });
+                          } catch (e: any) {
+                            alert(e.message || '삭제 실패');
                           }
                         }}
                         className="p-1 text-slate-400 hover:text-red-500 transition-colors"

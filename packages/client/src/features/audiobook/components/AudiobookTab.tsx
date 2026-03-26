@@ -19,6 +19,7 @@ function makeDefaultProject(totalPages: number): Omit<AudiobookProject, 'id'> {
     startPage: 1,
     endPage: totalPages,
     includeCover: true,
+    showCoverTitle: false,
     coverDuration: 3,
     includeTts: true,
     includeBgm: true,

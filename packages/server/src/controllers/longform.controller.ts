@@ -76,6 +76,12 @@ export const LongformController = {
     res.json({ success: true, data: { cancelled } });
   }),
 
+  deleteRender: asyncHandler(async (req: Request, res: Response) => {
+    const { storybookId, projectId } = req.body;
+    await LongformService.deleteRender(storybookId, projectId);
+    res.json({ success: true, data: { message: '렌더링 파일 삭제 완료' } });
+  }),
+
   uploadClip: asyncHandler(async (req: Request, res: Response) => {
     const { storybookId, projectId, sceneId } = req.body;
     const result = await LongformService.uploadClip(req.file!, storybookId, projectId, sceneId);
@@ -89,18 +95,20 @@ export const LongformController = {
   }),
 
   // ----- YouTube -----
-  youtubeAuthUrl: asyncHandler(async (_req: Request, res: Response) => {
-    const url = YouTubeProvider.getAuthUrl();
+  youtubeAuthUrl: asyncHandler(async (req: Request, res: Response) => {
+    const channelName = (req.query.name as string) || '';
+    const url = YouTubeProvider.getAuthUrl(channelName);
     res.json({ success: true, data: { url } });
   }),
 
   youtubeCallback: asyncHandler(async (req: Request, res: Response) => {
-    const { code } = req.query;
+    const { code, state } = req.query;
     if (!code || typeof code !== 'string') {
       res.status(400).json({ success: false, error: 'Authorization code가 없습니다.' });
       return;
     }
-    await YouTubeProvider.handleCallback(code);
+    const channelName = typeof state === 'string' ? state : '';
+    await YouTubeProvider.handleCallback(code, channelName);
     const clientUrl = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:5173/';
     res.redirect(`${clientUrl}?youtube=connected`);
   }),
@@ -110,14 +118,25 @@ export const LongformController = {
     res.json({ success: true, data: { connected } });
   }),
 
+  youtubeChannels: asyncHandler(async (_req: Request, res: Response) => {
+    const channels = await YouTubeProvider.listChannels();
+    res.json({ success: true, data: channels });
+  }),
+
+  youtubeRemoveChannel: asyncHandler(async (req: Request, res: Response) => {
+    const { channelId } = req.body;
+    await YouTubeProvider.removeChannel(channelId);
+    res.json({ success: true, data: { removed: true } });
+  }),
+
   youtubeDisconnect: asyncHandler(async (_req: Request, res: Response) => {
     await YouTubeProvider.disconnect();
     res.json({ success: true, data: { disconnected: true } });
   }),
 
   youtubeUpload: asyncHandler(async (req: Request, res: Response) => {
-    const { storybookId, projectId, meta } = req.body;
-    LongformService.uploadToYouTube(storybookId, projectId, meta).catch((err) => {
+    const { storybookId, projectId, meta, channelId } = req.body;
+    LongformService.uploadToYouTube(storybookId, projectId, meta, channelId).catch((err) => {
       console.error('[longform] YouTube upload error:', err);
       // 클라이언트 polling에서 감지할 수 있도록 실패 기록
       LongformService.setYouTubeError(

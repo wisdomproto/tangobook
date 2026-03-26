@@ -1,5 +1,10 @@
 import { apiGet, apiPost } from '@/lib/axios';
-import type { YouTubeUploadMeta, YouTubeGeneratedMeta, YouTubePreset } from '@tangobook/shared';
+import type {
+  YouTubeUploadMeta,
+  YouTubeGeneratedMeta,
+  YouTubePreset,
+  YouTubeChannel,
+} from '@tangobook/shared';
 
 export type AudiobookRenderProgress = {
   progress: number;
@@ -14,9 +19,16 @@ export const audiobookApi = {
   getRenderProgress: (projectId: string) =>
     apiGet<AudiobookRenderProgress | null>(`/audiobooks/render-progress/${projectId}`),
 
+  deleteRender: (data: { storybookId: string; projectId: string }) =>
+    apiPost('/audiobooks/delete-render', data),
+
   // YouTube upload (fire-and-forget — poll progress separately)
-  youtubeUpload: (data: { storybookId: string; projectId: string; meta: YouTubeUploadMeta }) =>
-    apiPost('/audiobooks/youtube/upload', data),
+  youtubeUpload: (data: {
+    storybookId: string;
+    projectId: string;
+    meta: YouTubeUploadMeta;
+    channelId?: string;
+  }) => apiPost('/audiobooks/youtube/upload', data),
 
   getYouTubeProgress: (projectId: string) =>
     apiGet<AudiobookRenderProgress | null>(`/audiobooks/youtube/progress/${projectId}`),
@@ -25,8 +37,12 @@ export const audiobookApi = {
     apiPost<YouTubeGeneratedMeta>('/audiobooks/youtube/generate-meta', data),
 
   // Reuse longform YouTube endpoints for auth (shared OAuth tokens)
-  youtubeAuthUrl: () => apiGet<{ url: string }>('/longform/youtube/auth-url'),
+  youtubeAuthUrl: (name?: string) =>
+    apiGet<{ url: string }>(
+      `/longform/youtube/auth-url${name ? `?name=${encodeURIComponent(name)}` : ''}`
+    ),
   youtubeStatus: () => apiGet<{ connected: boolean }>('/longform/youtube/status'),
+  youtubeChannels: () => apiGet<YouTubeChannel[]>('/longform/youtube/channels'),
 
   // YouTube captions
   youtubeUploadCaptions: (data: { storybookId: string; projectId: string; languages: string[] }) =>

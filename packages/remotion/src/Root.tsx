@@ -2,6 +2,7 @@ import React from 'react';
 import { Composition } from 'remotion';
 import type { CalculateMetadataFunction } from 'remotion';
 import { AudiobookComposition } from './compositions/AudiobookComposition';
+import { RunningDog } from './components/RunningDog';
 import { AudiobookRenderProps, RESOLUTIONS } from './types';
 import { calculateTotalFrames } from './utils/duration';
 
@@ -32,15 +33,31 @@ const defaultProps: AudiobookRenderProps = {
 
 export const RemotionRoot: React.FC = () => {
   return (
-    <Composition
-      id="Audiobook"
-      component={AudiobookComposition}
-      durationInFrames={300}
-      fps={30}
-      width={1280}
-      height={720}
-      defaultProps={defaultProps}
-      calculateMetadata={calculateMetadata}
-    />
+    <>
+      <Composition
+        id="Audiobook"
+        component={AudiobookComposition}
+        durationInFrames={300}
+        fps={30}
+        width={1280}
+        height={720}
+        defaultProps={defaultProps}
+        calculateMetadata={calculateMetadata}
+      />
+      <Composition
+        id="RunningDog"
+        component={RunningDog}
+        durationInFrames={300}
+        fps={30}
+        width={1280}
+        height={720}
+        defaultProps={{
+          speed: 4,
+          groundColor: '#4a7c59',
+          skyColor: '#87CEEB',
+          dogColor: '#8B4513',
+        }}
+      />
+    </>
   );
 };

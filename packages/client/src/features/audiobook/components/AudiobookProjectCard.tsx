@@ -14,6 +14,7 @@ import type {
   Storybook,
   YouTubeUploadMeta,
   YouTubePreset,
+  YouTubeChannel,
 } from '@tangobook/shared';
 import { useAudiobookRender } from '../hooks/useAudiobookRender';
 import { useTtsDurations } from '../hooks/useTtsDurations';
@@ -191,6 +192,10 @@ export function AudiobookProjectCard({
   const [showPresetSave, setShowPresetSave] = useState(false);
   const [showYoutubeSection, setShowYoutubeSection] = useState(false);
 
+  // Channel state
+  const [ytChannels, setYtChannels] = useState<YouTubeChannel[]>([]);
+  const [selectedChannelId, setSelectedChannelId] = useState<string>('');
+
   // Caption state
   const [captionLangs, setCaptionLangs] = useState<string[]>(project.captionLanguages ?? []);
   const [captionUploading, setCaptionUploading] = useState(false);
@@ -198,12 +203,18 @@ export function AudiobookProjectCard({
   const [captionError, setCaptionError] = useState<string | null>(null);
   const captionPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Check YouTube connection on expand
+  // Load YouTube channels on expand
   useEffect(() => {
     if (expanded && ytConnected === null) {
       audiobookApi
-        .youtubeStatus()
-        .then((data) => setYtConnected(data.connected))
+        .youtubeChannels()
+        .then((channels) => {
+          setYtChannels(channels);
+          setYtConnected(channels.length > 0);
+          if (channels.length > 0 && !selectedChannelId) {
+            setSelectedChannelId(channels[0].id);
+          }
+        })
         .catch(() => setYtConnected(false));
     }
   }, [expanded]);
@@ -312,7 +323,12 @@ export function AudiobookProjectCard({
     };
 
     try {
-      await audiobookApi.youtubeUpload({ storybookId, projectId: project.id, meta });
+      await audiobookApi.youtubeUpload({
+        storybookId,
+        projectId: project.id,
+        meta,
+        channelId: selectedChannelId || undefined,
+      });
 
       ytPollRef.current = setInterval(async () => {
         try {
@@ -616,6 +632,17 @@ export function AudiobookProjectCard({
                     </div>
                   )}
                 </div>
+                {project.includeCover && (
+                  <div className="flex items-center gap-2 mt-2">
+                    <input
+                      type="checkbox"
+                      checked={project.showCoverTitle !== false}
+                      onChange={(e) => onUpdate({ showCoverTitle: e.target.checked })}
+                      className={checkboxClass}
+                    />
+                    <span className="text-xs text-slate-500 dark:text-slate-400">제목 표시</span>
+                  </div>
+                )}
                 {/* 표지 선택 (2개 이상일 때) */}
                 {project.includeCover &&
                   coverImages &&
@@ -1034,6 +1061,21 @@ export function AudiobookProjectCard({
                   다운로드
                 </a>
                 <button
+                  onClick={async () => {
+                    if (!confirm('렌더링된 영상을 삭제하시겠습니까?')) return;
+                    try {
+                      await audiobookApi.deleteRender({ storybookId, projectId: project.id });
+                      onUpdate({ outputUrl: undefined });
+                      onSave();
+                    } catch (e: any) {
+                      alert(e.message || '삭제 실패');
+                    }
+                  }}
+                  className="px-3 py-1.5 text-xs bg-slate-500 hover:bg-slate-600 text-white rounded-md transition-colors"
+                >
+                  삭제
+                </button>
+                <button
                   onClick={() => setShowYoutubeSection((v) => !v)}
                   className="px-3 py-1.5 text-xs bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
                 >
@@ -1065,21 +1107,33 @@ export function AudiobookProjectCard({
                     YouTube 업로드
                   </h5>
 
-                  {/* 연결 상태 */}
-                  {ytConnected === false ? (
+                  {/* 채널 선택 */}
+                  {ytChannels.length === 0 ? (
                     <div className="flex items-center gap-2">
                       <span className="text-xs text-slate-500">
-                        YouTube 계정이 연결되지 않았습니다.
+                        YouTube 채널이 연결되지 않았습니다. 롱폼 탭에서 채널을 추가하세요.
                       </span>
-                      <button
-                        onClick={handleYoutubeConnect}
-                        className="px-3 py-1 text-xs bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
-                      >
-                        YouTube 연결
-                      </button>
                     </div>
                   ) : (
                     <>
+                      {/* 채널 선택 */}
+                      {ytChannels.length > 1 && (
+                        <div className="flex items-center gap-2">
+                          <label className={labelClass}>업로드 채널</label>
+                          <select
+                            value={selectedChannelId}
+                            onChange={(e) => setSelectedChannelId(e.target.value)}
+                            className={`${selectClass} flex-1`}
+                          >
+                            {ytChannels.map((ch) => (
+                              <option key={ch.id} value={ch.id}>
+                                {ch.channelTitle || ch.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
+
                       {/* AI 설정값 생성 */}
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 flex-wrap">

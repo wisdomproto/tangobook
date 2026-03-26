@@ -20,6 +20,7 @@ export type AudiobookRenderProps = {
     imageUrl: string;
     title: string;
     duration: number;
+    showTitle?: boolean;
   };
   bgmUrl?: string;
   bgmVolume?: number;

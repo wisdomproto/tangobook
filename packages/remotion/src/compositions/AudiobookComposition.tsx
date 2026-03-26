@@ -40,6 +40,7 @@ export const AudiobookComposition: React.FC<AudiobookRenderProps> = ({
               <CoverSlide
                 imageUrl={cover.imageUrl}
                 title={cover.title}
+                showTitle={cover.showTitle}
                 subtitleStyle={subtitleStyle}
                 enableParticles={enableParticles}
               />
