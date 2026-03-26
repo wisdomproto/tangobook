@@ -191,6 +191,13 @@ export function AudiobookProjectCard({
   const [showPresetSave, setShowPresetSave] = useState(false);
   const [showYoutubeSection, setShowYoutubeSection] = useState(false);
 
+  // Caption state
+  const [captionLangs, setCaptionLangs] = useState<string[]>(project.captionLanguages ?? []);
+  const [captionUploading, setCaptionUploading] = useState(false);
+  const [captionProgress, setCaptionProgress] = useState<AudiobookRenderProgress | null>(null);
+  const [captionError, setCaptionError] = useState<string | null>(null);
+  const captionPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
   // Check YouTube connection on expand
   useEffect(() => {
     if (expanded && ytConnected === null) {
@@ -215,6 +222,7 @@ export function AudiobookProjectCard({
   useEffect(() => {
     return () => {
       if (ytPollRef.current) clearInterval(ytPollRef.current);
+      if (captionPollRef.current) clearInterval(captionPollRef.current);
     };
   }, []);
 
@@ -351,6 +359,86 @@ export function AudiobookProjectCard({
       setYtError(e instanceof Error ? e.message : 'YouTube 업로드 중 오류가 발생했습니다.');
       setYtUploading(false);
       setYtProgress(null);
+    }
+  };
+
+  const toggleCaptionLang = (code: string) => {
+    setCaptionLangs((prev) =>
+      prev.includes(code) ? prev.filter((l) => l !== code) : [...prev, code]
+    );
+  };
+
+  const stopCaptionPolling = useCallback(() => {
+    if (captionPollRef.current) {
+      clearInterval(captionPollRef.current);
+      captionPollRef.current = null;
+    }
+  }, []);
+
+  const handleUploadCaptions = async () => {
+    if (captionLangs.length === 0) return;
+    setCaptionError(null);
+    setCaptionUploading(true);
+    setCaptionProgress({ progress: 0, step: '자막 생성 중...' });
+
+    // Save selected languages
+    onUpdate({ captionLanguages: captionLangs });
+
+    try {
+      await audiobookApi.youtubeUploadCaptions({
+        storybookId,
+        projectId: project.id,
+        languages: captionLangs,
+      });
+
+      captionPollRef.current = setInterval(async () => {
+        try {
+          const data = await audiobookApi.getCaptionProgress(project.id);
+          if (!data) {
+            stopCaptionPolling();
+            setCaptionUploading(false);
+            setCaptionProgress(null);
+            try {
+              const updated = await storybookApi.getById(storybookId);
+              const up = updated.audiobookProjects?.find((p) => p.id === project.id);
+              if (up?.youtubeUpload?.captionsUploaded) {
+                onUpdate({ youtubeUpload: up.youtubeUpload });
+              }
+            } catch {
+              /* ignore */
+            }
+            return;
+          }
+          if (data.progress < 0) {
+            stopCaptionPolling();
+            setCaptionUploading(false);
+            setCaptionProgress(null);
+            setCaptionError(data.step || '자막 업로드에 실패했습니다.');
+            return;
+          }
+          setCaptionProgress({ progress: data.progress, step: data.step });
+          if (data.progress >= 100) {
+            stopCaptionPolling();
+            setCaptionUploading(false);
+            setCaptionProgress(null);
+            try {
+              const updated = await storybookApi.getById(storybookId);
+              const up = updated.audiobookProjects?.find((p) => p.id === project.id);
+              if (up?.youtubeUpload?.captionsUploaded) {
+                onUpdate({ youtubeUpload: up.youtubeUpload });
+              }
+            } catch {
+              /* ignore */
+            }
+          }
+        } catch {
+          /* ignore */
+        }
+      }, 2000);
+    } catch (e) {
+      setCaptionError(e instanceof Error ? e.message : '자막 업로드 실패');
+      setCaptionUploading(false);
+      setCaptionProgress(null);
     }
   };
 
@@ -867,6 +955,22 @@ export function AudiobookProjectCard({
                       ))}
                     </select>
                   </div>
+
+                  {/* 단어 그룹 */}
+                  <div className="col-span-2 sm:col-span-4 flex items-center gap-3">
+                    <label className={labelClass}>단어 표시</label>
+                    <input
+                      type="range"
+                      min={1}
+                      max={5}
+                      value={project.subtitleWordsPerGroup ?? 2}
+                      onChange={(e) => onUpdate({ subtitleWordsPerGroup: Number(e.target.value) })}
+                      className="w-24 accent-violet-600"
+                    />
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
+                      {project.subtitleWordsPerGroup ?? 2}단어씩
+                    </span>
+                  </div>
                 </div>
               )}
             </div>
@@ -1167,6 +1271,99 @@ export function AudiobookProjectCard({
                       >
                         {ytUploading ? 'YouTube 업로드 중...' : 'YouTube에 업로드'}
                       </button>
+
+                      {/* 자막 (Caption) 섹션 — 영상 업로드 완료 후만 */}
+                      {project.youtubeUpload?.videoId && (
+                        <div className="space-y-3 border-t border-red-200 dark:border-red-800 pt-4 mt-2">
+                          <h6 className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+                            다국어 자막 업로드
+                          </h6>
+
+                          {/* 언어 선택 */}
+                          <div className="flex flex-wrap gap-2">
+                            {/* 기본 언어 (항상 포함) */}
+                            <label className="flex items-center gap-1 px-2 py-1 rounded-md bg-violet-100 dark:bg-violet-900/30 text-xs text-violet-700 dark:text-violet-300">
+                              <input
+                                type="checkbox"
+                                checked
+                                disabled
+                                className="w-3 h-3 accent-violet-600"
+                              />
+                              {project.language === 'ko'
+                                ? '한국어'
+                                : SUPPORTED_LANGUAGES.find((l) => l.code === project.language)
+                                    ?.label || project.language}
+                              <span className="text-[10px] text-violet-400">(기본)</span>
+                            </label>
+                            {/* 추가 언어 */}
+                            {SUPPORTED_LANGUAGES.filter((l) => l.code !== project.language).map(
+                              (lang) => (
+                                <label
+                                  key={lang.code}
+                                  className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs cursor-pointer transition-colors ${
+                                    captionLangs.includes(lang.code)
+                                      ? 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300'
+                                      : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-violet-50 dark:hover:bg-violet-900/20'
+                                  }`}
+                                >
+                                  <input
+                                    type="checkbox"
+                                    checked={captionLangs.includes(lang.code)}
+                                    onChange={() => toggleCaptionLang(lang.code)}
+                                    className="w-3 h-3 accent-violet-600"
+                                  />
+                                  {lang.label}
+                                  {project.youtubeUpload?.captionsUploaded?.includes(lang.code) && (
+                                    <span className="text-emerald-500">✓</span>
+                                  )}
+                                </label>
+                              )
+                            )}
+                          </div>
+
+                          {/* 자막 진행률 */}
+                          {captionUploading && captionProgress && (
+                            <div className="space-y-1.5 bg-violet-50 dark:bg-violet-900/20 px-3 py-2 rounded-lg">
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs font-medium text-violet-700 dark:text-violet-300">
+                                  자막 업로드 중
+                                </span>
+                                <span className="text-xs text-violet-600">
+                                  {captionProgress.progress}%
+                                </span>
+                              </div>
+                              <div className="w-full h-1.5 bg-violet-200 dark:bg-violet-800 rounded-full overflow-hidden">
+                                <div
+                                  className="h-full bg-violet-500 rounded-full transition-all duration-500"
+                                  style={{ width: `${captionProgress.progress}%` }}
+                                />
+                              </div>
+                              <p className="text-[10px] text-violet-500">{captionProgress.step}</p>
+                            </div>
+                          )}
+
+                          {captionError && <p className="text-xs text-red-500">{captionError}</p>}
+
+                          {/* 업로드 완료 표시 */}
+                          {project.youtubeUpload?.captionsUploaded &&
+                            project.youtubeUpload.captionsUploaded.length > 0 &&
+                            !captionUploading && (
+                              <p className="text-xs text-emerald-600">
+                                업로드 완료: {project.youtubeUpload.captionsUploaded.join(', ')}
+                              </p>
+                            )}
+
+                          <button
+                            onClick={handleUploadCaptions}
+                            disabled={captionUploading || captionLangs.length === 0}
+                            className="px-4 py-1.5 text-xs bg-violet-600 hover:bg-violet-700 disabled:bg-violet-300 text-white rounded-md transition-colors"
+                          >
+                            {captionUploading
+                              ? '자막 업로드 중...'
+                              : `자막 업로드 (${captionLangs.length + 1}개 언어)`}
+                          </button>
+                        </div>
+                      )}
                     </>
                   )}
                 </div>

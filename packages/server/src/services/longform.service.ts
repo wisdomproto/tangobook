@@ -28,6 +28,8 @@ import type { LongformRenderOptions } from '../providers/longform.provider.js';
 import { YouTubeProvider } from '../providers/youtube.provider.js';
 import { PromptPresetService } from './prompt-preset.service.js';
 import { getAudioDuration } from '../utils/audio-duration.js';
+import { generateLongformSrt } from '../utils/srt-generator.js';
+import { translateSrt } from '../utils/srt-translator.js';
 
 const execFileAsync = promisify(execFile);
 
@@ -43,6 +45,7 @@ const analyzeProgressMap = new Map<string, ProgressInfo>();
 const progressMap = new Map<string, ProgressInfo>();
 const renderProgressMap = new Map<string, ProgressInfo>();
 const youtubeProgressMap = new Map<string, ProgressInfo>();
+const captionProgressMap = new Map<string, ProgressInfo>();
 
 // ===== ffmpeg helpers =====
 
@@ -1132,5 +1135,78 @@ export const LongformService = {
     }
 
     return { recovered, total: project.scenes.length };
+  },
+
+  // ----- YouTube Captions -----
+
+  getCaptionProgress(projectId: string): ProgressInfo | null {
+    return captionProgressMap.get(projectId) ?? null;
+  },
+
+  setCaptionError(projectId: string, message: string) {
+    captionProgressMap.set(projectId, { progress: -1, step: message });
+    setTimeout(() => captionProgressMap.delete(projectId), 30_000);
+  },
+
+  async uploadCaptions(storybookId: string, projectId: string, languages: string[]): Promise<void> {
+    const storybook = await loadStorybook(storybookId);
+    const project = loadProject(storybook, projectId);
+
+    if (!project.youtubeUpload?.videoId) {
+      throw new AppError(400, 'YouTube에 업로드된 영상이 없습니다.');
+    }
+
+    const videoId = project.youtubeUpload.videoId;
+    const baseLang = project.language || 'ko';
+    const allLanguages = [baseLang, ...languages.filter((l) => l !== baseLang)];
+    const totalSteps = allLanguages.length + 1;
+    const uploaded: string[] = [];
+
+    captionProgressMap.set(projectId, { progress: 0, step: 'SRT 자막 생성 중' });
+
+    // Generate SRT from scenes
+    const baseSrt = generateLongformSrt(project.scenes);
+    if (!baseSrt.trim()) {
+      throw new AppError(400, '자막으로 변환할 텍스트가 없습니다.');
+    }
+
+    captionProgressMap.set(projectId, {
+      progress: Math.round((1 / totalSteps) * 100),
+      step: `${baseLang} 자막 업로드 중`,
+    });
+
+    // Upload base language caption
+    try {
+      await YouTubeProvider.uploadCaption(videoId, baseLang, baseSrt);
+      uploaded.push(baseLang);
+    } catch (err) {
+      console.warn(`[longform-caption] Failed to upload ${baseLang}:`, err);
+    }
+
+    // Translate and upload each additional language
+    for (const lang of allLanguages) {
+      if (lang === baseLang) continue;
+
+      const stepNum = uploaded.length + 1;
+      captionProgressMap.set(projectId, {
+        progress: Math.round((stepNum / totalSteps) * 100),
+        step: `${lang} 자막 번역 + 업로드 중`,
+      });
+
+      try {
+        const translatedSrt = await translateSrt(baseSrt, baseLang, lang);
+        await YouTubeProvider.uploadCaption(videoId, lang, translatedSrt);
+        uploaded.push(lang);
+      } catch (err) {
+        console.warn(`[longform-caption] Failed for ${lang}:`, err);
+      }
+    }
+
+    // Save results
+    project.youtubeUpload.captionsUploaded = uploaded;
+    await R2Repository.saveStorybook(storybook);
+
+    captionProgressMap.set(projectId, { progress: 100, step: '자막 업로드 완료' });
+    setTimeout(() => captionProgressMap.delete(projectId), 30_000);
   },
 };

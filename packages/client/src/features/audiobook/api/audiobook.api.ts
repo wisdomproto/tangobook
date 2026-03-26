@@ -28,6 +28,13 @@ export const audiobookApi = {
   youtubeAuthUrl: () => apiGet<{ url: string }>('/longform/youtube/auth-url'),
   youtubeStatus: () => apiGet<{ connected: boolean }>('/longform/youtube/status'),
 
+  // YouTube captions
+  youtubeUploadCaptions: (data: { storybookId: string; projectId: string; languages: string[] }) =>
+    apiPost('/audiobooks/youtube/upload-captions', data),
+
+  getCaptionProgress: (projectId: string) =>
+    apiGet<AudiobookRenderProgress | null>(`/audiobooks/youtube/caption-progress/${projectId}`),
+
   // YouTube presets — shared with longform
   youtubePresets: () => apiGet<YouTubePreset[]>('/youtube-presets'),
   createYoutubePreset: (data: { name: string; prompt: string }) =>

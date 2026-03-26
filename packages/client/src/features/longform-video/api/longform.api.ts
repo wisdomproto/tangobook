@@ -77,6 +77,14 @@ export const longformApi = {
     apiGet<{ progress: number; step: string } | null>(`/longform/youtube/progress/${projectId}`),
   generateYouTubeMeta: (req: { storybookId: string; projectId: string; prompt: string }) =>
     apiPost<YouTubeGeneratedMeta>('/longform/youtube/generate-meta', req),
+
+  // YouTube captions
+  youtubeUploadCaptions: (req: { storybookId: string; projectId: string; languages: string[] }) =>
+    apiPost('/longform/youtube/upload-captions', req),
+  getCaptionProgress: (projectId: string) =>
+    apiGet<{ progress: number; step: string } | null>(
+      `/longform/youtube/caption-progress/${projectId}`
+    ),
 };
 
 export const ytPresetApi = {

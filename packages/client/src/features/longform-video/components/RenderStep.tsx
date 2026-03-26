@@ -1,6 +1,10 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import type { LongformProject, YouTubeUploadMeta, YouTubePreset } from '@tangobook/shared';
-import { YOUTUBE_CATEGORIES, YOUTUBE_PRIVACY_OPTIONS } from '@tangobook/shared';
+import {
+  YOUTUBE_CATEGORIES,
+  YOUTUBE_PRIVACY_OPTIONS,
+  SUPPORTED_LANGUAGES,
+} from '@tangobook/shared';
 import { Button } from '@/components/Button';
 import { DownloadButton } from '@/components/DownloadButton';
 import { storybookApi } from '@/features/storybook';
@@ -71,6 +75,15 @@ export function RenderStep({
   const [selectedPresetId, setSelectedPresetId] = useState<string>('');
   const [presetName, setPresetName] = useState('');
   const [showPresetSave, setShowPresetSave] = useState(false);
+
+  // Caption state
+  const [captionLangs, setCaptionLangs] = useState<string[]>(project.captionLanguages ?? []);
+  const [captionUploading, setCaptionUploading] = useState(false);
+  const [captionProgress, setCaptionProgress] = useState<{ progress: number; step: string } | null>(
+    null
+  );
+  const [captionError, setCaptionError] = useState<string | null>(null);
+  const captionPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Load YouTube presets
   useEffect(() => {
@@ -150,6 +163,7 @@ export function RenderStep({
     return () => {
       if (pollingRef.current) clearInterval(pollingRef.current);
       if (ytPollRef.current) clearInterval(ytPollRef.current);
+      if (captionPollRef.current) clearInterval(captionPollRef.current);
     };
   }, []);
 
@@ -397,6 +411,86 @@ export function RenderStep({
       setYtError(e instanceof Error ? e.message : 'YouTube 업로드 중 오류가 발생했습니다.');
       setYtUploading(false);
       setYtProgress(null);
+    }
+  };
+
+  // ----- Caption handlers -----
+  const toggleCaptionLang = (code: string) => {
+    setCaptionLangs((prev) =>
+      prev.includes(code) ? prev.filter((l) => l !== code) : [...prev, code]
+    );
+  };
+
+  const stopCaptionPolling = useCallback(() => {
+    if (captionPollRef.current) {
+      clearInterval(captionPollRef.current);
+      captionPollRef.current = null;
+    }
+  }, []);
+
+  const handleUploadCaptions = async () => {
+    if (captionLangs.length === 0) return;
+    setCaptionError(null);
+    setCaptionUploading(true);
+    setCaptionProgress({ progress: 0, step: '자막 생성 중...' });
+
+    onUpdate({ captionLanguages: captionLangs });
+
+    try {
+      await longformApi.youtubeUploadCaptions({
+        storybookId,
+        projectId: project.id,
+        languages: captionLangs,
+      });
+
+      captionPollRef.current = setInterval(async () => {
+        try {
+          const data = await longformApi.getCaptionProgress(project.id);
+          if (!data) {
+            stopCaptionPolling();
+            setCaptionUploading(false);
+            setCaptionProgress(null);
+            try {
+              const updated = await storybookApi.getById(storybookId);
+              const up = updated.longformProjects?.find((p) => p.id === project.id);
+              if (up?.youtubeUpload?.captionsUploaded) {
+                onUpdate({ youtubeUpload: up.youtubeUpload });
+              }
+            } catch {
+              /* ignore */
+            }
+            return;
+          }
+          if (data.progress < 0) {
+            stopCaptionPolling();
+            setCaptionUploading(false);
+            setCaptionProgress(null);
+            setCaptionError(data.step || '자막 업로드 실패');
+            return;
+          }
+          setCaptionProgress({ progress: data.progress, step: data.step });
+          if (data.progress >= 100) {
+            stopCaptionPolling();
+            setCaptionUploading(false);
+            setCaptionProgress(null);
+            try {
+              const updated = await storybookApi.getById(storybookId);
+              const up = updated.longformProjects?.find((p) => p.id === project.id);
+              if (up?.youtubeUpload?.captionsUploaded) {
+                onUpdate({ youtubeUpload: up.youtubeUpload });
+              }
+            } catch {
+              /* ignore */
+            }
+          }
+        } catch {
+          /* ignore */
+        }
+      }, 2000);
+    } catch (e) {
+      setCaptionError(e instanceof Error ? e.message : '자막 업로드 실패');
+      setCaptionUploading(false);
+      setCaptionProgress(null);
     }
   };
 
@@ -868,6 +962,91 @@ export function RenderStep({
               {ytError && (
                 <div className="px-4 py-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-sm text-red-700 dark:text-red-400">
                   {ytError}
+                </div>
+              )}
+
+              {/* 자막 (Caption) 섹션 — YouTube 업로드 완료 후 */}
+              {project.youtubeUpload?.videoId && (
+                <div className="space-y-3 border-t border-red-200 dark:border-red-800 pt-4 mt-2">
+                  <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                    다국어 자막 업로드
+                  </h4>
+
+                  <div className="flex flex-wrap gap-2">
+                    <label className="flex items-center gap-1 px-2 py-1 rounded-md bg-violet-100 dark:bg-violet-900/30 text-xs text-violet-700 dark:text-violet-300">
+                      <input
+                        type="checkbox"
+                        checked
+                        disabled
+                        className="w-3 h-3 accent-violet-600"
+                      />
+                      {project.language === 'ko'
+                        ? '한국어'
+                        : SUPPORTED_LANGUAGES.find((l) => l.code === project.language)?.label ||
+                          project.language}
+                      <span className="text-[10px] text-violet-400">(기본)</span>
+                    </label>
+                    {SUPPORTED_LANGUAGES.filter((l) => l.code !== project.language).map((lang) => (
+                      <label
+                        key={lang.code}
+                        className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs cursor-pointer transition-colors ${
+                          captionLangs.includes(lang.code)
+                            ? 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300'
+                            : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-violet-50'
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={captionLangs.includes(lang.code)}
+                          onChange={() => toggleCaptionLang(lang.code)}
+                          className="w-3 h-3 accent-violet-600"
+                        />
+                        {lang.label}
+                        {project.youtubeUpload?.captionsUploaded?.includes(lang.code) && (
+                          <span className="text-emerald-500">✓</span>
+                        )}
+                      </label>
+                    ))}
+                  </div>
+
+                  {captionUploading && captionProgress && (
+                    <div className="space-y-1.5 bg-violet-50 dark:bg-violet-900/20 px-3 py-2 rounded-lg">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-medium text-violet-700 dark:text-violet-300">
+                          자막 업로드 중
+                        </span>
+                        <span className="text-xs text-violet-600">{captionProgress.progress}%</span>
+                      </div>
+                      <div className="w-full h-1.5 bg-violet-200 dark:bg-violet-800 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-violet-500 rounded-full transition-all duration-500"
+                          style={{ width: `${captionProgress.progress}%` }}
+                        />
+                      </div>
+                      <p className="text-[10px] text-violet-500">{captionProgress.step}</p>
+                    </div>
+                  )}
+
+                  {captionError && <p className="text-xs text-red-500">{captionError}</p>}
+
+                  {project.youtubeUpload?.captionsUploaded &&
+                    project.youtubeUpload.captionsUploaded.length > 0 &&
+                    !captionUploading && (
+                      <p className="text-xs text-emerald-600">
+                        업로드 완료: {project.youtubeUpload.captionsUploaded.join(', ')}
+                      </p>
+                    )}
+
+                  <Button
+                    onClick={handleUploadCaptions}
+                    disabled={captionUploading || captionLangs.length === 0}
+                    size="sm"
+                    className="!bg-violet-600 hover:!bg-violet-700"
+                  >
+                    {captionUploading
+                      ? '자막 업로드 중...'
+                      : `자막 업로드 (${captionLangs.length + 1}개 언어)`}
+                  </Button>
                 </div>
               )}
             </>

@@ -17,11 +17,16 @@ export const AudiobookController = {
   // YouTube — fire-and-forget upload
   youtubeUpload: asyncHandler(async (req, res) => {
     const { storybookId, projectId, meta } = req.body;
+    console.log('[audiobook-youtube] Controller received:', {
+      storybookId,
+      projectId,
+      hasMeta: !!meta,
+    });
     // Return immediately, run upload in background
     res.json({ success: true, data: { message: 'YouTube 업로드 시작' } });
 
     AudiobookService.uploadToYouTube(storybookId, projectId, meta).catch((err) => {
-      console.error('[audiobook-youtube] Upload failed:', err);
+      console.error('[audiobook-youtube] Upload failed:', err.message || err);
       AudiobookService.setYouTubeError(
         projectId,
         err instanceof Error ? err.message : '업로드 실패'
@@ -40,4 +45,24 @@ export const AudiobookController = {
     const meta = await AudiobookService.generateYouTubeMeta(storybookId, projectId, prompt);
     res.json({ success: true, data: meta });
   }),
+
+  // Captions — fire-and-forget
+  youtubeUploadCaptions: asyncHandler(async (req, res) => {
+    const { storybookId, projectId, languages } = req.body;
+    res.json({ success: true, data: { message: '자막 업로드 시작' } });
+
+    AudiobookService.uploadCaptions(storybookId, projectId, languages).catch((err) => {
+      console.error('[audiobook-caption] Upload failed:', err);
+      AudiobookService.setCaptionError(
+        projectId,
+        err instanceof Error ? err.message : '자막 업로드 실패'
+      );
+    });
+  }),
+
+  getCaptionProgress(req: Request, res: Response) {
+    const projectId = req.params.projectId as string;
+    const progress = AudiobookService.getCaptionProgress(projectId);
+    res.json({ success: true, data: progress });
+  },
 };

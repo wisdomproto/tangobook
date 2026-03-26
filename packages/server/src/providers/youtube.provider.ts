@@ -162,6 +162,29 @@ export const YouTubeProvider = {
   },
 
   /** Disconnect YouTube (delete stored tokens) */
+  async uploadCaption(
+    videoId: string,
+    languageCode: string,
+    srtContent: string,
+    name?: string
+  ): Promise<void> {
+    const youtube = await this.getAuthenticatedClient();
+    await youtube.captions.insert({
+      part: ['snippet'],
+      requestBody: {
+        snippet: {
+          videoId,
+          language: languageCode,
+          name: name || '',
+        },
+      },
+      media: {
+        mimeType: 'application/x-subrip',
+        body: Readable.from(Buffer.from(srtContent, 'utf-8')),
+      },
+    });
+  },
+
   async disconnect(): Promise<void> {
     try {
       await deleteFromR2(TOKENS_KEY);

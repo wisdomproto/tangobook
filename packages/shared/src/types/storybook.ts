@@ -719,9 +719,11 @@ export interface AudiobookProject {
   subtitleSize: 'sm' | 'md' | 'lg';
   subtitlePosition: 'top' | 'center' | 'bottom';
   subtitleBg: string;
+  subtitleWordsPerGroup?: number; // 자막 단어 그룹 수 (기본 2)
   outputUrl?: string;
   createdAt?: string;
   enableParticles?: boolean;
+  captionLanguages?: string[]; // YouTube 자막 업로드할 언어 목록
   youtubeUpload?: YouTubeUploadResult;
 }
 
@@ -862,6 +864,7 @@ export interface LongformProject {
   subtitleStyle: LongformSubtitleStyle;
   outputUrl?: string;
   createdAt?: string;
+  captionLanguages?: string[]; // YouTube 자막 업로드할 언어 목록
   youtubeUpload?: YouTubeUploadResult;
   /** If set, this is a "version" (timeline edit) of the master project */
   parentProjectId?: string;
@@ -882,6 +885,7 @@ export interface YouTubeUploadResult {
   videoUrl: string;
   uploadedAt: string;
   privacy: string;
+  captionsUploaded?: string[]; // 업로드 완료된 자막 언어 목록
 }
 
 export interface YouTubePreset {

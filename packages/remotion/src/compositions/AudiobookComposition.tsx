@@ -59,7 +59,11 @@ export const AudiobookComposition: React.FC<AudiobookRenderProps> = ({
                 <AbsoluteFill>
                   <KenBurnsSlide imageUrl={slide.imageUrl} slideIndex={index} />
                   {slide.subtitleText && (
-                    <TypewriterSubtitle text={slide.subtitleText} style={subtitleStyle} />
+                    <TypewriterSubtitle
+                      text={slide.subtitleText}
+                      style={subtitleStyle}
+                      wordsPerGroup={subtitleStyle.wordsPerGroup}
+                    />
                   )}
                   {enableParticles && <SparkleParticles seed={index} />}
                   {slide.ttsUrl && <Audio src={slide.ttsUrl} volume={1} />}

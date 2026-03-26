@@ -10,6 +10,7 @@ export type SubtitleStyle = {
   color: string;
   backgroundColor: string;
   position: 'top' | 'center' | 'bottom';
+  wordsPerGroup?: number; // 한번에 표시할 단어 수 (기본 2)
 };
 
 export type AudiobookRenderProps = {

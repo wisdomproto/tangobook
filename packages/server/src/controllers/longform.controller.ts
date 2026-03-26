@@ -172,4 +172,24 @@ export const LongformController = {
     const result = await LongformService.confirmRender(storybookId, projectId, outputUrl);
     res.json({ success: true, data: result });
   }),
+
+  // Captions — fire-and-forget
+  youtubeUploadCaptions: asyncHandler(async (req, res) => {
+    const { storybookId, projectId, languages } = req.body;
+    res.json({ success: true, data: { message: '자막 업로드 시작' } });
+
+    LongformService.uploadCaptions(storybookId, projectId, languages).catch((err) => {
+      console.error('[longform-caption] Upload failed:', err);
+      LongformService.setCaptionError(
+        projectId,
+        err instanceof Error ? err.message : '자막 업로드 실패'
+      );
+    });
+  }),
+
+  getCaptionProgress(req: Request, res: Response) {
+    const projectId = req.params.projectId as string;
+    const progress = LongformService.getCaptionProgress(projectId);
+    res.json({ success: true, data: progress });
+  },
 };

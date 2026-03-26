@@ -18,6 +18,7 @@ export type AudiobookRenderData = {
     color: string;
     backgroundColor: string;
     position: 'top' | 'center' | 'bottom';
+    wordsPerGroup?: number;
   };
   enableParticles?: boolean;
   fps?: number;
@@ -86,6 +87,7 @@ export function buildAudiobookRenderData(
       color: project.subtitleColor || '#ffffff',
       backgroundColor: project.subtitleBg || '#00000080',
       position: project.subtitlePosition || 'bottom',
+      wordsPerGroup: project.subtitleWordsPerGroup ?? 2,
     },
     enableParticles: project.enableParticles ?? true,
     fps: 30,

@@ -8,19 +8,38 @@ const { fontFamily } = loadFont();
 type TypewriterSubtitleProps = {
   text: string;
   style: SubtitleStyle;
-  charFrames?: number;
+  /** Frames per word group reveal */
+  wordGroupFrames?: number;
+  /** How many words per group */
+  wordsPerGroup?: number;
 };
+
+/**
+ * Split text into word groups.
+ * Korean: split by spaces, group N words.
+ * English: split by spaces, group N words.
+ */
+function splitIntoGroups(text: string, wordsPerGroup: number): string[] {
+  const words = text.split(/\s+/).filter(Boolean);
+  const groups: string[] = [];
+  for (let i = 0; i < words.length; i += wordsPerGroup) {
+    groups.push(words.slice(i, i + wordsPerGroup).join(' '));
+  }
+  return groups;
+}
 
 export const TypewriterSubtitle: React.FC<TypewriterSubtitleProps> = ({
   text,
   style,
-  charFrames = 2,
+  wordGroupFrames = 8,
+  wordsPerGroup = 2,
 }) => {
   const frame = useCurrentFrame();
   const { durationInFrames, fps } = useVideoConfig();
 
-  const typedChars = Math.min(text.length, Math.floor(frame / charFrames));
-  const displayText = text.slice(0, typedChars);
+  const groups = splitIntoGroups(text, wordsPerGroup);
+  const revealedCount = Math.min(groups.length, Math.floor(frame / wordGroupFrames));
+  const displayText = groups.slice(0, revealedCount).join(' ');
 
   const fadeOutStart = durationInFrames - Math.round(0.5 * fps);
   const opacity = interpolate(frame, [fadeOutStart, durationInFrames], [1, 0], {
