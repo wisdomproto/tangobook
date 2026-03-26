@@ -1,13 +1,25 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Player } from '@remotion/player';
 import { AudiobookComposition, calculateTotalFrames, RESOLUTIONS } from '@tangobook/remotion';
 import type { AudiobookRenderProps } from '@tangobook/remotion';
-import { SUPPORTED_LANGUAGES, buildAudiobookRenderData } from '@tangobook/shared';
-import type { AudiobookProject, CoverImageItem, Storybook } from '@tangobook/shared';
+import {
+  SUPPORTED_LANGUAGES,
+  buildAudiobookRenderData,
+  YOUTUBE_CATEGORIES,
+  YOUTUBE_PRIVACY_OPTIONS,
+} from '@tangobook/shared';
+import type {
+  AudiobookProject,
+  CoverImageItem,
+  Storybook,
+  YouTubeUploadMeta,
+  YouTubePreset,
+} from '@tangobook/shared';
 import { useAudiobookRender } from '../hooks/useAudiobookRender';
 import { useTtsDurations } from '../hooks/useTtsDurations';
 import { audiobookApi } from '../api/audiobook.api';
 import type { AudiobookRenderProgress } from '../api/audiobook.api';
+import { storybookApi } from '@/features/storybook';
 import { settingsApi } from '@/features/settings/api/settings.api';
 import type { BgmItem } from '@/features/settings/api/settings.api';
 
@@ -65,7 +77,6 @@ export function AudiobookProjectCard({
   const [editingName, setEditingName] = useState(project.name);
   const [rendering, setRendering] = useState(false);
   const [progress, setProgress] = useState<AudiobookRenderProgress | null>(null);
-  const [youtubeUploading, setYoutubeUploading] = useState(false);
   const progressTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const renderMutation = useAudiobookRender();
 
@@ -146,21 +157,200 @@ export function AudiobookProjectCard({
     }
   };
 
-  const handleYoutubeUpload = async () => {
-    setYoutubeUploading(true);
+  // ----- YouTube state -----
+  const [ytConnected, setYtConnected] = useState<boolean | null>(null);
+  const [ytUploading, setYtUploading] = useState(false);
+  const [ytProgress, setYtProgress] = useState<AudiobookRenderProgress | null>(null);
+  const [ytError, setYtError] = useState<string | null>(null);
+  const ytPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const [ytTitle, setYtTitle] = useState(project.name || '');
+  const [ytDescription, setYtDescription] = useState('');
+  const [ytPrivacy, setYtPrivacy] = useState<'public' | 'private' | 'unlisted'>('unlisted');
+  const [ytCategory, setYtCategory] = useState('27');
+  const [ytTags, setYtTags] = useState('');
+  const [ytLanguage, setYtLanguage] = useState(project.language || 'ko');
+
+  const DEFAULT_YT_PROMPT = `당신은 YouTube 동화 채널 운영자입니다.
+주어진 동화책 정보를 바탕으로 YouTube 업로드에 최적화된 설정값을 생성해주세요.
+
+요구사항:
+- title: SEO에 최적화된 매력적인 제목 (60자 이내)
+- description: 동화 내용 요약 + 해시태그 포함 (500자 이내)
+- tags: 검색 노출을 위한 관련 태그 10~15개
+- privacy: "public" (공개)
+- categoryId: "27" (교육)
+- language: 동화책 언어에 맞게 설정`;
+
+  const [aiPrompt, setAiPrompt] = useState(DEFAULT_YT_PROMPT);
+  const [isGeneratingMeta, setIsGeneratingMeta] = useState(false);
+  const [showPromptEditor, setShowPromptEditor] = useState(false);
+  const [ytPresets, setYtPresets] = useState<YouTubePreset[]>([]);
+  const [selectedPresetId, setSelectedPresetId] = useState<string>('');
+  const [presetName, setPresetName] = useState('');
+  const [showPresetSave, setShowPresetSave] = useState(false);
+  const [showYoutubeSection, setShowYoutubeSection] = useState(false);
+
+  // Check YouTube connection on expand
+  useEffect(() => {
+    if (expanded && ytConnected === null) {
+      audiobookApi
+        .youtubeStatus()
+        .then((data) => setYtConnected(data.connected))
+        .catch(() => setYtConnected(false));
+    }
+  }, [expanded]);
+
+  // Load presets on expand
+  useEffect(() => {
+    if (expanded && showYoutubeSection && ytPresets.length === 0) {
+      audiobookApi
+        .youtubePresets()
+        .then(setYtPresets)
+        .catch(() => {});
+    }
+  }, [expanded, showYoutubeSection]);
+
+  // Cleanup polling
+  useEffect(() => {
+    return () => {
+      if (ytPollRef.current) clearInterval(ytPollRef.current);
+    };
+  }, []);
+
+  const stopYtPolling = useCallback(() => {
+    if (ytPollRef.current) {
+      clearInterval(ytPollRef.current);
+      ytPollRef.current = null;
+    }
+  }, []);
+
+  const handleYoutubeConnect = async () => {
     try {
-      const status = await audiobookApi.youtubeStatus();
-      if (!status.connected) {
-        const auth = await audiobookApi.youtubeAuthUrl();
-        window.open(auth.url, '_blank');
-        return;
-      }
-      await audiobookApi.youtubeUpload({ storybookId, projectId: project.id });
-      onUpdate({ youtubeUpload: { videoId: 'uploaded', url: '' } } as any);
-    } catch (err: any) {
-      alert(err.message || 'YouTube 업로드 실패');
+      const data = await audiobookApi.youtubeAuthUrl();
+      window.location.href = data.url;
+    } catch {
+      setYtError('YouTube 연결 URL을 가져오지 못했습니다.');
+    }
+  };
+
+  const handleGenerateMeta = async () => {
+    setIsGeneratingMeta(true);
+    setYtError(null);
+    try {
+      const meta = await audiobookApi.youtubeGenerateMeta({
+        storybookId,
+        projectId: project.id,
+        prompt: aiPrompt,
+      });
+      setYtTitle(meta.title);
+      setYtDescription(meta.description);
+      setYtTags(meta.tags.join(', '));
+      setYtPrivacy(meta.privacy);
+      setYtCategory(meta.categoryId);
+      setYtLanguage(meta.language);
+    } catch (e) {
+      setYtError(e instanceof Error ? e.message : 'AI 설정값 생성에 실패했습니다.');
     } finally {
-      setYoutubeUploading(false);
+      setIsGeneratingMeta(false);
+    }
+  };
+
+  const handleLoadPreset = (preset: YouTubePreset) => {
+    setAiPrompt(preset.prompt);
+    setSelectedPresetId(preset.id);
+  };
+
+  const handleSavePreset = async () => {
+    if (!presetName.trim()) return;
+    try {
+      const created = await audiobookApi.createYoutubePreset({
+        name: presetName.trim(),
+        prompt: aiPrompt,
+      });
+      setYtPresets((prev) => [...prev, created]);
+      setSelectedPresetId(created.id);
+      setShowPresetSave(false);
+      setPresetName('');
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const handleYoutubeUpload = async () => {
+    setYtError(null);
+    setYtUploading(true);
+    setYtProgress({ progress: 0, step: '업로드 준비 중...' });
+
+    let thumbnailUrl: string | undefined;
+    try {
+      const sb = await storybookApi.getById(storybookId);
+      thumbnailUrl = sb.coverImage || undefined;
+    } catch {
+      /* ignore */
+    }
+
+    const meta: YouTubeUploadMeta = {
+      title: ytTitle,
+      description: ytDescription,
+      privacy: ytPrivacy,
+      categoryId: ytCategory,
+      tags: ytTags
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean),
+      language: ytLanguage,
+      thumbnailUrl,
+    };
+
+    try {
+      await audiobookApi.youtubeUpload({ storybookId, projectId: project.id, meta });
+
+      ytPollRef.current = setInterval(async () => {
+        try {
+          const data = await audiobookApi.getYouTubeProgress(project.id);
+          if (!data) {
+            stopYtPolling();
+            setYtUploading(false);
+            setYtProgress(null);
+            try {
+              const updated = await storybookApi.getById(storybookId);
+              const up = updated.audiobookProjects?.find((p) => p.id === project.id);
+              if (up?.youtubeUpload) onUpdate({ youtubeUpload: up.youtubeUpload });
+              else setYtError('YouTube 업로드에 실패했습니다.');
+            } catch {
+              setYtError('업로드 결과를 확인할 수 없습니다.');
+            }
+            return;
+          }
+          if (data.progress < 0) {
+            stopYtPolling();
+            setYtUploading(false);
+            setYtProgress(null);
+            setYtError(data.step || 'YouTube 업로드에 실패했습니다.');
+            return;
+          }
+          setYtProgress({ progress: data.progress, step: data.step });
+          if (data.progress >= 100) {
+            stopYtPolling();
+            setYtUploading(false);
+            setYtProgress(null);
+            try {
+              const updated = await storybookApi.getById(storybookId);
+              const up = updated.audiobookProjects?.find((p) => p.id === project.id);
+              if (up?.youtubeUpload) onUpdate({ youtubeUpload: up.youtubeUpload });
+            } catch {
+              /* ignore */
+            }
+          }
+        } catch {
+          /* ignore polling errors */
+        }
+      }, 2000);
+    } catch (e) {
+      setYtError(e instanceof Error ? e.message : 'YouTube 업로드 중 오류가 발생했습니다.');
+      setYtUploading(false);
+      setYtProgress(null);
     }
   };
 
@@ -261,7 +451,7 @@ export function AudiobookProjectCard({
           <section className="space-y-2">
             <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-200">프리뷰</h4>
             {renderData.slides.length > 0 ? (
-              <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+              <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 max-w-lg mx-auto">
                 <Player
                   component={AudiobookComposition}
                   inputProps={renderData as AudiobookRenderProps}
@@ -722,7 +912,7 @@ export function AudiobookProjectCard({
             </div>
           )}
 
-          {/* 렌더링 결과 + 액션 */}
+          {/* 렌더링 결과 + YouTube 업로드 */}
           {project.outputUrl && !rendering && (
             <section className="space-y-3">
               <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-200">결과</h4>
@@ -731,7 +921,7 @@ export function AudiobookProjectCard({
                 controls
                 className="w-full max-w-lg rounded-lg border border-slate-200 dark:border-slate-700"
               />
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <a
                   href={project.outputUrl}
                   download
@@ -740,17 +930,247 @@ export function AudiobookProjectCard({
                   다운로드
                 </a>
                 <button
-                  onClick={handleYoutubeUpload}
-                  disabled={youtubeUploading}
-                  className="px-3 py-1.5 text-xs bg-red-600 hover:bg-red-700 disabled:bg-red-300 text-white rounded-md transition-colors"
+                  onClick={() => setShowYoutubeSection((v) => !v)}
+                  className="px-3 py-1.5 text-xs bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
                 >
-                  {youtubeUploading ? 'YouTube 업로드 중...' : 'YouTube 업로드'}
+                  YouTube {showYoutubeSection ? '▲' : '▼'}
                 </button>
+                {project.youtubeUpload && (
+                  <a
+                    href={project.youtubeUpload.videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-red-500 hover:underline"
+                  >
+                    ▶ YouTube에서 보기
+                  </a>
+                )}
               </div>
               <p className="text-xs text-slate-400 dark:text-slate-500">
                 생성일:{' '}
                 {project.createdAt ? new Date(project.createdAt).toLocaleString('ko-KR') : '-'}
               </p>
+
+              {/* YouTube 업로드 섹션 */}
+              {showYoutubeSection && (
+                <div className="space-y-4 border border-red-200 dark:border-red-800 rounded-lg p-4 bg-red-50/50 dark:bg-red-900/10">
+                  <h5 className="text-sm font-semibold text-red-700 dark:text-red-300 flex items-center gap-1.5">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 00.5 6.19 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.88.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 002.12-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.81zM9.54 15.57V8.44L15.82 12l-6.28 3.57z" />
+                    </svg>
+                    YouTube 업로드
+                  </h5>
+
+                  {/* 연결 상태 */}
+                  {ytConnected === false ? (
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-slate-500">
+                        YouTube 계정이 연결되지 않았습니다.
+                      </span>
+                      <button
+                        onClick={handleYoutubeConnect}
+                        className="px-3 py-1 text-xs bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
+                      >
+                        YouTube 연결
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      {/* AI 설정값 생성 */}
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <button
+                            onClick={handleGenerateMeta}
+                            disabled={isGeneratingMeta}
+                            className="px-3 py-1.5 text-xs bg-violet-600 hover:bg-violet-700 disabled:bg-violet-300 text-white rounded-md transition-colors"
+                          >
+                            {isGeneratingMeta ? 'AI 생성 중...' : '🤖 AI 설정값 생성'}
+                          </button>
+                          <button
+                            onClick={() => setShowPromptEditor((v) => !v)}
+                            className="px-2 py-1.5 text-xs text-slate-600 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-md transition-colors"
+                          >
+                            프롬프트 {showPromptEditor ? '접기' : '편집'}
+                          </button>
+                        </div>
+
+                        {/* 프리셋 선택 */}
+                        {ytPresets.length > 0 && (
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className="text-xs text-slate-500 dark:text-slate-400">
+                              프리셋:
+                            </span>
+                            {ytPresets.map((p) => (
+                              <button
+                                key={p.id}
+                                onClick={() => handleLoadPreset(p)}
+                                className={`px-2 py-0.5 text-xs rounded-full transition-colors ${
+                                  selectedPresetId === p.id
+                                    ? 'bg-violet-600 text-white'
+                                    : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-violet-100 dark:hover:bg-violet-800'
+                                }`}
+                              >
+                                {p.name}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+
+                        {showPromptEditor && (
+                          <div className="space-y-2">
+                            <textarea
+                              value={aiPrompt}
+                              onChange={(e) => setAiPrompt(e.target.value)}
+                              rows={6}
+                              className="w-full text-xs border border-slate-200 dark:border-slate-600 rounded-md px-3 py-2 bg-white dark:bg-slate-700 dark:text-slate-100 resize-y focus:outline-none focus:ring-1 focus:ring-violet-300"
+                            />
+                            <div className="flex items-center gap-2">
+                              {showPresetSave ? (
+                                <>
+                                  <input
+                                    type="text"
+                                    value={presetName}
+                                    onChange={(e) => setPresetName(e.target.value)}
+                                    placeholder="프리셋 이름"
+                                    className="text-xs border border-slate-200 dark:border-slate-600 rounded px-2 py-1 bg-white dark:bg-slate-700 dark:text-slate-100"
+                                  />
+                                  <button
+                                    onClick={handleSavePreset}
+                                    className="px-2 py-1 text-xs bg-violet-600 text-white rounded"
+                                  >
+                                    저장
+                                  </button>
+                                  <button
+                                    onClick={() => setShowPresetSave(false)}
+                                    className="px-2 py-1 text-xs text-slate-500 hover:text-slate-700"
+                                  >
+                                    취소
+                                  </button>
+                                </>
+                              ) : (
+                                <button
+                                  onClick={() => setShowPresetSave(true)}
+                                  className="text-xs text-violet-600 hover:underline"
+                                >
+                                  프리셋으로 저장
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* 업로드 폼 */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="sm:col-span-2">
+                          <label className={labelClass}>제목</label>
+                          <input
+                            type="text"
+                            value={ytTitle}
+                            onChange={(e) => setYtTitle(e.target.value)}
+                            className={`${selectClass} w-full mt-1`}
+                          />
+                        </div>
+                        <div className="sm:col-span-2">
+                          <label className={labelClass}>설명</label>
+                          <textarea
+                            value={ytDescription}
+                            onChange={(e) => setYtDescription(e.target.value)}
+                            rows={3}
+                            className={`${selectClass} w-full mt-1 resize-y`}
+                          />
+                        </div>
+                        <div>
+                          <label className={labelClass}>공개 설정</label>
+                          <select
+                            value={ytPrivacy}
+                            onChange={(e) => setYtPrivacy(e.target.value as any)}
+                            className={`${selectClass} w-full mt-1`}
+                          >
+                            {YOUTUBE_PRIVACY_OPTIONS.map((o) => (
+                              <option key={o.value} value={o.value}>
+                                {o.label}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div>
+                          <label className={labelClass}>카테고리</label>
+                          <select
+                            value={ytCategory}
+                            onChange={(e) => setYtCategory(e.target.value)}
+                            className={`${selectClass} w-full mt-1`}
+                          >
+                            {YOUTUBE_CATEGORIES.map((c) => (
+                              <option key={c.id} value={c.id}>
+                                {c.label}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div>
+                          <label className={labelClass}>언어</label>
+                          <select
+                            value={ytLanguage}
+                            onChange={(e) => setYtLanguage(e.target.value)}
+                            className={`${selectClass} w-full mt-1`}
+                          >
+                            <option value="ko">한국어</option>
+                            <option value="en">English</option>
+                          </select>
+                        </div>
+                        <div className="sm:col-span-2">
+                          <label className={labelClass}>태그 (쉼표 구분)</label>
+                          <input
+                            type="text"
+                            value={ytTags}
+                            onChange={(e) => setYtTags(e.target.value)}
+                            placeholder="동화, 오디오북, 유아교육"
+                            className={`${selectClass} w-full mt-1`}
+                          />
+                        </div>
+                      </div>
+
+                      {/* YouTube 진행률 */}
+                      {ytUploading && ytProgress && (
+                        <div className="space-y-2 bg-red-50 dark:bg-red-900/20 px-3 py-2.5 rounded-lg">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-medium text-red-700 dark:text-red-300">
+                              업로드 중
+                            </span>
+                            <span className="text-xs text-red-600">{ytProgress.progress}%</span>
+                          </div>
+                          <div className="w-full h-2 bg-red-200 dark:bg-red-800 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-red-500 rounded-full transition-all duration-500"
+                              style={{ width: `${ytProgress.progress}%` }}
+                            />
+                          </div>
+                          <p className="text-[10px] text-red-500 dark:text-red-400">
+                            {ytProgress.step}
+                          </p>
+                        </div>
+                      )}
+
+                      {/* YouTube 에러 */}
+                      {ytError && (
+                        <div className="text-xs text-red-500 bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-md">
+                          {ytError}
+                        </div>
+                      )}
+
+                      {/* 업로드 버튼 */}
+                      <button
+                        onClick={handleYoutubeUpload}
+                        disabled={ytUploading || !ytTitle.trim()}
+                        className="w-full px-4 py-2 text-sm bg-red-600 hover:bg-red-700 disabled:bg-red-300 text-white rounded-md transition-colors font-medium"
+                      >
+                        {ytUploading ? 'YouTube 업로드 중...' : 'YouTube에 업로드'}
+                      </button>
+                    </>
+                  )}
+                </div>
+              )}
             </section>
           )}
         </div>

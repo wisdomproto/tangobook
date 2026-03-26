@@ -14,19 +14,30 @@ export const AudiobookController = {
     res.json({ success: true, data: progress });
   },
 
-  youtubeUpload: asyncHandler(async (_req, res) => {
-    // TODO: Implement YouTube upload using existing youtube.provider.ts
-    res.json({
-      success: true,
-      data: { message: 'YouTube upload not yet implemented for audiobook' },
+  // YouTube — fire-and-forget upload
+  youtubeUpload: asyncHandler(async (req, res) => {
+    const { storybookId, projectId, meta } = req.body;
+    // Return immediately, run upload in background
+    res.json({ success: true, data: { message: 'YouTube 업로드 시작' } });
+
+    AudiobookService.uploadToYouTube(storybookId, projectId, meta).catch((err) => {
+      console.error('[audiobook-youtube] Upload failed:', err);
+      AudiobookService.setYouTubeError(
+        projectId,
+        err instanceof Error ? err.message : '업로드 실패'
+      );
     });
   }),
 
-  youtubeGenerateMeta: asyncHandler(async (_req, res) => {
-    // TODO: Implement AI meta generation
-    res.json({
-      success: true,
-      data: { message: 'Meta generation not yet implemented for audiobook' },
-    });
+  getYouTubeProgress(req: Request, res: Response) {
+    const projectId = req.params.projectId as string;
+    const progress = AudiobookService.getYouTubeProgress(projectId);
+    res.json({ success: true, data: progress });
+  },
+
+  youtubeGenerateMeta: asyncHandler(async (req, res) => {
+    const { storybookId, projectId, prompt } = req.body;
+    const meta = await AudiobookService.generateYouTubeMeta(storybookId, projectId, prompt);
+    res.json({ success: true, data: meta });
   }),
 };

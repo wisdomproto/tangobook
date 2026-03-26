@@ -7,8 +7,17 @@ import { R2Repository } from '../repositories/r2.repository.js';
 import { buildR2Key } from '../utils/r2-key.js';
 import { buildAudiobookRenderData } from '@tangobook/shared';
 import type { AudiobookRenderData } from '@tangobook/shared';
-import type { AudiobookProject } from '@tangobook/shared';
+import type {
+  AudiobookProject,
+  YouTubeUploadMeta,
+  YouTubeGeneratedMeta,
+  Storybook,
+  Page,
+} from '@tangobook/shared';
 import { getAudioDuration } from '../utils/audio-duration.js';
+import { YouTubeProvider } from '../providers/youtube.provider.js';
+import { downloadFromR2, urlToR2Key } from '../providers/r2.provider.js';
+import { generateTextWithGemini } from '../providers/gemini.provider.js';
 
 // Remotion은 Chromium이 필요하므로 서버 시작 시가 아닌 렌더링 요청 시에만 lazy import
 async function loadRemotion() {
@@ -28,6 +37,14 @@ const __dirname = path.dirname(__filename);
 
 type RenderProgress = { progress: number; step: string; error?: string };
 const renderProgressMap = new Map<string, RenderProgress>();
+const youtubeProgressMap = new Map<string, RenderProgress>();
+
+function getPageText(page: Page, lang: string): string {
+  if (lang !== 'ko' && page.translations?.[lang]?.text) {
+    return page.translations[lang].text;
+  }
+  return page.text;
+}
 
 let cachedBundlePath: string | null = null;
 
@@ -162,6 +179,162 @@ export const AudiobookService = {
       throw err;
     } finally {
       fs.rmSync(workDir, { recursive: true, force: true });
+    }
+  },
+
+  // ----- YouTube -----
+
+  getYouTubeProgress(projectId: string): RenderProgress | null {
+    return youtubeProgressMap.get(projectId) ?? null;
+  },
+
+  setYouTubeError(projectId: string, message: string) {
+    youtubeProgressMap.set(projectId, { progress: -1, step: message });
+    setTimeout(() => youtubeProgressMap.delete(projectId), 30_000);
+  },
+
+  async uploadToYouTube(
+    storybookId: string,
+    projectId: string,
+    meta: YouTubeUploadMeta
+  ): Promise<void> {
+    const storybook = await R2Repository.getStorybook(storybookId);
+    if (!storybook) throw new AppError(404, '동화책을 찾을 수 없습니다.');
+
+    const project = storybook.audiobookProjects?.find((p: AudiobookProject) => p.id === projectId);
+    if (!project) throw new AppError(404, '오디오북 프로젝트를 찾을 수 없습니다.');
+    if (!project.outputUrl) throw new AppError(400, '렌더링된 영상이 없습니다.');
+
+    youtubeProgressMap.set(projectId, { progress: 0, step: 'R2에서 영상 다운로드 중' });
+
+    // 1. Download video from R2
+    const r2Key = urlToR2Key(project.outputUrl);
+    const videoBuffer = await downloadFromR2(r2Key);
+
+    youtubeProgressMap.set(projectId, { progress: 10, step: 'YouTube 업로드 중' });
+
+    // 2. Upload to YouTube
+    const result = await YouTubeProvider.uploadVideo(videoBuffer, meta, (percent) => {
+      const mapped = 10 + Math.round(percent * 0.85);
+      youtubeProgressMap.set(projectId, {
+        progress: mapped,
+        step: `YouTube 업로드 중 (${mapped}%)`,
+      });
+    });
+
+    // 3. Save result immediately (before thumbnail — prevents loss on thumbnail failure)
+    project.youtubeUpload = {
+      videoId: result.videoId,
+      videoUrl: result.videoUrl,
+      uploadedAt: new Date().toISOString(),
+      privacy: meta.privacy,
+    };
+    await R2Repository.saveStorybook(storybook);
+
+    // 4. Optional thumbnail upload
+    if (meta.thumbnailUrl) {
+      youtubeProgressMap.set(projectId, { progress: 96, step: '썸네일 업로드 중' });
+      try {
+        const thumbKey = urlToR2Key(meta.thumbnailUrl);
+        const rawBuffer = await downloadFromR2(thumbKey);
+
+        const sharp = (await import('sharp')).default;
+        const thumbBuffer = await sharp(rawBuffer)
+          .resize(1280, 720, { fit: 'cover' })
+          .jpeg({ quality: 85 })
+          .toBuffer();
+
+        const thumbTimeout = new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error('썸네일 업로드 타임아웃')), 30_000)
+        );
+        await Promise.race([
+          YouTubeProvider.setThumbnail(result.videoId, thumbBuffer),
+          thumbTimeout,
+        ]);
+      } catch (err) {
+        console.warn(
+          '[audiobook-youtube] Thumbnail failed (skipping):',
+          err instanceof Error ? err.message : err
+        );
+      }
+    }
+
+    youtubeProgressMap.set(projectId, { progress: 100, step: '업로드 완료' });
+    setTimeout(() => youtubeProgressMap.delete(projectId), 30_000);
+  },
+
+  async generateYouTubeMeta(
+    storybookId: string,
+    projectId: string,
+    prompt: string
+  ): Promise<YouTubeGeneratedMeta> {
+    const storybook = await R2Repository.getStorybook(storybookId);
+    if (!storybook) throw new AppError(404, '동화책을 찾을 수 없습니다.');
+
+    const project = storybook.audiobookProjects?.find((p: AudiobookProject) => p.id === projectId);
+    if (!project) throw new AppError(404, '오디오북 프로젝트를 찾을 수 없습니다.');
+
+    const pages = storybook.pages ?? [];
+    const lang = project.language ?? 'ko';
+
+    const storybookInfo = [
+      `Title: ${storybook.title}`,
+      storybook.category ? `Category: ${storybook.category}` : '',
+      `Type: Audiobook (animated storybook video)`,
+      `Content Language: ${lang}`,
+      `Aspect Ratio: ${project.aspectRatio}`,
+      `Pages: ${pages.length}`,
+      pages.length > 0
+        ? `Content Summary:\n${pages
+            .slice(0, 10)
+            .map((p) => `- p${p.pageNumber}: ${getPageText(p, lang).slice(0, 100)}`)
+            .join('\n')}`
+        : '',
+    ]
+      .filter(Boolean)
+      .join('\n');
+
+    const geminiPrompt = [
+      prompt,
+      '',
+      '=== Storybook Info ===',
+      storybookInfo,
+      '',
+      'Based on the above info and the user prompt, generate YouTube upload settings as JSON.',
+      'Output ONLY the JSON below (no other text):',
+      '{',
+      '  "title": "video title",',
+      '  "description": "video description",',
+      '  "tags": ["tag1", "tag2", "tag3"],',
+      '  "privacy": "public | private | unlisted",',
+      '  "categoryId": "YouTube category ID (Education: 27, Entertainment: 24, People/Blogs: 22)",',
+      '  "language": "ko | en"',
+      '}',
+      '',
+      `IMPORTANT: The video content is in "${lang === 'ko' ? 'Korean' : 'English'}". Write the title, description, and tags in ${lang === 'ko' ? 'Korean' : 'English'}.`,
+    ].join('\n');
+
+    const raw = await generateTextWithGemini(geminiPrompt, 3);
+
+    const cleaned = raw
+      .replace(/```json?\s*/g, '')
+      .replace(/```\s*/g, '')
+      .trim();
+    try {
+      const parsed = JSON.parse(cleaned) as YouTubeGeneratedMeta;
+      return {
+        title: parsed.title || storybook.title,
+        description: parsed.description || '',
+        tags: Array.isArray(parsed.tags) ? parsed.tags : [],
+        privacy: ['public', 'private', 'unlisted'].includes(parsed.privacy)
+          ? parsed.privacy
+          : 'private',
+        categoryId: parsed.categoryId || '27',
+        language: parsed.language || lang,
+      };
+    } catch {
+      console.error('[audiobook] Failed to parse Gemini YouTube meta response:', cleaned);
+      throw new AppError(500, 'AI 응답을 파싱할 수 없습니다. 프롬프트를 수정해보세요.');
     }
   },
 };
