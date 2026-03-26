@@ -170,12 +170,12 @@ export function TimelineEditorStep({
         }
       }
     }
-    const langs = [{ code: 'ko', label: '한국어' }];
+    const langs: { code: string; label: string }[] = [];
     for (const sl of SUPPORTED_LANGUAGES) {
-      if (langSet.has(sl.code)) langs.push(sl);
+      if (sl.code === 'ko' || langSet.has(sl.code)) langs.push({ ...sl });
     }
     for (const code of langSet) {
-      if (code !== 'ko' && !SUPPORTED_LANGUAGES.some((sl) => sl.code === code)) {
+      if (!SUPPORTED_LANGUAGES.some((sl) => sl.code === code)) {
         langs.push({ code, label: code.toUpperCase() });
       }
     }

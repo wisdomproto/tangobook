@@ -27,7 +27,7 @@ import { pushImageHistory } from '@/lib/image-history';
 import { TTS_VOICES, SUPPORTED_LANGUAGES, ASPECT_RATIOS } from '@tangobook/shared';
 import type { Storybook, Page } from '@tangobook/shared';
 
-const ALL_LANGS = [{ code: 'ko', label: '한국어' }, ...SUPPORTED_LANGUAGES];
+const ALL_LANGS = SUPPORTED_LANGUAGES;
 
 interface PagesTabProps {
   storybook: Storybook;

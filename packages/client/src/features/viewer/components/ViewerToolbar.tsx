@@ -55,7 +55,6 @@ export function ViewerToolbar({ title, settings, onUpdateSettings, onBack }: Vie
         onChange={(e) => onUpdateSettings({ language: e.target.value })}
         className="bg-white/10 text-white text-xs rounded-lg px-2 py-1.5 border border-white/20 outline-none"
       >
-        <option value="ko">한국어</option>
         {SUPPORTED_LANGUAGES.map((lang) => (
           <option key={lang.code} value={lang.code}>
             {lang.label}

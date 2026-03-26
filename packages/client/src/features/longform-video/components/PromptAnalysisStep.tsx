@@ -56,12 +56,13 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
         }
       }
     }
-    const langs = [{ code: 'ko', label: '한국어' }];
+    const langs: { code: string; label: string }[] = [];
+    // 한국어는 항상 포함 (SUPPORTED_LANGUAGES에 이미 있음)
     for (const sl of SUPPORTED_LANGUAGES) {
-      if (langSet.has(sl.code)) langs.push(sl);
+      if (sl.code === 'ko' || langSet.has(sl.code)) langs.push({ ...sl });
     }
     for (const code of langSet) {
-      if (code !== 'ko' && !SUPPORTED_LANGUAGES.some((sl) => sl.code === code)) {
+      if (!SUPPORTED_LANGUAGES.some((sl) => sl.code === code)) {
         langs.push({ code, label: code.toUpperCase() });
       }
     }

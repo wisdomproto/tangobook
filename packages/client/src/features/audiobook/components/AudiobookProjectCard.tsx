@@ -600,7 +600,6 @@ export function AudiobookProjectCard({
                   onChange={(e) => onUpdate({ language: e.target.value })}
                   className={`${selectClass} w-full mt-1`}
                 >
-                  <option value="ko">한국어</option>
                   {SUPPORTED_LANGUAGES.map((l) => (
                     <option key={l.code} value={l.code}>
                       {l.label}
@@ -1273,8 +1272,11 @@ export function AudiobookProjectCard({
                             onChange={(e) => setYtLanguage(e.target.value)}
                             className={`${selectClass} w-full mt-1`}
                           >
-                            <option value="ko">한국어</option>
-                            <option value="en">English</option>
+                            {SUPPORTED_LANGUAGES.map((l) => (
+                              <option key={l.code} value={l.code}>
+                                {l.label}
+                              </option>
+                            ))}
                           </select>
                         </div>
                         <div className="sm:col-span-2">

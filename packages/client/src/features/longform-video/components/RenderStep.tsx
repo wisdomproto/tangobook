@@ -986,10 +986,11 @@ export function RenderStep({
                         onChange={(e) => setYtLanguage(e.target.value)}
                         className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
                       >
-                        <option value="ko">한국어</option>
-                        <option value="en">English</option>
-                        <option value="ja">日本語</option>
-                        <option value="zh">中文</option>
+                        {SUPPORTED_LANGUAGES.map((l) => (
+                          <option key={l.code} value={l.code}>
+                            {l.label}
+                          </option>
+                        ))}
                       </select>
                     </div>
 
