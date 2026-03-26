@@ -3,11 +3,18 @@ import type { AudiobookRenderData } from '@tangobook/shared';
 
 /**
  * Probe TTS durations for audiobook slides using HTMLAudioElement.
- * Returns a new renderData with ttsDuration populated for each slide.
+ * Returns a new renderData with ttsDuration populated + loading state.
  */
-export function useTtsDurations(renderData: AudiobookRenderData): AudiobookRenderData {
-  const [durations, setDurations] = useState<Map<string, number>>(new Map());
+export function useTtsDurations(renderData: AudiobookRenderData): {
+  data: AudiobookRenderData;
+  loading: boolean;
+} {
+  const [durations, setDurations] = useState<Record<string, number>>({});
+  const [loading, setLoading] = useState(false);
   const probedRef = useRef<Set<string>>(new Set());
+  const durationsRef = useRef<Record<string, number>>({});
+
+  const ttsKey = renderData.slides.map((s) => s.ttsUrl || '').join(',');
 
   useEffect(() => {
     const ttsUrls = renderData.slides
@@ -17,24 +24,24 @@ export function useTtsDurations(renderData: AudiobookRenderData): AudiobookRende
     if (ttsUrls.length === 0) return;
 
     let cancelled = false;
+    setLoading(true);
 
     async function probeAll() {
-      const newDurations = new Map(durations);
-
       for (const url of ttsUrls) {
         if (cancelled) break;
         try {
           const duration = await getAudioDurationInBrowser(url);
-          newDurations.set(url, duration);
+          durationsRef.current[url] = duration;
           probedRef.current.add(url);
         } catch {
-          // Failed to probe, will use default 3s
+          // Failed to probe — will use default 3s
           probedRef.current.add(url);
         }
       }
 
       if (!cancelled) {
-        setDurations(new Map(newDurations));
+        setDurations({ ...durationsRef.current });
+        setLoading(false);
       }
     }
 
@@ -43,18 +50,20 @@ export function useTtsDurations(renderData: AudiobookRenderData): AudiobookRende
     return () => {
       cancelled = true;
     };
-  }, [renderData.slides.map((s) => s.ttsUrl).join(',')]);
+  }, [ttsKey]);
 
   // Apply probed durations to slides
-  return {
+  const data: AudiobookRenderData = {
     ...renderData,
     slides: renderData.slides.map((slide) => ({
       ...slide,
       ttsDuration: slide.ttsUrl
-        ? (durations.get(slide.ttsUrl) ?? slide.ttsDuration)
+        ? (durations[slide.ttsUrl] ?? slide.ttsDuration)
         : slide.ttsDuration,
     })),
   };
+
+  return { data, loading };
 }
 
 function getAudioDurationInBrowser(url: string): Promise<number> {

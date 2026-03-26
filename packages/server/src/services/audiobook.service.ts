@@ -52,7 +52,9 @@ function getPageText(page: Page, lang: string): string {
 let cachedBundlePath: string | null = null;
 
 async function getBundlePath(): Promise<string> {
-  if (cachedBundlePath && fs.existsSync(cachedBundlePath)) {
+  const isDev = process.env.NODE_ENV !== 'production';
+  // Dev: always re-bundle to pick up latest changes
+  if (!isDev && cachedBundlePath && fs.existsSync(cachedBundlePath)) {
     return cachedBundlePath;
   }
   const { bundle } = await loadRemotion();

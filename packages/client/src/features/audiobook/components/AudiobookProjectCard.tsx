@@ -460,7 +460,7 @@ export function AudiobookProjectCard({
 
   // Remotion Player data — probe TTS durations for accurate preview timing
   const rawRenderData = buildAudiobookRenderData(storybook, project);
-  const renderData = useTtsDurations(rawRenderData);
+  const { data: renderData, loading: ttsLoading } = useTtsDurations(rawRenderData);
   const totalFrames = calculateTotalFrames(renderData as AudiobookRenderProps);
   const resolution = RESOLUTIONS[renderData.aspectRatio] ?? RESOLUTIONS['16:9'];
 
@@ -555,7 +555,13 @@ export function AudiobookProjectCard({
           <section className="space-y-2">
             <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-200">프리뷰</h4>
             {renderData.slides.length > 0 ? (
-              <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 max-w-lg mx-auto">
+              <div className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 max-w-lg mx-auto">
+                {ttsLoading && (
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/70 text-white gap-2">
+                    <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span className="text-sm">TTS 로딩 중...</span>
+                  </div>
+                )}
                 <Player
                   component={AudiobookComposition}
                   inputProps={renderData as AudiobookRenderProps}

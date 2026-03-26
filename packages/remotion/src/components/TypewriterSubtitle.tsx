@@ -8,40 +8,40 @@ const { fontFamily } = loadFont();
 type TypewriterSubtitleProps = {
   text: string;
   style: SubtitleStyle;
-  /** Frames per word group reveal */
+  /** @deprecated kept for backward compat */
   wordGroupFrames?: number;
-  /** How many words per group */
+  /** @deprecated kept for backward compat */
   wordsPerGroup?: number;
 };
 
 /**
- * Split text into word groups.
- * Korean: split by spaces, group N words.
- * English: split by spaces, group N words.
+ * Split text into sentences using common sentence-ending punctuation.
  */
-function splitIntoGroups(text: string, wordsPerGroup: number): string[] {
-  const words = text.split(/\s+/).filter(Boolean);
-  const groups: string[] = [];
-  for (let i = 0; i < words.length; i += wordsPerGroup) {
-    groups.push(words.slice(i, i + wordsPerGroup).join(' '));
-  }
-  return groups;
+function splitIntoSentences(text: string): string[] {
+  const sentences = text
+    .split(/(?<=[.!?。」"'])\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return sentences.length > 0 ? sentences : [text];
 }
 
-export const TypewriterSubtitle: React.FC<TypewriterSubtitleProps> = ({
-  text,
-  style,
-  wordGroupFrames = 8,
-  wordsPerGroup = 2,
-}) => {
+export const TypewriterSubtitle: React.FC<TypewriterSubtitleProps> = ({ text, style }) => {
   const frame = useCurrentFrame();
   const { durationInFrames, fps } = useVideoConfig();
 
-  const groups = splitIntoGroups(text, wordsPerGroup);
-  const revealedCount = Math.min(groups.length, Math.floor(frame / wordGroupFrames));
-  const displayText = groups.slice(0, revealedCount).join(' ');
+  const sentences = splitIntoSentences(text);
+  const count = sentences.length;
 
-  const fadeOutStart = durationInFrames - Math.round(0.5 * fps);
+  // Distribute duration evenly across sentences, leave 0.5s for fade-out
+  const fadeOutDuration = Math.round(0.5 * fps);
+  const availableFrames = durationInFrames - fadeOutDuration;
+  const framesPerSentence = count > 0 ? Math.floor(availableFrames / count) : availableFrames;
+
+  // Which sentence to show
+  const sentenceIdx = Math.min(count - 1, Math.floor(frame / framesPerSentence));
+  const displayText = sentences[sentenceIdx] || '';
+
+  const fadeOutStart = durationInFrames - fadeOutDuration;
   const opacity = interpolate(frame, [fadeOutStart, durationInFrames], [1, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
