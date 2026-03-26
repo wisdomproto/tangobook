@@ -10,7 +10,7 @@ export type AudiobookSlideData = {
 export type AudiobookRenderData = {
   slides: AudiobookSlideData[];
   aspectRatio: '16:9' | '9:16' | '1:1' | '3:4' | '4:3';
-  cover?: { imageUrl: string; title: string; duration: number };
+  cover?: { imageUrl: string; title: string; duration: number; showTitle?: boolean };
   bgmUrl?: string;
   bgmVolume?: number;
   subtitleStyle: {
