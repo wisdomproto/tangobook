@@ -293,6 +293,7 @@ export const AudiobookService = {
       videoUrl: result.videoUrl,
       uploadedAt: new Date().toISOString(),
       privacy: meta.privacy,
+      ...(meta.publishAt ? { publishAt: meta.publishAt } : {}),
     };
     await R2Repository.saveStorybook(storybook);
 

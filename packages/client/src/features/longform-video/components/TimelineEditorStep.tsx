@@ -137,6 +137,18 @@ export function TimelineEditorStep({
 
   const hasScenes = project.scenes.length > 0;
 
+  // Check if clips/TTS are still loading (scenes exist but media not ready)
+  const loadingStatus = useMemo(() => {
+    if (!hasScenes) return null;
+    const total = project.scenes.length;
+    const clipsReady = project.scenes.filter((s) => s.clipUrl).length;
+    const ttsReady = project.scenes.filter((s) => s.ttsUrl).length;
+    if (clipsReady < total || ttsReady < total) {
+      return { total, clipsReady, ttsReady };
+    }
+    return null;
+  }, [hasScenes, project.scenes]);
+
   if (!hasScenes) {
     return (
       <div className="text-center py-10 text-slate-400 dark:text-slate-500">
@@ -184,6 +196,38 @@ export function TimelineEditorStep({
 
   return (
     <div className="space-y-4">
+      {/* Loading indicator */}
+      {loadingStatus && (
+        <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800">
+          <svg
+            className="w-5 h-5 text-amber-500 animate-spin flex-shrink-0"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+            />
+          </svg>
+          <div className="text-sm text-amber-700 dark:text-amber-300">
+            <span className="font-medium">미디어 로딩 중...</span>
+            <span className="ml-2 text-xs text-amber-600 dark:text-amber-400">
+              영상 {loadingStatus.clipsReady}/{loadingStatus.total} · TTS {loadingStatus.ttsReady}/
+              {loadingStatus.total}
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* Version tabs */}
       <div className="flex items-center gap-2 flex-wrap">
         {allProjects.map((p) => (

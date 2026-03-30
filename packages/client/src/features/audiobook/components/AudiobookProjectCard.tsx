@@ -167,7 +167,10 @@ export function AudiobookProjectCard({
 
   const [ytTitle, setYtTitle] = useState(project.name || '');
   const [ytDescription, setYtDescription] = useState('');
-  const [ytPrivacy, setYtPrivacy] = useState<'public' | 'private' | 'unlisted'>('unlisted');
+  const [ytPrivacy, setYtPrivacy] = useState<'public' | 'private' | 'unlisted' | 'scheduled'>(
+    'unlisted'
+  );
+  const [ytPublishAt, setYtPublishAt] = useState('');
   const [ytCategory, setYtCategory] = useState('27');
   const [ytTags, setYtTags] = useState('');
   const [ytLanguage, setYtLanguage] = useState(project.language || 'ko');
@@ -297,6 +300,14 @@ export function AudiobookProjectCard({
   };
 
   const handleYoutubeUpload = async () => {
+    if (ytPrivacy === 'scheduled' && !ytPublishAt) {
+      setYtError('예약 공개 시간을 설정해주세요.');
+      return;
+    }
+    if (ytPrivacy === 'scheduled' && new Date(ytPublishAt) <= new Date()) {
+      setYtError('예약 시간은 현재보다 미래여야 합니다.');
+      return;
+    }
     setYtError(null);
     setYtUploading(true);
     setYtProgress({ progress: 0, step: '업로드 준비 중...' });
@@ -320,6 +331,9 @@ export function AudiobookProjectCard({
         .filter(Boolean),
       language: ytLanguage,
       thumbnailUrl,
+      ...(ytPrivacy === 'scheduled' && ytPublishAt
+        ? { publishAt: new Date(ytPublishAt).toISOString() }
+        : {}),
     };
 
     try {
@@ -1257,6 +1271,21 @@ export function AudiobookProjectCard({
                             ))}
                           </select>
                         </div>
+                        {ytPrivacy === 'scheduled' && (
+                          <div className="sm:col-span-2">
+                            <label className={labelClass}>예약 공개 시간</label>
+                            <input
+                              type="datetime-local"
+                              value={ytPublishAt}
+                              onChange={(e) => setYtPublishAt(e.target.value)}
+                              min={new Date(Date.now() + 10 * 60 * 1000).toISOString().slice(0, 16)}
+                              className={`${selectClass} w-full mt-1`}
+                            />
+                            <p className="mt-1 text-xs text-slate-400">
+                              최소 10분 이후 시간으로 설정해주세요
+                            </p>
+                          </div>
+                        )}
                         <div>
                           <label className={labelClass}>카테고리</label>
                           <select

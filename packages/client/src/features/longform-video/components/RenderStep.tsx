@@ -69,7 +69,10 @@ export function RenderStep({
   // YouTube form state (AI가 생성한 값이 들어감)
   const [ytTitle, setYtTitle] = useState(project.name || '');
   const [ytDescription, setYtDescription] = useState('');
-  const [ytPrivacy, setYtPrivacy] = useState<'public' | 'private' | 'unlisted'>('unlisted');
+  const [ytPrivacy, setYtPrivacy] = useState<'public' | 'private' | 'unlisted' | 'scheduled'>(
+    'unlisted'
+  );
+  const [ytPublishAt, setYtPublishAt] = useState('');
   const [ytCategory, setYtCategory] = useState('27');
   const [ytTags, setYtTags] = useState('');
   const [ytLanguage, setYtLanguage] = useState(project.language || 'ko');
@@ -274,10 +277,21 @@ export function RenderStep({
               const updatedProject = updated.longformProjects?.find((p) => p.id === project.id);
               if (updatedProject?.outputUrl) {
                 onUpdate({ outputUrl: updatedProject.outputUrl });
+              } else {
+                setError('렌더링이 완료되지 않았습니다. 다시 시도해주세요.');
               }
             } catch {
-              /* ignore */
+              setError('렌더링 상태를 확인할 수 없습니다.');
             }
+            return;
+          }
+
+          // Error from server (progress: -1)
+          if (data.progress < 0) {
+            stopPolling();
+            setIsRendering(false);
+            setProgress(null);
+            setError(data.step || '렌더링 중 오류가 발생했습니다.');
             return;
           }
 
@@ -337,7 +351,8 @@ export function RenderStep({
     }
   };
 
-  const handleRemoveChannel = async (channelId: string) => {
+  const handleRemoveChannel = async (channelId: string, channelName: string) => {
+    if (!window.confirm(`"${channelName}" 채널 연결을 해제하시겠습니까?`)) return;
     try {
       await longformApi.youtubeRemoveChannel(channelId);
       loadChannels();
@@ -347,6 +362,14 @@ export function RenderStep({
   };
 
   const handleYoutubeUpload = async () => {
+    if (ytPrivacy === 'scheduled' && !ytPublishAt) {
+      setYtError('예약 공개 시간을 설정해주세요.');
+      return;
+    }
+    if (ytPrivacy === 'scheduled' && new Date(ytPublishAt) <= new Date()) {
+      setYtError('예약 시간은 현재보다 미래여야 합니다.');
+      return;
+    }
     setYtError(null);
     setYtUploading(true);
     setYtProgress({ progress: 0, step: '업로드 준비 중...' });
@@ -371,6 +394,9 @@ export function RenderStep({
         .filter(Boolean),
       language: ytLanguage,
       thumbnailUrl,
+      ...(ytPrivacy === 'scheduled' && ytPublishAt
+        ? { publishAt: new Date(ytPublishAt).toISOString() }
+        : {}),
     };
 
     try {
@@ -706,7 +732,7 @@ export function RenderStep({
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleRemoveChannel(ch.id);
+                            handleRemoveChannel(ch.id, ch.channelTitle || ch.name);
                           }}
                           className="text-slate-400 hover:text-red-500 transition-colors"
                         >
@@ -772,7 +798,9 @@ export function RenderStep({
                   </a>
                   <p className="text-xs text-slate-500 mt-1">
                     {new Date(project.youtubeUpload.uploadedAt).toLocaleString()} ·{' '}
-                    {project.youtubeUpload.privacy}
+                    {project.youtubeUpload.publishAt
+                      ? `예약 공개: ${new Date(project.youtubeUpload.publishAt).toLocaleString()}`
+                      : project.youtubeUpload.privacy}
                   </p>
                 </div>
               )}
@@ -962,6 +990,25 @@ export function RenderStep({
                       </div>
                     </div>
 
+                    {/* Scheduled publish time */}
+                    {ytPrivacy === 'scheduled' && (
+                      <div>
+                        <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                          예약 공개 시간
+                        </label>
+                        <input
+                          type="datetime-local"
+                          value={ytPublishAt}
+                          onChange={(e) => setYtPublishAt(e.target.value)}
+                          min={new Date(Date.now() + 10 * 60 * 1000).toISOString().slice(0, 16)}
+                          className="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+                        />
+                        <p className="mt-1 text-xs text-slate-400">
+                          최소 10분 이후 시간으로 설정해주세요
+                        </p>
+                      </div>
+                    )}
+
                     {/* Tags */}
                     <div>
                       <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
@@ -1123,80 +1170,7 @@ export function RenderStep({
         </div>
       )}
 
-      {/* Other projects' rendered videos */}
-      {allProjects.filter((p) => p.id !== project.id && p.outputUrl).length > 0 && (
-        <div className="mt-6 border-t border-slate-200 dark:border-slate-700 pt-5 space-y-4">
-          <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-            다른 영상 ({allProjects.filter((p) => p.id !== project.id && p.outputUrl).length}개)
-          </h3>
-          <div className="space-y-4">
-            {allProjects
-              .filter((p) => p.id !== project.id && p.outputUrl)
-              .map((p) => (
-                <div
-                  key={p.id}
-                  className="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden"
-                >
-                  <div className="flex items-center justify-between px-4 py-2 bg-slate-50 dark:bg-slate-800/50">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                        {p.name}
-                      </span>
-                      <span className="text-xs px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400">
-                        {p.language?.toUpperCase() ?? 'KO'}
-                      </span>
-                      {p.youtubeUpload && (
-                        <a
-                          href={p.youtubeUpload.videoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs text-red-500 hover:text-red-600"
-                        >
-                          YouTube ↗
-                        </a>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <DownloadButton href={p.outputUrl!} filename={`${p.name}.mp4`} size="sm" />
-                      <button
-                        onClick={async () => {
-                          if (!window.confirm(`"${p.name}" 렌더링 결과를 삭제하시겠습니까?`))
-                            return;
-                          try {
-                            await longformApi.deleteRender({ storybookId, projectId: p.id });
-                            onUpdateProject(p.id, {
-                              outputUrl: undefined,
-                              youtubeUpload: undefined,
-                            });
-                          } catch (e: any) {
-                            alert(e.message || '삭제 실패');
-                          }
-                        }}
-                        className="p-1 text-slate-400 hover:text-red-500 transition-colors"
-                        title="렌더링 삭제"
-                      >
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                  <video src={p.outputUrl} controls className="w-full max-h-[300px] bg-black" />
-                </div>
-              ))}
-          </div>
-        </div>
-      )}
+      {/* Other projects' rendered videos — removed: use version tabs at top instead */}
 
       {/* Empty state */}
       {!project.outputUrl && !isRendering && totalScenes === 0 && (

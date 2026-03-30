@@ -869,6 +869,12 @@ export const LongformService = {
     return renderProgressMap.get(projectId) ?? null;
   },
 
+  // ----- Set render error (called from controller catch) -----
+  setRenderError(projectId: string, message: string) {
+    renderProgressMap.set(projectId, { progress: -1, step: message });
+    setTimeout(() => renderProgressMap.delete(projectId), 30_000);
+  },
+
   // ----- Cancel render -----
   cancelRender(projectId: string): boolean {
     const cancelled = cancelRender(projectId);
@@ -1006,6 +1012,7 @@ export const LongformService = {
       videoUrl: result.videoUrl,
       uploadedAt: new Date().toISOString(),
       privacy: meta.privacy,
+      ...(meta.publishAt ? { publishAt: meta.publishAt } : {}),
     };
     await R2Repository.saveStorybook(storybook);
 

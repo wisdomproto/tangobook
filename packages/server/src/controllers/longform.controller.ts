@@ -60,6 +60,7 @@ export const LongformController = {
     // Fire and forget - client polls progress
     LongformService.render(storybookId, projectId).catch((err) => {
       console.error('[longform] render error:', err);
+      LongformService.setRenderError(projectId, err instanceof Error ? err.message : '렌더링 실패');
     });
     res.json({ success: true, data: { message: '렌더링이 시작되었습니다.' } });
   }),
@@ -102,8 +103,14 @@ export const LongformController = {
   }),
 
   youtubeCallback: asyncHandler(async (req: Request, res: Response) => {
-    const { code, state } = req.query;
+    const { code, state, error } = req.query;
+    if (error) {
+      console.error('[youtube] OAuth error:', error, req.query);
+      res.status(400).json({ success: false, error: `Google OAuth 오류: ${error}` });
+      return;
+    }
     if (!code || typeof code !== 'string') {
+      console.error('[youtube] No code in callback. Query:', req.query);
       res.status(400).json({ success: false, error: 'Authorization code가 없습니다.' });
       return;
     }

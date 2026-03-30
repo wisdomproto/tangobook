@@ -65,7 +65,7 @@ export const YouTubeProvider = {
     const oauth2 = createOAuth2Client();
     return oauth2.generateAuthUrl({
       access_type: 'offline',
-      prompt: 'consent',
+      prompt: 'consent select_account',
       scope: SCOPES,
       state: channelName || '',
     });
@@ -101,8 +101,8 @@ export const YouTubeProvider = {
         channelId = ch.id ?? undefined;
         channelTitle = ch.snippet?.title ?? undefined;
       }
-    } catch {
-      // Channel info fetch failed — continue without it
+    } catch (err) {
+      console.error('[youtube] Failed to fetch channel info:', err);
     }
 
     const channel: YouTubeChannel = {
@@ -185,8 +185,9 @@ export const YouTubeProvider = {
             defaultAudioLanguage: meta.language || 'ko',
           },
           status: {
-            privacyStatus: meta.privacy,
+            privacyStatus: meta.publishAt ? 'private' : meta.privacy,
             selfDeclaredMadeForKids: false,
+            ...(meta.publishAt ? { publishAt: meta.publishAt } : {}),
           },
         },
         media: {

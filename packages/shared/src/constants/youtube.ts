@@ -17,4 +17,5 @@ export const YOUTUBE_PRIVACY_OPTIONS = [
   { value: 'public', label: '공개' },
   { value: 'unlisted', label: '미등록' },
   { value: 'private', label: '비공개' },
+  { value: 'scheduled', label: '예약 공개' },
 ] as const;

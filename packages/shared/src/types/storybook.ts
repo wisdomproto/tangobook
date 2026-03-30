@@ -874,11 +874,12 @@ export interface LongformProject {
 export interface YouTubeUploadMeta {
   title: string;
   description: string;
-  privacy: 'public' | 'private' | 'unlisted';
+  privacy: 'public' | 'private' | 'unlisted' | 'scheduled';
   categoryId: string;
   tags: string[];
   language?: string;
   thumbnailUrl?: string;
+  publishAt?: string; // ISO 8601 — scheduled publish time
 }
 
 export interface YouTubeUploadResult {
@@ -886,6 +887,7 @@ export interface YouTubeUploadResult {
   videoUrl: string;
   uploadedAt: string;
   privacy: string;
+  publishAt?: string; // scheduled publish time
   captionsUploaded?: string[]; // 업로드 완료된 자막 언어 목록
 }
 
