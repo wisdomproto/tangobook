@@ -1,3 +1,5 @@
+// Log buffer must be imported FIRST to capture all console output
+import './utils/log-buffer.js';
 import { createApp } from './app.js';
 import { config } from './config/index.js';
 

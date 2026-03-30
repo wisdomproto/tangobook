@@ -46,6 +46,14 @@ export function createApp() {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 
+  // 디버그 로그 조회 (프로덕션에서 원격 디버깅용)
+  app.get('/api/debug/logs', (_req, res) => {
+    import('./utils/log-buffer.js').then(({ getLogBuffer }) => {
+      const lines = parseInt(_req.query.lines as string) || 200;
+      res.json({ success: true, data: getLogBuffer(lines) });
+    });
+  });
+
   // API 라우터
   app.use('/api/storybooks', storybookRoutes);
   app.use('/api/images', imageRoutes);
