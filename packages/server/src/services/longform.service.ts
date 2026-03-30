@@ -606,6 +606,7 @@ export const LongformService = {
       };
 
       // Python 렌더링 스크립트 실행
+      console.log(`[longform] Starting render: ${readyScenes.length} scenes, workDir: ${workDir}`);
       renderProgressMap.set(projectId, { progress: 0, step: '렌더링 시작' });
       await generateLongform(
         renderOptions,
