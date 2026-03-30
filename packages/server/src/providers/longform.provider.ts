@@ -107,13 +107,16 @@ export async function generateLongform(
             onProgress({ progress: parsed.progress, step: parsed.step ?? '' });
           }
         } catch {
-          // JSON이 아닌 stderr 출력은 무시
+          // JSON이 아닌 stderr 출력은 로그로 출력
+          console.log('[longform:stderr]', trimmed);
         }
       }
     });
 
     proc.on('close', (code, signal) => {
       cleanup();
+      console.log(`[longform] Python process closed: code=${code}, signal=${signal}`);
+      if (stderrBuf.trim()) console.log('[longform] remaining stderr:', stderrBuf.trim());
 
       if (timedOut) {
         reject(
