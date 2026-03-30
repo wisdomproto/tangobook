@@ -6,10 +6,12 @@ import { longformApi } from '../api/longform.api';
 
 // ===== Types =====
 
+type ProjectUpdater = Partial<Omit<LongformProject, 'id'>> | ((proj: LongformProject) => void);
+
 interface VideoGenerationStepProps {
   storybook: Storybook;
   project: LongformProject;
-  onUpdate: (updates: Partial<Omit<LongformProject, 'id'>>) => void;
+  onUpdate: (updates: ProjectUpdater) => void;
 }
 
 type ClipStatus = 'waiting' | 'generating' | 'done' | 'error';
@@ -409,41 +411,46 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
 
   const handleClipGenerated = useCallback(
     (sceneId: string, clipUrl: string, sfxUrl: string) => {
-      const updatedScenes = project.scenes.map((s) => {
-        if (s.id !== sceneId) return s;
-        // Move current clip to history
-        const clipHistory = [...(s.clipHistory ?? [])];
-        if (s.clipUrl) clipHistory.push(s.clipUrl);
-        return { ...s, clipUrl, sfxUrl, clipHistory };
+      onUpdate((proj) => {
+        const scene = proj.scenes.find((s) => s.id === sceneId);
+        if (!scene) return;
+        if (scene.clipUrl) {
+          if (!scene.clipHistory) scene.clipHistory = [];
+          scene.clipHistory.push(scene.clipUrl);
+        }
+        scene.clipUrl = clipUrl;
+        scene.sfxUrl = sfxUrl;
       });
-      onUpdate({ scenes: updatedScenes });
     },
-    [project.scenes, onUpdate]
+    [onUpdate]
   );
 
   const handleDeleteClip = useCallback(
     (sceneId: string) => {
-      const updatedScenes = project.scenes.map((s) => {
-        if (s.id !== sceneId) return s;
-        return { ...s, clipUrl: undefined, sfxUrl: undefined };
+      onUpdate((proj) => {
+        const scene = proj.scenes.find((s) => s.id === sceneId);
+        if (!scene) return;
+        scene.clipUrl = undefined;
+        scene.sfxUrl = undefined;
       });
-      onUpdate({ scenes: updatedScenes });
     },
-    [project.scenes, onUpdate]
+    [onUpdate]
   );
 
   const handleRestoreClip = useCallback(
     (sceneId: string, clipUrl: string) => {
-      const updatedScenes = project.scenes.map((s) => {
-        if (s.id !== sceneId) return s;
-        // Remove restored URL from history, move current to history
-        const clipHistory = (s.clipHistory ?? []).filter((u) => u !== clipUrl);
-        if (s.clipUrl) clipHistory.push(s.clipUrl);
-        return { ...s, clipUrl, clipHistory };
+      onUpdate((proj) => {
+        const scene = proj.scenes.find((s) => s.id === sceneId);
+        if (!scene) return;
+        if (scene.clipUrl) {
+          if (!scene.clipHistory) scene.clipHistory = [];
+          scene.clipHistory.push(scene.clipUrl);
+        }
+        scene.clipHistory = (scene.clipHistory ?? []).filter((u) => u !== clipUrl);
+        scene.clipUrl = clipUrl;
       });
-      onUpdate({ scenes: updatedScenes });
     },
-    [project.scenes, onUpdate]
+    [onUpdate]
   );
 
   const handleGeneratingChange = useCallback((sceneId: string, value: boolean) => {
@@ -463,12 +470,12 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
 
   const handlePromptChange = useCallback(
     (sceneId: string, prompt: string) => {
-      const updatedScenes = project.scenes.map((s) =>
-        s.id === sceneId ? { ...s, videoPrompt: prompt } : s
-      );
-      onUpdate({ scenes: updatedScenes });
+      onUpdate((proj) => {
+        const scene = proj.scenes.find((s) => s.id === sceneId);
+        if (scene) scene.videoPrompt = prompt;
+      });
     },
-    [project.scenes, onUpdate]
+    [onUpdate]
   );
 
   const handleUpload = useCallback(
@@ -480,13 +487,16 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
       formData.append('sceneId', sceneId);
       try {
         const result = await longformApi.uploadClip(formData);
-        const updatedScenes = project.scenes.map((s) => {
-          if (s.id !== sceneId) return s;
-          const clipHistory = [...(s.clipHistory ?? [])];
-          if (s.clipUrl) clipHistory.push(s.clipUrl);
-          return { ...s, clipUrl: result.clipUrl, sfxUrl: result.sfxUrl, clipHistory };
+        onUpdate((proj) => {
+          const scene = proj.scenes.find((s) => s.id === sceneId);
+          if (!scene) return;
+          if (scene.clipUrl) {
+            if (!scene.clipHistory) scene.clipHistory = [];
+            scene.clipHistory.push(scene.clipUrl);
+          }
+          scene.clipUrl = result.clipUrl;
+          scene.sfxUrl = result.sfxUrl;
         });
-        onUpdate({ scenes: updatedScenes });
       } catch (e) {
         setSceneErrors((prev) => ({
           ...prev,
@@ -494,7 +504,7 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
         }));
       }
     },
-    [storybook.id, project.id, project.scenes, onUpdate]
+    [storybook.id, project.id, onUpdate]
   );
 
   const handleGenerateAll = async () => {
@@ -576,25 +586,20 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
   const handlePromptUpload = useCallback(() => {
     if (!promptText.trim() || project.scenes.length === 0) return;
 
-    // Split by empty lines → one prompt per scene
     const prompts = promptText
       .split(/\n\s*\n/)
       .map((p) => p.trim())
       .filter(Boolean);
 
-    const sortedScenes = [...project.scenes].sort((a, b) => a.order - b.order);
-    const updatedScenes = project.scenes.map((s) => {
-      const idx = sortedScenes.findIndex((ss) => ss.id === s.id);
-      if (idx >= 0 && idx < prompts.length) {
-        return { ...s, videoPrompt: prompts[idx] };
+    onUpdate((proj) => {
+      const sorted = [...proj.scenes].sort((a, b) => a.order - b.order);
+      for (let i = 0; i < Math.min(sorted.length, prompts.length); i++) {
+        sorted[i].videoPrompt = prompts[i];
       }
-      return s;
     });
-
-    onUpdate({ scenes: updatedScenes });
     setPromptText('');
     setShowPromptUpload(false);
-  }, [promptText, project.scenes, onUpdate]);
+  }, [promptText, project.scenes.length, onUpdate]);
 
   // ----- Bulk upload (drag & drop) -----
   const handleBulkFiles = useCallback(
@@ -635,16 +640,19 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
         }
       }
 
-      // Apply all results at once
+      // Apply all results at once using functional updater (safe from stale closure)
       if (results.size > 0) {
-        onUpdate({
-          scenes: project.scenes.map((s) => {
-            const result = results.get(s.id);
-            if (!result) return s;
-            const clipHistory = [...(s.clipHistory ?? [])];
-            if (s.clipUrl) clipHistory.push(s.clipUrl);
-            return { ...s, clipUrl: result.clipUrl, sfxUrl: result.sfxUrl, clipHistory };
-          }),
+        onUpdate((proj) => {
+          for (const scene of proj.scenes) {
+            const result = results.get(scene.id);
+            if (!result) continue;
+            if (scene.clipUrl) {
+              if (!scene.clipHistory) scene.clipHistory = [];
+              scene.clipHistory.push(scene.clipUrl);
+            }
+            scene.clipUrl = result.clipUrl;
+            scene.sfxUrl = result.sfxUrl;
+          }
         });
       }
 
@@ -955,10 +963,11 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
               onRestoreClip={handleRestoreClip}
               onUpload={handleUpload}
               onDeleteScene={(sceneId) => {
-                const updated = project.scenes
-                  .filter((s) => s.id !== sceneId)
-                  .map((s, i) => ({ ...s, order: i }));
-                onUpdate({ scenes: updated });
+                onUpdate((proj) => {
+                  proj.scenes = proj.scenes
+                    .filter((s) => s.id !== sceneId)
+                    .map((s, i) => ({ ...s, order: i }));
+                });
               }}
             />
           ))}

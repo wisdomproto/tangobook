@@ -19,8 +19,13 @@ interface RenderStepProps {
   storybookId: string;
   project: LongformProject;
   allProjects: LongformProject[];
-  onUpdate: (updates: Partial<Omit<LongformProject, 'id'>>) => void;
-  onUpdateProject: (projectId: string, updates: Partial<Omit<LongformProject, 'id'>>) => void;
+  onUpdate: (
+    updates: Partial<Omit<LongformProject, 'id'>> | ((proj: LongformProject) => void)
+  ) => void;
+  onUpdateProject: (
+    projectId: string,
+    updates: Partial<Omit<LongformProject, 'id'>> | ((proj: LongformProject) => void)
+  ) => void;
   onSelectVersion: (projectId: string) => void;
 }
 

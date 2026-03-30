@@ -52,16 +52,23 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
   // The active version for timeline editing
   const activeVersion = versions.find((v) => v.id === selectedVersionId) ?? versions[0] ?? null;
 
-  // Helper to update a specific project
-  const updateProject = (projectId: string, updates: Partial<Omit<LongformProject, 'id'>>) => {
+  // Helper to update a specific project — supports both object and functional updater
+  const updateProject = (
+    projectId: string,
+    updates: Partial<Omit<LongformProject, 'id'>> | ((proj: LongformProject) => void)
+  ) => {
     onUpdate((draft) => {
       const proj = draft.longformProjects?.find((p) => p.id === projectId);
       if (!proj) return;
-      for (const [key, value] of Object.entries(updates)) {
-        if (value === undefined) {
-          delete (proj as any)[key];
-        } else {
-          (proj as any)[key] = value;
+      if (typeof updates === 'function') {
+        updates(proj);
+      } else {
+        for (const [key, value] of Object.entries(updates)) {
+          if (value === undefined) {
+            delete (proj as any)[key];
+          } else {
+            (proj as any)[key] = value;
+          }
         }
       }
     });

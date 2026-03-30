@@ -19,7 +19,9 @@ interface TimelineEditorStepProps {
   storybook: Storybook;
   project: LongformProject;
   allProjects: LongformProject[];
-  onUpdate: (updates: Partial<Omit<LongformProject, 'id'>>) => void;
+  onUpdate: (
+    updates: Partial<Omit<LongformProject, 'id'>> | ((proj: LongformProject) => void)
+  ) => void;
   onSelectProject: (projectId: string) => void;
   onAddVersion?: () => void;
   onDeleteVersion?: () => void;

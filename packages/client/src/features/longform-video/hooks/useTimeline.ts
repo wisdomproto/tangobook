@@ -22,7 +22,9 @@ const MIN_CLIP_DURATION = 1; // seconds
 
 export function useTimeline(
   project: LongformProject,
-  onUpdate: (updates: Partial<Omit<LongformProject, 'id'>>) => void
+  onUpdate: (
+    updates: Partial<Omit<LongformProject, 'id'>> | ((proj: LongformProject) => void)
+  ) => void
 ) {
   const [state, setState] = useState<TimelineState>({
     currentTime: 0,
