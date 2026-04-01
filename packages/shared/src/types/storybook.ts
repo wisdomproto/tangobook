@@ -929,6 +929,7 @@ export interface LongformScene {
   sfxVolume: number;
   sfxOffset?: number;
   ttsUrl?: string;
+  ttsVolume: number;
   ttsDuration?: number;
   ttsOffset?: number;
   subtitles: LongformSubtitleEntry[];

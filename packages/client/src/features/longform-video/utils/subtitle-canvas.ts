@@ -17,7 +17,7 @@ export function renderSubtitleImage(
 
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d')!;
-  const fontSize = typeof style.fontSize === 'number' ? style.fontSize : 26;
+  const fontSize = typeof style.fontSize === 'number' ? style.fontSize : 44;
   const font = `${fontSize}px ${FONT_FAMILY}`;
   ctx.font = font;
 

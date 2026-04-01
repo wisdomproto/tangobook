@@ -255,8 +255,9 @@ export const LongformService = {
         pageNumber: page.pageNumber,
         videoPrompt: trimmedPrompt,
         clipDuration,
-        sfxVolume: 50,
+        sfxVolume: 60,
         ttsUrl,
+        ttsVolume: 70,
         ttsDuration,
         subtitles,
         order: i,
@@ -581,6 +582,7 @@ export const LongformService = {
             sfxVolume: scene.sfxVolume,
             sfxOffset: scene.sfxOffset,
             ttsUrl: scene.ttsUrl,
+            ttsVolume: scene.ttsVolume,
             ttsOffset: scene.ttsOffset,
             subtitles: scene.subtitles.map((sub) => ({
               text: sub.text,
@@ -656,6 +658,7 @@ export const LongformService = {
           sfxVolume: scene.sfxVolume,
           sfxOffset: scene.sfxOffset,
           ttsUrl: scene.ttsUrl,
+          ttsVolume: scene.ttsVolume,
           ttsOffset: scene.ttsOffset,
           clipDuration: scene.clipDuration,
           trimStart: scene.trimStart,
@@ -707,6 +710,7 @@ export const LongformService = {
       sfxVolume: number;
       sfxOffset?: number;
       ttsUrl?: string;
+      ttsVolume?: number;
       ttsOffset?: number;
       clipDuration: number;
       trimStart?: number;
@@ -806,6 +810,7 @@ export const LongformService = {
           sfxVolume: scene.sfxVolume,
           sfxOffset: scene.sfxOffset,
           ttsUrl: scene.ttsUrl,
+          ttsVolume: scene.ttsVolume,
           ttsOffset: scene.ttsOffset,
           clipDuration: scene.clipDuration,
           trimStart: scene.trimStart,

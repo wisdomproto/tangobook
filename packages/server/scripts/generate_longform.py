@@ -417,13 +417,14 @@ def main():
         sfx_path = downloaded.get(f"sfx_{i}")
         if sfx_path:
             delay = max(0, int((offset + (scene.get("sfxOffset", 0) or 0)) * 1000))
-            vol = scene.get("sfxVolume", 100) / 100.0
+            vol = scene.get("sfxVolume", 60) / 100.0
             audio_inputs.append((sfx_path, delay, vol))
 
         tts_path = downloaded.get(f"tts_{i}")
         if tts_path:
             delay = max(0, int((offset + (scene.get("ttsOffset", 0) or 0) + 0.5) * 1000))
-            audio_inputs.append((tts_path, delay, 1.0))
+            tts_vol = scene.get("ttsVolume", 70) / 100.0
+            audio_inputs.append((tts_path, delay, tts_vol))
 
     bgm_path = downloaded.get("bgm")
     has_audio = len(audio_inputs) > 0 or bgm_path

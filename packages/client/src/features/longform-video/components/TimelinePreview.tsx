@@ -140,6 +140,14 @@ export function TimelinePreview({
   // TTS starts 0.5s after scene transition for natural pacing
   const TTS_DELAY = 0.5;
 
+  // Apply SFX/TTS volume from current scene
+  useEffect(() => {
+    const sfx = sfxRef.current;
+    const tts = ttsRef.current;
+    if (sfx) sfx.volume = (currentScene?.sfxVolume ?? 60) / 100;
+    if (tts) tts.volume = (currentScene?.ttsVolume ?? 70) / 100;
+  }, [currentScene?.sfxVolume, currentScene?.ttsVolume, currentScene?.id]);
+
   useEffect(() => {
     const video = videoRef.current;
     const sfx = sfxRef.current;

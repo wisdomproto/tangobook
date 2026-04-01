@@ -14,6 +14,7 @@ export interface LongformRenderOptions {
     sfxVolume: number;
     sfxOffset?: number;
     ttsUrl?: string;
+    ttsVolume?: number;
     ttsOffset?: number;
     subtitles: Array<{ text: string; startTime: number; endTime: number }>;
     clipDuration: number;

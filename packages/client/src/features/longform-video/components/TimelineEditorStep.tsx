@@ -473,6 +473,70 @@ export function TimelineEditorStep({
           />
         )}
 
+        {/* SFX volume control */}
+        {project.scenes.some((s) => s.sfxUrl) && (
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-slate-500 dark:text-slate-400">효과음</span>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={Math.round(
+                project.scenes.filter((s) => s.sfxUrl).reduce((sum, s) => sum + s.sfxVolume, 0) /
+                  Math.max(1, project.scenes.filter((s) => s.sfxUrl).length)
+              )}
+              onChange={(e) => {
+                const vol = parseInt(e.target.value);
+                onUpdate((proj) => {
+                  proj.scenes = proj.scenes.map((s) => (s.sfxUrl ? { ...s, sfxVolume: vol } : s));
+                });
+              }}
+              className="w-20 h-1 accent-amber-500"
+            />
+            <span className="text-xs text-slate-500 w-8">
+              {Math.round(
+                project.scenes.filter((s) => s.sfxUrl).reduce((sum, s) => sum + s.sfxVolume, 0) /
+                  Math.max(1, project.scenes.filter((s) => s.sfxUrl).length)
+              )}
+              %
+            </span>
+          </div>
+        )}
+
+        {/* TTS volume control */}
+        {project.scenes.some((s) => s.ttsUrl) && (
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-slate-500 dark:text-slate-400">나레이션</span>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={Math.round(
+                project.scenes
+                  .filter((s) => s.ttsUrl)
+                  .reduce((sum, s) => sum + (s.ttsVolume ?? 70), 0) /
+                  Math.max(1, project.scenes.filter((s) => s.ttsUrl).length)
+              )}
+              onChange={(e) => {
+                const vol = parseInt(e.target.value);
+                onUpdate((proj) => {
+                  proj.scenes = proj.scenes.map((s) => (s.ttsUrl ? { ...s, ttsVolume: vol } : s));
+                });
+              }}
+              className="w-20 h-1 accent-sky-500"
+            />
+            <span className="text-xs text-slate-500 w-8">
+              {Math.round(
+                project.scenes
+                  .filter((s) => s.ttsUrl)
+                  .reduce((sum, s) => sum + (s.ttsVolume ?? 70), 0) /
+                  Math.max(1, project.scenes.filter((s) => s.ttsUrl).length)
+              )}
+              %
+            </span>
+          </div>
+        )}
+
         {/* BGM controls */}
         <div className="flex items-center gap-2 ml-auto relative">
           {project.bgmUrl ? (
