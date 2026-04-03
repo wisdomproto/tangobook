@@ -1197,7 +1197,12 @@ export const LongformService = {
     setTimeout(() => captionProgressMap.delete(projectId), 30_000);
   },
 
-  async uploadCaptions(storybookId: string, projectId: string, languages: string[]): Promise<void> {
+  async uploadCaptions(
+    storybookId: string,
+    projectId: string,
+    languages: string[],
+    channelId?: string
+  ): Promise<void> {
     const storybook = await loadStorybook(storybookId);
     const project = loadProject(storybook, projectId);
 
@@ -1226,7 +1231,7 @@ export const LongformService = {
 
     // Upload base language caption
     try {
-      await YouTubeProvider.uploadCaption(videoId, baseLang, baseSrt);
+      await YouTubeProvider.uploadCaption(videoId, baseLang, baseSrt, undefined, channelId);
       uploaded.push(baseLang);
     } catch (err) {
       console.warn(`[longform-caption] Failed to upload ${baseLang}:`, err);
@@ -1244,7 +1249,7 @@ export const LongformService = {
 
       try {
         const translatedSrt = await translateSrt(baseSrt, baseLang, lang);
-        await YouTubeProvider.uploadCaption(videoId, lang, translatedSrt);
+        await YouTubeProvider.uploadCaption(videoId, lang, translatedSrt, undefined, channelId);
         uploaded.push(lang);
       } catch (err) {
         console.warn(`[longform-caption] Failed for ${lang}:`, err);

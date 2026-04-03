@@ -201,10 +201,10 @@ export const LongformController = {
 
   // Captions — fire-and-forget
   youtubeUploadCaptions: asyncHandler(async (req, res) => {
-    const { storybookId, projectId, languages } = req.body;
+    const { storybookId, projectId, languages, channelId } = req.body;
     res.json({ success: true, data: { message: '자막 업로드 시작' } });
 
-    LongformService.uploadCaptions(storybookId, projectId, languages).catch((err) => {
+    LongformService.uploadCaptions(storybookId, projectId, languages, channelId).catch((err) => {
       console.error('[longform-caption] Upload failed:', err);
       LongformService.setCaptionError(
         projectId,

@@ -497,6 +497,7 @@ export function RenderStep({
         storybookId,
         projectId: project.id,
         languages: captionLangs,
+        channelId: selectedChannelId || undefined,
       });
 
       captionPollRef.current = setInterval(async () => {

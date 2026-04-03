@@ -92,8 +92,12 @@ export const longformApi = {
     apiPost<YouTubeGeneratedMeta>('/longform/youtube/generate-meta', req),
 
   // YouTube captions
-  youtubeUploadCaptions: (req: { storybookId: string; projectId: string; languages: string[] }) =>
-    apiPost('/longform/youtube/upload-captions', req),
+  youtubeUploadCaptions: (req: {
+    storybookId: string;
+    projectId: string;
+    languages: string[];
+    channelId?: string;
+  }) => apiPost('/longform/youtube/upload-captions', req),
   getCaptionProgress: (projectId: string) =>
     apiGet<{ progress: number; step: string } | null>(
       `/longform/youtube/caption-progress/${projectId}`
