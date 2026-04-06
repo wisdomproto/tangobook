@@ -149,21 +149,24 @@ export const AudiobookService = {
       // 4. Load Remotion + Select composition
       renderProgressMap.set(projectId, { progress: 10, step: '컴포지션 준비' });
       const { selectComposition, renderMedia } = await loadRemotion();
+      const chromiumPath = process.env.CHROMIUM_PATH || undefined;
+      console.log('[audiobook] Browser executable:', chromiumPath || 'default');
+
+      const browserOpts = {
+        ...(chromiumPath ? { browserExecutable: chromiumPath } : {}),
+        chromiumOptions: { gl: 'angle' as const, headless: true },
+      };
+
       const composition = await selectComposition({
         serveUrl: bundlePath,
         id: 'Audiobook',
         inputProps: renderData,
+        ...browserOpts,
       });
 
       // 5. Render
       const outputPath = path.join(workDir, 'output.mp4');
       renderProgressMap.set(projectId, { progress: 15, step: '렌더링 중' });
-
-      const chromiumPath = process.env.CHROMIUM_PATH || undefined;
-      console.log('[audiobook] Starting renderMedia', {
-        projectId,
-        chromiumPath: chromiumPath || 'default',
-      });
 
       await renderMedia({
         composition,
@@ -172,8 +175,7 @@ export const AudiobookService = {
         outputLocation: outputPath,
         inputProps: renderData,
         timeoutInMilliseconds: 600000, // 10 minutes
-        chromiumOptions: { gl: 'angle' },
-        ...(chromiumPath ? { browserExecutable: chromiumPath } : {}),
+        ...browserOpts,
         onProgress: ({ progress }) => {
           const percent = 15 + Math.round(progress * 75); // 15-90%
           renderProgressMap.set(projectId, { progress: percent, step: '렌더링 중' });

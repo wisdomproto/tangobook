@@ -23,8 +23,9 @@ RUN apk add --no-cache \
        "https://github.com/google/fonts/raw/main/ofl/nanumgothic/NanumGothic-Regular.ttf" \
     && fc-cache -f
 
-# Remotion이 시스템 Chromium을 사용하도록 설정
+# Remotion이 시스템 Chromium을 사용하도록 설정 (자체 Chrome 다운로드 스킵)
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV REMOTION_CHROME_EXECUTABLE=/usr/bin/chromium-browser
 ENV CHROMIUM_PATH=/usr/bin/chromium-browser
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
