@@ -49,15 +49,15 @@ export function buildAudiobookRenderData(
 
     return {
       imageUrl: page.illustrationUrl!,
-      ttsUrl: project.includeTts ? ttsUrl : undefined,
+      ttsUrl: project.includeTts !== false ? ttsUrl : undefined,
       ttsDuration: undefined,
-      subtitleText: project.includeSubtitles ? text : undefined,
+      subtitleText: project.includeSubtitles !== false ? text : undefined,
     };
   });
 
   // Cover — Storybook uses `coverImage`, not `coverImageUrl`
   let cover: AudiobookRenderData['cover'] | undefined;
-  if (project.includeCover) {
+  if (project.includeCover !== false) {
     const coverImageUrl = project.coverImageUrl || storybook.coverImage;
     if (coverImageUrl) {
       cover = {
@@ -70,7 +70,8 @@ export function buildAudiobookRenderData(
   }
 
   // BGM
-  const bgmUrl = project.includeBgm ? project.bgmUrl || storybook.backgroundMusicUrl : undefined;
+  const bgmUrl =
+    project.includeBgm !== false ? project.bgmUrl || storybook.backgroundMusicUrl : undefined;
 
   const validRatios = ['16:9', '9:16', '1:1', '3:4', '4:3'];
   const aspectRatio = (
