@@ -125,15 +125,18 @@ export function AudiobookProjectCard({
     }
   }, []);
 
+  const nullCountRef = useRef(0);
+
   const startProgressPolling = () => {
     setProgress({ progress: 0, step: '시작' });
     setRenderError(null);
+    nullCountRef.current = 0;
     progressTimerRef.current = setInterval(async () => {
       try {
         const data = await audiobookApi.getRenderProgress(project.id);
         if (data) {
+          nullCountRef.current = 0;
           if (data.progress < 0) {
-            // Render failed
             stopProgressPolling();
             setRendering(false);
             setProgress(null);
@@ -142,11 +145,9 @@ export function AudiobookProjectCard({
           }
           setProgress(data);
           if (data.progress >= 100) {
-            // Render complete — refetch storybook to get outputUrl
             stopProgressPolling();
             setRendering(false);
             setProgress(null);
-            // Reload storybook data to get the updated outputUrl
             try {
               const sb = await storybookApi.getById(storybookId);
               const updatedProject = sb.audiobookProjects?.find((p) => p.id === project.id);
@@ -159,6 +160,15 @@ export function AudiobookProjectCard({
             } catch {
               /* ignore reload error */
             }
+          }
+        } else {
+          // null = server lost progress state (crash/restart/TTL expired)
+          nullCountRef.current++;
+          if (nullCountRef.current >= 5) {
+            stopProgressPolling();
+            setRendering(false);
+            setProgress(null);
+            setRenderError('서버에서 렌더링 상태를 잃었습니다. 다시 시도해주세요.');
           }
         }
       } catch {

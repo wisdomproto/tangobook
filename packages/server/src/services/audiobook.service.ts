@@ -175,6 +175,7 @@ export const AudiobookService = {
         outputLocation: outputPath,
         inputProps: renderData,
         timeoutInMilliseconds: 600000, // 10 minutes
+        concurrency: 1, // Reduce memory usage on Railway
         ...browserOpts,
         onProgress: ({ progress }) => {
           const percent = 15 + Math.round(progress * 75); // 15-90%
