@@ -8,6 +8,8 @@ const { fontFamily } = loadFont();
 type TypewriterSubtitleProps = {
   text: string;
   style: SubtitleStyle;
+  /** Actual slide duration in frames (required for correct sentence timing) */
+  slideDurationInFrames?: number;
   /** @deprecated kept for backward compat */
   wordGroupFrames?: number;
   /** @deprecated kept for backward compat */
@@ -25,24 +27,31 @@ function splitIntoSentences(text: string): string[] {
   return sentences.length > 0 ? sentences : [text];
 }
 
-export const TypewriterSubtitle: React.FC<TypewriterSubtitleProps> = ({ text, style }) => {
+export const TypewriterSubtitle: React.FC<TypewriterSubtitleProps> = ({
+  text,
+  style,
+  slideDurationInFrames,
+}) => {
   const frame = useCurrentFrame();
-  const { durationInFrames, fps } = useVideoConfig();
+  const { durationInFrames: compositionDuration, fps } = useVideoConfig();
+
+  // Use slide-level duration if provided, otherwise fall back to composition duration
+  const effectiveDuration = slideDurationInFrames ?? compositionDuration;
 
   const sentences = splitIntoSentences(text);
   const count = sentences.length;
 
   // Distribute duration evenly across sentences, leave 0.5s for fade-out
   const fadeOutDuration = Math.round(0.5 * fps);
-  const availableFrames = durationInFrames - fadeOutDuration;
+  const availableFrames = effectiveDuration - fadeOutDuration;
   const framesPerSentence = count > 0 ? Math.floor(availableFrames / count) : availableFrames;
 
   // Which sentence to show
   const sentenceIdx = Math.min(count - 1, Math.floor(frame / framesPerSentence));
   const displayText = sentences[sentenceIdx] || '';
 
-  const fadeOutStart = durationInFrames - fadeOutDuration;
-  const opacity = interpolate(frame, [fadeOutStart, durationInFrames], [1, 0], {
+  const fadeOutStart = effectiveDuration - fadeOutDuration;
+  const opacity = interpolate(frame, [fadeOutStart, effectiveDuration], [1, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });

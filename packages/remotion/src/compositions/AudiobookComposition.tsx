@@ -65,6 +65,7 @@ export const AudiobookComposition: React.FC<AudiobookRenderProps> = ({
                       <TypewriterSubtitle
                         text={slide.subtitleText}
                         style={subtitleStyle}
+                        slideDurationInFrames={duration - TTS_DELAY}
                         wordsPerGroup={subtitleStyle.wordsPerGroup}
                       />
                     </Sequence>
