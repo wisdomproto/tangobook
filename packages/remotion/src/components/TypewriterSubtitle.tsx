@@ -41,13 +41,25 @@ export const TypewriterSubtitle: React.FC<TypewriterSubtitleProps> = ({
   const sentences = splitIntoSentences(text);
   const count = sentences.length;
 
-  // Distribute duration evenly across sentences, leave 0.5s for fade-out
+  // Distribute duration proportional to sentence length (character count)
   const fadeOutDuration = Math.round(0.5 * fps);
   const availableFrames = effectiveDuration - fadeOutDuration;
-  const framesPerSentence = count > 0 ? Math.floor(availableFrames / count) : availableFrames;
+  const totalChars = sentences.reduce((sum, s) => sum + s.length, 0);
+  const sentenceFrames = sentences.map((s) =>
+    totalChars > 0 ? Math.round((s.length / totalChars) * availableFrames) : availableFrames
+  );
 
-  // Which sentence to show
-  const sentenceIdx = Math.min(count - 1, Math.floor(frame / framesPerSentence));
+  // Which sentence to show based on cumulative frame boundaries
+  let cumulative = 0;
+  let sentenceIdx = 0;
+  for (let i = 0; i < sentenceFrames.length; i++) {
+    cumulative += sentenceFrames[i];
+    if (frame < cumulative) {
+      sentenceIdx = i;
+      break;
+    }
+    sentenceIdx = i;
+  }
   const displayText = sentences[sentenceIdx] || '';
 
   const fadeOutStart = effectiveDuration - fadeOutDuration;
