@@ -21,10 +21,14 @@ export function useTtsDurations(renderData: AudiobookRenderData): {
       .map((s) => s.ttsUrl)
       .filter((url): url is string => !!url && !probedRef.current.has(url));
 
-    if (ttsUrls.length === 0) return;
+    if (ttsUrls.length === 0) {
+      console.log('[useTtsDurations] No new TTS URLs to probe');
+      return;
+    }
 
     let cancelled = false;
     setLoading(true);
+    console.log('[useTtsDurations] Probing', ttsUrls.length, 'TTS URLs');
 
     async function probeAll() {
       for (const url of ttsUrls) {
@@ -33,8 +37,9 @@ export function useTtsDurations(renderData: AudiobookRenderData): {
           const duration = await getAudioDurationInBrowser(url);
           durationsRef.current[url] = duration;
           probedRef.current.add(url);
-        } catch {
-          // Failed to probe — will use default 3s
+          console.log('[useTtsDurations] Probed:', url.slice(-30), '→', duration.toFixed(2), 's');
+        } catch (err) {
+          console.warn('[useTtsDurations] Failed to probe:', url.slice(-30), err);
           probedRef.current.add(url);
         }
       }
