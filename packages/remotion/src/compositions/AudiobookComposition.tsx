@@ -9,7 +9,7 @@ import { CoverSlide } from '../components/CoverSlide';
 import { EndingSlide } from '../components/EndingSlide';
 import type { AudiobookRenderProps } from '../types';
 
-const CROSSFADE_DURATION = 15;
+const CROSSFADE_DURATION = 30; // 1 second at 30fps
 const DEFAULT_SLIDE_DURATION = 90;
 const ENDING_DURATION = 90;
 
