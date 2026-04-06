@@ -342,6 +342,13 @@ features/viewer/
 - `mode === 'quiz'` → QuizViewer
 - 그 외 → 일반 동화책 뷰어
 
+## 오디오북 렌더링 (Remotion)
+- **렌더링 패턴**: fire-and-forget (컨트롤러 즉시 응답 → 클라이언트 폴링)
+- **Remotion entry**: 프로덕션에서 절대경로 사용 (`/app/packages/remotion/src/entry.ts`)
+- **Chromium**: Dockerfile에 `chromium`+`nss` 설치, `CHROMIUM_PATH` 환경변수로 전달
+- **browserExecutable**: `selectComposition` + `renderMedia` 둘 다에 전달 필수
+- **BGM 라이브러리**: 파일 업로드 시 `background-music.json` (R2) 자동 갱신
+
 ## 롱폼 영상 Feature 구조
 ```
 features/longform-video/
