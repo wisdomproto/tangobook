@@ -1,6 +1,6 @@
 FROM node:20-alpine
 
-# 오디오북 생성에 필요한 시스템 의존성: Python, ffmpeg, 한글 폰트
+# 오디오북 생성에 필요한 시스템 의존성: Python, ffmpeg, Chromium(Remotion), 한글 폰트
 RUN apk add --no-cache \
     python3 \
     py3-pip \
@@ -10,6 +10,8 @@ RUN apk add --no-cache \
     jpeg \
     zlib \
     freetype \
+    chromium \
+    nss \
     && apk add --no-cache --virtual .build-deps \
        gcc musl-dev python3-dev jpeg-dev zlib-dev freetype-dev \
     && pip3 install --break-system-packages --no-cache-dir \
@@ -20,6 +22,10 @@ RUN apk add --no-cache \
     && curl -L -o /usr/share/fonts/truetype/nanum/NanumGothic.ttf \
        "https://github.com/google/fonts/raw/main/ofl/nanumgothic/NanumGothic-Regular.ttf" \
     && fc-cache -f
+
+# Remotion이 시스템 Chromium을 사용하도록 설정
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV CHROMIUM_PATH=/usr/bin/chromium-browser
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
 

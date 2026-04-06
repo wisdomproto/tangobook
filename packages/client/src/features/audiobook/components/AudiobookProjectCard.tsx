@@ -16,7 +16,6 @@ import type {
   YouTubePreset,
   YouTubeChannel,
 } from '@tangobook/shared';
-import { useAudiobookRender } from '../hooks/useAudiobookRender';
 import { useTtsDurations } from '../hooks/useTtsDurations';
 import { audiobookApi } from '../api/audiobook.api';
 import type { AudiobookRenderProgress } from '../api/audiobook.api';
@@ -78,8 +77,8 @@ export function AudiobookProjectCard({
   const [editingName, setEditingName] = useState(project.name);
   const [rendering, setRendering] = useState(false);
   const [progress, setProgress] = useState<AudiobookRenderProgress | null>(null);
+  const [renderError, setRenderError] = useState<string | null>(null);
   const progressTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const renderMutation = useAudiobookRender();
 
   useEffect(() => {
     setEditingName(project.name);
@@ -119,42 +118,68 @@ export function AudiobookProjectCard({
 
   const hasBgm = !!project.bgmUrl;
 
-  const startProgressPolling = () => {
-    setProgress({ progress: 0, step: '시작' });
-    progressTimerRef.current = setInterval(async () => {
-      try {
-        const data = await audiobookApi.getRenderProgress(project.id);
-        if (data) setProgress(data);
-      } catch {
-        /* ignore */
-      }
-    }, 1500);
-  };
-
-  const stopProgressPolling = () => {
+  const stopProgressPolling = useCallback(() => {
     if (progressTimerRef.current) {
       clearInterval(progressTimerRef.current);
       progressTimerRef.current = null;
     }
-    setProgress(null);
+  }, []);
+
+  const startProgressPolling = () => {
+    setProgress({ progress: 0, step: '시작' });
+    setRenderError(null);
+    progressTimerRef.current = setInterval(async () => {
+      try {
+        const data = await audiobookApi.getRenderProgress(project.id);
+        if (data) {
+          if (data.progress < 0) {
+            // Render failed
+            stopProgressPolling();
+            setRendering(false);
+            setProgress(null);
+            setRenderError(data.error || data.step || '렌더링에 실패했습니다.');
+            return;
+          }
+          setProgress(data);
+          if (data.progress >= 100) {
+            // Render complete — refetch storybook to get outputUrl
+            stopProgressPolling();
+            setRendering(false);
+            setProgress(null);
+            // Reload storybook data to get the updated outputUrl
+            try {
+              const sb = await storybookApi.getById(storybookId);
+              const updatedProject = sb.audiobookProjects?.find((p) => p.id === project.id);
+              if (updatedProject?.outputUrl) {
+                onUpdate({
+                  outputUrl: updatedProject.outputUrl,
+                  createdAt: updatedProject.createdAt,
+                });
+              }
+            } catch {
+              /* ignore reload error */
+            }
+          }
+        }
+      } catch {
+        /* ignore polling errors */
+      }
+    }, 1500);
   };
 
   const handleRender = async () => {
     onSave();
     await new Promise((r) => setTimeout(r, 500));
     setRendering(true);
+    setRenderError(null);
     startProgressPolling();
     try {
-      const result = await renderMutation.mutateAsync({
-        storybookId,
-        projectId: project.id,
-      });
-      onUpdate({ outputUrl: result.outputUrl, createdAt: new Date().toISOString() });
-    } catch {
-      // error handled by mutation
-    } finally {
+      await audiobookApi.render({ storybookId, projectId: project.id });
+    } catch (err: any) {
       stopProgressPolling();
       setRendering(false);
+      setProgress(null);
+      setRenderError(err?.message || '렌더링 요청에 실패했습니다.');
     }
   };
 
@@ -235,6 +260,7 @@ export function AudiobookProjectCard({
   // Cleanup polling
   useEffect(() => {
     return () => {
+      if (progressTimerRef.current) clearInterval(progressTimerRef.current);
       if (ytPollRef.current) clearInterval(ytPollRef.current);
       if (captionPollRef.current) clearInterval(captionPollRef.current);
     };
@@ -519,6 +545,15 @@ export function AudiobookProjectCard({
         </span>
 
         {project.outputUrl && <span className="text-xs text-emerald-500 shrink-0">생성완료</span>}
+
+        {renderError && (
+          <span
+            className="text-xs text-red-500 shrink-0 truncate max-w-[200px]"
+            title={renderError}
+          >
+            실패
+          </span>
+        )}
 
         {rendering && progress ? (
           <div className="flex items-center gap-2 shrink-0" onClick={(e) => e.stopPropagation()}>
@@ -1056,9 +1091,9 @@ export function AudiobookProjectCard({
           )}
 
           {/* 에러 표시 */}
-          {renderMutation.error && (
-            <div className="text-sm text-red-500 bg-red-50 px-3 py-2 rounded-md">
-              {renderMutation.error.message}
+          {renderError && (
+            <div className="text-sm text-red-500 bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-md">
+              {renderError}
             </div>
           )}
 

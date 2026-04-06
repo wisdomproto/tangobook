@@ -116,6 +116,11 @@ export const AudiobookService = {
       throw new AppError(400, '렌더링할 페이지가 없습니다 (삽화가 있는 페이지 필요).');
     }
 
+    console.log('[audiobook] Render started:', {
+      storybookId,
+      projectId,
+      slides: renderData.slides.length,
+    });
     renderProgressMap.set(projectId, { progress: 0, step: 'TTS 길이 측정 중' });
 
     // 2.5. Probe TTS durations for accurate slide timing
@@ -148,6 +153,12 @@ export const AudiobookService = {
       const outputPath = path.join(workDir, 'output.mp4');
       renderProgressMap.set(projectId, { progress: 15, step: '렌더링 중' });
 
+      const chromiumPath = process.env.CHROMIUM_PATH || undefined;
+      console.log('[audiobook] Starting renderMedia', {
+        projectId,
+        chromiumPath: chromiumPath || 'default',
+      });
+
       await renderMedia({
         composition,
         serveUrl: bundlePath,
@@ -155,8 +166,8 @@ export const AudiobookService = {
         outputLocation: outputPath,
         inputProps: renderData,
         timeoutInMilliseconds: 600000, // 10 minutes
-        // faststart: moov atom을 파일 앞으로 → 브라우저 스트리밍 재생 가능
         chromiumOptions: { gl: 'angle' },
+        ...(chromiumPath ? { browserExecutable: chromiumPath } : {}),
         onProgress: ({ progress }) => {
           const percent = 15 + Math.round(progress * 75); // 15-90%
           renderProgressMap.set(projectId, { progress: percent, step: '렌더링 중' });
@@ -196,17 +207,19 @@ export const AudiobookService = {
         await R2Repository.saveStorybook(storybook);
       }
 
+      console.log('[audiobook] Render complete:', { projectId, outputUrl });
       renderProgressMap.set(projectId, { progress: 100, step: '완료' });
-      setTimeout(() => renderProgressMap.delete(projectId), 30_000);
+      setTimeout(() => renderProgressMap.delete(projectId), 60_000);
 
       return { outputUrl };
     } catch (err: any) {
+      console.error('[audiobook] Render failed:', { projectId, error: err.message || err });
       renderProgressMap.set(projectId, {
         progress: -1,
         step: '렌더링 실패',
         error: err.message || '알 수 없는 오류',
       });
-      setTimeout(() => renderProgressMap.delete(projectId), 30_000);
+      setTimeout(() => renderProgressMap.delete(projectId), 60_000);
       throw err;
     } finally {
       fs.rmSync(workDir, { recursive: true, force: true });

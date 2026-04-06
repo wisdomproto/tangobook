@@ -4,8 +4,14 @@ import { asyncHandler } from '../middleware/async-handler.js';
 
 export const AudiobookController = {
   render: asyncHandler(async (req, res) => {
-    const result = await AudiobookService.render(req.body);
-    res.json({ success: true, data: result });
+    const { storybookId, projectId } = req.body;
+    // Fire-and-forget: return immediately, run render in background
+    res.json({ success: true, data: { message: '렌더링 시작' } });
+
+    AudiobookService.render({ storybookId, projectId }).catch((err) => {
+      console.error('[audiobook] Render failed:', err.message || err);
+      // Error is already stored in renderProgressMap by service
+    });
   }),
 
   getRenderProgress(req: Request, res: Response) {
