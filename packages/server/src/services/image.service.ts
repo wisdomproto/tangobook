@@ -2,6 +2,7 @@ import axios from 'axios';
 import { generateImageWithGemini, getTextModel } from '../providers/gemini.provider.js';
 import { R2Repository } from '../repositories/r2.repository.js';
 import { buildR2Key } from '../utils/r2-key.js';
+import { uploadJsonToR2 } from '../providers/r2.provider.js';
 import type {
   Character,
   Page,
@@ -587,7 +588,24 @@ ${isolatedObjectPrompt(card.word)}`;
       fileType: 'bgm',
       extension: ext,
     });
-    return R2Repository.uploadBuffer(file.buffer, key, file.mimetype);
+    const audioUrl = await R2Repository.uploadBuffer(file.buffer, key, file.mimetype);
+
+    // Add to BGM library JSON
+    try {
+      const existing = await this.getBgmList();
+      const title = file.originalname.replace(/\.[^.]+$/, '');
+      existing.push({
+        id: `bgm_${Date.now()}`,
+        title,
+        url: audioUrl,
+        createdAt: new Date().toISOString(),
+      });
+      await uploadJsonToR2(existing, 'background-music.json');
+    } catch (err) {
+      console.warn('[image] Failed to update BGM library JSON:', err);
+    }
+
+    return audioUrl;
   },
 
   async getBgmList(): Promise<

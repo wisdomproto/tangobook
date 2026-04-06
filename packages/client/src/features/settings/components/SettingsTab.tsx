@@ -143,6 +143,11 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
         d.backgroundMusicUrl = audioUrl;
       });
       onSave();
+      // Refresh BGM library to show the newly added item
+      settingsApi
+        .getBgmList()
+        .then(setBgmLibrary)
+        .catch(() => {});
     } catch {
       // handled silently
     } finally {
