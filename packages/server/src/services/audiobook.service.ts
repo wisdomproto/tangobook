@@ -59,7 +59,13 @@ async function getBundlePath(): Promise<string> {
   }
   const { bundle } = await loadRemotion();
   // entry.ts contains registerRoot() — required for Remotion bundling
-  const remotionEntry = path.resolve(__dirname, '../../../remotion/src/entry.ts');
+  // Dev: __dirname = packages/server/src/services → ../../.. = packages/
+  // Prod: __dirname = packages/server/dist/server/src/services → need absolute path
+  const isDev2 = process.env.NODE_ENV !== 'production';
+  const remotionEntry = isDev2
+    ? path.resolve(__dirname, '../../../remotion/src/entry.ts')
+    : path.resolve('/app/packages/remotion/src/entry.ts');
+  console.log('[audiobook] Remotion entry path:', remotionEntry);
   cachedBundlePath = await bundle({ entryPoint: remotionEntry });
   return cachedBundlePath;
 }
