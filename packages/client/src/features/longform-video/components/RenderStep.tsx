@@ -60,6 +60,12 @@ export function RenderStep({
   const [error, setError] = useState<string | null>(null);
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // ----- Shortform state -----
+  const [sfRendering, setSfRendering] = useState(false);
+  const [sfProgress, setSfProgress] = useState<{ progress: number; step: string } | null>(null);
+  const [sfError, setSfError] = useState<string | null>(null);
+  const sfPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
   // ----- YouTube state -----
   const [ytChannels, setYtChannels] = useState<YouTubeChannel[]>([]);
   const [selectedChannelId, setSelectedChannelId] = useState<string>('');
@@ -344,6 +350,67 @@ export function RenderStep({
     setIsRendering(false);
     setProgress(null);
   };
+
+  // ----- Shortform handlers -----
+  const stopSfPolling = useCallback(() => {
+    if (sfPollRef.current) {
+      clearInterval(sfPollRef.current);
+      sfPollRef.current = null;
+    }
+  }, []);
+
+  const handleShortformRender = async () => {
+    setSfRendering(true);
+    setSfError(null);
+    setSfProgress({ progress: 0, step: '시작' });
+
+    sfPollRef.current = setInterval(async () => {
+      try {
+        const data = await longformApi.getShortformProgress(project.id);
+        if (data) {
+          if (data.progress < 0) {
+            stopSfPolling();
+            setSfRendering(false);
+            setSfProgress(null);
+            setSfError(data.error || data.step || '숏폼 렌더링 실패');
+            return;
+          }
+          setSfProgress(data);
+          if (data.progress >= 100) {
+            stopSfPolling();
+            setSfRendering(false);
+            setSfProgress(null);
+            try {
+              const sb = await storybookApi.getById(storybookId);
+              const updated = sb.longformProjects?.find((p) => p.id === project.id);
+              if (updated?.shortformOutputUrl) {
+                onUpdate({ shortformOutputUrl: updated.shortformOutputUrl });
+              }
+            } catch {
+              /* ignore */
+            }
+          }
+        }
+      } catch {
+        /* ignore */
+      }
+    }, 1500);
+
+    try {
+      await longformApi.renderShortform({ storybookId, projectId: project.id });
+    } catch (err: any) {
+      stopSfPolling();
+      setSfRendering(false);
+      setSfProgress(null);
+      setSfError(err?.message || '숏폼 렌더링 요청 실패');
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (sfPollRef.current) clearInterval(sfPollRef.current);
+    };
+  }, []);
 
   // ----- YouTube handlers -----
   const handleAddChannel = async () => {
@@ -699,6 +766,79 @@ export function RenderStep({
             controls
             className="rounded-lg w-full max-h-[480px] bg-black border border-slate-200 dark:border-slate-700"
           />
+        </div>
+      )}
+
+      {/* ===== Shortform Section ===== */}
+      {project.outputUrl && (
+        <div className="mt-6 border-t border-slate-200 dark:border-slate-700 pt-5 space-y-3">
+          <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+            <svg
+              className="w-5 h-5 text-pink-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+              />
+            </svg>
+            숏폼 (9:16)
+          </h3>
+
+          {project.shortformOutputUrl && !sfRendering && (
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-emerald-600">생성 완료</span>
+                <DownloadButton
+                  href={project.shortformOutputUrl}
+                  filename={`${project.name}_short.mp4`}
+                  size="sm"
+                />
+              </div>
+              <video
+                src={project.shortformOutputUrl}
+                controls
+                className="rounded-lg w-full max-h-[480px] bg-black border border-slate-200 dark:border-slate-700"
+              />
+            </div>
+          )}
+
+          {sfRendering && sfProgress && (
+            <div className="space-y-1.5 bg-pink-50 dark:bg-pink-900/20 px-3 py-2 rounded-lg">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-medium text-pink-700 dark:text-pink-300">
+                  {sfProgress.step}
+                </span>
+                <span className="text-xs text-pink-600">{sfProgress.progress}%</span>
+              </div>
+              <div className="w-full h-1.5 bg-pink-200 dark:bg-pink-800 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-pink-500 rounded-full transition-all duration-500"
+                  style={{ width: `${sfProgress.progress}%` }}
+                />
+              </div>
+            </div>
+          )}
+
+          {sfError && <p className="text-xs text-red-500">{sfError}</p>}
+
+          <Button
+            onClick={handleShortformRender}
+            disabled={sfRendering}
+            loading={sfRendering}
+            size="sm"
+            variant="secondary"
+          >
+            {sfRendering
+              ? '숏폼 렌더링 중...'
+              : project.shortformOutputUrl
+                ? '숏폼 다시 만들기'
+                : '숏폼 만들기'}
+          </Button>
         </div>
       )}
 

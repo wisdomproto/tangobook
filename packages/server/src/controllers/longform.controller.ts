@@ -218,4 +218,25 @@ export const LongformController = {
     const progress = LongformService.getCaptionProgress(projectId);
     res.json({ success: true, data: progress });
   },
+
+  // ----- Shortform -----
+
+  renderShortform: asyncHandler(async (req, res) => {
+    const { storybookId, projectId, title, logoUrl } = req.body;
+    res.json({ success: true, data: { message: '숏폼 렌더링 시작' } });
+
+    LongformService.renderShortform({ storybookId, projectId, title, logoUrl }).catch((err) => {
+      console.error('[shortform] Render failed:', err.message || err);
+      LongformService.setShortformError(
+        projectId,
+        err instanceof Error ? err.message : '숏폼 렌더링 실패'
+      );
+    });
+  }),
+
+  getShortformProgress(req: Request, res: Response) {
+    const projectId = req.params.projectId as string;
+    const progress = LongformService.getShortformProgress(projectId);
+    res.json({ success: true, data: progress });
+  },
 };

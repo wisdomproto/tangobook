@@ -864,6 +864,7 @@ export interface LongformProject {
   bgmVolume: number;
   subtitleStyle: LongformSubtitleStyle;
   outputUrl?: string;
+  shortformOutputUrl?: string;
   createdAt?: string;
   captionLanguages?: string[]; // YouTube 자막 업로드할 언어 목록
   youtubeUpload?: YouTubeUploadResult;

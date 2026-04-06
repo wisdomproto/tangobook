@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import { execFile } from 'child_process';
+import { execFile, execSync } from 'child_process';
 import { promisify } from 'util';
 import type {
   LongformProject,
@@ -39,12 +39,14 @@ const execFileAsync = promisify(execFile);
 interface ProgressInfo {
   progress: number;
   step: string;
+  error?: string;
   failed?: string[];
 }
 
 const analyzeProgressMap = new Map<string, ProgressInfo>();
 const progressMap = new Map<string, ProgressInfo>();
 const renderProgressMap = new Map<string, ProgressInfo>();
+const shortformProgressMap = new Map<string, ProgressInfo>();
 const youtubeProgressMap = new Map<string, ProgressInfo>();
 const captionProgressMap = new Map<string, ProgressInfo>();
 
@@ -1263,4 +1265,204 @@ export const LongformService = {
     captionProgressMap.set(projectId, { progress: 100, step: '자막 업로드 완료' });
     setTimeout(() => captionProgressMap.delete(projectId), 30_000);
   },
+
+  // ----- Shortform rendering -----
+
+  getShortformProgress(projectId: string): ProgressInfo | null {
+    return shortformProgressMap.get(projectId) ?? null;
+  },
+
+  setShortformError(projectId: string, message: string) {
+    shortformProgressMap.set(projectId, { progress: -1, step: message });
+    setTimeout(() => shortformProgressMap.delete(projectId), 30_000);
+  },
+
+  async renderShortform(req: {
+    storybookId: string;
+    projectId: string;
+    title?: string;
+    logoUrl?: string;
+  }): Promise<{ outputUrl: string }> {
+    const { storybookId, projectId, title, logoUrl } = req;
+    const storybook = await R2Repository.getStorybook(storybookId);
+    if (!storybook) throw new AppError(404, '동화책을 찾을 수 없습니다.');
+
+    const project = storybook.longformProjects?.find((p: LongformProject) => p.id === projectId);
+    if (!project) throw new AppError(404, '프로젝트를 찾을 수 없습니다.');
+    if (!project.outputUrl) throw new AppError(400, '렌더링된 영상이 없습니다.');
+
+    const workDir = path.join(os.tmpdir(), `shortform-${projectId}-${Date.now()}`);
+    fs.mkdirSync(workDir, { recursive: true });
+
+    try {
+      // 1. Download source video
+      shortformProgressMap.set(projectId, { progress: 5, step: '영상 다운로드 중' });
+      const videoKey = urlToR2Key(project.outputUrl);
+      const videoBuffer = await downloadFromR2(videoKey);
+      const inputPath = path.join(workDir, 'input.mp4');
+      fs.writeFileSync(inputPath, videoBuffer);
+
+      // 2. Download logo if provided
+      let logoPath: string | undefined;
+      if (logoUrl) {
+        shortformProgressMap.set(projectId, { progress: 10, step: '로고 다운로드 중' });
+        try {
+          const logoKey = urlToR2Key(logoUrl);
+          const logoBuf = await downloadFromR2(logoKey);
+          logoPath = path.join(workDir, 'logo.png');
+          fs.writeFileSync(logoPath, logoBuf);
+        } catch {
+          console.warn('[shortform] Logo download failed, skipping');
+        }
+      }
+
+      // 3. Probe source video dimensions
+      shortformProgressMap.set(projectId, { progress: 15, step: '영상 분석 중' });
+      const probeCmd = `ffprobe -v quiet -print_format json -show_streams "${inputPath}"`;
+      const probeResult = JSON.parse(execSync(probeCmd, { encoding: 'utf-8' }));
+      const videoStream = probeResult.streams?.find((s: any) => s.codec_type === 'video');
+      const srcW = videoStream?.width || 1280;
+      const srcH = videoStream?.height || 720;
+
+      // 4. Build ffmpeg filter for 9:16 canvas (1080x1920)
+      shortformProgressMap.set(projectId, { progress: 20, step: '숏폼 렌더링 중' });
+      const canvasW = 1080;
+      const canvasH = 1920;
+      const titleAreaH = 200; // top area for title
+      const logoAreaH = 200; // bottom area for logo
+      const videoAreaH = canvasH - titleAreaH - logoAreaH; // 1520
+      const videoAreaW = canvasW;
+
+      // Scale video to fit video area while maintaining aspect ratio
+      const scaleW = videoAreaW / srcW;
+      const scaleH = videoAreaH / srcH;
+      const scale = Math.min(scaleW, scaleH);
+      const scaledW = Math.round((srcW * scale) / 2) * 2; // ensure even
+      const scaledH = Math.round((srcH * scale) / 2) * 2;
+      const videoX = Math.round((canvasW - scaledW) / 2);
+      const videoY = titleAreaH + Math.round((videoAreaH - scaledH) / 2);
+
+      // Find font for drawtext
+      const fontPath = findFont();
+
+      // Build filter complex
+      let filterParts = [
+        `color=c=#111111:s=${canvasW}x${canvasH}:d=999[bg]`,
+        `[0:v]scale=${scaledW}:${scaledH}[vid]`,
+        `[bg][vid]overlay=${videoX}:${videoY}:shortest=1[base]`,
+      ];
+
+      const displayTitle = title || storybook.title || '';
+      if (displayTitle) {
+        const escapedTitle = displayTitle.replace(/'/g, "'\\''").replace(/:/g, '\\:');
+        filterParts.push(
+          `[base]drawtext=fontfile='${fontPath}':text='${escapedTitle}':fontsize=48:fontcolor=white:x=(w-text_w)/2:y=80:shadowcolor=black:shadowx=2:shadowy=2[titled]`
+        );
+      }
+
+      const lastLabel = displayTitle ? 'titled' : 'base';
+
+      if (logoPath) {
+        filterParts.push(
+          `movie='${logoPath.replace(/\\/g, '/')}',scale=200:-1[logo]`,
+          `[${lastLabel}][logo]overlay=(W-w)/2:${canvasH - logoAreaH + 40}[out]`
+        );
+      } else {
+        filterParts.push(`[${lastLabel}]copy[out]`);
+      }
+
+      const filterComplex = filterParts.join(';');
+      const outputPath = path.join(workDir, 'shortform.mp4');
+
+      const ffmpegArgs = [
+        '-y',
+        '-i',
+        inputPath,
+        '-filter_complex',
+        filterComplex,
+        '-map',
+        '[out]',
+        '-map',
+        '0:a?',
+        '-c:v',
+        'libx264',
+        '-preset',
+        'fast',
+        '-crf',
+        '23',
+        '-c:a',
+        'aac',
+        '-b:a',
+        '192k',
+        '-movflags',
+        '+faststart',
+        '-shortest',
+        outputPath,
+      ];
+
+      console.log('[shortform] Rendering:', ffmpegArgs.join(' ').slice(0, 200));
+
+      await new Promise<void>((resolve, reject) => {
+        const proc = execFile('ffmpeg', ffmpegArgs, { timeout: 600_000 }, (err) => {
+          if (err) reject(err);
+          else resolve();
+        });
+        // Track progress via stderr
+        proc.stderr?.on('data', (data: Buffer) => {
+          const line = data.toString();
+          const timeMatch = line.match(/time=(\d+):(\d+):(\d+\.\d+)/);
+          if (timeMatch) {
+            const secs =
+              parseInt(timeMatch[1]) * 3600 +
+              parseInt(timeMatch[2]) * 60 +
+              parseFloat(timeMatch[3]);
+            const duration = parseFloat(videoStream?.duration || '60');
+            const pct = Math.min(90, 20 + Math.round((secs / duration) * 70));
+            shortformProgressMap.set(projectId, { progress: pct, step: '숏폼 렌더링 중' });
+          }
+        });
+      });
+
+      // 5. Upload to R2
+      shortformProgressMap.set(projectId, { progress: 92, step: 'R2 업로드 중' });
+      const outputBuffer = fs.readFileSync(outputPath);
+      const r2Key = `storybooks/${storybookId}/longform/${projectId}/shortform.mp4`;
+      const outputUrl = await R2Repository.uploadBuffer(outputBuffer, r2Key, 'video/mp4');
+
+      // 6. Save to storybook
+      project.shortformOutputUrl = outputUrl;
+      await R2Repository.saveStorybook(storybook);
+
+      shortformProgressMap.set(projectId, { progress: 100, step: '완료' });
+      setTimeout(() => shortformProgressMap.delete(projectId), 60_000);
+      console.log('[shortform] Complete:', outputUrl);
+
+      return { outputUrl };
+    } catch (err: any) {
+      console.error('[shortform] Render failed:', err.message || err);
+      shortformProgressMap.set(projectId, {
+        progress: -1,
+        step: '숏폼 렌더링 실패',
+        error: err.message || '알 수 없는 오류',
+      });
+      setTimeout(() => shortformProgressMap.delete(projectId), 60_000);
+      throw err;
+    } finally {
+      fs.rmSync(workDir, { recursive: true, force: true });
+    }
+  },
 };
+
+/** Find a TrueType font for drawtext. Prefer NanumGothic, fallback to system fonts. */
+function findFont(): string {
+  const candidates = [
+    '/usr/share/fonts/truetype/nanum/NanumGothic.ttf',
+    'C:/Windows/Fonts/malgun.ttf',
+    'C:/Windows/Fonts/arial.ttf',
+    '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
+  ];
+  for (const f of candidates) {
+    if (fs.existsSync(f)) return f.replace(/\\/g, '/');
+  }
+  return 'arial';
+}

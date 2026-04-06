@@ -42,6 +42,10 @@ router.post('/youtube/generate-meta', LongformController.generateYouTubeMeta);
 router.post('/youtube/upload-captions', LongformController.youtubeUploadCaptions);
 router.get('/youtube/caption-progress/:projectId', LongformController.getCaptionProgress);
 
+// Shortform
+router.post('/render-shortform', LongformController.renderShortform);
+router.get('/shortform-progress/:projectId', LongformController.getShortformProgress);
+
 // Client-side rendering
 router.post('/prepare-render', LongformController.prepareRender);
 router.post('/render-manifest', LongformController.renderManifest);

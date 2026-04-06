@@ -48,6 +48,16 @@ export const longformApi = {
     apiGet<{ progress: number; step: string; outputUrl?: string } | null>(
       `/longform/render-progress/${projectId}`
     ),
+  renderShortform: (req: {
+    storybookId: string;
+    projectId: string;
+    title?: string;
+    logoUrl?: string;
+  }) => apiPost<{ message: string }>('/longform/render-shortform', req),
+  getShortformProgress: (projectId: string) =>
+    apiGet<{ progress: number; step: string; error?: string } | null>(
+      `/longform/shortform-progress/${projectId}`
+    ),
   uploadClip: (formData: FormData) =>
     apiPost<{ clipUrl: string; sfxUrl: string }>('/longform/upload-clip', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
