@@ -1,6 +1,7 @@
 import type { AudiobookRenderProps } from '../types';
 
-const CROSSFADE_FRAMES = 15;
+const CROSSFADE_FRAMES = 30;
+const TTS_DELAY_FRAMES = 20;
 const DEFAULT_SLIDE_FRAMES = 90;
 const ENDING_FRAMES = 90;
 
@@ -10,7 +11,9 @@ export function calculateTotalFrames(props: AudiobookRenderProps): number {
 
   let total = coverFrames;
   for (const slide of props.slides) {
-    total += slide.ttsDuration ? Math.ceil((slide.ttsDuration + 0.5) * fps) : DEFAULT_SLIDE_FRAMES;
+    total += slide.ttsDuration
+      ? TTS_DELAY_FRAMES + Math.ceil((slide.ttsDuration + 0.5) * fps)
+      : DEFAULT_SLIDE_FRAMES;
   }
   total += ENDING_FRAMES;
 
