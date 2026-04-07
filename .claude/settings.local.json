@@ -3,7 +3,90 @@
     "allow": [
       "Bash(pnpm --filter shared build:*)",
       "Bash(pnpm typecheck:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npx tsc:*)",
+      "Bash(curl -s http://localhost:3000/api/storybooks)",
+      "Bash(curl -s http://localhost:5173/api/storybooks)",
+      "Bash(pnpm dev:*)",
+      "Bash(node -e \":*)",
+      "Bash(curl -s http://localhost:3000/api/storybooks/1773714531390)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(curl -s \"http://localhost:5173/src/features/longform-video/components/VideoGenerationStep.tsx\")",
+      "Bash(curl:*)",
+      "Bash(git checkout:*)",
+      "Bash(git merge:*)",
+      "Bash(tasklist)",
+      "Bash(pnpm build:*)",
+      "Skill(update-config)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); cmd=d.get\\(''''tool_input'''',{}\\).get\\(''''command'''',''''''''\\); exit\\(0 if cmd.startswith\\(''''git push''''\\) else 1\\)\")",
+      "Bash(python:*)",
+      "Bash(grep -r \"presign\\\\|getSignedUrl\\\\|SignCommand\" /c/projects/tangobook/packages --include=*.ts)",
+      "Bash(find C:/projects/tangobook -name *.py -type f)",
+      "Bash(grep -r \"COOP\\\\|COEP\\\\|Cross-Origin-Opener-Policy\\\\|Cross-Origin-Embedder-Policy\" C:projectstangobook/packages --include=*.ts --include=*.tsx --include=*.js)",
+      "Bash(grep -r \"middleware\\\\|header\\\\|setHeader\" C:/projects/tangobook/packages/server/src/middleware --include=*.ts)",
+      "Bash(pnpm add:*)",
+      "Bash(git stash:*)",
+      "Bash(pnpm --filter server typecheck)",
+      "Bash(pnpm:*)",
+      "Bash(ls C:/projects/tangobook/node_modules/.pnpm/@ffmpeg+ffmpeg*/node_modules/@ffmpeg/ffmpeg/)",
+      "Bash(git branch:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(grep -E \"\\\\.\\(tsx?|py\\)$\")",
+      "Bash(bash ~/.claude/plugins/cache/superpowers-marketplace/superpowers/5.0.2/skills/brainstorming/scripts/start-server.sh --project-dir /c/projects/tangobook)",
+      "Bash(node -e \"const d=[];process.stdin.on\\(''''data'''',c=>d.push\\(c\\)\\);process.stdin.on\\(''''end'''',\\(\\)=>{const r=JSON.parse\\(Buffer.concat\\(d\\)\\);r.data.forEach\\(s=>{if\\(s.title.includes\\(''''돼지''''\\)||s.title.includes\\(''''pig''''\\)\\)console.log\\(s.id,s.title\\)}\\)}\\)\")",
+      "Bash(node -e \"const d=[];process.stdin.on\\(''''data'''',c=>d.push\\(c\\)\\);process.stdin.on\\(''''end'''',\\(\\)=>{const r=JSON.parse\\(Buffer.concat\\(d\\)\\);r.data.filter\\(s=>s.title.includes\\(''''돼지''''\\)||s.title.toLowerCase\\(\\).includes\\(''''pig''''\\)\\).forEach\\(s=>console.log\\(s.id,s.title\\)\\)}\\)\")",
+      "Bash(node -e \"const d=[];process.stdin.on\\(''''data'''',c=>d.push\\(c\\)\\);process.stdin.on\\(''''end'''',\\(\\)=>{const r=JSON.parse\\(Buffer.concat\\(d\\)\\);const ab=r.data.audiobookProjects;if\\(ab\\)ab.forEach\\(p=>console.log\\(''''name:'''',p.name,''''| youtubeUpload:'''',JSON.stringify\\(p.youtubeUpload\\)\\)\\);else console.log\\(''''No audiobookProjects''''\\)}\\)\")",
+      "Bash(node -e \"const d=[];process.stdin.on\\(''''data'''',c=>d.push\\(c\\)\\);process.stdin.on\\(''''end'''',\\(\\)=>{const r=JSON.parse\\(Buffer.concat\\(d\\)\\);const ab=r.data.audiobookProjects;if\\(ab\\)ab.forEach\\(p=>console.log\\(''''outputUrl:'''',p.outputUrl\\)\\)}\\)\")",
+      "Bash(xxd)",
+      "Bash(netstat -ano)",
+      "Bash(findstr \"LISTENING\")",
+      "Bash(findstr \"3000\\\\|4173\\\\|3001\\\\|3100\")",
+      "Bash(findstr \"300\")",
+      "Bash(ls packages/remotion/remotion.config.*)",
+      "Bash(findstr \"3200\")",
+      "Bash(node -e \"const d=require\\(''''fs''''\\).readFileSync\\(''''/dev/stdin'''',''''utf8''''\\);const j=JSON.parse\\(d\\);const sb=j.data.find\\(s=>s.title&&s.title.includes\\(''''돼지''''\\)\\);if\\(sb\\){console.log\\(''''id:'''',sb.id\\);console.log\\(''''title:'''',sb.title\\);}\")",
+      "Bash(node -e \"process.stdin.on\\(''''data'''',c=>{const j=JSON.parse\\(c\\);const sb=j.data.find\\(s=>s.title&&s.title.includes\\(''''돼지''''\\)\\);if\\(sb\\)console.log\\(sb.id,sb.title\\)}\\)\")",
+      "Bash(node -e \"let d='''''''';process.stdin.on\\(''''data'''',c=>d+=c\\);process.stdin.on\\(''''end'''',\\(\\)=>{const j=JSON.parse\\(d\\);const pages=j.data.pages||[];pages.forEach\\(\\(p,i\\)=>{const tts=p.ttsUrl||p.translations?.ko?.ttsUrl||''''NO_TTS'''';console.log\\(''''Page'''',i+1,'''':'''',tts.substring\\(0,80\\),''''...'''',p.text?.substring\\(0,30\\)\\)}\\)}\\)\")",
+      "mcp__Desktop_Commander__list_sessions",
+      "Bash(taskkill //PID 24768 //F)",
+      "mcp__Desktop_Commander__start_process",
+      "mcp__Desktop_Commander__read_process_output",
+      "Bash(taskkill //PID 43552 //F)",
+      "mcp__Desktop_Commander__list_directory",
+      "Bash(railway logs:*)",
+      "Bash(git status:*)",
+      "Bash(xargs grep:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import sys,json; d=json.load(sys.stdin); cmd=d.get('tool_input',{}).get('command',''); exit(0 if cmd.startswith('git push') else 1)\" && pnpm typecheck && pnpm build",
+            "timeout": 180,
+            "statusMessage": "Push 전 typecheck + build 검증 중..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import sys,json; d=json.load(sys.stdin); cmd=d.get('tool_input',{}).get('command',''); exit(0 if cmd.startswith('git push') else 1)\" && BRANCH=$(git rev-parse --abbrev-ref HEAD) && if [ \"$BRANCH\" != 'main' ]; then git checkout main && git merge \"$BRANCH\" --no-edit && git push && git checkout \"$BRANCH\"; fi",
+            "timeout": 120,
+            "statusMessage": "main 브랜치에 merge + push 중..."
+          }
+        ]
+      }
     ]
   }
 }

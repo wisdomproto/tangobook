@@ -12,7 +12,7 @@ export function calculateTotalFrames(props: AudiobookRenderProps): number {
   let total = coverFrames;
   for (const slide of props.slides) {
     total += slide.ttsDuration
-      ? TTS_DELAY_FRAMES + Math.ceil((slide.ttsDuration + 0.5) * fps)
+      ? TTS_DELAY_FRAMES + Math.ceil((slide.ttsDuration + 1.5) * fps)
       : DEFAULT_SLIDE_FRAMES;
   }
   total += ENDING_FRAMES;

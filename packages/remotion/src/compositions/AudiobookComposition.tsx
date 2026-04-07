@@ -16,7 +16,7 @@ const ENDING_DURATION = 90;
 
 function getSlideDuration(slide: AudiobookRenderProps['slides'][0], fps: number): number {
   if (slide.ttsDuration) {
-    return TTS_DELAY + Math.ceil((slide.ttsDuration + 0.5) * fps);
+    return TTS_DELAY + Math.ceil((slide.ttsDuration + 1.5) * fps);
   }
   return DEFAULT_SLIDE_DURATION;
 }

@@ -348,7 +348,7 @@ features/viewer/
 - **Chromium**: Dockerfile에 `chromium`+`nss` 설치, `CHROMIUM_PATH` 환경변수로 전달
 - **browserExecutable**: `selectComposition` + `renderMedia` 둘 다에 전달 필수
 - **BGM 라이브러리**: 파일 업로드 시 `background-music.json` (R2) 자동 갱신
-- **크로스페이드**: 1초 (30프레임), TTS/자막은 장면 전환 후 0.67초 딜레이
+- **크로스페이드**: 1초 (30프레임), TTS/자막은 장면 전환 후 0.67초 딜레이, TTS 종료 후 1.5초 패딩
 - **자막 타이밍**: 문장 글자수 비례 배분 (`TypewriterSubtitle.slideDurationInFrames`)
 - **boolean 기본값**: `includeTts`/`includeSubtitles`/`includeCover`/`includeBgm`은 `!== false`로 체크 (레거시 undefined 대응)
 

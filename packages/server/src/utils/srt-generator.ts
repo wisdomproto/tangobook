@@ -2,7 +2,7 @@ import type { AudiobookRenderData, LongformScene } from '@tangobook/shared';
 
 const CROSSFADE_SEC = 0.5;
 const DEFAULT_SLIDE_SEC = 3.0;
-const SLIDE_PADDING_SEC = 0.5; // extra time added to ttsDuration
+const SLIDE_PADDING_SEC = 1.5; // extra time added to ttsDuration
 
 /**
  * Format seconds to SRT timestamp: HH:MM:SS,mmm
