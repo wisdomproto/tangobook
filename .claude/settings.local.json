@@ -58,7 +58,8 @@
       "mcp__Desktop_Commander__list_directory",
       "Bash(railway logs:*)",
       "Bash(git status:*)",
-      "Bash(xargs grep:*)"
+      "Bash(xargs grep:*)",
+      "Bash(ls node_modules/.pnpm/remotion*/node_modules/remotion/)"
     ]
   },
   "hooks": {

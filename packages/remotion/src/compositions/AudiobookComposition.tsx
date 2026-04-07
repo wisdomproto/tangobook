@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, Audio, Sequence } from 'remotion';
+import { AbsoluteFill, Audio, Loop, Sequence } from 'remotion';
 import { TransitionSeries, linearTiming } from '@remotion/transitions';
 import { fade } from '@remotion/transitions/fade';
 import { KenBurnsSlide } from '../components/KenBurnsSlide';
@@ -26,6 +26,7 @@ export const AudiobookComposition: React.FC<AudiobookRenderProps> = ({
   cover,
   bgmUrl,
   bgmVolume = 30,
+  bgmDuration,
   subtitleStyle,
   enableParticles = true,
 }) => {
@@ -98,7 +99,13 @@ export const AudiobookComposition: React.FC<AudiobookRenderProps> = ({
         </TransitionSeries.Sequence>
       </TransitionSeries>
 
-      {bgmUrl && <Audio src={bgmUrl} volume={bgmVolume / 100} loop />}
+      {bgmUrl && bgmDuration ? (
+        <Loop durationInFrames={Math.ceil(bgmDuration * fps)}>
+          <Audio src={bgmUrl} volume={bgmVolume / 100} />
+        </Loop>
+      ) : bgmUrl ? (
+        <Audio src={bgmUrl} volume={bgmVolume / 100} />
+      ) : null}
     </AbsoluteFill>
   );
 };

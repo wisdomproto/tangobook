@@ -138,6 +138,16 @@ export const AudiobookService = {
       });
     });
 
+    // 2.6. Probe BGM duration for looping
+    if (renderData.bgmUrl) {
+      try {
+        renderData.bgmDuration = await getAudioDuration(renderData.bgmUrl);
+        console.log('[audiobook] BGM duration:', renderData.bgmDuration, 's');
+      } catch (err) {
+        console.warn('[audiobook] BGM 길이 측정 실패, 루프 없이 재생:', err);
+      }
+    }
+
     const workDir = path.join(os.tmpdir(), `audiobook-${projectId}-${Date.now()}`);
     fs.mkdirSync(workDir, { recursive: true });
 

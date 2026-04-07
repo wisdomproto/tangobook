@@ -24,6 +24,7 @@ export type AudiobookRenderProps = {
   };
   bgmUrl?: string;
   bgmVolume?: number;
+  bgmDuration?: number;
   subtitleStyle: SubtitleStyle;
   enableParticles?: boolean;
   fps?: number;

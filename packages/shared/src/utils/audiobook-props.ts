@@ -13,6 +13,7 @@ export type AudiobookRenderData = {
   cover?: { imageUrl: string; title: string; duration: number; showTitle?: boolean };
   bgmUrl?: string;
   bgmVolume?: number;
+  bgmDuration?: number;
   subtitleStyle: {
     fontSize: number;
     color: string;

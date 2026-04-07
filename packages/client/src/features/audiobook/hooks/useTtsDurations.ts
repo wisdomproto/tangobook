@@ -10,6 +10,7 @@ export function useTtsDurations(renderData: AudiobookRenderData): {
   loading: boolean;
 } {
   const [durations, setDurations] = useState<Record<string, number>>({});
+  const [bgmDuration, setBgmDuration] = useState<number | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   const probedRef = useRef<Set<string>>(new Set());
   const durationsRef = useRef<Record<string, number>>({});
@@ -57,9 +58,30 @@ export function useTtsDurations(renderData: AudiobookRenderData): {
     };
   }, [ttsKey]);
 
+  // Probe BGM duration
+  const bgmUrl = renderData.bgmUrl;
+  useEffect(() => {
+    if (!bgmUrl) {
+      setBgmDuration(undefined);
+      return;
+    }
+    let cancelled = false;
+    getAudioDurationInBrowser(bgmUrl)
+      .then((d) => {
+        if (!cancelled) setBgmDuration(d);
+      })
+      .catch(() => {
+        if (!cancelled) setBgmDuration(undefined);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [bgmUrl]);
+
   // Apply probed durations to slides
   const data: AudiobookRenderData = {
     ...renderData,
+    bgmDuration,
     slides: renderData.slides.map((slide) => ({
       ...slide,
       ttsDuration: slide.ttsUrl
