@@ -23,6 +23,7 @@ export interface BgmItem {
 
 export const settingsApi = {
   getBgmList: () => apiGet<BgmItem[]>('/images/bgm-list'),
+  deleteBgm: (bgmId: string) => apiDelete<void>(`/images/bgm/${bgmId}`),
 
   analyzeArtStyle: async (file: File): Promise<{ prompt: string }> => {
     const formData = new FormData();

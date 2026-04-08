@@ -2,7 +2,8 @@ import axios from 'axios';
 import { generateImageWithGemini, getTextModel } from '../providers/gemini.provider.js';
 import { R2Repository } from '../repositories/r2.repository.js';
 import { buildR2Key } from '../utils/r2-key.js';
-import { uploadJsonToR2 } from '../providers/r2.provider.js';
+import { uploadJsonToR2, deleteFromR2, urlToR2Key } from '../providers/r2.provider.js';
+import { AppError } from '../middleware/error.middleware.js';
 import type {
   Character,
   Page,
@@ -608,6 +609,20 @@ ${isolatedObjectPrompt(card.word)}`;
     }
 
     return audioUrl;
+  },
+
+  async deleteBgm(bgmId: string): Promise<void> {
+    const existing = await this.getBgmList();
+    const target = existing.find((item) => item.id === bgmId);
+    if (!target) throw new AppError(404, 'BGM을 찾을 수 없습니다.');
+
+    // Delete from R2
+    const key = urlToR2Key(target.url);
+    await deleteFromR2(key);
+
+    // Update library JSON
+    const updated = existing.filter((item) => item.id !== bgmId);
+    await uploadJsonToR2(updated, 'background-music.json');
   },
 
   async getBgmList(): Promise<

@@ -64,6 +64,11 @@ export const ImageController = {
     res.json({ success: true, data: list });
   }),
 
+  deleteBgm: asyncHandler(async (req, res) => {
+    await ImageService.deleteBgm(req.params.bgmId as string);
+    res.json({ success: true, data: null });
+  }),
+
   downloadZip: asyncHandler(async (req, res) => {
     const { images, filename } = req.body as {
       images: Array<{ url: string; name: string }>;

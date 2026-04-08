@@ -681,6 +681,36 @@ export function TimelineEditorStep({
                         선택
                       </button>
                     )}
+                    <button
+                      onClick={async () => {
+                        if (!confirm(`"${item.title}" 배경음악을 라이브러리에서 삭제할까요?`))
+                          return;
+                        try {
+                          await settingsApi.deleteBgm(item.id);
+                          setBgmLibrary((prev) => prev.filter((b) => b.id !== item.id));
+                          if (project.bgmUrl === item.url) onUpdate({ bgmUrl: undefined });
+                          if (previewingId === item.id) stopPreview();
+                        } catch {
+                          /* silently */
+                        }
+                      }}
+                      className="p-0.5 rounded hover:bg-red-50 dark:hover:bg-red-900/30 text-slate-400 dark:text-slate-500 hover:text-red-500 transition-colors shrink-0"
+                      title="라이브러리에서 삭제"
+                    >
+                      <svg
+                        className="w-3 h-3"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
                   </div>
                 ))}
               </div>

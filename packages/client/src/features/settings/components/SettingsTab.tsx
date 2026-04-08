@@ -166,6 +166,25 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
     }
   };
 
+  const handleBgmLibraryDelete = async (item: BgmItem) => {
+    if (!confirm(`"${item.title}" 배경음악을 라이브러리에서 삭제할까요?`)) return;
+    try {
+      await settingsApi.deleteBgm(item.id);
+      setBgmLibrary((prev) => prev.filter((b) => b.id !== item.id));
+      // If the deleted BGM is currently selected, clear it
+      if (storybook.backgroundMusicUrl === item.url) {
+        handleBgmDelete();
+      }
+      // Stop preview if playing
+      if (previewingId === item.id) {
+        previewAudioRef.current?.pause();
+        setPreviewingId(null);
+      }
+    } catch {
+      // handled silently
+    }
+  };
+
   const toggleBgmPlay = () => {
     if (!storybook.backgroundMusicUrl) return;
     if (!audioRef.current) {
@@ -493,6 +512,25 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
                       선택
                     </button>
                   )}
+                  <button
+                    onClick={() => handleBgmLibraryDelete(item)}
+                    className="p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/30 text-slate-400 dark:text-slate-500 hover:text-red-500 transition-colors shrink-0"
+                    title="라이브러리에서 삭제"
+                  >
+                    <svg
+                      className="w-3.5 h-3.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
                 </div>
               ))}
             </div>
