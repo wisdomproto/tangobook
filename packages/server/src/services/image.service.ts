@@ -581,7 +581,9 @@ ${isolatedObjectPrompt(card.word)}`;
 
   async uploadAudio(file: Express.Multer.File, body: Record<string, string>): Promise<string> {
     const { storybookId, storybookTitle } = body;
-    const ext = file.originalname.split('.').pop() ?? 'mp3';
+    // multer decodes filenames as Latin1; re-decode to UTF-8 for Korean filenames
+    const originalName = Buffer.from(file.originalname, 'latin1').toString('utf8');
+    const ext = originalName.split('.').pop() ?? 'mp3';
     const key = buildR2Key({
       storybookId,
       storybookTitle: storybookTitle ?? '',
@@ -593,7 +595,7 @@ ${isolatedObjectPrompt(card.word)}`;
     // Add to BGM library JSON
     try {
       const existing = await this.getBgmList();
-      const title = file.originalname.replace(/\.[^.]+$/, '');
+      const title = originalName.replace(/\.[^.]+$/, '');
       existing.push({
         id: `bgm_${Date.now()}`,
         title,

@@ -403,7 +403,7 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
               )}
             </button>
             <span className="flex-1 text-sm text-slate-600 dark:text-slate-300 truncate">
-              {storybook.backgroundMusicUrl.split('/').pop()}
+              {decodeURIComponent(storybook.backgroundMusicUrl.split('/').pop() ?? '')}
             </span>
             <button
               onClick={handleBgmDelete}
