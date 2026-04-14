@@ -4,6 +4,7 @@ import {
   DeleteObjectCommand,
   DeleteObjectsCommand,
   GetObjectCommand,
+  HeadObjectCommand,
   ListObjectsV2Command,
   type _Object,
 } from '@aws-sdk/client-s3';
@@ -85,6 +86,17 @@ export async function deleteManyFromR2(keys: string[]): Promise<void> {
 
 export function urlToR2Key(url: string): string {
   return url.replace(`${r2PublicUrl}/`, '');
+}
+
+export async function objectExists(key: string): Promise<boolean> {
+  try {
+    await r2Client.send(new HeadObjectCommand({ Bucket: config.r2.bucketName, Key: key }));
+    return true;
+  } catch (e: unknown) {
+    const err = e as { name?: string; $metadata?: { httpStatusCode?: number } };
+    if (err.name === 'NotFound' || err.$metadata?.httpStatusCode === 404) return false;
+    throw e;
+  }
 }
 
 export async function createPresignedUploadUrl(
