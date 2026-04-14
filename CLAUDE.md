@@ -300,9 +300,18 @@ pnpm --filter shared build
 `packages/server/.env.example` 참고. `.env` 파일을 `packages/server/` 안에 생성.
 
 ## 기존 R2 데이터 호환성
-- 기존 60권의 동화책이 R2에 저장되어 있음
+- 기존 211권의 동화책이 R2에 저장되어 있음
 - `shared/types/storybook.ts`의 `Storybook` 인터페이스가 기존 JSON 구조와 호환
 - 새 필드 추가 시 `optional`로 선언하여 하위 호환성 유지
+
+## 자산 압축 (TTS/이미지 저장 포맷)
+- **TTS**: Gemini PCM → `pcmToMp3()` → MP3 128kbps mono 24kHz (`audio/mpeg`)
+- **이미지**: Gemini PNG → `imageToWebp()` → WebP quality 85 (`image/webp`)
+- `packages/server/src/utils/transcode.ts` — `pcmToMp3`, `wavToMp3`, `imageToWebp`
+- `R2Repository.uploadImage(base64, key)` — 내부에서 WebP 변환 + `.webp` 확장자 자동 치환
+- 마이그레이션 (1회성, 완료됨): `scripts/migrate-assets.ts` + `cleanup-old-assets.ts` + `restore-from-manifest.ts`
+  - `_migrations/` R2 prefix에 매니페스트 보존 (롤백 가능)
+  - `_backup/` R2 prefix에 원본 JSON 백업
 
 ## 코딩 컨벤션
 - 파일명: PascalCase (컴포넌트), camelCase (훅/유틸/API)
