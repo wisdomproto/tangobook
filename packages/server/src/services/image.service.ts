@@ -182,7 +182,7 @@ export const ImageService = {
       storybookTitle,
       fileType: 'character',
       identifier: character.name,
-      extension: 'png',
+      extension: 'webp',
     });
     return R2Repository.uploadImage(base64, key);
   },
@@ -282,7 +282,7 @@ export const ImageService = {
       storybookTitle,
       fileType: 'illustration',
       identifier: `page${page.pageNumber}`,
-      extension: 'png',
+      extension: 'webp',
     });
     return R2Repository.uploadImage(base64, key);
   },
@@ -341,7 +341,7 @@ export const ImageService = {
     const key = buildR2Key({
       storybookTitle: storybook.title,
       fileType: 'cover',
-      extension: 'png',
+      extension: 'webp',
     });
     return R2Repository.uploadImage(base64, key);
   },
@@ -369,7 +369,7 @@ export const ImageService = {
       storybookTitle,
       fileType: 'keyobj',
       identifier: keyObject.name,
-      extension: 'png',
+      extension: 'webp',
     });
     return R2Repository.uploadImage(base64, key);
   },
@@ -393,7 +393,7 @@ Clean white background. No text in the image.`;
           storybookTitle,
           fileType: 'vocab',
           identifier: item.word,
-          extension: 'png',
+          extension: 'webp',
         });
         const imageUrl = await R2Repository.uploadImage(base64, key);
         return { word: item.word, korean: item.korean, imageUrl, success: true };
@@ -446,7 +446,7 @@ ${isolatedObjectPrompt(word, !!description)}`;
         storybookTitle,
         fileType: 'phonics',
         identifier: word,
-        extension: 'png',
+        extension: 'webp',
       });
       return R2Repository.uploadImage(base64, key);
     }
@@ -500,7 +500,7 @@ ${
       storybookTitle,
       fileType: 'phonics',
       identifier: word,
-      extension: 'png',
+      extension: 'webp',
     });
     return R2Repository.uploadImage(base64, key);
   },
@@ -526,7 +526,7 @@ ${isolatedObjectPrompt(card.word)}`;
           storybookTitle,
           fileType: 'phonics-fc',
           identifier: card.word,
-          extension: 'png',
+          extension: 'webp',
         });
         const imageUrl = await R2Repository.uploadImage(base64, key);
         return { word: card.word, imageUrl, success: true };

@@ -1,5 +1,4 @@
 import {
-  uploadBase64ToR2,
   uploadBufferToR2,
   uploadJsonToR2,
   deleteFromR2,
@@ -7,6 +6,7 @@ import {
   listR2Objects,
   downloadFromR2,
 } from '../providers/r2.provider.js';
+import { imageToWebp } from '../utils/transcode.js';
 import type { Storybook, StorybookSummary } from '@tangobook/shared';
 
 const STORYBOOK_PREFIX = 'storybook-';
@@ -158,7 +158,10 @@ export const R2Repository = {
   },
 
   async uploadImage(base64: string, key: string): Promise<string> {
-    return uploadBase64ToR2(base64, key);
+    const buf = Buffer.from(base64, 'base64');
+    const webp = await imageToWebp(buf);
+    const webpKey = key.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+    return uploadBufferToR2(webp, webpKey, 'image/webp');
   },
 
   async uploadBuffer(buffer: Buffer, key: string, contentType: string): Promise<string> {
