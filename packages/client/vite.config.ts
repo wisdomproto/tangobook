@@ -23,7 +23,7 @@ export default defineConfig({
     },
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'http://localhost:3500',
         changeOrigin: true,
         timeout: 300000,
         proxyTimeout: 300000,
