@@ -81,18 +81,19 @@ export const MigrationService = {
     const unique = new Map<string, 'audio' | 'image'>();
     for (const { url } of collected) unique.set(url, classify(url));
 
-    const mappings: Mapping[] = [];
-    let oldBytes = 0;
-    let newBytes = 0;
+    const entries = Array.from(unique.entries());
+    const CONCURRENCY = 6;
 
-    for (const [oldUrl, type] of unique) {
+    async function convertOne(
+      oldUrl: string,
+      type: 'audio' | 'image'
+    ): Promise<Mapping & { _oldBytes: number; _newBytes: number }> {
       const oldKey = urlToR2Key(oldUrl);
       const newKey = newKeyFor(oldKey);
       const newUrl = newUrlFor(oldUrl);
 
       if (opts.dryRun) {
-        mappings.push({ oldUrl, newUrl, oldKey, newKey, type });
-        continue;
+        return { oldUrl, newUrl, oldKey, newKey, type, _oldBytes: 0, _newBytes: 0 };
       }
 
       const already = await objectExists(newKey);
@@ -101,7 +102,6 @@ export const MigrationService = {
       if (!already) {
         const srcBuf = await downloadFromR2(oldKey);
         srcSize = srcBuf.length;
-        oldBytes += srcSize;
         const out = type === 'audio' ? await wavToMp3(srcBuf) : await imageToWebp(srcBuf);
         outSize = out.length;
         const contentType = type === 'audio' ? 'audio/mpeg' : 'image/webp';
@@ -109,8 +109,7 @@ export const MigrationService = {
         const exists = await objectExists(newKey);
         if (!exists) throw new Error(`Upload verify failed: ${newKey}`);
       }
-      newBytes += outSize;
-      mappings.push({
+      return {
         oldUrl,
         newUrl,
         oldKey,
@@ -118,8 +117,21 @@ export const MigrationService = {
         type,
         oldBytes: srcSize || undefined,
         newBytes: outSize || undefined,
-      });
+        _oldBytes: srcSize,
+        _newBytes: outSize,
+      };
     }
+
+    const results: Array<Mapping & { _oldBytes: number; _newBytes: number }> = [];
+    for (let i = 0; i < entries.length; i += CONCURRENCY) {
+      const batch = entries.slice(i, i + CONCURRENCY);
+      const batchResults = await Promise.all(batch.map(([u, t]) => convertOne(u, t)));
+      results.push(...batchResults);
+    }
+
+    const mappings: Mapping[] = results.map(({ _oldBytes: _o, _newBytes: _n, ...m }) => m);
+    const oldBytes = results.reduce((s, r) => s + r._oldBytes, 0);
+    const newBytes = results.reduce((s, r) => s + r._newBytes, 0);
 
     const manifest: Manifest = {
       storybookId,
