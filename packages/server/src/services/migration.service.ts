@@ -92,7 +92,7 @@ export const MigrationService = {
     for (const { url } of collected) unique.set(url, classify(url));
 
     const entries = Array.from(unique.entries());
-    const CONCURRENCY = 6;
+    const CONCURRENCY = 12;
 
     async function convertOne(
       oldUrl: string,
@@ -106,19 +106,12 @@ export const MigrationService = {
         return { oldUrl, newUrl, oldKey, newKey, type, _oldBytes: 0, _newBytes: 0 };
       }
 
-      const already = await objectExists(newKey);
-      let outSize = 0;
-      let srcSize = 0;
-      if (!already) {
-        const srcBuf = await downloadFromR2(oldKey);
-        srcSize = srcBuf.length;
-        const out = type === 'audio' ? await wavToMp3(srcBuf) : await imageToWebp(srcBuf);
-        outSize = out.length;
-        const contentType = type === 'audio' ? 'audio/mpeg' : 'image/webp';
-        await uploadBufferToR2(out, newKey, contentType);
-        const exists = await objectExists(newKey);
-        if (!exists) throw new Error(`Upload verify failed: ${newKey}`);
-      }
+      const srcBuf = await downloadFromR2(oldKey);
+      const srcSize = srcBuf.length;
+      const out = type === 'audio' ? await wavToMp3(srcBuf) : await imageToWebp(srcBuf);
+      const outSize = out.length;
+      const contentType = type === 'audio' ? 'audio/mpeg' : 'image/webp';
+      await uploadBufferToR2(out, newKey, contentType);
       return {
         oldUrl,
         newUrl,
