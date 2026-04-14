@@ -32,8 +32,8 @@ export const TtsService = {
     switch (provider) {
       case 'gemini':
         audioBuffer = await generateGeminiTts({ text, voice, language });
-        ext = 'wav';
-        mimeType = 'audio/wav';
+        ext = 'mp3';
+        mimeType = 'audio/mpeg';
         break;
       case 'minimax':
         audioBuffer = await generateMinimaxTts(text, voice, language);
