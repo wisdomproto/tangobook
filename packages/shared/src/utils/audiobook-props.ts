@@ -65,7 +65,7 @@ export function buildAudiobookRenderData(
         imageUrl: coverImageUrl,
         title: storybook.title || '',
         duration: project.coverDuration || 3,
-        showTitle: project.showCoverTitle !== false,
+        showTitle: project.showCoverTitle !== false && project.includeSubtitles !== false,
       };
     }
   }
