@@ -36,26 +36,39 @@ async function main() {
   let totalNew = 0;
   const failed: Array<{ id: string; err: string }> = [];
 
+  const BOOK_TIMEOUT_MS = 5 * 60 * 1000; // 5min per book
+  function log(msg: string) {
+    process.stdout.write(msg + '\n');
+  }
+
   for (let i = 0; i < ids.length; i++) {
     const sid = ids[i];
     const prefix = `[${i + 1}/${ids.length}] ${sid}`;
     try {
       if (resume && (await MigrationService.manifestExists(sid))) {
-        console.log(`${prefix} → skip (manifest exists)`);
+        log(`${prefix} → skip (manifest exists)`);
         continue;
       }
       const start = Date.now();
-      const manifest = await MigrationService.convertStorybook(sid, { dryRun });
+      const manifest = await Promise.race([
+        MigrationService.convertStorybook(sid, { dryRun }),
+        new Promise<never>((_, reject) =>
+          setTimeout(
+            () => reject(new Error(`timeout after ${BOOK_TIMEOUT_MS / 1000}s`)),
+            BOOK_TIMEOUT_MS
+          )
+        ),
+      ]);
       const elapsed = ((Date.now() - start) / 1000).toFixed(1);
       totalOld += manifest.stats.oldBytes;
       totalNew += manifest.stats.newBytes;
-      console.log(
+      log(
         `${prefix} ✓ ${manifest.stats.files} files, ${formatBytes(manifest.stats.oldBytes)} → ${formatBytes(manifest.stats.newBytes)} in ${elapsed}s`
       );
     } catch (e) {
       const msg = (e as Error).message;
       failed.push({ id: sid, err: msg });
-      console.error(`${prefix} ✗ ${msg}`);
+      log(`${prefix} ✗ ${msg}`);
     }
   }
 
