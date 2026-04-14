@@ -66,6 +66,16 @@ export const MigrationService = {
     return ids;
   },
 
+  async listMigratedIds(): Promise<Set<string>> {
+    const objects = await listR2Objects(MIGRATION_PREFIX);
+    const ids = new Set<string>();
+    for (const obj of objects) {
+      const m = obj.Key?.match(/-(\d+)\.json$/);
+      if (m) ids.add(m[1]);
+    }
+    return ids;
+  },
+
   async manifestExists(storybookId: string): Promise<boolean> {
     const objects = await listR2Objects(MIGRATION_PREFIX);
     return objects.some((o) => o.Key?.endsWith(`-${storybookId}.json`));

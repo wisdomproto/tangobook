@@ -41,11 +41,15 @@ async function main() {
     process.stdout.write(msg + '\n');
   }
 
+  // Load migrated manifest IDs once upfront for O(1) resume checks
+  const migratedIds = resume ? await MigrationService.listMigratedIds() : new Set<string>();
+  if (resume) log(`Loaded ${migratedIds.size} existing manifests for resume check`);
+
   for (let i = 0; i < ids.length; i++) {
     const sid = ids[i];
     const prefix = `[${i + 1}/${ids.length}] ${sid}`;
     try {
-      if (resume && (await MigrationService.manifestExists(sid))) {
+      if (resume && migratedIds.has(sid)) {
         log(`${prefix} → skip (manifest exists)`);
         continue;
       }
