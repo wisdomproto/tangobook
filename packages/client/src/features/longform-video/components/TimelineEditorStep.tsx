@@ -54,6 +54,37 @@ export function TimelineEditorStep({
       .catch(() => {});
   }, []);
 
+  // 버전 프로젝트 스냅샷: clipUrl이 비어있으면 마스터의 같은 pageNumber에서 복사
+  useEffect(() => {
+    if (!project.parentProjectId) return;
+    const master = allProjects.find((p) => p.id === project.parentProjectId);
+    if (!master) return;
+
+    const missing = project.scenes.some((s) => !s.clipUrl);
+    if (!missing) return;
+
+    const byPage = new Map<number, LongformScene>();
+    for (const ms of master.scenes) {
+      if (typeof ms.pageNumber === 'number') byPage.set(ms.pageNumber, ms);
+    }
+
+    let changed = false;
+    onUpdate((proj) => {
+      for (const s of proj.scenes) {
+        if (s.clipUrl) continue;
+        const ms = typeof s.pageNumber === 'number' ? byPage.get(s.pageNumber) : undefined;
+        if (ms?.clipUrl) {
+          s.clipUrl = ms.clipUrl;
+          if (ms.clipHistory && !s.clipHistory) s.clipHistory = [...ms.clipHistory];
+          if (ms.sfxUrl && !s.sfxUrl) s.sfxUrl = ms.sfxUrl;
+          changed = true;
+        }
+      }
+    });
+    // onUpdate는 항상 draft 통해 호출되므로 no-op이어도 side effect 없음
+    void changed;
+  }, [project.id, project.parentProjectId, allProjects, project.scenes, onUpdate]);
+
   const stopPreview = useCallback(() => {
     if (previewAudioRef.current) {
       previewAudioRef.current.pause();

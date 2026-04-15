@@ -78,6 +78,8 @@ export async function generateLongform(
 
     let stdout = '';
     let stderrBuf = '';
+    const stderrTail: string[] = [];
+    const STDERR_TAIL_MAX = 30;
     let timedOut = false;
 
     // 10분 타임아웃
@@ -108,8 +110,10 @@ export async function generateLongform(
             onProgress({ progress: parsed.progress, step: parsed.step ?? '' });
           }
         } catch {
-          // JSON이 아닌 stderr 출력은 로그로 출력
+          // JSON이 아닌 stderr 출력은 로그 + tail 버퍼에 누적 (실패 시 에러 메시지에 포함)
           console.log('[longform:stderr]', trimmed);
+          stderrTail.push(trimmed);
+          if (stderrTail.length > STDERR_TAIL_MAX) stderrTail.shift();
         }
       }
     });
@@ -132,12 +136,13 @@ export async function generateLongform(
       }
 
       if (code !== 0) {
+        const tailText = stderrTail.join('\n');
         const reason =
           signal === 'SIGKILL'
             ? '메모리 부족(OOM)으로 프로세스가 강제 종료되었습니다. 장면 수를 줄이거나 해상도를 낮춰보세요.'
             : signal
               ? `시그널 ${signal}로 종료됨`
-              : stderrBuf;
+              : [tailText, stderrBuf.trim()].filter(Boolean).join('\n') || '(stderr 출력 없음)';
         reject(new Error(`롱폼 렌더링 실패 (exit code ${code}, signal ${signal}): ${reason}`));
         return;
       }

@@ -201,6 +201,12 @@ export const LongformService = {
     const scenes: LongformScene[] = [];
     const total = pages.length;
 
+    // 재분석 시 기존 씬의 클립/편집 정보 보존 (pageNumber 매칭)
+    const prevByPage = new Map<number, LongformScene>();
+    for (const s of project.scenes ?? []) {
+      if (typeof s.pageNumber === 'number') prevByPage.set(s.pageNumber, s);
+    }
+
     analyzeProgressMap.set(projectId, { progress: 0, step: `분석 시작 (${total}페이지)` });
 
     let prevVideoPrompt = '';
@@ -252,17 +258,27 @@ export const LongformService = {
       const trimmedPrompt = videoPrompt.trim();
       prevVideoPrompt = trimmedPrompt;
 
+      const prev = prevByPage.get(page.pageNumber);
+
       scenes.push({
-        id: crypto.randomUUID(),
+        id: prev?.id ?? crypto.randomUUID(),
         pageNumber: page.pageNumber,
         videoPrompt: trimmedPrompt,
         clipDuration,
-        sfxVolume: 60,
+        sfxVolume: prev?.sfxVolume ?? 60,
         ttsUrl,
-        ttsVolume: 70,
+        ttsVolume: prev?.ttsVolume ?? 70,
         ttsDuration,
         subtitles,
         order: i,
+        // 기존 생성물 + 편집 정보 보존 (언어별 재분석 시 클립 재사용)
+        clipUrl: prev?.clipUrl,
+        clipHistory: prev?.clipHistory,
+        trimStart: prev?.trimStart,
+        trimEnd: prev?.trimEnd,
+        sfxUrl: prev?.sfxUrl,
+        sfxOffset: prev?.sfxOffset,
+        ttsOffset: prev?.ttsOffset,
       });
     }
 

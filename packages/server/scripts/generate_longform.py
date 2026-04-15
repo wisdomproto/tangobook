@@ -55,8 +55,11 @@ def find_font():
 def download_file(url: str, dest: str) -> str:
     resp = requests.get(url, timeout=120)
     resp.raise_for_status()
+    data = resp.content
+    if not data:
+        raise RuntimeError(f"다운로드 결과가 0바이트: {url}")
     with open(dest, "wb") as f:
-        f.write(resp.content)
+        f.write(data)
     return dest
 
 
@@ -224,6 +227,19 @@ def process_scene(scene, scene_idx, downloaded, resolution, subtitle_style, font
     clip_duration = scene.get("clipDuration", 10)
     duration = clip_duration - trim_start - trim_end
 
+    if duration <= 0.1:
+        print(
+            f"[scene {scene_idx+1}] 스킵: duration={duration:.2f}s "
+            f"(clipDuration={clip_duration}, trimStart={trim_start}, trimEnd={trim_end})",
+            file=sys.stderr, flush=True,
+        )
+        return None
+
+    # 입력 파일 유효성 검사 (0바이트 방어)
+    if os.path.getsize(clip_path) == 0:
+        print(f"[scene {scene_idx+1}] 스킵: 클립 파일이 0바이트 ({clip_path})", file=sys.stderr, flush=True)
+        return None
+
     subtitles = [s for s in scene.get("subtitles", []) if s.get("text", "").strip()]
 
     if not subtitles:
@@ -336,17 +352,36 @@ def main():
     # Phase 2: 씬별 처리 — Pillow 자막 PNG + ffmpeg overlay (20~70%)
     processed = []
     scene_durations = []
+    skipped = 0
     for i, scene in enumerate(scenes):
         pct = 20 + int((i / max(total_scenes, 1)) * 50)
         report_progress(pct, f"장면 {i+1}/{total_scenes} 처리 중")
 
-        result = process_scene(scene, i, downloaded, resolution, subtitle_style, font_path, work_dir)
+        try:
+            result = process_scene(scene, i, downloaded, resolution, subtitle_style, font_path, work_dir)
+        except Exception as e:
+            print(f"[scene {i+1}] 처리 실패: {e}", file=sys.stderr, flush=True)
+            result = None
+
         if result:
-            processed.append(result)
             dur = get_duration(result)
-            scene_durations.append(dur if dur > 0 else (scene.get("clipDuration", 5) - (scene.get("trimStart", 0) or 0) - (scene.get("trimEnd", 0) or 0)))
+            fallback = (scene.get("clipDuration", 5) - (scene.get("trimStart", 0) or 0) - (scene.get("trimEnd", 0) or 0))
+            effective = dur if dur > 0 else fallback
+            if effective <= 0.1:
+                print(f"[scene {i+1}] 스킵: 처리 후 duration={effective:.2f}s", file=sys.stderr, flush=True)
+                skipped += 1
+                continue
+            processed.append(result)
+            scene_durations.append(effective)
+        else:
+            skipped += 1
 
     if not processed:
+        print(
+            f"처리할 클립이 없습니다 (전체 {total_scenes}장면 중 {skipped}장면 스킵). "
+            f"clipUrl 누락, 트리밍 과다(duration≤0), 다운로드 실패 중 하나입니다.",
+            file=sys.stderr, flush=True,
+        )
         report_progress(100, "처리할 클립이 없습니다")
         sys.exit(1)
 
@@ -369,6 +404,18 @@ def main():
         # ffmpeg -i s0.mp4 -i s1.mp4 -i s2.mp4 -filter_complex
         #   "[0][1]xfade=transition=fade:duration=0.5:offset=X[v01];
         #    [v01][2]xfade=transition=fade:duration=0.5:offset=Y[v012]"
+
+        # transition보다 짧은 장면이 있으면 xfade가 0프레임을 뱉으므로 transition을 줄인다
+        min_dur = min(scene_durations)
+        if min_dur <= transition:
+            adjusted = max(0.1, min_dur * 0.5)
+            print(
+                f"[xfade] 최단 장면({min_dur:.2f}s)이 transition({transition}s) 이하. "
+                f"transition을 {adjusted:.2f}s로 조정",
+                file=sys.stderr, flush=True,
+            )
+            transition = adjusted
+
         args = []
         for p in processed:
             args += ["-i", p]
@@ -487,4 +534,11 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        import traceback
+        print(f"[longform] 예외 발생: {type(e).__name__}: {e}", file=sys.stderr, flush=True)
+        traceback.print_exc(file=sys.stderr)
+        sys.stderr.flush()
+        sys.exit(1)

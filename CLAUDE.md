@@ -419,6 +419,8 @@ server/src/
 - Phase 4: ffmpeg amix 오디오 믹싱 (SFX/TTS adelay + BGM, normalize=0)
 - 최종: `-movflags +faststart` (브라우저 스트리밍 재생 지원)
 - 프로덕션에서 시스템 ffmpeg 사용 (drawtext/libfreetype 지원), 로컬은 ffmpeg-static
+- 방어: duration ≤ 0.1초·0바이트 클립은 스킵, xfade transition이 최단 장면보다 길면 자동 축소, 전역 try/except로 traceback stderr 출력
+- Node 측 `longform.provider.ts`: 비-JSON stderr를 tail 버퍼(30줄)에 누적해 에러 메시지에 포함
 
 ### YouTube 자동 업로드
 - **OAuth2**: Google YouTube Data API v3, 토큰 R2 저장 (`system/youtube-tokens.json`)
@@ -435,6 +437,12 @@ server/src/
 - `ttsUrl`, `ttsOffset?`, `ttsDuration?` — 나레이션
 - `subtitles[]` — 자막 (startTime/endTime 상대값)
 - `clipHistory[]` — 이전 클립 히스토리
+
+### 다국어 버전 (master ↔ version)
+- 최상위 프로젝트 = master (parentProjectId 없음), 버전 = 자식 (parentProjectId = master.id)
+- `addVersion()`은 master의 scenes를 clipUrl 포함 복제, 타임라인 편집값(trim/offset)만 리셋
+- **재분석 시 보존**: `longform.service.ts#analyze`는 pageNumber 매칭된 기존 씬의 `clipUrl`, `clipHistory`, `trim*`, `sfxUrl`, offset, 볼륨을 유지하고 언어 종속 필드(videoPrompt/subtitles/ttsUrl/ttsDuration)만 갱신
+- **자동 fallback**: `TimelineEditorStep`은 자식 버전의 씬에 clipUrl 누락 시 master의 같은 pageNumber에서 clipUrl/clipHistory/sfxUrl을 복사해 메우는 effect 실행 (기존 데이터 대응)
 
 ## PRD 문서
 - `PRD_00_Master.md` - 마스터 로드맵

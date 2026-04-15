@@ -771,10 +771,10 @@ export function AudiobookProjectCard({
                             </span>
                           </div>
                         )}
-                        {/* 표지 선택 (2개 이상일 때) */}
+                        {/* 표지 선택 */}
                         {project.includeCover &&
                           coverImages &&
-                          coverImages.filter((c) => c.imageUrl).length >= 2 && (
+                          coverImages.filter((c) => c.imageUrl).length >= 1 && (
                             <div className="mt-2 space-y-1.5">
                               <p className="text-[10px] text-slate-400 dark:text-slate-500">
                                 표지 선택
