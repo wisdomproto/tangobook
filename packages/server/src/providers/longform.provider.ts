@@ -42,6 +42,7 @@ export interface ProgressInfo {
 
 // Active render processes, keyed by projectId
 const activeProcesses = new Map<string, ChildProcess>();
+const MAX_CONCURRENT_RENDERS = 1;
 
 /**
  * Cancel an active render process.
@@ -66,6 +67,12 @@ export async function generateLongform(
   onProgress?: (info: ProgressInfo) => void,
   projectId?: string
 ): Promise<string> {
+  if (activeProcesses.size >= MAX_CONCURRENT_RENDERS) {
+    throw new Error(
+      `현재 ${activeProcesses.size}개의 렌더링이 진행 중입니다. 완료 후 다시 시도해주세요.`
+    );
+  }
+
   return new Promise((resolve, reject) => {
     const proc = spawn('python', ['-u', SCRIPT_PATH], {
       stdio: ['pipe', 'pipe', 'pipe'],

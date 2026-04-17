@@ -199,7 +199,7 @@ def download_all_files(scenes, work_dir, bgm_url=None):
     results = {}
     total = len(tasks)
     done = 0
-    with ThreadPoolExecutor(max_workers=6) as executor:
+    with ThreadPoolExecutor(max_workers=3) as executor:
         futures = {executor.submit(download_file, url, dest): key for key, (url, dest) in tasks.items()}
         for future in as_completed(futures):
             key = futures[future]
@@ -249,7 +249,7 @@ def process_scene(scene, scene_idx, downloaded, resolution, subtitle_style, font
             *(["-ss", str(trim_start)] if trim_start > 0 else []),
             "-t", str(duration),
             "-vf", f"scale={w}:{h}",
-            "-c:v", "libx264", "-preset", "ultrafast", "-threads", "4",
+            "-c:v", "libx264", "-preset", "ultrafast", "-threads", "2",
             "-an", "-y", output_path,
         ])
         return output_path
@@ -279,7 +279,7 @@ def process_scene(scene, scene_idx, downloaded, resolution, subtitle_style, font
             *(["-ss", str(trim_start)] if trim_start > 0 else []),
             "-t", str(duration),
             "-vf", f"scale={w}:{h}",
-            "-c:v", "libx264", "-preset", "ultrafast", "-threads", "4",
+            "-c:v", "libx264", "-preset", "ultrafast", "-threads", "2",
             "-an", "-y", output_path,
         ])
         return output_path
@@ -304,7 +304,7 @@ def process_scene(scene, scene_idx, downloaded, resolution, subtitle_style, font
         "-t", str(duration),
         "-filter_complex", ";".join(filters),
         "-map", "[vout]",
-        "-c:v", "libx264", "-preset", "ultrafast", "-threads", "4",
+        "-c:v", "libx264", "-preset", "ultrafast", "-threads", "2",
         "-an", "-y", output_path,
     ])
 
@@ -436,7 +436,7 @@ def main():
         args += [
             "-filter_complex", ";".join(filters),
             "-map", "[vout]",
-            "-c:v", "libx264", "-preset", "ultrafast", "-threads", "4",
+            "-c:v", "libx264", "-preset", "ultrafast", "-threads", "2",
             "-an", "-y", concat_path,
         ]
         run_ffmpeg(args, timeout=600)
