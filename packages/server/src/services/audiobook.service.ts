@@ -20,6 +20,7 @@ import { deleteFromR2, downloadFromR2, urlToR2Key } from '../providers/r2.provid
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
 import { generateSrt } from '../utils/srt-generator.js';
 import { translateSrt } from '../utils/srt-translator.js';
+import { parseYouTubeVideoId } from '../utils/youtube-url.js';
 
 // Remotion은 Chromium이 필요하므로 서버 시작 시가 아닌 렌더링 요청 시에만 lazy import
 async function loadRemotion() {
@@ -325,6 +326,7 @@ export const AudiobookService = {
       videoUrl: result.videoUrl,
       uploadedAt: new Date().toISOString(),
       privacy: meta.privacy,
+      channelId: result.channelId,
       ...(meta.publishAt ? { publishAt: meta.publishAt } : {}),
     };
     await R2Repository.saveStorybook(storybook);
@@ -447,6 +449,44 @@ export const AudiobookService = {
     setTimeout(() => captionProgressMap.delete(projectId), 30_000);
   },
 
+  async linkYouTubeVideo(
+    storybookId: string,
+    projectId: string,
+    videoIdOrUrl: string
+  ): Promise<{
+    videoId: string;
+    videoUrl: string;
+    ownerConnected: boolean;
+    channelTitle?: string;
+  }> {
+    const videoId = parseYouTubeVideoId(videoIdOrUrl);
+    if (!videoId) throw new AppError(400, '유효한 YouTube 링크 또는 영상 ID가 아닙니다.');
+
+    const storybook = await R2Repository.getStorybook(storybookId);
+    if (!storybook) throw new AppError(404, '동화책을 찾을 수 없습니다.');
+    const project = storybook.audiobookProjects?.find((p: AudiobookProject) => p.id === projectId);
+    if (!project) throw new AppError(404, '오디오북 프로젝트를 찾을 수 없습니다.');
+
+    const meta = await YouTubeProvider.getVideoMeta(videoId);
+    if (!meta) throw new AppError(404, '해당 영상을 찾을 수 없거나 비공개입니다.');
+
+    project.youtubeUpload = {
+      videoId,
+      videoUrl: `https://youtu.be/${videoId}`,
+      uploadedAt: meta.publishedAt,
+      privacy: meta.privacyStatus,
+      ...(meta.ownedByChannelId ? { channelId: meta.ownedByChannelId } : {}),
+    };
+    await R2Repository.saveStorybook(storybook);
+
+    return {
+      videoId,
+      videoUrl: project.youtubeUpload.videoUrl,
+      ownerConnected: !!meta.ownedByChannelId,
+      channelTitle: meta.channelTitle,
+    };
+  },
+
   async uploadCaptions(storybookId: string, projectId: string, languages: string[]): Promise<void> {
     const storybook = await R2Repository.getStorybook(storybookId);
     if (!storybook) throw new AppError(404, '동화책을 찾을 수 없습니다.');
@@ -462,6 +502,16 @@ export const AudiobookService = {
     const allLanguages = [baseLang, ...languages.filter((l) => l !== baseLang)];
     const totalSteps = allLanguages.length + 1; // +1 for SRT generation
     const uploaded: string[] = [];
+
+    // Resolve the channel that owns this video (stored → auto-detect → save)
+    let channelId = project.youtubeUpload.channelId;
+    if (!channelId) {
+      channelId = await YouTubeProvider.findChannelIdForVideo(videoId);
+      if (channelId) {
+        project.youtubeUpload.channelId = channelId;
+        await R2Repository.saveStorybook(storybook);
+      }
+    }
 
     captionProgressMap.set(projectId, { progress: 0, step: 'SRT 자막 생성 중' });
 
@@ -482,7 +532,7 @@ export const AudiobookService = {
 
     // 3. Upload base language caption
     try {
-      await YouTubeProvider.uploadCaption(videoId, baseLang, baseSrt);
+      await YouTubeProvider.uploadCaption(videoId, baseLang, baseSrt, undefined, channelId);
       uploaded.push(baseLang);
     } catch (err) {
       console.warn(`[audiobook-caption] Failed to upload ${baseLang}:`, err);
@@ -501,7 +551,7 @@ export const AudiobookService = {
 
       try {
         const translatedSrt = await translateSrt(baseSrt, baseLang, lang);
-        await YouTubeProvider.uploadCaption(videoId, lang, translatedSrt);
+        await YouTubeProvider.uploadCaption(videoId, lang, translatedSrt, undefined, channelId);
         uploaded.push(lang);
       } catch (err) {
         console.warn(`[audiobook-caption] Failed for ${lang}:`, err);

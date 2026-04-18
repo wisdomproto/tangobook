@@ -11,5 +11,6 @@ router.get('/youtube/progress/:projectId', AudiobookController.getYouTubeProgres
 router.post('/youtube/generate-meta', AudiobookController.youtubeGenerateMeta);
 router.post('/youtube/upload-captions', AudiobookController.youtubeUploadCaptions);
 router.get('/youtube/caption-progress/:projectId', AudiobookController.getCaptionProgress);
+router.post('/youtube/link-video', AudiobookController.youtubeLinkVideo);
 
 export default router;

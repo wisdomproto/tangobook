@@ -239,6 +239,12 @@ export function AudiobookProjectCard({
 
   // Caption state
   const [captionLangs, setCaptionLangs] = useState<string[]>(project.captionLanguages ?? []);
+
+  // Manual link state
+  const [showLinkInput, setShowLinkInput] = useState(false);
+  const [linkUrl, setLinkUrl] = useState('');
+  const [linking, setLinking] = useState(false);
+  const [linkWarning, setLinkWarning] = useState<string | null>(null);
   const [captionUploading, setCaptionUploading] = useState(false);
   const [captionProgress, setCaptionProgress] = useState<AudiobookRenderProgress | null>(null);
   const [captionError, setCaptionError] = useState<string | null>(null);
@@ -443,6 +449,46 @@ export function AudiobookProjectCard({
       captionPollRef.current = null;
     }
   }, []);
+
+  const handleLinkVideo = async () => {
+    if (!linkUrl.trim()) return;
+    setLinking(true);
+    setLinkWarning(null);
+    try {
+      const result = await audiobookApi.youtubeLinkVideo({
+        storybookId,
+        projectId: project.id,
+        videoUrl: linkUrl.trim(),
+      });
+      onUpdate({
+        youtubeUpload: {
+          videoId: result.videoId,
+          videoUrl: result.videoUrl,
+          uploadedAt: new Date().toISOString(),
+          privacy: 'unknown',
+        },
+      });
+      setLinkUrl('');
+      setShowLinkInput(false);
+      if (!result.ownerConnected) {
+        setLinkWarning(
+          `영상은 연결되었지만 소유 채널(${result.channelTitle ?? '?'})이 이 저작도구에 연결돼있지 않습니다. 자막 업로드를 하려면 해당 채널을 먼저 연결해주세요.`
+        );
+      }
+      // Refresh to get actual privacy/date
+      try {
+        const updated = await storybookApi.getById(storybookId);
+        const up = updated.audiobookProjects?.find((p) => p.id === project.id);
+        if (up?.youtubeUpload) onUpdate({ youtubeUpload: up.youtubeUpload });
+      } catch {
+        /* ignore */
+      }
+    } catch (e: any) {
+      setLinkWarning(e?.message || '연결 실패');
+    } finally {
+      setLinking(false);
+    }
+  };
 
   const handleUploadCaptions = async () => {
     if (captionLangs.length === 0) return;
@@ -1288,6 +1334,89 @@ export function AudiobookProjectCard({
                     </svg>
                     YouTube 업로드
                   </h5>
+
+                  {/* 업로드 완료 카드 */}
+                  {project.youtubeUpload && (
+                    <div className="px-3 py-2.5 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
+                      <p className="text-xs text-green-700 dark:text-green-400 font-medium">
+                        업로드 완료
+                      </p>
+                      <a
+                        href={project.youtubeUpload.videoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-blue-600 dark:text-blue-400 underline hover:no-underline break-all"
+                      >
+                        {project.youtubeUpload.videoUrl}
+                      </a>
+                      <p className="text-[10px] text-slate-500 mt-1">
+                        {new Date(project.youtubeUpload.uploadedAt).toLocaleString()} ·{' '}
+                        {project.youtubeUpload.publishAt
+                          ? `예약: ${new Date(project.youtubeUpload.publishAt).toLocaleString()}`
+                          : project.youtubeUpload.privacy}
+                      </p>
+                      <button
+                        onClick={() => {
+                          if (
+                            !window.confirm(
+                              '업로드 정보 연결을 해제하시겠습니까? (YouTube 영상은 삭제되지 않습니다)'
+                            )
+                          )
+                            return;
+                          onUpdate({ youtubeUpload: undefined });
+                        }}
+                        className="text-[10px] text-slate-400 hover:text-red-500 mt-1"
+                      >
+                        연결 해제
+                      </button>
+                    </div>
+                  )}
+
+                  {/* 수동 연결 */}
+                  {!project.youtubeUpload && (
+                    <div className="space-y-1.5">
+                      {!showLinkInput ? (
+                        <button
+                          onClick={() => setShowLinkInput(true)}
+                          className="text-xs text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 underline"
+                        >
+                          외부에서 올린 YouTube 영상이 있다면 수동으로 연결
+                        </button>
+                      ) : (
+                        <div className="flex items-center gap-1.5">
+                          <input
+                            type="text"
+                            value={linkUrl}
+                            onChange={(e) => setLinkUrl(e.target.value)}
+                            placeholder="YouTube URL 또는 영상 ID"
+                            className="flex-1 text-xs border border-slate-200 dark:border-slate-600 rounded px-2 py-1.5 bg-white dark:bg-slate-700 dark:text-slate-100"
+                          />
+                          <button
+                            onClick={handleLinkVideo}
+                            disabled={linking || !linkUrl.trim()}
+                            className="px-2.5 py-1.5 text-xs bg-violet-600 hover:bg-violet-700 disabled:bg-violet-300 text-white rounded-md transition-colors"
+                          >
+                            {linking ? '연결 중...' : '연결'}
+                          </button>
+                          <button
+                            onClick={() => {
+                              setShowLinkInput(false);
+                              setLinkUrl('');
+                              setLinkWarning(null);
+                            }}
+                            className="text-xs text-slate-400 hover:text-slate-600"
+                          >
+                            취소
+                          </button>
+                        </div>
+                      )}
+                      {linkWarning && (
+                        <p className="text-[11px] text-amber-600 dark:text-amber-400">
+                          {linkWarning}
+                        </p>
+                      )}
+                    </div>
+                  )}
 
                   {/* 채널 선택 */}
                   {ytChannels.length === 0 ? (

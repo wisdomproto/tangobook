@@ -889,6 +889,7 @@ export interface YouTubeUploadResult {
   uploadedAt: string;
   privacy: string;
   publishAt?: string; // scheduled publish time
+  channelId?: string; // 업로드한 내부 채널 ID (자막 재업로드 시 동일 채널 사용)
   captionsUploaded?: string[]; // 업로드 완료된 자막 언어 목록
 }
 

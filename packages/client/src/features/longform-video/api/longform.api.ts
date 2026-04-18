@@ -108,6 +108,15 @@ export const longformApi = {
     languages: string[];
     channelId?: string;
   }) => apiPost('/longform/youtube/upload-captions', req),
+
+  // Manually link an externally-uploaded video
+  youtubeLinkVideo: (data: { storybookId: string; projectId: string; videoUrl: string }) =>
+    apiPost<{
+      videoId: string;
+      videoUrl: string;
+      ownerConnected: boolean;
+      channelTitle?: string;
+    }>('/longform/youtube/link-video', data),
   getCaptionProgress: (projectId: string) =>
     apiGet<{ progress: number; step: string } | null>(
       `/longform/youtube/caption-progress/${projectId}`

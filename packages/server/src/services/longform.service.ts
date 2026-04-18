@@ -31,6 +31,7 @@ import { PromptPresetService } from './prompt-preset.service.js';
 import { getAudioDuration } from '../utils/audio-duration.js';
 import { generateLongformSrt } from '../utils/srt-generator.js';
 import { translateSrt } from '../utils/srt-translator.js';
+import { parseYouTubeVideoId } from '../utils/youtube-url.js';
 
 const execFileAsync = promisify(execFile);
 
@@ -1036,6 +1037,7 @@ export const LongformService = {
       videoUrl: result.videoUrl,
       uploadedAt: new Date().toISOString(),
       privacy: meta.privacy,
+      channelId: result.channelId,
       ...(meta.publishAt ? { publishAt: meta.publishAt } : {}),
     };
     await R2Repository.saveStorybook(storybook);
@@ -1215,6 +1217,42 @@ export const LongformService = {
     setTimeout(() => captionProgressMap.delete(projectId), 30_000);
   },
 
+  async linkYouTubeVideo(
+    storybookId: string,
+    projectId: string,
+    videoIdOrUrl: string
+  ): Promise<{
+    videoId: string;
+    videoUrl: string;
+    ownerConnected: boolean;
+    channelTitle?: string;
+  }> {
+    const videoId = parseYouTubeVideoId(videoIdOrUrl);
+    if (!videoId) throw new AppError(400, '유효한 YouTube 링크 또는 영상 ID가 아닙니다.');
+
+    const storybook = await loadStorybook(storybookId);
+    const project = loadProject(storybook, projectId);
+
+    const meta = await YouTubeProvider.getVideoMeta(videoId);
+    if (!meta) throw new AppError(404, '해당 영상을 찾을 수 없거나 비공개입니다.');
+
+    project.youtubeUpload = {
+      videoId,
+      videoUrl: `https://youtu.be/${videoId}`,
+      uploadedAt: meta.publishedAt,
+      privacy: meta.privacyStatus,
+      ...(meta.ownedByChannelId ? { channelId: meta.ownedByChannelId } : {}),
+    };
+    await R2Repository.saveStorybook(storybook);
+
+    return {
+      videoId,
+      videoUrl: project.youtubeUpload.videoUrl,
+      ownerConnected: !!meta.ownedByChannelId,
+      channelTitle: meta.channelTitle,
+    };
+  },
+
   async uploadCaptions(
     storybookId: string,
     projectId: string,
@@ -1234,6 +1272,16 @@ export const LongformService = {
     const totalSteps = allLanguages.length + 1;
     const uploaded: string[] = [];
 
+    // Priority: stored channelId → explicit param → auto-detect via video ownership
+    let effectiveChannelId = project.youtubeUpload.channelId ?? channelId;
+    if (!effectiveChannelId) {
+      effectiveChannelId = await YouTubeProvider.findChannelIdForVideo(videoId);
+      if (effectiveChannelId) {
+        project.youtubeUpload.channelId = effectiveChannelId;
+        await R2Repository.saveStorybook(storybook);
+      }
+    }
+
     captionProgressMap.set(projectId, { progress: 0, step: 'SRT 자막 생성 중' });
 
     // Generate SRT from scenes
@@ -1249,7 +1297,13 @@ export const LongformService = {
 
     // Upload base language caption
     try {
-      await YouTubeProvider.uploadCaption(videoId, baseLang, baseSrt, undefined, channelId);
+      await YouTubeProvider.uploadCaption(
+        videoId,
+        baseLang,
+        baseSrt,
+        undefined,
+        effectiveChannelId
+      );
       uploaded.push(baseLang);
     } catch (err) {
       console.warn(`[longform-caption] Failed to upload ${baseLang}:`, err);
@@ -1267,7 +1321,13 @@ export const LongformService = {
 
       try {
         const translatedSrt = await translateSrt(baseSrt, baseLang, lang);
-        await YouTubeProvider.uploadCaption(videoId, lang, translatedSrt, undefined, channelId);
+        await YouTubeProvider.uploadCaption(
+          videoId,
+          lang,
+          translatedSrt,
+          undefined,
+          effectiveChannelId
+        );
         uploaded.push(lang);
       } catch (err) {
         console.warn(`[longform-caption] Failed for ${lang}:`, err);

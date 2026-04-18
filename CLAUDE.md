@@ -423,13 +423,15 @@ server/src/
 - Node 측 `longform.provider.ts`: 비-JSON stderr를 tail 버퍼(30줄)에 누적해 에러 메시지에 포함
 
 ### YouTube 자동 업로드
-- **OAuth2**: Google YouTube Data API v3, 토큰 R2 저장 (`system/youtube-tokens.json`)
+- **OAuth2**: Google YouTube Data API v3, 다채널 지원 (`system/youtube-channels.json`)
 - **AI 설정값 생성**: 프롬프트 프리셋 시스템 (프롬프트 저장/불러오기/편집)
   - 프롬프트 + 동화책 정보를 Gemini에 전송 → title/description/tags/privacy/category/language JSON 반환
   - `POST /api/longform/youtube/generate-meta`
 - **프리셋**: `YouTubePreset { id, name, prompt, createdAt }` — R2에 JSON 저장
 - **업로드**: 렌더링 영상 R2 → YouTube, 썸네일 sharp로 1280x720 JPEG 변환 후 업로드
 - **진행률**: fire-and-forget + polling 패턴
+- **다채널 / 자막 업로드**: `YouTubeUploadResult.channelId`에 업로드 시 사용한 내부 채널 ID 저장 → `captions.insert`는 동일 채널로 호출(다른 채널 인증 시 403). 기존 업로드처럼 `channelId`가 없으면 `YouTubeProvider.findChannelIdForVideo`로 `videos.list` 결과의 채널 소유자를 찾아 보정
+- **수동 연결**: 외부에서 올린 YouTube 영상을 프로젝트에 연결 — `POST /api/{audiobooks|longform}/youtube/link-video` (URL 또는 11자 ID 파싱: `utils/youtube-url.ts`). 소유 채널이 연결돼 있으면 `channelId`도 함께 저장(자막 업로드 가능)
 
 ### 롱폼 데이터 모델 (LongformScene 핵심 필드)
 - `clipDuration`, `trimStart?`, `trimEnd?` — 클립 트리밍

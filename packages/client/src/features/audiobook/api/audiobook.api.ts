@@ -48,6 +48,15 @@ export const audiobookApi = {
   youtubeUploadCaptions: (data: { storybookId: string; projectId: string; languages: string[] }) =>
     apiPost('/audiobooks/youtube/upload-captions', data),
 
+  // Manually link an externally-uploaded video
+  youtubeLinkVideo: (data: { storybookId: string; projectId: string; videoUrl: string }) =>
+    apiPost<{
+      videoId: string;
+      videoUrl: string;
+      ownerConnected: boolean;
+      channelTitle?: string;
+    }>('/audiobooks/youtube/link-video', data),
+
   getCaptionProgress: (projectId: string) =>
     apiGet<AudiobookRenderProgress | null>(`/audiobooks/youtube/caption-progress/${projectId}`),
 

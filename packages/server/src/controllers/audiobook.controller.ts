@@ -71,4 +71,11 @@ export const AudiobookController = {
     const progress = AudiobookService.getCaptionProgress(projectId);
     res.json({ success: true, data: progress });
   },
+
+  // Manually link an externally-uploaded YouTube video to this project
+  youtubeLinkVideo: asyncHandler(async (req, res) => {
+    const { storybookId, projectId, videoUrl } = req.body;
+    const result = await AudiobookService.linkYouTubeVideo(storybookId, projectId, videoUrl);
+    res.json({ success: true, data: result });
+  }),
 };

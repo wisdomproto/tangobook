@@ -133,6 +133,36 @@ export const YouTubeProvider = {
     return channels.length > 0;
   },
 
+  /** Resolve the internal channel id we'd actually authenticate as */
+  async resolveChannelId(channelId?: string): Promise<string> {
+    const channels = await loadChannels();
+    if (channels.length === 0) throw new Error('YouTube 연결이 필요합니다.');
+    const entry = channelId ? channels.find((c) => c.channel.id === channelId) : channels[0];
+    if (!entry) throw new Error('해당 YouTube 채널을 찾을 수 없습니다.');
+    return entry.channel.id;
+  },
+
+  /**
+   * Find which connected channel owns a given YouTube video.
+   * Used to recover captions for videos uploaded before we stored channelId.
+   */
+  async findChannelIdForVideo(videoId: string): Promise<string | undefined> {
+    const channels = await loadChannels();
+    if (channels.length === 0) return undefined;
+
+    try {
+      const youtube = await this.getAuthenticatedClient(channels[0].channel.id);
+      const res = await youtube.videos.list({ part: ['snippet'], id: [videoId] });
+      const ytChannelId = res.data.items?.[0]?.snippet?.channelId;
+      if (!ytChannelId) return undefined;
+      const match = channels.find((c) => c.channel.channelId === ytChannelId);
+      return match?.channel.id;
+    } catch (err) {
+      console.warn('[youtube] findChannelIdForVideo failed:', err);
+      return undefined;
+    }
+  },
+
   /** Get an authenticated YouTube API client for a specific channel */
   async getAuthenticatedClient(channelId?: string) {
     const channels = await loadChannels();
@@ -168,8 +198,9 @@ export const YouTubeProvider = {
     meta: YouTubeUploadMeta,
     onProgress?: (percent: number) => void,
     channelId?: string
-  ): Promise<{ videoId: string; videoUrl: string }> {
-    const youtube = await this.getAuthenticatedClient(channelId);
+  ): Promise<{ videoId: string; videoUrl: string; channelId: string }> {
+    const resolvedChannelId = await this.resolveChannelId(channelId);
+    const youtube = await this.getAuthenticatedClient(resolvedChannelId);
     const totalBytes = videoBuffer.length;
 
     const res = await youtube.videos.insert(
@@ -208,7 +239,45 @@ export const YouTubeProvider = {
     const videoUrl = `https://youtu.be/${videoId}`;
 
     console.log(`[youtube] Video uploaded: ${videoUrl}`);
-    return { videoId, videoUrl };
+    return { videoId, videoUrl, channelId: resolvedChannelId };
+  },
+
+  /**
+   * Fetch video metadata from YouTube. Used when linking an externally-uploaded
+   * video to a project. Also resolves the owning connected-channel id when possible.
+   */
+  async getVideoMeta(videoId: string): Promise<{
+    title: string;
+    privacyStatus: string;
+    publishedAt: string;
+    ytChannelId?: string;
+    channelTitle?: string;
+    ownedByChannelId?: string; // internal channel id if owned by a connected channel
+  } | null> {
+    const channels = await loadChannels();
+    if (channels.length === 0) throw new Error('YouTube 연결이 필요합니다.');
+
+    const youtube = await this.getAuthenticatedClient(channels[0].channel.id);
+    const res = await youtube.videos.list({
+      part: ['snippet', 'status'],
+      id: [videoId],
+    });
+    const item = res.data.items?.[0];
+    if (!item) return null;
+
+    const ytChannelId = item.snippet?.channelId ?? undefined;
+    const ownedByChannelId = ytChannelId
+      ? channels.find((c) => c.channel.channelId === ytChannelId)?.channel.id
+      : undefined;
+
+    return {
+      title: item.snippet?.title ?? '',
+      privacyStatus: item.status?.privacyStatus ?? 'private',
+      publishedAt: item.snippet?.publishedAt ?? new Date().toISOString(),
+      ytChannelId,
+      channelTitle: item.snippet?.channelTitle ?? undefined,
+      ownedByChannelId,
+    };
   },
 
   /** Set thumbnail for a YouTube video */

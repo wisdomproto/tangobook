@@ -219,6 +219,12 @@ export const LongformController = {
     res.json({ success: true, data: progress });
   },
 
+  youtubeLinkVideo: asyncHandler(async (req: Request, res: Response) => {
+    const { storybookId, projectId, videoUrl } = req.body;
+    const result = await LongformService.linkYouTubeVideo(storybookId, projectId, videoUrl);
+    res.json({ success: true, data: result });
+  }),
+
   // ----- Shortform -----
 
   renderShortform: asyncHandler(async (req, res) => {

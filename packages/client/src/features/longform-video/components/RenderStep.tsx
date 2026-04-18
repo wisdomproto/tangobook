@@ -77,6 +77,12 @@ export function RenderStep({
   const [ytError, setYtError] = useState<string | null>(null);
   const ytPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // Manual link state
+  const [showLinkInput, setShowLinkInput] = useState(false);
+  const [linkUrl, setLinkUrl] = useState('');
+  const [linking, setLinking] = useState(false);
+  const [linkWarning, setLinkWarning] = useState<string | null>(null);
+
   // YouTube form state (AI가 생성한 값이 들어감)
   const [ytTitle, setYtTitle] = useState(project.name || '');
   const [ytDescription, setYtDescription] = useState('');
@@ -551,6 +557,46 @@ export function RenderStep({
     }
   }, []);
 
+  const handleLinkVideo = async () => {
+    if (!linkUrl.trim()) return;
+    setLinking(true);
+    setLinkWarning(null);
+    try {
+      const result = await longformApi.youtubeLinkVideo({
+        storybookId,
+        projectId: project.id,
+        videoUrl: linkUrl.trim(),
+      });
+      onUpdate({
+        youtubeUpload: {
+          videoId: result.videoId,
+          videoUrl: result.videoUrl,
+          uploadedAt: new Date().toISOString(),
+          privacy: 'unknown',
+        },
+      });
+      setLinkUrl('');
+      setShowLinkInput(false);
+      if (!result.ownerConnected) {
+        setLinkWarning(
+          `영상이 연결되었지만 소유 채널(${result.channelTitle ?? '?'})이 이 저작도구에 연결돼있지 않습니다. 자막 업로드를 하려면 해당 채널을 먼저 연결해주세요.`
+        );
+      }
+      // Refresh from server to get actual privacy/date
+      try {
+        const updated = await storybookApi.getById(storybookId);
+        const up = updated.longformProjects?.find((p) => p.id === project.id);
+        if (up?.youtubeUpload) onUpdate({ youtubeUpload: up.youtubeUpload });
+      } catch {
+        /* ignore */
+      }
+    } catch (e: any) {
+      setLinkWarning(e?.message || '연결 실패');
+    } finally {
+      setLinking(false);
+    }
+  };
+
   const handleUploadCaptions = async () => {
     if (captionLangs.length === 0) return;
     setCaptionError(null);
@@ -948,6 +994,60 @@ export function RenderStep({
                       ? `예약 공개: ${new Date(project.youtubeUpload.publishAt).toLocaleString()}`
                       : project.youtubeUpload.privacy}
                   </p>
+                  <button
+                    onClick={() => {
+                      if (
+                        !window.confirm(
+                          '업로드 정보 연결을 해제하시겠습니까? (YouTube 영상은 삭제되지 않습니다)'
+                        )
+                      )
+                        return;
+                      onUpdate({ youtubeUpload: undefined });
+                    }}
+                    className="text-xs text-slate-400 hover:text-red-500 mt-2"
+                  >
+                    연결 해제
+                  </button>
+                </div>
+              )}
+
+              {/* Manual link */}
+              {!project.youtubeUpload && (
+                <div className="space-y-2">
+                  {!showLinkInput ? (
+                    <button
+                      onClick={() => setShowLinkInput(true)}
+                      className="text-xs text-slate-500 hover:text-violet-600 dark:hover:text-violet-400 underline"
+                    >
+                      외부에서 올린 YouTube 영상이 있다면 수동으로 연결
+                    </button>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={linkUrl}
+                        onChange={(e) => setLinkUrl(e.target.value)}
+                        placeholder="YouTube URL 또는 영상 ID"
+                        className="flex-1 text-xs border border-slate-200 dark:border-slate-600 rounded px-2 py-1.5 bg-white dark:bg-slate-700 dark:text-slate-100"
+                      />
+                      <Button size="sm" onClick={handleLinkVideo} loading={linking}>
+                        연결
+                      </Button>
+                      <button
+                        onClick={() => {
+                          setShowLinkInput(false);
+                          setLinkUrl('');
+                          setLinkWarning(null);
+                        }}
+                        className="text-xs text-slate-400 hover:text-slate-600"
+                      >
+                        취소
+                      </button>
+                    </div>
+                  )}
+                  {linkWarning && (
+                    <p className="text-xs text-amber-600 dark:text-amber-400">{linkWarning}</p>
+                  )}
                 </div>
               )}
 
