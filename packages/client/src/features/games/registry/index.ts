@@ -16,6 +16,10 @@ import './games/korean-word-writing.register';
 import './games/english-word-writing.register';
 import './games/korean-speaking.register.tsx';
 import './games/english-speaking.register.tsx';
+import './games/korean-line-matching.register.tsx';
+import './games/english-line-matching.register.tsx';
+import './games/korean-story-image.register.tsx';
+import './games/english-story-image.register.tsx';
 
 export {
   getAllGames,
