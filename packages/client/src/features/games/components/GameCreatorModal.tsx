@@ -85,7 +85,7 @@ export function GameCreatorModal({
                       <button
                         key={entry.id}
                         onClick={() => handleSelectType(entry)}
-                        className="w-full text-left p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-violet-300 dark:hover:border-violet-600 hover:bg-violet-50 dark:hover:bg-violet-900/10 transition-colors"
+                        className="w-full text-left p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-coral-400 dark:hover:border-coral-400 hover:bg-coral-100 dark:hover:bg-coral-500/10 transition-colors"
                       >
                         <div className="flex items-center gap-3">
                           <span className="text-2xl">{entry.icon}</span>
@@ -115,7 +115,7 @@ export function GameCreatorModal({
               {/* 뒤로가기 */}
               <button
                 onClick={() => setStep('select-type')}
-                className="text-sm text-violet-600 hover:underline"
+                className="text-sm text-coral-500 hover:underline"
               >
                 ← 게임 타입 다시 선택
               </button>
@@ -129,7 +129,7 @@ export function GameCreatorModal({
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-500"
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-coral-500"
                 />
               </div>
 
@@ -145,7 +145,7 @@ export function GameCreatorModal({
                       onClick={() => setDifficulty(d)}
                       className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
                         difficulty === d
-                          ? 'bg-violet-50 border-violet-300 text-violet-700 dark:bg-violet-900/30 dark:border-violet-600 dark:text-violet-300'
+                          ? 'bg-coral-100 border-coral-400 text-coral-600 dark:bg-coral-500/20 dark:border-coral-400 dark:text-peach-200'
                           : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300'
                       }`}
                     >

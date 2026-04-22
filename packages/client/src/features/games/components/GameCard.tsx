@@ -13,7 +13,7 @@ export function GameCard({ game, onPreview, onEdit, onDelete }: GameCardProps) {
   const entry = getGameEntry(game.gameType);
   const difficultyLabel = { easy: '쉬움', medium: '보통', hard: '어려움' }[game.difficulty];
   const difficultyColor = {
-    easy: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
+    easy: 'bg-success/10 text-success dark:bg-success/20 dark:text-success',
     medium: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
     hard: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
   }[game.difficulty];

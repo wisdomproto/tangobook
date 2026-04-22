@@ -28,7 +28,7 @@ export function GamePlayerLayout({ children, onBack, maxWidth = '2xl' }: GamePla
       {onBack && (
         <button
           onClick={onBack}
-          className="mt-4 sm:mt-6 shrink-0 text-sm text-emerald-700/60 hover:text-emerald-800 transition-colors"
+          className="mt-4 sm:mt-6 shrink-0 text-sm text-ink-500 hover:text-ink-700 dark:text-peach-200/60 dark:hover:text-peach-200 transition-colors"
         >
           ← 돌아가기
         </button>

@@ -212,7 +212,7 @@ export function WordImageMatchingPlayer({
                   'bg-success/10 dark:bg-success/20 border-success text-success dark:text-success scale-105';
               else if (isFb && feedback === 'wrong')
                 cls +=
-                  'bg-red-50 dark:bg-red-900/30 border-red-400 text-red-600 dark:text-red-400 animate-shake';
+                  'bg-danger/10 dark:bg-danger/20 border-danger text-danger dark:text-danger animate-shake';
               else if (isSelected)
                 cls +=
                   'bg-amber-100 dark:bg-amber-900/30 border-amber-400 text-amber-900 dark:text-amber-200 scale-105';

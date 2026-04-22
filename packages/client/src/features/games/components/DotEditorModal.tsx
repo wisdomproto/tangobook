@@ -62,7 +62,7 @@ export function DotEditorModal({ game, onSave, onClose }: DotEditorModalProps) {
                 onClick={() => setActiveIdx(i)}
                 className={`px-3 py-1.5 rounded-lg text-sm border transition-colors ${
                   i === activeIdx
-                    ? 'bg-violet-50 border-violet-300 text-violet-700 dark:bg-violet-900/30 dark:border-violet-600 dark:text-violet-300'
+                    ? 'bg-coral-100 border-coral-400 text-coral-600 dark:bg-coral-500/20 dark:border-coral-400 dark:text-peach-200'
                     : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300'
                 }`}
               >
