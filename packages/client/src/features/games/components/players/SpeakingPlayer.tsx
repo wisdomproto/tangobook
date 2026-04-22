@@ -129,7 +129,7 @@ export function SpeakingPlayer({
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gradient-to-br from-cream-50 to-peach-100 p-4">
-      <div className="w-full max-w-2xl">
+      <div className="w-full max-w-4xl">
         <div className="flex items-center justify-between">
           <GameProgressBar current={roundIdx} total={rounds.length} score={roundIdx + 1} />
           {/* 라운드 숫자 인디케이터 — 도트 모드에서도 총 라운드 확인 가능하게 별도 렌더 */}
@@ -151,7 +151,7 @@ export function SpeakingPlayer({
           <img
             src={current.imageUrl}
             alt=""
-            className="w-64 h-64 object-contain rounded-lg shadow-card bg-white p-4"
+            className="w-[min(40vmin,24rem)] aspect-square object-contain rounded-lg shadow-card bg-white p-4"
           />
 
           {preset.showPromptLine && (
