@@ -24,4 +24,5 @@ registerGame({
   },
   ConfigPanel: EnglishBlockConfigPanel,
   PlayerComponent: EnglishBlockPlayer,
+  language: 'en',
 });

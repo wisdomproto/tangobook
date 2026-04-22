@@ -46,6 +46,7 @@ export interface GameRegistryEntry {
   hidden?: boolean; // 목록에 표시하지 않음 (레거시 호환용)
   ConfigPanel: ComponentType<GameConfigPanelProps>;
   PlayerComponent: ComponentType<GamePlayerProps>;
+  language?: 'ko' | 'en'; // 언어 전용 게임. 없으면 언어 중립
 }
 
 const GAME_REGISTRY = new Map<GameTypeId, GameRegistryEntry>();

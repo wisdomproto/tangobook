@@ -24,4 +24,5 @@ registerGame({
   },
   ConfigPanel: KoreanBlockConfigPanel,
   PlayerComponent: KoreanBlockPlayer,
+  language: 'ko',
 });

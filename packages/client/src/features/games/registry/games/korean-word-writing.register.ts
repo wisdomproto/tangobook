@@ -25,4 +25,5 @@ registerGame({
   },
   ConfigPanel: WordWritingConfigPanel,
   PlayerComponent: WordWritingPlayer,
+  language: 'ko',
 });
