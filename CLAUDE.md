@@ -137,6 +137,8 @@ features/games/
     useGameAudio.ts                  # 내부적으로 useGameSound 호출 (외부 시그니처 유지)
     useBlockDrag.ts                  # 블록 게임 공통 드래그/터치 핸들링 (Korean/English 공용)
     usePhonicsMap.ts                 # 파닉스 음원 라이브러리 sound→URL 맵 로딩
+    useSpeechRecognizer.ts        # 음성 인식 (Web Speech + Whisper fallback, 말하기 게임)
+    useSpeakingProgress.ts        # 발화 진척 localStorage 관리
   utils/
     shuffle.ts                       # Fisher-Yates 셔플
 
@@ -173,7 +175,7 @@ scripts/synthesize-game-sfx.mjs   # 사운드 재생성 스크립트 (ffmpeg-sta
 - 다크 모드 텍스트: `dark:text-peach-200` 패턴 준수
 - `accentColor` prop 사용 금지 (제거됨)
 
-### 게임 목록 (15종)
+### 게임 목록 (17종)
 | ID | 이름 | 지원 타입 |
 |----|------|-----------|
 | vocabulary-matching | 어휘 매칭 | storybook |
@@ -191,6 +193,8 @@ scripts/synthesize-game-sfx.mjs   # 사운드 재생성 스크립트 (ffmpeg-sta
 | korean-word-writing | 한글 낱말쓰기 | storybook |
 | english-word-writing | 영어 낱말쓰기 | storybook |
 | storybook-quiz | 동화책 퀴즈 | storybook |
+| korean-speaking | 한국어 말하기 | storybook |
+| english-speaking | 영어 말하기 | storybook |
 
 ### 새 게임 추가 방법
 1. `shared/types/storybook.ts`에 Config/Data 타입 추가, GameTypeId·GameConfig·GameData 유니온 확장
@@ -327,6 +331,7 @@ pnpm --filter shared build
 
 ## 환경변수
 `packages/server/.env.example` 참고. `.env` 파일을 `packages/server/` 안에 생성.
+- 선택 변수: `OPENAI_API_KEY` — 말하기 게임의 Whisper fallback용. 없어도 Web Speech API만으로 동작 (degraded mode)
 
 ## 기존 R2 데이터 호환성
 - 기존 211권의 동화책이 R2에 저장되어 있음
@@ -516,6 +521,7 @@ ViewerContainer (/viewer/:id?lang=ko)
   → TTS 자동재생 → 문장 단위 자막 → 자동 페이지 넘김 → 마지막 페이지
 BookDetailPage (/library/:id)   # 자동 복귀 (다음 액션 선택)
 ```
+언어 선택(`?lang=ko|en`)은 자동으로 게임 목록을 필터링 (block/word-writing/speaking 등 언어 태그 게임).
 
 ## PRD 문서
 - `PRD_00_Master.md` - 마스터 로드맵
