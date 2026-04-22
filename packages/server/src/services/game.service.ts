@@ -45,6 +45,16 @@ import type {
   KoreanSpeakingData,
   EnglishSpeakingData,
   SpeakingItem,
+  KoreanLineMatchingConfig,
+  EnglishLineMatchingConfig,
+  KoreanLineMatchingData,
+  EnglishLineMatchingData,
+  LineMatchingItem,
+  KoreanStoryImageConfig,
+  EnglishStoryImageConfig,
+  KoreanStoryImageData,
+  EnglishStoryImageData,
+  StoryImageRound,
 } from '@tangobook/shared';
 import { decomposeWord, isHangulSyllable } from '@tangobook/shared';
 import { decomposeEnglishWord } from '@tangobook/shared';
@@ -70,6 +80,12 @@ const generators: Partial<Record<GameTypeId, GameGenerator>> = {
   'storybook-quiz': generateStorybookQuiz,
   'korean-speaking': (storybook: Storybook) => generateKoreanSpeaking(storybook.id),
   'english-speaking': (storybook: Storybook) => generateEnglishSpeaking(storybook.id),
+  'korean-line-matching': (sb, cfg) =>
+    generateLineMatching(sb, cfg as KoreanLineMatchingConfig, 'ko'),
+  'english-line-matching': (sb, cfg) =>
+    generateLineMatching(sb, cfg as EnglishLineMatchingConfig, 'en'),
+  'korean-story-image': (sb, cfg) => generateStoryImage(sb, cfg as KoreanStoryImageConfig, 'ko'),
+  'english-story-image': (sb, cfg) => generateStoryImage(sb, cfg as EnglishStoryImageConfig, 'en'),
 };
 
 export const GameService = {
@@ -752,4 +768,115 @@ export async function generateKoreanSpeaking(storybookId: string): Promise<Korea
 
 export async function generateEnglishSpeaking(storybookId: string): Promise<EnglishSpeakingData> {
   return { type: 'english-speaking', items: await generateSpeaking(storybookId, 'en') };
+}
+
+// --- 선긋기 매칭 (한/영 공통 로직) ---
+async function generateLineMatching(
+  storybook: Storybook,
+  config: KoreanLineMatchingConfig | EnglishLineMatchingConfig,
+  lang: 'ko' | 'en'
+): Promise<KoreanLineMatchingData | EnglishLineMatchingData> {
+  const pool = collectStorybookImagePool(storybook, {
+    includeKeyObjects: true,
+    includeCharacters: false,
+    includeFlashcards: false,
+  });
+
+  const desired = Math.max(config.itemCount ?? 4, 3);
+  const picked = shuffle(pool).slice(0, Math.min(desired, pool.length));
+
+  if (picked.length < 3) {
+    throw new AppError(400, '이 책의 이미지 있는 단어가 부족해요 (최소 3개).');
+  }
+
+  const items: LineMatchingItem[] = picked
+    .map((p) => ({
+      word: lang === 'ko' ? p.korean : p.word,
+      imageUrl: p.imageUrl,
+      ttsUrl: p.ttsUrl,
+    }))
+    .filter((it) => !!it.word && !!it.imageUrl);
+
+  if (items.length < 3) {
+    throw new AppError(400, '이 책에서 선긋기 매칭 데이터가 부족해요 (최소 3개).');
+  }
+
+  return lang === 'ko'
+    ? { type: 'korean-line-matching', items }
+    : { type: 'english-line-matching', items };
+}
+
+// --- 스토리 듣고 이미지 맞추기 (한/영 공통 로직) ---
+interface PageTextPick {
+  text: string;
+  ttsUrl: string;
+  illustrationUrl: string;
+}
+
+function pickPageText(page: Storybook['pages'][number], lang: 'ko' | 'en'): PageTextPick | null {
+  const illustrationUrl = page.illustrationUrl;
+  if (!illustrationUrl) return null;
+
+  // 언어에 맞춘 translations 우선, 없으면 base text/ttsUrl fallback (한국어 base)
+  const translations = page.translations ?? {};
+  let text = '';
+  let ttsUrl = '';
+
+  if (lang === 'ko') {
+    // ko 우선 → base
+    const koTrans = translations['ko'];
+    if (koTrans?.text && koTrans?.ttsUrl) {
+      text = koTrans.text;
+      ttsUrl = koTrans.ttsUrl;
+    } else if (page.text && page.ttsUrl) {
+      text = page.text;
+      ttsUrl = page.ttsUrl;
+    }
+  } else {
+    // en 번역 필요
+    const enTrans = translations['en'];
+    if (enTrans?.text && enTrans?.ttsUrl) {
+      text = enTrans.text;
+      ttsUrl = enTrans.ttsUrl;
+    }
+  }
+
+  if (!text || !ttsUrl) return null;
+  return { text, ttsUrl, illustrationUrl };
+}
+
+async function generateStoryImage(
+  storybook: Storybook,
+  config: KoreanStoryImageConfig | EnglishStoryImageConfig,
+  lang: 'ko' | 'en'
+): Promise<KoreanStoryImageData | EnglishStoryImageData> {
+  const pages = storybook.pages ?? [];
+  const usable = pages
+    .map((p) => pickPageText(p, lang))
+    .filter((p): p is PageTextPick => p !== null);
+
+  if (usable.length < 3) {
+    throw new AppError(400, '이 책의 나레이션/일러스트가 부족해요 (최소 3 페이지).');
+  }
+
+  const roundCount = Math.min(config.roundCount ?? 5, usable.length);
+  const optionsPerRound = Math.max(2, Math.min(config.optionsPerRound ?? 3, usable.length));
+  const shuffled = shuffle([...usable]);
+
+  const rounds: StoryImageRound[] = [];
+  for (let i = 0; i < roundCount; i++) {
+    const correct = shuffled[i];
+    const distractorPool = usable.filter((p) => p.illustrationUrl !== correct.illustrationUrl);
+    const distractors = shuffle(distractorPool).slice(0, optionsPerRound - 1);
+    rounds.push({
+      text: correct.text,
+      ttsUrl: correct.ttsUrl,
+      correctImageUrl: correct.illustrationUrl,
+      distractorImageUrls: distractors.map((d) => d.illustrationUrl),
+    });
+  }
+
+  return lang === 'ko'
+    ? { type: 'korean-story-image', rounds }
+    : { type: 'english-story-image', rounds };
 }
