@@ -872,7 +872,7 @@ git commit -m "feat(games): rebuild GameResultScreen (celebrating + confetti + s
 **Files:**
 - Modify: `packages/client/src/features/games/components/GameProgressBar.tsx`
 
-- [ ] **Step 1: 리빌드**
+- [x] **Step 1: 리빌드**
 
 ```tsx
 import { cn } from '@/lib/cn';
@@ -915,13 +915,13 @@ export function GameProgressBar({ current, total, score }: GameProgressBarProps)
 }
 ```
 
-- [ ] **Step 2: typecheck**
+- [x] **Step 2: typecheck** _(A6/A7 결합 시 13 플레이어 accentColor 에러 잔존 — Task A10에서 일괄 해소)_
 
 ```bash
 pnpm --filter @tangobook/client typecheck
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add packages/client/src/features/games/components/GameProgressBar.tsx

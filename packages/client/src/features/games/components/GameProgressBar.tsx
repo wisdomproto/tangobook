@@ -1,39 +1,47 @@
-const COLOR_MAP: Record<string, { label: string; bar: string }> = {
-  violet: { label: 'text-violet-600 dark:text-violet-400', bar: 'bg-violet-500' },
-  sky: { label: 'text-sky-600 dark:text-sky-400', bar: 'bg-sky-500' },
-  emerald: { label: 'text-emerald-600 dark:text-emerald-400', bar: 'bg-emerald-500' },
-};
+import { cn } from '@/lib/cn';
 
 interface GameProgressBarProps {
-  current: number;
+  current: number; // 0-based
   total: number;
-  score?: number;
-  accentColor?: 'violet' | 'sky' | 'emerald';
+  score: number; // 맞힌 개수
 }
 
-export function GameProgressBar({
-  current,
-  total,
-  score,
-  accentColor = 'violet',
-}: GameProgressBarProps) {
-  const progress = total > 0 ? (current / total) * 100 : 0;
-  const { label, bar } = COLOR_MAP[accentColor];
+/**
+ * 게임 진행 도트 + 별점 표시.
+ * - total ≤ 11: 도트 시각화 (현재 idx는 coral-500 확장)
+ * - total > 11: compact 모드 (숫자만)
+ */
+export function GameProgressBar({ current, total, score }: GameProgressBarProps) {
+  if (total <= 0) return null;
+  const compact = total > 11;
 
   return (
-    <div className="flex items-center gap-3">
-      <span className={`text-xs font-bold ${label}`}>
-        Q{current + 1}/{total}
-      </span>
-      <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-        <div
-          className={`h-full ${bar} rounded-full transition-all duration-300`}
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-      {score !== undefined && (
-        <span className="text-xs text-slate-400 dark:text-slate-500">{score}점</span>
+    <div className="flex items-center gap-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-soft">
+      {compact ? (
+        <span className="font-black text-ink-900 text-sm">
+          {current + 1} / {total}
+        </span>
+      ) : (
+        <div className="flex gap-1">
+          {Array.from({ length: total }).map((_, i) => (
+            <span
+              key={i}
+              className={cn(
+                'h-1.5 rounded-md transition-all',
+                i === current
+                  ? 'w-6 bg-coral-500'
+                  : i < current
+                    ? 'w-3 bg-ink-300'
+                    : 'w-3 bg-ink-100'
+              )}
+            />
+          ))}
+        </div>
       )}
+      <span className="font-black text-ink-900 text-sm flex items-center gap-1">
+        <span>⭐</span>
+        <span>{score}</span>
+      </span>
     </div>
   );
 }
