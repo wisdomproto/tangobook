@@ -1,10 +1,10 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStorybook } from '@/features/storybook';
 import { Mascot } from '@/components/Mascot';
 import { StateScreen } from '@/components/StateScreen';
 import { cn } from '@/lib/cn';
-import type { LangCode } from '@/lib/storybook-accessors';
+import { hasVideoUrl, type LangCode } from '@/lib/storybook-accessors';
 import { useViewerSettings, type ViewerSettings } from '../hooks/useViewerSettings';
 import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { getPageTtsUrl } from '../lib/page-text';
@@ -13,6 +13,7 @@ import { ViewerControls } from './ViewerControls';
 import { PageView } from './PageView';
 import { BookSpineProgress } from './BookSpineProgress';
 import { MascotCorner } from './MascotCorner';
+import { RewardScreen } from './RewardScreen';
 import { GameListViewer } from './GameListViewer';
 import { PhonicsViewer } from './PhonicsViewer';
 
@@ -36,14 +37,14 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const [pageIndex, setPageIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
+  const [rewardOpen, setRewardOpen] = useState(false);
 
   // state ref로 콜백에서 최신 값 접근
-  // rewardOpen은 Phase D에서 실 state로 교체됨
   const stateRef = useRef({ pageIndex: 0, autoPlayTts: settings.autoPlayTts, rewardOpen: false });
   stateRef.current = {
     pageIndex,
     autoPlayTts: settings.autoPlayTts,
-    rewardOpen: false,
+    rewardOpen,
   };
 
   const pages = storybook?.pages ?? [];
@@ -60,11 +61,15 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   );
 
   // TTS 끝났을 때 자동 넘김 (autoPlayTts + reward X + 다음 페이지 있음)
+  // 마지막 페이지 + autoPlayTts ON → TTS 끝나면 reward 자동 오픈
   const handleTtsEnded = useCallback(() => {
     const st = stateRef.current;
     if (!st.autoPlayTts) return;
     if (st.rewardOpen) return;
-    if (st.pageIndex >= pages.length - 1) return;
+    if (st.pageIndex >= pages.length - 1) {
+      setTimeout(() => setRewardOpen(true), 800);
+      return;
+    }
     setTimeout(() => {
       setDirection(1);
       setPageIndex((idx) => idx + 1);
@@ -100,7 +105,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const onNext = () => {
     markInteracted();
     if (pageIndex >= pages.length - 1) {
-      // Phase D에서 RewardScreen open으로 대체
+      setRewardOpen(true);
       return;
     }
     goTo(pageIndex + 1);
@@ -111,6 +116,14 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     if (audio.isTtsPlaying) audio.stopTts();
     else audio.playTts(currentTtsUrl);
   };
+
+  // `?mode=video` 직접 진입 처리: 영상 있으면 reward 오픈 → 모달 자동
+  const isVideoMode = mode === 'video';
+  useEffect(() => {
+    if (isVideoMode && storybook && hasVideoUrl(storybook)) {
+      setRewardOpen(true);
+    }
+  }, [isVideoMode, storybook]);
 
   const onToggleLanguage = () => {
     const cur = LANG_CYCLE.indexOf(lang as 'ko' | 'en');
@@ -218,6 +231,23 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         hasBgm={!!storybook.backgroundMusicUrl}
         autoPlayTts={settings.autoPlayTts}
         onToggleAutoPlay={() => updateSettings({ autoPlayTts: !settings.autoPlayTts })}
+      />
+
+      <RewardScreen
+        storybook={storybook}
+        open={rewardOpen}
+        autoOpenVideo={isVideoMode}
+        onClose={() => setRewardOpen(false)}
+        onGoHome={() => navigate(`/library/${storybook.id}`)}
+        onRereadFromStart={() => {
+          setRewardOpen(false);
+          setDirection(-1);
+          setPageIndex(0);
+        }}
+        onPlayGame={() => {
+          setRewardOpen(false);
+          navigate(`/viewer/${storybook.id}?mode=games&lang=${lang}`);
+        }}
       />
     </div>
   );
