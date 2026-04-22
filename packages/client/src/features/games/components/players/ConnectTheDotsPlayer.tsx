@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/Button';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { ConnectTheDotsData, ConnectTheDotsItem } from '@tangobook/shared';
@@ -7,6 +8,7 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { phonicsApi } from '@/features/phonics/api/phonics.api';
+import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 
 const DOT_RADIUS_PX = 24;
 
@@ -32,6 +34,30 @@ export function ConnectTheDotsPlayer({
 
   const overlayRef = useRef<HTMLDivElement>(null);
   const { playCorrectSequence, praiseVisible } = useGameAudio();
+
+  // 뷰어 URL의 ?lang을 읽어 어느 언어로 단어를 읽어줄지 결정
+  const [searchParams] = useSearchParams();
+  const viewerLang: 'ko' | 'en' = searchParams.get('lang') === 'en' ? 'en' : 'ko';
+
+  // storybook을 fetch해 key_objects의 korean 이름 조회 (영어 objectName → 한글 단어 매핑)
+  const { data: storybook } = useStorybook(storybookId);
+
+  // 현재 아이템의 objectName(영어)으로부터 viewerLang에 맞는 단어 + 언어 라이브러리 리턴
+  const resolveSpeakTarget = useCallback(
+    (englishName: string | undefined): { text: string; language: 'korean' | 'english' } | null => {
+      if (!englishName) return null;
+      const en = englishName.trim();
+      if (!en) return null;
+      if (viewerLang === 'en') return { text: en, language: 'english' };
+      // ko: key_objects에서 한글 이름 찾기. 없으면 vocabulary에서 시도. 둘 다 없으면 영어 fallback.
+      const ko =
+        storybook?.key_objects?.find((k) => k.name === en)?.korean?.trim() ||
+        storybook?.educational_content?.vocabulary?.find((v) => v.word === en)?.korean?.trim();
+      if (ko) return { text: ko, language: 'korean' };
+      return { text: en, language: 'english' };
+    },
+    [viewerLang, storybook]
+  );
 
   // 글로벌 pointerup으로 드래그 종료 감지 (점에서 손 떼면 드래그 풀림)
   useEffect(() => {
@@ -80,15 +106,14 @@ export function ConnectTheDotsPlayer({
         // 단어 음원을 미리 만들어 playCorrectSequence의 ttsUrl로 통합 (중간 컷 방지)
         (async () => {
           let wordAudioUrl: string | undefined;
-          const name = currentItem.objectName?.trim();
-          if (name) {
+          const target = resolveSpeakTarget(currentItem.objectName);
+          if (target) {
             try {
-              const isKorean = /[가-힣]/.test(name);
               const { audioUrl } = await phonicsApi.concatPhonicsAudio({
-                text: name,
+                text: target.text,
                 storybookId,
-                identifier: `dot-${isKorean ? 'ko' : 'en'}-${encodeURIComponent(name)}`,
-                language: isKorean ? 'korean' : 'english',
+                identifier: `dot-${target.language === 'korean' ? 'ko' : 'en'}-${encodeURIComponent(target.text)}`,
+                language: target.language,
               });
               wordAudioUrl = audioUrl;
             } catch {
@@ -147,6 +172,7 @@ export function ConnectTheDotsPlayer({
       onComplete,
       playCorrectSequence,
       systemSounds,
+      resolveSpeakTarget,
     ]
   );
 
