@@ -4,7 +4,7 @@ import { useStorybook } from '@/features/storybook';
 import { Mascot } from '@/components/Mascot';
 import { StateScreen } from '@/components/StateScreen';
 import { cn } from '@/lib/cn';
-import { hasVideoUrl, type LangCode } from '@/lib/storybook-accessors';
+import { hasVideoUrl, getPrimaryVideoId, type LangCode } from '@/lib/storybook-accessors';
 import { useViewerSettings, type ViewerSettings } from '../hooks/useViewerSettings';
 import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { getPageTtsUrl } from '../lib/page-text';
@@ -92,11 +92,20 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   );
 
   // 페이지 변경 시 자동 TTS 재생 (iOS에선 첫 유저 제스처 전 무음 차단될 수 있지만 catch로 무시)
+  // `mode=video|games` 또는 reward 화면이 열렸을 땐 TTS 재생하지 않음 (YouTube·게임 화면과 겹치지 않게).
   useEffect(() => {
     if (!currentTtsUrl) return;
     if (rewardOpen) return;
+    if (mode === 'video' || mode === 'games') return;
     audio.playTts(currentTtsUrl);
-  }, [currentTtsUrl, rewardOpen]);
+  }, [currentTtsUrl, rewardOpen, mode]);
+
+  // RewardScreen/영상/게임 모드로 전환될 때 진행 중이던 TTS 즉시 정지
+  useEffect(() => {
+    if (rewardOpen || mode === 'video' || mode === 'games') {
+      audio.stopTts();
+    }
+  }, [rewardOpen, mode]);
 
   // 다음 5페이지 이미지·TTS 미리 버퍼링 (페이지 넘기기 딜레이 제거)
   const PRELOAD_AHEAD = 5;
@@ -143,13 +152,18 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     else audio.playTts(currentTtsUrl);
   };
 
-  // `?mode=video` 직접 진입 처리: 영상 있으면 reward 오픈 → 모달 자동
+  // `?mode=video` 직접 진입: iframe 임베드가 환경에 따라 막히므로 새 탭으로 YouTube 열고 이전 페이지로 복귀
   const isVideoMode = mode === 'video';
   useEffect(() => {
-    if (isVideoMode && storybook && hasVideoUrl(storybook)) {
-      setRewardOpen(true);
+    if (!isVideoMode || !storybook) return;
+    if (!hasVideoUrl(storybook)) return;
+    const vid = getPrimaryVideoId(storybook);
+    if (vid) {
+      window.open(`https://www.youtube.com/watch?v=${vid}`, '_blank', 'noopener,noreferrer');
+      // 영상 탭 오픈 후 viewer는 BookDetail로 돌려보냄
+      navigate(`/library/${storybookId}`, { replace: true });
     }
-  }, [isVideoMode, storybook]);
+  }, [isVideoMode, storybook, storybookId, navigate]);
 
   const onToggleLanguage = () => {
     const cur = LANG_CYCLE.indexOf(lang as 'ko' | 'en');
