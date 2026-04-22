@@ -1,4 +1,5 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, type ReactNode } from 'react';
+import { motion } from 'framer-motion';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { VocabularyMatchingData, VocabularyMatchingItem } from '@tangobook/shared';
 import { shuffle } from '../../utils/shuffle';
@@ -13,6 +14,56 @@ interface CardState {
   pairId: string;
   isFlipped: boolean;
   isMatched: boolean;
+}
+
+interface FlipCardProps {
+  flipped: boolean;
+  matched: boolean;
+  frontContent: ReactNode;
+  onClick: () => void;
+  disabled?: boolean;
+}
+
+function FlipCard({ flipped, matched, frontContent, onClick, disabled }: FlipCardProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled || matched}
+      className="relative w-full aspect-square"
+      style={{ perspective: '1000px' }}
+    >
+      <motion.div
+        animate={{
+          rotateY: flipped || matched ? 180 : 0,
+          opacity: matched ? 0 : 1,
+          scale: matched ? 1.1 : 1,
+        }}
+        transition={{
+          rotateY: { type: 'spring', stiffness: 260, damping: 20 },
+          opacity: { duration: 0.6, delay: matched ? 0.6 : 0 },
+          scale: { duration: 0.4 },
+        }}
+        className="relative w-full h-full"
+        style={{ transformStyle: 'preserve-3d' }}
+      >
+        {/* 뒷면 */}
+        <div
+          className="absolute inset-0 flex items-center justify-center rounded-md shadow-card bg-gradient-to-br from-coral-400 to-coral-500"
+          style={{ backfaceVisibility: 'hidden' }}
+        >
+          <span className="text-5xl opacity-30">?</span>
+        </div>
+        {/* 앞면 */}
+        <div
+          className="absolute inset-0 flex flex-col items-center justify-center rounded-md shadow-card bg-white text-ink-900 font-black p-2"
+          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+        >
+          {frontContent}
+        </div>
+      </motion.div>
+    </button>
+  );
 }
 
 export function VocabularyMatchingPlayer({
@@ -117,7 +168,7 @@ export function VocabularyMatchingPlayer({
       <PraiseOverlay visible={praiseVisible} />
       <div className="flex flex-col gap-4 sm:gap-6 w-full">
         {/* 헤더 */}
-        <div className="flex items-center justify-center gap-4 text-sm text-slate-600 dark:text-slate-300">
+        <div className="flex items-center justify-center gap-4 text-sm text-ink-700 dark:text-peach-200">
           <span>
             매칭: {matches}/{items.length}
           </span>
@@ -129,41 +180,35 @@ export function VocabularyMatchingPlayer({
           className="grid gap-2 sm:gap-3"
           style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
         >
-          {cards.map((card) => (
-            <button
-              key={card.id}
-              onClick={() => handleCardClick(card.id)}
-              disabled={card.isMatched}
-              className={`relative aspect-square rounded-xl border-2 transition-all duration-300 ${
-                card.isMatched
-                  ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-300 dark:border-emerald-700 opacity-60'
-                  : card.isFlipped
-                    ? 'bg-white dark:bg-slate-700 border-violet-400 dark:border-violet-500 shadow-lg'
-                    : 'bg-violet-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-violet-300 hover:shadow-md cursor-pointer'
-              }`}
-            >
-              {card.isFlipped || card.isMatched ? (
-                <div className="flex flex-col items-center justify-center h-full p-2">
-                  {card.imageUrl ? (
-                    <img
-                      src={card.imageUrl}
-                      alt={card.content}
-                      className="w-full h-3/4 object-contain rounded-lg"
-                    />
-                  ) : null}
-                  <span
-                    className={`text-xs sm:text-sm font-medium mt-1 ${card.imageUrl ? '' : 'text-base sm:text-lg'} text-slate-800 dark:text-slate-100`}
-                  >
-                    {card.content}
-                  </span>
-                </div>
-              ) : (
-                <div className="flex items-center justify-center h-full">
-                  <span className="text-2xl sm:text-3xl">?</span>
-                </div>
-              )}
-            </button>
-          ))}
+          {cards.map((card) => {
+            const front = card.imageUrl ? (
+              <>
+                <img
+                  src={card.imageUrl}
+                  alt={card.content}
+                  className="w-full h-3/4 object-contain rounded-md"
+                />
+                <span className="text-xs sm:text-sm font-bold mt-1 text-ink-900 truncate max-w-full px-1">
+                  {card.content}
+                </span>
+              </>
+            ) : (
+              <span className="text-base sm:text-lg font-black text-ink-900 text-center px-1">
+                {card.content}
+              </span>
+            );
+
+            return (
+              <FlipCard
+                key={card.id}
+                flipped={card.isFlipped}
+                matched={card.isMatched}
+                frontContent={front}
+                onClick={() => handleCardClick(card.id)}
+                disabled={isChecking}
+              />
+            );
+          })}
         </div>
       </div>
     </GamePlayerLayout>
