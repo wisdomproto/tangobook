@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { Button } from '@/components/Button';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { ConnectTheDotsData, ConnectTheDotsItem } from '@tangobook/shared';
@@ -8,7 +8,7 @@ import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { phonicsApi } from '@/features/phonics/api/phonics.api';
 
-const DOT_RADIUS_PX = 18;
+const DOT_RADIUS_PX = 24;
 
 export function ConnectTheDotsPlayer({
   storybookId,
@@ -23,13 +23,26 @@ export function ConnectTheDotsPlayer({
   const [itemIdx, setItemIdx] = useState(0);
   const [nextOrder, setNextOrder] = useState(1);
   const [connectedUpTo, setConnectedUpTo] = useState(0);
+  const [returning, setReturning] = useState(false); // 모든 점 찍은 후 첫 점 복귀 단계
   const [wrongTap, setWrongTap] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [showImage, setShowImage] = useState(false);
   const [completedItems, setCompletedItems] = useState(0);
+  const [isPressing, setIsPressing] = useState(false);
 
   const overlayRef = useRef<HTMLDivElement>(null);
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+
+  // 글로벌 pointerup으로 드래그 종료 감지 (점에서 손 떼면 드래그 풀림)
+  useEffect(() => {
+    const up = () => setIsPressing(false);
+    window.addEventListener('pointerup', up);
+    window.addEventListener('pointercancel', up);
+    return () => {
+      window.removeEventListener('pointerup', up);
+      window.removeEventListener('pointercancel', up);
+    };
+  }, []);
 
   // 정답 시 objectName을 한글(음절 연결) 또는 영어(단어 음원)로 읽어줌.
   // phonics-library concat API가 두 언어 다 커버. 실패/미지원 시 조용히 통과.
@@ -61,7 +74,7 @@ export function ConnectTheDotsPlayer({
       <GamePlayerLayout maxWidth="lg" onBack={onBack}>
         <div className="text-center py-16">
           <div className="text-5xl mb-4">🔢</div>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-lg text-ink-900 dark:text-peach-200">
             점이 배치된 핵심단어가 없습니다. 핵심사물 탭에서 점을 먼저 등록해주세요.
           </p>
         </div>
@@ -72,18 +85,20 @@ export function ConnectTheDotsPlayer({
   const sortedKps = [...currentItem.keypoints].sort((a, b) => a.order - b.order);
   const totalDots = sortedKps.length;
 
-  const handleDotClick = (order: number) => {
-    if (completed) return;
-    if (order === nextOrder) {
-      const newConnected = connectedUpTo + 1;
-      setConnectedUpTo(newConnected);
-      setNextOrder(order + 1);
-      setWrongTap(false);
+  const handleDotHit = useCallback(
+    (order: number) => {
+      if (completed) return;
 
-      if (newConnected === totalDots) {
+      // 복귀 단계: 첫 점(order=1)에 다시 닿아야 마무리
+      if (returning) {
+        if (order !== 1) {
+          setWrongTap(true);
+          setTimeout(() => setWrongTap(false), 500);
+          return;
+        }
+        // closed loop 완성
         setCompleted(true);
         setTimeout(() => setShowImage(true), 300);
-        // 이미지 공개 직후 단어 음성 재생 — 아이가 그림과 단어를 함께 학습
         setTimeout(() => speakObjectName(currentItem.objectName), 700);
         playCorrectSequence({
           systemSounds,
@@ -97,16 +112,49 @@ export function ConnectTheDotsPlayer({
               setNextOrder(1);
               setConnectedUpTo(0);
               setCompleted(false);
+              setReturning(false);
               setShowImage(false);
             }
           },
         });
+        return;
       }
-    } else {
-      setWrongTap(true);
-      setTimeout(() => setWrongTap(false), 500);
-    }
-  };
+
+      // 일반 진행: 순서 맞는 점에 닿으면 다음
+      if (order !== nextOrder) {
+        setWrongTap(true);
+        setTimeout(() => setWrongTap(false), 500);
+        return;
+      }
+
+      const newConnected = connectedUpTo + 1;
+      setConnectedUpTo(newConnected);
+      setWrongTap(false);
+
+      if (newConnected === totalDots) {
+        // 모든 점 연결 완료 → 첫 점 복귀 단계 돌입
+        setReturning(true);
+        setNextOrder(1);
+      } else {
+        setNextOrder(order + 1);
+      }
+    },
+    [
+      completed,
+      returning,
+      nextOrder,
+      connectedUpTo,
+      totalDots,
+      currentItem,
+      completedItems,
+      itemIdx,
+      items.length,
+      onComplete,
+      playCorrectSequence,
+      speakObjectName,
+      systemSounds,
+    ]
+  );
 
   return (
     <GamePlayerLayout maxWidth="2xl" onBack={onBack}>
@@ -116,19 +164,22 @@ export function ConnectTheDotsPlayer({
         <GameProgressBar current={itemIdx} total={items.length} score={completedItems} />
 
         {/* 안내 */}
-        {!completed && (
-          <p className="text-sm text-slate-600 dark:text-slate-300">
-            <span className="font-semibold text-coral-500">{nextOrder}번</span> 점을 찾아 눌러주세요
+        {!completed && !returning && (
+          <p className="text-xl font-bold text-ink-900 dark:text-peach-200">
+            점을 <span className="text-coral-500">순서대로</span> 눌러서 이어주세요
+          </p>
+        )}
+        {!completed && returning && (
+          <p className="text-xl font-bold text-coral-500 animate-pulse">
+            마지막으로 <span className="text-coral-600">첫 점</span>으로 돌아오세요!
           </p>
         )}
         {wrongTap && (
-          <p className="text-xs text-red-500 animate-pulse">
-            순서가 아니에요! {nextOrder}번을 찾아보세요
-          </p>
+          <p className="text-lg text-danger font-bold animate-pulse">아직 이 점 차례가 아니에요!</p>
         )}
 
         {/* 게임 영역 */}
-        <div className="relative inline-block select-none rounded-xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 w-full">
+        <div className="relative inline-block select-none rounded-xl overflow-hidden border-2 border-ink-100 dark:border-slate-700 w-full">
           <img
             src={currentItem.originalImageUrl}
             alt={currentItem.objectName ?? `Page ${currentItem.pageNumber}`}
@@ -137,43 +188,75 @@ export function ConnectTheDotsPlayer({
             draggable={false}
           />
 
-          <div ref={overlayRef} className="absolute inset-0" style={{ touchAction: 'none' }}>
+          <div
+            ref={overlayRef}
+            className="absolute inset-0"
+            style={{ touchAction: 'none' }}
+            onPointerDown={() => setIsPressing(true)}
+          >
             <svg
               className="absolute inset-0 w-full h-full pointer-events-none"
               viewBox="0 0 1 1"
               preserveAspectRatio="none"
             >
+              {/* 연결된 선 (1→2, 2→3, ... upTo connectedUpTo) */}
               {sortedKps.map(
                 (kp, i) =>
                   i > 0 &&
                   i < connectedUpTo && (
                     <line
-                      key={i}
+                      key={`edge-${i}`}
                       x1={sortedKps[i - 1].x}
                       y1={sortedKps[i - 1].y}
                       x2={kp.x}
                       y2={kp.y}
                       stroke="#E84B2A"
-                      strokeWidth="0.004"
+                      strokeWidth="0.005"
                       strokeLinecap="round"
                     />
                   )
+              )}
+              {/* 닫힘 선 (마지막 점 → 첫 점) — 완성 시에만 */}
+              {completed && totalDots >= 2 && (
+                <line
+                  x1={sortedKps[totalDots - 1].x}
+                  y1={sortedKps[totalDots - 1].y}
+                  x2={sortedKps[0].x}
+                  y2={sortedKps[0].y}
+                  stroke="#E84B2A"
+                  strokeWidth="0.005"
+                  strokeLinecap="round"
+                />
               )}
             </svg>
 
             {sortedKps.map((kp, i) => {
               const isConnected = kp.order <= connectedUpTo;
-              const isNext = kp.order === nextOrder;
+              // 다음 목표: 일반 단계에선 nextOrder, 복귀 단계에선 첫 점(order=1)
+              const isNext = returning ? kp.order === 1 : kp.order === nextOrder && !completed;
               return (
                 <button
                   key={i}
-                  onClick={() => handleDotClick(kp.order)}
-                  className={`absolute rounded-full flex items-center justify-center text-xs font-bold shadow transition-all ${
-                    isConnected
-                      ? 'bg-coral-600 text-white'
-                      : isNext
-                        ? 'bg-amber-400 text-amber-900 animate-pulse ring-2 ring-amber-300'
-                        : 'bg-white text-slate-600 border-2 border-slate-300 hover:border-coral-400'
+                  onClick={() => handleDotHit(kp.order)}
+                  onPointerDown={(e) => {
+                    // 펜처럼 드래그 가능하도록 pointer capture 해제
+                    try {
+                      e.currentTarget.releasePointerCapture(e.pointerId);
+                    } catch {
+                      /* no-op */
+                    }
+                    setIsPressing(true);
+                    handleDotHit(kp.order);
+                  }}
+                  onPointerEnter={() => {
+                    if (isPressing) handleDotHit(kp.order);
+                  }}
+                  className={`absolute rounded-full shadow transition-all ${
+                    isNext
+                      ? 'bg-coral-500 ring-4 ring-coral-300 animate-pulse scale-125'
+                      : isConnected
+                        ? 'bg-coral-600'
+                        : 'bg-ink-900 hover:bg-coral-400'
                   }`}
                   style={{
                     left: `${kp.x * 100}%`,
@@ -182,9 +265,8 @@ export function ConnectTheDotsPlayer({
                     height: DOT_RADIUS_PX * 2,
                     transform: 'translate(-50%, -50%)',
                   }}
-                >
-                  {kp.order}
-                </button>
+                  aria-label={`점 ${kp.order}`}
+                />
               );
             })}
           </div>
@@ -194,9 +276,7 @@ export function ConnectTheDotsPlayer({
         {completed && (
           <div className="text-center">
             <div className="text-3xl sm:text-4xl mb-1">🎉</div>
-            <p className="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100">
-              완성!
-            </p>
+            <p className="text-xl sm:text-lg font-bold text-ink-900 dark:text-peach-200">완성!</p>
           </div>
         )}
       </div>

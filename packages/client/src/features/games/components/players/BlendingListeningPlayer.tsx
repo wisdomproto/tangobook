@@ -112,10 +112,10 @@ export function BlendingListeningPlayer({
 
         {/* 블렌딩 + 안내 */}
         <div className="text-center space-y-2">
-          <span className="inline-block px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700 text-sm font-black text-amber-800 dark:text-amber-300">
+          <span className="inline-block px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700 text-lg font-black text-amber-800 dark:text-amber-300">
             {current.blend}
           </span>
-          <p className="text-sm sm:text-base font-bold text-slate-700 dark:text-slate-200">
+          <p className="text-lg sm:text-xl font-bold text-ink-900 dark:text-peach-200">
             듣고 맞는 그림을 골라요!
           </p>
         </div>
@@ -123,7 +123,7 @@ export function BlendingListeningPlayer({
         {/* 다시 듣기 */}
         <button
           onClick={() => playAudio(current.targetTtsUrl)}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-coral-100 dark:bg-coral-500/20 text-coral-600 dark:text-peach-200 text-sm font-bold hover:bg-coral-200 dark:hover:bg-coral-500/30 transition-colors"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-coral-100 dark:bg-coral-500/20 text-coral-600 dark:text-peach-200 text-lg font-bold hover:bg-coral-200 dark:hover:bg-coral-500/30 transition-colors"
         >
           <span className="text-lg">🔊</span> 다시 듣기
         </button>
@@ -173,7 +173,7 @@ function ImageCard({
   showAnswer: boolean;
   onClick: () => void;
 }) {
-  let borderCls = 'border-slate-200 dark:border-slate-700';
+  let borderCls = 'border-ink-100 dark:border-slate-700';
   let extraCls = '';
   if (feedback === 'correct') {
     borderCls = 'border-success dark:border-success';
@@ -187,14 +187,14 @@ function ImageCard({
     <button
       onClick={onClick}
       disabled={!!feedback}
-      className={`relative rounded-2xl overflow-hidden bg-white dark:bg-slate-800 transition-all duration-200 ${borderCls} ${extraCls}`}
+      className={`relative rounded-2xl overflow-hidden bg-white dark:bg-darkbg transition-all duration-200 ${borderCls} ${extraCls}`}
       style={{ borderWidth: '3px' }}
     >
       <div className="aspect-square overflow-hidden">
         <img src={imageUrl} alt={word} className="w-full h-full object-cover" />
       </div>
       <div className="px-3 py-2 text-center">
-        <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{word}</span>
+        <span className="text-lg font-bold text-ink-900 dark:text-peach-200">{word}</span>
       </div>
       {feedback === 'correct' && (
         <div className="absolute top-2 right-2 w-8 h-8 rounded-full bg-success flex items-center justify-center text-white text-lg shadow-md">

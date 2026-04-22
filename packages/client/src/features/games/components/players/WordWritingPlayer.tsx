@@ -300,15 +300,15 @@ export function WordWritingPlayer({ gameData, onComplete, onBack, systemSounds }
             />
           )}
           <div className="text-center">
-            <p className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100">
+            <p className="text-xl sm:text-2xl font-bold text-ink-900 dark:text-peach-200">
               {currentItem.displayWord}
             </p>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">따라 써보세요</p>
+            <p className="text-base sm:text-lg text-ink-900 dark:text-peach-200">따라 써보세요</p>
           </div>
         </div>
 
         {/* Canvas */}
-        <div className="w-full border-2 border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden bg-white">
+        <div className="w-full border-2 border-ink-100 dark:border-slate-700 rounded-xl overflow-hidden bg-white">
           <canvas
             ref={canvasRef}
             width={CANVAS_W}
@@ -328,10 +328,10 @@ export function WordWritingPlayer({ gameData, onComplete, onBack, systemSounds }
             <div className="text-3xl sm:text-4xl mb-1">
               {currentScore >= 80 ? '🎉' : currentScore >= 50 ? '👍' : '💪'}
             </div>
-            <p className="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100">
+            <p className="text-xl sm:text-xl font-bold text-ink-900 dark:text-peach-200">
               정확도: {currentScore}%
             </p>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-base sm:text-lg text-ink-900 dark:text-peach-200">
               {currentScore >= 80
                 ? '잘했어요!'
                 : currentScore >= 50

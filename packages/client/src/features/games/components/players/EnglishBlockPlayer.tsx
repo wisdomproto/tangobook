@@ -363,9 +363,9 @@ export function EnglishBlockPlayer({
             onClick={handleCheck}
             disabled={roundCorrect}
             className={cn(
-              'px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-md text-base sm:text-lg font-bold transition-colors',
+              'px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-md text-xl sm:text-xl font-bold transition-colors',
               roundCorrect
-                ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
+                ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
                 : 'bg-coral-500 hover:bg-coral-600 text-white shadow-pop'
             )}
           >
@@ -373,7 +373,7 @@ export function EnglishBlockPlayer({
           </button>
           <button
             onClick={handleNext}
-            className="px-6 py-2.5 sm:px-10 sm:py-3.5 bg-peach-500 hover:bg-peach-300 text-white rounded-md text-base sm:text-lg font-bold transition-colors shadow-card"
+            className="px-6 py-2.5 sm:px-10 sm:py-3.5 bg-peach-500 hover:bg-peach-300 text-white rounded-md text-xl sm:text-xl font-bold transition-colors shadow-card"
           >
             {currentIndex + 1 < items.length ? '다음 →' : '결과 보기'}
           </button>
@@ -382,20 +382,18 @@ export function EnglishBlockPlayer({
 
       <div className="shrink-0 px-3 sm:px-6 py-4 sm:py-6 flex flex-col sm:flex-row gap-4 sm:gap-6 bg-white/40 backdrop-blur-sm">
         <div className="flex-1 min-w-0">
-          <p className="text-sm sm:text-base font-black text-ink-700 mb-2 sm:mb-3 ml-1">
-            Consonants
-          </p>
+          <p className="text-lg sm:text-xl font-black text-ink-900 mb-2 sm:mb-3 ml-1">Consonants</p>
           <div className="flex flex-wrap gap-1.5 sm:gap-2">{ALL_CONSONANTS.map(renderBlock)}</div>
         </div>
         <div className="shrink-0">
-          <p className="text-sm sm:text-base font-black text-ink-700 mb-2 sm:mb-3 ml-1">Vowels</p>
+          <p className="text-lg sm:text-xl font-black text-ink-900 mb-2 sm:mb-3 ml-1">Vowels</p>
           <div className="flex flex-wrap gap-1.5 sm:gap-2">{ALL_VOWELS.map(renderBlock)}</div>
         </div>
       </div>
 
       <button
         onClick={onBack}
-        className="shrink-0 py-3 text-sm text-ink-500 hover:text-ink-900 transition-colors text-center bg-white/50"
+        className="shrink-0 py-3 text-lg text-ink-900 hover:text-ink-900 transition-colors text-center bg-white/50"
       >
         ← 돌아가기
       </button>

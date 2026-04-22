@@ -141,7 +141,7 @@ export function WordListeningPlayer({
 
         {/* 안내 + 듣기 버튼 */}
         <div className="text-center space-y-3">
-          <p className="text-sm sm:text-base font-bold text-ink-700 dark:text-peach-200">
+          <p className="text-lg sm:text-xl font-bold text-ink-900 dark:text-peach-200">
             소리를 듣고 알맞은 그림을 골라보세요!
           </p>
           <button
@@ -195,7 +195,7 @@ export function WordListeningPlayer({
                     <span className="absolute top-2 right-2 bg-success text-white rounded-full w-8 h-8 flex items-center justify-center font-black text-xl shadow-pop">
                       ✓
                     </span>
-                    <div className="absolute inset-x-0 bottom-0 bg-success/90 text-white text-center py-2 text-sm font-bold">
+                    <div className="absolute inset-x-0 bottom-0 bg-success/90 text-white text-center py-2 text-lg font-bold">
                       {opt.word}
                     </div>
                   </>

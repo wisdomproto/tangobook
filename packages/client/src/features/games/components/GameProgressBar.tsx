@@ -18,7 +18,7 @@ export function GameProgressBar({ current, total, score }: GameProgressBarProps)
   return (
     <div className="flex items-center gap-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-soft">
       {compact ? (
-        <span className="font-black text-ink-900 text-sm">
+        <span className="font-black text-ink-900 text-lg">
           {current + 1} / {total}
         </span>
       ) : (
@@ -38,7 +38,7 @@ export function GameProgressBar({ current, total, score }: GameProgressBarProps)
           ))}
         </div>
       )}
-      <span className="font-black text-ink-900 text-sm flex items-center gap-1">
+      <span className="font-black text-ink-900 text-lg flex items-center gap-1">
         <span>⭐</span>
         <span>{score}</span>
       </span>

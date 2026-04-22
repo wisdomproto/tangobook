@@ -63,7 +63,7 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: 
   if (!current) {
     return (
       <GamePlayerLayout maxWidth="lg" onBack={onBack}>
-        <p className="text-slate-500 text-center py-16">라운드 데이터가 없습니다.</p>
+        <p className="text-ink-900 text-center py-16 text-xl">라운드 데이터가 없습니다.</p>
       </GamePlayerLayout>
     );
   }
@@ -77,7 +77,7 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: 
 
         {/* 질문 */}
         <div className="text-center">
-          <p className="text-sm sm:text-base text-ink-900 dark:text-peach-200 mb-2 font-bold">
+          <p className="text-lg sm:text-xl text-ink-900 dark:text-peach-200 mb-2 font-bold">
             카테고리: <span className="text-coral-500">{current.category}</span>
           </p>
           <h3 className="text-2xl sm:text-3xl font-black text-ink-900 dark:text-peach-200">
@@ -129,7 +129,7 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: 
         {/* 설명 */}
         {selectedIdx !== null && current.explanation && (
           <div className="text-center px-4">
-            <p className="text-base sm:text-lg text-ink-900 dark:text-peach-200 bg-white/90 dark:bg-slate-800 rounded-lg px-5 py-3 inline-block shadow-soft font-bold">
+            <p className="text-xl sm:text-xl text-ink-900 dark:text-peach-200 bg-white/90 dark:bg-darkbg rounded-lg px-5 py-3 inline-block shadow-soft font-bold">
               {current.explanation}
             </p>
           </div>

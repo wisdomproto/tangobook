@@ -137,7 +137,7 @@ export function StoryImagePlayer({
         <GameProgressBar current={currentIdx} total={rounds.length} score={score} />
 
         <div className="text-center space-y-3">
-          <p className="text-sm sm:text-base font-bold text-ink-700 dark:text-peach-200">
+          <p className="text-lg sm:text-xl font-bold text-ink-900 dark:text-peach-200">
             이야기를 듣고 어울리는 그림을 골라보세요!
           </p>
           <button
@@ -174,7 +174,7 @@ export function StoryImagePlayer({
         </div>
 
         {/* 자막 (참고용, 작게) */}
-        <p className="text-xs sm:text-sm text-ink-500 dark:text-peach-200/60 italic text-center max-w-xl">
+        <p className="text-base sm:text-lg text-ink-900 dark:text-peach-200/60 italic text-center max-w-xl">
           {current.text}
         </p>
       </div>

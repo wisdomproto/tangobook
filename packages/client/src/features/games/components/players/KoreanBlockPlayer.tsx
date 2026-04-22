@@ -380,7 +380,7 @@ export function KoreanBlockPlayer({
                         : roundCorrect
                           ? 'text-success'
                           : 'text-ink-900'
-                      : 'text-ink-300'
+                      : 'text-ink-900'
                   )}
                 >
                   {composedPreview[sylIdx] || '?'}
@@ -391,13 +391,13 @@ export function KoreanBlockPlayer({
 
           <div className="flex flex-row gap-2 sm:gap-3 overflow-x-auto min-w-0">
             <div className="rounded-lg border-2 border-peach-200 bg-white/60 p-2 sm:p-3 shrink-0">
-              <p className="text-sm font-bold text-peach-500 text-center mb-2">자음</p>
+              <p className="text-lg font-bold text-peach-500 text-center mb-2">자음</p>
               <div className="grid grid-cols-4 gap-1.5 justify-items-center">
                 {ALL_CONSONANTS.map(renderBlock)}
               </div>
             </div>
             <div className="rounded-lg border-2 border-coral-200 bg-white/60 p-2 sm:p-3 shrink-0">
-              <p className="text-sm font-bold text-coral-500 text-center mb-2">모음</p>
+              <p className="text-lg font-bold text-coral-500 text-center mb-2">모음</p>
               <div className="grid grid-cols-4 gap-1.5 justify-items-center">
                 {ALL_VOWELS.map(renderBlock)}
               </div>
@@ -412,7 +412,7 @@ export function KoreanBlockPlayer({
             className={cn(
               'px-8 py-3 sm:px-10 sm:py-3 rounded-md text-lg sm:text-xl font-bold transition-colors',
               roundCorrect
-                ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
+                ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
                 : 'bg-coral-500 hover:bg-coral-600 text-white shadow-pop'
             )}
           >
@@ -423,7 +423,7 @@ export function KoreanBlockPlayer({
 
       <button
         onClick={onBack}
-        className="shrink-0 py-3 text-sm text-ink-500 hover:text-ink-900 transition-colors text-center bg-white/50"
+        className="shrink-0 py-3 text-lg text-ink-900 hover:text-ink-900 transition-colors text-center bg-white/50"
       >
         ← 돌아가기
       </button>

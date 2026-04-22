@@ -202,7 +202,7 @@ export function LineMatchingPlayer({
       <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">
         <GameProgressBar current={matched.length} total={items.length} score={matched.length} />
 
-        <p className="text-sm sm:text-base font-bold text-ink-700 dark:text-peach-200 text-center">
+        <p className="text-lg sm:text-xl font-bold text-ink-900 dark:text-peach-200 text-center">
           그림과 단어를 짝지어 보세요!
         </p>
 
@@ -227,7 +227,7 @@ export function LineMatchingPlayer({
                     className="w-full h-full object-contain p-1 sm:p-2"
                   />
                   {isMatched(imageItemIdx) && (
-                    <span className="absolute top-1 right-1 bg-success text-white rounded-full w-7 h-7 flex items-center justify-center font-black text-sm shadow-pop">
+                    <span className="absolute top-1 right-1 bg-success text-white rounded-full w-7 h-7 flex items-center justify-center font-black text-lg shadow-pop">
                       ✓
                     </span>
                   )}
@@ -241,7 +241,7 @@ export function LineMatchingPlayer({
                 >
                   {wordItem.word}
                   {isMatched(wordItemIdx) && (
-                    <span className="absolute top-1 right-1 bg-success text-white rounded-full w-7 h-7 flex items-center justify-center font-black text-sm shadow-pop">
+                    <span className="absolute top-1 right-1 bg-success text-white rounded-full w-7 h-7 flex items-center justify-center font-black text-lg shadow-pop">
                       ✓
                     </span>
                   )}

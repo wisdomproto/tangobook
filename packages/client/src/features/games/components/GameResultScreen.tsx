@@ -84,9 +84,9 @@ export function GameResultScreen({ score, total, onRestart, onBack }: GameResult
       </div>
 
       <h1 className="mt-5 text-4xl font-black text-ink-900 font-display">게임 끝!</h1>
-      <p className="mt-3 text-2xl font-bold text-ink-700">
+      <p className="mt-3 text-2xl font-bold text-ink-900">
         <span className="text-coral-500">{displayCount}</span>
-        <span className="text-ink-500"> / {total}</span>
+        <span className="text-ink-900"> / {total}</span>
       </p>
 
       <div className="mt-8 flex gap-3">

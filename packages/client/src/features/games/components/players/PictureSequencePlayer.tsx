@@ -98,7 +98,9 @@ export function PictureSequencePlayer({
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">
         {/* 헤더 */}
-        <p className="text-sm text-slate-600 dark:text-slate-300">그림을 눌러 순서를 바꾸세요</p>
+        <p className="text-lg text-ink-900 dark:text-peach-200 font-bold">
+          그림을 눌러 순서를 바꾸세요
+        </p>
 
         {/* 이미지 순서 (2x2 그리드) */}
         <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full">
@@ -115,7 +117,7 @@ export function PictureSequencePlayer({
                 !checked
                   ? selectedIdx === idx
                     ? 'ring-4 ring-coral-400 border-coral-500 shadow-xl scale-[1.02] cursor-pointer'
-                    : 'cursor-pointer hover:shadow-lg border-slate-200 dark:border-slate-700'
+                    : 'cursor-pointer hover:shadow-lg border-ink-100 dark:border-slate-700'
                   : img.correctOrder === idx + 1
                     ? 'border-success dark:border-success'
                     : 'border-red-400 dark:border-red-600'
@@ -123,7 +125,7 @@ export function PictureSequencePlayer({
             >
               {/* 순서 번호 */}
               <div
-                className={`absolute top-2 left-2 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold z-10 ${
+                className={`absolute top-2 left-2 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-base sm:text-lg font-bold z-10 ${
                   checked
                     ? img.correctOrder === idx + 1
                       ? 'bg-success text-white'
@@ -144,13 +146,13 @@ export function PictureSequencePlayer({
               />
 
               {img.caption && (
-                <p className="text-xs sm:text-sm text-center py-1.5 sm:py-2 px-2 sm:px-3 bg-white text-slate-900 dark:bg-slate-800 dark:text-slate-100 font-medium">
+                <p className="text-base sm:text-lg text-center py-1.5 sm:py-2 px-2 sm:px-3 bg-white text-ink-900 dark:bg-darkbg dark:text-peach-200 font-bold">
                   {img.caption}
                 </p>
               )}
 
               {checked && img.correctOrder !== idx + 1 && (
-                <div className="absolute bottom-8 right-2 bg-danger text-white text-xs px-2 py-1 rounded-full font-medium">
+                <div className="absolute bottom-8 right-2 bg-danger text-white text-base px-2 py-1 rounded-full font-bold">
                   정답: {img.correctOrder}번
                 </div>
               )}
@@ -162,7 +164,7 @@ export function PictureSequencePlayer({
         <div className="flex items-center justify-center gap-4">
           {checked ? (
             <>
-              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
+              <p className="text-lg font-bold text-ink-900 dark:text-peach-200">
                 {score === images.length ? '모두 정답!' : `${score}/${images.length} 맞았어요`}
               </p>
               {score < images.length && (

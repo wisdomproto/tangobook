@@ -68,7 +68,7 @@ export function StorybookQuizPlayer({
   if (!current) {
     return (
       <GamePlayerLayout maxWidth="lg" onBack={onBack}>
-        <p className="text-slate-500 text-center py-16">문제가 없습니다.</p>
+        <p className="text-ink-900 text-center py-16 text-xl">문제가 없습니다.</p>
       </GamePlayerLayout>
     );
   }
@@ -98,7 +98,7 @@ export function StorybookQuizPlayer({
               } else if (oi === selectedAnswer && oi !== current.correctAnswer) {
                 style = 'bg-danger/10 border-danger text-danger shadow-md';
               } else {
-                style = 'bg-white/40 border-white/20 text-slate-400';
+                style = 'bg-white/40 border-white/20 text-ink-900';
               }
             }
 
@@ -107,7 +107,7 @@ export function StorybookQuizPlayer({
                 key={oi}
                 onClick={() => handleSelect(oi)}
                 disabled={selectedAnswer !== null}
-                className={`px-4 py-3 sm:px-6 sm:py-5 rounded-2xl border-2 text-base sm:text-lg font-semibold transition-all ${style}`}
+                className={`px-4 py-3 sm:px-6 sm:py-5 rounded-2xl border-2 text-xl sm:text-xl font-semibold transition-all ${style}`}
               >
                 {opt}
               </button>

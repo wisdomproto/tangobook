@@ -118,7 +118,7 @@ export function SpeakingPlayer({
           onBack={onBack}
         />
         {/* 말하기 전용 배지 — GameResultScreen은 score/total만 받으므로 별도 렌더 */}
-        <div className="mt-4 px-4 py-2 rounded-full bg-coral-100 text-coral-600 font-bold text-sm shadow-soft">
+        <div className="mt-4 px-4 py-2 rounded-full bg-coral-100 text-coral-600 font-bold text-lg shadow-soft">
           이 책에서 {progress.progress.wordsSpoken.length}개 단어를 말해봤어요! 🎉
         </div>
       </div>
@@ -135,7 +135,7 @@ export function SpeakingPlayer({
           {/* 라운드 숫자 인디케이터 — 도트 모드에서도 총 라운드 확인 가능하게 별도 렌더 */}
           <span
             data-testid="speaking-round-count"
-            className="font-black text-ink-900 text-sm bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-soft"
+            className="font-black text-ink-900 text-lg bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-soft"
           >
             {roundIdx + 1} / {rounds.length}
           </span>
@@ -164,7 +164,7 @@ export function SpeakingPlayer({
             <div data-testid="speaking-word" className="text-5xl font-black text-ink-900">
               {current.displayWord}
               {current.koreanMeaning && (
-                <div className="text-sm font-normal text-ink-500 mt-1">{current.koreanMeaning}</div>
+                <div className="text-lg font-normal text-ink-900 mt-1">{current.koreanMeaning}</div>
               )}
             </div>
           )}

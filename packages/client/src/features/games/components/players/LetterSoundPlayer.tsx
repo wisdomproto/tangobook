@@ -99,7 +99,7 @@ export function LetterSoundPlayer({ gameData, onComplete, onBack, systemSounds }
     }
     if (feedback === 'correct' && letter === current.targetLetter)
       return `${base} border-success bg-success/10 text-success dark:bg-success/20 dark:text-success scale-110`;
-    return `${base} border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-ink-900 dark:text-peach-200 hover:border-coral-400 hover:shadow-md cursor-pointer`;
+    return `${base} border-ink-100 dark:border-slate-600 bg-white dark:bg-darkbg text-ink-900 dark:text-peach-200 hover:border-coral-400 hover:shadow-md cursor-pointer`;
   };
 
   return (
@@ -110,7 +110,7 @@ export function LetterSoundPlayer({ gameData, onComplete, onBack, systemSounds }
 
         {/* 안내 + 듣기 버튼 */}
         <div className="text-center space-y-3">
-          <p className="text-sm sm:text-base font-bold text-slate-700 dark:text-slate-200">
+          <p className="text-lg sm:text-xl font-bold text-ink-900 dark:text-peach-200">
             어떤 알파벳의 소리일까요?
           </p>
           <button

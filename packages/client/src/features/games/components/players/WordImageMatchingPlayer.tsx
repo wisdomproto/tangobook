@@ -160,10 +160,10 @@ export function WordImageMatchingPlayer({
       <div ref={containerRef} className="relative space-y-4 w-full">
         <FeedbackOverlay kind="correct" visible={praiseVisible} />
         <div className="flex items-center justify-between px-1">
-          <span className="text-sm font-bold text-ink-900 dark:text-peach-200">
+          <span className="text-lg font-bold text-ink-900 dark:text-peach-200">
             {score} / {allItems.length}
           </span>
-          <span className="text-xs text-slate-400 dark:text-slate-500">
+          <span className="text-base text-ink-900 dark:text-peach-200">
             단어와 그림을 연결하세요
           </span>
         </div>
@@ -171,7 +171,7 @@ export function WordImageMatchingPlayer({
           {/* 왼쪽 */}
           <div className="flex flex-col items-center gap-3 w-[110px] sm:w-[140px]">
             <div className="px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700">
-              <span className="text-sm font-black text-amber-800 dark:text-amber-300">
+              <span className="text-lg font-black text-amber-800 dark:text-amber-300">
                 {left.blend}
               </span>
             </div>
@@ -203,10 +203,10 @@ export function WordImageMatchingPlayer({
               const isMatched = matchedWords.has(item.word);
               const isFb = feedbackWord === item.word || (isSelected && !!feedback);
               let cls =
-                'px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all select-none ';
+                'px-5 py-2.5 rounded-full text-lg font-bold border-2 transition-all select-none ';
               if (isMatched)
                 cls +=
-                  'bg-slate-100 dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-400 dark:text-slate-500 cursor-default';
+                  'bg-ink-100 dark:bg-slate-700 border-ink-100 dark:border-slate-600 text-ink-900 dark:text-peach-200 cursor-default';
               else if (isFb && feedback === 'correct')
                 cls +=
                   'bg-success/10 dark:bg-success/20 border-success text-success dark:text-success scale-105';
@@ -237,7 +237,7 @@ export function WordImageMatchingPlayer({
           {/* 오른쪽 */}
           <div className="flex flex-col items-center gap-3 w-[110px] sm:w-[140px]">
             <div className="px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700">
-              <span className="text-sm font-black text-amber-800 dark:text-amber-300">
+              <span className="text-lg font-black text-amber-800 dark:text-amber-300">
                 {right.blend}
               </span>
             </div>
@@ -278,7 +278,7 @@ export function WordImageMatchingPlayer({
             ) : null;
           })}
         </svg>
-        <p className="text-center text-xs text-slate-400 dark:text-slate-500">
+        <p className="text-center text-base text-ink-900 dark:text-peach-200">
           {!selectedWord && !selectedImage
             ? '단어를 선택한 다음 알맞은 그림을 눌러주세요'
             : selectedWord
@@ -321,13 +321,13 @@ function ImageCircle({
 
   return (
     <div className="relative">
-      <span className="absolute -left-4 -top-1 w-6 h-6 flex items-center justify-center rounded-full bg-amber-400 text-white text-xs font-bold shadow-sm z-10">
+      <span className="absolute -left-4 -top-1 w-6 h-6 flex items-center justify-center rounded-full bg-amber-400 text-white text-base font-bold shadow-sm z-10">
         {badge}
       </span>
       <div
         ref={refCb}
         onClick={onClick}
-        className={`w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden ring-[6px] cursor-pointer transition-all duration-200 bg-white dark:bg-slate-800 ${isMatched ? '' : ringColor} ${extra}`}
+        className={`w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden ring-[6px] cursor-pointer transition-all duration-200 bg-white dark:bg-darkbg ${isMatched ? '' : ringColor} ${extra}`}
       >
         <img src={item.imageUrl} alt={item.word} className="w-full h-full object-cover" />
       </div>

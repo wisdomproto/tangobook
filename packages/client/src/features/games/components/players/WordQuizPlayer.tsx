@@ -65,7 +65,7 @@ export function WordQuizPlayer({ gameData, onComplete, onBack, systemSounds }: G
   if (!current) {
     return (
       <GamePlayerLayout maxWidth="lg" onBack={onBack}>
-        <p className="text-ink-500 text-center py-16">문제가 없습니다.</p>
+        <p className="text-ink-900 text-center py-16 text-xl">문제가 없습니다.</p>
       </GamePlayerLayout>
     );
   }

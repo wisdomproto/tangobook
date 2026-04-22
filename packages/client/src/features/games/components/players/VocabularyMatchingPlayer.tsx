@@ -168,7 +168,7 @@ export function VocabularyMatchingPlayer({
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex flex-col gap-4 sm:gap-6 w-full">
         {/* 헤더 */}
-        <div className="flex items-center justify-center gap-4 text-sm text-ink-700 dark:text-peach-200">
+        <div className="flex items-center justify-center gap-4 text-lg text-ink-900 dark:text-peach-200 font-bold">
           <span>
             매칭: {matches}/{items.length}
           </span>
@@ -188,12 +188,12 @@ export function VocabularyMatchingPlayer({
                   alt={card.content}
                   className="w-full h-3/4 object-contain rounded-md"
                 />
-                <span className="text-xs sm:text-sm font-bold mt-1 text-ink-900 truncate max-w-full px-1">
+                <span className="text-base sm:text-lg font-bold mt-1 text-ink-900 truncate max-w-full px-1">
                   {card.content}
                 </span>
               </>
             ) : (
-              <span className="text-base sm:text-lg font-black text-ink-900 text-center px-1">
+              <span className="text-xl sm:text-xl font-black text-ink-900 text-center px-1">
                 {card.content}
               </span>
             );
