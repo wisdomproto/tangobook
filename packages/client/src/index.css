@@ -1,24 +1,92 @@
+/* Google Fonts — Nunito */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap');
+
+/* 학교안심둥근체 (우아한형제들 배민 CDN 또는 공식 eduFont CDN)
+   로컬 fallback 체인: Nunito → sans-serif
+   학교안심둥근체가 상업 무료라 공식 배포처 확인 후 교체 가능. MVP는 Google Fonts의 둥근 한글 대체로 'IBM Plex Sans KR' 사용 가능. */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;700&display=swap');
+
+:root {
+  /* Base */
+  --color-cream-50: #fff9f3;
+  --color-peach-100: #fff0e0;
+  --color-peach-200: #ffddbf;
+  --color-peach-300: #ffc19b;
+  --color-peach-500: #ff9a5a;
+  /* Coral */
+  --color-coral-100: #ffe4dc;
+  --color-coral-400: #ff7a59;
+  --color-coral-500: #ff5e3a;
+  --color-coral-600: #e84b2a;
+  /* Semantic */
+  --color-success: #5cc99f;
+  --color-info: #6baee8;
+  --color-warn: #ffc857;
+  --color-danger: #e75757; /* Tailwind 'danger' 토큰과 쌍 */
+  --color-fun: #a78bfa;
+  /* Ink */
+  --color-ink-900: #3a2b1f;
+  --color-ink-700: #6f5a48;
+  --color-ink-500: #9a8474;
+  /* Dark */
+  --color-dark-bg: #1f1611;
+  --color-dark-text: #fff0e0;
+}
+
+/* prefers-reduced-motion — Lottie/애니 끄고 fade만 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
+    font-family: 'Nunito', 'IBM Plex Sans KR', 'ui-sans-serif', system-ui, sans-serif;
+    color: var(--color-ink-900);
+    background: var(--color-cream-50);
     @apply bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200;
   }
 }
 
 /* 자연 배경 애니메이션 (파닉스 뷰어) */
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
 }
 @keyframes drift {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(6px, -8px) rotate(5deg); }
-  66% { transform: translate(-4px, -4px) rotate(-3deg); }
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(6px, -8px) rotate(5deg);
+  }
+  66% {
+    transform: translate(-4px, -4px) rotate(-3deg);
+  }
 }
 @keyframes twinkle {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 0.15; transform: scale(0.8); }
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(0.8);
+  }
 }
