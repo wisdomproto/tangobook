@@ -4,7 +4,7 @@ import type { GamePlayerProps } from '../../registry/game-registry';
 import type { PictureSequenceData, PictureSequenceImage } from '@tangobook/shared';
 import { shuffle } from '../../utils/shuffle';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { PraiseOverlay } from '../PraiseOverlay';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 
 export function PictureSequencePlayer({
@@ -95,7 +95,7 @@ export function PictureSequencePlayer({
 
   return (
     <GamePlayerLayout maxWidth="3xl" onBack={onBack}>
-      <PraiseOverlay visible={praiseVisible} />
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">
         {/* 헤더 */}
         <p className="text-sm text-slate-600 dark:text-slate-300">그림을 눌러 순서를 바꾸세요</p>

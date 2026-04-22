@@ -4,7 +4,7 @@ import type { WordImageMatchingData, WordImageMatchingGroupItem } from '@tangobo
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { GameResultScreen } from '../GameResultScreen';
 import { shuffle } from '../../utils/shuffle';
-import { PraiseOverlay } from '../PraiseOverlay';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 
 interface FlatItem extends WordImageMatchingGroupItem {
@@ -158,7 +158,7 @@ export function WordImageMatchingPlayer({
   return (
     <GamePlayerLayout maxWidth="3xl" onBack={onBack}>
       <div ref={containerRef} className="relative space-y-4 w-full">
-        <PraiseOverlay visible={praiseVisible} />
+        <FeedbackOverlay kind="correct" visible={praiseVisible} />
         <div className="flex items-center justify-between px-1">
           <span className="text-sm font-bold text-ink-900 dark:text-peach-200">
             {score} / {allItems.length}

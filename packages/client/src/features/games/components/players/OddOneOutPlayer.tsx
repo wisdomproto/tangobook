@@ -3,7 +3,7 @@ import type { GamePlayerProps } from '../../registry/game-registry';
 import type { OddOneOutData } from '@tangobook/shared';
 import { GameProgressBar } from '../GameProgressBar';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { PraiseOverlay } from '../PraiseOverlay';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 
 export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: GamePlayerProps) {
@@ -70,7 +70,7 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: 
 
   return (
     <GamePlayerLayout maxWidth="3xl" onBack={onBack}>
-      <PraiseOverlay visible={praiseVisible} />
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">
         {/* 진행률 */}
         <GameProgressBar current={currentIdx} total={rounds.length} score={score} />

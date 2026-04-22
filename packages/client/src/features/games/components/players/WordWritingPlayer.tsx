@@ -4,7 +4,7 @@ import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData } from '@tangobook/shared';
 import { GameProgressBar } from '../GameProgressBar';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { PraiseOverlay } from '../PraiseOverlay';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 
 const CANVAS_W = 500;
@@ -275,7 +275,7 @@ export function WordWritingPlayer({ gameData, onComplete, onBack, systemSounds }
 
   return (
     <GamePlayerLayout maxWidth="lg" onBack={onBack}>
-      <PraiseOverlay visible={praiseVisible} />
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full">
         {/* 진행 */}
         <GameProgressBar

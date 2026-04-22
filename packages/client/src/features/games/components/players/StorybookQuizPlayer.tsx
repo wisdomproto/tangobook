@@ -3,7 +3,7 @@ import type { GamePlayerProps } from '../../registry/game-registry';
 import type { StorybookQuizData } from '@tangobook/shared';
 import { GameProgressBar } from '../GameProgressBar';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { PraiseOverlay } from '../PraiseOverlay';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 
 export function StorybookQuizPlayer({
@@ -75,7 +75,7 @@ export function StorybookQuizPlayer({
 
   return (
     <GamePlayerLayout maxWidth="2xl" onBack={onBack}>
-      <PraiseOverlay visible={praiseVisible} />
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex flex-col items-center gap-6 sm:gap-8">
         {/* 진행률 바 */}
         <div className="w-full">

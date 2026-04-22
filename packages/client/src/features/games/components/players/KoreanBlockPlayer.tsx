@@ -8,7 +8,7 @@ import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
-import { PraiseOverlay } from '../PraiseOverlay';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { cn } from '@/lib/cn';
 
 type JamoType = 'cho' | 'jung' | 'jong';
@@ -327,7 +327,7 @@ export function KoreanBlockPlayer({
 
   return (
     <div className="min-h-full flex flex-col bg-gradient-to-br from-cream-50 to-peach-100">
-      <PraiseOverlay visible={praiseVisible} />
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex-1 flex flex-col items-center gap-4 sm:gap-5 w-full max-h-[calc(100vh-4rem)] overflow-y-auto px-2 py-4">
         <GameProgressBar current={currentIndex} total={items.length} score={score} />
 

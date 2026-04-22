@@ -4,7 +4,7 @@ import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordQuizData } from '@tangobook/shared';
 import { GameProgressBar } from '../GameProgressBar';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { PraiseOverlay } from '../PraiseOverlay';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { cn } from '@/lib/cn';
 
@@ -72,7 +72,7 @@ export function WordQuizPlayer({ gameData, onComplete, onBack, systemSounds }: G
 
   return (
     <GamePlayerLayout maxWidth="3xl" onBack={onBack}>
-      <PraiseOverlay visible={praiseVisible} />
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">
         {/* 진행률 바 */}
         <GameProgressBar current={currentIdx} total={questions.length} score={score} />

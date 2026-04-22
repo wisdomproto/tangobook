@@ -4,7 +4,7 @@ import type { BlendingListeningData, BlendingListeningRound } from '@tangobook/s
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { GameResultScreen } from '../GameResultScreen';
 import { GameProgressBar } from '../GameProgressBar';
-import { PraiseOverlay } from '../PraiseOverlay';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 
 export function BlendingListeningPlayer({
@@ -106,7 +106,7 @@ export function BlendingListeningPlayer({
 
   return (
     <GamePlayerLayout maxWidth="lg" onBack={onBack}>
-      <PraiseOverlay visible={praiseVisible} />
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex flex-col items-center gap-4 sm:gap-5 w-full">
         <GameProgressBar current={currentIdx} total={rounds.length} score={score} />
 

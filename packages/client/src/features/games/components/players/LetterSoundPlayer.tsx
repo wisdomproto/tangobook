@@ -4,7 +4,7 @@ import type { LetterSoundData, LetterSoundRound } from '@tangobook/shared';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { GameResultScreen } from '../GameResultScreen';
 import { GameProgressBar } from '../GameProgressBar';
-import { PraiseOverlay } from '../PraiseOverlay';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 
 export function LetterSoundPlayer({ gameData, onComplete, onBack, systemSounds }: GamePlayerProps) {
@@ -104,7 +104,7 @@ export function LetterSoundPlayer({ gameData, onComplete, onBack, systemSounds }
 
   return (
     <GamePlayerLayout maxWidth="lg" onBack={onBack}>
-      <PraiseOverlay visible={praiseVisible} />
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">
         <GameProgressBar current={currentIdx} total={rounds.length} score={score} />
 

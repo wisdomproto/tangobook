@@ -4,7 +4,7 @@ import type { GamePlayerProps } from '../../registry/game-registry';
 import type { ConnectTheDotsData, ConnectTheDotsItem } from '@tangobook/shared';
 import { GameProgressBar } from '../GameProgressBar';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { PraiseOverlay } from '../PraiseOverlay';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 
 const DOT_RADIUS_PX = 18;
@@ -83,7 +83,7 @@ export function ConnectTheDotsPlayer({
 
   return (
     <GamePlayerLayout maxWidth="2xl" onBack={onBack}>
-      <PraiseOverlay visible={praiseVisible} />
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full">
         {/* 진행 */}
         <GameProgressBar current={itemIdx} total={items.length} score={completedItems} />

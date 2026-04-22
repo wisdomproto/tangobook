@@ -4,7 +4,7 @@ import type { GamePlayerProps } from '../../registry/game-registry';
 import type { VocabularyMatchingData, VocabularyMatchingItem } from '@tangobook/shared';
 import { shuffle } from '../../utils/shuffle';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { PraiseOverlay } from '../PraiseOverlay';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 
 interface CardState {
@@ -165,7 +165,7 @@ export function VocabularyMatchingPlayer({
 
   return (
     <GamePlayerLayout maxWidth="3xl" onBack={onBack}>
-      <PraiseOverlay visible={praiseVisible} />
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex flex-col gap-4 sm:gap-6 w-full">
         {/* 헤더 */}
         <div className="flex items-center justify-center gap-4 text-sm text-ink-700 dark:text-peach-200">
