@@ -28,6 +28,7 @@ function PillIconBtn({ children, onClick, active, label }: PillIconBtnProps) {
       aria-label={label}
       className={cn(
         'w-11 h-11 rounded-md flex items-center justify-center text-lg transition-all',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400',
         active
           ? 'bg-coral-500 text-white shadow-pop'
           : 'bg-peach-100 hover:bg-peach-200 text-ink-700'

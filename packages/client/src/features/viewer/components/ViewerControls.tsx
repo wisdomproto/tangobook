@@ -31,6 +31,7 @@ function NavBtn({ onClick, disabled, primary, label, children }: NavBtnProps) {
       aria-label={label}
       className={cn(
         'w-16 h-16 rounded-full flex items-center justify-center text-3xl transition-all',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400',
         disabled && 'opacity-40 cursor-not-allowed',
         primary
           ? 'bg-coral-500 text-white shadow-pop hover:scale-105 active:scale-95'
@@ -56,6 +57,7 @@ function PlayBtn({ active, onClick, label, children }: PlayBtnProps) {
       aria-label={label}
       className={cn(
         'w-12 h-12 rounded-full flex items-center justify-center text-xl transition-all',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400',
         active
           ? 'bg-coral-500 text-white shadow-pop'
           : 'bg-peach-100 text-ink-700 hover:bg-peach-200'
