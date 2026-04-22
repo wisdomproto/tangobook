@@ -2007,14 +2007,14 @@ git commit -m "feat(client): implement BookDetailPage with lang + mode selection
 
 ### Task B8: Phase B 마무리 sanity
 
-- [ ] **Step 1: 전체 타입체크 & 테스트**
+- [x] **Step 1: 전체 타입체크 & 테스트**
 
 ```bash
 pnpm --filter @tangobook/client typecheck
 pnpm --filter @tangobook/client test
 ```
 
-- [ ] **Step 2: 5가지 책 케이스 수동 검증**
+- [ ] **Step 2: 5가지 책 케이스 수동 검증** (사용자 담당)
 
 다양한 storybook 데이터로 테스트 (실 데이터 or 목업):
 - [A] 영상 O · 게임 O · 언어 2개 → 배지·모드 3개·언어 탭 2개
@@ -2023,16 +2023,16 @@ pnpm --filter @tangobook/client test
 - [D] 영상 X · 게임 X · 언어 1개 → 배지 없음·모드 1개(읽기만)·언어 탭 숨김
 - [E] 언어 3개 이상 (ko/en/ja) → 언어 탭 3개 정렬 OK, 가로 넘침 시 스크롤
 
-- [ ] **Step 3: Phase B 완료 커밋은 각 Task에서 됐으므로 추가 커밋 불필요**
+- [x] **Step 3: Phase B 완료 커밋은 각 Task에서 됐으므로 추가 커밋 불필요**
 
 ---
 
 **🏁 Chunk 2 (Phase B) 완료 기준:**
-- [ ] `/library` 리뉴얼 완료 (웰컴·탭·검색·카테고리·스켈레톤·YouTube 배지)
-- [ ] `/library/:id` 신설 (언어·모드 선택·조건부 UI)
-- [ ] 모드 선택 후 `/viewer/:id?lang=...&mode=...` 진입 (뷰어 자체는 아직 기존 UI)
-- [ ] `typecheck` + `test` 통과
-- [ ] 5가지 데이터 케이스 수동 검증 완료 (3+ 언어 포함)
+- [x] `/library` 리뉴얼 완료 (웰컴·탭·검색·카테고리·스켈레톤·YouTube 배지)
+- [x] `/library/:id` 신설 (언어·모드 선택·조건부 UI)
+- [x] 모드 선택 후 `/viewer/:id?lang=...&mode=...` 진입 (뷰어 자체는 아직 기존 UI)
+- [x] `typecheck` + `test` 통과
+- [ ] 5가지 데이터 케이스 수동 검증 완료 (3+ 언어 포함) — 사용자 담당
 
 ---
 
