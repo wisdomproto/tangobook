@@ -1,10 +1,12 @@
 import { useState, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordQuizData } from '@tangobook/shared';
 import { GameProgressBar } from '../GameProgressBar';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { PraiseOverlay } from '../PraiseOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
+import { cn } from '@/lib/cn';
 
 export function WordQuizPlayer({ gameData, onComplete, onBack, systemSounds }: GamePlayerProps) {
   const { questions } = gameData as WordQuizData;
@@ -14,7 +16,7 @@ export function WordQuizPlayer({ gameData, onComplete, onBack, systemSounds }: G
 
   const current = questions[currentIdx];
   const isLast = currentIdx === questions.length - 1;
-  const { playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
 
   const handleSelect = useCallback(
     (answerIdx: number) => {
@@ -63,62 +65,81 @@ export function WordQuizPlayer({ gameData, onComplete, onBack, systemSounds }: G
   if (!current) {
     return (
       <GamePlayerLayout maxWidth="lg" onBack={onBack}>
-        <p className="text-slate-500 text-center py-16">문제가 없습니다.</p>
+        <p className="text-ink-500 text-center py-16">문제가 없습니다.</p>
       </GamePlayerLayout>
     );
   }
 
   return (
-    <GamePlayerLayout maxWidth="lg" onBack={onBack}>
+    <GamePlayerLayout maxWidth="3xl" onBack={onBack}>
       <PraiseOverlay visible={praiseVisible} />
       <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">
         {/* 진행률 바 */}
         <GameProgressBar current={currentIdx} total={questions.length} score={score} />
 
-        {/* 질문 */}
-        <div className="text-center">
-          {current.imageUrl && (
-            <img
-              src={current.imageUrl}
-              alt=""
-              className="w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 object-contain mx-auto mb-4 rounded-xl"
-            />
-          )}
-          <h3 className="text-lg sm:text-xl font-semibold text-slate-800 dark:text-slate-100">
-            {current.question}
-          </h3>
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIdx}
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -50, opacity: 0 }}
+            transition={{ duration: 0.25, type: 'spring' }}
+            className="w-full flex flex-col items-center gap-4 sm:gap-6"
+          >
+            {/* 질문 영역 */}
+            <div className="bg-white/90 dark:bg-darkbg/60 backdrop-blur-sm rounded-lg px-6 py-4 shadow-soft text-center w-full max-w-2xl">
+              {current.imageUrl && (
+                <img
+                  src={current.imageUrl}
+                  alt=""
+                  className="w-28 h-28 sm:w-36 sm:h-36 object-contain mx-auto mb-3 rounded-md"
+                />
+              )}
+              <div className="text-xl sm:text-2xl font-black text-ink-900 dark:text-peach-100">
+                {current.question}
+              </div>
+              {current.ttsUrl && (
+                <button
+                  type="button"
+                  onClick={() => playAudio(current.ttsUrl)}
+                  className="mt-3 w-12 h-12 rounded-full bg-coral-500 text-white flex items-center justify-center mx-auto shadow-pop hover:bg-coral-600 transition-colors"
+                  aria-label="다시 듣기"
+                >
+                  <span className="text-xl">🔊</span>
+                </button>
+              )}
+            </div>
 
-        {/* 보기 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
-          {current.options.map((opt, oi) => {
-            let style =
-              'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-violet-300 cursor-pointer';
-            if (selectedAnswer !== null) {
-              if (oi === current.correctAnswer) {
-                style =
-                  'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-400 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300';
-              } else if (oi === selectedAnswer && oi !== current.correctAnswer) {
-                style =
-                  'bg-red-50 dark:bg-red-900/30 border-red-400 dark:border-red-600 text-red-700 dark:text-red-300';
-              } else {
-                style =
-                  'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 opacity-50';
-              }
-            }
-
-            return (
-              <button
-                key={oi}
-                onClick={() => handleSelect(oi)}
-                disabled={selectedAnswer !== null}
-                className={`px-4 py-3 rounded-xl border-2 text-sm font-medium transition-all ${style}`}
-              >
-                {opt}
-              </button>
-            );
-          })}
-        </div>
+            {/* 선택지 그리드 */}
+            <div className="grid grid-cols-2 gap-4 sm:gap-5 w-full max-w-3xl mx-auto">
+              {current.options.map((opt, oi) => {
+                const isSelected = selectedAnswer === oi;
+                const isCorrect = selectedAnswer !== null && oi === current.correctAnswer;
+                const isWrong = isSelected && oi !== current.correctAnswer;
+                const isDimmed = selectedAnswer !== null && !isCorrect && !isWrong;
+                return (
+                  <button
+                    key={oi}
+                    type="button"
+                    onClick={() => handleSelect(oi)}
+                    disabled={selectedAnswer !== null}
+                    className={cn(
+                      'aspect-square rounded-lg bg-white dark:bg-darkbg/80 shadow-card flex flex-col items-center justify-center p-4 transition-all',
+                      'hover:scale-105 hover:shadow-pop',
+                      isCorrect && 'bg-success/10 ring-4 ring-success scale-105',
+                      isWrong && 'bg-coral-100 ring-4 ring-danger animate-shake',
+                      isDimmed && 'opacity-50'
+                    )}
+                  >
+                    <span className="text-2xl sm:text-3xl font-black text-ink-900 dark:text-peach-100 text-center break-words">
+                      {opt}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </GamePlayerLayout>
   );
