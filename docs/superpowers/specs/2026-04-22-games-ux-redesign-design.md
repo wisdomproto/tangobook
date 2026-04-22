@@ -48,7 +48,7 @@
 interface FeedbackOverlayProps {
   kind: 'correct' | 'incorrect';
   visible: boolean;
-  onDismiss: () => void;   // duration 후 자동 호출
+  onDismiss?: () => void;  // optional. durationMs 후 호출 (제공 시). hook-owned 패턴은 §1.6 참조
   durationMs?: number;     // default: correct 1200, incorrect 800
   positionHint?: 'center' | 'top';  // 선택. 기본 center
 }
@@ -134,6 +134,29 @@ interface GameProgressBarProps {
 
 기존 `PraiseOverlay`는 Phase A 완료 시 **deprecate 주석만**, Phase C에서 전 호출부 `FeedbackOverlay`로 교체 후 삭제.
 
+### 1.6 FeedbackOverlay의 `onDismiss` — optional
+
+기존 `useGameAudio.praiseVisible` state는 hook 내부에서 setTimeout으로 자동 false 처리. FeedbackOverlay에 `onDismiss`가 required이면 기존 패턴과 충돌.
+
+해결: **`onDismiss`를 optional로** 정의. 호출자가 visible state를 외부에서 제어할 때는 no-op처럼 넘겨도 OK.
+
+```tsx
+interface FeedbackOverlayProps {
+  kind: 'correct' | 'incorrect';
+  visible: boolean;
+  onDismiss?: () => void;   // optional. durationMs 후 호출 (제공 시만)
+  durationMs?: number;
+  positionHint?: 'center' | 'top';
+}
+```
+
+게임 플레이어에서 사용:
+```tsx
+// useGameAudio의 praiseVisible이 hook 내부에서 자동 false 되는 경우
+<FeedbackOverlay kind="correct" visible={praiseVisible} />
+// onDismiss 제공하지 않음 — hook이 소유권
+```
+
 ## 섹션 2 — 사운드 시스템
 
 ### 2.1 기본 효과음 파일
@@ -168,7 +191,7 @@ systemSounds?: {
 
 > **Note**: `clearUrl`은 기존 타입에 있으면 그대로, 없으면 이 스펙에서 추가. 구현 시 확인.
 
-### 2.3 useGameSound 훅 (신규)
+### 2.3 useGameSound 훅 (신규) — 단순 재생만 담당
 
 ```ts
 function useGameSound(opts?: { systemSounds?: SystemSounds }) {
@@ -189,9 +212,32 @@ function useGameSound(opts?: { systemSounds?: SystemSounds }) {
 
 파일: `packages/client/src/features/games/hooks/useGameSound.ts`
 
-기존 `useGameAudio` 훅의 `playFeedbackSound` 함수는 **이 훅으로 이전·deprecate** (Phase A).
+### 2.4 useGameAudio 훅 — 유지 + 내부 rewire (기존 오케스트레이터 보호 · 기존 §2.4)
 
-### 2.4 게임별 호출 패턴
+**`useGameAudio`는 삭제하지 않는다**. 현재 13 플레이어가 전부 사용 중이라 삭제 시 게임 전면 break.
+
+기존 반환 시그니처는 그대로 유지:
+```ts
+function useGameAudio(): {
+  playAudio(url?: string): void;
+  playFeedbackSound(correct: boolean): void;         // WebAudio 톤 합성 (OR: useGameSound로 위임)
+  playCorrectSequence(opts?: CorrectSequenceOpts): void;
+  praiseVisible: boolean;
+}
+```
+
+Phase A에서 **내부만 리와이어**:
+- `playFeedbackSound(correct)` 구현을 **WebAudio 톤 합성 제거** → 내부에서 `useGameSound`의 `playCorrect/playIncorrect` 사용. 외부 시그니처 변경 없음.
+- `playCorrectSequence` 오케스트레이션 유지. 내부 칭찬 음원 라이브러리 호출(`settingsApi.getSystemSounds()`)도 그대로 유지. 단, **최초 효과음만** `useGameSound.playCorrect()` 경유.
+- `praiseVisible` state 계속 제공 → PraiseOverlay/FeedbackOverlay가 외부에서 `visible={praiseVisible}` 받아 렌더. 내부 setTimeout으로 자동 false 되는 동작 유지.
+
+**결과**: 13개 플레이어 호출부 변경 없이 사운드만 파일 기반으로 이전. 안전한 migration.
+
+### 2.5 시스템 칭찬 음원 라이브러리 — 유지 (기존 §2.5)
+
+기존 `settingsApi.getSystemSounds()` 호출로 한국어/영어 칭찬 음원 랜덤 재생 로직 계속 작동. `clearUrl`과 별개로 공존 (clearUrl = 게임 클리어 1회 fanfare, library = 문제당 칭찬 랜덤).
+
+### 2.6 게임별 호출 패턴
 
 | 순간 | 호출 | FeedbackOverlay 같이? |
 |---|---|:---:|
@@ -199,7 +245,7 @@ function useGameSound(opts?: { systemSounds?: SystemSounds }) {
 | 오답 탭 | `playIncorrect()` | ✅ `incorrect` |
 | 마지막 문제 정답 → 결과 전환 | `playClear()` (GameResultScreen 마운트 후 800ms) | ❌ (GameResultScreen confetti가 대체) |
 
-### 2.5 설정 UI — 음소거 토글
+### 2.7 설정 UI — 음소거 토글
 
 게임 실행 중 **좌상단 Pill 아이콘** (🔊/🔇). 게임 플레이어 공통 레이아웃에 추가.
 
@@ -276,9 +322,21 @@ EnglishBlock과 동일한 패턴 적용. 한글 음절 특수 로직은 유지. 
 - 오답: `shake + coral tint 200ms` + 상단에 "🔊 다시 들어볼까?" 재생 버튼 자동 노출 (3초 유지 후 사라짐)
 - 현재 하드코딩 `sky` 계열 색 전부 제거 → coral·ink
 
-## 섹션 4 — 남은 8게임: 토큰·컴포넌트 치환 패턴
+## 섹션 4 — 남은 8게임 플레이어: 토큰·컴포넌트 치환 패턴
 
-대상: `word-writing`, `connect-the-dots`, `picture-sequence`, `odd-one-out`, `blending-listening`, `letter-sound`, `korean-word-writing`, `english-word-writing`, `storybook-quiz` (실제로 9개. TOP 5 제외 = 8개인지 9개인지는 파일 수로 확정).
+대상 플레이어 파일 **8개** (TOP 5 제외):
+- `BlendingListeningPlayer.tsx`
+- `ConnectTheDotsPlayer.tsx`
+- `LetterSoundPlayer.tsx`
+- `OddOneOutPlayer.tsx`
+- `PictureSequencePlayer.tsx`
+- `StorybookQuizPlayer.tsx`
+- `WordImageMatchingPlayer.tsx`
+- `WordWritingPlayer.tsx`
+
+> **참고**: 게임 ID는 15종(`korean-word-writing`·`english-word-writing`·`korean-block`·`english-block` 포함)이나 플레이어 파일은 13개. word-writing은 한/영 공용 `WordWritingPlayer.tsx` 1개, block도 Korean/EnglishBlockPlayer 각 1개씩.
+
+**Config 파일은 별도로 13개** (`ConfigControls.tsx` 제외). 모두 Phase C에서 함께 치환.
 
 ### 4.1 기계적 치환 규칙
 
@@ -334,18 +392,27 @@ grep -rn "bg-violet\|bg-sky\|bg-emerald\|text-violet\|text-sky\|text-emerald" \
 
 ## 섹션 5 — Phase 실행 계획
 
-### Phase A — Foundation (2~3일)
-결과물:
-- `public/sounds/game/{correct,incorrect,clear}.mp3` 업로드 (CC0)
-- `useGameSound` 훅 신규
-- `FeedbackOverlay` 컴포넌트 신규
-- `GameResultScreen` 대폭 업그레이드 (celebrating + confetti + 별점 + 카운트업)
-- `GameProgressBar` dot 방식 + score
+### Phase A — Foundation (3~4일)
+
+**Day 1 — 자산 준비 + 훅**
+- freesound.org / OpenGameArt에서 **CC0 효과음 3종 선별·다운로드·정규화** (`correct.mp3`, `incorrect.mp3`, `clear.mp3`)
+- `public/sounds/game/` 에 저장
+- `useGameSound` 훅 신규 작성
+- **`useGameAudio.playFeedbackSound` 내부 rewire** — WebAudio 톤 합성 제거하고 useGameSound 위임 (시그니처 변경 없음)
+- `shared/types/storybook.ts`: `systemSounds.clearUrl?: string` 필드 추가
+
+**Day 2 — 공용 컴포넌트**
+- `FeedbackOverlay` 컴포넌트 신규 (cheering/sad hori + confetti + shake, onDismiss optional)
+- `GameResultScreen` 대폭 업그레이드 (celebrating + confetti + 별점 + 카운트업). `accentColor` prop 제거.
+- `GameProgressBar` dot 방식 + score. `accentColor` prop 제거.
+
+**Day 3 — 13 플레이어 callsite 일괄 업데이트 (accentColor 제거)**
+- 13개 플레이어에서 `<GameResultScreen accentColor="..." ... />` → `<GameResultScreen ... />` 치환
+- 13개 플레이어에서 `<GameProgressBar accentColor="..." ... />` → `<GameProgressBar ... />` 치환 (score prop 추가 필요하면 함께)
 - `ConfigControls` 토큰 교체
 - `PraiseOverlay`에 `@deprecated` JSDoc 마크 (아직 삭제 X)
-- `shared/types/storybook.ts`: `systemSounds.clearUrl` 필드 추가 (없으면)
 
-**완료 기준**: 기존 게임 하나 실행 → 공용 컴포넌트만 바뀌어도 시각 변화 확 보임. backward-compatible. typecheck + test 통과.
+**완료 기준**: `typecheck` + `test` 전부 통과. 기존 13개 게임 여전히 플레이 가능. 시각은 공용 컴포넌트 변경만 반영된 상태 (게임 내부 색은 아직 구식).
 
 ### Phase B — TOP 5 게임 레이아웃 (3~4일)
 결과물:
@@ -356,14 +423,30 @@ grep -rn "bg-violet\|bg-sky\|bg-emerald\|text-violet\|text-sky\|text-emerald" \
 
 **완료 기준**: 각 게임 태블릿 실기 플레이 → 기존 대비 플레이 만족도 상승 체감. typecheck + test 통과.
 
-### Phase C — 남은 8게임 토큰 치환 (1~2일)
-결과물:
-- 8게임 순회하며 violet/sky/emerald → coral·ink·semantic
-- PraiseOverlay import → FeedbackOverlay 교체
-- 인라인 button/card → 공용 `<Button>` · `<Card>`
-- PraiseOverlay 컴포넌트 **삭제** (모든 호출부가 FeedbackOverlay 사용 확인 후)
+### Phase C — 남은 8게임 + 13 config 토큰 치환 (2~3일)
 
-**완료 기준**: `grep "bg-violet\|bg-sky\|bg-emerald"` 결과 0 (게임 feature 내). typecheck + test 통과.
+대상:
+- 플레이어 8개 (위 §4 목록)
+- 13 config 패널 (TOP 5용 5 + 나머지 8) — 토큰·색 전부
+- TOP 5 플레이어도 색 잔존물(violet/sky/emerald) 최종 grep 체크
+
+결과물:
+- violet/sky/emerald → coral·ink·semantic 치환
+- **PraiseOverlay import → FeedbackOverlay 교체** (13 플레이어 모두)
+  - 시그니처 매핑: `<PraiseOverlay visible={praiseVisible} />` → `<FeedbackOverlay kind="correct" visible={praiseVisible} />` (onDismiss 생략)
+  - 오답 경우 처리 필요한 게임은 별도 `<FeedbackOverlay kind="incorrect" ... />` 추가
+- 인라인 button/card → 공용 `<Button>` · `<Card>`
+- `PraiseOverlay` 컴포넌트 **파일 삭제** (모든 호출부 이관 완료 확인 후)
+
+**완료 기준**: 
+```bash
+grep -rn "bg-violet\|bg-sky\|bg-emerald\|text-violet\|text-sky\|text-emerald\|border-violet\|border-sky\|border-emerald" \
+  packages/client/src/features/games/
+# → 0 hits (semantic success/error는 의미색으로 유지)
+grep -rn "import.*PraiseOverlay" packages/client/src/features/games/
+# → 0 hits
+```
+typecheck + test 통과.
 
 ### Phase 간 의존성
 
@@ -372,7 +455,7 @@ grep -rn "bg-violet\|bg-sky\|bg-emerald\|text-violet\|text-sky\|text-emerald" \
 - 각 Phase 끝은 배포 가능한 단위
 
 ### 합계
-**5~9일** (혼자 작업 기준, 변수 있음)
+**8~11일** (Phase A 3~4d + B 3~4d + C 2~3d). 이전 추정(5~9일)은 훅 마이그레이션·accentColor 일괄 수정·config 13개를 과소평가한 수치라 상향 조정.
 
 ## 섹션 6 — 데이터·타입 변경
 
@@ -460,16 +543,31 @@ systemSounds?: {
 - `packages/client/src/features/games/components/players/WordListeningPlayer.tsx`
 
 **나머지 (Phase C)**:
-- `packages/client/src/features/games/components/players/WordWritingPlayer.tsx`
-- `packages/client/src/features/games/components/players/ConnectTheDotsPlayer.tsx`
-- `packages/client/src/features/games/components/players/PictureSequencePlayer.tsx`
-- `packages/client/src/features/games/components/players/OddOneOutPlayer.tsx`
+
+플레이어 8개:
 - `packages/client/src/features/games/components/players/BlendingListeningPlayer.tsx`
+- `packages/client/src/features/games/components/players/ConnectTheDotsPlayer.tsx`
 - `packages/client/src/features/games/components/players/LetterSoundPlayer.tsx`
-- `packages/client/src/features/games/components/players/KoreanWordWritingPlayer.tsx`
-- `packages/client/src/features/games/components/players/EnglishWordWritingPlayer.tsx`
+- `packages/client/src/features/games/components/players/OddOneOutPlayer.tsx`
+- `packages/client/src/features/games/components/players/PictureSequencePlayer.tsx`
 - `packages/client/src/features/games/components/players/StorybookQuizPlayer.tsx`
-- `packages/client/src/features/games/components/config/*.tsx` (9개)
+- `packages/client/src/features/games/components/players/WordImageMatchingPlayer.tsx`
+- `packages/client/src/features/games/components/players/WordWritingPlayer.tsx`
+
+Config 13개 (ConfigControls 제외, Phase A에서 처리됨):
+- `packages/client/src/features/games/components/config/BlendingListeningConfigPanel.tsx`
+- `packages/client/src/features/games/components/config/ConnectTheDotsConfigPanel.tsx`
+- `packages/client/src/features/games/components/config/EnglishBlockConfigPanel.tsx`
+- `packages/client/src/features/games/components/config/KoreanBlockConfigPanel.tsx`
+- `packages/client/src/features/games/components/config/LetterSoundConfigPanel.tsx`
+- `packages/client/src/features/games/components/config/OddOneOutConfigPanel.tsx`
+- `packages/client/src/features/games/components/config/PictureSequenceConfigPanel.tsx`
+- `packages/client/src/features/games/components/config/StorybookQuizConfigPanel.tsx`
+- `packages/client/src/features/games/components/config/VocabularyMatchingConfigPanel.tsx`
+- `packages/client/src/features/games/components/config/WordImageMatchingConfigPanel.tsx`
+- `packages/client/src/features/games/components/config/WordListeningConfigPanel.tsx`
+- `packages/client/src/features/games/components/config/WordQuizConfigPanel.tsx`
+- `packages/client/src/features/games/components/config/WordWritingConfigPanel.tsx`
 
 ### 관련 문서
 - **뷰어 스펙**: `docs/superpowers/specs/2026-04-22-viewer-ux-redesign-design.md` (디자인 시스템 · 호리 마스코트 · 토큰 원천)
