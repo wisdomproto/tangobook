@@ -968,7 +968,7 @@ git commit -m "refactor(games): ConfigControls token swap to coral/ink"
 **Files:**
 - Modify: `packages/client/src/features/games/components/PraiseOverlay.tsx`
 
-- [ ] **Step 1: JSDoc 추가**
+- [x] **Step 1: JSDoc 추가**
 
 파일 상단에:
 ```tsx
@@ -978,7 +978,7 @@ git commit -m "refactor(games): ConfigControls token swap to coral/ink"
  */
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add packages/client/src/features/games/components/PraiseOverlay.tsx

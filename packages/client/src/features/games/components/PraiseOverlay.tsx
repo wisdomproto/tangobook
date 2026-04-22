@@ -1,3 +1,7 @@
+/**
+ * @deprecated Phase C에서 삭제 예정. 새 코드는 `FeedbackOverlay` 사용.
+ * 기존 호출부(13 플레이어)는 Phase C에서 일괄 FeedbackOverlay로 이관.
+ */
 import { useEffect, useState, useMemo } from 'react';
 
 const PRAISE_EMOJIS = ['🎉', '⭐', '✨', '🌟', '💫', '👏', '🥳', '💖', '🏆', '🎊'];
