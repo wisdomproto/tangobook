@@ -1,60 +1,66 @@
-import { ButtonHTMLAttributes } from 'react';
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { cn } from '@/lib/cn';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
+export type ButtonSize = 'sm' | 'md' | 'lg';
+
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   loading?: boolean;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
 }
 
-const variants = {
-  primary: 'bg-violet-600 hover:bg-violet-700 text-white shadow-sm',
-  secondary:
-    'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-sm dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 dark:border-slate-600',
-  danger: 'bg-red-500 hover:bg-red-600 text-white shadow-sm',
-  ghost: 'hover:bg-slate-100 text-slate-600 dark:hover:bg-slate-700 dark:text-slate-300',
+const variantClass: Record<ButtonVariant, string> = {
+  primary:
+    'bg-gradient-to-br from-coral-400 to-coral-500 text-white shadow-pop hover:brightness-105 active:brightness-95',
+  secondary: 'bg-white text-ink-900 shadow-soft hover:bg-cream-50 active:bg-peach-100',
+  ghost: 'bg-transparent text-ink-700 hover:bg-peach-100 active:bg-peach-200',
+  danger: 'bg-danger text-white shadow-soft hover:brightness-105',
 };
 
-const sizes = {
-  sm: 'px-3 py-1.5 text-sm',
-  md: 'px-4 py-2 text-sm',
-  lg: 'px-6 py-3 text-base',
+const sizeClass: Record<ButtonSize, string> = {
+  sm: 'px-3 py-2 text-sm rounded-md min-h-[40px]',
+  md: 'px-5 py-3 text-base rounded-lg min-h-[48px]',
+  lg: 'px-7 py-4 text-lg rounded-lg min-h-[56px]',
 };
 
-export function Button({
-  variant = 'primary',
-  size = 'md',
-  loading = false,
-  disabled,
-  className = '',
-  children,
-  ...props
-}: ButtonProps) {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  {
+    variant = 'primary',
+    size = 'md',
+    loading,
+    disabled,
+    leftIcon,
+    rightIcon,
+    className,
+    children,
+    ...rest
+  },
+  ref
+) {
   return (
     <button
-      className={`inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors
-        disabled:opacity-50 disabled:cursor-not-allowed
-        ${variants[variant]} ${sizes[size]} ${className}`}
+      ref={ref}
       disabled={disabled || loading}
-      {...props}
-    >
-      {loading && (
-        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="4"
-          />
-          <path
-            className="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-          />
-        </svg>
+      className={cn(
+        'inline-flex items-center justify-center gap-2 font-bold font-display transition-all disabled:opacity-50 disabled:cursor-not-allowed',
+        variantClass[variant],
+        sizeClass[size],
+        className
       )}
-      {children}
+      {...rest}
+    >
+      {loading ? (
+        <span className="animate-spin" aria-hidden>
+          ⟳
+        </span>
+      ) : (
+        leftIcon
+      )}
+      <span>{children}</span>
+      {rightIcon}
     </button>
   );
-}
+});
