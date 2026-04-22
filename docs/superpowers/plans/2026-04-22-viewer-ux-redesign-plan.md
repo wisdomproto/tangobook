@@ -1416,7 +1416,7 @@ git commit -m "feat(shared,server): add hasVideo flag to StorybookSummary for li
 - Create: `packages/client/src/features/library/components/BookCard.tsx`
 - Create: `packages/client/src/features/library/index.ts`
 
-- [ ] **Step 1: BookCard.tsx 작성 (StorybookSummary 기반)**
+- [x] **Step 1: BookCard.tsx 작성 (StorybookSummary 기반)**
 
 ```tsx
 import { useNavigate } from 'react-router-dom';
@@ -1463,20 +1463,20 @@ export function BookCard({ book }: BookCardProps) {
 }
 ```
 
-- [ ] **Step 2: index.ts export**
+- [x] **Step 2: index.ts export**
 
 ```ts
 // packages/client/src/features/library/index.ts
 export { BookCard } from './components/BookCard';
 ```
 
-- [ ] **Step 3: typecheck**
+- [x] **Step 3: typecheck**
 
 ```bash
 pnpm --filter @tangobook/client typecheck
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add packages/client/src/features/library/
