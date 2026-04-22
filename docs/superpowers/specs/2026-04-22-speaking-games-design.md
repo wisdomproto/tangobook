@@ -264,38 +264,71 @@ interface SpeakingProgressEntry {
 
 ### 4.5 서버 generator
 
+> **2026-04-22 업데이트 (Gemini TTS 호출 경로 추가)**: 초안 설계는 "Gemini 호출 없음, 순수 변환"을 가정했으나 실제 동화책 데이터 구조(vocabulary/key-object)에는 **단어별 TTS 필드가 없음**(파닉스 flashcards만 있음). Generator가 단어별 TTS를 필요 시 `TtsService.generate()`를 통해 생성 + R2 저장 + 재사용.
+
 ```ts
 // packages/server/src/services/game.service.ts
+
+import { collectStorybookImagePool } from '../utils/phonics-data-helpers.js';
+import { TtsService } from './tts.service.js';
+import { R2Repository } from '../repositories/r2.repository.js';
+
+function slugifyForKey(word: string): string {
+  // R2 키에 안전한 슬러그: 공백·한글 등은 lowercase + URL encode
+  return encodeURIComponent(word.trim().toLowerCase().replace(/\s+/g, '-'));
+}
 
 async function generateSpeaking(
   storybookId: string,
   lang: 'ko' | 'en',
 ): Promise<SpeakingItem[]> {
-  const storybook = await r2Repository.getStorybook(storybookId);
-  const vocab = await vocabularyDbService.getStorybookVocab(storybookId);
-  // VocabEntry[] — { word, korean, sources[] }
+  const storybook = await R2Repository.getStorybook(storybookId);
+
+  // 기존 헬퍼 재사용 — 이미지 있는 어휘·핵심단어만 이미 필터링됨
+  const pool = collectStorybookImagePool(storybook, {
+    includeKeyObjects: true,
+    includeCharacters: false,
+    includeFlashcards: false, // 파닉스 제외 (이번 스펙 범위)
+  });
+  // pool: Array<{ word (영어), korean, imageUrl, ttsUrl? }>
+
+  if (pool.length < 3) {
+    throw new AppError(
+      400,
+      '이 책의 단어가 말하기 게임에 부족해요 (최소 3개 필요). 어휘·핵심단어 이미지를 먼저 생성해주세요.',
+    );
+  }
 
   const items: SpeakingItem[] = [];
-  for (const v of vocab) {
-    const ttsUrl = findTtsUrl(storybook, v, lang);
-    const imageUrl = findImageUrl(storybook, v);
-    if (!ttsUrl || !imageUrl) continue;
+  for (const p of pool) {
+    const word = lang === 'ko' ? p.korean : p.word;
+    if (!word) continue;
+
+    // 영어 게임은 pool에 ttsUrl이 이미 있으면 재사용(파닉스 flashcards 등).
+    // 한국어 게임은 pool의 ttsUrl이 영어 녹음일 수 있어 재사용하지 않음 — 항상 생성.
+    let ttsUrl: string | undefined;
+    if (lang === 'en' && p.ttsUrl) {
+      ttsUrl = p.ttsUrl;
+    }
+    if (!ttsUrl) {
+      ttsUrl = await TtsService.generate({
+        text: word,
+        provider: 'gemini',
+        language: lang,
+        storybookId,
+        identifier: `speaking-${lang}-${slugifyForKey(word)}`,
+      });
+    }
 
     items.push({
-      word: lang === 'ko' ? v.korean : v.word,
-      displayWord: lang === 'ko' ? v.korean : v.word,
-      koreanMeaning: lang === 'en' ? v.korean : undefined,
-      imageUrl,
+      word,
+      displayWord: word,
+      koreanMeaning: lang === 'en' ? p.korean : undefined,
+      imageUrl: p.imageUrl,
       ttsUrl,
     });
   }
 
-  if (items.length < 3) {
-    throw new AppError(
-      400,
-      '이 책의 단어가 말하기 게임에 부족해요 (최소 3개 필요). 핵심단어·어휘 탭에서 TTS·이미지를 먼저 생성해주세요.',
-    );
-  }
   return items;
 }
 
@@ -309,9 +342,13 @@ export async function generateEnglishSpeaking(storybookId: string): Promise<Engl
 ```
 
 **주요 특성**:
-- Gemini 호출 **없음**. 순수 데이터 변환 → 결정론적, 빠름
-- TTS·이미지 누락 단어는 제외
-- 3개 미만이면 친절한 한국어 에러 (저작자에게 명확한 피드백)
+- **기존 `collectStorybookImagePool()`** 재사용 (`server/utils/phonics-data-helpers.ts`) — 이미지·한영 페어 추출 공통화
+- **`TtsService.generate()` 호출**로 TTS 없는 단어 실시간 생성 + R2 저장
+  - R2 키는 `speaking-{lang}-{slug}` 형태로 결정론적 → **같은 책·같은 단어는 한 번만 생성, 이후 재생성 시 덮어쓰기**
+  - 게임 인스턴스 여러 개 만들어도 같은 TTS 재사용됨
+  - 책당 최대 ~8회 Gemini TTS 호출 (이미지 있는 단어 기준)
+- **영어 게임에서만** pool의 기존 `ttsUrl` 재사용 (파닉스 flashcards 영어 녹음). 한국어 게임은 항상 새로 생성
+- pool 3개 미만이면 친절한 한국어 에러
 
 ## 5. 컴포넌트 상세
 
