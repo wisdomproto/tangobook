@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
+    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"],
     "paths": {
       "@tangobook/shared": ["../shared/src/index.ts"],
       "@tangobook/remotion": ["../remotion/src/index.ts"],
