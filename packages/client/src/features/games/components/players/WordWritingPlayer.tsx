@@ -254,6 +254,12 @@ export function WordWritingPlayer({ gameData, onComplete, onBack, systemSounds }
     if (accuracy >= 50) {
       playCorrectSequence({
         systemSounds,
+        language:
+          data.type === 'korean-word-writing'
+            ? 'ko'
+            : data.type === 'english-word-writing'
+              ? 'en'
+              : undefined,
         onDone: () => {
           const newScores = [...scores, accuracy];
           setScores(newScores);

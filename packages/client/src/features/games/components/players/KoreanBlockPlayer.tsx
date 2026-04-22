@@ -190,6 +190,7 @@ export function KoreanBlockPlayer({
       playCorrectSequence({
         ttsUrl: currentItem.ttsUrl,
         systemSounds,
+        language: 'ko',
         onDone: () => {
           if (currentIndex + 1 < items.length) {
             const nextIdx = currentIndex + 1;

@@ -160,6 +160,7 @@ export function EnglishBlockPlayer({
       playCorrectSequence({
         ttsUrl: currentItem.ttsUrl,
         systemSounds,
+        language: 'en',
         onDone: () => {
           if (currentIndex + 1 < items.length) {
             const nextIdx = currentIndex + 1;

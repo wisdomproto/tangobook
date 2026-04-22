@@ -5,6 +5,8 @@ import { useGameSound } from './useGameSound';
 export interface CorrectSequenceOpts {
   ttsUrl?: string;
   systemSounds?: { correctUrl?: string; incorrectUrl?: string };
+  /** 'ko' 또는 'en' 지정 시 해당 언어 칭찬 음원만 랜덤 선택. 생략 시 양 언어 pool 모두 사용 */
+  language?: 'ko' | 'en';
   onDone?: () => void;
 }
 
@@ -13,18 +15,17 @@ export function useGameAudio() {
   const { playCorrect, playIncorrect } = useGameSound();
 
   const lastAudioRef = useRef<HTMLAudioElement | null>(null);
-  const [librarySoundUrls, setLibrarySoundUrls] = useState<string[]>([]);
+  // 언어별 분리 저장. 플레이어가 language 지정 시 해당 pool만, 아니면 합쳐서 사용
+  const [koreanSoundUrls, setKoreanSoundUrls] = useState<string[]>([]);
+  const [englishSoundUrls, setEnglishSoundUrls] = useState<string[]>([]);
 
   // 시스템 칭찬 음원 라이브러리 자동 로드
   useEffect(() => {
     settingsApi
       .getSystemSounds()
       .then((data) => {
-        const urls = [
-          ...data.korean.correct.map((s) => s.url),
-          ...data.english.correct.map((s) => s.url),
-        ];
-        if (urls.length > 0) setLibrarySoundUrls(urls);
+        setKoreanSoundUrls(data.korean.correct.map((s) => s.url));
+        setEnglishSoundUrls(data.english.correct.map((s) => s.url));
       })
       .catch(() => {});
   }, []);
@@ -64,11 +65,20 @@ export function useGameAudio() {
         delay += 1200;
       }
       // 시스템 칭찬 음원: props로 전달된 URL 우선, 없으면 라이브러리에서 랜덤 선택
+      // language 지정 시 해당 언어 pool만 사용. 비어있으면 반대 언어로 fallback. 둘 다 비면 undefined
+      const pool =
+        opts?.language === 'ko'
+          ? koreanSoundUrls.length > 0
+            ? koreanSoundUrls
+            : englishSoundUrls
+          : opts?.language === 'en'
+            ? englishSoundUrls.length > 0
+              ? englishSoundUrls
+              : koreanSoundUrls
+            : [...koreanSoundUrls, ...englishSoundUrls];
       const correctUrl =
         opts?.systemSounds?.correctUrl ||
-        (librarySoundUrls.length > 0
-          ? librarySoundUrls[Math.floor(Math.random() * librarySoundUrls.length)]
-          : undefined);
+        (pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : undefined);
       if (correctUrl) {
         setTimeout(() => playAudio(correctUrl), delay);
         delay += 1500;
@@ -80,7 +90,7 @@ export function useGameAudio() {
       setTimeout(() => setPraiseVisible(false), delay - 300);
       if (opts?.onDone) setTimeout(opts.onDone, delay);
     },
-    [playFeedbackSound, playAudio, librarySoundUrls]
+    [playFeedbackSound, playAudio, koreanSoundUrls, englishSoundUrls]
   );
 
   return { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible };
