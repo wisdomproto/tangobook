@@ -1779,11 +1779,11 @@ git commit -m "refactor(client): redesign LibraryPage with welcome + tabs + cate
 **Files:**
 - Modify: `packages/client/src/pages/BookDetailPage.tsx` (placeholder → 실제)
 
-- [ ] **Step 1: useStorybook 훅 확인**
+- [x] **Step 1: useStorybook 훅 확인** (이미 존재함)
 
 `packages/client/src/features/storybook/hooks/useStorybooks.ts`에 `useStorybook(id)`가 이미 export되어 있는지 확인 (대부분의 경우 있음). 없으면 Step 4에서 추가.
 
-- [ ] **Step 2: 언어 라벨 유틸**
+- [x] **Step 2: 언어 라벨 유틸**
 
 ```tsx
 // packages/client/src/features/library/components/BookDetailPage.tsx 내부 또는 별도
@@ -1794,7 +1794,7 @@ const LANG_LABEL: Record<string, { flag: string; name: string }> = {
 };
 ```
 
-- [ ] **Step 3: BookDetailPage 작성**
+- [x] **Step 3: BookDetailPage 작성**
 
 ```tsx
 import { useMemo, useState } from 'react';
@@ -1965,7 +1965,7 @@ export default function BookDetailPage() {
 }
 ```
 
-- [ ] **Step 4: useStorybook 훅 없으면 추가 (있으면 skip)**
+- [x] **Step 4: useStorybook 훅 없으면 추가 (있으면 skip)** — skip (이미 존재)
 
 없다면 `useStorybooks.ts` 파일에:
 
@@ -1979,7 +1979,7 @@ export function useStorybook(id: string | undefined) {
 }
 ```
 
-- [ ] **Step 5: typecheck + dev 확인**
+- [x] **Step 5: typecheck + dev 확인** (dev는 사용자 담당)
 
 ```bash
 pnpm --filter @tangobook/client typecheck
@@ -1996,7 +1996,7 @@ pnpm dev
 - "📖 책으로 읽기" 클릭 → `/viewer/:id?lang=ko`
 - 뒤로가기 → 라이브러리
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add packages/client/src/pages/BookDetailPage.tsx packages/client/src/features/storybook/hooks/useStorybooks.ts
