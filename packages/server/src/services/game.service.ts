@@ -8,6 +8,7 @@ import {
   collectStorybookImagePool,
   collectPhonicsWordPool,
 } from '../utils/phonics-data-helpers.js';
+import { TtsService } from './tts.service.js';
 import type {
   Storybook,
   GameTypeId,
@@ -41,6 +42,9 @@ import type {
   EnglishBlockData,
   StorybookQuizConfig,
   StorybookQuizData,
+  KoreanSpeakingData,
+  EnglishSpeakingData,
+  SpeakingItem,
 } from '@tangobook/shared';
 import { decomposeWord, isHangulSyllable } from '@tangobook/shared';
 import { decomposeEnglishWord } from '@tangobook/shared';
@@ -64,6 +68,8 @@ const generators: Partial<Record<GameTypeId, GameGenerator>> = {
   'korean-block': generateKoreanBlock,
   'english-block': generateEnglishBlock,
   'storybook-quiz': generateStorybookQuiz,
+  'korean-speaking': (storybook: Storybook) => generateKoreanSpeaking(storybook.id),
+  'english-speaking': (storybook: Storybook) => generateEnglishSpeaking(storybook.id),
 };
 
 export const GameService = {
@@ -684,4 +690,66 @@ async function generateStorybookQuiz(
   const count = Math.min(c.questionCount, allQuiz.length);
   const questions = shuffle([...allQuiz]).slice(0, count);
   return { type: 'storybook-quiz', questions };
+}
+
+// --- 말하기 게임 (korean/english-speaking): vocab→item 순수 변환 + 필요 시 TTS 실시간 생성 ---
+
+function slugifyForTtsKey(word: string): string {
+  return encodeURIComponent(word.trim().toLowerCase().replace(/\s+/g, '-'));
+}
+
+async function generateSpeaking(storybookId: string, lang: 'ko' | 'en'): Promise<SpeakingItem[]> {
+  const storybook = await R2Repository.getStorybook(storybookId);
+  if (!storybook) throw new AppError(404, '동화책을 찾을 수 없습니다.');
+
+  const pool = collectStorybookImagePool(storybook, {
+    includeKeyObjects: true,
+    includeCharacters: false,
+    includeFlashcards: false,
+  });
+
+  if (pool.length < 3) {
+    throw new AppError(
+      400,
+      '이 책의 단어가 말하기 게임에 부족해요 (최소 3개 필요). 어휘·핵심단어 이미지를 먼저 생성해주세요.'
+    );
+  }
+
+  const items: SpeakingItem[] = [];
+  for (const p of pool) {
+    const word = lang === 'ko' ? p.korean : p.word;
+    if (!word) continue;
+
+    let ttsUrl: string | undefined;
+    if (lang === 'en' && p.ttsUrl) {
+      ttsUrl = p.ttsUrl; // 파닉스 flashcards 영어 녹음 재사용
+    }
+    if (!ttsUrl) {
+      ttsUrl = await TtsService.generate({
+        text: word,
+        provider: 'gemini',
+        language: lang,
+        storybookId,
+        identifier: `speaking-${lang}-${slugifyForTtsKey(word)}`,
+      });
+    }
+
+    items.push({
+      word,
+      displayWord: word,
+      koreanMeaning: lang === 'en' ? p.korean : undefined,
+      imageUrl: p.imageUrl,
+      ttsUrl,
+    });
+  }
+
+  return items;
+}
+
+export async function generateKoreanSpeaking(storybookId: string): Promise<KoreanSpeakingData> {
+  return { type: 'korean-speaking', items: await generateSpeaking(storybookId, 'ko') };
+}
+
+export async function generateEnglishSpeaking(storybookId: string): Promise<EnglishSpeakingData> {
+  return { type: 'english-speaking', items: await generateSpeaking(storybookId, 'en') };
 }
