@@ -1,13 +1,18 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStorybook } from '@/features/storybook';
-import type { Page } from '@tangobook/shared';
+import { Mascot } from '@/components/Mascot';
+import { StateScreen } from '@/components/StateScreen';
+import { cn } from '@/lib/cn';
+import type { LangCode } from '@/lib/storybook-accessors';
 import { useViewerSettings, type ViewerSettings } from '../hooks/useViewerSettings';
 import { useAudioPlayer } from '../hooks/useAudioPlayer';
-import { useSwipe } from '../hooks/useSwipe';
+import { getPageTtsUrl } from '../lib/page-text';
 import { ViewerToolbar } from './ViewerToolbar';
-import { PageView, CoverView, EndView } from './PageView';
 import { ViewerControls } from './ViewerControls';
+import { PageView } from './PageView';
+import { BookSpineProgress } from './BookSpineProgress';
+import { MascotCorner } from './MascotCorner';
 import { GameListViewer } from './GameListViewer';
 import { PhonicsViewer } from './PhonicsViewer';
 
@@ -15,145 +20,127 @@ interface ViewerContainerProps {
   storybookId: string | undefined;
 }
 
+const TEXT_SIZE_CYCLE: ViewerSettings['textSize'][] = ['sm', 'md', 'lg'];
+const LANG_CYCLE: LangCode[] = ['ko', 'en'];
+
 export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const mode = searchParams.get('mode');
+  const [sp, setSp] = useSearchParams();
+  const mode = sp.get('mode');
+
   const { data: storybook, isLoading, error } = useStorybook(storybookId);
   const [settings, updateSettings] = useViewerSettings();
-  // Total pages: cover + story pages + end
+
+  const lang = (sp.get('lang') ?? settings.language) as LangCode;
+
+  const [pageIndex, setPageIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [hasUserInteracted, setHasUserInteracted] = useState(false);
+
+  // state ref로 콜백에서 최신 값 접근
+  // rewardOpen은 Phase D에서 실 state로 교체됨
+  const stateRef = useRef({ pageIndex: 0, autoPlayTts: settings.autoPlayTts, rewardOpen: false });
+  stateRef.current = {
+    pageIndex,
+    autoPlayTts: settings.autoPlayTts,
+    rewardOpen: false,
+  };
+
   const pages = storybook?.pages ?? [];
-  const totalPages = pages.length + 2; // +1 cover, +1 end
-  const [currentPage, setCurrentPage] = useState(0);
+  const canPrev = pageIndex > 0;
+  const canNext = pageIndex < pages.length - 1;
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  const goTo = useCallback(
+    (next: number) => {
+      if (next < 0 || next >= pages.length) return;
+      setDirection(next > pageIndex ? 1 : -1);
+      setPageIndex(next);
+    },
+    [pageIndex, pages.length]
+  );
 
-  // Auto-advance: move to next page when TTS ends
-  const autoAdvanceRef = useRef<() => void>();
+  // TTS 끝났을 때 자동 넘김 (autoPlayTts + reward X + 다음 페이지 있음)
+  const handleTtsEnded = useCallback(() => {
+    const st = stateRef.current;
+    if (!st.autoPlayTts) return;
+    if (st.rewardOpen) return;
+    if (st.pageIndex >= pages.length - 1) return;
+    setTimeout(() => {
+      setDirection(1);
+      setPageIndex((idx) => idx + 1);
+    }, 800);
+  }, [pages.length]);
 
-  // Audio
-  const { playTts, stopTts, isTtsPlaying, toggleBgm, isBgmPlaying } = useAudioPlayer({
+  const audio = useAudioPlayer({
     backgroundMusicUrl: storybook?.backgroundMusicUrl,
-    onTtsEnded: () => autoAdvanceRef.current?.(),
+    onTtsEnded: handleTtsEnded,
   });
 
-  // Get current story page (null for cover/end)
-  const currentStoryPage: Page | null =
-    currentPage >= 1 && currentPage <= pages.length ? pages[currentPage - 1] : null;
-
-  // Get TTS URL for current page
-  const getTtsUrl = useCallback(
-    (page: Page | null): string | undefined => {
-      if (!page) return undefined;
-      if (settings.language === 'ko') return page.ttsUrl;
-      return page.translations?.[settings.language]?.ttsUrl;
-    },
-    [settings.language]
+  const currentPage = pages[pageIndex];
+  const currentTtsUrl = useMemo(
+    () => (currentPage ? getPageTtsUrl(currentPage, lang) : undefined),
+    [currentPage, lang]
   );
 
-  // Navigate pages
-  const goToPage = useCallback(
-    (page: number) => {
-      const clamped = Math.max(0, Math.min(page, totalPages - 1));
-      setCurrentPage(clamped);
-      stopTts();
-    },
-    [totalPages, stopTts]
-  );
+  // 페이지 이동 시 자동 TTS — 사용자 첫 탭 이후에만 (iOS 정책)
+  const previousPageIndex = useRef(pageIndex);
+  if (previousPageIndex.current !== pageIndex) {
+    previousPageIndex.current = pageIndex;
+    if (hasUserInteracted && currentTtsUrl) audio.playTts(currentTtsUrl);
+  }
 
-  const goNext = useCallback(() => goToPage(currentPage + 1), [currentPage, goToPage]);
-  const goPrev = useCallback(() => goToPage(currentPage - 1), [currentPage, goToPage]);
+  const markInteracted = () => {
+    if (!hasUserInteracted) setHasUserInteracted(true);
+  };
 
-  // Auto-play TTS on page change + auto-advance to next page
-  useEffect(() => {
-    if (!settings.autoPlayTts || mode === 'games') return;
-    const isLastPage = currentPage >= totalPages - 1;
-
-    // Update the auto-advance callback
-    autoAdvanceRef.current = isLastPage
-      ? undefined
-      : () => {
-          // Small delay before advancing so the transition feels natural
-          setTimeout(() => goToPage(currentPage + 1), 800);
-        };
-
-    const url = getTtsUrl(currentStoryPage);
-    if (url) {
-      // Has TTS: play it, and auto-advance will fire via onTtsEnded
-      const timer = setTimeout(() => playTts(url), 300);
-      return () => clearTimeout(timer);
-    } else if (!isLastPage) {
-      // No TTS: auto-advance after a delay based on text length
-      const text = currentStoryPage?.text ?? '';
-      const delay = Math.max(3000, text.length * 80); // ~80ms per char, min 3s
-      const timer = setTimeout(() => goToPage(currentPage + 1), delay);
-      return () => clearTimeout(timer);
+  const onPrev = () => {
+    markInteracted();
+    goTo(pageIndex - 1);
+  };
+  const onNext = () => {
+    markInteracted();
+    if (pageIndex >= pages.length - 1) {
+      // Phase D에서 RewardScreen open으로 대체
+      return;
     }
-  }, [
-    currentPage,
-    settings.autoPlayTts,
-    currentStoryPage,
-    getTtsUrl,
-    playTts,
-    totalPages,
-    goToPage,
-    mode,
-  ]);
+    goTo(pageIndex + 1);
+  };
+  const onToggleTts = () => {
+    markInteracted();
+    if (!currentTtsUrl) return;
+    if (audio.isTtsPlaying) audio.stopTts();
+    else audio.playTts(currentTtsUrl);
+  };
 
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === ' ') {
-        e.preventDefault();
-        goNext();
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        goPrev();
-      } else if (e.key === 'Escape') {
-        if (document.fullscreenElement) document.exitFullscreen();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [goNext, goPrev]);
+  const onToggleLanguage = () => {
+    const cur = LANG_CYCLE.indexOf(lang as 'ko' | 'en');
+    const next = LANG_CYCLE[(cur === -1 ? 0 : cur + 1) % LANG_CYCLE.length];
+    setSp((prev) => {
+      prev.set('lang', next);
+      return prev;
+    });
+    updateSettings({ language: next });
+  };
 
-  // Swipe
-  useSwipe(containerRef, { onSwipeLeft: goNext, onSwipeRight: goPrev });
-
-  // Toggle TTS
-  const handleToggleTts = useCallback(() => {
-    if (isTtsPlaying) {
-      stopTts();
-    } else {
-      const url = getTtsUrl(currentStoryPage);
-      if (url) playTts(url);
-    }
-  }, [isTtsPlaying, stopTts, getTtsUrl, currentStoryPage, playTts]);
-
-  // Loading / Error states
+  // Loading / Error
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-2 border-violet-500 border-t-transparent rounded-full" />
+      <div className="min-h-screen flex items-center justify-center bg-cream-50">
+        <Mascot state="reading" size="xl" />
       </div>
     );
   }
-
   if (error || !storybook) {
     return (
-      <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center gap-4">
-        <p className="text-white/60">동화책을 불러올 수 없습니다.</p>
-        <button
-          onClick={() => navigate('/library')}
-          className="text-violet-400 hover:text-violet-300 text-sm"
-        >
-          목록으로 돌아가기
-        </button>
-      </div>
+      <StateScreen
+        mascotState="sad"
+        title="이 책을 찾을 수 없어"
+        action={{ label: '🏠 라이브러리', onClick: () => navigate('/library') }}
+      />
     );
   }
 
-  // 게임 모드 → GameListViewer (동화책/파닉스 공통)
+  // 게임 모드 → GameListViewer
   if (mode === 'games') {
     return <GameListViewer storybook={storybook} />;
   }
@@ -163,99 +150,75 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     return <PhonicsViewer storybook={storybook} mode={mode} />;
   }
 
-  const hasBgm = !!storybook.backgroundMusicUrl;
-
-  const isFullImg = settings.fullscreenImage && currentStoryPage;
-
   return (
     <div
-      ref={containerRef}
-      className={`min-h-screen flex flex-col select-none relative ${
-        isFullImg ? 'bg-black' : settings.darkMode ? 'bg-gray-900' : 'bg-gray-50'
-      }`}
+      className={cn(
+        'min-h-screen relative overflow-hidden',
+        settings.darkMode
+          ? 'bg-darkbg text-darktext'
+          : 'bg-gradient-to-b from-cream-50 to-peach-100 text-ink-900'
+      )}
     >
-      <div
-        className={
-          isFullImg
-            ? 'absolute top-0 left-0 right-0 z-20 opacity-0 hover:opacity-100 transition-opacity duration-300'
-            : ''
-        }
-      >
-        <ViewerToolbar
-          title={storybook.title}
-          onHome={() => {
-            stopTts();
-            if (storybook.type === 'phonics') {
-              navigate(`/viewer/${storybook.id}`);
-            } else {
-              navigate(`/library/${storybook.id}`);
-            }
-          }}
-          darkMode={settings.darkMode}
-          onToggleDark={() => updateSettings({ darkMode: !settings.darkMode })}
+      <ViewerToolbar
+        title={storybook.title}
+        onHome={() => {
+          audio.stopTts();
+          if (storybook.type === 'phonics') {
+            navigate(`/viewer/${storybook.id}`);
+          } else {
+            navigate(`/library/${storybook.id}`);
+          }
+        }}
+        darkMode={settings.darkMode}
+        onToggleDark={() => updateSettings({ darkMode: !settings.darkMode })}
+        textSize={settings.textSize}
+        onCycleTextSize={() => {
+          const next =
+            TEXT_SIZE_CYCLE[
+              (TEXT_SIZE_CYCLE.indexOf(settings.textSize) + 1) % TEXT_SIZE_CYCLE.length
+            ];
+          updateSettings({ textSize: next });
+        }}
+        language={lang}
+        onToggleLanguage={onToggleLanguage}
+        fullscreenImage={settings.fullscreenImage}
+        onToggleFullscreen={() => updateSettings({ fullscreenImage: !settings.fullscreenImage })}
+      />
+
+      {currentPage && (
+        <PageView
+          page={currentPage}
+          pageIndex={pageIndex}
+          direction={direction}
+          lang={lang}
+          showSubtext={settings.showText}
           textSize={settings.textSize}
-          onCycleTextSize={() => {
-            const cycle: ViewerSettings['textSize'][] = ['sm', 'md', 'lg'];
-            const idx = cycle.indexOf(settings.textSize);
-            updateSettings({ textSize: cycle[(idx + 1) % cycle.length] });
-          }}
-          language={settings.language}
-          fullscreenImage={settings.fullscreenImage}
-          onToggleFullscreen={() => updateSettings({ fullscreenImage: !settings.fullscreenImage })}
+          isDarkMode={settings.darkMode}
         />
+      )}
+
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-10 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-soft">
+        <BookSpineProgress current={pageIndex} total={pages.length} />
       </div>
 
-      <div
-        className={`flex-1 flex items-center justify-center overflow-hidden ${isFullImg ? 'relative' : ''}`}
-      >
-        {currentPage === 0 && (
-          <CoverView
-            coverImage={storybook.coverImage}
-            title={storybook.title}
-            settings={settings}
-          />
-        )}
-        {currentStoryPage && (
-          <PageView
-            page={currentStoryPage}
-            pageIndex={currentPage}
-            direction={1}
-            lang={settings.language}
-            showSubtext={settings.showText}
-            textSize={settings.textSize}
-            isDarkMode={settings.darkMode}
-          />
-        )}
-        {currentPage === totalPages - 1 && (
-          <EndView
-            onRestart={() => goToPage(0)}
-            onBack={() => navigate('/library')}
-            darkMode={settings.darkMode}
-          />
-        )}
-      </div>
+      <MascotCorner visible={audio.isBgmPlaying} />
 
-      <div
-        className={
-          isFullImg
-            ? 'absolute bottom-0 left-0 right-0 z-20 opacity-0 hover:opacity-100 transition-opacity duration-300'
-            : ''
-        }
-      >
-        <ViewerControls
-          onPrev={goPrev}
-          onNext={goNext}
-          canPrev={currentPage > 0}
-          canNext={currentPage < totalPages - 1}
-          isTtsPlaying={isTtsPlaying}
-          onToggleTts={handleToggleTts}
-          hasBgm={hasBgm}
-          isBgmPlaying={isBgmPlaying}
-          onToggleBgm={toggleBgm}
-          autoPlayTts={settings.autoPlayTts}
-          onToggleAutoPlay={() => updateSettings({ autoPlayTts: !settings.autoPlayTts })}
-        />
-      </div>
+      <ViewerControls
+        onPrev={onPrev}
+        onNext={onNext}
+        canPrev={canPrev}
+        canNext={canNext}
+        isTtsPlaying={audio.isTtsPlaying}
+        onToggleTts={onToggleTts}
+        isBgmPlaying={audio.isBgmPlaying}
+        onToggleBgm={() => {
+          markInteracted();
+          audio.toggleBgm();
+        }}
+        hasBgm={!!storybook.backgroundMusicUrl}
+        autoPlayTts={settings.autoPlayTts}
+        onToggleAutoPlay={() => updateSettings({ autoPlayTts: !settings.autoPlayTts })}
+      />
     </div>
   );
 }

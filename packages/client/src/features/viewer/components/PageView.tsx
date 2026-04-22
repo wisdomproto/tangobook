@@ -4,7 +4,6 @@ import type { Page } from '@tangobook/shared';
 import type { LangCode } from '@/lib/storybook-accessors';
 import { cn } from '@/lib/cn';
 import { getPageText } from '../lib/page-text';
-import type { ViewerSettings } from '../hooks/useViewerSettings';
 
 interface PageViewProps {
   page: Page;
@@ -95,66 +94,5 @@ export function PageView({
         </div>
       </motion.div>
     </AnimatePresence>
-  );
-}
-
-// Legacy exports retained for backward compatibility until ViewerContainer is fully refactored.
-// CoverView / EndView consumers will be removed in a follow-up refactor.
-interface CoverViewProps {
-  coverImage?: string;
-  title: string;
-  settings: ViewerSettings;
-}
-
-export function CoverView({ coverImage, title, settings }: CoverViewProps) {
-  return (
-    <div className="flex flex-col items-center justify-center flex-1 w-full px-4 gap-6">
-      {coverImage ? (
-        <img
-          src={coverImage}
-          alt="표지"
-          className="max-h-[65vh] max-w-full object-contain rounded-xl shadow-2xl aspect-[4/3]"
-        />
-      ) : null}
-      <h2
-        className={`text-3xl font-bold text-center ${
-          settings.darkMode ? 'text-white' : 'text-ink-900'
-        }`}
-      >
-        {title}
-      </h2>
-    </div>
-  );
-}
-
-interface EndViewProps {
-  onRestart: () => void;
-  onBack: () => void;
-  darkMode: boolean;
-}
-
-export function EndView({ onRestart, onBack, darkMode }: EndViewProps) {
-  return (
-    <div className="flex flex-col items-center justify-center flex-1 w-full px-4 gap-6">
-      <p className={`text-2xl font-medium ${darkMode ? 'text-white/90' : 'text-ink-900'}`}>끝</p>
-      <div className="flex gap-3 mt-4">
-        <button
-          onClick={onRestart}
-          className="px-6 py-3 bg-coral-500 hover:bg-coral-600 text-white rounded-xl text-sm font-medium transition-colors"
-        >
-          다시 읽기
-        </button>
-        <button
-          onClick={onBack}
-          className={`px-6 py-3 rounded-xl text-sm font-medium transition-colors ${
-            darkMode
-              ? 'bg-white/10 hover:bg-white/20 text-white'
-              : 'bg-peach-100 hover:bg-peach-200 text-ink-900'
-          }`}
-        >
-          목록으로
-        </button>
-      </div>
-    </div>
   );
 }
