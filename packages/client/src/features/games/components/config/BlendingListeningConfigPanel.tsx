@@ -16,7 +16,7 @@ export function BlendingListeningConfigPanel({ storybook }: GameConfigPanelProps
       <p>블렌딩별 단어를 듣고 맞는 그림을 고르는 게임입니다.</p>
       <p className="mt-1">
         이미지+TTS 완비 블렌딩:{' '}
-        <span className="font-bold text-violet-600 dark:text-violet-400">{pairCount}개</span> (각
+        <span className="font-bold text-coral-500 dark:text-coral-400">{pairCount}개</span> (각
         2라운드)
       </p>
     </div>

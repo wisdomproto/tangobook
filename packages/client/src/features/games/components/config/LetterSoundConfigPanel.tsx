@@ -22,7 +22,7 @@ export function LetterSoundConfigPanel({ storybook }: GameConfigPanelProps) {
       <p>알파벳 음가를 듣고 맞는 글자를 고르는 Level 1 전용 게임입니다.</p>
       <p className="mt-1">
         음가 TTS 완비 알파벳:{' '}
-        <span className="font-bold text-violet-600 dark:text-violet-400">{count}개</span>
+        <span className="font-bold text-coral-500 dark:text-coral-400">{count}개</span>
       </p>
     </div>
   );

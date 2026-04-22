@@ -68,7 +68,7 @@ export function WordWritingConfigPanel({ storybook, config, onChange }: GameConf
                 onClick={() => onChange({ ...c, language: lang })}
                 className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
                   c.language === lang
-                    ? 'bg-violet-50 border-violet-300 text-violet-700 dark:bg-violet-900/30 dark:border-violet-600 dark:text-violet-300'
+                    ? 'bg-coral-100 border-coral-400 text-ink-900 dark:bg-coral-500/20 dark:border-coral-500 dark:text-peach-200'
                     : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300'
                 }`}
               >
@@ -95,7 +95,7 @@ export function WordWritingConfigPanel({ storybook, config, onChange }: GameConf
               onClick={() => onChange({ ...c, wordSource: opt.value, selectedWords: [] })}
               className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
                 c.wordSource === opt.value
-                  ? 'bg-violet-50 border-violet-300 text-violet-700 dark:bg-violet-900/30 dark:border-violet-600 dark:text-violet-300'
+                  ? 'bg-coral-100 border-coral-400 text-ink-900 dark:bg-coral-500/20 dark:border-coral-500 dark:text-peach-200'
                   : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300'
               }`}
             >
@@ -124,7 +124,7 @@ export function WordWritingConfigPanel({ storybook, config, onChange }: GameConf
               })
             }
             placeholder="사과, 바나나, 포도"
-            className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-violet-500"
+            className="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-coral-500"
           />
         </div>
       )}
@@ -138,7 +138,7 @@ export function WordWritingConfigPanel({ storybook, config, onChange }: GameConf
             </label>
             <button
               onClick={toggleAll}
-              className="text-xs text-violet-600 dark:text-violet-400 hover:underline"
+              className="text-xs text-coral-500 dark:text-coral-400 hover:underline"
             >
               {allSelected ? '전체 해제' : '전체 선택'}
             </button>
@@ -150,14 +150,14 @@ export function WordWritingConfigPanel({ storybook, config, onChange }: GameConf
                 <label
                   key={w.key}
                   className={`flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors ${
-                    isSelected ? 'bg-violet-50/50 dark:bg-violet-900/10' : ''
+                    isSelected ? 'bg-coral-100/50 dark:bg-coral-500/10' : ''
                   }`}
                 >
                   <input
                     type="checkbox"
                     checked={isSelected}
                     onChange={() => toggleWord(w.key)}
-                    className="rounded border-slate-300 text-violet-600 focus:ring-violet-500"
+                    className="rounded border-slate-300 text-coral-500 focus:ring-coral-500"
                   />
                   {w.imageUrl && (
                     <img

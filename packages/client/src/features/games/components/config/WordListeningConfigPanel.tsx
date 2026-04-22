@@ -35,7 +35,7 @@ export function WordListeningConfigPanel({ storybook }: GameConfigPanelProps) {
       <p>단어 소리를 듣고 맞는 그림을 고르는 게임입니다.</p>
       <p className="mt-1">
         이미지+TTS 완비 단어:{' '}
-        <span className="font-bold text-sky-600 dark:text-sky-400">{seen.size}개</span>
+        <span className="font-bold text-coral-500 dark:text-coral-400">{seen.size}개</span>
       </p>
     </div>
   );

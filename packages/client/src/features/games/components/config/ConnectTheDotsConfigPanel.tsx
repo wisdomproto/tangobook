@@ -41,7 +41,7 @@ export function ConnectTheDotsConfigPanel({ storybook, config, onChange }: GameC
                   }
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm border transition-colors ${
                     selected
-                      ? 'bg-violet-50 border-violet-300 text-violet-700 dark:bg-violet-900/30 dark:border-violet-600 dark:text-violet-300'
+                      ? 'bg-coral-100 border-coral-400 text-ink-900 dark:bg-coral-500/20 dark:border-coral-500 dark:text-peach-200'
                       : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300'
                   }`}
                 >

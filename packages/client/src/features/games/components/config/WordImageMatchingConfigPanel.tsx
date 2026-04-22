@@ -21,7 +21,7 @@ export function WordImageMatchingConfigPanel({ storybook }: GameConfigPanelProps
       <p>단어와 그림을 선으로 연결하는 게임입니다.</p>
       <p className="mt-1">
         이미지가 있는 블렌딩:{' '}
-        <span className="font-bold text-violet-600 dark:text-violet-400">{count}개</span>
+        <span className="font-bold text-coral-500 dark:text-coral-400">{count}개</span>
       </p>
     </div>
   );
