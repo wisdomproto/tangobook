@@ -37,3 +37,6 @@ coverage/
 
 # Superpowers brainstorm sessions
 .superpowers/
+
+# Mascot build tmp
+.mascot-tmp/

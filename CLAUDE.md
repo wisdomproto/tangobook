@@ -448,7 +448,7 @@ server/src/
 
 ## 뷰어 디자인 시스템 (2026-04-22~)
 - 토큰: `tailwind.config.js`의 cream/peach/coral/ink/darkbg + CSS vars
-- 마스코트: `<Mascot state="..." size="..." />` (tiger 기본, Lottie → PNG → emoji fallback)
+- 마스코트: `<Mascot state="..." size="..." />` (hori 기본, Lottie → PNG → emoji fallback)
 - 공용 컴포넌트: Button, Card, Skeleton, StateScreen, ErrorBoundary, Mascot
 - 뷰어 컴포넌트: ViewerContainer, ViewerToolbar(Pill), ViewerControls(64px nav + 48px play), PageView(framer-motion slide), BookSpineProgress, MascotCorner, RewardScreen, YouTubeModal
 - 언어 파라미터: `?lang=ko|en` + `getPageText/getPageTtsUrl` (fallback to base text)

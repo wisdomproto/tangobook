@@ -45,7 +45,7 @@ interface MascotProps {
   loop?: boolean;
   onClick?: () => void;
   className?: string;
-  character?: 'tiger';
+  character?: 'hori';
 }
 
 type Stage = 'lottie' | 'png' | 'emoji';
@@ -57,7 +57,7 @@ export function Mascot({
   loop = true,
   onClick,
   className,
-  character = 'tiger',
+  character = 'hori',
 }: MascotProps) {
   const [stage, setStage] = useState<Stage>(LOTTIE_STATES.has(state) ? 'lottie' : 'png');
   const [lottieData, setLottieData] = useState<object | null>(null);

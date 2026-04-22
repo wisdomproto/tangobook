@@ -17,7 +17,7 @@
 ### 신규 파일
 ```
 packages/client/
-  public/mascot/tiger/                      # 마스코트 자산
+  public/mascot/hori/                      # 마스코트 자산
     idle.json                                # Lottie (MCP 생성)
     waving.json
     cheering.json
@@ -849,7 +849,7 @@ git commit -m "feat(client): add Skeleton shimmer component"
 - [ ] **Step 1: 자산 폴더 준비**
 
 ```bash
-mkdir -p packages/client/public/mascot/tiger
+mkdir -p packages/client/public/mascot/hori
 ```
 
 `packages/client/public/mascot/README.md` 작성:
@@ -932,13 +932,13 @@ interface MascotProps {
   loop?: boolean;
   onClick?: () => void;
   className?: string;
-  character?: 'tiger';
+  character?: 'hori';
 }
 
 type Stage = 'lottie' | 'png' | 'emoji';
 
 export function Mascot({
-  state, size = 'md', message, loop = true, onClick, className, character = 'tiger',
+  state, size = 'md', message, loop = true, onClick, className, character = 'hori',
 }: MascotProps) {
   const [stage, setStage] = useState<Stage>(LOTTIE_STATES.has(state) ? 'lottie' : 'png');
   const [lottieData, setLottieData] = useState<object | null>(null);
@@ -1021,7 +1021,7 @@ pnpm --filter @tangobook/client test src/components/Mascot.test.tsx
 
 - [ ] **Step 6: 수동 sanity — 빈 자산 상태에서 이모지 fallback 동작 확인**
 
-임시로 아무 페이지에 `<Mascot state="idle" />` 넣고 `pnpm dev` 실행. Network 탭에서 `/mascot/tiger/idle.json` 404 → `/mascot/tiger/idle.webp` 404 → 🐯 이모지 표시되는지.
+임시로 아무 페이지에 `<Mascot state="idle" />` 넣고 `pnpm dev` 실행. Network 탭에서 `/mascot/hori/idle.json` 404 → `/mascot/hori/idle.webp` 404 → 🐯 이모지 표시되는지.
 
 - [ ] **Step 7: Commit**
 
@@ -1191,51 +1191,51 @@ Phase A는 "뷰어 경험 자체 변화 거의 없음, 토큰·인프라만 구�
 ### Task L2: 5개 Lottie 생성
 
 **Files:**
-- Create: `packages/client/public/mascot/tiger/idle.json`
-- Create: `packages/client/public/mascot/tiger/waving.json`
-- Create: `packages/client/public/mascot/tiger/cheering.json`
-- Create: `packages/client/public/mascot/tiger/celebrating.json`
-- Create: `packages/client/public/mascot/tiger/dancing.json`
+- Create: `packages/client/public/mascot/hori/idle.json`
+- Create: `packages/client/public/mascot/hori/waving.json`
+- Create: `packages/client/public/mascot/hori/cheering.json`
+- Create: `packages/client/public/mascot/hori/celebrating.json`
+- Create: `packages/client/public/mascot/hori/dancing.json`
 
 - [ ] **Step 1: idle.json 생성**
 
 `mcp__lottiefiles-creator__run_script` 프롬프트:
 ```
-Create a Lottie animation: a simple cute baby tiger mascot (super-deformed, oversized head, soft orange fur with white belly, subtle tiger stripes, large expressive eyes, friendly smile) in a breathing loop. Scale 1.0 → 1.03 → 1.0 over 2 seconds, smooth ease-in-out. Transparent background. 512x512. Output Bodymovin JSON.
+Create a Lottie animation: a simple cute baby hori mascot (super-deformed, oversized head, soft orange fur with white belly, subtle hori stripes, large expressive eyes, friendly smile) in a breathing loop. Scale 1.0 → 1.03 → 1.0 over 2 seconds, smooth ease-in-out. Transparent background. 512x512. Output Bodymovin JSON.
 ```
 
-저장: `packages/client/public/mascot/tiger/idle.json`
+저장: `packages/client/public/mascot/hori/idle.json`
 
 - [ ] **Step 2: waving.json 생성**
 
 ```
-Same tiger character as idle.json. Standing front-facing, waving right paw hello. 2-second loop. Gentle wave motion, friendly expression, mouth slightly open smiling. Transparent background. 512x512. Bodymovin JSON.
+Same hori character as idle.json. Standing front-facing, waving right paw hello. 2-second loop. Gentle wave motion, friendly expression, mouth slightly open smiling. Transparent background. 512x512. Bodymovin JSON.
 ```
 
-저장: `packages/client/public/mascot/tiger/waving.json`
+저장: `packages/client/public/mascot/hori/waving.json`
 
 - [ ] **Step 3: cheering.json 생성**
 
 ```
-Same tiger character. Clapping both paws together while doing a small jump in place. 1.5-second loop. Energetic and excited. Transparent background. 512x512. Bodymovin JSON.
+Same hori character. Clapping both paws together while doing a small jump in place. 1.5-second loop. Energetic and excited. Transparent background. 512x512. Bodymovin JSON.
 ```
 
 - [ ] **Step 4: celebrating.json 생성**
 
 ```
-Same tiger character. Both arms raised in victory pose, small confetti/sparkles around. 3-second loop (with initial impact then gentle bobbing). Transparent background. 512x512. Bodymovin JSON.
+Same hori character. Both arms raised in victory pose, small confetti/sparkles around. 3-second loop (with initial impact then gentle bobbing). Transparent background. 512x512. Bodymovin JSON.
 ```
 
 - [ ] **Step 5: dancing.json 생성**
 
 ```
-Same tiger character. Swaying side to side rhythmically, paws near hips, happy expression. 2-second loop. Transparent background. 512x512. Bodymovin JSON.
+Same hori character. Swaying side to side rhythmically, paws near hips, happy expression. 2-second loop. Transparent background. 512x512. Bodymovin JSON.
 ```
 
 - [ ] **Step 6: 파일 크기 · 검증**
 
 ```bash
-ls -la packages/client/public/mascot/tiger/*.json
+ls -la packages/client/public/mascot/hori/*.json
 ```
 
 Expected:
@@ -1250,7 +1250,7 @@ Expected:
 - [ ] **Step 8: Commit**
 
 ```bash
-git add packages/client/public/mascot/tiger/
+git add packages/client/public/mascot/hori/
 git commit -m "feat(client): add 5 Lottie mascot placeholders (idle/waving/cheering/celebrating/dancing)"
 ```
 
@@ -3268,12 +3268,12 @@ git commit -m "a11y: focus ring + prefers-reduced-motion hook in motion componen
 > **상태**: 사용자 담당 (PNG 7장 AI 생성 후 업로드 예정)
 
 **Files:**
-- 사용자가 제공: `packages/client/public/mascot/tiger/*.webp` (7개)
+- 사용자가 제공: `packages/client/public/mascot/hori/*.webp` (7개)
 - (선택) MCP 재생성: `*.json` (5개) — 호랑이 PNG를 참조 프레임으로
 
 - [ ] **Step 1: 사용자 PNG 7개 수동 업로드**
 
-사용자가 Appendix A의 프롬프트 가이드로 생성한 PNG들을 `packages/client/public/mascot/tiger/` 폴더에 저장.
+사용자가 Appendix A의 프롬프트 가이드로 생성한 PNG들을 `packages/client/public/mascot/hori/` 폴더에 저장.
 
 파일명 정확히:
 - `idle.webp`, `waving.webp`, `thinking.webp`, `reading.webp`, `pointing.webp`, `sleeping.webp`, `sad.webp`
@@ -3291,8 +3291,8 @@ git commit -m "a11y: focus ring + prefers-reduced-motion hook in motion componen
 - [ ] **Step 4: commit**
 
 ```bash
-git add packages/client/public/mascot/tiger/
-git commit -m "feat(client): integrate final tiger mascot assets (PNG + Lottie)"
+git add packages/client/public/mascot/hori/
+git commit -m "feat(client): integrate final hori mascot assets (PNG + Lottie)"
 ```
 
 ### Task E6: 한글 폰트 최종 결정
@@ -3357,7 +3357,7 @@ git commit -m "feat(client): integrate final tiger mascot assets (PNG + Lottie)"
 ```markdown
 ## 디자인 시스템 (2026-04-22~)
 - 토큰: `tailwind.config.js`의 cream/peach/coral/ink/darkbg + CSS vars
-- 마스코트: `<Mascot state="..." size="..." />` (tiger 기본)
+- 마스코트: `<Mascot state="..." size="..." />` (hori 기본)
 - 공용 컴포넌트: Button, Card, Skeleton, StateScreen, ErrorBoundary
 - 접근성: prefers-reduced-motion 준수, 터치 48+, 에러 문구 아이 친화
 ```

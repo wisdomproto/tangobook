@@ -156,7 +156,7 @@
 ### 자산 경로
 
 ```
-packages/client/public/mascot/tiger/
+packages/client/public/mascot/hori/
   ├── idle.json          # Lottie (MCP로 생성) — primary
   ├── idle.webp          # PNG backup (Lottie 로드 실패 시 static fallback)
   ├── waving.json        # Lottie
@@ -171,16 +171,16 @@ packages/client/public/mascot/tiger/
   └── sad.webp           # PNG only
 ```
 
-`tiger/` 래핑한 이유: 나중에 친구 캐릭터(panda, fox 등) 추가 대비. 컴포넌트는 추후 `<Mascot character="tiger" state="..." />`로 확장 가능.
+`hori/` 래핑한 이유: 나중에 친구 캐릭터(panda, fox 등) 추가 대비. 컴포넌트는 추후 `<Mascot character="hori" state="..." />`로 확장 가능.
 
 ### Fallback 체인 (Mascot 컴포넌트 내부)
 
 Lottie 상태 (`idle`, `waving`, `cheering`, `celebrating`, `dancing`)의 3단계 fallback:
 
 ```
-1. <Lottie src="/mascot/tiger/{state}.json" />  (default)
+1. <Lottie src="/mascot/hori/{state}.json" />  (default)
     ↓ onError
-2. <img src="/mascot/tiger/{state}.webp" />    (Lottie JSON 로드 실패)
+2. <img src="/mascot/hori/{state}.webp" />    (Lottie JSON 로드 실패)
     ↓ onError
 3. emoji 🐯                                    (PNG도 실패 or 미제공)
 ```
@@ -188,7 +188,7 @@ Lottie 상태 (`idle`, `waving`, `cheering`, `celebrating`, `dancing`)의 3단�
 PNG-only 상태 (`thinking`, `reading`, `pointing`, `sleeping`, `sad`)의 2단계 fallback:
 
 ```
-1. <img src="/mascot/tiger/{state}.webp" />
+1. <img src="/mascot/hori/{state}.webp" />
     ↓ onError
 2. emoji (state별 이모지 매핑: 🤔 📖 👉 😴 😿)
 ```
@@ -693,9 +693,9 @@ pnpm add react-youtube -F client  # YouTube 임베드 (또는 iframe 직접)
 ### 전체 베이스 프롬프트 (모든 포즈 공통)
 
 ```
-cute baby tiger mascot, small round body, oversized head,
+cute baby hori mascot, small round body, oversized head,
 large expressive eyes, soft rounded orange fur with white belly,
-subtle tiger stripes, friendly child-friendly design,
+subtle hori stripes, friendly child-friendly design,
 flat illustration style, soft pastel shading,
 clean vector-like appearance, transparent background,
 square 1:1 composition, centered, full body visible,
