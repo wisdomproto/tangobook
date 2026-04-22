@@ -5,10 +5,12 @@ import { Card } from '@/components/Card';
 import { StateScreen } from '@/components/StateScreen';
 import { Skeleton } from '@/components/Skeleton';
 import { cn } from '@/lib/cn';
+import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
 import {
   hasVideoUrl,
   hasGames,
   getAvailableLanguages,
+  getPrimaryVideoId,
   type LangCode,
 } from '@/lib/storybook-accessors';
 
@@ -23,6 +25,7 @@ export default function BookDetailPage() {
   const navigate = useNavigate();
   const { data: storybook, isLoading, isError } = useStorybook(id);
   const [lang, setLang] = useState<LangCode>('ko');
+  const [videoOpen, setVideoOpen] = useState(false);
 
   const videoAvailable = useMemo(() => (storybook ? hasVideoUrl(storybook) : false), [storybook]);
   const gameAvailable = useMemo(() => (storybook ? hasGames(storybook) : false), [storybook]);
@@ -58,9 +61,15 @@ export default function BookDetailPage() {
   const pageCount = storybook.pages?.length ?? 0;
   const summary = storybook.referenceContent?.slice(0, 150) ?? '';
 
+  const primaryVideoId = getPrimaryVideoId(storybook);
+
   const enterMode = (mode: 'read' | 'video' | 'game') => {
+    if (mode === 'video') {
+      if (primaryVideoId) setVideoOpen(true);
+      return;
+    }
     const qs = new URLSearchParams({ lang });
-    if (mode !== 'read') qs.set('mode', mode === 'game' ? 'games' : 'video');
+    if (mode === 'game') qs.set('mode', 'games');
     navigate(`/viewer/${storybook.id}?${qs.toString()}`);
   };
 
@@ -196,6 +205,15 @@ export default function BookDetailPage() {
           </div>
         </div>
       </div>
+
+      {primaryVideoId && (
+        <YouTubeModal
+          videoId={primaryVideoId}
+          open={videoOpen}
+          onClose={() => setVideoOpen(false)}
+          title={storybook.title}
+        />
+      )}
     </div>
   );
 }

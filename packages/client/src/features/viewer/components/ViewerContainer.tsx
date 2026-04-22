@@ -4,7 +4,7 @@ import { useStorybook } from '@/features/storybook';
 import { Mascot } from '@/components/Mascot';
 import { StateScreen } from '@/components/StateScreen';
 import { cn } from '@/lib/cn';
-import { hasVideoUrl, getPrimaryVideoId, type LangCode } from '@/lib/storybook-accessors';
+import { hasVideoUrl, type LangCode } from '@/lib/storybook-accessors';
 import { useViewerSettings, type ViewerSettings } from '../hooks/useViewerSettings';
 import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { getPageTtsUrl } from '../lib/page-text';
@@ -152,18 +152,13 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     else audio.playTts(currentTtsUrl);
   };
 
-  // `?mode=video` 직접 진입: iframe 임베드가 환경에 따라 막히므로 새 탭으로 YouTube 열고 이전 페이지로 복귀
+  // `?mode=video` 직접 진입 → RewardScreen autoOpenVideo로 iframe 모달 띄우기
   const isVideoMode = mode === 'video';
   useEffect(() => {
     if (!isVideoMode || !storybook) return;
     if (!hasVideoUrl(storybook)) return;
-    const vid = getPrimaryVideoId(storybook);
-    if (vid) {
-      window.open(`https://www.youtube.com/watch?v=${vid}`, '_blank', 'noopener,noreferrer');
-      // 영상 탭 오픈 후 viewer는 BookDetail로 돌려보냄
-      navigate(`/library/${storybookId}`, { replace: true });
-    }
-  }, [isVideoMode, storybook, storybookId, navigate]);
+    setRewardOpen(true);
+  }, [isVideoMode, storybook]);
 
   const onToggleLanguage = () => {
     const cur = LANG_CYCLE.indexOf(lang as 'ko' | 'en');

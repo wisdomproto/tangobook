@@ -25,12 +25,12 @@ export function RewardScreen({
   onRereadFromStart,
   onPlayGame,
 }: RewardScreenProps) {
-  const [videoModal, setVideoModal] = useState(false);
   const reduce = useReducedMotion();
 
   const videoAvailable = hasVideoUrl(storybook);
   const gameAvailable = hasGames(storybook);
   const videoId = getPrimaryVideoId(storybook);
+  const [videoOpen, setVideoOpen] = useState(false);
 
   // 등장 시 confetti (prefers-reduced-motion 존중)
   useEffect(() => {
@@ -45,9 +45,9 @@ export function RewardScreen({
     });
   }, [open]);
 
-  // autoOpenVideo true + videoId 있으면 모달 자동 오픈 (1회)
+  // autoOpenVideo true + videoId 있으면 YouTube 모달 자동 오픈 (1회)
   useEffect(() => {
-    if (open && autoOpenVideo && videoId) setVideoModal(true);
+    if (open && autoOpenVideo && videoId) setVideoOpen(true);
   }, [open, autoOpenVideo, videoId]);
 
   if (!open) return null;
@@ -125,14 +125,14 @@ export function RewardScreen({
           >
             {videoAvailable && videoId && (
               <button
-                onClick={() => setVideoModal(true)}
+                onClick={() => setVideoOpen(true)}
                 className={cn(
                   'flex items-center gap-2.5 px-8 py-4 rounded-xl font-black text-white shadow-pop',
                   'bg-gradient-to-br from-coral-400 to-coral-500 hover:brightness-105 active:brightness-95',
                   caseType === 'B' && 'text-lg px-10 py-5'
                 )}
               >
-                🎬 애니메이션 보기
+                🎬 애니메이션 보기 ↗
               </button>
             )}
             {gameAvailable && (
@@ -180,17 +180,15 @@ export function RewardScreen({
               ↻ 다시 읽기
             </button>
           </motion.div>
-
-          {/* 영상 모달 */}
-          {videoId && (
-            <YouTubeModal
-              videoId={videoId}
-              open={videoModal}
-              onClose={() => setVideoModal(false)}
-              title={`${storybook.title} · 애니메이션`}
-            />
-          )}
         </motion.div>
+      )}
+      {videoId && (
+        <YouTubeModal
+          videoId={videoId}
+          open={videoOpen}
+          onClose={() => setVideoOpen(false)}
+          title={storybook.title}
+        />
       )}
     </AnimatePresence>
   );
