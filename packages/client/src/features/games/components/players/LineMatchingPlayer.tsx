@@ -33,8 +33,8 @@ export function LineMatchingPlayer({
   const data = gameData as KoreanLineMatchingData | EnglishLineMatchingData;
   const items = data.items;
 
-  // 좌(이미지)와 우(단어) 각각 독립 셔플 순서 보관
-  const imageOrder = useMemo(() => shuffle(items.map((_, i) => i)), [items]);
+  // 이미지는 원래 순서 유지, 단어만 셔플
+  const imageOrder = useMemo(() => items.map((_, i) => i), [items]);
   const wordOrder = useMemo(() => shuffle(items.map((_, i) => i)), [items]);
 
   const [selectedImageIdx, setSelectedImageIdx] = useState<number | null>(null);
@@ -143,28 +143,57 @@ export function LineMatchingPlayer({
     );
   }
 
+  // 항목 수에 따라 행 높이를 유동적으로(한 화면에 전부 보이게) 조정
+  // 4개 이하는 넉넉한 높이, 5개 이상은 점점 압축
+  const rowHeightClass =
+    items.length <= 4 ? 'h-24 sm:h-28' : items.length <= 6 ? 'h-20 sm:h-24' : 'h-16 sm:h-20';
+
+  const cellBase =
+    'relative w-full rounded-lg overflow-hidden border-2 transition-all cursor-pointer bg-white shadow-soft';
+
   const imageClass = (itemIdx: number) => {
-    const base =
-      'relative rounded-lg overflow-hidden border-2 transition-all cursor-pointer bg-white shadow-soft aspect-square';
     if (isMatched(itemIdx))
-      return cn(base, 'border-success ring-2 ring-success opacity-60 cursor-default');
+      return cn(
+        cellBase,
+        rowHeightClass,
+        'border-success ring-2 ring-success opacity-60 cursor-default'
+      );
     if (wrongPair?.image === itemIdx)
-      return cn(base, 'border-danger ring-2 ring-danger animate-shake');
+      return cn(cellBase, rowHeightClass, 'border-danger ring-2 ring-danger animate-shake');
     if (selectedImageIdx === itemIdx)
-      return cn(base, 'border-coral-500 ring-4 ring-coral-400 scale-105');
-    return cn(base, 'border-peach-200 hover:scale-105 hover:border-coral-300 hover:shadow-pop');
+      return cn(cellBase, rowHeightClass, 'border-coral-500 ring-4 ring-coral-400 scale-[1.03]');
+    return cn(
+      cellBase,
+      rowHeightClass,
+      'border-peach-200 hover:scale-[1.03] hover:border-coral-300 hover:shadow-pop'
+    );
   };
 
   const wordClass = (itemIdx: number) => {
-    const base =
-      'relative rounded-lg overflow-hidden border-2 transition-all cursor-pointer bg-white shadow-soft flex items-center justify-center px-4 py-5 text-ink-900 font-black text-2xl sm:text-3xl';
+    const extra =
+      'flex items-center justify-center px-4 text-ink-900 font-black text-xl sm:text-2xl';
     if (isMatched(itemIdx))
-      return cn(base, 'border-success ring-2 ring-success opacity-60 cursor-default');
+      return cn(
+        cellBase,
+        rowHeightClass,
+        extra,
+        'border-success ring-2 ring-success opacity-60 cursor-default'
+      );
     if (wrongPair?.word === itemIdx)
-      return cn(base, 'border-danger ring-2 ring-danger animate-shake');
+      return cn(cellBase, rowHeightClass, extra, 'border-danger ring-2 ring-danger animate-shake');
     if (selectedWordIdx === itemIdx)
-      return cn(base, 'border-coral-500 ring-4 ring-coral-400 scale-105');
-    return cn(base, 'border-peach-200 hover:scale-105 hover:border-coral-300 hover:shadow-pop');
+      return cn(
+        cellBase,
+        rowHeightClass,
+        extra,
+        'border-coral-500 ring-4 ring-coral-400 scale-[1.03]'
+      );
+    return cn(
+      cellBase,
+      rowHeightClass,
+      extra,
+      'border-peach-200 hover:scale-[1.03] hover:border-coral-300 hover:shadow-pop'
+    );
   };
 
   return (
@@ -177,52 +206,49 @@ export function LineMatchingPlayer({
           그림과 단어를 짝지어 보세요!
         </p>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-6 w-full">
-          {/* 좌: 이미지 스택 */}
-          <div className="flex flex-col gap-3 sm:gap-4">
-            {imageOrder.map((itemIdx) => {
-              const item = items[itemIdx];
-              return (
+        {/* 좌: 이미지(원래 순서) / 우: 단어(셔플) — 같은 grid 내에서 행마다 수평 정렬 */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 w-full max-w-3xl">
+          {items.map((_, rowIdx) => {
+            const imageItemIdx = imageOrder[rowIdx];
+            const wordItemIdx = wordOrder[rowIdx];
+            const imageItem = items[imageItemIdx];
+            const wordItem = items[wordItemIdx];
+            return (
+              <div key={`row-${rowIdx}`} className="contents">
                 <button
-                  key={`img-${itemIdx}`}
-                  onClick={() => !isMatched(itemIdx) && setSelectedImageIdx(itemIdx)}
-                  disabled={isMatched(itemIdx)}
-                  className={imageClass(itemIdx)}
-                  aria-label={`그림 선택`}
+                  onClick={() => !isMatched(imageItemIdx) && setSelectedImageIdx(imageItemIdx)}
+                  disabled={isMatched(imageItemIdx)}
+                  className={imageClass(imageItemIdx)}
+                  aria-label="그림 선택"
                 >
-                  <img src={item.imageUrl} alt="" className="w-full h-full object-contain p-2" />
-                  {isMatched(itemIdx) && (
+                  <img
+                    src={imageItem.imageUrl}
+                    alt=""
+                    className="w-full h-full object-contain p-1 sm:p-2"
+                  />
+                  {isMatched(imageItemIdx) && (
                     <span className="absolute top-1 right-1 bg-success text-white rounded-full w-7 h-7 flex items-center justify-center font-black text-sm shadow-pop">
                       ✓
                     </span>
                   )}
                 </button>
-              );
-            })}
-          </div>
 
-          {/* 우: 단어 스택 */}
-          <div className="flex flex-col gap-3 sm:gap-4">
-            {wordOrder.map((itemIdx) => {
-              const item = items[itemIdx];
-              return (
                 <button
-                  key={`word-${itemIdx}`}
-                  onClick={() => !isMatched(itemIdx) && setSelectedWordIdx(itemIdx)}
-                  disabled={isMatched(itemIdx)}
-                  className={wordClass(itemIdx)}
-                  aria-label={`단어: ${item.word}`}
+                  onClick={() => !isMatched(wordItemIdx) && setSelectedWordIdx(wordItemIdx)}
+                  disabled={isMatched(wordItemIdx)}
+                  className={wordClass(wordItemIdx)}
+                  aria-label={`단어: ${wordItem.word}`}
                 >
-                  {item.word}
-                  {isMatched(itemIdx) && (
+                  {wordItem.word}
+                  {isMatched(wordItemIdx) && (
                     <span className="absolute top-1 right-1 bg-success text-white rounded-full w-7 h-7 flex items-center justify-center font-black text-sm shadow-pop">
                       ✓
                     </span>
                   )}
                 </button>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </GamePlayerLayout>

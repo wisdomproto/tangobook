@@ -120,22 +120,15 @@ export function StoryImagePlayer({
 
   const getOptionClass = (url: string) => {
     const base =
-      'relative rounded-lg overflow-hidden border-2 transition-all cursor-pointer bg-white shadow-soft';
+      'relative w-full aspect-video rounded-2xl overflow-hidden border-4 transition-all cursor-pointer bg-white shadow-card';
     const isThisCorrect =
       feedback === 'correct' && (selectedUrl === url || url === current.correctImageUrl);
     const isThisWrong = feedback === 'wrong' && selectedUrl === url;
     if (isThisCorrect)
-      return cn(base, 'border-success ring-4 ring-success scale-105 animate-pulse');
-    if (isThisWrong) return cn(base, 'border-danger ring-2 ring-danger animate-shake');
-    return cn(base, 'border-peach-200 hover:scale-105 hover:shadow-pop hover:border-coral-300');
+      return cn(base, 'border-success ring-4 ring-success scale-[1.02] animate-pulse');
+    if (isThisWrong) return cn(base, 'border-danger ring-4 ring-danger animate-shake');
+    return cn(base, 'border-peach-200 hover:scale-[1.02] hover:shadow-pop hover:border-coral-300');
   };
-
-  const cols =
-    shuffledOptions.length <= 2
-      ? 'grid-cols-2'
-      : shuffledOptions.length === 3
-        ? 'grid-cols-3'
-        : 'grid-cols-2 sm:grid-cols-4';
 
   return (
     <GamePlayerLayout maxWidth="2xl" onBack={onBack}>
@@ -156,7 +149,8 @@ export function StoryImagePlayer({
           </button>
         </div>
 
-        <div className={`grid ${cols} gap-2 sm:gap-4 w-full`}>
+        {/* 세로 스택: 한 줄에 이미지 한 개씩, 16:9 비율 */}
+        <div className="flex flex-col gap-4 w-full max-w-3xl mx-auto">
           {shuffledOptions.map((url) => {
             const isCorrectOpt =
               feedback === 'correct' && (selectedUrl === url || url === current.correctImageUrl);
@@ -168,11 +162,9 @@ export function StoryImagePlayer({
                 className={getOptionClass(url)}
                 aria-label="그림 선택"
               >
-                <div className="aspect-square bg-cream-50">
-                  <img src={url} alt="" className="w-full h-full object-cover" />
-                </div>
+                <img src={url} alt="" className="w-full h-full object-cover" />
                 {isCorrectOpt && (
-                  <span className="absolute top-2 right-2 bg-success text-white rounded-full w-8 h-8 flex items-center justify-center font-black text-xl shadow-pop">
+                  <span className="absolute top-3 right-3 bg-success text-white rounded-full w-10 h-10 flex items-center justify-center font-black text-xl shadow-pop">
                     ✓
                   </span>
                 )}
