@@ -1071,7 +1071,7 @@ git commit -m "refactor(games): remove accentColor from 13 player callsites + ad
 
 ### Task A11: Phase A 마무리 sanity
 
-- [ ] **Step 1: 전체 typecheck + test**
+- [x] **Step 1: 전체 typecheck + test** _(shared/server/client/remotion 4패키지 typecheck PASS, 39/39 tests PASS)_
 
 ```bash
 pnpm --filter @tangobook/client typecheck
@@ -1080,7 +1080,7 @@ pnpm --filter @tangobook/client test
 
 Expected: typecheck PASS, 전체 테스트 PASS (기존 + 신규 useGameSound + FeedbackOverlay).
 
-- [ ] **Step 2: dev 서버로 수동 QA**
+- [ ] **Step 2: dev 서버로 수동 QA** _(사용자 담당으로 스킵)_
 
 ```bash
 pnpm dev
@@ -1093,19 +1093,19 @@ pnpm dev
 - 마지막 문제 후: **새 GameResultScreen** (celebrating 호리 + confetti + 별점 + 카운트업) 등장
 - 상단 GameProgressBar: dot + ⭐ 점수
 
-- [ ] **Step 3: 완료 메모**
+- [x] **Step 3: 완료 메모**
 
 Phase A는 "공용 컴포넌트만 바뀌고 게임 내부 색은 아직 구식"이 의도. Phase B/C에서 내부 리뉴얼.
 
 ---
 
 **🏁 Chunk 1 (Phase A) 완료 기준:**
-- [ ] `pnpm test` 통과 (기존 + useGameSound 7개 + FeedbackOverlay 5개 테스트)
-- [ ] `pnpm typecheck` 통과 (3패키지)
-- [ ] `public/sounds/game/` 에 3개 mp3 파일 존재 (placeholder silent OK, 각 <50KB)
-- [ ] 13 플레이어에서 `accentColor` 전부 제거 (`grep -r "accentColor" packages/client/src/features/games/` = 0)
-- [ ] `systemSounds.clearUrl` 필드 shared 타입에 추가
-- [ ] 게임 플레이 가능 + 공용 컴포넌트 시각 업그레이드 체감 (새 GameResultScreen · dot ProgressBar)
+- [x] `pnpm test` 통과 (기존 + useGameSound 7개 + FeedbackOverlay 5개 테스트 = 39/39)
+- [x] `pnpm typecheck` 통과 (3패키지: shared/server/client, remotion도 추가 확인)
+- [x] `public/sounds/game/` 에 3개 mp3 파일 존재 (placeholder silent OK, 각 3.2KB)
+- [x] 13 플레이어에서 `accentColor` 전부 제거 (`grep -r "accentColor" packages/client/src/features/games/` = 0)
+- [x] `systemSounds.clearUrl` 필드 shared 타입에 추가
+- [ ] 게임 플레이 가능 + 공용 컴포넌트 시각 업그레이드 체감 (새 GameResultScreen · dot ProgressBar) _(사용자 수동 QA 담당)_
 
 ---
 
