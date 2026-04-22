@@ -14,13 +14,18 @@ export function useAudioPlayer({ backgroundMusicUrl, onTtsEnded }: UseAudioPlaye
   const [ttsCurrentTime, setTtsCurrentTime] = useState(0);
   const [ttsDuration, setTtsDuration] = useState(0);
 
-  // Initialize BGM audio element
+  // Initialize BGM audio element + try autoplay (default ON).
+  // iOS Safari 등 autoplay 차단 환경에선 조용히 실패하고 사용자 탭으로 켜짐.
   useEffect(() => {
     if (!backgroundMusicUrl) return;
     const audio = new Audio(backgroundMusicUrl);
     audio.loop = true;
     audio.volume = 0.3;
     bgmRef.current = audio;
+    audio
+      .play()
+      .then(() => setIsBgmPlaying(true))
+      .catch(() => setIsBgmPlaying(false));
     return () => {
       audio.pause();
       audio.src = '';
