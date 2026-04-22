@@ -1600,11 +1600,11 @@ git commit -m "feat(client): add WelcomeHeader with mascot waving"
 - `StorybookType = 'storybook' | 'phonics'` 만 존재 (확인: `packages/shared/src/types/storybook.ts:2`)
 - `StorybookSummary`에 `phonicsLanguage?: 'korean' | 'english'` 있음 → **한글/영어 파닉스 구분은 type이 아닌 phonicsLanguage로**
 
-- [ ] **Step 1: 기존 LibraryPage 읽기 · 구조 파악**
+- [x] **Step 1: 기존 LibraryPage 읽기 · 구조 파악**
 
 state·hook·API 파악. 카테고리 이모지 매핑은 기존 코드에 있을 수 있으니 재사용.
 
-- [ ] **Step 2: 카테고리 이모지 맵 + 새 LibraryPage 작성**
+- [x] **Step 2: 카테고리 이모지 맵 + 새 LibraryPage 작성**
 
 ```tsx
 import { useMemo, useState } from 'react';
@@ -1749,7 +1749,7 @@ export default function LibraryPage() {
 }
 ```
 
-- [ ] **Step 3: typecheck + dev 확인**
+- [x] **Step 3: typecheck + dev 확인** (dev 확인은 사용자 담당)
 
 ```bash
 pnpm --filter @tangobook/client typecheck
@@ -1767,7 +1767,7 @@ pnpm dev
 - 검색 결과 0건 → StateScreen thinking
 - YouTube 업로드된 책에만 📺 배지
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add packages/client/src/pages/LibraryPage.tsx
