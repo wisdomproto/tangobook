@@ -119,7 +119,7 @@ packages/client/src/features/games/components/
 - Create: `packages/client/public/sounds/game/incorrect.mp3`
 - Create: `packages/client/public/sounds/game/clear.mp3`
 
-- [ ] **Step 1: 효과음 출처 선별**
+- [x] **Step 1: 효과음 출처 선별** _(placeholder fallback 사용 — 사용자가 후속 교체 예정)_
 
 후보 사이트:
 - freesound.org (계정 필요, CC0 필터링 `?f=license:%22Creative+Commons+0%22`)
@@ -135,7 +135,7 @@ packages/client/src/features/games/components/
 - 각 파일 <50KB (≈ 96kbps mono mp3 800ms 내외)
 - 짧고 온화. 공격적·놀라는 톤 금지
 
-- [ ] **Step 2: 다운로드 + 필요 시 편집**
+- [x] **Step 2: 다운로드 + 필요 시 편집** _(fallback: 200ms silent mp3 생성으로 대체)_
 
 도구: Audacity 또는 ffmpeg로 자르고 정규화.
 
@@ -144,7 +144,7 @@ packages/client/src/features/games/components/
 ffmpeg -i input.wav -t 0.8 -af "loudnorm=I=-14:LRA=7:TP=-1" -ac 1 -b:a 96k correct.mp3
 ```
 
-- [ ] **Step 3: 3개 파일 저장**
+- [x] **Step 3: 3개 파일 저장** _(각 3,178 bytes silent mp3)_
 
 ```
 packages/client/public/sounds/game/correct.mp3
@@ -166,7 +166,7 @@ ls -la packages/client/public/sounds/game/
 > ```
 > 이렇게 하면 CI는 통과하고 UI는 소리 없이 돌아감. 나중에 덮어쓰기 가능.
 
-- [ ] **Step 4: 출처·라이선스 기록**
+- [x] **Step 4: 출처·라이선스 기록** _(README.md 작성 — placeholder 명시 + 교체 가이드 포함)_
 
 `packages/client/public/sounds/game/README.md` 작성:
 ```markdown
@@ -179,7 +179,7 @@ All CC0 (Creative Commons Zero).
 - clear.mp3 — Source: <URL>, Author: <name>
 ```
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/client/public/sounds/game/
