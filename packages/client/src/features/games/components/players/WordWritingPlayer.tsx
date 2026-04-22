@@ -278,7 +278,11 @@ export function WordWritingPlayer({ gameData, onComplete, onBack, systemSounds }
       <PraiseOverlay visible={praiseVisible} />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full">
         {/* 진행 */}
-        <GameProgressBar current={currentIndex} total={items.length} accentColor="violet" />
+        <GameProgressBar
+          current={currentIndex}
+          total={items.length}
+          score={scores.filter((s) => s >= 70).length}
+        />
 
         {/* 단어 정보 */}
         <div className="flex items-center gap-4">

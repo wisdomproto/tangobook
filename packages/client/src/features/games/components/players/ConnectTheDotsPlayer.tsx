@@ -86,7 +86,7 @@ export function ConnectTheDotsPlayer({
       <PraiseOverlay visible={praiseVisible} />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full">
         {/* 진행 */}
-        <GameProgressBar current={itemIdx} total={items.length} accentColor="violet" />
+        <GameProgressBar current={itemIdx} total={items.length} score={completedItems} />
 
         {/* 안내 */}
         {!completed && (

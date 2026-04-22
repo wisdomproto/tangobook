@@ -79,12 +79,7 @@ export function StorybookQuizPlayer({
       <div className="flex flex-col items-center gap-6 sm:gap-8">
         {/* 진행률 바 */}
         <div className="w-full">
-          <GameProgressBar
-            current={currentIdx}
-            total={questions.length}
-            score={score}
-            accentColor="violet"
-          />
+          <GameProgressBar current={currentIdx} total={questions.length} score={score} />
         </div>
 
         {/* 질문 */}

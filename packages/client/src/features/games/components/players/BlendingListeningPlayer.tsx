@@ -91,7 +91,6 @@ export function BlendingListeningPlayer({
       <GameResultScreen
         score={score}
         total={rounds.length}
-        accentColor="violet"
         onRestart={handleRestart}
         onBack={onBack}
       />
@@ -109,12 +108,7 @@ export function BlendingListeningPlayer({
     <GamePlayerLayout maxWidth="lg" onBack={onBack}>
       <PraiseOverlay visible={praiseVisible} />
       <div className="flex flex-col items-center gap-4 sm:gap-5 w-full">
-        <GameProgressBar
-          current={currentIdx}
-          total={rounds.length}
-          score={score}
-          accentColor="violet"
-        />
+        <GameProgressBar current={currentIdx} total={rounds.length} score={score} />
 
         {/* 블렌딩 + 안내 */}
         <div className="text-center space-y-2">

@@ -216,7 +216,6 @@ export function KoreanBlockPlayer({
       <GameResultScreen
         score={score}
         total={items.length}
-        accentColor="emerald"
         onRestart={handleRestart}
         onBack={onBack}
       />
@@ -271,12 +270,7 @@ export function KoreanBlockPlayer({
     <GamePlayerLayout maxWidth="full" onBack={onBack}>
       <PraiseOverlay visible={praiseVisible} />
       <div className="flex flex-col items-center gap-4 sm:gap-5 w-full max-h-[calc(100vh-4rem)] overflow-y-auto px-2">
-        <GameProgressBar
-          current={currentIndex}
-          total={items.length}
-          score={score}
-          accentColor="emerald"
-        />
+        <GameProgressBar current={currentIndex} total={items.length} score={score} />
 
         <div className="flex items-center gap-4 sm:gap-6">
           {currentItem.imageUrl && (

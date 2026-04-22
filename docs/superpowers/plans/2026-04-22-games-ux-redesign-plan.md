@@ -991,7 +991,7 @@ git commit -m "chore(games): mark PraiseOverlay as @deprecated (phase C cleanup 
 - Modify: 13 players
   - `BlendingListeningPlayer.tsx`, `ConnectTheDotsPlayer.tsx`, `EnglishBlockPlayer.tsx`, `KoreanBlockPlayer.tsx`, `LetterSoundPlayer.tsx`, `OddOneOutPlayer.tsx`, `PictureSequencePlayer.tsx`, `StorybookQuizPlayer.tsx`, `VocabularyMatchingPlayer.tsx`, `WordImageMatchingPlayer.tsx`, `WordListeningPlayer.tsx`, `WordQuizPlayer.tsx`, `WordWritingPlayer.tsx`
 
-- [ ] **Step 1: grep으로 현 사용 패턴 확인**
+- [x] **Step 1: grep으로 현 사용 패턴 확인**
 
 ```bash
 grep -rn "accentColor" packages/client/src/features/games/components/players/
@@ -999,7 +999,14 @@ grep -rn "accentColor" packages/client/src/features/games/components/players/
 
 현재 어떤 값(violet/sky/emerald) 전달하는지 확인.
 
-- [ ] **Step 2: 각 플레이어에서 accentColor 제거 + score 전달**
+- [x] **Step 2: 각 플레이어에서 accentColor 제거 + score 전달**
+
+실제 편집 결과 (매핑표는 아래 원래 기록 참고):
+
+- `BlendingListeningPlayer`, `EnglishBlockPlayer`, `KoreanBlockPlayer`, `LetterSoundPlayer`, `OddOneOutPlayer`, `StorybookQuizPlayer`, `WordImageMatchingPlayer`, `WordListeningPlayer`, `WordQuizPlayer` — 기존 `score` state 그대로 `score={score}` 전달, accentColor prop 제거.
+- `ConnectTheDotsPlayer` — 기존 `completedItems` state를 score로 사용 (`score={completedItems}`). 새 state 추가 없이 재사용.
+- `WordWritingPlayer` — 기존 `scores: number[]` 기반 `score={scores.filter(s => s >= 70).length}` (통과 기준 70점).
+- `VocabularyMatchingPlayer`, `PictureSequencePlayer` — GameProgressBar/GameResultScreen을 사용하지 않으므로 변경 불필요 (Phase B/C에서 재디자인 예정).
 
 13 파일 순회. `accentColor` prop 전부 제거, `score` prop 추가.
 
@@ -1041,21 +1048,21 @@ const [score, setScore] = useState(0);
 // ... 정답 확정 지점에서 setScore(s => s + 1) 호출
 ```
 
-- [ ] **Step 3: 파일마다 typecheck**
+- [x] **Step 3: 파일마다 typecheck** _(client typecheck PASS, 사전 16 accentColor 에러 → 0)_
 
 각 플레이어 수정 후 순차 typecheck 혹은 마지막에 한 번:
 ```bash
 pnpm --filter @tangobook/client typecheck
 ```
 
-- [ ] **Step 4: grep 확인**
+- [x] **Step 4: grep 확인** _(0 hits 확인)_
 
 ```bash
 grep -rn "accentColor" packages/client/src/features/games/components/players/
 # → 0 hits
 ```
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/client/src/features/games/components/players/

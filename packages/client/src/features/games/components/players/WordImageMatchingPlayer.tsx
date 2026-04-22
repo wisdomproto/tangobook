@@ -147,7 +147,6 @@ export function WordImageMatchingPlayer({
       <GameResultScreen
         score={score}
         total={allItems.length}
-        accentColor="violet"
         onRestart={handleRestart}
         onBack={onBack}
       />

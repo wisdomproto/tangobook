@@ -80,7 +80,6 @@ export function LetterSoundPlayer({ gameData, onComplete, onBack, systemSounds }
       <GameResultScreen
         score={score}
         total={rounds.length}
-        accentColor="violet"
         onRestart={handleRestart}
         onBack={onBack}
       />
@@ -107,12 +106,7 @@ export function LetterSoundPlayer({ gameData, onComplete, onBack, systemSounds }
     <GamePlayerLayout maxWidth="lg" onBack={onBack}>
       <PraiseOverlay visible={praiseVisible} />
       <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">
-        <GameProgressBar
-          current={currentIdx}
-          total={rounds.length}
-          score={score}
-          accentColor="violet"
-        />
+        <GameProgressBar current={currentIdx} total={rounds.length} score={score} />
 
         {/* 안내 + 듣기 버튼 */}
         <div className="text-center space-y-3">

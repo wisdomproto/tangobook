@@ -85,7 +85,6 @@ export function WordListeningPlayer({
       <GameResultScreen
         score={score}
         total={rounds.length}
-        accentColor="sky"
         onRestart={handleRestart}
         onBack={onBack}
       />
@@ -118,12 +117,7 @@ export function WordListeningPlayer({
     <GamePlayerLayout maxWidth="2xl" onBack={onBack}>
       <PraiseOverlay visible={praiseVisible} />
       <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">
-        <GameProgressBar
-          current={currentIdx}
-          total={rounds.length}
-          score={score}
-          accentColor="sky"
-        />
+        <GameProgressBar current={currentIdx} total={rounds.length} score={score} />
 
         {/* 안내 + 듣기 버튼 */}
         <div className="text-center space-y-3">

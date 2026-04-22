@@ -200,7 +200,6 @@ export function EnglishBlockPlayer({
       <GameResultScreen
         score={score}
         total={items.length}
-        accentColor="sky"
         onRestart={handleRestart}
         onBack={onBack}
       />
@@ -276,12 +275,7 @@ export function EnglishBlockPlayer({
 
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 sm:py-6 gap-4 sm:gap-6">
         <div className="w-full max-w-md">
-          <GameProgressBar
-            current={currentIndex}
-            total={items.length}
-            score={score}
-            accentColor="sky"
-          />
+          <GameProgressBar current={currentIndex} total={items.length} score={score} />
         </div>
 
         {currentItem.imageUrl && (

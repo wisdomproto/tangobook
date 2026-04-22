@@ -73,12 +73,7 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: 
       <PraiseOverlay visible={praiseVisible} />
       <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">
         {/* 진행률 */}
-        <GameProgressBar
-          current={currentIdx}
-          total={rounds.length}
-          score={score}
-          accentColor="violet"
-        />
+        <GameProgressBar current={currentIdx} total={rounds.length} score={score} />
 
         {/* 질문 */}
         <div className="text-center">
