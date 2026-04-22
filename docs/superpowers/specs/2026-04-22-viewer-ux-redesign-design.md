@@ -157,25 +157,47 @@
 
 ```
 packages/client/public/mascot/tiger/
-  ├── idle.json          # Lottie (MCP로 생성)
-  ├── waving.json
-  ├── cheering.json
-  ├── celebrating.json
-  ├── dancing.json
-  ├── thinking.webp      # PNG (사용자가 AI 생성)
-  ├── reading.webp
-  ├── pointing.webp
-  ├── sleeping.webp
-  └── sad.webp
+  ├── idle.json          # Lottie (MCP로 생성) — primary
+  ├── idle.webp          # PNG backup (Lottie 로드 실패 시 static fallback)
+  ├── waving.json        # Lottie
+  ├── waving.webp        # PNG backup
+  ├── cheering.json      # Lottie
+  ├── celebrating.json   # Lottie
+  ├── dancing.json       # Lottie
+  ├── thinking.webp      # PNG only
+  ├── reading.webp       # PNG only
+  ├── pointing.webp      # PNG only
+  ├── sleeping.webp      # PNG only
+  └── sad.webp           # PNG only
 ```
 
 `tiger/` 래핑한 이유: 나중에 친구 캐릭터(panda, fox 등) 추가 대비. 컴포넌트는 추후 `<Mascot character="tiger" state="..." />`로 확장 가능.
 
+### Fallback 체인 (Mascot 컴포넌트 내부)
+
+Lottie 상태 (`idle`, `waving`, `cheering`, `celebrating`, `dancing`)의 3단계 fallback:
+
+```
+1. <Lottie src="/mascot/tiger/{state}.json" />  (default)
+    ↓ onError
+2. <img src="/mascot/tiger/{state}.webp" />    (Lottie JSON 로드 실패)
+    ↓ onError
+3. emoji 🐯                                    (PNG도 실패 or 미제공)
+```
+
+PNG-only 상태 (`thinking`, `reading`, `pointing`, `sleeping`, `sad`)의 2단계 fallback:
+
+```
+1. <img src="/mascot/tiger/{state}.webp" />
+    ↓ onError
+2. emoji (state별 이모지 매핑: 🤔 📖 👉 😴 😿)
+```
+
 ### MVP 단계 동작 규칙
 
 1. 실제 에셋이 없을 때 이모지 fallback으로 기능 검증
-2. Lottie 먼저 제가 `lottiefiles-creator` MCP로 생성 (임시 placeholder 동물로)
-3. PNG는 사용자가 AI 생성 (본 문서 마지막 Appendix의 프롬프트 가이드 사용)
+2. Lottie 먼저 내가 `lottiefiles-creator` MCP로 5개(idle/waving/cheering/celebrating/dancing) 생성 — 임시 placeholder 동물로
+3. PNG는 사용자가 AI 생성 (본 문서 Appendix의 프롬프트 가이드 사용) — `idle`·`waving`·`thinking`·`reading`·`pointing`·`sleeping`·`sad` 7종
 4. Phase E에서 호랑이 최종본으로 전면 교체
 
 ## 섹션 3 — LibraryPage (뷰어 랜딩)
@@ -221,7 +243,7 @@ packages/client/public/mascot/tiger/
 
 ### 조건부 UI
 
-- YouTube 배지 표시 조건: `storybook.audiobook?.youtubeUpload?.videoId` **또는** `storybook.longformProjects?.some(p => p.youtubeUpload?.videoId)`
+- YouTube 배지 표시 조건: `hasVideoUrl(storybook)` 헬퍼 사용 (아래 섹션 9 참조)
 - 검색 결과 0건: Mascot `thinking` + "찾는 책이 없네 · 다른 말로 찾아볼까?" + 검색 초기화 버튼
 - 콘텐츠 0건: Mascot `thinking` + "책이 아직 없어"
 
@@ -269,12 +291,12 @@ packages/client/public/mascot/tiger/
 ### 조건부 렌더링
 
 ```tsx
-// 의사 코드
-const hasVideo = !!(storybook.audiobook?.youtubeUpload?.videoId);
+// 의사 코드 — 모든 판별은 섹션 9의 헬퍼로 일원화
+const hasVideo = hasVideoUrl(storybook);
 const hasGame = (storybook.games?.length ?? 0) > 0;
-const languages = getAvailableLanguages(storybook);  // [{code, label}]
+const languages = getAvailableLanguages(storybook);
 
-{languages.length > 1 && <LanguageTabs />}
+{languages.length > 1 && <LanguageTabs options={languages} />}
 <ModeGrid>
   <ModeCard mode="read" primary />
   {hasVideo && <ModeCard mode="video" />}
@@ -282,10 +304,10 @@ const languages = getAvailableLanguages(storybook);  // [{code, label}]
 </ModeGrid>
 ```
 
-### 진입 행동
+### 진입 행동 (확정)
 
 - "📖 책으로 읽기" 탭 → `navigate('/viewer/:id?lang=ko')`
-- "🎬 영상으로" 탭 → `navigate('/viewer/:id?mode=video&lang=ko')` (뷰어 안에서 모달로 영상 재생) **또는** 전용 `/video/:id` 라우트 (세부는 구현 단계에서 확정; 권장은 전용 라우트)
+- "🎬 영상으로" 탭 → `navigate('/viewer/:id?mode=video&lang=ko')` — **뷰어 안에서 모달로 영상 재생** (RewardScreen YouTube 모달과 동일 컴포넌트 재사용). 별도 `/video/:id` 라우트는 만들지 않음 → 코드 경로 통일, back 동작 단순화
 - "🎮 게임" 탭 → 기존 게임 진입 경로 재사용 (`navigate('/viewer/:id?mode=games&lang=ko')`)
 
 ## 섹션 5 — ViewerContainer + PageView (뷰어 내부)
@@ -364,11 +386,11 @@ const languages = getAvailableLanguages(storybook);  // [{code, label}]
 
 ## 섹션 6 — RewardScreen + YouTube + 게임 연동
 
-### 등장 조건
+### 등장 조건 (확정)
 
-뷰어의 마지막 페이지에서 "다음 →" 또는 자동 진행이 호출되면 RewardScreen 라우트(`/viewer/:id/reward`)로 이동하거나, 내부 state로 overlay.
+뷰어의 마지막 페이지에서 "다음 →" 또는 자동 진행이 호출되면 **`ViewerContainer` 내부 state로 오버레이**. 별도 라우트는 만들지 않음.
 
-**권장**: 오버레이 방식 (라우트 추가 없이 `ViewerContainer` 안에서 `<RewardScreen />` 조건부 렌더)
+**이유**: back 버튼 동작 일관성 (오버레이 닫기 = 같은 페이지 유지), 라우트 확산 방지, 게임 후 복귀 플로우 단순화.
 
 ### 4가지 케이스
 
@@ -424,8 +446,8 @@ const languages = getAvailableLanguages(storybook);  // [{code, label}]
 ### 데이터 기반 조건
 
 ```tsx
-const hasVideo = !!storybook.audiobook?.youtubeUpload?.videoId
-              || storybook.longformProjects?.some(p => p.youtubeUpload?.videoId);
+const hasVideo = hasVideoUrl(storybook);              // 섹션 9 헬퍼
+const primaryVideoId = getPrimaryVideoId(storybook);  // 섹션 9 헬퍼
 const hasGame  = (storybook.games?.length ?? 0) > 0;
 
 const caseType = hasVideo && hasGame ? 'A'
@@ -511,24 +533,87 @@ const caseType = hasVideo && hasGame ? 'A'
 ### 타입 변경 (최소)
 
 - **추가 없음** — 기존 `Storybook` 타입으로 모두 판별 가능
-- 활용 필드:
-  - `storybook.audiobook?.youtubeUpload?.videoId` — 영상 유무
-  - `storybook.longformProjects?.[].youtubeUpload?.videoId` — 영상 대체 소스
-  - `storybook.games?.length` — 게임 유무
-  - `storybook.type` — 'storybook' | 'phonics' 등
-  - `storybook.languages` 또는 `page.translations` — 언어 (기존 구조 그대로 활용)
+- 실제 활용 필드 (`packages/shared/src/types/storybook.ts` 기준):
+  - `storybook.audiobookProjects?: AudiobookProject[]` — **배열** (복수 오디오북 프로젝트 가능). 각 프로젝트의 `youtubeUpload?: YouTubeUploadResult`
+  - `storybook.longformProjects?: LongformProject[]` — 배열. 각 프로젝트의 `youtubeUpload?: YouTubeUploadResult`
+  - `storybook.games?: GameInstance[]` — 배열
+  - `storybook.type?: StorybookType`
+  - `storybook.pages[].translations?: Record<string, PageTranslation>` — 언어 판별에 사용
+  - `storybook.category?: string` — 카테고리 그룹화
+
+**주의**: `storybook.audiobook` 또는 `storybook.languages` 단수 필드는 **존재하지 않음**. 접근은 반드시 아래 헬퍼를 통해서만.
+
+### Data Access Helpers (신규, 중앙 집중화)
+
+**위치**: `packages/client/src/lib/storybook-accessors.ts` — LibraryPage(viewer feature 밖)도 쓰므로 feature 아닌 공통 `lib/`에 둠.
+
+```ts
+import type { Storybook, YouTubeUploadResult } from '@tangobook/shared';
+
+/** 영상 업로드 결과가 하나라도 있는지 */
+export function hasVideoUrl(storybook: Storybook): boolean {
+  const audio = storybook.audiobookProjects?.some(p => !!p.youtubeUpload?.videoId);
+  const lf    = storybook.longformProjects?.some(p => !!p.youtubeUpload?.videoId);
+  return !!(audio || lf);
+}
+
+/**
+ * 재생할 "대표" 영상 ID를 결정.
+ * 우선순위: 최신 audiobookProjects 업로드 > 최신 longformProjects 업로드
+ * (감상 경험상 오디오북 풀버전이 완결성 높음)
+ */
+export function getPrimaryVideoId(storybook: Storybook): string | null {
+  const all: YouTubeUploadResult[] = [
+    ...(storybook.audiobookProjects ?? []).flatMap(p => p.youtubeUpload ? [p.youtubeUpload] : []),
+    ...(storybook.longformProjects ?? []).flatMap(p => p.youtubeUpload ? [p.youtubeUpload] : []),
+  ];
+  if (all.length === 0) return null;
+  // uploadedAt 내림차순
+  all.sort((a, b) => (b.uploadedAt ?? '').localeCompare(a.uploadedAt ?? ''));
+  return all[0].videoId ?? null;
+}
+
+export type LangCode = 'ko' | 'en' | (string & {});
+
+/**
+ * 책이 지원하는 언어 목록.
+ * - 'ko' = 기본 (page.text 자체가 한국어)
+ * - translations 키 = 추가 언어
+ * - pages 중 하나라도 translations에 해당 언어 키가 있으면 지원으로 간주
+ * - pages 비어있으면 []
+ */
+export function getAvailableLanguages(storybook: Storybook): LangCode[] {
+  const pages = storybook.pages ?? [];
+  if (pages.length === 0) return [];
+  const result: LangCode[] = ['ko']; // 기본
+  const extraSet = new Set<string>();
+  for (const p of pages) {
+    if (p.translations) {
+      for (const key of Object.keys(p.translations)) extraSet.add(key);
+    }
+  }
+  for (const k of extraSet) if (!result.includes(k as LangCode)) result.push(k as LangCode);
+  return result;
+}
+
+export function hasGames(storybook: Storybook): boolean {
+  return (storybook.games?.length ?? 0) > 0;
+}
+```
+
+- **단일 책임**: 모든 데이터 분기 판단이 이 모듈 한 곳을 거치게 함
+- **테스트 가능**: pure functions — 데이터 조합별 테스트 필수 (섹션 12)
 
 ### API 변경
 
 - **서버 엔드포인트 변경 없음**
-- 클라이언트에서 TanStack Query 훅 추가:
-  - `useStorybookDetail(id)` — BookDetailPage용 (이미 `useStorybook` 있으면 재사용)
+- 클라이언트 TanStack Query 훅은 기존 `useStorybook(id)` / `useStorybooks()` 재사용
 
 ## 섹션 10 — 구현 Phase (Hybrid 접근)
 
 | Phase | 범위 | 기간 | 배포 가능 |
 |---|---|---|:---:|
-| **A** Foundation | 디자인 토큰·폰트·패키지·기초 컴포넌트·Mascot 스텁·Lottie 초안 | 4일 | ❌ |
+| **A** Foundation | 디자인 토큰·폰트·패키지·기초 컴포넌트·Mascot 스텁·Lottie 초안·**섹션 9 Data Access Helpers + 테스트** | 4일 | ❌ |
 | **B** 진입 플로우 | LibraryPage 리뉴얼 + BookDetailPage 신설 + 스켈레톤 + 조건부 UI | 5일 | ✅ |
 | **C** 뷰어 내부 | ViewerContainer·PageView·전환·툴바·컨트롤·마스코트 코너·다크모드 | 6~7일 | ✅ |
 | **D** 보상 + YouTube + 게임 연동 | RewardScreen (4 케이스) · YouTube 모달 · 게임 진입 경로 | 3일 | ✅ |
@@ -564,7 +649,12 @@ pnpm add react-youtube -F client  # YouTube 임베드 (또는 iframe 직접)
 
 ### 단위 · 컴포넌트
 - Mascot fallback (404 에셋 → 이모지) 테스트
-- RewardScreen case 분기 (A/B/C/D) 렌더링 테스트
+- **Data Access Helpers** (섹션 9) pure function 테스트 — 가장 brittle한 층이므로 우선순위 높음:
+  - `hasVideoUrl`: audiobookProjects 有 / longformProjects 有 / 둘 다 有 / 둘 다 無 / 각각 youtubeUpload 없음
+  - `getPrimaryVideoId`: 여러 업로드 중 최신 uploadedAt 선택되는지, 빈 배열이면 null
+  - `getAvailableLanguages`: pages 비어있을 때 [], translations에 ko 키만 있을 때, en 추가될 때, 빈 translations 객체일 때
+  - `hasGames`: undefined / 빈 배열 / 요소 있음
+- RewardScreen case 분기 (A/B/C/D) 렌더링 테스트 — Helpers에 mock Storybook 넣어 검증
 - BookDetailPage 조건부 UI (영상/게임/언어 조합) 테스트
 
 ### E2E (선택, 후속)
@@ -585,10 +675,10 @@ pnpm add react-youtube -F client  # YouTube 임베드 (또는 iframe 직접)
 - **다크모드 자동 전환** (시간대 감지)
 - **오프라인 모드** — PWA 캐싱 정책
 
-### 현 시점 남은 결정
-1. 한글 폰트 최종 선택: 학교안심둥근체 vs 카페24 아네모네 vs 기타 — 구현 시 실제 렌더 비교
-2. YouTube 임베드: `react-youtube` vs 직접 iframe — 번들 크기 체크 후 결정
-3. BookDetailPage에서 "📺 영상으로" 모드 진입 방식: 별도 `/video/:id` 라우트 vs 뷰어 안 모달 — 구현 시 UX 검증
+### 현 시점 남은 결정 (스펙 내에서 결정됨)
+1. **한글 폰트 기본 = 학교안심둥근체**. 구현 중 실기 렌더에서 카페24 아네모네가 더 나으면 PR 단계에서 교체 가능 (디자인 토큰 파일 한 줄 변경). 최종 결정은 Phase A 내에서.
+2. **YouTube 임베드 = 직접 iframe** (privacy-enhanced URL: `https://www.youtube-nocookie.com/embed/:id`). `react-youtube`는 번들 부담·API 과잉 → 지금 필요한 건 재생 + 모달 닫기 + 종료 콜백뿐이므로 iframe + `postMessage` 리스너로 충분.
+3. **"📺 영상으로" 진입 = 뷰어 내부 모달** (RewardScreen YouTube 모달과 동일 컴포넌트 재사용). 별도 라우트 없음.
 
 ---
 
@@ -613,20 +703,29 @@ style: similar to Khan Academy Kids / Sago Mini characters,
 warm cozy palette, appropriate for ages 3-6
 ```
 
-### 포즈별 추가 프롬프트
+### 포즈별 추가 프롬프트 (7종)
 
 | 파일명 | 추가 프롬프트 |
 |---|---|
+| `idle.webp` | `, standing relaxed front-facing, neutral small smile, arms at sides, calm breathing pose` |
+| `waving.webp` | `, standing front-facing, one paw waving hello, big friendly smile, welcoming expression, cheeks blushing` |
 | `thinking.webp` | `, looking up with curious expression, paw on chin thinking, slight head tilt, thought bubble floating` |
 | `reading.webp` | `, sitting, holding an open book with both paws, eyes focused on book, small smile, book cover orange` |
 | `pointing.webp` | `, standing, one paw pointing to the right / upward, excited expression, inviting gesture` |
 | `sleeping.webp` | `, curled up sleeping position, closed eyes, small z letter floating above head, relaxed smile` |
 | `sad.webp` | `, slightly down, paws together, tear dripping below eye, worried but not scary, empathetic` |
 
-### Lottie 3개는 제가 MCP로 생성
+### Lottie 5개는 구현자(Claude)가 MCP로 생성
 
-- idle, waving, cheering, celebrating, dancing — 구현 시 `lottiefiles-creator` MCP로 생성
-- PNG 포즈 이미지(thinking, reading 등)를 **참조 프레임**으로 사용하면 일관성 확보
+- **5개**: idle, waving, cheering, celebrating, dancing — 구현 시 `lottiefiles-creator` MCP로 생성
+- PNG 포즈 이미지(`idle.webp`·`waving.webp` 포함)를 **참조 프레임**으로 넘기면 일관성 확보
+
+### Appendix A에서 사용자가 AI로 만드는 PNG는 총 7개
+
+- `idle.webp`, `waving.webp` (Lottie 백업용)
+- `thinking.webp`, `reading.webp`, `pointing.webp`, `sleeping.webp`, `sad.webp`
+
+Lottie 3개(cheering, celebrating, dancing)는 PNG 없음 — Lottie 로드 실패 시 바로 이모지로 fallback.
 
 ### 공통 규칙
 
