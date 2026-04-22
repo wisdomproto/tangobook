@@ -215,7 +215,17 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
             settings={settings}
           />
         )}
-        {currentStoryPage && <PageView page={currentStoryPage} settings={settings} />}
+        {currentStoryPage && (
+          <PageView
+            page={currentStoryPage}
+            pageIndex={currentPage}
+            direction={1}
+            lang={settings.language}
+            showSubtext={settings.showText}
+            textSize={settings.textSize}
+            isDarkMode={settings.darkMode}
+          />
+        )}
         {currentPage === totalPages - 1 && (
           <EndView
             onRestart={() => goToPage(0)}
