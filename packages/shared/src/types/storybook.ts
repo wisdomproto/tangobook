@@ -683,10 +683,11 @@ export interface Storybook {
   // 학습 게임
   games?: GameInstance[];
 
-  // 시스템 사운드 (정답/오답 효과음)
+  // 시스템 사운드 (정답/오답/클리어 효과음)
   systemSounds?: {
     correctUrl?: string;
     incorrectUrl?: string;
+    clearUrl?: string; // 게임 클리어 fanfare
   };
 
   // === PhonicsBook 전용 필드 (type === 'phonics'일 때만 사용) ===

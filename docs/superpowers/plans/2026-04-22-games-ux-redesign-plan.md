@@ -191,7 +191,7 @@ git commit -m "feat(games): add CC0 default feedback sounds (correct/incorrect/c
 **Files:**
 - Modify: `packages/shared/src/types/storybook.ts`
 
-- [ ] **Step 1: 현재 `systemSounds` 정의 확인**
+- [x] **Step 1: 현재 `systemSounds` 정의 확인**
 
 ```bash
 grep -n "systemSounds" packages/shared/src/types/storybook.ts
@@ -199,7 +199,7 @@ grep -n "systemSounds" packages/shared/src/types/storybook.ts
 
 현재 `systemSounds?: { correctUrl?: string; incorrectUrl?: string; }` 형태 확인.
 
-- [ ] **Step 2: `clearUrl?` 추가**
+- [x] **Step 2: `clearUrl?` 추가**
 
 ```ts
 systemSounds?: {
@@ -209,7 +209,7 @@ systemSounds?: {
 };
 ```
 
-- [ ] **Step 3: shared 빌드 + typecheck**
+- [x] **Step 3: shared 빌드 + typecheck**
 
 ```bash
 pnpm --filter @tangobook/shared build
@@ -219,7 +219,7 @@ pnpm --filter @tangobook/server typecheck
 
 Expected: 모두 통과.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add packages/shared/src/types/storybook.ts
