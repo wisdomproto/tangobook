@@ -933,13 +933,13 @@ git commit -m "refactor(games): GameProgressBar → dot style + score (coral)"
 **Files:**
 - Modify: `packages/client/src/features/games/components/config/ConfigControls.tsx`
 
-- [ ] **Step 1: 기존 확인**
+- [x] **Step 1: 기존 확인**
 
 ```bash
 cat packages/client/src/features/games/components/config/ConfigControls.tsx
 ```
 
-- [ ] **Step 2: 토큰 교체**
+- [x] **Step 2: 토큰 교체** _(violet → coral/peach/ink, 다크모드 prefix 제거)_
 
 구체 변경:
 - `bg-violet-*` → `bg-peach-100` / `bg-peach-200` (hover) / `bg-coral-500` (active)
@@ -949,14 +949,14 @@ cat packages/client/src/features/games/components/config/ConfigControls.tsx
 
 (파일 전체 rewrite 수준 아니면 섹션별 교체)
 
-- [ ] **Step 3: typecheck + 시각 sanity**
+- [x] **Step 3: typecheck + 시각 sanity** _(시각 QA는 사용자 담당)_
 
 ```bash
 pnpm --filter @tangobook/client typecheck
 pnpm dev   # 수동 QA: 저작도구 게임 생성 모달에서 NumberSelector/Checkbox 확인
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add packages/client/src/features/games/components/config/ConfigControls.tsx
