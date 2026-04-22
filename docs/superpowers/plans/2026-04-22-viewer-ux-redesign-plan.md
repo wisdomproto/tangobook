@@ -1549,7 +1549,7 @@ git commit -m "feat(client): add CategorySection for library grouping"
 **Files:**
 - Create: `packages/client/src/features/library/components/WelcomeHeader.tsx`
 
-- [ ] **Step 1: 작성**
+- [x] **Step 1: 작성**
 
 ```tsx
 import { useState } from 'react';
@@ -1584,7 +1584,7 @@ export function WelcomeHeader({ bookCount }: WelcomeHeaderProps) {
 }
 ```
 
-- [ ] **Step 2: index.ts에 추가 export + Commit**
+- [x] **Step 2: index.ts에 추가 export + Commit**
 
 ```bash
 git add packages/client/src/features/library/
