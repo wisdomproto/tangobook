@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { AppLayout } from '../components/AppLayout';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 import LibraryPage from '../pages/LibraryPage';
+import BookDetailPage from '../pages/BookDetailPage';
 import ViewerPage from '../pages/ViewerPage';
 import NotFoundPage from '../pages/NotFoundPage';
 
@@ -11,11 +13,27 @@ export const router = createBrowserRouter([
   },
   {
     path: '/library',
-    element: <LibraryPage />,
+    element: (
+      <ErrorBoundary>
+        <LibraryPage />
+      </ErrorBoundary>
+    ),
+  },
+  {
+    path: '/library/:id',
+    element: (
+      <ErrorBoundary>
+        <BookDetailPage />
+      </ErrorBoundary>
+    ),
   },
   {
     path: '/viewer/:id',
-    element: <ViewerPage />,
+    element: (
+      <ErrorBoundary>
+        <ViewerPage />
+      </ErrorBoundary>
+    ),
   },
   {
     path: '*',

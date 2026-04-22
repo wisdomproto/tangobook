@@ -104,7 +104,7 @@ packages/client/src/
 - Create: `packages/client/vitest.config.ts`
 - Create: `packages/client/src/test/setup.ts`
 
-- [ ] **Step 1: 런타임 의존성 설치**
+- [x] **Step 1: 런타임 의존성 설치**
 
 ```bash
 pnpm add framer-motion lottie-react canvas-confetti clsx tailwind-merge --filter @tangobook/client
@@ -112,13 +112,13 @@ pnpm add framer-motion lottie-react canvas-confetti clsx tailwind-merge --filter
 
 Expected: `packages/client/package.json`의 `dependencies`에 5개 추가.
 
-- [ ] **Step 2: 테스트 도구 설치**
+- [x] **Step 2: 테스트 도구 설치**
 
 ```bash
 pnpm add -D vitest @vitest/ui @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom --filter @tangobook/client
 ```
 
-- [ ] **Step 3: `packages/client/package.json`의 scripts에 test 추가**
+- [x] **Step 3: `packages/client/package.json`의 scripts에 test 추가**
 
 ```json
 {
@@ -134,7 +134,7 @@ pnpm add -D vitest @vitest/ui @testing-library/react @testing-library/jest-dom @
 }
 ```
 
-- [ ] **Step 4: `packages/client/vitest.config.ts` 생성**
+- [x] **Step 4: `packages/client/vitest.config.ts` 생성**
 
 ```ts
 import { defineConfig } from 'vitest/config';
@@ -157,17 +157,17 @@ export default defineConfig({
 });
 ```
 
-- [ ] **Step 5: `packages/client/src/test/setup.ts` 생성**
+- [x] **Step 5: `packages/client/src/test/setup.ts` 생성**
 
 ```ts
 import '@testing-library/jest-dom/vitest';
 ```
 
-- [ ] **Step 6: `packages/client/tsconfig.json`에 vitest 타입 추가**
+- [x] **Step 6: `packages/client/tsconfig.json`에 vitest 타입 추가**
 
 `"types": ["vite/client"]` 항목이 있으면 `"types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"]`로 변경. 없으면 `compilerOptions`에 추가.
 
-- [ ] **Step 7: sanity 테스트 확인**
+- [x] **Step 7: sanity 테스트 확인**
 
 ```bash
 pnpm --filter @tangobook/client test
@@ -175,7 +175,7 @@ pnpm --filter @tangobook/client test
 
 Expected: "No test files found" 또는 0개 테스트 통과 (테스트 아직 없음).
 
-- [ ] **Step 8: 커밋**
+- [x] **Step 8: 커밋**
 
 ```bash
 git add packages/client/package.json packages/client/vitest.config.ts packages/client/src/test/setup.ts packages/client/tsconfig.json pnpm-lock.yaml
@@ -1276,11 +1276,11 @@ git commit -m "feat(client): add 5 Lottie mascot placeholders (idle/waving/cheer
 **Files:**
 - Modify: `packages/client/src/router/index.tsx`
 
-- [ ] **Step 1: 기존 라우터 내용 확인**
+- [x] **Step 1: 기존 라우터 내용 확인**
 
 `router/index.tsx`를 열어 현재 라우트 구조를 파악.
 
-- [ ] **Step 2: BookDetailPage 임시 placeholder 생성**
+- [x] **Step 2: BookDetailPage 임시 placeholder 생성**
 
 ```tsx
 // packages/client/src/pages/BookDetailPage.tsx (임시 스텁)
@@ -1289,7 +1289,7 @@ export default function BookDetailPage() {
 }
 ```
 
-- [ ] **Step 3: 라우트 추가 (eager import, lazy X)**
+- [x] **Step 3: 라우트 추가 (eager import, lazy X)**
 
 기존 LibraryPage·ViewerPage가 eager로 import돼 있다면 BookDetailPage도 동일하게 eager. 400줄 이내 페이지라 code-split 가치 낮음 + Suspense 필요성 제거.
 
@@ -1300,7 +1300,7 @@ import BookDetailPage from '@/pages/BookDetailPage';
 { path: '/library/:id', element: <BookDetailPage /> },
 ```
 
-- [ ] **Step 4: `ErrorBoundary`로 라우트 감싸기**
+- [x] **Step 4: `ErrorBoundary`로 라우트 감싸기**
 
 라이브러리·뷰어 라우트들을 `<ErrorBoundary>`로 감쌈:
 
@@ -1312,7 +1312,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 { path: '/viewer/:id',  element: <ErrorBoundary><ViewerPage /></ErrorBoundary> },
 ```
 
-- [ ] **Step 5: 수동 확인**
+- [ ] **Step 5: 수동 확인** (사용자 담당)
 
 ```bash
 pnpm dev
@@ -1322,7 +1322,7 @@ pnpm dev
 - `/library/test-id` 접속 → "Book Detail (Coming Soon)" 표시
 - 다른 라우트 깨짐 없음
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add packages/client/src/router/index.tsx packages/client/src/pages/BookDetailPage.tsx
