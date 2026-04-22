@@ -114,10 +114,10 @@ export function PictureSequencePlayer({
               className={`relative rounded-xl border-2 overflow-hidden transition-all ${
                 !checked
                   ? selectedIdx === idx
-                    ? 'ring-4 ring-violet-400 border-violet-500 shadow-xl scale-[1.02] cursor-pointer'
+                    ? 'ring-4 ring-coral-400 border-coral-500 shadow-xl scale-[1.02] cursor-pointer'
                     : 'cursor-pointer hover:shadow-lg border-slate-200 dark:border-slate-700'
                   : img.correctOrder === idx + 1
-                    ? 'border-emerald-400 dark:border-emerald-600'
+                    ? 'border-success dark:border-success'
                     : 'border-red-400 dark:border-red-600'
               }`}
             >
@@ -126,11 +126,11 @@ export function PictureSequencePlayer({
                 className={`absolute top-2 left-2 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold z-10 ${
                   checked
                     ? img.correctOrder === idx + 1
-                      ? 'bg-emerald-500 text-white'
-                      : 'bg-red-500 text-white'
+                      ? 'bg-success text-white'
+                      : 'bg-danger text-white'
                     : selectedIdx === idx
-                      ? 'bg-violet-400 text-white'
-                      : 'bg-violet-600 text-white'
+                      ? 'bg-coral-400 text-white'
+                      : 'bg-coral-600 text-white'
                 }`}
               >
                 {idx + 1}
@@ -150,7 +150,7 @@ export function PictureSequencePlayer({
               )}
 
               {checked && img.correctOrder !== idx + 1 && (
-                <div className="absolute bottom-8 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+                <div className="absolute bottom-8 right-2 bg-danger text-white text-xs px-2 py-1 rounded-full font-medium">
                   정답: {img.correctOrder}번
                 </div>
               )}

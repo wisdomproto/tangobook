@@ -123,7 +123,7 @@ export function BlendingListeningPlayer({
         {/* 다시 듣기 */}
         <button
           onClick={() => playAudio(current.targetTtsUrl)}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-sm font-bold hover:bg-violet-200 dark:hover:bg-violet-900/50 transition-colors"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-coral-100 dark:bg-coral-500/20 text-coral-600 dark:text-peach-200 text-sm font-bold hover:bg-coral-200 dark:hover:bg-coral-500/30 transition-colors"
         >
           <span className="text-lg">🔊</span> 다시 듣기
         </button>
@@ -176,12 +176,12 @@ function ImageCard({
   let borderCls = 'border-slate-200 dark:border-slate-700';
   let extraCls = '';
   if (feedback === 'correct') {
-    borderCls = 'border-emerald-400 dark:border-emerald-500';
+    borderCls = 'border-success dark:border-success';
     extraCls = 'scale-105';
   } else if (feedback === 'wrong') {
     borderCls = 'border-red-400 dark:border-red-500';
     extraCls = 'animate-shake';
-  } else if (showAnswer && isTarget) borderCls = 'border-emerald-300 dark:border-emerald-600';
+  } else if (showAnswer && isTarget) borderCls = 'border-success dark:border-success';
 
   return (
     <button
@@ -197,12 +197,12 @@ function ImageCard({
         <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{word}</span>
       </div>
       {feedback === 'correct' && (
-        <div className="absolute top-2 right-2 w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white text-lg shadow-md">
+        <div className="absolute top-2 right-2 w-8 h-8 rounded-full bg-success flex items-center justify-center text-white text-lg shadow-md">
           ✓
         </div>
       )}
       {feedback === 'wrong' && (
-        <div className="absolute top-2 right-2 w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-white text-lg shadow-md">
+        <div className="absolute top-2 right-2 w-8 h-8 rounded-full bg-danger flex items-center justify-center text-white text-lg shadow-md">
           ✗
         </div>
       )}

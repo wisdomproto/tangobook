@@ -83,7 +83,7 @@ export function StorybookQuizPlayer({
         </div>
 
         {/* 질문 */}
-        <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-emerald-900 text-center">
+        <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-ink-900 text-center">
           {current.question}
         </h3>
 
@@ -91,12 +91,12 @@ export function StorybookQuizPlayer({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full">
           {current.options.map((opt, oi) => {
             let style =
-              'bg-white/80 border-white/50 text-emerald-900 hover:bg-white hover:border-violet-300 hover:shadow-lg cursor-pointer';
+              'bg-white/80 border-white/50 text-ink-900 hover:bg-white hover:border-coral-400 hover:shadow-lg cursor-pointer';
             if (selectedAnswer !== null) {
               if (oi === current.correctAnswer) {
-                style = 'bg-emerald-100 border-emerald-400 text-emerald-800 shadow-md';
+                style = 'bg-success/10 border-success text-success shadow-md';
               } else if (oi === selectedAnswer && oi !== current.correctAnswer) {
-                style = 'bg-red-100 border-red-400 text-red-800 shadow-md';
+                style = 'bg-danger/10 border-danger text-danger shadow-md';
               } else {
                 style = 'bg-white/40 border-white/20 text-slate-400';
               }

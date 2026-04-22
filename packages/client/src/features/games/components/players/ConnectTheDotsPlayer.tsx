@@ -91,8 +91,7 @@ export function ConnectTheDotsPlayer({
         {/* 안내 */}
         {!completed && (
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            <span className="font-semibold text-violet-600">{nextOrder}번</span> 점을 찾아
-            눌러주세요
+            <span className="font-semibold text-coral-500">{nextOrder}번</span> 점을 찾아 눌러주세요
           </p>
         )}
         {wrongTap && (
@@ -127,7 +126,7 @@ export function ConnectTheDotsPlayer({
                       y1={sortedKps[i - 1].y}
                       x2={kp.x}
                       y2={kp.y}
-                      stroke="#7c3aed"
+                      stroke="#E84B2A"
                       strokeWidth="0.004"
                       strokeLinecap="round"
                     />
@@ -144,10 +143,10 @@ export function ConnectTheDotsPlayer({
                   onClick={() => handleDotClick(kp.order)}
                   className={`absolute rounded-full flex items-center justify-center text-xs font-bold shadow transition-all ${
                     isConnected
-                      ? 'bg-violet-600 text-white'
+                      ? 'bg-coral-600 text-white'
                       : isNext
                         ? 'bg-amber-400 text-amber-900 animate-pulse ring-2 ring-amber-300'
-                        : 'bg-white text-slate-600 border-2 border-slate-300 hover:border-violet-400'
+                        : 'bg-white text-slate-600 border-2 border-slate-300 hover:border-coral-400'
                   }`}
                   style={{
                     left: `${kp.x * 100}%`,

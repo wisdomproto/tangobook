@@ -160,7 +160,7 @@ export function WordImageMatchingPlayer({
       <div ref={containerRef} className="relative space-y-4 w-full">
         <PraiseOverlay visible={praiseVisible} />
         <div className="flex items-center justify-between px-1">
-          <span className="text-sm font-bold text-violet-600 dark:text-violet-400">
+          <span className="text-sm font-bold text-ink-900 dark:text-peach-200">
             {score} / {allItems.length}
           </span>
           <span className="text-xs text-slate-400 dark:text-slate-500">
@@ -209,7 +209,7 @@ export function WordImageMatchingPlayer({
                   'bg-slate-100 dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-400 dark:text-slate-500 cursor-default';
               else if (isFb && feedback === 'correct')
                 cls +=
-                  'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-400 text-emerald-700 dark:text-emerald-300 scale-105';
+                  'bg-success/10 dark:bg-success/20 border-success text-success dark:text-success scale-105';
               else if (isFb && feedback === 'wrong')
                 cls +=
                   'bg-red-50 dark:bg-red-900/30 border-red-400 text-red-600 dark:text-red-400 animate-shake';
@@ -310,10 +310,12 @@ function ImageCircle({
   refCb: (el: HTMLDivElement | null) => void;
 }) {
   const ringColor =
-    ring === 'purple' ? 'ring-purple-200 dark:ring-purple-700' : 'ring-sky-200 dark:ring-sky-700';
+    ring === 'purple'
+      ? 'ring-purple-200 dark:ring-purple-700'
+      : 'ring-coral-200 dark:ring-coral-500/40';
   let extra = '';
   if (isMatched) extra = 'opacity-40 pointer-events-none';
-  else if (feedback === 'correct') extra = 'ring-emerald-400 dark:ring-emerald-500 scale-110';
+  else if (feedback === 'correct') extra = 'ring-success dark:ring-success scale-110';
   else if (feedback === 'wrong') extra = 'ring-red-400 dark:ring-red-500 animate-shake';
   else if (isSelected) extra = 'ring-amber-400 dark:ring-amber-500 scale-105';
 

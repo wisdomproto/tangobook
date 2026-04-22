@@ -89,10 +89,10 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: 
         <div className="flex gap-3 sm:gap-4 justify-center flex-wrap">
           {current.options.map((opt, oi) => {
             let borderStyle =
-              'border-slate-200 dark:border-slate-700 hover:border-violet-300 cursor-pointer';
+              'border-slate-200 dark:border-slate-700 hover:border-coral-400 cursor-pointer';
             if (selectedIdx !== null) {
               if (opt.isOddOneOut) {
-                borderStyle = 'border-emerald-400 dark:border-emerald-600 ring-2 ring-emerald-300';
+                borderStyle = 'border-success dark:border-success ring-2 ring-success';
               } else if (oi === selectedIdx && !opt.isOddOneOut) {
                 borderStyle = 'border-red-400 dark:border-red-600';
               } else {

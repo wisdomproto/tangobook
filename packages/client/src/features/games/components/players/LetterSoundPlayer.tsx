@@ -93,13 +93,13 @@ export function LetterSoundPlayer({ gameData, onComplete, onBack, systemSounds }
       'w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-2xl text-2xl sm:text-3xl lg:text-4xl font-black border-3 transition-all';
     if (selected === letter) {
       if (feedback === 'correct')
-        return `${base} border-emerald-400 bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300 scale-110`;
+        return `${base} border-success bg-success/10 text-success dark:bg-success/20 dark:text-success scale-110`;
       if (feedback === 'wrong')
-        return `${base} border-red-400 bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-300 animate-shake`;
+        return `${base} border-danger bg-danger/10 text-danger dark:bg-danger/20 dark:text-danger animate-shake`;
     }
     if (feedback === 'correct' && letter === current.targetLetter)
-      return `${base} border-emerald-400 bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300 scale-110`;
-    return `${base} border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-violet-600 dark:text-violet-400 hover:border-violet-300 hover:shadow-md cursor-pointer`;
+      return `${base} border-success bg-success/10 text-success dark:bg-success/20 dark:text-success scale-110`;
+    return `${base} border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-ink-900 dark:text-peach-200 hover:border-coral-400 hover:shadow-md cursor-pointer`;
   };
 
   return (
