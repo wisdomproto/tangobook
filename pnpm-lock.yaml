@@ -162,6 +162,9 @@ importers:
       vitest:
         specifier: ^4.1.5
         version: 4.1.5(@types/node@22.19.11)(@vitest/ui@4.1.5)(jsdom@26.1.0)(vite@6.4.1(@types/node@22.19.11)(jiti@1.21.7)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.2))
+      vitest-canvas-mock:
+        specifier: ^1.1.4
+        version: 1.1.4(vitest@4.1.5)
 
   packages/remotion:
     dependencies:
@@ -2782,6 +2785,9 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
 
+  cssfontparser@1.2.1:
+    resolution: {integrity: sha512-6tun4LoZnj7VN6YeegOVb67KBX/7JJsqvj+pv3ZA7F878/eN33AbGa5b/S/wXxS/tcp8nc40xRUrsPlxIyNUPg==}
+
   cssstyle@4.6.0:
     resolution: {integrity: sha512-2z+rWdzbbSZv6/rhtvzvqeZQHrBaqgogqt85sqFNbabZOuFbCVFb8kPeEtZjiKkbrm395irpNKiYeFeLiQnFPg==}
     engines: {node: '>=18'}
@@ -3860,6 +3866,9 @@ packages:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
 
+  moo-color@1.0.3:
+    resolution: {integrity: sha512-i/+ZKXMDf6aqYtBhuOcej71YSlbjT3wCO/4H1j8rPvxDJEifdwgg5MaFyu6iYAT8GBZJg2z0dkgK4YMzvURALQ==}
+
   motion-dom@12.38.0:
     resolution: {integrity: sha512-pdkHLD8QYRp8VfiNLb8xIBJis1byQ9gPT3Jnh2jqfFtAsWUA3dEepDlsWe/xMpO8McV+VdpKVcp+E+TGJEtOoA==}
 
@@ -4806,6 +4815,11 @@ packages:
         optional: true
       yaml:
         optional: true
+
+  vitest-canvas-mock@1.1.4:
+    resolution: {integrity: sha512-4boWHY+STwAxGl1+uwakNNoQky5EjPLC8HuponXNoAscYyT1h/F7RUvTkl4IyF/MiWr3V8Q626je3Iel3eArqA==}
+    peerDependencies:
+      vitest: ^3.0.0 || ^4.0.0
 
   vitest@4.1.5:
     resolution: {integrity: sha512-9Xx1v3/ih3m9hN+SbfkUyy0JAs72ap3r7joc87XL6jwF0jGg6mFBvQ1SrwaX+h8BlkX6Hz9shdd1uo6AF+ZGpg==}
@@ -7970,6 +7984,8 @@ snapshots:
 
   cssesc@3.0.0: {}
 
+  cssfontparser@1.2.1: {}
+
   cssstyle@4.6.0:
     dependencies:
       '@asamuzakjp/css-color': 3.2.0
@@ -9256,6 +9272,10 @@ snapshots:
     dependencies:
       minimist: 1.2.8
 
+  moo-color@1.0.3:
+    dependencies:
+      color-name: 1.1.4
+
   motion-dom@12.38.0:
     dependencies:
       motion-utils: 12.36.0
@@ -10303,6 +10323,12 @@ snapshots:
       terser: 5.46.1
       tsx: 4.21.0
       yaml: 2.8.2
+
+  vitest-canvas-mock@1.1.4(vitest@4.1.5):
+    dependencies:
+      cssfontparser: 1.2.1
+      moo-color: 1.0.3
+      vitest: 4.1.5(@types/node@22.19.11)(@vitest/ui@4.1.5)(jsdom@26.1.0)(vite@6.4.1(@types/node@22.19.11)(jiti@1.21.7)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.2))
 
   vitest@4.1.5(@types/node@22.19.11)(@vitest/ui@4.1.5)(jsdom@26.1.0)(vite@6.4.1(@types/node@22.19.11)(jiti@1.21.7)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.2)):
     dependencies:
