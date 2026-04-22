@@ -62,20 +62,20 @@ export function PageView({
         animate="center"
         exit="exit"
         transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 160, damping: 20 }}
-        className="absolute inset-0 flex items-center justify-center p-10 md:p-14"
+        className="absolute inset-0 flex items-center justify-center p-4 sm:p-10 md:p-14"
       >
         {page.illustrationUrl && (
           <img
             src={page.illustrationUrl}
             alt=""
-            className="max-w-[60%] max-h-[60vh] object-contain rounded-lg shadow-card"
+            className="max-w-[85%] sm:max-w-[60%] max-h-[60vh] object-contain rounded-lg shadow-card"
           />
         )}
 
         {/* 텍스트 카드 */}
         <div
           className={cn(
-            'absolute left-16 right-16 bottom-28 backdrop-blur-sm rounded-lg px-7 py-5 shadow-card text-center font-bold leading-snug',
+            'absolute left-4 right-4 sm:left-16 sm:right-16 bottom-24 sm:bottom-28 backdrop-blur-sm rounded-lg px-5 sm:px-7 py-4 sm:py-5 shadow-card text-center font-bold leading-snug',
             isDarkMode ? 'bg-white/10 text-darktext' : 'bg-white/92 text-ink-900',
             TEXT_CLASS[textSize]
           )}

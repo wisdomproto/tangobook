@@ -32,7 +32,7 @@ export default function BookDetailPage() {
     return (
       <div className="min-h-screen bg-cream-50 p-7 max-w-[1200px] mx-auto">
         <Skeleton className="h-12 w-32 mb-5" />
-        <div className="grid grid-cols-[300px_1fr] gap-9">
+        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-9">
           <Skeleton className="aspect-[3/4] rounded-lg" />
           <div className="flex flex-col gap-3">
             <Skeleton className="h-12 w-3/4" />
