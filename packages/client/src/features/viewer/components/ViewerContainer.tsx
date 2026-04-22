@@ -163,7 +163,6 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     return <PhonicsViewer storybook={storybook} mode={mode} />;
   }
 
-  const hasTts = !!getTtsUrl(currentStoryPage);
   const hasBgm = !!storybook.backgroundMusicUrl;
 
   const isFullImg = settings.fullscreenImage && currentStoryPage;
@@ -234,12 +233,10 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         }
       >
         <ViewerControls
-          currentPage={currentPage}
-          totalPages={totalPages}
           onPrev={goPrev}
           onNext={goNext}
-          onGoToPage={goToPage}
-          hasTts={hasTts}
+          canPrev={currentPage > 0}
+          canNext={currentPage < totalPages - 1}
           isTtsPlaying={isTtsPlaying}
           onToggleTts={handleToggleTts}
           hasBgm={hasBgm}
@@ -247,7 +244,6 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
           onToggleBgm={toggleBgm}
           autoPlayTts={settings.autoPlayTts}
           onToggleAutoPlay={() => updateSettings({ autoPlayTts: !settings.autoPlayTts })}
-          darkMode={settings.darkMode}
         />
       </div>
     </div>
