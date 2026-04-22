@@ -1489,7 +1489,7 @@ git commit -m "feat(client): extract BookCard with YouTube badge from summary fl
 - Create: `packages/client/src/features/library/components/CategorySection.tsx`
 - Modify: `packages/client/src/features/library/index.ts`
 
-- [ ] **Step 1: CategorySection.tsx 작성**
+- [x] **Step 1: CategorySection.tsx 작성**
 
 ```tsx
 import { BookCard } from './BookCard';
@@ -1530,7 +1530,7 @@ export function CategorySection({ icon, title, books, limit = 8, onShowMore }: C
 }
 ```
 
-- [ ] **Step 2: export + typecheck + Commit**
+- [x] **Step 2: export + typecheck + Commit**
 
 ```ts
 // index.ts
