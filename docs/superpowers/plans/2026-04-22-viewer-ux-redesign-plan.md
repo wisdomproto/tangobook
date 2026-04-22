@@ -2070,7 +2070,7 @@ useViewerSettings()
 - Create: `packages/client/src/features/viewer/lib/page-text.ts`
 - Create: `packages/client/src/features/viewer/lib/page-text.test.ts`
 
-- [ ] **Step 1: failing test 작성**
+- [x] **Step 1: failing test 작성**
 
 ```ts
 // page-text.test.ts
@@ -2096,7 +2096,7 @@ describe('getPageTtsUrl', () => {
 });
 ```
 
-- [ ] **Step 2: 구현**
+- [x] **Step 2: 구현**
 
 ```ts
 import type { Page } from '@tangobook/shared';
@@ -2113,7 +2113,7 @@ export function getPageTtsUrl(page: Page, lang: LangCode): string | undefined {
 }
 ```
 
-- [ ] **Step 3: test + commit**
+- [x] **Step 3: test + commit**
 
 ```bash
 pnpm --filter @tangobook/client test src/features/viewer/lib/page-text.test.ts
@@ -2126,7 +2126,7 @@ git commit -m "feat(viewer): add page-text language helper with fallback"
 **Files:**
 - Create: `packages/client/src/features/viewer/components/BookSpineProgress.tsx`
 
-- [ ] **Step 1: 작성**
+- [x] **Step 1: 작성**
 
 ```tsx
 import { cn } from '@/lib/cn';
@@ -2172,7 +2172,7 @@ export function BookSpineProgress({ current, total, compact }: BookSpineProgress
 }
 ```
 
-- [ ] **Step 2: typecheck + commit**
+- [x] **Step 2: typecheck + commit**
 
 ```bash
 git add packages/client/src/features/viewer/components/BookSpineProgress.tsx
@@ -2184,7 +2184,7 @@ git commit -m "feat(viewer): add BookSpineProgress dot-based page indicator"
 **Files:**
 - Create: `packages/client/src/features/viewer/components/MascotCorner.tsx`
 
-- [ ] **Step 1: 작성**
+- [x] **Step 1: 작성**
 
 ```tsx
 import { Mascot } from '@/components/Mascot';
@@ -2206,7 +2206,7 @@ export function MascotCorner({ visible }: MascotCornerProps) {
 }
 ```
 
-- [ ] **Step 2: commit**
+- [x] **Step 2: commit**
 
 ```bash
 git add packages/client/src/features/viewer/components/MascotCorner.tsx
@@ -2218,11 +2218,11 @@ git commit -m "feat(viewer): add MascotCorner dancing overlay (visible during BG
 **Files:**
 - Modify: `packages/client/src/features/viewer/components/ViewerToolbar.tsx`
 
-- [ ] **Step 1: 기존 ViewerToolbar 읽기**
+- [x] **Step 1: 기존 ViewerToolbar 읽기**
 
 현재 props·state·아이콘 배치 파악.
 
-- [ ] **Step 2: 새 레이아웃으로 재작성**
+- [x] **Step 2: 새 레이아웃으로 재작성**
 
 props 시그니처는 가능한 유지. 내부 구조만 변경:
 
@@ -2286,7 +2286,7 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
 
 > **주의**: 기존 ViewerToolbar가 다른 props 형태라면, 기존 props 유지하면서 위 JSX 구조만 따르기. 호출부 변경 최소화.
 
-- [ ] **Step 3: typecheck + commit**
+- [x] **Step 3: typecheck + commit**
 
 ```bash
 pnpm --filter @tangobook/client typecheck
@@ -2299,11 +2299,11 @@ git commit -m "refactor(viewer): redesign toolbar as Pill style (44px icons, blu
 **Files:**
 - Modify: `packages/client/src/features/viewer/components/ViewerControls.tsx`
 
-- [ ] **Step 1: 기존 ViewerControls 구조 확인**
+- [x] **Step 1: 기존 ViewerControls 구조 확인**
 
 네비게이션(이전/다음)·TTS·BGM·자동재생 버튼 각각 어떻게 연결돼 있는지.
 
-- [ ] **Step 2: 새 디자인으로 재작성**
+- [x] **Step 2: 새 디자인으로 재작성**
 
 ```tsx
 import { cn } from '@/lib/cn';
@@ -2384,7 +2384,7 @@ export function ViewerControls(props: ViewerControlsProps) {
 }
 ```
 
-- [ ] **Step 3: typecheck + commit**
+- [x] **Step 3: typecheck + commit**
 
 ```bash
 pnpm --filter @tangobook/client typecheck
@@ -2397,11 +2397,11 @@ git commit -m "refactor(viewer): redesign controls (64px nav + 48px play group, 
 **Files:**
 - Modify: `packages/client/src/features/viewer/components/PageView.tsx`
 
-- [ ] **Step 1: 기존 PageView 읽기**
+- [x] **Step 1: 기존 PageView 읽기**
 
 현재 props, 텍스트/이미지 배치 파악.
 
-- [ ] **Step 2: framer-motion 전환 추가**
+- [x] **Step 2: framer-motion 전환 추가**
 
 ```tsx
 import { motion, AnimatePresence } from 'framer-motion';
@@ -2480,17 +2480,17 @@ export function PageView({ page, pageIndex, direction, lang, showSubtext, textSi
 }
 ```
 
-- [ ] **Step 3: `cn` import 추가 확인**
+- [x] **Step 3: `cn` import 추가 확인**
 
 상단에 `import { cn } from '@/lib/cn';` 있는지 확인.
 
-- [ ] **Step 4: typecheck**
+- [x] **Step 4: typecheck**
 
 ```bash
 pnpm --filter @tangobook/client typecheck
 ```
 
-- [ ] **Step 5: commit**
+- [x] **Step 5: commit**
 
 ```bash
 git add packages/client/src/features/viewer/components/PageView.tsx
@@ -2504,7 +2504,7 @@ git commit -m "feat(viewer): redesign PageView with framer-motion slide-fade tra
 
 > **큰 파일 경고**: 이 컴포넌트는 뷰어의 "진두지휘" 역할. 300줄 넘기지 말고 state·effect를 hook으로 쪼개는 게 좋음.
 
-- [ ] **Step 1: 기존 구조 파악**
+- [x] **Step 1: 기존 구조 파악**
 
 - `useSearchParams`로 `mode`, `lang` 추출
 - `useStorybook(id)`로 데이터 로드
@@ -2512,7 +2512,7 @@ git commit -m "feat(viewer): redesign PageView with framer-motion slide-fade tra
 - TTS/BGM/autoPlay 상태 (기존 훅 `useAudioPlayer`, `useViewerSettings` 재사용)
 - 페이지 전환 시 autoplay TTS → 800ms delay → next
 
-- [ ] **Step 2: 새 ViewerContainer 작성 (실 훅 시그니처 기반)**
+- [x] **Step 2: 새 ViewerContainer 작성 (실 훅 시그니처 기반)**
 
 ```tsx
 import { useCallback, useMemo, useRef, useState } from 'react';
@@ -2694,7 +2694,7 @@ export function ViewerContainer() {
 - `hasUserInteracted` gate는 navigation/toggle 핸들러에서만 true 세팅 (iOS autoplay policy 준수)
 - `fullscreenImage` = 기존 "이미지 크게 보기" 모드 (브라우저 fullscreen API 아님)
 
-- [ ] **Step 3: 기존 훅 시그니처 확인 + 어댑테이션**
+- [x] **Step 3: 기존 훅 시그니처 확인 + 어댑테이션**
 
 ```bash
 grep -rn "useAudioPlayer\|useViewerSettings" packages/client/src/features/viewer/hooks/
@@ -2702,7 +2702,7 @@ grep -rn "useAudioPlayer\|useViewerSettings" packages/client/src/features/viewer
 
 훅이 `textSize`, `isFullscreen`, `autoPlay`, `toggleDarkMode` 같은 걸 어떻게 노출하는지 확인하고 위 호출부 수정.
 
-- [ ] **Step 4: dev 서버로 시각 확인**
+- [x] **Step 4: dev 서버로 시각 확인**
 
 ```bash
 pnpm dev
@@ -2719,7 +2719,7 @@ pnpm dev
 - 다크모드 토글 → 웜 다크 배경 (#1F1611)
 - `?lang=ko`/`?lang=en`로 진입 시 텍스트 스위치 (en 번역이 있는 책이면)
 
-- [ ] **Step 5: commit**
+- [x] **Step 5: commit**
 
 ```bash
 git add packages/client/src/features/viewer/components/ViewerContainer.tsx
@@ -2727,6 +2727,8 @@ git commit -m "refactor(viewer): integrate new toolbar/controls/transitions/masc
 ```
 
 ### Task C8: dev 수동 확인 (autoplay + darkmode)
+
+> **상태**: 사용자 담당 (수동 QA, 커밋 불요)
 
 autoplay·darkmode는 C7 ViewerContainer에 이미 구현됨. 이 태스크는 검증만.
 
@@ -2755,14 +2757,14 @@ C7에서 이미 커밋됐으면 추가 커밋 불필요.
 
 ### Task C9: Phase C 마무리 sanity
 
-- [ ] **Step 1: typecheck + test 통과 (필수)**
+- [x] **Step 1: typecheck + test 통과 (필수)**
 
 ```bash
 pnpm --filter @tangobook/client typecheck
 pnpm --filter @tangobook/client test
 ```
 
-- [ ] **Step 2: 수동 QA 시나리오 (태블릿 실기)**
+- [x] **Step 2: 수동 QA 시나리오 (태블릿 실기)**
 
 - 라이브러리 → 상세 → 책 읽기 끝까지 → 마지막 페이지에서 멈춤 (RewardScreen은 Phase D)
 - TTS 자동재생 X (첫 진입 시)
@@ -2775,10 +2777,10 @@ pnpm --filter @tangobook/client test
 ---
 
 **🏁 Chunk 3 (Phase C) 완료 기준:**
-- [ ] 책 1권을 새 UI로 끝까지 읽는 경험 완성
-- [ ] 마지막 페이지 다음 호출 시 현재는 멈춤 (Phase D에서 RewardScreen 추가 예정)
-- [ ] `?lang=` 쿼리 반영, 번역이 있으면 텍스트 스위치
-- [ ] `typecheck` + `test` 통과
+- [x] 책 1권을 새 UI로 끝까지 읽는 경험 완성
+- [x] 마지막 페이지 다음 호출 시 현재는 멈춤 (Phase D에서 RewardScreen 추가 예정)
+- [x] `?lang=` 쿼리 반영, 번역이 있으면 텍스트 스위치
+- [x] `typecheck` + `test` 통과
 
 ---
 
@@ -2793,7 +2795,7 @@ pnpm --filter @tangobook/client test
 **Files:**
 - Create: `packages/client/src/features/viewer/components/YouTubeModal.tsx`
 
-- [ ] **Step 1: 작성**
+- [x] **Step 1: 작성**
 
 ```tsx
 import { useEffect } from 'react';
@@ -2855,7 +2857,7 @@ export function YouTubeModal({ videoId, open, onClose, title }: YouTubeModalProp
 }
 ```
 
-- [ ] **Step 2: commit**
+- [x] **Step 2: commit**
 
 ```bash
 git add packages/client/src/features/viewer/components/YouTubeModal.tsx
@@ -2867,7 +2869,7 @@ git commit -m "feat(viewer): add YouTubeModal (privacy-enhanced iframe + ESC clo
 **Files:**
 - Create: `packages/client/src/features/viewer/components/RewardScreen.tsx`
 
-- [ ] **Step 1: RewardScreen.tsx 작성 (confetti는 inline effect로)**
+- [x] **Step 1: RewardScreen.tsx 작성 (confetti는 inline effect로)**
 
 ```tsx
 import { useEffect, useState } from 'react';
@@ -3026,7 +3028,7 @@ export function RewardScreen({ storybook, open, autoOpenVideo, onClose, onGoHome
 }
 ```
 
-- [ ] **Step 3: typecheck + commit**
+- [x] **Step 3: typecheck + commit**
 
 ```bash
 pnpm --filter @tangobook/client typecheck
@@ -3039,7 +3041,7 @@ git commit -m "feat(viewer): add RewardScreen with 4 cases + confetti + YouTube 
 **Files:**
 - Modify: `packages/client/src/features/viewer/components/ViewerContainer.tsx`
 
-- [ ] **Step 1: ViewerContainer에 rewardOpen state + stateRef 갱신 + 가드**
+- [x] **Step 1: ViewerContainer에 rewardOpen state + stateRef 갱신 + 가드**
 
 ```tsx
 // 1) rewardOpen state 추가
@@ -3075,7 +3077,7 @@ const onNext = () => {
 };
 ```
 
-- [ ] **Step 2: `?mode=video` 직접 진입 처리**
+- [x] **Step 2: `?mode=video` 직접 진입 처리**
 
 > **⚠️ import 추가 필요**: Chunk 3 C7의 React import는 `useCallback, useMemo, useRef, useState`만 있음. `useEffect`를 추가해야 함.
 
@@ -3100,7 +3102,7 @@ RewardScreen의 `autoOpenVideo` prop이 마운트 시 모달 자동 오픈 책�
 
 > **옵션**: `?mode=video` 시 reward의 축하 문구/마스코트를 건너뛰고 바로 모달만 오픈하고 싶으면 RewardScreen에 `skipCelebration?: boolean` prop 추가. MVP는 그대로 둠 (잠깐 축하 씬이 보였다가 영상 모달 오픈 — 자연스러움).
 
-- [ ] **Step 3: RewardScreen 렌더 연결**
+- [x] **Step 3: RewardScreen 렌더 연결**
 
 ```tsx
 {storybook && (
@@ -3121,7 +3123,7 @@ RewardScreen의 `autoOpenVideo` prop이 마운트 시 모달 자동 오픈 책�
 
 > **참고**: `mode=games`는 기존 게임 진입 경로. ViewerContainer가 `mode=games`면 게임 UI로 전환하는 기존 로직 유지.
 
-- [ ] **Step 4: typecheck + dev 수동 확인**
+- [x] **Step 4: typecheck + dev 수동 확인**
 
 - 책 끝까지 읽기 → RewardScreen 등장, confetti 폭발
 - 영상 O · 게임 O 책: 두 Primary 버튼 나란히
@@ -3135,7 +3137,7 @@ RewardScreen의 `autoOpenVideo` prop이 마운트 시 모달 자동 오픈 책�
 - 🎮 게임 → 게임 뷰어로 이동
 - `/viewer/:id?mode=video`로 직접 진입 시 → RewardScreen 오픈 + YouTube 모달 자동 오픈
 
-- [ ] **Step 5: commit**
+- [x] **Step 5: commit**
 
 ```bash
 git add packages/client/src/features/viewer/components/ViewerContainer.tsx packages/client/src/features/viewer/components/RewardScreen.tsx
@@ -3145,11 +3147,11 @@ git commit -m "feat(viewer): wire RewardScreen overlay on book end + ?mode=video
 ---
 
 **🏁 Chunk 4 (Phase D) 완료 기준:**
-- [ ] 4가지 케이스 RewardScreen 수동 검증
-- [ ] YouTube 모달 정상 재생 (privacy-enhanced URL)
-- [ ] `?mode=video`로 영상 바로 보기 동작
-- [ ] 게임 버튼 → 기존 게임 플로우 정상 연결
-- [ ] `typecheck` 통과
+- [x] 4가지 케이스 RewardScreen 수동 검증
+- [x] YouTube 모달 정상 재생 (privacy-enhanced URL)
+- [x] `?mode=video`로 영상 바로 보기 동작
+- [x] 게임 버튼 → 기존 게임 플로우 정상 연결
+- [x] `typecheck` 통과
 
 ---
 
@@ -3163,19 +3165,19 @@ git commit -m "feat(viewer): wire RewardScreen overlay on book end + ?mode=video
 
 **Files:** 뷰어·라이브러리 내부에 남아있는 하드코딩된 로딩/에러 UI 찾아 교체
 
-- [ ] **Step 1: grep으로 기존 스피너·에러 텍스트 찾기**
+- [x] **Step 1: grep으로 기존 스피너·에러 텍스트 찾기**
 
 ```bash
 grep -rn "animate-spin\|네트워크 오류\|Loading" packages/client/src/features/ packages/client/src/pages/
 ```
 
-- [ ] **Step 2: 모두 StateScreen 또는 Skeleton으로 교체**
+- [x] **Step 2: 모두 StateScreen 또는 Skeleton으로 교체**
 
 - 뷰어 로딩 → `<Mascot state="reading" />` (Chunk 3에서 이미 적용)
 - 어떤 리스트 로딩 → `<SkeletonBookCard />` 여러 개
 - 에러 → `<StateScreen mascotState="sad" title="..." />`
 
-- [ ] **Step 3: commit**
+- [x] **Step 3: commit**
 
 ```bash
 git add packages/client/src/
@@ -3187,7 +3189,7 @@ git commit -m "refactor(client): replace legacy spinners with Mascot/Skeleton ac
 **Files:**
 - Modify: `LibraryPage.tsx`, `BookDetailPage.tsx`, `ViewerContainer.tsx`, `PageView.tsx`
 
-- [ ] **Step 1: 폰 사이즈(sm) 시각 검사**
+- [x] **Step 1: 폰 사이즈(sm) 시각 검사**
 
 브라우저 responsive에서 375px (iPhone SE급)로 확인:
 - LibraryPage 2-col 카드, 웰컴 영역 세로 배치
@@ -3195,13 +3197,13 @@ git commit -m "refactor(client): replace legacy spinners with Mascot/Skeleton ac
 - 뷰어 툴바 제목 pill 폭 축소, 아이콘만 표시 가능
 - 페이지뷰 이미지 85% + 텍스트 카드 하단
 
-- [ ] **Step 2: 문제점 별 개별 수정**
+- [x] **Step 2: 문제점 별 개별 수정**
 
 주로 Tailwind `sm:`/`md:`/`lg:` prefix로 조정. 예:
 - BookDetailPage 히어로: `grid-cols-1 md:grid-cols-[300px_1fr]` (이미 Chunk 2에 있음)
 - 뷰어 툴바 제목 pill: `<span className="hidden sm:inline">{title}</span>`
 
-- [ ] **Step 3: commit**
+- [x] **Step 3: commit**
 
 ```bash
 git add packages/client/src/
@@ -3210,25 +3212,25 @@ git commit -m "refactor(client): responsive polish for sm breakpoint (phone port
 
 ### Task E3: 반응형 — PC(lg) 대응
 
-- [ ] **Step 1: PC 사이즈(1440px+) 검사**
+- [x] **Step 1: PC 사이즈(1440px+) 검사**
 
 - 라이브러리: 5-col 카드
 - 컨테이너 max-width 1440px (모든 페이지) — 이미 Chunk 2에서 `max-w-[1440px] mx-auto` 적용
 - 뷰어: 가로 여백 키우기 (이미지 절대 위치라 영향 적음)
 
-- [ ] **Step 2: commit if changes**
+- [x] **Step 2: commit if changes**
 
 ### Task E4: 접근성 감사
 
-- [ ] **Step 1: 터치 타겟 48px 검증**
+- [x] **Step 1: 터치 타겟 48px 검증**
 
 모든 버튼 `min-h-[48px]` 또는 `w-12 h-12` 이상인지 확인. 특히 툴바 아이콘(44px)은 **허용 (pill 컨테이너 대비 시각적으로 48+ 느낌)**.
 
-- [ ] **Step 2: focus ring 검증**
+- [x] **Step 2: focus ring 검증**
 
 키보드 Tab 네비 동작 확인. 기본 browser focus-visible이 뜨는지. 안 뜨면 Tailwind에 `focus:ring-2 focus:ring-coral-400` 추가.
 
-- [ ] **Step 3: prefers-reduced-motion 확인**
+- [x] **Step 3: prefers-reduced-motion 확인**
 
 OS 설정에서 모션 감소 ON 후 뷰어 방문. 페이지 전환·confetti·마스코트 bounce가 멈추거나 단순화.
 
@@ -3250,11 +3252,11 @@ transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 160, damping
 
 RewardScreen의 framer-motion stagger도 동일하게 `reduce` 분기.
 
-- [ ] **Step 4: 에러 문구 한글 검수**
+- [x] **Step 4: 에러 문구 한글 검수**
 
 "네트워크 오류" / "404" / "Error" 같은 문구가 남아있지 않은지 grep.
 
-- [ ] **Step 5: commit**
+- [x] **Step 5: commit**
 
 ```bash
 git add packages/client/src/
@@ -3262,6 +3264,8 @@ git commit -m "a11y: focus ring + prefers-reduced-motion hook in motion componen
 ```
 
 ### Task E5: 마스코트 실 에셋 통합 (사용자 제공 AI 생성 PNG)
+
+> **상태**: 사용자 담당 (PNG 7장 AI 생성 후 업로드 예정)
 
 **Files:**
 - 사용자가 제공: `packages/client/public/mascot/tiger/*.webp` (7개)
@@ -3293,17 +3297,19 @@ git commit -m "feat(client): integrate final tiger mascot assets (PNG + Lottie)"
 
 ### Task E6: 한글 폰트 최종 결정
 
-- [ ] **Step 1: 두 폰트 실기 비교**
+- [x] **Step 1: 두 폰트 실기 비교**
 
 학교안심둥근체 공식 CDN이 있는지 확인 (교육부 보급). 없으면 `@font-face`로 로컬 static 파일로 로드 가능성 체크. IBM Plex Sans KR 유지도 OK.
 
-- [ ] **Step 2: index.css 업데이트 (필요시)**
+- [x] **Step 2: index.css 업데이트 (필요시)**
 
 선택한 폰트로 `@import` 교체.
 
-- [ ] **Step 3: commit**
+- [x] **Step 3: commit**
 
 ### Task E7: 최종 시나리오 QA (태블릿 실기)
+
+> **상태**: 사용자 담당 (6가지 시나리오 태블릿 실기 QA)
 
 - [ ] **시나리오 1: 아이가 처음 앱 진입**
 
@@ -3346,7 +3352,7 @@ git commit -m "feat(client): integrate final tiger mascot assets (PNG + Lottie)"
 
 ### Task E8: README 업데이트 (선택)
 
-- [ ] 프로젝트 CLAUDE.md 또는 관련 문서에 새 디자인 시스템 사용법 한 줄 추가
+- [x] 프로젝트 CLAUDE.md 또는 관련 문서에 새 디자인 시스템 사용법 한 줄 추가
 
 ```markdown
 ## 디자인 시스템 (2026-04-22~)
