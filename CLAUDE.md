@@ -175,26 +175,30 @@ scripts/synthesize-game-sfx.mjs   # 사운드 재생성 스크립트 (ffmpeg-sta
 - 다크 모드 텍스트: `dark:text-peach-200` 패턴 준수
 - `accentColor` prop 사용 금지 (제거됨)
 
-### 게임 목록 (17종)
-| ID | 이름 | 지원 타입 |
-|----|------|-----------|
-| vocabulary-matching | 어휘 매칭 | storybook |
-| word-writing | 단어 쓰기 | storybook |
-| connect-the-dots | 점잇기 | storybook |
-| word-quiz | 단어 퀴즈 | storybook |
-| picture-sequence | 그림 순서 | storybook |
-| odd-one-out | 다른 그림 찾기 | storybook |
-| word-image-matching | 단어-그림 매칭 | phonics |
-| blending-listening | 블렌딩 듣기 | phonics |
-| letter-sound | 글자 소리 | phonics |
-| word-listening | 듣고 단어 맞추기 | phonics |
-| korean-block | 한글 블록 맞추기 | storybook |
-| english-block | 영어 블록 맞추기 | storybook |
-| korean-word-writing | 한글 낱말쓰기 | storybook |
-| english-word-writing | 영어 낱말쓰기 | storybook |
-| storybook-quiz | 동화책 퀴즈 | storybook |
-| korean-speaking | 한국어 말하기 | storybook |
-| english-speaking | 영어 말하기 | storybook |
+### 게임 목록 — 2026-04-23 정리 (4~5세 유아용 단순화)
+
+**현재 노출 게임 (한/영 각 5종 = 10 타입)**
+| ID | 이름 | 지원 타입 | language |
+|----|------|-----------|---|
+| korean-block | 한글 블록 맞추기 | storybook | ko |
+| english-block | 영어 블록 맞추기 | storybook | en |
+| korean-word-writing | 한글 낱말쓰기 | storybook | ko |
+| english-word-writing | 영어 낱말쓰기 | storybook | en |
+| connect-the-dots | 단어 그림 그리기 | storybook | (중립) |
+| korean-line-matching | 그림-단어 선긋기 | storybook | ko |
+| english-line-matching | 그림-단어 선긋기 (영어) | storybook | en |
+| korean-story-image | 이야기 듣고 그림 찾기 | storybook | ko |
+| english-story-image | 이야기 듣고 그림 찾기 (영어) | storybook | en |
+
+**hidden 타입** (코드·데이터 유지, 게임 리스트에서 숨김)
+- `korean-speaking`, `english-speaking` — 완성도(Azure 도입) 개선 후 재공개
+- `word-writing` — korean/english-word-writing으로 대체. 레거시 인스턴스만 지원
+
+**제거 대상** (2026-04-23 30권에서 인스턴스 일괄 삭제, 클라 코드 정리는 후속):
+- `vocabulary-matching` · `word-quiz` · `picture-sequence` · `odd-one-out` · `storybook-quiz`
+- 파닉스 4종: `word-image-matching` · `blending-listening` · `letter-sound` · `word-listening`
+
+> 정리 철학: "아예 단어 모르는 4~5세 아이 기준. 중복·복잡 게임은 제거, 단순 매칭·쓰기·그리기·듣기 하나씩".
 
 ### 새 게임 추가 방법
 1. `shared/types/storybook.ts`에 Config/Data 타입 추가, GameTypeId·GameConfig·GameData 유니온 확장
