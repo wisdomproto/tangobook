@@ -17,6 +17,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
+      '@tangobook/shared': resolve(__dirname, '../shared/src/index.ts'),
+      '@tangobook/remotion': resolve(__dirname, '../remotion/src/index.ts'),
     },
   },
 });
