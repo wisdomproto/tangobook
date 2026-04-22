@@ -1,5 +1,7 @@
 # 게임 15종 UI/UX 리디자인 (유아 친화 · 뷰어 디자인 시스템 상속)
 
+> **✅ 구현 완료 (2026-04-22)** — 플랜: `docs/superpowers/plans/2026-04-22-games-ux-redesign-plan.md`. 진행 상세: `memory/games-redesign-complete.md`.
+
 ## 개요
 
 탱고북의 **게임 15종** (플레이어 13개 + 공통 컴포넌트)을 2026-04-22에 확정된 뷰어 디자인 시스템으로 전면 리뉴얼한다. 공용 컴포넌트 재정비 + TOP 5 게임 레이아웃 재설계 + 나머지 8개 게임 토큰 치환 3단계로 진행. 뷰어 스펙(`2026-04-22-viewer-ux-redesign-design.md`)에서 정립된 토큰·Button·Card·Mascot·StateScreen·framer-motion·lottie-react·canvas-confetti를 그대로 상속해 사용.

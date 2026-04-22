@@ -1,5 +1,9 @@
 # 게임 15종 UX 리디자인 — 구현 플랜
 
+> **✅ 구현 완료 (2026-04-22)** — Phase A(11 커밋) + Phase B(5 커밋) + Phase C(4 커밋 + 마감 1) 전부 실행 및 main 반영. typecheck PASS, test 39/39 PASS, 플랜 C6 grep 기준 0 hits.
+>
+> 남은 것: (1) 사용자 수동 15게임 시각 QA, (2) 실제 CC0 녹음 음원 교체(현재는 합성). 진행 상태 상세는 `memory/games-redesign-complete.md`.
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 탱고북 게임 15종(플레이어 13개 + 공통 컴포넌트 + 13 config)을 뷰어 스펙에서 확정된 디자인 시스템(coral·호리·semantic) 으로 전면 리뉴얼. 풀업그레이드 피드백(FeedbackOverlay·RewardScreen급 결과 화면·기본 효과음)과 TOP 5 게임 레이아웃 개별 재설계 포함.

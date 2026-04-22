@@ -118,7 +118,7 @@ features/phonics/
 - TtsRow의 `editableText` prop으로 TTS 텍스트 편집 가능
 - 공백 규칙: 1개 = 0.3초 무음, 2개 = 0.6초 무음
 
-## 게임 Feature 구조
+## 게임 Feature 구조 (2026-04-22 뷰어 디자인 시스템 전이)
 ```
 features/games/
   registry/                          # 게임 등록 시스템
@@ -126,23 +126,52 @@ features/games/
     index.ts                         # side-effect imports + re-exports
     games/*.register.ts              # 게임별 등록 (1게임 = 1파일)
   components/
-    players/*.tsx                    # 게임 플레이어 UI (10개)
-    config/*.tsx                     # 게임 설정 패널 (10개)
-    GameResultScreen.tsx             # 공통 결과 화면 (점수, 재시작/뒤로)
-    GameProgressBar.tsx              # 공통 진행바 (Q카운터 + 바 + 점수)
+    players/*.tsx                    # 게임 플레이어 UI (13개)
+    config/*.tsx                     # 게임 설정 패널 (13개)
+    FeedbackOverlay.tsx              # 공통 정답/오답 피드백 (호리 + confetti + shake)
+    GameResultScreen.tsx             # 공통 결과 화면 (celebrating 호리 + confetti + 별점 + count-up)
+    GameProgressBar.tsx              # 공통 진행바 (dot 스타일 + 점수 뱃지)
     config/ConfigControls.tsx        # 공통 설정 컨트롤 (NumberSelector, ConfigCheckbox)
   hooks/
-    useGameAudio.ts                  # 오디오 재생 + 피드백 효과음 (playAudio, playFeedbackSound)
+    useGameSound.ts                  # 신규: 사운드 재생 + mute 퍼시스턴스 + systemSounds 오버라이드
+    useGameAudio.ts                  # 내부적으로 useGameSound 호출 (외부 시그니처 유지)
     useBlockDrag.ts                  # 블록 게임 공통 드래그/터치 핸들링 (Korean/English 공용)
     usePhonicsMap.ts                 # 파닉스 음원 라이브러리 sound→URL 맵 로딩
   utils/
     shuffle.ts                       # Fisher-Yates 셔플
+
+public/sounds/game/
+  correct.mp3    # 합성 CC0 — C5→E5→G5 상승 차임 (~0.48s)
+  incorrect.mp3  # 합성 CC0 — G4→D4 부드러운 하강 (~0.36s)
+  clear.mp3     # 합성 CC0 — C 메이저 아르페지오 + 스파클 (~0.92s)
+scripts/synthesize-game-sfx.mjs   # 사운드 재생성 스크립트 (ffmpeg-static + 사인파 합성)
 ```
+
+### 게임 디자인 토큰 (Phase A-C 완료)
+- 색: `coral/peach/ink` + semantic `success/danger/warn/fun`. violet/sky/emerald 전량 제거.
+- 오답 시: `border-danger` / `animate-shake` / `bg-danger/10` 패턴
+- 정답 시: `ring-success` / `bg-success/10` + `FeedbackOverlay kind="correct"`
+- `systemSounds` 우선순위: storybook.systemSounds > 기본 `/sounds/game/*.mp3`
+- `Storybook.systemSounds`: `{ correctUrl?, incorrectUrl?, clearUrl? }` (clearUrl은 Phase A에서 추가)
 
 ### GamesTab 기능
 - **개별 생성**: 모달에서 게임 타입 선택 → 설정 → 생성
 - **일괄 생성**: "모든 게임 만들기" 버튼 → 미생성 게임만 기본 설정으로 순차 생성
 - **gamesApi.generate()** 직접 호출 (일괄 생성 시 useMutation 미사용)
+
+### TOP 5 게임 시각 연출 (Phase B)
+- **VocabularyMatching**: 3D 카드 플립(framer-motion spring 260/20) + 매치 시 scale pop + fade out
+- **WordQuiz**: 2×2 큰 카드 + 정답 success ring / 오답 danger ring + animate-shake + slide 전환
+- **English/KoreanBlock**: gradient 배경 + 블록 active lift(scale 1.08 + rotate 2°) + drop zone hover pulse + 완성 단어 타이핑
+- **WordListening**: ring-success glow + ✓ 배지, 오답 시 3초 auto-hide "다시 들어볼까?" 배너
+
+### 새 게임 추가 시 시각 체크리스트 (Phase A/B/C 이후)
+- `FeedbackOverlay kind="correct"` / 필요 시 `kind="incorrect"` 호출부 마련
+- `GameProgressBar` + `GameResultScreen` 공용 컴포넌트 사용 (`score`/`total` prop)
+- `useGameAudio` 외부 시그니처 유지 (`playAudio`, `playFeedbackSound`) — 내부는 `useGameSound`
+- 색 클래스는 `coral-{100/200/400/500/600}`, `ink-{100/300/500/700/900}`, semantic만 사용. shade 없는 `coral-50/900`, `ink-900 dark mode` 금지
+- 다크 모드 텍스트: `dark:text-peach-200` 패턴 준수
+- `accentColor` prop 사용 금지 (제거됨)
 
 ### 게임 목록 (15종)
 | ID | 이름 | 지원 타입 |
