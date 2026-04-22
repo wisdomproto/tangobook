@@ -293,7 +293,7 @@ grant execute on function delete_self_account() to authenticated;
 
 클라는 `await supabase.rpc('delete_self_account')` 호출 후 `supabase.auth.signOut()` + `/library`로 navigate.
 
-### 3.5 TypeScript 타입 (`packages/shared/src/types/auth.ts`)
+### 3.7 TypeScript 타입 (`packages/shared/src/types/auth.ts`)
 
 ```ts
 export const AVATAR_IDS = [
@@ -341,7 +341,7 @@ export interface LearningEventInsert {
 }
 ```
 
-### 3.6 클라이언트 상태 (React Context + localStorage)
+### 3.8 클라이언트 상태 (React Context + localStorage)
 
 - Supabase session — `supabase.auth.getSession()` + `onAuthStateChange` → `useSession()`
 - Active child profile id — `localStorage['tangobook:activeProfileId']`
