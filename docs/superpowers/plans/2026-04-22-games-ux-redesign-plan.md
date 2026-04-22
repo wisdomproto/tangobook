@@ -564,7 +564,7 @@ git commit -m "refactor(games): rewire useGameAudio internals to useGameSound (n
 - Create: `packages/client/src/features/games/components/FeedbackOverlay.tsx`
 - Create: `packages/client/src/features/games/components/FeedbackOverlay.test.tsx`
 
-- [ ] **Step 1: Failing test 작성**
+- [x] **Step 1: Failing test 작성**
 
 ```tsx
 // FeedbackOverlay.test.tsx
@@ -614,7 +614,7 @@ describe('FeedbackOverlay', () => {
 });
 ```
 
-- [ ] **Step 2: Verify fail**
+- [x] **Step 2: Verify fail**
 
 ```bash
 pnpm --filter @tangobook/client test src/features/games/components/FeedbackOverlay.test.tsx
@@ -622,7 +622,7 @@ pnpm --filter @tangobook/client test src/features/games/components/FeedbackOverl
 
 Expected: FAIL (모듈 없음).
 
-- [ ] **Step 3: FeedbackOverlay 구현**
+- [x] **Step 3: FeedbackOverlay 구현**
 
 ```tsx
 import { useEffect, useMemo } from 'react';
@@ -707,7 +707,7 @@ export function FeedbackOverlay({
 }
 ```
 
-- [ ] **Step 4: Verify pass**
+- [x] **Step 4: Verify pass** _(5 tests PASS — jsdom matchMedia 누락 대응 typeof guard 추가)_
 
 ```bash
 pnpm --filter @tangobook/client test src/features/games/components/FeedbackOverlay.test.tsx
@@ -715,7 +715,7 @@ pnpm --filter @tangobook/client test src/features/games/components/FeedbackOverl
 
 Expected: 5 tests PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/client/src/features/games/components/FeedbackOverlay.tsx packages/client/src/features/games/components/FeedbackOverlay.test.tsx
