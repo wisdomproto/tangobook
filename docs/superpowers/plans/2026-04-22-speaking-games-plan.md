@@ -1,5 +1,7 @@
 # 말하기 게임 (Speaking Games) Implementation Plan
 
+> **✅ 구현 완료 (2026-04-22)** — 스펙: `docs/superpowers/specs/2026-04-22-speaking-games-design.md`. 진행 상세: `memory/speaking-games-complete.md`.
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 동화책 전용 말하기 게임 2종(`korean-speaking`, `english-speaking`) 신설 + 뷰어 언어 필터링. "액팅 유도, 측정 아님" 철학으로 모든 에러를 silent pass-through.
