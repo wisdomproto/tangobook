@@ -17,10 +17,8 @@ export default defineConfig({
   },
   server: {
     port: 5174,
-    headers: {
-      'Cross-Origin-Opener-Policy': 'same-origin',
-      'Cross-Origin-Embedder-Policy': 'credentialless',
-    },
+    // COOP/COEP 헤더 제거 — credentialless가 cross-origin iframe(YouTube 등)을 차단해
+    // "연결 거부" 오류를 유발. SharedArrayBuffer 사용처(ffmpeg.wasm 등) 없음.
     proxy: {
       '/api': {
         target: 'http://localhost:3500',

@@ -19,11 +19,12 @@ registerGame({
   },
   defaultConfig: {
     type: 'word-writing',
-    language: 'korean',
+    language: 'english',
     wordSource: 'vocabulary',
     showGuide: true,
     accuracyThreshold: 0.7,
   },
   ConfigPanel: WordWritingConfigPanel,
   PlayerComponent: WordWritingPlayer,
+  language: 'en', // 레거시 word-writing 인스턴스는 영어 단어만 사용 → 영어 탭에서만 표시
 });
