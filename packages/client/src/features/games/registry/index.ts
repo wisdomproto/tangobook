@@ -14,6 +14,8 @@ import './games/english-block.register';
 import './games/storybook-quiz.register';
 import './games/korean-word-writing.register';
 import './games/english-word-writing.register';
+import './games/korean-speaking.register';
+import './games/english-speaking.register';
 
 export {
   getAllGames,
