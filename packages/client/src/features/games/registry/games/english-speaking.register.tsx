@@ -40,4 +40,5 @@ registerGame({
   ConfigPanel: EnglishSpeakingConfigPanelWrapper,
   PlayerComponent: EnglishSpeakingPlayerWrapper,
   language: 'en',
+  hidden: true, // 완성도 개선 후 공개 예정
 });

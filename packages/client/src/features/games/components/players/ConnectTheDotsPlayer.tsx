@@ -6,10 +6,12 @@ import { GameProgressBar } from '../GameProgressBar';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
+import { phonicsApi } from '@/features/phonics/api/phonics.api';
 
 const DOT_RADIUS_PX = 18;
 
 export function ConnectTheDotsPlayer({
+  storybookId,
   gameData,
   onComplete,
   onBack,
@@ -27,7 +29,30 @@ export function ConnectTheDotsPlayer({
   const [completedItems, setCompletedItems] = useState(0);
 
   const overlayRef = useRef<HTMLDivElement>(null);
-  const { playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+
+  // 정답 시 objectName을 한글(음절 연결) 또는 영어(단어 음원)로 읽어줌.
+  // phonics-library concat API가 두 언어 다 커버. 실패/미지원 시 조용히 통과.
+  const speakObjectName = useCallback(
+    async (name: string | undefined) => {
+      if (!name) return;
+      const trimmed = name.trim();
+      if (!trimmed) return;
+      const isKorean = /[가-힣]/.test(trimmed);
+      try {
+        const { audioUrl } = await phonicsApi.concatPhonicsAudio({
+          text: trimmed,
+          storybookId,
+          identifier: `dot-${isKorean ? 'ko' : 'en'}-${encodeURIComponent(trimmed)}`,
+          language: isKorean ? 'korean' : 'english',
+        });
+        playAudio(audioUrl);
+      } catch {
+        /* 라이브러리에 없는 토큰 등 — 조용히 스킵 */
+      }
+    },
+    [storybookId, playAudio]
+  );
 
   const currentItem: ConnectTheDotsItem | undefined = items[itemIdx];
 
@@ -58,6 +83,8 @@ export function ConnectTheDotsPlayer({
       if (newConnected === totalDots) {
         setCompleted(true);
         setTimeout(() => setShowImage(true), 300);
+        // 이미지 공개 직후 단어 음성 재생 — 아이가 그림과 단어를 함께 학습
+        setTimeout(() => speakObjectName(currentItem.objectName), 700);
         playCorrectSequence({
           systemSounds,
           onDone: () => {

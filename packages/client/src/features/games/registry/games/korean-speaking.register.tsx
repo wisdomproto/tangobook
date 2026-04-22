@@ -40,4 +40,5 @@ registerGame({
   ConfigPanel: KoreanSpeakingConfigPanelWrapper,
   PlayerComponent: KoreanSpeakingPlayerWrapper,
   language: 'ko',
+  hidden: true, // 완성도 개선 후 공개 예정 (Phase 2 Azure 도입 등)
 });
