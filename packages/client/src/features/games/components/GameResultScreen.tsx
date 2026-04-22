@@ -1,49 +1,101 @@
-const ACCENT_CLASSES: Record<string, { btn: string }> = {
-  violet: { btn: 'bg-violet-600 hover:bg-violet-700' },
-  sky: { btn: 'bg-sky-600 hover:bg-sky-700' },
-  emerald: { btn: 'bg-emerald-600 hover:bg-emerald-700' },
-};
+import { useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import confetti from 'canvas-confetti';
+import { Mascot } from '@/components/Mascot';
+import { Button } from '@/components/Button';
+import { cn } from '@/lib/cn';
 
 interface GameResultScreenProps {
   score: number;
   total: number;
-  accentColor?: 'violet' | 'sky' | 'emerald';
   onRestart: () => void;
   onBack: () => void;
 }
 
-export function GameResultScreen({
-  score,
-  total,
-  accentColor = 'violet',
-  onRestart,
-  onBack,
-}: GameResultScreenProps) {
-  const isPerfect = score === total;
-  const { btn } = ACCENT_CLASSES[accentColor];
+function computeStars(ratio: number): number {
+  if (ratio >= 0.9) return 3;
+  if (ratio >= 0.6) return 2;
+  return 1;
+}
+
+export function GameResultScreen({ score, total, onRestart, onBack }: GameResultScreenProps) {
+  const reduce = useReducedMotion();
+  const safeTotal = total || 1;
+  const ratio = score / safeTotal;
+  const starCount = computeStars(ratio);
+
+  // 카운트업 애니 (0 → score, 800ms)
+  const [displayCount, setDisplayCount] = useState(0);
+  useEffect(() => {
+    if (reduce) {
+      setDisplayCount(score);
+      return;
+    }
+    const start = performance.now();
+    const dur = 800;
+    let raf = 0;
+    const tick = () => {
+      const elapsed = performance.now() - start;
+      const p = Math.min(1, elapsed / dur);
+      setDisplayCount(Math.round(score * p));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [score, reduce]);
+
+  // 마운트 시 confetti (prefers-reduced-motion 존중)
+  useEffect(() => {
+    if (reduce) return;
+    confetti({
+      particleCount: 120,
+      spread: 80,
+      origin: { y: 0.5 },
+      colors: ['#FF5E3A', '#FFC857', '#5CC99F', '#A78BFA'],
+    });
+  }, [reduce]);
 
   return (
-    <div className="min-h-full flex flex-col items-center justify-center text-center py-12">
-      <div className="text-5xl mb-3">{isPerfect ? '🎉' : '👏'}</div>
-      <p className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-1">
-        {score} / {total}
+    <div className="min-h-screen flex flex-col items-center justify-center p-10 text-center bg-gradient-to-b from-cream-50 via-coral-100 to-peach-200">
+      <motion.div
+        initial={reduce ? { opacity: 0 } : { scale: 0.5, y: 40 }}
+        animate={reduce ? { opacity: 1 } : { scale: 1, y: 0 }}
+        transition={reduce ? { duration: 0.2 } : { type: 'spring', stiffness: 180, damping: 14 }}
+      >
+        <Mascot state="celebrating" size="xl" />
+      </motion.div>
+
+      <div className="mt-6 flex gap-2">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <motion.span
+            key={i}
+            initial={reduce ? { opacity: 0 } : { scale: 0 }}
+            animate={{
+              opacity: 1,
+              scale: i < starCount ? 1 : 0.4,
+            }}
+            transition={{ delay: reduce ? 0 : 0.3 + i * 0.2, type: 'spring' }}
+            className={cn('text-5xl', i < starCount ? 'opacity-100' : 'opacity-30 grayscale')}
+            aria-label={i < starCount ? '별 획득' : '빈 별'}
+          >
+            ⭐
+          </motion.span>
+        ))}
+      </div>
+
+      <h1 className="mt-5 text-4xl font-black text-ink-900 font-display">게임 끝!</h1>
+      <p className="mt-3 text-2xl font-bold text-ink-700">
+        <span className="text-coral-500">{displayCount}</span>
+        <span className="text-ink-500"> / {total}</span>
       </p>
-      <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
-        {isPerfect ? '완벽해요!' : '잘했어요!'}
-      </p>
-      <div className="flex gap-3 justify-center">
-        <button
-          onClick={onRestart}
-          className={`px-6 py-3 ${btn} text-white rounded-xl text-sm font-bold transition-colors`}
-        >
-          다시 하기
-        </button>
-        <button
-          onClick={onBack}
-          className="px-6 py-3 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-sm font-bold hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
-        >
-          ← 돌아가기
-        </button>
+
+      <div className="mt-8 flex gap-3">
+        <Button variant="primary" size="lg" onClick={onRestart}>
+          🔄 다시 하기
+        </Button>
+        <Button variant="secondary" size="lg" onClick={onBack}>
+          🏠 홈으로
+        </Button>
       </div>
     </div>
   );

@@ -727,7 +727,7 @@ git commit -m "feat(games): add FeedbackOverlay (correct/incorrect with hori + c
 **Files:**
 - Modify: `packages/client/src/features/games/components/GameResultScreen.tsx`
 
-- [ ] **Step 1: 기존 구현 확인**
+- [x] **Step 1: 기존 구현 확인**
 
 ```bash
 cat packages/client/src/features/games/components/GameResultScreen.tsx
@@ -735,7 +735,7 @@ cat packages/client/src/features/games/components/GameResultScreen.tsx
 
 현재 accentColor prop · 이모지 · 점수 · 버튼 2개 구조 파악.
 
-- [ ] **Step 2: 리빌드**
+- [x] **Step 2: 리빌드** _(기존 score/total prop 이름 유지 — 13 콜사이트 호환)_
 
 ```tsx
 import { useEffect, useState } from 'react';
@@ -852,7 +852,7 @@ export function GameResultScreen({
 }
 ```
 
-- [ ] **Step 3: typecheck**
+- [x] **Step 3: typecheck** _(13 플레이어 accentColor 때문에 일시적으로 6 에러 — Task A10에서 해소)_
 
 ```bash
 pnpm --filter @tangobook/client typecheck
@@ -860,7 +860,7 @@ pnpm --filter @tangobook/client typecheck
 
 13 플레이어에서 `accentColor` prop 전달하는 곳 때문에 에러 날 수도 (다음 Task에서 제거).
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add packages/client/src/features/games/components/GameResultScreen.tsx
