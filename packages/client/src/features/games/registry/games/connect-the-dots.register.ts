@@ -5,8 +5,8 @@ import { ConnectTheDotsPlayer } from '../../components/players/ConnectTheDotsPla
 registerGame({
   id: 'connect-the-dots',
   category: 'common',
-  nameKo: '점잇기',
-  descriptionKo: '점을 이어 그림을 완성하세요',
+  nameKo: '단어 그림 그리기',
+  descriptionKo: '점을 이어 그림을 완성하고 단어를 들어요',
   icon: '🖊️',
   supportedTypes: ['storybook', 'phonics'],
   contentRequirements: {

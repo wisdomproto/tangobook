@@ -203,7 +203,11 @@ export type GameTypeId =
   | 'korean-word-writing'
   | 'english-word-writing'
   | 'korean-speaking'
-  | 'english-speaking';
+  | 'english-speaking'
+  | 'korean-line-matching'
+  | 'english-line-matching'
+  | 'korean-story-image'
+  | 'english-story-image';
 
 export type GameDifficulty = 'easy' | 'medium' | 'hard';
 
@@ -242,7 +246,11 @@ export type GameConfig =
   | EnglishBlockConfig
   | StorybookQuizConfig
   | KoreanSpeakingConfig
-  | EnglishSpeakingConfig;
+  | EnglishSpeakingConfig
+  | KoreanLineMatchingConfig
+  | EnglishLineMatchingConfig
+  | KoreanStoryImageConfig
+  | EnglishStoryImageConfig;
 
 /** 게임별 데이터 (discriminated union) */
 export type GameData =
@@ -260,7 +268,11 @@ export type GameData =
   | EnglishBlockData
   | StorybookQuizData
   | KoreanSpeakingData
-  | EnglishSpeakingData;
+  | EnglishSpeakingData
+  | KoreanLineMatchingData
+  | EnglishLineMatchingData
+  | KoreanStoryImageData
+  | EnglishStoryImageData;
 
 // --- 단어 매칭 ---
 export interface VocabularyMatchingConfig {
@@ -539,6 +551,59 @@ export interface EnglishSpeakingConfig {
 export interface EnglishSpeakingData {
   type: 'english-speaking';
   items: SpeakingItem[];
+}
+
+// --- 선긋기 매칭 (단어-그림 연결) ---
+export interface LineMatchingItem {
+  word: string; // 우측 단어 (ko 게임: 한국어, en 게임: 영어)
+  imageUrl: string; // 좌측 그림
+  ttsUrl?: string; // 정답 시 읽어주기 (phonics-library concat로도 대체 가능)
+}
+
+export interface KoreanLineMatchingConfig {
+  type: 'korean-line-matching';
+  itemCount: number; // 한 라운드에 짝지을 개수 (기본 4)
+}
+export interface KoreanLineMatchingData {
+  type: 'korean-line-matching';
+  items: LineMatchingItem[];
+}
+
+export interface EnglishLineMatchingConfig {
+  type: 'english-line-matching';
+  itemCount: number;
+}
+export interface EnglishLineMatchingData {
+  type: 'english-line-matching';
+  items: LineMatchingItem[];
+}
+
+// --- 스토리 듣고 이미지 맞추기 ---
+export interface StoryImageRound {
+  text: string; // 화면 하단 자막 (참고용, 정답 힌트 아님)
+  ttsUrl: string; // 재생 나레이션
+  correctImageUrl: string; // 정답 페이지 일러스트
+  distractorImageUrls: string[]; // 2~3개 다른 페이지 일러스트
+}
+
+export interface KoreanStoryImageConfig {
+  type: 'korean-story-image';
+  roundCount: number; // 기본 5
+  optionsPerRound: number; // 기본 3 (정답 1 + 오답 2)
+}
+export interface KoreanStoryImageData {
+  type: 'korean-story-image';
+  rounds: StoryImageRound[];
+}
+
+export interface EnglishStoryImageConfig {
+  type: 'english-story-image';
+  roundCount: number;
+  optionsPerRound: number;
+}
+export interface EnglishStoryImageData {
+  type: 'english-story-image';
+  rounds: StoryImageRound[];
 }
 
 // === 기존 타입 ===
