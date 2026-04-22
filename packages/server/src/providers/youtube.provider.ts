@@ -293,7 +293,11 @@ export const YouTubeProvider = {
     console.log(`[youtube] Thumbnail set for video ${videoId}`);
   },
 
-  /** Upload caption/subtitle track */
+  /**
+   * Upload caption/subtitle track.
+   * 같은 비디오에 동일 language+name 자막이 이미 있으면 YouTube API가 409 Conflict를
+   * 내므로(captions.insert는 upsert 아님), 기존 자막을 먼저 찾아 삭제 후 insert 한다.
+   */
   async uploadCaption(
     videoId: string,
     languageCode: string,
@@ -302,13 +306,36 @@ export const YouTubeProvider = {
     channelId?: string
   ): Promise<void> {
     const youtube = await this.getAuthenticatedClient(channelId);
+    const captionName = name || '';
+
+    // 1) 기존 자막 목록에서 같은 language+name 찾기
+    try {
+      const existing = await youtube.captions.list({
+        part: ['snippet'],
+        videoId,
+      });
+      const duplicate = (existing.data.items || []).find(
+        (c) => c.snippet?.language === languageCode && (c.snippet?.name ?? '') === captionName
+      );
+      if (duplicate?.id) {
+        await youtube.captions.delete({ id: duplicate.id });
+        console.log(
+          `[youtube] Replaced existing caption ${duplicate.id} (${languageCode}/"${captionName}") for ${videoId}`
+        );
+      }
+    } catch (err) {
+      // list/delete 실패는 치명적이지 않음 — insert가 자체적으로 409 내면 상위 catch가 처리
+      console.warn('[youtube] caption pre-cleanup failed, attempting insert anyway:', err);
+    }
+
+    // 2) 새 자막 insert
     await youtube.captions.insert({
       part: ['snippet'],
       requestBody: {
         snippet: {
           videoId,
           language: languageCode,
-          name: name || '',
+          name: captionName,
         },
       },
       media: {
