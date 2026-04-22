@@ -1,4 +1,5 @@
-import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { KoreanBlockData, KoreanBlockSyllable } from '@tangobook/shared';
 import { CHOSUNG, JUNGSUNG, composeHangul } from '@tangobook/shared';
@@ -8,7 +9,7 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { PraiseOverlay } from '../PraiseOverlay';
-import { GamePlayerLayout } from '../GamePlayerLayout';
+import { cn } from '@/lib/cn';
 
 type JamoType = 'cho' | 'jung' | 'jong';
 
@@ -53,7 +54,7 @@ const BLOCK = 'w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12';
 function createKoreanGhost(char: string): HTMLDivElement {
   const ghost = document.createElement('div');
   ghost.textContent = char;
-  const bg = isVowel(char) ? '#059669' : '#d97706';
+  const bg = isVowel(char) ? '#FF5E3A' : '#FF9A5A';
   ghost.setAttribute(
     'style',
     `width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:${bg};color:white;font-size:16px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,.3)`
@@ -76,6 +77,7 @@ export function KoreanBlockPlayer({
   const [finished, setFinished] = useState(false);
   const [roundCorrect, setRoundCorrect] = useState(false);
   const [wrongCols, setWrongCols] = useState<Set<number>>(new Set());
+  const [typedChars, setTypedChars] = useState(0);
 
   const currentItem = items[currentIndex];
   const syllables = currentItem.syllables;
@@ -114,6 +116,26 @@ export function KoreanBlockPlayer({
     }
     prevComposedRef.current = [...composedPreview];
   }, [composedPreview, playAudio, phonicsMapRef]);
+
+  // 정답 시 타이핑 효과
+  useEffect(() => {
+    if (!roundCorrect) {
+      setTypedChars(0);
+      return;
+    }
+    const target = currentItem.word;
+    setTypedChars(0);
+    const interval = setInterval(() => {
+      setTypedChars((n) => {
+        if (n >= target.length) {
+          clearInterval(interval);
+          return target.length;
+        }
+        return n + 1;
+      });
+    }, 60);
+    return () => clearInterval(interval);
+  }, [roundCorrect, currentItem.word]);
 
   const placeBlock = useCallback(
     (col: number, slot: number, block: JamoBlock) => {
@@ -226,6 +248,39 @@ export function KoreanBlockPlayer({
     const cellKey = `${sylIdx}-${slot}`;
     const char = grid[sylIdx][slot];
     const isWrong = wrongCols.has(sylIdx);
+    const placedCorrectly = roundCorrect && !!char;
+
+    const cellInner = char ? (
+      <span
+        className={cn(
+          'text-2xl sm:text-3xl lg:text-4xl font-bold',
+          isWrong
+            ? 'text-danger'
+            : roundCorrect
+              ? 'text-success'
+              : isVowel(char)
+                ? 'text-coral-500'
+                : 'text-peach-500'
+        )}
+      >
+        {char}
+      </span>
+    ) : null;
+
+    const inner = placedCorrectly ? (
+      <motion.div
+        key={`correct-${char}-${cellKey}`}
+        initial={{ scale: 1 }}
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 0.4 }}
+        className="w-full h-full flex items-center justify-center"
+      >
+        {cellInner}
+      </motion.div>
+    ) : (
+      cellInner
+    );
+
     return (
       <div
         key={cellKey}
@@ -233,17 +288,19 @@ export function KoreanBlockPlayer({
         onDragOver={drag.handleDragOver}
         onDrop={(e) => drag.handleDrop(cellKey, e, onPlace)}
         onClick={() => handleCellClick(sylIdx, slot)}
-        className={`${CELL} rounded-xl border-2 border-dashed flex items-center justify-center text-2xl sm:text-3xl lg:text-4xl font-bold transition-all cursor-pointer select-none ${
+        className={cn(
+          CELL,
+          'rounded-md border-2 border-dashed flex items-center justify-center transition-all cursor-pointer select-none',
           char
             ? isWrong
-              ? 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
+              ? 'border-danger bg-coral-100'
               : roundCorrect
-                ? 'border-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300'
-                : `border-slate-400 bg-white dark:bg-slate-800 ${isVowel(char) ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`
-            : 'border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50 text-slate-300'
-        }`}
+                ? 'border-success bg-success/10'
+                : 'border-peach-300 bg-white'
+            : 'border-coral-300 bg-white/40 hover:border-coral-500 hover:bg-coral-100/30 hover:animate-pulse'
+        )}
       >
-        {char || ''}
+        {inner}
       </div>
     );
   };
@@ -256,31 +313,43 @@ export function KoreanBlockPlayer({
       onTouchStart={(e) => drag.handleTouchStart(block, e)}
       onTouchMove={drag.handleTouchMove}
       onTouchEnd={(e) => drag.handleTouchEnd(e, onPlace)}
-      className={`${BLOCK} rounded-xl flex items-center justify-center text-lg sm:text-xl lg:text-2xl font-bold cursor-grab active:cursor-grabbing select-none shadow-sm ${
-        isVowel(block.char)
-          ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700'
-          : 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-700'
-      }`}
+      className={cn(
+        BLOCK,
+        'rounded-md flex items-center justify-center text-lg sm:text-xl lg:text-2xl font-bold select-none shadow-soft cursor-grab bg-white',
+        'transition-transform hover:scale-105 hover:shadow-pop',
+        'active:scale-[1.08] active:shadow-pop active:rotate-2 active:cursor-grabbing',
+        isVowel(block.char) ? 'text-coral-500' : 'text-peach-500'
+      )}
     >
       {block.char}
     </div>
   );
 
   return (
-    <GamePlayerLayout maxWidth="full" onBack={onBack}>
+    <div className="min-h-full flex flex-col bg-gradient-to-br from-cream-50 to-peach-100">
       <PraiseOverlay visible={praiseVisible} />
-      <div className="flex flex-col items-center gap-4 sm:gap-5 w-full max-h-[calc(100vh-4rem)] overflow-y-auto px-2">
+      <div className="flex-1 flex flex-col items-center gap-4 sm:gap-5 w-full max-h-[calc(100vh-4rem)] overflow-y-auto px-2 py-4">
         <GameProgressBar current={currentIndex} total={items.length} score={score} />
+
+        {/* 완성된 단어 타이핑 패널 */}
+        {roundCorrect && (
+          <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 min-h-[60px] text-3xl sm:text-4xl font-black text-ink-900 text-center shadow-soft min-w-[200px]">
+            {currentItem.word.slice(0, typedChars)}
+            {typedChars < currentItem.word.length && (
+              <span className="inline-block w-0.5 h-8 bg-coral-500 ml-1 animate-pulse align-middle" />
+            )}
+          </div>
+        )}
 
         <div className="flex items-center gap-4 sm:gap-6">
           {currentItem.imageUrl && (
             <img
               src={currentItem.imageUrl}
               alt={currentItem.word}
-              className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 object-contain rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"
+              className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 object-contain rounded-lg border-2 border-peach-200 bg-white shadow-card"
             />
           )}
-          <p className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-800 dark:text-slate-100">
+          <p className="text-4xl sm:text-5xl lg:text-6xl font-black text-ink-900">
             {currentItem.word}
           </p>
         </div>
@@ -290,26 +359,28 @@ export function KoreanBlockPlayer({
             {Array.from({ length: syllableCount }, (_, sylIdx) => (
               <div key={sylIdx} className="flex flex-col items-center gap-2">
                 <div
-                  className={`grid grid-cols-2 gap-1 p-2 rounded-2xl border-2 ${
+                  className={cn(
+                    'grid grid-cols-2 gap-1 p-2 rounded-lg border-2',
                     wrongCols.has(sylIdx)
-                      ? 'border-red-300 dark:border-red-700 bg-red-50/50 dark:bg-red-900/10'
+                      ? 'border-danger bg-coral-100/50'
                       : roundCorrect
-                        ? 'border-emerald-300 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-900/10'
-                        : 'border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50'
-                  }`}
+                        ? 'border-success bg-success/10'
+                        : 'border-peach-200 bg-white/70'
+                  )}
                 >
                   {Array.from({ length: 6 }, (_, slot) => renderCell(sylIdx, slot))}
                 </div>
                 <span
-                  className={`text-3xl sm:text-4xl lg:text-5xl font-black ${
+                  className={cn(
+                    'text-3xl sm:text-4xl lg:text-5xl font-black',
                     composedPreview[sylIdx]
                       ? wrongCols.has(sylIdx)
-                        ? 'text-red-500'
+                        ? 'text-danger'
                         : roundCorrect
-                          ? 'text-emerald-600 dark:text-emerald-400'
-                          : 'text-slate-700 dark:text-slate-200'
-                      : 'text-slate-300 dark:text-slate-600'
-                  }`}
+                          ? 'text-success'
+                          : 'text-ink-900'
+                      : 'text-ink-300'
+                  )}
                 >
                   {composedPreview[sylIdx] || '?'}
                 </span>
@@ -318,18 +389,14 @@ export function KoreanBlockPlayer({
           </div>
 
           <div className="flex flex-row gap-2 sm:gap-3 overflow-x-auto min-w-0">
-            <div className="rounded-2xl border-2 border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-2 sm:p-3 shrink-0">
-              <p className="text-sm font-bold text-amber-500 dark:text-amber-400 text-center mb-2">
-                자음
-              </p>
+            <div className="rounded-lg border-2 border-peach-200 bg-white/60 p-2 sm:p-3 shrink-0">
+              <p className="text-sm font-bold text-peach-500 text-center mb-2">자음</p>
               <div className="grid grid-cols-4 gap-1.5 justify-items-center">
                 {ALL_CONSONANTS.map(renderBlock)}
               </div>
             </div>
-            <div className="rounded-2xl border-2 border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-2 sm:p-3 shrink-0">
-              <p className="text-sm font-bold text-emerald-500 dark:text-emerald-400 text-center mb-2">
-                모음
-              </p>
+            <div className="rounded-lg border-2 border-coral-200 bg-white/60 p-2 sm:p-3 shrink-0">
+              <p className="text-sm font-bold text-coral-500 text-center mb-2">모음</p>
               <div className="grid grid-cols-4 gap-1.5 justify-items-center">
                 {ALL_VOWELS.map(renderBlock)}
               </div>
@@ -341,16 +408,24 @@ export function KoreanBlockPlayer({
           <button
             onClick={handleCheck}
             disabled={roundCorrect}
-            className={`px-8 py-3 sm:px-10 sm:py-3 rounded-2xl text-lg sm:text-xl font-bold transition-colors ${
+            className={cn(
+              'px-8 py-3 sm:px-10 sm:py-3 rounded-md text-lg sm:text-xl font-bold transition-colors',
               roundCorrect
-                ? 'bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 cursor-not-allowed'
-                : 'bg-emerald-600 hover:bg-emerald-700 text-white'
-            }`}
+                ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
+                : 'bg-coral-500 hover:bg-coral-600 text-white shadow-pop'
+            )}
           >
             확인
           </button>
         </div>
       </div>
-    </GamePlayerLayout>
+
+      <button
+        onClick={onBack}
+        className="shrink-0 py-3 text-sm text-ink-500 hover:text-ink-900 transition-colors text-center bg-white/50"
+      >
+        ← 돌아가기
+      </button>
+    </div>
   );
 }
