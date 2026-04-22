@@ -232,7 +232,7 @@ git commit -m "feat(shared): add systemSounds.clearUrl for game clear fanfare"
 - Create: `packages/client/src/features/games/hooks/useGameSound.ts`
 - Create: `packages/client/src/features/games/hooks/useGameSound.test.ts`
 
-- [ ] **Step 1: Failing test 작성**
+- [x] **Step 1: Failing test 작성**
 
 ```ts
 // useGameSound.test.ts
@@ -322,7 +322,7 @@ describe('useGameSound', () => {
 
 > **Note**: Audio 모킹은 브라우저 환경 흉내 어려움. 테스트는 주로 **외부 시그니처 + localStorage + override 로직** 검증. play 실제 호출 여부는 단위 테스트 범위 밖.
 
-- [ ] **Step 2: Verify fail**
+- [x] **Step 2: Verify fail**
 
 ```bash
 pnpm --filter @tangobook/client test src/features/games/hooks/useGameSound.test.ts
@@ -330,7 +330,7 @@ pnpm --filter @tangobook/client test src/features/games/hooks/useGameSound.test.
 
 Expected: FAIL (모듈 없음).
 
-- [ ] **Step 3: useGameSound.ts 구현**
+- [x] **Step 3: useGameSound.ts 구현**
 
 ```ts
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -431,7 +431,7 @@ export function useGameSound(opts?: { systemSounds?: SystemSoundsOverride }) {
 }
 ```
 
-- [ ] **Step 4: Verify pass**
+- [x] **Step 4: Verify pass** _(7 tests PASS)_
 
 ```bash
 pnpm --filter @tangobook/client test src/features/games/hooks/useGameSound.test.ts
@@ -439,7 +439,7 @@ pnpm --filter @tangobook/client test src/features/games/hooks/useGameSound.test.
 
 Expected: 6 tests PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/client/src/features/games/hooks/useGameSound.ts packages/client/src/features/games/hooks/useGameSound.test.ts
