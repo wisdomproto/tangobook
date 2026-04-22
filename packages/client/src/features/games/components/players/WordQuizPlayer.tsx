@@ -138,6 +138,27 @@ export function WordQuizPlayer({ gameData, onComplete, onBack, systemSounds }: G
                 );
               })}
             </div>
+
+            {/* 정답 맞춘 후 큰 이미지 공개 — 아이가 "이 단어 = 이 그림" 연결 학습 */}
+            {selectedAnswer !== null &&
+              selectedAnswer === current.correctAnswer &&
+              current.imageUrl && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.35, type: 'spring' }}
+                  className="flex flex-col items-center gap-3 mt-2"
+                >
+                  <img
+                    src={current.imageUrl}
+                    alt=""
+                    className="w-[min(40vmin,20rem)] aspect-square object-contain rounded-2xl shadow-card bg-white p-3"
+                  />
+                  <div className="text-3xl sm:text-4xl font-black text-success">
+                    {current.options[current.correctAnswer]}
+                  </div>
+                </motion.div>
+              )}
           </motion.div>
         </AnimatePresence>
       </div>

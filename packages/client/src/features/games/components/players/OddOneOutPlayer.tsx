@@ -77,26 +77,26 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: 
 
         {/* 질문 */}
         <div className="text-center">
-          <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mb-1">
-            카테고리: {current.category}
+          <p className="text-sm sm:text-base text-ink-900 dark:text-peach-200 mb-2 font-bold">
+            카테고리: <span className="text-coral-500">{current.category}</span>
           </p>
-          <h3 className="text-2xl sm:text-3xl font-black text-ink-900 dark:text-slate-100">
+          <h3 className="text-2xl sm:text-3xl font-black text-ink-900 dark:text-peach-200">
             다른 것을 찾아보세요!
           </h3>
         </div>
 
-        {/* 보기 — 뷰포트에 비례해 카드 크기 확장. 최대 15rem(240px) 캡 */}
-        <div className="flex gap-4 sm:gap-6 justify-center flex-wrap">
+        {/* 보기 — 2×2 그리드, 카드 크게 */}
+        <div className="grid grid-cols-2 gap-5 sm:gap-8 w-full max-w-3xl mx-auto">
           {current.options.map((opt, oi) => {
             let borderStyle =
-              'border-slate-200 dark:border-slate-700 hover:border-coral-400 cursor-pointer';
+              'border-ink-100 dark:border-slate-700 hover:border-coral-400 cursor-pointer';
             if (selectedIdx !== null) {
               if (opt.isOddOneOut) {
-                borderStyle = 'border-success dark:border-success ring-2 ring-success';
+                borderStyle = 'border-success dark:border-success ring-4 ring-success';
               } else if (oi === selectedIdx && !opt.isOddOneOut) {
-                borderStyle = 'border-red-400 dark:border-red-600';
+                borderStyle = 'border-danger dark:border-danger animate-shake';
               } else {
-                borderStyle = 'border-slate-200 dark:border-slate-700 opacity-50';
+                borderStyle = 'border-ink-100 dark:border-slate-700 opacity-40';
               }
             }
 
@@ -105,7 +105,7 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: 
                 key={oi}
                 onClick={() => handleSelect(oi)}
                 disabled={selectedIdx !== null}
-                className={`w-[min(22vmin,15rem)] min-w-[8rem] rounded-xl border-2 overflow-hidden transition-all bg-white hover:scale-[1.03] ${borderStyle}`}
+                className={`w-full rounded-2xl border-4 overflow-hidden transition-all bg-white shadow-card hover:scale-[1.03] hover:shadow-pop ${borderStyle}`}
               >
                 {opt.imageUrl ? (
                   <img
@@ -114,11 +114,11 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: 
                     className="w-full aspect-square object-cover"
                   />
                 ) : (
-                  <div className="w-full aspect-square bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-3xl">
+                  <div className="w-full aspect-square bg-ink-100 dark:bg-slate-800 flex items-center justify-center text-6xl">
                     ?
                   </div>
                 )}
-                <p className="text-base sm:text-lg font-bold py-2 text-ink-900 dark:text-slate-100">
+                <p className="text-xl sm:text-2xl font-black py-3 text-ink-900 dark:text-ink-900 bg-white">
                   {opt.korean || opt.word}
                 </p>
               </button>
@@ -129,7 +129,7 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: 
         {/* 설명 */}
         {selectedIdx !== null && current.explanation && (
           <div className="text-center px-4">
-            <p className="text-sm text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 rounded-lg px-4 py-3 inline-block">
+            <p className="text-base sm:text-lg text-ink-900 dark:text-peach-200 bg-white/90 dark:bg-slate-800 rounded-lg px-5 py-3 inline-block shadow-soft font-bold">
               {current.explanation}
             </p>
           </div>

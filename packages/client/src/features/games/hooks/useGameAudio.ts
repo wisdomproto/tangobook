@@ -15,6 +15,9 @@ export function useGameAudio() {
   const { playCorrect, playIncorrect } = useGameSound();
 
   const lastAudioRef = useRef<HTMLAudioElement | null>(null);
+  // playAudio가 생성한 모든 Audio 인스턴스 (언마운트 시 전부 pause).
+  // `new Audio()`는 DOM에 부착되지 않은 detached MediaElement라 ref 놓치면 GC 시까지 재생 계속됨.
+  const allAudiosRef = useRef<Set<HTMLAudioElement>>(new Set());
   // playCorrectSequence 내부 setTimeout 들을 모아 언마운트 시 clearTimeout
   const pendingTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
   // 언어별 분리 저장. 플레이어가 language 지정 시 해당 pool만, 아니면 합쳐서 사용
@@ -37,9 +40,14 @@ export function useGameAudio() {
     // 이전 오디오 정지 후 새 인스턴스로 재생 (autoplay 정책 회피)
     if (lastAudioRef.current) {
       lastAudioRef.current.pause();
+      lastAudioRef.current.src = '';
       lastAudioRef.current = null;
     }
     const audio = new Audio(url);
+    allAudiosRef.current.add(audio);
+    audio.addEventListener('ended', () => {
+      allAudiosRef.current.delete(audio);
+    });
     lastAudioRef.current = audio;
     audio.play().catch(() => {});
   }, []);
@@ -104,16 +112,23 @@ export function useGameAudio() {
     [playFeedbackSound, playAudio, koreanSoundUrls, englishSoundUrls, scheduleTimer]
   );
 
-  // 언마운트 시 재생 중 오디오 + 예약 타이머 모두 정리
+  // 언마운트 시 재생 중 오디오 + 예약 타이머 모두 정리.
+  // 떠돌이 Audio(이미 play().then 전 상태 포함) 모두 stop.
   useEffect(() => {
     return () => {
-      if (lastAudioRef.current) {
-        lastAudioRef.current.pause();
-        lastAudioRef.current.src = '';
-        lastAudioRef.current = null;
-      }
       pendingTimersRef.current.forEach((id) => clearTimeout(id));
       pendingTimersRef.current.clear();
+      allAudiosRef.current.forEach((a) => {
+        try {
+          a.pause();
+          a.src = '';
+          a.load();
+        } catch {
+          /* ignore */
+        }
+      });
+      allAudiosRef.current.clear();
+      lastAudioRef.current = null;
     };
   }, []);
 
