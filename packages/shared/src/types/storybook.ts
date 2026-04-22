@@ -201,7 +201,9 @@ export type GameTypeId =
   | 'english-block'
   | 'storybook-quiz'
   | 'korean-word-writing'
-  | 'english-word-writing';
+  | 'english-word-writing'
+  | 'korean-speaking'
+  | 'english-speaking';
 
 export type GameDifficulty = 'easy' | 'medium' | 'hard';
 
@@ -238,7 +240,9 @@ export type GameConfig =
   | WordListeningConfig
   | KoreanBlockConfig
   | EnglishBlockConfig
-  | StorybookQuizConfig;
+  | StorybookQuizConfig
+  | KoreanSpeakingConfig
+  | EnglishSpeakingConfig;
 
 /** 게임별 데이터 (discriminated union) */
 export type GameData =
@@ -254,7 +258,9 @@ export type GameData =
   | WordListeningData
   | KoreanBlockData
   | EnglishBlockData
-  | StorybookQuizData;
+  | StorybookQuizData
+  | KoreanSpeakingData
+  | EnglishSpeakingData;
 
 // --- 단어 매칭 ---
 export interface VocabularyMatchingConfig {
@@ -499,6 +505,40 @@ export interface StorybookQuizConfig {
 export interface StorybookQuizData {
   type: 'storybook-quiz';
   questions: QuizItem[];
+}
+
+// --- 말하기 (ko/en 공통) ---
+export type SpeakingDifficulty = 'easy' | 'medium' | 'hard';
+
+export interface SpeakingDifficultyPreset {
+  showWord: boolean;
+  autoPlayTts: boolean;
+  showPromptLine: boolean;
+  repeatCycles: 1 | 2;
+}
+
+export interface SpeakingItem {
+  word: string; // ko 게임: 한국어, en 게임: 영어
+  displayWord: string; // 화면 표시용
+  koreanMeaning?: string; // en 게임에서만 — 의미 보조
+  imageUrl: string;
+  ttsUrl: string;
+}
+
+export interface KoreanSpeakingConfig {
+  type: 'korean-speaking';
+}
+export interface KoreanSpeakingData {
+  type: 'korean-speaking';
+  items: SpeakingItem[];
+}
+
+export interface EnglishSpeakingConfig {
+  type: 'english-speaking';
+}
+export interface EnglishSpeakingData {
+  type: 'english-speaking';
+  items: SpeakingItem[];
 }
 
 // === 기존 타입 ===

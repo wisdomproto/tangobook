@@ -1710,3 +1710,12 @@ export const PHONICS_CATEGORIES = ['Level 1', 'Level 2', 'Level 3', 'Level 4', '
 
 // === YouTube ===
 export { YOUTUBE_CATEGORIES, YOUTUBE_PRIVACY_OPTIONS } from './youtube.js';
+
+// === Speaking Games ===
+import type { SpeakingDifficulty, SpeakingDifficultyPreset } from '../types/storybook.js';
+
+export const SPEAKING_PRESETS: Record<SpeakingDifficulty, SpeakingDifficultyPreset> = {
+  easy: { showWord: true, autoPlayTts: true, showPromptLine: true, repeatCycles: 1 },
+  medium: { showWord: true, autoPlayTts: false, showPromptLine: false, repeatCycles: 1 },
+  hard: { showWord: false, autoPlayTts: false, showPromptLine: false, repeatCycles: 2 },
+};
