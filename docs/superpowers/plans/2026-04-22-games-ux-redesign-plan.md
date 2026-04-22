@@ -451,7 +451,7 @@ git commit -m "feat(games): add useGameSound hook with mute persistence + system
 **Files:**
 - Modify: `packages/client/src/features/games/hooks/useGameAudio.ts`
 
-- [ ] **Step 1: 기존 구조 확인**
+- [x] **Step 1: 기존 구조 확인**
 
 ```bash
 grep -n "playFeedbackSound\|AudioContext\|OscillatorNode" packages/client/src/features/games/hooks/useGameAudio.ts
@@ -459,7 +459,7 @@ grep -n "playFeedbackSound\|AudioContext\|OscillatorNode" packages/client/src/fe
 
 WebAudio 톤 합성(`AudioContext`, oscillator) 구간 발견.
 
-- [ ] **Step 2: useGameAudio 수정 — WebAudio 제거 + useGameSound 위임**
+- [x] **Step 2: useGameAudio 수정 — WebAudio 제거 + useGameSound 위임**
 
 ```ts
 // useGameAudio.ts 상단 import 추가
@@ -539,19 +539,19 @@ export function useGameAudio() {
 
 > **외부 시그니처 변경 없음**. 13 callsite 안 깨짐.
 
-- [ ] **Step 3: typecheck**
+- [x] **Step 3: typecheck**
 
 ```bash
 pnpm --filter @tangobook/client typecheck
 ```
 
-- [ ] **Step 4: 기존 테스트 + 새 테스트 돌려 안전 확인**
+- [x] **Step 4: 기존 테스트 + 새 테스트 돌려 안전 확인** _(34/34 PASS)_
 
 ```bash
 pnpm --filter @tangobook/client test
 ```
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/client/src/features/games/hooks/useGameAudio.ts

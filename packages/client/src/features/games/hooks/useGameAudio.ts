@@ -1,5 +1,6 @@
 import { useRef, useCallback, useEffect, useState } from 'react';
 import { settingsApi } from '@/features/settings/api/settings.api';
+import { useGameSound } from './useGameSound';
 
 export interface CorrectSequenceOpts {
   ttsUrl?: string;
@@ -9,6 +10,8 @@ export interface CorrectSequenceOpts {
 
 /** 게임 공통 오디오 훅 — TTS 재생 + 정답/오답 효과음 + 칭찬 시퀀스 */
 export function useGameAudio() {
+  const { playCorrect, playIncorrect } = useGameSound();
+
   const lastAudioRef = useRef<HTMLAudioElement | null>(null);
   const [librarySoundUrls, setLibrarySoundUrls] = useState<string[]>([]);
 
@@ -38,32 +41,14 @@ export function useGameAudio() {
     audio.play().catch(() => {});
   }, []);
 
-  const playFeedbackSound = useCallback((correct: boolean) => {
-    try {
-      const ctx = new AudioContext();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      gain.gain.setValueAtTime(0.3, ctx.currentTime);
-      if (correct) {
-        osc.frequency.setValueAtTime(523, ctx.currentTime);
-        osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
-        osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.4);
-      } else {
-        osc.frequency.setValueAtTime(330, ctx.currentTime);
-        osc.frequency.setValueAtTime(262, ctx.currentTime + 0.15);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.35);
-      }
-    } catch {
-      /* ignore */
-    }
-  }, []);
+  // 기존 WebAudio 톤 합성 제거 → useGameSound에 위임
+  const playFeedbackSound = useCallback(
+    (correct: boolean) => {
+      if (correct) playCorrect();
+      else playIncorrect();
+    },
+    [playCorrect, playIncorrect]
+  );
 
   // 칭찬 애니메이션 오버레이 상태
   const [praiseVisible, setPraiseVisible] = useState(false);
