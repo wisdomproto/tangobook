@@ -2,7 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStorybook } from '@/features/storybook';
 import type { Page } from '@tangobook/shared';
-import { useViewerSettings } from '../hooks/useViewerSettings';
+import { useViewerSettings, type ViewerSettings } from '../hooks/useViewerSettings';
 import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { useSwipe } from '../hooks/useSwipe';
 import { ViewerToolbar } from './ViewerToolbar';
@@ -184,16 +184,25 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       >
         <ViewerToolbar
           title={storybook.title}
-          settings={settings}
-          onUpdateSettings={updateSettings}
-          onBack={
-            storybook.type === 'phonics'
-              ? () => {
-                  stopTts();
-                  navigate(`/viewer/${storybook.id}`);
-                }
-              : undefined
-          }
+          onHome={() => {
+            stopTts();
+            if (storybook.type === 'phonics') {
+              navigate(`/viewer/${storybook.id}`);
+            } else {
+              navigate(`/library/${storybook.id}`);
+            }
+          }}
+          darkMode={settings.darkMode}
+          onToggleDark={() => updateSettings({ darkMode: !settings.darkMode })}
+          textSize={settings.textSize}
+          onCycleTextSize={() => {
+            const cycle: ViewerSettings['textSize'][] = ['sm', 'md', 'lg'];
+            const idx = cycle.indexOf(settings.textSize);
+            updateSettings({ textSize: cycle[(idx + 1) % cycle.length] });
+          }}
+          language={settings.language}
+          fullscreenImage={settings.fullscreenImage}
+          onToggleFullscreen={() => updateSettings({ fullscreenImage: !settings.fullscreenImage })}
         />
       </div>
 
