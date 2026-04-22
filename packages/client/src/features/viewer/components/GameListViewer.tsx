@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useMemo } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import type { Storybook, GameInstance } from '@tangobook/shared';
 import { GamePreviewModal } from '@/features/games/components/GamePreviewModal';
 import { getGameEntry } from '@/features/games/registry';
@@ -24,7 +24,17 @@ const GRADIENTS: Record<string, string> = {
 
 export function GameListViewer({ storybook }: GameListViewerProps) {
   const navigate = useNavigate();
-  const games = storybook.games ?? [];
+  const [searchParams] = useSearchParams();
+  const currentLang = (searchParams.get('lang') as 'ko' | 'en' | null) ?? 'ko';
+
+  const games = useMemo(() => {
+    return (storybook.games ?? []).filter((g) => {
+      const entry = getGameEntry(g.gameType);
+      if (!entry?.language) return true; // 언어 중립 → 항상 표시
+      return entry.language === currentLang;
+    });
+  }, [storybook.games, currentLang]);
+
   const [playingGame, setPlayingGame] = useState<GameInstance | null>(null);
 
   return (
