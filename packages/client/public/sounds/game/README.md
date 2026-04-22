@@ -1,38 +1,39 @@
 # Game Sound Effects
 
-현재 3개 모두 **Placeholder silent mp3** (0.2초, 96kbps mono).
-사용자가 CC0 (Creative Commons Zero) 실음원으로 교체 예정.
+모두 **오리지널 합성(synthesized) CC0** — `scripts/synthesize-game-sfx.mjs`로 생성된 순수 사인파 기반 SFX. 저작권 귀속 없음, 상업 이용 가능.
 
 ## Files
 
-- `correct.mp3` — Placeholder silent. 정답 시 재생 (ding/chime 예정)
-- `incorrect.mp3` — Placeholder silent. 오답 시 재생 (soft "음?" 예정)
-- `clear.mp3` — Placeholder silent. 게임 클리어 시 재생 (짧은 fanfare 예정)
+| 파일            | 길이   | 크기   | 내용                                  |
+| --------------- | ------ | ------ | ------------------------------------- |
+| `correct.mp3`   | ~0.48s | ~6.6KB | C5→E5→G5 상승 차임 (정답)             |
+| `incorrect.mp3` | ~0.36s | ~5.1KB | G4→D4 부드러운 하강 (오답)            |
+| `clear.mp3`     | ~0.92s | ~12KB  | C 메이저 아르페지오 + 스파클 (클리어) |
 
-## 교체 가이드
+사양: 44.1kHz mono MP3 96kbps, `loudnorm=I=-16:LRA=7:TP=-1.5`.
 
-조건:
+## 재생성
 
-- 각 파일 <50KB (≈ 96kbps mono mp3 800ms 내외)
-- 짧고 온화. 공격적·놀라는 톤 금지
-
-후보 출처:
-
-- freesound.org (CC0 필터)
-- OpenGameArt.org (CC0 카테고리)
-- pixabay.com/sound-effects (CC0/상용 혼재, 라이선스 확인)
-
-편집 예시:
+파형 수정이 필요하면 `scripts/synthesize-game-sfx.mjs`의 `synthCorrect/Incorrect/Clear`를 편집 후:
 
 ```bash
-# 800ms로 잘라 -14 LUFS 정규화 후 96kbps mono mp3 출력
-ffmpeg -i input.wav -t 0.8 -af "loudnorm=I=-14:LRA=7:TP=-1" -ac 1 -b:a 96k correct.mp3
+node scripts/synthesize-game-sfx.mjs
 ```
 
-교체 후 아래 표에 출처/저작자 기록:
+세 mp3가 여기로 덮어쓰기됨.
 
-| 파일          | 출처 URL | 저작자 | 라이선스 |
-| ------------- | -------- | ------ | -------- |
-| correct.mp3   | TBD      | TBD    | CC0      |
-| incorrect.mp3 | TBD      | TBD    | CC0      |
-| clear.mp3     | TBD      | TBD    | CC0      |
+## 고퀄 실음원 교체 시
+
+녹음·샘플 라이브러리 등으로 교체하려면 동일 파일명·동일 경로로 대체. 제약:
+
+- 각 파일 <50KB (96kbps mono 1초 이내)
+- kid-friendly — 공격적·놀라는 톤 금지
+- 라이선스: CC0 또는 상업 이용 허용
+
+교체 시 아래 표 갱신.
+
+| 파일          | 출처                              | 저작자       | 라이선스 |
+| ------------- | --------------------------------- | ------------ | -------- |
+| correct.mp3   | `scripts/synthesize-game-sfx.mjs` | Tangobook AI | CC0      |
+| incorrect.mp3 | `scripts/synthesize-game-sfx.mjs` | Tangobook AI | CC0      |
+| clear.mp3     | `scripts/synthesize-game-sfx.mjs` | Tangobook AI | CC0      |

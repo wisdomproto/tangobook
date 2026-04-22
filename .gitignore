@@ -40,3 +40,6 @@ coverage/
 
 # Mascot build tmp
 .mascot-tmp/
+
+# SFX synth tmp (wav intermediates + script)
+.sfx-tmp/

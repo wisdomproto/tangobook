@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { EnglishBlockData, EnglishBlockLetter } from '@tangobook/shared';
 import { VOWELS, CONSONANTS, isEnglishVowel } from '@tangobook/shared';
@@ -8,6 +9,7 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { PraiseOverlay } from '../PraiseOverlay';
+import { cn } from '@/lib/cn';
 
 interface LetterBlock {
   id: string;
@@ -26,12 +28,10 @@ const ALL_VOWELS: LetterBlock[] = VOWELS.map((ch, i) => ({
   isVowel: true,
 }));
 
-const WORD_COLORS = ['#f97316', '#eab308', '#3b82f6', '#ec4899', '#8b5cf6', '#06b6d4', '#10b981'];
-
 function createEnglishGhost(char: string): HTMLDivElement {
   const ghost = document.createElement('div');
-  const barColor = isEnglishVowel(char) ? '#fb7185' : '#60a5fa';
-  ghost.innerHTML = `<span style="flex:1;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#1e293b">${char}</span><div style="width:100%;height:6px;background:${barColor};border-radius:0 0 14px 14px"></div>`;
+  const barColor = isEnglishVowel(char) ? '#FF5E3A' : '#FF9A5A';
+  ghost.innerHTML = `<span style="flex:1;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#3A2B1F">${char}</span><div style="width:100%;height:6px;background:${barColor};border-radius:0 0 14px 14px"></div>`;
   ghost.setAttribute(
     'style',
     `width:52px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:14px;background:white;box-shadow:0 8px 24px rgba(0,0,0,.2);overflow:hidden`
@@ -54,6 +54,7 @@ export function EnglishBlockPlayer({
   const [finished, setFinished] = useState(false);
   const [roundCorrect, setRoundCorrect] = useState(false);
   const [wrongSlots, setWrongSlots] = useState<Set<number>>(new Set());
+  const [typedChars, setTypedChars] = useState(0);
 
   const currentItem = items[currentIndex];
   const letterCount = currentItem.letters.length;
@@ -86,6 +87,26 @@ export function EnglishBlockPlayer({
     }
     prevGridRef.current = [...grid];
   }, [grid, playAudio, phonicsMapRef]);
+
+  // 정답 확정 시 타이핑 효과: 한 글자씩 증가
+  useEffect(() => {
+    if (!roundCorrect) {
+      setTypedChars(0);
+      return;
+    }
+    const target = currentItem.word;
+    setTypedChars(0);
+    const interval = setInterval(() => {
+      setTypedChars((n) => {
+        if (n >= target.length) {
+          clearInterval(interval);
+          return target.length;
+        }
+        return n + 1;
+      });
+    }, 60);
+    return () => clearInterval(interval);
+  }, [roundCorrect, currentItem.word]);
 
   const placeBlock = useCallback(
     (slot: number, block: LetterBlock) => {
@@ -210,15 +231,49 @@ export function EnglishBlockPlayer({
     const cellKey = `${slot}`;
     const char = grid[slot];
     const isWrong = wrongSlots.has(slot);
+    const placedCorrectly = roundCorrect && !!char;
     const barColor = char
       ? isWrong
-        ? 'bg-red-400'
+        ? 'bg-danger'
         : roundCorrect
-          ? 'bg-emerald-400'
+          ? 'bg-success'
           : isEnglishVowel(char)
-            ? 'bg-rose-400'
-            : 'bg-blue-400'
+            ? 'bg-coral-500'
+            : 'bg-peach-500'
       : '';
+
+    const cellInner = (
+      <>
+        {char ? (
+          <>
+            <span
+              className={cn(
+                'flex-1 flex items-center justify-center text-2xl sm:text-3xl lg:text-4xl font-black',
+                isWrong ? 'text-danger' : 'text-ink-900'
+              )}
+            >
+              {char}
+            </span>
+            <div className={cn('w-full h-1.5 lg:h-2', barColor)} />
+          </>
+        ) : null}
+      </>
+    );
+
+    const cellBody = placedCorrectly ? (
+      <motion.div
+        key={`correct-${char}-${slot}`}
+        initial={{ scale: 1 }}
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 0.4 }}
+        className="w-full h-full flex flex-col items-center justify-center overflow-hidden"
+      >
+        {cellInner}
+      </motion.div>
+    ) : (
+      cellInner
+    );
+
     return (
       <div
         key={cellKey}
@@ -226,28 +281,18 @@ export function EnglishBlockPlayer({
         onDragOver={drag.handleDragOver}
         onDrop={(e) => drag.handleDrop(cellKey, e, onPlace)}
         onClick={() => handleCellClick(slot)}
-        className={`w-12 h-14 sm:w-16 sm:h-[4.5rem] lg:w-[4.5rem] lg:h-[5.5rem] rounded-2xl flex flex-col items-center justify-center overflow-hidden transition-all cursor-pointer select-none ${
+        className={cn(
+          'w-12 h-14 sm:w-16 sm:h-[4.5rem] lg:w-[4.5rem] lg:h-[5.5rem] rounded-md flex flex-col items-center justify-center overflow-hidden transition-all cursor-pointer select-none',
           char
             ? isWrong
-              ? 'bg-white shadow-lg ring-2 ring-red-300'
+              ? 'bg-white shadow-card ring-2 ring-danger'
               : roundCorrect
-                ? 'bg-white shadow-lg ring-2 ring-emerald-300'
-                : 'bg-white shadow-lg'
-            : 'border-2 border-dashed border-amber-300/60 bg-amber-50/50'
-        }`}
+                ? 'bg-white shadow-card ring-2 ring-success'
+                : 'bg-white shadow-card'
+            : 'border-2 border-dashed border-coral-300 bg-white/40 hover:border-coral-500 hover:bg-coral-100/30 hover:animate-pulse'
+        )}
       >
-        {char ? (
-          <>
-            <span
-              className={`flex-1 flex items-center justify-center text-2xl sm:text-3xl lg:text-4xl font-black ${
-                isWrong ? 'text-red-500' : 'text-slate-800'
-              }`}
-            >
-              {char}
-            </span>
-            <div className={`w-full h-1.5 lg:h-2 ${barColor}`} />
-          </>
-        ) : null}
+        {cellBody}
       </div>
     );
   };
@@ -260,17 +305,21 @@ export function EnglishBlockPlayer({
       onTouchStart={(e) => drag.handleTouchStart(block, e)}
       onTouchMove={drag.handleTouchMove}
       onTouchEnd={(e) => drag.handleTouchEnd(e, onPlace)}
-      className="w-10 h-12 sm:w-12 sm:h-14 lg:w-14 lg:h-[4rem] rounded-xl sm:rounded-2xl flex flex-col items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing select-none bg-white shadow-md hover:shadow-xl hover:-translate-y-1 transition-all"
+      className={cn(
+        'w-10 h-12 sm:w-12 sm:h-14 lg:w-14 lg:h-[4rem] rounded-md flex flex-col items-center justify-center overflow-hidden select-none bg-white shadow-soft cursor-grab',
+        'transition-transform hover:scale-105 hover:shadow-pop',
+        'active:scale-[1.08] active:shadow-pop active:rotate-2 active:cursor-grabbing'
+      )}
     >
-      <span className="flex-1 flex items-center justify-center text-lg sm:text-xl lg:text-2xl font-black text-slate-800">
+      <span className="flex-1 flex items-center justify-center text-lg sm:text-xl lg:text-2xl font-black text-ink-900">
         {block.char}
       </span>
-      <div className={`w-full h-1.5 lg:h-2 ${block.isVowel ? 'bg-rose-400' : 'bg-blue-400'}`} />
+      <div className={cn('w-full h-1.5 lg:h-2', block.isVowel ? 'bg-coral-500' : 'bg-peach-500')} />
     </div>
   );
 
   return (
-    <div className="min-h-full flex flex-col">
+    <div className="min-h-full flex flex-col bg-gradient-to-br from-cream-50 to-peach-100">
       <PraiseOverlay visible={praiseVisible} />
 
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 sm:py-6 gap-4 sm:gap-6">
@@ -278,24 +327,30 @@ export function EnglishBlockPlayer({
           <GameProgressBar current={currentIndex} total={items.length} score={score} />
         </div>
 
+        {/* 완성된 단어 타이핑 패널 */}
+        {roundCorrect && (
+          <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 min-h-[60px] text-2xl sm:text-3xl font-black text-ink-900 text-center shadow-soft min-w-[200px]">
+            {currentItem.word.slice(0, typedChars)}
+            {typedChars < currentItem.word.length && (
+              <span className="inline-block w-0.5 h-6 bg-coral-500 ml-1 animate-pulse align-middle" />
+            )}
+          </div>
+        )}
+
         {currentItem.imageUrl && (
           <div className="relative">
-            <div className="absolute inset-0 rounded-3xl bg-amber-200/30 blur-2xl scale-110" />
+            <div className="absolute inset-0 rounded-xl bg-peach-300/40 blur-2xl scale-110" />
             <img
               src={currentItem.imageUrl}
               alt={currentItem.word}
-              className="relative w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 object-contain rounded-3xl bg-white shadow-xl"
+              className="relative w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 object-contain rounded-xl bg-white shadow-card"
             />
           </div>
         )}
 
         <div className="flex items-center gap-3 sm:gap-5">
-          <span className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-wide">
-            {currentItem.word.split('').map((ch, i) => (
-              <span key={i} style={{ color: WORD_COLORS[i % WORD_COLORS.length] }}>
-                {ch}
-              </span>
-            ))}
+          <span className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-wide text-ink-900">
+            {currentItem.word}
           </span>
           <div className="flex gap-1.5 sm:gap-2">
             {Array.from({ length: letterCount }, (_, slot) => renderCell(slot))}
@@ -306,46 +361,40 @@ export function EnglishBlockPlayer({
           <button
             onClick={handleCheck}
             disabled={roundCorrect}
-            className={`px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-2xl text-base sm:text-lg font-bold transition-colors ${
+            className={cn(
+              'px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-md text-base sm:text-lg font-bold transition-colors',
               roundCorrect
-                ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                : 'bg-blue-500 hover:bg-blue-600 text-white shadow-md'
-            }`}
+                ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
+                : 'bg-coral-500 hover:bg-coral-600 text-white shadow-pop'
+            )}
           >
             확인
           </button>
           <button
             onClick={handleNext}
-            className="px-6 py-2.5 sm:px-10 sm:py-3.5 bg-violet-500 hover:bg-violet-600 text-white rounded-2xl text-base sm:text-lg font-bold transition-colors shadow-md"
+            className="px-6 py-2.5 sm:px-10 sm:py-3.5 bg-peach-500 hover:bg-peach-300 text-white rounded-md text-base sm:text-lg font-bold transition-colors shadow-card"
           >
             {currentIndex + 1 < items.length ? '다음 →' : '결과 보기'}
           </button>
         </div>
       </div>
 
-      <div
-        className="shrink-0 px-3 sm:px-6 py-4 sm:py-6 flex flex-col sm:flex-row gap-4 sm:gap-6"
-        style={{
-          background:
-            'linear-gradient(180deg, rgba(251,191,146,0.15) 0%, rgba(251,191,146,0.3) 100%)',
-        }}
-      >
+      <div className="shrink-0 px-3 sm:px-6 py-4 sm:py-6 flex flex-col sm:flex-row gap-4 sm:gap-6 bg-white/40 backdrop-blur-sm">
         <div className="flex-1 min-w-0">
-          <p className="text-sm sm:text-base font-black text-slate-700 mb-2 sm:mb-3 ml-1">
+          <p className="text-sm sm:text-base font-black text-ink-700 mb-2 sm:mb-3 ml-1">
             Consonants
           </p>
           <div className="flex flex-wrap gap-1.5 sm:gap-2">{ALL_CONSONANTS.map(renderBlock)}</div>
         </div>
         <div className="shrink-0">
-          <p className="text-sm sm:text-base font-black text-slate-700 mb-2 sm:mb-3 ml-1">Vowels</p>
+          <p className="text-sm sm:text-base font-black text-ink-700 mb-2 sm:mb-3 ml-1">Vowels</p>
           <div className="flex flex-wrap gap-1.5 sm:gap-2">{ALL_VOWELS.map(renderBlock)}</div>
         </div>
       </div>
 
       <button
         onClick={onBack}
-        className="shrink-0 py-3 text-sm text-emerald-700/60 hover:text-emerald-800 transition-colors text-center"
-        style={{ background: 'rgba(251,191,146,0.3)' }}
+        className="shrink-0 py-3 text-sm text-ink-500 hover:text-ink-900 transition-colors text-center bg-white/50"
       >
         ← 돌아가기
       </button>
