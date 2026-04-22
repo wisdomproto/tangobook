@@ -77,16 +77,16 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: 
 
         {/* 질문 */}
         <div className="text-center">
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-1">
+          <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mb-1">
             카테고리: {current.category}
           </p>
-          <h3 className="text-lg sm:text-xl font-semibold text-slate-800 dark:text-slate-100">
+          <h3 className="text-2xl sm:text-3xl font-black text-ink-900 dark:text-slate-100">
             다른 것을 찾아보세요!
           </h3>
         </div>
 
-        {/* 보기 */}
-        <div className="flex gap-3 sm:gap-4 justify-center flex-wrap">
+        {/* 보기 — 뷰포트에 비례해 카드 크기 확장. 최대 15rem(240px) 캡 */}
+        <div className="flex gap-4 sm:gap-6 justify-center flex-wrap">
           {current.options.map((opt, oi) => {
             let borderStyle =
               'border-slate-200 dark:border-slate-700 hover:border-coral-400 cursor-pointer';
@@ -105,7 +105,7 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: 
                 key={oi}
                 onClick={() => handleSelect(oi)}
                 disabled={selectedIdx !== null}
-                className={`w-28 sm:w-32 lg:w-36 rounded-xl border-2 overflow-hidden transition-all ${borderStyle}`}
+                className={`w-[min(22vmin,15rem)] min-w-[8rem] rounded-xl border-2 overflow-hidden transition-all bg-white hover:scale-[1.03] ${borderStyle}`}
               >
                 {opt.imageUrl ? (
                   <img
@@ -118,7 +118,7 @@ export function OddOneOutPlayer({ gameData, onComplete, onBack, systemSounds }: 
                     ?
                   </div>
                 )}
-                <p className="text-xs sm:text-sm font-medium py-2 text-slate-800 dark:text-slate-100">
+                <p className="text-base sm:text-lg font-bold py-2 text-ink-900 dark:text-slate-100">
                   {opt.korean || opt.word}
                 </p>
               </button>

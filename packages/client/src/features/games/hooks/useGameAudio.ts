@@ -15,6 +15,8 @@ export function useGameAudio() {
   const { playCorrect, playIncorrect } = useGameSound();
 
   const lastAudioRef = useRef<HTMLAudioElement | null>(null);
+  // playCorrectSequence 내부 setTimeout 들을 모아 언마운트 시 clearTimeout
+  const pendingTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
   // 언어별 분리 저장. 플레이어가 language 지정 시 해당 pool만, 아니면 합쳐서 사용
   const [koreanSoundUrls, setKoreanSoundUrls] = useState<string[]>([]);
   const [englishSoundUrls, setEnglishSoundUrls] = useState<string[]>([]);
@@ -54,6 +56,15 @@ export function useGameAudio() {
   // 칭찬 애니메이션 오버레이 상태
   const [praiseVisible, setPraiseVisible] = useState(false);
 
+  const scheduleTimer = useCallback((fn: () => void, ms: number) => {
+    const id = setTimeout(() => {
+      pendingTimersRef.current.delete(id);
+      fn();
+    }, ms);
+    pendingTimersRef.current.add(id);
+    return id;
+  }, []);
+
   /** 정답 시퀀스: 효과음 → 칭찬 애니메이션 → TTS(선택) → 시스템 칭찬 음원 → onDone 콜백 */
   const playCorrectSequence = useCallback(
     (opts?: CorrectSequenceOpts) => {
@@ -61,7 +72,7 @@ export function useGameAudio() {
       setPraiseVisible(true);
       let delay = 500;
       if (opts?.ttsUrl) {
-        setTimeout(() => playAudio(opts.ttsUrl), delay);
+        scheduleTimer(() => playAudio(opts.ttsUrl), delay);
         delay += 1200;
       }
       // 시스템 칭찬 음원: props로 전달된 URL 우선, 없으면 라이브러리에서 랜덤 선택
@@ -80,18 +91,31 @@ export function useGameAudio() {
         opts?.systemSounds?.correctUrl ||
         (pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : undefined);
       if (correctUrl) {
-        setTimeout(() => playAudio(correctUrl), delay);
+        scheduleTimer(() => playAudio(correctUrl), delay);
         delay += 1500;
       } else {
         // 음원이 없어도 최소 대기 (피드백 효과음을 들을 수 있도록)
         delay = Math.max(delay, 1200);
       }
       // 칭찬 오버레이 종료 (onDone 직전에 닫기)
-      setTimeout(() => setPraiseVisible(false), delay - 300);
-      if (opts?.onDone) setTimeout(opts.onDone, delay);
+      scheduleTimer(() => setPraiseVisible(false), delay - 300);
+      if (opts?.onDone) scheduleTimer(opts.onDone, delay);
     },
-    [playFeedbackSound, playAudio, koreanSoundUrls, englishSoundUrls]
+    [playFeedbackSound, playAudio, koreanSoundUrls, englishSoundUrls, scheduleTimer]
   );
+
+  // 언마운트 시 재생 중 오디오 + 예약 타이머 모두 정리
+  useEffect(() => {
+    return () => {
+      if (lastAudioRef.current) {
+        lastAudioRef.current.pause();
+        lastAudioRef.current.src = '';
+        lastAudioRef.current = null;
+      }
+      pendingTimersRef.current.forEach((id) => clearTimeout(id));
+      pendingTimersRef.current.clear();
+    };
+  }, []);
 
   return { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible };
 }
