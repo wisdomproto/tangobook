@@ -62,8 +62,10 @@ export default function LibraryPage() {
 
   const filtered = useMemo<StorybookSummary[]>(() => {
     if (!all) return [];
+    // 뷰어에는 저작도구에서 "공개"로 체크된 책만 노출
+    const publicOnly = all.filter((b) => b.isPublic);
     const tab = TABS.find((t) => t.id === activeTab)!;
-    const result = all.filter(tab.match);
+    const result = publicOnly.filter(tab.match);
     const q = search.trim().toLowerCase();
     const searched = q
       ? result.filter(
@@ -86,6 +88,7 @@ export default function LibraryPage() {
     const tab = TABS.find((t) => t.id === activeTab)!;
     const q = search.trim().toLowerCase();
     const base = all
+      .filter((b) => b.isPublic) // 뷰어: 공개 책만
       .filter(tab.match)
       .filter(
         (b) =>
