@@ -446,6 +446,14 @@ server/src/
 - **재분석 시 보존**: `longform.service.ts#analyze`는 pageNumber 매칭된 기존 씬의 `clipUrl`, `clipHistory`, `trim*`, `sfxUrl`, offset, 볼륨을 유지하고 언어 종속 필드(videoPrompt/subtitles/ttsUrl/ttsDuration)만 갱신
 - **자동 fallback**: `TimelineEditorStep`은 자식 버전의 씬에 clipUrl 누락 시 master의 같은 pageNumber에서 clipUrl/clipHistory/sfxUrl을 복사해 메우는 effect 실행 (기존 데이터 대응)
 
+## 뷰어 디자인 시스템 (2026-04-22~)
+- 토큰: `tailwind.config.js`의 cream/peach/coral/ink/darkbg + CSS vars
+- 마스코트: `<Mascot state="..." size="..." />` (tiger 기본, Lottie → PNG → emoji fallback)
+- 공용 컴포넌트: Button, Card, Skeleton, StateScreen, ErrorBoundary, Mascot
+- 뷰어 컴포넌트: ViewerContainer, ViewerToolbar(Pill), ViewerControls(64px nav + 48px play), PageView(framer-motion slide), BookSpineProgress, MascotCorner, RewardScreen, YouTubeModal
+- 언어 파라미터: `?lang=ko|en` + `getPageText/getPageTtsUrl` (fallback to base text)
+- 접근성: `useReducedMotion`(framer-motion), `focus-visible:ring`, 에러 문구 아이 친화("이 책을 찾을 수 없어")
+
 ## PRD 문서
 - `PRD_00_Master.md` - 마스터 로드맵
 - `PRD_01_AuthorTool_Storybook.md` - 동화책 저작도구
