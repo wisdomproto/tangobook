@@ -75,6 +75,7 @@ export function GamePreviewModal({ game, storybook, onClose }: GamePreviewModalP
             </div>
           ) : (
             <PlayerComponent
+              storybookId={storybook?.id ?? ''}
               gameData={game.data}
               difficulty={game.difficulty}
               onComplete={handleComplete}

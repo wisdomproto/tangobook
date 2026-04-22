@@ -372,6 +372,7 @@ function GamesSection({
     return (
       <div className="flex-1 flex flex-col">
         <PlayerComponent
+          storybookId={storybook.id}
           gameData={playingGame.data}
           difficulty={playingGame.difficulty}
           onComplete={handleComplete}

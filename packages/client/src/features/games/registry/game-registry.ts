@@ -18,6 +18,7 @@ export interface ContentRequirement {
 
 /** 모든 게임 플레이어 컴포넌트가 받는 props */
 export interface GamePlayerProps {
+  storybookId: string; // [신규] 말하기 게임 등 진척 추적용
   gameData: unknown;
   difficulty: GameDifficulty;
   onComplete: (score: number, maxScore: number) => void;
