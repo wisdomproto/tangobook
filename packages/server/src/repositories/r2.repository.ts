@@ -17,6 +17,8 @@ let listCacheTime = 0;
 const LIST_CACHE_TTL = 5 * 60 * 1000; // 5분
 
 function toSummary(sb: Storybook): StorybookSummary {
+  const hasAudiobookVideo = sb.audiobookProjects?.some((p) => !!p.youtubeUpload?.videoId) ?? false;
+  const hasLongformVideo = sb.longformProjects?.some((p) => !!p.youtubeUpload?.videoId) ?? false;
   return {
     id: sb.id,
     title: sb.title,
@@ -30,6 +32,7 @@ function toSummary(sb: Storybook): StorybookSummary {
     coverImage: sb.coverImage,
     pageCount: sb.pages?.length ?? 0,
     phonicsLanguage: sb.phonicsConfig?.language,
+    hasVideo: hasAudiobookVideo || hasLongformVideo,
   };
 }
 

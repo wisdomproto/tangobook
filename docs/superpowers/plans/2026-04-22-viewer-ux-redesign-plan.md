@@ -1337,7 +1337,7 @@ git commit -m "feat(client): add /library/:id route + wrap viewer routes with Er
 - Modify: `packages/shared/src/types/storybook.ts` (StorybookSummary에 `hasVideo?: boolean` 추가)
 - Modify: `packages/server/src/services/storybook.service.ts` (list 엔드포인트에서 계산)
 
-- [ ] **Step 0: 필드명 검증 (grep)**
+- [x] **Step 0: 필드명 검증 (grep)**
 
 ```bash
 grep -n "youtubeUpload\|audiobookProjects\|longformProjects" packages/shared/src/types/storybook.ts
@@ -1351,7 +1351,7 @@ Expected:
 
 이 필드명들이 다르면 Step 3의 코드 수정 필요.
 
-- [ ] **Step 1: shared 타입에 필드 추가**
+- [x] **Step 1: shared 타입에 필드 추가**
 
 `packages/shared/src/types/storybook.ts`의 `StorybookSummary` 타입 확장:
 
@@ -1367,13 +1367,13 @@ export type StorybookSummary = Pick<
 };
 ```
 
-- [ ] **Step 2: shared 패키지 빌드**
+- [x] **Step 2: shared 패키지 빌드**
 
 ```bash
 pnpm --filter @tangobook/shared build
 ```
 
-- [ ] **Step 3: 서버 storybook.service.ts에서 계산**
+- [x] **Step 3: 서버에서 계산 (실제로는 `r2.repository.ts`의 `toSummary`에서 수행 — list 변환의 단일 진입점)**
 
 list 반환 부분에서 각 storybook을 summary로 변환하는 로직을 찾아 `hasVideo` 추가:
 
@@ -1387,13 +1387,13 @@ hasVideo:
   false,
 ```
 
-- [ ] **Step 4: 서버 빌드 + typecheck**
+- [x] **Step 4: 서버 빌드 + typecheck**
 
 ```bash
 pnpm --filter @tangobook/server typecheck
 ```
 
-- [ ] **Step 5: 수동 API 확인**
+- [ ] **Step 5: 수동 API 확인** (사용자 담당)
 
 dev 환경에서 `/api/storybooks` 응답 확인 (브라우저 devtools 또는 curl):
 
@@ -1403,10 +1403,10 @@ curl http://localhost:3500/api/storybooks | head -c 500
 
 Expected: 각 아이템에 `hasVideo: true` 또는 `hasVideo: false` 포함.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
-git add packages/shared/src/types/storybook.ts packages/server/src/services/storybook.service.ts
+git add packages/shared/src/types/storybook.ts packages/server/src/repositories/r2.repository.ts
 git commit -m "feat(shared,server): add hasVideo flag to StorybookSummary for library badge"
 ```
 

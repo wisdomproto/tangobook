@@ -725,7 +725,13 @@ export interface AudiobookProject {
   createdAt?: string;
   enableParticles?: boolean;
   captionLanguages?: string[]; // YouTube 자막 업로드할 언어 목록
+  generatedCaptions?: Record<string, GeneratedCaption>; // 생성된 SRT 캐시
   youtubeUpload?: YouTubeUploadResult;
+}
+
+export interface GeneratedCaption {
+  srt: string;
+  generatedAt: string;
 }
 
 // === 블로그 ===
@@ -850,6 +856,7 @@ export type StorybookSummary = Pick<
 > & {
   pageCount?: number;
   phonicsLanguage?: 'korean' | 'english';
+  hasVideo?: boolean;
 };
 
 // ===== Longform Video =====
@@ -867,6 +874,7 @@ export interface LongformProject {
   shortformOutputUrl?: string;
   createdAt?: string;
   captionLanguages?: string[]; // YouTube 자막 업로드할 언어 목록
+  generatedCaptions?: Record<string, GeneratedCaption>; // 생성된 SRT 캐시
   youtubeUpload?: YouTubeUploadResult;
   /** If set, this is a "version" (timeline edit) of the master project */
   parentProjectId?: string;
@@ -891,6 +899,7 @@ export interface YouTubeUploadResult {
   publishAt?: string; // scheduled publish time
   channelId?: string; // 업로드한 내부 채널 ID (자막 재업로드 시 동일 채널 사용)
   captionsUploaded?: string[]; // 업로드 완료된 자막 언어 목록
+  captionsFailed?: { lang: string; error: string }[]; // 실패한 자막 언어 목록
 }
 
 export interface YouTubeChannel {
