@@ -34,13 +34,13 @@ export default {
         warn: '#FFC857',
         danger: '#E75757', // CSS 변수 --color-error와 쌍 (Button variant 'danger'와 의미 통일)
         fun: '#A78BFA',
-        // Ink (텍스트)
+        // Ink (텍스트) — 900을 실질 검정으로 조정 (유아 가독성 우선)
         ink: {
           100: '#EDE1D4',
           300: '#C9B8A8',
           500: '#9A8474',
-          700: '#6F5A48',
-          900: '#3A2B1F',
+          700: '#3F2F24',
+          900: '#0B0805',
         },
         // Dark
         darkbg: '#1F1611',

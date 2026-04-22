@@ -31,7 +31,7 @@ export function ConnectTheDotsPlayer({
   const [isPressing, setIsPressing] = useState(false);
 
   const overlayRef = useRef<HTMLDivElement>(null);
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playCorrectSequence, praiseVisible } = useGameAudio();
 
   // 글로벌 pointerup으로 드래그 종료 감지 (점에서 손 떼면 드래그 풀림)
   useEffect(() => {
@@ -43,29 +43,6 @@ export function ConnectTheDotsPlayer({
       window.removeEventListener('pointercancel', up);
     };
   }, []);
-
-  // 정답 시 objectName을 한글(음절 연결) 또는 영어(단어 음원)로 읽어줌.
-  // phonics-library concat API가 두 언어 다 커버. 실패/미지원 시 조용히 통과.
-  const speakObjectName = useCallback(
-    async (name: string | undefined) => {
-      if (!name) return;
-      const trimmed = name.trim();
-      if (!trimmed) return;
-      const isKorean = /[가-힣]/.test(trimmed);
-      try {
-        const { audioUrl } = await phonicsApi.concatPhonicsAudio({
-          text: trimmed,
-          storybookId,
-          identifier: `dot-${isKorean ? 'ko' : 'en'}-${encodeURIComponent(trimmed)}`,
-          language: isKorean ? 'korean' : 'english',
-        });
-        playAudio(audioUrl);
-      } catch {
-        /* 라이브러리에 없는 토큰 등 — 조용히 스킵 */
-      }
-    },
-    [storybookId, playAudio]
-  );
 
   const currentItem: ConnectTheDotsItem | undefined = items[itemIdx];
 
@@ -85,54 +62,71 @@ export function ConnectTheDotsPlayer({
   const sortedKps = [...currentItem.keypoints].sort((a, b) => a.order - b.order);
   const totalDots = sortedKps.length;
 
-  const handleDotHit = useCallback(
+  // 직접 탭 (onPointerDown/onClick) — 틀린 순서면 wrongTap 띄움
+  const handleDotTap = useCallback(
     (order: number) => {
       if (completed) return;
 
-      // 복귀 단계: 첫 점(order=1)에 다시 닿아야 마무리
+      // 복귀 단계: 첫 점으로 돌아와야 완성
       if (returning) {
         if (order !== 1) {
           setWrongTap(true);
           setTimeout(() => setWrongTap(false), 500);
           return;
         }
-        // closed loop 완성
         setCompleted(true);
         setTimeout(() => setShowImage(true), 300);
-        setTimeout(() => speakObjectName(currentItem.objectName), 700);
-        playCorrectSequence({
-          systemSounds,
-          onDone: () => {
-            const newCompletedItems = completedItems + 1;
-            setCompletedItems(newCompletedItems);
-            if (itemIdx + 1 >= items.length) {
-              onComplete(newCompletedItems, items.length);
-            } else {
-              setItemIdx(itemIdx + 1);
-              setNextOrder(1);
-              setConnectedUpTo(0);
-              setCompleted(false);
-              setReturning(false);
-              setShowImage(false);
+
+        // 단어 음원을 미리 만들어 playCorrectSequence의 ttsUrl로 통합 (중간 컷 방지)
+        (async () => {
+          let wordAudioUrl: string | undefined;
+          const name = currentItem.objectName?.trim();
+          if (name) {
+            try {
+              const isKorean = /[가-힣]/.test(name);
+              const { audioUrl } = await phonicsApi.concatPhonicsAudio({
+                text: name,
+                storybookId,
+                identifier: `dot-${isKorean ? 'ko' : 'en'}-${encodeURIComponent(name)}`,
+                language: isKorean ? 'korean' : 'english',
+              });
+              wordAudioUrl = audioUrl;
+            } catch {
+              /* 라이브러리 미스 → 건너뛰고 시스템 칭찬음만 */
             }
-          },
-        });
+          }
+          playCorrectSequence({
+            ttsUrl: wordAudioUrl,
+            systemSounds,
+            onDone: () => {
+              const newCompletedItems = completedItems + 1;
+              setCompletedItems(newCompletedItems);
+              if (itemIdx + 1 >= items.length) {
+                onComplete(newCompletedItems, items.length);
+              } else {
+                setItemIdx(itemIdx + 1);
+                setNextOrder(1);
+                setConnectedUpTo(0);
+                setCompleted(false);
+                setReturning(false);
+                setShowImage(false);
+              }
+            },
+          });
+        })();
         return;
       }
 
-      // 일반 진행: 순서 맞는 점에 닿으면 다음
+      // 일반 진행: 순서 맞는 점만
       if (order !== nextOrder) {
         setWrongTap(true);
         setTimeout(() => setWrongTap(false), 500);
         return;
       }
-
       const newConnected = connectedUpTo + 1;
       setConnectedUpTo(newConnected);
       setWrongTap(false);
-
       if (newConnected === totalDots) {
-        // 모든 점 연결 완료 → 첫 점 복귀 단계 돌입
         setReturning(true);
         setNextOrder(1);
       } else {
@@ -146,14 +140,25 @@ export function ConnectTheDotsPlayer({
       connectedUpTo,
       totalDots,
       currentItem,
+      storybookId,
       completedItems,
       itemIdx,
       items.length,
       onComplete,
       playCorrectSequence,
-      speakObjectName,
       systemSounds,
     ]
+  );
+
+  // 드래그 통과 (onPointerEnter) — 순서 맞는 점만 반응. 틀린 점은 조용히 무시 (오탐 없음)
+  const handleDotEnterWhileDragging = useCallback(
+    (order: number) => {
+      if (completed || !isPressing) return;
+      const expected = returning ? 1 : nextOrder;
+      if (order !== expected) return; // 드래그 통과 중 엉뚱한 점: 조용히 무시
+      handleDotTap(order);
+    },
+    [completed, isPressing, returning, nextOrder, handleDotTap]
   );
 
   return (
@@ -163,20 +168,22 @@ export function ConnectTheDotsPlayer({
         {/* 진행 */}
         <GameProgressBar current={itemIdx} total={items.length} score={completedItems} />
 
-        {/* 안내 */}
-        {!completed && !returning && (
-          <p className="text-xl font-bold text-ink-900 dark:text-peach-200">
-            점을 <span className="text-coral-500">순서대로</span> 눌러서 이어주세요
-          </p>
-        )}
-        {!completed && returning && (
-          <p className="text-xl font-bold text-coral-500 animate-pulse">
-            마지막으로 <span className="text-coral-600">첫 점</span>으로 돌아오세요!
-          </p>
-        )}
-        {wrongTap && (
-          <p className="text-lg text-danger font-bold animate-pulse">아직 이 점 차례가 아니에요!</p>
-        )}
+        {/* 안내 (고정 높이로 이미지 위치 흔들림 방지) */}
+        <div className="h-12 flex items-center justify-center">
+          {wrongTap ? (
+            <p className="text-lg text-danger font-bold animate-pulse">
+              아직 이 점 차례가 아니에요!
+            </p>
+          ) : completed ? null : returning ? (
+            <p className="text-xl font-bold text-coral-500 animate-pulse">
+              마지막으로 <span className="text-coral-600">첫 점</span>으로 돌아오세요!
+            </p>
+          ) : (
+            <p className="text-xl font-bold text-ink-900 dark:text-peach-200">
+              점을 <span className="text-coral-500">순서대로</span> 눌러서 이어주세요
+            </p>
+          )}
+        </div>
 
         {/* 게임 영역 */}
         <div className="relative inline-block select-none rounded-xl overflow-hidden border-2 border-ink-100 dark:border-slate-700 w-full">
@@ -237,7 +244,6 @@ export function ConnectTheDotsPlayer({
               return (
                 <button
                   key={i}
-                  onClick={() => handleDotHit(kp.order)}
                   onPointerDown={(e) => {
                     // 펜처럼 드래그 가능하도록 pointer capture 해제
                     try {
@@ -246,11 +252,9 @@ export function ConnectTheDotsPlayer({
                       /* no-op */
                     }
                     setIsPressing(true);
-                    handleDotHit(kp.order);
+                    handleDotTap(kp.order);
                   }}
-                  onPointerEnter={() => {
-                    if (isPressing) handleDotHit(kp.order);
-                  }}
+                  onPointerEnter={() => handleDotEnterWhileDragging(kp.order)}
                   className={`absolute rounded-full shadow transition-all ${
                     isNext
                       ? 'bg-coral-500 ring-4 ring-coral-300 animate-pulse scale-125'
