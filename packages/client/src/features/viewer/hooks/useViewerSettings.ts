@@ -15,7 +15,7 @@ const DEFAULT_SETTINGS: ViewerSettings = {
   language: 'ko',
   textSize: 'md',
   darkMode: true,
-  autoPlayTts: false,
+  autoPlayTts: true,
   showText: true,
   fullscreenImage: false,
 };

@@ -63,13 +63,16 @@ export function Mascot({
   const [lottieData, setLottieData] = useState<object | null>(null);
 
   const px = SIZE_PX[size];
+  // URL v 쿼리 = 에셋 버전 (clean 배경 이후). 브라우저 캐시된 이전 버전 무효화.
+  const ASSET_VERSION = 3;
   const basePath = `/mascot/${character}`;
+  const bust = `?v=${ASSET_VERSION}`;
 
   // Lottie 로드 — useEffect로 이동 (render 중 fetch 방지, StrictMode 안전)
   useEffect(() => {
     if (stage !== 'lottie' || lottieData) return;
     let cancelled = false;
-    fetch(`${basePath}/${state}.json`)
+    fetch(`${basePath}/${state}.json${bust}`)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error('lottie 404'))))
       .then((data) => {
         if (!cancelled) setLottieData(data);
@@ -97,7 +100,7 @@ export function Mascot({
     if (stage === 'png') {
       return (
         <img
-          src={`${basePath}/${state}.webp`}
+          src={`${basePath}/${state}.webp${bust}`}
           alt=""
           aria-hidden="true"
           style={sizeStyle}

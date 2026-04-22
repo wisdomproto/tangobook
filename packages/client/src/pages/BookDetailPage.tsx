@@ -32,8 +32,8 @@ export default function BookDetailPage() {
     return (
       <div className="min-h-screen bg-cream-50 p-7 max-w-[1200px] mx-auto">
         <Skeleton className="h-12 w-32 mb-5" />
-        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-9">
-          <Skeleton className="aspect-[3/4] rounded-lg" />
+        <div className="grid grid-cols-1 md:grid-cols-[480px_1fr] gap-9">
+          <Skeleton className="aspect-video rounded-lg" />
           <div className="flex flex-col gap-3">
             <Skeleton className="h-12 w-3/4" />
             <Skeleton className="h-6 w-1/2" />
@@ -86,8 +86,8 @@ export default function BookDetailPage() {
         </div>
 
         {/* 히어로 */}
-        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-9 items-start mb-6">
-          <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-gradient-to-br from-peach-200 to-peach-300 shadow-card">
+        <div className="grid grid-cols-1 md:grid-cols-[480px_1fr] gap-9 items-start mb-6">
+          <div className="relative aspect-video rounded-lg overflow-hidden bg-gradient-to-br from-peach-200 to-peach-300 shadow-card">
             {storybook.coverImage ? (
               <img
                 src={storybook.coverImage}
@@ -95,7 +95,7 @@ export default function BookDetailPage() {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-[140px]">📖</div>
+              <div className="w-full h-full flex items-center justify-center text-[120px]">📖</div>
             )}
             {videoAvailable && (
               <span className="absolute top-3 right-3 bg-coral-500 text-white px-3 py-1.5 rounded-md text-[11px] font-black shadow-pop">

@@ -2,24 +2,21 @@ import { useMemo } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { Page } from '@tangobook/shared';
 import type { LangCode } from '@/lib/storybook-accessors';
-import { cn } from '@/lib/cn';
 import { getPageText } from '../lib/page-text';
+import { PageSubtitle } from './PageSubtitle';
 
 interface PageViewProps {
   page: Page;
   pageIndex: number;
   direction: number; // 1 forward, -1 backward
   lang: LangCode;
-  showSubtext?: boolean; // ko가 아닐 때 원문 병기 옵션
+  showSubtext?: boolean;
   textSize?: 'sm' | 'md' | 'lg';
   isDarkMode?: boolean;
+  ttsCurrentTime?: number;
+  ttsDuration?: number;
+  isTtsPlaying?: boolean;
 }
-
-const TEXT_CLASS: Record<NonNullable<PageViewProps['textSize']>, string> = {
-  sm: 'text-lg', // 18px
-  md: 'text-xl', // 20px
-  lg: 'text-2xl', // 24px
-};
 
 const variants = {
   enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
@@ -43,6 +40,9 @@ export function PageView({
   showSubtext,
   textSize = 'md',
   isDarkMode,
+  ttsCurrentTime,
+  ttsDuration,
+  isTtsPlaying,
 }: PageViewProps) {
   const reduce = useReducedMotion();
 
@@ -62,35 +62,30 @@ export function PageView({
         animate="center"
         exit="exit"
         transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 160, damping: 20 }}
-        className="absolute inset-0 flex items-center justify-center p-4 sm:p-10 md:p-14"
+        className="absolute inset-0 flex flex-col items-center justify-end gap-4 sm:gap-6 px-4 sm:px-16 pt-24 pb-24 sm:pb-28"
       >
-        {page.illustrationUrl && (
-          <img
-            src={page.illustrationUrl}
-            alt=""
-            className="max-w-[85%] sm:max-w-[60%] max-h-[60vh] object-contain rounded-lg shadow-card"
-          />
-        )}
+        {/* 상단: 이미지 영역 (flex-1) */}
+        <div className="flex-1 w-full flex items-center justify-center min-h-0">
+          {page.illustrationUrl && (
+            <img
+              src={page.illustrationUrl}
+              alt=""
+              className="max-w-full max-h-full object-contain rounded-lg shadow-card"
+            />
+          )}
+        </div>
 
-        {/* 텍스트 카드 */}
-        <div
-          className={cn(
-            'absolute left-4 right-4 sm:left-16 sm:right-16 bottom-24 sm:bottom-28 backdrop-blur-sm rounded-lg px-5 sm:px-7 py-4 sm:py-5 shadow-card text-center font-bold leading-snug',
-            isDarkMode ? 'bg-white/10 text-darktext' : 'bg-white/92 text-ink-900',
-            TEXT_CLASS[textSize]
-          )}
-        >
-          <div>{text}</div>
-          {subText && (
-            <div
-              className={cn(
-                'mt-1 text-sm font-semibold',
-                isDarkMode ? 'text-ink-300' : 'text-ink-700'
-              )}
-            >
-              {subText}
-            </div>
-          )}
+        {/* 하단: 자막 (고정 높이, 이미지와 겹치지 않음) */}
+        <div className="w-full flex-shrink-0">
+          <PageSubtitle
+            text={text}
+            subText={subText}
+            textSize={textSize}
+            isDarkMode={isDarkMode}
+            ttsCurrentTime={ttsCurrentTime}
+            ttsDuration={ttsDuration}
+            isTtsPlaying={isTtsPlaying}
+          />
         </div>
       </motion.div>
     </AnimatePresence>

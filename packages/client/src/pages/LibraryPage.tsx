@@ -52,6 +52,13 @@ export default function LibraryPage() {
   const [activeTab, setActiveTab] = useState<TabId>('storybook');
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState<'recent' | 'title'>('recent');
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+  // 탭 전환 시 카테고리 필터 리셋
+  const handleTabChange = (id: TabId) => {
+    setActiveTab(id);
+    setActiveCategory(null);
+  };
 
   const filtered = useMemo<StorybookSummary[]>(() => {
     if (!all) return [];
@@ -63,14 +70,37 @@ export default function LibraryPage() {
           (b) => b.title.toLowerCase().includes(q) || (b.category ?? '').toLowerCase().includes(q)
         )
       : result;
-    return [...searched].sort((a, b) =>
+    const byCat = activeCategory
+      ? searched.filter((b) => (b.category || '기타') === activeCategory)
+      : searched;
+    return [...byCat].sort((a, b) =>
       sortBy === 'recent'
         ? (b.createdAt ?? '').localeCompare(a.createdAt ?? '')
         : a.title.localeCompare(b.title, 'ko')
     );
-  }, [all, activeTab, search, sortBy]);
+  }, [all, activeTab, search, sortBy, activeCategory]);
 
-  const showCategories = activeTab === 'storybook';
+  // 카테고리 필터 칩 — 동화책 탭일 때만. 탭·검색 적용 후의 책들에서 카테고리 추출.
+  const allCategories = useMemo(() => {
+    if (activeTab !== 'storybook' || !all) return [];
+    const tab = TABS.find((t) => t.id === activeTab)!;
+    const q = search.trim().toLowerCase();
+    const base = all
+      .filter(tab.match)
+      .filter(
+        (b) =>
+          !q || b.title.toLowerCase().includes(q) || (b.category ?? '').toLowerCase().includes(q)
+      );
+    const counts = new Map<string, number>();
+    base.forEach((b) => {
+      const k = b.category || '기타';
+      counts.set(k, (counts.get(k) ?? 0) + 1);
+    });
+    return [...counts.entries()].sort((a, b) => b[1] - a[1]); // 많은 순
+  }, [all, activeTab, search]);
+
+  // 카테고리 필터 선택된 경우 섹션 묶기 해제하고 플랫 그리드로
+  const showCategories = activeTab === 'storybook' && !activeCategory;
   const grouped = useMemo(() => {
     if (!showCategories) return null;
     const map = new Map<string, StorybookSummary[]>();
@@ -117,7 +147,7 @@ export default function LibraryPage() {
           {TABS.map((t) => (
             <button
               key={t.id}
-              onClick={() => setActiveTab(t.id)}
+              onClick={() => handleTabChange(t.id)}
               className={cn(
                 'px-5 py-2.5 rounded-md font-black text-sm whitespace-nowrap flex items-center gap-2 transition-all',
                 activeTab === t.id
@@ -140,7 +170,7 @@ export default function LibraryPage() {
         </div>
 
         {/* 검색 + 정렬 */}
-        <div className="flex gap-3 mb-6 flex-wrap">
+        <div className="flex gap-3 mb-4 flex-wrap">
           <div className="flex-1 min-w-[200px] bg-white rounded-md px-5 py-3 shadow-soft flex items-center gap-2">
             <span>🔍</span>
             <input
@@ -148,22 +178,62 @@ export default function LibraryPage() {
               placeholder="무슨 책 찾을까?"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 outline-none text-sm bg-transparent"
+              className="flex-1 outline-none text-base bg-transparent text-ink-900 placeholder:text-ink-500 font-semibold"
             />
           </div>
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as 'recent' | 'title')}
-            className="bg-white rounded-md px-4 py-3 shadow-soft font-bold text-sm text-ink-700"
+            className="bg-white rounded-md px-4 py-3 shadow-soft font-bold text-sm text-ink-900"
           >
             <option value="recent">🆕 최신순</option>
             <option value="title">🔤 제목순</option>
           </select>
         </div>
 
+        {/* 카테고리 필터 (동화책 탭에서만) */}
+        {activeTab === 'storybook' && allCategories.length > 1 && (
+          <div className="flex gap-2 mb-6 overflow-x-auto pb-1">
+            <button
+              onClick={() => setActiveCategory(null)}
+              className={cn(
+                'px-4 py-2 rounded-md font-bold text-sm whitespace-nowrap transition-all shrink-0',
+                activeCategory === null
+                  ? 'bg-ink-900 text-white shadow-soft'
+                  : 'bg-white text-ink-700 hover:bg-peach-100 shadow-soft'
+              )}
+            >
+              전체
+            </button>
+            {allCategories.map(([cat, count]) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={cn(
+                  'px-4 py-2 rounded-md font-bold text-sm whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0',
+                  activeCategory === cat
+                    ? 'bg-coral-500 text-white shadow-pop'
+                    : 'bg-white text-ink-700 hover:bg-peach-100 shadow-soft'
+                )}
+              >
+                <span>{getCategoryIcon(cat)}</span>
+                <span>{cat}</span>
+                <span
+                  className={cn(
+                    'text-[10px] px-1.5 py-0.5 rounded-md font-black',
+                    activeCategory === cat ? 'bg-white/30' : 'bg-ink-100 text-ink-700'
+                  )}
+                >
+                  {count}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+
         {/* 콘텐츠 */}
         {isLoading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {Array.from({ length: 10 }).map((_, i) => (
               <SkeletonBookCard key={i} />
             ))}
@@ -180,7 +250,7 @@ export default function LibraryPage() {
             <CategorySection key={cat} icon={getCategoryIcon(cat)} title={cat} books={books} />
           ))
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {filtered.map((b) => (
               <BookCard key={b.id} book={b} />
             ))}

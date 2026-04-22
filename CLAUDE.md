@@ -320,35 +320,50 @@ pnpm --filter shared build
 - 주석: 자명한 코드에는 주석 불필요. 복잡한 로직에만 추가
 - import: `@tangobook/shared`는 shared 타입, `@/`는 client 내부
 
-## 뷰어 Feature 구조
+## 뷰어 Feature 구조 (2026-04-22 리디자인)
 ```
 features/viewer/
   components/
-    ViewerContainer.tsx           # 메인 뷰어 (동화책/파닉스/퀴즈 라우팅)
+    ViewerContainer.tsx           # 메인 뷰어 + 자동재생 + 5페이지 프리로드 + RewardScreen 오버레이
+    ViewerToolbar.tsx             # 상단 Pill 툴바: 뒤로/홈 + 재생(TTS/BGM/AutoPlay) + 설정
+    ViewerControls.tsx            # 좌우 64px 네비(화면 세로 중앙)
+    PageView.tsx                  # framer-motion slide-fade, 이미지/자막 세로 스택
+    PageSubtitle.tsx              # TTS 진행시간 기반 자막 (문장 단위 리셋 + 문장 내 단어 progressive + fallback 타이머)
+    BookSpineProgress.tsx         # 하단 책 등뼈 진행률 (dot, 중앙)
+    MascotCorner.tsx              # BGM 재생 중 우하단 호리 dancing
+    RewardScreen.tsx              # ?mode=video 진입 시 영상 모달 자동 오픈용 (마지막 페이지는 현재 BookDetail 이동)
+    YouTubeModal.tsx              # youtube-nocookie.com 임베드 + ESC 닫기
     PhonicsViewer.tsx             # 파닉스 전용 뷰어 (메뉴/학습/단어연습/게임)
-    ViewerToolbar.tsx             # 상단 툴바 (언어, 텍스트크기, 다크모드, 전체화면)
-    ViewerControls.tsx            # 하단 컨트롤 (페이지 이동, TTS, BGM)
-    PageView.tsx                  # 페이지/표지/엔딩 뷰 (CoverView, EndView)
+    GameListViewer.tsx            # ?mode=games 게임 목록
     QuizViewer.tsx                # 퀴즈 뷰어
-    LetterMatchingGame.tsx        # 대소문자 매칭 게임
-    ListeningQuizGame.tsx         # 듣기 퀴즈 게임
-    WordImageMatchingGame.tsx     # 단어-이미지 선긋기 게임
-    BlendingListeningQuiz.tsx     # 블렌딩 듣기 맞추기 게임
   hooks/
-    useViewerSettings.ts          # 뷰어 설정 (다크모드, 언어, 텍스트크기 등)
-    useAudioPlayer.ts             # TTS/BGM 오디오 재생 (자동 정리)
+    useViewerSettings.ts          # 뷰어 설정 (tuple 반환: [settings, updateSettings])
+                                  # 기본값: darkMode=true, autoPlayTts=true, textSize='md'
+    useAudioPlayer.ts             # TTS/BGM: playTts/stopTts + ttsCurrentTime/ttsDuration/isTtsPlaying
+                                  # timeupdate 이벤트로 currentTime 동기화
     useSwipe.ts                   # 스와이프 제스처
+  lib/
+    page-text.ts                  # getPageText/getPageTtsUrl (lang fallback)
 ```
 
 ### 뷰어 동작
-- 진입 시 항상 표지(0페이지)부터 시작 (읽기 진도 저장 없음)
-- TTS 자동재생 → 페이지 자동 넘김 (autoPlayTts 설정)
+- 진입 시 항상 첫 페이지부터, **TTS 자동 재생**, 끝나면 800ms 뒤 자동 페이지 넘김
+- **마지막 페이지** TTS 끝 or onNext 호출 → **BookDetailPage (`/library/:id`)로 자동 이동**
+- **다음 5페이지 이미지·TTS 프리로드** (`new Image()` + `new Audio({preload:'auto'})`)
+- 홈 버튼 → `/library` (라이브러리 목록)
+- 뒤로 버튼 → browser history back (BookDetailPage)
+
+### 자막 시스템 (`PageSubtitle.tsx`)
+- 문장 분할: `split(/(?<=[.!?…。！？」"'])\s+|\n+/)`
+- 문장 단위로 화면 리셋 (이전 문장 지우고 새 문장부터)
+- 문장 내에서 **단어(어절) 단위 progressive** — TTS `currentTime/duration` 비례
+- **Fallback**: ttsDuration 못 잡히면 `text.length / 7 (chars/sec)` 추정. `isTtsPlaying`인 동안 자체 interval(100ms)로 elapsed 누적
 
 ### 뷰어 라우팅 규칙
 - `ViewerContainer`가 storybook.type과 mode 쿼리로 분기
 - `type === 'phonics' && mode !== 'story'` → PhonicsViewer
-- `type === 'phonics' && mode === 'story'` → 일반 동화책 뷰어 재사용 (onBack으로 파닉스 메뉴 복귀)
-- `mode === 'quiz'` → QuizViewer
+- `mode === 'games'` → GameListViewer
+- `mode === 'video'` → RewardScreen 자동 오픈 → YouTubeModal
 - 그 외 → 일반 동화책 뷰어
 
 ## 오디오북 렌더링 (Remotion)
@@ -448,11 +463,30 @@ server/src/
 
 ## 뷰어 디자인 시스템 (2026-04-22~)
 - 토큰: `tailwind.config.js`의 cream/peach/coral/ink/darkbg + CSS vars
-- 마스코트: `<Mascot state="..." size="..." />` (hori 기본, Lottie → PNG → emoji fallback)
+- **마스코트 호리(Hori)**: `<Mascot state="..." size="..." character="hori" />`
+  - 자산: `packages/client/public/mascot/hori/` — Lottie 5 + WebP 7 (체커보드 flood-fill 제거 후 저장)
+  - Lottie 5: idle/waving/cheering/celebrating/dancing (Bodymovin v5, PNG base64 embed, transform keyframes, <40KB)
+  - WebP 7: idle/waving/thinking/reading/pointing/sleeping/sad (1024×1024 q85, <90KB)
+  - Fallback: Lottie → WebP → state별 이모지
+  - URL 버전 쿼리 `?v=N`으로 브라우저 캐시 무효화 (ASSET_VERSION 상수)
+  - **등장 지점**: LibraryPage 웰컴(waving) · StateScreen(thinking/sad) · 뷰어 로딩(reading) · BGM 재생 시 MascotCorner(dancing) · RewardScreen(celebrating)
 - 공용 컴포넌트: Button, Card, Skeleton, StateScreen, ErrorBoundary, Mascot
-- 뷰어 컴포넌트: ViewerContainer, ViewerToolbar(Pill), ViewerControls(64px nav + 48px play), PageView(framer-motion slide), BookSpineProgress, MascotCorner, RewardScreen, YouTubeModal
+- 뷰어 컴포넌트: ViewerContainer, ViewerToolbar(Pill + 재생 컨트롤 통합), ViewerControls(화면 중앙 64px 좌우 네비), PageView(framer-motion slide-fade), PageSubtitle(문장 리셋 + 단어 progressive), BookSpineProgress, MascotCorner, RewardScreen, YouTubeModal
+- 라이브러리: `/library` 웰컴(마스코트) + 탭(3) + 검색 + 정렬 + 카테고리 필터 칩 + 스켈레톤 + YouTube 배지 + aspect-video 16:9 카드 (3~4-col)
+- 책 상세: `/library/:id` 16:9 표지 hero + 언어 탭 + 모드 카드 3개(읽기/영상/게임, 조건부)
 - 언어 파라미터: `?lang=ko|en` + `getPageText/getPageTtsUrl` (fallback to base text)
-- 접근성: `useReducedMotion`(framer-motion), `focus-visible:ring`, 에러 문구 아이 친화("이 책을 찾을 수 없어")
+- 접근성: `useReducedMotion`(framer-motion), `focus-visible:ring`, 에러 문구 아이 친화, 터치 타겟 48+px
+
+## 뷰어 플로우
+```
+LibraryPage (/library)
+  → 카드 탭
+BookDetailPage (/library/:id)   # 언어·모드 선택
+  → "📖 책으로 읽기"
+ViewerContainer (/viewer/:id?lang=ko)
+  → TTS 자동재생 → 문장 단위 자막 → 자동 페이지 넘김 → 마지막 페이지
+BookDetailPage (/library/:id)   # 자동 복귀 (다음 액션 선택)
+```
 
 ## PRD 문서
 - `PRD_00_Master.md` - 마스터 로드맵

@@ -23,9 +23,9 @@ export function BookCard({ book }: BookCardProps) {
       )}
       <div
         className={cn(
-          'aspect-[3/4] rounded-md overflow-hidden mb-3',
+          'aspect-video rounded-md overflow-hidden mb-3',
           !book.coverImage &&
-            'bg-gradient-to-br from-peach-200 to-peach-300 flex items-center justify-center text-5xl'
+            'bg-gradient-to-br from-peach-200 to-peach-300 flex items-center justify-center text-4xl'
         )}
       >
         {book.coverImage ? (

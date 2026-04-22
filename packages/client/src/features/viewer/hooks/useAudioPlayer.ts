@@ -11,6 +11,8 @@ export function useAudioPlayer({ backgroundMusicUrl, onTtsEnded }: UseAudioPlaye
 
   const [isTtsPlaying, setIsTtsPlaying] = useState(false);
   const [isBgmPlaying, setIsBgmPlaying] = useState(false);
+  const [ttsCurrentTime, setTtsCurrentTime] = useState(0);
+  const [ttsDuration, setTtsDuration] = useState(0);
 
   // Initialize BGM audio element
   useEffect(() => {
@@ -36,13 +38,37 @@ export function useAudioPlayer({ backgroundMusicUrl, onTtsEnded }: UseAudioPlaye
     }
     const audio = new Audio(url);
     ttsRef.current = audio;
+    setTtsCurrentTime(0);
+    setTtsDuration(0);
     setIsTtsPlaying(true);
+
+    const updateDuration = () => {
+      const d = audio.duration;
+
+      console.log('[tts] duration:', d, 'src:', url.slice(-40));
+      if (isFinite(d) && d > 0) setTtsDuration(d);
+    };
+    audio.addEventListener('loadedmetadata', updateDuration);
+    audio.addEventListener('durationchange', updateDuration);
+
+    audio.addEventListener('timeupdate', () => {
+      setTtsCurrentTime(audio.currentTime);
+    });
+
     audio.addEventListener('ended', () => {
       setIsTtsPlaying(false);
+      setTtsCurrentTime(audio.duration || 0);
       onTtsEndedRef.current?.();
     });
-    audio.addEventListener('error', () => setIsTtsPlaying(false));
-    audio.play().catch(() => setIsTtsPlaying(false));
+    audio.addEventListener('error', (e) => {
+      console.warn('[tts] audio error', e);
+      setIsTtsPlaying(false);
+    });
+
+    audio.play().catch((err) => {
+      console.warn('[tts] play() rejected (autoplay policy?):', err);
+      setIsTtsPlaying(false);
+    });
   }, []);
 
   const stopTts = useCallback(() => {
@@ -81,5 +107,13 @@ export function useAudioPlayer({ backgroundMusicUrl, onTtsEnded }: UseAudioPlaye
     };
   }, []);
 
-  return { playTts, stopTts, isTtsPlaying, toggleBgm, isBgmPlaying };
+  return {
+    playTts,
+    stopTts,
+    isTtsPlaying,
+    ttsCurrentTime,
+    ttsDuration,
+    toggleBgm,
+    isBgmPlaying,
+  };
 }

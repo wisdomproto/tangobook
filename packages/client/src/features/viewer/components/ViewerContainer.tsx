@@ -36,7 +36,6 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
 
   const [pageIndex, setPageIndex] = useState(0);
   const [direction, setDirection] = useState(1);
-  const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const [rewardOpen, setRewardOpen] = useState(false);
 
   // state ref로 콜백에서 최신 값 접근
@@ -60,21 +59,26 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     [pageIndex, pages.length]
   );
 
+  // 마지막 페이지 다 본 후 이동 대상: BookDetailPage (동화책/영상/게임 선택 화면)
+  const goToBookDetail = useCallback(() => {
+    navigate(`/library/${storybookId}`);
+  }, [storybookId, navigate]);
+
   // TTS 끝났을 때 자동 넘김 (autoPlayTts + reward X + 다음 페이지 있음)
-  // 마지막 페이지 + autoPlayTts ON → TTS 끝나면 reward 자동 오픈
+  // 마지막 페이지 + autoPlayTts ON → BookDetail로 이동
   const handleTtsEnded = useCallback(() => {
     const st = stateRef.current;
     if (!st.autoPlayTts) return;
     if (st.rewardOpen) return;
     if (st.pageIndex >= pages.length - 1) {
-      setTimeout(() => setRewardOpen(true), 800);
+      setTimeout(goToBookDetail, 1000);
       return;
     }
     setTimeout(() => {
       setDirection(1);
       setPageIndex((idx) => idx + 1);
     }, 800);
-  }, [pages.length]);
+  }, [pages.length, goToBookDetail]);
 
   const audio = useAudioPlayer({
     backgroundMusicUrl: storybook?.backgroundMusicUrl,
@@ -87,23 +91,46 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     [currentPage, lang]
   );
 
-  // 페이지 이동 시 자동 TTS — 사용자 첫 탭 이후에만 (iOS 정책)
-  const previousPageIndex = useRef(pageIndex);
-  if (previousPageIndex.current !== pageIndex) {
-    previousPageIndex.current = pageIndex;
-    if (hasUserInteracted && currentTtsUrl) audio.playTts(currentTtsUrl);
-  }
+  // 페이지 변경 시 자동 TTS 재생 (iOS에선 첫 유저 제스처 전 무음 차단될 수 있지만 catch로 무시)
+  useEffect(() => {
+    if (!currentTtsUrl) return;
+    if (rewardOpen) return;
+    audio.playTts(currentTtsUrl);
+  }, [currentTtsUrl, rewardOpen]);
 
-  const markInteracted = () => {
-    if (!hasUserInteracted) setHasUserInteracted(true);
-  };
+  // 다음 5페이지 이미지·TTS 미리 버퍼링 (페이지 넘기기 딜레이 제거)
+  const PRELOAD_AHEAD = 5;
+  useEffect(() => {
+    const preloadList = pages.slice(pageIndex + 1, pageIndex + 1 + PRELOAD_AHEAD);
+    const loaded: HTMLImageElement[] = [];
+    const audios: HTMLAudioElement[] = [];
+    for (const p of preloadList) {
+      if (p.illustrationUrl) {
+        const img = new Image();
+        img.src = p.illustrationUrl;
+        loaded.push(img);
+      }
+      const ttsUrl = getPageTtsUrl(p, lang);
+      if (ttsUrl) {
+        const a = new Audio();
+        a.preload = 'auto';
+        a.src = ttsUrl;
+        audios.push(a);
+      }
+    }
+    return () => {
+      // 참조만 끊어주면 브라우저 캐시는 유지됨
+      loaded.length = 0;
+      audios.forEach((a) => {
+        a.src = '';
+      });
+    };
+  }, [pageIndex, pages, lang]);
 
   const onPrev = () => {
-    markInteracted();
     goTo(pageIndex - 1);
   };
   const onNext = () => {
-    markInteracted();
     if (pageIndex >= pages.length - 1) {
       setRewardOpen(true);
       return;
@@ -111,7 +138,6 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     goTo(pageIndex + 1);
   };
   const onToggleTts = () => {
-    markInteracted();
     if (!currentTtsUrl) return;
     if (audio.isTtsPlaying) audio.stopTts();
     else audio.playTts(currentTtsUrl);
@@ -174,14 +200,21 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     >
       <ViewerToolbar
         title={storybook.title}
+        onBack={() => {
+          audio.stopTts();
+          navigate(-1);
+        }}
         onHome={() => {
           audio.stopTts();
-          if (storybook.type === 'phonics') {
-            navigate(`/viewer/${storybook.id}`);
-          } else {
-            navigate(`/library/${storybook.id}`);
-          }
+          navigate('/library');
         }}
+        isTtsPlaying={audio.isTtsPlaying}
+        onToggleTts={onToggleTts}
+        isBgmPlaying={audio.isBgmPlaying}
+        onToggleBgm={() => audio.toggleBgm()}
+        hasBgm={!!storybook.backgroundMusicUrl}
+        autoPlayTts={settings.autoPlayTts}
+        onToggleAutoPlay={() => updateSettings({ autoPlayTts: !settings.autoPlayTts })}
         darkMode={settings.darkMode}
         onToggleDark={() => updateSettings({ darkMode: !settings.darkMode })}
         textSize={settings.textSize}
@@ -207,31 +240,19 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
           showSubtext={settings.showText}
           textSize={settings.textSize}
           isDarkMode={settings.darkMode}
+          ttsCurrentTime={audio.ttsCurrentTime}
+          ttsDuration={audio.ttsDuration}
+          isTtsPlaying={audio.isTtsPlaying}
         />
       )}
 
-      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-10 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-soft">
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-soft">
         <BookSpineProgress current={pageIndex} total={pages.length} />
       </div>
 
       <MascotCorner visible={audio.isBgmPlaying} />
 
-      <ViewerControls
-        onPrev={onPrev}
-        onNext={onNext}
-        canPrev={canPrev}
-        canNext={canNext}
-        isTtsPlaying={audio.isTtsPlaying}
-        onToggleTts={onToggleTts}
-        isBgmPlaying={audio.isBgmPlaying}
-        onToggleBgm={() => {
-          markInteracted();
-          audio.toggleBgm();
-        }}
-        hasBgm={!!storybook.backgroundMusicUrl}
-        autoPlayTts={settings.autoPlayTts}
-        onToggleAutoPlay={() => updateSettings({ autoPlayTts: !settings.autoPlayTts })}
-      />
+      <ViewerControls onPrev={onPrev} onNext={onNext} canPrev={canPrev} canNext={canNext} />
 
       <RewardScreen
         storybook={storybook}

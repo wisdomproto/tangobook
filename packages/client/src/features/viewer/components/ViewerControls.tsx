@@ -6,13 +6,6 @@ interface ViewerControlsProps {
   onNext: () => void;
   canPrev: boolean;
   canNext: boolean;
-  isTtsPlaying: boolean;
-  onToggleTts: () => void;
-  isBgmPlaying: boolean;
-  onToggleBgm: () => void;
-  autoPlayTts: boolean;
-  onToggleAutoPlay: () => void;
-  hasBgm: boolean; // backgroundMusicUrl 없으면 BGM 버튼 비활성화
 }
 
 interface NavBtnProps {
@@ -20,47 +13,24 @@ interface NavBtnProps {
   disabled: boolean;
   primary?: boolean;
   label: string;
+  position: 'left' | 'right';
   children: ReactNode;
 }
 
-function NavBtn({ onClick, disabled, primary, label, children }: NavBtnProps) {
+function NavBtn({ onClick, disabled, primary, label, position, children }: NavBtnProps) {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
       className={cn(
-        'w-16 h-16 rounded-full flex items-center justify-center text-3xl transition-all',
+        'absolute top-1/2 -translate-y-1/2 z-10 w-16 h-16 rounded-full flex items-center justify-center text-3xl transition-all',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400',
-        disabled && 'opacity-40 cursor-not-allowed',
+        position === 'left' ? 'left-4 sm:left-6' : 'right-4 sm:right-6',
+        disabled && 'opacity-30 cursor-not-allowed pointer-events-none',
         primary
           ? 'bg-coral-500 text-white shadow-pop hover:scale-105 active:scale-95'
-          : 'bg-white/90 backdrop-blur-sm text-ink-900 shadow-soft hover:bg-white'
-      )}
-    >
-      {children}
-    </button>
-  );
-}
-
-interface PlayBtnProps {
-  active: boolean;
-  onClick: () => void;
-  label: string;
-  children: ReactNode;
-}
-
-function PlayBtn({ active, onClick, label, children }: PlayBtnProps) {
-  return (
-    <button
-      onClick={onClick}
-      aria-label={label}
-      className={cn(
-        'w-12 h-12 rounded-full flex items-center justify-center text-xl transition-all',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400',
-        active
-          ? 'bg-coral-500 text-white shadow-pop'
-          : 'bg-peach-100 text-ink-700 hover:bg-peach-200'
+          : 'bg-white/90 backdrop-blur-sm text-ink-900 shadow-soft hover:bg-white hover:scale-105'
       )}
     >
       {children}
@@ -70,39 +40,19 @@ function PlayBtn({ active, onClick, label, children }: PlayBtnProps) {
 
 export function ViewerControls(props: ViewerControlsProps) {
   return (
-    <div className="absolute bottom-3 left-3 right-3 flex justify-between items-center z-10 pointer-events-none">
-      <div className="pointer-events-auto">
-        <NavBtn onClick={props.onPrev} disabled={!props.canPrev} label="이전 페이지">
-          ←
-        </NavBtn>
-      </div>
-      <div className="flex gap-2.5 items-center bg-white/90 backdrop-blur-sm px-3 py-2 rounded-full shadow-soft pointer-events-auto">
-        <PlayBtn active={props.isTtsPlaying} onClick={props.onToggleTts} label="음성 듣기">
-          🔊
-        </PlayBtn>
-        <button
-          onClick={props.onToggleBgm}
-          disabled={!props.hasBgm}
-          aria-label="배경음악"
-          className={cn(
-            'w-12 h-12 rounded-full flex items-center justify-center text-xl transition-all',
-            !props.hasBgm && 'opacity-40 cursor-not-allowed',
-            props.isBgmPlaying
-              ? 'bg-coral-500 text-white shadow-pop'
-              : 'bg-peach-100 text-ink-700 hover:bg-peach-200'
-          )}
-        >
-          🎵
-        </button>
-        <PlayBtn active={props.autoPlayTts} onClick={props.onToggleAutoPlay} label="자동 넘김">
-          ⏯
-        </PlayBtn>
-      </div>
-      <div className="pointer-events-auto">
-        <NavBtn onClick={props.onNext} disabled={!props.canNext} primary label="다음 페이지">
-          →
-        </NavBtn>
-      </div>
-    </div>
+    <>
+      <NavBtn onClick={props.onPrev} disabled={!props.canPrev} position="left" label="이전 페이지">
+        ←
+      </NavBtn>
+      <NavBtn
+        onClick={props.onNext}
+        disabled={!props.canNext}
+        primary
+        position="right"
+        label="다음 페이지"
+      >
+        →
+      </NavBtn>
+    </>
   );
 }

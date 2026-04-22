@@ -27,7 +27,7 @@ export function CategorySection({
         </h2>
         <span className="text-xs text-ink-500 font-bold">{books.length}권</span>
       </header>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {visible.map((b) => (
           <BookCard key={b.id} book={b} />
         ))}

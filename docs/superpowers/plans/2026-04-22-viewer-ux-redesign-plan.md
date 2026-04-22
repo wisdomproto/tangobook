@@ -1,5 +1,7 @@
 # 뷰어 UI/UX 전면 리디자인 — 구현 플랜
 
+> **상태: Phase A~E 완료 (2026-04-22).** 호리 마스코트 통합, 자막 시스템(문장 리셋 + 단어 progressive), 레이아웃 재배치, 체커보드 배경 제거 등 본 플랜 + 후속 사용자 피드백 모두 반영. 상세는 `memory/viewer-redesign-complete.md`.
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 탱고북의 아이 전용 뷰어(라이브러리 랜딩 → 책 상세 → 뷰어 → 책 끝 보상 + YouTube)를 유아 친화 디자인으로 전면 리빌드. 기존 저작도구·게임 내부는 건드리지 않음.
