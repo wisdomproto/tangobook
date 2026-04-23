@@ -5,6 +5,9 @@ import { Mascot } from '@/components/Mascot';
 import { StateScreen } from '@/components/StateScreen';
 import { cn } from '@/lib/cn';
 import { hasVideoUrl, type LangCode } from '@/lib/storybook-accessors';
+import { useLogEvent, useLogEventsBatch } from '@/features/learning';
+import { extractPageWords } from '@/features/learning/lib/extract-page-words';
+import type { Lang } from '@tangobook/shared';
 import { useViewerSettings, type ViewerSettings } from '../hooks/useViewerSettings';
 import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { getPageTtsUrl } from '../lib/page-text';
@@ -106,6 +109,45 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       audio.stopTts();
     }
   }, [rewardOpen, mode]);
+
+  // 학습 이벤트 emit — 페이지가 바뀔 때 이전 페이지에 대해 page_read + word_exposed 배치
+  const logEvent = useLogEvent();
+  const logBatch = useLogEventsBatch();
+  const lastEmittedPageRef = useRef<number | null>(null);
+  useEffect(() => {
+    if (!storybook || !storybookId) return;
+    if (mode === 'video' || mode === 'games') return;
+    if (storybook.type === 'phonics' && mode !== 'story') return;
+    if (lastEmittedPageRef.current === pageIndex) return;
+    lastEmittedPageRef.current = pageIndex;
+
+    const page = pages[pageIndex];
+    if (!page) return;
+    const pageNumber = page.pageNumber ?? pageIndex + 1;
+    const narrowLang: Lang = lang === 'en' ? 'en' : 'ko';
+    logEvent({
+      type: 'page_read',
+      storybookId,
+      metadata: { lang: narrowLang, page: pageNumber, source: 'storybook' },
+    });
+    const words = extractPageWords(storybook, pageNumber, narrowLang);
+    if (words.length > 0) {
+      logBatch(
+        words.map((w) => ({
+          event_type: 'word_exposed',
+          storybook_id: storybookId,
+          word: w.word,
+          metadata: {
+            lang: narrowLang,
+            source: 'storybook',
+            storybookId,
+            pageNumber,
+            korean: w.korean,
+          },
+        }))
+      );
+    }
+  }, [pageIndex, storybook, storybookId, mode, lang, pages, logEvent, logBatch]);
 
   // 다음 5페이지 이미지·TTS 미리 버퍼링 (페이지 넘기기 딜레이 제거)
   const PRELOAD_AHEAD = 5;
