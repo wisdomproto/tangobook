@@ -536,7 +536,7 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
               const updated = await storybookApi.getById(storybook.id);
               const updatedProject = updated.longformProjects?.find((p) => p.id === project.id);
               if (updatedProject) {
-                onUpdate({ scenes: updatedProject.scenes });
+                onUpdate({ scenes: updatedProject.scenes ?? [] });
               }
             } catch {
               // ignore
@@ -559,7 +559,7 @@ export function VideoGenerationStep({ storybook, project, onUpdate }: VideoGener
               const updated = await storybookApi.getById(storybook.id);
               const updatedProject = updated.longformProjects?.find((p) => p.id === project.id);
               if (updatedProject) {
-                onUpdate({ scenes: updatedProject.scenes });
+                onUpdate({ scenes: updatedProject.scenes ?? [] });
               }
             } catch {
               // ignore reload error

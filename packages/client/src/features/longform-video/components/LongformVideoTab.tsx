@@ -127,7 +127,7 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
       clone.youtubeUpload = undefined;
       clone.createdAt = undefined;
       // Keep clips, reset timeline edits
-      clone.scenes = clone.scenes.map((s) => ({
+      clone.scenes = (clone.scenes ?? []).map((s) => ({
         ...s,
         id: crypto.randomUUID(),
         trimStart: undefined,
@@ -192,7 +192,7 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
                   project={selectedMaster}
                   onUpdate={(updates) => updateProject(selectedMaster.id, updates)}
                 />
-                {selectedMaster.scenes.length > 0 && (
+                {(selectedMaster.scenes?.length ?? 0) > 0 && (
                   <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
                     <VideoGenerationStep
                       storybook={storybook}
