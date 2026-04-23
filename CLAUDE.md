@@ -336,6 +336,7 @@ pnpm --filter shared build
 ## 환경변수
 `packages/server/.env.example` 참고. `.env` 파일을 `packages/server/` 안에 생성.
 - 선택 변수: `OPENAI_API_KEY` — 말하기 게임의 Whisper fallback용. 없어도 Web Speech API만으로 동작 (degraded mode)
+- 선택 변수: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` — 로그인/계정 기능 활성화용 (client env). 없으면 게스트 모드만 동작 (graceful degradation). 셋업: `scripts/supabase-setup.sql`을 Supabase SQL Editor에 실행 후 Project Settings > API에서 URL·anon key 복사
 
 ## 기존 R2 데이터 호환성
 - 기존 211권의 동화책이 R2에 저장되어 있음
@@ -357,6 +358,16 @@ pnpm --filter shared build
 - 에러: AppError(status, message) 사용. console.error 대신 throw
 - 주석: 자명한 코드에는 주석 불필요. 복잡한 로직에만 추가
 - import: `@tangobook/shared`는 shared 타입, `@/`는 client 내부
+
+## Auth Feature 구조 (2026-04-23 로그인 시스템)
+- `packages/client/src/features/auth/` — Supabase 기반 부모계정(Email/PW + Google OAuth) + 자녀 프로필 최대 4
+- PIN 4자리 pgcrypto 해싱 (DB RPC `set_pin`/`verify_pin` SECURITY DEFINER). 15분 memoize + 3회 오답 시 60초 lockout (`useParentGate`)
+- localStorage → `learning_events` 자동 마이그레이션 (플러그인 레지스트리 — 이후 스펙이 `MIGRATIONS[]`에 1줄 추가로 확장)
+- 게스트 모드 호환: `isSupabaseConfigured=false`면 `ParentCornerButton` 숨김
+- Edge Function: `supabase/functions/reset-pin/` (PIN 분실 magic link, rate-limited, enumeration-safe)
+- 라우트: `/login` (4-step state machine: auth → setPin → profile → done), `/login/callback`, `/parent/*` (Reports placeholder · Profiles CRUD · Settings + ChangePinStep)
+- 스펙: [docs/superpowers/specs/2026-04-23-auth-login-design.md](docs/superpowers/specs/2026-04-23-auth-login-design.md)
+- 플랜: [docs/superpowers/plans/2026-04-23-auth-login-plan.md](docs/superpowers/plans/2026-04-23-auth-login-plan.md)
 
 ## 뷰어 Feature 구조 (2026-04-22 리디자인)
 ```
