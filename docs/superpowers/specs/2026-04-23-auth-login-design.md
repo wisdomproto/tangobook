@@ -1,6 +1,7 @@
 # 로그인/계정 시스템 — 스펙
 
 > **✅ 구현 완료 (2026-04-23)** — 플랜: `docs/superpowers/plans/2026-04-23-auth-login-plan.md`. 진행 상세: `memory/auth-login-complete.md`.
+> **✅ Supabase 프로젝트 배포 완료 (2026-04-23)** — `tangobook` (ref `fxzwigjkbsptvsjraqwa`, ap-northeast-2). 스키마·RLS·RPC·트리거·`reset-pin` Edge Function 적용 완료. 나중 수동 작업: Google OAuth provider · Edge Function secret `PUBLIC_APP_URL`. 상세: `memory/supabase-pending-todos.md`.
 
 **Date**: 2026-04-23
 **스코프**: 뷰어 전용 부모 계정 + 자녀 프로필 시스템. Supabase Auth + Postgres. 학습 이벤트 수집·리포팅·뱃지·포인트는 **이후 별도 스펙**.

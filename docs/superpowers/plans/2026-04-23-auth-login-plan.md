@@ -1,6 +1,7 @@
 # 로그인/계정 시스템 Implementation Plan
 
 > **✅ 구현 완료 (2026-04-23)** — 스펙: `docs/superpowers/specs/2026-04-23-auth-login-design.md`. 진행 상세: `memory/auth-login-complete.md`.
+> **✅ Supabase 프로젝트 배포 완료 (2026-04-23)** — `tangobook` (ref `fxzwigjkbsptvsjraqwa`, ap-northeast-2). 나중 수동: Google OAuth · `PUBLIC_APP_URL` secret. 상세: `memory/supabase-pending-todos.md`.
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans. Steps use checkbox (`- [ ]`) syntax for tracking.
 
