@@ -5,6 +5,8 @@ import { StateScreen } from '@/components/StateScreen';
 import { SkeletonBookCard } from '@/components/Skeleton';
 import { cn } from '@/lib/cn';
 import type { StorybookSummary } from '@tangobook/shared';
+import { ParentCornerButton } from '@/features/auth/components/ParentCornerButton';
+import { useAuth } from '@/features/auth/context/AuthContext';
 
 type TabId = 'storybook' | 'korean-phonics' | 'english-phonics';
 
@@ -143,6 +145,7 @@ export default function LibraryPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100">
       <div className="max-w-[1440px] mx-auto p-5 md:p-7">
+        <AuthCornerBar />
         <WelcomeHeader bookCount={all?.length ?? 0} />
 
         {/* 탭 */}
@@ -260,6 +263,20 @@ export default function LibraryPage() {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+function AuthCornerBar() {
+  const { activeProfile } = useAuth();
+  return (
+    <div className="flex justify-end items-center gap-2 mb-2">
+      {activeProfile && (
+        <div className="px-3 py-1.5 rounded-full bg-white shadow-soft text-sm font-bold text-ink-900">
+          👦 {activeProfile.name}
+        </div>
+      )}
+      <ParentCornerButton />
     </div>
   );
 }
