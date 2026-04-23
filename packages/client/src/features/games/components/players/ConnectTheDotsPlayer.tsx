@@ -9,6 +9,7 @@ import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { phonicsApi } from '@/features/phonics/api/phonics.api';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
+import { useGameLogger } from '@/features/learning';
 
 const DOT_RADIUS_PX = 24;
 
@@ -34,6 +35,7 @@ export function ConnectTheDotsPlayer({
 
   const overlayRef = useRef<HTMLDivElement>(null);
   const { playCorrectSequence, praiseVisible } = useGameAudio();
+  const logGame = useGameLogger();
 
   // 뷰어 URL의 ?lang을 읽어 어느 언어로 단어를 읽어줄지 결정
   const [searchParams] = useSearchParams();
@@ -127,6 +129,17 @@ export function ConnectTheDotsPlayer({
               const newCompletedItems = completedItems + 1;
               setCompletedItems(newCompletedItems);
               if (itemIdx + 1 >= items.length) {
+                logGame({
+                  gameType: 'connect-the-dots',
+                  storybookId,
+                  lang: viewerLang,
+                  results: items
+                    .map((it, idx) => ({
+                      word: it.objectName ?? '',
+                      correct: idx < newCompletedItems,
+                    }))
+                    .filter((r) => r.word),
+                });
                 onComplete(newCompletedItems, items.length);
               } else {
                 setItemIdx(itemIdx + 1);

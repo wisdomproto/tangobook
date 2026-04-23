@@ -15,6 +15,7 @@ export {
   type LogEventBatchItem,
 } from './hooks/useLogEvent';
 export { useLearningEvents } from './hooks/useLearningEvents';
+export { useGameLogger, type GameWordResult, type LogGameArgs } from './hooks/useGameLogger';
 
 export { eventsApi } from './api/events.api';
 export { computeMastery, masteryState, type MasteryStats, type MasteryState } from './lib/mastery';
