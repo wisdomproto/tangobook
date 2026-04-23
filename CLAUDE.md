@@ -359,6 +359,18 @@ pnpm --filter shared build
 - 주석: 자명한 코드에는 주석 불필요. 복잡한 로직에만 추가
 - import: `@tangobook/shared`는 shared 타입, `@/`는 client 내부
 
+## Learning Reports Feature 구조 (2026-04-23)
+- `packages/client/src/features/learning/` — 동화책+파닉스 학습 리포팅 (부모용)
+- **마스터리 공식**: `0.15 + 0.85 × 정답률 × exp(-days/30) × min(1, 시도/5)` → 4단계(`unknown/seen/practiced/mastered`)
+- **이벤트 타입**: `page_read`·`word_exposed`·`word_correct`·`word_wrong`·`syllable_correct/wrong`(한글: metadata.consonant+vowel)·`phoneme_correct/wrong`(영어: metadata.phoneme) — `learning_events` 테이블 snake_case 저장, `LearningEventMetadata` 강타입
+- **시각화**: 한글 파닉스 자음×모음 히트맵(`KoreanPhonicsHeatmap`) · 영어 Book1~5 스킬트리 카드(`EnglishPhonicsSkillTree`) · 동화책 지표+어휘 마스터리 카드(`StorybookReportSection`+`VocabularyMasteryCard`)
+- **페이지**: `/parent/reports` — 동화책 섹션/파닉스 섹션 각각 한/영 탭
+- **집계 위치**: 클라이언트 JS 메모리 (`groupByWord/Syllable/Phoneme` + `computeMastery`). 추후 Supabase view/RPC 이전 가능
+- **이벤트 수집 연동**: Viewer(`page_read`+`word_exposed` 배치) · ConnectTheDotsPlayer(`useGameLogger`) · 말하기 게임(기존 `word_spoken`). 나머지 게임은 follow-up — `useGameLogger` 훅 준비됨
+- **테스트**: `mastery.test.ts`·`aggregate.test.ts`·`korean-phonics-grid.test.ts` 24 tests PASS
+- 스펙: [docs/superpowers/specs/2026-04-23-learning-reports-design.md](docs/superpowers/specs/2026-04-23-learning-reports-design.md)
+- 플랜: [docs/superpowers/plans/2026-04-23-learning-reports-plan.md](docs/superpowers/plans/2026-04-23-learning-reports-plan.md)
+
 ## Auth Feature 구조 (2026-04-23 로그인 시스템)
 - `packages/client/src/features/auth/` — Supabase 기반 부모계정(Email/PW + Google OAuth) + 자녀 프로필 최대 4
 - PIN 4자리 pgcrypto 해싱 (DB RPC `set_pin`/`verify_pin` SECURITY DEFINER, `set search_path` 강화). 15분 memoize + 3회 오답 시 60초 lockout (`useParentGate`)
