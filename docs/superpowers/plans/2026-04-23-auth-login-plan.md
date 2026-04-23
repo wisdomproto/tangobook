@@ -1,5 +1,7 @@
 # 로그인/계정 시스템 Implementation Plan
 
+> **✅ 구현 완료 (2026-04-23)** — 스펙: `docs/superpowers/specs/2026-04-23-auth-login-design.md`. 진행 상세: `memory/auth-login-complete.md`.
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 부모 계정 + 자녀 프로필 + PIN 보호 + localStorage 마이그레이션까지 Supabase 기반으로 구축. 게스트 모드 그대로 유지하며 로그인 시 학습 리포팅의 기반을 확보.
