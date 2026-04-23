@@ -56,7 +56,13 @@ function BookThumb({
 }
 
 export function StorybookReportSection({ events, storybooks, lang }: Props) {
-  const relevant = events.filter((e) => !e.metadata?.lang || e.metadata.lang === lang);
+  // phonics storybook은 파닉스 섹션에서만 집계 (동화책 섹션에서 제외)
+  const phonicsIds = new Set(storybooks.filter((s) => s.type === 'phonics').map((s) => s.id));
+  const relevant = events
+    .filter((e) => !e.metadata?.lang || e.metadata.lang === lang)
+    .filter((e) => !e.storybook_id || !phonicsIds.has(e.storybook_id));
+  const nonPhonicsBooks = storybooks.filter((s) => s.type !== 'phonics');
+
   const pageReads = relevant.filter((e) => e.event_type === 'page_read');
 
   const bookStats = new Map<string, { reads: number; lastAt: string }>();
@@ -76,7 +82,7 @@ export function StorybookReportSection({ events, storybooks, lang }: Props) {
     .sort((a, b) => (a[1].lastAt > b[1].lastAt ? -1 : 1))
     .slice(0, 10)
     .map(([id, s]) => {
-      const book = storybooks.find((b) => b.id === id);
+      const book = nonPhonicsBooks.find((b) => b.id === id);
       return book ? { book, ...s } : null;
     })
     .filter((x): x is { book: StorybookSummary; reads: number; lastAt: string } => !!x);

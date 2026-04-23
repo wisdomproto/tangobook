@@ -1,18 +1,21 @@
 import { useMemo, useState } from 'react';
-import type { LearningEvent } from '@tangobook/shared';
+import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
 import { computeMastery, masteryState, type MasteryState } from '../lib/mastery';
 import { groupByPhoneme, groupByWord } from '../lib/aggregate';
 import { ENGLISH_PHONICS_BOOKS, type EnglishBookId } from '../lib/english-phonics-skills';
+import { readPhonicsUnitIds, englishBookProgress } from '../lib/phonics-progress';
 import { MasteryBadge } from './MasteryBadge';
 import { MasteryDistributionBar } from './MasteryDistributionBar';
 
 interface Props {
   events: LearningEvent[];
+  storybooks: StorybookSummary[];
 }
 
-export function EnglishPhonicsSkillTree({ events }: Props) {
+export function EnglishPhonicsSkillTree({ events, storybooks }: Props) {
   const phonemeStats = useMemo(() => groupByPhoneme(events), [events]);
   const wordStats = useMemo(() => groupByWord(events, 'en'), [events]);
+  const readUnits = useMemo(() => readPhonicsUnitIds(events, storybooks), [events, storybooks]);
   const [openBook, setOpenBook] = useState<EnglishBookId | null>('book1');
   const now = Date.now();
 
@@ -32,6 +35,7 @@ export function EnglishPhonicsSkillTree({ events }: Props) {
         }
         const masteredPct = Math.round((counts.mastered / b.phonemes.length) * 100);
         const open = openBook === b.id;
+        const prog = englishBookProgress(b.id, readUnits);
 
         const bookWords = [...wordStats.entries()]
           .filter(([_, s]) => {
@@ -57,9 +61,12 @@ export function EnglishPhonicsSkillTree({ events }: Props) {
                 <div className="font-bold">{b.name}</div>
                 <div className="text-xs text-ink-500">{b.phonemes.length}개 음소</div>
               </div>
-              <span className="shrink-0 text-xs font-semibold text-success">
-                {masteredPct}% 익힘
-              </span>
+              <div className="flex shrink-0 flex-col items-end gap-0.5 text-xs">
+                <span className="font-semibold text-coral-500">
+                  📖 {prog.readUnits}/{prog.totalUnits} unit
+                </span>
+                <span className="font-semibold text-success">{masteredPct}% 익힘</span>
+              </div>
             </button>
             <div className="mt-2">
               <MasteryDistributionBar counts={counts} showLegend={false} />

@@ -31,3 +31,10 @@ export {
   type EnglishBookId,
   type EnglishPhonicsBook,
 } from './lib/english-phonics-skills';
+export {
+  readPhonicsUnitIds,
+  koreanLevelProgress,
+  englishBookProgress,
+  countPhonicsBooksByLanguage,
+  type LevelProgress,
+} from './lib/phonics-progress';

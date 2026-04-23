@@ -1,9 +1,16 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { Storybook, BlendingExercise, WordFamily, GameInstance } from '@tangobook/shared';
+import type {
+  Storybook,
+  BlendingExercise,
+  WordFamily,
+  GameInstance,
+  Lang,
+} from '@tangobook/shared';
 import { LetterWritingCanvas } from '@/features/phonics/components/LetterWritingCanvas';
 import { settingsApi } from '@/features/settings/api/settings.api';
 import { getGameEntry } from '@/features/games/registry';
+import { useLogEvent } from '@/features/learning';
 import { FlashcardPractice } from './FlashcardPractice';
 import { ChantPlayer } from './ChantPlayer';
 import { PhonicsQuizPlayer } from './PhonicsQuizPlayer';
@@ -56,6 +63,25 @@ export function PhonicsViewer({ storybook, mode: rawMode }: PhonicsViewerProps) 
 
   const title = lesson?.title ?? storybook.title;
   const subtitle = mode ? MODE_LABELS[mode] : null;
+
+  // 학습 리포팅: 파닉스 unit 접속 시 1회 page_read emit (storybook.id 단위)
+  const logEvent = useLogEvent();
+  const emittedRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (emittedRef.current === storybook.id) return;
+    emittedRef.current = storybook.id;
+    const lang: Lang = storybook.phonicsConfig?.language === 'english' ? 'en' : 'ko';
+    logEvent({
+      type: 'page_read',
+      storybookId: storybook.id,
+      metadata: {
+        lang,
+        source: 'phonics',
+        level: storybook.phonicsConfig?.level,
+        unitId: storybook.id,
+      },
+    });
+  }, [storybook.id, storybook.phonicsConfig, logEvent]);
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-emerald-50 to-white dark:from-slate-900 dark:to-slate-900">

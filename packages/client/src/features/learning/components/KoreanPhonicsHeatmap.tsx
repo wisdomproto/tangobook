@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import type { LearningEvent } from '@tangobook/shared';
+import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
 import { computeMastery, masteryState, type MasteryState } from '../lib/mastery';
 import { groupBySyllable } from '../lib/aggregate';
 import {
@@ -7,11 +7,13 @@ import {
   KOREAN_PHONICS_LEVELS,
   type KoreanPhonicsCell,
 } from '../lib/korean-phonics-grid';
+import { readPhonicsUnitIds, koreanLevelProgress } from '../lib/phonics-progress';
 import { MasteryDistributionBar } from './MasteryDistributionBar';
 import { ReportEmptyState } from './ReportEmptyState';
 
 interface Props {
   events: LearningEvent[];
+  storybooks: StorybookSummary[];
 }
 
 const CELL_COLOR: Record<MasteryState, string> = {
@@ -21,8 +23,9 @@ const CELL_COLOR: Record<MasteryState, string> = {
   mastered: 'bg-success text-white',
 };
 
-export function KoreanPhonicsHeatmap({ events }: Props) {
+export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
   const syllableStats = useMemo(() => groupBySyllable(events), [events]);
+  const readUnits = useMemo(() => readPhonicsUnitIds(events, storybooks), [events, storybooks]);
   const [openLevel, setOpenLevel] = useState<string | null>('hangul1');
   const now = Date.now();
 
@@ -31,6 +34,7 @@ export function KoreanPhonicsHeatmap({ events }: Props) {
       {KOREAN_PHONICS_LEVELS.map((lv) => {
         const grid = buildKoreanPhonicsGrid(lv.id);
         const open = openLevel === lv.id;
+        const prog = koreanLevelProgress(lv.id, readUnits);
 
         const counts: Record<MasteryState, number> = {
           unknown: 0,
@@ -59,11 +63,14 @@ export function KoreanPhonicsHeatmap({ events }: Props) {
                 <div className="font-bold">{lv.name}</div>
                 <div className="text-xs text-ink-500">{lv.description}</div>
               </div>
-              {grid.cells.length > 0 && (
-                <span className="shrink-0 text-xs font-semibold text-success">
-                  {masteredPct}% 익힘
+              <div className="flex shrink-0 flex-col items-end gap-0.5 text-xs">
+                <span className="font-semibold text-coral-500">
+                  📖 {prog.readUnits}/{prog.totalUnits} unit
                 </span>
-              )}
+                {grid.cells.length > 0 && (
+                  <span className="font-semibold text-success">{masteredPct}% 익힘</span>
+                )}
+              </div>
             </button>
             {grid.cells.length > 0 && (
               <div className="mt-2">

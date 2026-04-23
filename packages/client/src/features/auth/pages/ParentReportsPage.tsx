@@ -59,7 +59,7 @@ export default function ParentReportsPage() {
 
       <section>
         <h2 className="mb-3 text-lg font-bold">🔤 파닉스</h2>
-        <PhonicsReportSection events={events} />
+        <PhonicsReportSection events={events} storybooks={storybooks} />
       </section>
     </div>
   );
