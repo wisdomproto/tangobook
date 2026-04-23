@@ -1,11 +1,13 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Button } from '@/components/Button';
 import type { GamePlayerProps } from '../../registry/game-registry';
-import type { WordWritingData } from '@tangobook/shared';
+import type { WordWritingData, GameTypeId, Lang } from '@tangobook/shared';
+import { decomposeWord } from '@tangobook/shared';
 import { GameProgressBar } from '../GameProgressBar';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
+import { useGameLogger, type GameWordResult } from '@/features/learning';
 
 const CANVAS_W = 500;
 const CANVAS_H = 250;
@@ -13,7 +15,13 @@ const LINE_WIDTH = 8;
 const GUIDE_COLOR = '#d4d4d8'; // zinc-300
 const DRAW_COLOR = '#1e293b'; // slate-800
 
-export function WordWritingPlayer({ gameData, onComplete, onBack, systemSounds }: GamePlayerProps) {
+export function WordWritingPlayer({
+  storybookId,
+  gameData,
+  onComplete,
+  onBack,
+  systemSounds,
+}: GamePlayerProps) {
   const data = gameData as WordWritingData;
   const items = data.items;
 
@@ -22,6 +30,32 @@ export function WordWritingPlayer({ gameData, onComplete, onBack, systemSounds }
   const [showResult, setShowResult] = useState(false);
   const [currentScore, setCurrentScore] = useState(0);
   const [hasDrawn, setHasDrawn] = useState(false);
+  const logGame = useGameLogger();
+
+  const emitFinalResults = useCallback(
+    (finalScores: number[]) => {
+      const isKorean = data.type === 'korean-word-writing';
+      const gameType: GameTypeId =
+        data.type === 'korean-word-writing'
+          ? 'korean-word-writing'
+          : data.type === 'english-word-writing'
+            ? 'english-word-writing'
+            : 'word-writing';
+      const lang: Lang = isKorean ? 'ko' : 'en';
+      const results: GameWordResult[] = [];
+      for (let i = 0; i < items.length; i++) {
+        const correct = (finalScores[i] ?? 0) >= 50;
+        results.push({ word: items[i].word, correct });
+        if (isKorean) {
+          for (const syl of decomposeWord(items[i].word)) {
+            results.push({ correct, consonant: syl.cho, vowel: syl.jung });
+          }
+        }
+      }
+      logGame({ gameType, storybookId, lang, results });
+    },
+    [data.type, items, logGame, storybookId]
+  );
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
@@ -239,11 +273,12 @@ export function WordWritingPlayer({ gameData, onComplete, onBack, systemSounds }
 
     if (currentIndex + 1 >= items.length) {
       const total = newScores.reduce((a, b) => a + b, 0);
+      emitFinalResults(newScores);
       onComplete(total, items.length * 100);
     } else {
       setCurrentIndex(currentIndex + 1);
     }
-  }, [scores, currentScore, currentIndex, items.length, onComplete]);
+  }, [scores, currentScore, currentIndex, items.length, onComplete, emitFinalResults]);
 
   const handleCheck = () => {
     if (!hasDrawn) return;
@@ -268,6 +303,7 @@ export function WordWritingPlayer({ gameData, onComplete, onBack, systemSounds }
           setHasDrawn(false);
           if (currentIndex + 1 >= items.length) {
             const total = newScores.reduce((a, b) => a + b, 0);
+            emitFinalResults(newScores);
             onComplete(total, items.length * 100);
           } else {
             setCurrentIndex(currentIndex + 1);

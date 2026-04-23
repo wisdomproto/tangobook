@@ -3,8 +3,8 @@ import type { GameTypeId, Lang, LearningEventMetadata, LearningEventType } from 
 import { useLogEventsBatch, type LogEventBatchItem } from './useLogEvent';
 
 export interface GameWordResult {
-  /** 단어(영어/한글 라벨 아무거나 — lang 메타로 구분) */
-  word: string;
+  /** 단어(영어/한글 라벨). 생략 시 word_* 이벤트 skip — syllable/phoneme만 쏠 때 용도 */
+  word?: string;
   correct: boolean;
   /** 한글 파닉스 음절 이벤트(consonant+vowel 분해)를 추가로 쏠 때 세트 */
   consonant?: string;
@@ -49,14 +49,16 @@ export function useGameLogger() {
       });
 
       for (const r of results) {
-        const wordType: LearningEventType = r.correct ? 'word_correct' : 'word_wrong';
-        items.push({
-          event_type: wordType,
-          storybook_id: storybookId ?? null,
-          game_type: gameType,
-          word: r.word,
-          metadata: baseMeta({ attempts: r.attempts, responseMs: r.responseMs }),
-        });
+        if (r.word) {
+          const wordType: LearningEventType = r.correct ? 'word_correct' : 'word_wrong';
+          items.push({
+            event_type: wordType,
+            storybook_id: storybookId ?? null,
+            game_type: gameType,
+            word: r.word,
+            metadata: baseMeta({ attempts: r.attempts, responseMs: r.responseMs }),
+          });
+        }
 
         if (r.consonant && r.vowel) {
           const sylType: LearningEventType = r.correct ? 'syllable_correct' : 'syllable_wrong';

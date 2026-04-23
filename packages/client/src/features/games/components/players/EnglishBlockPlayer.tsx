@@ -9,6 +9,7 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { FeedbackOverlay } from '../FeedbackOverlay';
+import { useGameLogger } from '@/features/learning';
 import { cn } from '@/lib/cn';
 
 interface LetterBlock {
@@ -40,6 +41,7 @@ function createEnglishGhost(char: string): HTMLDivElement {
 }
 
 export function EnglishBlockPlayer({
+  storybookId,
   gameData,
   onComplete: _onComplete,
   onBack,
@@ -52,6 +54,8 @@ export function EnglishBlockPlayer({
   const [score, setScore] = useState(0);
   const [hasTriedThisRound, setHasTriedThisRound] = useState(false);
   const [finished, setFinished] = useState(false);
+  const logGame = useGameLogger();
+  const wordResultsRef = useRef<{ word: string; correct: boolean }[]>([]);
   const [roundCorrect, setRoundCorrect] = useState(false);
   const [wrongSlots, setWrongSlots] = useState<Set<number>>(new Set());
   const [typedChars, setTypedChars] = useState(0);
@@ -155,7 +159,9 @@ export function EnglishBlockPlayer({
       }
     }
     if (allCorrect) {
-      if (!hasTriedThisRound) setScore((s) => s + 1);
+      const isFirstTry = !hasTriedThisRound;
+      if (isFirstTry) setScore((s) => s + 1);
+      wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
       setRoundCorrect(true);
       playCorrectSequence({
         ttsUrl: currentItem.ttsUrl,
@@ -207,6 +213,15 @@ export function EnglishBlockPlayer({
     }
   }, [currentIndex, items, initGrid]);
 
+  // 게임 완료 시 학습 이벤트 emit (영어: 단어만)
+  useEffect(() => {
+    if (!finished) return;
+    const collected = wordResultsRef.current;
+    if (collected.length === 0) return;
+    logGame({ gameType: 'english-block', storybookId, lang: 'en', results: collected });
+    wordResultsRef.current = [];
+  }, [finished, logGame, storybookId]);
+
   const handleRestart = useCallback(() => {
     setCurrentIndex(0);
     setScore(0);
@@ -215,6 +230,7 @@ export function EnglishBlockPlayer({
     setRoundCorrect(false);
     setWrongSlots(new Set());
     setGrid(initGrid(items[0].letters));
+    wordResultsRef.current = [];
   }, [items, initGrid]);
 
   if (finished) {

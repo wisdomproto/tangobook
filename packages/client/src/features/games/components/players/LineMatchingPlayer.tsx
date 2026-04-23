@@ -12,6 +12,8 @@ import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { phonicsApi } from '@/features/phonics/api/phonics.api';
 import { shuffle } from '../../utils/shuffle';
+import { useGameLogger, type GameWordResult } from '@/features/learning';
+import { decomposeWord } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 
 interface LineMatchingPlayerProps extends GamePlayerProps {
@@ -120,9 +122,26 @@ export function LineMatchingPlayer({
     lang,
   ]);
 
+  const logGame = useGameLogger();
   useEffect(() => {
-    if (finished) onComplete(items.length, items.length);
-  }, [finished, items.length, onComplete]);
+    if (!finished) return;
+    onComplete(items.length, items.length);
+    const results: GameWordResult[] = [];
+    for (const it of items) {
+      results.push({ word: it.word, correct: true });
+      if (lang === 'ko') {
+        for (const syl of decomposeWord(it.word)) {
+          results.push({ correct: true, consonant: syl.cho, vowel: syl.jung });
+        }
+      }
+    }
+    logGame({
+      gameType: lang === 'ko' ? 'korean-line-matching' : 'english-line-matching',
+      storybookId,
+      lang,
+      results,
+    });
+  }, [finished, items, onComplete, lang, logGame, storybookId]);
 
   const handleRestart = useCallback(() => {
     setMatched([]);

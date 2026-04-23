@@ -2,7 +2,8 @@ import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { KoreanBlockData, KoreanBlockSyllable } from '@tangobook/shared';
-import { CHOSUNG, JUNGSUNG, composeHangul } from '@tangobook/shared';
+import { CHOSUNG, JUNGSUNG, composeHangul, decomposeWord } from '@tangobook/shared';
+import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { GameProgressBar } from '../GameProgressBar';
 import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
@@ -63,6 +64,7 @@ function createKoreanGhost(char: string): HTMLDivElement {
 }
 
 export function KoreanBlockPlayer({
+  storybookId,
   gameData,
   onComplete: _onComplete,
   onBack,
@@ -75,6 +77,8 @@ export function KoreanBlockPlayer({
   const [score, setScore] = useState(0);
   const [hasTriedThisRound, setHasTriedThisRound] = useState(false);
   const [finished, setFinished] = useState(false);
+  const logGame = useGameLogger();
+  const wordResultsRef = useRef<{ word: string; correct: boolean }[]>([]);
   const [roundCorrect, setRoundCorrect] = useState(false);
   const [wrongCols, setWrongCols] = useState<Set<number>>(new Set());
   const [typedChars, setTypedChars] = useState(0);
@@ -185,7 +189,9 @@ export function KoreanBlockPlayer({
       }
     }
     if (allCorrect) {
-      if (!hasTriedThisRound) setScore((s) => s + 1);
+      const isFirstTry = !hasTriedThisRound;
+      if (isFirstTry) setScore((s) => s + 1);
+      wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
       setRoundCorrect(true);
       playCorrectSequence({
         ttsUrl: currentItem.ttsUrl,
@@ -224,10 +230,27 @@ export function KoreanBlockPlayer({
     roundCorrect,
   ]);
 
+  // 게임 완료 시 학습 이벤트 emit (단어 + 분해된 음절 syllable_*)
+  useEffect(() => {
+    if (!finished) return;
+    const collected = wordResultsRef.current;
+    if (collected.length === 0) return;
+    const results: GameWordResult[] = [];
+    for (const r of collected) {
+      results.push({ word: r.word, correct: r.correct });
+      for (const syl of decomposeWord(r.word)) {
+        results.push({ correct: r.correct, consonant: syl.cho, vowel: syl.jung });
+      }
+    }
+    logGame({ gameType: 'korean-block', storybookId, lang: 'ko', results });
+    wordResultsRef.current = [];
+  }, [finished, logGame, storybookId]);
+
   const handleRestart = useCallback(() => {
     setCurrentIndex(0);
     setScore(0);
     setFinished(false);
+    wordResultsRef.current = [];
     setHasTriedThisRound(false);
     setRoundCorrect(false);
     setWrongCols(new Set());
