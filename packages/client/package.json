@@ -19,6 +19,7 @@
     "@ffmpeg/ffmpeg": "^0.12.15",
     "@ffmpeg/util": "^0.12.2",
     "@remotion/player": "^4.0.440",
+    "@supabase/supabase-js": "^2.104.0",
     "@tangobook/remotion": "workspace:*",
     "@tangobook/shared": "workspace:*",
     "@tanstack/react-query": "^5.0.0",
