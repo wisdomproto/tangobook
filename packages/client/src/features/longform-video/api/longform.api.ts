@@ -6,6 +6,7 @@ import type {
   YouTubePreset,
   YouTubeGeneratedMeta,
   YouTubeChannel,
+  GeneratedCaption,
 } from '@tangobook/shared';
 import type { RenderManifest } from '../utils/client-renderer';
 
@@ -16,9 +17,11 @@ export const longformApi = {
     promptPresetId: string;
     model?: string;
     excludePages?: number[];
-  }) => apiPost<{ scenes: LongformScene[] }>('/longform/analyze', req),
+  }) => apiPost<{ message: string }>('/longform/analyze', req),
   getAnalyzeProgress: (projectId: string) =>
-    apiGet<{ progress: number; step: string } | null>(`/longform/analyze-progress/${projectId}`),
+    apiGet<{ progress: number; step: string; error?: string } | null>(
+      `/longform/analyze-progress/${projectId}`
+    ),
   analyzeScene: (req: {
     storybookId: string;
     projectId: string;
@@ -108,6 +111,11 @@ export const longformApi = {
     languages: string[];
     channelId?: string;
   }) => apiPost('/longform/youtube/upload-captions', req),
+  generateCaptions: (req: { storybookId: string; projectId: string; languages: string[] }) =>
+    apiPost<{
+      baseLang: string;
+      generatedCaptions: Record<string, GeneratedCaption>;
+    }>('/longform/youtube/generate-captions', req),
 
   // Manually link an externally-uploaded video
   youtubeLinkVideo: (data: { storybookId: string; projectId: string; videoUrl: string }) =>

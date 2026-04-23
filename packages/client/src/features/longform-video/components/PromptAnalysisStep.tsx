@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import type { Storybook, LongformProject } from '@tangobook/shared';
 import type { PromptPreset } from '@tangobook/shared';
 import { DEFAULT_TEXT_MODEL, SUPPORTED_LANGUAGES } from '@tangobook/shared';
@@ -16,6 +17,7 @@ interface PromptAnalysisStepProps {
 }
 
 export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnalysisStepProps) {
+  const qc = useQueryClient();
   const { data: presets = [], isLoading: presetsLoading } = usePresetList();
 
   const [selectedPresetId, setSelectedPresetId] = useState<string>(
@@ -78,33 +80,50 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
     setIsAnalyzing(true);
     setAnalyzeProgress({ progress: 0, step: '분석 시작...' });
 
-    // Start polling for progress
-    stopPolling();
-    pollRef.current = setInterval(async () => {
-      try {
-        const progress = await longformApi.getAnalyzeProgress(project.id);
-        if (progress) setAnalyzeProgress(progress);
-      } catch {
-        // ignore polling errors
-      }
-    }, 1500);
-
     try {
-      const result = await longformApi.analyze({
+      // Kick off analyze (fire-and-forget on server)
+      await longformApi.analyze({
         storybookId: storybook.id,
         projectId: project.id,
         promptPresetId: effectivePresetId,
         model: selectedModel,
       });
-
-      onUpdate({ scenes: result.scenes, promptPresetId: effectivePresetId });
     } catch (e) {
-      setError(e instanceof Error ? e.message : '분석 중 오류가 발생했습니다.');
-    } finally {
-      stopPolling();
+      setError(e instanceof Error ? e.message : '분석 시작 실패');
       setIsAnalyzing(false);
       setAnalyzeProgress(null);
+      return;
     }
+
+    // Poll until completion (progress === 100) or error (progress === -1)
+    stopPolling();
+    pollRef.current = setInterval(async () => {
+      try {
+        const progress = await longformApi.getAnalyzeProgress(project.id);
+        if (!progress) return;
+        setAnalyzeProgress(progress);
+
+        if (progress.progress === -1) {
+          stopPolling();
+          setError(progress.error || progress.step || '분석 실패');
+          setIsAnalyzing(false);
+          setAnalyzeProgress(null);
+          return;
+        }
+
+        if (progress.progress >= 100) {
+          stopPolling();
+          // Server already saved scenes to R2 — refetch storybook to pick them up
+          await qc.invalidateQueries({ queryKey: ['storybook', storybook.id] });
+          // Persist the selected preset id locally (server also saved it)
+          onUpdate({ promptPresetId: effectivePresetId });
+          setIsAnalyzing(false);
+          setAnalyzeProgress(null);
+        }
+      } catch {
+        // ignore transient polling errors
+      }
+    }, 1500);
   };
 
   return (

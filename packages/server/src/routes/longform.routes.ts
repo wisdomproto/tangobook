@@ -39,6 +39,7 @@ router.post('/youtube/disconnect', LongformController.youtubeDisconnect);
 router.post('/youtube/upload', LongformController.youtubeUpload);
 router.get('/youtube/progress/:projectId', LongformController.getYouTubeProgress);
 router.post('/youtube/generate-meta', LongformController.generateYouTubeMeta);
+router.post('/youtube/generate-captions', LongformController.generateCaptions);
 router.post('/youtube/upload-captions', LongformController.youtubeUploadCaptions);
 router.get('/youtube/caption-progress/:projectId', LongformController.getCaptionProgress);
 router.post('/youtube/link-video', LongformController.youtubeLinkVideo);

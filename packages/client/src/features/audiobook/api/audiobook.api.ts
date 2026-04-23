@@ -4,6 +4,7 @@ import type {
   YouTubeGeneratedMeta,
   YouTubePreset,
   YouTubeChannel,
+  GeneratedCaption,
 } from '@tangobook/shared';
 
 export type AudiobookRenderProgress = {
@@ -47,6 +48,11 @@ export const audiobookApi = {
   // YouTube captions
   youtubeUploadCaptions: (data: { storybookId: string; projectId: string; languages: string[] }) =>
     apiPost('/audiobooks/youtube/upload-captions', data),
+  generateCaptions: (data: { storybookId: string; projectId: string; languages: string[] }) =>
+    apiPost<{
+      baseLang: string;
+      generatedCaptions: Record<string, GeneratedCaption>;
+    }>('/audiobooks/youtube/generate-captions', data),
 
   // Manually link an externally-uploaded video
   youtubeLinkVideo: (data: { storybookId: string; projectId: string; videoUrl: string }) =>

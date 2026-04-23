@@ -6,14 +6,17 @@ import { asyncHandler } from '../middleware/async-handler.js';
 export const LongformController = {
   analyze: asyncHandler(async (req: Request, res: Response) => {
     const { storybookId, projectId, promptPresetId, model, excludePages } = req.body;
-    const result = await LongformService.analyze(
-      storybookId,
-      projectId,
-      promptPresetId,
-      model,
-      excludePages
+    // Fire and forget - client polls /analyze-progress/:projectId
+    LongformService.analyze(storybookId, projectId, promptPresetId, model, excludePages).catch(
+      (err) => {
+        console.error('[longform] analyze error:', err);
+        LongformService.setAnalyzeError(
+          projectId,
+          err instanceof Error ? err.message : '분석 실패'
+        );
+      }
     );
-    res.json({ success: true, data: result });
+    res.json({ success: true, data: { message: '분석이 시작되었습니다.' } });
   }),
 
   getAnalyzeProgress(req: Request, res: Response) {
@@ -197,6 +200,17 @@ export const LongformController = {
     const { storybookId, projectId, outputUrl } = req.body;
     const result = await LongformService.confirmRender(storybookId, projectId, outputUrl);
     res.json({ success: true, data: result });
+  }),
+
+  // Generate SRT captions without uploading (for manual YouTube Studio upload)
+  generateCaptions: asyncHandler(async (req, res) => {
+    const { storybookId, projectId, languages } = req.body;
+    const data = await LongformService.generateCaptions(
+      storybookId,
+      projectId,
+      Array.isArray(languages) ? languages : []
+    );
+    res.json({ success: true, data });
   }),
 
   // Captions — fire-and-forget

@@ -52,6 +52,17 @@ export const AudiobookController = {
     res.json({ success: true, data: meta });
   }),
 
+  // Generate SRT captions without uploading (for manual YouTube Studio upload)
+  generateCaptions: asyncHandler(async (req, res) => {
+    const { storybookId, projectId, languages } = req.body;
+    const data = await AudiobookService.generateCaptions(
+      storybookId,
+      projectId,
+      Array.isArray(languages) ? languages : []
+    );
+    res.json({ success: true, data });
+  }),
+
   // Captions — fire-and-forget
   youtubeUploadCaptions: asyncHandler(async (req, res) => {
     const { storybookId, projectId, languages } = req.body;

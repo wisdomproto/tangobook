@@ -259,7 +259,10 @@ export function AudiobookProjectCard({
           setYtChannels(channels);
           setYtConnected(channels.length > 0);
           if (channels.length > 0 && !selectedChannelId) {
-            setSelectedChannelId(channels[0].id);
+            const uploadedId = project.youtubeUpload?.channelId;
+            const preferred =
+              uploadedId && channels.some((c) => c.id === uploadedId) ? uploadedId : channels[0].id;
+            setSelectedChannelId(preferred);
           }
         })
         .catch(() => setYtConnected(false));
@@ -491,19 +494,16 @@ export function AudiobookProjectCard({
   };
 
   const handleUploadCaptions = async () => {
-    if (captionLangs.length === 0) return;
+    if (selectedUploadLangs.length === 0) return;
     setCaptionError(null);
     setCaptionUploading(true);
-    setCaptionProgress({ progress: 0, step: '자막 생성 중...' });
-
-    // Save selected languages
-    onUpdate({ captionLanguages: captionLangs });
+    setCaptionProgress({ progress: 0, step: '자막 업로드 시작...' });
 
     try {
       await audiobookApi.youtubeUploadCaptions({
         storybookId,
         projectId: project.id,
-        languages: captionLangs,
+        languages: selectedUploadLangs,
       });
 
       captionPollRef.current = setInterval(async () => {
@@ -516,7 +516,7 @@ export function AudiobookProjectCard({
             try {
               const updated = await storybookApi.getById(storybookId);
               const up = updated.audiobookProjects?.find((p) => p.id === project.id);
-              if (up?.youtubeUpload?.captionsUploaded) {
+              if (up?.youtubeUpload) {
                 onUpdate({ youtubeUpload: up.youtubeUpload });
               }
             } catch {
@@ -529,6 +529,15 @@ export function AudiobookProjectCard({
             setCaptionUploading(false);
             setCaptionProgress(null);
             setCaptionError(data.step || '자막 업로드에 실패했습니다.');
+            try {
+              const updated = await storybookApi.getById(storybookId);
+              const up = updated.audiobookProjects?.find((p) => p.id === project.id);
+              if (up?.youtubeUpload) {
+                onUpdate({ youtubeUpload: up.youtubeUpload });
+              }
+            } catch {
+              /* ignore */
+            }
             return;
           }
           setCaptionProgress({ progress: data.progress, step: data.step });
@@ -539,7 +548,7 @@ export function AudiobookProjectCard({
             try {
               const updated = await storybookApi.getById(storybookId);
               const up = updated.audiobookProjects?.find((p) => p.id === project.id);
-              if (up?.youtubeUpload?.captionsUploaded) {
+              if (up?.youtubeUpload) {
                 onUpdate({ youtubeUpload: up.youtubeUpload });
               }
             } catch {
@@ -556,6 +565,48 @@ export function AudiobookProjectCard({
       setCaptionProgress(null);
     }
   };
+
+  const [captionGenerating, setCaptionGenerating] = useState(false);
+  const [selectedUploadLangs, setSelectedUploadLangs] = useState<string[]>([]);
+  const handleGenerateCaptions = async () => {
+    setCaptionError(null);
+    setCaptionGenerating(true);
+    try {
+      const { generatedCaptions } = await audiobookApi.generateCaptions({
+        storybookId,
+        projectId: project.id,
+        languages: captionLangs,
+      });
+      const updated = await storybookApi.getById(storybookId);
+      const up = updated.audiobookProjects?.find((p) => p.id === project.id);
+      onUpdate({
+        generatedCaptions: up?.generatedCaptions ?? generatedCaptions,
+        captionLanguages: captionLangs,
+      });
+    } catch (e) {
+      setCaptionError(e instanceof Error ? e.message : 'SRT 생성 실패');
+    } finally {
+      setCaptionGenerating(false);
+    }
+  };
+
+  const downloadSrt = (lang: string, srt: string) => {
+    const safeName = (project.name || 'captions').replace(/[\\/:*?"<>|]/g, '_');
+    const blob = new Blob([srt], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${safeName}.${lang}.srt`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  const toggleUploadLang = (lang: string) =>
+    setSelectedUploadLangs((prev) =>
+      prev.includes(lang) ? prev.filter((l) => l !== lang) : [...prev, lang]
+    );
 
   // Available languages — only show languages that have TTS/translations
   const availableLanguages = useMemo(() => {
@@ -1659,50 +1710,114 @@ export function AudiobookProjectCard({
                       {project.youtubeUpload?.videoId && (
                         <div className="space-y-3 border-t border-red-200 dark:border-red-800 pt-4 mt-2">
                           <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-                            다국어 자막 업로드
+                            다국어 자막
                           </h4>
 
-                          {/* 언어 선택 */}
-                          <div className="flex flex-wrap gap-2">
-                            {/* 기본 언어 (항상 포함) */}
-                            <label className="flex items-center gap-1 px-2 py-1 rounded-md bg-violet-100 dark:bg-violet-900/30 text-xs text-violet-700 dark:text-violet-300">
-                              <input
-                                type="checkbox"
-                                checked
-                                disabled
-                                className="w-3 h-3 accent-violet-600"
-                              />
-                              {project.language === 'ko'
-                                ? '한국어'
-                                : SUPPORTED_LANGUAGES.find((l) => l.code === project.language)
-                                    ?.label || project.language}
-                              <span className="text-[10px] text-violet-400">(기본)</span>
-                            </label>
-                            {/* 추가 언어 */}
-                            {SUPPORTED_LANGUAGES.filter((l) => l.code !== project.language).map(
-                              (lang) => (
-                                <label
-                                  key={lang.code}
-                                  className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs cursor-pointer transition-colors ${
-                                    captionLangs.includes(lang.code)
-                                      ? 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300'
-                                      : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-violet-50 dark:hover:bg-violet-900/20'
-                                  }`}
-                                >
-                                  <input
-                                    type="checkbox"
-                                    checked={captionLangs.includes(lang.code)}
-                                    onChange={() => toggleCaptionLang(lang.code)}
-                                    className="w-3 h-3 accent-violet-600"
-                                  />
-                                  {lang.label}
-                                  {project.youtubeUpload?.captionsUploaded?.includes(lang.code) && (
-                                    <span className="text-emerald-500">✓</span>
-                                  )}
-                                </label>
-                              )
-                            )}
+                          {/* Step 1: 생성할 언어 선택 */}
+                          <div className="space-y-2">
+                            <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                              1. 생성할 추가 언어 선택 (기본 언어는 자동 포함)
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                              <label className="flex items-center gap-1 px-2 py-1 rounded-md bg-violet-100 dark:bg-violet-900/30 text-xs text-violet-700 dark:text-violet-300">
+                                <input
+                                  type="checkbox"
+                                  checked
+                                  disabled
+                                  className="w-3 h-3 accent-violet-600"
+                                />
+                                {project.language === 'ko'
+                                  ? '한국어'
+                                  : SUPPORTED_LANGUAGES.find((l) => l.code === project.language)
+                                      ?.label || project.language}
+                                <span className="text-[10px] text-violet-400">(기본)</span>
+                              </label>
+                              {SUPPORTED_LANGUAGES.filter((l) => l.code !== project.language).map(
+                                (lang) => (
+                                  <label
+                                    key={lang.code}
+                                    className={`flex items-center gap-1 px-2 py-1 rounded-md text-xs cursor-pointer transition-colors ${
+                                      captionLangs.includes(lang.code)
+                                        ? 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300'
+                                        : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-violet-50 dark:hover:bg-violet-900/20'
+                                    }`}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      checked={captionLangs.includes(lang.code)}
+                                      onChange={() => toggleCaptionLang(lang.code)}
+                                      className="w-3 h-3 accent-violet-600"
+                                    />
+                                    {lang.label}
+                                  </label>
+                                )
+                              )}
+                            </div>
+                            <button
+                              onClick={handleGenerateCaptions}
+                              disabled={captionGenerating || captionUploading}
+                              className="px-4 py-1.5 text-xs bg-white dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 disabled:opacity-50 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-600 rounded-md transition-colors"
+                            >
+                              {captionGenerating ? 'SRT 생성 중...' : 'SRT 생성'}
+                            </button>
                           </div>
+
+                          {/* Step 2: 생성된 SRT 목록 */}
+                          {project.generatedCaptions &&
+                            Object.keys(project.generatedCaptions).length > 0 && (
+                              <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+                                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                                  2. 업로드할 언어 선택 / 다운로드
+                                </p>
+                                <div className="space-y-1">
+                                  {Object.entries(project.generatedCaptions).map(([lang, cap]) => {
+                                    const uploadedOk =
+                                      project.youtubeUpload?.captionsUploaded?.includes(lang);
+                                    const failed = project.youtubeUpload?.captionsFailed?.find(
+                                      (f) => f.lang === lang
+                                    );
+                                    const label =
+                                      SUPPORTED_LANGUAGES.find((l) => l.code === lang)?.label ||
+                                      lang;
+                                    return (
+                                      <div
+                                        key={lang}
+                                        className="flex items-center gap-2 px-2 py-1.5 rounded bg-slate-50 dark:bg-slate-800/40 text-xs"
+                                      >
+                                        <label className="flex items-center gap-1.5 cursor-pointer flex-1">
+                                          <input
+                                            type="checkbox"
+                                            checked={selectedUploadLangs.includes(lang)}
+                                            onChange={() => toggleUploadLang(lang)}
+                                            className="w-3 h-3 accent-violet-600"
+                                          />
+                                          <span className="font-medium text-slate-700 dark:text-slate-200">
+                                            {label}
+                                          </span>
+                                          <span className="text-[10px] text-slate-400">
+                                            ({new Date(cap.generatedAt).toLocaleString()})
+                                          </span>
+                                          {uploadedOk && (
+                                            <span className="text-emerald-500">✓</span>
+                                          )}
+                                          {failed && (
+                                            <span className="text-red-500" title={failed.error}>
+                                              ✗
+                                            </span>
+                                          )}
+                                        </label>
+                                        <button
+                                          onClick={() => downloadSrt(lang, cap.srt)}
+                                          className="px-2 py-0.5 text-[11px] bg-white dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-600 rounded"
+                                        >
+                                          다운로드
+                                        </button>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            )}
 
                           {/* 자막 진행률 */}
                           {captionUploading && captionProgress && (
@@ -1725,25 +1840,40 @@ export function AudiobookProjectCard({
                             </div>
                           )}
 
-                          {captionError && <p className="text-xs text-red-500">{captionError}</p>}
+                          {captionError && (
+                            <p className="text-xs text-red-500 break-all">{captionError}</p>
+                          )}
 
-                          {/* 업로드 완료 표시 */}
-                          {project.youtubeUpload?.captionsUploaded &&
-                            project.youtubeUpload.captionsUploaded.length > 0 &&
+                          {project.youtubeUpload?.captionsFailed &&
+                            project.youtubeUpload.captionsFailed.length > 0 &&
                             !captionUploading && (
-                              <p className="text-xs text-emerald-600">
-                                업로드 완료: {project.youtubeUpload.captionsUploaded.join(', ')}
-                              </p>
+                              <div className="space-y-0.5 bg-red-50 dark:bg-red-900/20 px-2 py-1.5 rounded">
+                                <p className="text-xs text-red-600 font-medium">
+                                  업로드 실패:{' '}
+                                  {project.youtubeUpload.captionsFailed
+                                    .map((f) => f.lang)
+                                    .join(', ')}
+                                </p>
+                                {project.youtubeUpload.captionsFailed.map((f) => (
+                                  <p key={f.lang} className="text-[10px] text-red-500 break-all">
+                                    {f.lang}: {f.error}
+                                  </p>
+                                ))}
+                              </div>
                             )}
 
                           <button
                             onClick={handleUploadCaptions}
-                            disabled={captionUploading || captionLangs.length === 0}
+                            disabled={
+                              captionUploading ||
+                              captionGenerating ||
+                              selectedUploadLangs.length === 0
+                            }
                             className="px-4 py-1.5 text-xs bg-violet-600 hover:bg-violet-700 disabled:bg-violet-300 text-white rounded-md transition-colors"
                           >
                             {captionUploading
                               ? '자막 업로드 중...'
-                              : `자막 업로드 (${captionLangs.length + 1}개 언어)`}
+                              : `선택한 ${selectedUploadLangs.length}개 YouTube 업로드`}
                           </button>
                         </div>
                       )}
