@@ -1581,59 +1581,517 @@ git add packages/client/src/features/auth/components/PinPad.tsx packages/client/
 git commit -m "feat(auth): PinPad — 4-digit number keypad with shake-on-error"
 ```
 
-### Task 3.3: `ProfileCreateModal` + `ProfilePicker` + 테스트
+### Task 3.3: `ProfileCreateModal` (TDD, 3 tests)
 
 **Files:**
-- Create: `packages/client/src/features/auth/components/ProfileCreateModal.tsx` + `.test.tsx`
-- Create: `packages/client/src/features/auth/components/ProfilePicker.tsx` + `.test.tsx`
+- Create: `packages/client/src/features/auth/components/ProfileCreateModal.tsx`
+- Create: `packages/client/src/features/auth/components/ProfileCreateModal.test.tsx`
 
-`ProfileCreateModal`:
-- Props: `{ open, mode: 'create' | 'edit', initial?: ChildProfile, onSubmit, onCancel, onDelete? }`
-- 필드: `AvatarPicker`, 이름 input (`maxLength: 10` + `trim().length >= 1` 검증), 생년월일 date input
-- Submit disabled 조건: 이름 비거나 avatar 미선택
+**사양 상세**:
+- Props: `{ open: boolean; mode: 'create' | 'edit'; initial?: ChildProfile; onSubmit: (input: ProfileInput) => Promise<void>; onCancel: () => void; onDelete?: () => Promise<void>; }`
+- `ProfileInput = { name: string; avatarId: AvatarId; birthDate: string | null }`
+- 필드:
+  - `AvatarPicker` (value/onChange)
+  - 이름 input: `maxLength={10}`, `placeholder="이름"`, HTML5 required
+  - 생년월일: `<input type="date">` — **선택 필드** (null 허용, empty string → null 변환)
+- Submit 버튼 `disabled` 조건: `name.trim().length === 0 || !avatarId` (birthDate는 선택)
+- Edit 모드: `initial` 값으로 폼 prefill, 하단에 `삭제` 버튼. 탭 → `window.confirm('{name} 프로필을 삭제할까요? 학습 기록도 사라져요.')` → OK면 `await onDelete()`. 미리 제공된 onDelete 콜백이 실제 API를 호출
+- 모달 컨벤션: 배경 `fixed inset-0 bg-black/60`, 배경 탭 → `onCancel`, ESC 키 → `onCancel` (useEffect keydown 리스너). 내부 카드 `bg-white rounded-2xl p-6 max-w-md`
+- 기존 뷰어 톤: 버튼 coral-500 primary, 텍스트 text-ink-900, 제목 `text-2xl font-black`
 
-`ProfilePicker`:
-- Props: `{ profiles, onSelect, onAddNew }` + `canAddNew = profiles.length < 4`
-- 그리드 + `+` 버튼 (canAddNew일 때만)
-- 각 카드 탭 → `onSelect(profile)`
+- [ ] **Step 1: 실패 테스트 작성 (3 tests)**
 
-- [ ] **Step 1~6: TDD 구현** (자세한 테스트 코드 + 구현. 플랜 길이 관리 위해 핵심만 — reviewer가 보고 수정 유도)
+```tsx
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { ProfileCreateModal } from './ProfileCreateModal';
 
-플레이어별 테스트 3개씩, 구현은 위 props 명세 그대로. `cn()` + 뷰어 톤 준수.
+describe('ProfileCreateModal', () => {
+  it('이름이 비어있으면 저장 버튼 disabled', () => {
+    render(
+      <ProfileCreateModal open mode="create" onSubmit={vi.fn()} onCancel={vi.fn()} />
+    );
+    const submit = screen.getByRole('button', { name: /저장|만들기|완료/ });
+    expect(submit).toBeDisabled();
+  });
 
-- [ ] **Step 7: Commit**
+  it('이름 11자 입력 시도해도 maxLength=10으로 막힘', () => {
+    render(
+      <ProfileCreateModal open mode="create" onSubmit={vi.fn()} onCancel={vi.fn()} />
+    );
+    const input = screen.getByPlaceholderText('이름') as HTMLInputElement;
+    fireEvent.change(input, { target: { value: '가나다라마바사아자차카' } });
+    expect(input.value.length).toBeLessThanOrEqual(10);
+  });
 
-```bash
-git add packages/client/src/features/auth/components/ProfileCreateModal.tsx packages/client/src/features/auth/components/ProfileCreateModal.test.tsx packages/client/src/features/auth/components/ProfilePicker.tsx packages/client/src/features/auth/components/ProfilePicker.test.tsx
-git commit -m "feat(auth): ProfileCreateModal + ProfilePicker with 4-child limit UI"
+  it('정상 제출 → onSubmit({ name, avatarId, birthDate }) 호출', async () => {
+    const onSubmit = vi.fn().mockResolvedValue(undefined);
+    render(<ProfileCreateModal open mode="create" onSubmit={onSubmit} onCancel={vi.fn()} />);
+    const input = screen.getByPlaceholderText('이름');
+    fireEvent.change(input, { target: { value: '지민' } });
+    const hori = screen.getByRole('button', { name: /아바타 hori/ });
+    fireEvent.click(hori);
+    const submit = screen.getByRole('button', { name: /저장|만들기|완료/ });
+    fireEvent.click(submit);
+    expect(onSubmit).toHaveBeenCalledWith({
+      name: '지민',
+      avatarId: 'hori',
+      birthDate: null,
+    });
+  });
+});
 ```
 
-### Task 3.4: `ParentGateModal` + `ParentCornerButton`
+- [ ] **Step 2: FAIL 확인 + 구현**
+
+```tsx
+import { useEffect, useState } from 'react';
+import type { ChildProfile, AvatarId } from '@tangobook/shared';
+import { AvatarPicker } from './AvatarPicker';
+import { cn } from '@/lib/cn';
+
+export interface ProfileInput {
+  name: string;
+  avatarId: AvatarId;
+  birthDate: string | null;
+}
+
+interface Props {
+  open: boolean;
+  mode: 'create' | 'edit';
+  initial?: ChildProfile;
+  onSubmit: (input: ProfileInput) => Promise<void>;
+  onCancel: () => void;
+  onDelete?: () => Promise<void>;
+}
+
+export function ProfileCreateModal({ open, mode, initial, onSubmit, onCancel, onDelete }: Props) {
+  const [name, setName] = useState(initial?.name ?? '');
+  const [avatarId, setAvatarId] = useState<AvatarId | null>(initial?.avatarId ?? null);
+  const [birthDate, setBirthDate] = useState(initial?.birthDate ?? '');
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    if (!open) {
+      // 리셋
+      setName(initial?.name ?? '');
+      setAvatarId(initial?.avatarId ?? null);
+      setBirthDate(initial?.birthDate ?? '');
+      setBusy(false);
+    }
+  }, [open, initial]);
+
+  useEffect(() => {
+    if (!open) return;
+    const h = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onCancel();
+    };
+    window.addEventListener('keydown', h);
+    return () => window.removeEventListener('keydown', h);
+  }, [open, onCancel]);
+
+  if (!open) return null;
+
+  const canSubmit = name.trim().length > 0 && !!avatarId && !busy;
+
+  const handleSubmit = async () => {
+    if (!canSubmit || !avatarId) return;
+    setBusy(true);
+    try {
+      await onSubmit({
+        name: name.trim(),
+        avatarId,
+        birthDate: birthDate.trim() === '' ? null : birthDate,
+      });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!onDelete || !initial) return;
+    const ok = window.confirm(
+      `${initial.name} 프로필을 삭제할까요? 학습 기록도 사라져요.`
+    );
+    if (!ok) return;
+    setBusy(true);
+    try {
+      await onDelete();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+      onClick={onCancel}
+    >
+      <div
+        className="bg-white rounded-2xl p-6 max-w-md w-full shadow-pop"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h2 className="text-2xl font-black text-ink-900 mb-4">
+          {mode === 'create' ? '아이 프로필 만들기' : '아이 프로필 편집'}
+        </h2>
+        <div className="space-y-4">
+          <AvatarPicker value={avatarId} onChange={setAvatarId} />
+          <input
+            type="text"
+            placeholder="이름"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            maxLength={10}
+            className="w-full px-4 py-3 rounded-xl border-2 border-ink-100 text-ink-900 text-lg font-bold focus:border-coral-500 outline-none"
+          />
+          <input
+            type="date"
+            value={birthDate}
+            onChange={(e) => setBirthDate(e.target.value)}
+            className="w-full px-4 py-3 rounded-xl border-2 border-ink-100 text-ink-900 text-lg focus:border-coral-500 outline-none"
+          />
+        </div>
+        <div className="flex gap-2 mt-6">
+          <button
+            onClick={onCancel}
+            className="flex-1 py-3 rounded-xl bg-white border-2 border-ink-100 text-ink-900 font-bold"
+          >
+            취소
+          </button>
+          <button
+            onClick={handleSubmit}
+            disabled={!canSubmit}
+            className={cn(
+              'flex-1 py-3 rounded-xl font-black text-white',
+              canSubmit ? 'bg-coral-500 hover:brightness-110' : 'bg-ink-300 cursor-not-allowed'
+            )}
+          >
+            {mode === 'create' ? '만들기' : '저장'}
+          </button>
+        </div>
+        {mode === 'edit' && onDelete && (
+          <button
+            onClick={handleDelete}
+            disabled={busy}
+            className="mt-3 text-danger text-sm font-bold hover:underline w-full text-center"
+          >
+            🗑️ 이 프로필 삭제
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+```
+
+- [ ] **Step 3: 테스트 PASS + typecheck + Commit**
+
+```bash
+pnpm --filter @tangobook/client test -- ProfileCreateModal.test.tsx
+pnpm --filter @tangobook/client typecheck
+git add packages/client/src/features/auth/components/ProfileCreateModal.tsx packages/client/src/features/auth/components/ProfileCreateModal.test.tsx
+git commit -m "feat(auth): ProfileCreateModal with validation + delete confirm + ESC/backdrop"
+```
+
+### Task 3.4: `ProfilePicker` (TDD, 3 tests)
+
+**Files:**
+- Create: `packages/client/src/features/auth/components/ProfilePicker.tsx`
+- Create: `packages/client/src/features/auth/components/ProfilePicker.test.tsx`
+
+**사양**:
+- Props: `{ profiles: ChildProfile[]; onSelect: (p: ChildProfile) => void; onAddNew: () => void; }`
+- `canAddNew = profiles.length < 4`
+- 그리드 `grid grid-cols-2 sm:grid-cols-4 gap-4`
+- 각 카드: `AvatarRender size="lg"` + 이름 + 나이(생년월일 있으면) — 카드 `bg-white rounded-2xl p-4 shadow-soft hover:scale-105`
+- `canAddNew=true`일 때만 `+ 새 아이 추가` 버튼 타일 추가
+- **Empty state** (profiles.length === 0): `onAddNew` 자동 호출 (useEffect). 즉 빈 state는 ProfileCreateModal 자동 오픈
+- 배경 제목 `누가 놀고 있어요?` (`text-3xl font-black text-ink-900 text-center mb-8`)
+
+- [ ] **Step 1: 실패 테스트 작성 (3 tests)**
+
+```tsx
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { ProfilePicker } from './ProfilePicker';
+import type { ChildProfile } from '@tangobook/shared';
+
+const mkProfile = (id: string, name: string): ChildProfile => ({
+  id,
+  accountId: 'acc1',
+  name,
+  avatarId: 'hori',
+  birthDate: null,
+  lastActiveAt: null,
+  createdAt: '2026-04-23T00:00:00Z',
+});
+
+describe('ProfilePicker', () => {
+  it('profiles 3명 + `+ 새 아이 추가` 버튼 렌더', () => {
+    const profiles = [mkProfile('p1', '지민'), mkProfile('p2', '서연'), mkProfile('p3', '민준')];
+    render(<ProfilePicker profiles={profiles} onSelect={vi.fn()} onAddNew={vi.fn()} />);
+    expect(screen.getByText('지민')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /새 아이|추가/ })).toBeInTheDocument();
+  });
+
+  it('profiles 4명 한도 → `+` 버튼 숨김', () => {
+    const profiles = ['p1', 'p2', 'p3', 'p4'].map((id, i) => mkProfile(id, `c${i}`));
+    render(<ProfilePicker profiles={profiles} onSelect={vi.fn()} onAddNew={vi.fn()} />);
+    expect(screen.queryByRole('button', { name: /새 아이|추가/ })).toBeNull();
+  });
+
+  it('카드 탭 → onSelect(profile) 호출', () => {
+    const onSelect = vi.fn();
+    const profiles = [mkProfile('p1', '지민')];
+    render(<ProfilePicker profiles={profiles} onSelect={onSelect} onAddNew={vi.fn()} />);
+    fireEvent.click(screen.getByText('지민').closest('button')!);
+    expect(onSelect).toHaveBeenCalledWith(expect.objectContaining({ id: 'p1' }));
+  });
+});
+```
+
+- [ ] **Step 2: FAIL 확인 + 구현**
+
+```tsx
+import { useEffect } from 'react';
+import type { ChildProfile } from '@tangobook/shared';
+import { AvatarRender } from './AvatarRender';
+
+interface Props {
+  profiles: ChildProfile[];
+  onSelect: (p: ChildProfile) => void;
+  onAddNew: () => void;
+}
+
+function ageFromBirth(birthDate: string | null): string {
+  if (!birthDate) return '';
+  const b = new Date(birthDate);
+  const now = new Date();
+  const diff = now.getFullYear() - b.getFullYear();
+  return `만 ${diff}세`;
+}
+
+export function ProfilePicker({ profiles, onSelect, onAddNew }: Props) {
+  const canAddNew = profiles.length < 4;
+
+  // 빈 state → 자동으로 추가 모달 유도
+  useEffect(() => {
+    if (profiles.length === 0) onAddNew();
+  }, [profiles.length, onAddNew]);
+
+  return (
+    <div className="fixed inset-0 z-40 bg-gradient-to-b from-cream-50 to-peach-100 overflow-auto p-8">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-3xl font-black text-ink-900 text-center mb-8">누가 놀고 있어요?</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {profiles.map((p) => (
+            <button
+              key={p.id}
+              onClick={() => onSelect(p)}
+              className="bg-white rounded-2xl p-4 shadow-soft hover:scale-105 hover:shadow-pop transition-all flex flex-col items-center gap-2"
+            >
+              <AvatarRender id={p.avatarId} size="lg" />
+              <div className="text-xl font-black text-ink-900">{p.name}</div>
+              {p.birthDate && <div className="text-sm text-ink-500">{ageFromBirth(p.birthDate)}</div>}
+            </button>
+          ))}
+          {canAddNew && (
+            <button
+              onClick={onAddNew}
+              aria-label="새 아이 추가"
+              className="bg-white rounded-2xl p-4 shadow-soft hover:scale-105 hover:shadow-pop transition-all flex flex-col items-center justify-center text-5xl text-coral-500 font-black min-h-[160px]"
+            >
+              +
+              <span className="text-sm text-ink-700 mt-2">새 아이 추가</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+- [ ] **Step 3: 테스트 PASS + typecheck + Commit**
+
+```bash
+pnpm --filter @tangobook/client test -- ProfilePicker.test.tsx
+pnpm --filter @tangobook/client typecheck
+git add packages/client/src/features/auth/components/ProfilePicker.tsx packages/client/src/features/auth/components/ProfilePicker.test.tsx
+git commit -m "feat(auth): ProfilePicker grid with 4-child limit + empty-state auto-add"
+```
+
+### Task 3.5: `ParentGateModal` + `ParentCornerButton`
 
 **Files:**
 - Create: `packages/client/src/features/auth/components/ParentGateModal.tsx`
 - Create: `packages/client/src/features/auth/components/ParentCornerButton.tsx`
 
-`ParentGateModal`:
-- Props: `{ open, onClose, onSuccess }`
-- `PinPad` + `useParentGate` 조합
-- `authApi.verifyPin(pin)` 호출 → true면 `unlock()` + `onSuccess()`, false면 `registerFailure()` + shake
+**ParentGateModal 사양**:
+- Props: `{ open: boolean; onClose: () => void; onSuccess: () => void; }`
+- 내부 상태: `error` (boolean, `useParentGate.registerFailure` 직후 true → 500ms 후 false. PinPad가 error prop으로 shake)
+- `useParentGate()` 훅에서 `isLockedOut`, `registerFailure`, `unlock` 사용
+- PIN 입력 flow:
+  1. PinPad `onComplete(pin)` → `authApi.verifyPin(pin)`
+  2. true → `unlock()` + `onSuccess()` (호출자가 modal close + 네비게이션)
+  3. false → `registerFailure()` + `setError(true)` → 500ms 뒤 `setError(false)` (PinPad 자동 clear)
+- `isLockedOut=true`면 PinPad 전체 disabled + **잠금 남은 시간 카운트다운 표시** ("60초 후 다시 시도해주세요")
+- 배경 `fixed inset-0 bg-black/70 backdrop-blur-sm`, 중앙 카드에 호리 `thinking` Mascot + "부모님만 들어올 수 있어요" 텍스트
+- 배경 탭 → `onClose` (모달 닫힘, 잠금 상태 보존)
 
-`ParentCornerButton`:
-- `useAuth` 사용. `isConfigured=false`이면 null 리턴
-- 게스트 상태: `→ /login` navigate
-- 로그인 상태: `ParentGateModal` 열기 → 성공 시 `/parent` navigate
+**구현**:
 
-- [ ] **Step 1~4: 구현 + typecheck + Commit**
+```tsx
+import { useEffect, useState } from 'react';
+import { Mascot } from '@/components/Mascot';
+import { PinPad } from './PinPad';
+import { useParentGate } from '../hooks/useParentGate';
+import { authApi } from '../api/auth.api';
 
-```bash
-git add packages/client/src/features/auth/components/ParentGateModal.tsx packages/client/src/features/auth/components/ParentCornerButton.tsx
-git commit -m "feat(auth): ParentGateModal + ParentCornerButton (PIN verify + /parent entry)"
+interface Props {
+  open: boolean;
+  onClose: () => void;
+  onSuccess: () => void;
+}
+
+export function ParentGateModal({ open, onClose, onSuccess }: Props) {
+  const gate = useParentGate();
+  const [error, setError] = useState(false);
+  const [remainingSec, setRemainingSec] = useState(0);
+
+  // Lockout 카운트다운 표시
+  useEffect(() => {
+    if (!gate.isLockedOut) {
+      setRemainingSec(0);
+      return;
+    }
+    const tick = () => {
+      // useParentGate lockedUntil 직접 읽을 수 없으니 근사치로 60초 카운트
+      setRemainingSec((s) => Math.max(0, s > 0 ? s - 1 : 60));
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [gate.isLockedOut]);
+
+  if (!open) return null;
+
+  const handleComplete = async (pin: string) => {
+    if (gate.isLockedOut) return;
+    try {
+      const ok = await authApi.verifyPin(pin);
+      if (ok) {
+        gate.unlock();
+        onSuccess();
+        return;
+      }
+    } catch {
+      // network 에러 — 오답 취급
+    }
+    gate.registerFailure();
+    setError(true);
+    setTimeout(() => setError(false), 500);
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-2xl p-8 max-w-sm w-full shadow-pop flex flex-col items-center gap-4"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Mascot state="thinking" size="md" character="hori" />
+        <h2 className="text-xl font-black text-ink-900">부모님만 들어올 수 있어요</h2>
+        {gate.isLockedOut ? (
+          <p className="text-danger font-bold text-center">
+            잠깐만 쉬었다 다시 해주세요<br />({remainingSec}초 남음)
+          </p>
+        ) : (
+          <PinPad onComplete={handleComplete} error={error} disabled={gate.isLockedOut} />
+        )}
+        <button onClick={onClose} className="text-ink-500 text-sm font-bold mt-2">
+          닫기
+        </button>
+      </div>
+    </div>
+  );
+}
 ```
 
-### Task 3.5: Chunk 3 sanity
+**ParentCornerButton 사양**:
+- Props: 없음 (내부 `useAuth` + `useNavigate` 사용)
+- 동작:
+  - `isConfigured=false` → `return null`
+  - `!session` (게스트) → `button onClick={() => navigate('/login')}` "🔒 부모"
+  - `session` (로그인) → "👤 부모님 영역" 버튼. 탭 → `ParentGateModal` open. 성공 시 modal close + `navigate('/parent')`
+  - 이미 `parentGate.isUnlocked`면 modal 생략하고 바로 `/parent` navigate (재진입 UX)
+- 스타일: `px-3 py-2 rounded-full bg-white shadow-soft text-ink-900 font-bold text-sm`
 
-- [ ] typecheck · test 전체 PASS (기존 + 신규 ~9 테스트)
+**구현**:
+
+```tsx
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useParentGate } from '../hooks/useParentGate';
+import { ParentGateModal } from './ParentGateModal';
+
+export function ParentCornerButton() {
+  const { isConfigured, session } = useAuth();
+  const gate = useParentGate();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
+  if (!isConfigured) return null;
+
+  const handleClick = () => {
+    if (!session) {
+      navigate('/login');
+      return;
+    }
+    if (gate.isUnlocked) {
+      navigate('/parent');
+      return;
+    }
+    setOpen(true);
+  };
+
+  return (
+    <>
+      <button
+        onClick={handleClick}
+        className="px-3 py-2 rounded-full bg-white shadow-soft text-ink-900 font-bold text-sm hover:shadow-pop"
+      >
+        {session ? '👤 부모님 영역' : '🔒 부모'}
+      </button>
+      <ParentGateModal
+        open={open}
+        onClose={() => setOpen(false)}
+        onSuccess={() => {
+          setOpen(false);
+          navigate('/parent');
+        }}
+      />
+    </>
+  );
+}
+```
+
+- [ ] **Step 1: 두 컴포넌트 구현**
+- [ ] **Step 2: typecheck**
+- [ ] **Step 3: Commit**
+
+```bash
+pnpm --filter @tangobook/client typecheck
+git add packages/client/src/features/auth/components/ParentGateModal.tsx packages/client/src/features/auth/components/ParentCornerButton.tsx
+git commit -m "feat(auth): ParentGateModal (PIN verify + lockout) + ParentCornerButton"
+```
+
+### Task 3.6: Chunk 3 sanity
+
+- [ ] typecheck · test 전체 PASS (기존 + 신규 ~9 테스트 = 3 PinPad + 3 ProfileCreateModal + 3 ProfilePicker)
 
 **🏁 Chunk 3 완료 기준:**
 - [ ] Avatar 시스템·PinPad·ProfileCreateModal·ProfilePicker·ParentGateModal·ParentCornerButton 구현
@@ -1654,12 +2112,193 @@ git commit -m "feat(auth): ParentGateModal + ParentCornerButton (PIN verify + /p
 - Create: `packages/client/src/features/auth/guards/RequireAuthedWithPin.tsx`
 - Create: `packages/client/src/features/auth/guards/RequireAuthedWithPin.test.tsx`
 
-- [ ] **Step 1: 5 테스트 (unauthed·unconfigured·noPin·gateBlocked·pass) + 구현**
-- [ ] **Step 2: Commit**
+**사양 구분**:
+
+**`RequireAuthed`** (세션만 요구):
+- `!isConfigured` → `<Navigate to="/library" replace />` (Supabase 미설정 시 로그인 영역 자체가 존재하지 않음)
+- `!session` → `<Navigate to="/login" replace />`
+- pass → `children` 렌더
+- PIN 검증·Gate 모달 없음
+- 사용처: `/login/callback` (없음 — 자체가 session 수립 지점) · 필요 시 향후 리포트 embed 페이지
+
+**`RequireAuthedWithPin`** (세션 + PIN + Gate 통과):
+- `!isConfigured` → `<Navigate to="/library" replace />`
+- `!session` → `<Navigate to="/login" replace />`
+- `session && !account?.hasPin` → `<SetPinStep onComplete={refresh} />` 인라인 렌더 (라우트 유지, 완료 시 다시 평가)
+- `session && account.hasPin && !gate.isUnlocked` → `<ParentGateModal open onClose={() => navigate('/library')} onSuccess={() => {}} />` 인라인 렌더 (children 대신). 닫으면 라이브러리로
+- 모두 통과 → `children` 렌더
+- 사용처: `/parent/*` 전 구간
+
+**redirect 쿼리**: 이번 스펙에서는 `?next=` 같은 복귀 URL 유지 안 함(YAGNI). 모두 `/login` 또는 `/library`로.
+
+- [ ] **Step 1: 실패 테스트 작성 (5 tests)**
+
+```tsx
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { RequireAuthedWithPin } from './RequireAuthedWithPin';
+import * as authCtx from '../context/AuthContext';
+import * as gateHook from '../hooks/useParentGate';
+
+function setup(mockAuth: Partial<ReturnType<typeof authCtx.useAuth>>, mockGate: Partial<ReturnType<typeof gateHook.useParentGate>>) {
+  vi.spyOn(authCtx, 'useAuth').mockReturnValue({
+    isConfigured: true,
+    loading: false,
+    session: null,
+    account: null,
+    profiles: [],
+    activeProfile: null,
+    setActiveProfile: vi.fn(),
+    refresh: vi.fn(),
+    signOut: vi.fn(),
+    ...mockAuth,
+  } as any);
+  vi.spyOn(gateHook, 'useParentGate').mockReturnValue({
+    isUnlocked: false,
+    isLockedOut: false,
+    failureCount: 0,
+    unlock: vi.fn(),
+    lock: vi.fn(),
+    registerFailure: vi.fn(),
+    ...mockGate,
+  } as any);
+}
+
+describe('RequireAuthedWithPin', () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('isConfigured=false → /library redirect', () => {
+    setup({ isConfigured: false }, {});
+    render(
+      <MemoryRouter initialEntries={['/parent']}>
+        <Routes>
+          <Route path="/parent" element={<RequireAuthedWithPin><div>PROTECTED</div></RequireAuthedWithPin>} />
+          <Route path="/library" element={<div>LIBRARY</div>} />
+          <Route path="/login" element={<div>LOGIN</div>} />
+        </Routes>
+      </MemoryRouter>
+    );
+    expect(screen.getByText('LIBRARY')).toBeInTheDocument();
+  });
+
+  it('unauthed → /login redirect', () => {
+    setup({ session: null }, {});
+    render(
+      <MemoryRouter initialEntries={['/parent']}>
+        <Routes>
+          <Route path="/parent" element={<RequireAuthedWithPin><div>PROTECTED</div></RequireAuthedWithPin>} />
+          <Route path="/login" element={<div>LOGIN</div>} />
+          <Route path="/library" element={<div>LIBRARY</div>} />
+        </Routes>
+      </MemoryRouter>
+    );
+    expect(screen.getByText('LOGIN')).toBeInTheDocument();
+  });
+
+  it('session + hasPin=false → SetPinStep 렌더 (children 차단)', () => {
+    setup({ session: { user: { id: 'u1' } } as any, account: { id: 'u1', hasPin: false } as any }, {});
+    render(
+      <MemoryRouter>
+        <RequireAuthedWithPin><div>PROTECTED</div></RequireAuthedWithPin>
+      </MemoryRouter>
+    );
+    expect(screen.queryByText('PROTECTED')).toBeNull();
+    expect(screen.getByText(/PIN/i)).toBeInTheDocument(); // SetPinStep heading
+  });
+
+  it('session + hasPin + gate.isUnlocked=false → ParentGateModal 렌더', () => {
+    setup(
+      { session: { user: { id: 'u1' } } as any, account: { id: 'u1', hasPin: true } as any },
+      { isUnlocked: false }
+    );
+    render(
+      <MemoryRouter>
+        <RequireAuthedWithPin><div>PROTECTED</div></RequireAuthedWithPin>
+      </MemoryRouter>
+    );
+    expect(screen.queryByText('PROTECTED')).toBeNull();
+    expect(screen.getByText(/부모님만/)).toBeInTheDocument();
+  });
+
+  it('세션 + PIN + gate 통과 → children 렌더', () => {
+    setup(
+      { session: { user: { id: 'u1' } } as any, account: { id: 'u1', hasPin: true } as any },
+      { isUnlocked: true }
+    );
+    render(
+      <MemoryRouter>
+        <RequireAuthedWithPin><div>PROTECTED</div></RequireAuthedWithPin>
+      </MemoryRouter>
+    );
+    expect(screen.getByText('PROTECTED')).toBeInTheDocument();
+  });
+});
+```
+
+- [ ] **Step 2: 구현**
+
+```tsx
+// RequireAuthed.tsx
+import type { ReactNode } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
+export function RequireAuthed({ children }: { children: ReactNode }) {
+  const { isConfigured, session, loading } = useAuth();
+  if (loading) return null;
+  if (!isConfigured) return <Navigate to="/library" replace />;
+  if (!session) return <Navigate to="/login" replace />;
+  return <>{children}</>;
+}
+```
+
+```tsx
+// RequireAuthedWithPin.tsx
+import type { ReactNode } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useParentGate } from '../hooks/useParentGate';
+import { SetPinStep } from '../components/SetPinStep';
+import { ParentGateModal } from '../components/ParentGateModal';
+
+export function RequireAuthedWithPin({ children }: { children: ReactNode }) {
+  const { isConfigured, session, account, loading, refresh } = useAuth();
+  const gate = useParentGate();
+  const navigate = useNavigate();
+
+  if (loading) return null;
+  if (!isConfigured) return <Navigate to="/library" replace />;
+  if (!session) return <Navigate to="/login" replace />;
+  if (!account?.hasPin) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-cream-50 p-4">
+        <SetPinStep onComplete={async () => { await refresh(); }} />
+      </div>
+    );
+  }
+  if (!gate.isUnlocked) {
+    return (
+      <ParentGateModal
+        open
+        onClose={() => navigate('/library')}
+        onSuccess={() => { /* gate 자체가 isUnlocked 를 true로 만들어 이 컴포넌트 재렌더 */ }}
+      />
+    );
+  }
+  return <>{children}</>;
+}
+```
+
+- [ ] **Step 3: 테스트 PASS + Commit**
 
 ```bash
+pnpm --filter @tangobook/client test -- RequireAuthedWithPin.test.tsx
+pnpm --filter @tangobook/client typecheck
 git add packages/client/src/features/auth/guards/
-git commit -m "feat(auth): route guards (RequireAuthed / RequireAuthedWithPin)"
+git commit -m "feat(auth): route guards (RequireAuthed / RequireAuthedWithPin) + 5 tests"
 ```
 
 ### Task 4.2: `LoginPage` + `SignInForm` + `SignUpForm` + `SetPinStep` + `ProfileCreateStep`
@@ -1671,19 +2310,120 @@ git commit -m "feat(auth): route guards (RequireAuthed / RequireAuthedWithPin)"
 - Create: `packages/client/src/features/auth/components/SetPinStep.tsx`
 - Create: `packages/client/src/features/auth/components/ProfileCreateStep.tsx`
 
-LoginPage가 step state 관리 (`'auth' | 'setPin' | 'profile' | 'done'`), 조건부 렌더. session 변경·account 로드마다 step 재계산.
+**LoginPage step 결정 테이블** (session·account·profiles·`?pinReset=1` 입력으로부터 계산):
 
-`SignInForm` / `SignUpForm`: email + password 필드 + Google 버튼. 에러 toast. "PIN 잊었어요" 링크는 SignInForm에 포함 (`authApi.requestPinReset(email)` → 성공 toast).
+| session | account.hasPin | profiles.length | ?pinReset | step |
+|---|---|---|---|---|
+| null | — | — | — | `auth` |
+| exists | false | any | any | `setPin` |
+| exists | true | any | **true** | `setPin` (강제 override) |
+| exists | true | 0 | false | `profile` |
+| exists | true | ≥1 | false | `done` → `/library` navigate |
 
-`SetPinStep`: PinPad 2회 (first, confirm) + 매칭 검증 → `authApi.setPin` → `refresh()` → step 'profile'.
+```tsx
+// LoginPage.tsx 핵심 로직
+import { useEffect, useMemo, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { SignInForm } from './SignInForm';
+import { SignUpForm } from './SignUpForm';
+import { SetPinStep } from './SetPinStep';
+import { ProfileCreateStep } from './ProfileCreateStep';
 
-`ProfileCreateStep`: `AvatarPicker` + 이름 + 생일 → `profilesApi.create` → `setActiveProfile` → step 'done' → `/library` navigate.
+type Step = 'auth' | 'setPin' | 'profile' | 'done';
 
-- [ ] **Step 1~3: 구현 + typecheck + Commit**
+function computeStep(
+  session: unknown,
+  hasPin: boolean | undefined,
+  profileCount: number,
+  pinReset: boolean
+): Step {
+  if (!session) return 'auth';
+  if (pinReset) return 'setPin';
+  if (!hasPin) return 'setPin';
+  if (profileCount === 0) return 'profile';
+  return 'done';
+}
+
+export default function LoginPage() {
+  const { session, account, profiles, loading } = useAuth();
+  const navigate = useNavigate();
+  const [sp, setSp] = useSearchParams();
+  const pinReset = sp.get('pinReset') === '1';
+  const [authMode, setAuthMode] = useState<'signIn' | 'signUp'>('signIn');
+
+  const step: Step = useMemo(
+    () => computeStep(session, account?.hasPin, profiles.length, pinReset),
+    [session, account, profiles.length, pinReset]
+  );
+
+  // step === 'done' → /library
+  useEffect(() => {
+    if (step === 'done') navigate('/library', { replace: true });
+  }, [step, navigate]);
+
+  // pinReset 처리 완료 시 쿼리 비우기
+  useEffect(() => {
+    if (pinReset && step === 'setPin') {
+      // 첫 렌더 후 URL에서 pinReset 제거 (반복 방지)
+      const t = setTimeout(() => {
+        sp.delete('pinReset');
+        setSp(sp, { replace: true });
+      }, 100);
+      return () => clearTimeout(t);
+    }
+  }, [pinReset, step, sp, setSp]);
+
+  if (loading) return null;
+
+  if (step === 'auth') {
+    return authMode === 'signIn' ? (
+      <SignInForm onSwitchToSignUp={() => setAuthMode('signUp')} />
+    ) : (
+      <SignUpForm onSwitchToSignIn={() => setAuthMode('signIn')} />
+    );
+  }
+  if (step === 'setPin') return <SetPinStep />;
+  if (step === 'profile') return <ProfileCreateStep />;
+  return null;
+}
+```
+
+**SignInForm**:
+- Props: `{ onSwitchToSignUp: () => void }`
+- email · password input (both `h-14 text-xl rounded-xl border-2 border-ink-100 focus:border-coral-500`)
+- `로그인` button → `authApi.signIn(email, password)`. 에러 alert.
+- `Google로 계속` button → `authApi.signInWithGoogle()`.
+- 하단 링크 3개:
+  - `회원가입` → `onSwitchToSignUp`
+  - `비밀번호 찾기` → `supabase.auth.resetPasswordForEmail(email)` (간단 toast, 이번 스펙은 별도 페이지 없이 이메일 안내만)
+  - `PIN 잊었어요` → 이메일 입력 prompt → `authApi.requestPinReset(email)` → 성공 toast 고정 ("이메일 보냈어요. 확인해주세요.")
+
+**SignUpForm**:
+- Props: `{ onSwitchToSignIn: () => void }`
+- email · password · password 확인 → 매칭 검증 + `authApi.signUp`. 성공 → "확인 이메일을 보냈어요" toast + SignIn 탭으로 전환
+- `Google로 계속` 버튼
+
+**SetPinStep**:
+- Props 없음 (AuthContext에서 refresh)
+- 로컬 state: `phase: 'first' | 'confirm'`, `firstPin: string | null`, `error: boolean`
+- first → PinPad `onComplete` 받으면 저장 + phase='confirm'
+- confirm → PinPad `onComplete` 값이 firstPin과 match → `authApi.setPin(pin)` → `refresh()` → (LoginPage step 자동 재계산)
+- mismatch → error true 500ms + firstPin=null + phase='first' 되돌림
+- 호리 `thinking` 마스코트 + "부모님만 볼 영역을 보호해요 🔒" 문구
+
+**ProfileCreateStep**:
+- Props 없음
+- `ProfileCreateModal`을 재사용할 수도 있지만 full-screen 느낌이 맞음 — 내부 폼은 `AvatarPicker` + 이름 + 생일 필드만 직접 배치 (모달 아님)
+- 성공 시 `profilesApi.create` → `setActiveProfile(newOne)` → LoginPage의 step이 'done'으로 자동 재계산 → navigate
+
+- [ ] **Step 1: LoginPage + 4개 보조 컴포넌트 구현**
+- [ ] **Step 2: typecheck**
+- [ ] **Step 3: Commit**
 
 ```bash
 git add packages/client/src/features/auth/components/LoginPage.tsx packages/client/src/features/auth/components/SignInForm.tsx packages/client/src/features/auth/components/SignUpForm.tsx packages/client/src/features/auth/components/SetPinStep.tsx packages/client/src/features/auth/components/ProfileCreateStep.tsx
-git commit -m "feat(auth): LoginPage state machine (auth → setPin → profile → done)"
+git commit -m "feat(auth): LoginPage state machine (auth → setPin → profile → done) + forms"
 ```
 
 ### Task 4.3: `/login/callback` (`LoginCallback.tsx`)
@@ -1726,11 +2466,30 @@ export default function LoginCallback() {
 - Modify: `packages/client/src/main.tsx` — `<AuthProvider>` 래핑
 - Modify: `packages/client/src/pages/LibraryPage.tsx` — `<ParentCornerButton>` + `activeProfile` 배지
 
-`ParentHomePage`: 상단 탭 3개 (`📊 학습 리포트` / `👦 자녀` / `⚙️ 설정`). 탭 전환 시 해당 페이지 렌더. 기본은 자녀 탭.
+**`ParentHomePage`**:
+- 상단 네비 탭 3개 (`📊 학습 리포트` / `👦 자녀` / `⚙️ 설정`) — 탭 클릭 시 해당 서브라우트로 navigate (`/parent/reports`·`/parent/profiles`·`/parent/settings`)
+- 기본 진입(`/parent`)은 `/parent/profiles`로 자동 redirect
+- `📊 학습 리포트`(`/parent/reports`)는 이번 스펙 범위 밖 — placeholder: 호리 `sleeping` + "곧 공개돼요 🚧" — 실제 구현은 다음 스펙
+- 우상단 로그아웃 버튼 `🚪` → `useAuth().signOut()` + `/library` navigate
 
-`ParentProfilesPage`: `ProfilePicker` + `ProfileCreateModal` CRUD 연결.
+**`ParentProfilesPage`**:
+- `ProfilePicker`와 UX 비슷하지만 **편집 모드**가 켜진 버전
+- 각 프로필 카드 탭 → `ProfileCreateModal` 편집 모드(`mode='edit'`, `initial=profile`) 오픈
+- modal `onSubmit` → `profilesApi.update(id, input)` + `refresh`
+- modal `onDelete` → `profilesApi.delete(id)` + `refresh` + 삭제한 것이 activeProfile이면 `setActiveProfile(null)`
+- `+ 새 아이 추가` 카드 → modal 생성 모드
+- modal `onSubmit` (create) → `profilesApi.create(...)` + `refresh` + 첫 프로필이면 `setActiveProfile(newOne)`
 
-`ParentSettingsPage`: PIN 변경 (SetPinStep 재사용) + 로그아웃 버튼 + 계정 삭제 (confirm 2단계 → `authApi.deleteAccount`).
+**`ParentSettingsPage`**:
+- 3개 섹션:
+  1. **PIN 변경** — `ChangePinStep` 컴포넌트 (별도 파일). 현재 PIN 확인 → 새 PIN 입력 → 재확인:
+     - Phase 1 `verifyCurrent`: `PinPad` + `authApi.verifyPin(currentPin)`. 틀리면 shake + 재입력. 3회 오답 시 60초 lockout(재사용 `useParentGate.registerFailure`)
+     - Phase 2 `newFirst`: 새 PIN 입력
+     - Phase 3 `newConfirm`: 재입력 → match → `authApi.setPin(newPin)` → refresh → 성공 toast
+  2. **로그아웃** — 버튼 `🚪 로그아웃` → `signOut()` + `/library`
+  3. **계정 삭제** — 위험 구역 빨간 배경. 탭 → 모달 2단계 confirm ("정말 삭제할까요? 모든 자녀 프로필과 학습 기록이 사라져요" → "다시 한 번, 삭제하면 되돌릴 수 없어요"). 둘 다 OK → `authApi.deleteAccount()` → `/library`
+
+> **왜 `SetPinStep` 재사용 안 함**: `SetPinStep`은 신규 설정용이라 현재 PIN 확인 단계가 없음. PIN 변경은 보안상 **현재 PIN 검증 → 새 PIN 설정** 2단계 필수. 별도 `ChangePinStep` 컴포넌트 작성.
 
 - [ ] **Step 1~5: 구현 + typecheck + Commit**
 
@@ -1759,7 +2518,7 @@ git commit -m "feat(auth): /parent/* pages + router wiring + LibraryPage ParentC
 
 ### Task 5.1: 전체 통합 sanity
 
-- [ ] **Step 1: 모든 패키지 typecheck + test + build**
+- [ ] **Step 1: 모든 패키지 typecheck + test + build + lint**
 
 ```bash
 pnpm --filter @tangobook/shared build
@@ -1768,13 +2527,16 @@ pnpm --filter @tangobook/server test
 pnpm --filter @tangobook/client typecheck
 pnpm --filter @tangobook/client test
 pnpm --filter @tangobook/client build
+pnpm --filter @tangobook/remotion build  # (skip if config has no build script — check first)
+pnpm lint                                  # 전 워크스페이스 ESLint
 ```
 Expected:
 - client test 기존 60 + 신규 ~28 = **~88 tests PASS**
 - server test 기존 4 PASS (변경 없음)
 - 전체 build 성공
+- lint 기존 대비 추가 무에러 (기존 remotion 미해결 경고는 그대로 — 이번 스펙 무관)
 
-실패 시 Chunk 5 중단 + 원인 수정 후 재실행.
+실패 시 Chunk 5 중단 + 원인 수정 후 재실행. 기존 pre-existing lint 경고(remotion/src/**)는 이번 스펙 스코프 밖이니 건드리지 않음.
 
 ### Task 5.2: CLAUDE.md 업데이트
 
@@ -1817,7 +2579,86 @@ git commit -m "docs: CLAUDE.md auth/login feature section + env vars"
 - Create: `C:\Users\101024\.claude\projects\C--projects-tangobook\memory\auth-login-complete.md`
 - Modify: `C:\Users\101024\.claude\projects\C--projects-tangobook\memory\MEMORY.md`
 
-- [ ] **Step 1: `auth-login-complete.md` 작성** — Chunk별 요약, 커밋 해시 체인, Supabase 셋업 체크리스트, 이후 스펙과의 연결.
+- [ ] **Step 1: `auth-login-complete.md` 작성**
+
+기존 `viewer-redesign-complete.md`·`games-overhaul-2026-04-23.md` 패턴 따르기. 템플릿:
+
+```markdown
+---
+name: Auth/Login System Complete
+description: Supabase 기반 부모 계정 + 자녀 프로필 + PIN + 마이그레이션 — 학습 리포팅 이니셔티브의 첫 서브시스템
+type: project
+---
+
+## 상태 (2026-04-__ 완료)
+
+뷰어에 로그인 시스템 도입. 게스트 모드 100% 호환. 학습 이벤트 수집·리포트·뱃지는 별도 후속 스펙.
+
+## Chunk 요약
+
+### Chunk 1 — Foundation (commits <hashA> · <hashB> · ...)
+- shared 타입: Account, ChildProfile, AvatarId, LearningEvent
+- Supabase 클라 싱글톤 + isSupabaseConfigured 가드
+- scripts/supabase-setup.sql (테이블·RLS·PIN/delete RPC·트리거 전부)
+- Edge Function reset-pin (Deno, rate-limited)
+
+### Chunk 2 — API + Hooks (commits ...)
+- auth.api · profiles.api supabase wrappers
+- useSession · useCurrentAccount (트리거 race upsert fallback) · useActiveProfile
+- AuthContext (runMigrations 자동 트리거)
+- migrations 플러그인 레지스트리 (7 tests)
+- useParentGate 훅 (5 tests)
+
+### Chunk 3 — UI Components (commits ...)
+- AvatarPicker (8종, hori WebP + 이모지 fallback)
+- PinPad (3 tests)
+- ProfileCreateModal (3 tests)
+- ProfilePicker (3 tests)
+- ParentGateModal · ParentCornerButton
+
+### Chunk 4 — Routes + Pages (commits ...)
+- RequireAuthed · RequireAuthedWithPin 가드 (5 tests)
+- LoginPage 4-step state machine (auth/setPin/profile/done)
+- /login/callback
+- /parent/* (Home·Profiles CRUD·Settings + ChangePinStep)
+- router wiring + AuthProvider + LibraryPage ParentCornerButton
+
+### Chunk 5 — Sanity + Docs (commits ...)
+- typecheck · test (~88) · build · lint PASS
+- CLAUDE.md · memory · 스펙/플랜 완료 배너
+
+## 주요 설계 결정
+
+- **Netflix Kids 모델**: 부모 1 + 자녀 최대 4
+- **선택적 로그인**: 게스트 모드 유지, Supabase env 미설정 시 graceful degradation
+- **PIN 해싱**: pgcrypto DB 함수 (set_pin/verify_pin, SECURITY DEFINER). 클라 메모리에만 순간 평문
+- **마이그레이션**: 플러그인 레지스트리 — 이후 스펙들이 `MIGRATIONS[]`에 1줄 추가로 확장
+- **트리거 race 대응**: `useCurrentAccount`에서 `accounts` upsert fallback
+
+## 알려진 미완 / 후속
+
+- 제거된 아바타 7종 WebP (현재 이모지 fallback)
+- 학습 이벤트 insert 심기 (다음 스펙)
+- 어휘 마스터리 예측 (이후 스펙)
+- `/parent/reports` placeholder 상태
+- Kakao · Apple OAuth (필요 시)
+
+## Supabase 수동 셋업 체크리스트
+
+1. supabase.com 프로젝트 생성 (Seoul 리전 권장)
+2. SQL Editor에 `scripts/supabase-setup.sql` 실행
+3. Auth > Providers: Email, Google OAuth 활성화
+4. Auth > URL Configuration: Site URL + redirect URLs (dev/prod)
+5. Edge Function: `supabase functions deploy reset-pin --no-verify-jwt`
+6. Edge Function env: SUPABASE_URL · SUPABASE_SERVICE_ROLE_KEY · PUBLIC_APP_URL
+7. Railway 환경변수: VITE_SUPABASE_URL · VITE_SUPABASE_ANON_KEY → 재배포
+8. 수동 QA (스펙 §9.4)
+
+## 테스트 요약
+
+- Client: 60 → ~88 PASS (+28: migrations 7 · parentGate 5 · PinPad 3 · ProfileCreateModal 3 · ProfilePicker 3 · guards 5 + 기타)
+- Server: 4 → 4 (변경 없음)
+```
 
 - [ ] **Step 2: `MEMORY.md`에 한 줄 엔트리 추가**
 
@@ -1828,8 +2669,24 @@ See [auth-login-complete.md](auth-login-complete.md) — Supabase 기반 부모�
 
 ### Task 5.4: 스펙·플랜 완료 배너
 
-- [ ] 스펙 상단에 `> **✅ 구현 완료 (YYYY-MM-DD)** — 플랜: ...` 배너 추가
-- [ ] 플랜 상단에도 동일
+- [ ] **Step 1**: `docs/superpowers/specs/2026-04-23-auth-login-design.md` 맨 위 H1 바로 아래에 추가:
+
+```markdown
+> **✅ 구현 완료 (실제 완료일 YYYY-MM-DD로 치환)** — 플랜: `docs/superpowers/plans/2026-04-23-auth-login-plan.md`. 진행 상세: `memory/auth-login-complete.md`.
+```
+
+- [ ] **Step 2**: `docs/superpowers/plans/2026-04-23-auth-login-plan.md` H1 바로 아래에 추가:
+
+```markdown
+> **✅ 구현 완료 (실제 완료일 YYYY-MM-DD로 치환)** — 스펙: `docs/superpowers/specs/2026-04-23-auth-login-design.md`. 진행 상세: `memory/auth-login-complete.md`.
+```
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add docs/superpowers/specs/2026-04-23-auth-login-design.md docs/superpowers/plans/2026-04-23-auth-login-plan.md
+git commit -m "docs: mark auth/login spec+plan complete"
+```
 
 ### Task 5.5: 최종 상태 보고 (사용자 수동 단계 안내)
 
