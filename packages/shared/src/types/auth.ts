@@ -28,23 +28,4 @@ export interface ChildProfile {
   createdAt: string;
 }
 
-export interface LearningEvent {
-  id: string;
-  profileId: string;
-  eventType: string;
-  storybookId: string | null;
-  gameType: string | null;
-  word: string | null;
-  metadata: Record<string, unknown> | null;
-  createdAt: string;
-}
-
-export interface LearningEventInsert {
-  profile_id: string;
-  event_type: string;
-  storybook_id?: string | null;
-  game_type?: string | null;
-  word?: string | null;
-  metadata?: Record<string, unknown> | null;
-  created_at?: string;
-}
+// 학습 이벤트 타입은 `types/learning-events.ts`로 이관 (snake_case + metadata 강타입)

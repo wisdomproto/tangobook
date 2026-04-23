@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase';
-import type { LearningEventInsert } from '@tangobook/shared';
+import type { Lang, LearningEventInsert } from '@tangobook/shared';
 
 interface LocalMigration {
   id: string;
@@ -21,7 +21,7 @@ const MIGRATIONS: LocalMigration[] = [
         event_type: 'word_spoken',
         storybook_id: m[1],
         word,
-        metadata: { lang: m[2], migratedFrom: 'localStorage:v0' },
+        metadata: { lang: m[2] as Lang, migratedFrom: 'localStorage:v0' },
         created_at: entry.lastPlayedAt ?? new Date().toISOString(),
       }));
     },
