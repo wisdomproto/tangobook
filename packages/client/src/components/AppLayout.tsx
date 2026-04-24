@@ -95,12 +95,20 @@ function EditorPanel({ storybookId }: { storybookId: string }) {
 
   const localRef = useRef<Storybook | null>(null);
   const prevIdRef = useRef<string | null>(null);
+  const prevUpdatedAtRef = useRef<string | undefined>(undefined);
   const [tick, setTick] = useState(0);
 
-  // Reset local ref when storybook changes
-  if (storybook && prevIdRef.current !== storybook.id) {
+  // Reset local ref when storybook id changes OR server-side updatedAt bumps
+  // (e.g. analyzeManual, longform render, server-driven mutations that invalidate
+  // the query without going through `onSave`). Without the updatedAt check the
+  // localRef stays stale and the UI only reflects new data after a full reload.
+  if (
+    storybook &&
+    (prevIdRef.current !== storybook.id || prevUpdatedAtRef.current !== storybook.updatedAt)
+  ) {
     localRef.current = structuredClone(storybook);
     prevIdRef.current = storybook.id;
+    prevUpdatedAtRef.current = storybook.updatedAt;
   }
 
   const handleUpdate = useCallback((updater: (draft: Storybook) => void) => {
