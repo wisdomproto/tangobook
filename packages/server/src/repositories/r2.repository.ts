@@ -14,7 +14,50 @@ const STORYBOOK_PREFIX = 'storybook-';
 // ===== In-memory list cache =====
 let listCache: StorybookSummary[] | null = null;
 let listCacheTime = 0;
+let refreshInFlight: Promise<StorybookSummary[]> | null = null;
 const LIST_CACHE_TTL = 5 * 60 * 1000; // 5분
+const LIST_CONCURRENCY = 30; // R2 동시 다운로드 (기존 10 → 30으로 상향)
+
+async function refreshListCacheFromR2(): Promise<StorybookSummary[]> {
+  const t0 = Date.now();
+  const objects = await listR2Objects(STORYBOOK_PREFIX);
+  const jsonObjects = objects.filter((obj) => obj.Key?.endsWith('.json'));
+  const summaries: StorybookSummary[] = [];
+  for (let i = 0; i < jsonObjects.length; i += LIST_CONCURRENCY) {
+    const batch = jsonObjects.slice(i, i + LIST_CONCURRENCY);
+    await Promise.all(
+      batch.map(async (obj) => {
+        try {
+          const buffer = await downloadFromR2(obj.Key!);
+          const sb = JSON.parse(buffer.toString('utf-8')) as Storybook;
+          summaries.push(toSummary(sb));
+        } catch {
+          // 개별 파일 로드 실패 무시
+        }
+      })
+    );
+  }
+  const sorted = summaries.sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+  listCache = sorted;
+  listCacheTime = Date.now();
+  console.warn(`[listStorybooks] refreshed ${sorted.length} items in ${Date.now() - t0}ms`);
+  return sorted;
+}
+
+/** 서버 기동 시 호출 — 첫 사용자 요청 전에 캐시를 미리 채움 */
+export function prewarmStorybookListCache(): void {
+  if (refreshInFlight || listCache) return;
+  refreshInFlight = refreshListCacheFromR2()
+    .catch((err) => {
+      console.warn('[prewarm] listStorybooks failed:', err);
+      return [] as StorybookSummary[];
+    })
+    .finally(() => {
+      refreshInFlight = null;
+    });
+}
 
 function toSummary(sb: Storybook): StorybookSummary {
   const hasAudiobookVideo = sb.audiobookProjects?.some((p) => !!p.youtubeUpload?.videoId) ?? false;
@@ -93,42 +136,32 @@ function normalizeStorybook(sb: Record<string, unknown>): Storybook {
 
 export const R2Repository = {
   async listStorybooks(): Promise<StorybookSummary[]> {
-    // Return cached list if still fresh
-    if (listCache && Date.now() - listCacheTime < LIST_CACHE_TTL) {
+    const now = Date.now();
+    const fresh = listCache && now - listCacheTime < LIST_CACHE_TTL;
+    if (fresh) return listCache!;
+
+    // Stale-while-revalidate: 캐시 있으면 즉시 리턴 + 백그라운드 리프레시
+    if (listCache) {
+      if (!refreshInFlight) {
+        refreshInFlight = refreshListCacheFromR2()
+          .catch((err) => {
+            console.warn('[listStorybooks] background refresh failed:', err);
+            return listCache!;
+          })
+          .finally(() => {
+            refreshInFlight = null;
+          });
+      }
       return listCache;
     }
 
-    const objects = await listR2Objects(STORYBOOK_PREFIX);
-    const summaries: StorybookSummary[] = [];
-
-    const jsonObjects = objects.filter((obj) => obj.Key?.endsWith('.json'));
-
-    // S3 SDK로 직접 읽기 (public URL HTTP 요청 대신) + 동시 요청 10개 제한
-    const CONCURRENCY = 10;
-    for (let i = 0; i < jsonObjects.length; i += CONCURRENCY) {
-      const batch = jsonObjects.slice(i, i + CONCURRENCY);
-      await Promise.all(
-        batch.map(async (obj) => {
-          try {
-            const buffer = await downloadFromR2(obj.Key!);
-            const sb = JSON.parse(buffer.toString('utf-8')) as Storybook;
-            summaries.push(toSummary(sb));
-          } catch {
-            // 개별 파일 로드 실패 무시
-          }
-        })
-      );
+    // 첫 호출: 기다림
+    if (!refreshInFlight) {
+      refreshInFlight = refreshListCacheFromR2().finally(() => {
+        refreshInFlight = null;
+      });
     }
-
-    const sorted = summaries.sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-
-    // Update cache
-    listCache = sorted;
-    listCacheTime = Date.now();
-
-    return sorted;
+    return refreshInFlight;
   },
 
   async getStorybook(id: string): Promise<Storybook | null> {

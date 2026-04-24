@@ -14,6 +14,8 @@ import { TimelineTrack } from './TimelineTrack';
 import { SubtitleStyleModal } from './SubtitleStyleModal';
 import { longformApi } from '../api/longform.api';
 import { settingsApi, type BgmItem } from '@/features/settings/api/settings.api';
+import { useAssetPreloadProgress } from '@/hooks/useAssetPreloadProgress';
+import { AssetLoadingOverlay } from '@/components/AssetLoadingOverlay';
 
 interface TimelineEditorStepProps {
   storybook: Storybook;
@@ -361,12 +363,7 @@ export function TimelineEditorStep({
       </div>
 
       {/* Preview */}
-      <TimelinePreview
-        project={project}
-        currentTime={timeline.currentTime}
-        isPlaying={timeline.isPlaying}
-        getSceneAtTime={timeline.getSceneAtTime}
-      />
+      <LongformPreviewFrame project={project} timeline={timeline} />
 
       {/* Controls */}
       <TimelineControls
@@ -869,6 +866,44 @@ function SelectedSubtitleEditor({
       >
         삭제
       </button>
+    </div>
+  );
+}
+
+interface LongformPreviewFrameProps {
+  project: LongformProject;
+  timeline: ReturnType<typeof useTimeline>;
+}
+
+function LongformPreviewFrame({ project, timeline }: LongformPreviewFrameProps) {
+  const assetUrls = useMemo(() => {
+    const urls: string[] = [];
+    for (const s of project.scenes) {
+      if (s.clipUrl) urls.push(s.clipUrl);
+      if (s.sfxUrl) urls.push(s.sfxUrl);
+      if (s.ttsUrl) urls.push(s.ttsUrl);
+    }
+    if (project.bgmUrl) urls.push(project.bgmUrl);
+    return [...new Set(urls)];
+  }, [project.scenes, project.bgmUrl]);
+
+  const preload = useAssetPreloadProgress(assetUrls);
+
+  return (
+    <div className="relative">
+      <TimelinePreview
+        project={project}
+        currentTime={timeline.currentTime}
+        isPlaying={timeline.isPlaying}
+        getSceneAtTime={timeline.getSceneAtTime}
+      />
+      <AssetLoadingOverlay
+        loaded={preload.loaded}
+        failed={preload.failed}
+        total={preload.total}
+        visible={!preload.done}
+        label="타임라인 프리뷰 준비 중"
+      />
     </div>
   );
 }

@@ -22,6 +22,8 @@ import type { AudiobookRenderProgress } from '../api/audiobook.api';
 import { storybookApi } from '@/features/storybook';
 import { settingsApi } from '@/features/settings/api/settings.api';
 import type { BgmItem } from '@/features/settings/api/settings.api';
+import { useAssetPreloadProgress } from '@/hooks/useAssetPreloadProgress';
+import { AssetLoadingOverlay } from '@/components/AssetLoadingOverlay';
 
 interface AudiobookProjectCardProps {
   project: AudiobookProject;
@@ -758,24 +760,13 @@ export function AudiobookProjectCard({
             {/* 왼쪽: 프리뷰 영상 */}
             <div className="w-full md:w-[45%] md:sticky md:top-4 md:self-start space-y-2">
               {renderData.slides.length > 0 ? (
-                <div className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
-                  {ttsLoading && (
-                    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/70 text-white gap-2">
-                      <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      <span className="text-sm">TTS 로딩 중...</span>
-                    </div>
-                  )}
-                  <Player
-                    component={AudiobookComposition}
-                    inputProps={renderData as AudiobookRenderProps}
-                    durationInFrames={Math.max(totalFrames, 30)}
-                    compositionWidth={resolution.width}
-                    compositionHeight={resolution.height}
-                    fps={30}
-                    controls
-                    style={{ width: '100%' }}
-                  />
-                </div>
+                <AudiobookPreviewFrame
+                  renderData={renderData}
+                  totalFrames={totalFrames}
+                  resolution={resolution}
+                  ttsLoading={ttsLoading}
+                  expanded={expanded}
+                />
               ) : (
                 <div className="text-center py-12 text-slate-400 dark:text-slate-500 text-sm border border-dashed border-slate-200 dark:border-slate-700 rounded-lg">
                   삽화가 있는 페이지가 없습니다
@@ -1885,6 +1876,59 @@ export function AudiobookProjectCard({
           )}
         </div>
       )}
+    </div>
+  );
+}
+
+interface AudiobookPreviewFrameProps {
+  renderData: ReturnType<typeof buildAudiobookRenderData>;
+  totalFrames: number;
+  resolution: { width: number; height: number };
+  ttsLoading: boolean;
+  expanded: boolean;
+}
+
+function AudiobookPreviewFrame({
+  renderData,
+  totalFrames,
+  resolution,
+  ttsLoading,
+  expanded,
+}: AudiobookPreviewFrameProps) {
+  const assetUrls = useMemo(() => {
+    if (!expanded) return [] as string[];
+    const urls: string[] = [];
+    for (const s of renderData.slides) {
+      if (s.imageUrl) urls.push(s.imageUrl);
+      if (s.ttsUrl) urls.push(s.ttsUrl);
+    }
+    if (renderData.cover?.imageUrl) urls.push(renderData.cover.imageUrl);
+    if (renderData.bgmUrl) urls.push(renderData.bgmUrl);
+    return [...new Set(urls)];
+  }, [expanded, renderData.slides, renderData.cover?.imageUrl, renderData.bgmUrl]);
+
+  const preload = useAssetPreloadProgress(assetUrls);
+  const showOverlay = ttsLoading || !preload.done;
+
+  return (
+    <div className="relative rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+      <AssetLoadingOverlay
+        loaded={preload.loaded}
+        failed={preload.failed}
+        total={preload.total}
+        visible={showOverlay}
+        label={ttsLoading ? 'TTS 길이 측정 중' : '미리보기 준비 중'}
+      />
+      <Player
+        component={AudiobookComposition}
+        inputProps={renderData as AudiobookRenderProps}
+        durationInFrames={Math.max(totalFrames, 30)}
+        compositionWidth={resolution.width}
+        compositionHeight={resolution.height}
+        fps={30}
+        controls
+        style={{ width: '100%' }}
+      />
     </div>
   );
 }
