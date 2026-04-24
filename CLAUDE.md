@@ -338,6 +338,12 @@ pnpm --filter shared build
 - 선택 변수: `OPENAI_API_KEY` — 말하기 게임의 Whisper fallback용. 없어도 Web Speech API만으로 동작 (degraded mode)
 - 선택 변수: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` — 로그인/계정 기능 활성화용 (client env). 없으면 게스트 모드만 동작 (graceful degradation). 셋업: `scripts/supabase-setup.sql`을 Supabase SQL Editor에 실행 후 Project Settings > API에서 URL·anon key 복사
 
+## Gemini 모델 설정 (2026-04-24 변경)
+- **Default text model**: `gemini-3.1-pro-preview`. 클라 기본: `DEFAULT_TEXT_MODEL` (shared/constants), 서버 기본: `config.gemini.textModel` (`GEMINI_TEXT_MODEL` env로 override)
+- **자동 폴백**: `generateTextWithGemini`가 overload(503/UNAVAILABLE/429/overloaded/RESOURCE_EXHAUSTED)로 실패하면 `gemini-2.5-flash-lite`로 자동 재시도. 이미 lite면 폴백 없음.
+- retry 래퍼 `withGeminiRetry`: 기본 5회, exp backoff + jitter, 각 시도 120초 타임아웃.
+- `gemini-2.5-flash`는 2026-04-24 시점 상시 과부하 — seed 스크립트·수동 분석 등 배치 작업은 `--model gemini-2.5-flash-lite` 권장
+
 ## 기존 R2 데이터 호환성
 - 기존 211권의 동화책이 R2에 저장되어 있음
 - `shared/types/storybook.ts`의 `Storybook` 인터페이스가 기존 JSON 구조와 호환
@@ -382,11 +388,16 @@ pnpm --filter shared build
   - R2 다운로드 concurrency 30
   - 서버 기동 직후 `prewarmStorybookListCache()` 호출 (fire-and-forget) → 첫 사용자 요청 **23ms** (기존 7.3초)
 - **클라이언트 에셋 프리로드 공용 인프라**:
-  - `hooks/useAssetPreloadProgress(urls)` — URL 배열을 `fetch(url, { cache: 'force-cache' })`로 병렬 프리페치 + loaded/failed 카운터. 이후 `<img>`·`<audio>`·`<video>` 렌더 시 캐시 hit
+  - `hooks/useAssetPreloadProgress(urls)` — 확장자로 audio/video/image 판별 후 `new Audio()`/`<video>`/`new Image()`로 프리로드 (CORS 없이 브라우저 HTTP 캐시 hit). deps는 `[key]`만 — urls 배열 참조 변화로 오캔슬되지 않음. R2 public 버킷에 CORS 규칙 없어도 동작.
+  - `features/audiobook/hooks/useTtsDurations` — 모듈 레벨 `durationCache` Map으로 TTS 길이 probe 결과 영구 캐시. `loading`은 파생 상태(`ttsUrls.some(url => !durationCache.has(url))`) — 컴포넌트 재마운트 시 stuck loading 방지.
   - `components/AssetLoadingOverlay` — "X / Y · NN%" 큰 숫자 + 진행바 (absolute overlay / inline 양쪽 모드)
   - 사용처: `AudiobookProjectCard`(Remotion Player 감싸기, 슬라이드·TTS·커버·BGM) · `TimelineEditorStep`(롱폼 TimelinePreview, clip·SFX·TTS·BGM)
 - **라이브러리 뷰어 카드** (`BookCard.tsx`): `loading="lazy"` + `decoding="async"` + 명시 `width/height` (640×360). 첫 진입 시 viewport 내 이미지만 로드
-- **파닉스 seed 스크립트**: `scripts/seed-phonics-books.mjs` — 한글/영어 커리큘럼 71 unit → phonics Storybook JSON 생성 (R2). AI 영역(이미지/TTS/스토리) 빈값. `--force`로 덮어쓰기
+- **파닉스 seed 스크립트**: `scripts/seed-phonics-books.mjs` — 한글/영어 커리큘럼 71 unit → phonics Storybook 생성 (R2).
+  - **기본 모드**: `POST /api/phonics/generate` 호출해 Gemini가 캐릭터/페이지/플래시카드/챈트/phonicsLesson 등 **텍스트 콘텐츠 자동 생성** (이미지·TTS는 저작도구에서 수동)
+  - `--skeleton`: 기존처럼 AI 없이 빈 껍데기만
+  - 플래그: `--force` (덮어쓰기) / `--concurrency N` (기본 3) / `--only id1,id2` / `--model <name>` (Gemini 모델 override)
+  - `GeneratePhonicsBookRequest`에 seed 용 선택 필드 `id/folder/category/isPublic` 추가 — seed에서 unit.id 그대로 유지하며 AI 생성
 - 상세: `memory/perf-optimizations.md`
 
 ## Learning Reports Feature 구조 (2026-04-23)
@@ -517,6 +528,11 @@ server/src/
 
 ### 롱폼 영상 파이프라인
 1. **프롬프트 분석** (Gemini): 페이지별 영상 프롬프트 생성 + Motion Matching (이전 장면 카메라 참조)
+   - **전체 분석 시작**: AI 경로, `POST /api/longform/analyze` — fire-and-forget + progressMap 폴링
+   - **수동 제작**: AI 없이 TTS 길이·clipDuration·자막 타이밍만 채움 (`analyzeManual` — `POST /api/longform/analyze-manual`). 기존 videoPrompt는 보존. 프리셋 불필요.
+   - progressMap에 `updatedAt` 포함 + 15초마다 하트비트 갱신 (finally에서 clearInterval)
+   - 클라이언트 stale detection: null 1분 지속 또는 활동(progress/step/updatedAt) 15분 멈춤 시 에러 + 폴링 중단
+   - `getAudioDuration`: fetch/ffmpeg 각 15초 타임아웃
 2. **클립 생성** (Grok xAI): image-to-video, "no music/text/subtitles" 자동 포함, 720p
 3. **타임라인 편집**: 트리밍(trimStart/trimEnd), SFX/TTS 오프셋, 장면 순서 드래그, 분할
 4. **렌더링** (네이티브 ffmpeg): Pillow 자막 PNG → ffmpeg overlay → xfade 크로스디졸브 → amix 오디오(SFX/TTS/BGM) → MP4 (MoviePy 제거됨)

@@ -159,12 +159,28 @@ export async function generateTextWithGemini(
   retries = 3,
   model?: string
 ): Promise<string> {
-  const textModel = model ? getGenAI().getGenerativeModel({ model }) : getTextModel();
-  return withGeminiRetry(
-    async () => {
-      const result = await textModel.generateContent(prompt);
-      return result.response.text();
-    },
-    { retries, context: 'Gemini Text' }
-  );
+  const requestedModelName = model ?? config.gemini.textModel;
+  const runWith = (modelName: string) => {
+    const textModel = getGenAI().getGenerativeModel({ model: modelName });
+    return withGeminiRetry(
+      async () => {
+        const result = await textModel.generateContent(prompt);
+        return result.response.text();
+      },
+      { retries, context: `Gemini Text (${modelName})` }
+    );
+  };
+
+  try {
+    return await runWith(requestedModelName);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    const isOverload = /503|UNAVAILABLE|overloaded|high demand|RESOURCE_EXHAUSTED|429/i.test(msg);
+    const fallbackModel = 'gemini-2.5-flash-lite';
+    if (isOverload && requestedModelName !== fallbackModel) {
+      console.warn(`[gemini] ${requestedModelName} 과부하 감지 → ${fallbackModel}로 폴백 시도`);
+      return await runWith(fallbackModel);
+    }
+    throw err;
+  }
 }

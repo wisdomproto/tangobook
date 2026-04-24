@@ -6,9 +6,25 @@ import { execFile } from 'child_process';
 
 const execFileAsync = promisify(execFile);
 
+const FETCH_TIMEOUT_MS = 15_000;
+const FFMPEG_TIMEOUT_MS = 15_000;
+
+async function fetchWithTimeout(url: string, timeoutMs: number) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 /** Get audio duration in seconds from a URL using ffmpeg (most reliable). */
 export async function getAudioDuration(audioUrl: string): Promise<number> {
-  const res = await fetch(audioUrl);
+  const res = await fetchWithTimeout(audioUrl, FETCH_TIMEOUT_MS).catch((err) => {
+    const msg = err instanceof Error ? err.message : String(err);
+    throw new Error(`오디오 다운로드 실패 (${msg}): ${audioUrl}`);
+  });
   if (!res.ok) throw new Error(`Failed to fetch audio: ${res.status}`);
   const buffer = Buffer.from(await res.arrayBuffer());
 
@@ -16,11 +32,9 @@ export async function getAudioDuration(audioUrl: string): Promise<number> {
   try {
     fs.writeFileSync(tmpFile, buffer);
     const ffmpegPath = (await import('ffmpeg-static')).default!;
-    const { stderr } = await execFileAsync(
-      ffmpegPath,
-      ['-i', tmpFile, '-f', 'null', '-'],
-      {}
-    ).catch((err: { stderr?: string }) => ({ stderr: err.stderr ?? '', stdout: '' }));
+    const { stderr } = await execFileAsync(ffmpegPath, ['-i', tmpFile, '-f', 'null', '-'], {
+      timeout: FFMPEG_TIMEOUT_MS,
+    }).catch((err: { stderr?: string }) => ({ stderr: err.stderr ?? '', stdout: '' }));
 
     // Parse "Duration: HH:MM:SS.ss" from ffmpeg output
     const match = stderr.match(/Duration:\s*(\d+):(\d+):(\d+)\.(\d+)/);

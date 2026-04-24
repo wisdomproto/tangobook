@@ -18,8 +18,10 @@ export const longformApi = {
     model?: string;
     excludePages?: number[];
   }) => apiPost<{ message: string }>('/longform/analyze', req),
+  analyzeManual: (req: { storybookId: string; projectId: string; excludePages?: number[] }) =>
+    apiPost<{ message: string }>('/longform/analyze-manual', req),
   getAnalyzeProgress: (projectId: string) =>
-    apiGet<{ progress: number; step: string; error?: string } | null>(
+    apiGet<{ progress: number; step: string; error?: string; updatedAt?: number } | null>(
       `/longform/analyze-progress/${projectId}`
     ),
   analyzeScene: (req: {

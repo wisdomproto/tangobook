@@ -31,6 +31,17 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
   );
   const [error, setError] = useState<string | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const lastActivityRef = useRef<number>(0);
+  const lastSnapshotRef = useRef<{ progress: number; step: string; updatedAt?: number } | null>(
+    null
+  );
+
+  // 얼마나 오래 상태가 멈춰있으면 "분석이 중단됨"으로 간주할지.
+  // Gemini 재시도 최악 ~6분 + 폴백 모델 한 번 더 ~6분 + 여유. 서버 하트비트가
+  // 15초마다 updatedAt을 갱신하므로 실제 작동 중에는 트리거되지 않음.
+  const STALE_THRESHOLD_MS = 15 * 60 * 1000; // 15분
+  // 시작 직후 progress가 null로만 계속 내려오는 경우의 허용 시간.
+  const NULL_START_THRESHOLD_MS = 60 * 1000; // 1분
 
   const stopPolling = useCallback(() => {
     if (pollRef.current) {
@@ -71,6 +82,82 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
     return langs;
   }, [storybook.pages]);
 
+  const startPolling = (onComplete?: () => void) => {
+    stopPolling();
+    const startedAt = Date.now();
+    lastActivityRef.current = startedAt;
+    lastSnapshotRef.current = null;
+    pollRef.current = setInterval(async () => {
+      try {
+        const progress = await longformApi.getAnalyzeProgress(project.id);
+        const now = Date.now();
+
+        // 1) 완전히 null — 서버 재시작 또는 progressMap 만료. 일정 시간 지속되면 중단.
+        if (!progress) {
+          if (
+            now - startedAt > NULL_START_THRESHOLD_MS &&
+            now - lastActivityRef.current > NULL_START_THRESHOLD_MS
+          ) {
+            stopPolling();
+            setError(
+              '서버에서 분석 상태를 받을 수 없습니다. 서버가 재시작됐거나 상태가 만료되었을 수 있습니다. 페이지를 새로고침한 뒤 다시 시도해 주세요.'
+            );
+            setIsAnalyzing(false);
+            setAnalyzeProgress(null);
+          }
+          return;
+        }
+
+        // 활동 감지 — progress 값이나 step이 바뀌었거나 서버 updatedAt이 갱신됐으면 활동으로 간주
+        const prev = lastSnapshotRef.current;
+        const activity =
+          !prev ||
+          prev.progress !== progress.progress ||
+          prev.step !== progress.step ||
+          (progress.updatedAt !== undefined && progress.updatedAt !== prev.updatedAt);
+        if (activity) {
+          lastActivityRef.current = now;
+          lastSnapshotRef.current = {
+            progress: progress.progress,
+            step: progress.step,
+            updatedAt: progress.updatedAt,
+          };
+        }
+
+        setAnalyzeProgress(progress);
+
+        if (progress.progress === -1) {
+          stopPolling();
+          setError(progress.error || progress.step || '분석 실패');
+          setIsAnalyzing(false);
+          setAnalyzeProgress(null);
+          return;
+        }
+
+        if (progress.progress >= 100) {
+          stopPolling();
+          await qc.invalidateQueries({ queryKey: ['storybook', storybook.id] });
+          onComplete?.();
+          setIsAnalyzing(false);
+          setAnalyzeProgress(null);
+          return;
+        }
+
+        // 2) 값이 너무 오래 움직이지 않음 — 서버가 죽었거나 하트비트도 안 뛰는 상태
+        if (now - lastActivityRef.current > STALE_THRESHOLD_MS) {
+          stopPolling();
+          setError(
+            '분석이 오래 진행되지 않아 중단된 것으로 판단했습니다. 다시 시도해 주세요. (Gemini 과부하이거나 서버가 재시작됐을 수 있습니다.)'
+          );
+          setIsAnalyzing(false);
+          setAnalyzeProgress(null);
+        }
+      } catch {
+        // ignore transient polling errors
+      }
+    }, 1500);
+  };
+
   const handleAnalyzeAll = async () => {
     if (!effectivePresetId) {
       setError('프리셋을 선택하세요.');
@@ -81,7 +168,6 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
     setAnalyzeProgress({ progress: 0, step: '분석 시작...' });
 
     try {
-      // Kick off analyze (fire-and-forget on server)
       await longformApi.analyze({
         storybookId: storybook.id,
         projectId: project.id,
@@ -95,35 +181,30 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
       return;
     }
 
-    // Poll until completion (progress === 100) or error (progress === -1)
-    stopPolling();
-    pollRef.current = setInterval(async () => {
-      try {
-        const progress = await longformApi.getAnalyzeProgress(project.id);
-        if (!progress) return;
-        setAnalyzeProgress(progress);
+    startPolling(() => {
+      // AI 분석 완료 시 선택한 프리셋 id를 프로젝트에 저장 (서버도 저장함)
+      onUpdate({ promptPresetId: effectivePresetId });
+    });
+  };
 
-        if (progress.progress === -1) {
-          stopPolling();
-          setError(progress.error || progress.step || '분석 실패');
-          setIsAnalyzing(false);
-          setAnalyzeProgress(null);
-          return;
-        }
+  const handleAnalyzeManual = async () => {
+    setError(null);
+    setIsAnalyzing(true);
+    setAnalyzeProgress({ progress: 0, step: '수동 설정 시작...' });
 
-        if (progress.progress >= 100) {
-          stopPolling();
-          // Server already saved scenes to R2 — refetch storybook to pick them up
-          await qc.invalidateQueries({ queryKey: ['storybook', storybook.id] });
-          // Persist the selected preset id locally (server also saved it)
-          onUpdate({ promptPresetId: effectivePresetId });
-          setIsAnalyzing(false);
-          setAnalyzeProgress(null);
-        }
-      } catch {
-        // ignore transient polling errors
-      }
-    }, 1500);
+    try {
+      await longformApi.analyzeManual({
+        storybookId: storybook.id,
+        projectId: project.id,
+      });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : '수동 설정 실패');
+      setIsAnalyzing(false);
+      setAnalyzeProgress(null);
+      return;
+    }
+
+    startPolling();
   };
 
   return (
@@ -194,7 +275,7 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
 
       {/* 전체 분석 시작 버튼 + 진행률 */}
       <div className="space-y-2">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <Button
             onClick={handleAnalyzeAll}
             disabled={isAnalyzing || !effectivePresetId}
@@ -203,10 +284,19 @@ export function PromptAnalysisStep({ storybook, project, onUpdate }: PromptAnaly
           >
             {isAnalyzing ? '분석 중...' : '전체 분석 시작'}
           </Button>
+          <Button
+            onClick={handleAnalyzeManual}
+            disabled={isAnalyzing}
+            variant="secondary"
+            size="md"
+            title="AI 없이 TTS 길이만 계산해서 각 씬의 길이와 자막 타이밍을 채웁니다"
+          >
+            수동 제작
+          </Button>
           {!isAnalyzing && project.scenes.length > 0 && (
             <span className="text-sm text-slate-500 dark:text-slate-400">
               {project.scenes.filter((s) => s.videoPrompt).length} / {project.scenes.length}개 씬
-              완료
+              프롬프트 있음
             </span>
           )}
         </div>

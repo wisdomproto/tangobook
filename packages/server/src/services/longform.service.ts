@@ -43,6 +43,7 @@ interface ProgressInfo {
   step: string;
   error?: string;
   failed?: string[];
+  updatedAt?: number;
 }
 
 const analyzeProgressMap = new Map<string, ProgressInfo>();
@@ -209,90 +210,212 @@ export const LongformService = {
       if (typeof s.pageNumber === 'number') prevByPage.set(s.pageNumber, s);
     }
 
-    analyzeProgressMap.set(projectId, { progress: 0, step: `분석 시작 (${total}페이지)` });
+    analyzeProgressMap.set(projectId, {
+      progress: 0,
+      step: `분석 시작 (${total}페이지)`,
+      updatedAt: Date.now(),
+    });
+
+    // 하트비트: Gemini 재시도 등으로 오래 걸릴 때 updatedAt만 계속 갱신해서
+    // 클라이언트의 stale detection이 오탐하지 않게 함.
+    const heartbeat = setInterval(() => {
+      const curr = analyzeProgressMap.get(projectId);
+      if (curr) analyzeProgressMap.set(projectId, { ...curr, updatedAt: Date.now() });
+    }, 15_000);
 
     let prevVideoPrompt = '';
 
-    for (let i = 0; i < pages.length; i++) {
-      const page = pages[i];
-      const pageText = getPageText(page, lang);
-      const ttsUrl = getPageTtsUrl(page, lang);
+    try {
+      for (let i = 0; i < pages.length; i++) {
+        const page = pages[i];
+        const pageText = getPageText(page, lang);
+        const ttsUrl = getPageTtsUrl(page, lang);
+
+        analyzeProgressMap.set(projectId, {
+          progress: Math.round((i / total) * 100),
+          step: `페이지 ${i + 1}/${total} 분석 중`,
+          updatedAt: Date.now(),
+        });
+
+        // Calculate clip duration from TTS audio length first (needed for prompt)
+        let ttsDuration: number | undefined;
+        if (ttsUrl) {
+          try {
+            ttsDuration = await getAudioDuration(ttsUrl);
+          } catch {
+            console.warn(`[longform] TTS 길이 측정 실패 page=${page.pageNumber}, 기본값 사용`);
+          }
+        }
+        const clipDuration = ttsDuration
+          ? Math.min(15, Math.max(5, Math.ceil(ttsDuration) + 2))
+          : 10;
+
+        // Generate video prompt via Gemini
+        const geminiPrompt = [
+          systemPrompt ? `[System]\n${systemPrompt}\n` : '',
+          `다음 동화책 페이지를 분석하고, 이 장면을 ${clipDuration}초 영상으로 만들기 위한 영어 영상 프롬프트를 작성해주세요.`,
+          `장면 설명에 카메라 움직임, 조명, 분위기를 포함해주세요.`,
+          prevVideoPrompt
+            ? `이전 장면과의 시각적 연속성을 위해, 이전 장면의 카메라 방향과 움직임을 참고하여 자연스럽게 이어지도록 해주세요.\n[이전 장면 프롬프트]\n${prevVideoPrompt}\n`
+            : '',
+          `중요: 영상에 텍스트, 자막, 말풍선, 음성, 음악이 포함되지 않도록 프롬프트에 "no text, no subtitles, no speech, no voice-over, no music"를 반드시 포함해주세요.`,
+          `\n[페이지 텍스트]\n${pageText}`,
+          page.scene_description ? `\n[장면 묘사]\n${page.scene_description}` : '',
+          page.illustrationUrl ? `\n[삽화 URL]\n${page.illustrationUrl}` : '',
+          `\n영상 프롬프트만 출력해주세요 (다른 설명 없이):`,
+        ]
+          .filter(Boolean)
+          .join('\n');
+
+        const videoPrompt = await generateTextWithGemini(geminiPrompt, 3, model);
+
+        // Split text into sentences for subtitles
+        const sentences = splitSentences(pageText);
+        const subtitles = buildSubtitles(sentences, clipDuration);
+
+        const trimmedPrompt = videoPrompt.trim();
+        prevVideoPrompt = trimmedPrompt;
+
+        const prev = prevByPage.get(page.pageNumber);
+
+        scenes.push({
+          id: prev?.id ?? crypto.randomUUID(),
+          pageNumber: page.pageNumber,
+          videoPrompt: trimmedPrompt,
+          clipDuration,
+          sfxVolume: prev?.sfxVolume ?? 60,
+          ttsUrl,
+          ttsVolume: prev?.ttsVolume ?? 70,
+          ttsDuration,
+          subtitles,
+          order: i,
+          // 기존 생성물 + 편집 정보 보존 (언어별 재분석 시 클립 재사용)
+          clipUrl: prev?.clipUrl,
+          clipHistory: prev?.clipHistory,
+          trimStart: prev?.trimStart,
+          trimEnd: prev?.trimEnd,
+          sfxUrl: prev?.sfxUrl,
+          sfxOffset: prev?.sfxOffset,
+          ttsOffset: prev?.ttsOffset,
+        });
+      }
+
+      // Update project with analyzed scenes
+      project.scenes = scenes;
+      if (presetId) project.promptPresetId = presetId;
+      await R2Repository.saveStorybook(storybook);
 
       analyzeProgressMap.set(projectId, {
-        progress: Math.round((i / total) * 100),
-        step: `페이지 ${i + 1}/${total} 분석 중`,
+        progress: 100,
+        step: '분석 완료',
+        updatedAt: Date.now(),
       });
+      setTimeout(() => analyzeProgressMap.delete(projectId), 30_000);
 
-      // Calculate clip duration from TTS audio length first (needed for prompt)
-      let ttsDuration: number | undefined;
-      if (ttsUrl) {
-        try {
-          ttsDuration = await getAudioDuration(ttsUrl);
-        } catch {
-          console.warn(`[longform] TTS 길이 측정 실패 page=${page.pageNumber}, 기본값 사용`);
-        }
-      }
-      const clipDuration = ttsDuration ? Math.min(15, Math.max(5, Math.ceil(ttsDuration) + 2)) : 10;
+      return project;
+    } finally {
+      clearInterval(heartbeat);
+    }
+  },
 
-      // Generate video prompt via Gemini
-      const geminiPrompt = [
-        systemPrompt ? `[System]\n${systemPrompt}\n` : '',
-        `다음 동화책 페이지를 분석하고, 이 장면을 ${clipDuration}초 영상으로 만들기 위한 영어 영상 프롬프트를 작성해주세요.`,
-        `장면 설명에 카메라 움직임, 조명, 분위기를 포함해주세요.`,
-        prevVideoPrompt
-          ? `이전 장면과의 시각적 연속성을 위해, 이전 장면의 카메라 방향과 움직임을 참고하여 자연스럽게 이어지도록 해주세요.\n[이전 장면 프롬프트]\n${prevVideoPrompt}\n`
-          : '',
-        `중요: 영상에 텍스트, 자막, 말풍선, 음성, 음악이 포함되지 않도록 프롬프트에 "no text, no subtitles, no speech, no voice-over, no music"를 반드시 포함해주세요.`,
-        `\n[페이지 텍스트]\n${pageText}`,
-        page.scene_description ? `\n[장면 묘사]\n${page.scene_description}` : '',
-        page.illustrationUrl ? `\n[삽화 URL]\n${page.illustrationUrl}` : '',
-        `\n영상 프롬프트만 출력해주세요 (다른 설명 없이):`,
-      ]
-        .filter(Boolean)
-        .join('\n');
+  // ----- Manual setup (no AI) — probe TTS durations and rebuild subtitle timing only -----
+  async analyzeManual(
+    storybookId: string,
+    projectId: string,
+    excludePages?: number[]
+  ): Promise<LongformProject> {
+    const storybook = await loadStorybook(storybookId);
+    const project = loadProject(storybook, projectId);
+    const allPages = storybook.pages ?? [];
+    const pages = excludePages?.length
+      ? allPages.filter((p) => !excludePages.includes(p.pageNumber))
+      : allPages;
 
-      const videoPrompt = await generateTextWithGemini(geminiPrompt, 3, model);
+    const lang = project.language ?? 'ko';
+    const scenes: LongformScene[] = [];
+    const total = pages.length;
 
-      // Split text into sentences for subtitles
-      const sentences = splitSentences(pageText);
-      const subtitles = buildSubtitles(sentences, clipDuration);
-
-      const trimmedPrompt = videoPrompt.trim();
-      prevVideoPrompt = trimmedPrompt;
-
-      const prev = prevByPage.get(page.pageNumber);
-
-      scenes.push({
-        id: prev?.id ?? crypto.randomUUID(),
-        pageNumber: page.pageNumber,
-        videoPrompt: trimmedPrompt,
-        clipDuration,
-        sfxVolume: prev?.sfxVolume ?? 60,
-        ttsUrl,
-        ttsVolume: prev?.ttsVolume ?? 70,
-        ttsDuration,
-        subtitles,
-        order: i,
-        // 기존 생성물 + 편집 정보 보존 (언어별 재분석 시 클립 재사용)
-        clipUrl: prev?.clipUrl,
-        clipHistory: prev?.clipHistory,
-        trimStart: prev?.trimStart,
-        trimEnd: prev?.trimEnd,
-        sfxUrl: prev?.sfxUrl,
-        sfxOffset: prev?.sfxOffset,
-        ttsOffset: prev?.ttsOffset,
-      });
+    const prevByPage = new Map<number, LongformScene>();
+    for (const s of project.scenes ?? []) {
+      if (typeof s.pageNumber === 'number') prevByPage.set(s.pageNumber, s);
     }
 
-    // Update project with analyzed scenes
-    project.scenes = scenes;
-    if (presetId) project.promptPresetId = presetId;
-    await R2Repository.saveStorybook(storybook);
+    analyzeProgressMap.set(projectId, {
+      progress: 0,
+      step: `수동 설정 시작 (${total}페이지)`,
+      updatedAt: Date.now(),
+    });
 
-    analyzeProgressMap.set(projectId, { progress: 100, step: '분석 완료' });
-    setTimeout(() => analyzeProgressMap.delete(projectId), 30_000);
+    const heartbeat = setInterval(() => {
+      const curr = analyzeProgressMap.get(projectId);
+      if (curr) analyzeProgressMap.set(projectId, { ...curr, updatedAt: Date.now() });
+    }, 15_000);
 
-    return project;
+    try {
+      for (let i = 0; i < pages.length; i++) {
+        const page = pages[i];
+        const pageText = getPageText(page, lang);
+        const ttsUrl = getPageTtsUrl(page, lang);
+
+        analyzeProgressMap.set(projectId, {
+          progress: Math.round((i / total) * 100),
+          step: `페이지 ${i + 1}/${total} TTS 길이 측정 중`,
+          updatedAt: Date.now(),
+        });
+
+        let ttsDuration: number | undefined;
+        if (ttsUrl) {
+          try {
+            ttsDuration = await getAudioDuration(ttsUrl);
+          } catch {
+            console.warn(`[longform] TTS 길이 측정 실패 page=${page.pageNumber}, 기본값 사용`);
+          }
+        }
+        const clipDuration = ttsDuration
+          ? Math.min(15, Math.max(5, Math.ceil(ttsDuration) + 2))
+          : 10;
+
+        const sentences = splitSentences(pageText);
+        const subtitles = buildSubtitles(sentences, clipDuration);
+
+        const prev = prevByPage.get(page.pageNumber);
+
+        scenes.push({
+          id: prev?.id ?? crypto.randomUUID(),
+          pageNumber: page.pageNumber,
+          // AI 없이 수동 설정 — 기존 프롬프트가 있으면 보존, 없으면 빈 값 (사용자가 직접 입력)
+          videoPrompt: prev?.videoPrompt ?? '',
+          clipDuration,
+          sfxVolume: prev?.sfxVolume ?? 60,
+          ttsUrl,
+          ttsVolume: prev?.ttsVolume ?? 70,
+          ttsDuration,
+          subtitles,
+          order: i,
+          clipUrl: prev?.clipUrl,
+          clipHistory: prev?.clipHistory,
+          trimStart: prev?.trimStart,
+          trimEnd: prev?.trimEnd,
+          sfxUrl: prev?.sfxUrl,
+          sfxOffset: prev?.sfxOffset,
+          ttsOffset: prev?.ttsOffset,
+        });
+      }
+
+      project.scenes = scenes;
+      await R2Repository.saveStorybook(storybook);
+
+      analyzeProgressMap.set(projectId, {
+        progress: 100,
+        step: '수동 설정 완료',
+        updatedAt: Date.now(),
+      });
+      setTimeout(() => analyzeProgressMap.delete(projectId), 30_000);
+
+      return project;
+    } finally {
+      clearInterval(heartbeat);
+    }
   },
 
   // ----- Analyze single scene -----
@@ -557,7 +680,12 @@ export const LongformService = {
 
   // ----- Set analyze error (called from controller catch) -----
   setAnalyzeError(projectId: string, message: string) {
-    analyzeProgressMap.set(projectId, { progress: -1, step: '분석 실패', error: message });
+    analyzeProgressMap.set(projectId, {
+      progress: -1,
+      step: '분석 실패',
+      error: message,
+      updatedAt: Date.now(),
+    });
     setTimeout(() => analyzeProgressMap.delete(projectId), 30_000);
   },
 

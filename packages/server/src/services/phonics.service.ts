@@ -416,7 +416,20 @@ function buildKoreanBlending(
 
 export const PhonicsService = {
   async generate(req: GeneratePhonicsBookRequest): Promise<Storybook> {
-    const { title, targetAge, artStyle, language, level, unitId, referenceContent, model } = req;
+    const {
+      title,
+      targetAge,
+      artStyle,
+      language,
+      level,
+      unitId,
+      referenceContent,
+      model,
+      id: overrideId,
+      folder,
+      category,
+      isPublic,
+    } = req;
     const { levelInfo, unit } = lookupUnit(language, level, unitId);
 
     const prompt = buildPhonicsPrompt(req, levelInfo, unit);
@@ -440,12 +453,15 @@ export const PhonicsService = {
     }
 
     const storybook: Storybook = {
-      id: Date.now().toString(),
+      id: overrideId ?? Date.now().toString(),
       type: 'phonics',
       title,
       targetAge,
       artStyle,
       referenceContent,
+      ...(folder !== undefined ? { folder } : {}),
+      ...(category !== undefined ? { category } : {}),
+      ...(isPublic !== undefined ? { isPublic } : {}),
       createdAt: new Date().toISOString(),
       // 기본 콘텐츠
       characters: parsed.characters ?? [],

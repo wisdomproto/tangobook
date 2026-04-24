@@ -89,7 +89,7 @@ export const TEXT_MODELS = [
   },
 ] as const;
 export type TextModelId = (typeof TEXT_MODELS)[number]['id'];
-export const DEFAULT_TEXT_MODEL = 'gemini-2.5-flash' satisfies TextModelId;
+export const DEFAULT_TEXT_MODEL = 'gemini-3.1-pro-preview' satisfies TextModelId;
 
 export const MAX_IMAGE_HISTORY = 10;
 export const MAX_FILE_SIZE_MB = 5;

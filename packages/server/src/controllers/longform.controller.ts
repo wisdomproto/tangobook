@@ -25,6 +25,19 @@ export const LongformController = {
     res.json({ success: true, data: progress });
   },
 
+  analyzeManual: asyncHandler(async (req: Request, res: Response) => {
+    const { storybookId, projectId, excludePages } = req.body;
+    // Fire and forget — 클라이언트는 /analyze-progress 폴링
+    LongformService.analyzeManual(storybookId, projectId, excludePages).catch((err) => {
+      console.error('[longform] analyzeManual error:', err);
+      LongformService.setAnalyzeError(
+        projectId,
+        err instanceof Error ? err.message : '수동 설정 실패'
+      );
+    });
+    res.json({ success: true, data: { message: '수동 설정이 시작되었습니다.' } });
+  }),
+
   analyzeScene: asyncHandler(async (req: Request, res: Response) => {
     const { storybookId, projectId, sceneId, promptPresetId, model } = req.body;
     const result = await LongformService.analyzeScene(

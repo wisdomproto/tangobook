@@ -6,7 +6,7 @@ export const config = {
 
   gemini: {
     apiKey: process.env.GEMINI_API_KEY ?? '',
-    textModel: process.env.GEMINI_TEXT_MODEL ?? 'gemini-2.5-flash',
+    textModel: process.env.GEMINI_TEXT_MODEL ?? 'gemini-3.1-pro-preview',
     imageModel: process.env.GEMINI_IMAGE_MODEL ?? 'gemini-3.1-flash-image-preview',
     ttsModel: process.env.GEMINI_TTS_MODEL ?? 'gemini-2.5-flash-preview-tts',
     ttsVoice: process.env.GEMINI_TTS_VOICE ?? 'Leda',

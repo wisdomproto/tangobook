@@ -62,6 +62,11 @@ export interface GeneratePhonicsBookRequest {
   storyTheme?: string; // 동화 테마
   referenceContent?: string;
   model?: string;
+  // 시드/배치 생성용 override (일반 UI 호출에서는 지정하지 않음)
+  id?: string;
+  folder?: string;
+  category?: string;
+  isPublic?: boolean;
 }
 
 // 오디오북 생성 요청/응답

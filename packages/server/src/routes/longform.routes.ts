@@ -7,6 +7,7 @@ const router = Router();
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 50 * 1024 * 1024 } });
 
 router.post('/analyze', LongformController.analyze);
+router.post('/analyze-manual', LongformController.analyzeManual);
 router.get('/analyze-progress/:projectId', LongformController.getAnalyzeProgress);
 router.post('/analyze-scene', LongformController.analyzeScene);
 router.post('/generate-clip', LongformController.generateClip);
