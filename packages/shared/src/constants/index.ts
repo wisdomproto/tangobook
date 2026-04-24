@@ -2,11 +2,12 @@ export const TARGET_AGES = ['4-5', '5-7', '7-8'] as const;
 export type TargetAge = (typeof TARGET_AGES)[number];
 
 export const ART_STYLES = [
-  { id: 'modern-illustration', label: '현대 일러스트', prompt: 'Modern Illustration' },
+  { id: 'photographic', label: '실사', prompt: 'Photographic realistic illustration' },
   { id: 'watercolor', label: '수채화', prompt: 'Watercolor' },
   { id: 'cartoon', label: '카툰', prompt: 'Cartoon' },
   { id: 'traditional', label: '전통 동화책', prompt: 'Traditional Storybook' },
   { id: 'animation', label: '애니메이션', prompt: 'Animation' },
+  { id: 'modern-illustration', label: '현대 일러스트', prompt: 'Modern Illustration' },
   { id: 'oil-painting', label: '유화', prompt: 'Oil Painting' },
   { id: 'pencil-sketch', label: '연필 스케치', prompt: 'Pencil Sketch' },
 ] as const;
