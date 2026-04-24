@@ -14,6 +14,7 @@
   .badge-L2 { background: #dbeafe; color: #1e40af; }
   .badge-L3 { background: #dcfce7; color: #166534; }
   .badge-L4 { background: #fce7f3; color: #9f1239; }
+  .badge-launch { outline: 2px solid #ff5e3a; outline-offset: 1px; }
   .prio-1 { background: #fee2e2; color: #991b1b; font-weight: 700; }
   .prio-2 { background: #fef9c3; color: #854d0e; font-weight: 600; }
   .prio-3 { background: #e0e7ff; color: #3730a3; font-weight: 500; }
@@ -28,29 +29,36 @@
   .art-animation { background: #ccfbf1; color: #115e59; }
   .pr-bar { height: 8px; border-radius: 4px; overflow: hidden; background: #f3f4f6; }
   table { font-size: 13px; }
-  th { background: #fef3ed; font-weight: 700; padding: 8px 10px; position: sticky; top: 0; }
+  th { background: #fef3ed; font-weight: 700; padding: 8px 10px; position: sticky; top: 0; z-index: 2; }
   td { padding: 6px 10px; border-bottom: 1px solid #f3f4f6; vertical-align: middle; }
   tbody tr:hover { background: #fff8f3; }
+  .phase-pill { display: inline-block; padding: 1px 5px; border-radius: 8px; font-size: 10px; margin: 0 2px; }
+  .phase-col { min-width: 60px; text-align: center; }
+  .phase-empty { color: #cbd5e1; }
+  .ph-1 { background: #dcfce7; color: #14532d; }
+  .ph-2 { background: #dbeafe; color: #1e3a8a; }
+  .ph-3 { background: #e0e7ff; color: #312e81; }
+  .ph-4 { background: #f3e8ff; color: #581c87; }
+  .ph-5 { background: #fce7f3; color: #831843; }
 </style>
 </head>
 <body class="bg-orange-50">
 
-<!-- ===== HEADER ===== -->
-<header class="bg-gradient-to-r from-coral-500 to-orange-500 text-white" style="background: linear-gradient(to right, #ff5e3a, #fb923c);">
+<header style="background: linear-gradient(to right, #ff5e3a, #fb923c);" class="text-white">
   <div class="max-w-7xl mx-auto px-6 py-5">
     <h1 class="text-3xl font-black">📚 탱고북 커리큘럼 마스터</h1>
     <p class="text-sm opacity-90 mt-1">3~7세 필수 동화 완결형 커리큘럼 · 2026-04-24</p>
   </div>
 </header>
 
-<!-- ===== TABS ===== -->
-<nav class="bg-white shadow-sm sticky top-0 z-10">
+<nav class="bg-white shadow-sm sticky top-0 z-20">
   <div class="max-w-7xl mx-auto px-6 flex gap-2 py-2 overflow-x-auto">
     <button class="tab px-5 py-2 rounded-full text-sm font-bold transition" data-tab="dashboard">📊 대시보드</button>
     <button class="tab px-5 py-2 rounded-full text-sm font-bold transition" data-tab="classic">🏰 세계명작</button>
     <button class="tab px-5 py-2 rounded-full text-sm font-bold transition" data-tab="nature">🌿 자연관찰</button>
     <button class="tab px-5 py-2 rounded-full text-sm font-bold transition" data-tab="folktale">🏯 전래동화</button>
     <button class="tab px-5 py-2 rounded-full text-sm font-bold transition" data-tab="life">🏠 생활동화</button>
+    <button class="tab px-5 py-2 rounded-full text-sm font-bold transition" data-tab="timeline">⏱️ 제작 타임라인</button>
     <button class="tab px-5 py-2 rounded-full text-sm font-bold transition" data-tab="roadmap">🗺️ 로드맵</button>
   </div>
 </nav>
@@ -60,87 +68,22 @@
 <!-- ===== 대시보드 ===== -->
 <section id="tab-dashboard" class="tab-content">
   <h2 class="text-2xl font-black text-slate-900 mb-4">Phase 1 런칭 현황</h2>
-
-  <!-- 총 요약 카드 -->
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-    <div class="bg-white rounded-xl p-5 shadow">
-      <div class="text-xs text-slate-500">런칭 권수</div>
-      <div class="text-3xl font-black text-coral-500" style="color:#ff5e3a;">143</div>
-    </div>
-    <div class="bg-white rounded-xl p-5 shadow">
-      <div class="text-xs text-slate-500">런칭 variations</div>
-      <div class="text-3xl font-black text-indigo-500">243</div>
-    </div>
-    <div class="bg-white rounded-xl p-5 shadow">
-      <div class="text-xs text-slate-500">기존 보유</div>
-      <div class="text-3xl font-black text-green-600">135</div>
-      <div class="text-xs text-slate-400">56%</div>
-    </div>
-    <div class="bg-white rounded-xl p-5 shadow">
-      <div class="text-xs text-slate-500">신규 제작 필요</div>
-      <div class="text-3xl font-black text-orange-500">108</div>
-      <div class="text-xs text-slate-400">44%</div>
-    </div>
+    <div class="bg-white rounded-xl p-5 shadow"><div class="text-xs text-slate-500">런칭 권수</div><div class="text-3xl font-black" style="color:#ff5e3a;">143</div></div>
+    <div class="bg-white rounded-xl p-5 shadow"><div class="text-xs text-slate-500">런칭 variations</div><div class="text-3xl font-black text-indigo-500">243</div></div>
+    <div class="bg-white rounded-xl p-5 shadow"><div class="text-xs text-slate-500">기존 보유</div><div class="text-3xl font-black text-green-600">135</div><div class="text-xs text-slate-400">56%</div></div>
+    <div class="bg-white rounded-xl p-5 shadow"><div class="text-xs text-slate-500">신규 제작 필요</div><div class="text-3xl font-black text-orange-500">108</div><div class="text-xs text-slate-400">44%</div></div>
   </div>
-
-  <!-- 카테고리별 Phase 1 현황 -->
   <h3 class="text-lg font-bold mb-3">카테고리별 Phase 1 완성도</h3>
-  <div class="bg-white rounded-xl p-5 shadow mb-6">
-    <div id="dashProgress" class="space-y-3"></div>
-  </div>
-
-  <!-- Phase 로드맵 요약 -->
-  <h3 class="text-lg font-bold mb-3">Phase 로드맵 (요약)</h3>
-  <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-6">
-    <div class="bg-white border-l-4 border-green-500 rounded-lg p-4 shadow-sm">
-      <div class="text-xs text-slate-400">T0 · Launch</div>
-      <div class="font-bold text-slate-800 mt-1">Phase 1</div>
-      <div class="text-xs text-slate-600 mt-2">1레벨 · 평균 1.7 삽화 · 143권 · 243 variations</div>
-    </div>
-    <div class="bg-white border-l-4 border-blue-500 rounded-lg p-4 shadow-sm">
-      <div class="text-xs text-slate-400">+3~6개월</div>
-      <div class="font-bold text-slate-800 mt-1">Phase 2</div>
-      <div class="text-xs text-slate-600 mt-2">Top 20 L2 · 동물·공룡 +수채 · 생활동화 6권</div>
-    </div>
-    <div class="bg-white border-l-4 border-indigo-500 rounded-lg p-4 shadow-sm">
-      <div class="text-xs text-slate-400">+6~12개월</div>
-      <div class="font-bold text-slate-800 mt-1">Phase 3</div>
-      <div class="text-xs text-slate-600 mt-2">L4 졸업판 · 세계명작 +애니 · 우리몸·지구</div>
-    </div>
-    <div class="bg-white border-l-4 border-purple-500 rounded-lg p-4 shadow-sm">
-      <div class="text-xs text-slate-400">+12~18개월</div>
-      <div class="font-bold text-slate-800 mt-1">Phase 4</div>
-      <div class="text-xs text-slate-600 mt-2">L1 대량 확장 · 전래동화 한국 · 3스타일</div>
-    </div>
-    <div class="bg-white border-l-4 border-pink-500 rounded-lg p-4 shadow-sm">
-      <div class="text-xs text-slate-400">+18개월~</div>
-      <div class="font-bold text-slate-800 mt-1">Phase 5+</div>
-      <div class="text-xs text-slate-600 mt-2">글로벌 진출 · 국가별 전래 · 4스타일 풀</div>
-    </div>
-  </div>
-
-  <!-- 신규 제작 To-Do -->
-  <h3 class="text-lg font-bold mb-3">🔥 런칭까지 할 일 (Phase 1)</h3>
-  <div class="bg-white rounded-xl shadow overflow-hidden">
-    <table class="w-full">
-      <thead><tr><th>#</th><th>작업</th><th>단위</th><th>우선</th><th>방식</th></tr></thead>
-      <tbody>
-        <tr><td>1</td><td>세계명작 작업중 15권 L3 완성</td><td class="text-right font-mono">15</td><td><span class="prio-1 px-2 py-0.5 rounded">1</span></td><td>저작도구</td></tr>
-        <tr><td>2</td><td>세계명작 신규 5권 (어린왕자·소공녀·플란다스·피터팬·미녀와 야수)</td><td class="text-right font-mono">5</td><td><span class="prio-1 px-2 py-0.5 rounded">1</span></td><td>저작도구+AI</td></tr>
-        <tr><td>3</td><td>세계명작 50권 × 추가 삽화 2종 (카툰·전통)</td><td class="text-right font-mono">100</td><td><span class="prio-1 px-2 py-0.5 rounded">1</span></td><td>AI 일괄</td></tr>
-        <tr><td>4</td><td>자연관찰 우주 3권 신규 (지구·우주탐험·유성혜성)</td><td class="text-right font-mono">3</td><td><span class="prio-2 px-2 py-0.5 rounded">2</span></td><td>저작도구</td></tr>
-        <tr><td>5</td><td>자연관찰 95권 readingLevel 태깅 + folder=완성</td><td class="text-right font-mono">메타</td><td><span class="prio-2 px-2 py-0.5 rounded">2</span></td><td>스크립트</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <div class="bg-white rounded-xl p-5 shadow mb-6"><div id="dashProgress" class="space-y-3"></div></div>
+  <h3 class="text-lg font-bold mb-3">Phase별 variation 총량</h3>
+  <div class="bg-white rounded-xl p-5 shadow mb-6"><div id="phaseVariations" class="space-y-3"></div></div>
 </section>
 
 <!-- ===== 세계명작 ===== -->
 <section id="tab-classic" class="tab-content hidden">
   <h2 class="text-2xl font-black text-slate-900 mb-2">🏰 세계명작 (목표 50권)</h2>
-  <p class="text-sm text-slate-600 mb-4">런칭 삽화: <span class="art-chip art-watercolor">수채화</span><span class="art-chip art-cartoon">카툰</span><span class="art-chip art-traditional">전통동화</span> (3종 고정)</p>
-
-  <!-- 필터 -->
+  <p class="text-sm text-slate-600 mb-4">삽화 Phase: P1 <span class="art-chip art-watercolor">수채화</span><span class="art-chip art-cartoon">카툰</span><span class="art-chip art-traditional">전통동화</span> · P3 <span class="art-chip art-animation">+애니메이션</span></p>
   <div class="bg-white p-3 rounded-lg shadow-sm mb-4 flex flex-wrap gap-2 items-center">
     <label class="text-xs font-semibold text-slate-600">우선순위:</label>
     <select class="border rounded px-2 py-1 text-sm" id="filterPrio">
@@ -151,20 +94,17 @@
       <option value="">전체</option><option value="done">✅ 완성</option><option value="wip">🟡 작업중</option><option value="todo">⬜ 미제작</option>
     </select>
     <label class="text-xs font-semibold text-slate-600 ml-3">원전:</label>
-    <select class="border rounded px-2 py-1 text-sm" id="filterSource">
-      <option value="">전체</option>
-    </select>
+    <select class="border rounded px-2 py-1 text-sm" id="filterSource"><option value="">전체</option></select>
     <input id="filterSearch" placeholder="제목 검색…" class="border rounded px-2 py-1 text-sm ml-auto w-48" />
   </div>
-
   <div class="bg-white rounded-xl shadow overflow-hidden">
-    <div class="max-h-[70vh] overflow-y-auto">
+    <div class="max-h-[75vh] overflow-y-auto overflow-x-auto">
       <table id="classicTable" class="w-full">
         <thead>
           <tr>
             <th class="text-left">#</th><th class="text-left">제목</th><th class="text-left">원제</th>
             <th class="text-left">작가·연도·국가</th><th class="text-left">원전</th>
-            <th class="text-center">가능 레벨</th><th class="text-center">런칭 Lv</th>
+            <th class="phase-col">P1</th><th class="phase-col">P2</th><th class="phase-col">P3</th><th class="phase-col">P4</th>
             <th class="text-center">우선</th><th class="text-center">상태</th>
           </tr>
         </thead>
@@ -173,27 +113,27 @@
     </div>
   </div>
   <div class="text-xs text-slate-500 mt-2" id="classicCount"></div>
+  <p class="text-xs text-slate-500 mt-1">* P1=런칭, P2=+3~6M, P3=+6~12M, P4=+12~18M. 각 칸은 해당 Phase에 만들 레벨 variation.</p>
 </section>
 
 <!-- ===== 자연관찰 ===== -->
 <section id="tab-nature" class="tab-content hidden">
   <h2 class="text-2xl font-black text-slate-900 mb-2">🌿 자연관찰 (목표 ~100권)</h2>
-  <p class="text-sm text-slate-600 mb-4">런칭 삽화: <span class="art-chip art-photographic">실사 (photographic)</span> 1종 · 5대 분류 + 공룡</p>
-
-  <!-- Sub-Tab -->
+  <p class="text-sm text-slate-600 mb-4">삽화 Phase: P1 <span class="art-chip art-photographic">실사</span> · P2 동물·공룡 <span class="art-chip art-watercolor">+수채</span> · P4 식물·우주 <span class="art-chip art-watercolor">+수채</span></p>
   <div class="flex gap-2 mb-4 flex-wrap" id="natureSubTabs">
-    <button class="sub-tab px-4 py-1.5 rounded-full text-xs font-bold bg-coral-500 text-white" data-sub="animal" style="background:#ff5e3a;color:white;">🦁 동물 (47)</button>
-    <button class="sub-tab px-4 py-1.5 rounded-full text-xs font-bold bg-white border" data-sub="plant">🌳 식물 (18)</button>
+    <button class="sub-tab px-4 py-1.5 rounded-full text-xs font-bold" data-sub="animal" style="background:#ff5e3a;color:white;">🦁 동물 (52)</button>
+    <button class="sub-tab px-4 py-1.5 rounded-full text-xs font-bold bg-white border" data-sub="plant">🌳 식물 (20)</button>
     <button class="sub-tab px-4 py-1.5 rounded-full text-xs font-bold bg-white border" data-sub="dinosaur">🦖 공룡 (22)</button>
     <button class="sub-tab px-4 py-1.5 rounded-full text-xs font-bold bg-white border" data-sub="body">🫀 우리 몸 (10)</button>
     <button class="sub-tab px-4 py-1.5 rounded-full text-xs font-bold bg-white border" data-sub="earth">🌍 지구·환경 (10)</button>
     <button class="sub-tab px-4 py-1.5 rounded-full text-xs font-bold bg-white border" data-sub="space">🪐 우주 (6)</button>
   </div>
-
   <div id="natureContent" class="bg-white rounded-xl shadow overflow-hidden">
-    <div class="max-h-[70vh] overflow-y-auto">
+    <div class="max-h-[75vh] overflow-y-auto overflow-x-auto">
       <table class="w-full">
-        <thead><tr><th>#</th><th class="text-left">제목</th><th class="text-left">세부</th><th class="text-center">가능 레벨</th><th class="text-center">런칭 Lv</th><th class="text-center">우선</th><th class="text-center">상태</th></tr></thead>
+        <thead><tr><th>#</th><th class="text-left">제목</th><th class="text-left">세부</th>
+          <th class="phase-col">P1</th><th class="phase-col">P2</th><th class="phase-col">P3</th><th class="phase-col">P4</th>
+          <th class="text-center">우선</th><th class="text-center">상태</th></tr></thead>
         <tbody id="natureRows"></tbody>
       </table>
     </div>
@@ -204,140 +144,202 @@
 <!-- ===== 전래동화 ===== -->
 <section id="tab-folktale" class="tab-content hidden">
   <h2 class="text-2xl font-black text-slate-900 mb-2">🏯 전래동화 (목표 17권 · 한국)</h2>
-  <p class="text-sm text-slate-600 mb-4">⚠️ Phase 3~4 (국가 진출 시). 런칭 제외. 국가별로 현지 전래 15권씩 교체 필요.</p>
+  <p class="text-sm text-slate-600 mb-4">런칭 제외. Phase 3에 한국 전래 진입. 국가 진출 시 국가별 15권씩 교체.</p>
   <div class="bg-white rounded-xl shadow overflow-hidden">
-    <table class="w-full"><thead><tr><th>#</th><th class="text-left">제목</th><th class="text-center">가능 레벨</th><th class="text-center">우선</th><th class="text-center">상태</th></tr></thead>
-      <tbody id="folktaleRows"></tbody></table>
+    <div class="overflow-x-auto">
+      <table class="w-full"><thead><tr><th>#</th><th class="text-left">제목</th>
+        <th class="phase-col">P1</th><th class="phase-col">P2</th><th class="phase-col">P3</th><th class="phase-col">P4</th>
+        <th class="text-center">우선</th><th class="text-center">상태</th></tr></thead>
+        <tbody id="folktaleRows"></tbody></table>
+    </div>
   </div>
 </section>
 
 <!-- ===== 생활동화 ===== -->
 <section id="tab-life" class="tab-content hidden">
   <h2 class="text-2xl font-black text-slate-900 mb-2">🏠 생활동화 (목표 18권)</h2>
-  <p class="text-sm text-slate-600 mb-4">⚠️ Phase 2~3. 런칭 제외. 헬스케어·병원 연동 대비 `habitTag` 태깅.</p>
+  <p class="text-sm text-slate-600 mb-4">런칭 제외. Phase 2에 6권 시작, Phase 3에 확장. habitTag는 헬스케어 연동 대비.</p>
   <div class="bg-white rounded-xl shadow overflow-hidden">
-    <table class="w-full"><thead><tr><th>#</th><th class="text-left">제목</th><th class="text-center">가능 레벨</th><th class="text-center">habitTag</th><th class="text-center">우선</th><th class="text-center">상태</th></tr></thead>
-      <tbody id="lifeRows"></tbody></table>
+    <div class="overflow-x-auto">
+      <table class="w-full"><thead><tr><th>#</th><th class="text-left">제목</th><th class="text-center">habitTag</th>
+        <th class="phase-col">P1</th><th class="phase-col">P2</th><th class="phase-col">P3</th><th class="phase-col">P4</th>
+        <th class="text-center">우선</th><th class="text-center">상태</th></tr></thead>
+        <tbody id="lifeRows"></tbody></table>
+    </div>
   </div>
+</section>
+
+<!-- ===== 제작 타임라인 ===== -->
+<section id="tab-timeline" class="tab-content hidden">
+  <h2 class="text-2xl font-black text-slate-900 mb-4">⏱️ Phase별 제작 To-Do</h2>
+  <p class="text-sm text-slate-600 mb-6">각 Phase에 추가/신규 제작할 전체 variation 목록입니다. 컨텐츠별로 어떤 레벨·삽화를 만들지 자동 집계.</p>
+
+  <div class="flex gap-2 mb-5">
+    <button class="ph-tab px-5 py-2 rounded-full text-sm font-bold" data-ph="1" style="background:#22c55e;color:white;">🟢 Phase 1 · Launch</button>
+    <button class="ph-tab px-5 py-2 rounded-full text-sm font-bold bg-white border" data-ph="2">🔵 Phase 2 · +3~6M</button>
+    <button class="ph-tab px-5 py-2 rounded-full text-sm font-bold bg-white border" data-ph="3">🟣 Phase 3 · +6~12M</button>
+    <button class="ph-tab px-5 py-2 rounded-full text-sm font-bold bg-white border" data-ph="4">🟪 Phase 4 · +12~18M</button>
+  </div>
+
+  <div id="timelineContent"></div>
 </section>
 
 <!-- ===== 로드맵 ===== -->
 <section id="tab-roadmap" class="tab-content hidden">
-  <h2 class="text-2xl font-black text-slate-900 mb-4">🗺️ 3차원 확장 로드맵 (권수 × 레벨 × 삽화)</h2>
-
-  <!-- Phase별 표 -->
+  <h2 class="text-2xl font-black text-slate-900 mb-4">🗺️ 3차원 확장 로드맵</h2>
   <div class="bg-white rounded-xl shadow mb-6 overflow-hidden">
     <table class="w-full">
       <thead><tr><th>Phase</th><th>시점</th><th class="text-center">권수</th><th class="text-center">평균 레벨</th><th class="text-center">평균 삽화</th><th class="text-center">variations</th><th class="text-left">주요 확장</th></tr></thead>
       <tbody>
-        <tr><td class="font-bold text-green-700">Phase 1</td><td>T0 · Launch</td><td class="text-center">143</td><td class="text-center">1.0</td><td class="text-center">1.4</td><td class="text-center font-bold">243</td>
-          <td class="text-xs">세계명작 50×3스타일 · 자연관찰 95×실사 · 우주 3권 신규</td></tr>
-        <tr><td class="font-bold text-blue-700">Phase 2</td><td>+3~6M</td><td class="text-center">149</td><td class="text-center">1.1</td><td class="text-center">1.7</td><td class="text-center font-bold">~330</td>
-          <td class="text-xs">세계명작 Top 20 L2 추가 · 동물·공룡 +수채화 · 생활동화 6권</td></tr>
-        <tr><td class="font-bold text-indigo-700">Phase 3</td><td>+6~12M</td><td class="text-center">165</td><td class="text-center">1.4</td><td class="text-center">2.0</td><td class="text-center font-bold">~500</td>
-          <td class="text-xs">Top 20 L4 졸업판 · 세계명작 +애니메이션 · 우리몸·지구 10권 · 생활 12권</td></tr>
-        <tr><td class="font-bold text-purple-700">Phase 4</td><td>+12~18M</td><td class="text-center">200</td><td class="text-center">2.2</td><td class="text-center">3.0</td><td class="text-center font-bold">~1,300</td>
-          <td class="text-xs">L1 대량 확장 · 전래동화 한국 17권 · 식물·우주 +수채화</td></tr>
-        <tr><td class="font-bold text-pink-700">Phase 5+</td><td>+18M~</td><td class="text-center">+α</td><td class="text-center">2.5</td><td class="text-center">3.5</td><td class="text-center font-bold">~2,000+</td>
-          <td class="text-xs">국가별 전래동화 (일본·태국·인니·베트남 각 15권) · 4스타일 풀</td></tr>
+        <tr><td class="font-bold text-green-700">Phase 1</td><td>T0 · Launch</td><td class="text-center">143</td><td class="text-center">1.0</td><td class="text-center">1.4</td><td class="text-center font-bold">243</td><td class="text-xs">세계명작 50×3스타일 · 자연관찰 95×실사 · 우주 3권 신규</td></tr>
+        <tr><td class="font-bold text-blue-700">Phase 2</td><td>+3~6M</td><td class="text-center">149</td><td class="text-center">1.1</td><td class="text-center">1.7</td><td class="text-center font-bold">~330</td><td class="text-xs">세계명작 Top 20 L2 · 동물·공룡 +수채 · 생활동화 6권</td></tr>
+        <tr><td class="font-bold text-indigo-700">Phase 3</td><td>+6~12M</td><td class="text-center">165</td><td class="text-center">1.4</td><td class="text-center">2.0</td><td class="text-center font-bold">~500</td><td class="text-xs">Top 20 L4 졸업판 · 세계명작 +애니 · 우리몸·지구·생활 12권 · 전래 L3</td></tr>
+        <tr><td class="font-bold text-purple-700">Phase 4</td><td>+12~18M</td><td class="text-center">200</td><td class="text-center">2.2</td><td class="text-center">3.0</td><td class="text-center font-bold">~1,300</td><td class="text-xs">L1 대량 확장 · 전래동화 L2 · 식물·우주 +수채화</td></tr>
+        <tr><td class="font-bold text-pink-700">Phase 5+</td><td>+18M~</td><td class="text-center">+α</td><td class="text-center">2.5</td><td class="text-center">3.5</td><td class="text-center font-bold">~2,000+</td><td class="text-xs">국가별 전래동화 (일본·태국·인니·베트남 각 15) · 4스타일 풀</td></tr>
       </tbody>
     </table>
   </div>
-
-  <!-- 레벨 확장 비주얼 -->
   <h3 class="text-lg font-bold mb-2">레벨 확장 타임라인</h3>
   <div class="bg-white rounded-xl shadow p-5 mb-6">
     <div class="space-y-3">
-      <div class="flex items-center gap-3">
-        <span class="w-24 text-xs font-bold">세계명작</span>
-        <div class="flex-1 flex gap-1">
-          <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dcfce7;">P1 · L3 전부</div>
-          <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dbeafe;">P2 · Top 20 L2</div>
-          <div class="flex-1 text-center text-xs py-1 rounded" style="background:#e0e7ff;">P3 · Top 20 L4</div>
-          <div class="flex-1 text-center text-xs py-1 rounded" style="background:#f3e8ff;">P4 · L1 확장</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-3">
-        <span class="w-24 text-xs font-bold">자연관찰</span>
-        <div class="flex-1 flex gap-1">
-          <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dcfce7;">P1 · L2/L3</div>
-          <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dbeafe;">P2 · 확장 X</div>
-          <div class="flex-1 text-center text-xs py-1 rounded" style="background:#e0e7ff;">P3 · Top 20 L2</div>
-          <div class="flex-1 text-center text-xs py-1 rounded" style="background:#f3e8ff;">P4 · L1 확장</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-3">
-        <span class="w-24 text-xs font-bold">공룡</span>
-        <div class="flex-1 flex gap-1">
-          <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dcfce7;">P1 · L2/L3</div>
-          <div class="flex-1 text-center text-xs py-1 rounded" style="background:#f3f4f6;">P2 ·</div>
-          <div class="flex-1 text-center text-xs py-1 rounded" style="background:#e0e7ff;">P3 · L4 일부</div>
-          <div class="flex-1 text-center text-xs py-1 rounded" style="background:#f3e8ff;">P4 · L1 일부</div>
-        </div>
-      </div>
+      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">세계명작</span><div class="flex-1 flex gap-1">
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dcfce7;">P1 · L3 전부 (+L4 3권)</div>
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dbeafe;">P2 · Top 20 L2</div>
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#e0e7ff;">P3 · Top 20 L4</div>
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#f3e8ff;">P4 · L1 확장</div>
+      </div></div>
+      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">자연관찰</span><div class="flex-1 flex gap-1">
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dcfce7;">P1 · L2/L3</div>
+        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P2 ·</div>
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#e0e7ff;">P3 · Top 20 L2</div>
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#f3e8ff;">P4 · L1 확장</div>
+      </div></div>
+      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">공룡</span><div class="flex-1 flex gap-1">
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dcfce7;">P1 · L2/L3</div>
+        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P2 ·</div>
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#e0e7ff;">P3 · L4 일부</div>
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#f3e8ff;">P4 · L1 일부</div>
+      </div></div>
+      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">전래동화</span><div class="flex-1 flex gap-1">
+        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P1 ·</div>
+        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P2 ·</div>
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#e0e7ff;">P3 · L3 전체</div>
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#f3e8ff;">P4 · L2 확장</div>
+      </div></div>
+      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">생활동화</span><div class="flex-1 flex gap-1">
+        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P1 ·</div>
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dbeafe;">P2 · L2 6권</div>
+        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#e0e7ff;">P3 · L3 12권</div>
+        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P4 ·</div>
+      </div></div>
     </div>
   </div>
-
-  <!-- 삽화 확장 비주얼 -->
   <h3 class="text-lg font-bold mb-2">삽화 확장 타임라인</h3>
   <div class="bg-white rounded-xl shadow p-5">
     <div class="space-y-3">
-      <div class="flex items-center gap-3">
-        <span class="w-24 text-xs font-bold">세계명작</span>
-        <div class="flex-1 flex gap-1">
-          <div class="flex-1 text-center text-xs py-1 rounded bg-green-100">P1 · 3종 (수채·카툰·전통)</div>
-          <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P2 ·</div>
-          <div class="flex-1 text-center text-xs py-1 rounded bg-indigo-100">P3 · +애니메이션 (4종)</div>
-          <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P4 ·</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-3">
-        <span class="w-24 text-xs font-bold">동물/공룡</span>
-        <div class="flex-1 flex gap-1">
-          <div class="flex-1 text-center text-xs py-1 rounded bg-green-100">P1 · 실사 1종</div>
-          <div class="flex-1 text-center text-xs py-1 rounded bg-blue-100">P2 · +수채화 (2종)</div>
-          <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P3 ·</div>
-          <div class="flex-1 text-center text-xs py-1 rounded bg-purple-100">P4 · +카툰 (3종)</div>
-        </div>
-      </div>
-      <div class="flex items-center gap-3">
-        <span class="w-24 text-xs font-bold">식물/우주</span>
-        <div class="flex-1 flex gap-1">
-          <div class="flex-1 text-center text-xs py-1 rounded bg-green-100">P1 · 실사 1종</div>
-          <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P2 ·</div>
-          <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P3 ·</div>
-          <div class="flex-1 text-center text-xs py-1 rounded bg-purple-100">P4 · +수채화 (2종)</div>
-        </div>
-      </div>
+      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">세계명작</span><div class="flex-1 flex gap-1">
+        <div class="flex-1 text-center text-xs py-1 rounded bg-green-100">P1 · 수채·카툰·전통 (3종)</div>
+        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P2 ·</div>
+        <div class="flex-1 text-center text-xs py-1 rounded bg-indigo-100">P3 · +애니메이션 (4종)</div>
+        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P4 ·</div>
+      </div></div>
+      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">동물/공룡</span><div class="flex-1 flex gap-1">
+        <div class="flex-1 text-center text-xs py-1 rounded bg-green-100">P1 · 실사</div>
+        <div class="flex-1 text-center text-xs py-1 rounded bg-blue-100">P2 · +수채 (2종)</div>
+        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P3 ·</div>
+        <div class="flex-1 text-center text-xs py-1 rounded bg-purple-100">P4 · +카툰 (3종)</div>
+      </div></div>
+      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">식물/우주</span><div class="flex-1 flex gap-1">
+        <div class="flex-1 text-center text-xs py-1 rounded bg-green-100">P1 · 실사</div>
+        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P2 ·</div>
+        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P3 ·</div>
+        <div class="flex-1 text-center text-xs py-1 rounded bg-purple-100">P4 · +수채 (2종)</div>
+      </div></div>
     </div>
   </div>
 </section>
 
 </main>
-
-<footer class="max-w-7xl mx-auto px-6 py-6 text-xs text-slate-400 text-center">
-  탱고북 · 초등 입학 전 필수 동화 완결형 커리큘럼 · 근거: ORT · Lexile · F&P · 국립국어원 · 어린이도서연구회
-</footer>
+<footer class="max-w-7xl mx-auto px-6 py-6 text-xs text-slate-400 text-center">탱고북 · 초등 입학 전 필수 동화 완결형 커리큘럼 · 근거: ORT · Lexile · F&P · 국립국어원 · 어린이도서연구회</footer>
 
 <script>
-// ========= 데이터 =========
-const CLASSIC = [
-  // 완성 30권 (L3)
-  {no:1, t:'잭과 콩나무', o:'Jack and the Beanstalk', a:'Joseph Jacobs', c:'영국', y:'1890', src:'영국민담', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
+// ========= 카테고리 × Phase별 삽화 제작 계획 =========
+const ART_PHASE_PLAN = {
+  classic:        { P1: ['watercolor','cartoon','traditional'], P2: [], P3: ['animation'], P4: [] },
+  nature_animal:  { P1: ['photographic'], P2: ['watercolor'], P3: [], P4: ['cartoon'] },
+  dinosaur:       { P1: ['photographic'], P2: ['watercolor'], P3: [], P4: ['cartoon'] },
+  nature_plant:   { P1: ['photographic'], P2: [], P3: [], P4: ['watercolor'] },
+  nature_body:    { P1: ['photographic'], P2: [], P3: [], P4: [] },
+  nature_earth:   { P1: ['photographic'], P2: [], P3: [], P4: [] },
+  nature_space:   { P1: ['photographic'], P2: [], P3: [], P4: ['watercolor'] },
+  folktale:       { P1: [], P2: [], P3: ['watercolor','traditional'], P4: [] },
+  life:           { P1: [], P2: ['cartoon'], P3: ['watercolor'], P4: [] },
+};
+
+// ========= 레벨 Phase 매핑 규칙 =========
+// 각 책에 lvPhase 직접 지정 — null 이면 launch만 만들고 확장 X
+// 규칙: prio=1 이면 launch→P1, 쉬운 레벨→P2, 어려운 레벨→P3, 가장 어려운 or L1 → P4
+//      prio=2 이면 launch→P1, 쉬운 레벨→P4, 나머지는 skip
+//      prio=3 이면 launch→P1만
+
+function autoLvPhase(book, category) {
+  // 카테고리·우선순위별 자동 규칙
+  const out = {};
+  out[book.launch] = 1;
+  const all = book.lv || [];
+  const levelOrder = ['L1','L2','L3','L4'];
+  const launchIdx = levelOrder.indexOf(book.launch);
+
+  if (category === 'folktale') {
+    for (const l of all) if (l !== book.launch) out[l] = 4;
+    // Folktale 자체는 P3 런칭
+    for (const l in out) out[l] = out[l] === 1 ? 3 : 4;
+    return out;
+  }
+  if (category === 'life') {
+    // Life는 P2/P3 런칭
+    const launchP = book.prio === 1 ? 2 : 3;
+    out[book.launch] = launchP;
+    for (const l of all) if (l !== book.launch) out[l] = Math.min(4, launchP + 1);
+    return out;
+  }
+
+  // 세계명작·자연관찰
+  for (const l of all) {
+    if (l === book.launch) continue;
+    const idx = levelOrder.indexOf(l);
+    const easier = idx < launchIdx;
+    if (book.prio === 1) {
+      if (easier) out[l] = 2;           // 쉬운 레벨 → P2 (Top 인기)
+      else out[l] = 3;                   // 어려운 레벨 → P3
+    } else if (book.prio === 2) {
+      if (easier) out[l] = 4;
+      // 어려운 레벨은 제작 X (skip)
+    }
+    // prio=3는 launch만
+  }
+  // L1 확장은 prio=1 세계명작·자연관찰 책만 P4
+  if (book.prio === 1 && !out['L1'] && all.includes('L1')) out['L1'] = 4;
+  return out;
+}
+
+// ========= 데이터 (세계명작 50권) =========
+const CLASSIC_RAW = [
+  {no:1, t:'잭과 콩나무', o:'Jack and the Beanstalk', a:'Joseph Jacobs', c:'영국', y:'1890', src:'영국민담', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
   {no:2, t:'호두까기 인형', o:'Nussknacker und Mausekönig', a:'E.T.A. Hoffmann', c:'독일', y:'1816', src:'창작동화', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:3, t:'행복한 왕자', o:'The Happy Prince', a:'Oscar Wilde', c:'영국', y:'1888', src:'창작동화', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:4, t:'피터와 늑대', o:'Peter and the Wolf', a:'Sergei Prokofiev', c:'러시아', y:'1936', src:'음악동화', lv:['L3'], launch:'L3', prio:1, st:'done'},
   {no:5, t:'피리 부는 사나이', o:'The Pied Piper of Hamelin', a:'Browning/그림형제', c:'독일', y:'1842', src:'독일전설', lv:['L3'], launch:'L3', prio:1, st:'done'},
   {no:6, t:'커다란 순무', o:'Репка (Repka)', a:'Alexei Tolstoy (수록)', c:'러시아', y:'1940', src:'러시아민담', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
   {no:7, t:'정글 북', o:'The Jungle Book', a:'Rudyard Kipling', c:'영국', y:'1894', src:'현대창작', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
-  {no:8, t:'잠자는 숲속의 공주', o:'La Belle au bois dormant', a:'Perrault/그림형제', c:'프랑스·독일', y:'1697/1812', src:'페로·그림', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
+  {no:8, t:'잠자는 숲속의 공주', o:'La Belle au bois dormant', a:'Perrault/그림형제', c:'프랑스·독일', y:'1697/1812', src:'페로·그림', lv:['L2','L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:9, t:'이상한 나라의 앨리스', o:"Alice's Adventures in Wonderland", a:'Lewis Carroll', c:'영국', y:'1865', src:'현대창작', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
-  {no:10, t:'인어 공주', o:'Den lille havfrue', a:'H.C. Andersen', c:'덴마크', y:'1837', src:'안데르센', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
+  {no:10, t:'인어 공주', o:'Den lille havfrue', a:'H.C. Andersen', c:'덴마크', y:'1837', src:'안데르센', lv:['L2','L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:11, t:'우당탕탕 염소 삼 형제', o:'De tre bukkene Bruse', a:'Asbjørnsen & Moe', c:'노르웨이', y:'1841', src:'북유럽민담', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
   {no:12, t:'오즈의 마법사', o:'The Wonderful Wizard of Oz', a:'L. Frank Baum', c:'미국', y:'1900', src:'현대창작', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:13, t:'엄지 아가씨', o:'Tommelise', a:'H.C. Andersen', c:'덴마크', y:'1835', src:'안데르센', lv:['L2','L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:14, t:'알라딘과 요술 램프', o:'Aladdin and the Wonderful Lamp', a:'Galland (수록)', c:'프랑스·시리아', y:'1712', src:'천일야화', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
-  {no:15, t:'아기 돼지 삼형제', o:'The Three Little Pigs', a:'Joseph Jacobs (수록)', c:'영국', y:'1890', src:'영국민담', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
+  {no:15, t:'아기 돼지 삼형제', o:'The Three Little Pigs', a:'Joseph Jacobs', c:'영국', y:'1890', src:'영국민담', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
   {no:16, t:'신데렐라', o:'Cendrillon', a:'Perrault/그림형제', c:'프랑스·독일', y:'1697/1812', src:'페로·그림', lv:['L2','L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:17, t:'성냥팔이 소녀', o:'Den lille pige med svovlstikkerne', a:'H.C. Andersen', c:'덴마크', y:'1845', src:'안데르센', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:18, t:'생강빵 아이', o:'The Gingerbread Boy', a:'St. Nicholas Magazine', c:'미국', y:'1875', src:'미국민담', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
@@ -347,13 +349,12 @@ const CLASSIC = [
   {no:22, t:'백조의 호수', o:'Лебединое озеро', a:'Tchaikovsky', c:'러시아', y:'1877', src:'발레', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:23, t:'백조 왕자', o:'De vilde svaner', a:'H.C. Andersen', c:'덴마크', y:'1838', src:'안데르센', lv:['L2','L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:24, t:'미운 아기 오리', o:'Den grimme ælling', a:'H.C. Andersen', c:'덴마크', y:'1843', src:'안데르센', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
-  {no:25, t:'금발 머리 소녀와 곰 세 마리', o:'The Story of the Three Bears', a:'Robert Southey', c:'영국', y:'1837', src:'영국민담', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
+  {no:25, t:'금발 머리 소녀와 곰 세 마리', o:'The Three Bears', a:'Robert Southey', c:'영국', y:'1837', src:'영국민담', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
   {no:26, t:'구둣방 할아버지와 꼬마 요정', o:'Die Wichtelmänner', a:'그림형제 KHM 39', c:'독일', y:'1812', src:'그림형제', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
   {no:27, t:'걸리버 여행기', o:"Gulliver's Travels", a:'Jonathan Swift', c:'영국', y:'1726', src:'현대창작', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:28, t:'거인의 정원', o:'The Selfish Giant', a:'Oscar Wilde', c:'영국', y:'1888', src:'창작동화', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:29, t:'개미와 베짱이', o:'The Ant and the Grasshopper', a:'Aesop', c:'그리스', y:'BC 6C', src:'이솝우화', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
   {no:30, t:'개구리 왕자', o:'Der Froschkönig', a:'그림형제 KHM 1', c:'독일', y:'1812', src:'그림형제', lv:['L2','L3','L4'], launch:'L3', prio:1, st:'done'},
-  // 작업중 (41권 폴더 + 기타)
   {no:31, t:'헨젤과 그레텔', o:'Hänsel und Gretel', a:'그림형제 KHM 15', c:'독일', y:'1812', src:'그림형제', lv:['L2','L3','L4'], launch:'L3', prio:1, st:'wip'},
   {no:32, t:'피노키오', o:'Le avventure di Pinocchio', a:'Carlo Collodi', c:'이탈리아', y:'1883', src:'현대창작', lv:['L3','L4'], launch:'L3', prio:1, st:'wip'},
   {no:33, t:'장화 신은 고양이', o:'Le Chat botté', a:'Charles Perrault', c:'프랑스', y:'1697', src:'페로', lv:['L2','L3'], launch:'L3', prio:1, st:'wip'},
@@ -365,7 +366,7 @@ const CLASSIC = [
   {no:39, t:'북풍과 태양', o:'The North Wind and the Sun', a:'Aesop', c:'그리스', y:'BC 6C', src:'이솝우화', lv:['L1','L2','L3'], launch:'L3', prio:2, st:'wip'},
   {no:40, t:'임금님 귀는 당나귀 귀', o:'경문왕 설화 / King Midas', a:'삼국유사/오비디우스', c:'신라·그리스', y:'1280년대/BC8', src:'신화·설화', lv:['L2','L3'], launch:'L3', prio:2, st:'wip'},
   {no:41, t:'성냥갑 병정', o:'Den standhaftige Tinsoldat', a:'H.C. Andersen', c:'덴마크', y:'1838', src:'안데르센', lv:['L2','L3'], launch:'L3', prio:2, st:'wip'},
-  {no:42, t:'황금알을 낳는 거위', o:'The Goose that Laid the Golden Eggs', a:'Aesop', c:'그리스', y:'BC 6C', src:'이솝우화', lv:['L1','L2','L3'], launch:'L3', prio:2, st:'wip'},
+  {no:42, t:'황금알을 낳는 거위', o:'Goose that Laid the Golden Eggs', a:'Aesop', c:'그리스', y:'BC 6C', src:'이솝우화', lv:['L1','L2','L3'], launch:'L3', prio:2, st:'wip'},
   {no:43, t:'트롤과 아기염소 삼형제', o:'Three Billy Goats Gruff (변형)', a:'Asbjørnsen & Moe', c:'노르웨이', y:'1841', src:'북유럽민담', lv:['L1','L2','L3'], launch:'L3', prio:2, st:'wip'},
   {no:44, t:'늑대와 일곱 마리 아기 염소', o:'Der Wolf und die sieben jungen Geißlein', a:'그림형제 KHM 5', c:'독일', y:'1812', src:'그림형제', lv:['L1','L2','L3'], launch:'L3', prio:2, st:'wip'},
   {no:45, t:'토끼와 거북이', o:'The Tortoise and the Hare', a:'Aesop', c:'그리스', y:'BC 6C', src:'이솝우화', lv:['L1','L2','L3'], launch:'L3', prio:2, st:'wip'},
@@ -376,128 +377,143 @@ const CLASSIC = [
   {no:50, t:'빨강머리 앤 (축약)', o:'Anne of Green Gables', a:'L.M. Montgomery', c:'캐나다', y:'1908', src:'현대창작', lv:['L4'], launch:'L4', prio:3, st:'todo'},
 ];
 
-// 자연관찰 (현재 저작도구 보유 95 + 신규)
-const NATURE = {
+// 자동 계산: 각 책에 lvPhase 주입
+const CLASSIC = CLASSIC_RAW.map(b => ({ ...b, lvPhase: autoLvPhase(b, 'classic') }));
+
+// ========= 자연관찰 =========
+const NATURE_RAW = {
   animal: [
-    // 포유류 (보배버전 13)
-    ...['사자','호랑이','코끼리','기린','곰','토끼','여우','다람쥐','고슴도치','늑대','표범','치타','두더지'].map(t=>({t, sub:'포유류',lv:['L2','L3'],launch:'L3',prio:1,st:'done'})),
-    // 반려 3
-    ...['강아지','고양이','거미'].map(t=>({t, sub:'반려',lv:['L1','L2'],launch:'L2',prio:1,st:'done'})),
-    // 양서·파충 6
-    ...['악어','뱀','개구리','카멜레온','도마뱀','두꺼비'].map(t=>({t, sub:'양서·파충',lv:['L2','L3'],launch:'L3',prio:2,st:'done'})),
-    // 날개 8
-    ...['참새','올빼미','독수리','딱따구리','타조','앵무새','백로','오리'].map(t=>({t, sub:'조류',lv:['L2','L3'],launch:'L3',prio:1,st:'done'})),
-    // 곤충 8
-    ...['꿀벌','개미','나비','무당벌레','잠자리','사슴벌레','장수풍뎅이','달팽이'].map(t=>({t, sub:'곤충',lv:['L2','L3'],launch:'L3',prio:1,st:'done'})),
-    // 수중 9
-    ...['고래','상어','문어','게','해마','흰동가리','바다거북','펭귄','물개'].map(t=>({t, sub:'수중',lv:['L2','L3'],launch:'L3',prio:1,st:'done'})),
-    // 보강 5 (3순위)
-    {t:'원숭이', sub:'포유류',lv:['L2','L3'],launch:'L3',prio:3,st:'todo'},
-    {t:'판다', sub:'포유류',lv:['L2','L3'],launch:'L3',prio:3,st:'todo'},
-    {t:'하마', sub:'포유류',lv:['L2','L3'],launch:'L3',prio:3,st:'todo'},
-    {t:'코뿔소', sub:'포유류',lv:['L2','L3'],launch:'L3',prio:3,st:'todo'},
-    {t:'캥거루', sub:'포유류',lv:['L2','L3'],launch:'L3',prio:3,st:'todo'},
+    ...['사자','호랑이','코끼리','기린','곰','토끼','여우','다람쥐','고슴도치','늑대','표범','치타','두더지'].map(t=>({t, sub:'포유류', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'})),
+    ...['강아지','고양이','거미'].map(t=>({t, sub:'반려', lv:['L1','L2'], launch:'L2', prio:1, st:'done'})),
+    ...['악어','뱀','개구리','카멜레온','도마뱀','두꺼비'].map(t=>({t, sub:'양서·파충', lv:['L2','L3'], launch:'L3', prio:2, st:'done'})),
+    ...['참새','올빼미','독수리','딱따구리','타조','앵무새','백로','오리'].map(t=>({t, sub:'조류', lv:['L2','L3'], launch:'L3', prio:1, st:'done'})),
+    ...['꿀벌','개미','나비','무당벌레','잠자리','사슴벌레','장수풍뎅이','달팽이'].map(t=>({t, sub:'곤충', lv:['L2','L3'], launch:'L3', prio:1, st:'done'})),
+    ...['고래','상어','문어','게','해마','흰동가리','바다거북','펭귄','물개'].map(t=>({t, sub:'수중', lv:['L2','L3'], launch:'L3', prio:1, st:'done'})),
+    {t:'원숭이', sub:'포유류', lv:['L2','L3'], launch:'L3', prio:3, st:'todo'},
+    {t:'판다', sub:'포유류', lv:['L2','L3'], launch:'L3', prio:3, st:'todo'},
+    {t:'하마', sub:'포유류', lv:['L2','L3'], launch:'L3', prio:3, st:'todo'},
+    {t:'코뿔소', sub:'포유류', lv:['L2','L3'], launch:'L3', prio:3, st:'todo'},
+    {t:'캥거루', sub:'포유류', lv:['L2','L3'], launch:'L3', prio:3, st:'todo'},
   ],
   plant: [
-    ...['사과','포도','밤','딸기','수박','참나무','소나무','은행나무'].map(t=>({t, sub:'나무·열매',lv:['L2','L3'],launch:'L3',prio:1,st:'done'})),
-    ...['해바라기','장미','민들레','튤립','나팔꽃','강아지풀','연꽃'].map(t=>({t, sub:'꽃·풀',lv:['L1','L2','L3'],launch:'L2',prio:1,st:'done'})),
-    ...['선인장','파리지옥','버섯'].map(t=>({t, sub:'특이식물',lv:['L2','L3'],launch:'L3',prio:2,st:'done'})),
-    {t:'벼', sub:'식량식물',lv:['L2','L3'],launch:'L3',prio:3,st:'todo'},
-    {t:'콩', sub:'식량식물',lv:['L2','L3'],launch:'L3',prio:3,st:'todo'},
+    ...['사과','포도','밤','딸기','수박','참나무','소나무','은행나무'].map(t=>({t, sub:'나무·열매', lv:['L2','L3'], launch:'L3', prio:1, st:'done'})),
+    ...['해바라기','장미','민들레','튤립','나팔꽃','강아지풀','연꽃'].map(t=>({t, sub:'꽃·풀', lv:['L1','L2','L3'], launch:'L2', prio:1, st:'done'})),
+    ...['선인장','파리지옥','버섯'].map(t=>({t, sub:'특이식물', lv:['L2','L3'], launch:'L3', prio:2, st:'done'})),
+    {t:'벼', sub:'식량식물', lv:['L2','L3'], launch:'L3', prio:3, st:'todo'},
+    {t:'콩', sub:'식량식물', lv:['L2','L3'], launch:'L3', prio:3, st:'todo'},
   ],
   dinosaur: [
-    ...['티라노사우루스 렉스','트리케라톱스','스테고사우루스','브라키오사우루스','벨로키라프토르','스피노사우루스'].map(t=>({t, sub:'대표',lv:['L2','L3'],launch:'L3',prio:1,st:'done'})),
-    ...['안킬로사우루스','파키케팔로사우루스','파라사우롤로푸스','스티라코사우루스','프로토케라톱스','이구아노돈','마이아사우라','디플로도쿠스','아파토사우루스'].map(t=>({t, sub:'공룡',lv:['L2','L3'],launch:'L3',prio:2,st:'done'})),
-    ...['바리오닉스','기가노토사우루스','타르보사우루스'].map(t=>({t, sub:'공룡',lv:['L2','L3'],launch:'L3',prio:3,st:'done'})),
-    {t:'프테라노돈', sub:'익룡',lv:['L2','L3'],launch:'L3',prio:1,st:'done'},
-    {t:'케트살코아틀루스', sub:'익룡',lv:['L2','L3'],launch:'L3',prio:2,st:'done'},
-    {t:'람포린쿠스', sub:'익룡',lv:['L2','L3'],launch:'L3',prio:3,st:'done'},
-    {t:'모사사우루스', sub:'해룡',lv:['L2','L3'],launch:'L3',prio:2,st:'done'},
+    ...['티라노사우루스 렉스','트리케라톱스','스테고사우루스','브라키오사우루스','벨로키라프토르','스피노사우루스'].map(t=>({t, sub:'대표 공룡', lv:['L2','L3','L4'], launch:'L3', prio:1, st:'done'})),
+    ...['안킬로사우루스','파키케팔로사우루스','파라사우롤로푸스','스티라코사우루스','프로토케라톱스','이구아노돈','마이아사우라','디플로도쿠스','아파토사우루스'].map(t=>({t, sub:'공룡', lv:['L2','L3'], launch:'L3', prio:2, st:'done'})),
+    ...['바리오닉스','기가노토사우루스','타르보사우루스'].map(t=>({t, sub:'공룡', lv:['L2','L3'], launch:'L3', prio:3, st:'done'})),
+    {t:'프테라노돈', sub:'익룡', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
+    {t:'케트살코아틀루스', sub:'익룡', lv:['L2','L3'], launch:'L3', prio:2, st:'done'},
+    {t:'람포린쿠스', sub:'익룡', lv:['L2','L3'], launch:'L3', prio:3, st:'done'},
+    {t:'모사사우루스', sub:'해룡', lv:['L2','L3'], launch:'L3', prio:2, st:'done'},
   ],
   body: [
-    {t:'뇌와 심장', sub:'기관',lv:['L2','L3'],launch:'L3',prio:1,st:'done'},
-    {t:'소화 (음식의 몸속 여행)', sub:'기관',lv:['L2','L3'],launch:'L3',prio:1,st:'done'},
-    {t:'뼈와 근육', sub:'기관',lv:['L2','L3'],launch:'L3',prio:1,st:'done'},
-    {t:'유산균·바이러스 (미생물)', sub:'미생물',lv:['L3'],launch:'L3',prio:2,st:'done'},
-    {t:'이빨과 입', sub:'기관',lv:['L1','L2'],launch:'L2',prio:1,st:'todo'},
-    {t:'눈·귀·코·피부 (감각)', sub:'감각',lv:['L1','L2','L3'],launch:'L2',prio:1,st:'todo'},
-    {t:'숨쉬기 (폐·호흡)', sub:'기관',lv:['L2','L3'],launch:'L3',prio:2,st:'todo'},
-    {t:'피와 혈관', sub:'기관',lv:['L2','L3'],launch:'L3',prio:2,st:'todo'},
-    {t:'잠자는 동안 몸에선', sub:'생리',lv:['L2','L3'],launch:'L3',prio:3,st:'todo'},
-    {t:'면역 (약과 백신)', sub:'미생물',lv:['L3'],launch:'L3',prio:3,st:'todo'},
+    {t:'뇌와 심장', sub:'기관', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
+    {t:'소화 (음식의 몸속 여행)', sub:'기관', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
+    {t:'뼈와 근육', sub:'기관', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
+    {t:'유산균·바이러스 (미생물)', sub:'미생물', lv:['L3'], launch:'L3', prio:2, st:'done'},
+    {t:'이빨과 입', sub:'기관', lv:['L1','L2'], launch:'L2', prio:1, st:'todo'},
+    {t:'눈·귀·코·피부 (감각)', sub:'감각', lv:['L1','L2','L3'], launch:'L2', prio:1, st:'todo'},
+    {t:'숨쉬기 (폐·호흡)', sub:'기관', lv:['L2','L3'], launch:'L3', prio:2, st:'todo'},
+    {t:'피와 혈관', sub:'기관', lv:['L2','L3'], launch:'L3', prio:2, st:'todo'},
+    {t:'잠자는 동안 몸에선', sub:'생리', lv:['L2','L3'], launch:'L3', prio:3, st:'todo'},
+    {t:'면역 (약과 백신)', sub:'미생물', lv:['L3'], launch:'L3', prio:3, st:'todo'},
   ],
   earth: [
-    {t:'사막과 극지', sub:'환경',lv:['L2','L3'],launch:'L3',prio:1,st:'done'},
-    {t:'동굴과 갯벌', sub:'환경',lv:['L2','L3'],launch:'L3',prio:2,st:'done'},
-    {t:'화산과 지진', sub:'지질',lv:['L2','L3','L4'],launch:'L3',prio:1,st:'done'},
-    {t:'바다', sub:'환경',lv:['L1','L2','L3'],launch:'L2',prio:1,st:'todo'},
-    {t:'숲과 정글', sub:'환경',lv:['L2','L3'],launch:'L3',prio:1,st:'todo'},
-    {t:'강과 호수', sub:'환경',lv:['L2','L3'],launch:'L3',prio:2,st:'todo'},
-    {t:'물의 여행 (증발·비·구름)', sub:'지구과학',lv:['L1','L2','L3'],launch:'L2',prio:1,st:'todo'},
-    {t:'사계절', sub:'지구과학',lv:['L1','L2'],launch:'L2',prio:1,st:'todo'},
-    {t:'날씨와 무지개', sub:'지구과학',lv:['L1','L2','L3'],launch:'L2',prio:2,st:'todo'},
-    {t:'기후와 우리 (환경보호)', sub:'지구과학',lv:['L3','L4'],launch:'L3',prio:3,st:'todo'},
+    {t:'사막과 극지', sub:'환경', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
+    {t:'동굴과 갯벌', sub:'환경', lv:['L2','L3'], launch:'L3', prio:2, st:'done'},
+    {t:'화산과 지진', sub:'지질', lv:['L2','L3','L4'], launch:'L3', prio:1, st:'done'},
+    {t:'바다', sub:'환경', lv:['L1','L2','L3'], launch:'L2', prio:1, st:'todo'},
+    {t:'숲과 정글', sub:'환경', lv:['L2','L3'], launch:'L3', prio:1, st:'todo'},
+    {t:'강과 호수', sub:'환경', lv:['L2','L3'], launch:'L3', prio:2, st:'todo'},
+    {t:'물의 여행 (증발·비·구름)', sub:'지구과학', lv:['L1','L2','L3'], launch:'L2', prio:1, st:'todo'},
+    {t:'사계절', sub:'지구과학', lv:['L1','L2'], launch:'L2', prio:1, st:'todo'},
+    {t:'날씨와 무지개', sub:'지구과학', lv:['L1','L2','L3'], launch:'L2', prio:2, st:'todo'},
+    {t:'기후와 우리 (환경보호)', sub:'지구과학', lv:['L3','L4'], launch:'L3', prio:3, st:'todo'},
   ],
   space: [
-    {t:'태양계 (수성~해왕성)', sub:'천문',lv:['L2','L3'],launch:'L3',prio:1,st:'done'},
-    {t:'달과 별자리', sub:'천문',lv:['L1','L2','L3'],launch:'L2',prio:1,st:'done'},
-    {t:'은하와 블랙홀', sub:'천문',lv:['L3','L4'],launch:'L3',prio:2,st:'done'},
-    {t:'지구 (우리 행성)', sub:'천문',lv:['L2','L3'],launch:'L3',prio:1,st:'todo'},
-    {t:'우주 탐험·인공위성', sub:'탐험',lv:['L3','L4'],launch:'L3',prio:3,st:'todo'},
-    {t:'유성·혜성·소행성', sub:'천문',lv:['L3'],launch:'L3',prio:3,st:'todo'},
+    {t:'태양계 (수성~해왕성)', sub:'천문', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
+    {t:'달과 별자리', sub:'천문', lv:['L1','L2','L3'], launch:'L2', prio:1, st:'done'},
+    {t:'은하와 블랙홀', sub:'천문', lv:['L3','L4'], launch:'L3', prio:2, st:'done'},
+    {t:'지구 (우리 행성)', sub:'천문', lv:['L2','L3'], launch:'L3', prio:1, st:'todo'},
+    {t:'우주 탐험·인공위성', sub:'탐험', lv:['L3','L4'], launch:'L3', prio:3, st:'todo'},
+    {t:'유성·혜성·소행성', sub:'천문', lv:['L3'], launch:'L3', prio:3, st:'todo'},
   ],
 };
+// 카테고리명 → ART 키 매핑
+const NATURE_ART_KEY = { animal:'nature_animal', plant:'nature_plant', dinosaur:'dinosaur', body:'nature_body', earth:'nature_earth', space:'nature_space' };
+// 자동 lvPhase 주입
+const NATURE = {};
+for (const [sub, arr] of Object.entries(NATURE_RAW)) {
+  NATURE[sub] = arr.map(b => ({ ...b, lvPhase: autoLvPhase(b, NATURE_ART_KEY[sub]) }));
+}
 
-const FOLKTALE = [
-  {t:'해님 달님', lv:['L2','L3'], prio:1, st:'done'},
-  {t:'콩쥐 팥쥐', lv:['L2','L3'], prio:1, st:'done'},
-  {t:'선녀와 나무꾼', lv:['L2','L3'], prio:1, st:'done'},
-  {t:'흥부와 놀부', lv:['L2','L3'], prio:1, st:'done'},
-  {t:'혹부리 영감', lv:['L2','L3'], prio:1, st:'todo'},
-  {t:'호랑이와 곶감', lv:['L1','L2','L3'], prio:1, st:'todo'},
-  {t:'금도끼 은도끼', lv:['L2','L3'], prio:1, st:'wip'},
-  {t:'토끼의 간 (별주부전 축약)', lv:['L2','L3'], prio:2, st:'todo'},
-  {t:'견우와 직녀', lv:['L2','L3'], prio:2, st:'todo'},
-  {t:'도깨비와 개암나무', lv:['L2','L3'], prio:2, st:'todo'},
-  {t:'방귀쟁이 며느리', lv:['L2','L3'], prio:2, st:'todo'},
-  {t:'삼년 고개', lv:['L2','L3'], prio:2, st:'todo'},
-  {t:'까치와 호랑이', lv:['L2','L3'], prio:2, st:'todo'},
-  {t:'두꺼비 신랑', lv:['L3'], prio:3, st:'todo'},
-  {t:'심청전 (완역)', lv:['L3','L4'], prio:3, st:'todo'},
-  {t:'홍길동전 (축약)', lv:['L3','L4'], prio:3, st:'todo'},
-  {t:'춘향전 (축약)', lv:['L4'], prio:3, st:'todo'},
+// ========= 전래동화 =========
+const FOLKTALE_RAW = [
+  {t:'해님 달님', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
+  {t:'콩쥐 팥쥐', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
+  {t:'선녀와 나무꾼', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
+  {t:'흥부와 놀부', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
+  {t:'혹부리 영감', lv:['L2','L3'], launch:'L3', prio:1, st:'todo'},
+  {t:'호랑이와 곶감', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'todo'},
+  {t:'금도끼 은도끼', lv:['L2','L3'], launch:'L3', prio:1, st:'wip'},
+  {t:'토끼의 간 (별주부전 축약)', lv:['L2','L3'], launch:'L3', prio:2, st:'todo'},
+  {t:'견우와 직녀', lv:['L2','L3'], launch:'L3', prio:2, st:'todo'},
+  {t:'도깨비와 개암나무', lv:['L2','L3'], launch:'L3', prio:2, st:'todo'},
+  {t:'방귀쟁이 며느리', lv:['L2','L3'], launch:'L3', prio:2, st:'todo'},
+  {t:'삼년 고개', lv:['L2','L3'], launch:'L3', prio:2, st:'todo'},
+  {t:'까치와 호랑이', lv:['L2','L3'], launch:'L3', prio:2, st:'todo'},
+  {t:'두꺼비 신랑', lv:['L3'], launch:'L3', prio:3, st:'todo'},
+  {t:'심청전 (완역)', lv:['L3','L4'], launch:'L3', prio:3, st:'todo'},
+  {t:'홍길동전 (축약)', lv:['L3','L4'], launch:'L3', prio:3, st:'todo'},
+  {t:'춘향전 (축약)', lv:['L4'], launch:'L4', prio:3, st:'todo'},
 ];
+const FOLKTALE = FOLKTALE_RAW.map(b => ({ ...b, lvPhase: autoLvPhase(b, 'folktale') }));
 
-const LIFE = [
-  {t:'치과에 가요', lv:['L1','L2'], habit:'양치·병원', prio:1, st:'done'},
-  {t:'양치질할 시간', lv:['L1','L2'], habit:'양치', prio:1, st:'todo'},
-  {t:'손 씻기 챔피언', lv:['L1','L2'], habit:'위생', prio:1, st:'todo'},
-  {t:'이제 화장실 혼자', lv:['L1','L2'], habit:'배변훈련', prio:1, st:'todo'},
-  {t:'야채를 먹어요', lv:['L1','L2'], habit:'식습관', prio:1, st:'todo'},
-  {t:'잠자는 시간이야', lv:['L1','L2'], habit:'수면', prio:1, st:'todo'},
-  {t:'아침에 일어나기', lv:['L1','L2'], habit:'수면·루틴', prio:2, st:'todo'},
-  {t:'정리정돈 잘해요', lv:['L1','L2'], habit:'루틴', prio:2, st:'todo'},
-  {t:'옷 입고 벗기', lv:['L1','L2'], habit:'자립', prio:2, st:'todo'},
-  {t:'친구에게 미안해', lv:['L2','L3'], habit:'사회성', prio:2, st:'todo'},
-  {t:'내 차례를 기다려요', lv:['L2','L3'], habit:'사회성', prio:2, st:'todo'},
-  {t:'울고 싶을 때', lv:['L2','L3'], habit:'감정', prio:2, st:'todo'},
-  {t:'화가 날 땐 심호흡', lv:['L2','L3'], habit:'감정', prio:2, st:'todo'},
-  {t:'부끄러워도 괜찮아', lv:['L2','L3'], habit:'감정', prio:3, st:'todo'},
-  {t:'유치원 첫날', lv:['L2','L3'], habit:'성장·학교', prio:2, st:'todo'},
-  {t:'동생이 생겨요', lv:['L2','L3'], habit:'가족', prio:3, st:'todo'},
-  {t:'이 빠진 날', lv:['L1','L2'], habit:'성장', prio:3, st:'todo'},
-  {t:'병원 가는 날 (감기·주사)', lv:['L2','L3'], habit:'병원', prio:2, st:'todo'},
+// ========= 생활동화 =========
+const LIFE_RAW = [
+  {t:'치과에 가요', lv:['L1','L2'], launch:'L2', habit:'양치·병원', prio:1, st:'done'},
+  {t:'양치질할 시간', lv:['L1','L2'], launch:'L2', habit:'양치', prio:1, st:'todo'},
+  {t:'손 씻기 챔피언', lv:['L1','L2'], launch:'L2', habit:'위생', prio:1, st:'todo'},
+  {t:'이제 화장실 혼자', lv:['L1','L2'], launch:'L2', habit:'배변훈련', prio:1, st:'todo'},
+  {t:'야채를 먹어요', lv:['L1','L2'], launch:'L2', habit:'식습관', prio:1, st:'todo'},
+  {t:'잠자는 시간이야', lv:['L1','L2'], launch:'L2', habit:'수면', prio:1, st:'todo'},
+  {t:'아침에 일어나기', lv:['L1','L2'], launch:'L2', habit:'수면·루틴', prio:2, st:'todo'},
+  {t:'정리정돈 잘해요', lv:['L1','L2'], launch:'L2', habit:'루틴', prio:2, st:'todo'},
+  {t:'옷 입고 벗기', lv:['L1','L2'], launch:'L2', habit:'자립', prio:2, st:'todo'},
+  {t:'친구에게 미안해', lv:['L2','L3'], launch:'L3', habit:'사회성', prio:2, st:'todo'},
+  {t:'내 차례를 기다려요', lv:['L2','L3'], launch:'L3', habit:'사회성', prio:2, st:'todo'},
+  {t:'울고 싶을 때', lv:['L2','L3'], launch:'L3', habit:'감정', prio:2, st:'todo'},
+  {t:'화가 날 땐 심호흡', lv:['L2','L3'], launch:'L3', habit:'감정', prio:2, st:'todo'},
+  {t:'부끄러워도 괜찮아', lv:['L2','L3'], launch:'L3', habit:'감정', prio:3, st:'todo'},
+  {t:'유치원 첫날', lv:['L2','L3'], launch:'L3', habit:'성장·학교', prio:2, st:'todo'},
+  {t:'동생이 생겨요', lv:['L2','L3'], launch:'L3', habit:'가족', prio:3, st:'todo'},
+  {t:'이 빠진 날', lv:['L1','L2'], launch:'L2', habit:'성장', prio:3, st:'todo'},
+  {t:'병원 가는 날 (감기·주사)', lv:['L2','L3'], launch:'L3', habit:'병원', prio:2, st:'todo'},
 ];
+const LIFE = LIFE_RAW.map(b => ({ ...b, lvPhase: autoLvPhase(b, 'life') }));
 
-// ========= 렌더 =========
-function badgeLv(l) { return `<span class="badge-${l} text-xs px-1.5 py-0.5 rounded mr-0.5">${l}</span>`; }
+// ========= 렌더 유틸 =========
+function badgeLv(l, isLaunch = false) {
+  return `<span class="badge-${l} text-xs px-1.5 py-0.5 rounded mr-0.5 ${isLaunch?'badge-launch':''}">${l}</span>`;
+}
 function prioSpan(p) { return `<span class="prio-${p} px-2 py-0.5 rounded text-xs">${p}</span>`; }
 function statusSpan(s) {
   if (s==='done') return '<span class="status-done">✅ 완성</span>';
   if (s==='wip') return '<span class="status-wip">🟡 작업중</span>';
   return '<span class="status-todo">⬜ 미제작</span>';
 }
+function phaseCell(book, phase) {
+  const lvs = Object.entries(book.lvPhase).filter(([_l, p]) => p === phase).map(([l]) => l);
+  if (lvs.length === 0) return '<span class="phase-empty">·</span>';
+  return lvs.map(l => `<span class="badge-${l} phase-pill">${l}</span>`).join('');
+}
 
+// ========= 세계명작 렌더 =========
 function renderClassic() {
   const prio = document.getElementById('filterPrio').value;
   const st = document.getElementById('filterStatus').value;
@@ -517,8 +533,10 @@ function renderClassic() {
       <td class="text-xs text-slate-500 italic">${r.o}</td>
       <td class="text-xs">${r.a} · ${r.y} · ${r.c}</td>
       <td class="text-xs"><span class="bg-slate-100 px-2 py-0.5 rounded">${r.src}</span></td>
-      <td class="text-center">${r.lv.map(badgeLv).join('')}</td>
-      <td class="text-center font-bold">${r.launch}</td>
+      <td class="phase-col">${phaseCell(r,1)}</td>
+      <td class="phase-col">${phaseCell(r,2)}</td>
+      <td class="phase-col">${phaseCell(r,3)}</td>
+      <td class="phase-col">${phaseCell(r,4)}</td>
       <td class="text-center">${prioSpan(r.prio)}</td>
       <td class="text-center">${statusSpan(r.st)}</td>
     </tr>`).join('');
@@ -531,6 +549,7 @@ function initSourceFilter() {
   sources.forEach(s => sel.insertAdjacentHTML('beforeend', `<option value="${s}">${s}</option>`));
 }
 
+// ========= 자연관찰 렌더 =========
 let natureSub = 'animal';
 function renderNature() {
   const items = NATURE[natureSub] || [];
@@ -539,8 +558,10 @@ function renderNature() {
       <td class="text-slate-400">${i+1}</td>
       <td class="font-semibold">${r.t}</td>
       <td class="text-xs text-slate-500">${r.sub || '-'}</td>
-      <td class="text-center">${r.lv.map(badgeLv).join('')}</td>
-      <td class="text-center font-bold">${r.launch}</td>
+      <td class="phase-col">${phaseCell(r,1)}</td>
+      <td class="phase-col">${phaseCell(r,2)}</td>
+      <td class="phase-col">${phaseCell(r,3)}</td>
+      <td class="phase-col">${phaseCell(r,4)}</td>
       <td class="text-center">${prioSpan(r.prio)}</td>
       <td class="text-center">${statusSpan(r.st)}</td>
     </tr>`).join('');
@@ -549,12 +570,16 @@ function renderNature() {
   document.getElementById('natureCount').textContent = `총 ${total}권 · 완성 ${done} · 미제작 ${total-done} (${Math.round(done/total*100)}%)`;
 }
 
+// ========= 전래·생활 =========
 function renderFolktale() {
   document.getElementById('folktaleRows').innerHTML = FOLKTALE.map((r,i)=>`
     <tr>
       <td class="text-slate-400">${i+1}</td>
       <td class="font-semibold">${r.t}</td>
-      <td class="text-center">${r.lv.map(badgeLv).join('')}</td>
+      <td class="phase-col">${phaseCell(r,1)}</td>
+      <td class="phase-col">${phaseCell(r,2)}</td>
+      <td class="phase-col">${phaseCell(r,3)}</td>
+      <td class="phase-col">${phaseCell(r,4)}</td>
       <td class="text-center">${prioSpan(r.prio)}</td>
       <td class="text-center">${statusSpan(r.st)}</td>
     </tr>`).join('');
@@ -565,13 +590,117 @@ function renderLife() {
     <tr>
       <td class="text-slate-400">${i+1}</td>
       <td class="font-semibold">${r.t}</td>
-      <td class="text-center">${r.lv.map(badgeLv).join('')}</td>
       <td class="text-center text-xs"><span class="bg-pink-100 text-pink-800 px-2 py-0.5 rounded">${r.habit}</span></td>
+      <td class="phase-col">${phaseCell(r,1)}</td>
+      <td class="phase-col">${phaseCell(r,2)}</td>
+      <td class="phase-col">${phaseCell(r,3)}</td>
+      <td class="phase-col">${phaseCell(r,4)}</td>
       <td class="text-center">${prioSpan(r.prio)}</td>
       <td class="text-center">${statusSpan(r.st)}</td>
     </tr>`).join('');
 }
 
+// ========= Phase 타임라인 =========
+const PH_META = {
+  1: { label:'Phase 1 · Launch (T0)', color:'#22c55e', desc:'세계명작 L3 기본 + 자연관찰 실사. 신규 제작 ≈ 108 variations' },
+  2: { label:'Phase 2 (+3~6M)', color:'#3b82f6', desc:'세계명작 Top 인기 L2 확장 + 동물·공룡 수채 + 생활동화 시작' },
+  3: { label:'Phase 3 (+6~12M)', color:'#6366f1', desc:'세계명작 L4 졸업판 + 애니메이션 스타일 + 우리몸·지구·전래 본격' },
+  4: { label:'Phase 4 (+12~18M)', color:'#a855f7', desc:'L1 대량 확장 + 식물·우주 수채 + 동물·공룡 카툰' },
+};
+
+function getAllCategories() {
+  return [
+    { key:'classic', label:'🏰 세계명작', art:'classic', data: CLASSIC },
+    { key:'animal', label:'🦁 자연관찰 · 동물', art:'nature_animal', data: NATURE.animal },
+    { key:'plant', label:'🌳 자연관찰 · 식물', art:'nature_plant', data: NATURE.plant },
+    { key:'dinosaur', label:'🦖 공룡', art:'dinosaur', data: NATURE.dinosaur },
+    { key:'body', label:'🫀 우리 몸', art:'nature_body', data: NATURE.body },
+    { key:'earth', label:'🌍 지구·환경', art:'nature_earth', data: NATURE.earth },
+    { key:'space', label:'🪐 우주', art:'nature_space', data: NATURE.space },
+    { key:'folktale', label:'🏯 전래동화', art:'folktale', data: FOLKTALE },
+    { key:'life', label:'🏠 생활동화', art:'life', data: LIFE },
+  ];
+}
+
+let activePhase = 1;
+function renderTimeline() {
+  const cats = getAllCategories();
+  const container = document.getElementById('timelineContent');
+  const meta = PH_META[activePhase];
+  const chunks = [];
+
+  chunks.push(`<div class="bg-white rounded-xl shadow p-5 mb-5">
+    <div class="text-lg font-bold" style="color:${meta.color};">${meta.label}</div>
+    <div class="text-sm text-slate-600 mt-1">${meta.desc}</div>
+  </div>`);
+
+  let totalBooks = 0, totalVariations = 0;
+  for (const cat of cats) {
+    // 이 Phase에 제작할 레벨 variations
+    const rows = [];
+    for (const b of cat.data) {
+      const lvs = Object.entries(b.lvPhase).filter(([_l, p]) => p === activePhase).map(([l]) => l);
+      if (lvs.length === 0) continue;
+      rows.push({ book: b, levels: lvs });
+    }
+    // 이 Phase에 제작할 삽화 variations
+    const artPhase = ART_PHASE_PLAN[cat.art] || {};
+    const newArts = artPhase['P'+activePhase] || [];
+
+    const catLvVariations = rows.reduce((a,r) => a + r.levels.length, 0);
+    const catArtVariations = cat.key === 'classic' && activePhase === 1
+      ? cat.data.length * newArts.length   // 50권 × 3 스타일
+      : cat.data.filter(b => b.st !== 'todo' || (activePhase === 1 && b.launch)).length * newArts.length;
+    // 간단화: Phase 1만 전체 책 × 신규 스타일, 이후는 기존 데이터 기준
+    const catTotal = catLvVariations + catArtVariations;
+    if (catTotal === 0 && newArts.length === 0 && rows.length === 0) continue;
+
+    totalBooks += rows.length;
+    totalVariations += catTotal;
+
+    chunks.push(`<div class="bg-white rounded-xl shadow mb-4 overflow-hidden">
+      <div class="px-5 py-3 border-b flex justify-between items-center" style="border-color:#f3f4f6;">
+        <div class="font-bold text-slate-800">${cat.label}</div>
+        <div class="text-xs text-slate-500">
+          ${rows.length > 0 ? `레벨 ${catLvVariations}개` : ''}
+          ${newArts.length > 0 ? ` · 삽화 ${catArtVariations}개 (${newArts.join(', ')})` : ''}
+          ${rows.length === 0 && newArts.length === 0 ? '작업 없음' : ''}
+        </div>
+      </div>
+      ${rows.length === 0 && newArts.length === 0 ? '' : `
+        <div class="p-4">
+          ${newArts.length > 0 ? `<div class="mb-3 text-xs">
+            <span class="font-semibold text-slate-600">🎨 신규 삽화:</span>
+            ${newArts.map(a=>`<span class="art-chip art-${a}">${a}</span>`).join('')}
+            <span class="text-slate-400">— 기존 권수에 추가 생성</span>
+          </div>` : ''}
+          ${rows.length > 0 ? `
+            <table class="w-full text-xs">
+              <thead><tr><th class="text-left py-1">책</th><th class="text-center py-1">만들 레벨</th><th class="text-center py-1">우선</th></tr></thead>
+              <tbody>
+                ${rows.map(r => `<tr>
+                  <td class="py-1">${r.book.t}</td>
+                  <td class="text-center">${r.levels.map(l => `<span class="badge-${l} phase-pill">${l}</span>`).join('')}</td>
+                  <td class="text-center">${prioSpan(r.book.prio)}</td>
+                </tr>`).join('')}
+              </tbody>
+            </table>
+          ` : ''}
+        </div>
+      `}
+    </div>`);
+  }
+
+  chunks.unshift(`<div class="grid grid-cols-3 gap-3 mb-4">
+    <div class="bg-white rounded-lg p-3 shadow-sm"><div class="text-[10px] text-slate-500">책 작업</div><div class="text-2xl font-black" style="color:${meta.color};">${totalBooks}</div></div>
+    <div class="bg-white rounded-lg p-3 shadow-sm"><div class="text-[10px] text-slate-500">총 variations (레벨+삽화)</div><div class="text-2xl font-black text-indigo-500">${totalVariations}</div></div>
+    <div class="bg-white rounded-lg p-3 shadow-sm"><div class="text-[10px] text-slate-500">Phase</div><div class="text-2xl font-black text-orange-500">P${activePhase}</div></div>
+  </div>`);
+
+  container.innerHTML = chunks.join('');
+}
+
+// ========= 대시보드 =========
 function renderDashProgress() {
   const cats = [
     {label:'🏰 세계명작', target:50, current: CLASSIC.filter(r=>r.st!=='todo').length, color:'#a855f7'},
@@ -596,20 +725,42 @@ function renderDashProgress() {
   }).join('');
 }
 
-// ========= 탭 전환 =========
+function renderPhaseVariations() {
+  const cats = getAllCategories();
+  const totals = {1:0, 2:0, 3:0, 4:0};
+  for (const cat of cats) {
+    for (const b of cat.data) {
+      for (const p of Object.values(b.lvPhase)) totals[p] = (totals[p] || 0) + 1;
+    }
+    for (const p of [1,2,3,4]) {
+      const arts = ART_PHASE_PLAN[cat.art]?.['P'+p] || [];
+      if (arts.length) totals[p] += cat.data.length * arts.length;
+    }
+  }
+  const max = Math.max(...Object.values(totals));
+  const container = document.getElementById('phaseVariations');
+  container.innerHTML = [1,2,3,4].map(p => {
+    const pct = Math.round(totals[p]/max*100);
+    return `<div>
+      <div class="flex justify-between text-xs mb-1"><span class="font-semibold">Phase ${p} · ${PH_META[p].label.split('·')[1].trim()}</span><span class="text-slate-500">${totals[p]} variations</span></div>
+      <div class="pr-bar"><div style="width:${pct}%; background:${PH_META[p].color}; height:100%;"></div></div>
+    </div>`;
+  }).join('');
+}
+
+// ========= 탭 =========
 function activateTab(name) {
   document.querySelectorAll('.tab').forEach(b => {
-    if (b.dataset.tab === name) b.classList.add('tab-active'); else { b.classList.remove('tab-active'); b.classList.add('tab-inactive'); }
+    if (b.dataset.tab === name) b.classList.add('tab-active');
+    else { b.classList.remove('tab-active'); b.classList.add('tab-inactive'); }
   });
   document.querySelectorAll('.tab-content').forEach(s => s.classList.add('hidden'));
   document.getElementById('tab-'+name).classList.remove('hidden');
 }
-
 document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => activateTab(b.dataset.tab)));
 
 document.querySelectorAll('.sub-tab').forEach(b => b.addEventListener('click', e => {
   document.querySelectorAll('.sub-tab').forEach(x => {
-    x.classList.remove('bg-coral-500','text-white');
     x.style.background = 'white'; x.style.color = 'black';
     x.classList.add('bg-white','border');
   });
@@ -617,6 +768,18 @@ document.querySelectorAll('.sub-tab').forEach(b => b.addEventListener('click', e
   e.currentTarget.style.color = 'white';
   natureSub = e.currentTarget.dataset.sub;
   renderNature();
+}));
+
+document.querySelectorAll('.ph-tab').forEach(b => b.addEventListener('click', e => {
+  document.querySelectorAll('.ph-tab').forEach(x => {
+    x.style.background = 'white'; x.style.color = 'black';
+    x.classList.add('bg-white','border');
+  });
+  const p = Number(e.currentTarget.dataset.ph);
+  e.currentTarget.style.background = PH_META[p].color;
+  e.currentTarget.style.color = 'white';
+  activePhase = p;
+  renderTimeline();
 }));
 
 ['filterPrio','filterStatus','filterSource','filterSearch'].forEach(id => {
@@ -631,6 +794,8 @@ renderNature();
 renderFolktale();
 renderLife();
 renderDashProgress();
+renderPhaseVariations();
+renderTimeline();
 activateTab('dashboard');
 </script>
 </body>
