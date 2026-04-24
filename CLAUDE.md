@@ -359,6 +359,19 @@ pnpm --filter shared build
 - 주석: 자명한 코드에는 주석 불필요. 복잡한 로직에만 추가
 - import: `@tangobook/shared`는 shared 타입, `@/`는 client 내부
 
+## Performance & Caching (2026-04-24)
+- **서버 storybook list 캐시** (`r2.repository.ts`):
+  - 5분 in-memory 캐시 + `stale-while-revalidate` (만료 시 stale 즉시 반환 + 백그라운드 리프레시)
+  - R2 다운로드 concurrency 30
+  - 서버 기동 직후 `prewarmStorybookListCache()` 호출 (fire-and-forget) → 첫 사용자 요청 **23ms** (기존 7.3초)
+- **클라이언트 에셋 프리로드 공용 인프라**:
+  - `hooks/useAssetPreloadProgress(urls)` — URL 배열을 `fetch(url, { cache: 'force-cache' })`로 병렬 프리페치 + loaded/failed 카운터. 이후 `<img>`·`<audio>`·`<video>` 렌더 시 캐시 hit
+  - `components/AssetLoadingOverlay` — "X / Y · NN%" 큰 숫자 + 진행바 (absolute overlay / inline 양쪽 모드)
+  - 사용처: `AudiobookProjectCard`(Remotion Player 감싸기, 슬라이드·TTS·커버·BGM) · `TimelineEditorStep`(롱폼 TimelinePreview, clip·SFX·TTS·BGM)
+- **라이브러리 뷰어 카드** (`BookCard.tsx`): `loading="lazy"` + `decoding="async"` + 명시 `width/height` (640×360). 첫 진입 시 viewport 내 이미지만 로드
+- **파닉스 seed 스크립트**: `scripts/seed-phonics-books.mjs` — 한글/영어 커리큘럼 71 unit → phonics Storybook JSON 생성 (R2). AI 영역(이미지/TTS/스토리) 빈값. `--force`로 덮어쓰기
+- 상세: `memory/perf-optimizations.md`
+
 ## Learning Reports Feature 구조 (2026-04-23)
 - `packages/client/src/features/learning/` — 동화책+파닉스 학습 리포팅 (부모용)
 - **마스터리 공식**: `0.15 + 0.85 × 정답률 × exp(-days/30) × min(1, 시도/5)` → 4단계(`unknown/seen/practiced/mastered`)
