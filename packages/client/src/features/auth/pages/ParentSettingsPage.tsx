@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { authApi } from '../api/auth.api';
 import { ChangePinStep } from './ChangePinStep';
+import { PIN_REQUIRED } from '@/config/features';
 
 export default function ParentSettingsPage() {
   const { signOut } = useAuth();
@@ -31,10 +32,12 @@ export default function ParentSettingsPage() {
 
   return (
     <div className="space-y-6">
-      <section className="bg-white rounded-2xl p-6 shadow-soft">
-        <h3 className="text-xl font-black text-ink-900 mb-4">🔒 PIN 변경</h3>
-        <ChangePinStep />
-      </section>
+      {PIN_REQUIRED && (
+        <section className="bg-white rounded-2xl p-6 shadow-soft">
+          <h3 className="text-xl font-black text-ink-900 mb-4">🔒 PIN 변경</h3>
+          <ChangePinStep />
+        </section>
+      )}
       <section className="bg-white rounded-2xl p-6 shadow-soft">
         <h3 className="text-xl font-black text-ink-900 mb-4">🚪 로그아웃</h3>
         <button

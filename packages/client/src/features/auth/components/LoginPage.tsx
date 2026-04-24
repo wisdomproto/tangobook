@@ -5,6 +5,7 @@ import { SignInForm } from './SignInForm';
 import { SignUpForm } from './SignUpForm';
 import { SetPinStep } from './SetPinStep';
 import { ProfileCreateStep } from './ProfileCreateStep';
+import { PIN_REQUIRED } from '@/config/features';
 
 type Step = 'auth' | 'setPin' | 'profile' | 'done';
 
@@ -15,8 +16,10 @@ function computeStep(
   pinReset: boolean
 ): Step {
   if (!session) return 'auth';
-  if (pinReset) return 'setPin';
-  if (!hasPin) return 'setPin';
+  if (PIN_REQUIRED) {
+    if (pinReset) return 'setPin';
+    if (!hasPin) return 'setPin';
+  }
   if (profileCount === 0) return 'profile';
   return 'done';
 }
