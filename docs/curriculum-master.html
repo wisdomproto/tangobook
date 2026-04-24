@@ -21,6 +21,7 @@
   .status-done { color: #15803d; }
   .status-wip { color: #ca8a04; }
   .status-todo { color: #6b7280; }
+  .status-na { color: #cbd5e1; font-style: italic; }
   .art-chip { display: inline-block; padding: 1px 6px; border-radius: 10px; font-size: 10px; margin-right: 3px; }
   .art-photographic { background: #dbeafe; color: #1e3a8a; }
   .art-watercolor { background: #fae8ff; color: #6b21a8; }
@@ -35,11 +36,13 @@
   .phase-pill { display: inline-block; padding: 1px 5px; border-radius: 8px; font-size: 10px; margin: 0 2px; }
   .phase-col { min-width: 60px; text-align: center; }
   .phase-empty { color: #cbd5e1; }
-  .ph-1 { background: #dcfce7; color: #14532d; }
-  .ph-2 { background: #dbeafe; color: #1e3a8a; }
-  .ph-3 { background: #e0e7ff; color: #312e81; }
-  .ph-4 { background: #f3e8ff; color: #581c87; }
-  .ph-5 { background: #fce7f3; color: #831843; }
+  .ph-btn { padding: 6px 16px; border-radius: 9999px; font-size: 13px; font-weight: 700; cursor: pointer; border: 1px solid #e5e7eb; background: white; transition: transform 0.1s; }
+  .ph-btn:hover { transform: translateY(-1px); }
+  .ph-btn.active { color: white; border-color: transparent; }
+  .dday-urgent { color: #dc2626; font-weight: 700; }
+  .dday-normal { color: #0891b2; }
+  .dday-far { color: #64748b; }
+  .dday-past { color: #6b7280; text-decoration: line-through; }
 </style>
 </head>
 <body class="bg-orange-50">
@@ -51,7 +54,21 @@
   </div>
 </header>
 
-<nav class="bg-white shadow-sm sticky top-0 z-20">
+<!-- ===== GLOBAL Phase Selector ===== -->
+<div class="bg-white border-b border-slate-200 sticky top-0 z-30">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+    <div class="text-xs font-bold text-slate-500">보고 있는 Phase:</div>
+    <div class="flex gap-2 flex-wrap" id="globalPhaseButtons">
+      <button class="ph-btn active" data-ph="1" style="background:#22c55e;">🟢 Phase 1</button>
+      <button class="ph-btn" data-ph="2">🔵 Phase 2</button>
+      <button class="ph-btn" data-ph="3">🟣 Phase 3</button>
+      <button class="ph-btn" data-ph="4">🟪 Phase 4</button>
+    </div>
+    <div class="sm:ml-auto text-sm" id="phaseInfo"></div>
+  </div>
+</div>
+
+<nav class="bg-white shadow-sm sticky z-20" style="top: 52px;">
   <div class="max-w-7xl mx-auto px-6 flex gap-2 py-2 overflow-x-auto">
     <button class="tab px-5 py-2 rounded-full text-sm font-bold transition" data-tab="dashboard">📊 대시보드</button>
     <button class="tab px-5 py-2 rounded-full text-sm font-bold transition" data-tab="classic">🏰 세계명작</button>
@@ -67,15 +84,14 @@
 
 <!-- ===== 대시보드 ===== -->
 <section id="tab-dashboard" class="tab-content">
-  <h2 class="text-2xl font-black text-slate-900 mb-4">Phase 1 런칭 현황</h2>
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-    <div class="bg-white rounded-xl p-5 shadow"><div class="text-xs text-slate-500">런칭 권수</div><div class="text-3xl font-black" style="color:#ff5e3a;">143</div></div>
-    <div class="bg-white rounded-xl p-5 shadow"><div class="text-xs text-slate-500">런칭 variations</div><div class="text-3xl font-black text-indigo-500">243</div></div>
-    <div class="bg-white rounded-xl p-5 shadow"><div class="text-xs text-slate-500">기존 보유</div><div class="text-3xl font-black text-green-600">135</div><div class="text-xs text-slate-400">56%</div></div>
-    <div class="bg-white rounded-xl p-5 shadow"><div class="text-xs text-slate-500">신규 제작 필요</div><div class="text-3xl font-black text-orange-500">108</div><div class="text-xs text-slate-400">44%</div></div>
-  </div>
-  <h3 class="text-lg font-bold mb-3">카테고리별 Phase 1 완성도</h3>
+  <h2 class="text-2xl font-black text-slate-900 mb-1" id="dashTitle">Phase 1 현황</h2>
+  <p class="text-sm text-slate-500 mb-4" id="dashSubtitle"></p>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6" id="dashStats"></div>
+
+  <h3 class="text-lg font-bold mb-3">카테고리별 완성도 <span class="text-sm font-normal text-slate-500" id="dashProgressLabel"></span></h3>
   <div class="bg-white rounded-xl p-5 shadow mb-6"><div id="dashProgress" class="space-y-3"></div></div>
+
   <h3 class="text-lg font-bold mb-3">Phase별 variation 총량</h3>
   <div class="bg-white rounded-xl p-5 shadow mb-6"><div id="phaseVariations" class="space-y-3"></div></div>
 </section>
@@ -91,7 +107,7 @@
     </select>
     <label class="text-xs font-semibold text-slate-600 ml-3">상태:</label>
     <select class="border rounded px-2 py-1 text-sm" id="filterStatus">
-      <option value="">전체</option><option value="done">✅ 완성</option><option value="wip">🟡 작업중</option><option value="todo">⬜ 미제작</option>
+      <option value="">전체</option><option value="done">✅ 완성</option><option value="wip">🟡 진행중</option><option value="todo">⬜ 미제작</option><option value="na">— 해당 없음</option>
     </select>
     <label class="text-xs font-semibold text-slate-600 ml-3">원전:</label>
     <select class="border rounded px-2 py-1 text-sm" id="filterSource"><option value="">전체</option></select>
@@ -105,7 +121,7 @@
             <th class="text-left">#</th><th class="text-left">제목</th><th class="text-left">원제</th>
             <th class="text-left">작가·연도·국가</th><th class="text-left">원전</th>
             <th class="phase-col">P1</th><th class="phase-col">P2</th><th class="phase-col">P3</th><th class="phase-col">P4</th>
-            <th class="text-center">우선</th><th class="text-center">상태</th>
+            <th class="text-center">우선</th><th class="text-center" id="classicStHeader">상태 (P1)</th>
           </tr>
         </thead>
         <tbody id="classicRows"></tbody>
@@ -113,7 +129,7 @@
     </div>
   </div>
   <div class="text-xs text-slate-500 mt-2" id="classicCount"></div>
-  <p class="text-xs text-slate-500 mt-1">* P1=런칭, P2=+3~6M, P3=+6~12M, P4=+12~18M. 각 칸은 해당 Phase에 만들 레벨 variation.</p>
+  <p class="text-xs text-slate-500 mt-1">* 상단 Phase 선택에 따라 "상태" 컬럼이 해당 Phase 기준으로 변경됨.</p>
 </section>
 
 <!-- ===== 자연관찰 ===== -->
@@ -133,7 +149,7 @@
       <table class="w-full">
         <thead><tr><th>#</th><th class="text-left">제목</th><th class="text-left">세부</th>
           <th class="phase-col">P1</th><th class="phase-col">P2</th><th class="phase-col">P3</th><th class="phase-col">P4</th>
-          <th class="text-center">우선</th><th class="text-center">상태</th></tr></thead>
+          <th class="text-center">우선</th><th class="text-center" id="natureStHeader">상태 (P1)</th></tr></thead>
         <tbody id="natureRows"></tbody>
       </table>
     </div>
@@ -144,12 +160,12 @@
 <!-- ===== 전래동화 ===== -->
 <section id="tab-folktale" class="tab-content hidden">
   <h2 class="text-2xl font-black text-slate-900 mb-2">🏯 전래동화 (목표 17권 · 한국)</h2>
-  <p class="text-sm text-slate-600 mb-4">런칭 제외. Phase 3에 한국 전래 진입. 국가 진출 시 국가별 15권씩 교체.</p>
+  <p class="text-sm text-slate-600 mb-4">런칭 제외 (Phase 1). Phase 3에 한국 전래 진입. 국가 진출 시 국가별 15권씩 교체.</p>
   <div class="bg-white rounded-xl shadow overflow-hidden">
     <div class="overflow-x-auto">
       <table class="w-full"><thead><tr><th>#</th><th class="text-left">제목</th>
         <th class="phase-col">P1</th><th class="phase-col">P2</th><th class="phase-col">P3</th><th class="phase-col">P4</th>
-        <th class="text-center">우선</th><th class="text-center">상태</th></tr></thead>
+        <th class="text-center">우선</th><th class="text-center" id="folktaleStHeader">상태 (P1)</th></tr></thead>
         <tbody id="folktaleRows"></tbody></table>
     </div>
   </div>
@@ -158,12 +174,12 @@
 <!-- ===== 생활동화 ===== -->
 <section id="tab-life" class="tab-content hidden">
   <h2 class="text-2xl font-black text-slate-900 mb-2">🏠 생활동화 (목표 18권)</h2>
-  <p class="text-sm text-slate-600 mb-4">런칭 제외. Phase 2에 6권 시작, Phase 3에 확장. habitTag는 헬스케어 연동 대비.</p>
+  <p class="text-sm text-slate-600 mb-4">런칭 제외 (Phase 1). Phase 2에 6권 시작, Phase 3에 확장. habitTag는 헬스케어 연동 대비.</p>
   <div class="bg-white rounded-xl shadow overflow-hidden">
     <div class="overflow-x-auto">
       <table class="w-full"><thead><tr><th>#</th><th class="text-left">제목</th><th class="text-center">habitTag</th>
         <th class="phase-col">P1</th><th class="phase-col">P2</th><th class="phase-col">P3</th><th class="phase-col">P4</th>
-        <th class="text-center">우선</th><th class="text-center">상태</th></tr></thead>
+        <th class="text-center">우선</th><th class="text-center" id="lifeStHeader">상태 (P1)</th></tr></thead>
         <tbody id="lifeRows"></tbody></table>
     </div>
   </div>
@@ -172,15 +188,7 @@
 <!-- ===== 제작 타임라인 ===== -->
 <section id="tab-timeline" class="tab-content hidden">
   <h2 class="text-2xl font-black text-slate-900 mb-4">⏱️ Phase별 제작 To-Do</h2>
-  <p class="text-sm text-slate-600 mb-6">각 Phase에 추가/신규 제작할 전체 variation 목록입니다. 컨텐츠별로 어떤 레벨·삽화를 만들지 자동 집계.</p>
-
-  <div class="flex gap-2 mb-5">
-    <button class="ph-tab px-5 py-2 rounded-full text-sm font-bold" data-ph="1" style="background:#22c55e;color:white;">🟢 Phase 1 · Launch</button>
-    <button class="ph-tab px-5 py-2 rounded-full text-sm font-bold bg-white border" data-ph="2">🔵 Phase 2 · +3~6M</button>
-    <button class="ph-tab px-5 py-2 rounded-full text-sm font-bold bg-white border" data-ph="3">🟣 Phase 3 · +6~12M</button>
-    <button class="ph-tab px-5 py-2 rounded-full text-sm font-bold bg-white border" data-ph="4">🟪 Phase 4 · +12~18M</button>
-  </div>
-
+  <p class="text-sm text-slate-600 mb-6">상단 글로벌 Phase selector와 연동. 현재 선택한 Phase에 만들어야 할 모든 variation 자동 집계.</p>
   <div id="timelineContent"></div>
 </section>
 
@@ -189,81 +197,45 @@
   <h2 class="text-2xl font-black text-slate-900 mb-4">🗺️ 3차원 확장 로드맵</h2>
   <div class="bg-white rounded-xl shadow mb-6 overflow-hidden">
     <table class="w-full">
-      <thead><tr><th>Phase</th><th>시점</th><th class="text-center">권수</th><th class="text-center">평균 레벨</th><th class="text-center">평균 삽화</th><th class="text-center">variations</th><th class="text-left">주요 확장</th></tr></thead>
+      <thead><tr><th>Phase</th><th>타겟 날짜</th><th class="text-center">권수</th><th class="text-center">평균 레벨</th><th class="text-center">평균 삽화</th><th class="text-center">variations</th><th class="text-left">주요 확장</th></tr></thead>
       <tbody>
-        <tr><td class="font-bold text-green-700">Phase 1</td><td>T0 · Launch</td><td class="text-center">143</td><td class="text-center">1.0</td><td class="text-center">1.4</td><td class="text-center font-bold">243</td><td class="text-xs">세계명작 50×3스타일 · 자연관찰 95×실사 · 우주 3권 신규</td></tr>
-        <tr><td class="font-bold text-blue-700">Phase 2</td><td>+3~6M</td><td class="text-center">149</td><td class="text-center">1.1</td><td class="text-center">1.7</td><td class="text-center font-bold">~330</td><td class="text-xs">세계명작 Top 20 L2 · 동물·공룡 +수채 · 생활동화 6권</td></tr>
-        <tr><td class="font-bold text-indigo-700">Phase 3</td><td>+6~12M</td><td class="text-center">165</td><td class="text-center">1.4</td><td class="text-center">2.0</td><td class="text-center font-bold">~500</td><td class="text-xs">Top 20 L4 졸업판 · 세계명작 +애니 · 우리몸·지구·생활 12권 · 전래 L3</td></tr>
-        <tr><td class="font-bold text-purple-700">Phase 4</td><td>+12~18M</td><td class="text-center">200</td><td class="text-center">2.2</td><td class="text-center">3.0</td><td class="text-center font-bold">~1,300</td><td class="text-xs">L1 대량 확장 · 전래동화 L2 · 식물·우주 +수채화</td></tr>
-        <tr><td class="font-bold text-pink-700">Phase 5+</td><td>+18M~</td><td class="text-center">+α</td><td class="text-center">2.5</td><td class="text-center">3.5</td><td class="text-center font-bold">~2,000+</td><td class="text-xs">국가별 전래동화 (일본·태국·인니·베트남 각 15) · 4스타일 풀</td></tr>
+        <tr><td class="font-bold text-green-700">Phase 1</td><td>2026-05-31</td><td class="text-center">143</td><td class="text-center">1.0</td><td class="text-center">1.4</td><td class="text-center font-bold">243</td><td class="text-xs">세계명작 50×3스타일 · 자연관찰 95×실사 · 우주 3권 신규</td></tr>
+        <tr><td class="font-bold text-blue-700">Phase 2</td><td>2026-12-31</td><td class="text-center">149</td><td class="text-center">1.1</td><td class="text-center">1.7</td><td class="text-center font-bold">~330</td><td class="text-xs">세계명작 Top 인기 L2 · 동물·공룡 +수채 · 생활동화 6권</td></tr>
+        <tr><td class="font-bold text-indigo-700">Phase 3</td><td>2027-05-31</td><td class="text-center">165</td><td class="text-center">1.4</td><td class="text-center">2.0</td><td class="text-center font-bold">~500</td><td class="text-xs">Top 인기 L4 졸업판 · 세계명작 +애니 · 우리몸·지구·전래 L3</td></tr>
+        <tr><td class="font-bold text-purple-700">Phase 4</td><td>2027-12-31</td><td class="text-center">200</td><td class="text-center">2.2</td><td class="text-center">3.0</td><td class="text-center font-bold">~1,300</td><td class="text-xs">L1 대량 확장 · 전래동화 L2 · 식물·우주 +수채화</td></tr>
       </tbody>
     </table>
-  </div>
-  <h3 class="text-lg font-bold mb-2">레벨 확장 타임라인</h3>
-  <div class="bg-white rounded-xl shadow p-5 mb-6">
-    <div class="space-y-3">
-      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">세계명작</span><div class="flex-1 flex gap-1">
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dcfce7;">P1 · L3 전부 (+L4 3권)</div>
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dbeafe;">P2 · Top 20 L2</div>
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#e0e7ff;">P3 · Top 20 L4</div>
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#f3e8ff;">P4 · L1 확장</div>
-      </div></div>
-      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">자연관찰</span><div class="flex-1 flex gap-1">
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dcfce7;">P1 · L2/L3</div>
-        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P2 ·</div>
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#e0e7ff;">P3 · Top 20 L2</div>
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#f3e8ff;">P4 · L1 확장</div>
-      </div></div>
-      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">공룡</span><div class="flex-1 flex gap-1">
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dcfce7;">P1 · L2/L3</div>
-        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P2 ·</div>
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#e0e7ff;">P3 · L4 일부</div>
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#f3e8ff;">P4 · L1 일부</div>
-      </div></div>
-      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">전래동화</span><div class="flex-1 flex gap-1">
-        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P1 ·</div>
-        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P2 ·</div>
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#e0e7ff;">P3 · L3 전체</div>
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#f3e8ff;">P4 · L2 확장</div>
-      </div></div>
-      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">생활동화</span><div class="flex-1 flex gap-1">
-        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P1 ·</div>
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#dbeafe;">P2 · L2 6권</div>
-        <div class="flex-1 text-center text-xs py-1 rounded" style="background:#e0e7ff;">P3 · L3 12권</div>
-        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P4 ·</div>
-      </div></div>
-    </div>
-  </div>
-  <h3 class="text-lg font-bold mb-2">삽화 확장 타임라인</h3>
-  <div class="bg-white rounded-xl shadow p-5">
-    <div class="space-y-3">
-      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">세계명작</span><div class="flex-1 flex gap-1">
-        <div class="flex-1 text-center text-xs py-1 rounded bg-green-100">P1 · 수채·카툰·전통 (3종)</div>
-        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P2 ·</div>
-        <div class="flex-1 text-center text-xs py-1 rounded bg-indigo-100">P3 · +애니메이션 (4종)</div>
-        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P4 ·</div>
-      </div></div>
-      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">동물/공룡</span><div class="flex-1 flex gap-1">
-        <div class="flex-1 text-center text-xs py-1 rounded bg-green-100">P1 · 실사</div>
-        <div class="flex-1 text-center text-xs py-1 rounded bg-blue-100">P2 · +수채 (2종)</div>
-        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P3 ·</div>
-        <div class="flex-1 text-center text-xs py-1 rounded bg-purple-100">P4 · +카툰 (3종)</div>
-      </div></div>
-      <div class="flex items-center gap-3"><span class="w-24 text-xs font-bold">식물/우주</span><div class="flex-1 flex gap-1">
-        <div class="flex-1 text-center text-xs py-1 rounded bg-green-100">P1 · 실사</div>
-        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P2 ·</div>
-        <div class="flex-1 text-center text-xs py-1 rounded bg-slate-100">P3 ·</div>
-        <div class="flex-1 text-center text-xs py-1 rounded bg-purple-100">P4 · +수채 (2종)</div>
-      </div></div>
-    </div>
   </div>
 </section>
 
 </main>
-<footer class="max-w-7xl mx-auto px-6 py-6 text-xs text-slate-400 text-center">탱고북 · 초등 입학 전 필수 동화 완결형 커리큘럼 · 근거: ORT · Lexile · F&P · 국립국어원 · 어린이도서연구회</footer>
+<footer class="max-w-7xl mx-auto px-6 py-6 text-xs text-slate-400 text-center">탱고북 · 초등 입학 전 필수 동화 완결형 커리큘럼</footer>
 
 <script>
-// ========= 카테고리 × Phase별 삽화 제작 계획 =========
+// ========= Phase Meta =========
+const PH_META = {
+  1: { label:'Phase 1 · Launch', date:'2026-05-31', color:'#22c55e', desc:'세계명작 L3 + 자연관찰 실사 런칭' },
+  2: { label:'Phase 2', date:'2026-12-31', color:'#3b82f6', desc:'세계명작 Top 인기 L2 + 동물·공룡 수채 + 생활동화 시작' },
+  3: { label:'Phase 3', date:'2027-05-31', color:'#6366f1', desc:'L4 졸업판 + 애니 스타일 + 우리몸·지구·전래 본격' },
+  4: { label:'Phase 4', date:'2027-12-31', color:'#a855f7', desc:'L1 대량 확장 + 식물·우주 수채 + 동물·공룡 카툰' },
+};
+function daysUntil(dateStr) {
+  const t = new Date(dateStr + 'T23:59:59'); const now = new Date();
+  return Math.ceil((t - now) / (1000*60*60*24));
+}
+function ddayLabel(d) {
+  if (d < 0) return `D+${-d} (지남)`;
+  if (d === 0) return 'D-Day';
+  return `D-${d}`;
+}
+function ddayClass(d) {
+  if (d < 0) return 'dday-past';
+  if (d < 60) return 'dday-urgent';
+  if (d < 180) return 'dday-normal';
+  return 'dday-far';
+}
+
+// ========= 삽화 Phase 계획 =========
 const ART_PHASE_PLAN = {
   classic:        { P1: ['watercolor','cartoon','traditional'], P2: [], P3: ['animation'], P4: [] },
   nature_animal:  { P1: ['photographic'], P2: ['watercolor'], P3: [], P4: ['cartoon'] },
@@ -276,51 +248,45 @@ const ART_PHASE_PLAN = {
   life:           { P1: [], P2: ['cartoon'], P3: ['watercolor'], P4: [] },
 };
 
-// ========= 레벨 Phase 매핑 규칙 =========
-// 각 책에 lvPhase 직접 지정 — null 이면 launch만 만들고 확장 X
-// 규칙: prio=1 이면 launch→P1, 쉬운 레벨→P2, 어려운 레벨→P3, 가장 어려운 or L1 → P4
-//      prio=2 이면 launch→P1, 쉬운 레벨→P4, 나머지는 skip
-//      prio=3 이면 launch→P1만
-
+// ========= 레벨 Phase 매핑 자동 규칙 =========
 function autoLvPhase(book, category) {
-  // 카테고리·우선순위별 자동 규칙
   const out = {};
-  out[book.launch] = 1;
-  const all = book.lv || [];
   const levelOrder = ['L1','L2','L3','L4'];
   const launchIdx = levelOrder.indexOf(book.launch);
+  const all = book.lv || [];
 
   if (category === 'folktale') {
+    out[book.launch] = 3;
     for (const l of all) if (l !== book.launch) out[l] = 4;
-    // Folktale 자체는 P3 런칭
-    for (const l in out) out[l] = out[l] === 1 ? 3 : 4;
     return out;
   }
   if (category === 'life') {
-    // Life는 P2/P3 런칭
     const launchP = book.prio === 1 ? 2 : 3;
     out[book.launch] = launchP;
     for (const l of all) if (l !== book.launch) out[l] = Math.min(4, launchP + 1);
     return out;
   }
 
-  // 세계명작·자연관찰
+  out[book.launch] = 1;
   for (const l of all) {
     if (l === book.launch) continue;
     const idx = levelOrder.indexOf(l);
     const easier = idx < launchIdx;
-    if (book.prio === 1) {
-      if (easier) out[l] = 2;           // 쉬운 레벨 → P2 (Top 인기)
-      else out[l] = 3;                   // 어려운 레벨 → P3
-    } else if (book.prio === 2) {
-      if (easier) out[l] = 4;
-      // 어려운 레벨은 제작 X (skip)
-    }
-    // prio=3는 launch만
+    if (book.prio === 1) { out[l] = easier ? 2 : 3; }
+    else if (book.prio === 2) { if (easier) out[l] = 4; }
   }
-  // L1 확장은 prio=1 세계명작·자연관찰 책만 P4
   if (book.prio === 1 && !out['L1'] && all.includes('L1')) out['L1'] = 4;
   return out;
+}
+
+// ========= 레벨별 상태 자동 주입 =========
+// 규칙: launch 레벨의 상태는 book.st (현재 완성/진행중/미제작), 그 외는 'todo' (아직 안 만듦)
+function autoLvStatus(book) {
+  const s = {};
+  for (const l of Object.keys(book.lvPhase)) {
+    s[l] = l === book.launch ? book.st : 'todo';
+  }
+  return s;
 }
 
 // ========= 데이터 (세계명작 50권) =========
@@ -330,7 +296,7 @@ const CLASSIC_RAW = [
   {no:3, t:'행복한 왕자', o:'The Happy Prince', a:'Oscar Wilde', c:'영국', y:'1888', src:'창작동화', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:4, t:'피터와 늑대', o:'Peter and the Wolf', a:'Sergei Prokofiev', c:'러시아', y:'1936', src:'음악동화', lv:['L3'], launch:'L3', prio:1, st:'done'},
   {no:5, t:'피리 부는 사나이', o:'The Pied Piper of Hamelin', a:'Browning/그림형제', c:'독일', y:'1842', src:'독일전설', lv:['L3'], launch:'L3', prio:1, st:'done'},
-  {no:6, t:'커다란 순무', o:'Репка (Repka)', a:'Alexei Tolstoy (수록)', c:'러시아', y:'1940', src:'러시아민담', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
+  {no:6, t:'커다란 순무', o:'Репка (Repka)', a:'Alexei Tolstoy', c:'러시아', y:'1940', src:'러시아민담', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
   {no:7, t:'정글 북', o:'The Jungle Book', a:'Rudyard Kipling', c:'영국', y:'1894', src:'현대창작', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:8, t:'잠자는 숲속의 공주', o:'La Belle au bois dormant', a:'Perrault/그림형제', c:'프랑스·독일', y:'1697/1812', src:'페로·그림', lv:['L2','L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:9, t:'이상한 나라의 앨리스', o:"Alice's Adventures in Wonderland", a:'Lewis Carroll', c:'영국', y:'1865', src:'현대창작', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
@@ -338,7 +304,7 @@ const CLASSIC_RAW = [
   {no:11, t:'우당탕탕 염소 삼 형제', o:'De tre bukkene Bruse', a:'Asbjørnsen & Moe', c:'노르웨이', y:'1841', src:'북유럽민담', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
   {no:12, t:'오즈의 마법사', o:'The Wonderful Wizard of Oz', a:'L. Frank Baum', c:'미국', y:'1900', src:'현대창작', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:13, t:'엄지 아가씨', o:'Tommelise', a:'H.C. Andersen', c:'덴마크', y:'1835', src:'안데르센', lv:['L2','L3','L4'], launch:'L3', prio:1, st:'done'},
-  {no:14, t:'알라딘과 요술 램프', o:'Aladdin and the Wonderful Lamp', a:'Galland (수록)', c:'프랑스·시리아', y:'1712', src:'천일야화', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
+  {no:14, t:'알라딘과 요술 램프', o:'Aladdin and the Wonderful Lamp', a:'Galland', c:'프랑스·시리아', y:'1712', src:'천일야화', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:15, t:'아기 돼지 삼형제', o:'The Three Little Pigs', a:'Joseph Jacobs', c:'영국', y:'1890', src:'영국민담', lv:['L1','L2','L3'], launch:'L3', prio:1, st:'done'},
   {no:16, t:'신데렐라', o:'Cendrillon', a:'Perrault/그림형제', c:'프랑스·독일', y:'1697/1812', src:'페로·그림', lv:['L2','L3','L4'], launch:'L3', prio:1, st:'done'},
   {no:17, t:'성냥팔이 소녀', o:'Den lille pige med svovlstikkerne', a:'H.C. Andersen', c:'덴마크', y:'1845', src:'안데르센', lv:['L3','L4'], launch:'L3', prio:1, st:'done'},
@@ -376,9 +342,6 @@ const CLASSIC_RAW = [
   {no:49, t:'플란다스의 개', o:'A Dog of Flanders', a:'Ouida', c:'영국', y:'1872', src:'현대창작', lv:['L3','L4'], launch:'L4', prio:3, st:'todo'},
   {no:50, t:'빨강머리 앤 (축약)', o:'Anne of Green Gables', a:'L.M. Montgomery', c:'캐나다', y:'1908', src:'현대창작', lv:['L4'], launch:'L4', prio:3, st:'todo'},
 ];
-
-// 자동 계산: 각 책에 lvPhase 주입
-const CLASSIC = CLASSIC_RAW.map(b => ({ ...b, lvPhase: autoLvPhase(b, 'classic') }));
 
 // ========= 자연관찰 =========
 const NATURE_RAW = {
@@ -444,15 +407,8 @@ const NATURE_RAW = {
     {t:'유성·혜성·소행성', sub:'천문', lv:['L3'], launch:'L3', prio:3, st:'todo'},
   ],
 };
-// 카테고리명 → ART 키 매핑
 const NATURE_ART_KEY = { animal:'nature_animal', plant:'nature_plant', dinosaur:'dinosaur', body:'nature_body', earth:'nature_earth', space:'nature_space' };
-// 자동 lvPhase 주입
-const NATURE = {};
-for (const [sub, arr] of Object.entries(NATURE_RAW)) {
-  NATURE[sub] = arr.map(b => ({ ...b, lvPhase: autoLvPhase(b, NATURE_ART_KEY[sub]) }));
-}
 
-// ========= 전래동화 =========
 const FOLKTALE_RAW = [
   {t:'해님 달님', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
   {t:'콩쥐 팥쥐', lv:['L2','L3'], launch:'L3', prio:1, st:'done'},
@@ -472,9 +428,7 @@ const FOLKTALE_RAW = [
   {t:'홍길동전 (축약)', lv:['L3','L4'], launch:'L3', prio:3, st:'todo'},
   {t:'춘향전 (축약)', lv:['L4'], launch:'L4', prio:3, st:'todo'},
 ];
-const FOLKTALE = FOLKTALE_RAW.map(b => ({ ...b, lvPhase: autoLvPhase(b, 'folktale') }));
 
-// ========= 생활동화 =========
 const LIFE_RAW = [
   {t:'치과에 가요', lv:['L1','L2'], launch:'L2', habit:'양치·병원', prio:1, st:'done'},
   {t:'양치질할 시간', lv:['L1','L2'], launch:'L2', habit:'양치', prio:1, st:'todo'},
@@ -495,22 +449,85 @@ const LIFE_RAW = [
   {t:'이 빠진 날', lv:['L1','L2'], launch:'L2', habit:'성장', prio:3, st:'todo'},
   {t:'병원 가는 날 (감기·주사)', lv:['L2','L3'], launch:'L3', habit:'병원', prio:2, st:'todo'},
 ];
-const LIFE = LIFE_RAW.map(b => ({ ...b, lvPhase: autoLvPhase(b, 'life') }));
+
+// ========= 데이터 변환: lvPhase + lvStatus 자동 주입 =========
+const CLASSIC = CLASSIC_RAW.map(b => {
+  const lvPhase = autoLvPhase(b, 'classic');
+  const bk = { ...b, lvPhase };
+  bk.lvStatus = autoLvStatus(bk);
+  return bk;
+});
+const NATURE = {};
+for (const [sub, arr] of Object.entries(NATURE_RAW)) {
+  NATURE[sub] = arr.map(b => {
+    const lvPhase = autoLvPhase(b, NATURE_ART_KEY[sub]);
+    const bk = { ...b, lvPhase };
+    bk.lvStatus = autoLvStatus(bk);
+    return bk;
+  });
+}
+const FOLKTALE = FOLKTALE_RAW.map(b => {
+  const lvPhase = autoLvPhase(b, 'folktale');
+  const bk = { ...b, lvPhase };
+  bk.lvStatus = autoLvStatus(bk);
+  return bk;
+});
+const LIFE = LIFE_RAW.map(b => {
+  const lvPhase = autoLvPhase(b, 'life');
+  const bk = { ...b, lvPhase };
+  bk.lvStatus = autoLvStatus(bk);
+  return bk;
+});
+
+// ========= Phase 기준 상태 =========
+// book에서 phase N에 만들어야 할 레벨들의 lvStatus를 보고 집계
+function phaseStatus(book, phase) {
+  const levelsThisPhase = Object.entries(book.lvPhase).filter(([_,p]) => p === phase).map(([l]) => l);
+  if (levelsThisPhase.length === 0) return 'na'; // 이 Phase에 이 책은 해당 없음
+  const statuses = levelsThisPhase.map(l => book.lvStatus[l] || 'todo');
+  if (statuses.every(s => s === 'done')) return 'done';
+  if (statuses.some(s => s === 'done' || s === 'wip')) return 'wip';
+  return 'todo';
+}
 
 // ========= 렌더 유틸 =========
-function badgeLv(l, isLaunch = false) {
-  return `<span class="badge-${l} text-xs px-1.5 py-0.5 rounded mr-0.5 ${isLaunch?'badge-launch':''}">${l}</span>`;
-}
+function badgeLv(l) { return `<span class="badge-${l} text-xs px-1.5 py-0.5 rounded mr-0.5">${l}</span>`; }
 function prioSpan(p) { return `<span class="prio-${p} px-2 py-0.5 rounded text-xs">${p}</span>`; }
 function statusSpan(s) {
   if (s==='done') return '<span class="status-done">✅ 완성</span>';
-  if (s==='wip') return '<span class="status-wip">🟡 작업중</span>';
+  if (s==='wip') return '<span class="status-wip">🟡 진행중</span>';
+  if (s==='na') return '<span class="status-na">—</span>';
   return '<span class="status-todo">⬜ 미제작</span>';
 }
 function phaseCell(book, phase) {
   const lvs = Object.entries(book.lvPhase).filter(([_l, p]) => p === phase).map(([l]) => l);
   if (lvs.length === 0) return '<span class="phase-empty">·</span>';
-  return lvs.map(l => `<span class="badge-${l} phase-pill">${l}</span>`).join('');
+  return lvs.map(l => {
+    const st = book.lvStatus[l];
+    const done = st === 'done';
+    const wip = st === 'wip';
+    const marker = done ? '✓' : (wip ? '◐' : '');
+    return `<span class="badge-${l} phase-pill" title="${st}">${l}${marker}</span>`;
+  }).join('');
+}
+
+// ========= Global Phase =========
+let viewPhase = 1;
+function refreshPhaseInfo() {
+  const m = PH_META[viewPhase];
+  const d = daysUntil(m.date);
+  const dd = ddayLabel(d);
+  const cls = ddayClass(d);
+  document.getElementById('phaseInfo').innerHTML =
+    `<span class="text-slate-500">타겟:</span> <strong>${m.date}</strong> · <span class="${cls}">${dd}</span> <span class="text-slate-500 ml-3">${m.desc}</span>`;
+  // 헤더들 갱신
+  document.getElementById('classicStHeader').textContent = `상태 (P${viewPhase})`;
+  document.getElementById('natureStHeader').textContent = `상태 (P${viewPhase})`;
+  document.getElementById('folktaleStHeader').textContent = `상태 (P${viewPhase})`;
+  document.getElementById('lifeStHeader').textContent = `상태 (P${viewPhase})`;
+  document.getElementById('dashTitle').textContent = `Phase ${viewPhase} 현황`;
+  document.getElementById('dashSubtitle').innerHTML = `${m.label} · 타겟 ${m.date} · <span class="${cls}">${dd}</span>`;
+  document.getElementById('dashProgressLabel').textContent = `· Phase ${viewPhase} 기준`;
 }
 
 // ========= 세계명작 렌더 =========
@@ -520,8 +537,9 @@ function renderClassic() {
   const src = document.getElementById('filterSource').value;
   const q = document.getElementById('filterSearch').value.trim().toLowerCase();
   const rows = CLASSIC.filter(r => {
+    const rst = phaseStatus(r, viewPhase);
     if (prio && String(r.prio) !== prio) return false;
-    if (st && r.st !== st) return false;
+    if (st && rst !== st) return false;
     if (src && r.src !== src) return false;
     if (q && !(r.t.toLowerCase().includes(q) || r.o.toLowerCase().includes(q) || r.a.toLowerCase().includes(q))) return false;
     return true;
@@ -538,11 +556,10 @@ function renderClassic() {
       <td class="phase-col">${phaseCell(r,3)}</td>
       <td class="phase-col">${phaseCell(r,4)}</td>
       <td class="text-center">${prioSpan(r.prio)}</td>
-      <td class="text-center">${statusSpan(r.st)}</td>
+      <td class="text-center">${statusSpan(phaseStatus(r, viewPhase))}</td>
     </tr>`).join('');
-  document.getElementById('classicCount').textContent = `${rows.length} / ${CLASSIC.length}권 표시`;
+  document.getElementById('classicCount').textContent = `${rows.length} / ${CLASSIC.length}권 표시 · P${viewPhase} 기준`;
 }
-
 function initSourceFilter() {
   const sources = [...new Set(CLASSIC.map(r=>r.src))].sort();
   const sel = document.getElementById('filterSource');
@@ -563,166 +580,98 @@ function renderNature() {
       <td class="phase-col">${phaseCell(r,3)}</td>
       <td class="phase-col">${phaseCell(r,4)}</td>
       <td class="text-center">${prioSpan(r.prio)}</td>
-      <td class="text-center">${statusSpan(r.st)}</td>
+      <td class="text-center">${statusSpan(phaseStatus(r, viewPhase))}</td>
     </tr>`).join('');
-  const done = items.filter(r=>r.st==='done').length;
-  const total = items.length;
-  document.getElementById('natureCount').textContent = `총 ${total}권 · 완성 ${done} · 미제작 ${total-done} (${Math.round(done/total*100)}%)`;
+  const ph = items.map(r=>phaseStatus(r, viewPhase));
+  const done = ph.filter(s=>s==='done').length;
+  const total = ph.filter(s=>s!=='na').length;
+  document.getElementById('natureCount').textContent = `P${viewPhase} 기준 · 작업 대상 ${total}권 · 완성 ${done} (${total?Math.round(done/total*100):0}%)`;
 }
-
-// ========= 전래·생활 =========
 function renderFolktale() {
   document.getElementById('folktaleRows').innerHTML = FOLKTALE.map((r,i)=>`
-    <tr>
-      <td class="text-slate-400">${i+1}</td>
-      <td class="font-semibold">${r.t}</td>
-      <td class="phase-col">${phaseCell(r,1)}</td>
-      <td class="phase-col">${phaseCell(r,2)}</td>
-      <td class="phase-col">${phaseCell(r,3)}</td>
-      <td class="phase-col">${phaseCell(r,4)}</td>
+    <tr><td class="text-slate-400">${i+1}</td><td class="font-semibold">${r.t}</td>
+      <td class="phase-col">${phaseCell(r,1)}</td><td class="phase-col">${phaseCell(r,2)}</td>
+      <td class="phase-col">${phaseCell(r,3)}</td><td class="phase-col">${phaseCell(r,4)}</td>
       <td class="text-center">${prioSpan(r.prio)}</td>
-      <td class="text-center">${statusSpan(r.st)}</td>
-    </tr>`).join('');
+      <td class="text-center">${statusSpan(phaseStatus(r, viewPhase))}</td></tr>`).join('');
 }
-
 function renderLife() {
   document.getElementById('lifeRows').innerHTML = LIFE.map((r,i)=>`
-    <tr>
-      <td class="text-slate-400">${i+1}</td>
-      <td class="font-semibold">${r.t}</td>
+    <tr><td class="text-slate-400">${i+1}</td><td class="font-semibold">${r.t}</td>
       <td class="text-center text-xs"><span class="bg-pink-100 text-pink-800 px-2 py-0.5 rounded">${r.habit}</span></td>
-      <td class="phase-col">${phaseCell(r,1)}</td>
-      <td class="phase-col">${phaseCell(r,2)}</td>
-      <td class="phase-col">${phaseCell(r,3)}</td>
-      <td class="phase-col">${phaseCell(r,4)}</td>
+      <td class="phase-col">${phaseCell(r,1)}</td><td class="phase-col">${phaseCell(r,2)}</td>
+      <td class="phase-col">${phaseCell(r,3)}</td><td class="phase-col">${phaseCell(r,4)}</td>
       <td class="text-center">${prioSpan(r.prio)}</td>
-      <td class="text-center">${statusSpan(r.st)}</td>
-    </tr>`).join('');
-}
-
-// ========= Phase 타임라인 =========
-const PH_META = {
-  1: { label:'Phase 1 · Launch (T0)', color:'#22c55e', desc:'세계명작 L3 기본 + 자연관찰 실사. 신규 제작 ≈ 108 variations' },
-  2: { label:'Phase 2 (+3~6M)', color:'#3b82f6', desc:'세계명작 Top 인기 L2 확장 + 동물·공룡 수채 + 생활동화 시작' },
-  3: { label:'Phase 3 (+6~12M)', color:'#6366f1', desc:'세계명작 L4 졸업판 + 애니메이션 스타일 + 우리몸·지구·전래 본격' },
-  4: { label:'Phase 4 (+12~18M)', color:'#a855f7', desc:'L1 대량 확장 + 식물·우주 수채 + 동물·공룡 카툰' },
-};
-
-function getAllCategories() {
-  return [
-    { key:'classic', label:'🏰 세계명작', art:'classic', data: CLASSIC },
-    { key:'animal', label:'🦁 자연관찰 · 동물', art:'nature_animal', data: NATURE.animal },
-    { key:'plant', label:'🌳 자연관찰 · 식물', art:'nature_plant', data: NATURE.plant },
-    { key:'dinosaur', label:'🦖 공룡', art:'dinosaur', data: NATURE.dinosaur },
-    { key:'body', label:'🫀 우리 몸', art:'nature_body', data: NATURE.body },
-    { key:'earth', label:'🌍 지구·환경', art:'nature_earth', data: NATURE.earth },
-    { key:'space', label:'🪐 우주', art:'nature_space', data: NATURE.space },
-    { key:'folktale', label:'🏯 전래동화', art:'folktale', data: FOLKTALE },
-    { key:'life', label:'🏠 생활동화', art:'life', data: LIFE },
-  ];
-}
-
-let activePhase = 1;
-function renderTimeline() {
-  const cats = getAllCategories();
-  const container = document.getElementById('timelineContent');
-  const meta = PH_META[activePhase];
-  const chunks = [];
-
-  chunks.push(`<div class="bg-white rounded-xl shadow p-5 mb-5">
-    <div class="text-lg font-bold" style="color:${meta.color};">${meta.label}</div>
-    <div class="text-sm text-slate-600 mt-1">${meta.desc}</div>
-  </div>`);
-
-  let totalBooks = 0, totalVariations = 0;
-  for (const cat of cats) {
-    // 이 Phase에 제작할 레벨 variations
-    const rows = [];
-    for (const b of cat.data) {
-      const lvs = Object.entries(b.lvPhase).filter(([_l, p]) => p === activePhase).map(([l]) => l);
-      if (lvs.length === 0) continue;
-      rows.push({ book: b, levels: lvs });
-    }
-    // 이 Phase에 제작할 삽화 variations
-    const artPhase = ART_PHASE_PLAN[cat.art] || {};
-    const newArts = artPhase['P'+activePhase] || [];
-
-    const catLvVariations = rows.reduce((a,r) => a + r.levels.length, 0);
-    const catArtVariations = cat.key === 'classic' && activePhase === 1
-      ? cat.data.length * newArts.length   // 50권 × 3 스타일
-      : cat.data.filter(b => b.st !== 'todo' || (activePhase === 1 && b.launch)).length * newArts.length;
-    // 간단화: Phase 1만 전체 책 × 신규 스타일, 이후는 기존 데이터 기준
-    const catTotal = catLvVariations + catArtVariations;
-    if (catTotal === 0 && newArts.length === 0 && rows.length === 0) continue;
-
-    totalBooks += rows.length;
-    totalVariations += catTotal;
-
-    chunks.push(`<div class="bg-white rounded-xl shadow mb-4 overflow-hidden">
-      <div class="px-5 py-3 border-b flex justify-between items-center" style="border-color:#f3f4f6;">
-        <div class="font-bold text-slate-800">${cat.label}</div>
-        <div class="text-xs text-slate-500">
-          ${rows.length > 0 ? `레벨 ${catLvVariations}개` : ''}
-          ${newArts.length > 0 ? ` · 삽화 ${catArtVariations}개 (${newArts.join(', ')})` : ''}
-          ${rows.length === 0 && newArts.length === 0 ? '작업 없음' : ''}
-        </div>
-      </div>
-      ${rows.length === 0 && newArts.length === 0 ? '' : `
-        <div class="p-4">
-          ${newArts.length > 0 ? `<div class="mb-3 text-xs">
-            <span class="font-semibold text-slate-600">🎨 신규 삽화:</span>
-            ${newArts.map(a=>`<span class="art-chip art-${a}">${a}</span>`).join('')}
-            <span class="text-slate-400">— 기존 권수에 추가 생성</span>
-          </div>` : ''}
-          ${rows.length > 0 ? `
-            <table class="w-full text-xs">
-              <thead><tr><th class="text-left py-1">책</th><th class="text-center py-1">만들 레벨</th><th class="text-center py-1">우선</th></tr></thead>
-              <tbody>
-                ${rows.map(r => `<tr>
-                  <td class="py-1">${r.book.t}</td>
-                  <td class="text-center">${r.levels.map(l => `<span class="badge-${l} phase-pill">${l}</span>`).join('')}</td>
-                  <td class="text-center">${prioSpan(r.book.prio)}</td>
-                </tr>`).join('')}
-              </tbody>
-            </table>
-          ` : ''}
-        </div>
-      `}
-    </div>`);
-  }
-
-  chunks.unshift(`<div class="grid grid-cols-3 gap-3 mb-4">
-    <div class="bg-white rounded-lg p-3 shadow-sm"><div class="text-[10px] text-slate-500">책 작업</div><div class="text-2xl font-black" style="color:${meta.color};">${totalBooks}</div></div>
-    <div class="bg-white rounded-lg p-3 shadow-sm"><div class="text-[10px] text-slate-500">총 variations (레벨+삽화)</div><div class="text-2xl font-black text-indigo-500">${totalVariations}</div></div>
-    <div class="bg-white rounded-lg p-3 shadow-sm"><div class="text-[10px] text-slate-500">Phase</div><div class="text-2xl font-black text-orange-500">P${activePhase}</div></div>
-  </div>`);
-
-  container.innerHTML = chunks.join('');
+      <td class="text-center">${statusSpan(phaseStatus(r, viewPhase))}</td></tr>`).join('');
 }
 
 // ========= 대시보드 =========
-function renderDashProgress() {
-  const cats = [
-    {label:'🏰 세계명작', target:50, current: CLASSIC.filter(r=>r.st!=='todo').length, color:'#a855f7'},
-    {label:'🦁 자연관찰 동물', target:52, current:NATURE.animal.filter(r=>r.st==='done').length, color:'#22c55e'},
-    {label:'🌳 자연관찰 식물', target:20, current:NATURE.plant.filter(r=>r.st==='done').length, color:'#16a34a'},
-    {label:'🦖 공룡', target:22, current:NATURE.dinosaur.filter(r=>r.st==='done').length, color:'#f97316'},
-    {label:'🫀 우리 몸', target:10, current:NATURE.body.filter(r=>r.st==='done').length, color:'#ef4444'},
-    {label:'🌍 지구·환경', target:10, current:NATURE.earth.filter(r=>r.st==='done').length, color:'#3b82f6'},
-    {label:'🪐 우주', target:6, current:NATURE.space.filter(r=>r.st==='done').length, color:'#6366f1'},
-    {label:'🏯 전래동화', target:17, current:FOLKTALE.filter(r=>r.st==='done').length, color:'#eab308'},
-    {label:'🏠 생활동화', target:18, current:LIFE.filter(r=>r.st==='done').length, color:'#ec4899'},
+function getAllCategories() {
+  return [
+    { key:'classic', label:'🏰 세계명작', art:'classic', data: CLASSIC, color:'#a855f7' },
+    { key:'animal', label:'🦁 자연관찰 동물', art:'nature_animal', data: NATURE.animal, color:'#22c55e' },
+    { key:'plant', label:'🌳 자연관찰 식물', art:'nature_plant', data: NATURE.plant, color:'#16a34a' },
+    { key:'dinosaur', label:'🦖 공룡', art:'dinosaur', data: NATURE.dinosaur, color:'#f97316' },
+    { key:'body', label:'🫀 우리 몸', art:'nature_body', data: NATURE.body, color:'#ef4444' },
+    { key:'earth', label:'🌍 지구·환경', art:'nature_earth', data: NATURE.earth, color:'#3b82f6' },
+    { key:'space', label:'🪐 우주', art:'nature_space', data: NATURE.space, color:'#6366f1' },
+    { key:'folktale', label:'🏯 전래동화', art:'folktale', data: FOLKTALE, color:'#eab308' },
+    { key:'life', label:'🏠 생활동화', art:'life', data: LIFE, color:'#ec4899' },
   ];
-  document.getElementById('dashProgress').innerHTML = cats.map(c=>{
-    const pct = Math.round(c.current/c.target*100);
+}
+
+function renderDashStats() {
+  const cats = getAllCategories();
+  let tasks = 0, done = 0, wip = 0, todo = 0, naCats = 0;
+  for (const cat of cats) {
+    for (const b of cat.data) {
+      const s = phaseStatus(b, viewPhase);
+      if (s === 'na') continue;
+      tasks++;
+      if (s === 'done') done++;
+      else if (s === 'wip') wip++;
+      else todo++;
+    }
+  }
+  const pct = tasks ? Math.round(done/tasks*100) : 0;
+  document.getElementById('dashStats').innerHTML = `
+    <div class="bg-white rounded-xl p-5 shadow"><div class="text-xs text-slate-500">P${viewPhase} 작업 대상</div><div class="text-3xl font-black" style="color:#ff5e3a;">${tasks}</div></div>
+    <div class="bg-white rounded-xl p-5 shadow"><div class="text-xs text-slate-500">✅ 완성</div><div class="text-3xl font-black text-green-600">${done}</div><div class="text-xs text-slate-400">${pct}%</div></div>
+    <div class="bg-white rounded-xl p-5 shadow"><div class="text-xs text-slate-500">🟡 진행중</div><div class="text-3xl font-black text-yellow-500">${wip}</div></div>
+    <div class="bg-white rounded-xl p-5 shadow"><div class="text-xs text-slate-500">⬜ 미제작</div><div class="text-3xl font-black text-slate-500">${todo}</div></div>
+  `;
+}
+
+function renderDashProgress() {
+  const cats = getAllCategories();
+  const html = cats.map(c => {
+    const rows = c.data;
+    let tasks = 0, done = 0;
+    for (const b of rows) {
+      const s = phaseStatus(b, viewPhase);
+      if (s === 'na') continue;
+      tasks++;
+      if (s === 'done') done++;
+    }
+    if (tasks === 0) {
+      return `<div>
+        <div class="flex justify-between text-xs mb-1">
+          <span class="font-semibold text-slate-400">${c.label}</span>
+          <span class="text-slate-400 italic">P${viewPhase}에 작업 없음</span>
+        </div>
+        <div class="pr-bar"></div>
+      </div>`;
+    }
+    const pct = Math.round(done/tasks*100);
     return `<div>
       <div class="flex justify-between text-xs mb-1">
         <span class="font-semibold">${c.label}</span>
-        <span class="text-slate-500">${c.current} / ${c.target} (${pct}%)</span>
+        <span class="text-slate-500">${done} / ${tasks} (${pct}%)</span>
       </div>
       <div class="pr-bar"><div style="width:${pct}%; background:${c.color}; height:100%;"></div></div>
     </div>`;
   }).join('');
+  document.getElementById('dashProgress').innerHTML = html;
 }
 
 function renderPhaseVariations() {
@@ -737,15 +686,126 @@ function renderPhaseVariations() {
       if (arts.length) totals[p] += cat.data.length * arts.length;
     }
   }
-  const max = Math.max(...Object.values(totals));
-  const container = document.getElementById('phaseVariations');
-  container.innerHTML = [1,2,3,4].map(p => {
+  const max = Math.max(...Object.values(totals), 1);
+  document.getElementById('phaseVariations').innerHTML = [1,2,3,4].map(p => {
     const pct = Math.round(totals[p]/max*100);
+    const m = PH_META[p];
+    const dd = daysUntil(m.date);
     return `<div>
-      <div class="flex justify-between text-xs mb-1"><span class="font-semibold">Phase ${p} · ${PH_META[p].label.split('·')[1].trim()}</span><span class="text-slate-500">${totals[p]} variations</span></div>
-      <div class="pr-bar"><div style="width:${pct}%; background:${PH_META[p].color}; height:100%;"></div></div>
+      <div class="flex justify-between text-xs mb-1">
+        <span class="font-semibold">Phase ${p} · ${m.date} · <span class="${ddayClass(dd)}">${ddayLabel(dd)}</span></span>
+        <span class="text-slate-500">${totals[p]} variations</span>
+      </div>
+      <div class="pr-bar"><div style="width:${pct}%; background:${m.color}; height:100%;"></div></div>
     </div>`;
   }).join('');
+}
+
+// ========= 제작 타임라인 =========
+function renderTimeline() {
+  const cats = getAllCategories();
+  const container = document.getElementById('timelineContent');
+  const meta = PH_META[viewPhase];
+  const d = daysUntil(meta.date);
+  const chunks = [];
+
+  chunks.push(`<div class="bg-white rounded-xl shadow p-5 mb-5 border-l-8" style="border-color:${meta.color};">
+    <div class="flex items-center justify-between flex-wrap gap-2">
+      <div>
+        <div class="text-lg font-bold" style="color:${meta.color};">${meta.label}</div>
+        <div class="text-sm text-slate-600 mt-1">${meta.desc}</div>
+      </div>
+      <div class="text-right">
+        <div class="text-xs text-slate-500">타겟 날짜</div>
+        <div class="font-bold text-slate-800">${meta.date}</div>
+        <div class="text-sm ${ddayClass(d)}">${ddayLabel(d)}</div>
+      </div>
+    </div>
+  </div>`);
+
+  let totalBooks = 0, totalVariations = 0, doneCount = 0;
+  for (const cat of cats) {
+    const rows = [];
+    for (const b of cat.data) {
+      const lvs = Object.entries(b.lvPhase).filter(([_l, p]) => p === viewPhase).map(([l]) => l);
+      if (lvs.length === 0) continue;
+      rows.push({ book: b, levels: lvs });
+    }
+    const artPhase = ART_PHASE_PLAN[cat.art] || {};
+    const newArts = artPhase['P'+viewPhase] || [];
+
+    const catLvVar = rows.reduce((a,r) => a + r.levels.length, 0);
+    const catArtVar = newArts.length > 0 ? cat.data.length * newArts.length : 0;
+    const catTotal = catLvVar + catArtVar;
+    if (catTotal === 0) continue;
+
+    totalBooks += rows.length;
+    totalVariations += catTotal;
+
+    // 완성/진행/미제작 카운트 (레벨 variations만 — 삽화는 Phase 미래라 todo)
+    let catDone = 0, catWip = 0, catTodo = 0;
+    for (const r of rows) {
+      for (const l of r.levels) {
+        const s = r.book.lvStatus[l];
+        if (s === 'done') catDone++;
+        else if (s === 'wip') catWip++;
+        else catTodo++;
+      }
+    }
+    doneCount += catDone;
+
+    chunks.push(`<div class="bg-white rounded-xl shadow mb-4 overflow-hidden">
+      <div class="px-5 py-3 border-b flex justify-between items-center" style="border-color:#f3f4f6;">
+        <div class="font-bold text-slate-800">${cat.label}</div>
+        <div class="text-xs text-slate-500">
+          ${rows.length > 0 ? `레벨 ${catLvVar}개 <span class="ml-1 status-done">✓${catDone}</span> <span class="status-wip">◐${catWip}</span> <span class="status-todo">⬜${catTodo}</span>` : ''}
+          ${newArts.length > 0 ? ` · 삽화 ${catArtVar}개 (${newArts.join(', ')})` : ''}
+        </div>
+      </div>
+      <div class="p-4">
+        ${newArts.length > 0 ? `<div class="mb-3 text-xs">
+          <span class="font-semibold text-slate-600">🎨 신규 삽화:</span>
+          ${newArts.map(a=>`<span class="art-chip art-${a}">${a}</span>`).join('')}
+          <span class="text-slate-400">— 기존 ${cat.data.length}권에 추가 생성</span>
+        </div>` : ''}
+        ${rows.length > 0 ? `
+          <table class="w-full text-xs">
+            <thead><tr><th class="text-left py-1">책</th><th class="text-center py-1">레벨</th><th class="text-center py-1">상태</th><th class="text-center py-1">우선</th></tr></thead>
+            <tbody>
+              ${rows.map(r => r.levels.map(l => `<tr>
+                <td class="py-1">${r.book.t}</td>
+                <td class="text-center"><span class="badge-${l} phase-pill">${l}</span></td>
+                <td class="text-center">${statusSpan(r.book.lvStatus[l])}</td>
+                <td class="text-center">${prioSpan(r.book.prio)}</td>
+              </tr>`).join('')).join('')}
+            </tbody>
+          </table>` : ''}
+      </div>
+    </div>`);
+  }
+
+  const pctDone = totalVariations ? Math.round(doneCount/totalVariations*100) : 0;
+  chunks.unshift(`<div class="grid grid-cols-4 gap-3 mb-4">
+    <div class="bg-white rounded-lg p-3 shadow-sm"><div class="text-[10px] text-slate-500">책 작업</div><div class="text-2xl font-black" style="color:${meta.color};">${totalBooks}</div></div>
+    <div class="bg-white rounded-lg p-3 shadow-sm"><div class="text-[10px] text-slate-500">총 variations</div><div class="text-2xl font-black text-indigo-500">${totalVariations}</div></div>
+    <div class="bg-white rounded-lg p-3 shadow-sm"><div class="text-[10px] text-slate-500">레벨 완성</div><div class="text-2xl font-black text-green-600">${doneCount}</div><div class="text-[10px] text-slate-400">${pctDone}%</div></div>
+    <div class="bg-white rounded-lg p-3 shadow-sm"><div class="text-[10px] text-slate-500">D-Day</div><div class="text-2xl font-black ${ddayClass(d)}">${ddayLabel(d)}</div></div>
+  </div>`);
+
+  container.innerHTML = chunks.join('');
+}
+
+// ========= 전체 리렌더 =========
+function rerenderAll() {
+  refreshPhaseInfo();
+  renderClassic();
+  renderNature();
+  renderFolktale();
+  renderLife();
+  renderDashStats();
+  renderDashProgress();
+  renderPhaseVariations();
+  renderTimeline();
 }
 
 // ========= 탭 =========
@@ -770,16 +830,16 @@ document.querySelectorAll('.sub-tab').forEach(b => b.addEventListener('click', e
   renderNature();
 }));
 
-document.querySelectorAll('.ph-tab').forEach(b => b.addEventListener('click', e => {
-  document.querySelectorAll('.ph-tab').forEach(x => {
-    x.style.background = 'white'; x.style.color = 'black';
-    x.classList.add('bg-white','border');
+document.querySelectorAll('#globalPhaseButtons .ph-btn').forEach(b => b.addEventListener('click', e => {
+  document.querySelectorAll('#globalPhaseButtons .ph-btn').forEach(x => {
+    x.classList.remove('active');
+    x.style.background = 'white';
   });
   const p = Number(e.currentTarget.dataset.ph);
+  e.currentTarget.classList.add('active');
   e.currentTarget.style.background = PH_META[p].color;
-  e.currentTarget.style.color = 'white';
-  activePhase = p;
-  renderTimeline();
+  viewPhase = p;
+  rerenderAll();
 }));
 
 ['filterPrio','filterStatus','filterSource','filterSearch'].forEach(id => {
@@ -789,13 +849,7 @@ document.querySelectorAll('.ph-tab').forEach(b => b.addEventListener('click', e 
 
 // init
 initSourceFilter();
-renderClassic();
-renderNature();
-renderFolktale();
-renderLife();
-renderDashProgress();
-renderPhaseVariations();
-renderTimeline();
+rerenderAll();
 activateTab('dashboard');
 </script>
 </body>
