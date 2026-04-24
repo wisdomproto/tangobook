@@ -269,7 +269,11 @@ export default function LibraryPage() {
 }
 
 function AuthCornerBar() {
-  const { activeProfile } = useAuth();
+  const { activeProfile, session, signOut } = useAuth();
+  const handleSignOut = async () => {
+    if (!window.confirm('로그아웃할까요?')) return;
+    await signOut();
+  };
   return (
     <div className="flex justify-end items-center gap-2 mb-2">
       <Link
@@ -284,6 +288,15 @@ function AuthCornerBar() {
         </div>
       )}
       <ParentCornerButton />
+      {session && (
+        <button
+          onClick={handleSignOut}
+          className="px-3 py-2 rounded-full bg-white shadow-soft text-ink-700 text-sm hover:shadow-pop hover:text-danger transition"
+          title="로그아웃"
+        >
+          🚪
+        </button>
+      )}
     </div>
   );
 }
