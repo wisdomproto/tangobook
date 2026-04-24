@@ -718,11 +718,22 @@ export interface CoverImageItem {
   history?: string[];
 }
 
+/**
+ * 탱고북 자체 4단계 독서 레벨. ORT·F&P·Lexile 공식 체계를 한국 유아 교육용으로 압축.
+ * - L1 (씨앗, 3~4세): ORT Stage 1, F&P A-B, 1문장/쪽, 총 ≤50단어, 반복 구문
+ * - L2 (새싹, 4~5세): ORT Stage 2~3, F&P C-D, 1~2문장/쪽, 총 80~150단어
+ * - L3 (나무, 5~6세): ORT Stage 4~5, F&P E-G, 2~4문장/쪽, 총 200~350단어
+ * - L4 (숲, 6~7세): ORT Stage 6+, F&P H-J, 3~5문장/쪽, 총 400~700단어
+ */
+export type ReadingLevel = 'L1' | 'L2' | 'L3' | 'L4';
+
 export interface Storybook {
   id: string;
   title: string;
   type?: StorybookType; // undefined = 'storybook' (하위호환)
   targetAge: '4-5' | '5-7' | '7-8';
+  /** 실측 기반 4단계 레벨. 신규 생성 책에 우선 사용 (targetAge는 레거시 호환) */
+  readingLevel?: ReadingLevel;
   artStyle: string;
   category?: string;
   folder?: string;
