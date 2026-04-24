@@ -31,6 +31,15 @@ export default function ParentReportsPage() {
       <div className="flex flex-col items-center gap-4 py-16">
         <Mascot state="thinking" size="lg" character="hori" />
         <p className="text-2xl font-black text-ink-900">프로필을 먼저 선택해주세요</p>
+        <p className="text-sm text-ink-500 text-center max-w-xs">
+          자녀 프로필 페이지에서 카드를 탭해서 활성 프로필로 선택하세요.
+        </p>
+        <a
+          href="/parent/profiles"
+          className="px-6 py-3 rounded-xl bg-coral-500 text-white font-bold hover:brightness-110"
+        >
+          👦 프로필 관리로 가기
+        </a>
       </div>
     );
   }
