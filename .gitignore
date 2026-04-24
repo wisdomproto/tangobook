@@ -38,6 +38,9 @@ coverage/
 # Superpowers brainstorm sessions
 .superpowers/
 
+# Superpowers worktrees (isolated dev branches)
+.worktrees/
+
 # Mascot build tmp
 .mascot-tmp/
 
