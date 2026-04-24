@@ -727,6 +727,19 @@ export interface CoverImageItem {
  */
 export type ReadingLevel = 'L1' | 'L2' | 'L3' | 'L4';
 
+/**
+ * 부모님께 전달할 책 가이드.
+ * - overview: 원전·저자·배경 요약
+ * - lessons: 아이에게 전달할 교훈 (보통 2개)
+ * - readingTips: 읽어주는 법 / 목소리 연기 / 대화거리 (보통 3개)
+ * 책 상세 페이지(BookDetailPage)에서 "부모님 가이드" 섹션으로 노출.
+ */
+export interface ParentGuide {
+  overview: string;
+  lessons: string[];
+  readingTips: string[];
+}
+
 export interface Storybook {
   id: string;
   title: string;
@@ -734,6 +747,8 @@ export interface Storybook {
   targetAge: '4-5' | '5-7' | '7-8';
   /** 실측 기반 4단계 레벨. 신규 생성 책에 우선 사용 (targetAge는 레거시 호환) */
   readingLevel?: ReadingLevel;
+  /** 부모용 책 가이드 (특징·교훈·읽어주는 법). 라이브러리 상세 페이지에서 표시. */
+  parentGuide?: ParentGuide;
   artStyle: string;
   category?: string;
   folder?: string;

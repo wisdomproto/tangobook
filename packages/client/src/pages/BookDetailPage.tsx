@@ -26,6 +26,7 @@ export default function BookDetailPage() {
   const { data: storybook, isLoading, isError } = useStorybook(id);
   const [lang, setLang] = useState<LangCode>('ko');
   const [videoOpen, setVideoOpen] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(false);
 
   const videoAvailable = useMemo(() => (storybook ? hasVideoUrl(storybook) : false), [storybook]);
   const gameAvailable = useMemo(() => (storybook ? hasGames(storybook) : false), [storybook]);
@@ -204,6 +205,78 @@ export default function BookDetailPage() {
             )}
           </div>
         </div>
+
+        {/* 부모님 가이드 (parentGuide 있을 때만) */}
+        {storybook.parentGuide && (
+          <div className="mt-8">
+            <button
+              onClick={() => setGuideOpen((v) => !v)}
+              className="w-full flex items-center justify-between bg-white rounded-lg px-5 py-4 shadow-soft hover:bg-peach-50 transition-colors"
+              aria-expanded={guideOpen}
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">👨‍👩‍👧</span>
+                <span className="font-black text-ink-900 text-base">부모님 가이드</span>
+                <span className="text-xs text-ink-500 ml-1 hidden sm:inline">
+                  책 특징 · 교훈 · 읽어주는 법
+                </span>
+              </div>
+              <span
+                className={cn(
+                  'text-ink-500 transition-transform',
+                  guideOpen ? 'rotate-180' : 'rotate-0'
+                )}
+              >
+                ▼
+              </span>
+            </button>
+            {guideOpen && (
+              <div className="mt-3 bg-white rounded-lg p-5 md:p-6 shadow-soft space-y-5">
+                {/* 특징 */}
+                <section>
+                  <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
+                    📖 책의 특징
+                  </h3>
+                  <p className="text-sm text-ink-700 leading-relaxed">
+                    {storybook.parentGuide.overview}
+                  </p>
+                </section>
+                {/* 교훈 */}
+                {storybook.parentGuide.lessons.length > 0 && (
+                  <section>
+                    <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
+                      💡 아이에게 전할 교훈
+                    </h3>
+                    <ul className="space-y-1.5">
+                      {storybook.parentGuide.lessons.map((lesson, i) => (
+                        <li key={i} className="text-sm text-ink-700 leading-relaxed flex gap-2">
+                          <span className="text-coral-400 mt-0.5">•</span>
+                          <span>{lesson}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
+                {/* 읽어주는 법 */}
+                {storybook.parentGuide.readingTips.length > 0 && (
+                  <section>
+                    <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
+                      🎭 읽어주는 법
+                    </h3>
+                    <ul className="space-y-1.5">
+                      {storybook.parentGuide.readingTips.map((tip, i) => (
+                        <li key={i} className="text-sm text-ink-700 leading-relaxed flex gap-2">
+                          <span className="text-coral-400 mt-0.5">{i + 1}.</span>
+                          <span>{tip}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {primaryVideoId && (

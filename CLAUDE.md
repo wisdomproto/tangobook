@@ -309,7 +309,7 @@ server/src/utils/
 4. `features/{name}/index.ts` - exports
 
 ## 주요 타입 위치
-- `Storybook`, `Character`, `Page`, `KeyObject`, `BlendingExercise` → `@tangobook/shared`
+- `Storybook`, `Character`, `Page`, `KeyObject`, `BlendingExercise`, `ParentGuide`, `ReadingLevel` → `@tangobook/shared`
 - `ApiResponse<T>` → `@tangobook/shared`
 - `AppError` → `packages/server/src/middleware/error.middleware.ts`
 
@@ -364,6 +364,16 @@ pnpm --filter shared build
 - 에러: AppError(status, message) 사용. console.error 대신 throw
 - 주석: 자명한 코드에는 주석 불필요. 복잡한 로직에만 추가
 - import: `@tangobook/shared`는 shared 타입, `@/`는 client 내부
+
+## 세계명작 커리큘럼 (2026-04-24)
+- **49권 × 레벨 variation = 114 storybook** (no.1~50, 43 중복 제외). 기존 30권(L3 완성) + 신규 19권(bid `1773xxxxxxxxx`)
+- 레벨 분포: L1 13 · L2 24 · L3 47 · L4 30. Variation ID 규칙: `${bid}__${level}` (launch 레벨은 bid 그대로)
+- 각 책 base에 `parentGuide`(overview/lessons/readingTips) 저장 → `BookDetailPage`에서 접는 부모 가이드 섹션 노출
+- 저술 스크립트: `scripts/author-classics-*.mjs`, `scripts/add-parent-guides.mjs`. **모두 Claude 직접 저술** (Gemini 0%)
+- 원전: Grimm · Andersen · Perrault · Aesop · Jacobs · Wilde · Tolstoy · Collodi · Carroll · Baum · Swift · Kipling · Tchaikovsky · Hoffmann · Saint-Exupéry · Burnett · Ouida · Montgomery
+- 정서 완화 결정 (원전과 다른 부분): 성냥팔이/빨간구두/인어공주/백조의호수/플란다스 — 유아 정서 보호
+- 커리큘럼 마스터: `packages/client/public/curriculum-master.html` + 사본 `docs/books/curriculum-master.html`
+- 상세: `memory/classics-curriculum.md`
 
 ## Hori 아케이드 게임 (2026-04-24)
 학습 게임(`features/games/`)과 별개의 **아케이드 게임 허브** — Phaser 4 기반, Hori 마스코트 스프라이트 활용.
