@@ -7,6 +7,13 @@ import ViewerPage from '../pages/ViewerPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
 import LoginPage from '../features/auth/components/LoginPage';
+import HoriRunPage from '../pages/HoriRunPage';
+import HoriCatchPage from '../pages/HoriCatchPage';
+import HoriWhackPage from '../pages/HoriWhackPage';
+import HoriMemoryPage from '../pages/HoriMemoryPage';
+import HoriSimonPage from '../pages/HoriSimonPage';
+import HoriJumpPage from '../pages/HoriJumpPage';
+import GamesHubPage from '../pages/GamesHubPage';
 import { AuthProvider } from '../features/auth/context/AuthContext';
 import { RequireAuthedWithPin } from '../features/auth/guards/RequireAuthedWithPin';
 import ParentHomePage from '../features/auth/pages/ParentHomePage';
@@ -50,6 +57,62 @@ export const router = createBrowserRouter([
       },
       { path: 'login', element: <LoginPage /> },
       { path: 'login/callback', element: <LoginCallback /> },
+      {
+        path: 'games',
+        element: (
+          <ErrorBoundary>
+            <GamesHubPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'games/hori-run',
+        element: (
+          <ErrorBoundary>
+            <HoriRunPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'games/hori-catch',
+        element: (
+          <ErrorBoundary>
+            <HoriCatchPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'games/hori-whack',
+        element: (
+          <ErrorBoundary>
+            <HoriWhackPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'games/hori-memory',
+        element: (
+          <ErrorBoundary>
+            <HoriMemoryPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'games/hori-simon',
+        element: (
+          <ErrorBoundary>
+            <HoriSimonPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'games/hori-jump',
+        element: (
+          <ErrorBoundary>
+            <HoriJumpPage />
+          </ErrorBoundary>
+        ),
+      },
       {
         path: 'parent',
         element: (

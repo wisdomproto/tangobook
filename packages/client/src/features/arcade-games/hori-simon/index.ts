@@ -1,0 +1,1 @@
+export { HoriSimonGame } from './HoriSimonGame';

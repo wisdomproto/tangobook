@@ -1,0 +1,1 @@
+export { HoriMemoryGame } from './HoriMemoryGame';

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 import { WelcomeHeader, CategorySection, BookCard } from '@/features/library';
 import { StateScreen } from '@/components/StateScreen';
@@ -271,6 +272,12 @@ function AuthCornerBar() {
   const { activeProfile } = useAuth();
   return (
     <div className="flex justify-end items-center gap-2 mb-2">
+      <Link
+        to="/games"
+        className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-coral-400 to-coral-500 text-white shadow-pop text-sm font-bold hover:brightness-110 active:scale-95 transition"
+      >
+        🎮 놀이터
+      </Link>
       {activeProfile && (
         <div className="px-3 py-1.5 rounded-full bg-white shadow-soft text-sm font-bold text-ink-900">
           👦 {activeProfile.name}

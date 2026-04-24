@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Hori Sprite Preview</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: #1a1a1a; color: #eee; padding-bottom: 40px; }
+  header { padding: 24px 24px 8px; }
+  h1 { margin: 0; font-size: 18px; font-weight: 600; }
+  h2 { margin: 32px 24px 8px; font-size: 13px; opacity: 0.7; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+  .subtitle { margin: 4px 24px 0; font-size: 12px; opacity: 0.5; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 24px; }
+  .card { border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+  .card img { display: block; width: 220px; height: 220px; }
+  .card .label { position: absolute; top: 8px; left: 8px; font-size: 10px; opacity: 0.7; background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; color: #fff; }
+
+  .sky { background: linear-gradient(180deg, #87ceeb 0%, #b9e4f5 55%, #c8e6a0 55%, #7fb756 100%); }
+  .grass { background: linear-gradient(180deg, #7fb756 0%, #5a9039 100%); }
+  .beach { background: linear-gradient(180deg, #ffd7a1 0%, #ff9a5a 100%); }
+  .night { background: linear-gradient(180deg, #2c3e7a 0%, #4a5e9e 100%); }
+  .cream { background: #FFF5E4; }
+  .ink { background: #2a2a2a; }
+  .coral { background: #FF8C7A; }
+  .check { background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%); background-size: 24px 24px; background-position: 0 0, 0 12px, 12px -12px, -12px 0px; background-color: #fff; }
+
+  .hero { padding: 20px; margin: 12px 24px 0; border-radius: 18px; display: flex; gap: 20px; align-items: center; }
+  .hero img { width: 380px; height: 380px; }
+  .hero .info { font-size: 13px; line-height: 1.6; opacity: 0.85; }
+  .hero .info code { background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+  .frames { display: flex; gap: 6px; padding: 0 24px; flex-wrap: wrap; }
+  .frames .cell { width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; border-radius: 10px; position: relative; }
+  .frames .cell img { width: 100%; height: 100%; object-fit: contain; }
+  .frames .cell .num { position: absolute; top: 6px; right: 8px; font-size: 10px; background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; }
+
+  .divider { height: 1px; background: #333; margin: 48px 0 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🐯 Hori Sprite Preview</h1>
+  <div class="subtitle">생성된 스프라이트들을 다양한 배경 위에서 확인</div>
+</header>
+
+<!-- ========== IDLE ========== -->
+<h2>Idle (대기) — 4fps</h2>
+<div class="subtitle">이족보행, 정면, 좌우 틸트 + 꼬리 움직임</div>
+
+<div class="hero sky">
+  <img src="idle/idle.webp">
+  <div class="info">
+    <div><strong>Idle 애니메이션</strong></div>
+    <div>프레임: 4장 / 재생: 250ms/frame (4fps)</div>
+    <div>사용: 메뉴 화면, 게임 진입 전 대기, 체크포인트</div>
+    <div>파일: <code>idle/idle.webp</code></div>
+  </div>
+</div>
+
+<h2 style="margin-top:20px">배경별</h2>
+<div class="row">
+  <div class="card sky"><div class="label">sky</div><img src="idle/idle.webp"></div>
+  <div class="card grass"><div class="label">grass</div><img src="idle/idle.webp"></div>
+  <div class="card beach"><div class="label">beach</div><img src="idle/idle.webp"></div>
+  <div class="card night"><div class="label">night</div><img src="idle/idle.webp"></div>
+  <div class="card cream"><div class="label">cream</div><img src="idle/idle.webp"></div>
+  <div class="card ink"><div class="label">ink</div><img src="idle/idle.webp"></div>
+  <div class="card coral"><div class="label">coral</div><img src="idle/idle.webp"></div>
+  <div class="card check"><div class="label">transparent</div><img src="idle/idle.webp"></div>
+</div>
+
+<h2 style="margin-top:20px">4프레임 개별</h2>
+<div class="frames">
+  <div class="cell sky"><span class="num">1</span><img src="idle/idle-frame-1.png"></div>
+  <div class="cell sky"><span class="num">2</span><img src="idle/idle-frame-2.png"></div>
+  <div class="cell sky"><span class="num">3</span><img src="idle/idle-frame-3.png"></div>
+  <div class="cell sky"><span class="num">4</span><img src="idle/idle-frame-4.png"></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ========== CELEBRATE ========== -->
+<h2>Celebrate (승리) — ~5fps</h2>
+<div class="subtitle">이족보행, 정면, 만세 → 호핑 → T자 → 회전</div>
+
+<div class="hero beach">
+  <img src="celebrate/celebrate.webp">
+  <div class="info">
+    <div><strong>Celebrate 애니메이션</strong></div>
+    <div>프레임: 4장 / 재생: 180ms/frame (~5.5fps)</div>
+    <div>사용: 스테이지 클리어, 하이스코어 달성, 목표 도달</div>
+    <div>파일: <code>celebrate/celebrate.webp</code></div>
+    <div>※ 원샷 또는 루프 (720ms / cycle) — 엔딩 화면에선 무한 루프</div>
+  </div>
+</div>
+
+<h2 style="margin-top:20px">배경별</h2>
+<div class="row">
+  <div class="card sky"><div class="label">sky</div><img src="celebrate/celebrate.webp"></div>
+  <div class="card grass"><div class="label">grass</div><img src="celebrate/celebrate.webp"></div>
+  <div class="card beach"><div class="label">beach</div><img src="celebrate/celebrate.webp"></div>
+  <div class="card night"><div class="label">night</div><img src="celebrate/celebrate.webp"></div>
+  <div class="card cream"><div class="label">cream</div><img src="celebrate/celebrate.webp"></div>
+  <div class="card ink"><div class="label">ink</div><img src="celebrate/celebrate.webp"></div>
+  <div class="card coral"><div class="label">coral</div><img src="celebrate/celebrate.webp"></div>
+  <div class="card check"><div class="label">transparent</div><img src="celebrate/celebrate.webp"></div>
+</div>
+
+<h2 style="margin-top:20px">4프레임 개별</h2>
+<div class="frames">
+  <div class="cell beach"><span class="num">1</span><img src="celebrate/celebrate-frame-1.png"></div>
+  <div class="cell beach"><span class="num">2</span><img src="celebrate/celebrate-frame-2.png"></div>
+  <div class="cell beach"><span class="num">3</span><img src="celebrate/celebrate-frame-3.png"></div>
+  <div class="cell beach"><span class="num">4</span><img src="celebrate/celebrate-frame-4.png"></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ========== HURT ========== -->
+<h2>Hurt (피격) — 8fps</h2>
+<div class="subtitle">이족보행, 정면, 움찔→녹백→회복</div>
+
+<div class="hero coral">
+  <img src="hurt/hurt.webp">
+  <div class="info">
+    <div><strong>Hurt 애니메이션</strong></div>
+    <div>프레임: 4장 / 재생: 125ms/frame (8fps)</div>
+    <div>사용: 장애물 충돌, 적에게 맞음, 데미지 피드백</div>
+    <div>파일: <code>hurt/hurt.webp</code></div>
+    <div>※ 원샷 (500ms) — 재생 후 idle로 복귀</div>
+  </div>
+</div>
+
+<h2 style="margin-top:20px">배경별</h2>
+<div class="row">
+  <div class="card sky"><div class="label">sky</div><img src="hurt/hurt.webp"></div>
+  <div class="card grass"><div class="label">grass</div><img src="hurt/hurt.webp"></div>
+  <div class="card beach"><div class="label">beach</div><img src="hurt/hurt.webp"></div>
+  <div class="card night"><div class="label">night</div><img src="hurt/hurt.webp"></div>
+  <div class="card cream"><div class="label">cream</div><img src="hurt/hurt.webp"></div>
+  <div class="card ink"><div class="label">ink</div><img src="hurt/hurt.webp"></div>
+  <div class="card coral"><div class="label">coral</div><img src="hurt/hurt.webp"></div>
+  <div class="card check"><div class="label">transparent</div><img src="hurt/hurt.webp"></div>
+</div>
+
+<h2 style="margin-top:20px">4프레임 개별</h2>
+<div class="frames">
+  <div class="cell coral"><span class="num">1</span><img src="hurt/hurt-frame-1.png"></div>
+  <div class="cell coral"><span class="num">2</span><img src="hurt/hurt-frame-2.png"></div>
+  <div class="cell coral"><span class="num">3</span><img src="hurt/hurt-frame-3.png"></div>
+  <div class="cell coral"><span class="num">4</span><img src="hurt/hurt-frame-4.png"></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ========== JUMP ========== -->
+<h2>Jump (점프) — 8fps</h2>
+<div class="subtitle">사족보행, 측면(우측 향함), 웅크림→도약→비행→착지</div>
+
+<div class="hero sky">
+  <img src="jump/jump.webp">
+  <div class="info">
+    <div><strong>Jump 애니메이션</strong></div>
+    <div>프레임: 4장 / 재생: 120ms/frame (8fps)</div>
+    <div>사용: 점프 게임(Hori Jump), 러너의 장애물 점프, 보글보글 점프</div>
+    <div>파일: <code>jump/jump.webp</code></div>
+    <div>※ 원샷 애니메이션 — 재생 후 idle/run로 복귀</div>
+  </div>
+</div>
+
+<h2 style="margin-top:20px">배경별</h2>
+<div class="row">
+  <div class="card sky"><div class="label">sky</div><img src="jump/jump.webp"></div>
+  <div class="card grass"><div class="label">grass</div><img src="jump/jump.webp"></div>
+  <div class="card beach"><div class="label">beach</div><img src="jump/jump.webp"></div>
+  <div class="card night"><div class="label">night</div><img src="jump/jump.webp"></div>
+  <div class="card cream"><div class="label">cream</div><img src="jump/jump.webp"></div>
+  <div class="card ink"><div class="label">ink</div><img src="jump/jump.webp"></div>
+  <div class="card coral"><div class="label">coral</div><img src="jump/jump.webp"></div>
+  <div class="card check"><div class="label">transparent</div><img src="jump/jump.webp"></div>
+</div>
+
+<h2 style="margin-top:20px">4프레임 개별</h2>
+<div class="frames">
+  <div class="cell sky"><span class="num">1</span><img src="jump/jump-frame-1.png"></div>
+  <div class="cell sky"><span class="num">2</span><img src="jump/jump-frame-2.png"></div>
+  <div class="cell sky"><span class="num">3</span><img src="jump/jump-frame-3.png"></div>
+  <div class="cell sky"><span class="num">4</span><img src="jump/jump-frame-4.png"></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ========== RUN ========== -->
+<h2>Run (달리기) — 10fps</h2>
+<div class="subtitle">사족보행, 측면(우측 향함), 갤럽 사이클</div>
+
+<div class="hero grass">
+  <img src="run/run.webp">
+  <div class="info">
+    <div><strong>Run 애니메이션</strong></div>
+    <div>프레임: 4장 / 재생: 100ms/frame (10fps)</div>
+    <div>사용: 러너 게임, 이동, 추격</div>
+    <div>파일: <code>run/run.webp</code></div>
+  </div>
+</div>
+
+<h2 style="margin-top:20px">배경별</h2>
+<div class="row">
+  <div class="card sky"><div class="label">sky</div><img src="run/run.webp"></div>
+  <div class="card grass"><div class="label">grass</div><img src="run/run.webp"></div>
+  <div class="card beach"><div class="label">beach</div><img src="run/run.webp"></div>
+  <div class="card night"><div class="label">night</div><img src="run/run.webp"></div>
+  <div class="card cream"><div class="label">cream</div><img src="run/run.webp"></div>
+  <div class="card ink"><div class="label">ink</div><img src="run/run.webp"></div>
+  <div class="card coral"><div class="label">coral</div><img src="run/run.webp"></div>
+  <div class="card check"><div class="label">transparent</div><img src="run/run.webp"></div>
+</div>
+
+<h2 style="margin-top:20px">4프레임 개별</h2>
+<div class="frames">
+  <div class="cell grass"><span class="num">1</span><img src="run/run-frame-1.png"></div>
+  <div class="cell grass"><span class="num">2</span><img src="run/run-frame-2.png"></div>
+  <div class="cell grass"><span class="num">3</span><img src="run/run-frame-3.png"></div>
+  <div class="cell grass"><span class="num">4</span><img src="run/run-frame-4.png"></div>
+</div>
+
+</body>
+</html>

@@ -359,6 +359,23 @@ pnpm --filter shared build
 - 주석: 자명한 코드에는 주석 불필요. 복잡한 로직에만 추가
 - import: `@tangobook/shared`는 shared 타입, `@/`는 client 내부
 
+## Hori 아케이드 게임 (2026-04-24)
+학습 게임(`features/games/`)과 별개의 **아케이드 게임 허브** — Phaser 4 기반, Hori 마스코트 스프라이트 활용.
+
+- **6 게임**: hori-run (무한 러너) · hori-catch (떨어지는 아이템 받기) · hori-jump (점프 플랫포머) · hori-whack (두더지잡기 3×3) · hori-memory (4×3 카드 매칭) · hori-simon (사이먼 세즈 C4/E4/G4/C5 4패드)
+- **폴더 구조**: `packages/client/src/features/arcade-games/{game-id}/` — 각 게임 하위에 `components/<Name>Game.tsx` (React-Phaser 래퍼) · `scenes/{Preload,Game}Scene.ts` · `config/*.ts` (물리값·스프라이트키·게임룰)
+- **라우트**: `/games` (GamesHubPage) + `/games/hori-{run,catch,whack,memory,simon,jump}` (router/index.tsx). 각각 ErrorBoundary로 감쌈
+- **라이브러리 진입점**: LibraryPage의 `AuthCornerBar`에 "🎮 놀이터" 버튼 → `/games`
+- **에셋**:
+  - 스프라이트: `public/mascot/hori/{idle,run,jump,hurt,celebrate}/` — 각 state 당 4프레임 PNG + WebP 애니 + 2×2 원본/클린 시트 + 가로 strip 프리뷰
+  - 사운드: `public/sounds/runner/` — `{jump,land,hurt,gameover,bgm,coin,powerup,milestone}.mp3` + 사이먼 패드 `note-{c4,e4,g4,c5}.mp3`
+- **신규 의존성**: `phaser@^4.0.0`
+- **유틸리티 스크립트**:
+  - `scripts/process-sprite-sheet.py` — Gemini 2×2 출력 → 4프레임 PNG + WebP 애니. 마젠타 chroma-key → alpha flood-fill, 프레임 정렬, bbox 스케일 클램프. `python scripts/process-sprite-sheet.py <state> [duration_ms]`
+  - `scripts/synthesize-runner-sfx.mjs` — 13개 SFX 절차적 합성 (sine/bell/noise + envelope) → ffmpeg MP3. `node scripts/synthesize-runner-sfx.mjs`
+- **스프라이트 생성 가이드**: `docs/hori-sprite-prompts.md` — Gemini 3 Pro 프롬프트 템플릿, 마젠타 배경 이유, 골든 idle 레퍼런스 전략, 포즈 리스트
+- 상세: `memory/hori-arcade-games.md`
+
 ## Performance & Caching (2026-04-24)
 - **서버 storybook list 캐시** (`r2.repository.ts`):
   - 5분 in-memory 캐시 + `stale-while-revalidate` (만료 시 stale 즉시 반환 + 백그라운드 리프레시)
