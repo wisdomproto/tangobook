@@ -54,7 +54,7 @@
   </div>
 </header>
 
-<!-- ===== GLOBAL Phase Selector ===== -->
+<!-- ===== GLOBAL Phase Selector + Roadmap ===== -->
 <div class="bg-white border-b border-slate-200 sticky top-0 z-30">
   <div class="max-w-7xl mx-auto px-6 py-3 flex flex-col sm:flex-row items-start sm:items-center gap-3">
     <div class="text-xs font-bold text-slate-500">보고 있는 Phase:</div>
@@ -64,7 +64,48 @@
       <button class="ph-btn" data-ph="3">🟣 Phase 3</button>
       <button class="ph-btn" data-ph="4">🟪 Phase 4</button>
     </div>
-    <div class="sm:ml-auto text-sm" id="phaseInfo"></div>
+    <div class="sm:flex-1 text-sm" id="phaseInfo"></div>
+    <button id="roadmapToggle" class="px-3 py-1.5 rounded-full text-xs font-bold border border-slate-300 hover:bg-slate-50 whitespace-nowrap">🗺️ 전체 로드맵 ▾</button>
+  </div>
+  <!-- Roadmap Drawer (collapsible) -->
+  <div id="roadmapDrawer" class="hidden border-t border-slate-200 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <h3 class="text-sm font-bold mb-2 text-slate-700">Phase별 확장 로드맵</h3>
+      <div class="bg-white rounded-lg shadow-sm mb-3 overflow-x-auto">
+        <table class="w-full text-xs">
+          <thead><tr><th class="text-left">Phase</th><th class="text-left">타겟 날짜</th><th class="text-center">권수</th><th class="text-center">평균 Lv</th><th class="text-center">평균 삽화</th><th class="text-center">Variations</th><th class="text-left">주요 확장</th></tr></thead>
+          <tbody>
+            <tr><td class="font-bold text-green-700">P1</td><td>2026-05-31</td><td class="text-center">143</td><td class="text-center">1.0</td><td class="text-center">1.4</td><td class="text-center font-bold">243</td><td>세계명작 50×3스타일 · 자연관찰 95×실사 · 우주 3권 신규</td></tr>
+            <tr><td class="font-bold text-blue-700">P2</td><td>2026-12-31</td><td class="text-center">149</td><td class="text-center">1.1</td><td class="text-center">1.7</td><td class="text-center font-bold">~330</td><td>세계명작 Top 인기 L2 · 동물·공룡 +수채 · 생활동화 6권</td></tr>
+            <tr><td class="font-bold text-indigo-700">P3</td><td>2027-05-31</td><td class="text-center">165</td><td class="text-center">1.4</td><td class="text-center">2.0</td><td class="text-center font-bold">~500</td><td>Top 인기 L4 졸업판 · 세계명작 +애니 · 우리몸·지구·전래 L3</td></tr>
+            <tr><td class="font-bold text-purple-700">P4</td><td>2027-12-31</td><td class="text-center">200</td><td class="text-center">2.2</td><td class="text-center">3.0</td><td class="text-center font-bold">~1,300</td><td>L1 대량 확장 · 전래동화 L2 · 식물·우주 +수채</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid md:grid-cols-2 gap-3">
+        <div class="bg-white rounded-lg p-3 shadow-sm">
+          <div class="text-xs font-bold mb-2">📚 레벨 확장</div>
+          <div class="space-y-1.5 text-[11px]">
+            <div><span class="font-semibold w-20 inline-block">세계명작:</span> P1 L3 → P2 Top 20 L2 → P3 Top 20 L4 → P4 L1</div>
+            <div><span class="font-semibold w-20 inline-block">자연관찰:</span> P1 L2·L3 → P3 Top 20 L2 → P4 L1 확장</div>
+            <div><span class="font-semibold w-20 inline-block">공룡:</span> P1 L2·L3·L1(Top6) → P3 L4 일부 예외</div>
+            <div><span class="font-semibold w-20 inline-block">전래동화:</span> P3 L3 전체 → P4 L2 확장</div>
+            <div><span class="font-semibold w-20 inline-block">생활동화:</span> P2 L2 6권 → P3 L3 12권</div>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg p-3 shadow-sm">
+          <div class="text-xs font-bold mb-2">🎨 삽화 확장</div>
+          <div class="space-y-1.5 text-[11px]">
+            <div><span class="font-semibold w-20 inline-block">세계명작:</span> P1 수채·카툰·전통 → P3 +애니메이션 (4종)</div>
+            <div><span class="font-semibold w-20 inline-block">동물·공룡:</span> P1 실사 → P2 +수채 → P4 +카툰 (3종)</div>
+            <div><span class="font-semibold w-20 inline-block">식물·우주:</span> P1 실사 → P4 +수채 (2종)</div>
+            <div><span class="font-semibold w-20 inline-block">우리몸·지구:</span> P1 실사만 (1종)</div>
+            <div><span class="font-semibold w-20 inline-block">전래동화:</span> P3 수채·전통 (2종) 동시 시작</div>
+            <div><span class="font-semibold w-20 inline-block">생활동화:</span> P2 카툰 → P3 +수채 (2종)</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -76,7 +117,6 @@
     <button class="tab px-5 py-2 rounded-full text-sm font-bold transition" data-tab="folktale">🏯 전래동화</button>
     <button class="tab px-5 py-2 rounded-full text-sm font-bold transition" data-tab="life">🏠 생활동화</button>
     <button class="tab px-5 py-2 rounded-full text-sm font-bold transition" data-tab="timeline">⏱️ 제작 타임라인</button>
-    <button class="tab px-5 py-2 rounded-full text-sm font-bold transition" data-tab="roadmap">🗺️ 로드맵</button>
   </div>
 </nav>
 
@@ -192,21 +232,6 @@
   <div id="timelineContent"></div>
 </section>
 
-<!-- ===== 로드맵 ===== -->
-<section id="tab-roadmap" class="tab-content hidden">
-  <h2 class="text-2xl font-black text-slate-900 mb-4">🗺️ 3차원 확장 로드맵</h2>
-  <div class="bg-white rounded-xl shadow mb-6 overflow-hidden">
-    <table class="w-full">
-      <thead><tr><th>Phase</th><th>타겟 날짜</th><th class="text-center">권수</th><th class="text-center">평균 레벨</th><th class="text-center">평균 삽화</th><th class="text-center">variations</th><th class="text-left">주요 확장</th></tr></thead>
-      <tbody>
-        <tr><td class="font-bold text-green-700">Phase 1</td><td>2026-05-31</td><td class="text-center">143</td><td class="text-center">1.0</td><td class="text-center">1.4</td><td class="text-center font-bold">243</td><td class="text-xs">세계명작 50×3스타일 · 자연관찰 95×실사 · 우주 3권 신규</td></tr>
-        <tr><td class="font-bold text-blue-700">Phase 2</td><td>2026-12-31</td><td class="text-center">149</td><td class="text-center">1.1</td><td class="text-center">1.7</td><td class="text-center font-bold">~330</td><td class="text-xs">세계명작 Top 인기 L2 · 동물·공룡 +수채 · 생활동화 6권</td></tr>
-        <tr><td class="font-bold text-indigo-700">Phase 3</td><td>2027-05-31</td><td class="text-center">165</td><td class="text-center">1.4</td><td class="text-center">2.0</td><td class="text-center font-bold">~500</td><td class="text-xs">Top 인기 L4 졸업판 · 세계명작 +애니 · 우리몸·지구·전래 L3</td></tr>
-        <tr><td class="font-bold text-purple-700">Phase 4</td><td>2027-12-31</td><td class="text-center">200</td><td class="text-center">2.2</td><td class="text-center">3.0</td><td class="text-center font-bold">~1,300</td><td class="text-xs">L1 대량 확장 · 전래동화 L2 · 식물·우주 +수채화</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
 
 </main>
 <footer class="max-w-7xl mx-auto px-6 py-6 text-xs text-slate-400 text-center">탱고북 · 초등 입학 전 필수 동화 완결형 커리큘럼</footer>
@@ -840,6 +865,14 @@ function activateTab(name) {
   document.getElementById('tab-'+name).classList.remove('hidden');
 }
 document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => activateTab(b.dataset.tab)));
+
+// Roadmap drawer toggle
+document.getElementById('roadmapToggle').addEventListener('click', e => {
+  const dr = document.getElementById('roadmapDrawer');
+  const isHidden = dr.classList.contains('hidden');
+  dr.classList.toggle('hidden');
+  e.currentTarget.textContent = isHidden ? '🗺️ 전체 로드맵 ▴' : '🗺️ 전체 로드맵 ▾';
+});
 
 document.querySelectorAll('.sub-tab').forEach(b => b.addEventListener('click', e => {
   document.querySelectorAll('.sub-tab').forEach(x => {
