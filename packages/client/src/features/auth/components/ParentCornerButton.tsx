@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useParentGate } from '../hooks/useParentGate';
 import { ParentGateModal } from './ParentGateModal';
+import { PIN_REQUIRED } from '@/config/features';
 
 export function ParentCornerButton() {
   const { isConfigured, session } = useAuth();
@@ -17,7 +18,8 @@ export function ParentCornerButton() {
       navigate('/login');
       return;
     }
-    if (gate.isUnlocked) {
+    // PIN_REQUIRED=false면 PIN 모달 skip — 바로 부모 영역 진입
+    if (!PIN_REQUIRED || gate.isUnlocked) {
       navigate('/parent');
       return;
     }
