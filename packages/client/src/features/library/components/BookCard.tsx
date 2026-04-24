@@ -29,7 +29,15 @@ export function BookCard({ book }: BookCardProps) {
         )}
       >
         {book.coverImage ? (
-          <img src={book.coverImage} alt={book.title} className="w-full h-full object-cover" />
+          <img
+            src={book.coverImage}
+            alt={book.title}
+            className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+            width={640}
+            height={360}
+          />
         ) : (
           '📖'
         )}
