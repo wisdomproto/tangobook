@@ -1,6 +1,6 @@
 # 책 Variants 시스템 Implementation Plan
 
-> **🟢 Phase 3b만 남음 (2026-04-25)** — Phase 0~2 + 1.5 + 3a + 3c 완료. **남은 것: Phase 3b** (저작도구 8탭 재구성 + BookDetailPage v2 cutover). 진행 상세: `memory/book-variants-v2.md`. Commits: 56128d1, 0cbd241, 5c861b3, 80c0e47.
+> **🟢 Phase 3b-7/3b-8만 남음 (2026-04-25)** — Phase 0~2 + 1.5 + 3a + 3c + 3b-2~6 완료 (저작도구 4탭). **남은 것: 3b-7** (오디오북/동영상/마케팅/게임), **3b-8** (BookDetailPage v2 + v1 deprecate). 진행 상세: `memory/book-variants-v2.md`. Commits: 56128d1, 0cbd241, 5c861b3, 80c0e47, 0e45e38, e7fcfd5, ecb3f3d, 3ec7d91, ef308f3, 4774ca3.
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax.
 

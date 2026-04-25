@@ -1,6 +1,6 @@
 # 책 Variants 시스템 — 스펙
 
-> **🟢 Phase 3b만 남음 (2026-04-25)** — Phase 1+2 (인프라/마이그/검증) ✅, Phase 1.5 (`/api/v2/books/*` 13 endpoints) ✅, Phase 3a (라이브러리 v2 cutover) ✅, Phase 3c (`/curriculum-master` React) ✅. **남은 것: Phase 3b** (저작도구 8탭 + 좌측 트리 + BookDetailPage v2 cutover). 진행 상세: `memory/book-variants-v2.md`. Commits: 56128d1, 0cbd241, 5c861b3, 80c0e47.
+> **🟢 Phase 3b-7/3b-8만 남음 (2026-04-25)** — 1+2(인프라/마이그/검증)·1.5(v2 13 endpoints)·3a(라이브러리)·3c(/curriculum-master) ✅. Phase 3b-2(셸)·3b-3(메타)·3b-4(텍스트)·3b-5(스타일+이미지업로드)·3b-6(페이지) ✅. **남은 것**: 3b-7 (오디오북/동영상/마케팅/게임 4탭, 각 별도 sprint), 3b-8 (BookDetailPage v2 + v1 deprecate). 진행 상세: `memory/book-variants-v2.md`. Commits: 56128d1, 0cbd241, 5c861b3, 80c0e47, 0e45e38, e7fcfd5, ecb3f3d, 3ec7d91, ef308f3, 4774ca3.
 
 **Date**: 2026-04-25
 **스코프**: 동화책의 (레벨 × 언어 × 그림체) 3축 variation을 정식 데이터 모델로 격상. R2 prefix 구조 재설계, 저작도구 탭 재구성, 211권 마이그레이션, 학습 리포팅 4축 확장.
