@@ -103,6 +103,55 @@ export const saveCharacters = asyncHandler(async (req, res) => {
   );
 });
 
+export const uploadCover = asyncHandler(async (req, res) => {
+  if (!req.file) throw new AppError(400, 'image required');
+  const result = await svc.uploadStyleImage({
+    bid: req.params['bid'] as string,
+    style: req.params['style'] as string,
+    kind: 'cover',
+    imageBuffer: req.file.buffer,
+  });
+  ok(res, result);
+});
+
+export const uploadKeyObject = asyncHandler(async (req, res) => {
+  if (!req.file) throw new AppError(400, 'image required');
+  const result = await svc.uploadStyleImage({
+    bid: req.params['bid'] as string,
+    style: req.params['style'] as string,
+    kind: 'keyObj',
+    refId: req.params['refId'] as string,
+    imageBuffer: req.file.buffer,
+  });
+  ok(res, result);
+});
+
+export const uploadVocab = asyncHandler(async (req, res) => {
+  if (!req.file) throw new AppError(400, 'image required');
+  const result = await svc.uploadStyleImage({
+    bid: req.params['bid'] as string,
+    style: req.params['style'] as string,
+    kind: 'vocab',
+    refId: req.params['refId'] as string,
+    imageBuffer: req.file.buffer,
+  });
+  ok(res, result);
+});
+
+export const uploadPageImage = asyncHandler(async (req, res) => {
+  if (!req.file) throw new AppError(400, 'image required');
+  const level = validLevel(req.params['level']);
+  const result = await svc.uploadStyleImage({
+    bid: req.params['bid'] as string,
+    style: req.params['style'] as string,
+    kind: 'page',
+    level,
+    illustrationKey: req.params['illustrationKey'] as string,
+    imageBuffer: req.file.buffer,
+  });
+  ok(res, result);
+});
+
 // ────────────────────────────────────────────────────────────────────────────
 // Games
 // ────────────────────────────────────────────────────────────────────────────

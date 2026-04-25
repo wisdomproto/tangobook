@@ -12,6 +12,7 @@ import {
   getStyleSlice,
   getStyleCharacters,
   putStyleCharacters,
+  uploadStyleAsset as uploadStyleAssetToR2,
   listGameInstances,
   getGameInstance,
   getBookIndex,
@@ -225,6 +226,32 @@ export async function saveCharacters(
     await patchVariants(bid, { addStyles: [style] });
   }
   return characters;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Style asset upload (이미지 — multer로 받은 buffer)
+// ────────────────────────────────────────────────────────────────────────────
+
+export interface UploadStyleAssetInput {
+  bid: string;
+  style: string;
+  kind: 'cover' | 'page' | 'keyObj' | 'vocab';
+  imageBuffer: Buffer;
+  level?: ReadingLevel;
+  illustrationKey?: string;
+  refId?: string;
+}
+
+export async function uploadStyleImage(opts: UploadStyleAssetInput): Promise<{ url: string }> {
+  const m = await getBook(opts.bid);
+  const url = await uploadStyleAssetToR2(opts);
+  if (!m.usedVariants.styles.includes(opts.style)) {
+    await patchVariants(opts.bid, { addStyles: [opts.style] });
+  }
+  if (opts.kind === 'page' && opts.level && !m.usedVariants.levels.includes(opts.level)) {
+    await patchVariants(opts.bid, { addLevels: [opts.level] });
+  }
+  return { url };
 }
 
 // ────────────────────────────────────────────────────────────────────────────

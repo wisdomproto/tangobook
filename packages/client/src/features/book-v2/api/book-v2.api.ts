@@ -3,6 +3,8 @@ import type {
   ApiResponse,
   BookIndex,
   BookManifest,
+  BookStyleSlice,
+  BookCharacter,
   BookTextSlice,
   ParentGuide,
   CurriculumMeta,
@@ -11,6 +13,15 @@ import type {
 
 async function apiPut<T>(url: string, data?: unknown): Promise<T> {
   const res = await apiClient.put<ApiResponse<T>>(url, data);
+  return (res.data as { success: true; data: T }).data;
+}
+
+async function apiUpload<T>(url: string, file: File, fieldName = 'image'): Promise<T> {
+  const fd = new FormData();
+  fd.append(fieldName, file);
+  const res = await apiClient.post<ApiResponse<T>>(url, fd, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
   return (res.data as { success: true; data: T }).data;
 }
 
@@ -55,4 +66,38 @@ export const bookV2Api = {
   /** PUT /api/v2/books/:bid/texts/:level/:lang */
   saveTextSlice: (bid: string, level: ReadingLevel, lang: string, slice: BookTextSlice) =>
     apiPut<BookTextSlice>(`/v2/books/${bid}/texts/${level}/${lang}`, slice),
+
+  /** GET /api/v2/books/:bid/styles/:style */
+  getStyleSlice: (bid: string, style: string) =>
+    apiGet<BookStyleSlice>(`/v2/books/${bid}/styles/${style}`),
+
+  /** GET /api/v2/books/:bid/styles/:style/characters */
+  getCharacters: (bid: string, style: string) =>
+    apiGet<BookCharacter[]>(`/v2/books/${bid}/styles/${style}/characters`),
+
+  /** PUT /api/v2/books/:bid/styles/:style/characters */
+  saveCharacters: (bid: string, style: string, characters: BookCharacter[]) =>
+    apiPut<BookCharacter[]>(`/v2/books/${bid}/styles/${style}/characters`, characters),
+
+  /** POST style asset 업로드 (multipart, image field) */
+  uploadCover: (bid: string, style: string, file: File) =>
+    apiUpload<{ url: string }>(`/v2/books/${bid}/styles/${style}/cover`, file),
+
+  uploadKeyObjectImage: (bid: string, style: string, refId: string, file: File) =>
+    apiUpload<{ url: string }>(`/v2/books/${bid}/styles/${style}/key-objects/${refId}`, file),
+
+  uploadVocabImage: (bid: string, style: string, refId: string, file: File) =>
+    apiUpload<{ url: string }>(`/v2/books/${bid}/styles/${style}/vocabulary/${refId}`, file),
+
+  uploadPageImage: (
+    bid: string,
+    style: string,
+    level: ReadingLevel,
+    illustrationKey: string,
+    file: File
+  ) =>
+    apiUpload<{ url: string }>(
+      `/v2/books/${bid}/styles/${style}/pages/${level}/${illustrationKey}`,
+      file
+    ),
 };
