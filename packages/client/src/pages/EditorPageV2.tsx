@@ -33,7 +33,7 @@ const CONTENT_TABS: { id: ContentTabId; icon: string; label: string; deps: strin
   { id: 'style', icon: '🎨', label: '스타일', deps: '그림체' },
   { id: 'page', icon: '🖼️', label: '페이지', deps: '그림체 + 레벨' },
   { id: 'audiobook', icon: '🎧', label: '오디오북', deps: '책 단위 (렌더 시 3축)' },
-  { id: 'longform', icon: '🎬', label: '동영상', deps: '레벨 + 언어 + 그림체' },
+  { id: 'longform', icon: '🎬', label: '동영상', deps: '책 단위 (생성 시 3축)' },
   { id: 'marketing', icon: '📰', label: '마케팅', deps: '언어' },
   { id: 'games', icon: '🎮', label: '게임', deps: '레벨 + 언어' },
 ];
@@ -240,12 +240,7 @@ export default function EditorPageV2() {
             ) : activeContentTab === 'audiobook' ? (
               <AudiobookTab manifest={manifest} />
             ) : activeContentTab === 'longform' ? (
-              <LongformTab
-                manifest={manifest}
-                level={effectiveLevel}
-                language={effectiveLang}
-                style={effectiveStyle}
-              />
+              <LongformTab manifest={manifest} />
             ) : (
               <ContentTabPlaceholder
                 tabId={activeContentTab}

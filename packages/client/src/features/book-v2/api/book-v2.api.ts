@@ -132,11 +132,18 @@ export const bookV2Api = {
 
   // ── Longform ────────────────────────────────────────────────────────────
 
-  /** GET /api/v2/books/:bid/longform?level=&lang=&style= */
-  listLongform: (bid: string, filter: { level: ReadingLevel; language: string; style: string }) =>
-    apiGet<LongformProjectV2[]>(
-      `/v2/books/${bid}/longform?level=${filter.level}&lang=${encodeURIComponent(filter.language)}&style=${encodeURIComponent(filter.style)}`
-    ),
+  /** GET /api/v2/books/:bid/longform?level=&lang=&style= (모두 옵셔널) */
+  listLongform: (
+    bid: string,
+    filter?: { level?: ReadingLevel; language?: string; style?: string }
+  ) => {
+    const qs = new URLSearchParams();
+    if (filter?.level) qs.set('level', filter.level);
+    if (filter?.language) qs.set('lang', filter.language);
+    if (filter?.style) qs.set('style', filter.style);
+    const q = qs.toString();
+    return apiGet<LongformProjectV2[]>(`/v2/books/${bid}/longform${q ? `?${q}` : ''}`);
+  },
 
   /** GET /api/v2/books/:bid/longform/:projectId */
   getLongform: (bid: string, projectId: string) =>

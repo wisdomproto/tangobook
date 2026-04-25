@@ -1,49 +1,18 @@
 import { useState } from 'react';
-import { useLongformList, useCreateLongform, useDeleteLongform } from '../hooks/useLongform';
-import type { BookManifest, LongformProjectV2, ReadingLevel } from '@tangobook/shared';
+import { useLongformList, useDeleteLongform } from '../hooks/useLongform';
+import { CreateLongformModal } from './CreateLongformModal';
+import type { BookManifest, LongformProjectV2 } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 
 interface LongformTabProps {
   manifest: BookManifest;
-  level: ReadingLevel | null;
-  language: string;
-  style: string | null;
 }
 
-export function LongformTab({ manifest, level, language, style }: LongformTabProps) {
-  if (!level || !style) {
-    return (
-      <Centered>
-        ⚠️ 동영상 탭은 레벨·언어·그림체가 모두 필요합니다.
-        <br />
-        usedVariants에 최소 1개씩 추가하세요.
-      </Centered>
-    );
-  }
-
-  return <LongformTabBody manifest={manifest} level={level} language={language} style={style} />;
-}
-
-function LongformTabBody({
-  manifest,
-  level,
-  language,
-  style,
-}: {
-  manifest: BookManifest;
-  level: ReadingLevel;
-  language: string;
-  style: string;
-}) {
-  const filter = { level, language, style };
-  const { data: projects, isLoading } = useLongformList(manifest.id, filter);
-  const create = useCreateLongform(manifest.id);
+export function LongformTab({ manifest }: LongformTabProps) {
+  const { data: projects, isLoading } = useLongformList(manifest.id);
   const remove = useDeleteLongform(manifest.id);
   const [openProjectId, setOpenProjectId] = useState<string | null>(null);
-
-  const handleCreate = () => {
-    create.mutate(filter);
-  };
+  const [createOpen, setCreateOpen] = useState(false);
 
   const handleDelete = (id: string) => {
     if (!window.confirm('이 동영상 프로젝트를 삭제할까요?')) return;
@@ -56,29 +25,28 @@ function LongformTabBody({
         <div>
           <h2 className="text-sm font-black text-ink-900 font-display">🎬 동영상 프로젝트</h2>
           <p className="text-xs text-ink-500 font-bold mt-0.5">
-            {level} / {language} / {style} · {isLoading ? '로딩...' : `${projects?.length ?? 0}개`}
+            {isLoading ? '로딩...' : `총 ${projects?.length ?? 0}개`}
           </p>
         </div>
         <button
-          onClick={handleCreate}
-          disabled={create.isPending}
-          className={cn(
-            'px-4 py-2 rounded-md font-black text-sm transition-all',
-            create.isPending
-              ? 'bg-ink-100 text-ink-300 cursor-not-allowed'
-              : 'bg-coral-500 text-white shadow-pop hover:brightness-110'
-          )}
+          onClick={() => setCreateOpen(true)}
+          className="px-4 py-2 rounded-md font-black text-sm bg-coral-500 text-white shadow-pop hover:brightness-110"
         >
-          {create.isPending ? '생성 중...' : '+ 새 프로젝트'}
+          + 새 동영상 만들기
         </button>
       </div>
 
-      {create.isError && <ErrorBox>생성 실패: {(create.error as Error).message}</ErrorBox>}
+      <CreateLongformModal
+        manifest={manifest}
+        open={createOpen}
+        onClose={() => setCreateOpen(false)}
+      />
+
       {remove.isError && <ErrorBox>삭제 실패: {(remove.error as Error).message}</ErrorBox>}
 
       {!isLoading && projects && projects.length === 0 && (
         <div className="bg-peach-50 rounded-md p-6 text-center text-sm text-ink-700 font-bold">
-          아직 프로젝트가 없습니다. "+ 새 프로젝트"로 시작하세요.
+          아직 프로젝트가 없습니다. "+ 새 동영상 만들기"로 시작하세요.
           <br />
           <span className="text-xs text-ink-500 font-bold">
             텍스트 슬라이스의 페이지 수만큼 빈 scene이 자동 생성됩니다.
@@ -129,20 +97,30 @@ function ProjectCard({
     <div className="bg-white rounded-md shadow-soft overflow-hidden">
       <button
         onClick={onToggle}
-        className="w-full p-4 flex items-center justify-between hover:bg-cream-50"
+        className="w-full p-4 flex items-center justify-between hover:bg-cream-50 text-left"
       >
-        <div className="text-left">
-          <div className="text-sm font-black text-ink-900">{project.id}</div>
-          <div className="text-xs text-ink-500 font-bold mt-0.5">
-            {new Date(project.createdAt).toLocaleString('ko-KR')}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="px-2 py-0.5 rounded bg-coral-100 text-coral-700 font-mono font-black text-[11px]">
+              {project.level}
+            </span>
+            <span className="px-2 py-0.5 rounded bg-peach-100 text-coral-600 font-mono font-bold text-[11px]">
+              {project.language}
+            </span>
+            <span className="px-2 py-0.5 rounded bg-cream-100 text-ink-700 font-mono font-bold text-[11px]">
+              🎨 {project.style}
+            </span>
             {project.parentProjectId && (
-              <span className="ml-2 px-1.5 py-0.5 bg-peach-100 rounded text-coral-600">
+              <span className="px-1.5 py-0.5 bg-peach-100 rounded text-coral-600 text-[10px] font-bold">
                 ↳ master {project.parentProjectId.slice(-6)}
               </span>
             )}
           </div>
+          <div className="text-[11px] text-ink-500 font-bold mt-1.5 truncate">
+            {project.id} · {new Date(project.createdAt).toLocaleString('ko-KR')}
+          </div>
         </div>
-        <div className="flex items-center gap-3 text-xs font-bold">
+        <div className="flex items-center gap-3 text-xs font-bold shrink-0">
           <Badge label={`${withPrompt}/${totalScenes}`} hint="프롬프트" />
           <Badge label={`${withClip}/${totalScenes}`} hint="클립" />
           <Badge label={`${withTts}/${totalScenes}`} hint="TTS" />
@@ -190,14 +168,6 @@ function Badge({ label, hint }: { label: string; hint: string }) {
       <span className="font-mono text-[11px] text-ink-700">{label}</span>
       <span className="text-[9px] text-ink-500 uppercase tracking-wider">{hint}</span>
     </span>
-  );
-}
-
-function Centered({ children }: { children: import('react').ReactNode }) {
-  return (
-    <div className="max-w-3xl mx-auto bg-white rounded-md p-8 text-center shadow-soft text-sm text-ink-700 font-bold">
-      {children}
-    </div>
   );
 }
 

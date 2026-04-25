@@ -3,16 +3,16 @@ import { bookV2Api } from '../api/book-v2.api';
 import type { LongformProjectV2, ReadingLevel } from '@tangobook/shared';
 
 interface LongformFilter {
-  level: ReadingLevel;
-  language: string;
-  style: string;
+  level?: ReadingLevel;
+  language?: string;
+  style?: string;
 }
 
-export function useLongformList(bid: string, filter: LongformFilter | null) {
+export function useLongformList(bid: string, filter?: LongformFilter) {
   return useQuery({
     queryKey: ['book-v2', 'longform', bid, filter?.level, filter?.language, filter?.style],
-    queryFn: () => bookV2Api.listLongform(bid, filter!),
-    enabled: !!bid && !!filter,
+    queryFn: () => bookV2Api.listLongform(bid, filter),
+    enabled: !!bid,
   });
 }
 
