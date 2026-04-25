@@ -4,6 +4,7 @@ import {
   useSaveAudiobookProject,
   useAudiobookRenders,
 } from '../hooks/useAudiobook';
+import { AudiobookRenderModal } from './AudiobookRenderModal';
 import type {
   AudiobookProjectV2,
   AudiobookTransitions,
@@ -23,6 +24,7 @@ export function AudiobookTab({ manifest }: AudiobookTabProps) {
   const save = useSaveAudiobookProject(manifest.id);
 
   const [draft, setDraft] = useState<AudiobookProjectV2 | null>(null);
+  const [renderOpen, setRenderOpen] = useState(false);
 
   useEffect(() => {
     if (serverProject) setDraft(serverProject);
@@ -54,24 +56,38 @@ export function AudiobookTab({ manifest }: AudiobookTabProps) {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      {/* 저장 바 */}
+      {/* 저장 바 + 렌더 버튼 */}
       <div className="flex items-center justify-between bg-white rounded-md p-4 shadow-soft">
         <div className="text-sm text-ink-500 font-bold">
           {dirty ? '🟡 변경됨' : save.isPending ? '저장 중...' : '✓ 저장됨'}
         </div>
-        <button
-          onClick={() => draft && save.mutate(draft)}
-          disabled={!dirty || save.isPending}
-          className={cn(
-            'px-5 py-2 rounded-md font-black text-sm transition-all',
-            dirty && !save.isPending
-              ? 'bg-coral-500 text-white shadow-pop hover:brightness-110'
-              : 'bg-ink-100 text-ink-300 cursor-not-allowed'
-          )}
-        >
-          💾 저장
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setRenderOpen(true)}
+            className="px-4 py-2 rounded-md font-black text-sm bg-peach-100 text-coral-600 hover:bg-peach-200"
+          >
+            🎬 렌더
+          </button>
+          <button
+            onClick={() => draft && save.mutate(draft)}
+            disabled={!dirty || save.isPending}
+            className={cn(
+              'px-5 py-2 rounded-md font-black text-sm transition-all',
+              dirty && !save.isPending
+                ? 'bg-coral-500 text-white shadow-pop hover:brightness-110'
+                : 'bg-ink-100 text-ink-300 cursor-not-allowed'
+            )}
+          >
+            💾 저장
+          </button>
+        </div>
       </div>
+
+      <AudiobookRenderModal
+        manifest={manifest}
+        open={renderOpen}
+        onClose={() => setRenderOpen(false)}
+      />
 
       {save.isError && <ErrorBox>저장 실패: {(save.error as Error)?.message}</ErrorBox>}
 

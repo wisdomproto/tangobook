@@ -113,4 +113,13 @@ export const bookV2Api = {
   /** GET /api/v2/books/:bid/audiobook/renders */
   listAudiobookRenders: (bid: string) =>
     apiGet<AudiobookRenderV2[]>(`/v2/books/${bid}/audiobook/renders`),
+
+  /** POST /api/v2/books/:bid/audiobook/render */
+  startAudiobookRender: (
+    bid: string,
+    body: { level: ReadingLevel; language: string; style: string }
+  ) =>
+    apiClient
+      .post<ApiResponse<{ taskId: string }>>(`/v2/books/${bid}/audiobook/render`, body)
+      .then((res) => (res.data as { success: true; data: { taskId: string } }).data),
 };

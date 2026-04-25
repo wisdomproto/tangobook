@@ -297,6 +297,43 @@ export async function getAudiobookRenders(bid: string): Promise<AudiobookRenderV
   return listAudiobookRenders(bid);
 }
 
+export interface AudiobookRenderInput {
+  bid: string;
+  level: ReadingLevel;
+  language: string;
+  style: string;
+}
+
+/**
+ * 오디오북 렌더 — placeholder.
+ * 실제 Remotion 호출은 Phase 3b-7b-ii에서 구현.
+ * 현재는 manifest/text/style 검증만 하고 501 throw.
+ */
+export async function startAudiobookRender(
+  opts: AudiobookRenderInput
+): Promise<{ taskId: string }> {
+  const m = await getBook(opts.bid);
+  if (!m.usedVariants.levels.includes(opts.level)) {
+    throw new AppError(400, `level ${opts.level} not in usedVariants`);
+  }
+  if (!m.usedVariants.languages.includes(opts.language)) {
+    throw new AppError(400, `language ${opts.language} not in usedVariants`);
+  }
+  if (!m.usedVariants.styles.includes(opts.style)) {
+    throw new AppError(400, `style ${opts.style} not in usedVariants`);
+  }
+  const ts = await getTextSlice(opts.bid, opts.level, opts.language);
+  if (!ts) throw new AppError(400, `text slice not found: ${opts.level}/${opts.language}`);
+  const ss = await getStyleSlice(opts.bid, opts.style);
+  if (!ss) throw new AppError(400, `style slice not found: ${opts.style}`);
+
+  // Phase 3b-7b-ii에서 실제 Remotion 렌더 호출 예정
+  throw new AppError(
+    501,
+    `오디오북 렌더는 다음 sprint(Phase 3b-7b-ii)에서 구현됩니다. (입력 검증은 통과: ${opts.level}/${opts.language}/${opts.style}, 페이지 ${ts.pages.length})`
+  );
+}
+
 // ────────────────────────────────────────────────────────────────────────────
 // Game instances
 // ────────────────────────────────────────────────────────────────────────────

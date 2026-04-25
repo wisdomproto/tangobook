@@ -154,6 +154,23 @@ export const listAudiobookRenders = asyncHandler(async (req, res) => {
   ok(res, await svc.getAudiobookRenders(req.params['bid'] as string));
 });
 
+export const startAudiobookRender = asyncHandler(async (req, res) => {
+  const { level, language, style } = req.body as {
+    level?: string;
+    language?: string;
+    style?: string;
+  };
+  const lv = validLevel(level);
+  if (!language || !style) throw new AppError(400, 'language and style required');
+  const result = await svc.startAudiobookRender({
+    bid: req.params['bid'] as string,
+    level: lv,
+    language,
+    style,
+  });
+  ok(res, result);
+});
+
 export const uploadPageImage = asyncHandler(async (req, res) => {
   if (!req.file) throw new AppError(400, 'image required');
   const level = validLevel(req.params['level']);
