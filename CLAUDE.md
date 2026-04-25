@@ -375,25 +375,71 @@ pnpm --filter shared build
 - 커리큘럼 마스터: `packages/client/public/curriculum-master.html` + 사본 `docs/books/curriculum-master.html`
 - 상세: `memory/classics-curriculum.md`
 
-## Book Variants V2 (2026-04-25, Phase 3b-7/3b-8 남음)
-동화책의 **(level × language × style) 3축 variation** 시스템 — `${bid}__L1` hack을 정식 데이터 모델로 격상. 인프라/마이그/v2 라우트/라이브러리/커리큘럼/저작도구 4탭 완료.
-- **R2 prefix 트리**: `books/{bid}/{manifest, texts/{level}.{lang}.json, audio, styles/{style}/{characters,cover,pages,key-objects,vocabulary}, games, audiobook, longform, marketing}` + `_index/books.json`
-- **shared 타입**: `packages/shared/src/types/book-v2.ts` — `BookManifest`, `BookTextSlice`, `BookStyleSlice`, `BookGameInstance`, `AudiobookProjectV2`/`Render`, `LongformProjectV2`, `BookIndex`(coverImageUrl/phonicsLanguage/curriculumMeta 자동 채움), `CurriculumMeta`
-- **server**: utils/book-v2-keys (Unicode 정규식 한글 ID 허용) · utils/book-v2-runtime-merge · repositories/book-v2.repository (CRUD + cache) · services/book-v2-{migration,verify,curriculum-seed,service} · routes/book-v2-migration · routes/book-v2 (`/api/v2/books/*` 13 endpoints + 4 multipart 업로드, multer 10MB)
-- **이미지 업로드**: B 방식 (multipart → server sharp WebP 변환 → R2). `POST /v2/books/:bid/styles/:style/{cover,key-objects/:refId,vocabulary/:refId,pages/:level/:illustrationKey}`
-- **클라이언트** `features/book-v2/`: api(13 함수) + hooks(useBookIndex/Manifest/TextSlice/StyleSlice + 6 mutation 훅) + components(MetaTab/TextTab/StyleTab/PageTab)
-- **페이지**:
-  - `LibraryPage` — v2 BookIndex fetch (Phase 3a)
-  - `CurriculumMasterPage` — `/curriculum-master` 마스터 표 (Phase 3c)
-  - `EditorPageV2` — `/editor-v2/:bid` 좌측 트리(레벨) + 우측 큰 탭(그림체)+언어 드롭다운 + 본문 8탭 (Phase 3b-2~6)
-  - `BookDetailPage` — v1 그대로 (Phase 3b-8 cutover 예정)
-- **ART_STYLES 신규**: `paper-craft` (47권 종이공예)
-- **마이그 결과**: 301 base manifest, ~8,900 R2 객체. WARN 301 (자산 누락) / PASS 0 / FAIL 0. curriculumMeta seed 55권
-- **저작도구 4탭 완료** (Phase 3b-2~6): 셸 / 메타 / 텍스트 / 스타일 / 페이지 → 책 1권 핵심 편집 가능
-- **남은 작업**: Phase 3b-7 (오디오북/동영상/마케팅/게임 탭, 각 별도 sprint), Phase 3b-8 (BookDetailPage v2 cutover + v1 EditorContent deprecate)
-- **운영**: 인덱스 갱신 `POST /api/v2/books/refresh-index`, 마이그 `node scripts/migrate-to-variants.mjs --apply`, 검증 `node scripts/verify-variants.mjs`
-- 상세: `memory/book-variants-v2.md`
-- 스펙·플랜: `docs/superpowers/specs/2026-04-25-book-variants-design.md` · `docs/superpowers/plans/2026-04-25-book-variants-plan.md`
+## Book Variants V2 (2026-04-25→04-26, 8 탭 + cutover 완료)
+동화책의 **(level × language × style) 3축 variation** 시스템. R2 prefix 트리(`books/{bid}/...`)로 manifest + 슬라이스 + 자산 분할 저장.
+
+### 상태 — 8 탭 모두 동작
+| 탭 | CRUD | 추가 기능 | Phase |
+|----|------|-----------|-------|
+| 📋 메타 | ✓ | — | 3b-3 |
+| 📝 텍스트 | ✓ | — | 3b-4 |
+| 🎨 스타일 | ✓ | 4종 이미지 업로드 | 3b-5 |
+| 🖼️ 페이지 | ✓ | — | 3b-6 |
+| 🎧 오디오북 | ✓ | **실 Remotion 렌더 + 진행률** | 3b-7a/b |
+| 🎬 동영상 | ✓ | **AI 분석 (Gemini) + 클립 생성 (Grok)** | 3b-7c-i/ii/iii |
+| 📰 마케팅 | ✓ | (블로그/카드뉴스 stub) | 3b-7d-i |
+| 🎮 게임 | ✓ | **line-matching generate** | 3b-7e-i/ii |
+
+### cutover 완료 (Phase 3b-8)
+- `/` → `/library` 자동 redirect (AppLayout 삭제)
+- `/editor/:bid` → EditorPageV2 정식 (`/editor-v2/:bid`은 호환 alias)
+- BookDetailPage v2 manifest 기반 재작성 (✏️ 편집 버튼 추가)
+- viewer만 아직 v1 fetch (3b-8-iii follow-up)
+
+### 인프라
+- **R2 prefix 트리**: `books/{bid}/{manifest, texts/{L}.{lang}.json, audio/{L}.{lang}/page-{N}.mp3, styles/{style}/..., games, audiobook/{project.json, renders/{L}.{lang}.{style}.mp4}, longform/{projectId.json, projectId/clips/, projectId/sfx/}, marketing/{blog,card-news}}` + `_index/books.json`
+- **shared 타입**: `BookManifest`, `BookTextSlice`, `BookStyleSlice`, `BookGameInstance`, `AudiobookProjectV2`/`Render`, `LongformProjectV2`, `BlogPostV2`, `CardNewsProjectV2`, `BookIndex`, `CurriculumMeta`
+- **서버 서비스**: `services/book-v2.service.ts` (~1100 줄, 모든 v2 비즈니스 로직)
+- **서버 유틸**: `utils/book-v2-keys` · `book-v2-runtime-merge` · `book-v2-audiobook-render` · `remotion-bundle` · `subtitle-build`
+- **클라이언트** `features/book-v2/`: api 50+ 함수 + 훅 8종 + 컴포넌트 11개
+
+### 오디오북 실 렌더 (Phase 3b-7b-ii)
+fire-and-forget, 1.5s 폴링. taskId = `${L}.${lang}.${style}`. 동일 variant 진행 중 거부.
+
+### 동영상 흐름 (Phase 3b-7c-i/ii/iii)
+1. **신규 프로젝트**: `+ 새 동영상 만들기` 모달 → variant 수동 선택 → textSlice 페이지 수만큼 빈 scene 시드
+2. **🤖 AI 분석**: Gemini로 페이지별 videoPrompt + clipDuration + subtitles
+3. **🎬 클립 생성**: 씬 단위 Grok image-to-video. 페이지 이미지를 first frame으로. SFX 자동 추출.
+4. (다음 sprint) Timeline edit + 최종 render + YouTube
+
+### 게임 generate (Phase 3b-7e-ii)
+현재 지원: `korean-line-matching`, `english-line-matching`. textSlice.keyObjectsText에서 후보 추출 → BookGameInstance.imageRefs로 keyObjId 보존 → 런타임에 활성 style의 keyObjectImages 머지.
+
+### ART_STYLES 신규: `paper-craft` (47권 종이공예)
+
+### 마이그 결과
+301 base manifest, ~8,900 R2 객체. PASS 0 / WARN 301 / FAIL 0. curriculumMeta seed 55권.
+
+### 운영
+- 인덱스 갱신 `POST /api/v2/books/refresh-index`
+- 마이그 `node scripts/migrate-to-variants.mjs --apply`
+- 검증 `node scripts/verify-variants.mjs`
+
+### 진입점
+- `/` 또는 `/library` (학습자, isPublic만)
+- `/curriculum-master` (관리자, 전체 책)
+- `/editor/:bid` (저작도구 v2)
+- `/library/:id` (책 상세 v2)
+- `/viewer/:id?lang=...` (뷰어, 아직 v1 fetch)
+
+### 남은 follow-up sprints
+- 3b-7c-iv Timeline editor (큰 sprint)
+- 3b-7c-v 최종 렌더 + YouTube (큰 sprint)
+- 3b-7e-iii+ 다른 게임 타입 generate 점진 포팅
+- 3b-8-iii Viewer v2 (v1 deprecation, 매우 큰 sprint)
+- 3b-7d-ii 마케팅 generate (사용자 보류)
+
+상세: `memory/book-variants-v2.md` · 스펙: `docs/superpowers/specs/2026-04-25-book-variants-design.md` · 플랜: `docs/superpowers/plans/2026-04-25-book-variants-plan.md`
 
 ## Hori 아케이드 게임 (2026-04-24)
 학습 게임(`features/games/`)과 별개의 **아케이드 게임 허브** — Phaser 4 기반, Hori 마스코트 스프라이트 활용.
