@@ -1,18 +1,13 @@
 import { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
+import { useBookIndex, useBookManifest, useAudiobookRenders } from '@/features/book-v2';
+import { useLongformList, useGamesList } from '@/features/book-v2';
 import { Card } from '@/components/Card';
 import { StateScreen } from '@/components/StateScreen';
 import { Skeleton } from '@/components/Skeleton';
 import { cn } from '@/lib/cn';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
-import {
-  hasVideoUrl,
-  hasGames,
-  getAvailableLanguages,
-  getPrimaryVideoId,
-  type LangCode,
-} from '@/lib/storybook-accessors';
+import type { ReadingLevel } from '@tangobook/shared';
 
 const LANG_LABEL: Record<string, { flag: string; name: string }> = {
   ko: { flag: '🇰🇷', name: '한국어' },
@@ -20,17 +15,48 @@ const LANG_LABEL: Record<string, { flag: string; name: string }> = {
   ja: { flag: '🇯🇵', name: '日本語' },
 };
 
+const LEVEL_LABEL: Record<ReadingLevel, string> = {
+  L1: '씨앗',
+  L2: '새싹',
+  L3: '나무',
+  L4: '숲',
+};
+
 export default function BookDetailPage() {
   const { id = '' } = useParams();
   const navigate = useNavigate();
-  const { data: storybook, isLoading, isError } = useStorybook(id);
-  const [lang, setLang] = useState<LangCode>('ko');
+  const { data: manifest, isLoading, isError } = useBookManifest(id);
+  const { data: index } = useBookIndex();
+  const { data: audioRenders } = useAudiobookRenders(id);
+  // longform/games는 책 단위 fetch (필터 없이 존재 여부만)
+  const { data: longformProjects } = useLongformList(id);
+  const { data: games } = useGamesList(id);
+
+  const [lang, setLang] = useState<string>('ko');
   const [videoOpen, setVideoOpen] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
+  const [videoIdToPlay, setVideoIdToPlay] = useState<string | null>(null);
 
-  const videoAvailable = useMemo(() => (storybook ? hasVideoUrl(storybook) : false), [storybook]);
-  const gameAvailable = useMemo(() => (storybook ? hasGames(storybook) : false), [storybook]);
-  const languages = useMemo(() => (storybook ? getAvailableLanguages(storybook) : []), [storybook]);
+  // 라이브러리 인덱스에서 표지 URL 가져오기 (캐시되어 있음)
+  const indexEntry = useMemo(() => index?.books.find((b) => b.id === id), [index, id]);
+
+  // 영상/게임 가용성
+  const youtubeVideoIds = useMemo(() => {
+    const ids: string[] = [];
+    audioRenders?.forEach((r) => r.youtubeVideoId && ids.push(r.youtubeVideoId));
+    longformProjects?.forEach((p) => p.youtubeVideoId && ids.push(p.youtubeVideoId));
+    return ids;
+  }, [audioRenders, longformProjects]);
+
+  const directVideoUrls = useMemo(() => {
+    const urls: string[] = [];
+    audioRenders?.forEach((r) => r.videoUrl && urls.push(r.videoUrl));
+    longformProjects?.forEach((p) => p.videoUrl && urls.push(p.videoUrl));
+    return urls;
+  }, [audioRenders, longformProjects]);
+
+  const videoAvailable = youtubeVideoIds.length > 0 || directVideoUrls.length > 0;
+  const gameAvailable = (games?.length ?? 0) > 0;
 
   if (isLoading) {
     return (
@@ -48,7 +74,7 @@ export default function BookDetailPage() {
     );
   }
 
-  if (isError || !storybook) {
+  if (isError || !manifest) {
     return (
       <StateScreen
         mascotState="sad"
@@ -59,19 +85,27 @@ export default function BookDetailPage() {
     );
   }
 
-  const pageCount = storybook.pages?.length ?? 0;
-  const summary = storybook.referenceContent?.slice(0, 150) ?? '';
-
-  const primaryVideoId = getPrimaryVideoId(storybook);
+  const languages = manifest.usedVariants.languages;
+  const levels = manifest.usedVariants.levels;
+  const styles = manifest.usedVariants.styles;
 
   const enterMode = (mode: 'read' | 'video' | 'game') => {
     if (mode === 'video') {
-      if (primaryVideoId) setVideoOpen(true);
+      const vid = youtubeVideoIds[0];
+      if (vid) {
+        setVideoIdToPlay(vid);
+        setVideoOpen(true);
+        return;
+      }
+      const url = directVideoUrls[0];
+      if (url) {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
       return;
     }
     const qs = new URLSearchParams({ lang });
     if (mode === 'game') qs.set('mode', 'games');
-    navigate(`/viewer/${storybook.id}?${qs.toString()}`);
+    navigate(`/viewer/${manifest.id}?${qs.toString()}`);
   };
 
   return (
@@ -87,21 +121,21 @@ export default function BookDetailPage() {
             ←
           </button>
           <button
-            disabled
-            title="즐겨찾기는 곧 추가돼요"
-            className="bg-white rounded-lg px-4 py-3 shadow-soft font-bold text-sm flex items-center gap-1.5 opacity-60 cursor-not-allowed"
+            onClick={() => navigate(`/editor/${manifest.id}`)}
+            className="bg-white rounded-lg px-4 py-3 shadow-soft font-bold text-sm flex items-center gap-1.5 hover:bg-peach-100"
+            title="저작도구로 편집"
           >
-            ⭐ <span>즐겨찾기</span>
+            ✏️ <span>편집</span>
           </button>
         </div>
 
         {/* 히어로 */}
         <div className="grid grid-cols-1 md:grid-cols-[480px_1fr] gap-9 items-start mb-6">
           <div className="relative aspect-video rounded-lg overflow-hidden bg-gradient-to-br from-peach-200 to-peach-300 shadow-card">
-            {storybook.coverImage ? (
+            {indexEntry?.coverImageUrl ? (
               <img
-                src={storybook.coverImage}
-                alt={storybook.title}
+                src={indexEntry.coverImageUrl}
+                alt={manifest.title}
                 className="w-full h-full object-cover"
               />
             ) : (
@@ -115,13 +149,15 @@ export default function BookDetailPage() {
           </div>
           <div>
             <h1 className="text-3xl md:text-4xl font-black text-ink-900 font-display leading-tight">
-              {storybook.title}
+              {manifest.title}
             </h1>
             <div className="flex gap-2 flex-wrap mt-4 mb-4">
               {[
-                `👶 만 ${storybook.targetAge}세`,
-                `📄 ${pageCount}페이지`,
-                storybook.category && `🏷️ ${storybook.category}`,
+                manifest.category && `🏷️ ${manifest.category}`,
+                levels.length > 0 &&
+                  `📂 ${levels.map((lv) => `${lv} ${LEVEL_LABEL[lv]}`).join(' · ')}`,
+                styles.length > 0 && `🎨 ${styles.join(', ')}`,
+                manifest.type === 'phonics' ? '🔤 파닉스' : '📖 동화책',
               ]
                 .filter(Boolean)
                 .map((chip) => (
@@ -133,10 +169,9 @@ export default function BookDetailPage() {
                   </span>
                 ))}
             </div>
-            {summary && (
+            {manifest.parentGuide?.overview && (
               <p className="bg-white/60 p-4 rounded-md text-sm text-ink-700 leading-relaxed">
-                {summary}
-                {summary.length >= 150 ? '…' : ''}
+                {manifest.parentGuide.overview}
               </p>
             )}
           </div>
@@ -207,7 +242,7 @@ export default function BookDetailPage() {
         </div>
 
         {/* 부모님 가이드 (parentGuide 있을 때만) */}
-        {storybook.parentGuide && (
+        {manifest.parentGuide && (
           <div className="mt-8">
             <button
               onClick={() => setGuideOpen((v) => !v)}
@@ -233,22 +268,24 @@ export default function BookDetailPage() {
             {guideOpen && (
               <div className="mt-3 bg-white rounded-lg p-5 md:p-6 shadow-soft space-y-5">
                 {/* 특징 */}
-                <section>
-                  <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
-                    📖 책의 특징
-                  </h3>
-                  <p className="text-sm text-ink-700 leading-relaxed">
-                    {storybook.parentGuide.overview}
-                  </p>
-                </section>
+                {manifest.parentGuide.overview && (
+                  <section>
+                    <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
+                      📖 책의 특징
+                    </h3>
+                    <p className="text-sm text-ink-700 leading-relaxed">
+                      {manifest.parentGuide.overview}
+                    </p>
+                  </section>
+                )}
                 {/* 교훈 */}
-                {storybook.parentGuide.lessons.length > 0 && (
+                {manifest.parentGuide.lessons && manifest.parentGuide.lessons.length > 0 && (
                   <section>
                     <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
                       💡 아이에게 전할 교훈
                     </h3>
                     <ul className="space-y-1.5">
-                      {storybook.parentGuide.lessons.map((lesson, i) => (
+                      {manifest.parentGuide.lessons.map((lesson, i) => (
                         <li key={i} className="text-sm text-ink-700 leading-relaxed flex gap-2">
                           <span className="text-coral-400 mt-0.5">•</span>
                           <span>{lesson}</span>
@@ -258,33 +295,37 @@ export default function BookDetailPage() {
                   </section>
                 )}
                 {/* 읽어주는 법 */}
-                {storybook.parentGuide.readingTips.length > 0 && (
-                  <section>
-                    <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
-                      🎭 읽어주는 법
-                    </h3>
-                    <ul className="space-y-1.5">
-                      {storybook.parentGuide.readingTips.map((tip, i) => (
-                        <li key={i} className="text-sm text-ink-700 leading-relaxed flex gap-2">
-                          <span className="text-coral-400 mt-0.5">{i + 1}.</span>
-                          <span>{tip}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                )}
+                {manifest.parentGuide.readingTips &&
+                  manifest.parentGuide.readingTips.length > 0 && (
+                    <section>
+                      <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
+                        🎭 읽어주는 법
+                      </h3>
+                      <ul className="space-y-1.5">
+                        {manifest.parentGuide.readingTips.map((tip, i) => (
+                          <li key={i} className="text-sm text-ink-700 leading-relaxed flex gap-2">
+                            <span className="text-coral-400 mt-0.5">{i + 1}.</span>
+                            <span>{tip}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
               </div>
             )}
           </div>
         )}
       </div>
 
-      {primaryVideoId && (
+      {videoIdToPlay && (
         <YouTubeModal
-          videoId={primaryVideoId}
+          videoId={videoIdToPlay}
           open={videoOpen}
-          onClose={() => setVideoOpen(false)}
-          title={storybook.title}
+          onClose={() => {
+            setVideoOpen(false);
+            setVideoIdToPlay(null);
+          }}
+          title={manifest.title}
         />
       )}
     </div>
