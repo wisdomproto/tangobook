@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useBookManifest, MetaTab, TextTab, StyleTab } from '@/features/book-v2';
+import { useBookManifest, MetaTab, TextTab, StyleTab, PageTab } from '@/features/book-v2';
 import { StateScreen } from '@/components/StateScreen';
 import { cn } from '@/lib/cn';
 import type { ReadingLevel } from '@tangobook/shared';
@@ -222,6 +222,13 @@ export default function EditorPageV2() {
               <TextTab manifest={manifest} level={effectiveLevel} language={effectiveLang} />
             ) : activeContentTab === 'style' ? (
               <StyleTab manifest={manifest} style={effectiveStyle} />
+            ) : activeContentTab === 'page' ? (
+              <PageTab
+                manifest={manifest}
+                level={effectiveLevel}
+                style={effectiveStyle}
+                language={effectiveLang}
+              />
             ) : (
               <ContentTabPlaceholder
                 tabId={activeContentTab}
