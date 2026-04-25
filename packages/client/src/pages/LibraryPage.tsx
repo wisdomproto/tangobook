@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
+import { useBookIndex } from '@/features/book-v2';
 import { WelcomeHeader, CategorySection, BookCard } from '@/features/library';
 import { StateScreen } from '@/components/StateScreen';
 import { SkeletonBookCard } from '@/components/Skeleton';
 import { cn } from '@/lib/cn';
-import type { StorybookSummary } from '@tangobook/shared';
+import type { BookIndexEntry } from '@tangobook/shared';
 import { ParentCornerButton } from '@/features/auth/components/ParentCornerButton';
 import { useAuth } from '@/features/auth/context/AuthContext';
 
@@ -15,7 +15,7 @@ const TABS: Array<{
   id: TabId;
   icon: string;
   label: string;
-  match: (b: StorybookSummary) => boolean;
+  match: (b: BookIndexEntry) => boolean;
 }> = [
   {
     id: 'storybook',
@@ -51,7 +51,8 @@ const CATEGORY_ICON: Record<string, string> = {
 const getCategoryIcon = (cat: string) => CATEGORY_ICON[cat] ?? '📚';
 
 export default function LibraryPage() {
-  const { data: all, isLoading, isError } = useStorybooks();
+  const { data: index, isLoading, isError } = useBookIndex();
+  const all = index?.books;
   const [activeTab, setActiveTab] = useState<TabId>('storybook');
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState<'recent' | 'title'>('recent');
@@ -63,7 +64,7 @@ export default function LibraryPage() {
     setActiveCategory(null);
   };
 
-  const filtered = useMemo<StorybookSummary[]>(() => {
+  const filtered = useMemo<BookIndexEntry[]>(() => {
     if (!all) return [];
     // 뷰어에는 저작도구에서 "공개"로 체크된 책만 노출
     const publicOnly = all.filter((b) => b.isPublic);
@@ -80,7 +81,7 @@ export default function LibraryPage() {
       : searched;
     return [...byCat].sort((a, b) =>
       sortBy === 'recent'
-        ? (b.createdAt ?? '').localeCompare(a.createdAt ?? '')
+        ? (b.updatedAt ?? '').localeCompare(a.updatedAt ?? '')
         : a.title.localeCompare(b.title, 'ko')
     );
   }, [all, activeTab, search, sortBy, activeCategory]);
@@ -109,7 +110,7 @@ export default function LibraryPage() {
   const showCategories = activeTab === 'storybook' && !activeCategory;
   const grouped = useMemo(() => {
     if (!showCategories) return null;
-    const map = new Map<string, StorybookSummary[]>();
+    const map = new Map<string, BookIndexEntry[]>();
     filtered.forEach((b) => {
       const key = b.category || '기타';
       if (!map.has(key)) map.set(key, []);

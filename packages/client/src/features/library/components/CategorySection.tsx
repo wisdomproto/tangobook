@@ -1,10 +1,10 @@
 import { BookCard } from './BookCard';
-import type { StorybookSummary } from '@tangobook/shared';
+import type { BookIndexEntry } from '@tangobook/shared';
 
 interface CategorySectionProps {
   icon: string;
   title: string;
-  books: StorybookSummary[];
+  books: BookIndexEntry[];
   limit?: number;
   onShowMore?: () => void;
 }

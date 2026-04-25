@@ -463,7 +463,18 @@ function invalidateIndex() {
   indexCacheTime = 0;
 }
 
+function derivePhonicsLanguage(
+  bid: string,
+  type: BookManifest['type']
+): 'korean' | 'english' | undefined {
+  if (type !== 'phonics') return undefined;
+  if (bid.startsWith('kr-h')) return 'korean';
+  if (bid.startsWith('en-b')) return 'english';
+  return undefined;
+}
+
 function summarizeManifest(m: BookManifest): BookIndexEntry {
+  const firstStyle = m.usedVariants.styles[0];
   return {
     id: m.id,
     title: m.title,
@@ -472,7 +483,9 @@ function summarizeManifest(m: BookManifest): BookIndexEntry {
     folder: m.folder,
     isPublic: m.isPublic,
     usedVariants: m.usedVariants,
-    hasCover: m.usedVariants.styles.length > 0, // 그림체가 1개 이상이면 표지 후보 있음
+    hasCover: m.usedVariants.styles.length > 0,
+    coverImageUrl: firstStyle ? publicUrlOf(styleCoverKey(m.id, firstStyle)) : undefined,
+    phonicsLanguage: derivePhonicsLanguage(m.id, m.type),
     updatedAt: m.updatedAt,
   };
 }

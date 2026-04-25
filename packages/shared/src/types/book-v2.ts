@@ -248,6 +248,10 @@ export interface BookIndexEntry {
   isPublic?: boolean;
   usedVariants: UsedVariants;
   hasCover: boolean;
+  /** 라이브러리 카드 표지 URL — 첫 style의 cover.webp */
+  coverImageUrl?: string;
+  /** phonics 책 분리용 (라이브러리 탭). bid 패턴(kr-h..., en-b...)으로 derive */
+  phonicsLanguage?: 'korean' | 'english';
   updatedAt: string;
 }
 

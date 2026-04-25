@@ -1,14 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/Card';
 import { cn } from '@/lib/cn';
-import type { StorybookSummary } from '@tangobook/shared';
+import type { BookIndexEntry } from '@tangobook/shared';
 
 interface BookCardProps {
-  book: StorybookSummary;
+  book: BookIndexEntry;
 }
 
 export function BookCard({ book }: BookCardProps) {
   const navigate = useNavigate();
+  const levels = book.usedVariants.levels;
+  const styles = book.usedVariants.styles;
   return (
     <Card
       interactive
@@ -16,21 +18,16 @@ export function BookCard({ book }: BookCardProps) {
       onClick={() => navigate(`/library/${book.id}`)}
       className="relative"
     >
-      {book.hasVideo && (
-        <span className="absolute top-3 right-3 bg-coral-500 text-white px-2 py-1 rounded-md text-[10px] font-black shadow-pop flex items-center gap-1 z-10">
-          📺 영상
-        </span>
-      )}
       <div
         className={cn(
           'aspect-video rounded-md overflow-hidden mb-3',
-          !book.coverImage &&
+          !book.coverImageUrl &&
             'bg-gradient-to-br from-peach-200 to-peach-300 flex items-center justify-center text-4xl'
         )}
       >
-        {book.coverImage ? (
+        {book.coverImageUrl ? (
           <img
-            src={book.coverImage}
+            src={book.coverImageUrl}
             alt={book.title}
             className="w-full h-full object-cover"
             loading="lazy"
@@ -44,7 +41,8 @@ export function BookCard({ book }: BookCardProps) {
       </div>
       <h3 className="font-black text-sm text-ink-900 truncate font-display">{book.title}</h3>
       <p className="text-[11px] text-ink-500 font-bold mt-1">
-        만 {book.targetAge}세{book.pageCount ? ` · ${book.pageCount}페이지` : ''}
+        {levels.length > 0 ? levels.slice().sort().join(' · ') : '준비 중'}
+        {styles.length > 0 ? ` · ${styles.length}개 그림체` : ''}
       </p>
     </Card>
   );
