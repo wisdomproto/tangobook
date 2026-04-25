@@ -4,6 +4,7 @@ import { ErrorBoundary } from '../components/ErrorBoundary';
 import LibraryPage from '../pages/LibraryPage';
 import BookDetailPage from '../pages/BookDetailPage';
 import CurriculumMasterPage from '../pages/CurriculumMasterPage';
+import EditorPageV2 from '../pages/EditorPageV2';
 import ViewerPage from '../pages/ViewerPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
@@ -53,6 +54,14 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <CurriculumMasterPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'editor-v2/:bid',
+        element: (
+          <ErrorBoundary>
+            <EditorPageV2 />
           </ErrorBoundary>
         ),
       },
