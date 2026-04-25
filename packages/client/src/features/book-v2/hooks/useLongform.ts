@@ -59,3 +59,20 @@ export function useDeleteLongform(bid: string) {
     },
   });
 }
+
+export function useStartLongformAnalyze(bid: string) {
+  return useMutation({
+    mutationFn: ({
+      projectId,
+      body,
+    }: {
+      projectId: string;
+      body?: { systemPrompt?: string; model?: string; excludePages?: number[] };
+    }) => bookV2Api.startLongformAnalyze(bid, projectId, body),
+  });
+}
+
+export function useLongformAnalyzeProgress(bid: string, projectId: string | null) {
+  // 폴링은 LongformTab에서 직접 setTimeout으로 (taskId 단위 invalidate 패턴이 없으므로)
+  return { bid, projectId };
+}

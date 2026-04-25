@@ -1,8 +1,16 @@
-import { useState } from 'react';
-import { useLongformList, useDeleteLongform } from '../hooks/useLongform';
+import { useEffect, useRef, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useLongformList, useDeleteLongform, useStartLongformAnalyze } from '../hooks/useLongform';
+import { bookV2Api } from '../api/book-v2.api';
 import { CreateLongformModal } from './CreateLongformModal';
 import type { BookManifest, LongformProjectV2 } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
+
+interface AnalyzeProgress {
+  progress: number;
+  step: string;
+  error?: string;
+}
 
 interface LongformTabProps {
   manifest: BookManifest;
@@ -11,12 +19,69 @@ interface LongformTabProps {
 export function LongformTab({ manifest }: LongformTabProps) {
   const { data: projects, isLoading } = useLongformList(manifest.id);
   const remove = useDeleteLongform(manifest.id);
+  const analyze = useStartLongformAnalyze(manifest.id);
+  const qc = useQueryClient();
   const [openProjectId, setOpenProjectId] = useState<string | null>(null);
   const [createOpen, setCreateOpen] = useState(false);
+  const [progressMap, setProgressMap] = useState<Record<string, AnalyzeProgress>>({});
+  const pollersRef = useRef<Map<string, number>>(new Map());
 
   const handleDelete = (id: string) => {
     if (!window.confirm('이 동영상 프로젝트를 삭제할까요?')) return;
     remove.mutate(id);
+  };
+
+  const startPolling = (projectId: string) => {
+    const tick = async () => {
+      try {
+        const p = await bookV2Api.getLongformAnalyzeProgress(manifest.id, projectId);
+        if (p) {
+          setProgressMap((m) => ({ ...m, [projectId]: p }));
+          if (p.progress >= 100) {
+            qc.invalidateQueries({ queryKey: ['book-v2', 'longform', manifest.id] });
+            pollersRef.current.delete(projectId);
+            // 완료 표시 후 잠시 뒤 progress 제거
+            setTimeout(() => {
+              setProgressMap((m) => {
+                const { [projectId]: _, ...rest } = m;
+                void _;
+                return rest;
+              });
+            }, 3000);
+            return;
+          }
+          if (p.progress < 0) {
+            pollersRef.current.delete(projectId);
+            return; // 실패는 progressMap에 유지 (에러 표시)
+          }
+        }
+        const id = window.setTimeout(tick, 1500);
+        pollersRef.current.set(projectId, id);
+      } catch {
+        const id = window.setTimeout(tick, 3000);
+        pollersRef.current.set(projectId, id);
+      }
+    };
+    tick();
+  };
+
+  useEffect(() => {
+    return () => {
+      pollersRef.current.forEach((id) => window.clearTimeout(id));
+      pollersRef.current.clear();
+    };
+  }, []);
+
+  const handleAnalyze = (projectId: string) => {
+    analyze.mutate(
+      { projectId },
+      {
+        onSuccess: () => {
+          setProgressMap((m) => ({ ...m, [projectId]: { progress: 0, step: '시작' } }));
+          startPolling(projectId);
+        },
+      }
+    );
   };
 
   return (
@@ -61,6 +126,8 @@ export function LongformTab({ manifest }: LongformTabProps) {
           open={openProjectId === p.id}
           onToggle={() => setOpenProjectId(openProjectId === p.id ? null : p.id)}
           onDelete={() => handleDelete(p.id)}
+          onAnalyze={() => handleAnalyze(p.id)}
+          analyzeProgress={progressMap[p.id]}
         />
       ))}
 
@@ -82,12 +149,18 @@ function ProjectCard({
   open,
   onToggle,
   onDelete,
+  onAnalyze,
+  analyzeProgress,
 }: {
   project: LongformProjectV2;
   open: boolean;
   onToggle: () => void;
   onDelete: () => void;
+  onAnalyze: () => void;
+  analyzeProgress?: AnalyzeProgress;
 }) {
+  const inProgress =
+    analyzeProgress && analyzeProgress.progress >= 0 && analyzeProgress.progress < 100;
   const totalScenes = project.scenes.length;
   const withClip = project.scenes.filter((s) => s.clipUrl).length;
   const withTts = project.scenes.filter((s) => s.ttsUrl).length;
@@ -131,6 +204,42 @@ function ProjectCard({
       </button>
       {open && (
         <div className="border-t border-ink-100 p-4 space-y-3 bg-cream-50">
+          {/* 분석 진행률 */}
+          {analyzeProgress && (
+            <div className="bg-white rounded-md p-3 space-y-2 border border-coral-200">
+              <div className="text-xs font-bold text-ink-700">
+                {analyzeProgress.progress < 0
+                  ? '❌ 분석 실패'
+                  : analyzeProgress.progress >= 100
+                    ? '✓ 분석 완료'
+                    : `🤖 ${analyzeProgress.step} (${analyzeProgress.progress}%)`}
+              </div>
+              <div className="w-full bg-ink-100 rounded-full h-2 overflow-hidden">
+                <div
+                  className={cn(
+                    'h-full rounded-full transition-all',
+                    analyzeProgress.progress < 0
+                      ? 'bg-danger'
+                      : analyzeProgress.progress >= 100
+                        ? 'bg-success'
+                        : 'bg-coral-500'
+                  )}
+                  style={{
+                    width:
+                      analyzeProgress.progress < 0
+                        ? '100%'
+                        : `${Math.max(0, Math.min(100, analyzeProgress.progress))}%`,
+                  }}
+                />
+              </div>
+              {analyzeProgress.error && (
+                <div className="text-xs text-danger font-bold whitespace-pre-line">
+                  {analyzeProgress.error}
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="text-xs font-bold text-ink-700">씬 (총 {totalScenes})</div>
           <div className="grid grid-cols-1 gap-1.5">
             {project.scenes.map((s) => (
@@ -148,10 +257,27 @@ function ProjectCard({
               </div>
             ))}
           </div>
-          <div className="flex justify-end pt-2">
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              onClick={onAnalyze}
+              disabled={inProgress}
+              className={cn(
+                'px-3 py-1.5 rounded-md font-bold text-xs',
+                inProgress
+                  ? 'bg-ink-100 text-ink-300 cursor-not-allowed'
+                  : 'bg-coral-500 text-white hover:brightness-110'
+              )}
+              title="Gemini로 페이지별 영상 프롬프트 자동 생성"
+            >
+              {inProgress ? '분석 중...' : '🤖 AI 분석'}
+            </button>
             <button
               onClick={onDelete}
-              className="px-3 py-1.5 rounded-md bg-danger/10 text-danger font-bold text-xs hover:bg-danger/20"
+              disabled={inProgress}
+              className={cn(
+                'px-3 py-1.5 rounded-md bg-danger/10 text-danger font-bold text-xs',
+                inProgress ? 'cursor-not-allowed opacity-50' : 'hover:bg-danger/20'
+              )}
             >
               🗑️ 삭제
             </button>

@@ -171,6 +171,22 @@ export const bookV2Api = {
       .delete<ApiResponse<{ deleted: true }>>(`/v2/books/${bid}/longform/${projectId}`)
       .then((res) => (res.data as { success: true; data: { deleted: true } }).data),
 
+  /** POST /api/v2/books/:bid/longform/:projectId/analyze */
+  startLongformAnalyze: (
+    bid: string,
+    projectId: string,
+    body?: { systemPrompt?: string; model?: string; excludePages?: number[] }
+  ) =>
+    apiClient
+      .post<ApiResponse<{ ok: true }>>(`/v2/books/${bid}/longform/${projectId}/analyze`, body ?? {})
+      .then((res) => (res.data as { success: true; data: { ok: true } }).data),
+
+  /** GET /api/v2/books/:bid/longform/:projectId/analyze/progress */
+  getLongformAnalyzeProgress: (bid: string, projectId: string) =>
+    apiGet<{ progress: number; step: string; error?: string; updatedAt: number } | null>(
+      `/v2/books/${bid}/longform/${projectId}/analyze/progress`
+    ),
+
   // ── Games ──────────────────────────────────────────────────────────────
 
   /** GET /api/v2/books/:bid/games?level=&lang= */

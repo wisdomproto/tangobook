@@ -41,11 +41,13 @@ import {
 } from '../repositories/book-v2.repository.js';
 import { listR2Objects } from '../providers/r2.provider.js';
 import { mergeForViewer, mergeForGame } from '../utils/book-v2-runtime-merge.js';
-import { audiobookRenderKey } from '../utils/book-v2-keys.js';
+import { audiobookRenderKey, audioFileKey } from '../utils/book-v2-keys.js';
 import { buildAudiobookRenderDataV2 } from '../utils/book-v2-audiobook-render.js';
 import { loadRemotion, getRemotionBundlePath } from '../utils/remotion-bundle.js';
 import { getAudioDuration } from '../utils/audio-duration.js';
-import { r2PublicUrl } from '../providers/r2.provider.js';
+import { splitSentences, buildSubtitles } from '../utils/subtitle-build.js';
+import { generateTextWithGemini } from '../providers/gemini.provider.js';
+import { r2PublicUrl, objectExists } from '../providers/r2.provider.js';
 import type {
   BookManifest,
   BookTextSlice,
@@ -636,6 +638,199 @@ export async function saveLongform(
 export async function deleteLongform(bid: string, projectId: string): Promise<void> {
   await getBook(bid);
   await r2DeleteLongformProject(bid, projectId);
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Longform Analyze (Gemini로 페이지별 videoPrompt 생성)
+// ────────────────────────────────────────────────────────────────────────────
+
+export interface LongformAnalyzeProgress {
+  progress: number; // 0~100, -1 실패
+  step: string;
+  error?: string;
+  updatedAt: number;
+}
+
+const longformAnalyzeProgress = new Map<string, LongformAnalyzeProgress>();
+
+function longformProgressKey(bid: string, projectId: string): string {
+  return `${bid}:${projectId}`;
+}
+
+function setLongformProgress(
+  bid: string,
+  projectId: string,
+  p: Omit<LongformAnalyzeProgress, 'updatedAt'>
+): void {
+  longformAnalyzeProgress.set(longformProgressKey(bid, projectId), {
+    ...p,
+    updatedAt: Date.now(),
+  });
+}
+
+function clearLongformProgressLater(bid: string, projectId: string, ms: number): void {
+  setTimeout(() => longformAnalyzeProgress.delete(longformProgressKey(bid, projectId)), ms);
+}
+
+export function getLongformAnalyzeProgress(
+  bid: string,
+  projectId: string
+): LongformAnalyzeProgress | null {
+  return longformAnalyzeProgress.get(longformProgressKey(bid, projectId)) ?? null;
+}
+
+export interface AnalyzeLongformInput {
+  bid: string;
+  projectId: string;
+  systemPrompt?: string;
+  model?: string;
+  excludePages?: number[];
+}
+
+/**
+ * 롱폼 분석 시작 (fire-and-forget). 즉시 반환, 진행률은 polling.
+ */
+export async function startLongformAnalyze(input: AnalyzeLongformInput): Promise<{ ok: true }> {
+  const project = await getLongform(input.bid, input.projectId);
+  const existing = longformAnalyzeProgress.get(longformProgressKey(input.bid, input.projectId));
+  if (existing && existing.progress >= 0 && existing.progress < 100) {
+    throw new AppError(409, '이미 분석이 진행 중입니다.');
+  }
+
+  setLongformProgress(input.bid, input.projectId, { progress: 0, step: '시작' });
+
+  void runLongformAnalyze(input, project).catch((err: unknown) => {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('[book-v2 longform] analyze failed:', msg);
+    setLongformProgress(input.bid, input.projectId, {
+      progress: -1,
+      step: '실패',
+      error: msg,
+    });
+    clearLongformProgressLater(input.bid, input.projectId, 60_000);
+  });
+
+  return { ok: true };
+}
+
+async function runLongformAnalyze(
+  input: AnalyzeLongformInput,
+  project: LongformProjectV2
+): Promise<void> {
+  const ts = await getTextSlice(input.bid, project.level, project.language);
+  if (!ts) throw new AppError(400, `text slice not found: ${project.level}/${project.language}`);
+
+  const allPages = ts.pages;
+  const pages = input.excludePages?.length
+    ? allPages.filter((p) => !input.excludePages!.includes(p.pageNumber))
+    : allPages;
+  const total = pages.length;
+
+  // 기존 씬의 클립/편집 정보 보존 (pageNumber 매칭)
+  const prevByPage = new Map<number, (typeof project.scenes)[number]>();
+  for (const s of project.scenes ?? []) {
+    if (typeof s.pageNumber === 'number') prevByPage.set(s.pageNumber, s);
+  }
+
+  setLongformProgress(input.bid, input.projectId, {
+    progress: 0,
+    step: `분석 시작 (${total}페이지)`,
+  });
+
+  // 하트비트 — Gemini 재시도로 오래 걸려도 stale detection 오탐 방지
+  const heartbeat = setInterval(() => {
+    const cur = longformAnalyzeProgress.get(longformProgressKey(input.bid, input.projectId));
+    if (cur && cur.progress >= 0 && cur.progress < 100) {
+      longformAnalyzeProgress.set(longformProgressKey(input.bid, input.projectId), {
+        ...cur,
+        updatedAt: Date.now(),
+      });
+    }
+  }, 15_000);
+
+  let prevVideoPrompt = '';
+  const newScenes: typeof project.scenes = [];
+
+  try {
+    for (let i = 0; i < pages.length; i++) {
+      const page = pages[i];
+      const pageText = page.text;
+
+      setLongformProgress(input.bid, input.projectId, {
+        progress: Math.round((i / total) * 100),
+        step: `페이지 ${i + 1}/${total} 분석 중`,
+      });
+
+      // TTS 길이 측정 (있으면) → clipDuration
+      const audioKey = audioFileKey(input.bid, project.level, project.language, page.pageNumber);
+      const audioExists = await objectExists(audioKey);
+      const ttsUrl = audioExists ? `${r2PublicUrl}/${audioKey}` : undefined;
+
+      let ttsDuration: number | undefined;
+      if (ttsUrl) {
+        try {
+          ttsDuration = await getAudioDuration(ttsUrl);
+        } catch {
+          // 기본값
+        }
+      }
+      const clipDuration = ttsDuration ? Math.min(15, Math.max(5, Math.ceil(ttsDuration) + 2)) : 10;
+
+      // Gemini 프롬프트
+      const geminiPrompt = [
+        input.systemPrompt ? `[System]\n${input.systemPrompt}\n` : '',
+        `다음 동화책 페이지를 분석하고, 이 장면을 ${clipDuration}초 영상으로 만들기 위한 영어 영상 프롬프트를 작성해주세요.`,
+        `장면 설명에 카메라 움직임, 조명, 분위기를 포함해주세요.`,
+        prevVideoPrompt
+          ? `이전 장면과의 시각적 연속성을 위해, 이전 장면의 카메라 방향과 움직임을 참고하여 자연스럽게 이어지도록 해주세요.\n[이전 장면 프롬프트]\n${prevVideoPrompt}\n`
+          : '',
+        `중요: 영상에 텍스트, 자막, 말풍선, 음성, 음악이 포함되지 않도록 프롬프트에 "no text, no subtitles, no speech, no voice-over, no music"를 반드시 포함해주세요.`,
+        `\n[페이지 텍스트]\n${pageText}`,
+        page.sceneDescription ? `\n[장면 묘사]\n${page.sceneDescription}` : '',
+        `\n영상 프롬프트만 출력해주세요 (다른 설명 없이):`,
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+      const videoPrompt = await generateTextWithGemini(geminiPrompt, 3, input.model);
+      const trimmedPrompt = videoPrompt.trim();
+      prevVideoPrompt = trimmedPrompt;
+
+      const sentences = splitSentences(pageText);
+      const subtitles = buildSubtitles(sentences, clipDuration);
+
+      const prev = prevByPage.get(page.pageNumber);
+
+      newScenes.push({
+        id: prev?.id ?? `scene-${page.pageNumber}`,
+        pageNumber: page.pageNumber,
+        videoPrompt: trimmedPrompt,
+        clipDuration,
+        sfxVolume: prev?.sfxVolume ?? 0.5,
+        ttsUrl,
+        ttsVolume: prev?.ttsVolume ?? 1,
+        ttsDuration,
+        subtitles,
+        order: i,
+        // 보존
+        clipUrl: prev?.clipUrl,
+        clipHistory: prev?.clipHistory,
+        trimStart: prev?.trimStart,
+        trimEnd: prev?.trimEnd,
+        sfxUrl: prev?.sfxUrl,
+        sfxOffset: prev?.sfxOffset,
+        ttsOffset: prev?.ttsOffset,
+      });
+    }
+
+    // 저장
+    await saveLongform(input.bid, input.projectId, { scenes: newScenes });
+
+    setLongformProgress(input.bid, input.projectId, { progress: 100, step: '완료' });
+    clearLongformProgressLater(input.bid, input.projectId, 60_000);
+  } finally {
+    clearInterval(heartbeat);
+  }
 }
 
 // ────────────────────────────────────────────────────────────────────────────

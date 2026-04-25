@@ -238,6 +238,30 @@ export const deleteLongform = asyncHandler(async (req, res) => {
   ok(res, { deleted: true });
 });
 
+export const startLongformAnalyze = asyncHandler(async (req, res) => {
+  const { systemPrompt, model, excludePages } = req.body as {
+    systemPrompt?: string;
+    model?: string;
+    excludePages?: number[];
+  };
+  const result = await svc.startLongformAnalyze({
+    bid: req.params['bid'] as string,
+    projectId: req.params['projectId'] as string,
+    systemPrompt,
+    model,
+    excludePages,
+  });
+  ok(res, result);
+});
+
+export const getLongformAnalyzeProgress = asyncHandler(async (req, res) => {
+  const progress = svc.getLongformAnalyzeProgress(
+    req.params['bid'] as string,
+    req.params['projectId'] as string
+  );
+  ok(res, progress);
+});
+
 // ────────────────────────────────────────────────────────────────────────────
 // Games
 // ────────────────────────────────────────────────────────────────────────────

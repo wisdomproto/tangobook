@@ -50,6 +50,8 @@ router.post('/:bid/longform', ctrl.createLongform);
 router.get('/:bid/longform/:projectId', ctrl.getLongform);
 router.put('/:bid/longform/:projectId', ctrl.saveLongform);
 router.delete('/:bid/longform/:projectId', ctrl.deleteLongform);
+router.post('/:bid/longform/:projectId/analyze', ctrl.startLongformAnalyze);
+router.get('/:bid/longform/:projectId/analyze/progress', ctrl.getLongformAnalyzeProgress);
 
 // Games
 router.get('/:bid/games', ctrl.listGames);
