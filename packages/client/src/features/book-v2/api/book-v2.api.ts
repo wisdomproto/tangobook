@@ -222,6 +222,15 @@ export const bookV2Api = {
       .delete<ApiResponse<{ deleted: true }>>(`/v2/books/${bid}/games/${gameId}`)
       .then((res) => (res.data as { success: true; data: { deleted: true } }).data),
 
+  /** POST /api/v2/books/:bid/games/generate */
+  generateGame: (
+    bid: string,
+    body: { level: ReadingLevel; language: string; gameType: string; itemCount?: number }
+  ) =>
+    apiClient
+      .post<ApiResponse<BookGameInstance>>(`/v2/books/${bid}/games/generate`, body)
+      .then((res) => (res.data as { success: true; data: BookGameInstance }).data),
+
   // ── Marketing — Blog ───────────────────────────────────────────────────
 
   listBlogs: (bid: string, language?: string) => {

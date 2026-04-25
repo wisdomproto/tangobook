@@ -18,6 +18,7 @@ import {
   uploadStyleAsset as uploadStyleAssetToR2,
   listGameInstances,
   getGameInstance,
+  putGameInstance,
   deleteGameInstance as r2DeleteGameInstance,
   getBlogPost as r2GetBlogPost,
   putBlogPost as r2PutBlogPost,
@@ -68,6 +69,7 @@ import type {
   LongformProjectV2,
   BlogPostV2,
   CardNewsProjectV2,
+  GameTypeId,
   ReadingLevel,
   UsedVariants,
   CurriculumMeta,
@@ -1062,6 +1064,79 @@ export async function getGame(bid: string, gameId: string): Promise<BookGameInst
 export async function deleteGame(bid: string, gameId: string): Promise<void> {
   await getBook(bid);
   await r2DeleteGameInstance(bid, gameId);
+}
+
+export interface GenerateGameInput {
+  bid: string;
+  level: ReadingLevel;
+  language: string;
+  gameType: GameTypeId;
+  itemCount?: number;
+}
+
+/**
+ * 게임 생성 v2 — 단순한 게임부터 지원.
+ * 현재 지원: 'korean-line-matching', 'english-line-matching'
+ */
+export async function generateGame(input: GenerateGameInput): Promise<BookGameInstance> {
+  const m = await getBook(input.bid);
+  if (!m.usedVariants.levels.includes(input.level)) {
+    throw new AppError(400, `level ${input.level} not in usedVariants`);
+  }
+  if (!m.usedVariants.languages.includes(input.language)) {
+    throw new AppError(400, `language ${input.language} not in usedVariants`);
+  }
+  const ts = await getTextSlice(input.bid, input.level, input.language);
+  if (!ts) throw new AppError(400, `text slice not found: ${input.level}/${input.language}`);
+
+  // line-matching만 지원 (Phase 3b-7e-ii 첫 게임 타입)
+  if (input.gameType !== 'korean-line-matching' && input.gameType !== 'english-line-matching') {
+    throw new AppError(
+      400,
+      `게임 타입 ${input.gameType}은(는) v2에서 아직 지원하지 않습니다 (line-matching만 가능).`
+    );
+  }
+
+  // keyObject 후보 (textSlice에 등록된 항목들 중 이미지 있는 것)
+  const candidates: { keyObjId: string; word: string }[] = [];
+  for (const [keyObjId, txt] of Object.entries(ts.keyObjectsText)) {
+    const word = input.language === 'ko' ? (txt.korean ?? txt.word) : txt.word;
+    if (word) candidates.push({ keyObjId, word });
+  }
+  if (candidates.length < 3) {
+    throw new AppError(400, '이 책의 핵심단어(이미지 있는 것)가 부족해요 (최소 3개).');
+  }
+
+  // 셔플 + 픽
+  const desired = Math.max(input.itemCount ?? 4, 3);
+  const shuffled = [...candidates].sort(() => Math.random() - 0.5);
+  const picked = shuffled.slice(0, Math.min(desired, candidates.length));
+
+  // BookGameInstance — 이미지는 imageRefs로 저장 (런타임 머지)
+  const items = picked.map((p) => ({
+    word: p.word,
+    imageUrl: '', // 런타임에 활성 style의 이미지로 머지됨
+    keyObjId: p.keyObjId, // ref용 (data에 임시 보존)
+  }));
+  const imageRefs = picked.map((p) => ({ kind: 'keyObj' as const, refId: p.keyObjId }));
+
+  const id = `game-${input.gameType}-${Date.now()}`;
+  const instance: BookGameInstance = {
+    id,
+    gameType: input.gameType,
+    config: { itemCount: desired } as BookGameInstance['config'],
+    data: {
+      type: input.gameType,
+      items: items.map((i) => ({ word: i.word, imageUrl: i.imageUrl })),
+    } as BookGameInstance['data'],
+    level: input.level,
+    language: input.language,
+    imageRefs,
+    createdAt: new Date().toISOString(),
+  };
+
+  await putGameInstance(input.bid, instance);
+  return instance;
 }
 
 // ────────────────────────────────────────────────────────────────────────────

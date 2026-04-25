@@ -32,3 +32,18 @@ export function useDeleteGame(bid: string) {
     },
   });
 }
+
+export function useGenerateGame(bid: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (body: {
+      level: ReadingLevel;
+      language: string;
+      gameType: string;
+      itemCount?: number;
+    }) => bookV2Api.generateGame(bid, body),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['book-v2', 'games', bid] });
+    },
+  });
+}

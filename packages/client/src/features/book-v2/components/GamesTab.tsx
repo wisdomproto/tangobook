@@ -1,8 +1,14 @@
 import { useMemo, useState } from 'react';
-import { useGamesList, useDeleteGame } from '../hooks/useGames';
+import { useGamesList, useDeleteGame, useGenerateGame } from '../hooks/useGames';
 import { getGameEntry } from '@/features/games/registry/game-registry';
 import type { BookGameInstance, BookManifest, ReadingLevel } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
+
+// v2에서 현재 generate 지원하는 게임 타입
+const SUPPORTED_GENERATE_TYPES = [
+  { id: 'korean-line-matching', label: '🇰🇷 한글 그림-단어 선긋기', lang: 'ko' },
+  { id: 'english-line-matching', label: '🇺🇸 영어 그림-단어 선긋기', lang: 'en' },
+] as const;
 
 interface GamesTabProps {
   manifest: BookManifest;
@@ -18,6 +24,8 @@ export function GamesTab({ manifest }: GamesTabProps) {
     language: langFilter || undefined,
   });
   const remove = useDeleteGame(manifest.id);
+  const generate = useGenerateGame(manifest.id);
+  const [createOpen, setCreateOpen] = useState(false);
 
   const filtered = useMemo(() => {
     if (!games) return [];
@@ -50,11 +58,10 @@ export function GamesTab({ manifest }: GamesTabProps) {
             </p>
           </div>
           <button
-            disabled
-            className="px-4 py-2 rounded-md font-black text-sm bg-ink-100 text-ink-300 cursor-not-allowed"
-            title="다음 sprint에서 구현"
+            onClick={() => setCreateOpen(true)}
+            className="px-4 py-2 rounded-md font-black text-sm bg-coral-500 text-white shadow-pop hover:brightness-110"
           >
-            + 새 게임 (다음 sprint)
+            + 새 게임 만들기
           </button>
         </div>
         <div className="grid grid-cols-3 gap-2 text-xs">
@@ -103,6 +110,21 @@ export function GamesTab({ manifest }: GamesTabProps) {
         </div>
       </div>
 
+      {createOpen && (
+        <GenerateGameForm
+          manifest={manifest}
+          isPending={generate.isPending}
+          error={generate.error}
+          onSubmit={(level, language, gameType, itemCount) =>
+            generate.mutate(
+              { level, language, gameType, itemCount },
+              { onSuccess: () => setCreateOpen(false) }
+            )
+          }
+          onCancel={() => setCreateOpen(false)}
+        />
+      )}
+
       {remove.isError && <ErrorBox>삭제 실패: {(remove.error as Error).message}</ErrorBox>}
 
       {!isLoading && filtered.length === 0 && (
@@ -122,12 +144,8 @@ export function GamesTab({ manifest }: GamesTabProps) {
       ))}
 
       <div className="bg-peach-50 rounded-md p-4 text-xs text-ink-700 font-bold leading-relaxed">
-        💡 <strong>다음 sprint 기능</strong>:
-        <ul className="list-disc list-inside mt-2 space-y-1 font-normal">
-          <li>3b-7e-ii — Generate (Gemini로 게임 데이터 자동 생성, 게임 타입별 다양)</li>
-          <li>이미지 업로드 + imageRefs 자동 추출</li>
-          <li>편집 (config 파라미터 조정)</li>
-        </ul>
+        💡 <strong>현재 지원 generate 게임</strong>: 한글/영어 line-matching (선긋기). 그 외 게임
+        타입은 후속 sprint에서 추가 예정.
       </div>
     </div>
   );
@@ -209,6 +227,131 @@ function ErrorBox({ children }: { children: import('react').ReactNode }) {
   return (
     <div className="bg-danger/10 border border-danger/30 rounded-md p-3 text-sm text-danger font-bold">
       {children}
+    </div>
+  );
+}
+
+function GenerateGameForm({
+  manifest,
+  isPending,
+  error,
+  onSubmit,
+  onCancel,
+}: {
+  manifest: BookManifest;
+  isPending: boolean;
+  error: unknown;
+  onSubmit: (level: ReadingLevel, language: string, gameType: string, itemCount: number) => void;
+  onCancel: () => void;
+}) {
+  const v = manifest.usedVariants;
+  const [level, setLevel] = useState<ReadingLevel | ''>(v.levels[0] ?? '');
+  const [language, setLanguage] = useState<string>(v.languages[0] ?? 'ko');
+  const [gameType, setGameType] = useState<string>(
+    SUPPORTED_GENERATE_TYPES[0]?.id ?? 'korean-line-matching'
+  );
+  const [itemCount, setItemCount] = useState<number>(4);
+
+  // 언어가 바뀌면 게임 타입 자동 매칭
+  const filteredTypes = SUPPORTED_GENERATE_TYPES.filter((t) => t.lang === language);
+
+  return (
+    <div className="bg-white rounded-md p-4 shadow-soft border border-coral-200 space-y-3">
+      <div className="text-sm font-black text-ink-900">+ 새 게임 만들기</div>
+      <p className="text-xs text-ink-500 font-bold">
+        텍스트 슬라이스의 핵심단어 풀에서 무작위 선택. 이미지는 런타임에 활성 그림체로 머지.
+      </p>
+      <div className="grid grid-cols-2 gap-2">
+        <div>
+          <label className="block text-[10px] font-black text-ink-500 uppercase mb-1">레벨</label>
+          <select
+            value={level}
+            onChange={(e) => setLevel(e.target.value as ReadingLevel)}
+            className="w-full px-2 py-1.5 text-xs border border-ink-200 rounded-md"
+          >
+            <option value="">선택</option>
+            {v.levels.map((lv) => (
+              <option key={lv} value={lv}>
+                {lv}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="block text-[10px] font-black text-ink-500 uppercase mb-1">언어</label>
+          <select
+            value={language}
+            onChange={(e) => {
+              const lng = e.target.value;
+              setLanguage(lng);
+              const next = SUPPORTED_GENERATE_TYPES.find((t) => t.lang === lng);
+              if (next) setGameType(next.id);
+            }}
+            className="w-full px-2 py-1.5 text-xs border border-ink-200 rounded-md"
+          >
+            {v.languages.map((l) => (
+              <option key={l} value={l}>
+                {l}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="col-span-2">
+          <label className="block text-[10px] font-black text-ink-500 uppercase mb-1">
+            게임 타입
+          </label>
+          <select
+            value={gameType}
+            onChange={(e) => setGameType(e.target.value)}
+            className="w-full px-2 py-1.5 text-xs border border-ink-200 rounded-md"
+          >
+            {filteredTypes.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="block text-[10px] font-black text-ink-500 uppercase mb-1">
+            아이템 수
+          </label>
+          <input
+            type="number"
+            min={3}
+            max={8}
+            value={itemCount}
+            onChange={(e) => setItemCount(Number(e.target.value))}
+            className="w-full px-2 py-1.5 text-xs border border-ink-200 rounded-md"
+          />
+        </div>
+      </div>
+      {error ? (
+        <div className="bg-warn/10 border border-warn/30 rounded-md p-2 text-xs text-ink-700 font-bold">
+          {(error as Error).message}
+        </div>
+      ) : null}
+      <div className="flex justify-end gap-2">
+        <button
+          onClick={onCancel}
+          disabled={isPending}
+          className="px-3 py-1.5 rounded-md bg-ink-100 text-ink-700 font-bold text-xs"
+        >
+          취소
+        </button>
+        <button
+          onClick={() => level && onSubmit(level, language, gameType, itemCount)}
+          disabled={isPending || !level}
+          className={cn(
+            'px-3 py-1.5 rounded-md font-black text-xs',
+            isPending || !level
+              ? 'bg-ink-100 text-ink-300 cursor-not-allowed'
+              : 'bg-coral-500 text-white hover:brightness-110'
+          )}
+        >
+          {isPending ? '생성 중...' : '+ 만들기'}
+        </button>
+      </div>
     </div>
   );
 }

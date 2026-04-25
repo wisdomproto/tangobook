@@ -60,6 +60,7 @@ router.get(
 
 // Games
 router.get('/:bid/games', ctrl.listGames);
+router.post('/:bid/games/generate', ctrl.generateGame);
 router.get('/:bid/games/:gameId', ctrl.getGame);
 router.delete('/:bid/games/:gameId', ctrl.deleteGame);
 

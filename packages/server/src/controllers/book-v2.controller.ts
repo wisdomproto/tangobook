@@ -299,6 +299,25 @@ export const deleteGame = asyncHandler(async (req, res) => {
   ok(res, { deleted: true });
 });
 
+export const generateGame = asyncHandler(async (req, res) => {
+  const { level, language, gameType, itemCount } = req.body as {
+    level?: string;
+    language?: string;
+    gameType?: string;
+    itemCount?: number;
+  };
+  const lv = validLevel(level);
+  if (!language || !gameType) throw new AppError(400, 'language and gameType required');
+  const result = await svc.generateGame({
+    bid: req.params['bid'] as string,
+    level: lv,
+    language,
+    gameType: gameType as svc.GenerateGameInput['gameType'],
+    itemCount,
+  });
+  ok(res, result);
+});
+
 // ────────────────────────────────────────────────────────────────────────────
 // Marketing — Blog
 // ────────────────────────────────────────────────────────────────────────────
