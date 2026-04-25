@@ -10,6 +10,12 @@ export const ART_STYLES = [
   { id: 'modern-illustration', label: '현대 일러스트', prompt: 'Modern Illustration' },
   { id: 'oil-painting', label: '유화', prompt: 'Oil Painting' },
   { id: 'pencil-sketch', label: '연필 스케치', prompt: 'Pencil Sketch' },
+  {
+    id: 'paper-craft',
+    label: '종이공예',
+    prompt:
+      'Paper craft, layered cut paper sculpture style with kraft paper textures and visible 3D depth',
+  },
 ] as const;
 
 export const ASPECT_RATIOS = ['16:9', '9:16', '4:3', '3:4', '3:2', '2:3', '1:1'] as const;

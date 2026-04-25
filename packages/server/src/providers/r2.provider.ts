@@ -6,6 +6,7 @@ import {
   GetObjectCommand,
   HeadObjectCommand,
   ListObjectsV2Command,
+  CopyObjectCommand,
   type _Object,
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
@@ -86,6 +87,17 @@ export async function deleteManyFromR2(keys: string[]): Promise<void> {
 
 export function urlToR2Key(url: string): string {
   return url.replace(`${r2PublicUrl}/`, '');
+}
+
+/** 같은 버킷 내 zero-copy. 마이그·재배치에 사용. */
+export async function copyR2Object(srcKey: string, destKey: string): Promise<void> {
+  await r2Client.send(
+    new CopyObjectCommand({
+      Bucket: r2BucketName,
+      CopySource: `${r2BucketName}/${encodeURIComponent(srcKey).replace(/%2F/g, '/')}`,
+      Key: destKey,
+    })
+  );
 }
 
 export async function objectExists(key: string): Promise<boolean> {

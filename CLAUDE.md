@@ -375,6 +375,22 @@ pnpm --filter shared build
 - 커리큘럼 마스터: `packages/client/public/curriculum-master.html` + 사본 `docs/books/curriculum-master.html`
 - 상세: `memory/classics-curriculum.md`
 
+## Book Variants V2 (2026-04-25, 진행 중)
+동화책의 **(level × language × style) 3축 variation** 시스템 — `${bid}__L1` 접미사 hack을 정식 데이터 모델로 격상.
+- **R2 prefix 트리**: `books/{bid}/{manifest, texts/{level}.{lang}.json, audio, styles/{style}/{characters,cover,pages,key-objects,vocabulary}, games, audiobook, longform, marketing}` + `_index/books.json`
+- **shared 타입**: `packages/shared/src/types/book-v2.ts` — `BookManifest`, `BookTextSlice`, `BookStyleSlice`, `BookGameInstance`, `AudiobookProjectV2`/`Render`, `LongformProjectV2`, `BookIndex`, `CurriculumMeta`
+- **server 인프라** (모두 v1과 격리, 병행):
+  - `utils/book-v2-keys.ts` (R2 키 빌더 + 파서 + 한글 ID 허용 Unicode 정규식)
+  - `utils/book-v2-runtime-merge.ts` (viewer/game payload 머지)
+  - `repositories/book-v2.repository.ts` (CRUD + manifest cache + book index stale-while-revalidate)
+  - `services/book-v2-{migration,verify,curriculum-seed}.service.ts`
+  - `routes/book-v2-migration.routes.ts` → `/api/admin/book-v2/{scan,migrate,list-bids,verify,seed-curriculum-meta}`
+- **ART_STYLES 신규**: `paper-craft` (47권 종이공예 책)
+- **마이그 결과**: 301 base manifest 작성, ~8,900 R2 객체 (manifest 301 + text 536 + style 4,004 + audio 4,365). 검증 PASS 0/WARN 301/FAIL 0
+- **남은 작업**: Phase 1.5 (`/api/v2/books/*` CRUD), Phase 3 (라이브러리 cutover, 저작도구 8탭 + 좌측 트리=레벨, `/curriculum-master` React 페이지)
+- 상세: `memory/book-variants-v2.md`
+- 스펙·플랜: `docs/superpowers/specs/2026-04-25-book-variants-design.md` · `docs/superpowers/plans/2026-04-25-book-variants-plan.md`
+
 ## Hori 아케이드 게임 (2026-04-24)
 학습 게임(`features/games/`)과 별개의 **아케이드 게임 허브** — Phaser 4 기반, Hori 마스코트 스프라이트 활용.
 
