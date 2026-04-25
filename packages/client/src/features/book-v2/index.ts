@@ -23,9 +23,11 @@ export {
   useSaveLongform,
   useDeleteLongform,
 } from './hooks/useLongform';
+export { useGamesList, useGame, useDeleteGame } from './hooks/useGames';
 export { MetaTab } from './components/MetaTab';
 export { TextTab } from './components/TextTab';
 export { StyleTab } from './components/StyleTab';
 export { PageTab } from './components/PageTab';
 export { AudiobookTab } from './components/AudiobookTab';
 export { LongformTab } from './components/LongformTab';
+export { GamesTab } from './components/GamesTab';

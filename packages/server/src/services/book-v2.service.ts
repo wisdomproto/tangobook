@@ -18,6 +18,7 @@ import {
   uploadStyleAsset as uploadStyleAssetToR2,
   listGameInstances,
   getGameInstance,
+  deleteGameInstance as r2DeleteGameInstance,
   getAudiobookProject as r2GetAudiobookProject,
   putAudiobookProject as r2PutAudiobookProject,
   putAudiobookRender,
@@ -637,6 +638,18 @@ export async function listGames(
 ): Promise<BookGameInstance[]> {
   await getBook(bid);
   return listGameInstances(bid, filter);
+}
+
+export async function getGame(bid: string, gameId: string): Promise<BookGameInstance> {
+  await getBook(bid);
+  const g = await getGameInstance(bid, gameId);
+  if (!g) throw new AppError(404, `game ${gameId} not found`);
+  return g;
+}
+
+export async function deleteGame(bid: string, gameId: string): Promise<void> {
+  await getBook(bid);
+  await r2DeleteGameInstance(bid, gameId);
 }
 
 // ────────────────────────────────────────────────────────────────────────────

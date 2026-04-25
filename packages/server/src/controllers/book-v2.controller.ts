@@ -248,6 +248,15 @@ export const listGames = asyncHandler(async (req, res) => {
   ok(res, await svc.listGames(req.params['bid'] as string, { level, language }));
 });
 
+export const getGame = asyncHandler(async (req, res) => {
+  ok(res, await svc.getGame(req.params['bid'] as string, req.params['gameId'] as string));
+});
+
+export const deleteGame = asyncHandler(async (req, res) => {
+  await svc.deleteGame(req.params['bid'] as string, req.params['gameId'] as string);
+  ok(res, { deleted: true });
+});
+
 // ────────────────────────────────────────────────────────────────────────────
 // Runtime payloads
 // ────────────────────────────────────────────────────────────────────────────

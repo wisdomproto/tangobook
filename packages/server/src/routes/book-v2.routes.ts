@@ -53,6 +53,8 @@ router.delete('/:bid/longform/:projectId', ctrl.deleteLongform);
 
 // Games
 router.get('/:bid/games', ctrl.listGames);
+router.get('/:bid/games/:gameId', ctrl.getGame);
+router.delete('/:bid/games/:gameId', ctrl.deleteGame);
 
 // Runtime payloads
 router.get('/:bid/runtime/viewer', ctrl.runtimeViewer);

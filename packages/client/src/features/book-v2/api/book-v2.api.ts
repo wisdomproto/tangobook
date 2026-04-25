@@ -7,6 +7,7 @@ import type {
   BookManifest,
   BookStyleSlice,
   BookCharacter,
+  BookGameInstance,
   BookTextSlice,
   LongformProjectV2,
   ParentGuide,
@@ -166,5 +167,26 @@ export const bookV2Api = {
   deleteLongform: (bid: string, projectId: string) =>
     apiClient
       .delete<ApiResponse<{ deleted: true }>>(`/v2/books/${bid}/longform/${projectId}`)
+      .then((res) => (res.data as { success: true; data: { deleted: true } }).data),
+
+  // ── Games ──────────────────────────────────────────────────────────────
+
+  /** GET /api/v2/books/:bid/games?level=&lang= */
+  listGames: (bid: string, filter?: { level?: ReadingLevel; language?: string }) => {
+    const qs = new URLSearchParams();
+    if (filter?.level) qs.set('level', filter.level);
+    if (filter?.language) qs.set('lang', filter.language);
+    const q = qs.toString();
+    return apiGet<BookGameInstance[]>(`/v2/books/${bid}/games${q ? `?${q}` : ''}`);
+  },
+
+  /** GET /api/v2/books/:bid/games/:gameId */
+  getGame: (bid: string, gameId: string) =>
+    apiGet<BookGameInstance>(`/v2/books/${bid}/games/${gameId}`),
+
+  /** DELETE /api/v2/books/:bid/games/:gameId */
+  deleteGame: (bid: string, gameId: string) =>
+    apiClient
+      .delete<ApiResponse<{ deleted: true }>>(`/v2/books/${bid}/games/${gameId}`)
       .then((res) => (res.data as { success: true; data: { deleted: true } }).data),
 };
