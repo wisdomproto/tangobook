@@ -1,7 +1,11 @@
-import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
-import { AppLayout } from '../components/AppLayout';
+import { createBrowserRouter, Navigate, Outlet, useParams } from 'react-router-dom';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import LibraryPage from '../pages/LibraryPage';
+
+function EditorV2Redirect() {
+  const { bid } = useParams();
+  return <Navigate to={`/editor/${bid}`} replace />;
+}
 import BookDetailPage from '../pages/BookDetailPage';
 import CurriculumMasterPage from '../pages/CurriculumMasterPage';
 import EditorPageV2 from '../pages/EditorPageV2';
@@ -32,7 +36,7 @@ export const router = createBrowserRouter([
       </AuthProvider>
     ),
     children: [
-      { index: true, element: <AppLayout /> },
+      { index: true, element: <Navigate to="/library" replace /> },
       {
         path: 'library',
         element: (
@@ -58,13 +62,15 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'editor-v2/:bid',
+        path: 'editor/:bid',
         element: (
           <ErrorBoundary>
             <EditorPageV2 />
           </ErrorBoundary>
         ),
       },
+      // 구 v2 경로 alias — 기존 즐겨찾기/링크 호환
+      { path: 'editor-v2/:bid', element: <EditorV2Redirect /> },
       {
         path: 'viewer/:id',
         element: (
