@@ -42,6 +42,7 @@ router.get('/:bid/audiobook', ctrl.getAudiobookProject);
 router.put('/:bid/audiobook', ctrl.saveAudiobookProject);
 router.get('/:bid/audiobook/renders', ctrl.listAudiobookRenders);
 router.post('/:bid/audiobook/render', ctrl.startAudiobookRender);
+router.get('/:bid/audiobook/render/progress', ctrl.getAudiobookRenderProgress);
 
 // Games
 router.get('/:bid/games', ctrl.listGames);

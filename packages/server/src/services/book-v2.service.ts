@@ -3,6 +3,9 @@
 // 스펙: docs/superpowers/specs/2026-04-25-book-variants-design.md
 // 플랜: docs/superpowers/plans/2026-04-25-book-variants-plan.md Task 1.5
 
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 import { AppError } from '../middleware/error.middleware.js';
 import {
   getManifest,
@@ -17,12 +20,18 @@ import {
   getGameInstance,
   getAudiobookProject as r2GetAudiobookProject,
   putAudiobookProject as r2PutAudiobookProject,
+  putAudiobookRender,
   listAudiobookRenders,
   getBookIndex,
   refreshBookIndex,
   deleteBook as deleteBookFromR2,
 } from '../repositories/book-v2.repository.js';
 import { mergeForViewer, mergeForGame } from '../utils/book-v2-runtime-merge.js';
+import { audiobookRenderKey } from '../utils/book-v2-keys.js';
+import { buildAudiobookRenderDataV2 } from '../utils/book-v2-audiobook-render.js';
+import { loadRemotion, getRemotionBundlePath } from '../utils/remotion-bundle.js';
+import { getAudioDuration } from '../utils/audio-duration.js';
+import { r2PublicUrl } from '../providers/r2.provider.js';
 import type {
   BookManifest,
   BookTextSlice,
@@ -304,10 +313,41 @@ export interface AudiobookRenderInput {
   style: string;
 }
 
+export interface AudiobookRenderProgress {
+  progress: number; // 0~100, -1=실패
+  step: string;
+  error?: string;
+}
+
+const audiobookRenderProgress = new Map<string, AudiobookRenderProgress>();
+
+function audiobookTaskId(level: ReadingLevel, language: string, style: string): string {
+  return `${level}.${language}.${style}`;
+}
+
+function audiobookProgressKey(bid: string, taskId: string): string {
+  return `${bid}:${taskId}`;
+}
+
+function setAudiobookProgress(bid: string, taskId: string, p: AudiobookRenderProgress): void {
+  audiobookRenderProgress.set(audiobookProgressKey(bid, taskId), p);
+}
+
+function clearAudiobookProgressLater(bid: string, taskId: string, ms: number): void {
+  setTimeout(() => audiobookRenderProgress.delete(audiobookProgressKey(bid, taskId)), ms);
+}
+
+export function getAudiobookRenderProgress(
+  bid: string,
+  taskId: string
+): AudiobookRenderProgress | null {
+  return audiobookRenderProgress.get(audiobookProgressKey(bid, taskId)) ?? null;
+}
+
 /**
- * 오디오북 렌더 — placeholder.
- * 실제 Remotion 호출은 Phase 3b-7b-ii에서 구현.
- * 현재는 manifest/text/style 검증만 하고 501 throw.
+ * 오디오북 렌더 시작 (fire-and-forget).
+ * 검증 통과 시 즉시 taskId 반환, 실제 렌더는 백그라운드에서 진행.
+ * 진행률은 GET /audiobook/render/progress?taskId=...로 폴링.
  */
 export async function startAudiobookRender(
   opts: AudiobookRenderInput
@@ -327,11 +367,146 @@ export async function startAudiobookRender(
   const ss = await getStyleSlice(opts.bid, opts.style);
   if (!ss) throw new AppError(400, `style slice not found: ${opts.style}`);
 
-  // Phase 3b-7b-ii에서 실제 Remotion 렌더 호출 예정
-  throw new AppError(
-    501,
-    `오디오북 렌더는 다음 sprint(Phase 3b-7b-ii)에서 구현됩니다. (입력 검증은 통과: ${opts.level}/${opts.language}/${opts.style}, 페이지 ${ts.pages.length})`
-  );
+  const taskId = audiobookTaskId(opts.level, opts.language, opts.style);
+
+  // 동일 variant 진행 중이면 거부
+  const existing = audiobookRenderProgress.get(audiobookProgressKey(opts.bid, taskId));
+  if (existing && existing.progress >= 0 && existing.progress < 100) {
+    throw new AppError(409, '이미 동일 variant의 렌더링이 진행 중입니다.');
+  }
+
+  setAudiobookProgress(opts.bid, taskId, { progress: 0, step: '시작' });
+
+  // Fire-and-forget
+  void runAudiobookRender(opts, taskId, m, ts, ss).catch((err: unknown) => {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('[book-v2 audiobook] render failed:', msg);
+    setAudiobookProgress(opts.bid, taskId, { progress: -1, step: '실패', error: msg });
+    clearAudiobookProgressLater(opts.bid, taskId, 60_000);
+  });
+
+  return { taskId };
+}
+
+async function runAudiobookRender(
+  opts: AudiobookRenderInput,
+  taskId: string,
+  manifest: BookManifest,
+  textSlice: BookTextSlice,
+  styleSlice: BookStyleSlice
+): Promise<void> {
+  // 1. 렌더 데이터 빌드
+  setAudiobookProgress(opts.bid, taskId, { progress: 1, step: '렌더 데이터 빌드' });
+  const project = (await r2GetAudiobookProject(opts.bid)) ?? DEFAULT_AUDIOBOOK_PROJECT;
+  const renderData = await buildAudiobookRenderDataV2({
+    manifest,
+    textSlice,
+    styleSlice,
+    project,
+    level: opts.level,
+    language: opts.language,
+  });
+
+  if (renderData.slides.length === 0) {
+    throw new AppError(400, '렌더링할 페이지가 없습니다 (이미지 누락).');
+  }
+
+  // 2. TTS 길이 측정
+  const slidesWithTts = renderData.slides.filter((s) => s.ttsUrl);
+  for (let i = 0; i < slidesWithTts.length; i++) {
+    try {
+      slidesWithTts[i].ttsDuration = await getAudioDuration(slidesWithTts[i].ttsUrl!);
+    } catch {
+      // 기본 3s 사용
+    }
+    setAudiobookProgress(opts.bid, taskId, {
+      progress: 1 + Math.round(((i + 1) / Math.max(1, slidesWithTts.length)) * 4), // 1~5
+      step: `TTS 길이 측정 (${i + 1}/${slidesWithTts.length})`,
+    });
+  }
+
+  // 3. BGM 길이 측정
+  if (renderData.bgmUrl) {
+    try {
+      renderData.bgmDuration = await getAudioDuration(renderData.bgmUrl);
+    } catch (err) {
+      console.warn('[book-v2 audiobook] BGM 길이 측정 실패:', err);
+    }
+  }
+
+  // 4. Remotion 번들
+  setAudiobookProgress(opts.bid, taskId, { progress: 6, step: 'Remotion 번들링' });
+  const bundlePath = await getRemotionBundlePath();
+
+  // 5. 컴포지션 + 렌더
+  setAudiobookProgress(opts.bid, taskId, { progress: 10, step: '컴포지션 준비' });
+  const { selectComposition, renderMedia } = await loadRemotion();
+  const chromiumPath = process.env.CHROMIUM_PATH || undefined;
+  const browserOpts = {
+    ...(chromiumPath ? { browserExecutable: chromiumPath } : {}),
+    chromiumOptions: { gl: 'angle' as const, headless: true },
+  };
+
+  const composition = await selectComposition({
+    serveUrl: bundlePath,
+    id: 'Audiobook',
+    inputProps: renderData,
+    ...browserOpts,
+  });
+
+  const workDir = path.join(os.tmpdir(), `book-v2-audiobook-${opts.bid}-${taskId}-${Date.now()}`);
+  fs.mkdirSync(workDir, { recursive: true });
+
+  try {
+    const outputPath = path.join(workDir, 'output.mp4');
+    setAudiobookProgress(opts.bid, taskId, { progress: 15, step: '렌더링' });
+
+    await renderMedia({
+      composition,
+      serveUrl: bundlePath,
+      codec: 'h264',
+      outputLocation: outputPath,
+      inputProps: renderData,
+      timeoutInMilliseconds: 600_000,
+      concurrency: 1,
+      ...browserOpts,
+      onProgress: ({ progress }) => {
+        const pct = 15 + Math.round(progress * 75); // 15~90
+        setAudiobookProgress(opts.bid, taskId, { progress: pct, step: '렌더링' });
+      },
+    });
+
+    // faststart (브라우저 스트리밍 재생)
+    try {
+      const { execSync } = await import('child_process');
+      const fastPath = path.join(workDir, 'output-faststart.mp4');
+      execSync(`ffmpeg -i "${outputPath}" -c copy -movflags +faststart "${fastPath}"`, {
+        timeout: 60_000,
+        stdio: 'pipe',
+      });
+      fs.renameSync(fastPath, outputPath);
+    } catch (err) {
+      console.warn('[book-v2 audiobook] faststart 실패, 원본 사용:', err);
+    }
+
+    // 6. R2 업로드
+    setAudiobookProgress(opts.bid, taskId, { progress: 92, step: 'R2 업로드' });
+    const videoBuffer = fs.readFileSync(outputPath);
+
+    const renderMeta: AudiobookRenderV2 = {
+      level: opts.level,
+      language: opts.language,
+      style: opts.style,
+      videoUrl: `${r2PublicUrl}/${audiobookRenderKey(opts.bid, opts.level, opts.language, opts.style)}`,
+      renderedAt: new Date().toISOString(),
+    };
+    await putAudiobookRender(opts.bid, renderMeta, videoBuffer);
+
+    setAudiobookProgress(opts.bid, taskId, { progress: 100, step: '완료' });
+    clearAudiobookProgressLater(opts.bid, taskId, 60_000);
+  } finally {
+    fs.rmSync(workDir, { recursive: true, force: true });
+  }
 }
 
 // ────────────────────────────────────────────────────────────────────────────

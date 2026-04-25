@@ -171,6 +171,13 @@ export const startAudiobookRender = asyncHandler(async (req, res) => {
   ok(res, result);
 });
 
+export const getAudiobookRenderProgress = asyncHandler(async (req, res) => {
+  const taskId = asString(req.query.taskId);
+  if (!taskId) throw new AppError(400, 'taskId required');
+  const progress = svc.getAudiobookRenderProgress(req.params['bid'] as string, taskId);
+  ok(res, progress);
+});
+
 export const uploadPageImage = asyncHandler(async (req, res) => {
   if (!req.file) throw new AppError(400, 'image required');
   const level = validLevel(req.params['level']);

@@ -122,4 +122,10 @@ export const bookV2Api = {
     apiClient
       .post<ApiResponse<{ taskId: string }>>(`/v2/books/${bid}/audiobook/render`, body)
       .then((res) => (res.data as { success: true; data: { taskId: string } }).data),
+
+  /** GET /api/v2/books/:bid/audiobook/render/progress?taskId=... */
+  getAudiobookRenderProgress: (bid: string, taskId: string) =>
+    apiGet<{ progress: number; step: string; error?: string } | null>(
+      `/v2/books/${bid}/audiobook/render/progress?taskId=${encodeURIComponent(taskId)}`
+    ),
 };

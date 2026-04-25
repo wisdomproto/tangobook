@@ -189,9 +189,6 @@ export function AudiobookTab({ manifest }: AudiobookTabProps) {
 
       {/* 렌더 결과 */}
       <Section title={`🎞️ 렌더 결과 (${renders?.length ?? 0})`}>
-        <div className="text-xs text-ink-500 font-bold mb-3 leading-relaxed">
-          ℹ️ 렌더는 다음 sprint(3b-7b)에서 구현됩니다. 현재는 마이그된 기존 렌더 결과만 목록 표시.
-        </div>
         {renders && renders.length > 0 ? (
           <div className="space-y-2">
             {renders.map((r, i) => (
