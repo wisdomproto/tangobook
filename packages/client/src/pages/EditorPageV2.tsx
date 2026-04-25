@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useBookManifest } from '@/features/book-v2';
+import { useBookManifest, MetaTab } from '@/features/book-v2';
 import { StateScreen } from '@/components/StateScreen';
 import { cn } from '@/lib/cn';
 import type { ReadingLevel } from '@tangobook/shared';
@@ -216,15 +216,19 @@ export default function EditorPageV2() {
 
           {/* 본문 */}
           <div className="flex-1 overflow-y-auto p-5">
-            <ContentTabPlaceholder
-              tabId={activeContentTab}
-              context={{
-                bid: manifest.id,
-                level: effectiveLevel,
-                language: effectiveLang,
-                style: effectiveStyle,
-              }}
-            />
+            {activeContentTab === 'meta' ? (
+              <MetaTab manifest={manifest} />
+            ) : (
+              <ContentTabPlaceholder
+                tabId={activeContentTab}
+                context={{
+                  bid: manifest.id,
+                  level: effectiveLevel,
+                  language: effectiveLang,
+                  style: effectiveStyle,
+                }}
+              />
+            )}
           </div>
         </main>
       </div>

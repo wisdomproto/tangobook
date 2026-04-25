@@ -50,3 +50,8 @@ export async function apiDelete<T>(url: string, data?: unknown): Promise<T> {
   const res = await apiClient.delete<ApiResponse<T>>(url, { data });
   return (res.data as { success: true; data: T }).data;
 }
+
+export async function apiPatch<T>(url: string, data?: unknown): Promise<T> {
+  const res = await apiClient.patch<ApiResponse<T>>(url, data);
+  return (res.data as { success: true; data: T }).data;
+}
