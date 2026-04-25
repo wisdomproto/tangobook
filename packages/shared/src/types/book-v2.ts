@@ -252,6 +252,8 @@ export interface BookIndexEntry {
   coverImageUrl?: string;
   /** phonics 책 분리용 (라이브러리 탭). bid 패턴(kr-h..., en-b...)으로 derive */
   phonicsLanguage?: 'korean' | 'english';
+  /** 커리큘럼 마스터 페이지에서 정렬·표시용 (no/originalTitle/author/source/priority/launchLevel) */
+  curriculumMeta?: CurriculumMeta;
   updatedAt: string;
 }
 

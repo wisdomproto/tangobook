@@ -3,6 +3,7 @@ import { AppLayout } from '../components/AppLayout';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import LibraryPage from '../pages/LibraryPage';
 import BookDetailPage from '../pages/BookDetailPage';
+import CurriculumMasterPage from '../pages/CurriculumMasterPage';
 import ViewerPage from '../pages/ViewerPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
@@ -44,6 +45,14 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <BookDetailPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'curriculum-master',
+        element: (
+          <ErrorBoundary>
+            <CurriculumMasterPage />
           </ErrorBoundary>
         ),
       },

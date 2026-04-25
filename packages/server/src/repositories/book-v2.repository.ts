@@ -486,6 +486,7 @@ function summarizeManifest(m: BookManifest): BookIndexEntry {
     hasCover: m.usedVariants.styles.length > 0,
     coverImageUrl: firstStyle ? publicUrlOf(styleCoverKey(m.id, firstStyle)) : undefined,
     phonicsLanguage: derivePhonicsLanguage(m.id, m.type),
+    curriculumMeta: m.curriculumMeta,
     updatedAt: m.updatedAt,
   };
 }
