@@ -1,11 +1,18 @@
-import { apiGet, apiPatch } from '@/lib/axios';
+import { apiClient, apiGet, apiPatch } from '@/lib/axios';
 import type {
+  ApiResponse,
   BookIndex,
   BookManifest,
+  BookTextSlice,
   ParentGuide,
   CurriculumMeta,
   ReadingLevel,
 } from '@tangobook/shared';
+
+async function apiPut<T>(url: string, data?: unknown): Promise<T> {
+  const res = await apiClient.put<ApiResponse<T>>(url, data);
+  return (res.data as { success: true; data: T }).data;
+}
 
 export interface UpdateBookMetaPatch {
   title?: string;
@@ -40,4 +47,12 @@ export const bookV2Api = {
   /** PATCH /api/v2/books/:bid/variants — usedVariants 추가/제거 */
   patchVariants: (bid: string, patch: VariantPatch) =>
     apiPatch<BookManifest>(`/v2/books/${bid}/variants`, patch),
+
+  /** GET /api/v2/books/:bid/texts/:level/:lang */
+  getTextSlice: (bid: string, level: ReadingLevel, lang: string) =>
+    apiGet<BookTextSlice>(`/v2/books/${bid}/texts/${level}/${lang}`),
+
+  /** PUT /api/v2/books/:bid/texts/:level/:lang */
+  saveTextSlice: (bid: string, level: ReadingLevel, lang: string, slice: BookTextSlice) =>
+    apiPut<BookTextSlice>(`/v2/books/${bid}/texts/${level}/${lang}`, slice),
 };

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useBookManifest, MetaTab } from '@/features/book-v2';
+import { useBookManifest, MetaTab, TextTab } from '@/features/book-v2';
 import { StateScreen } from '@/components/StateScreen';
 import { cn } from '@/lib/cn';
 import type { ReadingLevel } from '@tangobook/shared';
@@ -218,6 +218,8 @@ export default function EditorPageV2() {
           <div className="flex-1 overflow-y-auto p-5">
             {activeContentTab === 'meta' ? (
               <MetaTab manifest={manifest} />
+            ) : activeContentTab === 'text' ? (
+              <TextTab manifest={manifest} level={effectiveLevel} language={effectiveLang} />
             ) : (
               <ContentTabPlaceholder
                 tabId={activeContentTab}
