@@ -1,6 +1,6 @@
 # 책 Variants 시스템 Implementation Plan
 
-> **🟡 인프라/마이그 완료 (2026-04-25)** — Phase 0~2 끝. Phase 1.5 (v2 CRUD 라우트), Phase 3 (클라이언트 cutover) 남음. 진행 상세: `memory/book-variants-v2.md`. 스펙: `docs/superpowers/specs/2026-04-25-book-variants-design.md`
+> **🟢 Phase 3b만 남음 (2026-04-25)** — Phase 0~2 + 1.5 + 3a + 3c 완료. **남은 것: Phase 3b** (저작도구 8탭 재구성 + BookDetailPage v2 cutover). 진행 상세: `memory/book-variants-v2.md`. Commits: 56128d1, 0cbd241, 5c861b3, 80c0e47.
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax.
 

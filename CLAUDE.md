@@ -375,19 +375,26 @@ pnpm --filter shared build
 - 커리큘럼 마스터: `packages/client/public/curriculum-master.html` + 사본 `docs/books/curriculum-master.html`
 - 상세: `memory/classics-curriculum.md`
 
-## Book Variants V2 (2026-04-25, 진행 중)
+## Book Variants V2 (2026-04-25, Phase 3b만 남음)
 동화책의 **(level × language × style) 3축 variation** 시스템 — `${bid}__L1` 접미사 hack을 정식 데이터 모델로 격상.
 - **R2 prefix 트리**: `books/{bid}/{manifest, texts/{level}.{lang}.json, audio, styles/{style}/{characters,cover,pages,key-objects,vocabulary}, games, audiobook, longform, marketing}` + `_index/books.json`
-- **shared 타입**: `packages/shared/src/types/book-v2.ts` — `BookManifest`, `BookTextSlice`, `BookStyleSlice`, `BookGameInstance`, `AudiobookProjectV2`/`Render`, `LongformProjectV2`, `BookIndex`, `CurriculumMeta`
+- **shared 타입**: `packages/shared/src/types/book-v2.ts` — `BookManifest`, `BookTextSlice`, `BookStyleSlice`, `BookGameInstance`, `AudiobookProjectV2`/`Render`, `LongformProjectV2`, `BookIndex`(coverImageUrl/phonicsLanguage/curriculumMeta 자동 채움), `CurriculumMeta`
 - **server 인프라** (모두 v1과 격리, 병행):
-  - `utils/book-v2-keys.ts` (R2 키 빌더 + 파서 + 한글 ID 허용 Unicode 정규식)
+  - `utils/book-v2-keys.ts` (R2 키 빌더 + 파서 + Unicode 정규식 — 한글 ID 허용)
   - `utils/book-v2-runtime-merge.ts` (viewer/game payload 머지)
-  - `repositories/book-v2.repository.ts` (CRUD + manifest cache + book index stale-while-revalidate)
-  - `services/book-v2-{migration,verify,curriculum-seed}.service.ts`
+  - `repositories/book-v2.repository.ts` (CRUD + manifest cache + book index stale-while-revalidate, summarizeManifest가 cover URL/phonicsLanguage/curriculumMeta 자동 derive)
+  - `services/book-v2-{migration,verify,curriculum-seed}.service.ts` + `services/book-v2.service.ts` (비즈니스 로직)
   - `routes/book-v2-migration.routes.ts` → `/api/admin/book-v2/{scan,migrate,list-bids,verify,seed-curriculum-meta}`
+  - `routes/book-v2.routes.ts` → `/api/v2/books/*` (CRUD + text/style/games/runtime, 13 endpoints)
+- **클라이언트**: `features/book-v2/{api,hooks}` (`bookV2Api.listIndex/getManifest`, `useBookIndex/useBookManifest`)
+- **페이지**:
+  - `pages/LibraryPage.tsx` — v2 BookIndex fetch (Phase 3a 완료)
+  - `pages/CurriculumMasterPage.tsx` — `/curriculum-master` 마스터 표 (Phase 3c 완료)
+  - `pages/BookDetailPage.tsx` — 아직 v1 그대로 (Phase 3b에서 cutover 예정)
 - **ART_STYLES 신규**: `paper-craft` (47권 종이공예 책)
-- **마이그 결과**: 301 base manifest 작성, ~8,900 R2 객체 (manifest 301 + text 536 + style 4,004 + audio 4,365). 검증 PASS 0/WARN 301/FAIL 0
-- **남은 작업**: Phase 1.5 (`/api/v2/books/*` CRUD), Phase 3 (라이브러리 cutover, 저작도구 8탭 + 좌측 트리=레벨, `/curriculum-master` React 페이지)
+- **마이그 결과**: 301 base manifest 작성, ~8,900 R2 객체. 검증 PASS 0/WARN 301/FAIL 0. curriculumMeta seed 55권
+- **남은 작업 (Phase 3b)**: 저작도구 8탭 (메타/텍스트/스타일/페이지/오디오북/동영상/마케팅/게임 — 퀴즈 ❌) + 좌측 트리=레벨 / 우측 큰 탭=언어×그림체 / BookDetailPage v2 cutover
+- **운영**: 인덱스 갱신 `POST /api/v2/books/refresh-index`, 마이그 재실행 `node scripts/migrate-to-variants.mjs --apply`, 검증 `node scripts/verify-variants.mjs`
 - 상세: `memory/book-variants-v2.md`
 - 스펙·플랜: `docs/superpowers/specs/2026-04-25-book-variants-design.md` · `docs/superpowers/plans/2026-04-25-book-variants-plan.md`
 

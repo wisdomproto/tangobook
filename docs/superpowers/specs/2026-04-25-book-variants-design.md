@@ -1,6 +1,6 @@
 # 책 Variants 시스템 — 스펙
 
-> **🟡 인프라 완료, 클라 cutover 남음** — 플랜: `docs/superpowers/plans/2026-04-25-book-variants-plan.md`. 진행 상세: `memory/book-variants-v2.md`. Phase 0~2 완료(인프라 + 마이그 + 검증 + curriculumMeta seed). Phase 1.5 (v2 라우트), Phase 3 (라이브러리/저작도구/커리큘럼 페이지) 남음.
+> **🟢 Phase 3b만 남음 (2026-04-25)** — Phase 1+2 (인프라/마이그/검증) ✅, Phase 1.5 (`/api/v2/books/*` 13 endpoints) ✅, Phase 3a (라이브러리 v2 cutover) ✅, Phase 3c (`/curriculum-master` React) ✅. **남은 것: Phase 3b** (저작도구 8탭 + 좌측 트리 + BookDetailPage v2 cutover). 진행 상세: `memory/book-variants-v2.md`. Commits: 56128d1, 0cbd241, 5c861b3, 80c0e47.
 
 **Date**: 2026-04-25
 **스코프**: 동화책의 (레벨 × 언어 × 그림체) 3축 variation을 정식 데이터 모델로 격상. R2 prefix 구조 재설계, 저작도구 탭 재구성, 211권 마이그레이션, 학습 리포팅 4축 확장.
