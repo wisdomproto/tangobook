@@ -138,6 +138,22 @@ export const uploadVocab = asyncHandler(async (req, res) => {
   ok(res, result);
 });
 
+// ────────────────────────────────────────────────────────────────────────────
+// Audiobook
+// ────────────────────────────────────────────────────────────────────────────
+
+export const getAudiobookProject = asyncHandler(async (req, res) => {
+  ok(res, await svc.getAudiobookProject(req.params['bid'] as string));
+});
+
+export const saveAudiobookProject = asyncHandler(async (req, res) => {
+  ok(res, await svc.saveAudiobookProject(req.params['bid'] as string, req.body));
+});
+
+export const listAudiobookRenders = asyncHandler(async (req, res) => {
+  ok(res, await svc.getAudiobookRenders(req.params['bid'] as string));
+});
+
 export const uploadPageImage = asyncHandler(async (req, res) => {
   if (!req.file) throw new AppError(400, 'image required');
   const level = validLevel(req.params['level']);

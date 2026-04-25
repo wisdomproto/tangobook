@@ -1,6 +1,8 @@
 import { apiClient, apiGet, apiPatch } from '@/lib/axios';
 import type {
   ApiResponse,
+  AudiobookProjectV2,
+  AudiobookRenderV2,
   BookIndex,
   BookManifest,
   BookStyleSlice,
@@ -100,4 +102,15 @@ export const bookV2Api = {
       `/v2/books/${bid}/styles/${style}/pages/${level}/${illustrationKey}`,
       file
     ),
+
+  /** GET /api/v2/books/:bid/audiobook */
+  getAudiobookProject: (bid: string) => apiGet<AudiobookProjectV2>(`/v2/books/${bid}/audiobook`),
+
+  /** PUT /api/v2/books/:bid/audiobook */
+  saveAudiobookProject: (bid: string, project: AudiobookProjectV2) =>
+    apiPut<AudiobookProjectV2>(`/v2/books/${bid}/audiobook`, project),
+
+  /** GET /api/v2/books/:bid/audiobook/renders */
+  listAudiobookRenders: (bid: string) =>
+    apiGet<AudiobookRenderV2[]>(`/v2/books/${bid}/audiobook/renders`),
 };

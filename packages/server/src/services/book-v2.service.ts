@@ -15,6 +15,9 @@ import {
   uploadStyleAsset as uploadStyleAssetToR2,
   listGameInstances,
   getGameInstance,
+  getAudiobookProject as r2GetAudiobookProject,
+  putAudiobookProject as r2PutAudiobookProject,
+  listAudiobookRenders,
   getBookIndex,
   refreshBookIndex,
   deleteBook as deleteBookFromR2,
@@ -26,6 +29,8 @@ import type {
   BookStyleSlice,
   BookCharacter,
   BookGameInstance,
+  AudiobookProjectV2,
+  AudiobookRenderV2,
   ReadingLevel,
   UsedVariants,
   CurriculumMeta,
@@ -252,6 +257,44 @@ export async function uploadStyleImage(opts: UploadStyleAssetInput): Promise<{ u
     await patchVariants(opts.bid, { addLevels: [opts.level] });
   }
   return { url };
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Audiobook
+// ────────────────────────────────────────────────────────────────────────────
+
+const DEFAULT_AUDIOBOOK_PROJECT: AudiobookProjectV2 = {
+  slideTransitions: { type: 'fade', durationMs: 500 },
+  subtitleSettings: { fontSize: 28, color: '#ffffff', position: 'bottom' },
+  bgmSettings: { volume: 0.5, loop: true },
+  supportedVariants: [],
+  renders: [],
+};
+
+export async function getAudiobookProject(bid: string): Promise<AudiobookProjectV2> {
+  await getBook(bid); // 책 존재 확인
+  const project = await r2GetAudiobookProject(bid);
+  return project ?? DEFAULT_AUDIOBOOK_PROJECT;
+}
+
+export async function saveAudiobookProject(
+  bid: string,
+  project: AudiobookProjectV2
+): Promise<AudiobookProjectV2> {
+  await getBook(bid);
+  // 렌더 목록은 별도 (서버가 생성). 클라가 렌더 메타를 덮어쓰지 못하게 기존 보존.
+  const existing = await r2GetAudiobookProject(bid);
+  const merged: AudiobookProjectV2 = {
+    ...project,
+    renders: existing?.renders ?? [],
+  };
+  await r2PutAudiobookProject(bid, merged);
+  return merged;
+}
+
+export async function getAudiobookRenders(bid: string): Promise<AudiobookRenderV2[]> {
+  await getBook(bid);
+  return listAudiobookRenders(bid);
 }
 
 // ────────────────────────────────────────────────────────────────────────────

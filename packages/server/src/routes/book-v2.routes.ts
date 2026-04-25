@@ -37,6 +37,11 @@ router.post(
   ctrl.uploadPageImage
 );
 
+// Audiobook
+router.get('/:bid/audiobook', ctrl.getAudiobookProject);
+router.put('/:bid/audiobook', ctrl.saveAudiobookProject);
+router.get('/:bid/audiobook/renders', ctrl.listAudiobookRenders);
+
 // Games
 router.get('/:bid/games', ctrl.listGames);
 
