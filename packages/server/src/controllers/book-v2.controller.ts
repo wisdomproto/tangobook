@@ -193,6 +193,52 @@ export const uploadPageImage = asyncHandler(async (req, res) => {
 });
 
 // ────────────────────────────────────────────────────────────────────────────
+// Longform
+// ────────────────────────────────────────────────────────────────────────────
+
+export const listLongform = asyncHandler(async (req, res) => {
+  const level = req.query.level ? validLevel(req.query.level) : undefined;
+  const language = asString(req.query.lang);
+  const style = asString(req.query.style);
+  ok(res, await svc.listLongform(req.params['bid'] as string, { level, language, style }));
+});
+
+export const getLongform = asyncHandler(async (req, res) => {
+  ok(res, await svc.getLongform(req.params['bid'] as string, req.params['projectId'] as string));
+});
+
+export const createLongform = asyncHandler(async (req, res) => {
+  const { level, language, style, parentProjectId } = req.body as {
+    level?: string;
+    language?: string;
+    style?: string;
+    parentProjectId?: string;
+  };
+  const lv = validLevel(level);
+  if (!language || !style) throw new AppError(400, 'language and style required');
+  const result = await svc.createLongform({
+    bid: req.params['bid'] as string,
+    level: lv,
+    language,
+    style,
+    parentProjectId,
+  });
+  ok(res, result);
+});
+
+export const saveLongform = asyncHandler(async (req, res) => {
+  ok(
+    res,
+    await svc.saveLongform(req.params['bid'] as string, req.params['projectId'] as string, req.body)
+  );
+});
+
+export const deleteLongform = asyncHandler(async (req, res) => {
+  await svc.deleteLongform(req.params['bid'] as string, req.params['projectId'] as string);
+  ok(res, { deleted: true });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
 // Games
 // ────────────────────────────────────────────────────────────────────────────
 

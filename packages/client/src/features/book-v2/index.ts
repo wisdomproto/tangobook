@@ -16,8 +16,16 @@ export {
   useSaveAudiobookProject,
   useAudiobookRenders,
 } from './hooks/useAudiobook';
+export {
+  useLongformList,
+  useLongformProject,
+  useCreateLongform,
+  useSaveLongform,
+  useDeleteLongform,
+} from './hooks/useLongform';
 export { MetaTab } from './components/MetaTab';
 export { TextTab } from './components/TextTab';
 export { StyleTab } from './components/StyleTab';
 export { PageTab } from './components/PageTab';
 export { AudiobookTab } from './components/AudiobookTab';
+export { LongformTab } from './components/LongformTab';

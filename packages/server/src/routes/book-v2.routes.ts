@@ -44,6 +44,13 @@ router.get('/:bid/audiobook/renders', ctrl.listAudiobookRenders);
 router.post('/:bid/audiobook/render', ctrl.startAudiobookRender);
 router.get('/:bid/audiobook/render/progress', ctrl.getAudiobookRenderProgress);
 
+// Longform
+router.get('/:bid/longform', ctrl.listLongform);
+router.post('/:bid/longform', ctrl.createLongform);
+router.get('/:bid/longform/:projectId', ctrl.getLongform);
+router.put('/:bid/longform/:projectId', ctrl.saveLongform);
+router.delete('/:bid/longform/:projectId', ctrl.deleteLongform);
+
 // Games
 router.get('/:bid/games', ctrl.listGames);
 

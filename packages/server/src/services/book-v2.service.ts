@@ -22,10 +22,15 @@ import {
   putAudiobookProject as r2PutAudiobookProject,
   putAudiobookRender,
   listAudiobookRenders,
+  getLongformProject as r2GetLongformProject,
+  putLongformProject as r2PutLongformProject,
+  deleteLongformProject as r2DeleteLongformProject,
+  listLongformProjects as r2ListLongformProjects,
   getBookIndex,
   refreshBookIndex,
   deleteBook as deleteBookFromR2,
 } from '../repositories/book-v2.repository.js';
+import { listR2Objects } from '../providers/r2.provider.js';
 import { mergeForViewer, mergeForGame } from '../utils/book-v2-runtime-merge.js';
 import { audiobookRenderKey } from '../utils/book-v2-keys.js';
 import { buildAudiobookRenderDataV2 } from '../utils/book-v2-audiobook-render.js';
@@ -40,6 +45,7 @@ import type {
   BookGameInstance,
   AudiobookProjectV2,
   AudiobookRenderV2,
+  LongformProjectV2,
   ReadingLevel,
   UsedVariants,
   CurriculumMeta,
@@ -507,6 +513,118 @@ async function runAudiobookRender(
   } finally {
     fs.rmSync(workDir, { recursive: true, force: true });
   }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Longform (3축 의존: level + language + style)
+// ────────────────────────────────────────────────────────────────────────────
+
+export async function listLongform(
+  bid: string,
+  filter?: { level?: ReadingLevel; language?: string; style?: string }
+): Promise<LongformProjectV2[]> {
+  await getBook(bid);
+  return r2ListLongformProjects(bid, filter);
+}
+
+export async function getLongform(bid: string, projectId: string): Promise<LongformProjectV2> {
+  await getBook(bid);
+  const p = await r2GetLongformProject(bid, projectId);
+  if (!p) throw new AppError(404, `longform project ${projectId} not found`);
+  return p;
+}
+
+export interface CreateLongformInput {
+  bid: string;
+  level: ReadingLevel;
+  language: string;
+  style: string;
+  parentProjectId?: string;
+}
+
+/**
+ * 새 longform 프로젝트 생성 — textSlice의 페이지 수만큼 빈 scene 시드.
+ * videoPrompt는 비어있고, ttsUrl은 audio R2에 있으면 채움.
+ */
+export async function createLongform(input: CreateLongformInput): Promise<LongformProjectV2> {
+  const m = await getBook(input.bid);
+  if (!m.usedVariants.levels.includes(input.level)) {
+    throw new AppError(400, `level ${input.level} not in usedVariants`);
+  }
+  if (!m.usedVariants.languages.includes(input.language)) {
+    throw new AppError(400, `language ${input.language} not in usedVariants`);
+  }
+  if (!m.usedVariants.styles.includes(input.style)) {
+    throw new AppError(400, `style ${input.style} not in usedVariants`);
+  }
+  const ts = await getTextSlice(input.bid, input.level, input.language);
+  if (!ts) throw new AppError(400, `text slice not found: ${input.level}/${input.language}`);
+
+  // audio R2 list로 ttsUrl 시드
+  const audioObjs = await listR2Objects(
+    `books/${input.bid}/audio/${input.level}.${input.language}/`
+  );
+  const existingAudioPages = new Set<number>();
+  for (const o of audioObjs) {
+    if (!o.Key) continue;
+    const m2 = o.Key.match(/page-(\d+)\.mp3$/);
+    if (m2) existingAudioPages.add(parseInt(m2[1], 10));
+  }
+
+  const now = new Date().toISOString();
+  const id = `longform-${Date.now()}`;
+  const scenes = ts.pages.map((page, idx) => ({
+    id: `scene-${page.pageNumber}`,
+    pageNumber: page.pageNumber,
+    videoPrompt: '',
+    clipDuration: 5,
+    sfxVolume: 0.5,
+    ttsVolume: 1,
+    ttsUrl: existingAudioPages.has(page.pageNumber)
+      ? `${r2PublicUrl}/books/${input.bid}/audio/${input.level}.${input.language}/page-${page.pageNumber}.mp3`
+      : undefined,
+    subtitles: [],
+    order: idx,
+  }));
+
+  const project: LongformProjectV2 = {
+    id,
+    level: input.level,
+    language: input.language,
+    style: input.style,
+    parentProjectId: input.parentProjectId,
+    scenes,
+    createdAt: now,
+    updatedAt: now,
+  };
+  await r2PutLongformProject(input.bid, project);
+  return project;
+}
+
+export async function saveLongform(
+  bid: string,
+  projectId: string,
+  patch: Partial<LongformProjectV2>
+): Promise<LongformProjectV2> {
+  const current = await getLongform(bid, projectId);
+  // id/level/language/style은 immutable
+  const next: LongformProjectV2 = {
+    ...current,
+    ...patch,
+    id: current.id,
+    level: current.level,
+    language: current.language,
+    style: current.style,
+    parentProjectId: current.parentProjectId,
+    updatedAt: new Date().toISOString(),
+  };
+  await r2PutLongformProject(bid, next);
+  return next;
+}
+
+export async function deleteLongform(bid: string, projectId: string): Promise<void> {
+  await getBook(bid);
+  await r2DeleteLongformProject(bid, projectId);
 }
 
 // ────────────────────────────────────────────────────────────────────────────

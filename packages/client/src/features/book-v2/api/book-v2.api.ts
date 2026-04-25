@@ -8,6 +8,7 @@ import type {
   BookStyleSlice,
   BookCharacter,
   BookTextSlice,
+  LongformProjectV2,
   ParentGuide,
   CurriculumMeta,
   ReadingLevel,
@@ -128,4 +129,35 @@ export const bookV2Api = {
     apiGet<{ progress: number; step: string; error?: string } | null>(
       `/v2/books/${bid}/audiobook/render/progress?taskId=${encodeURIComponent(taskId)}`
     ),
+
+  // ── Longform ────────────────────────────────────────────────────────────
+
+  /** GET /api/v2/books/:bid/longform?level=&lang=&style= */
+  listLongform: (bid: string, filter: { level: ReadingLevel; language: string; style: string }) =>
+    apiGet<LongformProjectV2[]>(
+      `/v2/books/${bid}/longform?level=${filter.level}&lang=${encodeURIComponent(filter.language)}&style=${encodeURIComponent(filter.style)}`
+    ),
+
+  /** GET /api/v2/books/:bid/longform/:projectId */
+  getLongform: (bid: string, projectId: string) =>
+    apiGet<LongformProjectV2>(`/v2/books/${bid}/longform/${projectId}`),
+
+  /** POST /api/v2/books/:bid/longform */
+  createLongform: (
+    bid: string,
+    body: { level: ReadingLevel; language: string; style: string; parentProjectId?: string }
+  ) =>
+    apiClient
+      .post<ApiResponse<LongformProjectV2>>(`/v2/books/${bid}/longform`, body)
+      .then((res) => (res.data as { success: true; data: LongformProjectV2 }).data),
+
+  /** PUT /api/v2/books/:bid/longform/:projectId */
+  saveLongform: (bid: string, projectId: string, patch: Partial<LongformProjectV2>) =>
+    apiPut<LongformProjectV2>(`/v2/books/${bid}/longform/${projectId}`, patch),
+
+  /** DELETE /api/v2/books/:bid/longform/:projectId */
+  deleteLongform: (bid: string, projectId: string) =>
+    apiClient
+      .delete<ApiResponse<{ deleted: true }>>(`/v2/books/${bid}/longform/${projectId}`)
+      .then((res) => (res.data as { success: true; data: { deleted: true } }).data),
 };

@@ -7,6 +7,7 @@ import {
   StyleTab,
   PageTab,
   AudiobookTab,
+  LongformTab,
 } from '@/features/book-v2';
 import { StateScreen } from '@/components/StateScreen';
 import { cn } from '@/lib/cn';
@@ -238,6 +239,13 @@ export default function EditorPageV2() {
               />
             ) : activeContentTab === 'audiobook' ? (
               <AudiobookTab manifest={manifest} />
+            ) : activeContentTab === 'longform' ? (
+              <LongformTab
+                manifest={manifest}
+                level={effectiveLevel}
+                language={effectiveLang}
+                style={effectiveStyle}
+              />
             ) : (
               <ContentTabPlaceholder
                 tabId={activeContentTab}
