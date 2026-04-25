@@ -43,6 +43,7 @@ import {
   stylePrefix,
   longformPrefix,
   gamesPrefix,
+  marketingPrefix,
   parseTextSliceKey,
   parseAudiobookRenderKey,
 } from '../utils/book-v2-keys.js';
@@ -446,12 +447,58 @@ export async function putBlogPost<T>(bid: string, postId: string, data: T): Prom
   await putJson(data, blogPostKey(bid, postId));
 }
 
+export async function deleteBlogPost(bid: string, postId: string): Promise<void> {
+  await deleteFromR2(blogPostKey(bid, postId));
+}
+
+export async function listBlogPosts<T = unknown>(
+  bid: string,
+  filter?: { language?: string }
+): Promise<T[]> {
+  const objs = await listR2Objects(`${marketingPrefix(bid)}blog/`);
+  const all: T[] = [];
+  for (const o of objs) {
+    if (!o.Key?.endsWith('.json')) continue;
+    try {
+      const d = await getJson<T>(o.Key);
+      if (d) all.push(d);
+    } catch {
+      /* skip */
+    }
+  }
+  if (!filter?.language) return all;
+  return all.filter((p) => (p as { language?: string }).language === filter.language);
+}
+
 export async function getCardNews<T = unknown>(bid: string, projectId: string): Promise<T | null> {
   return getJson<T>(cardNewsKey(bid, projectId));
 }
 
 export async function putCardNews<T>(bid: string, projectId: string, data: T): Promise<void> {
   await putJson(data, cardNewsKey(bid, projectId));
+}
+
+export async function deleteCardNews(bid: string, projectId: string): Promise<void> {
+  await deleteFromR2(cardNewsKey(bid, projectId));
+}
+
+export async function listCardNews<T = unknown>(
+  bid: string,
+  filter?: { language?: string }
+): Promise<T[]> {
+  const objs = await listR2Objects(`${marketingPrefix(bid)}card-news/`);
+  const all: T[] = [];
+  for (const o of objs) {
+    if (!o.Key?.endsWith('.json')) continue;
+    try {
+      const d = await getJson<T>(o.Key);
+      if (d) all.push(d);
+    } catch {
+      /* skip */
+    }
+  }
+  if (!filter?.language) return all;
+  return all.filter((p) => (p as { language?: string }).language === filter.language);
 }
 
 // ────────────────────────────────────────────────────────────────────────────

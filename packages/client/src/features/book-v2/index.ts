@@ -24,6 +24,18 @@ export {
   useDeleteLongform,
 } from './hooks/useLongform';
 export { useGamesList, useGame, useDeleteGame } from './hooks/useGames';
+export {
+  useBlogList,
+  useBlogPost,
+  useCreateBlog,
+  useSaveBlog,
+  useDeleteBlog,
+  useCardNewsList,
+  useCardNewsProject,
+  useCreateCardNews,
+  useSaveCardNews,
+  useDeleteCardNews,
+} from './hooks/useMarketing';
 export { MetaTab } from './components/MetaTab';
 export { TextTab } from './components/TextTab';
 export { StyleTab } from './components/StyleTab';
@@ -31,3 +43,4 @@ export { PageTab } from './components/PageTab';
 export { AudiobookTab } from './components/AudiobookTab';
 export { LongformTab } from './components/LongformTab';
 export { GamesTab } from './components/GamesTab';
+export { MarketingTab } from './components/MarketingTab';

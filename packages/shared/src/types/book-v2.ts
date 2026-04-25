@@ -236,6 +236,54 @@ export interface LongformProjectV2 {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
+// Marketing v2 (language 의존, 블로그·카드뉴스)
+// ────────────────────────────────────────────────────────────────────────────
+
+export interface BlogSectionV2 {
+  id: string;
+  header: string;
+  text: string;
+  imageUrl?: string;
+  imageCaption?: string;
+}
+
+/** R2: books/{bid}/marketing/blog/{postId}.json */
+export interface BlogPostV2 {
+  id: string;
+  language: string;
+  title: string;
+  summary: string;
+  tags: string[];
+  sections: BlogSectionV2[];
+  seoScore?: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type CardNewsSlideTypeV2 = 'cover' | 'body' | 'outro';
+
+export interface CardNewsSlideV2 {
+  id: string;
+  slideType: CardNewsSlideTypeV2;
+  headline: string;
+  subtext: string;
+  imageUrl?: string;
+  backgroundColor: string;
+  textColor: string;
+}
+
+/** R2: books/{bid}/marketing/card-news/{projectId}.json */
+export interface CardNewsProjectV2 {
+  id: string;
+  language: string;
+  title: string;
+  colorTheme: string;
+  slides: CardNewsSlideV2[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
 // Library index (라이브러리 리스트 캐시)
 // ────────────────────────────────────────────────────────────────────────────
 

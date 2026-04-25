@@ -258,6 +258,75 @@ export const deleteGame = asyncHandler(async (req, res) => {
 });
 
 // ────────────────────────────────────────────────────────────────────────────
+// Marketing — Blog
+// ────────────────────────────────────────────────────────────────────────────
+
+export const listBlogs = asyncHandler(async (req, res) => {
+  const language = asString(req.query.lang);
+  ok(res, await svc.listBlogs(req.params['bid'] as string, language));
+});
+
+export const getBlog = asyncHandler(async (req, res) => {
+  ok(res, await svc.getBlog(req.params['bid'] as string, req.params['postId'] as string));
+});
+
+export const createBlog = asyncHandler(async (req, res) => {
+  const { language, title } = req.body as { language?: string; title?: string };
+  if (!language) throw new AppError(400, 'language required');
+  ok(res, await svc.createBlog({ bid: req.params['bid'] as string, language, title }));
+});
+
+export const saveBlog = asyncHandler(async (req, res) => {
+  ok(
+    res,
+    await svc.saveBlog(req.params['bid'] as string, req.params['postId'] as string, req.body)
+  );
+});
+
+export const deleteBlog = asyncHandler(async (req, res) => {
+  await svc.deleteBlog(req.params['bid'] as string, req.params['postId'] as string);
+  ok(res, { deleted: true });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// Marketing — Card News
+// ────────────────────────────────────────────────────────────────────────────
+
+export const listCardNews = asyncHandler(async (req, res) => {
+  const language = asString(req.query.lang);
+  ok(res, await svc.listCardNewsProjects(req.params['bid'] as string, language));
+});
+
+export const getCardNews = asyncHandler(async (req, res) => {
+  ok(
+    res,
+    await svc.getCardNewsProject(req.params['bid'] as string, req.params['projectId'] as string)
+  );
+});
+
+export const createCardNews = asyncHandler(async (req, res) => {
+  const { language, title } = req.body as { language?: string; title?: string };
+  if (!language) throw new AppError(400, 'language required');
+  ok(res, await svc.createCardNewsProject({ bid: req.params['bid'] as string, language, title }));
+});
+
+export const saveCardNews = asyncHandler(async (req, res) => {
+  ok(
+    res,
+    await svc.saveCardNewsProject(
+      req.params['bid'] as string,
+      req.params['projectId'] as string,
+      req.body
+    )
+  );
+});
+
+export const deleteCardNews = asyncHandler(async (req, res) => {
+  await svc.deleteCardNewsProject(req.params['bid'] as string, req.params['projectId'] as string);
+  ok(res, { deleted: true });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
 // Runtime payloads
 // ────────────────────────────────────────────────────────────────────────────
 

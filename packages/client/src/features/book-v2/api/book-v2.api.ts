@@ -9,6 +9,8 @@ import type {
   BookCharacter,
   BookGameInstance,
   BookTextSlice,
+  BlogPostV2,
+  CardNewsProjectV2,
   LongformProjectV2,
   ParentGuide,
   CurriculumMeta,
@@ -188,5 +190,43 @@ export const bookV2Api = {
   deleteGame: (bid: string, gameId: string) =>
     apiClient
       .delete<ApiResponse<{ deleted: true }>>(`/v2/books/${bid}/games/${gameId}`)
+      .then((res) => (res.data as { success: true; data: { deleted: true } }).data),
+
+  // ── Marketing — Blog ───────────────────────────────────────────────────
+
+  listBlogs: (bid: string, language?: string) => {
+    const q = language ? `?lang=${encodeURIComponent(language)}` : '';
+    return apiGet<BlogPostV2[]>(`/v2/books/${bid}/marketing/blog${q}`);
+  },
+  getBlog: (bid: string, postId: string) =>
+    apiGet<BlogPostV2>(`/v2/books/${bid}/marketing/blog/${postId}`),
+  createBlog: (bid: string, body: { language: string; title?: string }) =>
+    apiClient
+      .post<ApiResponse<BlogPostV2>>(`/v2/books/${bid}/marketing/blog`, body)
+      .then((res) => (res.data as { success: true; data: BlogPostV2 }).data),
+  saveBlog: (bid: string, postId: string, patch: Partial<BlogPostV2>) =>
+    apiPut<BlogPostV2>(`/v2/books/${bid}/marketing/blog/${postId}`, patch),
+  deleteBlog: (bid: string, postId: string) =>
+    apiClient
+      .delete<ApiResponse<{ deleted: true }>>(`/v2/books/${bid}/marketing/blog/${postId}`)
+      .then((res) => (res.data as { success: true; data: { deleted: true } }).data),
+
+  // ── Marketing — Card News ──────────────────────────────────────────────
+
+  listCardNews: (bid: string, language?: string) => {
+    const q = language ? `?lang=${encodeURIComponent(language)}` : '';
+    return apiGet<CardNewsProjectV2[]>(`/v2/books/${bid}/marketing/card-news${q}`);
+  },
+  getCardNews: (bid: string, projectId: string) =>
+    apiGet<CardNewsProjectV2>(`/v2/books/${bid}/marketing/card-news/${projectId}`),
+  createCardNews: (bid: string, body: { language: string; title?: string }) =>
+    apiClient
+      .post<ApiResponse<CardNewsProjectV2>>(`/v2/books/${bid}/marketing/card-news`, body)
+      .then((res) => (res.data as { success: true; data: CardNewsProjectV2 }).data),
+  saveCardNews: (bid: string, projectId: string, patch: Partial<CardNewsProjectV2>) =>
+    apiPut<CardNewsProjectV2>(`/v2/books/${bid}/marketing/card-news/${projectId}`, patch),
+  deleteCardNews: (bid: string, projectId: string) =>
+    apiClient
+      .delete<ApiResponse<{ deleted: true }>>(`/v2/books/${bid}/marketing/card-news/${projectId}`)
       .then((res) => (res.data as { success: true; data: { deleted: true } }).data),
 };

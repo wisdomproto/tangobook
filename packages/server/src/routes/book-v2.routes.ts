@@ -56,6 +56,20 @@ router.get('/:bid/games', ctrl.listGames);
 router.get('/:bid/games/:gameId', ctrl.getGame);
 router.delete('/:bid/games/:gameId', ctrl.deleteGame);
 
+// Marketing — Blog
+router.get('/:bid/marketing/blog', ctrl.listBlogs);
+router.post('/:bid/marketing/blog', ctrl.createBlog);
+router.get('/:bid/marketing/blog/:postId', ctrl.getBlog);
+router.put('/:bid/marketing/blog/:postId', ctrl.saveBlog);
+router.delete('/:bid/marketing/blog/:postId', ctrl.deleteBlog);
+
+// Marketing — Card News
+router.get('/:bid/marketing/card-news', ctrl.listCardNews);
+router.post('/:bid/marketing/card-news', ctrl.createCardNews);
+router.get('/:bid/marketing/card-news/:projectId', ctrl.getCardNews);
+router.put('/:bid/marketing/card-news/:projectId', ctrl.saveCardNews);
+router.delete('/:bid/marketing/card-news/:projectId', ctrl.deleteCardNews);
+
 // Runtime payloads
 router.get('/:bid/runtime/viewer', ctrl.runtimeViewer);
 router.get('/:bid/runtime/game/:gameId', ctrl.runtimeGame);

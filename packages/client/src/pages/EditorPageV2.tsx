@@ -9,6 +9,7 @@ import {
   AudiobookTab,
   LongformTab,
   GamesTab,
+  MarketingTab,
 } from '@/features/book-v2';
 import { StateScreen } from '@/components/StateScreen';
 import { cn } from '@/lib/cn';
@@ -244,6 +245,8 @@ export default function EditorPageV2() {
               <LongformTab manifest={manifest} />
             ) : activeContentTab === 'games' ? (
               <GamesTab manifest={manifest} />
+            ) : activeContentTab === 'marketing' ? (
+              <MarketingTab manifest={manifest} />
             ) : (
               <ContentTabPlaceholder
                 tabId={activeContentTab}

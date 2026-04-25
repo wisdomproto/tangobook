@@ -19,6 +19,14 @@ import {
   listGameInstances,
   getGameInstance,
   deleteGameInstance as r2DeleteGameInstance,
+  getBlogPost as r2GetBlogPost,
+  putBlogPost as r2PutBlogPost,
+  deleteBlogPost as r2DeleteBlogPost,
+  listBlogPosts as r2ListBlogPosts,
+  getCardNews as r2GetCardNews,
+  putCardNews as r2PutCardNews,
+  deleteCardNews as r2DeleteCardNews,
+  listCardNews as r2ListCardNews,
   getAudiobookProject as r2GetAudiobookProject,
   putAudiobookProject as r2PutAudiobookProject,
   putAudiobookRender,
@@ -47,6 +55,8 @@ import type {
   AudiobookProjectV2,
   AudiobookRenderV2,
   LongformProjectV2,
+  BlogPostV2,
+  CardNewsProjectV2,
   ReadingLevel,
   UsedVariants,
   CurriculumMeta,
@@ -650,6 +660,143 @@ export async function getGame(bid: string, gameId: string): Promise<BookGameInst
 export async function deleteGame(bid: string, gameId: string): Promise<void> {
   await getBook(bid);
   await r2DeleteGameInstance(bid, gameId);
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Marketing — Blog
+// ────────────────────────────────────────────────────────────────────────────
+
+export async function listBlogs(bid: string, language?: string): Promise<BlogPostV2[]> {
+  await getBook(bid);
+  return r2ListBlogPosts<BlogPostV2>(bid, language ? { language } : undefined);
+}
+
+export async function getBlog(bid: string, postId: string): Promise<BlogPostV2> {
+  await getBook(bid);
+  const p = await r2GetBlogPost<BlogPostV2>(bid, postId);
+  if (!p) throw new AppError(404, `blog post ${postId} not found`);
+  return p;
+}
+
+export interface CreateBlogInput {
+  bid: string;
+  language: string;
+  title?: string;
+}
+
+export async function createBlog(input: CreateBlogInput): Promise<BlogPostV2> {
+  const m = await getBook(input.bid);
+  if (!m.usedVariants.languages.includes(input.language)) {
+    throw new AppError(400, `language ${input.language} not in usedVariants`);
+  }
+  const now = new Date().toISOString();
+  const id = `blog-${Date.now()}`;
+  const post: BlogPostV2 = {
+    id,
+    language: input.language,
+    title: input.title?.trim() || '제목 없음',
+    summary: '',
+    tags: [],
+    sections: [],
+    createdAt: now,
+    updatedAt: now,
+  };
+  await r2PutBlogPost(input.bid, id, post);
+  return post;
+}
+
+export async function saveBlog(
+  bid: string,
+  postId: string,
+  patch: Partial<BlogPostV2>
+): Promise<BlogPostV2> {
+  const current = await getBlog(bid, postId);
+  const next: BlogPostV2 = {
+    ...current,
+    ...patch,
+    id: current.id,
+    language: current.language,
+    updatedAt: new Date().toISOString(),
+  };
+  await r2PutBlogPost(bid, postId, next);
+  return next;
+}
+
+export async function deleteBlog(bid: string, postId: string): Promise<void> {
+  await getBook(bid);
+  await r2DeleteBlogPost(bid, postId);
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Marketing — Card News
+// ────────────────────────────────────────────────────────────────────────────
+
+export async function listCardNewsProjects(
+  bid: string,
+  language?: string
+): Promise<CardNewsProjectV2[]> {
+  await getBook(bid);
+  return r2ListCardNews<CardNewsProjectV2>(bid, language ? { language } : undefined);
+}
+
+export async function getCardNewsProject(
+  bid: string,
+  projectId: string
+): Promise<CardNewsProjectV2> {
+  await getBook(bid);
+  const p = await r2GetCardNews<CardNewsProjectV2>(bid, projectId);
+  if (!p) throw new AppError(404, `card-news ${projectId} not found`);
+  return p;
+}
+
+export interface CreateCardNewsInput {
+  bid: string;
+  language: string;
+  title?: string;
+}
+
+export async function createCardNewsProject(
+  input: CreateCardNewsInput
+): Promise<CardNewsProjectV2> {
+  const m = await getBook(input.bid);
+  if (!m.usedVariants.languages.includes(input.language)) {
+    throw new AppError(400, `language ${input.language} not in usedVariants`);
+  }
+  const now = new Date().toISOString();
+  const id = `cardnews-${Date.now()}`;
+  const project: CardNewsProjectV2 = {
+    id,
+    language: input.language,
+    title: input.title?.trim() || '제목 없음',
+    colorTheme: 'coral',
+    slides: [],
+    createdAt: now,
+    updatedAt: now,
+  };
+  await r2PutCardNews(input.bid, id, project);
+  return project;
+}
+
+export async function saveCardNewsProject(
+  bid: string,
+  projectId: string,
+  patch: Partial<CardNewsProjectV2>
+): Promise<CardNewsProjectV2> {
+  const current = await getCardNewsProject(bid, projectId);
+  const next: CardNewsProjectV2 = {
+    ...current,
+    ...patch,
+    id: current.id,
+    language: current.language,
+    updatedAt: new Date().toISOString(),
+  };
+  await r2PutCardNews(bid, projectId, next);
+  return next;
+}
+
+export async function deleteCardNewsProject(bid: string, projectId: string): Promise<void> {
+  await getBook(bid);
+  await r2DeleteCardNews(bid, projectId);
 }
 
 // ────────────────────────────────────────────────────────────────────────────
