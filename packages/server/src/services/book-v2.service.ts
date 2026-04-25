@@ -41,7 +41,16 @@ import {
 } from '../repositories/book-v2.repository.js';
 import { listR2Objects } from '../providers/r2.provider.js';
 import { mergeForViewer, mergeForGame } from '../utils/book-v2-runtime-merge.js';
-import { audiobookRenderKey, audioFileKey } from '../utils/book-v2-keys.js';
+import {
+  audiobookRenderKey,
+  audioFileKey,
+  longformClipKey,
+  longformSfxKey,
+} from '../utils/book-v2-keys.js';
+import { GrokProvider } from '../providers/grok.provider.js';
+import { uploadBufferToR2 } from '../providers/r2.provider.js';
+import { promisify } from 'util';
+import { execFile } from 'child_process';
 import { buildAudiobookRenderDataV2 } from '../utils/book-v2-audiobook-render.js';
 import { loadRemotion, getRemotionBundlePath } from '../utils/remotion-bundle.js';
 import { getAudioDuration } from '../utils/audio-duration.js';
@@ -830,6 +839,204 @@ async function runLongformAnalyze(
     clearLongformProgressLater(input.bid, input.projectId, 60_000);
   } finally {
     clearInterval(heartbeat);
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Longform Generate Clip (Grok image-to-video, 단일 씬)
+// ────────────────────────────────────────────────────────────────────────────
+
+export interface LongformClipProgress {
+  progress: number; // 0~100, -1 실패
+  step: string;
+  error?: string;
+  updatedAt: number;
+}
+
+const longformClipProgress = new Map<string, LongformClipProgress>();
+
+function longformClipKeyForProgress(bid: string, projectId: string, sceneId: string): string {
+  return `${bid}:${projectId}:${sceneId}`;
+}
+
+function setClipProgress(
+  bid: string,
+  projectId: string,
+  sceneId: string,
+  p: Omit<LongformClipProgress, 'updatedAt'>
+): void {
+  longformClipProgress.set(longformClipKeyForProgress(bid, projectId, sceneId), {
+    ...p,
+    updatedAt: Date.now(),
+  });
+}
+
+function clearClipProgressLater(bid: string, projectId: string, sceneId: string, ms: number): void {
+  setTimeout(
+    () => longformClipProgress.delete(longformClipKeyForProgress(bid, projectId, sceneId)),
+    ms
+  );
+}
+
+export function getLongformClipProgress(
+  bid: string,
+  projectId: string,
+  sceneId: string
+): LongformClipProgress | null {
+  return longformClipProgress.get(longformClipKeyForProgress(bid, projectId, sceneId)) ?? null;
+}
+
+const execFileAsync = promisify(execFile);
+
+async function extractAudioToMp3(videoPath: string, audioPath: string): Promise<void> {
+  const ffmpegPath = (await import('ffmpeg-static')).default;
+  await execFileAsync(ffmpegPath!, [
+    '-i',
+    videoPath,
+    '-vn',
+    '-acodec',
+    'libmp3lame',
+    '-y',
+    audioPath,
+  ]);
+}
+
+export interface GenerateClipInput {
+  bid: string;
+  projectId: string;
+  sceneId: string;
+}
+
+/**
+ * 단일 씬 클립 생성 (fire-and-forget). Grok image-to-video.
+ * scene.videoPrompt 필수, 페이지 이미지를 first frame으로 사용.
+ */
+export async function startGenerateClip(input: GenerateClipInput): Promise<{ ok: true }> {
+  const project = await getLongform(input.bid, input.projectId);
+  const scene = project.scenes.find((s) => s.id === input.sceneId);
+  if (!scene) throw new AppError(404, `scene ${input.sceneId} not found`);
+  if (!scene.videoPrompt) {
+    throw new AppError(400, '영상 프롬프트가 없습니다. 먼저 분석을 실행하세요.');
+  }
+
+  const existing = longformClipProgress.get(
+    longformClipKeyForProgress(input.bid, input.projectId, input.sceneId)
+  );
+  if (existing && existing.progress >= 0 && existing.progress < 100) {
+    throw new AppError(409, '이미 클립 생성이 진행 중입니다.');
+  }
+
+  setClipProgress(input.bid, input.projectId, input.sceneId, { progress: 0, step: '시작' });
+
+  void runGenerateClip(input, project, scene).catch((err: unknown) => {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('[book-v2 longform] generate clip failed:', msg);
+    setClipProgress(input.bid, input.projectId, input.sceneId, {
+      progress: -1,
+      step: '실패',
+      error: msg,
+    });
+    clearClipProgressLater(input.bid, input.projectId, input.sceneId, 60_000);
+  });
+
+  return { ok: true };
+}
+
+async function runGenerateClip(
+  input: GenerateClipInput,
+  project: LongformProjectV2,
+  scene: LongformProjectV2['scenes'][number]
+): Promise<void> {
+  // 1. 페이지 이미지 URL (textSlice + styleSlice)
+  setClipProgress(input.bid, input.projectId, input.sceneId, {
+    progress: 5,
+    step: '데이터 로딩',
+  });
+
+  const ts = await getTextSlice(input.bid, project.level, project.language);
+  const ss = await getStyleSlice(input.bid, project.style);
+  if (!ts) throw new AppError(400, `text slice not found: ${project.level}/${project.language}`);
+  if (!ss) throw new AppError(400, `style slice not found: ${project.style}`);
+
+  const page = ts.pages.find((p) => p.pageNumber === scene.pageNumber);
+  const imageUrl = page ? (ss.pageImages[project.level] ?? {})[page.illustrationKey] : undefined;
+
+  // 2. aspect ratio 결정
+  const m = await getBook(input.bid);
+  const arRaw = m.aspectRatios?.illustration ?? '16:9';
+  const validRatios = ['16:9', '9:16', '1:1'] as const;
+  const aspectRatio = (validRatios as readonly string[]).includes(arRaw)
+    ? (arRaw as '16:9' | '9:16' | '1:1')
+    : '16:9';
+
+  // 3. Grok 영상 생성
+  setClipProgress(input.bid, input.projectId, input.sceneId, {
+    progress: 15,
+    step: 'Grok 영상 생성 중',
+  });
+  const prompt = scene.videoPrompt.includes('no music')
+    ? scene.videoPrompt
+    : `${scene.videoPrompt}, no music`;
+  const videoBuffer = await GrokProvider.generateClip(prompt, {
+    aspectRatio,
+    duration: scene.clipDuration,
+    imageUrl,
+  });
+
+  // 4. 오디오 추출 + R2 업로드
+  setClipProgress(input.bid, input.projectId, input.sceneId, {
+    progress: 80,
+    step: 'SFX 추출 + R2 업로드',
+  });
+
+  const workDir = path.join(
+    os.tmpdir(),
+    `book-v2-clip-${input.bid}-${input.sceneId}-${Date.now()}`
+  );
+  fs.mkdirSync(workDir, { recursive: true });
+  const inputPath = path.join(workDir, 'input.mp4');
+  const audioPath = path.join(workDir, 'audio.mp3');
+
+  try {
+    fs.writeFileSync(inputPath, videoBuffer);
+    await extractAudioToMp3(inputPath, audioPath);
+    const audioBuffer = fs.readFileSync(audioPath);
+
+    const order = scene.order ?? 0;
+    const [clipUrl, sfxUrl] = await Promise.all([
+      uploadBufferToR2(
+        videoBuffer,
+        longformClipKey(input.bid, input.projectId, order),
+        'video/mp4'
+      ),
+      uploadBufferToR2(
+        audioBuffer,
+        longformSfxKey(input.bid, input.projectId, order),
+        'audio/mpeg'
+      ),
+    ]);
+
+    // 5. 씬 업데이트 + 저장 (clipHistory에 이전 url 보존)
+    setClipProgress(input.bid, input.projectId, input.sceneId, {
+      progress: 95,
+      step: '저장',
+    });
+    const updated = await getLongform(input.bid, input.projectId);
+    const targetScene = updated.scenes.find((s) => s.id === input.sceneId);
+    if (targetScene) {
+      if (targetScene.clipUrl) {
+        if (!targetScene.clipHistory) targetScene.clipHistory = [];
+        targetScene.clipHistory.push(targetScene.clipUrl);
+      }
+      targetScene.clipUrl = clipUrl;
+      targetScene.sfxUrl = sfxUrl;
+      await saveLongform(input.bid, input.projectId, { scenes: updated.scenes });
+    }
+
+    setClipProgress(input.bid, input.projectId, input.sceneId, { progress: 100, step: '완료' });
+    clearClipProgressLater(input.bid, input.projectId, input.sceneId, 60_000);
+  } finally {
+    fs.rmSync(workDir, { recursive: true, force: true });
   }
 }
 

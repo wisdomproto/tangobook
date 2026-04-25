@@ -140,6 +140,12 @@ export const longformProjectKey = (bid: string, projectId: string) =>
 export const longformVideoKey = (bid: string, projectId: string, ext: 'mp4' | 'webm' = 'mp4') =>
   `${longformPrefix(bid)}${validToken('projectId', projectId)}.${ext}`;
 
+export const longformClipKey = (bid: string, projectId: string, order: number) =>
+  `${longformPrefix(bid)}${validToken('projectId', projectId)}/clips/scene-${order}.mp4`;
+
+export const longformSfxKey = (bid: string, projectId: string, order: number) =>
+  `${longformPrefix(bid)}${validToken('projectId', projectId)}/sfx/scene-${order}.mp3`;
+
 export const blogPostKey = (bid: string, postId: string) =>
   `${marketingPrefix(bid)}blog/${validToken('postId', postId)}.json`;
 

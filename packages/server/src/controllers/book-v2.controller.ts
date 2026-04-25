@@ -262,6 +262,24 @@ export const getLongformAnalyzeProgress = asyncHandler(async (req, res) => {
   ok(res, progress);
 });
 
+export const startGenerateClip = asyncHandler(async (req, res) => {
+  const result = await svc.startGenerateClip({
+    bid: req.params['bid'] as string,
+    projectId: req.params['projectId'] as string,
+    sceneId: req.params['sceneId'] as string,
+  });
+  ok(res, result);
+});
+
+export const getGenerateClipProgress = asyncHandler(async (req, res) => {
+  const progress = svc.getLongformClipProgress(
+    req.params['bid'] as string,
+    req.params['projectId'] as string,
+    req.params['sceneId'] as string
+  );
+  ok(res, progress);
+});
+
 // ────────────────────────────────────────────────────────────────────────────
 // Games
 // ────────────────────────────────────────────────────────────────────────────

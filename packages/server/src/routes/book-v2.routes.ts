@@ -52,6 +52,11 @@ router.put('/:bid/longform/:projectId', ctrl.saveLongform);
 router.delete('/:bid/longform/:projectId', ctrl.deleteLongform);
 router.post('/:bid/longform/:projectId/analyze', ctrl.startLongformAnalyze);
 router.get('/:bid/longform/:projectId/analyze/progress', ctrl.getLongformAnalyzeProgress);
+router.post('/:bid/longform/:projectId/scenes/:sceneId/generate', ctrl.startGenerateClip);
+router.get(
+  '/:bid/longform/:projectId/scenes/:sceneId/generate/progress',
+  ctrl.getGenerateClipProgress
+);
 
 // Games
 router.get('/:bid/games', ctrl.listGames);

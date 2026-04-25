@@ -1,12 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { useLongformList, useDeleteLongform, useStartLongformAnalyze } from '../hooks/useLongform';
+import {
+  useLongformList,
+  useDeleteLongform,
+  useStartLongformAnalyze,
+  useStartGenerateClip,
+} from '../hooks/useLongform';
 import { bookV2Api } from '../api/book-v2.api';
 import { CreateLongformModal } from './CreateLongformModal';
 import type { BookManifest, LongformProjectV2 } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 
 interface AnalyzeProgress {
+  progress: number;
+  step: string;
+  error?: string;
+}
+
+interface ClipProgress {
   progress: number;
   step: string;
   error?: string;
@@ -20,11 +31,15 @@ export function LongformTab({ manifest }: LongformTabProps) {
   const { data: projects, isLoading } = useLongformList(manifest.id);
   const remove = useDeleteLongform(manifest.id);
   const analyze = useStartLongformAnalyze(manifest.id);
+  const generateClip = useStartGenerateClip(manifest.id);
   const qc = useQueryClient();
   const [openProjectId, setOpenProjectId] = useState<string | null>(null);
   const [createOpen, setCreateOpen] = useState(false);
   const [progressMap, setProgressMap] = useState<Record<string, AnalyzeProgress>>({});
+  // sceneId → progress (씬 단위 클립 생성)
+  const [clipProgressMap, setClipProgressMap] = useState<Record<string, ClipProgress>>({});
   const pollersRef = useRef<Map<string, number>>(new Map());
+  const clipPollersRef = useRef<Map<string, number>>(new Map());
 
   const handleDelete = (id: string) => {
     if (!window.confirm('이 동영상 프로젝트를 삭제할까요?')) return;
@@ -69,6 +84,8 @@ export function LongformTab({ manifest }: LongformTabProps) {
     return () => {
       pollersRef.current.forEach((id) => window.clearTimeout(id));
       pollersRef.current.clear();
+      clipPollersRef.current.forEach((id) => window.clearTimeout(id));
+      clipPollersRef.current.clear();
     };
   }, []);
 
@@ -79,6 +96,51 @@ export function LongformTab({ manifest }: LongformTabProps) {
         onSuccess: () => {
           setProgressMap((m) => ({ ...m, [projectId]: { progress: 0, step: '시작' } }));
           startPolling(projectId);
+        },
+      }
+    );
+  };
+
+  const startClipPolling = (projectId: string, sceneId: string) => {
+    const tick = async () => {
+      try {
+        const p = await bookV2Api.getGenerateClipProgress(manifest.id, projectId, sceneId);
+        if (p) {
+          setClipProgressMap((m) => ({ ...m, [sceneId]: p }));
+          if (p.progress >= 100) {
+            qc.invalidateQueries({ queryKey: ['book-v2', 'longform', manifest.id] });
+            clipPollersRef.current.delete(sceneId);
+            setTimeout(() => {
+              setClipProgressMap((m) => {
+                const { [sceneId]: _, ...rest } = m;
+                void _;
+                return rest;
+              });
+            }, 3000);
+            return;
+          }
+          if (p.progress < 0) {
+            clipPollersRef.current.delete(sceneId);
+            return;
+          }
+        }
+        const id = window.setTimeout(tick, 2000);
+        clipPollersRef.current.set(sceneId, id);
+      } catch {
+        const id = window.setTimeout(tick, 4000);
+        clipPollersRef.current.set(sceneId, id);
+      }
+    };
+    tick();
+  };
+
+  const handleGenerateClip = (projectId: string, sceneId: string) => {
+    generateClip.mutate(
+      { projectId, sceneId },
+      {
+        onSuccess: () => {
+          setClipProgressMap((m) => ({ ...m, [sceneId]: { progress: 0, step: '시작' } }));
+          startClipPolling(projectId, sceneId);
         },
       }
     );
@@ -128,17 +190,20 @@ export function LongformTab({ manifest }: LongformTabProps) {
           onDelete={() => handleDelete(p.id)}
           onAnalyze={() => handleAnalyze(p.id)}
           analyzeProgress={progressMap[p.id]}
+          onGenerateClip={(sceneId) => handleGenerateClip(p.id, sceneId)}
+          clipProgressBySceneId={clipProgressMap}
         />
       ))}
 
       <div className="bg-peach-50 rounded-md p-4 text-xs text-ink-700 font-bold leading-relaxed">
         💡 <strong>다음 sprint 기능</strong>:
         <ul className="list-disc list-inside mt-2 space-y-1 font-normal">
-          <li>3b-7c-ii — Analyze (Gemini로 페이지별 videoPrompt 생성)</li>
-          <li>3b-7c-iii — Generate clips (Grok image-to-video)</li>
-          <li>3b-7c-iv — Timeline editor (trim/SFX/TTS/subtitle)</li>
-          <li>3b-7c-v — 실 렌더 + YouTube 업로드</li>
+          <li>3b-7c-iv — Timeline editor (trim/SFX/TTS/subtitle 편집)</li>
+          <li>3b-7c-v — 최종 렌더 + YouTube 업로드</li>
         </ul>
+        <p className="mt-2 font-normal">
+          현재 구현됨: 🤖 AI 분석 (Gemini) + 🎬 클립 생성 (Grok image-to-video)
+        </p>
       </div>
     </div>
   );
@@ -151,6 +216,8 @@ function ProjectCard({
   onDelete,
   onAnalyze,
   analyzeProgress,
+  onGenerateClip,
+  clipProgressBySceneId,
 }: {
   project: LongformProjectV2;
   open: boolean;
@@ -158,6 +225,8 @@ function ProjectCard({
   onDelete: () => void;
   onAnalyze: () => void;
   analyzeProgress?: AnalyzeProgress;
+  onGenerateClip: (sceneId: string) => void;
+  clipProgressBySceneId: Record<string, ClipProgress>;
 }) {
   const inProgress =
     analyzeProgress && analyzeProgress.progress >= 0 && analyzeProgress.progress < 100;
@@ -242,20 +311,60 @@ function ProjectCard({
 
           <div className="text-xs font-bold text-ink-700">씬 (총 {totalScenes})</div>
           <div className="grid grid-cols-1 gap-1.5">
-            {project.scenes.map((s) => (
-              <div
-                key={s.id}
-                className="flex items-center gap-2 text-xs bg-white rounded px-3 py-2"
-              >
-                <span className="font-mono w-12 text-ink-500">p{s.pageNumber}</span>
-                <span className="flex-1 truncate text-ink-700">
-                  {s.videoPrompt || <span className="text-ink-300 italic">(프롬프트 없음)</span>}
-                </span>
-                <span className="font-mono text-[10px] text-ink-500">
-                  {s.clipUrl ? '🎬' : '⬜'} {s.ttsUrl ? '🔊' : '⬜'} {s.sfxUrl ? '🎵' : '⬜'}
-                </span>
-              </div>
-            ))}
+            {project.scenes.map((s) => {
+              const cp = clipProgressBySceneId[s.id];
+              const generating = cp && cp.progress >= 0 && cp.progress < 100;
+              const canGenerate = !!s.videoPrompt && !generating;
+              return (
+                <div
+                  key={s.id}
+                  className="flex items-center gap-2 text-xs bg-white rounded px-3 py-2"
+                >
+                  <span className="font-mono w-12 text-ink-500">p{s.pageNumber}</span>
+                  <span className="flex-1 truncate text-ink-700">
+                    {s.videoPrompt || <span className="text-ink-300 italic">(프롬프트 없음)</span>}
+                  </span>
+                  {cp ? (
+                    <span
+                      className={cn(
+                        'font-mono text-[10px] px-1.5 py-0.5 rounded',
+                        cp.progress < 0
+                          ? 'bg-danger/10 text-danger'
+                          : cp.progress >= 100
+                            ? 'bg-success/10 text-success'
+                            : 'bg-coral-100 text-coral-700'
+                      )}
+                      title={cp.error || cp.step}
+                    >
+                      {cp.progress < 0 ? '❌' : cp.progress >= 100 ? '✓ 완료' : `${cp.progress}%`}
+                    </span>
+                  ) : (
+                    <span className="font-mono text-[10px] text-ink-500">
+                      {s.clipUrl ? '🎬' : '⬜'} {s.ttsUrl ? '🔊' : '⬜'} {s.sfxUrl ? '🎵' : '⬜'}
+                    </span>
+                  )}
+                  <button
+                    onClick={() => onGenerateClip(s.id)}
+                    disabled={!canGenerate}
+                    className={cn(
+                      'px-2 py-0.5 rounded text-[10px] font-bold',
+                      canGenerate
+                        ? 'bg-coral-500 text-white hover:brightness-110'
+                        : 'bg-ink-100 text-ink-300 cursor-not-allowed'
+                    )}
+                    title={
+                      !s.videoPrompt
+                        ? '먼저 AI 분석으로 프롬프트 생성'
+                        : generating
+                          ? '생성 중...'
+                          : 'Grok image-to-video 클립 생성'
+                    }
+                  >
+                    🎬
+                  </button>
+                </div>
+              );
+            })}
           </div>
           <div className="flex justify-end gap-2 pt-2">
             <button

@@ -76,3 +76,10 @@ export function useLongformAnalyzeProgress(bid: string, projectId: string | null
   // 폴링은 LongformTab에서 직접 setTimeout으로 (taskId 단위 invalidate 패턴이 없으므로)
   return { bid, projectId };
 }
+
+export function useStartGenerateClip(bid: string) {
+  return useMutation({
+    mutationFn: ({ projectId, sceneId }: { projectId: string; sceneId: string }) =>
+      bookV2Api.startGenerateClip(bid, projectId, sceneId),
+  });
+}
