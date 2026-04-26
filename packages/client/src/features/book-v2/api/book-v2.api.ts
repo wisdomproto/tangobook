@@ -59,6 +59,30 @@ export const bookV2Api = {
   /** GET /api/v2/books/:bid — 단일 manifest */
   getManifest: (bid: string) => apiGet<BookManifest>(`/v2/books/${bid}`),
 
+  /** POST /api/v2/books — 신규 책 생성 */
+  createBook: (body: {
+    title: string;
+    type?: import('@tangobook/shared').StorybookType;
+    category?: string;
+    folder?: string;
+    isPublic?: boolean;
+  }) =>
+    apiClient
+      .post<ApiResponse<BookManifest>>('/v2/books', body)
+      .then((res) => (res.data as { success: true; data: BookManifest }).data),
+
+  /** DELETE /api/v2/books/:bid — 책 + 모든 자산 삭제 */
+  deleteBook: (bid: string) =>
+    apiClient
+      .delete<ApiResponse<{ deleted: true }>>(`/v2/books/${bid}`)
+      .then((res) => (res.data as { success: true; data: { deleted: true } }).data),
+
+  /** POST /api/v2/books/refresh-index — 인덱스 갱신 */
+  refreshIndex: () =>
+    apiClient
+      .post<ApiResponse<BookIndex>>('/v2/books/refresh-index', {})
+      .then((res) => (res.data as { success: true; data: BookIndex }).data),
+
   /** PATCH /api/v2/books/:bid — 메타 업데이트 */
   updateMeta: (bid: string, patch: UpdateBookMetaPatch) =>
     apiPatch<BookManifest>(`/v2/books/${bid}`, patch),
