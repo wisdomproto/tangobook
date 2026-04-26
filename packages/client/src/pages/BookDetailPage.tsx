@@ -33,6 +33,8 @@ export default function BookDetailPage() {
   const { data: games } = useGamesList(id);
 
   const [lang, setLang] = useState<string>('ko');
+  const [selectedLevel, setSelectedLevel] = useState<ReadingLevel | null>(null);
+  const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
   const [videoOpen, setVideoOpen] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
   const [videoIdToPlay, setVideoIdToPlay] = useState<string | null>(null);
@@ -89,6 +91,14 @@ export default function BookDetailPage() {
   const levels = manifest.usedVariants.levels;
   const styles = manifest.usedVariants.styles;
 
+  // 효과 레벨/스타일 (URL params에 전달용)
+  const effectiveLevel =
+    selectedLevel ??
+    (manifest.curriculumMeta?.launchLevel && levels.includes(manifest.curriculumMeta.launchLevel)
+      ? manifest.curriculumMeta.launchLevel
+      : levels[0]);
+  const effectiveStyle = selectedStyle ?? styles[0];
+
   const enterMode = (mode: 'read' | 'video' | 'game') => {
     if (mode === 'video') {
       const vid = youtubeVideoIds[0];
@@ -104,6 +114,8 @@ export default function BookDetailPage() {
       return;
     }
     const qs = new URLSearchParams({ lang });
+    if (effectiveLevel) qs.set('level', effectiveLevel);
+    if (effectiveStyle) qs.set('style', effectiveStyle);
     if (mode === 'game') qs.set('mode', 'games');
     navigate(`/viewer/${manifest.id}?${qs.toString()}`);
   };
@@ -202,6 +214,55 @@ export default function BookDetailPage() {
                   </button>
                 );
               })}
+            </div>
+          </div>
+        )}
+
+        {/* 레벨 선택 */}
+        {levels.length > 1 && (
+          <div className="mb-6">
+            <div className="text-xs font-black text-ink-500 uppercase tracking-wider mb-2">
+              📂 레벨 (글밥)
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              {levels.map((lv) => (
+                <button
+                  key={lv}
+                  onClick={() => setSelectedLevel(lv)}
+                  className={cn(
+                    'px-5 py-3 rounded-md font-bold flex gap-2 items-center transition-all',
+                    effectiveLevel === lv
+                      ? 'bg-coral-400 text-white shadow-soft'
+                      : 'bg-white text-ink-700'
+                  )}
+                >
+                  <span className="font-mono">{lv}</span>
+                  <span className="text-xs opacity-80">{LEVEL_LABEL[lv]}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* 그림체 선택 */}
+        {styles.length > 1 && (
+          <div className="mb-6">
+            <div className="text-xs font-black text-ink-500 uppercase tracking-wider mb-2">
+              🎨 그림체
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              {styles.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setSelectedStyle(s)}
+                  className={cn(
+                    'px-5 py-3 rounded-md font-bold transition-all',
+                    effectiveStyle === s ? 'bg-fun text-white shadow-soft' : 'bg-white text-ink-700'
+                  )}
+                >
+                  {s}
+                </button>
+              ))}
             </div>
           </div>
         )}

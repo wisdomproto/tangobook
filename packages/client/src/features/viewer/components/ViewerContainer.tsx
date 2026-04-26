@@ -14,7 +14,7 @@ import { cn } from '@/lib/cn';
 import { hasVideoUrl, hasGames, getPrimaryVideoId, type LangCode } from '@/lib/storybook-accessors';
 import { useLogEvent, useLogEventsBatch } from '@/features/learning';
 import { extractPageWords } from '@/features/learning/lib/extract-page-words';
-import type { Lang } from '@tangobook/shared';
+import type { Lang, ReadingLevel } from '@tangobook/shared';
 import { useViewerSettings, type ViewerSettings } from '../hooks/useViewerSettings';
 import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { getPageTtsUrl } from '../lib/page-text';
@@ -46,13 +46,20 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
 
   // v2 manifest 시도 (있으면 pages/cover/title을 v2로 override)
   const { data: v2Manifest } = useBookManifest(storybookId);
-  // 선호: launchLevel(원본 저작 레벨) → 없으면 usedVariants 첫 항목
+  // 우선순위: URL param > launchLevel > usedVariants 첫 항목
+  const urlLevel = sp.get('level') as ReadingLevel | null;
+  const urlStyle = sp.get('style');
   const v2Level =
-    v2Manifest?.curriculumMeta?.launchLevel &&
-    v2Manifest.usedVariants.levels.includes(v2Manifest.curriculumMeta.launchLevel)
-      ? v2Manifest.curriculumMeta.launchLevel
-      : v2Manifest?.usedVariants.levels[0];
-  const v2Style = v2Manifest?.usedVariants.styles[0];
+    urlLevel && v2Manifest?.usedVariants.levels.includes(urlLevel)
+      ? urlLevel
+      : v2Manifest?.curriculumMeta?.launchLevel &&
+          v2Manifest.usedVariants.levels.includes(v2Manifest.curriculumMeta.launchLevel)
+        ? v2Manifest.curriculumMeta.launchLevel
+        : v2Manifest?.usedVariants.levels[0];
+  const v2Style =
+    urlStyle && v2Manifest?.usedVariants.styles.includes(urlStyle)
+      ? urlStyle
+      : v2Manifest?.usedVariants.styles[0];
   const v2Filter =
     v2Level && v2Style
       ? { level: v2Level, language: lang === 'en' ? 'en' : 'ko', style: v2Style }
