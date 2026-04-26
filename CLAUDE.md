@@ -394,7 +394,7 @@ pnpm --filter shared build
 - `/` → `/library` 자동 redirect (AppLayout 삭제)
 - `/editor/:bid` → EditorPageV2 정식 (`/editor-v2/:bid`은 호환 alias)
 - BookDetailPage v2 manifest 기반 재작성 (✏️ 편집 버튼 추가)
-- viewer만 아직 v1 fetch (3b-8-iii follow-up)
+- **Viewer 메인 읽기 모드 v2** (useRuntimeViewer 어댑터, level=launchLevel 우선, 페이지/표지/제목/parentGuide v2 R2 prefix에서 직접). reward/games/phonics 모드는 별도 sprint(3b-8-iv)에서.
 
 ### 인프라
 - **R2 prefix 트리**: `books/{bid}/{manifest, texts/{L}.{lang}.json, audio/{L}.{lang}/page-{N}.mp3, styles/{style}/..., games, audiobook/{project.json, renders/{L}.{lang}.{style}.mp4}, longform/{projectId.json, projectId/clips/, projectId/sfx/}, marketing/{blog,card-news}}` + `_index/books.json`
@@ -438,7 +438,7 @@ fire-and-forget, 1.5s 폴링. taskId = `${L}.${lang}.${style}`. 동일 variant �
 
 ### 남은 follow-up sprints
 - 3b-7e-iii+ 다른 게임 타입 generate 점진 포팅 (blocks/word-writing 등)
-- 3b-8-iii Viewer v2 (v1 deprecation, 매우 큰 sprint)
+- 3b-8-iv Viewer 나머지 모드 cutover (reward/games/phonics — 각 v1 storybook 의존)
 - 3b-7d-ii 마케팅 generate (사용자 보류)
 
 상세: `memory/book-variants-v2.md` · 스펙: `docs/superpowers/specs/2026-04-25-book-variants-design.md` · 플랜: `docs/superpowers/plans/2026-04-25-book-variants-plan.md`
