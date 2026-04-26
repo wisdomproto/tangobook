@@ -44,5 +44,6 @@ export { StyleTab } from './components/StyleTab';
 export { PageTab } from './components/PageTab';
 export { AudiobookTab } from './components/AudiobookTab';
 export { LongformTab } from './components/LongformTab';
+export { SceneEditor } from './components/SceneEditor';
 export { GamesTab } from './components/GamesTab';
 export { MarketingTab } from './components/MarketingTab';

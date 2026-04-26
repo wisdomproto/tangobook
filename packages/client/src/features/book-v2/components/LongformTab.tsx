@@ -8,6 +8,7 @@ import {
 } from '../hooks/useLongform';
 import { bookV2Api } from '../api/book-v2.api';
 import { CreateLongformModal } from './CreateLongformModal';
+import { SceneEditor } from './SceneEditor';
 import type { BookManifest, LongformProjectV2 } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 
@@ -184,6 +185,7 @@ export function LongformTab({ manifest }: LongformTabProps) {
       {projects?.map((p) => (
         <ProjectCard
           key={p.id}
+          bid={manifest.id}
           project={p}
           open={openProjectId === p.id}
           onToggle={() => setOpenProjectId(openProjectId === p.id ? null : p.id)}
@@ -210,6 +212,7 @@ export function LongformTab({ manifest }: LongformTabProps) {
 }
 
 function ProjectCard({
+  bid,
   project,
   open,
   onToggle,
@@ -219,6 +222,7 @@ function ProjectCard({
   onGenerateClip,
   clipProgressBySceneId,
 }: {
+  bid: string;
   project: LongformProjectV2;
   open: boolean;
   onToggle: () => void;
@@ -228,6 +232,7 @@ function ProjectCard({
   onGenerateClip: (sceneId: string) => void;
   clipProgressBySceneId: Record<string, ClipProgress>;
 }) {
+  const [editingSceneId, setEditingSceneId] = useState<string | null>(null);
   const inProgress =
     analyzeProgress && analyzeProgress.progress >= 0 && analyzeProgress.progress < 100;
   const totalScenes = project.scenes.length;
@@ -362,10 +367,38 @@ function ProjectCard({
                   >
                     🎬
                   </button>
+                  <button
+                    onClick={() => setEditingSceneId(editingSceneId === s.id ? null : s.id)}
+                    className={cn(
+                      'px-2 py-0.5 rounded text-[10px] font-bold',
+                      editingSceneId === s.id
+                        ? 'bg-coral-100 text-coral-700'
+                        : 'bg-ink-100 text-ink-700 hover:bg-ink-200'
+                    )}
+                    title="trim/자막/볼륨 편집"
+                  >
+                    ✏️
+                  </button>
                 </div>
               );
             })}
           </div>
+
+          {/* 씬 편집기 (선택된 씬) */}
+          {editingSceneId &&
+            (() => {
+              const s = project.scenes.find((x) => x.id === editingSceneId);
+              if (!s) return null;
+              return (
+                <SceneEditor
+                  bid={bid}
+                  projectId={project.id}
+                  scene={s}
+                  allScenes={project.scenes}
+                  onClose={() => setEditingSceneId(null)}
+                />
+              );
+            })()}
           <div className="flex justify-end gap-2 pt-2">
             <button
               onClick={onAnalyze}
