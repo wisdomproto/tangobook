@@ -3,12 +3,16 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Mascot } from '@/components/Mascot';
 import { cn } from '@/lib/cn';
-import { hasVideoUrl, hasGames, getPrimaryVideoId } from '@/lib/storybook-accessors';
-import type { Storybook } from '@tangobook/shared';
 import { YouTubeModal } from './YouTubeModal';
 
 interface RewardScreenProps {
-  storybook: Storybook;
+  title: string;
+  /** YouTube 영상 ID (있으면 모달로 재생, 없으면 영상 버튼 숨김) */
+  videoId?: string;
+  /** R2 직접 영상 URL (videoId 없을 때 fallback, 새 탭으로 열기) */
+  directVideoUrl?: string;
+  /** 게임 가용 여부 */
+  hasGames: boolean;
   open: boolean;
   autoOpenVideo?: boolean; // `/viewer/:id?mode=video` 진입 시 true → 마운트 즉시 영상 모달 열기
   onClose: () => void;
@@ -18,7 +22,10 @@ interface RewardScreenProps {
 }
 
 export function RewardScreen({
-  storybook,
+  title,
+  videoId,
+  directVideoUrl,
+  hasGames,
   open,
   autoOpenVideo,
   onGoHome,
@@ -27,9 +34,8 @@ export function RewardScreen({
 }: RewardScreenProps) {
   const reduce = useReducedMotion();
 
-  const videoAvailable = hasVideoUrl(storybook);
-  const gameAvailable = hasGames(storybook);
-  const videoId = getPrimaryVideoId(storybook);
+  const videoAvailable = !!videoId || !!directVideoUrl;
+  const gameAvailable = hasGames;
   const [videoOpen, setVideoOpen] = useState(false);
 
   // 등장 시 confetti (prefers-reduced-motion 존중)
@@ -46,9 +52,15 @@ export function RewardScreen({
   }, [open]);
 
   // autoOpenVideo true + videoId 있으면 YouTube 모달 자동 오픈 (1회)
+  // directVideoUrl만 있을 땐 새 탭으로 열기
   useEffect(() => {
-    if (open && autoOpenVideo && videoId) setVideoOpen(true);
-  }, [open, autoOpenVideo, videoId]);
+    if (!open || !autoOpenVideo) return;
+    if (videoId) {
+      setVideoOpen(true);
+    } else if (directVideoUrl) {
+      window.open(directVideoUrl, '_blank', 'noopener,noreferrer');
+    }
+  }, [open, autoOpenVideo, videoId, directVideoUrl]);
 
   if (!open) return null;
 
@@ -123,9 +135,13 @@ export function RewardScreen({
             transition={reduce ? { duration: 0.2 } : { delay: 0.45 }}
             className="flex gap-4 flex-wrap justify-center mt-7"
           >
-            {videoAvailable && videoId && (
+            {videoAvailable && (
               <button
-                onClick={() => setVideoOpen(true)}
+                onClick={() => {
+                  if (videoId) setVideoOpen(true);
+                  else if (directVideoUrl)
+                    window.open(directVideoUrl, '_blank', 'noopener,noreferrer');
+                }}
                 className={cn(
                   'flex items-center gap-2.5 px-8 py-4 rounded-xl font-black text-white shadow-pop',
                   'bg-gradient-to-br from-coral-400 to-coral-500 hover:brightness-105 active:brightness-95',
@@ -187,7 +203,7 @@ export function RewardScreen({
           videoId={videoId}
           open={videoOpen}
           onClose={() => setVideoOpen(false)}
-          title={storybook.title}
+          title={title}
         />
       )}
     </AnimatePresence>

@@ -1,11 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStorybook } from '@/features/storybook';
-import { useBookManifest, useRuntimeViewer } from '@/features/book-v2';
+import {
+  useBookManifest,
+  useRuntimeViewer,
+  useAudiobookRenders,
+  useLongformList,
+  useGamesList,
+} from '@/features/book-v2';
 import { Mascot } from '@/components/Mascot';
 import { StateScreen } from '@/components/StateScreen';
 import { cn } from '@/lib/cn';
-import { hasVideoUrl, type LangCode } from '@/lib/storybook-accessors';
+import { hasVideoUrl, hasGames, getPrimaryVideoId, type LangCode } from '@/lib/storybook-accessors';
 import { useLogEvent, useLogEventsBatch } from '@/features/learning';
 import { extractPageWords } from '@/features/learning/lib/extract-page-words';
 import type { Lang } from '@tangobook/shared';
@@ -52,6 +58,26 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       ? { level: v2Level, language: lang === 'en' ? 'en' : 'ko', style: v2Style }
       : null;
   const { data: v2Payload } = useRuntimeViewer(storybookId ?? '', v2Filter);
+
+  // Reward 화면 + GameListViewer를 위한 v2 데이터
+  const { data: v2AudioRenders } = useAudiobookRenders(storybookId ?? '');
+  const { data: v2Longform } = useLongformList(storybookId ?? '');
+  const { data: v2Games } = useGamesList(storybookId ?? '');
+
+  // v2 우선: youtubeVideoId 또는 직접 videoUrl 추출
+  const v2VideoId = useMemo(() => {
+    return (
+      v2AudioRenders?.find((r) => r.youtubeVideoId)?.youtubeVideoId ??
+      v2Longform?.find((p) => p.youtubeVideoId)?.youtubeVideoId
+    );
+  }, [v2AudioRenders, v2Longform]);
+  const v2DirectVideoUrl = useMemo(() => {
+    return (
+      v2AudioRenders?.find((r) => r.videoUrl)?.videoUrl ??
+      v2Longform?.find((p) => p.videoUrl)?.videoUrl
+    );
+  }, [v2AudioRenders, v2Longform]);
+  const v2HasGames = (v2Games?.length ?? 0) > 0;
 
   // v2 payload가 있으면 v1 storybook의 pages/cover/title/parentGuide를 덮어씀
   // (v1 R2 정리 시점까지 audiobookProjects/longformProjects/games 등은 v1에서 그대로 사용)
@@ -244,11 +270,13 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
 
   // `?mode=video` 직접 진입 → RewardScreen autoOpenVideo로 iframe 모달 띄우기
   const isVideoMode = mode === 'video';
+  const hasAnyVideo =
+    !!v2VideoId || !!v2DirectVideoUrl || (storybook ? hasVideoUrl(storybook) : false);
   useEffect(() => {
-    if (!isVideoMode || !storybook) return;
-    if (!hasVideoUrl(storybook)) return;
+    if (!isVideoMode) return;
+    if (!hasAnyVideo) return;
     setRewardOpen(true);
-  }, [isVideoMode, storybook]);
+  }, [isVideoMode, hasAnyVideo]);
 
   const onToggleLanguage = () => {
     const cur = LANG_CYCLE.indexOf(lang as 'ko' | 'en');
@@ -354,7 +382,10 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       <ViewerControls onPrev={onPrev} onNext={onNext} canPrev={canPrev} canNext={canNext} />
 
       <RewardScreen
-        storybook={storybook}
+        title={storybook.title}
+        videoId={v2VideoId ?? (storybook ? (getPrimaryVideoId(storybook) ?? undefined) : undefined)}
+        directVideoUrl={v2DirectVideoUrl}
+        hasGames={v2HasGames || (storybook ? hasGames(storybook) : false)}
         open={rewardOpen}
         autoOpenVideo={isVideoMode}
         onClose={() => setRewardOpen(false)}
