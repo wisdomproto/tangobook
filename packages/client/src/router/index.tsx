@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate, Outlet, useParams } from 'react-router-dom';
 import { ErrorBoundary } from '../components/ErrorBoundary';
+import { AppLayout } from '../components/AppLayout';
 import LibraryPage from '../pages/LibraryPage';
-import AuthorLayout, { AuthorEmptyPage } from '../pages/AuthorLayout';
 
 function EditorV2Redirect() {
   const { bid } = useParams();
@@ -62,20 +62,32 @@ export const router = createBrowserRouter([
           </ErrorBoundary>
         ),
       },
+      // v1 저작도구 — 사이드바 + EditorContent (원래 그대로)
       {
         path: 'editor',
         element: (
           <ErrorBoundary>
-            <AuthorLayout />
+            <AppLayout />
           </ErrorBoundary>
         ),
-        children: [
-          { index: true, element: <AuthorEmptyPage /> },
-          { path: ':bid', element: <EditorPageV2 /> },
-        ],
       },
-      // 구 v2 경로 alias — 기존 즐겨찾기/링크 호환
-      { path: 'editor-v2/:bid', element: <EditorV2Redirect /> },
+      {
+        path: 'editor/:bid',
+        element: (
+          <ErrorBoundary>
+            <AppLayout />
+          </ErrorBoundary>
+        ),
+      },
+      // v2 신규 저작도구 (실험적)
+      {
+        path: 'editor-v2/:bid',
+        element: (
+          <ErrorBoundary>
+            <EditorPageV2 />
+          </ErrorBoundary>
+        ),
+      },
       { path: 'editor-v2', element: <Navigate to="/library" replace /> },
       {
         path: 'viewer/:id',

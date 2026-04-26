@@ -4,7 +4,7 @@ import { useBookIndex, useCreateBook, useDeleteBook } from '..';
 import type { BookIndexEntry, StorybookType } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 
-type TypeFilter = 'all' | 'storybook' | 'phonics';
+type TypeFilter = 'storybook' | 'phonics';
 
 export function BookListSidebar() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export function BookListSidebar() {
   const createBook = useCreateBook();
   const deleteBook = useDeleteBook();
   const [search, setSearch] = useState('');
-  const [typeFilter, setTypeFilter] = useState<TypeFilter>('all');
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>('storybook');
   const [folderFilter, setFolderFilter] = useState<string | 'all'>('all');
   const [createOpen, setCreateOpen] = useState(false);
 
@@ -32,7 +32,7 @@ export function BookListSidebar() {
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     return allBooks.filter((b) => {
-      if (typeFilter !== 'all' && b.type !== typeFilter) return false;
+      if (b.type !== typeFilter) return false;
       if (folderFilter !== 'all') {
         const f = b.folder || '(폴더 없음)';
         if (f !== folderFilter) return false;
@@ -81,7 +81,7 @@ export function BookListSidebar() {
           className="w-full px-2 py-1.5 text-xs border border-ink-200 rounded-md"
         />
         <div className="flex gap-1">
-          {(['all', 'storybook', 'phonics'] as const).map((t) => (
+          {(['storybook', 'phonics'] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTypeFilter(t)}
@@ -92,7 +92,7 @@ export function BookListSidebar() {
                   : 'bg-ink-100 text-ink-700 hover:bg-ink-200'
               )}
             >
-              {t === 'all' ? '전체' : t === 'storybook' ? '동화' : '파닉스'}
+              {t === 'storybook' ? '동화' : '파닉스'}
             </button>
           ))}
         </div>
