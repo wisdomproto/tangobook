@@ -28,6 +28,8 @@ export {
   useStartLongformYouTubeUpload,
   useLinkLongformYouTubeVideo,
   useGenerateLongformYouTubeMeta,
+  useGenerateLongformCaptions,
+  useStartLongformUploadCaptions,
 } from './hooks/useLongform';
 export { useGamesList, useGame, useDeleteGame, useGenerateGame } from './hooks/useGames';
 export {
@@ -49,5 +51,7 @@ export { PageTab } from './components/PageTab';
 export { AudiobookTab } from './components/AudiobookTab';
 export { LongformTab } from './components/LongformTab';
 export { SceneEditor } from './components/SceneEditor';
+export { CaptionsModal } from './components/CaptionsModal';
+export { YouTubeUploadModal } from './components/YouTubeUploadModal';
 export { GamesTab } from './components/GamesTab';
 export { MarketingTab } from './components/MarketingTab';

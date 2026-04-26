@@ -340,6 +340,37 @@ export const generateLongformYouTubeMeta = asyncHandler(async (req, res) => {
   ok(res, result);
 });
 
+export const generateLongformCaptions = asyncHandler(async (req, res) => {
+  const { languages } = req.body as { languages?: string[] };
+  if (!Array.isArray(languages)) throw new AppError(400, 'languages array required');
+  const result = await svc.generateLongformCaptions(
+    req.params['bid'] as string,
+    req.params['projectId'] as string,
+    languages
+  );
+  ok(res, result);
+});
+
+export const startLongformUploadCaptions = asyncHandler(async (req, res) => {
+  const { languages, channelId } = req.body as { languages?: string[]; channelId?: string };
+  if (!Array.isArray(languages)) throw new AppError(400, 'languages array required');
+  const result = await svc.startLongformUploadCaptions(
+    req.params['bid'] as string,
+    req.params['projectId'] as string,
+    languages,
+    channelId
+  );
+  ok(res, result);
+});
+
+export const getLongformCaptionProgress = asyncHandler(async (req, res) => {
+  const progress = svc.getLongformCaptionProgress(
+    req.params['bid'] as string,
+    req.params['projectId'] as string
+  );
+  ok(res, progress);
+});
+
 // ────────────────────────────────────────────────────────────────────────────
 // Games
 // ────────────────────────────────────────────────────────────────────────────

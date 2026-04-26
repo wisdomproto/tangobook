@@ -267,6 +267,47 @@ export const bookV2Api = {
       >(`/v2/books/${bid}/longform/${projectId}/youtube/generate-meta`, { prompt })
       .then((res) => (res.data as { success: true; data: YouTubeGeneratedMeta }).data),
 
+  /** POST /api/v2/books/:bid/longform/:projectId/captions/generate */
+  generateLongformCaptions: (bid: string, projectId: string, languages: string[]) =>
+    apiClient
+      .post<
+        ApiResponse<{
+          baseLang: string;
+          generatedCaptions: Record<string, { srt: string; generatedAt: string }>;
+        }>
+      >(`/v2/books/${bid}/longform/${projectId}/captions/generate`, { languages })
+      .then(
+        (res) =>
+          (
+            res.data as {
+              success: true;
+              data: {
+                baseLang: string;
+                generatedCaptions: Record<string, { srt: string; generatedAt: string }>;
+              };
+            }
+          ).data
+      ),
+
+  /** POST /api/v2/books/:bid/longform/:projectId/captions/upload */
+  startLongformUploadCaptions: (
+    bid: string,
+    projectId: string,
+    languages: string[],
+    channelId?: string
+  ) =>
+    apiClient
+      .post<
+        ApiResponse<{ ok: true }>
+      >(`/v2/books/${bid}/longform/${projectId}/captions/upload`, { languages, channelId })
+      .then((res) => (res.data as { success: true; data: { ok: true } }).data),
+
+  /** GET /api/v2/books/:bid/longform/:projectId/captions/progress */
+  getLongformCaptionProgress: (bid: string, projectId: string) =>
+    apiGet<{ progress: number; step: string; error?: string; updatedAt: number } | null>(
+      `/v2/books/${bid}/longform/${projectId}/captions/progress`
+    ),
+
   // ── Games ──────────────────────────────────────────────────────────────
 
   /** GET /api/v2/books/:bid/games?level=&lang= */

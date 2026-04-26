@@ -63,6 +63,9 @@ router.post('/:bid/longform/:projectId/youtube/upload', ctrl.startLongformYouTub
 router.get('/:bid/longform/:projectId/youtube/progress', ctrl.getLongformYouTubeProgress);
 router.post('/:bid/longform/:projectId/youtube/link', ctrl.linkLongformYouTubeVideo);
 router.post('/:bid/longform/:projectId/youtube/generate-meta', ctrl.generateLongformYouTubeMeta);
+router.post('/:bid/longform/:projectId/captions/generate', ctrl.generateLongformCaptions);
+router.post('/:bid/longform/:projectId/captions/upload', ctrl.startLongformUploadCaptions);
+router.get('/:bid/longform/:projectId/captions/progress', ctrl.getLongformCaptionProgress);
 
 // Games
 router.get('/:bid/games', ctrl.listGames);

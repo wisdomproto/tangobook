@@ -121,3 +121,28 @@ export function useGenerateLongformYouTubeMeta(bid: string) {
       bookV2Api.generateLongformYouTubeMeta(bid, projectId, prompt),
   });
 }
+
+export function useGenerateLongformCaptions(bid: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ projectId, languages }: { projectId: string; languages: string[] }) =>
+      bookV2Api.generateLongformCaptions(bid, projectId, languages),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['book-v2', 'longform', bid] });
+    },
+  });
+}
+
+export function useStartLongformUploadCaptions(bid: string) {
+  return useMutation({
+    mutationFn: ({
+      projectId,
+      languages,
+      channelId,
+    }: {
+      projectId: string;
+      languages: string[];
+      channelId?: string;
+    }) => bookV2Api.startLongformUploadCaptions(bid, projectId, languages, channelId),
+  });
+}

@@ -60,6 +60,8 @@ import { generateLongform } from '../providers/longform.provider.js';
 import type { LongformRenderOptions } from '../providers/longform.provider.js';
 import { YouTubeProvider } from '../providers/youtube.provider.js';
 import { parseYouTubeVideoId } from '../utils/youtube-url.js';
+import { generateLongformSrt } from '../utils/srt-generator.js';
+import { translateSrt } from '../utils/srt-translator.js';
 import { promisify } from 'util';
 import { execFile } from 'child_process';
 import { buildAudiobookRenderDataV2 } from '../utils/book-v2-audiobook-render.js';
@@ -1455,6 +1457,191 @@ export async function linkLongformYouTubeVideo(
     ownerConnected: !!meta.ownedByChannelId,
     channelTitle: meta.channelTitle,
   };
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Longform Captions (SRT 생성/번역/YT 업로드)
+// ────────────────────────────────────────────────────────────────────────────
+
+export interface GeneratedCaptionV2 {
+  srt: string;
+  generatedAt: string;
+}
+
+interface LongformCaptionsCache {
+  generatedCaptions?: Record<string, GeneratedCaptionV2>;
+  captionsUploaded?: string[];
+  captionsFailed?: { lang: string; error: string }[];
+}
+
+const longformCaptionProgress = new Map<string, LongformYouTubeProgress>();
+
+function captionProgressKey(bid: string, projectId: string): string {
+  return `${bid}:${projectId}`;
+}
+
+function setCaptionProgress(
+  bid: string,
+  projectId: string,
+  p: Omit<LongformYouTubeProgress, 'updatedAt'>
+): void {
+  longformCaptionProgress.set(captionProgressKey(bid, projectId), {
+    ...p,
+    updatedAt: Date.now(),
+  });
+}
+
+function clearCaptionProgressLater(bid: string, projectId: string, ms: number): void {
+  setTimeout(() => longformCaptionProgress.delete(captionProgressKey(bid, projectId)), ms);
+}
+
+export function getLongformCaptionProgress(
+  bid: string,
+  projectId: string
+): LongformYouTubeProgress | null {
+  return longformCaptionProgress.get(captionProgressKey(bid, projectId)) ?? null;
+}
+
+/** SRT 생성 (base lang) + 다른 언어 번역. project.generatedCaptions에 저장. */
+export async function generateLongformCaptions(
+  bid: string,
+  projectId: string,
+  languages: string[]
+): Promise<{ baseLang: string; generatedCaptions: Record<string, GeneratedCaptionV2> }> {
+  const project = await getLongform(bid, projectId);
+
+  const baseLang = project.language || 'ko';
+  // v1 LongformScene과 v2의 scenes는 구조 동일 — 직접 재사용
+  const baseSrt = generateLongformSrt(project.scenes as Parameters<typeof generateLongformSrt>[0]);
+  if (!baseSrt.trim()) {
+    throw new AppError(400, '자막으로 변환할 텍스트가 없습니다.');
+  }
+
+  const cache = (project as LongformCaptionsCache).generatedCaptions ?? {};
+  const now = new Date().toISOString();
+  const generated: Record<string, GeneratedCaptionV2> = {
+    ...cache,
+    [baseLang]: { srt: baseSrt, generatedAt: now },
+  };
+
+  for (const lang of languages) {
+    if (lang === baseLang) continue;
+    const translated = await translateSrt(baseSrt, baseLang, lang);
+    generated[lang] = { srt: translated, generatedAt: new Date().toISOString() };
+  }
+
+  await saveLongform(bid, projectId, {
+    generatedCaptions: generated,
+  } as Partial<LongformProjectV2>);
+  return { baseLang, generatedCaptions: generated };
+}
+
+/** YouTube에 자막 업로드 (fire-and-forget + 진행률) */
+export async function startLongformUploadCaptions(
+  bid: string,
+  projectId: string,
+  languages: string[],
+  explicitChannelId?: string
+): Promise<{ ok: true }> {
+  const project = await getLongform(bid, projectId);
+  const videoId = project.youtubeVideoId;
+  if (!videoId) {
+    throw new AppError(400, 'YouTube에 업로드된 영상이 없습니다.');
+  }
+  const cache = (project as LongformCaptionsCache).generatedCaptions ?? {};
+  if (Object.keys(cache).length === 0) {
+    throw new AppError(400, '먼저 SRT를 생성하세요.');
+  }
+  const targetLangs = languages.filter((l) => cache[l]);
+  if (targetLangs.length === 0) {
+    throw new AppError(400, '업로드할 언어의 SRT가 생성되어 있지 않습니다.');
+  }
+
+  const existing = longformCaptionProgress.get(captionProgressKey(bid, projectId));
+  if (existing && existing.progress >= 0 && existing.progress < 100) {
+    throw new AppError(409, '이미 자막 업로드가 진행 중입니다.');
+  }
+
+  setCaptionProgress(bid, projectId, { progress: 0, step: '자막 업로드 시작' });
+
+  void runUploadCaptions(bid, projectId, targetLangs, cache, videoId, explicitChannelId).catch(
+    (err: unknown) => {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error('[book-v2 captions] upload failed:', msg);
+      setCaptionProgress(bid, projectId, { progress: -1, step: '실패', error: msg });
+      clearCaptionProgressLater(bid, projectId, 60_000);
+    }
+  );
+
+  return { ok: true };
+}
+
+async function runUploadCaptions(
+  bid: string,
+  projectId: string,
+  targetLangs: string[],
+  cache: Record<string, GeneratedCaptionV2>,
+  videoId: string,
+  explicitChannelId?: string
+): Promise<void> {
+  // Channel 우선순위: 저장된 channelId → 명시 → 자동 탐지
+  const project = await getLongform(bid, projectId);
+  let effectiveChannelId = project.channelId ?? explicitChannelId;
+  if (!effectiveChannelId) {
+    const found = await YouTubeProvider.findChannelIdForVideo(videoId);
+    if (found) {
+      effectiveChannelId = found;
+      await saveLongform(bid, projectId, { channelId: found });
+    }
+  }
+
+  const totalSteps = targetLangs.length;
+  const uploaded: string[] = [];
+  const failed: { lang: string; error: string }[] = [];
+
+  for (let i = 0; i < targetLangs.length; i++) {
+    const lang = targetLangs[i];
+    setCaptionProgress(bid, projectId, {
+      progress: Math.round(((i + 1) / totalSteps) * 100),
+      step: `${lang} 자막 업로드 중`,
+    });
+    try {
+      await YouTubeProvider.uploadCaption(
+        videoId,
+        lang,
+        cache[lang].srt,
+        undefined,
+        effectiveChannelId
+      );
+      uploaded.push(lang);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.warn(`[book-v2 captions] failed for ${lang}:`, err);
+      failed.push({ lang, error: msg });
+    }
+  }
+
+  await saveLongform(bid, projectId, {
+    captionsUploaded: uploaded,
+    captionsFailed: failed.length > 0 ? failed : undefined,
+  } as Partial<LongformProjectV2>);
+
+  if (uploaded.length === 0 && failed.length > 0) {
+    const summary = failed.map((f) => `${f.lang}: ${f.error}`).join(' | ');
+    setCaptionProgress(bid, projectId, {
+      progress: -1,
+      step: `모든 자막 업로드 실패 — ${summary}`,
+    });
+    clearCaptionProgressLater(bid, projectId, 60_000);
+    return;
+  }
+
+  const step =
+    failed.length > 0
+      ? `완료 (${uploaded.length} 성공, ${failed.length} 실패: ${failed.map((f) => f.lang).join(', ')})`
+      : '자막 업로드 완료';
+  setCaptionProgress(bid, projectId, { progress: 100, step });
+  clearCaptionProgressLater(bid, projectId, 30_000);
 }
 
 // ────────────────────────────────────────────────────────────────────────────

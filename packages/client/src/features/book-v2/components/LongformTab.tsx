@@ -11,6 +11,7 @@ import { bookV2Api } from '../api/book-v2.api';
 import { CreateLongformModal } from './CreateLongformModal';
 import { SceneEditor } from './SceneEditor';
 import { YouTubeUploadModal } from './YouTubeUploadModal';
+import { CaptionsModal } from './CaptionsModal';
 import type { BookManifest, LongformProjectV2 } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 
@@ -293,6 +294,7 @@ function ProjectCard({
 }) {
   const [editingSceneId, setEditingSceneId] = useState<string | null>(null);
   const [ytOpen, setYtOpen] = useState(false);
+  const [captionsOpen, setCaptionsOpen] = useState(false);
   const inProgress =
     analyzeProgress && analyzeProgress.progress >= 0 && analyzeProgress.progress < 100;
   const totalScenes = project.scenes.length;
@@ -540,6 +542,21 @@ function ProjectCard({
             onClose={() => setYtOpen(false)}
           />
 
+          <CaptionsModal
+            bid={bid}
+            projectId={project.id}
+            hasYouTubeVideo={!!project.youtubeVideoId}
+            generatedLanguages={Object.keys(
+              (project as { generatedCaptions?: Record<string, unknown> }).generatedCaptions ?? {}
+            )}
+            uploadedLanguages={
+              ((project as { captionsUploaded?: string[] }).captionsUploaded ?? []) as string[]
+            }
+            baseLang={project.language}
+            open={captionsOpen}
+            onClose={() => setCaptionsOpen(false)}
+          />
+
           <div className="flex justify-end gap-2 pt-2 flex-wrap">
             <button
               onClick={() => setYtOpen(true)}
@@ -559,6 +576,19 @@ function ProjectCard({
               }
             >
               📺 {project.youtubeVideoId ? 'YT 업로드됨' : 'YouTube'}
+            </button>
+            <button
+              onClick={() => setCaptionsOpen(true)}
+              disabled={inProgress}
+              className={cn(
+                'px-3 py-1.5 rounded-md font-bold text-xs',
+                inProgress
+                  ? 'bg-ink-100 text-ink-300 cursor-not-allowed'
+                  : 'bg-peach-100 text-coral-700 hover:bg-peach-200'
+              )}
+              title="SRT 생성 + YouTube 자막 업로드"
+            >
+              📝 자막
             </button>
             {(() => {
               const readyClips = project.scenes.filter((s) => s.clipUrl).length;
