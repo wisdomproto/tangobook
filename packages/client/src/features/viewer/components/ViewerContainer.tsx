@@ -308,7 +308,9 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
 
   // 게임 모드 → GameListViewer
   if (mode === 'games') {
-    return <GameListViewer storybook={storybook} />;
+    return (
+      <GameListViewer storybook={storybook} bid={storybookId} v2Style={v2Style ?? undefined} />
+    );
   }
 
   // 파닉스 콘텐츠 → PhonicsViewer (story 모드는 일반 동화책 뷰어 재사용)

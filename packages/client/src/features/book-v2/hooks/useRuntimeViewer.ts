@@ -15,3 +15,11 @@ export function useRuntimeViewer(bid: string, filter: ViewerRuntimeFilter | null
     enabled: !!bid && !!filter,
   });
 }
+
+export function useRuntimeGame(bid: string, gameId: string | null, style: string | null) {
+  return useQuery({
+    queryKey: ['book-v2', 'runtime-game', bid, gameId, style],
+    queryFn: () => bookV2Api.getRuntimeGame(bid, gameId!, style!),
+    enabled: !!bid && !!gameId && !!style,
+  });
+}

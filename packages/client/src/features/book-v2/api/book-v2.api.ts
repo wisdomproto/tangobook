@@ -312,6 +312,19 @@ export const bookV2Api = {
 
   // ── Runtime payloads (학습자) ────────────────────────────────────────────
 
+  /** GET /api/v2/books/:bid/runtime/game/:gameId?style= */
+  getRuntimeGame: (bid: string, gameId: string, style: string) =>
+    apiGet<{
+      instance: BookGameInstance;
+      resolvedImages: {
+        ref: { kind: 'keyObj' | 'vocab' | 'page'; refId: string };
+        url?: string;
+        warning?: string;
+      }[];
+      refText: Record<string, { word: string; korean?: string; definition?: string }>;
+      warnings: string[];
+    }>(`/v2/books/${bid}/runtime/game/${gameId}?style=${encodeURIComponent(style)}`),
+
   /** GET /api/v2/books/:bid/runtime/viewer?level=&lang=&style= */
   getRuntimeViewer: (bid: string, level: ReadingLevel, language: string, style: string) =>
     apiGet<{
