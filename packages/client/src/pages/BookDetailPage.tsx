@@ -15,12 +15,14 @@ const LANG_LABEL: Record<string, { flag: string; name: string }> = {
   ja: { flag: '🇯🇵', name: '日本語' },
 };
 
-const LEVEL_LABEL: Record<ReadingLevel, string> = {
-  L1: '씨앗',
-  L2: '새싹',
-  L3: '나무',
-  L4: '숲',
+const LEVEL_INFO: Record<ReadingLevel, { label: string; age: string }> = {
+  L1: { label: '씨앗', age: '3~4세' },
+  L2: { label: '새싹', age: '4~5세' },
+  L3: { label: '나무', age: '5~6세' },
+  L4: { label: '숲', age: '6~7세' },
 };
+
+const LEVEL_ORDER: ReadingLevel[] = ['L1', 'L2', 'L3', 'L4'];
 
 export default function BookDetailPage() {
   const { id = '' } = useParams();
@@ -88,7 +90,9 @@ export default function BookDetailPage() {
   }
 
   const languages = manifest.usedVariants.languages;
-  const levels = manifest.usedVariants.levels;
+  const levels = [...manifest.usedVariants.levels].sort(
+    (a, b) => LEVEL_ORDER.indexOf(a) - LEVEL_ORDER.indexOf(b)
+  );
   const styles = manifest.usedVariants.styles;
 
   // 효과 레벨/스타일 (URL params에 전달용)
@@ -167,7 +171,7 @@ export default function BookDetailPage() {
               {[
                 manifest.category && `🏷️ ${manifest.category}`,
                 levels.length > 0 &&
-                  `📂 ${levels.map((lv) => `${lv} ${LEVEL_LABEL[lv]}`).join(' · ')}`,
+                  `📂 ${levels.map((lv) => `${lv} ${LEVEL_INFO[lv].label}(${LEVEL_INFO[lv].age})`).join(' · ')}`,
                 styles.length > 0 && `🎨 ${styles.join(', ')}`,
                 manifest.type === 'phonics' ? '🔤 파닉스' : '📖 동화책',
               ]
@@ -230,14 +234,17 @@ export default function BookDetailPage() {
                   key={lv}
                   onClick={() => setSelectedLevel(lv)}
                   className={cn(
-                    'px-5 py-3 rounded-md font-bold flex gap-2 items-center transition-all',
+                    'px-5 py-3 rounded-md font-bold flex flex-col items-center gap-0.5 transition-all min-w-[88px]',
                     effectiveLevel === lv
                       ? 'bg-coral-400 text-white shadow-soft'
                       : 'bg-white text-ink-700'
                   )}
                 >
-                  <span className="font-mono">{lv}</span>
-                  <span className="text-xs opacity-80">{LEVEL_LABEL[lv]}</span>
+                  <span className="flex gap-1.5 items-baseline">
+                    <span className="font-mono">{lv}</span>
+                    <span className="text-sm">{LEVEL_INFO[lv].label}</span>
+                  </span>
+                  <span className="text-[10px] opacity-70 font-bold">👶 {LEVEL_INFO[lv].age}</span>
                 </button>
               ))}
             </div>
