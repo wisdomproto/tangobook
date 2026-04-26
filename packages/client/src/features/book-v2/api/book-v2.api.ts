@@ -310,6 +310,33 @@ export const bookV2Api = {
 
   // ── Games ──────────────────────────────────────────────────────────────
 
+  // ── Runtime payloads (학습자) ────────────────────────────────────────────
+
+  /** GET /api/v2/books/:bid/runtime/viewer?level=&lang=&style= */
+  getRuntimeViewer: (bid: string, level: ReadingLevel, language: string, style: string) =>
+    apiGet<{
+      bid: string;
+      level: ReadingLevel;
+      language: string;
+      style: string;
+      title: string;
+      intro?: string;
+      parentGuide?: import('@tangobook/shared').ParentGuide;
+      bgmUrl?: string;
+      coverImageUrl?: string;
+      pages: {
+        pageNumber: number;
+        text: string;
+        illustrationKey: string;
+        illustrationUrl?: string;
+        ttsUrl?: string;
+        sceneDescription?: string;
+      }[];
+      warnings: string[];
+    }>(
+      `/v2/books/${bid}/runtime/viewer?level=${level}&lang=${encodeURIComponent(language)}&style=${encodeURIComponent(style)}`
+    ),
+
   /** GET /api/v2/books/:bid/games?level=&lang= */
   listGames: (bid: string, filter?: { level?: ReadingLevel; language?: string }) => {
     const qs = new URLSearchParams();

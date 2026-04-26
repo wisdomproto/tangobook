@@ -32,6 +32,7 @@ export {
   useStartLongformUploadCaptions,
 } from './hooks/useLongform';
 export { useGamesList, useGame, useDeleteGame, useGenerateGame } from './hooks/useGames';
+export { useRuntimeViewer } from './hooks/useRuntimeViewer';
 export {
   useBlogList,
   useBlogPost,

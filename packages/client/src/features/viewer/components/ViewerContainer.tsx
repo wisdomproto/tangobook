@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStorybook } from '@/features/storybook';
+import { useBookManifest, useRuntimeViewer } from '@/features/book-v2';
 import { Mascot } from '@/components/Mascot';
 import { StateScreen } from '@/components/StateScreen';
 import { cn } from '@/lib/cn';
@@ -32,10 +33,57 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const [sp, setSp] = useSearchParams();
   const mode = sp.get('mode');
 
-  const { data: storybook, isLoading, error } = useStorybook(storybookId);
+  const { data: v1Storybook, isLoading, error } = useStorybook(storybookId);
   const [settings, updateSettings] = useViewerSettings();
 
   const lang = (sp.get('lang') ?? settings.language) as LangCode;
+
+  // v2 manifest 시도 (있으면 pages/cover/title을 v2로 override)
+  const { data: v2Manifest } = useBookManifest(storybookId);
+  // 선호: launchLevel(원본 저작 레벨) → 없으면 usedVariants 첫 항목
+  const v2Level =
+    v2Manifest?.curriculumMeta?.launchLevel &&
+    v2Manifest.usedVariants.levels.includes(v2Manifest.curriculumMeta.launchLevel)
+      ? v2Manifest.curriculumMeta.launchLevel
+      : v2Manifest?.usedVariants.levels[0];
+  const v2Style = v2Manifest?.usedVariants.styles[0];
+  const v2Filter =
+    v2Level && v2Style
+      ? { level: v2Level, language: lang === 'en' ? 'en' : 'ko', style: v2Style }
+      : null;
+  const { data: v2Payload } = useRuntimeViewer(storybookId ?? '', v2Filter);
+
+  // v2 payload가 있으면 v1 storybook의 pages/cover/title/parentGuide를 덮어씀
+  // (v1 R2 정리 시점까지 audiobookProjects/longformProjects/games 등은 v1에서 그대로 사용)
+  const storybook = useMemo(() => {
+    if (!v1Storybook) return v1Storybook;
+    if (!v2Payload) return v1Storybook;
+    // v1의 페이지를 base로 두고 v2 데이터만 덮어쓴다 (scene_structure 등 v1 필수 필드 보존).
+    const v1PagesByNumber = new Map(v1Storybook.pages.map((p) => [p.pageNumber, p]));
+    const mergedPages = v2Payload.pages.map((vp) => {
+      const v1Page = v1PagesByNumber.get(vp.pageNumber);
+      if (!v1Page) return null;
+      return {
+        ...v1Page,
+        text: vp.text,
+        illustrationUrl: vp.illustrationUrl ?? v1Page.illustrationUrl,
+        ttsUrl: vp.ttsUrl ?? v1Page.ttsUrl,
+        scene_description: vp.sceneDescription ?? v1Page.scene_description,
+        // translations은 v2가 lang별로 미리 fetch됐으므로 비움 → getPageText는 page.text로 fallback
+        translations: undefined,
+      };
+    });
+    const validPages = mergedPages.filter((p): p is NonNullable<typeof p> => p !== null);
+    if (validPages.length === 0) return v1Storybook;
+    return {
+      ...v1Storybook,
+      title: v2Payload.title || v1Storybook.title,
+      coverImage: v2Payload.coverImageUrl ?? v1Storybook.coverImage,
+      backgroundMusicUrl: v2Payload.bgmUrl ?? v1Storybook.backgroundMusicUrl,
+      parentGuide: v2Payload.parentGuide ?? v1Storybook.parentGuide,
+      pages: validPages,
+    };
+  }, [v1Storybook, v2Payload]);
 
   const [pageIndex, setPageIndex] = useState(0);
   const [direction, setDirection] = useState(1);
