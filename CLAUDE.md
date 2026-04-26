@@ -386,7 +386,7 @@ pnpm --filter shared build
 | 🎨 스타일 | ✓ | 4종 이미지 업로드 | 3b-5 |
 | 🖼️ 페이지 | ✓ | — | 3b-6 |
 | 🎧 오디오북 | ✓ | **실 Remotion 렌더 + 진행률** | 3b-7a/b |
-| 🎬 동영상 | ✓ | **AI 분석 (Gemini) + 클립 생성 (Grok)** | 3b-7c-i/ii/iii |
+| 🎬 동영상 | ✓ | **AI 분석 + 클립 생성 + 씬 편집 + 최종 렌더 (end-to-end)** | 3b-7c-i~v |
 | 📰 마케팅 | ✓ | (블로그/카드뉴스 stub) | 3b-7d-i |
 | 🎮 게임 | ✓ | **line-matching generate** | 3b-7e-i/ii |
 
@@ -406,11 +406,13 @@ pnpm --filter shared build
 ### 오디오북 실 렌더 (Phase 3b-7b-ii)
 fire-and-forget, 1.5s 폴링. taskId = `${L}.${lang}.${style}`. 동일 variant 진행 중 거부.
 
-### 동영상 흐름 (Phase 3b-7c-i/ii/iii)
+### 동영상 end-to-end 흐름 (Phase 3b-7c-i~v)
 1. **신규 프로젝트**: `+ 새 동영상 만들기` 모달 → variant 수동 선택 → textSlice 페이지 수만큼 빈 scene 시드
 2. **🤖 AI 분석**: Gemini로 페이지별 videoPrompt + clipDuration + subtitles
 3. **🎬 클립 생성**: 씬 단위 Grok image-to-video. 페이지 이미지를 first frame으로. SFX 자동 추출.
-4. (다음 sprint) Timeline edit + 최종 render + YouTube
+4. **✏️ 씬 편집** (SceneEditor): 트림 (trimStart/trimEnd), SFX/TTS 볼륨/오프셋, 자막 list 인라인 편집
+5. **🎞️ 최종 렌더**: Python `generate_longform.py` + ffmpeg 파이프라인 (재사용 v1 provider). 진행률 폴링. R2 업로드 후 project.videoUrl 저장. Project Card에 video 미리보기.
+6. (다음 sprint) YouTube 업로드
 
 ### 게임 generate (Phase 3b-7e-ii)
 현재 지원: `korean-line-matching`, `english-line-matching`. textSlice.keyObjectsText에서 후보 추출 → BookGameInstance.imageRefs로 keyObjId 보존 → 런타임에 활성 style의 keyObjectImages 머지.
@@ -433,9 +435,8 @@ fire-and-forget, 1.5s 폴링. taskId = `${L}.${lang}.${style}`. 동일 variant �
 - `/viewer/:id?lang=...` (뷰어, 아직 v1 fetch)
 
 ### 남은 follow-up sprints
-- 3b-7c-iv Timeline editor (큰 sprint)
-- 3b-7c-v 최종 렌더 + YouTube (큰 sprint)
-- 3b-7e-iii+ 다른 게임 타입 generate 점진 포팅
+- 3b-7c-vi YouTube 업로드 (v1 youtube.provider 재사용 가능, 중간 사이즈)
+- 3b-7e-iii+ 다른 게임 타입 generate 점진 포팅 (blocks/word-writing 등)
 - 3b-8-iii Viewer v2 (v1 deprecation, 매우 큰 sprint)
 - 3b-7d-ii 마케팅 generate (사용자 보류)
 
