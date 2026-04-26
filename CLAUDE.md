@@ -396,6 +396,7 @@ pnpm --filter shared build
 - BookDetailPage v2 manifest 기반 재작성 (✏️ 편집 버튼 추가)
 - **Viewer 메인 읽기 모드 v2** (useRuntimeViewer 어댑터, level=launchLevel 우선, 페이지/표지/제목/parentGuide v2 R2 prefix에서 직접)
 - **Viewer RewardScreen v2** (props 기반: videoId/directVideoUrl/hasGames/title, v2 audiobookRenders/longformList/gamesList 우선 + v1 fallback)
+- **Viewer GameListViewer v2** (v2 게임 있으면 우선 표시 + 헤더 "· v2" 마커 + L1~L4 뱃지, 클릭 시 useRuntimeGame으로 머지된 imageUrl inject. line-matching 우선 지원)
 - 파닉스 결정 (2026-04-26): A안 — v1 유지 (데이터 모델 다름, 양 적음, 실제 데이터는 v1 storybook에)
 
 ### 인프라
@@ -439,8 +440,7 @@ fire-and-forget, 1.5s 폴링. taskId = `${L}.${lang}.${style}`. 동일 variant �
 - `/viewer/:id?lang=...` (뷰어, 아직 v1 fetch)
 
 ### 남은 follow-up sprints
-- 3b-7e-iii+ 다른 게임 타입 generate 점진 포팅 (blocks/word-writing 등)
-- 3b-8-v GameListViewer v2 (BookGameInstance imageRefs 머지 — 별도 sprint)
+- 3b-7e-iii+ 다른 게임 타입 generate 점진 포팅 (blocks/word-writing 등 — 각 1-2시간)
 - 3b-7d-ii 마케팅 generate (사용자 보류)
 
 상세: `memory/book-variants-v2.md` · 스펙: `docs/superpowers/specs/2026-04-25-book-variants-design.md` · 플랜: `docs/superpowers/plans/2026-04-25-book-variants-plan.md`
