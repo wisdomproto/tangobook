@@ -37,6 +37,14 @@ router.post(
   ctrl.uploadPageImage
 );
 
+// AI 이미지 생성 (Gemini → v2 R2 path)
+router.post('/:bid/styles/:style/generate-cover', ctrl.generateStyleCover);
+router.post(
+  '/:bid/styles/:style/generate-page/:level/:illustrationKey',
+  ctrl.generateStylePageImage
+);
+router.post('/:bid/styles/:style/generate-character', ctrl.generateStyleCharacter);
+
 // Audiobook
 router.get('/:bid/audiobook', ctrl.getAudiobookProject);
 router.put('/:bid/audiobook', ctrl.saveAudiobookProject);

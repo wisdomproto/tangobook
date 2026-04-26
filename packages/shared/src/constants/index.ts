@@ -16,6 +16,12 @@ export const ART_STYLES = [
     prompt:
       'Paper craft, layered cut paper sculpture style with kraft paper textures and visible 3D depth',
   },
+  {
+    id: 'pixar-3d',
+    label: '3D 픽사',
+    prompt:
+      '3D Pixar animation style, cinematic CG, soft volumetric lighting, expressive characters, vibrant colors, photorealistic textures',
+  },
 ] as const;
 
 export const ASPECT_RATIOS = ['16:9', '9:16', '4:3', '3:4', '3:2', '2:3', '1:1'] as const;

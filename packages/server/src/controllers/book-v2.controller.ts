@@ -192,6 +192,48 @@ export const uploadPageImage = asyncHandler(async (req, res) => {
   ok(res, result);
 });
 
+// ── Style 이미지 AI 생성 ────────────────────────────────────────────
+
+export const generateStyleCover = asyncHandler(async (req, res) => {
+  const { coverPrompt } = req.body as { coverPrompt?: string };
+  const result = await svc.generateStyleCover({
+    bid: req.params['bid'] as string,
+    style: req.params['style'] as string,
+    coverPrompt,
+  });
+  ok(res, result);
+});
+
+export const generateStylePageImage = asyncHandler(async (req, res) => {
+  const { language, pageNumber } = req.body as { language?: string; pageNumber?: number };
+  if (!language || typeof pageNumber !== 'number') {
+    throw new AppError(400, 'language + pageNumber required');
+  }
+  const level = validLevel(req.params['level']);
+  const result = await svc.generateStylePageImage({
+    bid: req.params['bid'] as string,
+    style: req.params['style'] as string,
+    level,
+    language,
+    illustrationKey: req.params['illustrationKey'] as string,
+    pageNumber,
+  });
+  ok(res, result);
+});
+
+export const generateStyleCharacter = asyncHandler(async (req, res) => {
+  const { character } = req.body as {
+    character?: import('@tangobook/shared').Character;
+  };
+  if (!character?.name) throw new AppError(400, 'character.name required');
+  const result = await svc.generateStyleCharacter({
+    bid: req.params['bid'] as string,
+    style: req.params['style'] as string,
+    character,
+  });
+  ok(res, result);
+});
+
 // ────────────────────────────────────────────────────────────────────────────
 // Longform
 // ────────────────────────────────────────────────────────────────────────────

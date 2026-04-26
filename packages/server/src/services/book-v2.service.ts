@@ -62,6 +62,7 @@ import { YouTubeProvider } from '../providers/youtube.provider.js';
 import { parseYouTubeVideoId } from '../utils/youtube-url.js';
 import { generateLongformSrt } from '../utils/srt-generator.js';
 import { translateSrt } from '../utils/srt-translator.js';
+import { ImageService } from './image.service.js';
 import { promisify } from 'util';
 import { execFile } from 'child_process';
 import { buildAudiobookRenderDataV2 } from '../utils/book-v2-audiobook-render.js';
@@ -85,6 +86,7 @@ import type {
   ReadingLevel,
   YouTubeUploadMeta,
   YouTubeGeneratedMeta,
+  Character,
   UsedVariants,
   CurriculumMeta,
   ParentGuide,
@@ -310,6 +312,149 @@ export async function uploadStyleImage(opts: UploadStyleAssetInput): Promise<{ u
     await patchVariants(opts.bid, { addLevels: [opts.level] });
   }
   return { url };
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Style 이미지 AI 생성 (Gemini → v2 R2 path)
+// v1 ImageService는 v1 R2 path에 저장하고 URL 반환 — fetch 후 v2 path로 재업로드
+// ────────────────────────────────────────────────────────────────────────────
+
+async function urlToBuffer(url: string): Promise<Buffer> {
+  const res = await fetch(url);
+  if (!res.ok) throw new AppError(500, `이미지 다운로드 실패: ${res.status}`);
+  return Buffer.from(await res.arrayBuffer());
+}
+
+export interface GenerateStyleCoverInput {
+  bid: string;
+  style: string;
+  coverPrompt?: string;
+}
+
+export async function generateStyleCover(input: GenerateStyleCoverInput): Promise<{ url: string }> {
+  const manifest = await getBook(input.bid);
+  const styleEntry = (await import('@tangobook/shared')).ART_STYLES.find(
+    (s) => s.id === input.style
+  );
+  if (!styleEntry) throw new AppError(400, `unknown style: ${input.style}`);
+
+  // 기존 캐릭터 슬라이스가 있으면 reference로 사용
+  const styleSlice = await getStyleSlice(input.bid, input.style);
+  const characters = styleSlice?.characters ?? [];
+
+  const v1Url = await ImageService.generateCover({
+    storybook: {
+      title: manifest.title,
+      coverPrompt: input.coverPrompt,
+      artStyle: input.style,
+    },
+    characterReferences: characters as (Character & { referenceImage?: string })[],
+  });
+
+  // v1 path → fetch → v2 path
+  const buffer = await urlToBuffer(v1Url);
+  const url = await uploadStyleAssetToR2({
+    bid: input.bid,
+    style: input.style,
+    kind: 'cover',
+    imageBuffer: buffer,
+  });
+  if (!manifest.usedVariants.styles.includes(input.style)) {
+    await patchVariants(input.bid, { addStyles: [input.style] });
+  }
+  return { url };
+}
+
+export interface GenerateStylePageImageInput {
+  bid: string;
+  style: string;
+  level: ReadingLevel;
+  language: string;
+  illustrationKey: string; // p1, p2, ...
+  pageNumber: number;
+}
+
+/** textSlice에서 page 객체 만들어 v1 generateIllustration 호출 + v2 path 저장 */
+export async function generateStylePageImage(
+  input: GenerateStylePageImageInput
+): Promise<{ url: string }> {
+  const manifest = await getBook(input.bid);
+  const ts = await getTextSlice(input.bid, input.level, input.language);
+  if (!ts) throw new AppError(400, `text slice not found: ${input.level}/${input.language}`);
+  const targetPage = ts.pages.find((p) => p.illustrationKey === input.illustrationKey);
+  if (!targetPage) {
+    throw new AppError(400, `page not found in text slice: ${input.illustrationKey}`);
+  }
+
+  // v1 IllustrationRequest의 page 객체 조립 (필수 필드만)
+  const v1Page = {
+    pageNumber: targetPage.pageNumber,
+    text: targetPage.text,
+    scene_description: targetPage.sceneDescription ?? '',
+    scene_structure: { characters: '' },
+  } as Parameters<typeof ImageService.generateIllustration>[0]['page'];
+
+  const styleSlice = await getStyleSlice(input.bid, input.style);
+  const characters = (styleSlice?.characters ?? []) as (Character & {
+    referenceImage?: string;
+  })[];
+
+  const v1Url = await ImageService.generateIllustration({
+    page: v1Page,
+    artStyle: input.style,
+    characterReferences: characters,
+    storybookId: input.bid,
+    storybookTitle: manifest.title,
+  });
+
+  const buffer = await urlToBuffer(v1Url);
+  const url = await uploadStyleAssetToR2({
+    bid: input.bid,
+    style: input.style,
+    kind: 'page',
+    level: input.level,
+    illustrationKey: input.illustrationKey,
+    imageBuffer: buffer,
+  });
+  if (!manifest.usedVariants.styles.includes(input.style)) {
+    await patchVariants(input.bid, { addStyles: [input.style] });
+  }
+  if (!manifest.usedVariants.levels.includes(input.level)) {
+    await patchVariants(input.bid, { addLevels: [input.level] });
+  }
+  return { url };
+}
+
+export interface GenerateStyleCharacterInput {
+  bid: string;
+  style: string;
+  character: Character;
+}
+
+export async function generateStyleCharacter(
+  input: GenerateStyleCharacterInput
+): Promise<{ url: string; updatedCharacters: Character[] }> {
+  const manifest = await getBook(input.bid);
+
+  const v1Url = await ImageService.generateCharacter({
+    character: input.character,
+    artStyle: input.style,
+    storybookId: input.bid,
+    storybookTitle: manifest.title,
+  });
+
+  // 캐릭터 referenceImage URL은 v1 그대로 두되, 캐릭터 list에 등록 (이미 있으면 update)
+  const existing = await getStyleSlice(input.bid, input.style);
+  const existingChars = (existing?.characters ?? []) as Character[];
+  const idx = existingChars.findIndex((c) => c.name === input.character.name);
+  const updatedChar = { ...input.character, referenceImage: v1Url };
+  if (idx >= 0) existingChars[idx] = updatedChar;
+  else existingChars.push(updatedChar);
+  await putStyleCharacters(input.bid, input.style, existingChars as BookCharacter[]);
+  if (!manifest.usedVariants.styles.includes(input.style)) {
+    await patchVariants(input.bid, { addStyles: [input.style] });
+  }
+  return { url: v1Url, updatedCharacters: existingChars };
 }
 
 // ────────────────────────────────────────────────────────────────────────────
