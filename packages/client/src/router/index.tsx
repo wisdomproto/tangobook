@@ -69,8 +69,11 @@ export const router = createBrowserRouter([
           </ErrorBoundary>
         ),
       },
+      // /editor 단독 → 라이브러리로 (책 ID 필요)
+      { path: 'editor', element: <Navigate to="/library" replace /> },
       // 구 v2 경로 alias — 기존 즐겨찾기/링크 호환
       { path: 'editor-v2/:bid', element: <EditorV2Redirect /> },
+      { path: 'editor-v2', element: <Navigate to="/library" replace /> },
       {
         path: 'viewer/:id',
         element: (
