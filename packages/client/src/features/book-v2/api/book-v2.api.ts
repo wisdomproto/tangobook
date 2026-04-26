@@ -201,6 +201,18 @@ export const bookV2Api = {
       `/v2/books/${bid}/longform/${projectId}/scenes/${sceneId}/generate/progress`
     ),
 
+  /** POST /api/v2/books/:bid/longform/:projectId/render */
+  startLongformRender: (bid: string, projectId: string) =>
+    apiClient
+      .post<ApiResponse<{ ok: true }>>(`/v2/books/${bid}/longform/${projectId}/render`, {})
+      .then((res) => (res.data as { success: true; data: { ok: true } }).data),
+
+  /** GET /api/v2/books/:bid/longform/:projectId/render/progress */
+  getLongformRenderProgress: (bid: string, projectId: string) =>
+    apiGet<{ progress: number; step: string; error?: string; updatedAt: number } | null>(
+      `/v2/books/${bid}/longform/${projectId}/render/progress`
+    ),
+
   // ── Games ──────────────────────────────────────────────────────────────
 
   /** GET /api/v2/books/:bid/games?level=&lang= */

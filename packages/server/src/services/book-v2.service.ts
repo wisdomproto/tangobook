@@ -47,9 +47,12 @@ import {
   audioFileKey,
   longformClipKey,
   longformSfxKey,
+  longformVideoKey,
 } from '../utils/book-v2-keys.js';
 import { GrokProvider } from '../providers/grok.provider.js';
-import { uploadBufferToR2 } from '../providers/r2.provider.js';
+import { uploadBufferToR2, deleteFromR2, urlToR2Key } from '../providers/r2.provider.js';
+import { generateLongform } from '../providers/longform.provider.js';
+import type { LongformRenderOptions } from '../providers/longform.provider.js';
 import { promisify } from 'util';
 import { execFile } from 'child_process';
 import { buildAudiobookRenderDataV2 } from '../utils/book-v2-audiobook-render.js';
@@ -1037,6 +1040,168 @@ async function runGenerateClip(
 
     setClipProgress(input.bid, input.projectId, input.sceneId, { progress: 100, step: '완료' });
     clearClipProgressLater(input.bid, input.projectId, input.sceneId, 60_000);
+  } finally {
+    fs.rmSync(workDir, { recursive: true, force: true });
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Longform 최종 렌더 (Python script + ffmpeg, fire-and-forget)
+// ────────────────────────────────────────────────────────────────────────────
+
+export interface LongformRenderProgress {
+  progress: number; // 0~100, -1 실패
+  step: string;
+  error?: string;
+  updatedAt: number;
+}
+
+const longformRenderProgress = new Map<string, LongformRenderProgress>();
+
+function setRenderProgress(
+  bid: string,
+  projectId: string,
+  p: Omit<LongformRenderProgress, 'updatedAt'>
+): void {
+  longformRenderProgress.set(`${bid}:${projectId}`, { ...p, updatedAt: Date.now() });
+}
+
+function clearRenderProgressLater(bid: string, projectId: string, ms: number): void {
+  setTimeout(() => longformRenderProgress.delete(`${bid}:${projectId}`), ms);
+}
+
+export function getLongformRenderProgress(
+  bid: string,
+  projectId: string
+): LongformRenderProgress | null {
+  return longformRenderProgress.get(`${bid}:${projectId}`) ?? null;
+}
+
+export interface RenderLongformInput {
+  bid: string;
+  projectId: string;
+}
+
+/** 롱폼 최종 렌더 시작 (fire-and-forget). 모든 씬 클립 + 자막 + SFX/TTS/BGM → MP4. */
+export async function startLongformRender(input: RenderLongformInput): Promise<{ ok: true }> {
+  const project = await getLongform(input.bid, input.projectId);
+  if (project.scenes.length === 0) {
+    throw new AppError(400, '장면이 없습니다. 먼저 분석을 실행하세요.');
+  }
+  const readyScenes = project.scenes.filter((s) => s.clipUrl);
+  if (readyScenes.length === 0) {
+    throw new AppError(400, '생성된 클립이 없습니다. 먼저 클립을 생성하세요.');
+  }
+
+  const existing = longformRenderProgress.get(`${input.bid}:${input.projectId}`);
+  if (existing && existing.progress >= 0 && existing.progress < 100) {
+    throw new AppError(409, '이미 렌더링이 진행 중입니다.');
+  }
+
+  setRenderProgress(input.bid, input.projectId, { progress: 0, step: '시작' });
+
+  void runLongformRender(input, project, readyScenes).catch((err: unknown) => {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('[book-v2 longform render] failed:', msg);
+    setRenderProgress(input.bid, input.projectId, { progress: -1, step: '실패', error: msg });
+    clearRenderProgressLater(input.bid, input.projectId, 60_000);
+  });
+
+  return { ok: true };
+}
+
+async function runLongformRender(
+  input: RenderLongformInput,
+  project: LongformProjectV2,
+  readyScenes: LongformProjectV2['scenes']
+): Promise<void> {
+  // 이전 렌더 결과 삭제
+  if (project.videoUrl) {
+    try {
+      await deleteFromR2(urlToR2Key(project.videoUrl));
+    } catch {
+      // 무시
+    }
+  }
+
+  const manifest = await getBook(input.bid);
+  const arRaw = manifest.aspectRatios?.illustration ?? '16:9';
+
+  // BGM은 manifest 단위 (project가 [key: string]: unknown으로 override 가능)
+  const bgmUrl = (project as { bgmUrl?: string }).bgmUrl ?? manifest.bgmUrl;
+  const bgmVolume = (project as { bgmVolume?: number }).bgmVolume ?? 30;
+
+  // 자막 스타일 — project override 아니면 default
+  const subtitleStyle = (project as { subtitleStyle?: LongformRenderOptions['subtitleStyle'] })
+    .subtitleStyle ?? {
+    fontSize: 28,
+    position: 'bottom',
+    textColor: '#ffffff',
+    outlineColor: '#000000',
+    bgColor: '#00000080',
+  };
+
+  const workDir = path.join(
+    os.tmpdir(),
+    `book-v2-longform-render-${input.bid}-${input.projectId}-${Date.now()}`
+  );
+  fs.mkdirSync(workDir, { recursive: true });
+  const outputPath = path.join(workDir, 'output.mp4');
+
+  try {
+    const renderOptions: LongformRenderOptions = {
+      scenes: readyScenes
+        .sort((a, b) => a.order - b.order)
+        .map((s) => ({
+          clipUrl: s.clipUrl!,
+          sfxUrl: s.sfxUrl,
+          sfxVolume: s.sfxVolume,
+          sfxOffset: s.sfxOffset,
+          ttsUrl: s.ttsUrl,
+          ttsVolume: s.ttsVolume,
+          ttsOffset: s.ttsOffset,
+          subtitles: s.subtitles.map((sub) => ({
+            text: sub.text,
+            startTime: sub.startTime,
+            endTime: sub.endTime,
+          })),
+          clipDuration: s.clipDuration,
+          trimStart: s.trimStart,
+          trimEnd: s.trimEnd,
+        })),
+      bgmUrl,
+      bgmVolume,
+      aspectRatio: arRaw,
+      subtitleStyle,
+      workDir,
+      outputPath,
+    };
+
+    setRenderProgress(input.bid, input.projectId, { progress: 1, step: '렌더링 준비' });
+
+    await generateLongform(
+      renderOptions,
+      (info) => {
+        // info.progress는 0~95 범위로 가정. R2 업로드 5%로 따로 표시.
+        const mapped = Math.min(94, Math.max(1, info.progress));
+        setRenderProgress(input.bid, input.projectId, { progress: mapped, step: info.step });
+      },
+      input.projectId
+    );
+
+    setRenderProgress(input.bid, input.projectId, { progress: 95, step: 'R2 업로드' });
+    const videoBuffer = fs.readFileSync(outputPath);
+    const videoUrl = await uploadBufferToR2(
+      videoBuffer,
+      longformVideoKey(input.bid, input.projectId),
+      'video/mp4'
+    );
+
+    // 프로젝트에 videoUrl 저장
+    await saveLongform(input.bid, input.projectId, { videoUrl });
+
+    setRenderProgress(input.bid, input.projectId, { progress: 100, step: '완료' });
+    clearRenderProgressLater(input.bid, input.projectId, 60_000);
   } finally {
     fs.rmSync(workDir, { recursive: true, force: true });
   }

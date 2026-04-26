@@ -24,6 +24,7 @@ export {
   useDeleteLongform,
   useStartLongformAnalyze,
   useStartGenerateClip,
+  useStartLongformRender,
 } from './hooks/useLongform';
 export { useGamesList, useGame, useDeleteGame, useGenerateGame } from './hooks/useGames';
 export {

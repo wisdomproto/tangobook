@@ -280,6 +280,22 @@ export const getGenerateClipProgress = asyncHandler(async (req, res) => {
   ok(res, progress);
 });
 
+export const startLongformRender = asyncHandler(async (req, res) => {
+  const result = await svc.startLongformRender({
+    bid: req.params['bid'] as string,
+    projectId: req.params['projectId'] as string,
+  });
+  ok(res, result);
+});
+
+export const getLongformRenderProgress = asyncHandler(async (req, res) => {
+  const progress = svc.getLongformRenderProgress(
+    req.params['bid'] as string,
+    req.params['projectId'] as string
+  );
+  ok(res, progress);
+});
+
 // ────────────────────────────────────────────────────────────────────────────
 // Games
 // ────────────────────────────────────────────────────────────────────────────

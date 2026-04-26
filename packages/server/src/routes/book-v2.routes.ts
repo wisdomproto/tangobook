@@ -57,6 +57,8 @@ router.get(
   '/:bid/longform/:projectId/scenes/:sceneId/generate/progress',
   ctrl.getGenerateClipProgress
 );
+router.post('/:bid/longform/:projectId/render', ctrl.startLongformRender);
+router.get('/:bid/longform/:projectId/render/progress', ctrl.getLongformRenderProgress);
 
 // Games
 router.get('/:bid/games', ctrl.listGames);

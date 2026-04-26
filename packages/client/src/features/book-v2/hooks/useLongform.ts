@@ -83,3 +83,9 @@ export function useStartGenerateClip(bid: string) {
       bookV2Api.startGenerateClip(bid, projectId, sceneId),
   });
 }
+
+export function useStartLongformRender(bid: string) {
+  return useMutation({
+    mutationFn: (projectId: string) => bookV2Api.startLongformRender(bid, projectId),
+  });
+}

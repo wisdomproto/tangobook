@@ -5,6 +5,7 @@ import {
   useDeleteLongform,
   useStartLongformAnalyze,
   useStartGenerateClip,
+  useStartLongformRender,
 } from '../hooks/useLongform';
 import { bookV2Api } from '../api/book-v2.api';
 import { CreateLongformModal } from './CreateLongformModal';
@@ -24,6 +25,12 @@ interface ClipProgress {
   error?: string;
 }
 
+interface RenderProgress {
+  progress: number;
+  step: string;
+  error?: string;
+}
+
 interface LongformTabProps {
   manifest: BookManifest;
 }
@@ -33,14 +40,18 @@ export function LongformTab({ manifest }: LongformTabProps) {
   const remove = useDeleteLongform(manifest.id);
   const analyze = useStartLongformAnalyze(manifest.id);
   const generateClip = useStartGenerateClip(manifest.id);
+  const renderProj = useStartLongformRender(manifest.id);
   const qc = useQueryClient();
   const [openProjectId, setOpenProjectId] = useState<string | null>(null);
   const [createOpen, setCreateOpen] = useState(false);
   const [progressMap, setProgressMap] = useState<Record<string, AnalyzeProgress>>({});
   // sceneId → progress (씬 단위 클립 생성)
   const [clipProgressMap, setClipProgressMap] = useState<Record<string, ClipProgress>>({});
+  // projectId → render progress
+  const [renderProgressMap, setRenderProgressMap] = useState<Record<string, RenderProgress>>({});
   const pollersRef = useRef<Map<string, number>>(new Map());
   const clipPollersRef = useRef<Map<string, number>>(new Map());
+  const renderPollersRef = useRef<Map<string, number>>(new Map());
 
   const handleDelete = (id: string) => {
     if (!window.confirm('이 동영상 프로젝트를 삭제할까요?')) return;
@@ -87,8 +98,52 @@ export function LongformTab({ manifest }: LongformTabProps) {
       pollersRef.current.clear();
       clipPollersRef.current.forEach((id) => window.clearTimeout(id));
       clipPollersRef.current.clear();
+      renderPollersRef.current.forEach((id) => window.clearTimeout(id));
+      renderPollersRef.current.clear();
     };
   }, []);
+
+  const startRenderPolling = (projectId: string) => {
+    const tick = async () => {
+      try {
+        const p = await bookV2Api.getLongformRenderProgress(manifest.id, projectId);
+        if (p) {
+          setRenderProgressMap((m) => ({ ...m, [projectId]: p }));
+          if (p.progress >= 100) {
+            qc.invalidateQueries({ queryKey: ['book-v2', 'longform', manifest.id] });
+            renderPollersRef.current.delete(projectId);
+            setTimeout(() => {
+              setRenderProgressMap((m) => {
+                const { [projectId]: _, ...rest } = m;
+                void _;
+                return rest;
+              });
+            }, 5000);
+            return;
+          }
+          if (p.progress < 0) {
+            renderPollersRef.current.delete(projectId);
+            return;
+          }
+        }
+        const id = window.setTimeout(tick, 2500);
+        renderPollersRef.current.set(projectId, id);
+      } catch {
+        const id = window.setTimeout(tick, 5000);
+        renderPollersRef.current.set(projectId, id);
+      }
+    };
+    tick();
+  };
+
+  const handleRender = (projectId: string) => {
+    renderProj.mutate(projectId, {
+      onSuccess: () => {
+        setRenderProgressMap((m) => ({ ...m, [projectId]: { progress: 0, step: '시작' } }));
+        startRenderPolling(projectId);
+      },
+    });
+  };
 
   const handleAnalyze = (projectId: string) => {
     analyze.mutate(
@@ -194,18 +249,17 @@ export function LongformTab({ manifest }: LongformTabProps) {
           analyzeProgress={progressMap[p.id]}
           onGenerateClip={(sceneId) => handleGenerateClip(p.id, sceneId)}
           clipProgressBySceneId={clipProgressMap}
+          onRender={() => handleRender(p.id)}
+          renderProgress={renderProgressMap[p.id]}
         />
       ))}
 
       <div className="bg-peach-50 rounded-md p-4 text-xs text-ink-700 font-bold leading-relaxed">
-        💡 <strong>다음 sprint 기능</strong>:
-        <ul className="list-disc list-inside mt-2 space-y-1 font-normal">
-          <li>3b-7c-iv — Timeline editor (trim/SFX/TTS/subtitle 편집)</li>
-          <li>3b-7c-v — 최종 렌더 + YouTube 업로드</li>
-        </ul>
-        <p className="mt-2 font-normal">
-          현재 구현됨: 🤖 AI 분석 (Gemini) + 🎬 클립 생성 (Grok image-to-video)
-        </p>
+        💡 <strong>End-to-end 동영상 흐름 완성</strong>:
+        <br />
+        🤖 AI 분석 (Gemini) → 🎬 클립 생성 (Grok i2v) → ✏️ 씬 편집 (트림/볼륨/자막) → 🎞️ 최종 렌더
+        (ffmpeg)
+        <p className="mt-2 font-normal">YouTube 업로드는 후속 sprint 예정</p>
       </div>
     </div>
   );
@@ -221,6 +275,8 @@ function ProjectCard({
   analyzeProgress,
   onGenerateClip,
   clipProgressBySceneId,
+  onRender,
+  renderProgress,
 }: {
   bid: string;
   project: LongformProjectV2;
@@ -231,6 +287,8 @@ function ProjectCard({
   analyzeProgress?: AnalyzeProgress;
   onGenerateClip: (sceneId: string) => void;
   clipProgressBySceneId: Record<string, ClipProgress>;
+  onRender: () => void;
+  renderProgress?: RenderProgress;
 }) {
   const [editingSceneId, setEditingSceneId] = useState<string | null>(null);
   const inProgress =
@@ -309,6 +367,42 @@ function ProjectCard({
               {analyzeProgress.error && (
                 <div className="text-xs text-danger font-bold whitespace-pre-line">
                   {analyzeProgress.error}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* 렌더 진행률 */}
+          {renderProgress && (
+            <div className="bg-white rounded-md p-3 space-y-2 border border-coral-300">
+              <div className="text-xs font-bold text-ink-700">
+                {renderProgress.progress < 0
+                  ? '❌ 렌더 실패'
+                  : renderProgress.progress >= 100
+                    ? '✓ 렌더 완료'
+                    : `🎞️ ${renderProgress.step} (${renderProgress.progress}%)`}
+              </div>
+              <div className="w-full bg-ink-100 rounded-full h-2 overflow-hidden">
+                <div
+                  className={cn(
+                    'h-full rounded-full transition-all',
+                    renderProgress.progress < 0
+                      ? 'bg-danger'
+                      : renderProgress.progress >= 100
+                        ? 'bg-success'
+                        : 'bg-coral-500'
+                  )}
+                  style={{
+                    width:
+                      renderProgress.progress < 0
+                        ? '100%'
+                        : `${Math.max(0, Math.min(100, renderProgress.progress))}%`,
+                  }}
+                />
+              </div>
+              {renderProgress.error && (
+                <div className="text-xs text-danger font-bold whitespace-pre-line">
+                  {renderProgress.error}
                 </div>
               )}
             </div>
@@ -399,7 +493,55 @@ function ProjectCard({
                 />
               );
             })()}
+          {/* 영상 결과 (있으면) */}
+          {project.videoUrl && (
+            <div className="bg-white rounded-md p-3 space-y-2 border border-success/30">
+              <div className="text-xs font-bold text-success">✓ 렌더된 영상</div>
+              <video
+                src={project.videoUrl}
+                controls
+                preload="metadata"
+                className="w-full rounded-md bg-black"
+              />
+              <a
+                href={project.videoUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-[11px] text-coral-600 font-bold hover:underline"
+              >
+                ▶ 새 탭에서 열기
+              </a>
+            </div>
+          )}
+
           <div className="flex justify-end gap-2 pt-2">
+            {(() => {
+              const readyClips = project.scenes.filter((s) => s.clipUrl).length;
+              const renderInProgress =
+                renderProgress && renderProgress.progress >= 0 && renderProgress.progress < 100;
+              const canRender = readyClips > 0 && !inProgress && !renderInProgress;
+              return (
+                <button
+                  onClick={onRender}
+                  disabled={!canRender}
+                  className={cn(
+                    'px-3 py-1.5 rounded-md font-black text-xs',
+                    canRender
+                      ? 'bg-success text-white hover:brightness-110'
+                      : 'bg-ink-100 text-ink-300 cursor-not-allowed'
+                  )}
+                  title={
+                    readyClips === 0
+                      ? '먼저 클립 생성'
+                      : renderInProgress
+                        ? '렌더 중...'
+                        : `최종 영상 렌더 (${readyClips}개 씬)`
+                  }
+                >
+                  {renderInProgress ? '🎞️ 렌더 중...' : '🎞️ 최종 렌더'}
+                </button>
+              );
+            })()}
             <button
               onClick={onAnalyze}
               disabled={inProgress}
