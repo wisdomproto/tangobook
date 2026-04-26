@@ -16,6 +16,7 @@ import type {
   CurriculumMeta,
   ReadingLevel,
   YouTubeUploadMeta,
+  YouTubeGeneratedMeta,
 } from '@tangobook/shared';
 
 async function apiPut<T>(url: string, data?: unknown): Promise<T> {
@@ -257,6 +258,14 @@ export const bookV2Api = {
             }
           ).data
       ),
+
+  /** POST /api/v2/books/:bid/longform/:projectId/youtube/generate-meta */
+  generateLongformYouTubeMeta: (bid: string, projectId: string, prompt: string) =>
+    apiClient
+      .post<
+        ApiResponse<YouTubeGeneratedMeta>
+      >(`/v2/books/${bid}/longform/${projectId}/youtube/generate-meta`, { prompt })
+      .then((res) => (res.data as { success: true; data: YouTubeGeneratedMeta }).data),
 
   // ── Games ──────────────────────────────────────────────────────────────
 

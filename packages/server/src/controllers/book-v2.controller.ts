@@ -330,6 +330,16 @@ export const linkLongformYouTubeVideo = asyncHandler(async (req, res) => {
   ok(res, result);
 });
 
+export const generateLongformYouTubeMeta = asyncHandler(async (req, res) => {
+  const { prompt } = req.body as { prompt?: string };
+  const result = await svc.generateLongformYouTubeMeta(
+    req.params['bid'] as string,
+    req.params['projectId'] as string,
+    prompt ?? ''
+  );
+  ok(res, result);
+});
+
 // ────────────────────────────────────────────────────────────────────────────
 // Games
 // ────────────────────────────────────────────────────────────────────────────

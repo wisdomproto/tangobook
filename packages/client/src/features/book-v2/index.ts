@@ -27,6 +27,7 @@ export {
   useStartLongformRender,
   useStartLongformYouTubeUpload,
   useLinkLongformYouTubeVideo,
+  useGenerateLongformYouTubeMeta,
 } from './hooks/useLongform';
 export { useGamesList, useGame, useDeleteGame, useGenerateGame } from './hooks/useGames';
 export {

@@ -114,3 +114,10 @@ export function useLinkLongformYouTubeVideo(bid: string) {
     },
   });
 }
+
+export function useGenerateLongformYouTubeMeta(bid: string) {
+  return useMutation({
+    mutationFn: ({ projectId, prompt }: { projectId: string; prompt: string }) =>
+      bookV2Api.generateLongformYouTubeMeta(bid, projectId, prompt),
+  });
+}

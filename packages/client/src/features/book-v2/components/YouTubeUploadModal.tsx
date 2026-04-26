@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { useStartLongformYouTubeUpload, useLinkLongformYouTubeVideo } from '../hooks/useLongform';
+import {
+  useStartLongformYouTubeUpload,
+  useLinkLongformYouTubeVideo,
+  useGenerateLongformYouTubeMeta,
+} from '../hooks/useLongform';
 import { bookV2Api } from '../api/book-v2.api';
 import type { YouTubeUploadMeta } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
@@ -32,6 +36,7 @@ export function YouTubeUploadModal({
 }: YouTubeUploadModalProps) {
   const upload = useStartLongformYouTubeUpload(bid);
   const link = useLinkLongformYouTubeVideo(bid);
+  const genMeta = useGenerateLongformYouTubeMeta(bid);
   const qc = useQueryClient();
 
   const [mode, setMode] = useState<Mode>(hasVideo ? 'upload' : 'link');
@@ -43,6 +48,29 @@ export function YouTubeUploadModal({
   const [language, setLanguage] = useState<string>('ko');
 
   const [linkUrl, setLinkUrl] = useState<string>('');
+  const [aiPrompt, setAiPrompt] = useState<string>(
+    '아이가 동화책 내용을 흥미롭게 느끼도록 매력적이고 따뜻한 YouTube 메타를 만들어주세요.'
+  );
+  const [aiOpen, setAiOpen] = useState(false);
+
+  const handleGenMeta = () => {
+    genMeta.mutate(
+      { projectId, prompt: aiPrompt },
+      {
+        onSuccess: (m) => {
+          setTitle(m.title);
+          setDescription(m.description);
+          setTagsRaw(m.tags.join(', '));
+          if (m.privacy === 'public' || m.privacy === 'private' || m.privacy === 'unlisted') {
+            setPrivacy(m.privacy);
+          }
+          if (m.categoryId) setCategoryId(m.categoryId);
+          if (m.language) setLanguage(m.language);
+          setAiOpen(false);
+        },
+      }
+    );
+  };
 
   const [progress, setProgress] = useState<Progress | null>(null);
   const [linkResult, setLinkResult] = useState<{
@@ -244,6 +272,47 @@ export function YouTubeUploadModal({
         {/* 업로드 폼 */}
         {!progress && !linkResult && mode === 'upload' && (
           <div className="space-y-3">
+            {/* AI 메타 생성 */}
+            <div className="bg-peach-50 rounded-md p-2.5 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-black text-coral-600">
+                  🤖 Gemini로 메타 자동 생성
+                </span>
+                <button
+                  onClick={() => setAiOpen((v) => !v)}
+                  className="text-[10px] text-ink-500 font-bold hover:text-ink-700"
+                >
+                  {aiOpen ? '접기' : '프롬프트 편집'}
+                </button>
+              </div>
+              {aiOpen && (
+                <textarea
+                  value={aiPrompt}
+                  onChange={(e) => setAiPrompt(e.target.value)}
+                  rows={3}
+                  className="input"
+                  placeholder="AI에게 줄 추가 지침"
+                />
+              )}
+              <button
+                onClick={handleGenMeta}
+                disabled={genMeta.isPending}
+                className={cn(
+                  'w-full px-3 py-1.5 rounded-md font-black text-xs transition-all',
+                  genMeta.isPending
+                    ? 'bg-ink-100 text-ink-300 cursor-not-allowed'
+                    : 'bg-coral-500 text-white shadow-pop hover:brightness-110'
+                )}
+              >
+                {genMeta.isPending ? '🤖 생성 중...' : '🤖 AI 메타 생성 (제목/설명/태그 자동)'}
+              </button>
+              {genMeta.isError && (
+                <div className="text-[11px] text-danger font-bold whitespace-pre-line">
+                  {(genMeta.error as Error).message}
+                </div>
+              )}
+            </div>
+
             <Field label="제목 *">
               <input value={title} onChange={(e) => setTitle(e.target.value)} className="input" />
             </Field>

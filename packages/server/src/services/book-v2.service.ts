@@ -82,6 +82,7 @@ import type {
   GameTypeId,
   ReadingLevel,
   YouTubeUploadMeta,
+  YouTubeGeneratedMeta,
   UsedVariants,
   CurriculumMeta,
   ParentGuide,
@@ -1342,6 +1343,87 @@ async function runYouTubeUpload(
 
   setYTProgress(input.bid, input.projectId, { progress: 100, step: '업로드 완료' });
   clearYTProgressLater(input.bid, input.projectId, 30_000);
+}
+
+/**
+ * Gemini로 YouTube 메타(title/description/tags/privacy/categoryId/language) 자동 생성.
+ * project.language의 텍스트 슬라이스 페이지 내용을 컨텍스트로 활용.
+ */
+export async function generateLongformYouTubeMeta(
+  bid: string,
+  projectId: string,
+  prompt: string
+): Promise<YouTubeGeneratedMeta> {
+  const project = await getLongform(bid, projectId);
+  const manifest = await getBook(bid);
+  const ts = await getTextSlice(bid, project.level, project.language);
+
+  const lang = project.language || 'ko';
+  const pages = ts?.pages ?? [];
+
+  const ctx = [
+    `Title: ${manifest.title}`,
+    manifest.category ? `Category: ${manifest.category}` : '',
+    `Content Language: ${lang}`,
+    `Level: ${project.level}`,
+    `Style: ${project.style}`,
+    `Pages: ${pages.length}`,
+    `Scenes: ${project.scenes.length}`,
+    pages.length > 0
+      ? `Content Summary:\n${pages
+          .slice(0, 10)
+          .map((p) => `- p${p.pageNumber}: ${p.text.slice(0, 100)}`)
+          .join('\n')}`
+      : '',
+  ]
+    .filter(Boolean)
+    .join('\n');
+
+  const geminiPrompt = [
+    prompt || 'Generate engaging YouTube metadata for a children storybook video.',
+    '',
+    '=== Storybook Info ===',
+    ctx,
+    '',
+    'Based on the above info and the user prompt, generate YouTube upload settings as JSON.',
+    'Output ONLY the JSON below (no other text):',
+    '{',
+    '  "title": "video title",',
+    '  "description": "video description",',
+    '  "tags": ["tag1", "tag2", "tag3"],',
+    '  "privacy": "public | private | unlisted",',
+    '  "categoryId": "YouTube category ID (Education: 27, Entertainment: 24, People/Blogs: 22)",',
+    '  "language": "ko | en"',
+    '}',
+    '',
+    `IMPORTANT: The video content is in "${lang === 'ko' ? 'Korean' : 'English'}". Write the title, description, and tags in ${lang === 'ko' ? 'Korean' : 'English'}.`,
+  ].join('\n');
+
+  const raw = await generateTextWithGemini(geminiPrompt, 3);
+
+  const cleaned = raw
+    .replace(/```json?\s*/g, '')
+    .replace(/```\s*/g, '')
+    .trim();
+
+  try {
+    const parsed = JSON.parse(cleaned) as YouTubeGeneratedMeta;
+    return {
+      title: parsed.title || manifest.title,
+      description: parsed.description || '',
+      tags: Array.isArray(parsed.tags) ? parsed.tags : [],
+      privacy: (['public', 'private', 'unlisted'] as const).includes(
+        parsed.privacy as 'public' | 'private' | 'unlisted'
+      )
+        ? parsed.privacy
+        : 'private',
+      categoryId: parsed.categoryId || '27',
+      language: parsed.language || lang,
+    };
+  } catch {
+    console.error('[book-v2 longform YT] Failed to parse Gemini meta response:', cleaned);
+    throw new AppError(500, 'AI 응답을 파싱할 수 없습니다. 프롬프트를 수정해보세요.');
+  }
 }
 
 /** 외부에서 올린 YT 영상을 v2 프로젝트에 수동 연결 (renderless) */
