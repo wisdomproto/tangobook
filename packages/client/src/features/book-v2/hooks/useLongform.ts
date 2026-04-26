@@ -89,3 +89,28 @@ export function useStartLongformRender(bid: string) {
     mutationFn: (projectId: string) => bookV2Api.startLongformRender(bid, projectId),
   });
 }
+
+export function useStartLongformYouTubeUpload(bid: string) {
+  return useMutation({
+    mutationFn: ({
+      projectId,
+      meta,
+      channelId,
+    }: {
+      projectId: string;
+      meta: import('@tangobook/shared').YouTubeUploadMeta;
+      channelId?: string;
+    }) => bookV2Api.startLongformYouTubeUpload(bid, projectId, { meta, channelId }),
+  });
+}
+
+export function useLinkLongformYouTubeVideo(bid: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ projectId, videoIdOrUrl }: { projectId: string; videoIdOrUrl: string }) =>
+      bookV2Api.linkLongformYouTubeVideo(bid, projectId, videoIdOrUrl),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['book-v2', 'longform', bid] });
+    },
+  });
+}

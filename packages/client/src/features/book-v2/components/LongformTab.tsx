@@ -10,6 +10,7 @@ import {
 import { bookV2Api } from '../api/book-v2.api';
 import { CreateLongformModal } from './CreateLongformModal';
 import { SceneEditor } from './SceneEditor';
+import { YouTubeUploadModal } from './YouTubeUploadModal';
 import type { BookManifest, LongformProjectV2 } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 
@@ -291,6 +292,7 @@ function ProjectCard({
   renderProgress?: RenderProgress;
 }) {
   const [editingSceneId, setEditingSceneId] = useState<string | null>(null);
+  const [ytOpen, setYtOpen] = useState(false);
   const inProgress =
     analyzeProgress && analyzeProgress.progress >= 0 && analyzeProgress.progress < 100;
   const totalScenes = project.scenes.length;
@@ -514,7 +516,50 @@ function ProjectCard({
             </div>
           )}
 
-          <div className="flex justify-end gap-2 pt-2">
+          {/* YouTube 결과 (있으면) */}
+          {project.youtubeVideoId && (
+            <div className="bg-white rounded-md p-3 space-y-1 border border-coral-300">
+              <div className="text-xs font-bold text-coral-600">📺 YouTube 업로드됨</div>
+              <a
+                href={`https://youtu.be/${project.youtubeVideoId}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-[11px] text-coral-600 font-mono hover:underline break-all"
+              >
+                youtu.be/{project.youtubeVideoId}
+              </a>
+            </div>
+          )}
+
+          <YouTubeUploadModal
+            bid={bid}
+            projectId={project.id}
+            defaultTitle={`동영상 ${project.id}`}
+            hasVideo={!!project.videoUrl}
+            open={ytOpen}
+            onClose={() => setYtOpen(false)}
+          />
+
+          <div className="flex justify-end gap-2 pt-2 flex-wrap">
+            <button
+              onClick={() => setYtOpen(true)}
+              disabled={inProgress}
+              className={cn(
+                'px-3 py-1.5 rounded-md font-bold text-xs',
+                inProgress
+                  ? 'bg-ink-100 text-ink-300 cursor-not-allowed'
+                  : project.youtubeVideoId
+                    ? 'bg-success/10 text-success hover:bg-success/20'
+                    : 'bg-coral-100 text-coral-700 hover:bg-coral-200'
+              )}
+              title={
+                project.youtubeVideoId
+                  ? `이미 업로드됨 (${project.youtubeVideoId}). 다시 업로드 또는 수동 연결.`
+                  : 'YouTube 업로드 또는 수동 연결'
+              }
+            >
+              📺 {project.youtubeVideoId ? 'YT 업로드됨' : 'YouTube'}
+            </button>
             {(() => {
               const readyClips = project.scenes.filter((s) => s.clipUrl).length;
               const renderInProgress =

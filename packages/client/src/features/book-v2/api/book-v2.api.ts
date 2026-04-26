@@ -15,6 +15,7 @@ import type {
   ParentGuide,
   CurriculumMeta,
   ReadingLevel,
+  YouTubeUploadMeta,
 } from '@tangobook/shared';
 
 async function apiPut<T>(url: string, data?: unknown): Promise<T> {
@@ -212,6 +213,50 @@ export const bookV2Api = {
     apiGet<{ progress: number; step: string; error?: string; updatedAt: number } | null>(
       `/v2/books/${bid}/longform/${projectId}/render/progress`
     ),
+
+  /** POST /api/v2/books/:bid/longform/:projectId/youtube/upload */
+  startLongformYouTubeUpload: (
+    bid: string,
+    projectId: string,
+    body: { meta: YouTubeUploadMeta; channelId?: string }
+  ) =>
+    apiClient
+      .post<
+        ApiResponse<{ ok: true }>
+      >(`/v2/books/${bid}/longform/${projectId}/youtube/upload`, body)
+      .then((res) => (res.data as { success: true; data: { ok: true } }).data),
+
+  /** GET /api/v2/books/:bid/longform/:projectId/youtube/progress */
+  getLongformYouTubeProgress: (bid: string, projectId: string) =>
+    apiGet<{ progress: number; step: string; error?: string; updatedAt: number } | null>(
+      `/v2/books/${bid}/longform/${projectId}/youtube/progress`
+    ),
+
+  /** POST /api/v2/books/:bid/longform/:projectId/youtube/link */
+  linkLongformYouTubeVideo: (bid: string, projectId: string, videoIdOrUrl: string) =>
+    apiClient
+      .post<
+        ApiResponse<{
+          videoId: string;
+          videoUrl: string;
+          ownerConnected: boolean;
+          channelTitle?: string;
+        }>
+      >(`/v2/books/${bid}/longform/${projectId}/youtube/link`, { videoIdOrUrl })
+      .then(
+        (res) =>
+          (
+            res.data as {
+              success: true;
+              data: {
+                videoId: string;
+                videoUrl: string;
+                ownerConnected: boolean;
+                channelTitle?: string;
+              };
+            }
+          ).data
+      ),
 
   // ── Games ──────────────────────────────────────────────────────────────
 

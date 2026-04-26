@@ -50,9 +50,16 @@ import {
   longformVideoKey,
 } from '../utils/book-v2-keys.js';
 import { GrokProvider } from '../providers/grok.provider.js';
-import { uploadBufferToR2, deleteFromR2, urlToR2Key } from '../providers/r2.provider.js';
+import {
+  uploadBufferToR2,
+  deleteFromR2,
+  urlToR2Key,
+  downloadFromR2,
+} from '../providers/r2.provider.js';
 import { generateLongform } from '../providers/longform.provider.js';
 import type { LongformRenderOptions } from '../providers/longform.provider.js';
+import { YouTubeProvider } from '../providers/youtube.provider.js';
+import { parseYouTubeVideoId } from '../utils/youtube-url.js';
 import { promisify } from 'util';
 import { execFile } from 'child_process';
 import { buildAudiobookRenderDataV2 } from '../utils/book-v2-audiobook-render.js';
@@ -74,6 +81,7 @@ import type {
   CardNewsProjectV2,
   GameTypeId,
   ReadingLevel,
+  YouTubeUploadMeta,
   UsedVariants,
   CurriculumMeta,
   ParentGuide,
@@ -1205,6 +1213,166 @@ async function runLongformRender(
   } finally {
     fs.rmSync(workDir, { recursive: true, force: true });
   }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Longform YouTube 업로드 (fire-and-forget + 진행률 폴링)
+// ────────────────────────────────────────────────────────────────────────────
+
+export interface LongformYouTubeProgress {
+  progress: number;
+  step: string;
+  error?: string;
+  updatedAt: number;
+}
+
+const longformYTProgress = new Map<string, LongformYouTubeProgress>();
+
+function ytProgressKey(bid: string, projectId: string): string {
+  return `${bid}:${projectId}`;
+}
+
+function setYTProgress(
+  bid: string,
+  projectId: string,
+  p: Omit<LongformYouTubeProgress, 'updatedAt'>
+): void {
+  longformYTProgress.set(ytProgressKey(bid, projectId), { ...p, updatedAt: Date.now() });
+}
+
+function clearYTProgressLater(bid: string, projectId: string, ms: number): void {
+  setTimeout(() => longformYTProgress.delete(ytProgressKey(bid, projectId)), ms);
+}
+
+export function getLongformYouTubeProgress(
+  bid: string,
+  projectId: string
+): LongformYouTubeProgress | null {
+  return longformYTProgress.get(ytProgressKey(bid, projectId)) ?? null;
+}
+
+export interface UploadYouTubeInput {
+  bid: string;
+  projectId: string;
+  meta: YouTubeUploadMeta;
+  channelId?: string;
+}
+
+export async function startLongformYouTubeUpload(input: UploadYouTubeInput): Promise<{ ok: true }> {
+  const project = await getLongform(input.bid, input.projectId);
+  if (!project.videoUrl) {
+    throw new AppError(400, '렌더링된 영상이 없습니다. 먼저 🎞️ 최종 렌더 실행.');
+  }
+  const existing = longformYTProgress.get(ytProgressKey(input.bid, input.projectId));
+  if (existing && existing.progress >= 0 && existing.progress < 100) {
+    throw new AppError(409, '이미 YouTube 업로드가 진행 중입니다.');
+  }
+
+  setYTProgress(input.bid, input.projectId, { progress: 0, step: '시작' });
+
+  void runYouTubeUpload(input, project).catch((err: unknown) => {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('[book-v2 longform YT] upload failed:', msg);
+    setYTProgress(input.bid, input.projectId, { progress: -1, step: '실패', error: msg });
+    clearYTProgressLater(input.bid, input.projectId, 60_000);
+  });
+
+  return { ok: true };
+}
+
+async function runYouTubeUpload(
+  input: UploadYouTubeInput,
+  project: LongformProjectV2
+): Promise<void> {
+  // 1. R2에서 영상 다운로드
+  setYTProgress(input.bid, input.projectId, { progress: 5, step: 'R2에서 영상 다운로드' });
+  const r2Key = urlToR2Key(project.videoUrl!);
+  const videoBuffer = await downloadFromR2(r2Key);
+
+  // 2. YouTube 업로드 (콜백으로 진행률)
+  setYTProgress(input.bid, input.projectId, { progress: 10, step: 'YouTube 업로드 중' });
+  const result = await YouTubeProvider.uploadVideo(
+    videoBuffer,
+    input.meta,
+    (percent) => {
+      const mapped = 10 + Math.round(percent * 0.85); // 10~95
+      setYTProgress(input.bid, input.projectId, {
+        progress: mapped,
+        step: `YouTube 업로드 중 (${mapped}%)`,
+      });
+    },
+    input.channelId
+  );
+
+  // 3. 결과 먼저 저장 (썸네일 실패해도 영상 결과 보존)
+  await saveLongform(input.bid, input.projectId, {
+    youtubeVideoId: result.videoId,
+    channelId: result.channelId,
+  });
+
+  // 4. (선택) 썸네일 — meta.thumbnailUrl 있으면
+  if (input.meta.thumbnailUrl) {
+    setYTProgress(input.bid, input.projectId, { progress: 96, step: '썸네일 업로드 중' });
+    try {
+      const thumbKey = urlToR2Key(input.meta.thumbnailUrl);
+      const rawBuffer = await downloadFromR2(thumbKey);
+      const sharp = (await import('sharp')).default;
+      const thumbBuffer = await sharp(rawBuffer)
+        .resize(1280, 720, { fit: 'cover' })
+        .jpeg({ quality: 85 })
+        .toBuffer();
+      const thumbTimeout = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('썸네일 업로드 타임아웃')), 30_000)
+      );
+      await Promise.race([
+        YouTubeProvider.setThumbnail(result.videoId, thumbBuffer, input.channelId),
+        thumbTimeout,
+      ]);
+      // thumbnailUrl 저장 (project)
+      await saveLongform(input.bid, input.projectId, {
+        thumbnailUrl: input.meta.thumbnailUrl,
+      });
+    } catch (err) {
+      console.warn(
+        '[book-v2 youtube] Thumbnail failed (skipping):',
+        err instanceof Error ? err.message : err
+      );
+    }
+  }
+
+  setYTProgress(input.bid, input.projectId, { progress: 100, step: '업로드 완료' });
+  clearYTProgressLater(input.bid, input.projectId, 30_000);
+}
+
+/** 외부에서 올린 YT 영상을 v2 프로젝트에 수동 연결 (renderless) */
+export async function linkLongformYouTubeVideo(
+  bid: string,
+  projectId: string,
+  videoIdOrUrl: string
+): Promise<{
+  videoId: string;
+  videoUrl: string;
+  ownerConnected: boolean;
+  channelTitle?: string;
+}> {
+  const videoId = parseYouTubeVideoId(videoIdOrUrl);
+  if (!videoId) throw new AppError(400, '유효한 YouTube 링크 또는 영상 ID가 아닙니다.');
+
+  await getLongform(bid, projectId);
+  const meta = await YouTubeProvider.getVideoMeta(videoId);
+  if (!meta) throw new AppError(404, '해당 영상을 찾을 수 없거나 비공개입니다.');
+
+  await saveLongform(bid, projectId, {
+    youtubeVideoId: videoId,
+    ...(meta.ownedByChannelId ? { channelId: meta.ownedByChannelId } : {}),
+  });
+
+  return {
+    videoId,
+    videoUrl: `https://youtu.be/${videoId}`,
+    ownerConnected: !!meta.ownedByChannelId,
+    channelTitle: meta.channelTitle,
+  };
 }
 
 // ────────────────────────────────────────────────────────────────────────────

@@ -296,6 +296,40 @@ export const getLongformRenderProgress = asyncHandler(async (req, res) => {
   ok(res, progress);
 });
 
+export const startLongformYouTubeUpload = asyncHandler(async (req, res) => {
+  const { meta, channelId } = req.body as {
+    meta?: import('@tangobook/shared').YouTubeUploadMeta;
+    channelId?: string;
+  };
+  if (!meta?.title) throw new AppError(400, 'meta.title required');
+  const result = await svc.startLongformYouTubeUpload({
+    bid: req.params['bid'] as string,
+    projectId: req.params['projectId'] as string,
+    meta,
+    channelId,
+  });
+  ok(res, result);
+});
+
+export const getLongformYouTubeProgress = asyncHandler(async (req, res) => {
+  const progress = svc.getLongformYouTubeProgress(
+    req.params['bid'] as string,
+    req.params['projectId'] as string
+  );
+  ok(res, progress);
+});
+
+export const linkLongformYouTubeVideo = asyncHandler(async (req, res) => {
+  const { videoIdOrUrl } = req.body as { videoIdOrUrl?: string };
+  if (!videoIdOrUrl) throw new AppError(400, 'videoIdOrUrl required');
+  const result = await svc.linkLongformYouTubeVideo(
+    req.params['bid'] as string,
+    req.params['projectId'] as string,
+    videoIdOrUrl
+  );
+  ok(res, result);
+});
+
 // ────────────────────────────────────────────────────────────────────────────
 // Games
 // ────────────────────────────────────────────────────────────────────────────
