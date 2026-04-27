@@ -44,6 +44,15 @@ export function TopBar() {
             </svg>
           )}
         </button>
+        <a
+          href="/curriculum-master.html"
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30 rounded-lg transition-colors"
+          title="커리큘럼 마스터 (새 탭)"
+        >
+          📚 커리큘럼
+        </a>
         <button
           onClick={() => setVocabOpen(true)}
           className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-lg transition-colors"

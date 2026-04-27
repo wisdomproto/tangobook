@@ -1,6 +1,8 @@
 # 책 Variants 시스템 Implementation Plan
 
-> **🟢 Phase 3b-7/3b-8만 남음 (2026-04-25)** — Phase 0~2 + 1.5 + 3a + 3c + 3b-2~6 완료 (저작도구 4탭). **남은 것: 3b-7** (오디오북/동영상/마케팅/게임), **3b-8** (BookDetailPage v2 + v1 deprecate). 진행 상세: `memory/book-variants-v2.md`. Commits: 56128d1, 0cbd241, 5c861b3, 80c0e47, 0e45e38, e7fcfd5, ecb3f3d, 3ec7d91, ef308f3, 4774ca3.
+> **🔴 폐기 / 대체됨 (2026-04-27)** — v2 별도 prefix 트리는 v1과 이중 유지 부담이 너무 커서 보류. 동일 목표를 v1 단일 모델 위 `/editor2`로 달성. 신규 작업/디버그는 `memory/editor2-variant-system.md` 와 `CLAUDE.md` 의 "/editor2 단일 구조 저작도구" 섹션 참고. v2 구현물은 `/editor-v2` alias로 보존(rollback용). 이 플랜은 사료로만 유지.
+>
+> 이전 진행: Phase 0~2 + 1.5 + 3a + 3c + 3b-2~8 모두 완료된 상태에서 단일 구조로 cutover. Commits: 56128d1, 0cbd241, 5c861b3, 80c0e47, 0e45e38, e7fcfd5, ecb3f3d, 3ec7d91, ef308f3, 4774ca3.
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax.
 

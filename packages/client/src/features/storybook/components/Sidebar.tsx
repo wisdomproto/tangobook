@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   DndContext,
   DragOverlay,
@@ -104,6 +105,10 @@ export function Sidebar() {
   const deleteMutation = useDeleteStorybook();
   const patchMutation = usePatchStorybook();
   const copyMutation = useCopyStorybook();
+  const location = useLocation();
+  // /editor2 모드 — variant sibling 들 (`bid__L1` 등) 사이드바에서 숨김 (base 만 표시)
+  // /editor (백업) 은 기존처럼 모든 책 flat 으로 표시
+  const groupVariants = location.pathname.startsWith('/editor2');
 
   const selectedId = useEditorStore((s) => s.selectedStorybookId);
   const setSelectedId = useEditorStore((s) => s.setSelectedStorybookId);
@@ -177,8 +182,24 @@ export function Sidebar() {
     return counts;
   }, [typeFiltered]);
 
+  // /editor2 mode — variant 카운트 (base id → 자식 variant 개수)
+  const variantCountByBaseId = useMemo(() => {
+    if (!groupVariants) return new Map<string, number>();
+    const counts = new Map<string, number>();
+    for (const s of typeFiltered) {
+      const m = s.id.match(/^(.+)__L[1-4]$/);
+      if (m) counts.set(m[1], (counts.get(m[1]) ?? 0) + 1);
+    }
+    return counts;
+  }, [typeFiltered, groupVariants]);
+
   const filtered = useMemo(() => {
     let list = [...typeFiltered];
+
+    // /editor2 mode — variant sibling (`bid__L1` 등) 숨김, base 만 노출
+    if (groupVariants) {
+      list = list.filter((s) => !/__L[1-4]$/.test(s.id));
+    }
 
     // Folder filter
     if (folder !== 'all') {
@@ -501,7 +522,11 @@ export function Sidebar() {
               <SidebarCard
                 key={sb.id}
                 storybook={sb}
-                selected={selectedId === sb.id}
+                selected={
+                  selectedId === sb.id ||
+                  (groupVariants && selectedId?.startsWith(`${sb.id}__L`)) ||
+                  false
+                }
                 onSelect={() => setSelectedId(sb.id)}
                 onDelete={() => setDeleteTarget({ id: sb.id, title: sb.title })}
                 onView={() => handleView(sb.id)}
@@ -509,6 +534,7 @@ export function Sidebar() {
                 onTogglePublic={handleTogglePublic}
                 onChangeCategory={handleChangeCategory}
                 onRename={handleRename}
+                variantCount={groupVariants ? variantCountByBaseId.get(sb.id) : undefined}
               />
             ))
           )}

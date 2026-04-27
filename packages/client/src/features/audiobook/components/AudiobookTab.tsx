@@ -1,6 +1,7 @@
 import type { Storybook, AudiobookProject } from '@tangobook/shared';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { AudiobookProjectCard } from './AudiobookProjectCard';
+import { useEditorLang } from '@/contexts/EditorLangContext';
 
 interface AudiobookTabProps {
   storybook: Storybook;
@@ -8,12 +9,12 @@ interface AudiobookTabProps {
   onSave: () => void;
 }
 
-function makeDefaultProject(totalPages: number): Omit<AudiobookProject, 'id'> {
+function makeDefaultProject(totalPages: number, lang = 'ko'): Omit<AudiobookProject, 'id'> {
   return {
-    name: '새 오디오북',
+    name: lang === 'ko' ? '새 오디오북' : `새 오디오북 (${lang})`,
     format: 'youtube',
     aspectRatio: '16:9',
-    language: 'ko',
+    language: lang,
     layout: 'fullscreen',
     enableParticles: true,
     startPage: 1,
@@ -33,15 +34,23 @@ function makeDefaultProject(totalPages: number): Omit<AudiobookProject, 'id'> {
 }
 
 export function AudiobookTab({ storybook, onUpdate, onSave }: AudiobookTabProps) {
-  const projects = storybook.audiobookProjects ?? [];
+  const allProjects = storybook.audiobookProjects ?? [];
+  const externalLang = useEditorLang();
+  const isControlled = externalLang !== null;
+  // 외부 언어가 있으면 해당 언어 프로젝트만 — 없으면 (v1) 전체
+  const projects = useMemo(() => {
+    if (!isControlled) return allProjects;
+    return allProjects.filter((p) => (p.language ?? 'ko') === externalLang);
+  }, [allProjects, isControlled, externalLang]);
   const totalPages = storybook.pages?.length ?? 0;
   const [expandedId, setExpandedId] = useState<string | null>(projects[0]?.id ?? null);
 
   const addProject = () => {
     const id = `ab-${Date.now()}`;
+    const lang = externalLang ?? 'ko';
     onUpdate((draft) => {
       if (!draft.audiobookProjects) draft.audiobookProjects = [];
-      draft.audiobookProjects.push({ ...makeDefaultProject(totalPages), id });
+      draft.audiobookProjects.push({ ...makeDefaultProject(totalPages, lang), id });
     });
     onSave();
     setExpandedId(id);
@@ -67,11 +76,27 @@ export function AudiobookTab({ storybook, onUpdate, onSave }: AudiobookTabProps)
     <div className="space-y-4">
       {/* 헤더 */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
             오디오북 프로젝트
           </h2>
-          <span className="text-sm text-slate-400 dark:text-slate-500">({projects.length}개)</span>
+          <span className="text-sm text-slate-400 dark:text-slate-500">
+            ({projects.length}
+            {isControlled && allProjects.length !== projects.length
+              ? ` / 전체 ${allProjects.length}`
+              : ''}
+            개)
+          </span>
+          {isControlled && (
+            <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300">
+              {externalLang === 'ko'
+                ? '🇰🇷 한국어'
+                : externalLang === 'en'
+                  ? '🇺🇸 영어'
+                  : `🌐 ${externalLang}`}{' '}
+              프로젝트만
+            </span>
+          )}
         </div>
         <button
           onClick={addProject}

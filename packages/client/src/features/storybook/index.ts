@@ -5,6 +5,7 @@ export {
   usePatchStorybook,
   useCopyStorybook,
   useDeleteStorybook,
+  useCreateVariant,
   useGenerateStorybook,
   useGeneratePhonicsBook,
 } from './hooks/useStorybookMutations';

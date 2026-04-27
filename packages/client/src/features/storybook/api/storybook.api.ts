@@ -7,6 +7,7 @@ import type {
   GeneratePhonicsBookRequest,
   StoryDraftPage,
   SceneStructure,
+  ReadingLevel,
 } from '@tangobook/shared';
 
 export const storybookApi = {
@@ -15,6 +16,8 @@ export const storybookApi = {
   save: (storybook: Storybook) => apiPost<Storybook>('/storybooks', { storybook }),
   delete: (id: string) => apiDelete<{ message: string }>(`/storybooks/${id}`),
   copy: (id: string) => apiPost<Storybook>(`/storybooks/${id}/copy`),
+  createVariant: (id: string, level: ReadingLevel) =>
+    apiPost<Storybook>(`/storybooks/${id}/variants/${level}`),
   generateStory: (req: GenerateStoryRequest) =>
     apiPost<StoryDraftPage[]>('/storybooks/generate-story', req),
   generate: (req: GenerateStorybookRequest) => apiPost<Storybook>('/storybooks/generate', req),

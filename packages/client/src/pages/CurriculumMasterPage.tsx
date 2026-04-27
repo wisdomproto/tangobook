@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useBookIndex } from '@/features/book-v2';
+import { useStorybooks } from '@/features/storybook';
 import { StateScreen } from '@/components/StateScreen';
 import { cn } from '@/lib/cn';
-import type { BookIndexEntry } from '@tangobook/shared';
+import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
 
 type CategoryKey = '명작' | '자연관찰' | '전래' | '생활' | '파닉스' | '기타';
 
@@ -57,19 +58,61 @@ const STATUS_PILL: Record<string, { label: string; cls: string }> = {
   todo: { label: '⬜ 미제작', cls: 'bg-ink-100 text-ink-500' },
 };
 
-/** manifest 상태 자동 판별 (가벼운 휴리스틱: usedVariants 기준) */
-function deriveStatus(b: BookIndexEntry): 'done' | 'wip' | 'todo' {
-  const v = b.usedVariants;
-  if (v.levels.length === 0 && v.styles.length === 0) return 'todo';
-  if (v.levels.length > 0 && v.styles.length > 0 && b.hasCover) return 'done';
-  return 'wip';
+/**
+ * 한글 기본 완성도 기반 상태 판정.
+ * 우선 v1 storybook summary 의 koCompletion 을 보고, 없으면 v2 manifest fallback.
+ *
+ * 완성 = 표지 + 모든 페이지 일러스트 + 모든 페이지 한글 TTS + 핵심단어 1+
+ */
+function deriveStatus(
+  b: BookIndexEntry,
+  v1Map: Map<string, StorybookSummary>
+): 'done' | 'wip' | 'todo' {
+  // base id 와 variants 모두 확인 — 어느 하나라도 한글 기본 완성이면 done
+  const candidates: StorybookSummary[] = [];
+  const base = v1Map.get(b.id);
+  if (base) candidates.push(base);
+  // sibling variants (`${bid}__L1` 등) 도 확인
+  for (const [id, sb] of v1Map) {
+    if (id !== b.id && id.startsWith(b.id + '__L')) candidates.push(sb);
+  }
+
+  if (candidates.length === 0) {
+    // v1 데이터 매칭 실패 → v2 manifest fallback (예전 휴리스틱)
+    const v = b.usedVariants;
+    if (v.levels.length === 0 && v.styles.length === 0) return 'todo';
+    if (v.levels.length > 0 && b.hasCover) return 'wip';
+    return 'todo';
+  }
+
+  // 한글 기본 완성된 variant 가 1개라도 있으면 done
+  if (candidates.some((sb) => sb.koCompletion?.complete)) return 'done';
+
+  // 일부라도 콘텐츠 작업 시작했으면 wip (표지 OR 페이지 일부 OR 핵심단어 OR 페이지 0개 이상)
+  const anyStart = candidates.some(
+    (sb) =>
+      sb.koCompletion?.cover ||
+      sb.koCompletion?.pagesImage ||
+      sb.koCompletion?.pagesTts ||
+      sb.koCompletion?.vocabulary ||
+      (sb.pageCount ?? 0) > 0
+  );
+  return anyStart ? 'wip' : 'todo';
 }
 
 export default function CurriculumMasterPage() {
   const { data: index, isLoading, isError } = useBookIndex();
+  const { data: v1List } = useStorybooks();
   const all = index?.books;
   const [activeTab, setActiveTab] = useState<CategoryKey>('명작');
   const [search, setSearch] = useState('');
+
+  // v1 storybook id → summary (koCompletion 포함)
+  const v1Map = useMemo(() => {
+    const m = new Map<string, StorybookSummary>();
+    for (const sb of v1List ?? []) m.set(sb.id, sb);
+    return m;
+  }, [v1List]);
 
   const groups = useMemo(() => {
     if (!all) return null;
@@ -203,7 +246,7 @@ export default function CurriculumMasterPage() {
                 </thead>
                 <tbody>
                   {visible.map((b) => {
-                    const status = deriveStatus(b);
+                    const status = deriveStatus(b, v1Map);
                     const pill = STATUS_PILL[status];
                     return (
                       <tr

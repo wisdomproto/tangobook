@@ -36,6 +36,17 @@ export const StorybookController = {
     res.json({ success: true, data: storybook });
   }),
 
+  createVariant: asyncHandler(async (req, res) => {
+    const id = req.params['id'] as string;
+    const level = req.params['level'] as 'L1' | 'L2' | 'L3' | 'L4';
+    if (!['L1', 'L2', 'L3', 'L4'].includes(level)) {
+      res.status(400).json({ success: false, error: '잘못된 레벨입니다.' });
+      return;
+    }
+    const variant = await StorybookService.createVariant(id, level);
+    res.json({ success: true, data: variant });
+  }),
+
   generateStory: asyncHandler(async (req, res) => {
     const body = req.body as GenerateStoryRequest;
     const pages = await StorybookService.generateStory(body);

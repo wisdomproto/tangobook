@@ -2,11 +2,12 @@ import { useState, useCallback, useMemo } from 'react';
 import { Button } from '@/components/Button';
 import { useGenerateGame } from '../hooks/useGameMutations';
 import { gamesApi } from '../api/games.api';
-import { getGamesForContext } from '../registry';
+import { getGamesForContext, getGameEntry } from '../registry';
 import { GameCard } from './GameCard';
 import { GameCreatorModal } from './GameCreatorModal';
 import { GamePreviewModal } from './GamePreviewModal';
 import { DotEditorModal } from './DotEditorModal';
+import { useEditorLang } from '@/contexts/EditorLangContext';
 import type {
   Storybook,
   GameInstance,
@@ -23,7 +24,10 @@ interface GamesTabProps {
 }
 
 export function GamesTab({ storybook, onUpdate, onSave }: GamesTabProps) {
-  const games = storybook.games ?? [];
+  const allGames = storybook.games ?? [];
+  // /editor2 외부 언어. null 이면 v1 백업 — 필터링 안 함
+  const externalLang = useEditorLang();
+  const isControlled = externalLang !== null;
   const [showCreator, setShowCreator] = useState(false);
   const [previewGame, setPreviewGame] = useState<GameInstance | null>(null);
   const [editDotGame, setEditDotGame] = useState<GameInstance | null>(null);
@@ -34,7 +38,7 @@ export function GamesTab({ storybook, onUpdate, onSave }: GamesTabProps) {
   const generateMutation = useGenerateGame();
 
   const storybookType = storybook.type ?? 'storybook';
-  const availableGames = useMemo(
+  const fullAvailable = useMemo(
     () =>
       getGamesForContext(
         storybookType,
@@ -43,6 +47,33 @@ export function GamesTab({ storybook, onUpdate, onSave }: GamesTabProps) {
       ),
     [storybookType, storybook.phonicsConfig?.language, storybook.phonicsConfig?.level]
   );
+
+  // 외부 언어 따라 게임 필터링
+  // - language 필드가 'ko'/'en' 인 게임은 해당 언어에만 노출
+  // - 언어 중립 게임 (language undefined) 은 모든 언어에 노출
+  // - 'ko'/'en' 외 언어 (ja/zh/...) 에서는 중립 게임만 노출
+  const matchesActiveLang = useCallback(
+    (gameLang: 'ko' | 'en' | undefined): boolean => {
+      if (!isControlled) return true;
+      if (!gameLang) return true; // 언어 중립
+      return gameLang === externalLang;
+    },
+    [isControlled, externalLang]
+  );
+
+  const availableGames = useMemo(
+    () => fullAvailable.filter((entry) => matchesActiveLang(entry.language)),
+    [fullAvailable, matchesActiveLang]
+  );
+
+  // 표시할 게임 인스턴스도 필터링
+  const games = useMemo(() => {
+    if (!isControlled) return allGames;
+    return allGames.filter((g) => {
+      const entry = getGameEntry(g.gameType);
+      return matchesActiveLang(entry?.language);
+    });
+  }, [allGames, isControlled, matchesActiveLang]);
 
   const handleGenerate = useCallback(
     (gameType: GameTypeId, title: string, difficulty: GameDifficulty, config: GameConfig) => {
@@ -148,8 +179,17 @@ export function GamesTab({ storybook, onUpdate, onSave }: GamesTabProps) {
     <div className="space-y-6">
       {/* 헤더 */}
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
+        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2">
           학습게임 ({games.length}개)
+          {isControlled && (
+            <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300">
+              {externalLang === 'ko'
+                ? '🇰🇷 한국어 게임만'
+                : externalLang === 'en'
+                  ? '🇺🇸 영어 게임만'
+                  : `🌐 ${externalLang} (언어 중립 게임만)`}
+            </span>
+          )}
         </h2>
         <div className="flex gap-2">
           <Button

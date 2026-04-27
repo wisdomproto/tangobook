@@ -1,6 +1,7 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { apiClient } from '@/lib/axios';
+import { useEditorLang } from '@/contexts/EditorLangContext';
 import {
   DndContext,
   closestCenter,
@@ -42,8 +43,22 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
-  // Language sub-tab
-  const [activeLang, setActiveLang] = useState('ko');
+  // Language sub-tab — /editor2 에서 외부 Provider 로 활성 언어 주입 시 그것을 따름
+  // (v1 /editor 처럼 Provider 없으면 내부 state 로 fallback)
+  const externalLang = useEditorLang();
+  const [internalLang, setInternalLang] = useState('ko');
+  const isControlled = externalLang !== null;
+  const activeLang = externalLang ?? internalLang;
+  const setActiveLang = useCallback(
+    (code: string) => {
+      if (!isControlled) setInternalLang(code);
+    },
+    [isControlled]
+  );
+  // 외부 변경에 동기화 (controlled 모드에선 내부 state 도 업데이트해서 의존하는 메모리만 일관 유지)
+  useEffect(() => {
+    if (externalLang) setInternalLang(externalLang);
+  }, [externalLang]);
 
   // Batch state
   const [globalVoice, setGlobalVoice] = useState<string>(TTS_VOICES[0].id);
@@ -397,34 +412,36 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
         </div>
       </div>
 
-      {/* Language sub-tabs */}
-      <div className="flex items-center gap-1 flex-wrap border-b border-slate-200 dark:border-slate-700 pb-2">
-        {ALL_LANGS.map((lang) => {
-          const isActive = activeLang === lang.code;
-          const count = langStatus(lang.code);
-          const hasContent = lang.code === 'ko' || count > 0;
-          return (
-            <button
-              key={lang.code}
-              onClick={() => setActiveLang(lang.code)}
-              className={`px-3 py-1.5 rounded-t text-sm font-medium border-b-2 transition-colors ${
-                isActive
-                  ? 'border-violet-600 text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-900/30'
-                  : hasContent
-                    ? 'border-transparent text-slate-600 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-violet-50/50 dark:hover:bg-violet-900/20'
-                    : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-500'
-              }`}
-            >
-              {lang.label}
-              {lang.code !== 'ko' && count > 0 && (
-                <span className="ml-1 text-[10px] text-violet-500">
-                  {count}/{pages.length}
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </div>
+      {/* Language sub-tabs — /editor2 에서 외부 언어 탭이 제어할 땐 숨김 (중복 방지) */}
+      {!isControlled && (
+        <div className="flex items-center gap-1 flex-wrap border-b border-slate-200 dark:border-slate-700 pb-2">
+          {ALL_LANGS.map((lang) => {
+            const isActive = activeLang === lang.code;
+            const count = langStatus(lang.code);
+            const hasContent = lang.code === 'ko' || count > 0;
+            return (
+              <button
+                key={lang.code}
+                onClick={() => setActiveLang(lang.code)}
+                className={`px-3 py-1.5 rounded-t text-sm font-medium border-b-2 transition-colors ${
+                  isActive
+                    ? 'border-violet-600 text-violet-700 dark:text-violet-300 bg-violet-50 dark:bg-violet-900/30'
+                    : hasContent
+                      ? 'border-transparent text-slate-600 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-violet-50/50 dark:hover:bg-violet-900/20'
+                      : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-500'
+                }`}
+              >
+                {lang.label}
+                {lang.code !== 'ko' && count > 0 && (
+                  <span className="ml-1 text-[10px] text-violet-500">
+                    {count}/{pages.length}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {/* Illustration aspect ratio selector (Korean tab only) */}
       {isKorean && (

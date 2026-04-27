@@ -1,15 +1,15 @@
 import { createBrowserRouter, Navigate, Outlet, useParams } from 'react-router-dom';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import { AppLayout } from '../components/AppLayout';
+import { AppLayoutV2 } from '../components/AppLayoutV2';
 import LibraryPage from '../pages/LibraryPage';
 
-function EditorV2Redirect() {
+function EditorV2BidRedirect() {
   const { bid } = useParams();
-  return <Navigate to={`/editor/${bid}`} replace />;
+  return <Navigate to={`/editor2/${bid}`} replace />;
 }
 import BookDetailPage from '../pages/BookDetailPage';
 import CurriculumMasterPage from '../pages/CurriculumMasterPage';
-import EditorPageV2 from '../pages/EditorPageV2';
 import ViewerPage from '../pages/ViewerPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
@@ -79,16 +79,27 @@ export const router = createBrowserRouter([
           </ErrorBoundary>
         ),
       },
-      // v2 신규 저작도구 (실험적)
+      // /editor2 — v1 업그레이드(레벨/그림체/언어 variation) 작업용. /editor 는 안전 백업으로 절대 건드리지 않음
+      // AppLayoutV2 = TopBar/Sidebar 는 v1 그대로 + 우측 본문만 EditorPanelV2 (variant 탭)
       {
-        path: 'editor-v2/:bid',
+        path: 'editor2',
         element: (
           <ErrorBoundary>
-            <EditorPageV2 />
+            <AppLayoutV2 />
           </ErrorBoundary>
         ),
       },
-      { path: 'editor-v2', element: <Navigate to="/library" replace /> },
+      {
+        path: 'editor2/:bid',
+        element: (
+          <ErrorBoundary>
+            <AppLayoutV2 />
+          </ErrorBoundary>
+        ),
+      },
+      // 구 /editor-v2 (별도 v2 editor) → /editor2 로 리다이렉트 (북마크 호환용)
+      { path: 'editor-v2', element: <Navigate to="/editor2" replace /> },
+      { path: 'editor-v2/:bid', element: <EditorV2BidRedirect /> },
       {
         path: 'viewer/:id',
         element: (

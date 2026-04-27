@@ -811,6 +811,81 @@ document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); 
 initSourceFilter();
 rerenderAll();
 activateTab('dashboard');
+
+// === 실제 콘텐츠 완성도 동기화 ===
+// /api/storybooks 의 koCompletion 보고 각 책의 st (status) 를 자동 업데이트.
+// base bid + variant siblings (`{bid}__L1` 등) 모두 검사 — 어느 하나라도 한글 기본 완성이면 'done'.
+(async function syncCompletionFromServer() {
+  try {
+    const res = await fetch('/api/storybooks');
+    const json = await res.json();
+    const books = json?.data || [];
+    if (!books.length) return;
+
+    // bid → koCompletion 맵 (sibling 포함)
+    const byBid = new Map();
+    for (const sb of books) {
+      const baseId = sb.id.replace(/__L[1-4]$/, '');
+      if (!byBid.has(baseId)) byBid.set(baseId, []);
+      byBid.get(baseId).push(sb);
+    }
+
+    function newStatus(bid) {
+      const siblings = byBid.get(bid);
+      if (!siblings || siblings.length === 0) return null;
+      if (siblings.some(s => s.koCompletion?.complete)) return 'done';
+      const anyStart = siblings.some(s => {
+        const k = s.koCompletion;
+        if (!k) return (s.pageCount ?? 0) > 0;
+        return k.cover || k.pagesImage || k.pagesTts || k.vocabulary;
+      });
+      return anyStart ? 'wip' : 'todo';
+    }
+
+    let changed = 0;
+    const apply = (arr) => {
+      if (!Array.isArray(arr)) return;
+      for (const b of arr) {
+        if (!b.bid) continue;
+        const ns = newStatus(b.bid);
+        if (ns && b.st !== ns) {
+          b.st = ns;
+          changed++;
+        }
+      }
+    };
+    if (typeof CLASSIC_RAW !== 'undefined') apply(CLASSIC_RAW);
+    if (typeof NATURE_RAW !== 'undefined') {
+      // NATURE_RAW 는 { sub: [...] } 형태 — 각 sub 배열에 적용
+      for (const arr of Object.values(NATURE_RAW)) apply(arr);
+    }
+    if (typeof FOLKTALE_RAW !== 'undefined') apply(FOLKTALE_RAW);
+    if (typeof LIFE_RAW !== 'undefined') apply(LIFE_RAW);
+
+    if (changed > 0) {
+      // CLASSIC/FOLKTALE/LIFE 등 가공된 배열 (attach 결과) 도 같이 동기화
+      const syncArr = (arr) => {
+        if (!Array.isArray(arr)) return;
+        for (const c of arr) {
+          if (!c.bid) continue;
+          const ns = newStatus(c.bid);
+          if (ns) {
+            c.st = ns;
+            if (c.lvStatus && c.launch) c.lvStatus[c.launch] = ns;
+          }
+        }
+      };
+      if (typeof CLASSIC !== 'undefined') syncArr(CLASSIC);
+      if (typeof NATURE !== 'undefined') for (const arr of Object.values(NATURE)) syncArr(arr);
+      if (typeof FOLKTALE !== 'undefined') syncArr(FOLKTALE);
+      if (typeof LIFE !== 'undefined') syncArr(LIFE);
+      rerenderAll();
+      console.warn(`[curriculum-master] 실제 콘텐츠 동기화: ${changed}권 상태 업데이트`);
+    }
+  } catch (e) {
+    console.warn('[curriculum-master] 콘텐츠 동기화 실패 (offline 또는 서버 미기동):', e);
+  }
+})();
 </script>
 </body>
 </html>

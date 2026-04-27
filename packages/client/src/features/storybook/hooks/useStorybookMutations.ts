@@ -5,6 +5,7 @@ import type {
   GenerateStorybookRequest,
   GenerateStoryRequest,
   GeneratePhonicsBookRequest,
+  ReadingLevel,
 } from '@tangobook/shared';
 
 export function useSaveStorybook() {
@@ -37,6 +38,19 @@ export function useCopyStorybook() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (id: string) => storybookApi.copy(id),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: ['storybooks'] });
+      qc.setQueryData(['storybook', data.id], data);
+    },
+  });
+}
+
+/** /editor2 — base 책에서 새 레벨 variant 생성 (`${baseId}__L${level}`). */
+export function useCreateVariant() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, level }: { id: string; level: ReadingLevel }) =>
+      storybookApi.createVariant(id, level),
     onSuccess: (data) => {
       qc.invalidateQueries({ queryKey: ['storybooks'] });
       qc.setQueryData(['storybook', data.id], data);

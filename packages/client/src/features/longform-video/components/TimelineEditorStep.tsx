@@ -70,7 +70,14 @@ export function TimelineEditorStep({
       if (typeof ms.pageNumber === 'number') byPage.set(ms.pageNumber, ms);
     }
 
-    let changed = false;
+    // 실제로 채울 clip 이 있는지 미리 검사 — 없으면 onUpdate 호출 안 함 (무한 루프 방지)
+    const hasFillable = project.scenes.some((s) => {
+      if (s.clipUrl) return false;
+      const ms = typeof s.pageNumber === 'number' ? byPage.get(s.pageNumber) : undefined;
+      return !!ms?.clipUrl;
+    });
+    if (!hasFillable) return;
+
     onUpdate((proj) => {
       for (const s of proj.scenes) {
         if (s.clipUrl) continue;
@@ -79,12 +86,9 @@ export function TimelineEditorStep({
           s.clipUrl = ms.clipUrl;
           if (ms.clipHistory && !s.clipHistory) s.clipHistory = [...ms.clipHistory];
           if (ms.sfxUrl && !s.sfxUrl) s.sfxUrl = ms.sfxUrl;
-          changed = true;
         }
       }
     });
-    // onUpdate는 항상 draft 통해 호출되므로 no-op이어도 side effect 없음
-    void changed;
   }, [project.id, project.parentProjectId, allProjects, project.scenes, onUpdate]);
 
   const stopPreview = useCallback(() => {
@@ -173,12 +177,15 @@ export function TimelineEditorStep({
   const hasScenes = project.scenes.length > 0;
 
   // Check if clips/TTS are still loading (scenes exist but media not ready)
+  // 0/N (전혀 없음) 은 "로딩 중" 이 아니라 "빈 상태" 라 배너 표시 안 함
   const loadingStatus = useMemo(() => {
     if (!hasScenes) return null;
     const total = project.scenes.length;
     const clipsReady = project.scenes.filter((s) => s.clipUrl).length;
     const ttsReady = project.scenes.filter((s) => s.ttsUrl).length;
-    if (clipsReady < total || ttsReady < total) {
+    const hasAnyMedia = clipsReady > 0 || ttsReady > 0;
+    const incomplete = clipsReady < total || ttsReady < total;
+    if (hasAnyMedia && incomplete) {
       return { total, clipsReady, ttsReady };
     }
     return null;

@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, type ReactNode } from 'react';
 import { Button } from '@/components/Button';
 import { useStorybooks } from '@/features/storybook';
+import { cn } from '@/lib/cn';
 import type { Storybook } from '@tangobook/shared';
 
 interface EditorHeaderProps {
@@ -8,9 +9,20 @@ interface EditorHeaderProps {
   saving?: boolean;
   onSave: () => void;
   onUpdate: (updater: (draft: Storybook) => void) => void;
+  /** 우측 액션 영역에 저장 버튼 옆 (오른쪽) 으로 추가 액션 렌더 (optional). /editor2 의 삭제 버튼 등에 사용. */
+  extraActions?: ReactNode;
+  /** 한 줄 모드 — 제목·메타·뱃지를 같은 행에 배치 (/editor2). 기본 false 는 기존 2줄 (/editor). */
+  compact?: boolean;
 }
 
-export function EditorHeader({ storybook, saving, onSave, onUpdate }: EditorHeaderProps) {
+export function EditorHeader({
+  storybook,
+  saving,
+  onSave,
+  onUpdate,
+  extraActions,
+  compact = false,
+}: EditorHeaderProps) {
   const [showFolderMenu, setShowFolderMenu] = useState(false);
   const [newFolder, setNewFolder] = useState('');
   const { data: allStorybooks } = useStorybooks();
@@ -41,12 +53,12 @@ export function EditorHeader({ storybook, saving, onSave, onUpdate }: EditorHead
 
   return (
     <header className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-14 z-30">
-      <div className="px-6 py-3 flex items-center justify-between">
-        <div>
-          <h1 className="text-lg font-bold text-slate-800 dark:text-slate-100">
+      <div className="px-6 py-3 flex items-center justify-between gap-3">
+        <div className={compact ? 'flex items-center gap-3 min-w-0 flex-wrap' : ''}>
+          <h1 className="text-lg font-bold text-slate-800 dark:text-slate-100 shrink-0">
             {storybook.title}
           </h1>
-          <div className="flex items-center gap-2 mt-0.5">
+          <div className={cn('flex items-center gap-2', compact ? '' : 'mt-0.5')}>
             <p className="text-xs text-slate-500 dark:text-slate-400">
               {storybook.targetAge}세 · {storybook.pages?.length ?? 0}쪽 ·{' '}
               {new Date(storybook.createdAt).toLocaleDateString('ko-KR')}
@@ -118,6 +130,7 @@ export function EditorHeader({ storybook, saving, onSave, onUpdate }: EditorHead
           <Button size="sm" onClick={onSave} loading={saving}>
             저장
           </Button>
+          {extraActions}
         </div>
       </div>
     </header>

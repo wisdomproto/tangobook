@@ -1,6 +1,10 @@
 # 책 Variants 시스템 — 스펙
 
-> **🟢 Phase 3b-7/3b-8만 남음 (2026-04-25)** — 1+2(인프라/마이그/검증)·1.5(v2 13 endpoints)·3a(라이브러리)·3c(/curriculum-master) ✅. Phase 3b-2(셸)·3b-3(메타)·3b-4(텍스트)·3b-5(스타일+이미지업로드)·3b-6(페이지) ✅. **남은 것**: 3b-7 (오디오북/동영상/마케팅/게임 4탭, 각 별도 sprint), 3b-8 (BookDetailPage v2 + v1 deprecate). 진행 상세: `memory/book-variants-v2.md`. Commits: 56128d1, 0cbd241, 5c861b3, 80c0e47, 0e45e38, e7fcfd5, ecb3f3d, 3ec7d91, ef308f3, 4774ca3.
+> **🔴 폐기 / 대체됨 (2026-04-27)** — v2 별도 prefix 트리 (`books/{bid}/...`) 접근법은 v1 model과의 이중 유지 부담이 너무 컸음. 동일 목표(레벨 × 언어 × 그림체 3축 variation)를 **v1 Storybook 모델 단일 구조 위에서** 달성하는 `/editor2` 시스템으로 전환. 핵심 아이디어 보존: (a) 그림체 = `styleAssets[style]` 인라인 맵으로 isolation, (b) 레벨 = sibling docs (`${baseId}__L1`/L2/L3/L4), (c) 언어 = `translations` + `nameTranslations` 인라인. 실제 구현/운영 docs: `memory/editor2-variant-system.md`, `CLAUDE.md` 의 "/editor2 단일 구조 저작도구" 섹션. v2 코드는 `/editor-v2` 라우트로 alias 보존 (rollback용).
+>
+> **이 스펙은 사료**로 남기되, 새로 작업할 때 참고하지 말 것 — `/editor2` 문서를 따라가야 함.
+>
+> 이전 진행: 1+2(인프라/마이그/검증)·1.5(v2 13 endpoints)·3a(라이브러리)·3c(/curriculum-master) ✅. Phase 3b-2(셸)·3b-3(메타)·3b-4(텍스트)·3b-5(스타일+이미지업로드)·3b-6(페이지)·3b-7 (오디오북/동영상/마케팅/게임 4탭)·3b-8 (BookDetailPage v2 cutover) ✅. Commits: 56128d1, 0cbd241, 5c861b3, 80c0e47, 0e45e38, e7fcfd5, ecb3f3d, 3ec7d91, ef308f3, 4774ca3.
 
 **Date**: 2026-04-25
 **스코프**: 동화책의 (레벨 × 언어 × 그림체) 3축 variation을 정식 데이터 모델로 격상. R2 prefix 구조 재설계, 저작도구 탭 재구성, 211권 마이그레이션, 학습 리포팅 4축 확장.

@@ -696,11 +696,17 @@ export interface KeyObject {
   name: string;
   korean?: string;
   nameEn?: string;
+  /** ko/en 외 언어별 이름. 예: { ja: 'にんじん', zh: '胡萝卜' } */
+  nameTranslations?: Record<string, string>;
   description: string;
   pages: number[];
   sizeCm?: number;
   sizeCategory?: 'small' | 'medium' | 'large';
   customPrompt?: string;
+  /** 한글 이름 발음 TTS URL (default 언어용). 학습게임/뷰어에서 음성 재생용. */
+  ttsUrl?: string;
+  /** 다국어 이름 TTS URL. 키 = lang code (en/ja/...), 값 = 해당 언어 이름의 발음 음성 URL. */
+  ttsUrls?: Record<string, string>;
 }
 
 export interface KeyObjectImage {
@@ -740,16 +746,86 @@ export interface ParentGuide {
   readingTips: string[];
 }
 
+/**
+ * 그림체별 분리 보관 자산 (Storybook.styleAssets[style]).
+ * 텍스트·TTS·게임 데이터 등 그림체 무관 항목은 Storybook 의 top-level 에 그대로 둠.
+ * 그림체별로 다른 항목만 여기 보관 (전환 시 swap).
+ */
+export interface StyleAssets {
+  // 표지 (전체 셋)
+  coverImages?: CoverImageItem[];
+  coverImage?: string;
+  coverPrompt?: string;
+  coverImageHistory?: string[];
+  coverCharacterRefs?: number[];
+  /** 캐릭터별 이미지 (Storybook.characters 인덱스 매칭). 텍스트 정보(name 등)는 그림체와 무관 */
+  characterImages?: Array<
+    | {
+        referenceImage?: string;
+        imageHistory?: string[];
+        prompt?: string;
+      }
+    | undefined
+  >;
+  /** 페이지별 일러스트 (Storybook.pages.pageNumber 매칭) */
+  pageIllustrations?: Record<
+    number,
+    {
+      illustrationUrl?: string;
+      illustrationHistory?: string[];
+      customModifications?: string;
+    }
+  >;
+  /** 핵심사물 이미지 (전체 셋, 그림체별로 다른 그림) */
+  keyObjectImages?: KeyObjectImage[];
+  /** 어휘 이미지 */
+  vocabularyImages?: VocabularyImage[];
+}
+
 export interface Storybook {
   id: string;
   title: string;
+  /**
+   * 다국어 제목 — 표지/카드뉴스 등 책 단위 제목 표시용.
+   * `title` 은 default(ko) 로 사용. 다른 언어는 `titleTranslations[lang]` 으로 fallback.
+   */
+  titleTranslations?: Record<string, string>;
+  /**
+   * 언어별 대표 표지 URL.
+   * 키 = lang code (ko/en/ja/...), 값 = coverImages[i].imageUrl 중 하나.
+   * `ko` 는 비어 있으면 `coverImage` (legacy 필드) 로 fallback.
+   * 표지에 한국어 제목과 영어 제목이 따로 박힌 다른 그림이 있을 때 언어별 대표를 분리 보관.
+   */
+  primaryCoverByLang?: Record<string, string>;
   type?: StorybookType; // undefined = 'storybook' (하위호환)
   targetAge: '4-5' | '5-7' | '7-8';
   /** 실측 기반 4단계 레벨. 신규 생성 책에 우선 사용 (targetAge는 레거시 호환) */
   readingLevel?: ReadingLevel;
   /** 부모용 책 가이드 (특징·교훈·읽어주는 법). 라이브러리 상세 페이지에서 표시. */
   parentGuide?: ParentGuide;
+  /**
+   * 책이 지원하는 언어 코드 배열 (`SUPPORTED_LANGUAGES.code`).
+   * 기본 한국어 — 없으면 ['ko'] 로 취급.
+   * 페이지/표지/핵심단어/오디오북/롱폼/게임 등 텍스트·음성·영상 데이터가 언어별 inline으로 저장됨.
+   * 이미지/그림체는 언어와 무관 (visual content 는 모든 언어가 공유).
+   */
+  languages?: string[];
+  /** 기본 언어 — 위 languages 가 비어 있을 때의 fallback. 보통 'ko'. */
+  defaultLanguage?: string;
   artStyle: string;
+  /**
+   * 책이 지원하는 그림체 prompt 배열 (`ART_STYLES.prompt` 또는 커스텀).
+   * 비어 있으면 [artStyle] 로 취급. 사용자가 + 그림체 추가 로 늘릴 수 있음.
+   */
+  availableStyles?: string[];
+  /**
+   * 그림체별 자산 보관 (Phase 2 — 그림체 전환 시 표지/캐릭터/페이지 일러스트 등 swap).
+   * Key = artStyle prompt. 값 = 해당 그림체용 자산 셋.
+   * top-level 의 coverImage·characters[].referenceImage·pages[].illustrationUrl 등은
+   * "현재 활성 그림체의 자산" 으로 쓰이고, 전환 시 styleAssets 와 swap.
+   * 빈 그림체로 전환 시 top-level 자산은 비워짐 (재생성 필요).
+   */
+  styleAssets?: Record<string, StyleAssets>;
   category?: string;
   folder?: string;
   isPublic?: boolean;
@@ -989,6 +1065,22 @@ export type StorybookSummary = Pick<
   pageCount?: number;
   phonicsLanguage?: 'korean' | 'english';
   hasVideo?: boolean;
+  /**
+   * 한글 기본 콘텐츠 완성도 — 커리큘럼 마스터 페이지에서 ✅ 완성 여부 판단에 사용.
+   * 모든 필드가 true 이면 `complete: true`. 부분 완성은 wip 으로 분류.
+   */
+  koCompletion?: {
+    /** 표지 이미지 1장 이상 */
+    cover: boolean;
+    /** 모든 페이지에 일러스트 있음 */
+    pagesImage: boolean;
+    /** 모든 페이지에 한글 TTS 있음 */
+    pagesTts: boolean;
+    /** 핵심단어 (key_objects) 1개 이상 */
+    vocabulary: boolean;
+    /** 위 4개 모두 true */
+    complete: boolean;
+  };
 };
 
 // ===== Longform Video =====

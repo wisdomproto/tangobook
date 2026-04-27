@@ -130,6 +130,75 @@ export const StorybookService = {
     return R2Repository.saveStorybook(copy);
   },
 
+  /**
+   * 레벨 variant 생성 — base 책에서 새 레벨 sibling 을 만든다.
+   * 규칙:
+   *  - id = `${baseId}__L${level}` (suffix 기반 sibling pattern)
+   *  - title = base 제목 + " (L{level})"
+   *  - readingLevel 필드 = 새 레벨
+   *  - 페이지/캐릭터/이미지/오디오 텍스트 메타는 유지하되 미디어 URL 은 모두 비움 (새 레벨용으로 재생성 필요)
+   *  - sourceId 가 이미 variant (`__L*`) 이면 base 로 fall back
+   */
+  async createVariant(sourceId: string, level: 'L1' | 'L2' | 'L3' | 'L4'): Promise<Storybook> {
+    const baseId = sourceId.replace(/__L[1-4]$/, '');
+    const original = await R2Repository.getStorybook(baseId);
+    const sourceForCopy = original ?? (await R2Repository.getStorybook(sourceId));
+    if (!sourceForCopy) throw new AppError(404, '베이스 동화책을 찾을 수 없습니다.');
+
+    const newId = `${baseId}__${level}`;
+    const existing = await R2Repository.getStorybook(newId);
+    if (existing) throw new AppError(409, `${level} 레벨 variant 이 이미 존재합니다.`);
+
+    const baseTitle = sourceForCopy.title.replace(/\s*\(L[1-4]\)\s*$/, '');
+
+    const variant: Storybook = {
+      ...sourceForCopy,
+      id: newId,
+      title: `${baseTitle} (${level})`,
+      readingLevel: level,
+      createdAt: new Date().toISOString(),
+      updatedAt: undefined,
+      // 표지 이미지 제거 (레벨별 재생성)
+      coverImage: undefined,
+      coverImageHistory: undefined,
+      // 캐릭터 이미지는 제거하되 텍스트 정보는 유지
+      characters: sourceForCopy.characters.map((c) => ({
+        ...c,
+        referenceImage: undefined,
+        imageHistory: undefined,
+      })),
+      // 페이지 삽화/TTS 제거 (레벨별 재생성)
+      pages: sourceForCopy.pages.map((p) => ({
+        ...p,
+        illustrationUrl: undefined,
+        illustrationHistory: undefined,
+        ttsUrl: undefined,
+      })),
+      // 사물/어휘 이미지 제거
+      keyObjectImages: undefined,
+      vocabularyImages: undefined,
+      // 오디오북 제거
+      audiobookProjects: undefined,
+      backgroundMusicUrl: undefined,
+      // 파닉스 미디어 정리
+      ...(sourceForCopy.type === 'phonics'
+        ? {
+            flashcards: sourceForCopy.flashcards?.map((f) => ({
+              ...f,
+              imageUrl: undefined,
+              imageHistory: undefined,
+              ttsUrl: undefined,
+            })),
+            chant: sourceForCopy.chant
+              ? { ...sourceForCopy.chant, ttsUrl: undefined, bgmUrl: undefined }
+              : undefined,
+          }
+        : {}),
+    };
+
+    return R2Repository.saveStorybook(variant);
+  },
+
   async generateStory(req: GenerateStoryRequest): Promise<StoryDraftPage[]> {
     const { title, targetAge, referenceContent, model } = req;
 

@@ -10,6 +10,7 @@ import { UploadMenu } from '@/components/UploadMenu';
 import { characterApi } from '../api/character.api';
 import { pushImageHistory } from '@/lib/image-history';
 import { CharacterLibraryModal } from './CharacterLibraryModal';
+import { OtherStyleReference } from '@/features/editor/components/OtherStyleReference';
 import type { Storybook, Character } from '@tangobook/shared';
 
 interface CharacterTabProps {
@@ -327,6 +328,16 @@ export function CharacterTab({ storybook, onUpdate, onSave }: CharacterTabProps)
                       onSave();
                     }}
                   />
+
+                  {/* 다른 그림체의 같은 캐릭터 참고 */}
+                  <div className="mb-2">
+                    <OtherStyleReference
+                      storybook={storybook}
+                      slot={{ kind: 'character', characterIndex: idx }}
+                      label={`🎨 다른 그림체`}
+                      thumbSize={64}
+                    />
+                  </div>
 
                   {/* Name & Role */}
                   <p className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">

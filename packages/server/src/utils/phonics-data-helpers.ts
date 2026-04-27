@@ -40,6 +40,8 @@ export function collectStorybookImagePool(
         word: ki.objectName,
         korean: obj?.korean ?? ki.objectName,
         imageUrl: ki.imageUrl,
+        // 한글 이름 발음 TTS — 게임에서 음성 재생용
+        ttsUrl: obj?.ttsUrl,
       });
     }
   }

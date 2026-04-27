@@ -46,3 +46,10 @@ coverage/
 
 # SFX synth tmp (wav intermediates + script)
 .sfx-tmp/
+
+# ComfyUI / image generation experiment outputs
+/comfyui-output/
+/public/
+audit-report.json
+verify-report.json
+sparkle-success.json

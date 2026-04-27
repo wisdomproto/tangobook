@@ -11,7 +11,46 @@ import { UploadMenu } from '@/components/UploadMenu';
 import { KeyObjectDotEditorModal } from './KeyObjectDotEditorModal';
 import { keyObjectApi } from '../api/keyObject.api';
 import { apiClient } from '@/lib/axios';
+import { useEditorLang } from '@/contexts/EditorLangContext';
+import { translationApi } from '@/features/translation/api/translation.api';
+import { ttsApi } from '@/features/tts/api/tts.api';
+import { OtherStyleReference } from '@/features/editor/components/OtherStyleReference';
+import { TTS_VOICES } from '@tangobook/shared';
 import type { Storybook, KeyObject, ImageGenerationResult } from '@tangobook/shared';
+
+/** 활성 언어에 맞는 핵심사물 표시 이름 */
+function getKeyObjectName(obj: KeyObject, lang: string): string {
+  if (lang === 'ko') return obj.korean || obj.name;
+  if (lang === 'en') return obj.nameEn || obj.name;
+  return obj.nameTranslations?.[lang] || obj.name;
+}
+
+function setKeyObjectName(obj: KeyObject, lang: string, value: string): void {
+  if (lang === 'ko') {
+    obj.korean = value || undefined;
+  } else if (lang === 'en') {
+    obj.nameEn = value || undefined;
+  } else {
+    if (!obj.nameTranslations) obj.nameTranslations = {};
+    if (value.trim()) obj.nameTranslations[lang] = value;
+    else delete obj.nameTranslations[lang];
+  }
+}
+
+/** 활성 언어에 맞는 핵심사물 TTS URL */
+function getKeyObjectTts(obj: KeyObject, lang: string): string | undefined {
+  if (lang === 'ko') return obj.ttsUrl;
+  return obj.ttsUrls?.[lang];
+}
+
+function setKeyObjectTts(obj: KeyObject, lang: string, url: string): void {
+  if (lang === 'ko') {
+    obj.ttsUrl = url;
+  } else {
+    if (!obj.ttsUrls) obj.ttsUrls = {};
+    obj.ttsUrls[lang] = url;
+  }
+}
 
 interface KeyObjectTabProps {
   storybook: Storybook;
@@ -22,6 +61,126 @@ interface KeyObjectTabProps {
 export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps) {
   const keyObjects = storybook.key_objects ?? [];
   const keyObjectImages = storybook.keyObjectImages ?? [];
+  const externalLang = useEditorLang();
+  const isControlled = externalLang !== null;
+  const isNonKo = isControlled && externalLang !== 'ko';
+  const [translatingNames, setTranslatingNames] = useState(false);
+
+  // 모든 핵심사물 이름 일괄 번역 (ko → externalLang)
+  const handleTranslateAllNames = useCallback(async () => {
+    if (!externalLang || externalLang === 'ko' || keyObjects.length === 0) return;
+    setTranslatingNames(true);
+    try {
+      const sources = keyObjects.map((obj, idx) => ({
+        pageNumber: idx + 1,
+        text: obj.korean || obj.name,
+      }));
+      const results = await translationApi.batch({
+        pages: sources,
+        targetLanguage: externalLang,
+        storybookId: storybook.id,
+      });
+      onUpdate((draft) => {
+        const objs = draft.key_objects ?? [];
+        results.forEach((r, i) => {
+          const o = objs[i];
+          if (!o) return;
+          if (externalLang === 'en') {
+            o.nameEn = r.text;
+          } else {
+            if (!o.nameTranslations) o.nameTranslations = {};
+            o.nameTranslations[externalLang] = r.text;
+          }
+        });
+      });
+      onSave();
+    } catch (e) {
+      console.error('[KeyObjectTab] batch translate failed:', e);
+      alert('일괄 번역 실패: ' + (e as Error).message);
+    } finally {
+      setTranslatingNames(false);
+    }
+  }, [externalLang, keyObjects, onUpdate, onSave, storybook.id]);
+
+  // === TTS ===
+  const ttsLang = externalLang ?? 'ko';
+  const [ttsGeneratingIdx, setTtsGeneratingIdx] = useState<number | null>(null);
+  const [ttsBatch, setTtsBatch] = useState<{ current: number; total: number } | null>(null);
+  const [ttsVoice, setTtsVoice] = useState<string>(TTS_VOICES[0].id);
+  const ttsAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  const playTts = useCallback((url: string) => {
+    if (ttsAudioRef.current) ttsAudioRef.current.pause();
+    const audio = new Audio(url);
+    ttsAudioRef.current = audio;
+    audio.play().catch(() => {});
+  }, []);
+
+  const generateOneTts = useCallback(
+    async (idx: number) => {
+      const obj = keyObjects[idx];
+      if (!obj) return;
+      const name = getKeyObjectName(obj, ttsLang);
+      if (!name?.trim()) return;
+      setTtsGeneratingIdx(idx);
+      try {
+        const result = await ttsApi.generate({
+          text: name,
+          provider: 'gemini',
+          voice: ttsVoice,
+          language: ttsLang,
+          storybookId: storybook.id,
+          pageNumber: idx + 1,
+        });
+        onUpdate((draft) => {
+          const o = draft.key_objects?.[idx];
+          if (o) setKeyObjectTts(o, ttsLang, result.audioUrl);
+        });
+        onSave();
+        // 자동 재생
+        playTts(result.audioUrl);
+      } catch (e) {
+        console.error('[KeyObjectTab] TTS generate failed:', e);
+        alert('TTS 생성 실패: ' + (e as Error).message);
+      } finally {
+        setTtsGeneratingIdx(null);
+      }
+    },
+    [keyObjects, ttsLang, ttsVoice, onUpdate, onSave, storybook.id, playTts]
+  );
+
+  const generateAllTts = useCallback(async () => {
+    const targets = keyObjects
+      .map((obj, idx) => ({ idx, name: getKeyObjectName(obj, ttsLang) }))
+      .filter((t) => t.name?.trim());
+    if (targets.length === 0) return;
+    if (!confirm(`${targets.length}개 핵심사물 이름의 ${ttsLang} TTS를 생성합니다. 계속할까요?`))
+      return;
+    setTtsBatch({ current: 0, total: targets.length });
+    for (let i = 0; i < targets.length; i++) {
+      const t = targets[i];
+      setTtsBatch({ current: i + 1, total: targets.length });
+      try {
+        const result = await ttsApi.generate({
+          text: t.name,
+          provider: 'gemini',
+          voice: ttsVoice,
+          language: ttsLang,
+          storybookId: storybook.id,
+          pageNumber: t.idx + 1,
+        });
+        onUpdate((draft) => {
+          const o = draft.key_objects?.[t.idx];
+          if (o) setKeyObjectTts(o, ttsLang, result.audioUrl);
+        });
+        onSave();
+      } catch (e) {
+        console.error(`[KeyObjectTab] TTS batch idx ${t.idx} failed:`, e);
+      }
+    }
+    setTtsBatch(null);
+  }, [keyObjects, ttsLang, ttsVoice, onUpdate, onSave, storybook.id]);
+
   const [generatingIdx, setGeneratingIdx] = useState<number | null>(null);
   const [expandedPrompt, setExpandedPrompt] = useState<number | null>(null);
   const [editingPrompt, setEditingPrompt] = useState('');
@@ -197,10 +356,43 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
+        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2 flex-wrap">
           핵심 사물 ({keyObjects.length}개)
+          {isControlled && (
+            <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300">
+              {externalLang === 'ko' ? '🇰🇷' : externalLang === 'en' ? '🇺🇸' : '🌐'}{' '}
+              <strong>{externalLang}</strong> 이름 편집
+              <span className="opacity-70 font-normal"> · 이미지는 공유</span>
+            </span>
+          )}
         </h2>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
+          {isNonKo && keyObjects.length > 0 && (
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={handleTranslateAllNames}
+              disabled={translatingNames}
+              loading={translatingNames}
+              title={`Gemini 로 모든 사물 이름을 ${externalLang} 으로 번역`}
+            >
+              🤖 이름 일괄 번역
+            </Button>
+          )}
+          {keyObjects.length > 0 && (
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={generateAllTts}
+              disabled={!!ttsBatch || ttsGeneratingIdx !== null}
+              loading={!!ttsBatch}
+              title={`${ttsLang} 으로 모든 핵심사물 이름 TTS 일괄 생성`}
+            >
+              {ttsBatch
+                ? `🎙 TTS 생성 중 (${ttsBatch.current}/${ttsBatch.total})`
+                : `🎙 이름 TTS 일괄 생성 (${ttsLang})`}
+            </Button>
+          )}
           <Button size="sm" variant="secondary" onClick={() => setShowAddForm(!showAddForm)}>
             + 사물 추가
           </Button>
@@ -324,14 +516,82 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
                       }}
                     />
 
-                    <p className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">
-                      {obj.korean || obj.name}
-                    </p>
-                    {(obj.nameEn || (obj.korean && obj.name !== obj.korean)) && (
-                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
-                        {obj.nameEn || obj.name}
+                    {/* 다른 그림체의 같은 사물 이미지 참고 */}
+                    <div className="mb-2">
+                      <OtherStyleReference
+                        storybook={storybook}
+                        slot={{ kind: 'keyObject', objectName: obj.name }}
+                        label={`🎨 다른 그림체`}
+                        thumbSize={64}
+                      />
+                    </div>
+
+                    {/* 활성 언어 이름 표시 — controlled 시 인라인 편집 */}
+                    {isNonKo ? (
+                      <>
+                        <input
+                          type="text"
+                          value={getKeyObjectName(obj, externalLang!)}
+                          onChange={(e) => {
+                            const v = e.target.value;
+                            onUpdate((draft) => {
+                              const o = draft.key_objects?.[idx];
+                              if (o) setKeyObjectName(o, externalLang!, v);
+                            });
+                          }}
+                          onBlur={() => onSave()}
+                          placeholder={`${obj.name} (${externalLang} 번역)`}
+                          className="w-full text-sm font-medium text-slate-700 dark:text-slate-200 truncate bg-transparent border-b border-sky-300 dark:border-sky-700 focus:outline-none focus:border-sky-500 px-0.5 py-0.5"
+                        />
+                        <p className="text-[10px] text-slate-400 dark:text-slate-500 truncate mt-0.5">
+                          🇰🇷 {obj.korean || obj.name}
+                        </p>
+                      </>
+                    ) : (
+                      <p className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">
+                        {obj.korean || obj.name}
                       </p>
                     )}
+
+                    {/* TTS — 활성 언어 이름 발음 */}
+                    {(() => {
+                      const ttsUrl = getKeyObjectTts(obj, ttsLang);
+                      const generating = ttsGeneratingIdx === idx;
+                      return (
+                        <div className="mt-1 flex items-center justify-center gap-1">
+                          {ttsUrl ? (
+                            <>
+                              <button
+                                onClick={() => playTts(ttsUrl)}
+                                disabled={generating}
+                                className="px-1.5 py-0.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded"
+                                title={`${ttsLang} 발음 재생`}
+                              >
+                                ▶ {ttsLang}
+                              </button>
+                              <button
+                                onClick={() => generateOneTts(idx)}
+                                disabled={generating}
+                                className="px-1.5 py-0.5 text-[10px] text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded"
+                                title="TTS 다시 생성"
+                              >
+                                {generating ? '⟳' : '🔄'}
+                              </button>
+                            </>
+                          ) : (
+                            <button
+                              onClick={() => generateOneTts(idx)}
+                              disabled={generating}
+                              className="px-1.5 py-0.5 text-[10px] font-bold text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-900/30 rounded disabled:opacity-50"
+                              title={`${ttsLang} TTS 생성`}
+                            >
+                              {generating ? '⟳ 생성 중' : `🎙 ${ttsLang} TTS`}
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })()}
+
                     {obj.description && obj.description !== obj.name && (
                       <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 text-left leading-relaxed">
                         {obj.description}

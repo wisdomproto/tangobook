@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -6,6 +6,7 @@ import { Button } from '@/components/Button';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { ImageDropZone } from '@/components/ImageDropZone';
 import { ImagePreview } from '@/components/ImagePreview';
+import { OtherStyleReference } from '@/features/editor/components/OtherStyleReference';
 import { DownloadButton } from '@/components/DownloadButton';
 import { UploadMenu } from '@/components/UploadMenu';
 import { illustrationApi } from '../api/illustration.api';
@@ -37,15 +38,25 @@ export function PageCard({
   onDelete,
 }: PageCardProps) {
   const [editing, setEditing] = useState(false);
-  const [text, setText] = useState(stripBold(page.text));
+  const isKorean = activeLang === 'ko';
+  // 활성 언어 텍스트 — primitive 값 (object dep 으로 인한 무한 effect loop 방지)
+  const currentLangText = isKorean
+    ? (page.text ?? '')
+    : (page.translations?.[activeLang]?.text ?? '');
+  // editing 텍스트 — 활성 언어 텍스트의 stripBold 본
+  const [text, setText] = useState(() => stripBold(currentLangText));
+
+  // 활성 언어 변경 / 외부 데이터 갱신 시 text state 동기화 (primitive dep 만 사용)
+  useEffect(() => {
+    if (editing) return; // 편집 중엔 덮어쓰지 않음
+    setText(stripBold(currentLangText));
+  }, [currentLangText, editing]);
   const [modifications, setModifications] = useState(page.customModifications ?? '');
   const [showScene, setShowScene] = useState(false);
   const [showMods, setShowMods] = useState(false);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [voice, setVoice] = useState<string>(TTS_VOICES[0].id);
   const [ttsVersion, setTtsVersion] = useState(0);
-
-  const isKorean = activeLang === 'ko';
 
   // --- Sortable ---
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -170,7 +181,17 @@ export function PageCard({
 
   const handleSaveText = () => {
     onUpdate((draft) => {
-      draft.pages[pageIndex].text = text;
+      const p = draft.pages[pageIndex];
+      if (isKorean) {
+        p.text = text;
+      } else {
+        if (!p.translations) p.translations = {};
+        const existing = p.translations[activeLang];
+        p.translations[activeLang] = {
+          text,
+          ttsUrl: existing?.ttsUrl,
+        };
+      }
     });
     onSave();
     setEditing(false);
@@ -277,6 +298,16 @@ export function PageCard({
                   onFile={handleFileUpload}
                   openFilePicker={openFilePicker}
                   disabled={generateMutation.isPending || uploadMutation.isPending}
+                />
+              </div>
+
+              {/* 다른 그림체의 같은 페이지 일러스트 참고 (활성 그림체 외 styleAssets 에 있는 경우) */}
+              <div className="mt-2">
+                <OtherStyleReference
+                  storybook={storybook}
+                  slot={{ kind: 'page', pageNumber: page.pageNumber }}
+                  label={`🎨 다른 그림체 P${page.pageNumber}`}
+                  thumbSize={72}
                 />
               </div>
             </div>
@@ -441,16 +472,46 @@ export function PageCard({
                 <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed p-2 bg-slate-50/50 dark:bg-slate-900/50 rounded">
                   {stripBold(page.text)}
                 </p>
-                <p className="text-sm text-blue-700 bg-blue-50/50 dark:bg-blue-900/20 rounded p-2">
-                  {stripBold(currentText)}
-                </p>
+                {editing ? (
+                  <div className="space-y-2">
+                    <textarea
+                      value={text}
+                      onChange={(e) => setText(e.target.value)}
+                      rows={3}
+                      className="w-full px-3 py-2 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none text-sm bg-blue-50/50 dark:bg-blue-900/20 dark:border-blue-700 dark:text-slate-100"
+                    />
+                    <div className="flex gap-2">
+                      <Button size="sm" onClick={handleSaveText}>
+                        확인
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => {
+                          setText(stripBold(page.translations?.[activeLang]?.text ?? ''));
+                          setEditing(false);
+                        }}
+                      >
+                        취소
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <p
+                    className="text-sm text-blue-700 bg-blue-50/50 dark:bg-blue-900/20 rounded p-2 cursor-pointer hover:bg-blue-100/50 dark:hover:bg-blue-900/40 border border-transparent hover:border-blue-200 dark:hover:border-blue-700 transition"
+                    onClick={() => setEditing(true)}
+                    title={`${activeLang} 텍스트 편집`}
+                  >
+                    {stripBold(currentText)}
+                  </p>
+                )}
                 <Button
                   size="sm"
                   variant="ghost"
                   onClick={() => translateMutation.mutate()}
                   loading={translateMutation.isPending}
                 >
-                  재번역
+                  🤖 재번역
                 </Button>
               </div>
             ) : (
@@ -458,19 +519,51 @@ export function PageCard({
                 <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed p-2 bg-slate-50/50 dark:bg-slate-900/50 rounded">
                   {stripBold(page.text)}
                 </p>
-                <div className="flex items-center gap-2 p-2 bg-slate-50 dark:bg-slate-900 rounded">
-                  <p className="text-xs text-slate-400 dark:text-slate-500 italic flex-1">
-                    번역이 없습니다.
-                  </p>
-                  <Button
-                    size="sm"
-                    onClick={() => translateMutation.mutate()}
-                    loading={translateMutation.isPending}
-                    disabled={!page.text}
-                  >
-                    번역
-                  </Button>
-                </div>
+                {editing ? (
+                  <div className="space-y-2">
+                    <textarea
+                      value={text}
+                      onChange={(e) => setText(e.target.value)}
+                      rows={3}
+                      placeholder={`${activeLang} 번역 입력...`}
+                      className="w-full px-3 py-2 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none text-sm bg-blue-50/50 dark:bg-blue-900/20 dark:border-blue-700 dark:text-slate-100"
+                      autoFocus
+                    />
+                    <div className="flex gap-2">
+                      <Button size="sm" onClick={handleSaveText}>
+                        확인
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => {
+                          setText('');
+                          setEditing(false);
+                        }}
+                      >
+                        취소
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 p-2 bg-slate-50 dark:bg-slate-900 rounded">
+                    <p
+                      className="text-xs text-slate-400 dark:text-slate-500 italic flex-1 cursor-pointer hover:text-slate-600"
+                      onClick={() => setEditing(true)}
+                      title={`${activeLang} 텍스트 직접 입력`}
+                    >
+                      번역이 없습니다. (클릭해서 직접 입력)
+                    </p>
+                    <Button
+                      size="sm"
+                      onClick={() => translateMutation.mutate()}
+                      loading={translateMutation.isPending}
+                      disabled={!page.text}
+                    >
+                      🤖 번역
+                    </Button>
+                  </div>
+                )}
               </div>
             )}
 

@@ -62,6 +62,21 @@ export function prewarmStorybookListCache(): void {
 function toSummary(sb: Storybook): StorybookSummary {
   const hasAudiobookVideo = sb.audiobookProjects?.some((p) => !!p.youtubeUpload?.videoId) ?? false;
   const hasLongformVideo = sb.longformProjects?.some((p) => !!p.youtubeUpload?.videoId) ?? false;
+
+  // 한글 기본 완성도 산출 (커리큘럼 마스터 ✅ 판단)
+  const pages = sb.pages ?? [];
+  const cover = !!sb.coverImage || !!sb.coverImages?.[0]?.imageUrl;
+  const pagesImage = pages.length > 0 && pages.every((p) => !!p.illustrationUrl);
+  const pagesTts = pages.length > 0 && pages.every((p) => !!p.ttsUrl);
+  const vocabulary = (sb.key_objects?.length ?? 0) > 0;
+  const koCompletion = {
+    cover,
+    pagesImage,
+    pagesTts,
+    vocabulary,
+    complete: cover && pagesImage && pagesTts && vocabulary,
+  };
+
   return {
     id: sb.id,
     title: sb.title,
@@ -73,9 +88,10 @@ function toSummary(sb: Storybook): StorybookSummary {
     isPublic: sb.isPublic,
     createdAt: sb.createdAt,
     coverImage: sb.coverImage,
-    pageCount: sb.pages?.length ?? 0,
+    pageCount: pages.length,
     phonicsLanguage: sb.phonicsConfig?.language,
     hasVideo: hasAudiobookVideo || hasLongformVideo,
+    koCompletion,
   };
 }
 

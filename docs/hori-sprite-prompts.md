@@ -74,6 +74,40 @@ Output: PNG on solid magenta background.
 | shoot-2 | `blowing a bubble frame 2, cheeks fully puffed, both arms forward, eyes focused and bright, mouth pursed, three-quarter side view facing right` |
 | shoot-3 | `just after blowing a bubble frame 3, mouth slightly open and relaxed, arms still forward, looking forward, three-quarter side view facing right` |
 | look-up | `looking up alertly, head tilted up, arms down, ears perked forward, front view` |
+| blow | (see dedicated section below) |
+
+---
+
+## `blow` pose (for Hori Bubble Bobble arcade game)
+
+**Purpose:** Hori blowing out a bubble. Used in `features/arcade-games/hori-bubble/`.
+
+**Gemini 3 Pro prompt template:**
+
+> Reference image: [golden idle frame attached]
+>
+> Generate a 2×2 grid of 4 animation frames showing the same Hori character blowing a bubble. Maintain identical body proportions, color palette, and art style from the reference idle.
+>
+> Frame 1: Hori standing, taking a deep breath in. Chest slightly expanded, eyes softly closed.
+> Frame 2: Mouth widening to a small O shape, cheeks starting to puff.
+> Frame 3: Cheeks fully puffed like a trumpet player, mouth in a wide O, a small bubble (~20% of head height) just emerging from the mouth.
+> Frame 4: Mouth back to a tiny O, cheeks deflating, bubble fully detached and floating forward.
+>
+> Each frame: solid magenta (#ff00ff) background, character perfectly centered, same scale across all 4 frames, body feet anchored at identical Y position. No motion blur. Same outline weight as reference.
+>
+> Pink cheek blush visible in all frames. Subtle smile visible in frame 4.
+
+**Pipeline after generation:**
+
+```bash
+# Save Gemini output to:
+# packages/client/public/mascot/hori/blow/blow-sheet-2x2.png
+
+python scripts/process-sprite-sheet.py blow 75
+# Produces: blow-frame-1.png through blow-frame-4.png, blow.webp, blow-strip-preview.png
+```
+
+Then update `packages/client/src/features/arcade-games/hori-bubble/scenes/PreloadScene.ts` to load the real `blow` frames (the placeholder reuses `run` frames currently — the animation key mapping is already correct, just the sprite source needs swapping once the PNGs exist).
 
 ---
 

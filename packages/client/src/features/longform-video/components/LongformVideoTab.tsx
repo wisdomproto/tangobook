@@ -1,11 +1,12 @@
 import type { Storybook, LongformProject } from '@tangobook/shared';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { StepBar } from './StepBar';
 import { LongformProjectHeader } from './LongformProjectHeader';
 import { PromptAnalysisStep } from './PromptAnalysisStep';
 import { VideoGenerationStep } from './VideoGenerationStep';
 import { RenderStep } from './RenderStep';
 import { TimelineEditorStep } from './TimelineEditorStep';
+import { useEditorLang } from '@/contexts/EditorLangContext';
 
 interface LongformVideoTabProps {
   storybook: Storybook;
@@ -13,11 +14,11 @@ interface LongformVideoTabProps {
   onSave: () => void;
 }
 
-function makeDefaultProject(): Omit<LongformProject, 'id'> {
+function makeDefaultProject(lang = 'ko'): Omit<LongformProject, 'id'> {
   return {
-    name: '새 동영상',
+    name: lang === 'ko' ? '새 동영상' : `새 동영상 (${lang})`,
     aspectRatio: '16:9',
-    language: 'ko',
+    language: lang,
     scenes: [],
     bgmVolume: 30,
     subtitleStyle: {
@@ -32,6 +33,8 @@ function makeDefaultProject(): Omit<LongformProject, 'id'> {
 
 export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoTabProps) {
   const allProjects = storybook.longformProjects ?? [];
+  const externalLang = useEditorLang();
+  const isControlled = externalLang !== null;
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedVersionId, setSelectedVersionId] = useState<string | null>(null);
 
@@ -49,8 +52,20 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
     return [selectedMaster, ...allProjects.filter((p) => p.parentProjectId === selectedMaster.id)];
   }, [selectedMaster, allProjects]);
 
+  // 외부 언어 변경 시 매칭 version 으로 자동 전환
+  useEffect(() => {
+    if (!isControlled || !externalLang || versions.length === 0) return;
+    const matchingVersion = versions.find((v) => (v.language ?? 'ko') === externalLang);
+    if (matchingVersion && matchingVersion.id !== selectedVersionId) {
+      setSelectedVersionId(matchingVersion.id);
+    }
+  }, [externalLang, isControlled, versions, selectedVersionId]);
+
   // The active version for timeline editing
   const activeVersion = versions.find((v) => v.id === selectedVersionId) ?? versions[0] ?? null;
+  // 외부 언어 control 중이고 매칭 version 이 없으면 표시
+  const hasMatchingVersion =
+    !isControlled || versions.some((v) => (v.language ?? 'ko') === externalLang);
 
   // Helper to update a specific project — supports both object and functional updater
   const updateProject = (
@@ -77,9 +92,10 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
 
   const addProject = () => {
     const id = `lf-${Date.now()}`;
+    const lang = externalLang ?? 'ko';
     onUpdate((draft) => {
       if (!draft.longformProjects) draft.longformProjects = [];
-      draft.longformProjects.push({ ...makeDefaultProject(), id });
+      draft.longformProjects.push({ ...makeDefaultProject(lang), id });
     });
     onSave();
     setCurrentStep(1);
@@ -112,9 +128,14 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
   };
 
   // Add a new version (copy master's clips, reset timeline edits)
-  const addVersion = () => {
+  // /editor2 외부 언어 controlled 시 해당 언어로 override (clone.language = externalLang)
+  // 자막/TTS 같은 언어 종속 데이터는 비워서 새로 입력하도록 유도
+  const addVersion = (overrideLang?: string) => {
     if (!selectedMaster) return;
     const newId = `lf-${Date.now()}`;
+    const targetLang = overrideLang ?? externalLang ?? selectedMaster.language ?? 'ko';
+    const langChanged = targetLang !== (selectedMaster.language ?? 'ko');
+    const baseName = (selectedMaster.name ?? '새 동영상').replace(/\s*\([^)]+\)\s*$/, '');
     onUpdate((draft) => {
       if (!draft.longformProjects) draft.longformProjects = [];
       const master = draft.longformProjects.find((p) => p.id === selectedMaster.id);
@@ -122,11 +143,14 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
       const clone = structuredClone(master);
       clone.id = newId;
       clone.parentProjectId = selectedMaster.id;
-      clone.name = `${selectedMaster.name} (${versions.length + 1})`;
+      clone.language = targetLang;
+      clone.name = langChanged
+        ? `${baseName} (${targetLang})`
+        : `${baseName} (${versions.length + 1})`;
       clone.outputUrl = undefined;
       clone.youtubeUpload = undefined;
       clone.createdAt = undefined;
-      // Keep clips, reset timeline edits
+      // Keep clips, reset timeline edits + 언어 종속 데이터
       clone.scenes = (clone.scenes ?? []).map((s) => ({
         ...s,
         id: crypto.randomUUID(),
@@ -134,7 +158,12 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
         trimEnd: undefined,
         sfxOffset: undefined,
         ttsOffset: undefined,
-        subtitles: s.subtitles.map((sub) => ({ ...sub, id: crypto.randomUUID() })),
+        // 언어 변경 시 TTS·자막은 비움 (새 언어로 다시 생성/번역 필요)
+        ttsUrl: langChanged ? undefined : s.ttsUrl,
+        ttsDuration: langChanged ? undefined : s.ttsDuration,
+        subtitles: langChanged
+          ? []
+          : s.subtitles.map((sub) => ({ ...sub, id: crypto.randomUUID() })),
       }));
       draft.longformProjects.push(clone);
     });
@@ -170,13 +199,40 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
         </div>
       ) : selectedMaster ? (
         <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+          {/* 외부 언어 controlled 시 매칭 버전 안내 */}
+          {isControlled && (
+            <div
+              className={`px-4 py-2 text-xs flex items-center gap-2 ${
+                hasMatchingVersion
+                  ? 'bg-sky-50 dark:bg-sky-900/20 text-sky-700 dark:text-sky-300'
+                  : 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300'
+              }`}
+            >
+              <span>
+                {externalLang === 'ko' ? '🇰🇷' : externalLang === 'en' ? '🇺🇸' : '🌐'}{' '}
+                <strong>{externalLang}</strong> 언어 컨트롤 중 ·
+              </span>
+              {hasMatchingVersion ? (
+                <span>
+                  매칭 버전 자동 선택 · 활성 버전: <strong>{activeVersion?.name ?? '—'}</strong>
+                </span>
+              ) : (
+                <span>
+                  이 언어에 매칭되는 버전이 없음. "버전 추가" 로 만들거나 다른 언어 탭을 선택하세요.
+                </span>
+              )}
+            </div>
+          )}
+
           {/* 프로젝트 헤더 */}
           <LongformProjectHeader
             project={selectedMaster}
             onUpdate={(patch) => updateProject(selectedMaster.id, patch)}
             onDelete={() => deleteProject(selectedMaster.id)}
-            onDuplicate={addVersion}
-            duplicateLabel="버전 추가"
+            onDuplicate={() => addVersion()}
+            duplicateLabel={
+              isControlled && !hasMatchingVersion ? `+ ${externalLang} 버전 만들기` : '버전 추가'
+            }
           />
 
           {/* 스텝 바 */}
@@ -212,7 +268,7 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
                 allProjects={versions}
                 onSelectProject={(id) => setSelectedVersionId(id)}
                 onUpdate={(updates) => updateProject(activeVersion.id, updates)}
-                onAddVersion={addVersion}
+                onAddVersion={() => addVersion()}
                 onDeleteVersion={
                   activeVersion.parentProjectId ? () => deleteProject(activeVersion.id) : undefined
                 }

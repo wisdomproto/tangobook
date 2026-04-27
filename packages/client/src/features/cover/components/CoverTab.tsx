@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/Button';
+import { useEditorLang } from '@/contexts/EditorLangContext';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { ImageDropZone } from '@/components/ImageDropZone';
 import { ImagePreview } from '@/components/ImagePreview';
@@ -11,6 +12,8 @@ import { coverApi } from '../api/cover.api';
 import { apiClient } from '@/lib/axios';
 import { pushImageHistory } from '@/lib/image-history';
 import { settingsApi, type TitleTemplate } from '@/features/settings/api/settings.api';
+import { translationApi } from '@/features/translation/api/translation.api';
+import { OtherStyleReference } from '@/features/editor/components/OtherStyleReference';
 import { ASPECT_RATIOS } from '@tangobook/shared';
 import type { Storybook, CoverImageItem, ImageGenerationResult } from '@tangobook/shared';
 
@@ -39,6 +42,13 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [lightboxUrl, setLightboxUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const externalLang = useEditorLang();
+  const isControlled = externalLang !== null;
+  const isNonKo = isControlled && externalLang !== 'ko';
+  // 활성 언어 제목 — ko 면 storybook.title, 다른 언어면 titleTranslations[lang] (fallback to title)
+  const activeLangTitle = isNonKo
+    ? (storybook.titleTranslations?.[externalLang!] ?? '')
+    : storybook.title;
   const aspectRatio = storybook.coverAspectRatio ?? '3:4';
   const characters = storybook.characters ?? [];
 
@@ -118,15 +128,20 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
     [onUpdate]
   );
 
-  // 대표 표지 설정
+  // 활성 언어 — controlled 면 그 언어, 아니면 ko (legacy)
+  const primaryLang = externalLang ?? 'ko';
+
+  // 활성 언어의 대표 표지 설정 — ko 는 storybook.coverImage 와 primaryCoverByLang.ko 둘 다 mirror
   const setPrimary = (itemId: string) => {
     const item = coverImages.find((c) => c.id === itemId);
-    if (item) {
-      onUpdate((draft) => {
-        draft.coverImage = item.imageUrl;
-      });
-      onSave();
-    }
+    if (!item) return;
+    onUpdate((draft) => {
+      if (!draft.primaryCoverByLang) draft.primaryCoverByLang = {};
+      draft.primaryCoverByLang[primaryLang] = item.imageUrl;
+      // ko 는 레거시 필드 (coverImage) 도 동기화 — 호환성 유지
+      if (primaryLang === 'ko') draft.coverImage = item.imageUrl;
+    });
+    onSave();
   };
 
   // 표지 추가
@@ -144,10 +159,21 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
     onUpdate((draft) => {
       if (!draft.coverImages) return;
       draft.coverImages = draft.coverImages.filter((c) => c.id !== itemId);
-      // 대표 표지였으면 첫 번째 남은 표지로 대체
+      // 삭제된 URL 이 어떤 언어의 대표였으면 정리
       const deleted = coverImages.find((c) => c.id === itemId);
-      if (deleted && draft.coverImage === deleted.imageUrl) {
-        draft.coverImage = draft.coverImages[0]?.imageUrl || undefined;
+      if (deleted) {
+        // 레거시 ko coverImage 동기화
+        if (draft.coverImage === deleted.imageUrl) {
+          draft.coverImage = draft.coverImages[0]?.imageUrl || undefined;
+        }
+        // 언어별 대표에서 해당 URL 제거
+        if (draft.primaryCoverByLang) {
+          for (const lang of Object.keys(draft.primaryCoverByLang)) {
+            if (draft.primaryCoverByLang[lang] === deleted.imageUrl) {
+              delete draft.primaryCoverByLang[lang];
+            }
+          }
+        }
       }
     });
     onSave();
@@ -310,7 +336,12 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
 
   const isPrimary = (itemId: string) => {
     const item = coverImages.find((c) => c.id === itemId);
-    return item ? storybook.coverImage === item.imageUrl && !!item.imageUrl : false;
+    if (!item || !item.imageUrl) return false;
+    // 활성 언어의 대표 표지 우선. 비어 있으면 ko 일 때만 레거시 coverImage 로 fallback.
+    const langPrimary = storybook.primaryCoverByLang?.[primaryLang];
+    if (langPrimary) return langPrimary === item.imageUrl;
+    if (primaryLang === 'ko') return storybook.coverImage === item.imageUrl;
+    return false;
   };
 
   return (
@@ -329,6 +360,69 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
               + 표지 추가
             </Button>
           </div>
+
+          {/* 다국어 제목 편집 — non-ko 일 때만 노출 */}
+          {isNonKo && (
+            <div className="bg-sky-50 dark:bg-sky-900/20 border border-sky-200 dark:border-sky-800 rounded-lg p-3 text-xs text-sky-800 dark:text-sky-200">
+              <div className="flex items-center gap-2">
+                <label className="text-[11px] font-bold whitespace-nowrap">
+                  {externalLang} 제목:
+                </label>
+                <input
+                  type="text"
+                  value={activeLangTitle}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    onUpdate((d) => {
+                      if (!d.titleTranslations) d.titleTranslations = {};
+                      if (v.trim()) {
+                        d.titleTranslations[externalLang!] = v;
+                      } else {
+                        delete d.titleTranslations[externalLang!];
+                      }
+                    });
+                  }}
+                  onBlur={() => onSave()}
+                  placeholder={`${storybook.title} (영문 등 ${externalLang} 번역)`}
+                  className="flex-1 px-2 py-1 text-xs border border-sky-300 dark:border-sky-700 bg-white dark:bg-slate-800 rounded outline-none focus:ring-2 focus:ring-sky-300"
+                />
+                <button
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      const results = await translationApi.batch({
+                        pages: [{ pageNumber: 1, text: storybook.title }],
+                        targetLanguage: externalLang!,
+                        storybookId: storybook.id,
+                      });
+                      const translated = results[0]?.text;
+                      if (translated) {
+                        onUpdate((d) => {
+                          if (!d.titleTranslations) d.titleTranslations = {};
+                          d.titleTranslations[externalLang!] = translated;
+                        });
+                        onSave();
+                      }
+                    } catch (e) {
+                      console.error('[CoverTab] title translate failed:', e);
+                      alert('번역 실패: ' + (e as Error).message);
+                    }
+                  }}
+                  className="px-2 py-1 text-[11px] font-bold bg-violet-600 hover:bg-violet-700 text-white rounded whitespace-nowrap"
+                  title={`Gemini 로 ko → ${externalLang} 자동 번역`}
+                >
+                  🤖 자동 번역
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* 다른 그림체의 표지 참고 (활성 그림체 외 styleAssets 에 자산이 있는 경우) */}
+          <OtherStyleReference
+            storybook={storybook}
+            slot={{ kind: 'cover' }}
+            label="🎨 다른 그림체 표지 (참고)"
+          />
 
           {/* 표지 목록 */}
           {coverImages.length > 0 && (
@@ -359,13 +453,19 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
                     >
                       <input
                         type="radio"
-                        name="primaryCover"
+                        name={`primaryCover-${primaryLang}`}
                         checked={isPrimary(item.id)}
                         onChange={() => setPrimary(item.id)}
                         disabled={!item.imageUrl}
                         className="text-violet-600 focus:ring-violet-500"
                       />
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400">대표</span>
+                      <span className="text-[10px] text-slate-500 dark:text-slate-400">
+                        대표{' '}
+                        {primaryLang !== 'ko' && <span className="ml-0.5">({primaryLang})</span>}
+                        {primaryLang === 'ko' && isControlled && (
+                          <span className="ml-0.5">(ko)</span>
+                        )}
+                      </span>
                     </label>
 
                     {/* 삭제 버튼 */}
