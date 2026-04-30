@@ -27,6 +27,7 @@ import youtubePresetRoutes from './routes/youtube-preset.routes.js';
 import { speakingRouter } from './routes/speaking.routes.js';
 import bookV2MigrationRoutes from './routes/book-v2-migration.routes.js';
 import bookV2Routes from './routes/book-v2.routes.js';
+import collectionRoutes from './routes/collection.routes.js';
 
 export function createApp() {
   const app = express();
@@ -79,6 +80,7 @@ export function createApp() {
   app.use('/api/speaking', speakingRouter);
   app.use('/api/admin/book-v2', bookV2MigrationRoutes);
   app.use('/api/v2/books', bookV2Routes);
+  app.use('/api/collection', collectionRoutes);
 
   // R2 프록시 — pub-xxx.r2.dev CORS 미지원 우회
   // GET /api/r2-proxy?key=storybooks/xxx/scene.mp4
