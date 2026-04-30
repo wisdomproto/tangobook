@@ -27,6 +27,7 @@ import ParentHomePage from '../features/auth/pages/ParentHomePage';
 import ParentReportsPage from '../features/auth/pages/ParentReportsPage';
 import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
 import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
+import { CollectionPage } from '../features/collection';
 
 export const router = createBrowserRouter([
   {
@@ -163,6 +164,14 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <HoriJumpPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'collection',
+        element: (
+          <ErrorBoundary>
+            <CollectionPage />
           </ErrorBoundary>
         ),
       },
