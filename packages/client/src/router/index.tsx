@@ -27,7 +27,8 @@ import ParentHomePage from '../features/auth/pages/ParentHomePage';
 import ParentReportsPage from '../features/auth/pages/ParentReportsPage';
 import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
 import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
-import { CollectionPage } from '../features/collection';
+import { CollectionPage, CategoryPage } from '../features/collection';
+import { HoriRoomPage } from '../features/hori-room';
 
 export const router = createBrowserRouter([
   {
@@ -172,6 +173,22 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <CollectionPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'collection/:categoryId',
+        element: (
+          <ErrorBoundary>
+            <CategoryPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'hori-room',
+        element: (
+          <ErrorBoundary>
+            <HoriRoomPage />
           </ErrorBoundary>
         ),
       },

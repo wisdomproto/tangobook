@@ -637,6 +637,21 @@ TopBar 우측에 `ResourcesDropdown` (`components/TopBar.tsx`) — 정적 HTML �
 - **GameResultScreen**: 80%+ 통과 시 storybookId→cards 매칭 → owned 카드 일괄 active. `✨ 도감 N장 활성!` 토스트
 - 스펙: [docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md](docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md) (section 6)
 
+## 호리 꾸미기 (Phase 4, 2026-05-01)
+- **데이터**: R2 `hori-catalog.json` (마스터 풀, 14 stub 시드) + Supabase `hori_inventory` (per-user, RPC `purchase_hori_item` 으로 별 차감 + 인벤토리 추가)
+- **5 슬롯**: outfit 👕 / accessory 🎩 / background 🏠 / mood 😊 / season 🎅
+- **별 사다리**: 100★ 옷 · 300★ 액세서리 · 500★ 방 · 800★ 희귀 카드 · 2000★ 시즌 코스튬
+- **자산**: baseline 이모지 preview (👕🎩🏠 등). 후속 실 이미지 자산으로 점진 교체
+- **별 사용 규칙**: `validate_star_spend` trigger 가 `hori_item` source_type 만 허용 (DB 차원 enforce)
+- **서버**: `services/hori.service.ts` (R2 카탈로그 + 메모리 캐시 5min). routes: `GET /api/hori/catalog`, `POST /api/hori/items` (admin)
+- **클라이언트**: `features/hori-room/`
+  - api: server fetch + Supabase 직접 (inventory select / RPC purchase / equip update)
+  - hooks: `useHoriCatalog`, `useHoriInventory`, `usePurchaseHoriItem`, `useEquipHoriItem`
+  - `HoriRoomPage` (`/hori-room`): 호리 + 장착 오버레이 + 슬롯 탭 + 카탈로그 그리드 + 별 사다리 + 구매/장착 mutation
+- **진입점**: LibraryPage AuthCornerBar `🦊 호리 방` 버튼
+- **장착 로직**: 같은 slot 의 다른 아이템 자동 해제 후 새 아이템 장착 (한 slot=하나)
+- 스펙: [docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md](docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md) (section 7)
+
 ## 뷰어 Feature 구조 (2026-04-22 리디자인)
 ```
 features/viewer/
