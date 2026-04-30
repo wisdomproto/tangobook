@@ -8,8 +8,8 @@ import {
   useLongformList,
   useGamesList,
 } from '@/features/book-v2';
-import { Mascot } from '@/components/Mascot';
-import { StateScreen } from '@/components/StateScreen';
+import { Mascot } from '@/design-system';
+import { StateScreen } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { hasVideoUrl, hasGames, getPrimaryVideoId, type LangCode } from '@/lib/storybook-accessors';
 import { useLogEvent, useLogEventsBatch } from '@/features/learning';
@@ -206,10 +206,18 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     if (!page) return;
     const pageNumber = page.pageNumber ?? pageIndex + 1;
     const narrowLang: Lang = lang === 'en' ? 'en' : 'ko';
+    const totalPages = pages.length;
+    const isLast = pageNumber >= totalPages;
     logEvent({
       type: 'page_read',
       storybookId,
-      metadata: { lang: narrowLang, page: pageNumber, source: 'storybook' },
+      metadata: {
+        lang: narrowLang,
+        page: pageNumber,
+        totalPages,
+        lastPage: isLast,
+        source: 'storybook',
+      },
     });
     const words = extractPageWords(storybook, pageNumber, narrowLang);
     if (words.length > 0) {

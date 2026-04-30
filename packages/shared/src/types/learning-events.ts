@@ -17,6 +17,8 @@ export interface LearningEventMetadata {
   storybookId?: string;
   pageNumber?: number;
   page?: number;
+  totalPages?: number;
+  lastPage?: boolean;
   durationMs?: number;
   korean?: string;
   responseMs?: number;
@@ -29,6 +31,7 @@ export interface LearningEventMetadata {
   pattern?: string;
   book?: string;
   migratedFrom?: string;
+  collectionItemIds?: string[];
 }
 
 export interface LearningEvent {

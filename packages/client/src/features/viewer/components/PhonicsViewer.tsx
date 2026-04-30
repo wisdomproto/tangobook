@@ -76,6 +76,9 @@ export function PhonicsViewer({ storybook, mode: rawMode }: PhonicsViewerProps) 
       storybookId: storybook.id,
       metadata: {
         lang,
+        page: 1,
+        totalPages: 1,
+        lastPage: true,
         source: 'phonics',
         level: storybook.phonicsConfig?.level,
         unitId: storybook.id,
