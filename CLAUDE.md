@@ -621,6 +621,22 @@ TopBar 우측에 `ResourcesDropdown` (`components/TopBar.tsx`) — 정적 HTML �
 - 플랜: [docs/superpowers/plans/2026-04-30-stars-infrastructure-plan.md](docs/superpowers/plans/2026-04-30-stars-infrastructure-plan.md)
 - 후속 Phase 2~6: SR 큐 endpoint · 카드/도감 UI · 호리 꾸미기 · 호리 놀이터 7 게임 · 주간 미션
 
+## 카드 = 도감 콜렉션 (Phase 3, 2026-05-01)
+- **데이터**: R2 `collection-catalog.json` (마스터 풀 — 8 카테고리 × N장) + Supabase `collection_user` (per-user 상태). stub 8장 시드됨 (`scripts/seed-collection-stub.mjs`)
+- **8 카테고리**: classic 📖 / folktale 🇰🇷 / animal 🐅 / dinosaur 🦖 / plant 🌸 / ocean 🌊 / space 🌌 / life 🏠 (`COLLECTION_CATEGORIES` 상수)
+- **활성 4단계**: locked (자물쇠) → silhouette (회색·페이지 1+ 읽음) → owned (컬러·완독) → active (✨ 도감, 어휘게임 80%+)
+- **자동 활성 흐름**: ViewerContainer page_read metadata 에 `collectionItemIds` 자동 채움 → trigger `handle_learning_event` 가 silhouette/owned 전이 + 별 +5 (owned). 게임 종료 화면에서 score≥80% 시 `activate_collection_item` RPC 호출 → owned→active 전이 + 별 +10
+- **서버**: `services/collection.service.ts` (R2 카탈로그 + 메모리 캐시 5min + storybook→cards 역인덱스). `routes`: `GET /api/collection/catalog` · `GET /api/collection/storybook-index` · `POST /api/collection/items` (admin)
+- **클라이언트**: `features/collection/`
+  - `api/collection.api.ts` — server fetch + Supabase 직접 (collection_user select / activate RPC)
+  - `hooks/useCollectionCatalog`, `useStorybookCardIndex`, `useCollectionUserState` (statusMap 헬퍼)
+  - `components/CollectionPage` (`/collection`) — 8 카테고리 그리드 + 진척률 바
+  - `components/CategoryPage` (`/collection/:categoryId`) — 카드 슬롯 그리드
+  - `components/CardDetailModal` — 카드 상세 (단계별 정보 + ESC 닫기)
+- **진입점**: `LibraryPage` AuthCornerBar 헤더 `🃏 카드` 버튼
+- **GameResultScreen**: 80%+ 통과 시 storybookId→cards 매칭 → owned 카드 일괄 active. `✨ 도감 N장 활성!` 토스트
+- 스펙: [docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md](docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md) (section 6)
+
 ## 뷰어 Feature 구조 (2026-04-22 리디자인)
 ```
 features/viewer/
