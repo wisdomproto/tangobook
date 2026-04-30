@@ -15,6 +15,7 @@ import { hasVideoUrl, hasGames, getPrimaryVideoId, type LangCode } from '@/lib/s
 import { useLogEvent, useLogEventsBatch } from '@/features/learning';
 import { extractPageWords } from '@/features/learning/lib/extract-page-words';
 import type { Lang, ReadingLevel } from '@tangobook/shared';
+import { useStorybookCardIndex } from '@/features/collection';
 import { useViewerSettings, type ViewerSettings } from '../hooks/useViewerSettings';
 import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { getPageTtsUrl } from '../lib/page-text';
@@ -195,6 +196,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const logEvent = useLogEvent();
   const logBatch = useLogEventsBatch();
   const lastEmittedPageRef = useRef<number | null>(null);
+  const { data: storybookCardIndex } = useStorybookCardIndex();
   useEffect(() => {
     if (!storybook || !storybookId) return;
     if (mode === 'video' || mode === 'games') return;
@@ -208,6 +210,8 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     const narrowLang: Lang = lang === 'en' ? 'en' : 'ko';
     const totalPages = pages.length;
     const isLast = pageNumber >= totalPages;
+    // 이 책에 매칭되는 카드 ID 배열 — 트리거가 silhouette/owned 자동 전이
+    const collectionItemIds = storybookCardIndex?.[storybookId] ?? [];
     logEvent({
       type: 'page_read',
       storybookId,
@@ -217,6 +221,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         totalPages,
         lastPage: isLast,
         source: 'storybook',
+        collectionItemIds: collectionItemIds.length > 0 ? collectionItemIds : undefined,
       },
     });
     const words = extractPageWords(storybook, pageNumber, narrowLang);

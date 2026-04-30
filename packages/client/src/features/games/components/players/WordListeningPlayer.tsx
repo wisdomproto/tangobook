@@ -10,6 +10,7 @@ import { GamePlayerLayout } from '../GamePlayerLayout';
 import { cn } from '@/lib/cn';
 
 export function WordListeningPlayer({
+  storybookId,
   gameData,
   onComplete,
   onBack,
@@ -104,6 +105,7 @@ export function WordListeningPlayer({
   if (finished) {
     return (
       <GameResultScreen
+        storybookId={storybookId}
         score={score}
         total={rounds.length}
         onRestart={handleRestart}

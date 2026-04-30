@@ -18,6 +18,7 @@ interface StoryImagePlayerProps extends GamePlayerProps {
 }
 
 export function StoryImagePlayer({
+  storybookId,
   gameData,
   onComplete,
   onBack,
@@ -108,6 +109,7 @@ export function StoryImagePlayer({
   if (finished) {
     return (
       <GameResultScreen
+        storybookId={storybookId}
         score={score}
         total={rounds.length}
         onRestart={handleRestart}

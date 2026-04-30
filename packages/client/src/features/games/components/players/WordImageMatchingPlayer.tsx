@@ -13,6 +13,7 @@ interface FlatItem extends WordImageMatchingGroupItem {
 }
 
 export function WordImageMatchingPlayer({
+  storybookId,
   gameData,
   onComplete,
   onBack,
@@ -145,6 +146,7 @@ export function WordImageMatchingPlayer({
   if (finished) {
     return (
       <GameResultScreen
+        storybookId={storybookId}
         score={score}
         total={allItems.length}
         onRestart={handleRestart}

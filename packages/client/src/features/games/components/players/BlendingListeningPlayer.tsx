@@ -8,6 +8,7 @@ import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 
 export function BlendingListeningPlayer({
+  storybookId,
   gameData,
   onComplete,
   onBack,
@@ -89,6 +90,7 @@ export function BlendingListeningPlayer({
   if (finished) {
     return (
       <GameResultScreen
+        storybookId={storybookId}
         score={score}
         total={rounds.length}
         onRestart={handleRestart}

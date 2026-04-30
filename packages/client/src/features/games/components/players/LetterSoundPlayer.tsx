@@ -7,7 +7,13 @@ import { GameProgressBar } from '../GameProgressBar';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 
-export function LetterSoundPlayer({ gameData, onComplete, onBack, systemSounds }: GamePlayerProps) {
+export function LetterSoundPlayer({
+  storybookId,
+  gameData,
+  onComplete,
+  onBack,
+  systemSounds,
+}: GamePlayerProps) {
   const data = gameData as LetterSoundData;
   const rounds = data.rounds;
 
@@ -78,6 +84,7 @@ export function LetterSoundPlayer({ gameData, onComplete, onBack, systemSounds }
   if (finished) {
     return (
       <GameResultScreen
+        storybookId={storybookId}
         score={score}
         total={rounds.length}
         onRestart={handleRestart}

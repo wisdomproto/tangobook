@@ -109,6 +109,7 @@ export function SpeakingPlayer({
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-cream-50 to-peach-100 p-4">
         <GameResultScreen
+          storybookId={storybookId}
           score={rounds.length}
           total={rounds.length}
           onRestart={() => {

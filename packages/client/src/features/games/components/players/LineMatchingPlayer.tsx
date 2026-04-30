@@ -154,6 +154,7 @@ export function LineMatchingPlayer({
   if (finished) {
     return (
       <GameResultScreen
+        storybookId={storybookId}
         score={items.length}
         total={items.length}
         onRestart={handleRestart}

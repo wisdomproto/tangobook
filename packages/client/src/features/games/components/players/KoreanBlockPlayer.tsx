@@ -260,6 +260,7 @@ export function KoreanBlockPlayer({
   if (finished) {
     return (
       <GameResultScreen
+        storybookId={storybookId}
         score={score}
         total={items.length}
         onRestart={handleRestart}
