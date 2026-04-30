@@ -1,7 +1,70 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useThemeStore } from '@/store/theme.store';
 import { VocabTreeModal } from '@/features/vocabulary/components/VocabTreeModal';
+
+const RESOURCES = [
+  { href: '/strategy.html', icon: '📋', label: '사업 전략서', desc: '비즈니스 전략·로드맵' },
+  {
+    href: '/curriculum-master.html',
+    icon: '📚',
+    label: '커리큘럼 마스터',
+    desc: '책 마스터플랜·DB 연동',
+  },
+  {
+    href: '/vocabulary-master.html',
+    icon: '🔤',
+    label: '어휘 마스터',
+    desc: 'Cambridge Starters 매칭',
+  },
+];
+
+function ResourcesDropdown() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', onClick);
+    return () => document.removeEventListener('mousedown', onClick);
+  }, []);
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30 rounded-lg transition-colors"
+        title="자료실"
+      >
+        📁 자료실 <span className="text-[10px]">{open ? '▴' : '▾'}</span>
+      </button>
+      {open && (
+        <div className="absolute right-0 mt-1 w-60 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg overflow-hidden z-50">
+          {RESOURCES.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setOpen(false)}
+              className="flex items-start gap-2 px-4 py-2.5 text-sm hover:bg-slate-50 dark:hover:bg-slate-700 border-b border-slate-100 dark:border-slate-700 last:border-b-0"
+            >
+              <span className="text-base mt-0.5">{item.icon}</span>
+              <span>
+                <span className="block font-semibold text-slate-700 dark:text-slate-200">
+                  {item.label}
+                </span>
+                <span className="block text-[11px] text-slate-500 dark:text-slate-400">
+                  {item.desc}
+                </span>
+              </span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function TopBar() {
   const navigate = useNavigate();
@@ -44,15 +107,7 @@ export function TopBar() {
             </svg>
           )}
         </button>
-        <a
-          href="/curriculum-master.html"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30 rounded-lg transition-colors"
-          title="커리큘럼 마스터 (새 탭)"
-        >
-          📚 커리큘럼
-        </a>
+        <ResourcesDropdown />
         <button
           onClick={() => setVocabOpen(true)}
           className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 rounded-lg transition-colors"
