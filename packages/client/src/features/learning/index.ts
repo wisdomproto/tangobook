@@ -7,6 +7,10 @@ export { StorybookReportSection } from './components/StorybookReportSection';
 export { PhonicsReportSection } from './components/PhonicsReportSection';
 export { KoreanPhonicsHeatmap } from './components/KoreanPhonicsHeatmap';
 export { EnglishPhonicsSkillTree } from './components/EnglishPhonicsSkillTree';
+export { RewardsOverviewCard } from './components/RewardsOverviewCard';
+export { CollectionProgressCard } from './components/CollectionProgressCard';
+export { HoriInventoryCard } from './components/HoriInventoryCard';
+export { PlaygroundStatsCard } from './components/PlaygroundStatsCard';
 
 export {
   useLogEvent,

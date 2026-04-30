@@ -7,6 +7,10 @@ import {
   LanguageTabs,
   StorybookReportSection,
   PhonicsReportSection,
+  RewardsOverviewCard,
+  CollectionProgressCard,
+  HoriInventoryCard,
+  PlaygroundStatsCard,
   useLearningEvents,
 } from '@/features/learning';
 
@@ -57,6 +61,21 @@ export default function ParentReportsPage() {
           </div>
         </div>
       </header>
+
+      <section>
+        <h2 className="mb-3 text-lg font-bold">⭐ 보상 현황</h2>
+        <RewardsOverviewCard />
+      </section>
+
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <CollectionProgressCard />
+        <HoriInventoryCard />
+      </section>
+
+      <section>
+        <h2 className="mb-3 text-lg font-bold">🎪 놀이터 활동</h2>
+        <PlaygroundStatsCard events={events} />
+      </section>
 
       <section>
         <div className="mb-3 flex items-center justify-between">
