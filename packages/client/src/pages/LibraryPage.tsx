@@ -297,6 +297,12 @@ function AuthCornerBar() {
         🦊 호리 방
       </Link>
       <Link
+        to="/playground"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white shadow-soft text-ink-700 text-sm font-bold hover:bg-peach-100 transition"
+      >
+        🎪 놀이터
+      </Link>
+      <Link
         to="/games"
         className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-coral-400 to-coral-500 text-white shadow-pop text-sm font-bold hover:brightness-110 active:scale-95 transition"
       >

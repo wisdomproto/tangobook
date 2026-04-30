@@ -29,6 +29,7 @@ import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
 import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
 import { CollectionPage, CategoryPage } from '../features/collection';
 import { HoriRoomPage } from '../features/hori-room';
+import { PlaygroundHubPage, WordMemoryPlayer } from '../features/playground';
 
 export const router = createBrowserRouter([
   {
@@ -189,6 +190,22 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <HoriRoomPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'playground',
+        element: (
+          <ErrorBoundary>
+            <PlaygroundHubPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'playground/word-memory',
+        element: (
+          <ErrorBoundary>
+            <WordMemoryPlayer />
           </ErrorBoundary>
         ),
       },

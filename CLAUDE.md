@@ -652,6 +652,24 @@ TopBar 우측에 `ResourcesDropdown` (`components/TopBar.tsx`) — 정적 HTML �
 - **장착 로직**: 같은 slot 의 다른 아이템 자동 해제 후 새 아이템 장착 (한 slot=하나)
 - 스펙: [docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md](docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md) (section 7)
 
+## 호리 놀이터 어휘 게임 (Phase 5, 2026-05-01, 1 게임 시범)
+- **데이터 흐름**: 자녀 활성 시 Supabase RPC `get_sr_word_pool` (30/30/30/10 큐) → 서버 `/api/playground/word-pool/enrich` 가 vocabulary-cache 에서 imageList/sentences/회전 이미지 첨부 → `SrPoolItem[]`. 게스트/RPC 빈 결과 시 `/word-pool/sample` 로 vocabulary-db 무작위 fallback (이미지 보유 단어만).
+- **서버**:
+  - `services/vocabulary-cache.service.ts` — vocabulary-db.json 메모리 캐시 5min + entryMap
+  - `services/playground.service.ts` — enrich + sample
+  - `utils/vocab-cross-link.ts` — `getAllImagesForWord` (storybook pageImages > key-object > vocabulary > phonics 순) · `pickImageForReview(entry, n)` (회전) · `getStorybookSentences` · `getTtsForWord`
+  - routes: `POST /api/playground/word-pool/enrich`, `GET /api/playground/word-pool/sample`
+- **클라이언트**: `features/playground/`
+  - api: Supabase rpc + server enrich. profileId 가 uuid 아니면 즉시 sample fallback
+  - hooks: `useSrWordPool` (TanStack Query, 60s staleTime)
+  - `PlaygroundHubPage` (`/playground`): 7 게임 카드 + Daily Word stub + SR 안내
+  - `WordMemoryPlayer` (`/playground/word-memory`): 6쌍 그림-단어 매칭, framer-motion flip, 학습이벤트 emit
+- **7 게임 메타** (`PLAYGROUND_GAMES` shared 상수): word-memory(✅) · word-pop · word-fishing · word-run · word-sort-cart · word-garden · word-shopping. 1 게임 출시, 6 게임 `available: false` stub.
+- **진입점**: LibraryPage 헤더 `🎪 놀이터` 버튼
+- **VocabSource** 에 `pageImages?: { page, illustrationUrl, style? }[]` 옵셔널 추가 (Phase 2 sync 보강 후 자동 채움 예정)
+- 후속: 6 게임 점진 구현, vocabulary-db sync 보강 (pageImages 자동 수집), Daily Word 30초 미니 활동
+- 스펙: [docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md](docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md) (section 8)
+
 ## 뷰어 Feature 구조 (2026-04-22 리디자인)
 ```
 features/viewer/

@@ -1051,6 +1051,8 @@ export interface VocabSource {
   phonicsLevel?: string;
   imageUrl?: string;
   ttsUrl?: string;
+  /** 페이지별 삽화 — 어휘 회전용 다중 이미지 (Phase 2 sync 보강 후 자동 채움) */
+  pageImages?: { page: number; illustrationUrl: string; style?: string }[];
 }
 
 export interface VocabEntry {

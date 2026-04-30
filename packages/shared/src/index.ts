@@ -5,6 +5,7 @@ export * from './types/learning-events.js';
 export * from './types/rewards.js';
 export * from './types/collection.js';
 export * from './types/hori.js';
+export * from './types/playground.js';
 export * from './types/book-v2.js';
 export * from './constants/index.js';
 export * from './utils/hangul.js';
