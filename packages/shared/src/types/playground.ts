@@ -48,7 +48,7 @@ export const PLAYGROUND_GAMES: PlaygroundGameMeta[] = [
     description: '그림 보고 단어 물고기 낚기',
     emoji: '🎣',
     accent: 'mint',
-    available: false,
+    available: true,
   },
   {
     id: 'word-run',

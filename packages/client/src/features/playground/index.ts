@@ -3,3 +3,4 @@ export { useSrWordPool } from './hooks/useSrWordPool';
 export { PlaygroundHubPage } from './components/PlaygroundHubPage';
 export { WordMemoryPlayer } from './components/word-memory/WordMemoryPlayer';
 export { WordPopPlayer } from './components/word-pop/WordPopPlayer';
+export { WordFishingPlayer } from './components/word-fishing/WordFishingPlayer';

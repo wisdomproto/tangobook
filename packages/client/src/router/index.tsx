@@ -29,7 +29,12 @@ import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
 import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
 import { CollectionPage, CategoryPage } from '../features/collection';
 import { HoriRoomPage } from '../features/hori-room';
-import { PlaygroundHubPage, WordMemoryPlayer, WordPopPlayer } from '../features/playground';
+import {
+  PlaygroundHubPage,
+  WordMemoryPlayer,
+  WordPopPlayer,
+  WordFishingPlayer,
+} from '../features/playground';
 
 export const router = createBrowserRouter([
   {
@@ -214,6 +219,14 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <WordPopPlayer />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'playground/word-fishing',
+        element: (
+          <ErrorBoundary>
+            <WordFishingPlayer />
           </ErrorBoundary>
         ),
       },
