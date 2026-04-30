@@ -209,16 +209,83 @@ function classify(word) {
   return 'none';
 }
 
+// 영어 파닉스 책 id (en-b{N}-u{M}) → { book, unit }
+function parsePhonicsBookId(id) {
+  const m = String(id || '').match(/^en-b(\d+)-u(\d+)$/);
+  if (!m) return null;
+  return { book: parseInt(m[1]), unit: parseInt(m[2]) };
+}
+
+// 파닉스 책 title 에서 "Unit N: 부제" 추출 (e.g. "Book 1: Single Letter Sounds · Unit 1: Aa Bb Cc")
+function extractUnitSubtitle(title) {
+  const m = String(title || '').match(/Unit\s*\d+\s*:\s*(.+?)(?:$|·|·)/);
+  return m ? m[1].trim() : '';
+}
+
+// 파닉스 어휘를 Book/Unit 별로 그룹화 (영어 파닉스만, en-b*-u* id 패턴)
+function getPhonicsTopicsByUnit() {
+  const buckets = new Map(); // key = "b1-u1" → { book, unit, subtitle, words: Set }
+  const orphan = []; // 패턴 안 맞는 파닉스 책들 (한글 파닉스 등)
+
+  for (const [w, e] of dbWords) {
+    if (!e.phonics.length) continue;
+    for (const b of e.phonics) {
+      const meta = parsePhonicsBookId(b.id);
+      if (!meta) continue;
+      const key = `b${meta.book}-u${meta.unit}`;
+      if (!buckets.has(key)) {
+        buckets.set(key, {
+          book: meta.book,
+          unit: meta.unit,
+          subtitle: extractUnitSubtitle(b.title),
+          words: new Set(),
+        });
+      }
+      buckets.get(key).words.add(w);
+    }
+  }
+
+  // 비-en 파닉스 책의 단어를 한 묶음으로
+  for (const [w, e] of dbWords) {
+    if (!e.phonics.length) continue;
+    const hasEn = e.phonics.some((b) => parsePhonicsBookId(b.id));
+    if (hasEn) continue;
+    if (!orphan.includes(w)) orphan.push(w);
+  }
+
+  const sortedKeys = [...buckets.keys()].sort((a, b) => {
+    const av = buckets.get(a), bv = buckets.get(b);
+    return av.book !== bv.book ? av.book - bv.book : av.unit - bv.unit;
+  });
+
+  const result = sortedKeys.map((k) => {
+    const v = buckets.get(k);
+    const sub = v.subtitle ? ` · ${v.subtitle}` : '';
+    return {
+      topic: { id: k, label: `📘 Book ${v.book} - Unit ${v.unit}${sub}` },
+      words: [...v.words].sort(),
+    };
+  });
+  if (orphan.length > 0) {
+    result.push({
+      topic: { id: 'phonics-other', label: '📦 기타 파닉스 (en-b*-u* 패턴 외)' },
+      words: orphan.sort(),
+    });
+  }
+  return result;
+}
+
 // 활성 탭에 맞는 단어 셋을 토픽별로 그룹화 (단어 → Cambridge 토픽 매칭, 없으면 "기타")
 function getTabTopics() {
+  // 파닉스 탭은 별도 — Book/Unit 별로
+  if (activeTab === 'phonics') return getPhonicsTopicsByUnit();
+
   // 1. 활성 탭 단어 셋 결정
   let words;
   if (activeTab === 'master') {
     return TOPICS.map(t => ({ topic: t, words: [...t.words] }));
   } else if (activeTab === 'storybook') {
     words = [...dbWords.entries()].filter(([_, e]) => e.books.length > 0).map(([w]) => w);
-  } else if (activeTab === 'phonics') {
-    words = [...dbWords.entries()].filter(([_, e]) => e.phonics.length > 0).map(([w]) => w);
   } else { // all
     const set = new Set();
     for (const w of MASTER_WORD_SET) set.add(w);
