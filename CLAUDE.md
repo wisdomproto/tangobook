@@ -219,9 +219,9 @@ scripts/synthesize-game-sfx.mjs   # 사운드 재생성 스크립트 (ffmpeg-sta
 
 | 데이터 | 동화책 | 파닉스 | 비고 |
 |--------|:------:|:------:|------|
-| **핵심단어 메타** | `key_objects[]` (KeyObject) | `flashcards[]` (PhonicsFlashcard) | 이름은 다르나 역할 동일 |
+| **핵심단어 + 학습어휘 (통합)** | `key_objects[]` (KeyObject — 다국어 `name/korean/nameTranslations` + `definition`/`example` 통합) | `flashcards[]` (PhonicsFlashcard) | **2026-04-30 educational_content.vocabulary[] 통합 마이그 완료 (358권)** |
 | **핵심단어 이미지** | `keyObjectImages[]` (별도 배열) | `flashcards[].imageUrl` (객체 내부) | 저장 방식 상이 |
-| **학습 어휘** | `educational_content.vocabulary[]` | `educational_content.vocabulary[]` | 동일 구조 |
+| ~~`educational_content.vocabulary[]`~~ | **deprecated 2026-04-30** — read 호환만 유지 (legacy 데이터 보존) | 동일 | 신규 코드는 `key_objects[].definition/example` 우선 |
 | **어휘 이미지** | `vocabularyImages[]` (별도 배열) | N/A | 동화책 전용 |
 | **블렌딩/단어패밀리** | N/A | `phonicsLesson.blending[]` / `.wordFamilies[]` | 파닉스 전용 |
 
@@ -234,6 +234,12 @@ scripts/synthesize-game-sfx.mjs   # 사운드 재생성 스크립트 (ffmpeg-sta
 - flashcard 추출 로직: `phonics-data-helpers.ts` + `game.service.ts` 내 3곳
 - 한글/영어 단어 선택: `isKorean ? localWord : word` 패턴 4곳
 - 향후 중복이 심해지면 공통 `collectUnifiedWordPool()` 함수 도입 검토
+
+**Phase 2 follow-up (educational_content.vocabulary 완전 폐기):**
+- AI 생성 prompt (`storybook.service.ts`) — vocabulary 항목 제거, key_objects 안에 definition/example 직접 생성
+- 게임/마케팅 read 코드 — vocabulary fallback → key_objects 우선
+- 신규 책 자동 통합 — generate 끝에 unifyKeyObjects 헬퍼 호출
+- 마이그 스크립트 `scripts/migrate-vocabulary-to-keyobjects.mjs` 보관 (재실행 가능)
 
 **snake_case 혼용 (레거시, 변경 불가):**
 - `key_objects`, `educational_content`, `scene_description` = snake_case (R2 기존 데이터)

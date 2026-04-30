@@ -665,6 +665,12 @@ export interface PageTranslation {
   ttsUrl?: string;
 }
 
+/**
+ * @deprecated 2026-04-30 — `KeyObject` 로 통합 마이그레이션됨.
+ * 신규 책은 `key_objects[]` 에 `definition`/`example` 까지 모두 포함.
+ * 기존 책 read 호환을 위해 타입은 유지 (educational_content.vocabulary 필드).
+ * 신규 코드에서 직접 참조하지 말 것 — `KeyObject` 우선 사용.
+ */
 export interface VocabularyItem {
   word: string;
   korean: string;
@@ -700,6 +706,10 @@ export interface KeyObject {
   nameEn?: string;
   /** ko/en 외 언어별 이름. 예: { ja: 'にんじん', zh: '胡萝卜' } */
   nameTranslations?: Record<string, string>;
+  /**
+   * 한국어 묘사 (일러스트 prompt 용 + 페이지 시각 정보).
+   * 영어 학습용 정의는 `definition` 사용.
+   */
   description: string;
   pages: number[];
   sizeCm?: number;
@@ -709,6 +719,13 @@ export interface KeyObject {
   ttsUrl?: string;
   /** 다국어 이름 TTS URL. 키 = lang code (en/ja/...), 값 = 해당 언어 이름의 발음 음성 URL. */
   ttsUrls?: Record<string, string>;
+  /**
+   * 영어 학습용 정의 (CEFR 단어 카드용). 2026-04-30 educational_content.vocabulary 에서 통합 이전.
+   * 예: 'Cow' → 'A large farm animal that gives milk.'
+   */
+  definition?: string;
+  /** 영어 예문 (학습 카드용). 예: 'The cow eats grass in the field.' */
+  example?: string;
 }
 
 export interface KeyObjectImage {
