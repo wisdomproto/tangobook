@@ -235,11 +235,14 @@ scripts/synthesize-game-sfx.mjs   # 사운드 재생성 스크립트 (ffmpeg-sta
 - 한글/영어 단어 선택: `isKorean ? localWord : word` 패턴 4곳
 - 향후 중복이 심해지면 공통 `collectUnifiedWordPool()` 함수 도입 검토
 
-**Phase 2 follow-up (educational_content.vocabulary 완전 폐기):**
-- AI 생성 prompt (`storybook.service.ts`) — vocabulary 항목 제거, key_objects 안에 definition/example 직접 생성
-- 게임/마케팅 read 코드 — vocabulary fallback → key_objects 우선
-- 신규 책 자동 통합 — generate 끝에 unifyKeyObjects 헬퍼 호출
-- 마이그 스크립트 `scripts/migrate-vocabulary-to-keyobjects.mjs` 보관 (재실행 가능)
+**Phase 1+2 완료 (educational_content.vocabulary → key_objects 통합, 2026-04-30):**
+- AI 생성 prompt (`storybook.service.ts`) — `educational_content.vocabulary` 제거, `key_objects` 에 `definition/example` 직접 생성
+- 통합 read 헬퍼 `getEffectiveVocabulary(sb)` (`packages/shared/src/utils/effective-vocabulary.ts`):
+  - `key_objects` 우선 + 레거시 `vocabulary` 합집합 (lc 중복 제거)
+  - `VocabularyItem[]` 반환 — 호출부 100% 호환
+- 9개 callsite 전환: server `game.service.ts`/`marketing-helpers.ts`, client `Speaking/WordWritingConfigPanel`/`ConnectTheDotsPlayer`/`MetaView`
+- 이미지 fallback: `vocabularyImages` 없으면 `keyObjectImages` (objectName === word/korean) 자동 매칭
+- 마이그 스크립트 `scripts/migrate-vocabulary-to-keyobjects.mjs` 보관 (idempotent, 재실행 가능). 358권 마이그 완료 (1,115 merge + 1,329 new)
 
 **snake_case 혼용 (레거시, 변경 불가):**
 - `key_objects`, `educational_content`, `scene_description` = snake_case (R2 기존 데이터)
@@ -488,10 +491,37 @@ v1 storybook 데이터 모델 위에 **레벨/그림체/언어 3축 variation** 
 - 생성 후 자동 재생, 재생성 가능
 - `collectStorybookImagePool` (server `utils/phonics-data-helpers.ts`) 의 keyObject pool 항목에 ttsUrl 포함 → 학습게임 (VocabularyMatching, StoryImage 등) 에서 단어 음성 재생
 
-### 커리큘럼 마스터 연동
-- TopBar 우측 (어휘 DB 옆) 에 `📚 커리큘럼` 링크 → `/curriculum-master.html` 새 탭 (HTML 파일 그대로 사용. 사이트 배포 시 `packages/client/public/`)
-- `Storybook.koCompletion` 필드 — 서버 `toSummary`(r2.repository.ts) 에서 자동 산출: `{ cover, pagesImage, pagesTts, vocabulary, complete }`. 한글 기본 = 표지 + 모든 페이지 일러스트 + 모든 페이지 TTS + 핵심단어 1개+
-- `curriculum-master.html` 페이지 로드 시 `/api/storybooks` fetch → bid 매칭 + sibling variant 검사 → CLASSIC/NATURE/FOLKTALE/LIFE 의 `st` 필드 자동 갱신 → `rerenderAll`. 완성된 책은 자동으로 ✅ 표시.
+### 자료실 (TopBar 📁 자료실 dropdown — 2026-04-30)
+TopBar 우측에 `ResourcesDropdown` (`components/TopBar.tsx`) — 정적 HTML 페이지 3개 묶음. 모두 `packages/client/public/` + `docs/books/` 양쪽 사본:
+
+1. **📋 사업 전략서** — `/strategy.html` (비즈니스 전략·로드맵)
+2. **📚 커리큘럼 마스터** — `/curriculum-master.html` (책 마스터플랜·DB 연동)
+3. **🔤 어휘 마스터** — `/vocabulary-master.html` (Cambridge Starters 매칭)
+
+#### 커리큘럼 마스터 (`/curriculum-master.html`)
+- 마스터 정적 리스트 (CLASSIC/NATURE/FOLKTALE/LIFE_RAW, 50권+) + DB 동기화
+- 페이지 로드 시 `/api/storybooks` fetch → bid 매칭 + title 매칭 + sibling variant 검사
+- `Storybook.koCompletion` 필드로 `st` 필드 자동 갱신 → `rerenderAll`. 완성된 책 자동 ✅
+- **DB-only 자동 등록** (2026-04-30): 마스터에 없는 DB 책을 `folder` 키워드(자연관찰/공룡/우리몸/지구/우주/명작/전래/생활)로 분류해 자동 노출, `🆕 DB` 뱃지
+- **bid 자동 보충**: 마스터 책에 bid 누락 시 title 매칭으로 자동 채움 → status sync 정상 동작
+- **모달 그림체 갤러리**: `availableStyles` + `styleAssets[style].coverImage` 썸네일 row, 활성 그림체 ⭐, 클릭 시 큰 이미지, "✏️ 편집기 열기" 직링크
+- **자동 refresh**: `visibilitychange` 시 자동 refetch + 우상단 🔄 새로고침 버튼
+
+#### 어휘 마스터 (`/vocabulary-master.html`, 2026-04-30 신규)
+- Cambridge Pre A1 Starters ~381 단어 (4-7세 영어 입문 글로벌 표준, CEFR Pre-A1 ~ A1)
+- 토픽 16개 (Animals/Body/Food/Home/Verbs/Adjectives 등 — **기능어 제외**: Pronouns/Prepositions/Conjunctions/Question Words 는 학습카드 부적합)
+- 4 탭 뷰 (`activeTab` 상태):
+  - **⭐ 마스터** — Cambridge Starters 381단어 기준 (default)
+  - **📚 동화책 어휘** — vocabulary-db 의 storybook source 단어 ~801개, ⭐ 마스터 셋 156개 겹침
+  - **🔤 파닉스 어휘** — phonics source 단어 ~515개, ⭐ 마스터 76개 겹침
+  - **🌐 전체** — 마스터+동화책+파닉스 합집합 1,378개. 토픽 매칭 안 되는 단어는 "📦 기타" 카드로 모임
+- `/api/vocabulary-db` (1,198 entries) + `/api/storybooks` 매칭 자동
+- 4 상태 표시: 📚🔤 동화책+파닉스 / 📚 동화책만 / 🔤 파닉스만 / ⚠️ 미커버 + 필터 ⭐마스터 셋 / ⭐외
+- 비마스터 단어 분류: `WORD_TO_TOPIC` lookup(마스터 토픽 매칭) → 안 되면 "📦 기타"
+- 토픽별 진척률(%) + 색상 코딩 (80%↑ 초록 / 50%↑ 황색 / 미만 적색)
+- chip ⭐ 마스터 / 📚N 동화책 N권 / 🔤N 파닉스 N권 표시. hover → 노출 책 목록 tooltip
+- 검색 + 상태 필터 + visibilitychange 자동 refresh
+- 활용: 마스터 탭 미커버 = 다음 책 기획 우선순위 / 동화책·파닉스 탭 비마스터 = 마스터에 추가 검토 가능 풀
 
 ### 진입점 / 사용 책 예시
 - `/editor2/1772510956605` (잭과 콩나무 L3) — paper-craft + pixar-3d 두 그림체, ko + en 두 언어 모두 자산 보유

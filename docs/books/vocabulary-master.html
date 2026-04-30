@@ -46,6 +46,27 @@
   }
   .tooltip.show { opacity: 1; }
   .tooltip ul { margin: 2px 0; padding-left: 8px; }
+  .tab-btn {
+    padding: 6px 14px;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid transparent;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 1.2;
+    text-align: center;
+    transition: all 0.1s;
+  }
+  .tab-btn:hover { background: #e2e8f0; }
+  .tab-btn.active {
+    background: white;
+    color: #0f766e;
+    border-color: #cbd5e1;
+    border-bottom-color: white;
+    margin-bottom: -1px;
+  }
 </style>
 </head>
 <body class="bg-slate-50">
@@ -58,6 +79,12 @@
 </header>
 
 <div class="bg-white border-b shadow-sm sticky top-0 z-20">
+  <div class="max-w-7xl mx-auto px-6 pt-3 flex flex-wrap items-center gap-2">
+    <button class="tab-btn active" data-tab="master">⭐ 마스터<br><span class="text-[10px] opacity-70">Cambridge Starters</span></button>
+    <button class="tab-btn" data-tab="storybook">📚 동화책 어휘</button>
+    <button class="tab-btn" data-tab="phonics">🔤 파닉스 어휘</button>
+    <button class="tab-btn" data-tab="all">🌐 전체</button>
+  </div>
   <div class="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center gap-3">
     <span id="overallStat" class="text-sm font-bold text-slate-500">로드 중...</span>
     <span id="lastSync" class="text-xs text-slate-400"></span>
@@ -67,7 +94,9 @@
       <option value="both">📚🔤 동화책+파닉스</option>
       <option value="book-only">📚 동화책만</option>
       <option value="phonics-only">🔤 파닉스만</option>
-      <option value="none">⚠️ 미커버 (제작 권장)</option>
+      <option value="none">⚠️ 미커버</option>
+      <option value="in-master">⭐ 마스터 셋</option>
+      <option value="not-in-master">⭐외 (마스터 비포함)</option>
     </select>
     <input id="filterSearch" placeholder="단어..." class="border rounded px-2 py-1 text-sm w-36" />
   </div>
@@ -75,8 +104,9 @@
     <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#d1fae5;border:1px solid #10b981"></span> 동화책 + 파닉스 둘 다</span>
     <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#fef3c7;border:1px solid #f59e0b"></span> 동화책만</span>
     <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#dbeafe;border:1px solid #3b82f6"></span> 파닉스만</span>
-    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#f1f5f9;border:1px solid #cbd5e1"></span> 미커버 (신규 책 권장)</span>
-    <span class="ml-auto text-slate-400">단어 위에 마우스 올리면 노출 책 목록</span>
+    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#f1f5f9;border:1px solid #cbd5e1"></span> 미커버</span>
+    <span class="flex items-center gap-1.5">⭐ Cambridge Starters 마스터 단어</span>
+    <span class="ml-auto text-slate-400">단어 hover → 노출 책 목록</span>
   </div>
 </div>
 
@@ -110,10 +140,24 @@ const TOPICS = [
   // 학습 카드로 가르치는 의미가 적어 마스터 셋에서 제외 — 문맥에서 자연 습득.
 ];
 
-const TOTAL_WORDS = TOPICS.reduce((a,t) => a + t.words.length, 0);
+const TOTAL_MASTER_WORDS = TOPICS.reduce((a,t) => a + t.words.length, 0);
+
+// 단어 → 토픽 lookup (lowercase 기준)
+const WORD_TO_TOPIC = new Map();
+const MASTER_WORD_SET = new Set();
+for (const t of TOPICS) {
+  for (const w of t.words) {
+    const k = w.toLowerCase();
+    MASTER_WORD_SET.add(k);
+    if (!WORD_TO_TOPIC.has(k)) WORD_TO_TOPIC.set(k, t);
+  }
+}
+// 비마스터 단어용 "기타" 토픽 (render 시 동적으로 채움)
+const OTHER_TOPIC = { id: 'other', label: '📦 기타 (마스터 비포함)', words: [] };
 
 let dbWords = new Map();   // word(lower) → { books:[{id,title}], phonics:[{id,title}] }
 let storybookCount = 0;
+let activeTab = 'master';  // master | storybook | phonics | all
 
 async function loadDb() {
   document.getElementById('lastSync').textContent = '🔄 로드 중...';
@@ -128,10 +172,13 @@ async function loadDb() {
     const idToTitle = new Map(sbList.map(s => [s.id, s.title]));
     const idToType = new Map(sbList.map(s => [s.id, s.type || 'storybook']));
 
+    // 영어 단어만 — 한글/기타 문자 들어간 entry 제외 (한국어 어휘는 별도 페이지에서 처리 예정)
+    const ENGLISH_ONLY = /^[a-z][a-z0-9\s\-'.]*$/i;
     dbWords.clear();
     for (const v of list) {
       const w = (v.word || '').toLowerCase().trim();
       if (!w) continue;
+      if (!ENGLISH_ONLY.test(w)) continue;
       let entry = dbWords.get(w);
       if (!entry) { entry = { books: [], phonics: [] }; dbWords.set(w, entry); }
       for (const s of (v.sources || [])) {
@@ -162,14 +209,70 @@ function classify(word) {
   return 'none';
 }
 
+// 활성 탭에 맞는 단어 셋을 토픽별로 그룹화 (단어 → Cambridge 토픽 매칭, 없으면 "기타")
+function getTabTopics() {
+  // 1. 활성 탭 단어 셋 결정
+  let words;
+  if (activeTab === 'master') {
+    return TOPICS.map(t => ({ topic: t, words: [...t.words] }));
+  } else if (activeTab === 'storybook') {
+    words = [...dbWords.entries()].filter(([_, e]) => e.books.length > 0).map(([w]) => w);
+  } else if (activeTab === 'phonics') {
+    words = [...dbWords.entries()].filter(([_, e]) => e.phonics.length > 0).map(([w]) => w);
+  } else { // all
+    const set = new Set();
+    for (const w of MASTER_WORD_SET) set.add(w);
+    for (const w of dbWords.keys()) set.add(w);
+    words = [...set];
+  }
+
+  // 2. 각 단어를 토픽으로 분류
+  const buckets = new Map();
+  for (const t of TOPICS) buckets.set(t, []);
+  const others = [];
+  for (const w of words) {
+    const lcw = w.toLowerCase();
+    const t = WORD_TO_TOPIC.get(lcw);
+    if (t) buckets.get(t).push(w);
+    else others.push(w);
+  }
+
+  const result = [];
+  for (const t of TOPICS) {
+    const arr = buckets.get(t).sort();
+    if (arr.length > 0) result.push({ topic: t, words: arr });
+  }
+  if (others.length > 0) {
+    result.push({ topic: OTHER_TOPIC, words: others.sort() });
+  }
+  return result;
+}
+
+function passesFilter(word, filter) {
+  if (!filter) return true;
+  if (filter === 'in-master') return MASTER_WORD_SET.has(word.toLowerCase());
+  if (filter === 'not-in-master') return !MASTER_WORD_SET.has(word.toLowerCase());
+  return classify(word) === filter;
+}
+
 function render() {
   const filter = document.getElementById('filterStatus').value;
   const search = document.getElementById('filterSearch').value.trim().toLowerCase();
   const container = document.getElementById('topicsContainer');
 
-  let totalCovered = 0, totalBoth = 0, totalBook = 0, totalPhonics = 0, totalNone = 0;
-  for (const t of TOPICS) {
-    for (const w of t.words) {
+  // 탭 active state UI
+  for (const btn of document.querySelectorAll('.tab-btn')) {
+    btn.classList.toggle('active', btn.dataset.tab === activeTab);
+  }
+
+  const groups = getTabTopics();
+
+  // 통계
+  let totalWords = 0, totalCovered = 0, totalBoth = 0, totalBook = 0, totalPhonics = 0, totalNone = 0, totalMaster = 0;
+  for (const g of groups) {
+    for (const w of g.words) {
+      totalWords++;
+      if (MASTER_WORD_SET.has(w.toLowerCase())) totalMaster++;
       const c = classify(w);
       if (c === 'both') { totalBoth++; totalCovered++; }
       else if (c === 'book-only') { totalBook++; totalCovered++; }
@@ -178,16 +281,15 @@ function render() {
     }
   }
 
-  const cards = TOPICS.map(t => {
-    const filteredWords = t.words.filter(w => {
+  const cards = groups.map(g => {
+    const filteredWords = g.words.filter(w => {
       if (search && !w.toLowerCase().includes(search)) return false;
-      if (filter && classify(w) !== filter) return false;
-      return true;
+      return passesFilter(w, filter);
     });
 
-    const stats = { covered: 0 };
-    for (const w of t.words) if (classify(w) !== 'none') stats.covered++;
-    const pct = Math.round(stats.covered / t.words.length * 100);
+    let covered = 0;
+    for (const w of g.words) if (classify(w) !== 'none') covered++;
+    const pct = g.words.length ? Math.round(covered / g.words.length * 100) : 0;
 
     if (filteredWords.length === 0) return '';
 
@@ -196,11 +298,15 @@ function render() {
       const e = dbWords.get(w.toLowerCase());
       const bookN = e?.books.length || 0;
       const phonicsN = e?.phonics.length || 0;
+      const inMaster = MASTER_WORD_SET.has(w.toLowerCase());
       const cls = c === 'both' ? 'chip-both' : c === 'book-only' ? 'chip-book' : c === 'phonics-only' ? 'chip-phonics' : 'chip-none';
+      const star = inMaster ? '⭐' : '';
       const marker = c === 'none' ? '✗' : '✓';
-      const meta = c === 'none' ? '미커버' : (bookN && phonicsN ? `📚${bookN} 🔤${phonicsN}` : bookN ? `📚${bookN}` : `🔤${phonicsN}`);
+      const meta = c === 'none'
+        ? '미커버'
+        : (bookN && phonicsN ? `📚${bookN} 🔤${phonicsN}` : bookN ? `📚${bookN}` : `🔤${phonicsN}`);
       return `<div class="word-chip ${cls}" data-word="${w}" onmouseenter="showTooltip(event,'${w.replace(/'/g,"&#39;")}')" onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()">
-        <span class="word">${marker} ${w}</span>
+        <span class="word">${star}${marker} ${w}</span>
         <span class="meta">${meta}</span>
       </div>`;
     }).join('');
@@ -209,11 +315,11 @@ function render() {
       <div class="topic-card">
         <div class="topic-header">
           <div>
-            <span class="text-base font-bold">${t.label}</span>
-            <span class="text-xs text-slate-500 ml-2">(${t.words.length}단어)</span>
+            <span class="text-base font-bold">${g.topic.label}</span>
+            <span class="text-xs text-slate-500 ml-2">(${g.words.length}단어)</span>
           </div>
           <div class="text-xs">
-            <span class="font-bold ${pct >= 80 ? 'text-emerald-600' : pct >= 50 ? 'text-amber-600' : 'text-rose-600'}">${stats.covered}/${t.words.length}</span>
+            <span class="font-bold ${pct >= 80 ? 'text-emerald-600' : pct >= 50 ? 'text-amber-600' : 'text-rose-600'}">${covered}/${g.words.length}</span>
             <span class="text-slate-400 ml-1">(${pct}%)</span>
           </div>
         </div>
@@ -225,9 +331,10 @@ function render() {
 
   container.innerHTML = cards || '<div class="col-span-2 text-center text-slate-500 py-12">필터 결과 없음</div>';
 
-  const overallPct = Math.round(totalCovered / TOTAL_WORDS * 100);
+  const overallPct = totalWords ? Math.round(totalCovered / totalWords * 100) : 0;
+  const tabLabel = { master: '⭐ 마스터', storybook: '📚 동화책 어휘', phonics: '🔤 파닉스 어휘', all: '🌐 전체' }[activeTab];
   document.getElementById('overallStat').innerHTML = `
-    📊 마스터 <strong>${TOTAL_WORDS}</strong> · 커버 <strong class="text-emerald-700">${totalCovered}</strong> (${overallPct}%) ·
+    ${tabLabel} · <strong>${totalWords}</strong>단어 · ⭐ 마스터 ${totalMaster} · 커버 <strong class="text-emerald-700">${totalCovered}</strong> (${overallPct}%) ·
     <span class="text-emerald-700">📚🔤 ${totalBoth}</span> ·
     <span class="text-amber-700">📚 ${totalBook}</span> ·
     <span class="text-blue-700">🔤 ${totalPhonics}</span> ·
@@ -263,6 +370,12 @@ function hideTooltip() { document.getElementById('tooltip').classList.remove('sh
 
 document.getElementById('filterStatus').addEventListener('change', render);
 document.getElementById('filterSearch').addEventListener('input', render);
+for (const btn of document.querySelectorAll('.tab-btn')) {
+  btn.addEventListener('click', () => {
+    activeTab = btn.dataset.tab;
+    render();
+  });
+}
 window.refresh = loadDb;
 loadDb();
 document.addEventListener('visibilitychange', () => { if (!document.hidden) loadDb(); });
