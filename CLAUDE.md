@@ -494,9 +494,20 @@ v1 storybook 데이터 모델 위에 **레벨/그림체/언어 3축 variation** 
 ### 자료실 (TopBar 📁 자료실 dropdown — 2026-04-30)
 TopBar 우측에 `ResourcesDropdown` (`components/TopBar.tsx`) — 정적 HTML 페이지 3개 묶음. 모두 `packages/client/public/` + `docs/books/` 양쪽 사본:
 
-1. **📋 사업 전략서** — `/strategy.html` (비즈니스 전략·로드맵)
+1. **📋 사업 전략서** — `/strategy.html` v2 (~350KB, 18 섹션, 2026-05-01 디테일 작업)
 2. **📚 커리큘럼 마스터** — `/curriculum-master.html` (책 마스터플랜·DB 연동)
 3. **🔤 어휘 마스터** — `/vocabulary-master.html` (Cambridge Starters 매칭)
+
+#### 사업 전략서 v2 (`/strategy.html`, 2026-05-01)
+- 18 섹션: Hero · Vision (3년 학습 종착점 "탱고북 졸업장") · 시장분석(TAM $8.7B/SAM $1.2B/SOM $30M) · 자산 4 카테고리 · 차별점 9개 · 콘텐츠 아키텍처 · 시스템 아키텍처 · 학습 루프 · UX · 게이미피케이션 · BM · 마케팅 · 경쟁 · SWOT · 로드맵 · KPI · 재무 · 클로징
+- **차별점 9개**: 그림체 10종 + 3단계 글밥 + 한·영 매칭 통합 학습 + 마스터리 리포트 + 포인트 게이미피케이션 + 유튜브 깔때기 + 카드 콜렉션 270장 + 도감 (학습 인증 후 활성)
+- **인포그래픽** (SVG/CSS): 3축 통합 Venn(동화·파닉스·어휘) · 어휘 3 카테고리 세분 Venn(800/500/1500 ∩ 300 3축) · 마스터 어휘 학습 축 + 1,500단어 5 카테고리 (일상 340·자연 140·추상 145·행동 450·관계 425) · 망각 곡선 + Review Points · 친숙도 맵 1,500셀 (JS auto-fill) · 호리 놀이터 7 게임 mockup · Daily Word 호리 코스튬 + 연속 출석 사다리(D1~D365)
+- **BM**: 무료/유료/포인트 **3축 분배 룰** (포인트는 디지털만, 오프라인 굿즈 X, 유료 잠금해제 X, 광고 X) · 프리뷰 패스 (매주 1매, 1권 24h 풀체험) · 결제 trigger 5종 · 4 플랜 (Free/Plus 9,900/Family 14,900/School 99k) · 인건비 10% / 영업이익률 45%+
+- **시각**: 24개월 마일스톤 timeline · 경쟁사 2×2 매트릭스 (Khan Kids/Pinkfong/Epic/탱고북) · SWOT 4분면 · KPI 4 게이지 도넛 · 수익원 도넛(B2C 70/B2B 20/로컬팩 5/IP 5) · 게임 4 mockup + 7 어휘 게임 mockup
+- **Gemini 생성 sample 28장**: `packages/client/public/strategy-samples/` — 그림체 10 (수채화/2D/클래식/페이퍼컷/3D 토이/민화/플랫/파스텔/세미리얼/판타지) · 카드 콜렉션 8 (명작/공룡/동물/식물/바다/우주/생활/전래) · 동화 표지 8 (잭과콩나무/빨간모자/백설공주/신데렐라/개미와베짱이/호두까기/토끼와거북이/미운오리) · 도감 2 (펼친책/glow page)
+- **생성 스크립트**: `packages/server/scripts/generate-strategy-samples.mjs --only [style|card|cover|encyclopedia]` (Gemini 3.1 Flash Image, dotenv from server/.env)
+- **60+ 용어 호버 툴팁**: TAM/SAM/CAC/LTV/ROAS/PMF/Phonics/CVC/Sight Words 등 자동 마크업 (script 안 dict)
+- 상세: [memory/strategy-document-v2.md]
 
 #### 커리큘럼 마스터 (`/curriculum-master.html`)
 - 마스터 정적 리스트 (CLASSIC/NATURE/FOLKTALE/LIFE_RAW, 50권+) + DB 동기화
