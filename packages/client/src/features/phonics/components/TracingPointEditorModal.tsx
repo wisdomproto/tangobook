@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import type { TracingPoint } from '@tangobook/shared';
 
 const POINT_COLOR = '#10b981';

@@ -17,7 +17,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { PageCard } from './PageCard';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { BatchProgressBar } from '@/components/BatchProgressBar';
 import { ImageModelSelector } from '@/components/ImageModelSelector';
 import { illustrationApi } from '../api/illustration.api';

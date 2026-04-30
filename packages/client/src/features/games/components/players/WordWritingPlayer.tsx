@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData, GameTypeId, Lang } from '@tangobook/shared';
 import { decomposeWord } from '@tangobook/shared';

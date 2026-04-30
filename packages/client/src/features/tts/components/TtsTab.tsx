@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { ttsApi } from '../api/tts.api';
 import { TTS_VOICES } from '@tangobook/shared';
 import type { Storybook } from '@tangobook/shared';

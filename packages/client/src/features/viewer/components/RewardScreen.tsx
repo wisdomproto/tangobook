@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { Mascot } from '@/components/Mascot';
+import { Mascot } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { YouTubeModal } from './YouTubeModal';
 

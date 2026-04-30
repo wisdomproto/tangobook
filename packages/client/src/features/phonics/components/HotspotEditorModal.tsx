@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import type { WordHotspot } from '@tangobook/shared';
 
 const WORD_COLORS = [

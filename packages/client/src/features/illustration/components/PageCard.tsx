@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { ImageDropZone } from '@/components/ImageDropZone';
 import { ImagePreview } from '@/components/ImagePreview';

@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import type { Storybook, BlendingExercise } from '@tangobook/shared';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { BatchProgressBar } from '@/components/BatchProgressBar';
 import { pushImageHistory } from '@/lib/image-history';

@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { quizApi } from '../api/quiz.api';
 import type { Storybook } from '@tangobook/shared';
 

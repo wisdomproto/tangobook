@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { ImageDropZone } from '@/components/ImageDropZone';
 import { ImagePreview } from '@/components/ImagePreview';
@@ -311,10 +311,33 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
   };
 
   const handleDeleteObject = (idx: number) => {
+    const obj = keyObjects[idx];
+    if (!obj) return;
+    const objName = obj.name;
+    if (
+      !confirm(
+        `"${getKeyObjectName(obj, ttsLang)}" 핵심사물을 모든 그림체·언어에서 삭제할까요?\n` +
+          `(이미지·번역·TTS 포함)`
+      )
+    )
+      return;
     onUpdate((draft) => {
-      if (draft.key_objects) {
-        draft.key_objects.splice(idx, 1);
+      // 1) 핵심사물 자체 제거
+      if (draft.key_objects) draft.key_objects.splice(idx, 1);
+      // 2) top-level 이미지 제거
+      if (draft.keyObjectImages) {
+        draft.keyObjectImages = draft.keyObjectImages.filter((img) => img.objectName !== objName);
       }
+      // 3) 모든 styleAssets 의 keyObjectImages 에서도 제거 (그림체별 자산)
+      if (draft.styleAssets) {
+        for (const style of Object.keys(draft.styleAssets)) {
+          const sa = draft.styleAssets[style];
+          if (sa?.keyObjectImages) {
+            sa.keyObjectImages = sa.keyObjectImages.filter((img) => img.objectName !== objName);
+          }
+        }
+      }
+      // KeyObject 자체가 사라지므로 nameTranslations·ttsUrls·ttsUrl 은 자동 소거됨
     });
     onSave();
   };

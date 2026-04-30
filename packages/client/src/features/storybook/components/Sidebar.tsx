@@ -17,7 +17,7 @@ import {
   useCopyStorybook,
 } from '@/features/storybook';
 import { useEditorStore } from '@/store/editor.store';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { Spinner } from '@/components/Spinner';
 import { SidebarCard } from './SidebarCard';
 import { DeleteConfirmModal } from './DeleteConfirmModal';

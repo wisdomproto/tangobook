@@ -1,7 +1,7 @@
 import type { StorybookSummary } from '@tangobook/shared';
 import { StorybookCard } from './StorybookCard';
 import { EmptyState } from '@/components/EmptyState';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 
 interface StorybookGridProps {
   storybooks: StorybookSummary[];

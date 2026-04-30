@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { TextModelSelector } from '@/components/TextModelSelector';
 import { useGeneratePhonicsBook } from '../hooks/useStorybookMutations';
 import { storybookApi } from '../api/storybook.api';

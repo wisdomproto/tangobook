@@ -610,28 +610,8 @@ export function AudiobookProjectCard({
       prev.includes(lang) ? prev.filter((l) => l !== lang) : [...prev, lang]
     );
 
-  // Available languages — only show languages that have TTS/translations
-  const availableLanguages = useMemo(() => {
-    const langSet = new Set<string>();
-    langSet.add('ko');
-    for (const page of storybook.pages ?? []) {
-      if (page.translations) {
-        for (const code of Object.keys(page.translations)) {
-          if (page.translations[code]?.text) langSet.add(code);
-        }
-      }
-    }
-    const langs: { code: string; label: string }[] = [];
-    for (const sl of SUPPORTED_LANGUAGES) {
-      if (sl.code === 'ko' || langSet.has(sl.code)) langs.push({ ...sl });
-    }
-    for (const code of langSet) {
-      if (!SUPPORTED_LANGUAGES.some((sl) => sl.code === code)) {
-        langs.push({ code, label: code.toUpperCase() });
-      }
-    }
-    return langs;
-  }, [storybook.pages]);
+  // 언어는 외부 EditorLang(/editor2 위쪽 컨트롤) 에서 결정되며 AudiobookTab 이 해당 언어 프로젝트만 필터링.
+  // 카드 내부에는 언어 선택 UI 없음.
 
   // Remotion Player data — probe TTS durations for accurate preview timing
   const rawRenderData = buildAudiobookRenderData(storybook, project);
@@ -735,25 +715,7 @@ export function AudiobookProjectCard({
       {/* 펼친 콘텐츠 */}
       {expanded && (
         <div className="px-4 pb-4 space-y-4 border-t border-slate-100 dark:border-slate-700 pt-4">
-          {/* 언어 선택 (pill 버튼) — 최상단 */}
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className={labelClass}>언어</span>
-            <div className="flex gap-1.5 flex-wrap">
-              {availableLanguages.map((l) => (
-                <button
-                  key={l.code}
-                  onClick={() => onUpdate({ language: l.code })}
-                  className={`px-3 py-1 text-xs rounded-full transition-colors ${
-                    project.language === l.code
-                      ? 'bg-violet-600 text-white'
-                      : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-violet-100 dark:hover:bg-violet-900/30'
-                  }`}
-                >
-                  {l.label}
-                </button>
-              ))}
-            </div>
-          </div>
+          {/* 언어는 /editor2 상단의 그림체·언어 컨트롤에서 결정 — 프로젝트 카드 내부에는 언어 선택 없음 */}
 
           {/* 2컬럼: 왼쪽 프리뷰 + 오른쪽 설정 */}
           <div className="flex flex-col md:flex-row gap-5">

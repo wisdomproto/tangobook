@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mascot } from '@/components/Mascot';
+import { Mascot } from '@/design-system';
 
 const GREETINGS = [
   '안녕! 오늘은 뭐 할까? 👋',

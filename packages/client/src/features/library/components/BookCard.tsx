@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Card } from '@/components/Card';
+import { Card } from '@/design-system';
 import { cn } from '@/lib/cn';
 import type { BookIndexEntry } from '@tangobook/shared';
 

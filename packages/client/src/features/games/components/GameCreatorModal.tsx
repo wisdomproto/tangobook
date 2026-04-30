@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { getGamesForContext, groupGamesByCategory } from '../registry';
 import type { GameRegistryEntry } from '../registry';
 import type { Storybook, GameConfig, GameDifficulty, GameTypeId } from '@tangobook/shared';

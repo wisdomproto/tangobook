@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { Button } from './Button';
+import { Button } from '@/design-system';
 
 // 전역 오디오 싱글톤: 여러 TtsControl 인스턴스 간 동시 재생 방지
 let globalAudio: HTMLAudioElement | null = null;

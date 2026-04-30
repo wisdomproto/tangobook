@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback, type ChangeEvent, type DragEvent } from 'react';
 import type { Storybook, LongformProject, LongformScene } from '@tangobook/shared';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { storybookApi } from '@/features/storybook';
 import { longformApi } from '../api/longform.api';
 

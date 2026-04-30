@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { DotEditorCanvas } from '@/components/DotEditorCanvas';
 import type { DotKeypoint } from '@tangobook/shared';
 

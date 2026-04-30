@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Lang } from '@tangobook/shared';
-import { Mascot } from '@/components/Mascot';
+import { Mascot } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 import {

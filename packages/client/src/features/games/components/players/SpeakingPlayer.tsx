@@ -6,7 +6,7 @@ import type {
   SpeakingDifficulty,
   Storybook,
 } from '@tangobook/shared';
-import { Mascot } from '@/components/Mascot';
+import { Mascot } from '@/design-system';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GameProgressBar } from '../GameProgressBar';
 import { GameResultScreen } from '../GameResultScreen';

@@ -1,5 +1,5 @@
 import { useState, useMemo, type ReactNode } from 'react';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { useStorybooks } from '@/features/storybook';
 import { cn } from '@/lib/cn';
 import type { Storybook } from '@tangobook/shared';

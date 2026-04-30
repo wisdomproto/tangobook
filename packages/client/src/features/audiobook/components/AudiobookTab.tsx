@@ -9,7 +9,17 @@ interface AudiobookTabProps {
   onSave: () => void;
 }
 
-function makeDefaultProject(totalPages: number, lang = 'ko'): Omit<AudiobookProject, 'id'> {
+interface ProjectDefaults {
+  bgmUrl?: string;
+  bgmVolume?: number;
+  coverImageUrl?: string;
+}
+
+function makeDefaultProject(
+  totalPages: number,
+  lang = 'ko',
+  defaults?: ProjectDefaults
+): Omit<AudiobookProject, 'id'> {
   return {
     name: lang === 'ko' ? '새 오디오북' : `새 오디오북 (${lang})`,
     format: 'youtube',
@@ -24,7 +34,9 @@ function makeDefaultProject(totalPages: number, lang = 'ko'): Omit<AudiobookProj
     coverDuration: 3,
     includeTts: true,
     includeBgm: true,
-    bgmVolume: 30,
+    bgmUrl: defaults?.bgmUrl,
+    bgmVolume: defaults?.bgmVolume ?? 30,
+    coverImageUrl: defaults?.coverImageUrl,
     includeSubtitles: true,
     subtitleColor: '#ffffff',
     subtitleSize: 'md',
@@ -48,9 +60,16 @@ export function AudiobookTab({ storybook, onUpdate, onSave }: AudiobookTabProps)
   const addProject = () => {
     const id = `ab-${Date.now()}`;
     const lang = externalLang ?? 'ko';
+    // BGM/cover 는 가장 최근 프로젝트(또는 storybook 차원) 에서 상속 — 다른 언어/이미지 추가해도 같은 BGM 으로
+    const lastProject = [...allProjects].reverse().find((p) => p.bgmUrl || p.coverImageUrl);
+    const defaults: ProjectDefaults = {
+      bgmUrl: lastProject?.bgmUrl ?? storybook.backgroundMusicUrl,
+      bgmVolume: lastProject?.bgmVolume ?? 30,
+      coverImageUrl: lastProject?.coverImageUrl ?? storybook.coverImage,
+    };
     onUpdate((draft) => {
       if (!draft.audiobookProjects) draft.audiobookProjects = [];
-      draft.audiobookProjects.push({ ...makeDefaultProject(totalPages, lang), id });
+      draft.audiobookProjects.push({ ...makeDefaultProject(totalPages, lang, defaults), id });
     });
     onSave();
     setExpandedId(id);

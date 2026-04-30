@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import confetti from 'canvas-confetti';
-import { Mascot } from '@/components/Mascot';
+import { Mascot } from '@/design-system';
 import { cn } from '@/lib/cn';
 
 interface FeedbackOverlayProps {

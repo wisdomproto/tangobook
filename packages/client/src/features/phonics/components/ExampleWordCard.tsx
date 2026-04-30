@@ -1,5 +1,5 @@
 import type { Storybook, TracingPoint } from '@tangobook/shared';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { ImageDropZone } from '@/components/ImageDropZone';
 import { ImagePreview } from '@/components/ImagePreview';
 import { DownloadButton } from '@/components/DownloadButton';

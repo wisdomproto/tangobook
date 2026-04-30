@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Modal } from '@/components/Modal';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { useEditorStore, type CategoryTab } from '@/store/editor.store';
 import { usePatchStorybook, useStorybooks } from '@/features/storybook';
 

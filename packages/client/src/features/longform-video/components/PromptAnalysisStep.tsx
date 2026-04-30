@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import type { Storybook, LongformProject } from '@tangobook/shared';
 import type { PromptPreset } from '@tangobook/shared';
 import { DEFAULT_TEXT_MODEL, SUPPORTED_LANGUAGES } from '@tangobook/shared';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { Spinner } from '@/components/Spinner';
 import { TextModelSelector } from '@/components/TextModelSelector';
 import { PromptPresetModal } from './PromptPresetModal';

@@ -10,7 +10,7 @@ import {
   YOUTUBE_PRIVACY_OPTIONS,
   SUPPORTED_LANGUAGES,
 } from '@tangobook/shared';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { DownloadButton } from '@/components/DownloadButton';
 import { storybookApi } from '@/features/storybook';
 import { longformApi, ytPresetApi } from '../api/longform.api';

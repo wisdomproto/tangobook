@@ -1,4 +1,4 @@
-import { Mascot } from '@/components/Mascot';
+import { Mascot } from '@/design-system';
 
 interface MascotCornerProps {
   visible: boolean;

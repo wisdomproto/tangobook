@@ -1,4 +1,4 @@
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { getGameEntry } from '../registry';
 import type { GameInstance, ConnectTheDotsData } from '@tangobook/shared';
 

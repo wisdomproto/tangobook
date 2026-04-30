@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { useGenerateGame } from '../hooks/useGameMutations';
 import { gamesApi } from '../api/games.api';
 import { getGamesForContext, getGameEntry } from '../registry';

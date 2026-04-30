@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 
 const CANVAS_W = 400;
 const CANVAS_H = 400;

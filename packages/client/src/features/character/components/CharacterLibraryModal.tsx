@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { ImageDropZone } from '@/components/ImageDropZone';
 import { characterApi } from '../api/character.api';
 import type { SavedCharacter, Character } from '@tangobook/shared';

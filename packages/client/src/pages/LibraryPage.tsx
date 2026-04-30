@@ -2,11 +2,12 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useBookIndex } from '@/features/book-v2';
 import { WelcomeHeader, CategorySection, BookCard } from '@/features/library';
-import { StateScreen } from '@/components/StateScreen';
-import { SkeletonBookCard } from '@/components/Skeleton';
+import { StateScreen } from '@/design-system';
+import { SkeletonBookCard } from '@/design-system';
 import { cn } from '@/lib/cn';
 import type { BookIndexEntry } from '@tangobook/shared';
 import { ParentCornerButton } from '@/features/auth/components/ParentCornerButton';
+import { StarCounter } from '@/features/rewards';
 import { useAuth } from '@/features/auth/context/AuthContext';
 
 type TabId = 'storybook' | 'korean-phonics' | 'english-phonics';
@@ -290,9 +291,12 @@ function AuthCornerBar() {
         🎮 놀이터
       </Link>
       {activeProfile && (
-        <div className="px-3 py-1.5 rounded-full bg-white shadow-soft text-sm font-bold text-ink-900">
-          👦 {activeProfile.name}
-        </div>
+        <>
+          <StarCounter />
+          <div className="px-3 py-1.5 rounded-full bg-white shadow-soft text-sm font-bold text-ink-900">
+            👦 {activeProfile.name}
+          </div>
+        </>
       )}
       <ParentCornerButton />
       {session && (

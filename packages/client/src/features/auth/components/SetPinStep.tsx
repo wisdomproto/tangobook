@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mascot } from '@/components/Mascot';
+import { Mascot } from '@/design-system';
 import { PinPad } from './PinPad';
 import { authApi } from '../api/auth.api';
 import { useAuth } from '../context/AuthContext';

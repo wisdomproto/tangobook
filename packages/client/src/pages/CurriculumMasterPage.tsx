@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useBookIndex } from '@/features/book-v2';
 import { useStorybooks } from '@/features/storybook';
-import { StateScreen } from '@/components/StateScreen';
+import { StateScreen } from '@/design-system';
 import { cn } from '@/lib/cn';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
 

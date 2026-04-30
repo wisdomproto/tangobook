@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { translationApi } from '../api/translation.api';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 import type { Storybook } from '@tangobook/shared';

@@ -3,7 +3,7 @@ import type { AvatarId } from '@tangobook/shared';
 import { AvatarPicker } from './AvatarPicker';
 import { profilesApi } from '../api/profiles.api';
 import { useAuth } from '../context/AuthContext';
-import { Mascot } from '@/components/Mascot';
+import { Mascot } from '@/design-system';
 
 export function ProfileCreateStep() {
   const { account, refresh, setActiveProfile } = useAuth();

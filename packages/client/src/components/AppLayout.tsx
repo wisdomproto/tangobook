@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { TopBar } from './TopBar';
 import { Sidebar } from '@/features/storybook/components/Sidebar';
 import { EmptyState } from './EmptyState';
-import { Button } from './Button';
+import { Button } from '@/design-system';
 import { Spinner } from './Spinner';
 import { useEditorStore } from '@/store/editor.store';
 import { useStorybook, useSaveStorybook } from '@/features/storybook';

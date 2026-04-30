@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate, Outlet, useParams } from 'react-router-dom';
-import { ErrorBoundary } from '../components/ErrorBoundary';
+import { ErrorBoundary } from '@/design-system';
 import { AppLayout } from '../components/AppLayout';
 import { AppLayoutV2 } from '../components/AppLayoutV2';
 import LibraryPage from '../pages/LibraryPage';

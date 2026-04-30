@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { settingsApi } from '../api/settings.api';
 import type { SavedArtStyle } from '@tangobook/shared';
 

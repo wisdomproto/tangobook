@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '@/components/Modal';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { useGenerateStorybook } from '../hooks/useStorybookMutations';
 import { TARGET_AGES, ART_STYLES } from '@tangobook/shared';
 

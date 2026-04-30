@@ -3,7 +3,7 @@ import { useStorybooks, useDeleteStorybook } from '@/features/storybook';
 import { StorybookGrid } from '@/features/storybook/components/StorybookGrid';
 import { CreateStorybookModal } from '@/features/storybook/components/CreateStorybookModal';
 import { DeleteConfirmModal } from '@/features/storybook/components/DeleteConfirmModal';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import { Spinner } from '@/components/Spinner';
 
 export default function HomePage() {

@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { PictureSequenceData, PictureSequenceImage } from '@tangobook/shared';
 import { shuffle } from '../../utils/shuffle';
