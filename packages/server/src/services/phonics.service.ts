@@ -368,6 +368,18 @@ ${includeFlashcards ? '5. **플래시카드**: 타겟 단어마다 1개. word(�
 - JSON만 응답 (다른 텍스트 없이)
 - 저작권이 있는 캐릭터명/디자인 절대 사용 금지
 - 캐릭터 description은 한글과 영어(descriptionEn) 모두 작성. 이미지 설명(scene_description, exampleWordImageDescription, illustrationDescription, imageDescription)은 모두 한글로 작성
+${
+  isKorean
+    ? `
+**🇰🇷 한글 파닉스 단어 표기 (매우 중요)**:
+- flashcards.word, educational_content.vocabulary.word, key_objects.name 모두 **한글 단어** 그대로 사용
+- 영어 번역(soy milk)이나 로마자 표기(do-you) 절대 금지. 오직 한글 ("두유", "도마", "기도")만.
+- localWord 와 word 는 같은 한글로 통일. korean 필드도 동일.
+- 예: { word: "두유", localWord: "두유" } / { word: "도마", korean: "도마" } / { name: "두유", korean: "두유" }
+- 한글 단어가 핵심 학습 대상. 영어 번역은 별도로 두지 않음.
+`
+    : ''
+}
 `.trim();
 }
 
