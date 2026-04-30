@@ -66,8 +66,7 @@ export function GameResultScreen({ score, total, onRestart, onBack }: GameResult
       void refetchBalance();
     }, 1200);
     return () => clearTimeout(t);
-    // 마운트 1회만 — initial 잔고 캡처용
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // 마운트 1회만 — initial 잔고 캡처용 (balance 의존성 추가하면 매 갱신마다 캡처 리셋)
   }, []);
   useEffect(() => {
     if (balance == null || initialBalanceRef.current == null) return;
