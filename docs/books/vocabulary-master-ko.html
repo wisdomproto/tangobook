@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>탱고북 어휘 마스터 (한글)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, 'Noto Sans KR', system-ui, sans-serif; }
+  .word-chip {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid;
+    cursor: pointer;
+    transition: transform 0.1s;
+    min-width: 70px;
+  }
+  .word-chip:hover { transform: translateY(-2px); }
+  .word-chip .word { font-weight: 700; font-size: 13px; }
+  .word-chip .meta { font-size: 10px; margin-top: 1px; opacity: 0.85; }
+  .word-chip .en-sub { font-size: 9px; color: #94a3b8; font-weight: 400; margin-top: 1px; }
+  .chip-both { background: #d1fae5; color: #065f46; border-color: #10b981; }
+  .chip-book { background: #fef3c7; color: #78350f; border-color: #f59e0b; }
+  .chip-phonics { background: #dbeafe; color: #1e3a8a; border-color: #3b82f6; }
+  .chip-none { background: #f1f5f9; color: #94a3b8; border-color: #cbd5e1; opacity: 0.85; }
+  .topic-card { background: white; border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .topic-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+  .progress-bar { height: 6px; border-radius: 3px; background: #f1f5f9; overflow: hidden; }
+  .tooltip {
+    position: fixed;
+    background: rgba(15,23,42,0.96);
+    color: white;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    z-index: 100;
+    max-width: 320px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    line-height: 1.4;
+  }
+  .tooltip.show { opacity: 1; }
+  .tooltip ul { margin: 2px 0; padding-left: 8px; }
+  .tab-btn {
+    padding: 6px 14px;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid transparent;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 1.2;
+    text-align: center;
+    transition: all 0.1s;
+  }
+  .tab-btn:hover { background: #e2e8f0; }
+  .tab-btn.active {
+    background: white;
+    color: #be185d;
+    border-color: #cbd5e1;
+    border-bottom-color: white;
+    margin-bottom: -1px;
+  }
+</style>
+</head>
+<body class="bg-slate-50">
+
+<header style="background: linear-gradient(to right, #ec4899, #f43f5e);" class="text-white">
+  <div class="max-w-7xl mx-auto px-6 py-5">
+    <h1 class="text-3xl font-black">🇰🇷 탱고북 어휘 마스터 — 한글</h1>
+    <p class="text-sm opacity-90 mt-1">Cambridge Starters 한글 번역 + 한글 파닉스 타겟 어휘 · 4-7세</p>
+  </div>
+</header>
+
+<div class="bg-white border-b shadow-sm sticky top-0 z-20">
+  <div class="max-w-7xl mx-auto px-6 pt-3 flex flex-wrap items-center gap-2">
+    <button class="tab-btn active" data-tab="master">⭐ 마스터<br><span class="text-[10px] opacity-70">한글 번역</span></button>
+    <button class="tab-btn" data-tab="storybook">📚 동화책 어휘</button>
+    <button class="tab-btn" data-tab="phonics">🔤 한글 파닉스</button>
+    <button class="tab-btn" data-tab="all">🌐 전체</button>
+  </div>
+  <div class="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center gap-3">
+    <span id="overallStat" class="text-sm font-bold text-slate-500">로드 중...</span>
+    <span id="lastSync" class="text-xs text-slate-400"></span>
+    <button onclick="window.refresh()" class="ml-auto px-3 py-1.5 rounded-full text-xs font-bold border border-slate-300 hover:bg-slate-50">🔄 새로고침</button>
+    <select id="filterStatus" class="border rounded px-2 py-1 text-sm">
+      <option value="">전체</option>
+      <option value="both">📚🔤 동화책+파닉스</option>
+      <option value="book-only">📚 동화책만</option>
+      <option value="phonics-only">🔤 파닉스만</option>
+      <option value="none">⚠️ 미커버</option>
+      <option value="in-master">⭐ 마스터 셋</option>
+      <option value="not-in-master">⭐외 (마스터 비포함)</option>
+    </select>
+    <input id="filterSearch" placeholder="단어..." class="border rounded px-2 py-1 text-sm w-36" />
+  </div>
+  <div class="max-w-7xl mx-auto px-6 pb-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#d1fae5;border:1px solid #10b981"></span> 동화책 + 파닉스 둘 다</span>
+    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#fef3c7;border:1px solid #f59e0b"></span> 동화책만</span>
+    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#dbeafe;border:1px solid #3b82f6"></span> 파닉스만</span>
+    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded" style="background:#f1f5f9;border:1px solid #cbd5e1"></span> 미커버</span>
+    <span class="flex items-center gap-1.5">⭐ Cambridge Starters 마스터 단어</span>
+    <span class="ml-auto text-slate-400">단어 hover → 노출 책 목록</span>
+  </div>
+</div>
+
+<main class="max-w-7xl mx-auto px-6 py-6">
+  <div id="topicsContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+</main>
+
+<div id="tooltip" class="tooltip"></div>
+
+<script>
+// === 한글 마스터 어휘 (Cambridge Starters 381 단어 한글 번역) ===
+// 영어 단어 → 한글 매핑. 친근/구어 표현 우선 (어린이 동화책용).
+const TOPICS = [
+  { id:'animals', label:'🦁 동물', words:['새','고양이','닭','소','악어','강아지','당나귀','오리','코끼리','물고기','개구리','기린','염소','말','캥거루','사자','원숭이','쥐','판다','양','뱀','거미','호랑이'] },
+  { id:'body', label:'👁 몸과 얼굴', words:['팔','몸','귀','눈','얼굴','발','머리카락','손','머리','다리','입','코','사람','미소','이'] },
+  { id:'clothes', label:'👕 옷', words:['가방','원피스','안경','핸드백','모자','재킷','청바지','셔츠','신발','치마','양말','티셔츠','바지','시계'] },
+  { id:'colours', label:'🎨 색깔', words:['검정','파랑','갈색','초록','회색','주황','분홍','보라','빨강','하양','노랑'] },
+  { id:'family', label:'👨‍👩‍👧 가족', words:['아기','남자아이','형','아빠','딸','가족','아버지','친구','여자아이','할아버지','할머니','어머니','엄마','부모','누나','아들'] },
+  { id:'food', label:'🍎 음식과 음료', words:['사과','바나나','콩','빵','아침','햄버거','케이크','사탕','당근','감자칩','초콜릿','코코넛','저녁','음료','달걀','음식','과일','포도','아이스크림','주스','레몬','라임','점심','망고','고기','우유','양파','오렌지','완두콩','배','파인애플','감자','쌀','소시지','토마토','채소','물','수박'] },
+  { id:'health', label:'🏥 건강', words:['의사','병원','아픈','건강한'] },
+  { id:'home', label:'🏠 집', words:['안락의자','욕조','욕실','침대','침실','책장','책꽂이','카메라','시계','컴퓨터','찬장','식당','문','선풍기','아파트','바닥','정원','거실','집','부엌','전등','거실','도시락','매트','거울','전화','그림','라디오','방','러그','선반','샤워기','소파','탁자','텔레비전','장난감','벽','창문','마당'] },
+  { id:'numbers', label:'🔢 숫자', words:['영','하나','둘','셋','넷','다섯','여섯','일곱','여덟','아홉','열','열하나','열둘','열셋','열넷','열다섯','열여섯','열일곱','열여덟','열아홉','스물'] },
+  { id:'places', label:'🌍 장소와 방향', words:['주소','해변','공원','도로','가게','거리','마을'] },
+  { id:'school', label:'🏫 학교', words:['알파벳','답','책','반','반친구','교실','책상','영어','지우개','수업','글자','이름','쪽','펜','연필','질문','자','학교','책가방','학생','선생님','단어'] },
+  { id:'sports', label:'⚽ 운동과 놀이', words:['공','풍선','자전거','보드게임','배','춤','인형','그림','놀이','취미','연','음악','물감','사진','놀다','로봇','노래','수영','탁구','테니스','장난감','기차','걷기'] },
+  { id:'world', label:'🌳 세상', words:['버스','자동차','구름','나라','낮','저녁','들판','꽃','정글','호수','아침','산','밤','바다','식물','무지개','강','계절','하늘','눈','별','돌','태양','나무','물','날씨','바람','세상'] },
+  { id:'verbs', label:'🏃 동사', words:['이다','사다','할수있다','잡다','고르다','박수치다','청소하다','닫다','오다','세다','울다','하다','그리다','마시다','운전하다','먹다','찾다','날다','얻다','주다','가다','가지다','듣다','돕다','때리다','뛰다','차다','알다','웃다','좋아하다','살다','보다','사랑하다','만들다','만나다','필요하다','열다','칠하다','놀다','가리키다','놓다','읽다','타다','달리다','말하다','노래하다','앉다','자다','수영하다','가져가다','생각하다','던지다','걷다','원하다','입다','쓰다'] },
+  { id:'adj', label:'✨ 형용사', words:['화난','아름다운','큰','지루한','깨끗한','추운','더러운','모든','신난','빠른','뚱뚱한','좋아하는','친절한','무서운','재미있는','좋은','멋진','행복한','뜨거운','배고픈','마지막','긴','장난꾸러기','새로운','오래된','가난한','부자','슬픈','짧은','느린','작은','햇볕','놀란','키큰','맛있는','목마른','피곤한','못생긴','젖은','어린'] },
+  { id:'adv', label:'📍 부사', words:['여기','지금','제발','오늘','내일','매우','잘','어제'] },
+];
+
+const TOTAL_MASTER_WORDS = TOPICS.reduce((a,t) => a + t.words.length, 0);
+
+// 단어 → 토픽 lookup (한글 정확 매칭)
+const WORD_TO_TOPIC = new Map();
+const MASTER_WORD_SET = new Set();
+for (const t of TOPICS) {
+  for (const w of t.words) {
+    MASTER_WORD_SET.add(w);
+    if (!WORD_TO_TOPIC.has(w)) WORD_TO_TOPIC.set(w, t);
+  }
+}
+const OTHER_TOPIC = { id:'other', label:'📦 기타 (마스터 비포함)', words:[] };
+
+let dbWords = new Map(); // word → { books:[{id,title}], phonics:[{id,title}], en:string }
+let activeTab = 'master';
+
+const HANGUL = /[가-힯ᄀ-ᇿ]/;
+function hasHangul(s) { return HANGUL.test(s || ''); }
+
+// 영어 파닉스 책 id (en-b{N}-u{M}) 는 한글 페이지에서 제외
+const ENGLISH_PHONICS_ID = /^en-b\d+-u\d+$/;
+// 한글 파닉스 책 id (kr-h{N}-u{M}) 는 phonics tab 의 source
+const KOREAN_PHONICS_ID = /^kr-h(\d+)-u(\d+)$/;
+
+async function loadDb() {
+  document.getElementById('lastSync').textContent = '🔄 로드 중...';
+  try {
+    const [vocabRes, sbRes] = await Promise.all([
+      fetch('/api/vocabulary-db'),
+      fetch('/api/storybooks'),
+    ]);
+    const list = (await vocabRes.json()).data || [];
+    const sbList = (await sbRes.json()).data || [];
+    const idToTitle = new Map(sbList.map(s => [s.id, s.title]));
+    const idToType = new Map(sbList.map(s => [s.id, s.type || 'storybook']));
+
+    dbWords.clear();
+    for (const v of list) {
+      // 한글 단어 추출: word 가 한글이면 그대로, word 가 영어인데 korean 이 한글이면 korean 사용
+      let koWord = '';
+      let enWord = '';
+      const w = (v.word || '').trim();
+      const k = (v.korean || '').trim();
+      if (hasHangul(w)) { koWord = w; enWord = hasHangul(k) ? '' : k; }
+      else if (hasHangul(k)) { koWord = k; enWord = w; }
+      if (!koWord) continue;
+
+      let entry = dbWords.get(koWord);
+      if (!entry) { entry = { books: [], phonics: [], en: enWord || '' }; dbWords.set(koWord, entry); }
+      else if (!entry.en && enWord) entry.en = enWord;
+
+      for (const s of (v.sources || [])) {
+        const id = s.storybookId;
+        if (!id) continue;
+        if (ENGLISH_PHONICS_ID.test(id)) continue; // 영어 파닉스 source 제외
+        const isPhonics = idToType.get(id) === 'phonics' || /phonics/i.test(s.sourceType || '');
+        const target = isPhonics ? entry.phonics : entry.books;
+        if (!target.find(b => b.id === id)) target.push({ id, title: idToTitle.get(id) || id });
+      }
+      // entry 가 비어버리면 dbWords에서 제거 (영어 파닉스 only 단어)
+      if (entry.books.length === 0 && entry.phonics.length === 0) dbWords.delete(koWord);
+    }
+
+    const now = new Date();
+    const ts = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+    document.getElementById('lastSync').textContent = `🔄 ${ts} · DB ${list.length} 어휘 / ${sbList.length} 책`;
+    render();
+  } catch (e) {
+    document.getElementById('lastSync').textContent = '⚠️ 로드 실패: ' + e.message;
+    console.error(e);
+  }
+}
+
+function classify(word) {
+  const e = dbWords.get(word);
+  if (!e) return 'none';
+  if (e.books.length && e.phonics.length) return 'both';
+  if (e.books.length) return 'book-only';
+  if (e.phonics.length) return 'phonics-only';
+  return 'none';
+}
+
+function parseKoreanPhonicsId(id) {
+  const m = String(id || '').match(KOREAN_PHONICS_ID);
+  if (!m) return null;
+  return { level: parseInt(m[1]), unit: parseInt(m[2]) };
+}
+
+function extractUnitSubtitle(title) {
+  // "한글3: 쌍자음 · unit 1: ㄲ 배우기" → "ㄲ 배우기"
+  const m = String(title || '').match(/unit\s*\d+\s*:\s*(.+?)(?:$)/i);
+  return m ? m[1].trim() : '';
+}
+
+function getKoreanPhonicsTopicsByUnit() {
+  const buckets = new Map();
+  for (const [w, e] of dbWords) {
+    if (!e.phonics.length) continue;
+    for (const b of e.phonics) {
+      const meta = parseKoreanPhonicsId(b.id);
+      if (!meta) continue;
+      const key = `h${meta.level}-u${meta.unit}`;
+      if (!buckets.has(key)) {
+        buckets.set(key, {
+          level: meta.level,
+          unit: meta.unit,
+          subtitle: extractUnitSubtitle(b.title),
+          words: new Set(),
+        });
+      }
+      buckets.get(key).words.add(w);
+    }
+  }
+
+  const sortedKeys = [...buckets.keys()].sort((a, b) => {
+    const av = buckets.get(a), bv = buckets.get(b);
+    return av.level !== bv.level ? av.level - bv.level : av.unit - bv.unit;
+  });
+
+  return sortedKeys.map((k) => {
+    const v = buckets.get(k);
+    const sub = v.subtitle ? ` · ${v.subtitle}` : '';
+    return {
+      topic: { id: k, label: `📕 한글 ${v.level} - Unit ${v.unit}${sub}` },
+      words: [...v.words].sort(),
+    };
+  });
+}
+
+function getTabTopics() {
+  if (activeTab === 'phonics') return getKoreanPhonicsTopicsByUnit();
+
+  let words;
+  if (activeTab === 'master') {
+    return TOPICS.map(t => ({ topic: t, words: [...t.words] }));
+  } else if (activeTab === 'storybook') {
+    words = [...dbWords.entries()].filter(([_, e]) => e.books.length > 0).map(([w]) => w);
+  } else { // all
+    const set = new Set();
+    for (const w of MASTER_WORD_SET) set.add(w);
+    for (const w of dbWords.keys()) set.add(w);
+    words = [...set];
+  }
+
+  const buckets = new Map();
+  for (const t of TOPICS) buckets.set(t, []);
+  const others = [];
+  for (const w of words) {
+    const t = WORD_TO_TOPIC.get(w);
+    if (t) buckets.get(t).push(w);
+    else others.push(w);
+  }
+
+  const result = [];
+  for (const t of TOPICS) {
+    const arr = buckets.get(t).sort();
+    if (arr.length > 0) result.push({ topic: t, words: arr });
+  }
+  if (others.length > 0) {
+    result.push({ topic: OTHER_TOPIC, words: others.sort() });
+  }
+  return result;
+}
+
+function passesFilter(word, filter) {
+  if (!filter) return true;
+  if (filter === 'in-master') return MASTER_WORD_SET.has(word);
+  if (filter === 'not-in-master') return !MASTER_WORD_SET.has(word);
+  return classify(word) === filter;
+}
+
+function render() {
+  const filter = document.getElementById('filterStatus').value;
+  const search = document.getElementById('filterSearch').value.trim();
+  const container = document.getElementById('topicsContainer');
+
+  for (const btn of document.querySelectorAll('.tab-btn')) {
+    btn.classList.toggle('active', btn.dataset.tab === activeTab);
+  }
+
+  const groups = getTabTopics();
+
+  let totalWords = 0, totalCovered = 0, totalBoth = 0, totalBook = 0, totalPhonics = 0, totalNone = 0, totalMaster = 0;
+  for (const g of groups) {
+    for (const w of g.words) {
+      totalWords++;
+      if (MASTER_WORD_SET.has(w)) totalMaster++;
+      const c = classify(w);
+      if (c === 'both') { totalBoth++; totalCovered++; }
+      else if (c === 'book-only') { totalBook++; totalCovered++; }
+      else if (c === 'phonics-only') { totalPhonics++; totalCovered++; }
+      else totalNone++;
+    }
+  }
+
+  const cards = groups.map(g => {
+    const filteredWords = g.words.filter(w => {
+      if (search && !w.includes(search)) return false;
+      return passesFilter(w, filter);
+    });
+
+    let covered = 0;
+    for (const w of g.words) if (classify(w) !== 'none') covered++;
+    const pct = g.words.length ? Math.round(covered / g.words.length * 100) : 0;
+
+    if (filteredWords.length === 0) return '';
+
+    const chips = filteredWords.map(w => {
+      const c = classify(w);
+      const e = dbWords.get(w);
+      const bookN = e?.books.length || 0;
+      const phonicsN = e?.phonics.length || 0;
+      const enWord = e?.en || '';
+      const inMaster = MASTER_WORD_SET.has(w);
+      const cls = c === 'both' ? 'chip-both' : c === 'book-only' ? 'chip-book' : c === 'phonics-only' ? 'chip-phonics' : 'chip-none';
+      const star = inMaster ? '⭐' : '';
+      const marker = c === 'none' ? '✗' : '✓';
+      const meta = c === 'none'
+        ? '미커버'
+        : (bookN && phonicsN ? `📚${bookN} 🔤${phonicsN}` : bookN ? `📚${bookN}` : `🔤${phonicsN}`);
+      const enHtml = enWord ? `<span class="en-sub">${enWord}</span>` : '';
+      return `<div class="word-chip ${cls}" data-word="${w}" onmouseenter="showTooltip(event,'${w.replace(/'/g,"&#39;")}')" onmousemove="moveTooltip(event)" onmouseleave="hideTooltip()">
+        <span class="word">${star}${marker} ${w}</span>
+        ${enHtml}
+        <span class="meta">${meta}</span>
+      </div>`;
+    }).join('');
+
+    return `
+      <div class="topic-card">
+        <div class="topic-header">
+          <div>
+            <span class="text-base font-bold">${g.topic.label}</span>
+            <span class="text-xs text-slate-500 ml-2">(${g.words.length}단어)</span>
+          </div>
+          <div class="text-xs">
+            <span class="font-bold ${pct >= 80 ? 'text-emerald-600' : pct >= 50 ? 'text-amber-600' : 'text-rose-600'}">${covered}/${g.words.length}</span>
+            <span class="text-slate-400 ml-1">(${pct}%)</span>
+          </div>
+        </div>
+        <div class="progress-bar mb-3"><div style="width:${pct}%;background:${pct >= 80 ? '#10b981' : pct >= 50 ? '#f59e0b' : '#ef4444'};height:100%"></div></div>
+        <div class="flex flex-wrap gap-1.5">${chips}</div>
+      </div>
+    `;
+  }).join('');
+
+  container.innerHTML = cards || '<div class="col-span-2 text-center text-slate-500 py-12">필터 결과 없음</div>';
+
+  const overallPct = totalWords ? Math.round(totalCovered / totalWords * 100) : 0;
+  const tabLabel = { master: '⭐ 마스터', storybook: '📚 동화책 어휘', phonics: '🔤 한글 파닉스', all: '🌐 전체' }[activeTab];
+  document.getElementById('overallStat').innerHTML = `
+    ${tabLabel} · <strong>${totalWords}</strong>단어 · ⭐ 마스터 ${totalMaster} · 커버 <strong class="text-emerald-700">${totalCovered}</strong> (${overallPct}%) ·
+    <span class="text-emerald-700">📚🔤 ${totalBoth}</span> ·
+    <span class="text-amber-700">📚 ${totalBook}</span> ·
+    <span class="text-blue-700">🔤 ${totalPhonics}</span> ·
+    <span class="text-rose-600">⚠️ ${totalNone}</span>
+  `;
+}
+
+function showTooltip(e, word) {
+  const entry = dbWords.get(word);
+  const tt = document.getElementById('tooltip');
+  if (!entry || (!entry.books.length && !entry.phonics.length)) {
+    tt.innerHTML = `<div class="font-bold mb-1">${word}</div><div>아직 어떤 책에도 노출되지 않음</div><div class="mt-1 text-amber-300">💡 신규 책에 추가 권장</div>`;
+  } else {
+    const enLine = entry.en ? `<div class="text-slate-300 text-[10px] mb-1">en: ${entry.en}</div>` : '';
+    const bookHtml = entry.books.length
+      ? `<div class="font-bold mt-1">📚 동화책 (${entry.books.length}권)</div><ul>${entry.books.slice(0,10).map(b => `<li>· ${b.title}</li>`).join('')}${entry.books.length > 10 ? `<li class="opacity-60">...외 ${entry.books.length - 10}권</li>` : ''}</ul>`
+      : '';
+    const phonicsHtml = entry.phonics.length
+      ? `<div class="font-bold mt-1">🔤 파닉스 (${entry.phonics.length}권)</div><ul>${entry.phonics.slice(0,10).map(b => `<li>· ${b.title}</li>`).join('')}${entry.phonics.length > 10 ? `<li class="opacity-60">...외 ${entry.phonics.length - 10}권</li>` : ''}</ul>`
+      : '';
+    tt.innerHTML = `<div class="font-bold mb-1">${word}</div>${enLine}${bookHtml}${phonicsHtml}`;
+  }
+  moveTooltip(e);
+  tt.classList.add('show');
+}
+function moveTooltip(e) {
+  const tt = document.getElementById('tooltip');
+  const x = Math.min(e.clientX + 14, window.innerWidth - 340);
+  const y = Math.min(e.clientY + 14, window.innerHeight - tt.offsetHeight - 14);
+  tt.style.left = x + 'px';
+  tt.style.top = y + 'px';
+}
+function hideTooltip() { document.getElementById('tooltip').classList.remove('show'); }
+
+document.getElementById('filterStatus').addEventListener('change', render);
+document.getElementById('filterSearch').addEventListener('input', render);
+for (const btn of document.querySelectorAll('.tab-btn')) {
+  btn.addEventListener('click', () => {
+    activeTab = btn.dataset.tab;
+    render();
+  });
+}
+window.refresh = loadDb;
+loadDb();
+document.addEventListener('visibilitychange', () => { if (!document.hidden) loadDb(); });
+</script>
+</body>
+</html>

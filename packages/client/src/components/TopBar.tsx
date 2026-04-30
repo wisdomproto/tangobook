@@ -14,8 +14,14 @@ const RESOURCES = [
   {
     href: '/vocabulary-master.html',
     icon: '🔤',
-    label: '어휘 마스터',
+    label: '어휘 마스터 (영어)',
     desc: 'Cambridge Starters 매칭',
+  },
+  {
+    href: '/vocabulary-master-ko.html',
+    icon: '🇰🇷',
+    label: '어휘 마스터 (한글)',
+    desc: '한글 번역 + 한글 파닉스',
   },
 ];
 
