@@ -174,17 +174,21 @@ async function loadDb() {
 
     // 영어 단어만 — 한글/기타 문자 들어간 entry 제외 (한국어 어휘는 별도 페이지에서 처리 예정)
     const ENGLISH_ONLY = /^[a-z][a-z0-9\s\-'.]*$/i;
+    // 한글 파닉스 책 (kr-h{N}-u{M}) 은 영어 페이지에서 제외 — 단어가 로마자 표기(do-ma=도마)
+    // 또는 잘못 들어간 영어 단어라 정확도 낮음. 한국어 어휘 전용 페이지에서 따로 다룸.
+    const KOREAN_PHONICS_ID = /^kr-h\d+-u\d+$/;
     dbWords.clear();
     for (const v of list) {
       const w = (v.word || '').toLowerCase().trim();
       if (!w) continue;
       if (!ENGLISH_ONLY.test(w)) continue;
-      let entry = dbWords.get(w);
-      if (!entry) { entry = { books: [], phonics: [] }; dbWords.set(w, entry); }
+      let entry;
       for (const s of (v.sources || [])) {
         const id = s.storybookId;
         if (!id) continue;
+        if (KOREAN_PHONICS_ID.test(id)) continue; // 한글 파닉스 source 스킵
         const isPhonics = idToType.get(id) === 'phonics' || /phonics/i.test(s.sourceType || '');
+        if (!entry) { entry = { books: [], phonics: [] }; dbWords.set(w, entry); }
         const target = isPhonics ? entry.phonics : entry.books;
         if (!target.find(b => b.id === id)) target.push({ id, title: idToTitle.get(id) || id });
       }
