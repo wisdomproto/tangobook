@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import type { GameConfigPanelProps } from '../../registry/game-registry';
 import type { WordWritingConfig } from '@tangobook/shared';
+import { getEffectiveVocabulary } from '@tangobook/shared';
 import { ConfigCheckbox } from './ConfigControls';
 
 interface WordOption {
@@ -18,12 +19,26 @@ export function WordWritingConfigPanel({ storybook, config, onChange }: GameConf
   // 단어 소스별 사용 가능한 단어 목록
   const availableWords = useMemo<WordOption[]>(() => {
     if (c.wordSource === 'vocabulary') {
-      const vocab = storybook.educational_content?.vocabulary ?? [];
+      const vocab = getEffectiveVocabulary(storybook);
       return vocab.map((v) => {
+        // 이미지: vocabularyImages 우선, 없으면 keyObjectImages 매칭
         const vocabImg = (storybook.vocabularyImages ?? []).find(
           (vi) => vi.word === v.word && vi.success && vi.imageUrl
         );
-        return { key: v.word, english: v.word, korean: v.korean, imageUrl: vocabImg?.imageUrl };
+        const koImg = !vocabImg
+          ? (storybook.keyObjectImages ?? []).find(
+              (ki) =>
+                ki.success &&
+                ki.imageUrl &&
+                (ki.objectName === v.word || ki.objectName === v.korean)
+            )
+          : null;
+        return {
+          key: v.word,
+          english: v.word,
+          korean: v.korean,
+          imageUrl: vocabImg?.imageUrl || koImg?.imageUrl,
+        };
       });
     }
     if (c.wordSource === 'phonics') {

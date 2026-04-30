@@ -1,4 +1,5 @@
 import type { Storybook } from '@tangobook/shared';
+import { getEffectiveVocabulary } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 
 interface SpeakingConfigPanelProps {
@@ -13,7 +14,7 @@ const DIFFICULTY_HINT = {
 } as const;
 
 export function SpeakingConfigPanel({ storybook, lang }: SpeakingConfigPanelProps) {
-  const wordCount = storybook.educational_content?.vocabulary?.length ?? 0;
+  const wordCount = getEffectiveVocabulary(storybook).length;
   const label = lang === 'ko' ? '한국어' : '영어';
 
   return (

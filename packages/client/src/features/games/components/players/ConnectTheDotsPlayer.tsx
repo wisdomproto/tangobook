@@ -1,8 +1,9 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Button } from '@/components/Button';
+import { Button } from '@/design-system';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { ConnectTheDotsData, ConnectTheDotsItem } from '@tangobook/shared';
+import { getEffectiveVocabulary } from '@tangobook/shared';
 import { GameProgressBar } from '../GameProgressBar';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { FeedbackOverlay } from '../FeedbackOverlay';
@@ -51,10 +52,14 @@ export function ConnectTheDotsPlayer({
       const en = englishName.trim();
       if (!en) return null;
       if (viewerLang === 'en') return { text: en, language: 'english' };
-      // ko: key_objects에서 한글 이름 찾기. 없으면 vocabulary에서 시도. 둘 다 없으면 영어 fallback.
+      // ko: getEffectiveVocabulary 로 통합 lookup (key_objects + 레거시 vocabulary 합집합)
       const ko =
-        storybook?.key_objects?.find((k) => k.name === en)?.korean?.trim() ||
-        storybook?.educational_content?.vocabulary?.find((v) => v.word === en)?.korean?.trim();
+        storybook?.key_objects?.find((k) => k.name === en || k.nameEn === en)?.korean?.trim() ||
+        (storybook
+          ? getEffectiveVocabulary(storybook)
+              .find((v) => v.word === en)
+              ?.korean?.trim()
+          : '');
       if (ko) return { text: ko, language: 'korean' };
       return { text: en, language: 'english' };
     },
@@ -125,6 +130,7 @@ export function ConnectTheDotsPlayer({
           playCorrectSequence({
             ttsUrl: wordAudioUrl,
             systemSounds,
+            language: viewerLang,
             onDone: () => {
               const newCompletedItems = completedItems + 1;
               setCompletedItems(newCompletedItems);

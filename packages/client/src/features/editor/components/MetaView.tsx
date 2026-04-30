@@ -3,6 +3,7 @@ import { useStorybook } from '@/features/storybook';
 import { Spinner } from '@/components/Spinner';
 import type { Storybook, ReadingLevel } from '@tangobook/shared';
 import { ART_STYLES } from '@tangobook/shared';
+import { getEffectiveVocabulary } from '@tangobook/shared';
 
 const LEVEL_INFO: Record<ReadingLevel, { label: string; age: string; emoji: string }> = {
   L1: { label: '씨앗', age: '3~4세', emoji: '📗' },
@@ -339,7 +340,7 @@ function VariantSummaryCard({ variantId, level }: { variantId: string; level: Re
             ) ?? '—'
           }
         />
-        <Stat label="학습어휘" value={data?.educational_content?.vocabulary?.length ?? '—'} />
+        <Stat label="학습어휘" value={data ? getEffectiveVocabulary(data).length : '—'} />
       </div>
     </div>
   );

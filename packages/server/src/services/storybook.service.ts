@@ -240,7 +240,7 @@ export const StorybookService = {
       characters: parsed.characters ?? [],
       pages,
       educational_content: parsed.educational_content ?? {
-        vocabulary: [],
+        vocabulary: [], // deprecated 2026-04-30 — KeyObject.definition/example 로 통합. 호환 위해 빈 배열 유지.
         quiz: [],
         learning_objectives: [],
         moral_lesson: '',
@@ -456,7 +456,7 @@ ${pagesText}
     "moral_lesson": "이야기의 교훈 (한글)"
   },
   "key_objects": [
-    { "name": "사물 이름 (한글)", "nameEn": "English name", "description": "사물 시각적 특징 상세 묘사 (한글, 색상/재질/크기/장식 등)", "pages": [1, 3], "sizeCm": 실제크기cm, "sizeCategory": "small|medium|large" }
+    { "name": "사물 이름 (한글)", "nameEn": "English name", "description": "사물 시각적 특징 상세 묘사 (한글, 색상/재질/크기/장식 등)", "pages": [1, 3], "sizeCm": 실제크기cm, "sizeCategory": "small|medium|large", "definition": "Short English definition for vocab card (1 sentence)", "example": "Short English example sentence using the word" }
   ]
 }
 
@@ -465,10 +465,10 @@ ${pagesText}
 - 캐릭터: 2페이지 이상 등장하는 모든 캐릭터 포함 (수 제한 없음). 그룹 캐릭터는 개별 분리 (예: 일곱 난쟁이 → 난쟁이1~7, 의붓언니들 → 큰언니/작은언니)
 - **저작권 회피 (매우 중요)**: characters의 description/descriptionEn에 디즈니/픽사/지브리 등 유명 캐릭터의 고유명사(Cinderella, Snow White 등)를 절대 포함하지 마세요. 또한 유명 캐릭터의 상징적 외모 조합(금발+하늘색드레스+유리구두 등)을 피하고, 원작 동화의 배경을 살리되 완전히 독창적인 외모/의상을 디자인하세요. coverPrompt와 scene_description에서도 고유명사 대신 외모 묘사로 캐릭터를 지칭하세요.
 - **이중 언어 필수**: characters의 description(한글)과 descriptionEn(영어)는 반드시 동일한 내용이어야 합니다. scene_description(한글)과 scene_description_en(영어), scene_structure의 한글/영어 필드도 마찬가지입니다.
-- 학습 단어: 6-8개
 - 퀴즈: 5개
-- key_objects는 반드시 동화책에 등장하는 사물(명사)만 선정. 인물/대명사/추상명사 절대 불가. 5-8개 선정.
+- key_objects는 반드시 동화책에 등장하는 사물(명사)만 선정. 인물/대명사/추상명사 절대 불가. 6-8개 선정.
 - key_objects의 name/nameEn은 반드시 **단일 단어**만 사용. 수식어/형용사 붙이지 않음. (O: 콩/bean, 하프/harp, 구두/slipper) (X: 마법 콩/magic bean, 황금 하프/golden harp)
+- key_objects의 definition/example은 반드시 영어로 작성 (학습 어휘 카드용). 4-7세 수준의 짧고 쉬운 문장.
 - JSON만 응답
 `.trim();
 }
@@ -531,9 +531,6 @@ ${referenceContent ? `- 참고 내용: ${referenceContent}` : ''}
     }
   ],
   "educational_content": {
-    "vocabulary": [
-      { "word": "영단어", "korean": "한글 뜻", "definition": "영어 정의", "example": "영어 예문" }
-    ],
     "quiz": [
       { "question": "질문 (한글)", "options": ["보기1", "보기2", "보기3", "보기4"], "correctAnswer": 0 }
     ],
@@ -551,12 +548,12 @@ ${referenceContent ? `- 참고 내용: ${referenceContent}` : ''}
 - 캐릭터: 2페이지 이상 등장하는 모든 캐릭터 포함 (수 제한 없음). 그룹 캐릭터는 개별 분리 (예: 일곱 난쟁이 → 난쟁이1~7, 의붓언니들 → 큰언니/작은언니)
 - **저작권 회피 (매우 중요)**: characters의 description/descriptionEn에 디즈니/픽사/지브리 등 유명 캐릭터의 고유명사(Cinderella, Snow White 등)를 절대 포함하지 마세요. 또한 유명 캐릭터의 상징적 외모 조합(금발+하늘색드레스+유리구두 등)을 피하고, 원작 동화의 배경을 살리되 완전히 독창적인 외모/의상을 디자인하세요. coverPrompt와 scene_description에서도 고유명사 대신 외모 묘사로 캐릭터를 지칭하세요.
 - **이중 언어 필수**: characters의 description(한글)과 descriptionEn(영어)는 반드시 동일한 내용이어야 합니다. scene_description(한글)과 scene_description_en(영어), scene_structure의 한글/영어 필드도 마찬가지입니다.
-- 학습 단어: 6-8개 (스토리 핵심 단어, 명사 중심)
 - 퀴즈: 5개 (이해도 확인 + 감정/동기 추론 + 교훈 관련)
 - scene_description은 한글과 영어 모두 작성. 삽화에 그려질 장면을 구체적이고 시각적으로 묘사
 - characters의 description(한글)과 descriptionEn(영어) 모두 외모를 매우 구체적으로 작성
-- key_objects는 반드시 동화책에 등장하는 사물(명사)만 선정. 인물/대명사/추상명사 절대 불가. 5-8개 선정.
+- key_objects는 반드시 동화책에 등장하는 사물(명사)만 선정. 인물/대명사/추상명사 절대 불가. 6-8개 선정. 핵심 사물 + 학습 어휘 통합 (별도 vocabulary 리스트 없음).
 - key_objects의 name/nameEn은 반드시 **단일 단어**만 사용. 수식어/형용사 붙이지 않음. (O: 콩/bean, 하프/harp, 구두/slipper) (X: 마법 콩/magic bean, 황금 하프/golden harp)
+- key_objects의 definition/example은 반드시 영어로 작성 (학습 어휘 카드용). 4-7세 수준의 짧고 쉬운 문장.
 - JSON만 응답 (다른 텍스트 없이)
 `.trim();
 }

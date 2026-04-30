@@ -58,6 +58,7 @@ import type {
 } from '@tangobook/shared';
 import { decomposeWord, isHangulSyllable } from '@tangobook/shared';
 import { decomposeEnglishWord } from '@tangobook/shared';
+import { getEffectiveVocabulary } from '@tangobook/shared';
 
 type GameGenerator = (storybook: Storybook, config: GameConfig) => Promise<GameData>;
 
@@ -158,7 +159,7 @@ async function generatePictureSequence(
 async function generateWordQuiz(storybook: Storybook, config: GameConfig): Promise<WordQuizData> {
   const c = config as WordQuizConfig;
 
-  const vocab = storybook.educational_content?.vocabulary ?? [];
+  const vocab = getEffectiveVocabulary(storybook);
   const flashcards = storybook.flashcards ?? [];
 
   const wordList = [
@@ -289,15 +290,27 @@ async function generateWordWriting(
   const selected = c.selectedWords && c.selectedWords.length > 0 ? new Set(c.selectedWords) : null;
 
   if (c.wordSource === 'vocabulary') {
-    const vocab = storybook.educational_content?.vocabulary ?? [];
+    const vocab = getEffectiveVocabulary(storybook);
     for (const v of vocab) {
       if (selected && !selected.has(v.word)) continue;
       const word = c.language === 'korean' ? v.korean : v.word;
       const displayWord = c.language === 'korean' ? v.word : v.korean;
+      // 이미지: vocabularyImages 우선, 없으면 keyObjectImages 에서 영어/한글 매칭
       const vocabImg = (storybook.vocabularyImages ?? []).find(
         (vi) => vi.word === v.word && vi.success && vi.imageUrl
       );
-      items.push({ word, displayWord, imageUrl: vocabImg?.imageUrl, referenceImageUrl: '' });
+      const koImg = !vocabImg
+        ? (storybook.keyObjectImages ?? []).find(
+            (ki) =>
+              ki.success && ki.imageUrl && (ki.objectName === v.word || ki.objectName === v.korean)
+          )
+        : null;
+      items.push({
+        word,
+        displayWord,
+        imageUrl: vocabImg?.imageUrl || koImg?.imageUrl,
+        referenceImageUrl: '',
+      });
     }
   } else if (c.wordSource === 'phonics') {
     const flashcards = storybook.flashcards ?? [];

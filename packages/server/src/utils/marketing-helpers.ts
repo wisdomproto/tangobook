@@ -5,6 +5,7 @@ import type {
   NaverKeywordResult,
   CardNewsSlide,
 } from '@tangobook/shared';
+import { getEffectiveVocabulary } from '@tangobook/shared';
 
 // ─── ID 생성 ───
 
@@ -111,7 +112,8 @@ export function extractContext(sb: Storybook): StorybookContext {
     .join(', ');
 
   const edu = sb.educational_content;
-  const keyWords = (edu?.vocabulary ?? []).map((v) => `${v.word}(${v.definition})`).join(', ');
+  const vocab = getEffectiveVocabulary(sb);
+  const keyWords = vocab.map((v) => `${v.word}(${v.definition})`).join(', ');
   const educationalContent = [
     edu?.moral_lesson ? `교훈: ${edu.moral_lesson}` : '',
     edu?.learning_objectives?.length ? `주제: ${edu.learning_objectives.join(', ')}` : '',
