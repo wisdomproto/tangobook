@@ -35,6 +35,7 @@ import {
   WordPopPlayer,
   WordFishingPlayer,
   WordShoppingPlayer,
+  WordRunPlayer,
 } from '../features/playground';
 
 export const router = createBrowserRouter([
@@ -236,6 +237,14 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <WordShoppingPlayer />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'playground/word-run',
+        element: (
+          <ErrorBoundary>
+            <WordRunPlayer />
           </ErrorBoundary>
         ),
       },

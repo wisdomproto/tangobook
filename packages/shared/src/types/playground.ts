@@ -57,7 +57,7 @@ export const PLAYGROUND_GAMES: PlaygroundGameMeta[] = [
     description: '호리가 달리며 정답 단어 줍기',
     emoji: '🏃',
     accent: 'coral',
-    available: false,
+    available: true,
   },
   {
     id: 'word-sort-cart',
