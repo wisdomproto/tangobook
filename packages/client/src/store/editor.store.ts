@@ -1,4 +1,12 @@
 import { create } from 'zustand';
+import { STORYBOOK_CATEGORIES, PHONICS_CATEGORIES } from '@tangobook/shared';
+
+export type CategoryTab = 'storybook' | 'phonics-ko' | 'phonics-en';
+
+const defaultCategoriesForTab = (tab: CategoryTab): string[] => {
+  if (tab === 'storybook') return [...STORYBOOK_CATEGORIES];
+  return [...PHONICS_CATEGORIES];
+};
 
 type EditorTab =
   | 'settings'
@@ -57,6 +65,17 @@ interface EditorStore {
   setFolderForTab: (tab: string, folder: string) => void;
   addCustomFolderForTab: (tab: string, folder: string) => void;
   removeCustomFolderForTab: (tab: string, folder: string) => void;
+  renameCustomFolderForTab: (tab: string, oldName: string, newName: string) => void;
+
+  // Per-tab category management (사용자 추가/제거/순서 이동)
+  // 값이 없으면 defaultCategoriesForTab(tab) 폴백
+  categoriesByTab: Partial<Record<CategoryTab, string[]>>;
+  getCategoriesForTab: (tab: CategoryTab) => string[];
+  addCategoryForTab: (tab: CategoryTab, name: string) => void;
+  removeCategoryForTab: (tab: CategoryTab, name: string) => void;
+  moveCategoryForTab: (tab: CategoryTab, name: string, direction: 'up' | 'down') => void;
+  renameCategoryForTab: (tab: CategoryTab, oldName: string, newName: string) => void;
+  resetCategoriesForTab: (tab: CategoryTab) => void;
 
   // 생성 진행률 (0-100)
   generationProgress: Record<string, number>;
@@ -64,7 +83,7 @@ interface EditorStore {
   clearGenerationProgress: (key: string) => void;
 }
 
-export const useEditorStore = create<EditorStore>((set) => ({
+export const useEditorStore = create<EditorStore>((set, get) => ({
   selectedStorybookId: null,
   setSelectedStorybookId: (id) =>
     set({ selectedStorybookId: id, showCreateForm: false, activeTab: 'settings' }),
@@ -137,6 +156,89 @@ export const useEditorStore = create<EditorStore>((set) => ({
           },
         },
       };
+    }),
+  renameCustomFolderForTab: (tab, oldName, newName) =>
+    set((state) => {
+      const prev = state.foldersByTab[tab] ?? { folder: 'all', customFolders: [] };
+      const trimmed = newName.trim();
+      if (!trimmed || trimmed === oldName) return state;
+      const customFolders = prev.customFolders.includes(oldName)
+        ? prev.customFolders.map((f) => (f === oldName ? trimmed : f))
+        : prev.customFolders.includes(trimmed)
+          ? prev.customFolders
+          : [...prev.customFolders, trimmed];
+      return {
+        foldersByTab: {
+          ...state.foldersByTab,
+          [tab]: {
+            ...prev,
+            folder: prev.folder === oldName ? trimmed : prev.folder,
+            customFolders,
+          },
+        },
+      };
+    }),
+
+  categoriesByTab: {},
+  getCategoriesForTab: (tab) => {
+    const list = get().categoriesByTab[tab];
+    return list ?? defaultCategoriesForTab(tab);
+  },
+  addCategoryForTab: (tab, name) =>
+    set((state) => {
+      const trimmed = name.trim();
+      if (!trimmed) return state;
+      const current = state.categoriesByTab[tab] ?? defaultCategoriesForTab(tab);
+      if (current.includes(trimmed)) return state;
+      return {
+        categoriesByTab: {
+          ...state.categoriesByTab,
+          [tab]: [...current, trimmed],
+        },
+      };
+    }),
+  removeCategoryForTab: (tab, name) =>
+    set((state) => {
+      const current = state.categoriesByTab[tab] ?? defaultCategoriesForTab(tab);
+      if (!current.includes(name)) return state;
+      return {
+        categoriesByTab: {
+          ...state.categoriesByTab,
+          [tab]: current.filter((c) => c !== name),
+        },
+      };
+    }),
+  moveCategoryForTab: (tab, name, direction) =>
+    set((state) => {
+      const current = state.categoriesByTab[tab] ?? defaultCategoriesForTab(tab);
+      const idx = current.indexOf(name);
+      if (idx < 0) return state;
+      const target = direction === 'up' ? idx - 1 : idx + 1;
+      if (target < 0 || target >= current.length) return state;
+      const next = [...current];
+      [next[idx], next[target]] = [next[target], next[idx]];
+      return {
+        categoriesByTab: { ...state.categoriesByTab, [tab]: next },
+      };
+    }),
+  renameCategoryForTab: (tab, oldName, newName) =>
+    set((state) => {
+      const trimmed = newName.trim();
+      if (!trimmed || trimmed === oldName) return state;
+      const current = state.categoriesByTab[tab] ?? defaultCategoriesForTab(tab);
+      if (!current.includes(oldName) || current.includes(trimmed)) return state;
+      return {
+        categoriesByTab: {
+          ...state.categoriesByTab,
+          [tab]: current.map((c) => (c === oldName ? trimmed : c)),
+        },
+      };
+    }),
+  resetCategoriesForTab: (tab) =>
+    set((state) => {
+      const next = { ...state.categoriesByTab };
+      delete next[tab];
+      return { categoriesByTab: next };
     }),
 
   generationProgress: {},

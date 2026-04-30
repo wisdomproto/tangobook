@@ -17,11 +17,11 @@ import {
   useCopyStorybook,
 } from '@/features/storybook';
 import { useEditorStore } from '@/store/editor.store';
-import { STORYBOOK_CATEGORIES, PHONICS_CATEGORIES } from '@tangobook/shared';
 import { Button } from '@/components/Button';
 import { Spinner } from '@/components/Spinner';
 import { SidebarCard } from './SidebarCard';
 import { DeleteConfirmModal } from './DeleteConfirmModal';
+import { CategoryManagerModal } from './CategoryManagerModal';
 
 function DroppableFolder({
   folderId,
@@ -31,6 +31,7 @@ function DroppableFolder({
   isOver,
   onClick,
   onDelete,
+  onRename,
 }: {
   folderId: string;
   label: string;
@@ -39,10 +40,28 @@ function DroppableFolder({
   isOver: boolean;
   onClick: () => void;
   onDelete?: () => void;
+  onRename?: (newName: string) => void;
 }) {
   const { setNodeRef, isOver: dropping } = useDroppable({ id: `folder:${folderId}` });
   const highlighted = isOver || dropping;
   const [hovered, setHovered] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(label);
+
+  const startRename = () => {
+    setDraft(label);
+    setEditing(true);
+  };
+  const commitRename = () => {
+    if (!editing) return;
+    setEditing(false);
+    const trimmed = draft.trim();
+    if (trimmed && trimmed !== label && onRename) onRename(trimmed);
+  };
+  const cancelRename = () => {
+    setEditing(false);
+    setDraft(label);
+  };
 
   return (
     <div
@@ -51,50 +70,107 @@ function DroppableFolder({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <button
-        onClick={onClick}
-        className={`w-full text-left px-2 py-1 rounded text-xs flex items-center gap-1.5 transition-colors ${
-          highlighted
-            ? 'bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 ring-2 ring-violet-400'
-            : isActive
-              ? 'bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 font-medium'
-              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'
-        }`}
-      >
-        <svg
-          className="w-3.5 h-3.5 flex-shrink-0"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+      {editing ? (
+        <div
+          className={`w-full px-2 py-1 rounded text-xs flex items-center gap-1.5 ${
+            isActive ? 'bg-violet-50 dark:bg-violet-900/30' : 'bg-slate-50 dark:bg-slate-700/60'
+          }`}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-          />
-        </svg>
-        <span className="truncate">{label}</span>
-        <span className="ml-auto text-[10px] text-slate-400 dark:text-slate-500">{count}</span>
-      </button>
-      {onDelete && hovered && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onDelete();
-          }}
-          className="absolute right-1 top-1/2 -translate-y-1/2 p-0.5 rounded hover:bg-red-50 dark:hover:bg-red-900/30 text-slate-300 dark:text-slate-600 hover:text-red-500 transition-colors"
-          title="폴더 삭제"
-        >
-          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg
+            className="w-3.5 h-3.5 flex-shrink-0 text-slate-500 dark:text-slate-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
+              d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
             />
           </svg>
+          <input
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.nativeEvent.isComposing) commitRename();
+              else if (e.key === 'Escape') cancelRename();
+            }}
+            onBlur={commitRename}
+            autoFocus
+            onFocus={(e) => e.currentTarget.select()}
+            className="flex-1 min-w-0 bg-transparent outline-none border-b border-violet-400 text-slate-700 dark:text-slate-100"
+          />
+        </div>
+      ) : (
+        <button
+          onClick={onClick}
+          className={`w-full text-left px-2 py-1 rounded text-xs flex items-center gap-1.5 transition-colors ${
+            highlighted
+              ? 'bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 ring-2 ring-violet-400'
+              : isActive
+                ? 'bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 font-medium'
+                : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'
+          }`}
+        >
+          <svg
+            className="w-3.5 h-3.5 flex-shrink-0"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+            />
+          </svg>
+          <span className="truncate">{label}</span>
+          <span className="ml-auto text-[10px] text-slate-400 dark:text-slate-500">{count}</span>
         </button>
+      )}
+      {!editing && hovered && (onRename || onDelete) && (
+        <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-0.5">
+          {onRename && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                startRename();
+              }}
+              className="p-0.5 rounded hover:bg-violet-50 dark:hover:bg-violet-900/30 text-slate-300 dark:text-slate-600 hover:text-violet-500 transition-colors"
+              title="폴더 이름 수정"
+            >
+              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+            </button>
+          )}
+          {onDelete && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete();
+              }}
+              className="p-0.5 rounded hover:bg-red-50 dark:hover:bg-red-900/30 text-slate-300 dark:text-slate-600 hover:text-red-500 transition-colors"
+              title="폴더 삭제"
+            >
+              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          )}
+        </div>
       )}
     </div>
   );
@@ -128,6 +204,9 @@ export function Sidebar() {
   const setFolderForTab = useEditorStore((s) => s.setFolderForTab);
   const addCustomFolderForTab = useEditorStore((s) => s.addCustomFolderForTab);
   const removeCustomFolderForTab = useEditorStore((s) => s.removeCustomFolderForTab);
+  const renameCustomFolderForTab = useEditorStore((s) => s.renameCustomFolderForTab);
+  const categoriesByTab = useEditorStore((s) => s.categoriesByTab);
+  const getCategoriesForTab = useEditorStore((s) => s.getCategoriesForTab);
 
   // Per-tab folder state
   const tabFolderState = foldersByTab[typeFilter] ?? { folder: 'all', customFolders: [] };
@@ -136,18 +215,21 @@ export function Sidebar() {
   const customFolders = tabFolderState.customFolders;
   const addCustomFolder = (f: string) => addCustomFolderForTab(typeFilter, f);
   const removeCustomFolder = (f: string) => removeCustomFolderForTab(typeFilter, f);
+  const renameCustomFolder = (oldName: string, newName: string) =>
+    renameCustomFolderForTab(typeFilter, oldName, newName);
 
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; title: string } | null>(null);
   const [showNewFolder, setShowNewFolder] = useState(false);
   const [newFolderName, setNewFolderName] = useState('');
   const [draggingId, setDraggingId] = useState<string | null>(null);
+  const [showCategoryManager, setShowCategoryManager] = useState(false);
 
-  // 타입별 카테고리 목록
-  const isPhonics = typeFilter === 'phonics-ko' || typeFilter === 'phonics-en';
+  // 타입별 카테고리 목록 (사용자 정의 가능)
   const categories = useMemo(() => {
-    const items = isPhonics ? PHONICS_CATEGORIES : STORYBOOK_CATEGORIES;
+    const items = getCategoriesForTab(typeFilter);
     return [{ value: 'all', label: '전체' }, ...items.map((c) => ({ value: c, label: c }))];
-  }, [isPhonics]);
+    // categoriesByTab dep 으로 store 변경 시 재계산
+  }, [typeFilter, categoriesByTab, getCategoriesForTab]);
 
   // Require 8px movement to start drag (prevents conflict with click)
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 8 } }));
@@ -306,6 +388,22 @@ export function Sidebar() {
     if (folder === folderName) setFolder('all');
   };
 
+  const handleRenameFolder = (oldName: string, newName: string) => {
+    const trimmed = newName.trim();
+    if (!trimmed || trimmed === oldName) return;
+    if (folders.includes(trimmed)) {
+      alert('이미 같은 이름의 폴더가 있어요.');
+      return;
+    }
+    // 해당 폴더의 모든 동화책 folder 필드 일괄 변경 (R2 저장)
+    const inFolder = storybooks?.filter((s) => s.folder === oldName) ?? [];
+    inFolder.forEach((s) => {
+      patchMutation.mutate({ id: s.id, patch: { folder: trimmed } });
+    });
+    // 사용자 정의 폴더 + 활성 폴더 동기화
+    renameCustomFolder(oldName, trimmed);
+  };
+
   const handleTogglePublic = (id: string, isPublic: boolean) => {
     patchMutation.mutate({ id, patch: { isPublic } });
   };
@@ -459,6 +557,7 @@ export function Sidebar() {
                 isOver={false}
                 onClick={() => setFolder(f)}
                 onDelete={() => handleDeleteFolder(f)}
+                onRename={(newName) => handleRenameFolder(f, newName)}
               />
             ))}
             {(folderCounts[''] ?? 0) > 0 && (
@@ -489,6 +588,26 @@ export function Sidebar() {
                 </option>
               ))}
             </select>
+            <button
+              onClick={() => setShowCategoryManager(true)}
+              className="p-0.5 rounded text-slate-400 dark:text-slate-500 hover:text-violet-500 dark:hover:text-violet-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+              title="카테고리 관리"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+            </button>
             <select
               value={visibility}
               onChange={(e) => setVisibility(e.target.value as 'all' | 'public' | 'private')}
@@ -546,6 +665,12 @@ export function Sidebar() {
           onConfirm={handleDelete}
           title={deleteTarget?.title ?? ''}
           loading={deleteMutation.isPending}
+        />
+
+        <CategoryManagerModal
+          open={showCategoryManager}
+          onClose={() => setShowCategoryManager(false)}
+          tab={typeFilter}
         />
       </aside>
 

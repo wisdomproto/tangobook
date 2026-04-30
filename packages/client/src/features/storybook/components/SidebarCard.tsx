@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import type { StorybookSummary } from '@tangobook/shared';
-import { STORYBOOK_CATEGORIES, PHONICS_CATEGORIES } from '@tangobook/shared';
+import { useEditorStore, type CategoryTab } from '@/store/editor.store';
 
 interface SidebarCardProps {
   storybook: StorybookSummary;
@@ -29,10 +29,29 @@ export function SidebarCard({
   onRename,
   variantCount,
 }: SidebarCardProps) {
+  const categoriesByTab = useEditorStore((s) => s.categoriesByTab);
+  const getCategoriesForTab = useEditorStore((s) => s.getCategoriesForTab);
   const categoryOptions = useMemo(() => {
-    const items = storybook.type === 'phonics' ? PHONICS_CATEGORIES : STORYBOOK_CATEGORIES;
-    return [{ value: '', label: '없음' }, ...items.map((c) => ({ value: c, label: c }))];
-  }, [storybook.type]);
+    const tab: CategoryTab =
+      storybook.type === 'phonics'
+        ? storybook.phonicsLanguage === 'english'
+          ? 'phonics-en'
+          : 'phonics-ko'
+        : 'storybook';
+    const items = getCategoriesForTab(tab);
+    // 책에 이미 할당된 카테고리가 store 목록에 없어도 표시 (옵션이 사라지지 않게)
+    const merged =
+      storybook.category && !items.includes(storybook.category)
+        ? [...items, storybook.category]
+        : items;
+    return [{ value: '', label: '없음' }, ...merged.map((c) => ({ value: c, label: c }))];
+  }, [
+    storybook.type,
+    storybook.phonicsLanguage,
+    storybook.category,
+    categoriesByTab,
+    getCategoriesForTab,
+  ]);
 
   const [hovered, setHovered] = useState(false);
   const [showCategoryMenu, setShowCategoryMenu] = useState(false);
