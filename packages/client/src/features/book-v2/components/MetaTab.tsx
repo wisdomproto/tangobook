@@ -5,7 +5,7 @@ import { ART_STYLES } from '@tangobook/shared';
 import type { BookManifest, ParentGuide, CurriculumMeta, ReadingLevel } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 
-const ALL_LEVELS: ReadingLevel[] = ['L1', 'L2', 'L3', 'L4'];
+const ALL_LEVELS: ReadingLevel[] = ['L1', 'L2', 'L3'];
 const COMMON_LANGS = [
   { code: 'ko', label: '한국어' },
   { code: 'en', label: 'English' },

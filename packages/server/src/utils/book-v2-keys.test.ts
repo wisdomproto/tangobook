@@ -37,7 +37,7 @@ describe('book-v2-keys: builders', () => {
 
   it('audioFileKey', () => {
     expect(audioFileKey(bid, 'L3', 'ko', 1)).toBe(`books/${bid}/audio/L3.ko/page-1.mp3`);
-    expect(audioFileKey(bid, 'L4', 'en', 22)).toBe(`books/${bid}/audio/L4.en/page-22.mp3`);
+    expect(audioFileKey(bid, 'L3', 'en', 22)).toBe(`books/${bid}/audio/L3.en/page-22.mp3`);
   });
 
   it('style files', () => {

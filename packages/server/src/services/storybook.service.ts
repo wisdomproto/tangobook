@@ -11,6 +11,7 @@ import type {
   GenerateStoryRequest,
   StoryDraftPage,
   SceneStructure,
+  ReadingLevel,
 } from '@tangobook/shared';
 import { AppError } from '../middleware/error.middleware.js';
 import { VocabularyDbService } from './vocabulary-db.service.js';
@@ -139,7 +140,7 @@ export const StorybookService = {
    *  - 페이지/캐릭터/이미지/오디오 텍스트 메타는 유지하되 미디어 URL 은 모두 비움 (새 레벨용으로 재생성 필요)
    *  - sourceId 가 이미 variant (`__L*`) 이면 base 로 fall back
    */
-  async createVariant(sourceId: string, level: 'L1' | 'L2' | 'L3' | 'L4'): Promise<Storybook> {
+  async createVariant(sourceId: string, level: ReadingLevel): Promise<Storybook> {
     const baseId = sourceId.replace(/__L[1-4]$/, '');
     const original = await R2Repository.getStorybook(baseId);
     const sourceForCopy = original ?? (await R2Repository.getStorybook(sourceId));

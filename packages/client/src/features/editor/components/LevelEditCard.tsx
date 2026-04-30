@@ -16,9 +16,8 @@ const LEVEL_INFO: Record<
   { label: string; age: string; emoji: string; color: string }
 > = {
   L1: { label: '씨앗', age: '3~4세', emoji: '📗', color: 'emerald' },
-  L2: { label: '새싹', age: '4~5세', emoji: '📘', color: 'sky' },
-  L3: { label: '나무', age: '5~6세', emoji: '📙', color: 'amber' },
-  L4: { label: '숲', age: '6~7세', emoji: '📕', color: 'rose' },
+  L2: { label: '새싹', age: '4~6세', emoji: '📘', color: 'sky' },
+  L3: { label: '나무', age: '6~7세', emoji: '📙', color: 'amber' },
 };
 
 const LANG_FLAG: Record<string, string> = {

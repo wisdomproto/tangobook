@@ -620,6 +620,8 @@ export interface Character {
   referenceImage?: string;
   imageHistory?: string[];
   customPrompt?: string;
+  /** 그림체별 이미지 생성 prompt (styleAssets snapshot 에 사용). 레거시 R2 데이터 호환. */
+  prompt?: string;
 }
 
 export interface SavedCharacter extends Character {
@@ -725,13 +727,15 @@ export interface CoverImageItem {
 }
 
 /**
- * 탱고북 자체 4단계 독서 레벨. ORT·F&P·Lexile 공식 체계를 한국 유아 교육용으로 압축.
+ * 탱고북 자체 3단계 독서 레벨. ORT·F&P·Lexile 공식 체계를 한국 유아 교육용으로 압축.
  * - L1 (씨앗, 3~4세): ORT Stage 1, F&P A-B, 1문장/쪽, 총 ≤50단어, 반복 구문
- * - L2 (새싹, 4~5세): ORT Stage 2~3, F&P C-D, 1~2문장/쪽, 총 80~150단어
- * - L3 (나무, 5~6세): ORT Stage 4~5, F&P E-G, 2~4문장/쪽, 총 200~350단어
- * - L4 (숲, 6~7세): ORT Stage 6+, F&P H-J, 3~5문장/쪽, 총 400~700단어
+ * - L2 (새싹, 4~6세): ORT Stage 2~5, F&P C-G, 1~4문장/쪽, 총 80~350단어 — 대부분의 책이 여기
+ * - L3 (나무, 6~7세): ORT Stage 6+, F&P H-J, 3~5문장/쪽, 총 400~700단어 — 졸업판
+ *
+ * NOTE: 2026-04-30 4단계(L1-L4) → 3단계(L1-L3) 통합. 기존 L3 → L2, 기존 L4 → L3 매핑.
+ * R2 storybook variant id `__L4` suffix 는 호환을 위해 그대로 유지 (readingLevel 필드만 update).
  */
-export type ReadingLevel = 'L1' | 'L2' | 'L3' | 'L4';
+export type ReadingLevel = 'L1' | 'L2' | 'L3';
 
 /**
  * 부모님께 전달할 책 가이드.

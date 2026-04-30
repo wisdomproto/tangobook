@@ -367,7 +367,7 @@ pnpm --filter shared build
 
 ## 세계명작 커리큘럼 (2026-04-24)
 - **49권 × 레벨 variation = 114 storybook** (no.1~50, 43 중복 제외). 기존 30권(L3 완성) + 신규 19권(bid `1773xxxxxxxxx`)
-- 레벨 분포: L1 13 · L2 24 · L3 47 · L4 30. Variation ID 규칙: `${bid}__${level}` (launch 레벨은 bid 그대로)
+- 레벨 분포 (2026-04-30 4단계→3단계 통합 후): L1 37 · L2 236 · L3 47 (기존 L3→L2, L4→L3 매핑). Variation ID 규칙: `${bid}__${level}` (launch 레벨은 bid 그대로). 기존 `__L4` suffix doc은 호환을 위해 ID 보존, readingLevel 필드만 update.
 - 각 책 base에 `parentGuide`(overview/lessons/readingTips) 저장 → `BookDetailPage`에서 접는 부모 가이드 섹션 노출
 - 저술 스크립트: `scripts/author-classics-*.mjs`, `scripts/add-parent-guides.mjs`. **모두 Claude 직접 저술** (Gemini 0%)
 - 원전: Grimm · Andersen · Perrault · Aesop · Jacobs · Wilde · Tolstoy · Collodi · Carroll · Baum · Swift · Kipling · Tchaikovsky · Hoffmann · Saint-Exupéry · Burnett · Ouida · Montgomery
@@ -396,7 +396,7 @@ pnpm --filter shared build
 - BookDetailPage v2 manifest 기반 재작성 (✏️ 편집 버튼 추가)
 - **Viewer 메인 읽기 모드 v2** (useRuntimeViewer 어댑터, level=launchLevel 우선, 페이지/표지/제목/parentGuide v2 R2 prefix에서 직접)
 - **Viewer RewardScreen v2** (props 기반: videoId/directVideoUrl/hasGames/title, v2 audiobookRenders/longformList/gamesList 우선 + v1 fallback)
-- **Viewer GameListViewer v2** (v2 게임 있으면 우선 표시 + 헤더 "· v2" 마커 + L1~L4 뱃지, 클릭 시 useRuntimeGame으로 머지된 imageUrl inject. line-matching 우선 지원)
+- **Viewer GameListViewer v2** (v2 게임 있으면 우선 표시 + 헤더 "· v2" 마커 + L1~L3 뱃지, 클릭 시 useRuntimeGame으로 머지된 imageUrl inject. line-matching 우선 지원)
 - 파닉스 결정 (2026-04-26): A안 — v1 유지 (데이터 모델 다름, 양 적음, 실제 데이터는 v1 storybook에)
 
 ### 인프라
@@ -458,7 +458,7 @@ v1 storybook 데이터 모델 위에 **레벨/그림체/언어 3축 variation** 
 - `VariantConfirmModals` — 추가 시 안내 모달 (레벨/언어/그림체 각각 의미 명시)
 
 ### 3축 variant 데이터 모델 (모두 v1 Storybook 에 추가, optional)
-- **레벨**: sibling pattern `${baseId}__L1`/L2/L3/L4 (별도 storybook doc). `Storybook.readingLevel`. 추가는 `POST /api/storybooks/:id/variants/:level` (server: `StorybookService.createVariant`).
+- **레벨**: sibling pattern `${baseId}__L1`/L2/L3 (별도 storybook doc). `Storybook.readingLevel`. 추가는 `POST /api/storybooks/:id/variants/:level` (server: `StorybookService.createVariant`). 기존 `__L4` suffix doc은 R2에 그대로 남아 readingLevel만 L3로 update됨 (호환 유지).
 - **그림체**: `Storybook.availableStyles?: string[]` (prompt 배열) + `Storybook.styleAssets?: Record<style, StyleAssets>` (그림체별 자산 분리 보관). `switchStyleAssets(draft, newStyle)` 헬퍼 (`features/editor/lib/style-assets.ts`) 가 swap 시 현재 top-level 스냅샷 + 새 그림체 자산 복원/비우기. `StyleAssets`: coverImages·coverImage·coverPrompt·characterImages[]·pageIllustrations{pageNumber→}·keyObjectImages·vocabularyImages.
 - **언어**: `Storybook.languages?: string[]`, `defaultLanguage?`, `titleTranslations?: Record<lang, string>` (책 제목), `primaryCoverByLang?: Record<lang, string>` (언어별 대표 표지), `KeyObject.nameTranslations?`, `KeyObject.ttsUrl?` + `ttsUrls?: Record<lang, string>` (한글/다국어 발음 TTS — 학습게임 음성 재생 용). 페이지 텍스트는 기존 `Page.translations[lang]` 활용.
 - **언어 컨텍스트**: `EditorLangContext` (`contexts/EditorLangContext.tsx`) + `useEditorLang()` 훅 — null fallback 패턴. /editor 는 미주입(자체 fallback), /editor2 만 `EditorLangProvider` 로 감쌈. 영향 받는 탭(PagesTab/CoverTab/CharacterTab/KeyObjectTab/AudiobookTab/LongformVideoTab/GamesTab) 이 외부 활성 언어를 자동 따라감.

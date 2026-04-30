@@ -4,7 +4,11 @@ import {
   type GenerateScenePromptRequest,
 } from '../services/storybook.service.js';
 import { asyncHandler } from '../middleware/async-handler.js';
-import type { GenerateStorybookRequest, GenerateStoryRequest } from '@tangobook/shared';
+import type {
+  GenerateStorybookRequest,
+  GenerateStoryRequest,
+  ReadingLevel,
+} from '@tangobook/shared';
 
 export const StorybookController = {
   list: asyncHandler(async (_req, res) => {
@@ -38,8 +42,8 @@ export const StorybookController = {
 
   createVariant: asyncHandler(async (req, res) => {
     const id = req.params['id'] as string;
-    const level = req.params['level'] as 'L1' | 'L2' | 'L3' | 'L4';
-    if (!['L1', 'L2', 'L3', 'L4'].includes(level)) {
+    const level = req.params['level'] as ReadingLevel;
+    if (!['L1', 'L2', 'L3'].includes(level)) {
       res.status(400).json({ success: false, error: '잘못된 레벨입니다.' });
       return;
     }

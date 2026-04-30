@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useBookIndex, useBookManifest, useAudiobookRenders } from '@/features/book-v2';
 import { useLongformList, useGamesList } from '@/features/book-v2';
+import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { Card } from '@/components/Card';
 import { StateScreen } from '@/components/StateScreen';
 import { Skeleton } from '@/components/Skeleton';
@@ -17,12 +18,11 @@ const LANG_LABEL: Record<string, { flag: string; name: string }> = {
 
 const LEVEL_INFO: Record<ReadingLevel, { label: string; age: string }> = {
   L1: { label: '씨앗', age: '3~4세' },
-  L2: { label: '새싹', age: '4~5세' },
-  L3: { label: '나무', age: '5~6세' },
-  L4: { label: '숲', age: '6~7세' },
+  L2: { label: '새싹', age: '4~6세' },
+  L3: { label: '나무', age: '6~7세' },
 };
 
-const LEVEL_ORDER: ReadingLevel[] = ['L1', 'L2', 'L3', 'L4'];
+const LEVEL_ORDER: ReadingLevel[] = ['L1', 'L2', 'L3'];
 
 export default function BookDetailPage() {
   const { id = '' } = useParams();
@@ -33,6 +33,8 @@ export default function BookDetailPage() {
   // longform/games는 책 단위 fetch (필터 없이 존재 여부만)
   const { data: longformProjects } = useLongformList(id);
   const { data: games } = useGamesList(id);
+  // v1 storybook 도 fetch — v2 게임이 없는 책은 v1 storybook.games 로 fallback (GameListViewer 가 v1 자동 fallback)
+  const { data: v1Storybook } = useStorybook(id);
 
   const [lang, setLang] = useState<string>('ko');
   const [selectedLevel, setSelectedLevel] = useState<ReadingLevel | null>(null);
@@ -60,7 +62,8 @@ export default function BookDetailPage() {
   }, [audioRenders, longformProjects]);
 
   const videoAvailable = youtubeVideoIds.length > 0 || directVideoUrls.length > 0;
-  const gameAvailable = (games?.length ?? 0) > 0;
+  // v2 게임 또는 v1 게임 중 하나라도 있으면 게임 카드 노출
+  const gameAvailable = (games?.length ?? 0) > 0 || (v1Storybook?.games?.length ?? 0) > 0;
 
   if (isLoading) {
     return (

@@ -6,11 +6,10 @@ import { ART_STYLES } from '@tangobook/shared';
 
 const LEVEL_INFO: Record<ReadingLevel, { label: string; age: string; emoji: string }> = {
   L1: { label: '씨앗', age: '3~4세', emoji: '📗' },
-  L2: { label: '새싹', age: '4~5세', emoji: '📘' },
-  L3: { label: '나무', age: '5~6세', emoji: '📙' },
-  L4: { label: '숲', age: '6~7세', emoji: '📕' },
+  L2: { label: '새싹', age: '4~6세', emoji: '📘' },
+  L3: { label: '나무', age: '6~7세', emoji: '📙' },
 };
-const LEVEL_ORDER: ReadingLevel[] = ['L1', 'L2', 'L3', 'L4'];
+const LEVEL_ORDER: ReadingLevel[] = ['L1', 'L2', 'L3'];
 
 export interface MetaVariantEntry {
   id: string;
