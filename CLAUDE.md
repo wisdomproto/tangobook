@@ -607,6 +607,20 @@ TopBar 우측에 `ResourcesDropdown` (`components/TopBar.tsx`) — 정적 HTML �
 - 스펙: [docs/superpowers/specs/2026-04-23-auth-login-design.md](docs/superpowers/specs/2026-04-23-auth-login-design.md)
 - 플랜: [docs/superpowers/plans/2026-04-23-auth-login-plan.md](docs/superpowers/plans/2026-04-23-auth-login-plan.md)
 
+## 별/포인트 시스템 (Phase 1, 2026-05-01)
+- **데이터**: Supabase `child_profiles.stars_total` + `star_ledger` 거래 원장. SQL: `scripts/supabase-rewards-setup.sql` (적용 완료)
+- **신규 테이블 5종**: star_ledger · word_mastery · collection_user · hori_inventory · weekly_missions (전부 RLS 자녀-자기-only)
+- **신규 RPC 5종**: get_sr_word_pool · grant_game_perfect · activate_collection_item · purchase_hori_item · complete_weekly_mission
+- **별 적립**: Postgres trigger `handle_learning_event()` 가 `learning_events` insert 마다 자동 적립 + word_mastery upsert + collection 상태 전이
+- **적립 규칙**: page_read +1 (마지막 페이지 +5) · word_correct +1 · daily_login +2 · 7일 streak +20. 등급 ×배율 (free 1.0 / plus 1.5 / family 2.0)
+- **별 사용**: `validate_star_spend` trigger 가 `hori_item`/`foil_card`/`season_costume` 만 허용 (DB 차원 enforce)
+- **클라이언트**: `packages/client/src/features/rewards/` — `useStarBalance` (TanStack Query, 5s staleTime + focus refetch) + `StarCounter` (LibraryPage 헤더, +N 토스트 자체)
+- **GameResultScreen**: 종료 후 1.2s refetch → "+N ⭐ 저장됨" 인디케이터
+- **마지막 페이지 감지**: ViewerContainer/PhonicsViewer 가 page_read metadata 에 `totalPages` + `lastPage` 포함 (트리거가 +5 보너스 발동)
+- 스펙: [docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md](docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md)
+- 플랜: [docs/superpowers/plans/2026-04-30-stars-infrastructure-plan.md](docs/superpowers/plans/2026-04-30-stars-infrastructure-plan.md)
+- 후속 Phase 2~6: SR 큐 endpoint · 카드/도감 UI · 호리 꾸미기 · 호리 놀이터 7 게임 · 주간 미션
+
 ## 뷰어 Feature 구조 (2026-04-22 리디자인)
 ```
 features/viewer/
