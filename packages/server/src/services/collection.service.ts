@@ -94,8 +94,12 @@ export const CollectionService = {
     let skipped = 0;
 
     for (const sb of all) {
-      // 파닉스/비공개/표지 없는 책 제외
+      // 파닉스/비공개/표지 없는 책/레벨 variation 제외
       if (isPhonicsBook(sb)) {
+        skipped++;
+        continue;
+      }
+      if (isLevelVariation(sb)) {
         skipped++;
         continue;
       }
@@ -144,7 +148,18 @@ function isPhonicsBook(sb: StorybookSummary): boolean {
   if (sb.type === 'phonics') return true;
   if (sb.phonicsLanguage) return true;
   const folder = (sb.folder ?? '').toLowerCase();
-  return folder.includes('파닉스') || folder.includes('phonics');
+  const cat = (sb.category ?? '').toLowerCase();
+  return (
+    folder.includes('파닉스') ||
+    folder.includes('phonics') ||
+    cat.includes('파닉스') ||
+    cat.includes('phonics')
+  );
+}
+
+/** 레벨 variation (__L1/L2/L3/L4) 은 카드에서 제외 — base id 만 사용 */
+function isLevelVariation(sb: StorybookSummary): boolean {
+  return /__L\d/.test(sb.id);
 }
 
 function distributeNature(sb: StorybookSummary): CollectionCategoryId {
@@ -156,15 +171,23 @@ function distributeNature(sb: StorybookSummary): CollectionCategoryId {
 }
 
 function mapStorybookCategory(sb: StorybookSummary): CollectionCategoryId | null {
-  // 명시 카테고리 우선
-  const cat = sb.category?.toLowerCase();
-  if (cat === 'classic') return 'classic';
-  if (cat === 'folktale') return 'folktale';
-  if (cat === 'life') return 'life';
-  if (cat === 'nature') return distributeNature(sb);
+  // category 정규화 — 공백 제거 + lowercase
+  const catNorm = (sb.category ?? '').toLowerCase().replace(/\s+/g, '');
 
-  // folder 한국어 키워드 추론 (예: '자연관찰(P3)', '명작(L2)', '전래동화', '생활동화')
-  const folder = (sb.folder ?? '').toLowerCase();
+  // 한국어 카테고리 (실데이터)
+  if (catNorm === '세계명작') return 'classic';
+  if (catNorm === '전래동화') return 'folktale';
+  if (catNorm === '생활동화') return 'life';
+  if (catNorm === '자연관찰') return distributeNature(sb);
+
+  // 영어 카테고리 (호환)
+  if (catNorm === 'classic') return 'classic';
+  if (catNorm === 'folktale') return 'folktale';
+  if (catNorm === 'life') return 'life';
+  if (catNorm === 'nature') return distributeNature(sb);
+
+  // folder 한국어 키워드 fallback (category 없는 경우)
+  const folder = (sb.folder ?? '').toLowerCase().replace(/\s+/g, '');
   if (folder.includes('명작') || folder.includes('classic')) return 'classic';
   if (folder.includes('전래') || folder.includes('folktale')) return 'folktale';
   if (folder.includes('생활') || folder.includes('life')) return 'life';
