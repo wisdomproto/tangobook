@@ -66,7 +66,7 @@ export const PLAYGROUND_GAMES: PlaygroundGameMeta[] = [
     description: '떨어지는 단어 두 카테고리로',
     emoji: '🛒',
     accent: 'purple',
-    available: false,
+    available: true,
   },
   {
     id: 'word-garden',
@@ -75,7 +75,7 @@ export const PLAYGROUND_GAMES: PlaygroundGameMeta[] = [
     description: '매일 정답으로 꽃 키우기',
     emoji: '🌷',
     accent: 'yellow',
-    available: false,
+    available: true,
   },
   {
     id: 'word-shopping',
@@ -119,4 +119,33 @@ export interface WordAttempt {
   word: string;
   correct: boolean;
   responseMs?: number;
+}
+
+/** word-sort-cart 카테고리 — 한 번에 두 카테고리만 출제 */
+export type WordCategoryId = 'animal' | 'plant' | 'food' | 'tool' | 'body' | 'nature';
+
+export const WORD_CATEGORY_META: Record<
+  WordCategoryId,
+  { nameKo: string; emoji: string; color: string }
+> = {
+  animal: { nameKo: '동물', emoji: '🐅', color: 'coral' },
+  plant: { nameKo: '식물', emoji: '🌷', color: 'mint' },
+  food: { nameKo: '먹을 것', emoji: '🍎', color: 'yellow' },
+  tool: { nameKo: '물건', emoji: '🔧', color: 'blue' },
+  body: { nameKo: '몸', emoji: '👁️', color: 'fun' },
+  nature: { nameKo: '자연', emoji: '🌊', color: 'purple' },
+};
+
+/** 게임에서 출제할 카테고리 쌍 (의미가 명확히 구분되는 조합) */
+export const WORD_CATEGORY_PAIRS: [WordCategoryId, WordCategoryId][] = [
+  ['animal', 'plant'],
+  ['animal', 'tool'],
+  ['plant', 'food'],
+  ['body', 'tool'],
+  ['nature', 'animal'],
+];
+
+/** 단어 카테고리 분류 — 각 단어 entry 가 1개 이상 카테고리 가질 수 있음 */
+export interface SrPoolItemWithCategory extends SrPoolItem {
+  categories: WordCategoryId[];
 }

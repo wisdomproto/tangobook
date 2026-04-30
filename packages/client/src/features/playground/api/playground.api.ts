@@ -1,6 +1,6 @@
 import { apiPost, apiGet } from '@/lib/axios';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
-import type { Lang, SrPoolItem } from '@tangobook/shared';
+import type { Lang, SrPoolItem, SrPoolItemWithCategory, WordCategoryId } from '@tangobook/shared';
 
 interface MasteryRpcRow {
   profile_id: string;
@@ -68,5 +68,24 @@ export const playgroundApi = {
   async sampleFromVocabulary(language: Lang, count: number): Promise<SrPoolItem[]> {
     const params = new URLSearchParams({ language, count: String(count) });
     return apiGet<SrPoolItem[]>(`/playground/word-pool/sample?${params}`);
+  },
+
+  /** word-sort-cart 용 — 두 카테고리 단어 풀 */
+  async getCategoryPool(params: {
+    language: Lang;
+    cat1: WordCategoryId;
+    cat2: WordCategoryId;
+    countPerCat: number;
+  }): Promise<{ cat1Items: SrPoolItemWithCategory[]; cat2Items: SrPoolItemWithCategory[] }> {
+    const qs = new URLSearchParams({
+      language: params.language,
+      cat1: params.cat1,
+      cat2: params.cat2,
+      countPerCat: String(params.countPerCat),
+    });
+    return apiGet<{
+      cat1Items: SrPoolItemWithCategory[];
+      cat2Items: SrPoolItemWithCategory[];
+    }>(`/playground/word-pool/by-categories?${qs}`);
   },
 };

@@ -6,3 +6,5 @@ export { WordPopPlayer } from './components/word-pop/WordPopPlayer';
 export { WordFishingPlayer } from './components/word-fishing/WordFishingPlayer';
 export { WordShoppingPlayer } from './components/word-shopping/WordShoppingPlayer';
 export { WordRunPlayer } from './components/word-run/WordRunPlayer';
+export { WordSortCartPlayer } from './components/word-sort-cart/WordSortCartPlayer';
+export { WordGardenPlayer } from './components/word-garden/WordGardenPlayer';

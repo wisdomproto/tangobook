@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import type { Lang } from '@tangobook/shared';
+import type { Lang, WordCategoryId } from '@tangobook/shared';
 import { PlaygroundService } from '../services/playground.service.js';
 
 export const PlaygroundController = {
@@ -13,6 +13,29 @@ export const PlaygroundController = {
       }
       const enriched = await PlaygroundService.enrichWordPool(records);
       res.json({ success: true, data: enriched });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  /** word-sort-cart 용 — 두 카테고리 단어 풀 */
+  async samplePoolByCategories(req: Request, res: Response, next: NextFunction) {
+    try {
+      const language = (req.query.language as Lang) ?? 'ko';
+      const cat1 = req.query.cat1 as WordCategoryId | undefined;
+      const cat2 = req.query.cat2 as WordCategoryId | undefined;
+      const countPerCat = Number(req.query.countPerCat ?? 4);
+      if (!cat1 || !cat2) {
+        res.status(400).json({ success: false, error: 'cat1 + cat2 required' });
+        return;
+      }
+      const result = await PlaygroundService.samplePoolByCategories(
+        language,
+        cat1,
+        cat2,
+        countPerCat
+      );
+      res.json({ success: true, data: result });
     } catch (err) {
       next(err);
     }

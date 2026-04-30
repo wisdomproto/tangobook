@@ -36,6 +36,8 @@ import {
   WordFishingPlayer,
   WordShoppingPlayer,
   WordRunPlayer,
+  WordSortCartPlayer,
+  WordGardenPlayer,
 } from '../features/playground';
 
 export const router = createBrowserRouter([
@@ -245,6 +247,22 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <WordRunPlayer />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'playground/word-sort-cart',
+        element: (
+          <ErrorBoundary>
+            <WordSortCartPlayer />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'playground/word-garden',
+        element: (
+          <ErrorBoundary>
+            <WordGardenPlayer />
           </ErrorBoundary>
         ),
       },
