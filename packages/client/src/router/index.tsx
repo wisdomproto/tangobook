@@ -29,7 +29,7 @@ import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
 import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
 import { CollectionPage, CategoryPage } from '../features/collection';
 import { HoriRoomPage } from '../features/hori-room';
-import { PlaygroundHubPage, WordMemoryPlayer } from '../features/playground';
+import { PlaygroundHubPage, WordMemoryPlayer, WordPopPlayer } from '../features/playground';
 
 export const router = createBrowserRouter([
   {
@@ -206,6 +206,14 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <WordMemoryPlayer />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'playground/word-pop',
+        element: (
+          <ErrorBoundary>
+            <WordPopPlayer />
           </ErrorBoundary>
         ),
       },

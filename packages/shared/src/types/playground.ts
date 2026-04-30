@@ -39,7 +39,7 @@ export const PLAYGROUND_GAMES: PlaygroundGameMeta[] = [
     description: '들리는 단어 풍선 터트리기',
     emoji: '🎈',
     accent: 'blue',
-    available: false,
+    available: true,
   },
   {
     id: 'word-fishing',
