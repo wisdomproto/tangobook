@@ -84,7 +84,7 @@ export const PLAYGROUND_GAMES: PlaygroundGameMeta[] = [
     description: '엄마 목소리 듣고 매장에서 찾기',
     emoji: '🛍️',
     accent: 'fun',
-    available: false,
+    available: true,
   },
 ];
 
