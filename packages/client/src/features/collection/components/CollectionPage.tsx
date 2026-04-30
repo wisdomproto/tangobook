@@ -9,6 +9,7 @@ interface CategoryStats {
   total: number;
   owned: number;
   active: number;
+  previewUrl?: string; // 카테고리 대표 표지 (첫 카드 이미지)
 }
 
 export function CollectionPage() {
@@ -26,6 +27,7 @@ export function CollectionPage() {
       const s = map.get(item.category);
       if (!s) continue;
       s.total += 1;
+      if (!s.previewUrl && item.imageUrl) s.previewUrl = item.imageUrl;
       const status = statusMap.get(item.id) ?? 'locked';
       if (status === 'owned' || status === 'active') s.owned += 1;
       if (status === 'active') s.active += 1;
@@ -104,21 +106,36 @@ export function CollectionPage() {
                   className={`group relative aspect-[3/4] rounded-2xl bg-white shadow-soft border-2 border-transparent overflow-hidden transition-all
                     ${empty ? 'opacity-60 cursor-not-allowed' : 'hover:shadow-pop hover:-translate-y-1 hover:border-coral-200 active:translate-y-0'}`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-peach-100 via-cream-50 to-coral-100/40 dark:from-slate-800 dark:to-slate-700" />
+                  {/* 대표 표지 (살짝 흐리게 깔아 빈 느낌 제거) */}
+                  {s.previewUrl ? (
+                    <img
+                      src={s.previewUrl}
+                      alt=""
+                      aria-hidden
+                      className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-peach-100 via-cream-50 to-coral-100/40 dark:from-slate-800 dark:to-slate-700" />
+                  )}
+                  {/* 가독성 위한 화이트 그라데이션 오버레이 */}
+                  {s.previewUrl && (
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/80 dark:from-slate-900/60 dark:to-slate-900/80" />
+                  )}
                   <div className="relative h-full flex flex-col items-center justify-center gap-2 p-4">
-                    <div className="text-6xl">{cat.emoji}</div>
-                    <div className="text-lg font-black text-ink-900 dark:text-peach-100 font-display">
+                    <div className="text-6xl drop-shadow-sm">{cat.emoji}</div>
+                    <div className="text-lg font-black text-ink-900 dark:text-peach-100 font-display drop-shadow-sm">
                       {cat.nameKo}
                     </div>
                     {empty ? (
                       <div className="text-xs text-ink-500 font-bold">곧 만나요!</div>
                     ) : (
                       <>
-                        <div className="text-xs text-ink-700 font-bold">
+                        <div className="text-xs text-ink-700 font-bold drop-shadow-sm">
                           {s.owned} / {s.total} 장
                         </div>
                         {/* 진척률 바 */}
-                        <div className="w-full h-1.5 bg-ink-100 rounded-full overflow-hidden">
+                        <div className="w-full h-1.5 bg-white/70 rounded-full overflow-hidden border border-ink-100">
                           <div
                             className="h-full bg-gradient-to-r from-coral-400 to-coral-500 transition-all"
                             style={{ width: `${completion * 100}%` }}

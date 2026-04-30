@@ -35,4 +35,14 @@ export const CollectionController = {
       next(err);
     }
   },
+
+  /** 모든 동화 → 카드 자동 동기화 (admin). 표지 작게 사용해 페이지 채우기. */
+  async syncFromBooks(_req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await CollectionService.syncFromStorybooks();
+      res.json({ success: true, data: result });
+    } catch (err) {
+      next(err);
+    }
+  },
 };
