@@ -1,14 +1,10 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useBookIndex } from '@/features/book-v2';
-import { WelcomeHeader, CategorySection, BookCard } from '@/features/library';
+import { CategorySection, BookCard } from '@/features/library';
 import { StateScreen } from '@/design-system';
 import { SkeletonBookCard } from '@/design-system';
 import { cn } from '@/lib/cn';
 import type { BookIndexEntry } from '@tangobook/shared';
-import { ParentCornerButton } from '@/features/auth/components/ParentCornerButton';
-import { StarCounter } from '@/features/rewards';
-import { useAuth } from '@/features/auth/context/AuthContext';
 
 type TabId = 'storybook' | 'korean-phonics' | 'english-phonics';
 
@@ -146,11 +142,8 @@ export default function LibraryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100">
+    <div className="bg-gradient-to-b from-cream-50 to-peach-100 dark:from-darkbg dark:to-slate-900 min-h-full">
       <div className="max-w-[1440px] mx-auto p-5 md:p-7">
-        <AuthCornerBar />
-        <WelcomeHeader bookCount={all?.length ?? 0} />
-
         {/* 탭 */}
         <div className="flex gap-2 mb-4 overflow-x-auto">
           {TABS.map((t) => (
@@ -266,72 +259,6 @@ export default function LibraryPage() {
           </div>
         )}
       </div>
-    </div>
-  );
-}
-
-function AuthCornerBar() {
-  const { activeProfile, session, signOut } = useAuth();
-  const handleSignOut = async () => {
-    if (!window.confirm('로그아웃할까요?')) return;
-    await signOut();
-  };
-  return (
-    <div className="flex justify-end items-center gap-2 mb-2">
-      <Link
-        to="/curriculum-master"
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white shadow-soft text-ink-700 text-sm font-bold hover:bg-peach-100 transition"
-      >
-        📚 커리큘럼
-      </Link>
-      <Link
-        to="/collection"
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white shadow-soft text-ink-700 text-sm font-bold hover:bg-peach-100 transition"
-      >
-        🃏 카드
-      </Link>
-      <Link
-        to="/hori-room"
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white shadow-soft text-ink-700 text-sm font-bold hover:bg-peach-100 transition"
-      >
-        🦊 호리 방
-      </Link>
-      <Link
-        to="/playground"
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white shadow-soft text-ink-700 text-sm font-bold hover:bg-peach-100 transition"
-      >
-        🎪 놀이터
-      </Link>
-      <Link
-        to="/vocabulary"
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white shadow-soft text-ink-700 text-sm font-bold hover:bg-peach-100 transition"
-      >
-        ✨ 어휘
-      </Link>
-      <Link
-        to="/games"
-        className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-coral-400 to-coral-500 text-white shadow-pop text-sm font-bold hover:brightness-110 active:scale-95 transition"
-      >
-        🎮 놀이터
-      </Link>
-      {activeProfile && (
-        <>
-          <StarCounter />
-          <div className="px-3 py-1.5 rounded-full bg-white shadow-soft text-sm font-bold text-ink-900">
-            👦 {activeProfile.name}
-          </div>
-        </>
-      )}
-      <ParentCornerButton />
-      {session && (
-        <button
-          onClick={handleSignOut}
-          className="px-3 py-2 rounded-full bg-white shadow-soft text-ink-700 text-sm hover:shadow-pop hover:text-danger transition"
-          title="로그아웃"
-        >
-          🚪
-        </button>
-      )}
     </div>
   );
 }

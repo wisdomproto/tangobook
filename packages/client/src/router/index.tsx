@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate, Outlet, useParams } from 'react-router-d
 import { ErrorBoundary } from '@/design-system';
 import { AppLayout } from '../components/AppLayout';
 import { AppLayoutV2 } from '../components/AppLayoutV2';
+import { AppShell } from '../components/AppShell';
 import LibraryPage from '../pages/LibraryPage';
 
 function EditorV2BidRedirect() {
@@ -51,13 +52,22 @@ export const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <Navigate to="/library" replace /> },
+      // 학습자 진입점 hub 페이지들 — AppShell (좌측 nav + 상단 헤더) 안에서 렌더
       {
-        path: 'library',
         element: (
           <ErrorBoundary>
-            <LibraryPage />
+            <AppShell />
           </ErrorBoundary>
         ),
+        children: [
+          { path: 'library', element: <LibraryPage /> },
+          { path: 'collection', element: <CollectionPage /> },
+          { path: 'collection/:categoryId', element: <CategoryPage /> },
+          { path: 'hori-room', element: <HoriRoomPage /> },
+          { path: 'vocabulary', element: <VocabularyHubPage /> },
+          { path: 'playground', element: <PlaygroundHubPage /> },
+          { path: 'games', element: <GamesHubPage /> },
+        ],
       },
       {
         path: 'library/:id',
@@ -132,14 +142,6 @@ export const router = createBrowserRouter([
       { path: 'login', element: <LoginPage /> },
       { path: 'login/callback', element: <LoginCallback /> },
       {
-        path: 'games',
-        element: (
-          <ErrorBoundary>
-            <GamesHubPage />
-          </ErrorBoundary>
-        ),
-      },
-      {
         path: 'games/hori-run',
         element: (
           <ErrorBoundary>
@@ -188,50 +190,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'collection',
-        element: (
-          <ErrorBoundary>
-            <CollectionPage />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'collection/:categoryId',
-        element: (
-          <ErrorBoundary>
-            <CategoryPage />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'hori-room',
-        element: (
-          <ErrorBoundary>
-            <HoriRoomPage />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'vocabulary',
-        element: (
-          <ErrorBoundary>
-            <VocabularyHubPage />
-          </ErrorBoundary>
-        ),
-      },
-      {
         path: 'vocabulary/:unitId',
         element: (
           <ErrorBoundary>
             <VocabularyStudyPage />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'playground',
-        element: (
-          <ErrorBoundary>
-            <PlaygroundHubPage />
           </ErrorBoundary>
         ),
       },
