@@ -1,18 +1,40 @@
 import type { Lang } from './learning-events.js';
+import type { DotKeypoint } from './storybook.js';
 
 export type VocabularyUnitSource = 'cambridge-starters' | 'custom';
 
-/** 단원 안의 개별 단어 — 자동 매핑(vocabulary-db) + 손수 보강 필드 */
+/** 단어별 이미지 — KeyObject 의 imageHistory 를 정식 array 로 확장. 1단어 = N장 */
+export interface VocabularyWordImage {
+  id: string;
+  imageUrl: string;
+  prompt?: string;
+  /** 대표 이미지 (학습 화면 default) */
+  isPrimary?: boolean;
+  /** 글자 따라쓰기 점편집 (KeyObject 와 동일 패턴) */
+  keypoints?: DotKeypoint[];
+  createdAt: string;
+}
+
+/** 단원 안의 개별 단어 — KeyObject 모듈 패턴 + 이미지 array */
 export interface VocabularyUnitWord {
-  word: string; // normalized lowercase (영어) / 한국어 (한 단어)
-  korean?: string; // ko 의미
-  /** 손수 작성 이미지 — 비어있으면 vocabulary-db.json 에서 자동 매핑 (server-side enrich) */
-  imageUrl?: string;
-  /** 손수 작성 TTS — 비어있으면 vocabulary-db 의 phonics ttsUrl fallback */
+  word: string;
+  korean?: string;
+  nameEn?: string;
+  nameTranslations?: Record<string, string>;
+  /** 이미지 prompt 베이스 (KeyObject.description 동일) */
+  description?: string;
+  /** prompt override */
+  customPrompt?: string;
+  /** ★ 다중 이미지 — 1 단어 = N 장 (KeyObject 와의 핵심 차이) */
+  images?: VocabularyWordImage[];
+  /** ko 기본 TTS */
   ttsUrl?: string;
-  /** 손수 작성 예문 — 비어있으면 동화 자동 추출 sentences fallback */
-  exampleSentences?: string[];
-  /** 난이도 (1-5) */
+  /** 다국어 TTS (en/ja/zh 등) */
+  ttsUrls?: Record<string, string>;
+  /** 학습용 정의 (KeyObject 와 동일) */
+  definition?: string;
+  /** 손수 예문 (단일 — KeyObject 와 동일) */
+  example?: string;
   difficulty?: number;
 }
 

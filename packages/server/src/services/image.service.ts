@@ -346,6 +346,56 @@ export const ImageService = {
     return R2Repository.uploadImage(base64, key);
   },
 
+  /**
+   * 어휘 단원 단어 이미지 생성 — KeyObject 패턴 응용. R2 prefix 만 다름.
+   * 단어 1개 = N 장 (호출 시마다 array 에 append).
+   */
+  async generateVocabularyUnitWord(req: {
+    word: string;
+    korean?: string;
+    description?: string;
+    customPrompt?: string;
+    unitId: string;
+    artStyle?: string;
+    currentImageUrl?: string;
+    model?: string;
+  }): Promise<string> {
+    const { word, korean, description, customPrompt, unitId, artStyle, currentImageUrl, model } =
+      req;
+    const styleBlock = artStyle ? artStyleBlock(artStyle) : '';
+    const hasCustom = !!customPrompt;
+    const koHint = korean ? ` (${korean})` : '';
+    const descLine = description ? `Description: ${description}` : '';
+    const prompt = `${isolatedObjectPrompt(word, hasCustom)}
+${hasCustom ? `\n구체적 묘사: ${customPrompt}` : ''}
+Word: ${word}${koHint}
+${descLine}
+
+${styleBlock}`;
+
+    const refImages: Array<{ base64: string; mimeType: string }> = [];
+    if (currentImageUrl) {
+      const img = await urlToBase64(currentImageUrl);
+      if (img) refImages.push(img);
+    }
+
+    const base64 = await generateImageWithGemini({
+      prompt: currentImageUrl
+        ? `${prompt}\n\nREFERENCE: A reference image is provided. Use it for style/composition while applying the new prompt.`
+        : prompt,
+      referenceImages: refImages,
+      systemInstruction: IMAGE_SYSTEM_INSTRUCTION,
+      model,
+    });
+    // R2 key: vocabulary-units/{unitId}/{word}-{ts}.webp
+    const safeWord = word
+      .toLowerCase()
+      .replace(/[^a-z0-9가-힣]/g, '-')
+      .slice(0, 30);
+    const key = `vocabulary-units/${unitId}/${safeWord}-${Date.now()}.webp`;
+    return R2Repository.uploadImage(base64, key);
+  },
+
   async generateKeyObject(req: KeyObjectRequest): Promise<string> {
     const { keyObject, artStyle, storybookId, storybookTitle, currentImageUrl, model } = req;
     const prompt = buildKeyObjectPrompt(keyObject, artStyle);

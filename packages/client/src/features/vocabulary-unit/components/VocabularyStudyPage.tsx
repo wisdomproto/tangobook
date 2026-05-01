@@ -178,14 +178,19 @@ export function VocabularyStudyPage() {
                 transition={{ type: 'spring', stiffness: 200, damping: 22 }}
                 className="absolute inset-0 bg-white rounded-3xl shadow-pop border-4 border-amber-200 p-6 flex flex-col items-center justify-center gap-4"
               >
-                {current.imageUrl && (
-                  <img
-                    src={current.imageUrl}
-                    alt=""
-                    aria-hidden
-                    className="max-h-32 md:max-h-40 rounded-2xl object-cover"
-                  />
-                )}
+                {(() => {
+                  // 다중 이미지 — primary 우선, 없으면 첫 장
+                  const primary = current.images?.find((im) => im.isPrimary) ?? current.images?.[0];
+                  if (!primary) return null;
+                  return (
+                    <img
+                      src={primary.imageUrl}
+                      alt=""
+                      aria-hidden
+                      className="max-h-32 md:max-h-40 rounded-2xl object-cover"
+                    />
+                  );
+                })()}
                 <div className="text-center">
                   <div className="text-4xl md:text-5xl font-black font-display text-ink-900">
                     {current.word}
@@ -197,13 +202,14 @@ export function VocabularyStudyPage() {
                   )}
                 </div>
 
-                {current.exampleSentences && current.exampleSentences.length > 0 && (
-                  <div className="space-y-1 max-w-md text-center">
-                    {current.exampleSentences.slice(0, 2).map((s, i) => (
-                      <div key={i} className="text-sm text-ink-700 italic">
-                        "{s}"
-                      </div>
-                    ))}
+                {current.example && (
+                  <div className="text-sm text-ink-700 italic max-w-md text-center">
+                    "{current.example}"
+                  </div>
+                )}
+                {current.definition && (
+                  <div className="text-xs text-ink-500 max-w-md text-center">
+                    {current.definition}
                   </div>
                 )}
 

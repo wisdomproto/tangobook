@@ -23,6 +23,11 @@ export const ImageController = {
     res.json({ success: true, data: { imageUrl } });
   }),
 
+  generateVocabularyUnitWord: asyncHandler(async (req, res) => {
+    const imageUrl = await ImageService.generateVocabularyUnitWord(req.body);
+    res.json({ success: true, data: { imageUrl } });
+  }),
+
   generateVocabulary: asyncHandler(async (req, res) => {
     const results = await ImageService.generateVocabulary(req.body);
     res.json({ success: true, data: results });
