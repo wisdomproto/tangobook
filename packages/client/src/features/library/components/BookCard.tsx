@@ -9,8 +9,6 @@ interface BookCardProps {
 
 export function BookCard({ book }: BookCardProps) {
   const navigate = useNavigate();
-  const levels = book.usedVariants.levels;
-  const styles = book.usedVariants.styles;
   return (
     <Card
       interactive
@@ -40,10 +38,6 @@ export function BookCard({ book }: BookCardProps) {
         )}
       </div>
       <h3 className="font-black text-sm text-ink-900 truncate font-display">{book.title}</h3>
-      <p className="text-[11px] text-ink-500 font-bold mt-1">
-        {levels.length > 0 ? levels.slice().sort().join(' · ') : '준비 중'}
-        {styles.length > 0 ? ` · ${styles.length}개 그림체` : ''}
-      </p>
     </Card>
   );
 }

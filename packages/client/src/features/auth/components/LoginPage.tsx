@@ -52,11 +52,28 @@ export default function LoginPage() {
 
   if (loading) return null;
 
+  // 'auth' 단계만 뒤로가기 노출 (setPin/profile 은 진행 중 단계라 막음)
+  const backButton =
+    step === 'auth' ? (
+      <button
+        onClick={() => navigate('/library')}
+        className="fixed top-4 left-4 z-50 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold text-sm hover:bg-peach-100 transition"
+        title="라이브러리로 돌아가기"
+      >
+        ← 돌아가기
+      </button>
+    ) : null;
+
   if (step === 'auth') {
-    return authMode === 'signIn' ? (
-      <SignInForm onSwitchToSignUp={() => setAuthMode('signUp')} />
-    ) : (
-      <SignUpForm onSwitchToSignIn={() => setAuthMode('signIn')} />
+    return (
+      <>
+        {backButton}
+        {authMode === 'signIn' ? (
+          <SignInForm onSwitchToSignUp={() => setAuthMode('signUp')} />
+        ) : (
+          <SignUpForm onSwitchToSignIn={() => setAuthMode('signIn')} />
+        )}
+      </>
     );
   }
   if (step === 'setPin') {
