@@ -40,6 +40,20 @@ export const StorybookController = {
     res.json({ success: true, data: storybook });
   }),
 
+  copyAsync: asyncHandler(async (req, res) => {
+    const { taskId } = StorybookService.copyAsync(req.params['id'] as string);
+    res.json({ success: true, data: { taskId } });
+  }),
+
+  copyProgress: asyncHandler(async (req, res) => {
+    const progress = StorybookService.getCopyProgress(req.params['taskId'] as string);
+    if (!progress) {
+      res.status(404).json({ success: false, error: 'taskId 없음 (만료되었거나 잘못된 ID)' });
+      return;
+    }
+    res.json({ success: true, data: progress });
+  }),
+
   createVariant: asyncHandler(async (req, res) => {
     const id = req.params['id'] as string;
     const level = req.params['level'] as ReadingLevel;

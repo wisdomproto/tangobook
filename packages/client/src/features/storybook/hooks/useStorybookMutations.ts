@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { storybookApi } from '../api/storybook.api';
+import { useState, useRef, useCallback } from 'react';
+import { storybookApi, type CopyProgress } from '../api/storybook.api';
 import type {
   Storybook,
   GenerateStorybookRequest,
@@ -43,6 +44,74 @@ export function useCopyStorybook() {
       qc.setQueryData(['storybook', data.id], data);
     },
   });
+}
+
+/**
+ * Fire-and-forget 복사 + 진행률 polling.
+ * `start(id)` 호출 → progress state 가 0% → 100% 까지 갱신 → onDone 콜백.
+ * progress 가 null 이면 모달 숨김. 에러 발생 시 status='error'.
+ */
+export function useCopyStorybookAsync() {
+  const qc = useQueryClient();
+  const [progress, setProgress] = useState<CopyProgress | null>(null);
+  const [sourceTitle, setSourceTitle] = useState<string | null>(null);
+  const pollingRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const stop = useCallback(() => {
+    if (pollingRef.current) {
+      clearTimeout(pollingRef.current);
+      pollingRef.current = null;
+    }
+  }, []);
+
+  const reset = useCallback(() => {
+    stop();
+    setProgress(null);
+    setSourceTitle(null);
+  }, [stop]);
+
+  const start = useCallback(
+    async (id: string, title?: string) => {
+      stop();
+      setSourceTitle(title ?? null);
+      setProgress({ current: 0, total: 1, status: 'pending', updatedAt: Date.now() });
+      try {
+        const { taskId } = await storybookApi.copyAsync(id);
+        const poll = async () => {
+          try {
+            const p = await storybookApi.copyProgress(taskId);
+            setProgress(p);
+            if (p.status === 'done') {
+              qc.invalidateQueries({ queryKey: ['storybooks'] });
+              return;
+            }
+            if (p.status === 'error') return;
+            pollingRef.current = setTimeout(poll, 700);
+          } catch (e) {
+            setProgress({
+              current: 0,
+              total: 1,
+              status: 'error',
+              error: (e as Error).message,
+              updatedAt: Date.now(),
+            });
+          }
+        };
+        void poll();
+      } catch (e) {
+        setProgress({
+          current: 0,
+          total: 1,
+          status: 'error',
+          error: (e as Error).message,
+          updatedAt: Date.now(),
+        });
+      }
+    },
+    [qc, stop]
+  );
+
+  return { progress, sourceTitle, start, reset };
 }
 
 /** /editor2 — base 책에서 새 레벨 variant 생성 (`${baseId}__L${level}`). */

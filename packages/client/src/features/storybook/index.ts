@@ -4,6 +4,7 @@ export {
   useSaveStorybook,
   usePatchStorybook,
   useCopyStorybook,
+  useCopyStorybookAsync,
   useDeleteStorybook,
   useCreateVariant,
   useGenerateStorybook,

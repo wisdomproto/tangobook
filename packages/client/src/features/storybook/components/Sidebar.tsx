@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   DndContext,
@@ -14,8 +14,9 @@ import {
   useStorybooks,
   useDeleteStorybook,
   usePatchStorybook,
-  useCopyStorybook,
+  useCopyStorybookAsync,
 } from '@/features/storybook';
+import { CopyProgressModal } from './CopyProgressModal';
 import { useEditorStore } from '@/store/editor.store';
 import { Button } from '@/design-system';
 import { Spinner } from '@/components/Spinner';
@@ -182,7 +183,7 @@ export function Sidebar() {
   // VocabularyUnitSidebarList import는 아래에서 동적으로 사용
   const deleteMutation = useDeleteStorybook();
   const patchMutation = usePatchStorybook();
-  const copyMutation = useCopyStorybook();
+  const copyAsync = useCopyStorybookAsync();
   const location = useLocation();
   const navigate = useNavigate();
   // /editor2 모드 — variant sibling 들 (`bid__L1` 등) 사이드바에서 숨김 (base 만 표시)
@@ -342,10 +343,20 @@ export function Sidebar() {
   };
 
   const handleCopy = (id: string) => {
-    copyMutation.mutate(id, {
-      onSuccess: (data) => setSelectedId(data.id),
-    });
+    const sb = storybooks?.find((s) => s.id === id);
+    void copyAsync.start(id, sb?.title);
   };
+
+  // 복사 done 시 새 책 자동 선택
+  const copyDoneHandled = useRef<string | null>(null);
+  if (
+    copyAsync.progress?.status === 'done' &&
+    copyAsync.progress.newId &&
+    copyDoneHandled.current !== copyAsync.progress.newId
+  ) {
+    copyDoneHandled.current = copyAsync.progress.newId;
+    setSelectedId(copyAsync.progress.newId);
+  }
 
   const handleView = (id: string) => {
     window.open(`/viewer/${id}`, '_blank');
@@ -781,6 +792,13 @@ export function Sidebar() {
           </div>
         ) : null}
       </DragOverlay>
+
+      {/* 동화책 복사 진행률 모달 */}
+      <CopyProgressModal
+        progress={copyAsync.progress}
+        sourceTitle={copyAsync.sourceTitle}
+        onClose={copyAsync.reset}
+      />
     </DndContext>
   );
 }

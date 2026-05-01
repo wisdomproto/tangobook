@@ -8,6 +8,8 @@ router.get('/:id', StorybookController.getById);
 router.post('/', StorybookController.save);
 router.delete('/:id', StorybookController.delete);
 router.post('/:id/copy', StorybookController.copy);
+router.post('/:id/copy-async', StorybookController.copyAsync);
+router.get('/copy-progress/:taskId', StorybookController.copyProgress);
 router.post('/:id/variants/:level', StorybookController.createVariant);
 router.post('/generate-story', StorybookController.generateStory);
 router.post('/generate', StorybookController.generate);

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { R2Repository } from '../repositories/r2.repository.js';
+import { copyR2Object, r2PublicUrl } from '../providers/r2.provider.js';
 import { generateTextWithGemini, getTextModel } from '../providers/gemini.provider.js';
 import { parseGeminiJSON } from '../utils/parse-gemini-json.js';
 import type {
@@ -18,6 +19,26 @@ import { VocabularyDbService } from './vocabulary-db.service.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROMPT_GUIDE = fs.readFileSync(path.resolve(__dirname, '../../prompt_guide.md'), 'utf-8');
+
+// 동화책 복사 진행률 (in-memory, fire-and-forget pattern)
+export interface CopyProgress {
+  current: number;
+  total: number;
+  status: 'pending' | 'done' | 'error';
+  newId?: string;
+  newTitle?: string;
+  error?: string;
+  updatedAt: number;
+}
+const copyProgressMap = new Map<string, CopyProgress>();
+// 30분 지난 진행률 정리
+setInterval(
+  () => {
+    const cutoff = Date.now() - 30 * 60 * 1000;
+    for (const [k, v] of copyProgressMap) if (v.updatedAt < cutoff) copyProgressMap.delete(k);
+  },
+  5 * 60 * 1000
+);
 
 export const StorybookService = {
   async list(): Promise<StorybookSummary[]> {
@@ -48,7 +69,51 @@ export const StorybookService = {
     );
   },
 
+  /** 동기 복사 (호환용) — 작은 책엔 OK. 큰 책은 copyAsync 권장. */
   async copy(id: string): Promise<Storybook> {
+    return this._copyImpl(id);
+  },
+
+  /** Fire-and-forget 복사 시작. taskId 반환 → 클라가 polling 으로 진행률 추적. */
+  copyAsync(id: string): { taskId: string } {
+    const taskId = `copy-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    copyProgressMap.set(taskId, {
+      current: 0,
+      total: 1,
+      status: 'pending',
+      updatedAt: Date.now(),
+    });
+    // fire-and-forget
+    this._copyImpl(id, taskId).catch((err) => {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error(`[copy ${taskId}] failed:`, msg);
+      copyProgressMap.set(taskId, {
+        current: 0,
+        total: 1,
+        status: 'error',
+        error: msg,
+        updatedAt: Date.now(),
+      });
+    });
+    return { taskId };
+  },
+
+  getCopyProgress(taskId: string): CopyProgress | null {
+    return copyProgressMap.get(taskId) ?? null;
+  },
+
+  async _copyImpl(id: string, taskId?: string): Promise<Storybook> {
+    const setProgress = (patch: Partial<CopyProgress>): void => {
+      if (!taskId) return;
+      const cur = copyProgressMap.get(taskId) ?? {
+        current: 0,
+        total: 1,
+        status: 'pending' as const,
+        updatedAt: Date.now(),
+      };
+      copyProgressMap.set(taskId, { ...cur, ...patch, updatedAt: Date.now() });
+    };
+
     const original = await R2Repository.getStorybook(id);
     if (!original) throw new AppError(404, '동화책을 찾을 수 없습니다.');
 
@@ -64,17 +129,84 @@ export const StorybookService = {
       if (match) maxNum = Math.max(maxNum, parseInt(match[1], 10));
     }
 
-    // 전체 자산(이미지/TTS/오디오북/파닉스 미디어/styleAssets) 그대로 복사.
-    // R2 객체는 URL 공유 — 원본을 지우면 사본 미디어도 함께 사라질 수 있음 (사용자 인지 필요).
-    const copy: Storybook = {
+    const newId = Date.now().toString();
+
+    // 1) 영상 데이터 제거 (사용자 정책: 동영상은 복사 X — 용량 큼)
+    const stripped: Storybook = {
       ...original,
-      id: Date.now().toString(),
+      id: newId,
       title: `${baseTitle}-복사본(${maxNum + 1})`,
       createdAt: new Date().toISOString(),
       updatedAt: undefined,
+      audiobookProjects: undefined,
+      longformProjects: undefined,
     };
 
-    return R2Repository.saveStorybook(copy);
+    // 2) JSON 문자열로 직렬화 → 모든 R2 URL 추출
+    let json = JSON.stringify(stripped);
+    const escapedPrefix = r2PublicUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const urlRegex = new RegExp(`${escapedPrefix}/[^"\\s]+`, 'g');
+    const uniqueUrls = new Set<string>();
+    for (const match of json.matchAll(urlRegex)) uniqueUrls.add(match[0]);
+
+    // 3) 공유 라이브러리 prefix 는 dup 안 함 (URL 그대로 — 모든 책이 공유)
+    const sharedPrefixes = [
+      'phonics-library/',
+      'background-music/',
+      'system-sounds/',
+      'hori/',
+      'mascot/',
+      'strategy-samples/',
+      'collection-',
+    ];
+    const isShared = (key: string) => sharedPrefixes.some((p) => key.startsWith(p));
+
+    // 4) URL → newKey 매핑 + R2 CopyObject 병렬 (zero-copy, ~50ms each)
+    const dupTargets = [...uniqueUrls].filter((u) => !isShared(u.slice(r2PublicUrl.length + 1)));
+    setProgress({
+      current: 0,
+      total: dupTargets.length + 1, // +1 = 마지막 saveStorybook 단계
+      status: 'pending',
+    });
+
+    const urlMap = new Map<string, string>();
+    let done = 0;
+    await Promise.all(
+      dupTargets.map(async (oldUrl) => {
+        const oldKey = oldUrl.slice(r2PublicUrl.length + 1);
+        const newKey = oldKey.includes(original.id)
+          ? oldKey.replace(original.id, newId)
+          : `${newId}-${oldKey}`;
+        try {
+          await copyR2Object(oldKey, newKey);
+          urlMap.set(oldUrl, `${r2PublicUrl}/${newKey}`);
+        } catch (e) {
+          console.warn(`[copy] R2 dup failed ${oldKey}: ${(e as Error).message}`);
+        } finally {
+          done++;
+          setProgress({ current: done });
+        }
+      })
+    );
+
+    // 5) JSON 문자열에서 모든 URL 치환 (split/join 으로 안전한 literal replace)
+    for (const [oldUrl, newUrl] of urlMap) {
+      json = json.split(oldUrl).join(newUrl);
+    }
+
+    const copy = JSON.parse(json) as Storybook;
+    const saved = await R2Repository.saveStorybook(copy);
+    setProgress({
+      current: dupTargets.length + 1,
+      total: dupTargets.length + 1,
+      status: 'done',
+      newId: saved.id,
+      newTitle: saved.title,
+    });
+    console.log(
+      `[copy${taskId ? ' ' + taskId : ''}] ${original.id} → ${newId}: ${uniqueUrls.size} URLs, ${urlMap.size} duplicated, ${uniqueUrls.size - urlMap.size} shared/failed`
+    );
+    return saved;
   },
 
   /**
