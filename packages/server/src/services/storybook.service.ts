@@ -64,68 +64,14 @@ export const StorybookService = {
       if (match) maxNum = Math.max(maxNum, parseInt(match[1], 10));
     }
 
+    // 전체 자산(이미지/TTS/오디오북/파닉스 미디어/styleAssets) 그대로 복사.
+    // R2 객체는 URL 공유 — 원본을 지우면 사본 미디어도 함께 사라질 수 있음 (사용자 인지 필요).
     const copy: Storybook = {
       ...original,
       id: Date.now().toString(),
       title: `${baseTitle}-복사본(${maxNum + 1})`,
       createdAt: new Date().toISOString(),
       updatedAt: undefined,
-      // 표지 이미지 제거
-      coverImage: undefined,
-      coverImageHistory: undefined,
-      // 캐릭터 이미지 제거
-      characters: original.characters.map((c) => ({
-        ...c,
-        referenceImage: undefined,
-        imageHistory: undefined,
-      })),
-      // 페이지 삽화/TTS 제거
-      pages: original.pages.map((p) => ({
-        ...p,
-        illustrationUrl: undefined,
-        illustrationHistory: undefined,
-        ttsUrl: undefined,
-      })),
-      // 사물/어휘 이미지 제거
-      keyObjectImages: undefined,
-      vocabularyImages: undefined,
-      // 오디오북 제거
-      audiobookProjects: undefined,
-      backgroundMusicUrl: undefined,
-      // 파닉스: 텍스트 데이터는 유지, 미디어 URL 제거
-      ...(original.type === 'phonics'
-        ? {
-            flashcards: original.flashcards?.map((f) => ({
-              ...f,
-              imageUrl: undefined,
-              imageHistory: undefined,
-              ttsUrl: undefined,
-            })),
-            chant: original.chant
-              ? { ...original.chant, ttsUrl: undefined, bgmUrl: undefined }
-              : undefined,
-            worksheets: original.worksheets?.map((w) => ({
-              ...w,
-              pdfUrl: undefined,
-              items: w.items.map((i) => ({ ...i, imageUrl: undefined })),
-            })),
-            phonicsLesson: original.phonicsLesson
-              ? {
-                  ...original.phonicsLesson,
-                  blending: original.phonicsLesson.blending.map((b) => ({
-                    ...b,
-                    vowelImageUrl: undefined,
-                    consonantImageUrl: undefined,
-                    exampleWordImageUrl: undefined,
-                  })),
-                  wordFamilies: original.phonicsLesson.wordFamilies.map((wf) => ({
-                    ...wf,
-                    words: wf.words.map((w) => ({ ...w, imageUrl: undefined, ttsUrl: undefined })),
-                  })),
-                }
-              : undefined,
-          }
-        : {}),
     };
 
     return R2Repository.saveStorybook(copy);
