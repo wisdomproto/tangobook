@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   DndContext,
   DragOverlay,
@@ -184,9 +184,11 @@ export function Sidebar() {
   const patchMutation = usePatchStorybook();
   const copyMutation = useCopyStorybook();
   const location = useLocation();
+  const navigate = useNavigate();
   // /editor2 모드 — variant sibling 들 (`bid__L1` 등) 사이드바에서 숨김 (base 만 표시)
   // /editor (백업) 은 기존처럼 모든 책 flat 으로 표시
   const groupVariants = location.pathname.startsWith('/editor2');
+  const inEditor2 = groupVariants;
 
   const selectedId = useEditorStore((s) => s.selectedStorybookId);
   const setSelectedId = useEditorStore((s) => s.setSelectedStorybookId);
@@ -448,6 +450,14 @@ export function Sidebar() {
                     setTypeFilter('phonics-ko');
                   }
                   setCategory('all');
+                  // 탭 전환 시 URL 의 unitId/bid 제거 — AppLayoutV2 분기 stuck 방지
+                  if (
+                    inEditor2 &&
+                    (location.pathname.includes('/vocab/') ||
+                      /\/editor2\/[^/]+$/.test(location.pathname))
+                  ) {
+                    navigate('/editor2');
+                  }
                 }}
                 className={`flex-1 py-3 text-xs font-semibold text-center transition-colors border-b-2 ${
                   active
@@ -703,7 +713,13 @@ export function Sidebar() {
                       (groupVariants && selectedId?.startsWith(`${sb.id}__L`)) ||
                       false
                     }
-                    onSelect={() => setSelectedId(sb.id)}
+                    onSelect={() => {
+                      setSelectedId(sb.id);
+                      // /editor2 에서 어휘 unitId URL 잔존 시 동화책으로 갈아탈 때 분기 stuck 방지
+                      if (inEditor2 && location.pathname.includes('/vocab/')) {
+                        navigate(`/editor2/${sb.id}`);
+                      }
+                    }}
                     onDelete={() => setDeleteTarget({ id: sb.id, title: sb.title })}
                     onView={() => handleView(sb.id)}
                     onCopy={() => handleCopy(sb.id)}
