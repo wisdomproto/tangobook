@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useBookIndex } from '@/features/book-v2';
-import { CategorySection, BookCard } from '@/features/library';
+import { CategorySection, BookCard, useReadingStatus } from '@/features/library';
 import { StateScreen } from '@/design-system';
 import { SkeletonBookCard } from '@/design-system';
 import { cn } from '@/lib/cn';
@@ -30,9 +30,11 @@ const getCategoryIcon = (cat: string) => CATEGORY_ICON[cat] ?? '📚';
 export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   const { data: index, isLoading, isError } = useBookIndex();
   const all = index?.books;
+  const { data: statusMap } = useReadingStatus();
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState<'recent' | 'title'>('recent');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [readingFilter, setReadingFilter] = useState(false);
   const [phonicsLang, setPhonicsLang] = useState<PhonicsLang>('all');
 
   const matchesType = (b: BookIndexEntry): boolean => {
@@ -58,12 +60,15 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     const byCat = activeCategory
       ? searched.filter((b) => (b.category || '기타') === activeCategory)
       : searched;
-    return [...byCat].sort((a, b) =>
+    const byReading = readingFilter
+      ? byCat.filter((b) => statusMap?.get(b.id) === 'reading')
+      : byCat;
+    return [...byReading].sort((a, b) =>
       sortBy === 'recent'
         ? (b.updatedAt ?? '').localeCompare(a.updatedAt ?? '')
         : a.title.localeCompare(b.title, 'ko')
     );
-  }, [all, type, phonicsLang, search, sortBy, activeCategory]);
+  }, [all, type, phonicsLang, search, sortBy, activeCategory, readingFilter, statusMap]);
 
   // 카테고리 chip — 동화책일 때만
   const allCategories = useMemo(() => {
@@ -84,8 +89,15 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     return [...counts.entries()].sort((a, b) => b[1] - a[1]);
   }, [all, type, search]);
 
-  // 카테고리 chip 미선택 + 동화책 → 카테고리별 섹션, 그 외 → 플랫 그리드
-  const showCategoryGroups = type === 'storybook' && !activeCategory;
+  // 카테고리 chip 미선택 + 동화책 + 읽는 중 필터 X → 카테고리별 섹션, 그 외 → 플랫 그리드
+  const showCategoryGroups = type === 'storybook' && !activeCategory && !readingFilter;
+  // 읽는 중 책 카운트 (chip 옆 표시 + chip 자체 노출 여부)
+  const readingCount = useMemo(() => {
+    if (!statusMap || statusMap.size === 0 || type !== 'storybook') return 0;
+    let n = 0;
+    for (const v of statusMap.values()) if (v === 'reading') n++;
+    return n;
+  }, [statusMap, type]);
   const grouped = useMemo(() => {
     if (!showCategoryGroups) return null;
     const map = new Map<string, BookIndexEntry[]>();
@@ -168,24 +180,50 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
           </div>
         )}
 
-        {/* 카테고리 chip — 동화책 (카운트는 활성/전체만) */}
-        {type === 'storybook' && allCategories.length > 1 && (
+        {/* 카테고리 chip + 읽는 중 chip — 동화책 (단일 선택) */}
+        {type === 'storybook' && (allCategories.length > 1 || readingCount > 0) && (
           <div className="flex gap-2 mb-5 overflow-x-auto pb-1">
             <button
-              onClick={() => setActiveCategory(null)}
+              onClick={() => {
+                setActiveCategory(null);
+                setReadingFilter(false);
+              }}
               className={cn(
                 'px-4 py-1.5 rounded-full font-bold text-sm whitespace-nowrap transition-all shrink-0',
-                activeCategory === null
+                activeCategory === null && !readingFilter
                   ? 'bg-ink-900 text-white shadow-soft'
                   : 'bg-white text-ink-700 hover:bg-peach-100'
               )}
             >
               전체
             </button>
+            {readingCount > 0 && (
+              <button
+                onClick={() => {
+                  setActiveCategory(null);
+                  setReadingFilter((v) => !v);
+                }}
+                className={cn(
+                  'px-4 py-1.5 rounded-full font-bold text-sm whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0',
+                  readingFilter
+                    ? 'bg-warn text-ink-900 shadow-soft'
+                    : 'bg-white text-ink-700 hover:bg-warn/20'
+                )}
+              >
+                <span>📖</span>
+                <span>읽는 중</span>
+                <span className={readingFilter ? 'opacity-80' : 'text-ink-500'}>
+                  {readingCount}
+                </span>
+              </button>
+            )}
             {allCategories.map(([cat, count]) => (
               <button
                 key={cat}
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => {
+                  setActiveCategory(cat);
+                  setReadingFilter(false);
+                }}
                 className={cn(
                   'px-4 py-1.5 rounded-full font-bold text-sm whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0',
                   activeCategory === cat
