@@ -1,0 +1,97 @@
+# 롱폼 영상 모듈
+
+Grok image-to-video + Gemini 분석 + Pillow/ffmpeg 렌더링 + YouTube 업로드.
+
+## 폴더 구조
+
+```
+features/longform-video/
+  api/longform.api.ts               # analyze, generateClip, generateAll, render, progress 폴링
+  utils/timeline.utils.ts           # getEffectiveDuration, getSceneStartTime
+  utils/ffmpeg-loader.ts            # FFmpeg.wasm 싱글톤 (fallback용, 미사용)
+  utils/subtitle-canvas.ts          # Canvas 자막 PNG (fallback용)
+  utils/client-renderer.ts          # 클라이언트 렌더러 (fallback용, 미사용)
+  hooks/
+    useLongformProject.ts           # 프로젝트 생성/삭제/기본값
+    useTimeline.ts                  # 타임라인 상태 (play/pause/seek/trim/split/reorder)
+    usePromptPresets.ts             # 프롬프트 프리셋 CRUD
+  components/
+    LongformVideoTab.tsx            # 메인 탭 (4단계 라우팅)
+    PromptAnalysisStep.tsx          # Step 1: AI 프롬프트 분석
+    VideoGenerationStep.tsx         # Step 2: Grok 영상 생성 (개별/전체)
+    TimelineEditorStep.tsx          # Step 3: 타임라인 편집 (오케스트레이터)
+    TimelinePreview.tsx             # 비디오 프리뷰 + 자막 오버레이
+    TimelineControls.tsx            # 재생/시크/분할
+    TimelineTrack.tsx               # 트랙 (video/sfx/subtitle/tts/bgm)
+    TimelineClip.tsx                # 클립 (리사이즈/이동/재정렬 드래그)
+    SubtitleStyleModal.tsx          # 자막 스타일
+    RenderStep.tsx                  # Step 4: 서버 렌더링 + YouTube 업로드
+    PromptPresetModal.tsx           # 프롬프트 프리셋 관리
+```
+
+## 서버 구조
+
+```
+server/src/
+  services/longform.service.ts          # 분석/생성/렌더/진행률/YouTube/AI메타
+  services/youtube-preset.service.ts    # YouTube 프롬프트 프리셋 (R2)
+  controllers/longform.controller.ts
+  controllers/youtube-preset.controller.ts
+  routes/longform.routes.ts             # /api/longform/* + /youtube/*
+  routes/youtube-preset.routes.ts       # /api/youtube-presets/*
+  providers/grok.provider.ts            # xAI Grok image-to-video, 720p
+  providers/youtube.provider.ts         # Google YouTube API (OAuth2 + upload + thumbnail)
+  providers/longform.provider.ts        # Python 렌더링 호출 (LongformRenderOptions)
+  scripts/generate_longform.py          # Pillow 자막 PNG + ffmpeg overlay/concat/amix
+```
+
+## 파이프라인
+
+1. **프롬프트 분석** (Gemini): 페이지별 videoPrompt + Motion Matching (이전 장면 카메라 참조)
+   - **AI 분석**: `POST /api/longform/analyze` — fire-and-forget + progressMap 폴링
+   - **수동 제작**: `POST /api/longform/analyze-manual` — AI 없이 TTS 길이/clipDuration/자막만 채움. videoPrompt 보존, 프리셋 불필요.
+   - progressMap에 `updatedAt` + 15초 하트비트 (finally에서 clearInterval)
+   - 클라 stale detection: null 1분 또는 활동 15분 멈춤 시 에러 + 폴링 중단
+   - `getAudioDuration`: fetch/ffmpeg 각 15초 타임아웃
+2. **클립 생성** (Grok xAI): image-to-video, "no music/text/subtitles" 자동 포함, 720p
+3. **타임라인 편집**: 트리밍 (trimStart/trimEnd), SFX/TTS 오프셋, 장면 순서 드래그, 분할
+4. **렌더링** (네이티브 ffmpeg): Pillow → ffmpeg overlay → xfade 크로스디졸브 → amix → MP4
+5. **YouTube**: OAuth2 → AI 메타 생성(프롬프트 프리셋) → 업로드 + 썸네일
+
+## 렌더링 (`generate_longform.py`)
+
+- MoviePy 완전 제거 → Pillow + ffmpeg subprocess
+- Phase 1: 병렬 다운로드 (ThreadPoolExecutor 6워커)
+- Phase 2: 씬별 Pillow 자막 PNG → ffmpeg overlay (한글 자동 줄바꿈, 외곽선, 반투명 배경)
+- Phase 3: ffmpeg xfade (기본 0.5초)
+- Phase 4: ffmpeg amix (SFX/TTS adelay + BGM, normalize=0)
+- 최종: `-movflags +faststart` (브라우저 스트리밍)
+- 프로덕션 = 시스템 ffmpeg (drawtext/libfreetype), 로컬 = ffmpeg-static
+- 방어: ≤0.1초/0바이트 클립 스킵, xfade transition이 최단 장면보다 길면 자동 축소
+- Node 측 `longform.provider.ts`: 비-JSON stderr를 tail 버퍼(30줄)에 누적
+
+## YouTube 업로드
+
+- OAuth2 다채널 (`system/youtube-channels.json`)
+- AI 메타: 프롬프트 프리셋 + 동화책 정보 → Gemini → title/description/tags/privacy/category/language JSON
+- `POST /api/longform/youtube/generate-meta`
+- `YouTubePreset { id, name, prompt, createdAt }` — R2에 JSON 저장
+- 썸네일 sharp 1280×720 JPEG
+- fire-and-forget + polling
+- **다채널 자막 업로드**: `YouTubeUploadResult.channelId` 저장 → `captions.insert` 동일 채널로 호출. 누락 시 `findChannelIdForVideo` 보정
+- **수동 연결**: `POST /api/{audiobooks|longform}/youtube/link-video` (URL 또는 11자 ID 파싱)
+
+## LongformScene 핵심 필드
+
+- `clipDuration`, `trimStart?`, `trimEnd?` — 트리밍
+- `sfxUrl`, `sfxOffset?`, `sfxVolume` — 효과음
+- `ttsUrl`, `ttsOffset?`, `ttsDuration?` — 나레이션
+- `subtitles[]` — 자막 (startTime/endTime 상대값)
+- `clipHistory[]` — 이전 클립 히스토리
+
+## 다국어 버전 (master ↔ version)
+
+- 최상위 = master, 자식 = version (`parentProjectId = master.id`)
+- `addVersion()`: master scenes 복제 (clipUrl 포함), 타임라인 편집값(trim/offset)만 리셋
+- **재분석 보존**: pageNumber 매칭된 기존 씬의 `clipUrl`/`clipHistory`/`trim*`/`sfxUrl`/offset/볼륨 유지, 언어 종속(videoPrompt/subtitles/ttsUrl/ttsDuration)만 갱신
+- **자동 fallback**: 자식 버전 씬 clipUrl 누락 시 master 같은 pageNumber에서 복사 (TimelineEditorStep effect)
