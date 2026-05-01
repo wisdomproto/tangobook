@@ -25,6 +25,10 @@ Remotion v4 기반 오디오북 영상 생성. Player 프리뷰 + 서버 렌더�
 
 `includeTts`/`includeSubtitles`/`includeCover`/`includeBgm` 은 `!== false`로 체크 (레거시 undefined 대응)
 
+## YouTube Upload → R2 Auto-Cleanup (2026-05-01 정책)
+
+업로드 성공 시 R2 archive mp4 자동 삭제 + `project.outputUrl=undefined`. YouTube 가 master copy. 상세: [memory/youtube-r2-cleanup-policy.md](../../../../../memory/youtube-r2-cleanup-policy.md).
+
 ## TTS 길이 캐시
 
 `hooks/useTtsDurations`: 모듈 레벨 `durationCache` Map으로 영구 캐시. `loading`은 파생 상태 — 컴포넌트 재마운트 시 stuck loading 방지.

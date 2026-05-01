@@ -70,6 +70,10 @@ server/src/
 - 방어: ≤0.1초/0바이트 클립 스킵, xfade transition이 최단 장면보다 길면 자동 축소
 - Node 측 `longform.provider.ts`: 비-JSON stderr를 tail 버퍼(30줄)에 누적
 
+## YouTube Upload → R2 Auto-Cleanup (2026-05-01 정책)
+
+업로드 성공 시 R2 archive mp4 자동 삭제 + `project.outputUrl=undefined`. YouTube 가 master copy. UI 의 R2 preview/download/short 섹션은 `{project.outputUrl && ...}` 조건부 → 자동 hide. 1회 정리: `cleanup-youtube-uploaded-mp4.mjs`. 상세: [memory/youtube-r2-cleanup-policy.md](../../../../../memory/youtube-r2-cleanup-policy.md).
+
 ## YouTube 업로드
 
 - OAuth2 다채널 (`system/youtube-channels.json`)

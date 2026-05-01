@@ -61,6 +61,37 @@ TopBar 우측 `ResourcesDropdown` (`components/TopBar.tsx`) — 정적 HTML 페�
 
 ---
 
+## YouTube Upload → R2 Auto-Cleanup (2026-05-01 정책)
+YouTube 업로드 성공 시 R2 archive mp4 자동 삭제. YouTube 가 master copy. R2 비용 절약.
+
+**구현 위치**:
+- `audiobook.service.ts#uploadToYouTube` (line ~325)
+- `longform.service.ts#uploadToYouTube` (line ~1170)
+
+**패턴**:
+```ts
+const oldOutputUrl = project.outputUrl;
+project.youtubeUpload = { videoId, ... };
+project.outputUrl = undefined;
+await R2Repository.saveStorybook(storybook);
+
+if (oldOutputUrl) {
+  deleteFromR2(urlToR2Key(oldOutputUrl)).catch(err => console.warn(...));
+}
+```
+
+**UI 처리**: `RenderStep.tsx` 의 R2 preview/download 섹션은 `{project.outputUrl && ...}` 조건부 → outputUrl 사라지면 자동 hide. 사용자는 YouTube embed/link 로 영상 확인.
+
+**1회 정리 스크립트**: `packages/server/scripts/cleanup-youtube-uploaded-mp4.mjs`
+- dry-run (default) → list 만 / `--apply` → 실삭제
+- 정책 변경 후 잔여 mp4 정리에 재사용 가능
+
+**1회 정리 결과 (2026-05-01)**: 39 mp4 / 6.44 GB 회수.
+
+상세: [memory/youtube-r2-cleanup-policy.md](../memory/youtube-r2-cleanup-policy.md)
+
+---
+
 ## Storybook Copy — Deep Clone + 진행률 (2026-05-01)
 동화책 복사 시 R2 객체를 zero-copy CopyObject 로 복제 (URL 분리). 영상 mp4 는 복사 X (용량). 공유 라이브러리(phonics-library/BGM/system-sounds/hori/mascot/strategy-samples/collection) 는 URL 그대로.
 

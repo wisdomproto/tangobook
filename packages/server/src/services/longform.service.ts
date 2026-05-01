@@ -1167,6 +1167,8 @@ export const LongformService = {
     );
 
     // 3. 결과 먼저 저장 (썸네일 실패해도 영상 업로드 결과는 보존)
+    // 정책 (2026-05-01): YouTube 가 mp4 master copy → R2 archive 즉시 삭제 (R2 비용 절약)
+    const oldOutputUrl = project.outputUrl;
     project.youtubeUpload = {
       videoId: result.videoId,
       videoUrl: result.videoUrl,
@@ -1175,7 +1177,15 @@ export const LongformService = {
       channelId: result.channelId,
       ...(meta.publishAt ? { publishAt: meta.publishAt } : {}),
     };
+    project.outputUrl = undefined;
     await R2Repository.saveStorybook(storybook);
+
+    if (oldOutputUrl) {
+      const oldKey = urlToR2Key(oldOutputUrl);
+      deleteFromR2(oldKey).catch((err) =>
+        console.warn(`[longform-youtube] R2 mp4 삭제 실패 (${oldKey}):`, (err as Error).message)
+      );
+    }
 
     // 4. Optional: upload thumbnail (실패해도 무시)
     if (meta.thumbnailUrl) {

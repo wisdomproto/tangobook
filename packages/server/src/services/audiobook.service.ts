@@ -322,6 +322,8 @@ export const AudiobookService = {
     );
 
     // 3. Save result immediately (before thumbnail — prevents loss on thumbnail failure)
+    // 정책 (2026-05-01): YouTube 가 mp4 master copy → R2 archive 즉시 삭제 (R2 비용 절약)
+    const oldOutputUrl = project.outputUrl;
     project.youtubeUpload = {
       videoId: result.videoId,
       videoUrl: result.videoUrl,
@@ -330,7 +332,15 @@ export const AudiobookService = {
       channelId: result.channelId,
       ...(meta.publishAt ? { publishAt: meta.publishAt } : {}),
     };
+    project.outputUrl = undefined;
     await R2Repository.saveStorybook(storybook);
+
+    if (oldOutputUrl) {
+      const oldKey = urlToR2Key(oldOutputUrl);
+      deleteFromR2(oldKey).catch((err) =>
+        console.warn(`[audiobook-youtube] R2 mp4 삭제 실패 (${oldKey}):`, (err as Error).message)
+      );
+    }
 
     // 4. Optional thumbnail upload
     if (meta.thumbnailUrl) {
