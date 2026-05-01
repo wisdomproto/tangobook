@@ -6,33 +6,13 @@ import { SkeletonBookCard } from '@/design-system';
 import { cn } from '@/lib/cn';
 import type { BookIndexEntry } from '@tangobook/shared';
 
-type TabId = 'storybook' | 'korean-phonics' | 'english-phonics';
+type LibraryType = 'storybook' | 'phonics';
+type PhonicsLang = 'all' | 'korean' | 'english';
 
-const TABS: Array<{
-  id: TabId;
-  icon: string;
-  label: string;
-  match: (b: BookIndexEntry) => boolean;
-}> = [
-  {
-    id: 'storybook',
-    icon: '📖',
-    label: '동화책',
-    match: (b) => !b.type || b.type === 'storybook',
-  },
-  {
-    id: 'korean-phonics',
-    icon: '🇰🇷',
-    label: '한글 파닉스',
-    match: (b) => b.type === 'phonics' && b.phonicsLanguage === 'korean',
-  },
-  {
-    id: 'english-phonics',
-    icon: '🇺🇸',
-    label: '영어 파닉스',
-    match: (b) => b.type === 'phonics' && b.phonicsLanguage === 'english',
-  },
-];
+interface LibraryPageProps {
+  /** 동화책 페이지 vs 파닉스 페이지 분기. AppShell 좌측 nav 의 3축 중 어느 쪽인지. */
+  type?: LibraryType;
+}
 
 const CATEGORY_ICON: Record<string, string> = {
   동물: '🐾',
@@ -47,26 +27,28 @@ const CATEGORY_ICON: Record<string, string> = {
 };
 const getCategoryIcon = (cat: string) => CATEGORY_ICON[cat] ?? '📚';
 
-export default function LibraryPage() {
+export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   const { data: index, isLoading, isError } = useBookIndex();
   const all = index?.books;
-  const [activeTab, setActiveTab] = useState<TabId>('storybook');
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState<'recent' | 'title'>('recent');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [phonicsLang, setPhonicsLang] = useState<PhonicsLang>('all');
 
-  // 탭 전환 시 카테고리 필터 리셋
-  const handleTabChange = (id: TabId) => {
-    setActiveTab(id);
-    setActiveCategory(null);
+  const matchesType = (b: BookIndexEntry): boolean => {
+    if (type === 'storybook') return !b.type || b.type === 'storybook';
+    if (type === 'phonics') {
+      if (b.type !== 'phonics') return false;
+      if (phonicsLang === 'all') return true;
+      return b.phonicsLanguage === phonicsLang;
+    }
+    return false;
   };
 
   const filtered = useMemo<BookIndexEntry[]>(() => {
     if (!all) return [];
-    // 뷰어에는 저작도구에서 "공개"로 체크된 책만 노출
     const publicOnly = all.filter((b) => b.isPublic);
-    const tab = TABS.find((t) => t.id === activeTab)!;
-    const result = publicOnly.filter(tab.match);
+    const result = publicOnly.filter(matchesType);
     const q = search.trim().toLowerCase();
     const searched = q
       ? result.filter(
@@ -81,16 +63,15 @@ export default function LibraryPage() {
         ? (b.updatedAt ?? '').localeCompare(a.updatedAt ?? '')
         : a.title.localeCompare(b.title, 'ko')
     );
-  }, [all, activeTab, search, sortBy, activeCategory]);
+  }, [all, type, phonicsLang, search, sortBy, activeCategory]);
 
-  // 카테고리 필터 칩 — 동화책 탭일 때만. 탭·검색 적용 후의 책들에서 카테고리 추출.
+  // 카테고리 chip — 동화책일 때만
   const allCategories = useMemo(() => {
-    if (activeTab !== 'storybook' || !all) return [];
-    const tab = TABS.find((t) => t.id === activeTab)!;
+    if (type !== 'storybook' || !all) return [];
     const q = search.trim().toLowerCase();
     const base = all
-      .filter((b) => b.isPublic) // 뷰어: 공개 책만
-      .filter(tab.match)
+      .filter((b) => b.isPublic)
+      .filter(matchesType)
       .filter(
         (b) =>
           !q || b.title.toLowerCase().includes(q) || (b.category ?? '').toLowerCase().includes(q)
@@ -100,13 +81,13 @@ export default function LibraryPage() {
       const k = b.category || '기타';
       counts.set(k, (counts.get(k) ?? 0) + 1);
     });
-    return [...counts.entries()].sort((a, b) => b[1] - a[1]); // 많은 순
-  }, [all, activeTab, search]);
+    return [...counts.entries()].sort((a, b) => b[1] - a[1]);
+  }, [all, type, search]);
 
-  // 카테고리 필터 선택된 경우 섹션 묶기 해제하고 플랫 그리드로
-  const showCategories = activeTab === 'storybook' && !activeCategory;
+  // 카테고리 chip 미선택 + 동화책 → 카테고리별 섹션, 그 외 → 플랫 그리드
+  const showCategoryGroups = type === 'storybook' && !activeCategory;
   const grouped = useMemo(() => {
-    if (!showCategories) return null;
+    if (!showCategoryGroups) return null;
     const map = new Map<string, BookIndexEntry[]>();
     filtered.forEach((b) => {
       const key = b.category || '기타';
@@ -114,21 +95,17 @@ export default function LibraryPage() {
       map.get(key)!.push(b);
     });
     return [...map.entries()];
-  }, [filtered, showCategories]);
+  }, [filtered, showCategoryGroups]);
 
-  const tabCounts = useMemo(() => {
-    const counts: Record<TabId, number> = {
-      storybook: 0,
-      'korean-phonics': 0,
-      'english-phonics': 0,
+  // 파닉스 한/영 카운트
+  const phonicsCounts = useMemo(() => {
+    if (type !== 'phonics' || !all) return { korean: 0, english: 0 };
+    const pub = all.filter((b) => b.isPublic && b.type === 'phonics');
+    return {
+      korean: pub.filter((b) => b.phonicsLanguage === 'korean').length,
+      english: pub.filter((b) => b.phonicsLanguage === 'english').length,
     };
-    all?.forEach((b) =>
-      TABS.forEach((t) => {
-        if (t.match(b)) counts[t.id]++;
-      })
-    );
-    return counts;
-  }, [all]);
+  }, [all, type]);
 
   if (isError) {
     return (
@@ -142,67 +119,65 @@ export default function LibraryPage() {
   }
 
   return (
-    <div className="bg-gradient-to-b from-cream-50 to-peach-100 dark:from-darkbg dark:to-slate-900 min-h-full">
-      <div className="max-w-[1440px] mx-auto p-5 md:p-7">
-        {/* 탭 */}
-        <div className="flex gap-2 mb-4 overflow-x-auto">
-          {TABS.map((t) => (
-            <button
-              key={t.id}
-              onClick={() => handleTabChange(t.id)}
-              className={cn(
-                'px-5 py-2.5 rounded-md font-black text-sm whitespace-nowrap flex items-center gap-2 transition-all',
-                activeTab === t.id
-                  ? 'bg-coral-500 text-white shadow-pop'
-                  : 'bg-transparent text-ink-500 hover:bg-peach-100'
-              )}
-            >
-              <span>{t.icon}</span>
-              <span>{t.label}</span>
-              <span
-                className={cn(
-                  'text-[11px] px-2 py-0.5 rounded-md',
-                  activeTab === t.id ? 'bg-white/30' : 'bg-ink-100 text-ink-700'
-                )}
-              >
-                {tabCounts[t.id]}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        {/* 검색 + 정렬 */}
-        <div className="flex gap-3 mb-4 flex-wrap">
-          <div className="flex-1 min-w-[200px] bg-white rounded-md px-5 py-3 shadow-soft flex items-center gap-2">
-            <span>🔍</span>
-            <input
-              type="text"
-              placeholder="무슨 책 찾을까?"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 outline-none text-base bg-transparent text-ink-900 placeholder:text-ink-500 font-semibold"
-            />
-          </div>
+    <div className="bg-gradient-to-b from-cream-50 to-peach-100 min-h-full">
+      <div className="max-w-[1440px] mx-auto px-5 md:px-7 py-5">
+        {/* 검색 (정렬 select 제거 — 시각 노이즈) */}
+        <div className="mb-4 bg-white rounded-2xl px-5 py-3 shadow-soft flex items-center gap-2">
+          <span className="text-ink-500">🔍</span>
+          <input
+            type="text"
+            placeholder={type === 'storybook' ? '무슨 책 찾을까?' : '어떤 파닉스 찾을까?'}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="flex-1 outline-none text-base bg-transparent text-ink-900 placeholder:text-ink-500 font-semibold"
+          />
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as 'recent' | 'title')}
-            className="bg-white rounded-md px-4 py-3 shadow-soft font-bold text-sm text-ink-900"
+            className="bg-transparent text-xs font-bold text-ink-500 outline-none"
           >
-            <option value="recent">🆕 최신순</option>
-            <option value="title">🔤 제목순</option>
+            <option value="recent">최신순</option>
+            <option value="title">제목순</option>
           </select>
         </div>
 
-        {/* 카테고리 필터 (동화책 탭에서만) */}
-        {activeTab === 'storybook' && allCategories.length > 1 && (
-          <div className="flex gap-2 mb-6 overflow-x-auto pb-1">
+        {/* 파닉스 한/영 chip */}
+        {type === 'phonics' && (
+          <div className="flex gap-2 mb-5">
+            {(
+              [
+                { id: 'all', label: '전체', count: phonicsCounts.korean + phonicsCounts.english },
+                { id: 'korean', label: '한글', count: phonicsCounts.korean },
+                { id: 'english', label: '영어', count: phonicsCounts.english },
+              ] as const
+            ).map((c) => (
+              <button
+                key={c.id}
+                onClick={() => setPhonicsLang(c.id)}
+                className={cn(
+                  'px-4 py-1.5 rounded-full font-bold text-sm transition-all',
+                  phonicsLang === c.id
+                    ? 'bg-success text-white shadow-soft'
+                    : 'bg-white text-ink-700 hover:bg-success/10'
+                )}
+              >
+                {c.label}
+                {phonicsLang === c.id && <span className="ml-1.5 opacity-80">{c.count}</span>}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* 카테고리 chip — 동화책 (카운트는 활성/전체만) */}
+        {type === 'storybook' && allCategories.length > 1 && (
+          <div className="flex gap-2 mb-5 overflow-x-auto pb-1">
             <button
               onClick={() => setActiveCategory(null)}
               className={cn(
-                'px-4 py-2 rounded-md font-bold text-sm whitespace-nowrap transition-all shrink-0',
+                'px-4 py-1.5 rounded-full font-bold text-sm whitespace-nowrap transition-all shrink-0',
                 activeCategory === null
                   ? 'bg-ink-900 text-white shadow-soft'
-                  : 'bg-white text-ink-700 hover:bg-peach-100 shadow-soft'
+                  : 'bg-white text-ink-700 hover:bg-peach-100'
               )}
             >
               전체
@@ -212,22 +187,15 @@ export default function LibraryPage() {
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={cn(
-                  'px-4 py-2 rounded-md font-bold text-sm whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0',
+                  'px-4 py-1.5 rounded-full font-bold text-sm whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0',
                   activeCategory === cat
-                    ? 'bg-coral-500 text-white shadow-pop'
-                    : 'bg-white text-ink-700 hover:bg-peach-100 shadow-soft'
+                    ? 'bg-coral-500 text-white shadow-soft'
+                    : 'bg-white text-ink-700 hover:bg-peach-100'
                 )}
               >
                 <span>{getCategoryIcon(cat)}</span>
                 <span>{cat}</span>
-                <span
-                  className={cn(
-                    'text-[10px] px-1.5 py-0.5 rounded-md font-black',
-                    activeCategory === cat ? 'bg-white/30' : 'bg-ink-100 text-ink-700'
-                  )}
-                >
-                  {count}
-                </span>
+                {activeCategory === cat && <span className="opacity-80">{count}</span>}
               </button>
             ))}
           </div>
@@ -247,7 +215,7 @@ export default function LibraryPage() {
             description={search ? '다른 말로 찾아볼까?' : '선생님이 곧 준비해 줄 거야!'}
             action={search ? { label: '🔎 다시 검색', onClick: () => setSearch('') } : undefined}
           />
-        ) : showCategories && grouped ? (
+        ) : showCategoryGroups && grouped ? (
           grouped.map(([cat, books]) => (
             <CategorySection key={cat} icon={getCategoryIcon(cat)} title={cat} books={books} />
           ))

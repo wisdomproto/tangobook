@@ -1,9 +1,9 @@
-import { Outlet, NavLink, useLocation } from 'react-router-dom';
+import { Outlet, NavLink } from 'react-router-dom';
 import { Mascot } from '@/design-system';
 import { StarCounter } from '@/features/rewards';
 import { useAuth } from '@/features/auth/context/AuthContext';
-import { ParentCornerButton } from '@/features/auth/components/ParentCornerButton';
 import { useBookIndex } from '@/features/book-v2';
+import { useThemeStore } from '@/store/theme.store';
 import { cn } from '@/lib/cn';
 
 /**
@@ -27,7 +27,7 @@ export function AppShell() {
   const { activeProfile, session, signOut } = useAuth();
   const { data: index } = useBookIndex();
   const bookCount = index?.books?.filter((b) => b.isPublic).length ?? 0;
-  const location = useLocation();
+  const { isDark, toggle: toggleTheme } = useThemeStore();
 
   const handleSignOut = async () => {
     if (!window.confirm('로그아웃할까요?')) return;
@@ -37,57 +37,60 @@ export function AppShell() {
   return (
     <div className="flex min-h-screen bg-cream-50 dark:bg-darkbg">
       {/* 좌측 nav */}
-      <aside className="w-44 flex-shrink-0 sticky top-0 h-screen flex flex-col py-5 px-3 bg-white/60 dark:bg-slate-900/40 backdrop-blur border-r border-ink-100 dark:border-slate-700">
+      <aside className="w-40 flex-shrink-0 sticky top-0 h-screen flex flex-col bg-cream-50 dark:bg-slate-900 border-r border-ink-100/60 dark:border-slate-700/60">
+        {/* 로고 영역 — 헤더 (h-14) 와 정렬 */}
+        <div className="h-14 flex items-center px-4 border-b border-ink-100/40 dark:border-slate-700/40">
+          <Mascot character="hori" state="waving" size="sm" />
+          <span className="ml-2 text-sm font-black text-ink-900 dark:text-cream-50">탱고북</span>
+        </div>
+
         {/* 3축 메인 */}
-        <nav className="flex flex-col gap-3 items-center">
+        <nav className="flex flex-col gap-2 items-center pt-4">
           {PRIMARY_AXES.map((axis) => (
             <PrimaryNavButton key={axis.to} {...axis} />
           ))}
         </nav>
 
-        <div className="my-5 border-t border-ink-100 dark:border-slate-700 mx-2" />
+        <div className="mt-5 mx-3 border-t border-ink-100/60 dark:border-slate-700/60" />
 
-        <div className="text-xs font-black text-ink-500 dark:text-slate-400 mb-2 px-2 uppercase tracking-wide">
-          More Fun
-        </div>
-        <nav className="flex flex-col gap-1">
+        <nav className="flex flex-col gap-0.5 px-2 pt-3">
           {MORE_FUN.map((item) => (
             <SecondaryNavButton key={item.to} {...item} />
           ))}
         </nav>
 
-        <div className="mt-auto pt-3 border-t border-ink-100 dark:border-slate-700">
+        <div className="mt-auto px-2 pb-3 pt-2 border-t border-ink-100/60 dark:border-slate-700/60">
           <SecondaryNavButton to="/parent" icon="🔒" label="부모" />
         </div>
       </aside>
 
       {/* 우측 영역 */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-20 sticky top-0 z-30 px-6 flex items-center justify-between bg-white/70 dark:bg-slate-900/60 backdrop-blur border-b border-ink-100 dark:border-slate-700">
-          {/* 왼쪽: 인사 */}
-          <div className="flex items-center gap-3">
-            <Mascot character="hori" state="waving" size="sm" />
-            <div>
-              <div className="text-base font-black text-ink-900 dark:text-cream-50">탱고북</div>
-              <div className="text-xs font-bold text-ink-500 dark:text-slate-400">
-                {bookCount > 0 ? `${bookCount}권이 너를 기다려 👋` : '안녕! 오늘은 뭐 할까?'}
-              </div>
-            </div>
+        <header className="h-14 sticky top-0 z-30 px-6 flex items-center justify-between bg-cream-50 dark:bg-slate-900 border-b border-ink-100/60 dark:border-slate-700/60">
+          {/* 왼쪽: 인사 한 줄 */}
+          <div className="text-sm font-bold text-ink-700 dark:text-slate-300">
+            {bookCount > 0 ? `${bookCount}권이 너를 기다려 👋` : '안녕! 오늘은 뭐 할까?'}
           </div>
 
-          {/* 오른쪽: 별 + 프로필 + 부모 */}
+          {/* 오른쪽: 별 + 프로필 + 다크토글 + 로그아웃 */}
           <div className="flex items-center gap-2">
             {activeProfile && <StarCounter />}
             {activeProfile && (
-              <div className="px-3 py-1.5 rounded-full bg-cream-50 dark:bg-slate-800 text-sm font-bold text-ink-900 dark:text-cream-50 shadow-soft">
+              <div className="px-3 py-1 rounded-full bg-white/70 dark:bg-slate-800 text-xs font-bold text-ink-900 dark:text-cream-50">
                 👦 {activeProfile.name}
               </div>
             )}
-            <ParentCornerButton />
+            <button
+              onClick={toggleTheme}
+              className="text-sm text-ink-500 dark:text-slate-400 hover:text-ink-900 dark:hover:text-cream-50 transition px-2"
+              title={isDark ? '라이트 모드' : '다크 모드'}
+            >
+              {isDark ? '☀️' : '🌙'}
+            </button>
             {session && (
               <button
                 onClick={handleSignOut}
-                className="px-3 py-2 rounded-full bg-white dark:bg-slate-800 shadow-soft text-ink-700 dark:text-cream-50 text-sm hover:shadow-pop hover:text-danger transition"
+                className="text-sm text-ink-500 dark:text-slate-400 hover:text-danger transition px-2"
                 title="로그아웃"
               >
                 🚪

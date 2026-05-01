@@ -60,7 +60,8 @@ export const router = createBrowserRouter([
           </ErrorBoundary>
         ),
         children: [
-          { path: 'library', element: <LibraryPage /> },
+          { path: 'library', element: <LibraryPage type="storybook" /> },
+          { path: 'library/phonics', element: <LibraryPage type="phonics" /> },
           { path: 'collection', element: <CollectionPage /> },
           { path: 'collection/:categoryId', element: <CategoryPage /> },
           { path: 'hori-room', element: <HoriRoomPage /> },

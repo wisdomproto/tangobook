@@ -5,7 +5,7 @@ const STORAGE_KEY = 'tangobook-theme';
 function getInitialDark(): boolean {
   const stored = localStorage.getItem(STORAGE_KEY);
   if (stored !== null) return stored === 'dark';
-  return true;
+  return false;
 }
 
 function applyTheme(isDark: boolean) {
