@@ -40,9 +40,11 @@ export function groupByWord(events: LearningEvent[], lang: Lang): Map<string, Ma
     if (!e.word) continue;
     if (!WORD_TYPES.has(e.event_type)) continue;
     if (e.metadata?.lang && e.metadata.lang !== lang) continue;
-    const cur = out.get(e.word) ?? emptyStats();
+    // 영어 단어는 대소문자 정규화 (Apple ≡ apple). 한글은 toLowerCase no-op.
+    const key = lang === 'en' ? e.word.toLowerCase() : e.word;
+    const cur = out.get(key) ?? emptyStats();
     bump(cur, e);
-    out.set(e.word, cur);
+    out.set(key, cur);
   }
   return out;
 }
@@ -83,4 +85,57 @@ export function countDistinctBooks(events: LearningEvent[], lang: Lang): number 
     if (e.storybook_id) ids.add(e.storybook_id);
   }
   return ids.size;
+}
+
+export interface ArtStyleStat {
+  style: string; // ART_STYLES.id (or raw artStyle string fallback)
+  pageReads: number;
+  distinctBooks: number;
+}
+
+const stripVariantSuffix = (id: string): string => id.replace(/__L[1-4]$/, '');
+
+/**
+ * page_read 이벤트를 그림체별로 집계.
+ * - metadata.style 우선 (Viewer 에서 v2Style/urlStyle/artStyle 폴백 체인으로 로깅)
+ * - metadata.style 이 없으면 (구 이벤트) storybooks lookup 으로 base artStyle 폴백
+ *   - lookup: 직접 ID → variant suffix 제거 후 base ID
+ */
+export function groupByArtStyle(
+  events: LearningEvent[],
+  storybooksById: Map<string, { artStyle?: string }>,
+  lang?: Lang
+): Map<string, ArtStyleStat> {
+  const styleToBooks = new Map<string, Set<string>>();
+  const styleToReads = new Map<string, number>();
+
+  const lookup = (id: string): string | undefined => {
+    return storybooksById.get(id)?.artStyle ?? storybooksById.get(stripVariantSuffix(id))?.artStyle;
+  };
+
+  for (const e of events) {
+    if (e.event_type !== 'page_read') continue;
+    if (lang && e.metadata?.lang && e.metadata.lang !== lang) continue;
+
+    const fallbackStyle = e.storybook_id ? lookup(e.storybook_id) : undefined;
+    // 그림체 정보가 없으면 'unknown' 으로 버킷 (예전 이벤트 + 매칭 실패 시에도 활동량은 표시)
+    const style = e.metadata?.style ?? fallbackStyle ?? 'unknown';
+
+    styleToReads.set(style, (styleToReads.get(style) ?? 0) + 1);
+    if (e.storybook_id) {
+      const set = styleToBooks.get(style) ?? new Set<string>();
+      set.add(stripVariantSuffix(e.storybook_id));
+      styleToBooks.set(style, set);
+    }
+  }
+
+  const out = new Map<string, ArtStyleStat>();
+  for (const [style, reads] of styleToReads.entries()) {
+    out.set(style, {
+      style,
+      pageReads: reads,
+      distinctBooks: styleToBooks.get(style)?.size ?? 0,
+    });
+  }
+  return out;
 }

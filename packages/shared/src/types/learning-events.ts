@@ -30,6 +30,8 @@ export interface LearningEventMetadata {
   phoneme?: string;
   pattern?: string;
   book?: string;
+  /** 동화책 viewer 에서 page_read 시 로깅 — ART_STYLES.id (예: 'paper-craft', 'pixar-3d') */
+  style?: string;
   migratedFrom?: string;
   collectionItemIds?: string[];
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Lang } from '@tangobook/shared';
-import { Mascot } from '@/design-system';
+import { Mascot, Chip } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 import {
@@ -11,13 +11,24 @@ import {
   CollectionProgressCard,
   HoriInventoryCard,
   PlaygroundStatsCard,
+  VocabularyTabContent,
   useLearningEvents,
 } from '@/features/learning';
+
+type MainTab = 'activity' | 'storybook' | 'phonics' | 'vocab';
+
+const TAB_DEFS: { id: MainTab; emoji: string; label: string }[] = [
+  { id: 'activity', emoji: '📊', label: '활동 현황' },
+  { id: 'storybook', emoji: '📖', label: '동화책' },
+  { id: 'phonics', emoji: '🔤', label: '파닉스' },
+  { id: 'vocab', emoji: '🌱', label: '어휘' },
+];
 
 export default function ParentReportsPage() {
   const { activeProfile, isConfigured } = useAuth();
   const { data: events = [], isLoading } = useLearningEvents(activeProfile?.id);
   const { data: storybooks = [] } = useStorybooks();
+  const [tab, setTab] = useState<MainTab>('activity');
   const [storybookLang, setStorybookLang] = useState<Lang>('ko');
 
   if (!isConfigured) {
@@ -49,7 +60,7 @@ export default function ParentReportsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl space-y-8 p-4 md:p-6">
+    <div className="mx-auto max-w-5xl space-y-6 p-4 md:p-6">
       <header>
         <div className="flex items-center gap-3">
           <Mascot state="reading" size="md" character="hori" />
@@ -62,33 +73,61 @@ export default function ParentReportsPage() {
         </div>
       </header>
 
-      <section>
-        <h2 className="mb-3 text-lg font-bold">⭐ 보상 현황</h2>
-        <RewardsOverviewCard />
-      </section>
+      {/* 메인 탭바 */}
+      <div className="flex gap-2 overflow-x-auto pb-1">
+        {TAB_DEFS.map((t) => (
+          <Chip
+            key={t.id}
+            active={tab === t.id}
+            variant="coral"
+            icon={<span>{t.emoji}</span>}
+            onClick={() => setTab(t.id)}
+          >
+            {t.label}
+          </Chip>
+        ))}
+      </div>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <CollectionProgressCard />
-        <HoriInventoryCard />
-      </section>
-
-      <section>
-        <h2 className="mb-3 text-lg font-bold">🎪 놀이터 활동</h2>
-        <PlaygroundStatsCard events={events} />
-      </section>
-
-      <section>
-        <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-lg font-bold">📖 동화책</h2>
-          <LanguageTabs value={storybookLang} onChange={setStorybookLang} />
+      {tab === 'activity' && (
+        <div className="space-y-6">
+          <section>
+            <h2 className="mb-3 text-lg font-bold">⭐ 보상 현황</h2>
+            <RewardsOverviewCard />
+          </section>
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <CollectionProgressCard />
+            <HoriInventoryCard />
+          </section>
+          <section>
+            <h2 className="mb-3 text-lg font-bold">🎪 놀이터 활동</h2>
+            <PlaygroundStatsCard events={events} />
+          </section>
         </div>
-        <StorybookReportSection events={events} storybooks={storybooks} lang={storybookLang} />
-      </section>
+      )}
 
-      <section>
-        <h2 className="mb-3 text-lg font-bold">🔤 파닉스</h2>
-        <PhonicsReportSection events={events} storybooks={storybooks} />
-      </section>
+      {tab === 'storybook' && (
+        <section>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-lg font-bold">📖 동화책</h2>
+            <LanguageTabs value={storybookLang} onChange={setStorybookLang} />
+          </div>
+          <StorybookReportSection events={events} storybooks={storybooks} lang={storybookLang} />
+        </section>
+      )}
+
+      {tab === 'phonics' && (
+        <section>
+          <h2 className="mb-3 text-lg font-bold">🔤 파닉스</h2>
+          <PhonicsReportSection events={events} storybooks={storybooks} />
+        </section>
+      )}
+
+      {tab === 'vocab' && (
+        <section>
+          <h2 className="mb-3 text-lg font-bold">🌱 어휘</h2>
+          <VocabularyTabContent events={events} storybooks={storybooks} />
+        </section>
+      )}
     </div>
   );
 }

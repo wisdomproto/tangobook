@@ -1,15 +1,28 @@
 import { useMemo, useState } from 'react';
+import { KOREAN_PHONICS_CURRICULUM } from '@tangobook/shared';
 import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
 import { computeMastery, masteryState, type MasteryState } from '../lib/mastery';
-import { groupBySyllable } from '../lib/aggregate';
+import { groupBySyllable, groupByWord } from '../lib/aggregate';
 import {
   buildKoreanPhonicsGrid,
   KOREAN_PHONICS_LEVELS,
   type KoreanPhonicsCell,
 } from '../lib/korean-phonics-grid';
 import { readPhonicsUnitIds, koreanLevelProgress } from '../lib/phonics-progress';
+import { MasteryBadge } from './MasteryBadge';
 import { MasteryDistributionBar } from './MasteryDistributionBar';
 import { ReportEmptyState } from './ReportEmptyState';
+
+/** 한 레벨의 모든 unit.sampleWords 를 평탄화. unique 처리. */
+function getKoreanLevelTargetWords(levelId: string): string[] {
+  const level = KOREAN_PHONICS_CURRICULUM.find((l) => l.level === levelId);
+  if (!level) return [];
+  const set = new Set<string>();
+  for (const u of level.units) {
+    for (const w of u.sampleWords ?? []) set.add(w);
+  }
+  return [...set];
+}
 
 interface Props {
   events: LearningEvent[];
@@ -25,6 +38,7 @@ const CELL_COLOR: Record<MasteryState, string> = {
 
 export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
   const syllableStats = useMemo(() => groupBySyllable(events), [events]);
+  const wordStats = useMemo(() => groupByWord(events, 'ko'), [events]);
   const readUnits = useMemo(() => readPhonicsUnitIds(events, storybooks), [events, storybooks]);
   const [openLevel, setOpenLevel] = useState<string | null>('hangul1');
   const now = Date.now();
@@ -77,6 +91,16 @@ export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
                 <MasteryDistributionBar counts={counts} />
               </div>
             )}
+            {/* 타겟 단어는 항상 노출 — 모든 레벨에서 한눈에 보기 */}
+            <KoreanLevelTargetWords levelId={lv.id} wordStats={wordStats} now={now} />
+            {/* 자음×모음 표는 무거우므로 펼쳐서 자세히 — 펼침 토글 별도 버튼 */}
+            <button
+              type="button"
+              onClick={() => setOpenLevel(open ? null : lv.id)}
+              className="mt-3 w-full rounded-md bg-peach-100 px-3 py-1.5 text-xs font-bold text-ink-700 hover:bg-peach-200"
+            >
+              {open ? '▲ 자세히 닫기' : '▼ 자음×모음 자세히 보기'}
+            </button>
             {open &&
               (grid.cells.length === 0 ? (
                 <ReportEmptyState
@@ -125,6 +149,46 @@ export function KoreanPhonicsHeatmap({ events, storybooks }: Props) {
           </div>
         );
       })}
+    </div>
+  );
+}
+
+interface TargetWordsProps {
+  levelId: string;
+  wordStats: ReturnType<typeof groupByWord>;
+  now: number;
+}
+
+function KoreanLevelTargetWords({ levelId, wordStats, now }: TargetWordsProps) {
+  const targets = useMemo(() => getKoreanLevelTargetWords(levelId), [levelId]);
+  if (targets.length === 0) return null;
+
+  const rows = targets.map((word) => {
+    const s = wordStats.get(word);
+    const mastery = s ? computeMastery(s, now) : 0;
+    const attempts = (s?.correct ?? 0) + (s?.wrong ?? 0);
+    return { word, mastery, attempts, exposed: s?.exposed ?? 0 };
+  });
+  const masteredCount = rows.filter((r) => r.mastery >= 0.85).length;
+
+  return (
+    <div className="mt-4 border-t border-ink-100 pt-3">
+      <div className="mb-2 flex items-center justify-between">
+        <h4 className="text-xs font-semibold text-ink-500">
+          🎯 타겟 단어 ({masteredCount}/{rows.length} 익힘)
+        </h4>
+      </div>
+      <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 md:grid-cols-4">
+        {rows.map((r) => (
+          <div
+            key={r.word}
+            className="flex items-center justify-between gap-2 rounded bg-cream-50 px-2 py-1 text-xs"
+          >
+            <span className="truncate font-semibold text-ink-700">{r.word}</span>
+            <MasteryBadge label={`${Math.round(r.mastery * 100)}%`} mastery={r.mastery} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -241,6 +241,8 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         totalPages,
         lastPage: isLast,
         source: 'storybook',
+        // 현재 viewing 중인 그림체 (variant 시스템) — v2 우선, 그 다음 URL, 베이스 폴백
+        style: v2Style ?? urlStyle ?? storybook.artStyle ?? undefined,
         collectionItemIds: collectionItemIds.length > 0 ? collectionItemIds : undefined,
       },
     });
@@ -261,7 +263,19 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         }))
       );
     }
-  }, [pageIndex, storybook, storybookId, mode, lang, pages, logEvent, logBatch]);
+  }, [
+    pageIndex,
+    storybook,
+    storybookId,
+    mode,
+    lang,
+    pages,
+    logEvent,
+    logBatch,
+    v2Style,
+    urlStyle,
+    storybookCardIndex,
+  ]);
 
   // 다음 5페이지 이미지·TTS 미리 버퍼링 (페이지 넘기기 딜레이 제거)
   const PRELOAD_AHEAD = 5;

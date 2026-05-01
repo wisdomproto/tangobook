@@ -11,6 +11,7 @@ export { RewardsOverviewCard } from './components/RewardsOverviewCard';
 export { CollectionProgressCard } from './components/CollectionProgressCard';
 export { HoriInventoryCard } from './components/HoriInventoryCard';
 export { PlaygroundStatsCard } from './components/PlaygroundStatsCard';
+export { VocabularyTabContent } from './components/VocabularyTabContent';
 
 export {
   useLogEvent,
@@ -23,7 +24,19 @@ export { useGameLogger, type GameWordResult, type LogGameArgs } from './hooks/us
 
 export { eventsApi } from './api/events.api';
 export { computeMastery, masteryState, type MasteryStats, type MasteryState } from './lib/mastery';
-export { groupByWord, groupBySyllable, groupByPhoneme, countDistinctBooks } from './lib/aggregate';
+export {
+  groupByWord,
+  groupBySyllable,
+  groupByPhoneme,
+  countDistinctBooks,
+  groupByArtStyle,
+  type ArtStyleStat,
+} from './lib/aggregate';
+export {
+  ArtStyleDistributionCard,
+  getArtStyleLabel,
+  getArtStyleEmoji,
+} from './components/ArtStyleDistributionCard';
 export {
   buildKoreanPhonicsGrid,
   KOREAN_PHONICS_LEVELS,
