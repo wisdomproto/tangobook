@@ -76,11 +76,28 @@ export function useAudioPlayer({ backgroundMusicUrl, onTtsEnded }: UseAudioPlaye
     });
   }, []);
 
+  /** 처음으로 reset + pause (페이지 unmount, HOME 이동 등) */
   const stopTts = useCallback(() => {
     if (ttsRef.current) {
       ttsRef.current.pause();
       ttsRef.current.currentTime = 0;
       setIsTtsPlaying(false);
+    }
+  }, []);
+
+  /** 현재 위치에서 일시정지 (재생 위치 유지) — 자동재생 토글 OFF 용 */
+  const pauseTts = useCallback(() => {
+    if (ttsRef.current) {
+      ttsRef.current.pause();
+      setIsTtsPlaying(false);
+    }
+  }, []);
+
+  /** 일시정지 상태에서 이어재생 — 새 src 로 시작이 아니라 현재 currentTime 부터 */
+  const resumeTts = useCallback(() => {
+    if (ttsRef.current) {
+      ttsRef.current.play().catch(() => {});
+      setIsTtsPlaying(true);
     }
   }, []);
 
@@ -115,6 +132,8 @@ export function useAudioPlayer({ backgroundMusicUrl, onTtsEnded }: UseAudioPlaye
   return {
     playTts,
     stopTts,
+    pauseTts,
+    resumeTts,
     isTtsPlaying,
     ttsCurrentTime,
     ttsDuration,

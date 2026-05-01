@@ -1,5 +1,6 @@
 export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from './Button';
 export { Card, type CardProps } from './Card';
+export { Chip, type ChipProps, type ChipVariant } from './Chip';
 export { Skeleton, SkeletonBookCard } from './Skeleton';
 export { StateScreen } from './StateScreen';
 export { ErrorBoundary } from './ErrorBoundary';

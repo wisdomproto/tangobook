@@ -119,14 +119,15 @@ export function PageSubtitle({
 
   const active = hasRealTiming || isTtsPlaying;
 
-  // 문장 선택 + 해당 문장 내 진행률
+  // 문장 선택 + 해당 문장 내 진행률.
+  // inactive (TTS 시작 전) → 자막 빈 문자열 (이전 마지막 문장 잔재 방지).
   const { idx, progress } = active
     ? pickSentence(sentences, currentTime, duration)
-    : { idx: sentences.length - 1, progress: 1 };
+    : { idx: 0, progress: 0 };
 
   const currentSentence = sentences[idx] ?? '';
   const tokens = tokenize(currentSentence);
-  const displayText = active ? visibleTokenSlice(tokens, progress) : currentSentence;
+  const displayText = active ? visibleTokenSlice(tokens, progress) : '';
 
   // 서브 텍스트(번역)도 문장별 동기화
   let displaySub: string | null = null;
@@ -134,7 +135,7 @@ export function PageSubtitle({
     const subIdx = Math.min(idx, subSentences.length - 1);
     const subSentence = subSentences[subIdx] ?? '';
     const subToks = tokenize(subSentence);
-    displaySub = active ? visibleTokenSlice(subToks, progress) : subSentence;
+    displaySub = active ? visibleTokenSlice(subToks, progress) : '';
   }
 
   return (

@@ -3,9 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useBookIndex, useBookManifest, useAudiobookRenders } from '@/features/book-v2';
 import { useLongformList, useGamesList } from '@/features/book-v2';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
-import { Card } from '@/design-system';
-import { StateScreen } from '@/design-system';
-import { Skeleton } from '@/design-system';
+import { Card, StateScreen, Skeleton, Chip } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
 import type { ReadingLevel } from '@tangobook/shared';
@@ -65,6 +63,23 @@ export default function BookDetailPage() {
   // v2 게임 또는 v1 게임 중 하나라도 있으면 게임 카드 노출
   const gameAvailable = (games?.length ?? 0) > 0 || (v1Storybook?.games?.length ?? 0) > 0;
 
+  // 학습자에게 노출할 수 있는 레벨 — sibling __L{lv} 가 isPublic 인 것 + base book 자체.
+  // useMemo 는 early return 위에 있어야 hooks 규칙 위반 X.
+  const baseLevel =
+    manifest?.curriculumMeta?.launchLevel ??
+    (v1Storybook?.readingLevel as ReadingLevel | undefined);
+  const levels = useMemo<ReadingLevel[]>(() => {
+    if (!manifest) return [];
+    const all = [...manifest.usedVariants.levels].sort(
+      (a, b) => LEVEL_ORDER.indexOf(a) - LEVEL_ORDER.indexOf(b)
+    );
+    return all.filter((lv) => {
+      if (lv === baseLevel) return true;
+      const sibling = index?.books.find((b) => b.id === `${manifest.id}__${lv}`);
+      return !!sibling?.isPublic && !!sibling?.coverImageUrl;
+    });
+  }, [manifest, baseLevel, index]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-cream-50 p-7 max-w-[1200px] mx-auto">
@@ -93,9 +108,6 @@ export default function BookDetailPage() {
   }
 
   const languages = manifest.usedVariants.languages;
-  const levels = [...manifest.usedVariants.levels].sort(
-    (a, b) => LEVEL_ORDER.indexOf(a) - LEVEL_ORDER.indexOf(b)
-  );
   const styles = manifest.usedVariants.styles;
 
   // 효과 레벨/스타일 (URL params에 전달용)
@@ -105,6 +117,14 @@ export default function BookDetailPage() {
       ? manifest.curriculumMeta.launchLevel
       : levels[0]);
   const effectiveStyle = selectedStyle ?? styles[0];
+
+  // 활성 그림체 기반 표지 URL — styleAssets 우선, fallback to top-level/index
+  const coverUrl = (() => {
+    if (!v1Storybook) return indexEntry?.coverImageUrl;
+    const styleCover = effectiveStyle && v1Storybook.styleAssets?.[effectiveStyle]?.coverImage;
+    if (styleCover) return styleCover;
+    return v1Storybook.coverImage ?? indexEntry?.coverImageUrl;
+  })();
 
   const enterMode = (mode: 'read' | 'video' | 'game') => {
     if (mode === 'video') {
@@ -130,185 +150,156 @@ export default function BookDetailPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100">
       <div className="max-w-[1200px] mx-auto p-5 md:p-7">
-        {/* 상단 바 */}
-        <div className="flex items-center justify-between mb-5">
+        {/* 상단 바 + 옵션 영역 (선택을 맨 위로) */}
+        <div className="flex items-start gap-4 mb-6 flex-wrap">
           <button
-            onClick={() => navigate(-1)}
-            className="w-12 h-12 rounded-lg bg-white shadow-soft flex items-center justify-center text-xl hover:bg-peach-100"
-            aria-label="뒤로 가기"
+            onClick={() => navigate('/library')}
+            className="w-12 h-12 rounded-lg bg-white shadow-soft flex items-center justify-center text-xl hover:bg-peach-100 shrink-0"
+            aria-label="라이브러리로"
+            title="라이브러리로"
           >
-            ←
+            🏠
           </button>
-          <button
-            onClick={() => navigate(`/editor/${manifest.id}`)}
-            className="bg-white rounded-lg px-4 py-3 shadow-soft font-bold text-sm flex items-center gap-1.5 hover:bg-peach-100"
-            title="저작도구로 편집"
-          >
-            ✏️ <span>편집</span>
-          </button>
+          {(languages.length > 1 || levels.length > 1 || styles.length > 1) && (
+            <div className="flex-1 min-w-0 bg-white/60 rounded-lg shadow-soft flex flex-wrap divide-x divide-ink-100">
+              {languages.length > 1 && (
+                <div className="px-4 py-3 flex flex-col gap-1.5 min-w-0">
+                  <span className="text-[10px] font-black text-ink-500 uppercase tracking-wider">
+                    🌐 언어
+                  </span>
+                  <div className="flex gap-1.5 flex-wrap">
+                    {languages.map((code) => {
+                      const label = LANG_LABEL[code] ?? { flag: '🌐', name: code };
+                      return (
+                        <Chip
+                          key={code}
+                          variant="coral"
+                          active={lang === code}
+                          icon={label.flag}
+                          onClick={() => setLang(code)}
+                        >
+                          {label.name}
+                        </Chip>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+              {levels.length > 1 && (
+                <div className="px-4 py-3 flex flex-col gap-1.5 min-w-0">
+                  <span className="text-[10px] font-black text-ink-500 uppercase tracking-wider">
+                    📂 글밥 (레벨)
+                  </span>
+                  <div className="flex gap-1.5 flex-wrap">
+                    {levels.map((lv) => (
+                      <Chip
+                        key={lv}
+                        variant="coral"
+                        active={effectiveLevel === lv}
+                        onClick={() => setSelectedLevel(lv)}
+                      >
+                        {lv} {LEVEL_INFO[lv].label}
+                      </Chip>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {styles.length > 1 && (
+                <div className="px-4 py-3 flex flex-col gap-1.5 min-w-0">
+                  <span
+                    className="text-[10px] font-black text-ink-500 uppercase tracking-wider"
+                    title="선택 시 표지가 바뀌어요"
+                  >
+                    🎨 그림체
+                  </span>
+                  <div className="flex gap-1.5 flex-wrap">
+                    {styles.map((s) => (
+                      <Chip
+                        key={s}
+                        variant="ink"
+                        active={effectiveStyle === s}
+                        onClick={() => setSelectedStyle(s)}
+                      >
+                        {s}
+                      </Chip>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* 히어로 */}
-        <div className="grid grid-cols-1 md:grid-cols-[480px_1fr] gap-9 items-start mb-6">
+        {/* 히어로 — 좌: 표지 / 우: 제목+설명+모드카드 */}
+        <div className="grid grid-cols-1 md:grid-cols-[480px_1fr] gap-9 items-start mb-8">
+          {/* 좌: 표지 */}
           <div className="relative aspect-video rounded-lg overflow-hidden bg-gradient-to-br from-peach-200 to-peach-300 shadow-card">
-            {indexEntry?.coverImageUrl ? (
+            {coverUrl ? (
               <img
-                src={indexEntry.coverImageUrl}
+                src={coverUrl}
                 alt={manifest.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-opacity duration-300"
+                key={coverUrl}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-[120px]">📖</div>
             )}
-            {videoAvailable && (
-              <span className="absolute top-3 right-3 bg-coral-500 text-white px-3 py-1.5 rounded-md text-[11px] font-black shadow-pop">
-                📺 영상 있음
-              </span>
-            )}
           </div>
-          <div>
+
+          {/* 우: 제목 + chip + 설명 + 모드 카드 */}
+          <div className="flex flex-col gap-4">
             <h1 className="text-3xl md:text-4xl font-black text-ink-900 font-display leading-tight">
-              {manifest.title}
+              {(lang !== 'ko' && v1Storybook?.titleTranslations?.[lang]) ||
+                v1Storybook?.title ||
+                manifest.title}
             </h1>
-            <div className="flex gap-2 flex-wrap mt-4 mb-4">
-              {[
-                manifest.category && `🏷️ ${manifest.category}`,
-                levels.length > 0 &&
-                  `📂 ${levels.map((lv) => `${lv} ${LEVEL_INFO[lv].label}(${LEVEL_INFO[lv].age})`).join(' · ')}`,
-                styles.length > 0 && `🎨 ${styles.join(', ')}`,
-                manifest.type === 'phonics' ? '🔤 파닉스' : '📖 동화책',
-              ]
-                .filter(Boolean)
-                .map((chip) => (
-                  <span
-                    key={chip as string}
-                    className="bg-white px-3 py-1.5 rounded-md text-xs font-bold text-ink-700 shadow-soft"
-                  >
-                    {chip}
-                  </span>
-                ))}
+
+            {/* chip — 카테고리 + 타입만 (레벨/그림체는 아래 섹션) */}
+            <div className="flex gap-2 flex-wrap">
+              {manifest.category && (
+                <span className="bg-white px-3 py-1.5 rounded-md text-xs font-bold text-ink-700 shadow-soft">
+                  🏷️ {manifest.category}
+                </span>
+              )}
+              <span className="bg-white px-3 py-1.5 rounded-md text-xs font-bold text-ink-700 shadow-soft">
+                {manifest.type === 'phonics' ? '🔤 파닉스' : '📖 동화책'}
+              </span>
             </div>
+
             {manifest.parentGuide?.overview && (
               <p className="bg-white/60 p-4 rounded-md text-sm text-ink-700 leading-relaxed">
                 {manifest.parentGuide.overview}
               </p>
             )}
-          </div>
-        </div>
 
-        {/* 언어 선택 */}
-        {languages.length > 1 && (
-          <div className="mb-6">
-            <div className="text-xs font-black text-ink-500 uppercase tracking-wider mb-2">
-              🌐 언어
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              {languages.map((code) => {
-                const label = LANG_LABEL[code] ?? { flag: '🌐', name: code };
-                return (
-                  <button
-                    key={code}
-                    onClick={() => setLang(code)}
-                    className={cn(
-                      'px-5 py-3 rounded-md font-bold flex gap-2 items-center transition-all',
-                      lang === code
-                        ? 'bg-peach-300 text-ink-900 shadow-soft'
-                        : 'bg-white text-ink-500'
-                    )}
-                  >
-                    <span className="text-lg">{label.flag}</span>
-                    <span>{label.name}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* 레벨 선택 */}
-        {levels.length > 1 && (
-          <div className="mb-6">
-            <div className="text-xs font-black text-ink-500 uppercase tracking-wider mb-2">
-              📂 레벨 (글밥)
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              {levels.map((lv) => (
-                <button
-                  key={lv}
-                  onClick={() => setSelectedLevel(lv)}
-                  className={cn(
-                    'px-5 py-3 rounded-md font-bold flex flex-col items-center gap-0.5 transition-all min-w-[88px]',
-                    effectiveLevel === lv
-                      ? 'bg-coral-400 text-white shadow-soft'
-                      : 'bg-white text-ink-700'
-                  )}
-                >
-                  <span className="flex gap-1.5 items-baseline">
-                    <span className="font-mono">{lv}</span>
-                    <span className="text-sm">{LEVEL_INFO[lv].label}</span>
-                  </span>
-                  <span className="text-[10px] opacity-70 font-bold">👶 {LEVEL_INFO[lv].age}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* 그림체 선택 */}
-        {styles.length > 1 && (
-          <div className="mb-6">
-            <div className="text-xs font-black text-ink-500 uppercase tracking-wider mb-2">
-              🎨 그림체
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              {styles.map((s) => (
-                <button
-                  key={s}
-                  onClick={() => setSelectedStyle(s)}
-                  className={cn(
-                    'px-5 py-3 rounded-md font-bold transition-all',
-                    effectiveStyle === s ? 'bg-fun text-white shadow-soft' : 'bg-white text-ink-700'
-                  )}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* 모드 선택 */}
-        <div>
-          <div className="text-xs font-black text-ink-500 uppercase tracking-wider mb-3">
-            🎯 어떻게 즐길까?
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-4">
-            {/* 책으로 읽기 — primary */}
-            <Card
-              interactive
-              onClick={() => enterMode('read')}
-              className="!bg-gradient-to-br !from-coral-400 !to-coral-500 !text-white"
-            >
-              <div className="text-5xl">📖</div>
-              <h3 className="font-black text-lg mt-2">책으로 읽기</h3>
-              <div className="text-sm opacity-95">그림과 글로 천천히 읽어요</div>
-            </Card>
-            {/* 영상으로 */}
-            {videoAvailable && (
-              <Card interactive onClick={() => enterMode('video')}>
-                <div className="text-4xl">🎬</div>
-                <h3 className="font-black text-base mt-2 text-ink-900">영상으로</h3>
-                <div className="text-xs text-ink-500 mt-0.5">움직이는 그림으로</div>
+            {/* 모드 카드 — 우측 컬럼 안 (공간 활용) */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-1">
+              <Card
+                interactive
+                onClick={() => enterMode('read')}
+                className="!bg-gradient-to-br !from-coral-400 !to-coral-500 !text-white"
+              >
+                <div className="text-4xl">📖</div>
+                <h3 className="font-black text-base mt-2">책으로 읽기</h3>
+                <div className="text-xs opacity-95">그림과 글로 천천히</div>
               </Card>
-            )}
-            {/* 게임 */}
-            {gameAvailable && (
-              <Card interactive onClick={() => enterMode('game')}>
-                <div className="text-4xl">🎮</div>
-                <h3 className="font-black text-base mt-2 text-ink-900">게임</h3>
-                <div className="text-xs text-ink-500 mt-0.5">퀴즈·연결하기</div>
-              </Card>
-            )}
+              {videoAvailable && (
+                <Card interactive onClick={() => enterMode('video')}>
+                  <div className="inline-flex">
+                    <YouTubeIcon />
+                  </div>
+                  <h3 className="font-black text-base mt-2 text-ink-900">영상으로</h3>
+                  <div className="text-xs text-ink-500 mt-0.5">유튜브에서 보기</div>
+                </Card>
+              )}
+              {gameAvailable && (
+                <Card interactive onClick={() => enterMode('game')}>
+                  <div className="text-3xl">🎮</div>
+                  <h3 className="font-black text-base mt-2 text-ink-900">독후 게임</h3>
+                  <div className="text-xs text-ink-500 mt-0.5">퀴즈·연결하기</div>
+                </Card>
+              )}
+            </div>
           </div>
         </div>
 
@@ -400,5 +391,15 @@ export default function BookDetailPage() {
         />
       )}
     </div>
+  );
+}
+
+/** YouTube 로고 — 빨강 박스 + 흰 ▶ */
+function YouTubeIcon() {
+  return (
+    <svg className="w-12 h-9" viewBox="0 0 24 17" fill="none" aria-hidden>
+      <rect width="24" height="17" rx="4" fill="#FF0000" />
+      <path d="M9.5 12V5l6 3.5-6 3.5z" fill="#fff" />
+    </svg>
   );
 }

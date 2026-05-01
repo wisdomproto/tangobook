@@ -89,35 +89,58 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
 
   // v2 payload가 있으면 v1 storybook의 pages/cover/title/parentGuide를 덮어씀
   // (v1 R2 정리 시점까지 audiobookProjects/longformProjects/games 등은 v1에서 그대로 사용)
+  // v2 도착 전이라도 urlStyle 이 base.artStyle 과 다르면 v1.styleAssets 로 즉시 swap (다른 그림체 잔상 방지)
   const storybook = useMemo(() => {
     if (!v1Storybook) return v1Storybook;
-    if (!v2Payload) return v1Storybook;
-    // v1의 페이지를 base로 두고 v2 데이터만 덮어쓴다 (scene_structure 등 v1 필수 필드 보존).
-    const v1PagesByNumber = new Map(v1Storybook.pages.map((p) => [p.pageNumber, p]));
-    const mergedPages = v2Payload.pages.map((vp) => {
-      const v1Page = v1PagesByNumber.get(vp.pageNumber);
-      if (!v1Page) return null;
-      return {
-        ...v1Page,
-        text: vp.text,
-        illustrationUrl: vp.illustrationUrl ?? v1Page.illustrationUrl,
-        ttsUrl: vp.ttsUrl ?? v1Page.ttsUrl,
-        scene_description: vp.sceneDescription ?? v1Page.scene_description,
-        // translations은 v2가 lang별로 미리 fetch됐으므로 비움 → getPageText는 page.text로 fallback
-        translations: undefined,
-      };
-    });
-    const validPages = mergedPages.filter((p): p is NonNullable<typeof p> => p !== null);
-    if (validPages.length === 0) return v1Storybook;
-    return {
-      ...v1Storybook,
-      title: v2Payload.title || v1Storybook.title,
-      coverImage: v2Payload.coverImageUrl ?? v1Storybook.coverImage,
-      backgroundMusicUrl: v2Payload.bgmUrl ?? v1Storybook.backgroundMusicUrl,
-      parentGuide: v2Payload.parentGuide ?? v1Storybook.parentGuide,
-      pages: validPages,
-    };
-  }, [v1Storybook, v2Payload]);
+
+    // v2 우선
+    if (v2Payload) {
+      const v1PagesByNumber = new Map(v1Storybook.pages.map((p) => [p.pageNumber, p]));
+      const mergedPages = v2Payload.pages.map((vp) => {
+        const v1Page = v1PagesByNumber.get(vp.pageNumber);
+        if (!v1Page) return null;
+        return {
+          ...v1Page,
+          text: vp.text,
+          illustrationUrl: vp.illustrationUrl ?? v1Page.illustrationUrl,
+          ttsUrl: vp.ttsUrl ?? v1Page.ttsUrl,
+          scene_description: vp.sceneDescription ?? v1Page.scene_description,
+          translations: undefined,
+        };
+      });
+      const validPages = mergedPages.filter((p): p is NonNullable<typeof p> => p !== null);
+      if (validPages.length > 0) {
+        return {
+          ...v1Storybook,
+          title: v2Payload.title || v1Storybook.title,
+          coverImage: v2Payload.coverImageUrl ?? v1Storybook.coverImage,
+          backgroundMusicUrl: v2Payload.bgmUrl ?? v1Storybook.backgroundMusicUrl,
+          parentGuide: v2Payload.parentGuide ?? v1Storybook.parentGuide,
+          pages: validPages,
+        };
+      }
+    }
+
+    // v2 안 도착 → urlStyle 이 base 와 다르면 v1.styleAssets 로 즉시 swap
+    if (urlStyle && urlStyle !== v1Storybook.artStyle) {
+      const sa = v1Storybook.styleAssets?.[urlStyle];
+      if (sa) {
+        const pageIllus = sa.pageIllustrations ?? {};
+        const swapped = v1Storybook.pages.map((p) => ({
+          ...p,
+          illustrationUrl:
+            (p.pageNumber != null && pageIllus[p.pageNumber]?.illustrationUrl) || p.illustrationUrl,
+        }));
+        return {
+          ...v1Storybook,
+          coverImage: sa.coverImage ?? v1Storybook.coverImage,
+          pages: swapped,
+        };
+      }
+    }
+
+    return v1Storybook;
+  }, [v1Storybook, v2Payload, urlStyle]);
 
   const [pageIndex, setPageIndex] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -144,26 +167,21 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     [pageIndex, pages.length]
   );
 
-  // 마지막 페이지 다 본 후 이동 대상: BookDetailPage (동화책/영상/게임 선택 화면)
-  const goToBookDetail = useCallback(() => {
-    navigate(`/library/${storybookId}`);
-  }, [storybookId, navigate]);
-
   // TTS 끝났을 때 자동 넘김 (autoPlayTts + reward X + 다음 페이지 있음)
-  // 마지막 페이지 + autoPlayTts ON → BookDetail로 이동
+  // 마지막 페이지 + autoPlayTts ON → RewardScreen overlay (영상·게임·홈 선택)
   const handleTtsEnded = useCallback(() => {
     const st = stateRef.current;
     if (!st.autoPlayTts) return;
     if (st.rewardOpen) return;
     if (st.pageIndex >= pages.length - 1) {
-      setTimeout(goToBookDetail, 1000);
+      setTimeout(() => setRewardOpen(true), 1000);
       return;
     }
     setTimeout(() => {
       setDirection(1);
       setPageIndex((idx) => idx + 1);
     }, 800);
-  }, [pages.length, goToBookDetail]);
+  }, [pages.length]);
 
   const audio = useAudioPlayer({
     backgroundMusicUrl: storybook?.backgroundMusicUrl,
@@ -176,13 +194,15 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     [currentPage, lang]
   );
 
-  // 페이지 변경 시 자동 TTS 재생 (iOS에선 첫 유저 제스처 전 무음 차단될 수 있지만 catch로 무시)
-  // `mode=video|games` 또는 reward 화면이 열렸을 땐 TTS 재생하지 않음 (YouTube·게임 화면과 겹치지 않게).
+  // 페이지 변경 시 자동 TTS 재생. 1초 딜레이 — 첫 진입 / 페이지 넘김 직후 갑자기 안 나오게.
+  // BGM 은 useAudioPlayer 가 마운트 시 바로 재생 (별도). TTS + 자막만 딜레이됨.
+  // `mode=video|games` 또는 reward 화면이 열렸을 땐 TTS 재생하지 않음.
   useEffect(() => {
     if (!currentTtsUrl) return;
     if (rewardOpen) return;
     if (mode === 'video' || mode === 'games') return;
-    audio.playTts(currentTtsUrl);
+    const t = setTimeout(() => audio.playTts(currentTtsUrl), 1000);
+    return () => clearTimeout(t);
   }, [currentTtsUrl, rewardOpen, mode]);
 
   // RewardScreen/영상/게임 모드로 전환될 때 진행 중이던 TTS 즉시 정지
@@ -282,10 +302,21 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     }
     goTo(pageIndex + 1);
   };
-  const onToggleTts = () => {
-    if (!currentTtsUrl) return;
-    if (audio.isTtsPlaying) audio.stopTts();
-    else audio.playTts(currentTtsUrl);
+  // 자동재생 master switch — autoPlayTts 토글 + TTS 동기화
+  // 멈출 땐 pauseTts (현재 위치 유지) — 다시 켤 때 이어재생.
+  const onTogglePlayback = () => {
+    const next = !settings.autoPlayTts;
+    updateSettings({ autoPlayTts: next });
+    if (next) {
+      // ON: 일시정지 중이면 이어재생, 아니면 새로 재생
+      if (audio.ttsCurrentTime > 0) {
+        audio.resumeTts();
+      } else if (currentTtsUrl) {
+        audio.playTts(currentTtsUrl);
+      }
+    } else {
+      audio.pauseTts();
+    }
   };
 
   // `?mode=video` 직접 진입 → RewardScreen autoOpenVideo로 iframe 모달 띄우기
@@ -347,38 +378,39 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
           : 'bg-gradient-to-b from-cream-50 to-peach-100 text-ink-900'
       )}
     >
-      <ViewerToolbar
-        title={storybook.title}
-        onBack={() => {
-          audio.stopTts();
-          navigate(-1);
-        }}
-        onHome={() => {
-          audio.stopTts();
-          navigate('/library');
-        }}
-        isTtsPlaying={audio.isTtsPlaying}
-        onToggleTts={onToggleTts}
-        isBgmPlaying={audio.isBgmPlaying}
-        onToggleBgm={() => audio.toggleBgm()}
-        hasBgm={!!storybook.backgroundMusicUrl}
-        autoPlayTts={settings.autoPlayTts}
-        onToggleAutoPlay={() => updateSettings({ autoPlayTts: !settings.autoPlayTts })}
-        darkMode={settings.darkMode}
-        onToggleDark={() => updateSettings({ darkMode: !settings.darkMode })}
-        textSize={settings.textSize}
-        onCycleTextSize={() => {
-          const next =
-            TEXT_SIZE_CYCLE[
-              (TEXT_SIZE_CYCLE.indexOf(settings.textSize) + 1) % TEXT_SIZE_CYCLE.length
-            ];
-          updateSettings({ textSize: next });
-        }}
-        language={lang}
-        onToggleLanguage={onToggleLanguage}
-        fullscreenImage={settings.fullscreenImage}
-        onToggleFullscreen={() => updateSettings({ fullscreenImage: !settings.fullscreenImage })}
-      />
+      {!settings.fullscreenImage && (
+        <ViewerToolbar
+          title={storybook.title}
+          onBack={() => {
+            audio.stopTts();
+            // 책 소개 페이지로 명시 이동 — history back 은 직전 진입 경로 따라 다른 곳으로 갈 수 있음
+            navigate(`/library/${storybookId}`);
+          }}
+          onHome={() => {
+            audio.stopTts();
+            navigate('/library');
+          }}
+          isPlaying={settings.autoPlayTts}
+          onTogglePlayback={onTogglePlayback}
+          isBgmPlaying={audio.isBgmPlaying}
+          onToggleBgm={() => audio.toggleBgm()}
+          hasBgm={!!storybook.backgroundMusicUrl}
+          darkMode={settings.darkMode}
+          onToggleDark={() => updateSettings({ darkMode: !settings.darkMode })}
+          textSize={settings.textSize}
+          onCycleTextSize={() => {
+            const next =
+              TEXT_SIZE_CYCLE[
+                (TEXT_SIZE_CYCLE.indexOf(settings.textSize) + 1) % TEXT_SIZE_CYCLE.length
+              ];
+            updateSettings({ textSize: next });
+          }}
+          language={lang}
+          onToggleLanguage={onToggleLanguage}
+          fullscreenImage={settings.fullscreenImage}
+          onToggleFullscreen={() => updateSettings({ fullscreenImage: !settings.fullscreenImage })}
+        />
+      )}
 
       {currentPage && (
         <PageView
@@ -392,16 +424,34 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
           ttsCurrentTime={audio.ttsCurrentTime}
           ttsDuration={audio.ttsDuration}
           isTtsPlaying={audio.isTtsPlaying}
+          fullscreen={settings.fullscreenImage}
         />
       )}
 
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-soft">
-        <BookSpineProgress current={pageIndex} total={pages.length} />
-      </div>
+      {/* 페이지 진행률 — Toolbar 와 같은 line (가운데). 풀스크린 시 숨김. */}
+      {!settings.fullscreenImage && (
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 z-20 bg-white/90 backdrop-blur-sm px-3 h-10 flex items-center rounded-md shadow-soft pointer-events-none">
+          <BookSpineProgress current={pageIndex} total={pages.length} />
+        </div>
+      )}
+
+      {/* 풀스크린 종료 버튼 — 풀스크린 시만 우상단 floating (반투명) */}
+      {settings.fullscreenImage && (
+        <button
+          onClick={() => updateSettings({ fullscreenImage: false })}
+          className="absolute top-3 right-3 z-30 w-11 h-11 rounded-full bg-white/40 hover:bg-white/70 backdrop-blur-sm text-ink-900 flex items-center justify-center text-lg shadow-soft transition-all"
+          title="풀스크린 끄기"
+          aria-label="풀스크린 끄기"
+        >
+          ✕
+        </button>
+      )}
 
       <MascotCorner visible={audio.isBgmPlaying} />
 
-      <ViewerControls onPrev={onPrev} onNext={onNext} canPrev={canPrev} canNext={canNext} />
+      {!settings.fullscreenImage && (
+        <ViewerControls onPrev={onPrev} onNext={onNext} canPrev={canPrev} canNext={canNext} />
+      )}
 
       <RewardScreen
         title={storybook.title}
@@ -411,7 +461,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         open={rewardOpen}
         autoOpenVideo={isVideoMode}
         onClose={() => setRewardOpen(false)}
-        onGoHome={() => navigate(`/library/${storybook.id}`)}
+        onGoHome={() => navigate('/library')}
         onRereadFromStart={() => {
           setRewardOpen(false);
           setDirection(-1);

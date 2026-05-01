@@ -6,14 +6,12 @@ interface ViewerToolbarProps {
   onBack: () => void;
   onHome: () => void;
 
-  // Play controls (위치 상단으로 이동)
-  isTtsPlaying: boolean;
-  onToggleTts: () => void;
+  // Play controls — TTS 재생 + 자동 페이지 넘김 통합 단일 토글
+  isPlaying: boolean; // autoPlayTts master switch
+  onTogglePlayback: () => void;
   isBgmPlaying: boolean;
   onToggleBgm: () => void;
   hasBgm: boolean;
-  autoPlayTts: boolean;
-  onToggleAutoPlay: () => void;
 
   // Settings
   darkMode: boolean;
@@ -42,7 +40,7 @@ function PillIconBtn({ children, onClick, active, disabled, label }: PillIconBtn
       aria-label={label}
       title={label}
       className={cn(
-        'w-11 h-11 rounded-md flex items-center justify-center text-lg transition-all',
+        'w-10 h-10 rounded-md flex items-center justify-center text-lg transition-all',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400',
         disabled && 'opacity-40 cursor-not-allowed',
         active
@@ -61,7 +59,7 @@ function Divider() {
 
 export function ViewerToolbar(props: ViewerToolbarProps) {
   return (
-    <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-20 pointer-events-none flex-wrap">
+    <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-2 z-20 pointer-events-none flex-wrap">
       {/* 좌: 뒤로가기 + 홈 + 제목 */}
       <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-md px-2 py-2 shadow-soft pointer-events-auto">
         <button
@@ -87,9 +85,13 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
 
       {/* 우: 재생 컨트롤 + 설정 */}
       <div className="flex gap-2 bg-white/90 backdrop-blur-sm rounded-md p-2 shadow-soft pointer-events-auto">
-        {/* 재생 그룹 */}
-        <PillIconBtn onClick={props.onToggleTts} active={props.isTtsPlaying} label="음성 듣기">
-          🔊
+        {/* 자동재생 — 단일 토글 (TTS + 자동 페이지 넘김) */}
+        <PillIconBtn
+          onClick={props.onTogglePlayback}
+          active={props.isPlaying}
+          label={props.isPlaying ? '자동재생 멈춤' : '자동재생'}
+        >
+          {props.isPlaying ? '⏸' : '▶'}
         </PillIconBtn>
         <PillIconBtn
           onClick={props.onToggleBgm}
@@ -98,9 +100,6 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
           label="배경음악"
         >
           🎵
-        </PillIconBtn>
-        <PillIconBtn onClick={props.onToggleAutoPlay} active={props.autoPlayTts} label="자동 넘김">
-          ⏯
         </PillIconBtn>
 
         <Divider />

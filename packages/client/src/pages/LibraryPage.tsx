@@ -1,9 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useBookIndex } from '@/features/book-v2';
 import { CategorySection, BookCard, useReadingStatus } from '@/features/library';
-import { StateScreen } from '@/design-system';
-import { SkeletonBookCard } from '@/design-system';
-import { cn } from '@/lib/cn';
+import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
 import type { BookIndexEntry } from '@tangobook/shared';
 
 type LibraryType = 'storybook' | 'phonics';
@@ -163,19 +161,15 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
                 { id: 'english', label: '영어', count: phonicsCounts.english },
               ] as const
             ).map((c) => (
-              <button
+              <Chip
                 key={c.id}
+                variant="success"
+                active={phonicsLang === c.id}
+                trailing={phonicsLang === c.id ? c.count : undefined}
                 onClick={() => setPhonicsLang(c.id)}
-                className={cn(
-                  'px-4 py-1.5 rounded-full font-bold text-sm transition-all',
-                  phonicsLang === c.id
-                    ? 'bg-success text-white shadow-soft'
-                    : 'bg-white text-ink-700 hover:bg-success/10'
-                )}
               >
                 {c.label}
-                {phonicsLang === c.id && <span className="ml-1.5 opacity-80">{c.count}</span>}
-              </button>
+              </Chip>
             ))}
           </div>
         )}
@@ -183,58 +177,44 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
         {/* 카테고리 chip + 읽는 중 chip — 동화책 (단일 선택) */}
         {type === 'storybook' && (allCategories.length > 1 || readingCount > 0) && (
           <div className="flex gap-2 mb-5 overflow-x-auto pb-1">
-            <button
+            <Chip
+              variant="ink"
+              active={activeCategory === null && !readingFilter}
               onClick={() => {
                 setActiveCategory(null);
                 setReadingFilter(false);
               }}
-              className={cn(
-                'px-4 py-1.5 rounded-full font-bold text-sm whitespace-nowrap transition-all shrink-0',
-                activeCategory === null && !readingFilter
-                  ? 'bg-ink-900 text-white shadow-soft'
-                  : 'bg-white text-ink-700 hover:bg-peach-100'
-              )}
             >
               전체
-            </button>
+            </Chip>
             {readingCount > 0 && (
-              <button
+              <Chip
+                variant="warn"
+                active={readingFilter}
+                icon="📖"
+                trailing={readingCount}
                 onClick={() => {
                   setActiveCategory(null);
                   setReadingFilter((v) => !v);
                 }}
-                className={cn(
-                  'px-4 py-1.5 rounded-full font-bold text-sm whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0',
-                  readingFilter
-                    ? 'bg-warn text-ink-900 shadow-soft'
-                    : 'bg-white text-ink-700 hover:bg-warn/20'
-                )}
               >
-                <span>📖</span>
-                <span>읽는 중</span>
-                <span className={readingFilter ? 'opacity-80' : 'text-ink-500'}>
-                  {readingCount}
-                </span>
-              </button>
+                읽는 중
+              </Chip>
             )}
             {allCategories.map(([cat, count]) => (
-              <button
+              <Chip
                 key={cat}
+                variant="coral"
+                active={activeCategory === cat}
+                icon={getCategoryIcon(cat)}
+                trailing={activeCategory === cat ? count : undefined}
                 onClick={() => {
                   setActiveCategory(cat);
                   setReadingFilter(false);
                 }}
-                className={cn(
-                  'px-4 py-1.5 rounded-full font-bold text-sm whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0',
-                  activeCategory === cat
-                    ? 'bg-coral-500 text-white shadow-soft'
-                    : 'bg-white text-ink-700 hover:bg-peach-100'
-                )}
               >
-                <span>{getCategoryIcon(cat)}</span>
-                <span>{cat}</span>
-                {activeCategory === cat && <span className="opacity-80">{count}</span>}
-              </button>
+                {cat}
+              </Chip>
             ))}
           </div>
         )}
