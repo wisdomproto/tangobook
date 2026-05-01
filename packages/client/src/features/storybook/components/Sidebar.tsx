@@ -22,6 +22,7 @@ import { Spinner } from '@/components/Spinner';
 import { SidebarCard } from './SidebarCard';
 import { DeleteConfirmModal } from './DeleteConfirmModal';
 import { CategoryManagerModal } from './CategoryManagerModal';
+import { VocabularyUnitSidebarList } from '@/features/vocabulary-unit';
 
 function DroppableFolder({
   folderId,
@@ -178,6 +179,7 @@ function DroppableFolder({
 
 export function Sidebar() {
   const { data: storybooks, isLoading } = useStorybooks();
+  // VocabularyUnitSidebarList import는 아래에서 동적으로 사용
   const deleteMutation = useDeleteStorybook();
   const patchMutation = usePatchStorybook();
   const copyMutation = useCopyStorybook();
@@ -240,8 +242,12 @@ export function Sidebar() {
     if (typeFilter === 'storybook') {
       return storybooks.filter((s) => (s.type ?? 'storybook') === 'storybook');
     }
-    const lang = typeFilter === 'phonics-ko' ? 'korean' : 'english';
-    return storybooks.filter((s) => s.type === 'phonics' && s.phonicsLanguage === lang);
+    if (typeFilter === 'phonics-ko' || typeFilter === 'phonics-en') {
+      const lang = typeFilter === 'phonics-ko' ? 'korean' : 'english';
+      return storybooks.filter((s) => s.type === 'phonics' && s.phonicsLanguage === lang);
+    }
+    // vocabulary 탭은 storybook 리스트 사용 X (별도 vocabulary unit 컴포넌트 표시)
+    return [];
   }, [storybooks, typeFilter]);
 
   // Extract unique folders from type-filtered storybooks + custom folders
@@ -419,259 +425,312 @@ export function Sidebar() {
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <aside className="w-72 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 fixed top-14 left-0 bottom-0 flex flex-col z-30">
-        {/* 타입 탭 */}
+        {/* 메인 타입 탭 — 3축 (동화책 / 파닉스 / 어휘) */}
         <div className="flex border-b border-slate-200 dark:border-slate-700">
           {(
             [
-              { key: 'storybook', label: '동화책', color: 'violet' },
-              { key: 'phonics-ko', label: '한글파닉스', color: 'emerald' },
-              { key: 'phonics-en', label: '영어파닉스', color: 'blue' },
+              { key: 'storybook', label: '📖 동화책', color: 'violet' },
+              { key: 'phonics', label: '🔤 파닉스', color: 'emerald' },
+              { key: 'vocabulary', label: '✨ 어휘', color: 'amber' },
             ] as const
-          ).map((t) => (
-            <button
-              key={t.key}
-              onClick={() => {
-                setTypeFilter(t.key);
-                setCategory('all');
-              }}
-              className={`flex-1 py-3 text-xs font-semibold text-center transition-colors border-b-2 ${
-                typeFilter === t.key
-                  ? t.color === 'emerald'
-                    ? 'border-emerald-600 text-emerald-600 dark:text-emerald-400'
-                    : t.color === 'blue'
-                      ? 'border-blue-600 text-blue-600 dark:text-blue-400'
-                      : 'border-violet-600 text-violet-600 dark:text-violet-400'
-                  : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
-              }`}
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
-
-        {/* 새로 만들기 버튼 (선택된 탭에 맞는 것만) */}
-        <div className="p-3">
-          {typeFilter === 'storybook' ? (
-            <Button
-              className="w-full"
-              onClick={() => {
-                setCreateFormType('storybook');
-                setShowCreateForm(true);
-              }}
-            >
-              + 새 동화책 만들기
-            </Button>
-          ) : (
-            <button
-              onClick={() => {
-                setCreateFormType('phonics');
-                setShowCreateForm(true);
-              }}
-              className={`w-full px-3 py-2 text-sm font-medium rounded-lg text-white transition-colors ${
-                typeFilter === 'phonics-en'
-                  ? 'bg-blue-600 hover:bg-blue-700'
-                  : 'bg-emerald-600 hover:bg-emerald-700'
-              }`}
-            >
-              + 새 {typeFilter === 'phonics-ko' ? '한글' : '영어'} 파닉스 만들기
-            </button>
-          )}
-        </div>
-
-        {/* 검색 */}
-        <div className="px-3 pb-2">
-          <div className="relative">
-            <svg
-              className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="검색..."
-              className="w-full pl-8 pr-3 py-1.5 text-sm border border-slate-200 rounded-md focus:ring-1 focus:ring-violet-500 focus:border-violet-500 outline-none dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
-            />
-          </div>
-        </div>
-
-        {/* 폴더 */}
-        <div className="px-3 pb-2">
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">
-              폴더
-            </span>
-            <button
-              onClick={() => setShowNewFolder(!showNewFolder)}
-              className="text-[11px] text-violet-500 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-medium"
-            >
-              + 새 폴더
-            </button>
-          </div>
-          {showNewFolder && (
-            <div className="flex gap-1 mb-1.5">
-              <input
-                value={newFolderName}
-                onChange={(e) => setNewFolderName(e.target.value)}
-                onKeyDown={(e) =>
-                  e.key === 'Enter' && !e.nativeEvent.isComposing && handleCreateFolder()
-                }
-                placeholder="폴더 이름"
-                className="flex-1 px-2 py-1 text-xs border border-slate-200 rounded focus:ring-1 focus:ring-violet-500 outline-none dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
-                autoFocus
-              />
+          ).map((t) => {
+            const active =
+              t.key === 'phonics'
+                ? typeFilter === 'phonics-ko' || typeFilter === 'phonics-en'
+                : typeFilter === t.key;
+            return (
               <button
-                onClick={handleCreateFolder}
-                disabled={!newFolderName.trim()}
-                className="px-2 py-1 text-xs bg-violet-600 text-white rounded disabled:opacity-50"
+                key={t.key}
+                onClick={() => {
+                  if (t.key === 'storybook') setTypeFilter('storybook');
+                  else if (t.key === 'vocabulary') setTypeFilter('vocabulary');
+                  else if (typeFilter !== 'phonics-ko' && typeFilter !== 'phonics-en') {
+                    setTypeFilter('phonics-ko');
+                  }
+                  setCategory('all');
+                }}
+                className={`flex-1 py-3 text-xs font-semibold text-center transition-colors border-b-2 ${
+                  active
+                    ? t.color === 'emerald'
+                      ? 'border-emerald-600 text-emerald-600 dark:text-emerald-400'
+                      : t.color === 'amber'
+                        ? 'border-amber-600 text-amber-600 dark:text-amber-400'
+                        : 'border-violet-600 text-violet-600 dark:text-violet-400'
+                    : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
+                }`}
               >
-                추가
+                {t.label}
               </button>
-            </div>
-          )}
-          <div className="space-y-0.5 max-h-40 overflow-y-auto">
-            <DroppableFolder
-              folderId="all"
-              label="전체"
-              count={typeFiltered.length}
-              isActive={folder === 'all'}
-              isOver={false}
-              onClick={() => setFolder('all')}
-            />
-            {folders.map((f) => (
-              <DroppableFolder
-                key={f}
-                folderId={f}
-                label={f}
-                count={folderCounts[f] ?? 0}
-                isActive={folder === f}
-                isOver={false}
-                onClick={() => setFolder(f)}
-                onDelete={() => handleDeleteFolder(f)}
-                onRename={(newName) => handleRenameFolder(f, newName)}
-              />
+            );
+          })}
+        </div>
+
+        {/* phonics 하위 탭 (한글/영어) */}
+        {(typeFilter === 'phonics-ko' || typeFilter === 'phonics-en') && (
+          <div className="flex gap-1 px-3 py-2 bg-slate-50 dark:bg-slate-900/40 border-b border-slate-200 dark:border-slate-700">
+            {(
+              [
+                { key: 'phonics-ko', label: '한글', color: 'emerald' },
+                { key: 'phonics-en', label: '영어', color: 'blue' },
+              ] as const
+            ).map((t) => (
+              <button
+                key={t.key}
+                onClick={() => {
+                  setTypeFilter(t.key);
+                  setCategory('all');
+                }}
+                className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors ${
+                  typeFilter === t.key
+                    ? t.color === 'blue'
+                      ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300'
+                      : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300'
+                    : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                }`}
+              >
+                {t.label}
+              </button>
             ))}
-            {(folderCounts[''] ?? 0) > 0 && (
-              <DroppableFolder
-                folderId="__none__"
-                label="미분류"
-                count={folderCounts[''] ?? 0}
-                isActive={folder === '__none__'}
-                isOver={false}
-                onClick={() => setFolder('__none__')}
-              />
-            )}
           </div>
-        </div>
+        )}
 
-        {/* 필터 + 정렬 + 카운트 */}
-        <div className="px-3 pb-1 flex items-center justify-between">
-          <span className="text-xs text-slate-400 dark:text-slate-500">{filtered.length}권</span>
-          <div className="flex items-center gap-1">
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="text-[11px] text-slate-400 dark:text-slate-500 border-none outline-none bg-transparent cursor-pointer"
-            >
-              {categories.map((cat) => (
-                <option key={cat.value} value={cat.value}>
-                  {cat.label}
-                </option>
-              ))}
-            </select>
-            <button
-              onClick={() => setShowCategoryManager(true)}
-              className="p-0.5 rounded text-slate-400 dark:text-slate-500 hover:text-violet-500 dark:hover:text-violet-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
-              title="카테고리 관리"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+        {/* vocabulary 탭은 별도 컴포넌트 — 어휘 단원 list */}
+        {typeFilter === 'vocabulary' ? (
+          <VocabularyUnitSidebarList />
+        ) : (
+          <>
+            {/* 새로 만들기 버튼 (선택된 탭에 맞는 것만) */}
+            <div className="p-3">
+              {typeFilter === 'storybook' ? (
+                <Button
+                  className="w-full"
+                  onClick={() => {
+                    setCreateFormType('storybook');
+                    setShowCreateForm(true);
+                  }}
+                >
+                  + 새 동화책 만들기
+                </Button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setCreateFormType('phonics');
+                    setShowCreateForm(true);
+                  }}
+                  className={`w-full px-3 py-2 text-sm font-medium rounded-lg text-white transition-colors ${
+                    typeFilter === 'phonics-en'
+                      ? 'bg-blue-600 hover:bg-blue-700'
+                      : 'bg-emerald-600 hover:bg-emerald-700'
+                  }`}
+                >
+                  + 새 {typeFilter === 'phonics-ko' ? '한글' : '영어'} 파닉스 만들기
+                </button>
+              )}
+            </div>
+
+            {/* 검색 */}
+            <div className="px-3 pb-2">
+              <div className="relative">
+                <svg
+                  className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="검색..."
+                  className="w-full pl-8 pr-3 py-1.5 text-sm border border-slate-200 rounded-md focus:ring-1 focus:ring-violet-500 focus:border-violet-500 outline-none dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
                 />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              </div>
+            </div>
+
+            {/* 폴더 */}
+            <div className="px-3 pb-2">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                  폴더
+                </span>
+                <button
+                  onClick={() => setShowNewFolder(!showNewFolder)}
+                  className="text-[11px] text-violet-500 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-medium"
+                >
+                  + 새 폴더
+                </button>
+              </div>
+              {showNewFolder && (
+                <div className="flex gap-1 mb-1.5">
+                  <input
+                    value={newFolderName}
+                    onChange={(e) => setNewFolderName(e.target.value)}
+                    onKeyDown={(e) =>
+                      e.key === 'Enter' && !e.nativeEvent.isComposing && handleCreateFolder()
+                    }
+                    placeholder="폴더 이름"
+                    className="flex-1 px-2 py-1 text-xs border border-slate-200 rounded focus:ring-1 focus:ring-violet-500 outline-none dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
+                    autoFocus
+                  />
+                  <button
+                    onClick={handleCreateFolder}
+                    disabled={!newFolderName.trim()}
+                    className="px-2 py-1 text-xs bg-violet-600 text-white rounded disabled:opacity-50"
+                  >
+                    추가
+                  </button>
+                </div>
+              )}
+              <div className="space-y-0.5 max-h-40 overflow-y-auto">
+                <DroppableFolder
+                  folderId="all"
+                  label="전체"
+                  count={typeFiltered.length}
+                  isActive={folder === 'all'}
+                  isOver={false}
+                  onClick={() => setFolder('all')}
                 />
-              </svg>
-            </button>
-            <select
-              value={visibility}
-              onChange={(e) => setVisibility(e.target.value as 'all' | 'public' | 'private')}
-              className="text-[11px] text-slate-400 dark:text-slate-500 border-none outline-none bg-transparent cursor-pointer"
-            >
-              <option value="all">전체</option>
-              <option value="public">공개</option>
-              <option value="private">비공개</option>
-            </select>
-            <select
-              value={sort}
-              onChange={(e) => setSort(e.target.value as 'latest' | 'title')}
-              className="text-[11px] text-slate-400 dark:text-slate-500 border-none outline-none bg-transparent cursor-pointer"
-            >
-              <option value="latest">최신순</option>
-              <option value="title">제목순</option>
-            </select>
-          </div>
-        </div>
+                {folders.map((f) => (
+                  <DroppableFolder
+                    key={f}
+                    folderId={f}
+                    label={f}
+                    count={folderCounts[f] ?? 0}
+                    isActive={folder === f}
+                    isOver={false}
+                    onClick={() => setFolder(f)}
+                    onDelete={() => handleDeleteFolder(f)}
+                    onRename={(newName) => handleRenameFolder(f, newName)}
+                  />
+                ))}
+                {(folderCounts[''] ?? 0) > 0 && (
+                  <DroppableFolder
+                    folderId="__none__"
+                    label="미분류"
+                    count={folderCounts[''] ?? 0}
+                    isActive={folder === '__none__'}
+                    isOver={false}
+                    onClick={() => setFolder('__none__')}
+                  />
+                )}
+              </div>
+            </div>
 
-        {/* 동화책 목록 */}
-        <div className="flex-1 overflow-y-auto">
-          {isLoading ? (
-            <Spinner size="sm" className="mt-8" />
-          ) : filtered.length === 0 ? (
-            <p className="text-center text-sm text-slate-400 dark:text-slate-500 mt-8 px-3">
-              {search ? '검색 결과가 없습니다.' : '동화책이 없습니다.'}
-            </p>
-          ) : (
-            filtered.map((sb) => (
-              <SidebarCard
-                key={sb.id}
-                storybook={sb}
-                selected={
-                  selectedId === sb.id ||
-                  (groupVariants && selectedId?.startsWith(`${sb.id}__L`)) ||
-                  false
-                }
-                onSelect={() => setSelectedId(sb.id)}
-                onDelete={() => setDeleteTarget({ id: sb.id, title: sb.title })}
-                onView={() => handleView(sb.id)}
-                onCopy={() => handleCopy(sb.id)}
-                onTogglePublic={handleTogglePublic}
-                onChangeCategory={handleChangeCategory}
-                onRename={handleRename}
-                variantCount={groupVariants ? variantCountByBaseId.get(sb.id) : undefined}
-              />
-            ))
-          )}
-        </div>
+            {/* 필터 + 정렬 + 카운트 */}
+            <div className="px-3 pb-1 flex items-center justify-between">
+              <span className="text-xs text-slate-400 dark:text-slate-500">
+                {filtered.length}권
+              </span>
+              <div className="flex items-center gap-1">
+                <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="text-[11px] text-slate-400 dark:text-slate-500 border-none outline-none bg-transparent cursor-pointer"
+                >
+                  {categories.map((cat) => (
+                    <option key={cat.value} value={cat.value}>
+                      {cat.label}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  onClick={() => setShowCategoryManager(true)}
+                  className="p-0.5 rounded text-slate-400 dark:text-slate-500 hover:text-violet-500 dark:hover:text-violet-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                  title="카테고리 관리"
+                >
+                  <svg
+                    className="w-3.5 h-3.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                </button>
+                <select
+                  value={visibility}
+                  onChange={(e) => setVisibility(e.target.value as 'all' | 'public' | 'private')}
+                  className="text-[11px] text-slate-400 dark:text-slate-500 border-none outline-none bg-transparent cursor-pointer"
+                >
+                  <option value="all">전체</option>
+                  <option value="public">공개</option>
+                  <option value="private">비공개</option>
+                </select>
+                <select
+                  value={sort}
+                  onChange={(e) => setSort(e.target.value as 'latest' | 'title')}
+                  className="text-[11px] text-slate-400 dark:text-slate-500 border-none outline-none bg-transparent cursor-pointer"
+                >
+                  <option value="latest">최신순</option>
+                  <option value="title">제목순</option>
+                </select>
+              </div>
+            </div>
 
-        <DeleteConfirmModal
-          open={!!deleteTarget}
-          onClose={() => setDeleteTarget(null)}
-          onConfirm={handleDelete}
-          title={deleteTarget?.title ?? ''}
-          loading={deleteMutation.isPending}
-        />
+            {/* 동화책 목록 */}
+            <div className="flex-1 overflow-y-auto">
+              {isLoading ? (
+                <Spinner size="sm" className="mt-8" />
+              ) : filtered.length === 0 ? (
+                <p className="text-center text-sm text-slate-400 dark:text-slate-500 mt-8 px-3">
+                  {search ? '검색 결과가 없습니다.' : '동화책이 없습니다.'}
+                </p>
+              ) : (
+                filtered.map((sb) => (
+                  <SidebarCard
+                    key={sb.id}
+                    storybook={sb}
+                    selected={
+                      selectedId === sb.id ||
+                      (groupVariants && selectedId?.startsWith(`${sb.id}__L`)) ||
+                      false
+                    }
+                    onSelect={() => setSelectedId(sb.id)}
+                    onDelete={() => setDeleteTarget({ id: sb.id, title: sb.title })}
+                    onView={() => handleView(sb.id)}
+                    onCopy={() => handleCopy(sb.id)}
+                    onTogglePublic={handleTogglePublic}
+                    onChangeCategory={handleChangeCategory}
+                    onRename={handleRename}
+                    variantCount={groupVariants ? variantCountByBaseId.get(sb.id) : undefined}
+                  />
+                ))
+              )}
+            </div>
 
-        <CategoryManagerModal
-          open={showCategoryManager}
-          onClose={() => setShowCategoryManager(false)}
-          tab={typeFilter}
-        />
+            <DeleteConfirmModal
+              open={!!deleteTarget}
+              onClose={() => setDeleteTarget(null)}
+              onConfirm={handleDelete}
+              title={deleteTarget?.title ?? ''}
+              loading={deleteMutation.isPending}
+            />
+
+            <CategoryManagerModal
+              open={showCategoryManager}
+              onClose={() => setShowCategoryManager(false)}
+              tab={typeFilter}
+            />
+          </>
+        )}
       </aside>
 
       {/* Drag overlay - shows a ghost card while dragging */}

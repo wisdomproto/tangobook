@@ -8,6 +8,7 @@ import { useEditorStore } from '@/store/editor.store';
 import { CreateStorybookForm } from '@/features/storybook/components/CreateStorybookForm';
 import { CreatePhonicsBookForm } from '@/features/storybook/components/CreatePhonicsBookForm';
 import { EditorPanelV2 } from '@/features/editor/components/EditorPanelV2';
+import { VocabularyUnitEditor } from '@/features/vocabulary-unit';
 
 /**
  * /editor2 전용 레이아웃 — AppLayout(v1) 의 변형.
@@ -16,7 +17,7 @@ import { EditorPanelV2 } from '@/features/editor/components/EditorPanelV2';
  * - /editor 는 AppLayout 그대로 안전 백업
  */
 export function AppLayoutV2() {
-  const { bid } = useParams();
+  const { bid, unitId } = useParams();
   const setSelectedId = useEditorStore((s) => s.setSelectedStorybookId);
   useEffect(() => {
     if (bid) setSelectedId(bid);
@@ -34,13 +35,15 @@ export function AppLayoutV2() {
       <TopBar />
       <Sidebar />
       <main className="ml-72 mt-14 min-h-[calc(100vh-3.5rem)]">
-        {showCreateForm ? (
+        {unitId ? (
+          <VocabularyUnitEditor />
+        ) : showCreateForm ? (
           createFormType === 'phonics' ? (
             <CreatePhonicsBookForm />
           ) : (
             <CreateStorybookForm />
           )
-        ) : selectedId ? (
+        ) : selectedId && typeFilter !== 'vocabulary' ? (
           <EditorPanelV2 storybookId={selectedId} />
         ) : (
           <div className="flex items-center justify-center h-[calc(100vh-3.5rem)]">

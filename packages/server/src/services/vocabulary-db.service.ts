@@ -110,6 +110,47 @@ interface ExtractedWord {
   source: Omit<VocabSource, 'storybookId' | 'storybookTitle'>;
 }
 
+/**
+ * 단어가 등장하는 페이지의 일러스트를 수집 — 어휘 게임 회전 이미지용.
+ * 모든 그림체(styleAssets) + top-level pages[].illustrationUrl 모두 포함, dedupe.
+ */
+function collectPageImagesForWord(
+  storybook: Storybook,
+  pageNums: number[] | undefined
+): { page: number; illustrationUrl: string; style?: string }[] {
+  if (!pageNums || pageNums.length === 0) return [];
+  const result: { page: number; illustrationUrl: string; style?: string }[] = [];
+  const seen = new Set<string>();
+
+  // 1. styleAssets 의 모든 그림체 순회 (그림체 variation 도 자동 확보)
+  if (storybook.styleAssets) {
+    for (const [style, assets] of Object.entries(storybook.styleAssets)) {
+      if (!assets?.pageIllustrations) continue;
+      for (const pageNum of pageNums) {
+        const pi = assets.pageIllustrations[pageNum];
+        if (!pi?.illustrationUrl) continue;
+        const key = `${pageNum}-${pi.illustrationUrl}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        result.push({ page: pageNum, illustrationUrl: pi.illustrationUrl, style });
+      }
+    }
+  }
+
+  // 2. top-level pages[].illustrationUrl (그림체 미명시 — 단일 그림체일 때 사용)
+  const sbPages = storybook.pages ?? [];
+  for (const pageNum of pageNums) {
+    const page = sbPages.find((p) => p.pageNumber === pageNum);
+    if (!page?.illustrationUrl) continue;
+    const key = `${pageNum}-${page.illustrationUrl}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    result.push({ page: pageNum, illustrationUrl: page.illustrationUrl });
+  }
+
+  return result;
+}
+
 function extractFromStorybook(storybook: Storybook): ExtractedWord[] {
   const results: ExtractedWord[] = [];
   const pages = storybook.pages ?? [];
@@ -120,6 +161,7 @@ function extractFromStorybook(storybook: Storybook): ExtractedWord[] {
     // 영어 단어 + 한국어 번역 모두 검색
     const searchTerms = [v.word, v.korean].filter(Boolean);
     const pageNums = findPagesContainingWord(pages, searchTerms);
+    const pageImages = collectPageImagesForWord(storybook, pageNums);
     results.push({
       word: v.word,
       korean: v.korean || '',
@@ -128,6 +170,7 @@ function extractFromStorybook(storybook: Storybook): ExtractedWord[] {
         sourceType: 'storybook-vocabulary',
         pages: pageNums,
         sentences: findSentencesContainingWord(pages, searchTerms, pageNums),
+        pageImages: pageImages.length > 0 ? pageImages : undefined,
       },
     });
   }
@@ -139,14 +182,17 @@ function extractFromStorybook(storybook: Storybook): ExtractedWord[] {
     const koImage = storybook.keyObjectImages?.find((i) => i.objectName === ko.name);
     // 영어 이름 + 한국어 이름 모두 검색
     const searchTerms = [name, ko.korean, ko.name].filter((s): s is string => !!s);
+    const pageNums = ko.pages?.length ? ko.pages : findPagesContainingWord(pages, searchTerms);
+    const pageImages = collectPageImagesForWord(storybook, pageNums);
     results.push({
       word: name,
       korean: ko.korean ?? ko.name,
       source: {
         sourceType: 'storybook-key-object',
-        pages: ko.pages?.length ? ko.pages : findPagesContainingWord(pages, searchTerms),
+        pages: pageNums,
         sentences: findSentencesContainingWord(pages, searchTerms, ko.pages),
         imageUrl: koImage?.imageUrl,
+        pageImages: pageImages.length > 0 ? pageImages : undefined,
       },
     });
   }

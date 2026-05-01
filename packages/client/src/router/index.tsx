@@ -29,6 +29,7 @@ import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
 import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
 import { CollectionPage, CategoryPage } from '../features/collection';
 import { HoriRoomPage } from '../features/hori-room';
+import { VocabularyHubPage, VocabularyStudyPage } from '../features/vocabulary-unit';
 import {
   PlaygroundHubPage,
   WordMemoryPlayer,
@@ -103,6 +104,14 @@ export const router = createBrowserRouter([
       },
       {
         path: 'editor2/:bid',
+        element: (
+          <ErrorBoundary>
+            <AppLayoutV2 />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'editor2/vocab/:unitId',
         element: (
           <ErrorBoundary>
             <AppLayoutV2 />
@@ -199,6 +208,22 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <HoriRoomPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'vocabulary',
+        element: (
+          <ErrorBoundary>
+            <VocabularyHubPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'vocabulary/:unitId',
+        element: (
+          <ErrorBoundary>
+            <VocabularyStudyPage />
           </ErrorBoundary>
         ),
       },

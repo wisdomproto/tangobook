@@ -1,10 +1,11 @@
 import { create } from 'zustand';
 import { STORYBOOK_CATEGORIES, PHONICS_CATEGORIES } from '@tangobook/shared';
 
-export type CategoryTab = 'storybook' | 'phonics-ko' | 'phonics-en';
+export type CategoryTab = 'storybook' | 'phonics-ko' | 'phonics-en' | 'vocabulary';
 
 const defaultCategoriesForTab = (tab: CategoryTab): string[] => {
   if (tab === 'storybook') return [...STORYBOOK_CATEGORIES];
+  if (tab === 'vocabulary') return []; // vocabulary 탭은 별도 sidebar 사용
   return [...PHONICS_CATEGORIES];
 };
 
@@ -25,7 +26,7 @@ type EditorTab =
   | 'longform-video';
 
 type CreateFormType = 'storybook' | 'phonics';
-type SidebarTypeFilter = 'storybook' | 'phonics-ko' | 'phonics-en';
+type SidebarTypeFilter = 'storybook' | 'phonics-ko' | 'phonics-en' | 'vocabulary';
 
 interface EditorStore {
   // 선택된 동화책 ID
