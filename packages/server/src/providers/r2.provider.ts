@@ -19,7 +19,21 @@ export const r2Client = new S3Client({
     accessKeyId: config.r2.accessKeyId,
     secretAccessKey: config.r2.secretAccessKey,
   },
+  maxAttempts: 3,
 });
+
+/** R2 SDK 호출에 timeout 보호. 개별 요청이 hang 해도 cache refresh 가 영원히 stuck 되지 않도록. */
+async function withR2Timeout<T>(p: Promise<T>, ms: number, label: string): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`R2 timeout (${label}, ${ms}ms)`)), ms);
+  });
+  try {
+    return await Promise.race([p, timeout]);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
 
 export const r2BucketName = config.r2.bucketName;
 export const r2PublicUrl = config.r2.publicUrl;
@@ -51,13 +65,21 @@ export async function uploadJsonToR2(data: unknown, key: string): Promise<string
 }
 
 export async function downloadFromR2(key: string): Promise<Buffer> {
-  const result = await r2Client.send(
-    new GetObjectCommand({
-      Bucket: r2BucketName,
-      Key: key,
-    })
+  const result = await withR2Timeout(
+    r2Client.send(
+      new GetObjectCommand({
+        Bucket: r2BucketName,
+        Key: key,
+      })
+    ),
+    20_000,
+    `download:${key}`
   );
-  const bytes = await result.Body?.transformToByteArray();
+  const bytes = await withR2Timeout(
+    result.Body?.transformToByteArray() ?? Promise.reject(new Error(`R2 파일 없음: ${key}`)),
+    15_000,
+    `read:${key}`
+  );
   if (!bytes) throw new Error(`R2 파일 없음: ${key}`);
   return Buffer.from(bytes);
 }

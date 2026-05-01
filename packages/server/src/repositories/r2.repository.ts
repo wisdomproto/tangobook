@@ -15,8 +15,10 @@ const STORYBOOK_PREFIX = 'storybook-';
 let listCache: StorybookSummary[] | null = null;
 let listCacheTime = 0;
 let refreshInFlight: Promise<StorybookSummary[]> | null = null;
+let refreshInFlightStartedAt = 0;
 const LIST_CACHE_TTL = 5 * 60 * 1000; // 5분
-const LIST_CONCURRENCY = 30; // R2 동시 다운로드 (기존 10 → 30으로 상향)
+const LIST_CONCURRENCY = 30;
+const REFRESH_MAX_MS = 90_000; // 90초 — 정상 refresh가 이 안에 안 끝나면 stuck 으로 간주
 
 async function refreshListCacheFromR2(): Promise<StorybookSummary[]> {
   const t0 = Date.now();
@@ -32,7 +34,7 @@ async function refreshListCacheFromR2(): Promise<StorybookSummary[]> {
           const sb = JSON.parse(buffer.toString('utf-8')) as Storybook;
           summaries.push(toSummary(sb));
         } catch {
-          // 개별 파일 로드 실패 무시
+          // 개별 파일 로드 실패 무시 (timeout 포함)
         }
       })
     );
@@ -46,17 +48,24 @@ async function refreshListCacheFromR2(): Promise<StorybookSummary[]> {
   return sorted;
 }
 
-/** 서버 기동 시 호출 — 첫 사용자 요청 전에 캐시를 미리 채움 */
-export function prewarmStorybookListCache(): void {
-  if (refreshInFlight || listCache) return;
+function startRefresh(): Promise<StorybookSummary[]> {
+  refreshInFlightStartedAt = Date.now();
   refreshInFlight = refreshListCacheFromR2()
     .catch((err) => {
-      console.warn('[prewarm] listStorybooks failed:', err);
-      return [] as StorybookSummary[];
+      console.warn('[listStorybooks] refresh failed:', err);
+      return listCache ?? ([] as StorybookSummary[]);
     })
     .finally(() => {
       refreshInFlight = null;
+      refreshInFlightStartedAt = 0;
     });
+  return refreshInFlight;
+}
+
+/** 서버 기동 시 호출 — 첫 사용자 요청 전에 캐시를 미리 채움 */
+export function prewarmStorybookListCache(): void {
+  if (refreshInFlight || listCache) return;
+  startRefresh();
 }
 
 function toSummary(sb: Storybook): StorybookSummary {
@@ -93,10 +102,6 @@ function toSummary(sb: Storybook): StorybookSummary {
     hasVideo: hasAudiobookVideo || hasLongformVideo,
     koCompletion,
   };
-}
-
-function invalidateListCache() {
-  listCache = null;
 }
 
 function storybookKey(id: string): string {
@@ -153,31 +158,28 @@ function normalizeStorybook(sb: Record<string, unknown>): Storybook {
 export const R2Repository = {
   async listStorybooks(): Promise<StorybookSummary[]> {
     const now = Date.now();
+
+    // Stuck refresh recovery — 90초 넘게 pending 이면 강제로 새 refresh 시도
+    if (refreshInFlight && now - refreshInFlightStartedAt > REFRESH_MAX_MS) {
+      console.warn(
+        `[listStorybooks] refresh stuck for ${now - refreshInFlightStartedAt}ms — restarting`
+      );
+      refreshInFlight = null;
+      refreshInFlightStartedAt = 0;
+    }
+
     const fresh = listCache && now - listCacheTime < LIST_CACHE_TTL;
     if (fresh) return listCache!;
 
     // Stale-while-revalidate: 캐시 있으면 즉시 리턴 + 백그라운드 리프레시
     if (listCache) {
-      if (!refreshInFlight) {
-        refreshInFlight = refreshListCacheFromR2()
-          .catch((err) => {
-            console.warn('[listStorybooks] background refresh failed:', err);
-            return listCache!;
-          })
-          .finally(() => {
-            refreshInFlight = null;
-          });
-      }
+      if (!refreshInFlight) startRefresh();
       return listCache;
     }
 
     // 첫 호출: 기다림
-    if (!refreshInFlight) {
-      refreshInFlight = refreshListCacheFromR2().finally(() => {
-        refreshInFlight = null;
-      });
-    }
-    return refreshInFlight;
+    if (!refreshInFlight) startRefresh();
+    return refreshInFlight!;
   },
 
   async getStorybook(id: string): Promise<Storybook | null> {

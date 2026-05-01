@@ -9,7 +9,7 @@ import type {
   VocabularyWordImage,
   ImageGenerationResult,
 } from '@tangobook/shared';
-import { TTS_VOICES } from '@tangobook/shared';
+import { TTS_VOICES, DEFAULT_IMAGE_MODEL } from '@tangobook/shared';
 import { Mascot, Skeleton, Button } from '@/design-system';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { ImageDropZone } from '@/components/ImageDropZone';
@@ -17,6 +17,7 @@ import { ImagePreview } from '@/components/ImagePreview';
 import { DownloadButton } from '@/components/DownloadButton';
 import { UploadMenu } from '@/components/UploadMenu';
 import { BatchProgressBar } from '@/components/BatchProgressBar';
+import { ImageModelSelector } from '@/components/ImageModelSelector';
 import { apiClient } from '@/lib/axios';
 
 const DEFAULT_ART_STYLE = 'photographic-realistic';
@@ -69,6 +70,7 @@ export function VocabularyUnitEditor() {
   const [batchProgress, setBatchProgress] = useState<{ current: number; total: number } | null>(
     null
   );
+  const [imageModel, setImageModel] = useState<string>(DEFAULT_IMAGE_MODEL);
   const abortControllerRef = useRef<AbortController | null>(null);
 
   // ---- 이미지 / TTS 단일 ----
@@ -167,6 +169,7 @@ export function VocabularyUnitEditor() {
         unitId: draft.id,
         artStyle: DEFAULT_ART_STYLE,
         currentImageUrl: primary?.imageUrl,
+        model: imageModel,
       });
       const newImage: VocabularyWordImage = {
         id: `img-${Date.now()}`,
@@ -218,6 +221,7 @@ export function VocabularyUnitEditor() {
               customPrompt: w.customPrompt,
               unitId: draft.id,
               artStyle: DEFAULT_ART_STYLE,
+              model: imageModel,
             },
             ac.signal
           );
@@ -451,7 +455,9 @@ export function VocabularyUnitEditor() {
           <h2 className="text-sm font-bold text-ink-700 flex items-center gap-2">
             단어 ({words.length})
           </h2>
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-2 flex-wrap items-center">
+            {/* 이미지 모델 */}
+            <ImageModelSelector value={imageModel} onChange={setImageModel} label="모델" />
             {/* TTS 일괄 */}
             <select
               value={ttsLang}
