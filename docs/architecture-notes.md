@@ -61,6 +61,26 @@ TopBar 우측 `ResourcesDropdown` (`components/TopBar.tsx`) — 정적 HTML 페�
 
 ---
 
+## Storybook Copy — Deep Clone + 진행률 (2026-05-01)
+동화책 복사 시 R2 객체를 zero-copy CopyObject 로 복제 (URL 분리). 영상 mp4 는 복사 X (용량). 공유 라이브러리(phonics-library/BGM/system-sounds/hori/mascot/strategy-samples/collection) 는 URL 그대로.
+
+**JSON walker 5단계 패턴** (`storybook.service.ts#_copyImpl`):
+1. fetch original + 복사번호 계산 (`-복사본(N)`)
+2. strip `audiobookProjects`/`longformProjects` (영상 제거)
+3. JSON.stringify → R2 public URL regex 추출 (uniqueUrls)
+4. 공유 prefix 제외 → `dupTargets[]`
+5. `Promise.all(CopyObject)` 병렬 + 매 객체마다 progress 갱신 → JSON 일괄 치환 → save
+
+**API**:
+- `POST /api/storybooks/:id/copy-async` → `{ taskId }` (fire-and-forget)
+- `GET /api/storybooks/copy-progress/:taskId` → `{ current, total, status, newId?, error? }`
+
+**클라**: `useCopyStorybookAsync` 훅 — 700ms polling + `CopyProgressModal` (스피너 → % → 체크). [features/storybook/CLAUDE.md](../packages/client/src/features/storybook/CLAUDE.md) 참조.
+
+상세: [memory/storybook-copy-deep-clone.md](../memory/storybook-copy-deep-clone.md)
+
+---
+
 ## Performance & Caching
 - **서버 storybook list 캐시** (`r2.repository.ts`):
   - 5분 in-memory 캐시 + `stale-while-revalidate`

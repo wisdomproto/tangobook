@@ -41,6 +41,7 @@ features/{name}/{api,hooks,components,index.ts}
 ```
 
 ## 모듈별 가이드 (해당 폴더 작업 시 자동 로드)
+- 동화책 (CRUD/사이드바/복사) → [features/storybook/CLAUDE.md](packages/client/src/features/storybook/CLAUDE.md)
 - 학습 게임 → [features/games/CLAUDE.md](packages/client/src/features/games/CLAUDE.md)
 - 롱폼 영상 → [features/longform-video/CLAUDE.md](packages/client/src/features/longform-video/CLAUDE.md)
 - /editor2 (3축 variation) → [features/editor/CLAUDE.md](packages/client/src/features/editor/CLAUDE.md)
