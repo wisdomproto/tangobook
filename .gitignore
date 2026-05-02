@@ -59,4 +59,6 @@ design/
 
 # Temp R2 inspection JSON files
 .tmp-*.json
+_*.json
+jack-*.json
 
