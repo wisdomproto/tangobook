@@ -20,10 +20,11 @@ export function useSaveAudiobookProject(bid: string) {
   });
 }
 
-export function useAudiobookRenders(bid: string) {
+export function useAudiobookRenders(bid: string, options?: { enabled?: boolean }) {
   return useQuery({
     queryKey: ['book-v2', 'audiobook', bid, 'renders'],
     queryFn: () => bookV2Api.listAudiobookRenders(bid),
-    enabled: !!bid,
+    enabled: !!bid && options?.enabled !== false,
+    retry: false,
   });
 }

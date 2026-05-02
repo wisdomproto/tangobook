@@ -8,11 +8,16 @@ interface LongformFilter {
   style?: string;
 }
 
-export function useLongformList(bid: string, filter?: LongformFilter) {
+export function useLongformList(
+  bid: string,
+  filter?: LongformFilter,
+  options?: { enabled?: boolean }
+) {
   return useQuery({
     queryKey: ['book-v2', 'longform', bid, filter?.level, filter?.language, filter?.style],
     queryFn: () => bookV2Api.listLongform(bid, filter),
-    enabled: !!bid,
+    enabled: !!bid && options?.enabled !== false,
+    retry: false,
   });
 }
 

@@ -14,7 +14,12 @@ import type {
   GameConfig,
   GameData,
   LongformScene,
+  CurriculumMeta,
 } from './storybook.js';
+
+// CurriculumMeta 는 v2 에서 storybook.ts 로 옮겨졌음 (v1 단일화).
+// 하위 호환을 위해 여기서도 re-export.
+export type { CurriculumMeta };
 
 // ────────────────────────────────────────────────────────────────────────────
 // Book manifest (책 단위 메타)
@@ -25,23 +30,6 @@ export interface UsedVariants {
   levels: ReadingLevel[];
   languages: string[]; // 'ko', 'en', 'ja', ...
   styles: string[]; // ART_STYLES.id 값
-}
-
-/**
- * 커리큘럼 마스터 페이지용 부가 메타.
- * BookManifest에 optional로 박아두고, /curriculum-master 페이지에서 manifest list와 함께 표시.
- *
- * source/author/country/year/originalTitle은 책 정체성. priority/launchLevel은 제작 순서 가이드.
- */
-export interface CurriculumMeta {
-  no?: number; // 커리큘럼 표시 순서
-  originalTitle?: string; // 원제 (예: 'Hänsel und Gretel')
-  author?: string; // 저자 (예: '그림형제')
-  country?: string; // 원전 국가
-  year?: string; // 출간 연도
-  source?: string; // 원전 카테고리 ('그림형제' / '안데르센' / '이솝' / '현대창작' 등)
-  priority?: 1 | 2 | 3; // 제작 우선순위
-  launchLevel?: ReadingLevel; // 런칭 레벨 (대부분 L2)
 }
 
 export interface BookImageModelMap {

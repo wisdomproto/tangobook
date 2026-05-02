@@ -1,8 +1,38 @@
 import { useMemo, useState } from 'react';
-import { useBookIndex } from '@/features/book-v2';
+import { useStorybooks } from '@/features/storybook';
 import { CategorySection, BookCard, useReadingStatus } from '@/features/library';
 import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
-import type { BookIndexEntry } from '@tangobook/shared';
+import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
+
+/**
+ * v1 StorybookSummary 를 라이브러리 UI 가 기대하는 BookIndexEntry-shape 로 변환.
+ *
+ * 배경: 4-25~26 v2 시도 시 LibraryPage 가 v2 BookIndex 로 갈아탔지만 v2 폐기 후
+ * 동기화가 깨져 137권이 라이브러리에서 누락. v1 storybook 이 진실의 출처이므로
+ * 노출 레이어를 v1 으로 되돌림. BookCard/CategorySection 의 props 형태 유지를 위해
+ * 어댑터로 변환.
+ *
+ * 매핑 규칙:
+ * - coverImageUrl ← coverImage (StorybookSummary 에는 coverImage 만 있음)
+ * - updatedAt ← createdAt (StorybookSummary 에 updatedAt 없음. 정렬 안정성 측면에서도 createdAt 이 적합)
+ * - usedVariants ← dummy (라이브러리에서 미사용)
+ */
+function summaryToEntry(s: StorybookSummary): BookIndexEntry {
+  return {
+    id: s.id,
+    title: s.title,
+    // v1 storybook 은 type 미지정이면 'storybook' 으로 호환 (legacy 룰).
+    type: s.type ?? 'storybook',
+    category: s.category,
+    folder: s.folder,
+    isPublic: s.isPublic,
+    coverImageUrl: s.coverImage,
+    phonicsLanguage: s.phonicsLanguage,
+    updatedAt: s.createdAt,
+    usedVariants: { levels: [], languages: [], styles: [] },
+    hasCover: !!s.coverImage,
+  };
+}
 
 type LibraryType = 'storybook' | 'phonics';
 type PhonicsLang = 'all' | 'korean' | 'english';
@@ -26,8 +56,8 @@ const CATEGORY_ICON: Record<string, string> = {
 const getCategoryIcon = (cat: string) => CATEGORY_ICON[cat] ?? '📚';
 
 export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
-  const { data: index, isLoading, isError } = useBookIndex();
-  const all = index?.books;
+  const { data: list, isLoading, isError } = useStorybooks();
+  const all = useMemo<BookIndexEntry[] | undefined>(() => list?.map(summaryToEntry), [list]);
   const { data: statusMap } = useReadingStatus();
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState<'recent' | 'title'>('recent');

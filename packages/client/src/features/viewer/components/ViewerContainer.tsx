@@ -45,8 +45,11 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
 
   const lang = (sp.get('lang') ?? settings.language) as LangCode;
 
-  // v2 manifest 시도 (있으면 pages/cover/title을 v2로 override)
-  const { data: v2Manifest } = useBookManifest(storybookId);
+  // v2 manifest 시도 (있으면 pages/cover/title을 v2로 override).
+  // 137권은 v2 manifest 없음 → isError. 그 경우 다른 v2 hook 들 모두 비활성화하여
+  // 콘솔 404 노이즈 방지 (v1 storybook 으로 자연스럽게 fallback).
+  const { data: v2Manifest, isError: v2NotAvailable } = useBookManifest(storybookId);
+  const v2Enabled = !!v2Manifest && !v2NotAvailable;
   // 우선순위: URL param > launchLevel > usedVariants 첫 항목
   const urlLevel = sp.get('level') as ReadingLevel | null;
   const urlStyle = sp.get('style');
@@ -67,10 +70,12 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       : null;
   const { data: v2Payload } = useRuntimeViewer(storybookId ?? '', v2Filter);
 
-  // Reward 화면 + GameListViewer를 위한 v2 데이터
-  const { data: v2AudioRenders } = useAudiobookRenders(storybookId ?? '');
-  const { data: v2Longform } = useLongformList(storybookId ?? '');
-  const { data: v2Games } = useGamesList(storybookId ?? '');
+  // Reward 화면 + GameListViewer를 위한 v2 데이터 (v2 책에만 활성).
+  const { data: v2AudioRenders } = useAudiobookRenders(storybookId ?? '', { enabled: v2Enabled });
+  const { data: v2Longform } = useLongformList(storybookId ?? '', undefined, {
+    enabled: v2Enabled,
+  });
+  const { data: v2Games } = useGamesList(storybookId ?? '', undefined, { enabled: v2Enabled });
 
   // v2 우선: youtubeVideoId 또는 직접 videoUrl 추출
   const v2VideoId = useMemo(() => {

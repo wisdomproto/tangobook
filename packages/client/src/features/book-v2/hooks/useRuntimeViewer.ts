@@ -13,6 +13,7 @@ export function useRuntimeViewer(bid: string, filter: ViewerRuntimeFilter | null
     queryKey: ['book-v2', 'runtime-viewer', bid, filter?.level, filter?.language, filter?.style],
     queryFn: () => bookV2Api.getRuntimeViewer(bid, filter!.level, filter!.language, filter!.style),
     enabled: !!bid && !!filter,
+    retry: false,
   });
 }
 

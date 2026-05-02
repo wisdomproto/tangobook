@@ -7,11 +7,12 @@ interface GamesFilter {
   language?: string;
 }
 
-export function useGamesList(bid: string, filter?: GamesFilter) {
+export function useGamesList(bid: string, filter?: GamesFilter, options?: { enabled?: boolean }) {
   return useQuery({
     queryKey: ['book-v2', 'games', bid, filter?.level, filter?.language],
     queryFn: () => bookV2Api.listGames(bid, filter),
-    enabled: !!bid,
+    enabled: !!bid && options?.enabled !== false,
+    retry: false,
   });
 }
 

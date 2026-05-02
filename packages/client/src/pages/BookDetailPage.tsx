@@ -27,10 +27,13 @@ export default function BookDetailPage() {
   const navigate = useNavigate();
   const { data: manifest, isLoading, isError } = useBookManifest(id);
   const { data: index } = useBookIndex();
-  const { data: audioRenders } = useAudiobookRenders(id);
+  // v2 manifest 가 없는 137권 (v1-only 책) 은 다른 v2 hook 들도 비활성화하여
+  // 콘솔 404 노이즈 방지. v1 storybook 데이터로 자연스럽게 fallback.
+  const v2Enabled = !!manifest && !isError;
+  const { data: audioRenders } = useAudiobookRenders(id, { enabled: v2Enabled });
   // longform/games는 책 단위 fetch (필터 없이 존재 여부만)
-  const { data: longformProjects } = useLongformList(id);
-  const { data: games } = useGamesList(id);
+  const { data: longformProjects } = useLongformList(id, undefined, { enabled: v2Enabled });
+  const { data: games } = useGamesList(id, undefined, { enabled: v2Enabled });
   // v1 storybook 도 fetch — v2 게임이 없는 책은 v1 storybook.games 로 fallback (GameListViewer 가 v1 자동 fallback)
   const { data: v1Storybook } = useStorybook(id);
 

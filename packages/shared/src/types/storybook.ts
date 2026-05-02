@@ -755,6 +755,27 @@ export interface CoverImageItem {
 export type ReadingLevel = 'L1' | 'L2' | 'L3';
 
 /**
+ * 커리큘럼 마스터 페이지용 부가 메타.
+ * /curriculum-master 페이지에서 storybook list 와 함께 표시.
+ *
+ * source/author/country/year/originalTitle 은 책 정체성. priority/launchLevel 은 제작 순서 가이드.
+ *
+ * NOTE: 2026-04-25~27 v2 분리 시도 때 BookManifest 에 정의되었으나 v2 폐기 후
+ * v1 Storybook 으로 일원화. 기존 v2 manifest 의 curriculumMeta 는
+ * scripts/migrate-curriculum-meta-to-v1.mjs 로 v1 으로 마이그됨.
+ */
+export interface CurriculumMeta {
+  no?: number; // 커리큘럼 표시 순서
+  originalTitle?: string; // 원제 (예: 'Hänsel und Gretel')
+  author?: string; // 저자 (예: '그림형제')
+  country?: string; // 원전 국가
+  year?: string; // 출간 연도
+  source?: string; // 원전 카테고리 ('그림형제' / '안데르센' / '이솝' / '현대창작' 등)
+  priority?: 1 | 2 | 3; // 제작 우선순위
+  launchLevel?: ReadingLevel; // 런칭 레벨 (대부분 L2)
+}
+
+/**
  * 부모님께 전달할 책 가이드.
  * - overview: 원전·저자·배경 요약
  * - lessons: 아이에게 전달할 교훈 (보통 2개)
@@ -850,6 +871,11 @@ export interface Storybook {
   category?: string;
   folder?: string;
   isPublic?: boolean;
+  /**
+   * 커리큘럼 마스터 페이지용 부가 메타 (원제·저자·우선순위 등).
+   * 4-25~27 v2 시도 시 BookManifest 에 정의되었으나 v2 폐기 후 v1 으로 옮겨옴.
+   */
+  curriculumMeta?: CurriculumMeta;
   referenceContent?: string;
   createdAt: string;
   updatedAt?: string;

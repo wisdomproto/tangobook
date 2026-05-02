@@ -14,5 +14,7 @@ export function useBookManifest(bid: string | undefined) {
     queryKey: ['book-v2', 'manifest', bid],
     queryFn: () => bookV2Api.getManifest(bid!),
     enabled: !!bid,
+    // 137권은 v2 manifest 가 없어서 404. retry 없이 한 번만 시도.
+    retry: false,
   });
 }

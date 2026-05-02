@@ -117,7 +117,7 @@ export async function putManifest(bid: string, manifest: BookManifest): Promise<
   const next: BookManifest = { ...manifest, updatedAt: nowIso() };
   await putJson(next, manifestKey(bid));
   manifestMemo.set(bid, { manifest: next, ts: Date.now() });
-  invalidateIndex();
+  await syncIndexEntry(bid, summarizeManifest(next));
 }
 
 export async function deleteBook(bid: string): Promise<void> {
@@ -126,7 +126,7 @@ export async function deleteBook(bid: string): Promise<void> {
   const keys = objects.map((o) => o.Key!).filter(Boolean);
   if (keys.length) await deleteManyFromR2(keys);
   manifestMemo.delete(bid);
-  invalidateIndex();
+  await syncIndexEntry(bid, null);
 }
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -505,9 +505,35 @@ export async function listCardNews<T = unknown>(
 // Library index (_index/books.json)
 // ────────────────────────────────────────────────────────────────────────────
 
-function invalidateIndex() {
-  indexCache = null;
-  indexCacheTime = 0;
+/**
+ * mutation 후 인덱스 1개 entry 를 in-place patch.
+ * - entry !== null: upsert (manifest 변경/생성)
+ * - entry === null: 삭제
+ *
+ * indexCache 와 R2 `_index/books.json` 양쪽을 동시에 갱신하여
+ * 다음 getBookIndex() 가 stale 데이터를 노출하지 않도록 한다.
+ * (이전 invalidateIndex() 는 in-memory 만 비웠고, R2 인덱스 파일은
+ *  최대 5분간 stale 상태로 남아 라이브러리에 isPublic 변경이 즉시
+ *  반영되지 않는 버그가 있었음.)
+ */
+async function syncIndexEntry(bid: string, entry: BookIndexEntry | null): Promise<void> {
+  let target: BookIndex | null = indexCache;
+  if (!target) {
+    target = await getJson<BookIndex>(bookIndexKey());
+    if (!target) return; // 인덱스 자체가 없으면 prewarm/refresh 가 만든다
+  }
+  if (entry) {
+    const i = target.books.findIndex((b) => b.id === bid);
+    if (i >= 0) target.books[i] = entry;
+    else target.books.unshift(entry);
+  } else {
+    target.books = target.books.filter((b) => b.id !== bid);
+  }
+  target.books.sort((a, b) => (b.updatedAt ?? '').localeCompare(a.updatedAt ?? ''));
+  target.generatedAt = nowIso();
+  await putJson(target, bookIndexKey());
+  indexCache = target;
+  indexCacheTime = Date.now();
 }
 
 function derivePhonicsLanguage(
