@@ -187,19 +187,9 @@ export interface PhonicsLesson {
 
 /** 게임 타입 ID — 새 게임 추가 시 여기에 1줄 추가 */
 export type GameTypeId =
-  | 'vocabulary-matching'
-  | 'word-writing'
   | 'connect-the-dots'
-  | 'word-quiz'
-  | 'picture-sequence'
-  | 'odd-one-out'
-  | 'word-image-matching'
-  | 'blending-listening'
-  | 'letter-sound'
-  | 'word-listening'
   | 'korean-block'
   | 'english-block'
-  | 'storybook-quiz'
   | 'korean-word-writing'
   | 'english-word-writing'
   | 'korean-speaking'
@@ -232,19 +222,10 @@ export interface GameInstance {
 
 /** 게임별 설정 (discriminated union — type 필드로 구분) */
 export type GameConfig =
-  | VocabularyMatchingConfig
   | WordWritingConfig
   | ConnectTheDotsConfig
-  | WordQuizConfig
-  | PictureSequenceConfig
-  | OddOneOutConfig
-  | WordImageMatchingConfig
-  | BlendingListeningConfig
-  | LetterSoundConfig
-  | WordListeningConfig
   | KoreanBlockConfig
   | EnglishBlockConfig
-  | StorybookQuizConfig
   | KoreanSpeakingConfig
   | EnglishSpeakingConfig
   | KoreanLineMatchingConfig
@@ -254,19 +235,10 @@ export type GameConfig =
 
 /** 게임별 데이터 (discriminated union) */
 export type GameData =
-  | VocabularyMatchingData
   | WordWritingData
   | ConnectTheDotsData
-  | WordQuizData
-  | PictureSequenceData
-  | OddOneOutData
-  | WordImageMatchingData
-  | BlendingListeningData
-  | LetterSoundData
-  | WordListeningData
   | KoreanBlockData
   | EnglishBlockData
-  | StorybookQuizData
   | KoreanSpeakingData
   | EnglishSpeakingData
   | KoreanLineMatchingData
@@ -274,27 +246,9 @@ export type GameData =
   | KoreanStoryImageData
   | EnglishStoryImageData;
 
-// --- 단어 매칭 ---
-export interface VocabularyMatchingConfig {
-  type: 'vocabulary-matching';
-  itemCount: number;
-  includeKeyObjects: boolean;
-  includeCharacters: boolean;
-}
-export interface VocabularyMatchingItem {
-  word: string;
-  korean: string;
-  imageUrl: string;
-  ttsUrl?: string;
-}
-export interface VocabularyMatchingData {
-  type: 'vocabulary-matching';
-  items: VocabularyMatchingItem[];
-}
-
 // --- 낱말 쓰기 ---
 export interface WordWritingConfig {
-  type: 'word-writing' | 'korean-word-writing' | 'english-word-writing';
+  type: 'korean-word-writing' | 'english-word-writing';
   language: 'korean' | 'english';
   wordSource: 'vocabulary' | 'phonics' | 'custom';
   customWords?: string[];
@@ -310,7 +264,7 @@ export interface WordWritingItem {
   ttsUrl?: string;
 }
 export interface WordWritingData {
-  type: 'word-writing' | 'korean-word-writing' | 'english-word-writing';
+  type: 'korean-word-writing' | 'english-word-writing';
   items: WordWritingItem[];
 }
 
@@ -338,128 +292,6 @@ export interface ConnectTheDotsItem {
 export interface ConnectTheDotsData {
   type: 'connect-the-dots';
   items: ConnectTheDotsItem[];
-}
-
-// --- 단어 퀴즈 ---
-export interface WordQuizConfig {
-  type: 'word-quiz';
-  questionCount: number;
-  questionTypes: Array<'meaning' | 'spelling' | 'picture'>;
-}
-export interface WordQuizQuestion {
-  question: string;
-  imageUrl?: string;
-  options: string[];
-  correctAnswer: number;
-  ttsUrl?: string;
-}
-export interface WordQuizData {
-  type: 'word-quiz';
-  questions: WordQuizQuestion[];
-}
-
-// --- 그림 순서 맞추기 ---
-export interface PictureSequenceConfig {
-  type: 'picture-sequence';
-  imageCount: number;
-}
-export interface PictureSequenceImage {
-  imageUrl: string;
-  correctOrder: number;
-  caption?: string;
-}
-export interface PictureSequenceData {
-  type: 'picture-sequence';
-  images: PictureSequenceImage[];
-}
-
-// --- 다른 것 찾기 ---
-export interface OddOneOutConfig {
-  type: 'odd-one-out';
-  roundCount: number;
-  optionsPerRound: number;
-}
-export interface OddOneOutOption {
-  word: string;
-  korean: string;
-  imageUrl: string;
-  isOddOneOut: boolean;
-}
-export interface OddOneOutRound {
-  category: string;
-  options: OddOneOutOption[];
-  explanation: string;
-}
-export interface OddOneOutData {
-  type: 'odd-one-out';
-  rounds: OddOneOutRound[];
-}
-
-// --- 단어-그림 선긋기 (파닉스 전용) ---
-export interface WordImageMatchingConfig {
-  type: 'word-image-matching';
-}
-export interface WordImageMatchingGroupItem {
-  word: string;
-  imageUrl: string;
-  ttsUrl?: string;
-}
-export interface WordImageMatchingGroup {
-  blend: string;
-  items: WordImageMatchingGroupItem[];
-}
-export interface WordImageMatchingData {
-  type: 'word-image-matching';
-  groups: WordImageMatchingGroup[];
-}
-
-// --- 블렌딩 듣기 맞추기 (파닉스 전용) ---
-export interface BlendingListeningConfig {
-  type: 'blending-listening';
-}
-export interface BlendingListeningRound {
-  targetWord: string;
-  targetImageUrl: string;
-  targetTtsUrl: string;
-  distractorWord: string;
-  distractorImageUrl: string;
-  blend: string;
-}
-export interface BlendingListeningData {
-  type: 'blending-listening';
-  rounds: BlendingListeningRound[];
-}
-
-// --- 음가 듣기 (파닉스 Level 1 전용) ---
-export interface LetterSoundConfig {
-  type: 'letter-sound';
-}
-export interface LetterSoundRound {
-  targetLetter: string;
-  ttsUrl: string;
-  options: string[];
-}
-export interface LetterSoundData {
-  type: 'letter-sound';
-  rounds: LetterSoundRound[];
-}
-
-// --- 듣고 단어 맞추기 ---
-export interface WordListeningConfig {
-  type: 'word-listening';
-}
-export interface WordListeningOption {
-  word: string;
-  imageUrl: string;
-}
-export interface WordListeningRound {
-  targetWord: string;
-  targetTtsUrl: string;
-  options: WordListeningOption[];
-}
-export interface WordListeningData {
-  type: 'word-listening';
-  rounds: WordListeningRound[];
 }
 
 // --- 한글 블록 맞추기 ---
@@ -507,16 +339,6 @@ export interface EnglishBlockItem {
 export interface EnglishBlockData {
   type: 'english-block';
   items: EnglishBlockItem[];
-}
-
-// --- 동화책 퀴즈 ---
-export interface StorybookQuizConfig {
-  type: 'storybook-quiz';
-  questionCount: number;
-}
-export interface StorybookQuizData {
-  type: 'storybook-quiz';
-  questions: QuizItem[];
 }
 
 // --- 말하기 (ko/en 공통) ---
