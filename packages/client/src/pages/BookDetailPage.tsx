@@ -1,12 +1,15 @@
 import { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useBookIndex, useBookManifest, useAudiobookRenders } from '@/features/book-v2';
-import { useLongformList, useGamesList } from '@/features/book-v2';
-import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
+import { useStorybook, useStorybooks } from '@/features/storybook';
+import {
+  getYoutubeVideoIds,
+  getDirectVideoUrls,
+  getAvailableStyles,
+} from '@/lib/storybook-accessors';
 import { Card, StateScreen, Skeleton, Chip } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
-import type { ReadingLevel } from '@tangobook/shared';
+import type { ReadingLevel, StorybookSummary } from '@tangobook/shared';
 
 const LANG_LABEL: Record<string, { flag: string; name: string }> = {
   ko: { flag: '🇰🇷', name: '한국어' },
@@ -25,17 +28,10 @@ const LEVEL_ORDER: ReadingLevel[] = ['L1', 'L2', 'L3'];
 export default function BookDetailPage() {
   const { id = '' } = useParams();
   const navigate = useNavigate();
-  const { data: manifest, isLoading, isError } = useBookManifest(id);
-  const { data: index } = useBookIndex();
-  // v2 manifest 가 없는 137권 (v1-only 책) 은 다른 v2 hook 들도 비활성화하여
-  // 콘솔 404 노이즈 방지. v1 storybook 데이터로 자연스럽게 fallback.
-  const v2Enabled = !!manifest && !isError;
-  const { data: audioRenders } = useAudiobookRenders(id, { enabled: v2Enabled });
-  // longform/games는 책 단위 fetch (필터 없이 존재 여부만)
-  const { data: longformProjects } = useLongformList(id, undefined, { enabled: v2Enabled });
-  const { data: games } = useGamesList(id, undefined, { enabled: v2Enabled });
-  // v1 storybook 도 fetch — v2 게임이 없는 책은 v1 storybook.games 로 fallback (GameListViewer 가 v1 자동 fallback)
-  const { data: v1Storybook } = useStorybook(id);
+  // v1 단일화 — useStorybook(id) 를 메인 source 로, useStorybooks() 로 sibling 조회.
+  // 4-25~26 v2 시도 폐기 후 BookDetail 도 v1 으로 정리.
+  const { data: storybook, isLoading, isError } = useStorybook(id);
+  const { data: allStorybooks } = useStorybooks();
 
   const [lang, setLang] = useState<string>('ko');
   const [selectedLevel, setSelectedLevel] = useState<ReadingLevel | null>(null);
@@ -44,44 +40,55 @@ export default function BookDetailPage() {
   const [guideOpen, setGuideOpen] = useState(false);
   const [videoIdToPlay, setVideoIdToPlay] = useState<string | null>(null);
 
-  // 라이브러리 인덱스에서 표지 URL 가져오기 (캐시되어 있음)
-  const indexEntry = useMemo(() => index?.books.find((b) => b.id === id), [index, id]);
-
-  // 영상/게임 가용성
-  const youtubeVideoIds = useMemo(() => {
-    const ids: string[] = [];
-    audioRenders?.forEach((r) => r.youtubeVideoId && ids.push(r.youtubeVideoId));
-    longformProjects?.forEach((p) => p.youtubeVideoId && ids.push(p.youtubeVideoId));
-    return ids;
-  }, [audioRenders, longformProjects]);
-
-  const directVideoUrls = useMemo(() => {
-    const urls: string[] = [];
-    audioRenders?.forEach((r) => r.videoUrl && urls.push(r.videoUrl));
-    longformProjects?.forEach((p) => p.videoUrl && urls.push(p.videoUrl));
-    return urls;
-  }, [audioRenders, longformProjects]);
-
+  // 영상 / 게임 가용성 — v1 storybook 직접 derive
+  const youtubeVideoIds = useMemo(
+    () => (storybook ? getYoutubeVideoIds(storybook) : []),
+    [storybook]
+  );
+  const directVideoUrls = useMemo(
+    () => (storybook ? getDirectVideoUrls(storybook) : []),
+    [storybook]
+  );
   const videoAvailable = youtubeVideoIds.length > 0 || directVideoUrls.length > 0;
-  // v2 게임 또는 v1 게임 중 하나라도 있으면 게임 카드 노출
-  const gameAvailable = (games?.length ?? 0) > 0 || (v1Storybook?.games?.length ?? 0) > 0;
+  const gameAvailable = (storybook?.games?.length ?? 0) > 0;
 
-  // 학습자에게 노출할 수 있는 레벨 — sibling __L{lv} 가 isPublic 인 것 + base book 자체.
-  // useMemo 는 early return 위에 있어야 hooks 규칙 위반 X.
-  const baseLevel =
-    manifest?.curriculumMeta?.launchLevel ??
-    (v1Storybook?.readingLevel as ReadingLevel | undefined);
-  const levels = useMemo<ReadingLevel[]>(() => {
-    if (!manifest) return [];
-    const all = [...manifest.usedVariants.levels].sort(
-      (a, b) => LEVEL_ORDER.indexOf(a) - LEVEL_ORDER.indexOf(b)
-    );
-    return all.filter((lv) => {
-      if (lv === baseLevel) return true;
-      const sibling = index?.books.find((b) => b.id === `${manifest.id}__${lv}`);
-      return !!sibling?.isPublic && !!sibling?.coverImageUrl;
+  // 레벨 sibling 추출 — 현재 책의 baseId 기준으로 같은 base 의 sibling __L1/L2/L3 찾기
+  // (StorybookSummary 는 readingLevel 미포함 이라 id suffix 로 level 유추, base 자체는 storybook.readingLevel)
+  const baseId = useMemo(() => id.replace(/__L\d$/, ''), [id]);
+  const baseLevel = storybook?.readingLevel as ReadingLevel | undefined;
+
+  const levelMap = useMemo<Map<ReadingLevel, StorybookSummary | { coverImage?: string }>>(() => {
+    const map = new Map<ReadingLevel, StorybookSummary | { coverImage?: string }>();
+    if (!allStorybooks) return map;
+    // 현재 책 (sibling 또는 base 자체)
+    if (baseLevel) {
+      const selfSummary = allStorybooks.find((s) => s.id === id);
+      if (selfSummary) map.set(baseLevel, selfSummary);
+    }
+    // sibling __L{n}
+    allStorybooks.forEach((s) => {
+      const m = s.id.match(/^(.+)__L(\d)$/);
+      if (!m) return;
+      if (m[1] !== baseId) return;
+      const lv = `L${m[2]}` as ReadingLevel;
+      if (!LEVEL_ORDER.includes(lv)) return;
+      // 자기 자신은 위에서 처리됨
+      if (s.id === id) return;
+      map.set(lv, s);
     });
-  }, [manifest, baseLevel, index]);
+    return map;
+  }, [allStorybooks, baseId, baseLevel, id]);
+
+  // 학습자에게 노출 가능한 레벨 — isPublic + 표지 보유. base 책 자체는 항상 노출.
+  const levels = useMemo<ReadingLevel[]>(() => {
+    return Array.from(levelMap.entries())
+      .filter(([lv, s]) => {
+        if (lv === baseLevel) return true;
+        return !!(s as StorybookSummary).isPublic && !!(s as StorybookSummary).coverImage;
+      })
+      .map(([lv]) => lv)
+      .sort((a, b) => LEVEL_ORDER.indexOf(a) - LEVEL_ORDER.indexOf(b));
+  }, [levelMap, baseLevel]);
 
   if (isLoading) {
     return (
@@ -99,7 +106,7 @@ export default function BookDetailPage() {
     );
   }
 
-  if (isError || !manifest) {
+  if (isError || !storybook) {
     return (
       <StateScreen
         mascotState="sad"
@@ -110,24 +117,21 @@ export default function BookDetailPage() {
     );
   }
 
-  const languages = manifest.usedVariants.languages;
-  const styles = manifest.usedVariants.styles;
+  const languages =
+    storybook.languages && storybook.languages.length > 0 ? storybook.languages : ['ko'];
+  const styles = getAvailableStyles(storybook);
 
   // 효과 레벨/스타일 (URL params에 전달용)
+  const launchLevel = storybook.curriculumMeta?.launchLevel;
   const effectiveLevel =
     selectedLevel ??
-    (manifest.curriculumMeta?.launchLevel && levels.includes(manifest.curriculumMeta.launchLevel)
-      ? manifest.curriculumMeta.launchLevel
-      : levels[0]);
+    (launchLevel && levels.includes(launchLevel) ? launchLevel : levels[0]) ??
+    baseLevel;
   const effectiveStyle = selectedStyle ?? styles[0];
 
-  // 활성 그림체 기반 표지 URL — styleAssets 우선, fallback to top-level/index
-  const coverUrl = (() => {
-    if (!v1Storybook) return indexEntry?.coverImageUrl;
-    const styleCover = effectiveStyle && v1Storybook.styleAssets?.[effectiveStyle]?.coverImage;
-    if (styleCover) return styleCover;
-    return v1Storybook.coverImage ?? indexEntry?.coverImageUrl;
-  })();
+  // 활성 그림체 기반 표지 URL — styleAssets 우선, fallback to top-level
+  const coverUrl =
+    (effectiveStyle && storybook.styleAssets?.[effectiveStyle]?.coverImage) ?? storybook.coverImage;
 
   const enterMode = (mode: 'read' | 'video' | 'game') => {
     if (mode === 'video') {
@@ -143,11 +147,15 @@ export default function BookDetailPage() {
       }
       return;
     }
+    // 다른 레벨 선택 시 sibling storybook 으로 navigate (v1 sibling pattern: ${baseId}__L{n})
+    const targetId =
+      effectiveLevel && effectiveLevel !== baseLevel
+        ? `${baseId}__${effectiveLevel}`
+        : storybook.id;
     const qs = new URLSearchParams({ lang });
-    if (effectiveLevel) qs.set('level', effectiveLevel);
     if (effectiveStyle) qs.set('style', effectiveStyle);
     if (mode === 'game') qs.set('mode', 'games');
-    navigate(`/viewer/${manifest.id}?${qs.toString()}`);
+    navigate(`/viewer/${targetId}?${qs.toString()}`);
   };
 
   return (
@@ -240,7 +248,7 @@ export default function BookDetailPage() {
             {coverUrl ? (
               <img
                 src={coverUrl}
-                alt={manifest.title}
+                alt={storybook.title}
                 className="w-full h-full object-cover transition-opacity duration-300"
                 key={coverUrl}
               />
@@ -252,26 +260,24 @@ export default function BookDetailPage() {
           {/* 우: 제목 + chip + 설명 + 모드 카드 */}
           <div className="flex flex-col gap-4">
             <h1 className="text-3xl md:text-4xl font-black text-ink-900 font-display leading-tight">
-              {(lang !== 'ko' && v1Storybook?.titleTranslations?.[lang]) ||
-                v1Storybook?.title ||
-                manifest.title}
+              {(lang !== 'ko' && storybook.titleTranslations?.[lang]) || storybook.title}
             </h1>
 
             {/* chip — 카테고리 + 타입만 (레벨/그림체는 아래 섹션) */}
             <div className="flex gap-2 flex-wrap">
-              {manifest.category && (
+              {storybook.category && (
                 <span className="bg-white px-3 py-1.5 rounded-md text-xs font-bold text-ink-700 shadow-soft">
-                  🏷️ {manifest.category}
+                  🏷️ {storybook.category}
                 </span>
               )}
               <span className="bg-white px-3 py-1.5 rounded-md text-xs font-bold text-ink-700 shadow-soft">
-                {manifest.type === 'phonics' ? '🔤 파닉스' : '📖 동화책'}
+                {storybook.type === 'phonics' ? '🔤 파닉스' : '📖 동화책'}
               </span>
             </div>
 
-            {manifest.parentGuide?.overview && (
+            {storybook.parentGuide?.overview && (
               <p className="bg-white/60 p-4 rounded-md text-sm text-ink-700 leading-relaxed">
-                {manifest.parentGuide.overview}
+                {storybook.parentGuide.overview}
               </p>
             )}
 
@@ -307,7 +313,7 @@ export default function BookDetailPage() {
         </div>
 
         {/* 부모님 가이드 (parentGuide 있을 때만) */}
-        {manifest.parentGuide && (
+        {storybook.parentGuide && (
           <div className="mt-8">
             <button
               onClick={() => setGuideOpen((v) => !v)}
@@ -333,24 +339,24 @@ export default function BookDetailPage() {
             {guideOpen && (
               <div className="mt-3 bg-white rounded-lg p-5 md:p-6 shadow-soft space-y-5">
                 {/* 특징 */}
-                {manifest.parentGuide.overview && (
+                {storybook.parentGuide.overview && (
                   <section>
                     <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
                       📖 책의 특징
                     </h3>
                     <p className="text-sm text-ink-700 leading-relaxed">
-                      {manifest.parentGuide.overview}
+                      {storybook.parentGuide.overview}
                     </p>
                   </section>
                 )}
                 {/* 교훈 */}
-                {manifest.parentGuide.lessons && manifest.parentGuide.lessons.length > 0 && (
+                {storybook.parentGuide.lessons && storybook.parentGuide.lessons.length > 0 && (
                   <section>
                     <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
                       💡 아이에게 전할 교훈
                     </h3>
                     <ul className="space-y-1.5">
-                      {manifest.parentGuide.lessons.map((lesson, i) => (
+                      {storybook.parentGuide.lessons.map((lesson, i) => (
                         <li key={i} className="text-sm text-ink-700 leading-relaxed flex gap-2">
                           <span className="text-coral-400 mt-0.5">•</span>
                           <span>{lesson}</span>
@@ -360,14 +366,14 @@ export default function BookDetailPage() {
                   </section>
                 )}
                 {/* 읽어주는 법 */}
-                {manifest.parentGuide.readingTips &&
-                  manifest.parentGuide.readingTips.length > 0 && (
+                {storybook.parentGuide.readingTips &&
+                  storybook.parentGuide.readingTips.length > 0 && (
                     <section>
                       <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
                         🎭 읽어주는 법
                       </h3>
                       <ul className="space-y-1.5">
-                        {manifest.parentGuide.readingTips.map((tip, i) => (
+                        {storybook.parentGuide.readingTips.map((tip, i) => (
                           <li key={i} className="text-sm text-ink-700 leading-relaxed flex gap-2">
                             <span className="text-coral-400 mt-0.5">{i + 1}.</span>
                             <span>{tip}</span>
@@ -390,7 +396,7 @@ export default function BookDetailPage() {
             setVideoOpen(false);
             setVideoIdToPlay(null);
           }}
-          title={manifest.title}
+          title={storybook.title}
         />
       )}
     </div>

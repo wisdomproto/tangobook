@@ -1,20 +1,19 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStorybook } from '@/features/storybook';
-import {
-  useBookManifest,
-  useRuntimeViewer,
-  useAudiobookRenders,
-  useLongformList,
-  useGamesList,
-} from '@/features/book-v2';
 import { Mascot } from '@/design-system';
 import { StateScreen } from '@/design-system';
 import { cn } from '@/lib/cn';
-import { hasVideoUrl, hasGames, getPrimaryVideoId, type LangCode } from '@/lib/storybook-accessors';
+import {
+  hasVideoUrl,
+  hasGames,
+  getPrimaryVideoId,
+  getDirectVideoUrls,
+  type LangCode,
+} from '@/lib/storybook-accessors';
 import { useLogEvent, useLogEventsBatch } from '@/features/learning';
 import { extractPageWords } from '@/features/learning/lib/extract-page-words';
-import type { Lang, ReadingLevel } from '@tangobook/shared';
+import type { Lang } from '@tangobook/shared';
 import { useStorybookCardIndex } from '@/features/collection';
 import { useViewerSettings, type ViewerSettings } from '../hooks/useViewerSettings';
 import { useAudioPlayer } from '../hooks/useAudioPlayer';
@@ -44,89 +43,13 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const [settings, updateSettings] = useViewerSettings();
 
   const lang = (sp.get('lang') ?? settings.language) as LangCode;
-
-  // v2 manifest 시도 (있으면 pages/cover/title을 v2로 override).
-  // 137권은 v2 manifest 없음 → isError. 그 경우 다른 v2 hook 들 모두 비활성화하여
-  // 콘솔 404 노이즈 방지 (v1 storybook 으로 자연스럽게 fallback).
-  const { data: v2Manifest, isError: v2NotAvailable } = useBookManifest(storybookId);
-  const v2Enabled = !!v2Manifest && !v2NotAvailable;
-  // 우선순위: URL param > launchLevel > usedVariants 첫 항목
-  const urlLevel = sp.get('level') as ReadingLevel | null;
   const urlStyle = sp.get('style');
-  const v2Level =
-    urlLevel && v2Manifest?.usedVariants.levels.includes(urlLevel)
-      ? urlLevel
-      : v2Manifest?.curriculumMeta?.launchLevel &&
-          v2Manifest.usedVariants.levels.includes(v2Manifest.curriculumMeta.launchLevel)
-        ? v2Manifest.curriculumMeta.launchLevel
-        : v2Manifest?.usedVariants.levels[0];
-  const v2Style =
-    urlStyle && v2Manifest?.usedVariants.styles.includes(urlStyle)
-      ? urlStyle
-      : v2Manifest?.usedVariants.styles[0];
-  const v2Filter =
-    v2Level && v2Style
-      ? { level: v2Level, language: lang === 'en' ? 'en' : 'ko', style: v2Style }
-      : null;
-  const { data: v2Payload } = useRuntimeViewer(storybookId ?? '', v2Filter);
 
-  // Reward 화면 + GameListViewer를 위한 v2 데이터 (v2 책에만 활성).
-  const { data: v2AudioRenders } = useAudiobookRenders(storybookId ?? '', { enabled: v2Enabled });
-  const { data: v2Longform } = useLongformList(storybookId ?? '', undefined, {
-    enabled: v2Enabled,
-  });
-  const { data: v2Games } = useGamesList(storybookId ?? '', undefined, { enabled: v2Enabled });
-
-  // v2 우선: youtubeVideoId 또는 직접 videoUrl 추출
-  const v2VideoId = useMemo(() => {
-    return (
-      v2AudioRenders?.find((r) => r.youtubeVideoId)?.youtubeVideoId ??
-      v2Longform?.find((p) => p.youtubeVideoId)?.youtubeVideoId
-    );
-  }, [v2AudioRenders, v2Longform]);
-  const v2DirectVideoUrl = useMemo(() => {
-    return (
-      v2AudioRenders?.find((r) => r.videoUrl)?.videoUrl ??
-      v2Longform?.find((p) => p.videoUrl)?.videoUrl
-    );
-  }, [v2AudioRenders, v2Longform]);
-  const v2HasGames = (v2Games?.length ?? 0) > 0;
-
-  // v2 payload가 있으면 v1 storybook의 pages/cover/title/parentGuide를 덮어씀
-  // (v1 R2 정리 시점까지 audiobookProjects/longformProjects/games 등은 v1에서 그대로 사용)
-  // v2 도착 전이라도 urlStyle 이 base.artStyle 과 다르면 v1.styleAssets 로 즉시 swap (다른 그림체 잔상 방지)
+  // v1 단일화. URL ?style 이 base.artStyle 과 다르면 styleAssets 로 표지/페이지 일러스트 즉시 swap.
+  // 레벨 variant 는 sibling pattern(`${baseId}__L1` 등)으로 별도 storybook 이므로
+  // BookDetailPage 가 sibling URL 로 navigate, 여기서는 storybookId 가 가리키는 책만 본다.
   const storybook = useMemo(() => {
     if (!v1Storybook) return v1Storybook;
-
-    // v2 우선
-    if (v2Payload) {
-      const v1PagesByNumber = new Map(v1Storybook.pages.map((p) => [p.pageNumber, p]));
-      const mergedPages = v2Payload.pages.map((vp) => {
-        const v1Page = v1PagesByNumber.get(vp.pageNumber);
-        if (!v1Page) return null;
-        return {
-          ...v1Page,
-          text: vp.text,
-          illustrationUrl: vp.illustrationUrl ?? v1Page.illustrationUrl,
-          ttsUrl: vp.ttsUrl ?? v1Page.ttsUrl,
-          scene_description: vp.sceneDescription ?? v1Page.scene_description,
-          translations: undefined,
-        };
-      });
-      const validPages = mergedPages.filter((p): p is NonNullable<typeof p> => p !== null);
-      if (validPages.length > 0) {
-        return {
-          ...v1Storybook,
-          title: v2Payload.title || v1Storybook.title,
-          coverImage: v2Payload.coverImageUrl ?? v1Storybook.coverImage,
-          backgroundMusicUrl: v2Payload.bgmUrl ?? v1Storybook.backgroundMusicUrl,
-          parentGuide: v2Payload.parentGuide ?? v1Storybook.parentGuide,
-          pages: validPages,
-        };
-      }
-    }
-
-    // v2 안 도착 → urlStyle 이 base 와 다르면 v1.styleAssets 로 즉시 swap
     if (urlStyle && urlStyle !== v1Storybook.artStyle) {
       const sa = v1Storybook.styleAssets?.[urlStyle];
       if (sa) {
@@ -143,9 +66,8 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         };
       }
     }
-
     return v1Storybook;
-  }, [v1Storybook, v2Payload, urlStyle]);
+  }, [v1Storybook, urlStyle]);
 
   const [pageIndex, setPageIndex] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -246,8 +168,8 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         totalPages,
         lastPage: isLast,
         source: 'storybook',
-        // 현재 viewing 중인 그림체 (variant 시스템) — v2 우선, 그 다음 URL, 베이스 폴백
-        style: v2Style ?? urlStyle ?? storybook.artStyle ?? undefined,
+        // 현재 viewing 중인 그림체 — URL ?style 우선, 베이스 폴백
+        style: urlStyle ?? storybook.artStyle ?? undefined,
         collectionItemIds: collectionItemIds.length > 0 ? collectionItemIds : undefined,
       },
     });
@@ -277,7 +199,6 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     pages,
     logEvent,
     logBatch,
-    v2Style,
     urlStyle,
     storybookCardIndex,
   ]);
@@ -340,8 +261,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
 
   // `?mode=video` 직접 진입 → RewardScreen autoOpenVideo로 iframe 모달 띄우기
   const isVideoMode = mode === 'video';
-  const hasAnyVideo =
-    !!v2VideoId || !!v2DirectVideoUrl || (storybook ? hasVideoUrl(storybook) : false);
+  const hasAnyVideo = storybook ? hasVideoUrl(storybook) : false;
   useEffect(() => {
     if (!isVideoMode) return;
     if (!hasAnyVideo) return;
@@ -376,10 +296,10 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     );
   }
 
-  // 게임 모드 → GameListViewer
+  // 게임 모드 → GameListViewer (v2Style prop 은 GameListViewer 의 v2 fallback 용 — urlStyle 그대로 전달)
   if (mode === 'games') {
     return (
-      <GameListViewer storybook={storybook} bid={storybookId} v2Style={v2Style ?? undefined} />
+      <GameListViewer storybook={storybook} bid={storybookId} v2Style={urlStyle ?? undefined} />
     );
   }
 
@@ -474,9 +394,9 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
 
       <RewardScreen
         title={storybook.title}
-        videoId={v2VideoId ?? (storybook ? (getPrimaryVideoId(storybook) ?? undefined) : undefined)}
-        directVideoUrl={v2DirectVideoUrl}
-        hasGames={v2HasGames || (storybook ? hasGames(storybook) : false)}
+        videoId={getPrimaryVideoId(storybook) ?? undefined}
+        directVideoUrl={getDirectVideoUrls(storybook)[0]}
+        hasGames={hasGames(storybook)}
         open={rewardOpen}
         autoOpenVideo={isVideoMode}
         onClose={() => setRewardOpen(false)}

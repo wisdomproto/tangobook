@@ -24,10 +24,14 @@
 
 ---
 
-## Book Variants V2 (폐기됨)
-별도 v2 R2 prefix tree + EditorPageV2 시도 — v1 기능(캐릭터/핵심단어/페이지 등) 빠진 채 만들어졌다고 사용자가 강하게 분노. 별도 시스템 폐기. 일부 manifest infra 는 BookDetail/Viewer 에서 사용 중. 후속 통합은 [/editor2 단일 구조](../packages/client/src/features/editor/CLAUDE.md) 참조.
+## Book Variants V2 (폐기됨 → 2026-05-02 노출 레이어 청산)
+별도 v2 R2 prefix tree + EditorPageV2 시도 — v1 기능(캐릭터/핵심단어/페이지 등) 빠진 채 만들어졌다고 사용자가 강하게 분노. 별도 시스템 폐기. **2026-05-02 Library/BookDetail/Viewer 모두 v1 단일화 완료** — 노출 레이어의 v2 BookIndex/manifest 의존 모두 제거. 후속 통합은 [/editor2 단일 구조](../packages/client/src/features/editor/CLAUDE.md) 참조.
 
-상세: [memory/book-variants-v2.md](../memory/book-variants-v2.md)
+잔존 부채: GameListViewer 의 v2 hook (`useGamesList`/`useRuntimeGame`), 19권 v2-only 책 (4-25 EditorPageV2 잔재), R2 `books/` prefix 통째 정리.
+
+상세:
+- 사료: [memory/book-variants-v2.md](../memory/book-variants-v2.md)
+- 정리 작업: [memory/library-v1-unification.md](../memory/library-v1-unification.md)
 
 ---
 
