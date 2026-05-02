@@ -45,7 +45,7 @@ const MORE_FUN = [
 ];
 
 export function AppShell() {
-  const { activeProfile, session, signOut } = useAuth();
+  const { activeProfile, session, signOut, isConfigured } = useAuth();
   const { data: index } = useBookIndex();
   const bookCount = index?.books?.filter((b) => b.isPublic).length ?? 0;
 
@@ -85,7 +85,8 @@ export function AppShell() {
         </nav>
 
         <div className="mt-auto px-2 pb-3 pt-2 border-t border-ink-100/60">
-          <SecondaryNavButton to="/parent" emoji="🔒" label="부모" />
+          {/* 게스트 모드 (Supabase 미설정) 에선 /parent 가 silent redirect 라 버튼 자체 숨김 */}
+          {isConfigured && <SecondaryNavButton to="/parent" emoji="🔒" label="부모" />}
         </div>
       </aside>
 
