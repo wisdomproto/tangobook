@@ -28,6 +28,7 @@ function toSummary(u: VocabularyUnit): VocabularyUnitSummary {
   return {
     id: u.id,
     source: u.source,
+    topicId: u.topicId,
     nameKo: u.nameKo,
     nameEn: u.nameEn,
     emoji: u.emoji,

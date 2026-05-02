@@ -1,8 +1,16 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useMemo } from 'react';
-import { Mascot, Skeleton } from '@/design-system';
+import { Mascot, Skeleton, AppIcon } from '@/design-system';
 import { StarCounter } from '@/features/rewards';
 import { useVocabularyUnits } from '../hooks/useVocabularyUnits';
+import { getCambridgeTopicIcon } from '../lib/cambridge-icon-map';
+
+/** Cambridge 토픽 매칭되면 AppIcon, 아니면 emoji 폴백 */
+function UnitIcon({ topicId, emoji, label }: { topicId?: string; emoji?: string; label: string }) {
+  const src = getCambridgeTopicIcon(topicId);
+  if (src) return <AppIcon src={src} size={88} alt={label} />;
+  return <div className="text-6xl">{emoji ?? '✨'}</div>;
+}
 
 /** 학습자 어휘 학습 허브 — 단원 그리드 (공개된 것만) */
 export function VocabularyHubPage() {
@@ -63,7 +71,8 @@ export function VocabularyHubPage() {
                 onClick={() => navigate(`/vocabulary/${unit.id}`)}
                 className="aspect-[3/4] rounded-2xl bg-white shadow-soft border-2 border-amber-200 overflow-hidden hover:shadow-pop hover:-translate-y-1 transition-all p-4 flex flex-col items-center justify-center gap-2"
               >
-                <div className="text-6xl">{unit.emoji ?? '✨'}</div>
+                <UnitIcon topicId={unit.topicId} emoji={unit.emoji} label={unit.nameKo} />
+
                 <div className="text-base md:text-lg font-black text-ink-900 font-display text-center line-clamp-2">
                   {unit.nameKo}
                 </div>

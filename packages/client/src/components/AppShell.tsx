@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
-import { Mascot } from '@/design-system';
+import { Mascot, AppIcon } from '@/design-system';
 import { StarCounter } from '@/features/rewards';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useBookIndex } from '@/features/book-v2';
@@ -11,17 +11,37 @@ import { cn } from '@/lib/cn';
  * 진입점 페이지에만 적용 (deep view 인 viewer/editor/게임 플레이어는 제외).
  * 학습자 영역은 라이트 모드 고정 (어두운 화면 안 씀).
  */
+/** AppIcon 자산 경로 (public/icons/...) 또는 외부 경로 */
 const PRIMARY_AXES = [
-  { to: '/library', icon: '📚', label: '동화책', color: 'coral' as const, end: true },
-  { to: '/library/phonics', icon: '🔤', label: '파닉스', color: 'mint' as const, end: false },
-  { to: '/vocabulary', icon: '✨', label: '어휘', color: 'amber' as const, end: false },
+  {
+    to: '/library',
+    iconSrc: 'tab/storybook.svg',
+    label: '동화책',
+    color: 'coral' as const,
+    end: true,
+  },
+  {
+    to: '/library/phonics',
+    iconSrc: 'tab/phonics.svg',
+    label: '파닉스',
+    color: 'mint' as const,
+    end: false,
+  },
+  {
+    to: '/vocabulary',
+    iconSrc: 'tab/vocab.svg',
+    label: '어휘',
+    color: 'amber' as const,
+    end: false,
+  },
 ];
 
 const MORE_FUN = [
-  { to: '/collection', icon: '🃏', label: '카드' },
-  { to: '/hori-room', icon: '🦊', label: '호리 방' },
-  { to: '/games', icon: '🎮', label: '호리 게임' },
-  { to: '/playground', icon: '🎪', label: '단어 놀이' },
+  { to: '/collection', iconSrc: 'section/collection.png', label: '카드' },
+  { to: '/hori-room', iconSrc: 'mascot/hori/idle.webp', label: '호리 방' },
+  // 호리 게임 — 전용 아이콘 미제작. 임시로 콜렉션 카드 일러스트 같은 톤 (조이스틱 자산 예정)
+  { to: '/games', iconSrc: '', emoji: '🎮', label: '호리 게임' },
+  { to: '/playground', iconSrc: 'section/playground.png', label: '단어 놀이' },
 ];
 
 export function AppShell() {
@@ -65,7 +85,7 @@ export function AppShell() {
         </nav>
 
         <div className="mt-auto px-2 pb-3 pt-2 border-t border-ink-100/60">
-          <SecondaryNavButton to="/parent" icon="🔒" label="부모" />
+          <SecondaryNavButton to="/parent" emoji="🔒" label="부모" />
         </div>
       </aside>
 
@@ -119,13 +139,13 @@ const COLOR_IDLE: Record<'coral' | 'mint' | 'amber', string> = {
 
 function PrimaryNavButton({
   to,
-  icon,
+  iconSrc,
   label,
   color,
   end,
 }: {
   to: string;
-  icon: string;
+  iconSrc: string;
   label: string;
   color: 'coral' | 'mint' | 'amber';
   end: boolean;
@@ -142,13 +162,24 @@ function PrimaryNavButton({
         )
       }
     >
-      <span className="text-3xl">{icon}</span>
+      <AppIcon src={iconSrc} size={42} alt={label} />
       <span className="text-xs">{label}</span>
     </NavLink>
   );
 }
 
-function SecondaryNavButton({ to, icon, label }: { to: string; icon: string; label: string }) {
+function SecondaryNavButton({
+  to,
+  iconSrc,
+  emoji,
+  label,
+}: {
+  to: string;
+  /** AppIcon 경로 — 없으면 emoji 폴백 */
+  iconSrc?: string;
+  emoji?: string;
+  label: string;
+}) {
   return (
     <NavLink
       to={to}
@@ -159,7 +190,11 @@ function SecondaryNavButton({ to, icon, label }: { to: string; icon: string; lab
         )
       }
     >
-      <span className="text-lg">{icon}</span>
+      {iconSrc ? (
+        <AppIcon src={iconSrc} size={22} alt={label} className="rounded" />
+      ) : (
+        <span className="text-lg">{emoji}</span>
+      )}
       <span>{label}</span>
     </NavLink>
   );

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="80" ry="80" fill="#FFE4D6"/>
+  <!-- 흙더미 -->
+  <ellipse cx="256" cy="400" rx="135" ry="38" fill="#A0623A" stroke="#1F2937" stroke-width="6"/>
+  <ellipse cx="220" cy="395" rx="14" ry="6" fill="#FFFAF5" opacity="0.5"/>
+  <!-- 줄기 -->
+  <line x1="256" y1="400" x2="256" y2="285" stroke="#5A8A3A" stroke-width="11" stroke-linecap="round"/>
+  <!-- 왼쪽 잎 -->
+  <path d="M 256 320 Q 175 285, 165 220 Q 220 235, 256 295 Z" fill="#82C055" stroke="#1F2937" stroke-width="6" stroke-linejoin="round"/>
+  <!-- 잎맥 -->
+  <path d="M 256 305 Q 215 270, 185 235" stroke="#5A8A3A" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- 오른쪽 잎 -->
+  <path d="M 256 300 Q 337 260, 347 195 Q 292 215, 256 275 Z" fill="#82C055" stroke="#1F2937" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M 256 285 Q 297 250, 327 215" stroke="#5A8A3A" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- 물방울 -->
+  <path d="M 388 285 Q 365 320, 388 345 Q 411 320, 388 285 Z" fill="#7AC4E8" stroke="#1F2937" stroke-width="5" stroke-linejoin="round"/>
+  <ellipse cx="382" cy="305" rx="3" ry="7" fill="#FFFAF5"/>
+</svg>

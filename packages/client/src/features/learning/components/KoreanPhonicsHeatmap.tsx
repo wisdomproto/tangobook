@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { KOREAN_PHONICS_CURRICULUM } from '@tangobook/shared';
 import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
+import { AppIcon } from '@/design-system';
 import { computeMastery, masteryState, type MasteryState } from '../lib/mastery';
 import { groupBySyllable, groupByWord } from '../lib/aggregate';
 import {
@@ -174,8 +175,11 @@ function KoreanLevelTargetWords({ levelId, wordStats, now }: TargetWordsProps) {
   return (
     <div className="mt-4 border-t border-ink-100 pt-3">
       <div className="mb-2 flex items-center justify-between">
-        <h4 className="text-xs font-semibold text-ink-500">
-          🎯 타겟 단어 ({masteredCount}/{rows.length} 익힘)
+        <h4 className="flex items-center gap-1 text-xs font-semibold text-ink-500">
+          <AppIcon src="section/target-word.svg" size={16} alt="타겟" />
+          <span>
+            타겟 단어 ({masteredCount}/{rows.length} 익힘)
+          </span>
         </h4>
       </div>
       <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 md:grid-cols-4">

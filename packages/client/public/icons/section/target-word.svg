@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- 톤: coral #FF6F61 / peach #FFE4D6 / cream #FFFAF5 / ink #1F2937 -->
+  <rect width="512" height="512" rx="80" ry="80" fill="#FFE4D6"/>
+  <!-- 과녁 동심원 -->
+  <circle cx="240" cy="272" r="160" fill="#FFFAF5" stroke="#1F2937" stroke-width="8"/>
+  <circle cx="240" cy="272" r="115" fill="#FF6F61" stroke="#1F2937" stroke-width="6"/>
+  <circle cx="240" cy="272" r="68" fill="#FFFAF5" stroke="#1F2937" stroke-width="5"/>
+  <circle cx="240" cy="272" r="22" fill="#1F2937"/>
+  <!-- 다트 (오른쪽 위에서 정중앙으로) -->
+  <line x1="240" y1="272" x2="380" y2="140" stroke="#FFFAF5" stroke-width="18" stroke-linecap="round"/>
+  <line x1="240" y1="272" x2="380" y2="140" stroke="#1F2937" stroke-width="8" stroke-linecap="round"/>
+  <!-- 다트 깃 -->
+  <path d="M 365 125 L 410 110 L 405 165 L 380 155 Z" fill="#FF6F61" stroke="#1F2937" stroke-width="5" stroke-linejoin="round"/>
+</svg>

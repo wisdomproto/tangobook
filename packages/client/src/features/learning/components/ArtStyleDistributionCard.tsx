@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { ART_STYLES } from '@tangobook/shared';
 import type { Lang, LearningEvent, StorybookSummary } from '@tangobook/shared';
+import { AppIcon } from '@/design-system';
 import { groupByArtStyle } from '../lib/aggregate';
 import { ReportEmptyState } from './ReportEmptyState';
 
@@ -66,7 +67,10 @@ export function ArtStyleDistributionCard({ events, storybooks, lang }: Props) {
   return (
     <div className="rounded-2xl bg-white/80 p-4 shadow-sm">
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-base font-bold">🎨 그림체 분포</h3>
+        <h3 className="flex items-center gap-1.5 text-base font-bold">
+          <AppIcon src="section/art-style.png" size={22} alt="그림체" />
+          <span>그림체 분포</span>
+        </h3>
         {rows.length > 0 && <span className="text-xs text-ink-500">{rows.length}가지 그림체</span>}
       </div>
       {rows.length === 0 ? (

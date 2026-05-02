@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
+import type { ReactNode } from 'react';
 import { useStorybooks } from '@/features/storybook';
 import { CategorySection, BookCard, useReadingStatus } from '@/features/library';
-import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
+import { StateScreen, SkeletonBookCard, Chip, AppIcon } from '@/design-system';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
 
 /**
@@ -42,18 +43,38 @@ interface LibraryPageProps {
   type?: LibraryType;
 }
 
-const CATEGORY_ICON: Record<string, string> = {
-  동물: '🐾',
-  가족: '👪',
-  자연: '🌳',
-  친구: '👫',
-  음식: '🍎',
-  모험: '🗺️',
-  직업: '🧑‍⚕️',
-  감정: '❤️',
-  일상: '🏠',
+/**
+ * 한글 카테고리명 → public/icons/{file} 매핑.
+ *
+ * 실제 사용 중인 카테고리 (`/api/storybooks` 기준):
+ *   세계 명작 150권 · 자연 관찰 53권 · 전래 동화 5권 · 기타 4권
+ *
+ * 추가로 미래 확장용 9개 (동물/가족/자연/친구/음식/모험/직업/감정/일상) PNG 도
+ * `public/icons/category/` 에 준비돼 있어 새 카테고리 만들면 즉시 사용 가능.
+ */
+const CATEGORY_ICON_MAP: Record<string, string> = {
+  // 실제 사용 중
+  '세계 명작': 'tab/storybook.svg',
+  '자연 관찰': 'category/nature.png',
+  '전래 동화': 'tab/storybook.svg',
+  기타: 'tab/storybook.svg',
+  // 미래용 (현재 사용 책 없음)
+  동물: 'category/animal.png',
+  가족: 'category/family.png',
+  자연: 'category/nature.png',
+  친구: 'category/friend.png',
+  음식: 'category/food.png',
+  모험: 'category/adventure.png',
+  직업: 'category/job.png',
+  감정: 'category/emotion.png',
+  일상: 'category/daily.png',
 };
-const getCategoryIcon = (cat: string) => CATEGORY_ICON[cat] ?? '📚';
+
+const getCategoryIconNode = (cat: string, size = 22): ReactNode => {
+  const path = CATEGORY_ICON_MAP[cat];
+  if (path) return <AppIcon src={path} size={size} alt={cat} />;
+  return <span>📚</span>;
+};
 
 export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   const { data: list, isLoading, isError } = useStorybooks();
@@ -236,7 +257,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
                 key={cat}
                 variant="coral"
                 active={activeCategory === cat}
-                icon={getCategoryIcon(cat)}
+                icon={getCategoryIconNode(cat, 20)}
                 trailing={activeCategory === cat ? count : undefined}
                 onClick={() => {
                   setActiveCategory(cat);
@@ -265,7 +286,12 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
           />
         ) : showCategoryGroups && grouped ? (
           grouped.map(([cat, books]) => (
-            <CategorySection key={cat} icon={getCategoryIcon(cat)} title={cat} books={books} />
+            <CategorySection
+              key={cat}
+              icon={getCategoryIconNode(cat, 28)}
+              title={cat}
+              books={books}
+            />
           ))
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">

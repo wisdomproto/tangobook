@@ -40,6 +40,14 @@ Request → routes → controllers → services → repositories/providers
 features/{name}/{api,hooks,components,index.ts}
 ```
 
+## 디자인 시스템 — 아이콘
+- 프리미티브: `<AppIcon src="category/animal.png" size={48} />` (`design-system/primitives/AppIcon.tsx`)
+- 자산 위치: `packages/client/public/icons/{category,section,tab}/*.{png,svg}`
+- AI 생성 일러스트 (coral #FF6F61 + peach #FFE4D6 톤) — Khan Kids × 곰돌이푸 × Duolingo
+- Cambridge 토픽 매핑: `features/vocabulary-unit/lib/cambridge-icon-map.ts`
+- 마스코트 호리: `public/mascot/hori/*.webp` 그대로 (Mascot 컴포넌트)
+- 미사용 슬롯 (호리 게임·Storybook 4 카테고리·뷰어 툴바 등) 은 이모지 폴백 유지
+
 ## 모듈별 가이드 (해당 폴더 작업 시 자동 로드)
 - 동화책 (CRUD/사이드바/복사) → [features/storybook/CLAUDE.md](packages/client/src/features/storybook/CLAUDE.md)
 - 학습 게임 → [features/games/CLAUDE.md](packages/client/src/features/games/CLAUDE.md)

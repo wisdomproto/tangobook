@@ -1,8 +1,10 @@
+import type { ReactNode } from 'react';
 import { BookCard } from './BookCard';
 import type { BookIndexEntry } from '@tangobook/shared';
 
 interface CategorySectionProps {
-  icon: string;
+  /** 이모지 string 또는 AppIcon 등 ReactNode */
+  icon: ReactNode;
   title: string;
   books: BookIndexEntry[];
   limit?: number;

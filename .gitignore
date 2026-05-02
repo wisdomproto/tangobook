@@ -53,3 +53,10 @@ coverage/
 audit-report.json
 verify-report.json
 sparkle-success.json
+
+# Icon design working files (AI generation sources, ~18MB, regenerable)
+design/
+
+# Temp R2 inspection JSON files
+.tmp-*.json
+

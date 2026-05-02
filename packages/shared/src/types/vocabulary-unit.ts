@@ -67,6 +67,8 @@ export interface VocabularyUnitCatalog {
 export interface VocabularyUnitSummary {
   id: string;
   source: VocabularyUnitSource;
+  /** Cambridge 토픽 id 등 외부 식별자 — 아이콘 매핑에 사용 */
+  topicId?: string;
   nameKo: string;
   nameEn?: string;
   emoji?: string;

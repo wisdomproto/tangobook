@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Lang } from '@tangobook/shared';
-import { Mascot, Chip } from '@/design-system';
+import { Mascot, Chip, AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useStorybooks } from '@/features/storybook/hooks/useStorybooks';
 import {
@@ -17,11 +17,11 @@ import {
 
 type MainTab = 'activity' | 'storybook' | 'phonics' | 'vocab';
 
-const TAB_DEFS: { id: MainTab; emoji: string; label: string }[] = [
-  { id: 'activity', emoji: '📊', label: '활동 현황' },
-  { id: 'storybook', emoji: '📖', label: '동화책' },
-  { id: 'phonics', emoji: '🔤', label: '파닉스' },
-  { id: 'vocab', emoji: '🌱', label: '어휘' },
+const TAB_DEFS: { id: MainTab; iconSrc: string; label: string }[] = [
+  { id: 'activity', iconSrc: 'tab/activity.svg', label: '활동 현황' },
+  { id: 'storybook', iconSrc: 'tab/storybook.svg', label: '동화책' },
+  { id: 'phonics', iconSrc: 'tab/phonics.svg', label: '파닉스' },
+  { id: 'vocab', iconSrc: 'tab/vocab.svg', label: '어휘' },
 ];
 
 export default function ParentReportsPage() {
@@ -80,7 +80,7 @@ export default function ParentReportsPage() {
             key={t.id}
             active={tab === t.id}
             variant="coral"
-            icon={<span>{t.emoji}</span>}
+            icon={<AppIcon src={t.iconSrc} size={22} alt={t.label} />}
             onClick={() => setTab(t.id)}
           >
             {t.label}
@@ -91,7 +91,10 @@ export default function ParentReportsPage() {
       {tab === 'activity' && (
         <div className="space-y-6">
           <section>
-            <h2 className="mb-3 text-lg font-bold">⭐ 보상 현황</h2>
+            <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
+              <AppIcon src="section/reward.png" size={28} alt="보상" />
+              <span>보상 현황</span>
+            </h2>
             <RewardsOverviewCard />
           </section>
           <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -99,7 +102,10 @@ export default function ParentReportsPage() {
             <HoriInventoryCard />
           </section>
           <section>
-            <h2 className="mb-3 text-lg font-bold">🎪 놀이터 활동</h2>
+            <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
+              <AppIcon src="section/playground.png" size={28} alt="놀이터" />
+              <span>놀이터 활동</span>
+            </h2>
             <PlaygroundStatsCard events={events} />
           </section>
         </div>
@@ -108,7 +114,10 @@ export default function ParentReportsPage() {
       {tab === 'storybook' && (
         <section>
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-lg font-bold">📖 동화책</h2>
+            <h2 className="flex items-center gap-2 text-lg font-bold">
+              <AppIcon src="tab/storybook.svg" size={28} alt="동화책" />
+              <span>동화책</span>
+            </h2>
             <LanguageTabs value={storybookLang} onChange={setStorybookLang} />
           </div>
           <StorybookReportSection events={events} storybooks={storybooks} lang={storybookLang} />
@@ -117,14 +126,20 @@ export default function ParentReportsPage() {
 
       {tab === 'phonics' && (
         <section>
-          <h2 className="mb-3 text-lg font-bold">🔤 파닉스</h2>
+          <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
+            <AppIcon src="tab/phonics.svg" size={28} alt="파닉스" />
+            <span>파닉스</span>
+          </h2>
           <PhonicsReportSection events={events} storybooks={storybooks} />
         </section>
       )}
 
       {tab === 'vocab' && (
         <section>
-          <h2 className="mb-3 text-lg font-bold">🌱 어휘</h2>
+          <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
+            <AppIcon src="tab/vocab.svg" size={28} alt="어휘" />
+            <span>어휘</span>
+          </h2>
           <VocabularyTabContent events={events} storybooks={storybooks} />
         </section>
       )}

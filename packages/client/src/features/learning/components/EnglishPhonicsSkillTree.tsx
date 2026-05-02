@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { ENGLISH_PHONICS_CURRICULUM } from '@tangobook/shared';
 import type { LearningEvent, StorybookSummary } from '@tangobook/shared';
+import { AppIcon } from '@/design-system';
 import { computeMastery, masteryState, type MasteryState } from '../lib/mastery';
 import { groupByPhoneme, groupByWord } from '../lib/aggregate';
 import { ENGLISH_PHONICS_BOOKS, type EnglishBookId } from '../lib/english-phonics-skills';
@@ -86,8 +87,11 @@ export function EnglishPhonicsSkillTree({ events, storybooks }: Props) {
               })}
             </div>
             <div className="mt-3 border-t border-ink-100 pt-3">
-              <h4 className="mb-2 text-xs font-semibold text-ink-500">
-                🎯 타겟 단어 ({masteredWords}/{targetRows.length} 익힘)
+              <h4 className="mb-2 flex items-center gap-1 text-xs font-semibold text-ink-500">
+                <AppIcon src="section/target-word.svg" size={16} alt="타겟" />
+                <span>
+                  타겟 단어 ({masteredWords}/{targetRows.length} 익힘)
+                </span>
               </h4>
               {targetRows.length === 0 ? (
                 <p className="text-xs text-ink-400">이 권의 타겟 단어가 없어요</p>

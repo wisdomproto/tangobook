@@ -1,12 +1,22 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMemo, useState } from 'react';
+import { AppIcon } from '@/design-system';
 import {
   useVocabularyUnits,
   useUpsertVocabularyUnit,
   useSeedCambridge,
   useDeleteVocabularyUnit,
 } from '../hooks/useVocabularyUnits';
+import { getCambridgeTopicIcon } from '../lib/cambridge-icon-map';
 import type { VocabularyUnit, VocabularyUnitSummary } from '@tangobook/shared';
+
+function SidebarUnitIcon({ unit }: { unit: VocabularyUnitSummary }) {
+  const src = getCambridgeTopicIcon(unit.topicId);
+  if (src) {
+    return <AppIcon src={src} size={20} className="shrink-0" alt={unit.nameKo} />;
+  }
+  return <span className="text-lg shrink-0">{unit.emoji ?? '✨'}</span>;
+}
 
 /** 사이드바 vocabulary 모드용 리스트 — 어휘 단원 표시 + 클릭 시 /editor2/vocab/:unitId 이동 */
 export function VocabularyUnitSidebarList() {
@@ -115,7 +125,7 @@ export function VocabularyUnitSidebarList() {
                         : 'hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
                     }`}
                   >
-                    <span className="text-lg shrink-0">{unit.emoji ?? '✨'}</span>
+                    <SidebarUnitIcon unit={unit} />
                     <div className="flex-1 min-w-0">
                       <div className="font-bold truncate">{unit.nameKo}</div>
                       <div className="text-[11px] text-slate-500 dark:text-slate-400">

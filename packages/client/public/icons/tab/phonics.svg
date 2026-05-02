@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="80" ry="80" fill="#FFE4D6"/>
+  <!-- 글자 카드 (살짝 회전) -->
+  <g transform="rotate(-6, 256, 270)">
+    <!-- 카드 그림자 -->
+    <rect x="100" y="125" width="312" height="290" rx="40" fill="#1F2937" opacity="0.15"/>
+    <!-- 카드 본체 -->
+    <rect x="96" y="118" width="312" height="290" rx="40" fill="#FFFAF5" stroke="#1F2937" stroke-width="7"/>
+    <!-- 큰 'A' (kawaii block letter) -->
+    <!-- A 의 두 다리 -->
+    <path d="M 175 358 L 240 175 Q 252 152, 264 152 Q 276 152, 288 175 L 353 358" fill="#FF6F61" stroke="#1F2937" stroke-width="7" stroke-linejoin="round"/>
+    <!-- A 의 가로선 -->
+    <path d="M 215 280 L 313 280 L 308 308 L 220 308 Z" fill="#FFFAF5" stroke="#1F2937" stroke-width="7" stroke-linejoin="round"/>
+    <!-- 작은 볼터치 -->
+    <ellipse cx="220" cy="335" rx="11" ry="7" fill="#FFB5A0" opacity="0.8"/>
+    <ellipse cx="304" cy="335" rx="11" ry="7" fill="#FFB5A0" opacity="0.8"/>
+  </g>
+  <!-- 사운드 별 효과 (오른쪽 위) -->
+  <g stroke="#1F2937" stroke-width="4" stroke-linejoin="round" fill="#FFCC33">
+    <path d="M 425 130 L 432 110 L 439 130 L 459 137 L 439 144 L 432 164 L 425 144 L 405 137 Z"/>
+  </g>
+</svg>

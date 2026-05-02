@@ -11,14 +11,32 @@ import type { Storybook, ReadingLevel } from '@tangobook/shared';
 import { AddStyleConfirmModal, AddLanguageConfirmModal } from './VariantConfirmModals';
 import { switchStyleAssets, findArtStylePreset } from '@/features/editor/lib/style-assets';
 
-const LEVEL_INFO: Record<
-  ReadingLevel,
-  { label: string; age: string; emoji: string; color: string }
-> = {
+interface LevelInfo {
+  label: string;
+  age: string;
+  emoji: string;
+  color: string;
+}
+
+const LEVEL_INFO: Record<ReadingLevel, LevelInfo> = {
   L1: { label: '씨앗', age: '3~4세', emoji: '📗', color: 'emerald' },
   L2: { label: '새싹', age: '4~6세', emoji: '📘', color: 'sky' },
   L3: { label: '나무', age: '6~7세', emoji: '📙', color: 'amber' },
 };
+
+/** ReadingLevel 타입에 없지만 R2 에 잔존하는 `__L4` 등 unknown level 안전 폴백.
+ *  메모리 [reading-level-3tier.md] 참고: L4 → L3 매핑 후 일부 sibling id 의 suffix 만 잔존.
+ */
+const UNKNOWN_LEVEL_INFO: LevelInfo = {
+  label: '(구버전)',
+  age: '',
+  emoji: '📚',
+  color: 'slate',
+};
+
+function getLevelInfo(level: string): LevelInfo {
+  return (LEVEL_INFO as Record<string, LevelInfo | undefined>)[level] ?? UNKNOWN_LEVEL_INFO;
+}
 
 const LANG_FLAG: Record<string, string> = {
   ko: '🇰🇷',
@@ -58,7 +76,7 @@ export function LevelEditCard({
   hasMounted,
   onMounted,
 }: LevelEditCardProps) {
-  const info = LEVEL_INFO[level];
+  const info = getLevelInfo(level);
 
   // 펼쳐진 적이 있으면 mount 유지 (display 로 숨김만)
   const shouldMount = hasMounted || expanded;
