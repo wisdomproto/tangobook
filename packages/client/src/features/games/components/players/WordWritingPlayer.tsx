@@ -36,11 +36,7 @@ export function WordWritingPlayer({
     (finalScores: number[]) => {
       const isKorean = data.type === 'korean-word-writing';
       const gameType: GameTypeId =
-        data.type === 'korean-word-writing'
-          ? 'korean-word-writing'
-          : data.type === 'english-word-writing'
-            ? 'english-word-writing'
-            : 'word-writing';
+        data.type === 'korean-word-writing' ? 'korean-word-writing' : 'english-word-writing';
       const lang: Lang = isKorean ? 'ko' : 'en';
       const results: GameWordResult[] = [];
       for (let i = 0; i < items.length; i++) {
