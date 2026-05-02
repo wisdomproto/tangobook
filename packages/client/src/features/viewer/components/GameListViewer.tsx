@@ -13,19 +13,17 @@ interface GameListViewerProps {
 }
 
 const GRADIENTS: Record<string, string> = {
-  'letter-sound': 'from-emerald-400 to-teal-500',
-  'word-listening': 'from-sky-400 to-blue-500',
-  'vocabulary-matching': 'from-violet-400 to-purple-500',
-  'word-writing': 'from-amber-400 to-orange-500',
-  'word-quiz': 'from-rose-400 to-pink-500',
   'connect-the-dots': 'from-lime-400 to-green-500',
-  'picture-sequence': 'from-cyan-400 to-teal-500',
-  'odd-one-out': 'from-fuchsia-400 to-purple-500',
-  'word-image-matching': 'from-amber-400 to-orange-500',
-  'blending-listening': 'from-indigo-400 to-violet-500',
   'korean-block': 'from-yellow-400 to-amber-500',
+  'english-block': 'from-yellow-400 to-amber-500',
+  'korean-word-writing': 'from-amber-400 to-orange-500',
+  'english-word-writing': 'from-amber-400 to-orange-500',
   'korean-line-matching': 'from-pink-400 to-rose-500',
   'english-line-matching': 'from-pink-400 to-rose-500',
+  'korean-story-image': 'from-rose-400 to-pink-500',
+  'english-story-image': 'from-rose-400 to-pink-500',
+  'korean-speaking': 'from-cyan-400 to-blue-500',
+  'english-speaking': 'from-cyan-400 to-blue-500',
 };
 
 export function GameListViewer({ storybook, bid, v2Style }: GameListViewerProps) {

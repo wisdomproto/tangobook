@@ -10,17 +10,11 @@ const TARGET_CATEGORY = '세계 명작';
 
 // 동화책(storybook)에서 만들 수 있는 게임 타입과 기본 설정 — registry/games/*.register.* 미러
 const GAME_RECIPES = [
-  { id: 'vocabulary-matching', nameKo: '어휘 매칭', defaultConfig: { type: 'vocabulary-matching', pairCount: 6 } },
-  { id: 'word-writing', nameKo: '단어 쓰기', defaultConfig: { type: 'word-writing', language: 'english', wordSource: 'vocabulary', showGuide: true, accuracyThreshold: 70 } },
   { id: 'connect-the-dots', nameKo: '점잇기', defaultConfig: { type: 'connect-the-dots', sourcePages: [], sourceMode: 'objects', sourceObjects: [], pointCount: 20, showNumbers: true, showFaintOutline: true } },
-  { id: 'word-quiz', nameKo: '단어 퀴즈', defaultConfig: { type: 'word-quiz', questionCount: 6, questionTypes: ['picture'] } },
-  { id: 'picture-sequence', nameKo: '그림 순서', defaultConfig: { type: 'picture-sequence', imageCount: 4 } },
-  { id: 'odd-one-out', nameKo: '다른 그림', defaultConfig: { type: 'odd-one-out', roundCount: 5, optionsPerRound: 4 } },
   { id: 'korean-block', nameKo: '한글 블록', defaultConfig: { type: 'korean-block', itemCount: 5, includeKeyObjects: true, includeCharacters: false } },
   { id: 'english-block', nameKo: '영어 블록', defaultConfig: { type: 'english-block', itemCount: 5, includeKeyObjects: true, includeCharacters: false } },
   { id: 'korean-word-writing', nameKo: '한글 낱말쓰기', defaultConfig: { type: 'korean-word-writing', language: 'korean', wordSource: 'vocabulary', showGuide: true, accuracyThreshold: 70 } },
   { id: 'english-word-writing', nameKo: '영어 낱말쓰기', defaultConfig: { type: 'english-word-writing', language: 'english', wordSource: 'vocabulary', showGuide: true, accuracyThreshold: 70 } },
-  { id: 'storybook-quiz', nameKo: '동화책 퀴즈', defaultConfig: { type: 'storybook-quiz', questionCount: 5 } },
   { id: 'korean-speaking', nameKo: '한국어 말하기', defaultConfig: { type: 'korean-speaking' } },
   { id: 'english-speaking', nameKo: '영어 말하기', defaultConfig: { type: 'english-speaking' } },
 ];
