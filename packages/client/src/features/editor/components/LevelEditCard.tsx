@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useStorybook, useSaveStorybook, useDeleteStorybook } from '@/features/storybook';
 import { Spinner } from '@/components/Spinner';
 import { EditorContent } from '@/features/editor/components/EditorContent';
@@ -7,9 +8,11 @@ import { useEditorStore } from '@/store/editor.store';
 import { cn } from '@/lib/cn';
 import { ART_STYLES, SUPPORTED_LANGUAGES, canonicalizeArtStyle } from '@tangobook/shared';
 import { getAvailableLanguages } from '@/lib/storybook-accessors';
-import type { Storybook, ReadingLevel } from '@tangobook/shared';
+import type { Storybook, ReadingLevel, SavedArtStyle } from '@tangobook/shared';
 import { AddStyleConfirmModal, AddLanguageConfirmModal } from './VariantConfirmModals';
 import { switchStyleAssets, findArtStylePreset } from '@/features/editor/lib/style-assets';
+import { settingsApi } from '@/features/settings/api/settings.api';
+import { StyleLibraryEditModal } from '@/features/settings/components/StyleLibraryEditModal';
 
 interface LevelInfo {
   label: string;
@@ -237,6 +240,30 @@ function CardBody({
     setSelectedId(storybookId);
   }, [storybookId, setSelectedId]);
 
+  // 그림체 라이브러리 (R2 저장, ART_STYLES preset 자동 seed). 모든 hooks 는 early return 위.
+  const { data: styleLibrary } = useQuery({
+    queryKey: ['art-style-library'],
+    queryFn: settingsApi.getArtStyleLibrary,
+    staleTime: 60_000,
+  });
+  const [styleEditOpen, setStyleEditOpen] = useState(false);
+
+  // 그림체 정규화 — storybook 없을 땐 빈 array
+  const allStyles = useMemo(() => {
+    if (!storybook) return [];
+    const rawStyles = [...(storybook.availableStyles ?? []), storybook.artStyle];
+    return Array.from(new Set(rawStyles.map((s) => canonicalizeArtStyle(s) || s)));
+  }, [storybook]);
+
+  const missingStyles = useMemo(() => {
+    const lib: SavedArtStyle[] = styleLibrary ?? [];
+    const source =
+      lib.length > 0
+        ? lib.map((s) => ({ id: s.id, label: s.name, prompt: s.prompt }))
+        : ART_STYLES.map((s) => ({ id: s.id, label: s.label, prompt: s.prompt }));
+    return source.filter((s) => !allStyles.includes(s.id));
+  }, [styleLibrary, allStyles]);
+
   if (isLoading) return <Spinner size="lg" className="m-8" />;
   if (error || !storybook) {
     return (
@@ -250,19 +277,6 @@ function CardBody({
   for (const l of implicitLangs) langSet.add(l);
   const allLangs = ['ko', ...Array.from(langSet).filter((c) => c !== 'ko')];
   const missingLangs = SUPPORTED_LANGUAGES.filter((l) => !allLangs.includes(l.code));
-
-  // 그림체 — availableStyles 배열 기반. 비어 있으면 [artStyle] fallback.
-  // canonical id 로 정규화 후 dedupe (id + prompt 두 형태가 섞여있어도 한 칩으로).
-  const rawStyles = [...(storybook.availableStyles ?? []), storybook.artStyle];
-  const styleSet = new Set<string>(rawStyles.map((s) => canonicalizeArtStyle(s) || s));
-  const allStyles = Array.from(styleSet);
-  // 미사용 그림체 — preset id/prompt 둘 다 비교 (레거시 'paper-craft' 같은 id 형식 처리)
-  const missingStyles = ART_STYLES.filter(
-    (s) =>
-      !allStyles.some(
-        (v) => v.toLowerCase() === s.prompt.toLowerCase() || v.toLowerCase() === s.id.toLowerCase()
-      )
-  );
 
   return (
     <>
@@ -335,16 +349,23 @@ function CardBody({
           {missingStyles.length > 0 && (
             <StyleAddDropdown
               missingStyles={missingStyles}
-              onAdd={(prompt) => {
-                const preset = ART_STYLES.find((s) => s.prompt === prompt);
+              onAdd={(picked) => {
                 setPendingStyleAdd({
-                  id: preset?.id ?? 'custom',
-                  label: preset?.label ?? '커스텀',
-                  prompt,
+                  id: picked.id,
+                  label: picked.label,
+                  prompt: picked.prompt,
                 });
               }}
             />
           )}
+          {/* 라인 맨 오른쪽 — ⚙️ 그림체 라이브러리 편집 */}
+          <button
+            onClick={() => setStyleEditOpen(true)}
+            className="ml-auto px-2 py-0.5 rounded text-[11px] font-bold border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
+            title="그림체 라이브러리 편집 (이름·프롬프트 수정, 추가, 제거, 순서 이동)"
+          >
+            ⚙️ 그림체 편집
+          </button>
         </div>
       </div>
 
@@ -467,6 +488,7 @@ function CardBody({
           onCancel={() => setPendingLangAdd(null)}
         />
       )}
+      {styleEditOpen && <StyleLibraryEditModal onClose={() => setStyleEditOpen(false)} />}
     </>
   );
 }
@@ -478,7 +500,7 @@ function StyleAddDropdown({
   onAdd,
 }: {
   missingStyles: { id: string; label: string; prompt: string }[];
-  onAdd: (prompt: string) => void;
+  onAdd: (picked: { id: string; label: string; prompt: string }) => void;
 }) {
   const [open, setOpen] = useState(false);
   return (
@@ -496,7 +518,7 @@ function StyleAddDropdown({
               key={s.id}
               onClick={() => {
                 setOpen(false);
-                onAdd(s.prompt);
+                onAdd(s);
               }}
               className="w-full text-left px-3 py-2 text-xs hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2"
             >

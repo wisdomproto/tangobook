@@ -5,6 +5,8 @@ const router = Router();
 
 router.get('/', ArtStyleLibraryController.list);
 router.post('/', ArtStyleLibraryController.save);
+router.post('/reorder', ArtStyleLibraryController.reorder);
+router.patch('/:id', ArtStyleLibraryController.update);
 router.delete('/all', ArtStyleLibraryController.removeAll);
 router.delete('/:id', ArtStyleLibraryController.remove);
 

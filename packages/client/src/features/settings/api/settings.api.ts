@@ -1,4 +1,4 @@
-import { apiClient, apiGet, apiPost, apiDelete } from '@/lib/axios';
+import { apiClient, apiGet, apiPost, apiPatch, apiDelete } from '@/lib/axios';
 import type {
   PhonicsAudioCategory,
   PhonicsAudioItem,
@@ -127,8 +127,14 @@ export const settingsApi = {
 
   // 그림체 라이브러리
   getArtStyleLibrary: () => apiGet<SavedArtStyle[]>('/art-style-library'),
-  saveArtStyle: (data: { name: string; prompt: string; referenceImageUrl?: string }) =>
+  saveArtStyle: (data: { id?: string; name: string; prompt: string; referenceImageUrl?: string }) =>
     apiPost<SavedArtStyle>('/art-style-library', data),
+  updateArtStyle: (
+    id: string,
+    patch: { name?: string; prompt?: string; referenceImageUrl?: string }
+  ) => apiPatch<SavedArtStyle>(`/art-style-library/${id}`, patch),
+  reorderArtStyles: (ids: string[]) =>
+    apiPost<SavedArtStyle[]>('/art-style-library/reorder', { ids }),
   removeArtStyle: (id: string) => apiDelete<void>(`/art-style-library/${id}`),
   removeAllArtStyles: () => apiDelete<void>('/art-style-library/all'),
 };
