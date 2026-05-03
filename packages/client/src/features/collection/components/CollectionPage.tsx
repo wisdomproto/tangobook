@@ -1,9 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { COLLECTION_CATEGORIES, type CollectionCategoryId } from '@tangobook/shared';
 import { useCollectionCatalog } from '../hooks/useCollectionCatalog';
 import { useCollectionUserState } from '../hooks/useCollectionUserState';
 import { Skeleton, Mascot } from '@/design-system';
+import { CollectionByBookView } from './CollectionByBookView';
+
+type ViewMode = 'category' | 'book';
 
 interface CategoryStats {
   total: number;
@@ -16,6 +19,7 @@ export function CollectionPage() {
   const navigate = useNavigate();
   const { data: catalog, isLoading } = useCollectionCatalog();
   const { statusMap } = useCollectionUserState();
+  const [viewMode, setViewMode] = useState<ViewMode>('category');
 
   // 카테고리별 진척률 집계
   const stats = useMemo(() => {
@@ -84,9 +88,37 @@ export function CollectionPage() {
         </div>
       </header>
 
-      {/* 카테고리 그리드 */}
+      {/* View toggle (📂 카테고리 / 📖 동화별) */}
+      <div className="px-6 max-w-6xl mx-auto mb-4 flex justify-center">
+        <div className="inline-flex bg-white rounded-full shadow-soft border border-coral-200 p-1">
+          <button
+            onClick={() => setViewMode('category')}
+            className={`px-5 py-2 rounded-full text-sm font-black transition-all ${
+              viewMode === 'category'
+                ? 'bg-coral-500 text-white shadow-pop'
+                : 'text-ink-700 hover:bg-coral-50'
+            }`}
+          >
+            📂 카테고리별
+          </button>
+          <button
+            onClick={() => setViewMode('book')}
+            className={`px-5 py-2 rounded-full text-sm font-black transition-all ${
+              viewMode === 'book'
+                ? 'bg-coral-500 text-white shadow-pop'
+                : 'text-ink-700 hover:bg-coral-50'
+            }`}
+          >
+            📖 동화별
+          </button>
+        </div>
+      </div>
+
+      {/* 본문 — view mode 별 분기 */}
       <main className="px-6 pb-12 max-w-6xl mx-auto">
-        {isLoading ? (
+        {viewMode === 'book' ? (
+          <CollectionByBookView />
+        ) : isLoading ? (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {Array.from({ length: 8 }).map((_, i) => (
               <Skeleton key={i} className="aspect-[3/4] rounded-2xl" />
