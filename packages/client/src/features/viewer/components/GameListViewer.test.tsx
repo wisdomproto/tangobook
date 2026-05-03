@@ -31,8 +31,8 @@ const mockStorybook = {
     },
     {
       id: 'g3',
-      gameType: 'vocabulary-matching',
-      title: '어휘 매칭',
+      gameType: 'connect-the-dots',
+      title: '단어 그림 그리기',
       difficulty: 'easy',
       data: {},
       createdAt: '2026-01-01',
@@ -41,25 +41,25 @@ const mockStorybook = {
 } as any;
 
 describe('GameListViewer language filtering', () => {
-  it('lang=ko: korean-block + vocabulary-matching 표시, english-block 숨김', () => {
+  it('lang=ko: korean-block + connect-the-dots 표시, english-block 숨김', () => {
     render(
       <MemoryRouter initialEntries={['/viewer/test?mode=games&lang=ko']}>
         <GameListViewer storybook={mockStorybook} />
       </MemoryRouter>
     );
     expect(screen.getByText('한글 블록')).toBeInTheDocument();
-    expect(screen.getByText('어휘 매칭')).toBeInTheDocument();
+    expect(screen.getByText('단어 그림 그리기')).toBeInTheDocument();
     expect(screen.queryByText('English block')).not.toBeInTheDocument();
   });
 
-  it('lang=en: english-block + vocabulary-matching 표시, korean-block 숨김', () => {
+  it('lang=en: english-block + connect-the-dots 표시, korean-block 숨김', () => {
     render(
       <MemoryRouter initialEntries={['/viewer/test?mode=games&lang=en']}>
         <GameListViewer storybook={mockStorybook} />
       </MemoryRouter>
     );
     expect(screen.getByText('English block')).toBeInTheDocument();
-    expect(screen.getByText('어휘 매칭')).toBeInTheDocument();
+    expect(screen.getByText('단어 그림 그리기')).toBeInTheDocument();
     expect(screen.queryByText('한글 블록')).not.toBeInTheDocument();
   });
 });
