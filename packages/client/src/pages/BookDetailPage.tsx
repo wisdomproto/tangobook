@@ -50,7 +50,9 @@ export default function BookDetailPage() {
     [storybook]
   );
   const videoAvailable = youtubeVideoIds.length > 0 || directVideoUrls.length > 0;
-  const gameAvailable = (storybook?.games?.length ?? 0) > 0;
+  // Phase 1 정신: 학습 게임 직접 진입 X. 어휘 학습은 어휘 탭 (책별 단원) 으로 통일.
+  // KeyObject 1개 이상이면 어휘 학습 카드 노출.
+  const vocabAvailable = (storybook?.key_objects?.length ?? 0) > 0;
 
   // 레벨 sibling 추출 — 현재 책의 baseId 기준으로 같은 base 의 sibling __L1/L2/L3 찾기
   // (StorybookSummary 는 readingLevel 미포함 이라 id suffix 로 level 유추, base 자체는 storybook.readingLevel)
@@ -133,7 +135,7 @@ export default function BookDetailPage() {
   const coverUrl =
     (effectiveStyle && storybook.styleAssets?.[effectiveStyle]?.coverImage) ?? storybook.coverImage;
 
-  const enterMode = (mode: 'read' | 'video' | 'game') => {
+  const enterMode = (mode: 'read' | 'video' | 'vocab') => {
     if (mode === 'video') {
       const vid = youtubeVideoIds[0];
       if (vid) {
@@ -152,9 +154,13 @@ export default function BookDetailPage() {
       effectiveLevel && effectiveLevel !== baseLevel
         ? `${baseId}__${effectiveLevel}`
         : storybook.id;
+    if (mode === 'vocab') {
+      // 어휘 탭의 책별 derive 단원으로 직접 이동 (Phase 1 §6.3 회유 동선)
+      navigate(`/vocabulary/book-${targetId}`);
+      return;
+    }
     const qs = new URLSearchParams({ lang });
     if (effectiveStyle) qs.set('style', effectiveStyle);
-    if (mode === 'game') qs.set('mode', 'games');
     navigate(`/viewer/${targetId}?${qs.toString()}`);
   };
 
@@ -301,11 +307,11 @@ export default function BookDetailPage() {
                   <div className="text-xs text-ink-500 mt-0.5">유튜브에서 보기</div>
                 </Card>
               )}
-              {gameAvailable && (
-                <Card interactive onClick={() => enterMode('game')}>
-                  <div className="text-3xl">🎮</div>
-                  <h3 className="font-black text-base mt-2 text-ink-900">독후 게임</h3>
-                  <div className="text-xs text-ink-500 mt-0.5">퀴즈·연결하기</div>
+              {vocabAvailable && (
+                <Card interactive onClick={() => enterMode('vocab')}>
+                  <div className="text-3xl">🌱</div>
+                  <h3 className="font-black text-base mt-2 text-ink-900">단어 익히기</h3>
+                  <div className="text-xs text-ink-500 mt-0.5">어휘 탭에서 학습</div>
                 </Card>
               )}
             </div>
