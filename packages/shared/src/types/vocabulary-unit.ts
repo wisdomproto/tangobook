@@ -1,7 +1,7 @@
 import type { Lang } from './learning-events.js';
 import type { DotKeypoint } from './storybook.js';
 
-export type VocabularyUnitSource = 'cambridge-starters' | 'custom';
+export type VocabularyUnitSource = 'cambridge-starters' | 'custom' | 'storybook';
 
 /** 단어별 이미지 — KeyObject 의 imageHistory 를 정식 array 로 확장. 1단어 = N장 */
 export interface VocabularyWordImage {
@@ -39,10 +39,12 @@ export interface VocabularyUnitWord {
 }
 
 export interface VocabularyUnit {
-  id: string; // 'unit-cambridge-animals' / 'unit-custom-{ts}'
+  id: string; // 'unit-cambridge-animals' / 'unit-custom-{ts}' / 'book-{storybookId}'
   source: VocabularyUnitSource;
   /** Cambridge 토픽 id 등 외부 식별자 */
   topicId?: string;
+  /** source='storybook' 일 때 원본 책 id */
+  storybookId?: string;
   nameKo: string;
   nameEn?: string;
   emoji?: string;
@@ -52,8 +54,12 @@ export interface VocabularyUnit {
   /** Cambridge 의 Pre-A1 = 1, A1 = 2 등 (확장용) */
   level?: number;
   isPublic?: boolean;
-  /** Storybook variant 처럼 폴더로 grouping */
+  /** source='storybook' = true (책 편집기에서만 수정) */
+  isReadOnly?: boolean;
+  /** Storybook variant 처럼 폴더로 grouping. source='storybook' 인 경우 책 카테고리 (명작/생활동화/...) */
   folder?: string;
+  /** source='storybook' 인 경우 책 표지 이미지 — hub 카드에 노출 */
+  coverImage?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -69,12 +75,17 @@ export interface VocabularyUnitSummary {
   source: VocabularyUnitSource;
   /** Cambridge 토픽 id 등 외부 식별자 — 아이콘 매핑에 사용 */
   topicId?: string;
+  /** source='storybook' 일 때 원본 책 id */
+  storybookId?: string;
   nameKo: string;
   nameEn?: string;
   emoji?: string;
   language: Lang;
   wordCount: number;
   isPublic?: boolean;
+  isReadOnly?: boolean;
   folder?: string;
+  /** source='storybook' 인 경우 책 표지 이미지 */
+  coverImage?: string;
   updatedAt: string;
 }
