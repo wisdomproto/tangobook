@@ -153,8 +153,21 @@ export function VocabularyStudyPage() {
       <main className="px-6 pb-12 mt-6 max-w-3xl mx-auto">
         <div className="text-center mb-4">
           <h1 className="text-2xl font-black font-display text-ink-900">
-            {unit.emoji} {unit.nameKo}
+            {unit.emoji ?? (unit.source === 'storybook' ? '📖' : '')} {unit.nameKo}
           </h1>
+          {unit.source === 'storybook' && unit.storybookId && (
+            <div className="mt-2 flex items-center justify-center gap-2 text-sm">
+              <span className="px-2 py-0.5 rounded-full bg-coral-100 text-coral-700 font-black text-xs">
+                동화 단원
+              </span>
+              <button
+                onClick={() => navigate(`/library/${unit.storybookId}`)}
+                className="text-coral-600 underline-offset-2 hover:underline font-bold"
+              >
+                📚 이 책 다시 보기
+              </button>
+            </div>
+          )}
         </div>
 
         {/* 진행 바 */}

@@ -442,7 +442,8 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         currentStyle={urlStyle ?? storybook.artStyle ?? undefined}
         onGoToVocabulary={() => {
           setWordRevealOpen(false);
-          navigate('/vocabulary');
+          // 책별 어휘 단원으로 deep link (storybook derived 단원)
+          navigate(`/vocabulary/book-${storybookId}`);
         }}
         onGoHome={() => {
           setWordRevealOpen(false);
