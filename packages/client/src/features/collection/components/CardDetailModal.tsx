@@ -1,6 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import type { CollectionItem, CollectionStatus } from '@tangobook/shared';
+import { useBookIndex } from '@/features/book-v2';
 
 interface Props {
   item: CollectionItem | null;
@@ -16,6 +18,16 @@ const STATUS_HINT: Record<CollectionStatus, string> = {
 };
 
 export function CardDetailModal({ item, status, onClose }: Props) {
+  const navigate = useNavigate();
+  const { data: index } = useBookIndex();
+
+  // 출처 책 — sourceBookIds 와 BookIndex 매칭 (locked 단계에선 비공개 X)
+  const sourceBooks = useMemo(() => {
+    if (!item || !index?.books) return [];
+    const map = new Map(index.books.map((b) => [b.id, b]));
+    return item.sourceBookIds.map((id) => map.get(id)).filter((b) => b != null);
+  }, [item, index]);
+
   // ESC 닫기
   useEffect(() => {
     if (!item) return;
@@ -117,6 +129,51 @@ export function CardDetailModal({ item, status, onClose }: Props) {
               >
                 {STATUS_HINT[status]}
               </div>
+
+              {/* 출처 동화 thumbnail row — silhouette 부터 노출 (locked 시 hint 만) */}
+              {status !== 'locked' && sourceBooks.length > 0 && (
+                <div>
+                  <h3 className="text-xs font-black text-ink-700 mb-2">
+                    📖 이 단어가 나온 동화 ({sourceBooks.length}권)
+                  </h3>
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                    {sourceBooks.slice(0, 8).map((b) => (
+                      <button
+                        key={b.id}
+                        onClick={() => {
+                          onClose();
+                          navigate(`/library/${b.id}`);
+                        }}
+                        className="group relative aspect-[3/4] rounded-lg overflow-hidden bg-peach-100 shadow-soft hover:shadow-pop hover:-translate-y-0.5 transition-all"
+                        title={b.title}
+                      >
+                        {b.coverImageUrl ? (
+                          <img
+                            src={b.coverImageUrl}
+                            alt={b.title}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-3xl">
+                            📖
+                          </div>
+                        )}
+                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-1 pt-3">
+                          <div className="text-white text-[10px] font-bold line-clamp-2 leading-tight drop-shadow">
+                            {b.title}
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                  {sourceBooks.length > 8 && (
+                    <div className="text-[11px] text-ink-500 mt-2 text-center">
+                      외 {sourceBooks.length - 8}권 더
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </motion.div>
         </motion.div>
