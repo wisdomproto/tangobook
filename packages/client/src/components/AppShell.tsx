@@ -36,13 +36,7 @@ const PRIMARY_AXES = [
   },
 ];
 
-const MORE_FUN = [
-  { to: '/collection', iconSrc: 'section/collection.png', label: '카드' },
-  { to: '/hori-room', iconSrc: 'mascot/hori/idle.webp', label: '호리 방' },
-  // 호리 게임 — 전용 아이콘 미제작. 임시로 콜렉션 카드 일러스트 같은 톤 (조이스틱 자산 예정)
-  { to: '/games', iconSrc: '', emoji: '🎮', label: '호리 게임' },
-  { to: '/playground', iconSrc: 'section/playground.png', label: '단어 놀이' },
-];
+const MORE_FUN = [{ to: '/collection', iconSrc: 'section/collection.png', label: '카드' }];
 
 export function AppShell() {
   const { activeProfile, session, signOut, isConfigured } = useAuth();
