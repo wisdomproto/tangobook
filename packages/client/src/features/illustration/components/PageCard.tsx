@@ -70,8 +70,12 @@ export function PageCard({
   };
 
   // --- Illustration ---
+  // 재생성 모드:
+  //  - 'fine-tune': 현재/이전 페이지 일러스트 reference 포함 (미세 수정용, 캐릭터/배경 일관성 유지)
+  //  - 'character-update': 두 페이지 ref 둘 다 제외 (캐릭터 새로 만든 후 외형 갱신용)
+  type RegenMode = 'fine-tune' | 'character-update';
   const generateMutation = useMutation({
-    mutationFn: () => {
+    mutationFn: (mode: RegenMode = 'fine-tune') => {
       const charRefs = (storybook.characters ?? [])
         .filter((c) => c.referenceImage)
         .map((c) => ({
@@ -85,12 +89,13 @@ export function PageCard({
       const flashcardImageRefs = flashcards
         .filter((fc) => fc.imageUrl && fc.word && pageText.includes(fc.word.toLowerCase()))
         .map((fc) => ({ word: fc.word, imageUrl: fc.imageUrl! }));
+      const includePageRefs = mode === 'fine-tune';
       return illustrationApi.generate({
         page: { ...page, customModifications: modifications || undefined },
         artStyle: storybook.artStyle,
         characterReferences: charRefs,
-        previousIllustrationUrl: prevPage?.illustrationUrl,
-        currentImageUrl: page.illustrationUrl,
+        previousIllustrationUrl: includePageRefs ? prevPage?.illustrationUrl : undefined,
+        currentImageUrl: includePageRefs ? page.illustrationUrl : undefined,
         settings: { aspectRatio: storybook.illustrationAspectRatio ?? '16:9' },
         storybookId: storybook.id,
         storybookTitle: storybook.title,
@@ -286,11 +291,28 @@ export function PageCard({
                 <Button
                   size="sm"
                   className="flex-1"
-                  onClick={() => generateMutation.mutate()}
+                  onClick={() => generateMutation.mutate('fine-tune')}
                   loading={generateMutation.isPending || uploadMutation.isPending}
+                  title={
+                    imageUrl
+                      ? '현재 그림과 이전 페이지를 참고해 미세 수정 (구도/스타일 유지)'
+                      : '캐릭터 + 페이지 텍스트로 새 일러스트 생성'
+                  }
                 >
-                  {imageUrl ? '재생성' : '삽화 생성'}
+                  {imageUrl ? '🎨 재생성' : '삽화 생성'}
                 </Button>
+                {imageUrl && (
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    className="flex-1"
+                    onClick={() => generateMutation.mutate('character-update')}
+                    loading={generateMutation.isPending || uploadMutation.isPending}
+                    title="캐릭터를 새로 만든 후 외형을 페이지에 반영. 현재/이전 페이지 그림 ref 제외 → 캐릭터 reference만 사용."
+                  >
+                    ✨ 캐릭터 새로
+                  </Button>
+                )}
                 {imageUrl && (
                   <DownloadButton href={imageUrl} filename={`page-${page.pageNumber}.png`} />
                 )}

@@ -266,7 +266,7 @@ export const ImageService = {
       fcWords
     );
     if (currentIll) {
-      prompt += `\n\nCURRENT IMAGE REFERENCE: The last reference image is the current illustration for this page. Use it as a style and composition reference while applying the updated prompt.`;
+      prompt += `\n\nCURRENT IMAGE REFERENCE: The last reference image is the current illustration for this page. Use it ONLY for layout/composition (camera angle, character positions, scene framing, background elements). DO NOT copy character appearance from this image — character designs (face, hair, outfit, body proportions) MUST follow the earlier character reference images exactly. If the current illustration shows characters that look different from the character references, ignore those visual designs and replace them with the character references as the source of truth.`;
     }
 
     const aspectRatio = settings?.aspectRatio ?? '16:9';
