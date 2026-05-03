@@ -15,13 +15,6 @@ import ViewerPage from '../pages/ViewerPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
 import LoginPage from '../features/auth/components/LoginPage';
-import HoriRunPage from '../pages/HoriRunPage';
-import HoriCatchPage from '../pages/HoriCatchPage';
-import HoriWhackPage from '../pages/HoriWhackPage';
-import HoriMemoryPage from '../pages/HoriMemoryPage';
-import HoriSimonPage from '../pages/HoriSimonPage';
-import HoriJumpPage from '../pages/HoriJumpPage';
-import GamesHubPage from '../pages/GamesHubPage';
 import { AuthProvider } from '../features/auth/context/AuthContext';
 import { RequireAuthedWithPin } from '../features/auth/guards/RequireAuthedWithPin';
 import ParentHomePage from '../features/auth/pages/ParentHomePage';
@@ -29,18 +22,7 @@ import ParentReportsPage from '../features/auth/pages/ParentReportsPage';
 import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
 import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
 import { CollectionPage, CategoryPage } from '../features/collection';
-import { HoriRoomPage } from '../features/hori-room';
 import { VocabularyHubPage, VocabularyStudyPage } from '../features/vocabulary-unit';
-import {
-  PlaygroundHubPage,
-  WordMemoryPlayer,
-  WordPopPlayer,
-  WordFishingPlayer,
-  WordShoppingPlayer,
-  WordRunPlayer,
-  WordSortCartPlayer,
-  WordGardenPlayer,
-} from '../features/playground';
 
 export const router = createBrowserRouter([
   {
@@ -64,10 +46,10 @@ export const router = createBrowserRouter([
           { path: 'library/phonics', element: <LibraryPage type="phonics" /> },
           { path: 'collection', element: <CollectionPage /> },
           { path: 'collection/:categoryId', element: <CategoryPage /> },
-          { path: 'hori-room', element: <HoriRoomPage /> },
+          { path: 'hori-room', element: <Navigate to="/library" replace /> },
           { path: 'vocabulary', element: <VocabularyHubPage /> },
-          { path: 'playground', element: <PlaygroundHubPage /> },
-          { path: 'games', element: <GamesHubPage /> },
+          { path: 'playground', element: <Navigate to="/library" replace /> },
+          { path: 'games', element: <Navigate to="/library" replace /> },
         ],
       },
       {
@@ -142,54 +124,12 @@ export const router = createBrowserRouter([
       },
       { path: 'login', element: <LoginPage /> },
       { path: 'login/callback', element: <LoginCallback /> },
-      {
-        path: 'games/hori-run',
-        element: (
-          <ErrorBoundary>
-            <HoriRunPage />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'games/hori-catch',
-        element: (
-          <ErrorBoundary>
-            <HoriCatchPage />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'games/hori-whack',
-        element: (
-          <ErrorBoundary>
-            <HoriWhackPage />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'games/hori-memory',
-        element: (
-          <ErrorBoundary>
-            <HoriMemoryPage />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'games/hori-simon',
-        element: (
-          <ErrorBoundary>
-            <HoriSimonPage />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'games/hori-jump',
-        element: (
-          <ErrorBoundary>
-            <HoriJumpPage />
-          </ErrorBoundary>
-        ),
-      },
+      { path: 'games/hori-run', element: <Navigate to="/library" replace /> },
+      { path: 'games/hori-catch', element: <Navigate to="/library" replace /> },
+      { path: 'games/hori-whack', element: <Navigate to="/library" replace /> },
+      { path: 'games/hori-memory', element: <Navigate to="/library" replace /> },
+      { path: 'games/hori-simon', element: <Navigate to="/library" replace /> },
+      { path: 'games/hori-jump', element: <Navigate to="/library" replace /> },
       {
         path: 'vocabulary/:unitId',
         element: (
@@ -198,62 +138,13 @@ export const router = createBrowserRouter([
           </ErrorBoundary>
         ),
       },
-      {
-        path: 'playground/word-memory',
-        element: (
-          <ErrorBoundary>
-            <WordMemoryPlayer />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'playground/word-pop',
-        element: (
-          <ErrorBoundary>
-            <WordPopPlayer />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'playground/word-fishing',
-        element: (
-          <ErrorBoundary>
-            <WordFishingPlayer />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'playground/word-shopping',
-        element: (
-          <ErrorBoundary>
-            <WordShoppingPlayer />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'playground/word-run',
-        element: (
-          <ErrorBoundary>
-            <WordRunPlayer />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'playground/word-sort-cart',
-        element: (
-          <ErrorBoundary>
-            <WordSortCartPlayer />
-          </ErrorBoundary>
-        ),
-      },
-      {
-        path: 'playground/word-garden',
-        element: (
-          <ErrorBoundary>
-            <WordGardenPlayer />
-          </ErrorBoundary>
-        ),
-      },
+      { path: 'playground/word-memory', element: <Navigate to="/library" replace /> },
+      { path: 'playground/word-pop', element: <Navigate to="/library" replace /> },
+      { path: 'playground/word-fishing', element: <Navigate to="/library" replace /> },
+      { path: 'playground/word-shopping', element: <Navigate to="/library" replace /> },
+      { path: 'playground/word-run', element: <Navigate to="/library" replace /> },
+      { path: 'playground/word-sort-cart', element: <Navigate to="/library" replace /> },
+      { path: 'playground/word-garden', element: <Navigate to="/library" replace /> },
       {
         path: 'parent',
         element: (
