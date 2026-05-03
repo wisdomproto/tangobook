@@ -35,7 +35,8 @@ v1 storybook 데이터 모델 위에 **레벨/그림체/언어 3축 variation** 
 
 - `+ 레벨 추가` → 무거움 안내 (페이지/일러스트/TTS 새로 작성 필요) + base에서 텍스트만 복사
 - `+ 언어 추가` → 가벼움 (이미지 공유, 텍스트/TTS만 새로). 페이지/표지/핵심단어의 AI 일괄 번역 활용
-- `+ 그림체 추가` → availableStyles 에 push + switchStyleAssets 으로 즉시 활성. 텍스트 공유, 일러스트만 새로
+- `+ 그림체 추가` → availableStyles 에 canonical id push + switchStyleAssets 으로 즉시 활성. 텍스트 공유, 일러스트만 새로. dropdown source = R2 art-style-library (`/api/art-style-library`, ART_STYLES 10 preset 자동 seed + 사용자 추가 그림체)
+- `⚙️ 그림체 편집` (그림체 row 맨 오른쪽) → `StyleLibraryEditModal` (`features/settings/components`). 인라인 ✏️ 이름/프롬프트 수정, ↑↓ 순서, ➕ 추가, 🗑 제거. preset id 보존 → canonicalize 매칭 그대로. modal 은 conditional render (열림 시만 mount → useQuery 무한 루프 회피)
 
 ## KeyObject TTS (학습게임 연동)
 
