@@ -7,7 +7,12 @@ import {
   downloadFromR2,
 } from '../providers/r2.provider.js';
 import { imageToWebp } from '../utils/transcode.js';
-import type { Storybook, StorybookSummary } from '@tangobook/shared';
+import {
+  canonicalizeArtStyle,
+  canonicalizeStyleAssets,
+  type Storybook,
+  type StorybookSummary,
+} from '@tangobook/shared';
 
 const STORYBOOK_PREFIX = 'storybook-';
 
@@ -192,7 +197,14 @@ export const R2Repository = {
   },
 
   async saveStorybook(storybook: Storybook): Promise<Storybook> {
-    const updated = { ...storybook, updatedAt: new Date().toISOString() };
+    // styleAssets 중복 버킷 정규화 (id + prompt 두 형태로 분리되어 들어온 경우 머지)
+    const normalizedStyleAssets = canonicalizeStyleAssets(storybook.styleAssets);
+    const updated: Storybook = {
+      ...storybook,
+      styleAssets: normalizedStyleAssets,
+      artStyle: canonicalizeArtStyle(storybook.artStyle ?? '') || storybook.artStyle,
+      updatedAt: new Date().toISOString(),
+    };
     await uploadJsonToR2(updated, storybookKey(storybook.id));
     // Update cache entry in-place
     if (listCache) {
