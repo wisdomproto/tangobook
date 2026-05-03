@@ -12,6 +12,10 @@ import { cn } from '@/lib/cn';
  *
  * 디자인 타겟: 태블릿 1024-1366 + 4-5세 사용자 → 큰 글자, 큰 터치 타겟, 빈 공간 최소화.
  */
+/**
+ * 사이드바 메인 axis — 4축 모두 동일 정사각 박스 디자인 (정렬 통일).
+ * 도감 = "내 카드" 라벨 (4-5세 친화. "도감" 은 너무 어렵).
+ */
 const PRIMARY_AXES = [
   {
     to: '/library',
@@ -34,9 +38,14 @@ const PRIMARY_AXES = [
     color: 'amber' as const,
     end: false,
   },
+  {
+    to: '/collection',
+    iconSrc: 'section/collection.png',
+    label: '내 카드',
+    color: 'violet' as const,
+    end: false,
+  },
 ];
-
-const MORE_FUN = [{ to: '/collection', iconSrc: 'section/collection.png', label: '도감' }];
 
 /**
  * 페이지 path → 큰 타이틀 (SVG 아이콘 path + 텍스트) 매핑.
@@ -85,32 +94,26 @@ export function AppShell() {
     <div className="flex min-h-screen bg-cream-50">
       {/* 좌측 nav — 태블릿 기준 w-44 (176px). 박스 + 라벨 가독성 우선. */}
       <aside className="w-44 flex-shrink-0 sticky top-0 h-screen flex flex-col bg-cream-50 border-r border-ink-100/60">
-        {/* 로고 영역 */}
-        <div className="h-20 flex items-center px-4 gap-2 border-b border-ink-100/40">
-          <Mascot character="hori" state="waving" size="md" />
-          <span className="text-lg font-black text-ink-900 font-display">탱고북</span>
+        {/* 로고 영역 — 텍스트 워드마크 (호리 마스코트 X, 로고와 마스코트 분리) */}
+        <div className="h-20 flex items-center justify-center px-4 gap-2 border-b border-ink-100/40">
+          <span className="text-2xl">📕</span>
+          <span className="text-2xl font-black text-coral-600 font-display tracking-tight">
+            탱고북
+          </span>
         </div>
 
-        {/* 3축 메인 — 박스 100×100, 라벨 sm */}
+        {/* 4 axis — 모두 동일 정사각 박스 (정렬 통일). 동화책 / 파닉스 / 어휘 / 내 카드 */}
         <nav className="flex flex-col gap-3 items-center pt-5">
           {PRIMARY_AXES.map((axis) => (
             <PrimaryNavButton key={axis.to} {...axis} />
           ))}
         </nav>
 
-        <div className="mt-6 mx-3 border-t border-ink-100/60" />
-
-        <nav className="flex flex-col gap-1 px-3 pt-4">
-          {MORE_FUN.map((item) => (
-            <SecondaryNavButton key={item.to} {...item} />
-          ))}
-        </nav>
-
-        {/* 휑함 채우는 호리 마스코트 — 빈 공간 장식 + 친근감 */}
-        <div className="mt-auto flex flex-col items-center pb-2">
-          <Mascot character="hori" state="cheering" size="lg" />
+        {/* 하단 호리 인사 — waving (덜 reactive) + 메시지 */}
+        <div className="mt-auto flex flex-col items-center pb-3">
+          <Mascot character="hori" state="waving" size="lg" />
           <div className="mt-1 px-3 py-1.5 rounded-2xl bg-coral-100 text-coral-700 text-sm font-black text-center shadow-soft">
-            오늘도 화이팅! ✨
+            오늘도 만나서 반가워! 👋
           </div>
         </div>
 
@@ -150,10 +153,24 @@ export function AppShell() {
             {session && (
               <button
                 onClick={handleSignOut}
-                className="text-2xl text-ink-500 hover:text-danger transition px-2"
+                className="w-10 h-10 rounded-full bg-white shadow-soft text-ink-500 hover:text-danger hover:shadow-pop transition flex items-center justify-center"
                 title="로그아웃"
+                aria-label="로그아웃"
               >
-                🚪
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
               </button>
             )}
           </div>
@@ -167,16 +184,20 @@ export function AppShell() {
   );
 }
 
-const COLOR_ACTIVE: Record<'coral' | 'mint' | 'amber', string> = {
+type AxisColor = 'coral' | 'mint' | 'amber' | 'violet';
+
+const COLOR_ACTIVE: Record<AxisColor, string> = {
   coral: 'bg-coral-500 text-white shadow-pop ring-4 ring-coral-200',
   mint: 'bg-success text-white shadow-pop ring-4 ring-success/30',
   amber: 'bg-warn text-ink-900 shadow-pop ring-4 ring-warn/40',
+  violet: 'bg-violet-500 text-white shadow-pop ring-4 ring-violet-200',
 };
 
-const COLOR_IDLE: Record<'coral' | 'mint' | 'amber', string> = {
+const COLOR_IDLE: Record<AxisColor, string> = {
   coral: 'bg-coral-100 text-coral-600 hover:bg-coral-200',
   mint: 'bg-success/15 text-success hover:bg-success/25',
   amber: 'bg-warn/20 text-ink-900 hover:bg-warn/30',
+  violet: 'bg-violet-100 text-violet-600 hover:bg-violet-200',
 };
 
 function PrimaryNavButton({
@@ -189,7 +210,7 @@ function PrimaryNavButton({
   to: string;
   iconSrc: string;
   label: string;
-  color: 'coral' | 'mint' | 'amber';
+  color: AxisColor;
   end: boolean;
 }) {
   return (
