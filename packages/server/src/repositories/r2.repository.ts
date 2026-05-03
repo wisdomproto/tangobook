@@ -91,6 +91,14 @@ function toSummary(sb: Storybook): StorybookSummary {
     complete: cover && pagesImage && pagesTts && vocabulary,
   };
 
+  // 대표 그림체 (defaultStyle) 가 있으면 그 styleAssets 의 coverImage 우선 — 라이브러리·검색 등 외부 노출 일관성용
+  const targetStyle = sb.defaultStyle ?? sb.artStyle;
+  const styleCover =
+    targetStyle && sb.styleAssets?.[targetStyle]?.coverImage
+      ? sb.styleAssets[targetStyle].coverImage
+      : null;
+  const coverImageOut = styleCover ?? sb.coverImage;
+
   return {
     id: sb.id,
     title: sb.title,
@@ -101,7 +109,7 @@ function toSummary(sb: Storybook): StorybookSummary {
     folder: sb.folder,
     isPublic: sb.isPublic,
     createdAt: sb.createdAt,
-    coverImage: sb.coverImage,
+    coverImage: coverImageOut,
     pageCount: pages.length,
     phonicsLanguage: sb.phonicsConfig?.language,
     hasVideo: hasAudiobookVideo || hasLongformVideo,

@@ -48,6 +48,16 @@ features/{name}/{api,hooks,components,index.ts}
 - 마스코트 호리: `public/mascot/hori/*.webp` 그대로 (Mascot 컴포넌트)
 - 미사용 슬롯 (호리 게임·Storybook 4 카테고리·뷰어 툴바 등) 은 이모지 폴백 유지
 
+## 디자인 시스템 — 폰트 (2026-05-03)
+- **Body / UI**: Pretendard Variable (한국 모던 앱 표준, 한글+Latin 조형 통일, 가변 38KB)
+- **Display / Heading (`font-display`)**: NanumSquareRound (둥근 한글체, 4-5세 친화)
+- 정의: `tailwind.config.ts` 안에 inline (typography.ts import 캐시 이슈 우회). `index.css` 에 jsdelivr CDN @import.
+
+## 디자인 시스템 — 그림체 (2026-05-03)
+- 책마다 `Storybook.artStyle` (마지막 active, 자동 갱신) + `defaultStyle` (사용자 명시 대표) 분리
+- `defaultStyle` = 라이브러리 표지·도감 카드 imageUrl 노출에 우선 사용 (없으면 artStyle fallback)
+- /editor2 그림체 칩에 ⭐/☆ 토글로 대표 지정. `styleAssets[styleId]` 가 그림체별 표지·캐릭터·페이지 일러스트 분리 보관
+
 ## 모듈별 가이드 (해당 폴더 작업 시 자동 로드)
 - 동화책 (CRUD/사이드바/복사) → [features/storybook/CLAUDE.md](packages/client/src/features/storybook/CLAUDE.md)
 - 학습 게임 → [features/games/CLAUDE.md](packages/client/src/features/games/CLAUDE.md)
@@ -59,7 +69,8 @@ features/{name}/{api,hooks,components,index.ts}
 - 마케팅 (블로그/카드뉴스) → [features/blog/CLAUDE.md](packages/client/src/features/blog/CLAUDE.md)
 - Auth (Supabase) → [features/auth/CLAUDE.md](packages/client/src/features/auth/CLAUDE.md)
 - Learning Reports → [features/learning/CLAUDE.md](packages/client/src/features/learning/CLAUDE.md)
-- 별/카드/호리/놀이터 → [features/rewards/CLAUDE.md](packages/client/src/features/rewards/CLAUDE.md)
+- 별/호리/놀이터 → [features/rewards/CLAUDE.md](packages/client/src/features/rewards/CLAUDE.md)
+- 카드 도감 (단어 단위, 6 카테고리) → [memory/collection-word-redesign.md](../../Users/101024/.claude/projects/C--projects-tangobook/memory/collection-word-redesign.md)
 - Hori 아케이드 → [features/arcade-games/CLAUDE.md](packages/client/src/features/arcade-games/CLAUDE.md)
 - 어휘 단원 → [features/vocabulary-unit/CLAUDE.md](packages/client/src/features/vocabulary-unit/CLAUDE.md)
 - 횡단 (커리큘럼/자료실/캐싱/자산/snake_case) → [docs/architecture-notes.md](docs/architecture-notes.md)

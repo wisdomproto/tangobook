@@ -12,14 +12,12 @@ import { Skeleton } from '@/design-system';
 import { CardDetailModal } from './CardDetailModal';
 
 const CATEGORY_BG: Record<CollectionCategoryId, string> = {
-  classic: 'from-amber-50 to-orange-100',
-  folktale: 'from-rose-50 to-red-100',
   animal: 'from-orange-50 to-yellow-100',
-  dinosaur: 'from-emerald-50 to-green-100',
-  plant: 'from-pink-50 to-rose-100',
-  ocean: 'from-sky-50 to-blue-100',
-  space: 'from-indigo-50 to-purple-100',
-  life: 'from-teal-50 to-cyan-100',
+  food: 'from-rose-50 to-red-100',
+  'magic-object': 'from-violet-50 to-purple-100',
+  people: 'from-amber-50 to-orange-100',
+  nature: 'from-emerald-50 to-green-100',
+  home: 'from-sky-50 to-blue-100',
 };
 
 export function CategoryPage() {

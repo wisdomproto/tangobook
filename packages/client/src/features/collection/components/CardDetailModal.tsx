@@ -88,9 +88,9 @@ export function CardDetailModal({ item, status, onClose }: Props) {
                 )}
               </div>
 
-              {/* description — owned 부터 */}
-              {status !== 'locked' && status !== 'silhouette' && item.description && (
-                <p className="text-ink-700 text-base">{item.description}</p>
+              {/* example 예문 — owned 부터 */}
+              {status !== 'locked' && status !== 'silhouette' && item.example && (
+                <p className="text-ink-700 text-base">{item.example}</p>
               )}
 
               {/* facts — active 만 */}

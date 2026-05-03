@@ -1,10 +1,8 @@
-/* Google Fonts — Nunito */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap');
+/* Pretendard Variable — 한국 모던 앱 표준 (Toss/당근/KakaoBank). 가변 폰트 38KB. */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css');
 
-/* 학교안심둥근체 (우아한형제들 배민 CDN 또는 공식 eduFont CDN)
-   로컬 fallback 체인: Nunito → sans-serif
-   학교안심둥근체가 상업 무료라 공식 배포처 확인 후 교체 가능. MVP는 Google Fonts의 둥근 한글 대체로 'IBM Plex Sans KR' 사용 가능. */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;700&display=swap');
+/* NanumSquareRound — 둥근 한글체 (헤딩/디스플레이, 4-5세 친화) */
+@import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquareround.css');
 
 :root {
   /* Base */
@@ -50,7 +48,9 @@
 
 @layer base {
   body {
-    font-family: 'Nunito', 'IBM Plex Sans KR', 'ui-sans-serif', system-ui, sans-serif;
+    font-family:
+      'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+      'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
     color: var(--color-ink-900);
     background: var(--color-cream-50);
     @apply bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200;

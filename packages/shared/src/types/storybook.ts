@@ -1,3 +1,5 @@
+import type { CollectionCategoryId } from './collection.js';
+
 // === StorybookType 구분 ===
 export type StorybookType = 'storybook' | 'phonics';
 
@@ -548,6 +550,11 @@ export interface KeyObject {
   definition?: string;
   /** 영어 예문 (학습 카드용). 예: 'The cow eats grass in the field.' */
   example?: string;
+  /**
+   * 도감 카테고리 (Phase 1 §5.2 6 카테고리). 단어 단위 카드 도감 매핑용 (2026-05-03).
+   * 미설정 → 카드 도감에 미노출. Gemini 일괄 분류 후 사람 검수 권장.
+   */
+  dexCategory?: CollectionCategoryId;
 }
 
 export interface KeyObjectImage {
@@ -677,6 +684,12 @@ export interface Storybook {
   /** 기본 언어 — 위 languages 가 비어 있을 때의 fallback. 보통 'ko'. */
   defaultLanguage?: string;
   artStyle: string;
+  /**
+   * 대표 그림체 (도감/라이브러리 표지/검색 결과 등 외부 노출 시 사용).
+   * `artStyle` 은 마지막 편집 그림체 (자동 갱신). `defaultStyle` 은 사용자가 명시적으로 지정.
+   * 미설정 → `artStyle` fallback. 2026-05-03 추가.
+   */
+  defaultStyle?: string;
   /**
    * 책이 지원하는 그림체 prompt 배열 (`ART_STYLES.prompt` 또는 커스텀).
    * 비어 있으면 [artStyle] 로 취급. 사용자가 + 그림체 추가 로 늘릴 수 있음.

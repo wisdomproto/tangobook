@@ -16,6 +16,7 @@ import type {
 } from '@tangobook/shared';
 import { AppError } from '../middleware/error.middleware.js';
 import { VocabularyDbService } from './vocabulary-db.service.js';
+import { CollectionService } from './collection.service.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROMPT_GUIDE = fs.readFileSync(path.resolve(__dirname, '../../prompt_guide.md'), 'utf-8');
@@ -56,6 +57,10 @@ export const StorybookService = {
     VocabularyDbService.syncFromStorybook(saved).catch((err) =>
       console.error('[VocabDB] sync failed:', (err as Error).message)
     );
+    // 카드 도감 카탈로그 자동 동기화 (fire-and-forget)
+    CollectionService.syncFromStorybook(saved).catch((err) =>
+      console.error('[Collection] sync failed:', (err as Error).message)
+    );
     return saved;
   },
 
@@ -66,6 +71,10 @@ export const StorybookService = {
     // 어휘 DB 출처 정리 (fire-and-forget)
     VocabularyDbService.removeSourcesByStorybookId(id).catch((err) =>
       console.error('[VocabDB] cleanup failed:', (err as Error).message)
+    );
+    // 카드 도감 카탈로그 sourceBookIds 정리 (fire-and-forget)
+    CollectionService.removeSourcesByStorybookId(id).catch((err) =>
+      console.error('[Collection] cleanup failed:', (err as Error).message)
     );
   },
 

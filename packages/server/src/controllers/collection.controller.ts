@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import type { CollectionItem } from '@tangobook/shared';
 import { CollectionService } from '../services/collection.service.js';
+import { R2Repository } from '../repositories/r2.repository.js';
 
 export const CollectionController = {
   async getCatalog(_req: Request, res: Response, next: NextFunction) {
@@ -36,11 +37,29 @@ export const CollectionController = {
     }
   },
 
-  /** 모든 동화 → 카드 자동 동기화 (admin). 표지 작게 사용해 페이지 채우기. */
+  /**
+   * 전체 책 → 카탈로그 재빌드 (admin).
+   * 각 책의 dexCategory 있는 KeyObject 만 카드로 변환. dedupe 단어 단위.
+   * Phase C (2026-05-03) — 책 단위 → 단어 단위 재설계.
+   */
   async syncFromBooks(_req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await CollectionService.syncFromStorybooks();
-      res.json({ success: true, data: result });
+      const summaries = await R2Repository.listStorybooks();
+      let cardsAdded = 0;
+      let cardsUpdated = 0;
+      let booksProcessed = 0;
+      for (const summary of summaries) {
+        const book = await R2Repository.getStorybook(summary.id);
+        if (!book) continue;
+        const result = await CollectionService.syncFromStorybook(book);
+        cardsAdded += result.cardsAdded;
+        cardsUpdated += result.cardsUpdated;
+        booksProcessed++;
+      }
+      res.json({
+        success: true,
+        data: { booksProcessed, cardsAdded, cardsUpdated },
+      });
     } catch (err) {
       next(err);
     }

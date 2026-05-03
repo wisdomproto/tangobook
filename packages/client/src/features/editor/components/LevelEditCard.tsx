@@ -289,6 +289,7 @@ function CardBody({
             const label = preset?.label ?? '커스텀';
             const active = prompt === storybook.artStyle;
             const canRemove = active && allStyles.length > 1; // 활성이면서 다른 그림체 있을 때만
+            const isDefault = prompt === (storybook.defaultStyle ?? storybook.artStyle);
             return (
               <button
                 key={prompt}
@@ -308,6 +309,28 @@ function CardBody({
                 title={prompt}
               >
                 🎨 {label}
+                <span
+                  role="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (isDefault) return;
+                    handleUpdate((d) => {
+                      d.defaultStyle = prompt;
+                    });
+                    handleSave();
+                  }}
+                  title={
+                    isDefault
+                      ? '대표 그림체 (도감/표지 노출)'
+                      : '클릭하면 이 책의 대표 그림체로 지정'
+                  }
+                  className={cn(
+                    'ml-1 cursor-pointer',
+                    isDefault ? 'opacity-100' : 'opacity-50 hover:opacity-100'
+                  )}
+                >
+                  {isDefault ? '⭐' : '☆'}
+                </span>
                 {canRemove && (
                   <span
                     role="button"
