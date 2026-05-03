@@ -24,6 +24,7 @@ import { PageView } from './PageView';
 import { BookSpineProgress } from './BookSpineProgress';
 import { MascotCorner } from './MascotCorner';
 import { RewardScreen } from './RewardScreen';
+import { WordRevealScreen } from './WordRevealScreen';
 import { GameListViewer } from './GameListViewer';
 import { PhonicsViewer } from './PhonicsViewer';
 
@@ -72,14 +73,24 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const [pageIndex, setPageIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [rewardOpen, setRewardOpen] = useState(false);
+  const [wordRevealOpen, setWordRevealOpen] = useState(false);
 
   // state ref로 콜백에서 최신 값 접근
-  const stateRef = useRef({ pageIndex: 0, autoPlayTts: settings.autoPlayTts, rewardOpen: false });
+  const stateRef = useRef({
+    pageIndex: 0,
+    autoPlayTts: settings.autoPlayTts,
+    rewardOpen: false,
+    wordRevealOpen: false,
+  });
   stateRef.current = {
     pageIndex,
     autoPlayTts: settings.autoPlayTts,
     rewardOpen,
+    wordRevealOpen,
   };
+
+  // 핵심 단어 보기 화면 우선 — 책에 key_objects 있고 mode=video 가 아닐 때
+  const hasKeyObjects = (storybook?.key_objects?.length ?? 0) > 0;
 
   const pages = storybook?.pages ?? [];
   const canPrev = pageIndex > 0;
@@ -99,16 +110,23 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const handleTtsEnded = useCallback(() => {
     const st = stateRef.current;
     if (!st.autoPlayTts) return;
-    if (st.rewardOpen) return;
+    if (st.rewardOpen || st.wordRevealOpen) return;
     if (st.pageIndex >= pages.length - 1) {
-      setTimeout(() => setRewardOpen(true), 1000);
+      // 핵심 단어 보기 우선 — key_objects 있으면 WordRevealScreen, 없으면 기존 RewardScreen
+      setTimeout(() => {
+        if (hasKeyObjects) {
+          setWordRevealOpen(true);
+        } else {
+          setRewardOpen(true);
+        }
+      }, 1000);
       return;
     }
     setTimeout(() => {
       setDirection(1);
       setPageIndex((idx) => idx + 1);
     }, 800);
-  }, [pages.length]);
+  }, [pages.length, hasKeyObjects]);
 
   const audio = useAudioPlayer({
     backgroundMusicUrl: storybook?.backgroundMusicUrl,
@@ -123,21 +141,21 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
 
   // 페이지 변경 시 자동 TTS 재생. 1초 딜레이 — 첫 진입 / 페이지 넘김 직후 갑자기 안 나오게.
   // BGM 은 useAudioPlayer 가 마운트 시 바로 재생 (별도). TTS + 자막만 딜레이됨.
-  // `mode=video|games` 또는 reward 화면이 열렸을 땐 TTS 재생하지 않음.
+  // `mode=video|games` 또는 reward/wordReveal 화면이 열렸을 땐 TTS 재생하지 않음.
   useEffect(() => {
     if (!currentTtsUrl) return;
-    if (rewardOpen) return;
+    if (rewardOpen || wordRevealOpen) return;
     if (mode === 'video' || mode === 'games') return;
     const t = setTimeout(() => audio.playTts(currentTtsUrl), 1000);
     return () => clearTimeout(t);
-  }, [currentTtsUrl, rewardOpen, mode]);
+  }, [currentTtsUrl, rewardOpen, wordRevealOpen, mode]);
 
-  // RewardScreen/영상/게임 모드로 전환될 때 진행 중이던 TTS 즉시 정지
+  // RewardScreen/WordRevealScreen/영상/게임 모드로 전환될 때 진행 중이던 TTS 즉시 정지
   useEffect(() => {
-    if (rewardOpen || mode === 'video' || mode === 'games') {
+    if (rewardOpen || wordRevealOpen || mode === 'video' || mode === 'games') {
       audio.stopTts();
     }
-  }, [rewardOpen, mode]);
+  }, [rewardOpen, wordRevealOpen, mode]);
 
   // 학습 이벤트 emit — 페이지가 바뀔 때 이전 페이지에 대해 page_read + word_exposed 배치
   const logEvent = useLogEvent();
@@ -237,7 +255,11 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   };
   const onNext = () => {
     if (pageIndex >= pages.length - 1) {
-      setRewardOpen(true);
+      if (hasKeyObjects) {
+        setWordRevealOpen(true);
+      } else {
+        setRewardOpen(true);
+      }
       return;
     }
     goTo(pageIndex + 1);
@@ -409,6 +431,27 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         onPlayGame={() => {
           setRewardOpen(false);
           navigate(`/viewer/${storybook.id}?mode=games&lang=${lang}`);
+        }}
+      />
+
+      {/* Phase 1 동화 트랙 — 책 자연 종료 시 핵심 단어 보기 (key_objects 있는 책만). */}
+      {/* mode=video 직접 진입은 RewardScreen 그대로. */}
+      <WordRevealScreen
+        storybook={storybook}
+        open={wordRevealOpen}
+        currentStyle={urlStyle ?? storybook.artStyle ?? undefined}
+        onGoToVocabulary={() => {
+          setWordRevealOpen(false);
+          navigate('/vocabulary');
+        }}
+        onGoHome={() => {
+          setWordRevealOpen(false);
+          navigate('/library');
+        }}
+        onRereadFromStart={() => {
+          setWordRevealOpen(false);
+          setDirection(-1);
+          setPageIndex(0);
         }}
       />
     </div>
