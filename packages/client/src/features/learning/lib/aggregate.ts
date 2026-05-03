@@ -1,32 +1,10 @@
 import {
-  ART_STYLES,
+  canonicalizeArtStyle,
   type Lang,
   type LearningEvent,
   type LearningEventType,
 } from '@tangobook/shared';
 import type { MasteryStats } from './mastery';
-
-/**
- * 그림체 raw 문자열 (ART_STYLES.id 이거나 prompt 전체) → canonical id 로 정규화.
- * 같은 그림체가 두 가지 형태로 들어와도 같은 버킷으로 합치기 위함.
- */
-function canonicalizeArtStyle(raw: string): string {
-  if (!raw) return raw;
-  const lower = raw.toLowerCase();
-  // ART_STYLES.id 일 경우 (이미 canonical)
-  const byId = ART_STYLES.find((s) => s.id === raw);
-  if (byId) return byId.id;
-  // prompt 전체로 들어온 경우 (v1 artStyle 의 prompt 형태)
-  const byPrompt = ART_STYLES.find((s) => s.prompt.toLowerCase() === lower);
-  if (byPrompt) return byPrompt.id;
-  // prompt 가 길어서 일부만 들어온 경우 (예: "Paper craft, layered..." prefix 매칭)
-  const byPromptPrefix = ART_STYLES.find(
-    (s) => lower.startsWith(s.prompt.toLowerCase().slice(0, 30)) && s.prompt.length > 20
-  );
-  if (byPromptPrefix) return byPromptPrefix.id;
-  // 매칭 실패 — 그대로
-  return raw;
-}
 
 const WORD_TYPES = new Set<LearningEventType>([
   'word_exposed',

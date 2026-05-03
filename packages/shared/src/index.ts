@@ -15,3 +15,4 @@ export * from './utils/english-letters.js';
 export { buildAudiobookRenderData } from './utils/audiobook-props.js';
 export type { AudiobookSlideData, AudiobookRenderData } from './utils/audiobook-props.js';
 export { getEffectiveVocabulary } from './utils/effective-vocabulary.js';
+export { canonicalizeArtStyle, canonicalizeStyleAssets } from './utils/art-style.js';
