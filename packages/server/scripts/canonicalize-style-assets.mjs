@@ -89,10 +89,21 @@ function detectIssues(book) {
       if (canon !== k) issues.push(`styleAssets[${k.slice(0, 60)}...] → ${canon}`);
     }
   }
-  // top-level artStyle 도 점검
+  // top-level artStyle 점검
   if (book.artStyle) {
     const canon = canonicalizeArtStyle(book.artStyle);
     if (canon !== book.artStyle) issues.push(`artStyle: ${book.artStyle.slice(0, 60)}... → ${canon}`);
+  }
+  // availableStyles 점검 — prompt-form 또는 중복 (canonical 기준)
+  if (Array.isArray(book.availableStyles)) {
+    const normalized = book.availableStyles.map((s) => canonicalizeArtStyle(s) || s);
+    const deduped = Array.from(new Set(normalized));
+    const changed =
+      book.availableStyles.some((s, i) => s !== normalized[i]) ||
+      deduped.length !== book.availableStyles.length;
+    if (changed) {
+      issues.push(`availableStyles: [${book.availableStyles.join(', ')}] → [${deduped.join(', ')}]`);
+    }
   }
   return issues;
 }
@@ -122,12 +133,20 @@ for (const key of keys) {
   const before = JSON.stringify({
     keys: Object.keys(book.styleAssets ?? {}),
     artStyle: book.artStyle,
+    availableStyles: book.availableStyles,
   });
 
   const normalized = canonicalizeStyleAssets(book.styleAssets);
   const newArtStyle = canonicalizeArtStyle(book.artStyle ?? '') || book.artStyle;
+  const newAvailable = Array.isArray(book.availableStyles)
+    ? Array.from(new Set(book.availableStyles.map((s) => canonicalizeArtStyle(s) || s)))
+    : book.availableStyles;
 
-  const after = JSON.stringify({ keys: Object.keys(normalized), artStyle: newArtStyle });
+  const after = JSON.stringify({
+    keys: Object.keys(normalized),
+    artStyle: newArtStyle,
+    availableStyles: newAvailable,
+  });
 
   affectedList.push({
     id: book.id,
@@ -140,6 +159,7 @@ for (const key of keys) {
   if (APPLY) {
     book.styleAssets = normalized;
     book.artStyle = newArtStyle;
+    book.availableStyles = newAvailable;
     book.updatedAt = new Date().toISOString();
     await saveBook(key, book);
     updated++;

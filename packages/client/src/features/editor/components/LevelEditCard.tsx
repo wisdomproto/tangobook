@@ -5,7 +5,7 @@ import { EditorContent } from '@/features/editor/components/EditorContent';
 import { EditorLangProvider } from '@/contexts/EditorLangContext';
 import { useEditorStore } from '@/store/editor.store';
 import { cn } from '@/lib/cn';
-import { ART_STYLES, SUPPORTED_LANGUAGES } from '@tangobook/shared';
+import { ART_STYLES, SUPPORTED_LANGUAGES, canonicalizeArtStyle } from '@tangobook/shared';
 import { getAvailableLanguages } from '@/lib/storybook-accessors';
 import type { Storybook, ReadingLevel } from '@tangobook/shared';
 import { AddStyleConfirmModal, AddLanguageConfirmModal } from './VariantConfirmModals';
@@ -251,9 +251,10 @@ function CardBody({
   const allLangs = ['ko', ...Array.from(langSet).filter((c) => c !== 'ko')];
   const missingLangs = SUPPORTED_LANGUAGES.filter((l) => !allLangs.includes(l.code));
 
-  // 그림체 — availableStyles 배열 기반. 비어 있으면 [artStyle] fallback
-  const styleSet = new Set<string>(storybook.availableStyles ?? []);
-  styleSet.add(storybook.artStyle);
+  // 그림체 — availableStyles 배열 기반. 비어 있으면 [artStyle] fallback.
+  // canonical id 로 정규화 후 dedupe (id + prompt 두 형태가 섞여있어도 한 칩으로).
+  const rawStyles = [...(storybook.availableStyles ?? []), storybook.artStyle];
+  const styleSet = new Set<string>(rawStyles.map((s) => canonicalizeArtStyle(s) || s));
   const allStyles = Array.from(styleSet);
   // 미사용 그림체 — preset id/prompt 둘 다 비교 (레거시 'paper-craft' 같은 id 형식 처리)
   const missingStyles = ART_STYLES.filter(
@@ -306,14 +307,18 @@ function CardBody({
                         return;
                       handleUpdate((d) => {
                         const cur = d.availableStyles?.length ? d.availableStyles : [d.artStyle];
-                        const next = cur.filter((p) => p !== prompt);
+                        // prompt = canonical id (styleSet 에서 정규화됨). cur 도 정규화 후 비교.
+                        const next = cur.filter((p) => (canonicalizeArtStyle(p) || p) !== prompt);
                         d.availableStyles = next;
-                        // styleAssets 에서 해당 그림체 자산도 제거
+                        // styleAssets 에서 해당 그림체 자산도 제거 (canonical id 매칭)
                         if (d.styleAssets) {
                           delete d.styleAssets[prompt];
                         }
                         // 다른 그림체로 전환 (자산 swap)
-                        if (d.artStyle === prompt && next.length > 0) {
+                        if (
+                          (canonicalizeArtStyle(d.artStyle) || d.artStyle) === prompt &&
+                          next.length > 0
+                        ) {
                           switchStyleAssets(d, next[0]);
                         }
                       });
@@ -426,13 +431,19 @@ function CardBody({
           presetLabel={pendingStyleAdd.label}
           presetPrompt={pendingStyleAdd.prompt}
           onConfirm={() => {
-            const prompt = pendingStyleAdd!.prompt;
+            // pendingStyleAdd.id 는 canonical (ART_STYLES.id). prompt-form 대신 id 로 저장.
+            const styleId = pendingStyleAdd!.id;
             handleUpdate((d) => {
               const cur = d.availableStyles?.length ? d.availableStyles : [d.artStyle];
-              if (!cur.includes(prompt)) d.availableStyles = [...cur, prompt];
-              else d.availableStyles = cur;
-              // styleAssets snapshot + 새 그림체로 전환 (top-level 자산은 비워짐)
-              switchStyleAssets(d, prompt);
+              const curCanonical = cur.map((s) => canonicalizeArtStyle(s) || s);
+              if (!curCanonical.includes(styleId)) {
+                d.availableStyles = [...curCanonical, styleId];
+              } else {
+                // 이미 있으면 raw → canonical 정규화만 해서 중복 정리
+                d.availableStyles = Array.from(new Set(curCanonical));
+              }
+              // styleAssets snapshot + 새 그림체로 전환 (canonical id 로)
+              switchStyleAssets(d, styleId);
             });
             handleSave();
             setPendingStyleAdd(null);

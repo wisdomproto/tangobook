@@ -197,12 +197,16 @@ export const R2Repository = {
   },
 
   async saveStorybook(storybook: Storybook): Promise<Storybook> {
-    // styleAssets 중복 버킷 정규화 (id + prompt 두 형태로 분리되어 들어온 경우 머지)
+    // 그림체 자료 정규화: prompt-form 키가 들어와도 canonical id 로 머지 + dedupe
     const normalizedStyleAssets = canonicalizeStyleAssets(storybook.styleAssets);
+    const normalizedAvailable = storybook.availableStyles
+      ? Array.from(new Set(storybook.availableStyles.map((s) => canonicalizeArtStyle(s) || s)))
+      : storybook.availableStyles;
     const updated: Storybook = {
       ...storybook,
       styleAssets: normalizedStyleAssets,
       artStyle: canonicalizeArtStyle(storybook.artStyle ?? '') || storybook.artStyle,
+      availableStyles: normalizedAvailable,
       updatedAt: new Date().toISOString(),
     };
     await uploadJsonToR2(updated, storybookKey(storybook.id));
