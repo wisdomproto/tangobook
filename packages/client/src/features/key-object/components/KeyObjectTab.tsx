@@ -116,39 +116,51 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
     audio.play().catch(() => {});
   }, []);
 
-  const generateOneTts = useCallback(
-    async (idx: number) => {
+  /** 단일 KeyObject의 특정 언어 TTS 생성 + 저장. ko/en 같은 핵심 언어는 voice를 그대로 활용. */
+  const generateTtsForLang = useCallback(
+    async (idx: number, lang: string): Promise<string | null> => {
       const obj = keyObjects[idx];
-      if (!obj) return;
-      const name = getKeyObjectName(obj, ttsLang);
-      if (!name?.trim()) return;
-      setTtsGeneratingIdx(idx);
+      if (!obj) return null;
+      const name = getKeyObjectName(obj, lang);
+      if (!name?.trim()) return null;
       try {
         const result = await ttsApi.generate({
           text: name,
           provider: 'gemini',
           voice: ttsVoice,
-          language: ttsLang,
+          language: lang,
           storybookId: storybook.id,
           pageNumber: idx + 1,
         });
         onUpdate((draft) => {
           const o = draft.key_objects?.[idx];
-          if (o) setKeyObjectTts(o, ttsLang, result.audioUrl);
+          if (o) setKeyObjectTts(o, lang, result.audioUrl);
         });
-        onSave();
-        // 자동 재생
-        playTts(result.audioUrl);
+        return result.audioUrl;
       } catch (e) {
-        console.error('[KeyObjectTab] TTS generate failed:', e);
-        alert('TTS 생성 실패: ' + (e as Error).message);
+        console.error(`[KeyObjectTab] TTS generate failed (idx=${idx}, lang=${lang}):`, e);
+        return null;
+      }
+    },
+    [keyObjects, ttsVoice, onUpdate, storybook.id]
+  );
+
+  const generateOneTts = useCallback(
+    async (idx: number) => {
+      setTtsGeneratingIdx(idx);
+      try {
+        const url = await generateTtsForLang(idx, ttsLang);
+        if (!url) return;
+        onSave();
+        playTts(url);
       } finally {
         setTtsGeneratingIdx(null);
       }
     },
-    [keyObjects, ttsLang, ttsVoice, onUpdate, onSave, storybook.id, playTts]
+    [generateTtsForLang, ttsLang, onSave, playTts]
   );
 
+  /** 활성 언어 1개에 대해 일괄 생성. */
   const generateAllTts = useCallback(async () => {
     const targets = keyObjects
       .map((obj, idx) => ({ idx, name: getKeyObjectName(obj, ttsLang) }))
@@ -158,28 +170,36 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
       return;
     setTtsBatch({ current: 0, total: targets.length });
     for (let i = 0; i < targets.length; i++) {
-      const t = targets[i];
       setTtsBatch({ current: i + 1, total: targets.length });
-      try {
-        const result = await ttsApi.generate({
-          text: t.name,
-          provider: 'gemini',
-          voice: ttsVoice,
-          language: ttsLang,
-          storybookId: storybook.id,
-          pageNumber: t.idx + 1,
-        });
-        onUpdate((draft) => {
-          const o = draft.key_objects?.[t.idx];
-          if (o) setKeyObjectTts(o, ttsLang, result.audioUrl);
-        });
-        onSave();
-      } catch (e) {
-        console.error(`[KeyObjectTab] TTS batch idx ${t.idx} failed:`, e);
-      }
+      await generateTtsForLang(targets[i].idx, ttsLang);
+      onSave();
     }
     setTtsBatch(null);
-  }, [keyObjects, ttsLang, ttsVoice, onUpdate, onSave, storybook.id]);
+  }, [keyObjects, ttsLang, generateTtsForLang, onSave]);
+
+  /** 한·영 모두 한 번에 — ko 누락 + en 누락 채움. 이미 있는 건 skip. */
+  const generateAllTtsBoth = useCallback(async () => {
+    type Job = { idx: number; lang: 'ko' | 'en' };
+    const jobs: Job[] = [];
+    keyObjects.forEach((obj, idx) => {
+      const koName = getKeyObjectName(obj, 'ko');
+      const enName = getKeyObjectName(obj, 'en');
+      if (koName?.trim() && !obj.ttsUrl) jobs.push({ idx, lang: 'ko' });
+      if (enName?.trim() && !obj.ttsUrls?.en) jobs.push({ idx, lang: 'en' });
+    });
+    if (jobs.length === 0) {
+      alert('이미 모든 한·영 TTS가 생성되어 있어요.');
+      return;
+    }
+    if (!confirm(`누락된 한·영 TTS ${jobs.length}개를 일괄 생성합니다. 계속할까요?`)) return;
+    setTtsBatch({ current: 0, total: jobs.length });
+    for (let i = 0; i < jobs.length; i++) {
+      setTtsBatch({ current: i + 1, total: jobs.length });
+      await generateTtsForLang(jobs[i].idx, jobs[i].lang);
+      onSave();
+    }
+    setTtsBatch(null);
+  }, [keyObjects, generateTtsForLang, onSave]);
 
   const [generatingIdx, setGeneratingIdx] = useState<number | null>(null);
   const [expandedPrompt, setExpandedPrompt] = useState<number | null>(null);
@@ -306,6 +326,16 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
       draft.key_objects.push(obj);
     });
     onSave();
+    // 신규 KeyObject 의 새 인덱스 = 추가 직전 길이. 자동으로 한·영 TTS 동시 생성 (fire-and-forget).
+    const newIdx = keyObjects.length;
+    void (async () => {
+      const langs: string[] = ['ko'];
+      if (obj.nameEn) langs.push('en');
+      for (const lang of langs) {
+        await generateTtsForLang(newIdx, lang);
+      }
+      onSave();
+    })();
     setNewObj({ name: '', nameEn: '', description: '' });
     setShowAddForm(false);
   };
@@ -414,6 +444,18 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
               {ttsBatch
                 ? `🎙 TTS 생성 중 (${ttsBatch.current}/${ttsBatch.total})`
                 : `🎙 이름 TTS 일괄 생성 (${ttsLang})`}
+            </Button>
+          )}
+          {keyObjects.length > 0 && (
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={generateAllTtsBoth}
+              disabled={!!ttsBatch || ttsGeneratingIdx !== null}
+              loading={!!ttsBatch}
+              title="한국어·영어 누락된 TTS 모두 채움 (이미 있는 건 skip)"
+            >
+              🌐 한·영 TTS 누락 채움
             </Button>
           )}
           <Button size="sm" variant="secondary" onClick={() => setShowAddForm(!showAddForm)}>
