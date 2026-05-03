@@ -21,15 +21,17 @@ export function CategorySection({
   const visible = books.slice(0, limit);
   const hasMore = books.length > limit;
   return (
-    <section className="mb-8">
-      <header className="flex items-center justify-between mb-3 px-1">
-        <h2 className="text-lg font-black text-ink-900 font-display flex items-center gap-2">
+    <section className="mb-10">
+      <header className="flex items-center justify-between mb-4 px-1">
+        <h2 className="text-2xl font-black text-ink-900 font-display flex items-center gap-3">
           <span>{icon}</span>
           <span>{title}</span>
         </h2>
-        <span className="text-xs text-ink-500 font-bold">{books.length}권</span>
+        <span className="px-3 py-1 rounded-full bg-white shadow-soft text-sm text-ink-700 font-black">
+          {books.length}권
+        </span>
       </header>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
         {visible.map((b) => (
           <BookCard key={b.id} book={b} />
         ))}
@@ -37,7 +39,7 @@ export function CategorySection({
       {hasMore && onShowMore && (
         <button
           onClick={onShowMore}
-          className="mt-4 w-full py-3 bg-white rounded-lg shadow-soft text-ink-700 font-bold hover:bg-peach-100"
+          className="mt-4 w-full py-4 bg-white rounded-2xl shadow-soft text-ink-700 font-black text-base hover:bg-peach-100"
         >
           더 보기 ({books.length - limit}권)
         </button>

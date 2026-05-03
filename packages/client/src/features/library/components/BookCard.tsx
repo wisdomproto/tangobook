@@ -17,15 +17,15 @@ export function BookCard({ book }: BookCardProps) {
   return (
     <Card
       interactive
-      padding="sm"
+      padding="md"
       onClick={() => navigate(`/library/${book.id}`)}
       className="relative"
     >
       <div
         className={cn(
-          'aspect-video rounded-md overflow-hidden mb-3 relative',
+          'aspect-video rounded-lg overflow-hidden mb-3 relative',
           !book.coverImageUrl &&
-            'bg-gradient-to-br from-peach-200 to-peach-300 flex items-center justify-center text-4xl'
+            'bg-gradient-to-br from-peach-200 to-peach-300 flex items-center justify-center text-5xl'
         )}
       >
         {book.coverImageUrl ? (
@@ -45,7 +45,9 @@ export function BookCard({ book }: BookCardProps) {
           <BookProgressBadge status={status} className="absolute top-2 right-2" />
         )}
       </div>
-      <h3 className="font-black text-sm text-ink-900 truncate font-display">{book.title}</h3>
+      <h3 className="font-black text-base text-ink-900 truncate font-display leading-tight">
+        {book.title}
+      </h3>
     </Card>
   );
 }

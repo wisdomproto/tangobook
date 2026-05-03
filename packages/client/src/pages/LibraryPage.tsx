@@ -181,21 +181,21 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
 
   return (
     <div className="bg-gradient-to-b from-cream-50 to-peach-100 min-h-full">
-      <div className="max-w-[1440px] mx-auto px-5 md:px-7 py-5">
-        {/* 검색 (정렬 select 제거 — 시각 노이즈) */}
-        <div className="mb-4 bg-white rounded-2xl px-5 py-3 shadow-soft flex items-center gap-2">
-          <span className="text-ink-500">🔍</span>
+      <div className="max-w-[1280px] mx-auto px-6 md:px-8 py-6">
+        {/* 검색창 — 태블릿 가독성 우선 (글자 큼, 가로 적당, 정렬 우측) */}
+        <div className="mb-5 bg-white rounded-2xl px-6 py-4 shadow-soft flex items-center gap-3 max-w-3xl mx-auto">
+          <span className="text-2xl">🔍</span>
           <input
             type="text"
             placeholder={type === 'storybook' ? '무슨 책 찾을까?' : '어떤 파닉스 찾을까?'}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 outline-none text-base bg-transparent text-ink-900 placeholder:text-ink-500 font-semibold"
+            className="flex-1 outline-none text-lg bg-transparent text-ink-900 placeholder:text-ink-500 font-bold"
           />
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as 'recent' | 'title')}
-            className="bg-transparent text-xs font-bold text-ink-500 outline-none"
+            className="bg-transparent text-sm font-black text-ink-700 outline-none cursor-pointer"
           >
             <option value="recent">최신순</option>
             <option value="title">제목순</option>
@@ -272,8 +272,8 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
 
         {/* 콘텐츠 */}
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            {Array.from({ length: 10 }).map((_, i) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
+            {Array.from({ length: 8 }).map((_, i) => (
               <SkeletonBookCard key={i} />
             ))}
           </div>
@@ -288,13 +288,13 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
           grouped.map(([cat, books]) => (
             <CategorySection
               key={cat}
-              icon={getCategoryIconNode(cat, 28)}
+              icon={getCategoryIconNode(cat, 32)}
               title={cat}
               books={books}
             />
           ))
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
             {filtered.map((b) => (
               <BookCard key={b.id} book={b} />
             ))}

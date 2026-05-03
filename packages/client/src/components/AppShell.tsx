@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
+import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { Mascot, AppIcon } from '@/design-system';
 import { StarCounter } from '@/features/rewards';
 import { useAuth } from '@/features/auth/context/AuthContext';
@@ -7,11 +7,11 @@ import { useBookIndex } from '@/features/book-v2';
 import { cn } from '@/lib/cn';
 
 /**
- * 학습자 화면 공통 frame — 좌측 슬림 nav (3축 + More Fun) + 상단 헤더 (인사 + 별).
+ * 학습자 화면 공통 frame — 좌측 nav (3축 + More Fun) + 상단 헤더 (페이지 타이틀 + 별).
  * 진입점 페이지에만 적용 (deep view 인 viewer/editor/게임 플레이어는 제외).
- * 학습자 영역은 라이트 모드 고정 (어두운 화면 안 씀).
+ *
+ * 디자인 타겟: 태블릿 1024-1366 + 4-5세 사용자 → 큰 글자, 큰 터치 타겟, 빈 공간 최소화.
  */
-/** AppIcon 자산 경로 (public/icons/...) 또는 외부 경로 */
 const PRIMARY_AXES = [
   {
     to: '/library',
@@ -38,12 +38,25 @@ const PRIMARY_AXES = [
 
 const MORE_FUN = [{ to: '/collection', iconSrc: 'section/collection.png', label: '카드' }];
 
+/** 페이지 path → 큰 타이틀 (이모지 + 텍스트) 매핑. 빈 헤더 채움 + 컨텍스트 표시. */
+function getPageTitle(pathname: string): { emoji: string; title: string } | null {
+  if (pathname === '/library') return { emoji: '📚', title: '동화책' };
+  if (pathname.startsWith('/library/phonics')) return { emoji: '🔤', title: '파닉스' };
+  if (pathname.startsWith('/vocabulary/book-')) return { emoji: '🌱', title: '단어 익히기' };
+  if (pathname.startsWith('/vocabulary')) return { emoji: '🌱', title: '어휘 마스터' };
+  if (pathname.startsWith('/collection')) return { emoji: '🎨', title: '카드 도감' };
+  if (pathname.startsWith('/parent')) return { emoji: '👨‍👩‍👧', title: '부모님 모드' };
+  return null;
+}
+
 export function AppShell() {
   const { activeProfile, session, signOut, isConfigured } = useAuth();
   const { data: index } = useBookIndex();
+  const location = useLocation();
   const bookCount = index?.books?.filter((b) => b.isPublic).length ?? 0;
+  const pageTitle = getPageTitle(location.pathname);
 
-  // 학습자 화면은 라이트 모드 고정 — 다른 페이지(editor 등)에서 dark class 잔존해도 강제 해제
+  // 학습자 화면은 라이트 모드 고정
   useEffect(() => {
     document.documentElement.classList.remove('dark');
   }, []);
@@ -53,57 +66,70 @@ export function AppShell() {
     await signOut();
   };
 
+  // 인사말 — /library 계열에서만 권수 강조, 그 외는 fallback
+  const greeting =
+    location.pathname.startsWith('/library') && bookCount > 0
+      ? `${bookCount}권이 너를 기다려 👋`
+      : '';
+
   return (
     <div className="flex min-h-screen bg-cream-50">
-      {/* 좌측 nav */}
-      <aside className="w-40 flex-shrink-0 sticky top-0 h-screen flex flex-col bg-cream-50 border-r border-ink-100/60">
-        {/* 로고 영역 — 헤더 (h-14) 와 정렬 */}
-        <div className="h-14 flex items-center px-4 border-b border-ink-100/40">
-          <Mascot character="hori" state="waving" size="sm" />
-          <span className="ml-2 text-sm font-black text-ink-900">탱고북</span>
+      {/* 좌측 nav — 태블릿 기준 w-44 (176px). 박스 + 라벨 가독성 우선. */}
+      <aside className="w-44 flex-shrink-0 sticky top-0 h-screen flex flex-col bg-cream-50 border-r border-ink-100/60">
+        {/* 로고 영역 */}
+        <div className="h-20 flex items-center px-4 gap-2 border-b border-ink-100/40">
+          <Mascot character="hori" state="waving" size="md" />
+          <span className="text-lg font-black text-ink-900 font-display">탱고북</span>
         </div>
 
-        {/* 3축 메인 */}
-        <nav className="flex flex-col gap-2 items-center pt-4">
+        {/* 3축 메인 — 박스 100×100, 라벨 sm */}
+        <nav className="flex flex-col gap-3 items-center pt-5">
           {PRIMARY_AXES.map((axis) => (
             <PrimaryNavButton key={axis.to} {...axis} />
           ))}
         </nav>
 
-        <div className="mt-5 mx-3 border-t border-ink-100/60" />
+        <div className="mt-6 mx-3 border-t border-ink-100/60" />
 
-        <nav className="flex flex-col gap-0.5 px-2 pt-3">
+        <nav className="flex flex-col gap-1 px-3 pt-4">
           {MORE_FUN.map((item) => (
             <SecondaryNavButton key={item.to} {...item} />
           ))}
         </nav>
 
-        <div className="mt-auto px-2 pb-3 pt-2 border-t border-ink-100/60">
-          {/* 게스트 모드 (Supabase 미설정) 에선 /parent 가 silent redirect 라 버튼 자체 숨김 */}
+        <div className="mt-auto px-3 pb-3 pt-3 border-t border-ink-100/60">
           {isConfigured && <SecondaryNavButton to="/parent" emoji="🔒" label="부모" />}
         </div>
       </aside>
 
       {/* 우측 영역 */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-14 sticky top-0 z-30 px-6 flex items-center justify-between bg-cream-50 border-b border-ink-100/60">
-          {/* 왼쪽: 인사 한 줄 */}
-          <div className="text-sm font-bold text-ink-700">
-            {bookCount > 0 ? `${bookCount}권이 너를 기다려 👋` : '안녕! 오늘은 뭐 할까?'}
+        <header className="h-20 sticky top-0 z-30 px-7 flex items-center justify-between bg-cream-50 border-b border-ink-100/60">
+          {/* 왼쪽: 페이지 타이틀 (큰 글자) + 인사말 sub */}
+          <div className="flex items-baseline gap-3 min-w-0">
+            {pageTitle && (
+              <h1 className="text-2xl md:text-3xl font-black font-display text-ink-900 truncate">
+                <span className="mr-1">{pageTitle.emoji}</span>
+                {pageTitle.title}
+              </h1>
+            )}
+            {greeting && (
+              <span className="text-base font-bold text-ink-500 hidden sm:inline">{greeting}</span>
+            )}
           </div>
 
           {/* 오른쪽: 별 + 프로필 + 로그아웃 */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3 flex-shrink-0">
             {activeProfile && <StarCounter />}
             {activeProfile && (
-              <div className="px-3 py-1 rounded-full bg-white/70 text-xs font-bold text-ink-900">
+              <div className="px-4 py-2 rounded-full bg-white shadow-soft text-sm font-black text-ink-900">
                 👦 {activeProfile.name}
               </div>
             )}
             {session && (
               <button
                 onClick={handleSignOut}
-                className="text-sm text-ink-500 hover:text-danger transition px-2"
+                className="text-2xl text-ink-500 hover:text-danger transition px-2"
                 title="로그아웃"
               >
                 🚪
@@ -151,14 +177,14 @@ function PrimaryNavButton({
       end={end}
       className={({ isActive }) =>
         cn(
-          'w-24 h-24 rounded-3xl flex flex-col items-center justify-center gap-1 transition-all font-black',
+          'w-28 h-28 rounded-3xl flex flex-col items-center justify-center gap-1.5 transition-all font-black',
           isActive ? COLOR_ACTIVE[color] : COLOR_IDLE[color],
           !isActive && 'hover:scale-105'
         )
       }
     >
-      <AppIcon src={iconSrc} size={42} alt={label} />
-      <span className="text-xs">{label}</span>
+      <AppIcon src={iconSrc} size={48} alt={label} />
+      <span className="text-base">{label}</span>
     </NavLink>
   );
 }
@@ -170,7 +196,6 @@ function SecondaryNavButton({
   label,
 }: {
   to: string;
-  /** AppIcon 경로 — 없으면 emoji 폴백 */
   iconSrc?: string;
   emoji?: string;
   label: string;
@@ -180,15 +205,15 @@ function SecondaryNavButton({
       to={to}
       className={({ isActive }) =>
         cn(
-          'flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-bold transition-all',
+          'flex items-center gap-3 px-3 py-2.5 rounded-xl text-base font-black transition-all',
           isActive ? 'bg-white text-ink-900 shadow-soft' : 'text-ink-700 hover:bg-white/60'
         )
       }
     >
       {iconSrc ? (
-        <AppIcon src={iconSrc} size={22} alt={label} className="rounded" />
+        <AppIcon src={iconSrc} size={28} alt={label} className="rounded" />
       ) : (
-        <span className="text-lg">{emoji}</span>
+        <span className="text-2xl">{emoji}</span>
       )}
       <span>{label}</span>
     </NavLink>
