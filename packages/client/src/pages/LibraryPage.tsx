@@ -53,12 +53,13 @@ interface LibraryPageProps {
  * `public/icons/category/` 에 준비돼 있어 새 카테고리 만들면 즉시 사용 가능.
  */
 const CATEGORY_ICON_MAP: Record<string, string> = {
-  // 실제 사용 중
-  '세계 명작': 'tab/storybook.svg',
+  // 실제 사용 중 — 차별화된 아이콘 매핑
+  '세계 명작': 'category/adventure.png', // 모험 (왕관/별빛 톤)
   '자연 관찰': 'category/nature.png',
-  '전래 동화': 'tab/storybook.svg',
-  기타: 'tab/storybook.svg',
-  // 미래용 (현재 사용 책 없음)
+  '생활 동화': 'category/family.png', // 가족 (생활 톤)
+  '전래 동화': 'category/emotion.png', // 임시 (적합 자산 만들 때 교체)
+  기타: 'tab/storybook.svg', // 일반 동화책
+  // 미래용
   동물: 'category/animal.png',
   가족: 'category/family.png',
   자연: 'category/nature.png',
@@ -75,6 +76,19 @@ const getCategoryIconNode = (cat: string, size = 22): ReactNode => {
   if (path) return <AppIcon src={path} size={size} alt={cat} />;
   return <span>📚</span>;
 };
+
+/** 사용자 요청 우선순위 정렬 — 전체 → 읽는 중 → 세계 명작 → 자연 관찰 → 생활 동화 → 기타. */
+const PRIORITY_CATEGORIES = ['세계 명작', '자연 관찰', '생활 동화', '전래 동화', '기타'];
+
+function compareByPriority(a: string, b: string, fallbackA = 0, fallbackB = 0): number {
+  const ai = PRIORITY_CATEGORIES.indexOf(a);
+  const bi = PRIORITY_CATEGORIES.indexOf(b);
+  if (ai !== -1 && bi !== -1) return ai - bi;
+  if (ai !== -1) return -1;
+  if (bi !== -1) return 1;
+  // priority 외 카테고리는 권수 많은 것 먼저
+  return fallbackB - fallbackA;
+}
 
 export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   const { data: list, isLoading, isError } = useStorybooks();
@@ -135,7 +149,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
       const k = b.category || '기타';
       counts.set(k, (counts.get(k) ?? 0) + 1);
     });
-    return [...counts.entries()].sort((a, b) => b[1] - a[1]);
+    return [...counts.entries()].sort((a, b) => compareByPriority(a[0], b[0], a[1], b[1]));
   }, [all, type, search]);
 
   // 카테고리 chip 미선택 + 동화책 + 읽는 중 필터 X → 카테고리별 섹션, 그 외 → 플랫 그리드
@@ -155,7 +169,10 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
       if (!map.has(key)) map.set(key, []);
       map.get(key)!.push(b);
     });
-    return [...map.entries()];
+    // 우선순위 정렬 — 전체/읽는 중 후 세계 명작 → 자연 관찰 → 생활 동화 → 전래 동화 → 기타
+    return [...map.entries()].sort((a, b) =>
+      compareByPriority(a[0], b[0], a[1].length, b[1].length)
+    );
   }, [filtered, showCategoryGroups]);
 
   // 파닉스 한/영 카운트

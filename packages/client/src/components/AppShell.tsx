@@ -36,15 +36,24 @@ const PRIMARY_AXES = [
   },
 ];
 
-const MORE_FUN = [{ to: '/collection', iconSrc: 'section/collection.png', label: '카드' }];
+const MORE_FUN = [{ to: '/collection', iconSrc: 'section/collection.png', label: '도감' }];
 
-/** 페이지 path → 큰 타이틀 (이모지 + 텍스트) 매핑. 빈 헤더 채움 + 컨텍스트 표시. */
-function getPageTitle(pathname: string): { emoji: string; title: string } | null {
-  if (pathname === '/library') return { emoji: '📚', title: '동화책' };
-  if (pathname.startsWith('/library/phonics')) return { emoji: '🔤', title: '파닉스' };
-  if (pathname.startsWith('/vocabulary/book-')) return { emoji: '🌱', title: '단어 익히기' };
-  if (pathname.startsWith('/vocabulary')) return { emoji: '🌱', title: '어휘 마스터' };
-  if (pathname.startsWith('/collection')) return { emoji: '🎨', title: '카드 도감' };
+/**
+ * 페이지 path → 큰 타이틀 (SVG 아이콘 path + 텍스트) 매핑.
+ * 이모지 대신 디자인 시스템 SVG 사용 — 가독성 + 톤 일관성.
+ * 매칭되는 SVG 가 없으면 emoji 폴백.
+ */
+function getPageTitle(
+  pathname: string
+): { iconSrc?: string; emoji?: string; title: string } | null {
+  if (pathname === '/library') return { iconSrc: 'tab/storybook.svg', title: '동화책' };
+  if (pathname.startsWith('/library/phonics'))
+    return { iconSrc: 'tab/phonics.svg', title: '파닉스' };
+  if (pathname.startsWith('/vocabulary/book-'))
+    return { iconSrc: 'tab/vocab.svg', title: '단어 익히기' };
+  if (pathname.startsWith('/vocabulary')) return { iconSrc: 'tab/vocab.svg', title: '어휘 마스터' };
+  if (pathname.startsWith('/collection'))
+    return { iconSrc: 'section/collection.png', title: '도감' };
   if (pathname.startsWith('/parent')) return { emoji: '👨‍👩‍👧', title: '부모님 모드' };
   return null;
 }
@@ -97,7 +106,15 @@ export function AppShell() {
           ))}
         </nav>
 
-        <div className="mt-auto px-3 pb-3 pt-3 border-t border-ink-100/60">
+        {/* 휑함 채우는 호리 마스코트 — 빈 공간 장식 + 친근감 */}
+        <div className="mt-auto flex flex-col items-center pb-2">
+          <Mascot character="hori" state="cheering" size="lg" />
+          <div className="mt-1 px-3 py-1.5 rounded-2xl bg-coral-100 text-coral-700 text-sm font-black text-center shadow-soft">
+            오늘도 화이팅! ✨
+          </div>
+        </div>
+
+        <div className="px-3 pb-3 pt-3 border-t border-ink-100/60">
           {isConfigured && <SecondaryNavButton to="/parent" emoji="🔒" label="부모" />}
         </div>
       </aside>
@@ -106,11 +123,15 @@ export function AppShell() {
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-20 sticky top-0 z-30 px-7 flex items-center justify-between bg-cream-50 border-b border-ink-100/60">
           {/* 왼쪽: 페이지 타이틀 (큰 글자) + 인사말 sub */}
-          <div className="flex items-baseline gap-3 min-w-0">
+          <div className="flex items-center gap-3 min-w-0">
             {pageTitle && (
-              <h1 className="text-2xl md:text-3xl font-black font-display text-ink-900 truncate">
-                <span className="mr-1">{pageTitle.emoji}</span>
-                {pageTitle.title}
+              <h1 className="text-2xl md:text-3xl font-black font-display text-ink-900 truncate flex items-center gap-2">
+                {pageTitle.iconSrc ? (
+                  <AppIcon src={pageTitle.iconSrc} size={36} alt={pageTitle.title} />
+                ) : pageTitle.emoji ? (
+                  <span>{pageTitle.emoji}</span>
+                ) : null}
+                <span>{pageTitle.title}</span>
               </h1>
             )}
             {greeting && (
