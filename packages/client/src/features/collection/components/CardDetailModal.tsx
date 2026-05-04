@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import type { CollectionItem, CollectionStatus } from '@tangobook/shared';
-import { useBookIndex } from '@/features/book-v2';
+import { useStorybooks } from '@/features/storybook';
 
 interface Props {
   item: CollectionItem | null;
@@ -19,14 +19,17 @@ const STATUS_HINT: Record<CollectionStatus, string> = {
 
 export function CardDetailModal({ item, status, onClose }: Props) {
   const navigate = useNavigate();
-  const { data: index } = useBookIndex();
+  const { data: storybooks } = useStorybooks();
 
-  // 출처 책 — sourceBookIds 와 BookIndex 매칭 (locked 단계에선 비공개 X)
+  // 출처 책 — sourceBookIds 와 v1 storybooks 매칭 (v1 단일화)
+  // 어제 BookDetail/Viewer/Library 는 v1 으로 옮겼지만 CardDetailModal 만 v2 의존 잔재 → 137권 매핑 깨졌음. 같이 정리.
   const sourceBooks = useMemo(() => {
-    if (!item || !index?.books) return [];
-    const map = new Map(index.books.map((b) => [b.id, b]));
-    return item.sourceBookIds.map((id) => map.get(id)).filter((b) => b != null);
-  }, [item, index]);
+    if (!item || !storybooks) return [];
+    const map = new Map(storybooks.map((b) => [b.id, b]));
+    return item.sourceBookIds
+      .map((id) => map.get(id))
+      .filter((b): b is NonNullable<typeof b> => b != null);
+  }, [item, storybooks]);
 
   // ESC 닫기
   useEffect(() => {
@@ -92,9 +95,7 @@ export function CardDetailModal({ item, status, onClose }: Props) {
             {/* 본문 */}
             <div className="p-6 space-y-3">
               <div>
-                <h2 className="text-2xl font-black font-display text-ink-900">
-                  {status === 'locked' ? '???' : item.nameKo}
-                </h2>
+                <h2 className="text-2xl font-black font-display text-ink-900">{item.nameKo}</h2>
                 {item.nameEn && status !== 'locked' && (
                   <div className="text-sm text-ink-500 font-bold mt-0.5">{item.nameEn}</div>
                 )}
@@ -147,9 +148,9 @@ export function CardDetailModal({ item, status, onClose }: Props) {
                         className="group relative aspect-[3/4] rounded-lg overflow-hidden bg-peach-100 shadow-soft hover:shadow-pop hover:-translate-y-0.5 transition-all"
                         title={b.title}
                       >
-                        {b.coverImageUrl ? (
+                        {b.coverImage ? (
                           <img
-                            src={b.coverImageUrl}
+                            src={b.coverImage}
                             alt={b.title}
                             className="w-full h-full object-cover"
                             loading="lazy"

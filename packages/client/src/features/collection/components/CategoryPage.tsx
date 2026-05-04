@@ -128,7 +128,6 @@ interface CardSlotProps {
 function CardSlot({ item, status, onClick }: CardSlotProps) {
   const isLocked = status === 'locked';
   const isSilhouette = status === 'silhouette';
-  const isOwned = status === 'owned';
   const isActive = status === 'active';
 
   return (
@@ -138,41 +137,35 @@ function CardSlot({ item, status, onClick }: CardSlotProps) {
         ${isActive ? 'ring-2 ring-success shadow-pop' : ''}
         hover:-translate-y-1 hover:shadow-pop active:translate-y-0`}
     >
-      {/* 표지 이미지 — 4단계별 효과:
-          locked: 진한 grayscale + 어둡게 + 흐림 (실루엣처럼)
-          silhouette: grayscale + 살짝 어둡게
-          owned: 풀컬러
-          active: 풀컬러 + ring */}
-      <img
-        src={item.imageUrl}
-        alt=""
-        aria-hidden
-        className={`absolute inset-0 w-full h-full object-cover transition-all
-          ${
-            isLocked
-              ? 'grayscale brightness-50 opacity-40 blur-[1px]'
-              : isSilhouette
-                ? 'grayscale brightness-75 opacity-80'
-                : ''
-          }`}
-        loading="lazy"
-      />
-
-      {/* 잠금 자물쇠 오버레이 */}
-      {isLocked && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <span className="text-5xl opacity-70 drop-shadow-md" aria-hidden>
-            🔒
-          </span>
+      {/* 4단계별 표시:
+          locked: 책 표지 노출 X — 그라데이션 + 🔒. 단어명은 라벨로 보여줌(아이가 다음 단어 hint 인지).
+          silhouette: imageUrl grayscale.
+          owned/active: imageUrl 풀컬러. */}
+      {isLocked ? (
+        <div className="absolute inset-0 bg-gradient-to-br from-cream-50 via-peach-100/60 to-coral-100/30 dark:from-slate-800 dark:via-slate-800 dark:to-slate-700">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <span className="text-5xl opacity-50 drop-shadow-sm" aria-hidden>
+              🔒
+            </span>
+          </div>
         </div>
+      ) : (
+        <img
+          src={item.imageUrl}
+          alt=""
+          aria-hidden
+          className={`absolute inset-0 w-full h-full object-cover transition-all
+            ${isSilhouette ? 'grayscale brightness-75 opacity-80' : ''}`}
+          loading="lazy"
+        />
       )}
 
-      {/* 카드 이름 라벨 */}
+      {/* 카드 이름 라벨 — 항상 단어명 노출 (locked 라도 어떤 단어가 잠겼는지 보여줌) */}
       <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
         <div
-          className={`text-white text-xs md:text-sm font-black text-center font-display drop-shadow-md line-clamp-2 ${isLocked ? 'opacity-70' : ''}`}
+          className={`text-white text-xs md:text-sm font-black text-center font-display drop-shadow-md line-clamp-2 ${isLocked ? 'opacity-85' : ''}`}
         >
-          {isLocked ? '???' : item.nameKo}
+          {item.nameKo}
         </div>
       </div>
 
