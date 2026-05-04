@@ -1,0 +1,1244 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>탱고북 — Series A Pitch Deck</title>
+
+    <!-- 폰트 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquareround.css"
+    />
+
+    <!-- Reveal.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/white.css" />
+
+    <style>
+      :root {
+        --coral-50: #fff5f1;
+        --coral-100: #ffe4dc;
+        --coral-300: #ff9b7d;
+        --coral-500: #ff5e3a;
+        --coral-600: #e84b2a;
+        --coral-700: #b53919;
+
+        --cream-50: #fff9f3;
+        --peach-100: #fff0e0;
+        --peach-200: #ffddbf;
+        --peach-300: #ffc19b;
+
+        --ink-900: #3a2b1f;
+        --ink-700: #6f5a48;
+        --ink-500: #9a8474;
+        --ink-200: #e8dccd;
+        --ink-100: #f3ece2;
+
+        --success: #5cc99f;
+        --warn: #ffc857;
+        --info: #6baee8;
+        --fun: #a78bfa;
+
+        --font-display: 'NanumSquareRound', 'Pretendard Variable', sans-serif;
+        --font-body: 'Pretendard Variable', Pretendard, sans-serif;
+      }
+
+      .reveal {
+        font-family: var(--font-body);
+        color: var(--ink-900);
+      }
+      .reveal .slides {
+        text-align: left;
+      }
+      .reveal section {
+        background: var(--cream-50);
+        padding: 40px 60px !important;
+        height: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+      .reveal h1,
+      .reveal h2,
+      .reveal h3 {
+        font-family: var(--font-display);
+        color: var(--ink-900);
+        text-transform: none;
+        margin: 0;
+        line-height: 1.2;
+      }
+      .reveal h1 {
+        font-size: 64px;
+        font-weight: 800;
+      }
+      .reveal h2 {
+        font-size: 44px;
+        font-weight: 800;
+      }
+      .reveal h3 {
+        font-size: 28px;
+        font-weight: 800;
+      }
+      .reveal p,
+      .reveal li {
+        font-size: 22px;
+        line-height: 1.55;
+        color: var(--ink-700);
+      }
+      .reveal strong {
+        color: var(--ink-900);
+        font-weight: 800;
+      }
+      .reveal .accent {
+        color: var(--coral-500);
+      }
+      .reveal .muted {
+        color: var(--ink-500);
+        font-weight: 600;
+      }
+
+      /* 슬라이드 헤더 (좌상) */
+      .slide-head {
+        position: absolute;
+        top: 24px;
+        left: 60px;
+        right: 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        color: var(--ink-500);
+        font-weight: 700;
+      }
+      .slide-head .label {
+        background: var(--coral-100);
+        color: var(--coral-700);
+        padding: 4px 12px;
+        border-radius: 999px;
+        letter-spacing: 0.5px;
+      }
+      .slide-head .brand {
+        font-family: var(--font-display);
+        font-weight: 800;
+        color: var(--coral-600);
+      }
+
+      /* 카드 */
+      .card {
+        background: white;
+        border: 1px solid var(--ink-100);
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 6px 16px -8px rgba(58, 43, 31, 0.12);
+      }
+      .card-coral {
+        background: linear-gradient(135deg, var(--coral-50), white);
+        border: 1px solid var(--coral-100);
+      }
+      .card-dark {
+        background: var(--ink-900);
+        color: var(--peach-100);
+        border: none;
+      }
+      .card-dark p,
+      .card-dark li {
+        color: var(--peach-100);
+      }
+
+      /* 그리드 */
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+
+      /* 큰 숫자 */
+      .stat {
+        text-align: center;
+        padding: 20px;
+      }
+      .stat .num {
+        font-family: var(--font-display);
+        font-size: 56px;
+        font-weight: 800;
+        color: var(--coral-500);
+        line-height: 1;
+      }
+      .stat .lab {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ink-700);
+        margin-top: 6px;
+      }
+      .stat .sub {
+        font-size: 12px;
+        color: var(--ink-500);
+        margin-top: 4px;
+      }
+
+      /* TAM/SAM/SOM 원형 */
+      .tam-rings {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+      .tam-ring {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: var(--coral-100);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .tam-ring.med {
+        width: 130px;
+        height: 130px;
+        background: var(--coral-300);
+      }
+      .tam-ring.sm {
+        width: 80px;
+        height: 80px;
+        background: var(--coral-500);
+        color: white;
+      }
+      .tam-ring .v {
+        text-align: center;
+        font-family: var(--font-display);
+      }
+      .tam-ring .v b {
+        display: block;
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--ink-900);
+      }
+      .tam-ring.sm .v b {
+        color: white;
+      }
+      .tam-ring .v span {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--ink-700);
+      }
+      .tam-ring.sm .v span {
+        color: white;
+      }
+
+      /* 표 */
+      table.kpi {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 18px;
+      }
+      table.kpi th,
+      table.kpi td {
+        padding: 10px 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--ink-100);
+      }
+      table.kpi th {
+        font-weight: 800;
+        color: var(--ink-900);
+        font-size: 14px;
+        background: var(--peach-100);
+      }
+      table.kpi td.num {
+        font-family: var(--font-display);
+        font-weight: 800;
+        color: var(--coral-600);
+        text-align: right;
+      }
+
+      /* 표지 */
+      .cover {
+        text-align: center;
+        padding-top: 12vh !important;
+        background: linear-gradient(135deg, var(--cream-50), var(--peach-100));
+      }
+      .cover h1 {
+        font-size: 96px;
+        color: var(--coral-600);
+        margin-bottom: 16px;
+      }
+      .cover .tagline {
+        font-size: 28px;
+        color: var(--ink-700);
+        font-weight: 700;
+        margin-bottom: 60px;
+      }
+      .cover .meta {
+        font-size: 16px;
+        color: var(--ink-500);
+        font-weight: 600;
+      }
+
+      /* 4국 시퀀스 */
+      .seq {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+      }
+      .seq .step {
+        background: white;
+        border: 2px solid var(--coral-200, #fbcab8);
+        padding: 10px 14px;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 14px;
+        min-width: 84px;
+      }
+      .seq .step.active {
+        background: var(--coral-500);
+        color: white;
+      }
+      .seq .arrow {
+        color: var(--coral-300);
+        font-size: 22px;
+      }
+
+      /* 마일스톤 timeline */
+      .timeline {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 8px;
+      }
+      .timeline .ms {
+        background: white;
+        border-top: 4px solid var(--coral-500);
+        padding: 14px 12px;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 4px 10px -6px rgba(58, 43, 31, 0.12);
+      }
+      .timeline .ms .q {
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--coral-600);
+        letter-spacing: 0.5px;
+      }
+      .timeline .ms .h {
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--ink-900);
+        margin-top: 4px;
+      }
+      .timeline .ms .d {
+        font-size: 11px;
+        color: var(--ink-500);
+        margin-top: 4px;
+      }
+
+      /* 2x2 matrix */
+      .matrix {
+        position: relative;
+        width: 100%;
+        height: 480px;
+        background:
+          linear-gradient(to right, transparent calc(50% - 1px), var(--ink-200) 50%, transparent calc(50% + 1px)),
+          linear-gradient(to bottom, transparent calc(50% - 1px), var(--ink-200) 50%, transparent calc(50% + 1px)),
+          var(--cream-50);
+        border-radius: 12px;
+        border: 1px solid var(--ink-100);
+      }
+      .matrix .axis-x {
+        position: absolute;
+        bottom: -28px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--ink-500);
+      }
+      .matrix .axis-y {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--ink-500);
+        writing-mode: vertical-rl;
+      }
+      .matrix .pin {
+        position: absolute;
+        background: white;
+        border: 2px solid var(--ink-200);
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+        transform: translate(-50%, -50%);
+      }
+      .matrix .pin.us {
+        background: var(--coral-500);
+        color: white;
+        border-color: var(--coral-500);
+        font-size: 14px;
+        padding: 8px 16px;
+        box-shadow: 0 4px 12px rgba(255, 94, 58, 0.4);
+      }
+
+      /* 도넛 */
+      .donut {
+        width: 240px;
+        height: 240px;
+      }
+
+      /* 가용 자산 */
+      .asset-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .asset-grid .a {
+        background: var(--ink-900);
+        color: var(--peach-100);
+        padding: 16px;
+        border-radius: 12px;
+      }
+      .asset-grid .a .ico {
+        font-size: 28px;
+      }
+      .asset-grid .a .h {
+        font-family: var(--font-display);
+        font-size: 18px;
+        font-weight: 800;
+        margin-top: 6px;
+      }
+      .asset-grid .a .d {
+        font-size: 12px;
+        color: var(--peach-200);
+        margin-top: 6px;
+      }
+
+      /* 작은 화살표 강조 */
+      .arrow-pop {
+        background: var(--coral-500);
+        color: white;
+        padding: 2px 10px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      /* 그림체 갤러리 */
+      .style-gallery {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+      }
+      .style-gallery img {
+        width: 100%;
+        border-radius: 8px;
+        aspect-ratio: 1;
+        object-fit: cover;
+      }
+      .style-gallery .lab {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--ink-700);
+        text-align: center;
+        margin-top: 4px;
+      }
+
+      /* 자금 사용처 도넛 */
+      .ask-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .ask-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .ask-list .row {
+        display: flex;
+        justify-content: space-between;
+        background: white;
+        padding: 12px 16px;
+        border-radius: 10px;
+        border-left: 4px solid var(--coral-500);
+      }
+      .ask-list .row .l {
+        font-weight: 700;
+        color: var(--ink-900);
+      }
+      .ask-list .row .v {
+        font-family: var(--font-display);
+        font-weight: 800;
+        color: var(--coral-600);
+      }
+
+      /* 헤드라인 */
+      .headline {
+        background: var(--ink-900);
+        color: var(--peach-100);
+        padding: 20px 28px;
+        border-radius: 12px;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+      .headline .accent {
+        color: var(--coral-300);
+      }
+
+      /* footer */
+      .reveal .progress {
+        color: var(--coral-500);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+        <!-- 1. 표지 -->
+        <section class="cover">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin-bottom: 24px;">
+            <img src="/mascot/hori/idle.webp" alt="호리 마스코트" style="width: 140px; height: 140px;" />
+            <h1 style="margin: 0;">탱고북</h1>
+          </div>
+          <div class="tagline">아시아 7국 4-7세를 위한<br />AI 기반 통합 학습 플랫폼</div>
+          <div style="display: flex; justify-content: center; gap: 24px; margin-bottom: 32px;">
+            <span style="background: white; padding: 10px 20px; border-radius: 999px; font-weight: 700; color: var(--ink-700);">동화책</span>
+            <span style="background: white; padding: 10px 20px; border-radius: 999px; font-weight: 700; color: var(--ink-700);">파닉스</span>
+            <span style="background: white; padding: 10px 20px; border-radius: 999px; font-weight: 700; color: var(--ink-700);">어휘</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; max-width: 800px; margin: 0 auto 24px;">
+            <img src="/strategy-samples/cover-jack-beanstalk.png" alt="잭과 콩나무" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 8px;" />
+            <img src="/strategy-samples/cover-cinderella.png" alt="신데렐라" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 8px;" />
+            <img src="/strategy-samples/cover-snow-white.png" alt="백설공주" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 8px;" />
+            <img src="/strategy-samples/cover-red-riding-hood.png" alt="빨간망토" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 8px;" />
+            <img src="/strategy-samples/cover-hare-tortoise.png" alt="토끼와거북" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 8px;" />
+            <img src="/strategy-samples/cover-ant-grasshopper.png" alt="개미와베짱이" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 8px;" />
+            <img src="/strategy-samples/cover-ugly-duckling.png" alt="미운오리" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 8px;" />
+            <img src="/strategy-samples/cover-nutcracker.png" alt="호두까기" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 8px;" />
+          </div>
+          <div class="meta">Series A · 2026 · Confidential</div>
+        </section>
+
+        <!-- 2. Problem -->
+        <section>
+          <div class="slide-head"><span class="label">PROBLEM</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 40px;">
+            <h2>아시아 부모의 가장 큰 갈증 = <span class="accent">유아 영어 학습</span></h2>
+            <p style="font-size: 17px; margin-top: 8px;">한국 부모는 영어 사교육비 1위 지출. 그러나 글로벌 영어 앱 (Khan Kids · ABCmouse · Lingokids) 은 한국 아이·부모에게 어색하다 — 한국어 베이스가 없어서.</p>
+
+            <div class="grid-3" style="margin-top: 24px;">
+              <div class="card">
+                <div class="stat">
+                  <div class="num">월 38만원</div>
+                  <div class="lab">한국 4-7세 평균 영어 사교육비</div>
+                  <div class="sub">유아 사교육비 1위 항목 (통계청 2024)</div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="stat">
+                  <div class="num">3.2세</div>
+                  <div class="lab">한국 영어 학습 시작 연령</div>
+                  <div class="sub">OECD 최저 — 부모 압박 큼, 아이는 부담</div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="stat">
+                  <div class="num">~70%</div>
+                  <div class="lab">유아 영어앱 영어 일변도</div>
+                  <div class="sub">Khan/ABC/Lingo — 한국어 베이스 X</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="headline" style="margin-top: 24px; padding: 16px 22px; font-size: 19px;">
+              부모는 <span class="accent">"내 아이가 친숙한 동화로 영어를 자연스럽게 배웠으면"</span> — 그러나<br />
+              영어 일변도 앱과 한국어 종이책 사이의 빈 공간이 <span class="accent">아시아 전체에 그대로</span> 있다.
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Solution -->
+        <section>
+          <div class="slide-head"><span class="label">SOLUTION</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 40px;">
+            <h2><span class="accent">영어 학습</span>을 친숙한 자국어 동화로 시작한다</h2>
+            <p style="font-size: 17px; margin-top: 6px;">메인 = 영어 동화·파닉스·어휘. 베이스 = 한국어 (자국어). 같은 책이 두 언어로 동시 학습되니 <strong>아이는 영어가 어색하지 않고, 부모는 안심한다</strong>.</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px;">
+              <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                <img src="https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772510956605-%EC%9E%AD%EA%B3%BC%EC%BD%A9%EB%82%98%EB%AC%B4-illustration-page1-1777218386034.webp" alt="잭과 콩나무 paper-craft" loading="lazy" style="width: 100%; aspect-ratio: 16/10; object-fit: cover;" />
+                <div style="padding: 8px 14px; font-weight: 800; color: var(--coral-600); font-size: 13px;">📜 종이공예 (Paper Craft)</div>
+              </div>
+              <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                <img src="https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/1772510956605-%EC%9E%AD%EA%B3%BC%EC%BD%A9%EB%82%98%EB%AC%B4-%EB%B3%B5%EC%82%AC%EB%B3%B81-illustration-page1-1772511448069.webp" alt="잭과 콩나무 pixar-3d" loading="lazy" style="width: 100%; aspect-ratio: 16/10; object-fit: cover;" />
+                <div style="padding: 8px 14px; font-weight: 800; color: var(--coral-600); font-size: 13px;">🎬 3D 픽사 (Pixar 3D)</div>
+              </div>
+            </div>
+
+            <div class="grid-3" style="margin-top: 18px;">
+              <div class="card card-coral" style="padding: 14px; text-align: center;">
+                <div style="font-family: var(--font-display); font-weight: 800; color: var(--coral-600); font-size: 20px;">영어 동화 + 자국어</div>
+                <div style="font-size: 13px; color: var(--ink-700); margin-top: 4px;">211권 × 한·영 동시 + Multi-style</div>
+              </div>
+              <div class="card card-coral" style="padding: 14px; text-align: center;">
+                <div style="font-family: var(--font-display); font-weight: 800; color: var(--coral-600); font-size: 20px;">파닉스 (한·영)</div>
+                <div style="font-size: 13px; color: var(--ink-700); margin-top: 4px;">영어 71권 + 한글 통합 학습</div>
+              </div>
+              <div class="card card-coral" style="padding: 14px; text-align: center;">
+                <div style="font-family: var(--font-display); font-weight: 800; color: var(--coral-600); font-size: 20px;">어휘 + 도감</div>
+                <div style="font-size: 13px; color: var(--ink-700); margin-top: 4px;">Cambridge 16 + 469 카드 (한·영)</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Product -->
+        <section>
+          <div class="slide-head"><span class="label">PRODUCT</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 40px;">
+            <h2>Khan Kids × 곰돌이 푸 × Duolingo</h2>
+            <p style="font-size: 18px; margin-top: 8px;">교육적 깊이 (Khan) × 따뜻한 정서 (곰돌이푸) × 매일 돌아오게 하는 게이미피케이션 (Duolingo)</p>
+
+            <div class="grid-3" style="margin-top: 32px;">
+              <div class="card">
+                <h3>📖 학습자 앱 (PWA)</h3>
+                <ul style="padding-left: 18px; margin-top: 12px;">
+                  <li>3축 학습 루프 (동화·파닉스·어휘)</li>
+                  <li>호리 마스코트 + 별 이코노미</li>
+                  <li>도감 469 카드 자동 적립</li>
+                  <li>4-5세 친화 UI (큰 터치·둥근 폰트)</li>
+                </ul>
+              </div>
+              <div class="card card-coral">
+                <h3>🎨 저작도구 v2</h3>
+                <ul style="padding-left: 18px; margin-top: 12px;">
+                  <li>Gemini 텍스트·이미지·TTS 자동 생성</li>
+                  <li>레벨 × 그림체 × 언어 <strong>3축 변형</strong></li>
+                  <li>그림체 10종 자산 분리 보관</li>
+                  <li>한 책 → 9국 콘텐츠 자동 확장</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h3>📊 부모 리포트</h3>
+                <ul style="padding-left: 18px; margin-top: 12px;">
+                  <li>4단계 마스터리 (unknown→mastered)</li>
+                  <li>한글 자모×모음 히트맵</li>
+                  <li>영어 Phonics 스킬트리</li>
+                  <li>그림체별 독서 분포</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Differentiation -->
+        <section>
+          <div class="slide-head"><span class="label">MOAT</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 40px;">
+            <h2>핵심 차별점 — <span class="accent">영어 학습</span> + 친숙한 자국어 베이스</h2>
+
+            <div class="card card-dark" style="margin-top: 12px; padding: 12px 18px;">
+              <p style="font-size: 14px; line-height: 1.4; color: var(--peach-100); margin: 0;">
+                <strong style="color: white;">🔥 The Real Moat —</strong>
+                같은 동화의 단어가 한국어와 <span style="color: var(--coral-300);">영어 파닉스 · 어휘 · 게임</span> 으로 자동 매핑.
+                영어 진입 장벽 ↓ + 1권 콘텐츠 → <strong style="color: var(--coral-300);">9국 자산</strong> 확장.
+              </p>
+            </div>
+
+            <!-- 그림체 10종 갤러리 (실제 strategy-samples) -->
+            <div style="margin-top: 10px;">
+              <div style="font-size: 11px; font-weight: 800; color: var(--ink-700); margin-bottom: 4px;">▸ 같은 동화, 그림체 10종 운영 (실제 자산)</div>
+              <div style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px;">
+                <img src="/strategy-samples/style-01-watercolor.png" alt="수채화" loading="lazy" style="width:100%; height:60px; object-fit:cover; border-radius:5px;" />
+                <img src="/strategy-samples/style-02-2d-cartoon.png" alt="2D 카툰" loading="lazy" style="width:100%; height:60px; object-fit:cover; border-radius:5px;" />
+                <img src="/strategy-samples/style-03-classic.png" alt="클래식" loading="lazy" style="width:100%; height:60px; object-fit:cover; border-radius:5px;" />
+                <img src="/strategy-samples/style-04-paper-cutout.png" alt="종이공예" loading="lazy" style="width:100%; height:60px; object-fit:cover; border-radius:5px;" />
+                <img src="/strategy-samples/style-05-3d-toy.png" alt="3D 토이" loading="lazy" style="width:100%; height:60px; object-fit:cover; border-radius:5px;" />
+                <img src="/strategy-samples/style-06-minhwa.png" alt="민화" loading="lazy" style="width:100%; height:60px; object-fit:cover; border-radius:5px;" />
+                <img src="/strategy-samples/style-07-flat-vector.png" alt="플랫" loading="lazy" style="width:100%; height:60px; object-fit:cover; border-radius:5px;" />
+                <img src="/strategy-samples/style-08-pastel.png" alt="파스텔" loading="lazy" style="width:100%; height:60px; object-fit:cover; border-radius:5px;" />
+                <img src="/strategy-samples/style-09-semi-real.png" alt="세미리얼" loading="lazy" style="width:100%; height:60px; object-fit:cover; border-radius:5px;" />
+                <img src="/strategy-samples/style-10-fantasy.png" alt="판타지" loading="lazy" style="width:100%; height:60px; object-fit:cover; border-radius:5px;" />
+              </div>
+            </div>
+
+            <div class="grid-3" style="margin-top: 10px;">
+              <div class="card" style="padding: 14px;">
+                <strong>① 그림체 10종 운영</strong>
+                <div class="muted" style="font-size: 13px; margin-top: 4px;">같은 동화, 분위기 다른 작품</div>
+              </div>
+              <div class="card" style="padding: 14px;">
+                <strong>② 3단계 글밥 시스템</strong>
+                <div class="muted" style="font-size: 13px; margin-top: 4px;">L1→L3 난이도 상승</div>
+              </div>
+              <div class="card" style="padding: 14px;">
+                <strong>③ 통합 학습 루프</strong>
+                <div class="muted" style="font-size: 13px; margin-top: 4px;">동화·게임·리포트 = 하나의 마스터리</div>
+              </div>
+              <div class="card" style="padding: 14px;">
+                <strong>④ 카드 도감 (469장)</strong>
+                <div class="muted" style="font-size: 13px; margin-top: 4px;">학습 인증 후 풀컬러 활성</div>
+              </div>
+              <div class="card" style="padding: 14px;">
+                <strong>⑤ 호리 IP + 별 이코노미</strong>
+                <div class="muted" style="font-size: 13px; margin-top: 4px;">외부 굿즈·광고 X, 학습 회귀 100%</div>
+              </div>
+              <div class="card" style="padding: 14px;">
+                <strong>⑥ YouTube → PWA 깔때기</strong>
+                <div class="muted" style="font-size: 13px; margin-top: 4px;">무료 도달 + 결제 전환</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Market -->
+        <section>
+          <div class="slide-head"><span class="label">MARKET</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 32px;">
+            <h2>아시아 4-7세 <span class="accent">영어 학습</span> 시장</h2>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 28px; align-items: center;">
+              <div class="tam-rings">
+                <div class="tam-ring">
+                  <div class="v"><b>$8.7B</b><span>TAM</span></div>
+                  <div class="tam-ring med" style="position: absolute;">
+                    <div class="v"><b>$1.2B</b><span>SAM</span></div>
+                    <div class="tam-ring sm" style="position: absolute;">
+                      <div class="v"><b>$30M</b><span>SOM</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div style="margin-bottom: 14px;">
+                  <strong>TAM</strong> $8.7B<br />
+                  <span class="muted">아시아 9국 4-7세 영어 학습 (2027 추정)</span>
+                </div>
+                <div style="margin-bottom: 14px;">
+                  <strong>SAM</strong> $1.2B<br />
+                  <span class="muted">한·일·태·인·베·말 (영어 사교육 강세 6국)</span>
+                </div>
+                <div>
+                  <strong>SOM</strong> $30M<br />
+                  <span class="muted">Y3 한국 + 일본 + 태국 합산</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="headline" style="margin-top: 24px; padding: 14px 22px; font-size: 18px;">
+              한국 영유아 영어 사교육 시장 단독 <span class="accent">3.2조원</span> (2024) · CAGR <span class="accent">17%+</span> · 결제 의향 글로벌 1.4×
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Business Model -->
+        <section>
+          <div class="slide-head"><span class="label">BUSINESS MODEL</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 40px;">
+            <h2>Freemium B2C + 프리뷰 패스 + B2B</h2>
+
+            <div class="grid-4" style="margin-top: 32px;">
+              <div class="card">
+                <h3 style="font-size: 20px;">Free</h3>
+                <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--ink-900); margin-top: 8px;">0원</div>
+                <p style="font-size: 13px; margin-top: 10px;">10권 무료 + 게임 일부 + 부모 기본 리포트</p>
+                <p style="font-size: 11px; color: var(--ink-500); margin-top: 8px;">광고 X (3대 원칙)</p>
+              </div>
+              <div class="card card-coral" style="border: 2px solid var(--coral-500);">
+                <h3 style="font-size: 20px;">Plus ⭐</h3>
+                <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--coral-600); margin-top: 8px;">9,900원/월</div>
+                <p style="font-size: 13px; margin-top: 10px;">전체 211권 + 모든 그림체 + 호리 놀이터 7 게임</p>
+                <p style="font-size: 11px; color: var(--coral-700); font-weight: 700; margin-top: 8px;">메인 SKU</p>
+              </div>
+              <div class="card">
+                <h3 style="font-size: 20px;">Family</h3>
+                <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--ink-900); margin-top: 8px;">14,900원/월</div>
+                <p style="font-size: 13px; margin-top: 10px;">자녀 4명 프로필 + 부모 통합 리포트</p>
+                <p style="font-size: 11px; color: var(--ink-500); margin-top: 8px;">ARPU 1.5×</p>
+              </div>
+              <div class="card">
+                <h3 style="font-size: 20px;">School (B2B)</h3>
+                <div style="font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--ink-900); margin-top: 8px;">99,000원/월</div>
+                <p style="font-size: 13px; margin-top: 10px;">유치원·어린이집 30명 단가 + 학급 운영 도구</p>
+                <p style="font-size: 11px; color: var(--ink-500); margin-top: 8px;">반복매출 안정성</p>
+              </div>
+            </div>
+
+            <div style="margin-top: 32px; background: white; padding: 20px; border-radius: 12px; border: 2px dashed var(--coral-300);">
+              <div style="font-family: var(--font-display); font-weight: 800; color: var(--coral-600); font-size: 18px;">🎟 프리뷰 패스 — 결제 죄책감 제거 장치</div>
+              <p style="margin-top: 8px; font-size: 16px;">매주 1매 발급 (7일 출석 또는 주간 미션) → Plus 1권 24h 풀체험 → 자연스러운 결제 trigger</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. Unit Economics -->
+        <section>
+          <div class="slide-head"><span class="label">UNIT ECONOMICS</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 40px;">
+            <h2>단위 경제 — <span class="accent">자동화 기반 영업이익률 45%+</span></h2>
+
+            <div class="grid-2" style="margin-top: 28px;">
+              <div>
+                <h3 style="font-size: 22px; margin-bottom: 16px;">월 단위 (Plus 기준)</h3>
+                <table class="kpi">
+                  <tr><th>지표</th><th style="text-align: right;">값</th></tr>
+                  <tr><td>ARPU (월)</td><td class="num">9,900원</td></tr>
+                  <tr><td>Gross Margin</td><td class="num">86%</td></tr>
+                  <tr><td>Avg Lifespan</td><td class="num">14개월</td></tr>
+                  <tr><td><strong>LTV</strong></td><td class="num">119,000원</td></tr>
+                  <tr><td>예상 CAC (한국)</td><td class="num">22,000원</td></tr>
+                  <tr><td><strong>LTV / CAC</strong></td><td class="num">5.4×</td></tr>
+                  <tr><td>월 Churn</td><td class="num">7.5%</td></tr>
+                  <tr><td>Payback</td><td class="num">2.7개월</td></tr>
+                </table>
+              </div>
+              <div>
+                <h3 style="font-size: 22px; margin-bottom: 16px;">수익원 분배 (Y3 가정)</h3>
+                <div class="card">
+                  <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <span><strong>B2C Plus/Family</strong></span>
+                      <span style="font-family: var(--font-display); font-weight: 800; color: var(--coral-600); font-size: 22px;">70%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <span><strong>B2B 유치원/학원</strong></span>
+                      <span style="font-family: var(--font-display); font-weight: 800; color: var(--coral-600); font-size: 22px;">20%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <span><strong>로컬 팩 (현지 공급)</strong></span>
+                      <span style="font-family: var(--font-display); font-weight: 800; color: var(--ink-700); font-size: 22px;">5%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <span><strong>호리 IP 라이선싱</strong></span>
+                      <span style="font-family: var(--font-display); font-weight: 800; color: var(--ink-700); font-size: 22px;">5%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="headline" style="margin-top: 20px; font-size: 18px;">
+                  <span class="accent">매출 10억 단계 인건비 10%</span> — Gemini 자동화로 콘텐츠 생산성 극대화
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 9. Traction & Assets -->
+        <section>
+          <div class="slide-head"><span class="label">TRACTION & ASSETS</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 40px;">
+            <h2>이미 갖춰진 자산</h2>
+            <p class="muted" style="font-size: 16px; margin-top: 4px;">Series A 자금 0 으로 도달한 베타 직전 상태</p>
+
+            <div class="asset-grid" style="margin-top: 28px;">
+              <div class="a">
+                <div class="ico">📚</div>
+                <div class="h">CONTENT</div>
+                <div class="d"><strong style="color: white;">211권</strong> 동화 + 71권 파닉스 + 469 도감카드 + Cambridge 어휘 16 토픽</div>
+              </div>
+              <div class="a">
+                <div class="ico">⚙️</div>
+                <div class="h">TECH</div>
+                <div class="d">5 모듈 — 저작도구 v2 (3축 variation) · 학습앱 PWA · 부모 리포트 · 게임 엔진 · YouTube 자동화</div>
+              </div>
+              <div class="a">
+                <div class="ico">🐯</div>
+                <div class="h">IP</div>
+                <div class="d">호리 마스코트 + 5 슬롯 코스튬 + 별 이코노미 + 14 동작 일러스트</div>
+              </div>
+              <div class="a">
+                <div class="ico">🔁</div>
+                <div class="h">DATA</div>
+                <div class="d">통합 마스터리 + 학습이벤트 풀파이프 + 4단계 마스터리 공식 + 부모 리포트 4탭</div>
+              </div>
+            </div>
+
+            <div style="margin-top: 18px;">
+              <div style="font-size: 12px; font-weight: 800; color: var(--ink-700); margin-bottom: 6px;">▸ 카드 도감 8 카테고리 × 469장 (실제 자산)</div>
+              <div style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px;">
+                <img src="/strategy-samples/card-01-classic.png" alt="명작" loading="lazy" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px;" />
+                <img src="/strategy-samples/card-02-dinosaur.png" alt="공룡" loading="lazy" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px;" />
+                <img src="/strategy-samples/card-03-animal.png" alt="동물" loading="lazy" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px;" />
+                <img src="/strategy-samples/card-04-plant.png" alt="식물" loading="lazy" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px;" />
+                <img src="/strategy-samples/card-05-ocean.png" alt="바다" loading="lazy" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px;" />
+                <img src="/strategy-samples/card-06-space.png" alt="우주" loading="lazy" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px;" />
+                <img src="/strategy-samples/card-07-life.png" alt="생활" loading="lazy" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px;" />
+                <img src="/strategy-samples/card-08-folktale.png" alt="전래" loading="lazy" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px;" />
+              </div>
+            </div>
+
+            <div class="grid-4" style="margin-top: 16px;">
+              <div class="stat" style="padding: 8px;"><div class="num">211+</div><div class="lab">동화 콘텐츠</div></div>
+              <div class="stat" style="padding: 8px;"><div class="num">10종</div><div class="lab">그림체 운영</div></div>
+              <div class="stat" style="padding: 8px;"><div class="num">15종</div><div class="lab">학습 게임</div></div>
+              <div class="stat" style="padding: 8px;"><div class="num">9국</div><div class="lab">언어 자산 확장</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10. Competition -->
+        <section>
+          <div class="slide-head"><span class="label">COMPETITION</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 40px;">
+            <h2>경쟁 지형 — <span class="accent">아시아 현지어 통합 학습</span> 우상 공백</h2>
+
+            <div style="display: grid; grid-template-columns: 1fr 280px; gap: 60px; margin-top: 40px;">
+              <div style="position: relative; padding-left: 50px; padding-bottom: 40px;">
+                <div class="matrix">
+                  <div class="axis-x"><span>← 단순 학습</span><span>통합 학습 →</span></div>
+                  <div class="axis-y"><span>아시아 현지어 ↑</span><span>↓ 영어 일변도</span></div>
+                  <div class="pin" style="left: 25%; top: 65%;">Khan Kids</div>
+                  <div class="pin" style="left: 35%; top: 75%;">Lingokids</div>
+                  <div class="pin" style="left: 30%; top: 80%;">ABCmouse</div>
+                  <div class="pin" style="left: 60%; top: 70%;">Epic</div>
+                  <div class="pin" style="left: 70%; top: 75%;">Duolingo ABC</div>
+                  <div class="pin" style="left: 35%; top: 30%;">Pinkfong</div>
+                  <div class="pin" style="left: 25%; top: 25%;">BabyBus</div>
+                  <div class="pin" style="left: 50%; top: 35%;">똑똑꿀잼</div>
+                  <div class="pin us" style="left: 78%; top: 22%;">⭐ 탱고북</div>
+                </div>
+              </div>
+              <div>
+                <h3 style="font-size: 22px;">우상 공백</h3>
+                <p style="font-size: 16px; margin-top: 12px;">통합 학습 (가로) × 아시아 현지어 (세로) 우상 사분면이 <strong>비어있다</strong>.</p>
+                <p style="font-size: 16px; margin-top: 12px;">글로벌 빅테크는 영어 일변도, 현지 IP 는 단순 영상·노래 중심.</p>
+                <p style="font-size: 16px; margin-top: 12px; color: var(--coral-600); font-weight: 800;">탱고북 = 통합 학습 루프 + 9국 자국어 자산.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 11. GTM 7국 시퀀스 -->
+        <section>
+          <div class="slide-head"><span class="label">GO-TO-MARKET</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 40px;">
+            <h2>7국 진출 시퀀스</h2>
+            <p style="font-size: 18px; margin-top: 8px;">7국 동시는 리스크 — 한국 → 일본 → 동남아 4국 → 중국 순차. 중국은 규제·결제 별세계라 마지막.</p>
+
+            <div class="seq" style="margin-top: 50px;">
+              <div class="step active">🇰🇷 한국<br /><small>Y1 H1</small></div>
+              <div class="arrow">→</div>
+              <div class="step">🇯🇵 일본<br /><small>Y1 H2</small></div>
+              <div class="arrow">→</div>
+              <div class="step">🇹🇭 태국<br /><small>Y2 H1</small></div>
+              <div class="step">🇮🇩 인니<br /><small>Y2 H1</small></div>
+              <div class="arrow">→</div>
+              <div class="step">🇲🇾 말레이<br /><small>Y2 H2</small></div>
+              <div class="step">🇻🇳 베트남<br /><small>Y2 H2</small></div>
+              <div class="arrow">→</div>
+              <div class="step">🇨🇳 중국<br /><small>Y3+</small></div>
+            </div>
+
+            <div class="grid-3" style="margin-top: 50px;">
+              <div class="card">
+                <h3 style="font-size: 18px;">🇰🇷 한국 (Beachhead)</h3>
+                <ul style="padding-left: 18px; margin-top: 8px; font-size: 14px;">
+                  <li>YouTube 채널 → PWA 전환 깔때기</li>
+                  <li>유치원 B2B 파일럿 50개</li>
+                  <li>Y1 말 MAU 50K 목표</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h3 style="font-size: 18px;">🇯🇵 일본 (콘텐츠 공명)</h3>
+                <ul style="padding-left: 18px; margin-top: 8px; font-size: 14px;">
+                  <li>유사 정서·구매력·결제 생태계</li>
+                  <li>현지 출판사 IP 제휴</li>
+                  <li>호리 IP 일본 시장 친화도 ◎</li>
+                </ul>
+              </div>
+              <div class="card">
+                <h3 style="font-size: 18px;">🌏 동남아 (시장 폭발)</h3>
+                <ul style="padding-left: 18px; margin-top: 8px; font-size: 14px;">
+                  <li>유아 인구 + 디지털 채택 가속</li>
+                  <li>현지 통신사·은행 결제 제휴</li>
+                  <li>학습앱 가격 민감도 → 로컬팩</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 12. 연세새봄 파트너십 -->
+        <section>
+          <div class="slide-head"><span class="label">STRATEGIC PARTNERSHIP</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 40px;">
+            <h2>연세새봄병원과 동반 진출</h2>
+            <p style="font-size: 18px; margin-top: 8px;">단순 자금/네트워크 파트너 X — <strong class="accent">아시아 7국 동반 진출 협약</strong>.</p>
+
+            <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin-top: 50px;">
+              <div style="text-align: center;">
+                <div style="font-size: 80px;">🏥</div>
+                <div style="font-family: var(--font-display); font-weight: 800; font-size: 24px; margin-top: 8px;">연세새봄</div>
+                <div style="color: var(--ink-500); font-size: 14px; margin-top: 4px;">생활습관 관리</div>
+              </div>
+              <div style="font-size: 60px; color: var(--coral-300);">×</div>
+              <div style="text-align: center;">
+                <div style="font-size: 80px;">📕</div>
+                <div style="font-family: var(--font-display); font-weight: 800; font-size: 24px; margin-top: 8px; color: var(--coral-600);">탱고북</div>
+                <div style="color: var(--ink-500); font-size: 14px; margin-top: 4px;">교육 습관</div>
+              </div>
+              <div style="font-size: 36px; color: var(--coral-300); font-weight: 800;">=</div>
+              <div style="text-align: center;">
+                <div style="font-size: 80px;">🌏</div>
+                <div style="font-family: var(--font-display); font-weight: 800; font-size: 24px; margin-top: 8px;">아시아 7국</div>
+                <div style="color: var(--ink-500); font-size: 14px; margin-top: 4px;">통합 진출</div>
+              </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 50px;">
+              <div class="card card-coral">
+                <h3 style="font-size: 20px;">콘텐츠 시너지</h3>
+                <p style="font-size: 16px; margin-top: 8px;">탱고북 동화·게임에 <strong>생활습관 콘텐츠 자연스러운 융합</strong> — 아이가 책으로 습관을 배우고 → 병원이 실제 관리로 이어가는 연계.</p>
+              </div>
+              <div class="card card-coral">
+                <h3 style="font-size: 20px;">현지 진출 시너지</h3>
+                <p style="font-size: 16px; margin-top: 8px;">병원 네트워크의 <strong>현지 의료 채널 + 부모 신뢰 채널</strong> 활용. 의료/발달 감수가 차별화 무기.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 13. 24개월 마일스톤 -->
+        <section>
+          <div class="slide-head"><span class="label">ROADMAP</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 40px;">
+            <h2>24개월 마일스톤</h2>
+
+            <div class="timeline" style="margin-top: 32px;">
+              <div class="ms">
+                <div class="q">Y1 Q1-Q2</div>
+                <div class="h">한국 베타</div>
+                <div class="d">PWA 정식 런칭 · YouTube 채널 도달 · MAU 10K · Plus 결제 1K · NPS 측정</div>
+              </div>
+              <div class="ms">
+                <div class="q">Y1 Q3-Q4</div>
+                <div class="h">한국 PMF</div>
+                <div class="d">유치원 파일럿 50개 · MAU 50K · ARR 5억 · 어휘 1,500단어 마스터 시스템 완성</div>
+              </div>
+              <div class="ms">
+                <div class="q">Y2 Q1-Q2</div>
+                <div class="h">일본 진출</div>
+                <div class="d">현지 출판사 IP 제휴 · 일본어 자산 211권 변환 · 일본 MAU 20K · 한국 ARR 15억</div>
+              </div>
+              <div class="ms">
+                <div class="q">Y2 Q3-Q4</div>
+                <div class="h">동남아 4국</div>
+                <div class="d">태·인·말·베 동시 출시 · 현지 통신사 결제 · 합산 MAU 200K · ARR 40억</div>
+              </div>
+              <div class="ms">
+                <div class="q">Y3 Q1-Q2</div>
+                <div class="h">중국 진출</div>
+                <div class="d">규제·결제 현지화 · 중국 IP 제휴 · 합산 MAU 500K · ARR 80억</div>
+              </div>
+              <div class="ms">
+                <div class="q">Y3 Q3-Q4</div>
+                <div class="h">스케일</div>
+                <div class="d">합산 MAU 800K · ARR 120억 · 영업이익 흑자 전환 · Series B 준비</div>
+              </div>
+            </div>
+
+            <div class="grid-4" style="margin-top: 40px;">
+              <div class="stat"><div class="num">120억</div><div class="lab">Y3 ARR</div></div>
+              <div class="stat"><div class="num">800K</div><div class="lab">Y3 합산 MAU</div></div>
+              <div class="stat"><div class="num">7국</div><div class="lab">진출 완료</div></div>
+              <div class="stat"><div class="num">45%+</div><div class="lab">영업이익률 (Y3+)</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 14. KPI -->
+        <section>
+          <div class="slide-head"><span class="label">KPI & TRACTION GOALS</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 50px;">
+            <h2>핵심 KPI — Y1 목표</h2>
+
+            <div class="grid-4" style="margin-top: 40px;">
+              <div class="card">
+                <div class="stat" style="padding: 8px;">
+                  <div class="num">90분</div>
+                  <div class="lab">WACLM</div>
+                  <div class="sub">주간 평균 학습 시간</div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="stat" style="padding: 8px;">
+                  <div class="num">50%</div>
+                  <div class="lab">주간 재방문률</div>
+                  <div class="sub">Khan Kids 대비 상위 분포</div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="stat" style="padding: 8px;">
+                  <div class="num">15%</div>
+                  <div class="lab">Free → Plus 전환</div>
+                  <div class="sub">Freemium 평균 5% 대비 3×</div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="stat" style="padding: 8px;">
+                  <div class="num">40+</div>
+                  <div class="lab">NPS</div>
+                  <div class="sub">교육 앱 우수 기준</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+              <h3 style="font-size: 22px;">기존 메트릭 (베타 직전 측정)</h3>
+              <div class="grid-3" style="margin-top: 16px;">
+                <div class="card">
+                  <strong>📺 YouTube 도달</strong>
+                  <p style="font-size: 14px; margin-top: 6px;">탱고북 채널 — 동화 영상 자동 생성 + 업로드 파이프 운영 중. PWA 전환 깔때기.</p>
+                </div>
+                <div class="card">
+                  <strong>📚 콘텐츠 깊이</strong>
+                  <p style="font-size: 14px; margin-top: 6px;">211권 × 평균 16페이지 × 그림체 ~3종 = <strong>10,000+ 일러스트</strong>. 자국어 단위로 9국 확장 가능.</p>
+                </div>
+                <div class="card">
+                  <strong>🎮 학습 게임</strong>
+                  <p style="font-size: 14px; margin-top: 6px;">15종 학습 게임 + 호리 놀이터 7 어휘 게임 + 호리 아케이드 6종 = 28게임.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 15. Team -->
+        <section>
+          <div class="slide-head"><span class="label">TEAM</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 40px;">
+            <h2>창업팀 + 전략 파트너</h2>
+
+            <div class="grid-2" style="margin-top: 32px;">
+              <div class="card">
+                <h3 style="font-size: 22px;">🚀 창업팀</h3>
+                <p style="margin-top: 12px;">대표 — 교육·기술 융합 베테랑 (구체 이력 별첨)</p>
+                <p style="margin-top: 8px;">CTO — 풀스택 + AI 자동화 파이프 설계자</p>
+                <p style="margin-top: 8px;">콘텐츠 디렉터 — 동화 작가 + 그림체 아트 디렉팅</p>
+                <p style="margin-top: 8px;">마케팅 — YouTube/PWA 전환 깔때기 운영자</p>
+              </div>
+              <div class="card card-coral">
+                <h3 style="font-size: 22px;">🤝 전략 파트너</h3>
+                <p style="margin-top: 12px;"><strong>연세새봄병원</strong> — 아시아 7국 동반 진출 + 의료/발달 감수</p>
+                <p style="margin-top: 8px;"><strong>Google Gemini</strong> — 텍스트·이미지·TTS 자동 생성 파트너</p>
+                <p style="margin-top: 8px;"><strong>Cloudflare</strong> — 글로벌 R2/CDN 인프라</p>
+                <p style="margin-top: 8px;"><strong>Supabase</strong> — 인증·데이터 백엔드</p>
+              </div>
+            </div>
+
+            <div class="headline" style="margin-top: 32px; text-align: center;">
+              <span class="accent">콘텐츠 + 기술 + 의료 신뢰</span> 이 세 축이 동시에 갖춰진 팀은 한국에 흔치 않다.
+            </div>
+          </div>
+        </section>
+
+        <!-- 16. Ask -->
+        <section>
+          <div class="slide-head"><span class="label">ASK</span><span class="brand">탱고북</span></div>
+          <div style="margin-top: 40px;">
+            <h2><span class="accent">Series A · 50억원</span></h2>
+            <p style="font-size: 18px; margin-top: 8px;">12-18개월 운영 + 한국 PMF 확보 + 일본 진출 준비.</p>
+
+            <div class="ask-grid" style="margin-top: 32px;">
+              <div>
+                <h3 style="font-size: 22px; margin-bottom: 16px;">자금 사용처</h3>
+                <div class="ask-list">
+                  <div class="row"><span class="l">🎯 마케팅 / GTM (한·일)</span><span class="v">40%</span></div>
+                  <div class="row"><span class="l">📚 콘텐츠 확장 (9국 자산 변환)</span><span class="v">25%</span></div>
+                  <div class="row"><span class="l">⚙️ 엔지니어링 / Spaced Rep 엔진</span><span class="v">20%</span></div>
+                  <div class="row"><span class="l">🤝 B2B 영업 / 유치원 채널</span><span class="v">10%</span></div>
+                  <div class="row"><span class="l">⚖️ 운영 / 법무 / 현지화</span><span class="v">5%</span></div>
+                </div>
+              </div>
+              <div>
+                <h3 style="font-size: 22px; margin-bottom: 16px;">예상 결과 (18개월)</h3>
+                <div class="card card-dark">
+                  <div style="display: flex; flex-direction: column; gap: 14px;">
+                    <div>
+                      <div style="font-size: 12px; color: var(--peach-200); font-weight: 700;">한국 + 일본 합산</div>
+                      <div style="font-family: var(--font-display); font-size: 32px; font-weight: 800; color: white;">MAU 100K</div>
+                    </div>
+                    <div>
+                      <div style="font-size: 12px; color: var(--peach-200); font-weight: 700;">Plus 결제 회원</div>
+                      <div style="font-family: var(--font-display); font-size: 32px; font-weight: 800; color: white;">25K</div>
+                    </div>
+                    <div>
+                      <div style="font-size: 12px; color: var(--peach-200); font-weight: 700;">예상 ARR</div>
+                      <div style="font-family: var(--font-display); font-size: 32px; font-weight: 800; color: var(--coral-300);">30억원</div>
+                    </div>
+                    <div>
+                      <div style="font-size: 12px; color: var(--peach-200); font-weight: 700;">9국 콘텐츠 자산</div>
+                      <div style="font-family: var(--font-display); font-size: 32px; font-weight: 800; color: white;">완비</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="headline" style="margin-top: 32px; text-align: center;">
+              Series A <span class="accent">50억</span> 으로 <span class="accent">한국 PMF + 일본 발판</span>, 18개월 후 ARR 30억 / Series B 준비
+            </div>
+          </div>
+        </section>
+
+        <!-- 17. Closing -->
+        <section class="cover">
+          <div style="margin-top: 6vh;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-bottom: 24px;">
+              <img src="/mascot/hori/idle.webp" alt="호리" style="width: 100px; height: 100px;" />
+              <h1 style="font-size: 64px; margin: 0;">함께<br /><span style="color: var(--coral-500);">아시아 부모의 신뢰</span>를<br />얻어가요</h1>
+              <img src="/mascot/hori/pointing.webp" alt="호리" style="width: 100px; height: 100px;" />
+            </div>
+            <img src="/strategy-samples/encyclopedia-glow-page.png" alt="도감 활성" loading="lazy" style="max-width: 600px; width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 16px; box-shadow: 0 16px 40px -8px rgba(0,0,0,0.2); margin: 28px auto 0; display: block;" />
+            <div style="margin-top: 32px; font-size: 22px; color: var(--ink-700); font-weight: 700;">
+              연세새봄 동반 진출 · 9국 자산 확장 가능 · 통합 학습 루프
+            </div>
+            <div style="margin-top: 24px; font-size: 16px; color: var(--ink-500); font-weight: 600;">
+              kil210@tangobook.co.kr · 2026 Series A
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- Reveal.js -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        slideNumber: 'c/t',
+        controls: true,
+        progress: true,
+        transition: 'slide',
+        width: 1280,
+        height: 800,
+      });
+    </script>
+  </body>
+</html>

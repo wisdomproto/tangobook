@@ -4,6 +4,7 @@ import { useThemeStore } from '@/store/theme.store';
 import { VocabTreeModal } from '@/features/vocabulary/components/VocabTreeModal';
 
 const RESOURCES = [
+  { href: '/pitch.html', icon: '💼', label: 'Series A Pitch', desc: '투자자용 16+1장 슬라이드' },
   { href: '/strategy.html', icon: '📋', label: '사업 전략서', desc: '비즈니스 전략·로드맵' },
   {
     href: '/curriculum-master.html',
