@@ -32,6 +32,20 @@ export function canonicalizeArtStyle(raw: string): string {
 }
 
 /**
+ * 그림체 raw 문자열 → 사용자 친화 한국어 라벨.
+ * - preset 매칭 시 ART_STYLES.label (예: '종이공예', '3D 픽사')
+ * - 매칭 실패 (custom) 시 raw 그대로 반환
+ *
+ * BookDetail / BookCards / Editor 등에서 chip 노출 시 사용.
+ * (raw 가 prompt 전체이면 학습자 화면에 부적합)
+ */
+export function getArtStyleLabel(raw: string): string {
+  if (!raw) return raw;
+  const id = canonicalizeArtStyle(raw);
+  return ART_STYLES.find((s) => s.id === id)?.label ?? raw;
+}
+
+/**
  * styleAssets 객체의 키들을 canonical id 로 정규화.
  * 동일 그림체가 2 키 (id + prompt) 로 분리되어 있으면 머지.
  *

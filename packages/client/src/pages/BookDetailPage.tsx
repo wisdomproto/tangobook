@@ -9,6 +9,7 @@ import {
 import { Card, StateScreen, Skeleton, Chip } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
+import { getArtStyleLabel } from '@tangobook/shared';
 import type { ReadingLevel, StorybookSummary } from '@tangobook/shared';
 
 const LANG_LABEL: Record<string, { flag: string; name: string }> = {
@@ -229,7 +230,7 @@ export default function BookDetailPage() {
                         active={effectiveStyle === s}
                         onClick={() => setSelectedStyle(s)}
                       >
-                        {s}
+                        {getArtStyleLabel(s)}
                       </Chip>
                     ))}
                   </div>

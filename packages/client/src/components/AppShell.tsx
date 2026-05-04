@@ -3,7 +3,7 @@ import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { Mascot, AppIcon } from '@/design-system';
 import { StarCounter } from '@/features/rewards';
 import { useAuth } from '@/features/auth/context/AuthContext';
-import { useBookIndex } from '@/features/book-v2';
+import { useStorybooks } from '@/features/storybook';
 import { cn } from '@/lib/cn';
 
 /**
@@ -69,9 +69,10 @@ function getPageTitle(
 
 export function AppShell() {
   const { activeProfile, session, signOut, isConfigured } = useAuth();
-  const { data: index } = useBookIndex();
+  // v1 단일화 — 사이드바 헤더 카운트도 v1 기준 (B-2 sweep 잔재 정리).
+  const { data: storybooks } = useStorybooks();
   const location = useLocation();
-  const bookCount = index?.books?.filter((b) => b.isPublic).length ?? 0;
+  const bookCount = storybooks?.filter((b) => b.isPublic).length ?? 0;
   const pageTitle = getPageTitle(location.pathname);
 
   // 학습자 화면은 라이트 모드 고정
