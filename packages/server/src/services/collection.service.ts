@@ -50,14 +50,15 @@ function pickEnglishLabel(nameEn?: string, name?: string): string | null {
 }
 
 /**
- * 단어 카드 imageUrl 결정 — 우선순위:
- *   1. styleAssets[defaultStyle/artStyle].keyObjectImages 의 단어별 이미지 (Cow.webp 등)
- *   2. 다른 그림체의 keyObjectImages 매칭
- *   3. KeyObject 가 등장한 첫 페이지 illustration (page-level)
- *   4. (호출처) book.coverImage fallback
+ * 단어 카드 imageUrl 결정 — styleAssets[].keyObjectImages 의 단어별 이미지만.
  *
- * 기존 pickFirstPageImage 는 1, 2 단계 누락 → 단어 카드인데 책 표지/페이지 그림이
- * 깔리는 버그 (예: word-castle 에 "미녀와 야수" 표지). 카드 정체성 흐림.
+ * 1. styleAssets[defaultStyle/artStyle].keyObjectImages 의 단어별 이미지 (Cow.webp 등)
+ * 2. 다른 그림체의 keyObjectImages 매칭
+ * 3. 위 둘 다 없으면 null — 도감 카드 자체 안 만듦 (vocabulary-unification 마이그
+ *    잔재 / 큐레이션 안 한 단어 자동 제외).
+ *
+ * page illustration / cover fallback 은 의도적으로 제거. 단어 카드인데 책 표지/페이지
+ * 그림이 깔리면 카드 정체성 흐림.
  */
 function pickKeyObjectImage(book: Storybook, ko: KeyObject): string | null {
   const targetStyle = book.defaultStyle ?? book.artStyle;
@@ -79,17 +80,6 @@ function pickKeyObjectImage(book: Storybook, ko: KeyObject): string | null {
     if (url) return url;
   }
 
-  // 3) page illustration fallback
-  const firstPageNum = Array.isArray(ko.pages) && ko.pages.length > 0 ? ko.pages[0] : null;
-  if (firstPageNum != null) {
-    if (targetStyle && book.styleAssets?.[targetStyle]?.pageIllustrations?.[firstPageNum]) {
-      const url = book.styleAssets[targetStyle].pageIllustrations[firstPageNum]?.illustrationUrl;
-      if (url) return url;
-    }
-    const page = book.pages?.find((p) => p.pageNumber === firstPageNum);
-    if (page?.illustrationUrl) return page.illustrationUrl;
-  }
-
   return null;
 }
 
@@ -106,14 +96,21 @@ function isLikelyKeyObjectImage(url: string | undefined): boolean {
   return /(?:^|[-/])keyobj-/.test(url) || url.includes('key-objects/');
 }
 
-/** KeyObject → CollectionItem draft. dexCategory 없으면 null. */
+/**
+ * KeyObject → CollectionItem draft.
+ * - dexCategory 없으면 null (분류 안 됨 — 동사 등)
+ * - keyObjectImages 매칭 image 없으면 null (큐레이션 안 한 단어 — vocabulary-unification
+ *   마이그 잔재 자동 제외). 사용자가 Editor 에서 image 만들면 saveStorybook hook 으로
+ *   자동 sync.
+ */
 function buildCardDraft(book: Storybook, ko: KeyObject): CollectionItem | null {
   if (!ko.dexCategory) return null;
   const cardId = buildCardId(ko.name, ko.korean);
   if (!cardId) return null;
+  const imageUrl = pickKeyObjectImage(book, ko);
+  if (!imageUrl) return null;
   const nameKo = pickKoreanLabel(ko.korean, ko.name);
   const nameEn = pickEnglishLabel(ko.nameEn, ko.name);
-  const imageUrl = pickKeyObjectImage(book, ko) ?? book.coverImage ?? '';
   return {
     id: cardId,
     category: ko.dexCategory,
@@ -201,7 +198,17 @@ export const CollectionService = {
       return { cardsAdded: 0, cardsUpdated: 0, cardsRemovedFromBook: 0 };
     if (typeof book.id === 'string' && /__L\d/.test(book.id))
       return { cardsAdded: 0, cardsUpdated: 0, cardsRemovedFromBook: 0 };
-    if (book.isPublic === false) return { cardsAdded: 0, cardsUpdated: 0, cardsRemovedFromBook: 0 };
+    // 공개 안 된 책 (isPublic !== true) — 미정의/false 모두 제외.
+    // 비공개 sibling/복사본/검수중 책의 단어가 카탈로그에 섞이는 문제 방지.
+    // 이전에 sync 됐던 카드 sourceBookIds 에서 이 책 제거하여 stale entry 정리.
+    if (book.isPublic !== true) {
+      const result = await this.removeSourcesByStorybookId(book.id);
+      return {
+        cardsAdded: 0,
+        cardsUpdated: 0,
+        cardsRemovedFromBook: result.cardsAffected,
+      };
+    }
 
     const catalog = await this.getCatalog();
     const cardMap = new Map(catalog.items.map((c) => [c.id, c]));
