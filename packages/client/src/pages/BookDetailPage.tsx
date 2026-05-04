@@ -167,16 +167,8 @@ export default function BookDetailPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100">
       <div className="max-w-[1200px] mx-auto p-5 md:p-7">
-        {/* 상단 바 + 옵션 영역 (선택을 맨 위로) */}
+        {/* 상단 바 — 사이드바에 이미 동화책(라이브러리)/홈 있어 🏠 버튼 제거. variation 옵션만. */}
         <div className="flex items-start gap-4 mb-6 flex-wrap">
-          <button
-            onClick={() => navigate('/library')}
-            className="w-12 h-12 rounded-lg bg-white shadow-soft flex items-center justify-center text-xl hover:bg-peach-100 shrink-0"
-            aria-label="라이브러리로"
-            title="라이브러리로"
-          >
-            🏠
-          </button>
           {(languages.length > 1 || levels.length > 1 || styles.length > 1) && (
             <div className="flex-1 min-w-0 bg-white/60 rounded-lg shadow-soft flex flex-wrap divide-x divide-ink-100">
               {languages.length > 1 && (

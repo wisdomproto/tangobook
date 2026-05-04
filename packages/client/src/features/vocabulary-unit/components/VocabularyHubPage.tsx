@@ -1,4 +1,4 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useMemo } from 'react';
 import type { VocabularyUnitSummary } from '@tangobook/shared';
 import { Mascot, Skeleton, AppIcon } from '@/design-system';
@@ -131,33 +131,21 @@ export function VocabularyHubPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 via-yellow-50 to-cream-50">
-      {/* 헤더 */}
-      <header className="px-6 pt-6 max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-4">
-          <button
-            onClick={() => navigate('/library')}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition"
-          >
-            ← 돌아가기
-          </button>
-          <div className="flex items-center gap-2">
-            <StarCounter />
-            <Link
-              to="/library"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition"
-            >
-              🏠 홈
-            </Link>
-          </div>
-        </div>
-        <div className="text-center">
-          <div className="inline-flex items-center gap-3 mb-2">
-            <Mascot state="reading" size="md" />
-            <h1 className="text-3xl md:text-4xl font-black font-display text-ink-900">
+      {/* 헤더 — 한 줄 압축. 사이드바에 이미 홈/탱고북 있어 돌아가기·홈 제거. */}
+      <header className="px-4 sm:px-6 pt-3 pb-2 max-w-5xl mx-auto">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <Mascot state="reading" size="sm" />
+            <h1 className="text-lg sm:text-xl font-black font-display text-ink-900 whitespace-nowrap">
               어휘 마스터
             </h1>
+            {totalCount > 0 && (
+              <span className="text-xs text-ink-500 font-bold whitespace-nowrap hidden sm:inline">
+                {totalCount} 단원
+              </span>
+            )}
           </div>
-          <p className="text-ink-700 font-bold">토픽별로 + 책별로 단어를 익혀요!</p>
+          <StarCounter />
         </div>
       </header>
 

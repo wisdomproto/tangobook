@@ -1,5 +1,6 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { Mascot } from '@/design-system';
 import { cn } from '@/lib/cn';
 import type { Storybook, KeyObject, KeyObjectImage } from '@tangobook/shared';
@@ -24,6 +25,17 @@ interface WordItem {
   example?: string; // 영어 예문
 }
 
+/**
+ * 동화 마지막 페이지 후 핵심 단어 보기 화면.
+ *
+ * 재설계 (2026-05-04):
+ * - A. 누른 단어 Set 누적 (페이지 머무는 동안) + ✓ + coral tint
+ * - B. 안 누른 카드 ✨ + idle 호흡 (scale + glow pulse) — "눌러봐!" 유혹
+ * - C. 카드 살짝 회전 (idx 별 ±2도) — playful 매력
+ * - D. 진척 카운터 (3/N) + 모두 누르면 1.5s 후 자동 도감 navigate
+ * - E. imageUrl 있는 KeyObject 만 노출 — 사용자가 큐레이션한 단어 (vocabulary-unification 마이그
+ *      잔재 단어는 image 없으니 자동 제외)
+ */
 export function WordRevealScreen({
   storybook,
   open,
@@ -34,22 +46,35 @@ export function WordRevealScreen({
 }: WordRevealScreenProps) {
   const reduce = useReducedMotion();
   const logEvent = useLogEvent();
-  const [tappedWord, setTappedWord] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const [tappedSet, setTappedSet] = useState<Set<string>>(new Set());
+  const [pulseWord, setPulseWord] = useState<string | null>(null);
+  const [autoNavigated, setAutoNavigated] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const items: WordItem[] = useMemo(() => {
     const ko = storybook.key_objects ?? [];
     const styleKey = currentStyle ?? storybook.artStyle ?? 'paper-craft';
     const styleImages: KeyObjectImage[] = storybook.styleAssets?.[styleKey]?.keyObjectImages ?? [];
-    return ko.map((k: KeyObject) => ({
-      name: k.name,
-      korean: k.korean ?? k.name,
-      imageUrl: styleImages.find((img) => img.objectName === k.name)?.imageUrl,
-      ttsUrlKo: k.ttsUrl,
-      ttsUrlEn: k.ttsUrls?.en,
-      example: k.example,
-    }));
+    return ko
+      .map((k: KeyObject) => ({
+        name: k.name,
+        korean: k.korean ?? k.name,
+        imageUrl: styleImages.find((img) => img.objectName === k.name)?.imageUrl,
+        ttsUrlKo: k.ttsUrl,
+        ttsUrlEn: k.ttsUrls?.en,
+        example: k.example,
+      }))
+      .filter((w) => !!w.imageUrl); // E: image 있는 단어만 (큐레이션 된 것)
   }, [storybook, currentStyle]);
+
+  // 화면 열릴 때마다 누적 reset
+  useEffect(() => {
+    if (open) {
+      setTappedSet(new Set());
+      setAutoNavigated(false);
+    }
+  }, [open]);
 
   const speakText = useCallback((text: string, lang: 'ko-KR' | 'en-US') => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
@@ -70,7 +95,12 @@ export function WordRevealScreen({
 
   const handleCardTap = useCallback(
     (word: WordItem) => {
-      setTappedWord(word.name);
+      // A: 누적 추적
+      setTappedSet((prev) => {
+        if (prev.has(word.name)) return prev;
+        return new Set(prev).add(word.name);
+      });
+      setPulseWord(word.name);
 
       // TTS 재생: 한국어 → 영어 순. 파일 있으면 파일, 없으면 브라우저 TTS fallback
       if (word.ttsUrlKo) {
@@ -78,7 +108,6 @@ export function WordRevealScreen({
       } else {
         speakText(word.korean, 'ko-KR');
       }
-      // 영어는 0.8s 딜레이 후 (한국어 끝나는 동안)
       setTimeout(() => {
         if (word.ttsUrlEn) {
           playAudio(word.ttsUrlEn);
@@ -100,14 +129,28 @@ export function WordRevealScreen({
         },
       });
 
-      // 탭 시각 효과 reset
-      setTimeout(() => setTappedWord(null), 600);
+      // 펄스 한번만 (계속 강조 X — ✓ 표시는 따로)
+      setTimeout(() => setPulseWord(null), 600);
     },
     [storybook.id, storybook.artStyle, currentStyle, logEvent, playAudio, speakText]
   );
 
+  // D: 모두 누르면 1.5s 후 도감으로 자동 이동
+  useEffect(() => {
+    if (!open || autoNavigated) return;
+    if (items.length === 0) return;
+    if (tappedSet.size < items.length) return;
+    setAutoNavigated(true);
+    const t = setTimeout(() => {
+      navigate(`/collection/book/${storybook.id}`);
+    }, 1500);
+    return () => clearTimeout(t);
+  }, [open, autoNavigated, tappedSet, items.length, navigate, storybook.id]);
+
   const wordCount = items.length;
-  // 8 이하면 4-col, 9~12 면 4-col 3 row, 13+ 도 4-col + scroll
+  const tappedCount = tappedSet.size;
+  const allTapped = wordCount > 0 && tappedCount === wordCount;
+  // 8 이하면 3-col, 9~ 면 3-col(모바일) → 4-col(데스크탑)
   const gridCols = wordCount <= 6 ? 'grid-cols-3' : 'grid-cols-3 sm:grid-cols-4';
 
   return (
@@ -122,7 +165,7 @@ export function WordRevealScreen({
           role="dialog"
           aria-label="우리가 만난 단어들"
         >
-          {/* Header — 마스코트 + 타이틀 */}
+          {/* Header — 마스코트 + 타이틀 + 진척 카운터 */}
           <div className="flex items-center justify-center gap-3 sm:gap-4 p-4 sm:p-6 pb-2">
             <Mascot state="celebrating" size="md" />
             <div className="text-center">
@@ -130,6 +173,14 @@ export function WordRevealScreen({
                 우리가 만난 친구들 🌟
               </h1>
               <p className="text-sm sm:text-base text-ink-500 mt-1">{storybook.title}</p>
+              {wordCount > 0 && (
+                <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white shadow-soft border border-coral-200">
+                  <span className="text-coral-500 font-black text-base">{tappedCount}</span>
+                  <span className="text-ink-500 text-sm">/</span>
+                  <span className="text-ink-700 text-sm font-bold">{wordCount}</span>
+                  <span className="text-xs text-ink-500 ml-1">눌러봤어요</span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -141,70 +192,135 @@ export function WordRevealScreen({
               </div>
             ) : (
               <div className={cn('grid gap-2 sm:gap-3', gridCols)}>
-                {items.map((item, idx) => (
-                  <motion.button
-                    key={item.name}
-                    initial={{ opacity: 0, scale: 0.6, y: 30 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{
-                      delay: reduce ? 0 : idx * 0.05,
-                      type: 'spring',
-                      stiffness: 200,
-                      damping: 18,
-                    }}
-                    whileHover={{ scale: reduce ? 1 : 1.05, y: -4 }}
-                    whileTap={{ scale: 0.92 }}
-                    className={cn(
-                      'relative aspect-square rounded-2xl overflow-hidden bg-white shadow-md',
-                      'border-4 transition-colors duration-300',
-                      tappedWord === item.name
-                        ? 'border-coral-400 shadow-xl shadow-coral-200/60'
-                        : 'border-transparent'
-                    )}
-                    onClick={() => handleCardTap(item)}
-                    aria-label={`${item.korean} (${item.name}) 발음 듣기`}
-                  >
-                    {item.imageUrl ? (
+                {items.map((item, idx) => {
+                  const isTapped = tappedSet.has(item.name);
+                  const isPulsing = pulseWord === item.name;
+                  // C: 살짝 회전 (idx 별 ±2도, playful)
+                  const rotate = reduce ? 0 : (((idx * 37) % 5) - 2) * 0.6;
+                  return (
+                    <motion.button
+                      key={item.name}
+                      initial={{ opacity: 0, scale: 0.6, y: 30, rotate }}
+                      animate={
+                        isTapped || reduce
+                          ? { opacity: 1, scale: 1, y: 0, rotate }
+                          : {
+                              // B: 안 누른 카드만 idle 호흡 (scale 1↔1.025)
+                              opacity: 1,
+                              scale: [1, 1.025, 1],
+                              y: 0,
+                              rotate,
+                              transition: {
+                                delay: idx * 0.05,
+                                scale: {
+                                  repeat: Infinity,
+                                  repeatType: 'mirror',
+                                  duration: 2.4 + (idx % 3) * 0.3,
+                                  ease: 'easeInOut',
+                                },
+                              },
+                            }
+                      }
+                      transition={{
+                        delay: reduce ? 0 : idx * 0.05,
+                        type: 'spring',
+                        stiffness: 200,
+                        damping: 18,
+                      }}
+                      whileHover={{ scale: reduce ? 1 : 1.06, y: -4, rotate: 0 }}
+                      whileTap={{ scale: 0.92 }}
+                      className={cn(
+                        'relative aspect-square rounded-2xl overflow-hidden bg-white shadow-md',
+                        'border-4 transition-colors duration-300',
+                        isTapped
+                          ? 'border-coral-400 shadow-lg shadow-coral-200/60'
+                          : 'border-transparent hover:border-coral-200'
+                      )}
+                      onClick={() => handleCardTap(item)}
+                      aria-label={`${item.korean} (${item.name}) 발음 듣기${isTapped ? ' (눌러봤음)' : ''}`}
+                    >
                       <img
                         src={item.imageUrl}
                         alt={item.korean}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className={cn(
+                          'absolute inset-0 w-full h-full object-cover transition-all duration-300',
+                          isTapped ? '' : 'brightness-95'
+                        )}
                         loading="lazy"
                       />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center text-5xl bg-peach-100">
-                        📦
-                      </div>
-                    )}
 
-                    {/* 단어 라벨 (이미지 위 오버레이) */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 via-black/60 to-transparent p-2 sm:p-3">
-                      <div className="text-white font-bold text-sm sm:text-lg leading-tight">
-                        {item.korean}
-                      </div>
-                      <div className="text-cream-100 text-xs sm:text-sm font-medium">
-                        {item.name}
-                      </div>
-                    </div>
+                      {/* B: 안 누른 카드 — ✨ 호기심 유발 아이콘 */}
+                      {!isTapped && (
+                        <motion.div
+                          initial={{ opacity: 0.6 }}
+                          animate={
+                            reduce
+                              ? { opacity: 0.7 }
+                              : {
+                                  opacity: [0.6, 1, 0.6],
+                                  scale: [1, 1.1, 1],
+                                  transition: {
+                                    repeat: Infinity,
+                                    duration: 1.8,
+                                    ease: 'easeInOut',
+                                  },
+                                }
+                          }
+                          className="absolute top-2 right-2 text-2xl drop-shadow-md pointer-events-none"
+                          aria-hidden
+                        >
+                          ✨
+                        </motion.div>
+                      )}
 
-                    {/* 탭 펄스 애니메이션 */}
-                    {tappedWord === item.name && !reduce && (
-                      <motion.div
-                        initial={{ scale: 1, opacity: 0.5 }}
-                        animate={{ scale: 1.4, opacity: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="absolute inset-0 bg-coral-300 rounded-2xl pointer-events-none"
-                      />
-                    )}
-                  </motion.button>
-                ))}
+                      {/* A: 누른 카드 — ✓ 체크 마크 */}
+                      {isTapped && (
+                        <motion.div
+                          initial={{ scale: 0, rotate: -45 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+                          className="absolute top-2 right-2 w-7 h-7 rounded-full bg-coral-500 text-white flex items-center justify-center text-sm font-black shadow-pop"
+                          aria-hidden
+                        >
+                          ✓
+                        </motion.div>
+                      )}
+
+                      {/* 단어 라벨 (이미지 위 오버레이) */}
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 via-black/60 to-transparent p-2 sm:p-3">
+                        <div className="text-white font-bold text-sm sm:text-lg leading-tight">
+                          {item.korean}
+                        </div>
+                        <div className="text-cream-100 text-xs sm:text-sm font-medium">
+                          {item.name}
+                        </div>
+                      </div>
+
+                      {/* 탭 펄스 애니메이션 (방금 누른 순간만) */}
+                      {isPulsing && !reduce && (
+                        <motion.div
+                          initial={{ scale: 1, opacity: 0.5 }}
+                          animate={{ scale: 1.4, opacity: 0 }}
+                          transition={{ duration: 0.6 }}
+                          className="absolute inset-0 bg-coral-300 rounded-2xl pointer-events-none"
+                        />
+                      )}
+                    </motion.button>
+                  );
+                })}
               </div>
             )}
           </div>
 
-          {/* 안내 문구 */}
+          {/* 안내 문구 / 모두 누름 축하 */}
           <p className="text-center text-ink-600 text-sm sm:text-base mb-4 px-4">
-            🖐️ 단어를 눌러 발음을 들어보세요
+            {allTapped ? (
+              <span className="text-coral-600 font-black">
+                🎉 다 모았어요! 잠시 후 도감으로 가요…
+              </span>
+            ) : (
+              '🖐️ 단어를 눌러 발음을 들어보세요'
+            )}
           </p>
 
           {/* 액션 버튼 */}
@@ -212,10 +328,22 @@ export function WordRevealScreen({
             <div className="flex gap-2 sm:gap-3 justify-center flex-wrap">
               <motion.button
                 whileTap={{ scale: 0.95 }}
-                onClick={onGoToVocabulary}
-                className="px-4 sm:px-6 py-3 bg-coral-500 hover:bg-coral-600 text-white font-bold rounded-full shadow-lg flex items-center gap-2 text-sm sm:text-base"
+                onClick={() => navigate(`/collection/book/${storybook.id}`)}
+                className={cn(
+                  'px-4 sm:px-6 py-3 font-bold rounded-full shadow-lg flex items-center gap-2 text-sm sm:text-base transition-all',
+                  allTapped
+                    ? 'bg-success text-white shadow-success/40 ring-2 ring-success/30'
+                    : 'bg-coral-500 hover:bg-coral-600 text-white'
+                )}
               >
-                📚 어휘에서 더 익히기
+                🃏 도감 보러 가기
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                onClick={onGoToVocabulary}
+                className="px-4 sm:px-6 py-3 bg-white hover:bg-cream-50 text-ink-700 font-bold rounded-full shadow-md border-2 border-ink-200 flex items-center gap-2 text-sm sm:text-base"
+              >
+                📚 어휘 더 익히기
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.95 }}

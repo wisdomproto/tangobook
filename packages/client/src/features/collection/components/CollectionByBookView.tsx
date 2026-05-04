@@ -119,10 +119,11 @@ export function CollectionByBookView() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {g.books.map((b) => {
               const completion = b.totalCards > 0 ? b.ownedCards / b.totalCards : 0;
+              const isUnvisited = b.ownedCards === 0;
               return (
                 <button
                   key={b.bookId}
-                  onClick={() => navigate(`/library/${b.bookId}`)}
+                  onClick={() => navigate(`/collection/book/${b.bookId}`)}
                   className="group relative aspect-[3/4] rounded-2xl bg-white shadow-soft border-2 border-transparent overflow-hidden hover:shadow-pop hover:-translate-y-1 hover:border-coral-200 transition-all"
                   title={`${b.title} — ${b.ownedCards}/${b.totalCards} 카드 모음`}
                 >
@@ -131,11 +132,21 @@ export function CollectionByBookView() {
                       src={b.coverImage}
                       alt=""
                       aria-hidden
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className={`absolute inset-0 w-full h-full object-cover transition-all ${
+                        isUnvisited ? 'grayscale brightness-75 opacity-70' : ''
+                      }`}
                       loading="lazy"
                     />
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-peach-100 to-coral-100/40" />
+                  )}
+                  {/* 안 읽은 책 — 자물쇠 오버레이로 lock 상태 시각화 */}
+                  {isUnvisited && (
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <span className="text-5xl opacity-60 drop-shadow-md" aria-hidden>
+                        🔒
+                      </span>
+                    </div>
                   )}
                   {/* 가독성 그라데이션 */}
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent p-3 pt-8">
