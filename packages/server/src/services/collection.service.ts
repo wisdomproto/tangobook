@@ -50,21 +50,60 @@ function pickEnglishLabel(nameEn?: string, name?: string): string | null {
 }
 
 /**
- * 책의 첫 등장 페이지 illustration URL — defaultStyle 우선, 없으면 artStyle, 없으면 top-level page 사용.
- * defaultStyle 이 명시된 책은 styleAssets[defaultStyle].pageIllustrations[N] 의 그림 우선 노출.
+ * 단어 카드 imageUrl 결정 — 우선순위:
+ *   1. styleAssets[defaultStyle/artStyle].keyObjectImages 의 단어별 이미지 (Cow.webp 등)
+ *   2. 다른 그림체의 keyObjectImages 매칭
+ *   3. KeyObject 가 등장한 첫 페이지 illustration (page-level)
+ *   4. (호출처) book.coverImage fallback
+ *
+ * 기존 pickFirstPageImage 는 1, 2 단계 누락 → 단어 카드인데 책 표지/페이지 그림이
+ * 깔리는 버그 (예: word-castle 에 "미녀와 야수" 표지). 카드 정체성 흐림.
  */
-function pickFirstPageImage(book: Storybook, ko: KeyObject): string | null {
-  const firstPageNum = Array.isArray(ko.pages) && ko.pages.length > 0 ? ko.pages[0] : null;
-  if (firstPageNum == null) return null;
+function pickKeyObjectImage(book: Storybook, ko: KeyObject): string | null {
   const targetStyle = book.defaultStyle ?? book.artStyle;
-  // 1) defaultStyle/artStyle 의 styleAssets 페이지 일러스트 우선
-  if (targetStyle && book.styleAssets?.[targetStyle]?.pageIllustrations?.[firstPageNum]) {
-    const url = book.styleAssets[targetStyle].pageIllustrations[firstPageNum]?.illustrationUrl;
+
+  // 1) targetStyle 의 keyObjectImages
+  if (targetStyle) {
+    const url = book.styleAssets?.[targetStyle]?.keyObjectImages?.find(
+      (img) => img.objectName === ko.name
+    )?.imageUrl;
     if (url) return url;
   }
-  // 2) top-level page (현재 활성 그림체) fallback
-  const page = book.pages?.find((p) => p.pageNumber === firstPageNum);
-  return page?.illustrationUrl ?? null;
+
+  // 2) 다른 그림체에서 매칭
+  for (const styleKey of Object.keys(book.styleAssets ?? {})) {
+    if (styleKey === targetStyle) continue;
+    const url = book.styleAssets?.[styleKey]?.keyObjectImages?.find(
+      (img) => img.objectName === ko.name
+    )?.imageUrl;
+    if (url) return url;
+  }
+
+  // 3) page illustration fallback
+  const firstPageNum = Array.isArray(ko.pages) && ko.pages.length > 0 ? ko.pages[0] : null;
+  if (firstPageNum != null) {
+    if (targetStyle && book.styleAssets?.[targetStyle]?.pageIllustrations?.[firstPageNum]) {
+      const url = book.styleAssets[targetStyle].pageIllustrations[firstPageNum]?.illustrationUrl;
+      if (url) return url;
+    }
+    const page = book.pages?.find((p) => p.pageNumber === firstPageNum);
+    if (page?.illustrationUrl) return page.illustrationUrl;
+  }
+
+  return null;
+}
+
+/**
+ * 현재 imageUrl 이 keyObject 단어 이미지가 아니라 cover/page 인지 휴리스틱으로 판단.
+ * incremental sync 시 더 좋은 이미지(=keyObj) 가 들어오면 교체하기 위함.
+ *
+ * 휴리스틱: URL 에 "/keyobj-" 또는 "key-objects/" 패턴이 없으면 다른 source 로 간주.
+ */
+function isLikelyKeyObjectImage(url: string | undefined): boolean {
+  if (!url) return false;
+  // R2 url pattern: `{bid}-{title}-keyobj-{name}-{ts}.webp` (대시) 또는
+  // `books/{bid}/styles/{style}/key-objects/{id}` (v2 prefix). 둘 다 매칭.
+  return /(?:^|[-/])keyobj-/.test(url) || url.includes('key-objects/');
 }
 
 /** KeyObject → CollectionItem draft. dexCategory 없으면 null. */
@@ -74,7 +113,7 @@ function buildCardDraft(book: Storybook, ko: KeyObject): CollectionItem | null {
   if (!cardId) return null;
   const nameKo = pickKoreanLabel(ko.korean, ko.name);
   const nameEn = pickEnglishLabel(ko.nameEn, ko.name);
-  const imageUrl = pickFirstPageImage(book, ko) ?? book.coverImage ?? '';
+  const imageUrl = pickKeyObjectImage(book, ko) ?? book.coverImage ?? '';
   return {
     id: cardId,
     category: ko.dexCategory,
@@ -200,7 +239,14 @@ export const CollectionService = {
       const existing = cardMap.get(cardId);
       if (existing) {
         if (!existing.sourceBookIds.includes(book.id)) existing.sourceBookIds.push(book.id);
-        if (!existing.imageUrl && draft.imageUrl) existing.imageUrl = draft.imageUrl;
+        // imageUrl 업그레이드 — 기존이 cover/page 인데 draft 가 keyObject 이미지면 교체
+        if (draft.imageUrl) {
+          const existingIsKeyObj = isLikelyKeyObjectImage(existing.imageUrl);
+          const draftIsKeyObj = isLikelyKeyObjectImage(draft.imageUrl);
+          if (!existing.imageUrl || (!existingIsKeyObj && draftIsKeyObj)) {
+            existing.imageUrl = draft.imageUrl;
+          }
+        }
         if (!existing.example && draft.example) existing.example = draft.example;
         // category 충돌 시 첫 등장 우선 (사용자가 editor 에서 수정 가능)
         cardsUpdated++;
