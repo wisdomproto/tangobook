@@ -110,27 +110,8 @@ create index if not exists idx_word_mastery_status
   on word_mastery(profile_id, language, status, mastery);
 
 -- ════════════════════════════════════════════════════════════════════════
--- 5. collection_user — 카드/도감 per-user 상태
+-- 5. (collection_user 제거됨 — MVP 단순화 2026-05-06, drop migration 별도)
 -- ════════════════════════════════════════════════════════════════════════
-
-do $$ begin
-  if not exists (select 1 from pg_type where typname = 'collection_status') then
-    create type collection_status as enum ('locked', 'silhouette', 'owned', 'active');
-  end if;
-end $$;
-
-create table if not exists collection_user (
-  profile_id uuid not null references child_profiles(id) on delete cascade,
-  item_id text not null,
-  status collection_status not null default 'locked',
-  silhouette_at timestamptz,
-  owned_at timestamptz,
-  active_at timestamptz,
-  foil boolean not null default false,
-  primary key (profile_id, item_id)
-);
-create index if not exists idx_collection_user_status
-  on collection_user(profile_id, status);
 
 -- ════════════════════════════════════════════════════════════════════════
 -- 6. hori_inventory — 호리 꾸미기 인벤토리
@@ -172,7 +153,6 @@ create index if not exists idx_weekly_missions_profile
 
 alter table star_ledger enable row level security;
 alter table word_mastery enable row level security;
-alter table collection_user enable row level security;
 alter table hori_inventory enable row level security;
 alter table weekly_missions enable row level security;
 
@@ -201,10 +181,7 @@ drop policy if exists "word_mastery_self_all" on word_mastery;
 create policy "word_mastery_self_all" on word_mastery
   for all using (public.is_own_profile(profile_id));
 
--- collection_user
-drop policy if exists "collection_user_self_all" on collection_user;
-create policy "collection_user_self_all" on collection_user
-  for all using (public.is_own_profile(profile_id));
+-- (collection_user RLS 제거됨 — MVP 단순화 2026-05-06)
 
 -- hori_inventory
 drop policy if exists "hori_inventory_self_all" on hori_inventory;
@@ -280,7 +257,8 @@ begin
 end;
 $$;
 
--- 메인 trigger: learning_events insert → 별 적립 + streak + mastery + collection
+-- 메인 trigger: learning_events insert → 별 적립 + streak + mastery
+-- (도감/카드 분기 제거됨 — MVP 단순화 2026-05-06)
 create or replace function public.handle_learning_event() returns trigger
 language plpgsql security definer
 set search_path = public, pg_temp
@@ -299,7 +277,6 @@ begin
 
   -- 2. 별 적립 — 이벤트 타입별
   if new.event_type = 'page_read' then
-    -- 마지막 페이지인지 확인 (metadata 에서 totalPages, page 비교)
     current_page := (new.metadata->>'page')::int;
     total_pages := (new.metadata->>'totalPages')::int;
     is_last_page := total_pages is not null and current_page is not null
@@ -316,9 +293,14 @@ begin
     insert into public.star_ledger (profile_id, delta, source_type, source_id, metadata)
       values (new.profile_id, (1 * mult)::int, 'game_correct', new.id::text,
               jsonb_build_object('word', new.word, 'gameType', new.game_type));
+
+  elsif new.event_type = 'word_game_completed' then
+    insert into public.star_ledger (profile_id, delta, source_type, source_id, metadata)
+      values (new.profile_id, (1 * mult)::int, 'game_correct', new.id::text,
+              jsonb_build_object('word', new.word, 'gameType', new.game_type));
   end if;
 
-  -- 3. word_mastery upsert (word_correct/wrong/exposed 일 때)
+  -- 3. word_mastery upsert (word_correct/wrong/exposed/spoken 일 때)
   if new.event_type in ('word_correct', 'word_wrong', 'word_exposed', 'word_spoken')
      and new.word is not null then
     insert into public.word_mastery
@@ -378,50 +360,7 @@ begin
       and language = coalesce(new.metadata->>'lang', 'ko');
   end if;
 
-  -- 4. collection_user 상태 전이 (page_read 이벤트)
-  if new.event_type = 'page_read' and new.storybook_id is not null then
-    -- 첫 페이지 → silhouette (해당 storybook 이 sourceBookIds 에 포함된 모든 카드)
-    -- 마지막 페이지 → owned
-    -- 카드 마스터 풀 R2 조회는 서버에서 처리 (이 trigger 는 metadata 에 cardIds 가 있을 때만 동작)
-    declare
-      card_ids text[];
-      cid text;
-    begin
-      card_ids := array(select jsonb_array_elements_text(coalesce(new.metadata->'collectionItemIds', '[]'::jsonb)));
-      foreach cid in array card_ids loop
-        if is_last_page then
-          -- 완독 → owned
-          insert into public.collection_user (profile_id, item_id, status, silhouette_at, owned_at)
-          values (new.profile_id, cid, 'owned', now(), now())
-          on conflict (profile_id, item_id) do update set
-            status = case when collection_user.status in ('locked', 'silhouette')
-                          then 'owned' else collection_user.status end,
-            silhouette_at = coalesce(collection_user.silhouette_at, now()),
-            owned_at = case when collection_user.owned_at is null then now()
-                            else collection_user.owned_at end;
-
-          -- 별 +5 (카드 획득)
-          if not exists (
-            select 1 from public.star_ledger
-            where source_type = 'card_unlock' and source_id = cid
-              and profile_id = new.profile_id
-          ) then
-            insert into public.star_ledger (profile_id, delta, source_type, source_id, metadata)
-              values (new.profile_id, (5 * mult)::int, 'card_unlock', cid,
-                      jsonb_build_object('itemId', cid, 'level', 'owned'));
-          end if;
-        else
-          -- 페이지 1+ → silhouette
-          insert into public.collection_user (profile_id, item_id, status, silhouette_at)
-          values (new.profile_id, cid, 'silhouette', now())
-          on conflict (profile_id, item_id) do update set
-            status = case when collection_user.status = 'locked'
-                          then 'silhouette' else collection_user.status end,
-            silhouette_at = coalesce(collection_user.silhouette_at, now());
-        end if;
-      end loop;
-    end;
-  end if;
+  -- (도감/카드 분기 제거됨 — MVP 단순화 2026-05-06)
 
   return new;
 end;
@@ -519,39 +458,8 @@ revoke all on function public.grant_game_perfect(uuid, text, text) from public;
 grant execute on function public.grant_game_perfect(uuid, text, text) to authenticated;
 
 -- ════════════════════════════════════════════════════════════════════════
--- 12. RPC: 도감 활성 (게임 80%+ 통과 시 클라이언트 호출)
+-- 12. (activate_collection_item RPC 제거됨 — MVP 단순화 2026-05-06)
 -- ════════════════════════════════════════════════════════════════════════
-
-create or replace function public.activate_collection_item(
-  p_profile_id uuid,
-  p_item_id text
-) returns void
-language plpgsql security definer
-set search_path = public, pg_temp
-as $$
-declare
-  mult real;
-begin
-  if not public.is_own_profile(p_profile_id) then
-    raise exception 'not authorized';
-  end if;
-  mult := public.tier_multiplier(p_profile_id);
-
-  update public.collection_user
-    set status = 'active',
-        active_at = coalesce(active_at, now())
-    where profile_id = p_profile_id and item_id = p_item_id and status = 'owned';
-
-  if found then
-    insert into public.star_ledger (profile_id, delta, source_type, source_id, metadata)
-      values (p_profile_id, (10 * mult)::int, 'card_unlock', p_item_id,
-              jsonb_build_object('itemId', p_item_id, 'level', 'active'));
-  end if;
-end;
-$$;
-
-revoke all on function public.activate_collection_item(uuid, text) from public;
-grant execute on function public.activate_collection_item(uuid, text) to authenticated;
 
 -- ════════════════════════════════════════════════════════════════════════
 -- 13. RPC: 호리 아이템 구매 (별 차감 + 인벤토리 추가)
