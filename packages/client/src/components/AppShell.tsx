@@ -89,7 +89,7 @@ export function AppShell() {
           <img src="/logo/logo-kr.png" alt="탱고북" className="h-12 w-auto object-contain" />
         </div>
 
-        {/* 4 axis — 모두 동일 정사각 박스 (정렬 통일). 동화책 / 파닉스 / 어휘 / 내 카드 */}
+        {/* 3 axis — 모두 동일 정사각 박스 (정렬 통일). 동화책 / 파닉스 / 어휘 */}
         <nav className="flex flex-col gap-3 items-center pt-5">
           {PRIMARY_AXES.map((axis) => (
             <PrimaryNavButton key={axis.to} {...axis} />
