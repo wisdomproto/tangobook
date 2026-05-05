@@ -32,7 +32,7 @@ interface WordItem {
  * - A. 누른 단어 Set 누적 (페이지 머무는 동안) + ✓ + coral tint
  * - B. 안 누른 카드 ✨ + idle 호흡 (scale + glow pulse) — "눌러봐!" 유혹
  * - C. 카드 살짝 회전 (idx 별 ±2도) — playful 매력
- * - D. 진척 카운터 (3/N) + 모두 누르면 1.5s 후 자동 도감 navigate
+ * - D. 진척 카운터 (3/N) + 모두 누르면 1.5s 후 어휘 단원으로 자동 navigate
  * - E. imageUrl 있는 KeyObject 만 노출 — 사용자가 큐레이션한 단어 (vocabulary-unification 마이그
  *      잔재 단어는 image 없으니 자동 제외)
  */
@@ -116,7 +116,7 @@ export function WordRevealScreen({
         }
       }, 800);
 
-      // word_exposed emit (Supabase trigger 가 별·도감 자동 적립)
+      // word_exposed emit (Supabase trigger 가 별 자동 적립)
       logEvent({
         type: 'word_exposed',
         storybookId: storybook.id,
@@ -135,14 +135,14 @@ export function WordRevealScreen({
     [storybook.id, storybook.artStyle, currentStyle, logEvent, playAudio, speakText]
   );
 
-  // D: 모두 누르면 1.5s 후 도감으로 자동 이동
+  // D: 모두 누르면 1.5s 후 어휘 단원으로 자동 이동
   useEffect(() => {
     if (!open || autoNavigated) return;
     if (items.length === 0) return;
     if (tappedSet.size < items.length) return;
     setAutoNavigated(true);
     const t = setTimeout(() => {
-      navigate(`/collection/book/${storybook.id}`);
+      navigate(`/vocabulary/book-${storybook.id}`);
     }, 1500);
     return () => clearTimeout(t);
   }, [open, autoNavigated, tappedSet, items.length, navigate, storybook.id]);
@@ -316,7 +316,7 @@ export function WordRevealScreen({
           <p className="text-center text-ink-600 text-sm sm:text-base mb-4 px-4">
             {allTapped ? (
               <span className="text-coral-600 font-black">
-                🎉 다 모았어요! 잠시 후 도감으로 가요…
+                🎉 다 들어봤어요! 잠시 후 어휘 단원으로 가요…
               </span>
             ) : (
               '🖐️ 단어를 눌러 발음을 들어보세요'
@@ -328,20 +328,13 @@ export function WordRevealScreen({
             <div className="flex gap-2 sm:gap-3 justify-center flex-wrap">
               <motion.button
                 whileTap={{ scale: 0.95 }}
-                onClick={() => navigate(`/collection/book/${storybook.id}`)}
+                onClick={onGoToVocabulary}
                 className={cn(
                   'px-4 sm:px-6 py-3 font-bold rounded-full shadow-lg flex items-center gap-2 text-sm sm:text-base transition-all',
                   allTapped
                     ? 'bg-success text-white shadow-success/40 ring-2 ring-success/30'
                     : 'bg-coral-500 hover:bg-coral-600 text-white'
                 )}
-              >
-                🃏 도감 보러 가기
-              </motion.button>
-              <motion.button
-                whileTap={{ scale: 0.95 }}
-                onClick={onGoToVocabulary}
-                className="px-4 sm:px-6 py-3 bg-white hover:bg-cream-50 text-ink-700 font-bold rounded-full shadow-md border-2 border-ink-200 flex items-center gap-2 text-sm sm:text-base"
               >
                 📚 어휘 더 익히기
               </motion.button>

@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useMemo } from 'react';
 import type { VocabularyUnitSummary } from '@tangobook/shared';
 import { Mascot, Skeleton, AppIcon } from '@/design-system';
-import { StarCounter } from '@/features/rewards';
 import { useVocabularyUnits } from '../hooks/useVocabularyUnits';
 import { getCambridgeTopicIcon } from '../lib/cambridge-icon-map';
 
@@ -92,8 +91,6 @@ export function VocabularyHubPage() {
 
   const grouped = useMemo(() => {
     const publicUnits = (units ?? []).filter((u) => u.isPublic);
-    const cambridge = publicUnits.filter((u) => u.source === 'cambridge-starters');
-    const custom = publicUnits.filter((u) => u.source === 'custom');
     const storybook = publicUnits.filter((u) => u.source === 'storybook');
 
     // 동화 단원: folder(category)별 그룹
@@ -116,16 +113,11 @@ export function VocabularyHubPage() {
     });
 
     return {
-      cambridge,
-      custom,
       storybookGroups: orderedCats.map((cat) => ({ cat, units: storybookByCategory.get(cat)! })),
     };
   }, [units]);
 
-  const totalCount =
-    grouped.cambridge.length +
-    grouped.custom.length +
-    grouped.storybookGroups.reduce((s, g) => s + g.units.length, 0);
+  const totalCount = grouped.storybookGroups.reduce((s, g) => s + g.units.length, 0);
 
   const handleClickUnit = (id: string) => navigate(`/vocabulary/${id}`);
 
@@ -145,7 +137,6 @@ export function VocabularyHubPage() {
               </span>
             )}
           </div>
-          <StarCounter />
         </div>
       </header>
 
@@ -163,12 +154,6 @@ export function VocabularyHubPage() {
           </div>
         ) : (
           <>
-            <Section
-              title="Cambridge 토픽"
-              emoji="📚"
-              units={grouped.cambridge}
-              onClickUnit={handleClickUnit}
-            />
             {grouped.storybookGroups.map((g) => (
               <Section
                 key={g.cat}
@@ -178,12 +163,6 @@ export function VocabularyHubPage() {
                 onClickUnit={handleClickUnit}
               />
             ))}
-            <Section
-              title="내 단원"
-              emoji="🎨"
-              units={grouped.custom}
-              onClickUnit={handleClickUnit}
-            />
           </>
         )}
       </main>

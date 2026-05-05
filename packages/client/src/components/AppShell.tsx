@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { Mascot, AppIcon } from '@/design-system';
-import { StarCounter } from '@/features/rewards';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useStorybooks } from '@/features/storybook';
 import { cn } from '@/lib/cn';
@@ -13,8 +12,7 @@ import { cn } from '@/lib/cn';
  * 디자인 타겟: 태블릿 1024-1366 + 4-5세 사용자 → 큰 글자, 큰 터치 타겟, 빈 공간 최소화.
  */
 /**
- * 사이드바 메인 axis — 4축 모두 동일 정사각 박스 디자인 (정렬 통일).
- * 도감 = "내 카드" 라벨 (4-5세 친화. "도감" 은 너무 어렵).
+ * 사이드바 메인 axis — 3축 모두 동일 정사각 박스 디자인 (정렬 통일).
  */
 const PRIMARY_AXES = [
   {
@@ -38,13 +36,6 @@ const PRIMARY_AXES = [
     color: 'amber' as const,
     end: false,
   },
-  {
-    to: '/collection',
-    iconSrc: 'section/collection.png',
-    label: '내 카드',
-    color: 'violet' as const,
-    end: false,
-  },
 ];
 
 /**
@@ -61,8 +52,6 @@ function getPageTitle(
   if (pathname.startsWith('/vocabulary/book-'))
     return { iconSrc: 'tab/vocab.svg', title: '단어 익히기' };
   if (pathname.startsWith('/vocabulary')) return { iconSrc: 'tab/vocab.svg', title: '어휘 마스터' };
-  if (pathname.startsWith('/collection'))
-    return { iconSrc: 'section/collection.png', title: '도감' };
   if (pathname.startsWith('/parent')) return { emoji: '👨‍👩‍👧', title: '부모님 모드' };
   return null;
 }
@@ -140,9 +129,8 @@ export function AppShell() {
             )}
           </div>
 
-          {/* 오른쪽: 별 + 프로필 + 로그아웃 */}
+          {/* 오른쪽: 프로필 + 로그아웃 */}
           <div className="flex items-center gap-3 flex-shrink-0">
-            {activeProfile && <StarCounter />}
             {activeProfile && (
               <div className="px-4 py-2 rounded-full bg-white shadow-soft text-sm font-black text-ink-900">
                 👦 {activeProfile.name}

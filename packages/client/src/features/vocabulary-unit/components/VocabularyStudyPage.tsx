@@ -3,7 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Mascot, Skeleton } from '@/design-system';
-import { StarCounter, useStarBalance } from '@/features/rewards';
+import { useStarBalance } from '@/features/rewards';
 import { useLogEventsBatch } from '@/features/learning';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import type { VocabularyUnitWord } from '@tangobook/shared';
@@ -140,7 +140,6 @@ export function VocabularyStudyPage() {
           <div className="px-4 py-2 rounded-full bg-white shadow-soft text-amber-600 font-black">
             {idx + 1} / {words.length}
           </div>
-          <StarCounter />
           <Link
             to="/library"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition"

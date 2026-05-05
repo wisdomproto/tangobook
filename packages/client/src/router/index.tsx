@@ -21,7 +21,6 @@ import ParentHomePage from '../features/auth/pages/ParentHomePage';
 import ParentReportsPage from '../features/auth/pages/ParentReportsPage';
 import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
 import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
-import { CollectionPage, CategoryPage, BookCardsPage } from '../features/collection';
 import { VocabularyHubPage, VocabularyStudyPage } from '../features/vocabulary-unit';
 
 export const router = createBrowserRouter([
@@ -44,9 +43,9 @@ export const router = createBrowserRouter([
         children: [
           { path: 'library', element: <LibraryPage type="storybook" /> },
           { path: 'library/phonics', element: <LibraryPage type="phonics" /> },
-          { path: 'collection', element: <CollectionPage /> },
-          { path: 'collection/book/:bookId', element: <BookCardsPage /> },
-          { path: 'collection/:categoryId', element: <CategoryPage /> },
+          { path: 'collection', element: <Navigate to="/library" replace /> },
+          { path: 'collection/book/:bookId', element: <Navigate to="/library" replace /> },
+          { path: 'collection/:categoryId', element: <Navigate to="/library" replace /> },
           { path: 'hori-room', element: <Navigate to="/library" replace /> },
           { path: 'vocabulary', element: <VocabularyHubPage /> },
           { path: 'playground', element: <Navigate to="/library" replace /> },

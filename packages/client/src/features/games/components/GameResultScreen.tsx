@@ -1,25 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { useQueryClient } from '@tanstack/react-query';
 import { Mascot } from '@/design-system';
 import { Button } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { useStarBalance } from '@/features/rewards';
-import {
-  collectionApi,
-  useStorybookCardIndex,
-  useCollectionUserState,
-  COLLECTION_USER_KEY,
-} from '@/features/collection';
-import { useAuth } from '@/features/auth/context/AuthContext';
 
 interface GameResultScreenProps {
   score: number;
   total: number;
   onRestart: () => void;
   onBack: () => void;
-  /** 도감 활성 RPC 호출용 (게임 80%+ 통과 시 owned → active 자동 전이) */
+  /** 결과 화면이 어떤 동화에서 호출되었는지 메타 정보 (현재는 사용하지 않지만 시그니처 유지) */
   storybookId?: string;
 }
 
@@ -29,13 +21,7 @@ function computeStars(ratio: number): number {
   return 1;
 }
 
-export function GameResultScreen({
-  score,
-  total,
-  onRestart,
-  onBack,
-  storybookId,
-}: GameResultScreenProps) {
+export function GameResultScreen({ score, total, onRestart, onBack }: GameResultScreenProps) {
   const reduce = useReducedMotion();
   const safeTotal = total || 1;
   const ratio = score / safeTotal;
@@ -90,30 +76,6 @@ export function GameResultScreen({
     if (delta > 0) setSavedDelta(delta);
   }, [balance]);
 
-  // 도감 활성 — 80%+ 통과 시 storybookId 매칭 카드를 active 로 전이 + 토스트
-  const { activeProfile } = useAuth();
-  const { data: storybookIndex } = useStorybookCardIndex();
-  const { statusMap } = useCollectionUserState();
-  const queryClient = useQueryClient();
-  const [activatedCount, setActivatedCount] = useState(0);
-  useEffect(() => {
-    if (!activeProfile?.id || !storybookId) return;
-    if (ratio < 0.8) return;
-    const cardIds = storybookIndex?.[storybookId] ?? [];
-    const ownedCardIds = cardIds.filter((id) => statusMap.get(id) === 'owned');
-    if (ownedCardIds.length === 0) return;
-
-    const profileId = activeProfile.id;
-    void Promise.all(
-      ownedCardIds.map((id) => collectionApi.activateForProfile(profileId, id))
-    ).then(() => {
-      setActivatedCount(ownedCardIds.length);
-      void queryClient.invalidateQueries({ queryKey: COLLECTION_USER_KEY(profileId) });
-      void refetchBalance();
-    });
-    // 마운트 1회만 — 게임 종료 시점 한 번 평가
-  }, []);
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-10 text-center bg-gradient-to-b from-cream-50 via-coral-100 to-peach-200">
       <motion.div
@@ -157,19 +119,6 @@ export function GameResultScreen({
         >
           <span>⭐</span>
           <span>+{savedDelta} 저장됨!</span>
-        </motion.div>
-      )}
-
-      {activatedCount > 0 && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.7, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.4, type: 'spring' }}
-          className="mt-3 inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-success to-success/80 text-white rounded-full font-black shadow-pop"
-          role="status"
-        >
-          <span className="text-lg">✨</span>
-          <span>도감 {activatedCount}장 활성!</span>
         </motion.div>
       )}
 

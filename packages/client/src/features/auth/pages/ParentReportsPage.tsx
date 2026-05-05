@@ -8,7 +8,6 @@ import {
   StorybookReportSection,
   PhonicsReportSection,
   RewardsOverviewCard,
-  CollectionProgressCard,
   HoriInventoryCard,
   PlaygroundStatsCard,
   VocabularyTabContent,
@@ -98,7 +97,6 @@ export default function ParentReportsPage() {
             <RewardsOverviewCard />
           </section>
           <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <CollectionProgressCard />
             <HoriInventoryCard />
           </section>
           <section>

@@ -14,7 +14,6 @@ import {
 import { useLogEvent, useLogEventsBatch } from '@/features/learning';
 import { extractPageWords } from '@/features/learning/lib/extract-page-words';
 import type { Lang } from '@tangobook/shared';
-import { useStorybookCardIndex } from '@/features/collection';
 import { useViewerSettings, type ViewerSettings } from '../hooks/useViewerSettings';
 import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { getPageTtsUrl } from '../lib/page-text';
@@ -161,7 +160,6 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const logEvent = useLogEvent();
   const logBatch = useLogEventsBatch();
   const lastEmittedPageRef = useRef<number | null>(null);
-  const { data: storybookCardIndex } = useStorybookCardIndex();
   useEffect(() => {
     if (!storybook || !storybookId) return;
     if (mode === 'video' || mode === 'games') return;
@@ -175,8 +173,6 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     const narrowLang: Lang = lang === 'en' ? 'en' : 'ko';
     const totalPages = pages.length;
     const isLast = pageNumber >= totalPages;
-    // 이 책에 매칭되는 카드 ID 배열 — 트리거가 silhouette/owned 자동 전이
-    const collectionItemIds = storybookCardIndex?.[storybookId] ?? [];
     logEvent({
       type: 'page_read',
       storybookId,
@@ -188,7 +184,6 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         source: 'storybook',
         // 현재 viewing 중인 그림체 — URL ?style 우선, 베이스 폴백
         style: urlStyle ?? storybook.artStyle ?? undefined,
-        collectionItemIds: collectionItemIds.length > 0 ? collectionItemIds : undefined,
       },
     });
     const words = extractPageWords(storybook, pageNumber, narrowLang);
@@ -208,18 +203,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         }))
       );
     }
-  }, [
-    pageIndex,
-    storybook,
-    storybookId,
-    mode,
-    lang,
-    pages,
-    logEvent,
-    logBatch,
-    urlStyle,
-    storybookCardIndex,
-  ]);
+  }, [pageIndex, storybook, storybookId, mode, lang, pages, logEvent, logBatch, urlStyle]);
 
   // 다음 5페이지 이미지·TTS 미리 버퍼링 (페이지 넘기기 딜레이 제거)
   const PRELOAD_AHEAD = 5;

@@ -15,13 +15,8 @@ import { useEditorLang } from '@/contexts/EditorLangContext';
 import { translationApi } from '@/features/translation/api/translation.api';
 import { ttsApi } from '@/features/tts/api/tts.api';
 import { OtherStyleReference } from '@/features/editor/components/OtherStyleReference';
-import { TTS_VOICES, COLLECTION_CATEGORIES } from '@tangobook/shared';
-import type {
-  Storybook,
-  KeyObject,
-  ImageGenerationResult,
-  CollectionCategoryId,
-} from '@tangobook/shared';
+import { TTS_VOICES } from '@tangobook/shared';
+import type { Storybook, KeyObject, ImageGenerationResult } from '@tangobook/shared';
 
 /** 활성 언어에 맞는 핵심사물 표시 이름 */
 function getKeyObjectName(obj: KeyObject, lang: string): string {
@@ -622,32 +617,6 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
                         {obj.korean || obj.name}
                       </p>
                     )}
-
-                    {/* 도감 카테고리 — 카드 도감 활성/비활성 판단 (Phase 1 §5.2 6 카테고리) */}
-                    <div className="mt-1 flex items-center justify-center">
-                      <select
-                        value={obj.dexCategory ?? ''}
-                        onChange={(e) => {
-                          const v = e.target.value;
-                          onUpdate((draft) => {
-                            const o = draft.key_objects?.[idx];
-                            if (!o) return;
-                            if (v) o.dexCategory = v as CollectionCategoryId;
-                            else delete o.dexCategory;
-                          });
-                          onSave();
-                        }}
-                        className="text-[10px] font-bold rounded-md px-1.5 py-0.5 border border-violet-200 dark:border-slate-600 bg-violet-50 dark:bg-slate-700/50 text-violet-700 dark:text-violet-200 focus:outline-none focus:ring-1 focus:ring-violet-400 cursor-pointer"
-                        title="카드 도감 카테고리 — 미설정 시 도감에 노출되지 않음"
-                      >
-                        <option value="">📕 도감 X</option>
-                        {COLLECTION_CATEGORIES.map((c) => (
-                          <option key={c.id} value={c.id}>
-                            {c.emoji} {c.nameKo}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
 
                     {/* TTS — 활성 언어 이름 발음 */}
                     {(() => {

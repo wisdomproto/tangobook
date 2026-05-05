@@ -321,7 +321,7 @@ function CardBody({
                   }}
                   title={
                     isDefault
-                      ? '대표 그림체 (도감/표지 노출)'
+                      ? '대표 그림체 (라이브러리 표지에 노출)'
                       : '클릭하면 이 책의 대표 그림체로 지정'
                   }
                   className={cn(
