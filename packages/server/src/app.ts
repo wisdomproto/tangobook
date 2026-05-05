@@ -27,7 +27,6 @@ import youtubePresetRoutes from './routes/youtube-preset.routes.js';
 import { speakingRouter } from './routes/speaking.routes.js';
 import bookV2MigrationRoutes from './routes/book-v2-migration.routes.js';
 import bookV2Routes from './routes/book-v2.routes.js';
-import collectionRoutes from './routes/collection.routes.js';
 import horiRoutes from './routes/hori.routes.js';
 import playgroundRoutes from './routes/playground.routes.js';
 import vocabularyUnitRoutes from './routes/vocabulary-unit.routes.js';
@@ -83,7 +82,6 @@ export function createApp() {
   app.use('/api/speaking', speakingRouter);
   app.use('/api/admin/book-v2', bookV2MigrationRoutes);
   app.use('/api/v2/books', bookV2Routes);
-  app.use('/api/collection', collectionRoutes);
   app.use('/api/hori', horiRoutes);
   app.use('/api/playground', playgroundRoutes);
   app.use('/api/vocabulary-units', vocabularyUnitRoutes);
