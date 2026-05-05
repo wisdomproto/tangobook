@@ -37,6 +37,11 @@ DROP TABLE IF EXISTS public.collection_user CASCADE;
 DROP FUNCTION IF EXISTS public.activate_collection_item(uuid, text) CASCADE;
 
 -- ────────────────────────────────────────────────────────────────────────
+-- 2.5 Drop collection_status enum (orphan after CASCADE — Postgres 는 enum 미자동삭제)
+-- ────────────────────────────────────────────────────────────────────────
+DROP TYPE IF EXISTS public.collection_status;
+
+-- ────────────────────────────────────────────────────────────────────────
 -- 3. Rewrite handle_learning_event() trigger function
 --    Source base: scripts/migrations/2026-05-06-word-game-completed.sql
 --    Stripped: 도감 분기 (section 3.5, section 4) + word_game_completed 의
