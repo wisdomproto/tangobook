@@ -1,33 +1,18 @@
-# 별/포인트/카드/호리/놀이터 시스템 (Phase 1-5)
+# 별/포인트/호리/놀이터 시스템 (Phase 1-5)
 
-별 자동 적립 + 카드 도감 + 호리 꾸미기 + 어휘 게임 7종 인프라.
+별 자동 적립 + 호리 꾸미기 + 어휘 게임 7종 인프라.
 
 ## Phase 1: 별 인프라 (2026-05-01)
 
 - 데이터: Supabase `child_profiles.stars_total` + `star_ledger` 거래 원장. SQL: `scripts/supabase-rewards-setup.sql` (적용 완료)
-- 신규 테이블 5종: star_ledger / word_mastery / collection_user / hori_inventory / weekly_missions (전부 RLS 자녀-자기-only)
-- 신규 RPC 5종: get_sr_word_pool / grant_game_perfect / activate_collection_item / purchase_hori_item / complete_weekly_mission
-- 별 적립: Postgres trigger `handle_learning_event()` 가 `learning_events` insert 마다 자동 적립 + word_mastery upsert + collection 상태 전이
+- 신규 테이블: star_ledger / word_mastery / hori_inventory / weekly_missions (전부 RLS 자녀-자기-only)
+- 신규 RPC: get_sr_word_pool / grant_game_perfect / purchase_hori_item / complete_weekly_mission
+- 별 적립: Postgres trigger `handle_learning_event()` 가 `learning_events` insert 마다 자동 적립 + word_mastery upsert
 - 적립 규칙: page_read +1 (마지막 페이지 +5) / word_correct +1 / daily_login +2 / 7일 streak +20. 등급 ×배율 (free 1.0 / plus 1.5 / family 2.0)
 - 별 사용: `validate_star_spend` trigger 가 `hori_item`/`foil_card`/`season_costume` 만 허용 (DB 차원 enforce)
-- 클라: `features/rewards/` — `useStarBalance` (TanStack Query, 5s staleTime + focus refetch) + `StarCounter` (LibraryPage 헤더, +N 토스트)
+- 클라: `features/rewards/` — `useStarBalance` (TanStack Query, 5s staleTime + focus refetch). `StarCounter` 는 게이트된 라우트(Playground·HoriRoom)에서만 노출. AppShell/Vocab 학습 화면 헤더에서는 제거 (MVP simplification, 2026-05-06)
 - GameResultScreen: 종료 후 1.2s refetch → "+N ⭐ 저장됨"
 - 마지막 페이지 감지: ViewerContainer/PhonicsViewer 가 page_read metadata 에 `totalPages` + `lastPage` 포함
-
-## Phase 3: 카드 = 도감 콜렉션 (2026-05-01)
-
-- 데이터: R2 `collection-catalog.json` (마스터 풀, 8 카테고리 × N장) + Supabase `collection_user` (per-user 상태)
-- 8 카테고리: classic 📖 / folktale 🇰🇷 / animal 🐅 / dinosaur 🦖 / plant 🌸 / ocean 🌊 / space 🌌 / life 🏠 (`COLLECTION_CATEGORIES`)
-- 활성 4단계: locked → silhouette (페이지 1+ 읽음) → owned (완독) → active (어휘게임 80%+)
-- 자동 활성: ViewerContainer page_read metadata 에 `collectionItemIds` 자동 채움 → trigger 가 silhouette/owned 전이 + 별 +5. GameResultScreen 80%+ 시 `activate_collection_item` RPC → owned→active + 별 +10
-- 서버: `services/collection.service.ts` (R2 카탈로그 + 메모리 캐시 5min + storybook→cards 역인덱스). routes: `GET /api/collection/catalog`, `GET /api/collection/storybook-index`, `POST /api/collection/items` (admin)
-- 클라: `features/collection/`
-  - api: server fetch + Supabase 직접 (collection_user select / activate RPC)
-  - hooks: `useCollectionCatalog`, `useStorybookCardIndex`, `useCollectionUserState`
-  - `CollectionPage` (`/collection`) — 8 카테고리 그리드 + 진척률 바
-  - `CategoryPage` (`/collection/:categoryId`) — 카드 슬롯 그리드
-  - `CardDetailModal` — 카드 상세 (단계별 정보 + ESC 닫기)
-- 진입점: LibraryPage AuthCornerBar `🃏 카드` 버튼
 
 ## Phase 4: 호리 꾸미기 (2026-05-01)
 
@@ -62,5 +47,5 @@
 - VocabSource 에 `pageImages?: { page, illustrationUrl, style? }[]` 옵셔널 추가
 - 후속: 6 게임 점진 구현, vocabulary-db sync 보강 (pageImages 자동 수집), Daily Word 30초 미니 활동
 
-상세: [memory/rewards-system.md](../../../../../memory/rewards-system.md), [memory/collection-system.md](../../../../../memory/collection-system.md), [memory/hori-room-system.md](../../../../../memory/hori-room-system.md), [memory/playground-system.md](../../../../../memory/playground-system.md)
-스펙: [docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md](../../../../../docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md)
+상세: [memory/rewards-system.md](../../../../../memory/rewards-system.md), [memory/hori-room-system.md](../../../../../memory/hori-room-system.md), [memory/playground-system.md](../../../../../memory/playground-system.md)
+스펙: [docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md](../../../../../docs/superpowers/specs/2026-04-30-rewards-sr-collection-design.md) (Collection 부분은 2026-05-06 MVP simplification 으로 폐기 — [docs/superpowers/specs/2026-05-06-mvp-simplification-design.md](../../../../../docs/superpowers/specs/2026-05-06-mvp-simplification-design.md) 참조)

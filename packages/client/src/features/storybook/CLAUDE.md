@@ -34,7 +34,7 @@ features/storybook/
 ### 정책
 
 - **이미지/TTS 자산**: R2 객체 자체를 복사 (zero-copy CopyObject) — URL 분리, 원본 영향 없음
-- **공유 라이브러리** (`phonics-library/`, `background-music/`, `system-sounds/`, `hori/`, `mascot/`, `strategy-samples/`, `collection-`): URL 그대로 (모든 책이 공유)
+- **공유 라이브러리** (`phonics-library/`, `background-music/`, `system-sounds/`, `hori/`, `mascot/`, `strategy-samples/`): URL 그대로 (모든 책이 공유)
 - **영상** (`audiobookProjects`, `longformProjects`): 복사 X (R2 용량 절약)
 - **styleAssets**: JSON 안에 있어 자동으로 deep clone
 

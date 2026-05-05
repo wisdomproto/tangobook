@@ -55,7 +55,7 @@ features/{name}/{api,hooks,components,index.ts}
 
 ## 디자인 시스템 — 그림체 (2026-05-03)
 - 책마다 `Storybook.artStyle` (마지막 active, 자동 갱신) + `defaultStyle` (사용자 명시 대표) 분리
-- `defaultStyle` = 라이브러리 표지·도감 카드 imageUrl 노출에 우선 사용 (없으면 artStyle fallback)
+- `defaultStyle` = 라이브러리 표지 imageUrl 노출에 우선 사용 (없으면 artStyle fallback)
 - /editor2 그림체 칩에 ⭐/☆ 토글로 대표 지정. `styleAssets[styleId]` 가 그림체별 표지·캐릭터·페이지 일러스트 분리 보관
 
 ## 모듈별 가이드 (해당 폴더 작업 시 자동 로드)
@@ -70,7 +70,6 @@ features/{name}/{api,hooks,components,index.ts}
 - Auth (Supabase) → [features/auth/CLAUDE.md](packages/client/src/features/auth/CLAUDE.md)
 - Learning Reports → [features/learning/CLAUDE.md](packages/client/src/features/learning/CLAUDE.md)
 - 별/호리/놀이터 → [features/rewards/CLAUDE.md](packages/client/src/features/rewards/CLAUDE.md)
-- 카드 도감 (단어 단위, 6 카테고리) → [memory/collection-word-redesign.md](../../Users/101024/.claude/projects/C--projects-tangobook/memory/collection-word-redesign.md)
 - Hori 아케이드 → [features/arcade-games/CLAUDE.md](packages/client/src/features/arcade-games/CLAUDE.md)
 - 어휘 단원 → [features/vocabulary-unit/CLAUDE.md](packages/client/src/features/vocabulary-unit/CLAUDE.md)
 - 횡단 (커리큘럼/자료실/캐싱/자산/snake_case) → [docs/architecture-notes.md](docs/architecture-notes.md)
