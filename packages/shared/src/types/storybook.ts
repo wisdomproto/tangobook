@@ -1,5 +1,3 @@
-import type { CollectionCategoryId } from './collection.js';
-
 // === StorybookType 구분 ===
 export type StorybookType = 'storybook' | 'phonics';
 
@@ -550,11 +548,6 @@ export interface KeyObject {
   definition?: string;
   /** 영어 예문 (학습 카드용). 예: 'The cow eats grass in the field.' */
   example?: string;
-  /**
-   * 도감 카테고리 (Phase 1 §5.2 6 카테고리). 단어 단위 카드 도감 매핑용 (2026-05-03).
-   * 미설정 → 카드 도감에 미노출. Gemini 일괄 분류 후 사람 검수 권장.
-   */
-  dexCategory?: CollectionCategoryId;
 }
 
 export interface KeyObjectImage {

@@ -3,7 +3,6 @@ export * from './types/api.js';
 export * from './types/auth.js';
 export * from './types/learning-events.js';
 export * from './types/rewards.js';
-export * from './types/collection.js';
 export * from './types/hori.js';
 export * from './types/playground.js';
 export * from './types/vocabulary-unit.js';
