@@ -48,6 +48,14 @@ export const router = createBrowserRouter([
           { path: 'collection/:categoryId', element: <Navigate to="/library" replace /> },
           { path: 'hori-room', element: <Navigate to="/library" replace /> },
           { path: 'vocabulary', element: <VocabularyHubPage /> },
+          {
+            path: 'vocabulary/:unitId',
+            element: (
+              <ErrorBoundary>
+                <VocabularyStudyPage />
+              </ErrorBoundary>
+            ),
+          },
           { path: 'playground', element: <Navigate to="/library" replace /> },
           { path: 'games', element: <Navigate to="/library" replace /> },
         ],
@@ -130,14 +138,6 @@ export const router = createBrowserRouter([
       { path: 'games/hori-memory', element: <Navigate to="/library" replace /> },
       { path: 'games/hori-simon', element: <Navigate to="/library" replace /> },
       { path: 'games/hori-jump', element: <Navigate to="/library" replace /> },
-      {
-        path: 'vocabulary/:unitId',
-        element: (
-          <ErrorBoundary>
-            <VocabularyStudyPage />
-          </ErrorBoundary>
-        ),
-      },
       { path: 'playground/word-memory', element: <Navigate to="/library" replace /> },
       { path: 'playground/word-pop', element: <Navigate to="/library" replace /> },
       { path: 'playground/word-fishing', element: <Navigate to="/library" replace /> },
