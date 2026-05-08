@@ -12,55 +12,43 @@ interface Props {
   storybook: Storybook;
   storybookId: string;
   group: StyleGroup;
-  defaultExpanded: boolean;
-  /** 외부 (/editor2) 활성 언어 — 매칭 안내·duplicate 라벨에 사용 */
-  externalLang: string | null;
-  /** 활성 master/version (그룹 본체에서 표시) */
-  activeProjectId: string | null;
-  onSelectProject: (id: string) => void;
+  /** 이 그룹이 펼쳐져 있는지 (accordion) */
+  expanded: boolean;
+  onToggle: () => void;
+  /** 외부 활성 언어 — 본체에 표시할 cell 결정 */
+  activeLang: string;
+  /** 활성 cell 의 project. null = 빈 cell, "+ {lang} 영상 만들기" CTA */
+  activeProject: LongformProject | null;
+  languages: string[];
   onUpdateProject: (
     id: string,
     updates: Partial<Omit<LongformProject, 'id'>> | ((proj: LongformProject) => void)
   ) => void;
   onDeleteProject: (id: string) => void;
-  onAddVersion: (masterId: string, overrideLang?: string) => void;
-  /** 빈 그룹 "+ 첫 영상" CTA — modal 을 이 그림체 default 로 열기 위한 trigger */
-  onAddMaster: (artStyle: string) => void;
+  onAddLanguage: (lang: string) => void;
+  onAddMaster: () => void;
 }
 
 export function LongformProjectGroup({
   storybook,
   storybookId,
   group,
-  defaultExpanded,
-  externalLang,
-  activeProjectId,
-  onSelectProject,
+  expanded,
+  onToggle,
+  activeLang,
+  activeProject,
+  languages,
   onUpdateProject,
   onDeleteProject,
-  onAddVersion,
+  onAddLanguage,
   onAddMaster,
 }: Props) {
-  const [expanded, setExpanded] = useState(defaultExpanded);
   const [currentStep, setCurrentStep] = useState(1);
-
-  // 그림체당 master 1개 강제 — masters[0] 만 보여줌
-  const selectedMaster = group.masters[0] ?? null;
-  const versions = selectedMaster
-    ? [selectedMaster, ...(group.versionsByMaster[selectedMaster.id] ?? [])]
-    : [];
-  const activeVersion = versions.find((v) => v.id === activeProjectId) ?? versions[0] ?? null;
-
-  // 외부 언어 controlled + 매칭 version 없는지
-  const isLangControlled = !!externalLang;
-  const hasMatchingVersion = !isLangControlled
-    ? true
-    : versions.some((v) => (v.language ?? 'ko') === externalLang);
 
   const header = (
     <button
       type="button"
-      onClick={() => setExpanded(!expanded)}
+      onClick={onToggle}
       className="w-full flex items-center justify-between px-5 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
     >
       <div className="flex items-center gap-3">
@@ -73,7 +61,6 @@ export function LongformProjectGroup({
     </button>
   );
 
-  // 접힘
   if (!expanded) {
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
@@ -82,8 +69,8 @@ export function LongformProjectGroup({
     );
   }
 
-  // 빈 그룹 → "+ 첫 영상" CTA
-  if (group.isEmpty || !selectedMaster) {
+  // 빈 그룹 → 첫 영상 CTA
+  if (group.isEmpty) {
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
         {header}
@@ -92,110 +79,125 @@ export function LongformProjectGroup({
             아직 이 그림체로 만든 영상이 없어요.
           </p>
           <button
-            onClick={() => onAddMaster(group.artStyle)}
+            onClick={onAddMaster}
             className="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white text-sm rounded-lg"
           >
-            + 이 그림체로 첫 영상 만들기
+            + 이 그림체로 첫 영상 만들기 ({activeLang})
           </button>
         </div>
       </div>
     );
   }
 
-  // 본체 — master + version step 진행
+  // 언어 칩 row — 활성 강조 + 미존재 언어 = "+ 만들기"
+  const langRow = (
+    <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 flex items-center gap-2 flex-wrap">
+      <span className="text-[10px] font-bold text-slate-500 uppercase mr-1">언어</span>
+      {languages.map((lang) => {
+        const has = !!group.byLanguage[lang];
+        const active = lang === activeLang;
+        const onClick = () => {
+          if (!has) onAddLanguage(lang);
+          // 있는 언어 클릭은 외부 chip 가 결정 (안내 title 로 제공)
+        };
+        const className = [
+          'px-2 py-0.5 rounded text-[11px] font-bold border',
+          active
+            ? 'bg-sky-500 text-white border-sky-500'
+            : has
+              ? 'bg-white text-slate-500 border-slate-300 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-600'
+              : 'bg-amber-50 text-amber-700 border-amber-300 hover:bg-amber-100',
+        ].join(' ');
+        const title = has
+          ? active
+            ? '활성 cell'
+            : `상단 언어 chip 으로 ${lang} 활성화하면 여기 보입니다`
+          : `+ ${lang} 영상 만들기`;
+        return (
+          <button key={lang} onClick={onClick} className={className} title={title}>
+            {lang} {has ? '✓' : '+'}
+          </button>
+        );
+      })}
+    </div>
+  );
+
+  // 활성 cell 비어있음 → "+ {lang} 영상 만들기" CTA
+  if (!activeProject) {
+    return (
+      <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+        {header}
+        {langRow}
+        <div className="p-6 text-center bg-white dark:bg-slate-900">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
+            이 그림체의 <strong>{activeLang}</strong> 영상이 아직 없어요.
+          </p>
+          <button
+            onClick={() => onAddLanguage(activeLang)}
+            className="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white text-sm rounded-lg"
+          >
+            + {activeLang} 영상 만들기
+          </button>
+          <p className="text-[11px] text-slate-400 mt-2">
+            같은 그림체 다른 언어 영상이 있으면 비디오 클립을 자동으로 가져옵니다.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // 활성 cell 본체
   return (
     <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
       {header}
-
-      {/* 외부 언어 controlled 시 매칭 버전 안내 */}
-      {isLangControlled && (
-        <div
-          className={`px-4 py-2 text-xs flex items-center justify-between gap-2 ${
-            hasMatchingVersion
-              ? 'bg-sky-50 dark:bg-sky-900/20 text-sky-700 dark:text-sky-300'
-              : 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300'
-          }`}
-        >
-          <span>
-            {externalLang === 'ko' ? '🇰🇷' : externalLang === 'en' ? '🇺🇸' : '🌐'}{' '}
-            <strong>{externalLang}</strong> 언어 컨트롤 중 ·
-            {hasMatchingVersion ? (
-              <>
-                {' '}
-                매칭 버전: <strong>{activeVersion?.name ?? '—'}</strong>
-              </>
-            ) : (
-              ' 이 언어 버전이 아직 없어요'
-            )}
-          </span>
-          {!hasMatchingVersion && (
-            <button
-              onClick={() => onAddVersion(selectedMaster.id, externalLang)}
-              className="px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white text-xs rounded font-bold"
-            >
-              + {externalLang} 버전 만들기
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* 프로젝트 헤더 (이름 편집 + 작은 버전 추가/삭제 아이콘) */}
+      {langRow}
       <LongformProjectHeader
-        project={selectedMaster}
-        onUpdate={(patch) => onUpdateProject(selectedMaster.id, patch)}
-        onDelete={() => onDeleteProject(selectedMaster.id)}
-        onDuplicate={() => onAddVersion(selectedMaster.id)}
-        duplicateLabel={
-          isLangControlled && !hasMatchingVersion ? `+ ${externalLang} 버전 만들기` : '버전 추가'
-        }
+        project={activeProject}
+        onUpdate={(patch) => onUpdateProject(activeProject.id, patch)}
+        onDelete={() => onDeleteProject(activeProject.id)}
+        onDuplicate={() => onAddLanguage(activeLang)}
+        duplicateLabel="복사"
       />
-
-      {/* 스텝 바 */}
       <StepBar currentStep={currentStep} onStepChange={setCurrentStep} />
-
-      {/* 스텝 컨텐츠 */}
       <div className="p-5">
         {currentStep === 1 && (
           <>
             <PromptAnalysisStep
               storybook={storybook}
-              project={selectedMaster}
-              onUpdate={(updates) => onUpdateProject(selectedMaster.id, updates)}
+              project={activeProject}
+              onUpdate={(updates) => onUpdateProject(activeProject.id, updates)}
             />
-            {(selectedMaster.scenes?.length ?? 0) > 0 && (
+            {(activeProject.scenes?.length ?? 0) > 0 && (
               <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
                 <VideoGenerationStep
                   storybook={storybook}
-                  project={selectedMaster}
-                  onUpdate={(updates) => onUpdateProject(selectedMaster.id, updates)}
+                  project={activeProject}
+                  onUpdate={(updates) => onUpdateProject(activeProject.id, updates)}
                 />
               </div>
             )}
           </>
         )}
 
-        {currentStep === 2 && activeVersion && (
+        {currentStep === 2 && (
           <TimelineEditorStep
             storybook={storybook}
-            project={activeVersion}
-            allProjects={versions}
-            onSelectProject={onSelectProject}
-            onUpdate={(updates) => onUpdateProject(activeVersion.id, updates)}
-            onAddVersion={() => onAddVersion(selectedMaster.id)}
-            onDeleteVersion={
-              activeVersion.parentProjectId ? () => onDeleteProject(activeVersion.id) : undefined
-            }
+            project={activeProject}
+            allProjects={[activeProject]}
+            onSelectProject={() => {}}
+            onUpdate={(updates) => onUpdateProject(activeProject.id, updates)}
+            onAddVersion={() => onAddLanguage(activeLang)}
           />
         )}
 
-        {currentStep === 3 && activeVersion && (
+        {currentStep === 3 && (
           <RenderStep
             storybookId={storybookId}
-            project={activeVersion}
-            allProjects={versions}
-            onUpdate={(updates) => onUpdateProject(activeVersion.id, updates)}
+            project={activeProject}
+            allProjects={[activeProject]}
+            onUpdate={(updates) => onUpdateProject(activeProject.id, updates)}
             onUpdateProject={onUpdateProject}
-            onSelectVersion={onSelectProject}
+            onSelectVersion={() => {}}
           />
         )}
       </div>

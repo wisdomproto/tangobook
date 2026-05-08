@@ -2,36 +2,30 @@ import type { LongformProject, Storybook } from '@tangobook/shared';
 
 export const LEGACY_STYLE_ID = '__legacy';
 
+/** 한 그림체 그룹 — 그 그림체의 master 들. 마이그 후엔 cell = (artStyle, language) 쌍. */
 export interface StyleGroup {
-  /** 그림체 id. legacy 면 '__legacy'. */
   artStyle: string;
-  /** 표시용 라벨 (그림체 id 와 동일하거나 사람 친화적). */
   label: string;
-  /** master 들 (parentProjectId 없는 영상) */
+  /** 이 그림체의 모든 영상 (마이그 후엔 모든 영상이 master) */
   masters: LongformProject[];
-  /** master.id → versions[] (parentProjectId === master.id) */
-  versionsByMaster: Record<string, LongformProject[]>;
-  /** 영상 갯수 (master + versions) */
+  /** 이 그림체에 존재하는 (lang → master). 같은 cell 중복 시 첫 번째 유지. */
+  byLanguage: Record<string, LongformProject>;
   count: number;
-  /** 빈 그룹 여부 (영상 0개) */
   isEmpty: boolean;
 }
 
 /**
- * `storybook.longformProjects` 를 `artStyle` 기준 그룹으로 분류.
- *  - `storybook.availableStyles` 의 모든 그림체 (영상 0개여도 빈 그룹으로 노출)
- *  - + 기존 영상에만 있는 그림체 (legacy 마이그 전 데이터)
- *  - 영상 `artStyle` 미지정 → '__legacy' 그룹
- *
- * 정렬: 영상 있는 그룹 먼저 → availableStyles 순서 → legacy 마지막.
+ * `(artStyle, language)` 매트릭스 시각화용 그룹핑.
+ *  - storybook.availableStyles + 영상이 등장한 그림체 모두 포함 (영상 0개 그룹도 노출)
+ *  - artStyle 미지정 + parentProjectId 있음 → 부모 따라감 (마이그 전 호환)
+ *  - 그래도 미지정 → '__legacy'
  */
 export function groupLongformByStyle(storybook: Storybook): StyleGroup[] {
   const projects = storybook.longformProjects ?? [];
   const availableStyles =
     storybook.availableStyles ?? (storybook.artStyle ? [storybook.artStyle] : []);
-
-  // version 의 artStyle 은 master 를 따라감 (마이그 전 데이터 호환)
   const projectsById = new Map(projects.map((p) => [p.id, p]));
+
   const styleOf = (p: LongformProject): string => {
     if (p.artStyle) return p.artStyle;
     if (p.parentProjectId) {
@@ -41,32 +35,29 @@ export function groupLongformByStyle(storybook: Storybook): StyleGroup[] {
     return LEGACY_STYLE_ID;
   };
 
-  // 1. 등장하는 모든 artStyle 수집
   const styleSet = new Set<string>(availableStyles);
-  for (const p of projects) {
-    styleSet.add(styleOf(p));
-  }
+  for (const p of projects) styleSet.add(styleOf(p));
 
-  // 2. 그림체별로 master + versions 분리
   const result: StyleGroup[] = [];
   for (const style of styleSet) {
     const inStyle = projects.filter((p) => styleOf(p) === style);
-    const masters = inStyle.filter((p) => !p.parentProjectId);
-    const versionsByMaster: Record<string, LongformProject[]> = {};
-    for (const m of masters) {
-      versionsByMaster[m.id] = inStyle.filter((p) => p.parentProjectId === m.id);
+    const byLanguage: Record<string, LongformProject> = {};
+    for (const p of inStyle) {
+      const lang = p.language ?? 'ko';
+      if (!byLanguage[lang]) byLanguage[lang] = p;
     }
+    const langKeys = Object.keys(byLanguage);
     result.push({
       artStyle: style,
       label: style === LEGACY_STYLE_ID ? '그림체 미지정' : style,
-      masters,
-      versionsByMaster,
-      count: inStyle.length,
-      isEmpty: inStyle.length === 0,
+      masters: Object.values(byLanguage),
+      byLanguage,
+      count: langKeys.length,
+      isEmpty: langKeys.length === 0,
     });
   }
 
-  // 3. 정렬: 비어있지 않은 그룹이 먼저 (영상 보존). 같은 비어있지 않은 그룹 안에선 legacy 마지막.
+  // 정렬: 비어있지 않은 그룹 먼저, legacy 마지막, 그 외 availableStyles 순
   result.sort((a, b) => {
     if (a.isEmpty !== b.isEmpty) return a.isEmpty ? 1 : -1;
     if (a.artStyle === LEGACY_STYLE_ID) return 1;

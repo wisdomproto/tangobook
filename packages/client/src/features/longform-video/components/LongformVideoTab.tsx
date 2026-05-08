@@ -2,20 +2,17 @@ import type { Storybook, LongformProject } from '@tangobook/shared';
 import { useState, useMemo, useEffect } from 'react';
 import { useEditorLang } from '@/contexts/EditorLangContext';
 import { groupLongformByStyle } from '../lib/group-by-style';
+import { liftSubMasters } from '../lib/migrate-longform';
 import { LongformProjectGroup } from './LongformProjectGroup';
 import { AddLongformProjectModal } from './AddLongformProjectModal';
 
-interface LongformVideoTabProps {
+interface Props {
   storybook: Storybook;
   onUpdate: (updater: (draft: Storybook) => void) => void;
   onSave: () => void;
 }
 
-function makeDefaultProject(
-  name: string,
-  lang: string,
-  artStyle?: string
-): Omit<LongformProject, 'id'> {
+function makeProject(name: string, lang: string, artStyle?: string): Omit<LongformProject, 'id'> {
   return {
     name,
     aspectRatio: '16:9',
@@ -33,56 +30,57 @@ function makeDefaultProject(
   };
 }
 
-export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoTabProps) {
+/** 같은 그림체 다른 언어 master 의 비디오 클립/SFX/타이밍 share, 텍스트 종속만 비움 */
+function cloneScenesForNewLang(
+  src: LongformProject['scenes'],
+  langChanged: boolean
+): LongformProject['scenes'] {
+  return (src ?? []).map((s) => ({
+    ...s,
+    id: crypto.randomUUID(),
+    trimStart: undefined,
+    trimEnd: undefined,
+    sfxOffset: undefined,
+    ttsOffset: undefined,
+    ttsUrl: langChanged ? undefined : s.ttsUrl,
+    ttsDuration: langChanged ? undefined : s.ttsDuration,
+    subtitles: langChanged ? [] : s.subtitles.map((sub) => ({ ...sub, id: crypto.randomUUID() })),
+  }));
+}
+
+export function LongformVideoTab({ storybook, onUpdate, onSave }: Props) {
   const externalLang = useEditorLang();
-  const externalStyle = storybook.artStyle; // /editor2 외부 chip swap 시 storybook.artStyle 갱신됨
+  const externalStyle = storybook.artStyle;
 
   const allProjects = storybook.longformProjects ?? [];
   const groups = useMemo(() => groupLongformByStyle(storybook), [storybook]);
-  const takenStyles = useMemo(
-    () => groups.filter((g) => g.masters.length > 0).map((g) => g.artStyle),
-    [groups]
-  );
 
-  // 활성 project (master 또는 version)
-  const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
+  // 활성 cell (외부 chip 으로부터 derive)
+  const activeStyle = externalStyle ?? groups.find((g) => !g.isEmpty)?.artStyle ?? null;
+  const activeLang = externalLang ?? 'ko';
+  const activeProject =
+    activeStyle != null
+      ? (groups.find((g) => g.artStyle === activeStyle)?.byLanguage[activeLang] ?? null)
+      : null;
+
+  // accordion: 외부 chip 따라가되 사용자 헤더 클릭 시 override
+  const [overrideExpanded, setOverrideExpanded] = useState<string | null>(null);
+  const expandedStyle = overrideExpanded ?? activeStyle;
+
+  // 외부 그림체 chip 변경 시 override 초기화 (자동 따라가기 복원)
+  useEffect(() => {
+    setOverrideExpanded(null);
+  }, [externalStyle]);
+
   const [modalOpen, setModalOpen] = useState(false);
   const [modalDefaultStyle, setModalDefaultStyle] = useState<string | undefined>(undefined);
-
-  // 첫 active 자동 — 외부 chip 활성 그림체의 master 우선 → 첫 비어있지 않은 그룹의 master
-  useEffect(() => {
-    if (activeProjectId) return;
-    const targetGroup =
-      groups.find((g) => !g.isEmpty && g.artStyle === externalStyle) ??
-      groups.find((g) => !g.isEmpty);
-    if (targetGroup?.masters[0]) setActiveProjectId(targetGroup.masters[0].id);
-  }, [groups, externalStyle, activeProjectId]);
-
-  // 외부 lang 변경 시 활성 master 의 매칭 version 자동 선택
-  useEffect(() => {
-    if (!externalLang || !activeProjectId) return;
-    const cur = allProjects.find((p) => p.id === activeProjectId);
-    if (!cur) return;
-    const masterId = cur.parentProjectId ?? cur.id;
-    const master = allProjects.find((p) => p.id === masterId);
-    if (!master) return;
-    const versions = [master, ...allProjects.filter((p) => p.parentProjectId === masterId)];
-    const match = versions.find((v) => (v.language ?? 'ko') === externalLang);
-    if (match && match.id !== activeProjectId) setActiveProjectId(match.id);
-  }, [externalLang, activeProjectId, allProjects]);
-
-  // 활성 project 가 삭제되면 null 처리
-  useEffect(() => {
-    if (activeProjectId && !allProjects.some((p) => p.id === activeProjectId)) {
-      setActiveProjectId(null);
-    }
-  }, [allProjects, activeProjectId]);
 
   const updateProject = (
     id: string,
     updates: Partial<Omit<LongformProject, 'id'>> | ((proj: LongformProject) => void)
   ) => {
     onUpdate((d) => {
+      liftSubMasters(d);
       const p = d.longformProjects?.find((x) => x.id === id);
       if (!p) return;
       if (typeof updates === 'function') {
@@ -100,67 +98,42 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
   const deleteProject = (id: string) => {
     const target = allProjects.find((p) => p.id === id);
     if (!target) return;
-    const isVersion = !!target.parentProjectId;
-    const msg = isVersion
-      ? `"${target.name}" 버전을 삭제하시겠습니까?`
-      : `"${target.name}" 영상과 모든 버전이 삭제됩니다. 진행할까요?`;
-    if (!window.confirm(msg)) return;
+    if (!window.confirm(`"${target.name}" 영상을 삭제하시겠습니까?`)) return;
     onUpdate((d) => {
-      d.longformProjects = d.longformProjects?.filter((p) =>
-        isVersion ? p.id !== id : p.id !== id && p.parentProjectId !== id
-      );
+      liftSubMasters(d);
+      d.longformProjects = d.longformProjects?.filter((p) => p.id !== id);
     });
     onSave();
-    if (activeProjectId === id) setActiveProjectId(null);
   };
 
-  const addVersion = (masterId: string, overrideLang?: string) => {
-    const master = allProjects.find((p) => p.id === masterId);
-    if (!master) return;
-    const newId = `lf-${Date.now()}`;
-    const targetLang = overrideLang ?? externalLang ?? master.language ?? 'ko';
-    const langChanged = targetLang !== (master.language ?? 'ko');
-    const baseName = (master.name ?? '새 동영상').replace(/\s*\([^)]+\)\s*$/, '');
+  /** 같은 그림체의 다른 언어 cell 만들기 (CTA + langChip "+" 로 호출) */
+  const addLanguageCell = (style: string, lang: string) => {
+    const id = `lf-${Date.now()}`;
     onUpdate((d) => {
+      liftSubMasters(d);
       if (!d.longformProjects) d.longformProjects = [];
-      const m = d.longformProjects.find((p) => p.id === masterId);
-      if (!m) return;
-      // 마이그: 기존 master 가 artStyle 미지정이면 그 시점의 swap 활성 그림체로 채움
-      if (!m.artStyle) {
-        m.artStyle = d.artStyle ?? d.availableStyles?.[0];
-        // 같은 master 의 자식 versions 도 함께 채움 (그룹 단절 방지)
-        for (const v of d.longformProjects ?? []) {
-          if (v.parentProjectId === masterId && !v.artStyle) {
-            v.artStyle = m.artStyle;
-          }
-        }
+      const sameStyle = d.longformProjects.find((p) => p.artStyle === style);
+      const baseName = sameStyle?.name?.replace(/\s*\([^)]+\)\s*$/, '') ?? '새 동영상';
+      const proj: LongformProject = {
+        ...makeProject(`${baseName} (${lang})`, lang, style),
+        id,
+      };
+      if (sameStyle) {
+        const langChanged = (sameStyle.language ?? 'ko') !== lang;
+        proj.scenes = cloneScenesForNewLang(sameStyle.scenes, langChanged);
+        proj.bgmUrl = sameStyle.bgmUrl;
+        proj.bgmVolume = sameStyle.bgmVolume;
+        proj.subtitleStyle = sameStyle.subtitleStyle;
       }
-      const clone = structuredClone(m);
-      clone.id = newId;
-      clone.parentProjectId = masterId;
-      clone.language = targetLang;
-      clone.artStyle = m.artStyle;
-      clone.name = `${baseName} (${targetLang})`;
-      clone.outputUrl = undefined;
-      clone.youtubeUpload = undefined;
-      clone.createdAt = undefined;
-      clone.scenes = (clone.scenes ?? []).map((s) => ({
-        ...s,
-        id: crypto.randomUUID(),
-        trimStart: undefined,
-        trimEnd: undefined,
-        sfxOffset: undefined,
-        ttsOffset: undefined,
-        ttsUrl: langChanged ? undefined : s.ttsUrl,
-        ttsDuration: langChanged ? undefined : s.ttsDuration,
-        subtitles: langChanged
-          ? []
-          : s.subtitles.map((sub) => ({ ...sub, id: crypto.randomUUID() })),
-      }));
-      d.longformProjects.push(clone);
+      d.longformProjects.push(proj);
     });
     onSave();
-    setActiveProjectId(newId);
+  };
+
+  /** 새 그림체 cell 만들기 (모달 confirm). 언어는 활성 외부 lang 으로. */
+  const handleAddMaster = (style: string) => {
+    addLanguageCell(style, activeLang);
+    setModalOpen(false);
   };
 
   const openAddModal = (preselectStyle?: string) => {
@@ -168,21 +141,13 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
     setModalOpen(true);
   };
 
-  const handleAddMaster = (artStyle: string, lang: string, name: string) => {
-    const id = `lf-${Date.now()}`;
-    onUpdate((d) => {
-      if (!d.longformProjects) d.longformProjects = [];
-      d.longformProjects.push({ ...makeDefaultProject(name, lang, artStyle), id });
-    });
-    onSave();
-    setActiveProjectId(id);
-    setModalOpen(false);
-  };
+  // (그림체, activeLang) cell 이미 있는 그림체 = 모달에서 disabled
+  const takenStyles = useMemo(
+    () => groups.filter((g) => g.byLanguage[activeLang]).map((g) => g.artStyle),
+    [groups, activeLang]
+  );
 
-  const totalProjects = allProjects.length;
-
-  // 영상 0개 + 그림체도 없는 케이스 → empty state
-  if (totalProjects === 0 && groups.length === 0) {
+  if (groups.length === 0) {
     return (
       <div className="text-center py-12 text-slate-400 dark:text-slate-500">
         <p className="text-sm">먼저 그림체를 등록한 뒤 영상을 만들 수 있어요.</p>
@@ -193,11 +158,12 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
 
   return (
     <div className="space-y-3">
-      {/* 상단: 제목 + 새 동영상 버튼 */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">동영상</h2>
-          <span className="text-sm text-slate-400 dark:text-slate-500">({totalProjects}개)</span>
+          <span className="text-sm text-slate-400 dark:text-slate-500">
+            ({allProjects.length}개)
+          </span>
         </div>
         <button
           onClick={() => openAddModal()}
@@ -210,45 +176,30 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: LongformVideoT
         </button>
       </div>
 
-      {/* 그림체 그룹들 */}
-      {groups.length === 0 ? (
-        <div className="text-center py-8 text-slate-400 dark:text-slate-500 border border-dashed border-slate-300 dark:border-slate-700 rounded-xl">
-          <p className="text-sm">동영상이 아직 없어요.</p>
-          <button
-            onClick={() => openAddModal()}
-            className="mt-2 text-violet-600 hover:text-violet-700 text-sm underline"
-          >
-            첫 동영상 만들기
-          </button>
-        </div>
-      ) : (
-        groups.map((g) => (
-          <LongformProjectGroup
-            key={g.artStyle}
-            storybook={storybook}
-            storybookId={storybook.id}
-            group={g}
-            defaultExpanded={
-              // 영상 있는 그룹은 항상 펼침 + 외부 chip 활성 그림체 그룹도 펼침
-              !g.isEmpty || g.artStyle === externalStyle
-            }
-            externalLang={externalLang}
-            activeProjectId={activeProjectId}
-            onSelectProject={setActiveProjectId}
-            onUpdateProject={updateProject}
-            onDeleteProject={deleteProject}
-            onAddVersion={addVersion}
-            onAddMaster={(style) => openAddModal(style)}
-          />
-        ))
-      )}
+      {groups.map((g) => (
+        <LongformProjectGroup
+          key={g.artStyle}
+          storybook={storybook}
+          storybookId={storybook.id}
+          group={g}
+          expanded={expandedStyle === g.artStyle}
+          onToggle={() => setOverrideExpanded(expandedStyle === g.artStyle ? null : g.artStyle)}
+          activeLang={activeLang}
+          activeProject={g.artStyle === activeStyle ? activeProject : null}
+          languages={storybook.languages?.length ? storybook.languages : ['ko']}
+          onUpdateProject={updateProject}
+          onDeleteProject={deleteProject}
+          onAddLanguage={(lang) => addLanguageCell(g.artStyle, lang)}
+          onAddMaster={() => openAddModal(g.artStyle)}
+        />
+      ))}
 
       {modalOpen && (
         <AddLongformProjectModal
           storybook={storybook}
           takenStyles={takenStyles}
           defaultStyle={modalDefaultStyle}
-          defaultLang={externalLang ?? 'ko'}
+          activeLang={activeLang}
           onClose={() => setModalOpen(false)}
           onConfirm={handleAddMaster}
         />

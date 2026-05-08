@@ -1,44 +1,36 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { Storybook } from '@tangobook/shared';
 
 interface Props {
   storybook: Storybook;
-  /** 같은 그림체 master 중복 방지: 이미 master 있는 그림체 id 들. */
+  /** (그림체, activeLang) cell 이미 있는 그림체 */
   takenStyles: string[];
-  /** Default 그림체 (외부 chip 활성 또는 storybook.artStyle). */
   defaultStyle?: string;
-  defaultLang?: string;
+  activeLang: string;
   onClose: () => void;
-  onConfirm: (artStyle: string, lang: string, name: string) => void;
+  onConfirm: (artStyle: string) => void;
 }
 
 export function AddLongformProjectModal({
   storybook,
   takenStyles,
   defaultStyle,
-  defaultLang = 'ko',
+  activeLang,
   onClose,
   onConfirm,
 }: Props) {
   const availableStyles =
     storybook.availableStyles ?? (storybook.artStyle ? [storybook.artStyle] : []);
 
-  const initialStyle =
+  const initial =
     defaultStyle && !takenStyles.includes(defaultStyle)
       ? defaultStyle
       : (availableStyles.find((s) => !takenStyles.includes(s)) ?? availableStyles[0] ?? '');
 
-  const [style, setStyle] = useState(initialStyle);
-  const [lang, setLang] = useState(defaultLang);
-  const [name, setName] = useState('');
+  const [style, setStyle] = useState(initial);
 
-  useEffect(() => {
-    setName(style ? `새 동영상 (${style})` : '새 동영상');
-  }, [style]);
-
-  const langs = storybook.languages?.length ? storybook.languages : ['ko'];
   const isStyleTaken = takenStyles.includes(style);
-  const canSubmit = !!style && !isStyleTaken && name.trim().length > 0;
+  const canSubmit = !!style && !isStyleTaken;
 
   return (
     <div
@@ -49,9 +41,13 @@ export function AddLongformProjectModal({
         className="bg-white dark:bg-slate-900 rounded-xl p-6 w-full max-w-md space-y-4 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">+ 새 동영상</h3>
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">+ 새 동영상</h3>
+          <span className="text-xs text-slate-500">
+            언어: <strong>{activeLang}</strong> (상단 언어 chip)
+          </span>
+        </div>
 
-        {/* 그림체 select */}
         <div>
           <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
             그림체
@@ -61,55 +57,27 @@ export function AddLongformProjectModal({
             onChange={(e) => setStyle(e.target.value)}
             className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded text-sm dark:bg-slate-800 dark:text-slate-100"
           >
-            {availableStyles.length === 0 && (
-              <option value="">(그림체 없음 — /editor2 에서 추가하세요)</option>
-            )}
+            {availableStyles.length === 0 && <option value="">(/editor2 에서 그림체 추가)</option>}
             {availableStyles.map((s) => {
               const taken = takenStyles.includes(s);
               return (
                 <option key={s} value={s} disabled={taken}>
                   {s}
-                  {taken ? ' (이미 영상 있음)' : ''}
+                  {taken ? ` (${activeLang} 영상 이미 있음)` : ''}
                 </option>
               );
             })}
           </select>
           {isStyleTaken && (
             <p className="mt-1 text-xs text-amber-600 dark:text-amber-400">
-              이 그림체 영상은 이미 있어요. 그룹에서 "버전 추가" 로 다른 언어를 추가하세요.
+              이 그림체의 {activeLang} 영상은 이미 있어요. 그림체 그룹 펼치면 보입니다.
             </p>
           )}
         </div>
 
-        {/* 언어 select */}
-        <div>
-          <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
-            언어
-          </label>
-          <select
-            value={lang}
-            onChange={(e) => setLang(e.target.value)}
-            className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded text-sm dark:bg-slate-800 dark:text-slate-100"
-          >
-            {langs.map((l) => (
-              <option key={l} value={l}>
-                {l}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* 이름 */}
-        <div>
-          <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
-            이름
-          </label>
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded text-sm dark:bg-slate-800 dark:text-slate-100"
-          />
-        </div>
+        <p className="text-[11px] text-slate-400">
+          같은 그림체의 다른 언어 영상이 있으면 비디오 클립이 자동 복제됩니다.
+        </p>
 
         <div className="flex justify-end gap-2 pt-2">
           <button
@@ -119,7 +87,7 @@ export function AddLongformProjectModal({
             취소
           </button>
           <button
-            onClick={() => onConfirm(style, lang, name)}
+            onClick={() => onConfirm(style)}
             disabled={!canSubmit}
             className="px-4 py-2 text-sm bg-violet-600 hover:bg-violet-700 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed disabled:text-slate-500 text-white rounded font-bold"
           >
