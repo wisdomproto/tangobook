@@ -194,6 +194,9 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: Props) {
           activeLang={activeLang}
           // 펼친 그룹의 본체 = 그 그림체의 (활성 lang) cell. 외부 chip 그림체와 일치 안 해도 OK.
           activeProject={g.byLanguage[activeLang] ?? null}
+          otherStylesWithVideos={groups
+            .filter((other) => other.artStyle !== g.artStyle && !other.isEmpty)
+            .map((other) => ({ style: other.label, langs: Object.keys(other.byLanguage) }))}
           onUpdateProject={updateProject}
           onDeleteProject={deleteProject}
           onAddLanguage={(lang) => addLanguageCell(g.artStyle, lang)}

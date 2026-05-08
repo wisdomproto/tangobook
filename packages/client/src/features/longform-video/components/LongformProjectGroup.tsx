@@ -19,6 +19,8 @@ interface Props {
   activeLang: string;
   /** 활성 cell 의 project. null = 빈 cell, "+ {lang} 영상 만들기" CTA */
   activeProject: LongformProject | null;
+  /** 영상 있는 다른 그림체들 (hint 용). [{ style: 'pixar-3d', langs: ['ko','en'] }, ...] */
+  otherStylesWithVideos: { style: string; langs: string[] }[];
   onUpdateProject: (
     id: string,
     updates: Partial<Omit<LongformProject, 'id'>> | ((proj: LongformProject) => void)
@@ -36,6 +38,7 @@ export function LongformProjectGroup({
   onToggle,
   activeLang,
   activeProject,
+  otherStylesWithVideos,
   onUpdateProject,
   onDeleteProject,
   onAddLanguage,
@@ -78,9 +81,9 @@ export function LongformProjectGroup({
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
         {header}
-        <div className="p-6 text-center bg-white dark:bg-slate-900">
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
-            아직 이 그림체로 만든 영상이 없어요.
+        <div className="p-6 text-center bg-white dark:bg-slate-900 space-y-3">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            <strong>🎨 {group.label}</strong> × <strong>{activeLang}</strong> 영상이 아직 없어요.
           </p>
           <button
             onClick={onAddMaster}
@@ -88,6 +91,13 @@ export function LongformProjectGroup({
           >
             + 이 그림체로 첫 영상 만들기 ({activeLang})
           </button>
+          {otherStylesWithVideos.length > 0 && (
+            <p className="text-[11px] text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
+              💡 다른 그림체에는 영상이 있어요:{' '}
+              {otherStylesWithVideos.map((o) => `${o.style} (${o.langs.join('·')})`).join(', ')} —
+              상단 그림체 chip 변경 시 보입니다.
+            </p>
+          )}
         </div>
       </div>
     );
@@ -95,12 +105,13 @@ export function LongformProjectGroup({
 
   // 활성 cell 비어있음 → "+ {lang} 영상 만들기" CTA
   if (!activeProject) {
+    const sameStyleOtherLangs = Object.keys(group.byLanguage).filter((l) => l !== activeLang);
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
         {header}
-        <div className="p-6 text-center bg-white dark:bg-slate-900">
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
-            이 그림체의 <strong>{activeLang}</strong> 영상이 아직 없어요.
+        <div className="p-6 text-center bg-white dark:bg-slate-900 space-y-3">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            <strong>🎨 {group.label}</strong> × <strong>{activeLang}</strong> 영상이 아직 없어요.
           </p>
           <button
             onClick={() => onAddLanguage(activeLang)}
@@ -108,9 +119,20 @@ export function LongformProjectGroup({
           >
             + {activeLang} 영상 만들기
           </button>
-          <p className="text-[11px] text-slate-400 mt-2">
-            같은 그림체 다른 언어 영상이 있으면 비디오 클립을 자동으로 가져옵니다.
-          </p>
+          {sameStyleOtherLangs.length > 0 && (
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">
+              💡 같은 그림체 다른 언어 영상이 있어요:{' '}
+              <strong>{sameStyleOtherLangs.join(', ')}</strong> — 만들기 시 비디오 클립이 자동
+              복제됩니다.
+            </p>
+          )}
+          {otherStylesWithVideos.length > 0 && (
+            <p className="text-[11px] text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
+              💡 다른 그림체에도 영상이 있어요:{' '}
+              {otherStylesWithVideos.map((o) => `${o.style} (${o.langs.join('·')})`).join(', ')} —
+              상단 그림체 chip 변경 시 보입니다.
+            </p>
+          )}
         </div>
       </div>
     );
