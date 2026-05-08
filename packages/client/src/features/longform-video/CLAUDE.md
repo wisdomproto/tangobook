@@ -99,3 +99,15 @@ server/src/
 - `addVersion()`: master scenes 복제 (clipUrl 포함), 타임라인 편집값(trim/offset)만 리셋
 - **재분석 보존**: pageNumber 매칭된 기존 씬의 `clipUrl`/`clipHistory`/`trim*`/`sfxUrl`/offset/볼륨 유지, 언어 종속(videoPrompt/subtitles/ttsUrl/ttsDuration)만 갱신
 - **자동 fallback**: 자식 버전 씬 clipUrl 누락 시 master 같은 pageNumber에서 복사 (TimelineEditorStep effect)
+
+## 그림체별 그룹화 (2026-05-08)
+
+`storybook.longformProjects` 를 `artStyle` 기준 collapsible 그룹으로 표시. 그림체당 master 1개 강제, 그룹 안에서 lang version 만 추가.
+
+- `LongformProject.artStyle?: string` (optional) — 그룹핑 키
+- `lib/group-by-style.ts` — `groupLongformByStyle(storybook)` 헬퍼. version 의 artStyle 미지정 시 master 따라감 (legacy 호환).
+- `components/LongformProjectGroup.tsx` — 그림체별 collapsible 그룹. 빈 그룹 = "+ 첫 영상" CTA. lang 매칭 없으면 amber 안내 + "+ {lang} 버전 만들기" 큰 버튼.
+- `components/AddLongformProjectModal.tsx` — 그림체 select(이미 master 있는 그림체 disabled) + lang select + 이름.
+- `LongformVideoTab.tsx` — 그룹 list 렌더 + 모달 + activeProjectId 1개 전역. 외부 lang chip 변경 시 활성 master 안에서 매칭 version 자동 선택.
+- **lazy 마이그**: `addVersion` 시 master.artStyle 자동 채움 + 자식 versions 도 cascade. 자동 R2 write X (사용자 액션 트리거 시만).
+- **기본 펼침**: 영상 있는 그룹 모두 + 외부 chip 활성 그림체 그룹.
