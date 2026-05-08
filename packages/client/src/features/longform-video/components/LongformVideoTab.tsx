@@ -63,14 +63,21 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: Props) {
       ? (groups.find((g) => g.artStyle === activeStyle)?.byLanguage[activeLang] ?? null)
       : null;
 
-  // accordion: 외부 chip 따라가되 사용자 헤더 클릭 시 override
-  const [overrideExpanded, setOverrideExpanded] = useState<string | null>(null);
-  const expandedStyle = overrideExpanded ?? activeStyle;
-
-  // 외부 그림체 chip 변경 시 override 초기화 (자동 따라가기 복원)
+  // 펼친 그림체 그룹들 — 사용자 헤더 클릭으로 toggle. 외부 chip 변경 시 그 그림체만 펼침으로 reset.
+  const [expandedStyles, setExpandedStyles] = useState<Set<string>>(() =>
+    activeStyle ? new Set([activeStyle]) : new Set()
+  );
   useEffect(() => {
-    setOverrideExpanded(null);
-  }, [externalStyle]);
+    setExpandedStyles(activeStyle ? new Set([activeStyle]) : new Set());
+  }, [activeStyle]);
+  const toggleExpanded = (style: string) => {
+    setExpandedStyles((prev) => {
+      const next = new Set(prev);
+      if (next.has(style)) next.delete(style);
+      else next.add(style);
+      return next;
+    });
+  };
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalDefaultStyle, setModalDefaultStyle] = useState<string | undefined>(undefined);
@@ -182,8 +189,8 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: Props) {
           storybook={storybook}
           storybookId={storybook.id}
           group={g}
-          expanded={expandedStyle === g.artStyle}
-          onToggle={() => setOverrideExpanded(expandedStyle === g.artStyle ? null : g.artStyle)}
+          expanded={expandedStyles.has(g.artStyle)}
+          onToggle={() => toggleExpanded(g.artStyle)}
           activeLang={activeLang}
           // 펼친 그룹의 본체 = 그 그림체의 (활성 lang) cell. 외부 chip 그림체와 일치 안 해도 OK.
           activeProject={g.byLanguage[activeLang] ?? null}
