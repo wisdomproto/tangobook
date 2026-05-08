@@ -501,7 +501,8 @@ def main():
             input_idx += 1
 
         if bgm_path:
-            args += ["-i", bgm_path]
+            # -stream_loop -1: BGM이 영상보다 짧으면 무한 루프 (silence base 길이로 자동 컷)
+            args += ["-stream_loop", "-1", "-i", bgm_path]
             label = "bgm"
             vol_f = f"volume={bgm_volume:.2f}," if bgm_volume != 1.0 else ""
             filter_parts.append(f"[{input_idx}:a]{vol_f}aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo[{label}]")

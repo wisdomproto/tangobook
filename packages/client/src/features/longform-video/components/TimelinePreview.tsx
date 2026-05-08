@@ -162,7 +162,11 @@ export function TimelinePreview({
         sfx.currentTime = localTime;
       }
       video.play().catch(() => {});
-      if (sfx?.src) sfx.play().catch(() => {});
+      if (sfx?.src) {
+        // play 직전에 volume 명시적 set — slider 변경 직후 race 방지
+        sfx.volume = (currentScene?.sfxVolume ?? 60) / 100;
+        sfx.play().catch(() => {});
+      }
 
       // TTS: delay by TTS_DELAY after scene start
       if (tts?.src) {
@@ -171,6 +175,7 @@ export function TimelinePreview({
           if (Math.abs(tts.currentTime - ttsTime) > 0.3) {
             tts.currentTime = ttsTime;
           }
+          tts.volume = (currentScene?.ttsVolume ?? 70) / 100;
           tts.play().catch(() => {});
         } else {
           tts.pause();
