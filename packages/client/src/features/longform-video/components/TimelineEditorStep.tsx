@@ -5,7 +5,6 @@ import type {
   LongformScene,
   LongformSubtitleEntry,
 } from '@tangobook/shared';
-import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 import { useTimeline, type TrackType } from '../hooks/useTimeline';
 import { getEffectiveDuration } from '../utils/timeline.utils';
 import { TimelinePreview } from './TimelinePreview';
@@ -212,29 +211,6 @@ export function TimelineEditorStep({
       </div>
     );
   }
-
-  // Available languages from storybook pages' translations
-  const availableLanguages = useMemo(() => {
-    const langSet = new Set<string>();
-    langSet.add('ko');
-    for (const page of storybook.pages ?? []) {
-      if (page.translations) {
-        for (const code of Object.keys(page.translations)) {
-          if (page.translations[code]?.text) langSet.add(code);
-        }
-      }
-    }
-    const langs: { code: string; label: string }[] = [];
-    for (const sl of SUPPORTED_LANGUAGES) {
-      if (sl.code === 'ko' || langSet.has(sl.code)) langs.push({ ...sl });
-    }
-    for (const code of langSet) {
-      if (!SUPPORTED_LANGUAGES.some((sl) => sl.code === code)) {
-        langs.push({ code, label: code.toUpperCase() });
-      }
-    }
-    return langs;
-  }, [storybook.pages]);
 
   return (
     <div className="space-y-4">
