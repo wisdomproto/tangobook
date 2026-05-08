@@ -100,14 +100,15 @@ server/src/
 - **재분석 보존**: pageNumber 매칭된 기존 씬의 `clipUrl`/`clipHistory`/`trim*`/`sfxUrl`/offset/볼륨 유지, 언어 종속(videoPrompt/subtitles/ttsUrl/ttsDuration)만 갱신
 - **자동 fallback**: 자식 버전 씬 clipUrl 누락 시 master 같은 pageNumber에서 복사 (TimelineEditorStep effect)
 
-## 그림체별 그룹화 (2026-05-08)
+## 그림체 × 언어 매트릭스 (2026-05-08, 2차 unified)
 
-`storybook.longformProjects` 를 `artStyle` 기준 collapsible 그룹으로 표시. 그림체당 master 1개 강제, 그룹 안에서 lang version 만 추가.
+`storybook.longformProjects` = `(artStyle, language)` 매트릭스. `parentProjectId` 폐기 → 모든 영상이 동등한 master. 외부 chip(/editor2) 이 단일 진실 소스.
 
-- `LongformProject.artStyle?: string` (optional) — 그룹핑 키
-- `lib/group-by-style.ts` — `groupLongformByStyle(storybook)` 헬퍼. version 의 artStyle 미지정 시 master 따라감 (legacy 호환).
-- `components/LongformProjectGroup.tsx` — 그림체별 collapsible 그룹. 빈 그룹 = "+ 첫 영상" CTA. lang 매칭 없으면 amber 안내 + "+ {lang} 버전 만들기" 큰 버튼.
-- `components/AddLongformProjectModal.tsx` — 그림체 select(이미 master 있는 그림체 disabled) + lang select + 이름.
-- `LongformVideoTab.tsx` — 그룹 list 렌더 + 모달 + activeProjectId 1개 전역. 외부 lang chip 변경 시 활성 master 안에서 매칭 version 자동 선택.
-- **lazy 마이그**: `addVersion` 시 master.artStyle 자동 채움 + 자식 versions 도 cascade. 자동 R2 write X (사용자 액션 트리거 시만).
-- **기본 펼침**: 영상 있는 그룹 모두 + 외부 chip 활성 그림체 그룹.
+- `LongformProject.artStyle?: string` (optional, 마이그 fallback) + `language` — 매트릭스 cell 키
+- `lib/migrate-longform.ts:liftSubMasters` — `parentProjectId` 있는 sub-master 를 독립 master 로 lift, artStyle cascade. 사용자 액션(addLang/updateProject/deleteProject) 시 inline. 자동 R2 write X.
+- `lib/group-by-style.ts` — `byLanguage` map per style group. version artStyle 미지정 시 master 따라감.
+- `components/LongformProjectGroup.tsx` — accordion 단일 펼침. 본체 = activeLang cell만. 언어 칩 row (`ko ✓ / en +`). 빈 cell = "+ {lang} 영상 만들기" CTA + "비디오 클립 자동 share" 안내.
+- `components/AddLongformProjectModal.tsx` — 그림체만 (언어는 활성 외부 chip 이 결정).
+- `LongformVideoTab.tsx` — `activeStyle/activeLang` 외부 chip 에서 derive. `expandedStyle` accordion (외부 chip 따라가되 헤더 클릭으로 override). `addLanguageCell` = 같은 그림체 다른 언어 master scenes/bgmUrl/subtitleStyle 자동 복제 (clipUrl/sfxUrl 보존, ttsUrl/subtitles 비움).
+- **외부 그림체 chip swap** → 그 그림체 그룹만 펼침 + 다른 본체 안 보임. 페이지별 영상이 그 그림체 cell 자체 scenes 만 표시.
+- **외부 lang chip swap** → 같은 그룹 안 cell 자동 전환 또는 빈 CTA.
