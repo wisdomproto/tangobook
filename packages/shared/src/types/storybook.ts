@@ -966,6 +966,8 @@ export interface LongformProject {
   name: string;
   aspectRatio: '16:9' | '9:16' | '1:1';
   language: string;
+  /** 이 영상이 어느 그림체로 만들어졌는지 (그룹핑 키). 미지정 시 legacy 그룹. */
+  artStyle?: string;
   promptPresetId?: string;
   scenes: LongformScene[];
   bgmUrl?: string;
