@@ -192,21 +192,26 @@ export function TimelinePreview({
     }
   }, [isPlaying, currentClipUrl, localTime]);
 
-  // Sync BGM playback
+  // Sync BGM playback — modulo BGM duration 으로 루프 흉내. 짧은 BGM 도 영상 끝까지 들림.
+  // (실제 렌더 단계에선 ffmpeg `-stream_loop -1` 로 처리, 미리보기는 audio[loop] + currentTime 동기화 race 때문에
+  //  강제로 currentTime 맞추면 BGM duration 초과 시 무음. modulo 로 회피.)
   useEffect(() => {
     const bgm = bgmRef.current;
     if (!bgm) return;
 
     bgm.volume = (project.bgmVolume ?? 30) / 100;
 
+    const bgmDur = bgm.duration;
+    const targetTime = Number.isFinite(bgmDur) && bgmDur > 0 ? currentTime % bgmDur : currentTime;
+
     if (isPlaying) {
-      if (Math.abs(bgm.currentTime - currentTime) > 0.5) {
-        bgm.currentTime = currentTime;
+      if (Math.abs(bgm.currentTime - targetTime) > 0.5) {
+        bgm.currentTime = targetTime;
       }
       bgm.play().catch(() => {});
     } else {
       bgm.pause();
-      bgm.currentTime = currentTime;
+      bgm.currentTime = targetTime;
     }
   }, [isPlaying, project.bgmUrl, project.bgmVolume, currentTime]);
 

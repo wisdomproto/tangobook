@@ -17,7 +17,7 @@ interface Props {
   onToggle: () => void;
   /** 외부 활성 언어 — 본체에 표시할 cell 결정 */
   activeLang: string;
-  /** 활성 cell 의 project. null = 빈 cell, "+ {lang} 영상 만들기" CTA */
+  /** 활성 cell 의 project. null = 자동 생성 중 (LongformVideoTab 의 useEffect 가 곧 채움) */
   activeProject: LongformProject | null;
   /** 영상 있는 다른 그림체들 (hint 용). [{ style: 'pixar-3d', langs: ['ko','en'] }, ...] */
   otherStylesWithVideos: { style: string; langs: string[] }[];
@@ -26,8 +26,6 @@ interface Props {
     updates: Partial<Omit<LongformProject, 'id'>> | ((proj: LongformProject) => void)
   ) => void;
   onDeleteProject: (id: string) => void;
-  onAddLanguage: (lang: string) => void;
-  onAddMaster: () => void;
 }
 
 export function LongformProjectGroup({
@@ -41,8 +39,6 @@ export function LongformProjectGroup({
   otherStylesWithVideos,
   onUpdateProject,
   onDeleteProject,
-  onAddLanguage,
-  onAddMaster,
 }: Props) {
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -76,61 +72,17 @@ export function LongformProjectGroup({
     );
   }
 
-  // 빈 그룹 → 첫 영상 CTA
-  if (group.isEmpty) {
-    return (
-      <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
-        {header}
-        <div className="p-6 text-center bg-white dark:bg-slate-900 space-y-3">
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            <strong>🎨 {group.label}</strong> × <strong>{activeLang}</strong> 영상이 아직 없어요.
-          </p>
-          <button
-            onClick={onAddMaster}
-            className="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white text-sm rounded-lg"
-          >
-            + 이 그림체로 첫 영상 만들기 ({activeLang})
-          </button>
-          {otherStylesWithVideos.length > 0 && (
-            <p className="text-[11px] text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
-              💡 다른 그림체에는 영상이 있어요:{' '}
-              {otherStylesWithVideos.map((o) => `${o.style} (${o.langs.join('·')})`).join(', ')} —
-              상단 그림체 chip 변경 시 보입니다.
-            </p>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  // 활성 cell 비어있음 → "+ {lang} 영상 만들기" CTA
+  // 빈 cell — LongformVideoTab 의 useEffect 가 (style, lang) chip 활성화 시 자동 생성. 잠깐의 깜빡임 방지.
   if (!activeProject) {
-    const sameStyleOtherLangs = Object.keys(group.byLanguage).filter((l) => l !== activeLang);
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
         {header}
-        <div className="p-6 text-center bg-white dark:bg-slate-900 space-y-3">
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            <strong>🎨 {group.label}</strong> × <strong>{activeLang}</strong> 영상이 아직 없어요.
-          </p>
-          <button
-            onClick={() => onAddLanguage(activeLang)}
-            className="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white text-sm rounded-lg"
-          >
-            + {activeLang} 영상 만들기
-          </button>
-          {sameStyleOtherLangs.length > 0 && (
-            <p className="text-[11px] text-slate-500 dark:text-slate-400">
-              💡 같은 그림체 다른 언어 영상이 있어요:{' '}
-              <strong>{sameStyleOtherLangs.join(', ')}</strong> — 만들기 시 비디오 클립이 자동
-              복제됩니다.
-            </p>
-          )}
+        <div className="p-6 text-center bg-white dark:bg-slate-900 text-xs text-slate-400 dark:text-slate-500">
+          <strong>🎨 {group.label}</strong> × <strong>{activeLang}</strong> 준비 중…
           {otherStylesWithVideos.length > 0 && (
-            <p className="text-[11px] text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
-              💡 다른 그림체에도 영상이 있어요:{' '}
-              {otherStylesWithVideos.map((o) => `${o.style} (${o.langs.join('·')})`).join(', ')} —
-              상단 그림체 chip 변경 시 보입니다.
+            <p className="mt-2 text-[11px] text-slate-400">
+              💡 다른 그림체:{' '}
+              {otherStylesWithVideos.map((o) => `${o.style} (${o.langs.join('·')})`).join(', ')}
             </p>
           )}
         </div>
@@ -161,8 +113,6 @@ export function LongformProjectGroup({
         project={activeProject}
         onUpdate={(patch) => onUpdateProject(activeProject.id, patch)}
         onDelete={() => onDeleteProject(activeProject.id)}
-        onDuplicate={() => onAddLanguage(activeLang)}
-        duplicateLabel="복사"
       />
       {hasAnyMissing && (
         <div className="px-4 py-2 bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800 text-xs text-amber-800 dark:text-amber-200 flex items-center gap-2 flex-wrap">
@@ -214,7 +164,6 @@ export function LongformProjectGroup({
             allProjects={[activeProject]}
             onSelectProject={() => {}}
             onUpdate={(updates) => onUpdateProject(activeProject.id, updates)}
-            onAddVersion={() => onAddLanguage(activeLang)}
           />
         )}
 

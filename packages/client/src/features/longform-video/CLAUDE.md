@@ -107,11 +107,18 @@ server/src/
 - `LongformProject.artStyle?: string` (optional, 마이그 fallback) + `language` — 매트릭스 cell 키
 - `lib/migrate-longform.ts:liftSubMasters` — `parentProjectId` 있는 sub-master 를 독립 master 로 lift + artStyle cascade. 사용자 액션 시 inline 만, 자동 R2 write X.
 - `lib/group-by-style.ts` — `byLanguage` map per style group. version artStyle 미지정 시 master 따라감.
-- `components/LongformProjectGroup.tsx` — collapsible 그룹. 헤더에 mini lang status (`🎨 paper-craft  ko · en  (2개 영상) ▼`). 본체 = activeLang cell만. 빈 cell CTA + 다른 그림체/같은 그림체 다른 언어 hint. 활성 lang 의 page 자료(text/ttsUrl) 누락 시 amber 경고 배너.
-- `components/AddLongformProjectModal.tsx` — 그림체만 (언어는 활성 외부 chip 이 결정).
-- `LongformVideoTab.tsx` — `activeStyle/activeLang` 외부 chip 에서 derive. `expandedStyles: Set<string>` accordion (외부 chip 변경 시 그 그림체로 reset, 사용자 헤더 클릭은 자유 toggle). `addLanguageCell` = 같은 그림체 다른 언어 master scenes/bgmUrl/subtitleStyle 자동 복제 (clipUrl/sfxUrl 보존, ttsUrl/subtitles 비움).
+- `components/LongformProjectGroup.tsx` — collapsible 그룹. 헤더에 mini lang status (`🎨 paper-craft  ko · en  (2개 영상) ▼`). 본체 = activeLang cell만. 활성 lang 의 page 자료(text/ttsUrl) 누락 시 amber 경고 배너.
+- `LongformVideoTab.tsx` — `activeStyle/activeLang` 외부 chip 에서 derive. `expandedStyles: Set<string>` accordion (외부 chip 변경 시 그 그림체로 reset, 사용자 헤더 클릭은 자유 toggle).
 - 외부 그림체 chip swap → 그 그림체 그룹만 default 펼침. 다른 그룹 본체 안 보임 (페이지별 영상이 그 cell 자체 scenes 만 표시).
-- 외부 lang chip swap → 같은 그룹 안 cell 자동 전환 또는 빈 cell CTA.
+- 외부 lang chip swap → 같은 그룹 안 cell 자동 전환 또는 자동 생성.
+
+## Cell 자동 생성 + 자동 채움 (2026-05-08)
+
+명시적인 "+ 새 동영상" / "+ 영상 만들기" 버튼/모달 모두 제거 (`AddLongformProjectModal.tsx` 삭제, header 의 "복사" 버튼 제거). cell 은 외부 (style, lang) chip 선택 시 암묵적으로 등장:
+
+- `LongformVideoTab.tsx` 의 useEffect: `(activeStyle, activeLang)` cell 부재 시 `addLanguageCell` 자동 호출. ref 가드로 StrictMode 더블 실행 + storybook update propagate 전 stale 상태 보호. cell 존재 확인되면 ref 해제 → 삭제 후 재선택 시 다시 생성.
+- `cloneScenesForNewLang(src, langChanged, storybook, lang)`: 같은 그림체 다른 언어 master 의 `clipUrl`/`clipHistory`/`sfxUrl`/`videoPrompt`/타이밍 share. 언어 바뀌면 `storybook.pages[].translations[lang].{text, ttsUrl}` 에서 자동 매핑 (문장 단위 split 으로 자막 빌드). 번역 없으면 빈 채 두고 amber 경고 배너로 안내.
+- `TimelineEditorStep.tsx` 의 useEffect: 기존 cell 의 빈 `ttsUrl`/`subtitles` 도 storybook 번역에서 자동 채움 (옛 마이그 cell 복구용). `hasFillable` 체크로 무한 루프 방지.
 
 ## TimelineEditorStep 단순화 (2026-05-08)
 
@@ -119,8 +126,16 @@ server/src/
 
 - "자막/TTS 언어" select 제거 (외부 lang chip 단일 진실 소스, lang 변경 = cell 전환)
 - Version tabs 1개 cell 일 땐 hide (`allProjects.length > 1` 가드)
+- `parentProjectId` clipUrl fallback effect 폐기 → 위 자동 채움 effect 로 대체
 
-## BGM 무한 루프 + SFX 볼륨 race fix (2026-05-08)
+## 슬라이더 race fix + onSave 디바운스 (2026-05-08)
 
-- `generate_longform.py`: BGM input 에 `-stream_loop -1` → 짧은 BGM 도 영상 끝까지 루프 (amix `duration=first` 가 silence base 길이로 컷)
+- `LongformVideoTab.updateProject`: `onSave` 250ms 디바운스. BGM/SFX/TTS 슬라이더 드래그 시 R2 PUT 다발 발사 → AppLayout 의 `localRef = structuredClone(server)` 리셋 race 로 슬라이더가 "지맘대로 움직이는" 증상 fix. unmount 시 pending flush.
 - `TimelinePreview.tsx`: SFX/TTS `play()` 직전에 `currentScene.sfxVolume/ttsVolume` 명시 set → 슬라이더 빠른 조작 시 race 방지
+
+## BGM 루프 — 미리보기 + 렌더 양쪽 (2026-05-08)
+
+짧은 BGM 도 영상 끝까지 들리도록 양쪽에서 처리:
+
+- 렌더: `generate_longform.py` BGM input 에 `-stream_loop -1` (amix `duration=first` 가 silence base 길이로 컷)
+- 미리보기: `TimelinePreview.tsx` BGM 동기화에서 `bgm.currentTime = currentTime % bgm.duration` modulo. 그냥 `= currentTime` 이면 BGM 30초 + 타임라인 60초일 때 범위 초과로 무음 → `<audio loop>` 가 발동 못 함. duration 미로드 (NaN/0) 일 땐 modulo 안 함.

@@ -24,8 +24,6 @@ interface TimelineEditorStepProps {
     updates: Partial<Omit<LongformProject, 'id'>> | ((proj: LongformProject) => void)
   ) => void;
   onSelectProject: (projectId: string) => void;
-  onAddVersion?: () => void;
-  onDeleteVersion?: () => void;
 }
 
 const TRACK_ORDER: TrackType[] = ['video', 'sfx', 'subtitle', 'tts', 'bgm'];
@@ -36,8 +34,6 @@ export function TimelineEditorStep({
   allProjects,
   onUpdate,
   onSelectProject,
-  onAddVersion,
-  onDeleteVersion,
 }: TimelineEditorStepProps) {
   const timeline = useTimeline(project, onUpdate);
   const [showSubtitleModal, setShowSubtitleModal] = useState(false);
@@ -55,40 +51,53 @@ export function TimelineEditorStep({
       .catch(() => {});
   }, []);
 
-  // 버전 프로젝트 스냅샷: clipUrl이 비어있으면 마스터의 같은 pageNumber에서 복사
+  // 기존 cell 의 빈 ttsUrl/자막 자동 채움 — storybook.pages[].translations[lang] 에 데이터 있는데
+  // cell 이 비어있는 경우 (옛 마이그 cell, 외부에서 번역 후 추가된 경우 등). hasFillable 체크로 무한 루프 방지.
   useEffect(() => {
-    if (!project.parentProjectId) return;
-    const master = allProjects.find((p) => p.id === project.parentProjectId);
-    if (!master) return;
+    if (project.scenes.length === 0) return;
+    const lang = project.language ?? 'ko';
+    const isKo = lang === 'ko';
+    const pageByNum = new Map(storybook.pages.map((p) => [p.pageNumber, p]));
 
-    const missing = project.scenes.some((s) => !s.clipUrl);
-    if (!missing) return;
-
-    const byPage = new Map<number, LongformScene>();
-    for (const ms of master.scenes) {
-      if (typeof ms.pageNumber === 'number') byPage.set(ms.pageNumber, ms);
-    }
-
-    // 실제로 채울 clip 이 있는지 미리 검사 — 없으면 onUpdate 호출 안 함 (무한 루프 방지)
     const hasFillable = project.scenes.some((s) => {
-      if (s.clipUrl) return false;
-      const ms = typeof s.pageNumber === 'number' ? byPage.get(s.pageNumber) : undefined;
-      return !!ms?.clipUrl;
+      const page = pageByNum.get(s.pageNumber);
+      const ttsFromBook = isKo ? page?.ttsUrl : page?.translations?.[lang]?.ttsUrl;
+      const textFromBook = isKo ? page?.text : page?.translations?.[lang]?.text;
+      if (!s.ttsUrl && ttsFromBook) return true;
+      if (s.subtitles.length === 0 && textFromBook?.trim()) return true;
+      return false;
     });
     if (!hasFillable) return;
 
     onUpdate((proj) => {
       for (const s of proj.scenes) {
-        if (s.clipUrl) continue;
-        const ms = typeof s.pageNumber === 'number' ? byPage.get(s.pageNumber) : undefined;
-        if (ms?.clipUrl) {
-          s.clipUrl = ms.clipUrl;
-          if (ms.clipHistory && !s.clipHistory) s.clipHistory = [...ms.clipHistory];
-          if (ms.sfxUrl && !s.sfxUrl) s.sfxUrl = ms.sfxUrl;
+        const page = pageByNum.get(s.pageNumber);
+        const ttsFromBook = isKo ? page?.ttsUrl : page?.translations?.[lang]?.ttsUrl;
+        const textFromBook = isKo ? page?.text : page?.translations?.[lang]?.text;
+        if (!s.ttsUrl && ttsFromBook) s.ttsUrl = ttsFromBook;
+        if (s.subtitles.length === 0 && textFromBook?.trim()) {
+          const sentences = textFromBook
+            .split(/(?<=[.!?。!?])\s*/)
+            .map((t) => t.trim())
+            .filter(Boolean);
+          const dur = s.clipDuration;
+          if (sentences.length === 1) {
+            s.subtitles = [
+              { id: crypto.randomUUID(), text: sentences[0], startTime: 0, endTime: dur },
+            ];
+          } else if (sentences.length > 1) {
+            const sliceDur = dur / sentences.length;
+            s.subtitles = sentences.map((sent, i) => ({
+              id: crypto.randomUUID(),
+              text: sent,
+              startTime: Math.round(i * sliceDur * 100) / 100,
+              endTime: Math.round((i + 1) * sliceDur * 100) / 100,
+            }));
+          }
         }
       }
     });
-  }, [project.id, project.parentProjectId, allProjects, project.scenes, onUpdate]);
+  }, [project.id, project.language, project.scenes, storybook.pages, onUpdate]);
 
   const stopPreview = useCallback(() => {
     if (previewAudioRef.current) {

@@ -1,10 +1,9 @@
 import type { Storybook, LongformProject } from '@tangobook/shared';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { useEditorLang } from '@/contexts/EditorLangContext';
 import { groupLongformByStyle } from '../lib/group-by-style';
 import { liftSubMasters } from '../lib/migrate-longform';
 import { LongformProjectGroup } from './LongformProjectGroup';
-import { AddLongformProjectModal } from './AddLongformProjectModal';
 
 interface Props {
   storybook: Storybook;
@@ -30,22 +29,68 @@ function makeProject(name: string, lang: string, artStyle?: string): Omit<Longfo
   };
 }
 
-/** 같은 그림체 다른 언어 master 의 비디오 클립/SFX/타이밍 share, 텍스트 종속만 비움 */
+/**
+ * 같은 그림체 다른 언어 master 의 비디오 클립/SFX/타이밍 share.
+ * 언어 바뀌면 ttsUrl/자막 비우는 대신 storybook.pages[].translations[lang] 에서 자동 매핑 —
+ * 사용자가 /editor2 에서 번역/TTS 를 미리 채워두면 cell 생성 즉시 타임라인이 사용 가능.
+ * 번역 데이터 없으면 빈 채로 두고 Step 1 의 "수동 제작/AI 분석" 을 안내 (langDataStatus 배너).
+ */
 function cloneScenesForNewLang(
   src: LongformProject['scenes'],
-  langChanged: boolean
+  langChanged: boolean,
+  storybook: Storybook,
+  targetLang: string
 ): LongformProject['scenes'] {
-  return (src ?? []).map((s) => ({
-    ...s,
-    id: crypto.randomUUID(),
-    trimStart: undefined,
-    trimEnd: undefined,
-    sfxOffset: undefined,
-    ttsOffset: undefined,
-    ttsUrl: langChanged ? undefined : s.ttsUrl,
-    ttsDuration: langChanged ? undefined : s.ttsDuration,
-    subtitles: langChanged ? [] : s.subtitles.map((sub) => ({ ...sub, id: crypto.randomUUID() })),
-  }));
+  if (!langChanged) {
+    return (src ?? []).map((s) => ({
+      ...s,
+      id: crypto.randomUUID(),
+      trimStart: undefined,
+      trimEnd: undefined,
+      sfxOffset: undefined,
+      ttsOffset: undefined,
+      subtitles: s.subtitles.map((sub) => ({ ...sub, id: crypto.randomUUID() })),
+    }));
+  }
+
+  const isKo = targetLang === 'ko';
+  const pageByNum = new Map(storybook.pages.map((p) => [p.pageNumber, p]));
+
+  return (src ?? []).map((s) => {
+    const page = typeof s.pageNumber === 'number' ? pageByNum.get(s.pageNumber) : undefined;
+    const text = isKo ? page?.text : page?.translations?.[targetLang]?.text;
+    const ttsUrl = isKo ? page?.ttsUrl : page?.translations?.[targetLang]?.ttsUrl;
+
+    const sentences = (text ?? '')
+      .split(/(?<=[.!?。！？])\s*/)
+      .map((t) => t.trim())
+      .filter(Boolean);
+    const dur = s.clipDuration;
+    let subtitles: LongformProject['scenes'][number]['subtitles'] = [];
+    if (sentences.length === 1) {
+      subtitles = [{ id: crypto.randomUUID(), text: sentences[0], startTime: 0, endTime: dur }];
+    } else if (sentences.length > 1) {
+      const sliceDur = dur / sentences.length;
+      subtitles = sentences.map((sent, i) => ({
+        id: crypto.randomUUID(),
+        text: sent,
+        startTime: Math.round(i * sliceDur * 100) / 100,
+        endTime: Math.round((i + 1) * sliceDur * 100) / 100,
+      }));
+    }
+
+    return {
+      ...s,
+      id: crypto.randomUUID(),
+      trimStart: undefined,
+      trimEnd: undefined,
+      sfxOffset: undefined,
+      ttsOffset: undefined,
+      ttsUrl,
+      ttsDuration: undefined,
+      subtitles,
+    };
+  });
 }
 
 export function LongformVideoTab({ storybook, onUpdate, onSave }: Props) {
@@ -79,8 +124,30 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: Props) {
     });
   };
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalDefaultStyle, setModalDefaultStyle] = useState<string | undefined>(undefined);
+  // 디바운스된 onSave — 슬라이더 드래그 등 빠른 연속 update 시 R2 PUT race 방지.
+  // 응답이 out-of-order 도착하면 AppLayout 이 localRef 를 옛 값으로 리셋해 슬라이더가
+  // "지맘대로 움직이는" 증상이 나옴. 마지막 변경 후 250ms 정적이면 1회만 save.
+  // unmount 시 pending 변경 누락 방지 위해 flush.
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const onSaveRef = useRef(onSave);
+  onSaveRef.current = onSave;
+  useEffect(
+    () => () => {
+      if (saveTimerRef.current) {
+        clearTimeout(saveTimerRef.current);
+        saveTimerRef.current = null;
+        onSaveRef.current();
+      }
+    },
+    []
+  );
+  const scheduleSave = () => {
+    if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+    saveTimerRef.current = setTimeout(() => {
+      saveTimerRef.current = null;
+      onSave();
+    }, 250);
+  };
 
   const updateProject = (
     id: string,
@@ -99,7 +166,7 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: Props) {
         }
       }
     });
-    onSave();
+    scheduleSave();
   };
 
   const deleteProject = (id: string) => {
@@ -113,7 +180,11 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: Props) {
     onSave();
   };
 
-  /** 같은 그림체의 다른 언어 cell 만들기 (CTA + langChip "+" 로 호출) */
+  /**
+   * (style, lang) cell 자동 생성 — 같은 그림체에 다른 언어 cell 있으면 clipUrl/SFX/BGM 공유,
+   * storybook.pages[].translations[lang] 에서 ttsUrl/자막 자동 매핑.
+   * 같은 그림체 cell 이 없으면 빈 cell — 사용자는 Step 1 에서 분석/생성.
+   */
   const addLanguageCell = (style: string, lang: string) => {
     const id = `lf-${Date.now()}`;
     onUpdate((d) => {
@@ -127,7 +198,7 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: Props) {
       };
       if (sameStyle) {
         const langChanged = (sameStyle.language ?? 'ko') !== lang;
-        proj.scenes = cloneScenesForNewLang(sameStyle.scenes, langChanged);
+        proj.scenes = cloneScenesForNewLang(sameStyle.scenes, langChanged, storybook, lang);
         proj.bgmUrl = sameStyle.bgmUrl;
         proj.bgmVolume = sameStyle.bgmVolume;
         proj.subtitleStyle = sameStyle.subtitleStyle;
@@ -137,22 +208,23 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: Props) {
     onSave();
   };
 
-  /** 새 그림체 cell 만들기 (모달 confirm). 언어는 활성 외부 lang 으로. */
-  const handleAddMaster = (style: string) => {
-    addLanguageCell(style, activeLang);
-    setModalOpen(false);
-  };
-
-  const openAddModal = (preselectStyle?: string) => {
-    setModalDefaultStyle(preselectStyle ?? externalStyle);
-    setModalOpen(true);
-  };
-
-  // (그림체, activeLang) cell 이미 있는 그림체 = 모달에서 disabled
-  const takenStyles = useMemo(
-    () => groups.filter((g) => g.byLanguage[activeLang]).map((g) => g.artStyle),
-    [groups, activeLang]
-  );
+  // 외부 (style, lang) chip 변경 시 cell 없으면 자동 생성.
+  // ref 가드: StrictMode dev 의 effect 더블 실행 + storybook update propagate 전 ref 가 stale 한 동안 중복 create 방지.
+  // cell 존재 확인되면 ref 해제 → 추후 삭제 시 재생성 가능.
+  const lastAutoCreateKeyRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!activeStyle) return;
+    const group = groups.find((g) => g.artStyle === activeStyle);
+    if (!group) return;
+    if (group.byLanguage[activeLang]) {
+      lastAutoCreateKeyRef.current = null;
+      return;
+    }
+    const key = `${activeStyle}::${activeLang}`;
+    if (lastAutoCreateKeyRef.current === key) return;
+    lastAutoCreateKeyRef.current = key;
+    addLanguageCell(activeStyle, activeLang);
+  }, [activeStyle, activeLang, groups]);
 
   if (groups.length === 0) {
     return (
@@ -165,22 +237,9 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: Props) {
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">동영상</h2>
-          <span className="text-sm text-slate-400 dark:text-slate-500">
-            ({allProjects.length}개)
-          </span>
-        </div>
-        <button
-          onClick={() => openAddModal()}
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-violet-600 hover:bg-violet-700 text-white text-sm rounded-lg transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
-          새 동영상
-        </button>
+      <div className="flex items-center gap-2">
+        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100">동영상</h2>
+        <span className="text-sm text-slate-400 dark:text-slate-500">({allProjects.length}개)</span>
       </div>
 
       {groups.map((g) => (
@@ -192,28 +251,14 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: Props) {
           expanded={expandedStyles.has(g.artStyle)}
           onToggle={() => toggleExpanded(g.artStyle)}
           activeLang={activeLang}
-          // 펼친 그룹의 본체 = 그 그림체의 (활성 lang) cell. 외부 chip 그림체와 일치 안 해도 OK.
           activeProject={g.byLanguage[activeLang] ?? null}
           otherStylesWithVideos={groups
             .filter((other) => other.artStyle !== g.artStyle && !other.isEmpty)
             .map((other) => ({ style: other.label, langs: Object.keys(other.byLanguage) }))}
           onUpdateProject={updateProject}
           onDeleteProject={deleteProject}
-          onAddLanguage={(lang) => addLanguageCell(g.artStyle, lang)}
-          onAddMaster={() => openAddModal(g.artStyle)}
         />
       ))}
-
-      {modalOpen && (
-        <AddLongformProjectModal
-          storybook={storybook}
-          takenStyles={takenStyles}
-          defaultStyle={modalDefaultStyle}
-          activeLang={activeLang}
-          onClose={() => setModalOpen(false)}
-          onConfirm={handleAddMaster}
-        />
-      )}
     </div>
   );
 }
