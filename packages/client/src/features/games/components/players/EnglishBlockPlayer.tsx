@@ -338,6 +338,12 @@ export function EnglishBlockPlayer({
 
   return (
     <div className="min-h-full flex flex-col bg-gradient-to-br from-cream-50 to-peach-100">
+      <button
+        onClick={onBack}
+        className="self-start m-4 inline-flex items-center gap-2 px-5 py-3 text-lg rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition"
+      >
+        ← 돌아가기
+      </button>
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
 
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 sm:py-6 gap-4 sm:gap-6">
@@ -407,13 +413,6 @@ export function EnglishBlockPlayer({
           <div className="flex flex-wrap gap-1.5 sm:gap-2">{ALL_VOWELS.map(renderBlock)}</div>
         </div>
       </div>
-
-      <button
-        onClick={onBack}
-        className="shrink-0 py-3 text-lg text-ink-900 hover:text-ink-900 transition-colors text-center bg-white/50"
-      >
-        ← 돌아가기
-      </button>
     </div>
   );
 }

@@ -352,6 +352,12 @@ export function KoreanBlockPlayer({
 
   return (
     <div className="min-h-full flex flex-col bg-gradient-to-br from-cream-50 to-peach-100">
+      <button
+        onClick={onBack}
+        className="self-start m-4 inline-flex items-center gap-2 px-5 py-3 text-lg rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition"
+      >
+        ← 돌아가기
+      </button>
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex-1 flex flex-col items-center gap-4 sm:gap-5 w-full max-h-[calc(100vh-4rem)] overflow-y-auto px-2 py-4">
         <GameProgressBar current={currentIndex} total={items.length} score={score} />
@@ -444,13 +450,6 @@ export function KoreanBlockPlayer({
           </button>
         </div>
       </div>
-
-      <button
-        onClick={onBack}
-        className="shrink-0 py-3 text-lg text-ink-900 hover:text-ink-900 transition-colors text-center bg-white/50"
-      >
-        ← 돌아가기
-      </button>
     </div>
   );
 }

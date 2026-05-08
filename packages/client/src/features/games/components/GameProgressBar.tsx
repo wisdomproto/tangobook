@@ -7,9 +7,12 @@ interface GameProgressBarProps {
 }
 
 /**
- * 게임 진행 도트 + 별점 표시.
+ * 게임 진행 도트 + 정답 점수 표시.
  * - total ≤ 11: 도트 시각화 (현재 idx는 coral-500 확장)
  * - total > 11: compact 모드 (숫자만)
+ *
+ * mvp-simplification 정책: 학습자 화면 별 UI 전부 hide.
+ * ⭐ 아이콘 → ✓ 정답 표시.
  */
 export function GameProgressBar({ current, total, score }: GameProgressBarProps) {
   if (total <= 0) return null;
@@ -38,8 +41,8 @@ export function GameProgressBar({ current, total, score }: GameProgressBarProps)
           ))}
         </div>
       )}
-      <span className="font-black text-ink-900 text-lg flex items-center gap-1">
-        <span>⭐</span>
+      <span className="font-black text-success text-lg flex items-center gap-1">
+        <span>✓</span>
         <span>{score}</span>
       </span>
     </div>

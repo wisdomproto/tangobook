@@ -22,19 +22,19 @@ interface GamePlayerLayoutProps {
   maxWidth?: MaxWidth;
 }
 
-/** 전체 게임 플레이어 공통 래퍼 — 센터링 + 반응형 max-width + 돌아가기 버튼 */
+/** 전체 게임 플레이어 공통 래퍼 — 센터링 + 반응형 max-width + 좌상단 돌아가기 버튼 (단원 목록 back 과 통일) */
 export function GamePlayerLayout({ children, onBack, maxWidth = '2xl' }: GamePlayerLayoutProps) {
   return (
-    <div className="min-h-full flex flex-col items-center justify-center px-2 sm:px-4 py-4 sm:py-6">
-      <div className={`w-full ${MAX_W[maxWidth]}`}>{children}</div>
+    <div className="min-h-full flex flex-col px-4 sm:px-6 py-4 sm:py-6">
       {onBack && (
         <button
           onClick={onBack}
-          className="mt-4 sm:mt-6 shrink-0 text-sm text-ink-500 hover:text-ink-700 dark:text-peach-200/60 dark:hover:text-peach-200 transition-colors"
+          className="self-start mb-4 inline-flex items-center gap-2 px-5 py-3 text-lg rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition"
         >
           ← 돌아가기
         </button>
       )}
+      <div className={`w-full mx-auto ${MAX_W[maxWidth]}`}>{children}</div>
     </div>
   );
 }
