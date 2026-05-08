@@ -270,104 +270,26 @@ export function TimelineEditorStep({
         </div>
       )}
 
-      {/* Version tabs */}
-      <div className="flex items-center gap-2 flex-wrap">
-        {allProjects.map((p) => (
-          <button
-            key={p.id}
-            onClick={() => onSelectProject(p.id)}
-            className={`px-3 py-2 text-sm rounded-lg border transition-colors ${
-              p.id === project.id
-                ? 'border-violet-500 bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 ring-1 ring-violet-500'
-                : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
-            }`}
-          >
-            <span className="font-medium">{p.name}</span>
-            <span className="ml-1.5 text-xs opacity-60">{p.language?.toUpperCase() ?? 'KO'}</span>
-            {p.outputUrl && <span className="ml-1 text-green-500 text-xs">✓</span>}
-          </button>
-        ))}
-        {onAddVersion && (
-          <button
-            onClick={onAddVersion}
-            className="px-2.5 py-2 text-sm rounded-lg border border-dashed border-slate-300 dark:border-slate-600 text-slate-400 hover:text-violet-500 hover:border-violet-400 transition-colors"
-            title="버전 추가"
-          >
-            + 버전
-          </button>
-        )}
-        {onDeleteVersion && (
-          <button
-            onClick={onDeleteVersion}
-            className="px-2 py-2 text-xs text-slate-400 hover:text-red-500 transition-colors"
-            title="현재 버전 삭제"
-          >
-            삭제
-          </button>
-        )}
-      </div>
-
-      {/* Project name + Language selector */}
-      <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-        <input
-          type="text"
-          value={project.name}
-          onChange={(e) => onUpdate({ name: e.target.value })}
-          className="text-sm font-medium text-slate-700 dark:text-slate-200 bg-transparent border-b border-transparent hover:border-slate-300 dark:hover:border-slate-600 focus:outline-none focus:border-violet-500 transition-colors min-w-0 max-w-[200px]"
-          placeholder="프로젝트 이름"
-        />
-        <span className="text-slate-300 dark:text-slate-600">|</span>
-        <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
-          자막/TTS 언어
-        </span>
-        <select
-          value={project.language}
-          onChange={(e) => {
-            const newLang = e.target.value;
-            const pages = storybook.pages ?? [];
-
-            // 언어 변경 시 자막 텍스트 + TTS URL 교체
-            const updatedScenes = project.scenes.map((scene) => {
-              const page = pages.find((p) => p.pageNumber === scene.pageNumber);
-              if (!page) return { ...scene };
-
-              const text =
-                newLang !== 'ko' && page.translations?.[newLang]?.text
-                  ? page.translations[newLang].text
-                  : page.text;
-              const ttsUrl =
-                newLang !== 'ko' && page.translations?.[newLang]?.ttsUrl
-                  ? page.translations[newLang].ttsUrl
-                  : page.ttsUrl;
-
-              // 문장 분리 → 자막 재생성
-              const sentences = text
-                .split(/(?<=[.!?。])\s*/)
-                .map((s) => s.trim())
-                .filter((s) => s.length > 0);
-              const dur = scene.clipDuration - (scene.trimStart ?? 0) - (scene.trimEnd ?? 0);
-              const perSentence = sentences.length > 0 ? dur / sentences.length : dur;
-              const subtitles = sentences.map((t, i) => ({
-                id: crypto.randomUUID(),
-                text: t,
-                startTime: +(i * perSentence).toFixed(2),
-                endTime: +((i + 1) * perSentence).toFixed(2),
-              }));
-
-              return { ...scene, ttsUrl, subtitles };
-            });
-
-            onUpdate({ language: newLang, scenes: updatedScenes });
-          }}
-          className="px-2 py-1 rounded text-sm bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-1 focus:ring-violet-500"
-        >
-          {availableLanguages.map((lang) => (
-            <option key={lang.code} value={lang.code}>
-              {lang.label}
-            </option>
+      {/* Version tabs — 통일 모델에선 단일 cell 만 전달되므로 1개일 땐 표시 X */}
+      {allProjects.length > 1 && (
+        <div className="flex items-center gap-2 flex-wrap">
+          {allProjects.map((p) => (
+            <button
+              key={p.id}
+              onClick={() => onSelectProject(p.id)}
+              className={`px-3 py-2 text-sm rounded-lg border transition-colors ${
+                p.id === project.id
+                  ? 'border-violet-500 bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 ring-1 ring-violet-500'
+                  : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500'
+              }`}
+            >
+              <span className="font-medium">{p.name}</span>
+              <span className="ml-1.5 text-xs opacity-60">{p.language?.toUpperCase() ?? 'KO'}</span>
+              {p.outputUrl && <span className="ml-1 text-green-500 text-xs">✓</span>}
+            </button>
           ))}
-        </select>
-      </div>
+        </div>
+      )}
 
       {/* Preview */}
       <LongformPreviewFrame project={project} timeline={timeline} />

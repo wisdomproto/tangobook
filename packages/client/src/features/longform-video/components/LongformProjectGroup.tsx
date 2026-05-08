@@ -138,7 +138,22 @@ export function LongformProjectGroup({
     );
   }
 
-  // 활성 cell 본체
+  // 활성 cell 본체 — 자막/TTS 원본 누락 체크 (storybook.pages 기준)
+  const pages = storybook.pages ?? [];
+  const langDataStatus = pages.reduce(
+    (acc, p) => {
+      const isKo = activeLang === 'ko';
+      const text = isKo ? p.text : p.translations?.[activeLang]?.text;
+      const ttsUrl = isKo ? p.ttsUrl : p.translations?.[activeLang]?.ttsUrl;
+      if (!text) acc.missingText++;
+      if (!ttsUrl) acc.missingTts++;
+      acc.total++;
+      return acc;
+    },
+    { missingText: 0, missingTts: 0, total: 0 }
+  );
+  const hasAnyMissing = langDataStatus.missingText > 0 || langDataStatus.missingTts > 0;
+
   return (
     <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
       {header}
@@ -149,6 +164,28 @@ export function LongformProjectGroup({
         onDuplicate={() => onAddLanguage(activeLang)}
         duplicateLabel="복사"
       />
+      {hasAnyMissing && (
+        <div className="px-4 py-2 bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800 text-xs text-amber-800 dark:text-amber-200 flex items-center gap-2 flex-wrap">
+          <span>⚠️</span>
+          <span>
+            <strong>{activeLang}</strong> 원본 데이터 부족:
+            {langDataStatus.missingText > 0 && (
+              <span className="ml-1">
+                자막 텍스트 {langDataStatus.missingText}/{langDataStatus.total}장 누락
+              </span>
+            )}
+            {langDataStatus.missingText > 0 && langDataStatus.missingTts > 0 && <span> · </span>}
+            {langDataStatus.missingTts > 0 && (
+              <span>
+                TTS 음성 {langDataStatus.missingTts}/{langDataStatus.total}장 누락
+              </span>
+            )}
+          </span>
+          <span className="text-[11px] text-amber-700 dark:text-amber-300">
+            — /editor2 의 페이지 탭에서 보강하세요.
+          </span>
+        </div>
+      )}
       <StepBar currentStep={currentStep} onStepChange={setCurrentStep} />
       <div className="p-5">
         {currentStep === 1 && (
