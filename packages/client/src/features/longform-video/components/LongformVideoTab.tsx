@@ -185,7 +185,8 @@ export function LongformVideoTab({ storybook, onUpdate, onSave }: Props) {
           expanded={expandedStyle === g.artStyle}
           onToggle={() => setOverrideExpanded(expandedStyle === g.artStyle ? null : g.artStyle)}
           activeLang={activeLang}
-          activeProject={g.artStyle === activeStyle ? activeProject : null}
+          // 펼친 그룹의 본체 = 그 그림체의 (활성 lang) cell. 외부 chip 그림체와 일치 안 해도 OK.
+          activeProject={g.byLanguage[activeLang] ?? null}
           languages={storybook.languages?.length ? storybook.languages : ['ko']}
           onUpdateProject={updateProject}
           onDeleteProject={deleteProject}
