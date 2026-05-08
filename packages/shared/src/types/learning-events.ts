@@ -13,7 +13,7 @@ export type LearningEventType =
 
 export interface LearningEventMetadata {
   lang?: Lang;
-  source?: 'storybook' | 'phonics';
+  source?: 'storybook' | 'phonics' | 'vocabulary';
   storybookId?: string;
   pageNumber?: number;
   page?: number;

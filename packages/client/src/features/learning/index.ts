@@ -20,6 +20,7 @@ export {
 } from './hooks/useLogEvent';
 export { useLearningEvents } from './hooks/useLearningEvents';
 export { useGameLogger, type GameWordResult, type LogGameArgs } from './hooks/useGameLogger';
+export { VocabSourceProvider, useVocabSource } from './context/VocabSourceContext';
 
 export { eventsApi } from './api/events.api';
 export { computeMastery, masteryState, type MasteryStats, type MasteryState } from './lib/mastery';

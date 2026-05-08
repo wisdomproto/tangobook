@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import type { GameTypeId, Lang, LearningEventMetadata, LearningEventType } from '@tangobook/shared';
 import { useLogEventsBatch, type LogEventBatchItem } from './useLogEvent';
+import { useVocabSource } from '../context/VocabSourceContext';
 
 export interface GameWordResult {
   /** 단어(영어/한글 라벨). 생략 시 word_* 이벤트 skip — syllable/phoneme만 쏠 때 용도 */
@@ -20,6 +21,10 @@ export interface LogGameArgs {
   storybookId?: string;
   lang: Lang;
   results: GameWordResult[];
+  /** emit 시 metadata.source — 어휘 단원 학습 시 'vocabulary' (default 'storybook') */
+  source?: 'storybook' | 'vocabulary';
+  /** 어휘 단원 학습 시 metadata.unitId */
+  unitId?: string;
 }
 
 /**
@@ -36,15 +41,19 @@ export interface LogGameArgs {
  */
 export function useGameLogger() {
   const batch = useLogEventsBatch();
+  const vocabCtx = useVocabSource();
 
   return useCallback(
-    ({ gameType, storybookId, lang, results }: LogGameArgs) => {
+    ({ gameType, storybookId, lang, results, source, unitId }: LogGameArgs) => {
       if (results.length === 0) return;
       const items: LogEventBatchItem[] = [];
+      // 명시 인자 > Context > default 'storybook'
+      const effectiveSource = source ?? vocabCtx?.source ?? 'storybook';
+      const effectiveUnitId = unitId ?? vocabCtx?.unitId;
       const baseMeta = (extra?: Partial<LearningEventMetadata>): LearningEventMetadata => ({
         lang,
-        source: 'storybook',
-        storybookId,
+        source: effectiveSource,
+        ...(effectiveSource === 'storybook' ? { storybookId } : { unitId: effectiveUnitId }),
         ...extra,
       });
 
@@ -85,6 +94,6 @@ export function useGameLogger() {
 
       batch(items);
     },
-    [batch]
+    [batch, vocabCtx]
   );
 }
