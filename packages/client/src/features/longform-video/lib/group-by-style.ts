@@ -30,16 +30,27 @@ export function groupLongformByStyle(storybook: Storybook): StyleGroup[] {
   const availableStyles =
     storybook.availableStyles ?? (storybook.artStyle ? [storybook.artStyle] : []);
 
+  // version 의 artStyle 은 master 를 따라감 (마이그 전 데이터 호환)
+  const projectsById = new Map(projects.map((p) => [p.id, p]));
+  const styleOf = (p: LongformProject): string => {
+    if (p.artStyle) return p.artStyle;
+    if (p.parentProjectId) {
+      const parent = projectsById.get(p.parentProjectId);
+      if (parent?.artStyle) return parent.artStyle;
+    }
+    return LEGACY_STYLE_ID;
+  };
+
   // 1. 등장하는 모든 artStyle 수집
   const styleSet = new Set<string>(availableStyles);
   for (const p of projects) {
-    styleSet.add(p.artStyle ?? LEGACY_STYLE_ID);
+    styleSet.add(styleOf(p));
   }
 
   // 2. 그림체별로 master + versions 분리
   const result: StyleGroup[] = [];
   for (const style of styleSet) {
-    const inStyle = projects.filter((p) => (p.artStyle ?? LEGACY_STYLE_ID) === style);
+    const inStyle = projects.filter((p) => styleOf(p) === style);
     const masters = inStyle.filter((p) => !p.parentProjectId);
     const versionsByMaster: Record<string, LongformProject[]> = {};
     for (const m of masters) {
@@ -55,11 +66,11 @@ export function groupLongformByStyle(storybook: Storybook): StyleGroup[] {
     });
   }
 
-  // 3. 정렬
+  // 3. 정렬: 비어있지 않은 그룹이 먼저 (영상 보존). 같은 비어있지 않은 그룹 안에선 legacy 마지막.
   result.sort((a, b) => {
+    if (a.isEmpty !== b.isEmpty) return a.isEmpty ? 1 : -1;
     if (a.artStyle === LEGACY_STYLE_ID) return 1;
     if (b.artStyle === LEGACY_STYLE_ID) return -1;
-    if (a.isEmpty !== b.isEmpty) return a.isEmpty ? 1 : -1;
     const aIdx = availableStyles.indexOf(a.artStyle);
     const bIdx = availableStyles.indexOf(b.artStyle);
     return (aIdx === -1 ? 999 : aIdx) - (bIdx === -1 ? 999 : bIdx);
