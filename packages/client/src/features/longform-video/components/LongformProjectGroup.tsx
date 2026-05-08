@@ -19,7 +19,6 @@ interface Props {
   activeLang: string;
   /** 활성 cell 의 project. null = 빈 cell, "+ {lang} 영상 만들기" CTA */
   activeProject: LongformProject | null;
-  languages: string[];
   onUpdateProject: (
     id: string,
     updates: Partial<Omit<LongformProject, 'id'>> | ((proj: LongformProject) => void)
@@ -37,7 +36,6 @@ export function LongformProjectGroup({
   onToggle,
   activeLang,
   activeProject,
-  languages,
   onUpdateProject,
   onDeleteProject,
   onAddLanguage,
@@ -45,16 +43,22 @@ export function LongformProjectGroup({
 }: Props) {
   const [currentStep, setCurrentStep] = useState(1);
 
+  const presentLangs = Object.keys(group.byLanguage);
   const header = (
     <button
       type="button"
       onClick={onToggle}
       className="w-full flex items-center justify-between px-5 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 flex-wrap">
         <span className="text-sm font-bold text-slate-700 dark:text-slate-200">
           🎨 {group.label}
         </span>
+        {presentLangs.length > 0 && (
+          <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+            {presentLangs.join(' · ')}
+          </span>
+        )}
         <span className="text-xs text-slate-500 dark:text-slate-400">({group.count}개 영상)</span>
       </div>
       <span className="text-slate-400">{expanded ? '▼' : '▶'}</span>
@@ -89,45 +93,11 @@ export function LongformProjectGroup({
     );
   }
 
-  // 언어 칩 row — 활성 강조 + 미존재 언어 = "+ 만들기"
-  const langRow = (
-    <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 flex items-center gap-2 flex-wrap">
-      <span className="text-[10px] font-bold text-slate-500 uppercase mr-1">언어</span>
-      {languages.map((lang) => {
-        const has = !!group.byLanguage[lang];
-        const active = lang === activeLang;
-        const onClick = () => {
-          if (!has) onAddLanguage(lang);
-          // 있는 언어 클릭은 외부 chip 가 결정 (안내 title 로 제공)
-        };
-        const className = [
-          'px-2 py-0.5 rounded text-[11px] font-bold border',
-          active
-            ? 'bg-sky-500 text-white border-sky-500'
-            : has
-              ? 'bg-white text-slate-500 border-slate-300 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-600'
-              : 'bg-amber-50 text-amber-700 border-amber-300 hover:bg-amber-100',
-        ].join(' ');
-        const title = has
-          ? active
-            ? '활성 cell'
-            : `상단 언어 chip 으로 ${lang} 활성화하면 여기 보입니다`
-          : `+ ${lang} 영상 만들기`;
-        return (
-          <button key={lang} onClick={onClick} className={className} title={title}>
-            {lang} {has ? '✓' : '+'}
-          </button>
-        );
-      })}
-    </div>
-  );
-
   // 활성 cell 비어있음 → "+ {lang} 영상 만들기" CTA
   if (!activeProject) {
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
         {header}
-        {langRow}
         <div className="p-6 text-center bg-white dark:bg-slate-900">
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
             이 그림체의 <strong>{activeLang}</strong> 영상이 아직 없어요.
@@ -150,7 +120,6 @@ export function LongformProjectGroup({
   return (
     <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
       {header}
-      {langRow}
       <LongformProjectHeader
         project={activeProject}
         onUpdate={(patch) => onUpdateProject(activeProject.id, patch)}
