@@ -622,6 +622,11 @@ export interface StyleAssets {
   coverPrompt?: string;
   coverImageHistory?: string[];
   coverCharacterRefs?: number[];
+  /**
+   * 이 그림체에서의 (lang → 대표 표지 imageUrl) 매핑.
+   * 같은 (그림체, 언어) 조합당 한 표지를 대표로 표시. swap 시 top-level `primaryCoverByLang` 와 교체.
+   */
+  primaryCoverByLang?: Record<string, string>;
   /** 캐릭터별 이미지 (Storybook.characters 인덱스 매칭). 텍스트 정보(name 등)는 그림체와 무관 */
   characterImages?: Array<
     | {
@@ -942,6 +947,12 @@ export type StorybookSummary = Pick<
   pageCount?: number;
   phonicsLanguage?: 'korean' | 'english';
   hasVideo?: boolean;
+  /**
+   * 그림체별 대표 표지 URL 맵 — `styleAssets` 의 각 그림체 자산에서 추출.
+   * 라이브러리 카드 배너 (default 외 다른 그림체 썸네일) 노출에 사용.
+   * 키 = artStyle prompt/id, 값 = imageUrl.
+   */
+  coversByStyle?: Record<string, string>;
   /**
    * 한글 기본 콘텐츠 완성도 — 커리큘럼 마스터 페이지에서 ✅ 완성 여부 판단에 사용.
    * 모든 필드가 true 이면 `complete: true`. 부분 완성은 wip 으로 분류.

@@ -286,6 +286,11 @@ export interface BookIndexEntry {
   hasCover: boolean;
   /** 라이브러리 카드 표지 URL — 첫 style의 cover.webp */
   coverImageUrl?: string;
+  /**
+   * 그림체별 대표 표지 URL 맵 — 라이브러리 카드 배너 (default 외 다른 그림체 썸네일) 노출용.
+   * 키 = artStyle prompt/id, 값 = imageUrl. v1 어댑터에서 storybook.styleAssets 에서 추출한 값 전달.
+   */
+  coversByStyle?: Record<string, string>;
   /** phonics 책 분리용 (라이브러리 탭). bid 패턴(kr-h..., en-b...)으로 derive */
   phonicsLanguage?: 'korean' | 'english';
   /** 커리큘럼 마스터 페이지에서 정렬·표시용 (no/originalTitle/author/source/priority/launchLevel) */

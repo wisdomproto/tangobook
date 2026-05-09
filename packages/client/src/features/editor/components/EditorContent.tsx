@@ -13,6 +13,7 @@ import { GamesTab } from '@/features/games';
 import { BlogTab } from '@/features/blog';
 import { CardNewsTab } from '@/features/card-news';
 import { LongformVideoTab } from '@/features/longform-video';
+import { BookManageTab } from '@/features/editor/components/BookManageTab';
 import type { Storybook } from '@tangobook/shared';
 
 interface EditorContentProps {
@@ -42,6 +43,10 @@ export function EditorContent({
   const isLetterSounds = storybook.phonicsConfig?.bookType === 'letter-sounds';
 
   const commonStartTabs = [
+    {
+      id: 'meta',
+      el: <BookManageTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
+    },
     {
       id: 'settings',
       el: <SettingsTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,

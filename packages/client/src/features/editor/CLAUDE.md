@@ -6,17 +6,18 @@ v1 storybook 데이터 모델 위에 **레벨/그림체/언어 3축 variation** 
 
 - `/editor` (v1 백업, **절대 안 건드림**) · `/editor2(/:bid)` (v1 업그레이드 작업용)
 - `AppLayoutV2` (`components/AppLayoutV2.tsx`) — TopBar + v1 Sidebar + EditorPanelV2
-- `EditorPanelV2` (`features/editor/components/EditorPanelV2.tsx`) — 메타 토글 + LevelEditCard stack
+- `EditorPanelV2` (`features/editor/components/EditorPanelV2.tsx`) — LevelEditCard stack only (전체 family 메타 뷰는 폐기, 책 1권 단위 메타는 `BookManageTab` 으로 이동)
 - `LevelEditCard` (`features/editor/components/LevelEditCard.tsx`) — 단일 펼침 accordion. 카드 1개 = 레벨 1개. 펼치면 그림체/언어 chip row + v1 EditorContent 재사용 (한 줄 헤더 + 저장 옆 🗑 삭제)
-- `MetaView` (`features/editor/components/MetaView.tsx`) — 책 종합 뷰 (variant 매트릭스, parentGuide, 통계)
+- `BookManageTab` (`features/editor/components/BookManageTab.tsx`) — **책 1권 단위 메타 탭 ("책 관리").** 메인 그림체(`defaultStyle`) selector + (그림체 × 언어) 완성도 매트릭스 (표지/페이지글/삽화/TTS/영상/게임). EditorContent 의 첫 탭으로 등록.
 - `OtherStyleReference` (`features/editor/components/OtherStyleReference.tsx`) — 다른 그림체의 같은 슬롯 이미지 참고 썸네일 (slot=cover/character/page/keyObject)
 - `VariantConfirmModals` — 추가 시 안내 모달 (레벨/언어/그림체)
 
 ## 3축 variant 데이터 모델 (모두 v1 Storybook에 추가, optional)
 
 - **레벨**: sibling pattern `${baseId}__L1`/L2/L3. `Storybook.readingLevel`. 추가는 `POST /api/storybooks/:id/variants/:level` (`StorybookService.createVariant`). 기존 `__L4` suffix doc은 R2에 그대로, readingLevel만 L3로 update.
-- **그림체**: `Storybook.availableStyles?: string[]` + `Storybook.styleAssets?: Record<style, StyleAssets>` (그림체별 자산 분리). `switchStyleAssets(draft, newStyle)` 헬퍼 (`features/editor/lib/style-assets.ts`) 가 swap 시 top-level 스냅샷 + 새 그림체 자산 복원/비우기. `StyleAssets`: coverImages·coverImage·coverPrompt·characterImages[]·pageIllustrations{pageNumber→}·keyObjectImages·vocabularyImages.
-- **언어**: `Storybook.languages?: string[]`, `defaultLanguage?`, `titleTranslations?: Record<lang, string>`, `primaryCoverByLang?: Record<lang, string>`, `KeyObject.nameTranslations?`, `KeyObject.ttsUrl?` + `ttsUrls?: Record<lang, string>` (학습게임 음성 재생). 페이지 텍스트는 기존 `Page.translations[lang]`.
+- **그림체**: `Storybook.availableStyles?: string[]` + `Storybook.styleAssets?: Record<style, StyleAssets>` (그림체별 자산 분리). `switchStyleAssets(draft, newStyle)` 헬퍼 (`features/editor/lib/style-assets.ts`) 가 swap 시 top-level 스냅샷 + 새 그림체 자산 복원/비우기. `StyleAssets`: coverImages·coverImage·coverPrompt·primaryCoverByLang·characterImages[]·pageIllustrations{pageNumber→}·keyObjectImages·vocabularyImages.
+- **언어**: `Storybook.languages?: string[]`, `defaultLanguage?`, `titleTranslations?: Record<lang, string>`, `KeyObject.nameTranslations?`, `KeyObject.ttsUrl?` + `ttsUrls?: Record<lang, string>` (학습게임 음성 재생). 페이지 텍스트는 기존 `Page.translations[lang]`.
+- **(그림체 × 언어) 대표 표지**: `StyleAssets.primaryCoverByLang?: Record<lang, imageUrl>` — 그림체별 자산 안에서 언어별 대표 마커. `switchStyleAssets` swap 사이클 포함 → 그림체 전환 시 마커도 함께 이동. CoverTab 의 "대표" radio 가 활성 (style, lang) 조합당 한 표지를 지정.
 - **언어 컨텍스트**: `EditorLangContext` (`contexts/EditorLangContext.tsx`) + `useEditorLang()` 훅 — null fallback. /editor 는 미주입(자체 fallback), /editor2 만 `EditorLangProvider` 로 감쌈. PagesTab/CoverTab/CharacterTab/KeyObjectTab/AudiobookTab/LongformVideoTab/GamesTab 가 외부 활성 언어를 자동 따라감.
 
 ## EditorContent 재사용 (v1 무변경 + 옵션 prop 추가)

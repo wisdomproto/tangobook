@@ -548,7 +548,7 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
                     {/* Delete button */}
                     <button
                       onClick={() => handleDeleteObject(idx)}
-                      className="absolute top-1 right-1 w-6 h-6 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 hover:text-red-500 hover:border-red-300 flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
+                      className="absolute top-1 right-1 w-6 h-6 rounded-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:text-red-500 hover:border-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center justify-center shadow-sm opacity-70 group-hover:opacity-100 transition z-10"
                       title="삭제"
                     >
                       <svg

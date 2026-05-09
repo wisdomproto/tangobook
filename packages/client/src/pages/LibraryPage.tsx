@@ -29,6 +29,7 @@ function summaryToEntry(s: StorybookSummary): BookIndexEntry {
     folder: s.folder,
     isPublic: s.isPublic,
     coverImageUrl: s.coverImage,
+    coversByStyle: s.coversByStyle,
     phonicsLanguage: s.phonicsLanguage,
     updatedAt: s.createdAt,
     usedVariants: { levels: [], languages: [], styles: [] },

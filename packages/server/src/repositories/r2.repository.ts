@@ -93,11 +93,23 @@ function toSummary(sb: Storybook): StorybookSummary {
 
   // 대표 그림체 (defaultStyle) 가 있으면 그 styleAssets 의 coverImage 우선 — 라이브러리·검색 등 외부 노출 일관성용
   const targetStyle = sb.defaultStyle ?? sb.artStyle;
-  const styleCover =
-    targetStyle && sb.styleAssets?.[targetStyle]?.coverImage
-      ? sb.styleAssets[targetStyle].coverImage
-      : null;
-  const coverImageOut = styleCover ?? sb.coverImage;
+
+  // 그림체별 대표 표지 URL — 라이브러리 카드 배너용 (default 외 다른 그림체 썸네일).
+  // 활성 그림체(`sb.artStyle`)는 top-level 필드, 그 외는 `styleAssets[s]` 에서 추출.
+  const coversByStyle: Record<string, string> = {};
+  const pickCover = (a: {
+    coverImage?: string;
+    coverImages?: { imageUrl: string }[];
+  }): string | undefined => a.coverImage ?? a.coverImages?.find((c) => c.imageUrl)?.imageUrl;
+  const activeCover = pickCover({ coverImage: sb.coverImage, coverImages: sb.coverImages });
+  if (sb.artStyle && activeCover) coversByStyle[sb.artStyle] = activeCover;
+  for (const [style, assets] of Object.entries(sb.styleAssets ?? {})) {
+    if (!assets) continue;
+    const url = pickCover(assets);
+    if (url && !coversByStyle[style]) coversByStyle[style] = url;
+  }
+
+  const coverImageOut = coversByStyle[targetStyle ?? ''] ?? sb.coverImage;
 
   return {
     id: sb.id,
@@ -110,6 +122,7 @@ function toSummary(sb: Storybook): StorybookSummary {
     isPublic: sb.isPublic,
     createdAt: sb.createdAt,
     coverImage: coverImageOut,
+    coversByStyle: Object.keys(coversByStyle).length > 0 ? coversByStyle : undefined,
     pageCount: pages.length,
     phonicsLanguage: sb.phonicsConfig?.language,
     hasVideo: hasAudiobookVideo || hasLongformVideo,

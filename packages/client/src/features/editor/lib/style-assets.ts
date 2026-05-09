@@ -61,6 +61,7 @@ function snapshotCurrentStyleAssets(sb: Storybook): StyleAssets {
     coverPrompt: sb.coverPrompt,
     coverImageHistory: sb.coverImageHistory,
     coverCharacterRefs: sb.coverCharacterRefs,
+    primaryCoverByLang: sb.primaryCoverByLang,
     characterImages,
     pageIllustrations,
     keyObjectImages: sb.keyObjectImages,
@@ -79,6 +80,7 @@ function applyStyleAssets(sb: Storybook, assets: StyleAssets | undefined): void 
   sb.coverPrompt = assets?.coverPrompt;
   sb.coverImageHistory = assets?.coverImageHistory;
   sb.coverCharacterRefs = assets?.coverCharacterRefs;
+  sb.primaryCoverByLang = assets?.primaryCoverByLang;
 
   // 캐릭터 이미지 (텍스트 필드는 그대로, 이미지/프롬프트만 교체)
   sb.characters = (sb.characters ?? []).map((c, i) => {

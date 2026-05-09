@@ -10,6 +10,7 @@ const defaultCategoriesForTab = (tab: CategoryTab): string[] => {
 };
 
 type EditorTab =
+  | 'meta'
   | 'settings'
   | 'character'
   | 'cover'

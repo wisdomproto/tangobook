@@ -1,10 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useEditorStore } from '@/store/editor.store';
 import { useStorybooks, useCreateVariant, useDeleteStorybook } from '@/features/storybook';
-import { MetaView } from '@/features/editor/components/MetaView';
 import { LevelEditCard } from '@/features/editor/components/LevelEditCard';
 import { AddLevelConfirmModal } from '@/features/editor/components/VariantConfirmModals';
-import { cn } from '@/lib/cn';
 import type { ReadingLevel } from '@tangobook/shared';
 
 const LEVEL_INFO: Record<ReadingLevel, { label: string; age: string; emoji: string }> = {
@@ -73,8 +71,6 @@ export function EditorPanelV2({ storybookId }: { storybookId: string }) {
   const existingLevels = new Set(variants.map((v) => v.level));
   const missingLevels = LEVEL_ORDER.filter((lv) => !existingLevels.has(lv));
 
-  // 메타 vs 편집 모드
-  const [viewMode, setViewMode] = useState<'meta' | 'edit'>('edit');
   // 단일 펼침 accordion — 처음엔 사이드바에서 클릭한 storybookId 의 레벨을 펼침
   const initialLevel = useMemo(() => {
     const matched = variants.find((v) => v.id === storybookId);
@@ -88,7 +84,6 @@ export function EditorPanelV2({ storybookId }: { storybookId: string }) {
 
   // 사이드바에서 다른 책으로 이동 시 펼침 상태 초기화
   useEffect(() => {
-    setViewMode('edit');
     setExpandedLevel(initialLevel);
     setMountedLevels(new Set([initialLevel]));
   }, [storybookId, initialLevel]);
@@ -156,99 +151,58 @@ export function EditorPanelV2({ storybookId }: { storybookId: string }) {
 
   return (
     <div>
-      {/* 모드 토글 — [📋 메타] [📖 편집] */}
+      {/* 책 제목 헤더 — 책별 메타는 각 레벨 카드 안 "책 관리" 탭에 있음 */}
       <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-6 py-3">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setViewMode('meta')}
-            className={cn(
-              'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all',
-              viewMode === 'meta'
-                ? 'bg-amber-500 text-white shadow-sm'
-                : 'bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-900/20 dark:text-amber-300'
-            )}
-          >
-            📋 메타
-          </button>
-          <button
-            onClick={() => setViewMode('edit')}
-            className={cn(
-              'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all',
-              viewMode === 'edit'
-                ? 'bg-violet-600 text-white shadow-sm'
-                : 'bg-violet-50 text-violet-700 hover:bg-violet-100 dark:bg-violet-900/20 dark:text-violet-300'
-            )}
-          >
-            📖 편집
-          </button>
-          <span className="ml-auto text-sm text-slate-600 dark:text-slate-300 truncate">
-            {baseTitle}
-          </span>
+        <div className="flex items-center">
+          <span className="text-sm text-slate-600 dark:text-slate-300 truncate">{baseTitle}</span>
         </div>
       </div>
 
-      {viewMode === 'meta' ? (
-        <MetaView
-          baseId={baseId}
-          variants={variants}
-          onSelectVariant={(id) => {
-            const v = variants.find((x) => x.id === id);
-            if (v) {
-              setExpandedLevel(v.level);
-              setMountedLevels((s) => new Set(s).add(v.level));
+      <div className="p-4 space-y-3 max-w-6xl mx-auto">
+        {/* 존재하는 레벨 카드들 */}
+        {variants.map((v) => (
+          <LevelEditCard
+            key={v.id}
+            storybookId={v.id}
+            level={v.level}
+            isBase={v.isBase}
+            expanded={expandedLevel === v.level}
+            onToggle={() => toggleLevel(v.level)}
+            onDelete={!v.isBase ? () => handleDeleteVariant(v.id, v.level) : undefined}
+            hasMounted={mountedLevels.has(v.level)}
+            onMounted={() =>
+              setMountedLevels((s) => {
+                if (s.has(v.level)) return s;
+                const next = new Set(s);
+                next.add(v.level);
+                return next;
+              })
             }
-            setSelectedId(id);
-            setViewMode('edit');
-          }}
-          onAddLevel={handleAddLevel}
-        />
-      ) : (
-        <div className="p-4 space-y-3 max-w-6xl mx-auto">
-          {/* 존재하는 레벨 카드들 */}
-          {variants.map((v) => (
-            <LevelEditCard
-              key={v.id}
-              storybookId={v.id}
-              level={v.level}
-              isBase={v.isBase}
-              expanded={expandedLevel === v.level}
-              onToggle={() => toggleLevel(v.level)}
-              onDelete={!v.isBase ? () => handleDeleteVariant(v.id, v.level) : undefined}
-              hasMounted={mountedLevels.has(v.level)}
-              onMounted={() =>
-                setMountedLevels((s) => {
-                  if (s.has(v.level)) return s;
-                  const next = new Set(s);
-                  next.add(v.level);
-                  return next;
-                })
-              }
-            />
-          ))}
+          />
+        ))}
 
-          {/* 미존재 레벨 — placeholder 카드 (클릭 시 추가 모달) */}
-          {missingLevels.map((lv) => {
-            const info = LEVEL_INFO[lv];
-            return (
-              <button
-                key={lv}
-                onClick={() => handleAddLevel(lv)}
-                className="w-full rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-emerald-400 dark:hover:border-emerald-600 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10 px-5 py-3 text-left transition-colors group flex items-center gap-3"
-              >
-                <span className="text-2xl opacity-40 group-hover:opacity-100">{info.emoji}</span>
-                <div className="flex-1">
-                  <div className="text-sm font-bold text-slate-400 dark:text-slate-500 group-hover:text-emerald-700 dark:group-hover:text-emerald-300">
-                    ➕ {lv} {info.label} <span className="text-xs font-normal">{info.age}</span>
-                  </div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">
-                    아직 만들지 않은 레벨 — 클릭하면 새 콘텐츠 만들기 시작
-                  </div>
+        {/* 미존재 레벨 — placeholder 카드 (클릭 시 추가 모달) */}
+        {missingLevels.map((lv) => {
+          const info = LEVEL_INFO[lv];
+          return (
+            <button
+              key={lv}
+              onClick={() => handleAddLevel(lv)}
+              className="w-full rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-emerald-400 dark:hover:border-emerald-600 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10 px-5 py-3 text-left transition-colors group flex items-center gap-3"
+            >
+              <span className="text-2xl opacity-40 group-hover:opacity-100">{info.emoji}</span>
+              <div className="flex-1">
+                <div className="text-sm font-bold text-slate-400 dark:text-slate-500 group-hover:text-emerald-700 dark:group-hover:text-emerald-300">
+                  ➕ {lv} {info.label} <span className="text-xs font-normal">{info.age}</span>
                 </div>
-              </button>
-            );
-          })}
-        </div>
-      )}
+                <div className="text-[11px] text-slate-400 mt-0.5">
+                  아직 만들지 않은 레벨 — 클릭하면 새 콘텐츠 만들기 시작
+                </div>
+              </div>
+            </button>
+          );
+        })}
+      </div>
 
       {pendingLevelAdd && (
         <AddLevelConfirmModal
