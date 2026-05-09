@@ -139,3 +139,13 @@ server/src/
 
 - 렌더: `generate_longform.py` BGM input 에 `-stream_loop -1` (amix `duration=first` 가 silence base 길이로 컷)
 - 미리보기: `TimelinePreview.tsx` BGM 동기화에서 `bgm.currentTime = currentTime % bgm.duration` modulo. 그냥 `= currentTime` 이면 BGM 30초 + 타임라인 60초일 때 범위 초과로 무음 → `<audio loop>` 가 발동 못 함. duration 미로드 (NaN/0) 일 땐 modulo 안 함.
+
+## 언어 미매칭 자동 reset + 마이그 (2026-05-09)
+
+옛 cell 에 한국어 자막/TTS 가 영어 cell 로 잘못 채워진 데이터 정리:
+
+- `TimelineEditorStep.tsx` useEffect 강화: `lang ≠ 'ko'` 인데 `scene.subtitles[].text` 에 한글 (`/[가-힣]/`) 섞이면 그 scene 의 `subtitles=[] / ttsUrl=undefined / ttsDuration=undefined` 로 reset → 같은 effect 의 채움 단계가 `page.translations[lang].{text, ttsUrl}` 에서 다시 채움. `hasFillable / langMismatched` 둘 중 하나만 true 여도 update 진행.
+- 마이그: `packages/server/scripts/migrate-longform-lang-mismatch.mjs`
+  - (style, lang) 중복 cell 통합 — 우선순위: `clipUrl` 보유 많음 > `scenes` 길이 > 첫 등장 (사용자 클립 보존)
+  - `lang ≠ 'ko'` cell 의 한글 자막 가진 scene 자동 reset
+  - dry-run + `--apply`. 1회 적용: 17권 patched (중복 cell 18 제거 + scene reset 51).

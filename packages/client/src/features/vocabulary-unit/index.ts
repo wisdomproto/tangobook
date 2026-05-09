@@ -12,3 +12,5 @@ export { VocabularyUnitSidebarList } from './components/VocabularyUnitSidebarLis
 export { VocabularyUnitEditor } from './components/VocabularyUnitEditor';
 export { VocabularyHubPage } from './components/VocabularyHubPage';
 export { VocabularyStudyPage } from './components/VocabularyStudyPage';
+export { VocabularyStudyContent } from './components/VocabularyStudyContent';
+export { deriveStorybookUnit } from './lib/derive-storybook-unit';

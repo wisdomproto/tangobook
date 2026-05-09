@@ -48,17 +48,18 @@ export const router = createBrowserRouter([
           { path: 'collection/:categoryId', element: <Navigate to="/library" replace /> },
           { path: 'hori-room', element: <Navigate to="/library" replace /> },
           { path: 'vocabulary', element: <VocabularyHubPage /> },
-          {
-            path: 'vocabulary/:unitId',
-            element: (
-              <ErrorBoundary>
-                <VocabularyStudyPage />
-              </ErrorBoundary>
-            ),
-          },
           { path: 'playground', element: <Navigate to="/library" replace /> },
           { path: 'games', element: <Navigate to="/library" replace /> },
         ],
+      },
+      {
+        // 학습 풀화면 — BookDetailPage 와 일관되게 AppShell 밖 (사이드바 없는 풀폭).
+        path: 'vocabulary/:unitId',
+        element: (
+          <ErrorBoundary>
+            <VocabularyStudyPage />
+          </ErrorBoundary>
+        ),
       },
       {
         path: 'library/:id',

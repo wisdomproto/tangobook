@@ -13,6 +13,7 @@ import { cn } from '@/lib/cn';
  */
 /**
  * 사이드바 메인 axis — 3축 모두 동일 정사각 박스 디자인 (정렬 통일).
+ * MVP: 동화책만 active (책 상세/뷰어 어디든 alwaysActive). 파닉스/어휘는 comingSoon 음영 (코드/라우트는 보존).
  */
 const PRIMARY_AXES = [
   {
@@ -21,6 +22,8 @@ const PRIMARY_AXES = [
     label: '동화책',
     color: 'coral' as const,
     end: true,
+    comingSoon: false,
+    alwaysActive: true,
   },
   {
     to: '/library/phonics',
@@ -28,6 +31,8 @@ const PRIMARY_AXES = [
     label: '파닉스',
     color: 'mint' as const,
     end: false,
+    comingSoon: true,
+    alwaysActive: false,
   },
   {
     to: '/vocabulary',
@@ -35,6 +40,8 @@ const PRIMARY_AXES = [
     label: '어휘',
     color: 'amber' as const,
     end: false,
+    comingSoon: true,
+    alwaysActive: false,
   },
 ];
 
@@ -63,6 +70,8 @@ export function AppShell() {
   const location = useLocation();
   const bookCount = storybooks?.filter((b) => b.isPublic).length ?? 0;
   const pageTitle = getPageTitle(location.pathname);
+  // 단원 학습 화면(/vocabulary/:unitId)은 가운데 호리+말풍선이 본문 시선을 가져가야 해서 사이드바 호리 숨김
+  const hideSidebarMascot = /^\/vocabulary\/[^/]+/.test(location.pathname);
 
   // 학습자 화면은 라이트 모드 고정
   useEffect(() => {
@@ -96,12 +105,16 @@ export function AppShell() {
           ))}
         </nav>
 
-        {/* 하단 호리 인사 — waving (덜 reactive) + 메시지 */}
+        {/* 하단 호리 인사 — waving (덜 reactive) + 메시지. 단원 학습 화면에선 본문 호리와 중복이라 spacer만 유지 */}
         <div className="mt-auto flex flex-col items-center pb-3">
-          <Mascot character="hori" state="waving" size="lg" />
-          <div className="mt-1 px-3 py-1.5 rounded-2xl bg-coral-100 text-coral-700 text-sm font-black text-center shadow-soft">
-            오늘도 만나서 반가워! 👋
-          </div>
+          {!hideSidebarMascot && (
+            <>
+              <Mascot character="hori" state="waving" size="lg" />
+              <div className="mt-1 px-3 py-1.5 rounded-2xl bg-coral-100 text-coral-700 text-sm font-black text-center shadow-soft">
+                오늘도 만나서 반가워! 👋
+              </div>
+            </>
+          )}
         </div>
 
         <div className="px-3 pb-3 pt-3 border-t border-ink-100/60">
@@ -192,24 +205,44 @@ function PrimaryNavButton({
   label,
   color,
   end,
+  comingSoon,
+  alwaysActive,
 }: {
   to: string;
   iconSrc: string;
   label: string;
   color: AxisColor;
   end: boolean;
+  comingSoon?: boolean;
+  alwaysActive?: boolean;
 }) {
+  if (comingSoon) {
+    // 차분한 disabled 톤 — 카드 음영 + sub-label "준비 중" (배지 대신)
+    return (
+      <div
+        role="button"
+        aria-disabled="true"
+        title="준비 중이에요"
+        className="w-28 h-28 rounded-3xl flex flex-col items-center justify-center gap-1 bg-ink-100/40 cursor-not-allowed select-none"
+      >
+        <AppIcon src={iconSrc} size={44} alt={label} className="opacity-35" />
+        <span className="text-base font-black text-ink-500">{label}</span>
+        <span className="text-[11px] font-black text-ink-400 tracking-wide">준비 중</span>
+      </div>
+    );
+  }
   return (
     <NavLink
       to={to}
       end={end}
-      className={({ isActive }) =>
-        cn(
+      className={({ isActive }) => {
+        const showActive = alwaysActive || isActive;
+        return cn(
           'w-28 h-28 rounded-3xl flex flex-col items-center justify-center gap-1.5 transition-all font-black',
-          isActive ? COLOR_ACTIVE[color] : COLOR_IDLE[color],
-          !isActive && 'hover:scale-105'
-        )
-      }
+          showActive ? COLOR_ACTIVE[color] : COLOR_IDLE[color],
+          !showActive && 'hover:scale-105'
+        );
+      }}
     >
       <AppIcon src={iconSrc} size={48} alt={label} />
       <span className="text-base">{label}</span>

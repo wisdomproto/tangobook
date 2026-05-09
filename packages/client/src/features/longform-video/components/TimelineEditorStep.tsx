@@ -51,13 +51,21 @@ export function TimelineEditorStep({
       .catch(() => {});
   }, []);
 
-  // 기존 cell 의 빈 ttsUrl/자막 자동 채움 — storybook.pages[].translations[lang] 에 데이터 있는데
-  // cell 이 비어있는 경우 (옛 마이그 cell, 외부에서 번역 후 추가된 경우 등). hasFillable 체크로 무한 루프 방지.
+  // 자동 자막/TTS 채움 + 언어 미매칭 자동 reset.
+  //   1) 빈 ttsUrl/자막 → storybook.pages[].translations[lang] 에서 매핑
+  //   2) lang ≠ 'ko' 인데 자막 텍스트에 한글 섞임 → 옛 마이그 잔존 데이터 → 자막/TTS reset 후 (1) 로 다시 채움
+  //   hasFillable / langMismatched 가드로 무한 루프 방지.
   useEffect(() => {
     if (project.scenes.length === 0) return;
     const lang = project.language ?? 'ko';
     const isKo = lang === 'ko';
     const pageByNum = new Map(storybook.pages.map((p) => [p.pageNumber, p]));
+    const HANGUL_RE = /[가-힣]/;
+
+    // 영어/일본어 등 비-ko cell 인데 자막에 한글 → 옛 한국어 자막 잔존 (B fix)
+    const langMismatched = !isKo
+      ? project.scenes.some((s) => s.subtitles.some((sub) => HANGUL_RE.test(sub.text)))
+      : false;
 
     const hasFillable = project.scenes.some((s) => {
       const page = pageByNum.get(s.pageNumber);
@@ -67,13 +75,22 @@ export function TimelineEditorStep({
       if (s.subtitles.length === 0 && textFromBook?.trim()) return true;
       return false;
     });
-    if (!hasFillable) return;
+    if (!langMismatched && !hasFillable) return;
 
     onUpdate((proj) => {
       for (const s of proj.scenes) {
         const page = pageByNum.get(s.pageNumber);
         const ttsFromBook = isKo ? page?.ttsUrl : page?.translations?.[lang]?.ttsUrl;
         const textFromBook = isKo ? page?.text : page?.translations?.[lang]?.text;
+
+        // (B) 미매칭 reset — 비-ko cell 인데 자막에 한글 섞이면 자막+TTS+TTS duration 비움
+        if (!isKo && s.subtitles.some((sub) => HANGUL_RE.test(sub.text))) {
+          s.subtitles = [];
+          s.ttsUrl = undefined;
+          s.ttsDuration = undefined;
+        }
+
+        // (1) 빈 칸 채움
         if (!s.ttsUrl && ttsFromBook) s.ttsUrl = ttsFromBook;
         if (s.subtitles.length === 0 && textFromBook?.trim()) {
           const sentences = textFromBook
