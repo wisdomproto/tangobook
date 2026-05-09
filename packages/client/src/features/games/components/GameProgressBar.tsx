@@ -19,29 +19,29 @@ export function GameProgressBar({ current, total, score }: GameProgressBarProps)
   const compact = total > 11;
 
   return (
-    <div className="flex items-center gap-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-soft">
+    <div className="flex items-center gap-5 sm:gap-7 bg-white/95 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 rounded-full shadow-pop">
       {compact ? (
-        <span className="font-black text-ink-900 text-lg">
+        <span className="font-black text-ink-900 text-2xl sm:text-3xl">
           {current + 1} / {total}
         </span>
       ) : (
-        <div className="flex gap-1">
+        <div className="flex gap-1.5 sm:gap-2">
           {Array.from({ length: total }).map((_, i) => (
             <span
               key={i}
               className={cn(
-                'h-1.5 rounded-md transition-all',
+                'h-2.5 sm:h-3 rounded-md transition-all',
                 i === current
-                  ? 'w-6 bg-coral-500'
+                  ? 'w-10 sm:w-12 bg-coral-500'
                   : i < current
-                    ? 'w-3 bg-ink-300'
-                    : 'w-3 bg-ink-100'
+                    ? 'w-5 sm:w-6 bg-ink-300'
+                    : 'w-5 sm:w-6 bg-ink-100'
               )}
             />
           ))}
         </div>
       )}
-      <span className="font-black text-success text-lg flex items-center gap-1">
+      <span className="font-black text-success text-2xl sm:text-3xl flex items-center gap-1.5">
         <span>✓</span>
         <span>{score}</span>
       </span>

@@ -207,127 +207,125 @@ export function ConnectTheDotsPlayer({
   );
 
   return (
-    <GamePlayerLayout maxWidth="2xl" onBack={onBack}>
+    <GamePlayerLayout
+      maxWidth="3xl"
+      onBack={onBack}
+      bgImageUrl="/images/games/point-drawing-bg.png"
+    >
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-      <div className="flex flex-col items-center gap-3 sm:gap-4 w-full">
+      <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
         {/* 진행 */}
         <GameProgressBar current={itemIdx} total={items.length} score={completedItems} />
 
-        {/* 안내 (고정 높이로 이미지 위치 흔들림 방지) */}
-        <div className="h-12 flex items-center justify-center">
+        {/* 안내 — 큰 검정 텍스트 (LineMatching/WordWriting 톤 통일) */}
+        <div className="h-14 sm:h-16 flex items-center justify-center shrink-0">
           {wrongTap ? (
-            <p className="text-lg text-danger font-bold animate-pulse">
+            <p className="text-2xl sm:text-3xl text-danger font-black animate-pulse">
               아직 이 점 차례가 아니에요!
             </p>
-          ) : completed ? null : returning ? (
-            <p className="text-xl font-bold text-coral-500 animate-pulse">
+          ) : completed ? (
+            <p className="text-3xl sm:text-4xl font-black text-success">🎉 완성!</p>
+          ) : returning ? (
+            <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-coral-500 animate-pulse">
               마지막으로 <span className="text-coral-600">첫 점</span>으로 돌아오세요!
             </p>
           ) : (
-            <p className="text-xl font-bold text-ink-900 dark:text-peach-200">
+            <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900">
               점을 <span className="text-coral-500">순서대로</span> 눌러서 이어주세요
             </p>
           )}
         </div>
 
-        {/* 게임 영역 */}
-        <div className="relative inline-block select-none rounded-xl overflow-hidden border-2 border-ink-100 dark:border-slate-700 w-full">
-          <img
-            src={currentItem.originalImageUrl}
-            alt={currentItem.objectName ?? `Page ${currentItem.pageNumber}`}
-            className="w-full transition-opacity duration-700"
-            style={{ opacity: showImage ? 1 : 0.08 }}
-            draggable={false}
-          />
+        {/* 게임 영역 — flex-1 로 영역 채움, aspect 자동 (이미지 비율 따라감) */}
+        <div className="flex-1 min-h-0 w-full flex items-center justify-center">
+          <div className="relative select-none rounded-3xl overflow-hidden border-[5px] border-peach-200 bg-white shadow-pop max-h-full">
+            <img
+              src={currentItem.originalImageUrl}
+              alt={currentItem.objectName ?? `Page ${currentItem.pageNumber}`}
+              className="block max-h-[60vh] w-auto transition-opacity duration-700"
+              style={{ opacity: showImage ? 1 : 0.08 }}
+              draggable={false}
+            />
 
-          <div
-            ref={overlayRef}
-            className="absolute inset-0"
-            style={{ touchAction: 'none' }}
-            onPointerDown={() => setIsPressing(true)}
-          >
-            <svg
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              viewBox="0 0 1 1"
-              preserveAspectRatio="none"
+            <div
+              ref={overlayRef}
+              className="absolute inset-0"
+              style={{ touchAction: 'none' }}
+              onPointerDown={() => setIsPressing(true)}
             >
-              {/* 연결된 선 (1→2, 2→3, ... upTo connectedUpTo) */}
-              {sortedKps.map(
-                (kp, i) =>
-                  i > 0 &&
-                  i < connectedUpTo && (
-                    <line
-                      key={`edge-${i}`}
-                      x1={sortedKps[i - 1].x}
-                      y1={sortedKps[i - 1].y}
-                      x2={kp.x}
-                      y2={kp.y}
-                      stroke="#E84B2A"
-                      strokeWidth="0.005"
-                      strokeLinecap="round"
-                    />
-                  )
-              )}
-              {/* 닫힘 선 (마지막 점 → 첫 점) — 완성 시에만 */}
-              {completed && totalDots >= 2 && (
-                <line
-                  x1={sortedKps[totalDots - 1].x}
-                  y1={sortedKps[totalDots - 1].y}
-                  x2={sortedKps[0].x}
-                  y2={sortedKps[0].y}
-                  stroke="#E84B2A"
-                  strokeWidth="0.005"
-                  strokeLinecap="round"
-                />
-              )}
-            </svg>
+              <svg
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                viewBox="0 0 1 1"
+                preserveAspectRatio="none"
+              >
+                {/* 연결된 선 */}
+                {sortedKps.map(
+                  (kp, i) =>
+                    i > 0 &&
+                    i < connectedUpTo && (
+                      <line
+                        key={`edge-${i}`}
+                        x1={sortedKps[i - 1].x}
+                        y1={sortedKps[i - 1].y}
+                        x2={kp.x}
+                        y2={kp.y}
+                        stroke="#E84B2A"
+                        strokeWidth="0.006"
+                        strokeLinecap="round"
+                      />
+                    )
+                )}
+                {/* 닫힘 선 */}
+                {completed && totalDots >= 2 && (
+                  <line
+                    x1={sortedKps[totalDots - 1].x}
+                    y1={sortedKps[totalDots - 1].y}
+                    x2={sortedKps[0].x}
+                    y2={sortedKps[0].y}
+                    stroke="#E84B2A"
+                    strokeWidth="0.006"
+                    strokeLinecap="round"
+                  />
+                )}
+              </svg>
 
-            {sortedKps.map((kp, i) => {
-              const isConnected = kp.order <= connectedUpTo;
-              // 다음 목표: 일반 단계에선 nextOrder, 복귀 단계에선 첫 점(order=1)
-              const isNext = returning ? kp.order === 1 : kp.order === nextOrder && !completed;
-              return (
-                <button
-                  key={i}
-                  onPointerDown={(e) => {
-                    // 펜처럼 드래그 가능하도록 pointer capture 해제
-                    try {
-                      e.currentTarget.releasePointerCapture(e.pointerId);
-                    } catch {
-                      /* no-op */
-                    }
-                    setIsPressing(true);
-                    handleDotTap(kp.order);
-                  }}
-                  onPointerEnter={() => handleDotEnterWhileDragging(kp.order)}
-                  className={`absolute rounded-full shadow transition-all ${
-                    isNext
-                      ? 'bg-coral-500 ring-4 ring-coral-300 animate-pulse scale-125'
-                      : isConnected
-                        ? 'bg-coral-600'
-                        : 'bg-ink-900 hover:bg-coral-400'
-                  }`}
-                  style={{
-                    left: `${kp.x * 100}%`,
-                    top: `${kp.y * 100}%`,
-                    width: DOT_RADIUS_PX * 2,
-                    height: DOT_RADIUS_PX * 2,
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                  aria-label={`점 ${kp.order}`}
-                />
-              );
-            })}
+              {sortedKps.map((kp, i) => {
+                const isConnected = kp.order <= connectedUpTo;
+                const isNext = returning ? kp.order === 1 : kp.order === nextOrder && !completed;
+                return (
+                  <button
+                    key={i}
+                    onPointerDown={(e) => {
+                      try {
+                        e.currentTarget.releasePointerCapture(e.pointerId);
+                      } catch {
+                        /* no-op */
+                      }
+                      setIsPressing(true);
+                      handleDotTap(kp.order);
+                    }}
+                    onPointerEnter={() => handleDotEnterWhileDragging(kp.order)}
+                    className={`absolute rounded-full shadow-pop transition-all ${
+                      isNext
+                        ? 'bg-coral-500 ring-4 ring-coral-300 animate-pulse scale-125'
+                        : isConnected
+                          ? 'bg-coral-600'
+                          : 'bg-ink-900 hover:bg-coral-400'
+                    }`}
+                    style={{
+                      left: `${kp.x * 100}%`,
+                      top: `${kp.y * 100}%`,
+                      width: DOT_RADIUS_PX * 2,
+                      height: DOT_RADIUS_PX * 2,
+                      transform: 'translate(-50%, -50%)',
+                    }}
+                    aria-label={`점 ${kp.order}`}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
-
-        {/* 완성 메시지 */}
-        {completed && (
-          <div className="text-center">
-            <div className="text-3xl sm:text-4xl mb-1">🎉</div>
-            <p className="text-xl sm:text-lg font-bold text-ink-900 dark:text-peach-200">완성!</p>
-          </div>
-        )}
       </div>
     </GamePlayerLayout>
   );

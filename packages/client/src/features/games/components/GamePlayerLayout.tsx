@@ -20,21 +20,44 @@ interface GamePlayerLayoutProps {
   children: ReactNode;
   onBack?: () => void;
   maxWidth?: MaxWidth;
+  /** 배경 일러스트 URL (선택). 없으면 cream→peach 그라디언트. */
+  bgImageUrl?: string;
 }
 
-/** 전체 게임 플레이어 공통 래퍼 — 센터링 + 반응형 max-width + 좌상단 돌아가기 버튼 (단원 목록 back 과 통일) */
-export function GamePlayerLayout({ children, onBack, maxWidth = '2xl' }: GamePlayerLayoutProps) {
+/** 전체 게임 플레이어 공통 래퍼 — 센터링 + 반응형 max-width + 좌상단 돌아가기 버튼 (단원 목록 back 과 통일).
+ *  vocab launch (`VocabularyStudyContent`) 의 `motion.div` wrapper 가 viewport 0 부터 안 시작하는 케이스가 있어
+ *  플레이어 root 를 `fixed inset-0 z-[60]` 으로 viewport 직접 덮음 → 뒷페이지 노출 차단. */
+export function GamePlayerLayout({
+  children,
+  onBack,
+  maxWidth = '2xl',
+  bgImageUrl,
+}: GamePlayerLayoutProps) {
   return (
-    <div className="min-h-full flex flex-col px-4 sm:px-6 py-4 sm:py-6">
+    <div
+      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 sm:py-6 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden"
+      style={
+        bgImageUrl
+          ? {
+              backgroundImage: `url(${bgImageUrl})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+            }
+          : undefined
+      }
+    >
       {onBack && (
         <button
           onClick={onBack}
-          className="self-start mb-4 inline-flex items-center gap-2 px-5 py-3 text-lg rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition"
+          className="self-start mb-3 inline-flex items-center gap-2 px-5 py-3 text-lg rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition shrink-0"
         >
           ← 돌아가기
         </button>
       )}
-      <div className={`w-full mx-auto ${MAX_W[maxWidth]}`}>{children}</div>
+      <div className={`w-full mx-auto flex-1 min-h-0 flex flex-col ${MAX_W[maxWidth]}`}>
+        {children}
+      </div>
     </div>
   );
 }

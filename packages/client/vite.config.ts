@@ -1,3 +1,4 @@
+/* global process */
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'url';
@@ -16,7 +17,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 5174,
+    port: process.env.PORT ? parseInt(process.env.PORT, 10) : 5174,
     // COOP/COEP 헤더 제거 — credentialless가 cross-origin iframe(YouTube 등)을 차단해
     // "연결 거부" 오류를 유발. SharedArrayBuffer 사용처(ffmpeg.wasm 등) 없음.
     proxy: {

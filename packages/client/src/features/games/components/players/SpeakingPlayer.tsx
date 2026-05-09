@@ -107,7 +107,7 @@ export function SpeakingPlayer({
 
   if (phase === 'done') {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-cream-50 to-peach-100 p-4">
+      <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-gradient-to-br from-cream-50 to-peach-100 p-4 overflow-y-auto">
         <GameResultScreen
           storybookId={storybookId}
           score={rounds.length}
@@ -129,7 +129,7 @@ export function SpeakingPlayer({
   if (!current) return null;
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gradient-to-br from-cream-50 to-peach-100 p-4">
+    <div className="fixed inset-0 z-[60] flex flex-col items-center bg-gradient-to-br from-cream-50 to-peach-100 p-4 overflow-y-auto">
       <div className="w-full max-w-4xl">
         <div className="flex items-center justify-between">
           <GameProgressBar current={roundIdx} total={rounds.length} score={roundIdx + 1} />

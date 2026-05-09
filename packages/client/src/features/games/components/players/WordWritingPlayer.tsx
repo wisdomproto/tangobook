@@ -312,9 +312,9 @@ export function WordWritingPlayer({
   };
 
   return (
-    <GamePlayerLayout maxWidth="lg" onBack={onBack}>
+    <GamePlayerLayout maxWidth="3xl" onBack={onBack} bgImageUrl="/images/games/writing-bg.png">
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
-      <div className="flex flex-col items-center gap-3 sm:gap-4 w-full">
+      <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
         {/* 진행 */}
         <GameProgressBar
           current={currentIndex}
@@ -322,65 +322,76 @@ export function WordWritingPlayer({
           score={scores.filter((s) => s >= 70).length}
         />
 
-        {/* 단어 정보 */}
-        <div className="flex items-center gap-4">
+        {/* 단어 정보 — HERO 단어 + 작은 일러스트 (LineMatching 톤과 통일) */}
+        <div className="flex items-center justify-center gap-3 sm:gap-5 shrink-0">
           {currentItem.imageUrl && (
             <img
               src={currentItem.imageUrl}
               alt={currentItem.word}
-              className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg"
+              className="h-16 sm:h-20 lg:h-24 w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
             />
           )}
           <div className="text-center">
-            <p className="text-xl sm:text-2xl font-bold text-ink-900 dark:text-peach-200">
+            <p
+              className="font-display font-black tracking-tight leading-none whitespace-nowrap"
+              style={{
+                fontSize: 'clamp(3rem, 8vw, 7rem)',
+                color: '#FF7A3C',
+                WebkitTextStroke: '5px white',
+                paintOrder: 'stroke fill',
+                filter: 'drop-shadow(0 5px 0 rgba(0,0,0,0.08))',
+              }}
+            >
               {currentItem.displayWord}
             </p>
-            <p className="text-base sm:text-lg text-ink-900 dark:text-peach-200">따라 써보세요</p>
+            <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900 mt-1">
+              따라 써보세요
+            </p>
           </div>
         </div>
 
-        {/* Canvas */}
-        <div className="w-full border-2 border-ink-100 dark:border-slate-700 rounded-xl overflow-hidden bg-white">
-          <canvas
-            ref={canvasRef}
-            width={CANVAS_W}
-            height={CANVAS_H}
-            className="w-full"
-            style={{ touchAction: 'none' }}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerLeave={handlePointerUp}
-          />
+        {/* Canvas — 4:3 비율, 큰 테두리. flex-1 로 남는 영역 채움. */}
+        <div className="flex-1 min-h-0 w-full flex items-center justify-center">
+          <div className="relative aspect-[2/1] w-full max-h-full border-[5px] border-peach-200 rounded-3xl overflow-hidden bg-white shadow-pop">
+            <canvas
+              ref={canvasRef}
+              width={CANVAS_W}
+              height={CANVAS_H}
+              className="w-full h-full"
+              style={{ touchAction: 'none' }}
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUp}
+              onPointerLeave={handlePointerUp}
+            />
+            {showResult && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/85 backdrop-blur-sm gap-2">
+                <div className="text-6xl sm:text-7xl">
+                  {currentScore >= 80 ? '🎉' : currentScore >= 50 ? '👍' : '💪'}
+                </div>
+                <p className="text-3xl sm:text-4xl font-black text-ink-900">
+                  정확도: {currentScore}%
+                </p>
+                <p className="text-xl sm:text-2xl font-bold text-ink-700">
+                  {currentScore >= 80
+                    ? '잘했어요!'
+                    : currentScore >= 50
+                      ? '괜찮아요!'
+                      : '다시 해볼까요?'}
+                </p>
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* 결과 */}
-        {showResult && (
-          <div className="text-center">
-            <div className="text-3xl sm:text-4xl mb-1">
-              {currentScore >= 80 ? '🎉' : currentScore >= 50 ? '👍' : '💪'}
-            </div>
-            <p className="text-xl sm:text-xl font-bold text-ink-900 dark:text-peach-200">
-              정확도: {currentScore}%
-            </p>
-            <p className="text-base sm:text-lg text-ink-900 dark:text-peach-200">
-              {currentScore >= 80
-                ? '잘했어요!'
-                : currentScore >= 50
-                  ? '괜찮아요!'
-                  : '다시 해볼까요?'}
-            </p>
-          </div>
-        )}
-
-        {/* 컨트롤 */}
-        <div className="flex gap-3">
+        {/* 컨트롤 — 큼지막한 버튼 */}
+        <div className="flex gap-3 sm:gap-4 shrink-0">
           {!showResult ? (
             <>
-              <Button variant="ghost" size="sm" onClick={handleClear}>
+              <Button variant="ghost" size="md" onClick={handleClear}>
                 지우기
               </Button>
-              <Button size="sm" onClick={handleCheck} disabled={!hasDrawn}>
+              <Button size="md" onClick={handleCheck} disabled={!hasDrawn}>
                 확인
               </Button>
             </>
@@ -388,7 +399,7 @@ export function WordWritingPlayer({
             <>
               <Button
                 variant="ghost"
-                size="sm"
+                size="md"
                 onClick={() => {
                   setShowResult(false);
                   handleClear();
@@ -396,7 +407,7 @@ export function WordWritingPlayer({
               >
                 다시 쓰기
               </Button>
-              <Button size="sm" onClick={advanceToNext}>
+              <Button size="md" onClick={advanceToNext}>
                 {currentIndex + 1 >= items.length ? '결과 보기' : '다음 단어'}
               </Button>
             </>

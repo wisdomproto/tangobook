@@ -337,10 +337,11 @@ export function EnglishBlockPlayer({
   );
 
   return (
-    <div className="min-h-full flex flex-col bg-gradient-to-br from-cream-50 to-peach-100">
+    // vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음.
+    <div className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-br from-cream-50 to-peach-100 overflow-y-auto">
       <button
         onClick={onBack}
-        className="self-start m-4 inline-flex items-center gap-2 px-5 py-3 text-lg rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition"
+        className="self-start m-4 inline-flex items-center gap-2 px-5 py-3 text-lg rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition shrink-0"
       >
         ← 돌아가기
       </button>

@@ -74,6 +74,36 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 - 다크 모드 텍스트: `dark:text-peach-200`
 - `accentColor` prop 제거됨
 
+## 풀스크린 wrapper + 배경 일러스트 (2026-05-09)
+
+`VocabularyStudyContent` 의 `motion.div fixed inset-0 z-50` wrapper 가 어떤 이유로 viewport y=32 부터 렌더되어 위쪽으로 뒷 페이지가 새던 문제 — 모든 player root 가 자체 `fixed inset-0 z-[60]` 으로 viewport (0,0) 부터 직접 덮음.
+
+- `GamePlayerLayout` (공용 wrapper) 가 `fixed inset-0 z-[60] overflow-hidden` 적용. 자체 div 쓰는 player (`KoreanBlockPlayer`/`EnglishBlockPlayer`/`SpeakingPlayer`) 도 동일 패턴.
+- 자식 컨테이너는 `flex-1 min-h-0 flex flex-col` → 본문이 `flex-1` 로 남는 영역 채워 화면 안에 fit (스크롤 X).
+- **배경 일러스트**: `GamePlayerLayout` 의 `bgImageUrl?: string` prop. `cover/center` 로 깔림. `public/images/games/{game}-bg.png` (1672×941 기준, 16:9). 현재: `korean-block-bg.png`, `line-matching-bg.png`, `writing-bg.png`, `point-drawing-bg.png`.
+
+## UI 톤 통일 (2026-05-09)
+
+4-5세 가독성 우선 — 모든 게임 동일 패턴:
+
+- **GameProgressBar** 키움 — px-6/8 py-3/4 + text-2xl/3xl, 도트 w-10/12, 점수 emoji+숫자도 큼지막
+- **헤딩 텍스트** = `text-2xl/3xl/4xl font-black text-ink-900` (검정), 회색 톤 X
+- **HERO 단어** = `clamp(N rem, V vw, M rem)` 오렌지 그라디언트 + `WebkitTextStroke 5-6px white` 외곽선 (KoreanBlock/WordWriting/LineMatching/ConnectTheDots 모두 동일 톤)
+- **카드 테두리** = `border-[5px]` + `rounded-3xl` + `shadow-pop`. 카드 비율 4:3 (LineMatching) 또는 2:1 (WordWriting canvas).
+- **확인/정답** 버튼 = 큰 사이즈 (`px-10 py-4 sm:px-12 sm:py-6 rounded-full text-2xl/3xl`).
+
+## KoreanBlockPlayer — 공간 음절 인식 + Web Speech 폴백 (2026-05-09)
+
+3행×6열 드롭존. 입력 순서가 아닌 **공간 위치** 로 음절 인식 (`parseSpatialKorean`):
+
+- 음절 시작 = `(r, c)` 자음 + `(r, c+1)` 모음. 자음 왼쪽 / 모음 오른쪽 (한글 시각 구조).
+- 받침 후보: (a) cho 아래 `(r+1, c)` 우선 (b) jung 아래 `(r+1, c+1)` (c) 인라인 `(r, c+2)` (한 줄 입력 호환).
+- 합성에 쓰인 셀은 `used` set 으로 mark → 다른 음절 cho 로 재처리 X.
+- TTS 폴백: phonics 라이브러리 miss 시 `window.speechSynthesis` (ko-KR). 라이브러리에 CV 음절 (가/나) 만 있고 받침 들어간 CVC (산/침/핫) 누락 흔함 → Web Speech 가 메움 (사용자 OS 한국어 보이스 필요).
+- "초기화" 버튼: 셀 모두 비움.
+
+## TOP 5 시각 연출 (Phase B)
+
 ## TOP 5 시각 연출 (Phase B)
 
 - **VocabularyMatching**: 3D 카드 플립 (framer-motion spring 260/20) + 매치 시 scale pop + fade out
