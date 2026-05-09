@@ -214,19 +214,19 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
 
         {/* 검색바 — hero 하단 가운데 floating. 헤더 영역 (위 80px) 은 일러스트 + 사용자 chip 자유. */}
         <div className="absolute inset-x-0 bottom-6 px-6 flex justify-center">
-          <div className="w-full max-w-2xl bg-white rounded-2xl px-6 py-4 shadow-pop flex items-center gap-3">
-            <span className="text-2xl">🔍</span>
+          <div className="w-full max-w-2xl bg-white rounded-2xl px-6 py-5 shadow-pop flex items-center gap-3">
+            <span className="text-3xl">🔍</span>
             <input
               type="text"
               placeholder={type === 'storybook' ? '무슨 책 찾을까?' : '어떤 파닉스 찾을까?'}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 outline-none text-lg bg-transparent text-ink-900 placeholder:text-ink-500 font-bold"
+              className="flex-1 outline-none text-xl bg-transparent text-ink-900 placeholder:text-ink-500 font-bold"
             />
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as 'recent' | 'title')}
-              className="bg-transparent text-sm font-black text-ink-700 outline-none cursor-pointer"
+              className="bg-transparent text-base font-black text-ink-700 outline-none cursor-pointer"
             >
               <option value="recent">최신순</option>
               <option value="title">제목순</option>
@@ -236,7 +236,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
       </section>
 
       <div className="max-w-[1280px] mx-auto px-6 md:px-8 py-6">
-        {/* 파닉스 한/영 chip */}
+        {/* 파닉스 한/영 chip — 학습자 가독성 위해 default Chip 보다 크게 (4-5세) */}
         {type === 'phonics' && (
           <div className="flex gap-2 mb-5">
             {(
@@ -252,6 +252,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
                 active={phonicsLang === c.id}
                 trailing={phonicsLang === c.id ? c.count : undefined}
                 onClick={() => setPhonicsLang(c.id)}
+                className="!text-base !px-5 !py-2"
               >
                 {c.label}
               </Chip>
@@ -259,7 +260,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
           </div>
         )}
 
-        {/* 카테고리 chip + 읽는 중 chip — 동화책 (단일 선택) */}
+        {/* 카테고리 chip + 읽는 중 chip — 동화책 (단일 선택). 학습자 가독성 위해 키운 사이즈. */}
         {type === 'storybook' && (allCategories.length > 1 || readingCount > 0) && (
           <div className="flex gap-2 mb-5 overflow-x-auto pb-1">
             <Chip
@@ -269,6 +270,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
                 setActiveCategory(null);
                 setReadingFilter(false);
               }}
+              className="!text-base !px-5 !py-2"
             >
               전체
             </Chip>
@@ -282,6 +284,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
                   setActiveCategory(null);
                   setReadingFilter((v) => !v);
                 }}
+                className="!text-base !px-5 !py-2"
               >
                 읽는 중
               </Chip>
@@ -291,12 +294,13 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
                 key={cat}
                 variant="coral"
                 active={activeCategory === cat}
-                icon={getCategoryIconNode(cat, 20)}
+                icon={getCategoryIconNode(cat, 24)}
                 trailing={activeCategory === cat ? count : undefined}
                 onClick={() => {
                   setActiveCategory(cat);
                   setReadingFilter(false);
                 }}
+                className="!text-base !px-5 !py-2"
               >
                 {cat}
               </Chip>
@@ -306,8 +310,8 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
 
         {/* 콘텐츠 */}
         {isLoading ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
-            {Array.from({ length: 8 }).map((_, i) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 sm:gap-6">
+            {Array.from({ length: 9 }).map((_, i) => (
               <SkeletonBookCard key={i} />
             ))}
           </div>
@@ -325,10 +329,15 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
               icon={getCategoryIconNode(cat, 32)}
               title={cat}
               books={books}
+              onShowMore={() => {
+                setActiveCategory(cat);
+                setReadingFilter(false);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
             />
           ))
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 sm:gap-6">
             {filtered.map((b) => (
               <BookCard key={b.id} book={b} />
             ))}

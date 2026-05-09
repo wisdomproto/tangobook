@@ -93,9 +93,9 @@ export function AppShell() {
     <div className="flex min-h-screen bg-cream-50">
       {/* 좌측 nav — 태블릿 기준 w-44 (176px). 박스 + 라벨 가독성 우선. */}
       <aside className="w-44 flex-shrink-0 sticky top-0 h-screen flex flex-col bg-cream-50 border-r border-ink-100/60">
-        {/* 로고 영역 — 워드마크 이미지 (1774x887 원본 → 사이드바 폭 176 안에 fit, h-12 ≈ 48px / w 자동) */}
-        <div className="h-20 flex items-center justify-center px-3 border-b border-ink-100/40">
-          <img src="/logo/logo-kr.png" alt="탱고북" className="h-12 w-auto object-contain" />
+        {/* 로고 영역 — 워드마크 이미지 (1774x887 원본 → 사이드바 폭 176 안에 fit, h-16 ≈ 64px / w 자동) */}
+        <div className="h-24 flex items-center justify-center px-2 border-b border-ink-100/40">
+          <img src="/logo/logo-kr.png" alt="탱고북" className="h-16 w-auto object-contain" />
         </div>
 
         {/* 3 axis — 모두 동일 정사각 박스 (정렬 통일). 동화책 / 파닉스 / 어휘 */}
@@ -233,8 +233,8 @@ function PrimaryNavButton({
         className="w-28 h-28 rounded-3xl flex flex-col items-center justify-center gap-1 bg-ink-100/40 cursor-not-allowed select-none"
       >
         <AppIcon src={iconSrc} size={44} alt={label} className="opacity-35" />
-        <span className="text-base font-black text-ink-500">{label}</span>
-        <span className="text-[11px] font-black text-ink-400 tracking-wide">준비 중</span>
+        <span className="text-lg font-black text-ink-500">{label}</span>
+        <span className="text-xs font-black text-ink-400 tracking-wide">준비 중</span>
       </div>
     );
   }
@@ -252,7 +252,7 @@ function PrimaryNavButton({
       }}
     >
       <AppIcon src={iconSrc} size={48} alt={label} />
-      <span className="text-base">{label}</span>
+      <span className="text-lg">{label}</span>
     </NavLink>
   );
 }
