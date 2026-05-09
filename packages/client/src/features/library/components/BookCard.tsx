@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { Card } from '@/design-system';
 import { cn } from '@/lib/cn';
 import type { BookIndexEntry } from '@tangobook/shared';
 import { useReadingStatus } from '../hooks/useReadingStatus';
@@ -9,21 +8,20 @@ interface BookCardProps {
   book: BookIndexEntry;
 }
 
+/** 책 카드 — 일러스트 풀 (정사각형 가까운 비율) + 아래 제목. 카드 배경/패딩 X (reference 디자인). */
 export function BookCard({ book }: BookCardProps) {
   const navigate = useNavigate();
   const { data: statusMap } = useReadingStatus();
   const status = statusMap?.get(book.id);
 
   return (
-    <Card
-      interactive
-      padding="md"
+    <button
       onClick={() => navigate(`/library/${book.id}`)}
-      className="relative"
+      className="group flex flex-col items-stretch text-left transition-transform hover:-translate-y-1 active:scale-95"
     >
       <div
         className={cn(
-          'aspect-video rounded-lg overflow-hidden mb-3 relative',
+          'aspect-video rounded-2xl overflow-hidden relative shadow-soft group-hover:shadow-pop transition-shadow',
           !book.coverImageUrl &&
             'bg-gradient-to-br from-peach-200 to-peach-300 flex items-center justify-center text-5xl'
         )}
@@ -45,9 +43,9 @@ export function BookCard({ book }: BookCardProps) {
           <BookProgressBadge status={status} className="absolute top-2 right-2" />
         )}
       </div>
-      <h3 className="font-black text-base text-ink-900 truncate font-display leading-tight">
+      <h3 className="mt-2 font-black text-base text-ink-900 truncate font-display leading-tight px-1">
         {book.title}
       </h3>
-    </Card>
+    </button>
   );
 }

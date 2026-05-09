@@ -53,7 +53,8 @@ const PRIMARY_AXES = [
 function getPageTitle(
   pathname: string
 ): { iconSrc?: string; emoji?: string; title: string } | null {
-  if (pathname === '/library') return { iconSrc: 'tab/storybook.svg', title: '동화책' };
+  // /library 는 LibraryPage 자체가 hero 배너에 큰 제목 노출 → AppShell 헤더 중복 hide
+  if (pathname === '/library') return null;
   if (pathname.startsWith('/library/phonics'))
     return { iconSrc: 'tab/phonics.svg', title: '파닉스' };
   if (pathname.startsWith('/vocabulary/book-'))
@@ -72,6 +73,8 @@ export function AppShell() {
   const pageTitle = getPageTitle(location.pathname);
   // 단원 학습 화면(/vocabulary/:unitId)은 가운데 호리+말풍선이 본문 시선을 가져가야 해서 사이드바 호리 숨김
   const hideSidebarMascot = /^\/vocabulary\/[^/]+/.test(location.pathname);
+  // 라이브러리는 hero 배경이 헤더 영역까지 차지 — AppShell 헤더 transparent + 우측 사용자 chip 만 floating
+  const isLibraryRoot = location.pathname === '/library';
 
   // 학습자 화면은 라이트 모드 고정
   useEffect(() => {
@@ -83,11 +86,8 @@ export function AppShell() {
     await signOut();
   };
 
-  // 인사말 — /library 계열에서만 권수 강조, 그 외는 fallback
-  const greeting =
-    location.pathname.startsWith('/library') && bookCount > 0
-      ? `${bookCount}권이 너를 기다려 👋`
-      : '';
+  // 인사말 — /library 는 hero 배너에 권수 노출 (중복 회피). 다른 진입점에서만 fallback (현재 경로 매칭 없으니 사실상 비활성)
+  const greeting = '';
 
   return (
     <div className="flex min-h-screen bg-cream-50">
@@ -122,9 +122,16 @@ export function AppShell() {
         </div>
       </aside>
 
-      {/* 우측 영역 */}
-      <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-20 sticky top-0 z-30 px-7 flex items-center justify-between bg-cream-50 border-b border-ink-100/60">
+      {/* 우측 영역. /library 일 때 header = absolute overlay → main 이 0부터 시작 → hero 가 헤더 영역까지 차지. */}
+      <div className="flex-1 flex flex-col min-w-0 relative">
+        <header
+          className={cn(
+            'h-20 z-30 px-7 flex items-center justify-between',
+            isLibraryRoot
+              ? 'absolute top-0 inset-x-0 bg-transparent border-b-0 pointer-events-none'
+              : 'sticky top-0 bg-cream-50 border-b border-ink-100/60'
+          )}
+        >
           {/* 왼쪽: 페이지 타이틀 (큰 글자) + 인사말 sub */}
           <div className="flex items-center gap-3 min-w-0">
             {pageTitle && (
@@ -142,8 +149,8 @@ export function AppShell() {
             )}
           </div>
 
-          {/* 오른쪽: 프로필 + 로그아웃 */}
-          <div className="flex items-center gap-3 flex-shrink-0">
+          {/* 오른쪽: 프로필 + 로그아웃. /library transparent 헤더 위에서도 클릭 가능. */}
+          <div className="flex items-center gap-3 flex-shrink-0 pointer-events-auto">
             {activeProfile && (
               <div className="px-4 py-2 rounded-full bg-white shadow-soft text-sm font-black text-ink-900">
                 👦 {activeProfile.name}

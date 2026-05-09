@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { useStorybooks } from '@/features/storybook';
 import { CategorySection, BookCard, useReadingStatus } from '@/features/library';
 import { StateScreen, SkeletonBookCard, Chip, AppIcon } from '@/design-system';
+import { cn } from '@/lib/cn';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
 
 /**
@@ -198,27 +199,42 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
 
   return (
     <div className="bg-gradient-to-b from-cream-50 to-peach-100 min-h-full">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-8 py-6">
-        {/* 검색창 — 태블릿 가독성 우선 (글자 큼, 가로 적당, 정렬 우측) */}
-        <div className="mb-5 bg-white rounded-2xl px-6 py-4 shadow-soft flex items-center gap-3 max-w-3xl mx-auto">
-          <span className="text-2xl">🔍</span>
-          <input
-            type="text"
-            placeholder={type === 'storybook' ? '무슨 책 찾을까?' : '어떤 파닉스 찾을까?'}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 outline-none text-lg bg-transparent text-ink-900 placeholder:text-ink-500 font-bold"
-          />
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as 'recent' | 'title')}
-            className="bg-transparent text-sm font-black text-ink-700 outline-none cursor-pointer"
-          >
-            <option value="recent">최신순</option>
-            <option value="title">제목순</option>
-          </select>
-        </div>
+      {/* Hero 배너 — main 이 (AppShell header absolute) 0부터 시작 → hero 가 헤더 영역까지 자연 차지.
+          aspect 비율 유지 (일러스트 잘림 X). 검색바 hero 하단 floating. 큰 제목/권수 텍스트 제거 (일러스트와 충돌). */}
+      <section
+        className={cn(
+          'relative overflow-hidden aspect-[5/2] md:aspect-[4/1]',
+          'bg-[url("/images/library-hero.png")] bg-cover bg-center',
+          'bg-gradient-to-br from-sky-100 via-cream-50 to-amber-100'
+        )}
+      >
+        {/* 텍스트 가독성 워시 (배경 일러스트 색 진해도 유지) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-white/40 pointer-events-none" />
 
+        {/* 검색바 — hero 하단 가운데 floating. 헤더 영역 (위 80px) 은 일러스트 + 사용자 chip 자유. */}
+        <div className="absolute inset-x-0 bottom-6 px-6 flex justify-center">
+          <div className="w-full max-w-2xl bg-white rounded-2xl px-6 py-4 shadow-pop flex items-center gap-3">
+            <span className="text-2xl">🔍</span>
+            <input
+              type="text"
+              placeholder={type === 'storybook' ? '무슨 책 찾을까?' : '어떤 파닉스 찾을까?'}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="flex-1 outline-none text-lg bg-transparent text-ink-900 placeholder:text-ink-500 font-bold"
+            />
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as 'recent' | 'title')}
+              className="bg-transparent text-sm font-black text-ink-700 outline-none cursor-pointer"
+            >
+              <option value="recent">최신순</option>
+              <option value="title">제목순</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <div className="max-w-[1280px] mx-auto px-6 md:px-8 py-6">
         {/* 파닉스 한/영 chip */}
         {type === 'phonics' && (
           <div className="flex gap-2 mb-5">
