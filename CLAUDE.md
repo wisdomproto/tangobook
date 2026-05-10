@@ -40,6 +40,9 @@ Request → routes → controllers → services → repositories/providers
 features/{name}/{api,hooks,components,index.ts}
 ```
 
+## 디자인 시스템 — single source of truth
+**Reference**: [docs/design-system.md](docs/design-system.md) — 색/폰트/컴포넌트 + GPT 시안 prompt 템플릿 + Claude 가 시안 받을 때 protocol. 새 화면 시안 받을 때 매번 이 문서 참조.
+
 ## 디자인 시스템 — 아이콘
 - 프리미티브: `<AppIcon src="category/animal.png" size={48} />` (`design-system/primitives/AppIcon.tsx`)
 - 자산 위치: `packages/client/public/icons/{category,section,tab}/*.{png,svg}`
