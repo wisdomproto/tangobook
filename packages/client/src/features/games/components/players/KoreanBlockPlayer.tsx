@@ -9,7 +9,6 @@ import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
-import { FeedbackOverlay } from '../FeedbackOverlay';
 import { cn } from '@/lib/cn';
 
 type JamoType = 'cho' | 'jung' | 'jong';
@@ -117,7 +116,6 @@ export function KoreanBlockPlayer({
   gameData,
   onComplete: _onComplete,
   onBack,
-  systemSounds,
 }: GamePlayerProps) {
   const data = gameData as KoreanBlockData;
   const items = data.items;
@@ -142,7 +140,7 @@ export function KoreanBlockPlayer({
 
   const [grid, setGrid] = useState<(string | null)[][]>(() => initGrid());
 
-  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playFeedbackSound, playWordCorrect } = useGameAudio();
   const phonicsMapRef = usePhonicsMap(['mod_korean', 'mod_phonics']);
   const drag = useBlockDrag<JamoBlock>({
     createGhost: createKoreanGhost,
@@ -250,10 +248,8 @@ export function KoreanBlockPlayer({
       if (isFirstTry) setScore((s) => s + 1);
       wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
       setRoundCorrect(true);
-      playCorrectSequence({
+      playWordCorrect({
         ttsUrl: currentItem.ttsUrl,
-        systemSounds,
-        language: 'ko',
         onDone: () => {
           if (currentIndex + 1 < items.length) {
             const nextIdx = currentIndex + 1;
@@ -281,8 +277,7 @@ export function KoreanBlockPlayer({
     items,
     initGrid,
     playFeedbackSound,
-    playCorrectSequence,
-    systemSounds,
+    playWordCorrect,
     roundCorrect,
   ]);
 
@@ -337,8 +332,6 @@ export function KoreanBlockPlayer({
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <FeedbackOverlay kind="correct" visible={praiseVisible} />
-
       <div className="px-2 pt-2 shrink-0">
         <GameHeader title="한글 블록" current={score} total={items.length} onBack={onBack} />
       </div>

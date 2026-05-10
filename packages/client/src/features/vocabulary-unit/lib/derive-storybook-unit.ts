@@ -59,6 +59,8 @@ export function deriveStorybookUnit(book: Storybook): VocabularyUnit {
           imageUrl: img.imageUrl,
           isPrimary: style === styleKey,
           createdAt: book.createdAt ?? new Date().toISOString(),
+          // KeyObjectImage.keypoints → VocabularyWordImage.keypoints (점잇기 게임 활성화)
+          ...(img.keypoints && img.keypoints.length > 0 ? { keypoints: img.keypoints } : {}),
         });
       }
     }
@@ -72,6 +74,9 @@ export function deriveStorybookUnit(book: Storybook): VocabularyUnit {
           imageUrl: topImg.imageUrl,
           isPrimary: true,
           createdAt: book.createdAt ?? new Date().toISOString(),
+          ...(topImg.keypoints && topImg.keypoints.length > 0
+            ? { keypoints: topImg.keypoints }
+            : {}),
         });
       }
     }

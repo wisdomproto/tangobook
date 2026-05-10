@@ -8,7 +8,6 @@ import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
-import { FeedbackOverlay } from '../FeedbackOverlay';
 import { useGameLogger } from '@/features/learning';
 import { cn } from '@/lib/cn';
 
@@ -45,7 +44,6 @@ export function EnglishBlockPlayer({
   gameData,
   onComplete: _onComplete,
   onBack,
-  systemSounds,
 }: GamePlayerProps) {
   const data = gameData as EnglishBlockData;
   const items = data.items;
@@ -71,7 +69,7 @@ export function EnglishBlockPlayer({
 
   const [grid, setGrid] = useState<(string | null)[]>(() => initGrid(currentItem.letters));
 
-  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playFeedbackSound, playWordCorrect } = useGameAudio();
   const phonicsMapRef = usePhonicsMap(['mod_phonics', 'mod_english']);
   const drag = useBlockDrag<LetterBlock>({
     createGhost: createEnglishGhost,
@@ -163,10 +161,8 @@ export function EnglishBlockPlayer({
       if (isFirstTry) setScore((s) => s + 1);
       wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
       setRoundCorrect(true);
-      playCorrectSequence({
+      playWordCorrect({
         ttsUrl: currentItem.ttsUrl,
-        systemSounds,
-        language: 'en',
         onDone: () => {
           if (currentIndex + 1 < items.length) {
             const nextIdx = currentIndex + 1;
@@ -195,8 +191,7 @@ export function EnglishBlockPlayer({
     items,
     initGrid,
     playFeedbackSound,
-    playCorrectSequence,
-    systemSounds,
+    playWordCorrect,
     roundCorrect,
   ]);
 
@@ -339,7 +334,6 @@ export function EnglishBlockPlayer({
   return (
     // vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음.
     <div className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-br from-cream-50 to-peach-100 overflow-y-auto">
-      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="px-2 pt-2 shrink-0">
         <GameHeader title="영어 블록" current={score} total={items.length} onBack={onBack} />
       </div>

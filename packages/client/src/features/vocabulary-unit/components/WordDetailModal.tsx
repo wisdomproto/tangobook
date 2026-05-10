@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import type { Lang, Storybook, VocabularyUnitWord } from '@tangobook/shared';
+import { phonicsApi } from '@/features/phonics/api/phonics.api';
 
 interface WordDetailModalProps {
   word: VocabularyUnitWord;
@@ -111,13 +112,16 @@ export function WordDetailModal({
     return () => window.removeEventListener('keydown', handler);
   }, [onClose]);
 
-  // 언마운트 시 진행 중 오디오/스피치 중단 (자동 재생 X — 사용자가 듣기 버튼 명시 클릭)
+  // 언마운트 시 진행 중 오디오/스피치 중단
   useEffect(() => {
     return () => {
       if (audioRef.current) audioRef.current.pause();
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     };
   }, []);
+
+  // 모달 열릴 때 단어 자동 재생 — 사용자 정책 (2026-05-10): 카드 탭 = 즉시 들리게.
+  // playWord 정의 후 호출 위해 useEffect 위치는 함수 정의 뒤로 옮김 ↓
 
   const speakWithSynthesis = (text: string) => {
     if (!('speechSynthesis' in window)) return;
@@ -139,12 +143,53 @@ export function WordDetailModal({
     }
   };
 
-  const playWord = () => {
-    // 우선순위: 단원 word.ttsUrl(s) > storybook KeyObject.ttsUrl(s) > Web Speech
-    const url = pickWordTtsUrl(word, lang, storybook);
-    if (url) {
-      playUrl(url);
-      return;
+  const playWord = async () => {
+    // 사용자 정책 (2026-05-10):
+    //   한글 → phonics 음절 합성 우선 → KeyObject.ttsUrl fallback → Web Speech
+    //   영어 → KeyObject/word.ttsUrl 우선 → phonics concat fallback → Web Speech
+    const sbId = storybook?.id;
+    const text = lang === 'ko' ? (word.korean ?? word.word) : word.word;
+
+    if (lang === 'en') {
+      const url = pickWordTtsUrl(word, 'en', storybook);
+      if (url) {
+        playUrl(url);
+        return;
+      }
+      if (sbId) {
+        try {
+          const { audioUrl } = await phonicsApi.concatPhonicsAudio({
+            text,
+            storybookId: sbId,
+            identifier: `vocab-en-${encodeURIComponent(text)}`,
+            language: 'english',
+          });
+          playUrl(audioUrl);
+          return;
+        } catch {
+          /* phonics concat 실패 — Web Speech 폴백 */
+        }
+      }
+    } else {
+      if (sbId) {
+        try {
+          const { audioUrl } = await phonicsApi.concatPhonicsAudio({
+            text,
+            storybookId: sbId,
+            identifier: `vocab-ko-${encodeURIComponent(text)}`,
+            language: 'korean',
+          });
+          playUrl(audioUrl);
+          return;
+        } catch {
+          /* phonics concat 실패 — ttsUrl fallback */
+        }
+      }
+      const url = pickWordTtsUrl(word, 'ko', storybook);
+      if (url) {
+        playUrl(url);
+        return;
+      }
     }
     speakWithSynthesis(getDisplayLabel(word, lang));
   };
@@ -153,6 +198,11 @@ export function WordDetailModal({
     if (!word.example) return;
     speakWithSynthesis(word.example);
   };
+
+  // 모달 mount 시 자동 재생 (카드 탭 = 즉시 들리게). word 변경 시 다시.
+  useEffect(() => {
+    void playWord();
+  }, [word.word]); // playWord 는 매 render 새 클로저라 deps 에 안 넣음 (의도)
 
   const label = getDisplayLabel(word, lang);
   const wordImage = pickWordImage(word);

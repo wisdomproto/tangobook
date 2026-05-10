@@ -44,18 +44,40 @@ function tryDecodeGarbled(name: string): string {
 }
 
 /** 텍스트를 토큰과 공백 구간으로 파싱. 공백 1개 = 0.3초 */
+/**
+ * 텍스트 → 토큰 + gap 분해.
+ *   - 영어 단어: 그대로 한 토큰 ('milk' → ['milk'])
+ *   - 한글 단어: 음절 단위 분해 ('하프' → ['하', '프'], 음절 사이 gap=0)
+ *   - 단어 사이 공백: gap = 공백 길이 × 0.3초
+ *
+ * gaps.length = tokens.length - 1 (tokens 사이마다 gap 1개).
+ */
+const HANGUL_SYLLABLE_RE = /[가-힣]/;
+
 function parseText(text: string): { tokens: string[]; gaps: number[] } {
   const parts = text.split(/( +)/);
   const tokens: string[] = [];
   const gaps: number[] = [];
+  let pendingWordGap = 0; // 다음 단어 첫 토큰 추가 시 적용할 단어-간 gap
 
   for (let i = 0; i < parts.length; i++) {
     if (i % 2 === 0) {
-      // 토큰 (비어있지 않은 경우만)
-      if (parts[i]) tokens.push(parts[i]);
+      // 단어 단위 (비어있지 않은 경우만)
+      const word = parts[i];
+      if (!word) continue;
+      // 한글 단어는 음절 단위 분해
+      const subTokens = HANGUL_SYLLABLE_RE.test(word) ? [...word] : [word];
+      for (let j = 0; j < subTokens.length; j++) {
+        if (tokens.length > 0) {
+          // 토큰 사이 gap — 첫 음절은 직전 단어와의 word gap, 나머지는 0 (음절 사이)
+          gaps.push(j === 0 ? pendingWordGap : 0);
+        }
+        tokens.push(subTokens[j]);
+      }
+      pendingWordGap = 0;
     } else {
-      // 공백 구간 → 0.3초/공백
-      gaps.push(parts[i].length * 0.3);
+      // 공백 구간 → 다음 단어 첫 토큰 시 word gap 으로 적용
+      pendingWordGap = parts[i].length * 0.3;
     }
   }
 

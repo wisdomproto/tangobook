@@ -1,12 +1,11 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Button } from '@/design-system';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { ConnectTheDotsData, ConnectTheDotsItem } from '@tangobook/shared';
 import { getEffectiveVocabulary } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
+import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { phonicsApi } from '@/features/phonics/api/phonics.api';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -19,7 +18,6 @@ export function ConnectTheDotsPlayer({
   gameData,
   onComplete,
   onBack,
-  systemSounds,
 }: GamePlayerProps) {
   const data = gameData as ConnectTheDotsData;
   const items = data.items.filter((it) => it.keypoints.length >= 2);
@@ -33,10 +31,52 @@ export function ConnectTheDotsPlayer({
   const [showImage, setShowImage] = useState(false);
   const [completedItems, setCompletedItems] = useState(0);
   const [isPressing, setIsPressing] = useState(false);
+  const [finished, setFinished] = useState(false);
 
   const overlayRef = useRef<HTMLDivElement>(null);
-  const { playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playWordCorrect, playFeedbackSound } = useGameAudio();
   const logGame = useGameLogger();
+
+  // 점 잇기 = 도레미 진행 — Web Audio API sine wave (자산 없이 합성)
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const NOTE_FREQS = [
+    261.63, // C4 도
+    293.66, // D4 레
+    329.63, // E4 미
+    349.23, // F4 파
+    392.0, // G4 솔
+    440.0, // A4 라
+    493.88, // B4 시
+    523.25, // C5 도
+    587.33, // D5 레
+    659.25, // E5 미
+    698.46, // F5 파
+    783.99, // G5 솔
+  ];
+  const playNote = useCallback((noteIdx: number) => {
+    try {
+      if (!audioCtxRef.current) {
+        const Ctx =
+          window.AudioContext ??
+          (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        if (!Ctx) return;
+        audioCtxRef.current = new Ctx();
+      }
+      const ctx = audioCtxRef.current;
+      const freq = NOTE_FREQS[noteIdx % NOTE_FREQS.length];
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.25, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.3);
+    } catch {
+      /* AudioContext 차단 또는 미지원 — 무시 */
+    }
+  }, []);
 
   // 뷰어 URL의 ?lang을 읽어 어느 언어로 단어를 읽어줄지 결정
   const [searchParams] = useSearchParams();
@@ -52,12 +92,15 @@ export function ConnectTheDotsPlayer({
       const en = englishName.trim();
       if (!en) return null;
       if (viewerLang === 'en') return { text: en, language: 'english' };
-      // ko: getEffectiveVocabulary 로 통합 lookup (key_objects + 레거시 vocabulary 합집합)
+      // ko: case-insensitive lookup (KeyObject.name 'Cow' / objectName 'cow' 모두 OK)
+      const enLower = en.toLowerCase();
       const ko =
-        storybook?.key_objects?.find((k) => k.name === en || k.nameEn === en)?.korean?.trim() ||
+        storybook?.key_objects
+          ?.find((k) => k.name?.toLowerCase() === enLower || k.nameEn?.toLowerCase() === enLower)
+          ?.korean?.trim() ||
         (storybook
           ? getEffectiveVocabulary(storybook)
-              .find((v) => v.word === en)
+              .find((v) => v.word?.toLowerCase() === enLower)
               ?.korean?.trim()
           : '');
       if (ko) return { text: ko, language: 'korean' };
@@ -92,7 +135,9 @@ export function ConnectTheDotsPlayer({
     );
   }
 
-  const sortedKps = [...currentItem.keypoints].sort((a, b) => a.order - b.order);
+  // currentItem 이 없으면 (finished 후 itemIdx out-of-bounds 등) 안전한 placeholder.
+  // hook 순서 보존을 위해 early return 대신 keypoints 빈 배열로 fallback.
+  const sortedKps = currentItem ? [...currentItem.keypoints].sort((a, b) => a.order - b.order) : [];
   const totalDots = sortedKps.length;
 
   // 직접 탭 (onPointerDown/onClick) — 틀린 순서면 wrongTap 띄움
@@ -103,6 +148,7 @@ export function ConnectTheDotsPlayer({
       // 복귀 단계: 첫 점으로 돌아와야 완성
       if (returning) {
         if (order !== 1) {
+          playFeedbackSound(false);
           setWrongTap(true);
           setTimeout(() => setWrongTap(false), 500);
           return;
@@ -110,27 +156,59 @@ export function ConnectTheDotsPlayer({
         setCompleted(true);
         setTimeout(() => setShowImage(true), 300);
 
-        // 단어 음원을 미리 만들어 playCorrectSequence의 ttsUrl로 통합 (중간 컷 방지)
+        // 단어 음원 — 사용자 정책 (2026-05-10):
+        //   한글: phonics 음절 합성 우선 → 실패 시 KeyObject.ttsUrl fallback
+        //   영어: KeyObject.ttsUrl 우선 → 없으면 phonics concat fallback
         (async () => {
           let wordAudioUrl: string | undefined;
           const target = resolveSpeakTarget(currentItem.objectName);
           if (target) {
-            try {
-              const { audioUrl } = await phonicsApi.concatPhonicsAudio({
-                text: target.text,
-                storybookId,
-                identifier: `dot-${target.language === 'korean' ? 'ko' : 'en'}-${encodeURIComponent(target.text)}`,
-                language: target.language,
-              });
-              wordAudioUrl = audioUrl;
-            } catch {
-              /* 라이브러리 미스 → 건너뛰고 시스템 칭찬음만 */
+            // 매칭되는 KeyObject 찾기 — case-insensitive (name 'Cow' / objectName 'cow' 둘 다 OK)
+            const objNameLower = currentItem.objectName?.toLowerCase();
+            const ko = storybook?.key_objects?.find((k) => {
+              return (
+                k.name?.toLowerCase() === objNameLower || k.nameEn?.toLowerCase() === objNameLower
+              );
+            });
+            const ttsLang = target.language === 'korean' ? 'ko' : 'en';
+            const keyObjTts = ko?.ttsUrls?.[ttsLang] ?? (ttsLang === 'ko' ? ko?.ttsUrl : undefined);
+
+            if (target.language === 'english') {
+              // 영어: ttsUrl 우선
+              if (keyObjTts) {
+                wordAudioUrl = keyObjTts;
+              } else {
+                try {
+                  const { audioUrl } = await phonicsApi.concatPhonicsAudio({
+                    text: target.text,
+                    storybookId,
+                    identifier: `dot-en-${encodeURIComponent(target.text)}`,
+                    language: 'english',
+                  });
+                  wordAudioUrl = audioUrl;
+                } catch {
+                  /* 라이브러리 미스 — 효과음만 */
+                }
+              }
+            } else {
+              // 한글: phonics concat 우선
+              try {
+                const { audioUrl } = await phonicsApi.concatPhonicsAudio({
+                  text: target.text,
+                  storybookId,
+                  identifier: `dot-ko-${encodeURIComponent(target.text)}`,
+                  language: 'korean',
+                });
+                wordAudioUrl = audioUrl;
+              } catch {
+                /* phonics concat 실패 — KeyObject.ttsUrl 폴백 */
+                wordAudioUrl = keyObjTts;
+              }
+              if (!wordAudioUrl) wordAudioUrl = keyObjTts;
             }
           }
-          playCorrectSequence({
+          playWordCorrect({
             ttsUrl: wordAudioUrl,
-            systemSounds,
-            language: viewerLang,
             onDone: () => {
               const newCompletedItems = completedItems + 1;
               setCompletedItems(newCompletedItems);
@@ -146,7 +224,9 @@ export function ConnectTheDotsPlayer({
                     }))
                     .filter((r) => r.word),
                 });
-                onComplete(newCompletedItems, items.length);
+                // 사용자 정책 (2026-05-10): 게임 끝 → GameResultScreen (호리 + 칭찬 + 확인 버튼).
+                // 자동 모달 닫힘 X. 사용자가 확인 클릭해야 이전 화면으로.
+                setFinished(true);
               } else {
                 setItemIdx(itemIdx + 1);
                 setNextOrder(1);
@@ -163,10 +243,13 @@ export function ConnectTheDotsPlayer({
 
       // 일반 진행: 순서 맞는 점만
       if (order !== nextOrder) {
+        playFeedbackSound(false);
         setWrongTap(true);
         setTimeout(() => setWrongTap(false), 500);
         return;
       }
+      // 정답 점 — 도레미 진행 (1번 점=도, 2번=레, ...)
+      playNote(connectedUpTo);
       const newConnected = connectedUpTo + 1;
       setConnectedUpTo(newConnected);
       setWrongTap(false);
@@ -187,11 +270,15 @@ export function ConnectTheDotsPlayer({
       storybookId,
       completedItems,
       itemIdx,
-      items.length,
+      items,
       onComplete,
-      playCorrectSequence,
-      systemSounds,
+      playWordCorrect,
+      playFeedbackSound,
+      playNote,
       resolveSpeakTarget,
+      logGame,
+      viewerLang,
+      storybook,
     ]
   );
 
@@ -206,9 +293,33 @@ export function ConnectTheDotsPlayer({
     [completed, isPressing, returning, nextOrder, handleDotTap]
   );
 
+  // finished 시 결과 화면 (호리 + 칭찬 + 확인). hook 순서 보존을 위해 main return 안 분기.
+  if (finished) {
+    return (
+      <GameResultScreen
+        storybookId={storybookId}
+        score={completedItems}
+        total={items.length}
+        onRestart={() => {
+          setItemIdx(0);
+          setNextOrder(1);
+          setConnectedUpTo(0);
+          setReturning(false);
+          setCompleted(false);
+          setShowImage(false);
+          setCompletedItems(0);
+          setFinished(false);
+        }}
+        onBack={() => {
+          onComplete(completedItems, items.length);
+          onBack();
+        }}
+      />
+    );
+  }
+
   return (
     <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/point-drawing-bg.png">
-      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <GameHeader
         title="단어 그림 그리기"
         current={completedItems}
@@ -242,7 +353,7 @@ export function ConnectTheDotsPlayer({
               src={currentItem.originalImageUrl}
               alt={currentItem.objectName ?? `Page ${currentItem.pageNumber}`}
               className="block max-h-[60vh] w-auto transition-opacity duration-700"
-              style={{ opacity: showImage ? 1 : 0.08 }}
+              style={{ opacity: showImage ? 1 : 0.45 }}
               draggable={false}
             />
 
@@ -304,12 +415,12 @@ export function ConnectTheDotsPlayer({
                       handleDotTap(kp.order);
                     }}
                     onPointerEnter={() => handleDotEnterWhileDragging(kp.order)}
-                    className={`absolute rounded-full shadow-pop transition-all ${
+                    className={`absolute rounded-full shadow-pop transition-all ring-2 ring-white ${
                       isNext
-                        ? 'bg-coral-500 ring-4 ring-coral-300 animate-pulse scale-125'
+                        ? 'bg-coral-500 ring-4 ring-coral-200 animate-pulse scale-125'
                         : isConnected
                           ? 'bg-coral-600'
-                          : 'bg-ink-900 hover:bg-coral-400'
+                          : 'bg-coral-300 hover:bg-coral-400 hover:scale-110'
                     }`}
                     style={{
                       left: `${kp.x * 100}%`,

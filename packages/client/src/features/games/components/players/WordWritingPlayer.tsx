@@ -5,7 +5,6 @@ import type { WordWritingData, GameTypeId, Lang } from '@tangobook/shared';
 import { decomposeWord } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 
@@ -15,13 +14,7 @@ const LINE_WIDTH = 8;
 const GUIDE_COLOR = '#d4d4d8'; // zinc-300
 const DRAW_COLOR = '#1e293b'; // slate-800
 
-export function WordWritingPlayer({
-  storybookId,
-  gameData,
-  onComplete,
-  onBack,
-  systemSounds,
-}: GamePlayerProps) {
+export function WordWritingPlayer({ storybookId, gameData, onComplete, onBack }: GamePlayerProps) {
   const data = gameData as WordWritingData;
   const items = data.items;
 
@@ -59,7 +52,7 @@ export function WordWritingPlayer({
   const pathsRef = useRef<Array<Array<{ x: number; y: number }>>>([]);
 
   const currentItem = items[currentIndex];
-  const { playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playFeedbackSound, playWordCorrect } = useGameAudio();
 
   const calcFont = useCallback((ctx: CanvasRenderingContext2D, word: string) => {
     let size = CANVAS_H * 0.65;
@@ -283,14 +276,7 @@ export function WordWritingPlayer({
     setShowResult(true);
 
     if (accuracy >= 50) {
-      playCorrectSequence({
-        systemSounds,
-        language:
-          data.type === 'korean-word-writing'
-            ? 'ko'
-            : data.type === 'english-word-writing'
-              ? 'en'
-              : undefined,
+      playWordCorrect({
         onDone: () => {
           const newScores = [...scores, accuracy];
           setScores(newScores);
@@ -313,7 +299,6 @@ export function WordWritingPlayer({
 
   return (
     <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/writing-bg.png">
-      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <GameHeader
         title="따라 쓰기"
         current={scores.filter((s) => s >= 70).length}

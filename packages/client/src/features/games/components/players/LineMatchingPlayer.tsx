@@ -28,7 +28,6 @@ export function LineMatchingPlayer({
   gameData,
   onComplete,
   onBack,
-  systemSounds,
   lang,
 }: LineMatchingPlayerProps) {
   const data = gameData as KoreanLineMatchingData | EnglishLineMatchingData;
@@ -44,34 +43,54 @@ export function LineMatchingPlayer({
   const [wrongPair, setWrongPair] = useState<{ image: number; word: number } | null>(null);
   const [finished, setFinished] = useState(false);
 
-  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playFeedbackSound, playWordCorrect } = useGameAudio();
 
   const isMatched = useCallback(
     (itemIdx: number) => matched.some((m) => m.itemIdx === itemIdx),
     [matched]
   );
 
+  // 사용자 정책 (2026-05-10): 한글 → phonics 음절 합성 우선 / 영어 → ttsUrl 우선
   const playWordTts = useCallback(
     async (item: LineMatchingItem) => {
-      if (item.ttsUrl) {
-        playAudio(item.ttsUrl);
-        return;
-      }
-      // phonics concat fallback — 한/영 감지해서 language 지정
-      try {
-        const hasHangul = /[가-힣]/.test(item.word);
-        const result = await phonicsApi.concatPhonicsAudio({
-          text: item.word,
-          storybookId,
-          identifier: `line-matching-${lang}-${item.word}`,
-          language: hasHangul ? 'korean' : 'english',
-        });
-        playAudio(result.audioUrl);
-      } catch {
-        // 무시 — TTS 실패해도 게임 진행
+      const hasHangul = /[가-힣]/.test(item.word);
+      if (hasHangul) {
+        // 한글: phonics concat 우선
+        try {
+          const result = await phonicsApi.concatPhonicsAudio({
+            text: item.word,
+            storybookId,
+            identifier: `line-matching-ko-${item.word}`,
+            language: 'korean',
+          });
+          if (result.audioUrl) {
+            playAudio(result.audioUrl);
+            return;
+          }
+        } catch {
+          /* phonics 실패 — ttsUrl 폴백 */
+        }
+        if (item.ttsUrl) playAudio(item.ttsUrl);
+      } else {
+        // 영어: ttsUrl 우선
+        if (item.ttsUrl) {
+          playAudio(item.ttsUrl);
+          return;
+        }
+        try {
+          const result = await phonicsApi.concatPhonicsAudio({
+            text: item.word,
+            storybookId,
+            identifier: `line-matching-en-${item.word}`,
+            language: 'english',
+          });
+          if (result.audioUrl) playAudio(result.audioUrl);
+        } catch {
+          /* 무시 */
+        }
       }
     },
-    [playAudio, storybookId, lang]
+    [playAudio, storybookId]
   );
 
   // 양쪽 다 선택되면 매칭 체크
@@ -83,14 +102,8 @@ export function LineMatchingPlayer({
       const newMatched = [...matched, { itemIdx: selectedImageIdx }];
       setMatched(newMatched);
       const matchedItem = items[selectedImageIdx];
-      playCorrectSequence({
-        systemSounds,
-        language: lang,
-        onDone: () => {
-          // nothing extra
-        },
-      });
-      // 단어 읽어주기 (피드백 사운드 직후)
+      // 단어 1개 정답 — 효과음 + TTS (호리/칭찬음원 X). 마지막 다 맞추면 GameResultScreen 이 호리.
+      playWordCorrect();
       setTimeout(() => {
         void playWordTts(matchedItem);
       }, 300);
@@ -114,11 +127,9 @@ export function LineMatchingPlayer({
     selectedWordIdx,
     matched,
     items,
-    playCorrectSequence,
+    playWordCorrect,
     playFeedbackSound,
     playWordTts,
-    systemSounds,
-    lang,
   ]);
 
   const logGame = useGameLogger();

@@ -8,7 +8,6 @@ import type {
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { GameResultScreen } from '../GameResultScreen';
 import { GameProgressBar } from '../GameProgressBar';
-import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { shuffle } from '../../utils/shuffle';
 import { cn } from '@/lib/cn';
@@ -22,8 +21,6 @@ export function StoryImagePlayer({
   gameData,
   onComplete,
   onBack,
-  systemSounds,
-  lang,
 }: StoryImagePlayerProps) {
   const data = gameData as KoreanStoryImageData | EnglishStoryImageData;
   const rounds = data.rounds;
@@ -34,7 +31,7 @@ export function StoryImagePlayer({
   const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
   const [finished, setFinished] = useState(false);
 
-  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playFeedbackSound, playWordCorrect } = useGameAudio();
 
   const current = rounds[currentIdx] as StoryImageRound | undefined;
 
@@ -64,9 +61,7 @@ export function StoryImagePlayer({
 
       if (isCorrect) {
         setScore((s) => s + 1);
-        playCorrectSequence({
-          systemSounds,
-          language: lang,
+        playWordCorrect({
           onDone: () => {
             if (currentIdx + 1 >= rounds.length) setFinished(true);
             else setCurrentIdx((i) => i + 1);
@@ -82,16 +77,7 @@ export function StoryImagePlayer({
         }, 800);
       }
     },
-    [
-      feedback,
-      current,
-      currentIdx,
-      rounds.length,
-      playFeedbackSound,
-      playCorrectSequence,
-      systemSounds,
-      lang,
-    ]
+    [feedback, current, currentIdx, rounds.length, playFeedbackSound, playWordCorrect]
   );
 
   const handleRestart = useCallback(() => {
@@ -134,7 +120,6 @@ export function StoryImagePlayer({
 
   return (
     <GamePlayerLayout maxWidth="2xl" onBack={onBack}>
-      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">
         <GameProgressBar current={currentIdx} total={rounds.length} score={score} />
 

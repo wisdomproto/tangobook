@@ -73,7 +73,24 @@ export function useGameAudio() {
     return id;
   }, []);
 
-  /** 정답 시퀀스: 효과음 → 칭찬 애니메이션 → TTS(선택) → 시스템 칭찬 음원 → onDone 콜백 */
+  /**
+   * 단어 한 개 정답 — 효과음 → TTS(선택) → onDone. 호리/칭찬음원 X (4-5세 부담 ↓).
+   * 사용자 정책 (2026-05-10): 단어 1개 맞출 때는 호리/칭찬 X, 모든 단어 맞으면 GameResultScreen 호리.
+   */
+  const playWordCorrect = useCallback(
+    (opts?: { ttsUrl?: string; onDone?: () => void }) => {
+      playFeedbackSound(true);
+      let delay = 500;
+      if (opts?.ttsUrl) {
+        scheduleTimer(() => playAudio(opts.ttsUrl), delay);
+        delay += 1200;
+      }
+      if (opts?.onDone) scheduleTimer(opts.onDone, delay);
+    },
+    [playFeedbackSound, playAudio, scheduleTimer]
+  );
+
+  /** [DEPRECATED — 단어 1개 시 호리/칭찬 정책 위반] 정답 시퀀스: 효과음 → 칭찬 애니메이션 → TTS → 시스템 칭찬 → onDone */
   const playCorrectSequence = useCallback(
     (opts?: CorrectSequenceOpts) => {
       playFeedbackSound(true);
@@ -132,5 +149,11 @@ export function useGameAudio() {
     };
   }, []);
 
-  return { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible };
+  return {
+    playAudio,
+    playFeedbackSound,
+    playWordCorrect,
+    playCorrectSequence,
+    praiseVisible,
+  };
 }

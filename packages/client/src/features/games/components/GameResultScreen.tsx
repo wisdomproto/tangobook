@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Mascot } from '@/design-system';
 import { Button } from '@/design-system';
+import { settingsApi } from '@/features/settings/api/settings.api';
 
 interface GameResultScreenProps {
   score: number;
@@ -51,6 +52,33 @@ export function GameResultScreen({ score, total, onRestart, onBack }: GameResult
     });
   }, [reduce]);
 
+  // 마운트 시 칭찬 음원 1회 (호리 + 칭찬). 한국어 / 영어 라이브러리 합산해서 랜덤 1개.
+  useEffect(() => {
+    let cancelled = false;
+    let audio: HTMLAudioElement | null = null;
+    settingsApi
+      .getSystemSounds()
+      .then((data) => {
+        if (cancelled) return;
+        const pool = [
+          ...data.korean.correct.map((s) => s.url),
+          ...data.english.correct.map((s) => s.url),
+        ];
+        if (pool.length === 0) return;
+        const url = pool[Math.floor(Math.random() * pool.length)];
+        audio = new Audio(url);
+        void audio.play().catch(() => {});
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+      if (audio) {
+        audio.pause();
+        audio.src = '';
+      }
+    };
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-10 text-center bg-gradient-to-b from-cream-50 via-coral-100 to-peach-200">
       <motion.div
@@ -72,7 +100,7 @@ export function GameResultScreen({ score, total, onRestart, onBack }: GameResult
           🔄 다시 하기
         </Button>
         <Button variant="secondary" size="lg" onClick={onBack}>
-          🏠 홈으로
+          확인
         </Button>
       </div>
     </div>

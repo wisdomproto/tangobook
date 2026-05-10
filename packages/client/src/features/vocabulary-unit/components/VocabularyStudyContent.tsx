@@ -53,15 +53,15 @@ export function VocabularyStudyContent({
   lang,
 }: VocabularyStudyContentProps) {
   const [activeGame, setActiveGame] = useState<GameTypeId | null>(null);
-  const [completedGames, setCompletedGames] = useState<Set<GameTypeId>>(new Set());
   const [selectedWord, setSelectedWord] = useState<VocabularyUnitWord | null>(null);
   const { refetch: refetchBalance } = useStarBalance();
 
   const games = getAvailableGames(unit, lang);
 
-  const handleGameComplete = (gameType: GameTypeId) => {
+  // 사용자 정책 (2026-05-10): 게임은 매번 랜덤 N개 단어라 "완료" 개념 X.
+  // 게임 카드 done 표시 / 단원 완료 메시지 모두 제거. 게임 결과는 GameResultScreen 에서 호리/칭찬.
+  const handleGameComplete = (_gameType: GameTypeId) => {
     setActiveGame(null);
-    setCompletedGames((prev) => new Set([...prev, gameType]));
     void refetchBalance();
     confetti({ particleCount: 200, spread: 100, origin: { y: 0.5 } });
   };
@@ -69,8 +69,6 @@ export function VocabularyStudyContent({
   const handleGameBack = () => {
     setActiveGame(null);
   };
-
-  const allDone = games.filter((g) => g.available).every((g) => completedGames.has(g.id));
 
   return (
     <>
@@ -101,25 +99,12 @@ export function VocabularyStudyContent({
               key={g.id}
               game={g}
               index={i}
-              done={completedGames.has(g.id)}
+              done={false}
               onPlay={() => g.available && setActiveGame(g.id)}
             />
           ))}
         </div>
       </section>
-
-      {/* 단원 완료 */}
-      {allDone && completedGames.size > 0 && (
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="mt-6 mx-auto max-w-md bg-white rounded-3xl shadow-pop border-4 border-amber-200 p-6 text-center"
-        >
-          <Mascot state="celebrating" size="md" />
-          <h2 className="mt-3 text-2xl font-black font-display text-ink-900">단원 완료!</h2>
-          <p className="mt-1 text-sm text-ink-600 font-bold">모든 게임 통과 ✨ 잘했어!</p>
-        </motion.div>
-      )}
 
       {/* 게임 모달 — full screen, VocabSourceProvider wrap */}
       <AnimatePresence>

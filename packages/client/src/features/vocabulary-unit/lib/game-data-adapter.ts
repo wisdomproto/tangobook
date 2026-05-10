@@ -25,6 +25,15 @@ const BLOCK_COUNT = 3;
 const WRITING_COUNT = 3;
 const DOTS_COUNT = 3;
 
+/** Fisher-Yates 셔플 (in-place). 게임 데이터 랜덤 sampling 통일. */
+function shuffleInPlace<T>(arr: T[]): T[] {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 function pickPrimaryImage(w: VocabularyUnitWord): string | undefined {
   return w.images?.find((im) => im.isPrimary)?.imageUrl ?? w.images?.[0]?.imageUrl;
 }
@@ -33,37 +42,36 @@ function pickTts(w: VocabularyUnitWord, lang: Lang): string | undefined {
   return w.ttsUrl ?? w.ttsUrls?.[lang];
 }
 
-/** 단원 → 그림짝(LineMatching) 데이터 — 이미지 있는 단어만 N개 sample */
+/** 단원 → 그림짝(LineMatching) 데이터 — 후보 중 랜덤 N개 (사용자 정책 2026-05-10) */
 export function unitToLineMatchingData(
   unit: VocabularyUnit,
   lang: Lang
 ): KoreanLineMatchingData | EnglishLineMatchingData | null {
-  const items: LineMatchingItem[] = [];
+  const candidates: LineMatchingItem[] = [];
   for (const w of unit.words) {
     const imageUrl = pickPrimaryImage(w);
     const word = lang === 'ko' ? (w.korean ?? w.word) : w.word;
     if (!imageUrl || !word) continue;
     const tts = pickTts(w, lang);
-    // sub label = 반대 언어 (시안: 산 / Mountain 처럼 한영 두 줄)
     const subLabel =
       lang === 'ko' ? (w.nameEn ?? (w.word !== word ? w.word : '')) : (w.korean ?? '');
-    items.push({
+    candidates.push({
       word,
       imageUrl,
       ...(tts ? { ttsUrl: tts } : {}),
       ...(subLabel ? { subLabel } : {}),
     });
-    if (items.length >= MATCHING_COUNT) break;
   }
-  if (items.length < 3) return null;
+  if (candidates.length < 3) return null;
+  const items = shuffleInPlace(candidates).slice(0, MATCHING_COUNT);
   return lang === 'ko'
     ? { type: 'korean-line-matching', items }
     : { type: 'english-line-matching', items };
 }
 
-/** 단원 → 한글 블록 데이터 — 한글 음절 단어 + 이미지 */
+/** 단원 → 한글 블록 데이터 — 후보 중 랜덤 N개 */
 export function unitToKoreanBlockData(unit: VocabularyUnit): KoreanBlockData | null {
-  const items: KoreanBlockItem[] = [];
+  const candidates: KoreanBlockItem[] = [];
   for (const w of unit.words) {
     const korean = (w.korean ?? '').trim();
     if (!korean || ![...korean].some((c) => HANGUL_RE.test(c))) continue;
@@ -72,38 +80,36 @@ export function unitToKoreanBlockData(unit: VocabularyUnit): KoreanBlockData | n
     const syllables = decomposeWord(korean);
     if (syllables.length === 0) continue;
     const tts = pickTts(w, 'ko');
-    items.push({
+    candidates.push({
       word: korean,
       imageUrl,
       syllables,
       ...(tts ? { ttsUrl: tts } : {}),
     });
-    if (items.length >= BLOCK_COUNT) break;
   }
-  if (items.length === 0) return null;
-  return { type: 'korean-block', items };
+  if (candidates.length === 0) return null;
+  return { type: 'korean-block', items: shuffleInPlace(candidates).slice(0, BLOCK_COUNT) };
 }
 
-/** 단원 → 영어 블록 데이터 — 6글자 이하 영문 단어 + 이미지 */
+/** 단원 → 영어 블록 데이터 — 후보 중 랜덤 N개 */
 export function unitToEnglishBlockData(unit: VocabularyUnit): EnglishBlockData | null {
-  const items: EnglishBlockItem[] = [];
+  const candidates: EnglishBlockItem[] = [];
   for (const w of unit.words) {
     const word = (w.word ?? '').toLowerCase().trim();
     if (!word || !ENGLISH_WORD_RE.test(word) || word.length > MAX_BLOCK_WORD_LEN) continue;
     const imageUrl = pickPrimaryImage(w);
     if (!imageUrl) continue;
     const tts = pickTts(w, 'en');
-    items.push({
+    candidates.push({
       word,
       korean: w.korean ?? '',
       imageUrl,
       letters: decomposeEnglishWord(word),
       ...(tts ? { ttsUrl: tts } : {}),
     });
-    if (items.length >= BLOCK_COUNT) break;
   }
-  if (items.length === 0) return null;
-  return { type: 'english-block', items };
+  if (candidates.length === 0) return null;
+  return { type: 'english-block', items: shuffleInPlace(candidates).slice(0, BLOCK_COUNT) };
 }
 
 /**
@@ -113,43 +119,45 @@ export function unitToEnglishBlockData(unit: VocabularyUnit): EnglishBlockData |
  * 어휘 단원에 page 개념이 없으므로 pageNumber=0 placeholder. ConnectTheDotsPlayer 내부의
  * useStorybook(storybookId) lookup 은 storybook source 단원에서만 정상 작동 (custom 단원은
  * landing 단계에서 disable 처리).
+ *
+ * 사용자 정책 (2026-05-10): keypoints 있는 후보 단어 중 **랜덤 N개** (매 라운드 다른 단어).
  */
 export function unitToConnectTheDotsData(unit: VocabularyUnit): ConnectTheDotsData | null {
-  const items: ConnectTheDotsItem[] = [];
+  const candidates: ConnectTheDotsItem[] = [];
   for (const w of unit.words) {
     const img = w.images?.find((im) => im.isPrimary) ?? w.images?.[0];
     if (!img?.keypoints || img.keypoints.length < 2) continue;
-    items.push({
+    candidates.push({
       pageNumber: 0,
       originalImageUrl: img.imageUrl,
       keypoints: img.keypoints,
-      objectName: w.nameEn ?? (ENGLISH_WORD_RE.test(w.word) ? w.word : undefined),
+      // KeyObject 매칭용 영어 이름 — name 이 'Cow' 같은 capitalized 도 OK (player 에서 lowercase 비교)
+      objectName: w.nameEn ?? w.word,
     });
-    if (items.length >= DOTS_COUNT) break;
   }
-  if (items.length === 0) return null;
-  return { type: 'connect-the-dots', items };
+  if (candidates.length === 0) return null;
+  return { type: 'connect-the-dots', items: shuffleInPlace(candidates).slice(0, DOTS_COUNT) };
 }
 
-/** 단원 → 낱말쓰기 데이터 — 이미지 있는 단어 N개 */
+/** 단원 → 낱말쓰기 데이터 — 후보 중 랜덤 N개 */
 export function unitToWordWritingData(unit: VocabularyUnit, lang: Lang): WordWritingData | null {
-  const items: WordWritingItem[] = [];
+  const candidates: WordWritingItem[] = [];
   for (const w of unit.words) {
     const word = lang === 'ko' ? (w.korean ?? w.word) : w.word;
     if (!word) continue;
     const referenceImageUrl = pickPrimaryImage(w);
     if (!referenceImageUrl) continue;
     const tts = pickTts(w, lang);
-    items.push({
+    candidates.push({
       word,
       displayWord: word,
       imageUrl: referenceImageUrl,
       referenceImageUrl,
       ...(tts ? { ttsUrl: tts } : {}),
     });
-    if (items.length >= WRITING_COUNT) break;
   }
-  if (items.length === 0) return null;
+  if (candidates.length === 0) return null;
+  const items = shuffleInPlace(candidates).slice(0, WRITING_COUNT);
   return lang === 'ko'
     ? { type: 'korean-word-writing', items }
     : { type: 'english-word-writing', items };
