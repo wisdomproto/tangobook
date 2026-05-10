@@ -21,7 +21,7 @@ features/games/
     useGameSound.ts          # 사운드 + mute 퍼시스턴스 + systemSounds 오버라이드
     useGameAudio.ts          # 외부 시그니처 유지 (내부는 useGameSound 호출)
     useBlockDrag.ts          # 블록 게임 드래그/터치 (Korean/English 공용)
-    usePhonicsMap.ts         # 파닉스 음원 라이브러리 sound→URL 맵
+    usePhonicsMap.ts         # 파닉스 음원 라이브러리 sound→URL 맵 + 100mp3 prefetch + 한글 7종성 alias
     useSpeechRecognizer.ts   # Web Speech + Whisper fallback (말하기)
     useSpeakingProgress.ts   # 발화 진척 localStorage
   utils/
@@ -92,15 +92,19 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 - **카드 테두리** = `border-[5px]` + `rounded-3xl` + `shadow-pop`. 카드 비율 4:3 (LineMatching) 또는 2:1 (WordWriting canvas).
 - **확인/정답** 버튼 = 큰 사이즈 (`px-10 py-4 sm:px-12 sm:py-6 rounded-full text-2xl/3xl`).
 
-## KoreanBlockPlayer — 공간 음절 인식 + Web Speech 폴백 (2026-05-09)
+## KoreanBlockPlayer — 공간 음절 인식 + 수직 모음 시각 배치 (2026-05-10)
 
-3행×6열 드롭존. 입력 순서가 아닌 **공간 위치** 로 음절 인식 (`parseSpatialKorean`):
+3행×6열 드롭존. 입력 순서가 아닌 **공간 위치** 로 음절 인식 (`parseSpatialKorean`). 한글 시각 구조 그대로:
 
-- 음절 시작 = `(r, c)` 자음 + `(r, c+1)` 모음. 자음 왼쪽 / 모음 오른쪽 (한글 시각 구조).
-- 받침 후보: (a) cho 아래 `(r+1, c)` 우선 (b) jung 아래 `(r+1, c+1)` (c) 인라인 `(r, c+2)` (한 줄 입력 호환).
+- **수평 모음** (ㅏ/ㅑ/ㅓ/ㅕ/ㅐ/ㅒ/ㅔ/ㅖ/ㅣ): cho 의 **오른쪽** `(r, c+1)`. 예: 가, 나
+- **수직 모음** (ㅗ/ㅛ/ㅜ/ㅠ/ㅡ): cho 의 **아래** `(r+1, c)`. 예: 구, 누
+- 받침(jong) 후보:
+  - 수평 모음 케이스: (a) cho 아래 `(r+1, c)` (b) jung 아래 `(r+1, c+1)` (c) 인라인 `(r, c+2)`
+  - 수직 모음 케이스: jung 아래 `(r+2, c)` — 그래서 받침 있는 수직 모음 단어 (국/물/꿀) 는 3행 필요 (2행으로 줄이면 안 됨)
+- 자모 패널 reorder (학습 순서): 자음 = 기본 14 (ㄱ~ㅎ) → 쌍자음 5 / 모음 = 기본 10 (ㅏ~ㅣ) → 어려운 11 (ㅐ~ㅢ)
 - 합성에 쓰인 셀은 `used` set 으로 mark → 다른 음절 cho 로 재처리 X.
-- TTS 폴백: phonics 라이브러리 miss 시 `window.speechSynthesis` (ko-KR). 라이브러리에 CV 음절 (가/나) 만 있고 받침 들어간 CVC (산/침/핫) 누락 흔함 → Web Speech 가 메움 (사용자 OS 한국어 보이스 필요).
 - "초기화" 버튼: 셀 모두 비움.
+- TTS: usePhonicsMap 의 7종성 alias 로 ㅅ/ㅆ/ㅈ/ㅊ/ㅌ/ㅎ/ㅋ/ㅍ 받침 음절도 phonics mp3 재생. 그래도 누락이면 `speechSynthesis` (ko-KR) 폴백.
 
 ## TOP 5 시각 연출 (Phase B)
 
@@ -117,6 +121,26 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 - **영어**: `vowel`=모음 글자(a, e), `exampleWordImageUrl`=단어 이미지, `phonicsConfig.language === 'english'`
 - 감지: `isKoreanPhonics(storybook)` (`server/utils/phonics-data-helpers.ts`)
 - 데이터 수집: `collectPhonicsWordPool()` (파닉스), `collectStorybookImagePool()` (동화책)
+
+## 한글 phonics-library R2 데이터 + 7종성 alias (2026-05-10)
+
+`phonics-library/mod_korean/` = **3232 음절** (399×7종성 ㄱ/ㄴ/ㄷ/ㄹ/ㅁ/ㅂ/ㅇ + 받침없음 + 자모 40). 한국어 발음 기반이라 ㅅ/ㅆ/ㅈ/ㅊ/ㅌ/ㅎ/ㅋ/ㅍ 받침 mp3 누락.
+
+`usePhonicsMap` 가 mod_korean 로드 직후 **7종성 중화 alias** 추가 — 갇 url 을 갓·갗·갖·같·갛 키로도 매핑. 매핑: ㄲ ㄳ ㄺ ㅋ→ㄱ / ㄵ ㄶ→ㄴ / ㅅ ㅆ ㅈ ㅊ ㅌ ㅎ→ㄷ / ㄼ ㄽ ㄾ ㅀ→ㄹ / ㄻ→ㅁ / ㄿ ㅄ ㅍ→ㅂ.
+
+## R2 pub 도메인 CORS 패턴
+
+`pub-554d78bf...r2.dev` 가 `Access-Control-Allow-Origin` 헤더 안 보냄. `<audio src=R2-url>` element 는 no-cors stream 이라 OK 지만 `fetch(R2-url)` 은 차단 + 콘솔 에러. **해결**: prefetch 용 fetch 는 `mode: 'no-cors'` 사용 — opaque response 도 HTTP 캐시 적재. R2 pub 도메인에 CORS 정책 추가되면 (Cloudflare R2 dashboard) 옵션 제거 가능.
+
+## usePhonicsMap return 형식 (2026-05-10)
+
+```ts
+const { mapRef, loading } = usePhonicsMap(['mod_korean', 'mod_phonics']);
+```
+
+- `mapRef`: `MutableRefObject<Map<string, string>>` (sound → R2 URL)
+- `loading`: list fetch 동안 true. 로드 후 백그라운드 100mp3 prefetch (mode:'no-cors') 가 별도 fire-and-forget — loading 상태에는 영향 X.
+- 서버: `phonics-library` list 5분 TTL in-memory cache + 기동 시 prewarm (R2 listObjects ~7s → 캐시 hit 즉시).
 
 ## GamesTab UI
 
