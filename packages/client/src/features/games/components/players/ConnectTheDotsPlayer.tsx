@@ -4,7 +4,7 @@ import { Button } from '@/design-system';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { ConnectTheDotsData, ConnectTheDotsItem } from '@tangobook/shared';
 import { getEffectiveVocabulary } from '@tangobook/shared';
-import { GameProgressBar } from '../GameProgressBar';
+import { GameHeader } from '../GameHeader';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
@@ -207,16 +207,15 @@ export function ConnectTheDotsPlayer({
   );
 
   return (
-    <GamePlayerLayout
-      maxWidth="3xl"
-      onBack={onBack}
-      bgImageUrl="/images/games/point-drawing-bg.png"
-    >
+    <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/point-drawing-bg.png">
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
+      <GameHeader
+        title="단어 그림 그리기"
+        current={completedItems}
+        total={items.length}
+        onBack={onBack}
+      />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
-        {/* 진행 */}
-        <GameProgressBar current={itemIdx} total={items.length} score={completedItems} />
-
         {/* 안내 — 큰 검정 텍스트 (LineMatching/WordWriting 톤 통일) */}
         <div className="h-14 sm:h-16 flex items-center justify-center shrink-0">
           {wrongTap ? (

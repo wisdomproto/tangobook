@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useLayoutEffect, useMemo, useCallback, useRef } from 'react';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type {
   KoreanLineMatchingData,
@@ -7,9 +7,8 @@ import type {
 } from '@tangobook/shared';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { GameResultScreen } from '../GameResultScreen';
-import { GameProgressBar } from '../GameProgressBar';
-import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
+import { GameHeader } from '../GameHeader';
 import { phonicsApi } from '@/features/phonics/api/phonics.api';
 import { shuffle } from '../../utils/shuffle';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
@@ -163,100 +162,226 @@ export function LineMatchingPlayer({
     );
   }
 
-  // 카드 = 4:3 비율, 큰 테두리. h 는 grid row 가 계산 → 화면 안에 모두 fit.
-  const cellBase =
-    'relative h-full aspect-[4/3] rounded-2xl overflow-hidden border-[5px] transition-all cursor-pointer bg-white shadow-soft';
+  // 카드 ref — SVG 곡선 줄긋기 좌표 측정용
+  const areaRef = useRef<HTMLDivElement>(null);
+  const imageRefs = useRef<Map<number, HTMLButtonElement>>(new Map());
+  const wordRefs = useRef<Map<number, HTMLButtonElement>>(new Map());
 
-  const imageClass = (itemIdx: number) => {
-    if (isMatched(itemIdx)) return cn(cellBase, 'border-success opacity-60 cursor-default');
-    if (wrongPair?.image === itemIdx) return cn(cellBase, 'border-danger animate-shake');
-    if (selectedImageIdx === itemIdx)
-      return cn(cellBase, 'border-coral-500 ring-4 ring-coral-300 scale-[1.03]');
-    return cn(
-      cellBase,
-      'border-peach-200 hover:scale-[1.03] hover:border-coral-400 hover:shadow-pop'
+  // 매칭 줄 — 좌표는 useLayoutEffect 에서 계산
+  const [lines, setLines] = useState<
+    Array<{
+      from: { x: number; y: number };
+      to: { x: number; y: number };
+      color: string;
+      key: string;
+    }>
+  >([]);
+
+  const computeLines = useCallback(() => {
+    const area = areaRef.current;
+    if (!area) return;
+    const areaRect = area.getBoundingClientRect();
+    const result: typeof lines = [];
+
+    // 매칭 완료 — success 색
+    matched.forEach((m) => {
+      const imgEl = imageRefs.current.get(m.itemIdx);
+      const wordEl = wordRefs.current.get(m.itemIdx);
+      if (!imgEl || !wordEl) return;
+      const imgRect = imgEl.getBoundingClientRect();
+      const wordRect = wordEl.getBoundingClientRect();
+      result.push({
+        from: {
+          x: imgRect.right - areaRect.left,
+          y: imgRect.top + imgRect.height / 2 - areaRect.top,
+        },
+        to: {
+          x: wordRect.left - areaRect.left,
+          y: wordRect.top + wordRect.height / 2 - areaRect.top,
+        },
+        color: '#5CC99F',
+        key: `m-${m.itemIdx}`,
+      });
+    });
+
+    // 현재 양쪽 모두 선택 — 매칭 체크 직전 — coral 색 (잠깐)
+    if (selectedImageIdx !== null && selectedWordIdx !== null) {
+      const imgEl = imageRefs.current.get(selectedImageIdx);
+      const wordEl = wordRefs.current.get(selectedWordIdx);
+      if (imgEl && wordEl) {
+        const imgRect = imgEl.getBoundingClientRect();
+        const wordRect = wordEl.getBoundingClientRect();
+        result.push({
+          from: {
+            x: imgRect.right - areaRect.left,
+            y: imgRect.top + imgRect.height / 2 - areaRect.top,
+          },
+          to: {
+            x: wordRect.left - areaRect.left,
+            y: wordRect.top + wordRect.height / 2 - areaRect.top,
+          },
+          color: '#FF5E3A',
+          key: 'active',
+        });
+      }
+    }
+    setLines(result);
+  }, [matched, selectedImageIdx, selectedWordIdx]);
+
+  useLayoutEffect(() => {
+    computeLines();
+  }, [computeLines]);
+
+  // resize 시 좌표 재계산
+  useEffect(() => {
+    const onResize = () => computeLines();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [computeLines]);
+
+  // SVG path 곡선 — Bezier
+  const pathD = (l: { from: { x: number; y: number }; to: { x: number; y: number } }) => {
+    const midX = (l.from.x + l.to.x) / 2;
+    return `M ${l.from.x} ${l.from.y} C ${midX} ${l.from.y}, ${midX} ${l.to.y}, ${l.to.x} ${l.to.y}`;
+  };
+
+  // 카드 base — 흰 배경 + 둥근 모서리. border 얇게 (시안 처럼 부드럽게).
+  const cardBase =
+    'relative rounded-2xl bg-white shadow-soft border-2 transition-all cursor-pointer';
+
+  const imageCardClass = (itemIdx: number) => {
+    if (isMatched(itemIdx)) return cn(cardBase, 'border-success cursor-default');
+    if (wrongPair?.image === itemIdx) return cn(cardBase, 'border-danger animate-shake');
+    if (selectedImageIdx === itemIdx) return cn(cardBase, 'border-coral-500 ring-4 ring-coral-200');
+    return cn(cardBase, 'border-transparent hover:border-coral-300 hover:scale-[1.02]');
+  };
+
+  const wordCardClass = (itemIdx: number) => {
+    if (isMatched(itemIdx)) return cn(cardBase, 'border-success cursor-default');
+    if (wrongPair?.word === itemIdx) return cn(cardBase, 'border-danger animate-shake');
+    if (selectedWordIdx === itemIdx) return cn(cardBase, 'border-coral-500 ring-4 ring-coral-200');
+    return cn(cardBase, 'border-transparent hover:border-coral-300 hover:scale-[1.02]');
+  };
+
+  // connection point dot — 카드 가장자리에 표시 (SVG 시작/끝점)
+  const connectionDot = (state: 'matched' | 'active' | 'idle', side: 'left' | 'right') => {
+    const colorClass =
+      state === 'matched' ? 'bg-success' : state === 'active' ? 'bg-coral-500' : 'bg-ink-100';
+    const sideClass = side === 'left' ? '-left-2' : '-right-2';
+    return (
+      <span
+        aria-hidden
+        className={cn(
+          'absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full ring-2 ring-white shadow-soft',
+          colorClass,
+          sideClass
+        )}
+      />
     );
   };
 
-  const wordClass = (itemIdx: number) => {
-    // 단어 텍스트는 viewport 높이 기반 clamp — 카드 크기에 비례
-    const extra = 'flex items-center justify-center px-4 text-ink-900 font-black';
-    if (isMatched(itemIdx)) return cn(cellBase, extra, 'border-success opacity-60 cursor-default');
-    if (wrongPair?.word === itemIdx) return cn(cellBase, extra, 'border-danger animate-shake');
-    if (selectedWordIdx === itemIdx)
-      return cn(cellBase, extra, 'border-coral-500 ring-4 ring-coral-300 scale-[1.03]');
-    return cn(
-      cellBase,
-      extra,
-      'border-peach-200 hover:scale-[1.03] hover:border-coral-400 hover:shadow-pop'
-    );
-  };
+  const imageDotState = (itemIdx: number) =>
+    isMatched(itemIdx) ? 'matched' : selectedImageIdx === itemIdx ? 'active' : 'idle';
+  const wordDotState = (itemIdx: number) =>
+    isMatched(itemIdx) ? 'matched' : selectedWordIdx === itemIdx ? 'active' : 'idle';
 
   return (
-    <GamePlayerLayout
-      maxWidth="4xl"
-      onBack={onBack}
-      bgImageUrl="/images/games/line-matching-bg.png"
-    >
-      <FeedbackOverlay kind="correct" visible={praiseVisible} />
-      <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
-        <GameProgressBar current={matched.length} total={items.length} score={matched.length} />
+    <GamePlayerLayout maxWidth="full" bgImageUrl="/images/games/line-matching-bg.png">
+      <div className="flex flex-col w-full h-full relative">
+        <GameHeader
+          title="그림짝 맞추기"
+          current={matched.length}
+          total={items.length}
+          onBack={onBack}
+        />
 
-        <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900 text-center shrink-0">
-          그림과 단어를 짝지어 보세요!
-        </p>
-
-        {/* 카드 그리드 — 행 N 등분 (한 화면에 fit). aspect-[4/3] 카드는 mx-auto 로 가운데. */}
-        <div
-          className="grid grid-cols-2 gap-3 sm:gap-5 w-full flex-1 min-h-0"
-          style={{ gridTemplateRows: `repeat(${items.length}, minmax(0, 1fr))` }}
-        >
-          {items.map((_, rowIdx) => {
-            const imageItemIdx = imageOrder[rowIdx];
-            const wordItemIdx = wordOrder[rowIdx];
-            const imageItem = items[imageItemIdx];
-            const wordItem = items[wordItemIdx];
-            return (
-              <div key={`row-${rowIdx}`} className="contents">
-                <div className="flex items-center justify-center min-h-0">
+        {/* 메인 게임 영역 — 좌우 padding 으로 양옆 여백 + 좌/우 column 30% / SVG 가운데 30% */}
+        <div ref={areaRef} className="flex-1 relative min-h-0 px-12 lg:px-24">
+          {/* 좌측 그림 column — absolute. grid-rows-N 균등. 카드 4개 = 화면 안 모두 fit. */}
+          <div
+            className="absolute left-12 lg:left-24 top-0 bottom-0 w-[30%] grid gap-4"
+            style={{ gridTemplateRows: `repeat(${items.length}, minmax(0, 1fr))` }}
+          >
+            {imageOrder.map((imageItemIdx) => {
+              const imageItem = items[imageItemIdx];
+              return (
+                <div key={`img-${imageItemIdx}`} className="relative">
                   <button
+                    ref={(el) => {
+                      if (el) imageRefs.current.set(imageItemIdx, el);
+                      else imageRefs.current.delete(imageItemIdx);
+                    }}
                     onClick={() => !isMatched(imageItemIdx) && setSelectedImageIdx(imageItemIdx)}
                     disabled={isMatched(imageItemIdx)}
-                    className={imageClass(imageItemIdx)}
+                    className={cn(imageCardClass(imageItemIdx), 'w-full h-full overflow-hidden')}
                     aria-label="그림 선택"
                   >
                     <img
                       src={imageItem.imageUrl}
                       alt=""
-                      className="w-full h-full object-contain p-2 sm:p-3"
+                      className="w-full h-full object-contain p-4 lg:p-6"
                     />
-                    {isMatched(imageItemIdx) && (
-                      <span className="absolute top-2 right-2 bg-success text-white rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center font-black text-xl sm:text-2xl shadow-pop">
-                        ✓
-                      </span>
-                    )}
                   </button>
+                  {connectionDot(imageDotState(imageItemIdx), 'right')}
                 </div>
+              );
+            })}
+          </div>
 
-                <div className="flex items-center justify-center min-h-0">
+          {/* 우측 단어 column — absolute. 동일 grid. */}
+          <div
+            className="absolute right-12 lg:right-24 top-0 bottom-0 w-[30%] grid gap-4"
+            style={{ gridTemplateRows: `repeat(${items.length}, minmax(0, 1fr))` }}
+          >
+            {wordOrder.map((wordItemIdx) => {
+              const wordItem = items[wordItemIdx];
+              return (
+                <div key={`word-${wordItemIdx}`} className="relative">
                   <button
+                    ref={(el) => {
+                      if (el) wordRefs.current.set(wordItemIdx, el);
+                      else wordRefs.current.delete(wordItemIdx);
+                    }}
                     onClick={() => !isMatched(wordItemIdx) && setSelectedWordIdx(wordItemIdx)}
                     disabled={isMatched(wordItemIdx)}
-                    className={wordClass(wordItemIdx)}
+                    className={cn(
+                      wordCardClass(wordItemIdx),
+                      'w-full h-full flex flex-col items-center justify-center px-6 py-4'
+                    )}
                     aria-label={`단어: ${wordItem.word}`}
-                    style={{ fontSize: 'clamp(1.75rem, 6vh, 5rem)' }}
                   >
-                    {wordItem.word}
-                    {isMatched(wordItemIdx) && (
-                      <span className="absolute top-2 right-2 bg-success text-white rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center font-black text-xl sm:text-2xl shadow-pop">
-                        ✓
+                    <span className="text-3xl lg:text-5xl font-black text-ink-900 font-display leading-tight">
+                      {wordItem.word}
+                    </span>
+                    {wordItem.subLabel && (
+                      <span className="text-sm lg:text-base font-bold text-ink-500 mt-1">
+                        {wordItem.subLabel}
                       </span>
                     )}
                   </button>
+                  {connectionDot(wordDotState(wordItemIdx), 'left')}
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+
+          {/* SVG 곡선 줄 — 카드 사이 가운데 영역 (areaRef 풀폭 sandbox). pointer-events X. */}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {lines.map((l) => (
+              <path
+                key={l.key}
+                d={pathD(l)}
+                stroke={l.color}
+                strokeWidth={6}
+                fill="none"
+                strokeLinecap="round"
+                style={{ transition: 'stroke 200ms ease' }}
+              />
+            ))}
+          </svg>
         </div>
       </div>
     </GamePlayerLayout>

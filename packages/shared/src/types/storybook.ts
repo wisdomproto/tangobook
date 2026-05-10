@@ -380,6 +380,8 @@ export interface LineMatchingItem {
   word: string; // 우측 단어 (ko 게임: 한국어, en 게임: 영어)
   imageUrl: string; // 좌측 그림
   ttsUrl?: string; // 정답 시 읽어주기 (phonics-library concat로도 대체 가능)
+  /** 메인 단어 아래 작은 글씨로 표시할 보조 라벨 (ko 게임 → 영어, en 게임 → 한글). 없으면 미표시. */
+  subLabel?: string;
 }
 
 export interface KoreanLineMatchingConfig {

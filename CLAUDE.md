@@ -61,6 +61,11 @@ features/{name}/{api,hooks,components,index.ts}
 - `defaultStyle` = 라이브러리 표지 imageUrl 노출에 우선 사용 (없으면 artStyle fallback)
 - /editor2 그림체 칩에 ⭐/☆ 토글로 대표 지정. `styleAssets[styleId]` 가 그림체별 표지·캐릭터·페이지 일러스트 분리 보관
 
+## 학습자 화면 헤더 통일 (2026-05-10)
+- **`<PageHeader>`** (`design-system/primitives/PageHeader.tsx`) — 학습자 화면 공용 헤더. 흰 wash 카드 (`bg-white/60 backdrop-blur shadow-soft rounded-3xl`) + 좌 ← 뒤로 가기 (peach pill `bg-peach-100 text-xl`) + 가운데 children + 우 right slot. 사용처: BookDetailPage / VocabularyStudyPage.
+- **`<GameHeader>`** (`features/games/components/GameHeader.tsx`) — 게임 전용. 동일 wrapper 톤 + 가운데 ★ title current/total ★ 형식. 사용처: LineMatching / KoreanBlock / EnglishBlock / ConnectTheDots / WordWriting.
+- **메인 페이지 (LibraryPage)** 와 **AppShell 내부 페이지** 는 별도 (LibraryPage = absolute overlay / AppShell = sticky 자체 헤더).
+
 ## MVP 출시 정책 (2026-05-09)
 - **사이드바**: 동화책 axis 만 active (alwaysActive). 파닉스/어휘 axis = `comingSoon` 음영 + "준비 중" sub-label (코드/라우트 보존). `AppShell.PRIMARY_AXES`. `/library` 일 때 헤더 = `position: absolute` transparent overlay (hero 일러스트가 헤더 영역까지 풀폭) + 사용자 chip / 로그아웃은 `pointer-events-auto` floating.
 - **LibraryPage** (`/library`): hero 배너 (`aspect-[5/2] md:aspect-[4/1]`) `bg-[url('/images/library-hero.png')] bg-cover`. 큰 제목/권수 텍스트 X (일러스트와 충돌). 검색바 hero 하단 floating (`absolute inset-x-0 bottom-6` + `bg-white shadow-pop`). 책 카드 = 일러스트 풀 (`aspect-video rounded-2xl`) + 아래 제목만 (Card 배경/패딩 X).

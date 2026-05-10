@@ -3,7 +3,7 @@ import { Button } from '@/design-system';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData, GameTypeId, Lang } from '@tangobook/shared';
 import { decomposeWord } from '@tangobook/shared';
-import { GameProgressBar } from '../GameProgressBar';
+import { GameHeader } from '../GameHeader';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { GamePlayerLayout } from '../GamePlayerLayout';
@@ -312,16 +312,15 @@ export function WordWritingPlayer({
   };
 
   return (
-    <GamePlayerLayout maxWidth="3xl" onBack={onBack} bgImageUrl="/images/games/writing-bg.png">
+    <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/writing-bg.png">
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
+      <GameHeader
+        title="따라 쓰기"
+        current={scores.filter((s) => s >= 70).length}
+        total={items.length}
+        onBack={onBack}
+      />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
-        {/* 진행 */}
-        <GameProgressBar
-          current={currentIndex}
-          total={items.length}
-          score={scores.filter((s) => s >= 70).length}
-        />
-
         {/* 단어 정보 — HERO 단어 + 작은 일러스트 (LineMatching 톤과 통일) */}
         <div className="flex items-center justify-center gap-3 sm:gap-5 shrink-0">
           {currentItem.imageUrl && (

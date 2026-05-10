@@ -4,7 +4,7 @@ import type { GamePlayerProps } from '../../registry/game-registry';
 import type { KoreanBlockData } from '@tangobook/shared';
 import { CHOSUNG, JUNGSUNG, composeHangul, decomposeWord } from '@tangobook/shared';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
-import { GameProgressBar } from '../GameProgressBar';
+import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
@@ -339,20 +339,8 @@ export function KoreanBlockPlayer({
     >
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
 
-      {/* 뒤로가기 — 좌상단 고정 */}
-      <button
-        onClick={onBack}
-        title="뒤로가기"
-        aria-label="뒤로가기"
-        className="absolute top-3 left-3 sm:top-4 sm:left-4 z-30 flex items-center gap-1.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-white/95 hover:bg-white shadow-pop text-ink-700 font-bold text-sm sm:text-base transition-transform hover:-translate-x-0.5"
-      >
-        <span aria-hidden>←</span>
-        <span>뒤로</span>
-      </button>
-
-      {/* 진행 표시 — 상단 가운데 */}
-      <div className="flex justify-center pt-2 pb-1 shrink-0">
-        <GameProgressBar current={currentIndex} total={items.length} score={score} />
+      <div className="px-2 pt-2 shrink-0">
+        <GameHeader title="한글 블록" current={score} total={items.length} onBack={onBack} />
       </div>
 
       {/* 메인 — 상: 헤더 / 중: 드롭존 + 확인(우측) / 하: 자음·모음 패널 */}

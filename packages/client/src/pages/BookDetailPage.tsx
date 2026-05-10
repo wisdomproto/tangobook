@@ -7,7 +7,7 @@ import {
   getDirectVideoUrls,
   getAvailableStyles,
 } from '@/lib/storybook-accessors';
-import { Card, StateScreen, Skeleton, Chip } from '@/design-system';
+import { Card, StateScreen, Skeleton, Chip, PageHeader } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
 import { getArtStyleLabel } from '@tangobook/shared';
@@ -169,54 +169,44 @@ export default function BookDetailPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100 flex flex-col">
-      <div className="max-w-[1200px] mx-auto p-4 md:p-5 w-full flex flex-col flex-1">
-        {/* 헤더 — 좌: ← 라이브러리 / 우 inline: 언어 + 그림체 chip. variation row 박스 없이 단순. */}
-        <div className="flex items-center gap-3 mb-5 flex-wrap">
-          <button
-            onClick={() => navigate('/library')}
-            className="inline-flex items-center gap-2 text-base font-black text-ink-700 hover:text-ink-900 transition"
-            aria-label="라이브러리로 돌아가기"
-          >
-            <span className="text-xl">←</span>
-            <span>라이브러리</span>
-          </button>
-
-          {languages.length > 1 && (
-            <div className="ml-auto flex items-center gap-2">
-              {languages.map((code) => {
-                const label = LANG_LABEL[code] ?? { flag: '🌐', name: code };
-                return (
+      <div className="max-w-[1200px] mx-auto px-4 md:px-5 w-full flex flex-col flex-1">
+        <PageHeader
+          onBack={() => navigate('/library')}
+          right={
+            <div className="flex items-center gap-2 flex-wrap justify-end">
+              {languages.length > 1 &&
+                languages.map((code) => {
+                  const label = LANG_LABEL[code] ?? { flag: '🌐', name: code };
+                  return (
+                    <Chip
+                      key={code}
+                      variant="coral"
+                      active={lang === code}
+                      icon={label.flag}
+                      onClick={() => setLang(code)}
+                      className="!px-5 !py-2.5 !text-base"
+                    >
+                      {label.name}
+                    </Chip>
+                  );
+                })}
+              {styles.length > 1 &&
+                styles.map((s) => (
                   <Chip
-                    key={code}
-                    variant="coral"
-                    active={lang === code}
-                    icon={label.flag}
-                    onClick={() => setLang(code)}
+                    key={s}
+                    variant="ink"
+                    active={effectiveStyle === s}
+                    onClick={() => setSelectedStyle(s)}
                     className="!px-5 !py-2.5 !text-base"
                   >
-                    {label.name}
+                    {getArtStyleLabel(s)}
                   </Chip>
-                );
-              })}
+                ))}
             </div>
-          )}
-
-          {styles.length > 1 && (
-            <div className={cn('flex items-center gap-2', languages.length <= 1 && 'ml-auto')}>
-              {styles.map((s) => (
-                <Chip
-                  key={s}
-                  variant="ink"
-                  active={effectiveStyle === s}
-                  onClick={() => setSelectedStyle(s)}
-                  className="!px-5 !py-2.5 !text-base"
-                >
-                  {getArtStyleLabel(s)}
-                </Chip>
-              ))}
-            </div>
-          )}
-        </div>
+          }
+        >
+          <span className="truncate">{storybook.title}</span>
+        </PageHeader>
 
         {/* hero + parentGuide wrapper — flex-1 + justify-center 으로 콘텐츠만 vertical 가운데. 헤더는 위 고정. */}
         <div className="flex-1 flex flex-col justify-center">

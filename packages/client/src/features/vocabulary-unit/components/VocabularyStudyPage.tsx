@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Mascot, Skeleton, Chip } from '@/design-system';
+import { Skeleton, Chip, Mascot, PageHeader } from '@/design-system';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import type { Lang, VocabularyUnit, VocabularyUnitWord } from '@tangobook/shared';
 import { useVocabularyUnit } from '../hooks/useVocabularyUnits';
@@ -73,94 +73,53 @@ export function VocabularyStudyPage() {
     lang ??
     (unit.language && hasLangData(unit.words, unit.language) ? unit.language : hasKo ? 'ko' : 'en');
 
-  const wordCount = unit.words.length;
-
-  // 책 표지 — defaultStyle/artStyle 의 styleAssets[].coverImage 우선
+  // 표지/스타일 — VocabularyStudyContent 의 단어 미리보기 이미지 derive 에 사용
   const currentStyle = storybook?.defaultStyle ?? storybook?.artStyle;
-  const styleCover =
-    currentStyle && storybook?.styleAssets?.[currentStyle]?.coverImage
-      ? storybook.styleAssets[currentStyle]!.coverImage
-      : (storybook?.coverImage ?? unit.coverImage);
+
+  const displayName = getDisplayUnitName(unit, effectiveLang);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-100 via-yellow-50 to-cream-50">
-      <header className="px-6 pt-6 max-w-6xl mx-auto flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <button
-            onClick={() => navigate(unit.storybookId ? `/library/${unit.storybookId}` : '/library')}
-            className="inline-flex items-center gap-2 px-5 py-3 text-lg rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition"
-          >
-            ← 책 상세
-          </button>
-          <span className="hidden sm:inline text-base font-bold text-ink-500 truncate">
-            📖 <span className="text-ink-700">{getDisplayUnitName(unit, effectiveLang)}</span>
-          </span>
-        </div>
-
-        {/* 언어 토글 */}
-        <div className="bg-white rounded-2xl px-4 py-2 shadow-soft flex gap-2">
-          <Chip
-            variant="coral"
-            active={effectiveLang === 'ko'}
-            onClick={() => hasKo && setLang('ko')}
-            disabled={!hasKo}
-            aria-label="한국어"
-          >
-            한국어
-          </Chip>
-          <Chip
-            variant="coral"
-            active={effectiveLang === 'en'}
-            onClick={() => hasEn && setLang('en')}
-            disabled={!hasEn}
-            aria-label="English"
-          >
-            English
-          </Chip>
-        </div>
-      </header>
-
-      <main className="px-6 pb-8 mt-4 max-w-6xl mx-auto space-y-8">
-        {/* hero — 표지 + 호리/말풍선 */}
-        <section className="lg:grid lg:grid-cols-12 lg:gap-8 lg:items-center">
-          {styleCover ? (
-            <div className="lg:col-span-5 flex justify-center lg:justify-end">
-              <img
-                src={styleCover}
-                alt={unit.nameKo}
-                loading="lazy"
-                className="max-h-48 lg:max-h-56 w-auto rounded-3xl shadow-pop border-4 border-white object-cover"
-              />
+    <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100">
+      <div className="px-6 max-w-[1600px] mx-auto">
+        <PageHeader
+          onBack={() => navigate(unit.storybookId ? `/library/${unit.storybookId}` : '/library')}
+          right={
+            <div className="bg-white rounded-full px-2 py-1.5 shadow-soft flex gap-1">
+              <Chip
+                variant="coral"
+                active={effectiveLang === 'ko'}
+                onClick={() => hasKo && setLang('ko')}
+                disabled={!hasKo}
+                aria-label="한국어"
+                className="!text-lg !px-6 !py-2.5"
+              >
+                한국어
+              </Chip>
+              <Chip
+                variant="coral"
+                active={effectiveLang === 'en'}
+                onClick={() => hasEn && setLang('en')}
+                disabled={!hasEn}
+                aria-label="English"
+                className="!text-lg !px-6 !py-2.5"
+              >
+                English
+              </Chip>
             </div>
-          ) : (
-            <div className="lg:col-span-5 flex items-center justify-center text-7xl">
-              {unit.emoji ?? '🌱'}
-            </div>
-          )}
+          }
+        >
+          <img
+            src="/icons/book/header.png"
+            alt=""
+            aria-hidden
+            className="w-12 h-12 lg:w-14 lg:h-14 object-contain flex-shrink-0 mr-3"
+          />
+          <span className="truncate">{displayName}</span>
+        </PageHeader>
+      </div>
 
-          <div className="lg:col-span-7">
-            {!styleCover && (
-              <h1 className="text-4xl lg:text-5xl font-black font-display text-ink-900 leading-tight mb-3 text-center lg:text-left">
-                {getDisplayUnitName(unit, effectiveLang)}
-              </h1>
-            )}
-
-            <div className="flex items-end justify-center lg:justify-start gap-3 mt-4 lg:mt-0">
-              <Mascot state="reading" size="md" />
-              <div className="relative bg-white rounded-2xl shadow-soft px-5 py-3">
-                <p className="text-lg lg:text-xl font-black font-display text-ink-900">
-                  단어 {wordCount}개! 어떤 게임 해볼까? ✨
-                </p>
-                <span
-                  aria-hidden
-                  className="absolute left-[-10px] bottom-4 w-0 h-0 border-y-[10px] border-y-transparent border-r-[12px] border-r-white"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 단어 미리보기 + 게임 카드 + 모달들 — BookDetailPage 와 공용 */}
+      <main className="px-8 pt-8 pb-12 max-w-[1600px] mx-auto">
+        {/* 시안에는 표지 hero 없음 — 바로 단어 미리보기 + 게임 카드 */}
         <VocabularyStudyContent
           unit={unit}
           storybook={storybook ?? undefined}

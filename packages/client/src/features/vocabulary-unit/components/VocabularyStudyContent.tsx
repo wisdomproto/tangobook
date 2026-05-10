@@ -74,24 +74,28 @@ export function VocabularyStudyContent({
 
   return (
     <>
-      {/* 단어 sub-section — boundary 명시. 탭하면 단어 상세 모달. */}
-      <section className="bg-white/70 rounded-2xl px-4 py-3 shadow-soft">
-        <h3 className="text-sm md:text-base font-black text-ink-700 mb-2 flex items-center gap-2">
-          <span className="text-lg">📚</span>
-          <span>단어 둘러보기</span>
-          <span className="ml-auto text-xs font-bold text-ink-400">탭하면 자세히</span>
-        </h3>
+      {/* 단어 sub-section — 시안 따라 큰 헤딩 + 큰 카드. 탭하면 단어 상세 모달. */}
+      <section className="mb-8">
+        <div className="flex items-baseline gap-3 mb-4 px-1">
+          <h2 className="text-3xl font-black font-display text-ink-900 flex items-center gap-2">
+            <span>📚</span>
+            <span>단어 둘러보기</span>
+          </h2>
+          <span className="text-base font-bold text-ink-500">탭하면 자세히</span>
+        </div>
         <WordPreviewBanner words={unit.words} lang={lang} onWordClick={setSelectedWord} />
       </section>
 
-      {/* 게임 sub-section — 다른 배경 톤으로 단어 영역과 명시 분리 */}
-      <section className="bg-amber-50/80 rounded-2xl px-4 py-3 shadow-soft mt-3">
-        <h3 className="text-sm md:text-base font-black text-ink-700 mb-2 flex items-center gap-2">
-          <span className="text-lg">🎮</span>
-          <span>게임으로 익히기</span>
-          <span className="ml-auto text-xs font-bold text-ink-400">처음이면 1번부터</span>
-        </h3>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      {/* 게임 sub-section — 시안 따라 큰 헤딩 + 큰 카드 grid 2x2 */}
+      <section>
+        <div className="flex items-baseline gap-3 mb-4 px-1">
+          <h2 className="text-3xl font-black font-display text-ink-900 flex items-center gap-2">
+            <span>🎮</span>
+            <span>게임으로 익히기</span>
+          </h2>
+          <span className="text-base font-bold text-ink-500">처음이면 1번부터</span>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5">
           {games.map((g, i) => (
             <GameCard
               key={g.id}
@@ -159,18 +163,28 @@ interface WordPreviewBannerProps {
 }
 
 function WordPreviewBanner({ words, lang, onWordClick }: WordPreviewBannerProps) {
+  // 시안 따라 한글+영어 양쪽 표시 — 메인 라벨은 lang 우선, sub 라벨은 반대 언어
   const items = useMemo(
     () =>
       words
         .map((w) => {
-          const label = getDisplayWord(w, lang);
+          const main = getDisplayWord(w, lang);
+          // sub = 반대 언어 (있으면). lang=ko 면 영어, lang=en 면 한글
+          const sub =
+            lang === 'ko' ? (w.nameEn ?? (w.word !== main ? w.word : '')) : (w.korean ?? '');
           const img = w.images?.find((im) => im.isPrimary)?.imageUrl ?? w.images?.[0]?.imageUrl;
-          if (!label) return null;
-          return { label, img, word: w };
+          if (!main) return null;
+          return { main, sub, img, word: w };
         })
         .filter(
-          (x): x is { label: string; img: string | undefined; word: VocabularyUnitWord } =>
-            x !== null
+          (
+            x
+          ): x is {
+            main: string;
+            sub: string;
+            img: string | undefined;
+            word: VocabularyUnitWord;
+          } => x !== null
         ),
     [words, lang]
   );
@@ -180,15 +194,15 @@ function WordPreviewBanner({ words, lang, onWordClick }: WordPreviewBannerProps)
   return (
     <div className="overflow-x-auto scrollbar-thin">
       {/* w-fit + mx-auto = 카드가 컨테이너 폭보다 좁으면 가운데 정렬, 넘치면 자동 좌측 시작 + 스크롤 */}
-      <div className="flex gap-2 pb-2 snap-x snap-mandatory w-fit mx-auto">
+      <div className="flex gap-3 pb-2 snap-x snap-mandatory w-fit mx-auto">
         {items.map((it, i) => (
           <button
-            key={`${it.label}-${i}`}
+            key={`${it.main}-${i}`}
             onClick={() => onWordClick(it.word)}
-            className="snap-start shrink-0 w-16 sm:w-20 bg-white rounded-xl overflow-hidden shadow-soft hover:shadow-pop hover:-translate-y-0.5 active:scale-95 transition"
-            aria-label={`${it.label} 자세히 보기`}
+            className="snap-start shrink-0 w-28 sm:w-32 lg:w-36 bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-pop hover:-translate-y-0.5 active:scale-95 transition flex flex-col"
+            aria-label={`${it.main} 자세히 보기`}
           >
-            <div className="aspect-square w-full bg-gradient-to-b from-amber-50 to-white flex items-center justify-center">
+            <div className="aspect-square w-full bg-gradient-to-b from-cream-50 to-white flex items-center justify-center">
               {it.img ? (
                 <img
                   src={it.img}
@@ -198,11 +212,18 @@ function WordPreviewBanner({ words, lang, onWordClick }: WordPreviewBannerProps)
                   loading="lazy"
                 />
               ) : (
-                <span className="text-2xl">📦</span>
+                <span className="text-4xl">📦</span>
               )}
             </div>
-            <div className="px-1 py-1 text-center text-xs font-black text-ink-900 font-display truncate">
-              {it.label}
+            <div className="px-2 py-2 text-center">
+              <div className="text-xl lg:text-2xl font-black text-ink-900 font-display truncate leading-tight">
+                {it.main}
+              </div>
+              {it.sub && (
+                <div className="text-sm font-bold text-ink-500 truncate leading-tight">
+                  {it.sub}
+                </div>
+              )}
             </div>
           </button>
         ))}
@@ -230,16 +251,31 @@ function GameCard({
   const numberBadge = (
     <span
       aria-hidden
-      className="absolute top-3 left-3 w-8 h-8 rounded-full bg-white text-coral-600 text-base font-black flex items-center justify-center shadow-soft ring-2 ring-coral-200/50 z-10"
+      className="absolute top-3 left-3 w-8 h-8 rounded-full bg-white text-coral-600 text-sm font-black flex items-center justify-center shadow-soft ring-2 ring-coral-200/50 z-10"
     >
       {index + 1}
     </span>
   );
 
-  // 흰 동그라미 안에 이모지 — '버튼 위 아이콘' 어포던스
-  const iconWash = (extraEmojiClass = '') => (
-    <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)]">
-      <span className={`text-5xl ${extraEmojiClass}`}>{game.emoji}</span>
+  // 좌측 큰 일러스트 — 카드 일러스트 그대로 (배경 X). emoji 는 fallback.
+  const leftIllustration = (extraClass = '') => (
+    <div className="w-32 h-32 lg:w-36 lg:h-36 flex-shrink-0 flex items-center justify-center">
+      {game.iconSrc ? (
+        <img
+          src={game.iconSrc}
+          alt={game.label}
+          className={`w-full h-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)] ${extraClass}`}
+        />
+      ) : (
+        <span className={`text-7xl ${extraClass}`}>{game.emoji}</span>
+      )}
+    </div>
+  );
+
+  // 우끝 → 화살표 흰 동그라미
+  const arrowCircle = (
+    <div className="w-12 h-12 rounded-full bg-white/95 flex items-center justify-center flex-shrink-0 shadow-soft">
+      <span className="text-2xl text-coral-600 font-black">→</span>
     </div>
   );
 
@@ -248,15 +284,17 @@ function GameCard({
     return (
       <button
         disabled
-        className="relative rounded-3xl p-5 min-h-[156px] flex flex-col items-center justify-center gap-2 bg-cream-50 border-4 border-success shadow-[0_4px_0_#3FA379,0_4px_12px_rgba(92,201,159,0.2)] cursor-default"
+        className="relative rounded-3xl p-5 min-h-[160px] flex items-center gap-5 bg-cream-50 border-4 border-success shadow-[0_4px_0_#3FA379,0_4px_12px_rgba(92,201,159,0.2)] cursor-default"
       >
         {numberBadge}
         <span className="absolute top-3 right-3 text-3xl">✅</span>
-        {iconWash('opacity-70')}
-        <span className="text-xl lg:text-2xl font-black text-ink-700 line-through decoration-success decoration-4">
-          {game.label}
-        </span>
-        <span className="text-sm font-black text-success">완료!</span>
+        {leftIllustration('opacity-70')}
+        <div className="flex-1 flex flex-col items-start gap-1 pr-2">
+          <span className="text-2xl lg:text-3xl font-black text-ink-700 line-through decoration-success decoration-4">
+            {game.label}
+          </span>
+          <span className="text-base font-black text-success">완료!</span>
+        </div>
       </button>
     );
   }
@@ -266,32 +304,40 @@ function GameCard({
     return (
       <button
         disabled
-        className="relative rounded-3xl p-6 min-h-[156px] flex flex-col items-center justify-center gap-2 bg-slate-100 text-slate-400 cursor-not-allowed"
+        className="relative rounded-3xl p-5 min-h-[160px] flex items-center gap-5 bg-slate-100 text-slate-400 cursor-not-allowed"
       >
         {numberBadge}
-        <span className="text-5xl opacity-40">{game.emoji}</span>
-        <span className="text-2xl font-black">{game.label}</span>
-        {game.unavailableReason && (
-          <span className="text-xs font-bold text-center">{game.unavailableReason}</span>
-        )}
+        {leftIllustration('opacity-40 grayscale')}
+        <div className="flex-1 flex flex-col items-start gap-1 pr-2">
+          <span className="text-2xl lg:text-3xl font-black">{game.label}</span>
+          {game.unavailableReason && (
+            <span className="text-sm font-bold text-left">{game.unavailableReason}</span>
+          )}
+        </div>
       </button>
     );
   }
 
-  // 활성 — Duolingo 식 푸시 버튼: 하단 어두운 layer + glow. hover 시 떠오르고 누르면 가라앉음.
+  // 활성 — Duolingo 식 푸시 버튼 (가로 layout): 좌 큰 일러스트 / 가운데 제목+부제 / 우 → 화살표.
   return (
     <button
       onClick={onPlay}
-      className="relative rounded-3xl p-5 min-h-[156px] flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-coral-400 to-coral-500 text-white shadow-[0_6px_0_#B73A1F,0_8px_20px_rgba(255,94,58,0.35)] hover:shadow-[0_9px_0_#B73A1F,0_12px_24px_rgba(255,94,58,0.45)] hover:-translate-y-0.5 active:shadow-[0_2px_0_#B73A1F,0_3px_6px_rgba(255,94,58,0.3)] active:translate-y-1 transition-all duration-100 ease-out"
+      className="relative rounded-3xl p-5 lg:p-6 min-h-[160px] flex items-center gap-5 lg:gap-6 bg-gradient-to-b from-coral-400 to-coral-500 text-white shadow-[0_6px_0_#B73A1F,0_8px_20px_rgba(255,94,58,0.35)] hover:shadow-[0_9px_0_#B73A1F,0_12px_24px_rgba(255,94,58,0.45)] hover:-translate-y-0.5 active:shadow-[0_2px_0_#B73A1F,0_3px_6px_rgba(255,94,58,0.3)] active:translate-y-1 transition-all duration-100 ease-out text-left"
     >
       {numberBadge}
-      {iconWash()}
-      <span
-        className="text-xl lg:text-2xl font-black"
-        style={{ textShadow: '0 2px 0 rgba(167, 50, 25, 0.4)' }}
-      >
-        {game.label}
-      </span>
+      {leftIllustration()}
+      <div className="flex-1 flex flex-col items-start gap-1 min-w-0">
+        <span
+          className="text-2xl lg:text-3xl font-black font-display"
+          style={{ textShadow: '0 2px 0 rgba(167, 50, 25, 0.4)' }}
+        >
+          {game.label}
+        </span>
+        {game.subtitle && (
+          <span className="text-sm lg:text-base font-bold text-white/90">{game.subtitle}</span>
+        )}
+      </div>
+      {arrowCircle}
     </button>
   );
 }

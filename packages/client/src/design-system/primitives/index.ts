@@ -6,3 +6,4 @@ export { StateScreen } from './StateScreen';
 export { ErrorBoundary } from './ErrorBoundary';
 export { Mascot, MASCOT_EMOJI_FALLBACK, type MascotState, type MascotSize } from './Mascot';
 export { AppIcon, type AppIconProps } from './AppIcon';
+export { PageHeader } from './PageHeader';

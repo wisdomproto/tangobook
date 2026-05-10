@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { EnglishBlockData, EnglishBlockLetter } from '@tangobook/shared';
 import { VOWELS, CONSONANTS, isEnglishVowel } from '@tangobook/shared';
-import { GameProgressBar } from '../GameProgressBar';
+import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
@@ -339,19 +339,12 @@ export function EnglishBlockPlayer({
   return (
     // vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음.
     <div className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-br from-cream-50 to-peach-100 overflow-y-auto">
-      <button
-        onClick={onBack}
-        className="self-start m-4 inline-flex items-center gap-2 px-5 py-3 text-lg rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition shrink-0"
-      >
-        ← 돌아가기
-      </button>
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
+      <div className="px-2 pt-2 shrink-0">
+        <GameHeader title="영어 블록" current={score} total={items.length} onBack={onBack} />
+      </div>
 
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 sm:py-6 gap-4 sm:gap-6">
-        <div className="w-full max-w-md">
-          <GameProgressBar current={currentIndex} total={items.length} score={score} />
-        </div>
-
         {/* 완성된 단어 타이핑 패널 */}
         {roundCorrect && (
           <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 min-h-[60px] text-2xl sm:text-3xl font-black text-ink-900 text-center shadow-soft min-w-[200px]">
