@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useMemo } from 'react';
-import { Skeleton, Mascot } from '@/design-system';
+import { Mascot } from '@/design-system';
 import { useVocabularyList } from '@/features/vocabulary/hooks/useVocabulary';
 import {
   unitToKoreanBlockData,
@@ -25,7 +25,7 @@ interface Props {
  */
 export function RandomBlockGamePage({ lang }: Props) {
   const navigate = useNavigate();
-  const { data: entries, isLoading } = useVocabularyList();
+  const { data: entries, isLoading, isError } = useVocabularyList();
 
   const gameData = useMemo(() => {
     if (!entries) return null;
@@ -35,16 +35,52 @@ export function RandomBlockGamePage({ lang }: Props) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-cream-50">
-        <Skeleton className="w-80 h-96 rounded-3xl" />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-cream-50 to-peach-100 gap-6 px-6 text-center">
+        <Mascot character="hori" state="thinking" size="xl" />
+        <h2 className="text-3xl md:text-4xl font-black text-ink-900 font-display animate-pulse">
+          단어 모으는 중...
+        </h2>
+        <p className="text-lg font-bold text-ink-500">잠깐만 기다려 줘! 🐯</p>
+        <div className="flex gap-2 mt-2">
+          <span
+            className="w-3 h-3 rounded-full bg-coral-400 animate-bounce"
+            style={{ animationDelay: '0ms' }}
+          />
+          <span
+            className="w-3 h-3 rounded-full bg-coral-400 animate-bounce"
+            style={{ animationDelay: '150ms' }}
+          />
+          <span
+            className="w-3 h-3 rounded-full bg-coral-400 animate-bounce"
+            style={{ animationDelay: '300ms' }}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-cream-50 to-peach-100 text-center">
+        <Mascot character="hori" state="thinking" size="lg" />
+        <h2 className="mt-4 text-2xl font-black text-ink-900 font-display">
+          단어를 가져오지 못했어요
+        </h2>
+        <p className="mt-2 text-base text-ink-500">잠시 후 다시 시도해 주세요</p>
+        <button
+          onClick={() => navigate('/library')}
+          className="mt-6 px-6 py-3 bg-coral-500 text-white rounded-full font-black shadow-pop"
+        >
+          🏠 라이브러리로
+        </button>
       </div>
     );
   }
 
   if (!gameData) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-cream-50 text-center">
-        <Mascot state="thinking" size="lg" />
+      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-cream-50 to-peach-100 text-center">
+        <Mascot character="hori" state="thinking" size="lg" />
         <h2 className="mt-4 text-2xl font-black text-ink-900 font-display">단어가 부족해요</h2>
         <p className="mt-2 text-base text-ink-500">
           {lang === 'ko'
@@ -53,7 +89,7 @@ export function RandomBlockGamePage({ lang }: Props) {
         </p>
         <button
           onClick={() => navigate('/library')}
-          className="mt-6 px-6 py-3 bg-coral-500 text-white rounded-full font-black"
+          className="mt-6 px-6 py-3 bg-coral-500 text-white rounded-full font-black shadow-pop"
         >
           🏠 라이브러리로
         </button>

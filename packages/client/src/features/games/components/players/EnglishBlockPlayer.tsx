@@ -70,7 +70,7 @@ export function EnglishBlockPlayer({
 
   const [grid, setGrid] = useState<(string | null)[]>(() => initGrid(currentItem.letters));
 
-  const { playAudio, playFeedbackSound, playWordCorrect } = useGameAudio();
+  const { playAudio, playFeedbackSound } = useGameAudio();
   const { mapRef: phonicsMapRef } = usePhonicsMap(['mod_phonics', 'mod_english']);
   const drag = useBlockDrag<LetterBlock>({
     createGhost: createEnglishGhost,
@@ -162,6 +162,8 @@ export function EnglishBlockPlayer({
       if (isFirstTry) setScore((s) => s + 1);
       wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
       setRoundCorrect(true);
+      // 효과음 즉시 — concat audio await 침묵 fix
+      playFeedbackSound(true);
       // 영어 정책: ttsUrl 우선 → 없으면 phonics concat 폴백
       (async () => {
         let wordAudioUrl = currentItem.ttsUrl;
@@ -178,9 +180,10 @@ export function EnglishBlockPlayer({
             /* phonics miss — 효과음만 */
           }
         }
-        playWordCorrect({
-          ttsUrl: wordAudioUrl,
-          onDone: () => {
+        if (wordAudioUrl) playAudio(wordAudioUrl);
+        // 효과음 + TTS 들리는 시간 후 다음 round
+        setTimeout(
+          () => {
             if (currentIndex + 1 < items.length) {
               const nextIdx = currentIndex + 1;
               setCurrentIndex(nextIdx);
@@ -192,7 +195,8 @@ export function EnglishBlockPlayer({
               setFinished(true);
             }
           },
-        });
+          wordAudioUrl ? 1700 : 900
+        );
       })();
     } else {
       playFeedbackSound(false);
@@ -208,8 +212,8 @@ export function EnglishBlockPlayer({
     currentIndex,
     items,
     initGrid,
+    playAudio,
     playFeedbackSound,
-    playWordCorrect,
     roundCorrect,
     storybookId,
   ]);
@@ -319,7 +323,7 @@ export function EnglishBlockPlayer({
             ? isWrong
               ? 'bg-white shadow-card ring-2 ring-danger'
               : roundCorrect
-                ? 'bg-white shadow-card ring-2 ring-success'
+                ? 'bg-success/20 shadow-pop ring-4 ring-success/70 shadow-[0_0_30px_rgba(34,197,94,0.4)]'
                 : 'bg-white shadow-card'
             : 'border-2 border-dashed border-coral-300 bg-white/40 hover:border-coral-500 hover:bg-coral-100/30 hover:animate-pulse'
         )}
@@ -360,7 +364,7 @@ export function EnglishBlockPlayer({
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 sm:py-6 gap-4 sm:gap-6">
         {/* 완성된 단어 타이핑 패널 */}
         {roundCorrect && (
-          <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 min-h-[60px] text-2xl sm:text-3xl font-black text-ink-900 text-center shadow-soft min-w-[200px]">
+          <div className="bg-success/15 backdrop-blur-sm rounded-2xl px-6 py-4 min-h-[60px] text-3xl sm:text-4xl font-black text-success text-center shadow-pop ring-4 ring-success/40 min-w-[220px]">
             {currentItem.word.slice(0, typedChars)}
             {typedChars < currentItem.word.length && (
               <span className="inline-block w-0.5 h-6 bg-coral-500 ml-1 animate-pulse align-middle" />

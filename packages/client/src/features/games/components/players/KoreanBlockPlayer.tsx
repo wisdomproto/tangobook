@@ -217,7 +217,7 @@ export function KoreanBlockPlayer({
 
   const [grid, setGrid] = useState<(string | null)[][]>(() => initGrid());
 
-  const { playAudio, playFeedbackSound, playWordCorrect } = useGameAudio();
+  const { playAudio, playFeedbackSound } = useGameAudio();
   const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap([
     'mod_korean',
     'mod_phonics',
@@ -330,8 +330,9 @@ export function KoreanBlockPlayer({
       if (isFirstTry) setScore((s) => s + 1);
       wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
       setRoundCorrect(true);
-      // 한글 정책: phonics 음절 합성 우선 → 실패 시 currentItem.ttsUrl 폴백.
-      // 책 KeyObject 에 한글 ttsUrl 없는 데이터 (대부분의 책) 에서도 음성 재생.
+      // 효과음 즉시 — concat audio await 600ms+ 기다리지 않고 바로 반응.
+      playFeedbackSound(true);
+      // 한글 정책: phonics 음절 합성 우선 → 실패 시 ttsUrl 폴백.
       (async () => {
         let wordAudioUrl: string | undefined;
         try {
@@ -343,13 +344,13 @@ export function KoreanBlockPlayer({
           });
           wordAudioUrl = audioUrl;
         } catch {
-          /* phonics miss — ttsUrl 폴백 */
           wordAudioUrl = currentItem.ttsUrl;
         }
         if (!wordAudioUrl) wordAudioUrl = currentItem.ttsUrl;
-        playWordCorrect({
-          ttsUrl: wordAudioUrl,
-          onDone: () => {
+        if (wordAudioUrl) playAudio(wordAudioUrl);
+        // 효과음 + TTS 들리는 시간 후 다음 round (TTS 있으면 1.7s, 없으면 0.9s)
+        setTimeout(
+          () => {
             if (currentIndex + 1 < items.length) {
               const nextIdx = currentIndex + 1;
               setCurrentIndex(nextIdx);
@@ -361,7 +362,8 @@ export function KoreanBlockPlayer({
               setFinished(true);
             }
           },
-        });
+          wordAudioUrl ? 1700 : 900
+        );
       })();
     } else {
       playFeedbackSound(false);
@@ -376,8 +378,8 @@ export function KoreanBlockPlayer({
     currentIndex,
     items,
     initGrid,
+    playAudio,
     playFeedbackSound,
-    playWordCorrect,
     roundCorrect,
     storybookId,
   ]);
@@ -488,9 +490,10 @@ export function KoreanBlockPlayer({
         {/* 섹션 2 — 드롭존 + 확인/초기화 (한 카드) */}
         <section
           className={cn(
-            'rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-4 sm:px-6 py-3 sm:py-4 flex flex-row items-center justify-center gap-4 sm:gap-6 shrink-0 transition-colors',
+            'rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-4 sm:px-6 py-3 sm:py-4 flex flex-row items-center justify-center gap-4 sm:gap-6 shrink-0 transition-all',
             isWrong && 'ring-4 ring-danger/40 animate-shake bg-danger/10',
-            roundCorrect && 'ring-4 ring-success/40 bg-success/10'
+            roundCorrect &&
+              'ring-[6px] ring-success/70 bg-success/20 shadow-[0_0_60px_rgba(34,197,94,0.45)] scale-[1.02]'
           )}
         >
           <div className="grid grid-rows-3 gap-2 sm:gap-3">
