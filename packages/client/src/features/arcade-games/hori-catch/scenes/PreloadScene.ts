@@ -31,10 +31,10 @@ export class PreloadScene extends Phaser.Scene {
         frameHeight: 512,
       });
 
-    sheet(SPRITE_KEYS.idle, 'idle/idle-sheet-2x2-clean.png');
-    sheet(SPRITE_KEYS.run, 'run/run-sheet-2x2-clean.png');
-    sheet(SPRITE_KEYS.hurt, 'hurt/hurt-sheet-2x2-clean.png');
-    sheet(SPRITE_KEYS.celebrate, 'celebrate/celebrate-sheet-2x2-clean.png');
+    sheet(SPRITE_KEYS.idle, 'idle/idle-sheet-2x2-clean.webp');
+    sheet(SPRITE_KEYS.run, 'run/run-sheet-2x2-clean.webp');
+    sheet(SPRITE_KEYS.hurt, 'hurt/hurt-sheet-2x2-clean.webp');
+    sheet(SPRITE_KEYS.celebrate, 'celebrate/celebrate-sheet-2x2-clean.webp');
 
     // Reuse existing sounds — correct.mp3 for catch, hurt.mp3 for bomb
     this.load.audio(SFX_KEYS.catchGood, `${GAME_SFX_BASE}/correct.mp3`);

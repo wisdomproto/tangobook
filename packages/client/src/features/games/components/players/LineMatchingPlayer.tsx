@@ -297,7 +297,7 @@ export function LineMatchingPlayer({
     isMatched(itemIdx) ? 'matched' : selectedWordIdx === itemIdx ? 'active' : 'idle';
 
   return (
-    <GamePlayerLayout maxWidth="full" bgImageUrl="/images/games/line-matching-bg.png">
+    <GamePlayerLayout maxWidth="full" bgImageUrl="/images/games/line-matching-bg.webp">
       <div className="flex flex-col w-full h-full relative">
         <GameHeader
           title="그림짝 맞추기"

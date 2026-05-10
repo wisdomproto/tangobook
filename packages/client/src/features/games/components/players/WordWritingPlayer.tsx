@@ -332,7 +332,7 @@ export function WordWritingPlayer({ storybookId, gameData, onComplete, onBack }:
   };
 
   return (
-    <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/writing-bg.png">
+    <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/writing-bg.webp">
       <GameHeader
         title="따라 쓰기"
         current={scores.filter((s) => s >= 70).length}

@@ -22,15 +22,15 @@ function UnitIcon({ topicId, emoji, label }: { topicId?: string; emoji?: string;
  * (LibraryPage 의 카테고리와 표기가 일부 다른 건 storybook 데이터 raw value 그대로라 유지)
  */
 const CATEGORY_ICON_MAP: Record<string, string> = {
-  '세계 명작': 'category/adventure.png',
-  명작동화: 'category/adventure.png',
-  생활동화: 'category/family.png',
-  '생활 동화': 'category/family.png',
-  자연관찰: 'category/nature.png',
-  '자연 관찰': 'category/nature.png',
-  '한국 전래': 'category/emotion.png',
-  전래동화: 'category/emotion.png',
-  '전래 동화': 'category/emotion.png',
+  '세계 명작': 'category/adventure.webp',
+  명작동화: 'category/adventure.webp',
+  생활동화: 'category/family.webp',
+  '생활 동화': 'category/family.webp',
+  자연관찰: 'category/nature.webp',
+  '자연 관찰': 'category/nature.webp',
+  '한국 전래': 'category/emotion.webp',
+  전래동화: 'category/emotion.webp',
+  '전래 동화': 'category/emotion.webp',
   기타: 'tab/storybook.svg',
 };
 

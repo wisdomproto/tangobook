@@ -56,21 +56,21 @@ interface LibraryPageProps {
  */
 const CATEGORY_ICON_MAP: Record<string, string> = {
   // 실제 사용 중 — 차별화된 아이콘 매핑
-  '세계 명작': 'category/adventure.png', // 모험 (왕관/별빛 톤)
-  '자연 관찰': 'category/nature.png',
-  '생활 동화': 'category/family.png', // 가족 (생활 톤)
-  '전래 동화': 'category/emotion.png', // 임시 (적합 자산 만들 때 교체)
+  '세계 명작': 'category/adventure.webp', // 모험 (왕관/별빛 톤)
+  '자연 관찰': 'category/nature.webp',
+  '생활 동화': 'category/family.webp', // 가족 (생활 톤)
+  '전래 동화': 'category/emotion.webp', // 임시 (적합 자산 만들 때 교체)
   기타: 'tab/storybook.svg', // 일반 동화책
   // 미래용
-  동물: 'category/animal.png',
-  가족: 'category/family.png',
-  자연: 'category/nature.png',
-  친구: 'category/friend.png',
-  음식: 'category/food.png',
-  모험: 'category/adventure.png',
-  직업: 'category/job.png',
-  감정: 'category/emotion.png',
-  일상: 'category/daily.png',
+  동물: 'category/animal.webp',
+  가족: 'category/family.webp',
+  자연: 'category/nature.webp',
+  친구: 'category/friend.webp',
+  음식: 'category/food.webp',
+  모험: 'category/adventure.webp',
+  직업: 'category/job.webp',
+  감정: 'category/emotion.webp',
+  일상: 'category/daily.webp',
 };
 
 const getCategoryIconNode = (cat: string, size = 22): ReactNode => {
@@ -228,7 +228,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
       <section
         className={cn(
           'relative overflow-hidden aspect-[5/2] md:aspect-[4/1]',
-          'bg-[url("/images/library-hero.png")] bg-cover bg-center',
+          'bg-[url("/images/library-hero.webp")] bg-cover bg-center',
           'bg-gradient-to-br from-sky-100 via-cream-50 to-amber-100'
         )}
       >

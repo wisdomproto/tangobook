@@ -91,7 +91,7 @@ export default function ParentReportsPage() {
         <div className="space-y-6">
           <section>
             <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
-              <AppIcon src="section/reward.png" size={28} alt="보상" />
+              <AppIcon src="section/reward.webp" size={28} alt="보상" />
               <span>보상 현황</span>
             </h2>
             <RewardsOverviewCard />
@@ -101,7 +101,7 @@ export default function ParentReportsPage() {
           </section>
           <section>
             <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
-              <AppIcon src="section/playground.png" size={28} alt="놀이터" />
+              <AppIcon src="section/playground.webp" size={28} alt="놀이터" />
               <span>놀이터 활동</span>
             </h2>
             <PlaygroundStatsCard events={events} />

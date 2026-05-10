@@ -95,7 +95,7 @@ export function AppShell() {
       <aside className="w-44 flex-shrink-0 sticky top-0 h-screen flex flex-col bg-cream-50 border-r border-ink-100/60">
         {/* 로고 영역 — 워드마크 이미지 (1774x887 원본 → 사이드바 폭 176 안에 fit, h-16 ≈ 64px / w 자동) */}
         <div className="h-24 flex items-center justify-center px-2 border-b border-ink-100/40">
-          <img src="/logo/logo-kr.png" alt="탱고북" className="h-16 w-auto object-contain" />
+          <img src="/logo/logo-kr.webp" alt="탱고북" className="h-16 w-auto object-contain" />
         </div>
 
         {/* 3 axis — 모두 동일 정사각 박스 (정렬 통일). 동화책 / 파닉스 / 어휘 */}

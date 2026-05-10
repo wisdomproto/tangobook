@@ -99,7 +99,7 @@ const ROWS = 3;
 const COLS = 6;
 
 // 배경 일러스트 — public/images/games/korean-block-bg.png (없으면 gradient fallback).
-const BG_IMAGE_URL = '/images/games/korean-block-bg.png';
+const BG_IMAGE_URL = '/images/games/korean-block-bg.webp';
 
 function createKoreanGhost(char: string): HTMLDivElement {
   const ghost = document.createElement('div');

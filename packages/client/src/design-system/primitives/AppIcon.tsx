@@ -11,7 +11,7 @@ import { cn } from '@/lib/cn';
 export interface AppIconProps {
   /**
    * 아이콘 경로. 다음 중 하나:
-   * - `category/animal.png` (`/icons/` 자동 prefix)
+   * - `category/animal.webp` (`/icons/` 자동 prefix)
    * - `tab/activity.svg`
    * - `mascot/hori/idle.webp` (마스코트는 그대로 root 경로 사용)
    * - `https://...` (외부 URL)

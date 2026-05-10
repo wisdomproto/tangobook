@@ -319,7 +319,7 @@ export function ConnectTheDotsPlayer({
   }
 
   return (
-    <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/point-drawing-bg.png">
+    <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/point-drawing-bg.webp">
       <GameHeader
         title="단어 그림 그리기"
         current={completedItems}

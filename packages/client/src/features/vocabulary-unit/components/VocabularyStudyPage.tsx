@@ -109,7 +109,7 @@ export function VocabularyStudyPage() {
           }
         >
           <img
-            src="/icons/book/header.png"
+            src="/icons/book/header.webp"
             alt=""
             aria-hidden
             className="w-12 h-12 lg:w-14 lg:h-14 object-contain flex-shrink-0 mr-3"

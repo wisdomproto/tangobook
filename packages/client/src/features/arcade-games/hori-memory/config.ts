@@ -19,11 +19,11 @@ export const CARD_KEYS = {
 export type CardKey = keyof typeof CARD_KEYS;
 
 export const CARD_IMAGES: Record<CardKey, string> = {
-  idle: '/mascot/hori/idle/idle-frame-1.png',
-  run: '/mascot/hori/run/run-frame-1.png',
-  jump: '/mascot/hori/jump/jump-frame-3.png',
-  hurt: '/mascot/hori/hurt/hurt-frame-1.png',
-  celebrate: '/mascot/hori/celebrate/celebrate-frame-2.png',
+  idle: '/mascot/hori/idle/idle-frame-1.webp',
+  run: '/mascot/hori/run/run-frame-1.webp',
+  jump: '/mascot/hori/jump/jump-frame-3.webp',
+  hurt: '/mascot/hori/hurt/hurt-frame-1.webp',
+  celebrate: '/mascot/hori/celebrate/celebrate-frame-2.webp',
   waving: '/mascot/hori/waving.webp',
 };
 

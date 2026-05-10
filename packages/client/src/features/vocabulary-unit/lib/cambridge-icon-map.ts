@@ -5,13 +5,13 @@
  * 매칭되지 않는 토픽은 unit.emoji 폴백 (Cambridge constants 에 emoji 정의됨).
  */
 const CAMBRIDGE_TOPIC_ICON: Record<string, string> = {
-  animals: 'category/animal.png',
-  family: 'category/family.png',
-  food: 'category/food.png',
-  home: 'category/daily.png',
-  world: 'category/nature.png',
-  health: 'category/job.png', // 청진기 — 의료/건강
-  places: 'category/adventure.png', // 로켓 — 탐험/장소
+  animals: 'category/animal.webp',
+  family: 'category/family.webp',
+  food: 'category/food.webp',
+  home: 'category/daily.webp',
+  world: 'category/nature.webp',
+  health: 'category/job.webp', // 청진기 — 의료/건강
+  places: 'category/adventure.webp', // 로켓 — 탐험/장소
 };
 
 export function getCambridgeTopicIconSrc(topicId?: string): string | null {

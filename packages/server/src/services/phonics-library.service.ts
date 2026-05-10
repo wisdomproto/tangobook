@@ -4,10 +4,11 @@ import {
   deleteFromR2,
   deleteManyFromR2,
   listR2Objects,
+  objectExists,
   r2PublicUrl,
 } from '../providers/r2.provider.js';
 import { AppError } from '../middleware/error.middleware.js';
-import { buildR2Key } from '../utils/r2-key.js';
+import { sanitizeFilename } from '../utils/r2-key.js';
 import type { PhonicsAudioCategory, PhonicsAudioItem } from '@tangobook/shared';
 import { execFile } from 'child_process';
 import { promisify } from 'util';
@@ -273,6 +274,24 @@ export const PhonicsLibraryService = {
     const { tokens, gaps } = parseText(trimmed);
     if (tokens.length === 0) throw new AppError(400, '유효한 토큰이 없습니다.');
 
+    // 단일 토큰 / 연결 구분 (캐시 key 결정에도 사용)
+    const willBeSingle = tokens.length === 1 && gaps.length === 0;
+    const ext = willBeSingle ? 'mp3' : 'wav';
+    const mimeType = willBeSingle ? 'audio/mpeg' : 'audio/wav';
+
+    // === Deterministic 캐시 key — 같은 (storybookId, identifier, language) 호출은 같은 R2 객체 ===
+    // 이전엔 buildR2Key 가 Date.now() 추가해서 매 호출마다 새 R2 PUT (캐시 X) → 매번 ffmpeg + R2 i/o.
+    // 이제 fixed key + HEAD 체크로 캐시. 첫 호출만 처리, 이후엔 즉시 URL 반환.
+    const langPart = language ? sanitizeFilename(language, 12) : 'auto';
+    const idPart = sanitizeFilename(identifier || 'default', 60);
+    const sbPart = sanitizeFilename(storybookId || 'default', 30);
+    const cacheKey = `tts-cache/${langPart}/${sbPart}-${idPart}.${ext}`;
+
+    const cached = await objectExists(cacheKey);
+    if (cached) {
+      return { audioUrl: `${r2PublicUrl}/${cacheKey}` };
+    }
+
     // 각 토큰의 음원 다운로드 (언어별 우선순위 적용)
     const missingTokens: string[] = [];
     const audioBuffers: Buffer[] = [];
@@ -292,19 +311,7 @@ export const PhonicsLibraryService = {
 
     // ffmpeg로 연결
     const outputBuffer = await concatWithFfmpeg(audioBuffers, gaps);
-
-    // 단일 토큰(MP3 그대로)일 경우와 연결(WAV) 구분
-    const isSingle = audioBuffers.length === 1 && gaps.length === 0;
-    const ext = isSingle ? 'mp3' : 'wav';
-    const mimeType = isSingle ? 'audio/mpeg' : 'audio/wav';
-
-    const key = buildR2Key({
-      storybookId,
-      fileType: 'tts',
-      identifier,
-      extension: ext,
-    });
-    const audioUrl = await uploadBufferToR2(outputBuffer, key, mimeType);
+    const audioUrl = await uploadBufferToR2(outputBuffer, cacheKey, mimeType);
 
     return { audioUrl };
   },

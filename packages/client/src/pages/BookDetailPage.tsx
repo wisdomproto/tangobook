@@ -260,7 +260,7 @@ export default function BookDetailPage() {
               <div className="flex flex-col gap-3 flex-1 [&>button]:flex-1">
                 <ModeCard
                   tone="coral"
-                  iconSrc="/icons/mode/book.png"
+                  iconSrc="/icons/mode/book.webp"
                   emoji="📖"
                   title="책으로 읽기"
                   sub="그림과 글로 천천히"
@@ -268,7 +268,7 @@ export default function BookDetailPage() {
                 />
                 <ModeCard
                   tone="violet"
-                  iconSrc="/icons/mode/video.png"
+                  iconSrc="/icons/mode/video.webp"
                   emoji="▶"
                   title="영상으로 보기"
                   sub={videoAvailable ? '애니메이션으로 감상' : '준비 중이에요'}
@@ -277,7 +277,7 @@ export default function BookDetailPage() {
                 />
                 <ModeCard
                   tone="amber"
-                  iconSrc="/icons/mode/word.png"
+                  iconSrc="/icons/mode/word.webp"
                   emoji="✨"
                   title="단어 익히기"
                   sub="단어 + 게임 4종"

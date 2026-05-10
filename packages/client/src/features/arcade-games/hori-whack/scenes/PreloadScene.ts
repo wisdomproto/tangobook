@@ -22,9 +22,9 @@ export class PreloadScene extends Phaser.Scene {
         frameWidth: 512,
         frameHeight: 512,
       });
-    sheet(SPRITE_KEYS.idle, 'idle/idle-sheet-2x2-clean.png');
-    sheet(SPRITE_KEYS.celebrate, 'celebrate/celebrate-sheet-2x2-clean.png');
-    sheet(SPRITE_KEYS.hurt, 'hurt/hurt-sheet-2x2-clean.png');
+    sheet(SPRITE_KEYS.idle, 'idle/idle-sheet-2x2-clean.webp');
+    sheet(SPRITE_KEYS.celebrate, 'celebrate/celebrate-sheet-2x2-clean.webp');
+    sheet(SPRITE_KEYS.hurt, 'hurt/hurt-sheet-2x2-clean.webp');
 
     this.load.audio(SFX_KEYS.pop, `${RUNNER_SFX_BASE}/note-e4.mp3`);
     this.load.audio(SFX_KEYS.hit, `${GAME_SFX_BASE}/correct.mp3`);
