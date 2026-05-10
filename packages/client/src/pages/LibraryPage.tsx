@@ -228,9 +228,13 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
       <section
         className={cn(
           'relative overflow-hidden aspect-[5/2] md:aspect-[4/1]',
-          'bg-[url("/images/library-hero.webp")] bg-cover bg-center',
           'bg-gradient-to-br from-sky-100 via-cream-50 to-amber-100'
         )}
+        style={{
+          backgroundImage: 'url(/images/library-hero.webp)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
       >
         {/* 텍스트 가독성 워시 (배경 일러스트 색 진해도 유지) */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-white/40 pointer-events-none" />
