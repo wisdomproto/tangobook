@@ -4,6 +4,7 @@ import { AppLayout } from '../components/AppLayout';
 import { AppLayoutV2 } from '../components/AppLayoutV2';
 import { AppShell } from '../components/AppShell';
 import LibraryPage from '../pages/LibraryPage';
+import RandomBlockGamePage from '../pages/RandomBlockGamePage';
 
 function EditorV2BidRedirect() {
   const { bid } = useParams();
@@ -142,6 +143,22 @@ export const router = createBrowserRouter([
       },
       { path: 'login', element: <LoginPage /> },
       { path: 'login/callback', element: <LoginCallback /> },
+      {
+        path: 'games/korean-block',
+        element: (
+          <ErrorBoundary>
+            <RandomBlockGamePage lang="ko" />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'games/alphabet-block',
+        element: (
+          <ErrorBoundary>
+            <RandomBlockGamePage lang="en" />
+          </ErrorBoundary>
+        ),
+      },
       { path: 'games/hori-run', element: <Navigate to="/library" replace /> },
       { path: 'games/hori-catch', element: <Navigate to="/library" replace /> },
       { path: 'games/hori-whack', element: <Navigate to="/library" replace /> },

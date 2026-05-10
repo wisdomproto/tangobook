@@ -103,6 +103,18 @@ export function AppShell() {
           {PRIMARY_AXES.map((axis) => (
             <PrimaryNavButton key={axis.to} {...axis} />
           ))}
+          {/* 어휘 axis 아래 구분선 + 전체 어휘 풀 랜덤 블록 게임 진입점 2개 */}
+          <div className="w-20 h-px bg-ink-200/70 my-2" />
+          <SubGameButton
+            to="/games/korean-block"
+            iconSrc="game/korean-block.webp"
+            label="한글 블록"
+          />
+          <SubGameButton
+            to="/games/alphabet-block"
+            iconSrc="game/korean-block.webp"
+            label="알파벳 블록"
+          />
         </nav>
 
         {/* 하단 호리 인사 — waving (덜 reactive) + 메시지. 단원 학습 화면에선 본문 호리와 중복이라 spacer만 유지 */}
@@ -253,6 +265,25 @@ function PrimaryNavButton({
     >
       <AppIcon src={iconSrc} size={48} alt={label} />
       <span className="text-lg">{label}</span>
+    </NavLink>
+  );
+}
+
+function SubGameButton({ to, iconSrc, label }: { to: string; iconSrc: string; label: string }) {
+  return (
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        cn(
+          'w-28 h-20 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all font-black',
+          isActive
+            ? 'bg-coral-500 text-white shadow-pop ring-4 ring-coral-200'
+            : 'bg-coral-100 text-coral-700 hover:bg-coral-200 hover:scale-105'
+        )
+      }
+    >
+      <AppIcon src={iconSrc} size={32} alt={label} />
+      <span className="text-sm">{label}</span>
     </NavLink>
   );
 }
