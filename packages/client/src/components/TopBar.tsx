@@ -24,6 +24,12 @@ const RESOURCES = [
     label: '어휘 마스터 (한글)',
     desc: '한글 번역 + 한글 파닉스',
   },
+  {
+    href: '/design-system.html',
+    icon: '🎨',
+    label: '디자인 시스템',
+    desc: '색·폰트·컴포넌트 + GPT 시안 prompt',
+  },
 ];
 
 function ResourcesDropdown() {
