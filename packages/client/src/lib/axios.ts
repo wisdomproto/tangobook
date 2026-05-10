@@ -55,3 +55,8 @@ export async function apiPatch<T>(url: string, data?: unknown): Promise<T> {
   const res = await apiClient.patch<ApiResponse<T>>(url, data);
   return (res.data as { success: true; data: T }).data;
 }
+
+export async function apiPut<T>(url: string, data?: unknown): Promise<T> {
+  const res = await apiClient.put<ApiResponse<T>>(url, data);
+  return (res.data as { success: true; data: T }).data;
+}

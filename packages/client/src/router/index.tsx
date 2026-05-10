@@ -11,6 +11,7 @@ function EditorV2BidRedirect() {
 }
 import BookDetailPage from '../pages/BookDetailPage';
 import CurriculumMasterPage from '../pages/CurriculumMasterPage';
+import LibraryMasterPage from '../pages/LibraryMasterPage';
 import ViewerPage from '../pages/ViewerPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
@@ -74,6 +75,14 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <CurriculumMasterPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'library-master',
+        element: (
+          <ErrorBoundary>
+            <LibraryMasterPage />
           </ErrorBoundary>
         ),
       },

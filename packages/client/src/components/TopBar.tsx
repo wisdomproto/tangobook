@@ -3,12 +3,28 @@ import { useNavigate } from 'react-router-dom';
 import { useThemeStore } from '@/store/theme.store';
 import { VocabTreeModal } from '@/features/vocabulary/components/VocabTreeModal';
 
-const RESOURCES = [
+interface ResourceItem {
+  href: string;
+  icon: string;
+  label: string;
+  desc: string;
+  /** SPA 라우트 (target=_blank 대신 internal navigate). default false (정적 HTML 새 탭). */
+  internal?: boolean;
+}
+
+const RESOURCES: ResourceItem[] = [
+  {
+    href: '/library-master',
+    icon: '📚',
+    label: '라이브러리 마스터',
+    desc: '카테고리·책 순서·메인 표지 편집',
+    internal: true,
+  },
   { href: '/pitch.html', icon: '💼', label: 'Series A Pitch', desc: '투자자용 16+1장 슬라이드' },
   { href: '/strategy.html', icon: '📋', label: '사업 전략서', desc: '비즈니스 전략·로드맵' },
   {
     href: '/curriculum-master.html',
-    icon: '📚',
+    icon: '📖',
     label: '커리큘럼 마스터',
     desc: '책 마스터플랜·DB 연동',
   },
@@ -33,6 +49,7 @@ const RESOURCES = [
 ];
 
 function ResourcesDropdown() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -53,26 +70,50 @@ function ResourcesDropdown() {
       </button>
       {open && (
         <div className="absolute right-0 mt-1 w-60 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg overflow-hidden z-50">
-          {RESOURCES.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => setOpen(false)}
-              className="flex items-start gap-2 px-4 py-2.5 text-sm hover:bg-slate-50 dark:hover:bg-slate-700 border-b border-slate-100 dark:border-slate-700 last:border-b-0"
-            >
-              <span className="text-base mt-0.5">{item.icon}</span>
-              <span>
-                <span className="block font-semibold text-slate-700 dark:text-slate-200">
-                  {item.label}
+          {RESOURCES.map((item) => {
+            const className =
+              'flex items-start gap-2 px-4 py-2.5 text-sm hover:bg-slate-50 dark:hover:bg-slate-700 border-b border-slate-100 dark:border-slate-700 last:border-b-0';
+            const inner = (
+              <>
+                <span className="text-base mt-0.5">{item.icon}</span>
+                <span>
+                  <span className="block font-semibold text-slate-700 dark:text-slate-200">
+                    {item.label}
+                  </span>
+                  <span className="block text-[11px] text-slate-500 dark:text-slate-400">
+                    {item.desc}
+                  </span>
                 </span>
-                <span className="block text-[11px] text-slate-500 dark:text-slate-400">
-                  {item.desc}
-                </span>
-              </span>
-            </a>
-          ))}
+              </>
+            );
+            if (item.internal) {
+              // SPA 라우트 — same-tab navigate
+              return (
+                <button
+                  key={item.href}
+                  onClick={() => {
+                    setOpen(false);
+                    navigate(item.href);
+                  }}
+                  className={`${className} text-left w-full`}
+                >
+                  {inner}
+                </button>
+              );
+            }
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => setOpen(false)}
+                className={className}
+              >
+                {inner}
+              </a>
+            );
+          })}
         </div>
       )}
     </div>

@@ -1085,3 +1085,20 @@ export interface PromptPreset {
   createdAt: string;
   updatedAt: string;
 }
+
+/**
+ * 라이브러리 마스터 설정 — `/library` 카테고리/책 노출 순서 + 책별 메인 표지 override.
+ *
+ * 저장 위치: R2 `_index/library-config.json`. `/library-master` 페이지에서 편집.
+ * 없거나 일부 항목이 비어 있어도 라이브러리는 fallback 으로 정상 동작.
+ */
+export interface LibraryConfig {
+  /** 카테고리 노출 순서 (한글 카테고리명 배열). 비어있으면 LibraryPage 의 default priority 사용. */
+  categoryOrder?: string[];
+  /**
+   * 카테고리별 책 노출 우선순위 (storybook id 배열, 앞쪽이 먼저 노출).
+   * 카테고리에 속한 책 중 list 에 없는 책은 createdAt desc 로 fallback append.
+   */
+  bookPriority?: Record<string, string[]>;
+  updatedAt?: string;
+}

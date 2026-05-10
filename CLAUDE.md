@@ -74,6 +74,16 @@ features/{name}/{api,hooks,components,index.ts}
 - **모드 일러스트**: `public/icons/mode/{book,video,word}.png` (soft 3D rendered 톤, 그림체 독립적). PNG 베이크된 체크무늬 배경 → `packages/server/scripts/strip-checkerboard-bg.mjs` 로 4 모서리 floodfill 후처리.
 - **VocabularyStudyPage** (`/vocabulary/:unitId`): AppShell **밖** (학습 풀화면). 메인 진입 = BookDetailPage 의 "단어 익히기" 카드. `VocabularyStudyContent` 컴포넌트 = 단어 미리보기 + 게임 카드 4 (Duolingo push button + 좌상단 번호 1·2·3·4) — BookDetailPage / VocabularyStudyPage 공용.
 
+## 라이브러리 마스터 (2026-05-10)
+- **`/library-master`** — 라이브러리 노출 순서 편집 페이지 (저작도구 진입점 only). TopBar 우상단 📁 자료실 ▾ dropdown 첫 항목 "📚 라이브러리 마스터". AppShell (학습자 화면) 에서는 노출 X.
+- 좌-우 split: 좌측 카테고리 DnD reorder + 우측 활성 카테고리 책 DnD reorder + 🎨 표지 변경 모달 (그림체별 표지 grid → 클릭 시 책 `defaultStyle` 변경). `@dnd-kit/sortable`. 변경 즉시 자동 저장.
+- 저장: `_index/library-config.json` (`LibraryConfig` shared type — `categoryOrder[]` + `bookPriority[cat] = string[]`). 서버 `GET/PUT /api/library-config`. LibraryPage 가 config 적용해서 카테고리/책 순서 정렬.
+
+## 동일 title 동화책 차단 (2026-05-10)
+- `R2Repository.saveStorybook` 진입점에 validation. **신규 또는 title 변경 시에만** 체크 (audiobook 생성 등 부수 update 통과). variant `__L\d+$` (같은 baseId) / storybook ↔ phonics 는 충돌 X.
+- 충돌 시 `AppError(409, '같은 이름의 동화책이 이미 있어요: "..."')`. 클라 `useStorybookMutations` 의 save/patch/generate(/Phonics) `onError` 가 `alert("⚠️ ...")`.
+- 마이그 (룰 A 콘텐츠 우선): `pages` desc → `key_objects` desc → `characters` desc → `createdAt` asc 1위 keep, 나머지 `-1`/`-2` suffix. 21 그룹 / 23권 적용 완료. 스크립트 `packages/server/scripts/{dump-duplicate-titles,migrate-rename-duplicate-titles}.mjs`.
+
 ## 모듈별 가이드 (해당 폴더 작업 시 자동 로드)
 - 동화책 (CRUD/사이드바/복사) → [features/storybook/CLAUDE.md](packages/client/src/features/storybook/CLAUDE.md)
 - 학습 게임 → [features/games/CLAUDE.md](packages/client/src/features/games/CLAUDE.md)

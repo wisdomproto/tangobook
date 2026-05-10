@@ -9,6 +9,11 @@ import type {
   ReadingLevel,
 } from '@tangobook/shared';
 
+/** title 중복(409) 같은 user-facing 에러는 alert 으로 노출. */
+function alertSaveError(err: Error): void {
+  alert(`⚠️ ${err.message ?? '저장에 실패했어요'}`);
+}
+
 export function useSaveStorybook() {
   const qc = useQueryClient();
   return useMutation({
@@ -17,6 +22,7 @@ export function useSaveStorybook() {
       qc.invalidateQueries({ queryKey: ['storybooks'] });
       qc.setQueryData(['storybook', data.id], data);
     },
+    onError: alertSaveError,
   });
 }
 
@@ -32,6 +38,7 @@ export function usePatchStorybook() {
       qc.invalidateQueries({ queryKey: ['storybooks'] });
       qc.setQueryData(['storybook', data.id], data);
     },
+    onError: alertSaveError,
   });
 }
 
@@ -151,6 +158,7 @@ export function useGenerateStorybook() {
       qc.invalidateQueries({ queryKey: ['storybooks'] });
       qc.setQueryData(['storybook', data.id], data);
     },
+    onError: alertSaveError,
   });
 }
 
@@ -162,5 +170,6 @@ export function useGeneratePhonicsBook() {
       qc.invalidateQueries({ queryKey: ['storybooks'] });
       qc.setQueryData(['storybook', data.id], data);
     },
+    onError: alertSaveError,
   });
 }

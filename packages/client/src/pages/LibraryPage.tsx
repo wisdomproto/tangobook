@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useStorybooks } from '@/features/storybook';
-import { CategorySection, BookCard, useReadingStatus } from '@/features/library';
+import { CategorySection, BookCard, useReadingStatus, useLibraryConfig } from '@/features/library';
 import { StateScreen, SkeletonBookCard, Chip, AppIcon } from '@/design-system';
 import { cn } from '@/lib/cn';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
@@ -79,23 +79,31 @@ const getCategoryIconNode = (cat: string, size = 22): ReactNode => {
   return <span>📚</span>;
 };
 
-/** 사용자 요청 우선순위 정렬 — 전체 → 읽는 중 → 세계 명작 → 자연 관찰 → 생활 동화 → 기타. */
-const PRIORITY_CATEGORIES = ['세계 명작', '자연 관찰', '생활 동화', '전래 동화', '기타'];
+/** 마스터 페이지 config 비어있을 때 fallback 우선순위. */
+const DEFAULT_PRIORITY_CATEGORIES = ['세계 명작', '자연 관찰', '생활 동화', '전래 동화', '기타'];
 
-function compareByPriority(a: string, b: string, fallbackA = 0, fallbackB = 0): number {
-  const ai = PRIORITY_CATEGORIES.indexOf(a);
-  const bi = PRIORITY_CATEGORIES.indexOf(b);
-  if (ai !== -1 && bi !== -1) return ai - bi;
-  if (ai !== -1) return -1;
-  if (bi !== -1) return 1;
-  // priority 외 카테고리는 권수 많은 것 먼저
-  return fallbackB - fallbackA;
+function makeCategoryComparator(configOrder: string[] | undefined) {
+  // config 가 있으면 그 순서, 없으면 default. 둘 다에 없는 카테고리는 권수 desc.
+  const order = configOrder?.length ? configOrder : DEFAULT_PRIORITY_CATEGORIES;
+  return (a: string, b: string, fallbackA = 0, fallbackB = 0): number => {
+    const ai = order.indexOf(a);
+    const bi = order.indexOf(b);
+    if (ai !== -1 && bi !== -1) return ai - bi;
+    if (ai !== -1) return -1;
+    if (bi !== -1) return 1;
+    return fallbackB - fallbackA;
+  };
 }
 
 export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   const { data: list, isLoading, isError } = useStorybooks();
   const all = useMemo<BookIndexEntry[] | undefined>(() => list?.map(summaryToEntry), [list]);
   const { data: statusMap } = useReadingStatus();
+  const { data: libConfig } = useLibraryConfig();
+  const compareByPriority = useMemo(
+    () => makeCategoryComparator(libConfig?.categoryOrder),
+    [libConfig?.categoryOrder]
+  );
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState<'recent' | 'title'>('recent');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -152,7 +160,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
       counts.set(k, (counts.get(k) ?? 0) + 1);
     });
     return [...counts.entries()].sort((a, b) => compareByPriority(a[0], b[0], a[1], b[1]));
-  }, [all, type, search]);
+  }, [all, type, search, compareByPriority]);
 
   // 카테고리 chip 미선택 + 동화책 + 읽는 중 필터 X → 카테고리별 섹션, 그 외 → 플랫 그리드
   const showCategoryGroups = type === 'storybook' && !activeCategory && !readingFilter;
@@ -171,11 +179,26 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
       if (!map.has(key)) map.set(key, []);
       map.get(key)!.push(b);
     });
-    // 우선순위 정렬 — 전체/읽는 중 후 세계 명작 → 자연 관찰 → 생활 동화 → 전래 동화 → 기타
+    // 카테고리 안 책 — 마스터 페이지에서 정한 priority 가 있으면 그 순서 우선, 그 외는 filtered 순 유지
+    const bookPriority = libConfig?.bookPriority;
+    if (bookPriority) {
+      for (const [cat, books] of map.entries()) {
+        const ids = bookPriority[cat];
+        if (!ids || ids.length === 0) continue;
+        const idIdx = new Map(ids.map((id, i) => [id, i]));
+        books.sort((a, b) => {
+          const ai = idIdx.has(a.id) ? (idIdx.get(a.id) ?? 0) : Infinity;
+          const bi = idIdx.has(b.id) ? (idIdx.get(b.id) ?? 0) : Infinity;
+          if (ai === Infinity && bi === Infinity) return 0;
+          return ai - bi;
+        });
+      }
+    }
+    // 카테고리 순서 — config order 또는 default priority
     return [...map.entries()].sort((a, b) =>
       compareByPriority(a[0], b[0], a[1].length, b[1].length)
     );
-  }, [filtered, showCategoryGroups]);
+  }, [filtered, showCategoryGroups, libConfig?.bookPriority, compareByPriority]);
 
   // 파닉스 한/영 카운트
   const phonicsCounts = useMemo(() => {
