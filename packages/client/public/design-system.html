@@ -514,16 +514,38 @@ GPT/Midjourney 등에 시안 요청할 때 함께 보내면 톤 매칭 잘 됨:
 - **신규 토큰/컴포넌트 필요한 것 별도 표시**
 - 사용자에게 매핑 보고 + 확인
 
-### Step 2 — 신규 토큰/컴포넌트 분리 (필요 시)
+### Step 2 — 세부 이미지 자산 prompt 전달 (사용자에게 위임)
+
+Claude 는 이미지 generation 못 함 → 시안에 새 이미지 자산이 필요하면 **사용자에게 prompt 를 전달**해서 GPT/Midjourney 등으로 만들어 받음.
+
+자산 list-up:
+
+- 아이콘 (PNG/SVG, 사이즈, 톤)
+- 배경 일러스트 (hero 등)
+- 캐릭터 일러스트
+- 책 표지 placeholder
+
+각 자산별 prompt 에 명시:
+
+- 파일 명 + 저장 경로 권장 (예: `public/images/library-hero-spring-morning.png`)
+- 사이즈 / aspect ratio
+- 톤 / 색감 (디자인 시스템 토큰 참조)
+- 배경 처리 (투명 vs fill)
+- 필요한 후처리 (예: PNG baked checkerboard 제거 → `strip-checkerboard-bg.mjs`)
+
+흐름: Claude 가 prompt 작성 → 사용자가 GPT 로 자산 생성 → 사용자가 chat 에 첨부 또는 경로 알려줌 → Claude 가 코드 반영 (필요 시 후처리 스크립트 실행).
+
+### Step 3 — 신규 토큰/컴포넌트 분리 (필요 시)
 
 - 신규 색 토큰 → `tokens/colors.ts` + Tailwind config + 이 문서 반영
 - 신규 컴포넌트 → `primitives/` 에 추가
 - 분리 PR 또는 별도 commit
 
-### Step 3 — 화면 구현
+### Step 4 — 화면 구현
 
 - **100% 토큰 + 기존 컴포넌트** 사용
 - 하드코딩 금지: 색은 항상 토큰 (`bg-coral-500`), 폰트는 Tailwind 클래스 (`text-xl`)
+- 자산은 Step 2 에서 받은 PNG/SVG 활용 (`<AppIcon src="..." />` 또는 `<img src="..." />`)
 - pull request 시 이 문서 reference 명시
 
 ### 위반 시 자동 검출
