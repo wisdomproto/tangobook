@@ -9,6 +9,7 @@ import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
+import { phonicsApi } from '@/features/phonics/api/phonics.api';
 import { cn } from '@/lib/cn';
 
 type JamoType = 'cho' | 'jung' | 'jong';
@@ -248,21 +249,39 @@ export function KoreanBlockPlayer({
       if (isFirstTry) setScore((s) => s + 1);
       wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
       setRoundCorrect(true);
-      playWordCorrect({
-        ttsUrl: currentItem.ttsUrl,
-        onDone: () => {
-          if (currentIndex + 1 < items.length) {
-            const nextIdx = currentIndex + 1;
-            setCurrentIndex(nextIdx);
-            setGrid(initGrid());
-            setHasTriedThisRound(false);
-            setRoundCorrect(false);
-            setIsWrong(false);
-          } else {
-            setFinished(true);
-          }
-        },
-      });
+      // 한글 정책: phonics 음절 합성 우선 → 실패 시 currentItem.ttsUrl 폴백.
+      // 책 KeyObject 에 한글 ttsUrl 없는 데이터 (대부분의 책) 에서도 음성 재생.
+      (async () => {
+        let wordAudioUrl: string | undefined;
+        try {
+          const { audioUrl } = await phonicsApi.concatPhonicsAudio({
+            text: currentItem.word,
+            storybookId,
+            identifier: `kblock-ko-${encodeURIComponent(currentItem.word)}`,
+            language: 'korean',
+          });
+          wordAudioUrl = audioUrl;
+        } catch {
+          /* phonics miss — ttsUrl 폴백 */
+          wordAudioUrl = currentItem.ttsUrl;
+        }
+        if (!wordAudioUrl) wordAudioUrl = currentItem.ttsUrl;
+        playWordCorrect({
+          ttsUrl: wordAudioUrl,
+          onDone: () => {
+            if (currentIndex + 1 < items.length) {
+              const nextIdx = currentIndex + 1;
+              setCurrentIndex(nextIdx);
+              setGrid(initGrid());
+              setHasTriedThisRound(false);
+              setRoundCorrect(false);
+              setIsWrong(false);
+            } else {
+              setFinished(true);
+            }
+          },
+        });
+      })();
     } else {
       playFeedbackSound(false);
       setHasTriedThisRound(true);
@@ -279,6 +298,7 @@ export function KoreanBlockPlayer({
     playFeedbackSound,
     playWordCorrect,
     roundCorrect,
+    storybookId,
   ]);
 
   // 게임 완료 시 학습 이벤트

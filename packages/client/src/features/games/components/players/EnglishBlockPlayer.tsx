@@ -8,6 +8,7 @@ import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
+import { phonicsApi } from '@/features/phonics/api/phonics.api';
 import { useGameLogger } from '@/features/learning';
 import { cn } from '@/lib/cn';
 
@@ -161,21 +162,38 @@ export function EnglishBlockPlayer({
       if (isFirstTry) setScore((s) => s + 1);
       wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
       setRoundCorrect(true);
-      playWordCorrect({
-        ttsUrl: currentItem.ttsUrl,
-        onDone: () => {
-          if (currentIndex + 1 < items.length) {
-            const nextIdx = currentIndex + 1;
-            setCurrentIndex(nextIdx);
-            setGrid(initGrid(items[nextIdx].letters));
-            setHasTriedThisRound(false);
-            setRoundCorrect(false);
-            setWrongSlots(new Set());
-          } else {
-            setFinished(true);
+      // 영어 정책: ttsUrl 우선 → 없으면 phonics concat 폴백
+      (async () => {
+        let wordAudioUrl = currentItem.ttsUrl;
+        if (!wordAudioUrl) {
+          try {
+            const { audioUrl } = await phonicsApi.concatPhonicsAudio({
+              text: currentItem.word,
+              storybookId,
+              identifier: `eblock-en-${encodeURIComponent(currentItem.word)}`,
+              language: 'english',
+            });
+            wordAudioUrl = audioUrl;
+          } catch {
+            /* phonics miss — 효과음만 */
           }
-        },
-      });
+        }
+        playWordCorrect({
+          ttsUrl: wordAudioUrl,
+          onDone: () => {
+            if (currentIndex + 1 < items.length) {
+              const nextIdx = currentIndex + 1;
+              setCurrentIndex(nextIdx);
+              setGrid(initGrid(items[nextIdx].letters));
+              setHasTriedThisRound(false);
+              setRoundCorrect(false);
+              setWrongSlots(new Set());
+            } else {
+              setFinished(true);
+            }
+          },
+        });
+      })();
     } else {
       playFeedbackSound(false);
       setHasTriedThisRound(true);
@@ -193,6 +211,7 @@ export function EnglishBlockPlayer({
     playFeedbackSound,
     playWordCorrect,
     roundCorrect,
+    storybookId,
   ]);
 
   const handleNext = useCallback(() => {

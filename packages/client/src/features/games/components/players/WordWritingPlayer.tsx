@@ -6,6 +6,7 @@ import { decomposeWord } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { GamePlayerLayout } from '../GamePlayerLayout';
+import { phonicsApi } from '@/features/phonics/api/phonics.api';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 
 const CANVAS_W = 500;
@@ -269,14 +270,47 @@ export function WordWritingPlayer({ storybookId, gameData, onComplete, onBack }:
     }
   }, [scores, currentScore, currentIndex, items.length, onComplete, emitFinalResults]);
 
-  const handleCheck = () => {
+  const handleCheck = async () => {
     if (!hasDrawn) return;
     const accuracy = calculateAccuracy();
     setCurrentScore(accuracy);
     setShowResult(true);
 
     if (accuracy >= 50) {
+      // 한글: phonics concat 우선 / 영어: ttsUrl 우선 (game-policies-2026-05-10).
+      const isKorean = data.type === 'korean-word-writing';
+      let wordAudioUrl: string | undefined;
+      if (isKorean) {
+        try {
+          const { audioUrl } = await phonicsApi.concatPhonicsAudio({
+            text: currentItem.word,
+            storybookId,
+            identifier: `wwrite-ko-${encodeURIComponent(currentItem.word)}`,
+            language: 'korean',
+          });
+          wordAudioUrl = audioUrl;
+        } catch {
+          wordAudioUrl = currentItem.ttsUrl;
+        }
+        if (!wordAudioUrl) wordAudioUrl = currentItem.ttsUrl;
+      } else {
+        wordAudioUrl = currentItem.ttsUrl;
+        if (!wordAudioUrl) {
+          try {
+            const { audioUrl } = await phonicsApi.concatPhonicsAudio({
+              text: currentItem.word,
+              storybookId,
+              identifier: `wwrite-en-${encodeURIComponent(currentItem.word)}`,
+              language: 'english',
+            });
+            wordAudioUrl = audioUrl;
+          } catch {
+            /* phonics miss — 효과음만 */
+          }
+        }
+      }
       playWordCorrect({
+        ttsUrl: wordAudioUrl,
         onDone: () => {
           const newScores = [...scores, accuracy];
           setScores(newScores);
