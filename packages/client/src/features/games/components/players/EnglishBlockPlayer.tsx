@@ -71,7 +71,7 @@ export function EnglishBlockPlayer({
   const [grid, setGrid] = useState<(string | null)[]>(() => initGrid(currentItem.letters));
 
   const { playAudio, playFeedbackSound, playWordCorrect } = useGameAudio();
-  const phonicsMapRef = usePhonicsMap(['mod_phonics', 'mod_english']);
+  const { mapRef: phonicsMapRef } = usePhonicsMap(['mod_phonics', 'mod_english']);
   const drag = useBlockDrag<LetterBlock>({
     createGhost: createEnglishGhost,
     ghostOffset: [26, 32],

@@ -2,7 +2,7 @@ import { useState, useCallback, useMemo, useRef, useEffect, type ReactNode } fro
 import { motion } from 'framer-motion';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { KoreanBlockData } from '@tangobook/shared';
-import { CHOSUNG, JUNGSUNG, composeHangul, decomposeWord } from '@tangobook/shared';
+import { JUNGSUNG, composeHangul, decomposeWord } from '@tangobook/shared';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
@@ -25,12 +25,61 @@ function isVowel(char: string) {
   return JUNGSUNG_SET.has(char);
 }
 
-const ALL_CONSONANTS: JamoBlock[] = CHOSUNG.map((ch, i) => ({
+// 게임 패널 노출 순서: 4-5세 학습용으로 reorder.
+//  - 자음: 기본 14개 (ㄱ~ㅎ) → 쌍자음 5개 (ㄲ ㄸ ㅃ ㅆ ㅉ)
+//  - 모음: 기본 10개 (ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ ㅜ ㅠ ㅡ ㅣ) → 어려운 11개 (ㅐ ㅒ ㅔ ㅖ ㅘ ㅙ ㅚ ㅝ ㅞ ㅟ ㅢ)
+// CHOSUNG/JUNGSUNG (표준 순서) 은 hangul-utils 합성/분해에 그대로 사용. 여기 reorder 는 패널 노출만.
+const CONSONANT_ORDER = [
+  'ㄱ',
+  'ㄴ',
+  'ㄷ',
+  'ㄹ',
+  'ㅁ',
+  'ㅂ',
+  'ㅅ',
+  'ㅇ',
+  'ㅈ',
+  'ㅊ',
+  'ㅋ',
+  'ㅌ',
+  'ㅍ',
+  'ㅎ',
+  'ㄲ',
+  'ㄸ',
+  'ㅃ',
+  'ㅆ',
+  'ㅉ',
+] as const;
+const VOWEL_ORDER = [
+  'ㅏ',
+  'ㅑ',
+  'ㅓ',
+  'ㅕ',
+  'ㅗ',
+  'ㅛ',
+  'ㅜ',
+  'ㅠ',
+  'ㅡ',
+  'ㅣ',
+  'ㅐ',
+  'ㅒ',
+  'ㅔ',
+  'ㅖ',
+  'ㅘ',
+  'ㅙ',
+  'ㅚ',
+  'ㅝ',
+  'ㅞ',
+  'ㅟ',
+  'ㅢ',
+] as const;
+
+const ALL_CONSONANTS: JamoBlock[] = CONSONANT_ORDER.map((ch, i) => ({
   id: `cho-${i}`,
   char: ch,
   jamoType: 'cho' as JamoType,
 }));
-const ALL_VOWELS: JamoBlock[] = JUNGSUNG.map((ch, i) => ({
+const ALL_VOWELS: JamoBlock[] = VOWEL_ORDER.map((ch, i) => ({
   id: `jung-${i}`,
   char: ch,
   jamoType: 'jung' as JamoType,
@@ -39,56 +88,83 @@ const ALL_VOWELS: JamoBlock[] = JUNGSUNG.map((ch, i) => ({
 /**
  * 공간 위치 인식 파서 — 한글 음절의 시각적 배치 그대로 합성.
  *
- * 규칙 (사용자 명시):
- *  1. 한 음절에서 cho(자음) 왼쪽, jung(모음) 오른쪽. 즉 음절 시작은 항상 (r, c)=자음 + (r, c+1)=모음.
- *  2. 자음·자음, 모음·모음 연속 X — 인접 동종은 별도 음절.
- *  3. 받침(jong)은 cho 아래 (r+1, c) 또는 jung 아래 (r+1, c+1) 둘 다 OK.
- *  4. 같은 행에서 cho+jung 다음에 자음이 와서 (끝 / 다음이 자음) 이면 인라인 받침으로 흡수 (한 줄 입력 호환).
+ * 음절 시작 (cho) 위치별 모음 후보:
+ *  A. 수평 모음: cho 의 **오른쪽** (r, c+1) — ㅏ/ㅑ/ㅓ/ㅕ/ㅐ/ㅒ/ㅔ/ㅖ/ㅣ. 예: 가, 나
+ *  B. 수직 모음: cho 의 **아래** (r+1, c) — ㅗ/ㅛ/ㅜ/ㅠ/ㅡ. 예: 구, 누, 두
  *
- * 알고리즘: 위→아래, 좌→우 스캔. 매 (r,c) 에서 자음+(r,c+1)모음 짝을 발견하면 받침 후보 (a) 아래 자음
- * (b) 인라인 자음 순으로 채택해 합성. 합성에 쓰인 셀은 다시 cho 로 처리되지 않게 mark.
+ * 받침(jong) 후보:
+ *  - 수평 모음의 경우: (a) cho 아래 (r+1,c) (b) jung 아래 (r+1,c+1) (c) 인라인 (r,c+2)
+ *  - 수직 모음의 경우: jung 아래 (r+2, c)
+ *
+ * 자음·자음, 모음·모음 연속 X — 인접 동종은 별도 음절.
+ *
+ * 알고리즘: 위→아래, 좌→우 스캔. cho 발견 시 우측 (수평 모음) 우선 → 없으면 아래 (수직 모음) 시도.
+ * 합성에 쓰인 셀은 다시 cho 로 처리되지 않게 mark.
  */
 function parseSpatialKorean(grid: (string | null)[][]): string[] {
   const out: string[] = [];
-  const used = new Set<string>(); // 'r-c' — jong 으로 흡수된 셀
+  const used = new Set<string>(); // 'r-c' — jung/jong 으로 흡수된 셀
   for (let r = 0; r < grid.length; r++) {
     let c = 0;
-    while (c < grid[r].length - 1) {
+    while (c < grid[r].length) {
       const choKey = `${r}-${c}`;
       if (used.has(choKey)) {
         c++;
         continue;
       }
       const cho = grid[r][c];
-      const jung = grid[r][c + 1];
-      if (!cho || isVowel(cho) || !jung || !isVowel(jung)) {
+      if (!cho || isVowel(cho)) {
         c++;
         continue;
       }
-      // jong 후보: (a) cho 아래 (r+1,c) (b) jung 아래 (r+1,c+1) (c) 인라인 (r,c+2)
-      let jong: string | null = null;
-      let inlineConsumed = false;
-      const belowCho = r + 1 < grid.length ? grid[r + 1][c] : null;
-      const belowJung = r + 1 < grid.length ? grid[r + 1][c + 1] : null;
-      if (belowCho && !isVowel(belowCho) && !used.has(`${r + 1}-${c}`)) {
-        jong = belowCho;
-        used.add(`${r + 1}-${c}`);
-      } else if (belowJung && !isVowel(belowJung) && !used.has(`${r + 1}-${c + 1}`)) {
-        jong = belowJung;
-        used.add(`${r + 1}-${c + 1}`);
-      } else {
-        const inline = grid[r][c + 2];
-        if (inline && !isVowel(inline)) {
-          const afterInline = c + 3 < grid[r].length ? grid[r][c + 3] : null;
-          if (!afterInline || !isVowel(afterInline)) {
-            jong = inline;
-            inlineConsumed = true;
+
+      // (A) 수평 모음 — cho 의 우측
+      const jungH = c + 1 < grid[r].length ? grid[r][c + 1] : null;
+      if (jungH && isVowel(jungH) && !used.has(`${r}-${c + 1}`)) {
+        let jong: string | null = null;
+        let inlineConsumed = false;
+        const belowCho = r + 1 < grid.length ? grid[r + 1][c] : null;
+        const belowJung = r + 1 < grid.length ? grid[r + 1][c + 1] : null;
+        if (belowCho && !isVowel(belowCho) && !used.has(`${r + 1}-${c}`)) {
+          jong = belowCho;
+          used.add(`${r + 1}-${c}`);
+        } else if (belowJung && !isVowel(belowJung) && !used.has(`${r + 1}-${c + 1}`)) {
+          jong = belowJung;
+          used.add(`${r + 1}-${c + 1}`);
+        } else {
+          const inline = grid[r][c + 2];
+          if (inline && !isVowel(inline)) {
+            const afterInline = c + 3 < grid[r].length ? grid[r][c + 3] : null;
+            if (!afterInline || !isVowel(afterInline)) {
+              jong = inline;
+              inlineConsumed = true;
+            }
           }
         }
+        const composed = composeHangul(cho, jungH, jong);
+        if (composed) out.push(composed);
+        c += inlineConsumed ? 3 : 2;
+        continue;
       }
-      const composed = composeHangul(cho, jung, jong);
-      if (composed) out.push(composed);
-      c += inlineConsumed ? 3 : 2;
+
+      // (B) 수직 모음 — cho 의 아래
+      const jungV = r + 1 < grid.length ? grid[r + 1][c] : null;
+      if (jungV && isVowel(jungV) && !used.has(`${r + 1}-${c}`)) {
+        used.add(`${r + 1}-${c}`);
+        // 받침 후보: jung 아래 (r+2, c)
+        let jong: string | null = null;
+        const belowJungV = r + 2 < grid.length ? grid[r + 2][c] : null;
+        if (belowJungV && !isVowel(belowJungV) && !used.has(`${r + 2}-${c}`)) {
+          jong = belowJungV;
+          used.add(`${r + 2}-${c}`);
+        }
+        const composed = composeHangul(cho, jungV, jong);
+        if (composed) out.push(composed);
+        c++;
+        continue;
+      }
+
+      c++;
     }
   }
   return out;
@@ -142,7 +218,10 @@ export function KoreanBlockPlayer({
   const [grid, setGrid] = useState<(string | null)[][]>(() => initGrid());
 
   const { playAudio, playFeedbackSound, playWordCorrect } = useGameAudio();
-  const phonicsMapRef = usePhonicsMap(['mod_korean', 'mod_phonics']);
+  const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap([
+    'mod_korean',
+    'mod_phonics',
+  ]);
   const drag = useBlockDrag<JamoBlock>({
     createGhost: createKoreanGhost,
     ghostOffset: [24, 24],
@@ -152,10 +231,12 @@ export function KoreanBlockPlayer({
   const composedSyllables = useMemo(() => parseSpatialKorean(grid), [grid]);
 
   // 새로 추가된 음절만 TTS 재생.
-  // phonics 라이브러리는 보통 CV 음절(가/나/다)만 → 받침 CVC(산/침)·다음절은 미스.
-  // 폴백: Web Speech API(`speechSynthesis`) 로 ko-KR 합성.
+  // phonics 라이브러리는 보통 CV 음절(가/나/다)만 → 받침 CVC(산/침)·다음절은 라이브러리 miss.
+  // 라이브러리 로딩 중 (phonicsLoading) 일 때는 spinner overlay 가 인터랙션을 막고 있어 호출 X.
+  // 로딩 완료 후 라이브러리 miss 면 Web Speech API(`speechSynthesis`) 로 ko-KR 폴백.
   const prevSyllablesRef = useRef<string[]>([]);
   useEffect(() => {
+    if (phonicsLoading) return;
     const prev = prevSyllablesRef.current;
     for (let i = 0; i < composedSyllables.length; i++) {
       const cur = composedSyllables[i];
@@ -177,7 +258,7 @@ export function KoreanBlockPlayer({
       }
     }
     prevSyllablesRef.current = [...composedSyllables];
-  }, [composedSyllables, playAudio, phonicsMapRef]);
+  }, [composedSyllables, playAudio, phonicsMapRef, phonicsLoading]);
 
   // 정답 시 단어 타이핑 효과
   useEffect(() => {
@@ -356,18 +437,35 @@ export function KoreanBlockPlayer({
         <GameHeader title="한글 블록" current={score} total={items.length} onBack={onBack} />
       </div>
 
-      {/* 메인 — 상: 헤더 / 중: 드롭존 + 확인(우측) / 하: 자음·모음 패널 */}
-      <div className="flex-1 flex flex-col items-center justify-center gap-3 sm:gap-4 px-3 sm:px-4 pb-3 min-h-0">
-        {/* 헤더 — 단어 HERO + 작은 일러스트 */}
-        <div className="flex items-center justify-center gap-2 sm:gap-3 shrink-0">
+      {/* 파닉스 음원 로딩 overlay — 첫 진입 시 1-2초. 인터랙션 차단해서 무음/Web Speech 폴백 안 만나게. */}
+      {phonicsLoading && (
+        <div className="absolute inset-0 z-[65] flex items-center justify-center bg-white/70 backdrop-blur-sm">
+          <div className="rounded-3xl bg-white shadow-pop px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
+            <div
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-coral-200 border-t-coral-500 animate-spin"
+              aria-hidden
+            />
+            <p className="text-xl sm:text-2xl font-black text-ink-900 font-display">
+              잠깐만 기다려 줘!
+            </p>
+            <p className="text-sm sm:text-base text-ink-500">소리 준비하는 중이에요...</p>
+          </div>
+        </div>
+      )}
+
+      {/* 메인 — 3 섹션 카드: (1) 타겟 단어+그림 / (2) 드롭존+확인·초기화 / (3) 자음·모음 패널 */}
+      <div className="flex-1 flex flex-col items-center justify-center gap-6 sm:gap-8 px-3 sm:px-4 py-3 min-h-0">
+        {/* 섹션 1 — 타겟 단어 + 그림 (한 카드, 좌우 넓게) */}
+        <section className="rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-12 sm:px-16 py-3 sm:py-4 flex items-center justify-center gap-6 sm:gap-10 shrink-0 w-full max-w-3xl">
           <h1
-            className="font-display font-black tracking-tight leading-none whitespace-nowrap"
+            className="font-display font-black leading-none whitespace-nowrap"
             style={{
-              fontSize: 'clamp(4rem, 11vw, 10rem)',
+              fontSize: 'clamp(3.5rem, 9vw, 8rem)',
               color: '#FF7A3C',
-              WebkitTextStroke: '6px white',
+              WebkitTextStroke: '5px white',
               paintOrder: 'stroke fill',
               filter: 'drop-shadow(0 6px 0 rgba(0,0,0,0.08))',
+              letterSpacing: '0.14em',
             }}
           >
             {roundCorrect ? currentItem.word.slice(0, typedChars) : currentItem.word}
@@ -385,75 +483,73 @@ export function KoreanBlockPlayer({
               <span className="absolute -top-1 -right-1 text-xl sm:text-2xl">✨</span>
             </div>
           )}
-        </div>
+        </section>
 
-        {/* 중간 — 드롭존 + 확인 버튼 (오른쪽) */}
-        <div className="flex flex-row items-center justify-center gap-4 sm:gap-6">
-          <div
-            className={cn(
-              'rounded-3xl bg-cream-50/95 shadow-pop p-3 sm:p-4 transition-colors',
-              isWrong && 'ring-4 ring-danger/40 animate-shake bg-danger/10',
-              roundCorrect && 'ring-4 ring-success/40 bg-success/10'
-            )}
-          >
-            <div className="grid grid-rows-3 gap-2 sm:gap-3">
-              {Array.from({ length: ROWS }, (_, row) => (
-                <div key={row} className="grid grid-cols-6 gap-1.5 sm:gap-2 p-0.5">
-                  {Array.from({ length: COLS }, (_, col) => {
-                    const cellKey = `${row}-${col}`;
-                    const char = grid[row][col];
-                    const correct = roundCorrect && !!char;
-                    const inner = char ? (
-                      <span
-                        className={cn(
-                          'text-2xl sm:text-3xl lg:text-4xl font-black',
-                          isWrong
-                            ? 'text-danger'
-                            : correct
-                              ? 'text-success'
-                              : isVowel(char)
-                                ? 'text-coral-500'
-                                : 'text-peach-500'
-                        )}
-                      >
-                        {char}
-                      </span>
-                    ) : null;
-                    return (
-                      <div
-                        key={cellKey}
-                        ref={drag.cellRef(cellKey)}
-                        onDragOver={drag.handleDragOver}
-                        onDrop={(e) => drag.handleDrop(cellKey, e, onPlace)}
-                        onClick={() => handleCellClick(row, col)}
-                        className={cn(
-                          'w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16',
-                          'rounded-2xl flex items-center justify-center select-none transition-all',
-                          char ? 'cursor-pointer' : 'cursor-default',
-                          char
-                            ? 'bg-white shadow-soft border-2 border-cream-50'
-                            : 'bg-peach-100/60 border-[3px] border-dashed border-peach-200 hover:border-coral-400 hover:bg-peach-100/80'
-                        )}
-                      >
-                        {correct ? (
-                          <motion.div
-                            key={`c-${char}-${cellKey}`}
-                            initial={{ scale: 1 }}
-                            animate={{ scale: [1, 1.15, 1] }}
-                            transition={{ duration: 0.4 }}
-                            className="w-full h-full flex items-center justify-center"
-                          >
-                            {inner}
-                          </motion.div>
-                        ) : (
-                          inner
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
+        {/* 섹션 2 — 드롭존 + 확인/초기화 (한 카드) */}
+        <section
+          className={cn(
+            'rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-4 sm:px-6 py-3 sm:py-4 flex flex-row items-center justify-center gap-4 sm:gap-6 shrink-0 transition-colors',
+            isWrong && 'ring-4 ring-danger/40 animate-shake bg-danger/10',
+            roundCorrect && 'ring-4 ring-success/40 bg-success/10'
+          )}
+        >
+          <div className="grid grid-rows-3 gap-2 sm:gap-3">
+            {Array.from({ length: ROWS }, (_, row) => (
+              <div key={row} className="grid grid-cols-6 gap-1.5 sm:gap-2 p-0.5">
+                {Array.from({ length: COLS }, (_, col) => {
+                  const cellKey = `${row}-${col}`;
+                  const char = grid[row][col];
+                  const correct = roundCorrect && !!char;
+                  const inner = char ? (
+                    <span
+                      className={cn(
+                        'text-2xl sm:text-3xl lg:text-4xl font-black',
+                        isWrong
+                          ? 'text-danger'
+                          : correct
+                            ? 'text-success'
+                            : isVowel(char)
+                              ? 'text-coral-500'
+                              : 'text-peach-500'
+                      )}
+                    >
+                      {char}
+                    </span>
+                  ) : null;
+                  return (
+                    <div
+                      key={cellKey}
+                      ref={drag.cellRef(cellKey)}
+                      onDragOver={drag.handleDragOver}
+                      onDrop={(e) => drag.handleDrop(cellKey, e, onPlace)}
+                      onClick={() => handleCellClick(row, col)}
+                      className={cn(
+                        'w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16',
+                        'rounded-2xl flex items-center justify-center select-none transition-all',
+                        char ? 'cursor-pointer' : 'cursor-default',
+                        char
+                          ? 'bg-white shadow-soft border-2 border-cream-50'
+                          : 'bg-peach-100/60 border-[3px] border-dashed border-peach-200 hover:border-coral-400 hover:bg-peach-100/80'
+                      )}
+                    >
+                      {correct ? (
+                        <motion.div
+                          key={`c-${char}-${cellKey}`}
+                          initial={{ scale: 1 }}
+                          animate={{ scale: [1, 1.15, 1] }}
+                          transition={{ duration: 0.4 }}
+                          className="w-full h-full flex items-center justify-center"
+                        >
+                          {inner}
+                        </motion.div>
+                      ) : (
+                        inner
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
           </div>
           <div className="flex flex-col gap-2 sm:gap-3 shrink-0">
             <button
@@ -483,9 +579,9 @@ export function KoreanBlockPlayer({
               <span>초기화</span>
             </button>
           </div>
-        </div>
+        </section>
 
-        {/* 하단 — 자음·모음 패널 (가로 나란히) */}
+        {/* 섹션 3 — 자음·모음 패널 (가로 나란히, 각자 카드) */}
         <div className="flex flex-row gap-3 sm:gap-5 shrink-0">
           <BlockPanel title="자음" tone="consonant">
             {ALL_CONSONANTS.map((b) => (

@@ -21,6 +21,29 @@ const execFileAsync = promisify(execFile);
 
 const LIBRARY_PREFIX = 'phonics-library';
 
+// === list cache (in-memory, 5분 TTL) ===
+// R2 listObjects 가 1600+ 객체라 매 호출 5초+. 음원 변경은 드물어 stale 5분 허용.
+type ListResult = {
+  mod_phonics: PhonicsAudioItem[];
+  mod_english: PhonicsAudioItem[];
+  mod_korean: PhonicsAudioItem[];
+};
+const LIST_CACHE_TTL_MS = 5 * 60 * 1000;
+let listCache: ListResult | null = null;
+let listCacheAt = 0;
+function invalidateListCache(): void {
+  listCache = null;
+  listCacheAt = 0;
+}
+
+/** 서버 기동 시 호출 — 첫 사용자 요청 전에 phonics list 캐시를 채움 (R2 listObjects 7초 → 캐시 hit 즉시). */
+export function prewarmPhonicsLibraryCache(): void {
+  if (listCache) return;
+  void PhonicsLibraryService.list().catch((err) => {
+    console.warn('[phonics-library] prewarm failed:', (err as Error).message);
+  });
+}
+
 function buildLibraryKey(category: PhonicsAudioCategory, sound: string): string {
   return `${LIBRARY_PREFIX}/${category}/${sound}.mp3`;
 }
@@ -186,6 +209,7 @@ export const PhonicsLibraryService = {
       results.push({ sound, url, category });
     }
 
+    if (results.length > 0) invalidateListCache();
     return results;
   },
 
@@ -194,6 +218,14 @@ export const PhonicsLibraryService = {
     mod_english: PhonicsAudioItem[];
     mod_korean: PhonicsAudioItem[];
   }> {
+    // === In-memory cache (5분 TTL) ===
+    // R2 listObjects 가 1600+ 객체 fetch 해서 매번 5초 걸림. 클라 spinner 가 길어짐.
+    // 음원 추가/삭제는 phonics 페이지 (드물 작업) — 5분 stale 허용.
+    const now = Date.now();
+    if (listCache && now - listCacheAt < LIST_CACHE_TTL_MS) {
+      return listCache;
+    }
+
     const objects = await listR2Objects(LIBRARY_PREFIX);
 
     const result: {
@@ -233,6 +265,8 @@ export const PhonicsLibraryService = {
     result.mod_english.sort((a, b) => a.sound.localeCompare(b.sound));
     result.mod_korean.sort((a, b) => a.sound.localeCompare(b.sound));
 
+    listCache = result;
+    listCacheAt = now;
     return result;
   },
 
@@ -247,6 +281,7 @@ export const PhonicsLibraryService = {
       const garbled = Buffer.from(sound, 'utf8').toString('latin1');
       await deleteFromR2(buildLibraryKey(category, garbled)).catch(() => {});
     }
+    invalidateListCache();
   },
 
   async removeAll(category: PhonicsAudioCategory): Promise<{ deleted: number }> {
@@ -259,6 +294,7 @@ export const PhonicsLibraryService = {
     if (keys.length > 0) {
       await deleteManyFromR2(keys);
     }
+    invalidateListCache();
     return { deleted: keys.length };
   },
 
