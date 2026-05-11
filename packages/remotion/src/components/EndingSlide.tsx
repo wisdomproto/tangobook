@@ -3,7 +3,7 @@ import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from 'remo
 import { loadFont } from '@remotion/google-fonts/NotoSansKR';
 import { SparkleParticles } from './SparkleParticles';
 
-const { fontFamily } = loadFont('normal', { weights: ['700'], subsets: ['korean'] });
+const { fontFamily } = loadFont('normal', { weights: ['700'] });
 
 type EndingSlideProps = {
   text?: string;

@@ -3,7 +3,7 @@ import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from 'remo
 import { loadFont } from '@remotion/google-fonts/NotoSansKR';
 import type { SubtitleStyle } from '../types';
 
-const { fontFamily } = loadFont('normal', { weights: ['700'], subsets: ['korean'] });
+const { fontFamily } = loadFont('normal', { weights: ['700'] });
 
 type TypewriterSubtitleProps = {
   text: string;
