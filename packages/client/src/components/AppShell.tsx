@@ -105,16 +105,22 @@ export function AppShell() {
           ))}
           {/* 어휘 axis 아래 구분선 + 전체 어휘 풀 랜덤 블록 게임 진입점 2개 */}
           <div className="w-20 h-px bg-ink-200/70 my-2" />
-          <SubGameButton
-            to="/games/korean-block"
-            iconSrc="game/korean-block.webp"
-            label="한글 블록 게임"
-          />
-          <SubGameButton
-            to="/games/alphabet-block"
-            iconSrc="game/korean-block.webp"
-            label="알파벳 블록 게임"
-          />
+          <div className="flex items-center gap-1.5">
+            <SubGameButton
+              to="/games/korean-block"
+              iconSrc="game/korean-block.webp"
+              label="한글 블록 게임"
+            />
+            <ShareButton path="/games/korean-block" title="한글 블록 게임" />
+          </div>
+          <div className="flex items-center gap-1.5">
+            <SubGameButton
+              to="/games/alphabet-block"
+              iconSrc="game/korean-block.webp"
+              label="알파벳 블록 게임"
+            />
+            <ShareButton path="/games/alphabet-block" title="알파벳 블록 게임" />
+          </div>
         </nav>
 
         {/* 하단 호리 인사 — waving (덜 reactive) + 메시지. 단원 학습 화면에선 본문 호리와 중복이라 spacer만 유지 */}
@@ -285,6 +291,50 @@ function SubGameButton({ to, iconSrc, label }: { to: string; iconSrc: string; la
       <AppIcon src={iconSrc} size={32} alt={label} />
       <span className="text-sm">{label}</span>
     </NavLink>
+  );
+}
+
+function ShareButton({ path, title }: { path: string; title: string }) {
+  const handleShare = async () => {
+    const url = window.location.origin + path;
+    const shareData = { title: `탱고북 — ${title}`, text: `${title} 같이 해봐요!`, url };
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch (e) {
+        if ((e as Error).name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      alert(`🔗 링크 복사됨!\n${url}`);
+    } catch {
+      window.prompt('아래 링크를 복사해 주세요:', url);
+    }
+  };
+  return (
+    <button
+      onClick={handleShare}
+      className="w-10 h-10 rounded-full bg-violet-100 text-violet-600 hover:bg-violet-200 hover:scale-110 active:scale-95 transition shadow-soft flex items-center justify-center"
+      title={`${title} 공유하기`}
+      aria-label={`${title} 공유하기`}
+    >
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+        <polyline points="16 6 12 2 8 6" />
+        <line x1="12" y1="2" x2="12" y2="15" />
+      </svg>
+    </button>
   );
 }
 
