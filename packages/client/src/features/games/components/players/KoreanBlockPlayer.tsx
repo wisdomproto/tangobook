@@ -6,6 +6,7 @@ import { JUNGSUNG, composeHangul, decomposeWord } from '@tangobook/shared';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
+import { MobileLandscapeGate } from '../MobileLandscapeGate';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
@@ -404,192 +405,199 @@ export function KoreanBlockPlayer({
 
   if (finished) {
     return (
-      <GameResultScreen
-        storybookId={storybookId}
-        score={score}
-        total={items.length}
-        onRestart={handleRestart}
-        onBack={onBack}
-      />
+      <MobileLandscapeGate>
+        <GameResultScreen
+          storybookId={storybookId}
+          score={score}
+          total={items.length}
+          onRestart={handleRestart}
+          onBack={onBack}
+        />
+      </MobileLandscapeGate>
     );
   }
 
   return (
-    // VocabularyStudyContent 의 motion.div(fixed inset-0) 가 어떤 이유로 viewport top 으로부터 ~32px 떨어진 위치에 렌더되어
-    // 위쪽으로 뒷 페이지(헤더·표지)가 새어나옴. player 를 자체적으로 fixed inset-0 + z-[60] 로 바꿔서 viewport 0,0 부터 완전 덮음.
-    <div
-      className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-b from-sky-200 via-cream-50 to-peach-100 overflow-hidden"
-      style={{
-        backgroundImage: `url(${BG_IMAGE_URL})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
-      <div className="px-2 pt-2 shrink-0">
-        <GameHeader title="한글 블록" current={score} total={items.length} onBack={onBack} />
-      </div>
-
-      {/* 파닉스 음원 로딩 overlay — 첫 진입 시 1-2초. 인터랙션 차단해서 무음/Web Speech 폴백 안 만나게. */}
-      {phonicsLoading && (
-        <div className="absolute inset-0 z-[65] flex items-center justify-center bg-white/70 backdrop-blur-sm">
-          <div className="rounded-3xl bg-white shadow-pop px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
-            <div
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-coral-200 border-t-coral-500 animate-spin"
-              aria-hidden
-            />
-            <p className="text-xl sm:text-2xl font-black text-ink-900 font-display">
-              잠깐만 기다려 줘!
-            </p>
-            <p className="text-sm sm:text-base text-ink-500">소리 준비하는 중이에요...</p>
-          </div>
+    <MobileLandscapeGate>
+      {/* VocabularyStudyContent 의 motion.div(fixed inset-0) 가 어떤 이유로 viewport top 으로부터 ~32px 떨어진 위치에 렌더되어
+        위쪽으로 뒷 페이지(헤더·표지)가 새어나옴. player 를 자체적으로 fixed inset-0 + z-[60] 로 바꿔서 viewport 0,0 부터 완전 덮음. */}
+      <div
+        className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-b from-sky-200 via-cream-50 to-peach-100 overflow-hidden"
+        style={{
+          backgroundImage: `url(${BG_IMAGE_URL})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div className="px-2 pt-2 shrink-0">
+          <GameHeader title="한글 블록" current={score} total={items.length} onBack={onBack} />
         </div>
-      )}
 
-      {/* 메인 — 3 섹션 카드: (1) 타겟 단어+그림 / (2) 드롭존+확인·초기화 / (3) 자음·모음 패널 */}
-      <div className="flex-1 flex flex-col items-center justify-center gap-6 sm:gap-8 px-3 sm:px-4 py-3 min-h-0">
-        {/* 섹션 1 — 타겟 단어 + 그림 (한 카드, 좌우 넓게) */}
-        <section className="rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-12 sm:px-16 py-3 sm:py-4 flex items-center justify-center gap-6 sm:gap-10 shrink-0 w-full max-w-3xl">
-          <h1
-            className="font-display font-black leading-none whitespace-nowrap"
-            style={{
-              fontSize: 'clamp(3.5rem, 9vw, 8rem)',
-              color: '#FF7A3C',
-              WebkitTextStroke: '5px white',
-              paintOrder: 'stroke fill',
-              filter: 'drop-shadow(0 6px 0 rgba(0,0,0,0.08))',
-              letterSpacing: '0.14em',
-            }}
-          >
-            {roundCorrect ? currentItem.word.slice(0, typedChars) : currentItem.word}
-            {roundCorrect && typedChars < currentItem.word.length && (
-              <span className="inline-block w-1.5 h-[0.7em] bg-coral-500 align-middle ml-2 animate-pulse" />
-            )}
-          </h1>
-          {currentItem.imageUrl && (
-            <div className="relative shrink-0">
-              <img
-                src={currentItem.imageUrl}
-                alt={currentItem.word}
-                className="h-16 sm:h-20 lg:h-24 w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
+        {/* 파닉스 음원 로딩 overlay — 첫 진입 시 1-2초. 인터랙션 차단해서 무음/Web Speech 폴백 안 만나게. */}
+        {phonicsLoading && (
+          <div className="absolute inset-0 z-[65] flex items-center justify-center bg-white/70 backdrop-blur-sm">
+            <div className="rounded-3xl bg-white shadow-pop px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
+              <div
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-coral-200 border-t-coral-500 animate-spin"
+                aria-hidden
               />
-              <span className="absolute -top-1 -right-1 text-xl sm:text-2xl">✨</span>
+              <p className="text-xl sm:text-2xl font-black text-ink-900 font-display">
+                잠깐만 기다려 줘!
+              </p>
+              <p className="text-sm sm:text-base text-ink-500">소리 준비하는 중이에요...</p>
             </div>
-          )}
-        </section>
+          </div>
+        )}
 
-        {/* 섹션 2 — 드롭존 + 확인/초기화 (한 카드) */}
-        <section
-          className={cn(
-            'rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-4 sm:px-6 py-3 sm:py-4 flex flex-row items-center justify-center gap-4 sm:gap-6 shrink-0 transition-all',
-            isWrong && 'ring-4 ring-danger/40 animate-shake bg-danger/10',
-            roundCorrect &&
-              'ring-[6px] ring-success/70 bg-success/20 shadow-[0_0_60px_rgba(34,197,94,0.45)] scale-[1.02]'
-          )}
-        >
-          <div className="grid grid-rows-3 gap-2 sm:gap-3">
-            {Array.from({ length: ROWS }, (_, row) => (
-              <div key={row} className="grid grid-cols-6 gap-1.5 sm:gap-2 p-0.5">
-                {Array.from({ length: COLS }, (_, col) => {
-                  const cellKey = `${row}-${col}`;
-                  const char = grid[row][col];
-                  const correct = roundCorrect && !!char;
-                  const inner = char ? (
-                    <span
-                      className={cn(
-                        'text-2xl sm:text-3xl lg:text-4xl font-black',
-                        isWrong
-                          ? 'text-danger'
-                          : correct
-                            ? 'text-success'
-                            : isVowel(char)
-                              ? 'text-coral-500'
-                              : 'text-peach-500'
-                      )}
-                    >
-                      {char}
-                    </span>
-                  ) : null;
-                  return (
-                    <div
-                      key={cellKey}
-                      ref={drag.cellRef(cellKey)}
-                      onDragOver={drag.handleDragOver}
-                      onDrop={(e) => drag.handleDrop(cellKey, e, onPlace)}
-                      onClick={() => handleCellClick(row, col)}
-                      className={cn(
-                        'w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16',
-                        'rounded-2xl flex items-center justify-center select-none transition-all',
-                        char ? 'cursor-pointer' : 'cursor-default',
-                        char
-                          ? 'bg-white shadow-soft border-2 border-cream-50'
-                          : 'bg-peach-100/60 border-[3px] border-dashed border-peach-200 hover:border-coral-400 hover:bg-peach-100/80'
-                      )}
-                    >
-                      {correct ? (
-                        <motion.div
-                          key={`c-${char}-${cellKey}`}
-                          initial={{ scale: 1 }}
-                          animate={{ scale: [1, 1.15, 1] }}
-                          transition={{ duration: 0.4 }}
-                          className="w-full h-full flex items-center justify-center"
-                        >
-                          {inner}
-                        </motion.div>
-                      ) : (
-                        inner
-                      )}
-                    </div>
-                  );
-                })}
+        {/* 메인 — 3 섹션 카드: (1) 타겟 단어+그림 / (2) 드롭존+확인·초기화 / (3) 자음·모음 패널 */}
+        <div className="flex-1 flex flex-col items-center justify-center gap-[clamp(0.5rem,1.75vh,2rem)] px-3 sm:px-4 py-[clamp(0.25rem,0.875vh,0.75rem)] min-h-0">
+          {/* 섹션 1 — 타겟 단어 + 그림 (한 카드, 좌우 넓게) */}
+          <section className="rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.5rem,4vw,4rem)] py-[clamp(0.375rem,1.25vh,1rem)] flex items-center justify-center gap-[clamp(0.75rem,2vw,2.5rem)] shrink-0 w-full max-w-3xl">
+            <h1
+              className="font-display font-black leading-none whitespace-nowrap"
+              style={{
+                fontSize: 'clamp(2rem, min(9vw, 11vh), 8rem)',
+                color: '#FF7A3C',
+                WebkitTextStroke: 'clamp(2px, 0.5vh, 5px) white',
+                paintOrder: 'stroke fill',
+                filter: 'drop-shadow(0 6px 0 rgba(0,0,0,0.08))',
+                letterSpacing: '0.14em',
+              }}
+            >
+              {roundCorrect ? currentItem.word.slice(0, typedChars) : currentItem.word}
+              {roundCorrect && typedChars < currentItem.word.length && (
+                <span className="inline-block w-1.5 h-[0.7em] bg-coral-500 align-middle ml-2 animate-pulse" />
+              )}
+            </h1>
+            {currentItem.imageUrl && (
+              <div className="relative shrink-0">
+                <img
+                  src={currentItem.imageUrl}
+                  alt={currentItem.word}
+                  className="h-[clamp(2.5rem,9vh,6rem)] w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
+                />
+                <span className="absolute -top-1 -right-1 text-xl sm:text-2xl">✨</span>
               </div>
-            ))}
-          </div>
-          <div className="flex flex-col gap-2 sm:gap-3 shrink-0">
-            <button
-              onClick={handleCheck}
-              disabled={roundCorrect}
-              className={cn(
-                'px-8 py-4 sm:px-10 sm:py-6 rounded-3xl text-2xl sm:text-3xl font-black transition-all',
-                roundCorrect
-                  ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
-                  : 'bg-gradient-to-b from-coral-400 to-coral-600 text-white shadow-pop hover:scale-105 active:scale-95'
-              )}
-            >
-              확인
-            </button>
-            <button
-              onClick={handleResetGrid}
-              disabled={roundCorrect}
-              title="블록 모두 비우기"
-              className={cn(
-                'px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl text-base sm:text-lg font-bold transition-all flex items-center justify-center gap-1.5',
-                roundCorrect
-                  ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
-                  : 'bg-white/95 text-ink-700 shadow-soft hover:bg-white hover:scale-105 active:scale-95'
-              )}
-            >
-              <span aria-hidden>↺</span>
-              <span>초기화</span>
-            </button>
-          </div>
-        </section>
+            )}
+          </section>
 
-        {/* 섹션 3 — 자음·모음 패널 (가로 나란히, 각자 카드) */}
-        <div className="flex flex-row gap-3 sm:gap-5 shrink-0">
-          <BlockPanel title="자음" tone="consonant">
-            {ALL_CONSONANTS.map((b) => (
-              <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
-            ))}
-          </BlockPanel>
-          <BlockPanel title="모음" tone="vowel">
-            {ALL_VOWELS.map((b) => (
-              <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
-            ))}
-          </BlockPanel>
+          {/* 섹션 2 — 드롭존 + 확인/초기화 (한 카드) */}
+          <section
+            className={cn(
+              'rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.375rem,1.25vh,1rem)] flex flex-row items-center justify-center gap-[clamp(0.75rem,2vw,1.5rem)] shrink-0 transition-all',
+              isWrong && 'ring-4 ring-danger/40 animate-shake bg-danger/10',
+              roundCorrect &&
+                'ring-[6px] ring-success/70 bg-success/20 shadow-[0_0_60px_rgba(34,197,94,0.45)] scale-[1.02]'
+            )}
+          >
+            <div className="grid grid-rows-3 gap-[clamp(0.25rem,0.875vh,0.75rem)]">
+              {Array.from({ length: ROWS }, (_, row) => (
+                <div
+                  key={row}
+                  className="grid grid-cols-6 gap-[clamp(0.25rem,0.875vh,0.5rem)] p-0.5"
+                >
+                  {Array.from({ length: COLS }, (_, col) => {
+                    const cellKey = `${row}-${col}`;
+                    const char = grid[row][col];
+                    const correct = roundCorrect && !!char;
+                    const inner = char ? (
+                      <span
+                        className={cn(
+                          'text-[clamp(1.25rem,3.5vh,2.25rem)] font-black',
+                          isWrong
+                            ? 'text-danger'
+                            : correct
+                              ? 'text-success'
+                              : isVowel(char)
+                                ? 'text-coral-500'
+                                : 'text-peach-500'
+                        )}
+                      >
+                        {char}
+                      </span>
+                    ) : null;
+                    return (
+                      <div
+                        key={cellKey}
+                        ref={drag.cellRef(cellKey)}
+                        onDragOver={drag.handleDragOver}
+                        onDrop={(e) => drag.handleDrop(cellKey, e, onPlace)}
+                        onClick={() => handleCellClick(row, col)}
+                        className={cn(
+                          'w-[clamp(2rem,5.5vh,4rem)] h-[clamp(2rem,5.5vh,4rem)]',
+                          'rounded-2xl flex items-center justify-center select-none transition-all',
+                          char ? 'cursor-pointer' : 'cursor-default',
+                          char
+                            ? 'bg-white shadow-soft border-2 border-cream-50'
+                            : 'bg-peach-100/60 border-[3px] border-dashed border-peach-200 hover:border-coral-400 hover:bg-peach-100/80'
+                        )}
+                      >
+                        {correct ? (
+                          <motion.div
+                            key={`c-${char}-${cellKey}`}
+                            initial={{ scale: 1 }}
+                            animate={{ scale: [1, 1.15, 1] }}
+                            transition={{ duration: 0.4 }}
+                            className="w-full h-full flex items-center justify-center"
+                          >
+                            {inner}
+                          </motion.div>
+                        ) : (
+                          inner
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col gap-[clamp(0.25rem,1vh,0.75rem)] shrink-0">
+              <button
+                onClick={handleCheck}
+                disabled={roundCorrect}
+                className={cn(
+                  'px-[clamp(1rem,2.5vw,2.5rem)] py-[clamp(0.5rem,2vh,1.5rem)] rounded-3xl text-[clamp(1.125rem,3vh,1.875rem)] font-black transition-all',
+                  roundCorrect
+                    ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
+                    : 'bg-gradient-to-b from-coral-400 to-coral-600 text-white shadow-pop hover:scale-105 active:scale-95'
+                )}
+              >
+                확인
+              </button>
+              <button
+                onClick={handleResetGrid}
+                disabled={roundCorrect}
+                title="블록 모두 비우기"
+                className={cn(
+                  'px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.25rem,0.875vh,0.625rem)] rounded-2xl text-[clamp(0.75rem,1.875vh,1.125rem)] font-bold transition-all flex items-center justify-center gap-1.5',
+                  roundCorrect
+                    ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
+                    : 'bg-white/95 text-ink-700 shadow-soft hover:bg-white hover:scale-105 active:scale-95'
+                )}
+              >
+                <span aria-hidden>↺</span>
+                <span>초기화</span>
+              </button>
+            </div>
+          </section>
+
+          {/* 섹션 3 — 자음·모음 패널 (가로 나란히, 각자 카드) */}
+          <div className="flex flex-row gap-[clamp(0.5rem,1.5vh,1.25rem)] shrink-0">
+            <BlockPanel title="자음" tone="consonant">
+              {ALL_CONSONANTS.map((b) => (
+                <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
+              ))}
+            </BlockPanel>
+            <BlockPanel title="모음" tone="vowel">
+              {ALL_VOWELS.map((b) => (
+                <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
+              ))}
+            </BlockPanel>
+          </div>
         </div>
       </div>
-    </div>
+    </MobileLandscapeGate>
   );
 }
 
@@ -607,7 +615,7 @@ function BlockPanel({
   children: ReactNode;
 }) {
   return (
-    <div className="relative rounded-3xl bg-cream-50/95 shadow-pop px-3 pt-6 pb-3 sm:px-4 sm:pt-7 sm:pb-4 border-2 border-dashed border-cream-50">
+    <div className="relative rounded-3xl bg-cream-50/95 shadow-pop px-[clamp(0.5rem,1.5vw,1rem)] pt-[clamp(0.5rem,2.5vh,1.75rem)] pb-[clamp(0.25rem,0.875vh,1rem)] border-2 border-dashed border-cream-50">
       {/* 헤더 칩 */}
       <div className="absolute -top-3 left-1/2 -translate-x-1/2">
         <span
@@ -621,7 +629,7 @@ function BlockPanel({
           ⭐ {title} ⭐
         </span>
       </div>
-      <div className="grid grid-cols-10 gap-1.5 sm:gap-2">{children}</div>
+      <div className="grid grid-cols-10 gap-[clamp(0.25rem,0.75vh,0.5rem)]">{children}</div>
     </div>
   );
 }
@@ -644,7 +652,7 @@ function BlockTile({
       onTouchMove={drag.handleTouchMove}
       onTouchEnd={(e) => drag.handleTouchEnd(e, onPlace)}
       className={cn(
-        'w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center font-black text-xl sm:text-2xl select-none cursor-grab',
+        'w-[clamp(1.75rem,4.5vh,3rem)] h-[clamp(1.75rem,4.5vh,3rem)] rounded-xl flex items-center justify-center font-black text-[clamp(0.75rem,2.5vh,1.5rem)] select-none cursor-grab',
         'shadow-md transition-transform hover:scale-110 active:scale-95 active:cursor-grabbing',
         vowel
           ? 'bg-gradient-to-b from-coral-400 to-coral-600 text-white'

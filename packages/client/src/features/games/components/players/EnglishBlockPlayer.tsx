@@ -5,6 +5,7 @@ import type { EnglishBlockData, EnglishBlockLetter } from '@tangobook/shared';
 import { VOWELS, CONSONANTS, isEnglishVowel } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
+import { MobileLandscapeGate } from '../MobileLandscapeGate';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
@@ -253,13 +254,15 @@ export function EnglishBlockPlayer({
 
   if (finished) {
     return (
-      <GameResultScreen
-        storybookId={storybookId}
-        score={score}
-        total={items.length}
-        onRestart={handleRestart}
-        onBack={onBack}
-      />
+      <MobileLandscapeGate>
+        <GameResultScreen
+          storybookId={storybookId}
+          score={score}
+          total={items.length}
+          onRestart={handleRestart}
+          onBack={onBack}
+        />
+      </MobileLandscapeGate>
     );
   }
 
@@ -355,75 +358,79 @@ export function EnglishBlockPlayer({
   );
 
   return (
-    // vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음.
-    <div className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-br from-cream-50 to-peach-100 overflow-y-auto">
-      <div className="px-2 pt-2 shrink-0">
-        <GameHeader title="영어 블록" current={score} total={items.length} onBack={onBack} />
-      </div>
+    <MobileLandscapeGate>
+      {/* vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음. */}
+      <div className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-br from-cream-50 to-peach-100 overflow-y-auto">
+        <div className="px-2 pt-2 shrink-0">
+          <GameHeader title="영어 블록" current={score} total={items.length} onBack={onBack} />
+        </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 sm:py-6 gap-4 sm:gap-6">
-        {/* 완성된 단어 타이핑 패널 */}
-        {roundCorrect && (
-          <div className="bg-success/15 backdrop-blur-sm rounded-2xl px-6 py-4 min-h-[60px] text-3xl sm:text-4xl font-black text-success text-center shadow-pop ring-4 ring-success/40 min-w-[220px]">
-            {currentItem.word.slice(0, typedChars)}
-            {typedChars < currentItem.word.length && (
-              <span className="inline-block w-0.5 h-6 bg-coral-500 ml-1 animate-pulse align-middle" />
-            )}
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 sm:py-6 gap-4 sm:gap-6">
+          {/* 완성된 단어 타이핑 패널 */}
+          {roundCorrect && (
+            <div className="bg-success/15 backdrop-blur-sm rounded-2xl px-6 py-4 min-h-[60px] text-3xl sm:text-4xl font-black text-success text-center shadow-pop ring-4 ring-success/40 min-w-[220px]">
+              {currentItem.word.slice(0, typedChars)}
+              {typedChars < currentItem.word.length && (
+                <span className="inline-block w-0.5 h-6 bg-coral-500 ml-1 animate-pulse align-middle" />
+              )}
+            </div>
+          )}
+
+          {currentItem.imageUrl && (
+            <div className="relative">
+              <div className="absolute inset-0 rounded-xl bg-peach-300/40 blur-2xl scale-110" />
+              <img
+                src={currentItem.imageUrl}
+                alt={currentItem.word}
+                className="relative w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 object-contain rounded-xl bg-white shadow-card"
+              />
+            </div>
+          )}
+
+          <div className="flex items-center gap-3 sm:gap-5">
+            <span className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-wide text-ink-900">
+              {currentItem.word}
+            </span>
+            <div className="flex gap-1.5 sm:gap-2">
+              {Array.from({ length: letterCount }, (_, slot) => renderCell(slot))}
+            </div>
           </div>
-        )}
 
-        {currentItem.imageUrl && (
-          <div className="relative">
-            <div className="absolute inset-0 rounded-xl bg-peach-300/40 blur-2xl scale-110" />
-            <img
-              src={currentItem.imageUrl}
-              alt={currentItem.word}
-              className="relative w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 object-contain rounded-xl bg-white shadow-card"
-            />
-          </div>
-        )}
-
-        <div className="flex items-center gap-3 sm:gap-5">
-          <span className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-wide text-ink-900">
-            {currentItem.word}
-          </span>
-          <div className="flex gap-1.5 sm:gap-2">
-            {Array.from({ length: letterCount }, (_, slot) => renderCell(slot))}
+          <div className="flex justify-center gap-3 sm:gap-4">
+            <button
+              onClick={handleCheck}
+              disabled={roundCorrect}
+              className={cn(
+                'px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-md text-xl sm:text-xl font-bold transition-colors',
+                roundCorrect
+                  ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
+                  : 'bg-coral-500 hover:bg-coral-600 text-white shadow-pop'
+              )}
+            >
+              확인
+            </button>
+            <button
+              onClick={handleNext}
+              className="px-6 py-2.5 sm:px-10 sm:py-3.5 bg-peach-500 hover:bg-peach-300 text-white rounded-md text-xl sm:text-xl font-bold transition-colors shadow-card"
+            >
+              {currentIndex + 1 < items.length ? '다음 →' : '결과 보기'}
+            </button>
           </div>
         </div>
 
-        <div className="flex justify-center gap-3 sm:gap-4">
-          <button
-            onClick={handleCheck}
-            disabled={roundCorrect}
-            className={cn(
-              'px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-md text-xl sm:text-xl font-bold transition-colors',
-              roundCorrect
-                ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
-                : 'bg-coral-500 hover:bg-coral-600 text-white shadow-pop'
-            )}
-          >
-            확인
-          </button>
-          <button
-            onClick={handleNext}
-            className="px-6 py-2.5 sm:px-10 sm:py-3.5 bg-peach-500 hover:bg-peach-300 text-white rounded-md text-xl sm:text-xl font-bold transition-colors shadow-card"
-          >
-            {currentIndex + 1 < items.length ? '다음 →' : '결과 보기'}
-          </button>
+        <div className="shrink-0 px-3 sm:px-6 py-4 sm:py-6 flex flex-col sm:flex-row gap-4 sm:gap-6 bg-white/40 backdrop-blur-sm">
+          <div className="flex-1 min-w-0">
+            <p className="text-lg sm:text-xl font-black text-ink-900 mb-2 sm:mb-3 ml-1">
+              Consonants
+            </p>
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">{ALL_CONSONANTS.map(renderBlock)}</div>
+          </div>
+          <div className="shrink-0">
+            <p className="text-lg sm:text-xl font-black text-ink-900 mb-2 sm:mb-3 ml-1">Vowels</p>
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">{ALL_VOWELS.map(renderBlock)}</div>
+          </div>
         </div>
       </div>
-
-      <div className="shrink-0 px-3 sm:px-6 py-4 sm:py-6 flex flex-col sm:flex-row gap-4 sm:gap-6 bg-white/40 backdrop-blur-sm">
-        <div className="flex-1 min-w-0">
-          <p className="text-lg sm:text-xl font-black text-ink-900 mb-2 sm:mb-3 ml-1">Consonants</p>
-          <div className="flex flex-wrap gap-1.5 sm:gap-2">{ALL_CONSONANTS.map(renderBlock)}</div>
-        </div>
-        <div className="shrink-0">
-          <p className="text-lg sm:text-xl font-black text-ink-900 mb-2 sm:mb-3 ml-1">Vowels</p>
-          <div className="flex flex-wrap gap-1.5 sm:gap-2">{ALL_VOWELS.map(renderBlock)}</div>
-        </div>
-      </div>
-    </div>
+    </MobileLandscapeGate>
   );
 }

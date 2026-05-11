@@ -92,6 +92,35 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 - **카드 테두리** = `border-[5px]` + `rounded-3xl` + `shadow-pop`. 카드 비율 4:3 (LineMatching) 또는 2:1 (WordWriting canvas).
 - **확인/정답** 버튼 = 큰 사이즈 (`px-10 py-4 sm:px-12 sm:py-6 rounded-full text-2xl/3xl`).
 
+## vh 기반 적응형 (2026-05-11)
+
+1366×768 노트북에서 게임 화면 아래쪽이 잘리던 문제 → 모든 vertical 측정값을 **vh 기반 clamp** 로 전환. 1920×1080 은 clamp upper 로 기존 사이즈 유지, 1366×768·모바일 가로는 vh 비율로 자연 축소.
+
+- **HERO 텍스트**: `clamp(2rem, min(9vw, 11vh), 8rem)` — 가로/세로 둘 다 cap (긴 단어 가로 / 짧은 viewport 세로 둘 다 안전)
+- **GameHeader**: `h-[clamp(2.75rem,9vh,6rem)]` (height) + `mb-[clamp(0.125rem,1vh,1.5rem)]` (bottom margin) + 내부 텍스트/패딩 vh-clamp
+- **GamePlayerLayout**: outer `py-[clamp(0.375rem,1.5vh,1.5rem)]` + back button vh-aware → 사용 게임 (LineMatching/StoryImage/ConnectTheDots/WordWriting) 자동 적응
+- **셀 크기** (KoreanBlock 예시): drop cell `clamp(2rem,5.5vh,4rem)` · jamo cell `clamp(1.75rem,4.5vh,3rem)` — 768 에서 적당히 축소, 모바일에서 clamp min 적용 (32-28px, 터치 borderline 이지만 가로 wide 화면이라 OK)
+- **gap / py**: `clamp(0.5rem, 2vh, 2rem)` 패턴 — 1080 에서 기존 32px, 768 에서 ~16px, 모바일에서 8px
+
+**디버깅 측정 (PreviewEval)**:
+
+```js
+// content overflow 확인
+const last = Array.from(
+  document.querySelectorAll('.fixed.inset-0 section, .flex.flex-row.shrink-0')
+).at(-1);
+last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, 양수면 잘림
+```
+
+## 모바일 가로 강제 gate (2026-05-11)
+
+`MobileLandscapeGate` (`features/games/components/MobileLandscapeGate.tsx`) — 세로 + 모바일(`pointer:coarse`) 일 때 "📱↻ 가로로 돌려주세요" 풀스크린 prompt 표시. "확인" 버튼은 best-effort `requestFullscreen + screen.orientation.lock('landscape')` 호출 (대부분 모바일 브라우저는 거부 — 사용자가 직접 회전). matchMedia change 로 가로 회전 시 자동 닫힘. 데스크탑 세로 리사이즈는 무시.
+
+적용 위치:
+
+- `GamePlayerLayout` 내부 wrap → 사용 게임 자동 적용 (LineMatching/StoryImage/ConnectTheDots/WordWriting)
+- 자체 wrapper player (`KoreanBlockPlayer`/`EnglishBlockPlayer`/`SpeakingPlayer`) 는 return 마다 직접 wrap
+
 ## KoreanBlockPlayer — 공간 음절 인식 + 수직 모음 시각 배치 (2026-05-10)
 
 3행×6열 드롭존. 입력 순서가 아닌 **공간 위치** 로 음절 인식 (`parseSpatialKorean`). 한글 시각 구조 그대로:

@@ -21,16 +21,16 @@ interface GameHeaderProps {
 
 export function GameHeader({ title, current, total, onBack }: GameHeaderProps) {
   return (
-    <header className="h-20 lg:h-24 flex items-center justify-between gap-4 shrink-0 mb-4 lg:mb-6 bg-white/60 backdrop-blur-sm shadow-soft rounded-3xl px-6 mx-2 mt-2">
+    <header className="h-[clamp(2.75rem,9vh,6rem)] flex items-center justify-between gap-[clamp(0.5rem,1.5vh,1rem)] shrink-0 mb-[clamp(0.125rem,1vh,1.5rem)] bg-white/60 backdrop-blur-sm shadow-soft rounded-3xl px-[clamp(0.75rem,1.5vw,1.5rem)] mx-2 mt-1.5">
       <button
         onClick={onBack}
-        className="px-6 py-3 rounded-full bg-peach-100 text-ink-900 font-black text-xl shadow-soft hover:shadow-pop transition flex items-center gap-2"
+        className="px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.375rem,1.25vh,0.75rem)] rounded-full bg-peach-100 text-ink-900 font-black text-[clamp(0.875rem,2vh,1.25rem)] shadow-soft hover:shadow-pop transition flex items-center gap-2"
       >
         <span>←</span>
         <span>뒤로 가기</span>
       </button>
 
-      <div className="flex items-center gap-4 text-3xl lg:text-4xl font-black font-display text-ink-900">
+      <div className="flex items-center gap-[clamp(0.5rem,1.5vh,1rem)] text-[clamp(1.25rem,3.5vh,2.25rem)] font-black font-display text-ink-900">
         <span className="text-warn">★</span>
         <span>{title}</span>
         <span className="text-coral-500">
@@ -40,7 +40,7 @@ export function GameHeader({ title, current, total, onBack }: GameHeaderProps) {
       </div>
 
       {/* 우측 placeholder — 좌 버튼 폭과 균형. */}
-      <div className="w-32" aria-hidden />
+      <div className="w-[clamp(4rem,12vw,8rem)]" aria-hidden />
     </header>
   );
 }

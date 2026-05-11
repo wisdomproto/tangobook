@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { MobileLandscapeGate } from './MobileLandscapeGate';
 
 type MaxWidth = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'full';
 
@@ -34,30 +35,32 @@ export function GamePlayerLayout({
   bgImageUrl,
 }: GamePlayerLayoutProps) {
   return (
-    <div
-      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 sm:py-6 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden"
-      style={
-        bgImageUrl
-          ? {
-              backgroundImage: `url(${bgImageUrl})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-            }
-          : undefined
-      }
-    >
-      {onBack && (
-        <button
-          onClick={onBack}
-          className="self-start mb-3 inline-flex items-center gap-2 px-5 py-3 text-lg rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition shrink-0"
-        >
-          ← 돌아가기
-        </button>
-      )}
-      <div className={`w-full mx-auto flex-1 min-h-0 flex flex-col ${MAX_W[maxWidth]}`}>
-        {children}
+    <MobileLandscapeGate>
+      <div
+        className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-[clamp(0.375rem,1.5vh,1.5rem)] bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden"
+        style={
+          bgImageUrl
+            ? {
+                backgroundImage: `url(${bgImageUrl})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+              }
+            : undefined
+        }
+      >
+        {onBack && (
+          <button
+            onClick={onBack}
+            className="self-start mb-[clamp(0.25rem,1vh,0.75rem)] inline-flex items-center gap-2 px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.375rem,1.25vh,0.75rem)] text-[clamp(0.875rem,2vh,1.125rem)] rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition shrink-0"
+          >
+            ← 돌아가기
+          </button>
+        )}
+        <div className={`w-full mx-auto flex-1 min-h-0 flex flex-col ${MAX_W[maxWidth]}`}>
+          {children}
+        </div>
       </div>
-    </div>
+    </MobileLandscapeGate>
   );
 }
