@@ -31,6 +31,7 @@ import horiRoutes from './routes/hori.routes.js';
 import playgroundRoutes from './routes/playground.routes.js';
 import vocabularyUnitRoutes from './routes/vocabulary-unit.routes.js';
 import libraryConfigRoutes from './routes/library-config.routes.js';
+import vocabOverridesRoutes from './routes/vocab-overrides.routes.js';
 
 export function createApp() {
   const app = express();
@@ -87,6 +88,7 @@ export function createApp() {
   app.use('/api/playground', playgroundRoutes);
   app.use('/api/vocabulary-units', vocabularyUnitRoutes);
   app.use('/api/library-config', libraryConfigRoutes);
+  app.use('/api/vocab-overrides', vocabOverridesRoutes);
 
   // R2 프록시 — pub-xxx.r2.dev CORS 미지원 우회
   // GET /api/r2-proxy?key=storybooks/xxx/scene.mp4

@@ -41,6 +41,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '한글 번역 + 한글 파닉스',
   },
   {
+    href: '/vocabulary-table-ko.html',
+    icon: '📊',
+    label: '단어 마스터 표 (한글)',
+    desc: '난이도 분석 · 카테고리 · 정렬',
+  },
+  {
     href: '/design-system.html',
     icon: '🎨',
     label: '디자인 시스템',

@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>탱고북 단어 마스터 표 (한글)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, 'Noto Sans KR', system-ui, sans-serif; }
+  table { font-variant-numeric: tabular-nums; }
+  th.sortable { cursor: pointer; user-select: none; }
+  th.sortable:hover { background: #f1f5f9; }
+  th.sortable .arrow { opacity: 0.25; }
+  th.sortable.asc .arrow::after { content: '▲'; opacity: 1; }
+  th.sortable.desc .arrow::after { content: '▼'; opacity: 1; }
+  th.sortable .arrow::after { content: '⇅'; font-size: 9px; margin-left: 3px; }
+  tr.row-hover:hover td { background: #fefce8; }
+  td.word-cell { font-weight: 700; font-size: 15px; }
+  td.en-cell { color: #64748b; font-size: 12px; font-style: italic; }
+  td.cat-cell { font-size: 12px; }
+  td.en-cell input, td.cat-cell select {
+    background: transparent; border: 1px solid transparent; padding: 1px 4px; border-radius: 4px;
+    font: inherit; color: inherit; width: 100%; max-width: 140px;
+  }
+  td.en-cell input:hover, td.cat-cell select:hover { border-color: #cbd5e1; background: #fff; }
+  td.en-cell input:focus, td.cat-cell select:focus { border-color: #be185d; background: #fff; outline: none; }
+  td.num-cell { text-align: center; font-size: 12px; }
+  td.lv-cell { text-align: center; font-weight: 700; font-size: 11px; padding: 4px 6px; }
+  .lv1 { background: #d1fae5; color: #065f46; }
+  .lv2 { background: #fef3c7; color: #78350f; }
+  .lv3 { background: #fed7aa; color: #7c2d12; }
+  .lv4 { background: #fecaca; color: #7f1d1d; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .modal-backdrop.show { display: flex; }
+  .modal-card { background: white; border-radius: 16px; max-width: 600px; width: 100%; max-height: 80vh; overflow: auto; padding: 24px; }
+  .check { color: #10b981; font-weight: 700; }
+  .nope { color: #cbd5e1; }
+  .chip-master { display: inline-block; font-size: 9px; padding: 1px 6px; border-radius: 999px; background: #fef3c7; color: #92400e; font-weight: 700; margin-left: 4px; vertical-align: middle; }
+</style>
+</head>
+<body class="bg-slate-50">
+
+<header style="background: linear-gradient(to right, #be185d, #db2777);" class="text-white">
+  <div class="max-w-[1400px] mx-auto px-6 py-5">
+    <h1 class="text-3xl font-black">📊 탱고북 단어 마스터 표 — 한글</h1>
+    <p class="text-sm opacity-90 mt-1">한글 어휘 난이도 분석 · Cambridge Starters 카테고리 · 동화책 등장 단어만</p>
+  </div>
+</header>
+
+<!-- 통계 카드 -->
+<div class="max-w-[1400px] mx-auto px-6 mt-4 grid grid-cols-2 md:grid-cols-5 gap-2">
+  <div class="bg-white rounded-xl p-3 shadow-sm">
+    <div class="text-[10px] text-slate-500 font-bold">총 단어</div>
+    <div id="stat-total" class="text-2xl font-black text-slate-800">-</div>
+  </div>
+  <div class="bg-emerald-50 rounded-xl p-3 shadow-sm">
+    <div class="text-[10px] text-emerald-700 font-bold">Lv1 쉬움 (≤1.5점)</div>
+    <div id="stat-lv1" class="text-2xl font-black text-emerald-700">-</div>
+  </div>
+  <div class="bg-amber-50 rounded-xl p-3 shadow-sm">
+    <div class="text-[10px] text-amber-700 font-bold">Lv2 보통 (~3점)</div>
+    <div id="stat-lv2" class="text-2xl font-black text-amber-700">-</div>
+  </div>
+  <div class="bg-orange-50 rounded-xl p-3 shadow-sm">
+    <div class="text-[10px] text-orange-700 font-bold">Lv3 어려움 (3.5~6점)</div>
+    <div id="stat-lv3" class="text-2xl font-black text-orange-700">-</div>
+  </div>
+  <div class="bg-rose-50 rounded-xl p-3 shadow-sm">
+    <div class="text-[10px] text-rose-700 font-bold">Lv4 매우 (6.5+점)</div>
+    <div id="stat-lv4" class="text-2xl font-black text-rose-700">-</div>
+  </div>
+</div>
+
+<!-- 필터 바 -->
+<div class="bg-white shadow-sm sticky top-0 z-30 mt-4 border-y">
+  <div class="max-w-[1400px] mx-auto px-6 py-3 flex flex-wrap items-center gap-3">
+    <span id="loading" class="text-sm font-bold text-slate-500">로드 중...</span>
+
+    <select id="filter-cat" class="border rounded px-2 py-1 text-sm">
+      <option value="">📦 모든 카테고리</option>
+    </select>
+
+    <select id="filter-lv" class="border rounded px-2 py-1 text-sm">
+      <option value="">⚡ 모든 난이도</option>
+      <option value="1">Lv1 쉬움</option>
+      <option value="2">Lv2 보통</option>
+      <option value="3">Lv3 어려움</option>
+      <option value="4">Lv4 매우 어려움</option>
+    </select>
+
+    <select id="filter-cov" class="border rounded px-2 py-1 text-sm">
+      <option value="">📚 전체</option>
+      <option value="master">⭐ Cambridge 마스터만</option>
+      <option value="not-master">⭐외 (마스터 비포함)</option>
+    </select>
+
+    <input id="filter-search" placeholder="단어 검색..." class="border rounded px-2 py-1 text-sm w-36" />
+
+    <span id="overrides-stat" class="text-xs text-slate-500 ml-auto"></span>
+    <button id="save-btn" onclick="window.saveAll()" class="px-4 py-1.5 rounded-full text-xs font-black bg-emerald-500 hover:bg-emerald-600 text-white shadow-sm" title="DB 에 저장">💾 저장</button>
+    <button onclick="window.resetOverrides()" class="px-3 py-1.5 rounded-full text-xs font-bold border border-rose-300 text-rose-600 hover:bg-rose-50" title="모든 수정·제외 초기화">↺</button>
+    <button onclick="window.refresh()" class="px-3 py-1.5 rounded-full text-xs font-bold border border-slate-300 hover:bg-slate-50" title="DB 에서 다시 로드">🔄</button>
+  </div>
+</div>
+
+<!-- 표 -->
+<main class="max-w-[1400px] mx-auto px-6 py-4">
+  <div class="bg-white rounded-xl shadow overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-slate-100 text-slate-700">
+          <tr>
+            <th class="sortable px-3 py-2 text-left" data-sort="word">단어 <span class="arrow"></span></th>
+            <th class="sortable px-3 py-2 text-left" data-sort="en">영어 <span class="arrow"></span></th>
+            <th class="sortable px-3 py-2 text-left" data-sort="cat">카테고리 <span class="arrow"></span></th>
+            <th class="sortable px-3 py-2 text-center" data-sort="syl" title="음절 수">음절 <span class="arrow"></span></th>
+            <th class="sortable px-3 py-2 text-center" data-sort="batchim" title="받침 있는 음절 수">받침 <span class="arrow"></span></th>
+            <th class="sortable px-3 py-2 text-center" data-sort="double" title="쌍자음 초성 (ㄲㄸㅃㅆㅉ)">쌍자음 <span class="arrow"></span></th>
+            <th class="sortable px-3 py-2 text-center" data-sort="diph" title="이중모음 (ㅑㅕㅛㅠㅒㅖㅘㅙㅚㅝㅞㅟㅢ)">이중모음 <span class="arrow"></span></th>
+            <th class="sortable px-3 py-2 text-center" data-sort="hard" title="복잡 받침 (7종성 외)">복잡받침 <span class="arrow"></span></th>
+            <th class="sortable px-3 py-2 text-center" data-sort="score" title="난이도 점수">점수 <span class="arrow"></span></th>
+            <th class="sortable px-3 py-2 text-center" data-sort="lv" title="난이도 등급">등급 <span class="arrow"></span></th>
+            <th class="sortable px-3 py-2 text-center" data-sort="books" title="동화책 출연 권수">📚 <span class="arrow"></span></th>
+            <th class="px-3 py-2 text-center" title="수정·제거">⚙️</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div id="empty" class="hidden text-center text-slate-400 py-12">필터 결과 없음</div>
+    <div id="pager" class="px-4 py-2 text-xs text-slate-500 border-t flex items-center justify-between">
+      <span id="pager-info"></span>
+      <div class="flex gap-1">
+        <button id="pg-prev" class="px-2 py-1 border rounded">‹</button>
+        <span id="pg-cur" class="px-2 py-1 font-bold">1</span>
+        <button id="pg-next" class="px-2 py-1 border rounded">›</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- 책 목록 모달 -->
+<div id="modal" class="modal-backdrop" onclick="if(event.target===this)closeModal()">
+  <div class="modal-card">
+    <div class="flex items-center justify-between mb-3">
+      <h3 id="modal-title" class="text-xl font-black">-</h3>
+      <button onclick="closeModal()" class="text-slate-400 hover:text-slate-700 text-2xl leading-none">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// Cambridge Pre-A1 Starters 16 토픽 (한글)
+// ============================================================
+const TOPICS = [
+  { id:'animals', label:'🦁 동물', words:['새','고양이','닭','소','악어','강아지','당나귀','오리','코끼리','물고기','개구리','기린','염소','말','캥거루','사자','원숭이','쥐','판다','양','뱀','거미','호랑이'] },
+  { id:'body', label:'👁 몸과 얼굴', words:['팔','몸','귀','눈','얼굴','발','머리카락','손','머리','다리','입','코','사람','미소','이'] },
+  { id:'clothes', label:'👕 옷', words:['가방','원피스','안경','핸드백','모자','재킷','청바지','셔츠','신발','치마','양말','티셔츠','바지','시계'] },
+  { id:'colours', label:'🎨 색깔', words:['검정','파랑','갈색','초록','회색','주황','분홍','보라','빨강','하양','노랑'] },
+  { id:'family', label:'👨‍👩‍👧 가족', words:['아기','남자아이','형','아빠','딸','가족','아버지','친구','여자아이','할아버지','할머니','어머니','엄마','부모','누나','아들'] },
+  { id:'food', label:'🍎 음식·음료', words:['사과','바나나','콩','빵','아침','햄버거','케이크','사탕','당근','감자칩','초콜릿','코코넛','저녁','음료','달걀','음식','과일','포도','아이스크림','주스','레몬','라임','점심','망고','고기','우유','양파','오렌지','완두콩','배','파인애플','감자','쌀','소시지','토마토','채소','물','수박'] },
+  { id:'health', label:'🏥 건강', words:['의사','병원','아픈','건강한'] },
+  { id:'home', label:'🏠 집', words:['안락의자','욕조','욕실','침대','침실','책장','책꽂이','카메라','시계','컴퓨터','찬장','식당','문','선풍기','아파트','바닥','정원','거실','집','부엌','전등','도시락','매트','거울','전화','그림','라디오','방','러그','선반','샤워기','소파','탁자','텔레비전','장난감','벽','창문','마당'] },
+  { id:'numbers', label:'🔢 숫자', words:['영','하나','둘','셋','넷','다섯','여섯','일곱','여덟','아홉','열','열하나','열둘','열셋','열넷','열다섯','열여섯','열일곱','열여덟','열아홉','스물'] },
+  { id:'places', label:'🌍 장소·방향', words:['주소','해변','공원','도로','가게','거리','마을'] },
+  { id:'school', label:'🏫 학교', words:['알파벳','답','책','반','반친구','교실','책상','영어','지우개','수업','글자','이름','쪽','펜','연필','질문','자','학교','책가방','학생','선생님','단어'] },
+  { id:'sports', label:'⚽ 운동·놀이', words:['공','풍선','자전거','보드게임','배','춤','인형','그림','놀이','취미','연','음악','물감','사진','놀다','로봇','노래','수영','탁구','테니스','장난감','기차','걷기'] },
+  { id:'world', label:'🌳 세상', words:['버스','자동차','구름','나라','낮','저녁','들판','꽃','정글','호수','아침','산','밤','바다','식물','무지개','강','계절','하늘','눈','별','돌','태양','나무','물','날씨','바람','세상'] },
+  { id:'verbs', label:'🏃 동사', words:['이다','사다','할수있다','잡다','고르다','박수치다','청소하다','닫다','오다','세다','울다','하다','그리다','마시다','운전하다','먹다','찾다','날다','얻다','주다','가다','가지다','듣다','돕다','때리다','뛰다','차다','알다','웃다','좋아하다','살다','보다','사랑하다','만들다','만나다','필요하다','열다','칠하다','놀다','가리키다','놓다','읽다','타다','달리다','말하다','노래하다','앉다','자다','수영하다','가져가다','생각하다','던지다','걷다','원하다','입다','쓰다'] },
+  { id:'adj', label:'✨ 형용사', words:['화난','아름다운','큰','지루한','깨끗한','추운','더러운','모든','신난','빠른','뚱뚱한','좋아하는','친절한','무서운','재미있는','좋은','멋진','행복한','뜨거운','배고픈','마지막','긴','장난꾸러기','새로운','오래된','가난한','부자','슬픈','짧은','느린','작은','햇볕','놀란','키큰','맛있는','목마른','피곤한','못생긴','젖은','어린'] },
+  { id:'adv', label:'📍 부사', words:['여기','지금','제발','오늘','내일','매우','잘','어제'] },
+];
+
+// 보조 카테고리 (Cambridge 외) — 동화/자연관찰 빈출 단어 그룹
+const EXTRA_TOPICS = [
+  { id:'nature', label:'🌿 자연·식물', keywords:['잎','꽃잎','줄기','뿌리','싹','씨앗','열매','이삭','대나무','담장','이슬','초원','들판','시내','계곡','바위','동굴','풀숲','나뭇잎','나뭇가지','꽃밭'] },
+  { id:'dinosaur', label:'🦕 공룡·고대', keywords:['공룡','티라노사우루스','트리케라톱스','브라키오사우루스','람포린쿠스','모사사우루스','벨로키랍토르','화석','알껍데기','발자국','뿔','이빨','꼬리','비늘','발톱','갈고리발톱'] },
+  { id:'sea', label:'🐠 바다 생물', keywords:['상어','고래','문어','오징어','해마','말미잘','흰동가리','바다거북','게','조개','산호','해초','등딱지','지느러미','아가미'] },
+  { id:'insect', label:'🐝 곤충', keywords:['나비','벌','꿀벌','잠자리','개미','풍뎅이','사슴벌레','거미','달팽이','애벌레','번데기','더듬이','날개'] },
+  { id:'fairytale', label:'🏰 동화 등장', keywords:['공주','왕자','왕','왕비','마녀','요정','거인','난쟁이','용','괴물','왕관','마법','마법사','성','궁전','탑','보석','보물','반지','거울','횃불','지팡이','구두','유리구두','신발','드레스','망토','수레','마차','요술램프','수정구슬'] },
+  { id:'sound', label:'🔊 의성·의태어', keywords:['살랑살랑','폴짝폴짝','깡충깡충','뒤뚱뒤뚱','반짝반짝','꿀꺽꿀꺽','쿵쿵','쾅쾅','똑똑','째깍째깍','째즉째즉','쏙쏙','콸콸','졸졸','풍덩'] },
+];
+
+const WORD_TO_TOPIC = new Map();
+const MASTER_WORD_SET = new Set();
+const ALL_TOPICS = [];
+for (const t of TOPICS) {
+  ALL_TOPICS.push(t);
+  for (const w of t.words) {
+    MASTER_WORD_SET.add(w);
+    if (!WORD_TO_TOPIC.has(w)) WORD_TO_TOPIC.set(w, t);
+  }
+}
+for (const t of EXTRA_TOPICS) {
+  ALL_TOPICS.push({ id: t.id, label: t.label });
+  for (const w of t.keywords) {
+    if (!WORD_TO_TOPIC.has(w)) WORD_TO_TOPIC.set(w, { id: t.id, label: t.label });
+  }
+}
+const OTHER_TOPIC = { id:'other', label:'📦 기타' };
+
+// ============================================================
+// 한글 음절 분석 + 난이도 점수
+// ============================================================
+//
+// 음절 = 초성 + 중성 + 종성(받침)
+// 초성 19 (0~18): ㄱ ㄲ ㄴ ㄷ ㄸ ㄹ ㅁ ㅂ ㅃ ㅅ ㅆ ㅇ ㅈ ㅉ ㅊ ㅋ ㅌ ㅍ ㅎ
+//   - 쌍자음: index 1(ㄲ) 4(ㄸ) 8(ㅃ) 10(ㅆ) 13(ㅉ)
+// 중성 21 (0~20): ㅏ ㅐ ㅑ ㅒ ㅓ ㅔ ㅕ ㅖ ㅗ ㅘ ㅙ ㅚ ㅛ ㅜ ㅝ ㅞ ㅟ ㅠ ㅡ ㅢ ㅣ
+//   - 이중모음: 2(ㅑ) 3(ㅒ) 6(ㅕ) 7(ㅖ) 9(ㅘ) 10(ㅙ) 11(ㅚ) 12(ㅛ) 14(ㅝ) 15(ㅞ) 16(ㅟ) 17(ㅠ) 19(ㅢ)
+// 종성 28 (0~27): 0=없음, 1=ㄱ 2=ㄲ 3=ㄳ 4=ㄴ 5=ㄵ 6=ㄶ 7=ㄷ 8=ㄹ 9=ㄺ ... 21=ㅇ ... 27=ㅎ
+//   - 7종성 (단순 받침): 1(ㄱ) 4(ㄴ) 7(ㄷ) 8(ㄹ) 16(ㅁ) 17(ㅂ) 21(ㅇ)
+//   - 복잡 받침: 나머지 (쌍자음 받침 + 자음군 + 비대표 음가)
+const DOUBLE_INITIAL = new Set([1, 4, 8, 10, 13]);
+const DIPHTHONG_MEDIAL = new Set([2, 3, 6, 7, 9, 10, 11, 12, 14, 15, 16, 17, 19]);
+const HARD_MEDIAL = new Set([1, 5]); // ㅐ, ㅔ (어린이에게 헷갈리는 단모음)
+const SIMPLE_FINAL = new Set([0, 1, 4, 7, 8, 16, 17, 21]); // 7종성 + 없음
+
+// ============================================================
+// 동사/형용사/추상명사 제외 — 단어 표는 "그릴 수 있는 명사" 만
+// ============================================================
+const VERB_END = /[가-힯]다$/;       // ~다 (동사·형용사 기본형)
+// 형용사 활용형 (~ㄴ 형, ~의 조사 포함)
+const ADJ_END = /[가-힯](한|운|는|인|던|은|른|픈|쁜|의)$/;
+const ADV_END = /[가-힯]히$/;          // ~히 (부사: 조용히·영원히·천천히)
+// ~의·~과 등 조사 들어간 합성 (눈의여왕, 보석과의…)
+const MID_PARTICLE = /[가-힯](의|과|와|이|가)[가-힯]/;
+const ABSTRACT = new Set([
+  '사랑','우정','용기','행복','슬픔','기쁨','분노','희망','꿈','마음','생각','감정',
+  '지혜','자유','평화','정의','믿음','신뢰','약속','정성','진심','감사','후회',
+  '근심','걱정','외로움','쓸쓸함','두려움','놀라움','놀람','부끄러움','자랑',
+  '용서','사고','잘못','실수','평소','보통','마지막','처음','이름',
+]);
+const PRONOUN = new Set(['그','이','저','이것','그것','저것','나','너','우리','자기','자신']);
+// 받침 끝 형용사 짧은 활용형
+const SHORT_ADJ = new Set(['긴','큰','작은','짧은','넓은','좁은','높은','낮은','많은','적은','얇은','두꺼운']);
+// 다 로 끝나지만 명사인 예외
+const NOUN_OK = new Set(['수다','구두','만두','샌드위치','만다라','바다','사다리','다람쥐']);
+// 고유명사 (외국 캐릭터/지명 — 일반 명사 아님)
+const PROPER_NOUN = new Set([
+  '루벤스','릴리풋','체셔','하이디','클라라','파트라슈','네버랜드','웬디','후크','팅커벨',
+  '백설공주','신데렐라','라푼젤','헨젤','그레텔','피노키오','피터팬','알라딘','오즈','앨리스',
+  '걸리버','엄지공주','엄지','로빈슨','지킬','하이드','로미오','줄리엣','이상','앨리스','한스',
+  '도로시','토토','허수아비','양철나무꾼','겁쟁이사자','마법사','오즈마','글린다',
+  '체스','체스터','험프티','덤프티','험프티덤프티',
+]);
+
+function isNonNoun(key) {
+  if (!key) return true;
+  if (NOUN_OK.has(key)) return false;
+  if (VERB_END.test(key)) return true;
+  if (ADJ_END.test(key)) return true;
+  if (ADV_END.test(key)) return true;
+  if (MID_PARTICLE.test(key)) return true;
+  if (SHORT_ADJ.has(key)) return true;
+  if (ABSTRACT.has(key)) return true;
+  if (PRONOUN.has(key)) return true;
+  if (PROPER_NOUN.has(key)) return true;
+  return false;
+}
+
+// 일반 명사 보조 사전 (동화책 key_object 에 없지만 흔한 명사) — 복합명사 분해 정확도 ↑
+const EXTRA_NOUNS = new Set([
+  // 동화 캐릭터/소품
+  '왕자','공주','왕비','왕','마녀','마법사','거인','난쟁이','성','궁전','탑','마차','수레',
+  '드레스','왕관','반지','보석','보물','거울','지팡이','요술','요정','램프','횃불','수정',
+  '구슬','구두','신발','옷','종','조각','장수','솜','솜털','인형',
+  // 음식/물건
+  '설탕','꿀','과자','초콜릿','쌀','우유','버터','치즈','빵','잼','잼','죽','국','반찬',
+  // 신체/동물 부위
+  '꼬리','다리','부리','이빨','발톱','뿔','날개','가시','비늘','등딱지','지느러미','갈기',
+  // 자연
+  '들판','시냇물','시내','계곡','동굴','바위','자갈','모래','바람','구름','이슬','풀잎',
+  // 사물
+  '책상','의자','침대','마루','담장','지붕','굴뚝','솥','냄비','병','컵','그릇',
+]);
+
+// 복합명사 검출: 4음절+ 단어가 2:N 분할 시 양쪽 모두 단독 명사로 존재하면 합성어
+function isCompoundNoun(word, nounSet) {
+  if (word.length < 4) return false;
+  for (let i = 2; i <= word.length - 2; i++) {
+    const a = word.slice(0, i);
+    const b = word.slice(i);
+    const aOk = nounSet.has(a) || EXTRA_NOUNS.has(a) || MASTER_WORD_SET.has(a);
+    const bOk = nounSet.has(b) || EXTRA_NOUNS.has(b) || MASTER_WORD_SET.has(b);
+    if (aOk && bOk) return true;
+  }
+  return false;
+}
+
+function analyzeSyllable(ch) {
+  const code = ch.charCodeAt(0) - 0xAC00;
+  if (code < 0 || code > 11171) return null;
+  return {
+    initial: Math.floor(code / 588),
+    medial: Math.floor((code % 588) / 28),
+    final: code % 28,
+  };
+}
+
+function analyzeWord(word) {
+  let syllables = 0;
+  let batchim = 0;       // 받침 있는 음절 수
+  let doubleInit = 0;    // 쌍자음 초성 음절 수
+  let diphthong = 0;     // 이중모음 음절 수
+  let hardVowel = 0;     // ㅐ/ㅔ 음절 수
+  let hardFinal = 0;     // 복잡 받침 음절 수
+
+  for (const ch of word) {
+    const a = analyzeSyllable(ch);
+    if (!a) continue;
+    syllables++;
+    if (a.final !== 0) batchim++;
+    if (DOUBLE_INITIAL.has(a.initial)) doubleInit++;
+    if (DIPHTHONG_MEDIAL.has(a.medial)) diphthong++;
+    if (HARD_MEDIAL.has(a.medial)) hardVowel++;
+    if (!SIMPLE_FINAL.has(a.final)) hardFinal++;
+  }
+
+  // 점수 가중치 — 받침이 음절 길이보다 더 핵심 난이도 (4-7세 한글 학습 기준)
+  const score =
+    syllables * 0.7 +   // 음절 (가벼움)
+    batchim * 2 +        // 받침 (핵심 가중)
+    doubleInit * 2 +     // 쌍자음 초성
+    diphthong * 2 +      // 이중모음
+    hardFinal * 3 +      // 복잡 받침 (7종성 외, 받침에 추가로 가산)
+    hardVowel * 2;       // 어려운 단모음 (ㅐㅔ — 4-7세에게 ㅏ/ㅓ 와 헷갈림)
+
+  // Lv1: ≤1.5 (음절 1~2, 받침/쌍자음/이중모음/어려운모음 전혀 없음)
+  const lv = score <= 1.5 ? 1 : score <= 3 ? 2 : score <= 6 ? 3 : 4;
+
+  return { syllables, batchim, doubleInit, diphthong, hardVowel, hardFinal, score, lv };
+}
+
+// ============================================================
+// 데이터 로드 + 가공
+// ============================================================
+const HANGUL = /[가-힯]/;
+const HANGUL_ONLY = /^[가-힯]+$/;
+
+let rows = [];     // 분석된 row 목록
+let activeRows = []; // 필터 + 정렬 적용된 row
+let wordMap = new Map(); // 원본 데이터 (수정·제외 재계산용)
+let sort = { key: 'word', dir: 'asc' };
+let page = 1;
+const PAGE_SIZE = 80;
+
+// ============================================================
+// 사용자 오버라이드 — DB (R2) 저장. localStorage 없음.
+// 변경하면 dirty 플래그 ON → "💾 저장" 버튼 누르면 서버에 PUT
+// ============================================================
+let exclusions = new Set();
+let renames = new Map();
+let dirty = false;
+
+async function loadOverridesFromDb() {
+  try {
+    const r = await fetch('/api/vocab-overrides');
+    const j = await r.json();
+    const data = j.data || {};
+    exclusions = new Set(Array.isArray(data.exclusions) ? data.exclusions : []);
+    renames = new Map(Object.entries(data.renames || {}));
+    dirty = false;
+    updateOverridesStat();
+  } catch (e) {
+    console.error('overrides load failed', e);
+  }
+}
+
+async function saveOverridesToDb() {
+  const body = { exclusions: [...exclusions], renames: Object.fromEntries(renames) };
+  const r = await fetch('/api/vocab-overrides', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return await r.json();
+}
+
+function markDirty() {
+  dirty = true;
+  updateOverridesStat();
+}
+function clearDirty() {
+  dirty = false;
+  updateOverridesStat();
+}
+
+function updateOverridesStat() {
+  const el = document.getElementById('overrides-stat');
+  if (el) {
+    const dirtyMark = dirty ? '<span class="text-rose-600 font-bold ml-1">● 저장 안 됨</span>' : '<span class="text-emerald-600 ml-1">✓ 저장됨</span>';
+    el.innerHTML = `🗑️ ${exclusions.size}  ✏️ ${renames.size} ${dirtyMark}`;
+  }
+  const btn = document.getElementById('save-btn');
+  if (btn) {
+    btn.disabled = !dirty;
+    btn.classList.toggle('opacity-40', !dirty);
+    btn.classList.toggle('cursor-not-allowed', !dirty);
+  }
+}
+
+window.addEventListener('beforeunload', (e) => {
+  if (dirty) { e.preventDefault(); e.returnValue = '저장하지 않은 변경사항이 있습니다.'; }
+});
+
+const ENGLISH_PHONICS_ID = /^en-b\d+-u\d+$/;
+
+async function loadDb() {
+  document.getElementById('loading').textContent = '🔄 로드 중...';
+  try {
+    const [vocabRes, sbRes] = await Promise.all([
+      fetch('/api/vocabulary-db'),
+      fetch('/api/storybooks'),
+    ]);
+    const vocabList = (await vocabRes.json()).data || [];
+    const sbList = (await sbRes.json()).data || [];
+    const idToTitle = new Map(sbList.map(s => [s.id, s.title]));
+    const idToType = new Map(sbList.map(s => [s.id, s.type || 'storybook']));
+
+    // 한글 단어 → entry 통합
+    wordMap = new Map();
+    for (const v of vocabList) {
+      const w = (v.word || '').trim();
+      const k = (v.korean || '').trim();
+      const ko = HANGUL.test(w) ? w : HANGUL.test(k) ? k : '';
+      if (!ko) continue;
+      // clean Korean syllables only (no punctuation, comma, spaces)
+      if (!HANGUL_ONLY.test(ko)) continue;
+      const en = HANGUL.test(w) ? (HANGUL.test(k) ? '' : k) : w;
+
+      let entry = wordMap.get(ko);
+      if (!entry) {
+        entry = { word: ko, en: en || '', books: new Set(), phonics: new Set(), bookTitles: [], phonicsTitles: [] };
+        wordMap.set(ko, entry);
+      } else if (!entry.en && en) entry.en = en;
+
+      for (const s of (v.sources || [])) {
+        // educational_content.vocabulary 필드는 제외 (key_object 만 사용)
+        if (s.sourceType === 'storybook-vocabulary') continue;
+        const id = s.storybookId;
+        if (!id) continue;
+        if (ENGLISH_PHONICS_ID.test(id)) continue;
+        const isPhonics = idToType.get(id) === 'phonics' || /phonics/i.test(s.sourceType || '');
+        const target = isPhonics ? entry.phonics : entry.books;
+        const titleList = isPhonics ? entry.phonicsTitles : entry.bookTitles;
+        if (!target.has(id)) {
+          target.add(id);
+          titleList.push({ id, title: idToTitle.get(id) || id });
+        }
+      }
+    }
+
+    buildRows();
+    document.getElementById('loading').textContent = `📊 ${rows.length} 단어 · DB ${vocabList.length} · 책 ${sbList.length}`;
+    initFilters();
+    applyAndRender();
+  } catch (e) {
+    document.getElementById('loading').textContent = '⚠️ 로드 실패: ' + e.message;
+    console.error(e);
+  }
+}
+
+function buildRows() {
+  // 1차 패스: 단일 명사 셋 (동사·형용사·고유명사 제외, 책 등장 있음)
+  const singleNounSet = new Set();
+  for (const [w, e] of wordMap) {
+    if (e.books.size === 0) continue;
+    if (isNonNoun(w)) continue;
+    if (w.length <= 3) singleNounSet.add(w);
+  }
+
+  // 2차 패스: row 빌드 — 동화책 등장 + 비-명사 제외 + 복합명사 제외 + 사용자 오버라이드
+  rows = [];
+  for (const [w, e] of wordMap) {
+    if (e.books.size === 0) continue;
+    if (exclusions.has(w)) continue;
+    const renamed = renames.get(w);
+    if (renamed && (renamed.word || renamed.en !== undefined || renamed.catId)) {
+      const rw = renamed.word || w;
+      const a = analyzeWord(rw);
+      const topic = renamed.catId
+        ? (ALL_TOPICS.find(t => t.id === renamed.catId) || (renamed.catId === 'other' ? OTHER_TOPIC : WORD_TO_TOPIC.get(rw) || OTHER_TOPIC))
+        : (WORD_TO_TOPIC.get(rw) || OTHER_TOPIC);
+      rows.push({
+        word: rw, originalWord: w, en: renamed.en !== undefined ? renamed.en : (e.en || ''),
+        edited: true,
+        catId: topic.id, catLabel: topic.label,
+        syl: a.syllables, batchim: a.batchim, double: a.doubleInit, diph: a.diphthong,
+        hard: a.hardFinal, hardVowel: a.hardVowel, score: a.score, lv: a.lv,
+        books: e.books.size, bookTitles: e.bookTitles,
+        inMaster: MASTER_WORD_SET.has(rw),
+      });
+      continue;
+    }
+    if (isNonNoun(w)) continue;
+    if (isCompoundNoun(w, singleNounSet)) continue;
+    const a = analyzeWord(w);
+    const topic = WORD_TO_TOPIC.get(w) || OTHER_TOPIC;
+    rows.push({
+      word: w, en: e.en,
+      catId: topic.id, catLabel: topic.label,
+      syl: a.syllables, batchim: a.batchim, double: a.doubleInit, diph: a.diphthong,
+      hard: a.hardFinal, hardVowel: a.hardVowel, score: a.score, lv: a.lv,
+      books: e.books.size, bookTitles: e.bookTitles,
+      inMaster: MASTER_WORD_SET.has(w),
+    });
+  }
+}
+
+function initFilters() {
+  const sel = document.getElementById('filter-cat');
+  // remove old options except first
+  while (sel.options.length > 1) sel.remove(1);
+  // 카테고리별 단어수 카운트
+  const counts = new Map();
+  for (const r of rows) counts.set(r.catId, (counts.get(r.catId) || 0) + 1);
+  for (const t of ALL_TOPICS) {
+    if (!counts.get(t.id)) continue;
+    const opt = document.createElement('option');
+    opt.value = t.id;
+    opt.textContent = `${t.label} (${counts.get(t.id)})`;
+    sel.appendChild(opt);
+  }
+  if (counts.get('other')) {
+    const opt = document.createElement('option');
+    opt.value = 'other';
+    opt.textContent = `${OTHER_TOPIC.label} (${counts.get('other')})`;
+    sel.appendChild(opt);
+  }
+}
+
+function applyFilters() {
+  const cat = document.getElementById('filter-cat').value;
+  const lv = document.getElementById('filter-lv').value;
+  const cov = document.getElementById('filter-cov').value;
+  const search = document.getElementById('filter-search').value.trim();
+
+  return rows.filter(r => {
+    if (cat && r.catId !== cat) return false;
+    if (lv && String(r.lv) !== lv) return false;
+    if (cov === 'master' && !r.inMaster) return false;
+    if (cov === 'not-master' && r.inMaster) return false;
+    if (search && !r.word.includes(search) && !(r.en || '').toLowerCase().includes(search.toLowerCase())) return false;
+    return true;
+  });
+}
+
+function applySort(list) {
+  const k = sort.key;
+  const dir = sort.dir === 'asc' ? 1 : -1;
+  const collator = new Intl.Collator('ko');
+  return [...list].sort((a, b) => {
+    let va = a[k], vb = b[k];
+    if (k === 'word' || k === 'en' || k === 'cat') {
+      if (k === 'cat') { va = a.catLabel; vb = b.catLabel; }
+      return collator.compare(va || '', vb || '') * dir;
+    }
+    return ((va || 0) - (vb || 0)) * dir;
+  });
+}
+
+function applyAndRender() {
+  activeRows = applySort(applyFilters());
+  page = 1;
+  renderTable();
+  renderStats();
+}
+
+function renderStats() {
+  const counts = { 1:0, 2:0, 3:0, 4:0 };
+  for (const r of activeRows) counts[r.lv]++;
+  document.getElementById('stat-total').textContent = activeRows.length;
+  document.getElementById('stat-lv1').textContent = counts[1];
+  document.getElementById('stat-lv2').textContent = counts[2];
+  document.getElementById('stat-lv3').textContent = counts[3];
+  document.getElementById('stat-lv4').textContent = counts[4];
+}
+
+function renderTable() {
+  const tbody = document.getElementById('tbody');
+  const empty = document.getElementById('empty');
+
+  // 정렬 화살표 표시
+  for (const th of document.querySelectorAll('th.sortable')) {
+    th.classList.remove('asc', 'desc');
+    if (th.dataset.sort === sort.key) th.classList.add(sort.dir);
+  }
+
+  if (activeRows.length === 0) {
+    tbody.innerHTML = '';
+    empty.classList.remove('hidden');
+    document.getElementById('pager-info').textContent = '';
+    return;
+  }
+  empty.classList.add('hidden');
+
+  const total = activeRows.length;
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  if (page > totalPages) page = totalPages;
+  const start = (page - 1) * PAGE_SIZE;
+  const slice = activeRows.slice(start, start + PAGE_SIZE);
+
+  tbody.innerHTML = slice.map(r => {
+    const lvClass = `lv${r.lv}`;
+    const lvLabel = ['', '쉬움', '보통', '어려움', '매우'][r.lv];
+    const masterBadge = r.inMaster ? '<span class="chip-master">⭐</span>' : '';
+    const yn = (n) => n > 0 ? `<span class="font-bold text-rose-600">${n}</span>` : `<span class="text-slate-300">·</span>`;
+    const editedBadge = r.edited ? `<span class="text-[9px] text-violet-600 ml-1" title="수정됨: 원본 ${r.originalWord}">✏️</span>` : '';
+    const key = r.originalWord || r.word;
+    const keyEsc = key.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    const enEsc = (r.en || '').replace(/"/g, '&quot;');
+    const catOpts = ALL_TOPICS.map(t => `<option value="${t.id}" ${t.id === r.catId ? 'selected' : ''}>${t.label}</option>`).join('')
+      + `<option value="other" ${r.catId === 'other' ? 'selected' : ''}>${OTHER_TOPIC.label}</option>`;
+    return `<tr class="row-hover border-t" data-key="${keyEsc}">
+      <td class="word-cell px-3 py-1.5 cursor-pointer" onclick="showBookList('${keyEsc}')">${r.word}${masterBadge}${editedBadge}</td>
+      <td class="en-cell px-3 py-1.5"><input type="text" value="${enEsc}" data-key="${keyEsc}" onchange="setEnglish('${keyEsc}', this.value)" placeholder="영어 번역" /></td>
+      <td class="cat-cell px-3 py-1.5"><select data-key="${keyEsc}" onchange="setCategory('${keyEsc}', this.value)">${catOpts}</select></td>
+      <td class="num-cell px-3 py-1.5">${r.syl}</td>
+      <td class="num-cell px-3 py-1.5">${r.batchim > 0 ? r.batchim : '<span class="text-slate-300">·</span>'}</td>
+      <td class="num-cell px-3 py-1.5">${yn(r.double)}</td>
+      <td class="num-cell px-3 py-1.5">${yn(r.diph)}</td>
+      <td class="num-cell px-3 py-1.5">${yn(r.hard)}</td>
+      <td class="num-cell px-3 py-1.5 font-bold">${r.score}</td>
+      <td class="lv-cell ${lvClass}">Lv${r.lv} ${lvLabel}</td>
+      <td class="num-cell px-3 py-1.5"><span class="check">${r.books}</span></td>
+      <td class="num-cell px-2 py-1.5 whitespace-nowrap">
+        <button class="text-violet-500 hover:text-violet-700 px-1" title="한글 수정" onclick="editWord('${keyEsc}')">✏️</button>
+        <button class="text-rose-500 hover:text-rose-700 px-1" title="제거" onclick="removeWord('${keyEsc}')">🗑️</button>
+      </td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('pager-info').textContent =
+    `${start + 1} ~ ${Math.min(start + PAGE_SIZE, total)} / ${total} 단어`;
+  document.getElementById('pg-cur').textContent = `${page} / ${totalPages}`;
+  document.getElementById('pg-prev').disabled = page === 1;
+  document.getElementById('pg-next').disabled = page === totalPages;
+}
+
+// ============================================================
+// 모달: 단어 클릭 → 출연 책 목록
+// ============================================================
+function showBookList(word) {
+  const r = activeRows.find(x => x.word === word) || rows.find(x => x.word === word);
+  if (!r) return;
+  document.getElementById('modal-title').innerHTML = `${r.word} ${r.inMaster ? '<span class="chip-master">⭐ Cambridge</span>' : ''} <span class="text-sm text-slate-500 font-normal ml-2">${r.en || ''}</span>`;
+
+  const body = document.getElementById('modal-body');
+  const lvBadge = `<span class="lv-cell lv${r.lv} inline-block rounded">Lv${r.lv} (${r.score}점)</span>`;
+  const stats = `
+    <div class="mb-4 p-3 bg-slate-50 rounded-lg text-sm grid grid-cols-2 gap-2">
+      <div><span class="text-slate-500">카테고리:</span> <strong>${r.catLabel}</strong></div>
+      <div><span class="text-slate-500">난이도:</span> ${lvBadge}</div>
+      <div><span class="text-slate-500">음절:</span> ${r.syl} · <span class="text-slate-500">받침:</span> ${r.batchim}</div>
+      <div><span class="text-slate-500">쌍자음:</span> ${r.double} · <span class="text-slate-500">이중모음:</span> ${r.diph} · <span class="text-slate-500">복잡받침:</span> ${r.hard}</div>
+    </div>
+  `;
+  const bookSection = `<div class="mb-3"><div class="font-bold mb-1">📚 동화책 (${r.bookTitles.length}권)</div><ul class="text-sm space-y-0.5 max-h-72 overflow-auto">${r.bookTitles.map(b => `<li class="text-slate-700">· ${b.title}</li>`).join('')}</ul></div>`;
+
+  body.innerHTML = stats + bookSection;
+  document.getElementById('modal').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+}
+
+// ============================================================
+// 이벤트
+// ============================================================
+for (const th of document.querySelectorAll('th.sortable')) {
+  th.addEventListener('click', () => {
+    const k = th.dataset.sort;
+    if (sort.key === k) sort.dir = sort.dir === 'asc' ? 'desc' : 'asc';
+    else { sort.key = k; sort.dir = (k === 'word' || k === 'en' || k === 'cat') ? 'asc' : 'desc'; }
+    applyAndRender();
+  });
+}
+
+['filter-cat', 'filter-lv', 'filter-cov'].forEach(id =>
+  document.getElementById(id).addEventListener('change', applyAndRender)
+);
+document.getElementById('filter-search').addEventListener('input', applyAndRender);
+
+document.getElementById('pg-prev').onclick = () => { if (page > 1) { page--; renderTable(); } };
+document.getElementById('pg-next').onclick = () => { page++; renderTable(); };
+
+// ============================================================
+// 사용자 수정·제거 핸들러
+// ============================================================
+function removeWord(key) {
+  if (!key) return;
+  if (!confirm(`"${key}" 단어를 표에서 제외할까요?\n(언제든 ↺ 초기화 또는 가져오기로 복구 가능)`)) return;
+  exclusions.add(key);
+  renames.delete(key);
+  markDirty();
+  buildRows();
+  applyAndRender();
+}
+
+function editWord(key) {
+  if (!key) return;
+  const cur = renames.get(key) || {};
+  const newWord = prompt(`한글 단어 수정\n(원본: ${key})`, cur.word || key);
+  if (newWord === null) return;
+  const trimmed = newWord.trim();
+  if (!trimmed) { alert('단어를 비울 수 없습니다.'); return; }
+  if (!/^[가-힯]+$/.test(trimmed)) { alert('한글만 입력해 주세요.'); return; }
+  renames.set(key, { ...cur, word: trimmed });
+  exclusions.delete(key);
+  markDirty();
+  buildRows();
+  applyAndRender();
+}
+
+function setEnglish(key, value) {
+  if (!key) return;
+  const cur = renames.get(key) || {};
+  const trimmed = (value || '').trim();
+  if ((cur.en || '') === trimmed) return;
+  renames.set(key, { ...cur, en: trimmed });
+  exclusions.delete(key);
+  markDirty();
+  buildRows();
+  applyAndRender();
+}
+
+function setCategory(key, catId) {
+  if (!key || !catId) return;
+  const cur = renames.get(key) || {};
+  if ((cur.catId || '') === catId) return;
+  renames.set(key, { ...cur, catId });
+  exclusions.delete(key);
+  markDirty();
+  buildRows();
+  applyAndRender();
+}
+
+async function saveAll() {
+  const btn = document.getElementById('save-btn');
+  if (!dirty) return;
+  if (btn) { btn.disabled = true; btn.textContent = '💾 저장 중...'; }
+  try {
+    await saveOverridesToDb();
+    clearDirty();
+    if (btn) {
+      btn.textContent = '✓ 저장됨';
+      setTimeout(() => { btn.textContent = '💾 저장'; updateOverridesStat(); }, 1500);
+    }
+  } catch (e) {
+    alert('저장 실패: ' + e.message);
+    if (btn) { btn.disabled = false; btn.textContent = '💾 저장'; }
+  }
+}
+
+function resetOverrides() {
+  if (exclusions.size === 0 && renames.size === 0) {
+    alert('초기화할 내역이 없습니다.');
+    return;
+  }
+  if (!confirm(`정말 모든 수정·제외 내역을 지울까요?\n(제외 ${exclusions.size}개 · 수정 ${renames.size}개)\n\n초기화 후 💾 저장 버튼을 눌러야 DB 에 반영됩니다.`)) return;
+  exclusions.clear();
+  renames.clear();
+  markDirty();
+  buildRows();
+  applyAndRender();
+}
+
+updateOverridesStat();
+
+window.refresh = async () => {
+  if (dirty && !confirm('저장 안 된 변경사항이 있습니다.\n계속 새로고침하면 잃어버립니다. 계속할까요?')) return;
+  await loadOverridesFromDb();
+  await loadDb();
+};
+window.showBookList = showBookList;
+window.closeModal = closeModal;
+window.removeWord = removeWord;
+window.editWord = editWord;
+window.setEnglish = setEnglish;
+window.setCategory = setCategory;
+window.saveAll = saveAll;
+window.resetOverrides = resetOverrides;
+
+(async () => {
+  await loadOverridesFromDb();
+  await loadDb();
+})();
+document.addEventListener('visibilitychange', () => { if (!document.hidden) loadDb(); });
+</script>
+</body>
+</html>
