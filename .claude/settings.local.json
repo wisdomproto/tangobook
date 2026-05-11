@@ -147,7 +147,9 @@
       "Bash(powershell.exe -NoProfile -Command \"Get-Process -Id 45840 -ErrorAction SilentlyContinue | Select-Object Id,ProcessName,StartTime | Format-Table -AutoSize\")",
       "Bash(powershell.exe -NoProfile -Command \"\\(Get-Item packages/server/src/server.ts\\).LastWriteTime = Get-Date\")",
       "Bash(python3 -c ' *)",
-      "Bash(node scripts/generate-pixar-3d-jack.mjs)"
+      "Bash(node scripts/generate-pixar-3d-jack.mjs)",
+      "Bash(git fetch *)",
+      "Bash(git log *)"
     ]
   },
   "hooks": {
