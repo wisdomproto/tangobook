@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Mascot } from '@/design-system';
 import { useVocabularyList } from '@/features/vocabulary/hooks/useVocabulary';
 import {
@@ -9,29 +9,98 @@ import {
 import { vocabEntriesToVirtualUnit } from '@/features/vocabulary-unit/lib/random-vocab-pool';
 import { KoreanBlockPlayer } from '@/features/games/components/players/KoreanBlockPlayer';
 import { EnglishBlockPlayer } from '@/features/games/components/players/EnglishBlockPlayer';
+import type { VocabEntry } from '@tangobook/shared';
 
 interface Props {
   lang: 'ko' | 'en';
+}
+
+type Level = 'L1' | 'L2' | 'L3';
+
+const LEVEL_META: Record<Level, { emoji: string; label: string; sub: string; color: string }> = {
+  L1: {
+    emoji: '🌱',
+    label: '쉬움',
+    sub: '짧고 간단한 단어',
+    color: 'from-emerald-400 to-emerald-500',
+  },
+  L2: { emoji: '🌿', label: '보통', sub: '받침 있는 단어', color: 'from-amber-400 to-amber-500' },
+  L3: { emoji: '🌳', label: '어려움', sub: '복잡한 단어', color: 'from-rose-400 to-rose-500' },
+};
+
+// 한글 음절 분석 — 받침/쌍자음/이중모음 검출 (vocabulary-table-ko.html 와 동일 공식)
+const DOUBLE_INITIAL = new Set([1, 4, 8, 10, 13]);
+const DIPHTHONG_MEDIAL = new Set([2, 3, 6, 7, 9, 10, 11, 12, 14, 15, 16, 17, 19]);
+
+function koreanDifficulty(word: string): number {
+  let syllables = 0;
+  let batchim = 0;
+  let doubleInit = 0;
+  let diphthong = 0;
+  for (const ch of word) {
+    const code = ch.charCodeAt(0) - 0xac00;
+    if (code < 0 || code > 11171) continue;
+    syllables++;
+    const initial = Math.floor(code / 588);
+    const medial = Math.floor((code % 588) / 28);
+    const final = code % 28;
+    if (final !== 0) batchim++;
+    if (DOUBLE_INITIAL.has(initial)) doubleInit++;
+    if (DIPHTHONG_MEDIAL.has(medial)) diphthong++;
+  }
+  return syllables * 0.7 + batchim * 2 + doubleInit * 2 + diphthong * 2;
+}
+
+function levelOfWord(word: string, lang: 'ko' | 'en'): Level {
+  if (lang === 'ko') {
+    const score = koreanDifficulty(word);
+    if (score <= 1.5) return 'L1';
+    if (score <= 3) return 'L2';
+    return 'L3';
+  }
+  // 영어: 길이 기준 (블록 게임 최대 6자)
+  const len = word.length;
+  if (len <= 3) return 'L1';
+  if (len <= 5) return 'L2';
+  return 'L3';
+}
+
+function filterByLevel(entries: VocabEntry[], lang: 'ko' | 'en', level: Level): VocabEntry[] {
+  return entries.filter((e) => {
+    const w = lang === 'ko' ? (e.korean ?? '') : (e.word ?? '');
+    if (!w) return false;
+    return levelOfWord(w, lang) === level;
+  });
 }
 
 /**
  * 전체 어휘 풀에서 랜덤 N개 단어로 진행하는 블록 게임.
  * 사이드바 어휘 axis 아래 sub-button 진입점. AppShell 밖 (풀스크린).
  *
- * 데이터: `/api/vocabulary-db` (모든 동화책 + 어휘 단원 통합 풀, ~1400+ 단어)
- *  → vocabEntriesToVirtualUnit 으로 가상 VocabularyUnit 빌드
- *  → unitToKoreanBlockData / unitToEnglishBlockData 헬퍼 (랜덤 N개 sample) 통과
- *  → KoreanBlockPlayer / EnglishBlockPlayer 풀스크린 렌더
+ * 흐름: 레벨 선택 → 그 레벨 단어에서 랜덤 N개 추출 → 플레이어 렌더
+ * 이미지 없는 단어도 진행 (플레이어가 conditional render).
  */
 export function RandomBlockGamePage({ lang }: Props) {
   const navigate = useNavigate();
+  const [level, setLevel] = useState<Level | null>(null);
+  const [seed, setSeed] = useState(0);
   const { data: entries, isLoading, isError } = useVocabularyList();
 
   const gameData = useMemo(() => {
-    if (!entries) return null;
-    const unit = vocabEntriesToVirtualUnit(entries, lang);
+    if (!entries || !level) return null;
+    const filtered = filterByLevel(entries, lang, level);
+    if (filtered.length === 0) return null;
+    const unit = vocabEntriesToVirtualUnit(filtered, lang);
     return lang === 'ko' ? unitToKoreanBlockData(unit) : unitToEnglishBlockData(unit);
-  }, [entries, lang]);
+  }, [entries, lang, level, seed]);
+
+  const handleBack = () => {
+    if (level) {
+      setLevel(null);
+    } else {
+      navigate('/library');
+    }
+  };
 
   if (isLoading) {
     return (
@@ -77,27 +146,79 @@ export function RandomBlockGamePage({ lang }: Props) {
     );
   }
 
-  if (!gameData) {
+  // 레벨 선택 화면
+  if (!level) {
+    const counts = entries
+      ? {
+          L1: filterByLevel(entries, lang, 'L1').length,
+          L2: filterByLevel(entries, lang, 'L2').length,
+          L3: filterByLevel(entries, lang, 'L3').length,
+        }
+      : { L1: 0, L2: 0, L3: 0 };
+
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-cream-50 to-peach-100 text-center">
-        <Mascot character="hori" state="thinking" size="lg" />
-        <h2 className="mt-4 text-2xl font-black text-ink-900 font-display">단어가 부족해요</h2>
-        <p className="mt-2 text-base text-ink-500">
-          {lang === 'ko'
-            ? '한글 단어가 충분히 모이면 다시 도전해 봐요'
-            : '6글자 이하 영문 단어가 더 필요해요'}
-        </p>
+      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-cream-50 to-peach-100 gap-8 relative">
         <button
           onClick={() => navigate('/library')}
-          className="mt-6 px-6 py-3 bg-coral-500 text-white rounded-full font-black shadow-pop"
+          className="absolute top-6 left-6 w-12 h-12 rounded-full bg-white shadow-soft text-ink-700 hover:shadow-pop transition flex items-center justify-center text-2xl"
+          title="뒤로 가기"
+          aria-label="뒤로 가기"
         >
-          🏠 라이브러리로
+          ←
+        </button>
+        <Mascot character="hori" state="cheering" size="xl" />
+        <div className="text-center">
+          <h1 className="text-4xl md:text-5xl font-black text-ink-900 font-display">
+            {lang === 'ko' ? '🇰🇷 한글 블록 게임' : '🔤 알파벳 블록 게임'}
+          </h1>
+          <p className="mt-3 text-lg font-bold text-ink-500">난이도를 골라봐!</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl w-full">
+          {(['L1', 'L2', 'L3'] as Level[]).map((lv) => {
+            const m = LEVEL_META[lv];
+            const n = counts[lv];
+            const disabled = n === 0;
+            return (
+              <button
+                key={lv}
+                onClick={() => !disabled && setLevel(lv)}
+                disabled={disabled}
+                className={`bg-gradient-to-br ${m.color} text-white rounded-3xl shadow-pop hover:shadow-card transition p-6 flex flex-col items-center gap-2 ${disabled ? 'opacity-40 cursor-not-allowed' : 'hover:scale-105'}`}
+              >
+                <span className="text-6xl">{m.emoji}</span>
+                <span className="text-2xl font-black font-display">{m.label}</span>
+                <span className="text-sm font-bold opacity-90">{m.sub}</span>
+                <span className="text-xs font-bold bg-white/30 rounded-full px-3 py-1 mt-1">
+                  단어 {n}개
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  if (!gameData) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-cream-50 to-peach-100 text-center gap-4">
+        <Mascot character="hori" state="thinking" size="lg" />
+        <h2 className="text-2xl font-black text-ink-900 font-display">이 레벨 단어가 부족해요</h2>
+        <p className="text-base text-ink-500">다른 레벨을 골라봐!</p>
+        <button
+          onClick={() => setLevel(null)}
+          className="mt-4 px-6 py-3 bg-coral-500 text-white rounded-full font-black shadow-pop"
+        >
+          ← 레벨 다시 고르기
         </button>
       </div>
     );
   }
 
-  const handleBack = () => navigate('/library');
+  const handleComplete = () => {
+    // 다시 하기: 같은 레벨에서 랜덤 재추출
+    setSeed((s) => s + 1);
+  };
 
   if (lang === 'ko') {
     return (
@@ -105,7 +226,7 @@ export function RandomBlockGamePage({ lang }: Props) {
         storybookId="__random_pool__"
         gameData={gameData}
         difficulty="medium"
-        onComplete={handleBack}
+        onComplete={handleComplete}
         onBack={handleBack}
       />
     );
@@ -115,7 +236,7 @@ export function RandomBlockGamePage({ lang }: Props) {
       storybookId="__random_pool__"
       gameData={gameData}
       difficulty="medium"
-      onComplete={handleBack}
+      onComplete={handleComplete}
       onBack={handleBack}
     />
   );

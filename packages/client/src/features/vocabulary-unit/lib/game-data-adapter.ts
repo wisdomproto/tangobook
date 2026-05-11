@@ -69,20 +69,18 @@ export function unitToLineMatchingData(
     : { type: 'english-line-matching', items };
 }
 
-/** 단원 → 한글 블록 데이터 — 후보 중 랜덤 N개 */
+/** 단원 → 한글 블록 데이터 — 후보 중 랜덤 N개 (이미지 없는 단어도 포함, 플레이어가 conditional render) */
 export function unitToKoreanBlockData(unit: VocabularyUnit): KoreanBlockData | null {
   const candidates: KoreanBlockItem[] = [];
   for (const w of unit.words) {
     const korean = (w.korean ?? '').trim();
     if (!korean || ![...korean].some((c) => HANGUL_RE.test(c))) continue;
-    const imageUrl = pickPrimaryImage(w);
-    if (!imageUrl) continue;
     const syllables = decomposeWord(korean);
     if (syllables.length === 0) continue;
     const tts = pickTts(w, 'ko');
     candidates.push({
       word: korean,
-      imageUrl,
+      imageUrl: pickPrimaryImage(w) ?? '',
       syllables,
       ...(tts ? { ttsUrl: tts } : {}),
     });
@@ -91,19 +89,17 @@ export function unitToKoreanBlockData(unit: VocabularyUnit): KoreanBlockData | n
   return { type: 'korean-block', items: shuffleInPlace(candidates).slice(0, BLOCK_COUNT) };
 }
 
-/** 단원 → 영어 블록 데이터 — 후보 중 랜덤 N개 */
+/** 단원 → 영어 블록 데이터 — 후보 중 랜덤 N개 (이미지 없는 단어도 포함) */
 export function unitToEnglishBlockData(unit: VocabularyUnit): EnglishBlockData | null {
   const candidates: EnglishBlockItem[] = [];
   for (const w of unit.words) {
     const word = (w.word ?? '').toLowerCase().trim();
     if (!word || !ENGLISH_WORD_RE.test(word) || word.length > MAX_BLOCK_WORD_LEN) continue;
-    const imageUrl = pickPrimaryImage(w);
-    if (!imageUrl) continue;
     const tts = pickTts(w, 'en');
     candidates.push({
       word,
       korean: w.korean ?? '',
-      imageUrl,
+      imageUrl: pickPrimaryImage(w) ?? '',
       letters: decomposeEnglishWord(word),
       ...(tts ? { ttsUrl: tts } : {}),
     });

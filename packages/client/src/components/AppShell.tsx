@@ -108,12 +108,12 @@ export function AppShell() {
           <SubGameButton
             to="/games/korean-block"
             iconSrc="game/korean-block.webp"
-            label="한글 블록"
+            label="한글 블록 게임"
           />
           <SubGameButton
             to="/games/alphabet-block"
             iconSrc="game/korean-block.webp"
-            label="알파벳 블록"
+            label="알파벳 블록 게임"
           />
         </nav>
 

@@ -133,12 +133,34 @@ const TOPICS = [
   { id:'school', label:'🏫 School', words:['alphabet','answer','book','class','classmate','classroom','desk','english','eraser','lesson','letter','name','page','pen','pencil','question','ruler','school','schoolbag','student','teacher','word'] },
   { id:'sports', label:'⚽ Sports & Leisure', words:['ball','balloon','bike','board game','boat','dance','doll','drawing','game','hobby','kite','music','paint','photo','play','robot','sing','swim','table tennis','tennis','toy','train','walk'] },
   { id:'world', label:'🌳 World Around Us', words:['bus','car','cloud','country','day','evening','field','flower','jungle','lake','morning','mountain','night','ocean','plant','rainbow','river','sea','season','sky','snow','star','stone','sun','tree','water','weather','wind','world'] },
-  { id:'verbs', label:'🏃 Verbs', words:['be','buy','can','catch','choose','clap','clean','close','come','count','cry','do','draw','drink','drive','eat','find','fly','get','give','go','have','hear','help','hit','hold','jump','kick','know','laugh','like','listen','live','look','love','make','meet','need','open','paint','play','point','put','read','ride','run','say','see','sing','sit','sleep','smile','speak','stand','swim','take','talk','think','throw','walk','want','watch','wear','write'] },
-  { id:'adj', label:'✨ Adjectives', words:['angry','beautiful','big','bored','clean','cold','dirty','every','excited','fast','fat','favourite','friendly','frightened','funny','good','great','happy','hot','hungry','last','long','naughty','new','nice','old','poor','rich','sad','scared','short','slow','small','sunny','surprised','tall','tasty','thirsty','tired','ugly','wet','wonderful','young'] },
-  { id:'adv', label:'📍 Adverbs', words:['here','now','please','today','tomorrow','very','well','yesterday'] },
-  // 기능어(Pronouns/Determiners/Prepositions/Conjunctions/Articles/Question Words)는
+  // 동사·형용사·부사 토픽은 "그릴 수 있는 명사" 위주 단어 표에서 제외 (자동 필터에만 사용)
+  // 기능어(Pronouns/Determiners/Prepositions/Conjunctions/Articles/Question Words)도
   // 학습 카드로 가르치는 의미가 적어 마스터 셋에서 제외 — 문맥에서 자연 습득.
 ];
+
+// 비-명사 단어 셋 (Cambridge verbs/adj/adv 합본 + 어미 패턴 자동 필터)
+const NON_NOUN_TOPICS_RAW = {
+  verbs: ['be','buy','can','catch','choose','clap','clean','close','come','count','cry','do','draw','drink','drive','eat','find','fly','get','give','go','have','hear','help','hit','hold','jump','kick','know','laugh','like','listen','live','look','love','make','meet','need','open','paint','play','point','put','read','ride','run','say','see','sing','sit','sleep','smile','speak','stand','swim','take','talk','think','throw','walk','want','watch','wear','write'],
+  adj: ['angry','beautiful','big','bored','clean','cold','dirty','every','excited','fast','fat','favourite','friendly','frightened','funny','good','great','happy','hot','hungry','last','long','naughty','new','nice','old','poor','rich','sad','scared','short','slow','small','sunny','surprised','tall','tasty','thirsty','tired','ugly','wet','wonderful','young','strong','weak','soft','hard','easy','difficult','quick','clever','smart','brave','kind','quiet','loud','bright','dark','dry','warm','cool','full','empty','sweet','sour','salty','spicy','round','square','flat','sharp','smooth','rough','heavy','light','wide','narrow','deep','shallow','clear','dirty','dead','alive','asleep','awake','open','closed','same','different','important','interesting','pretty','lovely','cute','lazy','busy'],
+  adv: ['here','now','please','today','tomorrow','very','well','yesterday','always','never','sometimes','often','usually','again','already','soon','then','too','also','quickly','slowly','loudly','quietly','really','only','just','still','away','back','down','up','out','in','over','under'],
+};
+const NON_NOUN_WORDS = new Set();
+for (const list of Object.values(NON_NOUN_TOPICS_RAW)) for (const w of list) NON_NOUN_WORDS.add(w.toLowerCase());
+// 형용사·부사 어미 패턴 (영어)
+const NON_NOUN_END = /(ly|ful|less|ous|ive|able|ish|ier|iest)$/i;
+// 어미 패턴 false positive (실제 명사)
+const NOUN_OK = new Set([
+  'family','baby','body','candy','jelly','holly','rally','lily','butterfly','dragonfly','fly','ally','july',
+  'belly','lady','study','party','story','library','hobby','curry','cherry','berry','daisy','puppy','cup','bunny',
+  'penny','pony','daddy','mummy','mommy','poppy','sleepy','tiny','many','any','only','july',
+]);
+function isNonNounEnglish(w) {
+  const lw = (w || '').toLowerCase();
+  if (NOUN_OK.has(lw)) return false;
+  if (NON_NOUN_WORDS.has(lw)) return true;
+  if (NON_NOUN_END.test(lw)) return true;
+  return false;
+}
 
 const TOTAL_MASTER_WORDS = TOPICS.reduce((a,t) => a + t.words.length, 0);
 
@@ -182,6 +204,7 @@ async function loadDb() {
       const w = (v.word || '').toLowerCase().trim();
       if (!w) continue;
       if (!ENGLISH_ONLY.test(w)) continue;
+      if (isNonNounEnglish(w)) continue;  // 형용사·동사·부사 제외
       let entry;
       for (const s of (v.sources || [])) {
         const id = s.storybookId;
