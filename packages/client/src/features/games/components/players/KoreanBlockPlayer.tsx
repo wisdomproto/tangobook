@@ -92,9 +92,10 @@ const ALL_VOWELS: JamoBlock[] = VOWEL_ORDER.map((ch, i) => ({
  *  A. 수평 모음: cho 의 **오른쪽** (r, c+1) — ㅏ/ㅑ/ㅓ/ㅕ/ㅐ/ㅒ/ㅔ/ㅖ/ㅣ. 예: 가, 나
  *  B. 수직 모음: cho 의 **아래** (r+1, c) — ㅗ/ㅛ/ㅜ/ㅠ/ㅡ. 예: 구, 누, 두
  *
- * 받침(jong) 후보:
- *  - 수평 모음의 경우: (a) cho 아래 (r+1,c) (b) jung 아래 (r+1,c+1) (c) 인라인 (r,c+2)
+ * 받침(jong) 후보 — 무조건 "아래" 만 인정 (인라인 받침 X):
+ *  - 수평 모음의 경우: (a) cho 아래 (r+1,c) 또는 (b) jung 아래 (r+1,c+1)
  *  - 수직 모음의 경우: jung 아래 (r+2, c)
+ *  인라인 (r, c+2) 위치의 자음은 다음 음절의 cho 로 취급.
  *
  * 자음·자음, 모음·모음 연속 X — 인접 동종은 별도 음절.
  *
@@ -122,7 +123,6 @@ function parseSpatialKorean(grid: (string | null)[][]): string[] {
       const jungH = c + 1 < grid[r].length ? grid[r][c + 1] : null;
       if (jungH && isVowel(jungH) && !used.has(`${r}-${c + 1}`)) {
         let jong: string | null = null;
-        let inlineConsumed = false;
         const belowCho = r + 1 < grid.length ? grid[r + 1][c] : null;
         const belowJung = r + 1 < grid.length ? grid[r + 1][c + 1] : null;
         if (belowCho && !isVowel(belowCho) && !used.has(`${r + 1}-${c}`)) {
@@ -131,19 +131,10 @@ function parseSpatialKorean(grid: (string | null)[][]): string[] {
         } else if (belowJung && !isVowel(belowJung) && !used.has(`${r + 1}-${c + 1}`)) {
           jong = belowJung;
           used.add(`${r + 1}-${c + 1}`);
-        } else {
-          const inline = grid[r][c + 2];
-          if (inline && !isVowel(inline)) {
-            const afterInline = c + 3 < grid[r].length ? grid[r][c + 3] : null;
-            if (!afterInline || !isVowel(afterInline)) {
-              jong = inline;
-              inlineConsumed = true;
-            }
-          }
         }
         const composed = composeHangul(cho, jungH, jong);
         if (composed) out.push(composed);
-        c += inlineConsumed ? 3 : 2;
+        c += 2;
         continue;
       }
 
