@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { useEditorStore } from '@/store/editor.store';
 import { EditorHeader } from './EditorHeader';
 import { TabBar } from './TabBar';
@@ -6,7 +7,12 @@ import { CoverTab } from '@/features/cover/components/CoverTab';
 import { PagesTab } from '@/features/illustration/components/PagesTab';
 import { KeyObjectTab } from '@/features/key-object/components/KeyObjectTab';
 import { QuizTab } from '@/features/quiz/components/QuizTab';
-import { AudiobookTab } from '@/features/audiobook';
+// AudiobookTab 은 @tangobook/remotion (Player + @remotion/google-fonts/NotoSansKR loadFont)
+// 을 끌어와서 메인 번들에 들어가면 /library 등에서도 124 폰트 요청을 발생시킴.
+// 실제 사용은 /editor(2) 의 audiobook 탭 한 곳뿐 → lazy 로 분리.
+const AudiobookTab = lazy(() =>
+  import('@/features/audiobook').then((m) => ({ default: m.AudiobookTab }))
+);
 import { SettingsTab } from '@/features/settings';
 import { ChantTab, LearningCardTab, AlphabetCardTab, FlashcardTab } from '@/features/phonics';
 import { GamesTab } from '@/features/games';
@@ -99,7 +105,11 @@ export function EditorContent({
     { id: 'games', el: <GamesTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} /> },
     {
       id: 'audiobook',
-      el: <AudiobookTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
+      el: (
+        <Suspense fallback={null}>
+          <AudiobookTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />
+        </Suspense>
+      ),
     },
     { id: 'blog', el: <BlogTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} /> },
     {
