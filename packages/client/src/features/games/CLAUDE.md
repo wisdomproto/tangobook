@@ -142,6 +142,18 @@ const { mapRef, loading } = usePhonicsMap(['mod_korean', 'mod_phonics']);
 - `loading`: list fetch 동안 true. 로드 후 백그라운드 100mp3 prefetch (mode:'no-cors') 가 별도 fire-and-forget — loading 상태에는 영향 X.
 - 서버: `phonics-library` list 5분 TTL in-memory cache + 기동 시 prewarm (R2 listObjects ~7s → 캐시 hit 즉시).
 
+## 사이드바 블록 게임 진입점 (2026-05-11)
+
+- AppShell 사이드바 어휘 axis 아래 sub-button 2 개 + 옆에 📤 공유 버튼 (`ShareButton` in AppShell.tsx)
+  - "한글 블록 게임" → `/games/korean-block`
+  - "알파벳 블록 게임" → `/games/alphabet-block`
+- `RandomBlockGamePage` 흐름: 레벨 선택 화면 → 그 레벨 단어 랜덤 N개 → KoreanBlockPlayer/EnglishBlockPlayer
+  - 한글 레벨: 음절×0.7 + 받침×2 + 쌍자음×2 + 이중모음×2 + 복잡받침×3 + ㅐㅔ×2 (vocabulary-table-ko 공식). L1≤1.5 / L2≤3 / L3>3
+  - 영어 레벨: 단어 길이 (≤3 / 4-5 / 6+)
+  - 게임 완료 → `setSeed` 로 같은 레벨에서 랜덤 재추출
+- `game-data-adapter.ts#unitTo{Korean,English}BlockData`: 이미지 없는 단어도 후보 포함. `imageUrl: pickPrimaryImage(w) ?? ''`. KoreanBlockPlayer/EnglishBlockPlayer 가 이미 `currentItem.imageUrl &&` conditional render 라 빈 string OK.
+- 공유 버튼: Web Share API 우선 → 미지원 시 `navigator.clipboard.writeText` → 그것도 막힘 시 `prompt()` fallback.
+
 ## GamesTab UI
 
 - **개별 생성**: 모달에서 게임 타입 선택 → 설정 → 생성

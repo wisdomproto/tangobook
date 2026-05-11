@@ -74,6 +74,19 @@ features/{name}/{api,hooks,components,index.ts}
 - **모드 일러스트**: `public/icons/mode/{book,video,word}.png` (soft 3D rendered 톤, 그림체 독립적). PNG 베이크된 체크무늬 배경 → `packages/server/scripts/strip-checkerboard-bg.mjs` 로 4 모서리 floodfill 후처리.
 - **VocabularyStudyPage** (`/vocabulary/:unitId`): AppShell **밖** (학습 풀화면). 메인 진입 = BookDetailPage 의 "단어 익히기" 카드. `VocabularyStudyContent` 컴포넌트 = 단어 미리보기 + 게임 카드 4 (Duolingo push button + 좌상단 번호 1·2·3·4) — BookDetailPage / VocabularyStudyPage 공용.
 
+## 단어 마스터 표 (2026-05-11)
+- **`/vocabulary-table-ko.html`** — 자료실 dropdown 📊 신규. 동화책 keyObject 만 source. 음절·받침·쌍자음·이중모음·복잡받침·ㅐㅔ 점수로 난이도 분류 (Lv1≤1.5 / Lv2≤3 / Lv3≤6 / Lv4>6).
+- 비-명사 자동 필터: ~다/한/운/은/른/픈/쁜/인/던/의/히 어미 + 추상명사 + 고유명사 블랙리스트 + 4음절+ 복합명사 자동 분해 (2:N 양쪽 단일 명사) + 중간 ~의/과/와 조사 합성 + EXTRA_NOUNS 보조 사전.
+- 표 12 컬럼 헤더 클릭 정렬. 영어 input · 카테고리 select 인라인 편집. ✏️ 한글 수정 / 🗑️ 제거. 행 클릭 → 출연 동화책 모달.
+- **vocab-overrides API**: `GET/PUT /api/vocab-overrides` → R2 `_index/vocab-overrides.json`. localStorage X, dirty 플래그 + 명시 💾 저장 + beforeunload 경고.
+- 영어 `vocabulary-master.html` 도 verbs/adj/adv 토픽 제거 + 어미 패턴 (~ly·ful·less·ous·ive·able·ish) 자동 필터.
+
+## 블록 게임 레벨 선택 + 공유 (2026-05-11)
+- 사이드바 sub-button: "한글 블록 게임" / "알파벳 블록 게임" 라벨 + 옆에 📤 공유 버튼 (Web Share API + clipboard fallback).
+- `/games/{korean,alphabet}-block` → 레벨 선택 화면 (🌱 쉬움 / 🌿 보통 / 🌳 어려움, 각 단어 수 표시) → 그 레벨 단어에서 랜덤 N개 → 플레이어.
+- 한글 레벨: vocab table 점수 공식 그대로. 영어 레벨: 단어 길이 (≤3/4-5/6+).
+- 게임 어댑터 (`game-data-adapter.ts#unitTo{Korean,English}BlockData`): 이미지 없는 단어도 후보 포함 (player 가 conditional render).
+
 ## 라이브러리 마스터 (2026-05-10)
 - **`/library-master`** — 라이브러리 노출 순서 편집 페이지 (저작도구 진입점 only). TopBar 우상단 📁 자료실 ▾ dropdown 첫 항목 "📚 라이브러리 마스터". AppShell (학습자 화면) 에서는 노출 X.
 - 좌-우 split: 좌측 카테고리 DnD reorder + 우측 활성 카테고리 책 DnD reorder + 🎨 표지 변경 모달 (그림체별 표지 grid → 클릭 시 책 `defaultStyle` 변경). `@dnd-kit/sortable`. 변경 즉시 자동 저장.
