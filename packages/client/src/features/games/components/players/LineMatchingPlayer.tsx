@@ -185,6 +185,15 @@ function LineMatchingPlayerInner({
     setFinished(false);
   }, []);
 
+  // 첫 매칭 안 된 itemIdx — 튜토리얼이 시연할 타겟.
+  // 반드시 early return 앞에 — hook 순서 위반 (Rendered fewer hooks than expected) 방지.
+  const firstUnmatchedIdx = useMemo(() => {
+    for (let i = 0; i < items.length; i++) {
+      if (!matched.some((m) => m.itemIdx === i)) return i;
+    }
+    return null;
+  }, [items, matched]);
+
   if (finished) {
     return (
       <GameResultScreen
@@ -333,14 +342,6 @@ function LineMatchingPlayerInner({
     isMatched(itemIdx) ? 'matched' : selectedImageIdx === itemIdx ? 'active' : 'idle';
   const wordDotState = (itemIdx: number) =>
     isMatched(itemIdx) ? 'matched' : selectedWordIdx === itemIdx ? 'active' : 'idle';
-
-  // 첫 매칭 안 된 itemIdx — 튜토리얼이 시연할 타겟
-  const firstUnmatchedIdx = useMemo(() => {
-    for (let i = 0; i < items.length; i++) {
-      if (!matched.some((m) => m.itemIdx === i)) return i;
-    }
-    return null;
-  }, [items, matched]);
 
   return (
     <GamePlayerLayout maxWidth="full" bgImageUrl="/images/games/line-matching-bg.webp">
