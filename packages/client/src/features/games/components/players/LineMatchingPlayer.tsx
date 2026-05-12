@@ -6,6 +6,7 @@ import type {
   LineMatchingItem,
 } from '@tangobook/shared';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { GameResultScreen } from '../GameResultScreen';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { GameHeader } from '../GameHeader';
@@ -70,47 +71,40 @@ function LineMatchingPlayerInner({
     [matched]
   );
 
-  // 사용자 정책 (2026-05-10): 한글 → phonics 음절 합성 우선 / 영어 → ttsUrl 우선
+  // phonics 라이브러리 (한글 음절 mp3 lookup) — KoreanBlock 과 동일 방식
+  const { mapRef: phonicsMapRef } = usePhonicsMap(['mod_korean', 'mod_phonics', 'mod_english']);
+
+  // 단어 음원 — 한글은 음절 단위 mp3 순차 재생 (서버 concat / ffmpeg 의존성 X).
+  // 영어는 ttsUrl 우선 → 없으면 phonics 단일 mp3 lookup.
   const playWordTts = useCallback(
     async (item: LineMatchingItem) => {
       const hasHangul = /[가-힣]/.test(item.word);
+      const map = phonicsMapRef.current;
       if (hasHangul) {
-        // 한글: phonics concat 우선
-        try {
-          const result = await phonicsApi.concatPhonicsAudio({
-            text: item.word,
-            storybookId,
-            identifier: `line-matching-ko-${item.word}`,
-            language: 'korean',
+        // 한글 음절 순차 재생
+        const syllables = [...item.word].filter((c) => /[가-힣]/.test(c));
+        for (const syl of syllables) {
+          const url = map.get(syl);
+          if (!url) continue;
+          await new Promise<void>((resolve) => {
+            const audio = new Audio(url);
+            const done = () => resolve();
+            audio.addEventListener('ended', done, { once: true });
+            audio.addEventListener('error', done, { once: true });
+            audio.play().catch(done);
           });
-          if (result.audioUrl) {
-            playAudio(result.audioUrl);
-            return;
-          }
-        } catch {
-          /* phonics 실패 — ttsUrl 폴백 */
         }
-        if (item.ttsUrl) playAudio(item.ttsUrl);
       } else {
-        // 영어: ttsUrl 우선
+        // 영어: ttsUrl 우선 → phonics 단일 lookup
         if (item.ttsUrl) {
           playAudio(item.ttsUrl);
           return;
         }
-        try {
-          const result = await phonicsApi.concatPhonicsAudio({
-            text: item.word,
-            storybookId,
-            identifier: `line-matching-en-${item.word}`,
-            language: 'english',
-          });
-          if (result.audioUrl) playAudio(result.audioUrl);
-        } catch {
-          /* 무시 */
-        }
+        const url = map.get(item.word.toLowerCase());
+        if (url) playAudio(url);
       }
     },
-    [playAudio, storybookId]
+    [playAudio, phonicsMapRef]
   );
 
   // 양쪽 다 선택되면 매칭 체크
