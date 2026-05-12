@@ -73,27 +73,27 @@ export function VocabularyStudyContent({
   return (
     <>
       {/* 단어 sub-section — 시안 따라 큰 헤딩 + 큰 카드. 탭하면 단어 상세 모달. */}
-      <section className="mb-8">
-        <div className="flex items-baseline gap-3 mb-4 px-1">
-          <h2 className="text-3xl font-black font-display text-ink-900 flex items-center gap-2">
+      <section className="mb-4">
+        <div className="flex items-baseline gap-3 mb-2 px-1">
+          <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
             <span>📚</span>
             <span>단어 둘러보기</span>
           </h2>
-          <span className="text-base font-bold text-ink-500">탭하면 자세히</span>
+          <span className="text-sm font-bold text-ink-500">탭하면 자세히</span>
         </div>
         <WordPreviewBanner words={unit.words} lang={lang} onWordClick={setSelectedWord} />
       </section>
 
       {/* 게임 sub-section — 시안 따라 큰 헤딩 + 큰 카드 grid 2x2 */}
       <section>
-        <div className="flex items-baseline gap-3 mb-4 px-1">
-          <h2 className="text-3xl font-black font-display text-ink-900 flex items-center gap-2">
+        <div className="flex items-baseline gap-3 mb-2 px-1">
+          <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
             <span>🎮</span>
             <span>게임으로 익히기</span>
           </h2>
-          <span className="text-base font-bold text-ink-500">처음이면 1번부터</span>
+          <span className="text-sm font-bold text-ink-500">처음이면 1번부터</span>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
           {games.map((g, i) => (
             <GameCard
               key={g.id}
@@ -184,7 +184,7 @@ function WordPreviewBanner({ words, lang, onWordClick }: WordPreviewBannerProps)
           <button
             key={`${it.main}-${i}`}
             onClick={() => onWordClick(it.word)}
-            className="snap-start shrink-0 w-28 sm:w-32 lg:w-36 bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-pop hover:-translate-y-0.5 active:scale-95 transition flex flex-col"
+            className="snap-start shrink-0 w-24 sm:w-28 lg:w-32 bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-pop hover:-translate-y-0.5 active:scale-95 transition flex flex-col"
             aria-label={`${it.main} 자세히 보기`}
           >
             <div className="aspect-square w-full bg-gradient-to-b from-cream-50 to-white flex items-center justify-center">
@@ -200,12 +200,12 @@ function WordPreviewBanner({ words, lang, onWordClick }: WordPreviewBannerProps)
                 <span className="text-4xl">📦</span>
               )}
             </div>
-            <div className="px-2 py-2 text-center">
-              <div className="text-xl lg:text-2xl font-black text-ink-900 font-display truncate leading-tight">
+            <div className="px-2 py-1.5 text-center">
+              <div className="text-lg lg:text-xl font-black text-ink-900 font-display truncate leading-tight">
                 {it.main}
               </div>
               {it.sub && (
-                <div className="text-sm font-bold text-ink-500 truncate leading-tight">
+                <div className="text-xs font-bold text-ink-500 truncate leading-tight">
                   {it.sub}
                 </div>
               )}
@@ -244,7 +244,7 @@ function GameCard({
 
   // 좌측 큰 일러스트 — 카드 일러스트 그대로 (배경 X). emoji 는 fallback.
   const leftIllustration = (extraClass = '') => (
-    <div className="w-32 h-32 lg:w-36 lg:h-36 flex-shrink-0 flex items-center justify-center">
+    <div className="w-24 h-24 lg:w-28 lg:h-28 flex-shrink-0 flex items-center justify-center">
       {game.iconSrc ? (
         <img
           src={game.iconSrc}
@@ -269,7 +269,7 @@ function GameCard({
     return (
       <button
         disabled
-        className="relative rounded-3xl p-5 min-h-[160px] flex items-center gap-5 bg-cream-50 border-4 border-success shadow-[0_4px_0_#3FA379,0_4px_12px_rgba(92,201,159,0.2)] cursor-default"
+        className="relative rounded-3xl p-5 min-h-[120px] flex items-center gap-5 bg-cream-50 border-4 border-success shadow-[0_4px_0_#3FA379,0_4px_12px_rgba(92,201,159,0.2)] cursor-default"
       >
         {numberBadge}
         <span className="absolute top-3 right-3 text-3xl">✅</span>
@@ -289,7 +289,7 @@ function GameCard({
     return (
       <button
         disabled
-        className="relative rounded-3xl p-5 min-h-[160px] flex items-center gap-5 bg-slate-100 text-slate-400 cursor-not-allowed"
+        className="relative rounded-3xl p-5 min-h-[120px] flex items-center gap-5 bg-slate-100 text-slate-400 cursor-not-allowed"
       >
         {numberBadge}
         {leftIllustration('opacity-40 grayscale')}
@@ -307,19 +307,19 @@ function GameCard({
   return (
     <button
       onClick={onPlay}
-      className="relative rounded-3xl p-5 lg:p-6 min-h-[160px] flex items-center gap-5 lg:gap-6 bg-gradient-to-b from-coral-400 to-coral-500 text-white shadow-[0_6px_0_#B73A1F,0_8px_20px_rgba(255,94,58,0.35)] hover:shadow-[0_9px_0_#B73A1F,0_12px_24px_rgba(255,94,58,0.45)] hover:-translate-y-0.5 active:shadow-[0_2px_0_#B73A1F,0_3px_6px_rgba(255,94,58,0.3)] active:translate-y-1 transition-all duration-100 ease-out text-left"
+      className="relative rounded-3xl p-3 lg:p-4 min-h-[120px] flex items-center gap-3 lg:gap-4 bg-gradient-to-b from-coral-400 to-coral-500 text-white shadow-[0_6px_0_#B73A1F,0_8px_20px_rgba(255,94,58,0.35)] hover:shadow-[0_9px_0_#B73A1F,0_12px_24px_rgba(255,94,58,0.45)] hover:-translate-y-0.5 active:shadow-[0_2px_0_#B73A1F,0_3px_6px_rgba(255,94,58,0.3)] active:translate-y-1 transition-all duration-100 ease-out text-left"
     >
       {numberBadge}
       {leftIllustration()}
       <div className="flex-1 flex flex-col items-start gap-1 min-w-0">
         <span
-          className="text-2xl lg:text-3xl font-black font-display"
+          className="text-xl lg:text-2xl font-black font-display"
           style={{ textShadow: '0 2px 0 rgba(167, 50, 25, 0.4)' }}
         >
           {game.label}
         </span>
         {game.subtitle && (
-          <span className="text-sm lg:text-base font-bold text-white/90">{game.subtitle}</span>
+          <span className="text-xs lg:text-sm font-bold text-white/90">{game.subtitle}</span>
         )}
       </div>
       {arrowCircle}

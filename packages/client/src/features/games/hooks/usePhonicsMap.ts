@@ -22,8 +22,17 @@ function loadCachedLibrary(): PhonicsLibrary | null {
     const raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as { lib?: PhonicsLibrary };
-    if (!parsed.lib) return null;
-    return parsed.lib;
+    const lib = parsed?.lib;
+    // 옛 캐시 / 부분 shape 방어 — 3 모듈 모두 array 여야 valid.
+    if (
+      !lib ||
+      !Array.isArray(lib.mod_phonics) ||
+      !Array.isArray(lib.mod_english) ||
+      !Array.isArray(lib.mod_korean)
+    ) {
+      return null;
+    }
+    return lib;
   } catch {
     return null;
   }
@@ -114,7 +123,9 @@ export function usePhonicsMap(modules: ModuleKey[]): PhonicsMapResult {
     const buildMap = (lib: PhonicsLibrary): Map<string, string> => {
       const map = new Map<string, string>();
       for (const mod of modules) {
-        for (const item of lib[mod]) {
+        const items = lib[mod];
+        if (!Array.isArray(items)) continue; // 방어 — 부분 shape 시 skip
+        for (const item of items) {
           if (!map.has(item.sound)) map.set(item.sound, item.url);
         }
       }
