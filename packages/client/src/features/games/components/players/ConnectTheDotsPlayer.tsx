@@ -7,18 +7,21 @@ import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { GamePlayerLayout } from '../GamePlayerLayout';
+import {
+  TutorialProvider,
+  useTutorialHighlight,
+  useTutorialIsPlaying,
+  useTutorialExpected,
+  useTutorialNotify,
+} from './ConnectTheDotsTutorial/ConnectTheDotsTutorial.context';
+import { ConnectTheDotsTutorial } from './ConnectTheDotsTutorial/ConnectTheDotsTutorial';
 import { phonicsApi } from '@/features/phonics/api/phonics.api';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameLogger } from '@/features/learning';
 
 const DOT_RADIUS_PX = 24;
 
-export function ConnectTheDotsPlayer({
-  storybookId,
-  gameData,
-  onComplete,
-  onBack,
-}: GamePlayerProps) {
+function ConnectTheDotsPlayerInner({ storybookId, gameData, onComplete, onBack }: GamePlayerProps) {
   const data = gameData as ConnectTheDotsData;
   const items = data.items.filter((it) => it.keypoints.length >= 2);
 
@@ -32,10 +35,22 @@ export function ConnectTheDotsPlayer({
   const [completedItems, setCompletedItems] = useState(0);
   const [isPressing, setIsPressing] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [hintActive, setHintActive] = useState(false);
 
   const overlayRef = useRef<HTMLDivElement>(null);
   const { playWordCorrect, playFeedbackSound } = useGameAudio();
   const logGame = useGameLogger();
+  const { pulseOrder } = useTutorialHighlight();
+  const isTutorialPlaying = useTutorialIsPlaying();
+  const expected = useTutorialExpected();
+  const notifyTap = useTutorialNotify();
+  const handleHintStart = useCallback(() => {
+    if (hintActive || isTutorialPlaying) return;
+    setHintActive(true);
+  }, [hintActive, isTutorialPlaying]);
+  const handleHintEnd = useCallback(() => {
+    setHintActive(false);
+  }, []);
 
   // 점 잇기 = 도레미 진행 — Web Audio API sine wave (자산 없이 합성)
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -144,6 +159,9 @@ export function ConnectTheDotsPlayer({
   const handleDotTap = useCallback(
     (order: number) => {
       if (completed) return;
+      // 튜토리얼 intro/end 동안 차단, wait 동안은 expected 외 차단
+      if (isTutorialPlaying) return;
+      if (expected !== null && expected.order !== order) return;
 
       // 복귀 단계: 첫 점으로 돌아와야 완성
       if (returning) {
@@ -259,6 +277,8 @@ export function ConnectTheDotsPlayer({
       } else {
         setNextOrder(order + 1);
       }
+      // 튜토리얼이 wait 중이면 advance
+      notifyTap(order);
     },
     [
       completed,
@@ -279,6 +299,9 @@ export function ConnectTheDotsPlayer({
       logGame,
       viewerLang,
       storybook,
+      expected,
+      notifyTap,
+      isTutorialPlaying,
     ]
   );
 
@@ -402,9 +425,12 @@ export function ConnectTheDotsPlayer({
               {sortedKps.map((kp, i) => {
                 const isConnected = kp.order <= connectedUpTo;
                 const isNext = returning ? kp.order === 1 : kp.order === nextOrder && !completed;
+                const tutorialPulse = pulseOrder === kp.order;
+                const tutorialDim = expected !== null && expected.order !== kp.order;
                 return (
                   <button
                     key={i}
+                    data-dot-order={kp.order}
                     onPointerDown={(e) => {
                       try {
                         e.currentTarget.releasePointerCapture(e.pointerId);
@@ -416,12 +442,14 @@ export function ConnectTheDotsPlayer({
                     }}
                     onPointerEnter={() => handleDotEnterWhileDragging(kp.order)}
                     className={`absolute rounded-full shadow-pop transition-all ring-2 ring-white ${
-                      isNext
-                        ? 'bg-coral-500 ring-4 ring-coral-200 animate-pulse scale-125'
-                        : isConnected
-                          ? 'bg-coral-600'
-                          : 'bg-coral-300 hover:bg-coral-400 hover:scale-110'
-                    }`}
+                      tutorialPulse
+                        ? 'bg-coral-500 ring-[6px] ring-coral-300 animate-pulse scale-150 shadow-[0_0_20px_rgba(255,122,60,0.6)]'
+                        : isNext
+                          ? 'bg-coral-500 ring-4 ring-coral-200 animate-pulse scale-125'
+                          : isConnected
+                            ? 'bg-coral-600'
+                            : 'bg-coral-300 hover:bg-coral-400 hover:scale-110'
+                    } ${tutorialDim ? 'opacity-30' : ''}`}
                     style={{
                       left: `${kp.x * 100}%`,
                       top: `${kp.y * 100}%`,
@@ -437,6 +465,27 @@ export function ConnectTheDotsPlayer({
           </div>
         </div>
       </div>
+
+      {/* 🪄 도와줘 — 좌하단 floating. 진행 중일 때만 노출 */}
+      {!completed && (
+        <button
+          onClick={handleHintStart}
+          disabled={hintActive || isTutorialPlaying}
+          className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full bg-gradient-to-b from-warn to-peach-500 text-white font-black text-lg shadow-pop hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+        >
+          🪄 도와줘
+        </button>
+      )}
+
+      <ConnectTheDotsTutorial totalDots={totalDots} active={hintActive} onEnd={handleHintEnd} />
     </GamePlayerLayout>
+  );
+}
+
+export function ConnectTheDotsPlayer(props: GamePlayerProps) {
+  return (
+    <TutorialProvider>
+      <ConnectTheDotsPlayerInner {...props} />
+    </TutorialProvider>
   );
 }
