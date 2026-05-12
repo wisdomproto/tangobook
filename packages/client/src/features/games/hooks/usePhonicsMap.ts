@@ -1,7 +1,41 @@
 import { useRef, useEffect, useState, type MutableRefObject } from 'react';
 import { settingsApi } from '@/features/settings/api/settings.api';
+import type { PhonicsAudioItem } from '@tangobook/shared';
 
 type ModuleKey = 'mod_korean' | 'mod_phonics' | 'mod_english';
+
+// ─────────────────────────────────────────────────────────────────
+// localStorage 캐싱 — 매 게임 진입 시 spinner 안 뜨도록
+// TTL 없음 (무한). 캐시 hit 이면 spinner 스킵 + 백그라운드 silent refresh 로 항상 fresh.
+// 라이브러리 schema 변경 시 CACHE_KEY 뒤 v 숫자 bump → 옛 캐시 자동 무효.
+// ─────────────────────────────────────────────────────────────────
+const CACHE_KEY = 'tangobook-phonics-library-v1';
+
+interface PhonicsLibrary {
+  mod_phonics: PhonicsAudioItem[];
+  mod_english: PhonicsAudioItem[];
+  mod_korean: PhonicsAudioItem[];
+}
+
+function loadCachedLibrary(): PhonicsLibrary | null {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as { lib?: PhonicsLibrary };
+    if (!parsed.lib) return null;
+    return parsed.lib;
+  } catch {
+    return null;
+  }
+}
+
+function saveCachedLibrary(lib: PhonicsLibrary): void {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ lib }));
+  } catch {
+    /* quota exceeded / disabled — silently ignore */
+  }
+}
 
 // 한글 7종성 중화 — phonics 라이브러리는 ㄱ/ㄴ/ㄷ/ㄹ/ㅁ/ㅂ/ㅇ 받침 음절만 보유.
 // 발음상 동일한 대표 종성으로 매핑 (예: 갓·갗·갖·같·갛 → 갇 url) 해 web speech 폴백 회피.
@@ -64,9 +98,9 @@ interface PhonicsMapResult {
  * 파닉스 음원 라이브러리를 로드 + 모든 mp3 백그라운드 prefetch.
  *
  * 동작:
- *  1. `/api/settings/phonics-library` list fetch (sound → URL 맵 빌드)
- *  2. 맵의 모든 mp3 URL fetch — 브라우저 cache 채움 (게임 중 어떤 음절도 즉시 재생)
- *  3. 모두 끝나야 `loading: false`
+ *  1. localStorage 캐시 (24h TTL) 확인 — hit 이면 즉시 map 빌드 + `loading: false`. 동시에 백그라운드 refresh.
+ *  2. miss/stale 이면 `/api/settings/phonics-library` list fetch (sound → URL 맵 빌드).
+ *  3. fetch 후 localStorage 저장 + 자주 쓰는 100개 mp3 백그라운드 prefetch (HTTP cache 채움).
  *
  * modules 순서대로 로드하며, 먼저 등록된 sound 가 우선 (중복 시 첫 entry 유지).
  */
@@ -76,33 +110,54 @@ export function usePhonicsMap(modules: ModuleKey[]): PhonicsMapResult {
 
   useEffect(() => {
     let cancelled = false;
-    setLoading(true);
+
+    const buildMap = (lib: PhonicsLibrary): Map<string, string> => {
+      const map = new Map<string, string>();
+      for (const mod of modules) {
+        for (const item of lib[mod]) {
+          if (!map.has(item.sound)) map.set(item.sound, item.url);
+        }
+      }
+      if (modules.includes('mod_korean')) addKoreanFinalAliases(map);
+      return map;
+    };
+
+    const prefetchTop100 = (map: Map<string, string>): void => {
+      void (async () => {
+        const urls = [...map.values()].slice(0, 100);
+        await Promise.all(
+          urls.map((url) => fetch(url, { cache: 'force-cache', mode: 'no-cors' }).catch(() => {}))
+        );
+      })();
+    };
+
+    // 1. localStorage cache hit → 즉시 사용
+    const cached = loadCachedLibrary();
+    if (cached) {
+      mapRef.current = buildMap(cached);
+      setLoading(false);
+      prefetchTop100(mapRef.current);
+    }
+
+    // 2. 항상 백그라운드 refresh (캐시 hit 이면 silent update, miss 면 그게 첫 load)
     settingsApi
       .getPhonicsLibrary()
       .then((lib) => {
         if (cancelled) return;
-        const map = new Map<string, string>();
-        for (const mod of modules) {
-          for (const item of lib[mod]) {
-            if (!map.has(item.sound)) map.set(item.sound, item.url);
-          }
+        saveCachedLibrary(lib);
+        mapRef.current = buildMap(lib);
+        if (!cached) {
+          // cache 없었으면 이제 첫 ready — loading off
+          setLoading(false);
+          prefetchTop100(mapRef.current);
         }
-        if (modules.includes('mod_korean')) addKoreanFinalAliases(map);
-        mapRef.current = map;
-        setLoading(false);
-        // mp3 prefetch 는 백그라운드 fire-and-forget. 라이브러리 음원 수가 수천 개라
-        // Promise.all 로 await 하면 너무 오래 걸림. 일부만 미리 cache 채워도 효과 충분.
-        // 우선 처음 100개만 prefetch — 자주 쓰는 자모/음절 위주.
-        void (async () => {
-          const urls = [...map.values()].slice(0, 100);
-          await Promise.all(
-            urls.map((url) => fetch(url, { cache: 'force-cache', mode: 'no-cors' }).catch(() => {}))
-          );
-        })();
+        // cache 있었으면 이미 loading=false 였고 map 도 silent 갱신만 함 (재렌더 없음).
       })
       .catch(() => {
-        if (!cancelled) setLoading(false);
+        // network fail — cache 있었으면 그대로 진행, 없었으면 loading false 로 (게임 진입은 가능, 음원만 누락)
+        if (!cancelled && !cached) setLoading(false);
       });
+
     return () => {
       cancelled = true;
     };

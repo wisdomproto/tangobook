@@ -459,16 +459,12 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
         </div>
       </div>
 
-      {/* 🪄 도와줘 — 좌하단 floating */}
-      {!showResult && (
-        <button
-          onClick={handleHintStart}
-          disabled={hintActive || isTutorialPlaying}
-          className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full bg-gradient-to-b from-warn to-peach-500 text-white font-black text-lg shadow-pop hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-        >
-          🪄 도와줘
-        </button>
-      )}
+      {/* 🪄 도와줘 버튼 — 사용자 정책 (2026-05-12): 블록 게임 외 튜토리얼 노출 X.
+          필요 시 아래 블록 풀고 !showResult 가드 추가:
+          <button onClick={handleHintStart} disabled={hintActive || isTutorialPlaying}
+            className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full bg-gradient-to-b from-warn to-peach-500 text-white font-black text-lg shadow-pop">
+            🪄 도와줘
+          </button> */}
 
       <WordWritingTutorial active={hintActive} onEnd={handleHintEnd} />
     </GamePlayerLayout>
