@@ -306,6 +306,38 @@ function KoreanBlockPlayerInner({
     return () => clearInterval(interval);
   }, [roundCorrect, currentItem.word]);
 
+  // 배치 시 "뾱" 효과음 — Web Audio 합성 (mp3 자산 불필요).
+  // 음절 완성 시 phonics 음원이 별도로 재생되므로 tick 은 짧고 작게.
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const playPlacementTick = useCallback(() => {
+    try {
+      if (!audioCtxRef.current) {
+        const Ctx =
+          window.AudioContext ||
+          (window as typeof window & { webkitAudioContext?: typeof AudioContext })
+            .webkitAudioContext;
+        if (!Ctx) return;
+        audioCtxRef.current = new Ctx();
+      }
+      const ctx = audioCtxRef.current;
+      const t = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      // 1100 Hz → 600 Hz 짧은 하강 sweep ("뾱")
+      osc.frequency.setValueAtTime(1100, t);
+      osc.frequency.exponentialRampToValueAtTime(600, t + 0.08);
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(0.18, t + 0.005);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.1);
+    } catch {
+      /* AudioContext 미지원/차단 — 조용히 무시 */
+    }
+  }, []);
+
   const placeBlock = useCallback(
     (row: number, col: number, block: JamoBlock) => {
       if (grid[row][col] !== null) return;
@@ -321,10 +353,11 @@ function KoreanBlockPlayerInner({
         return next;
       });
       setIsWrong(false);
+      playPlacementTick();
       // 튜토리얼 진행 중이면 notifyPlacement — 일치 시 onCorrect callback 으로 advance
       notifyPlacement(block.char, [row, col]);
     },
-    [grid, expected, notifyPlacement]
+    [grid, expected, notifyPlacement, playPlacementTick]
   );
 
   const onPlace = useCallback(
