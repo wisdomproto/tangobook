@@ -153,7 +153,8 @@ function LineMatchingPlayerInner({
   const logGame = useGameLogger();
   useEffect(() => {
     if (!finished) return;
-    onComplete(items.length, items.length);
+    // onComplete 는 GameResultScreen 의 onBack 에서 호출 — finished 되자마자 부르면
+    // 부모가 overlay 를 unmount 해서 결과 화면이 안 보임 (ConnectTheDots 와 동일 패턴).
     const results: GameWordResult[] = [];
     for (const it of items) {
       results.push({ word: it.word, correct: true });
@@ -169,7 +170,7 @@ function LineMatchingPlayerInner({
       lang,
       results,
     });
-  }, [finished, items, onComplete, lang, logGame, storybookId]);
+  }, [finished, items, lang, logGame, storybookId]);
 
   const handleRestart = useCallback(() => {
     setMatched([]);
@@ -188,19 +189,7 @@ function LineMatchingPlayerInner({
     return null;
   }, [items, matched]);
 
-  if (finished) {
-    return (
-      <GameResultScreen
-        storybookId={storybookId}
-        score={items.length}
-        total={items.length}
-        onRestart={handleRestart}
-        onBack={onBack}
-      />
-    );
-  }
-
-  // 카드 ref — SVG 곡선 줄긋기 좌표 측정용
+  // 카드 ref — SVG 곡선 줄긋기 좌표 측정용. early return 앞에 — hook 순서 보존.
   const areaRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<Map<number, HTMLButtonElement>>(new Map());
   const wordRefs = useRef<Map<number, HTMLButtonElement>>(new Map());
@@ -267,15 +256,32 @@ function LineMatchingPlayerInner({
   }, [matched, selectedImageIdx, selectedWordIdx]);
 
   useLayoutEffect(() => {
+    if (finished) return;
     computeLines();
-  }, [computeLines]);
+  }, [computeLines, finished]);
 
   // resize 시 좌표 재계산
   useEffect(() => {
+    if (finished) return;
     const onResize = () => computeLines();
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
-  }, [computeLines]);
+  }, [computeLines, finished]);
+
+  if (finished) {
+    return (
+      <GameResultScreen
+        storybookId={storybookId}
+        score={items.length}
+        total={items.length}
+        onRestart={handleRestart}
+        onBack={() => {
+          onComplete(items.length, items.length);
+          onBack();
+        }}
+      />
+    );
+  }
 
   // SVG path 곡선 — Bezier
   const pathD = (l: { from: { x: number; y: number }; to: { x: number; y: number } }) => {
