@@ -9,6 +9,14 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { GameResultScreen } from '../GameResultScreen';
 import { GameProgressBar } from '../GameProgressBar';
 import { GamePlayerLayout } from '../GamePlayerLayout';
+import {
+  TutorialProvider,
+  useTutorialHighlight,
+  useTutorialIsPlaying,
+  useTutorialExpected,
+  useTutorialNotify,
+} from './StoryImageTutorial/StoryImageTutorial.context';
+import { StoryImageTutorial } from './StoryImageTutorial/StoryImageTutorial';
 import { shuffle } from '../../utils/shuffle';
 import { cn } from '@/lib/cn';
 
@@ -16,7 +24,7 @@ interface StoryImagePlayerProps extends GamePlayerProps {
   lang: 'ko' | 'en';
 }
 
-export function StoryImagePlayer({
+function StoryImagePlayerInner({
   storybookId,
   gameData,
   onComplete,
@@ -30,8 +38,20 @@ export function StoryImagePlayer({
   const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
   const [finished, setFinished] = useState(false);
+  const [hintActive, setHintActive] = useState(false);
 
   const { playAudio, playFeedbackSound, playWordCorrect } = useGameAudio();
+  const isTutorialPlaying = useTutorialIsPlaying();
+  const { pulseUrl } = useTutorialHighlight();
+  const expected = useTutorialExpected();
+  const notifyPick = useTutorialNotify();
+  const handleHintStart = useCallback(() => {
+    if (hintActive || isTutorialPlaying) return;
+    setHintActive(true);
+  }, [hintActive, isTutorialPlaying]);
+  const handleHintEnd = useCallback(() => {
+    setHintActive(false);
+  }, []);
 
   const current = rounds[currentIdx] as StoryImageRound | undefined;
 
@@ -55,6 +75,9 @@ export function StoryImagePlayer({
   const handleSelect = useCallback(
     (url: string) => {
       if (feedback || !current) return;
+      // 튜토리얼: 차단 / expected 외 거부
+      if (isTutorialPlaying) return;
+      if (expected !== null && expected.url !== url) return;
       const isCorrect = url === current.correctImageUrl;
       setSelectedUrl(url);
       setFeedback(isCorrect ? 'correct' : 'wrong');
@@ -67,8 +90,10 @@ export function StoryImagePlayer({
             else setCurrentIdx((i) => i + 1);
             setSelectedUrl(null);
             setFeedback(null);
+            setHintActive(false);
           },
         });
+        notifyPick(url);
       } else {
         playFeedbackSound(false);
         setTimeout(() => {
@@ -77,7 +102,17 @@ export function StoryImagePlayer({
         }, 800);
       }
     },
-    [feedback, current, currentIdx, rounds.length, playFeedbackSound, playWordCorrect]
+    [
+      feedback,
+      current,
+      currentIdx,
+      rounds.length,
+      playFeedbackSound,
+      playWordCorrect,
+      isTutorialPlaying,
+      expected,
+      notifyPick,
+    ]
   );
 
   const handleRestart = useCallback(() => {
@@ -115,6 +150,12 @@ export function StoryImagePlayer({
     if (isThisCorrect)
       return cn(base, 'border-success ring-4 ring-success scale-[1.02] animate-pulse');
     if (isThisWrong) return cn(base, 'border-danger ring-4 ring-danger animate-shake');
+    // 튜토리얼 highlight (정답)
+    if (pulseUrl === url)
+      return cn(base, 'border-coral-400 ring-[6px] ring-coral-300 scale-105 animate-pulse');
+    // 튜토리얼 wait — expected 외 dim
+    if (expected !== null && expected.url !== url)
+      return cn(base, 'border-peach-200 opacity-30 cursor-not-allowed');
     return cn(base, 'border-peach-200 hover:scale-[1.02] hover:shadow-pop hover:border-coral-300');
   };
 
@@ -165,6 +206,29 @@ export function StoryImagePlayer({
           {current.text}
         </p>
       </div>
+
+      {/* 🪄 도와줘 — 좌하단 floating */}
+      <button
+        onClick={handleHintStart}
+        disabled={hintActive || isTutorialPlaying || !!feedback}
+        className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full bg-gradient-to-b from-warn to-peach-500 text-white font-black text-lg shadow-pop hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+      >
+        🪄 도와줘
+      </button>
+
+      <StoryImageTutorial
+        correctUrl={current.correctImageUrl}
+        active={hintActive}
+        onEnd={handleHintEnd}
+      />
     </GamePlayerLayout>
+  );
+}
+
+export function StoryImagePlayer(props: StoryImagePlayerProps) {
+  return (
+    <TutorialProvider>
+      <StoryImagePlayerInner {...props} />
+    </TutorialProvider>
   );
 }
