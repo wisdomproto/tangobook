@@ -9,6 +9,14 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { GameResultScreen } from '../GameResultScreen';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { GameHeader } from '../GameHeader';
+import {
+  TutorialProvider,
+  useTutorialHighlight,
+  useTutorialIsPlaying,
+  useTutorialExpected,
+  useTutorialNotify,
+} from './LineMatchingTutorial/LineMatchingTutorial.context';
+import { LineMatchingTutorial } from './LineMatchingTutorial/LineMatchingTutorial';
 import { phonicsApi } from '@/features/phonics/api/phonics.api';
 import { shuffle } from '../../utils/shuffle';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
@@ -23,7 +31,7 @@ interface MatchedPair {
   itemIdx: number;
 }
 
-export function LineMatchingPlayer({
+function LineMatchingPlayerInner({
   storybookId,
   gameData,
   onComplete,
@@ -42,8 +50,20 @@ export function LineMatchingPlayer({
   const [matched, setMatched] = useState<MatchedPair[]>([]);
   const [wrongPair, setWrongPair] = useState<{ image: number; word: number } | null>(null);
   const [finished, setFinished] = useState(false);
+  const [hintActive, setHintActive] = useState(false);
 
   const { playAudio, playFeedbackSound, playWordCorrect } = useGameAudio();
+  const isTutorialPlaying = useTutorialIsPlaying();
+  const { highlightImageIdx, highlightWordIdx } = useTutorialHighlight();
+  const expected = useTutorialExpected();
+  const notifyMatch = useTutorialNotify();
+  const handleHintStart = useCallback(() => {
+    if (hintActive || isTutorialPlaying) return;
+    setHintActive(true);
+  }, [hintActive, isTutorialPlaying]);
+  const handleHintEnd = useCallback(() => {
+    setHintActive(false);
+  }, []);
 
   const isMatched = useCallback(
     (itemIdx: number) => matched.some((m) => m.itemIdx === itemIdx),
@@ -99,9 +119,10 @@ export function LineMatchingPlayer({
 
     const isMatch = selectedImageIdx === selectedWordIdx;
     if (isMatch) {
-      const newMatched = [...matched, { itemIdx: selectedImageIdx }];
+      const matchedIdx = selectedImageIdx;
+      const newMatched = [...matched, { itemIdx: matchedIdx }];
       setMatched(newMatched);
-      const matchedItem = items[selectedImageIdx];
+      const matchedItem = items[matchedIdx];
       // 단어 1개 정답 — 효과음 + TTS (호리/칭찬음원 X). 마지막 다 맞추면 GameResultScreen 이 호리.
       playWordCorrect();
       setTimeout(() => {
@@ -109,6 +130,8 @@ export function LineMatchingPlayer({
       }, 300);
       setSelectedImageIdx(null);
       setSelectedWordIdx(null);
+      // 튜토리얼 wait 중이면 advance
+      notifyMatch(matchedIdx);
 
       if (newMatched.length >= items.length) {
         setTimeout(() => setFinished(true), 1200);
@@ -130,6 +153,7 @@ export function LineMatchingPlayer({
     playWordCorrect,
     playFeedbackSound,
     playWordTts,
+    notifyMatch,
   ]);
 
   const logGame = useGameLogger();
@@ -264,6 +288,14 @@ export function LineMatchingPlayer({
     if (isMatched(itemIdx)) return cn(cardBase, 'border-success cursor-default');
     if (wrongPair?.image === itemIdx) return cn(cardBase, 'border-danger animate-shake');
     if (selectedImageIdx === itemIdx) return cn(cardBase, 'border-coral-500 ring-4 ring-coral-200');
+    // 튜토리얼 highlight — coral wiggle ring
+    if (highlightImageIdx === itemIdx)
+      return cn(cardBase, 'border-coral-400 ring-4 ring-coral-300 scale-105');
+    // 튜토리얼 wait/playing — non-expected 카드 dim
+    const tutorialDim =
+      (expected !== null && expected.itemIdx !== itemIdx) ||
+      (isTutorialPlaying && highlightImageIdx !== itemIdx);
+    if (tutorialDim) return cn(cardBase, 'border-transparent opacity-30 cursor-not-allowed');
     return cn(cardBase, 'border-transparent hover:border-coral-300 hover:scale-[1.02]');
   };
 
@@ -271,6 +303,12 @@ export function LineMatchingPlayer({
     if (isMatched(itemIdx)) return cn(cardBase, 'border-success cursor-default');
     if (wrongPair?.word === itemIdx) return cn(cardBase, 'border-danger animate-shake');
     if (selectedWordIdx === itemIdx) return cn(cardBase, 'border-coral-500 ring-4 ring-coral-200');
+    if (highlightWordIdx === itemIdx)
+      return cn(cardBase, 'border-coral-400 ring-4 ring-coral-300 scale-105');
+    const tutorialDim =
+      (expected !== null && expected.itemIdx !== itemIdx) ||
+      (isTutorialPlaying && highlightWordIdx !== itemIdx);
+    if (tutorialDim) return cn(cardBase, 'border-transparent opacity-30 cursor-not-allowed');
     return cn(cardBase, 'border-transparent hover:border-coral-300 hover:scale-[1.02]');
   };
 
@@ -295,6 +333,14 @@ export function LineMatchingPlayer({
     isMatched(itemIdx) ? 'matched' : selectedImageIdx === itemIdx ? 'active' : 'idle';
   const wordDotState = (itemIdx: number) =>
     isMatched(itemIdx) ? 'matched' : selectedWordIdx === itemIdx ? 'active' : 'idle';
+
+  // 첫 매칭 안 된 itemIdx — 튜토리얼이 시연할 타겟
+  const firstUnmatchedIdx = useMemo(() => {
+    for (let i = 0; i < items.length; i++) {
+      if (!matched.some((m) => m.itemIdx === i)) return i;
+    }
+    return null;
+  }, [items, matched]);
 
   return (
     <GamePlayerLayout maxWidth="full" bgImageUrl="/images/games/line-matching-bg.webp">
@@ -322,8 +368,18 @@ export function LineMatchingPlayer({
                       if (el) imageRefs.current.set(imageItemIdx, el);
                       else imageRefs.current.delete(imageItemIdx);
                     }}
-                    onClick={() => !isMatched(imageItemIdx) && setSelectedImageIdx(imageItemIdx)}
-                    disabled={isMatched(imageItemIdx)}
+                    data-image-card={imageItemIdx}
+                    onClick={() => {
+                      if (isMatched(imageItemIdx)) return;
+                      if (isTutorialPlaying) return;
+                      if (expected !== null && expected.itemIdx !== imageItemIdx) return;
+                      setSelectedImageIdx(imageItemIdx);
+                    }}
+                    disabled={
+                      isMatched(imageItemIdx) ||
+                      isTutorialPlaying ||
+                      (expected !== null && expected.itemIdx !== imageItemIdx)
+                    }
                     className={cn(imageCardClass(imageItemIdx), 'w-full h-full overflow-hidden')}
                     aria-label="그림 선택"
                   >
@@ -353,8 +409,18 @@ export function LineMatchingPlayer({
                       if (el) wordRefs.current.set(wordItemIdx, el);
                       else wordRefs.current.delete(wordItemIdx);
                     }}
-                    onClick={() => !isMatched(wordItemIdx) && setSelectedWordIdx(wordItemIdx)}
-                    disabled={isMatched(wordItemIdx)}
+                    data-word-card={wordItemIdx}
+                    onClick={() => {
+                      if (isMatched(wordItemIdx)) return;
+                      if (isTutorialPlaying) return;
+                      if (expected !== null && expected.itemIdx !== wordItemIdx) return;
+                      setSelectedWordIdx(wordItemIdx);
+                    }}
+                    disabled={
+                      isMatched(wordItemIdx) ||
+                      isTutorialPlaying ||
+                      (expected !== null && expected.itemIdx !== wordItemIdx)
+                    }
                     className={cn(
                       wordCardClass(wordItemIdx),
                       'w-full h-full flex flex-col items-center justify-center px-6 py-4'
@@ -394,7 +460,32 @@ export function LineMatchingPlayer({
             ))}
           </svg>
         </div>
+
+        {/* 🪄 도와줘 — 좌하단 floating. 매칭 안 된 쌍 있으면 활성. */}
+        {firstUnmatchedIdx !== null && (
+          <button
+            onClick={handleHintStart}
+            disabled={hintActive || isTutorialPlaying}
+            className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full bg-gradient-to-b from-warn to-peach-500 text-white font-black text-lg shadow-pop hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          >
+            🪄 도와줘
+          </button>
+        )}
+
+        <LineMatchingTutorial
+          targetItemIdx={firstUnmatchedIdx}
+          active={hintActive}
+          onEnd={handleHintEnd}
+        />
       </div>
     </GamePlayerLayout>
+  );
+}
+
+export function LineMatchingPlayer(props: LineMatchingPlayerProps) {
+  return (
+    <TutorialProvider>
+      <LineMatchingPlayerInner {...props} />
+    </TutorialProvider>
   );
 }
