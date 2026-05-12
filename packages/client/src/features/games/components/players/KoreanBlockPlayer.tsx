@@ -102,6 +102,10 @@ const ALL_VOWELS: JamoBlock[] = VOWEL_ORDER.map((ch, i) => ({
   char: ch,
   jamoType: 'jung' as JamoType,
 }));
+// 쉬움 (easy): 기본 자음 14 (ㄱ~ㅎ) + 기본 모음 10 (ㅏ~ㅣ) — 쌍자음/이중모음 X.
+// 쉬움 단어 풀 자체가 score≤1.5 라 쌍자음·이중모음 미포함이므로 누락 자모 없음.
+const EASY_CONSONANTS: JamoBlock[] = ALL_CONSONANTS.slice(0, 14);
+const EASY_VOWELS: JamoBlock[] = ALL_VOWELS.slice(0, 10);
 
 /**
  * 공간 위치 인식 파서 — 한글 음절의 시각적 배치 그대로 합성.
@@ -651,15 +655,16 @@ function KoreanBlockPlayerInner({
             </div>
           </section>
 
-          {/* 섹션 3 — 자음·모음 패널 (가로 나란히, 각자 카드) */}
+          {/* 섹션 3 — 자음·모음 패널 (가로 나란히, 각자 카드)
+              쉬움은 기본 자모만 (쌍자음/이중모음 숨김). 보통/어려움은 전체 노출. */}
           <div className="flex flex-row gap-[clamp(0.5rem,1.5vh,1.25rem)] shrink-0">
             <BlockPanel title="자음" tone="consonant">
-              {ALL_CONSONANTS.map((b) => (
+              {(difficulty === 'easy' ? EASY_CONSONANTS : ALL_CONSONANTS).map((b) => (
                 <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
               ))}
             </BlockPanel>
             <BlockPanel title="모음" tone="vowel">
-              {ALL_VOWELS.map((b) => (
+              {(difficulty === 'easy' ? EASY_VOWELS : ALL_VOWELS).map((b) => (
                 <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
               ))}
             </BlockPanel>
