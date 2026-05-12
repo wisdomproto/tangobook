@@ -9,18 +9,19 @@ import { TUTORIAL_LINES, TUTORIAL_TIMING } from './KoreanBlockTutorial.constants
 interface KoreanBlockTutorialProps {
   /** 시연할 단어 (currentItem.word) */
   word: string;
-  /** 활성화 여부 — false 면 idle 만, true 면 시퀀스 진행 */
+  /** 활성화 여부 — false→true 전이 시 intro 시작 */
   active: boolean;
-  /** 시퀀스 끝 콜백 — KoreanBlockPlayer 에서 hintActive 해제 */
+  /** 시퀀스 끝 콜백 (사용자가 모든 글자 맞춰서 완성 후, 또는 강제 종료) */
   onEnd: () => void;
 }
 
 type Phase =
   | { kind: 'idle' }
   | { kind: 'intro' }
-  | { kind: 'pop'; charIdx: number }
-  | { kind: 'arrow'; charIdx: number }
-  | { kind: 'place'; charIdx: number }
+  /** 시연 — pop + arrow + glow 자동 연출 (1.5s). 사용자 액션 X. */
+  | { kind: 'demo'; charIdx: number }
+  /** 대기 — 사용자가 expected jamo → expected cell 드래그해야 advance. timer 없음. */
+  | { kind: 'wait'; charIdx: number }
   | { kind: 'syllable-done' }
   | { kind: 'end' }
   | { kind: 'fade-out' };
@@ -41,14 +42,14 @@ function flattenLayout(plan: TutorialSyllable[]): CharStep[] {
 
 export function KoreanBlockTutorial({ word, active, onEnd }: KoreanBlockTutorialProps) {
   const [phase, setPhase] = useState<Phase>({ kind: 'idle' });
-  const { highlight, setHighlight, setIsPlaying } = useTutorialControls();
+  const { highlight, setHighlight, setIsPlaying, setExpected, onCorrectRef } =
+    useTutorialControls();
   const { playAudio } = useGameAudio();
   const phaseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const stepsRef = useRef<CharStep[]>([]);
   const startedRef = useRef(false);
 
-  // active=true 로 전이 시 intro 시작 — 시퀀스가 끝나면 onEnd 가 active 를 false 로 만들 때까지
-  // startedRef 가 true 라 재진입 안 됨 (fade-out → idle 직후 active=true 잔존 시 무한루프 방지).
+  // active 전이 — 시작/강제 종료
   useEffect(() => {
     if (active && !startedRef.current) {
       startedRef.current = true;
@@ -58,13 +59,15 @@ export function KoreanBlockTutorial({ word, active, onEnd }: KoreanBlockTutorial
     } else if (!active && startedRef.current) {
       startedRef.current = false;
       if (phaseTimerRef.current) clearTimeout(phaseTimerRef.current);
+      onCorrectRef.current = null;
       setHighlight({ popJamo: null, glowCell: null, arrowFromJamo: null, arrowToCell: null });
+      setExpected(null);
       setIsPlaying(false);
       setPhase({ kind: 'idle' });
     }
-  }, [active, word, setHighlight, setIsPlaying]);
+  }, [active, word, setHighlight, setExpected, setIsPlaying, onCorrectRef]);
 
-  // phase 전환 — 각 phase 마다 audio 재생 + highlight 갱신 + 다음 phase 예약
+  // phase 전환
   useEffect(() => {
     if (phaseTimerRef.current) {
       clearTimeout(phaseTimerRef.current);
@@ -80,70 +83,81 @@ export function KoreanBlockTutorial({ word, active, onEnd }: KoreanBlockTutorial
     if (phase.kind === 'intro') {
       playAudio(TUTORIAL_LINES.intro.audio);
       setHighlight({ popJamo: null, glowCell: null, arrowFromJamo: null, arrowToCell: null });
+      setExpected(null);
+      setIsPlaying(true);
       if (steps.length === 0) {
         advance({ kind: 'end' }, TUTORIAL_TIMING.intro);
       } else {
-        advance({ kind: 'pop', charIdx: 0 }, TUTORIAL_TIMING.intro);
+        advance({ kind: 'demo', charIdx: 0 }, TUTORIAL_TIMING.intro);
       }
       return;
     }
-    if (phase.kind === 'pop') {
+
+    if (phase.kind === 'demo') {
       const step = steps[phase.charIdx];
       if (!step) {
         setPhase({ kind: 'end' });
         return;
       }
       playAudio(TUTORIAL_LINES.pop.audio);
+      setIsPlaying(true);
+      setExpected(null);
+      // pop + arrow + glow 동시에
       setHighlight({
         popJamo: step.jamo,
-        glowCell: null,
-        arrowFromJamo: null,
-        arrowToCell: null,
-      });
-      advance({ kind: 'arrow', charIdx: phase.charIdx }, TUTORIAL_TIMING.pop);
-      return;
-    }
-    if (phase.kind === 'arrow') {
-      const step = steps[phase.charIdx];
-      setHighlight({
-        popJamo: step.jamo,
-        glowCell: null,
+        glowCell: step.cell,
         arrowFromJamo: step.jamo,
         arrowToCell: step.cell,
       });
-      advance({ kind: 'place', charIdx: phase.charIdx }, TUTORIAL_TIMING.arrow);
+      // 1.5s 후 wait 진입 — pop/arrow/glow 유지 + isPlaying=false 로 사용자 차례
+      const demoDuration = TUTORIAL_TIMING.pop + TUTORIAL_TIMING.arrow + TUTORIAL_TIMING.place;
+      advance({ kind: 'wait', charIdx: phase.charIdx }, demoDuration);
       return;
     }
-    if (phase.kind === 'place') {
+
+    if (phase.kind === 'wait') {
       const step = steps[phase.charIdx];
+      if (!step) {
+        setPhase({ kind: 'end' });
+        return;
+      }
       playAudio(TUTORIAL_LINES.place.audio);
+      // 시각 highlight 유지, 사용자 차례
       setHighlight({
-        popJamo: null,
+        popJamo: step.jamo,
         glowCell: step.cell,
-        arrowFromJamo: null,
-        arrowToCell: null,
+        arrowFromJamo: step.jamo,
+        arrowToCell: step.cell,
       });
-      const isLast = phase.charIdx === steps.length - 1;
-      const next: Phase = isLast
-        ? { kind: 'syllable-done' }
-        : { kind: 'pop', charIdx: phase.charIdx + 1 };
-      advance(next, TUTORIAL_TIMING.place);
+      setExpected({ jamo: step.jamo, cell: step.cell });
+      setIsPlaying(false);
+      // 사용자가 정답 드롭 시 onCorrectRef 가 advance.
+      onCorrectRef.current = () => {
+        const isLast = phase.charIdx === steps.length - 1;
+        setExpected(null);
+        setHighlight({ popJamo: null, glowCell: null, arrowFromJamo: null, arrowToCell: null });
+        setPhase(isLast ? { kind: 'syllable-done' } : { kind: 'demo', charIdx: phase.charIdx + 1 });
+      };
       return;
     }
+
     if (phase.kind === 'syllable-done') {
       playAudio(TUTORIAL_LINES.syllableDone.audio);
       setHighlight({ popJamo: null, glowCell: null, arrowFromJamo: null, arrowToCell: null });
+      setExpected(null);
+      setIsPlaying(true);
       advance({ kind: 'end' }, TUTORIAL_TIMING.syllableDone);
       return;
     }
+
     if (phase.kind === 'end') {
       playAudio(TUTORIAL_LINES.end.audio);
+      setIsPlaying(true);
       advance({ kind: 'fade-out' }, TUTORIAL_TIMING.end);
       return;
     }
+
     if (phase.kind === 'fade-out') {
-      // fade-out 끝 시 idle 로 → useEffect 가 active=true 인 동안 다시 intro 로 가지 않게
-      // 부모가 onEnd 콜백에서 hintActive 해제 → active=false 가 되어야 함
       const fadeTimer = setTimeout(() => {
         setIsPlaying(false);
         setPhase({ kind: 'idle' });
@@ -152,20 +166,21 @@ export function KoreanBlockTutorial({ word, active, onEnd }: KoreanBlockTutorial
       phaseTimerRef.current = fadeTimer;
       return;
     }
-  }, [phase, playAudio, setHighlight, setIsPlaying, onEnd]);
+  }, [phase, playAudio, setHighlight, setExpected, setIsPlaying, onCorrectRef, onEnd]);
 
   // unmount cleanup
   useEffect(() => {
     return () => {
       if (phaseTimerRef.current) clearTimeout(phaseTimerRef.current);
+      onCorrectRef.current = null;
     };
-  }, []);
+  }, [onCorrectRef]);
 
   // 말풍선 텍스트
   const bubbleText = (() => {
     if (phase.kind === 'intro') return TUTORIAL_LINES.intro.text;
-    if (phase.kind === 'pop') return TUTORIAL_LINES.pop.text;
-    if (phase.kind === 'place') return TUTORIAL_LINES.place.text;
+    if (phase.kind === 'demo') return TUTORIAL_LINES.pop.text;
+    if (phase.kind === 'wait') return TUTORIAL_LINES.place.text;
     if (phase.kind === 'syllable-done') return TUTORIAL_LINES.syllableDone.text;
     if (phase.kind === 'end') return TUTORIAL_LINES.end.text;
     return null;
@@ -187,26 +202,20 @@ export function KoreanBlockTutorial({ word, active, onEnd }: KoreanBlockTutorial
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.2 }}
           >
-            {/* 말풍선 (호리 왼쪽) */}
-            <AnimatePresence mode="wait">
-              {bubbleText && (
-                <motion.div
-                  key={`bubble-${phase.kind}-${'charIdx' in phase ? phase.charIdx : ''}`}
-                  className="relative bg-white/95 rounded-3xl shadow-pop px-5 py-3 max-w-[220px]"
-                  initial={{ opacity: 0, scale: 0.8, x: 10 }}
-                  animate={{ opacity: 1, scale: 1, x: 0 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <p className="text-xl font-display font-black text-ink-900 whitespace-nowrap">
-                    {bubbleText}
-                  </p>
-                  {/* 꼬리 — 우측을 가리킴 (호리 방향) */}
-                  <div className="absolute right-[-8px] bottom-6 w-0 h-0 border-y-8 border-y-transparent border-l-8 border-l-white/95" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-            {/* 호리 */}
+            {bubbleText && (
+              <motion.div
+                key="bubble"
+                className="relative bg-white/95 rounded-3xl shadow-pop px-5 py-3 max-w-[220px]"
+                initial={{ opacity: 0, scale: 0.8, x: 10 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <p className="text-xl font-display font-black text-ink-900 whitespace-nowrap">
+                  {bubbleText}
+                </p>
+                <div className="absolute right-[-8px] bottom-6 w-0 h-0 border-y-8 border-y-transparent border-l-8 border-l-white/95" />
+              </motion.div>
+            )}
             <Mascot character="hori" state={mascotState} size="md" />
           </motion.div>
         )}
@@ -257,7 +266,6 @@ function TutorialArrow({
 
   if (!coords) return null;
 
-  // Quadratic Bézier control point — 두 점 중간보다 위쪽 (살짝 곡선)
   const midX = (coords.fromX + coords.toX) / 2;
   const midY = Math.min(coords.fromY, coords.toY) - 40;
   const pathD = `M ${coords.fromX} ${coords.fromY} Q ${midX} ${midY} ${coords.toX} ${coords.toY}`;

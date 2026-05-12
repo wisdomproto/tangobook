@@ -20,6 +20,8 @@ import {
   TutorialProvider,
   useTutorialHighlight,
   useTutorialIsPlaying,
+  useTutorialExpected,
+  useTutorialNotify,
 } from './KoreanBlockTutorial/KoreanBlockTutorial.context';
 import { KoreanBlockTutorial } from './KoreanBlockTutorial/KoreanBlockTutorial';
 import { useGameAudio } from '../../hooks/useGameAudio';
@@ -217,6 +219,8 @@ function KoreanBlockPlayerInner({
   const [hintActive, setHintActive] = useState(false);
   const isPlaying = useTutorialIsPlaying();
   const { glowCell } = useTutorialHighlight();
+  const expected = useTutorialExpected();
+  const notifyPlacement = useTutorialNotify();
   const handleHintStart = useCallback(() => {
     if (hintActive || isPlaying) return;
     setHintActive(true);
@@ -301,14 +305,22 @@ function KoreanBlockPlayerInner({
   const placeBlock = useCallback(
     (row: number, col: number, block: JamoBlock) => {
       if (grid[row][col] !== null) return;
+      // 튜토리얼 wait 상태에서는 expected 와 일치하는 placement 만 허용 — 잘못된 placement 는 silently ignore
+      if (expected !== null) {
+        const matchesExpected =
+          expected.jamo === block.char && expected.cell[0] === row && expected.cell[1] === col;
+        if (!matchesExpected) return;
+      }
       setGrid((prev) => {
         const next = prev.map((r) => [...r]);
         next[row][col] = block.char;
         return next;
       });
       setIsWrong(false);
+      // 튜토리얼 진행 중이면 notifyPlacement — 일치 시 onCorrect callback 으로 advance
+      notifyPlacement(block.char, [row, col]);
     },
-    [grid]
+    [grid, expected, notifyPlacement]
   );
 
   const onPlace = useCallback(
@@ -508,15 +520,6 @@ function KoreanBlockPlayerInner({
                 <span className="absolute -top-1 -right-1 text-xl sm:text-2xl">✨</span>
               </div>
             )}
-            {difficulty === 'easy' && (
-              <button
-                onClick={handleHintStart}
-                disabled={hintActive || isPlaying || roundCorrect}
-                className="px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.375rem,1.5vh,1rem)] rounded-full bg-gradient-to-b from-warn to-peach-500 text-white font-black text-[clamp(0.875rem,2vh,1.25rem)] shadow-pop hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shrink-0 whitespace-nowrap"
-              >
-                🪄 도와줘
-              </button>
-            )}
           </section>
 
           {/* 섹션 2 — 드롭존 + 확인/초기화 (한 카드) */}
@@ -556,18 +559,25 @@ function KoreanBlockPlayerInner({
                     ) : null;
                     const isGlowing =
                       glowCell !== null && glowCell[0] === row && glowCell[1] === col;
+                    // wait phase: expected != null. 예상 셀만 drop 허용, 나머지는 dim.
+                    const isExpectedCell =
+                      expected !== null && expected.cell[0] === row && expected.cell[1] === col;
+                    const cellDimmed = expected !== null && !isExpectedCell;
+                    const cellInteractable = !isPlaying && !cellDimmed;
                     return (
                       <div
                         key={cellKey}
                         data-grid-cell={cellKey}
                         ref={drag.cellRef(cellKey)}
-                        onDragOver={isPlaying ? undefined : drag.handleDragOver}
-                        onDrop={isPlaying ? undefined : (e) => drag.handleDrop(cellKey, e, onPlace)}
-                        onClick={() => !isPlaying && handleCellClick(row, col)}
+                        onDragOver={cellInteractable ? drag.handleDragOver : undefined}
+                        onDrop={
+                          cellInteractable ? (e) => drag.handleDrop(cellKey, e, onPlace) : undefined
+                        }
+                        onClick={() => cellInteractable && handleCellClick(row, col)}
                         className={cn(
                           'w-[clamp(2rem,5.5vh,4rem)] h-[clamp(2rem,5.5vh,4rem)]',
                           'rounded-2xl flex items-center justify-center select-none transition-all',
-                          isPlaying
+                          !cellInteractable
                             ? 'cursor-not-allowed'
                             : char
                               ? 'cursor-pointer'
@@ -575,8 +585,11 @@ function KoreanBlockPlayerInner({
                           char
                             ? 'bg-white shadow-soft border-2 border-cream-50'
                             : 'bg-peach-100/60 border-[3px] border-dashed border-peach-200',
-                          !isPlaying && !char && 'hover:border-coral-400 hover:bg-peach-100/80',
-                          isGlowing && 'ring-4 ring-coral-400 scale-110 bg-coral-50/80'
+                          cellInteractable &&
+                            !char &&
+                            'hover:border-coral-400 hover:bg-peach-100/80',
+                          isGlowing && 'ring-4 ring-coral-400 scale-110 bg-coral-50/80',
+                          cellDimmed && !isGlowing && 'opacity-40'
                         )}
                       >
                         {correct ? (
@@ -625,6 +638,16 @@ function KoreanBlockPlayerInner({
                 <span aria-hidden>↺</span>
                 <span>초기화</span>
               </button>
+              {difficulty === 'easy' && (
+                <button
+                  onClick={handleHintStart}
+                  disabled={hintActive || isPlaying || roundCorrect}
+                  className="px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.25rem,0.875vh,0.625rem)] rounded-2xl text-[clamp(0.75rem,1.875vh,1.125rem)] font-black transition-all flex items-center justify-center gap-1.5 bg-gradient-to-b from-warn to-peach-500 text-white shadow-soft hover:shadow-pop hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                >
+                  <span aria-hidden>🪄</span>
+                  <span>도와줘</span>
+                </button>
+              )}
             </div>
           </section>
 
@@ -701,19 +724,25 @@ function BlockTile({
   const vowel = isVowel(block.char);
   const { popJamo } = useTutorialHighlight();
   const isPlaying = useTutorialIsPlaying();
+  const expected = useTutorialExpected();
   const popping = popJamo === block.char;
+  // wait phase: expected != null. 예상 자모만 활성, 나머지는 dim + 드래그 X.
+  const dimmed = expected !== null && expected.jamo !== block.char;
+  const interactable = !isPlaying && !dimmed;
   return (
     <motion.div
       data-jamo-tile={block.char}
-      draggable={!isPlaying}
+      draggable={interactable}
       // framer-motion 의 onDrag* 시그니처는 PanInfo 기반 → HTML5 DragEvent 와 충돌.
       // 런타임은 정상 DragEvent 발생. 타입만 cast.
-      onDragStart={((e: ReactDragEvent) => !isPlaying && drag.handleDragStart(block, e)) as never}
+      onDragStart={((e: ReactDragEvent) => interactable && drag.handleDragStart(block, e)) as never}
       onTouchStart={
-        ((e: ReactTouchEvent) => !isPlaying && drag.handleTouchStart(block, e)) as never
+        ((e: ReactTouchEvent) => interactable && drag.handleTouchStart(block, e)) as never
       }
       onTouchMove={drag.handleTouchMove as never}
-      onTouchEnd={((e: ReactTouchEvent) => !isPlaying && drag.handleTouchEnd(e, onPlace)) as never}
+      onTouchEnd={
+        ((e: ReactTouchEvent) => interactable && drag.handleTouchEnd(e, onPlace)) as never
+      }
       animate={
         popping
           ? { scale: [1, 1.3, 1.1, 1.15, 1.1], rotate: [0, -8, 6, -4, 0] }
@@ -722,10 +751,11 @@ function BlockTile({
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className={cn(
         'w-[clamp(1.75rem,4.5vh,3rem)] h-[clamp(1.75rem,4.5vh,3rem)] rounded-xl flex items-center justify-center font-black text-[clamp(0.75rem,2.5vh,1.5rem)] select-none',
-        isPlaying ? 'cursor-not-allowed' : 'cursor-grab',
-        !isPlaying && 'hover:scale-110 active:scale-95 active:cursor-grabbing',
-        'shadow-md transition-shadow',
+        interactable ? 'cursor-grab' : 'cursor-not-allowed',
+        interactable && 'hover:scale-110 active:scale-95 active:cursor-grabbing',
+        'shadow-md transition-all',
         popping && 'ring-4 ring-coral-300 shadow-pop',
+        dimmed && 'opacity-30',
         vowel
           ? 'bg-gradient-to-b from-coral-400 to-coral-600 text-white'
           : 'bg-gradient-to-b from-warn to-peach-500 text-white'
