@@ -121,6 +121,14 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 - `GamePlayerLayout` 내부 wrap → 사용 게임 자동 적용 (LineMatching/StoryImage/ConnectTheDots/WordWriting)
 - 자체 wrapper player (`KoreanBlockPlayer`/`EnglishBlockPlayer`/`SpeakingPlayer`) 는 return 마다 직접 wrap
 
+## 영어 블록 튜토리얼 — 쉬움 레벨 (2026-05-12)
+
+`EnglishBlockTutorial/` — 한글블록 튜토리얼 패턴 동일하게 영어 블록에 적용. cell 은 `[row,col]` 대신 `slot: number` (단일 인덱스). 멘트/음성 자산은 한글과 공용 (`/sounds/games/tutorial/hori-*.mp3`).
+
+- **planEnglishTutorialLayout(word)**: 단어 → `[{letter, slot}]` (lowercase, index 순서)
+- **data attrs**: `data-letter-tile={char}` (panel block) + `data-slot={i}` (drop slot)
+- 나머지 (state machine, Hori, 말풍선, Arrow SVG, 인터랙션 가드, 뾱 효과음) 한글블록과 동일
+
 ## 한글 블록 튜토리얼 — 쉬움 레벨 (2026-05-12)
 
 쉬움 (difficulty=easy) 진입 시 단어 카드에 "🪄 도와줘" 버튼. 클릭 시 호리가 우하단 등장 + 정답 자모를 패널에서 그리드로 옮기는 시퀀스 시연.

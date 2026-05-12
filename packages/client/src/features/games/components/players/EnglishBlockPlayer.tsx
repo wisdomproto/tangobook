@@ -1,4 +1,11 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import {
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+  type DragEvent as ReactDragEvent,
+  type TouchEvent as ReactTouchEvent,
+} from 'react';
 import { motion } from 'framer-motion';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { EnglishBlockData, EnglishBlockLetter } from '@tangobook/shared';
@@ -6,6 +13,14 @@ import { VOWELS, CONSONANTS, isEnglishVowel } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { MobileLandscapeGate } from '../MobileLandscapeGate';
+import {
+  TutorialProvider,
+  useTutorialHighlight,
+  useTutorialIsPlaying,
+  useTutorialExpected,
+  useTutorialNotify,
+} from './EnglishBlockTutorial/EnglishBlockTutorial.context';
+import { EnglishBlockTutorial } from './EnglishBlockTutorial/EnglishBlockTutorial';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
@@ -41,9 +56,10 @@ function createEnglishGhost(char: string): HTMLDivElement {
   return ghost;
 }
 
-export function EnglishBlockPlayer({
+function EnglishBlockPlayerInner({
   storybookId,
   gameData,
+  difficulty,
   onComplete: _onComplete,
   onBack,
 }: GamePlayerProps) {
@@ -59,6 +75,18 @@ export function EnglishBlockPlayer({
   const [roundCorrect, setRoundCorrect] = useState(false);
   const [wrongSlots, setWrongSlots] = useState<Set<number>>(new Set());
   const [typedChars, setTypedChars] = useState(0);
+  const [hintActive, setHintActive] = useState(false);
+  const isTutorialPlaying = useTutorialIsPlaying();
+  const { popLetter, glowSlot } = useTutorialHighlight();
+  const expected = useTutorialExpected();
+  const notifyPlacement = useTutorialNotify();
+  const handleHintStart = useCallback(() => {
+    if (hintActive || isTutorialPlaying) return;
+    setHintActive(true);
+  }, [hintActive, isTutorialPlaying]);
+  const handleHintEnd = useCallback(() => {
+    setHintActive(false);
+  }, []);
 
   const currentItem = items[currentIndex];
   const letterCount = currentItem.letters.length;
@@ -112,17 +140,54 @@ export function EnglishBlockPlayer({
     return () => clearInterval(interval);
   }, [roundCorrect, currentItem.word]);
 
+  // 배치 시 "뾱" 효과음 — Web Audio 합성 (mp3 자산 불필요).
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const playPlacementTick = useCallback(() => {
+    try {
+      if (!audioCtxRef.current) {
+        const Ctx =
+          window.AudioContext ||
+          (window as typeof window & { webkitAudioContext?: typeof AudioContext })
+            .webkitAudioContext;
+        if (!Ctx) return;
+        audioCtxRef.current = new Ctx();
+      }
+      const ctx = audioCtxRef.current;
+      const t = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1100, t);
+      osc.frequency.exponentialRampToValueAtTime(600, t + 0.08);
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(0.18, t + 0.005);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.1);
+    } catch {
+      /* AudioContext 미지원/차단 — 조용히 무시 */
+    }
+  }, []);
+
   const placeBlock = useCallback(
     (slot: number, block: LetterBlock) => {
       if (grid[slot] !== null) return;
+      // 튜토리얼 wait 상태에서는 expected 와 일치하는 placement 만 허용
+      if (expected !== null) {
+        const matches = expected.letter === block.char && expected.slot === slot;
+        if (!matches) return;
+      }
       setGrid((prev) => {
         const next = [...prev];
         next[slot] = block.char;
         return next;
       });
       setWrongSlots(new Set());
+      playPlacementTick();
+      notifyPlacement(block.char, slot);
     },
-    [grid]
+    [grid, expected, notifyPlacement, playPlacementTick]
   );
 
   const onPlace = useCallback(
@@ -192,6 +257,7 @@ export function EnglishBlockPlayer({
               setHasTriedThisRound(false);
               setRoundCorrect(false);
               setWrongSlots(new Set());
+              setHintActive(false);
             } else {
               setFinished(true);
             }
@@ -227,6 +293,7 @@ export function EnglishBlockPlayer({
       setHasTriedThisRound(false);
       setRoundCorrect(false);
       setWrongSlots(new Set());
+      setHintActive(false);
     } else {
       setFinished(true);
     }
@@ -249,6 +316,7 @@ export function EnglishBlockPlayer({
     setRoundCorrect(false);
     setWrongSlots(new Set());
     setGrid(initGrid(items[0].letters));
+    setHintActive(false);
     wordResultsRef.current = [];
   }, [items, initGrid]);
 
@@ -313,22 +381,33 @@ export function EnglishBlockPlayer({
       cellInner
     );
 
+    const isGlowing = glowSlot === slot;
+    const isExpectedSlot = expected !== null && expected.slot === slot;
+    const slotDimmed = expected !== null && !isExpectedSlot;
+    const interactable = !isTutorialPlaying && !slotDimmed;
     return (
       <div
         key={cellKey}
+        data-slot={slot}
         ref={drag.cellRef(cellKey)}
-        onDragOver={drag.handleDragOver}
-        onDrop={(e) => drag.handleDrop(cellKey, e, onPlace)}
-        onClick={() => handleCellClick(slot)}
+        onDragOver={interactable ? drag.handleDragOver : undefined}
+        onDrop={interactable ? (e) => drag.handleDrop(cellKey, e, onPlace) : undefined}
+        onClick={() => interactable && handleCellClick(slot)}
         className={cn(
-          'w-12 h-14 sm:w-16 sm:h-[4.5rem] lg:w-[4.5rem] lg:h-[5.5rem] rounded-md flex flex-col items-center justify-center overflow-hidden transition-all cursor-pointer select-none',
+          'w-12 h-14 sm:w-16 sm:h-[4.5rem] lg:w-[4.5rem] lg:h-[5.5rem] rounded-md flex flex-col items-center justify-center overflow-hidden transition-all select-none',
+          interactable ? 'cursor-pointer' : 'cursor-not-allowed',
           char
             ? isWrong
               ? 'bg-white shadow-card ring-2 ring-danger'
               : roundCorrect
                 ? 'bg-success/20 shadow-pop ring-4 ring-success/70 shadow-[0_0_30px_rgba(34,197,94,0.4)]'
                 : 'bg-white shadow-card'
-            : 'border-2 border-dashed border-coral-300 bg-white/40 hover:border-coral-500 hover:bg-coral-100/30 hover:animate-pulse'
+            : 'border-2 border-dashed border-coral-300 bg-white/40',
+          interactable &&
+            !char &&
+            'hover:border-coral-500 hover:bg-coral-100/30 hover:animate-pulse',
+          isGlowing && 'ring-4 ring-coral-400 scale-110 bg-coral-50/80',
+          slotDimmed && !isGlowing && 'opacity-40'
         )}
       >
         {cellBody}
@@ -336,26 +415,49 @@ export function EnglishBlockPlayer({
     );
   };
 
-  const renderBlock = (block: LetterBlock) => (
-    <div
-      key={block.id}
-      draggable
-      onDragStart={(e) => drag.handleDragStart(block, e)}
-      onTouchStart={(e) => drag.handleTouchStart(block, e)}
-      onTouchMove={drag.handleTouchMove}
-      onTouchEnd={(e) => drag.handleTouchEnd(e, onPlace)}
-      className={cn(
-        'w-10 h-12 sm:w-12 sm:h-14 lg:w-14 lg:h-[4rem] rounded-md flex flex-col items-center justify-center overflow-hidden select-none bg-white shadow-soft cursor-grab',
-        'transition-transform hover:scale-105 hover:shadow-pop',
-        'active:scale-[1.08] active:shadow-pop active:rotate-2 active:cursor-grabbing'
-      )}
-    >
-      <span className="flex-1 flex items-center justify-center text-lg sm:text-xl lg:text-2xl font-black text-ink-900">
-        {block.char}
-      </span>
-      <div className={cn('w-full h-1.5 lg:h-2', block.isVowel ? 'bg-coral-500' : 'bg-peach-500')} />
-    </div>
-  );
+  const renderBlock = (block: LetterBlock) => {
+    const popping = popLetter === block.char;
+    const dimmed = expected !== null && expected.letter !== block.char;
+    const interactable = !isTutorialPlaying && !dimmed;
+    return (
+      <motion.div
+        key={block.id}
+        data-letter-tile={block.char}
+        draggable={interactable}
+        onDragStart={
+          ((e: ReactDragEvent) => interactable && drag.handleDragStart(block, e)) as never
+        }
+        onTouchStart={
+          ((e: ReactTouchEvent) => interactable && drag.handleTouchStart(block, e)) as never
+        }
+        onTouchMove={drag.handleTouchMove as never}
+        onTouchEnd={
+          ((e: ReactTouchEvent) => interactable && drag.handleTouchEnd(e, onPlace)) as never
+        }
+        animate={
+          popping
+            ? { scale: [1, 1.3, 1.1, 1.15, 1.1], rotate: [0, -8, 6, -4, 0] }
+            : { scale: 1, rotate: 0 }
+        }
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className={cn(
+          'w-10 h-12 sm:w-12 sm:h-14 lg:w-14 lg:h-[4rem] rounded-md flex flex-col items-center justify-center overflow-hidden select-none bg-white shadow-soft',
+          interactable ? 'cursor-grab' : 'cursor-not-allowed',
+          interactable &&
+            'transition-transform hover:scale-105 hover:shadow-pop active:scale-[1.08] active:shadow-pop active:rotate-2 active:cursor-grabbing',
+          popping && 'ring-4 ring-coral-300 shadow-pop',
+          dimmed && 'opacity-30'
+        )}
+      >
+        <span className="flex-1 flex items-center justify-center text-lg sm:text-xl lg:text-2xl font-black text-ink-900">
+          {block.char}
+        </span>
+        <div
+          className={cn('w-full h-1.5 lg:h-2', block.isVowel ? 'bg-coral-500' : 'bg-peach-500')}
+        />
+      </motion.div>
+    );
+  };
 
   return (
     <MobileLandscapeGate>
@@ -399,10 +501,10 @@ export function EnglishBlockPlayer({
           <div className="flex justify-center gap-3 sm:gap-4">
             <button
               onClick={handleCheck}
-              disabled={roundCorrect}
+              disabled={roundCorrect || isTutorialPlaying}
               className={cn(
                 'px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-md text-xl sm:text-xl font-bold transition-colors',
-                roundCorrect
+                roundCorrect || isTutorialPlaying
                   ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
                   : 'bg-coral-500 hover:bg-coral-600 text-white shadow-pop'
               )}
@@ -411,10 +513,25 @@ export function EnglishBlockPlayer({
             </button>
             <button
               onClick={handleNext}
-              className="px-6 py-2.5 sm:px-10 sm:py-3.5 bg-peach-500 hover:bg-peach-300 text-white rounded-md text-xl sm:text-xl font-bold transition-colors shadow-card"
+              disabled={isTutorialPlaying}
+              className={cn(
+                'px-6 py-2.5 sm:px-10 sm:py-3.5 rounded-md text-xl sm:text-xl font-bold transition-colors shadow-card',
+                isTutorialPlaying
+                  ? 'bg-ink-100 text-ink-900 cursor-not-allowed'
+                  : 'bg-peach-500 hover:bg-peach-300 text-white'
+              )}
             >
               {currentIndex + 1 < items.length ? '다음 →' : '결과 보기'}
             </button>
+            {difficulty === 'easy' && (
+              <button
+                onClick={handleHintStart}
+                disabled={hintActive || isTutorialPlaying || roundCorrect}
+                className="px-6 py-2.5 sm:px-10 sm:py-3.5 bg-gradient-to-b from-warn to-peach-500 text-white rounded-md text-xl font-black transition-all shadow-pop hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              >
+                🪄 도와줘
+              </button>
+            )}
           </div>
         </div>
 
@@ -431,6 +548,15 @@ export function EnglishBlockPlayer({
           </div>
         </div>
       </div>
+      <EnglishBlockTutorial word={currentItem.word} active={hintActive} onEnd={handleHintEnd} />
     </MobileLandscapeGate>
+  );
+}
+
+export function EnglishBlockPlayer(props: GamePlayerProps) {
+  return (
+    <TutorialProvider>
+      <EnglishBlockPlayerInner {...props} />
+    </TutorialProvider>
   );
 }
