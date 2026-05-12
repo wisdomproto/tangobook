@@ -6,6 +6,13 @@ import { decomposeWord } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { GamePlayerLayout } from '../GamePlayerLayout';
+import {
+  TutorialProvider,
+  useTutorialPulse,
+  useTutorialIsPlaying,
+  useTutorialNotify,
+} from './WordWritingTutorial/WordWritingTutorial.context';
+import { WordWritingTutorial } from './WordWritingTutorial/WordWritingTutorial';
 import { phonicsApi } from '@/features/phonics/api/phonics.api';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 
@@ -15,7 +22,7 @@ const LINE_WIDTH = 8;
 const GUIDE_COLOR = '#d4d4d8'; // zinc-300
 const DRAW_COLOR = '#1e293b'; // slate-800
 
-export function WordWritingPlayer({ storybookId, gameData, onComplete, onBack }: GamePlayerProps) {
+function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: GamePlayerProps) {
   const data = gameData as WordWritingData;
   const items = data.items;
 
@@ -24,7 +31,18 @@ export function WordWritingPlayer({ storybookId, gameData, onComplete, onBack }:
   const [showResult, setShowResult] = useState(false);
   const [currentScore, setCurrentScore] = useState(0);
   const [hasDrawn, setHasDrawn] = useState(false);
+  const [hintActive, setHintActive] = useState(false);
   const logGame = useGameLogger();
+  const tutorialPulse = useTutorialPulse();
+  const isTutorialPlaying = useTutorialIsPlaying();
+  const notifyDraw = useTutorialNotify();
+  const handleHintStart = useCallback(() => {
+    if (hintActive || isTutorialPlaying) return;
+    setHintActive(true);
+  }, [hintActive, isTutorialPlaying]);
+  const handleHintEnd = useCallback(() => {
+    setHintActive(false);
+  }, []);
 
   const emitFinalResults = useCallback(
     (finalScores: number[]) => {
@@ -96,6 +114,7 @@ export function WordWritingPlayer({ storybookId, gameData, onComplete, onBack }:
 
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (showResult) return;
+    if (isTutorialPlaying) return;
     e.preventDefault();
     canvasRef.current!.setPointerCapture(e.pointerId);
     isDrawingRef.current = true;
@@ -103,6 +122,7 @@ export function WordWritingPlayer({ storybookId, gameData, onComplete, onBack }:
     pathsRef.current.push([pt]);
     lastPointRef.current = pt;
     setHasDrawn(true);
+    notifyDraw();
 
     const ctx = canvasRef.current!.getContext('2d')!;
     ctx.beginPath();
@@ -370,7 +390,13 @@ export function WordWritingPlayer({ storybookId, gameData, onComplete, onBack }:
 
         {/* Canvas — 4:3 비율, 큰 테두리. flex-1 로 남는 영역 채움. */}
         <div className="flex-1 min-h-0 w-full flex items-center justify-center">
-          <div className="relative aspect-[2/1] w-full max-h-full border-[5px] border-peach-200 rounded-3xl overflow-hidden bg-white shadow-pop">
+          <div
+            className={`relative aspect-[2/1] w-full max-h-full border-[5px] rounded-3xl overflow-hidden bg-white shadow-pop transition-all ${
+              tutorialPulse
+                ? 'border-coral-400 ring-[6px] ring-coral-300 animate-pulse shadow-[0_0_30px_rgba(255,122,60,0.5)]'
+                : 'border-peach-200'
+            }`}
+          >
             <canvas
               ref={canvasRef}
               width={CANVAS_W}
@@ -432,6 +458,27 @@ export function WordWritingPlayer({ storybookId, gameData, onComplete, onBack }:
           ) : null}
         </div>
       </div>
+
+      {/* 🪄 도와줘 — 좌하단 floating */}
+      {!showResult && (
+        <button
+          onClick={handleHintStart}
+          disabled={hintActive || isTutorialPlaying}
+          className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full bg-gradient-to-b from-warn to-peach-500 text-white font-black text-lg shadow-pop hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+        >
+          🪄 도와줘
+        </button>
+      )}
+
+      <WordWritingTutorial active={hintActive} onEnd={handleHintEnd} />
     </GamePlayerLayout>
+  );
+}
+
+export function WordWritingPlayer(props: GamePlayerProps) {
+  return (
+    <TutorialProvider>
+      <WordWritingPlayerInner {...props} />
+    </TutorialProvider>
   );
 }

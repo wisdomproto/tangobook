@@ -121,6 +121,25 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 - `GamePlayerLayout` 내부 wrap → 사용 게임 자동 적용 (LineMatching/StoryImage/ConnectTheDots/WordWriting)
 - 자체 wrapper player (`KoreanBlockPlayer`/`EnglishBlockPlayer`/`SpeakingPlayer`) 는 return 마다 직접 wrap
 
+## 게임별 튜토리얼 — 호리 시연 (2026-05-12)
+
+5게임 (한글/영어블록/그림짝/점잇기/스토리/낱말쓰기) 에 "🪄 도와줘" 버튼 + 호리 시연 튜토리얼. 모든 게임 동일 패턴:
+
+- **state machine**: idle → intro → (게임별 wait) → end → fade-out → idle
+- **호리 + 말풍선**: 우하단 floating (`fixed bottom-4 right-4 z-[90]`)
+- **인터랙션 가드**: `isPlaying` 동안 차단 / `expected` 외 차단 / 정답 placement 시 notify→advance
+- **공용 음성 자산**: `/sounds/games/tutorial/hori-{intro,pop,place,syllable-done,end}.mp3` (mp3 없어도 말풍선 graceful)
+
+| 게임           | 트리거 조건               | 시연 방식                  | 사용자 액션             |
+| -------------- | ------------------------- | -------------------------- | ----------------------- |
+| 한글/영어 블록 | difficulty=easy 쉬움 only | 글자별 pop+arrow+cell glow | 해당 자모를 셀로 드래그 |
+| 그림짝 (Line)  | 매칭 안 된 쌍 존재 시     | 1쌍 highlight + 곡선 arrow | 그림↔단어 클릭          |
+| 점잇기         | 진행 중 (2점 이상)        | 1번→2번 점 pulse 순차      | 점 탭                   |
+| 스토리 그림    | feedback 없을 때          | 정답 이미지 ring-pulse     | 정답 이미지 클릭        |
+| 낱말쓰기       | result 화면 X             | 캔버스 테두리 pulse        | 첫 stroke 시작          |
+
+각 게임 폴더: `{Game}Tutorial/` (constants/context/component).
+
 ## 영어 블록 튜토리얼 — 쉬움 레벨 (2026-05-12)
 
 `EnglishBlockTutorial/` — 한글블록 튜토리얼 패턴 동일하게 영어 블록에 적용. cell 은 `[row,col]` 대신 `slot: number` (단일 인덱스). 멘트/음성 자산은 한글과 공용 (`/sounds/games/tutorial/hori-*.mp3`).
