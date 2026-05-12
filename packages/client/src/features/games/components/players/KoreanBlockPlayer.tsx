@@ -1,4 +1,13 @@
-import { useState, useCallback, useMemo, useRef, useEffect, type ReactNode } from 'react';
+import {
+  useState,
+  useCallback,
+  useMemo,
+  useRef,
+  useEffect,
+  type DragEvent as ReactDragEvent,
+  type TouchEvent as ReactTouchEvent,
+  type ReactNode,
+} from 'react';
 import { motion } from 'framer-motion';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { KoreanBlockData } from '@tangobook/shared';
@@ -7,6 +16,12 @@ import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { MobileLandscapeGate } from '../MobileLandscapeGate';
+import {
+  TutorialProvider,
+  useTutorialHighlight,
+  useTutorialIsPlaying,
+} from './KoreanBlockTutorial/KoreanBlockTutorial.context';
+import { KoreanBlockTutorial } from './KoreanBlockTutorial/KoreanBlockTutorial';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
@@ -180,9 +195,10 @@ function createKoreanGhost(char: string): HTMLDivElement {
   return ghost;
 }
 
-export function KoreanBlockPlayer({
+function KoreanBlockPlayerInner({
   storybookId,
   gameData,
+  difficulty,
   onComplete: _onComplete,
   onBack,
 }: GamePlayerProps) {
@@ -198,6 +214,16 @@ export function KoreanBlockPlayer({
   const [roundCorrect, setRoundCorrect] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
   const [typedChars, setTypedChars] = useState(0);
+  const [hintActive, setHintActive] = useState(false);
+  const isPlaying = useTutorialIsPlaying();
+  const { glowCell } = useTutorialHighlight();
+  const handleHintStart = useCallback(() => {
+    if (hintActive || isPlaying) return;
+    setHintActive(true);
+  }, [hintActive, isPlaying]);
+  const handleHintEnd = useCallback(() => {
+    setHintActive(false);
+  }, []);
 
   const currentItem = items[currentIndex];
 
@@ -350,6 +376,7 @@ export function KoreanBlockPlayer({
               setHasTriedThisRound(false);
               setRoundCorrect(false);
               setIsWrong(false);
+              setHintActive(false);
             } else {
               setFinished(true);
             }
@@ -401,6 +428,7 @@ export function KoreanBlockPlayer({
     setRoundCorrect(false);
     setIsWrong(false);
     setGrid(initGrid());
+    setHintActive(false);
   }, [initGrid]);
 
   if (finished) {
@@ -480,6 +508,15 @@ export function KoreanBlockPlayer({
                 <span className="absolute -top-1 -right-1 text-xl sm:text-2xl">✨</span>
               </div>
             )}
+            {difficulty === 'easy' && (
+              <button
+                onClick={handleHintStart}
+                disabled={hintActive || isPlaying || roundCorrect}
+                className="px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.375rem,1.5vh,1rem)] rounded-full bg-gradient-to-b from-warn to-peach-500 text-white font-black text-[clamp(0.875rem,2vh,1.25rem)] shadow-pop hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shrink-0 whitespace-nowrap"
+              >
+                🪄 도와줘
+              </button>
+            )}
           </section>
 
           {/* 섹션 2 — 드롭존 + 확인/초기화 (한 카드) */}
@@ -517,20 +554,29 @@ export function KoreanBlockPlayer({
                         {char}
                       </span>
                     ) : null;
+                    const isGlowing =
+                      glowCell !== null && glowCell[0] === row && glowCell[1] === col;
                     return (
                       <div
                         key={cellKey}
+                        data-grid-cell={cellKey}
                         ref={drag.cellRef(cellKey)}
-                        onDragOver={drag.handleDragOver}
-                        onDrop={(e) => drag.handleDrop(cellKey, e, onPlace)}
-                        onClick={() => handleCellClick(row, col)}
+                        onDragOver={isPlaying ? undefined : drag.handleDragOver}
+                        onDrop={isPlaying ? undefined : (e) => drag.handleDrop(cellKey, e, onPlace)}
+                        onClick={() => !isPlaying && handleCellClick(row, col)}
                         className={cn(
                           'w-[clamp(2rem,5.5vh,4rem)] h-[clamp(2rem,5.5vh,4rem)]',
                           'rounded-2xl flex items-center justify-center select-none transition-all',
-                          char ? 'cursor-pointer' : 'cursor-default',
+                          isPlaying
+                            ? 'cursor-not-allowed'
+                            : char
+                              ? 'cursor-pointer'
+                              : 'cursor-default',
                           char
                             ? 'bg-white shadow-soft border-2 border-cream-50'
-                            : 'bg-peach-100/60 border-[3px] border-dashed border-peach-200 hover:border-coral-400 hover:bg-peach-100/80'
+                            : 'bg-peach-100/60 border-[3px] border-dashed border-peach-200',
+                          !isPlaying && !char && 'hover:border-coral-400 hover:bg-peach-100/80',
+                          isGlowing && 'ring-4 ring-coral-400 scale-110 bg-coral-50/80'
                         )}
                       >
                         {correct ? (
@@ -555,10 +601,10 @@ export function KoreanBlockPlayer({
             <div className="flex flex-col gap-[clamp(0.25rem,1vh,0.75rem)] shrink-0">
               <button
                 onClick={handleCheck}
-                disabled={roundCorrect}
+                disabled={roundCorrect || isPlaying}
                 className={cn(
                   'px-[clamp(1rem,2.5vw,2.5rem)] py-[clamp(0.5rem,2vh,1.5rem)] rounded-3xl text-[clamp(1.125rem,3vh,1.875rem)] font-black transition-all',
-                  roundCorrect
+                  roundCorrect || isPlaying
                     ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
                     : 'bg-gradient-to-b from-coral-400 to-coral-600 text-white shadow-pop hover:scale-105 active:scale-95'
                 )}
@@ -567,11 +613,11 @@ export function KoreanBlockPlayer({
               </button>
               <button
                 onClick={handleResetGrid}
-                disabled={roundCorrect}
+                disabled={roundCorrect || isPlaying}
                 title="블록 모두 비우기"
                 className={cn(
                   'px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.25rem,0.875vh,0.625rem)] rounded-2xl text-[clamp(0.75rem,1.875vh,1.125rem)] font-bold transition-all flex items-center justify-center gap-1.5',
-                  roundCorrect
+                  roundCorrect || isPlaying
                     ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
                     : 'bg-white/95 text-ink-700 shadow-soft hover:bg-white hover:scale-105 active:scale-95'
                 )}
@@ -597,7 +643,16 @@ export function KoreanBlockPlayer({
           </div>
         </div>
       </div>
+      <KoreanBlockTutorial word={currentItem.word} active={hintActive} onEnd={handleHintEnd} />
     </MobileLandscapeGate>
+  );
+}
+
+export function KoreanBlockPlayer(props: GamePlayerProps) {
+  return (
+    <TutorialProvider>
+      <KoreanBlockPlayerInner {...props} />
+    </TutorialProvider>
   );
 }
 
@@ -644,16 +699,33 @@ function BlockTile({
   onPlace: (key: string, block: JamoBlock) => void;
 }) {
   const vowel = isVowel(block.char);
+  const { popJamo } = useTutorialHighlight();
+  const isPlaying = useTutorialIsPlaying();
+  const popping = popJamo === block.char;
   return (
-    <div
-      draggable
-      onDragStart={(e) => drag.handleDragStart(block, e)}
-      onTouchStart={(e) => drag.handleTouchStart(block, e)}
-      onTouchMove={drag.handleTouchMove}
-      onTouchEnd={(e) => drag.handleTouchEnd(e, onPlace)}
+    <motion.div
+      data-jamo-tile={block.char}
+      draggable={!isPlaying}
+      // framer-motion 의 onDrag* 시그니처는 PanInfo 기반 → HTML5 DragEvent 와 충돌.
+      // 런타임은 정상 DragEvent 발생. 타입만 cast.
+      onDragStart={((e: ReactDragEvent) => !isPlaying && drag.handleDragStart(block, e)) as never}
+      onTouchStart={
+        ((e: ReactTouchEvent) => !isPlaying && drag.handleTouchStart(block, e)) as never
+      }
+      onTouchMove={drag.handleTouchMove as never}
+      onTouchEnd={((e: ReactTouchEvent) => !isPlaying && drag.handleTouchEnd(e, onPlace)) as never}
+      animate={
+        popping
+          ? { scale: [1, 1.3, 1.1, 1.15, 1.1], rotate: [0, -8, 6, -4, 0] }
+          : { scale: 1, rotate: 0 }
+      }
+      transition={{ duration: 0.5, ease: 'easeOut' }}
       className={cn(
-        'w-[clamp(1.75rem,4.5vh,3rem)] h-[clamp(1.75rem,4.5vh,3rem)] rounded-xl flex items-center justify-center font-black text-[clamp(0.75rem,2.5vh,1.5rem)] select-none cursor-grab',
-        'shadow-md transition-transform hover:scale-110 active:scale-95 active:cursor-grabbing',
+        'w-[clamp(1.75rem,4.5vh,3rem)] h-[clamp(1.75rem,4.5vh,3rem)] rounded-xl flex items-center justify-center font-black text-[clamp(0.75rem,2.5vh,1.5rem)] select-none',
+        isPlaying ? 'cursor-not-allowed' : 'cursor-grab',
+        !isPlaying && 'hover:scale-110 active:scale-95 active:cursor-grabbing',
+        'shadow-md transition-shadow',
+        popping && 'ring-4 ring-coral-300 shadow-pop',
         vowel
           ? 'bg-gradient-to-b from-coral-400 to-coral-600 text-white'
           : 'bg-gradient-to-b from-warn to-peach-500 text-white'
@@ -663,6 +735,6 @@ function BlockTile({
       }}
     >
       {block.char}
-    </div>
+    </motion.div>
   );
 }

@@ -220,12 +220,19 @@ export function RandomBlockGamePage({ lang }: Props) {
     setSeed((s) => s + 1);
   };
 
+  const levelToDifficulty: Record<Level, 'easy' | 'medium' | 'hard'> = {
+    L1: 'easy',
+    L2: 'medium',
+    L3: 'hard',
+  };
+  const difficulty = levelToDifficulty[level];
+
   if (lang === 'ko') {
     return (
       <KoreanBlockPlayer
         storybookId="__random_pool__"
         gameData={gameData}
-        difficulty="medium"
+        difficulty={difficulty}
         onComplete={handleComplete}
         onBack={handleBack}
       />
@@ -235,7 +242,7 @@ export function RandomBlockGamePage({ lang }: Props) {
     <EnglishBlockPlayer
       storybookId="__random_pool__"
       gameData={gameData}
-      difficulty="medium"
+      difficulty={difficulty}
       onComplete={handleComplete}
       onBack={handleBack}
     />
