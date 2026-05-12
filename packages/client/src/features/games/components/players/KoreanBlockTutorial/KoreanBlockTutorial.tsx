@@ -45,22 +45,24 @@ export function KoreanBlockTutorial({ word, active, onEnd }: KoreanBlockTutorial
   const { playAudio } = useGameAudio();
   const phaseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const stepsRef = useRef<CharStep[]>([]);
+  const startedRef = useRef(false);
 
-  // active=true 진입 시 intro 부터 시작
+  // active=true 로 전이 시 intro 시작 — 시퀀스가 끝나면 onEnd 가 active 를 false 로 만들 때까지
+  // startedRef 가 true 라 재진입 안 됨 (fade-out → idle 직후 active=true 잔존 시 무한루프 방지).
   useEffect(() => {
-    if (active && phase.kind === 'idle') {
+    if (active && !startedRef.current) {
+      startedRef.current = true;
       stepsRef.current = flattenLayout(planTutorialLayout(word));
       setIsPlaying(true);
       setPhase({ kind: 'intro' });
-    }
-    if (!active && phase.kind !== 'idle') {
-      // 외부에서 강제 종료 — cleanup
+    } else if (!active && startedRef.current) {
+      startedRef.current = false;
       if (phaseTimerRef.current) clearTimeout(phaseTimerRef.current);
       setHighlight({ popJamo: null, glowCell: null, arrowFromJamo: null, arrowToCell: null });
       setIsPlaying(false);
       setPhase({ kind: 'idle' });
     }
-  }, [active, phase.kind, word, setHighlight, setIsPlaying]);
+  }, [active, word, setHighlight, setIsPlaying]);
 
   // phase 전환 — 각 phase 마다 audio 재생 + highlight 갱신 + 다음 phase 예약
   useEffect(() => {
