@@ -15,6 +15,7 @@ import {
   sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy,
+  rectSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useStorybooks } from '@/features/storybook';
@@ -271,11 +272,11 @@ export default function LibraryMasterPage() {
                   >
                     <SortableContext
                       items={activeBooks.map((b) => b.id)}
-                      strategy={verticalListSortingStrategy}
+                      strategy={rectSortingStrategy}
                     >
-                      <div className="flex flex-col gap-2">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
                         {activeBooks.map((book, idx) => (
-                          <SortableBookRow
+                          <SortableBookCard
                             key={book.id}
                             book={book}
                             index={idx}
@@ -362,7 +363,7 @@ function SortableCategoryRow({
   );
 }
 
-function SortableBookRow({
+function SortableBookCard({
   book,
   index,
   onChangeCover,
@@ -377,7 +378,8 @@ function SortableBookRow({
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1,
+    opacity: isDragging ? 0.4 : 1,
+    zIndex: isDragging ? 10 : undefined,
   };
   const cover = pickCoverUrl(book);
   const styleCount = book.coversByStyle ? Object.keys(book.coversByStyle).length : 0;
@@ -385,41 +387,39 @@ function SortableBookRow({
     <div
       ref={setNodeRef}
       style={style}
-      className="flex items-center gap-3 p-2 rounded-xl bg-cream-50 hover:bg-cream-100 transition"
+      {...attributes}
+      {...listeners}
+      className="group relative rounded-2xl bg-cream-50 hover:bg-cream-100 transition cursor-grab active:cursor-grabbing overflow-hidden border-2 border-transparent hover:border-coral-300 select-none"
     >
-      <button
-        {...attributes}
-        {...listeners}
-        className="px-2 py-3 cursor-grab active:cursor-grabbing text-ink-400 hover:text-ink-700 text-lg"
-        aria-label="순서 변경"
-      >
-        ≡
-      </button>
-      <span className="w-8 text-center text-sm font-black text-ink-500 tabular-nums">
+      <span className="absolute top-2 left-2 z-10 bg-white/90 text-ink-900 text-xs font-black tabular-nums rounded-full w-7 h-7 flex items-center justify-center shadow-soft">
         {index + 1}
       </span>
-      <div className="w-16 h-20 rounded-lg overflow-hidden bg-peach-100 flex-shrink-0">
-        {cover ? (
-          <img src={cover} alt={book.title} className="w-full h-full object-cover" />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-2xl">📖</div>
-        )}
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="font-black text-ink-900 truncate">{book.title}</div>
-        <div className="text-xs text-ink-500 mt-0.5 flex items-center gap-2">
-          <span>그림체 {styleCount}종</span>
-          {book.artStyle && <span className="truncate max-w-[200px]">· {book.artStyle}</span>}
-        </div>
-      </div>
       <button
+        onPointerDown={(e) => e.stopPropagation()}
         onClick={onChangeCover}
         disabled={styleCount < 2}
-        className="px-3 py-2 rounded-lg bg-coral-100 text-coral-700 text-sm font-black hover:bg-coral-200 disabled:opacity-40 disabled:cursor-not-allowed transition flex-shrink-0"
+        className="absolute top-2 right-2 z-10 px-2 py-1 rounded-full bg-coral-500 text-white text-xs font-black shadow-soft hover:bg-coral-600 disabled:opacity-40 disabled:cursor-not-allowed"
         title={styleCount < 2 ? '그림체가 1종이라 변경 불가' : '메인 표지 변경'}
+        aria-label="메인 표지 변경"
       >
-        🎨 표지
+        🎨
       </button>
+      <div className="aspect-[3/4] bg-peach-100 overflow-hidden">
+        {cover ? (
+          <img
+            src={cover}
+            alt={book.title}
+            className="w-full h-full object-cover pointer-events-none"
+            draggable={false}
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-4xl">📖</div>
+        )}
+      </div>
+      <div className="px-2.5 py-2">
+        <div className="font-black text-ink-900 text-sm truncate">{book.title}</div>
+        <div className="text-[11px] text-ink-500 mt-0.5">그림체 {styleCount}종</div>
+      </div>
     </div>
   );
 }

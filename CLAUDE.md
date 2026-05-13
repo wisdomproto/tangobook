@@ -89,7 +89,7 @@ features/{name}/{api,hooks,components,index.ts}
 
 ## 라이브러리 마스터 (2026-05-10)
 - **`/library-master`** — 라이브러리 노출 순서 편집 페이지 (저작도구 진입점 only). TopBar 우상단 📁 자료실 ▾ dropdown 첫 항목 "📚 라이브러리 마스터". AppShell (학습자 화면) 에서는 노출 X.
-- 좌-우 split: 좌측 카테고리 DnD reorder + 우측 활성 카테고리 책 DnD reorder + 🎨 표지 변경 모달 (그림체별 표지 grid → 클릭 시 책 `defaultStyle` 변경). `@dnd-kit/sortable`. 변경 즉시 자동 저장.
+- 좌-우 split: 좌측 카테고리 DnD reorder (vertical list) + 우측 활성 카테고리 책 **grid 카드 DnD reorder** (반응형 2→3→4→5→6 column, `rectSortingStrategy`, 카드 = aspect-3/4 표지 + 좌상단 순서 chip + 우상단 🎨 표지 변경 chip — 카드 전체가 드래그 핸들) + 🎨 표지 변경 모달 (그림체별 표지 grid → 클릭 시 책 `defaultStyle` 변경). `@dnd-kit/sortable`. 변경 즉시 자동 저장.
 - 저장: `_index/library-config.json` (`LibraryConfig` shared type — `categoryOrder[]` + `bookPriority[cat] = string[]`). 서버 `GET/PUT /api/library-config`. LibraryPage 가 config 적용해서 카테고리/책 순서 정렬.
 
 ## 동일 title 동화책 차단 (2026-05-10)
