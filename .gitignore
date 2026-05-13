@@ -62,3 +62,6 @@ design/
 _*.json
 jack-*.json
 
+# .claude session backups
+.claude/backups/
+

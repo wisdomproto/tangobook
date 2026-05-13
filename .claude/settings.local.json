@@ -149,7 +149,14 @@
       "Bash(python3 -c ' *)",
       "Bash(node scripts/generate-pixar-3d-jack.mjs)",
       "Bash(git fetch *)",
-      "Bash(git log *)"
+      "Bash(git log *)",
+      "Bash(curl -s http://localhost:3500/api/storybooks/1772510956605)",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('/tmp/jack.json','utf8'\\)\\).data; console.log\\('pages:', d.pages?.length\\); console.log\\('pageNumbers:', d.pages?.map\\(p=>p.pageNumber\\)\\); console.log\\('artStyle:', d.artStyle\\); console.log\\('availableStyles:', d.availableStyles\\); console.log\\('styleAssets keys:', Object.keys\\(d.styleAssets||{}\\)\\); for\\(const k of Object.keys\\(d.styleAssets||{}\\)\\){const pi=d.styleAssets[k]?.pageIllustrations||{}; console.log\\(' '+k+' pageIllustrations keys:', Object.keys\\(pi\\)\\);}\")",
+      "Bash(curl -s http://localhost:3500/api/storybooks)",
+      "Bash(node packages/server/scripts/list-jack-illustrations.mjs)",
+      "Bash(node packages/server/scripts/check-r2-versioning.mjs)",
+      "Bash(node -e \"let s=''; process.stdin.on\\('data',c=>s+=c\\); process.stdin.on\\('end',\\(\\)=>{const d=JSON.parse\\(s\\).data; console.log\\('artStyle:', JSON.stringify\\(d.artStyle\\)\\);}\\);\")",
+      "Bash(cat C:/projects/tangobook/.claude/launch.json 2>&1)"
     ]
   },
   "hooks": {
