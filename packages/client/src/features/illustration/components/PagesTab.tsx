@@ -173,10 +173,28 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
   const handleDeletePage = useCallback(
     (pageIndex: number) => {
       onUpdate((draft) => {
+        const deletedPageNumber = pageIndex + 1;
         draft.pages.splice(pageIndex, 1);
         draft.pages.forEach((p, i) => {
           p.pageNumber = i + 1;
         });
+
+        // 다른 그림체들의 pageIllustrations 도 같이 cleanup + reindex
+        // (삭제된 pageNumber 는 drop, 그 위 번호들은 -1 shift) — 안 그러면
+        // 그림체 전환 시 옛 일러스트가 새 page slot 에 어긋나게 매핑됨.
+        if (draft.styleAssets) {
+          for (const style of Object.keys(draft.styleAssets)) {
+            const pi = draft.styleAssets[style]?.pageIllustrations;
+            if (!pi) continue;
+            const next: typeof pi = {};
+            for (const [key, value] of Object.entries(pi)) {
+              const n = Number(key);
+              if (!Number.isFinite(n) || n === deletedPageNumber) continue;
+              next[n > deletedPageNumber ? n - 1 : n] = value;
+            }
+            draft.styleAssets[style]!.pageIllustrations = next;
+          }
+        }
       });
       onSave();
     },
