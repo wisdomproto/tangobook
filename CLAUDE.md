@@ -158,3 +158,6 @@ pnpm --filter {server|client|shared} {dev|build|...}
 
 ## PRD 문서
 `docs/PRD_*.md` (Master / AuthorTool_Storybook / AuthorTool_Phonics / Viewer / Marketing / v2 / UIUX_AuthorTool)
+
+## 마케팅 자료 (2026-05-14)
+`docs/marketing/` — 네이버 검색광고 API 실측 키워드 분석 + ContentFlow 임포트용 전략 템플릿 생성 도구. `data/` 4,024개 키워드 스냅샷, `scripts/naver-keyword-research.mjs` 재실행 시 자격증명 `NAVER_AD_*` 환경변수 필요. `generate-contentflow-template.mjs` 는 contentflow1 앱의 `public/strategy-templates/` 에 임포트 가능한 HTML 합성.

@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>탱고북 마케팅 전략 — 실데이터 기반 6개월 플랜</title>
+<style>
+  :root {
+    --primary: #1a5f7a;
+    --primary-dark: #134252;
+    --accent: #e76f51;
+    --accent-light: #f4a261;
+    --gold: #f59e0b;
+    --bg: #fffbf5;
+    --bg-soft: #fef4e8;
+    --card: #ffffff;
+    --text: #1f2937;
+    --text-soft: #6b7280;
+    --border: #e5dbc7;
+    --low: #16a34a;
+    --mid: #ca8a04;
+    --high: #dc2626;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 64px 32px;
+    border-radius: 16px;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '🐯 🐰 🐭 🐮 🐉 🐍 🐴 🐑 🐵 🐔 🐶 🐷';
+    position: absolute; bottom: -20px; right: -10px;
+    font-size: 28px; opacity: 0.12; letter-spacing: 8px;
+  }
+  .hero .tag { display: inline-block; padding: 4px 12px; background: rgba(255,255,255,0.15); border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 16px; letter-spacing: 0.5px; }
+  .hero h1 { font-size: 38px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+  .hero .subtitle { font-size: 17px; opacity: 0.9; max-width: 760px; }
+  .hero .meta { margin-top: 24px; display: flex; gap: 24px; flex-wrap: wrap; font-size: 13px; opacity: 0.75; }
+  .hero .meta strong { color: var(--accent-light); }
+
+  /* TOC */
+  .toc {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 28px;
+    margin-bottom: 48px;
+  }
+  .toc h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); margin-bottom: 12px; }
+  .toc ol { list-style: none; counter-reset: toc; columns: 2; column-gap: 32px; }
+  .toc li { counter-increment: toc; padding: 4px 0; font-size: 14px; }
+  .toc li::before { content: counter(toc) "."; color: var(--accent); font-weight: 700; margin-right: 8px; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  /* SECTIONS */
+  section { margin-bottom: 64px; scroll-margin-top: 20px; }
+  h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  h2 .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--accent); color: white; font-size: 16px; font-weight: 800;
+  }
+  h3 { font-size: 20px; font-weight: 700; color: var(--primary-dark); margin: 24px 0 12px; }
+  h4 { font-size: 16px; font-weight: 700; color: var(--text); margin: 16px 0 8px; }
+  p { margin-bottom: 12px; }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 16px 0; }
+
+  /* KEY POINTS / TLDR */
+  .tldr {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-left: 5px solid var(--gold);
+    padding: 24px 28px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+  }
+  .tldr h3 { color: #78350f; margin-top: 0; }
+  .tldr ul { list-style: none; padding-left: 0; }
+  .tldr li { padding: 6px 0; padding-left: 26px; position: relative; }
+  .tldr li::before { content: '✦'; position: absolute; left: 0; color: var(--accent); font-weight: 800; }
+
+  /* TABLES */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 13.5px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  thead { background: var(--primary); color: white; }
+  th { padding: 12px 14px; text-align: left; font-weight: 600; font-size: 12.5px; letter-spacing: 0.3px; }
+  td { padding: 10px 14px; border-bottom: 1px solid #f1ede2; }
+  tbody tr:nth-child(even) { background: #fbf8f0; }
+  tbody tr:hover { background: var(--bg-soft); }
+  td.kw { font-weight: 600; color: var(--primary-dark); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+  .badge.low { background: #d1fae5; color: #065f46; }
+  .badge.mid { background: #fef3c7; color: #78350f; }
+  .badge.high { background: #fee2e2; color: #7f1d1d; }
+  .badge.gold { background: linear-gradient(90deg, #fbbf24, #f59e0b); color: white; box-shadow: 0 1px 2px rgba(245,158,11,0.3); }
+  .badge.intent { background: #dbeafe; color: #1e40af; }
+
+  /* GOLD HIGHLIGHT */
+  tr.gold-row { background: linear-gradient(90deg, #fef3c7 0%, #ffffff 30%) !important; }
+  tr.gold-row td.kw { color: #78350f; }
+  tr.gold-row td.kw::before { content: '🏆 '; }
+
+  /* STATS */
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 24px 0; }
+  .stat {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .stat .label { font-size: 12px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .stat .value { font-size: 30px; font-weight: 800; color: var(--primary); font-variant-numeric: tabular-nums; }
+  .stat .sub { font-size: 11px; color: var(--text-soft); margin-top: 4px; }
+
+  /* CALLOUTS */
+  .callout {
+    padding: 18px 24px;
+    border-radius: 10px;
+    margin: 16px 0;
+  }
+  .callout.warn { background: #fef2f2; border-left: 4px solid #ef4444; }
+  .callout.info { background: #eff6ff; border-left: 4px solid #3b82f6; }
+  .callout.success { background: #f0fdf4; border-left: 4px solid #16a34a; }
+  .callout strong { color: var(--primary-dark); }
+
+  /* PERSONAS */
+  .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .persona { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .persona .label { display: inline-block; padding: 2px 10px; background: var(--accent); color: white; border-radius: 12px; font-size: 11px; font-weight: 700; margin-bottom: 8px; }
+  .persona h4 { color: var(--primary-dark); margin-top: 4px; }
+  .persona ul { list-style: none; padding: 8px 0 0; font-size: 13px; }
+  .persona li { padding: 3px 0; padding-left: 18px; position: relative; }
+  .persona li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 32px; margin: 24px 0; }
+  .timeline::before { content: ''; position: absolute; left: 12px; top: 4px; bottom: 0; width: 3px; background: var(--accent-light); }
+  .phase { position: relative; margin-bottom: 24px; padding: 16px 20px; background: white; border-radius: 10px; border: 1px solid var(--border); }
+  .phase::before {
+    content: '';
+    position: absolute; left: -28px; top: 18px;
+    width: 16px; height: 16px;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+    border-radius: 50%;
+  }
+  .phase .phase-label { display: inline-block; padding: 2px 10px; background: var(--primary); color: white; border-radius: 12px; font-size: 11px; font-weight: 700; margin-bottom: 6px; }
+  .phase h4 { margin-top: 4px; color: var(--primary-dark); }
+  .phase ul { list-style: none; padding: 4px 0 0; }
+  .phase li { padding: 3px 0; padding-left: 20px; position: relative; font-size: 13.5px; }
+  .phase li::before { content: '☐'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+  /* CHANNELS */
+  .channel { display: flex; gap: 16px; padding: 16px; background: white; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; }
+  .channel .pct { background: var(--accent); color: white; width: 56px; height: 56px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; flex-shrink: 0; }
+  .channel .meta strong { display: block; color: var(--primary-dark); margin-bottom: 4px; font-size: 15px; }
+  .channel .meta small { color: var(--text-soft); font-size: 12.5px; }
+
+  /* FOOTER */
+  footer { text-align: center; color: var(--text-soft); padding: 32px 0; border-top: 1px solid var(--border); margin-top: 40px; font-size: 12.5px; }
+  footer a { color: var(--accent); }
+
+  @media (max-width: 768px) {
+    .toc ol { columns: 1; }
+    .hero h1 { font-size: 28px; }
+    h2 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="tag">MARKETING STRATEGY · DATA-DRIVEN</span>
+    <h1>탱고북 마케팅 전략 — 실데이터 기반 6개월 플랜</h1>
+    <p class="subtitle">한국 시장: 네이버 검색광고 API로 4,024개 키워드 실측. 글로벌 시장: Similarweb + Ahrefs 경쟁사 SEO 데이터. 추정이 아닌 데이터로 짠 오가닉·유료 통합 플레이북.</p>
+    <div class="meta">
+      <span><strong>발간일</strong> 2026-05-14</span>
+      <span><strong>대상 제품</strong> 탱고북 (4~8세 AI 동화책 + 한글/영어 파닉스)</span>
+      <span><strong>대상 시장</strong> 한국 1차, 영문권 확장</span>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <h3>📋 목차</h3>
+    <ol>
+      <li><a href="#tldr">한 페이지 요약 (TL;DR)</a></li>
+      <li><a href="#method">데이터 출처 & 방법론</a></li>
+      <li><a href="#kr-keywords">한국어 키워드 분석 (네이버 실데이터)</a></li>
+      <li><a href="#kr-gold">한국어 골드 키워드 TOP 20</a></li>
+      <li><a href="#en-keywords">영문 키워드 분석 (글로벌)</a></li>
+      <li><a href="#en-gold">영문 골드 키워드 TOP 15</a></li>
+      <li><a href="#positioning">포지셔닝 & 페르소나</a></li>
+      <li><a href="#organic">오가닉 전략</a></li>
+      <li><a href="#paid">유료 광고 전략</a></li>
+      <li><a href="#ip">IP 레버리지 (한글 숲 친구들)</a></li>
+      <li><a href="#roadmap">6개월 로드맵</a></li>
+      <li><a href="#kpi">KPI & 측정</a></li>
+      <li><a href="#actions">우선 액션 아이템</a></li>
+    </ol>
+  </nav>
+
+  <!-- TLDR -->
+  <section id="tldr">
+    <h2><span class="num">1</span>한 페이지 요약 (TL;DR)</h2>
+    <div class="tldr">
+      <h3>이번 분석에서 결정된 5가지</h3>
+      <ul>
+        <li><strong>"파닉스" 단어 정공법은 피해라</strong> — 검색량 8,120/월이지만 경쟁강도 "높음". 대신 <em>한글떼기·영어발음·5세책추천</em> 같은 보조 키워드가 진짜 골드.</li>
+        <li><strong>경쟁사 브랜드 검색량이 폭발적</strong> — 리딩게이트 41,700/월, 윙크 19,850/월, 핑크퐁 17,010/월. <em>"vs / 비교 / 단점 / 대안"</em> 콘텐츠로 흡수하는 게 최단거리.</li>
+        <li><strong>"영어발음" (7,590, 낮음)</strong> 같은 작은 단위 학습어가 골드 — 보조 키워드 클러스터로 트래픽 자산 빌딩.</li>
+        <li><strong>글로벌 진출 시 "alternative" 페이지가 최강</strong> — ABCmouse 76,000/월 (CPC $1.36), Starfall 134,000/월, Reading Eggs 19,000/월. <em>"abcmouse alternative"</em>가 최저 비용 고전환.</li>
+        <li><strong>AI 동화책 카테고리 신생 윈도우</strong> — Google Gemini Storybook 런칭(2025-08) 이후 급성장 중. 난이도 낮음. 지금 들어가야 1년 후 #1.</li>
+      </ul>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat"><div class="label">네이버 실측 키워드</div><div class="value">4,024</div><div class="sub">관련 1,942 / 골드 26</div></div>
+      <div class="stat"><div class="label">최대 단일 키워드</div><div class="value">41,700</div><div class="sub">리딩게이트 (경쟁사)</div></div>
+      <div class="stat"><div class="label">미국 교육 평균 CPC</div><div class="value">$6.23</div><div class="sub">WordStream 2025</div></div>
+      <div class="stat"><div class="label">권장 광고 1개월</div><div class="value">300만원</div><div class="sub">메타 60 · 네이버 25 · 구글 15</div></div>
+    </div>
+  </section>
+
+  <!-- METHOD -->
+  <section id="method">
+    <h2><span class="num">2</span>데이터 출처 & 방법론</h2>
+    <div class="card">
+      <h4>🇰🇷 한국어 데이터 (실측)</h4>
+      <p>네이버 검색광고 API <code>/keywordstool</code> 직접 호출 — 시드 79개 키워드 + 관련 키워드 발굴(includeHintKeywords=1)로 <strong>총 4,024개 고유 키워드의 PC/모바일 월간 검색량, 경쟁강도(낮음/중간/높음), 광고 평균 노출위치</strong>를 수집. 이후 우리 제품 관련 정규식 필터로 1,942개 추출 → 카테고리화 → 기회점수(검색량 × 경쟁 가중치) 산출.</p>
+
+      <h4>🌐 글로벌(영문) 데이터</h4>
+      <p>Similarweb 경쟁사 트래픽 인텔리전스 + Ahrefs 미러(ahrefstop.com) + WordStream 2025 Google Ads 벤치마크 + 시장보고서(AI 튜터링 시장). 경쟁사 브랜드 키워드는 verified 실데이터, 비브랜드 키워드 일부는 "no public data — 광고계정 키워드 플래너로 검증 필요"로 명시.</p>
+
+      <div class="callout warn">
+        <strong>⚠️ 가짜 데이터 0개 정책</strong> · 본 문서의 모든 검색량 수치는 출처가 명시된 실측값이다. 공개되지 않은 수치는 "데이터 없음" 또는 "추정"으로 표기. 보드/투자자 보고 시 그대로 활용 가능.
+      </div>
+    </div>
+  </section>
+
+  <!-- KR KEYWORDS -->
+  <section id="kr-keywords">
+    <h2><span class="num">3</span>한국어 키워드 분석 (네이버 실데이터)</h2>
+
+    <h3>📚 A. 파닉스 카테고리 — 정공법 어려움</h3>
+    <table>
+      <thead><tr><th>키워드</th><th class="num">PC</th><th class="num">모바일</th><th class="num">총 검색량</th><th>경쟁</th><th>판정</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">파닉스</td><td class="num">1,740</td><td class="num">6,380</td><td class="num">8,120</td><td><span class="badge high">높음</span></td><td>대형, 정공법 어려움</td></tr>
+        <tr><td class="kw">슈퍼파닉스한글</td><td class="num">660</td><td class="num">3,540</td><td class="num">4,200</td><td><span class="badge mid">중간</span></td><td>경쟁사 브랜드</td></tr>
+        <tr><td class="kw">스마트파닉스</td><td class="num">550</td><td class="num">1,910</td><td class="num">2,460</td><td><span class="badge high">높음</span></td><td>경쟁사 브랜드</td></tr>
+        <tr><td class="kw">파닉스교재</td><td class="num">380</td><td class="num">1,590</td><td class="num">1,970</td><td><span class="badge high">높음</span></td><td>도서 시장 충돌</td></tr>
+        <tr><td class="kw">PHONICS</td><td class="num">250</td><td class="num">1,340</td><td class="num">1,590</td><td><span class="badge high">높음</span></td><td>영문 키워드 혼재</td></tr>
+        <tr><td class="kw">파닉스발음</td><td class="num">140</td><td class="num">1,000</td><td class="num">1,140</td><td><span class="badge high">높음</span></td><td>정보탐색형</td></tr>
+        <tr><td class="kw">영어파닉스</td><td class="num">250</td><td class="num">820</td><td class="num">1,070</td><td><span class="badge high">높음</span></td><td>중복형</td></tr>
+        <tr><td class="kw">한글파닉스</td><td class="num">110</td><td class="num">480</td><td class="num">590</td><td><span class="badge high">높음</span></td><td>틈새 — 한글 차별점 어필</td></tr>
+        <tr><td class="kw">초등영어파닉스</td><td class="num">100</td><td class="num">240</td><td class="num">340</td><td><span class="badge high">높음</span></td><td>롱테일 SEO</td></tr>
+      </tbody>
+    </table>
+    <div class="callout info"><strong>인사이트</strong> · 파닉스 카테고리는 검색량은 있으나 모두 경쟁 "높음" + 경쟁사 브랜드와 도서 시장(YBM·길벗·천재 등)이 SERP를 장악. <strong>정공법 대신 "한글 파닉스" 같은 차별 포지션</strong>으로 진입하거나 광고비를 태우는 게 합리적.</div>
+
+    <h3>🇬🇧 B. 유아 영어 카테고리 — 보조 키워드가 골드</h3>
+    <table>
+      <thead><tr><th>키워드</th><th class="num">총 검색량</th><th>경쟁</th><th>판정</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">영어</td><td class="num">32,250</td><td><span class="badge low">낮음</span></td><td>의도 모호 — 패스</td></tr>
+        <tr><td class="kw">영어단어</td><td class="num">17,150</td><td><span class="badge high">높음</span></td><td>학습 도구 시장</td></tr>
+        <tr><td class="kw">영어공부혼자하기</td><td class="num">12,350</td><td><span class="badge high">높음</span></td><td>성인 위주</td></tr>
+        <tr><td class="kw">화상영어</td><td class="num">10,920</td><td><span class="badge mid">중간</span></td><td>인접 카테고리 — 비교 가능</td></tr>
+        <tr class="gold-row"><td class="kw">영어발음</td><td class="num">7,590</td><td><span class="badge low">낮음</span></td><td><span class="badge gold">GOLD</span> 의도 명확</td></tr>
+        <tr><td class="kw">영어도서관</td><td class="num">7,400</td><td><span class="badge high">높음</span></td><td>경쟁사 영역</td></tr>
+        <tr><td class="kw">영어유치원</td><td class="num">5,590</td><td><span class="badge high">높음</span></td><td>오프라인 의도</td></tr>
+        <tr><td class="kw">어린이화상영어</td><td class="num">3,640</td><td><span class="badge high">높음</span></td><td>인접 — 비교형 OK</td></tr>
+        <tr class="gold-row"><td class="kw">영어스펠링</td><td class="num">1,440</td><td><span class="badge low">낮음</span></td><td><span class="badge gold">GOLD</span> 파닉스 연계</td></tr>
+        <tr class="gold-row"><td class="kw">영어소문자</td><td class="num">1,000</td><td><span class="badge low">낮음</span></td><td><span class="badge gold">GOLD</span> 알파벳 진입</td></tr>
+        <tr><td class="kw">초등영어</td><td class="num">2,810</td><td><span class="badge high">높음</span></td><td>대형, 광고만</td></tr>
+      </tbody>
+    </table>
+
+    <h3>🇰🇷 C. 한글 학습 카테고리 — 한글떼기가 진정한 코어</h3>
+    <table>
+      <thead><tr><th>키워드</th><th class="num">총 검색량</th><th>경쟁</th><th>판정</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">한글맞춤법</td><td class="num">11,790</td><td><span class="badge high">높음</span></td><td>의도 다름 (성인용)</td></tr>
+        <tr class="gold-row"><td class="kw">한글사전</td><td class="num">2,990</td><td><span class="badge mid">중간</span></td><td><span class="badge gold">GOLD</span> 트래픽 자산</td></tr>
+        <tr><td class="kw">한글공부</td><td class="num">2,430</td><td><span class="badge high">높음</span></td><td>코어 키워드</td></tr>
+        <tr><td class="kw">한글자음</td><td class="num">2,370</td><td><span class="badge high">높음</span></td><td>학습 콘텐츠</td></tr>
+        <tr><td class="kw">한글자음모음</td><td class="num">2,090</td><td><span class="badge high">높음</span></td><td>학습 콘텐츠</td></tr>
+        <tr class="gold-row"><td class="kw">한글낱말카드</td><td class="num">1,600</td><td><span class="badge mid">중간</span></td><td><span class="badge gold">GOLD</span> 학부모 구매의도</td></tr>
+        <tr><td class="kw">5세한글공부</td><td class="num">1,090</td><td><span class="badge high">높음</span></td><td>연령별 — 의도 매우 명확</td></tr>
+        <tr><td class="kw">한글쓰기</td><td class="num">1,080</td><td><span class="badge high">높음</span></td><td>학습지 영역</td></tr>
+        <tr><td class="kw">한글학습지</td><td class="num">1,060</td><td><span class="badge high">높음</span></td><td>경쟁사 영역</td></tr>
+        <tr><td class="kw">한글떼기</td><td class="num">1,020</td><td><span class="badge high">높음</span></td><td>★ 의도 가장 명확 — 광고 최우선</td></tr>
+        <tr class="gold-row"><td class="kw">한글벽보</td><td class="num">980</td><td><span class="badge mid">중간</span></td><td><span class="badge gold">GOLD</span> 학부모 액션</td></tr>
+        <tr class="gold-row"><td class="kw">한글카드</td><td class="num">880</td><td><span class="badge mid">중간</span></td><td><span class="badge gold">GOLD</span> 학부모 구매</td></tr>
+        <tr><td class="kw">6세한글공부</td><td class="num">860</td><td><span class="badge high">높음</span></td><td>연령별</td></tr>
+      </tbody>
+    </table>
+
+    <h3>📖 D. 동화책 카테고리 — 모두 "높음", SEO 장기전</h3>
+    <table>
+      <thead><tr><th>키워드</th><th class="num">총 검색량</th><th>경쟁</th><th>판정</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">오디오북</td><td class="num">6,840</td><td><span class="badge high">높음</span></td><td>대형, 의도 명확</td></tr>
+        <tr><td class="kw">전래동화</td><td class="num">6,600</td><td><span class="badge high">높음</span></td><td>SEO 콘텐츠 허브</td></tr>
+        <tr><td class="kw">동화책</td><td class="num">6,270</td><td><span class="badge high">높음</span></td><td>코어, 장기 SEO</td></tr>
+        <tr><td class="kw">그림책</td><td class="num">3,420</td><td><span class="badge high">높음</span></td><td>코어, 장기 SEO</td></tr>
+        <tr><td class="kw">세계명작동화</td><td class="num">1,490</td><td><span class="badge high">높음</span></td><td>콘텐츠 매칭</td></tr>
+        <tr><td class="kw">아기동화책</td><td class="num">1,420</td><td><span class="badge high">높음</span></td><td>0~3세 — 우리 타겟 외</td></tr>
+        <tr><td class="kw">구연동화</td><td class="num">1,140</td><td><span class="badge high">높음</span></td><td>오디오 콘텐츠 매칭</td></tr>
+        <tr><td class="kw">어린이동화</td><td class="num">1,000</td><td><span class="badge high">높음</span></td><td>코어</td></tr>
+        <tr><td class="kw">그림책추천</td><td class="num">880</td><td><span class="badge high">높음</span></td><td>학부모 의도 명확</td></tr>
+        <tr><td class="kw">동화책추천</td><td class="num">820</td><td><span class="badge high">높음</span></td><td>학부모 의도 명확</td></tr>
+        <tr><td class="kw">동화책만들기</td><td class="num">820</td><td><span class="badge high">높음</span></td><td>★ AI 동화책 USP 완벽 매칭</td></tr>
+      </tbody>
+    </table>
+
+    <h3>🏢 E. 경쟁사 브랜드 — 최대 트래픽 흡수 기회</h3>
+    <table>
+      <thead><tr><th>키워드</th><th class="num">총 검색량</th><th>경쟁</th><th>활용 방법</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">리딩게이트</td><td class="num">41,700</td><td><span class="badge mid">중간</span></td><td>"리딩게이트 vs 탱고북" / "리딩게이트 가격 비교"</td></tr>
+        <tr><td class="kw">윙크</td><td class="num">19,850</td><td><span class="badge mid">중간</span></td><td>"윙크 학습지 단점" / 윙크 대안 페이지</td></tr>
+        <tr><td class="kw">핑크퐁</td><td class="num">17,010</td><td><span class="badge high">높음</span></td><td>"핑크퐁 학습 보완" / 캐릭터 IP 비교</td></tr>
+        <tr><td class="kw">리딩앤</td><td class="num">10,890</td><td><span class="badge mid">중간</span></td><td>"리딩앤 vs" / "리딩앤 가격"</td></tr>
+        <tr><td class="kw">윙크학습지</td><td class="num">4,570</td><td><span class="badge mid">중간</span></td><td>오프라인 학습지 대안</td></tr>
+        <tr><td class="kw">윙크무료체험</td><td class="num">1,190</td><td><span class="badge mid">중간</span></td><td>"탱고북 무료 체험"으로 흡수</td></tr>
+        <tr><td class="kw">윙크가격</td><td class="num">1,180</td><td><span class="badge mid">중간</span></td><td>가격 비교 페이지 직결</td></tr>
+        <tr><td class="kw">리딩에그</td><td class="num">1,170</td><td><span class="badge mid">중간</span></td><td>해외 인지 학부모 → 토종 대안</td></tr>
+        <tr><td class="kw">호두잉글리시</td><td class="num">1,120</td><td><span class="badge mid">중간</span></td><td>"호두잉글리시 vs 탱고북"</td></tr>
+        <tr><td class="kw">리딩게이트가격</td><td class="num">800</td><td><span class="badge mid">중간</span></td><td>가격 민감 학부모 흡수</td></tr>
+      </tbody>
+    </table>
+    <div class="callout success">
+      <strong>💎 핵심 발견</strong> · 경쟁사 브랜드 단독 검색량 합계 <strong>월 약 9.8만</strong>. 비교/대안 콘텐츠 10편으로 이 트래픽의 5%만 잡아도 월 4,900 방문 무료 확보. CPC 환산 시 매월 약 <strong>147만원~245만원 절약 효과</strong>. <span class="badge intent">최우선 액션</span>
+    </div>
+
+    <h3>👶 F. 연령별 키워드 — 의도 명확, 광고 ROI 최고</h3>
+    <table>
+      <thead><tr><th>키워드</th><th class="num">총 검색량</th><th>경쟁</th><th>판정</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">유치원</td><td class="num">14,100</td><td><span class="badge high">높음</span></td><td>의도 모호 — 패스</td></tr>
+        <tr><td class="kw">7세여아선물</td><td class="num">3,250</td><td><span class="badge high">높음</span></td><td>구매 시즌 (어린이날, 크리스마스)</td></tr>
+        <tr><td class="kw">7세남아선물</td><td class="num">2,360</td><td><span class="badge high">높음</span></td><td>구매 시즌</td></tr>
+        <tr><td class="kw">7세어린이날선물</td><td class="num">2,110</td><td><span class="badge high">높음</span></td><td>시즈널 광고</td></tr>
+        <tr><td class="kw">6세어린이날선물</td><td class="num">1,900</td><td><span class="badge high">높음</span></td><td>시즈널 광고</td></tr>
+        <tr><td class="kw">5세책추천</td><td class="num">730</td><td><span class="badge high">높음</span></td><td>★ 의도 100% — 광고 직격</td></tr>
+        <tr><td class="kw">6세책추천</td><td class="num">710</td><td><span class="badge high">높음</span></td><td>★ 의도 100% — 광고 직격</td></tr>
+        <tr><td class="kw">5세선물</td><td class="num">410</td><td><span class="badge high">높음</span></td><td>구매 시즌</td></tr>
+        <tr><td class="kw">7세전집</td><td class="num">280</td><td><span class="badge high">높음</span></td><td>도서 구매 의도</td></tr>
+        <tr><td class="kw">5세전집</td><td class="num">300</td><td><span class="badge high">높음</span></td><td>도서 구매 의도</td></tr>
+        <tr><td class="kw">4세책추천</td><td class="num">260</td><td><span class="badge high">높음</span></td><td>의도 명확</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- KR GOLD -->
+  <section id="kr-gold">
+    <h2><span class="num">4</span>🏆 한국어 골드 키워드 TOP 20 (광고 + SEO 우선순위)</h2>
+    <p>골드 키워드 = 월간 검색량 1,000+ AND 경쟁강도 "낮음~중간" AND 우리 제품과 의도 매칭. 기회점수 = 검색량 × 경쟁가중치 (낮음 1.0 / 중간 0.7 / 높음 0.4).</p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>키워드</th><th class="num">총 검색량</th><th>경쟁</th><th class="num">기회점수</th><th>추천 활용</th></tr>
+      </thead>
+      <tbody>
+        <tr class="gold-row"><td>1</td><td class="kw">영어발음</td><td class="num">7,590</td><td><span class="badge low">낮음</span></td><td class="num">7,590</td><td>파닉스 발음 가이드 콘텐츠 허브</td></tr>
+        <tr class="gold-row"><td>2</td><td class="kw">화상영어</td><td class="num">10,920</td><td><span class="badge mid">중간</span></td><td class="num">7,644</td><td>"화상영어 vs AI 영어" 비교 페이지</td></tr>
+        <tr class="gold-row"><td>3</td><td class="kw">여행영어</td><td class="num">3,100</td><td><span class="badge low">낮음</span></td><td class="num">3,100</td><td>가족 여행 영어 카드뉴스 시리즈</td></tr>
+        <tr class="gold-row"><td>4</td><td class="kw">한글사전</td><td class="num">2,990</td><td><span class="badge mid">중간</span></td><td class="num">2,093</td><td>한글 학습 도구 페이지</td></tr>
+        <tr class="gold-row"><td>5</td><td class="kw">오늘의영어단어</td><td class="num">2,510</td><td><span class="badge low">낮음</span></td><td class="num">2,510</td><td>"일일 영어" 콘텐츠 시리즈 (재방문 자산)</td></tr>
+        <tr class="gold-row"><td>6</td><td class="kw">키즈유튜브</td><td class="num">2,370</td><td><span class="badge mid">중간</span></td><td class="num">1,659</td><td>한글 숲 친구들 유튜브 채널 SEO</td></tr>
+        <tr class="gold-row"><td>7</td><td class="kw">한글낱말카드</td><td class="num">1,600</td><td><span class="badge mid">중간</span></td><td class="num">1,120</td><td>"한글 낱말카드 PDF 무료 다운로드" 리드마그넷</td></tr>
+        <tr class="gold-row"><td>8</td><td class="kw">영어스펠링</td><td class="num">1,440</td><td><span class="badge low">낮음</span></td><td class="num">1,440</td><td>파닉스→스펠링 연계 콘텐츠</td></tr>
+        <tr class="gold-row"><td>9</td><td class="kw">윙크무료체험</td><td class="num">1,190</td><td><span class="badge mid">중간</span></td><td class="num">833</td><td>"탱고북 무료 체험" 비교 페이지로 흡수</td></tr>
+        <tr class="gold-row"><td>10</td><td class="kw">윙크가격</td><td class="num">1,180</td><td><span class="badge mid">중간</span></td><td class="num">826</td><td>"학습지 vs 앱 가격 비교" 페이지</td></tr>
+        <tr class="gold-row"><td>11</td><td class="kw">리딩에그</td><td class="num">1,170</td><td><span class="badge mid">중간</span></td><td class="num">819</td><td>"리딩에그 한국 대안 = 탱고북" 페이지</td></tr>
+        <tr class="gold-row"><td>12</td><td class="kw">튼튼영어베이비리그</td><td class="num">1,170</td><td><span class="badge low">낮음</span></td><td class="num">1,170</td><td>인접 영유아 영어 → 4세+ 진입</td></tr>
+        <tr class="gold-row"><td>13</td><td class="kw">호두잉글리시</td><td class="num">1,120</td><td><span class="badge mid">중간</span></td><td class="num">784</td><td>"호두잉글리시 vs 탱고북" 핵심 비교</td></tr>
+        <tr class="gold-row"><td>14</td><td class="kw">영어낱말카드</td><td class="num">1,160</td><td><span class="badge mid">중간</span></td><td class="num">812</td><td>"PDF 무료 다운" 리드마그넷</td></tr>
+        <tr class="gold-row"><td>15</td><td class="kw">영어소문자</td><td class="num">1,000</td><td><span class="badge low">낮음</span></td><td class="num">1,000</td><td>알파벳 학습 시작점 콘텐츠</td></tr>
+        <tr><td>16</td><td class="kw">한글벽보</td><td class="num">980</td><td><span class="badge mid">중간</span></td><td class="num">686</td><td>한글벽보 무료 다운로드 (12지신 캐릭터 PDF)</td></tr>
+        <tr><td>17</td><td class="kw">한글카드</td><td class="num">880</td><td><span class="badge mid">중간</span></td><td class="num">616</td><td>한글 낱말카드와 함께 리드마그넷</td></tr>
+        <tr><td>18</td><td class="kw">슈퍼파닉스한글</td><td class="num">4,200</td><td><span class="badge mid">중간</span></td><td class="num">2,940</td><td>슈퍼파닉스 보유자 → 보완재 제안</td></tr>
+        <tr><td>19</td><td class="kw">눈높이영어</td><td class="num">1,550</td><td><span class="badge mid">중간</span></td><td class="num">1,085</td><td>오프라인 학습지 → 앱 전환 유도</td></tr>
+        <tr><td>20</td><td class="kw">한글떼기</td><td class="num">1,020</td><td><span class="badge high">높음</span></td><td class="num">408</td><td>경쟁 높지만 의도 100% — 광고 우선</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout info">
+      <strong>📐 적용 룰</strong> · 1~15번은 SEO 콘텐츠 + 광고 둘 다 가능. 16~20번은 의도 명확하지만 경쟁 높아 광고 우선. <strong>"한글떼기"</strong>는 검색량은 1,020에 불과하지만 학부모 구매여정의 시작점이라 광고비를 들여서라도 잡아야 함.
+    </div>
+  </section>
+
+  <!-- EN KEYWORDS -->
+  <section id="en-keywords">
+    <h2><span class="num">5</span>영문 키워드 분석 (글로벌 시장)</h2>
+
+    <h3>🌐 A. 경쟁사 브랜드 — 가장 신뢰도 높은 실데이터</h3>
+    <p>Similarweb과 Ahrefs는 경쟁사 사이트의 organic 키워드를 노출함. 아래 수치는 verified 실데이터.</p>
+    <table>
+      <thead>
+        <tr><th>키워드</th><th class="num">월간 검색량 (글로벌)</th><th class="num">CPC (USD)</th><th>지역</th><th>출처</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="kw">starfall</td><td class="num">134,000</td><td class="num">$0.30~0.50</td><td>~91% US</td><td>Ahrefs</td></tr>
+        <tr><td class="kw">abcmouse</td><td class="num">76,000</td><td class="num">$1.36</td><td>~87% US</td><td>Ahrefs</td></tr>
+        <tr><td class="kw">abc mouse</td><td class="num">39,000</td><td class="num">$2.17</td><td>~87% US</td><td>Ahrefs</td></tr>
+        <tr><td class="kw">reading eggs</td><td class="num">19,000</td><td class="num">$0.97</td><td>~44% US</td><td>Ahrefs</td></tr>
+        <tr><td class="kw">khan academy</td><td class="num">1,000,000+ (추정)</td><td class="num">$0.65</td><td>글로벌</td><td>Similarweb</td></tr>
+        <tr><td class="kw">khan academy kids</td><td class="num">데이터 없음</td><td class="num">$1.55</td><td>n/a</td><td>Similarweb</td></tr>
+        <tr><td class="kw">star fall</td><td class="num">9,300</td><td class="num">$0.30</td><td>n/a</td><td>Ahrefs</td></tr>
+        <tr><td class="kw">abcmouse login</td><td class="num">3,400</td><td class="num">$1~2</td><td>high US</td><td>Ahrefs</td></tr>
+        <tr><td class="kw">mathseeds</td><td class="num">2,800</td><td class="num">$0~1</td><td>n/a</td><td>Ahrefs</td></tr>
+        <tr><td class="kw">reading eggs login</td><td class="num">2,300</td><td class="num">$0.65</td><td>high US</td><td>Ahrefs</td></tr>
+        <tr><td class="kw">hooked on phonics</td><td class="num">데이터 없음 (상당함)</td><td class="num">$2.77</td><td>~76% US</td><td>Similarweb</td></tr>
+        <tr><td class="kw">lalilo</td><td class="num">데이터 없음</td><td class="num">$0.38</td><td>~69% US</td><td>Similarweb</td></tr>
+        <tr><td class="kw">lingokids</td><td class="num">데이터 없음</td><td class="num">$1.73</td><td>n/a</td><td>Similarweb</td></tr>
+        <tr><td class="kw">pinkfong</td><td class="num">데이터 없음</td><td class="num">$0.48</td><td>~22% US</td><td>Similarweb</td></tr>
+        <tr><td class="kw">homer</td><td class="num">데이터 없음 (감소)</td><td class="num">데이터 없음</td><td>n/a</td><td>Similarweb — 21.8K 방문/월, 쇠퇴 중</td></tr>
+      </tbody>
+    </table>
+    <div class="callout success">
+      <strong>💡 액션 인사이트</strong> · ABCmouse 단일 브랜드만 월 115K 검색 + 130만 방문(87% US). 브랜드 CPC가 <strong>$1.36밖에 안 됨</strong> → <em>"abcmouse alternative"</em>에 광고비를 태우면 매우 저렴한 고전환 학부모 트래픽 확보. Homer는 쇠퇴 중 → "Homer alternative" SEO 글 1개로 무방비 1위 가능.
+    </div>
+
+    <h3>🔍 B. 비브랜드 키워드 — 실측 가능한 것만</h3>
+    <table>
+      <thead><tr><th>키워드</th><th class="num">월간 검색량</th><th>난이도</th><th class="num">CPC</th><th>의도</th><th>출처</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">reading</td><td class="num">95,000</td><td><span class="badge high">매우 높음 (KD 70+)</span></td><td class="num">$1~2</td><td>혼합</td><td>Ahrefs</td></tr>
+        <tr><td class="kw">first grade sight words</td><td class="num">5,800</td><td><span class="badge mid">중간</span></td><td class="num">$1~3</td><td>정보</td><td>Ahrefs (ABCmouse #1)</td></tr>
+        <tr><td class="kw">1st grade sight words</td><td class="num">5,000</td><td><span class="badge mid">중간</span></td><td class="num">$1~3</td><td>정보</td><td>Ahrefs (ABCmouse #1)</td></tr>
+        <tr><td class="kw">learn to read</td><td class="num">4,800</td><td><span class="badge high">높음</span></td><td class="num">$4~7</td><td>혼합</td><td>Ahrefs (Starfall #1)</td></tr>
+        <tr><td class="kw">fast phonics</td><td class="num">900</td><td><span class="badge mid">낮음~중간</span></td><td class="num">$2~4</td><td>상업</td><td>Ahrefs (Reading Eggs #1, traffic 649 — 추격 가능)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>🤖 C. AI 키워드 — 신생 카테고리 윈도우</h3>
+    <div class="callout info">
+      <strong>시장 배경</strong> · Google Gemini Storybook이 <strong>2025년 8월</strong> 런칭되며 "AI bedtime stories", "AI storybook for kids", "personalized stories for kids" 검색이 급증 시작. AI 튜터링 시장 USD 3.7B → 6.45B (2030 예상, Mordor Intelligence). 전 세계 학생 AI 사용률 66% → 92%로 1년 새 폭증.
+      <br><br><strong>의미</strong> · 카테고리가 아직 #1 강자가 없음. 지금 들어가면 1년 후 자리잡을 수 있음. KD 낮음.
+    </div>
+    <table>
+      <thead><tr><th>키워드</th><th>상태</th><th class="num">CPC</th><th>판정</th></tr></thead>
+      <tbody>
+        <tr><td class="kw">AI storybook for kids</td><td>급성장 중, 데이터 없음</td><td class="num">$2~4</td><td>탱고북 포지셔닝 완벽 매칭</td></tr>
+        <tr><td class="kw">AI bedtime stories</td><td>급성장 중</td><td class="num">$2~4</td><td>감성 구매 트리거</td></tr>
+        <tr><td class="kw">AI storybook generator</td><td>신규 카테고리</td><td class="num">$2~4</td><td>SEO 선점 기회</td></tr>
+        <tr><td class="kw">personalized stories for kids</td><td>성장 중</td><td class="num">$2~4</td><td>AI 개인화 차별점</td></tr>
+        <tr><td class="kw">AI learning app for kids</td><td>성장 중</td><td class="num">$4~8</td><td>AI + 키즈 두 마리 토끼</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout warn">
+      <strong>📌 데이터 갭 메우는 법</strong> · 비브랜드 영문 키워드의 정확한 검색량을 얻으려면 (1) <a href="https://ahrefs.com/keyword-generator" target="_blank">Ahrefs Keyword Generator</a> 무료 (2) Google Keyword Planner — 광고 계정만 있으면 무료 (3) Keywords Everywhere ~$1.25/100K credits — 80개 키워드 일괄 검증 가능. <strong>광고 런칭 전 약 $30 + Ahrefs 1개월 trial $129 투자 권장</strong>.
+    </div>
+  </section>
+
+  <!-- EN GOLD -->
+  <section id="en-gold">
+    <h2><span class="num">6</span>🏆 영문 골드 키워드 TOP 15</h2>
+    <p>기준: (a) 검증된 실데이터, (b) 낮은~중간 난이도, (c) 명확한 상업 의도, (d) 탱고북 포지셔닝(AI 동화책 + 파닉스 + 4-8세) 매칭.</p>
+    <table>
+      <thead><tr><th>#</th><th>키워드</th><th class="num">월간량</th><th>난이도</th><th class="num">CPC</th><th>골드인 이유</th></tr></thead>
+      <tbody>
+        <tr class="gold-row"><td>1</td><td class="kw">abcmouse alternative</td><td class="num">~1K~5K (추정)</td><td><span class="badge low">낮음</span></td><td class="num">$2~4</td><td>ABCmouse 76K 브랜드량 → 이탈자 흡수, 매우 저렴한 CPC</td></tr>
+        <tr class="gold-row"><td>2</td><td class="kw">reading eggs alternative</td><td class="num">~500~2K (추정)</td><td><span class="badge low">낮음</span></td><td class="num">$1~3</td><td>Reading Eggs 19K 브랜드량, 이탈 의도 학부모</td></tr>
+        <tr class="gold-row"><td>3</td><td class="kw">homer reading alternative</td><td class="num">~200~1K (추정)</td><td><span class="badge low">매우 낮음</span></td><td class="num">$1~3</td><td>Homer 쇠퇴 중(21.8K방문/월만) — 무방비 SEO 1위 가능</td></tr>
+        <tr class="gold-row"><td>4</td><td class="kw">AI storybook for kids</td><td class="num">급성장</td><td><span class="badge low">낮음</span></td><td class="num">$2~4</td><td>탱고북 정체성 그 자체 — 신생 카테고리</td></tr>
+        <tr class="gold-row"><td>5</td><td class="kw">AI bedtime stories</td><td class="num">급성장</td><td><span class="badge low">낮음</span></td><td class="num">$2~4</td><td>학부모 감성 트리거 + 카테고리 신생</td></tr>
+        <tr class="gold-row"><td>6</td><td class="kw">personalized stories for kids</td><td class="num">성장 중</td><td><span class="badge low">낮음</span></td><td class="num">$2~4</td><td>AI 개인화 USP 정확히 매칭</td></tr>
+        <tr class="gold-row"><td>7</td><td class="kw">fast phonics</td><td class="num">900 ✓</td><td><span class="badge mid">낮음~중간</span></td><td class="num">$2~4</td><td>verified 실데이터, Reading Eggs 1위지만 트래픽 649 → 추격 가능</td></tr>
+        <tr class="gold-row"><td>8</td><td class="kw">best phonics app for 5 year old</td><td class="num">~200~1K</td><td><span class="badge low">낮음</span></td><td class="num">$5~8</td><td>최고 의도 롱테일, 5~7세 코어 타겟</td></tr>
+        <tr class="gold-row"><td>9</td><td class="kw">phonics app for kindergarten</td><td class="num">~200~800</td><td><span class="badge low">낮음</span></td><td class="num">$5~8</td><td>고의도 클러스터, 교육 평균 CPC $6.23</td></tr>
+        <tr class="gold-row"><td>10</td><td class="kw">learn to read app</td><td class="num">~1K~5K</td><td><span class="badge mid">중간</span></td><td class="num">$5~8</td><td>고상업의도, AI 앵글로 차별화 가능</td></tr>
+        <tr class="gold-row"><td>11</td><td class="kw">AI learning app for kids</td><td class="num">성장 중</td><td><span class="badge mid">낮음~중간</span></td><td class="num">$4~8</td><td>AI + 키즈 두 트렌드 동시 캐치</td></tr>
+        <tr class="gold-row"><td>12</td><td class="kw">first grade sight words</td><td class="num">5,800 ✓</td><td><span class="badge mid">중간</span></td><td class="num">$1~3</td><td>verified, 파닉스 깔때기 톱 (ABCmouse 1위)</td></tr>
+        <tr class="gold-row"><td>13</td><td class="kw">1st grade sight words</td><td class="num">5,000 ✓</td><td><span class="badge mid">중간</span></td><td class="num">$1~3</td><td>verified, #12과 합 11K 클러스터</td></tr>
+        <tr class="gold-row"><td>14</td><td class="kw">kindergarten reading</td><td class="num">~5K~15K (추정)</td><td><span class="badge mid">중간</span></td><td class="num">$2~4</td><td>정보→상업 깔때기 강함, 5세 학부모 코어</td></tr>
+        <tr class="gold-row"><td>15</td><td class="kw">lalilo alternative / lingokids alternative</td><td class="num">소량 고의도</td><td><span class="badge low">매우 낮음</span></td><td class="num">$0.50~2</td><td>경쟁사 CPC 자체가 매우 저렴 ($0.38, $1.73)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- POSITIONING -->
+  <section id="positioning">
+    <h2><span class="num">7</span>포지셔닝 & 페르소나</h2>
+
+    <h3>한 줄 포지셔닝</h3>
+    <div class="tldr">
+      <p style="font-size: 22px; font-weight: 700; color: var(--primary-dark); text-align: center; margin: 0;">"우리 아이가 주인공이 되는 AI 동화책 —<br>읽는 동시에 한글·영어 파닉스까지 잡는 단 하나의 앱"</p>
+    </div>
+
+    <h3>3개 핵심 메시지</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>① AI 맞춤 큐레이션</h4>
+        <p>아이의 약점을 분석해 다음 동화를 추천. <em>(vs 정해진 커리큘럼 학습지)</em></p>
+      </div>
+      <div class="card">
+        <h4>② 동화 ↔ 파닉스 자동 연계</h4>
+        <p>읽기에서 끝나지 않고 학습으로 — 단어가 자동으로 파닉스 게임. <em>(vs 단순 읽기앱)</em></p>
+      </div>
+      <div class="card">
+        <h4>③ 한글 숲 친구들 IP</h4>
+        <p>12지신 캐릭터 세계관으로 정서적 애착. <em>(vs 무미건조한 학습)</em></p>
+      </div>
+    </div>
+
+    <h3>타겟 페르소나</h3>
+    <div class="persona-grid">
+      <div class="persona">
+        <span class="label">🅐 영어 시작맘</span>
+        <h4>35~42세, 자녀 4~6세</h4>
+        <p style="font-size: 13px; color: var(--text-soft);">인스타·블로그 활발, 맘카페 참여</p>
+        <ul>
+          <li>페인: "언제 어떻게 영어 시작하지?"</li>
+          <li>채널: 인스타, 네이버 카페, 맘 블로그</li>
+          <li>키워드: 5세영어, 한글떼기, 영어시작</li>
+        </ul>
+      </div>
+      <div class="persona">
+        <span class="label">🅑 학습효율맘</span>
+        <h4>38~45세, 자녀 6~8세</h4>
+        <p style="font-size: 13px; color: var(--text-soft);">학습 결과·데이터 중시</p>
+        <ul>
+          <li>페인: "학습지·학원 vs 앱, 진짜 효과?"</li>
+          <li>채널: 네이버 검색, 유튜브 후기</li>
+          <li>키워드: 윙크가격, 호두잉글리시, 리딩앤</li>
+        </ul>
+      </div>
+      <div class="persona">
+        <span class="label">🅒 기관 원장</span>
+        <h4>유치원/공부방/어린이집 운영자</h4>
+        <p style="font-size: 13px; color: var(--text-soft);">B2B 의사결정자</p>
+        <ul>
+          <li>페인: "운영비 절감 + 차별화 콘텐츠"</li>
+          <li>채널: 박람회, 직접 영업, 링크드인</li>
+          <li>접근: 무료 시범 도입 + ROI 자료</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORGANIC -->
+  <section id="organic">
+    <h2><span class="num">8</span>오가닉 전략 (월 0~50만원, 3~6개월 누적)</h2>
+
+    <h3>A. 네이버 SEO 허브 — 최대 레버리지</h3>
+    <p>탱고북이 보유한 <strong>ContentFlow 자동 블로그 생성기 + 카드뉴스 생성기 + AI 동영상 생성기</strong>를 풀가동하면, 일반 스타트업이 월 1,000만원 들여야 할 콘텐츠 마케팅을 거의 0원으로 양산 가능. 이 격차가 6개월 후 무조건 승부처가 됨.</p>
+
+    <h4>📌 "파닉스 완전정복" SEO 콘텐츠 허브 — 6개월 50개 글</h4>
+    <table>
+      <thead><tr><th>유형</th><th>예시 글 (타겟 키워드)</th><th>편수</th></tr></thead>
+      <tbody>
+        <tr><td>기둥(Pillar)</td><td>"유아 파닉스 완벽 가이드" (5,000자, "파닉스" 8,120/월 타겟)</td><td>3</td></tr>
+        <tr><td>연령별 시리즈</td><td>4세/5세/6세/7세 영어/한글 시작법 (5세책추천 730, 6세책추천 710 등)</td><td>8</td></tr>
+        <tr><td>비교/대안</td><td>"리딩게이트 vs 탱고북" / "윙크 학습지 단점과 대안" / "호두잉글리시 vs"</td><td>10</td></tr>
+        <tr><td>리드마그넷</td><td>"한글 낱말카드 무료 PDF" (1,600/월), "영어 낱말카드" (1,160), "한글 벽보" (980)</td><td>5</td></tr>
+        <tr><td>골드 키워드 글</td><td>영어발음, 영어스펠링, 영어소문자, 한글사전, 한글떼기 각각 전용 글</td><td>10</td></tr>
+        <tr><td>롱테일</td><td>"파닉스 vs 사이트워드", "엄마표 영어 시작", "동화책 만들기"</td><td>14</td></tr>
+      </tbody>
+    </table>
+
+    <h4>📸 인스타그램 — 카드뉴스 + 릴스</h4>
+    <ul style="list-style: none; padding-left: 0;">
+      <li>• <strong>"엄마표 영어 5세 7일 플랜"</strong> 카드뉴스 시리즈 (ContentFlow 도구로 자동 생성)</li>
+      <li>• <strong>"한글 떼기 체크리스트"</strong> 카드뉴스 (한글떼기 1,020/월 타겟)</li>
+      <li>• <strong>"한글 숲 친구들 — 12지신 캐릭터 소개"</strong> 시리즈 (IP 빌딩)</li>
+      <li>• 릴스: 15초 동화책 미리보기, 학습 게임 플레이</li>
+      <li>• 목표: 6개월 내 팔로워 5,000+ (전환보다 신뢰자산)</li>
+    </ul>
+
+    <h4>📺 유튜브 — 가장 강력한 키즈 채널 (이미 동영상 생성 도구 보유)</h4>
+    <ul style="list-style: none; padding-left: 0;">
+      <li>• 한글 숲 친구들 캐릭터로 5~10분 동화 영상 자동 양산 (PRD_v2 도구)</li>
+      <li>• 채널명: "한글 숲 친구들" — 탱고북은 부제</li>
+      <li>• 주 2회 업로드, 3개월 후 광고 + 검색 유입 채널화</li>
+      <li>• 키워드 매칭: 키즈유튜브 2,370/월, 전래동화 6,600/월, 구연동화 1,140/월</li>
+    </ul>
+
+    <h4>👥 맘카페 + 블로거 체험단</h4>
+    <ul style="list-style: none; padding-left: 0;">
+      <li>• 베타 체험단 50명 모집 (자녀 4~7세) → 후기 자산 확보</li>
+      <li>• 협업 카페: 베이비로그, 맘스홀릭, 만남, 똑똑맘</li>
+      <li>• 블로거 50명에게 무료 1년 이용권 → 진정성 있는 후기 글 (네이버 SEO 부스트)</li>
+    </ul>
+  </section>
+
+  <!-- PAID -->
+  <section id="paid">
+    <h2><span class="num">9</span>유료 광고 전략 (월 200~500만원 권장)</h2>
+
+    <h3>채널별 비중</h3>
+    <div class="channel">
+      <div class="pct">60%</div>
+      <div class="meta">
+        <strong>메타 (인스타/페북)</strong>
+        <small>가장 강한 채널. 영상 광고 + 캐릭터 IP. 타겟: 4~8세 자녀 부모, 관심사 영어교육/육아/홈스쿨링. 광고 소재 5종 A/B (캐릭터 / USP 데모 / 학부모 리포트 화면 / 무료체험 5권 / 후기). 목표 가입 CAC 3,000~7,000원.</small>
+      </div>
+    </div>
+    <div class="channel">
+      <div class="pct">25%</div>
+      <div class="meta">
+        <strong>네이버 검색광고</strong>
+        <small>고의도 키워드 집중: <em>한글떼기, 5세책추천, 6세책추천, 윙크가격, 호두잉글리시</em>. 사이트 검색광고 + 파워컨텐츠로 블로그 글 노출. 키워드별 전용 LP 매칭 필수.</small>
+      </div>
+    </div>
+    <div class="channel">
+      <div class="pct">15%</div>
+      <div class="meta">
+        <strong>구글/유튜브 광고</strong>
+        <small>유튜브 인스트림 15초 캐릭터 광고 (키즈/육아 채널 대상). 구글 검색 영문 키워드(<em>abcmouse alternative, AI bedtime stories, fast phonics</em>)로 글로벌 테스트 시작. 디스커버리 광고로 저비용 인지도.</small>
+      </div>
+    </div>
+
+    <h3>월별 광고 비중 진화</h3>
+    <table>
+      <thead><tr><th>시기</th><th>메타</th><th>네이버</th><th>구글</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td>1~2개월 (학습)</td><td>80%</td><td>15%</td><td>5%</td><td>소재 A/B + 페르소나 검증</td></tr>
+        <tr><td>3~4개월 (성장)</td><td>60%</td><td>30%</td><td>10%</td><td>네이버 검색광고 본격 가동</td></tr>
+        <tr><td>5~6개월 (스케일)</td><td>50%</td><td>30%</td><td>20%</td><td>구글 영문 글로벌 테스트 증액</td></tr>
+      </tbody>
+    </table>
+
+    <h3>한국 광고 우선 키워드 (네이버 검색광고)</h3>
+    <div class="card">
+      <p><strong>Tier 1 (CPC 높지만 무조건 잡음)</strong>: 한글떼기, 5세책추천, 6세책추천, 윙크가격, 윙크무료체험, 호두잉글리시, 리딩에그, 리딩앤</p>
+      <p><strong>Tier 2 (낮은 CPC, 검색량 OK)</strong>: 영어발음, 영어스펠링, 영어소문자, 오늘의영어단어, 여행영어, 한글낱말카드, 한글벽보</p>
+      <p><strong>회피</strong>: "영어" (32K지만 의도 모호), "유치원" (14K지만 오프라인 의도), "한글맞춤법" (성인 의도)</p>
+    </div>
+
+    <h3>경제성 체크 — 단위 경제 (Unit Economics)</h3>
+    <div class="callout info">
+      <strong>모델</strong>: 탱고북 Premium 월 9,900원 × 평균 LTV 11개월 = ~10.9만원 LTV<br>
+      <strong>목표</strong>: 유료 전환 CAC ≤ 30,000원 (LTV/CAC ≥ 3.6배)<br>
+      <strong>가입→유료 전환율</strong> 5% 가정 시 → 가입 CAC ≤ 1,500원이 손익 분기. 현실적으로 가입 CAC 3,000~7,000원 정도로 들어옴.<br>
+      <strong>결론</strong>: 첫 달 무료 체험으로 가입 임계 낮추고, 7일~14일 활성화 게임화로 유료 전환율 5%+ 확보 필수.
+    </div>
+  </section>
+
+  <!-- IP -->
+  <section id="ip">
+    <h2><span class="num">10</span>IP 레버리지 — 한글 숲 친구들 (장기 무기)</h2>
+    <p>12지신 모티브 캐릭터 12명 (호돌이/Stripes, 깡충이/Hoppy, 용용이/Drako 등)은 다른 학습앱들이 갖지 못한 정서적 차별 자산. 다음과 같이 활용.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>🎁 캐릭터 굿즈</h4>
+        <p>한정 굿즈 출시 → 인스타 인플루언서 PPL. 친밀감 자산이 광고를 대체.</p>
+      </div>
+      <div class="card">
+        <h4>💬 카카오톡 이모티콘</h4>
+        <p>"호돌이 친구들" 이모티콘 발매. 매일 노출되는 무료 브랜드 미디어.</p>
+      </div>
+      <div class="card">
+        <h4>📺 유튜브 캐릭터 채널</h4>
+        <p>"한글 숲 친구들" 별도 채널 → 콘텐츠 IP 자산 + 광고 수익 + 앱 깔때기.</p>
+      </div>
+      <div class="card">
+        <h4>📚 실물 출판</h4>
+        <p>PRD에 명시된 선주문 기반 실물 출판 → 오프라인 서점 노출 + 미디어 신뢰성.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section id="roadmap">
+    <h2><span class="num">11</span>6개월 로드맵</h2>
+    <div class="timeline">
+      <div class="phase">
+        <span class="phase-label">PRE-LAUNCH · ~ T-0</span>
+        <h4>런칭 -2주: 신뢰 자산 + 인덱싱 시간 확보</h4>
+        <ul>
+          <li>사전예약 페이지 + 대기자 100명당 1명 무료 1년권 추첨</li>
+          <li>베타 체험단 50명 모집 (자녀 4~7세)</li>
+          <li>SEO 허브 콘텐츠 30개 사전 발행 — ContentFlow 도구로 일주일 양산</li>
+          <li>인스타 계정 활성화, 한글 숲 친구들 캐릭터 소개 시리즈 10개</li>
+          <li>유튜브 채널 개설 + 시드 영상 5개 (한글 숲 친구들 인트로)</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <span class="phase-label">MONTH 1 · 런칭</span>
+        <h4>메타 광고 가동 + PR + 매출 시드</h4>
+        <ul>
+          <li>메타 광고 일 5~10만원 시작, 소재 5종 A/B 테스트</li>
+          <li>PR: 플래텀, 비석세스, TechCrunch Korea에 보도자료</li>
+          <li>와디즈 펀딩 (얼리버드 50% 할인) → 1차 매출 + 입소문</li>
+          <li>카카오톡 채널 개설 + 친구 모집 이벤트 (캐릭터 이모티콘 미리보기)</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <span class="phase-label">MONTH 2~3 · 성장</span>
+        <h4>채널 확장 + B2B 영업 시작</h4>
+        <ul>
+          <li>네이버 검색광고 본격 가동 (월 100만원~), Tier 1 키워드 집중</li>
+          <li>인플루언서 협업: 육아맘 매크로 3명 + 마이크로 15명</li>
+          <li>유튜브 채널 본격 운영 (주 2회 업로드)</li>
+          <li>B2B 영업 시작: 유치원/어린이집 100곳 다이렉트 메일 + 무료 시범</li>
+          <li>SEO 콘텐츠 +20편 (비교/대안 시리즈 집중)</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <span class="phase-label">MONTH 4~6 · 스케일</span>
+        <h4>리텐션 + 추천 + 글로벌 준비</h4>
+        <ul>
+          <li>리텐션: 미완료 학습 리마인더, 주간 리포트 푸시, 7일 활성화 게임화</li>
+          <li>추천 프로그램: 친구 초대 시 양쪽 1개월 무료</li>
+          <li>글로벌 진출 준비: 영문 콘텐츠 30개 + "abcmouse/reading eggs alternative" 페이지</li>
+          <li>Reddit r/parenting, r/Mommit 커뮤니티 진입 (네이티브 영문 콘텐츠 마케터 협업)</li>
+          <li>한글 숲 친구들 굿즈 1차 출시 + 카카오톡 이모티콘 발매</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI -->
+  <section id="kpi">
+    <h2><span class="num">12</span>KPI & 측정</h2>
+    <table>
+      <thead><tr><th>단계</th><th>핵심 지표</th><th>1개월</th><th>3개월</th><th>6개월</th></tr></thead>
+      <tbody>
+        <tr><td>인지</td><td>브랜드 검색량 ("탱고북")</td><td class="num">200/월</td><td class="num">1,500/월</td><td class="num">5,000+/월</td></tr>
+        <tr><td>인지</td><td>네이버 SEO 인덱스 상위 노출 키워드 수</td><td class="num">5개</td><td class="num">20개</td><td class="num">50개+</td></tr>
+        <tr><td>획득</td><td>누적 가입자</td><td class="num">500</td><td class="num">2,500</td><td class="num">5,000+</td></tr>
+        <tr><td>획득</td><td>가입 CAC</td><td class="num">≤ 10,000원</td><td class="num">≤ 7,000원</td><td class="num">≤ 5,000원</td></tr>
+        <tr><td>활성</td><td>7일 리텐션</td><td class="num">30%</td><td class="num">35%</td><td class="num">40%+</td></tr>
+        <tr><td>수익</td><td>유료 전환율</td><td class="num">2%</td><td class="num">3.5%</td><td class="num">5%+</td></tr>
+        <tr><td>수익</td><td>MRR</td><td class="num">100만</td><td class="num">500만</td><td class="num">1,500만+</td></tr>
+        <tr><td>B2B</td><td>도입 기관 수</td><td class="num">2곳</td><td class="num">8곳</td><td class="num">20곳</td></tr>
+        <tr><td>콘텐츠</td><td>유튜브 구독자</td><td class="num">300</td><td class="num">2,000</td><td class="num">10,000+</td></tr>
+        <tr><td>콘텐츠</td><td>인스타 팔로워</td><td class="num">500</td><td class="num">2,500</td><td class="num">5,000+</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ACTIONS -->
+  <section id="actions">
+    <h2><span class="num">13</span>이번 주 안에 할 액션 아이템</h2>
+    <div class="phase">
+      <h4>🚨 우선순위 1 — 트래픽 흡수</h4>
+      <ul>
+        <li>경쟁사 비교 페이지 10편 슬롯 확보 (리딩게이트/윙크/호두잉글리시/리딩앤/리딩에그/핑크퐁 등) — ContentFlow 도구로 1일 1~2편 양산</li>
+        <li>"한글떼기 / 5세책추천 / 6세책추천" 광고 그룹 셋업 (네이버 검색광고)</li>
+        <li>리드마그넷 3종 PDF 디자인: 한글낱말카드, 영어낱말카드, 한글벽보 (12지신 캐릭터 적용)</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <h4>📈 우선순위 2 — 신생 카테고리 선점</h4>
+      <ul>
+        <li>"AI 동화책 만들기" / "AI bedtime stories" 영문/한글 글 각 1편 (탱고북 USP 콘텐츠)</li>
+        <li>유튜브 채널 "한글 숲 친구들" 개설 + 인트로 영상 1개 업로드</li>
+        <li>Ahrefs 1개월 trial 결제 ($129) — 영문 비브랜드 키워드 실측 데이터 확보</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <h4>🎯 우선순위 3 — 측정 인프라</h4>
+      <ul>
+        <li>GA4 + Meta Pixel + 네이버 프리미엄 로그 분석 설치</li>
+        <li>UTM 규칙 문서화 → 채널별 CAC 즉시 추적</li>
+        <li>키워드 순위 트래커 (Whatsmyserp 무료) — 50개 타겟 키워드 주간 모니터링</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>📊 데이터 기반 마케팅 전략 문서 · 탱고북 · 2026-05-14</p>
+    <p>네이버 검색광고 API 4,024개 키워드 실측 · Similarweb/Ahrefs 글로벌 데이터 · WordStream 2025 광고 벤치마크</p>
+    <p style="margin-top: 12px;">생성: Claude Code · 작업 디렉토리: contentflow1/.claude/worktrees/jovial-buck-f17851</p>
+  </footer>
+
+</div>
+</body>
+</html>
