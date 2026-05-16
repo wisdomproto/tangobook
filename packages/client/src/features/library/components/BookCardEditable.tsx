@@ -11,7 +11,13 @@ interface Props {
   onChangeCover: () => void;
   onChangeCategory: (next: string) => void;
   onTogglePublic: () => void;
+  selectedLang?: string;
 }
+
+const LANG_LABEL: Record<string, string> = {
+  ko: '한글',
+  en: '영어',
+};
 
 export function BookCardEditable({
   book,
@@ -21,6 +27,7 @@ export function BookCardEditable({
   onChangeCover,
   onChangeCategory,
   onTogglePublic,
+  selectedLang = 'ko',
 }: Props) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: book.id,
@@ -31,7 +38,11 @@ export function BookCardEditable({
     opacity: isDragging ? 0.4 : 1,
     zIndex: isDragging ? 10 : undefined,
   };
-  const cover = book.coverImage;
+  const langCover = book.coversByLang?.[selectedLang];
+  // ko 의 fallback 은 top-level coverImage (server 가 defaultStyle 우선해 채움)
+  const cover = langCover ?? (selectedLang === 'ko' ? book.coverImage : undefined);
+  const hasLangCover = !!langCover || (selectedLang === 'ko' && !!book.coverImage);
+  const langLabel = LANG_LABEL[selectedLang] ?? selectedLang;
   const styleCount = book.coversByStyle ? Object.keys(book.coversByStyle).length : 0;
   const isPublic = book.isPublic !== false;
   const currentCat = book.category || '기타';
@@ -93,7 +104,7 @@ export function BookCardEditable({
         </button>
       </div>
       <div className="aspect-[3/4] bg-peach-100 overflow-hidden">
-        {cover ? (
+        {hasLangCover && cover ? (
           <img
             src={cover}
             alt={book.title}
@@ -101,7 +112,10 @@ export function BookCardEditable({
             draggable={false}
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-4xl">📖</div>
+          <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-ink-100 text-ink-500">
+            <div className="text-4xl">📭</div>
+            <div className="text-xs font-black px-2 text-center">{langLabel} 표지 없음</div>
+          </div>
         )}
       </div>
       <div className="px-2.5 py-2">

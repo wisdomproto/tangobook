@@ -123,6 +123,7 @@ export default function LibraryMasterPage() {
   const [moveFromCat, setMoveFromCat] = useState<string | null>(null);
   const [progressText, setProgressText] = useState<string | null>(null);
   const [savedFlash, setSavedFlash] = useState(false);
+  const [selectedLang, setSelectedLang] = useState<string>('ko');
 
   const flashSaved = () => {
     setSavedFlash(true);
@@ -244,6 +245,23 @@ export default function LibraryMasterPage() {
             </h1>
           </div>
           <div className="flex items-center gap-3 text-sm">
+            <div className="flex items-center gap-1 bg-ink-100 rounded-full p-1">
+              {(['ko', 'en'] as const).map((lang) => (
+                <button
+                  key={lang}
+                  type="button"
+                  onClick={() => setSelectedLang(lang)}
+                  className={`px-3 py-1 rounded-full text-xs font-black transition ${
+                    selectedLang === lang
+                      ? 'bg-white text-ink-900 shadow-soft'
+                      : 'text-ink-500 hover:text-ink-700'
+                  }`}
+                  aria-pressed={selectedLang === lang}
+                >
+                  {lang === 'ko' ? '🇰🇷 한글' : '🇺🇸 영어'}
+                </button>
+              ))}
+            </div>
             {progressText && <span className="text-ink-600 font-bold">{progressText}</span>}
             {savedFlash && <span className="text-success font-black animate-pulse">✓ 저장됨</span>}
             {update.isPending && <span className="text-ink-500">저장 중...</span>}
@@ -307,6 +325,7 @@ export default function LibraryMasterPage() {
                               index={idx}
                               categories={categoryOrder}
                               emojiOf={emojiOf}
+                              selectedLang={selectedLang}
                               onChangeCover={() => setCoverModalBookId(book.id)}
                               onChangeCategory={(next) =>
                                 actions.setBookCategory(book.id, activeCat, next).then(flashSaved)

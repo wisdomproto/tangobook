@@ -956,6 +956,12 @@ export type StorybookSummary = Pick<
    */
   coversByStyle?: Record<string, string>;
   /**
+   * defaultStyle 기준 언어별 대표 표지 URL 맵 (ko/en 등).
+   * `/library-master` 의 언어 토글로 카드 표지 swap 에 사용.
+   * 키에 해당 언어 표지가 없으면 그 언어 표지가 "없음" 으로 처리.
+   */
+  coversByLang?: Record<string, string>;
+  /**
    * 한글 기본 콘텐츠 완성도 — 커리큘럼 마스터 페이지에서 ✅ 완성 여부 판단에 사용.
    * 모든 필드가 true 이면 `complete: true`. 부분 완성은 wip 으로 분류.
    */

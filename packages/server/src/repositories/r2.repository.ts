@@ -112,6 +112,18 @@ function toSummary(sb: Storybook): StorybookSummary {
 
   const coverImageOut = coversByStyle[targetStyle ?? ''] ?? sb.coverImage;
 
+  // defaultStyle 기준 언어별 대표 표지 — 라이브러리 마스터 언어 토글용
+  const coversByLang: Record<string, string> = {};
+  const targetStyleAssets = sb.styleAssets?.[targetStyle ?? ''];
+  for (const [lang, url] of Object.entries(targetStyleAssets?.primaryCoverByLang ?? {})) {
+    if (url) coversByLang[lang] = url;
+  }
+  if (targetStyle === sb.artStyle) {
+    for (const [lang, url] of Object.entries(sb.primaryCoverByLang ?? {})) {
+      if (url && !coversByLang[lang]) coversByLang[lang] = url;
+    }
+  }
+
   return {
     id: sb.id,
     title: sb.title,
@@ -124,6 +136,7 @@ function toSummary(sb: Storybook): StorybookSummary {
     createdAt: sb.createdAt,
     coverImage: coverImageOut,
     coversByStyle: Object.keys(coversByStyle).length > 0 ? coversByStyle : undefined,
+    coversByLang: Object.keys(coversByLang).length > 0 ? coversByLang : undefined,
     pageCount: pages.length,
     phonicsLanguage: sb.phonicsConfig?.language,
     hasVideo: hasAudiobookVideo || hasLongformVideo,
