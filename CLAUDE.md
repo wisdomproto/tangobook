@@ -93,6 +93,7 @@ features/{name}/{api,hooks,components,index.ts}
 - **Cross-context DnD**: 단일 `DndContext` 안에서 (카테고리 reorder / 책 reorder / 책 → 좌측 카테고리 row 드롭으로 카테고리 변경) 3종을 `onDragEnd` 분기. 카테고리 droppable id 는 `cat:` prefix.
 - **카테고리 CRUD**: 빈 카테고리만 즉시 삭제 가능. 책 있으면 `MoveBooksModal` 로 target 카테고리 선택 후 일괄 이동 + 카테고리 삭제. 이름 변경 = 그 카테고리의 모든 책 `category` 필드 일괄 patch (`useCategoryActions`).
 - **/library-master 만 비공개 책 표시** (편집 대상). 학습자 `/library` 는 기존처럼 isPublic=true 만 노출.
+- **언어 토글 (2026-05-16)**: 부제목 줄 우측 "표지 언어: [🇰🇷 한글][🇺🇸 영어]" chip → defaultStyle 기준 `coversByLang[lang]` 으로 카드 표지 swap. 해당 언어 표지 없으면 📭 placeholder + "한글/영어 표지 없음". 서버 `StorybookSummary.coversByLang` 신규 필드 (defaultStyle 의 `styleAssets.primaryCoverByLang` 추출, ko 는 top-level `primaryCoverByLang`/`coverImage` fallback).
 - **카테고리 (2026-05-16 재분류, 233권)**: 🌟 세계 명작 68 / 📜 전래 동화 14 / 🦕 공룡 친구들 24 / 🐛 곤충 친구들 18 / 🐯 육지 동물 친구들 46 / 🐬 바다 동물 친구들 18 / 🦅 하늘 동물 친구들 16 / 🌸 식물 친구들 18 / 🌌 우주와 자연 7 / 🫀 우리 몸 이야기 4. 마이그: `propose-recategorize.mjs` (룰 + 세계 명작/전래 동화 보호 + 수동 override) → `recategorize-proposal.json` 사람 검토 → `migrate-recategorize.mjs --apply` (R2 PutObject + library-config.json 갱신).
 - 저장: `_index/library-config.json` (`LibraryConfig` shared type — `categoryOrder[]` + `bookPriority[cat] = string[]` + `categoryList[]` 빈 카테고리 보관). 서버 `GET/PUT /api/library-config`. LibraryPage 가 config 적용해서 카테고리/책 순서 정렬 (빈 카테고리는 학습자 화면 자동 hide).
 
