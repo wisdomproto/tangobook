@@ -22,6 +22,9 @@ async function save(cfg: LibraryConfig): Promise<LibraryConfig> {
     categoryOrder: Array.isArray(cfg.categoryOrder)
       ? cfg.categoryOrder.filter((c) => typeof c === 'string')
       : undefined,
+    categoryList: Array.isArray(cfg.categoryList)
+      ? cfg.categoryList.filter((c) => typeof c === 'string')
+      : undefined,
     bookPriority: (() => {
       if (!cfg.bookPriority || typeof cfg.bookPriority !== 'object') return undefined;
       const out: Record<string, string[]> = {};

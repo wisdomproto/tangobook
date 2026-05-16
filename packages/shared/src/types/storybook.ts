@@ -1100,5 +1100,12 @@ export interface LibraryConfig {
    * 카테고리에 속한 책 중 list 에 없는 책은 createdAt desc 로 fallback append.
    */
   bookPriority?: Record<string, string[]>;
+  /**
+   * 존재 카테고리 set (빈 카테고리도 포함).
+   * 있으면 /library-master 좌측 패널의 source of truth — 책 0권인 카테고리도 표시.
+   * 없으면 책의 category 필드에서 derive (하위 호환).
+   * 학습자 /library 는 책 0권인 카테고리 자동 hide (기존 로직 그대로).
+   */
+  categoryList?: string[];
   updatedAt?: string;
 }
