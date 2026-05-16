@@ -1,13 +1,19 @@
 {
-  "generatedAt": "2026-05-16T08:56:06.852Z",
+  "generatedAt": "2026-05-16T10:32:45.599Z",
   "summary": {
     "totalBooks": 305,
     "byCategory": {
-      "세계 명작": 67,
-      "전래 동화": 5,
-      "기타": 108,
-      "자연 관찰": 53,
-      "": 1,
+      "세계 명작": 68,
+      "전래 동화": 14,
+      "곤충 친구들": 18,
+      "육지 동물 친구들": 46,
+      "바다 동물 친구들": 18,
+      "공룡 친구들": 24,
+      "우주와 자연": 7,
+      "기타": 1,
+      "하늘 동물 친구들": 16,
+      "식물 친구들": 18,
+      "우리 몸 이야기": 4,
       "영어 파닉스": 39,
       "한글 파닉스": 32
     }
@@ -755,39 +761,9 @@
       "pageCount": 10
     },
     {
-      "id": "1770187105683",
-      "title": "헨젤과 그레텔*",
-      "category": "",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["숲", "집", "빵", "조약돌", "별", "사탕"],
-      "pageCount": 15
-    },
-    {
-      "id": "1773149047331",
-      "title": "가시가 뾰족뾰족, 겁쟁이 고슴도치",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["숲", "햇살", "풀잎", "꽃", "가시", "겁먹은"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773554974102",
-      "title": "가을의 고소한 선물, 가시 껍질 속 알밤 밤나무",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["밤나무", "단풍잎", "밤송이", "나무", "밤", "껍질"],
-      "pageCount": 18
-    },
-    {
       "id": "1769018328001",
       "title": "개미와 베짱이",
-      "category": "기타",
+      "category": "곤충 친구들",
       "type": "storybook",
       "isPublic": false,
       "summary": "",
@@ -795,9 +771,189 @@
       "pageCount": 17
     },
     {
+      "id": "1773320381118",
+      "title": "붕붕붕 부지런한 일꾼, 꿀벌",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["벌집", "꿀", "바구니", "꿀벌", "털"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777603036535",
+      "title": "붕붕붕 부지런한 일꾼, 꿀벌-복사본(1)",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["벌집", "꿀", "바구니", "꿀벌", "털"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773320745960",
+      "title": "숲속의 멋진 그물 기술자, 거미",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["그물", "다리", "눈", "알"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773320359488",
+      "title": "숲속의 용감한 집게꾼, 사슴벌레",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["나무", "집게", "숲", "사슴벌레"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777607528952",
+      "title": "숲속의 용감한 집게꾼, 사슴벌레-복사본(1)",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["나무", "집게", "숲", "사슴벌레"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773320330311",
+      "title": "숲속의 천하장사, 멋쟁이 장수풍뎅이",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["뿔"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777607890313",
+      "title": "숲속의 천하장사, 멋쟁이 장수풍뎅이-복사본(1)",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["뿔"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773320242820",
+      "title": "알록달록 꽃밭의 요정, 호랑나비",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["꽃"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777603478247",
+      "title": "알록달록 꽃밭의 요정, 호랑나비-복사본(1)",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["꽃"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773320383771",
+      "title": "작지만 힘센 숲속의 일꾼, 개미",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["굴"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777605651238",
+      "title": "작지만 힘센 숲속의 일꾼, 개미-복사본(1)",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["굴"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773320834158",
+      "title": "집을 지고 다니는 느림보, 달팽이",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["집", "풀", "달팽이", "비", "껍데기", "더듬이"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777608802764",
+      "title": "집을 지고 다니는 느림보, 달팽이-복사본(1)",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["집", "풀", "달팽이", "비", "껍데기", "더듬이"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773320727431",
+      "title": "풀잎 위의 점박이 신사, 무당벌레",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["풀잎"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777606613092",
+      "title": "풀잎 위의 점박이 신사, 무당벌레-복사본(1)",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["풀잎"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773320387266",
+      "title": "하늘을 나는 멋진 비행사, 잠자리",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["하늘", "날개", "연못", "잠자리", "모기"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777607173325",
+      "title": "하늘을 나는 멋진 비행사, 잠자리-복사본(1)",
+      "category": "곤충 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["하늘", "날개", "연못", "잠자리", "모기"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773721368077",
+      "title": "강력한 갈고리발톱을 가진 사냥꾼, 바리오닉스",
+      "category": "공룡 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["발톱", "강", "물고기", "풀", "해", "바리오닉스"],
+      "pageCount": 19
+    },
+    {
       "id": "1773913303477",
       "title": "거대한 몸집과 날카로운 이빨을 가진 바다의 폭군, 모사사우루스",
-      "category": "기타",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": false,
       "summary": "",
@@ -805,39 +961,19 @@
       "pageCount": 18
     },
     {
-      "id": "1777447452009",
-      "title": "고슴도치",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["가시", "베리(열매)", "발", "잎(낙엽)"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773573591972",
-      "title": "곤충을 사냥하는 무서운 사냥꾼, 잎사귀 덫 파리지옥",
-      "category": "기타",
+      "id": "1773899653860",
+      "title": "기린만큼 거대한 하늘의 지배자, 케트살코아틀루스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["잎", "파리", "식물"],
-      "pageCount": 18
-    },
-    {
-      "id": "1772087872946",
-      "title": "금도끼 은도끼",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["쇠도끼", "금도끼", "은도끼", "연못", "지게", "금"],
-      "pageCount": 15
+      "keyObjectSample": ["공룡", "하늘", "날개", "숲", "강", "깃털"],
+      "pageCount": 19
     },
     {
       "id": "1773912904434",
       "title": "긴 꼬리와 마름모꼴 꼬리 날개를 가진 람포린쿠스",
-      "category": "기타",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": false,
       "summary": "",
@@ -847,7 +983,7 @@
     {
       "id": "1775011721445",
       "title": "긴 꼬리와 마름모꼴 꼬리 날개를 가진 람포린쿠스-복사본(1)",
-      "category": "기타",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": false,
       "summary": "",
@@ -855,189 +991,199 @@
       "pageCount": 18
     },
     {
-      "id": "1773711154702",
-      "title": "꼬리를 살랑살랑, 우리의 단짝 친구 강아지",
-      "category": "기타",
+      "id": "1773716818847",
+      "title": "남쪽 대륙의 거대한 지배자, 기가노토사우루스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["강아지"],
-      "pageCount": 18
+      "keyObjectSample": ["땅", "초원", "풀", "하늘", "돌", "공룡"],
+      "pageCount": 19
     },
     {
-      "id": "1773147030303",
-      "title": "꾀쟁이 붉은 털 여우",
-      "category": "기타",
+      "id": "1773896866516",
+      "title": "둥지에서 새끼를 돌보는 좋은 어머니, 마이아사우라",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["풀", "해", "토끼"],
-      "pageCount": 18
+      "keyObjectSample": ["둥지", "알", "공룡", "입", "볏"],
+      "pageCount": 19
     },
     {
-      "id": "1773625335362",
-      "title": "꾸르륵 쑥쑥, 맛있는 음식의 몸속 여행",
-      "category": "기타",
+      "id": "1773891332232",
+      "title": "등에 거대한 뼈판을 가진 지붕 도마뱀, 스테고사우루스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["밥", "숟가락", "식탁", "그릇", "음식", "주방"],
-      "pageCount": 18
+      "keyObjectSample": ["풀", "판", "꼬리", "가시"],
+      "pageCount": 19
     },
     {
-      "id": "1773149054669",
-      "title": "나무 위의 사냥꾼, 용맹한 표범",
-      "category": "기타",
+      "id": "1773728551576",
+      "title": "땅을 울리는 거대한 걸음, 아파토사우루스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["숲", "나무", "사냥꾼", "표범", "용감한"],
-      "pageCount": 18
+      "keyObjectSample": ["숲", "나무", "잎"],
+      "pageCount": 19
     },
     {
-      "id": "1773618909980",
-      "title": "내 몸속 신비한 지도, 뼈와 근육 이야기",
-      "category": "기타",
+      "id": "1773739068170",
+      "title": "머리 위에 악기를 가진 공룡, 파라사우롤로푸스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["장난감", "뼈", "해골"],
-      "pageCount": 18
+      "keyObjectSample": ["나팔", "숲", "공룡", "해", "볏", "주둥이"],
+      "pageCount": 19
     },
     {
-      "id": "1773710246892",
-      "title": "내 몸의 똑똑한 대장님, 뇌와 심장 이야기",
-      "category": "기타",
+      "id": "1773739930242",
+      "title": "머리 위에 화려한 왕관을 쓴 공룡, 스티라코사우루스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["뇌", "심장", "몸"],
-      "pageCount": 18
+      "keyObjectSample": ["숲", "왕관"],
+      "pageCount": 19
     },
     {
-      "id": "1773365183265",
-      "title": "노란 꽃에서 하얀 솜털까지, 바람을 타는 여행자 민들레",
-      "category": "기타",
+      "id": "1773895602678",
+      "title": "머리에 단단한 돔을 가진 공룡, 파키케팔로사우루스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["민들레", "초원", "꿀벌"],
-      "pageCount": 18
+      "keyObjectSample": ["숲", "모자", "공룡"],
+      "pageCount": 19
     },
     {
-      "id": "1777446759568",
-      "title": "늑대",
-      "category": "기타",
+      "id": "1773720828930",
+      "title": "물속을 누비는 거대한 가시 도마뱀, 스피노사우루스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["눈", "달"],
-      "pageCount": 18
+      "keyObjectSample": ["강", "물고기", "물", "돛"],
+      "pageCount": 19
     },
     {
-      "id": "1777442353908",
-      "title": "다람쥐",
-      "category": "기타",
+      "id": "1773714531390",
+      "title": "백악기의 제왕, 티라노사우루스 렉스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["도토리", "나무", "꼬리"],
-      "pageCount": 18
+      "keyObjectSample": ["숲", "고사리", "야자수", "이빨", "나뭇잎", "공룡"],
+      "pageCount": 19
     },
     {
-      "id": "1773411238317",
-      "title": "달과 별자리",
-      "category": "기타",
+      "id": "1773740757966",
+      "title": "뿔은 없지만 용감한 사막의 거북이, 프로토케라톱스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["별", "하늘", "북극성", "은하수", "망원경", "별똥별"],
-      "pageCount": 18
+      "keyObjectSample": ["사막", "발자국", "해", "뿔", "프릴"],
+      "pageCount": 19
     },
     {
-      "id": "1773561705472",
-      "title": "달콤한 보랏빛 송이, 덩굴 따라 자라는 포도나무",
-      "category": "기타",
+      "id": "1773739549787",
+      "title": "세 개의 뿔을 가진 무적의 방패, 트리케라톱스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["포도", "밭", "덩굴"],
-      "pageCount": 18
+      "keyObjectSample": ["숲", "뿔", "방패", "트리케라톱스", "프릴"],
+      "pageCount": 19
     },
     {
-      "id": "1773145975258",
-      "title": "덩치가 커다란 털보, 곰-1",
-      "category": "기타",
+      "id": "1773728963112",
+      "title": "세상에서 가장 긴 꼬리를 가진 거인, 디플로도쿠스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["꿀", "나무", "꽃", "곰", "숲", "아침"],
-      "pageCount": 18
+      "keyObjectSample": ["꼬리", "숲", "풀"],
+      "pageCount": 19
     },
     {
-      "id": "1777447639750",
-      "title": "두더지",
-      "category": "기타",
+      "id": "1773715178666",
+      "title": "아시아의 거대 폭군, 타르보사우루스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["흙", "지렁이"],
-      "pageCount": 18
+      "keyObjectSample": ["땅", "숲"],
+      "pageCount": 19
     },
     {
-      "id": "1773309810284",
-      "title": "뒤뚱뒤뚱 귀여운 수영 선수, 오리",
-      "category": "기타",
+      "id": "1773898487865",
+      "title": "엄지손가락에 날카로운 가시를 가진 전사, 이구아노돈",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["깃털", "숲"],
-      "pageCount": 18
+      "keyObjectSample": ["잎", "가시", "손가락", "숲", "공룡"],
+      "pageCount": 19
     },
     {
-      "id": "1777602265786",
-      "title": "뒤뚱뒤뚱 귀여운 수영 선수, 오리-복사본(1)",
-      "category": "기타",
+      "id": "1773885810321",
+      "title": "온몸을 단단한 갑옷으로 두른 전차, 안킬로사우루스",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["깃털", "숲", "앵무새"],
-      "pageCount": 18
+      "keyObjectSample": ["갑옷", "곤봉", "숲", "고사리", "공룡", "꼬리"],
+      "pageCount": 19
     },
     {
-      "id": "1773149152097",
-      "title": "땅속의 굴착기, 부지런한 두더지",
-      "category": "기타",
+      "id": "1773899014599",
+      "title": "이빨 없는 부리와 거대한 날개를 가진 하늘의 주인, 프테라노돈",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["흙", "굴", "앞발", "두더지", "바쁜", "땅속"],
-      "pageCount": 18
+      "keyObjectSample": ["물고기", "부리", "날개", "하늘", "바다", "볏"],
+      "pageCount": 19
     },
     {
-      "id": "1773410319697",
-      "title": "뜨거운 사막의 가시투성이 파수꾼, 물을 품은 선인장",
-      "category": "기타",
+      "id": "1769685907992",
+      "title": "자연관찰_공룡",
+      "category": "공룡 친구들",
       "type": "storybook",
-      "isPublic": true,
+      "isPublic": false,
       "summary": "",
-      "keyObjectSample": ["선인장", "태양"],
-      "pageCount": 18
+      "keyObjectSample": ["공룡", "책", "숲", "잎", "뿔", "꼬리"],
+      "pageCount": 13
     },
     {
-      "id": "1773363966902",
-      "title": "마음대로 색을 바꾸는 신비로운 숲속의 마법사, 카멜레온",
-      "category": "기타",
+      "id": "1773720291702",
+      "title": "작지만 날렵한 사냥꾼, 벨로키라프토르",
+      "category": "공룡 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["숲", "잎", "꽃", "카멜레온", "마법사"],
-      "pageCount": 18
+      "keyObjectSample": ["숲", "깃털", "발톱", "꼬리"],
+      "pageCount": 19
+    },
+    {
+      "id": "1773728203238",
+      "title": "하늘에 닿을 듯 키가 큰 거인, 브라키오사우루스",
+      "category": "공룡 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["숲", "나뭇잎", "나무", "나뭇가지", "풀", "공룡"],
+      "pageCount": 19
     },
     {
       "id": "1773316338449",
       "title": "말미잘의 친구, 용감한 흰동가리",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1047,7 +1193,7 @@
     {
       "id": "1777613940158",
       "title": "말미잘의 친구, 용감한 흰동가리-복사본(1)",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1055,39 +1201,19 @@
       "pageCount": 18
     },
     {
-      "id": "1773144447799",
-      "title": "목이 길쭉길쭉, 키다리 기린-1",
-      "category": "기타",
+      "id": "1777431036899",
+      "title": "바다의 수영 선수, 날렵한 물개",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["숲", "나무", "나뭇잎", "기린"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773363964024",
-      "title": "물과 육지를 오가는 폴짝폴짝 점프 대장, 개구리",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["연못", "연잎", "물", "풀", "흙", "돌"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777550146108",
-      "title": "물과 육지를 오가는 폴짝폴짝 점프 대장, 개구리-복사본(1)",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["연못", "연잎", "물", "풀", "흙", "돌"],
+      "keyObjectSample": ["바다", "해변", "얼음"],
       "pageCount": 18
     },
     {
       "id": "1773316826980",
       "title": "바다의 순례자, 기나긴 여행을 떠나는 바다거북",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1097,7 +1223,7 @@
     {
       "id": "1777614294799",
       "title": "바다의 순례자, 기나긴 여행을 떠나는 바다거북-복사본(1)",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1107,7 +1233,7 @@
     {
       "id": "1773316332439",
       "title": "바다의 작은 말, 신비로운 해마",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1117,7 +1243,7 @@
     {
       "id": "1777613665299",
       "title": "바다의 작은 말, 신비로운 해마-복사본(1)",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1125,29 +1251,9 @@
       "pageCount": 18
     },
     {
-      "id": "1773309590995",
-      "title": "밤의 소리 없는 사냥꾼, 올빼미",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["해"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777554948840",
-      "title": "밤의 소리 없는 사냥꾼, 올빼미-복사본(1)",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["해"],
-      "pageCount": 18
-    },
-    {
       "id": "1773316317269",
       "title": "변신의 천재, 바다의 지략가 문어",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1157,7 +1263,7 @@
     {
       "id": "1777613050117",
       "title": "변신의 천재, 바다의 지략가 문어-복사본(1)",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1165,309 +1271,9 @@
       "pageCount": 18
     },
     {
-      "id": "1773363967982",
-      "title": "변신의 천재이자 숲속의 빠른 달리기 선수, 도마뱀",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["나뭇잎", "나비", "도마뱀", "숲"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777595277759",
-      "title": "변신의 천재이자 숲속의 빠른 달리기 선수, 도마뱀-복사본(1)",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["나뭇잎", "나비", "도마뱀", "숲"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773624474088",
-      "title": "보이지 않는 작은 세상, 유산균과 바이러스",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["몸", "유산균", "바이러스"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773148853874",
-      "title": "볼이 빵빵, 부지런한 다람쥐",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["도토리", "나무", "햇살", "다람쥐"],
-      "pageCount": 18
-    },
-    {
-      "id": "1772095488138",
-      "title": "북풍과 태양",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["구름", "산", "외투", "꽃", "모자", "나비"],
-      "pageCount": 15
-    },
-    {
-      "id": "1773615711742",
-      "title": "불을 뿜는 산 화산과 꿈틀대는 땅 지진의 대결",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["산", "화산", "땅", "불"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773616999841",
-      "title": "불타는 모래의 땅 사막과, 얼음의 나라 극지방의 신비",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["사막", "모래"],
-      "pageCount": 18
-    },
-    {
-      "id": "1770178097150",
-      "title": "브레멘 음악대-1",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["짐가방", "오두막집", "창문", "식탁", "등불", "금화"],
-      "pageCount": 12
-    },
-    {
-      "id": "1770209480564",
-      "title": "빨간 모자 소녀*",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["모자", "마을", "숲", "바구니", "빵", "꽃"],
-      "pageCount": 15
-    },
-    {
-      "id": "1778476961082",
-      "title": "빨간모자(new)",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": [],
-      "pageCount": 15
-    },
-    {
-      "id": "1773713269796",
-      "title": "살금살금 유연하고 영리한 친구, 고양이",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["털실"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773365186209",
-      "title": "살랑살랑 강아지 꼬리를 닮은 들판의 친구, 강아지풀",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["강아지풀", "꽃", "들판", "꼬리", "씨앗", "잎"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773562222515",
-      "title": "새콤달콤한 빨간 유혹, 땅 위에서 자라는 딸기",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["딸기", "풀", "꽃", "땅", "밭", "잎"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773554053356",
-      "title": "새콤달콤한 선물, 주렁주렁 열매 맺는 사과나무",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["사과", "사과나무", "길", "나무", "줄기", "잎"],
-      "pageCount": 18
-    },
-    {
-      "id": "1772107339900",
-      "title": "성냥갑 병정",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["상자", "병정", "인형", "성", "배", "물쥐"],
-      "pageCount": 15
-    },
-    {
-      "id": "1769517091121",
-      "title": "성냥팔이 소녀 (The Little Match Girl) (0127)",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["성냥", "눈", "길", "창문", "난로", "음식"],
-      "pageCount": 15
-    },
-    {
-      "id": "1773149150978",
-      "title": "세상에서 가장 빠른 달리기 대장, 치타",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["나무", "활", "화살", "부츠", "배낭", "사냥꾼"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773309787274",
-      "title": "세상에서 가장 큰 새, 달리기 대장 타조",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["들판", "깃털", "햇볕", "바람", "타조", "빠른"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777600332199",
-      "title": "세상에서 가장 큰 새, 달리기 대장 타조-복사본(1)",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["들판", "깃털", "타조", "날개", "다리", "초원"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773365188031",
-      "title": "세상에서 가장 화려한 꽃, 향기로운 정원의 여왕 장미",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["장미", "정원", "꿀벌", "꽃", "줄기"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773363971764",
-      "title": "소리 없이 스르륵, 숲속의 신비로운 사냥꾼, 뱀",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["숲", "나뭇잎", "나뭇가지", "돌", "개구리", "뱀"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773576314846",
-      "title": "숲속에 핀 신비로운 우산, 겹겹이 비밀을 간직한 버섯",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["버섯", "이슬방울", "숲"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773309784022",
-      "title": "숲속의 부지런한 목수, 딱따구리",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["나무", "집", "딱따구리", "숲"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777598658063",
-      "title": "숲속의 부지런한 목수, 딱따구리-복사본(1)",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["나무", "집", "딱따구리", "숲"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773365186834",
-      "title": "아침을 알리는 보랏빛 노래, 담장 위의 연주자 나팔꽃",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["담장", "꽃", "씨앗"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773309795799",
-      "title": "알록달록 말하는 재주꾼, 앵무새",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["연못", "꽃", "물", "햇살", "풀밭", "리본"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777601011770",
-      "title": "알록달록 말하는 재주꾼, 앵무새-복사본(1)",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["연못", "꽃", "물", "풀", "리본", "부리"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773365185498",
-      "title": "알록달록 봄의 보석, 우아한 왕관을 닮은 튤립",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["튤립", "들판", "싹"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773134216331",
-      "title": "어흥! 숲속의 왕 호랑이",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": [],
-      "pageCount": 18
-    },
-    {
-      "id": "1773553000636",
-      "title": "언제나 푸른 기운을 간직한 숲속의 선비, 소나무",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["소나무", "숲", "눈"],
-      "pageCount": 18
-    },
-    {
       "id": "1773316921784",
       "title": "얼음 나라의 신사, 용감한 펭귄",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1477,7 +1283,7 @@
     {
       "id": "1777612659016",
       "title": "얼음 나라의 신사, 용감한 펭귄-복사본(1)",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1485,39 +1291,9 @@
       "pageCount": 18
     },
     {
-      "id": "1773363968151",
-      "title": "엉금엉금 숲속의 듬직한 신사, 두꺼비",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["숲", "연못", "풀잎"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777595882281",
-      "title": "엉금엉금 숲속의 듬직한 신사, 두꺼비-복사본(1)",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["숲", "연못", "풀잎", "모자", "두꺼비"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777442972423",
-      "title": "여우",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["눈", "꼬리", "나무", "물"],
-      "pageCount": 18
-    },
-    {
       "id": "1773316321410",
       "title": "옆으로 영차! 단단한 갑옷을 입은 게",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1527,7 +1303,7 @@
     {
       "id": "1777613396046",
       "title": "옆으로 영차! 단단한 갑옷을 입은 게-복사본(1)",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1535,89 +1311,19 @@
       "pageCount": 18
     },
     {
-      "id": "1773309803424",
-      "title": "우아한 물가의 신사, 백로",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["물", "풀", "꽃", "태양", "깨끗한"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777601619896",
-      "title": "우아한 물가의 신사, 백로-복사본(1)",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["물", "풀", "꽃", "태양", "백로"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777615065220",
-      "title": "원숭이",
-      "category": "기타",
+      "id": "1769698932879",
+      "title": "자연관찰_상어",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": false,
       "summary": "",
-      "keyObjectSample": [],
-      "pageCount": 18
-    },
-    {
-      "id": "1773130611416",
-      "title": "으르렁, 나는야 초원의 왕 사자!-1",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["해", "초원", "풀"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773411347988",
-      "title": "은하와 블랙홀",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["별", "은하", "블랙홀", "망원경"],
-      "pageCount": 18
-    },
-    {
-      "id": "1772194283928",
-      "title": "임금님 귀는 당나귀 귀",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["모자", "가위", "빗", "숲", "거울", "무지개"],
-      "pageCount": 15
-    },
-    {
-      "id": "1773309594317",
-      "title": "작고 부지런한 우리 이웃, 참새",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["나뭇가지", "참새"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777554575765",
-      "title": "작고 부지런한 우리 이웃, 참새-복사본(1)",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["나뭇가지", "참새"],
-      "pageCount": 18
+      "keyObjectSample": ["상어", "바다", "물고기", "거북이", "그물", "이빨"],
+      "pageCount": 13
     },
     {
       "id": "1773316302908",
       "title": "죠스! 바다의 사냥꾼 상어",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1627,7 +1333,7 @@
     {
       "id": "1777610954811",
       "title": "죠스! 바다의 사냥꾼 상어-복사본(1)",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1635,129 +1341,9 @@
       "pageCount": 18
     },
     {
-      "id": "1773564252115",
-      "title": "줄무늬 속에 숨겨진 시원한 여름의 맛, 수박",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["수박", "땅", "줄무늬", "잎", "밭", "줄기"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773615989178",
-      "title": "지하의 신비로운 궁전 동굴과, 바다가 숨겨둔 보물창고 갯벌",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["갯벌", "동굴", "바다", "보물"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773365176774",
-      "title": "진흙 속에서 피어난 우아한 등불, 연꽃",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["연못", "진흙", "씨앗", "깊은"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773553518523",
-      "title": "참나무",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["참나무", "숲", "하늘", "나뭇잎", "줄기"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777447633547",
-      "title": "치타",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["초원", "풀", "발톱", "치타"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777615082301",
-      "title": "캥거루",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["캥거루", "주머니", "풀", "해", "하늘", "얼굴"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773142823883",
-      "title": "코가 손이네! 듬직한 코끼리",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["코", "풀", "초원", "나무", "구름", "해"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777615068642",
-      "title": "코뿔소",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": [],
-      "pageCount": 18
-    },
-    {
-      "id": "1773411238323",
-      "title": "태양계 (수성~해왕성)",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["우주선", "행성", "별", "태양", "지구", "태양계"],
-      "pageCount": 18
-    },
-    {
-      "id": "1773365203383",
-      "title": "태양을 닮은 커다란 꽃, 황금빛 미소 해바라기",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["씨앗", "흙", "해바라기", "해", "물", "꽃"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777615071158",
-      "title": "판다",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["판다", "대나무", "숲", "잎", "나뭇가지", "배"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777447602938",
-      "title": "표범",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["나무", "강"],
-      "pageCount": 18
-    },
-    {
       "id": "1773316114847",
       "title": "푸우! 바다의 거인 고래",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -1767,71 +1353,11 @@
     {
       "id": "1777610290605",
       "title": "푸우! 바다의 거인 고래-복사본(1)",
-      "category": "기타",
+      "category": "바다 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
       "keyObjectSample": ["바다"],
-      "pageCount": 18
-    },
-    {
-      "id": "1772198694258",
-      "title": "피터팬-1",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["그림자", "가루", "칼", "해적선", "갈고리", "시계"],
-      "pageCount": 15
-    },
-    {
-      "id": "1773309501808",
-      "title": "하늘의 제왕, 용감한 독수리",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["하늘", "날개", "구름", "독수리"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777596431093",
-      "title": "하늘의 제왕, 용감한 독수리-복사본(1)",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["하늘", "날개", "구름", "독수리"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777615067098",
-      "title": "하마",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": [],
-      "pageCount": 18
-    },
-    {
-      "id": "1773149049116",
-      "title": "함께라서 무적! 용맹한 늑대",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": [],
-      "pageCount": 18
-    },
-    {
-      "id": "1773564979337",
-      "title": "황금빛으로 물드는 오래된 친구, 은행나무",
-      "category": "기타",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["나무", "잎", "해", "구름", "새", "돌"],
       "pageCount": 18
     },
     {
@@ -2475,6 +2001,16 @@
       "pageCount": 15
     },
     {
+      "id": "1770187105683",
+      "title": "헨젤과 그레텔*",
+      "category": "세계 명작",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": ["숲", "집", "빵", "조약돌", "별", "사탕"],
+      "pageCount": 15
+    },
+    {
       "id": "1772201758726",
       "title": "호두까기 인형",
       "category": "세계 명작",
@@ -2505,29 +2041,319 @@
       "pageCount": 15
     },
     {
-      "id": "1773721368077",
-      "title": "강력한 갈고리발톱을 가진 사냥꾼, 바리오닉스",
-      "category": "자연 관찰",
+      "id": "1773554974102",
+      "title": "가을의 고소한 선물, 가시 껍질 속 알밤 밤나무",
+      "category": "식물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["발톱", "강", "물고기", "풀", "해", "바리오닉스"],
-      "pageCount": 19
+      "keyObjectSample": ["밤나무", "단풍잎", "밤송이", "나무", "밤", "껍질"],
+      "pageCount": 18
     },
     {
-      "id": "1773899653860",
-      "title": "기린만큼 거대한 하늘의 지배자, 케트살코아틀루스",
-      "category": "자연 관찰",
+      "id": "1773573591972",
+      "title": "곤충을 사냥하는 무서운 사냥꾼, 잎사귀 덫 파리지옥",
+      "category": "식물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["공룡", "하늘", "날개", "숲", "강", "깃털"],
-      "pageCount": 19
+      "keyObjectSample": ["잎", "파리", "식물"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773365183265",
+      "title": "노란 꽃에서 하얀 솜털까지, 바람을 타는 여행자 민들레",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["민들레", "초원", "꿀벌"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773561705472",
+      "title": "달콤한 보랏빛 송이, 덩굴 따라 자라는 포도나무",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["포도", "밭", "덩굴"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773410319697",
+      "title": "뜨거운 사막의 가시투성이 파수꾼, 물을 품은 선인장",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["선인장", "태양"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773365186209",
+      "title": "살랑살랑 강아지 꼬리를 닮은 들판의 친구, 강아지풀",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["강아지풀", "꽃", "들판", "꼬리", "씨앗", "잎"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773562222515",
+      "title": "새콤달콤한 빨간 유혹, 땅 위에서 자라는 딸기",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["딸기", "풀", "꽃", "땅", "밭", "잎"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773554053356",
+      "title": "새콤달콤한 선물, 주렁주렁 열매 맺는 사과나무",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["사과", "사과나무", "길", "나무", "줄기", "잎"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773365188031",
+      "title": "세상에서 가장 화려한 꽃, 향기로운 정원의 여왕 장미",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["장미", "정원", "꿀벌", "꽃", "줄기"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773576314846",
+      "title": "숲속에 핀 신비로운 우산, 겹겹이 비밀을 간직한 버섯",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["버섯", "이슬방울", "숲"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773365186834",
+      "title": "아침을 알리는 보랏빛 노래, 담장 위의 연주자 나팔꽃",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["담장", "꽃", "씨앗"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773365185498",
+      "title": "알록달록 봄의 보석, 우아한 왕관을 닮은 튤립",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["튤립", "들판", "싹"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773553000636",
+      "title": "언제나 푸른 기운을 간직한 숲속의 선비, 소나무",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["소나무", "숲", "눈"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773564252115",
+      "title": "줄무늬 속에 숨겨진 시원한 여름의 맛, 수박",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["수박", "땅", "줄무늬", "잎", "밭", "줄기"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773365176774",
+      "title": "진흙 속에서 피어난 우아한 등불, 연꽃",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": ["연못", "진흙", "씨앗", "깊은"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773553518523",
+      "title": "참나무",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["참나무", "숲", "하늘", "나뭇잎", "줄기"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773365203383",
+      "title": "태양을 닮은 커다란 꽃, 황금빛 미소 해바라기",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["씨앗", "흙", "해바라기", "해", "물", "꽃"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773564979337",
+      "title": "황금빛으로 물드는 오래된 친구, 은행나무",
+      "category": "식물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["나무", "잎", "해", "구름", "새", "돌"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773625335362",
+      "title": "꾸르륵 쑥쑥, 맛있는 음식의 몸속 여행",
+      "category": "우리 몸 이야기",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["밥", "숟가락", "식탁", "그릇", "음식", "주방"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773618909980",
+      "title": "내 몸속 신비한 지도, 뼈와 근육 이야기",
+      "category": "우리 몸 이야기",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["장난감", "뼈", "해골"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773710246892",
+      "title": "내 몸의 똑똑한 대장님, 뇌와 심장 이야기",
+      "category": "우리 몸 이야기",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["뇌", "심장", "몸"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773624474088",
+      "title": "보이지 않는 작은 세상, 유산균과 바이러스",
+      "category": "우리 몸 이야기",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["몸", "유산균", "바이러스"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773411238317",
+      "title": "달과 별자리",
+      "category": "우주와 자연",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["별", "하늘", "북극성", "은하수", "망원경", "별똥별"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773615711742",
+      "title": "불을 뿜는 산 화산과 꿈틀대는 땅 지진의 대결",
+      "category": "우주와 자연",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["산", "화산", "땅", "불"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773616999841",
+      "title": "불타는 모래의 땅 사막과, 얼음의 나라 극지방의 신비",
+      "category": "우주와 자연",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["사막", "모래"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773411347988",
+      "title": "은하와 블랙홀",
+      "category": "우주와 자연",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["별", "은하", "블랙홀", "망원경"],
+      "pageCount": 18
+    },
+    {
+      "id": "1769699739300",
+      "title": "자연관찰_행성",
+      "category": "우주와 자연",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": ["우주", "행성", "태양", "지구", "하늘", "별"],
+      "pageCount": 13
+    },
+    {
+      "id": "1773615989178",
+      "title": "지하의 신비로운 궁전 동굴과, 바다가 숨겨둔 보물창고 갯벌",
+      "category": "우주와 자연",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["갯벌", "동굴", "바다", "보물"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773411238323",
+      "title": "태양계 (수성~해왕성)",
+      "category": "우주와 자연",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["우주선", "행성", "별", "태양", "지구", "태양계"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773149047331",
+      "title": "가시가 뾰족뾰족, 겁쟁이 고슴도치",
+      "category": "육지 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["숲", "햇살", "풀잎", "꽃", "가시", "겁먹은"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777447452009",
+      "title": "고슴도치",
+      "category": "육지 동물 친구들",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": ["가시", "베리(열매)", "발", "잎(낙엽)"],
+      "pageCount": 18
     },
     {
       "id": "1773146946025",
       "title": "깡충깡충, 귀가 커다란 토끼",
-      "category": "자연 관찰",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -2535,19 +2361,59 @@
       "pageCount": 18
     },
     {
-      "id": "1773716818847",
-      "title": "남쪽 대륙의 거대한 지배자, 기가노토사우루스",
-      "category": "자연 관찰",
+      "id": "1773711154702",
+      "title": "꼬리를 살랑살랑, 우리의 단짝 친구 강아지",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["땅", "초원", "풀", "하늘", "돌", "공룡"],
-      "pageCount": 19
+      "keyObjectSample": ["강아지"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773147030303",
+      "title": "꾀쟁이 붉은 털 여우",
+      "category": "육지 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["풀", "해", "토끼"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773149054669",
+      "title": "나무 위의 사냥꾼, 용맹한 표범",
+      "category": "육지 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["숲", "나무", "사냥꾼", "표범", "용감한"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777446759568",
+      "title": "늑대",
+      "category": "육지 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["눈", "달"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777442353908",
+      "title": "다람쥐",
+      "category": "육지 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["도토리", "나무", "꼬리"],
+      "pageCount": 18
     },
     {
       "id": "1773363972428",
       "title": "단단한 갑옷과 무시무시한 이빨, 물속의 왕 악어",
-      "category": "자연 관찰",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -2557,7 +2423,7 @@
     {
       "id": "1777439576248",
       "title": "덩치가 커다란 털보, 곰",
-      "category": "자연 관찰",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -2565,69 +2431,49 @@
       "pageCount": 18
     },
     {
-      "id": "1773896866516",
-      "title": "둥지에서 새끼를 돌보는 좋은 어머니, 마이아사우라",
-      "category": "자연 관찰",
+      "id": "1773145975258",
+      "title": "덩치가 커다란 털보, 곰-1",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["둥지", "알", "공룡", "입", "볏"],
-      "pageCount": 19
+      "keyObjectSample": ["꿀", "나무", "꽃", "곰", "숲", "아침"],
+      "pageCount": 18
     },
     {
-      "id": "1773891332232",
-      "title": "등에 거대한 뼈판을 가진 지붕 도마뱀, 스테고사우루스",
-      "category": "자연 관찰",
+      "id": "1777447639750",
+      "title": "두더지",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["풀", "판", "꼬리", "가시"],
-      "pageCount": 19
+      "keyObjectSample": ["흙", "지렁이"],
+      "pageCount": 18
     },
     {
-      "id": "1773728551576",
-      "title": "땅을 울리는 거대한 걸음, 아파토사우루스",
-      "category": "자연 관찰",
+      "id": "1773149152097",
+      "title": "땅속의 굴착기, 부지런한 두더지",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["숲", "나무", "잎"],
-      "pageCount": 19
+      "keyObjectSample": ["흙", "굴", "앞발", "두더지", "바쁜", "땅속"],
+      "pageCount": 18
     },
     {
-      "id": "1773739068170",
-      "title": "머리 위에 악기를 가진 공룡, 파라사우롤로푸스",
-      "category": "자연 관찰",
+      "id": "1773363966902",
+      "title": "마음대로 색을 바꾸는 신비로운 숲속의 마법사, 카멜레온",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["나팔", "숲", "공룡", "해", "볏", "주둥이"],
-      "pageCount": 19
-    },
-    {
-      "id": "1773739930242",
-      "title": "머리 위에 화려한 왕관을 쓴 공룡, 스티라코사우루스",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["숲", "왕관"],
-      "pageCount": 19
-    },
-    {
-      "id": "1773895602678",
-      "title": "머리에 단단한 돔을 가진 공룡, 파키케팔로사우루스",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["숲", "모자", "공룡"],
-      "pageCount": 19
+      "keyObjectSample": ["숲", "잎", "꽃", "카멜레온", "마법사"],
+      "pageCount": 18
     },
     {
       "id": "1777440865383",
       "title": "목이 길쭉길쭉, 키다리 기린",
-      "category": "자연 관찰",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -2635,169 +2481,109 @@
       "pageCount": 18
     },
     {
-      "id": "1773720828930",
-      "title": "물속을 누비는 거대한 가시 도마뱀, 스피노사우루스",
-      "category": "자연 관찰",
+      "id": "1773144447799",
+      "title": "목이 길쭉길쭉, 키다리 기린-1",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["강", "물고기", "물", "돛"],
-      "pageCount": 19
-    },
-    {
-      "id": "1777431036899",
-      "title": "바다의 수영 선수, 날렵한 물개",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["바다", "해변", "얼음"],
+      "keyObjectSample": ["숲", "나무", "나뭇잎", "기린"],
       "pageCount": 18
     },
     {
-      "id": "1773714531390",
-      "title": "백악기의 제왕, 티라노사우루스 렉스",
-      "category": "자연 관찰",
+      "id": "1773363964024",
+      "title": "물과 육지를 오가는 폴짝폴짝 점프 대장, 개구리",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["숲", "고사리", "야자수", "이빨", "나뭇잎", "공룡"],
-      "pageCount": 19
-    },
-    {
-      "id": "1773320381118",
-      "title": "붕붕붕 부지런한 일꾼, 꿀벌",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["벌집", "꿀", "바구니", "꿀벌", "털"],
+      "keyObjectSample": ["연못", "연잎", "물", "풀", "흙", "돌"],
       "pageCount": 18
     },
     {
-      "id": "1777603036535",
-      "title": "붕붕붕 부지런한 일꾼, 꿀벌-복사본(1)",
-      "category": "자연 관찰",
+      "id": "1777550146108",
+      "title": "물과 육지를 오가는 폴짝폴짝 점프 대장, 개구리-복사본(1)",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["벌집", "꿀", "바구니", "꿀벌", "털"],
+      "keyObjectSample": ["연못", "연잎", "물", "풀", "흙", "돌"],
       "pageCount": 18
     },
     {
-      "id": "1773740757966",
-      "title": "뿔은 없지만 용감한 사막의 거북이, 프로토케라톱스",
-      "category": "자연 관찰",
+      "id": "1773363967982",
+      "title": "변신의 천재이자 숲속의 빠른 달리기 선수, 도마뱀",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["사막", "발자국", "해", "뿔", "프릴"],
-      "pageCount": 19
-    },
-    {
-      "id": "1773739549787",
-      "title": "세 개의 뿔을 가진 무적의 방패, 트리케라톱스",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["숲", "뿔", "방패", "트리케라톱스", "프릴"],
-      "pageCount": 19
-    },
-    {
-      "id": "1773728963112",
-      "title": "세상에서 가장 긴 꼬리를 가진 거인, 디플로도쿠스",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["꼬리", "숲", "풀"],
-      "pageCount": 19
-    },
-    {
-      "id": "1773320745960",
-      "title": "숲속의 멋진 그물 기술자, 거미",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["그물", "다리", "눈", "알"],
+      "keyObjectSample": ["나뭇잎", "나비", "도마뱀", "숲"],
       "pageCount": 18
     },
     {
-      "id": "1773320359488",
-      "title": "숲속의 용감한 집게꾼, 사슴벌레",
-      "category": "자연 관찰",
+      "id": "1777595277759",
+      "title": "변신의 천재이자 숲속의 빠른 달리기 선수, 도마뱀-복사본(1)",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["나무", "집게", "숲", "사슴벌레"],
+      "keyObjectSample": ["나뭇잎", "나비", "도마뱀", "숲"],
       "pageCount": 18
     },
     {
-      "id": "1777607528952",
-      "title": "숲속의 용감한 집게꾼, 사슴벌레-복사본(1)",
-      "category": "자연 관찰",
+      "id": "1773148853874",
+      "title": "볼이 빵빵, 부지런한 다람쥐",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["나무", "집게", "숲", "사슴벌레"],
+      "keyObjectSample": ["도토리", "나무", "햇살", "다람쥐"],
       "pageCount": 18
     },
     {
-      "id": "1773320330311",
-      "title": "숲속의 천하장사, 멋쟁이 장수풍뎅이",
-      "category": "자연 관찰",
+      "id": "1773713269796",
+      "title": "살금살금 유연하고 영리한 친구, 고양이",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["뿔"],
+      "keyObjectSample": ["털실"],
       "pageCount": 18
     },
     {
-      "id": "1777607890313",
-      "title": "숲속의 천하장사, 멋쟁이 장수풍뎅이-복사본(1)",
-      "category": "자연 관찰",
+      "id": "1773149150978",
+      "title": "세상에서 가장 빠른 달리기 대장, 치타",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["뿔"],
+      "keyObjectSample": ["나무", "활", "화살", "부츠", "배낭", "사냥꾼"],
       "pageCount": 18
     },
     {
-      "id": "1773715178666",
-      "title": "아시아의 거대 폭군, 타르보사우루스",
-      "category": "자연 관찰",
+      "id": "1773363971764",
+      "title": "소리 없이 스르륵, 숲속의 신비로운 사냥꾼, 뱀",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["땅", "숲"],
-      "pageCount": 19
-    },
-    {
-      "id": "1773320242820",
-      "title": "알록달록 꽃밭의 요정, 호랑나비",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["꽃"],
+      "keyObjectSample": ["숲", "나뭇잎", "나뭇가지", "돌", "개구리", "뱀"],
       "pageCount": 18
     },
     {
-      "id": "1777603478247",
-      "title": "알록달록 꽃밭의 요정, 호랑나비-복사본(1)",
-      "category": "자연 관찰",
+      "id": "1773134216331",
+      "title": "어흥! 숲속의 왕 호랑이",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["꽃"],
+      "keyObjectSample": [],
       "pageCount": 18
     },
     {
       "id": "1777434565272",
       "title": "어흥! 숲속의 왕, 무서운 호랑이",
-      "category": "자연 관찰",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -2805,29 +2591,49 @@
       "pageCount": 18
     },
     {
-      "id": "1773898487865",
-      "title": "엄지손가락에 날카로운 가시를 가진 전사, 이구아노돈",
-      "category": "자연 관찰",
+      "id": "1773363968151",
+      "title": "엉금엉금 숲속의 듬직한 신사, 두꺼비",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["잎", "가시", "손가락", "숲", "공룡"],
-      "pageCount": 19
+      "keyObjectSample": ["숲", "연못", "풀잎"],
+      "pageCount": 18
     },
     {
-      "id": "1773885810321",
-      "title": "온몸을 단단한 갑옷으로 두른 전차, 안킬로사우루스",
-      "category": "자연 관찰",
+      "id": "1777595882281",
+      "title": "엉금엉금 숲속의 듬직한 신사, 두꺼비-복사본(1)",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["갑옷", "곤봉", "숲", "고사리", "공룡", "꼬리"],
-      "pageCount": 19
+      "keyObjectSample": ["숲", "연못", "풀잎", "모자", "두꺼비"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777442972423",
+      "title": "여우",
+      "category": "육지 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["눈", "꼬리", "나무", "물"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777615065220",
+      "title": "원숭이",
+      "category": "육지 동물 친구들",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": [],
+      "pageCount": 18
     },
     {
       "id": "1777438039433",
       "title": "으르렁, 나는야 초원의 왕 사자!",
-      "category": "자연 관찰",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -2835,19 +2641,19 @@
       "pageCount": 18
     },
     {
-      "id": "1773899014599",
-      "title": "이빨 없는 부리와 거대한 날개를 가진 하늘의 주인, 프테라노돈",
-      "category": "자연 관찰",
+      "id": "1773130611416",
+      "title": "으르렁, 나는야 초원의 왕 사자!-1",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["물고기", "부리", "날개", "하늘", "바다", "볏"],
-      "pageCount": 19
+      "keyObjectSample": ["해", "초원", "풀"],
+      "pageCount": 18
     },
     {
       "id": "1769693451448",
       "title": "자연관찰_개",
-      "category": "자연 관찰",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": false,
       "summary": "",
@@ -2857,7 +2663,7 @@
     {
       "id": "1769614224164",
       "title": "자연관찰_고양이",
-      "category": "자연 관찰",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": false,
       "summary": "",
@@ -2865,19 +2671,9 @@
       "pageCount": 9
     },
     {
-      "id": "1769685907992",
-      "title": "자연관찰_공룡",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["공룡", "책", "숲", "잎", "뿔", "꼬리"],
-      "pageCount": 13
-    },
-    {
       "id": "1769651494022",
       "title": "자연관찰_기린",
-      "category": "자연 관찰",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": false,
       "summary": "",
@@ -2887,7 +2683,7 @@
     {
       "id": "1769697118141",
       "title": "자연관찰_사자",
-      "category": "자연 관찰",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": false,
       "summary": "",
@@ -2895,29 +2691,9 @@
       "pageCount": 13
     },
     {
-      "id": "1769698932879",
-      "title": "자연관찰_상어",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["상어", "바다", "물고기", "거북이", "그물", "이빨"],
-      "pageCount": 13
-    },
-    {
-      "id": "1769699739300",
-      "title": "자연관찰_행성",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": false,
-      "summary": "",
-      "keyObjectSample": ["우주", "행성", "태양", "지구", "하늘", "별"],
-      "pageCount": 13
-    },
-    {
       "id": "1769694296839",
       "title": "자연관찰_호랑이",
-      "category": "자연 관찰",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": false,
       "summary": "",
@@ -2925,59 +2701,39 @@
       "pageCount": 11
     },
     {
-      "id": "1773720291702",
-      "title": "작지만 날렵한 사냥꾼, 벨로키라프토르",
-      "category": "자연 관찰",
+      "id": "1777447633547",
+      "title": "치타",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["숲", "깃털", "발톱", "꼬리"],
-      "pageCount": 19
-    },
-    {
-      "id": "1773320383771",
-      "title": "작지만 힘센 숲속의 일꾼, 개미",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["굴"],
+      "keyObjectSample": ["초원", "풀", "발톱", "치타"],
       "pageCount": 18
     },
     {
-      "id": "1777605651238",
-      "title": "작지만 힘센 숲속의 일꾼, 개미-복사본(1)",
-      "category": "자연 관찰",
+      "id": "1777615082301",
+      "title": "캥거루",
+      "category": "육지 동물 친구들",
       "type": "storybook",
-      "isPublic": true,
+      "isPublic": false,
       "summary": "",
-      "keyObjectSample": ["굴"],
+      "keyObjectSample": ["캥거루", "주머니", "풀", "해", "하늘", "얼굴"],
       "pageCount": 18
     },
     {
-      "id": "1773320834158",
-      "title": "집을 지고 다니는 느림보, 달팽이",
-      "category": "자연 관찰",
+      "id": "1773142823883",
+      "title": "코가 손이네! 듬직한 코끼리",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["집", "풀", "달팽이", "비", "껍데기", "더듬이"],
-      "pageCount": 18
-    },
-    {
-      "id": "1777608802764",
-      "title": "집을 지고 다니는 느림보, 달팽이-복사본(1)",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["집", "풀", "달팽이", "비", "껍데기", "더듬이"],
+      "keyObjectSample": ["코", "풀", "초원", "나무", "구름", "해"],
       "pageCount": 18
     },
     {
       "id": "1777434565511",
       "title": "코가 손이네! 듬직한 코끼리-1",
-      "category": "자연 관찰",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
@@ -2985,54 +2741,104 @@
       "pageCount": 18
     },
     {
-      "id": "1773320727431",
-      "title": "풀잎 위의 점박이 신사, 무당벌레",
-      "category": "자연 관찰",
+      "id": "1777615068642",
+      "title": "코뿔소",
+      "category": "육지 동물 친구들",
       "type": "storybook",
-      "isPublic": true,
+      "isPublic": false,
       "summary": "",
-      "keyObjectSample": ["풀잎"],
+      "keyObjectSample": [],
       "pageCount": 18
     },
     {
-      "id": "1777606613092",
-      "title": "풀잎 위의 점박이 신사, 무당벌레-복사본(1)",
-      "category": "자연 관찰",
+      "id": "1777615071158",
+      "title": "판다",
+      "category": "육지 동물 친구들",
       "type": "storybook",
-      "isPublic": true,
+      "isPublic": false,
       "summary": "",
-      "keyObjectSample": ["풀잎"],
+      "keyObjectSample": ["판다", "대나무", "숲", "잎", "나뭇가지", "배"],
       "pageCount": 18
     },
     {
-      "id": "1773728203238",
-      "title": "하늘에 닿을 듯 키가 큰 거인, 브라키오사우루스",
-      "category": "자연 관찰",
+      "id": "1777447602938",
+      "title": "표범",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["숲", "나뭇잎", "나무", "나뭇가지", "풀", "공룡"],
-      "pageCount": 19
-    },
-    {
-      "id": "1773320387266",
-      "title": "하늘을 나는 멋진 비행사, 잠자리",
-      "category": "자연 관찰",
-      "type": "storybook",
-      "isPublic": true,
-      "summary": "",
-      "keyObjectSample": ["하늘", "날개", "연못", "잠자리", "모기"],
+      "keyObjectSample": ["나무", "강"],
       "pageCount": 18
     },
     {
-      "id": "1777607173325",
-      "title": "하늘을 나는 멋진 비행사, 잠자리-복사본(1)",
-      "category": "자연 관찰",
+      "id": "1777615067098",
+      "title": "하마",
+      "category": "육지 동물 친구들",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": [],
+      "pageCount": 18
+    },
+    {
+      "id": "1773149049116",
+      "title": "함께라서 무적! 용맹한 늑대",
+      "category": "육지 동물 친구들",
       "type": "storybook",
       "isPublic": true,
       "summary": "",
-      "keyObjectSample": ["하늘", "날개", "연못", "잠자리", "모기"],
+      "keyObjectSample": [],
       "pageCount": 18
+    },
+    {
+      "id": "1772087872946",
+      "title": "금도끼 은도끼",
+      "category": "전래 동화",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": ["쇠도끼", "금도끼", "은도끼", "연못", "지게", "금"],
+      "pageCount": 15
+    },
+    {
+      "id": "1772095488138",
+      "title": "북풍과 태양",
+      "category": "전래 동화",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": ["구름", "산", "외투", "꽃", "모자", "나비"],
+      "pageCount": 15
+    },
+    {
+      "id": "1770178097150",
+      "title": "브레멘 음악대-1",
+      "category": "전래 동화",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": ["짐가방", "오두막집", "창문", "식탁", "등불", "금화"],
+      "pageCount": 12
+    },
+    {
+      "id": "1770209480564",
+      "title": "빨간 모자 소녀*",
+      "category": "전래 동화",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": ["모자", "마을", "숲", "바구니", "빵", "꽃"],
+      "pageCount": 15
+    },
+    {
+      "id": "1778476961082",
+      "title": "빨간모자(new)",
+      "category": "전래 동화",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": [],
+      "pageCount": 15
     },
     {
       "id": "1769484846418",
@@ -3045,6 +2851,36 @@
       "pageCount": 15
     },
     {
+      "id": "1772107339900",
+      "title": "성냥갑 병정",
+      "category": "전래 동화",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": ["상자", "병정", "인형", "성", "배", "물쥐"],
+      "pageCount": 15
+    },
+    {
+      "id": "1769517091121",
+      "title": "성냥팔이 소녀 (The Little Match Girl) (0127)",
+      "category": "전래 동화",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": ["성냥", "눈", "길", "창문", "난로", "음식"],
+      "pageCount": 15
+    },
+    {
+      "id": "1772194283928",
+      "title": "임금님 귀는 당나귀 귀",
+      "category": "전래 동화",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": ["모자", "가위", "빗", "숲", "거울", "무지개"],
+      "pageCount": 15
+    },
+    {
       "id": "1769482040809",
       "title": "콩쥐 팥쥐(0127)",
       "category": "전래 동화",
@@ -3053,6 +2889,16 @@
       "summary": "",
       "keyObjectSample": ["콩쥐", "팥쥐", "새어머니", "밭", "소", "항아리"],
       "pageCount": 16
+    },
+    {
+      "id": "1772198694258",
+      "title": "피터팬-1",
+      "category": "전래 동화",
+      "type": "storybook",
+      "isPublic": false,
+      "summary": "",
+      "keyObjectSample": ["그림자", "가루", "칼", "해적선", "갈고리", "시계"],
+      "pageCount": 15
     },
     {
       "id": "1769483529871",
@@ -3083,6 +2929,166 @@
       "summary": "",
       "keyObjectSample": ["집", "새", "씨앗"],
       "pageCount": 15
+    },
+    {
+      "id": "1773309810284",
+      "title": "뒤뚱뒤뚱 귀여운 수영 선수, 오리",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["깃털", "숲"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777602265786",
+      "title": "뒤뚱뒤뚱 귀여운 수영 선수, 오리-복사본(1)",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["깃털", "숲", "앵무새"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773309590995",
+      "title": "밤의 소리 없는 사냥꾼, 올빼미",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["해"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777554948840",
+      "title": "밤의 소리 없는 사냥꾼, 올빼미-복사본(1)",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["해"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773309787274",
+      "title": "세상에서 가장 큰 새, 달리기 대장 타조",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["들판", "깃털", "햇볕", "바람", "타조", "빠른"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777600332199",
+      "title": "세상에서 가장 큰 새, 달리기 대장 타조-복사본(1)",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["들판", "깃털", "타조", "날개", "다리", "초원"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773309784022",
+      "title": "숲속의 부지런한 목수, 딱따구리",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["나무", "집", "딱따구리", "숲"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777598658063",
+      "title": "숲속의 부지런한 목수, 딱따구리-복사본(1)",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["나무", "집", "딱따구리", "숲"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773309795799",
+      "title": "알록달록 말하는 재주꾼, 앵무새",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["연못", "꽃", "물", "햇살", "풀밭", "리본"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777601011770",
+      "title": "알록달록 말하는 재주꾼, 앵무새-복사본(1)",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["연못", "꽃", "물", "풀", "리본", "부리"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773309803424",
+      "title": "우아한 물가의 신사, 백로",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["물", "풀", "꽃", "태양", "깨끗한"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777601619896",
+      "title": "우아한 물가의 신사, 백로-복사본(1)",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["물", "풀", "꽃", "태양", "백로"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773309594317",
+      "title": "작고 부지런한 우리 이웃, 참새",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["나뭇가지", "참새"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777554575765",
+      "title": "작고 부지런한 우리 이웃, 참새-복사본(1)",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["나뭇가지", "참새"],
+      "pageCount": 18
+    },
+    {
+      "id": "1773309501808",
+      "title": "하늘의 제왕, 용감한 독수리",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["하늘", "날개", "구름", "독수리"],
+      "pageCount": 18
+    },
+    {
+      "id": "1777596431093",
+      "title": "하늘의 제왕, 용감한 독수리-복사본(1)",
+      "category": "하늘 동물 친구들",
+      "type": "storybook",
+      "isPublic": true,
+      "summary": "",
+      "keyObjectSample": ["하늘", "날개", "구름", "독수리"],
+      "pageCount": 18
     }
   ]
 }
