@@ -87,10 +87,14 @@ features/{name}/{api,hooks,components,index.ts}
 - 한글 레벨: vocab table 점수 공식 그대로. 영어 레벨: 단어 길이 (≤3/4-5/6+).
 - 게임 어댑터 (`game-data-adapter.ts#unitTo{Korean,English}BlockData`): 이미지 없는 단어도 후보 포함 (player 가 conditional render).
 
-## 라이브러리 마스터 (2026-05-10)
-- **`/library-master`** — 라이브러리 노출 순서 편집 페이지 (저작도구 진입점 only). TopBar 우상단 📁 자료실 ▾ dropdown 첫 항목 "📚 라이브러리 마스터". AppShell (학습자 화면) 에서는 노출 X.
-- 좌-우 split: 좌측 카테고리 DnD reorder (vertical list) + 우측 활성 카테고리 책 **grid 카드 DnD reorder** (반응형 2→3→4→5→6 column, `rectSortingStrategy`, 카드 = aspect-3/4 표지 + 좌상단 순서 chip + 우상단 🎨 표지 변경 chip — 카드 전체가 드래그 핸들) + 🎨 표지 변경 모달 (그림체별 표지 grid → 클릭 시 책 `defaultStyle` 변경). `@dnd-kit/sortable`. 변경 즉시 자동 저장.
-- 저장: `_index/library-config.json` (`LibraryConfig` shared type — `categoryOrder[]` + `bookPriority[cat] = string[]`). 서버 `GET/PUT /api/library-config`. LibraryPage 가 config 적용해서 카테고리/책 순서 정렬.
+## 라이브러리 마스터 (2026-05-10, 카테고리 편집 2026-05-16)
+- **`/library-master`** — 라이브러리 노출 순서 + 카테고리 CRUD + 책 메타 편집 페이지 (저작도구 진입점 only). TopBar 우상단 📁 자료실 ▾ dropdown 첫 항목 "📚 라이브러리 마스터". AppShell (학습자) 에서는 노출 X.
+- 좌-우 split: 좌측 카테고리 패널 (DnD reorder + ✏ 인라인 rename + 🗑 삭제 + ＋ 추가 input) + 우측 활성 카테고리 책 grid (DnD reorder, 카드 = aspect-3/4 표지 + 좌상단 ① 순서 chip · 카테고리 chip 드롭다운 + 우상단 👁 isPublic 토글 · 🎨 표지 변경) + 🎨 표지 변경 모달.
+- **Cross-context DnD**: 단일 `DndContext` 안에서 (카테고리 reorder / 책 reorder / 책 → 좌측 카테고리 row 드롭으로 카테고리 변경) 3종을 `onDragEnd` 분기. 카테고리 droppable id 는 `cat:` prefix.
+- **카테고리 CRUD**: 빈 카테고리만 즉시 삭제 가능. 책 있으면 `MoveBooksModal` 로 target 카테고리 선택 후 일괄 이동 + 카테고리 삭제. 이름 변경 = 그 카테고리의 모든 책 `category` 필드 일괄 patch (`useCategoryActions`).
+- **/library-master 만 비공개 책 표시** (편집 대상). 학습자 `/library` 는 기존처럼 isPublic=true 만 노출.
+- **카테고리 (2026-05-16 재분류, 233권)**: 🌟 세계 명작 68 / 📜 전래 동화 14 / 🦕 공룡 친구들 24 / 🐛 곤충 친구들 18 / 🐯 육지 동물 친구들 46 / 🐬 바다 동물 친구들 18 / 🦅 하늘 동물 친구들 16 / 🌸 식물 친구들 18 / 🌌 우주와 자연 7 / 🫀 우리 몸 이야기 4. 마이그: `propose-recategorize.mjs` (룰 + 세계 명작/전래 동화 보호 + 수동 override) → `recategorize-proposal.json` 사람 검토 → `migrate-recategorize.mjs --apply` (R2 PutObject + library-config.json 갱신).
+- 저장: `_index/library-config.json` (`LibraryConfig` shared type — `categoryOrder[]` + `bookPriority[cat] = string[]` + `categoryList[]` 빈 카테고리 보관). 서버 `GET/PUT /api/library-config`. LibraryPage 가 config 적용해서 카테고리/책 순서 정렬 (빈 카테고리는 학습자 화면 자동 hide).
 
 ## 동일 title 동화책 차단 (2026-05-10)
 - `R2Repository.saveStorybook` 진입점에 validation. **신규 또는 title 변경 시에만** 체크 (audiobook 생성 등 부수 update 통과). variant `__L\d+$` (같은 baseId) / storybook ↔ phonics 는 충돌 X.
