@@ -245,13 +245,25 @@ export default function LibraryMasterPage() {
             </h1>
           </div>
           <div className="flex items-center gap-3 text-sm">
+            {progressText && <span className="text-ink-600 font-bold">{progressText}</span>}
+            {savedFlash && <span className="text-success font-black animate-pulse">✓ 저장됨</span>}
+            {update.isPending && <span className="text-ink-500">저장 중...</span>}
+          </div>
+        </div>
+        <div className="max-w-[1480px] mx-auto px-6 pb-3 flex items-center justify-between gap-4">
+          <span className="text-sm text-ink-600">
+            좌측에서 카테고리 추가/이름변경/삭제, 책 카드의 카테고리 chip · 👁 (공개) · 🎨 (표지)
+            편집. 책을 왼쪽 카테고리로 드래그하면 카테고리가 바뀝니다.
+          </span>
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-sm font-black text-ink-700">표지 언어:</span>
             <div className="flex items-center gap-1 bg-ink-100 rounded-full p-1">
               {(['ko', 'en'] as const).map((lang) => (
                 <button
                   key={lang}
                   type="button"
                   onClick={() => setSelectedLang(lang)}
-                  className={`px-3 py-1 rounded-full text-xs font-black transition ${
+                  className={`px-4 py-1.5 rounded-full text-sm font-black transition ${
                     selectedLang === lang
                       ? 'bg-white text-ink-900 shadow-soft'
                       : 'text-ink-500 hover:text-ink-700'
@@ -262,14 +274,7 @@ export default function LibraryMasterPage() {
                 </button>
               ))}
             </div>
-            {progressText && <span className="text-ink-600 font-bold">{progressText}</span>}
-            {savedFlash && <span className="text-success font-black animate-pulse">✓ 저장됨</span>}
-            {update.isPending && <span className="text-ink-500">저장 중...</span>}
           </div>
-        </div>
-        <div className="max-w-[1480px] mx-auto px-6 pb-3 text-sm text-ink-600">
-          좌측에서 카테고리 추가/이름변경/삭제, 책 카드의 카테고리 chip · 👁 (공개) · 🎨 (표지)
-          편집. 책을 왼쪽 카테고리로 드래그하면 카테고리가 바뀝니다.
         </div>
       </header>
 
