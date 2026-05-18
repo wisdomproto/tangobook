@@ -28,15 +28,22 @@ const LEVEL_META: Record<Level, { emoji: string; label: string; sub: string; col
   L3: { emoji: '🌳', label: '어려움', sub: '복잡한 단어', color: 'from-rose-400 to-rose-500' },
 };
 
-// 한글 음절 분석 — 받침/쌍자음/이중모음 검출 (vocabulary-table-ko.html 와 동일 공식)
-const DOUBLE_INITIAL = new Set([1, 4, 8, 10, 13]);
-const DIPHTHONG_MEDIAL = new Set([2, 3, 6, 7, 9, 10, 11, 12, 14, 15, 16, 17, 19]);
+// 한글 음절 분석 — 받침/쌍자음/이중모음/ㅐㅔ/복잡받침 검출 (vocabulary-table-ko.html 와 동일 공식)
+// CLAUDE.md (단어 마스터 표 섹션) 명시 공식:
+//   음절×0.7 + 받침×2 + 쌍자음×2 + 이중모음×2 + 복잡받침×3 + ㅐㅔ×2
+// "자세" 가 ㅔ 가산 누락으로 L1(쉬움)에 잘못 떨어지던 문제 fix (2026-05-18).
+const DOUBLE_INITIAL = new Set([1, 4, 8, 10, 13]); // ㄲ ㄸ ㅃ ㅆ ㅉ
+const DIPHTHONG_MEDIAL = new Set([2, 3, 6, 7, 9, 10, 11, 12, 14, 15, 16, 17, 19]); // ㅑㅒㅕㅖㅘㅙㅚㅛㅝㅞㅟㅠㅢ
+const AE_E_MEDIAL = new Set([1, 5]); // ㅐ ㅔ
+const COMPLEX_FINAL = new Set([3, 5, 6, 9, 10, 11, 12, 13, 14, 15, 18]); // ㄳ ㄵ ㄶ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅄ
 
 function koreanDifficulty(word: string): number {
   let syllables = 0;
   let batchim = 0;
   let doubleInit = 0;
   let diphthong = 0;
+  let aeE = 0;
+  let complexFinal = 0;
   for (const ch of word) {
     const code = ch.charCodeAt(0) - 0xac00;
     if (code < 0 || code > 11171) continue;
@@ -47,8 +54,12 @@ function koreanDifficulty(word: string): number {
     if (final !== 0) batchim++;
     if (DOUBLE_INITIAL.has(initial)) doubleInit++;
     if (DIPHTHONG_MEDIAL.has(medial)) diphthong++;
+    if (AE_E_MEDIAL.has(medial)) aeE++;
+    if (COMPLEX_FINAL.has(final)) complexFinal++;
   }
-  return syllables * 0.7 + batchim * 2 + doubleInit * 2 + diphthong * 2;
+  return (
+    syllables * 0.7 + batchim * 2 + doubleInit * 2 + diphthong * 2 + aeE * 2 + complexFinal * 3
+  );
 }
 
 function levelOfWord(word: string, lang: 'ko' | 'en'): Level {
