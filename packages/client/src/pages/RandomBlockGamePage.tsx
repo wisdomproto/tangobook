@@ -78,6 +78,10 @@ function levelOfWord(word: string, lang: 'ko' | 'en'): Level {
 
 function filterByLevel(entries: VocabEntry[], lang: 'ko' | 'en', level: Level): VocabEntry[] {
   return entries.filter((e) => {
+    // 단어 마스터 표(/vocabulary-table-ko.html)와 동일 풀: 동화책 keyObject 만.
+    // 'storybook-vocabulary' (educational_content.vocabulary) source 단어는 keyObject 가
+    // 아니라 단어 마스터 표에 미노출 → 게임 풀에서도 제외해야 일관성 유지 ("자세" 같은 단어).
+    if (!e.sources.some((s) => s.sourceType === 'storybook-key-object')) return false;
     const w = lang === 'ko' ? (e.korean ?? '') : (e.word ?? '');
     if (!w) return false;
     return levelOfWord(w, lang) === level;
