@@ -179,10 +179,11 @@ function normalizeStorybook(sb: Record<string, unknown>): Storybook {
     }
   }
 
-  // keyObjectImages: name → objectName
-  const keyObjImages = sb.keyObjectImages as Array<Record<string, unknown>> | undefined;
+  // keyObjectImages: name → objectName (null entry 방어)
+  const keyObjImages = sb.keyObjectImages as Array<Record<string, unknown> | null> | undefined;
   if (keyObjImages) {
-    keyObjImages.forEach((img) => {
+    sb.keyObjectImages = keyObjImages.filter((img): img is Record<string, unknown> => img != null);
+    (sb.keyObjectImages as Array<Record<string, unknown>>).forEach((img) => {
       if (img.name && !img.objectName) {
         img.objectName = img.name;
       }
@@ -226,7 +227,8 @@ export const R2Repository = {
     try {
       const buffer = await downloadFromR2(storybookKey(id));
       return normalizeStorybook(JSON.parse(buffer.toString('utf-8')));
-    } catch {
+    } catch (e) {
+      console.error(`[getStorybook ${id}] failed:`, (e as Error).message);
       return null;
     }
   },

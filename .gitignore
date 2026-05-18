@@ -62,6 +62,10 @@ design/
 _*.json
 jack-*.json
 
+# Dev-only analysis dumps (key-object editor)
+packages/client/public/_analysis/
+packages/server/scripts/_data/
+
 # .claude session backups
 .claude/backups/
 

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>탱고북 핵심단어 에디터</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, 'Noto Sans KR', system-ui, sans-serif; }
+  .book-row { cursor: pointer; transition: background 0.1s; }
+  .book-row:hover { background: #fef3c7; }
+  .book-row.active { background: #fde68a; }
+  .chip { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10px; font-weight: 700; vertical-align: middle; }
+  .chip-keep   { background: #d1fae5; color: #065f46; }
+  .chip-del    { background: #fecaca; color: #7f1d1d; }
+  .chip-add    { background: #dbeafe; color: #1e40af; }
+  .word-row { transition: background 0.1s; }
+  .word-row.del-pending { background: #fee2e2; opacity: 0.6; }
+  .word-row.del-pending td.word-cell { text-decoration: line-through; }
+  .word-row.text-missing td.word-cell { color: #b91c1c; }
+  .word-row.added { background: #eff6ff; }
+  .add-item { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 8px; background: #eff6ff; font-size: 13px; margin: 2px; }
+  .add-item button { background: #2563eb; color: white; border-radius: 4px; padding: 1px 6px; font-size: 11px; font-weight: 700; }
+  .add-item button:hover { background: #1d4ed8; }
+  .add-item.added { background: #d1fae5; color: #065f46; opacity: 0.7; }
+  .dirty-dot { width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block; margin-right: 6px; animation: pulse 1.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+</style>
+</head>
+<body class="bg-slate-50">
+
+<header style="background: linear-gradient(to right, #7c3aed, #db2777);" class="text-white">
+  <div class="max-w-[1600px] mx-auto px-6 py-5">
+    <h1 class="text-3xl font-black">✏️ 핵심단어 에디터</h1>
+    <p class="text-sm opacity-90 mt-1">페이지 텍스트 기반 · 텍스트에 없는 keyObject 자동 삭제 · 새 명사 추가 후보 제안</p>
+  </div>
+</header>
+
+<!-- 통계 -->
+<div class="max-w-[1600px] mx-auto px-6 mt-4 grid grid-cols-2 md:grid-cols-5 gap-2">
+  <div class="bg-white rounded-xl p-3 shadow-sm">
+    <div class="text-[10px] text-slate-500 font-bold">총 책</div>
+    <div id="stat-books" class="text-2xl font-black">-</div>
+  </div>
+  <div class="bg-emerald-50 rounded-xl p-3 shadow-sm">
+    <div class="text-[10px] text-emerald-700 font-bold">KEEP (텍스트에 있음)</div>
+    <div id="stat-keep" class="text-2xl font-black text-emerald-700">-</div>
+  </div>
+  <div class="bg-rose-50 rounded-xl p-3 shadow-sm">
+    <div class="text-[10px] text-rose-700 font-bold">DELETE 후보 (텍스트에 없음)</div>
+    <div id="stat-del" class="text-2xl font-black text-rose-700">-</div>
+  </div>
+  <div class="bg-blue-50 rounded-xl p-3 shadow-sm">
+    <div class="text-[10px] text-blue-700 font-bold">ADD 후보 (텍스트에서 발견된 명사)</div>
+    <div id="stat-add" class="text-2xl font-black text-blue-700">-</div>
+  </div>
+  <div class="bg-amber-50 rounded-xl p-3 shadow-sm">
+    <div class="text-[10px] text-amber-700 font-bold">변경된 책 (미저장)</div>
+    <div id="stat-dirty" class="text-2xl font-black text-amber-700">0</div>
+  </div>
+</div>
+
+<div class="max-w-[1600px] mx-auto px-6 mt-4 grid grid-cols-12 gap-4">
+
+  <!-- 좌: 책 list -->
+  <aside class="col-span-12 md:col-span-4 lg:col-span-3 bg-white rounded-2xl shadow-sm flex flex-col" style="max-height: calc(100vh - 240px); min-height: 600px;">
+    <div class="p-3 border-b space-y-2">
+      <input id="book-search" placeholder="🔍 책 검색..." class="border rounded px-2 py-1 text-sm w-full" />
+      <select id="filter-cat" class="border rounded px-2 py-1 text-sm w-full">
+        <option value="">📦 모든 카테고리</option>
+      </select>
+      <label class="text-xs font-bold flex items-center gap-1">
+        <input type="checkbox" id="filter-only-issues" />
+        <span>⚠ DELETE/ADD 있는 책만</span>
+      </label>
+    </div>
+    <div id="book-list" class="overflow-y-auto flex-1 divide-y text-sm">
+      <div class="p-4 text-slate-400 text-center text-xs">로드 중...</div>
+    </div>
+  </aside>
+
+  <!-- 우: 편집 -->
+  <main class="col-span-12 md:col-span-8 lg:col-span-9 bg-white rounded-2xl shadow-sm" style="min-height: 600px;">
+    <div id="editor-empty" class="p-16 text-center text-slate-400">
+      <div class="text-5xl mb-3">👈</div>
+      <div class="text-sm">왼쪽에서 책을 선택하세요</div>
+    </div>
+
+    <div id="editor" class="hidden">
+      <!-- 헤더 -->
+      <div class="p-4 border-b flex items-start gap-3 sticky top-0 bg-white z-10 rounded-t-2xl">
+        <div class="flex-1">
+          <div class="text-xs text-slate-500 font-bold mb-1" id="editor-cat">-</div>
+          <h2 class="text-xl font-black" id="editor-title">-</h2>
+          <div class="text-xs text-slate-500 mt-1" id="editor-id">-</div>
+        </div>
+        <button id="btn-save" disabled
+                class="px-4 py-2 rounded-lg font-bold text-sm bg-slate-200 text-slate-400 cursor-not-allowed">
+          💾 저장
+        </button>
+      </div>
+
+      <!-- ADD 후보 섹션 -->
+      <div class="border-b">
+        <div class="p-4 bg-blue-50">
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-sm font-bold text-blue-800">📝 텍스트에서 발견된 명사 — 추가 후보 (<span id="add-count">0</span>)</div>
+            <div class="flex gap-2">
+              <button id="btn-add-all" class="px-3 py-1 rounded bg-blue-600 text-white text-xs font-bold hover:bg-blue-700">모두 추가</button>
+              <button id="btn-add-collapse" class="px-3 py-1 rounded bg-white border text-xs font-bold">접기</button>
+            </div>
+          </div>
+          <div id="add-list" class="flex flex-wrap"></div>
+        </div>
+      </div>
+
+      <!-- 직접 추가 -->
+      <div class="p-3 border-b bg-slate-50">
+        <div class="flex gap-2 items-end">
+          <div class="flex-1">
+            <label class="text-[10px] text-slate-500 font-bold block">한글 (필수)</label>
+            <input id="manual-ko" placeholder="단어" class="border rounded px-2 py-1 text-sm w-full" />
+          </div>
+          <div class="flex-1">
+            <label class="text-[10px] text-slate-500 font-bold block">영어 (선택)</label>
+            <input id="manual-en" placeholder="word" class="border rounded px-2 py-1 text-sm w-full" />
+          </div>
+          <button id="btn-manual-add" class="px-3 py-1.5 rounded bg-slate-700 text-white text-sm font-bold">직접 추가</button>
+        </div>
+      </div>
+
+      <!-- 단어 표 -->
+      <div class="p-4">
+        <div class="flex items-center justify-between mb-2 text-xs">
+          <div>현재 keyObject <span id="editor-word-count">0</span>개 · <span class="text-rose-600 font-bold">텍스트에 없는 단어는 빨간색</span></div>
+          <button id="btn-del-all-missing" class="px-3 py-1 rounded bg-rose-500 text-white text-xs font-bold hover:bg-rose-600">텍스트 없는 keyObject 전부 삭제</button>
+        </div>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-slate-100 text-xs font-bold text-slate-700">
+              <th class="px-2 py-2 text-left">#</th>
+              <th class="px-2 py-2 text-left">한글</th>
+              <th class="px-2 py-2 text-left">영어</th>
+              <th class="px-2 py-2 text-left">상태</th>
+              <th class="px-2 py-2 text-left">페이지</th>
+              <th class="px-2 py-2 text-right">동작</th>
+            </tr>
+          </thead>
+          <tbody id="editor-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+// ====================================================================
+// state
+// ====================================================================
+let allBooks = [];               // /api/storybooks summary
+let analysisByBook = new Map();  // bookId → { keep:[], delete:[], add:[] }
+let currentBookId = null;
+let currentBook = null;
+let dirtyBooks = new Map();
+
+const HANGUL = /[가-힣]/;
+
+function extractKo(ko) {
+  const k = (ko.korean || '').trim();
+  if (k && HANGUL.test(k)) return k;
+  const n = (ko.name || '').trim();
+  if (HANGUL.test(n)) return n;
+  return '';
+}
+function extractEn(ko) {
+  const en = (ko.nameEn || '').trim();
+  if (en) return en;
+  const n = (ko.name || '').trim();
+  return HANGUL.test(n) ? '' : n;
+}
+
+// ====================================================================
+// 초기 로드
+// ====================================================================
+async function loadAll() {
+  try {
+    const [booksRes, anaRes] = await Promise.all([
+      fetch('/api/storybooks').then(r => r.json()),
+      fetch('/_analysis/text-based-classify.json').then(r => r.json()),
+    ]);
+    allBooks = (booksRes.data || []).filter(b => (b.type || 'storybook') === 'storybook');
+    const ana = anaRes;
+    for (const b of (ana.books || [])) {
+      analysisByBook.set(b.bookId, b);
+    }
+    document.getElementById('stat-books').textContent = allBooks.length;
+    document.getElementById('stat-keep').textContent = ana.summary.keep;
+    document.getElementById('stat-del').textContent = ana.summary.delete;
+    document.getElementById('stat-add').textContent = ana.summary.add;
+    // 카테고리 옵션
+    const cats = [...new Set(allBooks.map(b => b.category).filter(Boolean))].sort();
+    const sel = document.getElementById('filter-cat');
+    for (const c of cats) {
+      const opt = document.createElement('option');
+      opt.value = c; opt.textContent = c;
+      sel.appendChild(opt);
+    }
+    renderBookList();
+  } catch (e) {
+    document.getElementById('book-list').innerHTML = `<div class="p-4 text-rose-500 text-xs">로드 실패: ${e.message}</div>`;
+    console.error(e);
+  }
+}
+
+// ====================================================================
+// 책 list
+// ====================================================================
+function renderBookList() {
+  const q = document.getElementById('book-search').value.trim().toLowerCase();
+  const cat = document.getElementById('filter-cat').value;
+  const onlyIssues = document.getElementById('filter-only-issues').checked;
+  let books = allBooks.slice();
+  if (q) books = books.filter(b => (b.title || '').toLowerCase().includes(q));
+  if (cat) books = books.filter(b => b.category === cat);
+  if (onlyIssues) books = books.filter(b => {
+    const a = analysisByBook.get(b.id);
+    return a && (a.stats.delete > 0 || a.stats.add > 0);
+  });
+  books.sort((a, b) => {
+    const aa = analysisByBook.get(a.id)?.stats || {};
+    const bb = analysisByBook.get(b.id)?.stats || {};
+    const sa = (aa.delete || 0) + (aa.add || 0);
+    const sb = (bb.delete || 0) + (bb.add || 0);
+    if (sa !== sb) return sb - sa;
+    return (a.title || '').localeCompare(b.title || '');
+  });
+  const container = document.getElementById('book-list');
+  if (!books.length) { container.innerHTML = `<div class="p-4 text-slate-400 text-center text-xs">결과 없음</div>`; return; }
+  container.innerHTML = books.map(b => {
+    const a = analysisByBook.get(b.id)?.stats || {};
+    const dirty = dirtyBooks.has(b.id);
+    return `
+      <div class="book-row p-2 ${b.id === currentBookId ? 'active' : ''}" data-id="${b.id}">
+        <div class="flex items-start gap-1">
+          ${dirty ? '<span class="dirty-dot" title="미저장"></span>' : ''}
+          <div class="flex-1 font-bold text-[13px] leading-tight">${escapeHtml(b.title || b.id)}</div>
+        </div>
+        <div class="flex items-center gap-1 mt-1">
+          ${a.add ? `<span class="chip chip-add">+${a.add}</span>` : ''}
+          ${a.delete ? `<span class="chip chip-del">−${a.delete}</span>` : ''}
+          ${a.keep ? `<span class="chip chip-keep">✓${a.keep}</span>` : ''}
+          <div class="text-[10px] text-slate-400 ml-auto">${escapeHtml(b.category || '')}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  container.querySelectorAll('.book-row').forEach(row => {
+    row.addEventListener('click', () => selectBook(row.dataset.id));
+  });
+}
+
+document.getElementById('book-search').addEventListener('input', renderBookList);
+document.getElementById('filter-cat').addEventListener('change', renderBookList);
+document.getElementById('filter-only-issues').addEventListener('change', renderBookList);
+
+// ====================================================================
+// 책 선택
+// ====================================================================
+async function selectBook(id) {
+  if (currentBookId && dirtyBooks.has(currentBookId) && currentBookId !== id) {
+    if (!confirm('현재 책에 저장하지 않은 변경이 있어요. 다른 책으로 이동할까요?')) return;
+  }
+  currentBookId = id;
+  renderBookList();
+  document.getElementById('editor-empty').classList.add('hidden');
+  document.getElementById('editor').classList.remove('hidden');
+  document.getElementById('editor-tbody').innerHTML = `<tr><td colspan="6" class="p-4 text-slate-400 text-center text-xs">로딩...</td></tr>`;
+
+  if (dirtyBooks.has(id)) {
+    currentBook = dirtyBooks.get(id);
+  } else {
+    try {
+      const res = await fetch(`/api/storybooks/${encodeURIComponent(id)}`);
+      const j = await res.json();
+      currentBook = j.data;
+    } catch (e) {
+      document.getElementById('editor-tbody').innerHTML = `<tr><td colspan="6" class="p-4 text-rose-500 text-xs">${e.message}</td></tr>`;
+      return;
+    }
+  }
+  renderEditor();
+}
+
+function renderEditor() {
+  if (!currentBook) return;
+  document.getElementById('editor-cat').textContent = currentBook.category || '';
+  document.getElementById('editor-title').textContent = currentBook.title || currentBook.id;
+  document.getElementById('editor-id').textContent = currentBook.id;
+
+  const btn = document.getElementById('btn-save');
+  const isDirty = dirtyBooks.has(currentBook.id);
+  btn.disabled = !isDirty;
+  btn.className = isDirty
+    ? 'px-4 py-2 rounded-lg font-bold text-sm bg-emerald-600 text-white hover:bg-emerald-700'
+    : 'px-4 py-2 rounded-lg font-bold text-sm bg-slate-200 text-slate-400 cursor-not-allowed';
+
+  renderAddSection();
+  renderWordTable();
+}
+
+function renderAddSection() {
+  const ana = analysisByBook.get(currentBook.id);
+  const adds = ana?.add || [];
+  // 이미 currentBook 의 keyObjects 에 있는 단어 (사용자가 추가한 것 포함) 는 added 표시
+  const existingWords = new Set((currentBook.key_objects || []).map(extractKo).filter(Boolean));
+  document.getElementById('add-count').textContent = adds.length;
+  const list = document.getElementById('add-list');
+  if (!adds.length) {
+    list.innerHTML = '<div class="text-xs text-slate-500">추가 후보 없음</div>';
+    return;
+  }
+  list.innerHTML = adds.map(a => {
+    const already = existingWords.has(a.word);
+    return `
+      <div class="add-item ${already ? 'added' : ''}" data-word="${escapeHtml(a.word)}">
+        <span>${escapeHtml(a.word)}</span>
+        <span class="text-[9px] text-slate-500">p${a.pages.join(',')}</span>
+        ${already ? '<span class="text-[10px]">✓ 추가됨</span>' : `<button class="btn-add-one" data-word="${escapeHtml(a.word)}">+</button>`}
+      </div>
+    `;
+  }).join('');
+  list.querySelectorAll('.btn-add-one').forEach(btn => {
+    btn.addEventListener('click', () => addOne(btn.dataset.word));
+  });
+}
+
+function addOne(word) {
+  const ana = analysisByBook.get(currentBook.id);
+  const cand = ana?.add?.find(a => a.word === word);
+  if (!cand) return;
+  if (!currentBook.key_objects) currentBook.key_objects = [];
+  // 중복 방지
+  if (currentBook.key_objects.some(k => extractKo(k) === word)) return;
+  currentBook.key_objects.push({
+    name: word,
+    korean: word,
+    description: '',
+    pages: [...cand.pages],
+    __added: true,
+  });
+  markDirty();
+  renderEditor();
+}
+
+document.getElementById('btn-add-all').addEventListener('click', () => {
+  const ana = analysisByBook.get(currentBook.id);
+  const adds = ana?.add || [];
+  const existing = new Set((currentBook.key_objects || []).map(extractKo).filter(Boolean));
+  let added = 0;
+  if (!currentBook.key_objects) currentBook.key_objects = [];
+  for (const a of adds) {
+    if (existing.has(a.word)) continue;
+    currentBook.key_objects.push({
+      name: a.word, korean: a.word, description: '', pages: [...a.pages], __added: true,
+    });
+    existing.add(a.word);
+    added++;
+  }
+  if (added > 0) { markDirty(); renderEditor(); }
+});
+
+document.getElementById('btn-add-collapse').addEventListener('click', () => {
+  const list = document.getElementById('add-list');
+  list.classList.toggle('hidden');
+  document.getElementById('btn-add-collapse').textContent = list.classList.contains('hidden') ? '펴기' : '접기';
+});
+
+document.getElementById('btn-manual-add').addEventListener('click', () => {
+  const ko = document.getElementById('manual-ko').value.trim();
+  const en = document.getElementById('manual-en').value.trim();
+  if (!ko || !HANGUL.test(ko)) { alert('한글 단어를 입력하세요'); return; }
+  if (!currentBook.key_objects) currentBook.key_objects = [];
+  if (currentBook.key_objects.some(k => extractKo(k) === ko)) { alert('이미 있는 단어입니다'); return; }
+  currentBook.key_objects.push({
+    name: en || ko, korean: ko, nameEn: en || '', description: '', pages: [], __added: true,
+  });
+  document.getElementById('manual-ko').value = '';
+  document.getElementById('manual-en').value = '';
+  markDirty();
+  renderEditor();
+});
+
+// ====================================================================
+// 기존 keyObject 표
+// ====================================================================
+function renderWordTable() {
+  const ko = currentBook.key_objects || [];
+  document.getElementById('editor-word-count').textContent = ko.length;
+  const ana = analysisByBook.get(currentBook.id);
+  const deleteWords = new Set((ana?.delete || []).map(d => d.word));
+
+  const tbody = document.getElementById('editor-tbody');
+  if (!ko.length) { tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-slate-400 text-center text-xs">단어 없음</td></tr>`; return; }
+  tbody.innerHTML = ko.map((k, idx) => {
+    const koWord = extractKo(k);
+    const enWord = extractEn(k);
+    const isMissing = koWord && deleteWords.has(koWord);
+    const isPending = k.__deletePending;
+    const isAdded = k.__added;
+    const status = isMissing ? '<span class="chip chip-del">텍스트 없음</span>' : '<span class="chip chip-keep">텍스트 있음</span>';
+    return `
+      <tr class="word-row border-b ${isPending ? 'del-pending' : ''} ${isAdded ? 'added' : ''} ${isMissing ? 'text-missing' : ''}" data-idx="${idx}">
+        <td class="px-2 py-2 text-xs text-slate-400">${idx + 1}</td>
+        <td class="px-2 py-2 font-bold word-cell">${escapeHtml(koWord || '<em class="text-slate-300">(한글없음)</em>')}</td>
+        <td class="px-2 py-2 text-xs text-slate-500">${escapeHtml(enWord || '-')}</td>
+        <td class="px-2 py-2">${status}${isAdded ? '<span class="chip chip-add ml-1">NEW</span>' : ''}</td>
+        <td class="px-2 py-2 text-xs text-slate-500">${(k.pages || []).join(', ') || '-'}</td>
+        <td class="px-2 py-2 text-right">
+          ${isPending
+            ? `<button class="btn-undo px-2 py-1 text-xs bg-slate-200 rounded hover:bg-slate-300" data-idx="${idx}">↩ 되돌리기</button>`
+            : `<button class="btn-del px-2 py-1 text-xs bg-rose-500 text-white rounded hover:bg-rose-600" data-idx="${idx}">🗑</button>`}
+        </td>
+      </tr>
+    `;
+  }).join('');
+  tbody.querySelectorAll('.btn-del').forEach(b => b.addEventListener('click', () => markDelete(Number(b.dataset.idx))));
+  tbody.querySelectorAll('.btn-undo').forEach(b => b.addEventListener('click', () => undoDelete(Number(b.dataset.idx))));
+}
+
+document.getElementById('btn-del-all-missing').addEventListener('click', () => {
+  const ana = analysisByBook.get(currentBook.id);
+  const deleteWords = new Set((ana?.delete || []).map(d => d.word));
+  let n = 0;
+  for (const k of (currentBook.key_objects || [])) {
+    const w = extractKo(k);
+    if (w && deleteWords.has(w) && !k.__deletePending) {
+      k.__deletePending = true;
+      n++;
+    }
+  }
+  if (n > 0) { markDirty(); renderEditor(); }
+});
+
+function markDelete(idx) {
+  const k = currentBook.key_objects[idx];
+  if (k.__added) currentBook.key_objects.splice(idx, 1);
+  else k.__deletePending = true;
+  markDirty();
+  renderEditor();
+}
+function undoDelete(idx) {
+  delete currentBook.key_objects[idx].__deletePending;
+  recheckDirty();
+  renderEditor();
+}
+
+function markDirty() {
+  if (!dirtyBooks.has(currentBook.id)) dirtyBooks.set(currentBook.id, currentBook);
+  updateDirtyStat();
+  renderBookList();
+}
+function recheckDirty() {
+  const has = (currentBook.key_objects || []).some(k => k.__added || k.__deletePending);
+  if (!has) dirtyBooks.delete(currentBook.id);
+  updateDirtyStat();
+  renderBookList();
+}
+function updateDirtyStat() {
+  document.getElementById('stat-dirty').textContent = dirtyBooks.size;
+}
+
+// ====================================================================
+// 저장
+// ====================================================================
+document.getElementById('btn-save').addEventListener('click', async () => {
+  if (!currentBook || !dirtyBooks.has(currentBook.id)) return;
+  const btn = document.getElementById('btn-save');
+  btn.disabled = true;
+  btn.textContent = '저장 중...';
+  try {
+    const cleaned = (currentBook.key_objects || [])
+      .filter(k => !k.__deletePending)
+      .map(k => { const { __added, __deletePending, ...rest } = k; return rest; });
+    const payload = { ...currentBook };
+    payload.key_objects = cleaned;
+    const res = await fetch('/api/storybooks', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ storybook: payload }),
+    });
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      throw new Error(j.error || j.message || `HTTP ${res.status}`);
+    }
+    const j = await res.json();
+    currentBook = j.data;
+    dirtyBooks.delete(currentBook.id);
+    updateDirtyStat();
+    renderEditor();
+    renderBookList();
+    btn.textContent = '✅ 저장됨';
+    setTimeout(() => { btn.textContent = '💾 저장'; }, 1500);
+  } catch (e) {
+    alert('저장 실패: ' + e.message);
+    btn.textContent = '💾 저장';
+    btn.disabled = false;
+  }
+});
+
+window.addEventListener('beforeunload', (e) => {
+  if (dirtyBooks.size > 0) { e.preventDefault(); e.returnValue = ''; }
+});
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+}
+
+loadAll();
+</script>
+</body>
+</html>

@@ -81,6 +81,14 @@ features/{name}/{api,hooks,components,index.ts}
 - **vocab-overrides API**: `GET/PUT /api/vocab-overrides` → R2 `_index/vocab-overrides.json`. localStorage X, dirty 플래그 + 명시 💾 저장 + beforeunload 경고.
 - 영어 `vocabulary-master.html` 도 verbs/adj/adv 토픽 제거 + 어미 패턴 (~ly·ful·less·ous·ive·able·ish) 자동 필터.
 
+## 핵심단어 에디터 (2026-05-18)
+- **`/key-object-editor.html`** — 저작도구 자료실 dropdown ✏️. 페이지 텍스트 기반 keyObject 재분류 + 책별 편집기.
+- **분석**: `packages/server/scripts/classify-by-page-text.mjs` — 모든 책의 page.text 를 한국어 토큰화 (조사 strip) → Wiktionary REST API 로 Noun 만 필터 → 책별 `keep` (텍스트에 있는 기존 keyObject) / `delete` (텍스트에 없음) / `add` (텍스트에서 새로 발견된 명사) 산출. Wiktionary cache `_data/wiktionary-cache.json` (재실행시 즉시).
+- **UI**: 좌측 책 list (검색·카테고리 필터·DEL/ADD chip·"DEL/ADD 있는 책만" 토글). 우측 (1) ADD 후보 grid (+ 개별/모두 추가) (2) 직접 추가 input (3) 기존 keyObjects 표 (텍스트 없는 단어 자동 빨간색 + 일괄 삭제 버튼) (4) 💾 저장.
+- **데이터 source**: 정적 분석 결과 `packages/client/public/_analysis/text-based-classify.json` (스크립트 매번 갱신, gitignored). 저장 시 `POST /api/storybooks` 로 R2 직접 반영.
+- **그림체 dropdown swap (LevelEditCard)**: 활성 chip 옆 `▼ 그림체 변경` select — 라이브러리 16 preset 전체 노출 (현재 ✓ / 추가됨 표기). 선택 시 availableStyles 에 있으면 즉시 swap, 없으면 추가 확인 모달. `findArtStylePreset(value, lib?)` 시그니처 변경 — R2 라이브러리 라벨 우선 (사용자 편집 이름 적용).
+- **server fix (r2.repository.ts normalizeStorybook)**: `keyObjectImages[]` 에 `null` entry 있던 일부 책 (e.g. 헨젤과 그레텔*) 이 silent catch 로 404 → null 필터링 추가. `getStorybook` catch 에 error log 추가 (silent swallow 방지).
+
 ## 블록 게임 레벨 선택 + 공유 (2026-05-11)
 - 사이드바 sub-button: "한글 블록 게임" / "알파벳 블록 게임" 라벨 + 옆에 📤 공유 버튼 (Web Share API + clipboard fallback).
 - `/games/{korean,alphabet}-block` → 레벨 선택 화면 (🌱 쉬움 / 🌿 보통 / 🌳 어려움, 각 단어 수 표시) → 그 레벨 단어에서 랜덤 N개 → 플레이어.

@@ -47,6 +47,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '난이도 분석 · 카테고리 · 정렬',
   },
   {
+    href: '/key-object-editor.html',
+    icon: '✏️',
+    label: '핵심단어 에디터',
+    desc: '책별 한글 keyObjects 추가/삭제',
+  },
+  {
     href: '/design-system.html',
     icon: '🎨',
     label: '디자인 시스템',

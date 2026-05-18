@@ -134,7 +134,12 @@ function CardHeader({
   onToggle: () => void;
 }) {
   const { data: sb } = useStorybook(storybookId);
-  const styleLabel = sb && findArtStylePreset(sb.artStyle)?.label;
+  const { data: styleLibrary } = useQuery({
+    queryKey: ['art-style-library'],
+    queryFn: settingsApi.getArtStyleLibrary,
+    staleTime: 60_000,
+  });
+  const styleLabel = sb && findArtStylePreset(sb.artStyle, styleLibrary)?.label;
   const langCount = sb ? getAvailableLanguages(sb).length : 1;
 
   return (
@@ -285,7 +290,7 @@ function CardBody({
         <div className="flex items-center gap-1 flex-wrap">
           <span className="text-[10px] font-bold text-slate-500 uppercase mr-1">그림체</span>
           {allStyles.map((prompt) => {
-            const preset = findArtStylePreset(prompt);
+            const preset = findArtStylePreset(prompt, styleLibrary);
             const label = preset?.label ?? '커스텀';
             const active = prompt === storybook.artStyle;
             const canRemove = active && allStyles.length > 1; // 활성이면서 다른 그림체 있을 때만
@@ -380,6 +385,41 @@ function CardBody({
                 });
               }}
             />
+          )}
+          {/* 활성 그림체 swap dropdown — 라이브러리 전체에서 선택 (있으면 swap, 없으면 추가) */}
+          {styleLibrary && styleLibrary.length > 0 && (
+            <select
+              value=""
+              onChange={(e) => {
+                const v = e.target.value;
+                e.target.value = '';
+                if (!v) return;
+                const picked = (styleLibrary ?? []).find((s) => s.id === v);
+                if (!picked) return;
+                if (allStyles.includes(picked.id)) {
+                  // 이미 추가된 그림체 — 활성으로 swap
+                  if (picked.id === storybook.artStyle) return;
+                  handleUpdate((d) => {
+                    switchStyleAssets(d, picked.id);
+                  });
+                  handleSave();
+                } else {
+                  // 새 그림체 — 추가 확인 모달로
+                  setPendingStyleAdd({ id: picked.id, label: picked.name, prompt: picked.prompt });
+                }
+              }}
+              className="px-2 py-0.5 rounded text-[11px] font-bold border border-coral-300 text-coral-700 bg-white dark:bg-slate-800 dark:text-coral-300 dark:border-slate-600 cursor-pointer"
+              title="라이브러리에서 그림체 변경"
+            >
+              <option value="">▼ 그림체 변경</option>
+              {(styleLibrary ?? []).map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.name}
+                  {s.id === storybook.artStyle ? ' ✓ 현재' : ''}
+                  {allStyles.includes(s.id) && s.id !== storybook.artStyle ? ' (추가됨)' : ''}
+                </option>
+              ))}
+            </select>
           )}
           {/* 라인 맨 오른쪽 — ⚙️ 그림체 라이브러리 편집 */}
           <button
