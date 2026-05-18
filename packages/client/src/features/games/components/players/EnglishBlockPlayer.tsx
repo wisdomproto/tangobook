@@ -295,11 +295,10 @@ function EnglishBlockPlayerInner({
     storybookId,
   ]);
 
-  // ref 로 handleCheck 보관 — 정답 자동 체크 useEffect 가 stale closure 회피 + 무한 루프 차단
+  // ref 로 handleCheck 보관 — 자동 체크 effect 가 stale closure 호출하지 않도록
+  // render body 에서 직접 할당 (effect 면 ordering 충돌로 오답 처리됨).
   const handleCheckRef = useRef(handleCheck);
-  useEffect(() => {
-    handleCheckRef.current = handleCheck;
-  }, [handleCheck]);
+  handleCheckRef.current = handleCheck;
 
   const handleNext = useCallback(() => {
     if (currentIndex + 1 < items.length) {

@@ -457,11 +457,10 @@ function KoreanBlockPlayerInner({
   ]);
 
   // ref 로 handleCheck 보관 — 정답 자동 체크 useEffect 가 stale closure 피하면서
-  // composed 만 deps 로 가질 수 있게 (handleCheck 를 deps 로 두면 매 render 새 함수라 무한 루프).
+  // composed 만 deps 로 가질 수 있게. render body 에서 직접 할당 (effect 로 하면
+  // 자동 체크 effect 가 ref 갱신 effect 보다 위라 stale closure 호출 → 오답 처리됨).
   const handleCheckRef = useRef(handleCheck);
-  useEffect(() => {
-    handleCheckRef.current = handleCheck;
-  }, [handleCheck]);
+  handleCheckRef.current = handleCheck;
 
   // 게임 완료 시 학습 이벤트
   useEffect(() => {
