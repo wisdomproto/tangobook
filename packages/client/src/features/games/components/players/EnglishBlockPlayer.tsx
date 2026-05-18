@@ -212,6 +212,23 @@ function EnglishBlockPlayerInner({
     [grid, roundCorrect]
   );
 
+  // 정답 자동 체크 — 모든 slot 이 target 과 일치하면 "확인" 버튼 없이 정답 처리.
+  // 오답 분기는 자동 발동 X (사용자가 확인 누를 때만 wrong slot 표시).
+  useEffect(() => {
+    if (roundCorrect) return;
+    const target = currentItem.word.toLowerCase();
+    let allCorrect = true;
+    for (let i = 0; i < letterCount; i++) {
+      if (!grid[i] || grid[i] !== target[i]) {
+        allCorrect = false;
+        break;
+      }
+    }
+    if (allCorrect) {
+      handleCheckRef.current();
+    }
+  }, [grid, currentItem.word, letterCount, roundCorrect]);
+
   const handleCheck = useCallback(() => {
     if (roundCorrect) return;
     const target = currentItem.word.toLowerCase();
@@ -277,6 +294,12 @@ function EnglishBlockPlayerInner({
     roundCorrect,
     storybookId,
   ]);
+
+  // ref 로 handleCheck 보관 — 정답 자동 체크 useEffect 가 stale closure 회피 + 무한 루프 차단
+  const handleCheckRef = useRef(handleCheck);
+  useEffect(() => {
+    handleCheckRef.current = handleCheck;
+  }, [handleCheck]);
 
   const handleNext = useCallback(() => {
     if (currentIndex + 1 < items.length) {

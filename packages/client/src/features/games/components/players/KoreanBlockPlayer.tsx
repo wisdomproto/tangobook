@@ -388,6 +388,16 @@ function KoreanBlockPlayerInner({
     [grid, roundCorrect]
   );
 
+  // 정답 자동 체크 — 사용자가 블록 배치 완성 시 "확인" 버튼 없이 정답 처리.
+  // 오답 분기는 자동 발동 X (사용자가 확인 누를 때만 wrong 표시).
+  useEffect(() => {
+    if (roundCorrect) return;
+    const composed = composedSyllables.join('');
+    if (composed === currentItem.word && composed.length > 0) {
+      handleCheckRef.current();
+    }
+  }, [composedSyllables, currentItem.word, roundCorrect]);
+
   const handleCheck = useCallback(() => {
     if (roundCorrect) return;
     const composed = composedSyllables.join('');
@@ -445,6 +455,13 @@ function KoreanBlockPlayerInner({
     roundCorrect,
     storybookId,
   ]);
+
+  // ref 로 handleCheck 보관 — 정답 자동 체크 useEffect 가 stale closure 피하면서
+  // composed 만 deps 로 가질 수 있게 (handleCheck 를 deps 로 두면 매 render 새 함수라 무한 루프).
+  const handleCheckRef = useRef(handleCheck);
+  useEffect(() => {
+    handleCheckRef.current = handleCheck;
+  }, [handleCheck]);
 
   // 게임 완료 시 학습 이벤트
   useEffect(() => {
