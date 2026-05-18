@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
-import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { Mascot, AppIcon } from '@/design-system';
+import { Outlet, NavLink, Link, useLocation } from 'react-router-dom';
+import { AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
-import { useStorybooks } from '@/features/storybook';
 import { cn } from '@/lib/cn';
 
 /**
@@ -66,15 +65,8 @@ function getPageTitle(
 
 export function AppShell() {
   const { activeProfile, session, signOut, isConfigured } = useAuth();
-  // v1 단일화 — 사이드바 헤더 카운트도 v1 기준 (B-2 sweep 잔재 정리).
-  const { data: storybooks } = useStorybooks();
   const location = useLocation();
-  const bookCount = storybooks?.filter((b) => b.isPublic).length ?? 0;
   const pageTitle = getPageTitle(location.pathname);
-  // 단원 학습 화면(/vocabulary/:unitId)은 가운데 호리+말풍선이 본문 시선을 가져가야 해서 사이드바 호리 숨김
-  const hideSidebarMascot = /^\/vocabulary\/[^/]+/.test(location.pathname);
-  // 라이브러리는 hero 배경이 헤더 영역까지 차지 — AppShell 헤더 transparent + 우측 사용자 chip 만 floating
-  const isLibraryRoot = location.pathname === '/library';
 
   // 학습자 화면은 라이트 모드 고정
   useEffect(() => {
@@ -86,9 +78,6 @@ export function AppShell() {
     await signOut();
   };
 
-  // 인사말 — /library 는 hero 배너에 권수 노출 (중복 회피). 다른 진입점에서만 fallback (현재 경로 매칭 없으니 사실상 비활성)
-  const greeting = '';
-
   return (
     <div className="flex min-h-screen bg-cream-50">
       {/* 좌측 nav — 태블릿 기준 w-44 (176px). 박스 + 라벨 가독성 우선. */}
@@ -98,58 +87,40 @@ export function AppShell() {
           <img src="/logo/logo-kr.webp" alt="탱고북" className="h-16 w-auto object-contain" />
         </div>
 
-        {/* 3 axis — 모두 동일 정사각 박스 (정렬 통일). 동화책 / 파닉스 / 어휘 */}
-        <nav className="flex flex-col gap-3 items-center pt-5">
+        {/* 3 axis — 동화책 / 파닉스 / 어휘. 학습 메인 메뉴. */}
+        <nav className="flex flex-col gap-3 items-center pt-5 pb-4">
           {PRIMARY_AXES.map((axis) => (
             <PrimaryNavButton key={axis.to} {...axis} />
           ))}
-          {/* 어휘 axis 아래 구분선 + 전체 어휘 풀 랜덤 블록 게임 진입점 2개 */}
-          <div className="w-20 h-px bg-ink-200/70 my-2" />
-          <div className="flex items-center gap-1.5">
+        </nav>
+
+        {/* 미니 게임 — 학습 메뉴와 명확히 구분 (위·아래 border + 작은 섹션 헤더) */}
+        <div className="mx-3 px-2 py-3 border-t border-b border-ink-200/60 bg-cream-100/40 rounded-none">
+          <div className="text-[11px] font-black tracking-wider text-ink-500 uppercase text-center mb-2">
+            미니 게임
+          </div>
+          <div className="flex flex-col gap-2 items-center">
             <SubGameButton
               to="/games/korean-block"
               iconSrc="game/korean-block.webp"
               label="한글 블록 게임"
             />
-            <ShareButton path="/games/korean-block" title="한글 블록 게임" />
-          </div>
-          <div className="flex items-center gap-1.5">
             <SubGameButton
               to="/games/alphabet-block"
               iconSrc="game/korean-block.webp"
               label="알파벳 블록 게임"
             />
-            <ShareButton path="/games/alphabet-block" title="알파벳 블록 게임" />
           </div>
-        </nav>
-
-        {/* 하단 호리 인사 — waving (덜 reactive) + 메시지. 단원 학습 화면에선 본문 호리와 중복이라 spacer만 유지 */}
-        <div className="mt-auto flex flex-col items-center pb-3">
-          {!hideSidebarMascot && (
-            <>
-              <Mascot character="hori" state="waving" size="lg" />
-              <div className="mt-1 px-3 py-1.5 rounded-2xl bg-coral-100 text-coral-700 text-sm font-black text-center shadow-soft">
-                오늘도 만나서 반가워! 👋
-              </div>
-            </>
-          )}
         </div>
 
-        <div className="px-3 pb-3 pt-3 border-t border-ink-100/60">
+        <div className="mt-auto px-3 pb-3 pt-3 border-t border-ink-100/60">
           {isConfigured && <SecondaryNavButton to="/parent" emoji="🔒" label="부모" />}
         </div>
       </aside>
 
-      {/* 우측 영역. /library 일 때 header = absolute overlay → main 이 0부터 시작 → hero 가 헤더 영역까지 차지. */}
+      {/* 우측 영역 — 일반 sticky header (라이브러리 hero 폐기 2026-05-18). */}
       <div className="flex-1 flex flex-col min-w-0 relative">
-        <header
-          className={cn(
-            'h-20 z-30 px-7 flex items-center justify-between',
-            isLibraryRoot
-              ? 'absolute top-0 inset-x-0 bg-transparent border-b-0 pointer-events-none'
-              : 'sticky top-0 bg-cream-50 border-b border-ink-100/60'
-          )}
-        >
+        <header className="h-20 z-30 px-7 flex items-center justify-between sticky top-0 bg-cream-50 border-b border-ink-100/60">
           {/* 왼쪽: 페이지 타이틀 (큰 글자) + 인사말 sub */}
           <div className="flex items-center gap-3 min-w-0">
             {pageTitle && (
@@ -162,19 +133,16 @@ export function AppShell() {
                 <span>{pageTitle.title}</span>
               </h1>
             )}
-            {greeting && (
-              <span className="text-base font-bold text-ink-500 hidden sm:inline">{greeting}</span>
-            )}
           </div>
 
-          {/* 오른쪽: 프로필 + 로그아웃. /library transparent 헤더 위에서도 클릭 가능. */}
-          <div className="flex items-center gap-3 flex-shrink-0 pointer-events-auto">
+          {/* 오른쪽: 프로필 + 로그인/로그아웃 */}
+          <div className="flex items-center gap-3 flex-shrink-0">
             {activeProfile && (
               <div className="px-4 py-2 rounded-full bg-white shadow-soft text-sm font-black text-ink-900">
                 👦 {activeProfile.name}
               </div>
             )}
-            {session && (
+            {session ? (
               <button
                 onClick={handleSignOut}
                 className="w-10 h-10 rounded-full bg-white shadow-soft text-ink-500 hover:text-danger hover:shadow-pop transition flex items-center justify-center"
@@ -196,7 +164,14 @@ export function AppShell() {
                   <line x1="21" y1="12" x2="9" y2="12" />
                 </svg>
               </button>
-            )}
+            ) : isConfigured ? (
+              <Link
+                to="/login"
+                className="px-5 py-2 rounded-full bg-coral-500 hover:bg-coral-600 text-white font-black text-sm shadow-soft hover:shadow-pop transition"
+              >
+                로그인
+              </Link>
+            ) : null}
           </div>
         </header>
 
@@ -291,52 +266,6 @@ function SubGameButton({ to, iconSrc, label }: { to: string; iconSrc: string; la
       <AppIcon src={iconSrc} size={32} alt={label} />
       <span className="text-sm">{label}</span>
     </NavLink>
-  );
-}
-
-function ShareButton({ path, title }: { path: string; title: string }) {
-  const handleShare = async () => {
-    const url = window.location.origin + path;
-    const shareData = { title: `탱고북 — ${title}`, text: `${title} 같이 해봐요!`, url };
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-        return;
-      } catch (e) {
-        if ((e as Error).name === 'AbortError') return;
-      }
-    }
-    try {
-      await navigator.clipboard.writeText(url);
-      alert(`🔗 링크 복사됨!\n${url}`);
-    } catch {
-      window.prompt('아래 링크를 복사해 주세요:', url);
-    }
-  };
-  return (
-    <button
-      onClick={handleShare}
-      className="w-10 h-10 rounded-full bg-violet-100 text-violet-600 hover:bg-violet-200 hover:scale-110 active:scale-95 transition shadow-soft flex items-center justify-center"
-      title={`${title} 공유하기`}
-      aria-label={`${title} 공유하기`}
-    >
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="18" cy="5" r="3" />
-        <circle cx="6" cy="12" r="3" />
-        <circle cx="18" cy="19" r="3" />
-        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-      </svg>
-    </button>
   );
 }
 
