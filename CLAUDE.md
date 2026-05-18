@@ -172,5 +172,26 @@ pnpm --filter {server|client|shared} {dev|build|...}
 ## PRD 문서
 `docs/PRD_*.md` (Master / AuthorTool_Storybook / AuthorTool_Phonics / Viewer / Marketing / v2 / UIUX_AuthorTool)
 
-## 마케팅 자료 (2026-05-14)
-`docs/marketing/` — 네이버 검색광고 API 실측 키워드 분석 + ContentFlow 임포트용 전략 템플릿 생성 도구. `data/` 4,024개 키워드 스냅샷, `scripts/naver-keyword-research.mjs` 재실행 시 자격증명 `NAVER_AD_*` 환경변수 필요. `generate-contentflow-template.mjs` 는 contentflow1 앱의 `public/strategy-templates/` 에 임포트 가능한 HTML 합성.
+## 마케팅 자료 (2026-05-14, 확장 2026-05-16)
+`docs/marketing/` — 키워드 리서치·통합·전략 시각화 풀 파이프라인. 자세한 가이드는 `docs/marketing/README.md`.
+
+**데이터 소스 4종**:
+- `data/naver-keywords-raw.json` + `naver-analyzed.json` (네이버 카테고리 시드 4,024)
+- `data/naver-content-raw.json` (네이버 콘텐츠 시드 200+ → 22,289, rate-limit 적용) + `naver-discovered-bonus.json` (보너스 20,602)
+- `data/dataforseo-kr.json` (Google Ads KR) + `dataforseo-en.json` (Google Ads US)
+- `data/consolidated-keywords.json` + `consolidated-summary.md` (4개 소스 통합 + 교차검증 + 골든)
+
+**스크립트** (`scripts/`): `content-seeds.mjs` (시드 단일 진실원천, KR/EN × 13 카테고리) · `naver-content-keyword-research.mjs` · `dataforseo-keyword-research.mjs` · `consolidate-keywords.mjs` · `audit-noise-and-mine.mjs` · `generate-seo-html.mjs`.
+
+**자격증명 환경변수**: `NAVER_AD_API_KEY/SECRET/CUSTOMER_ID` · `DATAFORSEO_LOGIN/PASSWORD`. 절대 하드코딩 X.
+
+**자료실 등록 HTML 3종** (저작도구 TopBar 📁 자료실 ▾):
+- `/seo-strategy.html` 🔍 SEO 전략 — `generate-seo-html.mjs` 가 자동 생성. consolidated-keywords.json 갱신 후 재빌드 필요
+- `/operations-playbook.html` 🎯 운영 플레이북 — 본질 베타 → 점진 확장 + 비즈니스 모델(무료·광고 / 유료·광고제거 + ⭐포인트 통합) + 8-Pronged 알림 작전 + 듀얼 블로그(자체+네이버) + 5종 바이럴 자석
+- `/viral-magnets-wireframes.html` 🚀 바이럴 자석 UI — 5종 자석 모바일 와이어프레임 (디자인·개발 발주서)
+
+**전략 핵심 결정** (operations-playbook.html 에 모두 반영):
+- 명작 동화 플랫폼 브랜딩 (AI 양산 사이트와 정반대 포지셔닝)
+- 베타 = 오픈 베타 + 바이럴 자석 + 본질 검증 (게임화·AI 자녀동화·별·호리 모두 제외)
+- 풀스펙 9개 + 라이트 31 + 자연관찰 30~40 → 주 2개 풀스펙 보강 (16주)
+- 정식 런칭(M3+) 시 ⭐ 포인트 시스템 통합 — 무료/유료 중간 화폐 + 바이럴 보상 + 결제 명분

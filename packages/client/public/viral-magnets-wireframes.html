@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>탱고북 바이럴 자석 5종 — UI 와이어프레임</title>
+<style>
+  :root {
+    --primary: #be4a14;
+    --primary-dark: #8f3608;
+    --accent: #f59e0b;
+    --kakao: #FEE500;
+    --kakao-dark: #3C1E1E;
+    --insta-1: #f09433;
+    --insta-2: #e6683c;
+    --insta-3: #dc2743;
+    --insta-4: #bc1888;
+    --bg: #f5f3ef;
+    --canvas: #fafaf7;
+    --card: #ffffff;
+    --text: #1f2937;
+    --text-soft: #6b7280;
+    --border: #d1d5db;
+    --frame: #2d2d2d;
+    --mint: #65d4c2;
+    --blue: #68a7ff;
+    --soft-fill: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    font-size: 14px;
+  }
+  .container { max-width: 1400px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 40px 32px;
+    border-radius: 14px;
+    margin-bottom: 28px;
+  }
+  .hero .tag { display:inline-block; padding:4px 12px; background:rgba(255,255,255,0.18); border-radius:20px; font-size:11px; font-weight:700; margin-bottom:12px; letter-spacing:0.6px; text-transform:uppercase; }
+  .hero h1 { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+  .hero .subtitle { font-size: 14px; opacity: 0.92; max-width: 820px; }
+  .hero .meta { margin-top: 18px; display:flex; gap:18px; flex-wrap:wrap; font-size: 12px; opacity: 0.85; }
+  .hero .meta strong { color: #fbbf24; }
+
+  /* TOC */
+  .toc { background:#fff; border:1px solid var(--border); border-radius:10px; padding:16px 22px; margin-bottom:32px; }
+  .toc h3 { font-size: 11px; color: var(--primary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .toc ol { list-style: none; counter-reset: t; display:flex; flex-wrap:wrap; gap: 8px 24px; }
+  .toc li { counter-increment: t; font-size: 13px; }
+  .toc li::before { content: counter(t) "."; color: var(--accent); font-weight: 800; margin-right: 5px; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--primary); text-decoration: underline; }
+
+  /* PRINCIPLES */
+  .principles {
+    background: #fff7d7;
+    border-left: 5px solid var(--accent);
+    border-radius: 10px;
+    padding: 18px 24px;
+    margin-bottom: 32px;
+  }
+  .principles h3 { font-size: 14px; color: #78350f; margin-bottom: 10px; }
+  .principles ul { list-style: none; padding-left: 0; }
+  .principles li { padding: 4px 0; padding-left: 22px; position: relative; font-size: 13px; }
+  .principles li::before { content: '✦'; position: absolute; left: 0; color: var(--accent); font-weight: 800; }
+
+  /* SECTIONS */
+  section.magnet {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    margin-bottom: 28px;
+    scroll-margin-top: 16px;
+  }
+  section.magnet h2 {
+    font-size: 22px;
+    color: var(--primary-dark);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  section.magnet h2 .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; border-radius: 10px;
+    background: var(--primary); color: white; font-size: 14px; font-weight: 800;
+  }
+  section.magnet .lead { font-size: 13.5px; color: var(--text-soft); margin-bottom: 18px; }
+
+  /* FLOW STRIP */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 20px 0;
+    background: var(--canvas);
+    border-radius: 12px;
+    padding: 24px 18px;
+    margin: 12px 0 22px;
+  }
+  .flow-step { flex: 0 0 auto; }
+  .flow-arrow {
+    flex: 0 0 auto;
+    width: 44px;
+    text-align: center;
+    color: var(--primary);
+    font-size: 22px;
+    font-weight: 800;
+    align-self: center;
+  }
+
+  /* PHONE MOCKUP */
+  .phone {
+    width: 280px;
+    background: var(--frame);
+    border-radius: 28px;
+    padding: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+  .phone .screen {
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    min-height: 480px;
+    position: relative;
+  }
+  .phone .notch {
+    height: 18px; background: var(--frame);
+    border-radius: 0 0 12px 12px;
+    width: 80px; margin: 0 auto;
+    position: relative; top: 0;
+  }
+  .phone-label {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .phone-sub {
+    text-align: center;
+    margin-top: 3px;
+    font-size: 10.5px;
+    color: var(--text-soft);
+  }
+  .screen-content { padding: 14px 12px 18px; }
+
+  /* APP HEADER */
+  .app-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 12px 10px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 11px;
+    color: var(--text-soft);
+  }
+  .app-header .title { font-weight: 800; color: var(--primary-dark); }
+
+  /* CARDS / UI ELEMENTS */
+  .kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+  .kpi-box { background: #fff8e1; border: 1px solid #fbe6a7; border-radius: 8px; padding: 8px 10px; }
+  .kpi-box .l { font-size: 9px; color: var(--text-soft); }
+  .kpi-box .v { font-size: 16px; font-weight: 800; color: var(--primary); }
+  .kpi-box .v small { font-size: 9px; color: var(--text-soft); font-weight: 500; }
+
+  .share-btn {
+    background: var(--kakao);
+    color: var(--kakao-dark);
+    border: none;
+    width: 100%;
+    padding: 11px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    margin: 8px 0;
+    cursor: pointer;
+    text-align: center;
+  }
+  .share-btn.insta {
+    background: linear-gradient(45deg, var(--insta-1), var(--insta-3) 50%, var(--insta-4));
+    color: white;
+  }
+  .share-btn.outline {
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+  }
+  .share-btn small { display: block; font-weight: 400; font-size: 10px; opacity: 0.8; margin-top: 2px; }
+
+  /* SHARE CARD (사용자가 실제 공유할 카드 이미지) */
+  .share-card {
+    background: linear-gradient(135deg, #fff7d7 0%, #fff0df 100%);
+    border-radius: 12px;
+    padding: 18px 16px;
+    border: 1px solid #fbe6a7;
+    position: relative;
+  }
+  .share-card .head { display:flex; align-items:center; gap:8px; margin-bottom: 12px; }
+  .share-card .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--soft-fill); display:grid; place-items:center; font-size: 18px; }
+  .share-card .name { font-size: 12px; font-weight: 800; color: var(--primary-dark); }
+  .share-card .sub-label { font-size: 9.5px; color: var(--text-soft); }
+  .share-card .big { font-size: 22px; font-weight: 900; color: var(--primary); margin: 4px 0; }
+  .share-card .desc { font-size: 11px; color: var(--text); margin-bottom: 8px; }
+  .share-card .footer-brand { font-size: 9px; color: var(--text-soft); text-align: center; padding-top: 8px; border-top: 1px dashed #e5e7eb; margin-top: 10px; }
+
+  /* SHARE SHEET (OS shared sheet) */
+  .sheet {
+    background: rgba(0,0,0,0.55);
+    padding: 20px 8px 12px;
+    border-radius: 22px;
+    min-height: 480px;
+    display: flex;
+    align-items: flex-end;
+  }
+  .sheet-inner {
+    background: white;
+    border-radius: 14px;
+    padding: 14px 12px;
+    width: 100%;
+  }
+  .sheet-title { font-size: 11px; color: var(--text-soft); text-align: center; padding-bottom: 8px; border-bottom: 1px solid #f3f4f6; margin-bottom: 8px; }
+  .sheet-apps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .sheet-app { text-align: center; padding: 6px 0; cursor: pointer; }
+  .sheet-app .icn { width: 36px; height: 36px; border-radius: 10px; background: var(--soft-fill); margin: 0 auto 4px; display: grid; place-items: center; font-size: 17px; }
+  .sheet-app.kakao .icn { background: var(--kakao); }
+  .sheet-app.insta .icn { background: linear-gradient(45deg, var(--insta-1), var(--insta-3) 50%, var(--insta-4)); }
+  .sheet-app .lbl { font-size: 9px; color: var(--text); }
+  .sheet-actions { display: flex; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #f3f4f6; }
+  .sheet-actions button { flex: 1; padding: 8px 4px; font-size: 10px; border: 1px solid var(--border); background: white; border-radius: 6px; }
+
+  /* CHAT BUBBLE (final delivered state) */
+  .chat-screen {
+    background: #abc1d1;
+    min-height: 480px;
+    padding: 12px 10px;
+    overflow: hidden;
+    position: relative;
+  }
+  .chat-bubble {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 85%;
+    margin: 6px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .chat-bubble.me { margin-left: auto; background: var(--kakao); }
+  .chat-bubble .preview { background: var(--canvas); border-radius: 6px; padding: 8px; margin-top: 6px; font-size: 10px; }
+  .chat-bubble .preview-img { background: #d4d4d4; height: 60px; border-radius: 4px; margin-bottom: 6px; display: grid; place-items: center; color: #6b6b6b; font-size: 14px; }
+
+  /* INSTAGRAM */
+  .insta-screen {
+    background: black;
+    min-height: 480px;
+    padding: 0;
+  }
+  .insta-header {
+    padding: 8px 12px;
+    color: white;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .insta-card {
+    background: white;
+    margin: 0;
+  }
+  .insta-card .img {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    display: grid;
+    place-items: center;
+    color: #92400e;
+    font-size: 18px;
+    font-weight: 800;
+    position: relative;
+  }
+  .insta-card .img.carousel-dot {
+    position: absolute; right: 10px; top: 10px;
+    background: rgba(0,0,0,0.5); color: white; padding: 2px 8px; border-radius: 12px; font-size: 9px;
+  }
+  .insta-card .caption { padding: 10px 12px; font-size: 11px; color: var(--text); }
+
+  /* PDF / DOCUMENT */
+  .pdf-page {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .pdf-page h4 { font-size: 13px; color: var(--primary-dark); margin-bottom: 6px; }
+  .pdf-page .pdf-section { padding: 6px 0; border-bottom: 1px dashed #f3f4f6; font-size: 10.5px; }
+  .pdf-page .pdf-section:last-child { border-bottom: 0; }
+
+  /* SPEC TABLE */
+  .spec {
+    background: #fafaf7;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 14px 0;
+    font-size: 13px;
+  }
+  .spec h4 { font-size: 13px; color: var(--primary-dark); margin: 0 0 8px; }
+  .spec ul { padding-left: 18px; }
+  .spec li { padding: 2px 0; }
+  .spec code { background: #fff; padding: 1px 6px; border-radius: 4px; font-size: 11px; color: var(--primary); border: 1px solid #f3f4f6; }
+
+  /* COPY EXAMPLE */
+  .copy-row { display: grid; grid-template-columns: 100px 1fr; gap: 8px; padding: 4px 0; font-size: 12px; }
+  .copy-row .channel { font-weight: 800; color: var(--primary); font-size: 11px; }
+  .copy-row .text { background: white; padding: 6px 10px; border-radius: 6px; border: 1px solid #f3f4f6; font-size: 11.5px; line-height: 1.5; }
+
+  /* FOOTER */
+  .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-soft); text-align: center; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .flow { overflow-x: scroll; }
+    .phone { width: 250px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<section class="hero">
+  <span class="tag">UI 와이어프레임 · 디자인·개발 발주서</span>
+  <h1>바이럴 자석 5종 — 한 클릭 공유 UI 흐름</h1>
+  <p class="subtitle">
+    바이럴 자석은 컨셉만 있고 화면이 잘못 짜이면 안 굴러간다. 5종 자석 각각의 <strong>출발 화면 → 자석 카드 미리보기 → 공유 시트 → 친구 도달</strong> 4단계 모바일 흐름을 와이어프레임으로 사전 확정. 디자인·개발팀에 그대로 발주 가능한 수준.
+  </p>
+  <div class="meta">
+    <span>📱 모바일 우선 (320px~414px)</span>
+    <span>🎯 클릭 수 목표 <strong>≤ 2회</strong></span>
+    <span>🔁 자석 5종</span>
+    <span>🎨 low-fi 와이어프레임 (회색/박스/단순 컬러)</span>
+  </div>
+</section>
+
+<!-- TOC -->
+<nav class="toc">
+  <h3>📋 목차</h3>
+  <ol>
+    <li><a href="#principles">UI 설계 원칙</a></li>
+    <li><a href="#m1">자석 1 — 학습 그래프 카톡 공유</a></li>
+    <li><a href="#m2">자석 2 — 좋아한 동화 인스타 카드</a></li>
+    <li><a href="#m3">자석 3 — 그림체 4종 비교 캐러셀</a></li>
+    <li><a href="#m4">자석 4 — 월말 성장 PDF</a></li>
+    <li><a href="#m5">자석 5 — 친구 초대 + 인센티브</a></li>
+    <li><a href="#dev">개발 발주 체크리스트</a></li>
+  </ol>
+</nav>
+
+<!-- PRINCIPLES -->
+<section id="principles" class="principles">
+  <h3>📐 UI 설계 7원칙</h3>
+  <ul>
+    <li><strong>클릭 ≤ 2회</strong> — 출발 화면에서 공유 완료까지 최대 2번 탭. 3번이면 자석 작동 안 함.</li>
+    <li><strong>자석 카드 자동 생성</strong> — 사용자가 캡션·이미지 안 만들어도 됨. 클릭하면 카드 완성된 상태로 미리보기.</li>
+    <li><strong>한국은 카톡, 글로벌은 인스타·메시지</strong> — 우선 노출 채널을 지역·언어로 분기.</li>
+    <li><strong>자녀 이름·이미지는 자동 채움 + 편집 가능</strong> — 프라이버시 우려 부모는 이름 끄기 가능 (디폴트 ON).</li>
+    <li><strong>출발 위치를 적극적</strong> — "공유" 버튼을 숨기지 말 것. 화면 상단·종료 직후 큰 버튼.</li>
+    <li><strong>인센티브 가시화</strong> — 자석 4·5는 "지금 공유하면 N개월 무료" 같은 보상 명시.</li>
+    <li><strong>강제 X, 매력으로 유도</strong> — "공유 안 하면 차단" 같은 강압 어조 절대 금지.</li>
+  </ul>
+</section>
+
+<!-- ============================== -->
+<!-- 자석 1 — 학습 그래프 카톡 공유 -->
+<!-- ============================== -->
+<section id="m1" class="magnet">
+  <h2><span class="num">1</span>학습 그래프 카톡 공유</h2>
+  <p class="lead"><strong>출발:</strong> 주간 부모 리포트 (앱 + 이메일) <strong>·</strong> <strong>도착:</strong> 친구·가족 카톡방 <strong>·</strong> <strong>클릭 2회</strong> 목표</p>
+
+  <div class="flow">
+    <!-- Step 1: Weekly Report -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="app-header">
+            <span class="title">📊 주간 리포트</span>
+            <span>← →</span>
+          </div>
+          <div class="screen-content">
+            <div style="font-size: 12px; color: var(--text-soft); margin-bottom: 4px;">5월 12일 ~ 18일</div>
+            <div style="font-weight: 800; font-size: 15px; margin-bottom: 12px;">○○이의 이번 주 성장 📚</div>
+            <div class="kpi-row">
+              <div class="kpi-box"><div class="l">완독</div><div class="v">5<small>권</small></div></div>
+              <div class="kpi-box"><div class="l">어휘 ↑</div><div class="v">12<small>개</small></div></div>
+              <div class="kpi-box"><div class="l">게임</div><div class="v">8<small>회</small></div></div>
+              <div class="kpi-box"><div class="l">누적 어휘</div><div class="v">247</div></div>
+            </div>
+            <div style="background:#f3f4f6; border-radius:6px; height:60px; margin: 8px 0; display:grid; place-items:center; font-size:10px; color:var(--text-soft);">📈 어휘 누적 그래프</div>
+            <button class="share-btn">📱 카톡으로 자랑하기 <small>한 클릭 공유</small></button>
+            <button class="share-btn outline">📅 다음 주 추천 보기</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">① 출발 화면</div>
+      <div class="phone-sub">주간 리포트 (상시 + 일요일 푸시)</div>
+    </div>
+
+    <div class="flow-arrow">→<br><span style="font-size:9px;font-weight:600;">탭 1</span></div>
+
+    <!-- Step 2: Share Card Preview -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="app-header">
+            <span>← 뒤로</span>
+            <span class="title">공유 카드</span>
+            <span>편집</span>
+          </div>
+          <div class="screen-content">
+            <div style="font-size: 11px; color: var(--text-soft); margin-bottom: 10px;">아래 이미지로 공유됩니다 ↓</div>
+            <div class="share-card">
+              <div class="head">
+                <div class="avatar">😊</div>
+                <div>
+                  <div class="name">○○이</div>
+                  <div class="sub-label">5월 셋째 주 학습 리포트</div>
+                </div>
+              </div>
+              <div class="big">어휘 +12 📚</div>
+              <div class="desc">동화 5권 완독 · 게임 8회 · 누적 247개</div>
+              <div style="background:#fff; border-radius:6px; height:34px; display:grid; place-items:center; font-size:9px; color:var(--text-soft); margin: 6px 0;">📈 4주 어휘 누적 ↑</div>
+              <div class="footer-brand">탱고북 · tangobook.co.kr</div>
+            </div>
+            <button class="share-btn" style="margin-top: 14px;">📱 카톡으로 보내기</button>
+            <div style="display:flex; gap:6px;">
+              <button class="share-btn outline" style="margin: 6px 0; padding: 8px;">💾 저장</button>
+              <button class="share-btn outline" style="margin: 6px 0; padding: 8px;">✏️ 이름 끄기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">② 카드 미리보기</div>
+      <div class="phone-sub">자동 생성 + 편집 가능</div>
+    </div>
+
+    <div class="flow-arrow">→<br><span style="font-size:9px;font-weight:600;">탭 2</span></div>
+
+    <!-- Step 3: Share Sheet -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="sheet">
+            <div class="sheet-inner">
+              <div class="sheet-title">공유</div>
+              <div class="sheet-apps">
+                <div class="sheet-app kakao"><div class="icn">💬</div><div class="lbl">카톡</div></div>
+                <div class="sheet-app"><div class="icn">📩</div><div class="lbl">메시지</div></div>
+                <div class="sheet-app insta"><div class="icn">📷</div><div class="lbl">인스타</div></div>
+                <div class="sheet-app"><div class="icn">📁</div><div class="lbl">파일</div></div>
+              </div>
+              <div class="sheet-actions">
+                <button>이미지 저장</button>
+                <button>링크 복사</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">③ 공유 시트 (OS)</div>
+      <div class="phone-sub">카톡·메시지·인스타 선택</div>
+    </div>
+
+    <div class="flow-arrow">→</div>
+
+    <!-- Step 4: KakaoTalk -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="chat-screen">
+            <div style="text-align:center; color: white; font-size:11px; padding:6px 0;">친구·가족 카톡방</div>
+            <div class="chat-bubble me">
+              <div style="font-size:11px;">우리 ○○이 자랑 📚</div>
+              <div class="preview">
+                <div class="preview-img">🌟 어휘 +12</div>
+                <div style="font-weight:800; font-size:10px;">○○이의 5월 셋째 주</div>
+                <div style="color:var(--text-soft); font-size:9px;">동화 5권 · 어휘 12 · 누적 247</div>
+              </div>
+            </div>
+            <div class="chat-bubble">
+              <div style="font-size:11px; font-weight:600; color:var(--primary);">친구</div>
+              <div style="font-size:11px;">와 진짜? 우리 애도 가입해야겠다 😍</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">④ 친구 도달</div>
+      <div class="phone-sub">자녀 자랑 = 자연 추천</div>
+    </div>
+  </div>
+
+  <div class="spec">
+    <h4>🔧 개발 명세</h4>
+    <ul>
+      <li><code>GET /api/parent/weekly-report</code> — KPI + 좋아한 동화 + 어휘 시계열</li>
+      <li><code>POST /api/share/learning-graph</code> → 1080×1080 PNG 카드 동적 생성 (S3/R2 임시 URL)</li>
+      <li>이미지 생성: <code>node-canvas</code> 또는 <code>@vercel/og</code>, 자녀 이름·KPI·그래프 inline 합성</li>
+      <li>공유: Web Share API <code>navigator.share({ files: [imageFile], title, text })</code> 우선, 미지원 시 카톡 URL 스킴 폴백</li>
+      <li>프라이버시: 자녀 이름 끄기 토글 (디폴트 ON, 마이페이지 글로벌 설정 + 카드별 오버라이드)</li>
+      <li>측정: <code>share_clicked</code>, <code>share_sheet_opened</code>, <code>share_completed</code> 이벤트</li>
+    </ul>
+  </div>
+
+  <div class="spec">
+    <h4>📝 카드 카피 시안</h4>
+    <div class="copy-row"><div class="channel">제목</div><div class="text">"○○이의 5월 셋째 주 학습 리포트"</div></div>
+    <div class="copy-row"><div class="channel">메인</div><div class="text">"어휘 +12 📚"</div></div>
+    <div class="copy-row"><div class="channel">서브</div><div class="text">"동화 5권 완독 · 게임 8회 · 누적 247개"</div></div>
+    <div class="copy-row"><div class="channel">카톡 본문</div><div class="text">"우리 ○○이 자랑 📚 [카드]"</div></div>
+  </div>
+</section>
+
+<!-- ============================== -->
+<!-- 자석 2 — 좋아한 동화 인스타 카드 -->
+<!-- ============================== -->
+<section id="m2" class="magnet">
+  <h2><span class="num">2</span>좋아한 동화 인스타 카드</h2>
+  <p class="lead"><strong>출발:</strong> 동화 종료 화면 <strong>·</strong> <strong>도착:</strong> 인스타그램 스토리/피드 <strong>·</strong> <strong>클릭 2회</strong></p>
+
+  <div class="flow">
+    <!-- Step 1: Book End -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="app-header">
+            <span>← 보물섬</span>
+            <span class="title">완독!</span>
+            <span></span>
+          </div>
+          <div class="screen-content">
+            <div style="background:linear-gradient(135deg, #fde68a, #f59e0b); border-radius:10px; height:140px; display:grid; place-items:center; color:white; font-size:24px; font-weight:900; margin-bottom: 12px;">
+              🎉 완독!
+            </div>
+            <div style="font-weight:800; font-size:14px;">○○이가 보물섬을 완독했어요</div>
+            <div style="font-size:11px; color:var(--text-soft); margin: 4px 0 12px;">12분 · 수채화 그림체로 읽음</div>
+            <button class="share-btn insta">📷 오늘의 동화 자랑하기 <small>인스타에 한 클릭</small></button>
+            <button class="share-btn outline">📚 다음 동화 보기</button>
+            <button class="share-btn outline">🎨 다른 그림체로 다시</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">① 동화 종료</div>
+      <div class="phone-sub">완독 직후 = 부모 흐뭇한 순간</div>
+    </div>
+
+    <div class="flow-arrow">→<br><span style="font-size:9px;font-weight:600;">탭 1</span></div>
+
+    <!-- Step 2: Insta Card -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="app-header">
+            <span>← 뒤로</span>
+            <span class="title">인스타 카드</span>
+            <span>편집</span>
+          </div>
+          <div class="screen-content">
+            <div style="font-size:10.5px; color:var(--text-soft); margin-bottom:8px;">정사각형 카드로 자동 생성됩니다</div>
+            <div style="background:linear-gradient(135deg, #fde68a, #f59e0b); border-radius:8px; aspect-ratio:1; display:grid; place-items:center; color:white; position:relative;">
+              <div style="text-align:center;">
+                <div style="font-size:11px; opacity:0.9;">우리 ○○이의 오늘 동화</div>
+                <div style="font-size:24px; font-weight:900; margin: 8px 0;">📖 보물섬</div>
+                <div style="font-size:9px; opacity:0.85;">수채화 그림체로 완독</div>
+              </div>
+              <div style="position:absolute; bottom:8px; left:0; right:0; font-size:8px; opacity:0.7; text-align:center;">탱고북 · 4가지 그림체 명작</div>
+            </div>
+            <button class="share-btn insta" style="margin-top: 12px;">📷 인스타 스토리에 공유</button>
+            <button class="share-btn outline" style="padding:8px;">📷 피드 공유 · 💾 저장</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">② 인스타 카드</div>
+      <div class="phone-sub">자동 생성 정사각형 이미지</div>
+    </div>
+
+    <div class="flow-arrow">→<br><span style="font-size:9px;font-weight:600;">탭 2</span></div>
+
+    <!-- Step 3: Instagram Story -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="insta-screen">
+            <div class="insta-header">
+              <span>스토리 만들기</span>
+              <span>×</span>
+            </div>
+            <div style="background:linear-gradient(135deg, #fde68a, #f59e0b); aspect-ratio:9/16; display:grid; place-items:center; color:white;">
+              <div style="text-align:center;">
+                <div style="font-size:13px; opacity:0.9;">우리 ○○이의 오늘</div>
+                <div style="font-size:28px; font-weight:900; margin: 10px 0;">📖 보물섬</div>
+                <div style="font-size:10px; opacity:0.85;">수채화 그림체로 완독</div>
+              </div>
+            </div>
+            <div style="background:black; color:white; padding:10px; font-size:11px; text-align:center;">
+              <button style="background:white; color:black; border:none; padding:8px 18px; border-radius:20px; font-weight:800;">스토리 공유</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">③ 인스타 스토리</div>
+      <div class="phone-sub">9:16 자동 변환</div>
+    </div>
+
+    <div class="flow-arrow">→</div>
+
+    <!-- Step 4: Instagram Feed (friends see) -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="insta-screen">
+            <div class="insta-header">
+              <span>인스타그램</span>
+              <span>📤</span>
+            </div>
+            <div class="insta-card">
+              <div style="padding: 8px 12px; display:flex; align-items:center; gap:8px; background:white;">
+                <div style="width:28px; height:28px; border-radius:50%; background:var(--soft-fill);"></div>
+                <div style="font-size:11px; font-weight:800;">○○이엄마</div>
+              </div>
+              <div class="img">📖 보물섬</div>
+              <div class="caption">
+                <strong>○○이엄마</strong> 우리 아이가 수채화 보물섬 완독! 🎉 #탱고북 #5세그림책 #명작동화
+                <div style="color:var(--text-soft); font-size:10px; margin-top: 6px;">12 likes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">④ 친구 피드 도달</div>
+      <div class="phone-sub">해시태그 = SEO + 자연 추천</div>
+    </div>
+  </div>
+
+  <div class="spec">
+    <h4>🔧 개발 명세</h4>
+    <ul>
+      <li><code>POST /api/share/book-completion</code> — 동화 완독 즉시 1080×1080 + 1080×1920 (스토리용) 듀얼 생성</li>
+      <li>그림체 선택값 카드에 반영 — "수채화 그림체로 완독" 텍스트 자동</li>
+      <li>해시태그 자동 추천: <code>#탱고북 #N세그림책 #명작동화 #{동화명}</code></li>
+      <li>이미지 변환: 정사각형 (피드) + 9:16 (스토리) 두 종 미리 생성</li>
+      <li>인스타 직접 API 없음 → "스토리 카메라" 인텐트 우선, 폴백은 이미지 저장 후 인스타 앱 수동</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== -->
+<!-- 자석 3 — 그림체 4종 비교 캐러셀 -->
+<!-- ============================== -->
+<section id="m3" class="magnet">
+  <h2><span class="num">3</span>그림체 4종 비교 캐러셀</h2>
+  <p class="lead"><strong>출발:</strong> 풀스펙 동화 갤러리 또는 그림체 선택 직후 <strong>·</strong> <strong>도착:</strong> 인스타 캐러셀 (4장) <strong>·</strong> <strong>클릭 2회</strong></p>
+
+  <div class="flow">
+    <!-- Step 1: Picker -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="app-header">
+            <span>← 보물섬</span>
+            <span class="title">그림체 선택</span>
+            <span></span>
+          </div>
+          <div class="screen-content">
+            <div style="font-size:11.5px; color:var(--text-soft); margin-bottom:10px;">오늘은 어떤 그림체로 볼까?</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+              <div style="background:linear-gradient(135deg, #fef3c7, #f59e0b); aspect-ratio:1; border-radius:6px; display:grid; place-items:center; color:white; font-size:11px; font-weight:800; border: 2px solid var(--primary);">수채화 ✓</div>
+              <div style="background:linear-gradient(135deg, #d1fae5, #10b981); aspect-ratio:1; border-radius:6px; display:grid; place-items:center; color:white; font-size:11px; font-weight:800;">픽셀</div>
+              <div style="background:linear-gradient(135deg, #ddd6fe, #8b5cf6); aspect-ratio:1; border-radius:6px; display:grid; place-items:center; color:white; font-size:11px; font-weight:800;">파스텔</div>
+              <div style="background:linear-gradient(135deg, #fecaca, #ef4444); aspect-ratio:1; border-radius:6px; display:grid; place-items:center; color:white; font-size:11px; font-weight:800;">크레용</div>
+            </div>
+            <button class="share-btn insta" style="margin-top: 14px;">📷 4가지 그림체 자랑하기 <small>인스타 캐러셀</small></button>
+            <button class="share-btn">📖 읽기 시작</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">① 그림체 갤러리</div>
+      <div class="phone-sub">선택권 = 차별화 핵심</div>
+    </div>
+
+    <div class="flow-arrow">→<br><span style="font-size:9px;font-weight:600;">탭 1</span></div>
+
+    <!-- Step 2: Carousel preview -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="app-header">
+            <span>← 뒤로</span>
+            <span class="title">캐러셀 미리보기</span>
+            <span>편집</span>
+          </div>
+          <div class="screen-content">
+            <div style="font-size:10.5px; color:var(--text-soft); margin-bottom:8px;">4장 슬라이드로 자동 생성 →</div>
+            <div style="position:relative; aspect-ratio:1; background:linear-gradient(135deg, #fef3c7, #f59e0b); border-radius:8px; display:grid; place-items:center; color:white;">
+              <div style="position:absolute; top:8px; right:10px; background:rgba(0,0,0,0.5); color:white; padding:2px 8px; border-radius:12px; font-size:9px;">1/4</div>
+              <div style="text-align:center;">
+                <div style="font-size:13px; opacity:0.9;">우리 ○○이가 선택한 그림체는?</div>
+                <div style="font-size:24px; font-weight:900; margin:8px 0;">📖 보물섬</div>
+                <div style="font-size:9px; opacity:0.85;">탱고북 · 같은 동화, 4가지 그림체</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:4px; justify-content:center; margin: 8px 0;">
+              <span style="width:6px; height:6px; border-radius:50%; background:var(--primary);"></span>
+              <span style="width:6px; height:6px; border-radius:50%; background:#e5e7eb;"></span>
+              <span style="width:6px; height:6px; border-radius:50%; background:#e5e7eb;"></span>
+              <span style="width:6px; height:6px; border-radius:50%; background:#e5e7eb;"></span>
+            </div>
+            <div style="font-size:10px; color:var(--text-soft); text-align:center;">슬라이드 2: 수채화 · 3: 픽셀 · 4: 파스텔/크레용</div>
+            <button class="share-btn insta" style="margin-top: 12px;">📷 인스타 피드에 공유</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">② 캐러셀 미리보기</div>
+      <div class="phone-sub">4장 자동 생성 (커버 + 그림체 3종)</div>
+    </div>
+
+    <div class="flow-arrow">→<br><span style="font-size:9px;font-weight:600;">탭 2</span></div>
+
+    <!-- Step 3: Instagram (friends swiping) -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="insta-screen">
+            <div class="insta-header">
+              <span>인스타그램</span>
+              <span>📤</span>
+            </div>
+            <div class="insta-card">
+              <div style="padding:8px 12px; display:flex; align-items:center; gap:8px; background:white;">
+                <div style="width:28px; height:28px; border-radius:50%; background:var(--soft-fill);"></div>
+                <div style="font-size:11px; font-weight:800;">○○이엄마</div>
+              </div>
+              <div style="aspect-ratio:1; background:linear-gradient(135deg, #fef3c7, #f59e0b); display:grid; place-items:center; color:white; position:relative;">
+                <span style="position:absolute; right:10px; top:10px; background:rgba(0,0,0,0.5); color:white; padding:2px 8px; border-radius:12px; font-size:9px;">1/4</span>
+                <div style="text-align:center;">
+                  <div style="font-size:10px;">우리 ○○이가 선택한</div>
+                  <div style="font-size:20px; font-weight:900;">📖 보물섬</div>
+                  <div style="font-size:8px;">4가지 그림체 →</div>
+                </div>
+              </div>
+              <div class="caption">
+                <strong>○○이엄마</strong> 같은 동화를 4가지 그림체로... 우리 애는 수채화 좋아함 🎨 → 댓글에 결과
+                <div style="color:var(--text-soft); font-size:10px; margin-top:6px;">댓글 8 · likes 42</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">③ 인스타 캐러셀</div>
+      <div class="phone-sub">4장 스와이프 = 체류 시간 ↑</div>
+    </div>
+
+    <div class="flow-arrow">→</div>
+
+    <!-- Step 4: Comment storm -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="app-header">
+            <span>← 뒤로</span>
+            <span class="title">댓글</span>
+            <span></span>
+          </div>
+          <div class="screen-content" style="background:#fafafa;">
+            <div style="background:white; padding:8px 10px; border-radius:8px; margin-bottom:6px; font-size:11px;">
+              <strong>친구1</strong> 와 우리 애도 다른 그림체로 비교해보고 싶어... 어디서 가입?
+            </div>
+            <div style="background:white; padding:8px 10px; border-radius:8px; margin-bottom:6px; font-size:11px;">
+              <strong>친구2</strong> 베타 중이라며? 링크 좀!
+            </div>
+            <div style="background:white; padding:8px 10px; border-radius:8px; margin-bottom:6px; font-size:11px;">
+              <strong>○○이엄마</strong> tangobook.co.kr 가서 베타 신청하면 됨 무료임 🎉
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">④ 댓글 폭발</div>
+      <div class="phone-sub">캐러셀 = 댓글 자극 포맷</div>
+    </div>
+  </div>
+
+  <div class="spec">
+    <h4>🔧 개발 명세</h4>
+    <ul>
+      <li><code>POST /api/share/four-styles</code> — 동화 1개 + 그림체 4종 → 1080×1080 카드 4장 자동 생성</li>
+      <li>슬라이드 1 = 커버 ("우리 아이가 선택한 그림체는?"), 슬라이드 2-4 = 각 그림체 일러스트 비교</li>
+      <li>인스타 캐러셀 직접 API 없음 → 이미지 4장 압축 ZIP 또는 사진첩 저장 → 사용자가 인스타 앱에서 다중 선택 (안내 가이드 표시)</li>
+      <li>대안 자석: 인스타 스토리는 1장씩 가능 → "스토리에 4연속 올리기" 버튼도 제공</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== -->
+<!-- 자석 4 — 월말 성장 PDF -->
+<!-- ============================== -->
+<section id="m4" class="magnet">
+  <h2><span class="num">4</span>월말 성장 PDF (조부모 공유)</h2>
+  <p class="lead"><strong>출발:</strong> 월말 마이페이지 알림 + 이메일 첨부 <strong>·</strong> <strong>도착:</strong> 가족 카톡방 + 조부모 카톡 <strong>·</strong> <strong>클릭 2회</strong></p>
+
+  <div class="flow">
+    <!-- Step 1: Monthly Alert -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="app-header">
+            <span class="title">📄 5월 리포트</span>
+            <span></span>
+          </div>
+          <div class="screen-content">
+            <div style="background:linear-gradient(135deg, #fff7d7 0%, #fff0df 100%); border-radius:12px; padding:18px 14px; margin-bottom:12px; text-align:center;">
+              <div style="font-size:24px;">🎉</div>
+              <div style="font-weight:800; font-size:14px; margin: 4px 0;">○○이의 5월 성장 리포트</div>
+              <div style="font-size:11px; color:var(--text-soft);">PDF로 가족과 공유하세요</div>
+            </div>
+            <div style="font-size:11.5px; line-height:1.7;">
+              <div>📚 완독 동화 <strong>23권</strong></div>
+              <div>📈 새 어휘 <strong>+87개</strong> (누적 247)</div>
+              <div>🎨 좋아한 그림체 <strong>수채화</strong></div>
+              <div>📂 카테고리: 명작 12 · 한국전래 5 · 자연관찰 6</div>
+            </div>
+            <button class="share-btn" style="margin-top: 14px;">📱 가족 카톡방에 보내기 <small>한 클릭</small></button>
+            <button class="share-btn outline">📄 PDF 다운로드</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">① 월말 알림</div>
+      <div class="phone-sub">월 1회 · 마이페이지 + 이메일</div>
+    </div>
+
+    <div class="flow-arrow">→<br><span style="font-size:9px;font-weight:600;">탭 1</span></div>
+
+    <!-- Step 2: PDF Preview -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="app-header">
+            <span>← 뒤로</span>
+            <span class="title">PDF 미리보기</span>
+            <span>편집</span>
+          </div>
+          <div class="screen-content">
+            <div class="pdf-page">
+              <h4>📚 ○○이의 5월 성장 리포트</h4>
+              <div class="pdf-section">
+                <strong>완독 23권</strong>
+                <div style="color:var(--text-soft); font-size:9.5px;">보물섬, 작은 아씨들, 강아지똥, 흥부놀부 외 19권</div>
+              </div>
+              <div class="pdf-section">
+                <strong>새 어휘 +87개</strong>
+                <div style="background:#f9fafb; height:24px; border-radius:4px; margin-top:4px; display:grid; place-items:center; font-size:9px; color:var(--text-soft);">📈 4주 어휘 누적 그래프</div>
+              </div>
+              <div class="pdf-section">
+                <strong>좋아한 동화 TOP 3</strong>
+                <div style="font-size:10px;">1. 보물섬 · 2. 강아지똥 · 3. 흥부놀부</div>
+              </div>
+              <div class="pdf-section">
+                <strong>카테고리 균형</strong>
+                <div style="font-size:10px;">명작 52% · 한국전래 22% · 자연관찰 26%</div>
+              </div>
+              <div class="pdf-section" style="font-size:9px; color:var(--text-soft); text-align:center; padding-top: 8px;">탱고북 · tangobook.co.kr</div>
+            </div>
+            <button class="share-btn" style="margin-top: 12px;">📱 가족 카톡방에 보내기</button>
+            <div style="display:flex; gap:6px;">
+              <button class="share-btn outline" style="padding:8px;">💾 저장</button>
+              <button class="share-btn outline" style="padding:8px;">📧 이메일</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">② PDF 미리보기</div>
+      <div class="phone-sub">자동 생성 · 1페이지 요약</div>
+    </div>
+
+    <div class="flow-arrow">→<br><span style="font-size:9px;font-weight:600;">탭 2</span></div>
+
+    <!-- Step 3: Family KakaoTalk -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="chat-screen">
+            <div style="text-align:center; color:white; font-size:11px; padding:6px 0;">👨‍👩‍👧‍👦 우리 가족</div>
+            <div class="chat-bubble me">
+              <div style="font-size:11px;">○○이 5월 성장 리포트 보내요 📄</div>
+              <div class="preview">
+                <div class="preview-img">📄 PDF · 1.2MB</div>
+                <div style="font-weight:800; font-size:10px;">○○이의 5월 성장 리포트</div>
+                <div style="color:var(--text-soft); font-size:9px;">23권 완독 · 어휘 +87 · 누적 247</div>
+              </div>
+            </div>
+            <div class="chat-bubble">
+              <div style="font-size:11px; font-weight:600; color:#10b981;">할머니</div>
+              <div style="font-size:11px;">아이고 우리 ○○이 똑똑해졌네 🥰</div>
+            </div>
+            <div class="chat-bubble">
+              <div style="font-size:11px; font-weight:600; color:#3b82f6;">할아버지</div>
+              <div style="font-size:11px;">집에 와서 보여줘 🙏</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">③ 가족 도달</div>
+      <div class="phone-sub">조부모 = 자연 추천 + 정서</div>
+    </div>
+
+    <div class="flow-arrow">→</div>
+
+    <!-- Step 4: Effect: family member curiosity -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="chat-screen">
+            <div style="text-align:center; color:white; font-size:11px; padding:6px 0;">👨‍👩‍👧 사촌 가족</div>
+            <div class="chat-bubble">
+              <div style="font-size:11px; font-weight:600; color:#10b981;">사촌언니</div>
+              <div style="font-size:11px;">언니~ 위에 탱고북 어디서 받아? 우리 애도 4세인데...</div>
+            </div>
+            <div class="chat-bubble me">
+              <div style="font-size:11px;">tangobook.co.kr 가입해 3개월 무료 베타임 ㅎㅎ</div>
+            </div>
+            <div class="chat-bubble">
+              <div style="font-size:11px; font-weight:600; color:#10b981;">사촌언니</div>
+              <div style="font-size:11px;">바로 가입 ㄱㄱ 👍</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">④ 친척 가입 트리거</div>
+      <div class="phone-sub">PDF = 정서 자석 + 자연 추천</div>
+    </div>
+  </div>
+
+  <div class="spec">
+    <h4>🔧 개발 명세</h4>
+    <ul>
+      <li><code>GET /api/parent/monthly-report?month=2026-05</code> — 월간 KPI + 카테고리 + 어휘 시계열 + 좋아한 동화</li>
+      <li>PDF 생성: <code>@react-pdf/renderer</code> 또는 Puppeteer → 1페이지 A4 (조부모 친화 큰 글씨)</li>
+      <li>월말 자동 발송: 매월 1일 오전 9시 이메일 + 앱 푸시 (전월 데이터 기준)</li>
+      <li>공유: PDF 파일 → Web Share API (모바일 OS 공유 시트) → 카톡 메시지 첨부</li>
+      <li>인센티브 가시화: PDF 다운 시 "지금 친구에게 보내면 베타 기간 +1주" 배너</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== -->
+<!-- 자석 5 — 친구 초대 + 인센티브 -->
+<!-- ============================== -->
+<section id="m5" class="magnet">
+  <h2><span class="num">5</span>친구 초대 + 양방 인센티브</h2>
+  <p class="lead"><strong>출발:</strong> 마이페이지 "친구 초대" 메뉴 + 자석 1~4 종료 후 권유 <strong>·</strong> <strong>도착:</strong> 친구 카톡 → 베타 가입 <strong>·</strong> <strong>클릭 2회</strong></p>
+
+  <div class="flow">
+    <!-- Step 1: Invite Hub -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="app-header">
+            <span>← 마이페이지</span>
+            <span class="title">친구 초대</span>
+            <span></span>
+          </div>
+          <div class="screen-content">
+            <div style="background:linear-gradient(135deg, var(--mint), #34d399); border-radius:12px; padding:18px 14px; color:white; margin-bottom:12px; text-align:center;">
+              <div style="font-size:30px;">🎁</div>
+              <div style="font-weight:800; font-size:14px; margin:6px 0;">친구 1명 초대 = 양쪽 모두 보상</div>
+              <div style="font-size:11px; opacity:0.95;">친구 1개월 무료 · 나는 베타 +1주</div>
+            </div>
+            <div style="font-size:11.5px; line-height:1.7;">
+              <div>현재 초대: <strong style="color:var(--primary);">2명 가입</strong></div>
+              <div>다음 보상: <strong>3명 → 3개월 프리미엄 무료</strong></div>
+              <div style="background:#fff8e1; padding:6px 10px; border-radius:6px; margin-top:6px; font-size:10.5px;">1명만 더! 🎯</div>
+            </div>
+            <button class="share-btn" style="margin-top: 14px;">📱 카톡 친구에게 초대장 보내기</button>
+            <button class="share-btn outline">🔗 초대 링크 복사</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">① 초대 허브</div>
+      <div class="phone-sub">현재 진행 + 다음 보상 가시화</div>
+    </div>
+
+    <div class="flow-arrow">→<br><span style="font-size:9px;font-weight:600;">탭 1</span></div>
+
+    <!-- Step 2: Invite Message Preview -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="app-header">
+            <span>← 뒤로</span>
+            <span class="title">초대장</span>
+            <span>편집</span>
+          </div>
+          <div class="screen-content">
+            <div style="font-size:10.5px; color:var(--text-soft); margin-bottom:8px;">친구에게 이 메시지가 발송됩니다 ↓</div>
+            <div style="background:linear-gradient(135deg, #fef3c7, #fde68a); border-radius:10px; padding:14px 12px;">
+              <div style="font-size:11px; font-weight:800; color:var(--primary-dark);">○○이엄마님이 보냈어요</div>
+              <div style="font-size:13px; font-weight:800; margin:6px 0;">📚 탱고북 베타 초대</div>
+              <div style="font-size:11px; line-height:1.6;">
+                같은 동화를 <strong>4가지 그림체로</strong> 만나는 명작 동화 앱. 우리 ○○이가 매일 즐기는 중!
+                <br><br>
+                초대 링크로 가입하면 <strong>3개월 + 1개월 무료 (추가)</strong> 🎉
+              </div>
+              <div style="background:white; border-radius:6px; padding:8px 10px; margin-top:10px; font-size:10px; color:var(--text-soft); text-align:center;">tangobook.co.kr/i/abc123</div>
+            </div>
+            <button class="share-btn" style="margin-top: 14px;">📱 카톡으로 보내기</button>
+            <div style="display:flex; gap:6px;">
+              <button class="share-btn outline" style="padding:8px;">💬 메시지</button>
+              <button class="share-btn outline" style="padding:8px;">📷 인스타 DM</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">② 초대장 미리보기</div>
+      <div class="phone-sub">고유 초대 코드 + 사용자 이름 포함</div>
+    </div>
+
+    <div class="flow-arrow">→<br><span style="font-size:9px;font-weight:600;">탭 2</span></div>
+
+    <!-- Step 3: Friend KakaoTalk -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="chat-screen">
+            <div style="text-align:center; color:white; font-size:11px; padding:6px 0;">○○이엄마</div>
+            <div class="chat-bubble me">
+              <div style="font-size:11px;">우리 애 좋아하는 앱이야 같이 써보자!</div>
+              <div class="preview">
+                <div style="background:linear-gradient(135deg, #fef3c7, #fde68a); height:60px; border-radius:4px; margin-bottom:6px; display:grid; place-items:center; color:#92400e; font-weight:800; font-size:11px;">📚 탱고북 베타 초대</div>
+                <div style="font-weight:800; font-size:10px;">○○이엄마님이 보냈어요</div>
+                <div style="color:var(--text-soft); font-size:9px;">4가지 그림체 명작 · 3+1개월 무료</div>
+              </div>
+            </div>
+            <div class="chat-bubble">
+              <div style="font-size:11px; font-weight:600; color:#3b82f6;">친구</div>
+              <div style="font-size:11px;">오오 신청해볼게! 👍</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">③ 친구 도달</div>
+      <div class="phone-sub">고유 코드 = 양방 인센티브 자동 적용</div>
+    </div>
+
+    <div class="flow-arrow">→</div>
+
+    <!-- Step 4: Reward Confirmation -->
+    <div class="flow-step">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="app-header">
+            <span class="title">🎉 축하해요!</span>
+            <span></span>
+          </div>
+          <div class="screen-content">
+            <div style="background:linear-gradient(135deg, var(--primary), var(--accent)); border-radius:14px; padding:24px 16px; color:white; text-align:center; margin-bottom:12px;">
+              <div style="font-size:40px;">🎁</div>
+              <div style="font-weight:800; font-size:16px; margin: 8px 0;">친구 가입 완료!</div>
+              <div style="font-size:11.5px;">베타 기간 <strong>+1주</strong> 추가됐어요</div>
+            </div>
+            <div style="background:#fff8e1; border-radius:10px; padding:14px 12px; margin-bottom:10px;">
+              <div style="font-weight:800; font-size:12.5px; margin-bottom:6px;">📊 다음 목표</div>
+              <div style="font-size:11px;">3명 가입까지 <strong style="color:var(--primary);">1명</strong> 남았어요</div>
+              <div style="background:#e5e7eb; height:6px; border-radius:3px; margin: 6px 0; overflow:hidden;">
+                <div style="width:67%; background:var(--primary); height:100%;"></div>
+              </div>
+              <div style="font-size:10px; color:var(--text-soft);">3명 달성 시 → 정식 후 3개월 프리미엄 무료</div>
+            </div>
+            <button class="share-btn">📱 한 명 더 초대하기</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">④ 인센티브 적용</div>
+      <div class="phone-sub">즉시 보상 + 다음 목표 가시화</div>
+    </div>
+  </div>
+
+  <div class="spec">
+    <h4>🔧 개발 명세</h4>
+    <ul>
+      <li><code>GET /api/invite/code</code> — 사용자별 고유 초대 코드 발급 (예: <code>tangobook.co.kr/i/ABC123</code>)</li>
+      <li><code>POST /api/invite/send</code> — 카톡 메시지 템플릿 + 초대 링크 + 사용자 이름 자동 합성</li>
+      <li>가입 추적: 초대 링크로 가입한 친구는 <code>invite_referrer_id</code> 기록 → 양방 보상 자동 발급</li>
+      <li>인센티브 자동 적용: 1명/3명/5명/10명 도달 시 백엔드에서 보상 자동 부여 + 푸시 알림</li>
+      <li>카톡 공유 SDK: <code>Kakao.Share.sendDefault()</code> 사용 (피드형 메시지)</li>
+      <li>초대 추적 + 어뷰징 방지: IP·디바이스 핑거프린팅 + 가입 후 D7 활동 시점에 보상 확정 (자동 가입 봇 차단)</li>
+    </ul>
+  </div>
+
+  <div class="spec">
+    <h4>💰 양방 인센티브 표</h4>
+    <table style="width:100%; border-collapse:collapse; font-size:12px;">
+      <thead style="background:#fff8e1;">
+        <tr><th style="padding:8px; text-align:left; border:1px solid #f3f4f6;">초대 친구 수</th><th style="padding:8px; text-align:left; border:1px solid #f3f4f6;">내 보상</th><th style="padding:8px; text-align:left; border:1px solid #f3f4f6;">친구 보상</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:6px 8px; border:1px solid #f3f4f6;">1명 가입</td><td style="padding:6px 8px; border:1px solid #f3f4f6;">베타 +1주</td><td style="padding:6px 8px; border:1px solid #f3f4f6;">베타 +1개월</td></tr>
+        <tr><td style="padding:6px 8px; border:1px solid #f3f4f6;">3명 가입</td><td style="padding:6px 8px; border:1px solid #f3f4f6;">정식 후 3개월 프리미엄</td><td style="padding:6px 8px; border:1px solid #f3f4f6;">개별 +1개월씩</td></tr>
+        <tr><td style="padding:6px 8px; border:1px solid #f3f4f6;">5명 가입</td><td style="padding:6px 8px; border:1px solid #f3f4f6;">6개월 프리미엄 + 호리 굿즈</td><td style="padding:6px 8px; border:1px solid #f3f4f6;">개별 +1개월씩</td></tr>
+        <tr><td style="padding:6px 8px; border:1px solid #f3f4f6;">10명 가입</td><td style="padding:6px 8px; border:1px solid #f3f4f6;">1년 프리미엄 + 호리 풀세트 + 베타 명예 멤버</td><td style="padding:6px 8px; border:1px solid #f3f4f6;">개별 +1개월씩</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================== -->
+<!-- DEV CHECKLIST -->
+<!-- ============================== -->
+<section id="dev" class="magnet">
+  <h2><span class="num">📋</span>개발 발주 체크리스트</h2>
+  <p class="lead">5종 자석 동시 발주 — 백엔드 API + 이미지 생성 파이프라인 + 프론트 화면 + 측정 이벤트</p>
+
+  <div class="spec">
+    <h4>🛠️ 백엔드 API (5종 공통)</h4>
+    <ul>
+      <li><code>POST /api/share/generate-card</code> — 자석 타입 + 데이터 → 카드 이미지 URL (S3/R2 임시 URL, 24h 만료)</li>
+      <li><code>POST /api/share/track</code> — <code>{magnet_id, action: clicked|previewed|shared}</code> 이벤트 수집</li>
+      <li><code>GET /api/invite/status</code> — 현재 초대 수, 다음 보상까지 남은 수</li>
+      <li><code>POST /api/invite/redeem</code> — 가입 시 초대 코드 적용 + 양방 보상 발급</li>
+    </ul>
+  </div>
+
+  <div class="spec">
+    <h4>🎨 이미지 생성 파이프라인</h4>
+    <ul>
+      <li><code>node-canvas</code> 또는 <code>@vercel/og</code> 사용 — 서버사이드 SVG → PNG 합성</li>
+      <li>템플릿 5종 (자석별) × 비율 3종 (정사각 1080×1080 / 스토리 1080×1920 / PDF A4)</li>
+      <li>자녀 이름·KPI·그림체 스타일은 동적 합성. 폰트는 Pretendard 임베드</li>
+      <li>생성 응답 시간 < 2초 (사용자가 미리보기 기다리는 시간)</li>
+    </ul>
+  </div>
+
+  <div class="spec">
+    <h4>📱 프론트 화면 (5종)</h4>
+    <ul>
+      <li><code>/weekly-report</code> — 자석 1 출발점</li>
+      <li><code>/book/:id/end</code> — 자석 2 출발점 (동화 종료 모달)</li>
+      <li><code>/book/:id/styles</code> — 자석 3 출발점 (그림체 갤러리)</li>
+      <li><code>/monthly-report</code> — 자석 4 출발점</li>
+      <li><code>/my/invite</code> — 자석 5 허브</li>
+      <li>공통: <code>&lt;ShareCardPreview /&gt;</code> + <code>&lt;ShareSheet /&gt;</code> 재사용 컴포넌트</li>
+    </ul>
+  </div>
+
+  <div class="spec">
+    <h4>📊 측정 이벤트 (Mixpanel/Amplitude)</h4>
+    <ul>
+      <li><code>share_button_clicked</code> {magnet, user_id}</li>
+      <li><code>share_card_previewed</code> {magnet, user_id}</li>
+      <li><code>share_completed</code> {magnet, channel, user_id}</li>
+      <li><code>invite_link_clicked</code> {referrer_user_id, invite_code}</li>
+      <li><code>invite_signup</code> {referrer_user_id, new_user_id}</li>
+      <li>대시보드 KPI: 자석별 클릭→공유 전환율, 자석별 K-factor</li>
+    </ul>
+  </div>
+
+  <div class="spec">
+    <h4>⚠️ 프라이버시·법규</h4>
+    <ul>
+      <li>자녀 이름 글로벌 토글 + 자석별 오버라이드 (디폴트 ON · OFF 선택 가능)</li>
+      <li>자녀 사진 업로드 시 본인 동의 명시 (만 14세 미만 보호자 동의)</li>
+      <li>공유 카드에 자녀 사진 사용 시 별도 동의 (개인정보보호법)</li>
+      <li>카톡 공유 시 카카오 디벨로퍼스 앱 등록 필요</li>
+      <li>인스타·페이스북 공유는 표준 Web Share API 사용 (앱 등록 X)</li>
+    </ul>
+  </div>
+
+  <div class="spec">
+    <h4>🚦 우선순위 (베타 시작 D-day까지)</h4>
+    <ul>
+      <li><strong>P0 (베타 D0 필수):</strong> 자석 1 (학습 그래프 카톡) + 자석 5 (친구 초대) — 가장 강한 자석 두 개부터</li>
+      <li><strong>P1 (W1-W2):</strong> 자석 2 (좋아한 동화 인스타) — 동화 종료 화면 통합</li>
+      <li><strong>P2 (W3-W4):</strong> 자석 3 (그림체 4종 캐러셀) — 인스타 캐러셀 이미지 생성</li>
+      <li><strong>P3 (W4-W8):</strong> 자석 4 (월말 PDF) — 월말 발송 자동화. 첫 월말 시점에 맞춤 출시</li>
+    </ul>
+  </div>
+
+  <div class="spec">
+    <h4>📐 측정 임계 (자석별 합격선)</h4>
+    <ul>
+      <li><strong>자석 1 (학습 그래프):</strong> 주간 리포트 오픈 가구 중 공유 클릭 ≥ 25%</li>
+      <li><strong>자석 2 (동화 카드):</strong> 동화 완독 직후 공유 클릭 ≥ 15%</li>
+      <li><strong>자석 3 (그림체 캐러셀):</strong> 풀스펙 갤러리 진입 가구 중 공유 클릭 ≥ 10%</li>
+      <li><strong>자석 4 (월말 PDF):</strong> 다운 가구 중 가족 카톡방 공유 ≥ 30%</li>
+      <li><strong>자석 5 (친구 초대):</strong> K-factor ≥ 1.5 (가구당 평균 1.5명 가입 유도)</li>
+    </ul>
+  </div>
+</section>
+
+<div class="footer">
+  바이럴 자석 5종 UI 와이어프레임 · 디자인·개발 발주서 · 베타 시작 전 P0 자석 필수 완성
+</div>
+
+</div>
+</body>
+</html>

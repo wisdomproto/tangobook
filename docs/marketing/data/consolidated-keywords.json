@@ -1,0 +1,6237 @@
+{
+  "meta": {
+    "generatedAt": "2026-05-15T12:22:09.150Z",
+    "sources": {
+      "naverCategoryGold": 26,
+      "naverContent": 22289,
+      "googleAdsKR": 296,
+      "googleAdsEN": 251
+    },
+    "notes": [
+      "KR: Naver 우선, 없을 때 Google Ads(KR) 값 사용. Naver/Google 모두 있는 키워드는 양쪽 모두 표기 — 교차검증.",
+      "EN: Google Ads(US) 단일 소스. Naver 데이터 없음.",
+      "Golden 기준 — KR: Naver vol≥1k & LOW, 또는 Google vol≥5k & LOW. EN: Google vol≥50k & LOW.",
+      "Google Ads 데이터는 광고 매칭형이라 검색의도가 분산된 다의어(eagle, bear 등)는 볼륨이 과대평가될 수 있음."
+    ]
+  },
+  "KR": {
+    "total": 322,
+    "main": [
+      {
+        "keyword": "날씨",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 35743300,
+        "googleVolume": 20400000,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.34,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "지하철",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 248900,
+        "googleVolume": 49500,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.15,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "지진",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 210000,
+        "googleVolume": 60500,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "브라키오사우루스",
+        "market": "KR",
+        "category": "B_공룡",
+        "naverVolume": 134460,
+        "googleVolume": 18100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.27,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "자동차",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 131900,
+        "googleVolume": 301000,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 1.65,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "버스",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 100600,
+        "googleVolume": 60500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.18,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "강아지",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 98800,
+        "googleVolume": 201000,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 1.22,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "고양이",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 97100,
+        "googleVolume": 368000,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 1.2,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "별자리",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 82980,
+        "googleVolume": 40500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.35,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "비행기",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 81500,
+        "googleVolume": 74000,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.71,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "티라노사우루스",
+        "market": "KR",
+        "category": "B_공룡",
+        "naverVolume": 69350,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.18,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "민들레",
+        "market": "KR",
+        "category": "J_식물_먹거리",
+        "naverVolume": 61330,
+        "googleVolume": 22200,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.19,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "해바라기",
+        "market": "KR",
+        "category": "J_식물_먹거리",
+        "naverVolume": 54650,
+        "googleVolume": 27100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.21,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "기차",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 53370,
+        "googleVolume": 14800,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.98,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "알파벳",
+        "market": "KR",
+        "category": "L_기초학습",
+        "naverVolume": 49100,
+        "googleVolume": 22200,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.08,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "튤립",
+        "market": "KR",
+        "category": "J_식물_먹거리",
+        "naverVolume": 48180,
+        "googleVolume": 14800,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.12,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "보물섬",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 46970,
+        "googleVolume": 18100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 1.82,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "바다",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 46330,
+        "googleVolume": 49500,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "세종대왕",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 44890,
+        "googleVolume": 49500,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "이순신",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 44700,
+        "googleVolume": 49500,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.45,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "늑대",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 44200,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "거미",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 42280,
+        "googleVolume": 33100,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.29,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "리딩게이트",
+        "market": "KR",
+        "category": "F_경쟁사",
+        "naverVolume": 41700,
+        "googleVolume": null,
+        "naverComp": "MEDIUM",
+        "googleComp": null,
+        "googleCpc": null,
+        "sources": [
+          "Naver(category-gold)"
+        ]
+      },
+      {
+        "keyword": "장미",
+        "market": "KR",
+        "category": "J_식물_먹거리",
+        "naverVolume": 41170,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.13,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "미운오리새끼",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 41100,
+        "googleVolume": 3600,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.14,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "추석",
+        "market": "KR",
+        "category": "I_명절_계절",
+        "naverVolume": 41000,
+        "googleVolume": 60500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "토끼",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 36820,
+        "googleVolume": 60500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.29,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "거북이",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 36610,
+        "googleVolume": 40500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.32,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "공룡",
+        "market": "KR",
+        "category": "B_공룡",
+        "naverVolume": 36590,
+        "googleVolume": 90500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.21,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "호랑이",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 33080,
+        "googleVolume": 0,
+        "naverComp": "MEDIUM",
+        "googleComp": "UNKNOWN",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "영어",
+        "market": "KR",
+        "category": "B_유아영어",
+        "naverVolume": 32250,
+        "googleVolume": null,
+        "naverComp": "LOW",
+        "googleComp": null,
+        "googleCpc": null,
+        "sources": [
+          "Naver(category-gold)"
+        ]
+      },
+      {
+        "keyword": "햄스터",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 32150,
+        "googleVolume": 60500,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.37,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "배",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 30520,
+        "googleVolume": 27100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.28,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "소방관",
+        "market": "KR",
+        "category": "G_직업",
+        "naverVolume": 30520,
+        "googleVolume": 22200,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 1.48,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "달",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 30150,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "매미",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 28770,
+        "googleVolume": 9900,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "신데렐라",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 27350,
+        "googleVolume": 12100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.82,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "문어",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 27040,
+        "googleVolume": 18100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.18,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "트리케라톱스",
+        "market": "KR",
+        "category": "B_공룡",
+        "naverVolume": 26870,
+        "googleVolume": 14800,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.19,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "사자",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 26580,
+        "googleVolume": 40500,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.48,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "화성",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 25860,
+        "googleVolume": 33100,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "여름",
+        "market": "KR",
+        "category": "I_명절_계절",
+        "naverVolume": 25450,
+        "googleVolume": 18100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "별",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 24230,
+        "googleVolume": 27100,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.17,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "우주",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 24010,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.41,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "나비",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 23470,
+        "googleVolume": 27100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.28,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "다람쥐",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 23450,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.56,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "피노키오",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 23360,
+        "googleVolume": 9900,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.56,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "펭귄",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 23360,
+        "googleVolume": 0,
+        "naverComp": "HIGH",
+        "googleComp": "UNKNOWN",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "장수풍뎅이",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 23300,
+        "googleVolume": 18100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.17,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "개미",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 22610,
+        "googleVolume": 14800,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.38,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      }
+    ],
+    "golden": [
+      {
+        "keyword": "날씨",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 35743300,
+        "googleVolume": 20400000,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.34,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "지하철",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 248900,
+        "googleVolume": 49500,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.15,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "지진",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 210000,
+        "googleVolume": 60500,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "브라키오사우루스",
+        "market": "KR",
+        "category": "B_공룡",
+        "naverVolume": 134460,
+        "googleVolume": 18100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.27,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "자동차",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 131900,
+        "googleVolume": 301000,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 1.65,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "버스",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 100600,
+        "googleVolume": 60500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.18,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "강아지",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 98800,
+        "googleVolume": 201000,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 1.22,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "고양이",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 97100,
+        "googleVolume": 368000,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 1.2,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "별자리",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 82980,
+        "googleVolume": 40500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.35,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "비행기",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 81500,
+        "googleVolume": 74000,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.71,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "티라노사우루스",
+        "market": "KR",
+        "category": "B_공룡",
+        "naverVolume": 69350,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.18,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "민들레",
+        "market": "KR",
+        "category": "J_식물_먹거리",
+        "naverVolume": 61330,
+        "googleVolume": 22200,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.19,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "해바라기",
+        "market": "KR",
+        "category": "J_식물_먹거리",
+        "naverVolume": 54650,
+        "googleVolume": 27100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.21,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "기차",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 53370,
+        "googleVolume": 14800,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.98,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "알파벳",
+        "market": "KR",
+        "category": "L_기초학습",
+        "naverVolume": 49100,
+        "googleVolume": 22200,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.08,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "튤립",
+        "market": "KR",
+        "category": "J_식물_먹거리",
+        "naverVolume": 48180,
+        "googleVolume": 14800,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.12,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "보물섬",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 46970,
+        "googleVolume": 18100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 1.82,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "바다",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 46330,
+        "googleVolume": 49500,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "세종대왕",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 44890,
+        "googleVolume": 49500,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "이순신",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 44700,
+        "googleVolume": 49500,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.45,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "늑대",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 44200,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "거미",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 42280,
+        "googleVolume": 33100,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.29,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "장미",
+        "market": "KR",
+        "category": "J_식물_먹거리",
+        "naverVolume": 41170,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.13,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "추석",
+        "market": "KR",
+        "category": "I_명절_계절",
+        "naverVolume": 41000,
+        "googleVolume": 60500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "토끼",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 36820,
+        "googleVolume": 60500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.29,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "거북이",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 36610,
+        "googleVolume": 40500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.32,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "공룡",
+        "market": "KR",
+        "category": "B_공룡",
+        "naverVolume": 36590,
+        "googleVolume": 90500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.21,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "영어",
+        "market": "KR",
+        "category": "B_유아영어",
+        "naverVolume": 32250,
+        "googleVolume": null,
+        "naverComp": "LOW",
+        "googleComp": null,
+        "googleCpc": null,
+        "sources": [
+          "Naver(category-gold)"
+        ]
+      },
+      {
+        "keyword": "햄스터",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 32150,
+        "googleVolume": 60500,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.37,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "배",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 30520,
+        "googleVolume": 27100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.28,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "소방관",
+        "market": "KR",
+        "category": "G_직업",
+        "naverVolume": 30520,
+        "googleVolume": 22200,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 1.48,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "달",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 30150,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "매미",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 28770,
+        "googleVolume": 9900,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "신데렐라",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 27350,
+        "googleVolume": 12100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.82,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "문어",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 27040,
+        "googleVolume": 18100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.18,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "트리케라톱스",
+        "market": "KR",
+        "category": "B_공룡",
+        "naverVolume": 26870,
+        "googleVolume": 14800,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.19,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "사자",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 26580,
+        "googleVolume": 40500,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.48,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "화성",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 25860,
+        "googleVolume": 33100,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "여름",
+        "market": "KR",
+        "category": "I_명절_계절",
+        "naverVolume": 25450,
+        "googleVolume": 18100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "별",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 24230,
+        "googleVolume": 27100,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.17,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "우주",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 24010,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.41,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "나비",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 23470,
+        "googleVolume": 27100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.28,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "다람쥐",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 23450,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.56,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "피노키오",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 23360,
+        "googleVolume": 9900,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.56,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "장수풍뎅이",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 23300,
+        "googleVolume": 18100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.17,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "개미",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 22610,
+        "googleVolume": 14800,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.38,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "단오",
+        "market": "KR",
+        "category": "I_명절_계절",
+        "naverVolume": 21910,
+        "googleVolume": 6600,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "이상한나라의앨리스",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 21300,
+        "googleVolume": 12100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.27,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "피터팬",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 20770,
+        "googleVolume": 14800,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.77,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "안중근",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 20360,
+        "googleVolume": 40500,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "사슴",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 20270,
+        "googleVolume": 18100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.63,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "상어",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 20120,
+        "googleVolume": 40500,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.33,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "작은아씨들",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 19670,
+        "googleVolume": 5400,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.11,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "아인슈타인",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 19210,
+        "googleVolume": 22200,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.38,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "소공녀",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 18930,
+        "googleVolume": 2400,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "코끼리",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 18910,
+        "googleVolume": 27100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.16,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "앵무새",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 18860,
+        "googleVolume": 22200,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.27,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "어린왕자",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 18520,
+        "googleVolume": 18100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.1,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "강아지똥",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 18320,
+        "googleVolume": 9900,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.34,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "고릴라",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 18200,
+        "googleVolume": 27100,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.17,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "고래",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 18130,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.3,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "원숭이",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 17960,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "신사임당",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 17190,
+        "googleVolume": 14800,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.39,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "귀뚜라미",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 17100,
+        "googleVolume": 9900,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.36,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "봄",
+        "market": "KR",
+        "category": "I_명절_계절",
+        "naverVolume": 16690,
+        "googleVolume": 18100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "기린",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 16530,
+        "googleVolume": 22200,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.33,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "부엉이",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 16290,
+        "googleVolume": 22200,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.29,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "미녀와야수",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 16270,
+        "googleVolume": 6600,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.85,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "무지개",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 16180,
+        "googleVolume": 14800,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.36,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "백설공주",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 16050,
+        "googleVolume": 18100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.63,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "유관순",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 15960,
+        "googleVolume": 33100,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "스테고사우루스",
+        "market": "KR",
+        "category": "B_공룡",
+        "naverVolume": 15700,
+        "googleVolume": 9900,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.22,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "돌고래",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 15660,
+        "googleVolume": 22200,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.46,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "인어공주",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 15650,
+        "googleVolume": 14800,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.47,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "여우",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 15590,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.63,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "헬렌켈러",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 15570,
+        "googleVolume": 14800,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.16,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "무당벌레",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 15560,
+        "googleVolume": 9900,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.24,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "사슴벌레",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 15480,
+        "googleVolume": 14800,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.14,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "안킬로사우루스",
+        "market": "KR",
+        "category": "B_공룡",
+        "naverVolume": 15410,
+        "googleVolume": 9900,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.32,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "라푼젤",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 15380,
+        "googleVolume": 12100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.8,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "판다",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 15170,
+        "googleVolume": 27100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.39,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "구름",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 14570,
+        "googleVolume": 22200,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 3.79,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "반딧불이",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 14530,
+        "googleVolume": 12100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "코알라",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 14270,
+        "googleVolume": 22200,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.22,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "포크레인",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 13800,
+        "googleVolume": 6600,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.41,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "화산",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 13340,
+        "googleVolume": 22200,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "가을",
+        "market": "KR",
+        "category": "I_명절_계절",
+        "naverVolume": 13130,
+        "googleVolume": 33100,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "블랙홀",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 12870,
+        "googleVolume": 22200,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "간호사",
+        "market": "KR",
+        "category": "G_직업",
+        "naverVolume": 12810,
+        "googleVolume": 27100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.18,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "곰돌이푸",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 12590,
+        "googleVolume": 9900,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.21,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "프테라노돈",
+        "market": "KR",
+        "category": "B_공룡",
+        "naverVolume": 12530,
+        "googleVolume": 8100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.34,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "곤충",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 12490,
+        "googleVolume": 22200,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.08,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "나이팅게일",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 12400,
+        "googleVolume": 8100,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "독수리",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 12010,
+        "googleVolume": 18100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.22,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "곰",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 11840,
+        "googleVolume": 33100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.22,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "의사",
+        "market": "KR",
+        "category": "G_직업",
+        "naverVolume": 11070,
+        "googleVolume": 40500,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 2.08,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "북극곰",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 10940,
+        "googleVolume": 27100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 2.82,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "해마",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 10800,
+        "googleVolume": 9900,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "에디슨",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 10750,
+        "googleVolume": 5400,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "간디",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 10490,
+        "googleVolume": 9900,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "벌",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 10110,
+        "googleVolume": 9900,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.23,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "공작",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 9640,
+        "googleVolume": 6600,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "직업종류",
+        "market": "KR",
+        "category": "G_직업",
+        "naverVolume": 9490,
+        "googleVolume": 5400,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.86,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "소방차",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 9150,
+        "googleVolume": 9900,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.16,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "캥거루",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 9130,
+        "googleVolume": 12100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "마더테레사",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 9080,
+        "googleVolume": 5400,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "오즈의마법사",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 8970,
+        "googleVolume": 12100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.28,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "목성",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 8870,
+        "googleVolume": 27100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "청개구리",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 8780,
+        "googleVolume": 6600,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "토성",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 8660,
+        "googleVolume": 27100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "춘향전",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 8500,
+        "googleVolume": 5400,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "설날",
+        "market": "KR",
+        "category": "I_명절_계절",
+        "naverVolume": 8500,
+        "googleVolume": 135000,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 19.87,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "잠",
+        "market": "KR",
+        "category": "K_신체_감정",
+        "naverVolume": 8470,
+        "googleVolume": 18100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.39,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "태양계",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 8120,
+        "googleVolume": 22200,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.28,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "잠자리",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 8060,
+        "googleVolume": 14800,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.29,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "뉴턴",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 8060,
+        "googleVolume": 12100,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "색깔",
+        "market": "KR",
+        "category": "L_기초학습",
+        "naverVolume": 7950,
+        "googleVolume": 5400,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.21,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "어린이조선일보",
+        "market": "KR",
+        "category": "H_기타",
+        "naverVolume": 7840,
+        "googleVolume": null,
+        "naverComp": "LOW",
+        "googleComp": null,
+        "googleCpc": null,
+        "sources": [
+          "Naver(category-gold)"
+        ]
+      },
+      {
+        "keyword": "장화신은고양이",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 7790,
+        "googleVolume": 9900,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.41,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "잠수함",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 7640,
+        "googleVolume": 165000,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "수의사",
+        "market": "KR",
+        "category": "G_직업",
+        "naverVolume": 7620,
+        "googleVolume": 8100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 7.75,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "영어발음",
+        "market": "KR",
+        "category": "B_유아영어",
+        "naverVolume": 7590,
+        "googleVolume": null,
+        "naverComp": "LOW",
+        "googleComp": null,
+        "googleCpc": null,
+        "sources": [
+          "Naver(category-gold)"
+        ]
+      },
+      {
+        "keyword": "구름빵",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 7560,
+        "googleVolume": 5400,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.25,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "동지",
+        "market": "KR",
+        "category": "I_명절_계절",
+        "naverVolume": 7550,
+        "googleVolume": 14800,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "할로윈",
+        "market": "KR",
+        "category": "I_명절_계절",
+        "naverVolume": 7320,
+        "googleVolume": 40500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "메뚜기",
+        "market": "KR",
+        "category": "D_곤충",
+        "naverVolume": 6870,
+        "googleVolume": 8100,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "경찰차",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 6470,
+        "googleVolume": 8100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.18,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "선생님",
+        "market": "KR",
+        "category": "G_직업",
+        "naverVolume": 6390,
+        "googleVolume": 14800,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 1.97,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "덤프트럭",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 6380,
+        "googleVolume": 5400,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.63,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "크리스마스",
+        "market": "KR",
+        "category": "I_명절_계절",
+        "naverVolume": 6240,
+        "googleVolume": 60500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.16,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "벨로키랍토르",
+        "market": "KR",
+        "category": "B_공룡",
+        "naverVolume": 5980,
+        "googleVolume": 9900,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "요리사",
+        "market": "KR",
+        "category": "G_직업",
+        "naverVolume": 5850,
+        "googleVolume": 12100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.09,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "숫자",
+        "market": "KR",
+        "category": "L_기초학습",
+        "naverVolume": 5850,
+        "googleVolume": 6600,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.32,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "로켓",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 5720,
+        "googleVolume": 9900,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "행성",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 5710,
+        "googleVolume": 12100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.15,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "빨강머리앤",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 5640,
+        "googleVolume": 12100,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0.24,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "침팬지",
+        "market": "KR",
+        "category": "C_동물",
+        "naverVolume": 5390,
+        "googleVolume": 9900,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "구급차",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 5290,
+        "googleVolume": 9900,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "헬리콥터",
+        "market": "KR",
+        "category": "E_탈것",
+        "naverVolume": 5250,
+        "googleVolume": 22200,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.05,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "하이디",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 5000,
+        "googleVolume": 2900,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "무지개물고기",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 4580,
+        "googleVolume": 2900,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.05,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "슈바이처",
+        "market": "KR",
+        "category": "H_위인",
+        "naverVolume": 4440,
+        "googleVolume": 2900,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "겨울",
+        "market": "KR",
+        "category": "I_명절_계절",
+        "naverVolume": 4390,
+        "googleVolume": 40500,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "한가위",
+        "market": "KR",
+        "category": "I_명절_계절",
+        "naverVolume": 3360,
+        "googleVolume": 5400,
+        "naverComp": "HIGH",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "여행영어",
+        "market": "KR",
+        "category": "B_유아영어",
+        "naverVolume": 3100,
+        "googleVolume": null,
+        "naverComp": "LOW",
+        "googleComp": null,
+        "googleCpc": null,
+        "sources": [
+          "Naver(category-gold)"
+        ]
+      },
+      {
+        "keyword": "뼈",
+        "market": "KR",
+        "category": "K_신체_감정",
+        "naverVolume": 3090,
+        "googleVolume": 5400,
+        "naverComp": "MEDIUM",
+        "googleComp": "LOW",
+        "googleCpc": 0.34,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "슬픔",
+        "market": "KR",
+        "category": "K_신체_감정",
+        "naverVolume": 2760,
+        "googleVolume": 2400,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "오늘의영어단어",
+        "market": "KR",
+        "category": "B_유아영어",
+        "naverVolume": 2510,
+        "googleVolume": null,
+        "naverComp": "LOW",
+        "googleComp": null,
+        "googleCpc": null,
+        "sources": [
+          "Naver(category-gold)"
+        ]
+      },
+      {
+        "keyword": "금도끼은도끼",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 2490,
+        "googleVolume": 1900,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "허클베리핀",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 2190,
+        "googleVolume": 1300,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.17,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "우주비행사",
+        "market": "KR",
+        "category": "F_우주_자연",
+        "naverVolume": 2040,
+        "googleVolume": 2900,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 1.12,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "두려움",
+        "market": "KR",
+        "category": "K_신체_감정",
+        "naverVolume": 1970,
+        "googleVolume": 1600,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "영어스펠링",
+        "market": "KR",
+        "category": "B_유아영어",
+        "naverVolume": 1440,
+        "googleVolume": null,
+        "naverComp": "LOW",
+        "googleComp": null,
+        "googleCpc": null,
+        "sources": [
+          "Naver(category-gold)"
+        ]
+      },
+      {
+        "keyword": "괴물들이사는나라",
+        "market": "KR",
+        "category": "A_명작동화",
+        "naverVolume": 1220,
+        "googleVolume": 1300,
+        "naverComp": "LOW",
+        "googleComp": "LOW",
+        "googleCpc": 0.11,
+        "sources": [
+          "Naver(content)",
+          "GoogleAds(KR)"
+        ]
+      },
+      {
+        "keyword": "튼튼영어베이비리그",
+        "market": "KR",
+        "category": "B_유아영어",
+        "naverVolume": 1170,
+        "googleVolume": null,
+        "naverComp": "LOW",
+        "googleComp": null,
+        "googleCpc": null,
+        "sources": [
+          "Naver(category-gold)"
+        ]
+      },
+      {
+        "keyword": "영어소문자",
+        "market": "KR",
+        "category": "B_유아영어",
+        "naverVolume": 1000,
+        "googleVolume": null,
+        "naverComp": "LOW",
+        "googleComp": null,
+        "googleCpc": null,
+        "sources": [
+          "Naver(category-gold)"
+        ]
+      }
+    ],
+    "byCategory": {
+      "A_명작동화": {
+        "count": 123,
+        "top5": [
+          {
+            "keyword": "보물섬",
+            "market": "KR",
+            "category": "A_명작동화",
+            "naverVolume": 46970,
+            "googleVolume": 18100,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 1.82,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "미운오리새끼",
+            "market": "KR",
+            "category": "A_명작동화",
+            "naverVolume": 41100,
+            "googleVolume": 3600,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0.14,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "신데렐라",
+            "market": "KR",
+            "category": "A_명작동화",
+            "naverVolume": 27350,
+            "googleVolume": 12100,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.82,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "피노키오",
+            "market": "KR",
+            "category": "A_명작동화",
+            "naverVolume": 23360,
+            "googleVolume": 9900,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.56,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "이상한나라의앨리스",
+            "market": "KR",
+            "category": "A_명작동화",
+            "naverVolume": 21300,
+            "googleVolume": 12100,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.27,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          }
+        ]
+      },
+      "B_공룡": {
+        "count": 15,
+        "top5": [
+          {
+            "keyword": "브라키오사우루스",
+            "market": "KR",
+            "category": "B_공룡",
+            "naverVolume": 134460,
+            "googleVolume": 18100,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0.27,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "티라노사우루스",
+            "market": "KR",
+            "category": "B_공룡",
+            "naverVolume": 69350,
+            "googleVolume": 33100,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0.18,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "공룡",
+            "market": "KR",
+            "category": "B_공룡",
+            "naverVolume": 36590,
+            "googleVolume": 90500,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.21,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "트리케라톱스",
+            "market": "KR",
+            "category": "B_공룡",
+            "naverVolume": 26870,
+            "googleVolume": 14800,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.19,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "공룡종류",
+            "market": "KR",
+            "category": "B_공룡",
+            "naverVolume": 16900,
+            "googleVolume": 4400,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0.21,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          }
+        ]
+      },
+      "C_동물": {
+        "count": 39,
+        "top5": [
+          {
+            "keyword": "강아지",
+            "market": "KR",
+            "category": "C_동물",
+            "naverVolume": 98800,
+            "googleVolume": 201000,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 1.22,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "고양이",
+            "market": "KR",
+            "category": "C_동물",
+            "naverVolume": 97100,
+            "googleVolume": 368000,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 1.2,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "늑대",
+            "market": "KR",
+            "category": "C_동물",
+            "naverVolume": 44200,
+            "googleVolume": 33100,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "토끼",
+            "market": "KR",
+            "category": "C_동물",
+            "naverVolume": 36820,
+            "googleVolume": 60500,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.29,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "거북이",
+            "market": "KR",
+            "category": "C_동물",
+            "naverVolume": 36610,
+            "googleVolume": 40500,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.32,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          }
+        ]
+      },
+      "D_곤충": {
+        "count": 17,
+        "top5": [
+          {
+            "keyword": "거미",
+            "market": "KR",
+            "category": "D_곤충",
+            "naverVolume": 42280,
+            "googleVolume": 33100,
+            "naverComp": "LOW",
+            "googleComp": "LOW",
+            "googleCpc": 0.29,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "매미",
+            "market": "KR",
+            "category": "D_곤충",
+            "naverVolume": 28770,
+            "googleVolume": 9900,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "나비",
+            "market": "KR",
+            "category": "D_곤충",
+            "naverVolume": 23470,
+            "googleVolume": 27100,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0.28,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "장수풍뎅이",
+            "market": "KR",
+            "category": "D_곤충",
+            "naverVolume": 23300,
+            "googleVolume": 18100,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0.17,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "개미",
+            "market": "KR",
+            "category": "D_곤충",
+            "naverVolume": 22610,
+            "googleVolume": 14800,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.38,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          }
+        ]
+      },
+      "E_탈것": {
+        "count": 17,
+        "top5": [
+          {
+            "keyword": "지하철",
+            "market": "KR",
+            "category": "E_탈것",
+            "naverVolume": 248900,
+            "googleVolume": 49500,
+            "naverComp": "LOW",
+            "googleComp": "LOW",
+            "googleCpc": 0.15,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "자동차",
+            "market": "KR",
+            "category": "E_탈것",
+            "naverVolume": 131900,
+            "googleVolume": 301000,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 1.65,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "버스",
+            "market": "KR",
+            "category": "E_탈것",
+            "naverVolume": 100600,
+            "googleVolume": 60500,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.18,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "비행기",
+            "market": "KR",
+            "category": "E_탈것",
+            "naverVolume": 81500,
+            "googleVolume": 74000,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.71,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "기차",
+            "market": "KR",
+            "category": "E_탈것",
+            "naverVolume": 53370,
+            "googleVolume": 14800,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.98,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          }
+        ]
+      },
+      "F_우주_자연": {
+        "count": 17,
+        "top5": [
+          {
+            "keyword": "날씨",
+            "market": "KR",
+            "category": "F_우주_자연",
+            "naverVolume": 35743300,
+            "googleVolume": 20400000,
+            "naverComp": "LOW",
+            "googleComp": "LOW",
+            "googleCpc": 0.34,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "지진",
+            "market": "KR",
+            "category": "F_우주_자연",
+            "naverVolume": 210000,
+            "googleVolume": 60500,
+            "naverComp": "LOW",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "별자리",
+            "market": "KR",
+            "category": "F_우주_자연",
+            "naverVolume": 82980,
+            "googleVolume": 40500,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.35,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "바다",
+            "market": "KR",
+            "category": "F_우주_자연",
+            "naverVolume": 46330,
+            "googleVolume": 49500,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "달",
+            "market": "KR",
+            "category": "F_우주_자연",
+            "naverVolume": 30150,
+            "googleVolume": 33100,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          }
+        ]
+      },
+      "G_직업": {
+        "count": 11,
+        "top5": [
+          {
+            "keyword": "소방관",
+            "market": "KR",
+            "category": "G_직업",
+            "naverVolume": 30520,
+            "googleVolume": 22200,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 1.48,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "간호사",
+            "market": "KR",
+            "category": "G_직업",
+            "naverVolume": 12810,
+            "googleVolume": 27100,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.18,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "의사",
+            "market": "KR",
+            "category": "G_직업",
+            "naverVolume": 11070,
+            "googleVolume": 40500,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 2.08,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "직업종류",
+            "market": "KR",
+            "category": "G_직업",
+            "naverVolume": 9490,
+            "googleVolume": 5400,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.86,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "수의사",
+            "market": "KR",
+            "category": "G_직업",
+            "naverVolume": 7620,
+            "googleVolume": 8100,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 7.75,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          }
+        ]
+      },
+      "H_위인": {
+        "count": 15,
+        "top5": [
+          {
+            "keyword": "세종대왕",
+            "market": "KR",
+            "category": "H_위인",
+            "naverVolume": 44890,
+            "googleVolume": 49500,
+            "naverComp": "LOW",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "이순신",
+            "market": "KR",
+            "category": "H_위인",
+            "naverVolume": 44700,
+            "googleVolume": 49500,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0.45,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "안중근",
+            "market": "KR",
+            "category": "H_위인",
+            "naverVolume": 20360,
+            "googleVolume": 40500,
+            "naverComp": "LOW",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "아인슈타인",
+            "market": "KR",
+            "category": "H_위인",
+            "naverVolume": 19210,
+            "googleVolume": 22200,
+            "naverComp": "LOW",
+            "googleComp": "LOW",
+            "googleCpc": 0.38,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "신사임당",
+            "market": "KR",
+            "category": "H_위인",
+            "naverVolume": 17190,
+            "googleVolume": 14800,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0.39,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          }
+        ]
+      },
+      "I_명절_계절": {
+        "count": 12,
+        "top5": [
+          {
+            "keyword": "추석",
+            "market": "KR",
+            "category": "I_명절_계절",
+            "naverVolume": 41000,
+            "googleVolume": 60500,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "여름",
+            "market": "KR",
+            "category": "I_명절_계절",
+            "naverVolume": 25450,
+            "googleVolume": 18100,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "단오",
+            "market": "KR",
+            "category": "I_명절_계절",
+            "naverVolume": 21910,
+            "googleVolume": 6600,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "봄",
+            "market": "KR",
+            "category": "I_명절_계절",
+            "naverVolume": 16690,
+            "googleVolume": 18100,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "가을",
+            "market": "KR",
+            "category": "I_명절_계절",
+            "naverVolume": 13130,
+            "googleVolume": 33100,
+            "naverComp": "LOW",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          }
+        ]
+      },
+      "J_식물_먹거리": {
+        "count": 8,
+        "top5": [
+          {
+            "keyword": "민들레",
+            "market": "KR",
+            "category": "J_식물_먹거리",
+            "naverVolume": 61330,
+            "googleVolume": 22200,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.19,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "해바라기",
+            "market": "KR",
+            "category": "J_식물_먹거리",
+            "naverVolume": 54650,
+            "googleVolume": 27100,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.21,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "튤립",
+            "market": "KR",
+            "category": "J_식물_먹거리",
+            "naverVolume": 48180,
+            "googleVolume": 14800,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.12,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "장미",
+            "market": "KR",
+            "category": "J_식물_먹거리",
+            "naverVolume": 41170,
+            "googleVolume": 33100,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0.13,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "꽃이름",
+            "market": "KR",
+            "category": "J_식물_먹거리",
+            "naverVolume": 7750,
+            "googleVolume": 2900,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0.3,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          }
+        ]
+      },
+      "K_신체_감정": {
+        "count": 9,
+        "top5": [
+          {
+            "keyword": "잠",
+            "market": "KR",
+            "category": "K_신체_감정",
+            "naverVolume": 8470,
+            "googleVolume": 18100,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.39,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "치아",
+            "market": "KR",
+            "category": "K_신체_감정",
+            "naverVolume": 5350,
+            "googleVolume": 3600,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.84,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "소화",
+            "market": "KR",
+            "category": "K_신체_감정",
+            "naverVolume": 3490,
+            "googleVolume": 1900,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "뼈",
+            "market": "KR",
+            "category": "K_신체_감정",
+            "naverVolume": 3090,
+            "googleVolume": 5400,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0.34,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "슬픔",
+            "market": "KR",
+            "category": "K_신체_감정",
+            "naverVolume": 2760,
+            "googleVolume": 2400,
+            "naverComp": "LOW",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          }
+        ]
+      },
+      "L_기초학습": {
+        "count": 5,
+        "top5": [
+          {
+            "keyword": "알파벳",
+            "market": "KR",
+            "category": "L_기초학습",
+            "naverVolume": 49100,
+            "googleVolume": 22200,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.08,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "색깔",
+            "market": "KR",
+            "category": "L_기초학습",
+            "naverVolume": 7950,
+            "googleVolume": 5400,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0.21,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "숫자",
+            "market": "KR",
+            "category": "L_기초학습",
+            "naverVolume": 5850,
+            "googleVolume": 6600,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.32,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "도형",
+            "market": "KR",
+            "category": "L_기초학습",
+            "naverVolume": 2510,
+            "googleVolume": 2900,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.13,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "시계보는법",
+            "market": "KR",
+            "category": "L_기초학습",
+            "naverVolume": 440,
+            "googleVolume": 260,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          }
+        ]
+      },
+      "M_페인포인트": {
+        "count": 8,
+        "top5": [
+          {
+            "keyword": "친구사귀기",
+            "market": "KR",
+            "category": "M_페인포인트",
+            "naverVolume": 150,
+            "googleVolume": 140,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 1.79,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "잠안자는아이",
+            "market": "KR",
+            "category": "M_페인포인트",
+            "naverVolume": 100,
+            "googleVolume": 0,
+            "naverComp": "MEDIUM",
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "유치원적응",
+            "market": "KR",
+            "category": "M_페인포인트",
+            "naverVolume": 80,
+            "googleVolume": 10,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "양치동화",
+            "market": "KR",
+            "category": "M_페인포인트",
+            "naverVolume": 30,
+            "googleVolume": 10,
+            "naverComp": "MEDIUM",
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          },
+          {
+            "keyword": "거짓말동화",
+            "market": "KR",
+            "category": "M_페인포인트",
+            "naverVolume": 30,
+            "googleVolume": 50,
+            "naverComp": "HIGH",
+            "googleComp": "LOW",
+            "googleCpc": 0.14,
+            "sources": [
+              "Naver(content)",
+              "GoogleAds(KR)"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "EN": {
+    "total": 251,
+    "main": [
+      {
+        "keyword": "eagle",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 6120000,
+        "googleComp": "LOW",
+        "googleCpc": 1.96,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "bear",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 4090000,
+        "googleComp": "LOW",
+        "googleCpc": 0.43,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "peacock",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 4090000,
+        "googleComp": "LOW",
+        "googleCpc": 0.32,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "cat",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 3350000,
+        "googleComp": "LOW",
+        "googleCpc": 2.15,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "lion",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 2740000,
+        "googleComp": "LOW",
+        "googleCpc": 0.33,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "dog",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 2740000,
+        "googleComp": "LOW",
+        "googleCpc": 2.41,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "fox",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 2740000,
+        "googleComp": "LOW",
+        "googleCpc": 2.97,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "monkey",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 2740000,
+        "googleComp": "LOW",
+        "googleCpc": 0.19,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "tiger",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 2240000,
+        "googleComp": "LOW",
+        "googleCpc": 0.56,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "rocket",
+        "market": "US",
+        "category": "E_Vehicles",
+        "googleVolume": 1220000,
+        "googleComp": "LOW",
+        "googleCpc": 2.57,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "dinosaur",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 1000000,
+        "googleComp": "LOW",
+        "googleCpc": 0.21,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "dolphin",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 1000000,
+        "googleComp": "LOW",
+        "googleCpc": 1.03,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "penguin",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 823000,
+        "googleComp": "LOW",
+        "googleCpc": 1.9,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "gorilla",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 823000,
+        "googleComp": "LOW",
+        "googleCpc": 1.41,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "shark",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 823000,
+        "googleComp": "LOW",
+        "googleCpc": 0.62,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "snow white",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 673000,
+        "googleComp": "MEDIUM",
+        "googleCpc": 0.24,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "panda",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 673000,
+        "googleComp": "LOW",
+        "googleCpc": 0.12,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "wolf",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 673000,
+        "googleComp": "LOW",
+        "googleCpc": 0.78,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "solar system",
+        "market": "US",
+        "category": "F_Space_Nature",
+        "googleVolume": 673000,
+        "googleComp": "HIGH",
+        "googleCpc": 0.66,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "veterinarian",
+        "market": "US",
+        "category": "G_Jobs",
+        "googleVolume": 673000,
+        "googleComp": "LOW",
+        "googleCpc": 7.83,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "winnie the pooh",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 550000,
+        "googleComp": "HIGH",
+        "googleCpc": 0.3,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "wizard of oz",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 4.37,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "curious george",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 0.23,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "t rex",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 1.21,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "tyrannosaurus rex",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 1.21,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "elephant",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 1.15,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "giraffe",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 0.33,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "hamster",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 0.49,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "turtle",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 0.42,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "deer",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 0.75,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "spider",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 0.76,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "sunflower",
+        "market": "US",
+        "category": "J_Plants_Food",
+        "googleVolume": 450000,
+        "googleComp": "MEDIUM",
+        "googleCpc": 0.5,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "tulip",
+        "market": "US",
+        "category": "J_Plants_Food",
+        "googleVolume": 450000,
+        "googleComp": "MEDIUM",
+        "googleCpc": 0.5,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "cinderella",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 0.28,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "rapunzel",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 0.32,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "alice in wonderland",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 0.31,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "spinosaurus",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 0.23,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "squirrel",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 4.21,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "owl",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 0.31,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "caterpillar",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 3.14,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "dragonfly",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 0.28,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "firefly",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 1.3,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "airplane",
+        "market": "US",
+        "category": "E_Vehicles",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 1.37,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "beauty and the beast",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 1.32,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "rabbit",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 0.94,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "octopus",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 0.54,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "ladybug",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 0.22,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "bee",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 1.01,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "bus",
+        "market": "US",
+        "category": "E_Vehicles",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 1.58,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "dandelion",
+        "market": "US",
+        "category": "J_Plants_Food",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 0.26,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      }
+    ],
+    "golden": [
+      {
+        "keyword": "eagle",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 6120000,
+        "googleComp": "LOW",
+        "googleCpc": 1.96,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "bear",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 4090000,
+        "googleComp": "LOW",
+        "googleCpc": 0.43,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "peacock",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 4090000,
+        "googleComp": "LOW",
+        "googleCpc": 0.32,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "cat",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 3350000,
+        "googleComp": "LOW",
+        "googleCpc": 2.15,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "lion",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 2740000,
+        "googleComp": "LOW",
+        "googleCpc": 0.33,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "dog",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 2740000,
+        "googleComp": "LOW",
+        "googleCpc": 2.41,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "fox",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 2740000,
+        "googleComp": "LOW",
+        "googleCpc": 2.97,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "monkey",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 2740000,
+        "googleComp": "LOW",
+        "googleCpc": 0.19,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "tiger",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 2240000,
+        "googleComp": "LOW",
+        "googleCpc": 0.56,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "rocket",
+        "market": "US",
+        "category": "E_Vehicles",
+        "googleVolume": 1220000,
+        "googleComp": "LOW",
+        "googleCpc": 2.57,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "dinosaur",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 1000000,
+        "googleComp": "LOW",
+        "googleCpc": 0.21,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "dolphin",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 1000000,
+        "googleComp": "LOW",
+        "googleCpc": 1.03,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "penguin",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 823000,
+        "googleComp": "LOW",
+        "googleCpc": 1.9,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "gorilla",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 823000,
+        "googleComp": "LOW",
+        "googleCpc": 1.41,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "shark",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 823000,
+        "googleComp": "LOW",
+        "googleCpc": 0.62,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "panda",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 673000,
+        "googleComp": "LOW",
+        "googleCpc": 0.12,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "wolf",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 673000,
+        "googleComp": "LOW",
+        "googleCpc": 0.78,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "veterinarian",
+        "market": "US",
+        "category": "G_Jobs",
+        "googleVolume": 673000,
+        "googleComp": "LOW",
+        "googleCpc": 7.83,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "wizard of oz",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 4.37,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "curious george",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 0.23,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "t rex",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 1.21,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "tyrannosaurus rex",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 1.21,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "elephant",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 1.15,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "giraffe",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 0.33,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "hamster",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 0.49,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "turtle",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 0.42,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "deer",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 0.75,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "spider",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 450000,
+        "googleComp": "LOW",
+        "googleCpc": 0.76,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "cinderella",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 0.28,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "rapunzel",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 0.32,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "alice in wonderland",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 0.31,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "spinosaurus",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 0.23,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "squirrel",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 4.21,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "owl",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 0.31,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "caterpillar",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 3.14,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "dragonfly",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 0.28,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "firefly",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 1.3,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "airplane",
+        "market": "US",
+        "category": "E_Vehicles",
+        "googleVolume": 368000,
+        "googleComp": "LOW",
+        "googleCpc": 1.37,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "beauty and the beast",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 1.32,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "rabbit",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 0.94,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "octopus",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 0.54,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "ladybug",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 0.22,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "bee",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 1.01,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "bus",
+        "market": "US",
+        "category": "E_Vehicles",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 1.58,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "dandelion",
+        "market": "US",
+        "category": "J_Plants_Food",
+        "googleVolume": 301000,
+        "googleComp": "LOW",
+        "googleCpc": 0.26,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "puss in boots",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 246000,
+        "googleComp": "LOW",
+        "googleCpc": 0.19,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "velociraptor",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 246000,
+        "googleComp": "LOW",
+        "googleCpc": 0.27,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "polar bear",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 246000,
+        "googleComp": "LOW",
+        "googleCpc": 1.33,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "koala",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 246000,
+        "googleComp": "LOW",
+        "googleCpc": 2.09,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "chimpanzee",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 246000,
+        "googleComp": "LOW",
+        "googleCpc": 1.21,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "whale",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 246000,
+        "googleComp": "LOW",
+        "googleCpc": 0.68,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "parrot",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 246000,
+        "googleComp": "LOW",
+        "googleCpc": 0.34,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "constellations",
+        "market": "US",
+        "category": "F_Space_Nature",
+        "googleVolume": 246000,
+        "googleComp": "LOW",
+        "googleCpc": 4.14,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "sleeping beauty",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 201000,
+        "googleComp": "LOW",
+        "googleCpc": 0.33,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "pinocchio",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 201000,
+        "googleComp": "LOW",
+        "googleCpc": 0.19,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "peter pan",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 201000,
+        "googleComp": "LOW",
+        "googleCpc": 0.88,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "little women",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 201000,
+        "googleComp": "LOW",
+        "googleCpc": 0.47,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "pterodactyl",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 201000,
+        "googleComp": "LOW",
+        "googleCpc": 0.22,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "kangaroo",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 201000,
+        "googleComp": "LOW",
+        "googleCpc": 0.27,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "seahorse",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 201000,
+        "googleComp": "LOW",
+        "googleCpc": 0.23,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "ant",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 201000,
+        "googleComp": "LOW",
+        "googleCpc": 2.49,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "grasshopper",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 201000,
+        "googleComp": "LOW",
+        "googleCpc": 13.14,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "helicopter",
+        "market": "US",
+        "category": "E_Vehicles",
+        "googleVolume": 201000,
+        "googleComp": "LOW",
+        "googleCpc": 3.33,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "rumpelstiltskin",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 165000,
+        "googleComp": "LOW",
+        "googleCpc": 0.82,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "treasure island",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 165000,
+        "googleComp": "LOW",
+        "googleCpc": 1.45,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "brachiosaurus",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 165000,
+        "googleComp": "LOW",
+        "googleCpc": 0.21,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "ankylosaurus",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 165000,
+        "googleComp": "LOW",
+        "googleCpc": 0.23,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "beetle",
+        "market": "US",
+        "category": "D_Bugs",
+        "googleVolume": 165000,
+        "googleComp": "LOW",
+        "googleCpc": 0.63,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "tractor",
+        "market": "US",
+        "category": "E_Vehicles",
+        "googleVolume": 165000,
+        "googleComp": "LOW",
+        "googleCpc": 0.98,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "astronaut",
+        "market": "US",
+        "category": "G_Jobs",
+        "googleVolume": 165000,
+        "googleComp": "LOW",
+        "googleCpc": 0.43,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "submarine",
+        "market": "US",
+        "category": "E_Vehicles",
+        "googleVolume": 135000,
+        "googleComp": "LOW",
+        "googleCpc": 2.69,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "little red riding hood",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 110000,
+        "googleComp": "LOW",
+        "googleCpc": 0.33,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "anne of green gables",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 110000,
+        "googleComp": "LOW",
+        "googleCpc": 0.39,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "allosaurus",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 110000,
+        "googleComp": "LOW",
+        "googleCpc": 0.23,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "ambulance",
+        "market": "US",
+        "category": "E_Vehicles",
+        "googleVolume": 110000,
+        "googleComp": "LOW",
+        "googleCpc": 5.82,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "firefighter",
+        "market": "US",
+        "category": "G_Jobs",
+        "googleVolume": 110000,
+        "googleComp": "LOW",
+        "googleCpc": 19.48,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "thumbelina",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 90500,
+        "googleComp": "LOW",
+        "googleCpc": 0.21,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "fire truck",
+        "market": "US",
+        "category": "E_Vehicles",
+        "googleVolume": 90500,
+        "googleComp": "LOW",
+        "googleCpc": 0.83,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "flower names",
+        "market": "US",
+        "category": "J_Plants_Food",
+        "googleVolume": 90500,
+        "googleComp": "LOW",
+        "googleCpc": 0.14,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "hansel and gretel",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 74000,
+        "googleComp": "LOW",
+        "googleCpc": 0.28,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "the little prince",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 74000,
+        "googleComp": "LOW",
+        "googleCpc": 0.43,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "jungle book",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 74000,
+        "googleComp": "LOW",
+        "googleCpc": 0.21,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "huckleberry finn",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 74000,
+        "googleComp": "LOW",
+        "googleCpc": 0.49,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "harold and the purple crayon",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 74000,
+        "googleComp": "LOW",
+        "googleCpc": 0.31,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "madeline",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 74000,
+        "googleComp": "LOW",
+        "googleCpc": 0.33,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "diplodocus",
+        "market": "US",
+        "category": "B_Dinosaurs",
+        "googleVolume": 74000,
+        "googleComp": "LOW",
+        "googleCpc": 0.22,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "police car",
+        "market": "US",
+        "category": "E_Vehicles",
+        "googleVolume": 74000,
+        "googleComp": "LOW",
+        "googleCpc": 0.23,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "police officer",
+        "market": "US",
+        "category": "G_Jobs",
+        "googleVolume": 74000,
+        "googleComp": "LOW",
+        "googleCpc": 8.64,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "princess and the pea",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 60500,
+        "googleComp": "LOW",
+        "googleCpc": 0.32,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "heidi",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 60500,
+        "googleComp": "LOW",
+        "googleCpc": 0.45,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "secret garden",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 60500,
+        "googleComp": "LOW",
+        "googleCpc": 0.77,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "black beauty",
+        "market": "US",
+        "category": "A_FairyTales",
+        "googleVolume": 60500,
+        "googleComp": "LOW",
+        "googleCpc": 0.82,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      },
+      {
+        "keyword": "farm animals",
+        "market": "US",
+        "category": "C_Animals",
+        "googleVolume": 60500,
+        "googleComp": "LOW",
+        "googleCpc": 0.23,
+        "sources": [
+          "GoogleAds(US)"
+        ]
+      }
+    ],
+    "byCategory": {
+      "A_FairyTales": {
+        "count": 93,
+        "top5": [
+          {
+            "keyword": "snow white",
+            "market": "US",
+            "category": "A_FairyTales",
+            "googleVolume": 673000,
+            "googleComp": "MEDIUM",
+            "googleCpc": 0.24,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "winnie the pooh",
+            "market": "US",
+            "category": "A_FairyTales",
+            "googleVolume": 550000,
+            "googleComp": "HIGH",
+            "googleCpc": 0.3,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "wizard of oz",
+            "market": "US",
+            "category": "A_FairyTales",
+            "googleVolume": 450000,
+            "googleComp": "LOW",
+            "googleCpc": 4.37,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "curious george",
+            "market": "US",
+            "category": "A_FairyTales",
+            "googleVolume": 450000,
+            "googleComp": "LOW",
+            "googleCpc": 0.23,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "cinderella",
+            "market": "US",
+            "category": "A_FairyTales",
+            "googleVolume": 368000,
+            "googleComp": "LOW",
+            "googleCpc": 0.28,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          }
+        ]
+      },
+      "B_Dinosaurs": {
+        "count": 18,
+        "top5": [
+          {
+            "keyword": "dinosaur",
+            "market": "US",
+            "category": "B_Dinosaurs",
+            "googleVolume": 1000000,
+            "googleComp": "LOW",
+            "googleCpc": 0.21,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "t rex",
+            "market": "US",
+            "category": "B_Dinosaurs",
+            "googleVolume": 450000,
+            "googleComp": "LOW",
+            "googleCpc": 1.21,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "tyrannosaurus rex",
+            "market": "US",
+            "category": "B_Dinosaurs",
+            "googleVolume": 450000,
+            "googleComp": "LOW",
+            "googleCpc": 1.21,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "spinosaurus",
+            "market": "US",
+            "category": "B_Dinosaurs",
+            "googleVolume": 368000,
+            "googleComp": "LOW",
+            "googleCpc": 0.23,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "velociraptor",
+            "market": "US",
+            "category": "B_Dinosaurs",
+            "googleVolume": 246000,
+            "googleComp": "LOW",
+            "googleCpc": 0.27,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          }
+        ]
+      },
+      "C_Animals": {
+        "count": 39,
+        "top5": [
+          {
+            "keyword": "eagle",
+            "market": "US",
+            "category": "C_Animals",
+            "googleVolume": 6120000,
+            "googleComp": "LOW",
+            "googleCpc": 1.96,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "bear",
+            "market": "US",
+            "category": "C_Animals",
+            "googleVolume": 4090000,
+            "googleComp": "LOW",
+            "googleCpc": 0.43,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "peacock",
+            "market": "US",
+            "category": "C_Animals",
+            "googleVolume": 4090000,
+            "googleComp": "LOW",
+            "googleCpc": 0.32,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "cat",
+            "market": "US",
+            "category": "C_Animals",
+            "googleVolume": 3350000,
+            "googleComp": "LOW",
+            "googleCpc": 2.15,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "lion",
+            "market": "US",
+            "category": "C_Animals",
+            "googleVolume": 2740000,
+            "googleComp": "LOW",
+            "googleCpc": 0.33,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          }
+        ]
+      },
+      "D_Bugs": {
+        "count": 12,
+        "top5": [
+          {
+            "keyword": "spider",
+            "market": "US",
+            "category": "D_Bugs",
+            "googleVolume": 450000,
+            "googleComp": "LOW",
+            "googleCpc": 0.76,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "caterpillar",
+            "market": "US",
+            "category": "D_Bugs",
+            "googleVolume": 368000,
+            "googleComp": "LOW",
+            "googleCpc": 3.14,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "dragonfly",
+            "market": "US",
+            "category": "D_Bugs",
+            "googleVolume": 368000,
+            "googleComp": "LOW",
+            "googleCpc": 0.28,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "firefly",
+            "market": "US",
+            "category": "D_Bugs",
+            "googleVolume": 368000,
+            "googleComp": "LOW",
+            "googleCpc": 1.3,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "ladybug",
+            "market": "US",
+            "category": "D_Bugs",
+            "googleVolume": 301000,
+            "googleComp": "LOW",
+            "googleCpc": 0.22,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          }
+        ]
+      },
+      "E_Vehicles": {
+        "count": 16,
+        "top5": [
+          {
+            "keyword": "rocket",
+            "market": "US",
+            "category": "E_Vehicles",
+            "googleVolume": 1220000,
+            "googleComp": "LOW",
+            "googleCpc": 2.57,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "airplane",
+            "market": "US",
+            "category": "E_Vehicles",
+            "googleVolume": 368000,
+            "googleComp": "LOW",
+            "googleCpc": 1.37,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "bus",
+            "market": "US",
+            "category": "E_Vehicles",
+            "googleVolume": 301000,
+            "googleComp": "LOW",
+            "googleCpc": 1.58,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "helicopter",
+            "market": "US",
+            "category": "E_Vehicles",
+            "googleVolume": 201000,
+            "googleComp": "LOW",
+            "googleCpc": 3.33,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "excavator",
+            "market": "US",
+            "category": "E_Vehicles",
+            "googleVolume": 165000,
+            "googleComp": "HIGH",
+            "googleCpc": 1.21,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          }
+        ]
+      },
+      "F_Space_Nature": {
+        "count": 17,
+        "top5": [
+          {
+            "keyword": "solar system",
+            "market": "US",
+            "category": "F_Space_Nature",
+            "googleVolume": 673000,
+            "googleComp": "HIGH",
+            "googleCpc": 0.66,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "constellations",
+            "market": "US",
+            "category": "F_Space_Nature",
+            "googleVolume": 246000,
+            "googleComp": "LOW",
+            "googleCpc": 4.14,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "space for kids",
+            "market": "US",
+            "category": "F_Space_Nature",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "planets for kids",
+            "market": "US",
+            "category": "F_Space_Nature",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "moon for kids",
+            "market": "US",
+            "category": "F_Space_Nature",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          }
+        ]
+      },
+      "G_Jobs": {
+        "count": 10,
+        "top5": [
+          {
+            "keyword": "veterinarian",
+            "market": "US",
+            "category": "G_Jobs",
+            "googleVolume": 673000,
+            "googleComp": "LOW",
+            "googleCpc": 7.83,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "astronaut",
+            "market": "US",
+            "category": "G_Jobs",
+            "googleVolume": 165000,
+            "googleComp": "LOW",
+            "googleCpc": 0.43,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "firefighter",
+            "market": "US",
+            "category": "G_Jobs",
+            "googleVolume": 110000,
+            "googleComp": "LOW",
+            "googleCpc": 19.48,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "police officer",
+            "market": "US",
+            "category": "G_Jobs",
+            "googleVolume": 74000,
+            "googleComp": "LOW",
+            "googleCpc": 8.64,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "community helpers",
+            "market": "US",
+            "category": "G_Jobs",
+            "googleVolume": 12100,
+            "googleComp": "HIGH",
+            "googleCpc": 0.11,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          }
+        ]
+      },
+      "H_Biographies": {
+        "count": 10,
+        "top5": [
+          {
+            "keyword": "helen keller for kids",
+            "market": "US",
+            "category": "H_Biographies",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "thomas edison for kids",
+            "market": "US",
+            "category": "H_Biographies",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "abraham lincoln for kids",
+            "market": "US",
+            "category": "H_Biographies",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "martin luther king jr for kids",
+            "market": "US",
+            "category": "H_Biographies",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "rosa parks for kids",
+            "market": "US",
+            "category": "H_Biographies",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          }
+        ]
+      },
+      "I_Holidays_Seasons": {
+        "count": 9,
+        "top5": [
+          {
+            "keyword": "easter stories",
+            "market": "US",
+            "category": "I_Holidays_Seasons",
+            "googleVolume": 1900,
+            "googleComp": "LOW",
+            "googleCpc": 2.52,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "christmas stories for kids",
+            "market": "US",
+            "category": "I_Holidays_Seasons",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "halloween stories for kids",
+            "market": "US",
+            "category": "I_Holidays_Seasons",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "thanksgiving for kids",
+            "market": "US",
+            "category": "I_Holidays_Seasons",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "valentine for kids",
+            "market": "US",
+            "category": "I_Holidays_Seasons",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          }
+        ]
+      },
+      "J_Plants_Food": {
+        "count": 8,
+        "top5": [
+          {
+            "keyword": "sunflower",
+            "market": "US",
+            "category": "J_Plants_Food",
+            "googleVolume": 450000,
+            "googleComp": "MEDIUM",
+            "googleCpc": 0.5,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "tulip",
+            "market": "US",
+            "category": "J_Plants_Food",
+            "googleVolume": 450000,
+            "googleComp": "MEDIUM",
+            "googleCpc": 0.5,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "dandelion",
+            "market": "US",
+            "category": "J_Plants_Food",
+            "googleVolume": 301000,
+            "googleComp": "LOW",
+            "googleCpc": 0.26,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "flower names",
+            "market": "US",
+            "category": "J_Plants_Food",
+            "googleVolume": 90500,
+            "googleComp": "LOW",
+            "googleCpc": 0.14,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "tree names for kids",
+            "market": "US",
+            "category": "J_Plants_Food",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          }
+        ]
+      },
+      "K_Body_Emotions": {
+        "count": 6,
+        "top5": [
+          {
+            "keyword": "human body for kids",
+            "market": "US",
+            "category": "K_Body_Emotions",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "teeth for kids",
+            "market": "US",
+            "category": "K_Body_Emotions",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "bones for kids",
+            "market": "US",
+            "category": "K_Body_Emotions",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "emotions for kids",
+            "market": "US",
+            "category": "K_Body_Emotions",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "feelings for kids",
+            "market": "US",
+            "category": "K_Body_Emotions",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          }
+        ]
+      },
+      "L_Foundational": {
+        "count": 7,
+        "top5": [
+          {
+            "keyword": "alphabet for kids",
+            "market": "US",
+            "category": "L_Foundational",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "abc for kids",
+            "market": "US",
+            "category": "L_Foundational",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "numbers for kids",
+            "market": "US",
+            "category": "L_Foundational",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "counting for kids",
+            "market": "US",
+            "category": "L_Foundational",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "colors for kids",
+            "market": "US",
+            "category": "L_Foundational",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          }
+        ]
+      },
+      "M_PainPoint": {
+        "count": 6,
+        "top5": [
+          {
+            "keyword": "kindergarten readiness",
+            "market": "US",
+            "category": "M_PainPoint",
+            "googleVolume": 1900,
+            "googleComp": "LOW",
+            "googleCpc": 2.75,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "potty training story",
+            "market": "US",
+            "category": "M_PainPoint",
+            "googleVolume": 170,
+            "googleComp": "LOW",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "first day of school book",
+            "market": "US",
+            "category": "M_PainPoint",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "new baby brother book",
+            "market": "US",
+            "category": "M_PainPoint",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          },
+          {
+            "keyword": "sharing for kids",
+            "market": "US",
+            "category": "M_PainPoint",
+            "googleVolume": 0,
+            "googleComp": "UNKNOWN",
+            "googleCpc": 0,
+            "sources": [
+              "GoogleAds(US)"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

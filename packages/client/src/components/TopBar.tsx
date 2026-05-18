@@ -23,6 +23,24 @@ const RESOURCES: ResourceItem[] = [
   { href: '/pitch.html', icon: '💼', label: 'Series A Pitch', desc: '투자자용 16+1장 슬라이드' },
   { href: '/strategy.html', icon: '📋', label: '사업 전략서', desc: '비즈니스 전략·로드맵' },
   {
+    href: '/seo-strategy.html',
+    icon: '🔍',
+    label: 'SEO 전략',
+    desc: '콘텐츠 키워드·골든·6개월 로드맵',
+  },
+  {
+    href: '/operations-playbook.html',
+    icon: '🎯',
+    label: '운영 플레이북',
+    desc: '본질 베타 → 점진 확장 로드맵',
+  },
+  {
+    href: '/viral-magnets-wireframes.html',
+    icon: '🚀',
+    label: '바이럴 자석 UI',
+    desc: '5종 자석 한 클릭 공유 와이어프레임',
+  },
+  {
     href: '/curriculum-master.html',
     icon: '📖',
     label: '커리큘럼 마스터',
