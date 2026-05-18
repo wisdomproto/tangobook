@@ -19,8 +19,9 @@ import { useGameLogger, type GameWordResult } from '@/features/learning';
 const CANVAS_W = 500;
 const CANVAS_H = 250;
 const LINE_WIDTH = 8;
-const GUIDE_COLOR = '#d4d4d8'; // zinc-300
-const DRAW_COLOR = '#1e293b'; // slate-800
+const GUIDE_COLOR = '#d4d4d8'; // zinc-300 — 따라쓰기 대상 글자 (회색 윤곽)
+const SHOW_COLOR = '#FF8E72'; // coral — 따라쓰지 않고 보여주기만 하는 나머지 글자
+const DRAW_COLOR = '#1e293b'; // slate-800 — 사용자 stroke
 
 /**
  * 따라쓰기 대상은 단어 전체가 아니라 **첫 음절** 만. (사용자 정책 2026-05-18: 모든 음절은 가혹)
@@ -98,15 +99,35 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
     return `bold ${size}px sans-serif`;
   }, []);
 
+  /**
+   * 단어 전체를 한 줄로 그리되 첫 음절(writingChar) 만 회색 가이드, 나머지는 coral 컬러.
+   * - 따라쓰기 대상이 어디서 시작/끝나는지 시각적으로 명확
+   * - 컨텍스트 (전체 단어 모양) 도 같이 학습
+   */
   const drawGuide = useCallback(
-    (ctx: CanvasRenderingContext2D, word: string) => {
+    (ctx: CanvasRenderingContext2D, word: string, writingTarget: string) => {
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
       ctx.font = calcFont(ctx, word);
-      ctx.fillStyle = GUIDE_COLOR;
-      ctx.textAlign = 'center';
+      ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.fillText(word, CANVAS_W / 2, CANVAS_H / 2);
+
+      const totalWidth = ctx.measureText(word).width;
+      const startX = (CANVAS_W - totalWidth) / 2;
+      const y = CANVAS_H / 2;
+
+      const wcStart = writingTarget ? word.indexOf(writingTarget) : -1;
+      const wcEnd = wcStart >= 0 ? wcStart + writingTarget.length : -1;
+
+      let x = startX;
+      for (let i = 0; i < word.length; i++) {
+        const ch = word[i];
+        const w = ctx.measureText(ch).width;
+        const isWritingRange = i >= wcStart && i < wcEnd;
+        ctx.fillStyle = isWritingRange ? GUIDE_COLOR : SHOW_COLOR;
+        ctx.fillText(ch, x, y);
+        x += w;
+      }
     },
     [calcFont]
   );
@@ -116,8 +137,8 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
     if (!ctx) return;
     pathsRef.current = [];
     lastPointRef.current = null;
-    drawGuide(ctx, writingChar);
-  }, [currentIndex, writingChar, drawGuide]);
+    drawGuide(ctx, currentItem.word, writingChar);
+  }, [currentIndex, currentItem.word, writingChar, drawGuide]);
 
   const toCanvas = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const rect = canvasRef.current!.getBoundingClientRect();
@@ -177,7 +198,7 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
     pathsRef.current = [];
     lastPointRef.current = null;
     setHasDrawn(false);
-    drawGuide(ctx, writingChar);
+    drawGuide(ctx, currentItem.word, writingChar);
   };
 
   const computeDistanceTransform = (imageData: ImageData): Float32Array => {
@@ -224,13 +245,29 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
     guideCanvas.width = CANVAS_W;
     guideCanvas.height = CANVAS_H;
     const gCtx = guideCanvas.getContext('2d')!;
+    // guide canvas: 단어 전체 폰트 기준, writingChar 가 차지하는 위치에만 검정 (정확도 비교 대상).
+    // drawGuide 와 동일한 글자 배치 — 사용자가 첫 음절 위에 그렸을 때만 점수 높음.
     gCtx.fillStyle = '#ffffff';
     gCtx.fillRect(0, 0, CANVAS_W, CANVAS_H);
-    gCtx.font = calcFont(gCtx, writingChar);
+    gCtx.font = calcFont(gCtx, currentItem.word);
     gCtx.fillStyle = '#000000';
-    gCtx.textAlign = 'center';
+    gCtx.textAlign = 'left';
     gCtx.textBaseline = 'middle';
-    gCtx.fillText(writingChar, CANVAS_W / 2, CANVAS_H / 2);
+
+    const totalWidth = gCtx.measureText(currentItem.word).width;
+    const startX = (CANVAS_W - totalWidth) / 2;
+    const wcStart = writingChar ? currentItem.word.indexOf(writingChar) : -1;
+    const wcEnd = wcStart >= 0 ? wcStart + writingChar.length : -1;
+
+    let gx = startX;
+    for (let i = 0; i < currentItem.word.length; i++) {
+      const ch = currentItem.word[i];
+      const w = gCtx.measureText(ch).width;
+      if (i >= wcStart && i < wcEnd) {
+        gCtx.fillText(ch, gx, CANVAS_H / 2);
+      }
+      gx += w;
+    }
 
     const userCanvas = document.createElement('canvas');
     userCanvas.width = CANVAS_W;
