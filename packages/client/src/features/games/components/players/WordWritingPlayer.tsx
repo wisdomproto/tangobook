@@ -417,10 +417,12 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
           </div>
         </div>
 
-        {/* Canvas — 4:3 비율, 큰 테두리. flex-1 로 남는 영역 채움. */}
+        {/* Canvas — 2:1 비율, 큰 테두리. flex-1 로 남는 영역 채움.
+            height-driven (h-full + max-w-full) 으로 viewport 안 fit 보장 — w-full + max-h-full
+            조합은 aspect-ratio 충돌로 1920×1080 등에서 아래 버튼이 잘리는 문제 있었음. */}
         <div className="flex-1 min-h-0 w-full flex items-center justify-center">
           <div
-            className={`relative aspect-[2/1] w-full max-h-full border-[5px] rounded-3xl overflow-hidden bg-white shadow-pop transition-all ${
+            className={`relative aspect-[2/1] h-full max-w-full border-[5px] rounded-3xl overflow-hidden bg-white shadow-pop transition-all ${
               tutorialPulse
                 ? 'border-coral-400 ring-[6px] ring-coral-300 animate-pulse shadow-[0_0_30px_rgba(255,122,60,0.5)]'
                 : 'border-peach-200'
