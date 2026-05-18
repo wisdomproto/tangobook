@@ -22,6 +22,20 @@ const LINE_WIDTH = 8;
 const GUIDE_COLOR = '#d4d4d8'; // zinc-300
 const DRAW_COLOR = '#1e293b'; // slate-800
 
+/**
+ * 따라쓰기 대상은 단어 전체가 아니라 **첫 음절** 만. (사용자 정책 2026-05-18: 모든 음절은 가혹)
+ *  - 한글: 첫 한글 음절 1자 (예: "꽃밭" → "꽃")
+ *  - 영어: 첫 글자 1자 (예: "milk" → "m"). 짧은 단어(≤2자)는 그대로.
+ *  - 발음 (TTS) 은 전체 단어 그대로 — 학습적으로 자연 (첫 글자 쓰고 단어 듣기).
+ */
+function firstWritingChar(word: string): string {
+  if (!word) return word;
+  const hangul = word.match(/[가-힣]/);
+  if (hangul) return hangul[0];
+  if (word.length <= 2) return word;
+  return word[0];
+}
+
 function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: GamePlayerProps) {
   const data = gameData as WordWritingData;
   const items = data.items;
@@ -71,6 +85,7 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
   const pathsRef = useRef<Array<Array<{ x: number; y: number }>>>([]);
 
   const currentItem = items[currentIndex];
+  const writingChar = firstWritingChar(currentItem.word);
   const { playFeedbackSound, playWordCorrect } = useGameAudio();
 
   const calcFont = useCallback((ctx: CanvasRenderingContext2D, word: string) => {
@@ -101,8 +116,8 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
     if (!ctx) return;
     pathsRef.current = [];
     lastPointRef.current = null;
-    drawGuide(ctx, currentItem.word);
-  }, [currentIndex, currentItem.word, drawGuide]);
+    drawGuide(ctx, writingChar);
+  }, [currentIndex, writingChar, drawGuide]);
 
   const toCanvas = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const rect = canvasRef.current!.getBoundingClientRect();
@@ -162,7 +177,7 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
     pathsRef.current = [];
     lastPointRef.current = null;
     setHasDrawn(false);
-    drawGuide(ctx, currentItem.word);
+    drawGuide(ctx, writingChar);
   };
 
   const computeDistanceTransform = (imageData: ImageData): Float32Array => {
@@ -211,11 +226,11 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
     const gCtx = guideCanvas.getContext('2d')!;
     gCtx.fillStyle = '#ffffff';
     gCtx.fillRect(0, 0, CANVAS_W, CANVAS_H);
-    gCtx.font = calcFont(gCtx, currentItem.word);
+    gCtx.font = calcFont(gCtx, writingChar);
     gCtx.fillStyle = '#000000';
     gCtx.textAlign = 'center';
     gCtx.textBaseline = 'middle';
-    gCtx.fillText(currentItem.word, CANVAS_W / 2, CANVAS_H / 2);
+    gCtx.fillText(writingChar, CANVAS_W / 2, CANVAS_H / 2);
 
     const userCanvas = document.createElement('canvas');
     userCanvas.width = CANVAS_W;
