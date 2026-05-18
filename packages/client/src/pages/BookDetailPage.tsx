@@ -1,19 +1,16 @@
 import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import { useStorybook, useStorybooks } from '@/features/storybook';
 import {
   getYoutubeVideoIds,
   getDirectVideoUrls,
   getAvailableStyles,
 } from '@/lib/storybook-accessors';
-import { Card, StateScreen, Skeleton, Chip, PageHeader } from '@/design-system';
+import { StateScreen, Skeleton, Chip, PageHeader } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
-import { settingsApi } from '@/features/settings/api/settings.api';
-import { getArtStyleLabel, canonicalizeArtStyle } from '@tangobook/shared';
-import type { ReadingLevel, StorybookSummary, SavedArtStyle } from '@tangobook/shared';
+import type { ReadingLevel, StorybookSummary } from '@tangobook/shared';
 
 const LANG_LABEL: Record<string, { flag: string; name: string }> = {
   ko: { flag: '🇰🇷', name: '한국어' },
@@ -36,28 +33,6 @@ export default function BookDetailPage() {
   // 4-25~26 v2 시도 폐기 후 BookDetail 도 v1 으로 정리.
   const { data: storybook, isLoading, isError } = useStorybook(id);
   const { data: allStorybooks } = useStorybooks();
-  const { data: styleLibrary } = useQuery({
-    queryKey: ['art-style-library'],
-    queryFn: settingsApi.getArtStyleLibrary,
-    staleTime: 60_000,
-  });
-
-  // 라이브러리 우선 라벨 — 사용자가 art-style-library 에서 편집한 이름 반영
-  const styleLabelOf = useMemo(() => {
-    const lib: SavedArtStyle[] = styleLibrary ?? [];
-    return (raw: string): string => {
-      if (!raw) return raw;
-      const v = raw.toLowerCase();
-      const canonical = (canonicalizeArtStyle(raw) || raw).toLowerCase();
-      const hit = lib.find(
-        (s) =>
-          s.id.toLowerCase() === v ||
-          s.prompt.toLowerCase() === v ||
-          s.id.toLowerCase() === canonical
-      );
-      return hit?.name ?? getArtStyleLabel(raw);
-    };
-  }, [styleLibrary]);
 
   const [lang, setLang] = useState<string>('ko');
   const [selectedLevel, setSelectedLevel] = useState<ReadingLevel | null>(null);
@@ -198,41 +173,44 @@ export default function BookDetailPage() {
           onBack={() => navigate('/library')}
           right={
             <div className="flex items-center gap-2 flex-wrap justify-end">
-              {languages.length > 1 &&
-                languages.map((code) => {
-                  const label = LANG_LABEL[code] ?? { flag: '🌐', name: code };
-                  return (
-                    <Chip
-                      key={code}
-                      variant="coral"
-                      active={lang === code}
-                      icon={label.flag}
-                      onClick={() => setLang(code)}
-                      className="!px-5 !py-2.5 !text-base"
-                    >
-                      {label.name}
-                    </Chip>
-                  );
-                })}
-              {styles.length > 1 &&
-                styles.map((s) => (
-                  <Chip
-                    key={s}
-                    variant="ink"
-                    active={effectiveStyle === s}
-                    onClick={() => setSelectedStyle(s)}
-                    className="!px-5 !py-2.5 !text-base"
-                  >
-                    {styleLabelOf(s)}
-                  </Chip>
-                ))}
-              <Link
-                to={`/library/${storybook.id}/about`}
-                className="px-5 py-2.5 rounded-full bg-white/80 hover:bg-white text-ink-900 font-bold text-base shadow-soft hover:shadow-pop transition flex items-center gap-1.5"
-                title="부모를 위한 책 가이드 (책 소개, 교훈, 자주 묻는 질문)"
-              >
-                📖 부모 가이드
-              </Link>
+              {/* 기본 정보 — 카테고리 / 타입 / 페이지 / 단어 / 타겟 연령 (있을 때만) */}
+              {storybook.category && (
+                <span className="inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
+                  <span>🌍</span>
+                  <span>{storybook.category}</span>
+                </span>
+              )}
+              <span className="inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
+                <span>📖</span>
+                <span>{storybook.type === 'phonics' ? '파닉스' : '동화책'}</span>
+              </span>
+              {storybook.pages?.length && (
+                <span className="inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
+                  <span>📕</span>
+                  <span>페이지 {storybook.pages.length}</span>
+                </span>
+              )}
+              {vocabWordCount > 0 && (
+                <span className="inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
+                  <span className="text-coral-600">Aa</span>
+                  <span>단어 {vocabWordCount}</span>
+                </span>
+              )}
+              {(() => {
+                const ageText =
+                  baseLevel && LEVEL_INFO[baseLevel]
+                    ? LEVEL_INFO[baseLevel].age
+                    : storybook.targetAge
+                      ? `${storybook.targetAge.replace('-', '~')}세`
+                      : null;
+                if (!ageText) return null;
+                return (
+                  <span className="inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
+                    <span>🌱</span>
+                    <span>{ageText}</span>
+                  </span>
+                );
+              })()}
             </div>
           }
         >
@@ -243,50 +221,87 @@ export default function BookDetailPage() {
         <div className="flex-1 flex flex-col justify-center">
           {/* hero — 좌: 정방형 표지 / 우: chip row + 모드 카드 3개 (세로 stack). reference 디자인. */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
-            {/* 좌: 정방형 표지. 표지 일러스트에 책 제목이 박혀있어 우측엔 별도 h1 미노출. */}
-            <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-peach-200 to-peach-300 shadow-card w-full">
-              {coverUrl ? (
-                <img
-                  src={coverUrl}
-                  alt={storybook.title}
-                  className="w-full h-full object-cover transition-opacity duration-300"
-                  key={coverUrl}
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-[140px]">
-                  📖
+            {/* 좌: 그림체 선택 바 + 언어 토글 + 정방형 표지. 표지 일러스트에 책 제목이 박혀있어 우측엔 별도 h1 미노출. */}
+            <div className="flex flex-col gap-2.5">
+              {(styles.length > 1 || languages.length > 1) && (
+                <div className="flex items-stretch gap-2">
+                  {styles.length > 1 && (
+                    <div className="flex-1 min-w-0 flex items-center justify-between bg-white rounded-full px-2 py-1.5 shadow-soft">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const idx = styles.indexOf(effectiveStyle);
+                          const prev = idx <= 0 ? styles.length - 1 : idx - 1;
+                          setSelectedStyle(styles[prev]);
+                        }}
+                        className="w-10 h-10 rounded-full bg-peach-100 hover:bg-peach-200 text-ink-900 text-xl font-black flex items-center justify-center transition shrink-0"
+                        aria-label="이전 그림체"
+                      >
+                        ←
+                      </button>
+                      <span className="text-base font-black text-ink-800 flex items-center gap-1.5 truncate">
+                        <span>🎨</span>
+                        <span className="truncate">그림체 고르기</span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const idx = styles.indexOf(effectiveStyle);
+                          const next = idx >= styles.length - 1 ? 0 : idx + 1;
+                          setSelectedStyle(styles[next]);
+                        }}
+                        className="w-10 h-10 rounded-full bg-peach-100 hover:bg-peach-200 text-ink-900 text-xl font-black flex items-center justify-center transition shrink-0"
+                        aria-label="다음 그림체"
+                      >
+                        →
+                      </button>
+                    </div>
+                  )}
+                  {languages.length > 1 && (
+                    <div className="flex items-center gap-1 bg-white rounded-full px-1.5 py-1.5 shadow-soft shrink-0">
+                      {languages.map((code) => {
+                        const label = LANG_LABEL[code] ?? { flag: '🌐', name: code };
+                        const active = lang === code;
+                        return (
+                          <button
+                            key={code}
+                            type="button"
+                            onClick={() => setLang(code)}
+                            aria-pressed={active}
+                            aria-label={`언어 ${label.name}`}
+                            className={cn(
+                              'w-10 h-10 rounded-full text-xl flex items-center justify-center transition',
+                              active
+                                ? 'bg-coral-500 text-white shadow-soft'
+                                : 'bg-peach-100 hover:bg-peach-200 text-ink-900'
+                            )}
+                          >
+                            {label.flag}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               )}
-            </div>
-
-            {/* 우: chip row + 모드 카드 3개 stack. 표지 정사각형 height 와 균형. */}
-            <div className="flex flex-col gap-3">
-              {/* chip row — 카테고리 / 타입 / 페이지 / 단어. 한 줄 wrap. */}
-              <div className="flex gap-2 flex-wrap">
-                {storybook.category && (
-                  <span className="inline-flex items-center gap-1.5 bg-white rounded-full px-4 py-2 text-sm font-black text-ink-700 shadow-soft">
-                    <span>🌍</span>
-                    <span>{storybook.category}</span>
-                  </span>
-                )}
-                <span className="inline-flex items-center gap-1.5 bg-white rounded-full px-4 py-2 text-sm font-black text-ink-700 shadow-soft">
-                  <span>📖</span>
-                  <span>{storybook.type === 'phonics' ? '파닉스' : '동화책'}</span>
-                </span>
-                {storybook.pages?.length && (
-                  <span className="inline-flex items-center gap-1.5 bg-white rounded-full px-4 py-2 text-sm font-black text-ink-700 shadow-soft">
-                    <span>📕</span>
-                    <span>페이지 {storybook.pages.length}</span>
-                  </span>
-                )}
-                {vocabWordCount > 0 && (
-                  <span className="inline-flex items-center gap-1.5 bg-white rounded-full px-4 py-2 text-sm font-black text-ink-700 shadow-soft">
-                    <span className="text-coral-600">Aa</span>
-                    <span>단어 {vocabWordCount}</span>
-                  </span>
+              <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-peach-200 to-peach-300 shadow-card w-full">
+                {coverUrl ? (
+                  <img
+                    src={coverUrl}
+                    alt={storybook.title}
+                    className="w-full h-full object-cover transition-opacity duration-300"
+                    key={coverUrl}
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-[140px]">
+                    📖
+                  </div>
                 )}
               </div>
+            </div>
 
+            {/* 우: 모드 카드 3개 stack. 기본 정보 chip 은 헤더로 이관. 표지 정사각형 height 와 균형. */}
+            <div className="flex flex-col gap-3">
               {/* 모드 카드 3개 — 가로 긴 카드 stack. 자식 모두 flex-1 로 표지 height 와 균형. 영상 없는 책 = disabled 음영. */}
               <div className="flex flex-col gap-3 flex-1 [&>button]:flex-1">
                 <ModeCard
@@ -389,6 +404,33 @@ export default function BookDetailPage() {
                         </ul>
                       </section>
                     )}
+                  {/* 자주 묻는 질문 */}
+                  {storybook.parentGuide.faq && storybook.parentGuide.faq.length > 0 && (
+                    <section>
+                      <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
+                        ❓ 자주 묻는 질문
+                      </h3>
+                      <div className="space-y-2">
+                        {storybook.parentGuide.faq.map((f, i) => (
+                          <details
+                            key={i}
+                            className="rounded-lg border border-ink-100 bg-cream-50 p-3 group"
+                          >
+                            <summary className="font-black text-ink-900 text-sm cursor-pointer list-none flex gap-2 items-start">
+                              <span className="text-coral-500">Q.</span>
+                              <span className="flex-1">{f.q}</span>
+                              <span className="text-ink-400 group-open:rotate-180 transition mt-0.5">
+                                ▾
+                              </span>
+                            </summary>
+                            <div className="mt-2 pl-5 text-sm text-ink-700 leading-relaxed whitespace-pre-line">
+                              {f.a}
+                            </div>
+                          </details>
+                        ))}
+                      </div>
+                    </section>
+                  )}
                 </div>
               )}
             </div>

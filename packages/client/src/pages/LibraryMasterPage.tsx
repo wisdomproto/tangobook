@@ -179,17 +179,6 @@ export default function LibraryMasterPage() {
     const activeId = String(active.id);
     const overId = String(over.id);
 
-    // 책 → 카테고리 row (cat: prefix)
-    if (overId.startsWith('cat:')) {
-      const targetCat = overId.slice(4);
-      const fromCat = activeCat;
-      if (!fromCat || fromCat === targetCat) return;
-      if (!storybooks?.find((b) => b.id === activeId)) return;
-      await actions.setBookCategory(activeId, fromCat, targetCat);
-      flashSaved();
-      return;
-    }
-
     // 카테고리 reorder
     if (categoryOrder.includes(activeId) && categoryOrder.includes(overId)) {
       const oldIdx = categoryOrder.indexOf(activeId);
@@ -253,7 +242,8 @@ export default function LibraryMasterPage() {
         <div className="max-w-[1480px] mx-auto px-6 pb-3 flex items-center justify-between gap-4">
           <span className="text-sm text-ink-600">
             좌측에서 카테고리 추가/이름변경/삭제, 책 카드의 카테고리 chip · 👁 (공개) · 🎨 (표지)
-            편집. 책을 왼쪽 카테고리로 드래그하면 카테고리가 바뀝니다.
+            편집. 책 카드 드래그는 같은 카테고리 안에서 순서 바꾸기만 — 카테고리 이동은 카드 좌상단
+            카테고리 chip 으로 하세요.
           </span>
           <div className="flex items-center gap-2 shrink-0">
             <span className="text-sm font-black text-ink-700">표지 언어:</span>
@@ -314,8 +304,8 @@ export default function LibraryMasterPage() {
                     </header>
                     {activeBooks.length === 0 ? (
                       <div className="text-center py-20 text-ink-500 text-sm">
-                        이 카테고리에 책이 없어요. 다른 카테고리에서 책을 드래그하거나, 책 카드의
-                        카테고리 chip 으로 옮겨보세요.
+                        이 카테고리에 책이 없어요. 다른 카테고리에서 책을 열고 카드 좌상단의
+                        카테고리 chip 으로 이곳으로 옮겨주세요.
                       </div>
                     ) : (
                       <SortableContext

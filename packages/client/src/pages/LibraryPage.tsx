@@ -136,12 +136,37 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     const byReading = readingFilter
       ? byCat.filter((b) => statusMap?.get(b.id) === 'reading')
       : byCat;
-    return [...byReading].sort((a, b) =>
-      sortBy === 'recent'
+    // 카테고리 chip 으로 단일 카테고리 보기 + sortBy 기본값(recent) 일 때는
+    // 라이브러리 마스터에서 정한 bookPriority 순서를 따른다 (카테고리 섹션 미리보기 9권과 동일 순서).
+    // sortBy='title' 은 사용자가 명시 선택한 정렬이므로 그대로 존중.
+    const priorityIds =
+      sortBy === 'recent' && activeCategory ? libConfig?.bookPriority?.[activeCategory] : undefined;
+    const priorityIdx = priorityIds?.length
+      ? new Map(priorityIds.map((id, i) => [id, i]))
+      : undefined;
+    return [...byReading].sort((a, b) => {
+      if (priorityIdx) {
+        const ai = priorityIdx.has(a.id) ? priorityIdx.get(a.id)! : Infinity;
+        const bi = priorityIdx.has(b.id) ? priorityIdx.get(b.id)! : Infinity;
+        if (ai !== Infinity && bi !== Infinity) return ai - bi;
+        if (ai !== Infinity) return -1;
+        if (bi !== Infinity) return 1;
+      }
+      return sortBy === 'recent'
         ? (b.updatedAt ?? '').localeCompare(a.updatedAt ?? '')
-        : a.title.localeCompare(b.title, 'ko')
-    );
-  }, [all, type, phonicsLang, search, sortBy, activeCategory, readingFilter, statusMap]);
+        : a.title.localeCompare(b.title, 'ko');
+    });
+  }, [
+    all,
+    type,
+    phonicsLang,
+    search,
+    sortBy,
+    activeCategory,
+    readingFilter,
+    statusMap,
+    libConfig?.bookPriority,
+  ]);
 
   // 카테고리 chip — 동화책일 때만
   const allCategories = useMemo(() => {

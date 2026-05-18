@@ -1,5 +1,4 @@
 import { useState, type ReactNode } from 'react';
-import { useDroppable } from '@dnd-kit/core';
 import { useSortable, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
@@ -139,7 +138,6 @@ function CategoryRow(props: RowProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: props.id,
   });
-  const { setNodeRef: setDropRef, isOver } = useDroppable({ id: `cat:${props.id}` });
   const sortableStyle = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -147,17 +145,12 @@ function CategoryRow(props: RowProps) {
   };
   return (
     <div
-      ref={(node) => {
-        setNodeRef(node);
-        setDropRef(node);
-      }}
+      ref={setNodeRef}
       style={sortableStyle}
       className={`group flex items-center gap-1 rounded-xl border-2 transition ${
         props.active
           ? 'bg-coral-50 border-coral-300 shadow-soft'
-          : isOver
-            ? 'bg-coral-50 border-coral-400 ring-2 ring-coral-300'
-            : 'bg-cream-50 border-transparent hover:bg-cream-100'
+          : 'bg-cream-50 border-transparent hover:bg-cream-100'
       }`}
     >
       <button

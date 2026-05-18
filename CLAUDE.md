@@ -69,7 +69,7 @@ features/{name}/{api,hooks,components,index.ts}
 ## MVP 출시 정책 (2026-05-09)
 - **사이드바**: 동화책 axis 만 active (alwaysActive). 파닉스/어휘 axis = `comingSoon` 음영 + "준비 중" sub-label (코드/라우트 보존). `AppShell.PRIMARY_AXES`. `/library` 일 때 헤더 = `position: absolute` transparent overlay (hero 일러스트가 헤더 영역까지 풀폭) + 사용자 chip / 로그아웃은 `pointer-events-auto` floating.
 - **LibraryPage** (`/library`): hero 배너 (`aspect-[5/2] md:aspect-[4/1]`) `bg-[url('/images/library-hero.png')] bg-cover`. 큰 제목/권수 텍스트 X (일러스트와 충돌). 검색바 hero 하단 floating (`absolute inset-x-0 bottom-6` + `bg-white shadow-pop`). 책 카드 = 일러스트 풀 (`aspect-video rounded-2xl`) + 아래 제목만 (Card 배경/패딩 X).
-- **BookDetailPage** (`/library/:id`): AppShell **밖** 라우트 (사이드바 X, 풀폭). 헤더 단순 inline 토글 (← 라이브러리 + 언어 chip + 그림체 chip). hero = 좌 정방형 표지(aspect-square) + 우 chip row(카테고리/타입/페이지/단어) + 모드 카드 3개 stack. 좌우 baseline 정렬 (`items-stretch` + 우측 column `flex-col` + 모드 그룹 `mt-auto`). 콘텐츠 vertical 가운데 정렬 (헤더는 위 고정).
+- **BookDetailPage** (`/library/:id`): AppShell **밖** 라우트 (사이드바 X, 풀폭). 헤더 right = 기본 정보 chip 들 (🌍 카테고리 / 📖 타입 / 📕 페이지 / Aa 단어 / 🌱 타겟 연령 — `readingLevel` 우선, 없으면 `targetAge` `'4-5'` → `'4~5세'` 폴백). hero = 좌 column(그림체·언어 선택 바 + 정방형 표지) + 우 column(모드 카드 3개 stack). **그림체·언어 선택 바**는 표지 위 한 줄: 좌측 `flex-1` 그림체 바(← / "🎨 그림체 고르기" / → — 그림체 이름 미노출, ≥2일 때만) + 우측 `shrink-0` 둥근 깃발 토글(언어 ≥2일 때만). **부모 가이드 패널**(본문 접기/펴기) = 책 특징 + 교훈 + 읽어주는 법 + FAQ (`storybook.parentGuide.faq` details/summary). 외부 SEO 페이지 `/library/:id/about` (BookSeoPage) 는 헤더 링크 없이 SEO/JSON-LD 유입 채널로만 살아있음.
 - **모드 카드 3개**: 책으로 읽기 (coral) / 영상으로 보기 (violet-blue, 영상 없는 책=disabled 음영) / 단어 익히기 (yellow→amber). 가로 긴 형태 — 좌 제목+부제 / 우 흰 동그라미 워시 (`bg-white/85 + ring-2 ring-white`) 안 PNG 일러스트 / 우끝 → 화살표.
 - **모드 일러스트**: `public/icons/mode/{book,video,word}.png` (soft 3D rendered 톤, 그림체 독립적). PNG 베이크된 체크무늬 배경 → `packages/server/scripts/strip-checkerboard-bg.mjs` 로 4 모서리 floodfill 후처리.
 - **VocabularyStudyPage** (`/vocabulary/:unitId`): AppShell **밖** (학습 풀화면). 메인 진입 = BookDetailPage 의 "단어 익히기" 카드. `VocabularyStudyContent` 컴포넌트 = 단어 미리보기 + 게임 카드 4 (Duolingo push button + 좌상단 번호 1·2·3·4) — BookDetailPage / VocabularyStudyPage 공용.
@@ -98,12 +98,13 @@ features/{name}/{api,hooks,components,index.ts}
 ## 라이브러리 마스터 (2026-05-10, 카테고리 편집 2026-05-16)
 - **`/library-master`** — 라이브러리 노출 순서 + 카테고리 CRUD + 책 메타 편집 페이지 (저작도구 진입점 only). TopBar 우상단 📁 자료실 ▾ dropdown 첫 항목 "📚 라이브러리 마스터". AppShell (학습자) 에서는 노출 X.
 - 좌-우 split: 좌측 카테고리 패널 (DnD reorder + ✏ 인라인 rename + 🗑 삭제 + ＋ 추가 input) + 우측 활성 카테고리 책 grid (DnD reorder, 카드 = aspect-3/4 표지 + 좌상단 ① 순서 chip · 카테고리 chip 드롭다운 + 우상단 👁 isPublic 토글 · 🎨 표지 변경) + 🎨 표지 변경 모달.
-- **Cross-context DnD**: 단일 `DndContext` 안에서 (카테고리 reorder / 책 reorder / 책 → 좌측 카테고리 row 드롭으로 카테고리 변경) 3종을 `onDragEnd` 분기. 카테고리 droppable id 는 `cat:` prefix.
+- **DnD scope (2026-05-18 단순화)**: 카테고리 reorder + 같은 카테고리 안 책 reorder **2종만**. 카테고리 변경은 카드 좌상단 `CategoryChipDropdown` 으로만 (책 카드 드래그 시 "순서 변경 모드"와 헷갈리는 UX 제거).
 - **카테고리 CRUD**: 빈 카테고리만 즉시 삭제 가능. 책 있으면 `MoveBooksModal` 로 target 카테고리 선택 후 일괄 이동 + 카테고리 삭제. 이름 변경 = 그 카테고리의 모든 책 `category` 필드 일괄 patch (`useCategoryActions`).
 - **/library-master 만 비공개 책 표시** (편집 대상). 학습자 `/library` 는 기존처럼 isPublic=true 만 노출.
+- **backup 카테고리 (2026-05-18)**: 비공개 책(variant `__L*` / 사본 / 자연관찰 prefix 등) 격리용. 일괄 이관 스크립트 `packages/server/scripts/migrate-private-to-backup.mjs` (`--dry`/`--apply`). 학습자 `/library` 는 isPublic=false 라 어차피 안 보임 — 마스터에서 backup 카테고리로 모아 시야 정리.
 - **언어 토글 (2026-05-16)**: 부제목 줄 우측 "표지 언어: [🇰🇷 한글][🇺🇸 영어]" chip → defaultStyle 기준 `coversByLang[lang]` 으로 카드 표지 swap. 해당 언어 표지 없으면 📭 placeholder + "한글/영어 표지 없음". 서버 `StorybookSummary.coversByLang` 신규 필드 (defaultStyle 의 `styleAssets.primaryCoverByLang` 추출, ko 는 top-level `primaryCoverByLang`/`coverImage` fallback).
 - **카테고리 (2026-05-16 재분류, 233권)**: 🌟 세계 명작 68 / 📜 전래 동화 14 / 🦕 공룡 친구들 24 / 🐛 곤충 친구들 18 / 🐯 육지 동물 친구들 46 / 🐬 바다 동물 친구들 18 / 🦅 하늘 동물 친구들 16 / 🌸 식물 친구들 18 / 🌌 우주와 자연 7 / 🫀 우리 몸 이야기 4. 마이그: `propose-recategorize.mjs` (룰 + 세계 명작/전래 동화 보호 + 수동 override) → `recategorize-proposal.json` 사람 검토 → `migrate-recategorize.mjs --apply` (R2 PutObject + library-config.json 갱신).
-- 저장: `_index/library-config.json` (`LibraryConfig` shared type — `categoryOrder[]` + `bookPriority[cat] = string[]` + `categoryList[]` 빈 카테고리 보관). 서버 `GET/PUT /api/library-config`. LibraryPage 가 config 적용해서 카테고리/책 순서 정렬 (빈 카테고리는 학습자 화면 자동 hide).
+- 저장: `_index/library-config.json` (`LibraryConfig` shared type — `categoryOrder[]` + `bookPriority[cat] = string[]` + `categoryList[]` 빈 카테고리 보관). 서버 `GET/PUT /api/library-config`. LibraryPage 가 config 적용해서 카테고리/책 순서 정렬 (빈 카테고리는 학습자 화면 자동 hide). **카테고리 chip 클릭 후 전체 보기**도 `bookPriority` 순서 우선 (단 사용자가 "제목순" 명시 선택 시 그건 존중) — 첫 화면 카테고리 섹션 9권 미리보기와 일관성.
 
 ## 동일 title 동화책 차단 (2026-05-10)
 - `R2Repository.saveStorybook` 진입점에 validation. **신규 또는 title 변경 시에만** 체크 (audiobook 생성 등 부수 update 통과). variant `__L\d+$` (같은 baseId) / storybook ↔ phonics 는 충돌 X.
