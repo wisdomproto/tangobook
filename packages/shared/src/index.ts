@@ -11,6 +11,11 @@ export * from './constants/cambridge-starters.js';
 export * from './constants/index.js';
 export * from './utils/hangul.js';
 export * from './utils/english-letters.js';
+export {
+  KOREAN_FINAL_TO_REPRESENTATIVE,
+  neutralizeKoreanFinal,
+  expandKoreanFinalAliases,
+} from './utils/phonics-syllable.js';
 export { buildAudiobookRenderData } from './utils/audiobook-props.js';
 export type { AudiobookSlideData, AudiobookRenderData } from './utils/audiobook-props.js';
 export { getEffectiveVocabulary } from './utils/effective-vocabulary.js';

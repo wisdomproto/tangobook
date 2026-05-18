@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, type MutableRefObject } from 'react';
 import { settingsApi } from '@/features/settings/api/settings.api';
-import type { PhonicsAudioItem } from '@tangobook/shared';
+import { expandKoreanFinalAliases, type PhonicsAudioItem } from '@tangobook/shared';
 
 type ModuleKey = 'mod_korean' | 'mod_phonics' | 'mod_english';
 
@@ -46,51 +46,17 @@ function saveCachedLibrary(lib: PhonicsLibrary): void {
   }
 }
 
-// 한글 7종성 중화 — phonics 라이브러리는 ㄱ/ㄴ/ㄷ/ㄹ/ㅁ/ㅂ/ㅇ 받침 음절만 보유.
-// 발음상 동일한 대표 종성으로 매핑 (예: 갓·갗·갖·같·갛 → 갇 url) 해 web speech 폴백 회피.
-// jong index (Hangul Jamo): 1=ㄱ 4=ㄴ 7=ㄷ 8=ㄹ 16=ㅁ 17=ㅂ 21=ㅇ
-const FINAL_TO_REPRESENTATIVE: Record<number, number> = {
-  2: 1,
-  3: 1,
-  9: 1,
-  24: 1, // ㄲ ㄳ ㄺ ㅋ → ㄱ
-  5: 4,
-  6: 4, // ㄵ ㄶ → ㄴ
-  19: 7,
-  20: 7,
-  22: 7,
-  23: 7,
-  25: 7,
-  27: 7, // ㅅ ㅆ ㅈ ㅊ ㅌ ㅎ → ㄷ
-  11: 8,
-  12: 8,
-  13: 8,
-  15: 8, // ㄼ ㄽ ㄾ ㅀ → ㄹ
-  10: 16, // ㄻ → ㅁ
-  14: 17,
-  18: 17,
-  26: 17, // ㄿ ㅄ ㅍ → ㅂ
-};
-
+/**
+ * 한글 7종성 중화 alias — phonics 라이브러리는 ㄱ/ㄴ/ㄷ/ㄹ/ㅁ/ㅂ/ㅇ 받침 음절만 보유.
+ * 대표 종성 음절(예: 갇) url 을 같은 발음의 다른 음절(갓·갗·갖·같·갛) key 에도 매핑 →
+ * web speech 폴백 회피. 매핑 정책은 `@tangobook/shared/utils/phonics-syllable` 에 단일화.
+ */
 function addKoreanFinalAliases(map: Map<string, string>): void {
-  // 대표 종성을 갖는 음절(예: 갇)에서 같은 발음의 다른 음절(갓·갗·갖·같·갛) 키 alias 추가.
-  const REVERSE: Record<number, number[]> = {};
-  for (const [from, to] of Object.entries(FINAL_TO_REPRESENTATIVE)) {
-    const f = Number(from);
-    if (!REVERSE[to]) REVERSE[to] = [];
-    REVERSE[to].push(f);
-  }
   for (const syl of [...map.keys()]) {
-    if (syl.length !== 1) continue;
-    const code = syl.charCodeAt(0);
-    if (code < 0xac00 || code > 0xd7a3) continue;
-    const offset = code - 0xac00;
-    const jong = offset % 28;
-    const aliases = REVERSE[jong];
-    if (!aliases) continue;
+    const aliases = expandKoreanFinalAliases(syl);
+    if (aliases.length === 0) continue;
     const url = map.get(syl)!;
-    for (const aliasJong of aliases) {
-      const aliasSyl = String.fromCharCode(0xac00 + offset - jong + aliasJong);
+    for (const aliasSyl of aliases) {
       if (!map.has(aliasSyl)) map.set(aliasSyl, url);
     }
   }
