@@ -11,6 +11,7 @@ function EditorV2BidRedirect() {
   return <Navigate to={`/editor2/${bid}`} replace />;
 }
 import BookDetailPage from '../pages/BookDetailPage';
+import BookSeoPage from '../pages/BookSeoPage';
 import CurriculumMasterPage from '../pages/CurriculumMasterPage';
 import LibraryMasterPage from '../pages/LibraryMasterPage';
 import ViewerPage from '../pages/ViewerPage';
@@ -68,6 +69,14 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <BookDetailPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'library/:id/about',
+        element: (
+          <ErrorBoundary>
+            <BookSeoPage />
           </ErrorBoundary>
         ),
       },

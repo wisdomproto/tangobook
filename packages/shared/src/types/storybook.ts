@@ -610,6 +610,8 @@ export interface ParentGuide {
   overview: string;
   lessons: string[];
   readingTips: string[];
+  /** 부모 향 자주 묻는 질문 — SEO 페이지 + JSON-LD FAQPage schema 용. 2026-05-18 추가. */
+  faq?: { q: string; a: string }[];
 }
 
 /**
