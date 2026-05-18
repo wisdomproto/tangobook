@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { useStorybook, useStorybooks } from '@/features/storybook';
 import {
   getYoutubeVideoIds,
@@ -10,8 +11,9 @@ import {
 import { Card, StateScreen, Skeleton, Chip, PageHeader } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
-import { getArtStyleLabel } from '@tangobook/shared';
-import type { ReadingLevel, StorybookSummary } from '@tangobook/shared';
+import { settingsApi } from '@/features/settings/api/settings.api';
+import { getArtStyleLabel, canonicalizeArtStyle } from '@tangobook/shared';
+import type { ReadingLevel, StorybookSummary, SavedArtStyle } from '@tangobook/shared';
 
 const LANG_LABEL: Record<string, { flag: string; name: string }> = {
   ko: { flag: '🇰🇷', name: '한국어' },
@@ -34,6 +36,28 @@ export default function BookDetailPage() {
   // 4-25~26 v2 시도 폐기 후 BookDetail 도 v1 으로 정리.
   const { data: storybook, isLoading, isError } = useStorybook(id);
   const { data: allStorybooks } = useStorybooks();
+  const { data: styleLibrary } = useQuery({
+    queryKey: ['art-style-library'],
+    queryFn: settingsApi.getArtStyleLibrary,
+    staleTime: 60_000,
+  });
+
+  // 라이브러리 우선 라벨 — 사용자가 art-style-library 에서 편집한 이름 반영
+  const styleLabelOf = useMemo(() => {
+    const lib: SavedArtStyle[] = styleLibrary ?? [];
+    return (raw: string): string => {
+      if (!raw) return raw;
+      const v = raw.toLowerCase();
+      const canonical = (canonicalizeArtStyle(raw) || raw).toLowerCase();
+      const hit = lib.find(
+        (s) =>
+          s.id.toLowerCase() === v ||
+          s.prompt.toLowerCase() === v ||
+          s.id.toLowerCase() === canonical
+      );
+      return hit?.name ?? getArtStyleLabel(raw);
+    };
+  }, [styleLibrary]);
 
   const [lang, setLang] = useState<string>('ko');
   const [selectedLevel, setSelectedLevel] = useState<ReadingLevel | null>(null);
@@ -199,9 +223,16 @@ export default function BookDetailPage() {
                     onClick={() => setSelectedStyle(s)}
                     className="!px-5 !py-2.5 !text-base"
                   >
-                    {getArtStyleLabel(s)}
+                    {styleLabelOf(s)}
                   </Chip>
                 ))}
+              <Link
+                to={`/library/${storybook.id}/about`}
+                className="px-5 py-2.5 rounded-full bg-white/80 hover:bg-white text-ink-900 font-bold text-base shadow-soft hover:shadow-pop transition flex items-center gap-1.5"
+                title="부모를 위한 책 가이드 (책 소개, 교훈, 자주 묻는 질문)"
+              >
+                📖 부모 가이드
+              </Link>
             </div>
           }
         >
