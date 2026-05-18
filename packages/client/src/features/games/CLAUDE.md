@@ -177,7 +177,15 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 - "초기화" 버튼: 셀 모두 비움.
 - TTS: usePhonicsMap 의 7종성 alias 로 ㅅ/ㅆ/ㅈ/ㅊ/ㅌ/ㅎ/ㅋ/ㅍ 받침 음절도 phonics mp3 재생. 그래도 누락이면 `speechSynthesis` (ko-KR) 폴백.
 
-## TOP 5 시각 연출 (Phase B)
+## 낱말쓰기 정책 (2026-05-18)
+
+4-5세 가혹함 완화 + 컨텍스트 유지:
+
+- **첫 음절만 따라쓰기**: `firstWritingChar(word)` — 한글이면 첫 한글 음절 1자(꽃밭→꽃, 밧줄→밧), 영어면 첫 글자(milk→m, apple→a). 단어 길이 ≤2자는 그대로(on→on).
+- **가이드 색 분기**: canvas 에 단어 전체를 한 줄로 그리되 글자별 색 — `GUIDE_COLOR` 회색(따라쓰기 대상) · `SHOW_COLOR` coral(나머지 보여주기) · `DRAW_COLOR` slate-800(사용자 stroke). textAlign='left' + measureText 로 글자별 x 누적.
+- **정확도**: `calculateAccuracy` 의 guide canvas 도 동일 위치 계산으로 writingChar 부분만 검정 비교 → 사용자가 첫 음절 영역 위에 그렸을 때만 점수 높음.
+- **발음 (TTS)**: 정답 시 _전체 단어_ 발음 (`resolveTtsUrl` text 에 전체 word) — 첫 글자 쓰고 단어 듣기 흐름.
+- **canvas layout (1920×1080 잘림 fix)**: `aspect-[2/1] h-full max-w-full` (height-driven). w-full + max-h-full 조합은 aspect-ratio 충돌로 height 가 wrapper 넘쳐 하단 버튼 잘리던 문제 있었음.
 
 ## TOP 5 시각 연출 (Phase B)
 
