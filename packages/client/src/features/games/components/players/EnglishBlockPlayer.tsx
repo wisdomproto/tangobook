@@ -22,6 +22,7 @@ import {
 } from './EnglishBlockTutorial/EnglishBlockTutorial.context';
 import { EnglishBlockTutorial } from './EnglishBlockTutorial/EnglishBlockTutorial';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { resolveTtsUrl } from '@/features/tts';
@@ -99,7 +100,7 @@ function EnglishBlockPlayerInner({
 
   const [grid, setGrid] = useState<(string | null)[]>(() => initGrid(currentItem.letters));
 
-  const { playAudio, playFeedbackSound } = useGameAudio();
+  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   const { mapRef: phonicsMapRef } = usePhonicsMap(['mod_phonics', 'mod_english']);
   const drag = useBlockDrag<LetterBlock>({
     createGhost: createEnglishGhost,
@@ -245,9 +246,9 @@ function EnglishBlockPlayerInner({
       if (isFirstTry) setScore((s) => s + 1);
       wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
       setRoundCorrect(true);
-      // 효과음 즉시 — concat audio await 침묵 fix
-      playFeedbackSound(true);
-      // 영어 정책: ttsUrl 우선 → 없으면 phonics concat 폴백 (정책 단일화: resolveTtsUrl).
+      // 정답 시퀀스 (playCorrectSequence): 효과음 → 단어 발음 → 시스템 칭찬 음원 → onDone.
+      // FeedbackOverlay (호리 cheering + confetti + "잘했어!") 가 praiseVisible 로 표시.
+      // 영어 정책: ttsUrl 우선 → 없으면 phonics concat 폴백 (resolveTtsUrl).
       (async () => {
         const wordAudioUrl = await resolveTtsUrl({
           text: currentItem.word,
@@ -256,10 +257,10 @@ function EnglishBlockPlayerInner({
           directUrl: currentItem.ttsUrl,
           identifierPrefix: 'eblock',
         });
-        if (wordAudioUrl) playAudio(wordAudioUrl);
-        // 효과음 + TTS 들리는 시간 후 다음 round
-        setTimeout(
-          () => {
+        playCorrectSequence({
+          ttsUrl: wordAudioUrl,
+          language: 'en',
+          onDone: () => {
             if (currentIndex + 1 < items.length) {
               const nextIdx = currentIndex + 1;
               setCurrentIndex(nextIdx);
@@ -272,8 +273,7 @@ function EnglishBlockPlayerInner({
               setFinished(true);
             }
           },
-          wordAudioUrl ? 1700 : 900
-        );
+        });
       })();
     } else {
       playFeedbackSound(false);
@@ -289,7 +289,7 @@ function EnglishBlockPlayerInner({
     currentIndex,
     items,
     initGrid,
-    playAudio,
+    playCorrectSequence,
     playFeedbackSound,
     roundCorrect,
     storybookId,
@@ -564,6 +564,7 @@ function EnglishBlockPlayerInner({
         </div>
       </div>
       <EnglishBlockTutorial word={currentItem.word} active={hintActive} onEnd={handleHintEnd} />
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
     </MobileLandscapeGate>
   );
 }

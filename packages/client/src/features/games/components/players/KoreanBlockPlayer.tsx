@@ -25,6 +25,7 @@ import {
 } from './KoreanBlockTutorial/KoreanBlockTutorial.context';
 import { KoreanBlockTutorial } from './KoreanBlockTutorial/KoreanBlockTutorial';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { resolveTtsUrl } from '@/features/tts';
@@ -243,7 +244,7 @@ function KoreanBlockPlayerInner({
 
   const [grid, setGrid] = useState<(string | null)[][]>(() => initGrid());
 
-  const { playAudio, playFeedbackSound } = useGameAudio();
+  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap([
     'mod_korean',
     'mod_phonics',
@@ -407,9 +408,9 @@ function KoreanBlockPlayerInner({
       if (isFirstTry) setScore((s) => s + 1);
       wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
       setRoundCorrect(true);
-      // 효과음 즉시 — concat audio await 600ms+ 기다리지 않고 바로 반응.
-      playFeedbackSound(true);
-      // 한글 정책: phonics 음절 합성 우선 → 실패 시 ttsUrl 폴백 (정책 단일화: resolveTtsUrl).
+      // 정답 시퀀스 (playCorrectSequence): 효과음 → 0.5s → 단어 발음 → 시스템 칭찬 음원 → onDone.
+      // FeedbackOverlay (호리 cheering + confetti + "잘했어!") 가 praiseVisible 기반으로 표시.
+      // 한글 정책: phonics 음절 합성 우선 → 실패 시 ttsUrl 폴백 (resolveTtsUrl).
       (async () => {
         const wordAudioUrl = await resolveTtsUrl({
           text: currentItem.word,
@@ -418,10 +419,10 @@ function KoreanBlockPlayerInner({
           directUrl: currentItem.ttsUrl,
           identifierPrefix: 'kblock',
         });
-        if (wordAudioUrl) playAudio(wordAudioUrl);
-        // 효과음 + TTS 들리는 시간 후 다음 round (TTS 있으면 1.7s, 없으면 0.9s)
-        setTimeout(
-          () => {
+        playCorrectSequence({
+          ttsUrl: wordAudioUrl,
+          language: 'ko',
+          onDone: () => {
             if (currentIndex + 1 < items.length) {
               const nextIdx = currentIndex + 1;
               setCurrentIndex(nextIdx);
@@ -434,8 +435,7 @@ function KoreanBlockPlayerInner({
               setFinished(true);
             }
           },
-          wordAudioUrl ? 1700 : 900
-        );
+        });
       })();
     } else {
       playFeedbackSound(false);
@@ -450,7 +450,7 @@ function KoreanBlockPlayerInner({
     currentIndex,
     items,
     initGrid,
-    playAudio,
+    playCorrectSequence,
     playFeedbackSound,
     roundCorrect,
     storybookId,
@@ -715,6 +715,7 @@ function KoreanBlockPlayerInner({
         </div>
       </div>
       <KoreanBlockTutorial word={currentItem.word} active={hintActive} onEnd={handleHintEnd} />
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
     </MobileLandscapeGate>
   );
 }
