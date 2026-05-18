@@ -27,7 +27,7 @@ import { KoreanBlockTutorial } from './KoreanBlockTutorial/KoreanBlockTutorial';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
-import { phonicsApi } from '@/features/phonics/api/phonics.api';
+import { resolveTtsUrl } from '@/features/tts';
 import { cn } from '@/lib/cn';
 
 type JamoType = 'cho' | 'jung' | 'jong';
@@ -399,21 +399,15 @@ function KoreanBlockPlayerInner({
       setRoundCorrect(true);
       // 효과음 즉시 — concat audio await 600ms+ 기다리지 않고 바로 반응.
       playFeedbackSound(true);
-      // 한글 정책: phonics 음절 합성 우선 → 실패 시 ttsUrl 폴백.
+      // 한글 정책: phonics 음절 합성 우선 → 실패 시 ttsUrl 폴백 (정책 단일화: resolveTtsUrl).
       (async () => {
-        let wordAudioUrl: string | undefined;
-        try {
-          const { audioUrl } = await phonicsApi.concatPhonicsAudio({
-            text: currentItem.word,
-            storybookId,
-            identifier: `kblock-ko-${encodeURIComponent(currentItem.word)}`,
-            language: 'korean',
-          });
-          wordAudioUrl = audioUrl;
-        } catch {
-          wordAudioUrl = currentItem.ttsUrl;
-        }
-        if (!wordAudioUrl) wordAudioUrl = currentItem.ttsUrl;
+        const wordAudioUrl = await resolveTtsUrl({
+          text: currentItem.word,
+          language: 'korean',
+          storybookId,
+          directUrl: currentItem.ttsUrl,
+          identifierPrefix: 'kblock',
+        });
         if (wordAudioUrl) playAudio(wordAudioUrl);
         // 효과음 + TTS 들리는 시간 후 다음 round (TTS 있으면 1.7s, 없으면 0.9s)
         setTimeout(

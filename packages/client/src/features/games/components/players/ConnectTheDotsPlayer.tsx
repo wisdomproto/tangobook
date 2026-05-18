@@ -15,7 +15,7 @@ import {
   useTutorialNotify,
 } from './ConnectTheDotsTutorial/ConnectTheDotsTutorial.context';
 import { ConnectTheDotsTutorial } from './ConnectTheDotsTutorial/ConnectTheDotsTutorial';
-import { phonicsApi } from '@/features/phonics/api/phonics.api';
+import { resolveTtsUrl } from '@/features/tts';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameLogger } from '@/features/learning';
 
@@ -174,12 +174,12 @@ function ConnectTheDotsPlayerInner({ storybookId, gameData, onComplete, onBack }
         setCompleted(true);
         setTimeout(() => setShowImage(true), 300);
 
-        // 단어 음원 — 사용자 정책 (2026-05-10):
+        // 단어 음원 정책 단일화 (resolveTtsUrl):
         //   한글: phonics 음절 합성 우선 → 실패 시 KeyObject.ttsUrl fallback
         //   영어: KeyObject.ttsUrl 우선 → 없으면 phonics concat fallback
         (async () => {
-          let wordAudioUrl: string | undefined;
           const target = resolveSpeakTarget(currentItem.objectName);
+          let wordAudioUrl: string | undefined;
           if (target) {
             // 매칭되는 KeyObject 찾기 — case-insensitive (name 'Cow' / objectName 'cow' 둘 다 OK)
             const objNameLower = currentItem.objectName?.toLowerCase();
@@ -191,39 +191,13 @@ function ConnectTheDotsPlayerInner({ storybookId, gameData, onComplete, onBack }
             const ttsLang = target.language === 'korean' ? 'ko' : 'en';
             const keyObjTts = ko?.ttsUrls?.[ttsLang] ?? (ttsLang === 'ko' ? ko?.ttsUrl : undefined);
 
-            if (target.language === 'english') {
-              // 영어: ttsUrl 우선
-              if (keyObjTts) {
-                wordAudioUrl = keyObjTts;
-              } else {
-                try {
-                  const { audioUrl } = await phonicsApi.concatPhonicsAudio({
-                    text: target.text,
-                    storybookId,
-                    identifier: `dot-en-${encodeURIComponent(target.text)}`,
-                    language: 'english',
-                  });
-                  wordAudioUrl = audioUrl;
-                } catch {
-                  /* 라이브러리 미스 — 효과음만 */
-                }
-              }
-            } else {
-              // 한글: phonics concat 우선
-              try {
-                const { audioUrl } = await phonicsApi.concatPhonicsAudio({
-                  text: target.text,
-                  storybookId,
-                  identifier: `dot-ko-${encodeURIComponent(target.text)}`,
-                  language: 'korean',
-                });
-                wordAudioUrl = audioUrl;
-              } catch {
-                /* phonics concat 실패 — KeyObject.ttsUrl 폴백 */
-                wordAudioUrl = keyObjTts;
-              }
-              if (!wordAudioUrl) wordAudioUrl = keyObjTts;
-            }
+            wordAudioUrl = await resolveTtsUrl({
+              text: target.text,
+              language: target.language,
+              storybookId,
+              directUrl: keyObjTts,
+              identifierPrefix: 'dot',
+            });
           }
           playWordCorrect({
             ttsUrl: wordAudioUrl,

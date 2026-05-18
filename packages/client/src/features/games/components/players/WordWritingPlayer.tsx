@@ -13,7 +13,7 @@ import {
   useTutorialNotify,
 } from './WordWritingTutorial/WordWritingTutorial.context';
 import { WordWritingTutorial } from './WordWritingTutorial/WordWritingTutorial';
-import { phonicsApi } from '@/features/phonics/api/phonics.api';
+import { resolveTtsUrl } from '@/features/tts';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 
 const CANVAS_W = 500;
@@ -297,38 +297,15 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
     setShowResult(true);
 
     if (accuracy >= 50) {
-      // 한글: phonics concat 우선 / 영어: ttsUrl 우선 (game-policies-2026-05-10).
+      // 한글: phonics concat 우선 / 영어: ttsUrl 우선 (정책 단일화: resolveTtsUrl).
       const isKorean = data.type === 'korean-word-writing';
-      let wordAudioUrl: string | undefined;
-      if (isKorean) {
-        try {
-          const { audioUrl } = await phonicsApi.concatPhonicsAudio({
-            text: currentItem.word,
-            storybookId,
-            identifier: `wwrite-ko-${encodeURIComponent(currentItem.word)}`,
-            language: 'korean',
-          });
-          wordAudioUrl = audioUrl;
-        } catch {
-          wordAudioUrl = currentItem.ttsUrl;
-        }
-        if (!wordAudioUrl) wordAudioUrl = currentItem.ttsUrl;
-      } else {
-        wordAudioUrl = currentItem.ttsUrl;
-        if (!wordAudioUrl) {
-          try {
-            const { audioUrl } = await phonicsApi.concatPhonicsAudio({
-              text: currentItem.word,
-              storybookId,
-              identifier: `wwrite-en-${encodeURIComponent(currentItem.word)}`,
-              language: 'english',
-            });
-            wordAudioUrl = audioUrl;
-          } catch {
-            /* phonics miss — 효과음만 */
-          }
-        }
-      }
+      const wordAudioUrl = await resolveTtsUrl({
+        text: currentItem.word,
+        language: isKorean ? 'korean' : 'english',
+        storybookId,
+        directUrl: currentItem.ttsUrl,
+        identifierPrefix: 'wwrite',
+      });
       playWordCorrect({
         ttsUrl: wordAudioUrl,
         onDone: () => {

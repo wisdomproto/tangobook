@@ -24,7 +24,7 @@ import { EnglishBlockTutorial } from './EnglishBlockTutorial/EnglishBlockTutoria
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
-import { phonicsApi } from '@/features/phonics/api/phonics.api';
+import { resolveTtsUrl } from '@/features/tts';
 import { useGameLogger } from '@/features/learning';
 import { cn } from '@/lib/cn';
 
@@ -230,22 +230,15 @@ function EnglishBlockPlayerInner({
       setRoundCorrect(true);
       // 효과음 즉시 — concat audio await 침묵 fix
       playFeedbackSound(true);
-      // 영어 정책: ttsUrl 우선 → 없으면 phonics concat 폴백
+      // 영어 정책: ttsUrl 우선 → 없으면 phonics concat 폴백 (정책 단일화: resolveTtsUrl).
       (async () => {
-        let wordAudioUrl = currentItem.ttsUrl;
-        if (!wordAudioUrl) {
-          try {
-            const { audioUrl } = await phonicsApi.concatPhonicsAudio({
-              text: currentItem.word,
-              storybookId,
-              identifier: `eblock-en-${encodeURIComponent(currentItem.word)}`,
-              language: 'english',
-            });
-            wordAudioUrl = audioUrl;
-          } catch {
-            /* phonics miss — 효과음만 */
-          }
-        }
+        const wordAudioUrl = await resolveTtsUrl({
+          text: currentItem.word,
+          language: 'english',
+          storybookId,
+          directUrl: currentItem.ttsUrl,
+          identifierPrefix: 'eblock',
+        });
         if (wordAudioUrl) playAudio(wordAudioUrl);
         // 효과음 + TTS 들리는 시간 후 다음 round
         setTimeout(

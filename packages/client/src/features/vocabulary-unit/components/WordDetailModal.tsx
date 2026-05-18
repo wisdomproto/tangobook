@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import type { Lang, Storybook, VocabularyUnitWord } from '@tangobook/shared';
-import { phonicsApi } from '@/features/phonics/api/phonics.api';
+import { resolveTtsUrl } from '@/features/tts';
 
 interface WordDetailModalProps {
   word: VocabularyUnitWord;
@@ -144,52 +144,20 @@ export function WordDetailModal({
   };
 
   const playWord = async () => {
-    // 사용자 정책 (2026-05-10):
-    //   한글 → phonics 음절 합성 우선 → KeyObject.ttsUrl fallback → Web Speech
+    // 정책 단일화 (resolveTtsUrl):
+    //   한글 → phonics 음절 합성 우선 → KeyObject/word.ttsUrl fallback → Web Speech
     //   영어 → KeyObject/word.ttsUrl 우선 → phonics concat fallback → Web Speech
-    const sbId = storybook?.id;
     const text = lang === 'ko' ? (word.korean ?? word.word) : word.word;
-
-    if (lang === 'en') {
-      const url = pickWordTtsUrl(word, 'en', storybook);
-      if (url) {
-        playUrl(url);
-        return;
-      }
-      if (sbId) {
-        try {
-          const { audioUrl } = await phonicsApi.concatPhonicsAudio({
-            text,
-            storybookId: sbId,
-            identifier: `vocab-en-${encodeURIComponent(text)}`,
-            language: 'english',
-          });
-          playUrl(audioUrl);
-          return;
-        } catch {
-          /* phonics concat 실패 — Web Speech 폴백 */
-        }
-      }
-    } else {
-      if (sbId) {
-        try {
-          const { audioUrl } = await phonicsApi.concatPhonicsAudio({
-            text,
-            storybookId: sbId,
-            identifier: `vocab-ko-${encodeURIComponent(text)}`,
-            language: 'korean',
-          });
-          playUrl(audioUrl);
-          return;
-        } catch {
-          /* phonics concat 실패 — ttsUrl fallback */
-        }
-      }
-      const url = pickWordTtsUrl(word, 'ko', storybook);
-      if (url) {
-        playUrl(url);
-        return;
-      }
+    const url = await resolveTtsUrl({
+      text,
+      language: lang === 'ko' ? 'korean' : 'english',
+      storybookId: storybook?.id,
+      directUrl: pickWordTtsUrl(word, lang, storybook),
+      identifierPrefix: 'vocab',
+    });
+    if (url) {
+      playUrl(url);
+      return;
     }
     speakWithSynthesis(getDisplayLabel(word, lang));
   };

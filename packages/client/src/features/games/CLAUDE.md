@@ -199,7 +199,19 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 
 `usePhonicsMap` 가 mod_korean 로드 직후 **7종성 중화 alias** 추가 — 갇 url 을 갓·갗·갖·같·갛 키로도 매핑. 매핑: ㄲ ㄳ ㄺ ㅋ→ㄱ / ㄵ ㄶ→ㄴ / ㅅ ㅆ ㅈ ㅊ ㅌ ㅎ→ㄷ / ㄼ ㄽ ㄾ ㅀ→ㄹ / ㄻ→ㅁ / ㄿ ㅄ ㅍ→ㅂ.
 
-**Server 도 동일 매핑 적용 (2026-05-18)**: `phonics-library.service.ts#neutralizeKoreanFinal` — `downloadSound` 가 1차 fail 시 대표 종성 음절로 재시도. WordDetailModal 같이 `phonicsApi.concatPhonicsAudio` 서버 호출 경로도 ㅊ/ㅍ/ㅅ/ㅈ/ㅌ/ㅎ/ㄲ/ㅋ 받침 음절 (꽃·밧줄·앞·옆 등) 정상 합성 가능. **단 매핑이 client·server 두 곳에 따로 살아있음 → shared 추출 리팩 TODO (memory 참고).**
+**매핑 단일화 (2026-05-18)**: `@tangobook/shared/utils/phonics-syllable` (`KOREAN_FINAL_TO_REPRESENTATIVE` / `neutralizeKoreanFinal(syllable)` / `expandKoreanFinalAliases(rep)`) 에 추출. client `usePhonicsMap.addKoreanFinalAliases` 와 server `phonics-library.service.downloadSound` 양쪽이 같은 source 사용 — sync 문제 해소.
+
+## TTS URL 폴백 chain 단일화 (2026-05-18)
+
+`features/tts/resolveTtsUrl.ts` — 공용 async resolver. 호출처 별로 같은 chain (한글: concat → directUrl / 영어: directUrl → concat) 을 따로 구현하던 5 곳을 통합:
+
+- `WordDetailModal` (책 상세 단어 미리보기, Web Speech 최종 fallback)
+- `KoreanBlockPlayer.handleCheck` (한글 블록 정답)
+- `EnglishBlockPlayer.handleCheck` (영어 블록 정답)
+- `WordWritingPlayer.handleCheck` (낱말쓰기 정답)
+- `ConnectTheDotsPlayer` 점잇기 정답 (KeyObject lookup 후 directUrl 로 주입)
+
+API: `resolveTtsUrl({ text, language, storybookId?, directUrl?, identifierPrefix? })` → `Promise<string | undefined>`. 게임은 자체 audio 재생 시퀀스 (`playAudio` / `playWordCorrect`) 에 결과 URL 만 plug. 정책 변경 (예: 새 폴백 추가) 은 한 곳에서.
 
 ## R2 pub 도메인 CORS 패턴
 
