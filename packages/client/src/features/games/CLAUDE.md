@@ -209,6 +209,20 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 
 **매핑 단일화 (2026-05-18)**: `@tangobook/shared/utils/phonics-syllable` (`KOREAN_FINAL_TO_REPRESENTATIVE` / `neutralizeKoreanFinal(syllable)` / `expandKoreanFinalAliases(rep)`) 에 추출. client `usePhonicsMap.addKoreanFinalAliases` 와 server `phonics-library.service.downloadSound` 양쪽이 같은 source 사용 — sync 문제 해소.
 
+## 블록 게임 정책 (2026-05-18 보강)
+
+KoreanBlockPlayer / EnglishBlockPlayer 공통:
+
+- **정답 자동 체크**: 블록 배치가 정답과 일치하면 "확인" 버튼 없이 즉시 정답 처리. `useEffect` 가 composed/grid 변경 watch → `handleCheckRef.current()` 호출. 오답 분기는 자동 발동 X (사용자가 직접 확인 버튼 클릭 시에만 wrong 표시). `roundCorrect` 가드로 중복 방지.
+- **handleCheckRef pattern**: `useRef(handleCheck)` + render body 에서 `ref.current = handleCheck` (effect 로 하면 자동 체크 effect 가 ref 갱신보다 먼저 fire 해 stale closure 호출 → 오답 처리됨).
+- **정답 시퀀스**: `playCorrectSequence({ ttsUrl, language, onDone })` — 효과음 → 0.5s → 단어 발음 1.2s → 시스템 칭찬 음원 1.5s → onDone (총 ~3.2s). 동시에 `FeedbackOverlay kind="correct"` (호리 cheering + confetti + "잘했어!" 랜덤) 가 `praiseVisible` state 로 표시. 짧은 setTimeout (1.7s) + playAudio 단독은 단어 발음 잘리는 문제 있어 폐기.
+- **z-index**: `FeedbackOverlay` 의 `fixed z-40` 이 player wrapper `fixed z-[60]` 의 stacking context 안에서 최상위 — SpeakingPlayer 도 동일 패턴.
+
+`RandomBlockGamePage` (사이드바 진입) 한정:
+
+- **단어 풀 = keyObject 만**: `filterByLevel` 에 `sources.some(s => s.sourceType === 'storybook-key-object')` 가드. vocab-db 의 1433 entries 중 858 만 통과 — 단어 마스터 표(`/vocabulary-table-ko.html`)와 동일 풀. phonics 책의 flashcard/word-family/blending 어휘 (`pose→자세` 같은) 제외. 사용자 정책: "단어 마스터 표 = 진실".
+- **레벨 점수 공식 sync**: `koreanDifficulty` 가 CLAUDE.md 명시 공식 모두 반영 — `AE_E_MEDIAL` {1,5}, `COMPLEX_FINAL` {3,5,6,9,10,11,12,13,14,15,18}. 이전 누락으로 "자세"가 L1 으로 잘못 떨어지던 문제 fix.
+
 ## TTS URL 폴백 chain 단일화 (2026-05-18)
 
 `features/tts/resolveTtsUrl.ts` — 공용 async resolver. 호출처 별로 같은 chain (한글: concat → directUrl / 영어: directUrl → concat) 을 따로 구현하던 5 곳을 통합:
