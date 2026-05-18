@@ -199,6 +199,8 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 
 `usePhonicsMap` 가 mod_korean 로드 직후 **7종성 중화 alias** 추가 — 갇 url 을 갓·갗·갖·같·갛 키로도 매핑. 매핑: ㄲ ㄳ ㄺ ㅋ→ㄱ / ㄵ ㄶ→ㄴ / ㅅ ㅆ ㅈ ㅊ ㅌ ㅎ→ㄷ / ㄼ ㄽ ㄾ ㅀ→ㄹ / ㄻ→ㅁ / ㄿ ㅄ ㅍ→ㅂ.
 
+**Server 도 동일 매핑 적용 (2026-05-18)**: `phonics-library.service.ts#neutralizeKoreanFinal` — `downloadSound` 가 1차 fail 시 대표 종성 음절로 재시도. WordDetailModal 같이 `phonicsApi.concatPhonicsAudio` 서버 호출 경로도 ㅊ/ㅍ/ㅅ/ㅈ/ㅌ/ㅎ/ㄲ/ㅋ 받침 음절 (꽃·밧줄·앞·옆 등) 정상 합성 가능. **단 매핑이 client·server 두 곳에 따로 살아있음 → shared 추출 리팩 TODO (memory 참고).**
+
 ## R2 pub 도메인 CORS 패턴
 
 `pub-554d78bf...r2.dev` 가 `Access-Control-Allow-Origin` 헤더 안 보냄. `<audio src=R2-url>` element 는 no-cors stream 이라 OK 지만 `fetch(R2-url)` 은 차단 + 콘솔 에러. **해결**: prefetch 용 fetch 는 `mode: 'no-cors'` 사용 — opaque response 도 HTTP 캐시 적재. R2 pub 도메인에 CORS 정책 추가되면 (Cloudflare R2 dashboard) 옵션 제거 가능.

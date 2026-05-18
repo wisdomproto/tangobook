@@ -108,25 +108,77 @@ function parseText(text: string): { tokens: string[]; gaps: number[] } {
   return { tokens, gaps };
 }
 
-/** R2에서 음원 다운로드: 언어별 우선순위 적용 */
+/**
+ * 한글 음절의 받침 인덱스를 대표 종성으로 매핑.
+ * phonics-library/mod_korean 은 ㄱ/ㄴ/ㄷ/ㄹ/ㅁ/ㅂ/ㅇ 받침 음절만 보유 (3232 음절).
+ * 클라이언트 `usePhonicsMap.addKoreanFinalAliases` 와 정확히 동일한 매핑.
+ *
+ *   ㄲ ㄳ ㄺ ㅋ → ㄱ(1)  /  ㄵ ㄶ → ㄴ(4)  /  ㅅ ㅆ ㅈ ㅊ ㅌ ㅎ → ㄷ(7)
+ *   ㄼ ㄽ ㄾ ㅀ → ㄹ(8)  /  ㄻ → ㅁ(16)  /  ㄿ ㅄ ㅍ → ㅂ(17)
+ *
+ * 예: 꽃(받침 ㅊ=27) → 꼳(받침 ㄷ=7), 앞(받침 ㅍ=26) → 압(받침 ㅂ=17).
+ */
+const KOREAN_FINAL_TO_REPRESENTATIVE: Record<number, number> = {
+  2: 1,
+  3: 1,
+  9: 1,
+  24: 1,
+  5: 4,
+  6: 4,
+  19: 7,
+  20: 7,
+  22: 7,
+  23: 7,
+  25: 7,
+  27: 7,
+  11: 8,
+  12: 8,
+  13: 8,
+  15: 8,
+  10: 16,
+  14: 17,
+  18: 17,
+  26: 17,
+};
+
+function neutralizeKoreanFinal(syllable: string): string | null {
+  if (syllable.length !== 1) return null;
+  const code = syllable.charCodeAt(0);
+  if (code < 0xac00 || code > 0xd7a3) return null;
+  const offset = code - 0xac00;
+  const jong = offset % 28;
+  const aliasJong = KOREAN_FINAL_TO_REPRESENTATIVE[jong];
+  if (aliasJong === undefined) return null;
+  return String.fromCharCode(0xac00 + offset - jong + aliasJong);
+}
+
+/** R2에서 음원 다운로드: 언어별 우선순위 + 한글 7종성 중화 fallback */
 async function downloadSound(token: string, language?: string): Promise<Buffer | null> {
   // 한글: mod_korean 우선 → mod_phonics 폴백
   // 영어(기본): mod_phonics 우선 → mod_english 폴백
   const priorities: PhonicsAudioCategory[] =
     language === 'korean' ? ['mod_korean', 'mod_phonics'] : ['mod_phonics', 'mod_english'];
 
-  for (const cat of priorities) {
-    // 정상 키 시도
-    try {
-      return await downloadFromR2(buildLibraryKey(cat, token));
-    } catch {
-      // 깨진(Latin-1) 키로 재시도 (하위 호환)
-      if (/[\uAC00-\uD7A3\u3131-\u3163]/.test(token)) {
-        try {
-          const garbled = Buffer.from(token, 'utf8').toString('latin1');
-          return await downloadFromR2(buildLibraryKey(cat, garbled));
-        } catch {
-          // 다음 카테고리 시도
+  // 1차: 원본 토큰. 2차: 한글이면 7종성 중화 fallback (예: 꽃 → 꼳).
+  // mod_korean 라이브러리에 ㅅ/ㅆ/ㅈ/ㅊ/ㅌ/ㅎ/ㅋ/ㅍ 등 받침 음원이 없으므로 대표 종성으로 변환 재시도.
+  const candidates: string[] = [token];
+  const neutralized = neutralizeKoreanFinal(token);
+  if (neutralized && neutralized !== token) candidates.push(neutralized);
+
+  for (const candidate of candidates) {
+    for (const cat of priorities) {
+      // 정상 키 시도
+      try {
+        return await downloadFromR2(buildLibraryKey(cat, candidate));
+      } catch {
+        // 깨진(Latin-1) 키로 재시도 (하위 호환)
+        if (/[가-힣ㄱ-ㅣ]/.test(candidate)) {
+          try {
+            const garbled = Buffer.from(candidate, 'utf8').toString('latin1');
+            return await downloadFromR2(buildLibraryKey(cat, garbled));
+          } catch {
+            // 다음 후보 / 카테고리 시도
+          }
         }
       }
     }
