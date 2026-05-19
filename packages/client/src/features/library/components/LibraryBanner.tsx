@@ -112,8 +112,17 @@ export function LibraryBanner() {
         </motion.div>
       </AnimatePresence>
 
-      {/* 좌측 30% 로고 — absolute overlay, 슬라이드 전환과 무관하게 항상 보임. 배경은 슬라이드 배경이 비침. */}
-      <div className="absolute inset-y-0 left-0 w-[30%] flex items-center justify-center z-10 px-3 pointer-events-none">
+      {/* 좌측 30% 로고 — absolute overlay, 슬라이드 전환과 무관하게 항상 보임.
+          살짝 white wash (bg-white/35) + 우측으로 fade — 슬라이드 배경 통일감 유지하면서
+          로고 가독성 한 번 더 보호. mask 로 우측 fade out. */}
+      <div
+        className="absolute inset-y-0 left-0 w-[30%] flex items-center justify-center z-10 px-3 pointer-events-none"
+        style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.35)',
+          maskImage: 'linear-gradient(to right, black 60%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to right, black 60%, transparent 100%)',
+        }}
+      >
         <img
           src="/logo/logo-kr.webp"
           alt="탱고북"
