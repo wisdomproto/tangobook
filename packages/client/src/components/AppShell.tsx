@@ -67,6 +67,9 @@ export function AppShell() {
   const { activeProfile, session, signOut, isConfigured } = useAuth();
   const location = useLocation();
   const pageTitle = getPageTitle(location.pathname);
+  // /library 는 배너가 viewport top 까지 차지 — 헤더 absolute overlay (transparent) 로
+  // main 이 0부터 시작. 우상단 chip 만 pointer-events-auto 로 클릭 가능.
+  const isLibraryRoot = location.pathname === '/library';
 
   // 학습자 화면은 라이트 모드 고정
   useEffect(() => {
@@ -120,9 +123,16 @@ export function AppShell() {
         </div>
       </aside>
 
-      {/* 우측 영역 — 일반 sticky header (라이브러리 hero 폐기 2026-05-18). */}
+      {/* 우측 영역. /library 일 때 header absolute overlay → main 이 0부터 시작 → 배너가 viewport top 까지. */}
       <div className="flex-1 flex flex-col min-w-0 relative">
-        <header className="h-20 z-30 px-7 flex items-center justify-between sticky top-0 bg-cream-50 border-b border-ink-100/60">
+        <header
+          className={cn(
+            'h-20 z-30 px-7 flex items-center justify-between',
+            isLibraryRoot
+              ? 'absolute top-0 inset-x-0 bg-transparent border-b-0 pointer-events-none'
+              : 'sticky top-0 bg-cream-50 border-b border-ink-100/60'
+          )}
+        >
           {/* 왼쪽: 페이지 타이틀 (큰 글자) + 인사말 sub */}
           <div className="flex items-center gap-3 min-w-0">
             {pageTitle && (
@@ -137,8 +147,8 @@ export function AppShell() {
             )}
           </div>
 
-          {/* 오른쪽: 프로필 + 로그인/로그아웃 */}
-          <div className="flex items-center gap-3 flex-shrink-0">
+          {/* 오른쪽: 프로필 + 로그인/로그아웃. /library transparent 헤더에서도 클릭 가능. */}
+          <div className="flex items-center gap-3 flex-shrink-0 pointer-events-auto">
             {activeProfile && (
               <div className="px-4 py-2 rounded-full bg-white shadow-soft text-sm font-black text-ink-900">
                 👦 {activeProfile.name}
