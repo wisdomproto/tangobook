@@ -30,7 +30,7 @@ const PRIMARY_AXES = [
     label: '파닉스',
     color: 'mint' as const,
     end: false,
-    comingSoon: true,
+    comingSoon: false,
     alwaysActive: false,
   },
   {

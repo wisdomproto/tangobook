@@ -24,6 +24,12 @@ import ParentReportsPage from '../features/auth/pages/ParentReportsPage';
 import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
 import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
 import { VocabularyHubPage, VocabularyStudyPage } from '../features/vocabulary-unit';
+import {
+  PhonicsLandingPage,
+  KoreanPhonicsHubPage,
+  KoreanPhonicsUnitPage,
+  KoreanPhonicsActivityPage,
+} from '../features/phonics-learner';
 
 export const router = createBrowserRouter([
   {
@@ -44,7 +50,9 @@ export const router = createBrowserRouter([
         ),
         children: [
           { path: 'library', element: <LibraryPage type="storybook" /> },
-          { path: 'library/phonics', element: <LibraryPage type="phonics" /> },
+          { path: 'library/phonics', element: <PhonicsLandingPage /> },
+          { path: 'library/phonics/korean', element: <KoreanPhonicsHubPage /> },
+          { path: 'library/phonics/korean/:unitId', element: <KoreanPhonicsUnitPage /> },
           { path: 'collection', element: <Navigate to="/library" replace /> },
           { path: 'collection/book/:bookId', element: <Navigate to="/library" replace /> },
           { path: 'collection/:categoryId', element: <Navigate to="/library" replace /> },
@@ -60,6 +68,15 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <VocabularyStudyPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 한글 파닉스 액티비티 — 풀화면 (모음 듣기/쓰기, 게임). AppShell 밖.
+        path: 'library/phonics/korean/:unitId/:activityKey',
+        element: (
+          <ErrorBoundary>
+            <KoreanPhonicsActivityPage />
           </ErrorBoundary>
         ),
       },
