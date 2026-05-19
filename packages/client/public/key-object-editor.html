@@ -130,6 +130,10 @@
             <label class="text-[10px] text-slate-500 font-bold block">영어 (선택)</label>
             <input id="manual-en" placeholder="word" class="border rounded px-2 py-1 text-sm w-full" />
           </div>
+          <div class="flex-1">
+            <label class="text-[10px] text-slate-500 font-bold block">페이지 (예: 1,3,5)</label>
+            <input id="manual-pages" placeholder="1,3,5" class="border rounded px-2 py-1 text-sm w-full" />
+          </div>
           <button id="btn-manual-add" class="px-3 py-1.5 rounded bg-slate-700 text-white text-sm font-bold">직접 추가</button>
         </div>
       </div>
@@ -456,14 +460,18 @@ document.getElementById('btn-add-collapse').addEventListener('click', () => {
 document.getElementById('btn-manual-add').addEventListener('click', () => {
   const ko = document.getElementById('manual-ko').value.trim();
   const en = document.getElementById('manual-en').value.trim();
+  const pagesRaw = document.getElementById('manual-pages').value.trim();
   if (!ko || !HANGUL.test(ko)) { alert('한글 단어를 입력하세요'); return; }
   if (!currentBook.key_objects) currentBook.key_objects = [];
   if (currentBook.key_objects.some(k => extractKo(k) === ko)) { alert('이미 있는 단어입니다'); return; }
+  // 페이지 파싱 — 쉼표/공백 split, 숫자만, 중복 제거, 정렬
+  const pages = [...new Set(pagesRaw.split(/[\s,]+/).map(s => parseInt(s, 10)).filter(n => Number.isFinite(n) && n > 0))].sort((a, b) => a - b);
   currentBook.key_objects.push({
-    name: en || ko, korean: ko, nameEn: en || '', description: '', pages: [], __added: true,
+    name: en || ko, korean: ko, nameEn: en || '', description: '', pages, __added: true,
   });
   document.getElementById('manual-ko').value = '';
   document.getElementById('manual-en').value = '';
+  document.getElementById('manual-pages').value = '';
   markDirty();
   renderEditor();
 });
