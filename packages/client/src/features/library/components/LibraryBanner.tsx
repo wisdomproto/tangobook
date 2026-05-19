@@ -31,7 +31,7 @@ const SLIDES: Slide[] = [
     id: 'styles',
     emoji: '🎨',
     title: '한 동화를 여러 그림체로!',
-    sub: '종이공예 · 수채화 · 픽사 · 실사 — 같은 이야기 다른 분위기',
+    sub: '종이공예 · 수채화 · 픽사 · 실사\n같은 이야기, 다른 분위기',
     imageUrl: '/images/library-banner/styles.webp',
     rightBg: 'bg-gradient-to-r from-peach-200 to-coral-400',
     accent: 'text-coral-600',
@@ -40,7 +40,7 @@ const SLIDES: Slide[] = [
     id: 'games',
     emoji: '🎮',
     title: '동화 속 단어로 게임 4가지',
-    sub: '한글 블록 · 영어 블록 · 점잇기 · 낱말쓰기로 즐겁게 익혀요',
+    sub: '한글 블록 · 영어 블록 · 점잇기 · 낱말쓰기\n즐겁게 단어를 익혀요',
     imageUrl: '/images/library-banner/games.webp',
     rightBg: 'bg-gradient-to-r from-cream-200 to-amber-400',
     accent: 'text-amber-600',
@@ -49,7 +49,7 @@ const SLIDES: Slide[] = [
     id: 'nature',
     emoji: '🐯',
     title: '동물·식물 자연관찰',
-    sub: '공룡·곤충·바다·하늘 친구들과 떠나는 자연 모험',
+    sub: '공룡 · 곤충 · 바다 · 하늘 친구들과\n떠나는 자연 모험',
     // imageUrl: '/images/library-banner/nature.webp',
     rightBg: 'bg-gradient-to-r from-cream-200 to-emerald-400',
     accent: 'text-emerald-600',
@@ -101,7 +101,7 @@ export function LibraryBanner() {
               <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-black font-display text-ink-900 leading-tight">
                 {slide.title}
               </h2>
-              <p className="text-xs sm:text-sm font-bold text-ink-600 mt-1 line-clamp-2">
+              <p className="text-xs sm:text-sm font-bold text-ink-600 mt-1 whitespace-pre-line leading-snug">
                 {slide.sub}
               </p>
             </motion.div>
@@ -125,6 +125,10 @@ export function LibraryBanner() {
                     backgroundImage: `url(${slide.imageUrl})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
+                    // 좌측 가장자리 fade — 좌측 cream 톤과 부드럽게 연결 (split 해소)
+                    maskImage: 'linear-gradient(to right, transparent 0%, black 12%, black 100%)',
+                    WebkitMaskImage:
+                      'linear-gradient(to right, transparent 0%, black 12%, black 100%)',
                   }
                 : undefined
             }
