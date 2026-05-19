@@ -19,7 +19,6 @@ import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
 import LoginPage from '../features/auth/components/LoginPage';
 import { AuthProvider } from '../features/auth/context/AuthContext';
-import { RequireAuthedWithPin } from '../features/auth/guards/RequireAuthedWithPin';
 import ParentHomePage from '../features/auth/pages/ParentHomePage';
 import ParentReportsPage from '../features/auth/pages/ParentReportsPage';
 import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
@@ -183,11 +182,9 @@ export const router = createBrowserRouter([
       { path: 'playground/word-garden', element: <Navigate to="/library" replace /> },
       {
         path: 'parent',
-        element: (
-          <RequireAuthedWithPin>
-            <ParentHomePage />
-          </RequireAuthedWithPin>
-        ),
+        // 학습 리포팅 (2026-05-19): PIN 게이트 제거 — 사용자 정책상 비밀번호 없이 진입.
+        // 로그인 자체는 여전히 필요 (auth context 가 보장).
+        element: <ParentHomePage />,
         children: [
           { index: true, element: <Navigate to="/parent/profiles" replace /> },
           { path: 'reports', element: <ParentReportsPage /> },

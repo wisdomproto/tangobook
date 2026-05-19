@@ -119,8 +119,7 @@ export function AppShell() {
         </div>
 
         <div className="mt-auto px-3 pb-3 pt-3 border-t border-ink-100/60 flex flex-col gap-1.5">
-          {isConfigured && <SecondaryNavButton to="/parent" emoji="🔒" label="부모" />}
-          {/* 로그인/로그아웃 — 사용자가 위 학습 메뉴와 분리되도록 사이드바 하단에. */}
+          {/* 로그인/로그아웃 — 학습 리포팅 위. session 상태에 따라 분기 */}
           {session ? (
             <button
               onClick={handleSignOut}
@@ -158,6 +157,8 @@ export function AppShell() {
               <span>로그인</span>
             </Link>
           ) : null}
+          {/* 학습 리포팅 — 부모 영역 (이전 "부모" 라벨, 자물쇠 emoji 제거). 로그인 아래. */}
+          {isConfigured && <SecondaryNavButton to="/parent" emoji="📊" label="학습 리포팅" />}
         </div>
       </aside>
 
@@ -278,10 +279,10 @@ function SubGameButton({ to, iconSrc, label }: { to: string; iconSrc: string; la
       to={to}
       className={({ isActive }) =>
         cn(
-          'w-full px-3 py-2.5 rounded-2xl flex items-center gap-2 font-black transition-all active:scale-95',
+          'w-full px-3 py-2.5 rounded-2xl flex items-center gap-2 font-black transition-all active:scale-95 border-2',
           isActive
-            ? 'bg-gradient-to-br from-coral-500 to-coral-600 text-white shadow-pop ring-4 ring-coral-200'
-            : 'bg-gradient-to-br from-coral-400 to-coral-500 text-white shadow-soft hover:from-coral-500 hover:to-coral-600 hover:shadow-pop'
+            ? 'bg-gradient-to-br from-coral-500 to-coral-600 text-white shadow-pop ring-4 ring-coral-200 border-coral-700'
+            : 'bg-gradient-to-br from-coral-400 to-coral-500 text-white shadow-soft border-coral-600 hover:from-coral-500 hover:to-coral-600 hover:shadow-pop hover:border-coral-700'
         )
       }
     >
