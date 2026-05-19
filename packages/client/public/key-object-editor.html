@@ -119,6 +119,15 @@
         </div>
       </div>
 
+      <!-- 페이지 텍스트 (수동 단어 선택용) -->
+      <div class="border-b">
+        <div class="p-3 bg-amber-50 flex items-center justify-between">
+          <div class="text-sm font-bold text-amber-900">📖 페이지 텍스트 — <span id="pages-count">0</span>쪽 (텍스트 보고 단어 결정)</div>
+          <button id="btn-pages-collapse" class="px-3 py-1 rounded bg-white border text-xs font-bold">접기</button>
+        </div>
+        <div id="pages-list" class="px-3 py-2 max-h-[420px] overflow-y-auto divide-y bg-amber-50/30"></div>
+      </div>
+
       <!-- 직접 추가 -->
       <div class="p-3 border-b bg-slate-50">
         <div class="flex gap-2 items-end">
@@ -386,9 +395,57 @@ function renderEditor() {
     : 'px-4 py-2 rounded-lg font-bold text-sm bg-slate-200 text-slate-400 cursor-not-allowed';
 
   renderAddSection();
+  renderPagesSection();
   renderWordTable();
   renderBookList(); // 좌측 chip 동기화 (단어 추가/삭제 시 chip 카운트 즉시 반영)
 }
+
+// 페이지 텍스트 노출 — 사용자가 직접 텍스트 읽고 keyObject 결정. 단어 클릭 시 직접 추가 input 의 한글 필드로 옮겨줌.
+function renderPagesSection() {
+  const pages = (currentBook.pages || []).filter(p => p && (p.text || '').trim());
+  document.getElementById('pages-count').textContent = pages.length;
+  const list = document.getElementById('pages-list');
+  if (pages.length === 0) {
+    list.innerHTML = '<div class="text-xs text-slate-500 p-3">페이지 텍스트가 없어요</div>';
+    return;
+  }
+  list.innerHTML = pages.map(p => {
+    const text = (p.text || '').trim();
+    // 한글 단어 (2자+) 만 클릭형 — 다른 곳 (조사·동사 어미 등) 는 그냥 표시. 페이지 텍스트는
+    // 원형 유지 + 한글 토큰만 hover 시 underline + 클릭 시 manual-ko 채움.
+    const html = escapeHtml(text).replace(/[가-힣]{2,}/g, m => {
+      return `<span class="word-pick text-amber-900 hover:bg-amber-200 cursor-pointer rounded px-0.5" data-word="${m}" data-page="${p.pageNumber}" title="클릭 → 직접 추가 한글 칸에 입력">${m}</span>`;
+    });
+    return `
+      <div class="py-2.5">
+        <div class="text-[11px] font-black text-amber-700 mb-1">📖 ${p.pageNumber}쪽</div>
+        <div class="text-sm text-slate-800 leading-relaxed whitespace-pre-line">${html}</div>
+      </div>
+    `;
+  }).join('');
+  list.querySelectorAll('.word-pick').forEach(el => {
+    el.addEventListener('click', () => {
+      const w = el.dataset.word;
+      const p = el.dataset.page;
+      document.getElementById('manual-ko').value = w;
+      const pagesInput = document.getElementById('manual-pages');
+      if (!pagesInput.value.trim()) pagesInput.value = p;
+      document.getElementById('manual-ko').focus();
+    });
+  });
+}
+
+document.getElementById('btn-pages-collapse').addEventListener('click', () => {
+  const list = document.getElementById('pages-list');
+  const btn = document.getElementById('btn-pages-collapse');
+  if (list.classList.contains('hidden')) {
+    list.classList.remove('hidden');
+    btn.textContent = '접기';
+  } else {
+    list.classList.add('hidden');
+    btn.textContent = '펴기';
+  }
+});
 
 function renderAddSection() {
   const ana = analysisByBook.get(currentBook.id);
