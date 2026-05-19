@@ -135,6 +135,10 @@
           <div>현재 keyObject <span id="editor-word-count">0</span>개 · <span class="text-rose-600 font-bold">텍스트에 없는 단어는 빨간색</span></div>
           <button id="btn-del-all-missing" class="px-3 py-1 rounded bg-rose-500 text-white text-xs font-bold hover:bg-rose-600">텍스트 없는 keyObject 전부 삭제</button>
         </div>
+        <div id="del-banner" class="hidden mb-2 px-3 py-2 rounded bg-rose-100 text-rose-800 text-xs flex items-center justify-between">
+          <span>🗑 삭제 대기 <span id="del-pending-count">0</span>개 (저장 시 R2 에서 제거)</span>
+          <button id="btn-undo-all" class="px-2 py-1 rounded bg-white border border-rose-300 text-rose-700 font-bold hover:bg-rose-50">↩ 모두 되돌리기</button>
+        </div>
         <table class="w-full text-sm">
           <thead>
             <tr class="bg-slate-100 text-xs font-bold text-slate-700">
@@ -395,37 +399,52 @@ document.getElementById('btn-manual-add').addEventListener('click', () => {
 // ====================================================================
 function renderWordTable() {
   const ko = currentBook.key_objects || [];
-  document.getElementById('editor-word-count').textContent = ko.length;
+  const visible = ko.filter(k => !k.__deletePending);
+  const pendingCount = ko.length - visible.length;
+  document.getElementById('editor-word-count').textContent = visible.length;
+
+  // 삭제 대기 banner
+  const banner = document.getElementById('del-banner');
+  if (pendingCount > 0) {
+    banner.classList.remove('hidden');
+    document.getElementById('del-pending-count').textContent = pendingCount;
+  } else {
+    banner.classList.add('hidden');
+  }
+
   const ana = analysisByBook.get(currentBook.id);
   const deleteWords = new Set((ana?.delete || []).map(d => d.word));
 
   const tbody = document.getElementById('editor-tbody');
-  if (!ko.length) { tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-slate-400 text-center text-xs">단어 없음</td></tr>`; return; }
+  if (!visible.length) { tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-slate-400 text-center text-xs">단어 없음${pendingCount > 0 ? ' (삭제 대기 ' + pendingCount + '개)' : ''}</td></tr>`; return; }
   tbody.innerHTML = ko.map((k, idx) => {
+    if (k.__deletePending) return ''; // 삭제 대기 row hide
     const koWord = extractKo(k);
     const enWord = extractEn(k);
     const isMissing = koWord && deleteWords.has(koWord);
-    const isPending = k.__deletePending;
     const isAdded = k.__added;
     const status = isMissing ? '<span class="chip chip-del">텍스트 없음</span>' : '<span class="chip chip-keep">텍스트 있음</span>';
     return `
-      <tr class="word-row border-b ${isPending ? 'del-pending' : ''} ${isAdded ? 'added' : ''} ${isMissing ? 'text-missing' : ''}" data-idx="${idx}">
+      <tr class="word-row border-b ${isAdded ? 'added' : ''} ${isMissing ? 'text-missing' : ''}" data-idx="${idx}">
         <td class="px-2 py-2 text-xs text-slate-400">${idx + 1}</td>
         <td class="px-2 py-2 font-bold word-cell">${escapeHtml(koWord || '<em class="text-slate-300">(한글없음)</em>')}</td>
         <td class="px-2 py-2 text-xs text-slate-500">${escapeHtml(enWord || '-')}</td>
         <td class="px-2 py-2">${status}${isAdded ? '<span class="chip chip-add ml-1">NEW</span>' : ''}</td>
         <td class="px-2 py-2 text-xs text-slate-500">${(k.pages || []).join(', ') || '-'}</td>
         <td class="px-2 py-2 text-right">
-          ${isPending
-            ? `<button class="btn-undo px-2 py-1 text-xs bg-slate-200 rounded hover:bg-slate-300" data-idx="${idx}">↩ 되돌리기</button>`
-            : `<button class="btn-del px-2 py-1 text-xs bg-rose-500 text-white rounded hover:bg-rose-600" data-idx="${idx}">🗑</button>`}
+          <button class="btn-del px-2 py-1 text-xs bg-rose-500 text-white rounded hover:bg-rose-600" data-idx="${idx}">🗑</button>
         </td>
       </tr>
     `;
   }).join('');
   tbody.querySelectorAll('.btn-del').forEach(b => b.addEventListener('click', () => markDelete(Number(b.dataset.idx))));
-  tbody.querySelectorAll('.btn-undo').forEach(b => b.addEventListener('click', () => undoDelete(Number(b.dataset.idx))));
 }
+
+document.getElementById('btn-undo-all').addEventListener('click', () => {
+  for (const k of (currentBook.key_objects || [])) delete k.__deletePending;
+  recheckDirty();
+  renderEditor();
+});
 
 document.getElementById('btn-del-all-missing').addEventListener('click', () => {
   const ana = analysisByBook.get(currentBook.id);
