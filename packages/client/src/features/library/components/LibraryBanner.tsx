@@ -32,7 +32,7 @@ const SLIDES: Slide[] = [
     emoji: '🎨',
     title: '한 동화를 여러 그림체로!',
     sub: '종이공예 · 수채화 · 픽사 · 실사 — 같은 이야기 다른 분위기',
-    // imageUrl: '/images/library-banner/styles.webp',
+    imageUrl: '/images/library-banner/styles.webp',
     rightBg: 'bg-gradient-to-r from-peach-200 to-coral-400',
     accent: 'text-coral-600',
   },
