@@ -104,7 +104,7 @@ export function AppShell() {
           <div className="text-[11px] font-black tracking-wider text-ink-500 uppercase text-center mb-2">
             미니 게임
           </div>
-          <div className="flex flex-col gap-2 items-center">
+          <div className="flex flex-col gap-2">
             <SubGameButton
               to="/games/korean-block"
               iconSrc="game/korean-block.webp"
@@ -118,8 +118,46 @@ export function AppShell() {
           </div>
         </div>
 
-        <div className="mt-auto px-3 pb-3 pt-3 border-t border-ink-100/60">
+        <div className="mt-auto px-3 pb-3 pt-3 border-t border-ink-100/60 flex flex-col gap-1.5">
           {isConfigured && <SecondaryNavButton to="/parent" emoji="🔒" label="부모" />}
+          {/* 로그인/로그아웃 — 사용자가 위 학습 메뉴와 분리되도록 사이드바 하단에. */}
+          {session ? (
+            <button
+              onClick={handleSignOut}
+              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-danger transition-all"
+              aria-label="로그아웃"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="shrink-0"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              <span>로그아웃</span>
+              {activeProfile && (
+                <span className="ml-auto text-[11px] text-ink-400 truncate max-w-[60px]">
+                  {activeProfile.name}
+                </span>
+              )}
+            </button>
+          ) : isConfigured ? (
+            <Link
+              to="/login"
+              className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black bg-coral-500 hover:bg-coral-600 text-white shadow-soft hover:shadow-pop transition-all"
+            >
+              <span>🔑</span>
+              <span>로그인</span>
+            </Link>
+          ) : null}
         </div>
       </aside>
 
@@ -154,44 +192,8 @@ export function AppShell() {
               )}
             </div>
 
-            {/* 오른쪽: 프로필 + 로그인/로그아웃. /library transparent 헤더에서도 클릭 가능. */}
-            <div className="flex items-center gap-3 flex-shrink-0 pointer-events-auto">
-              {activeProfile && (
-                <div className="px-4 py-2 rounded-full bg-white shadow-soft text-sm font-black text-ink-900">
-                  👦 {activeProfile.name}
-                </div>
-              )}
-              {session ? (
-                <button
-                  onClick={handleSignOut}
-                  className="w-10 h-10 rounded-full bg-white shadow-soft text-ink-500 hover:text-danger hover:shadow-pop transition flex items-center justify-center"
-                  title="로그아웃"
-                  aria-label="로그아웃"
-                >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                    <polyline points="16 17 21 12 16 7" />
-                    <line x1="21" y1="12" x2="9" y2="12" />
-                  </svg>
-                </button>
-              ) : isConfigured ? (
-                <Link
-                  to="/login"
-                  className="px-5 py-2 rounded-full bg-coral-500 hover:bg-coral-600 text-white font-black text-sm shadow-soft hover:shadow-pop transition"
-                >
-                  로그인
-                </Link>
-              ) : null}
-            </div>
+            {/* 우측 spacer — 로그인/로그아웃 은 사이드바 하단으로 이관 (2026-05-19). 추후 알림/별 등 추가 시 여기. */}
+            <div className="flex-shrink-0 pointer-events-auto" />
           </div>
         </header>
 
@@ -276,15 +278,16 @@ function SubGameButton({ to, iconSrc, label }: { to: string; iconSrc: string; la
       to={to}
       className={({ isActive }) =>
         cn(
-          'w-28 h-20 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all font-black',
+          'w-full px-3 py-2.5 rounded-2xl flex items-center gap-2 font-black transition-all active:scale-95',
           isActive
-            ? 'bg-coral-500 text-white shadow-pop ring-4 ring-coral-200'
-            : 'bg-coral-100 text-coral-700 hover:bg-coral-200 hover:scale-105'
+            ? 'bg-gradient-to-br from-coral-500 to-coral-600 text-white shadow-pop ring-4 ring-coral-200'
+            : 'bg-gradient-to-br from-coral-400 to-coral-500 text-white shadow-soft hover:from-coral-500 hover:to-coral-600 hover:shadow-pop'
         )
       }
     >
-      <AppIcon src={iconSrc} size={32} alt={label} />
-      <span className="text-sm">{label}</span>
+      <AppIcon src={iconSrc} size={28} alt={label} className="shrink-0" />
+      <span className="text-[13px] leading-tight flex-1 text-left">{label}</span>
+      <span className="text-base shrink-0">→</span>
     </NavLink>
   );
 }
