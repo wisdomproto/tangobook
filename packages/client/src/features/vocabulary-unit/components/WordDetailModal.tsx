@@ -4,6 +4,7 @@ import type { Lang, Page, Storybook, VocabularyUnitWord } from '@tangobook/share
 import { resolveTtsUrl } from '@/features/tts';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { settingsApi } from '@/features/settings/api/settings.api';
 
 interface WordDetailModalProps {
   word: VocabularyUnitWord;
@@ -16,8 +17,6 @@ interface WordDetailModalProps {
 }
 
 const REVEAL_PAGE_AFTER_CLICKS = 3;
-/** 3회 클릭 후 칭찬 듣고 즐기는 시간 — playCorrectSequence(효과음→칭찬음원) + 시각 호리 cheer */
-const PRAISE_DURATION_MS = 2600;
 
 function getDisplayLabel(word: VocabularyUnitWord, lang: Lang): string {
   if (lang === 'ko') return word.korean ?? word.word;
@@ -109,11 +108,38 @@ export function WordDetailModal({
   onClose,
 }: WordDetailModalProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const praiseAudioRef = useRef<HTMLAudioElement | null>(null);
   const [phase, setPhase] = useState<'word' | 'page'>('word');
   const [clickCount, setClickCount] = useState(0);
   const [pressed, setPressed] = useState(false);
   const [showPraise, setShowPraise] = useState(false);
-  const { playCorrectSequence } = useGameAudio();
+  const { playFeedbackSound } = useGameAudio();
+
+  // 시스템 칭찬 음원 풀 — 한/영 분리. 3회 도달 시 랜덤 1개 재생 + audio.onended 까지 대기.
+  const [praiseUrls, setPraiseUrls] = useState<string[]>([]);
+  useEffect(() => {
+    let cancelled = false;
+    settingsApi
+      .getSystemSounds()
+      .then((data) => {
+        if (cancelled) return;
+        const pool = (lang === 'ko' ? data.korean.correct : data.english.correct)
+          .map((s) => s.url)
+          .filter(Boolean);
+        // 해당 lang pool 비어있으면 반대 lang 으로 fallback
+        if (pool.length > 0) setPraiseUrls(pool);
+        else {
+          const other = (lang === 'ko' ? data.english.correct : data.korean.correct)
+            .map((s) => s.url)
+            .filter(Boolean);
+          setPraiseUrls(other);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [lang]);
 
   // 그림체별 이미지 후보 — 클릭마다 랜덤으로 다른 그림체 swap. 1장이면 swap X.
   const wordImageUrls = useMemo(
@@ -135,10 +161,11 @@ export function WordDetailModal({
     return () => window.removeEventListener('keydown', handler);
   }, [onClose]);
 
-  // 언마운트 시 진행 중 오디오 중단
+  // 언마운트 시 진행 중 오디오 (단어 + 칭찬) 중단
   useEffect(() => {
     return () => {
       if (audioRef.current) audioRef.current.pause();
+      if (praiseAudioRef.current) praiseAudioRef.current.pause();
     };
   }, []);
 
@@ -194,20 +221,55 @@ export function WordDetailModal({
     }
   };
 
-  // clickCount 가 REVEAL_PAGE_AFTER_CLICKS 도달 시 칭찬 시퀀스 (효과음 + 시스템 칭찬 음원) +
-  // 호리 cheering overlay → PRAISE_DURATION_MS 후 페이지 전환. setTimeout 을 click handler 가 아닌
-  // effect 안에 둬서 stale closure 회피 + 자연스러운 cleanup.
+  // clickCount 가 REVEAL_PAGE_AFTER_CLICKS 도달 시 칭찬 시퀀스 — 효과음 + 시스템 칭찬 음원.
+  // 칭찬 음원 onended 까지 정확히 대기 후 페이지 전환 (이전 고정 timer 는 음원보다 일찍 끝나는 문제).
   useEffect(() => {
     if (phase !== 'word' || clickCount < REVEAL_PAGE_AFTER_CLICKS) return;
     setShowPraise(true);
-    // 칭찬 음원 — 단어 TTS 는 이미 3번 들었으니 ttsUrl 없이 효과음 + 시스템 칭찬만.
-    playCorrectSequence({ language: lang === 'ko' ? 'ko' : 'en' });
-    const t = setTimeout(() => {
+    playFeedbackSound(true); // 정답 효과음 chime
+
+    let cancelled = false;
+    const fallbackTimer = setTimeout(() => {
+      // 음원이 없거나 onended 가 안 fire (브라우저 차단 등) 시 안전망
+      if (cancelled) return;
       setShowPraise(false);
       setPhase('page');
-    }, PRAISE_DURATION_MS);
-    return () => clearTimeout(t);
-  }, [clickCount, phase, lang, playCorrectSequence]);
+    }, 5000);
+
+    const advance = () => {
+      if (cancelled) return;
+      clearTimeout(fallbackTimer);
+      setShowPraise(false);
+      setPhase('page');
+    };
+
+    if (praiseUrls.length === 0) {
+      // 음원 풀 비어있으면 효과음만 듣고 1.5s 후 전환
+      setTimeout(() => {
+        if (!cancelled) advance();
+      }, 1500);
+    } else {
+      // 효과음 chime 끝나는 시점 후 칭찬 음원 — 약 500ms 딜레이
+      setTimeout(() => {
+        if (cancelled) return;
+        const url = praiseUrls[Math.floor(Math.random() * praiseUrls.length)];
+        const audio = new Audio(url);
+        praiseAudioRef.current = audio;
+        audio.addEventListener('ended', advance);
+        audio.addEventListener('error', advance);
+        audio.play().catch(advance);
+      }, 500);
+    }
+
+    return () => {
+      cancelled = true;
+      clearTimeout(fallbackTimer);
+      if (praiseAudioRef.current) {
+        praiseAudioRef.current.pause();
+        praiseAudioRef.current = null;
+      }
+    };
+  }, [clickCount, phase, lang, praiseUrls, playFeedbackSound]);
 
   const label = getDisplayLabel(word, lang);
   const wordImage = wordImageUrls[imageIdx] ?? wordImageUrls[0];
@@ -352,8 +414,10 @@ export function WordDetailModal({
         </div>
       </motion.div>
 
-      {/* 3 회 도달 칭찬 — 호리 + confetti + 랜덤 칭찬 텍스트. duration 은 PRAISE_DURATION_MS 와 align */}
-      <FeedbackOverlay kind="correct" visible={showPraise} durationMs={PRAISE_DURATION_MS} />
+      {/* 3 회 도달 칭찬 — 호리 + confetti + 랜덤 칭찬 텍스트.
+          visible 은 audio.onended 시점에 false 로 전환되므로 durationMs 는 안 줘도 됨
+          (FeedbackOverlay 의 onDismiss prop 도 미제공 → 내부 timer 비활성). */}
+      <FeedbackOverlay kind="correct" visible={showPraise} />
     </motion.div>
   );
 }
