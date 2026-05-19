@@ -89,6 +89,20 @@ VocabularyWordImage {
 - **모달**: 게임 fullscreen + WordDetailModal (단어 상세)
 - **자동 채움 (TimelineEditorStep 와 별개)**: 책 단원의 `book.styleAssets[currentStyle].keyObjectImages` 에서 이미지 derive
 
+## WordDetailModal 2단계 흐름 (2026-05-19 재설계)
+
+기존: 모달 mount 시 단어 TTS 자동 재생 + 페이지 일러스트/예문/책 텍스트 듣기 버튼들 한꺼번에.
+신규: phase='word' (삽화 클릭 누르기) → phase='page' (책 페이지 + 자동 TTS) 2 단계.
+
+- **phase='word'**: 키오브젝트 삽화 + 진행 도트 3개 + "그림을 눌러 단어를 들어봐!" 안내. 자동 재생 X.
+  삽화 클릭 — 눌림 애니메이션 (`scale: 1→0.92→1`, 250ms) + 단어 TTS (resolveTtsUrl chain).
+  - 클릭마다 `word.images[]` 풀에서 직전 이미지 제외하고 랜덤 swap (1장이면 swap X). 그림체 다양성 노출.
+- **3회 도달 → 칭찬 시퀀스**: `playFeedbackSound` 정답 chime + 500ms 후 시스템 칭찬 음원 (settingsApi.getSystemSounds — lang 별 풀, 비면 반대 lang fallback) 재생. `audio.addEventListener('ended', advance)` 로 음원 끝 _정확 시점_ 에 phase='page' 전환 + FeedbackOverlay (호리 cheering + confetti + "잘했어!" 랜덤 텍스트). 고정 timer 대신 onended 사용 — 음원 길이 다양 (1.5~3s+) 해도 잘리지 않음. 5s fallback timer 는 autoplay 차단 등 onended 미발동 안전망.
+- **phase='page'**: 동화책 페이지 일러스트 + 페이지 text + 자동 페이지 TTS (lang 별).
+  - lang='ko' → `page.text` + `page.ttsUrl`
+  - lang='en' (또는 그 외) → `page.translations[lang].text` + `page.translations[lang].ttsUrl`
+  - **사용자 정책**: 해당 lang TTS 없으면 무음 (Web Speech 폴백 X). 단어 TTS 는 학습 핵심이라 마지막에 Web Speech 폴백 유지 — 페이지 TTS 와 정책 다름.
+
 ## 진입 동선
 
 - 사이드바 어휘 axis 는 MVP 에서 "준비 중" 음영 처리 (코드/라우트 보존, AppShell.PRIMARY_AXES.comingSoon=true)
