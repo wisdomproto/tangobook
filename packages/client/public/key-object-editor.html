@@ -259,14 +259,17 @@ function renderBookList() {
   container.innerHTML = books.map(b => {
     const ana = analysisByBook.get(b.id);
     const baseStats = ana?.stats || { keep: 0, delete: 0, add: 0 };
-    // active 책은 currentBook 의 실시간 keyObjects 로 카운트 재계산
+    // active 책 또는 dirty 책은 실시간 keyObjects 로 카운트 재계산
+    let book = null;
+    if (currentBook && currentBook.id === b.id) book = currentBook;
+    else if (dirtyBooks.has(b.id)) book = dirtyBooks.get(b.id);
     let s = baseStats;
-    if (currentBook && currentBook.id === b.id && ana) {
+    if (book && ana) {
       const deleteWords = new Set((ana.delete || []).map(d => d.word));
       const addCandidates = new Set((ana.add || []).map(a => a.word));
       let keep = 0, del = 0;
       const cw = new Set();
-      for (const k of (currentBook.key_objects || [])) {
+      for (const k of (book.key_objects || [])) {
         if (k.__deletePending) continue;
         const kk = (k.korean || '').trim();
         let w = kk && HANGUL.test(kk) ? kk : '';
