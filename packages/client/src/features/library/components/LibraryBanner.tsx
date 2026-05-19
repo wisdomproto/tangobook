@@ -28,7 +28,7 @@ const SLIDES: Slide[] = [
     logoSrc: '/logo/logo-kr.webp',
     title: '그림책이 친구가 되는 시간',
     sub: '호리와 함께 떠나는 동화 모험',
-    bg: 'bg-gradient-to-br from-cream-50 via-peach-50 to-peach-100',
+    bg: 'bg-gradient-to-br from-peach-200 via-amber-200 to-coral-200',
     textColor: 'text-ink-900',
   },
   {
@@ -91,14 +91,44 @@ export function LibraryBanner() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className={`absolute inset-0 ${slide.bg} flex items-center px-6 sm:px-10`}
+          className={`absolute inset-0 ${slide.bg} flex items-center px-6 sm:px-10 overflow-hidden`}
         >
+          {/* sparkle 데코 — brand 슬라이드만 (밋밋함 보완). pointer-events-none, aria-hidden */}
+          {slide.logoSrc && (
+            <>
+              <span
+                aria-hidden
+                className="absolute top-3 right-[35%] text-2xl sm:text-3xl opacity-70 animate-pulse"
+              >
+                ✨
+              </span>
+              <span
+                aria-hidden
+                className="absolute bottom-4 right-[15%] text-xl sm:text-2xl opacity-60"
+              >
+                ⭐
+              </span>
+              <span
+                aria-hidden
+                className="absolute top-6 right-[8%] text-lg sm:text-xl opacity-50 animate-pulse"
+                style={{ animationDelay: '0.8s' }}
+              >
+                ✨
+              </span>
+              <span
+                aria-hidden
+                className="absolute bottom-6 left-[42%] text-base sm:text-lg opacity-50"
+              >
+                🌟
+              </span>
+            </>
+          )}
           {/* 좌측 — 로고 또는 이모지 일러스트 */}
           {slide.logoSrc ? (
             <img
               src={slide.logoSrc}
               alt="탱고북"
-              className="h-16 sm:h-20 md:h-28 w-auto shrink-0 mr-5 sm:mr-7 drop-shadow-md object-contain"
+              className="h-20 sm:h-28 md:h-36 w-auto shrink-0 mr-5 sm:mr-8 drop-shadow-lg object-contain relative z-10"
             />
           ) : (
             <div
@@ -109,11 +139,11 @@ export function LibraryBanner() {
             </div>
           )}
           {/* 텍스트 */}
-          <div className={`flex-1 min-w-0 ${slide.textColor}`}>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-display leading-tight">
+          <div className={`flex-1 min-w-0 ${slide.textColor} relative z-10`}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-display leading-tight">
               {slide.title}
             </h2>
-            <p className="text-sm sm:text-base font-bold opacity-90 mt-1 truncate">{slide.sub}</p>
+            <p className="text-base sm:text-lg font-bold opacity-90 mt-1 truncate">{slide.sub}</p>
           </div>
         </motion.div>
       </AnimatePresence>
