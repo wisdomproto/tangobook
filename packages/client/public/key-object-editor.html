@@ -257,7 +257,31 @@ function renderBookList() {
   const container = document.getElementById('book-list');
   if (!books.length) { container.innerHTML = `<div class="p-4 text-slate-400 text-center text-xs">결과 없음</div>`; return; }
   container.innerHTML = books.map(b => {
-    const s = computeStats(b.id);
+    const ana = analysisByBook.get(b.id);
+    const baseStats = ana?.stats || { keep: 0, delete: 0, add: 0 };
+    // active 책은 currentBook 의 실시간 keyObjects 로 카운트 재계산
+    let s = baseStats;
+    if (currentBook && currentBook.id === b.id && ana) {
+      const deleteWords = new Set((ana.delete || []).map(d => d.word));
+      const addCandidates = new Set((ana.add || []).map(a => a.word));
+      let keep = 0, del = 0;
+      const cw = new Set();
+      for (const k of (currentBook.key_objects || [])) {
+        if (k.__deletePending) continue;
+        const kk = (k.korean || '').trim();
+        let w = kk && HANGUL.test(kk) ? kk : '';
+        if (!w) {
+          const nn = (k.name || '').trim();
+          if (HANGUL.test(nn)) w = nn;
+        }
+        if (!w) continue;
+        cw.add(w);
+        if (deleteWords.has(w)) del++; else keep++;
+      }
+      let add = 0;
+      for (const w of addCandidates) if (!cw.has(w)) add++;
+      s = { keep, delete: del, add };
+    }
     const dirty = dirtyBooks.has(b.id);
     return `
       <div class="book-row p-2 ${b.id === currentBookId ? 'active' : ''}" data-id="${b.id}">
