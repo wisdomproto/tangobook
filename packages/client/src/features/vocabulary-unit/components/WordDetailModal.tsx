@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Lang, Page, Storybook, VocabularyUnitWord } from '@tangobook/shared';
 import { resolveTtsUrl } from '@/features/tts';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
+import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 
 interface WordDetailModalProps {
   word: VocabularyUnitWord;
@@ -15,10 +16,8 @@ interface WordDetailModalProps {
 }
 
 const REVEAL_PAGE_AFTER_CLICKS = 3;
-
-function pickWordImage(word: VocabularyUnitWord): string | undefined {
-  return word.images?.find((im) => im.isPrimary)?.imageUrl ?? word.images?.[0]?.imageUrl;
-}
+/** 3회 클릭 후 칭찬 듣고 즐기는 시간 — playCorrectSequence(효과음→칭찬음원) + 시각 호리 cheer */
+const PRAISE_DURATION_MS = 2600;
 
 function getDisplayLabel(word: VocabularyUnitWord, lang: Lang): string {
   if (lang === 'ko') return word.korean ?? word.word;
@@ -114,6 +113,18 @@ export function WordDetailModal({
   const [clickCount, setClickCount] = useState(0);
   const [pressed, setPressed] = useState(false);
   const [showPraise, setShowPraise] = useState(false);
+  const { playCorrectSequence } = useGameAudio();
+
+  // 그림체별 이미지 후보 — 클릭마다 랜덤으로 다른 그림체 swap. 1장이면 swap X.
+  const wordImageUrls = useMemo(
+    () => (word.images ?? []).map((im) => im.imageUrl).filter(Boolean),
+    [word.images]
+  );
+  const [imageIdx, setImageIdx] = useState<number>(() => {
+    if (wordImageUrls.length === 0) return 0;
+    const pIdx = word.images?.findIndex((im) => im.isPrimary) ?? -1;
+    return pIdx >= 0 ? pIdx : 0;
+  });
 
   // ESC 키 닫기
   useEffect(() => {
@@ -169,22 +180,37 @@ export function WordDetailModal({
     setTimeout(() => setPressed(false), 250);
     void playWord();
     setClickCount((c) => c + 1);
+    // 그림체 swap — 2장 이상이면 직전 이미지 제외하고 랜덤
+    if (wordImageUrls.length > 1) {
+      setImageIdx((cur) => {
+        let next = cur;
+        let safety = 8;
+        while (next === cur && safety > 0) {
+          next = Math.floor(Math.random() * wordImageUrls.length);
+          safety--;
+        }
+        return next;
+      });
+    }
   };
 
-  // clickCount 가 REVEAL_PAGE_AFTER_CLICKS 도달 시 칭찬 → 1.3s 후 페이지 전환.
-  // setTimeout 을 click handler 안에 두면 React render 간 stale closure 가능 — effect 로 분리해 안정화.
+  // clickCount 가 REVEAL_PAGE_AFTER_CLICKS 도달 시 칭찬 시퀀스 (효과음 + 시스템 칭찬 음원) +
+  // 호리 cheering overlay → PRAISE_DURATION_MS 후 페이지 전환. setTimeout 을 click handler 가 아닌
+  // effect 안에 둬서 stale closure 회피 + 자연스러운 cleanup.
   useEffect(() => {
     if (phase !== 'word' || clickCount < REVEAL_PAGE_AFTER_CLICKS) return;
     setShowPraise(true);
+    // 칭찬 음원 — 단어 TTS 는 이미 3번 들었으니 ttsUrl 없이 효과음 + 시스템 칭찬만.
+    playCorrectSequence({ language: lang === 'ko' ? 'ko' : 'en' });
     const t = setTimeout(() => {
       setShowPraise(false);
       setPhase('page');
-    }, 1300);
+    }, PRAISE_DURATION_MS);
     return () => clearTimeout(t);
-  }, [clickCount, phase]);
+  }, [clickCount, phase, lang, playCorrectSequence]);
 
   const label = getDisplayLabel(word, lang);
-  const wordImage = pickWordImage(word);
+  const wordImage = wordImageUrls[imageIdx] ?? wordImageUrls[0];
   const pageInfo = findPageIllustration(word, lang, storybook, currentStyle);
 
   // phase='page' 진입 시 페이지 TTS 자동 재생 (lang 별, 없으면 무음)
@@ -326,8 +352,8 @@ export function WordDetailModal({
         </div>
       </motion.div>
 
-      {/* 3 회 도달 칭찬 — 호리 + confetti + 랜덤 칭찬 텍스트 */}
-      <FeedbackOverlay kind="correct" visible={showPraise} durationMs={1200} />
+      {/* 3 회 도달 칭찬 — 호리 + confetti + 랜덤 칭찬 텍스트. duration 은 PRAISE_DURATION_MS 와 align */}
+      <FeedbackOverlay kind="correct" visible={showPraise} durationMs={PRAISE_DURATION_MS} />
     </motion.div>
   );
 }
