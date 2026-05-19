@@ -227,14 +227,16 @@ function renderBookList() {
   if (q) books = books.filter(b => (b.title || '').toLowerCase().includes(q));
   if (cat) books = books.filter(b => b.category === cat);
   if (onlyIssues) books = books.filter(b => {
-    const s = computeStats(b.id);
-    return s.delete > 0 || s.add > 0;
+    // filter 는 정적 stats — active 책이 변경되어도 list 에서 사라지지 않게
+    const s = analysisByBook.get(b.id)?.stats || {};
+    return (s.delete || 0) > 0 || (s.add || 0) > 0;
   });
   books.sort((a, b) => {
-    const sa = computeStats(a.id);
-    const sb = computeStats(b.id);
-    const ta = sa.delete + sa.add;
-    const tb = sb.delete + sb.add;
+    // sort 도 정적 (active 책 클릭 시 위치 변동 방지)
+    const sa = analysisByBook.get(a.id)?.stats || {};
+    const sb = analysisByBook.get(b.id)?.stats || {};
+    const ta = (sa.delete || 0) + (sa.add || 0);
+    const tb = (sb.delete || 0) + (sb.add || 0);
     if (ta !== tb) return tb - ta;
     return (a.title || '').localeCompare(b.title || '');
   });
