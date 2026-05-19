@@ -127,63 +127,71 @@ export function AppShell() {
       <div className="flex-1 flex flex-col min-w-0 relative">
         <header
           className={cn(
-            'h-20 z-30 px-7 flex items-center justify-between',
+            'h-20 z-30 flex items-center',
             isLibraryRoot
               ? 'absolute top-0 inset-x-0 bg-transparent border-b-0 pointer-events-none'
               : 'sticky top-0 bg-cream-50 border-b border-ink-100/60'
           )}
         >
-          {/* 왼쪽: 페이지 타이틀 (큰 글자) + 인사말 sub */}
-          <div className="flex items-center gap-3 min-w-0">
-            {pageTitle && (
-              <h1 className="text-2xl md:text-3xl font-black font-display text-ink-900 truncate flex items-center gap-2">
-                {pageTitle.iconSrc ? (
-                  <AppIcon src={pageTitle.iconSrc} size={36} alt={pageTitle.title} />
-                ) : pageTitle.emoji ? (
-                  <span>{pageTitle.emoji}</span>
-                ) : null}
-                <span>{pageTitle.title}</span>
-              </h1>
+          {/* isLibraryRoot 면 배너와 동일한 max-w wrapper 안 양쪽 정렬 — 로그인 chip 이 배너 우상단 corner 와 정렬. 그 외 페이지는 풀폭 padding. */}
+          <div
+            className={cn(
+              'w-full h-full flex items-center justify-between',
+              isLibraryRoot ? 'max-w-[1280px] mx-auto px-6 md:px-8' : 'px-7'
             )}
-          </div>
+          >
+            {/* 왼쪽: 페이지 타이틀 (큰 글자) */}
+            <div className="flex items-center gap-3 min-w-0">
+              {pageTitle && (
+                <h1 className="text-2xl md:text-3xl font-black font-display text-ink-900 truncate flex items-center gap-2">
+                  {pageTitle.iconSrc ? (
+                    <AppIcon src={pageTitle.iconSrc} size={36} alt={pageTitle.title} />
+                  ) : pageTitle.emoji ? (
+                    <span>{pageTitle.emoji}</span>
+                  ) : null}
+                  <span>{pageTitle.title}</span>
+                </h1>
+              )}
+            </div>
 
-          {/* 오른쪽: 프로필 + 로그인/로그아웃. /library transparent 헤더에서도 클릭 가능. */}
-          <div className="flex items-center gap-3 flex-shrink-0 pointer-events-auto">
-            {activeProfile && (
-              <div className="px-4 py-2 rounded-full bg-white shadow-soft text-sm font-black text-ink-900">
-                👦 {activeProfile.name}
-              </div>
-            )}
-            {session ? (
-              <button
-                onClick={handleSignOut}
-                className="w-10 h-10 rounded-full bg-white shadow-soft text-ink-500 hover:text-danger hover:shadow-pop transition flex items-center justify-center"
-                title="로그아웃"
-                aria-label="로그아웃"
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+            {/* 오른쪽: 프로필 + 로그인/로그아웃. /library transparent 헤더에서도 클릭 가능. */}
+            <div className="flex items-center gap-3 flex-shrink-0 pointer-events-auto">
+              {activeProfile && (
+                <div className="px-4 py-2 rounded-full bg-white shadow-soft text-sm font-black text-ink-900">
+                  👦 {activeProfile.name}
+                </div>
+              )}
+              {session ? (
+                <button
+                  onClick={handleSignOut}
+                  className="w-10 h-10 rounded-full bg-white shadow-soft text-ink-500 hover:text-danger hover:shadow-pop transition flex items-center justify-center"
+                  title="로그아웃"
+                  aria-label="로그아웃"
                 >
-                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                  <polyline points="16 17 21 12 16 7" />
-                  <line x1="21" y1="12" x2="9" y2="12" />
-                </svg>
-              </button>
-            ) : isConfigured ? (
-              <Link
-                to="/login"
-                className="px-5 py-2 rounded-full bg-coral-500 hover:bg-coral-600 text-white font-black text-sm shadow-soft hover:shadow-pop transition"
-              >
-                로그인
-              </Link>
-            ) : null}
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                  </svg>
+                </button>
+              ) : isConfigured ? (
+                <Link
+                  to="/login"
+                  className="px-5 py-2 rounded-full bg-coral-500 hover:bg-coral-600 text-white font-black text-sm shadow-soft hover:shadow-pop transition"
+                >
+                  로그인
+                </Link>
+              ) : null}
+            </div>
           </div>
         </header>
 
