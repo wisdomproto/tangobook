@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import type { Lang, Storybook, VocabularyUnitWord } from '@tangobook/shared';
+import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import type { Lang, Page, Storybook, VocabularyUnitWord } from '@tangobook/shared';
 import { resolveTtsUrl } from '@/features/tts';
+import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 
 interface WordDetailModalProps {
   word: VocabularyUnitWord;
@@ -12,6 +13,8 @@ interface WordDetailModalProps {
   lang: Lang;
   onClose: () => void;
 }
+
+const REVEAL_PAGE_AFTER_CLICKS = 3;
 
 function pickWordImage(word: VocabularyUnitWord): string | undefined {
   return word.images?.find((im) => im.isPrimary)?.imageUrl ?? word.images?.[0]?.imageUrl;
@@ -37,15 +40,7 @@ function findMatchingKeyObject(
   }) as never;
 }
 
-/**
- * 단어 TTS URL lookup chain — 우선순위:
- * 1. word.ttsUrls[lang] (단원 단어 multilang)
- * 2. word.ttsUrl (단원 단어 기본)
- * 3. storybook.key_objects[matched].ttsUrls[lang] (책 KeyObject multilang)
- * 4. storybook.key_objects[matched].ttsUrl (책 KeyObject 기본)
- *
- * 모두 없으면 undefined → 호출처에서 Web Speech API fallback.
- */
+/** 단어 TTS URL — word/keyObject 의 ttsUrls[lang] / ttsUrl chain. Web Speech fallback 은 호출자. */
 function pickWordTtsUrl(
   word: VocabularyUnitWord,
   lang: Lang,
@@ -53,7 +48,6 @@ function pickWordTtsUrl(
 ): string | undefined {
   if (word.ttsUrls?.[lang]) return word.ttsUrls[lang];
   if (lang === 'ko' && word.ttsUrl) return word.ttsUrl;
-
   const ko = findMatchingKeyObject(word, storybook);
   if (ko) {
     if (ko.ttsUrls?.[lang]) return ko.ttsUrls[lang];
@@ -62,9 +56,23 @@ function pickWordTtsUrl(
   return undefined;
 }
 
-/** storybook.key_objects 에서 이 단어와 매칭되는 항목의 첫 등장 페이지 일러스트 + 텍스트 + TTS */
+/**
+ * 페이지 lang 별 text/ttsUrl resolver.
+ *   lang='ko' → page.text + page.ttsUrl
+ *   lang='en' (또는 그 외) → page.translations[lang]?.{text, ttsUrl}
+ * 사용자 정책: 해당 lang TTS 없으면 무음 (Web Speech fallback X).
+ */
+function pickPageContent(page: Page | undefined, lang: Lang): { text?: string; ttsUrl?: string } {
+  if (!page) return {};
+  if (lang === 'ko') return { text: page.text, ttsUrl: page.ttsUrl };
+  const tr = page.translations?.[lang];
+  return { text: tr?.text ?? page.text, ttsUrl: tr?.ttsUrl };
+}
+
+/** storybook.key_objects 매칭 단어의 첫 등장 페이지 — 일러스트 + lang-specific text/TTS */
 function findPageIllustration(
   word: VocabularyUnitWord,
+  lang: Lang,
   storybook?: Storybook,
   style?: string
 ): { url: string; pageNumber: number; pageText?: string; pageTtsUrl?: string } | null {
@@ -80,19 +88,19 @@ function findPageIllustration(
   if (!url) return null;
 
   const page = storybook.pages?.[pageNum - 1];
-  return {
-    url,
-    pageNumber: pageNum,
-    pageText: page?.text,
-    pageTtsUrl: page?.ttsUrl, // 저장된 음원 — Web Speech 보다 음질 좋음
-  };
+  const { text, ttsUrl } = pickPageContent(page, lang);
+  return { url, pageNumber: pageNum, pageText: text, pageTtsUrl: ttsUrl };
 }
 
 /**
- * 단어 상세 팝업 — 단어 큰 표시 + 등장 페이지 일러스트 + 예문 + TTS 듣기 버튼들.
+ * 단어 상세 팝업 — 2 단계 (2026-05-19 재설계).
  *
- * 트리거: VocabularyStudyPage 의 단어 미리보기 카드 클릭.
- * TTS: 저장된 ttsUrl 우선, 없으면 Web Speech API fallback (단어 + 예문).
+ *   phase='word' (default): 단어 라벨 + 키오브젝트 삽화 (클릭 가능, 눌림 애니).
+ *                            삽화 클릭 → 단어 TTS + 카운트 +1. 3회 도달 시 칭찬 → phase='page'.
+ *   phase='page': 동화책 페이지 일러스트 + 페이지 텍스트 + 페이지 TTS 자동 재생 (lang 별).
+ *                  해당 lang 의 ttsUrl 없으면 무음 (사용자 정책: Web Speech 폴백 X).
+ *
+ * 트리거: VocabularyStudyContent 의 단어 미리보기 카드 클릭.
  */
 export function WordDetailModal({
   word,
@@ -102,6 +110,10 @@ export function WordDetailModal({
   onClose,
 }: WordDetailModalProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [phase, setPhase] = useState<'word' | 'page'>('word');
+  const [clickCount, setClickCount] = useState(0);
+  const [pressed, setPressed] = useState(false);
+  const [showPraise, setShowPraise] = useState(false);
 
   // ESC 키 닫기
   useEffect(() => {
@@ -112,25 +124,12 @@ export function WordDetailModal({
     return () => window.removeEventListener('keydown', handler);
   }, [onClose]);
 
-  // 언마운트 시 진행 중 오디오/스피치 중단
+  // 언마운트 시 진행 중 오디오 중단
   useEffect(() => {
     return () => {
       if (audioRef.current) audioRef.current.pause();
-      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     };
   }, []);
-
-  // 모달 열릴 때 단어 자동 재생 — 사용자 정책 (2026-05-10): 카드 탭 = 즉시 들리게.
-  // playWord 정의 후 호출 위해 useEffect 위치는 함수 정의 뒤로 옮김 ↓
-
-  const speakWithSynthesis = (text: string) => {
-    if (!('speechSynthesis' in window)) return;
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = lang === 'ko' ? 'ko-KR' : 'en-US';
-    utter.rate = 0.9;
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utter);
-  };
 
   const playUrl = (url: string) => {
     try {
@@ -144,9 +143,6 @@ export function WordDetailModal({
   };
 
   const playWord = async () => {
-    // 정책 단일화 (resolveTtsUrl):
-    //   한글 → phonics 음절 합성 우선 → KeyObject/word.ttsUrl fallback → Web Speech
-    //   영어 → KeyObject/word.ttsUrl 우선 → phonics concat fallback → Web Speech
     const text = lang === 'ko' ? (word.korean ?? word.word) : word.word;
     const url = await resolveTtsUrl({
       text,
@@ -155,27 +151,50 @@ export function WordDetailModal({
       directUrl: pickWordTtsUrl(word, lang, storybook),
       identifierPrefix: 'vocab',
     });
-    if (url) {
-      playUrl(url);
-      return;
+    if (url) playUrl(url);
+    // 단어는 학습 핵심이라 url 못 찾을 때 Web Speech fallback (페이지 TTS 와 정책 다름)
+    else if ('speechSynthesis' in window) {
+      const utter = new SpeechSynthesisUtterance(getDisplayLabel(word, lang));
+      utter.lang = lang === 'ko' ? 'ko-KR' : 'en-US';
+      utter.rate = 0.9;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utter);
     }
-    speakWithSynthesis(getDisplayLabel(word, lang));
   };
 
-  const playExample = () => {
-    if (!word.example) return;
-    speakWithSynthesis(word.example);
-  };
-
-  // 모달 mount 시 자동 재생 (카드 탭 = 즉시 들리게). word 변경 시 다시.
-  useEffect(() => {
+  const handleIllustrationClick = () => {
+    if (phase !== 'word' || showPraise) return;
+    // 눌림 애니메이션 (250ms scale 0.92 → 1.0)
+    setPressed(true);
+    setTimeout(() => setPressed(false), 250);
     void playWord();
-  }, [word.word]); // playWord 는 매 render 새 클로저라 deps 에 안 넣음 (의도)
+    setClickCount((c) => c + 1);
+  };
+
+  // clickCount 가 REVEAL_PAGE_AFTER_CLICKS 도달 시 칭찬 → 1.3s 후 페이지 전환.
+  // setTimeout 을 click handler 안에 두면 React render 간 stale closure 가능 — effect 로 분리해 안정화.
+  useEffect(() => {
+    if (phase !== 'word' || clickCount < REVEAL_PAGE_AFTER_CLICKS) return;
+    setShowPraise(true);
+    const t = setTimeout(() => {
+      setShowPraise(false);
+      setPhase('page');
+    }, 1300);
+    return () => clearTimeout(t);
+  }, [clickCount, phase]);
 
   const label = getDisplayLabel(word, lang);
   const wordImage = pickWordImage(word);
-  const pageInfo = findPageIllustration(word, storybook, currentStyle);
-  const showImage = pageInfo?.url ?? wordImage;
+  const pageInfo = findPageIllustration(word, lang, storybook, currentStyle);
+
+  // phase='page' 진입 시 페이지 TTS 자동 재생 (lang 별, 없으면 무음)
+  useEffect(() => {
+    if (phase !== 'page') return;
+    if (pageInfo?.pageTtsUrl) playUrl(pageInfo.pageTtsUrl);
+    // 사용자 정책: 해당 lang ttsUrl 없으면 Web Speech 폴백 X — 무음.
+  }, [phase, pageInfo?.pageTtsUrl]);
+
+  const progressDots = Array.from({ length: REVEAL_PAGE_AFTER_CLICKS }, (_, i) => i < clickCount);
 
   return (
     <motion.div
@@ -195,7 +214,7 @@ export function WordDetailModal({
         onClick={(e) => e.stopPropagation()}
         className="relative bg-white rounded-3xl shadow-pop max-w-2xl w-full max-h-[90vh] overflow-y-auto"
       >
-        {/* 닫기 버튼 — 우상단 */}
+        {/* 닫기 버튼 */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 w-12 h-12 rounded-full bg-cream-50 hover:bg-coral-100 shadow-soft text-2xl font-black text-ink-700 flex items-center justify-center transition"
@@ -205,7 +224,7 @@ export function WordDetailModal({
         </button>
 
         <div className="p-6 lg:p-8">
-          {/* 단어 + 듣기 */}
+          {/* 단어 라벨 (양 phase 공통) */}
           <div className="text-center mb-5">
             <h2 className="text-5xl lg:text-6xl font-black font-display text-ink-900 leading-tight">
               {label}
@@ -216,76 +235,99 @@ export function WordDetailModal({
             {lang === 'en' && word.korean && (
               <p className="mt-2 text-xl text-ink-500 font-bold">{word.korean}</p>
             )}
-            <button
-              onClick={playWord}
-              className="mt-4 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-br from-coral-400 to-coral-600 text-white font-black text-lg shadow-pop hover:brightness-110 active:scale-95 transition"
-              aria-label="단어 듣기"
-            >
-              <span className="text-2xl">🔊</span>
-              <span>듣기</span>
-            </button>
           </div>
 
-          {/* 등장 페이지 일러스트 (storybook) 또는 단어 이미지 (custom) */}
-          {showImage && (
-            <div className="rounded-2xl overflow-hidden border-4 border-amber-100 mb-5">
-              <img
-                src={showImage}
-                alt={label}
-                loading="lazy"
-                className="w-full h-auto object-cover"
-              />
-              {pageInfo && (
-                <p className="bg-amber-50 px-4 py-2 text-sm text-ink-500 font-bold text-center">
-                  📖 책의 {pageInfo.pageNumber}쪽
-                </p>
-              )}
-            </div>
-          )}
-
-          {/* 정의 */}
-          {word.definition && <p className="text-base text-ink-700 mb-3 px-2">{word.definition}</p>}
-
-          {/* 예문 + 듣기 */}
-          {word.example && (
-            <div className="bg-cream-50 rounded-2xl p-4 mb-2 flex items-start gap-3">
-              <button
-                onClick={playExample}
-                className="shrink-0 w-12 h-12 rounded-full bg-amber-400 hover:bg-amber-500 text-white text-xl shadow-soft flex items-center justify-center transition active:scale-95"
-                aria-label="예문 듣기"
+          <AnimatePresence mode="wait">
+            {phase === 'word' ? (
+              <motion.div
+                key="word"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex flex-col items-center gap-4"
               >
-                🔊
-              </button>
-              <p className="text-lg lg:text-xl text-ink-900 font-bold leading-snug">
-                {word.example}
-              </p>
-            </div>
-          )}
+                {/* 키오브젝트 삽화 — 클릭 가능, 눌림 애니메이션 */}
+                {wordImage ? (
+                  <button
+                    onClick={handleIllustrationClick}
+                    aria-label={`${label} 듣기 (${clickCount}/${REVEAL_PAGE_AFTER_CLICKS})`}
+                    className="rounded-2xl overflow-hidden border-4 border-amber-100 shadow-soft hover:shadow-pop transition-all duration-200 ease-out cursor-pointer focus:outline-none focus:ring-4 focus:ring-coral-300"
+                    style={{
+                      transform: pressed ? 'scale(0.92)' : 'scale(1)',
+                      transition: 'transform 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms',
+                    }}
+                  >
+                    <img
+                      src={wordImage}
+                      alt={label}
+                      loading="lazy"
+                      className="w-full h-auto object-cover pointer-events-none select-none"
+                      draggable={false}
+                    />
+                  </button>
+                ) : (
+                  <div className="w-full aspect-square rounded-2xl bg-amber-50 flex items-center justify-center text-7xl">
+                    📦
+                  </div>
+                )}
 
-          {/* 책 페이지 텍스트 + 듣기 (있으면). 저장된 ttsUrl 우선, 없으면 Web Speech fallback */}
-          {pageInfo?.pageText && (
-            <div className="bg-amber-50 rounded-2xl p-4 mt-3 flex items-start gap-3">
-              <button
-                onClick={() => {
-                  if (pageInfo.pageTtsUrl) {
-                    playUrl(pageInfo.pageTtsUrl);
-                  } else {
-                    speakWithSynthesis(pageInfo.pageText!);
-                  }
-                }}
-                className="shrink-0 w-12 h-12 rounded-full bg-amber-400 hover:bg-amber-500 text-white text-xl shadow-soft flex items-center justify-center transition active:scale-95"
-                aria-label="책 페이지 듣기"
+                {/* 진행 도트 — 3 회 클릭 진행도. 칭찬 끝나면 페이지로 전환 안내 */}
+                <div className="flex items-center gap-2.5 mt-1">
+                  {progressDots.map((filled, i) => (
+                    <span
+                      key={i}
+                      className={`w-4 h-4 rounded-full transition-all ${
+                        filled ? 'bg-coral-500 scale-110 shadow-soft' : 'bg-ink-200 scale-100'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <p className="text-sm text-ink-500 font-bold">그림을 눌러 단어를 들어봐!</p>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="page"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="flex flex-col gap-4"
               >
-                🔊
-              </button>
-              <div>
-                <p className="text-sm text-ink-500 font-bold mb-1">📖 책에서</p>
-                <p className="text-base text-ink-700 leading-snug">{pageInfo.pageText}</p>
-              </div>
-            </div>
-          )}
+                {/* 동화책 페이지 일러스트 */}
+                {pageInfo?.url && (
+                  <div className="rounded-2xl overflow-hidden border-4 border-amber-100">
+                    <img
+                      src={pageInfo.url}
+                      alt={`${label} - 책의 ${pageInfo.pageNumber}쪽`}
+                      loading="lazy"
+                      className="w-full h-auto object-cover"
+                    />
+                    <p className="bg-amber-50 px-4 py-2 text-sm text-ink-500 font-bold text-center">
+                      📖 책의 {pageInfo.pageNumber}쪽
+                    </p>
+                  </div>
+                )}
+
+                {/* 페이지 텍스트 (lang 별) — TTS 는 mount 시 자동 재생됨 */}
+                {pageInfo?.pageText && (
+                  <div className="bg-amber-50 rounded-2xl p-4">
+                    <p className="text-base text-ink-700 leading-relaxed">{pageInfo.pageText}</p>
+                  </div>
+                )}
+
+                {/* 페이지 없는 책 (custom 단원 등) — fallback 메시지 */}
+                {!pageInfo?.url && !pageInfo?.pageText && (
+                  <p className="text-center text-ink-500 font-bold py-8">
+                    이 단어가 등장하는 페이지를 찾을 수 없어요.
+                  </p>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </motion.div>
+
+      {/* 3 회 도달 칭찬 — 호리 + confetti + 랜덤 칭찬 텍스트 */}
+      <FeedbackOverlay kind="correct" visible={showPraise} durationMs={1200} />
     </motion.div>
   );
 }
