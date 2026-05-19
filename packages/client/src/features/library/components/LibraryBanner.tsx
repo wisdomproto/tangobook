@@ -13,7 +13,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 interface Slide {
   id: string;
-  emoji: string;
+  /** logo 슬라이드면 logoSrc, 그 외는 emoji */
+  logoSrc?: string;
+  emoji?: string;
   title: string;
   sub: string;
   bg: string; // tailwind bg gradient
@@ -21,6 +23,14 @@ interface Slide {
 }
 
 const SLIDES: Slide[] = [
+  {
+    id: 'brand',
+    logoSrc: '/logo/logo-kr.webp',
+    title: '그림책이 친구가 되는 시간',
+    sub: '호리와 함께 떠나는 동화 모험',
+    bg: 'bg-gradient-to-br from-cream-50 via-peach-50 to-peach-100',
+    textColor: 'text-ink-900',
+  },
   {
     id: 'styles',
     emoji: '🎨',
@@ -83,13 +93,21 @@ export function LibraryBanner() {
           transition={{ duration: 0.4 }}
           className={`absolute inset-0 ${slide.bg} flex items-center px-6 sm:px-10`}
         >
-          {/* 큰 이모지 일러스트 — 슬림 배너라 작은 영역 차지 */}
-          <div
-            className="text-6xl sm:text-7xl md:text-8xl shrink-0 mr-5 sm:mr-7 drop-shadow-md"
-            aria-hidden
-          >
-            {slide.emoji}
-          </div>
+          {/* 좌측 — 로고 또는 이모지 일러스트 */}
+          {slide.logoSrc ? (
+            <img
+              src={slide.logoSrc}
+              alt="탱고북"
+              className="h-16 sm:h-20 md:h-28 w-auto shrink-0 mr-5 sm:mr-7 drop-shadow-md object-contain"
+            />
+          ) : (
+            <div
+              className="text-6xl sm:text-7xl md:text-8xl shrink-0 mr-5 sm:mr-7 drop-shadow-md"
+              aria-hidden
+            >
+              {slide.emoji}
+            </div>
+          )}
           {/* 텍스트 */}
           <div className={`flex-1 min-w-0 ${slide.textColor}`}>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-display leading-tight">
