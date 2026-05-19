@@ -157,21 +157,6 @@ export function LibraryBanner() {
       >
         →
       </button>
-
-      {/* dot indicator */}
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
-        {SLIDES.map((s, i) => (
-          <button
-            key={s.id}
-            onClick={() => goTo(i)}
-            className={`w-2.5 h-2.5 rounded-full transition-all ${
-              i === idx ? 'bg-coral-500 scale-125 shadow-soft' : 'bg-ink-300 hover:bg-ink-400'
-            }`}
-            aria-label={`배너 ${i + 1}`}
-            aria-current={i === idx ? 'true' : 'false'}
-          />
-        ))}
-      </div>
     </div>
   );
 }
