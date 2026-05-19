@@ -227,21 +227,21 @@ function renderBookList() {
   if (q) books = books.filter(b => (b.title || '').toLowerCase().includes(q));
   if (cat) books = books.filter(b => b.category === cat);
   if (onlyIssues) books = books.filter(b => {
-    const a = analysisByBook.get(b.id);
-    return a && (a.stats.delete > 0 || a.stats.add > 0);
+    const s = computeStats(b.id);
+    return s.delete > 0 || s.add > 0;
   });
   books.sort((a, b) => {
-    const aa = analysisByBook.get(a.id)?.stats || {};
-    const bb = analysisByBook.get(b.id)?.stats || {};
-    const sa = (aa.delete || 0) + (aa.add || 0);
-    const sb = (bb.delete || 0) + (bb.add || 0);
-    if (sa !== sb) return sb - sa;
+    const sa = computeStats(a.id);
+    const sb = computeStats(b.id);
+    const ta = sa.delete + sa.add;
+    const tb = sb.delete + sb.add;
+    if (ta !== tb) return tb - ta;
     return (a.title || '').localeCompare(b.title || '');
   });
   const container = document.getElementById('book-list');
   if (!books.length) { container.innerHTML = `<div class="p-4 text-slate-400 text-center text-xs">결과 없음</div>`; return; }
   container.innerHTML = books.map(b => {
-    const a = analysisByBook.get(b.id)?.stats || {};
+    const s = computeStats(b.id);
     const dirty = dirtyBooks.has(b.id);
     return `
       <div class="book-row p-2 ${b.id === currentBookId ? 'active' : ''}" data-id="${b.id}">
@@ -250,9 +250,9 @@ function renderBookList() {
           <div class="flex-1 font-bold text-[13px] leading-tight">${escapeHtml(b.title || b.id)}</div>
         </div>
         <div class="flex items-center gap-1 mt-1">
-          ${a.add ? `<span class="chip chip-add">+${a.add}</span>` : ''}
-          ${a.delete ? `<span class="chip chip-del">−${a.delete}</span>` : ''}
-          ${a.keep ? `<span class="chip chip-keep">✓${a.keep}</span>` : ''}
+          ${s.add ? `<span class="chip chip-add">+${s.add}</span>` : ''}
+          ${s.delete ? `<span class="chip chip-del">−${s.delete}</span>` : ''}
+          ${s.keep ? `<span class="chip chip-keep">✓${s.keep}</span>` : ''}
           <div class="text-[10px] text-slate-400 ml-auto">${escapeHtml(b.category || '')}</div>
         </div>
       </div>
@@ -261,6 +261,35 @@ function renderBookList() {
   container.querySelectorAll('.book-row').forEach(row => {
     row.addEventListener('click', () => selectBook(row.dataset.id));
   });
+}
+
+// 책의 chip 카운트 — dirty 한 책이면 현재 keyObjects 반영, 아니면 정적 stats
+function computeStats(bookId) {
+  const ana = analysisByBook.get(bookId);
+  const baseStats = ana?.stats || { keep: 0, delete: 0, add: 0 };
+  // active 책이면 currentBook (최신 상태), 다른 dirty 책이면 dirtyBooks.get
+  let dirty = null;
+  if (currentBook && currentBook.id === bookId) dirty = currentBook;
+  else if (dirtyBooks.has(bookId)) dirty = dirtyBooks.get(bookId);
+  if (!dirty) return baseStats;
+  // dirty 책 — 현재 keyObjects (삭제 대기 제외) 기준 재계산
+  const addCandidates = new Set((ana?.add || []).map(a => a.word));
+  const deleteWords = new Set((ana?.delete || []).map(d => d.word));
+  const currentWords = new Set();
+  let keep = 0;
+  let del = 0;
+  for (const k of (dirty.key_objects || [])) {
+    if (k.__deletePending) continue;
+    const w = extractKo(k);
+    if (!w) continue;
+    currentWords.add(w);
+    if (deleteWords.has(w)) del++; else keep++;
+  }
+  let add = 0;
+  for (const w of addCandidates) {
+    if (!currentWords.has(w)) add++;
+  }
+  return { keep, delete: del, add };
 }
 
 document.getElementById('book-search').addEventListener('input', renderBookList);
@@ -310,6 +339,7 @@ function renderEditor() {
 
   renderAddSection();
   renderWordTable();
+  renderBookList(); // 좌측 chip 동기화 (단어 추가/삭제 시 chip 카운트 즉시 반영)
 }
 
 function renderAddSection() {
