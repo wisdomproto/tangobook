@@ -30,7 +30,7 @@ const SLIDES: Slide[] = [
     title: '한 동화를 여러 그림체로!',
     sub: '종이공예 · 수채화 · 픽사 · 실사 — 같은 이야기 다른 분위기',
     // imageUrl: '/images/library-banner/styles.webp',
-    bg: 'bg-gradient-to-br from-coral-300 via-coral-400 to-coral-500',
+    bg: 'bg-gradient-to-r from-peach-100 via-coral-300 to-coral-500',
     textColor: 'text-white',
   },
   {
@@ -39,7 +39,7 @@ const SLIDES: Slide[] = [
     title: '동화 속 단어로 게임 4가지',
     sub: '한글 블록 · 영어 블록 · 점잇기 · 낱말쓰기로 즐겁게 익혀요',
     // imageUrl: '/images/library-banner/games.webp',
-    bg: 'bg-gradient-to-br from-amber-300 via-amber-400 to-amber-500',
+    bg: 'bg-gradient-to-r from-cream-100 via-amber-300 to-amber-500',
     textColor: 'text-ink-900',
   },
   {
@@ -48,7 +48,7 @@ const SLIDES: Slide[] = [
     title: '동물·식물 자연관찰',
     sub: '공룡·곤충·바다·하늘 친구들과 떠나는 자연 모험',
     // imageUrl: '/images/library-banner/nature.webp',
-    bg: 'bg-gradient-to-br from-emerald-300 via-emerald-400 to-emerald-500',
+    bg: 'bg-gradient-to-r from-cream-100 via-emerald-300 to-emerald-500',
     textColor: 'text-white',
   },
 ];
