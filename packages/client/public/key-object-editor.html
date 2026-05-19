@@ -69,6 +69,11 @@
       <select id="filter-cat" class="border rounded px-2 py-1 text-sm w-full">
         <option value="">📦 모든 카테고리</option>
       </select>
+      <select id="sort-by" class="border rounded px-2 py-1 text-sm w-full">
+        <option value="issues">⚠ 문제 많은 순 (DEL+ADD)</option>
+        <option value="title">🔤 가나다 순</option>
+        <option value="category">📂 카테고리 → 제목</option>
+      </select>
       <label class="text-xs font-bold flex items-center gap-1">
         <input type="checkbox" id="filter-only-issues" />
         <span>⚠ DELETE/ADD 있는 책만</span>
@@ -231,14 +236,23 @@ function renderBookList() {
     const s = analysisByBook.get(b.id)?.stats || {};
     return (s.delete || 0) > 0 || (s.add || 0) > 0;
   });
+  const sortBy = document.getElementById('sort-by').value;
   books.sort((a, b) => {
-    // sort 도 정적 (active 책 클릭 시 위치 변동 방지)
+    if (sortBy === 'title') {
+      return (a.title || '').localeCompare(b.title || '', 'ko');
+    }
+    if (sortBy === 'category') {
+      const cmp = (a.category || '').localeCompare(b.category || '', 'ko');
+      if (cmp !== 0) return cmp;
+      return (a.title || '').localeCompare(b.title || '', 'ko');
+    }
+    // default: issues (정적 stats)
     const sa = analysisByBook.get(a.id)?.stats || {};
     const sb = analysisByBook.get(b.id)?.stats || {};
     const ta = (sa.delete || 0) + (sa.add || 0);
     const tb = (sb.delete || 0) + (sb.add || 0);
     if (ta !== tb) return tb - ta;
-    return (a.title || '').localeCompare(b.title || '');
+    return (a.title || '').localeCompare(b.title || '', 'ko');
   });
   const container = document.getElementById('book-list');
   if (!books.length) { container.innerHTML = `<div class="p-4 text-slate-400 text-center text-xs">결과 없음</div>`; return; }
@@ -296,6 +310,7 @@ function computeStats(bookId) {
 
 document.getElementById('book-search').addEventListener('input', renderBookList);
 document.getElementById('filter-cat').addEventListener('change', renderBookList);
+document.getElementById('sort-by').addEventListener('change', renderBookList);
 document.getElementById('filter-only-issues').addEventListener('change', renderBookList);
 
 // ====================================================================
