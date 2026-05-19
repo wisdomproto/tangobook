@@ -41,7 +41,7 @@ const SLIDES: Slide[] = [
     emoji: '🎮',
     title: '동화 속 단어로 게임 4가지',
     sub: '한글 블록 · 영어 블록 · 점잇기 · 낱말쓰기로 즐겁게 익혀요',
-    // imageUrl: '/images/library-banner/games.webp',
+    imageUrl: '/images/library-banner/games.webp',
     rightBg: 'bg-gradient-to-r from-cream-200 to-amber-400',
     accent: 'text-amber-600',
   },
