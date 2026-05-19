@@ -258,96 +258,100 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             /library 헤더는 absolute overlay (transparent) — 배너가 viewport top 까지 차지. */}
         {type === 'storybook' && <LibraryBanner />}
 
-        {/* 검색바 — 본문 상단. 4-5세 큰 input + 정렬 select. */}
-        <div className="mb-5 bg-white rounded-2xl px-5 py-4 shadow-soft flex items-center gap-3">
-          <span className="text-2xl">🔍</span>
-          <input
-            type="text"
-            placeholder={type === 'storybook' ? '무슨 책 찾을까?' : '어떤 파닉스 찾을까?'}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 outline-none text-lg bg-transparent text-ink-900 placeholder:text-ink-500 font-bold"
-          />
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as 'recent' | 'title')}
-            className="bg-transparent text-sm font-black text-ink-700 outline-none cursor-pointer"
-          >
-            <option value="recent">최신순</option>
-            <option value="title">제목순</option>
-          </select>
-        </div>
-        {/* 파닉스 한/영 chip — 학습자 가독성 위해 default Chip 보다 크게 (4-5세) */}
-        {type === 'phonics' && (
-          <div className="flex gap-2 mb-5">
-            {(
-              [
-                { id: 'all', label: '전체', count: phonicsCounts.korean + phonicsCounts.english },
-                { id: 'korean', label: '한글', count: phonicsCounts.korean },
-                { id: 'english', label: '영어', count: phonicsCounts.english },
-              ] as const
-            ).map((c) => (
-              <Chip
-                key={c.id}
-                variant="success"
-                active={phonicsLang === c.id}
-                trailing={phonicsLang === c.id ? c.count : undefined}
-                onClick={() => setPhonicsLang(c.id)}
-                className="!text-base !px-5 !py-2"
-              >
-                {c.label}
-              </Chip>
-            ))}
-          </div>
-        )}
-
-        {/* 카테고리 chip + 읽는 중 chip — 동화책 (단일 선택). 학습자 가독성 위해 키운 사이즈. */}
-        {type === 'storybook' && (allCategories.length > 1 || readingCount > 0) && (
-          <div className="flex gap-2 mb-5 overflow-x-auto pb-1">
-            <Chip
-              variant="ink"
-              active={activeCategory === null && !readingFilter}
-              onClick={() => {
-                setActiveCategory(null);
-                setReadingFilter(false);
-              }}
-              className="!text-base !px-5 !py-2"
+        {/* 검색바 (좌) + 카테고리 chip (우) — 한 줄. 검색바 shrink-0 고정 폭, chip 영역 가로 스크롤. */}
+        <div className="mb-5 flex items-center gap-3">
+          {/* 검색바 — 좌측 */}
+          <div className="shrink-0 w-72 sm:w-80 bg-white rounded-2xl px-4 py-3 shadow-soft flex items-center gap-2">
+            <span className="text-xl">🔍</span>
+            <input
+              type="text"
+              placeholder={type === 'storybook' ? '무슨 책 찾을까?' : '어떤 파닉스 찾을까?'}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="flex-1 min-w-0 outline-none text-base bg-transparent text-ink-900 placeholder:text-ink-500 font-bold"
+            />
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as 'recent' | 'title')}
+              className="bg-transparent text-xs font-black text-ink-700 outline-none cursor-pointer shrink-0"
             >
-              전체
-            </Chip>
-            {readingCount > 0 && (
+              <option value="recent">최신순</option>
+              <option value="title">제목순</option>
+            </select>
+          </div>
+
+          {/* 파닉스 한/영 chip — 동화책 모드에선 카테고리 chip 으로 대체 */}
+          {type === 'phonics' && (
+            <div className="flex-1 flex gap-2 overflow-x-auto pb-1">
+              {(
+                [
+                  { id: 'all', label: '전체', count: phonicsCounts.korean + phonicsCounts.english },
+                  { id: 'korean', label: '한글', count: phonicsCounts.korean },
+                  { id: 'english', label: '영어', count: phonicsCounts.english },
+                ] as const
+              ).map((c) => (
+                <Chip
+                  key={c.id}
+                  variant="success"
+                  active={phonicsLang === c.id}
+                  trailing={phonicsLang === c.id ? c.count : undefined}
+                  onClick={() => setPhonicsLang(c.id)}
+                  className="!text-base !px-5 !py-2"
+                >
+                  {c.label}
+                </Chip>
+              ))}
+            </div>
+          )}
+
+          {/* 카테고리 chip + 읽는 중 chip — 동화책. 우측 영역 flex-1 + 가로 스크롤 */}
+          {type === 'storybook' && (allCategories.length > 1 || readingCount > 0) && (
+            <div className="flex-1 flex gap-2 overflow-x-auto pb-1">
               <Chip
-                variant="warn"
-                active={readingFilter}
-                icon="📖"
-                trailing={readingCount}
+                variant="ink"
+                active={activeCategory === null && !readingFilter}
                 onClick={() => {
                   setActiveCategory(null);
-                  setReadingFilter((v) => !v);
-                }}
-                className="!text-base !px-5 !py-2"
-              >
-                읽는 중
-              </Chip>
-            )}
-            {allCategories.map(([cat, count]) => (
-              <Chip
-                key={cat}
-                variant="coral"
-                active={activeCategory === cat}
-                icon={getCategoryIconNode(cat, 24)}
-                trailing={activeCategory === cat ? count : undefined}
-                onClick={() => {
-                  setActiveCategory(cat);
                   setReadingFilter(false);
                 }}
                 className="!text-base !px-5 !py-2"
               >
-                {cat}
+                전체
               </Chip>
-            ))}
-          </div>
-        )}
+              {readingCount > 0 && (
+                <Chip
+                  variant="warn"
+                  active={readingFilter}
+                  icon="📖"
+                  trailing={readingCount}
+                  onClick={() => {
+                    setActiveCategory(null);
+                    setReadingFilter((v) => !v);
+                  }}
+                  className="!text-base !px-5 !py-2"
+                >
+                  읽는 중
+                </Chip>
+              )}
+              {allCategories.map(([cat, count]) => (
+                <Chip
+                  key={cat}
+                  variant="coral"
+                  active={activeCategory === cat}
+                  icon={getCategoryIconNode(cat, 24)}
+                  trailing={activeCategory === cat ? count : undefined}
+                  onClick={() => {
+                    setActiveCategory(cat);
+                    setReadingFilter(false);
+                  }}
+                  className="!text-base !px-5 !py-2"
+                >
+                  {cat}
+                </Chip>
+              ))}
+            </div>
+          )}
+        </div>
 
         {/* 콘텐츠 */}
         {isLoading ? (
