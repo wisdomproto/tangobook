@@ -83,6 +83,12 @@ features/{name}/{api,hooks,components,index.ts}
 - **vocab-overrides API**: `GET/PUT /api/vocab-overrides` → R2 `_index/vocab-overrides.json`. localStorage X, dirty 플래그 + 명시 💾 저장 + beforeunload 경고.
 - 영어 `vocabulary-master.html` 도 verbs/adj/adv 토픽 제거 + 어미 패턴 (~ly·ful·less·ous·ive·able·ish) 자동 필터.
 
+## 핵심단어 영어 번역 일괄 적용 (2026-05-19)
+- **스크립트 5종** (`packages/server/scripts/`): `scan-untranslated-keyobjects.mjs` (전 책 스캔 → `_data/untranslated-keyobjects.json` per-book ko+pages+pageTexts) · `condense-untranslated.mjs` (단어당 짧은 context 1줄 압축) · `prepare-batch.mjs N` (앞 N권 추출 + 기존 사전 reuse auto-fill + 잔여 manual list) · `apply-translations.mjs [file]` (번역 map `{ bookId: { tr: { ko: en } } }` 적용 → `POST /api/storybooks { storybook }`) · `merge-and-apply-batch.mjs` (auto+manual 머지 후 apply).
+- **원칙**: 페이지 텍스트 context 기반 동음이의어 분리 (지팡이 wand vs cane / 다리 leg vs bridge / 바람 wind vs hope / 화가 anger vs painter).
+- **POST /api/storybooks** body 는 `{ storybook: {...} }` wrapper 필수. raw object 보내면 500 "Cannot read properties of undefined (reading 'id')".
+- **누적**: 95권 / 361단어 적용 (세계 명작 45권 + L variant/파닉스 50권). 남은 58권 / 252단어.
+
 ## 핵심단어 에디터 (2026-05-18)
 - **`/key-object-editor.html`** — 저작도구 자료실 dropdown ✏️. 페이지 텍스트 기반 keyObject 재분류 + 책별 편집기.
 - **분석**: `packages/server/scripts/classify-by-page-text.mjs` — 모든 책의 page.text 를 한국어 토큰화 (조사 strip) → Wiktionary REST API 로 Noun 만 필터 → 책별 `keep` (텍스트에 있는 기존 keyObject) / `delete` (텍스트에 없음) / `add` (텍스트에서 새로 발견된 명사) 산출. Wiktionary cache `_data/wiktionary-cache.json` (재실행시 즉시).
