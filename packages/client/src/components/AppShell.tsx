@@ -158,7 +158,9 @@ export function AppShell() {
             </Link>
           ) : null}
           {/* 학습 리포팅 — 부모 영역 (이전 "부모" 라벨, 자물쇠 emoji 제거). 로그인 아래. */}
-          {isConfigured && <SecondaryNavButton to="/parent" emoji="📊" label="학습 리포팅" />}
+          {isConfigured && (
+            <SecondaryNavButton to="/parent" iconSrc="section/reports.webp" label="학습 리포팅" />
+          )}
         </div>
       </aside>
 

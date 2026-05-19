@@ -45,11 +45,13 @@ features/{name}/{api,hooks,components,index.ts}
 
 ## 디자인 시스템 — 아이콘
 - 프리미티브: `<AppIcon src="category/animal.png" size={48} />` (`design-system/primitives/AppIcon.tsx`)
-- 자산 위치: `packages/client/public/icons/{category,section,tab}/*.{png,svg}`
+- 자산 위치: `packages/client/public/icons/{category,section,tab}/*.{png,svg,webp}`
 - AI 생성 일러스트 (coral #FF6F61 + peach #FFE4D6 톤) — Khan Kids × 곰돌이푸 × Duolingo
+- **카테고리 sprite (2026-05-19)**: `/icons/category/sprite.webp` (1536×1536, 3×3, 512/cell). LibraryPage `CATEGORY_SPRITE_MAP` 으로 9개 카테고리 (세계명작/전래동화/공룡/곤충/육지/바다/하늘/식물/우주와 자연) inline background-position 렌더. 매핑 없는 카테고리(우리 몸 이야기 등)는 이모지 폴백.
+- **학습 리포팅 아이콘**: `/icons/section/reports.webp` (AppShell 사이드바 부모 영역).
 - Cambridge 토픽 매핑: `features/vocabulary-unit/lib/cambridge-icon-map.ts`
 - 마스코트 호리: `public/mascot/hori/*.webp` 그대로 (Mascot 컴포넌트)
-- 미사용 슬롯 (호리 게임·Storybook 4 카테고리·뷰어 툴바 등) 은 이모지 폴백 유지
+- 미사용 슬롯 (호리 게임·뷰어 툴바 등) 은 이모지 폴백 유지
 
 ## 디자인 시스템 — 폰트 (2026-05-03)
 - **Body / UI**: Pretendard Variable (한국 모던 앱 표준, 한글+Latin 조형 통일, 가변 38KB)

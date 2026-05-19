@@ -50,7 +50,7 @@ const SLIDES: Slide[] = [
     emoji: '🐯',
     title: '동물·식물 자연관찰',
     sub: '공룡 · 곤충 · 바다 · 하늘 친구들과\n떠나는 자연 모험',
-    // imageUrl: '/images/library-banner/nature.webp',
+    imageUrl: '/images/library-banner/nature.webp',
     rightBg: 'bg-gradient-to-r from-cream-200 to-emerald-400',
     accent: 'text-emerald-600',
   },
@@ -125,10 +125,10 @@ export function LibraryBanner() {
                     backgroundImage: `url(${slide.imageUrl})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    // 좌측 가장자리 fade — 좌측 cream 톤과 부드럽게 연결 (split 해소)
-                    maskImage: 'linear-gradient(to right, transparent 0%, black 12%, black 100%)',
+                    // 좌측 가장자리 fade — 좌측 cream 톤과 부드럽게 연결 (split 해소). 너비 좁게.
+                    maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 100%)',
                     WebkitMaskImage:
-                      'linear-gradient(to right, transparent 0%, black 12%, black 100%)',
+                      'linear-gradient(to right, transparent 0%, black 5%, black 100%)',
                   }
                 : undefined
             }

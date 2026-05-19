@@ -8,7 +8,7 @@ import {
   useReadingStatus,
   useLibraryConfig,
 } from '@/features/library';
-import { StateScreen, SkeletonBookCard, Chip, AppIcon } from '@/design-system';
+import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
 
 /**
@@ -51,37 +51,54 @@ interface LibraryPageProps {
 }
 
 /**
- * 한글 카테고리명 → public/icons/{file} 매핑.
+ * 한글 카테고리명 → sprite cell `[col, row]` 매핑.
  *
- * 실제 사용 중인 카테고리 (`/api/storybooks` 기준):
- *   세계 명작 150권 · 자연 관찰 53권 · 전래 동화 5권 · 기타 4권
+ * 스프라이트: `/icons/category/sprite.webp` (1536×1536, 3×3 grid, 512×512/cell).
+ *   R0: 세계 명작 / 전래 동화 / 공룡 친구들
+ *   R1: 곤충 친구들 / 육지 동물 친구들 / 바다 동물 친구들
+ *   R2: 하늘 동물 친구들 / 식물 친구들 / 우주와 자연
  *
- * 추가로 미래 확장용 9개 (동물/가족/자연/친구/음식/모험/직업/감정/일상) PNG 도
- * `public/icons/category/` 에 준비돼 있어 새 카테고리 만들면 즉시 사용 가능.
+ * 매핑에 없는 카테고리 (`우리 몸 이야기`·legacy 등) 는 이모지 fallback.
  */
-const CATEGORY_ICON_MAP: Record<string, string> = {
-  // 실제 사용 중 — 차별화된 아이콘 매핑
-  '세계 명작': 'category/adventure.webp', // 모험 (왕관/별빛 톤)
-  '자연 관찰': 'category/nature.webp',
-  '생활 동화': 'category/family.webp', // 가족 (생활 톤)
-  '전래 동화': 'category/emotion.webp', // 임시 (적합 자산 만들 때 교체)
-  기타: 'tab/storybook.svg', // 일반 동화책
-  // 미래용
-  동물: 'category/animal.webp',
-  가족: 'category/family.webp',
-  자연: 'category/nature.webp',
-  친구: 'category/friend.webp',
-  음식: 'category/food.webp',
-  모험: 'category/adventure.webp',
-  직업: 'category/job.webp',
-  감정: 'category/emotion.webp',
-  일상: 'category/daily.webp',
+const CATEGORY_SPRITE_URL = '/icons/category/sprite.webp';
+const CATEGORY_SPRITE_MAP: Record<string, [number, number]> = {
+  '세계 명작': [0, 0],
+  '전래 동화': [1, 0],
+  '공룡 친구들': [2, 0],
+  '곤충 친구들': [0, 1],
+  '육지 동물 친구들': [1, 1],
+  '바다 동물 친구들': [2, 1],
+  '하늘 동물 친구들': [0, 2],
+  '식물 친구들': [1, 2],
+  '우주와 자연': [2, 2],
+};
+
+const CATEGORY_EMOJI_FALLBACK: Record<string, string> = {
+  '우리 몸 이야기': '🫀',
 };
 
 const getCategoryIconNode = (cat: string, size = 22): ReactNode => {
-  const path = CATEGORY_ICON_MAP[cat];
-  if (path) return <AppIcon src={path} size={size} alt={cat} />;
-  return <span>📚</span>;
+  const cell = CATEGORY_SPRITE_MAP[cat];
+  if (cell) {
+    const [col, row] = cell;
+    return (
+      <span
+        role="img"
+        aria-label={cat}
+        className="inline-block shrink-0 align-middle"
+        style={{
+          width: size,
+          height: size,
+          backgroundImage: `url(${CATEGORY_SPRITE_URL})`,
+          backgroundSize: `${size * 3}px ${size * 3}px`,
+          backgroundPosition: `-${col * size}px -${row * size}px`,
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+    );
+  }
+  const emoji = CATEGORY_EMOJI_FALLBACK[cat];
+  return <span aria-label={cat}>{emoji ?? '📚'}</span>;
 };
 
 /** 마스터 페이지 config 비어있을 때 fallback 우선순위. */
@@ -259,9 +276,9 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
         {type === 'storybook' && <LibraryBanner />}
 
         {/* 검색바 (좌) + 카테고리 chip (우) — 한 줄. 검색바 shrink-0 고정 폭, chip 영역 가로 스크롤. */}
-        <div className="mb-5 flex items-center gap-3">
+        <div className="mb-5 flex items-center gap-8 md:gap-10">
           {/* 검색바 — 좌측 */}
-          <div className="shrink-0 w-72 sm:w-80 bg-white rounded-2xl px-4 py-3 shadow-soft flex items-center gap-2">
+          <div className="shrink-0 w-[432px] sm:w-[480px] bg-white rounded-2xl px-4 py-3 shadow-soft flex items-center gap-2">
             <span className="text-xl">🔍</span>
             <input
               type="text"
