@@ -1,7 +1,13 @@
 import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useStorybooks } from '@/features/storybook';
-import { CategorySection, BookCard, useReadingStatus, useLibraryConfig } from '@/features/library';
+import {
+  CategorySection,
+  BookCard,
+  LibraryBanner,
+  useReadingStatus,
+  useLibraryConfig,
+} from '@/features/library';
 import { StateScreen, SkeletonBookCard, Chip, AppIcon } from '@/design-system';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
 
@@ -248,7 +254,10 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   return (
     <div className="bg-gradient-to-b from-cream-50 to-peach-100 min-h-full">
       <div className="max-w-[1280px] mx-auto px-6 md:px-8 pt-5 pb-6">
-        {/* 검색바 — 본문 상단 (이전 hero 배너 폐기 2026-05-18). 4-5세 큰 input + 정렬 select. */}
+        {/* 롤링 배너 — 동화책 모드 only. 3 슬라이드 (그림체/어휘게임/자연관찰) 5s auto-advance. */}
+        {type === 'storybook' && <LibraryBanner />}
+
+        {/* 검색바 — 본문 상단. 4-5세 큰 input + 정렬 select. */}
         <div className="mb-5 bg-white rounded-2xl px-5 py-4 shadow-soft flex items-center gap-3">
           <span className="text-2xl">🔍</span>
           <input

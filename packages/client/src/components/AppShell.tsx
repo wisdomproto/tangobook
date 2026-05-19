@@ -82,8 +82,12 @@ export function AppShell() {
     <div className="flex min-h-screen bg-cream-50">
       {/* 좌측 nav — 태블릿 기준 w-44 (176px). 박스 + 라벨 가독성 우선. */}
       <aside className="w-44 flex-shrink-0 sticky top-0 h-screen flex flex-col bg-cream-50 border-r border-ink-100/60">
-        {/* 로고 영역 — 헤더 가운데로 이관 (2026-05-18). 사이드바 상단은 빈 spacer 로 헤더 height 와 정렬. */}
-        <div className="h-20 border-b border-ink-100/40" />
+        {/* 로고 영역 — 사이드바 좌상단. 헤더 height(80px) 와 정렬. */}
+        <div className="h-20 flex items-center justify-center px-2 border-b border-ink-100/40">
+          <Link to="/library" aria-label="홈으로">
+            <img src="/logo/logo-kr.webp" alt="탱고북" className="h-14 w-auto object-contain" />
+          </Link>
+        </div>
 
         {/* 3 axis — 동화책 / 파닉스 / 어휘. 학습 메인 메뉴. */}
         <nav className="flex flex-col gap-3 items-center pt-5 pb-4">
@@ -118,15 +122,7 @@ export function AppShell() {
 
       {/* 우측 영역 — 일반 sticky header (라이브러리 hero 폐기 2026-05-18). */}
       <div className="flex-1 flex flex-col min-w-0 relative">
-        <header className="relative h-20 z-30 px-7 flex items-center justify-between sticky top-0 bg-cream-50 border-b border-ink-100/60">
-          {/* 가운데 로고 — absolute center 로 left/right 크기 차이와 무관하게 정확히 center. */}
-          <Link
-            to="/library"
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
-            aria-label="홈으로"
-          >
-            <img src="/logo/logo-kr.webp" alt="탱고북" className="h-12 w-auto object-contain" />
-          </Link>
+        <header className="h-20 z-30 px-7 flex items-center justify-between sticky top-0 bg-cream-50 border-b border-ink-100/60">
           {/* 왼쪽: 페이지 타이틀 (큰 글자) + 인사말 sub */}
           <div className="flex items-center gap-3 min-w-0">
             {pageTitle && (
