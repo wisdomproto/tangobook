@@ -215,7 +215,7 @@ KoreanBlockPlayer / EnglishBlockPlayer 공통:
 
 - **정답 자동 체크**: 블록 배치가 정답과 일치하면 "확인" 버튼 없이 즉시 정답 처리. `useEffect` 가 composed/grid 변경 watch → `handleCheckRef.current()` 호출. 오답 분기는 자동 발동 X (사용자가 직접 확인 버튼 클릭 시에만 wrong 표시). `roundCorrect` 가드로 중복 방지.
 - **handleCheckRef pattern**: `useRef(handleCheck)` + render body 에서 `ref.current = handleCheck` (effect 로 하면 자동 체크 effect 가 ref 갱신보다 먼저 fire 해 stale closure 호출 → 오답 처리됨).
-- **정답 시퀀스**: `playCorrectSequence({ ttsUrl, language, onDone })` — 효과음 → 0.5s → 단어 발음 1.2s → 시스템 칭찬 음원 1.5s → onDone (총 ~3.2s). 동시에 `FeedbackOverlay kind="correct"` (호리 cheering + confetti + "잘했어!" 랜덤) 가 `praiseVisible` state 로 표시. 짧은 setTimeout (1.7s) + playAudio 단독은 단어 발음 잘리는 문제 있어 폐기.
+- **정답 시퀀스**: `playCorrectSequence({ ttsUrl, language, onDone })` — 효과음 → 0.5s → 단어 발음 (audio `ended` 이벤트 대기) → 시스템 칭찬 음원 (audio `ended` 이벤트 대기) → onDone. `playAudio(url, onEnded)` 콜백으로 chain — 단어 길이/칭찬 길이 무관 안 잘림. 동시에 `FeedbackOverlay kind="correct"` (호리 cheering + confetti + "잘했어!" 랜덤) 가 `praiseVisible` state 로 표시. **2026-05-19 변경**: 고정 1.2s/1.5s 타임아웃은 다음절 한글 단어 (강아지·바나나 등) TTS 가 잘리는 원인 → ended 이벤트 chain 으로 교체.
 - **z-index**: `FeedbackOverlay` 의 `fixed z-40` 이 player wrapper `fixed z-[60]` 의 stacking context 안에서 최상위 — SpeakingPlayer 도 동일 패턴.
 
 `RandomBlockGamePage` (사이드바 진입) 한정:

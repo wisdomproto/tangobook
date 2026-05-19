@@ -35,8 +35,11 @@ export function useGameAudio() {
       .catch(() => {});
   }, []);
 
-  const playAudio = useCallback((url?: string) => {
-    if (!url) return;
+  const playAudio = useCallback((url?: string, onEnded?: () => void) => {
+    if (!url) {
+      onEnded?.();
+      return;
+    }
     // 이전 오디오 정지 후 새 인스턴스로 재생 (autoplay 정책 회피)
     if (lastAudioRef.current) {
       lastAudioRef.current.pause();
@@ -45,11 +48,17 @@ export function useGameAudio() {
     }
     const audio = new Audio(url);
     allAudiosRef.current.add(audio);
-    audio.addEventListener('ended', () => {
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
       allAudiosRef.current.delete(audio);
-    });
+      onEnded?.();
+    };
+    audio.addEventListener('ended', finish);
+    audio.addEventListener('error', finish);
     lastAudioRef.current = audio;
-    audio.play().catch(() => {});
+    audio.play().catch(finish);
   }, []);
 
   // 기존 WebAudio 톤 합성 제거 → useGameSound에 위임
@@ -74,32 +83,30 @@ export function useGameAudio() {
   }, []);
 
   /**
-   * 단어 한 개 정답 — 효과음 → TTS(선택) → onDone. 호리/칭찬음원 X (4-5세 부담 ↓).
+   * 단어 한 개 정답 — 효과음 → TTS(선택, 끝까지 재생) → onDone. 호리/칭찬음원 X (4-5세 부담 ↓).
    * 사용자 정책 (2026-05-10): 단어 1개 맞출 때는 호리/칭찬 X, 모든 단어 맞으면 GameResultScreen 호리.
    */
   const playWordCorrect = useCallback(
     (opts?: { ttsUrl?: string; onDone?: () => void }) => {
       playFeedbackSound(true);
-      let delay = 500;
-      if (opts?.ttsUrl) {
-        scheduleTimer(() => playAudio(opts.ttsUrl), delay);
-        delay += 1200;
-      }
-      if (opts?.onDone) scheduleTimer(opts.onDone, delay);
+      scheduleTimer(() => {
+        if (opts?.ttsUrl) {
+          playAudio(opts.ttsUrl, () => opts.onDone?.());
+        } else {
+          opts?.onDone?.();
+        }
+      }, 500);
     },
     [playFeedbackSound, playAudio, scheduleTimer]
   );
 
-  /** [DEPRECATED — 단어 1개 시 호리/칭찬 정책 위반] 정답 시퀀스: 효과음 → 칭찬 애니메이션 → TTS → 시스템 칭찬 → onDone */
+  /** 정답 시퀀스: 효과음 → 칭찬 애니메이션 → TTS (단어 끝까지) → 시스템 칭찬 (끝까지) → onDone.
+   * 단어/칭찬 TTS 의 실제 'ended' 이벤트를 기다려 chain — 단어 길이에 관계없이 잘리지 않음. */
   const playCorrectSequence = useCallback(
     (opts?: CorrectSequenceOpts) => {
       playFeedbackSound(true);
       setPraiseVisible(true);
-      let delay = 500;
-      if (opts?.ttsUrl) {
-        scheduleTimer(() => playAudio(opts.ttsUrl), delay);
-        delay += 1200;
-      }
+
       // 시스템 칭찬 음원: props로 전달된 URL 우선, 없으면 라이브러리에서 랜덤 선택
       // language 지정 시 해당 언어 pool만 사용. 비어있으면 반대 언어로 fallback. 둘 다 비면 undefined
       const pool =
@@ -115,16 +122,28 @@ export function useGameAudio() {
       const correctUrl =
         opts?.systemSounds?.correctUrl ||
         (pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : undefined);
-      if (correctUrl) {
-        scheduleTimer(() => playAudio(correctUrl), delay);
-        delay += 1500;
-      } else {
-        // 음원이 없어도 최소 대기 (피드백 효과음을 들을 수 있도록)
-        delay = Math.max(delay, 1200);
-      }
-      // 칭찬 오버레이 종료 (onDone 직전에 닫기)
-      scheduleTimer(() => setPraiseVisible(false), delay - 300);
-      if (opts?.onDone) scheduleTimer(opts.onDone, delay);
+
+      const finishSequence = () => {
+        setPraiseVisible(false);
+        opts?.onDone?.();
+      };
+      const playPraise = () => {
+        if (correctUrl) {
+          playAudio(correctUrl, finishSequence);
+        } else {
+          // 음원이 없어도 잠깐 칭찬 오버레이 유지 후 종료
+          scheduleTimer(finishSequence, 400);
+        }
+      };
+
+      // 효과음 → 0.5s 갭 → 단어 TTS (끝까지) → 시스템 칭찬 (끝까지) → onDone
+      scheduleTimer(() => {
+        if (opts?.ttsUrl) {
+          playAudio(opts.ttsUrl, playPraise);
+        } else {
+          playPraise();
+        }
+      }, 500);
     },
     [playFeedbackSound, playAudio, koreanSoundUrls, englishSoundUrls, scheduleTimer]
   );
