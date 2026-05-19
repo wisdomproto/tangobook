@@ -588,6 +588,22 @@ document.getElementById('btn-save').addEventListener('click', async () => {
     const j = await res.json();
     currentBook = j.data;
     dirtyBooks.delete(currentBook.id);
+    // 저장 후 analysisByBook.stats 도 갱신 — 좌측 chip 이 baseStats 로 회귀하지 않게
+    const ana = analysisByBook.get(currentBook.id);
+    if (ana) {
+      const deleteWords = new Set((ana.delete || []).map(d => d.word));
+      const addCandidates = ana.add || [];
+      const currentWords = new Set((currentBook.key_objects || []).map(extractKo).filter(Boolean));
+      let keep = 0, del = 0;
+      for (const w of currentWords) {
+        if (deleteWords.has(w)) del++; else keep++;
+      }
+      let add = 0;
+      for (const a of addCandidates) {
+        if (!currentWords.has(a.word)) add++;
+      }
+      ana.stats = { keep, delete: del, add };
+    }
     updateDirtyStat();
     renderEditor();
     renderBookList();
