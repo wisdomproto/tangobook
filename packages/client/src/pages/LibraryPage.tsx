@@ -127,10 +127,12 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     [libConfig?.categoryOrder]
   );
   const [search, setSearch] = useState('');
-  const [sortBy, setSortBy] = useState<'recent' | 'title'>('recent');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [readingFilter, setReadingFilter] = useState(false);
   const [phonicsLang, setPhonicsLang] = useState<PhonicsLang>('all');
+  // 4-5세 인지부하 ↓ — 카테고리 chip 기본 4개만 노출, "더 ▾" 토글로 펼치기
+  const [showAllCategories, setShowAllCategories] = useState(false);
+  const CATEGORY_DEFAULT_VISIBLE = 4;
 
   const matchesType = (b: BookIndexEntry): boolean => {
     if (type === 'storybook') return !b.type || b.type === 'storybook';
@@ -158,11 +160,9 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     const byReading = readingFilter
       ? byCat.filter((b) => statusMap?.get(b.id) === 'reading')
       : byCat;
-    // 카테고리 chip 으로 단일 카테고리 보기 + sortBy 기본값(recent) 일 때는
-    // 라이브러리 마스터에서 정한 bookPriority 순서를 따른다 (카테고리 섹션 미리보기 9권과 동일 순서).
-    // sortBy='title' 은 사용자가 명시 선택한 정렬이므로 그대로 존중.
-    const priorityIds =
-      sortBy === 'recent' && activeCategory ? libConfig?.bookPriority?.[activeCategory] : undefined;
+    // 단일 카테고리 보기에선 라이브러리 마스터에서 정한 bookPriority 순서를 따름
+    // (카테고리 섹션 미리보기 9권과 동일 순서). 그 외에는 최신순 (updatedAt desc).
+    const priorityIds = activeCategory ? libConfig?.bookPriority?.[activeCategory] : undefined;
     const priorityIdx = priorityIds?.length
       ? new Map(priorityIds.map((id, i) => [id, i]))
       : undefined;
@@ -174,16 +174,13 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
         if (ai !== Infinity) return -1;
         if (bi !== Infinity) return 1;
       }
-      return sortBy === 'recent'
-        ? (b.updatedAt ?? '').localeCompare(a.updatedAt ?? '')
-        : a.title.localeCompare(b.title, 'ko');
+      return (b.updatedAt ?? '').localeCompare(a.updatedAt ?? '');
     });
   }, [
     all,
     type,
     phonicsLang,
     search,
-    sortBy,
     activeCategory,
     readingFilter,
     statusMap,
@@ -270,15 +267,15 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
 
   return (
     <div className="bg-gradient-to-b from-cream-50 to-peach-100 min-h-full">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-8 pt-0 pb-6">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-8 pt-0 pb-6">
         {/* 롤링 배너 — 동화책 모드 only. 3 슬라이드 (그림체/어휘게임/자연관찰) 5s auto-advance.
             /library 헤더는 absolute overlay (transparent) — 배너가 viewport top 까지 차지. */}
         {type === 'storybook' && <LibraryBanner />}
 
-        {/* 검색바 (좌) + 카테고리 chip (우) — 한 줄. 검색바 shrink-0 고정 폭, chip 영역 가로 스크롤. */}
-        <div className="mb-5 flex items-center gap-8 md:gap-10">
+        {/* 검색바 (좌) + 카테고리 chip (우). 모바일 stack, md+ 가로. 검색바 적정 폭으로 줄여 chip 영역 확보. */}
+        <div className="mb-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 lg:gap-8">
           {/* 검색바 — 좌측 */}
-          <div className="shrink-0 w-[432px] sm:w-[480px] bg-white rounded-2xl px-4 py-3 shadow-soft flex items-center gap-2">
+          <div className="shrink-0 w-full md:w-72 lg:w-80 2xl:w-96 bg-white rounded-2xl px-4 py-3 shadow-soft flex items-center gap-2">
             <span className="text-xl">🔍</span>
             <input
               type="text"
@@ -287,14 +284,6 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
               onChange={(e) => setSearch(e.target.value)}
               className="flex-1 min-w-0 outline-none text-base bg-transparent text-ink-900 placeholder:text-ink-500 font-bold"
             />
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as 'recent' | 'title')}
-              className="bg-transparent text-xs font-black text-ink-700 outline-none cursor-pointer shrink-0"
-            >
-              <option value="recent">최신순</option>
-              <option value="title">제목순</option>
-            </select>
           </div>
 
           {/* 파닉스 한/영 chip — 동화책 모드에선 카테고리 chip 으로 대체 */}
@@ -321,7 +310,8 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             </div>
           )}
 
-          {/* 카테고리 chip + 읽는 중 chip — 동화책. 우측 영역 flex-1 + 가로 스크롤 */}
+          {/* 카테고리 chip + 읽는 중 chip — 동화책. 우측 영역 flex-1 + 가로 스크롤.
+              4-5세 인지부하 ↓ — 기본 4개만 + 활성 카테고리 + 읽는중 노출. 나머지는 "더 ▾" 클릭. */}
           {type === 'storybook' && (allCategories.length > 1 || readingCount > 0) && (
             <div className="flex-1 flex gap-2 overflow-x-auto pb-1">
               <Chip
@@ -350,29 +340,50 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
                   읽는 중
                 </Chip>
               )}
-              {allCategories.map(([cat, count]) => (
-                <Chip
-                  key={cat}
-                  variant="coral"
-                  active={activeCategory === cat}
-                  icon={getCategoryIconNode(cat, 24)}
-                  trailing={activeCategory === cat ? count : undefined}
-                  onClick={() => {
-                    setActiveCategory(cat);
-                    setReadingFilter(false);
-                  }}
-                  className="!text-base !px-5 !py-2"
+              {(() => {
+                // 활성 카테고리는 default 가시 범위에 없어도 무조건 보이게.
+                const visibleSet = new Set<string>(
+                  allCategories.slice(0, CATEGORY_DEFAULT_VISIBLE).map(([c]) => c)
+                );
+                if (activeCategory) visibleSet.add(activeCategory);
+                const chips = showAllCategories
+                  ? allCategories
+                  : allCategories.filter(([c]) => visibleSet.has(c));
+                return chips.map(([cat, count]) => (
+                  <Chip
+                    key={cat}
+                    variant="coral"
+                    active={activeCategory === cat}
+                    icon={getCategoryIconNode(cat, 24)}
+                    trailing={activeCategory === cat ? count : undefined}
+                    onClick={() => {
+                      setActiveCategory(cat);
+                      setReadingFilter(false);
+                    }}
+                    className="!text-base !px-5 !py-2"
+                  >
+                    {cat}
+                  </Chip>
+                ));
+              })()}
+              {allCategories.length > CATEGORY_DEFAULT_VISIBLE && (
+                <button
+                  onClick={() => setShowAllCategories((v) => !v)}
+                  className="shrink-0 px-4 py-2 rounded-full bg-white shadow-soft text-sm font-black text-ink-600 hover:bg-ink-50 transition"
+                  aria-label={showAllCategories ? '카테고리 접기' : '카테고리 더 보기'}
                 >
-                  {cat}
-                </Chip>
-              ))}
+                  {showAllCategories
+                    ? '▴ 접기'
+                    : `더 ▾ +${allCategories.length - CATEGORY_DEFAULT_VISIBLE}`}
+                </button>
+              )}
             </div>
           )}
         </div>
 
         {/* 콘텐츠 */}
         {isLoading ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 sm:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 sm:gap-6">
             {Array.from({ length: 9 }).map((_, i) => (
               <SkeletonBookCard key={i} />
             ))}
@@ -399,7 +410,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             />
           ))
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 sm:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 sm:gap-6">
             {filtered.map((b) => (
               <BookCard key={b.id} book={b} />
             ))}

@@ -105,3 +105,12 @@
   background-size: 200% 100%;
   animation: sk-slide 1.4s infinite;
 }
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

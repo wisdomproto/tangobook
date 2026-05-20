@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, NavLink, Link, useLocation } from 'react-router-dom';
 import { AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
@@ -9,6 +9,7 @@ import { cn } from '@/lib/cn';
  * 진입점 페이지에만 적용 (deep view 인 viewer/editor/게임 플레이어는 제외).
  *
  * 디자인 타겟: 태블릿 1024-1366 + 4-5세 사용자 → 큰 글자, 큰 터치 타겟, 빈 공간 최소화.
+ * 모바일 (<md / <768px): 사이드바 hide → 헤더 좌상단 햄버거 → 슬라이드 드로어. 320px 부터 지원.
  */
 /**
  * 사이드바 메인 axis — 3축 모두 동일 정사각 박스 디자인 (정렬 통일).
@@ -70,105 +71,152 @@ export function AppShell() {
   // /library 는 배너가 viewport top 까지 차지 — 헤더 absolute overlay (transparent) 로
   // main 이 0부터 시작. 우상단 chip 만 pointer-events-auto 로 클릭 가능.
   const isLibraryRoot = location.pathname === '/library';
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   // 학습자 화면은 라이트 모드 고정
   useEffect(() => {
     document.documentElement.classList.remove('dark');
   }, []);
 
+  // 라우트 변경 시 드로어 자동 close
+  useEffect(() => {
+    setDrawerOpen(false);
+  }, [location.pathname]);
+
   const handleSignOut = async () => {
     if (!window.confirm('로그아웃할까요?')) return;
     await signOut();
   };
 
+  const sidebarContent = (
+    <>
+      {/* 로고 영역 — 사이드바 좌상단. 헤더 height(80px) 와 정렬. */}
+      <div className="h-20 flex items-center justify-center px-2 border-b border-ink-100/40">
+        <Link to="/library" aria-label="홈으로">
+          <img src="/logo/logo-kr.webp" alt="탱고북" className="h-14 w-auto object-contain" />
+        </Link>
+      </div>
+
+      {/* 3 axis — 동화책 / 파닉스 / 어휘. 학습 메인 메뉴. */}
+      <nav className="flex flex-col gap-3 items-center pt-5 pb-4">
+        {PRIMARY_AXES.map((axis) => (
+          <PrimaryNavButton key={axis.to} {...axis} />
+        ))}
+      </nav>
+
+      {/* 미니 게임 — 학습 메뉴와 명확히 구분 (위·아래 border + 작은 섹션 헤더) */}
+      <div className="mx-3 px-2 py-3 border-t border-b border-ink-200/60 bg-cream-100/40 rounded-none">
+        <div className="text-[11px] font-black tracking-wider text-ink-500 uppercase text-center mb-2">
+          미니 게임
+        </div>
+        <div className="flex flex-col gap-2">
+          <SubGameButton
+            to="/games/korean-block"
+            iconSrc="game/korean-block.webp"
+            label="한글 블록 게임"
+          />
+          <SubGameButton
+            to="/games/alphabet-block"
+            iconSrc="game/korean-block.webp"
+            label="알파벳 블록 게임"
+          />
+        </div>
+      </div>
+
+      <div className="mt-auto px-3 pb-3 pt-3 border-t border-ink-100/60 flex flex-col gap-1.5">
+        {/* 로그인/로그아웃 — 학습 리포팅 위. session 상태에 따라 분기 */}
+        {session ? (
+          <button
+            onClick={handleSignOut}
+            className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-danger transition-all"
+            aria-label="로그아웃"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="shrink-0"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            <span>로그아웃</span>
+            {activeProfile && (
+              <span className="ml-auto text-[11px] text-ink-400 truncate max-w-[60px]">
+                {activeProfile.name}
+              </span>
+            )}
+          </button>
+        ) : isConfigured ? (
+          <Link
+            to="/login"
+            className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black bg-coral-500 hover:bg-coral-600 text-white shadow-soft hover:shadow-pop transition-all"
+          >
+            <span>🔑</span>
+            <span>로그인</span>
+          </Link>
+        ) : null}
+        {/* 학습 리포팅 — 부모 영역 (이전 "부모" 라벨, 자물쇠 emoji 제거). 로그인 아래. */}
+        {isConfigured && (
+          <SecondaryNavButton to="/parent" iconSrc="section/reports.webp" label="학습 리포팅" />
+        )}
+      </div>
+    </>
+  );
+
   return (
     <div className="flex min-h-screen bg-cream-50">
-      {/* 좌측 nav — 태블릿 기준 w-44 (176px). 박스 + 라벨 가독성 우선. */}
-      <aside className="w-44 flex-shrink-0 sticky top-0 h-screen flex flex-col bg-cream-50 border-r border-ink-100/60">
-        {/* 로고 영역 — 사이드바 좌상단. 헤더 height(80px) 와 정렬. */}
-        <div className="h-20 flex items-center justify-center px-2 border-b border-ink-100/40">
-          <Link to="/library" aria-label="홈으로">
-            <img src="/logo/logo-kr.webp" alt="탱고북" className="h-14 w-auto object-contain" />
-          </Link>
-        </div>
+      {/* 데스크탑 좌측 nav — 태블릿 기준 w-44 (176px). 모바일 hide. */}
+      <aside className="hidden md:flex w-44 flex-shrink-0 sticky top-0 h-screen flex-col bg-cream-50 border-r border-ink-100/60">
+        {sidebarContent}
+      </aside>
 
-        {/* 3 axis — 동화책 / 파닉스 / 어휘. 학습 메인 메뉴. */}
-        <nav className="flex flex-col gap-3 items-center pt-5 pb-4">
-          {PRIMARY_AXES.map((axis) => (
-            <PrimaryNavButton key={axis.to} {...axis} />
-          ))}
-        </nav>
-
-        {/* 미니 게임 — 학습 메뉴와 명확히 구분 (위·아래 border + 작은 섹션 헤더) */}
-        <div className="mx-3 px-2 py-3 border-t border-b border-ink-200/60 bg-cream-100/40 rounded-none">
-          <div className="text-[11px] font-black tracking-wider text-ink-500 uppercase text-center mb-2">
-            미니 게임
-          </div>
-          <div className="flex flex-col gap-2">
-            <SubGameButton
-              to="/games/korean-block"
-              iconSrc="game/korean-block.webp"
-              label="한글 블록 게임"
-            />
-            <SubGameButton
-              to="/games/alphabet-block"
-              iconSrc="game/korean-block.webp"
-              label="알파벳 블록 게임"
-            />
-          </div>
-        </div>
-
-        <div className="mt-auto px-3 pb-3 pt-3 border-t border-ink-100/60 flex flex-col gap-1.5">
-          {/* 로그인/로그아웃 — 학습 리포팅 위. session 상태에 따라 분기 */}
-          {session ? (
+      {/* 모바일 슬라이드 드로어 + 오버레이 */}
+      {drawerOpen && (
+        <>
+          <div
+            className="md:hidden fixed inset-0 z-40 bg-ink-900/40 backdrop-blur-sm"
+            onClick={() => setDrawerOpen(false)}
+            aria-hidden
+          />
+          <aside
+            className="md:hidden fixed top-0 left-0 z-50 w-44 h-screen flex flex-col bg-cream-50 border-r border-ink-100/60 shadow-2xl"
+            style={{ animation: 'slide-in 180ms ease-out' }}
+          >
             <button
-              onClick={handleSignOut}
-              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-danger transition-all"
-              aria-label="로그아웃"
+              onClick={() => setDrawerOpen(false)}
+              className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/80 shadow-soft text-ink-700 flex items-center justify-center"
+              aria-label="메뉴 닫기"
             >
               <svg
-                width="16"
-                height="16"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2.5"
                 strokeLinecap="round"
-                strokeLinejoin="round"
-                className="shrink-0"
               >
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                <polyline points="16 17 21 12 16 7" />
-                <line x1="21" y1="12" x2="9" y2="12" />
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
-              <span>로그아웃</span>
-              {activeProfile && (
-                <span className="ml-auto text-[11px] text-ink-400 truncate max-w-[60px]">
-                  {activeProfile.name}
-                </span>
-              )}
             </button>
-          ) : isConfigured ? (
-            <Link
-              to="/login"
-              className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black bg-coral-500 hover:bg-coral-600 text-white shadow-soft hover:shadow-pop transition-all"
-            >
-              <span>🔑</span>
-              <span>로그인</span>
-            </Link>
-          ) : null}
-          {/* 학습 리포팅 — 부모 영역 (이전 "부모" 라벨, 자물쇠 emoji 제거). 로그인 아래. */}
-          {isConfigured && (
-            <SecondaryNavButton to="/parent" iconSrc="section/reports.webp" label="학습 리포팅" />
-          )}
-        </div>
-      </aside>
+            {sidebarContent}
+          </aside>
+        </>
+      )}
 
       {/* 우측 영역. /library 일 때 header absolute overlay → main 이 0부터 시작 → 배너가 viewport top 까지. */}
       <div className="flex-1 flex flex-col min-w-0 relative">
         <header
           className={cn(
-            'h-20 z-30 flex items-center',
+            'h-16 md:h-20 z-30 flex items-center',
             isLibraryRoot
               ? 'absolute top-0 inset-x-0 bg-transparent border-b-0 pointer-events-none'
               : 'sticky top-0 bg-cream-50 border-b border-ink-100/60'
@@ -178,15 +226,47 @@ export function AppShell() {
           <div
             className={cn(
               'w-full h-full flex items-center justify-between',
-              isLibraryRoot ? 'max-w-[1280px] mx-auto px-6 md:px-8' : 'px-7'
+              isLibraryRoot ? 'max-w-[1600px] mx-auto px-3 sm:px-6 md:px-8' : 'px-3 sm:px-7'
             )}
           >
-            {/* 왼쪽: 페이지 타이틀 (큰 글자) */}
-            <div className="flex items-center gap-3 min-w-0">
+            {/* 왼쪽: 모바일 햄버거 + 페이지 타이틀 */}
+            <div className="flex items-center gap-2 md:gap-3 min-w-0">
+              <button
+                onClick={() => setDrawerOpen(true)}
+                className="md:hidden w-10 h-10 rounded-full bg-white/90 shadow-soft text-ink-700 flex items-center justify-center flex-shrink-0 pointer-events-auto"
+                aria-label="메뉴 열기"
+              >
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                >
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+              </button>
+              {/* 모바일 로고 — 사이드바 hidden 일 때 헤더에 노출. /library overlay 헤더에서도 보임. */}
+              <Link
+                to="/library"
+                aria-label="홈으로"
+                className="md:hidden pointer-events-auto flex items-center"
+              >
+                <img src="/logo/logo-kr.webp" alt="탱고북" className="h-9 w-auto object-contain" />
+              </Link>
               {pageTitle && (
-                <h1 className="text-2xl md:text-3xl font-black font-display text-ink-900 truncate flex items-center gap-2">
+                <h1 className="hidden sm:flex text-xl md:text-3xl font-black font-display text-ink-900 truncate items-center gap-2">
                   {pageTitle.iconSrc ? (
-                    <AppIcon src={pageTitle.iconSrc} size={36} alt={pageTitle.title} />
+                    <AppIcon
+                      src={pageTitle.iconSrc}
+                      size={28}
+                      alt={pageTitle.title}
+                      className="md:[width:36px] md:[height:36px]"
+                    />
                   ) : pageTitle.emoji ? (
                     <span>{pageTitle.emoji}</span>
                   ) : null}

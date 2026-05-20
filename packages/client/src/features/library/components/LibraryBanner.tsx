@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
@@ -56,17 +56,10 @@ const SLIDES: Slide[] = [
   },
 ];
 
-const AUTO_ADVANCE_MS = 5000;
+// 자동 슬라이드 제거 (2026-05-20) — 4-5세 attention 산만 방지. 사용자 화살표로만 advance.
 
 export function LibraryBanner() {
   const [idx, setIdx] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  useEffect(() => {
-    if (paused) return;
-    const t = setTimeout(() => setIdx((i) => (i + 1) % SLIDES.length), AUTO_ADVANCE_MS);
-    return () => clearTimeout(t);
-  }, [idx, paused]);
 
   const goTo = (i: number) => setIdx(((i % SLIDES.length) + SLIDES.length) % SLIDES.length);
   const prev = () => goTo(idx - 1);
@@ -77,8 +70,6 @@ export function LibraryBanner() {
   return (
     <div
       className="relative w-full aspect-[6/1] rounded-2xl overflow-hidden shadow-soft mb-5 flex bg-gradient-to-br from-cream-50 to-peach-100"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
       role="region"
       aria-label="라이브러리 안내 배너"
     >
@@ -145,14 +136,14 @@ export function LibraryBanner() {
       {/* 좌/우 화살표 */}
       <button
         onClick={prev}
-        className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 hover:bg-white text-ink-900 font-black shadow-soft flex items-center justify-center transition z-20"
+        className="absolute left-2 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/80 hover:bg-white text-ink-900 font-black shadow-soft flex items-center justify-center transition z-20"
         aria-label="이전 배너"
       >
         ←
       </button>
       <button
         onClick={next}
-        className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 hover:bg-white text-ink-900 font-black shadow-soft flex items-center justify-center transition z-20"
+        className="absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/80 hover:bg-white text-ink-900 font-black shadow-soft flex items-center justify-center transition z-20"
         aria-label="다음 배너"
       >
         →
