@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { PageHeader } from '@/design-system';
 import {
   getAllKoreanUnits,
   getActivityPlan,
@@ -66,23 +67,16 @@ export default function KoreanPhonicsStudyPage() {
   })();
 
   return (
-    <div className="fixed inset-0 flex flex-col bg-cream-50">
-      {/* 상단 바 — ← 파닉스 + 한글 파닉스 라벨 */}
-      <header className="h-14 sm:h-16 flex items-center gap-3 px-3 sm:px-5 bg-white border-b border-ink-100/60 shadow-soft shrink-0">
-        <button
-          onClick={() => navigate('/library/phonics')}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cream-100 hover:bg-cream-200 text-ink-700 text-sm font-black transition"
-          aria-label="파닉스 선택으로"
-        >
-          <span>←</span>
-          <span className="hidden sm:inline">파닉스</span>
-        </button>
-        <h1 className="text-lg sm:text-2xl font-black font-display text-ink-900 flex items-center gap-2">
-          <span className="text-coral-600">한글</span> 파닉스
-        </h1>
-      </header>
+    <div className="fixed inset-0 flex flex-col bg-gradient-to-b from-cream-50 to-peach-100">
+      {/* 상단 헤더 — 동화책/어휘 학습 페이지와 동일 PageHeader 패턴 (흰 wash 카드 + peach pill) */}
+      <PageHeader onBack={() => navigate('/library/phonics')} backLabel="파닉스">
+        <span className="inline-flex items-center gap-2">
+          <span className="text-coral-600">한글</span>
+          <span>파닉스</span>
+        </span>
+      </PageHeader>
 
-      <div className="flex-1 min-h-0 flex">
+      <div className="flex-1 min-h-0 flex mt-2">
         {/* 좌측 — 커리큘럼 스크롤 list */}
         <aside className="w-44 sm:w-52 md:w-60 shrink-0 h-full overflow-y-auto border-r border-ink-100/60 bg-white py-3 px-2 sm:px-3">
           <div className="flex flex-col gap-4">
