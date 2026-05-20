@@ -69,16 +69,16 @@ export function LibraryBanner() {
 
   return (
     <div
-      className="relative w-full aspect-[6/1] rounded-2xl overflow-hidden shadow-soft mb-8 md:mb-10 flex bg-gradient-to-br from-cream-50 to-peach-100"
+      className="relative w-full aspect-[4/1] md:aspect-[5/1] lg:aspect-[6/1] rounded-2xl overflow-hidden shadow-soft mb-8 md:mb-10 flex bg-gradient-to-br from-cream-50 to-peach-100"
       role="region"
       aria-label="라이브러리 안내 배너"
     >
-      {/* 좌측 50% — 로고 + 슬라이드별 텍스트 */}
-      <div className="relative w-1/2 shrink-0 flex items-center gap-4 sm:gap-5 px-4 sm:px-6 md:px-7">
+      {/* 좌측 50% — 로고 + 슬라이드별 텍스트. 화살표 영역 확보 위해 좌측 padding ↑ */}
+      <div className="relative w-1/2 shrink-0 flex items-center gap-2 sm:gap-3 md:gap-4 pl-14 pr-3 sm:pl-16 sm:pr-4 md:pl-16 md:pr-5">
         <img
           src="/logo/logo-kr.webp"
           alt="탱고북"
-          className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain drop-shadow-md shrink-0"
+          className="h-10 sm:h-12 md:h-16 lg:h-20 xl:h-24 w-auto object-contain drop-shadow-md shrink-0"
         />
         <div className="flex-1 min-w-0">
           <AnimatePresence mode="wait">
@@ -89,10 +89,10 @@ export function LibraryBanner() {
               exit={{ opacity: 0, x: 6 }}
               transition={{ duration: 0.3 }}
             >
-              <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-black font-display text-ink-900 leading-tight">
+              <h2 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-black font-display text-ink-900 leading-tight break-keep">
                 {slide.title}
               </h2>
-              <p className="text-xs sm:text-sm font-bold text-ink-600 mt-1 whitespace-pre-line leading-snug">
+              <p className="hidden sm:block text-xs md:text-sm font-bold text-ink-600 mt-1 whitespace-pre-line leading-snug">
                 {slide.sub}
               </p>
             </motion.div>
