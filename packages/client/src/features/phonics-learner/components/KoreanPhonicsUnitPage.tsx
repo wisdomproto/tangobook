@@ -128,29 +128,50 @@ function ActivityCard({
   activity: ActivityDef;
   done: boolean;
 }) {
-  const accent =
-    activity.section === 'learn' ? 'from-cream-50 to-peach-100' : 'from-cream-50 to-mint-100';
+  const isLearn = activity.section === 'learn';
+  // 게임하기는 완료 개념 없음 → done 시그널 무시
+  const showDone = isLearn && done;
+
+  // 익히기 완료: success 톤 강하게 (배경/테두리/번호 모두 success). 미완료: 평소 톤 활성.
+  // 게임하기: 항상 활성 톤 (완료 표시 없음).
+  const cardClass = showDone
+    ? 'bg-success/15 border-success ring-2 ring-success/40'
+    : isLearn
+      ? 'bg-gradient-to-br from-cream-50 to-peach-100 border-white shadow-soft hover:shadow-pop'
+      : 'bg-gradient-to-br from-cream-50 to-mint-100 border-white shadow-soft hover:shadow-pop';
+
+  const numBadgeClass = showDone ? 'bg-success text-white opacity-60' : 'bg-coral-500 text-white';
+
   return (
     <Link
       to={`/library/phonics/korean/${unitId}/${activity.key}`}
-      className={`block aspect-[5/6] rounded-2xl border-[4px] border-white p-3 sm:p-4 transition shadow-soft hover:shadow-pop active:scale-[0.98] bg-gradient-to-br ${accent}`}
+      className={`relative block aspect-[5/6] rounded-2xl border-[4px] p-3 sm:p-4 transition active:scale-[0.98] ${cardClass}`}
     >
+      {/* 완료 큰 ✓ overlay — 우상단 (익히기 완료 시만) */}
+      {showDone && (
+        <div className="absolute top-2 right-2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-success text-white flex items-center justify-center shadow-pop text-2xl sm:text-3xl font-black ring-4 ring-white">
+          ✓
+        </div>
+      )}
       <div className="flex items-center justify-between mb-2">
-        <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-coral-500 text-white font-black text-base">
+        <span
+          className={`inline-flex items-center justify-center w-9 h-9 rounded-full font-black text-base ${numBadgeClass}`}
+        >
           {activity.order}
         </span>
-        {done && (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-success/15 text-success-700 text-xs font-black">
-            ✓ 완료
-          </span>
-        )}
       </div>
-      <div className="text-4xl sm:text-5xl mb-1.5">{activity.emoji}</div>
-      <h3 className="text-base sm:text-lg font-black font-display text-ink-900 leading-tight">
+      <div className={`text-4xl sm:text-5xl mb-1.5 ${showDone ? 'opacity-50' : ''}`}>
+        {activity.emoji}
+      </div>
+      <h3
+        className={`text-base sm:text-lg font-black font-display leading-tight ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
+      >
         {activity.title}
       </h3>
       {activity.subtitle && (
-        <p className="text-xs sm:text-sm font-bold text-ink-600 mt-0.5 leading-snug">
+        <p
+          className={`text-xs sm:text-sm font-bold mt-0.5 leading-snug ${showDone ? 'text-ink-400' : 'text-ink-600'}`}
+        >
           {activity.subtitle}
         </p>
       )}
