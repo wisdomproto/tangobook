@@ -64,27 +64,48 @@ export function ConsonantBlendListenActivity({
         identifierPrefix: 'consonant-blend',
       });
 
-      // 이 클릭으로 totalCells 모두 채워지면 → TTS ended 후 칭찬 시퀀스 chain.
+      // 이 클릭으로 (a) 행 3 셀 모두 채워지면 → 띵동, (b) 18 셀 모두 채워지면 → 띵동 → 칭찬.
       let willCompleteAll = false;
+      let willCompleteRow = false;
       setPressed((prev) => {
         if (prev.has(key)) return prev;
         const next = new Set(prev);
         next.add(key);
         if (next.size >= totalCells) willCompleteAll = true;
+        // 이 행의 3셀 모두 next 에 포함되면 row complete
+        if (
+          next.has(`${r}-0`) &&
+          next.has(`${r}-1`) &&
+          next.has(`${r}-2`) &&
+          // 이전엔 미완료 상태였어야 (방금 클릭한 셀로 완성됐어야)
+          !(prev.has(`${r}-0`) && prev.has(`${r}-1`) && prev.has(`${r}-2`))
+        ) {
+          willCompleteRow = true;
+        }
         return next;
       });
 
-      if (willCompleteAll) {
-        setCompleted(true);
-        if (url) {
-          playAudio(url, () => playCorrectSequence({ language: 'ko', onDone: onComplete }));
-        } else {
-          playCorrectSequence({ language: 'ko', onDone: onComplete });
-        }
-        return;
-      }
+      if (willCompleteAll) setCompleted(true);
 
-      if (url) playAudio(url);
+      // TTS ended chain:
+      // - 전체 완료: TTS → 띵동 → 칭찬
+      // - 행 완료: TTS → 띵동
+      // - 그 외: TTS 만
+      const afterTts = () => {
+        if (willCompleteAll) {
+          playAudio('/sounds/game/correct.mp3', () =>
+            playCorrectSequence({ language: 'ko', onDone: onComplete })
+          );
+        } else if (willCompleteRow) {
+          playAudio('/sounds/game/correct.mp3');
+        }
+      };
+
+      if (url) {
+        playAudio(url, afterTts);
+      } else {
+        afterTts();
+      }
     },
     [completed, totalCells, unitId, playAudio, playCorrectSequence, onComplete]
   );
