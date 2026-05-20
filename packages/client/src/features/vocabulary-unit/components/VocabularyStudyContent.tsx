@@ -383,7 +383,7 @@ function GameOverlay({
           <LineMatchingPlayer
             storybookId={effectiveStorybookId}
             gameData={data}
-            difficulty="easy"
+            difficulty="medium"
             onComplete={() => onComplete()}
             onBack={onBack}
             lang={game === 'korean-line-matching' ? 'ko' : 'en'}
@@ -393,7 +393,7 @@ function GameOverlay({
           <KoreanBlockPlayer
             storybookId={effectiveStorybookId}
             gameData={data}
-            difficulty="easy"
+            difficulty="medium"
             onComplete={() => onComplete()}
             onBack={onBack}
           />
@@ -402,7 +402,7 @@ function GameOverlay({
           <EnglishBlockPlayer
             storybookId={effectiveStorybookId}
             gameData={data}
-            difficulty="easy"
+            difficulty="medium"
             onComplete={() => onComplete()}
             onBack={onBack}
           />
@@ -411,7 +411,7 @@ function GameOverlay({
           <ConnectTheDotsPlayer
             storybookId={effectiveStorybookId}
             gameData={data}
-            difficulty="easy"
+            difficulty="medium"
             onComplete={() => onComplete()}
             onBack={onBack}
           />
@@ -420,7 +420,7 @@ function GameOverlay({
           <WordWritingPlayer
             storybookId={effectiveStorybookId}
             gameData={data}
-            difficulty="easy"
+            difficulty="medium"
             onComplete={() => onComplete()}
             onBack={onBack}
           />
