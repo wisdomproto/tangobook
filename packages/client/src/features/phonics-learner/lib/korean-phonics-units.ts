@@ -7,7 +7,7 @@
  * 활동 구성은 unit 마다 다를 수 있어 `KOREAN_UNIT_ACTIVITY_PLAN` 으로 분리.
  * unit 1 (모음) 만 작성 — 나머지는 자료 모이는 대로 추가.
  */
-import { KOREAN_PHONICS_CURRICULUM } from '@tangobook/shared';
+import { KOREAN_PHONICS_CURRICULUM, composeHangul } from '@tangobook/shared';
 
 export interface KoreanUnitSummary {
   id: string; // 'kr-h1-u01'
@@ -192,102 +192,136 @@ const UNIT_01_PLAN: ActivityPlan = {
   ],
 };
 
-// ─── unit 2 (ㄱ 배우기) ───
-const UNIT_02_PLAN: ActivityPlan = {
-  activities: [
-    {
-      key: 'consonant-tap',
-      order: 1,
-      kind: 'consonant-tap',
-      section: 'learn',
-      title: 'ㄱ 누르기',
-      subtitle: 'ㄱ ㄱ 단어',
-      emoji: '👆',
-      required: true,
-      consonant: 'ㄱ',
-    },
-    {
-      key: 'blend-listen-1',
-      order: 2,
-      kind: 'consonant-blend-listen',
-      section: 'learn',
-      title: 'ㄱ + 모음 1',
-      subtitle: '가 갸 거 겨 고 교',
-      emoji: '🔗',
-      required: true,
-      consonant: 'ㄱ',
-      blendVowels: ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ'],
-    },
-    {
-      key: 'blend-listen-2',
-      order: 3,
-      kind: 'consonant-blend-listen',
-      section: 'learn',
-      title: 'ㄱ + 모음 2',
-      subtitle: '고 교 구 규 그 기',
-      emoji: '🔗',
-      required: true,
-      consonant: 'ㄱ',
-      blendVowels: ['ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ'],
-    },
-    {
-      key: 'consonant-write',
-      order: 4,
-      kind: 'consonant-write',
-      section: 'learn',
-      title: 'ㄱ 쓰기',
-      subtitle: '단어와 함께 써봐요',
-      emoji: '✏️',
-      required: true,
-      consonant: 'ㄱ',
-    },
-    {
-      key: 'game-korean-block',
-      order: 5,
-      kind: 'game-korean-block',
-      section: 'play',
-      title: '한글 블록',
-      subtitle: '자모 맞추기',
-      emoji: '🧩',
-      required: false,
-    },
-    {
-      key: 'game-word-writing',
-      order: 6,
-      kind: 'game-word-writing',
-      section: 'play',
-      title: '낱말 쓰기',
-      subtitle: '글자 따라쓰기',
-      emoji: '🖍️',
-      required: false,
-    },
-    {
-      key: 'game-dots',
-      order: 7,
-      kind: 'game-connect-dots',
-      section: 'play',
-      title: '점 잇기',
-      subtitle: '단어 그림 그려보기',
-      emoji: '🔵',
-      required: false,
-    },
-    {
-      key: 'game-line-matching',
-      order: 8,
-      kind: 'game-line-matching',
-      section: 'play',
-      title: '그림 짝 찾기',
-      subtitle: '그림-단어 잇기',
-      emoji: '🔗',
-      required: false,
-    },
-  ],
+// ─── 자음 단원 (ㄱ ~ ㅎ) 공용 plan 생성기 ───
+// 모음 그룹 (자음+모음 액티비티용)
+const CONSONANT_BLEND_VOWELS_1 = ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ'] as const;
+const CONSONANT_BLEND_VOWELS_2 = ['ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ'] as const;
+
+function syllablesFor(consonant: string, vowels: readonly string[]): string {
+  return vowels.map((v) => composeHangul(consonant, v, null) || `${consonant}${v}`).join(' ');
+}
+
+/**
+ * 자음 단원 (ㄱ~ㅎ) 공통 활동 plan 생성. 14 자음 모두 같은 구조 — 자음만 바뀌어 4 learn + 4 game.
+ */
+function makeConsonantPlan(consonant: string): ActivityPlan {
+  return {
+    activities: [
+      {
+        key: 'consonant-tap',
+        order: 1,
+        kind: 'consonant-tap',
+        section: 'learn',
+        title: `${consonant} 누르기`,
+        subtitle: `${consonant} 누르고 띵동`,
+        emoji: '👆',
+        required: true,
+        consonant,
+      },
+      {
+        key: 'blend-listen-1',
+        order: 2,
+        kind: 'consonant-blend-listen',
+        section: 'learn',
+        title: `${consonant} + 모음 1`,
+        subtitle: syllablesFor(consonant, CONSONANT_BLEND_VOWELS_1),
+        emoji: '🔗',
+        required: true,
+        consonant,
+        blendVowels: [...CONSONANT_BLEND_VOWELS_1],
+      },
+      {
+        key: 'blend-listen-2',
+        order: 3,
+        kind: 'consonant-blend-listen',
+        section: 'learn',
+        title: `${consonant} + 모음 2`,
+        subtitle: syllablesFor(consonant, CONSONANT_BLEND_VOWELS_2),
+        emoji: '🔗',
+        required: true,
+        consonant,
+        blendVowels: [...CONSONANT_BLEND_VOWELS_2],
+      },
+      {
+        key: 'consonant-write',
+        order: 4,
+        kind: 'consonant-write',
+        section: 'learn',
+        title: `${consonant} 쓰기`,
+        subtitle: '세 번 따라써요',
+        emoji: '✏️',
+        required: true,
+        consonant,
+      },
+      {
+        key: 'game-korean-block',
+        order: 5,
+        kind: 'game-korean-block',
+        section: 'play',
+        title: '한글 블록',
+        subtitle: '자모 맞추기',
+        emoji: '🧩',
+        required: false,
+      },
+      {
+        key: 'game-word-writing',
+        order: 6,
+        kind: 'game-word-writing',
+        section: 'play',
+        title: '낱말 쓰기',
+        subtitle: '글자 따라쓰기',
+        emoji: '🖍️',
+        required: false,
+      },
+      {
+        key: 'game-dots',
+        order: 7,
+        kind: 'game-connect-dots',
+        section: 'play',
+        title: '점 잇기',
+        subtitle: '단어 그림 그려보기',
+        emoji: '🔵',
+        required: false,
+      },
+      {
+        key: 'game-line-matching',
+        order: 8,
+        kind: 'game-line-matching',
+        section: 'play',
+        title: '그림 짝 찾기',
+        subtitle: '그림-단어 잇기',
+        emoji: '🔗',
+        required: false,
+      },
+    ],
+  };
+}
+
+// 한글1 자음 단원 매핑 — u02 (ㄱ) ~ u15 (ㅎ).
+// 같은 자음 모듈 (ConsonantTap / BlendListen / Write + 게임 4) 을 재사용. 자음만 바뀜.
+const CONSONANT_UNIT_MAP: Record<string, string> = {
+  'kr-h1-u02': 'ㄱ',
+  'kr-h1-u03': 'ㄴ',
+  'kr-h1-u04': 'ㄷ',
+  'kr-h1-u05': 'ㄹ',
+  'kr-h1-u06': 'ㅁ',
+  'kr-h1-u07': 'ㅂ',
+  'kr-h1-u08': 'ㅅ',
+  'kr-h1-u09': 'ㅇ',
+  'kr-h1-u10': 'ㅈ',
+  'kr-h1-u11': 'ㅊ',
+  'kr-h1-u12': 'ㅋ',
+  'kr-h1-u13': 'ㅌ',
+  'kr-h1-u14': 'ㅍ',
+  'kr-h1-u15': 'ㅎ',
 };
 
 /** unit ID → 활동 구성. 미정의 unit 은 빈 활동 (잠금 표시). */
 export const KOREAN_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
   'kr-h1-u01': UNIT_01_PLAN,
-  'kr-h1-u02': UNIT_02_PLAN,
+  ...Object.fromEntries(
+    Object.entries(CONSONANT_UNIT_MAP).map(([unitId, c]) => [unitId, makeConsonantPlan(c)])
+  ),
 };
 
 export function getActivityPlan(unitId: string): ActivityPlan {
