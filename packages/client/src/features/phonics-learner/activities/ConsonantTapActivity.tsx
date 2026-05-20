@@ -1,9 +1,7 @@
-import { useCallback, useMemo, useState } from 'react';
-import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
+import { useCallback, useState } from 'react';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
-import { pickPhonicsWordCards, type PhonicsWordCard } from '../lib/pick-word-cards';
 
 interface Props {
   unitId: string;
@@ -18,23 +16,11 @@ const CARDS = 3;
 /**
  * 자음 누르기 액티비티 (unit 2 활동 1).
  *
- * 위 행: 3개의 자음 버튼 (ㄱ). 각 버튼을 3번 누르면 진행 완료.
- *   - 1탭 → "ㄱ" 발음
- *   - 2탭 → "ㄱ" 발음
- *   - 3탭 → 띵동 효과음 (correct.mp3) → 단어 TTS
- *   - 모든 카드 완료 → 마지막 단어 TTS 끝난 후 칭찬 시퀀스
- *
- * 아래 행: 각 버튼과 짝지어진 단어 이미지 (저작도구 단원의 핵심단어 4개 중 랜덤 3개).
- *
- * 3 카드 모두 완료 → 칭찬 + onComplete.
+ * 3개의 자음 버튼 (ㄱ). 각 버튼을 3번 누르면 그 카드 완료.
+ *   - 매 탭 → "ㄱ" 발음
+ *   - 3 카드 모두 9 탭 완료 → 띵동 효과음 + 칭찬 시퀀스
  */
 export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: Props) {
-  const storybookQuery = useStorybook(unitId);
-  const cards = useMemo<PhonicsWordCard[]>(() => {
-    if (!storybookQuery.data) return [];
-    return pickPhonicsWordCards(storybookQuery.data, CARDS);
-  }, [storybookQuery.data]);
-
   const [tapCounts, setTapCounts] = useState<number[]>(Array(CARDS).fill(0));
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const [completed, setCompleted] = useState(false);
@@ -48,45 +34,33 @@ export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: 
       const nextTaps = tapCounts.map((c, i) => (i === idx ? next : c));
       setTapCounts(nextTaps);
 
-      const word = cards[idx]?.word;
-      const isFinalTap = next === TAPS_PER_CARD;
-      const isAllDone = nextTaps.slice(0, cards.length).every((c) => c >= TAPS_PER_CARD);
-
-      if (isFinalTap && word) {
-        // 카드의 마지막 탭: 띵동 효과음 → 단어 TTS → (모든 카드 끝났으면) 칭찬 시퀀스.
-        // playAudio onEnded chain 으로 단어 길이 무관 안 잘림.
-        const wordUrl = await resolveTtsUrl({
-          text: word,
-          language: 'korean',
-          storybookId: unitId,
-          identifierPrefix: 'consonant-tap',
-        });
-        if (isAllDone) setCompleted(true);
-        playAudio('/sounds/game/correct.mp3', () => {
-          if (wordUrl) {
-            playAudio(
-              wordUrl,
-              isAllDone
-                ? () => playCorrectSequence({ language: 'ko', onDone: onComplete })
-                : undefined
-            );
-          } else if (isAllDone) {
-            playCorrectSequence({ language: 'ko', onDone: onComplete });
-          }
-        });
-        return;
-      }
-
-      // 일반 탭: 단순 자음 발음
       const url = await resolveTtsUrl({
         text: consonant,
         language: 'korean',
         storybookId: unitId,
         identifierPrefix: 'consonant-tap',
       });
+
+      // 모든 9 탭 완료 → ㄱ TTS 끝난 후 띵동 → 칭찬
+      const isAllDone = nextTaps.every((c) => c >= TAPS_PER_CARD);
+      if (isAllDone) {
+        setCompleted(true);
+        const playChimeThenPraise = () => {
+          playAudio('/sounds/game/correct.mp3', () =>
+            playCorrectSequence({ language: 'ko', onDone: onComplete })
+          );
+        };
+        if (url) {
+          playAudio(url, playChimeThenPraise);
+        } else {
+          playChimeThenPraise();
+        }
+        return;
+      }
+
       if (url) playAudio(url);
     },
-    [completed, tapCounts, cards, consonant, unitId, playAudio, playCorrectSequence, onComplete]
+    [completed, tapCounts, consonant, unitId, playAudio, playCorrectSequence, onComplete]
   );
 
   return (
@@ -98,70 +72,47 @@ export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: 
         ← 돌아가기
       </button>
 
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-6">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center">
+      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-8">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center break-keep">
           <span className="text-coral-600">{consonant}</span> 을 세 번씩 눌러봐!
         </h2>
 
-        {storybookQuery.isLoading ? (
-          <div className="text-base font-bold text-ink-500">불러오는 중…</div>
-        ) : cards.length === 0 ? (
-          <div className="text-base font-bold text-ink-500">단원에 단어가 부족해요.</div>
-        ) : (
-          <div className="grid grid-cols-3 gap-4 sm:gap-6 w-full max-w-3xl">
-            {cards.map((card, i) => {
-              const taps = tapCounts[i] ?? 0;
-              const done = taps >= TAPS_PER_CARD;
-              return (
-                <div key={i} className="flex flex-col gap-3">
-                  <button
-                    onClick={() => handleTap(i)}
-                    disabled={done}
-                    className={[
-                      'relative rounded-3xl border-[5px] aspect-square flex flex-col items-center justify-center shadow-soft transition',
-                      done
-                        ? 'bg-success/15 border-success'
-                        : 'bg-white border-coral-300 hover:shadow-pop active:scale-[0.96]',
-                    ].join(' ')}
-                    aria-label={`${consonant} ${i + 1}번 카드`}
-                  >
-                    <div className="text-6xl sm:text-7xl md:text-8xl font-black text-coral-600">
-                      {consonant}
-                    </div>
-                    {/* 진행 dots */}
-                    <div className="absolute bottom-3 flex gap-1.5">
-                      {Array.from({ length: TAPS_PER_CARD }).map((_, k) => (
-                        <span
-                          key={k}
-                          className={`w-2.5 h-2.5 rounded-full ${k < taps ? 'bg-coral-500' : 'bg-cream-200'}`}
-                        />
-                      ))}
-                    </div>
-                    {done && (
-                      <span className="absolute top-2 right-2 text-success-700 text-2xl">✓</span>
-                    )}
-                  </button>
-                  <div className="rounded-2xl bg-white border-[3px] border-white p-2 shadow-soft flex flex-col items-center">
-                    {card.imageUrl ? (
-                      <img
-                        src={card.imageUrl}
-                        alt={card.word}
-                        className="w-full aspect-square object-cover rounded-xl"
-                      />
-                    ) : (
-                      <div className="w-full aspect-square rounded-xl bg-cream-100 flex items-center justify-center text-3xl">
-                        🖼️
-                      </div>
-                    )}
-                    <div className="text-sm sm:text-base font-black text-ink-900 mt-1">
-                      {card.word}
-                    </div>
-                  </div>
+        <div className="grid grid-cols-3 gap-4 sm:gap-6 w-full max-w-3xl">
+          {Array.from({ length: CARDS }).map((_, i) => {
+            const taps = tapCounts[i] ?? 0;
+            const done = taps >= TAPS_PER_CARD;
+            return (
+              <button
+                key={i}
+                onClick={() => handleTap(i)}
+                disabled={done}
+                className={[
+                  'relative rounded-3xl border-[5px] aspect-square flex flex-col items-center justify-center shadow-soft transition',
+                  done
+                    ? 'bg-success/15 border-success'
+                    : 'bg-white border-coral-300 hover:shadow-pop active:scale-[0.96]',
+                ].join(' ')}
+                aria-label={`${consonant} ${i + 1}번 카드`}
+              >
+                <div className="text-6xl sm:text-7xl md:text-8xl font-black text-coral-600">
+                  {consonant}
                 </div>
-              );
-            })}
-          </div>
-        )}
+                {/* 진행 dots */}
+                <div className="absolute bottom-3 flex gap-1.5">
+                  {Array.from({ length: TAPS_PER_CARD }).map((_, k) => (
+                    <span
+                      key={k}
+                      className={`w-2.5 h-2.5 rounded-full ${k < taps ? 'bg-coral-500' : 'bg-cream-200'}`}
+                    />
+                  ))}
+                </div>
+                {done && (
+                  <span className="absolute top-2 right-2 text-success-700 text-2xl">✓</span>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
