@@ -66,7 +66,14 @@ export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: 
   );
 
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden">
+    <div
+      className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 overflow-hidden"
+      style={{
+        backgroundImage: "url('/images/phonics/study-bg.webp')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       <button
         onClick={onBack}
         className="self-start mb-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"

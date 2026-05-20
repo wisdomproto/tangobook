@@ -58,8 +58,11 @@ export type ActivityKind =
   | 'consonant-tap'
   | 'consonant-blend-listen'
   | 'consonant-write'
+  | 'cvc-pattern-learn'
+  | 'cvc-pattern-write'
   | 'game-connect-dots'
   | 'game-korean-block'
+  | 'game-english-block'
   | 'game-word-writing'
   | 'game-line-matching';
 
@@ -81,6 +84,8 @@ export interface ActivityDef {
   consonant?: string;
   /** consonant-blend-listen 활동용 — 자음과 결합할 모음 글자만 (예: ['ㅏ','ㅑ','ㅓ','ㅕ','ㅗ','ㅛ']). 한 행씩 표시. */
   blendVowels?: ReadonlyArray<string>;
+  /** cvc-pattern-learn (영어) 활동용 — 학습 대상 VC. Phase A 에 vowel + consonant → vc, Phase B 에 flashcards 의 phonicPattern 매치 4 단어. */
+  cvcPattern?: { vowel: string; consonant: string; vc: string };
 }
 
 export interface ActivityPlan {

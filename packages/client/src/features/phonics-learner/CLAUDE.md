@@ -13,29 +13,34 @@
 ```
 features/phonics-learner/
   components/
-    PhonicsLandingPage.tsx        # /library/phonics — 한글/영어 카드 (호리 마스코트 일러스트)
-    KoreanPhonicsStudyPage.tsx    # /library/phonics/korean(/:unitId)? — study layout (좌 커리큘럼 + 우 unit body)
-    KoreanPhonicsUnitPage.tsx     # study layout 안에서 embedded 로 사용 (props: embedded?: boolean)
-    KoreanPhonicsActivityPage.tsx # /library/phonics/korean/:unitId/:activityKey — 활동 호스트 (kind 별 분기)
+    PhonicsLandingPage.tsx           # /library/phonics — 한글/영어 카드 (둘 다 active)
+    KoreanPhonicsStudyPage.tsx       # /library/phonics/korean — 한글 study layout
+    KoreanPhonicsUnitPage.tsx        # 한글 unit body (embedded prop)
+    KoreanPhonicsActivityPage.tsx    # 한글 활동 호스트
+    EnglishPhonicsStudyPage.tsx      # /library/phonics/english — 영어 study layout (Book 1~5)
+    EnglishPhonicsUnitPage.tsx       # 영어 unit body (embedded prop)
+    EnglishPhonicsActivityPage.tsx   # 영어 활동 호스트 (cvc-pattern-learn + 4 게임)
   activities/
-    VowelListenActivity.tsx       # 모음 듣기 (unit 1 활동 1/2)
-    VowelWriteActivity.tsx        # 모음 쓰기 (unit 1 활동 3/4) — playAudio onEnded chain
-    ConsonantTapActivity.tsx      # 자음 누르기 — 3 카드 × 3 탭. 단어 카드 X (단순화). 각 카드 띵동 + 마지막 칭찬
-    ConsonantBlendListenActivity.tsx # 자음+모음 음절 — 6행 × 3셀. 다음 셀 하이라이트 + 행 완료 띵동
-    ConsonantWriteActivity.tsx    # 자음 쓰기 — ㄱ 만 3번 따라쓰기 (단어 의존성 제거). per-write 띵동 + 마지막 칭찬
+    VowelListenActivity.tsx          # 한글 모음 듣기
+    VowelWriteActivity.tsx           # 한글 모음 쓰기
+    ConsonantTapActivity.tsx         # 한글 자음 누르기
+    ConsonantBlendListenActivity.tsx # 한글 자음+모음 음절
+    ConsonantWriteActivity.tsx       # 한글 자음 쓰기
+    CvcPatternLearnActivity.tsx      # 영어 CVC 통합 — Phase A 배우기 → B 단어 → C 쓰기 (한 활동)
+    CvcPatternWriteActivity.tsx      # 사용 안 함 (Phase C 가 CvcPatternLearn 에 통합됨, 2026-05-21)
   lib/
-    korean-phonics-units.ts       # unit 목록 + ActivityDef (subtitle 없음, 2026-05-20) + makeConsonantPlan(c) 으로 ㄴ~ㅎ 자동 생성
-    progress-store.ts             # localStorage `phonics-progress` + `phonics-recent-unit` (study layout default)
-    pick-word-cards.ts            # 사용 안 함 (ConsonantTap/Write 가 단어 제거로 의존성 없어짐)
-    phonics-game-adapter.ts       # phonicsStorybook → KoreanBlock/WordWriting/LineMatching/ConnectDots data
+    korean-phonics-units.ts       # 한글 unit 메타 + ActivityDef (subtitle 없음) + makeConsonantPlan(c)
+    english-phonics-units.ts      # 영어 unit 메타 + makeBook2UnitPlan(patterns) + BOOK2_PATTERNS
+    progress-store.ts             # localStorage `phonics-progress` + `phonics-recent-unit`
+    pick-word-cards.ts            # 사용 안 함
+    phonics-game-adapter.ts       # phonicsStorybook → 게임 data (Korean + English 분기)
 ```
 
-## 라우트 (2026-05-20)
+## 라우트
 
-- `/library/phonics` — AppShell 안 (랜딩, PhonicsLandingPage)
-- `/library/phonics/korean` — **AppShell 밖** (study layout, recent unit 으로 redirect)
-- `/library/phonics/korean/:unitId` — **AppShell 밖** (study layout, 좌 커리큘럼 + 우 unit body)
-- `/library/phonics/korean/:unitId/:activityKey` — **AppShell 밖** (활동 풀화면)
+- `/library/phonics` — 랜딩 (AppShell 안)
+- `/library/phonics/korean(/:unitId)?` + `/.../:activityKey` — 한글 (AppShell 밖)
+- `/library/phonics/english(/:unitId)?` + `/.../:activityKey` — 영어 (AppShell 밖)
 
 ## 자음 단원 자동 생성 (2026-05-20)
 
@@ -53,14 +58,14 @@ features/phonics-learner/
 
 ## 활동 종류 (`ActivityKind`)
 
-| kind                                                                                   | 컴포넌트                                                  | 데이터                               |
-| -------------------------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------ |
-| `vowel-listen`                                                                         | VowelListenActivity                                       | `vowels: [{vowel,syllable}]`         |
-| `vowel-write`                                                                          | VowelWriteActivity                                        | `vowels: [{vowel,syllable}]`         |
-| `consonant-tap`                                                                        | ConsonantTapActivity                                      | `consonant: 'ㄱ'`                    |
-| `consonant-blend-listen`                                                               | ConsonantBlendListenActivity                              | `consonant, blendVowels: ['ㅏ',...]` |
-| `consonant-write`                                                                      | ConsonantWriteActivity                                    | `consonant`                          |
-| `game-korean-block` / `game-word-writing` / `game-connect-dots` / `game-line-matching` | 기존 게임 플레이어 (`features/games/components/players/`) | `phonics-game-adapter` 가 빌드       |
+| kind                                                                                                          | 컴포넌트                     | 데이터                                                                             |
+| ------------------------------------------------------------------------------------------------------------- | ---------------------------- | ---------------------------------------------------------------------------------- |
+| `vowel-listen` / `vowel-write`                                                                                | VowelListen/Write Activity   | `vowels: [{vowel,syllable}]`                                                       |
+| `consonant-tap` / `consonant-write`                                                                           | ConsonantTap/Write Activity  | `consonant: 'ㄱ'`                                                                  |
+| `consonant-blend-listen`                                                                                      | ConsonantBlendListenActivity | `consonant, blendVowels`                                                           |
+| `cvc-pattern-learn`                                                                                           | CvcPatternLearnActivity      | `cvcPattern: { vowel, consonant, vc }` — 한 활동 안 Phase A→B→C (배우기·단어·쓰기) |
+| `cvc-pattern-write`                                                                                           | (deprecated, Phase C 통합)   | —                                                                                  |
+| `game-korean-block` / `game-english-block` / `game-word-writing` / `game-connect-dots` / `game-line-matching` | 기존 게임 플레이어           | `phonics-game-adapter` 가 빌드                                                     |
 
 ## TTS
 
@@ -84,6 +89,27 @@ features/phonics-learner/
 - **사이드바 (StudyPage aside)**: 레벨별 접기/펴기 (`expandedLevels: Set<levelKey>`). 기본 = 현재 unit 의 레벨만 펼침, 다른 unit 클릭 시 그 레벨 자동 펼침 (useEffect). 헤더 = text-lg/xl + text-ink-900 + `playable/total` 카운트. 활성 unit = coral 그라데이션 + ring-2 흰색 + scale-[1.02] + shadow-pop.
 - **배경**: `/images/phonics/study-bg.webp` (1672×941, 44KB) — 풀밭·꽃·구름 톤. StudyPage 전체 backdrop.
 - **mint 디자인 토큰 추가** (`design-system/tokens/colors.ts`): mint 50/100/200/300/400/500/600 + peach 50 추가. Tailwind JIT 가 새 토큰 발견하려면 client 서버 재시작.
+
+## 영어 파닉스 — Book 2 CVC (2026-05-21)
+
+영어 phonics 학습 모드는 `/library/phonics/english(/:unitId)?` 진입. KoreanPhonicsStudyPage 평행 (`Book 1~5` 사이드바). Book 2 (Short Vowels) 8 unit 모두 plan 등록 (`BOOK2_PATTERNS` + `makeBook2UnitPlan`).
+
+각 unit 은 VC 패턴 2~4개 보유 (예: u01 `_an _at`, u04 `_ib _id _ig _in`). 패턴마다 활동 1개 (`cvc-pattern-learn`) — 한 활동 안에서 Phase A→B→C 통합:
+
+- **Phase A** — `a + n → an` 3행 (9 셀). 셀 클릭 시 phonics TTS, 행 완료 → 띵동, 9 셀 → 칭찬 + "다시/다음"
+- **Phase B** — flashcards 의 `phonicPattern === '_${vc}'` 매치 4 단어. 각 행 `[c][an][cat]+이미지`, 행 완료 → 띵동 + 예문 발음
+- **Phase C** — 단어별 [consonant 셀][a 캔버스][n 캔버스]. LetterWritingCanvas glyph-by-glyph 채점. 글자 통과 → 띵동 + 음가, 단어 모두 → 단어 발음 → 다음 단어. 4 단어 모두 → 칭찬 + onMarkComplete
+
+게임 4종 (`game-english-block` / `game-word-writing` / `game-connect-dots` / `game-line-matching`) 은 `phonicsToEnglishXxxData` 어댑터 — 8 단어 풀에서 랜덤 4개. EnglishBlockPlayer / WordWritingPlayer / ConnectTheDotsPlayer / LineMatchingPlayer (`lang='en'`) 마운트.
+
+활동 카드 일러: `cvc-pattern-learn` → `cvc-learn.webp` / `cvc-pattern-write` → `cvc-write.webp` (Korean 의 듣기/쓰기 활동에도 공용).
+
+### LetterWritingCanvas 채점 알고리즘 (2026-05-21 fix)
+
+기존 `proximity * 0.6 + coverage * 0.4` 가 점 1개만 찍어도 proximity=1.0 이라 60% 통과 버그. 새 algorithm:
+
+- `rawScore = coverage * (0.4 + 0.6 * proximity)` — coverage 가 main driver, proximity 는 multiplier
+- 점 1개 → coverage 0.01 → 1.5%, 적당히 그림 (coverage 40%) → 35% 정도. CvcPatternLearn Phase C threshold 20 으로 lenient.
 
 ## 한글 블록 쉬움 모드 (2026-05-20)
 

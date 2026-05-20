@@ -225,10 +225,7 @@ function KoreanBlockPlayerInner({
   const { glowCell } = useTutorialHighlight();
   const expected = useTutorialExpected();
   const notifyPlacement = useTutorialNotify();
-  const handleHintStart = useCallback(() => {
-    if (hintActive || isPlaying) return;
-    setHintActive(true);
-  }, [hintActive, isPlaying]);
+  // handleHintStart 는 쉬움 모드 strip 도입 (2026-05-20) 으로 도와줘 버튼 제거되며 사용처 없음 — setter 만 사용.
   const handleHintEnd = useCallback(() => {
     setHintActive(false);
   }, []);
@@ -577,16 +574,26 @@ function KoreanBlockPlayerInner({
           </div>
         )}
 
-        {/* 메인 — 3 섹션 카드: (1) 타겟 단어+그림 / (2) 드롭존+확인·초기화 / (3) 자음·모음 패널 */}
-        <div className="flex-1 flex flex-col items-center justify-center gap-[clamp(0.5rem,1.75vh,2rem)] px-3 sm:px-4 py-[clamp(0.25rem,0.875vh,0.75rem)] min-h-0">
-          {/* 섹션 1 — 타겟 단어 + 그림 (한 카드, 좌우 넓게) */}
-          <section className="rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.5rem,4vw,4rem)] py-[clamp(0.375rem,1.25vh,1rem)] flex items-center justify-center gap-[clamp(0.75rem,2vw,2.5rem)] shrink-0 w-full max-w-3xl">
+        {/* 메인 — 3 섹션 세로 stack. 세로 비율 1.5:1.5:1 (flex-[3]:[3]:[2]). 가로 풀폭. */}
+        <div className="flex-1 flex flex-col items-stretch gap-[clamp(0.5rem,1.25vh,1rem)] px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.25rem,0.875vh,0.75rem)] min-h-0">
+          {/* 섹션 1 — 타겟 단어 + 그림 hero. 가로 풀폭, 세로 비중 3 (1.5). */}
+          <section className="flex-[3] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] flex items-center justify-center gap-[clamp(1rem,3vw,3rem)]">
+            {currentItem.imageUrl && (
+              <div className="relative shrink-0">
+                <img
+                  src={currentItem.imageUrl}
+                  alt={currentItem.word}
+                  className="h-[clamp(5rem,22vh,14rem)] w-[clamp(5rem,22vh,14rem)] object-cover rounded-3xl drop-shadow-[0_8px_12px_rgba(0,0,0,0.18)] border-[5px] border-white"
+                />
+                <span className="absolute -top-2 -right-2 text-3xl sm:text-4xl">✨</span>
+              </div>
+            )}
             <h1
               className="font-display font-black leading-none whitespace-nowrap"
               style={{
-                fontSize: 'clamp(2rem, min(9vw, 11vh), 8rem)',
+                fontSize: 'clamp(2.5rem, min(12vw, 20vh), 12rem)',
                 color: '#FF7A3C',
-                WebkitTextStroke: 'clamp(2px, 0.5vh, 5px) white',
+                WebkitTextStroke: 'clamp(3px, 0.6vh, 6px) white',
                 paintOrder: 'stroke fill',
                 filter: 'drop-shadow(0 6px 0 rgba(0,0,0,0.08))',
                 letterSpacing: '0.14em',
@@ -597,22 +604,12 @@ function KoreanBlockPlayerInner({
                 <span className="inline-block w-1.5 h-[0.7em] bg-coral-500 align-middle ml-2 animate-pulse" />
               )}
             </h1>
-            {currentItem.imageUrl && (
-              <div className="relative shrink-0">
-                <img
-                  src={currentItem.imageUrl}
-                  alt={currentItem.word}
-                  className="h-[clamp(2.5rem,9vh,6rem)] w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
-                />
-                <span className="absolute -top-1 -right-1 text-xl sm:text-2xl">✨</span>
-              </div>
-            )}
           </section>
 
-          {/* 섹션 2 — 드롭존 + 확인/초기화 (한 카드) */}
+          {/* 섹션 2 — 드롭존 화면 가운데. 확인/초기화 absolute 로 우측 띄움. 가로 풀폭, 세로 비중 3 (1.5). */}
           <section
             className={cn(
-              'rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.375rem,1.25vh,1rem)] flex flex-row items-center justify-center gap-[clamp(0.75rem,2vw,1.5rem)] shrink-0 transition-all',
+              'relative flex-[3] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.625rem,1.75vh,1.25rem)] flex items-center justify-center transition-all',
               isWrong && 'ring-4 ring-danger/40 animate-shake bg-danger/10',
               roundCorrect &&
                 'ring-[6px] ring-success/70 bg-success/20 shadow-[0_0_60px_rgba(34,197,94,0.45)] scale-[1.02]'
@@ -631,7 +628,7 @@ function KoreanBlockPlayerInner({
                     const inner = char ? (
                       <span
                         className={cn(
-                          'text-[clamp(1.25rem,3.5vh,2.25rem)] font-black',
+                          'text-[clamp(1.5rem,5vh,3rem)] font-black',
                           isWrong
                             ? 'text-danger'
                             : correct
@@ -662,7 +659,7 @@ function KoreanBlockPlayerInner({
                         }
                         onClick={() => cellInteractable && handleCellClick(row, col)}
                         className={cn(
-                          'w-[clamp(2rem,5.5vh,4rem)] h-[clamp(2rem,5.5vh,4rem)]',
+                          'w-[clamp(2.5rem,8vh,5.5rem)] h-[clamp(2.5rem,8vh,5.5rem)]',
                           'rounded-2xl flex items-center justify-center select-none transition-all',
                           !cellInteractable
                             ? 'cursor-not-allowed'
@@ -698,12 +695,34 @@ function KoreanBlockPlayerInner({
                 </div>
               ))}
             </div>
-            <div className="flex flex-col gap-[clamp(0.25rem,1vh,0.75rem)] shrink-0">
+            {/* 좌측 드래그 안내 — 보통/어려움 모드 전용 (드래그 인터랙션). 쉬움은 strip 헤더가 가이드. 정답 시 hide. */}
+            {!isEasyMode && !roundCorrect && (
+              <div className="absolute left-[clamp(1rem,3vw,2.5rem)] top-1/2 -translate-y-1/2 flex flex-row items-center gap-[clamp(0.375rem,1vw,0.75rem)] shrink-0 pointer-events-none select-none">
+                <div className="px-[clamp(0.875rem,2vw,1.5rem)] py-[clamp(0.5rem,1.5vh,1rem)] rounded-3xl bg-gradient-to-br from-peach-100 to-peach-200 border-[3px] border-white shadow-pop">
+                  <p className="text-[clamp(0.875rem,2vh,1.375rem)] font-black text-ink-900 font-display whitespace-nowrap text-center leading-tight">
+                    아래 블록을
+                    <br />
+                    여기에 놓아요!
+                  </p>
+                </div>
+                <motion.div
+                  className="text-[clamp(2rem,5vh,4rem)] leading-none"
+                  aria-hidden
+                  animate={{ x: [0, 8, 0] }}
+                  transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  👉
+                </motion.div>
+              </div>
+            )}
+
+            {/* 확인 (큰) + 초기화 (작은) — 그리드는 화면 가운데, 버튼은 absolute 로 우측 띄움. */}
+            <div className="absolute right-[clamp(1rem,3vw,2.5rem)] top-1/2 -translate-y-1/2 flex flex-col items-center justify-center gap-[clamp(0.5rem,1.5vh,1rem)] shrink-0">
               <button
                 onClick={handleCheck}
                 disabled={roundCorrect || isPlaying}
                 className={cn(
-                  'px-[clamp(1rem,2.5vw,2.5rem)] py-[clamp(0.5rem,2vh,1.5rem)] rounded-3xl text-[clamp(1.125rem,3vh,1.875rem)] font-black transition-all',
+                  'px-[clamp(2rem,5vw,4rem)] py-[clamp(0.75rem,2.25vh,1.5rem)] rounded-3xl text-[clamp(1.25rem,3.5vh,2.25rem)] font-black transition-all',
                   roundCorrect || isPlaying
                     ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
                     : 'bg-gradient-to-b from-coral-400 to-coral-600 text-white shadow-pop hover:scale-105 active:scale-95'
@@ -716,7 +735,7 @@ function KoreanBlockPlayerInner({
                 disabled={roundCorrect || isPlaying}
                 title="블록 모두 비우기"
                 className={cn(
-                  'px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.25rem,0.875vh,0.625rem)] rounded-2xl text-[clamp(0.75rem,1.875vh,1.125rem)] font-bold transition-all flex items-center justify-center gap-1.5',
+                  'px-[clamp(0.875rem,2.25vw,1.5rem)] py-[clamp(0.25rem,1vh,0.625rem)] rounded-2xl text-[clamp(0.875rem,2vh,1.125rem)] font-bold transition-all flex items-center justify-center gap-1.5',
                   roundCorrect || isPlaying
                     ? 'bg-ink-100 text-ink-500 cursor-not-allowed'
                     : 'bg-white/95 text-ink-700 shadow-soft hover:bg-white hover:scale-105 active:scale-95'
@@ -725,11 +744,10 @@ function KoreanBlockPlayerInner({
                 <span aria-hidden>↺</span>
                 <span>초기화</span>
               </button>
-              {/* 쉬움은 strip 자체가 가이드 — 도와줘 버튼 X. 보통/어려움 모드는 미지원 (drag 학습 위주). */}
             </div>
           </section>
 
-          {/* 섹션 3 — 쉬움: 순서 strip (클릭하면 자동 배치). 보통/어려움: 자음·모음 패널 (드래그). */}
+          {/* 섹션 3 — 쉬움: 순서 strip (클릭하면 자동 배치). 보통/어려움: 자음·모음 패널 (드래그, 동일 폭). */}
           {isEasyMode ? (
             <EasyOrderStrip
               steps={easySteps}
@@ -739,17 +757,22 @@ function KoreanBlockPlayerInner({
               disabled={roundCorrect}
             />
           ) : (
-            <div className="flex flex-row gap-[clamp(0.5rem,1.5vh,1.25rem)] shrink-0">
-              <BlockPanel title="자음" tone="consonant">
-                {ALL_CONSONANTS.map((b) => (
-                  <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
-                ))}
-              </BlockPanel>
-              <BlockPanel title="모음" tone="vowel">
-                {ALL_VOWELS.map((b) => (
-                  <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
-                ))}
-              </BlockPanel>
+            // 자음/모음 패널 — 가로 풀폭 50/50, 세로 비중 2 (1).
+            <div className="flex-[2] min-h-0 flex flex-row gap-[clamp(0.625rem,2vw,1.5rem)] items-stretch">
+              <div className="flex-1 flex">
+                <BlockPanel title="자음" tone="consonant">
+                  {ALL_CONSONANTS.map((b) => (
+                    <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
+                  ))}
+                </BlockPanel>
+              </div>
+              <div className="flex-1 flex">
+                <BlockPanel title="모음" tone="vowel">
+                  {ALL_VOWELS.map((b) => (
+                    <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
+                  ))}
+                </BlockPanel>
+              </div>
             </div>
           )}
         </div>
@@ -797,10 +820,12 @@ function EasyOrderStrip({
   disabled: boolean;
 }) {
   return (
-    <div className="relative rounded-3xl bg-cream-50/95 shadow-pop px-[clamp(0.5rem,1.5vw,1rem)] pt-[clamp(0.5rem,2.5vh,1.75rem)] pb-[clamp(0.25rem,0.875vh,1rem)] border-2 border-dashed border-cream-50 shrink-0">
-      <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-        <span className="px-4 py-1 rounded-full text-white text-xs sm:text-sm font-black shadow-md flex items-center gap-1 whitespace-nowrap bg-gradient-to-b from-coral-400 to-coral-600">
-          ⭐ 순서대로 눌러봐 ⭐
+    <div className="relative rounded-3xl bg-cream-50/95 shadow-pop px-[clamp(0.75rem,1.5vw,1rem)] pt-[clamp(2rem,6vh,4rem)] pb-[clamp(0.5rem,1.5vh,1.25rem)] border-2 border-dashed border-cream-50 shrink-0">
+      <div className="absolute -top-[clamp(1.25rem,3vh,2rem)] left-1/2 -translate-x-1/2">
+        <span className="px-[clamp(1.25rem,3vw,2rem)] py-[clamp(0.375rem,1.25vh,0.875rem)] rounded-full text-white text-[clamp(0.875rem,2.25vh,1.5rem)] font-black font-display shadow-pop border-[3px] border-white flex items-center gap-2 whitespace-nowrap bg-gradient-to-b from-coral-400 to-coral-600">
+          <span className="text-[clamp(1rem,2.5vh,1.625rem)]">⭐</span>
+          <span>순서대로 눌러봐</span>
+          <span className="text-[clamp(1rem,2.5vh,1.625rem)]">⭐</span>
         </span>
       </div>
       <div className="flex flex-row gap-[clamp(0.25rem,1vh,0.75rem)] justify-center items-center flex-wrap">
@@ -856,7 +881,7 @@ function BlockPanel({
   children: ReactNode;
 }) {
   return (
-    <div className="relative rounded-3xl bg-cream-50/95 shadow-pop px-[clamp(0.5rem,1.5vw,1rem)] pt-[clamp(0.5rem,2.5vh,1.75rem)] pb-[clamp(0.25rem,0.875vh,1rem)] border-2 border-dashed border-cream-50">
+    <div className="relative w-full rounded-3xl bg-cream-50/95 shadow-pop px-[clamp(0.5rem,1.5vw,1rem)] pt-[clamp(0.5rem,2.5vh,1.75rem)] pb-[clamp(0.25rem,0.875vh,1rem)] border-2 border-dashed border-cream-50">
       {/* 헤더 칩 */}
       <div className="absolute -top-3 left-1/2 -translate-x-1/2">
         <span

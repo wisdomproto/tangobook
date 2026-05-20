@@ -2,38 +2,35 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PageHeader } from '@/design-system';
 import {
-  getAllKoreanUnits,
-  getActivityPlan,
-  getRequiredActivities,
-  type KoreanUnitSummary,
-} from '../lib/korean-phonics-units';
+  getAllEnglishUnits,
+  getEnglishActivityPlan,
+  getEnglishRequiredActivities,
+  type EnglishUnitSummary,
+} from '../lib/english-phonics-units';
 import { usePhonicsProgress, getRecentUnit, markRecentUnit } from '../lib/progress-store';
-import KoreanPhonicsUnitPage from './KoreanPhonicsUnitPage';
+import EnglishPhonicsUnitPage from './EnglishPhonicsUnitPage';
 
 /**
- * /library/phonics/korean(/:unitId)? — 한글 파닉스 학습 모드.
+ * /library/phonics/english(/:unitId)? — 영어 파닉스 학습 모드.
  *
- * AppShell **밖** 풀화면. 좌측: 전체 커리큘럼 스크롤 list (한글1~4 + units).
- * 우측: 선택된 unit 의 활동 그리드 (KoreanPhonicsUnitPage 임베디드).
- *
- * 진입 시 URL 에 unitId 없으면 → localStorage recent unit 또는 첫 활성 unit 으로 redirect.
+ * 한글 (`KoreanPhonicsStudyPage`) 평행 구조. 좌측 커리큘럼 (Book 1~5) + 우측 unit body.
+ * 활동 plan 은 아직 미구성 — 모든 unit "활동 준비 중" 표시.
  */
-export default function KoreanPhonicsStudyPage() {
+export default function EnglishPhonicsStudyPage() {
   const { unitId } = useParams<{ unitId?: string }>();
   const navigate = useNavigate();
-  const allUnits = useMemo(() => getAllKoreanUnits(), []);
-  const { isUnitDone } = usePhonicsProgress('korean');
+  const allUnits = useMemo(() => getAllEnglishUnits(), []);
+  const { isUnitDone } = usePhonicsProgress('english');
 
   // ── Hooks (early return 이전에 모두 호출) ──
   useEffect(() => {
-    if (unitId) markRecentUnit('korean', unitId);
+    if (unitId) markRecentUnit('english', unitId);
   }, [unitId]);
 
   const currentLevelKey = allUnits.find((u) => u.id === unitId)?.levelKey;
   const [expandedLevels, setExpandedLevels] = useState<Set<string>>(
     () => new Set(currentLevelKey ? [currentLevelKey] : [])
   );
-  // URL 의 unit 이 바뀌면 그 레벨 자동 펼침.
   useEffect(() => {
     if (currentLevelKey) {
       setExpandedLevels((prev) => {
@@ -45,17 +42,13 @@ export default function KoreanPhonicsStudyPage() {
     }
   }, [currentLevelKey]);
 
-  // unitId 없으면 recent → 첫 활성 unit 으로 redirect (hooks 후).
+  // unitId 없으면 recent → 첫 unit 으로 redirect. plan 아직 없으니 첫 unit (en-b1-u01) 으로.
   if (!unitId) {
-    const recent = getRecentUnit('korean');
-    const recentValid =
-      recent &&
-      allUnits.some((u) => u.id === recent && getActivityPlan(u.id).activities.length > 0);
-    const target =
-      (recentValid ? recent : null) ??
-      allUnits.find((u) => getActivityPlan(u.id).activities.length > 0)?.id;
+    const recent = getRecentUnit('english');
+    const recentValid = recent && allUnits.some((u) => u.id === recent);
+    const target = (recentValid ? recent : null) ?? allUnits[0]?.id;
     if (target) {
-      return <Navigate to={`/library/phonics/korean/${target}`} replace />;
+      return <Navigate to={`/library/phonics/english/${target}`} replace />;
     }
     return (
       <div className="min-h-screen flex items-center justify-center bg-cream-50 px-6 text-center">
@@ -72,9 +65,8 @@ export default function KoreanPhonicsStudyPage() {
     );
   }
 
-  // 레벨별 그룹 (사이드바)
   const byLevel = (() => {
-    const map = new Map<string, { name: string; units: KoreanUnitSummary[] }>();
+    const map = new Map<string, { name: string; units: EnglishUnitSummary[] }>();
     for (const u of allUnits) {
       if (!map.has(u.levelKey)) map.set(u.levelKey, { name: u.levelName, units: [] });
       map.get(u.levelKey)!.units.push(u);
@@ -101,23 +93,21 @@ export default function KoreanPhonicsStudyPage() {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* 상단 헤더 — 동화책/어휘 학습 페이지와 동일 PageHeader 패턴 (흰 wash 카드 + peach pill) */}
       <PageHeader onBack={() => navigate('/library')} backLabel="홈">
         <span className="inline-flex items-center gap-2">
-          <span className="text-coral-600">한글</span>
+          <span className="text-coral-600">영어</span>
           <span>파닉스</span>
         </span>
       </PageHeader>
 
       <div className="flex-1 min-h-0 flex mt-2">
-        {/* 좌측 — 커리큘럼 스크롤 list */}
         <aside className="w-48 sm:w-56 md:w-64 shrink-0 h-full overflow-y-auto border-r border-cream-200/80 bg-white/85 backdrop-blur py-4 px-2.5 sm:px-3">
           <div className="flex flex-col gap-5">
             {byLevel.map(([levelKey, level]) => {
               const isExpanded = expandedLevels.has(levelKey);
               const totalUnits = level.units.length;
               const playableCount = level.units.filter(
-                (u) => getActivityPlan(u.id).activities.length > 0
+                (u) => getEnglishActivityPlan(u.id).activities.length > 0
               ).length;
               return (
                 <section key={levelKey}>
@@ -142,9 +132,9 @@ export default function KoreanPhonicsStudyPage() {
                   {isExpanded && (
                     <div className="flex flex-col gap-1 mt-1">
                       {level.units.map((u) => {
-                        const plan = getActivityPlan(u.id);
+                        const plan = getEnglishActivityPlan(u.id);
                         const hasPlan = plan.activities.length > 0;
-                        const required = getRequiredActivities(u.id);
+                        const required = getEnglishRequiredActivities(u.id);
                         const done = isUnitDone(u.id, required);
                         const active = u.id === unitId;
                         return (
@@ -165,9 +155,8 @@ export default function KoreanPhonicsStudyPage() {
           </div>
         </aside>
 
-        {/* 우측 — 선택된 unit body (embedded 모드 → "← 단원 목록" 링크 hide) */}
         <div className="flex-1 min-h-0 overflow-y-auto">
-          <KoreanPhonicsUnitPage embedded />
+          <EnglishPhonicsUnitPage embedded />
         </div>
       </div>
     </div>
@@ -180,37 +169,27 @@ function CurriculumItem({
   done,
   hasPlan,
 }: {
-  unit: KoreanUnitSummary;
+  unit: EnglishUnitSummary;
   active: boolean;
   done: boolean;
   hasPlan: boolean;
 }) {
+  // 영어 unit title 예: "Unit 01: Aa Bb Cc" → 앞 "Unit 01: " 제거
   const titleShort = unit.unitTitle.replace(/^unit\s+\d+:\s*/i, '');
   const baseClass = 'flex items-center gap-2.5 px-2.5 py-2.5 rounded-2xl text-left transition-all';
-  if (!hasPlan) {
-    return (
-      <div
-        className={`${baseClass} bg-cream-50/60 text-ink-400 cursor-not-allowed opacity-70 select-none`}
-        aria-disabled="true"
-      >
-        <span className="inline-flex w-7 h-7 rounded-full bg-ink-100 text-ink-400 items-center justify-center text-xs font-black shrink-0">
-          {unit.unitIndexInLevel}
-        </span>
-        <span className="text-sm font-bold truncate">{titleShort}</span>
-        <span className="ml-auto text-[10px] font-bold text-ink-300">준비 중</span>
-      </div>
-    );
-  }
+  // 모든 unit 클릭 가능 (계획 없어도 진입 — UnitPage 에서 "준비 중" 메시지). 사이드바 상의 시각만 옅게.
   return (
     <Link
-      to={`/library/phonics/korean/${unit.id}`}
+      to={`/library/phonics/english/${unit.id}`}
       className={[
         baseClass,
         active
           ? 'bg-gradient-to-br from-coral-400 to-coral-600 text-white shadow-pop ring-2 ring-white scale-[1.02]'
           : done
             ? 'bg-success/10 text-success-700 hover:bg-success/20 border-2 border-success/20'
-            : 'bg-white/70 text-ink-800 hover:bg-white hover:shadow-soft border-2 border-transparent hover:border-cream-200',
+            : hasPlan
+              ? 'bg-white/70 text-ink-800 hover:bg-white hover:shadow-soft border-2 border-transparent hover:border-cream-200'
+              : 'bg-cream-50/60 text-ink-500 hover:bg-white/70 border-2 border-transparent',
       ].join(' ')}
     >
       <span
@@ -220,12 +199,17 @@ function CurriculumItem({
             ? 'bg-white text-coral-600 ring-coral-200'
             : done
               ? 'bg-success text-white ring-white'
-              : 'bg-coral-100 text-coral-600 ring-white',
+              : hasPlan
+                ? 'bg-coral-100 text-coral-600 ring-white'
+                : 'bg-ink-100 text-ink-400 ring-white',
         ].join(' ')}
       >
         {done ? '✓' : unit.unitIndexInLevel}
       </span>
       <span className="text-sm sm:text-base font-black truncate break-keep">{titleShort}</span>
+      {!hasPlan && !active && (
+        <span className="ml-auto text-[10px] font-bold text-ink-300 shrink-0">준비 중</span>
+      )}
     </Link>
   );
 }

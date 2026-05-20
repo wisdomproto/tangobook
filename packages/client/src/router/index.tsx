@@ -29,6 +29,8 @@ import {
   PhonicsLandingPage,
   KoreanPhonicsStudyPage,
   KoreanPhonicsActivityPage,
+  EnglishPhonicsStudyPage,
+  EnglishPhonicsActivityPage,
 } from '../features/phonics-learner';
 
 export const router = createBrowserRouter([
@@ -93,6 +95,32 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <KoreanPhonicsActivityPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 영어 파닉스 학습 모드 — AppShell 밖 풀화면 (좌 Book1~5 + 우 unit body)
+        path: 'library/phonics/english',
+        element: (
+          <ErrorBoundary>
+            <EnglishPhonicsStudyPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'library/phonics/english/:unitId',
+        element: (
+          <ErrorBoundary>
+            <EnglishPhonicsStudyPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 영어 파닉스 액티비티 — 풀화면. AppShell 밖.
+        path: 'library/phonics/english/:unitId/:activityKey',
+        element: (
+          <ErrorBoundary>
+            <EnglishPhonicsActivityPage />
           </ErrorBoundary>
         ),
       },

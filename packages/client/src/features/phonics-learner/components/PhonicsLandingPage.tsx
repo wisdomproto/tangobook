@@ -65,10 +65,10 @@ export default function PhonicsLandingPage() {
           </div>
         </Link>
 
-        {/* 영어 파닉스 — blue 톤 준비 중 */}
-        <div
-          className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-400 via-blue-500 to-blue-600 shadow-pop aspect-[4/3] md:aspect-[5/4] p-6 sm:p-8 text-white flex flex-col justify-between cursor-not-allowed"
-          aria-disabled="true"
+        {/* 영어 파닉스 — blue 톤 active */}
+        <Link
+          to="/library/phonics/english"
+          className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-400 via-blue-500 to-blue-600 shadow-pop hover:shadow-[0_16px_32px_rgba(0,0,0,0.22)] hover:-translate-y-1 active:translate-y-0 transition-all duration-150 aspect-[4/3] md:aspect-[5/4] p-6 sm:p-8 text-white flex flex-col justify-between"
         >
           {/* 데코 blob */}
           <div
@@ -79,14 +79,13 @@ export default function PhonicsLandingPage() {
             aria-hidden
             className="absolute -bottom-16 -left-10 w-40 h-40 rounded-full bg-blue-300/30 blur-2xl"
           />
-          {/* 준비 중 ribbon — 우상단 corner */}
-          <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-warn text-ink-900 text-xs sm:text-sm font-black shadow-pop rotate-2">
-            준비 중
-          </div>
           {/* 상단 chip */}
-          <div className="relative flex items-center gap-2">
+          <div className="relative flex items-center justify-between">
             <span className="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs sm:text-sm font-black tracking-wide">
               ABC
+            </span>
+            <span className="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs sm:text-sm font-black">
+              4-7세
             </span>
           </div>
           {/* 거대 character */}
@@ -98,18 +97,18 @@ export default function PhonicsLandingPage() {
               <p className="text-xs sm:text-sm md:text-base font-bold mt-1 text-white/90 break-keep">
                 알파벳 음가부터 단어까지
               </p>
-              <div className="mt-3 sm:mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/30 backdrop-blur-sm text-white font-black text-sm sm:text-base">
-                곧 만나요
-                <span className="text-base sm:text-lg">⏳</span>
+              <div className="mt-3 sm:mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-blue-600 font-black text-sm sm:text-base shadow-soft group-hover:shadow-pop transition">
+                시작하기
+                <span className="text-base sm:text-lg">→</span>
               </div>
             </div>
             <img
               src="/icons/phonics/english.webp"
               alt="영어 파닉스 호리"
-              className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 object-contain shrink-0 drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)] -mr-2"
+              className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 object-contain shrink-0 drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)] group-hover:scale-105 transition -mr-2"
             />
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   );

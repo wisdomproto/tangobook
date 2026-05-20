@@ -1,21 +1,18 @@
 import { Link, useParams } from 'react-router-dom';
-import { getActivityPlan, getKoreanUnit, type ActivityDef } from '../lib/korean-phonics-units';
+import { getEnglishActivityPlan, getEnglishUnit } from '../lib/english-phonics-units';
+import type { ActivityDef } from '../lib/korean-phonics-units';
 import { usePhonicsProgress } from '../lib/progress-store';
 
 /**
- * /library/phonics/korean/:unitId — unit 의 액티비티 그리드.
+ * /library/phonics/english/:unitId — 영어 unit 의 활동 그리드.
  *
- * 두 섹션 — **익히기** (모음 듣기/쓰기 4개), **게임하기** (4개 게임).
- * 액티비티 잠금 없음 — 8개 모두 자유롭게 접근. 진척은 ✓ 뱃지로만 표시.
- *
- * `embedded` 모드 (KoreanPhonicsStudyPage 안에 렌더될 때): "← 단원 목록" 링크 hide
- * (좌측 사이드바가 단원 목록 역할). 그 외는 standalone 화면용.
+ * 한글의 `KoreanPhonicsUnitPage` 평행. 활동 plan 있으면 카드 그리드, 없으면 "준비 중" placeholder.
  */
-export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?: boolean } = {}) {
+export default function EnglishPhonicsUnitPage({ embedded = false }: { embedded?: boolean } = {}) {
   const { unitId = '' } = useParams<{ unitId: string }>();
-  const unit = getKoreanUnit(unitId);
-  const plan = getActivityPlan(unitId);
-  const { unitCompletedActivities } = usePhonicsProgress('korean');
+  const unit = getEnglishUnit(unitId);
+  const plan = getEnglishActivityPlan(unitId);
+  const { unitCompletedActivities } = usePhonicsProgress('english');
   const completed = unitCompletedActivities(unitId);
 
   if (!unit) {
@@ -23,10 +20,10 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
       <div className="px-6 py-6 max-w-[900px] mx-auto">
         <p className="text-base font-bold text-ink-700">알 수 없는 단원입니다.</p>
         <Link
-          to="/library/phonics/korean"
+          to="/library/phonics/english"
           className="inline-block mt-3 text-coral-600 font-black underline"
         >
-          ← 한글 파닉스로
+          ← 영어 파닉스로
         </Link>
       </div>
     );
@@ -40,7 +37,7 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
       {!embedded && (
         <div className="mb-4">
           <Link
-            to="/library/phonics/korean"
+            to="/library/phonics/english"
             className="inline-flex items-center gap-1 text-sm sm:text-base font-bold text-ink-600 hover:text-ink-900"
           >
             ← 단원 목록
@@ -49,29 +46,55 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
       )}
 
       {plan.activities.length === 0 ? (
-        <div className="rounded-3xl bg-cream-100 p-8 text-center text-ink-600 font-black text-lg">
-          이 단원은 활동이 아직 준비되지 않았어요.
+        <div className="rounded-3xl bg-white/70 backdrop-blur-sm border-2 border-white shadow-pop p-8 sm:p-10 text-center">
+          <div className="text-6xl sm:text-7xl mb-4">⏳</div>
+          <h2 className="text-2xl sm:text-3xl font-black font-display text-ink-900 mb-2">
+            {unit.unitTitle}
+          </h2>
+          <p className="text-sm sm:text-base text-ink-600 font-bold mb-4">{unit.levelName}</p>
+          <p className="text-base sm:text-lg font-black text-ink-700">
+            이 단원은 활동이 아직 준비되지 않았어요.
+          </p>
+          <p className="text-sm sm:text-base font-bold text-ink-500 mt-2">
+            곧 영어 파닉스 활동이 추가될 거에요! ✨
+          </p>
+          {unit.targetWords.length > 0 && (
+            <div className="mt-6 inline-flex flex-wrap justify-center gap-2 max-w-md">
+              {unit.targetWords.map((w) => (
+                <span
+                  key={w}
+                  className="inline-block px-3 py-1.5 rounded-full bg-coral-100 text-coral-700 text-sm font-black"
+                >
+                  {w}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       ) : (
         <div className="flex flex-col gap-5 sm:gap-6">
-          <ActivitySection
-            unitId={unitId}
-            title="익히기"
-            subtitle="듣고 따라써요"
-            emoji="📖"
-            tone="learn"
-            activities={learnActivities}
-            completed={completed}
-          />
-          <ActivitySection
-            unitId={unitId}
-            title="게임하기"
-            subtitle="재미있게 익혀요"
-            emoji="🎮"
-            tone="play"
-            activities={playActivities}
-            completed={completed}
-          />
+          {learnActivities.length > 0 && (
+            <ActivitySection
+              unitId={unitId}
+              title="익히기"
+              subtitle="듣고 배워요"
+              emoji="📖"
+              tone="learn"
+              activities={learnActivities}
+              completed={completed}
+            />
+          )}
+          {playActivities.length > 0 && (
+            <ActivitySection
+              unitId={unitId}
+              title="게임하기"
+              subtitle="재미있게 익혀요"
+              emoji="🎮"
+              tone="play"
+              activities={playActivities}
+              completed={completed}
+            />
+          )}
         </div>
       )}
     </div>
@@ -95,9 +118,7 @@ function ActivitySection({
   activities: ActivityDef[];
   completed: string[];
 }) {
-  if (activities.length === 0) return null;
   const isLearn = tone === 'learn';
-  // Panel: 익히기 = peach 톤 wash, 게임하기 = mint 톤 wash. 양 섹션 시각 구분 강화.
   const panelClass = isLearn
     ? 'bg-gradient-to-br from-peach-100/80 via-peach-50/70 to-cream-50/60 border-peach-200/70'
     : 'bg-gradient-to-br from-mint-100/80 via-mint-50/70 to-cream-50/60 border-mint-200/70';
@@ -108,7 +129,6 @@ function ActivitySection({
     <section
       className={`relative rounded-[32px] border-2 ${panelClass} backdrop-blur-sm shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] px-4 sm:px-5 pt-10 sm:pt-12 pb-5 sm:pb-6`}
     >
-      {/* 섹션 헤더 — 위쪽 좌측 peg 처럼 띄움 */}
       <div className="absolute -top-5 left-5 sm:left-6">
         <div
           className={`inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full ${headerBg} shadow-pop border-[3px] border-white`}
@@ -134,17 +154,13 @@ function ActivitySection({
   );
 }
 
-/** 액티비티 kind → 일러스트 (webp). 매칭 안 되면 undefined → emoji 폴백. */
+/** 활동 kind → 일러스트 (학습/게임 일러는 한글과 공용). */
 const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
-  // 학습 — 듣기/누르기/음절 = 블록 두 개 합쳐지는 일러
-  'vowel-listen': '/icons/activity/cvc-learn.webp',
-  'consonant-tap': '/icons/activity/cvc-learn.webp',
-  'consonant-blend-listen': '/icons/activity/cvc-learn.webp',
-  // 학습 — 쓰기 = 미소짓는 연필
-  'vowel-write': '/icons/activity/cvc-write.webp',
-  'consonant-write': '/icons/activity/cvc-write.webp',
-  // 게임
-  'game-korean-block': '/icons/game/korean-block.webp',
+  // 학습 — CVC 배우기/쓰기
+  'cvc-pattern-learn': '/icons/activity/cvc-learn.webp',
+  'cvc-pattern-write': '/icons/activity/cvc-write.webp',
+  // 게임 (한글 파닉스 동일 webp 재사용)
+  'game-english-block': '/icons/game/korean-block.webp', // 블록 일러
   'game-word-writing': '/icons/game/word-writing.webp',
   'game-connect-dots': '/icons/game/connect-dots.webp',
   'game-line-matching': '/icons/game/line-matching.webp',
@@ -160,8 +176,8 @@ function ActivityCard({
   done: boolean;
 }) {
   const isLearn = activity.section === 'learn';
-  // 게임하기는 완료 개념 없음 → done 시그널 무시
   const showDone = isLearn && done;
+  const iconUrl = KIND_ICON_URL[activity.kind];
 
   const cardClass = showDone
     ? 'bg-gradient-to-br from-success/10 to-success/20 border-success/60 ring-2 ring-success/30'
@@ -175,24 +191,17 @@ function ActivityCard({
       ? 'bg-gradient-to-br from-coral-400 to-coral-600 text-white'
       : 'bg-gradient-to-br from-mint-400 to-mint-600 text-white';
 
-  const iconUrl = KIND_ICON_URL[activity.kind];
-
   return (
     <Link
-      to={`/library/phonics/korean/${unitId}/${activity.key}`}
+      to={`/library/phonics/english/${unitId}/${activity.key}`}
       className={`group relative block aspect-[5/6] rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
     >
-      {/* 위쪽 살짝 하이라이트 (3D rendered 느낌) */}
       <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/60 to-transparent pointer-events-none" />
-
-      {/* 완료 큰 ✓ overlay — 우상단 (익히기 완료 시만) */}
       {showDone && (
         <div className="absolute top-2.5 right-2.5 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-success text-white flex items-center justify-center shadow-pop text-2xl sm:text-3xl font-black ring-[5px] ring-white z-20">
           ✓
         </div>
       )}
-
-      {/* 번호 배지 — 흰 외곽 + 그라데이션 + 살짝 기울임 */}
       <div className="relative z-10 flex items-center justify-between mb-2">
         <span
           className={`inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full font-black text-xl sm:text-2xl shrink-0 shadow-pop ring-[4px] ring-white -rotate-[6deg] group-hover:-rotate-[3deg] transition-transform ${numBadgeClass}`}
@@ -200,8 +209,6 @@ function ActivityCard({
           {activity.order}
         </span>
       </div>
-
-      {/* 큰 일러스트 (있으면 webp, 없으면 emoji) — 카드 가운데 차지 */}
       <div
         className={`relative z-10 flex-1 flex items-center justify-center my-1 group-hover:scale-105 transition-transform duration-200 ${showDone ? 'opacity-50' : ''}`}
       >
@@ -217,7 +224,6 @@ function ActivityCard({
           </span>
         )}
       </div>
-
       <h3
         className={`relative z-10 text-xl sm:text-2xl font-black font-display leading-tight break-keep ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
       >

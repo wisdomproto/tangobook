@@ -292,10 +292,15 @@ export function LetterWritingCanvas({
 
     if (guidePixels === 0 || userPixels === 0) return 0;
 
+    // coverage: 가이드의 몇 %를 사용자가 덮었는가 (가장 중요 — 점 1개로는 거의 0).
+    // proximity: 사용자 stroke 가 가이드에 얼마나 가까운가 (off-target 페널티 용).
+    // efficiency: 사용자가 가이드 영역 밖으로 너무 많이 그리면 감점 (1 이하).
+    // 이전 algorithm 은 proximity*0.6 + coverage*0.4 였는데 점 1개 → proximity=1, coverage≈0 → 60% 통과 버그.
+    // 새 algorithm: coverage 가 main driver, proximity 는 multiplier.
     const proximity = proximitySum / userPixels;
     const coverage = coveredPixels / guidePixels;
     const efficiency = Math.min(1, (guidePixels * 1.5) / userPixels);
-    const rawScore = proximity * 0.6 + coverage * 0.4;
+    const rawScore = coverage * (0.4 + 0.6 * proximity);
     return Math.round(rawScore * efficiency * 100);
   }, [letter, calcFont]);
 

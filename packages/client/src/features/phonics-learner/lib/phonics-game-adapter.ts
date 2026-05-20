@@ -14,15 +14,18 @@ import type {
   KoreanBlockData,
   KoreanBlockItem,
   KoreanLineMatchingData,
+  EnglishLineMatchingData,
   LineMatchingItem,
   ConnectTheDotsData,
   ConnectTheDotsItem,
   WordWritingData,
   WordWritingItem,
+  EnglishBlockData,
+  EnglishBlockItem,
   Storybook,
   DotKeypoint,
 } from '@tangobook/shared';
-import { decomposeWord } from '@tangobook/shared';
+import { decomposeWord, decomposeEnglishWord } from '@tangobook/shared';
 
 const MAX_ITEMS = 4;
 
@@ -133,4 +136,62 @@ export function phonicsToConnectTheDotsData(sb: Storybook): ConnectTheDotsData |
   }
   if (candidates.length === 0) return null;
   return { type: 'connect-the-dots', items: shuffle(candidates).slice(0, MAX_ITEMS) };
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// 영어 파닉스 어댑터 — 영어 단어 (cat, fan, ...) 용
+// ──────────────────────────────────────────────────────────────────────────
+
+const ENGLISH_WORD_RE = /^[a-z]+$/i;
+const MAX_BLOCK_WORD_LEN = 6;
+
+export function phonicsToEnglishBlockData(sb: Storybook): EnglishBlockData | null {
+  const targetWords = sb.phonicsConfig?.targetWords ?? [];
+  const items: EnglishBlockItem[] = [];
+  for (const w of targetWords) {
+    const word = w.toLowerCase().trim();
+    if (!ENGLISH_WORD_RE.test(word) || word.length > MAX_BLOCK_WORD_LEN) continue;
+    const extra = findImageData(sb, w);
+    items.push({
+      word,
+      korean: '',
+      imageUrl: extra.imageUrl ?? '',
+      ...(extra.ttsUrl ? { ttsUrl: extra.ttsUrl } : {}),
+      letters: decomposeEnglishWord(word),
+    });
+  }
+  if (items.length === 0) return null;
+  return { type: 'english-block', items: shuffle(items).slice(0, MAX_ITEMS) };
+}
+
+export function phonicsToEnglishWordWritingData(sb: Storybook): WordWritingData | null {
+  const targetWords = sb.phonicsConfig?.targetWords ?? [];
+  if (targetWords.length === 0) return null;
+  const items: WordWritingItem[] = targetWords.map((w) => {
+    const extra = findImageData(sb, w);
+    return {
+      word: w,
+      displayWord: w,
+      ...(extra.imageUrl ? { imageUrl: extra.imageUrl } : {}),
+      referenceImageUrl: extra.imageUrl ?? '',
+      ...(extra.ttsUrl ? { ttsUrl: extra.ttsUrl } : {}),
+    };
+  });
+  return { type: 'english-word-writing', items: shuffle(items).slice(0, MAX_ITEMS) };
+}
+
+export function phonicsToEnglishLineMatchingData(sb: Storybook): EnglishLineMatchingData | null {
+  const targetWords = sb.phonicsConfig?.targetWords ?? [];
+  const candidates: LineMatchingItem[] = [];
+  for (const w of targetWords) {
+    const extra = findImageData(sb, w);
+    if (!extra.imageUrl) continue;
+    candidates.push({
+      word: w,
+      imageUrl: extra.imageUrl,
+      ...(extra.ttsUrl ? { ttsUrl: extra.ttsUrl } : {}),
+    });
+  }
+  if (candidates.length < 3) return null;
+  return { type: 'english-line-matching', items: shuffle(candidates).slice(0, MAX_ITEMS) };
 }
