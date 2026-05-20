@@ -46,10 +46,10 @@ export default function PhonicsLandingPage() {
           {/* 거대 character */}
           <div className="relative flex items-end justify-between gap-4">
             <div className="flex-1 min-w-0">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-display leading-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-display leading-tight break-keep">
                 한글 파닉스
               </h2>
-              <p className="text-xs sm:text-sm md:text-base font-bold mt-1 text-white/90">
+              <p className="text-xs sm:text-sm md:text-base font-bold mt-1 text-white/90 break-keep">
                 모음 · 자음 · 받침을 차근차근
               </p>
               <div className="mt-3 sm:mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-coral-600 font-black text-sm sm:text-base shadow-soft group-hover:shadow-pop transition">
@@ -60,7 +60,7 @@ export default function PhonicsLandingPage() {
             <img
               src="/icons/phonics/korean.webp"
               alt="한글 파닉스 호리"
-              className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)] group-hover:scale-105 transition -mr-2"
+              className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 object-contain shrink-0 drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)] group-hover:scale-105 transition -mr-2"
             />
           </div>
         </Link>
@@ -92,10 +92,10 @@ export default function PhonicsLandingPage() {
           {/* 거대 character */}
           <div className="relative flex items-end justify-between gap-4">
             <div className="flex-1 min-w-0">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-display leading-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-display leading-tight break-keep">
                 영어 파닉스
               </h2>
-              <p className="text-xs sm:text-sm md:text-base font-bold mt-1 text-white/90">
+              <p className="text-xs sm:text-sm md:text-base font-bold mt-1 text-white/90 break-keep">
                 알파벳 음가부터 단어까지
               </p>
               <div className="mt-3 sm:mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/30 backdrop-blur-sm text-white font-black text-sm sm:text-base">
@@ -106,7 +106,7 @@ export default function PhonicsLandingPage() {
             <img
               src="/icons/phonics/english.webp"
               alt="영어 파닉스 호리"
-              className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)] -mr-2"
+              className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 object-contain shrink-0 drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)] -mr-2"
             />
           </div>
         </div>
