@@ -69,7 +69,7 @@ export function LibraryBanner() {
 
   return (
     <div
-      className="relative w-full aspect-[6/1] rounded-2xl overflow-hidden shadow-soft mb-5 flex bg-gradient-to-br from-cream-50 to-peach-100"
+      className="relative w-full aspect-[6/1] rounded-2xl overflow-hidden shadow-soft mb-8 md:mb-10 flex bg-gradient-to-br from-cream-50 to-peach-100"
       role="region"
       aria-label="라이브러리 안내 배너"
     >

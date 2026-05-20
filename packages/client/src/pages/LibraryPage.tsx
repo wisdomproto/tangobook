@@ -273,7 +273,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
         {type === 'storybook' && <LibraryBanner />}
 
         {/* 검색바 (좌) + 카테고리 chip (우). 모바일 stack, md+ 가로. 검색바 적정 폭으로 줄여 chip 영역 확보. */}
-        <div className="mb-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 lg:gap-8">
+        <div className="mb-8 md:mb-10 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 lg:gap-8">
           {/* 검색바 — 좌측 */}
           <div className="shrink-0 w-full md:w-72 lg:w-80 2xl:w-96 bg-white rounded-2xl px-4 py-3 shadow-soft flex items-center gap-2">
             <span className="text-xl">🔍</span>
