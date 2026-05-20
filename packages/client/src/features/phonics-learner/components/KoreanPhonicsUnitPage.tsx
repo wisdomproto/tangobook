@@ -175,7 +175,7 @@ function ActivityCard({
       </h3>
       {activity.subtitle && (
         <p
-          className={`text-xs sm:text-sm font-bold mt-1 leading-snug break-keep ${showDone ? 'text-ink-500' : 'text-ink-800'}`}
+          className={`text-sm sm:text-base font-black mt-1 leading-snug break-keep ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
         >
           {activity.subtitle}
         </p>
