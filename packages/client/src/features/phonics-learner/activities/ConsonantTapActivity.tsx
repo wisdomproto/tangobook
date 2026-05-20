@@ -18,7 +18,8 @@ const CARDS = 3;
  *
  * 3개의 자음 버튼 (ㄱ). 각 버튼을 3번 누르면 그 카드 완료.
  *   - 매 탭 → "ㄱ" 발음
- *   - 3 카드 모두 9 탭 완료 → 띵동 효과음 + 칭찬 시퀀스
+ *   - 각 카드 3 탭 완료 → ㄱ TTS 끝난 후 띵동 효과음 (per-card 완료 피드백)
+ *   - 3 카드 모두 9 탭 완료 → 띵동 끝난 후 칭찬 시퀀스 chain
  */
 export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: Props) {
   const [tapCounts, setTapCounts] = useState<number[]>(Array(CARDS).fill(0));
@@ -41,19 +42,20 @@ export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: 
         identifierPrefix: 'consonant-tap',
       });
 
-      // 모든 9 탭 완료 → ㄱ TTS 끝난 후 띵동 → 칭찬
+      const isCardComplete = next === TAPS_PER_CARD;
       const isAllDone = nextTaps.every((c) => c >= TAPS_PER_CARD);
-      if (isAllDone) {
-        setCompleted(true);
-        const playChimeThenPraise = () => {
-          playAudio('/sounds/game/correct.mp3', () =>
-            playCorrectSequence({ language: 'ko', onDone: onComplete })
-          );
-        };
+
+      if (isCardComplete) {
+        // 카드 3 탭 완료: ㄱ TTS → 띵동 (per-card). 마지막 카드면 추가로 띵동 끝나면 칭찬.
+        if (isAllDone) setCompleted(true);
+        const afterChime = isAllDone
+          ? () => playCorrectSequence({ language: 'ko', onDone: onComplete })
+          : undefined;
+        const playChime = () => playAudio('/sounds/game/correct.mp3', afterChime);
         if (url) {
-          playAudio(url, playChimeThenPraise);
+          playAudio(url, playChime);
         } else {
-          playChimeThenPraise();
+          playChime();
         }
         return;
       }
