@@ -54,6 +54,11 @@ export default function KoreanPhonicsActivityPage() {
     backToUnit();
   }, [unitId, activityKey, backToUnit]);
 
+  // 자동 back 없이 진척만 마킹 (activity 가 직접 retry/back UI 노출용)
+  const handleMarkComplete = useCallback(() => {
+    markActivityCompleted('korean', unitId, activityKey);
+  }, [unitId, activityKey]);
+
   if (!unit || !activity) {
     return (
       <div className="px-6 py-6 max-w-[800px] mx-auto">
@@ -74,7 +79,7 @@ export default function KoreanPhonicsActivityPage() {
       <VowelListenActivity
         unitId={unitId}
         vowels={activity.vowels}
-        onComplete={handleComplete}
+        onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
       />
     );

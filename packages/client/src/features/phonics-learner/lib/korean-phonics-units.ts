@@ -7,7 +7,7 @@
  * 활동 구성은 unit 마다 다를 수 있어 `KOREAN_UNIT_ACTIVITY_PLAN` 으로 분리.
  * unit 1 (모음) 만 작성 — 나머지는 자료 모이는 대로 추가.
  */
-import { KOREAN_PHONICS_CURRICULUM, composeHangul } from '@tangobook/shared';
+import { KOREAN_PHONICS_CURRICULUM } from '@tangobook/shared';
 
 export interface KoreanUnitSummary {
   id: string; // 'kr-h1-u01'
@@ -154,8 +154,7 @@ const UNIT_01_PLAN: ActivityPlan = {
       order: 5,
       kind: 'game-connect-dots',
       section: 'play',
-      title: '점 잇기',
-      subtitle: '단어 그림 그려보기',
+      title: '낱말 그리기',
       emoji: '🔵',
       required: false,
     },
@@ -164,8 +163,7 @@ const UNIT_01_PLAN: ActivityPlan = {
       order: 6,
       kind: 'game-korean-block',
       section: 'play',
-      title: '한글 블록',
-      subtitle: '자모 맞추기',
+      title: '한글 블록 게임',
       emoji: '🧩',
       required: false,
     },
@@ -175,7 +173,6 @@ const UNIT_01_PLAN: ActivityPlan = {
       kind: 'game-word-writing',
       section: 'play',
       title: '낱말 쓰기',
-      subtitle: '글자 따라쓰기',
       emoji: '🖍️',
       required: false,
     },
@@ -185,7 +182,6 @@ const UNIT_01_PLAN: ActivityPlan = {
       kind: 'game-line-matching',
       section: 'play',
       title: '그림 짝 찾기',
-      subtitle: '그림-단어 잇기',
       emoji: '🔗',
       required: false,
     },
@@ -196,10 +192,6 @@ const UNIT_01_PLAN: ActivityPlan = {
 // 모음 그룹 (자음+모음 액티비티용)
 const CONSONANT_BLEND_VOWELS_1 = ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ'] as const;
 const CONSONANT_BLEND_VOWELS_2 = ['ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ'] as const;
-
-function syllablesFor(consonant: string, vowels: readonly string[]): string {
-  return vowels.map((v) => composeHangul(consonant, v, null) || `${consonant}${v}`).join(' ');
-}
 
 /**
  * 자음 단원 (ㄱ~ㅎ) 공통 활동 plan 생성. 14 자음 모두 같은 구조 — 자음만 바뀌어 4 learn + 4 game.
@@ -212,8 +204,7 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         order: 1,
         kind: 'consonant-tap',
         section: 'learn',
-        title: `${consonant} 누르기`,
-        subtitle: `${consonant} 누르고 띵동`,
+        title: `${consonant} 배우기`,
         emoji: '👆',
         required: true,
         consonant,
@@ -223,8 +214,7 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         order: 2,
         kind: 'consonant-blend-listen',
         section: 'learn',
-        title: `${consonant} + 모음 1`,
-        subtitle: syllablesFor(consonant, CONSONANT_BLEND_VOWELS_1),
+        title: `${consonant} + 모음 배우기`,
         emoji: '🔗',
         required: true,
         consonant,
@@ -235,8 +225,7 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         order: 3,
         kind: 'consonant-blend-listen',
         section: 'learn',
-        title: `${consonant} + 모음 2`,
-        subtitle: syllablesFor(consonant, CONSONANT_BLEND_VOWELS_2),
+        title: `${consonant} + 모음 배우기`,
         emoji: '🔗',
         required: true,
         consonant,
@@ -248,7 +237,6 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         kind: 'consonant-write',
         section: 'learn',
         title: `${consonant} 쓰기`,
-        subtitle: '세 번 따라써요',
         emoji: '✏️',
         required: true,
         consonant,
@@ -258,8 +246,7 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         order: 5,
         kind: 'game-korean-block',
         section: 'play',
-        title: '한글 블록',
-        subtitle: '자모 맞추기',
+        title: '한글 블록 게임',
         emoji: '🧩',
         required: false,
       },
@@ -269,7 +256,6 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         kind: 'game-word-writing',
         section: 'play',
         title: '낱말 쓰기',
-        subtitle: '글자 따라쓰기',
         emoji: '🖍️',
         required: false,
       },
@@ -278,8 +264,7 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         order: 7,
         kind: 'game-connect-dots',
         section: 'play',
-        title: '점 잇기',
-        subtitle: '단어 그림 그려보기',
+        title: '낱말 그리기',
         emoji: '🔵',
         required: false,
       },
@@ -289,7 +274,6 @@ function makeConsonantPlan(consonant: string): ActivityPlan {
         kind: 'game-line-matching',
         section: 'play',
         title: '그림 짝 찾기',
-        subtitle: '그림-단어 잇기',
         emoji: '🔗',
         required: false,
       },

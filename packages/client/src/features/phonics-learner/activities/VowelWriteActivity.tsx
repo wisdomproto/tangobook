@@ -73,7 +73,7 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
       </button>
 
       {/* chip 줄 — 진행 + 클릭으로 임의 선택 */}
-      <div className="flex flex-wrap justify-center gap-2 mb-3">
+      <div className="flex flex-wrap justify-center gap-3 mb-4">
         {vowels.map((v, i) => {
           const done = doneSet.has(i);
           const active = i === currentIdx;
@@ -83,23 +83,23 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
               onClick={() => !done && setCurrentIdx(i)}
               disabled={done}
               className={[
-                'inline-flex items-center gap-1 px-3 py-1.5 rounded-full font-black border-2 transition',
+                'inline-flex items-center gap-1.5 px-5 py-3 rounded-full font-black border-[3px] transition shadow-soft',
                 done
                   ? 'bg-success/15 border-success text-success-700'
                   : active
-                    ? 'bg-coral-500 border-coral-600 text-white'
-                    : 'bg-white border-white text-ink-700 hover:shadow-soft',
+                    ? 'bg-coral-500 border-coral-600 text-white shadow-pop scale-105'
+                    : 'bg-white border-white text-ink-700 hover:shadow-pop',
               ].join(' ')}
             >
-              {done && <span className="text-xs">✓</span>}
-              <span className="text-base">{v.syllable}</span>
+              {done && <span className="text-base">✓</span>}
+              <span className="text-2xl sm:text-3xl">{v.syllable}</span>
             </button>
           );
         })}
       </div>
 
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center">
-        <h2 className="text-xl sm:text-2xl font-black text-ink-900 text-center mb-3">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center mb-4">
           ✏️ <span className="text-coral-600">{vowels[currentIdx].syllable}</span> 를 따라써봐!
         </h2>
         <LetterWritingCanvas

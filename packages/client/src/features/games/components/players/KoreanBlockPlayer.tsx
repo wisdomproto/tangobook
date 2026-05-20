@@ -24,6 +24,7 @@ import {
   useTutorialNotify,
 } from './KoreanBlockTutorial/KoreanBlockTutorial.context';
 import { KoreanBlockTutorial } from './KoreanBlockTutorial/KoreanBlockTutorial';
+import { planTutorialLayout } from './KoreanBlockTutorial/KoreanBlockTutorial.layout';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
@@ -103,10 +104,8 @@ const ALL_VOWELS: JamoBlock[] = VOWEL_ORDER.map((ch, i) => ({
   char: ch,
   jamoType: 'jung' as JamoType,
 }));
-// 쉬움 (easy): 기본 자음 14 (ㄱ~ㅎ) + 기본 모음 10 (ㅏ~ㅣ) — 쌍자음/이중모음 X.
-// 쉬움 단어 풀 자체가 score≤1.5 라 쌍자음·이중모음 미포함이므로 누락 자모 없음.
-const EASY_CONSONANTS: JamoBlock[] = ALL_CONSONANTS.slice(0, 14);
-const EASY_VOWELS: JamoBlock[] = ALL_VOWELS.slice(0, 10);
+// 쉬움 (easy) 는 strip UI (`EasyOrderStrip`) 로 전환 — ALL_CONSONANTS/ALL_VOWELS 패널 사용 X.
+// 보통/어려움 만 BlockPanel 사용. (이전 EASY_CONSONANTS/EASY_VOWELS slice 는 strip 도입으로 삭제)
 
 /**
  * 공간 위치 인식 파서 — 한글 음절의 시각적 배치 그대로 합성.
@@ -257,6 +256,31 @@ function KoreanBlockPlayerInner({
   // 그리드의 공간 위치(cho 왼쪽 / jung 오른쪽 / jong 아래)로 음절 인식 — 입력 순서 무관.
   const composedSyllables = useMemo(() => parseSpatialKorean(grid), [grid]);
 
+  // ── 쉬움 모드: 드래그 X, 순서대로 누르기 ──
+  // 4-5세 한글 학습 입문자용. cho/jung 짝씩 평탄화해서 strip 으로 노출.
+  // 다음 누를 jamo 만 활성, 클릭 → 자동 배치 + 진행. 받침은 쉬움 단어 풀에 없음 (CV only).
+  const isEasyMode = difficulty === 'easy';
+  const easyPlan = useMemo(
+    () => (isEasyMode ? planTutorialLayout(currentItem.word) : []),
+    [isEasyMode, currentItem.word]
+  );
+  const easySteps = useMemo(
+    () =>
+      easyPlan.flatMap((syl, i) => [
+        { stepIdx: i * 2, jamo: syl.cho, cell: syl.choCell, syllableIdx: i },
+        { stepIdx: i * 2 + 1, jamo: syl.jung, cell: syl.jungCell, syllableIdx: i },
+      ]),
+    [easyPlan]
+  );
+  // 현재 grid 기준 다음 step (아직 셀이 비어있는 첫 step).
+  const easyNextStepIdx = useMemo(() => {
+    if (!isEasyMode) return -1;
+    for (const s of easySteps) {
+      if (grid[s.cell[0]][s.cell[1]] === null) return s.stepIdx;
+    }
+    return -1; // 다 채워짐
+  }, [isEasyMode, easySteps, grid]);
+
   // 새로 추가된 음절만 TTS 재생.
   // phonics 라이브러리는 보통 CV 음절(가/나/다)만 → 받침 CVC(산/침)·다음절은 라이브러리 miss.
   // 라이브러리 로딩 중 (phonicsLoading) 일 때는 spinner overlay 가 인터랙션을 막고 있어 호출 X.
@@ -367,6 +391,22 @@ function KoreanBlockPlayerInner({
       placeBlock(parseInt(r), parseInt(c), block);
     },
     [placeBlock]
+  );
+
+  // 쉬움 strip 클릭 — 해당 step 의 cell 에 자동 배치
+  const handleEasyStepTap = useCallback(
+    (stepIdx: number) => {
+      if (stepIdx !== easyNextStepIdx) return; // 순서 강제
+      const step = easySteps.find((s) => s.stepIdx === stepIdx);
+      if (!step) return;
+      const block: JamoBlock = {
+        id: `easy-${stepIdx}`,
+        char: step.jamo,
+        jamoType: step.stepIdx % 2 === 0 ? 'cho' : 'jung',
+      };
+      placeBlock(step.cell[0], step.cell[1], block);
+    },
+    [easyNextStepIdx, easySteps, placeBlock]
   );
 
   const handleResetGrid = useCallback(() => {
@@ -685,33 +725,33 @@ function KoreanBlockPlayerInner({
                 <span aria-hidden>↺</span>
                 <span>초기화</span>
               </button>
-              {difficulty === 'easy' && (
-                <button
-                  onClick={handleHintStart}
-                  disabled={hintActive || isPlaying || roundCorrect}
-                  className="px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.25rem,0.875vh,0.625rem)] rounded-2xl text-[clamp(0.75rem,1.875vh,1.125rem)] font-black transition-all flex items-center justify-center gap-1.5 bg-gradient-to-b from-warn to-peach-500 text-white shadow-soft hover:shadow-pop hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                >
-                  <span aria-hidden>🪄</span>
-                  <span>도와줘</span>
-                </button>
-              )}
+              {/* 쉬움은 strip 자체가 가이드 — 도와줘 버튼 X. 보통/어려움 모드는 미지원 (drag 학습 위주). */}
             </div>
           </section>
 
-          {/* 섹션 3 — 자음·모음 패널 (가로 나란히, 각자 카드)
-              쉬움은 기본 자모만 (쌍자음/이중모음 숨김). 보통/어려움은 전체 노출. */}
-          <div className="flex flex-row gap-[clamp(0.5rem,1.5vh,1.25rem)] shrink-0">
-            <BlockPanel title="자음" tone="consonant">
-              {(difficulty === 'easy' ? EASY_CONSONANTS : ALL_CONSONANTS).map((b) => (
-                <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
-              ))}
-            </BlockPanel>
-            <BlockPanel title="모음" tone="vowel">
-              {(difficulty === 'easy' ? EASY_VOWELS : ALL_VOWELS).map((b) => (
-                <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
-              ))}
-            </BlockPanel>
-          </div>
+          {/* 섹션 3 — 쉬움: 순서 strip (클릭하면 자동 배치). 보통/어려움: 자음·모음 패널 (드래그). */}
+          {isEasyMode ? (
+            <EasyOrderStrip
+              steps={easySteps}
+              grid={grid}
+              nextStepIdx={easyNextStepIdx}
+              onTap={handleEasyStepTap}
+              disabled={roundCorrect}
+            />
+          ) : (
+            <div className="flex flex-row gap-[clamp(0.5rem,1.5vh,1.25rem)] shrink-0">
+              <BlockPanel title="자음" tone="consonant">
+                {ALL_CONSONANTS.map((b) => (
+                  <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
+                ))}
+              </BlockPanel>
+              <BlockPanel title="모음" tone="vowel">
+                {ALL_VOWELS.map((b) => (
+                  <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
+                ))}
+              </BlockPanel>
+            </div>
+          )}
         </div>
       </div>
       <KoreanBlockTutorial word={currentItem.word} active={hintActive} onEnd={handleHintEnd} />
@@ -731,6 +771,80 @@ export function KoreanBlockPlayer(props: GamePlayerProps) {
 // ────────────────────────────────────────────────────────────────────────────
 // 자음/모음 패널 + 타일
 // ────────────────────────────────────────────────────────────────────────────
+
+// ────────────────────────────────────────────────────────────────────────────
+// 쉬움 모드 — 순서 strip (드래그 X, 클릭으로 자동 배치)
+// ────────────────────────────────────────────────────────────────────────────
+
+interface EasyStep {
+  stepIdx: number;
+  jamo: string;
+  cell: [number, number];
+  syllableIdx: number;
+}
+
+function EasyOrderStrip({
+  steps,
+  grid,
+  nextStepIdx,
+  onTap,
+  disabled,
+}: {
+  steps: EasyStep[];
+  grid: (string | null)[][];
+  nextStepIdx: number;
+  onTap: (stepIdx: number) => void;
+  disabled: boolean;
+}) {
+  return (
+    <div className="relative rounded-3xl bg-cream-50/95 shadow-pop px-[clamp(0.5rem,1.5vw,1rem)] pt-[clamp(0.5rem,2.5vh,1.75rem)] pb-[clamp(0.25rem,0.875vh,1rem)] border-2 border-dashed border-cream-50 shrink-0">
+      <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+        <span className="px-4 py-1 rounded-full text-white text-xs sm:text-sm font-black shadow-md flex items-center gap-1 whitespace-nowrap bg-gradient-to-b from-coral-400 to-coral-600">
+          ⭐ 순서대로 눌러봐 ⭐
+        </span>
+      </div>
+      <div className="flex flex-row gap-[clamp(0.25rem,1vh,0.75rem)] justify-center items-center flex-wrap">
+        {steps.map((s) => {
+          const placed = grid[s.cell[0]][s.cell[1]] !== null;
+          const isNext = s.stepIdx === nextStepIdx;
+          const vowel = isVowel(s.jamo);
+          const interactable = isNext && !disabled;
+          return (
+            <motion.button
+              key={s.stepIdx}
+              onClick={() => interactable && onTap(s.stepIdx)}
+              disabled={!interactable}
+              animate={isNext ? { scale: [1, 1.08, 1] } : { scale: 1 }}
+              transition={isNext ? { duration: 1.2, repeat: Infinity } : { duration: 0.3 }}
+              className={cn(
+                'w-[clamp(2.5rem,7vh,4.5rem)] h-[clamp(2.5rem,7vh,4.5rem)] rounded-2xl flex items-center justify-center font-black text-[clamp(1.25rem,4vh,2.5rem)] select-none shadow-md transition-all',
+                placed
+                  ? 'bg-success/15 text-success-700 border-[3px] border-success/40 cursor-not-allowed'
+                  : isNext
+                    ? cn(
+                        'cursor-pointer ring-4 ring-coral-300 shadow-pop',
+                        vowel
+                          ? 'bg-gradient-to-b from-coral-400 to-coral-600 text-white'
+                          : 'bg-gradient-to-b from-warn to-peach-500 text-white'
+                      )
+                    : cn(
+                        'opacity-40 cursor-not-allowed',
+                        vowel
+                          ? 'bg-gradient-to-b from-coral-400 to-coral-600 text-white'
+                          : 'bg-gradient-to-b from-warn to-peach-500 text-white'
+                      )
+              )}
+              style={{ textShadow: '0 2px 0 rgba(0,0,0,0.12)' }}
+              aria-label={s.jamo}
+            >
+              {placed ? '✓' : s.jamo}
+            </motion.button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 function BlockPanel({
   title,

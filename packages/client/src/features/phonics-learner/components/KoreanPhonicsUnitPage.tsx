@@ -36,28 +36,24 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
   const playActivities = plan.activities.filter((a) => a.section === 'play');
 
   return (
-    <div className="px-4 sm:px-6 py-3 sm:py-4 max-w-[1100px] mx-auto">
-      <div className="mb-3 sm:mb-4">
-        {!embedded && (
+    <div className="px-4 sm:px-6 pt-10 sm:pt-14 pb-5 sm:pb-6 max-w-[1200px] mx-auto">
+      {!embedded && (
+        <div className="mb-4">
           <Link
             to="/library/phonics/korean"
-            className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-ink-600 hover:text-ink-900 mb-1"
+            className="inline-flex items-center gap-1 text-sm sm:text-base font-bold text-ink-600 hover:text-ink-900"
           >
             ← 단원 목록
           </Link>
-        )}
-        <h1 className="text-xl sm:text-2xl font-black font-display text-ink-900 inline-flex items-baseline gap-2">
-          <span>{unit.unitTitle.replace(/^unit\s+\d+:\s*/i, '')}</span>
-          <span className="text-sm font-black text-ink-900">· {unit.levelName}</span>
-        </h1>
-      </div>
+        </div>
+      )}
 
       {plan.activities.length === 0 ? (
-        <div className="rounded-2xl bg-cream-100 p-6 text-center text-ink-600 font-bold">
+        <div className="rounded-3xl bg-cream-100 p-8 text-center text-ink-600 font-black text-lg">
           이 단원은 활동이 아직 준비되지 않았어요.
         </div>
       ) : (
-        <div className="flex flex-col gap-3 sm:gap-4">
+        <div className="flex flex-col gap-5 sm:gap-6">
           <ActivitySection
             unitId={unitId}
             title="익히기"
@@ -99,18 +95,32 @@ function ActivitySection({
   activities: ActivityDef[];
   completed: string[];
 }) {
-  const headerBg = tone === 'learn' ? 'bg-peach-100' : 'bg-mint-100';
   if (activities.length === 0) return null;
+  const isLearn = tone === 'learn';
+  // Panel: 익히기 = peach 톤 wash, 게임하기 = mint 톤 wash. 양 섹션 시각 구분 강화.
+  const panelClass = isLearn
+    ? 'bg-gradient-to-br from-peach-100/80 via-peach-50/70 to-cream-50/60 border-peach-200/70'
+    : 'bg-gradient-to-br from-mint-100/80 via-mint-50/70 to-cream-50/60 border-mint-200/70';
+  const headerBg = isLearn
+    ? 'bg-gradient-to-r from-coral-500 to-coral-400'
+    : 'bg-gradient-to-r from-mint-500 to-mint-400';
   return (
-    <section>
-      <div
-        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${headerBg} shadow-soft mb-2`}
-      >
-        <span className="text-base">{emoji}</span>
-        <span className="text-sm sm:text-base font-black font-display text-ink-900">{title}</span>
-        <span className="text-sm font-black text-ink-900">· {subtitle}</span>
+    <section
+      className={`relative rounded-[32px] border-2 ${panelClass} backdrop-blur-sm shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] px-4 sm:px-5 pt-10 sm:pt-12 pb-5 sm:pb-6`}
+    >
+      {/* 섹션 헤더 — 위쪽 좌측 peg 처럼 띄움 */}
+      <div className="absolute -top-5 left-5 sm:left-6">
+        <div
+          className={`inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full ${headerBg} shadow-pop border-[3px] border-white`}
+        >
+          <span className="text-2xl sm:text-3xl drop-shadow-sm">{emoji}</span>
+          <span className="text-lg sm:text-xl md:text-2xl font-black font-display text-white">
+            {title}
+          </span>
+          <span className="text-sm sm:text-base font-black text-white/90">· {subtitle}</span>
+        </div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
         {activities.map((act) => (
           <ActivityCard
             key={act.key}
@@ -123,6 +133,14 @@ function ActivitySection({
     </section>
   );
 }
+
+/** 액티비티 kind → 일러스트 (webp). 매칭 안 되면 undefined → emoji 폴백. */
+const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
+  'game-korean-block': '/icons/game/korean-block.webp',
+  'game-word-writing': '/icons/game/word-writing.webp',
+  'game-connect-dots': '/icons/game/connect-dots.webp',
+  'game-line-matching': '/icons/game/line-matching.webp',
+};
 
 function ActivityCard({
   unitId,
@@ -137,49 +155,66 @@ function ActivityCard({
   // 게임하기는 완료 개념 없음 → done 시그널 무시
   const showDone = isLearn && done;
 
-  // 익히기 완료: success 톤 강하게 (배경/테두리/번호 모두 success). 미완료: 평소 톤 활성.
-  // 게임하기: 항상 활성 톤 (완료 표시 없음).
   const cardClass = showDone
-    ? 'bg-success/15 border-success ring-2 ring-success/40'
+    ? 'bg-gradient-to-br from-success/10 to-success/20 border-success/60 ring-2 ring-success/30'
     : isLearn
-      ? 'bg-gradient-to-br from-cream-50 to-peach-100 border-white shadow-soft hover:shadow-pop'
-      : 'bg-gradient-to-br from-cream-50 to-mint-100 border-white shadow-soft hover:shadow-pop';
+      ? 'bg-gradient-to-br from-white via-peach-50 to-peach-100 border-white'
+      : 'bg-gradient-to-br from-white via-mint-50 to-mint-100 border-white';
 
-  const numBadgeClass = showDone ? 'bg-success text-white opacity-60' : 'bg-coral-500 text-white';
+  const numBadgeClass = showDone
+    ? 'bg-success text-white opacity-70'
+    : isLearn
+      ? 'bg-gradient-to-br from-coral-400 to-coral-600 text-white'
+      : 'bg-gradient-to-br from-mint-400 to-mint-600 text-white';
+
+  const iconUrl = KIND_ICON_URL[activity.kind];
 
   return (
     <Link
       to={`/library/phonics/korean/${unitId}/${activity.key}`}
-      className={`relative block aspect-[4/3] rounded-2xl border-[4px] p-2 sm:p-3 transition active:scale-[0.98] flex flex-col ${cardClass}`}
+      className={`group relative block aspect-[5/6] rounded-[28px] border-[5px] p-3 sm:p-4 transition-all duration-200 active:scale-[0.97] hover:-translate-y-1 hover:rotate-[0.5deg] hover:shadow-[0_18px_40px_-12px_rgba(255,94,58,0.4)] shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)] flex flex-col overflow-hidden ${cardClass}`}
     >
+      {/* 위쪽 살짝 하이라이트 (3D rendered 느낌) */}
+      <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/60 to-transparent pointer-events-none" />
+
       {/* 완료 큰 ✓ overlay — 우상단 (익히기 완료 시만) */}
       {showDone && (
-        <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-success text-white flex items-center justify-center shadow-pop text-xl sm:text-2xl font-black ring-2 sm:ring-4 ring-white">
+        <div className="absolute top-2.5 right-2.5 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-success text-white flex items-center justify-center shadow-pop text-2xl sm:text-3xl font-black ring-[5px] ring-white z-20">
           ✓
         </div>
       )}
-      <div className="flex items-center gap-2 mb-1">
+
+      {/* 번호 배지 — 흰 외곽 + 그라데이션 + 살짝 기울임 */}
+      <div className="relative z-10 flex items-center justify-between mb-2">
         <span
-          className={`inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full font-black text-sm shrink-0 ${numBadgeClass}`}
+          className={`inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 rounded-full font-black text-xl sm:text-2xl shrink-0 shadow-pop ring-[4px] ring-white -rotate-[6deg] group-hover:-rotate-[3deg] transition-transform ${numBadgeClass}`}
         >
           {activity.order}
         </span>
-        <span className={`text-2xl sm:text-3xl leading-none ${showDone ? 'opacity-50' : ''}`}>
-          {activity.emoji}
-        </span>
       </div>
+
+      {/* 큰 일러스트 (있으면 webp, 없으면 emoji) — 카드 가운데 차지 */}
+      <div
+        className={`relative z-10 flex-1 flex items-center justify-center my-1 group-hover:scale-105 transition-transform duration-200 ${showDone ? 'opacity-50' : ''}`}
+      >
+        {iconUrl ? (
+          <img
+            src={iconUrl}
+            alt={activity.title}
+            className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]"
+          />
+        ) : (
+          <span className="text-7xl sm:text-8xl leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)]">
+            {activity.emoji}
+          </span>
+        )}
+      </div>
+
       <h3
-        className={`text-sm sm:text-base font-black font-display leading-tight break-keep ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
+        className={`relative z-10 text-xl sm:text-2xl font-black font-display leading-tight break-keep ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
       >
         {activity.title}
       </h3>
-      {activity.subtitle && (
-        <p
-          className={`text-sm sm:text-base font-black mt-1 leading-snug break-keep ${showDone ? 'text-[#9A8474]' : 'text-[#0B0805]'}`}
-        >
-          {activity.subtitle}
-        </p>
-      )}
     </Link>
   );
 }

@@ -43,6 +43,13 @@ features/{name}/{api,hooks,components,index.ts}
 ## 디자인 시스템 — single source of truth
 **Reference**: [docs/design-system.md](docs/design-system.md) — 색/폰트/컴포넌트 + GPT 시안 prompt 템플릿 + Claude 가 시안 받을 때 protocol. 새 화면 시안 받을 때 매번 이 문서 참조.
 
+## 디자인 시스템 — 색 토큰 (`design-system/tokens/colors.ts`)
+- **coral** (CTA): 100, 200, 400, 500, 600 — 메인 학습 강조
+- **peach** (Warm): 50, 100, 200, 300, 500 — 따뜻한 배경/표면
+- **mint** (Cool, 2026-05-20 추가): 50, 100, 200, 300, 400, 500, 600 — 게임/Cool 톤. 학습 활동 카드의 **게임하기 섹션** 식별 톤 (학습은 peach, 게임은 mint).
+- **cream** 50 / **ink** 100/300/500/700/900 (실질 검정) / semantic (success/info/warn/danger/fun)
+- 새 토큰 추가 시 Tailwind JIT 가 클래스 발견하려면 client dev 서버 재시작 필요.
+
 ## 디자인 시스템 — 아이콘
 - 프리미티브: `<AppIcon src="category/animal.png" size={48} />` (`design-system/primitives/AppIcon.tsx`)
 - 자산 위치: `packages/client/public/icons/{category,section,tab}/*.{png,svg,webp}`
@@ -85,11 +92,16 @@ features/{name}/{api,hooks,components,index.ts}
 
 ## 한글 파닉스 학습 모드 (2026-05-20)
 - **`/library/phonics/korean(/:unitId)?`** — AppShell **밖** 풀화면 study layout. `KoreanPhonicsStudyPage` 가 두 라우트 모두 처리. recent unit 자동 redirect (`localStorage` `phonics-recent-unit`).
-- **레이아웃**: 상단 `PageHeader` (책 상세 / 어휘 학습과 동일 톤) + 좌측 전체 커리큘럼 스크롤 list (한글1~4 + 모든 units, level sticky h2) + 우측 `KoreanPhonicsUnitPage embedded` (back 링크 hide).
-- **자음 단원 자동 생성**: `makeConsonantPlan(consonant)` ([korean-phonics-units.ts](packages/client/src/features/phonics-learner/lib/korean-phonics-units.ts)) — 한글1 u02 (ㄱ) ~ u15 (ㅎ) 13개. 4 learn (Tap/BlendListen×2/Write) + 4 game. subtitle 은 `syllablesFor(c, vowels)` 로 `composeHangul` 자동 생성 ("나 냐 너 녀 노 뇨" 등). 자음만 다르게, 컴포넌트 100% 재사용.
+- **레이아웃**: 상단 `PageHeader` (← 홈 / 한글 파닉스) + 좌측 커리큘럼 list (**레벨별 접기/펴기**, 현재 unit 의 레벨만 기본 펼침) + 우측 `KoreanPhonicsUnitPage embedded` (페이지 타이틀 hide — 사이드바가 현 위치 표시).
+- **자음 단원 자동 생성**: `makeConsonantPlan(consonant)` ([korean-phonics-units.ts](packages/client/src/features/phonics-learner/lib/korean-phonics-units.ts)) — 한글1 u02 (ㄱ) ~ u15 (ㅎ) 13개. 4 learn (Tap/BlendListen×2/Write) + 4 game. 자음만 바뀜.
+- **활동명** (2026-05-20 단순화): 카드 안 subtitle 전부 제거 (텍스트 최소). `ㄱ 누르기` → `ㄱ 배우기`, `ㄱ + 모음 1/2` → 둘 다 `ㄱ + 모음 배우기` (번호 배지로 구분), `한글 블록` → `한글 블록 게임`, `점 잇기` → `낱말 그리기`.
 - **Block 게임 난이도 자동**: `unit.levelIndex >= 3 ? 'medium' : 'easy'`. 한글1/2 easy, 한글3 (쌍자음) / 한글4 (복잡 모음) medium picker.
-- **익히기/게임하기 카드 시각**: 완료 시 success/15 + 큰 ✓ overlay (우상단 동그라미) + dim 텍스트. 게임하기는 완료 개념 없음 (showDone 시그널 무시).
-- **점잇기 keypoints styleAssets sync** ⭐: KeyObjectTab keypoint 저장 시 top-level + `styleAssets[artStyle].keyObjectImages` 동시 mirror. 이전엔 top-level 만 update → 점잇기 게임 어댑터 (`derive-storybook-unit.ts`) 가 styleAssets[style] 에서 읽어 keypoints 못 찾던 버그. 기존 18권 마이그 (`packages/server/scripts/sync-keypoints-to-styleassets.mjs`).
+- **한글 블록 쉬움 모드** (2026-05-20): drag X. `EasyOrderStrip` 으로 단어의 cho/jung 순서대로 jamo 만 노출 (다른 자모는 안 보임). 다음 누를 jamo 만 활성 + 클릭 시 그리드 자동 배치. 4-5세 한글 모르는 입문자용. 보통/어려움은 기존 BlockPanel drag.
+- **카드 디자인 (2026-05-20)**: `aspect-[5/6] rounded-[28px] border-[5px]` + 코랄 틴트 다층 그림자 (`shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)]`, hover `0_18px_40px_-12px_0.4`) + 상단 화이트 하이라이트 + hover `-translate-y-1 rotate-[0.5deg]` + 번호 배지 `-rotate-[6deg]` 그라데이션 + ring-4 흰 외곽. 학습 활동 emoji 폴백 text-7xl/8xl, 게임은 `/icons/game/*.webp` (korean-block / word-writing / connect-dots / line-matching).
+- **섹션 panel 구분 (2026-05-20)**: 익히기/게임하기 각각 `rounded-[32px] border-2` panel 로 wrap (학습 = peach 톤 / 게임 = mint 톤). 헤더 chip 은 panel `-top-5 left-5` floating peg 스타일 (coral / mint 그라데이션 + 흰 3px 테두리 + shadow-pop). pt-10~12 로 카드와 헤더 분리.
+- **배경 이미지**: `/images/phonics/study-bg.webp` (1672×941, 44KB) — 풀밭 + 꽃 + 구름 톤. KoreanPhonicsStudyPage 전체 backdrop.
+- **모음 듣기 (VowelListenActivity)**: 묵음 ㅇ 표기 제거 — 카드는 모음 + 음절만. 마지막 모음 음원 끝 (`onEnded`) 후에 칭찬 시작 (요 발음 잘림 방지). 다 들으면 🔁 다시 해보기 + 🎯 퀴즈 시작! 두 버튼. 퀴즈 완료 후 자동 back 없음 — `🔁 다시 해보기` + `← 돌아가기` 버튼 (진척만 `onMarkComplete` 로 마킹).
+- **점잇기 keypoints styleAssets sync** ⭐: KeyObjectTab keypoint 저장 시 top-level + `styleAssets[artStyle].keyObjectImages` 동시 mirror. 점잇기 게임 어댑터 가 styleAssets[style] 에서 읽어 keypoints 못 찾던 버그. 기존 18권 마이그 (`packages/server/scripts/sync-keypoints-to-styleassets.mjs`).
 
 ## 핵심단어 영어 번역 일괄 적용 (2026-05-19)
 - **스크립트 5종** (`packages/server/scripts/`): `scan-untranslated-keyobjects.mjs` (전 책 스캔 → `_data/untranslated-keyobjects.json` per-book ko+pages+pageTexts) · `condense-untranslated.mjs` (단어당 짧은 context 1줄 압축) · `prepare-batch.mjs N` (앞 N권 추출 + 기존 사전 reuse auto-fill + 잔여 manual list) · `apply-translations.mjs [file]` (번역 map `{ bookId: { tr: { ko: en } } }` 적용 → `POST /api/storybooks { storybook }`) · `merge-and-apply-batch.mjs` (auto+manual 머지 후 apply).

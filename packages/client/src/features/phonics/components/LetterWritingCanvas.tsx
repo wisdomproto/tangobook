@@ -347,7 +347,7 @@ export function LetterWritingCanvas({
       {/* 실시간 점수 표시 */}
       {liveScore !== null && !result && (
         <p
-          className={`text-sm font-bold ${liveScore >= threshold ? 'text-emerald-500' : 'text-slate-400'}`}
+          className={`text-lg font-black ${liveScore >= threshold ? 'text-emerald-500' : 'text-slate-400'}`}
         >
           {liveScore}%
         </p>
@@ -373,11 +373,11 @@ export function LetterWritingCanvas({
               ))}
             </div>
           )}
-          <div className={`text-3xl mb-0.5 ${result.passed ? 'animate-bounce' : ''}`}>
+          <div className={`text-4xl mb-1 ${result.passed ? 'animate-bounce' : ''}`}>
             {result.passed ? '🎉' : '💪'}
           </div>
           <p
-            className={`text-sm font-bold ${result.passed ? 'text-emerald-600' : 'text-amber-600'}`}
+            className={`text-lg font-black ${result.passed ? 'text-emerald-600' : 'text-amber-600'}`}
           >
             {result.score}% {result.passed ? '- 잘했어요!' : '- 다시 해볼까요?'}
           </p>
@@ -392,12 +392,17 @@ export function LetterWritingCanvas({
         }
       `}</style>
 
-      <div className="flex gap-2">
-        <Button variant="ghost" size="sm" onClick={handleClear}>
+      <div className="flex gap-3">
+        <Button variant="ghost" size="lg" onClick={handleClear} className="text-lg px-6">
           {result ? '다시 쓰기' : '지우기'}
         </Button>
         {!result && (
-          <Button size="sm" onClick={() => handleCheck()} disabled={!hasDrawn}>
+          <Button
+            size="lg"
+            onClick={() => handleCheck()}
+            disabled={!hasDrawn}
+            className="text-lg px-8"
+          >
             확인
           </Button>
         )}

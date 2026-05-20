@@ -24,7 +24,7 @@ features/phonics-learner/
     ConsonantBlendListenActivity.tsx # 자음+모음 음절 — 6행 × 3셀. 다음 셀 하이라이트 + 행 완료 띵동
     ConsonantWriteActivity.tsx    # 자음 쓰기 — ㄱ 만 3번 따라쓰기 (단어 의존성 제거). per-write 띵동 + 마지막 칭찬
   lib/
-    korean-phonics-units.ts       # unit 목록 + ActivityDef + makeConsonantPlan(c) 으로 ㄴ~ㅎ 자동 생성
+    korean-phonics-units.ts       # unit 목록 + ActivityDef (subtitle 없음, 2026-05-20) + makeConsonantPlan(c) 으로 ㄴ~ㅎ 자동 생성
     progress-store.ts             # localStorage `phonics-progress` + `phonics-recent-unit` (study layout default)
     pick-word-cards.ts            # 사용 안 함 (ConsonantTap/Write 가 단어 제거로 의존성 없어짐)
     phonics-game-adapter.ts       # phonicsStorybook → KoreanBlock/WordWriting/LineMatching/ConnectDots data
@@ -39,7 +39,17 @@ features/phonics-learner/
 
 ## 자음 단원 자동 생성 (2026-05-20)
 
-`makeConsonantPlan(consonant)` — 한글1 u02 (ㄱ) ~ u15 (ㅎ) 13개 자음 단원 모두 동일한 4 learn + 4 game 패턴. 자음만 다르게. subtitle 은 `syllablesFor(c, vowels)` 로 `composeHangul` 자동 ("나 냐 너 녀 노 뇨" 등). 컴포넌트 100% 재사용 — 새 자음 추가 시 `CONSONANT_UNIT_MAP` 에 항목만 추가.
+`makeConsonantPlan(consonant)` — 한글1 u02 (ㄱ) ~ u15 (ㅎ) 13개 자음 단원 모두 동일한 4 learn + 4 game 패턴. 자음만 다르게. 컴포넌트 100% 재사용 — 새 자음 추가 시 `CONSONANT_UNIT_MAP` 에 항목만 추가.
+
+## 활동명 단순화 (2026-05-20)
+
+카드 안 subtitle 모두 제거 (4-5세 텍스트 최소). 활동 타이틀:
+
+- `consonant-tap` → `${consonant} 배우기` (이전 `${consonant} 누르기`)
+- `consonant-blend-listen` → `${consonant} + 모음 배우기` (1, 2 둘 다 동일, 번호 배지로 구분)
+- `consonant-write` → `${consonant} 쓰기`
+- 게임: `한글 블록 게임` (이전 `한글 블록`) / `낱말 쓰기` / `낱말 그리기` (이전 `점 잇기`) / `그림 짝 찾기`
+- KoreanPhonicsUnitPage 의 페이지 타이틀 (`{unit} · {level}`) 도 hide — 사이드바가 현 위치 표시
 
 ## 활동 종류 (`ActivityKind`)
 
@@ -65,6 +75,24 @@ features/phonics-learner/
 - 액티비티 잠금 **없음** — 사용자가 자유롭게 진입.
 - 단원 잠금 **없음** — `plan.activities.length > 0` 인 단원은 모두 클릭 가능 (활동 plan 없는 단원만 "활동 준비 중" 음영).
 - 완료 표시는 ✓ 뱃지로만.
+- VowelListenActivity 의 퀴즈 완료는 `onMarkComplete` 콜백 — 진척만 마킹하고 **자동 back X**, "🔁 다시 해보기" + "← 돌아가기" 버튼 노출. 다른 활동은 기존 `onComplete` (마킹 + 자동 back).
+
+## 디자인 (2026-05-20 패스)
+
+- **카드** ([KoreanPhonicsUnitPage:ActivityCard](components/KoreanPhonicsUnitPage.tsx)): `aspect-[5/6] rounded-[28px] border-[5px]` + 코랄 틴트 그림자 + 위쪽 흰 하이라이트 + hover `-translate-y-1 rotate-[0.5deg]` + 번호 배지 `-rotate-[6deg]` 그라데이션 + ring-4 흰 외곽. 게임 4종은 `/icons/game/*.webp` 표시, 학습은 emoji text-7xl/8xl 폴백 (필요 일러스트: tap-listen / write / blend-link).
+- **섹션 panel**: 익히기/게임하기 각각 `rounded-[32px]` panel wrap. 익히기 = peach 톤 (`from-peach-100/80 via-peach-50/70 to-cream-50/60 border-peach-200/70`), 게임 = mint 톤. 헤더 chip 은 panel `-top-5 left-5` floating peg (coral / mint 그라데이션 + 흰 3px 테두리). panel `pt-10 sm:pt-12` 로 카드와 헤더 분리.
+- **사이드바 (StudyPage aside)**: 레벨별 접기/펴기 (`expandedLevels: Set<levelKey>`). 기본 = 현재 unit 의 레벨만 펼침, 다른 unit 클릭 시 그 레벨 자동 펼침 (useEffect). 헤더 = text-lg/xl + text-ink-900 + `playable/total` 카운트. 활성 unit = coral 그라데이션 + ring-2 흰색 + scale-[1.02] + shadow-pop.
+- **배경**: `/images/phonics/study-bg.webp` (1672×941, 44KB) — 풀밭·꽃·구름 톤. StudyPage 전체 backdrop.
+- **mint 디자인 토큰 추가** (`design-system/tokens/colors.ts`): mint 50/100/200/300/400/500/600 + peach 50 추가. Tailwind JIT 가 새 토큰 발견하려면 client 서버 재시작.
+
+## 한글 블록 쉬움 모드 (2026-05-20)
+
+`KoreanBlockPlayer` 의 `difficulty === 'easy'` 분기. drag-and-drop 비활성, **`EasyOrderStrip`** 으로 교체:
+
+- `planTutorialLayout(word)` flatten → cho/jung 순서 strip (위 자모만, 다른 자모는 안 보임)
+- 다음 누를 jamo 만 활성 (코랄 펄스 + ring-4) + 클릭 시 해당 셀 자동 배치 + ✓ 표시
+- 잘못 누를 일 없음 (4-5세 한글 모르는 입문자 타겟). 도와줘 버튼도 숨김 (strip 자체가 가이드).
+- 보통/어려움은 기존 `BlockPanel` (자음 + 모음 전체, drag) 그대로.
 
 ## unit 데이터 (저작도구 연결)
 

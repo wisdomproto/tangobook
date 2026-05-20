@@ -11,7 +11,8 @@ interface VowelItem {
 interface Props {
   unitId: string;
   vowels: ReadonlyArray<VowelItem>;
-  onComplete: () => void;
+  /** 진척만 마킹 — 자동 back 없음. activity 가 다시하기 / 돌아가기 UI 직접 노출. */
+  onMarkComplete: () => void;
   onBack: () => void;
 }
 
@@ -22,9 +23,9 @@ interface Props {
  *   다음 모음만 active. 모든 모음 다 누르면 칭찬 + 퀴즈 버튼 노출.
  *
  * Phase 2 (quiz, 듣고 맞추기): 랜덤 모음 음원 재생 → 6개 칸 중 정답 선택.
- *   모든 정답 맞추면 onComplete (액티비티 완료 표시).
+ *   모든 정답 맞추면 onMarkComplete (진척 마킹) — 자동 back 없음, 다시하기 버튼 노출.
  */
-export function VowelListenActivity({ unitId, vowels, onComplete, onBack }: Props) {
+export function VowelListenActivity({ unitId, vowels, onMarkComplete, onBack }: Props) {
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
 
   const [phase, setPhase] = useState<'listen' | 'quiz' | 'done'>('listen');
@@ -40,14 +41,15 @@ export function VowelListenActivity({ unitId, vowels, onComplete, onBack }: Prop
   const wrongAudioRef = useRef<number | null>(null);
 
   const playVowel = useCallback(
-    async (vowel: string) => {
+    async (vowel: string, onEnded?: () => void) => {
       const url = await resolveTtsUrl({
         text: vowel,
         language: 'korean',
         storybookId: unitId,
         identifierPrefix: 'phonics-vowel',
       });
-      if (url) playAudio(url);
+      if (url) playAudio(url, onEnded);
+      else onEnded?.();
     },
     [playAudio, unitId]
   );
@@ -55,17 +57,25 @@ export function VowelListenActivity({ unitId, vowels, onComplete, onBack }: Prop
   const handleListenTap = useCallback(
     (idx: number) => {
       if (idx !== nextIdx) return; // 순서 강제
-      playVowel(vowels[idx].vowel);
       if (idx + 1 >= vowels.length) {
-        // 모두 들음 → 칭찬
-        setListenedAll(true);
-        playCorrectSequence({ language: 'ko' });
+        // 마지막 모음 — 음원이 다 재생된 후에야 칭찬 시작 (요 발음 잘리지 않게)
+        playVowel(vowels[idx].vowel, () => {
+          setListenedAll(true);
+          playCorrectSequence({ language: 'ko' });
+        });
       } else {
+        playVowel(vowels[idx].vowel);
         setNextIdx(idx + 1);
       }
     },
     [nextIdx, vowels, playVowel, playCorrectSequence]
   );
+
+  // 듣기 단계 다시 시작 — 진행 초기화 (퀴즈 들어가기 전 한 번 더 들어보기용)
+  const resetListen = useCallback(() => {
+    setNextIdx(0);
+    setListenedAll(false);
+  }, []);
 
   // 퀴즈 시작 — 모음 index 들 셔플해서 queue 생성
   const startQuiz = useCallback(() => {
@@ -93,9 +103,10 @@ export function VowelListenActivity({ unitId, vowels, onComplete, onBack }: Prop
         playFeedbackSound(true);
         // 다음 문제로 진행
         if (quizQueue.length === 0) {
-          // 퀴즈 끝 — 칭찬 후 onComplete
+          // 퀴즈 끝 — 진척 마킹 + 칭찬. 자동 back 없음 — 다시하기 버튼 노출 ('done' phase).
           setPhase('done');
-          playCorrectSequence({ language: 'ko', onDone: onComplete });
+          onMarkComplete();
+          playCorrectSequence({ language: 'ko' });
         } else {
           const [next, ...rest] = quizQueue;
           setQuizQueue(rest);
@@ -115,9 +126,19 @@ export function VowelListenActivity({ unitId, vowels, onComplete, onBack }: Prop
       quizFeedback,
       playFeedbackSound,
       playCorrectSequence,
-      onComplete,
+      onMarkComplete,
     ]
   );
+
+  // 처음부터 다시 — listen phase 재시작 (퀴즈 결과 화면에서도 호출 가능)
+  const restartAll = useCallback(() => {
+    setNextIdx(0);
+    setListenedAll(false);
+    setQuizQueue([]);
+    setQuizCurrent(null);
+    setQuizFeedback('none');
+    setPhase('listen');
+  }, []);
 
   // unmount cleanup
   useEffect(
@@ -144,15 +165,15 @@ export function VowelListenActivity({ unitId, vowels, onComplete, onBack }: Prop
         ← 돌아가기
       </button>
 
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-6">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center">
+      <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-8">
+        <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-ink-900 text-center">
           {promptText}
         </h2>
 
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4">
+        <div className="grid grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 w-full max-w-5xl px-2">
           {vowels.map((v, i) => {
-            const isUnlockedListen =
-              isListenPhase && (i < nextIdx || (i === nextIdx && !listenedAll));
+            // 듣기 단계: 다음 모음까지 활성. 다 들은 뒤 (listenedAll) 에는 6개 모두 다시 들을 수 있게 활성.
+            const isUnlockedListen = isListenPhase && (listenedAll || i <= nextIdx);
             const active = isListenPhase && i === nextIdx && !listenedAll;
             const isClickable = (isListenPhase && isUnlockedListen) || phase === 'quiz';
             const isWrongTarget = phase === 'quiz' && quizFeedback === 'wrong';
@@ -168,7 +189,7 @@ export function VowelListenActivity({ unitId, vowels, onComplete, onBack }: Prop
                 }
                 disabled={!isClickable}
                 className={[
-                  'relative rounded-3xl border-[5px] aspect-[3/4] flex flex-col items-center justify-center px-2 py-3 transition shadow-soft',
+                  'relative rounded-3xl border-[6px] aspect-[3/4] flex flex-col items-center justify-center px-2 py-3 transition shadow-soft',
                   active
                     ? 'bg-coral-100 border-coral-500 animate-pulse'
                     : isUnlockedListen || phase === 'quiz'
@@ -178,34 +199,57 @@ export function VowelListenActivity({ unitId, vowels, onComplete, onBack }: Prop
                 ].join(' ')}
                 aria-label={v.syllable}
               >
-                {/* ㅇ — 묵음 (안 눌러도 됨) */}
-                <div className="text-3xl sm:text-4xl font-black text-ink-400 leading-none">ㅇ</div>
-                {/* 모음 — 빨강 */}
-                <div className="text-5xl sm:text-6xl font-black text-coral-600 leading-none mt-1">
+                {/* 모음 — 빨강 (음절 앞 묵음 ㅇ 은 표기 안 함) */}
+                <div className="text-8xl sm:text-9xl font-black text-coral-600 leading-none">
                   {v.vowel}
                 </div>
-                <div className="text-xs font-bold text-ink-500 mt-2">{v.syllable}</div>
+                <div className="text-lg sm:text-xl font-black text-ink-500 mt-3">{v.syllable}</div>
               </button>
             );
           })}
         </div>
 
         {isListenPhase && listenedAll && (
-          <button
-            onClick={startQuiz}
-            className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-xl sm:text-2xl shadow-pop hover:scale-[1.02] active:scale-[0.98] transition"
-          >
-            🎯 퀴즈 시작!
-          </button>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <button
+              onClick={resetListen}
+              className="px-6 py-3 rounded-full bg-white border-2 border-coral-300 text-coral-600 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
+            >
+              🔁 다시 해보기
+            </button>
+            <button
+              onClick={startQuiz}
+              className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl sm:text-3xl shadow-pop hover:scale-[1.02] active:scale-[0.98] transition"
+            >
+              🎯 퀴즈 시작!
+            </button>
+          </div>
         )}
 
         {phase === 'quiz' && quizCurrent !== null && (
           <button
             onClick={() => playVowel(vowels[quizCurrent].vowel)}
-            className="px-6 py-3 rounded-full bg-white shadow-soft text-ink-700 font-black text-base"
+            className="px-6 py-3 rounded-full bg-white shadow-soft text-ink-700 font-black text-lg"
           >
             🔊 다시 듣기
           </button>
+        )}
+
+        {phase === 'done' && (
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <button
+              onClick={restartAll}
+              className="px-8 py-4 rounded-full bg-coral-500 text-white font-black text-2xl sm:text-3xl shadow-pop hover:scale-[1.02] active:scale-[0.98] transition"
+            >
+              🔁 다시 해보기
+            </button>
+            <button
+              onClick={onBack}
+              className="px-6 py-3 rounded-full bg-white border-2 border-ink-200 text-ink-700 font-black text-lg sm:text-xl shadow-soft hover:shadow-pop active:scale-[0.98] transition"
+            >
+              ← 돌아가기
+            </button>
+          </div>
         )}
       </div>
 

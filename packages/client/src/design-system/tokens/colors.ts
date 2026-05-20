@@ -4,6 +4,7 @@ export const colors = {
   // Warm base
   cream: { 50: '#FFF9F3' },
   peach: {
+    50: '#FFF8EF',
     100: '#FFF0E0',
     200: '#FFDDBF',
     300: '#FFC19B',
@@ -16,6 +17,16 @@ export const colors = {
     400: '#FF7A59',
     500: '#FF5E3A',
     600: '#E84B2A',
+  },
+  // 게임/Cool 톤 — success 주변. 학습자 게임하기 섹션 식별 톤.
+  mint: {
+    50: '#EFFAF5',
+    100: '#D8F3E7',
+    200: '#B6E5D8',
+    300: '#87D3BA',
+    400: '#5CC99F',
+    500: '#3AA87E',
+    600: '#2A8761',
   },
   // Semantic
   success: '#5CC99F',

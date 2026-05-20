@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PageHeader } from '@/design-system';
 import {
@@ -66,10 +66,44 @@ export default function KoreanPhonicsStudyPage() {
     return [...map.entries()];
   })();
 
+  // 사이드바 레벨 접기/펴기. 기본 = 현재 unit 의 레벨만 펼침 + 나머지 접힘.
+  const currentLevelKey = allUnits.find((u) => u.id === unitId)?.levelKey;
+  const [expandedLevels, setExpandedLevels] = useState<Set<string>>(
+    () => new Set(currentLevelKey ? [currentLevelKey] : [])
+  );
+  // URL 의 unit 이 바뀌면 그 레벨 자동 펼침 (다른 레벨 unit 클릭 후 펼친 상태 유지).
+  useEffect(() => {
+    if (currentLevelKey) {
+      setExpandedLevels((prev) => {
+        if (prev.has(currentLevelKey)) return prev;
+        const next = new Set(prev);
+        next.add(currentLevelKey);
+        return next;
+      });
+    }
+  }, [currentLevelKey]);
+
+  const toggleLevel = (levelKey: string) => {
+    setExpandedLevels((prev) => {
+      const next = new Set(prev);
+      if (next.has(levelKey)) next.delete(levelKey);
+      else next.add(levelKey);
+      return next;
+    });
+  };
+
   return (
-    <div className="fixed inset-0 flex flex-col bg-gradient-to-b from-cream-50 to-peach-100">
+    <div
+      className="fixed inset-0 flex flex-col"
+      style={{
+        backgroundImage: "url('/images/phonics/study-bg.webp')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
       {/* 상단 헤더 — 동화책/어휘 학습 페이지와 동일 PageHeader 패턴 (흰 wash 카드 + peach pill) */}
-      <PageHeader onBack={() => navigate('/library/phonics')} backLabel="파닉스">
+      <PageHeader onBack={() => navigate('/library')} backLabel="홈">
         <span className="inline-flex items-center gap-2">
           <span className="text-coral-600">한글</span>
           <span>파닉스</span>
@@ -78,33 +112,57 @@ export default function KoreanPhonicsStudyPage() {
 
       <div className="flex-1 min-h-0 flex mt-2">
         {/* 좌측 — 커리큘럼 스크롤 list */}
-        <aside className="w-44 sm:w-52 md:w-60 shrink-0 h-full overflow-y-auto border-r border-ink-100/60 bg-white py-3 px-2 sm:px-3">
-          <div className="flex flex-col gap-4">
-            {byLevel.map(([levelKey, level]) => (
-              <section key={levelKey}>
-                <h2 className="text-xs sm:text-sm font-black font-display text-ink-700 px-2 mb-1.5 sticky top-0 bg-white py-1 z-10">
-                  {level.name}
-                </h2>
-                <div className="flex flex-col gap-1">
-                  {level.units.map((u) => {
-                    const plan = getActivityPlan(u.id);
-                    const hasPlan = plan.activities.length > 0;
-                    const required = getRequiredActivities(u.id);
-                    const done = isUnitDone(u.id, required);
-                    const active = u.id === unitId;
-                    return (
-                      <CurriculumItem
-                        key={u.id}
-                        unit={u}
-                        active={active}
-                        done={done}
-                        hasPlan={hasPlan}
-                      />
-                    );
-                  })}
-                </div>
-              </section>
-            ))}
+        <aside className="w-48 sm:w-56 md:w-64 shrink-0 h-full overflow-y-auto border-r border-cream-200/80 bg-white/85 backdrop-blur py-4 px-2.5 sm:px-3">
+          <div className="flex flex-col gap-5">
+            {byLevel.map(([levelKey, level]) => {
+              const isExpanded = expandedLevels.has(levelKey);
+              const totalUnits = level.units.length;
+              const playableCount = level.units.filter(
+                (u) => getActivityPlan(u.id).activities.length > 0
+              ).length;
+              return (
+                <section key={levelKey}>
+                  <button
+                    onClick={() => toggleLevel(levelKey)}
+                    aria-expanded={isExpanded}
+                    className="w-full flex items-center justify-between gap-2 text-lg sm:text-xl font-black font-display text-ink-900 px-2.5 py-2.5 sticky top-0 bg-white/95 backdrop-blur z-10 rounded-lg hover:bg-cream-50 transition"
+                  >
+                    <span className="flex items-center gap-2 truncate">
+                      <span
+                        className={`inline-block transition-transform text-ink-500 ${isExpanded ? 'rotate-90' : ''}`}
+                        aria-hidden
+                      >
+                        ▸
+                      </span>
+                      <span className="truncate">{level.name}</span>
+                    </span>
+                    <span className="text-xs font-bold text-ink-500 shrink-0">
+                      {playableCount}/{totalUnits}
+                    </span>
+                  </button>
+                  {isExpanded && (
+                    <div className="flex flex-col gap-1 mt-1">
+                      {level.units.map((u) => {
+                        const plan = getActivityPlan(u.id);
+                        const hasPlan = plan.activities.length > 0;
+                        const required = getRequiredActivities(u.id);
+                        const done = isUnitDone(u.id, required);
+                        const active = u.id === unitId;
+                        return (
+                          <CurriculumItem
+                            key={u.id}
+                            unit={u}
+                            active={active}
+                            done={done}
+                            hasPlan={hasPlan}
+                          />
+                        );
+                      })}
+                    </div>
+                  )}
+                </section>
+              );
+            })}
           </div>
         </aside>
 
@@ -129,17 +187,17 @@ function CurriculumItem({
   hasPlan: boolean;
 }) {
   const titleShort = unit.unitTitle.replace(/^unit\s+\d+:\s*/i, '');
-  const baseClass = 'flex items-center gap-2 px-2 py-2 rounded-lg text-left transition';
+  const baseClass = 'flex items-center gap-2.5 px-2.5 py-2.5 rounded-2xl text-left transition-all';
   if (!hasPlan) {
     return (
       <div
-        className={`${baseClass} bg-cream-50 text-ink-400 cursor-not-allowed opacity-70 select-none`}
+        className={`${baseClass} bg-cream-50/60 text-ink-400 cursor-not-allowed opacity-70 select-none`}
         aria-disabled="true"
       >
-        <span className="inline-flex w-6 h-6 rounded-full bg-ink-100 text-ink-400 items-center justify-center text-xs font-black shrink-0">
+        <span className="inline-flex w-7 h-7 rounded-full bg-ink-100 text-ink-400 items-center justify-center text-xs font-black shrink-0">
           {unit.unitIndexInLevel}
         </span>
-        <span className="text-xs sm:text-sm font-bold truncate">{titleShort}</span>
+        <span className="text-sm font-bold truncate">{titleShort}</span>
         <span className="ml-auto text-[10px] font-bold text-ink-300">준비 중</span>
       </div>
     );
@@ -150,25 +208,25 @@ function CurriculumItem({
       className={[
         baseClass,
         active
-          ? 'bg-coral-500 text-white shadow-soft ring-2 ring-coral-300'
+          ? 'bg-gradient-to-br from-coral-400 to-coral-600 text-white shadow-pop ring-2 ring-white scale-[1.02]'
           : done
-            ? 'bg-success/10 text-success-700 hover:bg-success/20'
-            : 'text-ink-700 hover:bg-cream-100',
+            ? 'bg-success/10 text-success-700 hover:bg-success/20 border-2 border-success/20'
+            : 'bg-white/70 text-ink-800 hover:bg-white hover:shadow-soft border-2 border-transparent hover:border-cream-200',
       ].join(' ')}
     >
       <span
         className={[
-          'inline-flex w-6 h-6 rounded-full items-center justify-center text-xs font-black shrink-0',
+          'inline-flex w-8 h-8 rounded-full items-center justify-center text-sm font-black shrink-0 ring-2',
           active
-            ? 'bg-white text-coral-600'
+            ? 'bg-white text-coral-600 ring-coral-200'
             : done
-              ? 'bg-success text-white'
-              : 'bg-coral-100 text-coral-600',
+              ? 'bg-success text-white ring-white'
+              : 'bg-coral-100 text-coral-600 ring-white',
         ].join(' ')}
       >
         {done ? '✓' : unit.unitIndexInLevel}
       </span>
-      <span className="text-xs sm:text-sm font-black truncate break-keep">{titleShort}</span>
+      <span className="text-sm sm:text-base font-black truncate break-keep">{titleShort}</span>
     </Link>
   );
 }
