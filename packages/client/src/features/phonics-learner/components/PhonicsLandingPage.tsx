@@ -57,13 +57,11 @@ export default function PhonicsLandingPage() {
                 <span className="text-base sm:text-lg">→</span>
               </div>
             </div>
-            <div
-              aria-hidden
-              className="font-black font-display leading-none text-white/95 drop-shadow-[0_6px_16px_rgba(0,0,0,0.25)] text-[140px] sm:text-[180px] md:text-[200px] -mr-2"
-              style={{ textShadow: '0 4px 0 rgba(0,0,0,0.15)' }}
-            >
-              가
-            </div>
+            <img
+              src="/icons/phonics/korean.webp"
+              alt="한글 파닉스 호리"
+              className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)] group-hover:scale-105 transition -mr-2"
+            />
           </div>
         </Link>
 
@@ -105,13 +103,11 @@ export default function PhonicsLandingPage() {
                 <span className="text-base sm:text-lg">⏳</span>
               </div>
             </div>
-            <div
-              aria-hidden
-              className="font-black font-display leading-none text-white/95 drop-shadow-[0_6px_16px_rgba(0,0,0,0.25)] text-[140px] sm:text-[180px] md:text-[200px] -mr-2"
-              style={{ textShadow: '0 4px 0 rgba(0,0,0,0.15)' }}
-            >
-              A
-            </div>
+            <img
+              src="/icons/phonics/english.webp"
+              alt="영어 파닉스 호리"
+              className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.3)] -mr-2"
+            />
           </div>
         </div>
       </div>
