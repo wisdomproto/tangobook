@@ -4,6 +4,7 @@ import { AppLayout } from '../components/AppLayout';
 import { AppLayoutV2 } from '../components/AppLayoutV2';
 import { AppShell } from '../components/AppShell';
 import LibraryPage from '../pages/LibraryPage';
+import GamesHubPage from '../pages/GamesHubPage';
 import RandomBlockGamePage from '../pages/RandomBlockGamePage';
 
 function EditorV2BidRedirect() {
@@ -59,7 +60,7 @@ export const router = createBrowserRouter([
           { path: 'hori-room', element: <Navigate to="/library" replace /> },
           { path: 'vocabulary', element: <VocabularyHubPage /> },
           { path: 'playground', element: <Navigate to="/library" replace /> },
-          { path: 'games', element: <Navigate to="/library" replace /> },
+          { path: 'games', element: <GamesHubPage /> },
         ],
       },
       {

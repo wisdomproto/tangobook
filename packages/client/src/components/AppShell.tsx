@@ -43,6 +43,15 @@ const PRIMARY_AXES = [
     comingSoon: true,
     alwaysActive: false,
   },
+  {
+    to: '/games',
+    iconSrc: 'game/korean-block.webp',
+    label: '학습 게임',
+    color: 'violet' as const,
+    end: false,
+    comingSoon: false,
+    alwaysActive: false,
+  },
 ];
 
 /**
@@ -97,33 +106,15 @@ export function AppShell() {
         </Link>
       </div>
 
-      {/* 3 axis — 동화책 / 파닉스 / 어휘. 학습 메인 메뉴. */}
-      <nav className="flex flex-col gap-3 items-center pt-5 pb-4">
+      {/* 학습 zone — 4 axis (동화책 / 파닉스 / 어휘 / 학습 게임). 큰 박스. */}
+      <nav className="flex flex-col gap-2.5 items-center pt-5 pb-5">
         {PRIMARY_AXES.map((axis) => (
           <PrimaryNavButton key={axis.to} {...axis} />
         ))}
       </nav>
 
-      {/* 미니 게임 — 학습 메뉴와 명확히 구분 (위·아래 border + 작은 섹션 헤더) */}
-      <div className="mx-3 px-2 py-3 border-t border-b border-ink-200/60 bg-cream-100/40 rounded-none">
-        <div className="text-[11px] font-black tracking-wider text-ink-500 uppercase text-center mb-2">
-          미니 게임
-        </div>
-        <div className="flex flex-col gap-2">
-          <SubGameButton
-            to="/games/korean-block"
-            iconSrc="game/korean-block.webp"
-            label="한글 블록 게임"
-          />
-          <SubGameButton
-            to="/games/alphabet-block"
-            iconSrc="game/korean-block.webp"
-            label="알파벳 블록 게임"
-          />
-        </div>
-      </div>
-
-      <div className="mt-auto px-3 pb-3 pt-3 border-t border-ink-100/60 flex flex-col gap-1.5">
+      {/* 부모 영역 — 학습 메뉴와 시각적 분리 (상단 border + 톤 desaturate). 작은 텍스트 버튼. */}
+      <div className="mt-auto px-3 pt-3 pb-3 border-t-2 border-ink-200/60 bg-cream-100/30 flex flex-col gap-1.5">
         {/* 로그인/로그아웃 — 학습 리포팅 위. session 상태에 따라 분기 */}
         {session ? (
           <button
@@ -351,26 +342,6 @@ function PrimaryNavButton({
     >
       <AppIcon src={iconSrc} size={48} alt={label} />
       <span className="text-lg">{label}</span>
-    </NavLink>
-  );
-}
-
-function SubGameButton({ to, iconSrc, label }: { to: string; iconSrc: string; label: string }) {
-  return (
-    <NavLink
-      to={to}
-      className={({ isActive }) =>
-        cn(
-          'w-full px-3 py-2.5 rounded-2xl flex items-center gap-2 font-black transition-all active:scale-95 border-2',
-          isActive
-            ? 'bg-gradient-to-br from-coral-500 to-coral-600 text-white shadow-pop ring-4 ring-coral-200 border-coral-700'
-            : 'bg-gradient-to-br from-coral-400 to-coral-500 text-white shadow-soft border-coral-600 hover:from-coral-500 hover:to-coral-600 hover:shadow-pop hover:border-coral-700'
-        )
-      }
-    >
-      <AppIcon src={iconSrc} size={28} alt={label} className="shrink-0" />
-      <span className="text-[13px] leading-tight flex-1 text-left">{label}</span>
-      <span className="text-base shrink-0">→</span>
     </NavLink>
   );
 }
