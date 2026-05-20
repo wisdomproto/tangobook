@@ -5,43 +5,113 @@ import { Link } from 'react-router-dom';
  *
  * AppShell 안에서 렌더 — 헤더 (파닉스 타이틀) + 본문 (2 카드).
  * 영어 파닉스는 MVP 에서 준비 중 음영.
+ *
+ * 디자인 (2026-05-20): 코랄/블루 큰 컬러 카드 + 거대 character + 데코 blob.
+ * BookDetailPage ModeCard 톤과 일관.
  */
 export default function PhonicsLandingPage() {
   return (
-    <div className="px-6 py-6 max-w-[1100px] mx-auto">
-      <h1 className="text-2xl sm:text-3xl font-black text-ink-900 mb-1">파닉스 학습</h1>
-      <p className="text-sm sm:text-base text-ink-600 font-bold mb-6">
+    <div className="px-4 sm:px-6 py-6 max-w-[1200px] mx-auto">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-black font-display text-ink-900 mb-1">
+        파닉스 학습
+      </h1>
+      <p className="text-sm sm:text-base text-ink-600 font-bold mb-6 sm:mb-8">
         어떤 글자를 배워볼까요? 카드를 눌러 시작하세요.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+        {/* 한글 파닉스 — coral 톤 active */}
         <Link
           to="/library/phonics/korean"
-          className="group relative block rounded-3xl bg-gradient-to-br from-cream-100 to-peach-200 shadow-soft hover:shadow-pop active:scale-[0.98] transition border-[5px] border-white overflow-hidden p-6 sm:p-7"
+          className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-coral-400 via-coral-500 to-coral-600 shadow-pop hover:shadow-[0_16px_32px_rgba(0,0,0,0.22)] hover:-translate-y-1 active:translate-y-0 transition-all duration-150 aspect-[4/3] md:aspect-[5/4] p-6 sm:p-8 text-white flex flex-col justify-between"
         >
-          <div className="text-6xl sm:text-7xl mb-3">가</div>
-          <h2 className="text-2xl sm:text-3xl font-black font-display text-ink-900 mb-1">
-            한글 파닉스
-          </h2>
-          <p className="text-sm sm:text-base font-bold text-ink-700">
-            모음·자음·받침을 차근차근 배워요
-          </p>
-          <div className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-coral-500 text-white font-black text-sm shadow-soft">
-            시작하기 →
+          {/* 데코 blob — 오른쪽 상단 + 왼쪽 하단 */}
+          <div
+            aria-hidden
+            className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-white/15 blur-2xl"
+          />
+          <div
+            aria-hidden
+            className="absolute -bottom-16 -left-10 w-40 h-40 rounded-full bg-coral-300/30 blur-2xl"
+          />
+          {/* 상단 chip */}
+          <div className="relative flex items-center justify-between">
+            <span className="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs sm:text-sm font-black tracking-wide">
+              한글
+            </span>
+            <span className="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs sm:text-sm font-black">
+              4-7세
+            </span>
+          </div>
+          {/* 거대 character */}
+          <div className="relative flex items-end justify-between gap-4">
+            <div className="flex-1 min-w-0">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-display leading-tight">
+                한글 파닉스
+              </h2>
+              <p className="text-xs sm:text-sm md:text-base font-bold mt-1 text-white/90">
+                모음 · 자음 · 받침을 차근차근
+              </p>
+              <div className="mt-3 sm:mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-coral-600 font-black text-sm sm:text-base shadow-soft group-hover:shadow-pop transition">
+                시작하기
+                <span className="text-base sm:text-lg">→</span>
+              </div>
+            </div>
+            <div
+              aria-hidden
+              className="font-black font-display leading-none text-white/95 drop-shadow-[0_6px_16px_rgba(0,0,0,0.25)] text-[140px] sm:text-[180px] md:text-[200px] -mr-2"
+              style={{ textShadow: '0 4px 0 rgba(0,0,0,0.15)' }}
+            >
+              가
+            </div>
           </div>
         </Link>
 
+        {/* 영어 파닉스 — blue 톤 준비 중 */}
         <div
-          className="relative block rounded-3xl bg-gradient-to-br from-cream-100 to-mint-100 border-[5px] border-white p-6 sm:p-7 opacity-60 cursor-not-allowed select-none"
+          className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-400 via-blue-500 to-blue-600 shadow-pop aspect-[4/3] md:aspect-[5/4] p-6 sm:p-8 text-white flex flex-col justify-between cursor-not-allowed"
           aria-disabled="true"
         >
-          <div className="text-6xl sm:text-7xl mb-3">A</div>
-          <h2 className="text-2xl sm:text-3xl font-black font-display text-ink-900 mb-1">
-            영어 파닉스
-          </h2>
-          <p className="text-sm sm:text-base font-bold text-ink-700">알파벳 음가부터 단어까지</p>
-          <div className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-ink-300 text-ink-700 font-black text-sm">
+          {/* 데코 blob */}
+          <div
+            aria-hidden
+            className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-white/15 blur-2xl"
+          />
+          <div
+            aria-hidden
+            className="absolute -bottom-16 -left-10 w-40 h-40 rounded-full bg-blue-300/30 blur-2xl"
+          />
+          {/* 준비 중 ribbon — 우상단 corner */}
+          <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-warn text-ink-900 text-xs sm:text-sm font-black shadow-pop rotate-2">
             준비 중
+          </div>
+          {/* 상단 chip */}
+          <div className="relative flex items-center gap-2">
+            <span className="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-xs sm:text-sm font-black tracking-wide">
+              ABC
+            </span>
+          </div>
+          {/* 거대 character */}
+          <div className="relative flex items-end justify-between gap-4">
+            <div className="flex-1 min-w-0">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-display leading-tight">
+                영어 파닉스
+              </h2>
+              <p className="text-xs sm:text-sm md:text-base font-bold mt-1 text-white/90">
+                알파벳 음가부터 단어까지
+              </p>
+              <div className="mt-3 sm:mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/30 backdrop-blur-sm text-white font-black text-sm sm:text-base">
+                곧 만나요
+                <span className="text-base sm:text-lg">⏳</span>
+              </div>
+            </div>
+            <div
+              aria-hidden
+              className="font-black font-display leading-none text-white/95 drop-shadow-[0_6px_16px_rgba(0,0,0,0.25)] text-[140px] sm:text-[180px] md:text-[200px] -mr-2"
+              style={{ textShadow: '0 4px 0 rgba(0,0,0,0.15)' }}
+            >
+              A
+            </div>
           </div>
         </div>
       </div>
