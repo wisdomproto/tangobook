@@ -48,7 +48,7 @@ export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?:
         )}
         <h1 className="text-xl sm:text-2xl font-black font-display text-ink-900 inline-flex items-baseline gap-2">
           <span>{unit.unitTitle.replace(/^unit\s+\d+:\s*/i, '')}</span>
-          <span className="text-xs sm:text-sm text-ink-500 font-bold">· {unit.levelName}</span>
+          <span className="text-sm text-ink-700 font-bold">· {unit.levelName}</span>
         </h1>
       </div>
 
@@ -108,7 +108,7 @@ function ActivitySection({
       >
         <span className="text-base">{emoji}</span>
         <span className="text-sm sm:text-base font-black font-display text-ink-900">{title}</span>
-        <span className="text-xs font-bold text-ink-600">· {subtitle}</span>
+        <span className="text-xs sm:text-sm font-bold text-ink-700">· {subtitle}</span>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
         {activities.map((act) => (
@@ -175,7 +175,7 @@ function ActivityCard({
       </h3>
       {activity.subtitle && (
         <p
-          className={`text-[10px] sm:text-xs font-bold mt-0.5 leading-snug break-keep ${showDone ? 'text-ink-400' : 'text-ink-600'}`}
+          className={`text-xs sm:text-sm font-bold mt-1 leading-snug break-keep ${showDone ? 'text-ink-500' : 'text-ink-800'}`}
         >
           {activity.subtitle}
         </p>
