@@ -267,7 +267,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
 
   return (
     <div className="bg-gradient-to-b from-cream-50 to-peach-100 min-h-full">
-      <div className="max-w-[1600px] mx-auto px-6 md:px-8 pt-0 pb-6">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-8 pt-5 md:pt-6 pb-6">
         {/* 롤링 배너 — 동화책 모드 only. 3 슬라이드 (그림체/어휘게임/자연관찰) 5s auto-advance.
             /library 헤더는 absolute overlay (transparent) — 배너가 viewport top 까지 차지. */}
         {type === 'storybook' && <LibraryBanner />}
