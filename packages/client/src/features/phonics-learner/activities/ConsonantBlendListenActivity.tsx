@@ -42,6 +42,17 @@ export function ConsonantBlendListenActivity({
 
   const totalCells = rows.length * 3;
 
+  // 다음에 눌러야 할 셀 (row-major, 첫 미클릭) — 하이라이트 안내용. 모두 누르면 null.
+  const nextKey = useMemo(() => {
+    for (let r = 0; r < rows.length; r++) {
+      for (let c = 0; c < 3; c++) {
+        const key = `${r}-${c}`;
+        if (!pressed.has(key)) return key;
+      }
+    }
+    return null;
+  }, [rows.length, pressed]);
+
   const handleCell = useCallback(
     async (r: number, c: number, text: string) => {
       if (completed) return;
@@ -98,6 +109,7 @@ export function ConsonantBlendListenActivity({
               <Cell
                 label={row.consonant}
                 pressed={pressed.has(`${r}-0`)}
+                isNext={nextKey === `${r}-0`}
                 onClick={() => handleCell(r, 0, row.consonant)}
                 tone="consonant"
               />
@@ -105,6 +117,7 @@ export function ConsonantBlendListenActivity({
               <Cell
                 label={row.vowel}
                 pressed={pressed.has(`${r}-1`)}
+                isNext={nextKey === `${r}-1`}
                 onClick={() => handleCell(r, 1, row.vowel)}
                 tone="vowel"
               />
@@ -112,6 +125,7 @@ export function ConsonantBlendListenActivity({
               <Cell
                 label={row.syllable}
                 pressed={pressed.has(`${r}-2`)}
+                isNext={nextKey === `${r}-2`}
                 onClick={() => handleCell(r, 2, row.syllable)}
                 tone="syllable"
               />
@@ -128,11 +142,13 @@ export function ConsonantBlendListenActivity({
 function Cell({
   label,
   pressed,
+  isNext,
   onClick,
   tone,
 }: {
   label: string;
   pressed: boolean;
+  isNext: boolean;
   onClick: () => void;
   tone: 'consonant' | 'vowel' | 'syllable';
 }) {
@@ -146,15 +162,27 @@ function Cell({
     <button
       onClick={onClick}
       className={[
-        'relative w-[clamp(2.5rem,8vw,4rem)] h-[clamp(2.5rem,8vw,4rem)] sm:w-[clamp(3rem,9vw,5rem)] sm:h-[clamp(3rem,9vw,5rem)] rounded-2xl border-[3px] flex items-center justify-center shadow-soft active:scale-[0.95] transition font-black text-coral-700',
+        'relative w-[clamp(2.5rem,8vw,4rem)] h-[clamp(2.5rem,8vw,4rem)] sm:w-[clamp(3rem,9vw,5rem)] sm:h-[clamp(3rem,9vw,5rem)] rounded-2xl border-[3px] flex items-center justify-center shadow-soft active:scale-[0.95] transition-all font-black text-coral-700',
         bg,
-        pressed ? 'ring-2 ring-success/40' : '',
+        pressed
+          ? 'ring-2 ring-success/40'
+          : isNext
+            ? 'ring-4 ring-coral-500 scale-110 shadow-pop animate-pulse'
+            : '',
       ].join(' ')}
     >
       <span className="text-2xl sm:text-3xl">{label}</span>
       {pressed && (
         <span className="absolute -top-1.5 -right-1.5 inline-flex items-center justify-center w-5 h-5 rounded-full bg-success text-white text-[10px] font-black">
           ✓
+        </span>
+      )}
+      {isNext && !pressed && (
+        <span
+          aria-hidden
+          className="absolute -bottom-3 left-1/2 -translate-x-1/2 text-xl text-coral-600 animate-bounce"
+        >
+          👆
         </span>
       )}
     </button>
