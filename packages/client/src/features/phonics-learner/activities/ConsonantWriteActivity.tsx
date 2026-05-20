@@ -48,18 +48,25 @@ export function ConsonantWriteActivity({ unitId, consonant, onComplete, onBack }
         storybookId: unitId,
         identifierPrefix: 'consonant-write',
       });
-      if (url) playAudio(url);
-
       const nextDone = new Set(doneSet);
       nextDone.add(idx);
       setDoneSet(nextDone);
 
       const remaining = cards.map((_, i) => i).filter((i) => !nextDone.has(i));
-      if (remaining.length === 0) {
-        setTimeout(() => playCorrectSequence({ language: 'ko', onDone: onComplete }), 1800);
+      // 고정 setTimeout (1.8s) 가정은 "ㄱ ㄱ 단어" 가 길 때 칭찬/다음 카드가 먼저 트리거되는 원인.
+      // playAudio(url, onEnded) chain 으로 TTS 끝난 후 다음 단계.
+      const onTtsEnded = () => {
+        if (remaining.length === 0) {
+          playCorrectSequence({ language: 'ko', onDone: onComplete });
+        } else {
+          const next = remaining.find((i) => i > idx) ?? remaining[0];
+          setCurrentIdx(next);
+        }
+      };
+      if (url) {
+        playAudio(url, onTtsEnded);
       } else {
-        const next = remaining.find((i) => i > idx) ?? remaining[0];
-        setTimeout(() => setCurrentIdx(next), 1800);
+        onTtsEnded();
       }
     },
     [currentIdx, cards, doneSet, consonant, unitId, playAudio, playCorrectSequence, onComplete]

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { composeHangul } from '@tangobook/shared';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
@@ -40,43 +40,43 @@ export function ConsonantBlendListenActivity({
   const [pressed, setPressed] = useState<Set<string>>(new Set());
   const [completed, setCompleted] = useState(false);
 
-  const playText = useCallback(
-    async (text: string) => {
+  const totalCells = rows.length * 3;
+
+  const handleCell = useCallback(
+    async (r: number, c: number, text: string) => {
+      if (completed) return;
+      const key = `${r}-${c}`;
       const url = await resolveTtsUrl({
         text,
         language: 'korean',
         storybookId: unitId,
         identifierPrefix: 'consonant-blend',
       });
-      if (url) playAudio(url);
-    },
-    [unitId, playAudio]
-  );
 
-  const totalCells = rows.length * 3;
-
-  const handleCell = useCallback(
-    (r: number, c: number, text: string) => {
-      const key = `${r}-${c}`;
-      playText(text);
+      // 이 클릭으로 totalCells 모두 채워지면 → TTS ended 후 칭찬 시퀀스 chain.
+      let willCompleteAll = false;
       setPressed((prev) => {
         if (prev.has(key)) return prev;
         const next = new Set(prev);
         next.add(key);
+        if (next.size >= totalCells) willCompleteAll = true;
         return next;
       });
-    },
-    [playText]
-  );
 
-  // 완료 감지
-  useEffect(() => {
-    if (completed) return;
-    if (pressed.size >= totalCells) {
-      setCompleted(true);
-      setTimeout(() => playCorrectSequence({ language: 'ko', onDone: onComplete }), 600);
-    }
-  }, [pressed.size, totalCells, completed, playCorrectSequence, onComplete]);
+      if (willCompleteAll) {
+        setCompleted(true);
+        if (url) {
+          playAudio(url, () => playCorrectSequence({ language: 'ko', onDone: onComplete }));
+        } else {
+          playCorrectSequence({ language: 'ko', onDone: onComplete });
+        }
+        return;
+      }
+
+      if (url) playAudio(url);
+    },
+    [completed, totalCells, unitId, playAudio, playCorrectSequence, onComplete]
+  );
 
   return (
     <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden">

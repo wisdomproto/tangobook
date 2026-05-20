@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
@@ -44,7 +44,8 @@ export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: 
       const cur = tapCounts[idx] ?? 0;
       if (cur >= TAPS_PER_CARD) return;
       const next = cur + 1;
-      setTapCounts((p) => p.map((c, i) => (i === idx ? next : c)));
+      const nextTaps = tapCounts.map((c, i) => (i === idx ? next : c));
+      setTapCounts(nextTaps);
 
       const word = cards[idx]?.word;
       const isFinalTap = next === TAPS_PER_CARD;
@@ -56,20 +57,24 @@ export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: 
         storybookId: unitId,
         identifierPrefix: 'consonant-tap',
       });
+
+      // 마지막 카드의 마지막 탭이면 → TTS ended 이벤트 기다린 후 칭찬 시퀀스.
+      // 고정 setTimeout (1.8s) 가정은 "ㄱ ㄱ 거북이" 같이 길 때 칭찬이 먼저 깔리는 원인.
+      const isAllDone = nextTaps.slice(0, cards.length).every((c) => c >= TAPS_PER_CARD);
+      if (isAllDone) {
+        setCompleted(true);
+        if (url) {
+          playAudio(url, () => playCorrectSequence({ language: 'ko', onDone: onComplete }));
+        } else {
+          playCorrectSequence({ language: 'ko', onDone: onComplete });
+        }
+        return;
+      }
+
       if (url) playAudio(url);
     },
-    [completed, tapCounts, cards, consonant, unitId, playAudio]
+    [completed, tapCounts, cards, consonant, unitId, playAudio, playCorrectSequence, onComplete]
   );
-
-  // 모두 완료 감지
-  useEffect(() => {
-    if (cards.length === 0 || completed) return;
-    if (tapCounts.slice(0, cards.length).every((c) => c >= TAPS_PER_CARD)) {
-      setCompleted(true);
-      // 마지막 단어 TTS 가 끝날 시간을 좀 주고 칭찬 시퀀스 시작
-      setTimeout(() => playCorrectSequence({ language: 'ko', onDone: onComplete }), 1800);
-    }
-  }, [tapCounts, cards.length, completed, playCorrectSequence, onComplete]);
 
   return (
     <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-4 bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden">

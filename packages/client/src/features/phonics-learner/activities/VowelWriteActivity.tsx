@@ -39,21 +39,25 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
         storybookId: unitId,
         identifierPrefix: 'phonics-write',
       });
-      if (url) playAudio(url);
-
       const nextDone = new Set(doneSet);
       nextDone.add(idx);
       setDoneSet(nextDone);
 
       const remaining = vowels.map((_, i) => i).filter((i) => !nextDone.has(i));
 
-      if (remaining.length === 0) {
-        // 모두 통과 — 칭찬 + onComplete
-        setTimeout(() => playCorrectSequence({ language: 'ko', onDone: onComplete }), 700);
+      // playAudio onEnded chain — 단어 TTS 끝난 후 칭찬/다음 카드 (기존 setTimeout 가정 폐기)
+      const onTtsEnded = () => {
+        if (remaining.length === 0) {
+          playCorrectSequence({ language: 'ko', onDone: onComplete });
+        } else {
+          const next = remaining.find((i) => i > idx) ?? remaining[0];
+          setCurrentIdx(next);
+        }
+      };
+      if (url) {
+        playAudio(url, onTtsEnded);
       } else {
-        // 다음 미완료로 이동 (현재 다음부터 wrap-around)
-        const next = remaining.find((i) => i > idx) ?? remaining[0];
-        setTimeout(() => setCurrentIdx(next), 1100);
+        onTtsEnded();
       }
     },
     [currentIdx, vowels, doneSet, playAudio, playCorrectSequence, onComplete, unitId]
