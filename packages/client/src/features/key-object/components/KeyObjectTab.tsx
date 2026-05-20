@@ -771,10 +771,23 @@ export function KeyObjectTab({ storybook, onUpdate, onSave }: KeyObjectTabProps)
               initialKeypoints={img.keypoints ?? []}
               onSave={(keypoints) => {
                 onUpdate((draft) => {
+                  // 1. top-level (현재 활성 그림체의 데이터) 업데이트
                   const target = (draft.keyObjectImages ?? []).find(
                     (o) => o.objectName === obj.name
                   );
                   if (target) target.keypoints = keypoints;
+                  // 2. styleAssets[현재 그림체] 도 동기화 — 점잇기 게임 데이터 어댑터가
+                  //    styleAssets[style].keyObjectImages 에서 keypoints 를 읽음.
+                  //    switchStyleAssets snapshot 까지 기다리지 않고 즉시 mirror.
+                  //    styleAssets 에 entry 없을 수도 있어 top-level 전체 복사로 안전 처리.
+                  const currentStyle = draft.artStyle;
+                  if (currentStyle) {
+                    if (!draft.styleAssets) draft.styleAssets = {};
+                    if (!draft.styleAssets[currentStyle]) draft.styleAssets[currentStyle] = {};
+                    draft.styleAssets[currentStyle].keyObjectImages = (
+                      draft.keyObjectImages ?? []
+                    ).map((o) => ({ ...o }));
+                  }
                 });
                 onSave();
                 setDotEditIdx(null);
