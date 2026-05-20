@@ -216,6 +216,29 @@ KoreanBlockPlayer / EnglishBlockPlayer 공통:
 - **정답 자동 체크**: 블록 배치가 정답과 일치하면 "확인" 버튼 없이 즉시 정답 처리. `useEffect` 가 composed/grid 변경 watch → `handleCheckRef.current()` 호출. 오답 분기는 자동 발동 X (사용자가 직접 확인 버튼 클릭 시에만 wrong 표시). `roundCorrect` 가드로 중복 방지.
 - **handleCheckRef pattern**: `useRef(handleCheck)` + render body 에서 `ref.current = handleCheck` (effect 로 하면 자동 체크 effect 가 ref 갱신보다 먼저 fire 해 stale closure 호출 → 오답 처리됨).
 - **정답 시퀀스**: `playCorrectSequence({ ttsUrl, language, onDone })` — 효과음 → 0.5s → 단어 발음 (audio `ended` 이벤트 대기) → 시스템 칭찬 음원 (audio `ended` 이벤트 대기) → onDone. `playAudio(url, onEnded)` 콜백으로 chain — 단어 길이/칭찬 길이 무관 안 잘림. 동시에 `FeedbackOverlay kind="correct"` (호리 cheering + confetti + "잘했어!" 랜덤) 가 `praiseVisible` state 로 표시. **2026-05-19 변경**: 고정 1.2s/1.5s 타임아웃은 다음절 한글 단어 (강아지·바나나 등) TTS 가 잘리는 원인 → ended 이벤트 chain 으로 교체.
+
+### 🔴 RULE — TTS chain 절대 setTimeout 가정 X
+
+**새 게임/액티비티 만들 때 TTS 끝난 후 칭찬/다음 단계가 오는 모든 흐름**은 반드시 `playAudio(url, onEnded)` 콜백으로 chain. `setTimeout(..., 1800)` 같은 길이 가정은 다음절 한글 단어 ("거북이", "ㄱ ㄱ 단어") 가 timeout 초과 시 칭찬이 먼저 깔리는 버그 → 사용자 4번 이상 반복 보고 (블록 게임 / ConsonantTap / ConsonantWrite / VowelWrite 등). 패턴 비교:
+
+```tsx
+// ❌ 잘못된 패턴
+if (url) playAudio(url);
+setTimeout(() => playCorrectSequence({ onDone }), 1800);
+
+// ✅ 올바른 패턴
+if (url) {
+  playAudio(url, () => playCorrectSequence({ onDone }));
+} else {
+  playCorrectSequence({ onDone });
+}
+```
+
+PR 리뷰 체크리스트:
+
+- [ ] `setTimeout` + `playCorrectSequence` 조합 없음
+- [ ] `setTimeout` + `setCurrentIdx` (다음 카드) 조합 없음
+- [ ] useEffect 완료 감지 + playCorrectSequence 패턴 — 핸들러 내부 chain 으로 옮기는 게 안전
 - **z-index**: `FeedbackOverlay` 의 `fixed z-40` 이 player wrapper `fixed z-[60]` 의 stacking context 안에서 최상위 — SpeakingPlayer 도 동일 패턴.
 
 `RandomBlockGamePage` (사이드바 진입) 한정:
