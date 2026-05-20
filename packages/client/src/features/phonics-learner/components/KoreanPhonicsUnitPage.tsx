@@ -7,8 +7,11 @@ import { usePhonicsProgress } from '../lib/progress-store';
  *
  * 두 섹션 — **익히기** (모음 듣기/쓰기 4개), **게임하기** (4개 게임).
  * 액티비티 잠금 없음 — 8개 모두 자유롭게 접근. 진척은 ✓ 뱃지로만 표시.
+ *
+ * `embedded` 모드 (KoreanPhonicsStudyPage 안에 렌더될 때): "← 단원 목록" 링크 hide
+ * (좌측 사이드바가 단원 목록 역할). 그 외는 standalone 화면용.
  */
-export default function KoreanPhonicsUnitPage() {
+export default function KoreanPhonicsUnitPage({ embedded = false }: { embedded?: boolean } = {}) {
   const { unitId = '' } = useParams<{ unitId: string }>();
   const unit = getKoreanUnit(unitId);
   const plan = getActivityPlan(unitId);
@@ -35,12 +38,14 @@ export default function KoreanPhonicsUnitPage() {
   return (
     <div className="px-4 sm:px-6 py-3 sm:py-4 max-w-[1100px] mx-auto">
       <div className="mb-3 sm:mb-4">
-        <Link
-          to="/library/phonics/korean"
-          className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-ink-600 hover:text-ink-900 mb-1"
-        >
-          ← 단원 목록
-        </Link>
+        {!embedded && (
+          <Link
+            to="/library/phonics/korean"
+            className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-ink-600 hover:text-ink-900 mb-1"
+          >
+            ← 단원 목록
+          </Link>
+        )}
         <h1 className="text-xl sm:text-2xl font-black font-display text-ink-900 inline-flex items-baseline gap-2">
           <span>{unit.unitTitle.replace(/^unit\s+\d+:\s*/i, '')}</span>
           <span className="text-xs sm:text-sm text-ink-500 font-bold">· {unit.levelName}</span>

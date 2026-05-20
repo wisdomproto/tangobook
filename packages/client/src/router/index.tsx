@@ -27,8 +27,7 @@ import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
 import { VocabularyHubPage, VocabularyStudyPage } from '../features/vocabulary-unit';
 import {
   PhonicsLandingPage,
-  KoreanPhonicsHubPage,
-  KoreanPhonicsUnitPage,
+  KoreanPhonicsStudyPage,
   KoreanPhonicsActivityPage,
 } from '../features/phonics-learner';
 
@@ -52,8 +51,6 @@ export const router = createBrowserRouter([
         children: [
           { path: 'library', element: <LibraryPage type="storybook" /> },
           { path: 'library/phonics', element: <PhonicsLandingPage /> },
-          { path: 'library/phonics/korean', element: <KoreanPhonicsHubPage /> },
-          { path: 'library/phonics/korean/:unitId', element: <KoreanPhonicsUnitPage /> },
           { path: 'collection', element: <Navigate to="/library" replace /> },
           { path: 'collection/book/:bookId', element: <Navigate to="/library" replace /> },
           { path: 'collection/:categoryId', element: <Navigate to="/library" replace /> },
@@ -69,6 +66,24 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <VocabularyStudyPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 한글 파닉스 학습 모드 — AppShell 밖 풀화면 (좌 커리큘럼 + 우 unit body)
+        path: 'library/phonics/korean',
+        element: (
+          <ErrorBoundary>
+            <KoreanPhonicsStudyPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 한글 파닉스 학습 모드 — unit 선택 상태
+        path: 'library/phonics/korean/:unitId',
+        element: (
+          <ErrorBoundary>
+            <KoreanPhonicsStudyPage />
           </ErrorBoundary>
         ),
       },

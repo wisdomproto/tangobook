@@ -13,8 +13,32 @@
 import { useCallback, useEffect, useState } from 'react';
 
 const STORAGE_KEY = 'phonics-progress';
+const RECENT_UNIT_KEY = 'phonics-recent-unit';
 
 export type PhonicsLang = 'korean' | 'english';
+
+/** 마지막 학습한 unit ID 저장/조회 — 사이드바 진입 시 default 단원으로 사용. */
+export function markRecentUnit(lang: PhonicsLang, unitId: string): void {
+  try {
+    const raw = localStorage.getItem(RECENT_UNIT_KEY);
+    const parsed = raw ? (JSON.parse(raw) as Record<string, string>) : {};
+    parsed[lang] = unitId;
+    localStorage.setItem(RECENT_UNIT_KEY, JSON.stringify(parsed));
+  } catch {
+    /* ignore */
+  }
+}
+
+export function getRecentUnit(lang: PhonicsLang): string | null {
+  try {
+    const raw = localStorage.getItem(RECENT_UNIT_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as Record<string, string>;
+    return parsed[lang] ?? null;
+  } catch {
+    return null;
+  }
+}
 
 interface UnitProgress {
   completedActivities: string[];
