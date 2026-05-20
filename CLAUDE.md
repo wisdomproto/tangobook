@@ -83,6 +83,14 @@ features/{name}/{api,hooks,components,index.ts}
 - **vocab-overrides API**: `GET/PUT /api/vocab-overrides` → R2 `_index/vocab-overrides.json`. localStorage X, dirty 플래그 + 명시 💾 저장 + beforeunload 경고.
 - 영어 `vocabulary-master.html` 도 verbs/adj/adv 토픽 제거 + 어미 패턴 (~ly·ful·less·ous·ive·able·ish) 자동 필터.
 
+## 한글 파닉스 학습 모드 (2026-05-20)
+- **`/library/phonics/korean(/:unitId)?`** — AppShell **밖** 풀화면 study layout. `KoreanPhonicsStudyPage` 가 두 라우트 모두 처리. recent unit 자동 redirect (`localStorage` `phonics-recent-unit`).
+- **레이아웃**: 상단 `PageHeader` (책 상세 / 어휘 학습과 동일 톤) + 좌측 전체 커리큘럼 스크롤 list (한글1~4 + 모든 units, level sticky h2) + 우측 `KoreanPhonicsUnitPage embedded` (back 링크 hide).
+- **자음 단원 자동 생성**: `makeConsonantPlan(consonant)` ([korean-phonics-units.ts](packages/client/src/features/phonics-learner/lib/korean-phonics-units.ts)) — 한글1 u02 (ㄱ) ~ u15 (ㅎ) 13개. 4 learn (Tap/BlendListen×2/Write) + 4 game. subtitle 은 `syllablesFor(c, vowels)` 로 `composeHangul` 자동 생성 ("나 냐 너 녀 노 뇨" 등). 자음만 다르게, 컴포넌트 100% 재사용.
+- **Block 게임 난이도 자동**: `unit.levelIndex >= 3 ? 'medium' : 'easy'`. 한글1/2 easy, 한글3 (쌍자음) / 한글4 (복잡 모음) medium picker.
+- **익히기/게임하기 카드 시각**: 완료 시 success/15 + 큰 ✓ overlay (우상단 동그라미) + dim 텍스트. 게임하기는 완료 개념 없음 (showDone 시그널 무시).
+- **점잇기 keypoints styleAssets sync** ⭐: KeyObjectTab keypoint 저장 시 top-level + `styleAssets[artStyle].keyObjectImages` 동시 mirror. 이전엔 top-level 만 update → 점잇기 게임 어댑터 (`derive-storybook-unit.ts`) 가 styleAssets[style] 에서 읽어 keypoints 못 찾던 버그. 기존 18권 마이그 (`packages/server/scripts/sync-keypoints-to-styleassets.mjs`).
+
 ## 핵심단어 영어 번역 일괄 적용 (2026-05-19)
 - **스크립트 5종** (`packages/server/scripts/`): `scan-untranslated-keyobjects.mjs` (전 책 스캔 → `_data/untranslated-keyobjects.json` per-book ko+pages+pageTexts) · `condense-untranslated.mjs` (단어당 짧은 context 1줄 압축) · `prepare-batch.mjs N` (앞 N권 추출 + 기존 사전 reuse auto-fill + 잔여 manual list) · `apply-translations.mjs [file]` (번역 map `{ bookId: { tr: { ko: en } } }` 적용 → `POST /api/storybooks { storybook }`) · `merge-and-apply-batch.mjs` (auto+manual 머지 후 apply).
 - **원칙**: 페이지 텍스트 context 기반 동음이의어 분리 (지팡이 wand vs cane / 다리 leg vs bridge / 바람 wind vs hope / 화가 anger vs painter).

@@ -13,29 +13,33 @@
 ```
 features/phonics-learner/
   components/
-    PhonicsLandingPage.tsx        # /library/phonics — 한글/영어 카드
-    KoreanPhonicsHubPage.tsx      # /library/phonics/korean — unit 그리드 (레벨별)
-    KoreanPhonicsUnitPage.tsx     # /library/phonics/korean/:unitId — 8 활동 그리드 (익히기/게임하기 2 섹션)
+    PhonicsLandingPage.tsx        # /library/phonics — 한글/영어 카드 (호리 마스코트 일러스트)
+    KoreanPhonicsStudyPage.tsx    # /library/phonics/korean(/:unitId)? — study layout (좌 커리큘럼 + 우 unit body)
+    KoreanPhonicsUnitPage.tsx     # study layout 안에서 embedded 로 사용 (props: embedded?: boolean)
     KoreanPhonicsActivityPage.tsx # /library/phonics/korean/:unitId/:activityKey — 활동 호스트 (kind 별 분기)
   activities/
     VowelListenActivity.tsx       # 모음 듣기 (unit 1 활동 1/2)
-    VowelWriteActivity.tsx        # 모음 쓰기 (unit 1 활동 3/4)
-    ConsonantTapActivity.tsx      # 자음 누르기 (unit 2 활동 1) — 3 카드 × 3 탭 → "ㄱ ㄱ {단어}"
-    ConsonantBlendListenActivity.tsx # 자음+모음 음절 (unit 2 활동 2/3) — 6행 × 3셀
-    ConsonantWriteActivity.tsx    # 자음 쓰기 (unit 2 활동 4)
+    VowelWriteActivity.tsx        # 모음 쓰기 (unit 1 활동 3/4) — playAudio onEnded chain
+    ConsonantTapActivity.tsx      # 자음 누르기 — 3 카드 × 3 탭. 단어 카드 X (단순화). 각 카드 띵동 + 마지막 칭찬
+    ConsonantBlendListenActivity.tsx # 자음+모음 음절 — 6행 × 3셀. 다음 셀 하이라이트 + 행 완료 띵동
+    ConsonantWriteActivity.tsx    # 자음 쓰기 — ㄱ 만 3번 따라쓰기 (단어 의존성 제거). per-write 띵동 + 마지막 칭찬
   lib/
-    korean-phonics-units.ts       # unit 목록 + ActivityDef + KOREAN_UNIT_ACTIVITY_PLAN (unit 별 활동 구성)
-    progress-store.ts             # localStorage `phonics-progress` — usePhonicsProgress hook
-    pick-word-cards.ts            # flashcards/targetWords → 랜덤 N장 (consonant-tap/write 용)
+    korean-phonics-units.ts       # unit 목록 + ActivityDef + makeConsonantPlan(c) 으로 ㄴ~ㅎ 자동 생성
+    progress-store.ts             # localStorage `phonics-progress` + `phonics-recent-unit` (study layout default)
+    pick-word-cards.ts            # 사용 안 함 (ConsonantTap/Write 가 단어 제거로 의존성 없어짐)
     phonics-game-adapter.ts       # phonicsStorybook → KoreanBlock/WordWriting/LineMatching/ConnectDots data
 ```
 
-## 라우트
+## 라우트 (2026-05-20)
 
-- `/library/phonics` — AppShell 안 (랜딩)
-- `/library/phonics/korean` — AppShell 안 (unit grid)
-- `/library/phonics/korean/:unitId` — AppShell 안 (활동 grid)
+- `/library/phonics` — AppShell 안 (랜딩, PhonicsLandingPage)
+- `/library/phonics/korean` — **AppShell 밖** (study layout, recent unit 으로 redirect)
+- `/library/phonics/korean/:unitId` — **AppShell 밖** (study layout, 좌 커리큘럼 + 우 unit body)
 - `/library/phonics/korean/:unitId/:activityKey` — **AppShell 밖** (활동 풀화면)
+
+## 자음 단원 자동 생성 (2026-05-20)
+
+`makeConsonantPlan(consonant)` — 한글1 u02 (ㄱ) ~ u15 (ㅎ) 13개 자음 단원 모두 동일한 4 learn + 4 game 패턴. 자음만 다르게. subtitle 은 `syllablesFor(c, vowels)` 로 `composeHangul` 자동 ("나 냐 너 녀 노 뇨" 등). 컴포넌트 100% 재사용 — 새 자음 추가 시 `CONSONANT_UNIT_MAP` 에 항목만 추가.
 
 ## 활동 종류 (`ActivityKind`)
 
