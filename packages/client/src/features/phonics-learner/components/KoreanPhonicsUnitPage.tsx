@@ -33,18 +33,18 @@ export default function KoreanPhonicsUnitPage() {
   const playActivities = plan.activities.filter((a) => a.section === 'play');
 
   return (
-    <div className="px-6 py-6 max-w-[1100px] mx-auto">
-      <div className="mb-6">
+    <div className="px-4 sm:px-6 py-3 sm:py-4 max-w-[1100px] mx-auto">
+      <div className="mb-3 sm:mb-4">
         <Link
           to="/library/phonics/korean"
-          className="inline-flex items-center gap-1 text-sm font-bold text-ink-600 hover:text-ink-900 mb-2"
+          className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-ink-600 hover:text-ink-900 mb-1"
         >
           ← 단원 목록
         </Link>
-        <h1 className="text-2xl sm:text-3xl font-black text-ink-900">
-          {unit.unitTitle.replace(/^unit\s+\d+:\s*/i, '')}
+        <h1 className="text-xl sm:text-2xl font-black font-display text-ink-900 inline-flex items-baseline gap-2">
+          <span>{unit.unitTitle.replace(/^unit\s+\d+:\s*/i, '')}</span>
+          <span className="text-xs sm:text-sm text-ink-500 font-bold">· {unit.levelName}</span>
         </h1>
-        <p className="text-sm sm:text-base text-ink-600 font-bold mt-1">{unit.levelName}</p>
       </div>
 
       {plan.activities.length === 0 ? (
@@ -52,7 +52,7 @@ export default function KoreanPhonicsUnitPage() {
           이 단원은 활동이 아직 준비되지 않았어요.
         </div>
       ) : (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-3 sm:gap-4">
           <ActivitySection
             unitId={unitId}
             title="익히기"
@@ -99,13 +99,13 @@ function ActivitySection({
   return (
     <section>
       <div
-        className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${headerBg} shadow-soft mb-3`}
+        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${headerBg} shadow-soft mb-2`}
       >
-        <span className="text-xl">{emoji}</span>
-        <span className="text-base sm:text-lg font-black font-display text-ink-900">{title}</span>
-        <span className="text-xs sm:text-sm font-bold text-ink-600">· {subtitle}</span>
+        <span className="text-base">{emoji}</span>
+        <span className="text-sm sm:text-base font-black font-display text-ink-900">{title}</span>
+        <span className="text-xs font-bold text-ink-600">· {subtitle}</span>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
         {activities.map((act) => (
           <ActivityCard
             key={act.key}
@@ -145,32 +145,32 @@ function ActivityCard({
   return (
     <Link
       to={`/library/phonics/korean/${unitId}/${activity.key}`}
-      className={`relative block aspect-[5/6] rounded-2xl border-[4px] p-3 sm:p-4 transition active:scale-[0.98] ${cardClass}`}
+      className={`relative block aspect-[4/3] rounded-2xl border-[4px] p-2 sm:p-3 transition active:scale-[0.98] flex flex-col ${cardClass}`}
     >
       {/* 완료 큰 ✓ overlay — 우상단 (익히기 완료 시만) */}
       {showDone && (
-        <div className="absolute top-2 right-2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-success text-white flex items-center justify-center shadow-pop text-2xl sm:text-3xl font-black ring-4 ring-white">
+        <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-success text-white flex items-center justify-center shadow-pop text-xl sm:text-2xl font-black ring-2 sm:ring-4 ring-white">
           ✓
         </div>
       )}
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center gap-2 mb-1">
         <span
-          className={`inline-flex items-center justify-center w-9 h-9 rounded-full font-black text-base ${numBadgeClass}`}
+          className={`inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full font-black text-sm shrink-0 ${numBadgeClass}`}
         >
           {activity.order}
         </span>
-      </div>
-      <div className={`text-4xl sm:text-5xl mb-1.5 ${showDone ? 'opacity-50' : ''}`}>
-        {activity.emoji}
+        <span className={`text-2xl sm:text-3xl leading-none ${showDone ? 'opacity-50' : ''}`}>
+          {activity.emoji}
+        </span>
       </div>
       <h3
-        className={`text-base sm:text-lg font-black font-display leading-tight ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
+        className={`text-sm sm:text-base font-black font-display leading-tight break-keep ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
       >
         {activity.title}
       </h3>
       {activity.subtitle && (
         <p
-          className={`text-xs sm:text-sm font-bold mt-0.5 leading-snug ${showDone ? 'text-ink-400' : 'text-ink-600'}`}
+          className={`text-[10px] sm:text-xs font-bold mt-0.5 leading-snug break-keep ${showDone ? 'text-ink-400' : 'text-ink-600'}`}
         >
           {activity.subtitle}
         </p>
