@@ -75,7 +75,7 @@ export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: 
       </button>
 
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center gap-8">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center break-keep">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-black font-display text-ink-900 text-center break-keep">
           <span className="text-coral-600">{consonant}</span> 을 세 번씩 눌러봐!
         </h2>
 
