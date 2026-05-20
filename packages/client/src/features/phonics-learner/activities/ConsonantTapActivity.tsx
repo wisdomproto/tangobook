@@ -21,7 +21,8 @@ const CARDS = 3;
  * 위 행: 3개의 자음 버튼 (ㄱ). 각 버튼을 3번 누르면 진행 완료.
  *   - 1탭 → "ㄱ" 발음
  *   - 2탭 → "ㄱ" 발음
- *   - 3탭 → "ㄱ ㄱ {단어}" 시퀀스 발음 (phonics concat — 공백 = 0.3s 무음)
+ *   - 3탭 → 띵동 효과음 (correct.mp3) → 단어 TTS
+ *   - 모든 카드 완료 → 마지막 단어 TTS 끝난 후 칭찬 시퀀스
  *
  * 아래 행: 각 버튼과 짝지어진 단어 이미지 (저작도구 단원의 핵심단어 4개 중 랜덤 3개).
  *
@@ -49,28 +50,40 @@ export function ConsonantTapActivity({ unitId, consonant, onComplete, onBack }: 
 
       const word = cards[idx]?.word;
       const isFinalTap = next === TAPS_PER_CARD;
-      // 발음 텍스트: 마지막 탭은 "ㄱ ㄱ 단어" (공백 = 0.3s pause), 아니면 단순 자음.
-      const text = isFinalTap && word ? `${consonant} ${consonant} ${word}` : consonant;
+      const isAllDone = nextTaps.slice(0, cards.length).every((c) => c >= TAPS_PER_CARD);
+
+      if (isFinalTap && word) {
+        // 카드의 마지막 탭: 띵동 효과음 → 단어 TTS → (모든 카드 끝났으면) 칭찬 시퀀스.
+        // playAudio onEnded chain 으로 단어 길이 무관 안 잘림.
+        const wordUrl = await resolveTtsUrl({
+          text: word,
+          language: 'korean',
+          storybookId: unitId,
+          identifierPrefix: 'consonant-tap',
+        });
+        if (isAllDone) setCompleted(true);
+        playAudio('/sounds/game/correct.mp3', () => {
+          if (wordUrl) {
+            playAudio(
+              wordUrl,
+              isAllDone
+                ? () => playCorrectSequence({ language: 'ko', onDone: onComplete })
+                : undefined
+            );
+          } else if (isAllDone) {
+            playCorrectSequence({ language: 'ko', onDone: onComplete });
+          }
+        });
+        return;
+      }
+
+      // 일반 탭: 단순 자음 발음
       const url = await resolveTtsUrl({
-        text,
+        text: consonant,
         language: 'korean',
         storybookId: unitId,
         identifierPrefix: 'consonant-tap',
       });
-
-      // 마지막 카드의 마지막 탭이면 → TTS ended 이벤트 기다린 후 칭찬 시퀀스.
-      // 고정 setTimeout (1.8s) 가정은 "ㄱ ㄱ 거북이" 같이 길 때 칭찬이 먼저 깔리는 원인.
-      const isAllDone = nextTaps.slice(0, cards.length).every((c) => c >= TAPS_PER_CARD);
-      if (isAllDone) {
-        setCompleted(true);
-        if (url) {
-          playAudio(url, () => playCorrectSequence({ language: 'ko', onDone: onComplete }));
-        } else {
-          playCorrectSequence({ language: 'ko', onDone: onComplete });
-        }
-        return;
-      }
-
       if (url) playAudio(url);
     },
     [completed, tapCounts, cards, consonant, unitId, playAudio, playCorrectSequence, onComplete]
