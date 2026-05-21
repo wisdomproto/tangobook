@@ -133,9 +133,20 @@ export default function BookDetailPage() {
     baseLevel;
   const effectiveStyle = selectedStyle ?? styles[0];
 
-  // 활성 그림체 기반 표지 URL — styleAssets 우선, fallback to top-level
+  // (그림체 × 언어) 조합 대표 표지.
+  //   1) styleAssets[style].primaryCoverByLang[lang] — 그림체별 자산 안 (style, lang) 마커
+  //   2) 활성 그림체일 때만 top-level primaryCoverByLang[lang] (CoverTab 이 ko 는 둘 다 mirror)
+  //   3) ko 만 레거시 coverImage fallback (활성 그림체면 top-level, 비활성이면 styleAssets[style].coverImage)
+  //   조합 표지가 없으면 placeholder 노출 (LibraryMaster 와 동일 정책).
+  const styleAssets = effectiveStyle ? storybook.styleAssets?.[effectiveStyle] : undefined;
+  const isActiveStyle = !!effectiveStyle && effectiveStyle === storybook.artStyle;
   const coverUrl =
-    (effectiveStyle && storybook.styleAssets?.[effectiveStyle]?.coverImage) ?? storybook.coverImage;
+    styleAssets?.primaryCoverByLang?.[lang] ??
+    (isActiveStyle ? storybook.primaryCoverByLang?.[lang] : undefined) ??
+    (lang === 'ko'
+      ? (styleAssets?.coverImage ?? (isActiveStyle ? storybook.coverImage : undefined))
+      : undefined);
+  const langLabel = LANG_LABEL[lang]?.name ?? lang;
 
   const enterMode = (mode: 'read' | 'video' | 'vocab') => {
     if (mode === 'video') {
@@ -293,8 +304,11 @@ export default function BookDetailPage() {
                     key={coverUrl}
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-[140px]">
-                    📖
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-3 bg-ink-100 text-ink-500">
+                    <div className="text-[96px]">📭</div>
+                    <div className="text-sm font-black px-4 text-center">
+                      {langLabel} 표지가 아직 없어요
+                    </div>
                   </div>
                 )}
               </div>

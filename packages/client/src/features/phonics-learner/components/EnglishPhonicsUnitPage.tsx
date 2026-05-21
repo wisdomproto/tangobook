@@ -156,7 +156,8 @@ function ActivitySection({
 
 /** 활동 kind → 일러스트 (학습/게임 일러는 한글과 공용). */
 const KIND_ICON_URL: Partial<Record<ActivityDef['kind'], string>> = {
-  // 학습 — CVC 배우기/쓰기
+  // 학습 — Book 1 알파벳 배우기/쓰기 모두 카드 안에서 큰 글자 직접 렌더 (ActivityCard 분기 참고)
+  // 학습 — CVC 배우기/쓰기 (Book 2)
   'cvc-pattern-learn': '/icons/activity/cvc-learn.webp',
   'cvc-pattern-write': '/icons/activity/cvc-write.webp',
   // 게임 (한글 파닉스 동일 webp 재사용)
@@ -212,7 +213,53 @@ function ActivityCard({
       <div
         className={`relative z-10 flex-1 flex items-center justify-center my-1 group-hover:scale-105 transition-transform duration-200 ${showDone ? 'opacity-50' : ''}`}
       >
-        {iconUrl ? (
+        {activity.kind === 'alphabet-letter-learn' ? (
+          // Aa·Bb·Cc 등 글자별 학습 — 일러보다 글자 자체가 카드 main visual.
+          // title 의 첫 토큰 ("Aa 배우기" → "Aa") 에서 추출.
+          (() => {
+            const token = activity.title.trim().split(/\s+/)[0] ?? '';
+            const upper = token[0] ?? '';
+            const lower = (token[1] ?? token[0] ?? '').toLowerCase();
+            return (
+              <div className="flex items-baseline gap-0.5 sm:gap-1 leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)] font-display">
+                <span className="text-7xl sm:text-8xl md:text-9xl font-black text-coral-500">
+                  {upper}
+                </span>
+                <span className="text-7xl sm:text-8xl md:text-9xl font-black text-sky-500">
+                  {lower}
+                </span>
+              </div>
+            );
+          })()
+        ) : activity.kind === 'alphabet-letter-write' ? (
+          // ABC/DEF/... 쓰기 — 글자는 카드 정가운데, 연필 ✏️ 은 middle 영역 우상단 floating.
+          // 글자 size 는 learn 카드 (1쌍 큰 글자) 보다 두 단계 작게 + tracking-tight — 4글자 unit 도 fit.
+          (() => {
+            const letters = (activity.title.trim().split(/\s+/)[0] ?? '').split('');
+            return (
+              <div className="relative w-full h-full flex items-center justify-center">
+                <div className="flex items-baseline leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)] font-display tracking-tight">
+                  {letters.map((L, i) => (
+                    <span
+                      key={i}
+                      className={`text-4xl sm:text-5xl md:text-6xl font-black ${
+                        i % 2 === 0 ? 'text-coral-500' : 'text-sky-500'
+                      }`}
+                    >
+                      {L}
+                    </span>
+                  ))}
+                </div>
+                {/* 우상단 연필 — 완료 시 ✓ 뱃지와 겹치므로 hide */}
+                {!showDone && (
+                  <span className="absolute top-0 right-0 text-2xl sm:text-3xl rotate-12 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
+                    ✏️
+                  </span>
+                )}
+              </div>
+            );
+          })()
+        ) : iconUrl ? (
           <img
             src={iconUrl}
             alt={activity.title}
@@ -224,11 +271,14 @@ function ActivityCard({
           </span>
         )}
       </div>
-      <h3
-        className={`relative z-10 text-xl sm:text-2xl font-black font-display leading-tight break-keep ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
-      >
-        {activity.title}
-      </h3>
+      {/* alphabet 배우기/쓰기 카드는 가운데 큰 글자 자체가 title 역할 — 하단 텍스트 중복 노출 X */}
+      {activity.kind !== 'alphabet-letter-learn' && activity.kind !== 'alphabet-letter-write' && (
+        <h3
+          className={`relative z-10 text-xl sm:text-2xl font-black font-display leading-tight break-keep text-center ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
+        >
+          {activity.title}
+        </h3>
+      )}
     </Link>
   );
 }

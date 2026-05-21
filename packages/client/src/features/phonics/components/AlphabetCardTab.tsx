@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import type { Storybook } from '@tangobook/shared';
+import { getWordHotspots } from '@tangobook/shared';
 import { Button } from '@/design-system';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { ImageDropZone } from '@/components/ImageDropZone';
@@ -25,10 +26,24 @@ import { TracingGamePreviewModal } from './TracingGamePreviewModal';
  * Level 1 전용 학습 카드 탭 (알파벳 음가)
  *
  * 글자별 구성:
- * - 전체 장면 삽화 (글자의 단어들이 자연스럽게 등장하는 한 장면)
+ * - 전체 장면 삽화 (글자의 단어들이 자연으로 등장하는 한 장면)
  * - 글자 음원 (대문자/소문자/음가 TTS)
  * - 단어 목록 (wordFamilies) + 개별 TTS
  */
+
+/**
+ * 학습 카드의 `blend` 표기를 phonics 라이브러리 음원 key 로 정규화.
+ * 영어 알파벳 학습 표기 (`Aa`, `Bb`, `BB`) 처럼 같은 영문자만으로 구성된 경우
+ * 라이브러리의 단일 소문자 키 (`a`, `b`) 로 압축. 아니면 원본 유지 (한글 음절·라임 등).
+ */
+function letterSoundForBlend(blend: string): string {
+  if (/^[A-Za-z]+$/.test(blend)) {
+    const lower = blend.toLowerCase();
+    const unique = Array.from(new Set(lower));
+    if (unique.length === 1) return unique[0];
+  }
+  return blend;
+}
 
 interface AlphabetCardTabProps {
   storybook: Storybook;
@@ -141,7 +156,7 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
     const tasks: TtsTask[] = [];
     if (lesson) {
       lesson.wordFamilies.forEach((wf, wfIdx) => {
-        const blend = (lesson.blending[wfIdx]?.blend ?? '').replace(/\//g, '');
+        const blend = letterSoundForBlend((lesson.blending[wfIdx]?.blend ?? '').replace(/\//g, ''));
         wf.words.forEach((w, wIdx) => {
           if (!w.ttsUrl) {
             const displayWord = isKorean ? (w.korean ?? w.word) : w.word;
@@ -266,7 +281,7 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
               const displayHistory = item.illustrationHistory ?? item.exampleWordImageHistory;
               const isNewFormat = !!item.illustrationUrl || !item.exampleWordImageUrl;
 
-              const cleanBlend = item.blend.replace(/\//g, '');
+              const cleanBlend = letterSoundForBlend(item.blend.replace(/\//g, ''));
 
               const makeUpdater = (d: Storybook, url: string) => {
                 if (!d.phonicsLesson) return;
@@ -379,34 +394,34 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
                                   : undefined
                               }
                             />
-                            {/* 핫스팟 미리보기 오버레이 */}
-                            {displayImageUrl && wf && wf.words.some((w) => w.hotspot) && (
-                              <div className="absolute inset-0 pointer-events-none">
-                                <svg
-                                  className="w-full h-full"
-                                  viewBox="0 0 1 1"
-                                  preserveAspectRatio="none"
-                                >
-                                  {wf.words.map((w, wIdx) => {
-                                    if (!w.hotspot) return null;
-                                    const h = w.hotspot;
-                                    return (
-                                      <rect
-                                        key={wIdx}
-                                        x={h.x}
-                                        y={h.y}
-                                        width={h.w}
-                                        height={h.h}
-                                        fill="rgba(16,185,129,0.15)"
-                                        stroke="#10b981"
-                                        strokeWidth={0.003}
-                                        rx={0.005}
-                                      />
-                                    );
-                                  })}
-                                </svg>
-                              </div>
-                            )}
+                            {/* 핫스팟 미리보기 오버레이 — 단어당 multi-hotspot */}
+                            {displayImageUrl &&
+                              wf &&
+                              wf.words.some((w) => getWordHotspots(w).length > 0) && (
+                                <div className="absolute inset-0 pointer-events-none">
+                                  <svg
+                                    className="w-full h-full"
+                                    viewBox="0 0 1 1"
+                                    preserveAspectRatio="none"
+                                  >
+                                    {wf.words.flatMap((w, wIdx) =>
+                                      getWordHotspots(w).map((h, hIdx) => (
+                                        <rect
+                                          key={`${wIdx}-${hIdx}`}
+                                          x={h.x}
+                                          y={h.y}
+                                          width={h.w}
+                                          height={h.h}
+                                          fill="rgba(16,185,129,0.15)"
+                                          stroke="#10b981"
+                                          strokeWidth={0.003}
+                                          rx={0.005}
+                                        />
+                                      ))
+                                    )}
+                                  </svg>
+                                </div>
+                              )}
                           </div>
                           <div className="flex items-center gap-1">
                             <Button
@@ -649,15 +664,18 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
               words={wfItem.words.map((w) => ({
                 word: w.word,
                 korean: w.korean,
-                hotspot: w.hotspot,
+                hotspots: getWordHotspots(w),
               }))}
-              onSave={(hotspots, order) => {
+              onSave={(hotspotsByWord, order) => {
                 onUpdate((d) => {
                   if (!d.phonicsLesson) return;
                   const wf = d.phonicsLesson.wordFamilies[hotspotEditIdx];
-                  // 핫스팟 반영
-                  hotspots.forEach((h, i) => {
-                    if (wf.words[i]) wf.words[i].hotspot = h;
+                  // 단어별 hotspots[] 반영 — legacy single `hotspot` 필드는 제거
+                  hotspotsByWord.forEach((list, i) => {
+                    const ww = wf.words[i];
+                    if (!ww) return;
+                    ww.hotspots = list.length > 0 ? list : undefined;
+                    ww.hotspot = undefined;
                   });
                   // 레이어 순서에 따라 단어 배열 재정렬
                   const isReordered = order.some((v, i) => v !== i);

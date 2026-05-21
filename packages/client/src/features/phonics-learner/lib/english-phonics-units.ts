@@ -112,6 +112,92 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
   return { activities };
 }
 
+// ─── Book 1 plan generator (Single Letter Sounds — A·B·C 한 글자씩) ───
+// blending[i] = { vowel: 'A', consonant: 'a', blend: 'Aa', exampleWord: 'apple', illustrationUrl, ... }
+// wordFamilies[i].words[].hotspots 로 핫스팟 음원 재생.
+
+function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
+  const activities: import('./korean-phonics-units').ActivityDef[] = [];
+  let order = 1;
+  for (let i = 0; i < letters.length; i++) {
+    const L = letters[i].toUpperCase();
+    activities.push({
+      key: `letter-${L.toLowerCase()}`,
+      order: order++,
+      kind: 'alphabet-letter-learn',
+      section: 'learn',
+      title: `${L}${L.toLowerCase()} 배우기`,
+      emoji: '🔤',
+      required: true,
+      letterIndex: i,
+    });
+  }
+  // 마지막 학습 활동 — ABC 쓰기 (글자별 대문자/소문자 따라쓰기)
+  const letterListLabel = letters.map((L) => L.toUpperCase()).join('');
+  activities.push({
+    key: 'letters-write',
+    order: order++,
+    kind: 'alphabet-letter-write',
+    section: 'learn',
+    title: `${letterListLabel} 쓰기`,
+    emoji: '✏️',
+    required: true,
+    letters,
+  });
+  // 4 games — wordFamilies 안 모든 단어 풀에서 어댑터가 픽업
+  activities.push(
+    {
+      key: 'game-english-block',
+      order: order++,
+      kind: 'game-english-block',
+      section: 'play',
+      title: '영어 블록 게임',
+      emoji: '🧩',
+      required: false,
+    },
+    {
+      key: 'game-word-writing',
+      order: order++,
+      kind: 'game-word-writing',
+      section: 'play',
+      title: '낱말 쓰기',
+      emoji: '🖍️',
+      required: false,
+    },
+    {
+      key: 'game-dots',
+      order: order++,
+      kind: 'game-connect-dots',
+      section: 'play',
+      title: '낱말 그리기',
+      emoji: '🔵',
+      required: false,
+    },
+    {
+      key: 'game-line-matching',
+      order: order,
+      kind: 'game-line-matching',
+      section: 'play',
+      title: '그림 짝 찾기',
+      emoji: '🔗',
+      required: false,
+    }
+  );
+  return { activities };
+}
+
+// Book 1 unit → 글자 (storybook title 과 일치)
+const BOOK1_LETTERS: Record<string, readonly string[]> = {
+  'en-b1-u01': ['A', 'B', 'C'],
+  'en-b1-u02': ['D', 'E', 'F'],
+  'en-b1-u03': ['G', 'H', 'I'],
+  'en-b1-u04': ['J', 'K', 'L'],
+  'en-b1-u05': ['M', 'N', 'O'],
+  'en-b1-u06': ['P', 'Q', 'R'],
+  'en-b1-u07': ['S', 'T', 'U', 'V'],
+  'en-b1-u08': ['W', 'X', 'Y', 'Z'],
+};
+
 // Book 2 (Short Vowels) 8 unit — R2 phonicsConfig.targetPatterns 와 매칭. 단어 자동 추출 (flashcards.phonicPattern).
 const BOOK2_PATTERNS: Record<string, readonly VcPattern[]> = {
   'en-b2-u01': [
@@ -157,9 +243,17 @@ const BOOK2_PATTERNS: Record<string, readonly VcPattern[]> = {
   ],
 };
 
-export const ENGLISH_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = Object.fromEntries(
-  Object.entries(BOOK2_PATTERNS).map(([unitId, patterns]) => [unitId, makeBook2UnitPlan(patterns)])
-);
+export const ENGLISH_UNIT_ACTIVITY_PLAN: Record<string, ActivityPlan> = {
+  ...Object.fromEntries(
+    Object.entries(BOOK1_LETTERS).map(([unitId, letters]) => [unitId, makeBook1UnitPlan(letters)])
+  ),
+  ...Object.fromEntries(
+    Object.entries(BOOK2_PATTERNS).map(([unitId, patterns]) => [
+      unitId,
+      makeBook2UnitPlan(patterns),
+    ])
+  ),
+};
 
 export function getEnglishActivityPlan(unitId: string): ActivityPlan {
   return ENGLISH_UNIT_ACTIVITY_PLAN[unitId] ?? { activities: [] };

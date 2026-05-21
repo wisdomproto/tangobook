@@ -7,6 +7,7 @@ import type {
   GameInstance,
   Lang,
 } from '@tangobook/shared';
+import { getWordHotspots } from '@tangobook/shared';
 import { LetterWritingCanvas } from '@/features/phonics/components/LetterWritingCanvas';
 import { settingsApi } from '@/features/settings/api/settings.api';
 import { getGameEntry } from '@/features/games/registry';
@@ -700,20 +701,20 @@ function LetterCard({
     item.blend,
   ]);
 
-  // 핫스팟 클릭 처리
+  // 핫스팟 클릭 처리 — 단어당 multi-hotspot 지원
   const handleIllustrationClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!words.some((w) => w.hotspot)) return;
+      if (!words.some((w) => getWordHotspots(w).length > 0)) return;
       const rect = e.currentTarget.getBoundingClientRect();
       const nx = (e.clientX - rect.left) / rect.width;
       const ny = (e.clientY - rect.top) / rect.height;
 
       for (const w of words) {
-        if (!w.hotspot) continue;
-        const h = w.hotspot;
-        if (nx >= h.x && nx <= h.x + h.w && ny >= h.y && ny <= h.y + h.h) {
-          playAudio(w.ttsUrl);
-          return;
+        for (const h of getWordHotspots(w)) {
+          if (nx >= h.x && nx <= h.x + h.w && ny >= h.y && ny <= h.y + h.h) {
+            playAudio(w.ttsUrl);
+            return;
+          }
         }
       }
     },
@@ -754,14 +755,12 @@ function LetterCard({
                   className="w-full"
                   style={{ aspectRatio: '16/9', objectFit: 'cover' }}
                 />
-                {words.some((w) => w.hotspot) && (
+                {words.some((w) => getWordHotspots(w).length > 0) && (
                   <div className="absolute inset-0 pointer-events-none">
-                    {words.map((w, i) => {
-                      if (!w.hotspot) return null;
-                      const h = w.hotspot;
-                      return (
+                    {words.flatMap((w, i) =>
+                      getWordHotspots(w).map((h, hIdx) => (
                         <div
-                          key={`speaker-${i}`}
+                          key={`speaker-${i}-${hIdx}`}
                           className="absolute flex items-center justify-center pointer-events-none"
                           style={{
                             left: `${h.x * 100}%`,
@@ -779,8 +778,8 @@ function LetterCard({
                             🔊
                           </span>
                         </div>
-                      );
-                    })}
+                      ))
+                    )}
                   </div>
                 )}
                 <button

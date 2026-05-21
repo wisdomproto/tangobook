@@ -219,7 +219,7 @@ function ActivityCard({
       </div>
 
       <h3
-        className={`relative z-10 text-xl sm:text-2xl font-black font-display leading-tight break-keep ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
+        className={`relative z-10 text-xl sm:text-2xl font-black font-display leading-tight break-keep text-center ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
       >
         {activity.title}
       </h3>

@@ -203,7 +203,8 @@ export function Sidebar() {
   const setCategory = useEditorStore((s) => s.setSidebarCategory);
   const visibility = useEditorStore((s) => s.sidebarVisibility);
   const setVisibility = useEditorStore((s) => s.setSidebarVisibility);
-  const sort = useEditorStore((s) => s.sidebarSort);
+  // typeFilter 별로 분리된 sort — phonics 는 'title' 디폴트 (unit 번호 순서가 학습 흐름에 자연스러움).
+  const sortByType = useEditorStore((s) => s.sidebarSortByType);
   const setSort = useEditorStore((s) => s.setSidebarSort);
   const foldersByTab = useEditorStore((s) => s.foldersByTab);
   const setFolderForTab = useEditorStore((s) => s.setFolderForTab);
@@ -319,13 +320,17 @@ export function Sidebar() {
       list = list.filter((s) => s.title.toLowerCase().includes(q));
     }
 
-    // Sort
-    if (sort === 'title') {
+    // Sort — typeFilter 별 디폴트 (phonics='title', storybook='latest').
+    // vocabulary 는 별도 컴포넌트(VocabularyUnitSidebarList) 라 여기 안 옴.
+    const sortKey: 'storybook' | 'phonics' =
+      typeFilter === 'phonics-ko' || typeFilter === 'phonics-en' ? 'phonics' : 'storybook';
+    const effectiveSort = sortByType[sortKey];
+    if (effectiveSort === 'title') {
       list.sort((a, b) => a.title.localeCompare(b.title, 'ko'));
     }
 
     return list;
-  }, [typeFiltered, search, category, visibility, sort, folder]);
+  }, [typeFiltered, search, category, visibility, sortByType, typeFilter, folder]);
 
   const draggingStorybook = useMemo(() => {
     if (!draggingId || !storybooks) return null;
@@ -696,7 +701,13 @@ export function Sidebar() {
                   <option value="private">비공개</option>
                 </select>
                 <select
-                  value={sort}
+                  value={
+                    sortByType[
+                      typeFilter === 'phonics-ko' || typeFilter === 'phonics-en'
+                        ? 'phonics'
+                        : 'storybook'
+                    ]
+                  }
                   onChange={(e) => setSort(e.target.value as 'latest' | 'title')}
                   className="text-[11px] text-slate-400 dark:text-slate-500 border-none outline-none bg-transparent cursor-pointer"
                 >

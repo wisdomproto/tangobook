@@ -14,14 +14,22 @@ const MIN_RECT = 0.03; // 최소 사각형 크기 (정규화)
 
 interface HotspotEditorModalProps {
   imageUrl: string;
-  words: { word: string; korean?: string; hotspot?: WordHotspot }[];
-  /** CSS aspect-ratio (e.g. '16/9'). 지정 시 이미지를 해당 비율로 crop하여 편집 */
+  /** 단어 정보 + 그 단어의 기존 hotspots 목록 (multi). 단어 인덱스 = 외부 배열과 1:1. */
+  words: { word: string; korean?: string; hotspots?: WordHotspot[] }[];
+  /** CSS aspect-ratio (e.g. '16/9'). 지정 시 이미지를 해당 비율로 crop 하여 편집 */
   aspectRatio?: string;
-  onSave: (hotspots: (WordHotspot | undefined)[], order: number[]) => void;
+  /** 저장: 각 단어의 새 hotspots[]. 단어 인덱스는 `order` 에 따라 재정렬됨. */
+  onSave: (hotspotsByWord: WordHotspot[][], order: number[]) => void;
   onClose: () => void;
 }
 
 type DragMode = 'draw' | 'move' | 'nw' | 'ne' | 'sw' | 'se' | null;
+
+/** 사각형 식별자 = (단어 idx, 그 단어 안 hotspot idx) */
+interface RectId {
+  w: number;
+  i: number;
+}
 
 export function HotspotEditorModal({
   imageUrl,
@@ -30,16 +38,19 @@ export function HotspotEditorModal({
   onSave,
   onClose,
 }: HotspotEditorModalProps) {
-  const [hotspots, setHotspots] = useState<(WordHotspot | undefined)[]>(
-    words.map((w) => (w.hotspot ? { ...w.hotspot } : undefined))
+  // 단어별 hotspot 배열. words 배열과 1:1 인덱스 매칭.
+  const [hotspotsByWord, setHotspotsByWord] = useState<WordHotspot[][]>(
+    words.map((w) => (w.hotspots ? w.hotspots.map((h) => ({ ...h })) : []))
   );
-  const [selectedIdx, setSelectedIdx] = useState(0);
+  const [selectedWordIdx, setSelectedWordIdx] = useState(0);
+  // 선택된 개별 사각형 (단어 idx, 사각형 idx). 없으면 null — drawing 모드.
+  const [selectedRect, setSelectedRect] = useState<RectId | null>(null);
   const [dragMode, setDragMode] = useState<DragMode>(null);
   const [drawStart, setDrawStart] = useState<{ x: number; y: number } | null>(null);
   const [drawCurrent, setDrawCurrent] = useState<{ x: number; y: number } | null>(null);
   const dragOriginRef = useRef<{ mx: number; my: number; rect: WordHotspot } | null>(null);
 
-  // 레이어 순서: displayOrder[0] = 가장 앞(위), displayOrder[N-1] = 가장 뒤
+  // 레이어 순서 (단어 단위): displayOrder[0] = 가장 앞(위). 같은 단어의 hotspot 들은 같은 레이어.
   const [displayOrder, setDisplayOrder] = useState<number[]>(words.map((_, i) => i));
   const [dragFromPos, setDragFromPos] = useState<number | null>(null);
   const [dragOverPos, setDragOverPos] = useState<number | null>(null);
@@ -56,17 +67,22 @@ export function HotspotEditorModal({
 
   const color = (idx: number) => WORD_COLORS[idx % WORD_COLORS.length];
 
-  // 클릭한 위치에 기존 핫스팟이 있는지 확인 (레이어 순서 우선)
+  // 클릭한 위치에 어떤 단어의 어떤 사각형이 있는지 — 레이어 순서 우선
   const hitTest = useCallback(
-    (nx: number, ny: number): number | null => {
-      for (const origIdx of displayOrder) {
-        const h = hotspots[origIdx];
-        if (!h) continue;
-        if (nx >= h.x && nx <= h.x + h.w && ny >= h.y && ny <= h.y + h.h) return origIdx;
+    (nx: number, ny: number): RectId | null => {
+      for (const wIdx of displayOrder) {
+        const list = hotspotsByWord[wIdx] ?? [];
+        // 같은 단어 안에선 뒤쪽 인덱스가 위 (push 순). 역순 검색.
+        for (let i = list.length - 1; i >= 0; i--) {
+          const h = list[i];
+          if (nx >= h.x && nx <= h.x + h.w && ny >= h.y && ny <= h.y + h.h) {
+            return { w: wIdx, i };
+          }
+        }
       }
       return null;
     },
-    [hotspots, displayOrder]
+    [hotspotsByWord, displayOrder]
   );
 
   // 모서리 히트 테스트 (px 기반)
@@ -88,28 +104,32 @@ export function HotspotEditorModal({
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     const pt = toNorm(e);
 
-    // 레이어 순서대로 모서리/본체 드래그 확인
-    for (const origIdx of displayOrder) {
-      const h = hotspots[origIdx];
-      if (!h) continue;
-      const corner = cornerHitTest(pt.x, pt.y, h);
-      if (corner) {
-        setSelectedIdx(origIdx);
-        setDragMode(corner);
-        dragOriginRef.current = { mx: pt.x, my: pt.y, rect: { ...h } };
-        return;
+    // 1) 선택된 사각형의 모서리 우선 (드래그 중 보이는 핸들만)
+    if (selectedRect) {
+      const h = hotspotsByWord[selectedRect.w]?.[selectedRect.i];
+      if (h) {
+        const corner = cornerHitTest(pt.x, pt.y, h);
+        if (corner) {
+          setDragMode(corner);
+          dragOriginRef.current = { mx: pt.x, my: pt.y, rect: { ...h } };
+          return;
+        }
       }
     }
 
-    const hitIdx = hitTest(pt.x, pt.y);
-    if (hitIdx !== null) {
-      setSelectedIdx(hitIdx);
+    // 2) 사각형 본체 hit-test
+    const hit = hitTest(pt.x, pt.y);
+    if (hit !== null) {
+      setSelectedWordIdx(hit.w);
+      setSelectedRect(hit);
       setDragMode('move');
-      dragOriginRef.current = { mx: pt.x, my: pt.y, rect: { ...hotspots[hitIdx]! } };
+      const h = hotspotsByWord[hit.w][hit.i];
+      dragOriginRef.current = { mx: pt.x, my: pt.y, rect: { ...h } };
       return;
     }
 
-    // 새 사각형 그리기 시작
+    // 3) 빈 영역 → 선택된 단어에 새 사각형 추가
+    setSelectedRect(null);
     setDragMode('draw');
     setDrawStart(pt);
     setDrawCurrent(pt);
@@ -125,13 +145,14 @@ export function HotspotEditorModal({
       return;
     }
 
+    if (!selectedRect) return;
     const origin = dragOriginRef.current!;
     const dx = pt.x - origin.mx;
     const dy = pt.y - origin.my;
     const r = origin.rect;
 
-    setHotspots((prev) => {
-      const next = [...prev];
+    setHotspotsByWord((prev) => {
+      const next = prev.map((arr) => arr.slice());
       let updated: WordHotspot;
 
       if (dragMode === 'move') {
@@ -168,7 +189,6 @@ export function HotspotEditorModal({
           nh = r.h + dy;
         }
 
-        // 최소 크기 보장 + 범위 클램핑
         if (nw < MIN_RECT) {
           if (dragMode === 'nw' || dragMode === 'sw') nx = r.x + r.w - MIN_RECT;
           nw = MIN_RECT;
@@ -185,7 +205,7 @@ export function HotspotEditorModal({
         updated = { x: nx, y: ny, w: nw, h: nh };
       }
 
-      next[selectedIdx] = updated;
+      next[selectedRect.w][selectedRect.i] = updated;
       return next;
     });
   };
@@ -200,11 +220,13 @@ export function HotspotEditorModal({
       const h = y2 - y1;
 
       if (w >= MIN_RECT && h >= MIN_RECT) {
-        setHotspots((prev) => {
-          const next = [...prev];
-          next[selectedIdx] = { x: x1, y: y1, w, h };
+        setHotspotsByWord((prev) => {
+          const next = prev.map((arr) => arr.slice());
+          next[selectedWordIdx] = [...next[selectedWordIdx], { x: x1, y: y1, w, h }];
           return next;
         });
+        // 방금 그린 사각형을 자동 선택
+        setSelectedRect({ w: selectedWordIdx, i: hotspotsByWord[selectedWordIdx]?.length ?? 0 });
       }
     }
 
@@ -216,17 +238,18 @@ export function HotspotEditorModal({
 
   const handleDoubleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const pt = toNorm(e);
-    const hitIdx = hitTest(pt.x, pt.y);
-    if (hitIdx !== null) {
-      setHotspots((prev) => {
-        const next = [...prev];
-        next[hitIdx] = undefined;
+    const hit = hitTest(pt.x, pt.y);
+    if (hit !== null) {
+      setHotspotsByWord((prev) => {
+        const next = prev.map((arr) => arr.slice());
+        next[hit.w].splice(hit.i, 1);
         return next;
       });
+      setSelectedRect(null);
     }
   };
 
-  const handleSave = () => onSave(hotspots, displayOrder);
+  const handleSave = () => onSave(hotspotsByWord, displayOrder);
 
   // 단어 버튼 드래그앤드롭 (레이어 순서 변경)
   const handleWordDragStart = (displayPos: number) => {
@@ -268,8 +291,18 @@ export function HotspotEditorModal({
         }
       : null;
 
-  // SVG 렌더링 순서: 뒤쪽부터 → 앞쪽(레이어 상위)이 마지막에 그려져 위에 보임
+  // SVG 렌더링 순서: 뒤쪽부터 → 앞쪽이 마지막 (위에 표시)
   const svgRenderOrder = [...displayOrder].reverse();
+
+  // 선택된 단어의 hotspot 모두 삭제
+  const clearSelectedWordHotspots = () => {
+    setHotspotsByWord((prev) => {
+      const next = prev.map((arr) => arr.slice());
+      next[selectedWordIdx] = [];
+      return next;
+    });
+    setSelectedRect(null);
+  };
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
@@ -300,13 +333,14 @@ export function HotspotEditorModal({
               (드래그하여 변경 · 왼쪽 = 앞)
             </span>
           </div>
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-2 flex-wrap items-center">
             {displayOrder.map((origIdx, displayPos) => {
               const w = words[origIdx];
               const c = color(origIdx);
-              const hasHotspot = !!hotspots[origIdx];
+              const count = hotspotsByWord[origIdx]?.length ?? 0;
               const isDragOver =
                 dragOverPos === displayPos && dragFromPos !== null && dragFromPos !== displayPos;
+              const isSelected = origIdx === selectedWordIdx;
               return (
                 <button
                   key={origIdx}
@@ -316,26 +350,37 @@ export function HotspotEditorModal({
                   onDragLeave={() => setDragOverPos(null)}
                   onDrop={() => handleWordDrop(displayPos)}
                   onDragEnd={handleWordDragEnd}
-                  onClick={() => setSelectedIdx(origIdx)}
+                  onClick={() => {
+                    setSelectedWordIdx(origIdx);
+                    setSelectedRect(null);
+                  }}
                   className={`px-3 py-1.5 rounded-lg text-sm font-medium border-2 transition-all cursor-grab active:cursor-grabbing ${
-                    origIdx === selectedIdx ? 'ring-2 ring-offset-1 shadow-md' : ''
+                    isSelected ? 'ring-2 ring-offset-1 shadow-md' : ''
                   } ${isDragOver ? 'scale-105 shadow-lg' : ''}`}
                   style={{
                     borderColor: isDragOver ? '#6366f1' : c.border,
-                    backgroundColor: origIdx === selectedIdx ? c.bg : 'transparent',
+                    backgroundColor: isSelected ? c.bg : 'transparent',
                     color: c.text,
-                    ...(origIdx === selectedIdx
-                      ? ({ '--tw-ring-color': c.border } as React.CSSProperties)
-                      : {}),
+                    ...(isSelected ? ({ '--tw-ring-color': c.border } as React.CSSProperties) : {}),
                   }}
                 >
                   <span className="text-[10px] text-slate-400 mr-0.5">{displayPos + 1}</span>
-                  {hasHotspot ? '\u2705 ' : '\u2B1C '}
+                  <span className="font-mono text-[10px] mr-1 opacity-70">×{count}</span>
                   {w.word}
                   {w.korean ? ` (${w.korean})` : ''}
                 </button>
               );
             })}
+            {/* 선택된 단어의 hotspot 전체 비우기 */}
+            {(hotspotsByWord[selectedWordIdx]?.length ?? 0) > 0 && (
+              <button
+                onClick={clearSelectedWordHotspots}
+                className="ml-auto text-xs px-2 py-1 rounded-md text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30"
+                title={`"${words[selectedWordIdx]?.word}" 의 모든 핫스팟 삭제`}
+              >
+                선택 단어 비우기
+              </button>
+            )}
           </div>
         </div>
 
@@ -373,90 +418,105 @@ export function HotspotEditorModal({
               >
                 {/* 뒤쪽부터 렌더하여 앞쪽 레이어가 위에 표시 */}
                 {svgRenderOrder.map((origIdx) => {
-                  const h = hotspots[origIdx];
-                  if (!h) return null;
+                  const list = hotspotsByWord[origIdx] ?? [];
+                  if (list.length === 0) return null;
                   const c = color(origIdx);
-                  const isSelected = origIdx === selectedIdx;
                   const layerNum = displayOrder.indexOf(origIdx) + 1;
                   return (
                     <g key={origIdx}>
-                      <rect
-                        x={h.x}
-                        y={h.y}
-                        width={h.w}
-                        height={h.h}
-                        fill={c.bg}
-                        stroke={c.border}
-                        strokeWidth={isSelected ? 0.004 : 0.002}
-                        strokeDasharray={isSelected ? 'none' : '0.008 0.004'}
-                      />
-                      <text
-                        x={h.x + h.w / 2}
-                        y={h.y + h.h / 2}
-                        textAnchor="middle"
-                        dominantBaseline="central"
-                        fill={c.text}
-                        fontSize="0.03"
-                        fontWeight="bold"
-                      >
-                        {words[origIdx].word}
-                      </text>
-                      {/* 레이어 번호 뱃지 */}
-                      <circle
-                        cx={h.x + h.w - 0.015}
-                        cy={h.y + 0.015}
-                        r={0.018}
-                        fill={c.border}
-                        opacity={0.9}
-                      />
-                      <text
-                        x={h.x + h.w - 0.015}
-                        y={h.y + 0.015}
-                        textAnchor="middle"
-                        dominantBaseline="central"
-                        fill="white"
-                        fontSize="0.02"
-                        fontWeight="bold"
-                      >
-                        {layerNum}
-                      </text>
-                      {/* 리사이즈 핸들 (선택 시) */}
-                      {isSelected && (
-                        <>
-                          <rect
-                            x={h.x - 0.008}
-                            y={h.y - 0.008}
-                            width={0.016}
-                            height={0.016}
-                            fill={c.border}
-                            rx={0.003}
-                          />
-                          <rect
-                            x={h.x + h.w - 0.008}
-                            y={h.y - 0.008}
-                            width={0.016}
-                            height={0.016}
-                            fill={c.border}
-                            rx={0.003}
-                          />
-                          <rect
-                            x={h.x - 0.008}
-                            y={h.y + h.h - 0.008}
-                            width={0.016}
-                            height={0.016}
-                            fill={c.border}
-                            rx={0.003}
-                          />
-                          <rect
-                            x={h.x + h.w - 0.008}
-                            y={h.y + h.h - 0.008}
-                            width={0.016}
-                            height={0.016}
-                            fill={c.border}
-                            rx={0.003}
-                          />
-                        </>
-                      )}
+                      {list.map((h, hIdx) => {
+                        const isSelected = selectedRect?.w === origIdx && selectedRect?.i === hIdx;
+                        const isWordSelected = origIdx === selectedWordIdx;
+                        return (
+                          <g key={hIdx}>
+                            <rect
+                              x={h.x}
+                              y={h.y}
+                              width={h.w}
+                              height={h.h}
+                              fill={c.bg}
+                              stroke={c.border}
+                              strokeWidth={isSelected ? 0.005 : isWordSelected ? 0.003 : 0.0018}
+                              strokeDasharray={
+                                isSelected ? 'none' : isWordSelected ? 'none' : '0.008 0.004'
+                              }
+                              opacity={isWordSelected ? 1 : 0.55}
+                            />
+                            {/* 단어 라벨 (한 단어 첫 사각형에만 — 시각적 혼잡 줄임) */}
+                            {hIdx === 0 && (
+                              <text
+                                x={h.x + h.w / 2}
+                                y={h.y + h.h / 2}
+                                textAnchor="middle"
+                                dominantBaseline="central"
+                                fill={c.text}
+                                fontSize="0.03"
+                                fontWeight="bold"
+                                opacity={isWordSelected ? 1 : 0.5}
+                              >
+                                {words[origIdx].word}
+                              </text>
+                            )}
+                            {/* 레이어/카운트 뱃지 (한 단어의 모든 사각형에 표기) */}
+                            <circle
+                              cx={h.x + h.w - 0.015}
+                              cy={h.y + 0.015}
+                              r={0.018}
+                              fill={c.border}
+                              opacity={isWordSelected ? 0.95 : 0.5}
+                            />
+                            <text
+                              x={h.x + h.w - 0.015}
+                              y={h.y + 0.015}
+                              textAnchor="middle"
+                              dominantBaseline="central"
+                              fill="white"
+                              fontSize="0.018"
+                              fontWeight="bold"
+                            >
+                              {layerNum}
+                              {list.length > 1 ? `.${hIdx + 1}` : ''}
+                            </text>
+                            {/* 리사이즈 핸들 (선택된 개별 사각형에만) */}
+                            {isSelected && (
+                              <>
+                                <rect
+                                  x={h.x - 0.008}
+                                  y={h.y - 0.008}
+                                  width={0.016}
+                                  height={0.016}
+                                  fill={c.border}
+                                  rx={0.003}
+                                />
+                                <rect
+                                  x={h.x + h.w - 0.008}
+                                  y={h.y - 0.008}
+                                  width={0.016}
+                                  height={0.016}
+                                  fill={c.border}
+                                  rx={0.003}
+                                />
+                                <rect
+                                  x={h.x - 0.008}
+                                  y={h.y + h.h - 0.008}
+                                  width={0.016}
+                                  height={0.016}
+                                  fill={c.border}
+                                  rx={0.003}
+                                />
+                                <rect
+                                  x={h.x + h.w - 0.008}
+                                  y={h.y + h.h - 0.008}
+                                  width={0.016}
+                                  height={0.016}
+                                  fill={c.border}
+                                  rx={0.003}
+                                />
+                              </>
+                            )}
+                          </g>
+                        );
+                      })}
                     </g>
                   );
                 })}
@@ -468,8 +528,8 @@ export function HotspotEditorModal({
                     y={drawingRect.y}
                     width={drawingRect.w}
                     height={drawingRect.h}
-                    fill={color(selectedIdx).bg}
-                    stroke={color(selectedIdx).border}
+                    fill={color(selectedWordIdx).bg}
+                    stroke={color(selectedWordIdx).border}
                     strokeWidth={0.003}
                     strokeDasharray="0.008 0.004"
                   />
@@ -479,8 +539,9 @@ export function HotspotEditorModal({
           </div>
 
           <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">
-            단어 선택 후 드래그: 사각형 그리기 · 사각형 드래그: 이동 · 모서리 드래그: 크기 조정 ·
-            더블클릭: 삭제 · 단어 버튼 드래그: 레이어 순서 변경
+            단어 선택 후 빈 영역 드래그: <b>새 사각형 추가 (여러 개 가능)</b> · 사각형 드래그: 이동
+            · 모서리 드래그: 크기 조정 · 더블클릭: 해당 사각형 삭제 · 단어 버튼 드래그: 레이어 순서
+            변경
           </p>
         </div>
       </div>

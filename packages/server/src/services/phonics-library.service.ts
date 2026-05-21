@@ -16,6 +16,7 @@ import { promisify } from 'util';
 import { writeFile, readFile, mkdtemp, rm } from 'fs/promises';
 import { tmpdir } from 'os';
 import { join } from 'path';
+import { createHash } from 'crypto';
 import ffmpegPath from 'ffmpeg-static';
 
 const execFileAsync = promisify(execFile);
@@ -116,9 +117,19 @@ async function downloadSound(token: string, language?: string): Promise<Buffer |
   const priorities: PhonicsAudioCategory[] =
     language === 'korean' ? ['mod_korean', 'mod_phonics'] : ['mod_phonics', 'mod_english'];
 
-  // 1차: 원본 토큰. 2차: 한글이면 7종성 중화 fallback (예: 꽃 → 꼳).
+  // 1차: 원본 토큰. 2차: 영어 case-insensitive + 같은 글자 반복 압축 ('Aa' → 'aa' → 'a').
+  //      3차: 한글이면 7종성 중화 fallback (예: 꽃 → 꼳).
   // mod_korean 라이브러리에 ㅅ/ㅆ/ㅈ/ㅊ/ㅌ/ㅎ/ㅋ/ㅍ 등 받침 음원이 없으므로 대표 종성으로 변환 재시도.
   const candidates: string[] = [token];
+  // 영어 토큰 fallback: 라이브러리는 모두 소문자 (예: 'a', 'apple') 라
+  // 알파벳 학습 'Aa' / 'BB' 같은 표기를 lowercase + 글자 압축으로 매칭.
+  if (/^[A-Za-z]+$/.test(token)) {
+    const lower = token.toLowerCase();
+    if (lower !== token && !candidates.includes(lower)) candidates.push(lower);
+    // 'Aa' / 'AA' / 'aa' → 'a' (같은 글자로만 구성됐을 때만 압축)
+    const uniqueChars = Array.from(new Set(lower));
+    if (uniqueChars.length === 1 && uniqueChars[0] !== lower) candidates.push(uniqueChars[0]);
+  }
   const neutralized = neutralizeKoreanFinal(token);
   if (neutralized && neutralized !== token) candidates.push(neutralized);
 
@@ -324,13 +335,15 @@ export const PhonicsLibraryService = {
     const ext = willBeSingle ? 'mp3' : 'wav';
     const mimeType = willBeSingle ? 'audio/mpeg' : 'audio/wav';
 
-    // === Deterministic 캐시 key — 같은 (storybookId, identifier, language) 호출은 같은 R2 객체 ===
-    // 이전엔 buildR2Key 가 Date.now() 추가해서 매 호출마다 새 R2 PUT (캐시 X) → 매번 ffmpeg + R2 i/o.
-    // 이제 fixed key + HEAD 체크로 캐시. 첫 호출만 처리, 이후엔 즉시 URL 반환.
+    // === Deterministic 캐시 key — (storybookId, identifier, language, text-hash) 기반 ===
+    // 이전엔 (sbId, identifier) 만 키라 텍스트만 바뀌면 옛 음원이 캐시 hit 으로 재사용되는 버그.
+    // text 의 short SHA-1 (8자) 을 key 에 포함 → 텍스트 바뀌면 새 R2 객체 PUT, 기존 객체는 orphan 으로 잔존
+    // (R2 용량 부담 적음 + 텍스트 되돌리면 옛 캐시 재사용 가능).
     const langPart = language ? sanitizeFilename(language, 12) : 'auto';
     const idPart = sanitizeFilename(identifier || 'default', 60);
     const sbPart = sanitizeFilename(storybookId || 'default', 30);
-    const cacheKey = `tts-cache/${langPart}/${sbPart}-${idPart}.${ext}`;
+    const textHash = createHash('sha1').update(trimmed).digest('hex').slice(0, 8);
+    const cacheKey = `tts-cache/${langPart}/${sbPart}-${idPart}-${textHash}.${ext}`;
 
     const cached = await objectExists(cacheKey);
     if (cached) {
@@ -351,6 +364,9 @@ export const PhonicsLibraryService = {
     }
 
     if (missingTokens.length > 0) {
+      console.warn(
+        `[phonics-library.concat] 실패 sb=${storybookId} id=${identifier} lang=${language ?? 'auto'} text="${trimmed}" missing=${JSON.stringify(missingTokens)}`
+      );
       throw new AppError(400, `라이브러리에 없는 음원: ${missingTokens.join(', ')}`);
     }
 

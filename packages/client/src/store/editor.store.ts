@@ -55,7 +55,17 @@ interface EditorStore {
   setSidebarCategory: (category: string) => void;
   sidebarVisibility: 'all' | 'public' | 'private';
   setSidebarVisibility: (v: 'all' | 'public' | 'private') => void;
+  /**
+   * @deprecated typeFilter 별로 분리된 `sidebarSortByType` 사용.
+   * 호환을 위해 남겨두지만 새 코드는 `getSidebarSort()` / `setSidebarSort()` (typeFilter 자동 분기) 사용.
+   */
   sidebarSort: 'latest' | 'title';
+  /**
+   * typeFilter 별 정렬. 파닉스 탭은 unit 번호 순서 (제목순) 가 학습 흐름에 자연스러워 디폴트 'title'.
+   * 동화책/어휘는 새 작업이 위에 오게 'latest'.
+   * key 매핑: 'storybook' / 'phonics-ko'+'phonics-en' = 'phonics' (둘이 한 정렬 공유) / 'vocabulary'.
+   */
+  sidebarSortByType: Record<'storybook' | 'phonics' | 'vocabulary', 'latest' | 'title'>;
   setSidebarSort: (sort: 'latest' | 'title') => void;
   sidebarFolder: string;
   setSidebarFolder: (folder: string) => void;
@@ -109,7 +119,27 @@ export const useEditorStore = create<EditorStore>((set, get) => ({
   sidebarVisibility: 'all',
   setSidebarVisibility: (v) => set({ sidebarVisibility: v }),
   sidebarSort: 'latest',
-  setSidebarSort: (sort) => set({ sidebarSort: sort }),
+  sidebarSortByType: {
+    storybook: 'latest',
+    phonics: 'title',
+    vocabulary: 'latest',
+  },
+  setSidebarSort: (sort) =>
+    set((state) => {
+      // 현재 활성 typeFilter 에 해당하는 sort 만 업데이트.
+      // 'phonics-ko' / 'phonics-en' 은 한 'phonics' 키로 통합.
+      const f = state.sidebarTypeFilter;
+      const key: 'storybook' | 'phonics' | 'vocabulary' =
+        f === 'phonics-ko' || f === 'phonics-en'
+          ? 'phonics'
+          : f === 'vocabulary'
+            ? 'vocabulary'
+            : 'storybook';
+      return {
+        sidebarSort: sort,
+        sidebarSortByType: { ...state.sidebarSortByType, [key]: sort },
+      };
+    }),
   sidebarFolder: 'all',
   setSidebarFolder: (folder) => set({ sidebarFolder: folder }),
   customFolders: [],

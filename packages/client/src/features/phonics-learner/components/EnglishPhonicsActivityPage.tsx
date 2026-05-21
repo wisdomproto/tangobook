@@ -5,6 +5,8 @@ import type { ActivityDef } from '../lib/korean-phonics-units';
 import { markActivityCompleted } from '../lib/progress-store';
 import { CvcPatternLearnActivity } from '../activities/CvcPatternLearnActivity';
 import { CvcPatternWriteActivity } from '../activities/CvcPatternWriteActivity';
+import { AlphabetLetterLearnActivity } from '../activities/AlphabetLetterLearnActivity';
+import { AlphabetLetterWriteActivity } from '../activities/AlphabetLetterWriteActivity';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { EnglishBlockPlayer } from '@/features/games/components/players/EnglishBlockPlayer';
 import { WordWritingPlayer } from '@/features/games/components/players/WordWritingPlayer';
@@ -71,6 +73,30 @@ export default function EnglishPhonicsActivityPage() {
   }
 
   // ── 학습 활동 ──
+  if (activity.kind === 'alphabet-letter-learn' && typeof activity.letterIndex === 'number') {
+    return (
+      <AlphabetLetterLearnActivity
+        unitId={unitId}
+        letterIndex={activity.letterIndex}
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
+  if (
+    activity.kind === 'alphabet-letter-write' &&
+    activity.letters &&
+    activity.letters.length > 0
+  ) {
+    return (
+      <AlphabetLetterWriteActivity
+        unitId={unitId}
+        letters={activity.letters}
+        onMarkComplete={handleMarkComplete}
+        onBack={backToUnit}
+      />
+    );
+  }
   if (activity.kind === 'cvc-pattern-learn' && activity.cvcPattern) {
     return (
       <CvcPatternLearnActivity

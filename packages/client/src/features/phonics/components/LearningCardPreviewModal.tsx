@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import type { BlendingExercise, WordFamily } from '@tangobook/shared';
+import { getWordHotspots } from '@tangobook/shared';
 import { LetterWritingCanvas } from './LetterWritingCanvas';
 
 /* ── 3D 버튼 스타일 상수 (Pixar-style) ── */
@@ -187,16 +188,16 @@ export function LearningCardPreviewModal({
 
   const handleIllustrationClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!words.some((w) => w.hotspot)) return;
+      if (!words.some((w) => getWordHotspots(w).length > 0)) return;
       const rect = e.currentTarget.getBoundingClientRect();
       const nx = (e.clientX - rect.left) / rect.width;
       const ny = (e.clientY - rect.top) / rect.height;
       for (const w of words) {
-        if (!w.hotspot) continue;
-        const h = w.hotspot;
-        if (nx >= h.x && nx <= h.x + h.w && ny >= h.y && ny <= h.y + h.h) {
-          playAudio(w.ttsUrl);
-          return;
+        for (const h of getWordHotspots(w)) {
+          if (nx >= h.x && nx <= h.x + h.w && ny >= h.y && ny <= h.y + h.h) {
+            playAudio(w.ttsUrl);
+            return;
+          }
         }
       }
     },
@@ -243,14 +244,12 @@ export function LearningCardPreviewModal({
                     className="w-full"
                     style={{ aspectRatio, objectFit: 'cover' }}
                   />
-                  {words.some((w) => w.hotspot) && (
+                  {words.some((w) => getWordHotspots(w).length > 0) && (
                     <div className="absolute inset-0 pointer-events-none">
-                      {words.map((w, i) => {
-                        if (!w.hotspot) return null;
-                        const h = w.hotspot;
-                        return (
+                      {words.flatMap((w, i) =>
+                        getWordHotspots(w).map((h, hIdx) => (
                           <div
-                            key={`speaker-${i}`}
+                            key={`speaker-${i}-${hIdx}`}
                             className="absolute pointer-events-none"
                             style={{
                               left: `${h.x * 100}%`,
@@ -269,8 +268,8 @@ export function LearningCardPreviewModal({
                               </svg>
                             </div>
                           </div>
-                        );
-                      })}
+                        ))
+                      )}
                     </div>
                   )}
                   <button

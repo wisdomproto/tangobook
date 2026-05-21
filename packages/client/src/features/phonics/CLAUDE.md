@@ -27,6 +27,29 @@ features/phonics/
 - TtsRow의 `editableText` prop으로 TTS 텍스트 편집 가능
 - 공백 규칙: 1개 = 0.3초 무음, 2개 = 0.6초 무음
 
+### concat 캐시 key (2026-05-22)
+
+캐시 key 에 텍스트 SHA-1 (8자) 포함 → 텍스트 변경 시 새 R2 객체. 같은 텍스트는 캐시 hit.
+`tts-cache/{lang}/{sb}-{id}-{textHash}.{ext}`. 이전엔 (sb, id) 만 키라 텍스트 바꿔도 옛 음원 재사용되던 버그 fix.
+
+### 영어 토큰 fallback (2026-05-22)
+
+`phonics-library.service.downloadSound` 에 case-insensitive + 같은 글자 반복 압축 fallback 추가 — `Aa` / `BB` 같은 알파벳 학습 표기를 단일 소문자 (`a` / `b`) 로 매칭. AlphabetCardTab 의 `letterSoundForBlend()` 헬퍼 가 default TTS 텍스트도 `a a apple` 형태로 생성.
+
+## Hotspot multi (2026-05-22)
+
+`WordFamilyWord.hotspots?: WordHotspot[]` — 단어당 여러 hotspot. legacy `hotspot?: WordHotspot` 호환 유지. reader 는 모두 `getWordHotspots(w)` (`@tangobook/shared`) 헬퍼로 통일 (hotspots 우선, 없으면 hotspot single → array). writer 는 항상 `hotspots[]` 만 저장.
+
+`HotspotEditorModal` UX:
+
+- 단어 칩 선택 → 빈 영역 드래그 = 그 단어에 사각형 **누적 추가**
+- 단어 칩에 `×개수` 표기 + "선택 단어 비우기" 버튼
+- 사각형 본체 드래그 = 이동 / 모서리 = 리사이즈 / 더블클릭 = 해당 사각형 1개만 삭제
+- 다른 단어 사각형은 opacity 0.55 음영, 선택 단어만 강조
+- 레이어 뱃지: 1 사각형 `①`, N 사각형 `①.1 ①.2 …`
+
+reader 4곳 통일: AlphabetCardTab 미리보기 svg, LearningCardPreviewModal hit-test + 🔊, PhonicsViewer hit-test + 🔊, HotspotEditorModal.
+
 ## 한글/영어 데이터 차이
 
 - **한글**: `blend`=음절(가, 나), `illustrationUrl`=삽화, `phonicsConfig.language === 'korean'`

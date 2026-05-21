@@ -90,6 +90,28 @@ features/phonics-learner/
 - **배경**: `/images/phonics/study-bg.webp` (1672×941, 44KB) — 풀밭·꽃·구름 톤. StudyPage 전체 backdrop.
 - **mint 디자인 토큰 추가** (`design-system/tokens/colors.ts`): mint 50/100/200/300/400/500/600 + peach 50 추가. Tailwind JIT 가 새 토큰 발견하려면 client 서버 재시작.
 
+## 영어 파닉스 — Book 1 Single Letter Sounds (2026-05-22)
+
+영어 Book 1 (Aa·Bb·Cc … Zz) 8 unit 모두 plan 자동 등록 — `BOOK1_LETTERS` (`english-phonics-units.ts`) + `makeBook1UnitPlan(letters)` 가 글자별 1 활동 + 마지막 ABC 쓰기 + 게임 4종 생성.
+
+활동 종류 2개 신규:
+
+- **`alphabet-letter-learn`** ([AlphabetLetterLearnActivity](activities/AlphabetLetterLearnActivity.tsx)) — 한 글자 학습카드 풀화면. 큰 일러스트(저작도구 illustrationUrl) + 저작도구 hotspots 위 작은 🔊 (coral pulse) overlay. 핫스팟 클릭 → 그 단어 ttsUrl 재생 (multi-hotspot 지원, `getWordHotspots` 헬퍼). **진척 마킹 없음 — 그냥 누르며 듣는 자유 탐색** (영어 모르는 4-5세 입문자). 자동 재생 X, 완료 버튼 X, ← 돌아가기만으로 종료.
+- **`alphabet-letter-write`** ([AlphabetLetterWriteActivity](activities/AlphabetLetterWriteActivity.tsx)) — unit 글자 좌→우 카드 진행 (예: A → B → C). 카드당 [대문자 캔버스][소문자 캔버스] 2개. `LetterWritingCanvas` 가 자기 letter 채점, `onResult('upper'|'lower')` 콜백. 통과 시 그 글자 wordFamilies 단어 중 **랜덤 1개 TTS** 재생 (예: `a a apple` / `a a alligator` / `a a ant`). 두 캔버스 모두 통과 → useEffect 가 advanceToNext (race-free). 마지막 글자 → 칭찬 시퀀스 → onMarkComplete.
+
+UnitPage 카드 UI (`EnglishPhonicsUnitPage.ActivityCard`) 알파벳 분기:
+
+- `alphabet-letter-learn` → middle 영역에 **큰 글자만** 표시 (`Aa`/`Bb`/`Cc` 대문자 coral + 소문자 sky, text-7xl/8xl/9xl). title h3 hide — 글자 자체가 title.
+- `alphabet-letter-write` → middle 정가운데 작은 글자 (`ABC`/`DEF`/... coral·sky 번갈아, text-4xl/5xl/6xl tracking-tight) + 우상단 ✏️ floating. 4글자 unit (`STUV`, `WXYZ`) 도 카드 폭에 fit.
+
+Book 1 데이터 정리 (2026-05-21):
+
+- `wordFamilies` 글자별 표준 단어 3개 (`apple/alligator/ant` 등) — `migrate-phonics-book1-letters.mjs`
+- `targetWords` + `flashcards` 를 wordFamilies 와 sync — `sync-phonics-book1-targetwords.mjs`
+- `flashcards[].phonemes/sentence/imageDescription` backfill — `backfill-phonics-book1-flashcard-phonemes.mjs`
+- 단어 TTS 일괄 생성 (615 단어) — `generate-phonics-word-tts.mjs`
+- 학습카드 일러스트 26개 PNG → WebP 변환 + 원본 R2 삭제 (72.5 MB 절감) — `convert-phonics-book1-illustrations-to-webp.mjs`
+
 ## 영어 파닉스 — Book 2 CVC (2026-05-21)
 
 영어 phonics 학습 모드는 `/library/phonics/english(/:unitId)?` 진입. KoreanPhonicsStudyPage 평행 (`Book 1~5` 사이드바). Book 2 (Short Vowels) 8 unit 모두 plan 등록 (`BOOK2_PATTERNS` + `makeBook2UnitPlan`).

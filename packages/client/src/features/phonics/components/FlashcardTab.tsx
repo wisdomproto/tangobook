@@ -304,7 +304,7 @@ export function FlashcardTab({ storybook, onUpdate, onSave }: FlashcardTabProps)
                         />
                       )}
                       <div className="flex gap-1 flex-wrap">
-                        {card.phonemes.map((p, i) => (
+                        {(card.phonemes ?? []).map((p, i) => (
                           <span
                             key={i}
                             className="px-2 py-0.5 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-300 text-xs rounded-full font-mono"

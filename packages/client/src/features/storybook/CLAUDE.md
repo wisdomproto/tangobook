@@ -81,6 +81,7 @@ _copyImpl(id, taskId?)         // 실제 동작
 - 어휘 모드 시 `<VocabularyUnitSidebarList />` 렌더 (storybook list 가 아님)
 - /editor2 한정: variant sibling (`__L1`/L2/L3) 숨김 + base 카드에 `+N` 보라색 배지
 - **URL 분기 fix**: 탭 전환 / 동화책 카드 클릭 시 `/vocab/` URL 잔존하면 `navigate('/editor2')` 또는 `/editor2/${id}` 로 갱신 (`AppLayoutV2` unitId 분기 stuck 방지)
+- **정렬 — typeFilter 별 분리 (2026-05-22)**: `sidebarSortByType: { storybook: 'latest', phonics: 'title', vocabulary: 'latest' }`. **파닉스 디폴트 = 제목순** (unit 01 → 02 → ... 학습 흐름 자연스러움), 동화책 = 최신순. `setSidebarSort(sort)` 가 현재 활성 typeFilter 의 sort 만 업데이트 — 한 탭의 선택이 다른 탭에 영향 X.
 
 ## 새 책 만들기
 

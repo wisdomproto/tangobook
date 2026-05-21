@@ -166,7 +166,13 @@ export interface WordFamilyWord {
   imageUrl?: string;
   imageHistory?: string[];
   ttsUrl?: string;
+  /**
+   * (deprecated) legacy 단일 hotspot. 새 데이터는 `hotspots` 사용.
+   * reader 는 `getWordHotspots(w)` 헬퍼로 통일 — `hotspots` 우선, 없으면 `hotspot` fallback.
+   */
   hotspot?: WordHotspot;
+  /** 한 단어에 여러 hotspot — 한 이미지에 같은 단어 인스턴스가 여러 개 있을 때 (예: 사과나무에 사과 5개) */
+  hotspots?: WordHotspot[];
 }
 
 // 단어 패밀리 그룹

@@ -3,7 +3,9 @@ import { Button } from '@/design-system';
 
 const CANVAS_W = 400;
 const CANVAS_H = 400;
-const LINE_WIDTH = 10;
+// 4-5세 손가락/손목 굵기 + 가독성 우선 — 두꺼운 펜.
+// 키우면 채점의 coverage 가 자연스럽게 올라가므로 (같은 stroke 가 더 많은 가이드 픽셀 덮음) threshold 도 함께 검토.
+const LINE_WIDTH = 16;
 const GUIDE_COLOR = '#d4d4d8'; // zinc-300
 const DRAW_COLOR = '#1e293b'; // slate-800
 const TOLERANCE = 12;

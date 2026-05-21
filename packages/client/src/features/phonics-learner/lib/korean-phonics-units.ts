@@ -60,6 +60,8 @@ export type ActivityKind =
   | 'consonant-write'
   | 'cvc-pattern-learn'
   | 'cvc-pattern-write'
+  | 'alphabet-letter-learn'
+  | 'alphabet-letter-write'
   | 'game-connect-dots'
   | 'game-korean-block'
   | 'game-english-block'
@@ -86,6 +88,10 @@ export interface ActivityDef {
   blendVowels?: ReadonlyArray<string>;
   /** cvc-pattern-learn (영어) 활동용 — 학습 대상 VC. Phase A 에 vowel + consonant → vc, Phase B 에 flashcards 의 phonicPattern 매치 4 단어. */
   cvcPattern?: { vowel: string; consonant: string; vc: string };
+  /** alphabet-letter-learn (영어 Book 1) 활동용 — storybook.phonicsLesson.blending[letterIndex] / wordFamilies[letterIndex] 인덱스. */
+  letterIndex?: number;
+  /** alphabet-letter-write (영어 Book 1) 활동용 — unit 내 학습 글자 목록 (예: ['A','B','C']). 각 글자마다 대문자/소문자 쓰기 캔버스 노출. */
+  letters?: readonly string[];
 }
 
 export interface ActivityPlan {

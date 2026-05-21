@@ -19,6 +19,7 @@ export {
 export { buildAudiobookRenderData } from './utils/audiobook-props.js';
 export type { AudiobookSlideData, AudiobookRenderData } from './utils/audiobook-props.js';
 export { getEffectiveVocabulary } from './utils/effective-vocabulary.js';
+export { getWordHotspots } from './utils/hotspots.js';
 export {
   canonicalizeArtStyle,
   canonicalizeStyleAssets,
