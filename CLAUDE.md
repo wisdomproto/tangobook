@@ -78,7 +78,7 @@ features/{name}/{api,hooks,components,index.ts}
 ## MVP 출시 정책 (2026-05-09)
 - **사이드바**: 동화책 axis 만 active (alwaysActive). 파닉스/어휘 axis = `comingSoon` 음영 + "준비 중" sub-label (코드/라우트 보존). `AppShell.PRIMARY_AXES`. `/library` 일 때 헤더 = `position: absolute` transparent overlay (hero 일러스트가 헤더 영역까지 풀폭) + 사용자 chip / 로그아웃은 `pointer-events-auto` floating.
 - **LibraryPage** (`/library`): hero 배너 (`aspect-[5/2] md:aspect-[4/1]`) `bg-[url('/images/library-hero.png')] bg-cover`. 큰 제목/권수 텍스트 X (일러스트와 충돌). 검색바 hero 하단 floating (`absolute inset-x-0 bottom-6` + `bg-white shadow-pop`). 책 카드 = 일러스트 풀 (`aspect-video rounded-2xl`) + 아래 제목만 (Card 배경/패딩 X). **책 카드는 defaultStyle 대표 표지 1장만 노출** (2026-05-22) — 그림체 multi-thumbnail 배너 제거. 그림체 선택은 BookDetailPage 진입 후.
-- **BookDetailPage** (`/library/:id`): AppShell **밖** 라우트 (사이드바 X, 풀폭). 헤더 right = 기본 정보 chip 들 (🌍 카테고리 / 📖 타입 / 📕 페이지 / Aa 단어 / 🌱 타겟 연령 — `readingLevel` 우선, 없으면 `targetAge` `'4-5'` → `'4~5세'` 폴백). hero = 좌 column(그림체·언어 선택 바 + 정방형 표지) + 우 column(모드 카드 3개 stack). **그림체·언어 선택 바**는 표지 위 한 줄: 좌측 `flex-1` 그림체 바(← / "🎨 그림체 고르기" / → — 그림체 이름 미노출, ≥2일 때만) + 우측 `shrink-0` 둥근 깃발 토글(언어 ≥2일 때만). **표지는 (effectiveStyle × lang) 조합** (2026-05-22) — `styleAssets[style].primaryCoverByLang[lang]` 우선, 활성 그림체일 때 top-level `primaryCoverByLang[lang]`, ko 만 레거시 `coverImage` fallback. 조합 표지 없으면 📭 placeholder + "{언어} 표지가 아직 없어요". **부모 가이드 패널**(본문 접기/펴기) = 책 특징 + 교훈 + 읽어주는 법 + FAQ (`storybook.parentGuide.faq` details/summary). 외부 SEO 페이지 `/library/:id/about` (BookSeoPage) 는 헤더 링크 없이 SEO/JSON-LD 유입 채널로만 살아있음.
+- **BookDetailPage** (`/library/:id`): AppShell **밖** 라우트 (사이드바 X, 풀폭). 헤더 right = 기본 정보 chip 들 (🌍 카테고리 / 📖 타입 / 📕 페이지 / Aa 단어 / 🌱 타겟 연령 — `readingLevel` 우선, 없으면 `targetAge` `'4-5'` → `'4~5세'` 폴백). hero = 좌 column(그림체·언어 선택 바 + **16:9 가로 표지** (2026-05-22 정사각형→가로)) + 우 column(모드 카드 3개 stack). **그림체·언어 선택 바**는 표지 위 한 줄: 좌측 `flex-1` 그림체 바(← / **"🎨 {findArtStylePreset(style)?.label}"** 그림체 이름 노출 (2026-05-22) / → — ≥2일 때만) + 우측 `shrink-0` 둥근 깃발 토글(언어 ≥2일 때만). **표지는 (effectiveStyle × lang) 조합** (2026-05-22) — `styleAssets[style].primaryCoverByLang[lang]` 우선, 활성 그림체일 때 top-level `primaryCoverByLang[lang]`, ko 만 레거시 `coverImage` fallback. 조합 표지 없으면 📭 placeholder + "{언어} 표지가 아직 없어요". **부모 가이드 패널**(본문 접기/펴기) = 책 특징 + 교훈 + 읽어주는 법 + FAQ (`storybook.parentGuide.faq` details/summary). 외부 SEO 페이지 `/library/:id/about` (BookSeoPage) 는 헤더 링크 없이 SEO/JSON-LD 유입 채널로만 살아있음.
 - **모드 카드 3개**: 책으로 읽기 (coral) / 영상으로 보기 (violet-blue, 영상 없는 책=disabled 음영) / 단어 익히기 (yellow→amber). 가로 긴 형태 — 좌 제목+부제 / 우 흰 동그라미 워시 (`bg-white/85 + ring-2 ring-white`) 안 PNG 일러스트 / 우끝 → 화살표.
 - **모드 일러스트**: `public/icons/mode/{book,video,word}.png` (soft 3D rendered 톤, 그림체 독립적). PNG 베이크된 체크무늬 배경 → `packages/server/scripts/strip-checkerboard-bg.mjs` 로 4 모서리 floodfill 후처리.
 - **VocabularyStudyPage** (`/vocabulary/:unitId`): AppShell **밖** (학습 풀화면). 메인 진입 = BookDetailPage 의 "단어 익히기" 카드. `VocabularyStudyContent` 컴포넌트 = 단어 미리보기 + 게임 카드 4 (Duolingo push button + 좌상단 번호 1·2·3·4) — BookDetailPage / VocabularyStudyPage 공용.
@@ -116,6 +116,50 @@ features/{name}/{api,hooks,components,index.ts}
 - **데이터 source**: 정적 분석 결과 `packages/client/public/_analysis/text-based-classify.json` (스크립트 매번 갱신, gitignored). 저장 시 `POST /api/storybooks` 로 R2 직접 반영.
 - **그림체 dropdown swap (LevelEditCard)**: 활성 chip 옆 `▼ 그림체 변경` select — 라이브러리 16 preset 전체 노출 (현재 ✓ / 추가됨 표기). 선택 시 availableStyles 에 있으면 즉시 swap, 없으면 추가 확인 모달. `findArtStylePreset(value, lib?)` 시그니처 변경 — R2 라이브러리 라벨 우선 (사용자 편집 이름 적용).
 - **server fix (r2.repository.ts normalizeStorybook)**: `keyObjectImages[]` 에 `null` entry 있던 일부 책 (e.g. 헨젤과 그레텔*) 이 silent catch 로 404 → null 필터링 추가. `getStorybook` catch 에 error log 추가 (silent swallow 방지).
+
+## 알파벳 stroke 따라쓰기 시스템 (2026-05-22)
+
+영어 글자 따라쓰기를 자유 stroke (점 통과 only) 에서 **stroke 단위 채점** 으로 전환.
+
+### 데이터 모델 (shared types)
+- `TracingStroke = { type: 'line' | 'bend' | 'loop'; points: TracingPoint[] }`
+  - `line`: 2점 (start, end). `bend`: 3점 (시작/중간 꺾임/끝). `loop`: 3+점 (start = end + 중간 N개).
+- `LetterTracingData = { strokes: TracingStroke[]; enforceOrder?: boolean }` (default true)
+- `LetterStrokeLibrary = { version: 1; updatedAt; letters: Record<letter, LetterTracingData> }`
+
+### 글로벌 letter-stroke-library
+- R2 `_index/letter-stroke-library.json` — 영어 알파벳 A-Z, a-z **52 글자 한 곳**.
+- 서버 `GET/PUT /api/letter-stroke-library` (**merge mode** — partial PUT 안전, 나머지 글자 보존).
+- 모든 영어 학습 컨텐츠 (phonics / 미래 어휘 / 단어쓰기) 가 같은 라이브러리 참조.
+- 점 좌표 정규화 (0~1) → 글자 크기 무관, viewBox 안에서 비율 그대로 적용.
+- client hook: `useLetterStrokeLibrary` (TanStack Query, 5분 캐시) + `getLetterTracingData(lib, letter, fallback)`.
+
+### 학습자 채점 (`LetterTracingCanvas`)
+- pointer-down→up 한 번 = 한 stroke 시도. **stroke 의 모든 점을 한 번에 통과**하면 매칭. 시작/끝 위치 강제 X, 점 통과 only.
+- `enforceOrder=true` (default): strokes[0]→[1]→... 순서 강제 + **현재 차례 stroke 점만 노출** (미래 stroke 점 hide).
+- 현재 stroke 의 다음 그릴 점 (`currentGuidePi`) 만 큰 amber + ring pulse — drawing 중 통과한 점에 따라 자동 이동.
+- 그리는 도중 path 가 점 지나가는 순간 즉시 emerald (실시간 시각 피드백). 무효 stroke 은 회색 페이드 500ms 후 사라짐.
+- `enforceOrder=false`: 자유 순서. 모든 점 동시 amber. 어떤 stroke 부터 그려도 OK.
+- `drawingRef`/`currentDrawRef`/`completedIdxSetRef` ref 패턴으로 pointer move/up 콜백 stale closure 방지.
+
+### bulk editor 페이지
+- **`/letter-stroke-editor`** — TopBar 자료실 dropdown 🔠. 52 글자 한 페이지 grid + 점 드래그 (snap-to-grid 0.025).
+- 글자 헤더 더블클릭 또는 chip `+ 추가/편집` → `LetterTracingPointEditorModal` (stroke 추가/제거/type 변경/순서 강제 토글/미리보기) — 즉시 R2 PUT (한 글자 partial).
+- chip 클릭 = 그 stroke 선택 (겹친 점 잡기, hit-test 그 stroke 만) / chip ✕ = stroke 삭제.
+- **Ctrl+Z 되돌리기** (history stack, 50 entry FIFO). drag/삭제/모달 저장 모두 추적.
+- **beforeunload 경고** + 저장 성공 `✓ 저장됨` 3초 표시 — 변경 손실 방지.
+
+### 저작 모달 (`LetterTracingPointEditorModal`)
+- 상단 toolbar: stroke type 셀렉터 (line/bend/loop) + "순서 강제" 체크박스 (default true).
+- 캔버스 위 **그리드 라인 표시** (40×40, 0.025 간격) + 중심선 강조. snap-to-grid 적용.
+- 빈 곳 클릭 = pending 에 점 추가 / 기존 점 위 드래그 없이 누르고 떼기 = 같은 자리에 새 점 추가 (B 의 stroke 1 끝 = stroke 2 시작 같이 겹친 점 가능).
+- stroke 리스트 행 클릭 = 그 stroke 선택 (겹친 점 잡기, 다른 stroke 25% 흐림 + hit-test 제한).
+- 점 사이즈는 학습자 화면과 동일 (outer 0.034 / fill 0.028) — 실제 보일 크기 그대로 작업.
+- 헤더 fixed + 본문 scrollable + 캔버스 `maxWidth: min(380px, 50vh)` — 한 화면에 다 들어감.
+
+### Seed 스크립트
+- `seed-letter-stroke-library.mjs --apply` — 52 글자 stroke 정의 (Zaner-Bloser block letter + a 패턴 line+bend 분리) + INSET 0.07 mapCap 변환 → R2 PUT.
+- `seed-letter-tracing-strokes-book1.mjs` (legacy book inline 모델, deprecated — global library 우선).
 
 ## 블록 게임 레벨 선택 + 공유 (2026-05-11)
 - 사이드바 sub-button: "한글 블록 게임" / "알파벳 블록 게임" 라벨 + 옆에 📤 공유 버튼 (Web Share API + clipboard fallback).

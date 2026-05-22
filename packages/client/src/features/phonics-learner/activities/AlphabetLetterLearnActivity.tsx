@@ -1,13 +1,14 @@
-import { useCallback, useRef, type MouseEvent } from 'react';
+import { useCallback, useMemo, useRef, useState, type MouseEvent } from 'react';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import type { Storybook } from '@tangobook/shared';
 import { getWordHotspots } from '@tangobook/shared';
+import { LetterWriteModal } from './LetterWriteModal';
 
 interface Props {
   unitId: string;
-  /** storybook.phonicsLesson.blending[letterIndex] / wordFamilies[letterIndex] 인덱스 (A=0, B=1, …). */
-  letterIndex: number;
+  /** unit 의 학습 대상 글자 목록 (예: ['A','B','C'] / ['S','T','U','V']). 상단 탭으로 전환. */
+  letters: readonly string[];
   onMarkComplete: () => void;
   onBack: () => void;
 }
@@ -15,19 +16,19 @@ interface Props {
 /**
  * 영어 알파벳 글자 학습 (Book 1).
  *
- * 한 글자 (예: A) 의 학습카드 풀화면 노출.
+ * 한 unit 의 모든 글자 (예: A·B·C) 를 한 페이지에서 상단 탭으로 전환:
  *   - 큰 일러스트 + 저작도구에서 만든 hotspots
  *   - hotspot 클릭 → 그 단어의 ttsUrl 재생 (multi-hotspot 지원)
- *   - 상단 대/소문자 뱃지 클릭 → 글자 발음 재생
- *   - ← 돌아가기 = 종료
+ *   - 상단 글자 탭 (Aa / Bb / Cc) — 활성 글자 강조 (coral). 비활성 클릭 → 그 글자로 전환.
+ *   - 활성 글자 탭 다시 클릭 → 글자 발음 (blendingSequenceTtsUrl) 재생
  *
- * 진척 마킹 없음. 그냥 누르기만 하는 자유 탐색 (영어 모르는 4-5세 입문자용).
+ * 진척 마킹 없음. 그냥 누르며 듣는 자유 탐색 (영어 모르는 4-5세 입문자용).
  * onMarkComplete prop 은 호환을 위해 받지만 호출하지 않음.
  */
 
 export function AlphabetLetterLearnActivity({
   unitId,
-  letterIndex,
+  letters,
   onMarkComplete: _onMarkComplete,
   onBack,
 }: Props) {
@@ -35,14 +36,19 @@ export function AlphabetLetterLearnActivity({
   const sb = storybookQuery.data as Storybook | undefined;
   const { playAudio } = useGameAudio();
 
-  const blending = sb?.phonicsLesson?.blending?.[letterIndex];
-  const wordFamily = sb?.phonicsLesson?.wordFamilies?.[letterIndex];
+  // 활성 글자 인덱스 (letters 배열의 인덱스). storybook.phonicsLesson.blending[i] 와 1:1 매칭.
+  const [currentIdx, setCurrentIdx] = useState(0);
+  // 써보기 모달 — 활성 글자에 대해서만 노출
+  const [writeOpen, setWriteOpen] = useState(false);
+
+  const blending = sb?.phonicsLesson?.blending?.[currentIdx];
+  const wordFamily = sb?.phonicsLesson?.wordFamilies?.[currentIdx];
 
   const illustrationUrl = blending?.illustrationUrl ?? blending?.exampleWordImageUrl;
-  const upper = (blending?.vowel ?? '').toUpperCase();
-  const lower = (blending?.consonant ?? blending?.vowel ?? '').toLowerCase();
+  const upper = (letters[currentIdx] ?? blending?.vowel ?? '').toUpperCase();
+  const lower = upper.toLowerCase();
   const blend = blending?.blend ?? `${upper}${lower}`;
-  const words = wordFamily?.words ?? [];
+  const words = useMemo(() => wordFamily?.words ?? [], [wordFamily]);
 
   // 동시 재생 차단용 — 진척 추적 X
   const audioBusyRef = useRef(false);
@@ -72,14 +78,24 @@ export function AlphabetLetterLearnActivity({
     [words, playAudio]
   );
 
-  const handleLetterClick = useCallback(() => {
-    const url = blending?.blendingSequenceTtsUrl;
-    if (!url || audioBusyRef.current) return;
-    audioBusyRef.current = true;
-    playAudio(url, () => {
-      audioBusyRef.current = false;
-    });
-  }, [blending?.blendingSequenceTtsUrl, playAudio]);
+  // 글자 탭 클릭 — 활성이면 발음 재생, 비활성이면 그 글자로 전환 (모달 자동 닫기)
+  const handleLetterTabClick = useCallback(
+    (idx: number) => {
+      if (idx !== currentIdx) {
+        setCurrentIdx(idx);
+        setWriteOpen(false);
+        return;
+      }
+      // 활성 글자 = 발음 재생
+      const url = sb?.phonicsLesson?.blending?.[idx]?.blendingSequenceTtsUrl;
+      if (!url || audioBusyRef.current) return;
+      audioBusyRef.current = true;
+      playAudio(url, () => {
+        audioBusyRef.current = false;
+      });
+    },
+    [currentIdx, sb, playAudio]
+  );
 
   // 진입 시 자동 재생 X — 학습자가 직접 핫스팟을 눌러야 소리 남 (4-5세 자율 탐색).
   // ← 돌아가기 = 그냥 종료. 진척 마킹 없음 (자유 탐색).
@@ -119,33 +135,60 @@ export function AlphabetLetterLearnActivity({
 
   return (
     <div className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-3 bg-gradient-to-b from-cream-50 to-peach-100 overflow-y-auto">
-      {/* 헤더 — 뒤로 + 글자 뱃지 + 글자 음원 */}
+      {/* 헤더 — 뒤로 + 글자 탭들 (가운데) */}
       <div className="flex items-center justify-between gap-3 mb-3 shrink-0">
         <button
           onClick={onBack}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold shrink-0"
         >
           ← 돌아가기
         </button>
-        <button
-          onClick={handleLetterClick}
-          disabled={!blending.blendingSequenceTtsUrl}
-          className="inline-flex items-baseline gap-1 px-6 py-2 rounded-full bg-white shadow-pop hover:shadow-card disabled:opacity-50 transition-shadow"
-          title="글자 발음 듣기"
-        >
-          <span className="text-4xl sm:text-5xl font-black text-coral-500 leading-none">
-            {upper}
-          </span>
-          <span className="text-4xl sm:text-5xl font-black text-sky-500 leading-none">{lower}</span>
-          {blending.blendingSequenceTtsUrl && <span className="ml-2 text-xl">🔊</span>}
-        </button>
-        <div className="w-[88px]" /> {/* spacer for visual centering */}
+        {/* 글자 탭 — 활성 글자만 coral background + 큰 크기 (다시 클릭 = 발음). 비활성은 white. */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {letters.map((L, i) => {
+            const U = L.toUpperCase();
+            const l = L.toLowerCase();
+            const active = i === currentIdx;
+            const hasTts = !!sb.phonicsLesson?.blending?.[i]?.blendingSequenceTtsUrl;
+            return (
+              <button
+                key={i}
+                onClick={() => handleLetterTabClick(i)}
+                className={`inline-flex items-baseline gap-0.5 sm:gap-1 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full shadow-pop transition-all ${
+                  active
+                    ? 'bg-coral-50 ring-4 ring-coral-300 scale-[1.06]'
+                    : 'bg-white hover:bg-peach-50 opacity-70 hover:opacity-100'
+                }`}
+                title={active ? '글자 발음 듣기' : `${U}${l} 로 전환`}
+              >
+                <span
+                  className={`font-display font-black leading-none ${
+                    active ? 'text-3xl sm:text-4xl md:text-5xl' : 'text-2xl sm:text-3xl'
+                  } text-coral-500`}
+                >
+                  {U}
+                </span>
+                <span
+                  className={`font-display font-black leading-none ${
+                    active ? 'text-3xl sm:text-4xl md:text-5xl' : 'text-2xl sm:text-3xl'
+                  } text-sky-500`}
+                >
+                  {l}
+                </span>
+                {active && hasTts && <span className="ml-1 text-base sm:text-lg">🔊</span>}
+              </button>
+            );
+          })}
+        </div>
+        <div className="w-[88px] shrink-0" /> {/* spacer for visual centering */}
       </div>
 
       {/* 가운데 큰 이미지 + 핫스팟 */}
       <div className="flex-1 min-h-0 flex flex-col items-center justify-start gap-4">
         <div className="w-full max-w-[920px] mx-auto">
           <div
+            // 글자 전환 시 React 가 같은 div 재사용 — key 변경으로 강제 리마운트 (이전 글자 hotspot 잔존 방지)
+            key={currentIdx}
             className="relative w-full rounded-[28px] overflow-hidden shadow-card bg-white cursor-pointer ring-4 ring-white"
             style={{ aspectRatio: '16/9' }}
             onClick={handleIllustrationClick}
@@ -194,9 +237,28 @@ export function AlphabetLetterLearnActivity({
           </div>
         </div>
 
-        {/* 단어 칩·완료 버튼 노출 X — 영어 단어 모르는 입문자(4-5세) 용. 핫스팟 클릭으로만 학습.
-            ← 돌아가기 시 자동으로 onMarkComplete 트리거 (handleBack). */}
+        {/* 써보기 — 활성 글자 모달 트리거. ABC 써보기 활동 별도 카드 대신 학습 페이지 내 통합 */}
+        <button
+          onClick={() => setWriteOpen(true)}
+          className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-coral-400 to-coral-500 text-white shadow-pop hover:-translate-y-0.5 active:translate-y-0.5 transition-transform text-lg sm:text-xl font-black"
+        >
+          <span className="text-xl sm:text-2xl">✏️</span>
+          <span className="inline-flex items-baseline">
+            <span>{upper}</span>
+            <span>{lower}</span>
+          </span>
+          <span>써보기</span>
+        </button>
       </div>
+
+      {writeOpen && (
+        <LetterWriteModal
+          storybook={sb}
+          letterIndex={currentIdx}
+          activeLetter={letters[currentIdx] ?? upper}
+          onClose={() => setWriteOpen(false)}
+        />
+      )}
     </div>
   );
 }

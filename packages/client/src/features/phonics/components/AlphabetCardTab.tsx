@@ -21,6 +21,7 @@ import { HotspotEditorModal } from './HotspotEditorModal';
 import { LearningCardPreviewModal } from './LearningCardPreviewModal';
 import { TracingPointEditorModal } from './TracingPointEditorModal';
 import { TracingGamePreviewModal } from './TracingGamePreviewModal';
+import { LetterTracingPointEditorModal } from './LetterTracingPointEditorModal';
 
 /**
  * Level 1 전용 학습 카드 탭 (알파벳 음가)
@@ -90,6 +91,11 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
   const [previewIdx, setPreviewIdx] = useState<number | null>(null);
   const [tracingEditIdx, setTracingEditIdx] = useState<number | null>(null);
   const [tracingPreviewIdx, setTracingPreviewIdx] = useState<number | null>(null);
+  // 글자 따라쓰기 점 편집 — (idx, case) ex: { idx: 0, case: 'upper' } = blending[0] 대문자
+  const [letterTracingEdit, setLetterTracingEdit] = useState<{
+    idx: number;
+    case: 'upper' | 'lower';
+  } | null>(null);
 
   // --- 삽화 히스토리 복원 ---
   const restoreIllustrationHistory = useCallback(
@@ -606,6 +612,47 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
                       </div>
                     )}
 
+                    {/* 글자 따라쓰기 스트로크 편집 — 학습자 ABC 써보기 모달이 이 데이터로 stroke 단위 채점 */}
+                    {(() => {
+                      const upperLetter = item.vowel.toUpperCase() || item.blend?.[0] || '';
+                      const lowerLetter = (
+                        item.consonant?.toLowerCase() ||
+                        item.vowel?.toLowerCase() ||
+                        ''
+                      ).toLowerCase();
+                      const upperCount = item.letterTracingUpper?.strokes?.length ?? 0;
+                      const lowerCount = item.letterTracingLower?.strokes?.length ?? 0;
+                      return (
+                        <div>
+                          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">
+                            글자 따라쓰기 스트로크 (학습자 써보기 모달용)
+                          </p>
+                          <div className="grid grid-cols-2 gap-2">
+                            <Button
+                              size="sm"
+                              variant="secondary"
+                              onClick={() => setLetterTracingEdit({ idx, case: 'upper' })}
+                              disabled={isBusy || !upperLetter}
+                            >
+                              {upperCount > 0
+                                ? `대문자 ${upperLetter} (${upperCount} stroke)`
+                                : `대문자 ${upperLetter} stroke 만들기`}
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="secondary"
+                              onClick={() => setLetterTracingEdit({ idx, case: 'lower' })}
+                              disabled={isBusy || !lowerLetter}
+                            >
+                              {lowerCount > 0
+                                ? `소문자 ${lowerLetter} (${lowerCount} stroke)`
+                                : `소문자 ${lowerLetter} stroke 만들기`}
+                            </Button>
+                          </div>
+                        </div>
+                      );
+                    })()}
+
                     {/* 글자 쓰기 연습 */}
                     <WritingPracticeSection
                       vowel={item.vowel}
@@ -744,6 +791,41 @@ export function AlphabetCardTab({ storybook, onUpdate, onSave }: AlphabetCardTab
               tracingPoints={points}
               systemSounds={storybook.systemSounds}
               onClose={() => setTracingPreviewIdx(null)}
+            />
+          );
+        })()}
+
+      {/* 글자 따라쓰기 스트로크 편집 모달 — 대/소문자 분리. 학습자 ABC 써보기 모달이 stroke 단위 채점에 활용. */}
+      {letterTracingEdit !== null &&
+        (() => {
+          const { idx: editIdx, case: editCase } = letterTracingEdit;
+          const blendItem = letters[editIdx];
+          if (!blendItem) return null;
+          const upperLetter = blendItem.vowel.toUpperCase() || blendItem.blend?.[0] || '';
+          const lowerLetter = (
+            blendItem.consonant?.toLowerCase() ||
+            blendItem.vowel?.toLowerCase() ||
+            ''
+          ).toLowerCase();
+          const letter = editCase === 'upper' ? upperLetter : lowerLetter;
+          const initial =
+            editCase === 'upper' ? blendItem.letterTracingUpper : blendItem.letterTracingLower;
+          return (
+            <LetterTracingPointEditorModal
+              letter={letter}
+              pairLabel={`${upperLetter}${lowerLetter}`}
+              initialData={initial}
+              onSave={(data) => {
+                onUpdate((d) => {
+                  if (!d.phonicsLesson) return;
+                  const b = d.phonicsLesson.blending[editIdx];
+                  if (editCase === 'upper') b.letterTracingUpper = data;
+                  else b.letterTracingLower = data;
+                });
+                onSave();
+                setLetterTracingEdit(null);
+              }}
+              onClose={() => setLetterTracingEdit(null)}
             />
           );
         })()}

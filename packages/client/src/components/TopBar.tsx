@@ -71,6 +71,13 @@ const RESOURCES: ResourceItem[] = [
     desc: '책별 한글 keyObjects 추가/삭제',
   },
   {
+    href: '/letter-stroke-editor',
+    icon: '🔠',
+    label: '알파벳 stroke 편집',
+    desc: 'A-Z, a-z 점 위치 일괄 조정',
+    internal: true,
+  },
+  {
     href: '/design-system.html',
     icon: '🎨',
     label: '디자인 시스템',

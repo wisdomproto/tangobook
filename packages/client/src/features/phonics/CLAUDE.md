@@ -56,6 +56,19 @@ reader 4곳 통일: AlphabetCardTab 미리보기 svg, LearningCardPreviewModal h
 - **영어**: `vowel`=모음 글자(a, e), `exampleWordImageUrl`=단어 이미지, `phonicsConfig.language === 'english'`
 - 감지: `isKoreanPhonics(storybook)` (`server/utils/phonics-data-helpers.ts`)
 
+## LetterTracingPointEditorModal — 글자 stroke 편집 (2026-05-22)
+
+`AlphabetCardTab` "대문자/소문자 stroke 만들기" 버튼이 띄우는 모달. 영어 글자 따라쓰기 stroke 데이터 (`LetterTracingData = { strokes: TracingStroke[]; enforceOrder? }`) 편집.
+
+- toolbar: stroke type (line/bend/loop) + "순서 강제" 체크박스 (default true)
+- 그리드 (40×40 snap 0.025) + 중심선 강조
+- 빈 곳 클릭 = pending 점 추가 / 기존 점 위 드래그 없이 떼기 = 같은 자리 점 추가 (B 의 stroke 1 끝 = stroke 2 시작 같이 겹친 점)
+- stroke 리스트 행 클릭 = 그 stroke 선택 → 다른 stroke 25% 흐림 + hit-test 제한 (겹친 점 정확히 잡기)
+- 점 사이즈는 학습자 화면 동일 (outer 0.034 / fill 0.028)
+- 헤더 fixed + 본문 scroll + 캔버스 `maxWidth: min(380px, 50vh)` 로 한 화면
+
+**글로벌 letter-stroke-library 우선**: `BlendingExercise.letterTracingUpper/Lower` inline 데이터는 legacy fallback. 신규 데이터는 모두 R2 `_index/letter-stroke-library.json` 에 저장. bulk editor `/letter-stroke-editor` 에서 52 글자 한 페이지 편집 가능. 자세한 시스템은 루트 CLAUDE.md "알파벳 stroke 따라쓰기 시스템" 섹션.
+
 ## Seed 스크립트
 
 `scripts/seed-phonics-books.mjs` — 한글/영어 71 unit → phonics Storybook 생성:

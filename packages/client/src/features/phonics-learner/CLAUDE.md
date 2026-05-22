@@ -133,6 +133,17 @@ Book 1 데이터 정리 (2026-05-21):
 - `rawScore = coverage * (0.4 + 0.6 * proximity)` — coverage 가 main driver, proximity 는 multiplier
 - 점 1개 → coverage 0.01 → 1.5%, 적당히 그림 (coverage 40%) → 35% 정도. CvcPatternLearn Phase C threshold 20 으로 lenient.
 
+## LetterTracingCanvas — stroke 단위 채점 (2026-05-22)
+
+`LetterWriteModal` (AlphabetLetterLearnActivity 안 "Aa 써보기" 모달) 이 사용. `LetterWritingCanvas` (glyph coverage proximity 채점) 와 **별개** — stroke 단위 점 통과로 채점.
+
+- props: `letter`, `strokes: TracingStroke[]`, `enforceOrder?: boolean` (default true), `onComplete`
+- pointer-down→up 한 번 = 한 stroke. 그 안에서 stroke 의 **모든 점을 path 가 통과**하면 매칭 (시작/끝 위치 강제 X).
+- enforceOrder=true: 현재 차례 stroke 점만 노출 + 다음 그릴 점 (currentGuidePi) pulse. drawing 진행에 따라 가이드 자동 이동.
+- enforceOrder=false: 어떤 stroke 부터 그려도 OK. 모든 점 동시 amber.
+- 그리는 도중 path 가 점 지나가면 즉시 emerald. 무효 stroke 은 회색 페이드 500ms 후 사라짐.
+- 데이터: 글로벌 `useLetterStrokeLibrary` hook 우선, fallback `storybook.phonicsLesson.blending[i].letterTracingUpper/Lower` (legacy). 자세한 시스템은 루트 CLAUDE.md "알파벳 stroke 따라쓰기 시스템" 섹션 참고.
+
 ## 한글 블록 쉬움 모드 (2026-05-20)
 
 `KoreanBlockPlayer` 의 `difficulty === 'easy'` 분기. drag-and-drop 비활성, **`EasyOrderStrip`** 으로 교체:

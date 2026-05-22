@@ -134,9 +134,20 @@ export interface BlendingExercise {
   exampleWordOutlineUrl?: string;
   exampleWord2OutlineUrl?: string;
 
-  // 점선 따라그리기 포인트
+  // 점선 따라그리기 포인트 (예시 단어 일러스트 위)
   exampleWordTracingPoints?: TracingPoint[];
   exampleWord2TracingPoints?: TracingPoint[];
+
+  // 글자 따라쓰기 점 — v1 자유 stroke 모델 (deprecated 2026-05-22).
+  letterTracingPointsUpper?: TracingPoint[];
+  letterTracingPointsLower?: TracingPoint[];
+
+  // 글자 따라쓰기 — stroke 단위 채점 모델 (2026-05-22).
+  // 학습자: pointer-down→up 한 번 = 한 stroke. 그 안에서 stroke 의 모든 점을 지나가면 통과.
+  // 시작점/끝점이 시작/끝에서 hit 될 필요 X (점 통과 only).
+  // enforceOrder: true 면 strokes[0]→[1]→[2]... 순서대로 그려야 함. false 면 어느 순서든 OK.
+  letterTracingUpper?: LetterTracingData;
+  letterTracingLower?: LetterTracingData;
 
   // Level 1 전체 장면 삽화 (글자별 1장)
   illustrationUrl?: string;
@@ -148,6 +159,50 @@ export interface BlendingExercise {
 export interface TracingPoint {
   x: number;
   y: number;
+}
+
+/**
+ * 글자 따라쓰기 스트로크 종류 (저작자가 점 input 할 때의 형태 가이드).
+ * 채점은 type 무관 — stroke 의 모든 점을 한 stroke 안에서 통과하면 OK.
+ * - `line`: 2점 (시작 → 끝) — 직선. 예: A 의 좌사선, L 의 수직선.
+ * - `bend`: 3점 (시작 → 중간 꺾임 → 끝). 예: ㄱ, L 전체(꺾임 있는 한 stroke).
+ * - `loop`: 순환 (시작 = 끝 좌표, 중간 N개). 예: O, ㅇ, B 의 동그라미.
+ */
+export type TracingStrokeType = 'line' | 'bend' | 'loop';
+
+/**
+ * 한번에 쓰는 단위. 학습자는 이 stroke 하나를 pointer-down→up 으로 그려야 통과.
+ * - line: points.length === 2
+ * - bend: points.length === 3
+ * - loop: points.length >= 3, points[0] ≈ points[length-1]
+ */
+export interface TracingStroke {
+  type: TracingStrokeType;
+  points: TracingPoint[];
+}
+
+/**
+ * 글로벌 알파벳 stroke 라이브러리 — R2 `_index/letter-stroke-library.json`.
+ * 영어 알파벳 A-Z, a-z 각 글자의 stroke 데이터를 한 곳에 보관.
+ * 모든 영어 학습 컨텐츠 (phonics, 어휘, 단어 쓰기 등) 가 이 라이브러리 참조.
+ * 글자 크기가 달라도 stroke 좌표는 정규화 (0~1) 라 viewBox 안에서 비율 그대로 적용.
+ */
+export interface LetterStrokeLibrary {
+  version: 1;
+  updatedAt: string;
+  /** 키 = 글자 (예: 'A', 'a', 'B', ...), 값 = stroke 데이터. */
+  letters: Record<string, LetterTracingData>;
+}
+
+/**
+ * 글자 하나(대문자 또는 소문자) 의 따라쓰기 데이터.
+ * - `strokes`: stroke 목록
+ * - `enforceOrder`: true 면 strokes[0]→[1]→[2] 순서대로 그려야 통과. false 면 어느 stroke 든 먼저 그려도 OK.
+ *   기본 true — 한 번에 한 stroke 씩 점이 노출되어 학습자 가이드가 명확. false 면 자유 순서 + 모든 점 동시 노출.
+ */
+export interface LetterTracingData {
+  strokes: TracingStroke[];
+  enforceOrder?: boolean;
 }
 
 // 삽화 내 단어 터치 영역 (정규화 좌표 0~1)

@@ -73,11 +73,15 @@ export default function EnglishPhonicsActivityPage() {
   }
 
   // ── 학습 활동 ──
-  if (activity.kind === 'alphabet-letter-learn' && typeof activity.letterIndex === 'number') {
+  if (
+    activity.kind === 'alphabet-letter-learn' &&
+    activity.letters &&
+    activity.letters.length > 0
+  ) {
     return (
       <AlphabetLetterLearnActivity
         unitId={unitId}
-        letterIndex={activity.letterIndex}
+        letters={activity.letters}
         onMarkComplete={handleMarkComplete}
         onBack={backToUnit}
       />

@@ -213,33 +213,35 @@ function ActivityCard({
       <div
         className={`relative z-10 flex-1 flex items-center justify-center my-1 group-hover:scale-105 transition-transform duration-200 ${showDone ? 'opacity-50' : ''}`}
       >
-        {activity.kind === 'alphabet-letter-learn' ? (
-          // Aa·Bb·Cc 등 글자별 학습 — 일러보다 글자 자체가 카드 main visual.
-          // title 의 첫 토큰 ("Aa 배우기" → "Aa") 에서 추출.
+        {activity.kind === 'alphabet-letter-learn' && activity.letters ? (
+          // ABC/DEF/... 배우기 — 대문자만, coral·sky 번갈아.
           (() => {
-            const token = activity.title.trim().split(/\s+/)[0] ?? '';
-            const upper = token[0] ?? '';
-            const lower = (token[1] ?? token[0] ?? '').toLowerCase();
+            const ls = activity.letters!.map((L) => L.toUpperCase());
             return (
-              <div className="flex items-baseline gap-0.5 sm:gap-1 leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)] font-display">
-                <span className="text-7xl sm:text-8xl md:text-9xl font-black text-coral-500">
-                  {upper}
-                </span>
-                <span className="text-7xl sm:text-8xl md:text-9xl font-black text-sky-500">
-                  {lower}
-                </span>
+              <div className="flex items-baseline leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)] font-display tracking-tight max-w-full">
+                {ls.map((L, i) => (
+                  <span
+                    key={i}
+                    className={`text-4xl sm:text-5xl md:text-6xl font-black ${
+                      i % 2 === 0 ? 'text-coral-500' : 'text-sky-500'
+                    }`}
+                  >
+                    {L}
+                  </span>
+                ))}
               </div>
             );
           })()
         ) : activity.kind === 'alphabet-letter-write' ? (
-          // ABC/DEF/... 쓰기 — 글자는 카드 정가운데, 연필 ✏️ 은 middle 영역 우상단 floating.
-          // 글자 size 는 learn 카드 (1쌍 큰 글자) 보다 두 단계 작게 + tracking-tight — 4글자 unit 도 fit.
+          // ABC/DEF/... 써보기 — 글자 + 우상단 ✏️ floating.
           (() => {
-            const letters = (activity.title.trim().split(/\s+/)[0] ?? '').split('');
+            const ls = activity.letters
+              ? activity.letters.map((L) => L.toUpperCase())
+              : (activity.title.trim().split(/\s+/)[0] ?? '').split('');
             return (
               <div className="relative w-full h-full flex items-center justify-center">
                 <div className="flex items-baseline leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)] font-display tracking-tight">
-                  {letters.map((L, i) => (
+                  {ls.map((L, i) => (
                     <span
                       key={i}
                       className={`text-4xl sm:text-5xl md:text-6xl font-black ${
@@ -271,14 +273,11 @@ function ActivityCard({
           </span>
         )}
       </div>
-      {/* alphabet 배우기/쓰기 카드는 가운데 큰 글자 자체가 title 역할 — 하단 텍스트 중복 노출 X */}
-      {activity.kind !== 'alphabet-letter-learn' && activity.kind !== 'alphabet-letter-write' && (
-        <h3
-          className={`relative z-10 text-xl sm:text-2xl font-black font-display leading-tight break-keep text-center ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
-        >
-          {activity.title}
-        </h3>
-      )}
+      <h3
+        className={`relative z-10 text-xl sm:text-2xl font-black font-display leading-tight break-keep text-center ${showDone ? 'text-ink-500' : 'text-ink-900'}`}
+      >
+        {activity.title}
+      </h3>
     </Link>
   );
 }

@@ -119,28 +119,17 @@ function makeBook2UnitPlan(patterns: readonly VcPattern[]): ActivityPlan {
 function makeBook1UnitPlan(letters: readonly string[]): ActivityPlan {
   const activities: import('./korean-phonics-units').ActivityDef[] = [];
   let order = 1;
-  for (let i = 0; i < letters.length; i++) {
-    const L = letters[i].toUpperCase();
-    activities.push({
-      key: `letter-${L.toLowerCase()}`,
-      order: order++,
-      kind: 'alphabet-letter-learn',
-      section: 'learn',
-      title: `${L}${L.toLowerCase()} 배우기`,
-      emoji: '🔤',
-      required: true,
-      letterIndex: i,
-    });
-  }
-  // 마지막 학습 활동 — ABC 쓰기 (글자별 대문자/소문자 따라쓰기)
+  // 알파벳 배우기 — unit 내 모든 글자를 한 활동에서 상단 탭으로 전환.
+  // 써보기는 별도 카드 X — 학습 페이지 안 "✏️ Aa 써보기" 버튼 → 모달로 통합.
+  // title 예: "ABC 배우기" / "STUV 배우기" — 대문자만 명시적으로.
   const letterListLabel = letters.map((L) => L.toUpperCase()).join('');
   activities.push({
-    key: 'letters-write',
+    key: 'letters-learn',
     order: order++,
-    kind: 'alphabet-letter-write',
+    kind: 'alphabet-letter-learn',
     section: 'learn',
-    title: `${letterListLabel} 쓰기`,
-    emoji: '✏️',
+    title: `${letterListLabel} 배우기`,
+    emoji: '🔤',
     required: true,
     letters,
   });

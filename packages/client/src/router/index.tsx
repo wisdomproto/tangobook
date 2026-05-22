@@ -15,6 +15,7 @@ import BookDetailPage from '../pages/BookDetailPage';
 import BookSeoPage from '../pages/BookSeoPage';
 import CurriculumMasterPage from '../pages/CurriculumMasterPage';
 import LibraryMasterPage from '../pages/LibraryMasterPage';
+import LetterStrokeBulkEditorPage from '../pages/LetterStrokeBulkEditorPage';
 import ViewerPage from '../pages/ViewerPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
@@ -153,6 +154,15 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <LibraryMasterPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 알파벳 stroke 일괄 편집 — A~Z, a~z 한 페이지에서 점 위치 조정
+        path: 'letter-stroke-editor',
+        element: (
+          <ErrorBoundary>
+            <LetterStrokeBulkEditorPage />
           </ErrorBoundary>
         ),
       },

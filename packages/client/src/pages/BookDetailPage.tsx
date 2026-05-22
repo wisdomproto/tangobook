@@ -7,6 +7,7 @@ import {
   getDirectVideoUrls,
   getAvailableStyles,
 } from '@/lib/storybook-accessors';
+import { findArtStylePreset } from '@/features/editor/lib/style-assets';
 import { StateScreen, Skeleton, Chip, PageHeader } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
@@ -250,9 +251,11 @@ export default function BookDetailPage() {
                       >
                         ←
                       </button>
-                      <span className="text-base font-black text-ink-800 flex items-center gap-1.5 truncate">
-                        <span>🎨</span>
-                        <span className="truncate">그림체 고르기</span>
+                      <span className="text-base font-black text-ink-800 flex items-center gap-1.5 truncate min-w-0">
+                        <span className="shrink-0">🎨</span>
+                        <span className="truncate">
+                          {findArtStylePreset(effectiveStyle)?.label ?? '그림체'}
+                        </span>
                       </span>
                       <button
                         type="button"
@@ -295,7 +298,7 @@ export default function BookDetailPage() {
                   )}
                 </div>
               )}
-              <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-peach-200 to-peach-300 shadow-card w-full">
+              <div className="relative aspect-video rounded-3xl overflow-hidden bg-gradient-to-br from-peach-200 to-peach-300 shadow-card w-full">
                 {coverUrl ? (
                   <img
                     src={coverUrl}
@@ -305,7 +308,7 @@ export default function BookDetailPage() {
                   />
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center gap-3 bg-ink-100 text-ink-500">
-                    <div className="text-[96px]">📭</div>
+                    <div className="text-[72px]">📭</div>
                     <div className="text-sm font-black px-4 text-center">
                       {langLabel} 표지가 아직 없어요
                     </div>
