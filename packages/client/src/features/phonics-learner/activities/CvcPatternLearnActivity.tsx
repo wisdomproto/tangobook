@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
-import { LetterWritingCanvas } from '@/features/phonics/components/LetterWritingCanvas';
+import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -227,9 +227,10 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
   ]);
 
   // 한 글자 통과 핸들러 — 띵동 → 글자 음가 → 상태 업데이트
+  // (LetterFillCanvas paint mode — threshold 도달 시 onResult(true) 호출)
   const makeHandleWriteLetter = useCallback(
-    (wordIdx: number, letterIdx: number) => async (passed: boolean) => {
-      if (!passed) return;
+    (wordIdx: number, letterIdx: number) => async (ok: boolean) => {
+      if (!ok) return;
       if (writeDone.has(`${wordIdx}-${letterIdx}`)) return;
       const letter = vcLetters[letterIdx];
 
@@ -490,12 +491,12 @@ export function CvcPatternLearnActivity({ unitId, pattern, onMarkComplete, onBac
                 }
                 return (
                   <div key={l} className="w-[clamp(7rem,22vh,14rem)] shrink-0">
-                    <LetterWritingCanvas
+                    <LetterFillCanvas
                       key={`${writeCurrentWordIdx}-${l}-${letter}`}
                       letter={letter}
                       onResult={makeHandleWriteLetter(writeCurrentWordIdx, l)}
                       autoCheck
-                      threshold={20}
+                      threshold={0.95}
                     />
                   </div>
                 );

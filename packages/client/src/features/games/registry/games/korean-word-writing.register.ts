@@ -1,6 +1,6 @@
 import { registerGame } from '../game-registry';
 import { WordWritingConfigPanel } from '../../components/config/WordWritingConfigPanel';
-import { WordWritingPlayer } from '../../components/players/WordWritingPlayer';
+import { KoreanWordWritingPlayer } from '../../components/players/KoreanWordWritingPlayer';
 
 registerGame({
   id: 'korean-word-writing',
@@ -24,6 +24,7 @@ registerGame({
     accuracyThreshold: 0.7,
   },
   ConfigPanel: WordWritingConfigPanel,
-  PlayerComponent: WordWritingPlayer,
+  // paint 모드 (LetterFillCanvas) — 글자 영역 채움 비율로 통과 판정. 한글 폰트 fidelity 100%.
+  PlayerComponent: KoreanWordWritingPlayer,
   language: 'ko',
 });

@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { LetterWritingCanvas } from '@/features/phonics/components/LetterWritingCanvas';
+import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { resolveTtsUrl } from '@/features/tts';
@@ -109,12 +109,12 @@ export function VowelWriteActivity({ unitId, vowels, onComplete, onBack }: Props
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 text-center mb-4">
           ✏️ <span className="text-coral-600">{vowels[currentIdx].syllable}</span> 를 따라써봐!
         </h2>
-        <LetterWritingCanvas
+        <LetterFillCanvas
           key={`${currentIdx}-${vowels[currentIdx].syllable}`}
           letter={vowels[currentIdx].syllable}
           onResult={handleResult}
           autoCheck
-          threshold={35}
+          threshold={0.95}
         />
       </div>
 

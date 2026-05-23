@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
-import { LetterWritingCanvas } from '@/features/phonics/components/LetterWritingCanvas';
+import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import type { Storybook } from '@tangobook/shared';
 
 interface Props {
@@ -84,11 +84,9 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
     onBack,
   ]);
 
-  // 캔버스 결과 콜백 — 각 캔버스가 자기 (which) 만 마킹.
+  // 캔버스 통과 콜백 — LetterFillCanvas paint mode, threshold 도달 시 onResult(true) 호출.
   //   1) 통과 시 그 글자의 랜덤 단어 TTS 재생 (예: 'a a apple').
   //   2) advance 판정은 useEffect 가 단일 source (race 무관).
-  // LetterWritingCanvas 내부의 정답 효과음 (correctSoundUrl) 과 거의 동시에 울리지만
-  // useGameAudio 의 playAudio 는 부드럽게 chain (앞 효과음 짧음, 단어 TTS 가 메인).
   const handleResult = useCallback(
     (which: 'upper' | 'lower') => (ok: boolean) => {
       if (!currentLetter || !ok) return;
@@ -98,11 +96,10 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
         if (cur[which]) return prev; // 이미 통과
         return { ...prev, [currentLetter]: { ...cur, [which]: true } };
       });
-      // 신규 통과만 단어 TTS 재생. 짧은 지연으로 LetterWritingCanvas 의 정답 효과음 끝나고 흐름.
       if (!alreadyPassed) {
         const url = pickRandomWordTts(currentIdx);
         if (url) {
-          setTimeout(() => playAudio(url), 350);
+          setTimeout(() => playAudio(url), 200);
         }
       }
     },
@@ -199,13 +196,12 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
                 <span className="text-mint-500 text-xl sm:text-2xl font-black">✓ 통과</span>
               )}
             </div>
-            <LetterWritingCanvas
+            <LetterFillCanvas
               key={`upper-${currentLetter}`}
               letter={currentUpper}
-              autoCheck
-              correctSoundUrl={systemSounds?.correctUrl}
-              incorrectSoundUrl={systemSounds?.incorrectUrl}
               onResult={handleResult('upper')}
+              autoCheck
+              threshold={0.95}
             />
           </div>
           {/* 소문자 */}
@@ -218,13 +214,12 @@ export function AlphabetLetterWriteActivity({ unitId, letters, onMarkComplete, o
                 <span className="text-mint-500 text-xl sm:text-2xl font-black">✓ 통과</span>
               )}
             </div>
-            <LetterWritingCanvas
+            <LetterFillCanvas
               key={`lower-${currentLetter}`}
               letter={currentLower}
-              autoCheck
-              correctSoundUrl={systemSounds?.correctUrl}
-              incorrectSoundUrl={systemSounds?.incorrectUrl}
               onResult={handleResult('lower')}
+              autoCheck
+              threshold={0.95}
             />
           </div>
         </div>

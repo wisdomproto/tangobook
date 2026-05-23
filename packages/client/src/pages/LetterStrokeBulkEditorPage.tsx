@@ -23,7 +23,12 @@ const ALPHABET_LOWER = 'abcdefghijklmnopqrstuvwxyz'.split('');
 const GRID_STEP = 0.025;
 const POINT_HIT_RADIUS = 0.045;
 const LETTER_FILL = '#d4d4d8';
-const FONT_FAMILY = 'system-ui, sans-serif';
+const FONT_FAMILY_EN = 'system-ui, sans-serif';
+const FONT_FAMILY_KO = "'NanumSquareRound', 'NanumSquare', system-ui, sans-serif";
+const HANGUL_RE = /[ㄱ-ㆎ가-힣]/;
+function detectFontFamily(letter: string): string {
+  return HANGUL_RE.test(letter) ? FONT_FAMILY_KO : FONT_FAMILY_EN;
+}
 const STROKE_COLORS = ['#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
 const MAX_HISTORY = 50;
 
@@ -330,7 +335,7 @@ export default function LetterStrokeBulkEditorPage() {
   );
 }
 
-function SectionLabel({ title, count }: { title: string; count: number }) {
+export function SectionLabel({ title, count }: { title: string; count: number }) {
   return (
     <div className="mb-3 mt-6 text-xs font-bold text-slate-400 uppercase tracking-wider">
       {title} <span className="text-slate-500">({count})</span>
@@ -338,7 +343,7 @@ function SectionLabel({ title, count }: { title: string; count: number }) {
   );
 }
 
-interface CellEntry {
+export interface CellEntry {
   letter: string;
   data: LetterTracingData;
 }
@@ -380,7 +385,7 @@ function Grid({
   );
 }
 
-function LetterCell({
+export function LetterCell({
   entry,
   isDirty,
   onUpdate,
@@ -405,7 +410,8 @@ function LetterCell({
     const rect = svgRef.current!.getBoundingClientRect();
     return {
       x: Math.max(0, Math.min(1, (clientX - rect.left) / rect.width)),
-      y: Math.max(0, Math.min(1, (clientY - rect.top) / rect.height)),
+      // viewBox y 0~1.2 — element 비율 5:6 안에서 y 도 1.2 로 스케일
+      y: Math.max(0, Math.min(1.2, ((clientY - rect.top) / rect.height) * 1.2)),
     };
   }, []);
 
@@ -492,40 +498,47 @@ function LetterCell({
       </div>
       <svg
         ref={svgRef}
-        viewBox="0 0 1 1"
+        viewBox="0 0 1 1.2"
         preserveAspectRatio="none"
         className="w-full bg-slate-100 rounded touch-none"
-        style={{ aspectRatio: '1 / 1', cursor: drag ? 'grabbing' : 'grab' }}
+        style={{ aspectRatio: '5 / 6', cursor: drag ? 'grabbing' : 'grab' }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
       >
-        {/* 그리드 */}
+        {/* 그리드 — viewBox y 1.2 (descender 영역 포함) */}
         <g opacity={0.25}>
           {Array.from({ length: 41 }, (_, i) => {
             const v = i * GRID_STEP;
             const isCenter = Math.abs(v - 0.5) < 1e-6;
             const isMajor = i % 5 === 0;
             return (
-              <g key={`g${i}`}>
-                <line
-                  x1={v}
-                  y1={0}
-                  x2={v}
-                  y2={1}
-                  stroke={isCenter ? '#94a3b8' : isMajor ? '#a8b3c1' : '#cbd5e1'}
-                  strokeWidth={isCenter ? 0.003 : isMajor ? 0.0015 : 0.0008}
-                />
-                <line
-                  x1={0}
-                  y1={v}
-                  x2={1}
-                  y2={v}
-                  stroke={isCenter ? '#94a3b8' : isMajor ? '#a8b3c1' : '#cbd5e1'}
-                  strokeWidth={isCenter ? 0.003 : isMajor ? 0.0015 : 0.0008}
-                />
-              </g>
+              <line
+                key={`v${i}`}
+                x1={v}
+                y1={0}
+                x2={v}
+                y2={1.2}
+                stroke={isCenter ? '#94a3b8' : isMajor ? '#a8b3c1' : '#cbd5e1'}
+                strokeWidth={isCenter ? 0.003 : isMajor ? 0.0015 : 0.0008}
+              />
+            );
+          })}
+          {Array.from({ length: 49 }, (_, i) => {
+            const v = i * GRID_STEP;
+            const isCenter = Math.abs(v - 0.5) < 1e-6;
+            const isMajor = i % 5 === 0;
+            return (
+              <line
+                key={`h${i}`}
+                x1={0}
+                y1={v}
+                x2={1}
+                y2={v}
+                stroke={isCenter ? '#94a3b8' : isMajor ? '#a8b3c1' : '#cbd5e1'}
+                strokeWidth={isCenter ? 0.003 : isMajor ? 0.0015 : 0.0008}
+              />
             );
           })}
         </g>
@@ -538,7 +551,7 @@ function LetterCell({
           fill={LETTER_FILL}
           fontSize="0.85"
           fontWeight="900"
-          fontFamily={FONT_FAMILY}
+          fontFamily={detectFontFamily(entry.letter)}
         >
           {entry.letter}
         </text>

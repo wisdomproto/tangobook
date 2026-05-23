@@ -7,7 +7,13 @@ const PEN_COLOR = '#10b981'; // 사용자 stroke 선 (emerald)
 const PEN_INVALID_COLOR = '#cbd5e1'; // 무효 stroke (slate-300) — pointer-up 후 페이드
 const DOT_FILL = '#f59e0b'; // amber — 아직 안 통과한 stroke 의 점
 const DOT_TAPPED_FILL = '#10b981'; // emerald — 통과한 stroke 의 점
-const FONT_FAMILY = 'system-ui, sans-serif';
+const FONT_FAMILY_EN = 'system-ui, sans-serif';
+const FONT_FAMILY_KO = "'NanumSquareRound', 'NanumSquare', system-ui, sans-serif";
+/** 한글 자모(U+3131~U+318E) + 한글 음절(U+AC00~U+D7A3) 매칭 — 한글이면 NanumSquareRound. */
+const HANGUL_RE = /[ㄱ-ㆎ가-힣]/;
+function detectFontFamily(letter: string): string {
+  return HANGUL_RE.test(letter) ? FONT_FAMILY_KO : FONT_FAMILY_EN;
+}
 
 // 점 hit 반경 (정규화 좌표). 손가락 두께 + 글자 stroke 두께 보상.
 const HIT_RADIUS = 0.13;
@@ -55,6 +61,10 @@ export function LetterTracingCanvas({ letter, strokes, enforceOrder = true, onCo
   const currentDrawRef = useRef<DrawnStroke | null>(null);
   const completedIdxSetRef = useRef<Set<number>>(new Set());
   const currentIdxRef = useRef(0);
+  // 통과한 점 key set — 새 통과 시점 감지해서 beep 재생용
+  const passedPointKeysRef = useRef<Set<string>>(new Set());
+  // Web Audio context — 점 통과 시 짧은 beep
+  const audioCtxRef = useRef<AudioContext | null>(null);
 
   // letter / strokes / enforceOrder 변경 시 reset
   useEffect(() => {
@@ -66,7 +76,35 @@ export function LetterTracingCanvas({ letter, strokes, enforceOrder = true, onCo
     currentDrawRef.current = null;
     completedIdxSetRef.current = new Set();
     currentIdxRef.current = 0;
+    passedPointKeysRef.current = new Set();
   }, [letter, strokes, enforceOrder]);
+
+  // 짧은 beep — 점 통과 시 즉각 피드백 (Web Audio API, ~80ms sine)
+  const playPointBeep = useCallback(() => {
+    try {
+      if (!audioCtxRef.current) {
+        const AudioCtor =
+          window.AudioContext ||
+          (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        if (!AudioCtor) return;
+        audioCtxRef.current = new AudioCtor();
+      }
+      const ctx = audioCtxRef.current;
+      if (ctx.state === 'suspended') ctx.resume();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.1);
+    } catch {
+      /* no-op */
+    }
+  }, []);
 
   // 통과한 stroke 인덱스 set (점 색 변화용)
   const completedIdxSet = useMemo(() => {
@@ -79,6 +117,26 @@ export function LetterTracingCanvas({ letter, strokes, enforceOrder = true, onCo
   // ref 동기화 — pointer up 콜백에서 stale 없이 읽기 위함
   completedIdxSetRef.current = completedIdxSet;
   currentIdxRef.current = currentIdx;
+
+  // currentDraw 변경 시 새로 통과한 점 감지 → beep 재생.
+  // pointer-down 직후 첫 점 hit + drawing 중 path 가 추가 점 통과 둘 다 잡힘.
+  useEffect(() => {
+    if (!currentDraw || currentDraw.status !== 'drawing') return;
+    let newPasses = 0;
+    for (let si = 0; si < strokes.length; si++) {
+      if (completedIdxSet.has(si)) continue;
+      const stroke = strokes[si];
+      for (let pi = 0; pi < stroke.points.length; pi++) {
+        const key = `${si}-${pi}`;
+        if (passedPointKeysRef.current.has(key)) continue;
+        if (pathPassesNear(currentDraw.pts, stroke.points[pi], HIT_RADIUS)) {
+          passedPointKeysRef.current.add(key);
+          newPasses++;
+        }
+      }
+    }
+    if (newPasses > 0) playPointBeep();
+  }, [currentDraw, strokes, completedIdxSet, playPointBeep]);
 
   // 현재 stroke 의 가이드 점 idx — 다음 그릴 점.
   // drawing 중 통과한 점 중 가장 큰 idx + 1 = 다음 점. drawing 안 함 → 0 (첫 점).
@@ -103,7 +161,8 @@ export function LetterTracingCanvas({ letter, strokes, enforceOrder = true, onCo
     const rect = containerRef.current!.getBoundingClientRect();
     return {
       x: (e.clientX - rect.left) / rect.width,
-      y: (e.clientY - rect.top) / rect.height,
+      // viewBox y 범위가 0~1.2 (descender 영역 포함) — element 비율 5:6 안에서 y 도 1.2 로 스케일
+      y: ((e.clientY - rect.top) / rect.height) * 1.2,
     };
   }, []);
 
@@ -138,6 +197,8 @@ export function LetterTracingCanvas({ letter, strokes, enforceOrder = true, onCo
       (e.target as HTMLElement).setPointerCapture(e.pointerId);
       const n = toNorm(e);
       drawingRef.current = true;
+      // 새 stroke 시작 — 이전 통과 점 키 초기화 (새 점 hit 시 beep)
+      passedPointKeysRef.current = new Set();
       updateCurrentDraw({ pts: [n], status: 'drawing', matchedStrokeIdx: null });
     },
     [strokes, toNorm, updateCurrentDraw]
@@ -212,7 +273,7 @@ export function LetterTracingCanvas({ letter, strokes, enforceOrder = true, onCo
       ref={containerRef}
       className="relative select-none bg-white rounded-2xl border-2 border-slate-200 mx-auto w-full"
       style={{
-        aspectRatio: '1 / 1',
+        aspectRatio: '5 / 6',
         cursor: completedRef.current || strokes.length === 0 ? 'default' : 'crosshair',
         touchAction: 'none',
       }}
@@ -224,7 +285,7 @@ export function LetterTracingCanvas({ letter, strokes, enforceOrder = true, onCo
     >
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none"
-        viewBox="0 0 1 1"
+        viewBox="0 0 1 1.2"
         preserveAspectRatio="none"
       >
         {/* 큰 글자 배경 */}
@@ -236,7 +297,7 @@ export function LetterTracingCanvas({ letter, strokes, enforceOrder = true, onCo
           fill={LETTER_FILL}
           fontSize="0.85"
           fontWeight="900"
-          fontFamily={FONT_FAMILY}
+          fontFamily={detectFontFamily(letter)}
         >
           {letter}
         </text>
@@ -348,12 +409,19 @@ export function LetterTracingCanvas({ letter, strokes, enforceOrder = true, onCo
   );
 }
 
-// drawnPath (선분 chain) 의 어느 선분이 target 점에 radius 이내로 접근하는가
+// drawnPath (선분 chain) 의 어느 선분이 target 점에 radius 이내로 접근하는가.
+// length 1 (pointer-down 직후 점 하나만) 케이스도 그 점이 target 근처인지 직접 확인 — 첫 점 hit 즉시 인식.
 function pathPassesNear(
   drawnPath: { x: number; y: number }[],
   target: { x: number; y: number },
   radius: number
 ): boolean {
+  if (drawnPath.length === 0) return false;
+  if (drawnPath.length === 1) {
+    const dx = drawnPath[0].x - target.x;
+    const dy = drawnPath[0].y - target.y;
+    return Math.sqrt(dx * dx + dy * dy) <= radius;
+  }
   for (let i = 1; i < drawnPath.length; i++) {
     const a = drawnPath[i - 1];
     const b = drawnPath[i];

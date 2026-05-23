@@ -33,6 +33,7 @@ import vocabularyUnitRoutes from './routes/vocabulary-unit.routes.js';
 import libraryConfigRoutes from './routes/library-config.routes.js';
 import vocabOverridesRoutes from './routes/vocab-overrides.routes.js';
 import letterStrokeLibraryRoutes from './routes/letter-stroke-library.routes.js';
+import koreanJamoStrokeLibraryRoutes from './routes/korean-jamo-stroke-library.routes.js';
 
 export function createApp() {
   const app = express();
@@ -91,6 +92,7 @@ export function createApp() {
   app.use('/api/library-config', libraryConfigRoutes);
   app.use('/api/vocab-overrides', vocabOverridesRoutes);
   app.use('/api/letter-stroke-library', letterStrokeLibraryRoutes);
+  app.use('/api/korean-jamo-stroke-library', koreanJamoStrokeLibraryRoutes);
 
   // R2 프록시 — pub-xxx.r2.dev CORS 미지원 우회
   // GET /api/r2-proxy?key=storybooks/xxx/scene.mp4

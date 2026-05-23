@@ -2,8 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import type { Storybook } from '@tangobook/shared';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
-import { LetterTracingCanvas } from './LetterTracingCanvas';
-import { useLetterStrokeLibrary, getLetterTracingData } from '../hooks/useLetterStrokeLibrary';
+import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 
 interface Props {
   storybook: Storybook;
@@ -23,18 +22,9 @@ interface Props {
  * - ✕ 클릭으로 언제든 닫기 가능.
  */
 export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose }: Props) {
-  const blending = storybook.phonicsLesson?.blending?.[letterIndex];
   const wordFamily = storybook.phonicsLesson?.wordFamilies?.[letterIndex];
   const upper = activeLetter.toUpperCase();
   const lower = activeLetter.toLowerCase();
-  // 글로벌 letter-stroke library 우선, 없으면 책 inline (legacy) fallback
-  const { data: library } = useLetterStrokeLibrary();
-  const upperData = getLetterTracingData(library, upper, blending?.letterTracingUpper);
-  const lowerData = getLetterTracingData(library, lower, blending?.letterTracingLower);
-  const upperStrokes = upperData?.strokes ?? [];
-  const lowerStrokes = lowerData?.strokes ?? [];
-  const upperEnforceOrder = upperData?.enforceOrder ?? true;
-  const lowerEnforceOrder = lowerData?.enforceOrder ?? true;
 
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const [passed, setPassed] = useState<{ upper: boolean; lower: boolean }>({
@@ -50,7 +40,8 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
   }, [wordFamily]);
 
   const handleComplete = useCallback(
-    (which: 'upper' | 'lower') => () => {
+    (which: 'upper' | 'lower') => (passed: boolean) => {
+      if (!passed) return;
       setPassed((prev) => {
         if (prev[which]) return prev;
         return { ...prev, [which]: true };
@@ -114,12 +105,12 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
                 <span className="text-mint-500 text-xl sm:text-2xl font-black">✓ 통과</span>
               )}
             </div>
-            <LetterTracingCanvas
+            <LetterFillCanvas
               key={`upper-${letterIndex}`}
               letter={upper}
-              strokes={upperStrokes}
-              enforceOrder={upperEnforceOrder}
-              onComplete={handleComplete('upper')}
+              onResult={handleComplete('upper')}
+              autoCheck
+              threshold={0.95}
             />
           </div>
           {/* 소문자 */}
@@ -132,18 +123,18 @@ export function LetterWriteModal({ storybook, letterIndex, activeLetter, onClose
                 <span className="text-mint-500 text-xl sm:text-2xl font-black">✓ 통과</span>
               )}
             </div>
-            <LetterTracingCanvas
+            <LetterFillCanvas
               key={`lower-${letterIndex}`}
               letter={lower}
-              strokes={lowerStrokes}
-              enforceOrder={lowerEnforceOrder}
-              onComplete={handleComplete('lower')}
+              onResult={handleComplete('lower')}
+              autoCheck
+              threshold={0.95}
             />
           </div>
         </div>
 
         <p className="text-sm sm:text-base font-bold text-ink-500 text-center mt-4">
-          점을 순서대로 따라가면 글자가 완성돼요!
+          글자 안을 색칠해봐!
         </p>
 
         <FeedbackOverlay kind="correct" visible={praiseVisible} />

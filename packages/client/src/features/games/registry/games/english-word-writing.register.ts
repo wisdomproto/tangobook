@@ -1,6 +1,6 @@
 import { registerGame } from '../game-registry';
 import { WordWritingConfigPanel } from '../../components/config/WordWritingConfigPanel';
-import { WordWritingPlayer } from '../../components/players/WordWritingPlayer';
+import { EnglishWordWritingPlayer } from '../../components/players/EnglishWordWritingPlayer';
 
 registerGame({
   id: 'english-word-writing',
@@ -24,6 +24,7 @@ registerGame({
     accuracyThreshold: 0.7,
   },
   ConfigPanel: WordWritingConfigPanel,
-  PlayerComponent: WordWritingPlayer,
+  // 영어는 글로벌 letter-stroke-library 기반 stroke 채점 — 한글은 기존 canvas pixel 채점 유지
+  PlayerComponent: EnglishWordWritingPlayer,
   language: 'en',
 });

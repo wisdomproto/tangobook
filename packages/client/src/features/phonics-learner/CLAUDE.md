@@ -133,16 +133,20 @@ Book 1 데이터 정리 (2026-05-21):
 - `rawScore = coverage * (0.4 + 0.6 * proximity)` — coverage 가 main driver, proximity 는 multiplier
 - 점 1개 → coverage 0.01 → 1.5%, 적당히 그림 (coverage 40%) → 35% 정도. CvcPatternLearn Phase C threshold 20 으로 lenient.
 
-## LetterTracingCanvas — stroke 단위 채점 (2026-05-22)
+## 글자쓰기 채점 = Paint mode (`LetterFillCanvas`, 2026-05-22)
 
-`LetterWriteModal` (AlphabetLetterLearnActivity 안 "Aa 써보기" 모달) 이 사용. `LetterWritingCanvas` (glyph coverage proximity 채점) 와 **별개** — stroke 단위 점 통과로 채점.
+**모든 쓰기 활동이 `LetterFillCanvas` (paint mode) 통일** — 한글/영어 동일 시스템. 자세한 시스템은 루트 CLAUDE.md "글자 쓰기 채점 시스템" 섹션.
 
-- props: `letter`, `strokes: TracingStroke[]`, `enforceOrder?: boolean` (default true), `onComplete`
-- pointer-down→up 한 번 = 한 stroke. 그 안에서 stroke 의 **모든 점을 path 가 통과**하면 매칭 (시작/끝 위치 강제 X).
-- enforceOrder=true: 현재 차례 stroke 점만 노출 + 다음 그릴 점 (currentGuidePi) pulse. drawing 진행에 따라 가이드 자동 이동.
-- enforceOrder=false: 어떤 stroke 부터 그려도 OK. 모든 점 동시 amber.
-- 그리는 도중 path 가 점 지나가면 즉시 emerald. 무효 stroke 은 회색 페이드 500ms 후 사라짐.
-- 데이터: 글로벌 `useLetterStrokeLibrary` hook 우선, fallback `storybook.phonicsLesson.blending[i].letterTracingUpper/Lower` (legacy). 자세한 시스템은 루트 CLAUDE.md "알파벳 stroke 따라쓰기 시스템" 섹션 참고.
+영어 stroke library (`LetterTracingCanvas`) 시스템은 deprecated/keep — 학습자 활동에 통합 안 됨. 미래 자모 단위 학습 활동용으로 인프라 보관.
+
+적용처 (영어 + 한글 모두 LetterFillCanvas):
+
+- `LetterWriteModal` (AlphabetLetterLearnActivity 안 "Aa 써보기" 모달)
+- `AlphabetLetterWriteActivity` (Book 1 ABC 써보기)
+- `CvcPatternLearnActivity` Phase C (Book 2 CVC 단어 안 글자별 쓰기)
+- `VowelWriteActivity` / `ConsonantWriteActivity` (한글 모음/자음)
+
+threshold 0.95 통일 — `LINE_WIDTH=60` 두꺼운 펜이라 도달 쉬움. 폰트 fidelity 100%.
 
 ## 한글 블록 쉬움 모드 (2026-05-20)
 

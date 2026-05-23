@@ -117,49 +117,48 @@ features/{name}/{api,hooks,components,index.ts}
 - **그림체 dropdown swap (LevelEditCard)**: 활성 chip 옆 `▼ 그림체 변경` select — 라이브러리 16 preset 전체 노출 (현재 ✓ / 추가됨 표기). 선택 시 availableStyles 에 있으면 즉시 swap, 없으면 추가 확인 모달. `findArtStylePreset(value, lib?)` 시그니처 변경 — R2 라이브러리 라벨 우선 (사용자 편집 이름 적용).
 - **server fix (r2.repository.ts normalizeStorybook)**: `keyObjectImages[]` 에 `null` entry 있던 일부 책 (e.g. 헨젤과 그레텔*) 이 silent catch 로 404 → null 필터링 추가. `getStorybook` catch 에 error log 추가 (silent swallow 방지).
 
-## 알파벳 stroke 따라쓰기 시스템 (2026-05-22)
+## 글자 쓰기 채점 시스템 (2026-05-22)
 
-영어 글자 따라쓰기를 자유 stroke (점 통과 only) 에서 **stroke 단위 채점** 으로 전환.
+**모든 글자/단어 쓰기 = `LetterFillCanvas` (paint mode)** — 영어/한글/일본어 일관.
 
-### 데이터 모델 (shared types)
-- `TracingStroke = { type: 'line' | 'bend' | 'loop'; points: TracingPoint[] }`
-  - `line`: 2점 (start, end). `bend`: 3점 (시작/중간 꺾임/끝). `loop`: 3+점 (start = end + 중간 N개).
-- `LetterTracingData = { strokes: TracingStroke[]; enforceOrder?: boolean }` (default true)
-- `LetterStrokeLibrary = { version: 1; updatedAt; letters: Record<letter, LetterTracingData> }`
+### Paint mode (`LetterFillCanvas`)
+- 글자 회색 fill (NanumSquareRound 한글 / system-ui 영어 — 폰트 자동 감지)
+- 사용자 stroke `globalCompositeOperation: 'source-atop'` → **글자 영역 안만 emerald painted**, 글자 밖은 자동 무시
+- `coverage` = (painted 픽셀) / (글자 mask 픽셀) — getImageData 로 계산
+- `LINE_WIDTH=60` 매우 두꺼운 펜 + `threshold=0.95` (95% 채우면 통과) — 두꺼운 펜이라 도달 쉬움
+- `autoCheck` 모드 — threshold 도달 시 자동 onResult(true)
+- 진척 바: `67% / 목표 95%` 실시간 표시
+- **폰트 fidelity 100%** — 폰트와 100% 일치 (어떤 언어든 그 폰트 그대로 채점)
 
-### 글로벌 letter-stroke-library
-- R2 `_index/letter-stroke-library.json` — 영어 알파벳 A-Z, a-z **52 글자 한 곳**.
-- 서버 `GET/PUT /api/letter-stroke-library` (**merge mode** — partial PUT 안전, 나머지 글자 보존).
-- 모든 영어 학습 컨텐츠 (phonics / 미래 어휘 / 단어쓰기) 가 같은 라이브러리 참조.
-- 점 좌표 정규화 (0~1) → 글자 크기 무관, viewBox 안에서 비율 그대로 적용.
-- client hook: `useLetterStrokeLibrary` (TanStack Query, 5분 캐시) + `getLetterTracingData(lib, letter, fallback)`.
+적용 (모든 글자쓰기):
+- **영어**: `LetterWriteModal` (Aa 써보기) / `AlphabetLetterWriteActivity` (Book 1 ABC) / `CvcPatternLearnActivity` Phase C (Book 2 CVC) / `EnglishWordWritingPlayer` (영어 단어쓰기 게임)
+- **한글**: `VowelWriteActivity` / `ConsonantWriteActivity` / `KoreanWordWritingPlayer` (한글 단어쓰기 게임)
 
-### 학습자 채점 (`LetterTracingCanvas`)
-- pointer-down→up 한 번 = 한 stroke 시도. **stroke 의 모든 점을 한 번에 통과**하면 매칭. 시작/끝 위치 강제 X, 점 통과 only.
-- `enforceOrder=true` (default): strokes[0]→[1]→... 순서 강제 + **현재 차례 stroke 점만 노출** (미래 stroke 점 hide).
-- 현재 stroke 의 다음 그릴 점 (`currentGuidePi`) 만 큰 amber + ring pulse — drawing 중 통과한 점에 따라 자동 이동.
-- 그리는 도중 path 가 점 지나가는 순간 즉시 emerald (실시간 시각 피드백). 무효 stroke 은 회색 페이드 500ms 후 사라짐.
-- `enforceOrder=false`: 자유 순서. 모든 점 동시 amber. 어떤 stroke 부터 그려도 OK.
-- `drawingRef`/`currentDrawRef`/`completedIdxSetRef` ref 패턴으로 pointer move/up 콜백 stale closure 방지.
+데모 페이지: **`/letter-fill-demo`** (TopBar 자료실 🎨) — 한/영/일 글자 다양하게 검증.
 
-### bulk editor 페이지
-- **`/letter-stroke-editor`** — TopBar 자료실 dropdown 🔠. 52 글자 한 페이지 grid + 점 드래그 (snap-to-grid 0.025).
-- 글자 헤더 더블클릭 또는 chip `+ 추가/편집` → `LetterTracingPointEditorModal` (stroke 추가/제거/type 변경/순서 강제 토글/미리보기) — 즉시 R2 PUT (한 글자 partial).
-- chip 클릭 = 그 stroke 선택 (겹친 점 잡기, hit-test 그 stroke 만) / chip ✕ = stroke 삭제.
-- **Ctrl+Z 되돌리기** (history stack, 50 entry FIFO). drag/삭제/모달 저장 모두 추적.
-- **beforeunload 경고** + 저장 성공 `✓ 저장됨` 3초 표시 — 변경 손실 방지.
+### Paint mode 도입 배경
+영어는 Zaner-Bloser stroke library 가능했지만, 한글은 본질 문제:
+- 자모 형태가 위치별 (cho/jung/jong) × 받침 유무 × 모음 방향으로 다 다름
+- 폰트 디자이너가 음절 단위로 자모 미세 조정 (곡 vs 골 의 cho ㄱ 도 다름)
+- 4 variant 시스템도 부족 — 실질 폰트 디자이너 작업
+→ pixel 채점 (폰트 그대로) 이 정답. 영어도 통일.
 
-### 저작 모달 (`LetterTracingPointEditorModal`)
-- 상단 toolbar: stroke type 셀렉터 (line/bend/loop) + "순서 강제" 체크박스 (default true).
-- 캔버스 위 **그리드 라인 표시** (40×40, 0.025 간격) + 중심선 강조. snap-to-grid 적용.
-- 빈 곳 클릭 = pending 에 점 추가 / 기존 점 위 드래그 없이 누르고 떼기 = 같은 자리에 새 점 추가 (B 의 stroke 1 끝 = stroke 2 시작 같이 겹친 점 가능).
-- stroke 리스트 행 클릭 = 그 stroke 선택 (겹친 점 잡기, 다른 stroke 25% 흐림 + hit-test 제한).
-- 점 사이즈는 학습자 화면과 동일 (outer 0.034 / fill 0.028) — 실제 보일 크기 그대로 작업.
-- 헤더 fixed + 본문 scrollable + 캔버스 `maxWidth: min(380px, 50vh)` — 한 화면에 다 들어감.
+### Stroke library 시스템 (deprecated, keep)
+영어용 stroke library 인프라는 미래 자모 단위 학습 활동용으로 보관 — 학습자 통합 X.
+- `TracingStroke = { type: 'line' | 'bend' | 'loop'; points }`, `LetterTracingData`, `LetterStrokeLibrary`
+- R2 `_index/letter-stroke-library.json` (영어) / `korean-jamo-stroke-library.json` (한글 자모 variants)
+- `composeKoreanSyllable(syl, jamoLib)` — 자모 variant 4 케이스 박스 합성
+- 서버 `GET/PUT /api/letter-stroke-library` + `/api/korean-jamo-stroke-library` (merge mode)
+- 클라 hook: `useLetterStrokeLibrary` / `useKoreanJamoStrokeLibrary` (5분 캐시)
+- 편집 페이지: `/letter-stroke-editor` (영어 52 글자) + `/korean-jamo-stroke-editor` (한글 자모 51 × variants)
+- 학습자 캔버스: `LetterTracingCanvas` (stroke 단위 채점, 점 통과 + 순서 강제 옵션 + Web Audio beep)
+- 저작 모달: `LetterTracingPointEditorModal` (snap-to-grid 0.025 + stroke 추가/제거/type 변경 + 미리보기)
+- seed: `seed-letter-stroke-library.mjs` (영어, Zaner-Bloser) / `seed-korean-jamo-stroke-library.mjs` (한글 자모 variants)
 
-### Seed 스크립트
-- `seed-letter-stroke-library.mjs --apply` — 52 글자 stroke 정의 (Zaner-Bloser block letter + a 패턴 line+bend 분리) + INSET 0.07 mapCap 변환 → R2 PUT.
-- `seed-letter-tracing-strokes-book1.mjs` (legacy book inline 모델, deprecated — global library 우선).
+미래 활용:
+- 자모 단독 학습 활동 (예: ㄱ 모양 익히기)
+- 영어 알파벳 stroke order 가르치는 활동
+- 그 외 stroke 단위 채점이 필요한 경우
 
 ## 블록 게임 레벨 선택 + 공유 (2026-05-11)
 - 사이드바 sub-button: "한글 블록 게임" / "알파벳 블록 게임" 라벨 + 옆에 📤 공유 버튼 (Web Share API + clipboard fallback).

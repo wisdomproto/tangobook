@@ -78,6 +78,20 @@ const RESOURCES: ResourceItem[] = [
     internal: true,
   },
   {
+    href: '/korean-jamo-stroke-editor',
+    icon: '🇰🇷',
+    label: '한글 자모 stroke 편집',
+    desc: '자모 ~51 base + 음절 자동 합성',
+    internal: true,
+  },
+  {
+    href: '/letter-fill-demo',
+    icon: '🎨',
+    label: 'Paint Mode 데모',
+    desc: '글자 색칠 채점 시각화 (한/영/일)',
+    internal: true,
+  },
+  {
     href: '/design-system.html',
     icon: '🎨',
     label: '디자인 시스템',

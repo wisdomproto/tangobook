@@ -195,6 +195,61 @@ export interface LetterStrokeLibrary {
 }
 
 /**
+ * 한글 자모의 위치별 variant 키.
+ *
+ * 한글 폰트는 자모 형태가 위치 (cho/jung/jong) × 받침 유무 × 모음 방향에 따라 다르다.
+ * 자모 단일 base 만으로는 폰트 fidelity 부족 → 자모마다 variant 별 stroke 정의.
+ *
+ * 자음:
+ *   - `cho-horiz-noJong` — 수평 모음(ㅏㅑㅓㅕㅐㅔㅒㅖㅣ) + 받침 X (예: 가, 거, 베)
+ *   - `cho-horiz-hasJong` — 수평 모음 + 받침 O (예: 각, 검, 별)
+ *   - `cho-vert-noJong` — 수직 모음(ㅗㅛㅜㅠㅡ) + 받침 X (예: 고, 구, 도)
+ *   - `cho-vert-hasJong` — 수직 모음 + 받침 O (예: 국, 굴, 돈)
+ *   - `jong` — 종성 (예: 각의 받침 ㄱ)
+ *
+ * 모음:
+ *   - `vowel-noJong` — 받침 X (예: 가의 ㅏ)
+ *   - `vowel-hasJong` — 받침 O (예: 각의 ㅏ)
+ */
+export type KoreanJamoVariantKey =
+  | 'cho-horiz-noJong'
+  | 'cho-horiz-hasJong'
+  | 'cho-vert-noJong'
+  | 'cho-vert-hasJong'
+  | 'jong'
+  | 'vowel-noJong'
+  | 'vowel-hasJong';
+
+/** 자모 한 종류 (예: 'ㄱ') 의 variant 별 stroke 데이터 모음. */
+export interface KoreanJamoEntry {
+  /** variant 키 → stroke 데이터. 일부만 정의된 경우 fallback (다른 variant 또는 빈 strokes). */
+  variants: Partial<Record<KoreanJamoVariantKey, LetterTracingData>>;
+}
+
+/**
+ * 한글 자모 stroke 라이브러리 — R2 `_index/korean-jamo-stroke-library.json`.
+ *
+ * 한글 음절은 11,172 (사실상 ~3000 빈도) 종류 — 모두 정의 불가능.
+ * 자모 ~51 종 × variant (자음 5, 모음 2) base stroke 만 정의하고, `composeKoreanSyllable()` 가
+ * 음절을 분해 + 박스 분할 + 자모 stroke transform 으로 자동 합성한다.
+ *
+ * 키 (jamo) 종류:
+ *   - 단자음 14: ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅅ ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ
+ *   - 쌍자음 5: ㄲ ㄸ ㅃ ㅆ ㅉ
+ *   - 겹받침 11: ㄳ ㄵ ㄶ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅄ
+ *   - 단모음 10: ㅏ ㅑ ㅓ ㅕ ㅗ ㅛ ㅜ ㅠ ㅡ ㅣ
+ *   - 복모음 11: ㅐ ㅒ ㅔ ㅖ ㅘ ㅙ ㅚ ㅝ ㅞ ㅟ ㅢ
+ *
+ * 각 자모 variant 는 0~1 정규화 좌표. 합성 시 음절 박스 (cho/jung/jong) 의 sub-box 로 transform.
+ */
+export interface KoreanJamoStrokeLibrary {
+  version: 1;
+  updatedAt: string;
+  /** 키 = 자모 (예: 'ㄱ', 'ㅏ'), 값 = 자모의 variant별 stroke 모음. */
+  jamo: Record<string, KoreanJamoEntry>;
+}
+
+/**
  * 글자 하나(대문자 또는 소문자) 의 따라쓰기 데이터.
  * - `strokes`: stroke 목록
  * - `enforceOrder`: true 면 strokes[0]→[1]→[2] 순서대로 그려야 통과. false 면 어느 stroke 든 먼저 그려도 OK.

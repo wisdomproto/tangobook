@@ -21,6 +21,19 @@ export type { AudiobookSlideData, AudiobookRenderData } from './utils/audiobook-
 export { getEffectiveVocabulary } from './utils/effective-vocabulary.js';
 export { getWordHotspots } from './utils/hotspots.js';
 export {
+  composeKoreanSyllable,
+  decomposeKoreanSyllable,
+  chooseSyllableLayout,
+  variantKeyFor,
+  lookupJamoVariant,
+  isVowelJamo,
+  variantsForJamo,
+  VARIANT_LABELS,
+  KOREAN_JAMO_GROUPS,
+  ALL_KOREAN_JAMO,
+} from './utils/compose-korean-syllable.js';
+export type { DecomposedSyllable } from './utils/compose-korean-syllable.js';
+export {
   canonicalizeArtStyle,
   canonicalizeStyleAssets,
   getArtStyleLabel,

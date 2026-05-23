@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { LetterWritingCanvas } from '@/features/phonics/components/LetterWritingCanvas';
+import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
@@ -100,12 +100,12 @@ export function ConsonantWriteActivity({ unitId, consonant, onComplete, onBack }
           })}
         </div>
 
-        <LetterWritingCanvas
+        <LetterFillCanvas
           key={`write-${completedCount}`}
           letter={consonant}
           onResult={handleResult}
           autoCheck
-          threshold={30}
+          threshold={0.95}
         />
       </div>
 

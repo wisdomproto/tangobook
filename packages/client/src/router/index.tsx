@@ -16,6 +16,8 @@ import BookSeoPage from '../pages/BookSeoPage';
 import CurriculumMasterPage from '../pages/CurriculumMasterPage';
 import LibraryMasterPage from '../pages/LibraryMasterPage';
 import LetterStrokeBulkEditorPage from '../pages/LetterStrokeBulkEditorPage';
+import KoreanJamoStrokeBulkEditorPage from '../pages/KoreanJamoStrokeBulkEditorPage';
+import LetterFillDemoPage from '../pages/LetterFillDemoPage';
 import ViewerPage from '../pages/ViewerPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
@@ -163,6 +165,24 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <LetterStrokeBulkEditorPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 한글 자모 stroke 일괄 편집 — ~51 자모 + composeKoreanSyllable 자동 합성
+        path: 'korean-jamo-stroke-editor',
+        element: (
+          <ErrorBoundary>
+            <KoreanJamoStrokeBulkEditorPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // Paint mode 데모 — LetterFillCanvas 검증 (한글/영어/일본어 글자 색칠)
+        path: 'letter-fill-demo',
+        element: (
+          <ErrorBoundary>
+            <LetterFillDemoPage />
           </ErrorBoundary>
         ),
       },

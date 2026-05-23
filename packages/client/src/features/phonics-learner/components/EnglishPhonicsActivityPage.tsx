@@ -9,7 +9,7 @@ import { AlphabetLetterLearnActivity } from '../activities/AlphabetLetterLearnAc
 import { AlphabetLetterWriteActivity } from '../activities/AlphabetLetterWriteActivity';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { EnglishBlockPlayer } from '@/features/games/components/players/EnglishBlockPlayer';
-import { WordWritingPlayer } from '@/features/games/components/players/WordWritingPlayer';
+import { EnglishWordWritingPlayer } from '@/features/games/components/players/EnglishWordWritingPlayer';
 import { LineMatchingPlayer } from '@/features/games/components/players/LineMatchingPlayer';
 import { ConnectTheDotsPlayer } from '@/features/games/components/players/ConnectTheDotsPlayer';
 import {
@@ -27,7 +27,7 @@ import type { Storybook } from '@tangobook/shared';
  *   - `cvc-pattern-learn` → CvcPatternLearnActivity (a + n → an Phase A + 4 CVC 단어 Phase B)
  *   - `cvc-pattern-write` → CvcPatternWriteActivity (4 단어 VC 부분만 따라쓰기)
  *   - `game-english-block` → EnglishBlockPlayer
- *   - `game-word-writing` → WordWritingPlayer (영어 단어 첫 글자)
+ *   - `game-word-writing` → EnglishWordWritingPlayer (글로벌 letter-stroke-library 기반 stroke 채점)
  *   - `game-connect-dots` → ConnectTheDotsPlayer (이미지+keypoints)
  *   - `game-line-matching` → LineMatchingPlayer (이미지-영단어 매칭)
  *
@@ -148,7 +148,7 @@ export default function EnglishPhonicsActivityPage() {
       return (
         <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
       );
-    return <WordWritingPlayer {...commonProps} gameData={gameData} />;
+    return <EnglishWordWritingPlayer {...commonProps} gameData={gameData} />;
   }
   if (activity.kind === 'game-line-matching') {
     const gameData = phonicsToEnglishLineMatchingData(storybook);

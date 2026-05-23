@@ -9,7 +9,7 @@ import { ConsonantBlendListenActivity } from '../activities/ConsonantBlendListen
 import { ConsonantWriteActivity } from '../activities/ConsonantWriteActivity';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { KoreanBlockPlayer } from '@/features/games/components/players/KoreanBlockPlayer';
-import { WordWritingPlayer } from '@/features/games/components/players/WordWritingPlayer';
+import { KoreanWordWritingPlayer } from '@/features/games/components/players/KoreanWordWritingPlayer';
 import { LineMatchingPlayer } from '@/features/games/components/players/LineMatchingPlayer';
 import { ConnectTheDotsPlayer } from '@/features/games/components/players/ConnectTheDotsPlayer';
 import {
@@ -164,7 +164,7 @@ export default function KoreanPhonicsActivityPage() {
       return (
         <ActivityUnavailable activity={activity} onBack={backToUnit} reason="단어가 부족해요" />
       );
-    return <WordWritingPlayer {...commonProps} gameData={gameData} />;
+    return <KoreanWordWritingPlayer {...commonProps} gameData={gameData} />;
   }
   if (activity.kind === 'game-line-matching') {
     const gameData = phonicsToLineMatchingData(storybook);

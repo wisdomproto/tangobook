@@ -19,7 +19,12 @@ function snapPoint(p: { x: number; y: number }): { x: number; y: number } {
 }
 
 const LETTER_FILL = '#d4d4d8'; // zinc-300 — 가이드
-const LETTER_FONT_FAMILY = 'system-ui, sans-serif';
+const LETTER_FONT_FAMILY_EN = 'system-ui, sans-serif';
+const LETTER_FONT_FAMILY_KO = "'NanumSquareRound', 'NanumSquare', system-ui, sans-serif";
+const HANGUL_RE = /[ㄱ-ㆎ가-힣]/;
+function detectLetterFont(letter: string): string {
+  return HANGUL_RE.test(letter) ? LETTER_FONT_FAMILY_KO : LETTER_FONT_FAMILY_EN;
+}
 
 // 스트로크별 색 — 시각적 그룹핑
 const STROKE_COLORS = [
@@ -94,7 +99,8 @@ export function LetterTracingPointEditorModal({
     const rect = overlayRef.current!.getBoundingClientRect();
     return {
       x: Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)),
-      y: Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height)),
+      // viewBox y 범위 0~1.2 (descender 영역 포함) — element 비율 5:6 안에서 y 도 1.2 로 스케일
+      y: Math.max(0, Math.min(1.2, ((e.clientY - rect.top) / rect.height) * 1.2)),
     };
   }, []);
 
@@ -415,8 +421,8 @@ export function LetterTracingPointEditorModal({
                 ref={overlayRef}
                 className="relative select-none bg-white dark:bg-slate-900 rounded-lg border-2 border-slate-200 dark:border-slate-700 mx-auto"
                 style={{
-                  aspectRatio: '1 / 1',
-                  maxWidth: 'min(380px, 50vh)',
+                  aspectRatio: '5 / 6',
+                  maxWidth: 'min(380px, 60vh)',
                   cursor: drag !== null ? 'grabbing' : 'crosshair',
                   touchAction: 'none',
                 }}
@@ -427,7 +433,7 @@ export function LetterTracingPointEditorModal({
               >
                 <svg
                   className="absolute inset-0 w-full h-full pointer-events-none"
-                  viewBox="0 0 1 1"
+                  viewBox="0 0 1 1.2"
                   preserveAspectRatio="none"
                 >
                   {/* 글자 배경 */}
@@ -439,12 +445,12 @@ export function LetterTracingPointEditorModal({
                     fill={LETTER_FILL}
                     fontSize="0.85"
                     fontWeight="900"
-                    fontFamily={LETTER_FONT_FAMILY}
+                    fontFamily={detectLetterFont(letter)}
                   >
                     {letter}
                   </text>
 
-                  {/* snap 그리드 라인 — 40×40 (0.025 간격). 5칸마다 (0.125) 진하게 major, 중심선 (0.5) 가장 진하게. */}
+                  {/* snap 그리드 라인 — 40×49 (0.025 간격, y 1.2 까지 descender 영역 포함). */}
                   <g opacity={0.35}>
                     {Array.from({ length: 41 }, (_, i) => {
                       const v = i * GRID_STEP;
@@ -456,13 +462,13 @@ export function LetterTracingPointEditorModal({
                           x1={v}
                           y1={0}
                           x2={v}
-                          y2={1}
+                          y2={1.2}
                           stroke={isCenter ? '#94a3b8' : isMajor ? '#a8b3c1' : '#d6dde6'}
                           strokeWidth={isCenter ? 0.003 : isMajor ? 0.0015 : 0.0008}
                         />
                       );
                     })}
-                    {Array.from({ length: 41 }, (_, i) => {
+                    {Array.from({ length: 49 }, (_, i) => {
                       const v = i * GRID_STEP;
                       const isCenter = Math.abs(v - 0.5) < 1e-6;
                       const isMajor = i % 5 === 0;
@@ -631,7 +637,7 @@ export function LetterTracingPointEditorModal({
               {previewStrokes.length === 0 ? (
                 <div
                   className="bg-slate-50 dark:bg-slate-900/40 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center gap-2 mx-auto"
-                  style={{ aspectRatio: '1 / 1', maxWidth: 'min(380px, 50vh)' }}
+                  style={{ aspectRatio: '5 / 6', maxWidth: 'min(380px, 60vh)' }}
                 >
                   <div className="text-3xl opacity-30">📍</div>
                   <p className="text-xs text-slate-400 text-center px-3">
@@ -641,7 +647,7 @@ export function LetterTracingPointEditorModal({
                   </p>
                 </div>
               ) : (
-                <div className="mx-auto" style={{ maxWidth: 'min(380px, 50vh)' }}>
+                <div className="mx-auto" style={{ maxWidth: 'min(380px, 60vh)' }}>
                   <LetterTracingCanvas
                     key={`preview-${previewKey}-${strokes.length}-${enforceOrder}`}
                     letter={letter}
