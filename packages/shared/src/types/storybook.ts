@@ -825,6 +825,12 @@ export interface Storybook {
   folder?: string;
   isPublic?: boolean;
   /**
+   * (그림체 × 언어) 셀 단위 공개 여부. 책 단위 `isPublic` 보다 세분화된 컨트롤.
+   * 키 = artStyle prompt/id, 값 = { [lang]: boolean }. 미정의 셀은 true (기본 공개) 로 처리.
+   * `/library-master` 의 📊 표 보기 모달에서 편집. 2026-05-25 추가.
+   */
+  publicByStyleLang?: Record<string, Record<string, boolean>>;
+  /**
    * 커리큘럼 마스터 페이지용 부가 메타 (원제·저자·우선순위 등).
    * 4-25~27 v2 시도 시 BookManifest 에 정의되었으나 v2 폐기 후 v1 으로 옮겨옴.
    */

@@ -166,7 +166,7 @@ features/{name}/{api,hooks,components,index.ts}
 - 한글 레벨: vocab table 점수 공식 그대로. 영어 레벨: 단어 길이 (≤3/4-5/6+).
 - 게임 어댑터 (`game-data-adapter.ts#unitTo{Korean,English}BlockData`): 이미지 없는 단어도 후보 포함 (player 가 conditional render).
 
-## 라이브러리 마스터 (2026-05-10, 카테고리 편집 2026-05-16)
+## 라이브러리 마스터 (2026-05-10, 카테고리 편집 2026-05-16, 표 보기 2026-05-25)
 - **`/library-master`** — 라이브러리 노출 순서 + 카테고리 CRUD + 책 메타 편집 페이지 (저작도구 진입점 only). TopBar 우상단 📁 자료실 ▾ dropdown 첫 항목 "📚 라이브러리 마스터". AppShell (학습자) 에서는 노출 X.
 - 좌-우 split: 좌측 카테고리 패널 (DnD reorder + ✏ 인라인 rename + 🗑 삭제 + ＋ 추가 input) + 우측 활성 카테고리 책 grid (DnD reorder, 카드 = aspect-3/4 표지 + 좌상단 ① 순서 chip · 카테고리 chip 드롭다운 + 우상단 👁 isPublic 토글 · 🎨 표지 변경) + 🎨 표지 변경 모달.
 - **DnD scope (2026-05-18 단순화)**: 카테고리 reorder + 같은 카테고리 안 책 reorder **2종만**. 카테고리 변경은 카드 좌상단 `CategoryChipDropdown` 으로만 (책 카드 드래그 시 "순서 변경 모드"와 헷갈리는 UX 제거).
@@ -176,6 +176,7 @@ features/{name}/{api,hooks,components,index.ts}
 - **언어 토글 (2026-05-16)**: 부제목 줄 우측 "표지 언어: [🇰🇷 한글][🇺🇸 영어]" chip → defaultStyle 기준 `coversByLang[lang]` 으로 카드 표지 swap. 해당 언어 표지 없으면 📭 placeholder + "한글/영어 표지 없음". 서버 `StorybookSummary.coversByLang` 신규 필드 (defaultStyle 의 `styleAssets.primaryCoverByLang` 추출, ko 는 top-level `primaryCoverByLang`/`coverImage` fallback).
 - **카테고리 (2026-05-16 재분류, 233권)**: 🌟 세계 명작 68 / 📜 전래 동화 14 / 🦕 공룡 친구들 24 / 🐛 곤충 친구들 18 / 🐯 육지 동물 친구들 46 / 🐬 바다 동물 친구들 18 / 🦅 하늘 동물 친구들 16 / 🌸 식물 친구들 18 / 🌌 우주와 자연 7 / 🫀 우리 몸 이야기 4. 마이그: `propose-recategorize.mjs` (룰 + 세계 명작/전래 동화 보호 + 수동 override) → `recategorize-proposal.json` 사람 검토 → `migrate-recategorize.mjs --apply` (R2 PutObject + library-config.json 갱신).
 - 저장: `_index/library-config.json` (`LibraryConfig` shared type — `categoryOrder[]` + `bookPriority[cat] = string[]` + `categoryList[]` 빈 카테고리 보관). 서버 `GET/PUT /api/library-config`. LibraryPage 가 config 적용해서 카테고리/책 순서 정렬 (빈 카테고리는 학습자 화면 자동 hide). **카테고리 chip 클릭 후 전체 보기**도 `bookPriority` 순서 우선 (단 사용자가 "제목순" 명시 선택 시 그건 존중) — 첫 화면 카테고리 섹션 9권 미리보기와 일관성.
+- **📊 표 보기 (2026-05-25)**: 헤더 우상단 coral 버튼. 모달 = 카테고리별 collapsible accordion (▶/▼) + 모두 펼침 / 모두 접기. 카테고리 펼침 시 그 카테고리 책 detail batch fetch (lazy, TanStack cache 우선) → **카테고리당 1개 통합 표** 렌더. 행 = 책 1권 (sticky left 의 표지 + 제목), 열 = (그림체 × 언어) 합집합 — 2단 thead (그림체 colspan + 언어 sub-row). 그 책에 없는 (그림체, 언어) 조합은 `—`. 셀 = 작은 표지(28px) + coral 체크박스(20px). 그림체 라벨은 `useQuery(['art-style-library'])` + `findArtStylePreset(value, lib)` 로 사용자 편집 이름 노출. 🔑 **셀 단위 isPublic** = `Storybook.publicByStyleLang?: Record<style, Record<lang, boolean>>` (shared, 미정의 = 기본 공개). 책 단위 `isPublic=false` 면 모든 셀 비활성 + grayscale. `BookMatrixModal` (`features/library/components/BookMatrixModal.tsx`).
 
 ## 동일 title 동화책 차단 (2026-05-10)
 - `R2Repository.saveStorybook` 진입점에 validation. **신규 또는 title 변경 시에만** 체크 (audiobook 생성 등 부수 update 통과). variant `__L\d+$` (같은 baseId) / storybook ↔ phonics 는 충돌 X.

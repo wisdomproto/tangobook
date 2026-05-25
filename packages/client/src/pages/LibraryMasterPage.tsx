@@ -22,6 +22,7 @@ import type { LibraryConfig, StorybookSummary } from '@tangobook/shared';
 import { CategoryPanel } from '@/features/library/components/CategoryPanel';
 import { BookCardEditable } from '@/features/library/components/BookCardEditable';
 import { MoveBooksModal } from '@/features/library/components/MoveBooksModal';
+import { BookMatrixModal } from '@/features/library/components/BookMatrixModal';
 
 const DEFAULT_CATEGORY_ORDER = [
   '세계 명작',
@@ -124,6 +125,7 @@ export default function LibraryMasterPage() {
   const [progressText, setProgressText] = useState<string | null>(null);
   const [savedFlash, setSavedFlash] = useState(false);
   const [selectedLang, setSelectedLang] = useState<string>('ko');
+  const [matrixOpen, setMatrixOpen] = useState(false);
 
   const flashSaved = () => {
     setSavedFlash(true);
@@ -159,6 +161,15 @@ export default function LibraryMasterPage() {
     if (!storybooks || !activeCat) return [];
     return orderBooksInCategory(activeCat, storybooks, config?.bookPriority);
   }, [storybooks, activeCat, config?.bookPriority]);
+
+  const booksByCategory = useMemo(() => {
+    const map: Record<string, StorybookSummary[]> = {};
+    if (!storybooks) return map;
+    categoryOrder.forEach((cat) => {
+      map[cat] = orderBooksInCategory(cat, storybooks, config?.bookPriority);
+    });
+    return map;
+  }, [storybooks, categoryOrder, config?.bookPriority]);
 
   const countOf = (cat: string) =>
     storybooks?.filter((b) => (!b.type || b.type === 'storybook') && (b.category || '기타') === cat)
@@ -246,6 +257,15 @@ export default function LibraryMasterPage() {
             카테고리 chip 으로 하세요.
           </span>
           <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => setMatrixOpen(true)}
+              disabled={!storybooks || storybooks.length === 0}
+              className="px-4 py-1.5 rounded-full bg-coral-500 text-white font-black text-sm shadow-soft hover:bg-coral-600 disabled:opacity-40 disabled:cursor-not-allowed"
+              title="전체 카테고리의 그림체 × 언어 표"
+            >
+              📊 표 보기
+            </button>
             <span className="text-sm font-black text-ink-700">표지 언어:</span>
             <div className="flex items-center gap-1 bg-ink-100 rounded-full p-1">
               {(['ko', 'en'] as const).map((lang) => (
@@ -363,6 +383,17 @@ export default function LibraryMasterPage() {
             await actions.moveBooksAndDelete(moveFromCat, to);
             flashSaved();
           }}
+        />
+      )}
+
+      {matrixOpen && (
+        <BookMatrixModal
+          categoryOrder={categoryOrder}
+          booksByCategory={booksByCategory}
+          emojiOf={emojiOf}
+          initialOpenCat={activeCat ?? undefined}
+          onClose={() => setMatrixOpen(false)}
+          onSavedFlash={flashSaved}
         />
       )}
     </div>
