@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { storybookApi } from '@/features/storybook';
 import { findArtStylePreset } from '@/features/editor/lib/style-assets';
 import { settingsApi } from '@/features/settings/api/settings.api';
+import { syncBookPublicAfterCellToggle } from '../lib/public-sync';
 import type { SavedArtStyle, Storybook, StorybookSummary } from '@tangobook/shared';
 
 interface Props {
@@ -226,7 +227,7 @@ export function BookMatrixModal({
       const inner = { ...(matrix[style] ?? {}) };
       inner[lang] = next;
       matrix[style] = inner;
-      const updated: Storybook = { ...sb, publicByStyleLang: matrix };
+      const updated = syncBookPublicAfterCellToggle({ ...sb, publicByStyleLang: matrix });
       const saved = await storybookApi.save(updated);
       qc.setQueryData(['storybook', saved.id], saved);
       setDetails((d) => ({ ...d, [saved.id]: saved }));

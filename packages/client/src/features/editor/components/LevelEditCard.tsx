@@ -11,6 +11,7 @@ import { getAvailableLanguages } from '@/lib/storybook-accessors';
 import type { Storybook, ReadingLevel, SavedArtStyle } from '@tangobook/shared';
 import { AddStyleConfirmModal, AddLanguageConfirmModal } from './VariantConfirmModals';
 import { switchStyleAssets, findArtStylePreset } from '@/features/editor/lib/style-assets';
+import { syncBookPublicAfterCellToggle } from '@/features/library/lib/public-sync';
 import { settingsApi } from '@/features/settings/api/settings.api';
 import { StyleLibraryEditModal } from '@/features/settings/components/StyleLibraryEditModal';
 
@@ -485,7 +486,7 @@ function CardBody({
         </div>
       </div>
 
-      {/* v1 EditorContent — 활성 언어를 컨텍스트로 주입 + 헤더에 삭제 버튼 (저장 옆) 주입 + 한 줄 헤더 + 마케팅 탭 숨김 */}
+      {/* v1 EditorContent — 활성 언어를 컨텍스트로 주입 + 헤더에 (그림체×언어) 공개 체크박스 (저장 왼쪽) + 삭제 버튼 (저장 오른쪽) 주입 + 한 줄 헤더 + 마케팅 탭 숨김 */}
       <EditorLangProvider lang={activeLang}>
         <EditorContent
           storybook={localRef.current ?? storybook}
@@ -494,6 +495,48 @@ function CardBody({
           onUpdate={handleUpdate}
           compactHeader
           hiddenTabIds={['quiz', 'blog', 'card-news']}
+          headerExtraLeft={(() => {
+            const sb = localRef.current ?? storybook;
+            const style = sb.artStyle;
+            const isPublic = sb.publicByStyleLang?.[style]?.[activeLang] !== false;
+            const styleLabel = findArtStylePreset(style, styleLibrary)?.label ?? '커스텀';
+            const flag = LANG_FLAG[activeLang] ?? '🌐';
+            return (
+              <label
+                className={cn(
+                  'flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border text-xs font-bold cursor-pointer transition',
+                  isPublic
+                    ? 'border-coral-300 bg-coral-50 text-coral-700 hover:bg-coral-100 dark:bg-coral-900/20 dark:text-coral-200 dark:border-coral-700'
+                    : 'border-slate-300 bg-white text-slate-500 hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-600'
+                )}
+                title={`이 (그림체, 언어) 조합의 라이브러리 노출 토글`}
+              >
+                <input
+                  type="checkbox"
+                  checked={isPublic}
+                  onChange={() => {
+                    handleUpdate((d) => {
+                      const s = d.artStyle;
+                      const cur = d.publicByStyleLang?.[s]?.[activeLang] !== false;
+                      const next = !cur;
+                      if (!d.publicByStyleLang) d.publicByStyleLang = {};
+                      if (!d.publicByStyleLang[s]) d.publicByStyleLang[s] = {};
+                      d.publicByStyleLang[s][activeLang] = next;
+                      // 책 단위 isPublic 자동 동기화 (모든 셀 false → isPublic=false, 하나라도 true → 회복)
+                      const synced = syncBookPublicAfterCellToggle(d);
+                      d.isPublic = synced.isPublic;
+                    });
+                    handleSave();
+                  }}
+                  className="w-4 h-4 accent-coral-500 cursor-pointer"
+                />
+                <span>공개</span>
+                <span className="text-[10px] opacity-70">
+                  🎨 {styleLabel} · {flag} {activeLang}
+                </span>
+              </label>
+            );
+          })()}
           headerExtraActions={
             !isBase && onDelete ? (
               <button

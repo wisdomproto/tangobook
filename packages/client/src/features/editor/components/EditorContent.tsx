@@ -29,6 +29,8 @@ interface EditorContentProps {
   onUpdate: (updater: (draft: Storybook) => void) => void;
   /** 헤더 우측 (저장 버튼 옆) 추가 액션. /editor2 의 삭제 버튼 등에 사용. /editor 는 사용 안 함. */
   headerExtraActions?: import('react').ReactNode;
+  /** 헤더 우측 저장 버튼 **왼쪽** 추가 액션. /editor2 의 (그림체×언어) 공개 체크박스 등에 사용. */
+  headerExtraLeft?: import('react').ReactNode;
   /** 헤더 한 줄 모드 (/editor2). 기본 false 는 기존 2줄 (/editor). */
   compactHeader?: boolean;
   /** 숨길 탭 ID 배열. /editor2 에서 quiz/blog/card-news 등 마케팅 관련 탭 가림. /editor 미사용. */
@@ -41,6 +43,7 @@ export function EditorContent({
   onSave,
   onUpdate,
   headerExtraActions,
+  headerExtraLeft,
   compactHeader = false,
   hiddenTabIds,
 }: EditorContentProps) {
@@ -140,6 +143,7 @@ export function EditorContent({
         onSave={onSave}
         onUpdate={onUpdate}
         extraActions={headerExtraActions}
+        extraLeft={headerExtraLeft}
         compact={compactHeader}
       />
       <TabBar storybookType={storybook.type} hiddenTabIds={hiddenTabIds} />

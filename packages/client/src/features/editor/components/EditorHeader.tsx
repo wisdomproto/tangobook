@@ -11,6 +11,8 @@ interface EditorHeaderProps {
   onUpdate: (updater: (draft: Storybook) => void) => void;
   /** 우측 액션 영역에 저장 버튼 옆 (오른쪽) 으로 추가 액션 렌더 (optional). /editor2 의 삭제 버튼 등에 사용. */
   extraActions?: ReactNode;
+  /** 우측 액션 영역에 저장 버튼 **왼쪽** 으로 추가 액션 렌더 (optional). /editor2 의 (그림체×언어) 공개 체크박스 등에 사용. */
+  extraLeft?: ReactNode;
   /** 한 줄 모드 — 제목·메타·뱃지를 같은 행에 배치 (/editor2). 기본 false 는 기존 2줄 (/editor). */
   compact?: boolean;
 }
@@ -21,6 +23,7 @@ export function EditorHeader({
   onSave,
   onUpdate,
   extraActions,
+  extraLeft,
   compact = false,
 }: EditorHeaderProps) {
   const [showFolderMenu, setShowFolderMenu] = useState(false);
@@ -127,6 +130,7 @@ export function EditorHeader({
           </div>
         </div>
         <div className="flex items-center gap-2">
+          {extraLeft}
           <Button size="sm" onClick={onSave} loading={saving}>
             저장
           </Button>

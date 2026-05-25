@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { storybookApi } from '@/features/storybook';
 import { libraryConfigApi } from '../api/library-config.api';
+import { applyBookPublic } from '../lib/public-sync';
 import type { LibraryConfig, Storybook, StorybookSummary } from '@tangobook/shared';
 
 interface Args {
@@ -176,7 +177,13 @@ export function useCategoryActions({ config, books, onProgress }: Args): Actions
 
   const setBookPublic = useCallback(
     async (bookId: string, next: boolean) => {
-      await patchBook(bookId, { isPublic: next });
+      // 책 단위 isPublic + 모든 (그림체 × 언어) 셀을 함께 동기화
+      const full = await storybookApi.getById(bookId);
+      const synced = applyBookPublic(full, next);
+      await patchBook(bookId, {
+        isPublic: synced.isPublic,
+        publicByStyleLang: synced.publicByStyleLang,
+      });
       await invalidateBooks();
     },
     [patchBook, invalidateBooks]
