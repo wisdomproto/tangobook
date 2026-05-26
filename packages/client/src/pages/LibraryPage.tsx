@@ -9,6 +9,7 @@ import {
   useLibraryConfig,
 } from '@/features/library';
 import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
+import { useSeo } from '@/lib/useSeo';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
 
 /**
@@ -118,6 +119,56 @@ function makeCategoryComparator(configOrder: string[] | undefined) {
 }
 
 export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
+  useSeo(
+    type === 'phonics'
+      ? {
+          title: '한글·영어 파닉스 — 탱고북',
+          description:
+            '한글 자모·받침·블렌딩과 영어 알파벳·CVC·Sight Words 를 동화 단어와 자동 연결. 4-7세 아이를 위한 파닉스 학습.',
+          path: '/library/phonics/korean',
+          keywords:
+            '한글 파닉스, 영어 파닉스, 자모 학습, CVC, Sight Words, 4세 파닉스, 5세 파닉스, 탱고북',
+          jsonLd: {
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: '한글·영어 파닉스',
+            description: '한글과 영어 파닉스 학습 unit 컬렉션',
+            url: 'https://www.tangobook.co.kr/library/phonics/korean',
+          },
+        }
+      : {
+          title: '동화책 라이브러리 — 탱고북',
+          description:
+            '세계 명작·전래 동화·자연 동화 (공룡·곤충·동물·식물·우주). 그림체와 글밥을 아이에게 맞추고, 한국어·영어 동시 학습. 4-7세 아이를 위한 동화 라이브러리.',
+          path: '/library',
+          keywords:
+            '유아 동화책, 명작 동화, 자연 동화, 공룡 동화, 곤충 동화, 4세 동화, 5세 동화, 6세 동화, 한글 영어 동화, 탱고북',
+          jsonLd: {
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: '탱고북 동화책 라이브러리',
+            description: '명작·전래·자연 동화 라이브러리. 그림체·글밥 맞춤, 한·영 동시.',
+            url: 'https://www.tangobook.co.kr/library',
+            breadcrumb: {
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                {
+                  '@type': 'ListItem',
+                  position: 1,
+                  name: '홈',
+                  item: 'https://www.tangobook.co.kr/',
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: '라이브러리',
+                  item: 'https://www.tangobook.co.kr/library',
+                },
+              ],
+            },
+          },
+        }
+  );
   const { data: list, isLoading, isError } = useStorybooks();
   const all = useMemo<BookIndexEntry[] | undefined>(() => list?.map(summaryToEntry), [list]);
   const { data: statusMap } = useReadingStatus();

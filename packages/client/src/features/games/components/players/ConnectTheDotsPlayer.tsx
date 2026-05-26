@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import type { PointerEvent as ReactPointerEvent, SyntheticEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { ConnectTheDotsData, ConnectTheDotsItem } from '@tangobook/shared';
@@ -7,107 +8,66 @@ import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { GamePlayerLayout } from '../GamePlayerLayout';
-import {
-  TutorialProvider,
-  useTutorialHighlight,
-  useTutorialIsPlaying,
-  useTutorialExpected,
-  useTutorialNotify,
-} from './ConnectTheDotsTutorial/ConnectTheDotsTutorial.context';
-import { ConnectTheDotsTutorial } from './ConnectTheDotsTutorial/ConnectTheDotsTutorial';
 import { resolveTtsUrl } from '@/features/tts';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameLogger } from '@/features/learning';
 
-const DOT_RADIUS_PX = 24;
+/**
+ * Paint-fill 모드 (2026-05-25) — 기존 "순서대로 점 탭" → "polygon 영역 색칠".
+ *
+ * 사용자 정책:
+ *   - keypoints 의 첫 점/마지막 점을 자동 close → polygon mask
+ *   - 큰 붓으로 polygon 안을 칠하기
+ *   - 채움 비율 threshold 도달 시 정답 처리
+ *
+ * 구현:
+ *   - canvas overlay (image 위) — 이미지 onLoad 시 canvas size 동기화
+ *   - drawMask: 회색 반투명 polygon (사용자가 안 칠한 영역 안내)
+ *   - paint: `source-atop` 로 polygon 안만 emerald painted
+ *   - measureCoverage: emerald 픽셀 / mask 픽셀
+ */
 
-function ConnectTheDotsPlayerInner({ storybookId, gameData, onComplete, onBack }: GamePlayerProps) {
+const PAINT_COLOR = '#10b981'; // emerald
+const MASK_COLOR = 'rgba(160, 160, 160, 0.45)'; // 반투명 회색 — 안 칠한 영역
+const POLYGON_OUTLINE = '#FF6F61'; // coral — polygon 윤곽선
+const THRESHOLD = 0.85; // 85% 채우면 통과 — 두꺼운 펜이라 도달 쉬움
+const PEN_RATIO = 0.08; // canvas width 대비 펜 두께 비율 (~8%)
+const DOT_RADIUS_PX = 14; // 점 표시 (참고용, interaction X)
+
+function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: GamePlayerProps) {
   const data = gameData as ConnectTheDotsData;
-  const items = data.items.filter((it) => it.keypoints.length >= 2);
+  // polygon 칠하기 위해 최소 3점 필요
+  const items = data.items.filter((it) => it.keypoints.length >= 3);
 
   const [itemIdx, setItemIdx] = useState(0);
-  const [nextOrder, setNextOrder] = useState(1);
-  const [connectedUpTo, setConnectedUpTo] = useState(0);
-  const [returning, setReturning] = useState(false); // 모든 점 찍은 후 첫 점 복귀 단계
-  const [wrongTap, setWrongTap] = useState(false);
+  const [coverage, setCoverage] = useState(0);
   const [completed, setCompleted] = useState(false);
-  const [showImage, setShowImage] = useState(false);
   const [completedItems, setCompletedItems] = useState(0);
-  const [isPressing, setIsPressing] = useState(false);
   const [finished, setFinished] = useState(false);
-  const [hintActive, setHintActive] = useState(false);
+  const [showImage, setShowImage] = useState(false);
 
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const { playWordCorrect, playFeedbackSound } = useGameAudio();
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const isDrawingRef = useRef(false);
+  const lastPointRef = useRef<{ x: number; y: number } | null>(null);
+  const maskPixelsRef = useRef(0);
+  const completedRef = useRef(false); // pointer handler 내부 stale closure 회피
+
+  const { playWordCorrect, playFeedbackSound: _playFeedback } = useGameAudio();
+  // 색칠 게임에서 오답 음원 사용 X — TypeScript 미사용 경고 회피
+  void _playFeedback;
   const logGame = useGameLogger();
-  const { pulseOrder } = useTutorialHighlight();
-  const isTutorialPlaying = useTutorialIsPlaying();
-  const expected = useTutorialExpected();
-  const notifyTap = useTutorialNotify();
-  const handleHintStart = useCallback(() => {
-    if (hintActive || isTutorialPlaying) return;
-    setHintActive(true);
-  }, [hintActive, isTutorialPlaying]);
-  const handleHintEnd = useCallback(() => {
-    setHintActive(false);
-  }, []);
 
-  // 점 잇기 = 도레미 진행 — Web Audio API sine wave (자산 없이 합성)
-  const audioCtxRef = useRef<AudioContext | null>(null);
-  const NOTE_FREQS = [
-    261.63, // C4 도
-    293.66, // D4 레
-    329.63, // E4 미
-    349.23, // F4 파
-    392.0, // G4 솔
-    440.0, // A4 라
-    493.88, // B4 시
-    523.25, // C5 도
-    587.33, // D5 레
-    659.25, // E5 미
-    698.46, // F5 파
-    783.99, // G5 솔
-  ];
-  const playNote = useCallback((noteIdx: number) => {
-    try {
-      if (!audioCtxRef.current) {
-        const Ctx =
-          window.AudioContext ??
-          (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-        if (!Ctx) return;
-        audioCtxRef.current = new Ctx();
-      }
-      const ctx = audioCtxRef.current;
-      const freq = NOTE_FREQS[noteIdx % NOTE_FREQS.length];
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.value = freq;
-      gain.gain.setValueAtTime(0.25, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
-      osc.connect(gain).connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.3);
-    } catch {
-      /* AudioContext 차단 또는 미지원 — 무시 */
-    }
-  }, []);
-
-  // 뷰어 URL의 ?lang을 읽어 어느 언어로 단어를 읽어줄지 결정
   const [searchParams] = useSearchParams();
   const viewerLang: 'ko' | 'en' = searchParams.get('lang') === 'en' ? 'en' : 'ko';
 
-  // storybook을 fetch해 key_objects의 korean 이름 조회 (영어 objectName → 한글 단어 매핑)
   const { data: storybook } = useStorybook(storybookId);
 
-  // 현재 아이템의 objectName(영어)으로부터 viewerLang에 맞는 단어 + 언어 라이브러리 리턴
   const resolveSpeakTarget = useCallback(
     (englishName: string | undefined): { text: string; language: 'korean' | 'english' } | null => {
       if (!englishName) return null;
       const en = englishName.trim();
       if (!en) return null;
       if (viewerLang === 'en') return { text: en, language: 'english' };
-      // ko: case-insensitive lookup (KeyObject.name 'Cow' / objectName 'cow' 모두 OK)
       const enLower = en.toLowerCase();
       const ko =
         storybook?.key_objects
@@ -124,173 +84,261 @@ function ConnectTheDotsPlayerInner({ storybookId, gameData, onComplete, onBack }
     [viewerLang, storybook]
   );
 
-  // 글로벌 pointerup으로 드래그 종료 감지 (점에서 손 떼면 드래그 풀림)
+  const currentItem: ConnectTheDotsItem | undefined = items[itemIdx];
+
+  const sortedKps = currentItem ? [...currentItem.keypoints].sort((a, b) => a.order - b.order) : [];
+
+  /** polygon mask + 윤곽선 그리기, mask 픽셀 수 측정 */
+  const drawMask = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || sortedKps.length < 3) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const w = canvas.width;
+    const h = canvas.height;
+
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.clearRect(0, 0, w, h);
+
+    // polygon path
+    ctx.beginPath();
+    sortedKps.forEach((kp, i) => {
+      const x = kp.x * w;
+      const y = kp.y * h;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    });
+    ctx.closePath();
+
+    // fill — 회색 반투명
+    ctx.fillStyle = MASK_COLOR;
+    ctx.fill();
+
+    // outline — coral dashed (첫점→마지막점 자동 close 포함)
+    ctx.strokeStyle = POLYGON_OUTLINE;
+    ctx.lineWidth = Math.max(3, w * 0.005);
+    ctx.setLineDash([w * 0.02, w * 0.015]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // mask 픽셀 수 측정 (coverage 분모)
+    const imageData = ctx.getImageData(0, 0, w, h);
+    let count = 0;
+    for (let i = 3; i < imageData.data.length; i += 4) {
+      if (imageData.data[i] > 0) count++;
+    }
+    maskPixelsRef.current = count;
+  }, [sortedKps]);
+
+  const measureCoverage = useCallback((): number => {
+    const canvas = canvasRef.current;
+    if (!canvas || maskPixelsRef.current === 0) return 0;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return 0;
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let painted = 0;
+    for (let i = 0; i < imageData.data.length; i += 4) {
+      const r = imageData.data[i];
+      const g = imageData.data[i + 1];
+      const b = imageData.data[i + 2];
+      const a = imageData.data[i + 3];
+      // emerald: #10b981 ≈ rgb(16, 185, 129) — R<128, G>128, B<200
+      if (a > 0 && r < 128 && g > 128 && b < 200) painted++;
+    }
+    return painted / maskPixelsRef.current;
+  }, []);
+
+  const paintDot = useCallback((ctx: CanvasRenderingContext2D, x: number, y: number) => {
+    const w = ctx.canvas.width;
+    ctx.save();
+    ctx.globalCompositeOperation = 'source-atop'; // polygon 안만 painted
+    ctx.fillStyle = PAINT_COLOR;
+    ctx.beginPath();
+    ctx.arc(x, y, (w * PEN_RATIO) / 2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }, []);
+
+  const paintLine = useCallback(
+    (
+      ctx: CanvasRenderingContext2D,
+      from: { x: number; y: number },
+      to: { x: number; y: number }
+    ) => {
+      const w = ctx.canvas.width;
+      ctx.save();
+      ctx.globalCompositeOperation = 'source-atop';
+      ctx.strokeStyle = PAINT_COLOR;
+      ctx.lineWidth = w * PEN_RATIO;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(from.x, from.y);
+      ctx.lineTo(to.x, to.y);
+      ctx.stroke();
+      ctx.restore();
+    },
+    []
+  );
+
+  const advanceToNext = useCallback(() => {
+    const newCompletedItems = completedItems + 1;
+    setCompletedItems(newCompletedItems);
+    if (itemIdx + 1 >= items.length) {
+      logGame({
+        gameType: 'connect-the-dots',
+        storybookId,
+        lang: viewerLang,
+        results: items
+          .map((it, idx) => ({
+            word: it.objectName ?? '',
+            correct: idx < newCompletedItems,
+          }))
+          .filter((r) => r.word),
+      });
+      setFinished(true);
+    } else {
+      setItemIdx(itemIdx + 1);
+      setCoverage(0);
+      setCompleted(false);
+      completedRef.current = false;
+      setShowImage(false);
+    }
+  }, [completedItems, itemIdx, items, logGame, storybookId, viewerLang]);
+
+  const triggerComplete = useCallback(async () => {
+    if (completedRef.current) return;
+    completedRef.current = true;
+    setCompleted(true);
+    setTimeout(() => setShowImage(true), 300);
+
+    const target = resolveSpeakTarget(currentItem?.objectName);
+    let wordAudioUrl: string | undefined;
+    if (target && currentItem) {
+      const objNameLower = currentItem.objectName?.toLowerCase();
+      const ko = storybook?.key_objects?.find((k) => {
+        return k.name?.toLowerCase() === objNameLower || k.nameEn?.toLowerCase() === objNameLower;
+      });
+      const ttsLang = target.language === 'korean' ? 'ko' : 'en';
+      const keyObjTts = ko?.ttsUrls?.[ttsLang] ?? (ttsLang === 'ko' ? ko?.ttsUrl : undefined);
+
+      wordAudioUrl = await resolveTtsUrl({
+        text: target.text,
+        language: target.language,
+        storybookId,
+        directUrl: keyObjTts,
+        identifierPrefix: 'dot',
+      });
+    }
+    playWordCorrect({
+      ttsUrl: wordAudioUrl,
+      onDone: advanceToNext,
+    });
+  }, [currentItem, resolveSpeakTarget, storybook, storybookId, playWordCorrect, advanceToNext]);
+
+  const handleImgLoad = useCallback(
+    (e: SyntheticEvent<HTMLImageElement>) => {
+      const img = e.currentTarget;
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      // canvas internal resolution = image natural (좌표 1:1 매핑)
+      canvas.width = img.naturalWidth || 1000;
+      canvas.height = img.naturalHeight || 1000;
+      drawMask();
+    },
+    [drawMask]
+  );
+
+  // currentItem 변경 시 reset
   useEffect(() => {
-    const up = () => setIsPressing(false);
+    completedRef.current = false;
+    setCoverage(0);
+    setCompleted(false);
+    setShowImage(false);
+    // mask는 image onLoad 에서 다시 그림. 캔버스 사이즈가 이미 정해진 경우 즉시 redraw.
+    if (canvasRef.current && canvasRef.current.width > 0) {
+      drawMask();
+    }
+  }, [itemIdx, drawMask]);
+
+  // pointer up 글로벌 (canvas 밖에서 떼도 안전)
+  useEffect(() => {
+    const up = () => {
+      if (!isDrawingRef.current) return;
+      isDrawingRef.current = false;
+      lastPointRef.current = null;
+      const cov = measureCoverage();
+      setCoverage(cov);
+      if (cov >= THRESHOLD && !completedRef.current) {
+        triggerComplete();
+      }
+    };
     window.addEventListener('pointerup', up);
     window.addEventListener('pointercancel', up);
     return () => {
       window.removeEventListener('pointerup', up);
       window.removeEventListener('pointercancel', up);
     };
-  }, []);
+  }, [measureCoverage, triggerComplete]);
 
-  const currentItem: ConnectTheDotsItem | undefined = items[itemIdx];
+  const toCanvas = (e: ReactPointerEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current!;
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: (e.clientX - rect.left) * (canvas.width / rect.width),
+      y: (e.clientY - rect.top) * (canvas.height / rect.height),
+    };
+  };
+
+  const handlePointerDown = (e: ReactPointerEvent<HTMLCanvasElement>) => {
+    if (completedRef.current) return;
+    e.preventDefault();
+    try {
+      canvasRef.current!.setPointerCapture(e.pointerId);
+    } catch {
+      /* no-op */
+    }
+    isDrawingRef.current = true;
+    const pt = toCanvas(e);
+    lastPointRef.current = pt;
+    const ctx = canvasRef.current!.getContext('2d')!;
+    paintDot(ctx, pt.x, pt.y);
+    const cov = measureCoverage();
+    setCoverage(cov);
+    if (cov >= THRESHOLD) {
+      triggerComplete();
+    }
+  };
+
+  const handlePointerMove = (e: ReactPointerEvent<HTMLCanvasElement>) => {
+    if (!isDrawingRef.current || completedRef.current) return;
+    e.preventDefault();
+    const ctx = canvasRef.current!.getContext('2d')!;
+    const pt = toCanvas(e);
+    const last = lastPointRef.current!;
+    paintLine(ctx, last, pt);
+    lastPointRef.current = pt;
+    // 그리는 도중에도 coverage 갱신 — 진척 바 실시간
+    const cov = measureCoverage();
+    setCoverage(cov);
+    if (cov >= THRESHOLD) {
+      triggerComplete();
+    }
+  };
 
   if (items.length === 0) {
     return (
       <GamePlayerLayout maxWidth="lg" onBack={onBack}>
         <div className="text-center py-16">
-          <div className="text-5xl mb-4">🔢</div>
+          <div className="text-5xl mb-4">🎨</div>
           <p className="text-lg text-ink-900 dark:text-peach-200">
-            점이 배치된 핵심단어가 없습니다. 핵심사물 탭에서 점을 먼저 등록해주세요.
+            점이 3개 이상 배치된 핵심단어가 없습니다. 핵심사물 탭에서 점을 먼저 등록해주세요.
           </p>
         </div>
       </GamePlayerLayout>
     );
   }
 
-  // currentItem 이 없으면 (finished 후 itemIdx out-of-bounds 등) 안전한 placeholder.
-  // hook 순서 보존을 위해 early return 대신 keypoints 빈 배열로 fallback.
-  const sortedKps = currentItem ? [...currentItem.keypoints].sort((a, b) => a.order - b.order) : [];
-  const totalDots = sortedKps.length;
-
-  // 직접 탭 (onPointerDown/onClick) — 틀린 순서면 wrongTap 띄움
-  const handleDotTap = useCallback(
-    (order: number) => {
-      if (completed) return;
-      // 튜토리얼 intro/end 동안 차단, wait 동안은 expected 외 차단
-      if (isTutorialPlaying) return;
-      if (expected !== null && expected.order !== order) return;
-
-      // 복귀 단계: 첫 점으로 돌아와야 완성
-      if (returning) {
-        if (order !== 1) {
-          playFeedbackSound(false);
-          setWrongTap(true);
-          setTimeout(() => setWrongTap(false), 500);
-          return;
-        }
-        setCompleted(true);
-        setTimeout(() => setShowImage(true), 300);
-
-        // 단어 음원 정책 단일화 (resolveTtsUrl):
-        //   한글: phonics 음절 합성 우선 → 실패 시 KeyObject.ttsUrl fallback
-        //   영어: KeyObject.ttsUrl 우선 → 없으면 phonics concat fallback
-        (async () => {
-          const target = resolveSpeakTarget(currentItem.objectName);
-          let wordAudioUrl: string | undefined;
-          if (target) {
-            // 매칭되는 KeyObject 찾기 — case-insensitive (name 'Cow' / objectName 'cow' 둘 다 OK)
-            const objNameLower = currentItem.objectName?.toLowerCase();
-            const ko = storybook?.key_objects?.find((k) => {
-              return (
-                k.name?.toLowerCase() === objNameLower || k.nameEn?.toLowerCase() === objNameLower
-              );
-            });
-            const ttsLang = target.language === 'korean' ? 'ko' : 'en';
-            const keyObjTts = ko?.ttsUrls?.[ttsLang] ?? (ttsLang === 'ko' ? ko?.ttsUrl : undefined);
-
-            wordAudioUrl = await resolveTtsUrl({
-              text: target.text,
-              language: target.language,
-              storybookId,
-              directUrl: keyObjTts,
-              identifierPrefix: 'dot',
-            });
-          }
-          playWordCorrect({
-            ttsUrl: wordAudioUrl,
-            onDone: () => {
-              const newCompletedItems = completedItems + 1;
-              setCompletedItems(newCompletedItems);
-              if (itemIdx + 1 >= items.length) {
-                logGame({
-                  gameType: 'connect-the-dots',
-                  storybookId,
-                  lang: viewerLang,
-                  results: items
-                    .map((it, idx) => ({
-                      word: it.objectName ?? '',
-                      correct: idx < newCompletedItems,
-                    }))
-                    .filter((r) => r.word),
-                });
-                // 사용자 정책 (2026-05-10): 게임 끝 → GameResultScreen (호리 + 칭찬 + 확인 버튼).
-                // 자동 모달 닫힘 X. 사용자가 확인 클릭해야 이전 화면으로.
-                setFinished(true);
-              } else {
-                setItemIdx(itemIdx + 1);
-                setNextOrder(1);
-                setConnectedUpTo(0);
-                setCompleted(false);
-                setReturning(false);
-                setShowImage(false);
-              }
-            },
-          });
-        })();
-        return;
-      }
-
-      // 일반 진행: 순서 맞는 점만
-      if (order !== nextOrder) {
-        playFeedbackSound(false);
-        setWrongTap(true);
-        setTimeout(() => setWrongTap(false), 500);
-        return;
-      }
-      // 정답 점 — 도레미 진행 (1번 점=도, 2번=레, ...)
-      playNote(connectedUpTo);
-      const newConnected = connectedUpTo + 1;
-      setConnectedUpTo(newConnected);
-      setWrongTap(false);
-      if (newConnected === totalDots) {
-        setReturning(true);
-        setNextOrder(1);
-      } else {
-        setNextOrder(order + 1);
-      }
-      // 튜토리얼이 wait 중이면 advance
-      notifyTap(order);
-    },
-    [
-      completed,
-      returning,
-      nextOrder,
-      connectedUpTo,
-      totalDots,
-      currentItem,
-      storybookId,
-      completedItems,
-      itemIdx,
-      items,
-      onComplete,
-      playWordCorrect,
-      playFeedbackSound,
-      playNote,
-      resolveSpeakTarget,
-      logGame,
-      viewerLang,
-      storybook,
-      expected,
-      notifyTap,
-      isTutorialPlaying,
-    ]
-  );
-
-  // 드래그 통과 (onPointerEnter) — 순서 맞는 점만 반응. 틀린 점은 조용히 무시 (오탐 없음)
-  const handleDotEnterWhileDragging = useCallback(
-    (order: number) => {
-      if (completed || !isPressing) return;
-      const expected = returning ? 1 : nextOrder;
-      if (order !== expected) return; // 드래그 통과 중 엉뚱한 점: 조용히 무시
-      handleDotTap(order);
-    },
-    [completed, isPressing, returning, nextOrder, handleDotTap]
-  );
-
-  // finished 시 결과 화면 (호리 + 칭찬 + 확인). hook 순서 보존을 위해 main return 안 분기.
   if (finished) {
     return (
       <GameResultScreen
@@ -299,10 +347,9 @@ function ConnectTheDotsPlayerInner({ storybookId, gameData, onComplete, onBack }
         total={items.length}
         onRestart={() => {
           setItemIdx(0);
-          setNextOrder(1);
-          setConnectedUpTo(0);
-          setReturning(false);
+          setCoverage(0);
           setCompleted(false);
+          completedRef.current = false;
           setShowImage(false);
           setCompletedItems(0);
           setFinished(false);
@@ -315,6 +362,9 @@ function ConnectTheDotsPlayerInner({ storybookId, gameData, onComplete, onBack }
     );
   }
 
+  const pct = Math.round(coverage * 100);
+  const thresholdPct = Math.round(THRESHOLD * 100);
+
   return (
     <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/point-drawing-bg.webp">
       <GameHeader
@@ -324,138 +374,83 @@ function ConnectTheDotsPlayerInner({ storybookId, gameData, onComplete, onBack }
         onBack={onBack}
       />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
-        {/* 안내 — 큰 검정 텍스트 (LineMatching/WordWriting 톤 통일) */}
+        {/* 안내 텍스트 */}
         <div className="h-14 sm:h-16 flex items-center justify-center shrink-0">
-          {wrongTap ? (
-            <p className="text-2xl sm:text-3xl text-danger font-black animate-pulse">
-              아직 이 점 차례가 아니에요!
-            </p>
-          ) : completed ? (
+          {completed ? (
             <p className="text-3xl sm:text-4xl font-black text-success">🎉 완성!</p>
-          ) : returning ? (
-            <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-coral-500 animate-pulse">
-              마지막으로 <span className="text-coral-600">첫 점</span>으로 돌아오세요!
-            </p>
           ) : (
-            <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900">
-              점을 <span className="text-coral-500">순서대로</span> 눌러서 이어주세요
+            <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900 break-keep text-center px-4">
+              큰 붓으로 <span className="text-coral-500">모양 안</span>을 모두 칠해주세요!
             </p>
           )}
         </div>
 
-        {/* 게임 영역 — flex-1 로 영역 채움, aspect 자동 (이미지 비율 따라감) */}
+        {/* 게임 영역 */}
         <div className="flex-1 min-h-0 w-full flex items-center justify-center">
           <div className="relative select-none rounded-3xl overflow-hidden border-[5px] border-peach-200 bg-white shadow-pop max-h-full">
             <img
               src={currentItem.originalImageUrl}
               alt={currentItem.objectName ?? `Page ${currentItem.pageNumber}`}
               className="block max-h-[60vh] w-auto transition-opacity duration-700"
-              style={{ opacity: showImage ? 1 : 0.45 }}
+              style={{ opacity: showImage ? 1 : 0.55 }}
               draggable={false}
+              onLoad={handleImgLoad}
             />
 
-            <div
-              ref={overlayRef}
-              className="absolute inset-0"
+            {/* 칠하기 canvas — 이미지 위 absolute overlay */}
+            <canvas
+              ref={canvasRef}
+              className="absolute inset-0 w-full h-full"
               style={{ touchAction: 'none' }}
-              onPointerDown={() => setIsPressing(true)}
-            >
-              <svg
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                viewBox="0 0 1 1"
-                preserveAspectRatio="none"
-              >
-                {/* 연결된 선 */}
-                {sortedKps.map(
-                  (kp, i) =>
-                    i > 0 &&
-                    i < connectedUpTo && (
-                      <line
-                        key={`edge-${i}`}
-                        x1={sortedKps[i - 1].x}
-                        y1={sortedKps[i - 1].y}
-                        x2={kp.x}
-                        y2={kp.y}
-                        stroke="#E84B2A"
-                        strokeWidth="0.006"
-                        strokeLinecap="round"
-                      />
-                    )
-                )}
-                {/* 닫힘 선 */}
-                {completed && totalDots >= 2 && (
-                  <line
-                    x1={sortedKps[totalDots - 1].x}
-                    y1={sortedKps[totalDots - 1].y}
-                    x2={sortedKps[0].x}
-                    y2={sortedKps[0].y}
-                    stroke="#E84B2A"
-                    strokeWidth="0.006"
-                    strokeLinecap="round"
-                  />
-                )}
-              </svg>
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+            />
 
-              {sortedKps.map((kp, i) => {
-                const isConnected = kp.order <= connectedUpTo;
-                const isNext = returning ? kp.order === 1 : kp.order === nextOrder && !completed;
-                const tutorialPulse = pulseOrder === kp.order;
-                const tutorialDim = expected !== null && expected.order !== kp.order;
-                return (
-                  <button
-                    key={i}
-                    data-dot-order={kp.order}
-                    onPointerDown={(e) => {
-                      try {
-                        e.currentTarget.releasePointerCapture(e.pointerId);
-                      } catch {
-                        /* no-op */
-                      }
-                      setIsPressing(true);
-                      handleDotTap(kp.order);
-                    }}
-                    onPointerEnter={() => handleDotEnterWhileDragging(kp.order)}
-                    className={`absolute rounded-full shadow-pop transition-all ring-2 ring-white ${
-                      tutorialPulse
-                        ? 'bg-coral-500 ring-[6px] ring-coral-300 animate-pulse scale-150 shadow-[0_0_20px_rgba(255,122,60,0.6)]'
-                        : isNext
-                          ? 'bg-coral-500 ring-4 ring-coral-200 animate-pulse scale-125'
-                          : isConnected
-                            ? 'bg-coral-600'
-                            : 'bg-coral-300 hover:bg-coral-400 hover:scale-110'
-                    } ${tutorialDim ? 'opacity-30' : ''}`}
-                    style={{
-                      left: `${kp.x * 100}%`,
-                      top: `${kp.y * 100}%`,
-                      width: DOT_RADIUS_PX * 2,
-                      height: DOT_RADIUS_PX * 2,
-                      transform: 'translate(-50%, -50%)',
-                    }}
-                    aria-label={`점 ${kp.order}`}
-                  />
-                );
-              })}
+            {/* 점 시각 표시 (참고용, interaction X) */}
+            <div className="absolute inset-0 pointer-events-none">
+              {sortedKps.map((kp, i) => (
+                <div
+                  key={i}
+                  className="absolute rounded-full bg-coral-500 ring-2 ring-white shadow-pop"
+                  style={{
+                    left: `${kp.x * 100}%`,
+                    top: `${kp.y * 100}%`,
+                    width: DOT_RADIUS_PX * 2,
+                    height: DOT_RADIUS_PX * 2,
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                />
+              ))}
             </div>
           </div>
         </div>
+
+        {/* 진척 바 — 채움 % 실시간 */}
+        {!completed && (
+          <div className="w-full max-w-md shrink-0 px-4">
+            <div className="flex items-center justify-between text-base sm:text-lg font-black mb-1">
+              <span
+                className={
+                  coverage >= THRESHOLD ? 'text-emerald-600' : 'text-ink-700 dark:text-peach-200'
+                }
+              >
+                {pct}% {coverage >= THRESHOLD && '✓'}
+              </span>
+              <span className="text-ink-500">목표 {thresholdPct}%</span>
+            </div>
+            <div className="h-4 bg-white/70 backdrop-blur rounded-full overflow-hidden border-2 border-peach-200">
+              <div
+                className={`h-full transition-all ${
+                  coverage >= THRESHOLD ? 'bg-emerald-500' : 'bg-coral-400'
+                }`}
+                style={{ width: `${Math.min(100, coverage * 100)}%` }}
+              />
+            </div>
+          </div>
+        )}
       </div>
-
-      {/* 🪄 도와줘 버튼 — 사용자 정책 (2026-05-12): 블록 게임 외 튜토리얼 노출 X.
-          필요 시 아래 블록 풀고 !completed 가드 추가:
-          <button onClick={handleHintStart} disabled={hintActive || isTutorialPlaying}
-            className="fixed bottom-4 left-4 z-[70] px-6 py-3 rounded-full bg-gradient-to-b from-warn to-peach-500 text-white font-black text-lg shadow-pop">
-            🪄 도와줘
-          </button> */}
-
-      <ConnectTheDotsTutorial totalDots={totalDots} active={hintActive} onEnd={handleHintEnd} />
     </GamePlayerLayout>
   );
 }
 
-export function ConnectTheDotsPlayer(props: GamePlayerProps) {
-  return (
-    <TutorialProvider>
-      <ConnectTheDotsPlayerInner {...props} />
-    </TutorialProvider>
-  );
-}
+export { ConnectTheDotsPlayer };

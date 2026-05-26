@@ -246,6 +246,22 @@ pnpm --filter {server|client|shared} {dev|build|...}
 ## PRD 문서
 `docs/PRD_*.md` (Master / AuthorTool_Storybook / AuthorTool_Phonics / Viewer / Marketing / v2 / UIUX_AuthorTool)
 
+## SEO 인프라 (2026-05-26)
+SPA SEO 기본기. 자세한 건 memory `seo-infrastructure-2026-05-26.md`.
+
+**정적 인프라**:
+- `packages/client/index.html` — description / og / twitter / canonical / Organization+WebSite JSON-LD / R2 preconnect / Apple Touch Icon
+- `packages/client/public/robots.txt` — AI 크롤러 9종 (GPTBot·ClaudeBot 등) allow, AhrefsBot/SemrushBot 등 차단, 저작도구 11개 disallow, sitemap 링크
+- `packages/client/public/sitemap.xml` — 226 URL (정적 4 + 111권 × 2 + image:loc + lastmod). 자동 생성: `pnpm --filter server sitemap` (R2 책 카탈로그 자동 list, variant/private/non-storybook 스킵)
+- `packages/client/public/manifest.json` — PWA (모바일 install + shortcuts)
+- `packages/client/public/llms.txt` — LLM friendly summary (2026-05-18~ 부터)
+
+**동적 SEO (`src/lib/useSeo.ts`)**: title/description/og/twitter/canonical/JSON-LD 동적 hook + unmount cleanup. 적용처: LibraryPage (`/library`, storybook/phonics 분기) · BookDetailPage (`/library/:id`, Book JSON-LD) · KoreanPhonicsStudyPage (`/library/phonics/korean`) + BookSeoPage 기존 (`/library/:id/about`, Book+FAQPage+Breadcrumb+LearningResource).
+
+**Prerender (`packages/client/scripts/prerender.mjs`)**: puppeteer + vite preview API. 4개 정적 라우트 (`/`, `/library`, `/library/phonics/korean`, `/vocabulary`) → `dist/{path}/index.html` 정적 HTML snapshot. SPA fallback (`dist/index.html`) 보존. CMD: `pnpm --filter client build:prerender`. puppeteer chromium cache: `~/.cache/puppeteer/`.
+
+🔴 **다음 SEO 할 일** (메모리 참조): (1) OG 이미지 6종 PNG 자산 가장 시급 / (2) BookSeoPage prerender 확장 (111권) / (3) CI/CD 통합 / (4) GSC + 네이버 웹마스터 등록 / (5) 추가 페이지 SEO (낮음) / (6) Core Web Vitals (chunk 2.4MB 코드 스플릿).
+
 ## 마케팅 자료 (2026-05-14, 확장 2026-05-16)
 `docs/marketing/` — 키워드 리서치·통합·전략 시각화 풀 파이프라인. 자세한 가이드는 `docs/marketing/README.md`.
 

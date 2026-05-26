@@ -18,6 +18,7 @@ import LibraryMasterPage from '../pages/LibraryMasterPage';
 import LetterStrokeBulkEditorPage from '../pages/LetterStrokeBulkEditorPage';
 import KoreanJamoStrokeBulkEditorPage from '../pages/KoreanJamoStrokeBulkEditorPage';
 import LetterFillDemoPage from '../pages/LetterFillDemoPage';
+import ConnectTheDotsDemoPage from '../pages/ConnectTheDotsDemoPage';
 import ViewerPage from '../pages/ViewerPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
@@ -183,6 +184,15 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <LetterFillDemoPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 점잇기 → 색칠 모드 데모 (2026-05-25): 다양한 polygon 모양으로 paint-fill 검증
+        path: 'connect-the-dots-demo',
+        element: (
+          <ErrorBoundary>
+            <ConnectTheDotsDemoPage />
           </ErrorBoundary>
         ),
       },

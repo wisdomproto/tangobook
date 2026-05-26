@@ -10,6 +10,7 @@ import {
 import { findArtStylePreset } from '@/features/editor/lib/style-assets';
 import { StateScreen, Skeleton, Chip, PageHeader } from '@/design-system';
 import { cn } from '@/lib/cn';
+import { useSeo } from '@/lib/useSeo';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
 import type { ReadingLevel, StorybookSummary } from '@tangobook/shared';
 
@@ -34,6 +35,18 @@ export default function BookDetailPage() {
   // 4-25~26 v2 시도 폐기 후 BookDetail 도 v1 으로 정리.
   const { data: storybook, isLoading, isError } = useStorybook(id);
   const { data: allStorybooks } = useStorybooks();
+
+  // SEO — 책 detail 페이지는 SEO 진입 페이지 (BookSeoPage 의 /about 는 부모용 가이드, /library/:id 는 학습자 진입).
+  // 책 정보 로드되면 동적으로 title/description/og 세팅. 책 상세는 학습 진입점이라 robots=index.
+  useSeo({
+    title: storybook ? `${storybook.title} — 탱고북` : '동화책 — 탱고북',
+    description: storybook
+      ? `${storybook.title} | ${storybook.category ?? '동화책'} | ${storybook.parentGuide?.overview?.slice(0, 110) ?? '아이와 함께 읽는 동화책. 그림체와 글밥을 아이에게 맞춰서.'}`
+      : '아이와 함께 읽는 동화책. 그림체와 글밥을 아이에게 맞춰서.',
+    image: storybook?.coverImage || storybook?.coverImages?.[0]?.imageUrl,
+    path: `/library/${id}`,
+    type: 'book',
+  });
 
   const [lang, setLang] = useState<string>('ko');
   const [selectedLevel, setSelectedLevel] = useState<ReadingLevel | null>(null);

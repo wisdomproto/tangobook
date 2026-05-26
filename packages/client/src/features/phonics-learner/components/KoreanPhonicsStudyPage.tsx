@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PageHeader } from '@/design-system';
+import { useSeo } from '@/lib/useSeo';
 import {
   getAllKoreanUnits,
   getActivityPlan,
@@ -23,6 +24,30 @@ export default function KoreanPhonicsStudyPage() {
   const navigate = useNavigate();
   const allUnits = useMemo(() => getAllKoreanUnits(), []);
   const { isUnitDone } = usePhonicsProgress('korean');
+
+  useSeo({
+    title: '한글 파닉스 학습 — 탱고북',
+    description:
+      '한글 자음·모음·받침을 4-5세 입문자에게 친숙한 카드 + 게임으로 학습. 동화 단어와 자동 연결되는 한글 파닉스 학습.',
+    path: '/library/phonics/korean',
+    keywords:
+      '한글 파닉스, 한글 학습, 자음 모음, 한글 받침, 한글 블렌딩, 4세 한글, 5세 한글, 6세 한글, 탱고북',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'LearningResource',
+      name: '한글 파닉스 학습',
+      description: '한글 자음·모음·받침 + 블렌딩 + 받침 학습 unit 컬렉션',
+      url: 'https://www.tangobook.co.kr/library/phonics/korean',
+      educationalLevel: '유아',
+      educationalUse: '한글 읽기, 파닉스, 어휘 학습',
+      inLanguage: ['ko'],
+      provider: {
+        '@type': 'Organization',
+        name: '탱고북',
+        url: 'https://www.tangobook.co.kr/',
+      },
+    },
+  });
 
   // ── Hooks (early return 이전에 모두 호출) ──
   useEffect(() => {

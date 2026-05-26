@@ -1,0 +1,68 @@
+# https://www.tangobook.co.kr/robots.txt
+# 탱고북 — 동화로 자라는 4-7세 한글·영어 학습 플랫폼
+
+User-agent: *
+Allow: /
+Allow: /library
+Allow: /library/*/about
+
+# 저작도구 / 비공개 마스터 페이지 (검색엔진 노출 X)
+Disallow: /library-master
+Disallow: /editor
+Disallow: /editor2
+Disallow: /vocabulary-table-ko.html
+Disallow: /vocabulary-master.html
+Disallow: /key-object-editor.html
+Disallow: /letter-stroke-editor
+Disallow: /korean-jamo-stroke-editor
+Disallow: /letter-fill-demo
+Disallow: /curriculum-master.html
+Disallow: /admin
+Disallow: /api/
+
+# AI 크롤러 명시 허용 (LLM 학습/탐색)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# 악성 / 어그레시브 스크레이퍼 차단
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Sitemap
+Sitemap: https://www.tangobook.co.kr/sitemap.xml
+
+# LLM-friendly summary
+# See /llms.txt for plain-English site summary.

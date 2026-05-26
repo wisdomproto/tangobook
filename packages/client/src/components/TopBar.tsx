@@ -41,6 +41,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '5종 자석 한 클릭 공유 와이어프레임',
   },
   {
+    href: '/campaign-plan.html',
+    icon: '🌱',
+    label: '런칭 캠페인 플랜',
+    desc: '광고 카피·랜딩·채널·KPI·6주 캘린더',
+  },
+  {
     href: '/curriculum-master.html',
     icon: '📖',
     label: '커리큘럼 마스터',

@@ -2,9 +2,94 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#FF6F61" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>탱고북 — 동화로 자라는 우리 아이</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="canonical" href="https://www.tangobook.co.kr/" />
+    <link rel="alternate" hreflang="ko" href="https://www.tangobook.co.kr/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.tangobook.co.kr/" />
+
+    <title>탱고북 — 동화로 자라는 4-7세 한글·영어 학습 플랫폼</title>
+    <meta
+      name="description"
+      content="명작 동화·자연 동화를 읽으며 한국어·영어 필수 어휘를 떼는 4-7세 학습 플랫폼. 그림체와 글밥을 아이에게 맞추고, 부모는 주간 학습 리포트로 본다."
+    />
+    <meta
+      name="keywords"
+      content="유아 동화, 명작 동화, 자연 동화, 한글 파닉스, 영어 파닉스, 어휘 학습, 4세 동화책, 5세 동화책, 6세 동화책, 부모 학습 리포트, 탱고북"
+    />
+    <meta name="author" content="탱고북" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="탱고북" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:url" content="https://www.tangobook.co.kr/" />
+    <meta property="og:title" content="탱고북 — 동화로 자라는 4-7세 한글·영어 학습 플랫폼" />
+    <meta
+      property="og:description"
+      content="명작 동화·자연 동화를 읽으며 한국어·영어 필수 어휘를 떼는 4-7세 학습 플랫폼. 그림체와 글밥을 아이에게 맞추고, 부모는 주간 학습 리포트로 본다."
+    />
+    <meta property="og:image" content="https://www.tangobook.co.kr/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="탱고북 — 동화로 자라는 우리 아이" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="탱고북 — 동화로 자라는 4-7세 한글·영어 학습 플랫폼" />
+    <meta
+      name="twitter:description"
+      content="명작 동화·자연 동화를 읽으며 한국어·영어 필수 어휘를 떼는 4-7세 학습 플랫폼."
+    />
+    <meta name="twitter:image" content="https://www.tangobook.co.kr/og-image.png" />
+
+    <!-- 모바일 / iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="탱고북" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Preconnect (R2 자산) -->
+    <link rel="preconnect" href="https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev" crossorigin />
+    <link rel="dns-prefetch" href="https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev" />
+
+    <!-- JSON-LD: Organization + WebSite (전역 fallback) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.tangobook.co.kr/#organization",
+            "name": "탱고북",
+            "alternateName": "TangoBook",
+            "url": "https://www.tangobook.co.kr/",
+            "logo": "https://www.tangobook.co.kr/logo.png",
+            "description": "4-7세 아이를 위한 AI 기반 동화·파닉스·어휘 학습 플랫폼.",
+            "sameAs": []
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.tangobook.co.kr/#website",
+            "url": "https://www.tangobook.co.kr/",
+            "name": "탱고북",
+            "description": "동화로 자라는 4-7세 한글·영어 학습 플랫폼",
+            "inLanguage": "ko-KR",
+            "publisher": { "@id": "https://www.tangobook.co.kr/#organization" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.tangobook.co.kr/library?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
