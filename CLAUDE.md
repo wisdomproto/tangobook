@@ -280,13 +280,14 @@ SPA SEO 기본기. 자세한 건 memory `seo-infrastructure-2026-05-26.md`.
 - `/operations-playbook.html` 🎯 운영 플레이북 — 본질 베타 → 점진 확장 + 비즈니스 모델(무료·광고 / 유료·광고제거 + ⭐포인트 통합) + 8-Pronged 알림 작전 + 듀얼 블로그(자체+네이버) + 5종 바이럴 자석
 - `/viral-magnets-wireframes.html` 🚀 바이럴 자석 UI — 5종 자석 모바일 와이어프레임 (디자인·개발 발주서)
 
-## strategy.html — 가로 슬라이드 deck (2026-05-27)
-투자자/발표용. 21 슬라이드 (hero + toc + 19). 자세한 건 memory `strategy-html-slide-deck-2026-05-27.md`.
+## strategy.html — 가로 슬라이드 deck (2026-05-28 갱신)
+Series A 투자자용. **16 슬라이드** (Hero + §01 Market / §02 Problem / §03 Solution / §03A Proven Model / §04 Our Product / §04+ Our Books / §04++ Our Curriculum / §05 Marketing 자가증식 / §05+ Marketplace Ignition / §06 Business Model / §07-1·07-2 Moat / §08 Milestone / §09-1·09-2 Financial).
 - **구조**: `<main>` (clipper, position:fixed inset:0 overflow:hidden) + `<div class="deck-track">` (flex row, transform:translateX 적용 대상) + 각 `<section>` (100vw × 100vh) + `.slide-content` (JS runtime wrap, transform:scale 자동 fit). ⚠️ main 에 직접 transform 적용 시 computed identity matrix 됨 — 반드시 inner deck-track 분리.
 - **네비**: 키보드 `← → / Space / PageUp/Down / Home / End` · 우하단 `‹ ›` 버튼 · 마우스 휠 (콘텐츠 스크롤 끝에서 다음 슬라이드) · 터치 swipe · URL hash 동기화 (`#market` 등) · TOC 링크 클릭 점프
 - **자동 fit**: `fitSlide()` 가 `min(slideH/contentH, slideW/contentW, 1)` 계산 후 `transform: scale(N)` 적용. 짧은 슬라이드 11개 원본 / 자동 축소 10개 (market 0.99 → author-funnel **0.32 ⚠️**). `document.fonts.ready` + `window.load` + `resize` 마다 재계산.
 - **기존 narrative**: `/strategy-detail.html` 로 백업 보존 (deep-dive). TopBar 자료실에 "요약 (슬라이드)" + "상세 (narrative)" 분리.
 - **Section 06 일러스트 풀**: 13개 vision 검증 후 4 award cards + 8 gallery 모두 verified ✓ 4-7세 child-friendly. 7개 reject → `strategy-samples/illustrators/rejected/` 격리.
+- 🔴 **deck 작업 규칙**: [`docs/strategy-deck-rules.md`](docs/strategy-deck-rules.md) 매번 참조. 헤더 통일·자랑 표현·AI 모델·마케팅 채널 등 반복 지적된 규칙 모음.
 
 **전략 핵심 결정** (operations-playbook.html 에 모두 반영):
 - 명작 동화 플랫폼 브랜딩 (AI 양산 사이트와 정반대 포지셔닝)
