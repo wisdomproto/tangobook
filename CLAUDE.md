@@ -2,6 +2,8 @@
 
 AI 기반 유아동 동화책 + 파닉스 + 어휘 저작도구. Gemini로 스토리/이미지/TTS 자동 생성.
 
+> 이 파일은 **인덱스**다. 상세는 모듈별 `features/*/CLAUDE.md`, `docs/*`, memory 를 가리킨다. 완료된 마이그레이션·스크립트 나열은 `git log` / 코드 / memory 에서 확인.
+
 ## 기술 스택
 - **Monorepo**: pnpm workspaces (`packages/{client,server,shared,remotion}`)
 - **Frontend**: React 18 + TypeScript + Vite + TanStack Query v5 + Zustand v5 + TailwindCSS v3
@@ -18,170 +20,48 @@ packages/
   server/src/{routes,controllers,services,repositories,providers,utils,middleware}/
   remotion/src/                          # AudiobookComposition + entry.ts
   client/src/{lib,store,router,pages,features,components,design-system}/
-docs/                                    # superpowers/specs, books, architecture-notes
+docs/                                    # specs, architecture-notes, marketing, strategy
 memory/                                  # 사용자 auto-memory (장기 컨텍스트)
 ```
 
-## 백엔드 레이어
-```
-Request → routes → controllers → services → repositories/providers
-```
-- routes: URL 매핑만 / controllers: req 파싱 + try/catch + next(err) / services: 비즈니스 로직 (AppError 던지기) / repositories: R2 / providers: Gemini/R2 SDK 싱글톤
-- 응답 통일: `res.json({ success: true, data })` / 실패는 `throw new AppError(404, '메시지')` (errorMiddleware)
+## 아키텍처 규칙
+- **백엔드 레이어**: `routes(URL 매핑) → controllers(req 파싱 + try/catch + next(err)) → services(비즈니스 로직, AppError throw) → repositories(R2) / providers(Gemini·R2 SDK 싱글톤)`
+- **응답 통일**: `res.json({ success: true, data })` / 실패는 `throw new AppError(404, '메시지')` (errorMiddleware)
+- **프론트 상태**: TanStack Query = 서버 데이터 / Zustand(`store/editor.store.ts`) = UI 상태만. **Zustand 에 서버 데이터 금지**.
+- **API 패턴**: `apiGet/apiPost/apiDelete`(`lib/axios.ts`) → `features/{name}/api/*.api.ts` → `features/{name}/hooks/use*.ts`
+- **Feature 모듈**: `features/{name}/{api,hooks,components,index.ts}`
 
-## 프론트엔드 상태관리
-- **TanStack Query**: 서버 데이터 (storybooks, units, balance 등)
-- **Zustand** (`store/editor.store.ts`): UI 상태만 (selectedId, activeTab, 모달)
-- **금지**: Zustand에 서버 데이터 저장
-- API 패턴: `apiGet/apiPost/apiDelete` (`lib/axios.ts`) → `features/{name}/api/*.api.ts` → `features/{name}/hooks/use*.ts`
+## 디자인 시스템
+**Single source of truth**: [docs/design-system.md](docs/design-system.md) — 색/폰트/컴포넌트 + GPT 시안 prompt 템플릿 + 시안 protocol. 새 화면 시안 받을 때 매번 참조.
 
-## Feature 모듈 구조
-```
-features/{name}/{api,hooks,components,index.ts}
-```
+- **색 토큰** (`design-system/tokens/colors.ts`): coral(CTA) · peach(Warm 배경/표면) · mint(Cool, 게임 톤 — 학습=peach / 게임=mint) · cream · ink(실질 검정) · semantic. 새 토큰 추가 시 Tailwind JIT 인식 위해 client dev 서버 재시작.
+- **폰트**: Body/UI = Pretendard Variable / Display·Heading(`font-display`) = NanumSquareRound. `tailwind.config.ts` inline 정의 + `index.css` jsdelivr CDN @import.
+- **아이콘**: 프리미티브 `<AppIcon src="category/animal.png" size={48} />`. 자산 `public/icons/{category,section,tab}/*`. 카테고리 sprite `/icons/category/sprite.webp`(3×3, LibraryPage `CATEGORY_SPRITE_MAP`). 매핑 없으면 이모지 폴백. 마스코트 호리 `public/mascot/hori/*.webp`.
+- **그림체**: 책마다 `artStyle`(마지막 active) + `defaultStyle`(대표). `defaultStyle` = 라이브러리 표지 우선. `styleAssets[styleId]` 가 그림체별 표지·캐릭터·페이지 분리 보관. /editor2 그림체 칩 ⭐/☆ 로 대표 지정.
+- **학습자 헤더**: `<PageHeader>`(`design-system/primitives/`) 공용 / `<GameHeader>`(`features/games/components/`) 게임 전용. LibraryPage(absolute overlay) · AppShell(sticky 자체 헤더) 는 별도.
 
-## 디자인 시스템 — single source of truth
-**Reference**: [docs/design-system.md](docs/design-system.md) — 색/폰트/컴포넌트 + GPT 시안 prompt 템플릿 + Claude 가 시안 받을 때 protocol. 새 화면 시안 받을 때 매번 이 문서 참조.
+## 학습자 화면 (MVP 정책)
+- **사이드바**: 동화책 axis 만 active. 파닉스/어휘 = `comingSoon` 음영(코드/라우트 보존). `AppShell.PRIMARY_AXES`.
+- **LibraryPage** (`/library`): hero 배너 + 검색바 floating. 책 카드 = defaultStyle 대표 표지 1장 + 제목. 그림체 선택은 BookDetailPage 진입 후.
+- **BookDetailPage** (`/library/:id`): AppShell 밖 풀폭. 그림체·언어 선택 바 + 16:9 표지 + 모드 카드 3개(책 읽기 coral / 영상 violet / 단어 amber). 표지 = `(effectiveStyle × lang)` 조합 (`styleAssets[style].primaryCoverByLang[lang]` 우선). 부모 가이드 패널. 외부 SEO 페이지 `/library/:id/about`(BookSeoPage) 별도.
+- **VocabularyStudyPage** (`/vocabulary/:unitId`): AppShell 밖. `VocabularyStudyContent` 공용(단어 미리보기 + 게임 카드 4).
+- **한글 파닉스** (`/library/phonics/korean(/:unitId)?`): AppShell 밖 풀화면. 상세 → [features/phonics-learner/CLAUDE.md](packages/client/src/features/phonics-learner/CLAUDE.md).
 
-## 디자인 시스템 — 색 토큰 (`design-system/tokens/colors.ts`)
-- **coral** (CTA): 100, 200, 400, 500, 600 — 메인 학습 강조
-- **peach** (Warm): 50, 100, 200, 300, 500 — 따뜻한 배경/표면
-- **mint** (Cool, 2026-05-20 추가): 50, 100, 200, 300, 400, 500, 600 — 게임/Cool 톤. 학습 활동 카드의 **게임하기 섹션** 식별 톤 (학습은 peach, 게임은 mint).
-- **cream** 50 / **ink** 100/300/500/700/900 (실질 검정) / semantic (success/info/warn/danger/fun)
-- 새 토큰 추가 시 Tailwind JIT 가 클래스 발견하려면 client dev 서버 재시작 필요.
+## 글자 쓰기 채점 — `LetterFillCanvas` (paint mode)
+모든 글자/단어 쓰기 통일 (영/한/일). 글자 회색 fill → 사용자 stroke `source-atop` 으로 글자 안만 painted → `coverage`(painted/mask 픽셀) ≥ `threshold(0.95)` 시 autoCheck 통과. `LINE_WIDTH=60`. 폰트 fidelity 100% (폰트 그대로 채점).
+- 데모: `/letter-fill-demo` (TopBar 자료실 🎨).
+- 도입 배경 + deprecated stroke library 인프라(미래 자모 단위 학습용 보관, 학습자 미통합) → memory / `docs/` 참조.
 
-## 디자인 시스템 — 아이콘
-- 프리미티브: `<AppIcon src="category/animal.png" size={48} />` (`design-system/primitives/AppIcon.tsx`)
-- 자산 위치: `packages/client/public/icons/{category,section,tab}/*.{png,svg,webp}`
-- AI 생성 일러스트 (coral #FF6F61 + peach #FFE4D6 톤) — Khan Kids × 곰돌이푸 × Duolingo
-- **카테고리 sprite (2026-05-19)**: `/icons/category/sprite.webp` (1536×1536, 3×3, 512/cell). LibraryPage `CATEGORY_SPRITE_MAP` 으로 9개 카테고리 (세계명작/전래동화/공룡/곤충/육지/바다/하늘/식물/우주와 자연) inline background-position 렌더. 매핑 없는 카테고리(우리 몸 이야기 등)는 이모지 폴백.
-- **학습 리포팅 아이콘**: `/icons/section/reports.webp` (AppShell 사이드바 부모 영역).
-- Cambridge 토픽 매핑: `features/vocabulary-unit/lib/cambridge-icon-map.ts`
-- 마스코트 호리: `public/mascot/hori/*.webp` 그대로 (Mascot 컴포넌트)
-- 미사용 슬롯 (호리 게임·뷰어 툴바 등) 은 이모지 폴백 유지
+## 저작도구 자료실 페이지 (TopBar 📁 자료실 ▾)
+- `/library-master` — 라이브러리 순서 + 카테고리 CRUD + 책 메타 편집. 셀 단위 isPublic(`Storybook.publicByStyleLang`) + 📊 표 보기(`BookMatrixModal`). 양방향 동기화 `features/library/lib/public-sync.ts`. **학습자 화면 노출 X**.
+- `/vocabulary-table-ko.html` 📊 — 단어 마스터 표. 동화책 keyObject source, 난이도 분류 + 비명사 필터. `vocab-overrides API`(`GET/PUT /api/vocab-overrides` → R2). 영어판 `vocabulary-master.html`.
+- `/key-object-editor.html` ✏️ — 페이지 텍스트 기반 keyObject 재분류 + 책별 편집. 분석 source `public/_analysis/text-based-classify.json`(gitignored).
+- SEO/마케팅/전략 HTML → 아래 SEO·마케팅 섹션.
 
-## 디자인 시스템 — 폰트 (2026-05-03)
-- **Body / UI**: Pretendard Variable (한국 모던 앱 표준, 한글+Latin 조형 통일, 가변 38KB)
-- **Display / Heading (`font-display`)**: NanumSquareRound (둥근 한글체, 4-5세 친화)
-- 정의: `tailwind.config.ts` 안에 inline (typography.ts import 캐시 이슈 우회). `index.css` 에 jsdelivr CDN @import.
-
-## 디자인 시스템 — 그림체 (2026-05-03)
-- 책마다 `Storybook.artStyle` (마지막 active, 자동 갱신) + `defaultStyle` (사용자 명시 대표) 분리
-- `defaultStyle` = 라이브러리 표지 imageUrl 노출에 우선 사용 (없으면 artStyle fallback)
-- /editor2 그림체 칩에 ⭐/☆ 토글로 대표 지정. `styleAssets[styleId]` 가 그림체별 표지·캐릭터·페이지 일러스트 분리 보관
-
-## 학습자 화면 헤더 통일 (2026-05-10)
-- **`<PageHeader>`** (`design-system/primitives/PageHeader.tsx`) — 학습자 화면 공용 헤더. 흰 wash 카드 (`bg-white/60 backdrop-blur shadow-soft rounded-3xl`) + 좌 ← 뒤로 가기 (peach pill `bg-peach-100 text-xl`) + 가운데 children + 우 right slot. 사용처: BookDetailPage / VocabularyStudyPage.
-- **`<GameHeader>`** (`features/games/components/GameHeader.tsx`) — 게임 전용. 동일 wrapper 톤 + 가운데 ★ title current/total ★ 형식. 사용처: LineMatching / KoreanBlock / EnglishBlock / ConnectTheDots / WordWriting.
-- **메인 페이지 (LibraryPage)** 와 **AppShell 내부 페이지** 는 별도 (LibraryPage = absolute overlay / AppShell = sticky 자체 헤더).
-
-## MVP 출시 정책 (2026-05-09)
-- **사이드바**: 동화책 axis 만 active (alwaysActive). 파닉스/어휘 axis = `comingSoon` 음영 + "준비 중" sub-label (코드/라우트 보존). `AppShell.PRIMARY_AXES`. `/library` 일 때 헤더 = `position: absolute` transparent overlay (hero 일러스트가 헤더 영역까지 풀폭) + 사용자 chip / 로그아웃은 `pointer-events-auto` floating.
-- **LibraryPage** (`/library`): hero 배너 (`aspect-[5/2] md:aspect-[4/1]`) `bg-[url('/images/library-hero.png')] bg-cover`. 큰 제목/권수 텍스트 X (일러스트와 충돌). 검색바 hero 하단 floating (`absolute inset-x-0 bottom-6` + `bg-white shadow-pop`). 책 카드 = 일러스트 풀 (`aspect-video rounded-2xl`) + 아래 제목만 (Card 배경/패딩 X). **책 카드는 defaultStyle 대표 표지 1장만 노출** (2026-05-22) — 그림체 multi-thumbnail 배너 제거. 그림체 선택은 BookDetailPage 진입 후.
-- **BookDetailPage** (`/library/:id`): AppShell **밖** 라우트 (사이드바 X, 풀폭). 헤더 right = 기본 정보 chip 들 (🌍 카테고리 / 📖 타입 / 📕 페이지 / Aa 단어 / 🌱 타겟 연령 — `readingLevel` 우선, 없으면 `targetAge` `'4-5'` → `'4~5세'` 폴백). hero = 좌 column(그림체·언어 선택 바 + **16:9 가로 표지** (2026-05-22 정사각형→가로)) + 우 column(모드 카드 3개 stack). **그림체·언어 선택 바**는 표지 위 한 줄: 좌측 `flex-1` 그림체 바(← / **"🎨 {findArtStylePreset(style)?.label}"** 그림체 이름 노출 (2026-05-22) / → — ≥2일 때만) + 우측 `shrink-0` 둥근 깃발 토글(언어 ≥2일 때만). **표지는 (effectiveStyle × lang) 조합** (2026-05-22) — `styleAssets[style].primaryCoverByLang[lang]` 우선, 활성 그림체일 때 top-level `primaryCoverByLang[lang]`, ko 만 레거시 `coverImage` fallback. 조합 표지 없으면 📭 placeholder + "{언어} 표지가 아직 없어요". **부모 가이드 패널**(본문 접기/펴기) = 책 특징 + 교훈 + 읽어주는 법 + FAQ (`storybook.parentGuide.faq` details/summary). 외부 SEO 페이지 `/library/:id/about` (BookSeoPage) 는 헤더 링크 없이 SEO/JSON-LD 유입 채널로만 살아있음.
-- **모드 카드 3개**: 책으로 읽기 (coral) / 영상으로 보기 (violet-blue, 영상 없는 책=disabled 음영) / 단어 익히기 (yellow→amber). 가로 긴 형태 — 좌 제목+부제 / 우 흰 동그라미 워시 (`bg-white/85 + ring-2 ring-white`) 안 PNG 일러스트 / 우끝 → 화살표.
-- **모드 일러스트**: `public/icons/mode/{book,video,word}.png` (soft 3D rendered 톤, 그림체 독립적). PNG 베이크된 체크무늬 배경 → `packages/server/scripts/strip-checkerboard-bg.mjs` 로 4 모서리 floodfill 후처리.
-- **VocabularyStudyPage** (`/vocabulary/:unitId`): AppShell **밖** (학습 풀화면). 메인 진입 = BookDetailPage 의 "단어 익히기" 카드. `VocabularyStudyContent` 컴포넌트 = 단어 미리보기 + 게임 카드 4 (Duolingo push button + 좌상단 번호 1·2·3·4) — BookDetailPage / VocabularyStudyPage 공용.
-
-## 단어 마스터 표 (2026-05-11)
-- **`/vocabulary-table-ko.html`** — 자료실 dropdown 📊 신규. 동화책 keyObject 만 source. 음절·받침·쌍자음·이중모음·복잡받침·ㅐㅔ 점수로 난이도 분류 (Lv1≤1.5 / Lv2≤3 / Lv3≤6 / Lv4>6).
-- 비-명사 자동 필터: ~다/한/운/은/른/픈/쁜/인/던/의/히 어미 + 추상명사 + 고유명사 블랙리스트 + 4음절+ 복합명사 자동 분해 (2:N 양쪽 단일 명사) + 중간 ~의/과/와 조사 합성 + EXTRA_NOUNS 보조 사전.
-- 표 12 컬럼 헤더 클릭 정렬. 영어 input · 카테고리 select 인라인 편집. ✏️ 한글 수정 / 🗑️ 제거. 행 클릭 → 출연 동화책 모달.
-- **vocab-overrides API**: `GET/PUT /api/vocab-overrides` → R2 `_index/vocab-overrides.json`. localStorage X, dirty 플래그 + 명시 💾 저장 + beforeunload 경고.
-- 영어 `vocabulary-master.html` 도 verbs/adj/adv 토픽 제거 + 어미 패턴 (~ly·ful·less·ous·ive·able·ish) 자동 필터.
-
-## 한글 파닉스 학습 모드 (2026-05-20)
-- **`/library/phonics/korean(/:unitId)?`** — AppShell **밖** 풀화면 study layout. `KoreanPhonicsStudyPage` 가 두 라우트 모두 처리. recent unit 자동 redirect (`localStorage` `phonics-recent-unit`).
-- **레이아웃**: 상단 `PageHeader` (← 홈 / 한글 파닉스) + 좌측 커리큘럼 list (**레벨별 접기/펴기**, 현재 unit 의 레벨만 기본 펼침) + 우측 `KoreanPhonicsUnitPage embedded` (페이지 타이틀 hide — 사이드바가 현 위치 표시).
-- **자음 단원 자동 생성**: `makeConsonantPlan(consonant)` ([korean-phonics-units.ts](packages/client/src/features/phonics-learner/lib/korean-phonics-units.ts)) — 한글1 u02 (ㄱ) ~ u15 (ㅎ) 13개. 4 learn (Tap/BlendListen×2/Write) + 4 game. 자음만 바뀜.
-- **활동명** (2026-05-20 단순화): 카드 안 subtitle 전부 제거 (텍스트 최소). `ㄱ 누르기` → `ㄱ 배우기`, `ㄱ + 모음 1/2` → 둘 다 `ㄱ + 모음 배우기` (번호 배지로 구분), `한글 블록` → `한글 블록 게임`, `점 잇기` → `낱말 그리기`.
-- **Block 게임 난이도 자동**: `unit.levelIndex >= 3 ? 'medium' : 'easy'`. 한글1/2 easy, 한글3 (쌍자음) / 한글4 (복잡 모음) medium picker.
-- **한글 블록 쉬움 모드** (2026-05-20): drag X. `EasyOrderStrip` 으로 단어의 cho/jung 순서대로 jamo 만 노출 (다른 자모는 안 보임). 다음 누를 jamo 만 활성 + 클릭 시 그리드 자동 배치. 4-5세 한글 모르는 입문자용. 보통/어려움은 기존 BlockPanel drag.
-- **카드 디자인 (2026-05-20)**: `aspect-[5/6] rounded-[28px] border-[5px]` + 코랄 틴트 다층 그림자 (`shadow-[0_8px_24px_-10px_rgba(255,94,58,0.25)]`, hover `0_18px_40px_-12px_0.4`) + 상단 화이트 하이라이트 + hover `-translate-y-1 rotate-[0.5deg]` + 번호 배지 `-rotate-[6deg]` 그라데이션 + ring-4 흰 외곽. 학습 활동 emoji 폴백 text-7xl/8xl, 게임은 `/icons/game/*.webp` (korean-block / word-writing / connect-dots / line-matching).
-- **섹션 panel 구분 (2026-05-20)**: 익히기/게임하기 각각 `rounded-[32px] border-2` panel 로 wrap (학습 = peach 톤 / 게임 = mint 톤). 헤더 chip 은 panel `-top-5 left-5` floating peg 스타일 (coral / mint 그라데이션 + 흰 3px 테두리 + shadow-pop). pt-10~12 로 카드와 헤더 분리.
-- **배경 이미지**: `/images/phonics/study-bg.webp` (1672×941, 44KB) — 풀밭 + 꽃 + 구름 톤. KoreanPhonicsStudyPage 전체 backdrop.
-- **모음 듣기 (VowelListenActivity)**: 묵음 ㅇ 표기 제거 — 카드는 모음 + 음절만. 마지막 모음 음원 끝 (`onEnded`) 후에 칭찬 시작 (요 발음 잘림 방지). 다 들으면 🔁 다시 해보기 + 🎯 퀴즈 시작! 두 버튼. 퀴즈 완료 후 자동 back 없음 — `🔁 다시 해보기` + `← 돌아가기` 버튼 (진척만 `onMarkComplete` 로 마킹).
-- **점잇기 keypoints styleAssets sync** ⭐: KeyObjectTab keypoint 저장 시 top-level + `styleAssets[artStyle].keyObjectImages` 동시 mirror. 점잇기 게임 어댑터 가 styleAssets[style] 에서 읽어 keypoints 못 찾던 버그. 기존 18권 마이그 (`packages/server/scripts/sync-keypoints-to-styleassets.mjs`).
-
-## 핵심단어 영어 번역 일괄 적용 (2026-05-19)
-- **스크립트 5종** (`packages/server/scripts/`): `scan-untranslated-keyobjects.mjs` (전 책 스캔 → `_data/untranslated-keyobjects.json` per-book ko+pages+pageTexts) · `condense-untranslated.mjs` (단어당 짧은 context 1줄 압축) · `prepare-batch.mjs N` (앞 N권 추출 + 기존 사전 reuse auto-fill + 잔여 manual list) · `apply-translations.mjs [file]` (번역 map `{ bookId: { tr: { ko: en } } }` 적용 → `POST /api/storybooks { storybook }`) · `merge-and-apply-batch.mjs` (auto+manual 머지 후 apply).
-- **원칙**: 페이지 텍스트 context 기반 동음이의어 분리 (지팡이 wand vs cane / 다리 leg vs bridge / 바람 wind vs hope / 화가 anger vs painter).
-- **POST /api/storybooks** body 는 `{ storybook: {...} }` wrapper 필수. raw object 보내면 500 "Cannot read properties of undefined (reading 'id')".
-- **누적**: 95권 / 361단어 적용 (세계 명작 45권 + L variant/파닉스 50권). 남은 58권 / 252단어.
-
-## 핵심단어 에디터 (2026-05-18)
-- **`/key-object-editor.html`** — 저작도구 자료실 dropdown ✏️. 페이지 텍스트 기반 keyObject 재분류 + 책별 편집기.
-- **분석**: `packages/server/scripts/classify-by-page-text.mjs` — 모든 책의 page.text 를 한국어 토큰화 (조사 strip) → Wiktionary REST API 로 Noun 만 필터 → 책별 `keep` (텍스트에 있는 기존 keyObject) / `delete` (텍스트에 없음) / `add` (텍스트에서 새로 발견된 명사) 산출. Wiktionary cache `_data/wiktionary-cache.json` (재실행시 즉시).
-- **UI**: 좌측 책 list (검색·카테고리 필터·DEL/ADD chip·"DEL/ADD 있는 책만" 토글). 우측 (1) ADD 후보 grid (+ 개별/모두 추가) (2) 직접 추가 input (3) 기존 keyObjects 표 (텍스트 없는 단어 자동 빨간색 + 일괄 삭제 버튼) (4) 💾 저장.
-- **데이터 source**: 정적 분석 결과 `packages/client/public/_analysis/text-based-classify.json` (스크립트 매번 갱신, gitignored). 저장 시 `POST /api/storybooks` 로 R2 직접 반영.
-- **그림체 dropdown swap (LevelEditCard)**: 활성 chip 옆 `▼ 그림체 변경` select — 라이브러리 16 preset 전체 노출 (현재 ✓ / 추가됨 표기). 선택 시 availableStyles 에 있으면 즉시 swap, 없으면 추가 확인 모달. `findArtStylePreset(value, lib?)` 시그니처 변경 — R2 라이브러리 라벨 우선 (사용자 편집 이름 적용).
-- **server fix (r2.repository.ts normalizeStorybook)**: `keyObjectImages[]` 에 `null` entry 있던 일부 책 (e.g. 헨젤과 그레텔*) 이 silent catch 로 404 → null 필터링 추가. `getStorybook` catch 에 error log 추가 (silent swallow 방지).
-
-## 글자 쓰기 채점 시스템 (2026-05-22)
-
-**모든 글자/단어 쓰기 = `LetterFillCanvas` (paint mode)** — 영어/한글/일본어 일관.
-
-### Paint mode (`LetterFillCanvas`)
-- 글자 회색 fill (NanumSquareRound 한글 / system-ui 영어 — 폰트 자동 감지)
-- 사용자 stroke `globalCompositeOperation: 'source-atop'` → **글자 영역 안만 emerald painted**, 글자 밖은 자동 무시
-- `coverage` = (painted 픽셀) / (글자 mask 픽셀) — getImageData 로 계산
-- `LINE_WIDTH=60` 매우 두꺼운 펜 + `threshold=0.95` (95% 채우면 통과) — 두꺼운 펜이라 도달 쉬움
-- `autoCheck` 모드 — threshold 도달 시 자동 onResult(true)
-- 진척 바: `67% / 목표 95%` 실시간 표시
-- **폰트 fidelity 100%** — 폰트와 100% 일치 (어떤 언어든 그 폰트 그대로 채점)
-
-적용 (모든 글자쓰기):
-- **영어**: `LetterWriteModal` (Aa 써보기) / `AlphabetLetterWriteActivity` (Book 1 ABC) / `CvcPatternLearnActivity` Phase C (Book 2 CVC) / `EnglishWordWritingPlayer` (영어 단어쓰기 게임)
-- **한글**: `VowelWriteActivity` / `ConsonantWriteActivity` / `KoreanWordWritingPlayer` (한글 단어쓰기 게임)
-
-데모 페이지: **`/letter-fill-demo`** (TopBar 자료실 🎨) — 한/영/일 글자 다양하게 검증.
-
-### Paint mode 도입 배경
-영어는 Zaner-Bloser stroke library 가능했지만, 한글은 본질 문제:
-- 자모 형태가 위치별 (cho/jung/jong) × 받침 유무 × 모음 방향으로 다 다름
-- 폰트 디자이너가 음절 단위로 자모 미세 조정 (곡 vs 골 의 cho ㄱ 도 다름)
-- 4 variant 시스템도 부족 — 실질 폰트 디자이너 작업
-→ pixel 채점 (폰트 그대로) 이 정답. 영어도 통일.
-
-### Stroke library 시스템 (deprecated, keep)
-영어용 stroke library 인프라는 미래 자모 단위 학습 활동용으로 보관 — 학습자 통합 X.
-- `TracingStroke = { type: 'line' | 'bend' | 'loop'; points }`, `LetterTracingData`, `LetterStrokeLibrary`
-- R2 `_index/letter-stroke-library.json` (영어) / `korean-jamo-stroke-library.json` (한글 자모 variants)
-- `composeKoreanSyllable(syl, jamoLib)` — 자모 variant 4 케이스 박스 합성
-- 서버 `GET/PUT /api/letter-stroke-library` + `/api/korean-jamo-stroke-library` (merge mode)
-- 클라 hook: `useLetterStrokeLibrary` / `useKoreanJamoStrokeLibrary` (5분 캐시)
-- 편집 페이지: `/letter-stroke-editor` (영어 52 글자) + `/korean-jamo-stroke-editor` (한글 자모 51 × variants)
-- 학습자 캔버스: `LetterTracingCanvas` (stroke 단위 채점, 점 통과 + 순서 강제 옵션 + Web Audio beep)
-- 저작 모달: `LetterTracingPointEditorModal` (snap-to-grid 0.025 + stroke 추가/제거/type 변경 + 미리보기)
-- seed: `seed-letter-stroke-library.mjs` (영어, Zaner-Bloser) / `seed-korean-jamo-stroke-library.mjs` (한글 자모 variants)
-
-미래 활용:
-- 자모 단독 학습 활동 (예: ㄱ 모양 익히기)
-- 영어 알파벳 stroke order 가르치는 활동
-- 그 외 stroke 단위 채점이 필요한 경우
-
-## 블록 게임 레벨 선택 + 공유 (2026-05-11)
-- 사이드바 sub-button: "한글 블록 게임" / "알파벳 블록 게임" 라벨 + 옆에 📤 공유 버튼 (Web Share API + clipboard fallback).
-- `/games/{korean,alphabet}-block` → 레벨 선택 화면 (🌱 쉬움 / 🌿 보통 / 🌳 어려움, 각 단어 수 표시) → 그 레벨 단어에서 랜덤 N개 → 플레이어.
-- 한글 레벨: vocab table 점수 공식 그대로. 영어 레벨: 단어 길이 (≤3/4-5/6+).
-- 게임 어댑터 (`game-data-adapter.ts#unitTo{Korean,English}BlockData`): 이미지 없는 단어도 후보 포함 (player 가 conditional render).
-
-## 라이브러리 마스터 (2026-05-10, 카테고리 편집 2026-05-16, 표 보기 2026-05-25)
-- **`/library-master`** — 라이브러리 노출 순서 + 카테고리 CRUD + 책 메타 편집 페이지 (저작도구 진입점 only). TopBar 우상단 📁 자료실 ▾ dropdown 첫 항목 "📚 라이브러리 마스터". AppShell (학습자) 에서는 노출 X.
-- 좌-우 split: 좌측 카테고리 패널 (DnD reorder + ✏ 인라인 rename + 🗑 삭제 + ＋ 추가 input) + 우측 활성 카테고리 책 grid (DnD reorder, 카드 = aspect-3/4 표지 + 좌상단 ① 순서 chip · 카테고리 chip 드롭다운 + 우상단 👁 isPublic 토글 · 🎨 표지 변경) + 🎨 표지 변경 모달.
-- **DnD scope (2026-05-18 단순화)**: 카테고리 reorder + 같은 카테고리 안 책 reorder **2종만**. 카테고리 변경은 카드 좌상단 `CategoryChipDropdown` 으로만 (책 카드 드래그 시 "순서 변경 모드"와 헷갈리는 UX 제거).
-- **카테고리 CRUD**: 빈 카테고리만 즉시 삭제 가능. 책 있으면 `MoveBooksModal` 로 target 카테고리 선택 후 일괄 이동 + 카테고리 삭제. 이름 변경 = 그 카테고리의 모든 책 `category` 필드 일괄 patch (`useCategoryActions`).
-- **/library-master 만 비공개 책 표시** (편집 대상). 학습자 `/library` 는 기존처럼 isPublic=true 만 노출.
-- **backup 카테고리 (2026-05-18)**: 비공개 책(variant `__L*` / 사본 / 자연관찰 prefix 등) 격리용. 일괄 이관 스크립트 `packages/server/scripts/migrate-private-to-backup.mjs` (`--dry`/`--apply`). 학습자 `/library` 는 isPublic=false 라 어차피 안 보임 — 마스터에서 backup 카테고리로 모아 시야 정리.
-- **언어 토글 (2026-05-16)**: 부제목 줄 우측 "표지 언어: [🇰🇷 한글][🇺🇸 영어]" chip → defaultStyle 기준 `coversByLang[lang]` 으로 카드 표지 swap. 해당 언어 표지 없으면 📭 placeholder + "한글/영어 표지 없음". 서버 `StorybookSummary.coversByLang` 신규 필드 (defaultStyle 의 `styleAssets.primaryCoverByLang` 추출, ko 는 top-level `primaryCoverByLang`/`coverImage` fallback).
-- **카테고리 (2026-05-16 재분류, 233권)**: 🌟 세계 명작 68 / 📜 전래 동화 14 / 🦕 공룡 친구들 24 / 🐛 곤충 친구들 18 / 🐯 육지 동물 친구들 46 / 🐬 바다 동물 친구들 18 / 🦅 하늘 동물 친구들 16 / 🌸 식물 친구들 18 / 🌌 우주와 자연 7 / 🫀 우리 몸 이야기 4. 마이그: `propose-recategorize.mjs` (룰 + 세계 명작/전래 동화 보호 + 수동 override) → `recategorize-proposal.json` 사람 검토 → `migrate-recategorize.mjs --apply` (R2 PutObject + library-config.json 갱신).
-- 저장: `_index/library-config.json` (`LibraryConfig` shared type — `categoryOrder[]` + `bookPriority[cat] = string[]` + `categoryList[]` 빈 카테고리 보관). 서버 `GET/PUT /api/library-config`. LibraryPage 가 config 적용해서 카테고리/책 순서 정렬 (빈 카테고리는 학습자 화면 자동 hide). **카테고리 chip 클릭 후 전체 보기**도 `bookPriority` 순서 우선 (단 사용자가 "제목순" 명시 선택 시 그건 존중) — 첫 화면 카테고리 섹션 9권 미리보기와 일관성.
-- **📊 표 보기 (2026-05-25)**: 헤더 우상단 coral 버튼. 모달 = 카테고리별 collapsible accordion (▶/▼) + 모두 펼침 / 모두 접기. 카테고리 펼침 시 그 카테고리 책 detail batch fetch (lazy, TanStack cache 우선) → **카테고리당 1개 통합 표** 렌더. 행 = 책 1권 (sticky left 의 표지 + 제목), 열 = (그림체 × 언어) 합집합 — 2단 thead (그림체 colspan + 언어 sub-row). 그 책에 없는 (그림체, 언어) 조합은 `—`. 셀 = 작은 표지(28px) + coral 체크박스(20px). 그림체 라벨은 `useQuery(['art-style-library'])` + `findArtStylePreset(value, lib)` 로 사용자 편집 이름 노출. 🔑 **셀 단위 isPublic** = `Storybook.publicByStyleLang?: Record<style, Record<lang, boolean>>` (shared, 미정의 = 기본 공개). 책 단위 `isPublic=false` 면 모든 셀 비활성 + grayscale. `BookMatrixModal` (`features/library/components/BookMatrixModal.tsx`). **/editor2 헤더에서도 셀 단위 토글**: `LevelEditCard` 의 EditorHeader 저장 버튼 왼쪽에 `(활성 그림체, 활성 언어)` 공개 체크박스. `EditorHeader.extraLeft` + `EditorContent.headerExtraLeft` prop 으로 주입. 🔄 **양방향 동기화 (2026-05-25)**: `features/library/lib/public-sync.ts` — `syncBookPublicAfterCellToggle(sb)` 가 모든 `(availableStyles × languages)` 조합이 false 면 `isPublic=false` 자동 set, 하나라도 true 면 회복. `applyBookPublic(sb, next)` 는 책 단위 토글 시 `next=false` → 모든 셀 false 마킹 / `next=true` → `publicByStyleLang` clear. 호출처: BookMatrixModal/LevelEditCard 셀 토글, useCategoryActions.setBookPublic.
-
-## 동일 title 동화책 차단 (2026-05-10)
-- `R2Repository.saveStorybook` 진입점에 validation. **신규 또는 title 변경 시에만** 체크 (audiobook 생성 등 부수 update 통과). variant `__L\d+$` (같은 baseId) / storybook ↔ phonics 는 충돌 X.
-- 충돌 시 `AppError(409, '같은 이름의 동화책이 이미 있어요: "..."')`. 클라 `useStorybookMutations` 의 save/patch/generate(/Phonics) `onError` 가 `alert("⚠️ ...")`.
-- 마이그 (룰 A 콘텐츠 우선): `pages` desc → `key_objects` desc → `characters` desc → `createdAt` asc 1위 keep, 나머지 `-1`/`-2` suffix. 21 그룹 / 23권 적용 완료. 스크립트 `packages/server/scripts/{dump-duplicate-titles,migrate-rename-duplicate-titles}.mjs`.
+## 서버 gotcha
+- **POST /api/storybooks** body 는 `{ storybook: {...} }` wrapper 필수. raw object → 500 "Cannot read properties of undefined (reading 'id')".
+- **동일 title 차단**: `R2Repository.saveStorybook` 에서 신규/title 변경 시 체크. 충돌 = `AppError(409, '같은 이름의 동화책이...')`. variant `__L\d+$`(같은 baseId) / storybook↔phonics 는 예외.
+- `normalizeStorybook` 가 `keyObjectImages[]` null entry 필터링(일부 책 silent 404 방지).
 
 ## 모듈별 가이드 (해당 폴더 작업 시 자동 로드)
 - 동화책 (CRUD/사이드바/복사) → [features/storybook/CLAUDE.md](packages/client/src/features/storybook/CLAUDE.md)
@@ -191,7 +71,7 @@ features/{name}/{api,hooks,components,index.ts}
 - 뷰어 + 디자인 시스템 → [features/viewer/CLAUDE.md](packages/client/src/features/viewer/CLAUDE.md)
 - 오디오북 (Remotion) → [features/audiobook/CLAUDE.md](packages/client/src/features/audiobook/CLAUDE.md)
 - 파닉스 (저작) → [features/phonics/CLAUDE.md](packages/client/src/features/phonics/CLAUDE.md)
-- 파닉스 학습자 (/library/phonics) → [features/phonics-learner/CLAUDE.md](packages/client/src/features/phonics-learner/CLAUDE.md)
+- 파닉스 학습자 → [features/phonics-learner/CLAUDE.md](packages/client/src/features/phonics-learner/CLAUDE.md)
 - 마케팅 (블로그/카드뉴스) → [features/blog/CLAUDE.md](packages/client/src/features/blog/CLAUDE.md)
 - Auth (Supabase) → [features/auth/CLAUDE.md](packages/client/src/features/auth/CLAUDE.md)
 - Learning Reports → [features/learning/CLAUDE.md](packages/client/src/features/learning/CLAUDE.md)
@@ -210,88 +90,47 @@ pnpm --filter {server|client|shared} {dev|build|...}
 
 ## 환경변수
 `packages/server/.env` (template: `.env.example`).
-- 선택: `OPENAI_API_KEY` (Whisper fallback) / `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` (`packages/client/.env.local`, 없으면 게스트 모드)
-- Supabase 셋업: `scripts/supabase-setup.sql` 을 SQL Editor 에 실행
+- 선택: `OPENAI_API_KEY`(Whisper) / `VITE_SUPABASE_URL`+`VITE_SUPABASE_ANON_KEY`(`packages/client/.env.local`, 없으면 게스트 모드)
+- Supabase 셋업: `scripts/supabase-setup.sql`
+- 마케팅 자격증명: `NAVER_AD_API_KEY/SECRET/CUSTOMER_ID` · `DATAFORSEO_LOGIN/PASSWORD`. **하드코딩 금지**.
 
 ## Gemini 모델
 - Default 텍스트: `gemini-3.1-pro-preview` (`DEFAULT_TEXT_MODEL` shared / `config.gemini.textModel` server, `GEMINI_TEXT_MODEL` env override)
-- 자동 폴백: overload(503/UNAVAILABLE/429/overloaded/RESOURCE_EXHAUSTED) 시 `gemini-2.5-flash-lite`
-- retry 래퍼 `withGeminiRetry`: 5회, exp backoff + jitter, 시도당 120s 타임아웃
+- 자동 폴백: overload(503/429/RESOURCE_EXHAUSTED 등) 시 `gemini-2.5-flash-lite`
+- retry 래퍼 `withGeminiRetry`: 5회, exp backoff + jitter, 시도당 120s
 - 배치 작업(seed 등)은 `--model gemini-2.5-flash-lite` 권장
 
-## 새 Feature 추가
-1. `features/{name}/api/{name}.api.ts` (apiGet/apiPost)
-2. `features/{name}/hooks/use{Name}.ts` (TanStack Query)
-3. `features/{name}/components/`
-4. `features/{name}/index.ts` (exports)
-5. 라우트 `client/src/router/index.tsx`
-
 ## 코딩 컨벤션
-- 파일명: PascalCase (컴포넌트), camelCase (훅/유틸/API)
-- 컴포넌트: named export (pages는 default)
-- 에러: `AppError(status, message)` 사용. console.error 대신 throw
-- 주석: 자명한 코드에 X. 복잡한 로직만
-- import: `@tangobook/shared` (shared 타입), `@/` (client 내부)
+- 파일명: PascalCase(컴포넌트) / camelCase(훅·유틸·API). 컴포넌트 named export (pages default).
+- 에러: `AppError(status, message)` throw (console.error 대신).
+- 주석: 자명한 코드 X, 복잡 로직만.
+- import: `@tangobook/shared`(shared 타입) / `@/`(client 내부).
+- 새 Feature: `api/{name}.api.ts` → `hooks/use{Name}.ts` → `components/` → `index.ts` → 라우트 `router/index.tsx`.
 
 ## R2 데이터 호환성
-- 기존 동화책 211+권이 R2에 저장됨. `Storybook` 인터페이스 호환 유지
-- 새 필드는 `optional`로 추가 (하위 호환성)
-- snake_case 혼용은 [docs/architecture-notes.md](docs/architecture-notes.md) 참조
+- 기존 동화책 211+권 저장됨. `Storybook` 인터페이스 호환 유지. 새 필드는 `optional`. snake_case 혼용은 [docs/architecture-notes.md](docs/architecture-notes.md).
 
 ## 주요 타입 위치
-- `Storybook`, `Character`, `Page`, `KeyObject`, `BlendingExercise`, `ParentGuide`, `ReadingLevel`, `VocabularyUnit`, `BookManifest` → `@tangobook/shared`
-- `ApiResponse<T>` → `@tangobook/shared`
+- `Storybook` / `Character` / `Page` / `KeyObject` / `BlendingExercise` / `ParentGuide` / `ReadingLevel` / `VocabularyUnit` / `BookManifest` / `LibraryConfig` / `ApiResponse<T>` → `@tangobook/shared`
 - `AppError` → `packages/server/src/middleware/error.middleware.ts`
 
 ## PRD 문서
 `docs/PRD_*.md` (Master / AuthorTool_Storybook / AuthorTool_Phonics / Viewer / Marketing / v2 / UIUX_AuthorTool)
 
-## SEO 인프라 (2026-05-26)
-SPA SEO 기본기. 자세한 건 memory `seo-infrastructure-2026-05-26.md`.
+## SEO 인프라
+SPA SEO 기본기. 상세 → memory `seo-infrastructure-2026-05-26.md`.
+- 정적: `index.html`(meta/JSON-LD) · `robots.txt` · `sitemap.xml`(자동: `pnpm --filter server sitemap`) · `manifest.json` · `llms.txt`
+- 동적: `src/lib/useSeo.ts` hook — LibraryPage · BookDetailPage · KoreanPhonicsStudyPage · BookSeoPage 적용.
+- Prerender: `packages/client/scripts/prerender.mjs`(puppeteer). CMD `pnpm --filter client build:prerender`.
+- 🔴 다음 할 일(메모리 참조): OG 이미지 6종 / BookSeoPage prerender 확장 / CI 통합 / GSC·네이버 등록 / Core Web Vitals.
 
-**정적 인프라**:
-- `packages/client/index.html` — description / og / twitter / canonical / Organization+WebSite JSON-LD / R2 preconnect / Apple Touch Icon
-- `packages/client/public/robots.txt` — AI 크롤러 9종 (GPTBot·ClaudeBot 등) allow, AhrefsBot/SemrushBot 등 차단, 저작도구 11개 disallow, sitemap 링크
-- `packages/client/public/sitemap.xml` — 226 URL (정적 4 + 111권 × 2 + image:loc + lastmod). 자동 생성: `pnpm --filter server sitemap` (R2 책 카탈로그 자동 list, variant/private/non-storybook 스킵)
-- `packages/client/public/manifest.json` — PWA (모바일 install + shortcuts)
-- `packages/client/public/llms.txt` — LLM friendly summary (2026-05-18~ 부터)
+## 마케팅 자료
+`docs/marketing/` — 키워드 리서치·통합·전략 파이프라인. 상세 → [docs/marketing/README.md](docs/marketing/README.md).
+- 자료실 HTML: `/seo-strategy.html`(자동 생성, `generate-seo-html.mjs`) · `/operations-playbook.html` · `/viral-magnets-wireframes.html`.
 
-**동적 SEO (`src/lib/useSeo.ts`)**: title/description/og/twitter/canonical/JSON-LD 동적 hook + unmount cleanup. 적용처: LibraryPage (`/library`, storybook/phonics 분기) · BookDetailPage (`/library/:id`, Book JSON-LD) · KoreanPhonicsStudyPage (`/library/phonics/korean`) + BookSeoPage 기존 (`/library/:id/about`, Book+FAQPage+Breadcrumb+LearningResource).
-
-**Prerender (`packages/client/scripts/prerender.mjs`)**: puppeteer + vite preview API. 4개 정적 라우트 (`/`, `/library`, `/library/phonics/korean`, `/vocabulary`) → `dist/{path}/index.html` 정적 HTML snapshot. SPA fallback (`dist/index.html`) 보존. CMD: `pnpm --filter client build:prerender`. puppeteer chromium cache: `~/.cache/puppeteer/`.
-
-🔴 **다음 SEO 할 일** (메모리 참조): (1) OG 이미지 6종 PNG 자산 가장 시급 / (2) BookSeoPage prerender 확장 (111권) / (3) CI/CD 통합 / (4) GSC + 네이버 웹마스터 등록 / (5) 추가 페이지 SEO (낮음) / (6) Core Web Vitals (chunk 2.4MB 코드 스플릿).
-
-## 마케팅 자료 (2026-05-14, 확장 2026-05-16)
-`docs/marketing/` — 키워드 리서치·통합·전략 시각화 풀 파이프라인. 자세한 가이드는 `docs/marketing/README.md`.
-
-**데이터 소스 4종**:
-- `data/naver-keywords-raw.json` + `naver-analyzed.json` (네이버 카테고리 시드 4,024)
-- `data/naver-content-raw.json` (네이버 콘텐츠 시드 200+ → 22,289, rate-limit 적용) + `naver-discovered-bonus.json` (보너스 20,602)
-- `data/dataforseo-kr.json` (Google Ads KR) + `dataforseo-en.json` (Google Ads US)
-- `data/consolidated-keywords.json` + `consolidated-summary.md` (4개 소스 통합 + 교차검증 + 골든)
-
-**스크립트** (`scripts/`): `content-seeds.mjs` (시드 단일 진실원천, KR/EN × 13 카테고리) · `naver-content-keyword-research.mjs` · `dataforseo-keyword-research.mjs` · `consolidate-keywords.mjs` · `audit-noise-and-mine.mjs` · `generate-seo-html.mjs`.
-
-**자격증명 환경변수**: `NAVER_AD_API_KEY/SECRET/CUSTOMER_ID` · `DATAFORSEO_LOGIN/PASSWORD`. 절대 하드코딩 X.
-
-**자료실 등록 HTML 3종** (저작도구 TopBar 📁 자료실 ▾):
-- `/seo-strategy.html` 🔍 SEO 전략 — `generate-seo-html.mjs` 가 자동 생성. consolidated-keywords.json 갱신 후 재빌드 필요
-- `/operations-playbook.html` 🎯 운영 플레이북 — 본질 베타 → 점진 확장 + 비즈니스 모델(무료·광고 / 유료·광고제거 + ⭐포인트 통합) + 8-Pronged 알림 작전 + 듀얼 블로그(자체+네이버) + 5종 바이럴 자석
-- `/viral-magnets-wireframes.html` 🚀 바이럴 자석 UI — 5종 자석 모바일 와이어프레임 (디자인·개발 발주서)
-
-## strategy.html — 가로 슬라이드 deck (2026-05-29 갱신)
-Series A 투자자용. **16 슬라이드** (Hero + §01 Market / §02 Problem / §03 Solution / §03A Proven Model / §04 Our Product / §04+ Our Books / §04++ Our Curriculum / §05 Marketing 자가증식 / §05+ Marketplace Ignition / §06 Business Model / §07-1·07-2 Moat / §08 Milestone / §09-1·09-2 Financial).
-- **구조**: `<main>` (clipper, position:fixed inset:0 overflow:hidden) + `<div class="deck-track">` (flex row, transform:translateX 적용 대상) + 각 `<section>` (100vw × 100vh) + `.slide-content` (JS runtime wrap, transform:scale 자동 fit). ⚠️ main 에 직접 transform 적용 시 computed identity matrix 됨 — 반드시 inner deck-track 분리.
-- **네비**: 키보드 `← → / Space / PageUp/Down / Home / End` · 우하단 `‹ ›` 버튼 · 마우스 휠 (콘텐츠 스크롤 끝에서 다음 슬라이드) · 터치 swipe · URL hash 동기화 (`#market` 등) · TOC 링크 클릭 점프
-- **자동 fit**: `fitSlide()` 가 `min(slideH/contentH, slideW/contentW, 1)` 계산 후 `transform: scale(N)` 적용. 16:9(1280×720) 기준 worst = market **0.712** (본문 실효 글자 ≥11px 확보). scale 1.0 = hero·business·milestone·financial-revenue. `document.fonts.ready` + `window.load` + `resize` 마다 재계산.
-- **기존 narrative**: `/strategy-detail.html` 로 백업 보존 (deep-dive). TopBar 자료실에 "요약 (슬라이드)" + "상세 (narrative)" 분리.
-- **Section 06 일러스트 풀**: 13개 vision 검증 후 4 award cards + 8 gallery 모두 verified ✓ 4-7세 child-friendly. 7개 reject → `strategy-samples/illustrators/rejected/` 격리.
-- 🔴 **deck 작업 규칙**: [`docs/strategy-deck-rules.md`](docs/strategy-deck-rules.md) 매번 참조. 헤더 통일·자랑 표현·AI 모델·마케팅 채널·**§9 zero-knowledge 투자자 톤** 등 반복 지적된 규칙 모음.
-- **2026-05-29 정정 (zero-knowledge 톤)**: proven-model 인과 보강 · seed 콘텐츠 정체성 · 과신 표현(압도·Netflix) 제거 · 용어 풀이(파닉스·retention·침투율). 🟡 다음: §04++ 학습 UI 목업 3종 GPT 생성 대기 · §03 solution `(평점·댓글)` 9.5px 미세 텍스트 미수정.
-
-**전략 핵심 결정** (operations-playbook.html 에 모두 반영):
-- 명작 동화 플랫폼 브랜딩 (AI 양산 사이트와 정반대 포지셔닝)
-- 베타 = 오픈 베타 + 바이럴 자석 + 본질 검증 (게임화·AI 자녀동화·별·호리 모두 제외)
-- 풀스펙 9개 + 라이트 31 + 자연관찰 30~40 → 주 2개 풀스펙 보강 (16주)
-- 정식 런칭(M3+) 시 ⭐ 포인트 시스템 통합 — 무료/유료 중간 화폐 + 바이럴 보상 + 결제 명분
+## strategy.html — 가로 슬라이드 deck (Series A 투자자용)
+**15 슬라이드** 가로 deck. 🔴 deck 작업 규칙: [docs/strategy-deck-rules.md](docs/strategy-deck-rules.md) **매번 참조** (헤더 통일·자랑 표현·AI 모델·마케팅 채널·§9 zero-knowledge 톤·§10 Phase 1 트랙션 전제).
+- **구조 gotcha**: `<main>`(clipper) + `<div class="deck-track">`(translateX 대상) + `<section>`(100vw×100vh) + `.slide-content`(scale 자동 fit). ⚠️ main 직접 transform 시 identity matrix 됨 — 반드시 inner deck-track 분리.
+- **자동 fit**: `fitSlide()` = `min(slideH/contentH, slideW/contentW, 1)` → `transform: scale(N)`. `document.fonts.ready`+`window.load`+`resize` 마다 재계산.
+- narrative 백업 `/strategy-detail.html`. 일러스트 풀 `strategy-samples/illustrators/`.
+- **전략 핵심**: 명작 동화 플랫폼 브랜딩(AI 양산 반대 포지셔닝) · 오픈 베타(게임화·별·호리 제외) · 풀스펙 9 + 라이트 31 + 자연관찰 30~40 → 주 2개 보강 · 정식 런칭 시 ⭐ 포인트 시스템 통합.
