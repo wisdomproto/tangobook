@@ -793,6 +793,11 @@ export interface Storybook {
   /** 부모용 책 가이드 (특징·교훈·읽어주는 법). 라이브러리 상세 페이지에서 표시. */
   parentGuide?: ParentGuide;
   /**
+   * 언어별 부모 가이드 번역. `parentGuide` 가 default(ko).
+   * 다른 언어는 `parentGuideTranslations[lang]` 으로 표시, 없으면 `parentGuide`(ko) 로 fallback.
+   */
+  parentGuideTranslations?: Record<string, ParentGuide>;
+  /**
    * 책이 지원하는 언어 코드 배열 (`SUPPORTED_LANGUAGES.code`).
    * 기본 한국어 — 없으면 ['ko'] 로 취급.
    * 페이지/표지/핵심단어/오디오북/롱폼/게임 등 텍스트·음성·영상 데이터가 언어별 inline으로 저장됨.

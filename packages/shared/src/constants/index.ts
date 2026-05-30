@@ -27,14 +27,17 @@ export const ART_STYLES = [
 export const ASPECT_RATIOS = ['16:9', '9:16', '4:3', '3:4', '3:2', '2:3', '1:1'] as const;
 export type AspectRatio = (typeof ASPECT_RATIOS)[number];
 
+// 지원 언어 단일 소스. label=한국어 표기(저작도구용), nativeName=현지 표기(학습자 UI용), flag=국기 이모지.
+// 새 언어 추가 = 여기 한 줄. 클라 언어 토글/라벨이 여기서 자동 derive 된다.
 export const SUPPORTED_LANGUAGES = [
-  { code: 'ko', label: '한국어' },
-  { code: 'en', label: '영어' },
-  { code: 'ja', label: '일본어' },
-  { code: 'zh', label: '중국어' },
-  { code: 'es', label: '스페인어' },
-  { code: 'fr', label: '프랑스어' },
-  { code: 'de', label: '독일어' },
+  { code: 'ko', label: '한국어', nativeName: '한국어', flag: '🇰🇷' },
+  { code: 'en', label: '영어', nativeName: 'English', flag: '🇺🇸' },
+  { code: 'ja', label: '일본어', nativeName: '日本語', flag: '🇯🇵' },
+  { code: 'zh', label: '중국어', nativeName: '中文', flag: '🇨🇳' },
+  { code: 'es', label: '스페인어', nativeName: 'Español', flag: '🇪🇸' },
+  { code: 'fr', label: '프랑스어', nativeName: 'Français', flag: '🇫🇷' },
+  { code: 'de', label: '독일어', nativeName: 'Deutsch', flag: '🇩🇪' },
+  { code: 'vi', label: '베트남어', nativeName: 'Tiếng Việt', flag: '🇻🇳' },
 ] as const;
 
 export const TTS_PROVIDERS = ['gemini', 'minimax', 'elevenlabs'] as const;

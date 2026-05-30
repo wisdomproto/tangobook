@@ -12,13 +12,12 @@ import { StateScreen, Skeleton, Chip, PageHeader } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { useSeo } from '@/lib/useSeo';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
-import type { ReadingLevel, StorybookSummary } from '@tangobook/shared';
+import { SUPPORTED_LANGUAGES, type ReadingLevel, type StorybookSummary } from '@tangobook/shared';
 
-const LANG_LABEL: Record<string, { flag: string; name: string }> = {
-  ko: { flag: '🇰🇷', name: '한국어' },
-  en: { flag: '🇺🇸', name: 'English' },
-  ja: { flag: '🇯🇵', name: '日本語' },
-};
+// 언어 메타는 shared SUPPORTED_LANGUAGES 단일 소스에서 derive. 새 언어 추가 시 shared 한 줄이면 토글에 자동 반영.
+const LANG_LABEL: Record<string, { flag: string; name: string }> = Object.fromEntries(
+  SUPPORTED_LANGUAGES.map((l) => [l.code, { flag: l.flag, name: l.nativeName }])
+);
 
 const LEVEL_INFO: Record<ReadingLevel, { label: string; age: string }> = {
   L1: { label: '씨앗', age: '3~4세' },
@@ -154,13 +153,21 @@ export default function BookDetailPage() {
   //   조합 표지가 없으면 placeholder 노출 (LibraryMaster 와 동일 정책).
   const styleAssets = effectiveStyle ? storybook.styleAssets?.[effectiveStyle] : undefined;
   const isActiveStyle = !!effectiveStyle && effectiveStyle === storybook.artStyle;
+  // (그림체) tier 안에서 요청 언어 → en → ko 순으로 표지 폴백 (vi 등 전용 표지 없는 언어 대비).
+  const pickCover = (l: string): string | undefined =>
+    styleAssets?.primaryCoverByLang?.[l] ??
+    (isActiveStyle ? storybook.primaryCoverByLang?.[l] : undefined);
   const coverUrl =
-    styleAssets?.primaryCoverByLang?.[lang] ??
-    (isActiveStyle ? storybook.primaryCoverByLang?.[lang] : undefined) ??
-    (lang === 'ko'
-      ? (styleAssets?.coverImage ?? (isActiveStyle ? storybook.coverImage : undefined))
-      : undefined);
+    pickCover(lang) ??
+    pickCover('en') ??
+    pickCover('ko') ??
+    styleAssets?.coverImage ??
+    (isActiveStyle ? storybook.coverImage : undefined);
   const langLabel = LANG_LABEL[lang]?.name ?? lang;
+  // 부모 가이드: 선택 언어 번역(parentGuideTranslations[lang])이 있으면 그것, 없으면 한국어 parentGuide 폴백.
+  const guide =
+    (lang !== 'ko' ? storybook.parentGuideTranslations?.[lang] : undefined) ??
+    storybook.parentGuide;
 
   const enterMode = (mode: 'read' | 'video' | 'vocab') => {
     if (mode === 'video') {
@@ -364,8 +371,8 @@ export default function BookDetailPage() {
             </div>
           </div>
 
-          {/* 부모님 가이드 (parentGuide 있을 때만) */}
-          {storybook.parentGuide && (
+          {/* 부모님 가이드 (선택 언어 번역 우선, 없으면 한국어 폴백) */}
+          {guide && (
             <div className="mt-6">
               <button
                 onClick={() => setGuideOpen((v) => !v)}
@@ -391,24 +398,22 @@ export default function BookDetailPage() {
               {guideOpen && (
                 <div className="mt-3 bg-white rounded-lg p-5 md:p-6 shadow-soft space-y-5">
                   {/* 특징 */}
-                  {storybook.parentGuide.overview && (
+                  {guide.overview && (
                     <section>
                       <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
                         📖 책의 특징
                       </h3>
-                      <p className="text-sm text-ink-700 leading-relaxed">
-                        {storybook.parentGuide.overview}
-                      </p>
+                      <p className="text-sm text-ink-700 leading-relaxed">{guide.overview}</p>
                     </section>
                   )}
                   {/* 교훈 */}
-                  {storybook.parentGuide.lessons && storybook.parentGuide.lessons.length > 0 && (
+                  {guide.lessons && guide.lessons.length > 0 && (
                     <section>
                       <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
                         💡 아이에게 전할 교훈
                       </h3>
                       <ul className="space-y-1.5">
-                        {storybook.parentGuide.lessons.map((lesson, i) => (
+                        {guide.lessons.map((lesson, i) => (
                           <li key={i} className="text-sm text-ink-700 leading-relaxed flex gap-2">
                             <span className="text-coral-400 mt-0.5">•</span>
                             <span>{lesson}</span>
@@ -418,30 +423,29 @@ export default function BookDetailPage() {
                     </section>
                   )}
                   {/* 읽어주는 법 */}
-                  {storybook.parentGuide.readingTips &&
-                    storybook.parentGuide.readingTips.length > 0 && (
-                      <section>
-                        <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
-                          🎭 읽어주는 법
-                        </h3>
-                        <ul className="space-y-1.5">
-                          {storybook.parentGuide.readingTips.map((tip, i) => (
-                            <li key={i} className="text-sm text-ink-700 leading-relaxed flex gap-2">
-                              <span className="text-coral-400 mt-0.5">{i + 1}.</span>
-                              <span>{tip}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </section>
-                    )}
+                  {guide.readingTips && guide.readingTips.length > 0 && (
+                    <section>
+                      <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
+                        🎭 읽어주는 법
+                      </h3>
+                      <ul className="space-y-1.5">
+                        {guide.readingTips.map((tip, i) => (
+                          <li key={i} className="text-sm text-ink-700 leading-relaxed flex gap-2">
+                            <span className="text-coral-400 mt-0.5">{i + 1}.</span>
+                            <span>{tip}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
                   {/* 자주 묻는 질문 */}
-                  {storybook.parentGuide.faq && storybook.parentGuide.faq.length > 0 && (
+                  {guide.faq && guide.faq.length > 0 && (
                     <section>
                       <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
                         ❓ 자주 묻는 질문
                       </h3>
                       <div className="space-y-2">
-                        {storybook.parentGuide.faq.map((f, i) => (
+                        {guide.faq.map((f, i) => (
                           <details
                             key={i}
                             className="rounded-lg border border-ink-100 bg-cream-50 p-3 group"

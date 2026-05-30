@@ -114,6 +114,12 @@ pnpm --filter {server|client|shared} {dev|build|...}
 - `Storybook` / `Character` / `Page` / `KeyObject` / `BlendingExercise` / `ParentGuide` / `ReadingLevel` / `VocabularyUnit` / `BookManifest` / `LibraryConfig` / `ApiResponse<T>` → `@tangobook/shared`
 - `AppError` → `packages/server/src/middleware/error.middleware.ts`
 
+## 다국어(i18n) 번역
+`SUPPORTED_LANGUAGES`(`shared/constants`, `code·label·nativeName·flag`) = 언어 단일 소스. **새 언어 = 여기 한 줄** → 클라 언어 토글/라벨 자동 derive(BookDetailPage `LANG_LABEL`). 표지는 `lang→en→ko` 폴백.
+- 번역 스크립트 (`packages/server/scripts/`): `translate-extract/apply/verify.mjs --lang=<code>` + 공통 `translation-core.mjs`. **Gemini 아닌 Claude 직접 번역** — `_data/translations/<lang>/<id>.json`(언어무관 `t` 키)에 채워 R2 주입.
+- R2 필드: `languages[]` · `titleTranslations` · `page.translations[lang]` · `KeyObject.nameTranslations` · `parentGuideTranslations`(신규). vi 공개 명작 18권 적용 완료.
+- 상세 + **새 언어 추가 체크리스트** → memory `translation-pipeline-i18n-2026-05-30.md`.
+
 ## PRD 문서
 `docs/PRD_*.md` (Master / AuthorTool_Storybook / AuthorTool_Phonics / Viewer / Marketing / v2 / UIUX_AuthorTool)
 
