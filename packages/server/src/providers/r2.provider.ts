@@ -38,6 +38,19 @@ async function withR2Timeout<T>(p: Promise<T>, ms: number, label: string): Promi
 export const r2BucketName = config.r2.bucketName;
 export const r2PublicUrl = config.r2.publicUrl;
 
+/**
+ * contentType 기반 Cache-Control 결정.
+ * - 이미지/오디오/영상: buildR2Key 가 key 에 timestamp 를 박아 콘텐츠 변경 시 URL 자체가
+ *   바뀐다 (같은 URL 덮어쓰기 없음) → 1년 immutable 안전.
+ * - JSON 등 메타데이터: 고정 key 에 덮어쓰므로 캐시 헤더를 박지 않음 (undefined = 현 동작 유지).
+ */
+function cacheControlFor(contentType: string): string | undefined {
+  if (/^(image|audio|video)\//.test(contentType)) {
+    return 'public, max-age=31536000, immutable';
+  }
+  return undefined;
+}
+
 export async function uploadBufferToR2(
   buffer: Buffer,
   key: string,
@@ -49,6 +62,7 @@ export async function uploadBufferToR2(
       Key: key,
       Body: buffer,
       ContentType: contentType,
+      CacheControl: cacheControlFor(contentType),
     })
   );
   return `${r2PublicUrl}/${key}`;

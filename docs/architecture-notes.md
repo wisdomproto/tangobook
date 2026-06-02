@@ -122,6 +122,10 @@ if (oldOutputUrl) {
   - R2 동시 다운로드 30
   - 서버 기동 시 `prewarmStorybookListCache()` (fire-and-forget) → 첫 사용자 요청 23ms
   - **Stuck refresh recovery**: 90초 넘게 pending 이면 강제 재시도. R2 SDK `downloadFromR2` 에 timeout(20s/15s) 보호 (`withR2Timeout` 헬퍼)
+- **R2 이미지 HTTP 캐시** (`r2.provider.ts` `cacheControlFor`):
+  - 업로드 시 contentType 기반 `Cache-Control` 자동 분기 — 이미지/오디오/영상 = `public, max-age=31536000, immutable`, JSON = 헤더 없음 (고정 key 덮어쓰기라 캐시 금지). 호출처 수정 없이 전 업로드 자동 적용.
+  - **immutable 안전 근거**: `buildR2Key`(`utils/r2-key.ts`)가 모든 자산 key 에 `Date.now()` 를 박아 콘텐츠 변경 시 URL 자체가 바뀜 → 같은 URL = 영원히 같은 바이트.
+  - 기존 이미지 backfill: `scripts/backfill-cache-control.mjs` (dry-run 기본 / `--apply`, `CopyObject` + `MetadataDirective:REPLACE`, 본문 무변경·멱등). 2026-06 16,713장 적용 완료(실패 0). `.r2.dev` 는 Cloudflare CDN edge 캐시도 활용.
 - **클라이언트 에셋 프리로드**:
   - `hooks/useAssetPreloadProgress(urls)` — 확장자로 audio/video/image 판별 후 `new Audio()`/`<video>`/`new Image()`. CORS 없이 브라우저 HTTP 캐시 hit. deps는 `[key]`만.
   - `features/audiobook/hooks/useTtsDurations` — 모듈 레벨 `durationCache` Map 영구 캐시
