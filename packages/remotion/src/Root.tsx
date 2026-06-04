@@ -3,6 +3,13 @@ import { Composition } from 'remotion';
 import type { CalculateMetadataFunction } from 'remotion';
 import { AudiobookComposition } from './compositions/AudiobookComposition';
 import { RunningDog } from './components/RunningDog';
+import {
+  ReelsPromo,
+  REELS_FPS,
+  REELS_WIDTH,
+  REELS_HEIGHT,
+  REELS_DURATION,
+} from './compositions/ReelsPromo';
 import { AudiobookRenderProps, RESOLUTIONS } from './types';
 import { calculateTotalFrames } from './utils/duration';
 
@@ -57,6 +64,14 @@ export const RemotionRoot: React.FC = () => {
           skyColor: '#87CEEB',
           dogColor: '#8B4513',
         }}
+      />
+      <Composition
+        id="ReelsPromo"
+        component={ReelsPromo}
+        durationInFrames={REELS_DURATION}
+        fps={REELS_FPS}
+        width={REELS_WIDTH}
+        height={REELS_HEIGHT}
       />
     </>
   );
