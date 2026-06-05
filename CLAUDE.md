@@ -133,6 +133,7 @@ SPA SEO 기본기. 상세 → memory `seo-infrastructure-2026-05-26.md`.
 ## 마케팅 자료
 `docs/marketing/` — 키워드 리서치·통합·전략 파이프라인. 상세 → [docs/marketing/README.md](docs/marketing/README.md).
 - 자료실 HTML: `/seo-strategy.html`(자동 생성, `generate-seo-html.mjs`) · `/operations-playbook.html` · `/viral-magnets-wireframes.html`.
+- **릴스 홍보 영상** (소비자용 9:16, 24s): Remotion 컴포지션 `ReelsPromo`(`packages/remotion/src/compositions/ReelsPromo.tsx`) + 씬 `src/components/reels/*`. 자산은 R2 실제 표지를 `public/reels/`(styles·nature·grid·games·logo)로 복사. 구성: 세계명작(그림체 모핑)→자연관찰→한/영→학습게임→콘텐츠 바둑판→CTA(로고+7일 무료체험+tangobook.co.kr). 렌더 `npx remotion render ReelsPromo out/reels-promo.mp4`(BGM은 무음, 편집기에서 추가). 설계 [docs/superpowers/specs/2026-06-04-reels-promo-video-design.md](docs/superpowers/specs/2026-06-04-reels-promo-video-design.md).
 
 ## strategy.html — 가로 슬라이드 deck (Series A 투자자용)
 **15 슬라이드** 가로 deck. 🔴 deck 작업 규칙: [docs/strategy-deck-rules.md](docs/strategy-deck-rules.md) **매번 참조** (헤더 통일·자랑 표현·AI 모델·마케팅 채널·§9 zero-knowledge 톤·§10 Phase 1 트랙션 전제).

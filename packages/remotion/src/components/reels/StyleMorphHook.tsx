@@ -5,10 +5,10 @@ import { loadFont } from '@remotion/google-fonts/NotoSansKR';
 const { fontFamily } = loadFont('normal', { weights: ['700', '800'] });
 
 const STYLES = [
-  'reels/styles/style-01-watercolor.webp',
-  'reels/styles/style-08-pastel.webp',
-  'reels/styles/style-05-3d-toy.webp',
-  'reels/styles/style-03-classic.webp',
+  'reels/styles/db-01-watercolor.jpg',
+  'reels/styles/db-02-pixar3d.jpg',
+  'reels/styles/db-03-papercraft.jpg',
+  'reels/styles/db-04-custom.jpg',
 ];
 
 export const StyleMorphHook: React.FC<{ durationInFrames: number }> = ({ durationInFrames }) => {
