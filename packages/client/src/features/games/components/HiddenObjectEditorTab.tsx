@@ -56,7 +56,8 @@ export function HiddenObjectEditorTab({ storybook, onUpdate, onSave }: Props) {
   };
 
   const norm = (clientX: number, clientY: number) => {
-    const rect = canvasRef.current!.getBoundingClientRect();
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return { x: 0, y: 0 };
     return {
       x: Math.min(1, Math.max(0, (clientX - rect.left) / rect.width)),
       y: Math.min(1, Math.max(0, (clientY - rect.top) / rect.height)),

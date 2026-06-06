@@ -20,7 +20,26 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
   const [missFlash, setMissFlash] = useState<{ x: number; y: number; id: number } | null>(null);
 
   const imgRef = useRef<HTMLImageElement | null>(null);
+  const missTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [imgReady, setImgReady] = useState(false);
+  const [, setResizeTick] = useState(0);
   const { playWordCorrect } = useGameAudio();
+
+  useEffect(() => {
+    setImgReady(false);
+  }, [sceneIdx]);
+
+  useEffect(() => {
+    const onResize = () => setResizeTick((t) => t + 1);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (missTimerRef.current) clearTimeout(missTimerRef.current);
+    };
+  }, []);
 
   const scene = scenes[sceneIdx] as
     | { sceneImageUrl: string; targets: HiddenObjectTarget[] }
@@ -33,7 +52,7 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
 
   const handleTap = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!scene || !imgRef.current) return;
+      if (!scene || !imgRef.current || !imgReady) return;
       const rect = e.currentTarget.getBoundingClientRect();
       const px = e.clientX - rect.left;
       const py = e.clientY - rect.top;
@@ -44,7 +63,8 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
       const hit = targets.find((t) => !found.has(t.objectName) && hitNormalizedBox(norm, t));
       if (!hit) {
         setMissFlash({ x: px, y: py, id: Date.now() });
-        setTimeout(() => setMissFlash(null), 500);
+        if (missTimerRef.current) clearTimeout(missTimerRef.current);
+        missTimerRef.current = setTimeout(() => setMissFlash(null), 500);
         return;
       }
 
@@ -66,7 +86,7 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
         }
       }
     },
-    [scene, targets, found, sceneIdx, scenes.length, playWordCorrect]
+    [scene, targets, found, sceneIdx, scenes.length, playWordCorrect, imgReady]
   );
 
   const handleRestart = useCallback(() => {
@@ -110,13 +130,13 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
             src={scene.sceneImageUrl}
             alt=""
             draggable={false}
+            onLoad={() => setImgReady(true)}
             className="max-w-full max-h-full object-contain rounded-2xl shadow-card"
           />
-          {targets
-            .filter((t) => found.has(t.objectName))
-            .map((t) => (
-              <FoundRing key={t.objectName} target={t} imgRef={imgRef} />
-            ))}
+          {imgReady &&
+            targets
+              .filter((t) => found.has(t.objectName))
+              .map((t) => <FoundRing key={t.objectName} target={t} imgRef={imgRef} />)}
           <AnimatePresence>
             {missFlash && (
               <motion.span
