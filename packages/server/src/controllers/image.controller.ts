@@ -1,6 +1,7 @@
 import JSZip from 'jszip';
 import { ImageService } from '../services/image.service.js';
 import { asyncHandler } from '../middleware/async-handler.js';
+import { AppError } from '../middleware/error.middleware.js';
 
 export const ImageController = {
   generateCharacter: asyncHandler(async (req, res) => {
@@ -20,6 +21,29 @@ export const ImageController = {
 
   generateKeyObject: asyncHandler(async (req, res) => {
     const imageUrl = await ImageService.generateKeyObject(req.body);
+    res.json({ success: true, data: { imageUrl } });
+  }),
+
+  generateHiddenObjectScene: asyncHandler(async (req, res) => {
+    const { storybookId, storybookTitle, artStyle, theme, objects, model } = req.body as {
+      storybookId: string;
+      storybookTitle: string;
+      artStyle: string;
+      theme?: string;
+      objects: { name: string; imageUrl?: string }[];
+      model?: string;
+    };
+    if (!storybookId || !artStyle || !Array.isArray(objects)) {
+      throw new AppError(400, 'storybookId, artStyle, objects 가 필요합니다.');
+    }
+    const imageUrl = await ImageService.generateHiddenObjectScene({
+      storybookId,
+      storybookTitle: storybookTitle ?? '',
+      artStyle,
+      theme,
+      objects,
+      model,
+    });
     res.json({ success: true, data: { imageUrl } });
   }),
 
