@@ -424,59 +424,6 @@ ${styleBlock}`;
     return R2Repository.uploadImage(base64, key);
   },
 
-  async generateHiddenObjectScene(req: {
-    storybookId: string;
-    storybookTitle: string;
-    artStyle: string;
-    theme?: string;
-    objects: { name: string; imageUrl?: string }[];
-    model?: string;
-  }): Promise<string> {
-    const { storybookId, storybookTitle, artStyle, theme, objects, model } = req;
-    if (objects.length === 0) {
-      throw new AppError(400, '숨길 사물을 1개 이상 선택해주세요.');
-    }
-
-    const objectNames = objects.map((o) => o.name).join(', ');
-    const themeLine = theme?.trim()
-      ? `Scene setting: ${theme.trim()}.`
-      : 'Scene setting: a rich, child-friendly environment that fits these objects.';
-
-    const prompt = `Draw a single busy "hidden object" / "I Spy" scene in this art style: ${artStyle}.
-${themeLine}
-Naturally place and partially camouflage ALL of the following objects throughout the scene so a young child can find them by looking carefully: ${objectNames}.
-The objects must be recognizable but blended into the environment (behind, beside, or among other elements) — not floating or pasted.
-The scene should be visually rich but readable for ages 4-7. No text, letters, numbers, or labels anywhere.
-Aspect ratio 16:9, horizontal composition.`;
-
-    const refImages: Array<{ base64: string; mimeType: string }> = [];
-    for (const obj of objects.slice(0, 6)) {
-      if (!obj.imageUrl) continue;
-      const img = await urlToBase64(obj.imageUrl);
-      if (img) refImages.push(img);
-    }
-
-    const base64 = await generateImageWithGemini({
-      prompt:
-        refImages.length > 0
-          ? `${prompt}\n\nREFERENCE: Images of the objects to hide are provided. Match their identity and the book's art style exactly.`
-          : prompt,
-      referenceImages: refImages,
-      systemInstruction: IMAGE_SYSTEM_INSTRUCTION,
-      aspectRatio: '16:9',
-      model,
-    });
-
-    const key = buildR2Key({
-      storybookId,
-      storybookTitle,
-      fileType: 'hiddenobj',
-      identifier: `scene-${Date.now()}`,
-      extension: 'webp',
-    });
-    return R2Repository.uploadImage(base64, key);
-  },
-
   async generateVocabulary(req: VocabularyRequest) {
     const { vocabularyItems, artStyle, storybookId, storybookTitle } = req;
 

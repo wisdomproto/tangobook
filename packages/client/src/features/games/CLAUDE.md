@@ -61,7 +61,7 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 
 전부 찾기형 I Spy. **AI 통짜 씬** 1장에 책 어휘 사물을 숨기고, 체크리스트(키오브젝트 썸네일+단어) 단어를 장면에서 탭해 모두 찾으면 보상.
 
-- **저작**: `/editor2` 신규 **"숨은그림" 탭** (`HiddenObjectEditorTab`, `features/games/components/`). 타깃 키오브젝트 subset 선택 → "AI 씬 생성"(`POST /api/images/hidden-object-scene`, Nano Banana Pro + 키오브젝트 PNG 레퍼런스) → 캔버스에서 박스 드래그로 핫스팟 마킹 → 저장. **체크리스트=마킹한 것**이라 AI 누락/오류가 게임에 영향 X.
+- **저작**: `/editor2` 신규 **"숨은그림" 탭** (`HiddenObjectEditorTab`, `features/games/components/`). 씬 이미지는 **외부에서 제작 후 업로드**(다른 이미지 탭과 동일하게 `ImageDropZone`+`UploadMenu` → `POST /api/images/upload`, `type=hiddenobj`). 이 씬에 숨긴 단어 subset 선택 → 캔버스에서 박스 드래그로 핫스팟 마킹 → 저장. **체크리스트=마킹한 것**이라 이미지에 없는 사물은 게임에 영향 X. (AI 자동 생성은 미사용 — 외부 제작 업로드 정책, 2026-06-06.)
 - **데이터**: `Storybook.hiddenObjectScenes`(활성 그림체 미러) + `StyleAssets.hiddenObjectScenes`(그림체별 정본, `switchStyleAssets` swap 포함). `HiddenObjectScene{ id, sceneImageUrl, hotspots:[{objectName,x,y,w,h}] }` (정규화 0~1 박스).
 - **생성**: `buildHiddenObjectData`(server `game.service.ts`) 가 저장된 씬→`HiddenObjectData`. 라벨(ko)·썸네일(`keyObjectImages`)·TTS(`key_objects[].ttsUrl`)를 objectName 으로 resolve.
 - **플레이**: `HiddenObjectPlayer`. 탭 판정은 `utils/hitTest.ts`(`toImageNorm` object-fit contain 레터박스 보정 + `hitNormalizedBox`). 정답=✓ 링 펄스 + 단어 TTS(`playWordCorrect`) + 레일 체크 / 빗나감=페널티 없음. 다 찾으면 `GameResultScreen`.
