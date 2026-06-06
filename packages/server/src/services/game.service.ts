@@ -29,6 +29,9 @@ import type {
   KoreanStoryImageData,
   EnglishStoryImageData,
   StoryImageRound,
+  HiddenObjectConfig,
+  HiddenObjectData,
+  HiddenObjectTarget,
 } from '@tangobook/shared';
 import { decomposeWord, isHangulSyllable } from '@tangobook/shared';
 import { decomposeEnglishWord } from '@tangobook/shared';
@@ -51,6 +54,8 @@ const generators: Partial<Record<GameTypeId, GameGenerator>> = {
     generateLineMatching(sb, cfg as EnglishLineMatchingConfig, 'en'),
   'korean-story-image': (sb, cfg) => generateStoryImage(sb, cfg as KoreanStoryImageConfig, 'ko'),
   'english-story-image': (sb, cfg) => generateStoryImage(sb, cfg as EnglishStoryImageConfig, 'en'),
+  'hidden-object': (sb, cfg) =>
+    Promise.resolve(buildHiddenObjectData(sb, cfg as HiddenObjectConfig)),
 };
 
 export const GameService = {
@@ -419,4 +424,50 @@ async function generateStoryImage(
   return lang === 'ko'
     ? { type: 'korean-story-image', rounds }
     : { type: 'english-story-image', rounds };
+}
+
+// --- 숨은그림 찾기: 저장된 씬 → 플레이용 데이터 ---
+export function buildHiddenObjectData(
+  storybook: Storybook,
+  config: HiddenObjectConfig
+): HiddenObjectData {
+  const all = storybook.hiddenObjectScenes ?? [];
+  if (all.length === 0) {
+    throw new AppError(
+      400,
+      '숨은그림 씬이 없습니다. /editor2 의 "숨은그림" 탭에서 먼저 만들어주세요.'
+    );
+  }
+
+  const keyObjects = storybook.key_objects ?? [];
+  const images = storybook.keyObjectImages ?? [];
+  const labelOf = (objectName: string): string => {
+    const ko = keyObjects.find((k) => k.name === objectName);
+    return ko?.korean || ko?.name || objectName;
+  };
+  const thumbOf = (objectName: string): string | undefined =>
+    images.find((i) => i.objectName === objectName && i.success)?.imageUrl;
+  const ttsOf = (objectName: string): string | undefined =>
+    keyObjects.find((k) => k.name === objectName)?.ttsUrl;
+
+  const count = Math.max(1, config.sceneCount || 1);
+  const chosen = shuffle([...all]).slice(0, Math.min(count, all.length));
+
+  const scenes = chosen.map((scene) => ({
+    sceneImageUrl: scene.sceneImageUrl,
+    targets: scene.hotspots.map(
+      (h): HiddenObjectTarget => ({
+        objectName: h.objectName,
+        label: labelOf(h.objectName),
+        thumbnailUrl: thumbOf(h.objectName),
+        ttsUrl: ttsOf(h.objectName),
+        x: h.x,
+        y: h.y,
+        w: h.w,
+        h: h.h,
+      })
+    ),
+  }));
+
+  return { type: 'hidden-object', scenes };
 }

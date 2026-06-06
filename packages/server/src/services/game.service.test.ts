@@ -19,6 +19,9 @@ vi.mock('./tts.service.js', () => ({
   },
 }));
 
+import { buildHiddenObjectData } from './game.service.js';
+import type { HiddenObjectConfig } from '@tangobook/shared';
+import type { Storybook } from '@tangobook/shared';
 import * as gameService from './game.service.js';
 import { R2Repository } from '../repositories/r2.repository.js';
 import { collectStorybookImagePool } from '../utils/phonics-data-helpers.js';
@@ -70,5 +73,49 @@ describe('generateKoreanSpeaking / generateEnglishSpeaking', () => {
       { word: 'apple', korean: '사과', imageUrl: 'img1.webp' },
     ]);
     await expect(gameService.generateKoreanSpeaking('small-book')).rejects.toThrow(/부족/);
+  });
+});
+
+describe('buildHiddenObjectData', () => {
+  const book = {
+    id: 'b1',
+    title: 't',
+    targetAge: '4-5',
+    artStyle: 's',
+    key_objects: [
+      { name: 'fox', korean: '여우', description: '', pages: [1], ttsUrl: 'https://tts/fox.mp3' },
+    ],
+    keyObjectImages: [{ objectName: 'fox', imageUrl: 'https://r2/fox.png', success: true }],
+    hiddenObjectScenes: [
+      {
+        id: 'hobj_1',
+        sceneImageUrl: 'https://r2/scene.png',
+        hotspots: [{ objectName: 'fox', x: 0.1, y: 0.2, w: 0.3, h: 0.4 }],
+      },
+    ],
+  } as unknown as Storybook;
+
+  it('씬의 핫스팟을 라벨/썸네일/TTS resolve 된 타깃으로 변환한다', () => {
+    const cfg: HiddenObjectConfig = { type: 'hidden-object', sceneCount: 1 };
+    const data = buildHiddenObjectData(book, cfg);
+    expect(data.type).toBe('hidden-object');
+    expect(data.scenes).toHaveLength(1);
+    const t = data.scenes[0].targets[0];
+    expect(t).toMatchObject({
+      objectName: 'fox',
+      label: '여우',
+      thumbnailUrl: 'https://r2/fox.png',
+      ttsUrl: 'https://tts/fox.mp3',
+      x: 0.1,
+      y: 0.2,
+      w: 0.3,
+      h: 0.4,
+    });
+  });
+
+  it('씬이 없으면 명확한 에러를 던진다', () => {
+    const empty = { ...book, hiddenObjectScenes: [] } as Storybook;
+    const cfg: HiddenObjectConfig = { type: 'hidden-object', sceneCount: 1 };
+    expect(() => buildHiddenObjectData(empty, cfg)).toThrow();
   });
 });
