@@ -313,7 +313,8 @@ export type GameTypeId =
   | 'korean-line-matching'
   | 'english-line-matching'
   | 'korean-story-image'
-  | 'english-story-image';
+  | 'english-story-image'
+  | 'hidden-object';
 
 export type GameDifficulty = 'easy' | 'medium' | 'hard';
 
@@ -347,7 +348,8 @@ export type GameConfig =
   | KoreanLineMatchingConfig
   | EnglishLineMatchingConfig
   | KoreanStoryImageConfig
-  | EnglishStoryImageConfig;
+  | EnglishStoryImageConfig
+  | HiddenObjectConfig;
 
 /** 게임별 데이터 (discriminated union) */
 export type GameData =
@@ -360,7 +362,8 @@ export type GameData =
   | KoreanLineMatchingData
   | EnglishLineMatchingData
   | KoreanStoryImageData
-  | EnglishStoryImageData;
+  | EnglishStoryImageData
+  | HiddenObjectData;
 
 // --- 낱말 쓰기 ---
 export interface WordWritingConfig {
@@ -544,6 +547,54 @@ export interface EnglishStoryImageConfig {
 export interface EnglishStoryImageData {
   type: 'english-story-image';
   rounds: StoryImageRound[];
+}
+
+// --- 숨은그림 찾기 (전부 찾기형) ---
+
+/** 씬 이미지 안에서 한 사물의 위치 (정규화 0~1 박스, 씬 이미지 좌상단 기준). */
+export interface HiddenObjectHotspot {
+  objectName: string; // KeyObject.name (영어 canonical) 과 매칭
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+/** 저작자가 만든 숨은그림 씬 1장 (그림체별 자산으로 저장). */
+export interface HiddenObjectScene {
+  id: string; // 'hobj_' + timestamp
+  sceneImageUrl: string;
+  theme?: string;
+  artStyle?: string; // 생성 당시 그림체 (추적용)
+  hotspots: HiddenObjectHotspot[];
+}
+
+export interface HiddenObjectConfig {
+  type: 'hidden-object';
+  /** 한 게임에 포함할 씬 수 (책에 저장된 씬 중 랜덤 선택). 기본 1. */
+  sceneCount: number;
+}
+
+/** 플레이어에 전달되는, 라벨/썸네일/TTS 가 resolve 된 타깃. */
+export interface HiddenObjectTarget {
+  objectName: string;
+  label: string;
+  thumbnailUrl?: string;
+  ttsUrl?: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+export interface HiddenObjectGameScene {
+  sceneImageUrl: string;
+  targets: HiddenObjectTarget[];
+}
+
+export interface HiddenObjectData {
+  type: 'hidden-object';
+  scenes: HiddenObjectGameScene[];
 }
 
 // === 기존 타입 ===
@@ -769,6 +820,8 @@ export interface StyleAssets {
   keyObjectImages?: KeyObjectImage[];
   /** 어휘 이미지 */
   vocabularyImages?: VocabularyImage[];
+  /** 숨은그림 찾기 씬 (그림체별로 다른 장면) */
+  hiddenObjectScenes?: HiddenObjectScene[];
 }
 
 export interface Storybook {
@@ -882,6 +935,9 @@ export interface Storybook {
   // 학습 단어 이미지
   vocabularyImages?: VocabularyImage[];
   vocabularyPrompt?: string;
+
+  // 숨은그림 찾기 씬 (활성 그림체 미러. 정본은 styleAssets[style].hiddenObjectScenes)
+  hiddenObjectScenes?: HiddenObjectScene[];
 
   // 배경음악
   backgroundMusicUrl?: string;
