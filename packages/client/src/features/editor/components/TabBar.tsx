@@ -7,6 +7,7 @@ const STORYBOOK_TABS = [
   { id: 'character' as const, label: '캐릭터' },
   { id: 'cover' as const, label: '표지' },
   { id: 'key-objects' as const, label: '핵심단어' },
+  { id: 'hidden-object' as const, label: '숨은그림' },
   { id: 'pages' as const, label: '페이지' },
   { id: 'quiz' as const, label: '퀴즈' },
   { id: 'games' as const, label: '학습게임' },

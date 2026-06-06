@@ -15,7 +15,7 @@ const AudiobookTab = lazy(() =>
 );
 import { SettingsTab } from '@/features/settings';
 import { ChantTab, LearningCardTab, AlphabetCardTab, FlashcardTab } from '@/features/phonics';
-import { GamesTab } from '@/features/games';
+import { GamesTab, HiddenObjectEditorTab } from '@/features/games';
 import { BlogTab } from '@/features/blog';
 import { CardNewsTab } from '@/features/card-news';
 import { LongformVideoTab } from '@/features/longform-video';
@@ -75,6 +75,10 @@ export function EditorContent({
     {
       id: 'key-objects',
       el: <KeyObjectTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
+    },
+    {
+      id: 'hidden-object',
+      el: <HiddenObjectEditorTab storybook={storybook} onUpdate={onUpdate} onSave={onSave} />,
     },
   ];
 

@@ -16,6 +16,7 @@ type EditorTab =
   | 'cover'
   | 'pages'
   | 'key-objects'
+  | 'hidden-object'
   | 'quiz'
   | 'audiobook'
   | 'blog'
