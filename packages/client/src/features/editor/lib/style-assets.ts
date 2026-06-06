@@ -70,6 +70,7 @@ function snapshotCurrentStyleAssets(sb: Storybook): StyleAssets {
     pageIllustrations,
     keyObjectImages: sb.keyObjectImages,
     vocabularyImages: sb.vocabularyImages,
+    hiddenObjectScenes: sb.hiddenObjectScenes,
   };
 }
 
@@ -111,6 +112,7 @@ function applyStyleAssets(sb: Storybook, assets: StyleAssets | undefined): void 
   // 핵심사물 / 어휘 이미지
   sb.keyObjectImages = assets?.keyObjectImages;
   sb.vocabularyImages = assets?.vocabularyImages;
+  sb.hiddenObjectScenes = assets?.hiddenObjectScenes;
 }
 
 /**
