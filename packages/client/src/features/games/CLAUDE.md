@@ -49,12 +49,23 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 | connect-the-dots | 단어 그림 그리기 | (중립) |
 | korean-line-matching / english-line-matching | 그림-단어 선긋기 | ko / en |
 | korean-story-image / english-story-image | 이야기 듣고 그림 찾기 | ko / en |
+| hidden-object | 숨은그림 찾기 (전부 찾기형) | (중립) |
 
 **Hidden** (코드/데이터 유지, 게임 리스트 숨김): `korean/english-speaking` (Azure 도입 후 재공개), `word-writing` (legacy)
 
 **제거 대상** (인스턴스 일괄 삭제됨, 클라 코드 정리는 후속): vocabulary-matching, word-quiz, picture-sequence, odd-one-out, storybook-quiz, 파닉스 4종 (word-image-matching, blending-listening, letter-sound, word-listening)
 
 > 정리 철학: "단어 모르는 4~5세 아이 기준. 중복·복잡 게임 제거, 단순 매칭·쓰기·그리기·듣기 하나씩".
+
+## 숨은그림 찾기 (hidden-object, 2026-06-06)
+
+전부 찾기형 I Spy. **AI 통짜 씬** 1장에 책 어휘 사물을 숨기고, 체크리스트(키오브젝트 썸네일+단어) 단어를 장면에서 탭해 모두 찾으면 보상.
+
+- **저작**: `/editor2` 신규 **"숨은그림" 탭** (`HiddenObjectEditorTab`, `features/games/components/`). 타깃 키오브젝트 subset 선택 → "AI 씬 생성"(`POST /api/images/hidden-object-scene`, Nano Banana Pro + 키오브젝트 PNG 레퍼런스) → 캔버스에서 박스 드래그로 핫스팟 마킹 → 저장. **체크리스트=마킹한 것**이라 AI 누락/오류가 게임에 영향 X.
+- **데이터**: `Storybook.hiddenObjectScenes`(활성 그림체 미러) + `StyleAssets.hiddenObjectScenes`(그림체별 정본, `switchStyleAssets` swap 포함). `HiddenObjectScene{ id, sceneImageUrl, hotspots:[{objectName,x,y,w,h}] }` (정규화 0~1 박스).
+- **생성**: `buildHiddenObjectData`(server `game.service.ts`) 가 저장된 씬→`HiddenObjectData`. 라벨(ko)·썸네일(`keyObjectImages`)·TTS(`key_objects[].ttsUrl`)를 objectName 으로 resolve.
+- **플레이**: `HiddenObjectPlayer`. 탭 판정은 `utils/hitTest.ts`(`toImageNorm` object-fit contain 레터박스 보정 + `hitNormalizedBox`). 정답=✓ 링 펄스 + 단어 TTS(`playWordCorrect`) + 레일 체크 / 빗나감=페널티 없음. 다 찾으면 `GameResultScreen`.
+- 언어 중립(라벨 ko 기본, 다국어는 follow-up). `contentRequirements.needsHiddenObjectScenes` 플래그(현재 GamesTab 가용성 필터엔 미연결 — 씬 0개면 서버 400 + 패널 경고로 graceful).
 
 ## 새 게임 추가 방법
 

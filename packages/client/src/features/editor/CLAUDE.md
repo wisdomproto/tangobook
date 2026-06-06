@@ -39,6 +39,10 @@ v1 storybook 데이터 모델 위에 **레벨/그림체/언어 3축 variation** 
 - `+ 그림체 추가` → availableStyles 에 canonical id push + switchStyleAssets 으로 즉시 활성. 텍스트 공유, 일러스트만 새로. dropdown source = R2 art-style-library (`/api/art-style-library`, ART_STYLES 10 preset 자동 seed + 사용자 추가 그림체)
 - `⚙️ 그림체 편집` (그림체 row 맨 오른쪽) → `StyleLibraryEditModal` (`features/settings/components`). 인라인 ✏️ 이름/프롬프트 수정, ↑↓ 순서, ➕ 추가, 🗑 제거. preset id 보존 → canonicalize 매칭 그대로. modal 은 conditional render (열림 시만 mount → useQuery 무한 루프 회피)
 
+## 숨은그림 탭 (storybook 전용, 2026-06-06)
+
+`EditorContent.storybookOnlyTabs` 에 `key-objects` 다음으로 `hidden-object` 탭 추가 (`HiddenObjectEditorTab`, `features/games/components/`). TabBar `STORYBOOK_TABS` 에 "숨은그림" 라벨, `editor.store.ts` `EditorTab` union 에 `'hidden-object'` 포함. 씬은 그림체별 자산(`StyleAssets.hiddenObjectScenes`, `switchStyleAssets` swap 포함). 상세 → [features/games/CLAUDE.md](../../games/CLAUDE.md).
+
 ## KeyObject TTS (학습게임 연동)
 
 - `KeyObjectTab` 에 🎙 TTS 버튼 + 일괄 생성 (translate 옆). 활성 언어 따라 `obj.ttsUrl`(ko) 또는 `obj.ttsUrls[lang]` 에 저장
