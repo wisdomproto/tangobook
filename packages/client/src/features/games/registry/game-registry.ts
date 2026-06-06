@@ -14,6 +14,8 @@ export interface ContentRequirement {
   needsCharacterImages: boolean;
   needsIllustrations: boolean;
   needsPhonicsData: boolean;
+  /** 숨은그림 씬(저작 완료)이 필요한 게임. 기본 false. */
+  needsHiddenObjectScenes?: boolean;
 }
 
 /** 모든 게임 플레이어 컴포넌트가 받는 props */
