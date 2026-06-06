@@ -17,3 +17,5 @@ export {
 export { Switch } from './switch';
 export { Checkbox } from './checkbox';
 export { Slider } from './slider';
+export { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants } from './tabs';
+export { KoreanInput, KoreanTextarea } from './korean-input';
