@@ -4,6 +4,9 @@
 /* NanumSquareRound — 둥근 한글체 (헤딩/디스플레이, 4-5세 친화) */
 @import url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound/nanumsquareround.css');
 
+/* Marketing feature — scope-isolated OKLCH tokens (never touches global :root) */
+@import './features/marketing/theme/marketing-tokens.css';
+
 :root {
   /* Base */
   --color-cream-50: #fff9f3;
