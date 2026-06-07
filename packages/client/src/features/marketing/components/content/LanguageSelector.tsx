@@ -1,4 +1,4 @@
-import { Globe } from 'lucide-react';
+import { Globe, Check, Loader2 } from 'lucide-react';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 import { Button } from '../../ui/button';
 import { useUIStore } from '../../store/ui-store';
@@ -7,8 +7,10 @@ import { cn } from '../../lib/utils';
 interface LanguageSelectorProps {
   /** All target languages for this project (from project.target_languages). */
   targetLanguages: string[];
-  /** Called when the user clicks "번역" for a non-ko language (stub in 1a). */
+  /** Called when the user clicks "번역" for a non-ko language. */
   onTranslate: (lang: string) => void;
+  /** Per-language translate status: 'translating' | 'completed' | 'none'/undefined. */
+  translationStatuses?: Record<string, string>;
 }
 
 function getLangLabel(code: string): { label: string; flag: string } {
@@ -18,7 +20,11 @@ function getLangLabel(code: string): { label: string; flag: string } {
     : { label: code.toUpperCase(), flag: '🌐' };
 }
 
-export function LanguageSelector({ targetLanguages, onTranslate }: LanguageSelectorProps) {
+export function LanguageSelector({
+  targetLanguages,
+  onTranslate,
+  translationStatuses = {},
+}: LanguageSelectorProps) {
   const selectedLanguage = useUIStore((s) => s.selectedLanguage);
   const setSelectedLanguage = useUIStore((s) => s.setSelectedLanguage);
 
@@ -48,14 +54,23 @@ export function LanguageSelector({ targetLanguages, onTranslate }: LanguageSelec
               <span>{label}</span>
             </Button>
             {lang !== 'ko' && isSelected && (
-              <Button
-                size="sm"
-                variant="outline"
-                className="h-6 px-1.5 text-xs"
-                onClick={() => onTranslate(lang)}
-              >
-                번역
-              </Button>
+              <div className="flex items-center gap-0.5">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-6 px-1.5 text-xs"
+                  disabled={translationStatuses[lang] === 'translating'}
+                  onClick={() => onTranslate(lang)}
+                >
+                  번역
+                </Button>
+                {translationStatuses[lang] === 'translating' && (
+                  <Loader2 size={11} className="animate-spin text-muted-foreground" />
+                )}
+                {translationStatuses[lang] === 'completed' && (
+                  <Check size={11} className="text-green-600" />
+                )}
+              </div>
             )}
           </div>
         );
