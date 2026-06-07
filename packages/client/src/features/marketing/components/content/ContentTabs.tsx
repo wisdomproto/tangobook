@@ -10,7 +10,80 @@ import { YoutubePanel } from './YoutubePanel';
 import { useUIStore } from '../../store/ui-store';
 import { useContent } from '../../api/use-contents';
 import { useProject } from '../../api/use-projects';
+import { useTranslateChannel } from '../../api/use-translations';
 import { Loader2 } from 'lucide-react';
+import {
+  buildBlogCardsHtml,
+  buildCardnewsHtml,
+  buildThreadsHtml,
+  buildYoutubeHtml,
+  type ChannelKind,
+} from '../../lib/channel-translator';
+import type { ContentGraph } from '../../api/queries';
+
+// ── resolveTranslationSource ───────────────────────────────────────────────
+
+export interface TranslationSource {
+  channel: ChannelKind;
+  sourceHtml: string;
+  isNaver: boolean;
+}
+
+/**
+ * Resolve the active tab → (ChannelKind, source HTML) from the ContentGraph (spec §4.3 step 1-2).
+ * Source HTML is built via the already-ported channel-translator builders. Returns null when the
+ * tab is unsupported (shorts) or the channel has no source (caller alerts + aborts).
+ * Loose blog separation (O-1): self_hosted vs naver_blog both live in blogContents; pick by the
+ * `channel` field, falling back to [0].
+ */
+export function resolveTranslationSource(
+  activeTab: string,
+  graph: ContentGraph
+): TranslationSource | null {
+  const pickBlog = (channel: 'naver_blog' | 'self_hosted') =>
+    graph.blogContents.find((bc) => (bc as { channel?: string }).channel === channel) ??
+    graph.blogContents[0];
+
+  switch (activeTab) {
+    case 'base-article': {
+      const sourceHtml = graph.baseArticle?.body ?? '';
+      if (!sourceHtml.trim()) return null;
+      return { channel: 'base', sourceHtml, isNaver: false };
+    }
+    case 'blog': {
+      const bc = pickBlog('naver_blog');
+      const sourceHtml = bc ? buildBlogCardsHtml(bc.cards) : '';
+      if (!sourceHtml.trim()) return null;
+      return { channel: 'naver_blog', sourceHtml, isNaver: true };
+    }
+    case 'self_hosted': {
+      const bc = pickBlog('self_hosted');
+      const sourceHtml = bc ? buildBlogCardsHtml(bc.cards) : '';
+      if (!sourceHtml.trim()) return null;
+      return { channel: 'self_hosted', sourceHtml, isNaver: false };
+    }
+    case 'cardnews': {
+      const ic = graph.instagramContents[0];
+      const sourceHtml = ic ? buildCardnewsHtml(ic.cards, ic.caption) : '';
+      if (!sourceHtml.trim()) return null;
+      return { channel: 'instagram', sourceHtml, isNaver: false };
+    }
+    case 'threads': {
+      const tc = graph.threadsContents[0];
+      const sourceHtml = tc ? buildThreadsHtml(tc.cards) : '';
+      if (!sourceHtml.trim()) return null;
+      return { channel: 'threads', sourceHtml, isNaver: false };
+    }
+    case 'youtube': {
+      const yc = graph.youtubeContents[0];
+      const sourceHtml = yc ? buildYoutubeHtml(yc.cards) : '';
+      if (!sourceHtml.trim()) return null;
+      return { channel: 'youtube', sourceHtml, isNaver: false };
+    }
+    default:
+      return null; // shorts / unknown — unsupported
+  }
+}
 
 // ── Tab definitions ────────────────────────────────────────────────────────
 
@@ -48,9 +121,11 @@ export function ContentTabs() {
   const { selectedContentId, selectedProjectId, selectedLanguage } = useUIStore();
 
   const [activeTab, setActiveTab] = useState<TabId>('base-article');
+  const [translationStatuses, setTranslationStatuses] = useState<Record<string, string>>({});
 
   const { data: contentGraph, isLoading: contentLoading } = useContent(selectedContentId);
   const { data: project, isLoading: projectLoading } = useProject(selectedProjectId);
+  const translateChannel = useTranslateChannel();
 
   const content = contentGraph?.content;
 
@@ -65,6 +140,32 @@ export function ContentTabs() {
       setActiveTab('base-article');
     }
   }, [selectedLanguage, activeTab]);
+
+  const handleTranslate = async (lang: string) => {
+    if (lang === 'ko') return;
+    if (!contentGraph || !project) return;
+    const resolved = resolveTranslationSource(activeTab, contentGraph);
+    if (!resolved) {
+      alert('번역할 내용이 없습니다. 먼저 이 채널의 콘텐츠를 생성해 주세요.');
+      return;
+    }
+    setTranslationStatuses((s) => ({ ...s, [lang]: 'translating' }));
+    try {
+      await translateChannel.mutateAsync({
+        projectId: project.id,
+        contentId: contentGraph.content.id,
+        project,
+        targetLang: lang,
+        channel: resolved.channel,
+        sourceHtml: resolved.sourceHtml,
+        isNaver: resolved.isNaver,
+      });
+      setTranslationStatuses((s) => ({ ...s, [lang]: 'completed' }));
+    } catch (err) {
+      setTranslationStatuses((s) => ({ ...s, [lang]: 'none' }));
+      alert(`번역 실패: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  };
 
   if (contentLoading || projectLoading) {
     return (
@@ -89,10 +190,8 @@ export function ContentTabs() {
       {/* Language selector (shown when project has multiple languages) */}
       <LanguageSelector
         targetLanguages={targetLanguages}
-        onTranslate={(lang) => {
-          // Phase 1b: translation generation — stub for now
-          alert(`번역은 곧 지원됩니다 (Phase 1b) — ${lang}`);
-        }}
+        translationStatuses={translationStatuses}
+        onTranslate={handleTranslate}
       />
 
       {/* Content tabs */}
