@@ -4,6 +4,33 @@ import { mktKeys, fetchContents, fetchContentGraph } from './queries';
 import { generateId } from '../lib/utils';
 import type { Content } from '../types/database';
 
+export function useUpdateContent() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      id,
+      projectId,
+      updates,
+    }: {
+      id: string;
+      projectId: string;
+      updates: Partial<Content>;
+    }) => {
+      const updatedData = { ...updates, updated_at: new Date().toISOString() };
+      const { error } = await supabase
+        .from('mkt_contents')
+        .update(updatedData as unknown as Record<string, unknown>)
+        .eq('id', id);
+      if (error) throw new Error(error.message);
+      return { id, projectId };
+    },
+    onSuccess: ({ id, projectId }) => {
+      queryClient.invalidateQueries({ queryKey: mktKeys.content(id) });
+      queryClient.invalidateQueries({ queryKey: mktKeys.contents(projectId) });
+    },
+  });
+}
+
 // ─── Read Queries ─────────────────────────────────────────────────────────────
 
 export function useContents(projectId: string | null) {
