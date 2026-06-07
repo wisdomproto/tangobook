@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -7,9 +7,12 @@ import Placeholder from '@tiptap/extension-placeholder';
 import { Trash2, Plus } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { ImageCardWidget } from './ImageCardWidget';
+import { ImageEditorDialog } from './ImageEditorDialog';
 import { cn } from '../../lib/utils';
 import { useDebouncedSave } from '../../api/use-debounced-save';
 import { mktKeys } from '../../api/queries';
+import { uploadToR2 } from '../../api/use-r2-upload';
+import { base64ToBlob } from '../../lib/image-utils';
 import type { BlogCard } from '../../types/database';
 
 // ─── formatForMobile (pure DOM transform) ────────────────────────────────────
@@ -222,6 +225,7 @@ interface BlogCardContent {
 interface BlogCardItemProps {
   card: BlogCard;
   index: number;
+  projectId: string;
   contentId: string;
   onUpdate: (cardId: string, content: Partial<BlogCardContent>) => void;
   onDelete: (cardId: string) => void;
@@ -238,6 +242,7 @@ interface BlogCardItemProps {
 export function BlogCardItem({
   card,
   index,
+  projectId,
   contentId,
   onUpdate,
   onDelete,
@@ -253,8 +258,25 @@ export function BlogCardItem({
   const c = card.content as BlogCardContent;
   const isThisGenerating = isGeneratingImage && generatingCardId === card.id;
 
+  const [editorOpen, setEditorOpen] = useState(false);
+
   const handleTextChange = (html: string) => {
     onUpdate(card.id, { text: html });
+  };
+
+  const handleSaveEdited = async (dataUrl: string) => {
+    try {
+      const blob = base64ToBlob(dataUrl); // data:image/webp;base64,… → Blob
+      const { publicUrl } = await uploadToR2(blob, {
+        projectId,
+        category: 'content',
+        contentType: 'image/webp',
+        contentId,
+      });
+      onUpdate(card.id, { url: publicUrl }); // same write path as upload/regenerate
+    } catch (err) {
+      alert(`이미지 저장 실패: ${err instanceof Error ? err.message : String(err)}`);
+    }
   };
 
   return (
@@ -286,7 +308,7 @@ export function BlogCardItem({
           onDelete={c.url ? () => onUpdate(card.id, { url: '', alt: '', caption: '' }) : undefined}
           onUpload={onUploadImage ? (file) => onUploadImage(card.id, file) : undefined}
           onRestore={onRestoreImage}
-          onEdit={undefined}
+          onEdit={c.url ? () => setEditorOpen(true) : undefined}
           isGenerating={isThisGenerating}
           placeholder={
             c.image_prompt
@@ -294,6 +316,14 @@ export function BlogCardItem({
               : '이미지 없음 — 생성 또는 업로드'
           }
         />
+        {c.url && (
+          <ImageEditorDialog
+            open={editorOpen}
+            onOpenChange={setEditorOpen}
+            src={c.url}
+            onSave={handleSaveEdited}
+          />
+        )}
         {c.alt && <p className="mt-1 text-[10px] text-muted-foreground">ALT: {c.alt}</p>}
         {c.caption && (
           <p className="mt-0.5 text-[10px] text-muted-foreground italic">캡션: {c.caption}</p>

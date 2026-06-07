@@ -19,6 +19,7 @@ import { YoutubePreviewDialog } from './YoutubePreviewDialog';
 import { ChannelModelSelector } from './ChannelModelSelector';
 import { ChannelContentList } from './ChannelContentList';
 import { ChannelTranslationView } from './ChannelTranslationView';
+import { ImageEditorDialog } from './ImageEditorDialog';
 import { PromptEditDialog } from './PromptEditDialog';
 import { GenerationButton } from './GenerationButton';
 import { ImageCardWidget } from './ImageCardWidget';
@@ -36,6 +37,8 @@ import {
   useDeleteYoutubeCard,
 } from '../../api/use-youtube-contents';
 import { supabase } from '../../api/supabase';
+import { uploadToR2 } from '../../api/use-r2-upload';
+import { base64ToBlob } from '../../lib/image-utils';
 import {
   buildYoutubePrompt,
   buildYoutubeImagePrompt,
@@ -165,6 +168,7 @@ function YoutubePanelInner({
   const [generatedPrompt, setGeneratedPrompt] = useState('');
   const [copied, setCopied] = useState(false);
   const [generatingCardId, setGeneratingCardId] = useState<string | null>(null);
+  const [editorOpen, setEditorOpen] = useState(false);
 
   // Textarea ref for narration auto-resize
   const narrationRef = useRef<HTMLTextAreaElement>(null);
@@ -343,6 +347,22 @@ function YoutubePanelInner({
     },
     [contentId, deleteYoutubeCard, localCards, selectedCardId]
   );
+
+  const handleSaveEditedScene = async (dataUrl: string) => {
+    if (!selectedCard) return;
+    try {
+      const blob = base64ToBlob(dataUrl);
+      const { publicUrl } = await uploadToR2(blob, {
+        projectId: project.id,
+        category: 'images',
+        contentType: 'image/webp',
+        contentId,
+      });
+      handleCardUpdate(selectedCard.id, { image_url: publicUrl }); // existing write path (immediate)
+    } catch (err) {
+      alert(`이미지 저장 실패: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  };
 
   const handleAddSection = async () => {
     const id = await addYoutubeCard.mutateAsync({
@@ -600,7 +620,16 @@ function YoutubePanelInner({
                     handleCardUpdate(selectedCard.id, { image_url: r.result as string });
                   r.readAsDataURL(file);
                 }}
+                onEdit={selectedCard.image_url ? () => setEditorOpen(true) : undefined}
               />
+              {selectedCard.image_url && (
+                <ImageEditorDialog
+                  open={editorOpen}
+                  onOpenChange={setEditorOpen}
+                  src={selectedCard.image_url}
+                  onSave={handleSaveEditedScene}
+                />
+              )}
             </div>
 
             {/* Prev/next nav */}

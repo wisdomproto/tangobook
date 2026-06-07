@@ -663,6 +663,7 @@ function BlogPanelInner({
                       key={card.id}
                       card={card}
                       index={idx}
+                      projectId={project.id}
                       contentId={contentId}
                       onUpdate={handleCardUpdate}
                       onDelete={handleCardDelete}
