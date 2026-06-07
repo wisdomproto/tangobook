@@ -86,6 +86,7 @@ export const proxy = asyncHandler(async (req: Request, res: Response) => {
     jpeg: 'image/jpeg',
     webp: 'image/webp',
     pdf: 'application/pdf',
+    html: 'text/html',
   };
   res.setHeader('Content-Type', contentTypes[ext] ?? 'application/octet-stream');
   res.setHeader('Cache-Control', 'public, max-age=3600');
