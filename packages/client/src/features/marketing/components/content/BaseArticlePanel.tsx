@@ -33,6 +33,7 @@ function BaseArticlePanelInner({ content, project }: BaseArticlePanelInnerProps)
   const [topicOpen, setTopicOpen] = useState(false);
   const [pendingPrompt, setPendingPrompt] = useState('');
   const [liveWordCount, setLiveWordCount] = useState<number | null>(null);
+  const [genError, setGenError] = useState<string | null>(null);
 
   // Throttle ref for streaming (200 ms)
   const streamThrottleRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -105,6 +106,7 @@ function BaseArticlePanelInner({ content, project }: BaseArticlePanelInnerProps)
     ),
     onError: useCallback((msg: string) => {
       console.error('AI generation error:', msg);
+      setGenError(msg);
     }, []),
   });
 
@@ -184,6 +186,7 @@ function BaseArticlePanelInner({ content, project }: BaseArticlePanelInnerProps)
 
   const handlePromptConfirm = (prompt: string) => {
     setPendingPrompt(prompt);
+    setGenError(null);
     void runGenerate(prompt, channelModels.textModel);
   };
 
@@ -238,6 +241,13 @@ function BaseArticlePanelInner({ content, project }: BaseArticlePanelInnerProps)
           label="AI 글 생성"
           loadingLabel="생성 중..."
         />
+
+        {/* Generation error */}
+        {genError && (
+          <span className="text-xs text-red-600 flex items-center gap-1">
+            <XCircle size={12} /> 생성 실패: {genError}
+          </span>
+        )}
 
         {/* Perplexity (disabled) */}
         <Button size="sm" variant="outline" className="text-xs gap-1" disabled>

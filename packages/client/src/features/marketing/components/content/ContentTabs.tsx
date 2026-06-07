@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../ui/tabs';
 import { LanguageSelector } from './LanguageSelector';
 import { BaseArticlePanel } from './BaseArticlePanel';
@@ -36,9 +36,13 @@ function ComingSoonPanel({ label }: { label: string }) {
 
 // ── Main component ─────────────────────────────────────────────────────────
 
+// Korean-only tabs — auto-switch away when language changes to non-ko
+const KO_ONLY_TABS: TabId[] = ['blog'];
+
 export function ContentTabs() {
-  const { selectedContentId, selectedProjectId, selectedLanguage, setSelectedLanguage } =
-    useUIStore();
+  const { selectedContentId, selectedProjectId, selectedLanguage } = useUIStore();
+
+  const [activeTab, setActiveTab] = useState<TabId>('base-article');
 
   const { data: contentGraph, isLoading: contentLoading } = useContent(selectedContentId);
   const { data: project, isLoading: projectLoading } = useProject(selectedProjectId);
@@ -47,16 +51,15 @@ export function ContentTabs() {
 
   // When language is not ko, blog tab is not available — auto-switch to base-article
   const handleTabChange = (tabId: string) => {
-    if (tabId === 'blog' && selectedLanguage !== 'ko') {
-      // no-op — blog tab hidden when non-ko
-      return;
-    }
+    setActiveTab(tabId as TabId);
   };
 
-  // If currently on blog tab and language switched to non-ko, switch to base-article
+  // If currently on a Korean-only tab and language switched to non-ko, switch to base-article
   useEffect(() => {
-    // This is handled at the tab level via conditional rendering
-  }, [selectedLanguage]);
+    if (selectedLanguage !== 'ko' && KO_ONLY_TABS.includes(activeTab)) {
+      setActiveTab('base-article');
+    }
+  }, [selectedLanguage, activeTab]);
 
   if (contentLoading || projectLoading) {
     return (
@@ -89,7 +92,7 @@ export function ContentTabs() {
 
       {/* Content tabs */}
       <Tabs
-        defaultValue="base-article"
+        value={activeTab}
         className="flex flex-col flex-1 min-h-0"
         onValueChange={handleTabChange}
       >

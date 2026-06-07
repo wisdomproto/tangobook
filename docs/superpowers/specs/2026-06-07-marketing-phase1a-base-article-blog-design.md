@@ -331,7 +331,7 @@ For each component: **Purpose · Props · Key deps · Ported lib/primitive**. So
 - **Behavior**: word‑count badge; "AI 주제뽑기" → `TopicSuggestionDialog`; "AI 글 생성" (`GenerationButton variant="text"`, disabled until `content.topic` set) → opens `PromptEditDialog` with `buildBaseArticlePrompt({ project, content })`; SSE stream throttled to editor at 200 ms (CF :91‑95); on complete, strip HTML→plain, `countWords`, `useUpsertBaseArticle`. Partial regenerate from bubble menu → `buildPartialRegenerationPrompt` then `replaceSelection`. **"원장님 컨펌"** toggle → `useUpdateContent(content.id, { confirmed })` (CF :340‑363). "Perplexity 첨삭" button rendered **disabled** (CF :232).
 - **Key deps**: `useAiGeneration`, `use-auto-save`, `useUpsertBaseArticle`, `useUpdateContent`, `useChannelModels(project.id,'base-article')`.
 - **Ported libs**: `buildBaseArticlePrompt`, `buildPartialRegenerationPrompt`, `buildTopicSuggestionPrompt` (all already in `lib/prompt-builder.ts`, Phase 0), `countWords` (**already in `lib/utils.ts:13`, Phase 0** — reuse, do not re‑add).
-- **1a simplification**: the non‑ko **translation overlay** (CF :304‑318, reads `factcheck_report.translations[lang]` via `/api/storage/proxy`) is ported as **read‑only** using `/api/mkt/storage/proxy` (Phase 0, `storage.controller.ts:68`). If no translation exists it shows "번역되지 않음" (no generate button in 1a).
+- **1a simplification / DEFERRED**: the non‑ko **translation read‑only overlay** (CF :304‑318, reads `factcheck_report.translations[lang]` via `/api/storage/proxy`) is **DEFERRED to Phase 1b (translation axis)**. Phase 1a has no translation‑generation path, so there is no translated content to display in the overlay — rendering it would always show "번역되지 않음" with no actionable path forward. The overlay will be implemented alongside the `translateAndSaveChannel` SSE wiring in Phase 1b. **Do not implement the overlay in 1a.** The `/api/mkt/storage/proxy` endpoint remains available for Phase 1b.
 
 ### 6.3 `editor/BaseArticleEditor.tsx`  ← CF `src/components/editor/base-article-editor.tsx`
 > Source‑path note: the two editor files live in CF under `src/components/**editor**/` (a sibling of `content/`), not `content/editor/`. Target them in Tangobook under `features/marketing/components/content/editor/`.
@@ -580,7 +580,7 @@ Canvas `drawImage`→`toBlob` taints the canvas if the source image is cross‑o
 **Step 3 — Base article (first visible win)**
 11. `editor/EditorToolbar.tsx` + `editor/BaseArticleEditor.tsx` (TipTap; drop `immediatelyRender`; `/api/mkt` presign).
 12. `PromptEditDialog.tsx`, `TopicSuggestionDialog.tsx`.
-13. `BaseArticlePanel.tsx` (generate, topic, partial regen, 2 s autosave, 원장님 컨펌, read‑only translation overlay).
+13. `BaseArticlePanel.tsx` (generate, topic, partial regen, 2 s autosave, 원장님 컨펌). Translation overlay → **DEFERRED to Phase 1b** (see §6.2).
 14. `ContentTabs.tsx` (7 tabs; only base‑article active; others placeholder) + `LanguageSelector.tsx` (ko pinned, stub translate) + edit `ContentPage.tsx` to mount it. **Manual test: create content → write/generate base article → autosave → confirm toggle.**
 
 **Step 4 — N‑blog**

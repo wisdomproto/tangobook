@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
 import StarterKit from '@tiptap/starter-kit';
@@ -32,6 +32,7 @@ export const BaseArticleEditor = forwardRef<BaseArticleEditorRef, BaseArticleEdi
   ) {
     const onUpdateRef = useRef(onUpdate);
     const onPartialRegenerateRef = useRef(onPartialRegenerate);
+    const [uploadError, setUploadError] = useState<string | null>(null);
 
     useEffect(() => {
       onUpdateRef.current = onUpdate;
@@ -68,12 +69,16 @@ export const BaseArticleEditor = forwardRef<BaseArticleEditorRef, BaseArticleEdi
               contentType: file.type,
             })
               .then(({ publicUrl }) => {
+                setUploadError(null);
                 const { schema } = view.state;
                 const node = schema.nodes.image.create({ src: publicUrl });
                 const tr = view.state.tr.replaceSelectionWith(node);
                 view.dispatch(tr);
               })
-              .catch(console.error);
+              .catch((err) => {
+                console.error(err);
+                setUploadError('이미지 업로드 실패');
+              });
             return true;
           }
           return false;
@@ -93,9 +98,13 @@ export const BaseArticleEditor = forwardRef<BaseArticleEditorRef, BaseArticleEdi
                 contentType: file.type,
               })
                 .then(({ publicUrl }) => {
+                  setUploadError(null);
                   editor?.chain().focus().setImage({ src: publicUrl }).run();
                 })
-                .catch(console.error);
+                .catch((err) => {
+                  console.error(err);
+                  setUploadError('이미지 업로드 실패');
+                });
               return true;
             }
           }
@@ -139,6 +148,11 @@ export const BaseArticleEditor = forwardRef<BaseArticleEditorRef, BaseArticleEdi
     return (
       <div className="marketing-scope flex flex-col h-full">
         <EditorToolbar editor={editor} projectId={projectId} />
+        {uploadError && (
+          <div className="px-3 py-1 text-xs text-red-600 bg-red-50 border-b border-red-200">
+            {uploadError}
+          </div>
+        )}
         {editor && onPartialRegenerate && (
           <BubbleMenu editor={editor}>
             <Button
