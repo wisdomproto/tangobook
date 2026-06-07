@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../ui/tabs';
 import { LanguageSelector } from './LanguageSelector';
 import { BaseArticlePanel } from './BaseArticlePanel';
+import { BlogPanel } from './BlogPanel';
 import { useUIStore } from '../../store/ui-store';
 import { useContent } from '../../api/use-contents';
 import { useProject } from '../../api/use-projects';
@@ -119,7 +120,7 @@ export function ContentTabs() {
 
         {/* ── blog (N 블로그) — Chunk 4 ── */}
         <TabsContent value="blog" className="flex-1 min-h-0 m-0 overflow-hidden">
-          <ComingSoonPanel label="N 블로그" />
+          <BlogPanel content={content} project={project} />
         </TabsContent>
 
         {/* ── self_hosted (내부 블로그) — Chunk 5 ── */}
