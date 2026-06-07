@@ -72,7 +72,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - 오디오북 (Remotion) → [features/audiobook/CLAUDE.md](packages/client/src/features/audiobook/CLAUDE.md)
 - 파닉스 (저작) → [features/phonics/CLAUDE.md](packages/client/src/features/phonics/CLAUDE.md)
 - 파닉스 학습자 → [features/phonics-learner/CLAUDE.md](packages/client/src/features/phonics-learner/CLAUDE.md)
-- 마케팅 (블로그/카드뉴스) → [features/blog/CLAUDE.md](packages/client/src/features/blog/CLAUDE.md)
+- 마케팅 (ContentFlow 포트, /marketing) → [features/marketing/CLAUDE.md](packages/client/src/features/marketing/CLAUDE.md)
 - Auth (Supabase) → [features/auth/CLAUDE.md](packages/client/src/features/auth/CLAUDE.md)
 - Learning Reports → [features/learning/CLAUDE.md](packages/client/src/features/learning/CLAUDE.md)
 - 별/호리/놀이터 → [features/rewards/CLAUDE.md](packages/client/src/features/rewards/CLAUDE.md)
@@ -129,6 +129,12 @@ SPA SEO 기본기. 상세 → memory `seo-infrastructure-2026-05-26.md`.
 - 동적: `src/lib/useSeo.ts` hook — LibraryPage · BookDetailPage · KoreanPhonicsStudyPage · BookSeoPage 적용.
 - Prerender: `packages/client/scripts/prerender.mjs`(puppeteer). CMD `pnpm --filter client build:prerender`.
 - 🔴 다음 할 일(메모리 참조): OG 이미지 6종 / BookSeoPage prerender 확장 / CI 통합 / GSC·네이버 등록 / Core Web Vitals.
+
+## /marketing — ContentFlow 포트 (브랜치: feat/marketing-phase0)
+ContentFlow AI 마케팅 자동화 SaaS 이식. `/marketing` 라우트, `features/marketing/` 전담 모듈.
+데이터: Supabase `mkt_*` 테이블(싱글 오너 RLS) + R2 (`mkt/{projectId}/…`). Express `/api/mkt` (SSE 포함).
+채널 5/7 완료: 기본글 · N블로그 · 내부블로그 · 카드뉴스 · 스레드. 유튜브/번역은 Phase 1c/1d.
+상세 → [features/marketing/CLAUDE.md](packages/client/src/features/marketing/CLAUDE.md) · memory `marketing-port-contentflow-2026-06-07.md`.
 
 ## 마케팅 자료
 `docs/marketing/` — 키워드 리서치·통합·전략 파이프라인. 상세 → [docs/marketing/README.md](docs/marketing/README.md).
