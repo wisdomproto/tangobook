@@ -5,6 +5,7 @@ import type { BlogCard } from '../../types/database';
 function makeCard(text: string, type: string = 'text'): BlogCard {
   return {
     id: `card-${Math.random()}`,
+    user_id: 'test-user',
     blog_content_id: 'test',
     card_type: type as BlogCard['card_type'],
     content: { text },
@@ -17,6 +18,7 @@ function makeCard(text: string, type: string = 'text'): BlogCard {
 function makeImageCard(url: string, alt: string = ''): BlogCard {
   return {
     id: `card-${Math.random()}`,
+    user_id: 'test-user',
     blog_content_id: 'test',
     card_type: 'image',
     content: { url, alt },

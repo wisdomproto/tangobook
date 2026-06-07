@@ -3,6 +3,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../ui/tabs';
 import { LanguageSelector } from './LanguageSelector';
 import { BaseArticlePanel } from './BaseArticlePanel';
 import { BlogPanel } from './BlogPanel';
+import { InternalBlogPanel } from './InternalBlogPanel';
 import { useUIStore } from '../../store/ui-store';
 import { useContent } from '../../api/use-contents';
 import { useProject } from '../../api/use-projects';
@@ -125,7 +126,7 @@ export function ContentTabs() {
 
         {/* ── self_hosted (내부 블로그) — Chunk 5 ── */}
         <TabsContent value="self_hosted" className="flex-1 min-h-0 m-0 overflow-hidden">
-          <ComingSoonPanel label="내부 블로그" />
+          <InternalBlogPanel content={content} project={project} />
         </TabsContent>
 
         {/* ── placeholders ── */}
