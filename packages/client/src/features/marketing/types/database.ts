@@ -289,6 +289,7 @@ export interface InstagramContent {
 
 export interface InstagramCard {
   id: string;
+  user_id: string;
   instagram_content_id: string;
   text_content: string | null;
   background_color: string | null;
@@ -304,6 +305,7 @@ export interface InstagramCard {
 // Cardnews template (custom, per-project). Built-ins live in cardnews-templates.ts.
 export interface CardTemplateRow {
   id: string;
+  user_id: string;
   project_id: string;
   name: string;
   bg_color: string;
@@ -328,9 +330,11 @@ export interface ThreadsContent {
 
 export interface ThreadsCard {
   id: string;
+  user_id: string;
   threads_content_id: string;
   text_content: string;
   media_url: string | null;
+  /** Threads quirk: this field is also used to store the per-post image prompt (CF port). */
   media_type: string | null;
   sort_order: number;
   created_at: string;
