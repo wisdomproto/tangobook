@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
 import { useMarketingTheme } from '../../theme/useMarketingTheme';
 import { useUIStore } from '../../store/ui-store';
-import { useProjects, useCreateProject } from '../../api/use-projects';
+import { useProjects } from '../../api/use-projects';
+import { CreateProjectDialog } from '../project/CreateProjectDialog';
 
 /**
  * Marketing operator shell.
@@ -16,20 +18,10 @@ export function MarketingShell() {
   // Mount the theme hook so the saved light/dark preference is applied on load.
   useMarketingTheme();
 
+  const [createProjectOpen, setCreateProjectOpen] = useState(false);
+
   const { selectedProjectId, setSelectedProjectId } = useUIStore();
   const { data: projects = [] } = useProjects();
-  const createProject = useCreateProject();
-
-  /**
-   * Temporary create handler — Chunk 6 will replace this with a proper
-   * CreateProjectDialog. For now, prompt for a name so the shell is
-   * end-to-end functional without the dialog.
-   */
-  function handleCreateNew() {
-    const name = window.prompt('새 프로젝트 이름을 입력하세요', '새 프로젝트');
-    if (!name?.trim()) return;
-    createProject.mutate({ name: name.trim() });
-  }
 
   return (
     <div className="marketing-scope h-screen flex overflow-hidden">
@@ -37,7 +29,7 @@ export function MarketingShell() {
         projects={projects}
         selectedProjectId={selectedProjectId}
         onSelectProject={setSelectedProjectId}
-        onCreateNewProject={handleCreateNew}
+        onCreateNewProject={() => setCreateProjectOpen(true)}
       />
 
       {/* Right column: top bar + scrollable main */}
@@ -47,6 +39,8 @@ export function MarketingShell() {
           <Outlet />
         </main>
       </div>
+
+      <CreateProjectDialog open={createProjectOpen} onOpenChange={setCreateProjectOpen} />
     </div>
   );
 }

@@ -1,12 +1,19 @@
+import { ContentListPanel } from '../components/project/ContentListPanel';
+
 /**
- * Content generation page stub.
- * Real content editor will be wired in Chunk 6.
+ * Content generation page.
+ * Left: ContentListPanel (create / list / reorder / delete contents).
+ * Right: placeholder — per-content channel editors are Phase 1.
  */
 export function ContentPage() {
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-semibold mb-2">콘텐츠</h2>
-      <p className="text-sm text-muted-foreground">콘텐츠 생성 기능은 추후 구현됩니다. (Chunk 6)</p>
+    <div className="flex h-full">
+      <ContentListPanel />
+
+      {/* Right pane — channel editors are Phase 1, placeholder for now */}
+      <div className="flex-1 flex items-center justify-center text-sm text-muted-foreground">
+        콘텐츠를 선택하세요
+      </div>
     </div>
   );
 }
