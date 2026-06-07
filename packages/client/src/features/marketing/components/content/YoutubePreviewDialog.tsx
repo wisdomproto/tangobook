@@ -43,16 +43,6 @@ export function YoutubePreviewDialog({
   const [copied, setCopied] = useState(false);
 
   const handleCopyAll = async () => {
-    const lines: string[] = [];
-    if (videoTitle) lines.push(`# ${videoTitle}`, '');
-    cards.forEach((card, i) => {
-      const typeLabel = (card.section_type ?? 'main').toUpperCase();
-      lines.push(`[${i + 1}] ${typeLabel}`);
-      lines.push(`나레이션: ${card.narration_text || ''}`);
-      if (card.screen_direction) lines.push(`화면: ${card.screen_direction}`);
-      if (card.subtitle_text) lines.push(`자막: ${card.subtitle_text}`);
-    });
-    const text = lines.join('\n');
     // Join sections with separator
     const sectionTexts = cards.map((card, i) => {
       const typeLabel = (card.section_type ?? 'main').toUpperCase();
