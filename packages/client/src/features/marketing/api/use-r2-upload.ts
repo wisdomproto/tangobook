@@ -50,11 +50,14 @@ export async function uploadToR2(
     throw new Error(`presign failed (${presignRes.status}): ${text}`);
   }
 
-  const { uploadUrl, publicUrl, key } = (await presignRes.json()) as {
-    uploadUrl: string;
-    publicUrl: string;
-    key: string;
+  const json = (await presignRes.json()) as {
+    success?: boolean;
+    data?: { uploadUrl: string; publicUrl: string; key: string };
   };
+  if (!json.success || !json.data) {
+    throw new Error('presign response missing data envelope');
+  }
+  const { uploadUrl, publicUrl, key } = json.data;
 
   // Step 2: PUT the file directly to R2 via the presigned URL
   const doUpload = async () => {

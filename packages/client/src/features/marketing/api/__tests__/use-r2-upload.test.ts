@@ -41,10 +41,11 @@ describe('uploadToR2', () => {
     publicUrl: 'https://pub.example.com/test.txt',
     key: 'projects/proj-1/test.txt',
   };
+  const PRESIGN_ENVELOPE = { success: true, data: PRESIGN_RESPONSE };
 
   it('returns publicUrl and key on success', async () => {
     globalThis.fetch = makeFetch([
-      { ok: true, data: PRESIGN_RESPONSE }, // presign
+      { ok: true, data: PRESIGN_ENVELOPE }, // presign
       { ok: true }, // PUT
     ]);
 
@@ -54,7 +55,7 @@ describe('uploadToR2', () => {
   });
 
   it('calls presign with correct body', async () => {
-    const fetchMock = makeFetch([{ ok: true, data: PRESIGN_RESPONSE }, { ok: true }]);
+    const fetchMock = makeFetch([{ ok: true, data: PRESIGN_ENVELOPE }, { ok: true }]);
     globalThis.fetch = fetchMock;
 
     await uploadToR2(file, options);
@@ -68,7 +69,7 @@ describe('uploadToR2', () => {
   });
 
   it('PUTs the file to the uploadUrl from presign response', async () => {
-    const fetchMock = makeFetch([{ ok: true, data: PRESIGN_RESPONSE }, { ok: true }]);
+    const fetchMock = makeFetch([{ ok: true, data: PRESIGN_ENVELOPE }, { ok: true }]);
     globalThis.fetch = fetchMock;
 
     await uploadToR2(file, options);
@@ -81,7 +82,7 @@ describe('uploadToR2', () => {
 
   it('retries PUT once on failure and succeeds on retry', async () => {
     const fetchMock = makeFetch([
-      { ok: true, data: PRESIGN_RESPONSE }, // presign ok
+      { ok: true, data: PRESIGN_ENVELOPE }, // presign ok
       { ok: false, text: 'server error' }, // PUT fails
       { ok: true }, // retry PUT succeeds
     ]);
@@ -100,7 +101,7 @@ describe('uploadToR2', () => {
 
   it('throws if both PUT attempts fail', async () => {
     globalThis.fetch = makeFetch([
-      { ok: true, data: PRESIGN_RESPONSE },
+      { ok: true, data: PRESIGN_ENVELOPE },
       { ok: false, text: 'fail' },
       { ok: false, text: 'fail again' },
     ]);
@@ -108,7 +109,7 @@ describe('uploadToR2', () => {
   });
 
   it('uses file.name as fileName when not provided in options', async () => {
-    const fetchMock = makeFetch([{ ok: true, data: PRESIGN_RESPONSE }, { ok: true }]);
+    const fetchMock = makeFetch([{ ok: true, data: PRESIGN_ENVELOPE }, { ok: true }]);
     globalThis.fetch = fetchMock;
 
     await uploadToR2(file, { projectId: 'proj-1', category: 'bgm' });
