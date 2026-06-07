@@ -1,17 +1,20 @@
-// NOTE: This file depends on `uploadToR2` (browser fetch-based R2 upload hook,
-// NOT a server SDK). That hook will be wired in a later phase when the marketing
-// API integration layer is added. For now, the import is declared so the file
-// compiles; the hook must be provided from `../hooks/use-r2-upload` (Phase 1+).
+/**
+ * Channel translator — translates channel HTML via the AI SSE route and persists
+ * the result to R2 + `mkt_translations` (single-owner RLS table).
+ *
+ * Phase 1d fixes applied (spec §4.4, §11):
+ *   C-1: table was `translations` → now `mkt_translations`
+ *   C-2: insert now stamps `user_id` (RLS with check)
+ *   C-3: streamTranslate builds the prompt CLIENT-SIDE via buildTranslationPrompt
+ *        and POSTs {prompt,model} to /api/mkt/ai/translate (not the CF shape)
+ *   drop: _setUploadToR2 bridge removed → direct import from api/use-r2-upload
+ */
 import { supabase } from '@/lib/supabase';
+import { getCurrentUserId } from '../api/supabase';
 import { fetchSSEText } from './sse-stream-parser';
-import type { uploadToR2 as UploadToR2Type } from '../hooks/use-r2-upload';
+import { uploadToR2 } from '../api/use-r2-upload';
+import { buildTranslationPrompt } from './translation-prompt-builder';
 import type { BlogCard, InstagramCard, ThreadsCard, YoutubeCard, Project } from '../types/database';
-
-// Lazy import so this module compiles even before the hook is implemented
-let _uploadToR2: typeof UploadToR2Type | null = null;
-export function _setUploadToR2(fn: typeof UploadToR2Type): void {
-  _uploadToR2 = fn;
-}
 
 const LANG_NAMES: Record<string, string> = {
   en: 'English',
@@ -41,11 +44,15 @@ export interface ChannelTranslationInput {
   sourceHtml: string;
   /** `true` for Naver blog to apply Naver-specific formatting. */
   isNaver?: boolean;
+  /** Optional model override (e.g. 'gemini-2.5-flash-lite'). */
+  model?: string;
 }
 
 /**
- * Runs the AI translation stream and returns the full translated text.
- * Uses the shared `/api/ai/translate` route.
+ * Builds the full translation prompt CLIENT-SIDE (the worktree `/api/mkt/ai/translate`
+ * controller only reads `{prompt,model}` and calls streamGenerate — it does NOT build a
+ * prompt server-side, unlike CF). Composes the buildTranslationPrompt system prompt with
+ * the source text and streams the result. (spec §4.4 — the C-3 contract fix.)
  */
 function streamTranslate(input: {
   text: string;
@@ -53,14 +60,19 @@ function streamTranslate(input: {
   channelType: string;
   project?: Project;
   isNaver?: boolean;
+  model?: string;
 }): Promise<string> {
-  return fetchSSEText('/api/ai/translate', {
-    text: input.text,
+  const systemPrompt = buildTranslationPrompt({
     sourceLanguage: 'ko',
     targetLanguage: input.targetLang,
     channelType: input.channelType,
     project: input.project,
     isNaver: input.isNaver,
+  });
+  const prompt = `${systemPrompt}\n\n---\n${input.text}`;
+  return fetchSSEText('/api/mkt/ai/translate', {
+    prompt,
+    ...(input.model ? { model: input.model } : {}),
   });
 }
 
@@ -71,14 +83,9 @@ async function uploadHtmlToR2(params: {
   targetLang: string;
   html: string;
 }): Promise<string> {
-  if (!_uploadToR2) {
-    throw new Error(
-      'uploadToR2 not initialized — call _setUploadToR2() before using channel translator'
-    );
-  }
   const { projectId, contentId, channel, targetLang, html } = params;
   const blob = new Blob([html], { type: 'text/html' });
-  const { publicUrl } = await _uploadToR2(blob, {
+  const { publicUrl } = await uploadToR2(blob, {
     projectId,
     category: 'content',
     fileName: `${contentId}_${channel}_${targetLang}.html`,
@@ -90,15 +97,16 @@ async function uploadHtmlToR2(params: {
 
 /**
  * Translates the given channel source HTML and persists the result to R2
- * plus a row in the `translations` table.  Returns the public R2 URL.
+ * plus a row in `mkt_translations`. Returns the public R2 URL. (spec §4.3)
  */
 export async function translateAndSaveChannel(input: ChannelTranslationInput): Promise<string> {
   const translated = await streamTranslate({
-    text: input.sourceHtml.slice(0, 16000),
+    text: input.sourceHtml.slice(0, 16000), // CF parity (R-1d-6 — large-article truncation)
     targetLang: input.targetLang,
     channelType: input.channel,
     project: input.project,
     isNaver: input.isNaver,
+    model: input.model,
   });
 
   const publicUrl = await uploadHtmlToR2({
@@ -109,9 +117,9 @@ export async function translateAndSaveChannel(input: ChannelTranslationInput): P
     html: translated,
   });
 
-  // Upsert translation row — body holds the R2 URL reference.
+  // Upsert on (content_id, language, channel_type) — body holds the R2 URL.
   const { data: existing } = await supabase
-    .from('translations')
+    .from('mkt_translations') // C-1
     .select('id')
     .eq('content_id', input.contentId)
     .eq('language', input.targetLang)
@@ -120,7 +128,7 @@ export async function translateAndSaveChannel(input: ChannelTranslationInput): P
 
   if (existing?.id) {
     await supabase
-      .from('translations')
+      .from('mkt_translations') // C-1
       .update({
         status: 'completed',
         body: publicUrl,
@@ -128,7 +136,9 @@ export async function translateAndSaveChannel(input: ChannelTranslationInput): P
       })
       .eq('id', existing.id);
   } else {
-    await supabase.from('translations').insert({
+    const userId = await getCurrentUserId(); // C-2 — RLS with check (user_id = auth.uid())
+    await supabase.from('mkt_translations').insert({
+      user_id: userId,
       content_id: input.contentId,
       language: input.targetLang,
       channel_type: input.channel,
@@ -220,7 +230,7 @@ export async function getChannelTranslationUrl(
 ): Promise<string | null> {
   if (language === 'ko') return null;
   const { data } = await supabase
-    .from('translations')
+    .from('mkt_translations') // C-1
     .select('body')
     .eq('content_id', contentId)
     .eq('language', language)
