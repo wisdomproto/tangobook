@@ -1,14 +1,18 @@
-/**
- * Project settings page stub.
- * Real settings form will be wired in Chunk 6.
- */
+import { useUIStore } from '../store/ui-store';
+import { ProjectSettings } from '../components/project/ProjectSettings';
+
 export function SettingsPage() {
-  return (
-    <div className="p-6">
-      <h2 className="text-xl font-semibold mb-2">프로젝트 설정</h2>
-      <p className="text-sm text-muted-foreground">
-        프로젝트 설정 기능은 추후 구현됩니다. (Chunk 6)
-      </p>
-    </div>
-  );
+  const selectedProjectId = useUIStore((s) => s.selectedProjectId);
+
+  if (!selectedProjectId) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full p-8 text-center gap-3">
+        <p className="text-muted-foreground text-sm">
+          좌측 사이드바에서 프로젝트를 선택하면 설정을 변경할 수 있습니다.
+        </p>
+      </div>
+    );
+  }
+
+  return <ProjectSettings projectId={selectedProjectId} />;
 }
