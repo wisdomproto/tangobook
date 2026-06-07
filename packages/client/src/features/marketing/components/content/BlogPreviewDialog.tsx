@@ -151,7 +151,7 @@ export function BlogPreviewDialog({ open, onOpenChange, cards, title }: BlogPrev
                         {/* Section text */}
                         {c.text && (
                           <div
-                            className="prose prose-sm max-w-none text-sm leading-relaxed"
+                            className="text-sm leading-relaxed [&_h1]:text-xl [&_h1]:font-bold [&_h1]:mb-2 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:mb-1.5 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mb-1 [&_p]:mb-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-2 [&_li]:mb-0.5 [&_strong]:font-semibold [&_blockquote]:border-l-2 [&_blockquote]:border-border [&_blockquote]:pl-3 [&_blockquote]:italic [&_blockquote]:text-muted-foreground"
                             dangerouslySetInnerHTML={{ __html: c.text }}
                           />
                         )}

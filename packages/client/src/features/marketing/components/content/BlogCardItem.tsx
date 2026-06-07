@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
@@ -7,7 +7,6 @@ import { Trash2, Plus } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { ImageCardWidget } from './ImageCardWidget';
 import { cn } from '../../lib/utils';
-import { useDebouncedSave } from '../../api/use-debounced-save';
 import { useUpdateBlogCard } from '../../api/use-blog-contents';
 import type { BlogCard } from '../../types/database';
 
@@ -119,7 +118,6 @@ function SectionTextEditor({
   placeholder,
 }: SectionTextEditorProps) {
   const updateBlogCard = useUpdateBlogCard();
-  const debouncedSave = useDebouncedSave('mkt_blog_cards', cardId);
 
   const onTextChangeRef = useRef(onTextChange);
   useEffect(() => {
@@ -141,12 +139,10 @@ function SectionTextEditor({
       const html = e.getHTML();
       onTextChangeRef.current(html);
 
-      // 300 ms debounce → persist
+      // 300 ms debounce → persist via TanStack mutation (keeps query cache fresh)
       if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
       debounceTimerRef.current = setTimeout(() => {
         debounceTimerRef.current = null;
-        debouncedSave({ content: { text: html } });
-        // Also use the TanStack mutation to keep query cache fresh
         updateBlogCard.mutate({
           cardId,
           contentId,

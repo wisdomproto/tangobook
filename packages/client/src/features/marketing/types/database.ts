@@ -263,6 +263,7 @@ export interface BlogContent {
 
 export interface BlogCard {
   id: string;
+  user_id: string;
   blog_content_id: string;
   card_type: CardType;
   content: Record<string, unknown>;

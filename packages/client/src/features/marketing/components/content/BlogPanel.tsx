@@ -200,8 +200,6 @@ function BlogPanelInner({
             return {
               id: generateId(),
               blog_content_id: blogContentId,
-              // CRITICAL carry-over fix: inject user_id before setBlogCards
-              // so mkt_blog_cards.user_id NOT NULL constraint is satisfied
               user_id: userId,
               card_type: 'text' as const,
               content: {
@@ -215,7 +213,7 @@ function BlogPanelInner({
               sort_order: i,
               created_at: now,
               updated_at: now,
-            } as BlogCard;
+            };
           });
 
           // ── Step 3: Persist cards ─────────────────────────────────────
