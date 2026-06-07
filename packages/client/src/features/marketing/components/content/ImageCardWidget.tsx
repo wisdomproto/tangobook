@@ -8,6 +8,7 @@ import {
   Loader2,
   ImageIcon,
   RotateCcw,
+  Pencil,
 } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { cn } from '../../lib/utils';
@@ -25,8 +26,8 @@ interface ImageCardWidgetProps {
   onDelete?: () => void;
   onUpload?: (file: File) => Promise<void> | void;
   onRestore?: (url: string) => void;
-  /** Pass undefined to hide the edit button (image-editor-dialog is OUT per O-7) */
-  onEdit?: undefined;
+  /** Open the in-app annotation editor (ImageEditorDialog). Provide to show the Pencil button. */
+  onEdit?: () => void;
   isGenerating?: boolean;
   placeholder?: string;
   hideBottomActions?: boolean;
@@ -43,6 +44,7 @@ export function ImageCardWidget({
   onDelete,
   onUpload,
   onRestore,
+  onEdit,
   isGenerating = false,
   placeholder = '이미지 없음',
   hideBottomActions = false,
@@ -137,6 +139,19 @@ export function ImageCardWidget({
                 className="h-6 w-6 bg-black/50 text-white border-none hover:bg-black/70"
               >
                 <ZoomIn size={12} />
+              </Button>
+            )}
+
+            {/* Edit (annotation) */}
+            {src && onEdit && (
+              <Button
+                size="icon-xs"
+                variant="secondary"
+                onClick={onEdit}
+                title="이미지 편집"
+                className="h-6 w-6 bg-black/50 text-white border-none hover:bg-blue-600/80"
+              >
+                <Pencil size={12} />
               </Button>
             )}
 
