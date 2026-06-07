@@ -143,15 +143,16 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 
 ## 채널 구현 현황
 
-| 채널                            | 상태        | 컴포넌트                                                             |
-| ------------------------------- | ----------- | -------------------------------------------------------------------- |
-| 기본글 (Base Article)           | 완료        | `BaseArticlePanel.tsx` + TipTap 3.x                                  |
-| N블로그 (Naver SEO)             | 완료        | `BlogPanel.tsx` — 4-step workflow (키워드→구조→생성→SEO)             |
-| 내부블로그 (Google/GEO)         | 완료        | `InternalBlogPanel.tsx`                                              |
-| 카드뉴스 (Instagram)            | 완료        | `CardNewsPanel.tsx` — Canvas 편집기 + WebP export + 일괄 이미지 생성 |
-| 스레드 (Threads)                | 완료        | `ThreadsPanel.tsx`                                                   |
-| 유튜브 (Phase 1c)               | placeholder | `PlaceholderPage.tsx`                                                |
-| 번역 + 이미지 에디터 (Phase 1d) | 미구현      | —                                                                    |
+| 채널                     | 상태 | 컴포넌트                                                             |
+| ------------------------ | ---- | -------------------------------------------------------------------- |
+| 기본글 (Base Article)    | 완료 | `BaseArticlePanel.tsx` + TipTap 3.x                                  |
+| N블로그 (Naver SEO)      | 완료 | `BlogPanel.tsx` — 4-step workflow (키워드→구조→생성→SEO)             |
+| 내부블로그 (Google/GEO)  | 완료 | `InternalBlogPanel.tsx`                                              |
+| 카드뉴스 (Instagram)     | 완료 | `CardNewsPanel.tsx` — Canvas 편집기 + WebP export + 일괄 이미지 생성 |
+| 스레드 (Threads)         | 완료 | `ThreadsPanel.tsx`                                                   |
+| 유튜브 (Phase 1c)        | 완료 | `YoutubePanel.tsx` — AI 대본, 씬별 이미지, 타임라인, 미리보기        |
+| 번역 (Phase 1d)          | 완료 | `ChannelTranslationView.tsx` — 6채널 번역 overlay (non-ko)           |
+| 이미지 에디터 (Phase 1d) | 완료 | `ImageEditorDialog.tsx` — blog/youtube ImageCardWidget 에서 Pencil   |
 
 ## 핵심 Gotchas (반드시 확인)
 
@@ -189,6 +190,14 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 ### (g) `lib/` 포트 충실도
 
 `prompt-builder` / `seo-scorer` / `sse-stream-parser` / `schedule-distribution` 은 ContentFlow 원본 로직을 최대한 그대로 이식했다. 수정 시 원본 CF 로직과 diff 비교 후 주석에 delta 기록.
+
+### (h) Phase 1d 번역 + 이미지 에디터 Gotchas
+
+1. **`mkt_translations` 테이블명 + `user_id` 스탬핑** (C-1/C-2): CF 포트는 `translations` 테이블을 사용했고 insert에 `user_id` 없었음 → 둘 다 fix됨 (`channel-translator.ts`). insert 시 RLS `with check (user_id = auth.uid())`를 통과하려면 반드시 `user_id` 스탬핑 필수.
+2. **번역 프롬프트 클라이언트 빌드** (C-3): `/api/mkt/ai/translate`는 `{prompt, model}`만 읽음. CF처럼 서버에서 프롬프트를 구성하지 않음. 클라이언트가 `buildTranslationPrompt`로 시스템 프롬프트를 만들고 소스 텍스트를 붙여 POST. CF 원본의 `{text, sourceLanguage, …}` 바디 형태는 동작하지 않음.
+3. **이미지 에디터 Canvas proxy-draw** (I-2): `ImageEditorDialog.handleSave`는 `loadImageWithProxy`(`lib/image-editor-canvas.ts`)를 사용. R2 버킷 CORS 미적용 시 canvas가 taint되는 걸 방지하기 위해 direct → `/api/mkt/storage/proxy` 폴백. CF 원본 `handleSave`에는 이 폴백이 없었음.
+4. **O-7 완전 철회**: `ImageCardWidget.onEdit`이 `undefined`가 아닌 `() => void`가 됨. 두 callsite — `BlogCardItem.tsx`(blog/internal-blog)와 `YoutubePanel.tsx`(유튜브 씬) — 가 실제 `onEdit` 핸들러를 전달. `BlogCardItem`에 `projectId: string` prop 추가 필요 (`uploadToR2` 사용).
+5. **라이브 번역 프리뷰 생략** (O-1d-B): `use-translation.ts`(CF의 SSE 프리뷰 스트리밍)는 구현 안 함. 번역 완료 후 최종 배너 표시만. `translationStatuses` 객체의 `translating` 상태 + `LanguageSelector` 글리프로 UX 보완.
 
 ## 라우트
 

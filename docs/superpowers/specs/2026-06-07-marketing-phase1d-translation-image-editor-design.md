@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | DRAFT (spec only — no feature code written yet) |
+| **Status** | COMPLETE (Chunks 0–4 implemented and verified, 2026-06-07) |
 | **Branch / worktree** | `feat/marketing-phase0` @ `C:\projects\tangobook\.worktrees\marketing-phase0` |
 | **Date** | 2026-06-07 |
 | **Roadmap slot** | **Phase 1d** = the **final slice of Phase 1 (콘텐츠 생성)**. Phases 0, 1a (기본글 + N블로그/내부블로그), 1b (카드뉴스 + 스레드), 1c (유튜브 롱폼) are COMPLETE and committed. Phase 1d closes the content area. |
