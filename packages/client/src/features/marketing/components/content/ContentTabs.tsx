@@ -4,6 +4,7 @@ import { LanguageSelector } from './LanguageSelector';
 import { BaseArticlePanel } from './BaseArticlePanel';
 import { BlogPanel } from './BlogPanel';
 import { InternalBlogPanel } from './InternalBlogPanel';
+import { ThreadsPanel } from './ThreadsPanel';
 import { useUIStore } from '../../store/ui-store';
 import { useContent } from '../../api/use-contents';
 import { useProject } from '../../api/use-projects';
@@ -16,7 +17,7 @@ const TABS = [
   { id: 'blog', label: 'N 블로그', active: true },
   { id: 'self_hosted', label: '내부 블로그', active: true },
   { id: 'cardnews', label: '카드뉴스', active: false },
-  { id: 'threads', label: '스레드', active: false },
+  { id: 'threads', label: '스레드', active: true },
   { id: 'youtube', label: '롱폼', active: false },
   { id: 'shorts', label: '숏폼', active: false },
 ] as const;
@@ -134,7 +135,7 @@ export function ContentTabs() {
           <ComingSoonPanel label="카드뉴스" />
         </TabsContent>
         <TabsContent value="threads" className="flex-1 min-h-0 m-0 overflow-hidden">
-          <ComingSoonPanel label="스레드" />
+          <ThreadsPanel content={content} project={project} />
         </TabsContent>
         <TabsContent value="youtube" className="flex-1 min-h-0 m-0 overflow-hidden">
           <ComingSoonPanel label="롱폼 (YouTube)" />
