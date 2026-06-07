@@ -431,6 +431,7 @@ export type TranslationStatus = 'pending' | 'translating' | 'review' | 'complete
 
 export interface Translation {
   id: string;
+  user_id: string;
   content_id: string;
   language: string;
   channel_type: string;

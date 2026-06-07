@@ -21,6 +21,10 @@ export const mktKeys = {
   project: (id: string) => ['mkt', 'project', id] as const,
   contents: (projectId: string) => ['mkt', 'contents', projectId] as const,
   content: (id: string) => ['mkt', 'content', id] as const,
+  translation: (contentId: string, channel: string, lang: string) =>
+    ['mkt', 'translation', contentId, channel, lang] as const,
+  translationHtml: (contentId: string, channel: string, lang: string) =>
+    ['mkt', 'translation-html', contentId, channel, lang] as const,
   cardTemplates: (projectId: string) => ['mkt', 'card-templates', projectId] as const,
   cardHiddenBuiltins: (projectId: string) => ['mkt', 'card-hidden-builtins', projectId] as const,
 };
