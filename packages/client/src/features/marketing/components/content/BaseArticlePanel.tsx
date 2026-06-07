@@ -1,4 +1,5 @@
 import { useRef, useState, useCallback } from 'react';
+import { ChannelTranslationView } from './ChannelTranslationView';
 import { CheckCircle, XCircle, BookOpen, AlertCircle } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Badge } from '../../ui/badge';
@@ -295,6 +296,9 @@ function BaseArticlePanelInner({ content, project }: BaseArticlePanelInnerProps)
           주제를 먼저 설정하면 AI 글 생성이 활성화됩니다.
         </div>
       )}
+
+      {/* Translation overlay (non-ko) */}
+      <ChannelTranslationView contentId={content.id} channel="base" />
 
       {/* Editor */}
       <div className="flex-1 min-h-0 overflow-hidden">

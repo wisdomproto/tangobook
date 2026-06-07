@@ -45,6 +45,7 @@ import {
 import { PromptEditDialog } from './PromptEditDialog';
 import { ChannelModelSelector } from './ChannelModelSelector';
 import { ChannelContentList } from './ChannelContentList';
+import { ChannelTranslationView } from './ChannelTranslationView';
 import { GenerationButton } from './GenerationButton';
 import { CARD_TEMPLATES, type CardTemplate } from './cardnews-templates';
 import { useAiGeneration } from '../../hooks/use-ai-generation';
@@ -1252,6 +1253,7 @@ export function CardNewsPanel({ content, project }: CardNewsPanelProps) {
 
       {/* Content list */}
       <div className="flex-1 overflow-y-auto p-3">
+        <ChannelTranslationView contentId={content.id} channel="instagram" />
         <ChannelContentList
           items={igContents}
           getId={(ig) => ig.id}

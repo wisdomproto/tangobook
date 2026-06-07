@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
+import { ChannelTranslationView } from './ChannelTranslationView';
 import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
 import { Loader2, Copy, Check, Eye } from 'lucide-react';
@@ -375,6 +376,7 @@ export function ThreadsPanel({ content, project }: ThreadsPanelProps) {
 
       {/* Content list */}
       <div className="flex-1 overflow-y-auto p-3">
+        <ChannelTranslationView contentId={content.id} channel="threads" />
         <ChannelContentList<ThreadsContent & { cards: ThreadsCard[] }>
           items={threadsContents}
           getId={(tc) => tc.id}

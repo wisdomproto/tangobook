@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ChannelTranslationView } from './ChannelTranslationView';
 import { Loader2, Monitor, Smartphone, RefreshCw, Eye } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
@@ -769,6 +770,7 @@ export function BlogPanel({ content, project }: BlogPanelProps) {
 
       {/* Blog content list */}
       <div className="flex-1 overflow-y-auto p-3">
+        <ChannelTranslationView contentId={content.id} channel="naver_blog" />
         <ChannelContentList
           items={blogContents}
           getId={(bc) => bc.id}

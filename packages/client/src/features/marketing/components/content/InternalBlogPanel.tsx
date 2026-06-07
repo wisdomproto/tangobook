@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ChannelTranslationView } from './ChannelTranslationView';
 import { Loader2, Monitor, Smartphone, RefreshCw, Eye, Calendar, Search } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
@@ -1083,6 +1084,7 @@ export function InternalBlogPanel({ content, project }: InternalBlogPanelProps) 
 
       {/* Content list */}
       <div className="flex-1 overflow-y-auto p-3">
+        <ChannelTranslationView contentId={content.id} channel="self_hosted" />
         <ChannelContentList
           items={internalContents}
           getId={(bc) => bc.id}

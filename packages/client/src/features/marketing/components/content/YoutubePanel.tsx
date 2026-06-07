@@ -18,6 +18,7 @@ import { TimelineCard, AddSceneButton, SECTION_TYPES, getSectionInfo } from './Y
 import { YoutubePreviewDialog } from './YoutubePreviewDialog';
 import { ChannelModelSelector } from './ChannelModelSelector';
 import { ChannelContentList } from './ChannelContentList';
+import { ChannelTranslationView } from './ChannelTranslationView';
 import { PromptEditDialog } from './PromptEditDialog';
 import { GenerationButton } from './GenerationButton';
 import { ImageCardWidget } from './ImageCardWidget';
@@ -831,6 +832,7 @@ export function YoutubePanel({ content, project }: YoutubePanelProps) {
 
       {/* Content list */}
       <div className="flex-1 overflow-y-auto p-3">
+        <ChannelTranslationView contentId={content.id} channel="youtube" />
         <ChannelContentList<YoutubeContent & { cards: YoutubeCard[] }>
           items={youtubeContents}
           getId={(yc) => yc.id}
