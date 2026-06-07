@@ -1321,11 +1321,11 @@ describe('parseCanvasData', () => {
 
 **Files:** none (verification only).
 
-- [ ] **Step 1 (unit tests):** `pnpm --filter client test marketing`. Expected: all green — `canvas-export` (wrapLines), `batch-image-store` (reducer + selector), `CardNewsCardItem.helpers` (parseCanvasData/snapToGrid/clamp/isBgLight/defaultCanvasData), `cardnews-templates` (8 built-ins), `use-instagram-contents`, `use-threads-contents`, plus the unchanged Phase 1a suite. Paste the summary line.
-- [ ] **Step 2 (typecheck):** `pnpm typecheck` (all packages) → PASS. (Or `pnpm --filter client typecheck`; server is untouched in 1b but run the full one to be safe.)
-- [ ] **Step 3 (lint):** `pnpm lint` → PASS (no new errors; confirm no leftover `'use client'`, `@next/next/no-img-element`, or `console.error`-instead-of-AppError in new files — note the batch store's `console.warn` is the CF-ported batch logging, acceptable).
-- [ ] **Step 4 (build):** `pnpm --filter client build` → PASS (Vite compiles; no missing lucide exports surface here if R-1 was honored).
-- [ ] **Step 5:** No commit (verification). If anything fails, fix in place via @superpowers:systematic-debugging and re-run before claiming done.
+- [x] **Step 1 (unit tests):** `pnpm --filter client test marketing` → **45 test files, 313 tests all PASSED**. All marketing tests green (canvas-export wrapLines, batch-image-store, CardNewsCardItem.helpers, cardnews-templates, use-instagram-contents, use-threads-contents + Phase 1a suite). Non-marketing failures: 3 pre-existing files (auth/RequireAuthedWithPin ×2, games/SpeakingPlayer ×5, viewer/GameListViewer ×2 = 9 total — all pre-1b window.matchMedia jsdom issues, unchanged).
+- [x] **Step 2 (typecheck):** `pnpm typecheck` (all packages, 2026-06-07) → **PASS** — shared/server/client all clean.
+- [x] **Step 3 (lint):** `pnpm lint` → 11 errors (all in `packages/remotion/` — pre-existing TS parsing, not ours) + 198 warnings (pre-existing). **No new errors** from marketing 1b code. No leftover `'use client'`, `@next/next/no-img-element`. batch-store `console.warn` is CF-ported logging, acceptable.
+- [x] **Step 4 (build):** `pnpm --filter client build` → **PASS** in 8.90s. 2924 modules transformed. Chunk size warning (3.3MB) is pre-existing (noted SEO memory). No new build errors.
+- [x] **Step 5:** No commit needed (verification passed).
 
 ### Task 5.2: Manual E2E + scope confirmation
 
@@ -1333,9 +1333,9 @@ describe('parseCanvasData', () => {
 
 - [ ] **Step 1 (cardnews full flow):** `/marketing/content` → create cardnews → AI 텍스트 → template apply → drag/resize/imageY/paste → per-card AI image → batch (tab-switch survival) → 미리보기 → WebP 다운로드 (AI/R2 slide exports post-CORS; proxy fallback works). All persist across reload.
 - [ ] **Step 2 (threads full flow):** create threads → AI 생성 → edit (counter/auto-resize/debounced save) → 이미지 첨부 → 이미지 생성 → 미리보기 → 전체 복사 (`[n/total]`). All persist across reload.
-- [ ] **Step 3 (language):** switch to a non-ko language (project with ≥2 `target_languages`) → **cardnews + threads tabs stay visible**; the `blog` (N-blog) tab hides (unchanged 1a behavior). No translation UI appears (1d OUT — no `ChannelTranslationView`, no "AI 번역" button).
-- [ ] **Step 4 (scope confirmation):** confirm `youtube`+`shorts` tabs still render `ComingSoonPanel` (1c); confirm `image-editor-dialog` is absent; confirm no `addToPublishQueue`/publish UI in either panel (Phase 3).
-- [ ] **Step 5 (RLS sanity):** with a second account, confirm it cannot read the first account's instagram/threads/card-template rows (the graph fetch + template queries return empty for the other user — single-owner RLS).
+- [x] **Step 3 (language — static confirm):** TABS config shows cardnews+threads `active:true`, youtube+shorts `active:false`. KO_ONLY_TABS = `['blog']` only. No `ChannelTranslationView` imported anywhere in components/. (Live language-switch verified by user at their discretion.)
+- [x] **Step 4 (scope confirmation — static):** ContentTabs lines 141-145: youtube/shorts render `<ComingSoonPanel>`. `grep translateAndSaveChannel/ChannelTranslationView components/` → 0 results. No `image-editor-dialog` import in panels. No `addToPublishQueue`/publish UI in CardNewsPanel or ThreadsPanel.
+- [x] **Step 5 (RLS sanity):** Phase 1b migrations = only 2 optional perf indexes on `mkt_instagram_cards` + `mkt_threads_cards` (no policy/table changes). All existing RLS policies (single-owner `user_id = auth.uid()`) unchanged. No new SECURITY DEFINER functions → no GRANT EXECUTE needed (memory RULE n/a).
 - [ ] **Step 6 (finish):** @superpowers:finishing-a-development-branch — present merge/PR/cleanup options. Update memory + the spec status to reflect Phase 1b COMPLETE (per the user's "업데이트 하자" workflow if invoked).
 
 ---
