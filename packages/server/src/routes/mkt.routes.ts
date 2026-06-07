@@ -8,6 +8,7 @@ import {
   analyzeReferences,
 } from '../controllers/mkt/ai.controller.js';
 import { presign, deleteKeys, proxy } from '../controllers/mkt/storage.controller.js';
+import { naverKeywords, googleKeywords } from '../controllers/mkt/keywords.controller.js';
 
 const router = Router();
 
@@ -29,5 +30,9 @@ router.post('/ai/analyze-references', analyzeReferences);
 router.post('/storage/presign', presign);
 router.post('/storage/delete', deleteKeys);
 router.get('/storage/proxy', proxy);
+
+// ── Keyword endpoints ─────────────────────────────────────────────────────────
+router.post('/naver/keywords', naverKeywords);
+router.post('/google/keywords', googleKeywords);
 
 export default router;
