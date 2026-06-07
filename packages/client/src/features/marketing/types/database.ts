@@ -361,6 +361,7 @@ export interface YoutubeContent {
 
 export interface YoutubeCard {
   id: string;
+  user_id: string;
   youtube_content_id: string;
   section_type: string | null;
   narration_text: string | null;
