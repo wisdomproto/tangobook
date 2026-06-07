@@ -39,6 +39,10 @@ function BaseArticlePanelInner({ content, project }: BaseArticlePanelInnerProps)
   const streamThrottleRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const streamBufferRef = useRef('');
 
+  // NOTE: ContentTabs passes the bare Content row (not the full ContentGraph), so we
+  // must call useContent here to load baseArticle. TanStack Query deduplicates by key
+  // (mktKeys.content(id)), so this does NOT cause a second network round-trip when
+  // ContentTabs has already fetched the same id — the cached data is returned immediately.
   const { data: contentGraph } = useContent(content.id);
   const baseArticle = contentGraph?.baseArticle ?? null;
 

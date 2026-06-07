@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
@@ -7,7 +8,8 @@ import { Trash2, Plus } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { ImageCardWidget } from './ImageCardWidget';
 import { cn } from '../../lib/utils';
-import { useUpdateBlogCard } from '../../api/use-blog-contents';
+import { useDebouncedSave } from '../../api/use-debounced-save';
+import { mktKeys } from '../../api/queries';
 import type { BlogCard } from '../../types/database';
 
 // ─── formatForMobile (pure DOM transform) ────────────────────────────────────
@@ -117,14 +119,27 @@ function SectionTextEditor({
   onTextChange,
   placeholder,
 }: SectionTextEditorProps) {
-  const updateBlogCard = useUpdateBlogCard();
+  // useDebouncedSave: performs the Supabase write + drives SaveStatusIndicator
+  // (save-status-store increment/decrement/setSavedAt). One write per 800 ms debounce
+  // window; no separate updateBlogCard mutation to avoid double-writing.
+  const debouncedSave = useDebouncedSave('mkt_blog_cards', cardId);
+
+  // After the debounced write lands, invalidate the content graph so that other
+  // consumers of the query cache (e.g. BlogPanel header card counts) stay fresh.
+  const queryClient = useQueryClient();
+  const invalidateTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Cleanup invalidation timer on unmount
+  useEffect(() => {
+    return () => {
+      if (invalidateTimerRef.current) clearTimeout(invalidateTimerRef.current);
+    };
+  }, []);
 
   const onTextChangeRef = useRef(onTextChange);
   useEffect(() => {
     onTextChangeRef.current = onTextChange;
   }, [onTextChange]);
-
-  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const editor = useEditor({
     extensions: [
@@ -139,16 +154,17 @@ function SectionTextEditor({
       const html = e.getHTML();
       onTextChangeRef.current(html);
 
-      // 300 ms debounce → persist via TanStack mutation (keeps query cache fresh)
-      if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
-      debounceTimerRef.current = setTimeout(() => {
-        debounceTimerRef.current = null;
-        updateBlogCard.mutate({
-          cardId,
-          contentId,
-          updates: { content: { text: html } },
-        });
-      }, 300);
+      // Route persistence through useDebouncedSave so SaveStatusIndicator lights up.
+      // The hook coalesces writes over 800 ms (last-write-wins) — matches contentflow pattern.
+      debouncedSave({ content: { text: html }, updated_at: new Date().toISOString() });
+
+      // Mirror the debounce window to invalidate the TanStack content-graph query
+      // ~50 ms after useDebouncedSave's timer fires, keeping the cache fresh.
+      if (invalidateTimerRef.current) clearTimeout(invalidateTimerRef.current);
+      invalidateTimerRef.current = setTimeout(() => {
+        invalidateTimerRef.current = null;
+        void queryClient.invalidateQueries({ queryKey: mktKeys.content(contentId) });
+      }, 850);
     },
   });
 
