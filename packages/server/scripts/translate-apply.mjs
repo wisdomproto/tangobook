@@ -29,7 +29,7 @@ const ONLY_ID = args.id ?? null;
 function validate(tr) {
   const missing = [];
   if (!tr.titleT?.trim()) missing.push('title');
-  for (const p of tr.pages ?? []) if (!p.t?.trim()) missing.push(`page ${p.n}`);
+  for (const p of tr.pages ?? []) if ((p.ko ?? '').trim() && !p.t?.trim()) missing.push(`page ${p.n}`);
   for (const k of tr.keyObjects ?? []) if (!k.t?.trim()) missing.push(`word[${k.i}] ${k.korean}`);
 
   const guideMissing = [];

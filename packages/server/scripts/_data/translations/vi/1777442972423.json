@@ -1,0 +1,248 @@
+{
+  "id": "1777442972423",
+  "lang": "vi",
+  "title": "여우",
+  "titleT": "Cáo",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "펑펑! 하얀 눈이 소복소복 쌓였어. 나무 뒤에 누가 숨어 있을까?",
+      "en": "",
+      "t": "Lả tả lả tả! Tuyết trắng rơi chất thành từng đống êm. Ai đang nấp sau gốc cây thế nhỉ?"
+    },
+    {
+      "n": 2,
+      "ko": "살금살금! 붉은 여우가 나타났어.",
+      "en": "",
+      "t": "Rón ra rón rén! Bạn cáo lông đỏ xuất hiện rồi."
+    },
+    {
+      "n": 3,
+      "ko": "붉은 털이 정말 보들보들해 보여. 정말 예쁘지?",
+      "en": "",
+      "t": "Bộ lông đỏ trông mượt mà êm ái ghê. Đẹp ơi là đẹp, phải không nào?"
+    },
+    {
+      "n": 4,
+      "ko": "번쩍번쩍! 어두운 밤에도 눈이 빛나. 쫑긋쫑긋, 멀리서 나는 소리도 잘 들어.",
+      "en": "",
+      "t": "Long lanh long lanh! Đêm tối đến mấy đôi mắt vẫn sáng. Tai vểnh lên vểnh lên, tiếng động từ xa cũng nghe rõ."
+    },
+    {
+      "n": 5,
+      "ko": "발바닥이 푹신푹신해. 사뿐사뿐 걸어도 소리가 안 나. 안쪽엔 뾰족한 발톱도 숨어 있어!",
+      "en": "",
+      "t": "Bàn chân êm êm như đệm. Bước nhẹ nhàng nên chẳng phát ra tiếng. Bên trong còn giấu cả những móng vuốt nhọn nữa đấy!"
+    },
+    {
+      "n": 6,
+      "ko": "날름날름! 여우 혀는 아주 까칠해. 뾰족한 이빨도 숨어 있지.",
+      "en": "",
+      "t": "Le le lưỡi! Cái lưỡi của cáo nhám sần sật. Bên trong còn giấu cả những chiếc răng nhọn hoắt."
+    },
+    {
+      "n": 7,
+      "ko": "첨벙첨벙! 여우는 수영도 아주 잘해.",
+      "en": "",
+      "t": "Tũm tũm! Cáo còn bơi giỏi lắm đấy."
+    },
+    {
+      "n": 8,
+      "ko": "쓱싹쓱싹! 나무에 발톱 자국을 내. 여기는 내 땅이라는 뜻이야!",
+      "en": "",
+      "t": "Sột soạt sột soạt! Bạn ấy cào những vết móng lên thân cây. Có nghĩa là 'Đây là vùng đất của tớ' đấy!"
+    },
+    {
+      "n": 9,
+      "ko": "꼬르륵, 배가 고파졌어. 풀숲에 납작 엎드려 먹이를 기다려.",
+      "en": "",
+      "t": "Ọc ọc, cái bụng đói meo rồi. Bạn ấy nằm rạp xuống bụi cỏ chờ con mồi."
+    },
+    {
+      "n": 10,
+      "ko": "후다닥! 번개처럼 빠르게 달려가. 숲속에서 제일 멋진 사냥꾼이지.",
+      "en": "",
+      "t": "Vụt một cái! Bạn ấy phóng đi nhanh như tia chớp. Cáo là thợ săn cừ khôi nhất khu rừng đấy."
+    },
+    {
+      "n": 11,
+      "ko": "냠냠 쩝쩝, 배불리 밥을 먹었어. 시원한 물도 꿀꺽꿀꺽 마시네.",
+      "en": "",
+      "t": "Nhồm nhoàm chùn chụt, bạn ấy ăn no căng bụng rồi. Nước mát cũng uống ừng ực nữa kìa."
+    },
+    {
+      "n": 12,
+      "ko": "따뜻한 풀숲에 엄마 여우가 있어. 핥짝핥짝, 아기 여우를 깨끗하게 씻겨 줘.",
+      "en": "",
+      "t": "Trong bụi cỏ ấm áp có cáo mẹ. Liếm liếm láp láp, mẹ tắm rửa sạch sẽ cho cáo con."
+    },
+    {
+      "n": 13,
+      "ko": "아기 여우는 엄마를 따라 걷고 뛰는 법을 배워. 꼬리를 살랑살랑 흔들며 따라가지.",
+      "en": "",
+      "t": "Cáo con theo mẹ học cách đi và chạy. Bạn ấy ve vẩy cái đuôi rồi lon ton theo sau."
+    },
+    {
+      "n": 14,
+      "ko": "데굴데굴! 형제들과 뒹굴며 놀아. 폴짝폴짝 뛰며 하루 종일 신나게 놀았어.",
+      "en": "",
+      "t": "Lăn lông lốc! Bạn ấy lăn tròn nô đùa cùng anh em. Nhảy tâng tâng, cả ngày chơi đùa thật vui."
+    },
+    {
+      "n": 15,
+      "ko": "까만 밤하늘에 달님이 떴어. 높은 바위 위에 여우가 올라섰네.",
+      "en": "",
+      "t": "Ông trăng mọc lên giữa bầu trời đêm đen kịt. Bạn cáo trèo lên tảng đá cao kìa."
+    },
+    {
+      "n": 16,
+      "ko": "똑똑하고 멋진 붉은 여우! 정말 신기한 친구지?",
+      "en": "",
+      "t": "Bạn cáo lông đỏ thông minh và oai phong! Thật là một người bạn kì diệu, phải không nào?"
+    },
+    {
+      "n": 17,
+      "ko": "붉은 털이랑 커다란 꼬리를 찾아봐! 보들보들 만져보고 싶지?",
+      "en": "",
+      "t": "Hãy tìm bộ lông đỏ và cái đuôi to thật to nhé! Mềm mượt thế kia, bé có muốn sờ thử không nào?"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 멋쟁이 붉은 여우! 자, 이제 다음 친구를 만나러 가볼까?",
+      "en": "",
+      "t": "Tớ là bạn cáo lông đỏ điệu đà đây! Nào, giờ mình đi gặp người bạn tiếp theo nhé?"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "눈",
+      "en": "snow",
+      "t": "tuyết"
+    },
+    {
+      "i": 1,
+      "korean": "꼬리",
+      "en": "tail",
+      "t": "cái đuôi"
+    },
+    {
+      "i": 2,
+      "korean": "나무",
+      "en": "tree",
+      "t": "cái cây"
+    },
+    {
+      "i": 3,
+      "korean": "물",
+      "en": "water",
+      "t": "nước"
+    },
+    {
+      "i": 4,
+      "korean": "혀",
+      "en": "tongue",
+      "t": "cái lưỡi"
+    },
+    {
+      "i": 5,
+      "korean": "바위",
+      "en": "rock",
+      "t": "tảng đá"
+    },
+    {
+      "i": 6,
+      "korean": "달",
+      "en": "moon",
+      "t": "mặt trăng"
+    },
+    {
+      "i": 7,
+      "korean": "여우",
+      "en": "Fox",
+      "t": "con cáo"
+    },
+    {
+      "i": 8,
+      "korean": "털",
+      "en": "fur",
+      "t": "bộ lông"
+    },
+    {
+      "i": 9,
+      "korean": "발",
+      "en": "paw",
+      "t": "bàn chân"
+    },
+    {
+      "i": 10,
+      "korean": "발톱",
+      "en": "claw",
+      "t": "móng vuốt"
+    },
+    {
+      "i": 11,
+      "korean": "이빨",
+      "en": "tooth",
+      "t": "cái răng"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "붉은 털 외투와 멋진 꼬리를 휘날리며 숲을 누비는 영리한 여우를 만나봐요. 살금살금 다가가 먹잇감을 잡는 꾀 많은 여우의 모습 속에서 자연의 똑똑한 친구를 함께 살펴보세요.",
+      "t": "Hãy cùng gặp bạn cáo lanh lợi rong ruổi khắp rừng với chiếc áo lông đỏ và cái đuôi oai phong phấp phới. Qua hình ảnh chú cáo nhiều mưu mẹo rón rén lại gần để bắt mồi, bố mẹ và bé hãy cùng khám phá người bạn thông minh của thiên nhiên nhé."
+    },
+    "lessons": [],
+    "readingTips": [],
+    "faq": [
+      {
+        "q_ko": "여우 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 3~7세 아이에게 적합해요. 영리한 빨간 털 친구의 매력을 만나요.",
+        "q_t": "Sách Cáo phù hợp với bé mấy tuổi?",
+        "a_t": "Sách phù hợp với bé từ 3 đến 7 tuổi. Bé sẽ gặp nét đáng yêu của người bạn lông đỏ lanh lợi."
+      },
+      {
+        "q_ko": "여우는 어떤 동물인가요?",
+        "a_ko": "북반구 곳곳에 사는 작은 야생 개과 동물이에요. 빨간 털과 풍성한 꼬리가 특징이고, 매우 영리하며 도시 근처에서도 발견돼요.",
+        "q_t": "Cáo là loài vật như thế nào?",
+        "a_t": "Đây là loài thú hoang nhỏ thuộc họ chó, sống ở nhiều nơi trên bán cầu bắc. Bạn ấy có bộ lông đỏ và cái đuôi xù đặc trưng, rất lanh lợi, và đôi khi xuất hiện cả gần thành phố."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'여우, 털, 꼬리, 귀, 굴, 숲, 사냥' 같은 동물·자연 명사를 만나요.",
+        "q_t": "Bé có thể học được những từ nào?",
+        "a_t": "Bé sẽ gặp các danh từ về động vật và thiên nhiên như 'cáo, lông, đuôi, tai, hang, rừng, săn mồi'."
+      },
+      {
+        "q_ko": "여우는 왜 동화에 자주 나오나요?",
+        "a_ko": "영리하고 꾀가 많은 동물로 알려져서 옛이야기에 자주 등장해요. 어린 왕자의 여우, 이솝의 여우 등 많은 명작에 나와요.",
+        "q_t": "Vì sao cáo lại hay xuất hiện trong truyện cổ tích?",
+        "a_t": "Vì cáo nổi tiếng là loài vật thông minh và nhiều mưu mẹo nên hay xuất hiện trong những câu chuyện xưa. Bạn ấy có mặt trong nhiều tác phẩm nổi tiếng như chú cáo trong 'Hoàng tử bé' hay cáo trong truyện ngụ ngôn Aesop."
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "없어요. 잔잔한 자연관찰 책이에요.",
+        "q_t": "Truyện có cảnh nào đáng sợ không?",
+        "a_t": "Không có đâu. Đây là một cuốn sách quan sát thiên nhiên thật nhẹ nhàng."
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "여우 꼬리 만들어 흔들기, 빨강·주황 색칠하기, 동화 속 여우 캐릭터 함께 떠올려 보기 같은 활동이 좋아요.",
+        "q_t": "Có hoạt động nào nên làm cùng bé sau khi đọc không?",
+        "a_t": "Bố mẹ có thể cùng bé làm cái đuôi cáo rồi ve vẩy, tô màu đỏ và cam, hay cùng nhớ lại những nhân vật cáo trong các câu chuyện."
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, Fox 영어 버전이 함께 제공돼요.",
+        "q_t": "Bé có thể đọc bằng tiếng Anh không?",
+        "a_t": "Có, phiên bản tiếng Anh 'Fox' cũng được cung cấp kèm theo."
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책도 있나요?",
+        "a_ko": "'늑대', '강아지', '고양이' 같은 다른 육지 동물 친구들 시리즈가 함께 사랑받아요.",
+        "q_t": "Có cuốn sách nào khác cùng phong cách không?",
+        "a_t": "Những cuốn trong bộ bạn động vật trên cạn như 'Sói', 'Cún con', 'Mèo' cũng được yêu thích lắm."
+      }
+    ]
+  }
+}

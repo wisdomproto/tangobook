@@ -1,0 +1,212 @@
+{
+  "id": "1773411238317",
+  "lang": "vi",
+  "title": "달과 별자리",
+  "titleT": "Mặt Trăng và Chòm Sao",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "해가 지고 어둠이 찾아오면, 밤하늘은 거대한 도화지로 변해요. 수많은 별이 저마다의 자리를 지키며 빛나고 있죠.",
+      "en": "When the sun goes down and darkness comes, the night sky turns into a giant canvas. Lots of stars sparkle, each holding its very own place.",
+      "t": "Khi mặt trời lặn và bóng tối tìm đến, bầu trời đêm biến thành một tờ giấy vẽ khổng lồ. Vô số ngôi sao tỏa sáng, mỗi ngôi giữ lấy vị trí riêng của mình."
+    },
+    {
+      "n": 2,
+      "ko": "\"찾았다!\" 별들을 선으로 이으면 동물이나 사람의 모양이 나타나요. 이것을 바로 '별자리'라고 불러요.",
+      "en": "\"Found it!\" When you connect the stars with lines, the shape of an animal or a person appears. We call this a 'constellation'.",
+      "t": "\"Tìm thấy rồi!\" Khi nối các ngôi sao lại bằng những đường thẳng, hình một con vật hay một con người sẽ hiện ra. Người ta gọi đây chính là 'chòm sao'."
+    },
+    {
+      "n": 3,
+      "ko": "북쪽 하늘에는 언제나 같은 자리를 지키는 북극성이 있어요. 길을 잃은 사람들에게 방향을 알려주는 소중한 별이지요.",
+      "en": "Look up at the northern sky, and you'll always see the North Star, faithfully staying in its very own spot. It's a treasured star that helps people who are lost find their way.",
+      "t": "Trên bầu trời phương bắc có sao Bắc Cực luôn giữ nguyên một vị trí. Đó là ngôi sao quý giá chỉ phương hướng cho những người bị lạc đường."
+    },
+    {
+      "n": 4,
+      "ko": "북극성을 찾으려면 국자 모양의 북두칠성을 먼저 찾아보세요. 커다란 곰의 꼬리 부분에 있는 일곱 개의 밝은 별이랍니다.",
+      "en": "To find the North Star, first look for the Big Dipper. It looks like a big spoon! They are seven bright stars that make up the tail of the Great Bear.",
+      "t": "Muốn tìm sao Bắc Cực, trước tiên hãy tìm chòm Bắc Đẩu hình cái muôi. Đó là bảy ngôi sao sáng nằm ở phần đuôi của con Gấu Lớn."
+    },
+    {
+      "n": 5,
+      "ko": "봄에는 사자 모양의 사자자리가 나타나요. 갈기를 휘날리며 밤하늘을 달리는 용맹한 모습이죠.",
+      "en": "In springtime, the Leo constellation appears, looking just like a big lion! With its mane flowing, it looks so brave as it runs across the night sky.",
+      "t": "Mùa xuân, chòm Sư Tử hình con sư tử xuất hiện. Trông thật dũng mãnh khi nó tung bờm chạy ngang qua bầu trời đêm."
+    },
+    {
+      "n": 6,
+      "ko": "여름 밤하늘에는 은하수가 강물처럼 흘러요. 그 사이로 거문고자리, 독수리자리, 백조자리가 멋진 여름의 삼각형을 만들지요.",
+      "en": "In the summer night sky, the Milky Way flows like a river. And among them, Lyra, Aquila, and Cygnus make a wonderful Summer Triangle.",
+      "t": "Trên bầu trời đêm mùa hè, dải Ngân Hà chảy như dòng sông. Giữa dải sao ấy, chòm Thiên Cầm, chòm Thiên Ưng và chòm Thiên Nga tạo nên Tam Giác Mùa Hè tuyệt đẹp."
+    },
+    {
+      "n": 7,
+      "ko": "가을에는 커다란 사각형 모양의 페가수스자리를 볼 수 있어요. 날개 달린 천마가 밤하늘을 날아오르는 모습이에요.",
+      "en": "In autumn, you can see the big square shape of the Pegasus constellation. It looks just like a winged horse soaring through the night sky!",
+      "t": "Mùa thu, bạn có thể thấy chòm Phi Mã hình vuông to lớn. Trông như chú ngựa có cánh đang bay vút lên bầu trời đêm vậy."
+    },
+    {
+      "n": 8,
+      "ko": "겨울에는 가장 화려한 오리온자리가 나타나요. 허리띠처럼 나란히 놓인 세 개의 별이 사냥꾼의 멋진 모습을 보여주죠.",
+      "en": "In winter, the brightest and most beautiful Orion constellation appears. Three stars, lined up just like a belt, show us the hunter looking so cool!",
+      "t": "Mùa đông, chòm Lạp Hộ rực rỡ nhất xuất hiện. Ba ngôi sao xếp thẳng hàng như chiếc thắt lưng cho ta thấy dáng vẻ oai phong của người thợ săn."
+    },
+    {
+      "n": 9,
+      "ko": "별자리는 지구가 태양 주위를 돌기 때문에 계절마다 조금씩 다르게 보여요. 제자리에 있는 별들을 우리가 다른 방향에서 \n보는 거예요.",
+      "en": "Constellations look a little different each season because our Earth travels around the Sun. The stars themselves stay right where they are, but we get to see them from a different spot!",
+      "t": "Các chòm sao trông hơi khác nhau theo từng mùa vì Trái Đất quay quanh Mặt Trời. Chúng ta nhìn những ngôi sao vẫn ở yên một chỗ từ những hướng khác nhau đấy."
+    },
+    {
+      "n": 10,
+      "ko": "망원경으로 별을 보면 훨씬 더 밝고 크게 볼 수 있어요. 보석처럼 반짝이는 별들의 진짜 색깔도 알 수 있답니다.",
+      "en": "When you look at stars through a telescope, you can see them so much brighter and bigger! You can even learn the real colors of the stars twinkling like precious jewels.",
+      "t": "Khi ngắm sao bằng kính viễn vọng, bạn có thể thấy chúng sáng hơn và to hơn rất nhiều. Bạn còn biết được cả màu sắc thật của những ngôi sao lấp lánh như châu báu nữa."
+    },
+    {
+      "n": 11,
+      "ko": "별자리에는 그리스 로마 신화 같은 재미있는 이야기들이 숨어 있어요. 옛날 사람들은 별을 보며 수많은 상상을 했지요.",
+      "en": "Hidden within the constellations are fun stories, just like the Greek and Roman myths. Long, long ago, people looked up at the stars and imagined so many wonderful things.",
+      "t": "Trong các chòm sao ẩn chứa những câu chuyện thú vị như thần thoại Hy Lạp và La Mã. Người xưa ngắm sao và tưởng tượng ra biết bao điều."
+    },
+    {
+      "n": 12,
+      "ko": "태양이 지나는 길목에 있는 12개의 별자리를 **'황도 12궁'**이라고 불러요. 여러분이 태어난 달의 별자리는 무엇인가요?",
+      "en": "The twelve groups of stars found along the path the sun travels are called the **'12 Zodiac Signs'**. What's your star sign, the one for the month you were born?",
+      "t": "Mười hai chòm sao nằm trên con đường mặt trời đi qua được gọi là **'Mười hai cung Hoàng Đạo'**. Chòm sao ứng với tháng sinh của bạn là gì nào?"
+    },
+    {
+      "n": 13,
+      "ko": "\"슈우웅!\" 가끔 별이 떨어지는 것 같은 '유성(별똥별)'을 볼 수 있어요. 이건 별이 아니라 우주의 먼지 조각이 타는 거예요.",
+      "en": "\"Whoosh!\" Sometimes, we can see something that looks like a star falling, called a 'shooting star'. But it's not a star at all! It's actually a tiny piece of space dust burning up.",
+      "t": "\"Vèo!\" Thỉnh thoảng bạn có thể thấy 'sao băng' trông như một ngôi sao đang rơi xuống. Đây không phải là ngôi sao đâu mà là một mẩu bụi vũ trụ đang cháy lên đấy."
+    },
+    {
+      "n": 14,
+      "ko": "별자리는 아주 옛날부터 배를 타는 사람들이나 여행자들에게 소중한 나침반이 되어주었답니다.",
+      "en": "Long, long ago, constellations served as a precious compass for sailors and travelers.",
+      "t": "Từ thời xa xưa, các chòm sao đã trở thành chiếc la bàn quý giá cho những người đi biển và những người lữ hành."
+    },
+    {
+      "n": 15,
+      "ko": "별들은 사실 아주 멀리 떨어져 있어요. 우리 눈에는 가까워 보여도 빛의 속도로 수만 년을 가야 할 만큼 멀답니다.",
+      "en": "Stars are actually very, very far away. To our eyes, they might look close, but they're so far away that it would take tens of thousands of years to reach them, even if you could fly as fast as light!",
+      "t": "Thật ra những ngôi sao ở rất xa. Với mắt ta trông chúng có vẻ gần, nhưng chúng xa đến mức phải đi mất hàng vạn năm với tốc độ ánh sáng mới tới được."
+    },
+    {
+      "n": 16,
+      "ko": "깜깜한 밤을 빛으로 채워주는 아름다운 별자리들은 정말 우주가 우리에게 주는 신비로운 선물이지요?",
+      "en": "Aren't the beautiful constellations, filling the dark night with their light, truly a wondrous gift from the universe to us?",
+      "t": "Những chòm sao tuyệt đẹp lấp đầy đêm tối bằng ánh sáng, quả là món quà huyền bí mà vũ trụ ban tặng cho chúng ta phải không nào?"
+    },
+    {
+      "n": 17,
+      "ko": "계절마다 바뀌는 화려한 별자리와 반짝이는 성운들을 광활한 밤하늘 배경 속에서 자세히 살펴보세요!",
+      "en": "Explore the beautiful constellations that change with each season, and the sparkling nebulae, all set against the vast night sky!",
+      "t": "Hãy cùng quan sát thật kĩ những chòm sao rực rỡ thay đổi theo từng mùa và các tinh vân lấp lánh giữa bầu trời đêm bao la nhé!"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 밤하늘의 이야기꾼 별자리! 다음엔 어떤 친구를 만나러 갈까요?",
+      "en": "I'm Constellation, the night sky's storyteller! Who should I go meet next?",
+      "t": "Tớ là chòm sao, người kể chuyện của bầu trời đêm đây! Lần sau chúng ta sẽ đi gặp người bạn nào nhỉ?"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "별",
+      "en": "Star",
+      "t": "ngôi sao"
+    },
+    {
+      "i": 1,
+      "korean": "하늘",
+      "en": "Sky",
+      "t": "bầu trời"
+    },
+    {
+      "i": 2,
+      "korean": "북극성",
+      "en": "North Star",
+      "t": "sao Bắc Cực"
+    },
+    {
+      "i": 3,
+      "korean": "은하수",
+      "en": "Milky Way",
+      "t": "dải Ngân Hà"
+    },
+    {
+      "i": 4,
+      "korean": "망원경",
+      "en": "telescope",
+      "t": "kính viễn vọng"
+    },
+    {
+      "i": 5,
+      "korean": "별똥별",
+      "en": "shooting star",
+      "t": "sao băng"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "밤하늘을 환히 비추는 달과 반짝이는 별자리들을 만나봐요. 보름달과 초승달, 그리고 옛이야기 속 별자리들의 모습을 함께 올려다보며 우주의 신비를 아이와 함께 느껴 보세요.",
+      "t": "Hãy cùng làm quen với mặt trăng chiếu sáng bầu trời đêm và những chòm sao lấp lánh. Bố mẹ hãy cùng bé ngước nhìn trăng tròn, trăng lưỡi liềm và hình dáng các chòm sao trong những câu chuyện xưa để cảm nhận sự huyền bí của vũ trụ nhé."
+    },
+    "lessons": [],
+    "readingTips": [],
+    "faq": [
+      {
+        "q_ko": "달과 별자리 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 3~7세 밤하늘 좋아하는 아이에게 적합해요.",
+        "q_t": "Sách Mặt trăng và Chòm sao phù hợp với bé mấy tuổi?",
+        "a_t": "Sách phù hợp với các bé từ 3 đến 7 tuổi yêu thích bầu trời đêm."
+      },
+      {
+        "q_ko": "달과 별자리는 무엇인가요?",
+        "a_ko": "달은 지구 둘레를 도는 우리의 친구 위성이에요. 별자리는 밤하늘 별을 이은 그림으로 큰곰자리·전갈자리 등이 있어요.",
+        "q_t": "Mặt trăng và chòm sao là gì?",
+        "a_t": "Mặt trăng là vệ tinh bạn thân của chúng ta, quay quanh Trái Đất. Chòm sao là bức hình nối các ngôi sao trên bầu trời đêm, có chòm Gấu Lớn, chòm Bọ Cạp và nhiều chòm khác."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'달, 별, 별자리, 밤, 우주, 보름달, 초승달' 같은 우주 명사를 만나요.",
+        "q_t": "Bé có thể học được những từ nào?",
+        "a_t": "Bé sẽ gặp các danh từ về vũ trụ như 'mặt trăng, ngôi sao, chòm sao, đêm, vũ trụ, trăng tròn, trăng lưỡi liềm'."
+      },
+      {
+        "q_ko": "달은 왜 모양이 바뀌어요?",
+        "a_ko": "달이 지구를 도는 동안 햇빛이 달의 다른 쪽을 비춰서 보이는 모양이 매일 조금씩 달라져요. 28일 주기로 반복돼요.",
+        "q_t": "Vì sao mặt trăng lại thay đổi hình dáng?",
+        "a_t": "Trong khi mặt trăng quay quanh Trái Đất, ánh nắng chiếu vào những mặt khác nhau của trăng nên hình dáng ta nhìn thấy mỗi ngày lại thay đổi một chút. Điều này lặp lại theo chu kì 28 ngày."
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "없어요. 따뜻한 자연관찰 책이에요.",
+        "q_t": "Truyện có cảnh nào đáng sợ không?",
+        "a_t": "Không có đâu. Đây là một cuốn sách quan sát thiên nhiên ấm áp."
+      },
+      {
+        "q_ko": "활동 추천?",
+        "a_ko": "밤하늘 별 보기, 달 모양 28일 관찰 일기, 별자리 종이접기, 큰곰자리 그리기 같은 활동이 좋아요.",
+        "q_t": "Có hoạt động nào nên làm cùng bé không?",
+        "a_t": "Bố mẹ có thể cùng bé ngắm sao trên bầu trời đêm, viết nhật kí quan sát hình dáng mặt trăng trong 28 ngày, gấp giấy hình chòm sao, hay vẽ chòm Gấu Lớn nhé."
+      },
+      {
+        "q_ko": "영어로?",
+        "a_ko": "네, Moon and Constellations 영어 버전이 함께 제공돼요.",
+        "q_t": "Có bản tiếng Anh không?",
+        "a_t": "Có, phiên bản tiếng Anh 'Moon and Constellations' cũng được cung cấp kèm theo."
+      },
+      {
+        "q_ko": "비슷한 책은?",
+        "a_ko": "'태양계', '은하·블랙홀' 같은 우주 시리즈가 함께 사랑받아요.",
+        "q_t": "Có cuốn sách nào tương tự không?",
+        "a_t": "Các bộ sách về vũ trụ như 'Hệ Mặt Trời', 'Thiên hà và Hố đen' cũng được yêu thích."
+      }
+    ]
+  }
+}

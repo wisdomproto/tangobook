@@ -1,0 +1,212 @@
+{
+  "id": "1777615067098",
+  "lang": "vi",
+  "title": "하마",
+  "titleT": "Chú Hà Mã",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "커다란 하마가 물속으로 풍덩 들어갔어!\n입을 쩍 벌리고 하하하 웃었지.\n정말 신나 보여!",
+      "en": "",
+      "t": "Chú hà mã to lớn nhảy tùm xuống nước!\nChú há cái miệng thật rộng rồi cười ha ha ha.\nTrông chú vui ơi là vui!"
+    },
+    {
+      "n": 2,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 3,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 4,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 5,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 6,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 7,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 8,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 9,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 10,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 11,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 12,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 13,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 14,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 15,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 16,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 17,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 18,
+      "ko": "",
+      "en": "",
+      "t": ""
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "하마",
+      "en": "hippo",
+      "t": "con hà mã"
+    },
+    {
+      "i": 1,
+      "korean": "물",
+      "en": "water",
+      "t": "nước"
+    },
+    {
+      "i": 2,
+      "korean": "입",
+      "en": "mouth",
+      "t": "cái miệng"
+    },
+    {
+      "i": 3,
+      "korean": "강",
+      "en": "river",
+      "t": "dòng sông"
+    },
+    {
+      "i": 4,
+      "korean": "해",
+      "en": "sun",
+      "t": "mặt trời"
+    },
+    {
+      "i": 5,
+      "korean": "돌",
+      "en": "stone",
+      "t": "hòn đá"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "커다란 입과 통통한 몸으로 강가에 사는 듬직한 하마를 만나봐요. 물속에서 시간을 보내는 것을 좋아하고 가족과 함께 지내는 하마의 일상을 따라가며 강가의 친구를 살펴보세요.",
+      "t": "Hãy cùng gặp gỡ chú hà mã to khỏe với cái miệng rộng và thân hình mũm mĩm sống bên bờ sông. Bố mẹ hãy cùng bé theo dõi cuộc sống thường ngày của hà mã, loài vật thích ngâm mình dưới nước và quây quần bên gia đình, để khám phá người bạn nơi bờ sông nhé."
+    },
+    "lessons": [],
+    "readingTips": [],
+    "faq": [
+      {
+        "q_ko": "하마 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 3~7세 아이에게 적합해요. 입을 크게 벌리는 모습이 어린이의 호기심을 자극해요.",
+        "q_t": "Sách về Chú hà mã phù hợp với bé mấy tuổi?",
+        "a_t": "Sách phù hợp với bé từ 3 đến 7 tuổi. Hình ảnh hà mã há cái miệng thật to sẽ khơi gợi sự tò mò của bé."
+      },
+      {
+        "q_ko": "하마는 어떤 동물인가요?",
+        "a_ko": "아프리카 강과 호수에 사는 거대 초식동물이에요. 입을 거의 180도 벌릴 수 있고, 낮에는 물속에서 쉬다가 밤에 나와 풀을 먹어요.",
+        "q_t": "Hà mã là loài vật như thế nào?",
+        "a_t": "Hà mã là loài động vật ăn cỏ khổng lồ sống ở các con sông và hồ tại châu Phi. Hà mã có thể há miệng gần 180 độ, ban ngày nghỉ ngơi dưới nước rồi ban đêm lên bờ ăn cỏ."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'하마, 입, 이빨, 강, 물, 진흙, 풀' 같은 동물·자연 명사를 만나요.",
+        "q_t": "Bé có thể học được những từ nào?",
+        "a_t": "Bé sẽ gặp các danh từ về động vật và thiên nhiên như 'con hà mã, cái miệng, hàm răng, dòng sông, nước, bùn, cỏ'."
+      },
+      {
+        "q_ko": "하마는 왜 물속에서 살아요?",
+        "a_ko": "두꺼운 피부가 햇볕에 마르지 않도록 물속에서 몸을 식혀요. 강 속에서 잠도 자고 새끼도 키워요.",
+        "q_t": "Vì sao hà mã lại sống dưới nước?",
+        "a_t": "Hà mã ngâm mình dưới nước để làm mát cơ thể, giúp lớp da dày không bị khô vì nắng. Hà mã còn ngủ và nuôi con ngay dưới dòng sông nữa."
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "큰 입을 벌리는 장면이 있지만 자연 모습이라 부담 없이 즐길 수 있어요.",
+        "q_t": "Truyện có cảnh nào đáng sợ không?",
+        "a_t": "Có cảnh hà mã há cái miệng to, nhưng đó là hình ảnh tự nhiên nên bé có thể thưởng thức mà không hề thấy áp lực."
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "입 크게 벌리고 하품하기 놀이, 욕조에서 물놀이, 진흙·점토로 하마 만들기 같은 활동이 좋아요.",
+        "q_t": "Có hoạt động nào nên làm cùng bé sau khi đọc không?",
+        "a_t": "Bố mẹ có thể cùng bé chơi trò há miệng to ngáp dài, chơi nước trong bồn tắm, hay nặn hình hà mã bằng bùn hoặc đất sét."
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, Hippopotamus 영어 버전이 함께 제공돼요.",
+        "q_t": "Bé có thể đọc bằng tiếng Anh không?",
+        "a_t": "Có, phiên bản tiếng Anh 'Hippopotamus' cũng được cung cấp kèm theo."
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책도 있나요?",
+        "a_ko": "'악어', '코뿔소', '코끼리' 같은 아프리카 동물 시리즈가 함께 사랑받아요.",
+        "q_t": "Có cuốn sách nào khác cùng phong cách không?",
+        "a_t": "Các bộ sách về động vật châu Phi khác như 'Cá sấu', 'Tê giác', 'Voi' cũng được yêu thích lắm đấy."
+      }
+    ]
+  }
+}

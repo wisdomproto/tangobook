@@ -1,0 +1,212 @@
+{
+  "id": "1777615082301",
+  "lang": "vi",
+  "title": "캥거루",
+  "titleT": "Chú Kangaroo",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "\"안녕? 난 꼬마 캥거루 루루야!\"\n엄마 주머니에서 쏙 얼굴을 내밀었어.\n폴짝폴짝 뛰는 게 정말 재밌구나!",
+      "en": "",
+      "t": "\"Xin chào! Tớ là chú kangaroo bé nhỏ Ru Ru đây!\"\nChú thò khuôn mặt ra khỏi cái túi của mẹ.\nNhảy tưng tưng vui ơi là vui!"
+    },
+    {
+      "n": 2,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 3,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 4,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 5,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 6,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 7,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 8,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 9,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 10,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 11,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 12,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 13,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 14,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 15,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 16,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 17,
+      "ko": "",
+      "en": "",
+      "t": ""
+    },
+    {
+      "n": 18,
+      "ko": "",
+      "en": "",
+      "t": ""
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "캥거루",
+      "en": "kangaroo",
+      "t": "con kangaroo"
+    },
+    {
+      "i": 1,
+      "korean": "주머니",
+      "en": "pouch",
+      "t": "cái túi"
+    },
+    {
+      "i": 2,
+      "korean": "풀",
+      "en": "grass",
+      "t": "cỏ"
+    },
+    {
+      "i": 3,
+      "korean": "해",
+      "en": "sun",
+      "t": "mặt trời"
+    },
+    {
+      "i": 4,
+      "korean": "하늘",
+      "en": "sky",
+      "t": "bầu trời"
+    },
+    {
+      "i": 5,
+      "korean": "얼굴",
+      "en": "face",
+      "t": "khuôn mặt"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "주머니 속에서 새끼를 키우며 폴짝폴짝 뛰어다니는 캥거루를 만나봐요. 강한 뒷다리로 힘차게 점프하고 가족과 함께 초원을 누비는 캥거루의 일상을 따라가며 호주의 친구를 함께 살펴보세요.",
+      "t": "Hãy cùng gặp gỡ chú kangaroo nuôi con trong chiếc túi và nhảy tưng tưng khắp nơi. Bố mẹ hãy cùng bé theo dõi cuộc sống thường ngày của kangaroo, loài vật bật nhảy mạnh mẽ bằng đôi chân sau khỏe khoắn và rong ruổi khắp đồng cỏ cùng gia đình, để khám phá người bạn đến từ nước Úc này nhé."
+    },
+    "lessons": [],
+    "readingTips": [],
+    "faq": [
+      {
+        "q_ko": "캥거루 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 3~7세 아이에게 적합해요. 점프 좋아하는 어린이가 캥거루의 폴짝폴짝 모습에 깊이 빠져 즐겨요.",
+        "q_t": "Sách về Chú kangaroo phù hợp với bé mấy tuổi?",
+        "a_t": "Sách phù hợp với bé từ 3 đến 7 tuổi. Những bé thích nhảy nhót sẽ mê tít hình ảnh kangaroo nhảy tưng tưng."
+      },
+      {
+        "q_ko": "캥거루는 어떤 동물인가요?",
+        "a_ko": "오스트레일리아에 사는 큰 초식 유대류예요. 강한 뒷다리로 한 번에 9m까지 점프하고, 엄마 캥거루는 배 주머니에 새끼를 넣어 키워요.",
+        "q_t": "Kangaroo là loài vật như thế nào?",
+        "a_t": "Kangaroo là loài thú có túi ăn cỏ to lớn sống ở nước Úc. Kangaroo có thể bật nhảy xa tới 9 mét trong một bước nhờ đôi chân sau khỏe khoắn, và kangaroo mẹ nuôi con trong chiếc túi ở bụng."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'캥거루, 다리, 주머니, 새끼, 점프, 풀, 꼬리' 같은 동물 신체·자연 명사를 만나요.",
+        "q_t": "Bé có thể học được những từ nào?",
+        "a_t": "Bé sẽ gặp các danh từ về bộ phận cơ thể động vật và thiên nhiên như 'con kangaroo, cái chân, cái túi, con non, cú nhảy, cỏ, cái đuôi'."
+      },
+      {
+        "q_ko": "엄마 캥거루 주머니는 무엇인가요?",
+        "a_ko": "엄마 배에 있는 자연 주머니로, 작게 태어난 새끼를 안전하게 품어서 키우는 '엄마의 침대'예요. 새끼는 거기서 젖을 먹고 자라요.",
+        "q_t": "Cái túi của kangaroo mẹ là gì vậy?",
+        "a_t": "Đó là một chiếc túi tự nhiên trên bụng mẹ, là 'chiếc giường của mẹ' để ấp ủ và nuôi nấng an toàn đứa con sinh ra còn rất nhỏ. Con non bú sữa và lớn lên ngay trong chiếc túi ấy."
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "없어요. 따뜻한 자연관찰 책이에요.",
+        "q_t": "Truyện có cảnh nào đáng sợ không?",
+        "a_t": "Không có đâu. Đây là một cuốn sách quan sát thiên nhiên ấm áp."
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "엄마와 캥거루 흉내 점프 놀이, 종이로 주머니 만들어 인형 넣기, 오스트레일리아 위치 지도에서 찾기 같은 활동이 좋아요.",
+        "q_t": "Có hoạt động nào nên làm cùng bé sau khi đọc không?",
+        "a_t": "Bố mẹ có thể cùng bé chơi trò bắt chước kangaroo nhảy nhót cùng mẹ, làm chiếc túi bằng giấy rồi cho búp bê vào, hay tìm vị trí nước Úc trên bản đồ."
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, Kangaroo 영어 버전이 함께 제공돼요.",
+        "q_t": "Bé có thể đọc bằng tiếng Anh không?",
+        "a_t": "Có, phiên bản tiếng Anh 'Kangaroo' cũng được cung cấp kèm theo."
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책도 있나요?",
+        "a_ko": "'토끼', '코알라' 같은 다른 육지 동물 친구들 시리즈가 함께 사랑받아요.",
+        "q_t": "Có cuốn sách nào khác cùng phong cách không?",
+        "a_t": "Các bộ sách về những người bạn động vật trên cạn khác như 'Thỏ', 'Gấu túi Koala' cũng được yêu thích lắm đấy."
+      }
+    ]
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "id": "1773625335362",
+  "lang": "vi",
+  "title": "맛있는 음식의 몸속 여행",
+  "titleT": "Hành Trình của Món Ăn Ngon trong Cơ Thể",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "우리가 음식을 냠냠 씹으면 입속에서 소화 여행이 시작돼요. 침과 섞인 음식은 부드러운 덩어리가 된답니다.",
+      "en": "When we chew our food, yum yum, a digestion journey begins right in our mouths! The food, mixed with our spit, turns into a soft little ball.",
+      "t": "Khi chúng ta nhai thức ăn nhồm nhoàm, hành trình tiêu hóa bắt đầu ngay trong miệng. Thức ăn trộn với nước bọt trở thành một cục mềm mềm."
+    },
+    {
+      "n": 2,
+      "ko": "꿀꺽! 삼킨 음식은 미끄럼틀 같은 '식도'를 타고 아래로 내려가요. 아주 좁은 길이지만 근육이 밀어준답니다.",
+      "en": "Gulp! The food you swallow slides down your 'esophagus' – it's just like a slide! It's a very narrow path, but your muscles help push it along.",
+      "t": "Ực! Thức ăn nuốt vào trượt xuống dưới theo 'thực quản' giống như cầu trượt. Tuy là con đường rất hẹp nhưng cơ bắp sẽ đẩy nó đi."
+    },
+    {
+      "n": 3,
+      "ko": "도착한 곳은 주머니 모양의 '위'예요. 위는 강력한 소화액을 뿜어 음식을 죽처럼 걸쭉하게 만들어요.",
+      "en": "The place we’ve arrived at is the 'stomach', which looks just like a little pouch. The stomach squirts out powerful digestive juices to make the food thick and mushy, just like porridge!",
+      "t": "Nơi chúng mình đến là 'dạ dày' hình cái túi. Dạ dày phun ra dịch tiêu hóa mạnh mẽ làm thức ăn sền sệt như cháo."
+    },
+    {
+      "n": 4,
+      "ko": "이제 음식은 꼬불꼬불 긴 터널인 '소장'으로 가요. 여기서 우리 몸에 필요한 영양분을 쏙쏙 흡수해요.",
+      "en": "Now the food goes into the 'small intestine' – a long, wiggly tunnel. Here, it soaks up all the good nutrients our body needs.",
+      "t": "Bây giờ thức ăn đi vào 'ruột non', một đường hầm dài ngoằn ngoèo. Tại đây, cơ thể hấp thụ thật nhanh những chất dinh dưỡng cần thiết."
+    },
+    {
+      "n": 5,
+      "ko": "영양분이 빠져나간 찌꺼기는 '대장'으로 넘어가요. 대장은 남은 물기를 쪽 빨아들여서 단단하게 만들죠.",
+      "en": "The leftovers, once all the good nutrients have been taken out, travel to the \"large intestine.\" The large intestine soaks up every last drop of the remaining water, making it firm.",
+      "t": "Phần bã đã bị rút hết chất dinh dưỡng chuyển sang 'ruột già'. Ruột già hút sạch chỗ nước còn lại để làm nó cứng lại."
+    },
+    {
+      "n": 6,
+      "ko": "물기가 다 빠지면 드디어 우리가 아는 '똥'이 돼요. 똥은 직장에 모여 있다가 밖으로 나갈 준비를 해요.",
+      "en": "When all the water is gone, it finally turns into the \"poop\" we know! Poop gathers in your bottom and gets ready to come out.",
+      "t": "Khi nước đã rút hết, cuối cùng nó trở thành 'phân' mà chúng ta đều biết. Phân tụ lại ở trực tràng rồi chuẩn bị ra ngoài."
+    },
+    {
+      "n": 7,
+      "ko": "\"신호가 왔어!\" 배가 살살 아프면 화장실로 가요. 항문 근육이 열리면서 똥이 쑤욱 밖으로 나와요.",
+      "en": "\"I've got a signal!\" When your tummy feels a little owie, head to the toilet. Your bottom muscles open up, and poop slides right out!",
+      "t": "\"Có tín hiệu rồi!\" Khi bụng hơi đau râm ran thì đi vào nhà vệ sinh. Cơ hậu môn mở ra và phân tuồn ra ngoài."
+    },
+    {
+      "n": 8,
+      "ko": "\"건강한 똥은 아주 멋진 모양을 하고 있어. 매끄럽고 부드러운 모습을 보면 내 몸이 얼마나 건강한지 알 수 있지!\"",
+      "en": "Healthy poop has such a wonderful shape! When you see how smooth and soft it is, you can tell just how healthy my body is!",
+      "t": "\"Phân khỏe mạnh có hình dáng rất đẹp đấy. Nhìn vẻ trơn láng mềm mại của nó là biết được cơ thể mình khỏe mạnh đến mức nào!\""
+    },
+    {
+      "n": 9,
+      "ko": "물을 적게 먹으면 토끼 똥처럼 딱딱해지고, 배가 아프면 물처럼 주르륵 설사가 나오기도 해요.",
+      "en": "If you don't drink enough water, your poop can get hard like little bunny poops. And if your tummy hurts, you might have runny poops that flow out like water.",
+      "t": "Uống ít nước thì phân cứng lại như phân thỏ, còn khi đau bụng thì phân lỏng tuôn ra ồng ộc như nước."
+    },
+    {
+      "n": 10,
+      "ko": "똥에서 냄새가 나는 건 장속 세균들이 찌꺼기를 분해하며 가스를 만들기 때문이에요. 방귀도 이때 나오죠!",
+      "en": "Poop smells because the tiny germs in your tummy are busy breaking down all the leftover food bits, and they make gas! That's when farts come out too!",
+      "t": "Phân có mùi là vì lũ vi khuẩn trong ruột phân hủy phần bã và tạo ra khí ga. Tiếng rắm cũng phát ra lúc này đấy!"
+    },
+    {
+      "n": 11,
+      "ko": "똥은 우리가 먹은 음식 중 몸에 흡수되지 않은 찌꺼기와 수분, 그리고 장에서 떨어진 세포들로 이루어져 있어요.",
+      "en": "Poop is made from the bits of food we eat that our bodies didn't use up, plus some water, and tiny little cells that have come from inside our tummies.",
+      "t": "Phân được tạo thành từ phần bã thức ăn không được cơ thể hấp thụ, nước, và cả những tế bào bong ra từ ruột."
+    },
+    {
+      "n": 12,
+      "ko": "채소와 과일을 많이 먹으면 똥이 부드럽게 잘 나와요. 식이섬유가 똥을 예쁘게 만들어주기 때문이에요.",
+      "en": "When you eat lots of veggies and fruits, your poops come out smoothly! That's because the fiber in them helps make your poops look pretty.",
+      "t": "Ăn nhiều rau và trái cây thì phân ra dễ dàng và mềm mại. Bởi vì chất xơ giúp làm cho phân đẹp đẽ đấy."
+    },
+    {
+      "n": 13,
+      "ko": "똥은 더러운 게 아니에요. 우리 몸이 필요 없는 것을 밖으로 보내서 몸을 깨끗하게 청소해주는 과정이에요.",
+      "en": "Poop isn't dirty. It's a process where our bodies send out what they don't need, helping to keep us nice and clean!",
+      "t": "Phân không phải là thứ bẩn thỉu đâu. Đó là quá trình cơ thể đưa những thứ không cần thiết ra ngoài để dọn dẹp cho cơ thể sạch sẽ."
+    },
+    {
+      "n": 14,
+      "ko": "강아지도, 코끼리도, 지구상의 모든 동물은 먹은 만큼 똥을 싸요. 똥은 자연으로 돌아가 땅의 거름이 되죠.",
+      "en": "Puppies, elephants, and all the animals in the world make poop from the food they eat. That poop goes back to nature and helps the earth grow.",
+      "t": "Cún con, voi, và tất cả các con vật trên Trái Đất đều thải phân theo lượng đã ăn. Phân quay về với thiên nhiên và trở thành phân bón cho đất."
+    },
+    {
+      "n": 15,
+      "ko": "소화기관은 우리가 잠잘 때도 쉼 없이 움직이며 일해요. 정말 부지런하고 고마운 기관이죠?",
+      "en": "Our digestive system never stops moving and working, even when we're fast asleep! It's so hardworking and helpful, don't you think?",
+      "t": "Cơ quan tiêu hóa hoạt động không ngừng nghỉ ngay cả khi chúng ta đang ngủ. Quả là cơ quan chăm chỉ và đáng quý phải không nào?"
+    },
+    {
+      "n": 16,
+      "ko": "오늘 내 똥은 어떤 모양인가요? 내 몸이 보내는 건강 편지를 매일매일 확인해 보세요!",
+      "en": "What does your poop look like today? Your body sends you a special health message every single day—make sure to check it!",
+      "t": "Phân của bé hôm nay có hình dáng thế nào? Hãy kiểm tra mỗi ngày lá thư sức khỏe mà cơ thể gửi đến nhé!"
+    },
+    {
+      "n": 17,
+      "ko": "입에서 항문까지 이어지는 긴 소화 터널과 바나나 모양 똥을 그림 속에서 자세히 살펴보세요!",
+      "en": "Let's take a closer look in the picture at the long tummy tunnel that goes all the way from your mouth to your bottom, and the banana-shaped poos!",
+      "t": "Hãy ngắm thật kĩ trong tranh đường hầm tiêu hóa dài nối từ miệng đến hậu môn và những cục phân hình quả chuối nhé!"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 몸속 소화 대장! 다음엔 어떤 신비한 몸속 탐험을 떠나볼까요?",
+      "en": "I'm your body's Digestion Captain! What wondrous adventure inside your body shall we explore next?",
+      "t": "Tớ là đội trưởng tiêu hóa trong cơ thể! Lần sau chúng mình sẽ lên đường khám phá điều kì bí nào trong cơ thể nhỉ?"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "밥",
+      "en": "rice",
+      "t": "cơm"
+    },
+    {
+      "i": 1,
+      "korean": "숟가락",
+      "en": "spoon",
+      "t": "cái thìa"
+    },
+    {
+      "i": 2,
+      "korean": "식탁",
+      "en": "table",
+      "t": "cái bàn ăn"
+    },
+    {
+      "i": 3,
+      "korean": "그릇",
+      "en": "bowl",
+      "t": "cái bát"
+    },
+    {
+      "i": 4,
+      "korean": "음식",
+      "en": "food",
+      "t": "thức ăn"
+    },
+    {
+      "i": 5,
+      "korean": "주방",
+      "en": "kitchen",
+      "t": "nhà bếp"
+    },
+    {
+      "i": 6,
+      "korean": "몸",
+      "en": "body",
+      "t": "cơ thể"
+    },
+    {
+      "i": 7,
+      "korean": "입",
+      "en": "mouth",
+      "t": "cái miệng"
+    },
+    {
+      "i": 8,
+      "korean": "식도",
+      "en": "esophagus",
+      "t": "thực quản"
+    },
+    {
+      "i": 9,
+      "korean": "위",
+      "en": "stomach",
+      "t": "dạ dày"
+    },
+    {
+      "i": 10,
+      "korean": "똥",
+      "en": "poop",
+      "t": "phân"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "내가 먹은 음식이 입에서 시작해 어떻게 우리 몸 곳곳을 여행하는지 따라가 봐요. 위와 장을 거치며 영양분이 되어 주는 음식의 신비로운 여행을 따라가며 건강한 식습관을 함께 익혀 보세요.",
+      "t": "Hãy cùng theo dõi món ăn mà bé ăn vào bắt đầu từ miệng rồi du hành khắp các nơi trong cơ thể như thế nào. Theo dõi hành trình kì diệu của thức ăn đi qua dạ dày và ruột để trở thành chất dinh dưỡng, bố mẹ hãy cùng bé rèn luyện thói quen ăn uống lành mạnh nhé."
+    },
+    "lessons": [],
+    "readingTips": [],
+    "faq": [
+      {
+        "q_ko": "음식의 몸속 여행 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 4~7세 우리 몸 좋아하는 아이에게 적합해요.",
+        "q_t": "Cuốn sách về hành trình của thức ăn trong cơ thể phù hợp với bé mấy tuổi?",
+        "a_t": "Cuốn sách phù hợp với các bé từ 4 đến 7 tuổi yêu thích tìm hiểu về cơ thể mình."
+      },
+      {
+        "q_ko": "음식은 몸속에서 어떻게 가요?",
+        "a_ko": "입→식도→위→소장→대장 순으로 여행해요. 각 곳에서 음식이 작게 부서지고 영양분이 몸으로 흡수돼요.",
+        "q_t": "Thức ăn đi trong cơ thể như thế nào?",
+        "a_t": "Thức ăn du hành theo thứ tự miệng → thực quản → dạ dày → ruột non → ruột già. Ở mỗi nơi, thức ăn được nghiền nhỏ và chất dinh dưỡng được cơ thể hấp thụ."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'입, 위, 소장, 대장, 영양, 소화, 음식' 같은 신체·음식 명사를 만나요.",
+        "q_t": "Bé có thể học được những từ nào?",
+        "a_t": "Bé sẽ gặp các danh từ về cơ thể và thức ăn như 'cái miệng, dạ dày, ruột non, ruột già, dinh dưỡng, tiêu hóa, thức ăn'."
+      },
+      {
+        "q_ko": "왜 잘 씹어 먹어야 해요?",
+        "a_ko": "입에서 잘게 씹어야 위·장이 더 쉽게 소화시킬 수 있어요. 그래야 영양이 잘 흡수돼요.",
+        "q_t": "Tại sao phải nhai kĩ khi ăn?",
+        "a_t": "Nhai nhỏ trong miệng thì dạ dày và ruột mới tiêu hóa dễ dàng hơn. Có như vậy chất dinh dưỡng mới được hấp thụ tốt."
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "없어요. 신기한 우리몸 관찰 책이에요.",
+        "q_t": "Truyện có cảnh nào đáng sợ không?",
+        "a_t": "Không có đâu. Đây là cuốn sách quan sát cơ thể kì thú."
+      },
+      {
+        "q_ko": "활동 추천?",
+        "a_ko": "한 입 30번 씹기 미션, 음식 여행 순서 그림 그리기, 다양한 음식 색·모양 함께 보기 같은 활동이 좋아요.",
+        "q_t": "Có hoạt động nào nên làm cùng bé không?",
+        "a_t": "Bố mẹ có thể cùng bé thực hiện thử thách nhai 30 lần mỗi miếng, vẽ tranh về thứ tự hành trình của thức ăn, hay cùng ngắm màu sắc và hình dáng của các món ăn khác nhau."
+      },
+      {
+        "q_ko": "영어로?",
+        "a_ko": "네, Food Journey in Body 영어 버전이 함께 제공돼요.",
+        "q_t": "Có phiên bản tiếng Anh không?",
+        "a_t": "Có ạ, phiên bản tiếng Anh 'Food Journey in Body' cũng được cung cấp kèm theo."
+      },
+      {
+        "q_ko": "비슷한 책은?",
+        "a_ko": "'뇌와 심장', '뼈와 근육', '유산균과 바이러스' 같은 우리몸 시리즈가 함께 사랑받아요.",
+        "q_t": "Có cuốn sách nào tương tự không?",
+        "a_t": "Bộ sách về cơ thể như 'Não và Tim', 'Xương và Cơ bắp', 'Lợi khuẩn và Vi-rút' cũng được yêu thích."
+      }
+    ]
+  }
+}

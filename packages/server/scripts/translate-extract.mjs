@@ -85,6 +85,7 @@ async function main() {
         try {
           const sb = await getStorybook(key.replace(/^storybook-|\.json$/g, ''));
           if (!sb.id || VARIANT_RE.test(sb.id)) continue;
+          if (sb.type === 'phonics') continue; // 파닉스(영어 알파벳/CVC 학습물)는 번역 대상 아님
           if (!ALL_CATEGORIES && sb.category !== CATEGORY) continue;
           if (sb.category === 'backup') continue;
           if (!INCLUDE_PRIVATE && !sb.isPublic) continue;
