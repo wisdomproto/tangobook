@@ -24,7 +24,13 @@ import {
 import { supabase } from '../../api/supabase';
 import { buildThreadsPrompt } from '../../lib/prompt-builder';
 import { generateId } from '../../lib/utils';
-import type { Content, Project, ThreadsContent, ThreadsCard } from '../../types/database';
+import type {
+  Content,
+  Project,
+  ThreadsContent,
+  ThreadsCard,
+  BaseArticle,
+} from '../../types/database';
 
 // ─── Async user-id helper ─────────────────────────────────────────────────────
 
@@ -43,6 +49,7 @@ interface ThreadsPanelInnerProps {
   content: Content;
   project: Project;
   hasBaseArticle: boolean;
+  baseArticle: BaseArticle | null;
   channelModels: ReturnType<typeof useChannelModels>['models'];
 }
 
@@ -51,6 +58,7 @@ function ThreadsPanelInner({
   content,
   project,
   hasBaseArticle,
+  baseArticle,
   channelModels,
 }: ThreadsPanelInnerProps) {
   const contentId = content.id;
@@ -125,8 +133,7 @@ function ThreadsPanelInner({
   });
 
   const handleGenerate = () => {
-    const baseArticle = undefined; // injected via graph in outer — not available inside; prompt-builder handles undefined
-    const prompt = buildThreadsPrompt({ project, content, baseArticle });
+    const prompt = buildThreadsPrompt({ project, content, baseArticle: baseArticle ?? undefined });
     setGeneratedPrompt(prompt);
     setShowPromptDialog(true);
   };
@@ -345,6 +352,8 @@ export function ThreadsPanel({ content, project }: ThreadsPanelProps) {
   >;
 
   const hasBaseArticle = Boolean(contentGraph?.baseArticle);
+  // Fidelity point #1: forward baseArticle into the inner panel (mirrors CardNewsPanel:1225-1226)
+  const baseArticle = contentGraph?.baseArticle ?? null;
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -384,6 +393,7 @@ export function ThreadsPanel({ content, project }: ThreadsPanelProps) {
               content={content}
               project={project}
               hasBaseArticle={hasBaseArticle}
+              baseArticle={baseArticle}
               channelModels={channelModels}
             />
           )}
