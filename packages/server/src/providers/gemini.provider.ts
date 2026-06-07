@@ -13,7 +13,7 @@ function getGenAI() {
   return _genAI;
 }
 
-function getAI() {
+export function getAI() {
   if (!_ai) _ai = new GoogleGenAI({ apiKey: config.gemini.apiKey });
   return _ai;
 }
