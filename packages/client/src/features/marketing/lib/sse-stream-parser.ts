@@ -109,7 +109,7 @@ export async function fetchSSEText(
 }
 
 /**
- * Shortcut for `POST /api/ai/generate` — the single most common callsite.
+ * Shortcut for `POST /api/mkt/ai/generate` — the single most common callsite.
  * Returns the full concatenated text from the SSE stream.
  */
 export function fetchAiGenerate(
@@ -117,5 +117,5 @@ export function fetchAiGenerate(
   model?: string,
   init: { signal?: AbortSignal } = {}
 ): Promise<string> {
-  return fetchSSEText('/api/ai/generate', { prompt, ...(model && { model }) }, init);
+  return fetchSSEText('/api/mkt/ai/generate', { prompt, ...(model && { model }) }, init);
 }
