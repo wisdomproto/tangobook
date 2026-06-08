@@ -28,6 +28,8 @@ export const mktKeys = {
   cardTemplates: (projectId: string) => ['mkt', 'card-templates', projectId] as const,
   cardHiddenBuiltins: (projectId: string) => ['mkt', 'card-hidden-builtins', projectId] as const,
   savedKeywords: (projectId: string) => ['mkt', 'saved-keywords', projectId] as const,
+  publishRecords: (projectId: string) => ['mkt', 'publish-records', projectId] as const,
+  publishCounts: (projectId: string) => ['mkt', 'publish-counts', projectId] as const,
 };
 
 // ─── Fetch Helpers ──────────────────────────────────────────────────────────
