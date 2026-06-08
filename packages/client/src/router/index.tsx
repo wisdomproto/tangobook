@@ -9,6 +9,7 @@ import {
   SettingsPage,
   PlaceholderPage,
   IdeasPage,
+  PublishPage,
 } from '../features/marketing';
 import LibraryPage from '../pages/LibraryPage';
 import GamesHubPage from '../pages/GamesHubPage';
@@ -313,7 +314,7 @@ export const router = createBrowserRouter([
           { path: 'content', element: <ContentPage /> },
           { path: 'settings', element: <SettingsPage /> },
           { path: 'ideas', element: <IdeasPage /> },
-          { path: 'publish', element: <PlaceholderPage title="발행 관리" /> },
+          { path: 'publish', element: <PublishPage /> },
           { path: 'monitoring', element: <PlaceholderPage title="모니터링 / 댓글" /> },
           { path: 'site-analysis', element: <PlaceholderPage title="사이트 분석" /> },
           { path: 'meta-analytics', element: <PlaceholderPage title="채널 분석" /> },
