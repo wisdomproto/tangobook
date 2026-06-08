@@ -96,7 +96,15 @@ export function useFetchPublishCountsByLanguage(projectId: string) {
 
 // ─── Mutations ────────────────────────────────────────────────────────────────
 
-/** Schedule (upsert) a single publish record. Stamps user_id — R-4. */
+/**
+ * Schedule (or re-schedule) a single self_hosted publish record. Stamps user_id — R-4.
+ *
+ * NOTE: cannot use `.upsert({ onConflict: 'content_id,language,channel' })` — the only
+ * matching unique index (`uniq_mkt_publish_self_hosted`) is PARTIAL
+ * (`WHERE channel='self_hosted' AND status IN ('scheduled','published')`), and Postgres
+ * cannot infer a partial index as an ON CONFLICT arbiter from a bare column list. So we
+ * read the live row first, then update-by-id or insert (same shape as the bulk pre-check).
+ */
 export function useSchedulePublish() {
   const queryClient = useQueryClient();
 
@@ -108,18 +116,41 @@ export function useSchedulePublish() {
       scheduledAt: string;
     }) => {
       const uid = await getCurrentUserId();
-      const row = {
-        user_id: uid,
-        content_id: input.contentId,
-        project_id: input.projectId,
-        language: input.language,
-        channel: 'self_hosted',
-        status: 'scheduled',
-        scheduled_at: input.scheduledAt,
-      };
+
+      // At most one live self_hosted row per (content_id, language) exists
+      // (guaranteed by the uniq_mkt_publish_self_hosted partial index).
+      const { data: existing, error: findErr } = await supabase
+        .from('mkt_publish_records')
+        .select('id')
+        .eq('content_id', input.contentId)
+        .eq('language', input.language)
+        .eq('channel', 'self_hosted')
+        .in('status', ['scheduled', 'published'])
+        .maybeSingle();
+      if (findErr) throw new Error(findErr.message);
+
+      if (existing) {
+        const { data, error } = await supabase
+          .from('mkt_publish_records')
+          .update({ scheduled_at: input.scheduledAt, status: 'scheduled' })
+          .eq('id', existing.id)
+          .select()
+          .single();
+        if (error) throw new Error(error.message);
+        return data as PublishRecord;
+      }
+
       const { data, error } = await supabase
         .from('mkt_publish_records')
-        .upsert(row, { onConflict: 'content_id,language,channel', ignoreDuplicates: false })
+        .insert({
+          user_id: uid,
+          content_id: input.contentId,
+          project_id: input.projectId,
+          language: input.language,
+          channel: 'self_hosted',
+          status: 'scheduled',
+          scheduled_at: input.scheduledAt,
+        })
         .select()
         .single();
       if (error) throw new Error(error.message);
