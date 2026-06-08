@@ -21,6 +21,9 @@ features/marketing/
     use-card-templates.ts # mkt_card_templates (사용자 저장 카드뉴스 템플릿)
     use-channel-models.ts # 프로젝트별 채널 AI 모델 설정 읽기
     use-keywords.ts       # 키워드 아이디어 (서버 /api/mkt/naver|google 경유)
+    use-ideas.ts          # AI 아이디어 생성 + trending (Phase 2)
+    use-golden-keywords.ts # 황금키워드 오케스트레이션 → /api/mkt/keywords/recommend (Phase 2)
+    use-saved-keywords.ts  # 보관함 — mkt_projects.saved_keywords JSONB via useUpdateProject (Phase 2)
     use-r2-upload.ts      # presign → PUT → publicUrl 헬퍼
     use-debounced-save.ts # 800ms debounce Supabase update (save-status-store 연동)
   hooks/                  # 순수 UI 훅 (서버 데이터 없음)
@@ -43,6 +46,13 @@ features/marketing/
       ChannelTranslationView.tsx # 번역 read-only 배너 (6개 채널 패널 마운트, non-ko 언어 선택 시 노출, Phase 1d)
       ImageEditorDialog.tsx     # 이미지 annotation 에디터 (select/text/line/arrow/rect + undo/redo + SVG arrowhead→WebP, Phase 1d)
       ContentTabs.tsx           # 채널 탭 라우터 (handleTranslate + resolveTranslationSource 포함)
+    ideas/                # 키워드/아이디어 대시보드 (Phase 2)
+      IdeasDashboard.tsx        # 5 서브탭 컨테이너
+      IdeaCard.tsx              # AI 생성 채널별 아이디어 카드
+      TrendingFeed.tsx          # 유튜브/네이버 트렌딩 피드
+      KeywordTable.tsx          # N/G 키워드 분석 테이블 (multi-column sort)
+      GoldenTierCards.tsx       # 황금/유망/일반 3-tier 결과 카드
+      MarketingLanguageTabs.tsx # 키워드 분석 언어 탭 (한국어/영어)
       ChannelContentList.tsx    # 채널 버전 목록 (create/select/delete)
       editor/                   # TipTap 3.x 에디터 컴포넌트
         BaseArticleEditor.tsx
@@ -65,6 +75,7 @@ features/marketing/
     canvas-export.ts      # 카드뉴스 슬라이드 → WebP Blob (renderCardToBlob)
     image-utils.ts        # base64 ↔ WebP Blob 변환
     image-editor-canvas.ts # ImageEditorDialog 헬퍼 (scalePoint/arrowheadPoints/history reducer/loadImageWithProxy)
+    keyword-sort.ts       # multi-column shift-click sort comparator (TDD, Phase 2)
     ai-models.ts          # 채널별 기본 AI 모델 상수
     channel-translator.ts # 번역 axios: mkt_translations insert + user_id stamp + buildTranslationPrompt POST
     schedule-distribution.ts  # 발행 일정 분산 계산
@@ -90,6 +101,7 @@ features/marketing/
   pages/
     MarketingLayout.tsx   # auth guard + MarketingShell 래퍼 (→ /login if no session)
     ContentPage.tsx       # 콘텐츠 목록 + 채널 탭 레이아웃
+    IdeasPage.tsx         # 키워드/아이디어 페이지 (Phase 2)
     SettingsPage.tsx      # 프로젝트 설정 페이지
     PlaceholderPage.tsx   # 미구현 채널/기능 placeholder
   index.ts                # 공용 export
@@ -115,6 +127,8 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 | `mkt_youtube_cards` | 유튜브 카드 (placeholder) |
 | `mkt_card_templates` | 사용자 저장 카드뉴스 템플릿 |
 
+`mkt_projects` 에는 `saved_keywords JSONB` 컬럼 포함 — Phase 2 보관함 저장 (별도 테이블 없음, owner-row 업데이트로 RLS 자동 만족).
+
 마이그레이션: `supabase/migrations/2026-06-07-marketing-schema.sql` +
 `2026-06-07-marketing-phase1a-indexes.sql` + `2026-06-07-marketing-phase1b-indexes.sql`.
 
@@ -134,34 +148,39 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 
 ## Express `/api/mkt` 라우트
 
-| Method | Path                     | 설명                                               |
-| ------ | ------------------------ | -------------------------------------------------- |
-| POST   | `/ai/generate`           | Gemini SSE 텍스트 생성 (`text/event-stream`)       |
-| POST   | `/ai/generate-image`     | Gemini 이미지 생성 (base64 PNG 반환)               |
-| POST   | `/ai/translate`          | 번역 SSE                                           |
-| POST   | `/ai/extract-text`       | PDF/DOCX/TXT → 텍스트 추출 (`multipart/form-data`) |
-| POST   | `/ai/analyze-references` | URL 레퍼런스 fetch + Gemini 요약                   |
-| POST   | `/storage/presign`       | R2 presigned upload URL 발급                       |
-| POST   | `/storage/delete`        | R2 키 일괄 삭제                                    |
-| GET    | `/storage/proxy?url=`    | R2 이미지 same-origin 프록시 (캔버스 CORS 우회)    |
-| POST   | `/naver/keywords`        | 네이버 검색광고 API 키워드 조회                    |
-| POST   | `/google/keywords`       | DataForSEO Google 키워드 조회                      |
+| Method | Path                     | 설명                                                                      |
+| ------ | ------------------------ | ------------------------------------------------------------------------- |
+| POST   | `/ai/generate`           | Gemini SSE 텍스트 생성 (`text/event-stream`)                              |
+| POST   | `/ai/generate-image`     | Gemini 이미지 생성 (base64 PNG 반환)                                      |
+| POST   | `/ai/translate`          | 번역 SSE                                                                  |
+| POST   | `/ai/extract-text`       | PDF/DOCX/TXT → 텍스트 추출 (`multipart/form-data`)                        |
+| POST   | `/ai/analyze-references` | URL 레퍼런스 fetch + Gemini 요약                                          |
+| POST   | `/storage/presign`       | R2 presigned upload URL 발급                                              |
+| POST   | `/storage/delete`        | R2 키 일괄 삭제                                                           |
+| GET    | `/storage/proxy?url=`    | R2 이미지 same-origin 프록시 (캔버스 CORS 우회)                           |
+| POST   | `/naver/keywords`        | 네이버 검색광고 API 키워드 조회                                           |
+| POST   | `/google/keywords`       | DataForSEO Google 키워드 조회                                             |
+| POST   | `/keywords/recommend`    | 황금키워드 오케스트레이션 (Gemini seed→Naver volume→3-tier 분류, Phase 2) |
+| POST   | `/ideas/generate`        | Gemini flash-lite 채널별 AI 아이디어 생성 (Phase 2)                       |
+| POST   | `/ideas/trending`        | YouTube Data trending + Naver trend 집계 (Phase 2)                        |
 
-서버 파일: `routes/mkt.routes.ts`, `controllers/mkt/{ai,storage,keywords}.controller.ts`,
-`services/mkt/gemini-sse.service.ts`, `services/mkt/external/{naver-searchad,dataforseo,…}.ts`.
+서버 파일: `routes/mkt.routes.ts`, `controllers/mkt/{ai,storage,keywords,ideas}.controller.ts`,
+`services/mkt/gemini-sse.service.ts`, `services/mkt/ideas.service.ts`,
+`services/mkt/external/{naver-searchad,dataforseo,golden-keyword,youtube-data,…}.ts`.
 
 ## 채널 구현 현황
 
-| 채널                     | 상태 | 컴포넌트                                                             |
-| ------------------------ | ---- | -------------------------------------------------------------------- |
-| 기본글 (Base Article)    | 완료 | `BaseArticlePanel.tsx` + TipTap 3.x                                  |
-| N블로그 (Naver SEO)      | 완료 | `BlogPanel.tsx` — 4-step workflow (키워드→구조→생성→SEO)             |
-| 내부블로그 (Google/GEO)  | 완료 | `InternalBlogPanel.tsx`                                              |
-| 카드뉴스 (Instagram)     | 완료 | `CardNewsPanel.tsx` — Canvas 편집기 + WebP export + 일괄 이미지 생성 |
-| 스레드 (Threads)         | 완료 | `ThreadsPanel.tsx`                                                   |
-| 유튜브 (Phase 1c)        | 완료 | `YoutubePanel.tsx` — AI 대본, 씬별 이미지, 타임라인, 미리보기        |
-| 번역 (Phase 1d)          | 완료 | `ChannelTranslationView.tsx` — 6채널 번역 overlay (non-ko)           |
-| 이미지 에디터 (Phase 1d) | 완료 | `ImageEditorDialog.tsx` — blog/youtube ImageCardWidget 에서 Pencil   |
+| 채널                      | 상태 | 컴포넌트                                                                 |
+| ------------------------- | ---- | ------------------------------------------------------------------------ |
+| 기본글 (Base Article)     | 완료 | `BaseArticlePanel.tsx` + TipTap 3.x                                      |
+| N블로그 (Naver SEO)       | 완료 | `BlogPanel.tsx` — 4-step workflow (키워드→구조→생성→SEO)                 |
+| 내부블로그 (Google/GEO)   | 완료 | `InternalBlogPanel.tsx`                                                  |
+| 카드뉴스 (Instagram)      | 완료 | `CardNewsPanel.tsx` — Canvas 편집기 + WebP export + 일괄 이미지 생성     |
+| 스레드 (Threads)          | 완료 | `ThreadsPanel.tsx`                                                       |
+| 유튜브 (Phase 1c)         | 완료 | `YoutubePanel.tsx` — AI 대본, 씬별 이미지, 타임라인, 미리보기            |
+| 번역 (Phase 1d)           | 완료 | `ChannelTranslationView.tsx` — 6채널 번역 overlay (non-ko)               |
+| 이미지 에디터 (Phase 1d)  | 완료 | `ImageEditorDialog.tsx` — blog/youtube ImageCardWidget 에서 Pencil       |
+| 키워드/아이디어 (Phase 2) | 완료 | `IdeasDashboard.tsx` — 5 서브탭 (N키워드/G키워드/유행/AI아이디어/보관함) |
 
 ## 핵심 Gotchas (반드시 확인)
 
@@ -200,6 +219,14 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 
 `prompt-builder` / `seo-scorer` / `sse-stream-parser` / `schedule-distribution` 은 ContentFlow 원본 로직을 최대한 그대로 이식했다. 수정 시 원본 CF 로직과 diff 비교 후 주석에 delta 기록.
 
+### (i) Phase 2 키워드/아이디어 Gotchas
+
+1. **`competition` enum — `HIGH/MEDIUM/LOW` 영문 상수만**: 코드·DB·API 전체에서 `HIGH/MEDIUM/LOW` 영문 상수를 사용한다. 한국어(`높음/중간/낮음` 등) 는 UI display-label map에서만 변환. 직접 한국어 문자열 비교 시 RLS/필터 버그.
+2. **황금키워드 오케스트레이션 서버사이드 — 클라이언트 1회 호출**: `POST /api/mkt/keywords/recommend` 가 Gemini seed → Naver 볼륨 → 관련성 필터 → 3-tier(황금/유망/일반) 전체를 처리. 클라이언트가 HMAC(네이버 SearchAd)를 직접 구현하거나 Naver/Gemini를 별도 호출할 필요 없음. Phase 1a 의 `/api/mkt/naver/keywords`·`/google/keywords`는 단독 테이블 조회용으로 보존.
+3. **`saved_keywords` — owner-row JSONB, user_id 불필요**: `mkt_projects` 테이블의 `saved_keywords JSONB` 컬럼에 저장. `useUpdateProject(projectId)` 로 owner-row를 업데이트하므로 RLS가 자동 만족. 별도 `mkt_saved_keywords` 테이블이 아님. `Project` 타입에 `saved_keywords?: SavedKeyword[]` 추가됨.
+4. **`lib/keyword-sort.ts` — shift-click multi-column sort**: shift-click으로 2차 이상 정렬 컬럼 추가. comparator가 `SortState[]` 배열을 받아 우선순위 순서로 비교. `KeywordTable.tsx` 에서 헤더 클릭 시 shift 여부로 분기. TDD 구현됨.
+5. **`sse-stream-parser.ts fetchAiGenerate` 경로**: CF 원본은 `/api/ai/generate` 였으나 탱고북 포트에서는 `/api/mkt/ai/generate`. Phase 2에서 최종 수정됨. 새 SSE 호출 시 경로 확인 필수.
+
 ### (h) Phase 1d 번역 + 이미지 에디터 Gotchas
 
 1. **`mkt_translations` 테이블명 + `user_id` 스탬핑** (C-1/C-2): CF 포트는 `translations` 테이블을 사용했고 insert에 `user_id` 없었음 → 둘 다 fix됨 (`channel-translator.ts`). insert 시 RLS `with check (user_id = auth.uid())`를 통과하려면 반드시 `user_id` 스탬핑 필수.
@@ -215,6 +242,7 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 - `/marketing` → `MarketingLayout` (auth guard)
   - `index` → redirect to `/marketing/content`
   - `content` → `ContentPage`
+  - `ideas` → `IdeasPage` (Phase 2)
   - `settings` → `SettingsPage`
   - `*` → `PlaceholderPage`
 
@@ -225,4 +253,5 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 - Phase 1b 스펙: `docs/superpowers/specs/2026-06-07-marketing-phase1b-cardnews-threads-design.md`
 - Phase 1c 스펙: `docs/superpowers/specs/2026-06-07-marketing-phase1c-youtube-design.md`
 - Phase 1d 스펙: `docs/superpowers/specs/2026-06-07-marketing-phase1d-translation-image-editor-design.md`
+- Phase 2 스펙: `docs/superpowers/specs/2026-06-07-marketing-phase2-keywords-ideas-design.md`
 - Memory: `marketing-port-contentflow-2026-06-07.md`
