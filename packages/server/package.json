@@ -17,6 +17,7 @@
     "@aws-sdk/s3-request-presigner": "^3.1015.0",
     "@google/genai": "^1.41.0",
     "@google/generative-ai": "^0.24.1",
+    "@supabase/supabase-js": "^2.104.0",
     "@remotion/bundler": "^4.0.440",
     "@remotion/renderer": "^4.0.440",
     "@tangobook/remotion": "workspace:*",

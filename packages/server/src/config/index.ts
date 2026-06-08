@@ -72,4 +72,11 @@ export const config = {
     clientId: process.env.NAVER_DATALAB_CLIENT_ID ?? '',
     secret: process.env.NAVER_DATALAB_SECRET ?? '',
   },
+
+  supabase: {
+    url: process.env.SUPABASE_URL ?? process.env.VITE_SUPABASE_URL ?? '',
+    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY ?? '',
+  },
+
+  cron: { secret: process.env.CRON_SECRET ?? '' }, // optional manual-tick guard (spec §4.5)
 } as const;
