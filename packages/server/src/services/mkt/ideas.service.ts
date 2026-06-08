@@ -8,6 +8,12 @@ import {
   filterGoldenCandidates,
   classifyGoldenTiers,
 } from './external/golden-keyword.js';
+import {
+  searchVideos,
+  getVideoStats,
+  type YTVideoSnippet,
+  type YTVideoStats,
+} from './external/youtube-data.js';
 import { config } from '../../config/index.js';
 import { AppError } from '../../middleware/error.middleware.js';
 
@@ -222,4 +228,229 @@ Respond in Korean. Return strategy:
   }
 
   return { groups, strategy };
+}
+
+// ─── Idea Generation ──────────────────────────────────────────────────────────
+
+export interface Idea {
+  channel: string;
+  title: string;
+  structure: string;
+  outline: string[];
+}
+
+export interface GenerateIdeasInput {
+  topic: string;
+  channelTypes?: string[];
+  industry?: string;
+  targetAudience?: string;
+}
+
+function extractJsonIdeas(text: string): Idea[] {
+  const m = text.match(/\[[\s\S]*\]/);
+  if (!m) return [];
+  try {
+    const arr = JSON.parse(m[0]);
+    return Array.isArray(arr) ? (arr as Idea[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Generate AI content ideas per channel (flash-class model — Q-6).
+ * Port of CF `app/api/ideas/generate/route.ts`.
+ */
+export async function generateIdeas(
+  input: GenerateIdeasInput
+): Promise<{ ideas: Idea[]; topic: string }> {
+  if (!config.gemini.apiKey) {
+    throw new AppError(502, 'Gemini API 키가 설정되지 않았습니다.');
+  }
+  const { topic, channelTypes, industry, targetAudience } = input;
+  const channels = channelTypes?.length ? channelTypes : ['blog', 'cardnews', 'youtube'];
+
+  const prompt = `You are a Korean content marketing expert. Generate content ideas for each channel.
+
+Topic: ${topic}
+Industry: ${industry || ''}
+Target Audience: ${targetAudience || '한국 소비자'}
+Channels: ${channels.join(', ')}
+
+For each channel, generate ONE content idea with:
+- channel: the channel name (from the list above)
+- title: engaging Korean title
+- structure: brief Korean structure description
+- outline: array of 4-5 Korean content sections
+
+Return ONLY a valid JSON array:
+[{"channel":"blog","title":"...","structure":"...","outline":["1. ...","2. ...","3. ...","4. ..."]},...]`;
+
+  const text = await generateTextWithGemini(prompt, 3, GOLDEN_MODEL);
+  const ideas = extractJsonIdeas(text);
+  return { ideas, topic };
+}
+
+// ─── Trending Assembly ────────────────────────────────────────────────────────
+
+export interface YTVideo {
+  id: string;
+  title: string;
+  channelTitle: string;
+  thumbnail: string;
+  url: string;
+  views: string;
+  viewCount: number;
+  likes: number;
+  comments: number;
+  publishedAt: string;
+  keyword: string;
+}
+
+export interface TrendItem {
+  keyword: string;
+  totalSearches?: number;
+  compIdx?: string;
+  trend?: string;
+  change?: string;
+}
+
+export interface TrendingResult {
+  youtube: YTVideo[];
+  naverTrends: TrendItem[];
+  googleTrends: TrendItem[];
+}
+
+export interface AssembleTrendingInput {
+  keywords: string[];
+  language?: string;
+  period?: 'week' | 'month' | 'quarter';
+}
+
+/** Format view count: 억/만/raw (CF trending route :141) */
+export function formatViews(views: number): string {
+  if (views >= 100_000_000) return `${(views / 100_000_000).toFixed(1)}억`;
+  if (views >= 10_000) return `${(views / 10_000).toFixed(1)}만`;
+  return views.toLocaleString();
+}
+
+/** Join YouTube snippets + stats by videoId, sorted by viewCount desc. */
+export function mergeYoutube(
+  snippets: YTVideoSnippet[],
+  stats: YTVideoStats[],
+  keyword: string
+): YTVideo[] {
+  const statsMap = new Map(stats.map((s) => [s.videoId, s]));
+  return snippets
+    .map((s) => {
+      const st = statsMap.get(s.videoId);
+      const viewCount = st?.viewCount ?? 0;
+      return {
+        id: s.videoId,
+        title: s.title,
+        channelTitle: s.channelTitle,
+        thumbnail: s.thumbnailUrl,
+        url: `https://www.youtube.com/watch?v=${s.videoId}`,
+        views: formatViews(viewCount),
+        viewCount,
+        likes: st?.likeCount ?? 0,
+        comments: st?.commentCount ?? 0,
+        publishedAt: s.publishedAt,
+        keyword,
+      };
+    })
+    .sort((a, b) => b.viewCount - a.viewCount);
+}
+
+function periodToDays(period?: 'week' | 'month' | 'quarter'): number {
+  if (period === 'week') return 7;
+  if (period === 'month') return 30;
+  return 90;
+}
+
+/**
+ * Assemble trending data from YouTube + Naver (SearchAd-based) + Google placeholder.
+ * Each source is wrapped in try/catch — partial results, never 500.
+ * Port of CF `app/api/ideas/trending/route.ts`.
+ */
+export async function assembleTrending(input: AssembleTrendingInput): Promise<TrendingResult> {
+  const { keywords, language, period } = input;
+
+  // 1. YouTube (config.youtubeApiKey set, cap 3 keywords — R-2 quota)
+  let youtube: YTVideo[] = [];
+  if (config.youtubeApiKey) {
+    const days = periodToDays(period);
+    const publishedAfter = new Date(Date.now() - days * 86400000).toISOString();
+    const capKws = keywords.slice(0, 3);
+    const allVideos: YTVideo[] = [];
+    for (const kw of capKws) {
+      try {
+        const snippets = await searchVideos(kw, {
+          publishedAfter,
+          order: 'viewCount',
+          relevanceLanguage: language ?? 'ko',
+          maxResults: 5,
+        });
+        const ids = snippets.map((s) => s.videoId);
+        const stats = ids.length ? await getVideoStats(ids) : [];
+        allVideos.push(...mergeYoutube(snippets, stats, kw));
+      } catch {
+        /* skip failing keyword */
+      }
+    }
+    youtube = allVideos.sort((a, b) => b.viewCount - a.viewCount);
+  }
+
+  // 2. Naver trends (SearchAd-based, ko or no lang, cap 5 keywords — Datalab SKIPPED D/§2.2)
+  let naverTrends: TrendItem[] = [];
+  if (!language || language === 'ko') {
+    if (config.naverAd.apiKey && config.naverAd.secretKey && config.naverAd.customerId) {
+      const capKws = keywords.slice(0, 5);
+      for (const kw of capKws) {
+        try {
+          const rows = await searchKeywords([kw]);
+          if (rows.length > 0) {
+            // Take top 3 by search volume
+            const top = [...rows]
+              .sort(
+                (a, b) =>
+                  b.pcSearchVolume +
+                  b.mobileSearchVolume -
+                  (a.pcSearchVolume + a.mobileSearchVolume)
+              )
+              .slice(0, 3);
+            for (const r of top) {
+              naverTrends.push({
+                keyword: r.keyword,
+                totalSearches: r.pcSearchVolume + r.mobileSearchVolume,
+                compIdx: r.competition, // enum
+                trend: 'data',
+                change: '',
+              });
+            }
+          }
+        } catch {
+          /* skip */
+        }
+      }
+    }
+    // Fallback when no creds/results
+    if (naverTrends.length === 0) {
+      naverTrends = keywords.map((k) => ({
+        keyword: k,
+        totalSearches: 0,
+        trend: 'estimated',
+        change: '',
+      }));
+    }
+  }
+
+  // 3. Google trends — placeholder (no official API, CF parity)
+  const googleTrends: TrendItem[] = keywords.map((k) => ({
+    keyword: k,
+    trend: 'rising',
+    change: '',
+  }));
+
+  return { youtube, naverTrends, googleTrends };
 }
