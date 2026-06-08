@@ -9,6 +9,7 @@ import {
 } from '../controllers/mkt/ai.controller.js';
 import { presign, deleteKeys, proxy } from '../controllers/mkt/storage.controller.js';
 import { naverKeywords, googleKeywords } from '../controllers/mkt/keywords.controller.js';
+import { recommendKeywords } from '../controllers/mkt/ideas.controller.js';
 
 const router = Router();
 
@@ -34,5 +35,6 @@ router.get('/storage/proxy', proxy);
 // ── Keyword endpoints ─────────────────────────────────────────────────────────
 router.post('/naver/keywords', naverKeywords);
 router.post('/google/keywords', googleKeywords);
+router.post('/keywords/recommend', recommendKeywords);
 
 export default router;
