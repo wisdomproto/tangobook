@@ -16,6 +16,8 @@ features/marketing/
     use-blog-contents.ts  # mkt_blog_contents + mkt_blog_cards
     use-instagram-contents.ts  # mkt_instagram_contents + mkt_instagram_cards
     use-threads-contents.ts    # mkt_threads_contents + mkt_threads_cards
+    use-youtube-contents.ts    # mkt_youtube_contents + mkt_youtube_cards (7 hooks)
+    use-translations.ts        # mkt_translations CRUD (번역 HTML R2 경로 저장)
     use-card-templates.ts # mkt_card_templates (사용자 저장 카드뉴스 템플릿)
     use-channel-models.ts # 프로젝트별 채널 AI 모델 설정 읽기
     use-keywords.ts       # 키워드 아이디어 (서버 /api/mkt/naver|google 경유)
@@ -25,6 +27,7 @@ features/marketing/
     use-ai-generation.ts  # SSE fetch → parseSSEStream → onChunk/onComplete
     use-image-generation.ts     # 단건 이미지 생성
     use-card-image-generation.ts # 카드뉴스 이미지 1장 생성 + R2 업로드
+    use-channel-translation.ts  # 번역 트리거 + 번역 HTML proxy-fetch (use-translations.ts 위)
     use-auto-save.ts      # 편집기 내 필드 자동저장 래퍼
     use-r2-upload.ts      # hooks 레이어 래퍼
   components/
@@ -34,12 +37,17 @@ features/marketing/
       InternalBlogPanel.tsx     # 내부블로그 (Google/GEO SEO)
       CardNewsPanel.tsx         # 카드뉴스 (캔버스 에디터 + WebP export)
       ThreadsPanel.tsx          # 스레드
-      ContentTabs.tsx           # 채널 탭 라우터
+      YoutubePanel.tsx          # 유튜브 Vrew-style scene 타임라인 (Phase 1c)
+      YoutubeCardItem.tsx       # 씬 카드 (section_type + narration/screen_direction/subtitle/image_prompt/video_prompt + 16:9 이미지)
+      YoutubePreviewDialog.tsx  # 유튜브 대본 미리보기 다이얼로그
+      ChannelTranslationView.tsx # 번역 read-only 배너 (6개 채널 패널 마운트, non-ko 언어 선택 시 노출, Phase 1d)
+      ImageEditorDialog.tsx     # 이미지 annotation 에디터 (select/text/line/arrow/rect + undo/redo + SVG arrowhead→WebP, Phase 1d)
+      ContentTabs.tsx           # 채널 탭 라우터 (handleTranslate + resolveTranslationSource 포함)
       ChannelContentList.tsx    # 채널 버전 목록 (create/select/delete)
       editor/                   # TipTap 3.x 에디터 컴포넌트
         BaseArticleEditor.tsx
         EditorToolbar.tsx
-      (+ 기타 공용 위젯: WorkflowStepBar, SeoScoreDisplay, NaverKeywordPanel …)
+      (+ 기타 공용 위젯: WorkflowStepBar, SeoScoreDisplay, NaverKeywordPanel, ImageCardWidget …)
     layout/               # 마케팅 앱셸
       MarketingShell.tsx  # Sidebar + TopBar + <Outlet/>
       Sidebar.tsx / SidebarNavItem.tsx
@@ -56,8 +64,9 @@ features/marketing/
     sse-stream-parser.ts  # SSE 스트림 파서
     canvas-export.ts      # 카드뉴스 슬라이드 → WebP Blob (renderCardToBlob)
     image-utils.ts        # base64 ↔ WebP Blob 변환
+    image-editor-canvas.ts # ImageEditorDialog 헬퍼 (scalePoint/arrowheadPoints/history reducer/loadImageWithProxy)
     ai-models.ts          # 채널별 기본 AI 모델 상수
-    channel-translator.ts # 채널 enum → 한국어 레이블
+    channel-translator.ts # 번역 axios: mkt_translations insert + user_id stamp + buildTranslationPrompt POST
     schedule-distribution.ts  # 발행 일정 분산 계산
     strategy-html-parser.ts   # 전략 HTML 파싱
     strategy-prompt-builder.ts
@@ -214,4 +223,6 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 - 마스터 스펙: `docs/superpowers/specs/2026-06-06-contentflow-marketing-port-design.md`
 - Phase 1a 스펙: `docs/superpowers/specs/2026-06-07-marketing-phase1a-base-article-blog-design.md`
 - Phase 1b 스펙: `docs/superpowers/specs/2026-06-07-marketing-phase1b-cardnews-threads-design.md`
+- Phase 1c 스펙: `docs/superpowers/specs/2026-06-07-marketing-phase1c-youtube-design.md`
+- Phase 1d 스펙: `docs/superpowers/specs/2026-06-07-marketing-phase1d-translation-image-editor-design.md`
 - Memory: `marketing-port-contentflow-2026-06-07.md`
