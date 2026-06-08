@@ -27,6 +27,7 @@ export const mktKeys = {
     ['mkt', 'translation-html', contentId, channel, lang] as const,
   cardTemplates: (projectId: string) => ['mkt', 'card-templates', projectId] as const,
   cardHiddenBuiltins: (projectId: string) => ['mkt', 'card-hidden-builtins', projectId] as const,
+  savedKeywords: (projectId: string) => ['mkt', 'saved-keywords', projectId] as const,
 };
 
 // ─── Fetch Helpers ──────────────────────────────────────────────────────────
