@@ -3,7 +3,13 @@ import { ErrorBoundary } from '@/design-system';
 import { AppLayout } from '../components/AppLayout';
 import { AppLayoutV2 } from '../components/AppLayoutV2';
 import { AppShell } from '../components/AppShell';
-import { MarketingLayout, ContentPage, SettingsPage, PlaceholderPage } from '../features/marketing';
+import {
+  MarketingLayout,
+  ContentPage,
+  SettingsPage,
+  PlaceholderPage,
+  IdeasPage,
+} from '../features/marketing';
 import LibraryPage from '../pages/LibraryPage';
 import GamesHubPage from '../pages/GamesHubPage';
 import RandomBlockGamePage from '../pages/RandomBlockGamePage';
@@ -306,7 +312,7 @@ export const router = createBrowserRouter([
           { index: true, element: <Navigate to="/marketing/content" replace /> },
           { path: 'content', element: <ContentPage /> },
           { path: 'settings', element: <SettingsPage /> },
-          { path: 'ideas', element: <PlaceholderPage title="키워드 / 아이디어" /> },
+          { path: 'ideas', element: <IdeasPage /> },
           { path: 'publish', element: <PlaceholderPage title="발행 관리" /> },
           { path: 'monitoring', element: <PlaceholderPage title="모니터링 / 댓글" /> },
           { path: 'site-analysis', element: <PlaceholderPage title="사이트 분석" /> },
