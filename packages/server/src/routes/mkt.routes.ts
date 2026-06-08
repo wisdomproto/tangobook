@@ -10,6 +10,7 @@ import {
 import { presign, deleteKeys, proxy } from '../controllers/mkt/storage.controller.js';
 import { naverKeywords, googleKeywords } from '../controllers/mkt/keywords.controller.js';
 import { recommendKeywords, generateIdeas, trending } from '../controllers/mkt/ideas.controller.js';
+import { metaPublish } from '../controllers/mkt/publish.controller.js';
 
 const router = Router();
 
@@ -38,5 +39,8 @@ router.post('/google/keywords', googleKeywords);
 router.post('/keywords/recommend', recommendKeywords);
 router.post('/ideas/generate', generateIdeas);
 router.post('/ideas/trending', trending);
+
+// ── Publish endpoints ──────────────────────────────────────────────────────────
+router.post('/publish/meta', metaPublish);
 
 export default router;
