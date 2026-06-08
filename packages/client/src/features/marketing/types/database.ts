@@ -482,6 +482,15 @@ export interface PublishRecord {
   updated_at: string;
 }
 
+export interface DeployWebhookQueueRow {
+  project_id: string;
+  user_id: string;
+  enqueued_at: string;
+  last_fired_at: string | null;
+  retry_count: number;
+  last_error: string | null;
+}
+
 export interface SeoIssue {
   severity: 'critical' | 'warning' | 'info';
   message: string;
