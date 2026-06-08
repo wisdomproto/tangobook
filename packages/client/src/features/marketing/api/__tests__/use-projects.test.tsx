@@ -77,6 +77,7 @@ const MOCK_PROJECTS: Project[] = [
     writing_guide_youtube: null,
     api_keys: null,
     target_languages: [],
+    saved_keywords: null,
     reference_files: null,
     bgm_files: null,
     reference_summary: null,

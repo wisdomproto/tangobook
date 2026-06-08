@@ -140,6 +140,22 @@ export interface MetaCredentials {
   connectedAt: string;
 }
 
+export interface SavedKeyword {
+  keyword: string;
+  category?: string;
+  searchIntent?: 'informational' | 'commercial' | 'transactional' | 'navigational';
+  priority?: 'high' | 'medium' | 'low';
+  estimatedVolume?: string;
+  difficulty?: string;
+  naverMonthly?: number;
+  naverPc?: number;
+  naverMobile?: number;
+  naverComp?: 'HIGH' | 'MEDIUM' | 'LOW'; // enum, NOT Korean string (delta vs CF — R-1)
+  googleVolume?: number;
+  googleComp?: string; // DataForSEO numeric/label; kept as string for display
+  googleCpc?: number;
+}
+
 export interface Project {
   id: string;
   user_id: string;
@@ -180,6 +196,7 @@ export interface Project {
   // API 키 (채널별)
   api_keys: ProjectApiKeys | null;
   target_languages: string[];
+  saved_keywords: SavedKeyword[] | null; // ADD — column already exists in DB
   // 참고 자료 (프로젝트 기본)
   reference_files: ReferenceFile[] | null;
   bgm_files: BgmFile[] | null;
