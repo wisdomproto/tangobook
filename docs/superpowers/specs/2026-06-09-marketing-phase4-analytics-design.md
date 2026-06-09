@@ -4,7 +4,7 @@
 |---|---|
 | **Date** | 2026‑06‑09 |
 | **Branch / worktree** | `feat/marketing-phase0` @ `C:\projects\tangobook\.worktrees\marketing-phase0` |
-| **Status** | Spec (no implementation) |
+| **Status** | ✅ COMPLETE (implemented + reviewed) |
 | **Predecessor** | Phase 0 Foundation + Phase 1a–1d (content) + Phase 2 (keywords/ideas) + Phase 3 (publish) — all COMPLETE & committed. |
 | **Source app** | ContentFlow (Next.js) `C:\projects\contentflow\contentflow` |
 | **Roadmap slot** | Master‑plan **Phase 4 분석**. Replaces 3 placeholders: `/marketing/site-analysis`, `/marketing/meta-analytics`, `/marketing/competitors`. Strategy/monitoring/ads = Phase 5 (OUT). |

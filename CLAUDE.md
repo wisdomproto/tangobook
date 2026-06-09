@@ -132,10 +132,12 @@ SPA SEO 기본기. 상세 → memory `seo-infrastructure-2026-05-26.md`.
 - 🔴 다음 할 일(메모리 참조): OG 이미지 6종 / BookSeoPage prerender 확장 / CI 통합 / GSC·네이버 등록 / Core Web Vitals.
 
 ## /marketing — ContentFlow 포트 (브랜치: feat/marketing-phase0)
-ContentFlow AI 마케팅 자동화 SaaS 이식. `/marketing` 라우트, `features/marketing/` 전담 모듈.
-데이터: Supabase `mkt_*` 테이블(싱글 오너 RLS) + R2 (`mkt/{projectId}/…`). Express `/api/mkt` (SSE 포함).
-채널 7/7 + 키워드/아이디어 + 발행 완료. Phase 1(콘텐츠) + Phase 2(키워드/아이디어) + Phase 3(발행: self_hosted Express `setInterval` 스케줄러 + 발행 큐/대시보드/일괄예약 5단계 마법사 + `providers/supabase-admin.provider.ts` 서비스롤 클라이언트 + `mkt_deploy_webhook_queue` + `POST /api/mkt/publish/meta` un-wired) COMPLETE.
-남음: Phase 4(분석) · 5(전략). **388 마케팅 tests / 47 서버 mkt tests**.
+ContentFlow AI 마케팅 자동화 SaaS 이식 — **전 단계(Phase 0~5) 완료, 포트 종료. 모든 `/marketing` 라우트 라이브**. `features/marketing/` 전담 모듈.
+데이터 레인 2종: **supabase-direct**(`mkt_*` 테이블 싱글 오너 RLS + R2 `mkt/{projectId}/…`) = 콘텐츠/키워드/발행/전략/모니터링 키워드 / **server-proxy**(`/api/mkt/…` 시크릿 서버 전용) = 분석·모니터링 검색·SERP. Express `/api/mkt` (SSE 포함).
+- Phase 1(콘텐츠 7채널) · 2(키워드/아이디어) · 3(발행: self_hosted `setInterval` 스케줄러 + 큐/대시보드/5단계 일괄예약 + `supabase-admin.provider` 서비스롤 + `mkt_deploy_webhook_queue`).
+- **Phase 4(분석)**: GA4 서비스계정 JWT(RS256 `node:crypto`, no SDK)→runReport REST + SEO 감사(cheerio) + Meta/YouTube 인사이트 + 경쟁사(갭/순위, Gemini). client는 `recharts` 차트만, 시크릿은 서버에서 프로젝트별 resolve.
+- **Phase 5(전략/모니터링/광고/SERP)**: 전략 HTML 뷰어+클라 파싱 import · 모니터링(지식인/블로그 스크레이프 + YouTube/IG + AI 댓글) · 광고 목업(client-only) · 경쟁사 SERP(DataForSEO).
+마이그레이션은 **Phase 3에서만**(4·5는 기존 컬럼 재사용, 0 SQL). **415 마케팅 tests / 161 서버 mkt tests**. 남음 = main 머지(`finishing-a-development-branch`).
 상세 → [features/marketing/CLAUDE.md](packages/client/src/features/marketing/CLAUDE.md) · memory `marketing-port-contentflow-2026-06-07.md`.
 
 ## 마케팅 자료

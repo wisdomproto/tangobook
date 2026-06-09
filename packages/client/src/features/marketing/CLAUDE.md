@@ -136,6 +136,119 @@ features/marketing/
     database.ts              # + DeployWebhookQueueRow 타입 추가
 ```
 
+### 분석 (Phase 4) 추가 파일
+
+> **데이터 레인이 Phase 1~3과 정반대 — server-proxy.** client는 `{projectId, period/platform/query/url}`만 POST, 시크릿(GA4 privateKey / Meta token)은 서버가 프로젝트별로 resolve.
+
+```
+features/marketing/
+  api/
+    use-analytics.ts         # GA4 쿼리 훅 (server-proxy via postMkt, 501→null, staleTime 5m):
+                             #   useGa4Overview/Traffic/TopPages/Country/Content;
+                             #   SEO 감사/크롤/스키마 mutation 훅;
+                             #   useMetaInsights (501→{connected:false}); useYoutubeChannel;
+                             #   postMkt export (use-competitors가 재사용)
+    use-competitors.ts       # postMktGraceful + useGapAnalysis / useKeywordRankings / useSuggestCompetitors
+  components/
+    analytics/
+      AnalyticsDashboard.tsx        # GA4 트래픽 탭 컨테이너
+      OverviewCards.tsx             # 방문/페이지뷰/세션 요약 카드
+      TrafficChart.tsx              # 트래픽 소스 (recharts)
+      PageviewsChart.tsx            # 일별 페이지뷰 (recharts)
+      CountryTraffic.tsx            # 국가별 트래픽
+      TopPagesTable.tsx             # 상위 페이지 표
+      ContentPerformance.tsx        # 콘텐츠 성과
+      SiteAnalysisDashboard.tsx     # 2 서브탭 (GA4 트래픽 + SEO 분석) 컨테이너
+      WebsiteSeoPanel.tsx           # 메타-분석의 웹사이트(SEO) 탭 패널
+      YoutubeChannelPanel.tsx       # 메타-분석의 YouTube 채널 탭 패널
+      MetaAnalyticsDashboard.tsx    # 5 플랫폼 탭 (IG/FB/Threads/YouTube/Website)
+      seo/
+        SeoDashboard.tsx            # SEO 분석 서브탭 컨테이너
+        ScoreGauge.tsx              # 점수 게이지
+        AuditForm.tsx               # URL 입력 폼
+        IssuesList.tsx              # 이슈 목록
+    competitors/
+      CompetitorsDashboard.tsx      # Phase 4 = 콘텐츠 갭 + 키워드 순위 2탭 (Phase 5에서 SERP 탭 추가)
+  pages/
+    SiteAnalysisPage.tsx  # /marketing/site-analysis
+    MetaAnalyticsPage.tsx # /marketing/meta-analytics
+    CompetitorsPage.tsx   # /marketing/competitors
+```
+
+서버 추가 파일:
+
+```
+packages/server/src/
+  services/mkt/
+    analytics.service.ts    # resolveGa4Config + resolveMetaCredentials (getSupabaseAdmin로 프로젝트별 creds);
+                            #   GA4 매퍼 (mapOverviewSummary/mapDaily/mapTraffic/mapTopPages/mapCountry/mapContent)
+                            #   + 빌더 (getOverview/getTraffic/getTopPages/getCountry/getContent/getMetaInsights/getYoutubeChannel)
+    seo.service.ts          # scoreSeoAudit (PURE, cheerio) + auditUrl (SSRF 가드) + crawlUrl + schemaGenerate
+    competitors.service.ts  # gapAnalysis/keywordRankings/suggestCompetitors (Gemini) + parseCompetitorJson (PURE TDD)
+    external/
+      ga4.ts                # 서비스계정 JWT (RS256 via node:crypto createSign, no SDK) → OAuth 토큰(캐시) → runReport REST
+      meta-graph.ts         # getAdInsights (+ getPageMediaInsights / exchangeToken)
+      youtube-data.ts       # + getChannelInfo / searchChannels / getChannelVideos
+  controllers/mkt/
+    analytics.controller.ts # analyticsOverview/Traffic/TopPages/CountryTraffic/ContentPerformance + metaInsights + youtubeChannel
+    seo.controller.ts       # seoAudit / seoCrawl / seoSchemaGenerate
+    competitors.controller.ts # competitorsGapAnalysis / competitorsKeywordRankings / competitorsSuggest
+```
+
+deps: `recharts ^2.15.4` (client, React-18 라인 — CF의 3.x 아님) · `cheerio ^1.0.0` (server).
+
+### 전략/모니터링/광고/SERP (Phase 5) 추가 파일
+
+> **데이터 레인 믹스**: 전략 = client 파싱 + supabase-direct write + 1 disk-list / 모니터링 검색·댓글 + SERP = server-proxy / 모니터링 키워드 = supabase-direct 영속 / 광고 = client-only.
+
+```
+features/marketing/
+  api/
+    use-strategy-templates.ts # useStrategyTemplates — GET /api/mkt/strategy/templates 쿼리
+    use-monitoring.ts         # useMonitoringSearch + useMonitoringComment (transient, postMkt)
+    use-monitoring-keywords.ts # supabase-direct mkt_monitoring_keywords:
+                              #   useMonitoringKeywords / useAddMonitoringKeyword (user_id 스탬프, 23505 dup no-op) / useRemoveMonitoringKeyword
+    use-competitors.ts        # + useCompetitorSerp (postMktGraceful)
+  components/
+    strategy/
+      StrategyDashboard.tsx     # 템플릿 iframe 뷰어
+      StrategyImportDialog.tsx  # HTML→imported_strategy import (parseStrategyHtml + useUpdateProject)
+    monitoring/
+      MonitoringDashboard.tsx   # per-keyword 피드 (영속 키워드 + 스크레이프/YouTube/IG + AI 댓글)
+      MonitoringFeedCard.tsx    # 피드 카드
+    ads/
+      AdsDashboard.tsx          # 캠페인 기획 목업 (client-only) + 발행 레코드 1 read
+    competitors/
+      CompetitorsDashboard.tsx  # + 3번째 "SERP 분석" 탭
+  pages/
+    StrategyPage.tsx    # /marketing/strategy
+    MonitoringPage.tsx  # /marketing/monitoring
+    AdsPage.tsx         # /marketing/ads
+  lib/
+    strategy-html-parser.ts # parseStrategyHtml (DOMParser, PURE, Phase 0 이식 — import은 client에서 파싱)
+  types/
+    monitoring.ts       # StrategyTemplateMeta / MonitoringFeedItem / SerpResultItem
+    database.ts         # + MonitoringKeyword
+public/marketing-strategy-templates/.gitkeep  # 전략 템플릿 디스크 디렉터리 (빈 상태 출시)
+```
+
+서버 추가 파일:
+
+```
+packages/server/src/
+  services/mkt/
+    strategy.service.ts     # listStrategyTemplates (fs.readdir, graceful empty)
+    monitoring.service.ts   # PURE 매퍼 mapJisikinResults/mapNaverBlogResults/mapGoogleBlogResults (cheerio)
+                            #   + 고정-host SSRF fetch + youtube 재사용 + instagram (resolveMetaCredentials) + Gemini 댓글 + formatViews + searchMonitoring
+    competitors.service.ts  # + serpAnalysis
+    external/
+      dataforseo.ts         # + getSerpResults (serp/google/organic/live/advanced) + mapSerpResults
+  controllers/mkt/
+    strategy.controller.ts    # strategyTemplates
+    monitoring.controller.ts  # monitoringSearch / monitoringComment
+    competitors.controller.ts # + competitorsSerp
+```
+
 ## 데이터 레이어
 
 ### Supabase `mkt_*` 테이블 (싱글 오너 RLS)
@@ -182,24 +295,41 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 
 ## Express `/api/mkt` 라우트
 
-| Method | Path                     | 설명                                                                              |
-| ------ | ------------------------ | --------------------------------------------------------------------------------- |
-| POST   | `/ai/generate`           | Gemini SSE 텍스트 생성 (`text/event-stream`)                                      |
-| POST   | `/ai/generate-image`     | Gemini 이미지 생성 (base64 PNG 반환)                                              |
-| POST   | `/ai/translate`          | 번역 SSE                                                                          |
-| POST   | `/ai/extract-text`       | PDF/DOCX/TXT → 텍스트 추출 (`multipart/form-data`)                                |
-| POST   | `/ai/analyze-references` | URL 레퍼런스 fetch + Gemini 요약                                                  |
-| POST   | `/storage/presign`       | R2 presigned upload URL 발급                                                      |
-| POST   | `/storage/delete`        | R2 키 일괄 삭제                                                                   |
-| GET    | `/storage/proxy?url=`    | R2 이미지 same-origin 프록시 (캔버스 CORS 우회)                                   |
-| POST   | `/naver/keywords`        | 네이버 검색광고 API 키워드 조회                                                   |
-| POST   | `/google/keywords`       | DataForSEO Google 키워드 조회                                                     |
-| POST   | `/keywords/recommend`    | 황금키워드 오케스트레이션 (Gemini seed→Naver volume→3-tier 분류, Phase 2)         |
-| POST   | `/ideas/generate`        | Gemini flash-lite 채널별 AI 아이디어 생성 (Phase 2)                               |
-| POST   | `/ideas/trending`        | YouTube Data trending + Naver trend 집계 (Phase 2)                                |
-| POST   | `/publish/meta`          | IG/FB/Threads Graph API v21.0 발행 (Phase 3, **un-wired** — 클라이언트 연결 없음) |
+| Method | Path                             | 설명                                                                              |
+| ------ | -------------------------------- | --------------------------------------------------------------------------------- |
+| POST   | `/ai/generate`                   | Gemini SSE 텍스트 생성 (`text/event-stream`)                                      |
+| POST   | `/ai/generate-image`             | Gemini 이미지 생성 (base64 PNG 반환)                                              |
+| POST   | `/ai/translate`                  | 번역 SSE                                                                          |
+| POST   | `/ai/extract-text`               | PDF/DOCX/TXT → 텍스트 추출 (`multipart/form-data`)                                |
+| POST   | `/ai/analyze-references`         | URL 레퍼런스 fetch + Gemini 요약                                                  |
+| POST   | `/storage/presign`               | R2 presigned upload URL 발급                                                      |
+| POST   | `/storage/delete`                | R2 키 일괄 삭제                                                                   |
+| GET    | `/storage/proxy?url=`            | R2 이미지 same-origin 프록시 (캔버스 CORS 우회)                                   |
+| POST   | `/naver/keywords`                | 네이버 검색광고 API 키워드 조회                                                   |
+| POST   | `/google/keywords`               | DataForSEO Google 키워드 조회                                                     |
+| POST   | `/keywords/recommend`            | 황금키워드 오케스트레이션 (Gemini seed→Naver volume→3-tier 분류, Phase 2)         |
+| POST   | `/ideas/generate`                | Gemini flash-lite 채널별 AI 아이디어 생성 (Phase 2)                               |
+| POST   | `/ideas/trending`                | YouTube Data trending + Naver trend 집계 (Phase 2)                                |
+| POST   | `/publish/meta`                  | IG/FB/Threads Graph API v21.0 발행 (Phase 3, **un-wired** — 클라이언트 연결 없음) |
+| POST   | `/analytics/overview`            | GA4 방문/페이지뷰/세션 요약 (server-proxy, Phase 4)                               |
+| POST   | `/analytics/traffic`             | GA4 트래픽 소스 (Phase 4)                                                         |
+| POST   | `/analytics/top-pages`           | GA4 상위 페이지 (Phase 4)                                                         |
+| POST   | `/analytics/country-traffic`     | GA4 국가별 트래픽 (Phase 4)                                                       |
+| POST   | `/analytics/content-performance` | GA4 콘텐츠 성과 (Phase 4)                                                         |
+| POST   | `/analytics/meta-insights`       | Meta(IG/FB/Threads) 인사이트 — 토큰 서버사이드 (Phase 4)                          |
+| POST   | `/analytics/youtube-channel`     | YouTube 채널 정보 (Phase 4)                                                       |
+| POST   | `/seo/audit`                     | URL SEO 감사 (cheerio + SSRF 가드, Phase 4)                                       |
+| POST   | `/seo/crawl`                     | URL 크롤 + 텍스트 추출 (Phase 4)                                                  |
+| POST   | `/seo/schema-generate`           | JSON-LD 스키마 생성 (Gemini, Phase 4)                                             |
+| POST   | `/competitors/gap-analysis`      | 콘텐츠 갭 분석 (Gemini, Phase 4)                                                  |
+| POST   | `/competitors/keyword-rankings`  | 키워드 순위 (Gemini, Phase 4)                                                     |
+| POST   | `/competitors/suggest`           | 경쟁사 추천 (Gemini, Phase 4)                                                     |
+| GET    | `/strategy/templates`            | 전략 HTML 템플릿 목록 (disk readdir; import 파싱은 client-side, Phase 5)          |
+| POST   | `/monitoring/search`             | 지식인/N블로그/구글블로그 스크레이프 + YouTube/IG (server-proxy, Phase 5)         |
+| POST   | `/monitoring/comment`            | AI 댓글 생성 (Gemini, Phase 5)                                                    |
+| POST   | `/competitors/serp`              | 경쟁사 SERP top-10 (DataForSEO `serp/google/organic/live/advanced`, Phase 5)      |
 
-서버 파일: `routes/mkt.routes.ts`, `controllers/mkt/{ai,storage,keywords,ideas,publish}.controller.ts`,
+서버 파일: `routes/mkt.routes.ts`, `controllers/mkt/{ai,storage,keywords,ideas,publish,analytics,seo,competitors,strategy,monitoring}.controller.ts`,
 `services/mkt/gemini-sse.service.ts`, `services/mkt/ideas.service.ts`,
 `services/mkt/publish.service.ts` (publishToMeta + saveMetaRecord),
 `services/mkt/publish-scheduler.service.ts` (ONE `setInterval(tick,60_000)` — server.ts listen callback에서 시작),
@@ -210,18 +340,22 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 
 ## 채널 구현 현황
 
-| 채널                      | 상태 | 컴포넌트                                                                                              |
-| ------------------------- | ---- | ----------------------------------------------------------------------------------------------------- |
-| 기본글 (Base Article)     | 완료 | `BaseArticlePanel.tsx` + TipTap 3.x                                                                   |
-| N블로그 (Naver SEO)       | 완료 | `BlogPanel.tsx` — 4-step workflow (키워드→구조→생성→SEO)                                              |
-| 내부블로그 (Google/GEO)   | 완료 | `InternalBlogPanel.tsx`                                                                               |
-| 카드뉴스 (Instagram)      | 완료 | `CardNewsPanel.tsx` — Canvas 편집기 + WebP export + 일괄 이미지 생성                                  |
-| 스레드 (Threads)          | 완료 | `ThreadsPanel.tsx`                                                                                    |
-| 유튜브 (Phase 1c)         | 완료 | `YoutubePanel.tsx` — AI 대본, 씬별 이미지, 타임라인, 미리보기                                         |
-| 번역 (Phase 1d)           | 완료 | `ChannelTranslationView.tsx` — 6채널 번역 overlay (non-ko)                                            |
-| 이미지 에디터 (Phase 1d)  | 완료 | `ImageEditorDialog.tsx` — blog/youtube ImageCardWidget 에서 Pencil                                    |
-| 키워드/아이디어 (Phase 2) | 완료 | `IdeasDashboard.tsx` — 5 서브탭 (N키워드/G키워드/유행/AI아이디어/보관함)                              |
-| 발행 (Phase 3)            | 완료 | `PublishDashboard.tsx` — self_hosted 자동 스케줄러 + 발행 큐/달력 + 5단계 일괄 예약 + Naver 수동 복사 |
+| 채널                             | 상태 | 컴포넌트                                                                                                |
+| -------------------------------- | ---- | ------------------------------------------------------------------------------------------------------- |
+| 기본글 (Base Article)            | 완료 | `BaseArticlePanel.tsx` + TipTap 3.x                                                                     |
+| N블로그 (Naver SEO)              | 완료 | `BlogPanel.tsx` — 4-step workflow (키워드→구조→생성→SEO)                                                |
+| 내부블로그 (Google/GEO)          | 완료 | `InternalBlogPanel.tsx`                                                                                 |
+| 카드뉴스 (Instagram)             | 완료 | `CardNewsPanel.tsx` — Canvas 편집기 + WebP export + 일괄 이미지 생성                                    |
+| 스레드 (Threads)                 | 완료 | `ThreadsPanel.tsx`                                                                                      |
+| 유튜브 (Phase 1c)                | 완료 | `YoutubePanel.tsx` — AI 대본, 씬별 이미지, 타임라인, 미리보기                                           |
+| 번역 (Phase 1d)                  | 완료 | `ChannelTranslationView.tsx` — 6채널 번역 overlay (non-ko)                                              |
+| 이미지 에디터 (Phase 1d)         | 완료 | `ImageEditorDialog.tsx` — blog/youtube ImageCardWidget 에서 Pencil                                      |
+| 키워드/아이디어 (Phase 2)        | 완료 | `IdeasDashboard.tsx` — 5 서브탭 (N키워드/G키워드/유행/AI아이디어/보관함)                                |
+| 발행 (Phase 3)                   | 완료 | `PublishDashboard.tsx` — self_hosted 자동 스케줄러 + 발행 큐/달력 + 5단계 일괄 예약 + Naver 수동 복사   |
+| 분석 (Phase 4)                   | 완료 | `SiteAnalysisDashboard.tsx`(GA4+SEO) · `MetaAnalyticsDashboard.tsx`(5 플랫폼) — server-proxy + recharts |
+| 모니터링/댓글 (Phase 5)          | 완료 | `MonitoringDashboard.tsx` — per-keyword 스크레이프/YouTube/IG 피드 + AI 댓글 (영속 키워드)              |
+| 광고 (Phase 5)                   | 완료 | `AdsDashboard.tsx` — 캠페인 기획 목업 (client-only) + 발행 레코드 read                                  |
+| 경쟁사 (갭/순위/SERP, Phase 4+5) | 완료 | `CompetitorsDashboard.tsx` — 콘텐츠 갭 + 키워드 순위(Gemini) + SERP 분석(DataForSEO)                    |
 
 ## 핵심 Gotchas (반드시 확인)
 
@@ -288,6 +422,27 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 4. **O-7 완전 철회**: `ImageCardWidget.onEdit`이 `undefined`가 아닌 `() => void`가 됨. 두 callsite — `BlogCardItem.tsx`(blog/internal-blog)와 `YoutubePanel.tsx`(유튜브 씬) — 가 실제 `onEdit` 핸들러를 전달. `BlogCardItem`에 `projectId: string` prop 추가 필요 (`uploadToR2` 사용).
 5. **라이브 번역 프리뷰 생략** (O-1d-B): `use-translation.ts`(CF의 SSE 프리뷰 스트리밍)는 구현 안 함. 번역 완료 후 최종 배너 표시만. `translationStatuses` 객체의 `translating` 상태 + `LanguageSelector` 글리프로 UX 보완.
 
+### (k) Phase 4 분석 Gotchas
+
+1. **분석 = server-proxy (NOT supabase-direct)** — Phase 1~3과 정반대. client→Express(`/api/mkt/{analytics,seo,competitors}/*`)→외부 API(GA4/Meta/YouTube/DataForSEO/Gemini). client는 서버 데이터를 Supabase에서 직접 읽지 않는다.
+2. **GA4 = 서비스계정 JWT, SDK 없음**: `external/ga4.ts`가 `node:crypto`의 `createSign('RSA-SHA256')`로 RS256 JWT 서명 → OAuth2 토큰 교환(클라이언트별 캐시) → `runReport` REST. `@google-analytics/data` / `google-auth-library` 미사용. 프로젝트별 `ga4_config`는 `analytics.service.ts resolveGa4Config`가 `getSupabaseAdmin()`로 서버사이드 읽기. PEM은 `\\n`을 실제 개행으로 unescape.
+3. **R-1 시크릿 안전**: GA4 `privateKey` + Meta `pageAccessToken`은 **서버 전용** — `VITE_` 금지, `res.json`/로그에 절대 노출 금지. client는 `{projectId, period/platform/query/url}`만 POST. 브라우저는 presence boolean(연결 여부)만 보유.
+4. **graceful 폴백**: GA4 미설정 501→null, Meta 미연결 501→`{connected:false}`, SEO/competitors 502→빈 결과. `use-analytics.ts`의 `postMkt`(501→null) / `use-competitors.ts`의 `postMktGraceful`가 처리.
+5. **마이그레이션 없음**: `ga4_config`/`funnel_config`/`meta_credentials` 등은 Phase 0 스키마에 이미 존재. GA4 설정 UI는 Phase 0의 `FunnelAnalyticsSection`(ProjectSettings "퍼널·분석" 탭) 재사용 — Phase 4는 컬럼 0 추가.
+6. **`recharts` 핀 `^2.15.4`**: React-18 라인. CF의 3.x가 아님 (React 19 의존 회피).
+
+### (l) Phase 5 전략/모니터링/광고/SERP Gotchas
+
+1. **전략 파싱 = client-side**: `lib/strategy-html-parser.ts`의 `parseStrategyHtml`(DOMParser, PURE, Phase 0 이식)이 브라우저에서 파싱. import은 `useUpdateProject().mutate({ id, updates: { imported_strategy } })` — 훅은 **무인자** 호출 후 `.mutate`에 `{id, updates}` 전달. 서버 `import-html` 파싱 엔드포인트 없음.
+2. **전략 템플릿 디렉터리**: `public/marketing-strategy-templates/`(R-A — 투자자용 `public/strategy.html`과 분리). 빈 상태로 출시(`.gitkeep`만), 서버 `listStrategyTemplates`는 `fs.readdir` graceful empty.
+3. **모니터링 검색 = server-proxy**: 스크레이프 + YouTube 키 + **Meta 토큰 서버사이드 `resolveMetaCredentials`**(와이어에 토큰 없음 — R-1). client는 `{projectId, keyword, language, sources?}`만 POST.
+4. **모니터링 키워드 = per-project 영속**: `mkt_monitoring_keywords`(supabase-direct, `user_id` 스탬프 R-B, 23505 dup no-op). 피드 결과는 transient(컴포넌트 state). `MarketingLanguageTabs`는 소스/댓글 언어만 구동 — 키워드 테이블에 language 컬럼 없음(O-4).
+5. **Naver 검색 = 공개 스크레이프**: Naver 검색용 자격증명 없음 — `naver-searchad`는 키워드 볼륨 전용. 모니터링은 검색 결과 페이지를 직접 스크레이프.
+6. **광고 = client-only**: 캠페인은 `useState`만(영속 X) + `mkt_publish_records` 1 read(소재 picker). 백엔드/마이그레이션 없음. 카피는 중립 샘플(R-9).
+7. **SERP = DataForSEO**: `external/dataforseo.ts getSerpResults`(`serp/google/organic/live/advanced`, R-D) + `mapSerpResults`. Google 직접 스크레이프 아님.
+8. **CF dead 전략 컴포넌트 11개 OUT**: importer가 0개 참조 — 포팅 제외.
+9. **마이그레이션 없음**: `mkt_monitoring_keywords` + `mkt_projects.imported_strategy`는 Phase 0 스키마에 기존재.
+
 ## 라우트
 
 `router/index.tsx` 의 `/marketing` 트리:
@@ -297,8 +452,15 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
   - `content` → `ContentPage`
   - `ideas` → `IdeasPage` (Phase 2)
   - `publish` → `PublishPage` (Phase 3)
+  - `site-analysis` → `SiteAnalysisPage` (Phase 4)
+  - `meta-analytics` → `MetaAnalyticsPage` (Phase 4)
+  - `competitors` → `CompetitorsPage` (Phase 4)
+  - `strategy` → `StrategyPage` (Phase 5)
+  - `monitoring` → `MonitoringPage` (Phase 5)
+  - `ads` → `AdsPage` (Phase 5)
   - `settings` → `SettingsPage`
-  - `*` → `PlaceholderPage`
+
+모든 사이드바 라우트가 실제 페이지로 연결됨 — marketing children에 `PlaceholderPage` 더 이상 없음 (`PlaceholderPage.tsx`는 모듈에 잔존하나 마케팅 트리 미사용).
 
 ## 관련 문서
 
@@ -310,4 +472,8 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 - Phase 2 스펙: `docs/superpowers/specs/2026-06-07-marketing-phase2-keywords-ideas-design.md`
 - Phase 3 스펙: `docs/superpowers/specs/2026-06-09-marketing-phase3-publish-design.md` ✅ COMPLETE
 - Phase 3 플랜: `docs/superpowers/plans/2026-06-09-marketing-phase3-publish.md` ✅ COMPLETE
+- Phase 4 스펙: `docs/superpowers/specs/2026-06-09-marketing-phase4-analytics-design.md` ✅ COMPLETE
+- Phase 4 플랜: `docs/superpowers/plans/2026-06-09-marketing-phase4-analytics.md` ✅ COMPLETE
+- Phase 5 스펙: `docs/superpowers/specs/2026-06-09-marketing-phase5-strategy-monitoring-ads-design.md` ✅ COMPLETE
+- Phase 5 플랜: `docs/superpowers/plans/2026-06-09-marketing-phase5-strategy-monitoring-ads.md` ✅ COMPLETE
 - Memory: `marketing-port-contentflow-2026-06-07.md`

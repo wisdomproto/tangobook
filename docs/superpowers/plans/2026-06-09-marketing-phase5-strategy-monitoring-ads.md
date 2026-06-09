@@ -1,6 +1,6 @@
 # Marketing Phase 5 (전략 / 모니터링 / 광고 / 경쟁사 SERP) Implementation Plan
 
-> **Status: NOT STARTED** — spec written + committed (`d8c4ff3`); this plan chunks it. No feature code yet. **Phase 5 is the FINAL phase** of the ContentFlow → Tangobook `/marketing` port — after it, every `/marketing` sidebar route is live.
+> **Status: ✅ COMPLETE** — all 10 chunks (P5-C1…C10) implemented, reviewed, gates green. **Phase 5 is the FINAL phase** of the ContentFlow → Tangobook `/marketing` port — every `/marketing` sidebar route is now live.
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Each chunk is independently implementable + reviewable by a fresh subagent (implementer → spec-review → quality-review). Implementers run **SEQUENTIALLY** (shared worktree `feat/marketing-phase0`) — chunk order matters; pure-logic/service chunks precede the UI that consumes them. Steps use checkbox (`- [ ]`) syntax for tracking.
 

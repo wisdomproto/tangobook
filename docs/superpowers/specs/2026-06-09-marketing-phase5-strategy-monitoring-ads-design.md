@@ -4,7 +4,7 @@
 |---|---|
 | **Date** | 2026‑06‑09 |
 | **Branch / worktree** | `feat/marketing-phase0` @ `C:\projects\tangobook\.worktrees\marketing-phase0` (verified `git branch --show-current` → `feat/marketing-phase0`) |
-| **Status** | Spec (no implementation) |
+| **Status** | ✅ COMPLETE (implemented + reviewed) |
 | **Predecessor** | Phase 0 Foundation + Phase 1a–1d (content) + Phase 2 (keywords/ideas) + Phase 3 (publish) + Phase 4 (analytics: site‑analysis/meta‑analytics/competitors) — all COMPLETE & committed. |
 | **Source app** | ContentFlow (Next.js) `C:\projects\contentflow\contentflow` (read‑only reference) |
 | **Roadmap slot** | Master‑plan **Phase 5 (final)**. Replaces 2 placeholders (`/marketing/monitoring`, `/marketing/strategy`, `/marketing/ads` — actually **3**: `router/index.tsx:321/325/326`) **+** adds the 3rd "SERP 분석" tab to the **existing** Phase‑4 `CompetitorsDashboard`. After Phase 5, every `/marketing` sidebar route is live. |
