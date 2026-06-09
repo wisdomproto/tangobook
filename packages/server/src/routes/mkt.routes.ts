@@ -26,6 +26,7 @@ import {
   competitorsKeywordRankings,
   competitorsSuggest,
 } from '../controllers/mkt/competitors.controller.js';
+import { strategyTemplates } from '../controllers/mkt/strategy.controller.js';
 
 const router = Router();
 
@@ -78,5 +79,8 @@ router.post('/seo/schema-generate', seoSchemaGenerate);
 router.post('/competitors/gap-analysis', competitorsGapAnalysis);
 router.post('/competitors/keyword-rankings', competitorsKeywordRankings);
 router.post('/competitors/suggest', competitorsSuggest);
+
+// ── Strategy (template viewer — disk list; import parse is client-side) ──
+router.get('/strategy/templates', strategyTemplates);
 
 export default router;
