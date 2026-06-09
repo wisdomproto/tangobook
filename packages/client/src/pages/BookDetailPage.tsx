@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useStorybook, useStorybooks } from '@/features/storybook';
 import {
@@ -8,6 +9,7 @@ import {
   getAvailableStyles,
 } from '@/lib/storybook-accessors';
 import { findArtStylePreset } from '@/features/editor/lib/style-assets';
+import { settingsApi } from '@/features/settings/api/settings.api';
 import { StateScreen, Skeleton, Chip, PageHeader } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { useSeo } from '@/lib/useSeo';
@@ -34,6 +36,12 @@ export default function BookDetailPage() {
   // 4-25~26 v2 시도 폐기 후 BookDetail 도 v1 으로 정리.
   const { data: storybook, isLoading, isError } = useStorybook(id);
   const { data: allStorybooks } = useStorybooks();
+  // 그림체 칩 라벨용 — 사용자 편집 그림체(style-* 커스텀 id)는 ART_STYLES preset 밖이라
+  // art-style-library 를 함께 넘겨야 "에릭칼(콜라주)" 같은 이름이 뜸 (없으면 '그림체' 폴백).
+  const { data: styleLibrary } = useQuery({
+    queryKey: ['art-style-library'],
+    queryFn: settingsApi.getArtStyleLibrary,
+  });
 
   // SEO — 책 detail 페이지는 SEO 진입 페이지 (BookSeoPage 의 /about 는 부모용 가이드, /library/:id 는 학습자 진입).
   // 책 정보 로드되면 동적으로 title/description/og 세팅. 책 상세는 학습 진입점이라 robots=index.
@@ -47,7 +55,7 @@ export default function BookDetailPage() {
     type: 'book',
   });
 
-  const [lang, setLang] = useState<string>('ko');
+  const [langState, setLang] = useState<string>('ko');
   const [selectedLevel, setSelectedLevel] = useState<ReadingLevel | null>(null);
   const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
   const [videoOpen, setVideoOpen] = useState(false);
@@ -134,9 +142,16 @@ export default function BookDetailPage() {
     );
   }
 
-  const languages =
+  const allLanguages =
     storybook.languages && storybook.languages.length > 0 ? storybook.languages : ['ko'];
-  const styles = getAvailableStyles(storybook);
+  const allStyles = getAvailableStyles(storybook);
+  // 셀 단위 공개 필터 — publicByStyleLang[style][lang] === false 면 학습자에게 비공개.
+  // /editor2 헤더 체크박스 + /library-master 표에서 (그림체 × 언어) 셀 단위로 설정. 미정의 = 공개.
+  const isCellPublic = (s: string, l: string): boolean =>
+    storybook.publicByStyleLang?.[s]?.[l] !== false;
+  // 그림체 칩 = 공개 언어가 ≥1 개인 그림체만. (모두 비공개면 폴백 — 그런 책은 isPublic=false 라 라이브러리 미노출)
+  const visibleStyles = allStyles.filter((s) => allLanguages.some((l) => isCellPublic(s, l)));
+  const styles = visibleStyles.length > 0 ? visibleStyles : allStyles;
 
   // 효과 레벨/스타일 (URL params에 전달용)
   const launchLevel = storybook.curriculumMeta?.launchLevel;
@@ -144,7 +159,12 @@ export default function BookDetailPage() {
     selectedLevel ??
     (launchLevel && levels.includes(launchLevel) ? launchLevel : levels[0]) ??
     baseLevel;
-  const effectiveStyle = selectedStyle ?? styles[0];
+  const effectiveStyle =
+    (selectedStyle && styles.includes(selectedStyle) ? selectedStyle : undefined) ?? styles[0];
+  // 언어 토글 = 현재 그림체에서 공개된 언어만 + 선택 언어가 비공개면 첫 공개 언어로 보정.
+  const visibleLangs = allLanguages.filter((l) => isCellPublic(effectiveStyle, l));
+  const languages = visibleLangs.length > 0 ? visibleLangs : allLanguages;
+  const lang = languages.includes(langState) ? langState : languages[0];
 
   // (그림체 × 언어) 조합 대표 표지.
   //   1) styleAssets[style].primaryCoverByLang[lang] — 그림체별 자산 안 (style, lang) 마커
@@ -274,7 +294,7 @@ export default function BookDetailPage() {
                       <span className="text-base font-black text-ink-800 flex items-center gap-1.5 truncate min-w-0">
                         <span className="shrink-0">🎨</span>
                         <span className="truncate">
-                          {findArtStylePreset(effectiveStyle)?.label ?? '그림체'}
+                          {findArtStylePreset(effectiveStyle, styleLibrary)?.label ?? '그림체'}
                         </span>
                       </span>
                       <button
