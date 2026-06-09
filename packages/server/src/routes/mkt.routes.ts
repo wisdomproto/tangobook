@@ -21,6 +21,11 @@ import {
   youtubeChannel,
 } from '../controllers/mkt/analytics.controller.js';
 import { seoAudit, seoCrawl, seoSchemaGenerate } from '../controllers/mkt/seo.controller.js';
+import {
+  competitorsGapAnalysis,
+  competitorsKeywordRankings,
+  competitorsSuggest,
+} from '../controllers/mkt/competitors.controller.js';
 
 const router = Router();
 
@@ -68,5 +73,10 @@ router.post('/analytics/youtube-channel', youtubeChannel);
 router.post('/seo/audit', seoAudit);
 router.post('/seo/crawl', seoCrawl);
 router.post('/seo/schema-generate', seoSchemaGenerate);
+
+// ── Competitor endpoints ──────────────────────────────────────────────────────
+router.post('/competitors/gap-analysis', competitorsGapAnalysis);
+router.post('/competitors/keyword-rankings', competitorsKeywordRankings);
+router.post('/competitors/suggest', competitorsSuggest);
 
 export default router;
