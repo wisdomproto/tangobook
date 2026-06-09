@@ -9,3 +9,4 @@ export { PlaceholderPage } from './pages/PlaceholderPage';
 export { IdeasPage } from './pages/IdeasPage';
 export { PublishPage } from './pages/PublishPage';
 export { SiteAnalysisPage } from './pages/SiteAnalysisPage';
+export { MetaAnalyticsPage } from './pages/MetaAnalyticsPage';
