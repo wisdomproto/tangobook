@@ -522,3 +522,18 @@ export interface KeywordRanking {
   date: string;
   created_at: string;
 }
+
+// Monitoring keyword — rank/SERP tracking seed (Phase 5). Single-owner RLS:
+// every insert MUST stamp user_id (= auth.uid()).
+export interface MonitoringKeyword {
+  id: string;
+  user_id: string;
+  project_id: string;
+  keyword: string;
+  search_engine: 'naver' | 'google';
+  is_golden: boolean;
+  category: string | null;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
