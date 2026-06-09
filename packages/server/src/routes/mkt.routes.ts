@@ -27,6 +27,7 @@ import {
   competitorsSuggest,
 } from '../controllers/mkt/competitors.controller.js';
 import { strategyTemplates } from '../controllers/mkt/strategy.controller.js';
+import { monitoringSearch, monitoringComment } from '../controllers/mkt/monitoring.controller.js';
 
 const router = Router();
 
@@ -82,5 +83,9 @@ router.post('/competitors/suggest', competitorsSuggest);
 
 // ── Strategy (template viewer — disk list; import parse is client-side) ──
 router.get('/strategy/templates', strategyTemplates);
+
+// ── Monitoring (server-proxy; scrape + youtube + ig-token-server-side + gemini) ──
+router.post('/monitoring/search', monitoringSearch);
+router.post('/monitoring/comment', monitoringComment);
 
 export default router;
