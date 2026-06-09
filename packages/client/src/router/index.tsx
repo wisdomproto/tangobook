@@ -13,6 +13,7 @@ import {
   SiteAnalysisPage,
   MetaAnalyticsPage,
   CompetitorsPage,
+  StrategyPage,
 } from '../features/marketing';
 import LibraryPage from '../pages/LibraryPage';
 import GamesHubPage from '../pages/GamesHubPage';
@@ -322,7 +323,7 @@ export const router = createBrowserRouter([
           { path: 'site-analysis', element: <SiteAnalysisPage /> },
           { path: 'meta-analytics', element: <MetaAnalyticsPage /> },
           { path: 'competitors', element: <CompetitorsPage /> },
-          { path: 'strategy', element: <PlaceholderPage title="마케팅 전략" /> },
+          { path: 'strategy', element: <StrategyPage /> },
           { path: 'ads', element: <PlaceholderPage title="광고 관리" /> },
         ],
       },
