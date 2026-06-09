@@ -6,6 +6,7 @@ import type {
   CompetitorRankingItem,
   SuggestedCompetitor,
 } from '../types/analytics';
+import type { SerpResultItem } from '../types/monitoring';
 
 // ─── Response shapes (faithful to competitors.controller.ts) ─────────────────
 
@@ -86,6 +87,20 @@ export function useKeywordRankings() {
     mutationFn: (args: { projectUrl?: string; competitorUrls?: string[]; keywords: string[] }) =>
       postMktGraceful<KeywordRankingsResult>('/competitors/keyword-rankings', args).then(
         (r) => r?.rankings ?? []
+      ),
+  });
+}
+
+/**
+ * POST /api/mkt/competitors/serp
+ * Body: { keyword, language? } — NO secret; DataForSEO creds live on the server.
+ * Returns SERP result items, or an empty array on 502 (no creds) / failure.
+ */
+export function useCompetitorSerp() {
+  return useMutation({
+    mutationFn: (args: { keyword: string; language?: string }) =>
+      postMktGraceful<{ items: SerpResultItem[] }>('/competitors/serp', args).then(
+        (r) => r?.items ?? []
       ),
   });
 }
