@@ -20,7 +20,10 @@
 import { generateTextWithGemini } from '../../providers/gemini.provider.js';
 import { config } from '../../config/index.js';
 import { AppError } from '../../middleware/error.middleware.js';
-import { getKeywordVolumes } from './external/dataforseo.js';
+import { getKeywordVolumes, getSerpResults } from './external/dataforseo.js';
+import type { SerpResultItem } from './external/dataforseo.js';
+
+export type { SerpResultItem };
 
 // ── Types (server-side mirrors of client types/analytics.ts) ─────────────────
 
@@ -273,4 +276,13 @@ ${input.usp ? `- 차별화: ${input.usp}` : ''}
 
   const text = await generateTextWithGemini(prompt, 3, config.gemini.textModel);
   return parseCompetitorJson(text, { competitors: [] });
+}
+
+/**
+ * Fetch live SERP results for a keyword (3rd competitors tab) via DataForSEO.
+ * Thin wrapper over `getSerpResults` (South Korea / ko by default); creds are
+ * read server-side. Degrades to AppError(502) when DataForSEO creds absent.
+ */
+export async function serpAnalysis(keyword: string, language = 'ko'): Promise<SerpResultItem[]> {
+  return getSerpResults(keyword, 2410, language);
 }

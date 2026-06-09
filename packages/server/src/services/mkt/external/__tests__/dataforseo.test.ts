@@ -4,7 +4,7 @@ vi.mock('../../../../config/index.js', () => ({
   config: { dataforseo: { login: 'LOGIN', password: 'PASS' } },
 }));
 
-import { mapVolumeResult, getKeywordVolumes } from '../dataforseo.js';
+import { mapVolumeResult, getKeywordVolumes, mapSerpResults } from '../dataforseo.js';
 
 describe('mapVolumeResult', () => {
   it('maps fields and defaults missing values to 0', () => {
@@ -41,5 +41,66 @@ describe('getKeywordVolumes', () => {
       vi.fn().mockResolvedValue({ ok: false, status: 500, text: async () => 'err' })
     );
     await expect(getKeywordVolumes(['a'])).rejects.toMatchObject({ statusCode: 502 });
+  });
+});
+
+describe('mapSerpResults', () => {
+  it('maps organic items to the view-model and filters non-organic', () => {
+    const items = [
+      {
+        type: 'organic',
+        rank_group: 1,
+        title: 'T1',
+        url: 'https://a.com',
+        description: 'D1',
+        domain: 'a.com',
+        breadcrumb: 'a.com',
+      },
+      { type: 'people_also_ask', rank_group: 2, title: 'X' },
+      {
+        type: 'organic',
+        rank_group: 3,
+        title: 'T2',
+        url: 'https://b.com',
+        description: 'D2',
+        domain: 'b.com',
+      },
+    ];
+    const out = mapSerpResults(items as never);
+    expect(out).toHaveLength(2);
+    expect(out[0]).toMatchObject({
+      id: '1',
+      title: 'T1',
+      url: 'https://a.com',
+      snippet: 'D1',
+      author: 'a.com',
+    });
+    expect(out[1]).toMatchObject({
+      title: 'T2',
+      url: 'https://b.com',
+      snippet: 'D2',
+      author: 'b.com',
+    });
+  });
+
+  it('falls back to breadcrumb for author and defaults missing fields to empty', () => {
+    const items = [
+      { type: 'organic', rank_group: 2, title: 'T', url: 'https://c.com', breadcrumb: 'c.com › x' },
+    ];
+    const out = mapSerpResults(items as never);
+    expect(out[0]).toEqual({
+      id: '2',
+      title: 'T',
+      url: 'https://c.com',
+      snippet: '',
+      author: 'c.com › x',
+    });
+  });
+
+  it('returns [] for empty input and for non-organic-only input', () => {
+    expect(mapSerpResults([])).toEqual([]);
+    expect(
+      mapSerpResults([{ type: 'people_also_ask' }, { type: 'related_searches' }] as never)
+    ).toEqual([]);
   });
 });

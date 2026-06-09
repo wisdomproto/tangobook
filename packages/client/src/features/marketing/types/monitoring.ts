@@ -7,6 +7,17 @@ export interface StrategyTemplateMeta {
   url: string;
 }
 
+// Client view-model mirroring the server `SerpResultItem` shape 1:1
+// (packages/server/src/services/mkt/external/dataforseo.ts). The client
+// can't import server types, so this is a hand-kept copy.
+export interface SerpResultItem {
+  id: string;
+  title: string;
+  url: string;
+  snippet: string;
+  author: string;
+}
+
 // Client view-model mirroring the server `FeedItem` shape 1:1
 // (packages/server/src/services/mkt/monitoring.service.ts).
 export interface MonitoringFeedItem {

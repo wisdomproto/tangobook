@@ -9,6 +9,7 @@
  *   POST /api/mkt/competitors/gap-analysis      → gapAnalysis
  *   POST /api/mkt/competitors/keyword-rankings  → keywordRankings
  *   POST /api/mkt/competitors/suggest           → suggestCompetitors
+ *   POST /api/mkt/competitors/serp              → serpAnalysis (DataForSEO)
  */
 
 import type { Request, Response } from 'express';
@@ -18,6 +19,7 @@ import {
   gapAnalysis,
   keywordRankings,
   suggestCompetitors,
+  serpAnalysis,
 } from '../../services/mkt/competitors.service.js';
 
 /** POST /api/mkt/competitors/gap-analysis
@@ -70,4 +72,14 @@ export const competitorsSuggest = asyncHandler(async (req: Request, res: Respons
     usp,
   });
   res.json({ success: true, data });
+});
+
+/** POST /api/mkt/competitors/serp
+ *  Body: { keyword, language? } — DataForSEO live SERP (creds read server-side).
+ */
+export const competitorsSerp = asyncHandler(async (req: Request, res: Response) => {
+  const { keyword, language } = req.body as { keyword?: string; language?: string };
+  if (!keyword) throw new AppError(400, 'keyword is required');
+  const items = await serpAnalysis(keyword, language ?? 'ko');
+  res.json({ success: true, data: { items } });
 });

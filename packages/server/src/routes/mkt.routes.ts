@@ -25,6 +25,7 @@ import {
   competitorsGapAnalysis,
   competitorsKeywordRankings,
   competitorsSuggest,
+  competitorsSerp,
 } from '../controllers/mkt/competitors.controller.js';
 import { strategyTemplates } from '../controllers/mkt/strategy.controller.js';
 import { monitoringSearch, monitoringComment } from '../controllers/mkt/monitoring.controller.js';
@@ -80,6 +81,9 @@ router.post('/seo/schema-generate', seoSchemaGenerate);
 router.post('/competitors/gap-analysis', competitorsGapAnalysis);
 router.post('/competitors/keyword-rankings', competitorsKeywordRankings);
 router.post('/competitors/suggest', competitorsSuggest);
+
+// ── Competitors SERP (3rd tab — DataForSEO) ──
+router.post('/competitors/serp', competitorsSerp);
 
 // ── Strategy (template viewer — disk list; import parse is client-side) ──
 router.get('/strategy/templates', strategyTemplates);
