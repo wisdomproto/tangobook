@@ -205,32 +205,25 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     }
   }, [pageIndex, storybook, storybookId, mode, lang, pages, logEvent, logBatch, urlStyle]);
 
-  // 다음 5페이지 이미지·TTS 미리 버퍼링 (페이지 넘기기 딜레이 제거)
+  // 이미지: 다음 페이지 미리 로드 / TTS: 현재 페이지부터 미리 버퍼링 (첫 음성 지연 제거)
   const PRELOAD_AHEAD = 5;
   useEffect(() => {
-    const preloadList = pages.slice(pageIndex + 1, pageIndex + 1 + PRELOAD_AHEAD);
+    // 이미지는 다음 페이지들 (현재 페이지는 이미 렌더 중이라 제외)
+    const imgList = pages.slice(pageIndex + 1, pageIndex + 1 + PRELOAD_AHEAD);
     const loaded: HTMLImageElement[] = [];
-    const audios: HTMLAudioElement[] = [];
-    for (const p of preloadList) {
+    for (const p of imgList) {
       if (p.illustrationUrl) {
         const img = new Image();
         img.src = p.illustrationUrl;
         loaded.push(img);
       }
-      const ttsUrl = getPageTtsUrl(p, lang);
-      if (ttsUrl) {
-        const a = new Audio();
-        a.preload = 'auto';
-        a.src = ttsUrl;
-        audios.push(a);
-      }
     }
+    // TTS 는 현재 페이지를 포함해 버퍼링 — 진입 직후 첫 음성이 즉시 나오도록.
+    // playTts 가 이 풀의 Audio 객체를 재사용하므로 HTTP 캐시/Cache-Control 에 의존하지 않는다.
+    const ttsList = pages.slice(pageIndex, pageIndex + 1 + PRELOAD_AHEAD);
+    audio.preloadTts(ttsList.map((p) => getPageTtsUrl(p, lang)));
     return () => {
-      // 참조만 끊어주면 브라우저 캐시는 유지됨
       loaded.length = 0;
-      audios.forEach((a) => {
-        a.src = '';
-      });
     };
   }, [pageIndex, pages, lang]);
 
