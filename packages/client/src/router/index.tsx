@@ -10,6 +10,7 @@ import {
   PlaceholderPage,
   IdeasPage,
   PublishPage,
+  SiteAnalysisPage,
 } from '../features/marketing';
 import LibraryPage from '../pages/LibraryPage';
 import GamesHubPage from '../pages/GamesHubPage';
@@ -316,7 +317,7 @@ export const router = createBrowserRouter([
           { path: 'ideas', element: <IdeasPage /> },
           { path: 'publish', element: <PublishPage /> },
           { path: 'monitoring', element: <PlaceholderPage title="모니터링 / 댓글" /> },
-          { path: 'site-analysis', element: <PlaceholderPage title="사이트 분석" /> },
+          { path: 'site-analysis', element: <SiteAnalysisPage /> },
           { path: 'meta-analytics', element: <PlaceholderPage title="채널 분석" /> },
           { path: 'competitors', element: <PlaceholderPage title="경쟁사" /> },
           { path: 'strategy', element: <PlaceholderPage title="마케팅 전략" /> },
