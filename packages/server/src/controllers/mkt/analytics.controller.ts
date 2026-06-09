@@ -8,6 +8,8 @@ import {
   getTopPages,
   getCountry,
   getContent,
+  getMetaInsights,
+  getYoutubeChannel,
 } from '../../services/mkt/analytics.service.js';
 
 /**
@@ -61,5 +63,44 @@ export const analyticsContentPerformance = asyncHandler(async (req: Request, res
   if (!projectId) throw new AppError(400, 'projectId is required');
   const cfg = await resolveGa4Config(projectId);
   const data = await getContent(cfg, period ?? '30d');
+  res.json({ success: true, data });
+});
+
+/**
+ * POST /api/mkt/analytics/meta-insights
+ * Body: { projectId, platform, country? }
+ *
+ * R-1/R-6: Meta page access token is read server-side only via resolveMetaCredentials.
+ * It is NEVER echoed back in the response. A 501 from resolveMetaCredentials propagates
+ * as { success:false, error } → the client renders the "연결 필요" empty state.
+ */
+export const metaInsights = asyncHandler(async (req: Request, res: Response) => {
+  const { projectId, platform, country } = req.body as {
+    projectId?: string;
+    platform?: string;
+    country?: string;
+  };
+  if (!projectId || !platform) {
+    throw new AppError(400, 'projectId and platform are required');
+  }
+  const data = await getMetaInsights(projectId, platform, country);
+  res.json({ success: true, data });
+});
+
+/**
+ * POST /api/mkt/analytics/youtube-channel
+ * Body: { action, params? }
+ *
+ * Dispatches YouTube Data API actions (searchChannel / getChannel / getVideos /
+ * getVideoStats). Returns raw Google JSON — the client hook assembles the view-model.
+ * Requires YOUTUBE_DATA_API_KEY server-side; throws 502 when absent.
+ */
+export const youtubeChannel = asyncHandler(async (req: Request, res: Response) => {
+  const { action, params } = req.body as {
+    action?: string;
+    params?: Record<string, unknown>;
+  };
+  if (!action) throw new AppError(400, 'action is required');
+  const data = await getYoutubeChannel(action, params ?? {});
   res.json({ success: true, data });
 });

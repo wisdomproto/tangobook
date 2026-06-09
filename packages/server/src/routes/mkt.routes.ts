@@ -17,6 +17,8 @@ import {
   analyticsTopPages,
   analyticsCountryTraffic,
   analyticsContentPerformance,
+  metaInsights,
+  youtubeChannel,
 } from '../controllers/mkt/analytics.controller.js';
 import { seoAudit, seoCrawl, seoSchemaGenerate } from '../controllers/mkt/seo.controller.js';
 
@@ -57,6 +59,10 @@ router.post('/analytics/traffic', analyticsTraffic);
 router.post('/analytics/top-pages', analyticsTopPages);
 router.post('/analytics/country-traffic', analyticsCountryTraffic);
 router.post('/analytics/content-performance', analyticsContentPerformance);
+
+// Meta + YouTube analytics endpoints (4b; token read server-side — R-1/R-6)
+router.post('/analytics/meta-insights', metaInsights);
+router.post('/analytics/youtube-channel', youtubeChannel);
 
 // ── SEO endpoints (site-analysis SEO sub-tab) ──────────────────────────────────
 router.post('/seo/audit', seoAudit);

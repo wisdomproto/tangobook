@@ -19,6 +19,13 @@ import { getSupabaseAdmin } from '../../providers/supabase-admin.provider.js';
 import { config } from '../../config/index.js';
 import { AppError } from '../../middleware/error.middleware.js';
 import { runReport, type GA4Report } from './external/ga4.js';
+import { getPageMediaInsights, type MetaPage } from './external/meta-graph.js';
+import {
+  searchChannels,
+  getChannelInfo,
+  getChannelVideos,
+  getVideoStats,
+} from './external/youtube-data.js';
 
 // Server-side view-model shapes — plain JSON returned to the client. These mirror
 // the client `features/marketing/types/analytics.ts` interfaces exactly (the
@@ -249,4 +256,260 @@ export async function getContent(cfg: ResolvedGa4, period: Period): Promise<GA4C
     limit: 15,
   });
   return mapContent(report);
+}
+
+// ─── Meta / YouTube analytics (server-proxy; token read server-side) ──────────
+// R-1 / R-6: `meta_credentials.pages[].pageAccessToken` is resolved here and
+// NEVER returned to the client or logged. The client sends only { projectId, platform }.
+
+type MetaCredRow = { pages: MetaPage[] };
+
+/**
+ * Resolve Meta credentials for a project from the mkt_projects row.
+ * No env fallback — Meta credentials are always per-project.
+ * Throws AppError(501) when absent (renders "연결 필요" empty state on the client).
+ */
+export async function resolveMetaCredentials(projectId: string): Promise<{ pages: MetaPage[] }> {
+  const admin = getSupabaseAdmin();
+  if (!admin) {
+    throw new AppError(501, 'Meta 연동이 필요합니다. 설정 > 채널연동에서 연결하세요.');
+  }
+  const { data } = await admin
+    .from('mkt_projects')
+    .select('meta_credentials')
+    .eq('id', projectId)
+    .maybeSingle();
+
+  const row = (data as { meta_credentials?: MetaCredRow | null } | null)?.meta_credentials;
+  if (!row?.pages?.length) {
+    throw new AppError(501, 'Meta 연동이 필요합니다. 설정 > 채널연동에서 연결하세요.');
+  }
+  return { pages: row.pages };
+}
+
+// ─── Meta insight view-model types ────────────────────────────────────────────
+
+export interface MetaOverviewMetrics {
+  followers: number;
+  followersGrowth: number;
+  totalReach: number;
+  reachGrowth: number;
+  totalEngagement: number;
+  engagementGrowth: number;
+  avgEngagementRate: number;
+  postsCount: number;
+}
+
+export interface MetaContentMetric {
+  id: string;
+  title: string;
+  type: string;
+  date: string;
+  reach: number;
+  impressions: number;
+  engagement: number;
+  engagementRate: number;
+  likes: number;
+  comments: number;
+  shares: number;
+  saves: number;
+}
+
+export interface MetaInsightsResult {
+  connected: boolean;
+  overview: MetaOverviewMetrics;
+  contents: MetaContentMetric[];
+}
+
+const DEFAULT_META_OVERVIEW: MetaOverviewMetrics = {
+  followers: 0,
+  followersGrowth: 0,
+  totalReach: 0,
+  reachGrowth: 0,
+  totalEngagement: 0,
+  engagementGrowth: 0,
+  avgEngagementRate: 0,
+  postsCount: 0,
+};
+
+/**
+ * Format a number using Korean units (억/만) — faithful to CF meta-analytics-dashboard.tsx.
+ * >= 100M → 억, >= 10K → 만, >= 1000 → toLocaleString, else raw string.
+ */
+export function formatNumber(n: number): string {
+  if (n >= 100_000_000) return `${(n / 100_000_000).toFixed(1)}억`;
+  if (n >= 10_000) return `${(n / 10_000).toFixed(1)}만`;
+  if (n >= 1_000) return n.toLocaleString();
+  return String(n);
+}
+
+// ─── Pure mappers (TDD unit — no HTTP, no side-effects) ───────────────────────
+
+/** Raw Instagram Graph JSON → MetaInsightsResult (faithful to CF meta-analytics-dashboard.tsx:103‑136). */
+export function mapInstagramInsights(data: {
+  followers_count?: number;
+  media_count?: number;
+  media?: {
+    data?: Array<{
+      id?: string;
+      caption?: string;
+      media_type?: string;
+      timestamp?: string;
+      like_count?: number;
+      comments_count?: number;
+    }>;
+  };
+}): MetaInsightsResult {
+  const followers = data.followers_count ?? 0;
+  const postsCount = data.media_count ?? 0;
+
+  const items = (data.media?.data ?? []).slice(0, 20);
+  const contents: MetaContentMetric[] = items.map((post) => ({
+    id: post.id ?? '',
+    title: (post.caption ?? '').substring(0, 60),
+    type: post.media_type ?? '',
+    date: post.timestamp ? new Date(post.timestamp).toLocaleDateString('ko-KR') : '',
+    reach: 0,
+    impressions: 0,
+    engagement: (post.like_count ?? 0) + (post.comments_count ?? 0),
+    engagementRate: 0,
+    likes: post.like_count ?? 0,
+    comments: post.comments_count ?? 0,
+    shares: 0,
+    saves: 0,
+  }));
+
+  const totalEngagement = contents.reduce((sum, c) => sum + c.engagement, 0);
+  const avgEngagementRate =
+    followers > 0
+      ? parseFloat(((totalEngagement / (contents.length || 1) / followers) * 100).toFixed(1))
+      : 0;
+
+  return {
+    connected: true,
+    overview: {
+      ...DEFAULT_META_OVERVIEW,
+      followers,
+      postsCount,
+      totalEngagement,
+      avgEngagementRate,
+    },
+    contents,
+  };
+}
+
+/** Raw Facebook Graph JSON → MetaInsightsResult (faithful to CF meta-analytics-dashboard.tsx:137‑167). */
+export function mapFacebookInsights(data: {
+  fan_count?: number;
+  posts?: {
+    data?: Array<{
+      id?: string;
+      message?: string;
+      created_time?: string;
+      likes?: { summary?: { total_count?: number } };
+      comments?: { summary?: { total_count?: number } };
+      shares?: { count?: number };
+    }>;
+  };
+}): MetaInsightsResult {
+  const followers = data.fan_count ?? 0;
+
+  const items = (data.posts?.data ?? []).slice(0, 20);
+  const contents: MetaContentMetric[] = items.map((post) => ({
+    id: post.id ?? '',
+    title: (post.message ?? '').substring(0, 60),
+    type: 'POST',
+    date: post.created_time ? new Date(post.created_time).toLocaleDateString('ko-KR') : '',
+    reach: 0,
+    impressions: 0,
+    engagement:
+      (post.likes?.summary?.total_count ?? 0) + (post.comments?.summary?.total_count ?? 0),
+    engagementRate: 0,
+    likes: post.likes?.summary?.total_count ?? 0,
+    comments: post.comments?.summary?.total_count ?? 0,
+    shares: post.shares?.count ?? 0,
+    saves: 0,
+  }));
+
+  const totalEngagement = contents.reduce((sum, c) => sum + c.engagement, 0);
+  const avgEngagementRate =
+    followers > 0
+      ? parseFloat(((totalEngagement / (contents.length || 1) / followers) * 100).toFixed(1))
+      : 0;
+
+  return {
+    connected: true,
+    overview: {
+      ...DEFAULT_META_OVERVIEW,
+      followers,
+      postsCount: contents.length,
+      totalEngagement,
+      avgEngagementRate,
+    },
+    contents,
+  };
+}
+
+// ─── Service functions (HTTP + mapping) ───────────────────────────────────────
+
+/**
+ * Fetch Meta page/media insights for a project + platform.
+ * Resolves `meta_credentials` server-side (R-1/R-6); token never returned.
+ * `platform === 'threads'` has no public API → returns empty MetaInsightsResult.
+ */
+export async function getMetaInsights(
+  projectId: string,
+  platform: string,
+  _country?: string
+): Promise<MetaInsightsResult> {
+  const { pages } = await resolveMetaCredentials(projectId);
+  const page = pages[0];
+
+  if (platform === 'instagram') {
+    const { raw } = await getPageMediaInsights(page, 'instagram');
+    return mapInstagramInsights(raw as Parameters<typeof mapInstagramInsights>[0]);
+  }
+
+  if (platform === 'facebook') {
+    const { raw } = await getPageMediaInsights(page, 'facebook');
+    return mapFacebookInsights(raw as Parameters<typeof mapFacebookInsights>[0]);
+  }
+
+  // Threads — no public insights API
+  return {
+    connected: true,
+    overview: { ...DEFAULT_META_OVERVIEW },
+    contents: [],
+  };
+}
+
+/**
+ * Dispatch YouTube Data API actions (faithful to CF's `ytApi` + `analyzeYoutubeChannel`).
+ * Returns raw Google JSON so the client hook can port the parsing verbatim.
+ */
+export async function getYoutubeChannel(
+  action: string,
+  params: Record<string, unknown>
+): Promise<unknown> {
+  switch (action) {
+    case 'searchChannel': {
+      const query = String(params.query ?? '');
+      return searchChannels(query, 1);
+    }
+    case 'getChannel': {
+      const channelId = String(params.channelId ?? '');
+      return getChannelInfo(channelId);
+    }
+    case 'getVideos': {
+      const channelId = String(params.channelId ?? '');
+      const maxResults = Number(params.maxResults ?? 20);
+      return getChannelVideos(channelId, maxResults);
+    }
+    case 'getVideoStats': {
+      const ids = String(params.videoIds ?? '');
+      return getVideoStats(ids.split(',').filter(Boolean));
+    }
+    default:
+      throw new AppError(400, `Unknown YouTube action: ${action}`);
+  }
 }
