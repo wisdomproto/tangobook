@@ -48,4 +48,35 @@ export const config = {
       process.env.YOUTUBE_REDIRECT_URI ??
       'http://localhost:3000/api/longform/youtube/oauth/callback',
   },
+
+  // Marketing Phase 0+ — all optional; server boots without these
+  ga4: {
+    propertyId: process.env.GA4_PROPERTY_ID ?? '',
+    clientEmail: process.env.GA4_CLIENT_EMAIL ?? '',
+    privateKey: (process.env.GA4_PRIVATE_KEY ?? '').replace(/\\n/g, '\n'),
+  },
+
+  meta: {
+    appId: process.env.META_APP_ID ?? '',
+    appSecret: process.env.META_APP_SECRET ?? '',
+  },
+
+  youtubeApiKey: process.env.YOUTUBE_DATA_API_KEY ?? '',
+
+  dataforseo: {
+    login: process.env.DATAFORSEO_LOGIN ?? '',
+    password: process.env.DATAFORSEO_PASSWORD ?? '',
+  },
+
+  naverDatalab: {
+    clientId: process.env.NAVER_DATALAB_CLIENT_ID ?? '',
+    secret: process.env.NAVER_DATALAB_SECRET ?? '',
+  },
+
+  supabase: {
+    url: process.env.SUPABASE_URL ?? process.env.VITE_SUPABASE_URL ?? '',
+    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY ?? '',
+  },
+
+  cron: { secret: process.env.CRON_SECRET ?? '' }, // optional manual-tick guard (spec §4.5)
 } as const;

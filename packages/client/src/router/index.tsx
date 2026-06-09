@@ -3,6 +3,19 @@ import { ErrorBoundary } from '@/design-system';
 import { AppLayout } from '../components/AppLayout';
 import { AppLayoutV2 } from '../components/AppLayoutV2';
 import { AppShell } from '../components/AppShell';
+import {
+  MarketingLayout,
+  ContentPage,
+  SettingsPage,
+  IdeasPage,
+  PublishPage,
+  SiteAnalysisPage,
+  MetaAnalyticsPage,
+  CompetitorsPage,
+  StrategyPage,
+  MonitoringPage,
+  AdsPage,
+} from '../features/marketing';
 import LibraryPage from '../pages/LibraryPage';
 import GamesHubPage from '../pages/GamesHubPage';
 import RandomBlockGamePage from '../pages/RandomBlockGamePage';
@@ -291,6 +304,28 @@ export const router = createBrowserRouter([
           { path: 'reports', element: <ParentReportsPage /> },
           { path: 'profiles', element: <ParentProfilesPage /> },
           { path: 'settings', element: <ParentSettingsPage /> },
+        ],
+      },
+      // Marketing operator shell — auth-guarded, outside AppShell, full-screen
+      {
+        path: 'marketing',
+        element: (
+          <ErrorBoundary>
+            <MarketingLayout />
+          </ErrorBoundary>
+        ),
+        children: [
+          { index: true, element: <Navigate to="/marketing/content" replace /> },
+          { path: 'content', element: <ContentPage /> },
+          { path: 'settings', element: <SettingsPage /> },
+          { path: 'ideas', element: <IdeasPage /> },
+          { path: 'publish', element: <PublishPage /> },
+          { path: 'monitoring', element: <MonitoringPage /> },
+          { path: 'site-analysis', element: <SiteAnalysisPage /> },
+          { path: 'meta-analytics', element: <MetaAnalyticsPage /> },
+          { path: 'competitors', element: <CompetitorsPage /> },
+          { path: 'strategy', element: <StrategyPage /> },
+          { path: 'ads', element: <AdsPage /> },
         ],
       },
       { path: '*', element: <NotFoundPage /> },
