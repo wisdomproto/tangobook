@@ -45,6 +45,7 @@
     "react-router-dom": "^6.28.0",
     "remotion": "^4.0.440",
     "tailwind-merge": "^3.5.0",
+    "recharts": "^2.15.4",
     "zustand": "^5.0.0"
   },
   "devDependencies": {

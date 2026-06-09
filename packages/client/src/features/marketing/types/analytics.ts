@@ -78,6 +78,97 @@ export interface ImportedTopic {
   status: 'new' | 'done' | 'similar';
 }
 
+// --- GA4 country / content (new dimensions) ---
+export interface GA4CountryRow {
+  country: string;
+  sessions: number;
+  users: number;
+}
+export interface GA4ContentRow {
+  path: string;
+  sessions: number;
+  avgDuration: number;
+  bounceRate: number;
+}
+
+// --- Meta channel analytics ---
+export interface MetaContentMetric {
+  id: string;
+  title: string;
+  type: string;
+  date: string;
+  reach: number;
+  impressions: number;
+  engagement: number;
+  engagementRate: number;
+  likes: number;
+  comments: number;
+  shares: number;
+  saves: number;
+}
+export interface MetaOverviewMetrics {
+  followers: number;
+  followersGrowth: number;
+  totalReach: number;
+  reachGrowth: number;
+  totalEngagement: number;
+  engagementGrowth: number;
+  avgEngagementRate: number;
+  postsCount: number;
+}
+export interface MetaInsightsResult {
+  connected: boolean;
+  overview: MetaOverviewMetrics;
+  contents: MetaContentMetric[];
+}
+export interface YoutubeChannelStat {
+  id: string;
+  title: string;
+  description?: string;
+  thumbnail?: string;
+  subscribers: number;
+  viewCount: number;
+  videoCount: number;
+  avgViews: number;
+}
+
+// --- Competitors ---
+export interface CompetitorGapItem {
+  topic: string;
+  monthlySearch: number;
+  competitors: string[];
+  difficulty: string;
+  priority: string;
+}
+export interface CompetitorStrengthItem {
+  topic: string;
+  monthlySearch: number;
+  note: string;
+}
+export interface CompetitorRankingItem {
+  keyword: string;
+  myRank: number | null;
+  volume?: number;
+  competitors: { name: string; rank: number | null }[];
+}
+export interface SuggestedCompetitor {
+  name: string;
+  url?: string;
+  type: string;
+  reason: string;
+  strength: string;
+}
+
+// --- SEO audit ---
+export interface SeoAuditResult {
+  url: string;
+  title: string;
+  metaDescription: string;
+  scores: { google: number; naver: number; geo: number; tech: number };
+  issues: { severity: string; message: string; engine: string; fix_action?: string }[];
+  meta: Record<string, unknown>;
+}
+
 // --- 주간 보고서 ---
 export interface WeeklyReportData {
   projectName: string;

@@ -30,6 +30,20 @@ export const mktKeys = {
   savedKeywords: (projectId: string) => ['mkt', 'saved-keywords', projectId] as const,
   publishRecords: (projectId: string) => ['mkt', 'publish-records', projectId] as const,
   publishCounts: (projectId: string) => ['mkt', 'publish-counts', projectId] as const,
+  analyticsOverview: (projectId: string, period: string) =>
+    ['mkt', 'analytics', 'overview', projectId, period] as const,
+  analyticsTraffic: (projectId: string, period: string) =>
+    ['mkt', 'analytics', 'traffic', projectId, period] as const,
+  analyticsTopPages: (projectId: string, period: string) =>
+    ['mkt', 'analytics', 'top-pages', projectId, period] as const,
+  analyticsCountry: (projectId: string, period: string) =>
+    ['mkt', 'analytics', 'country', projectId, period] as const,
+  analyticsContent: (projectId: string, period: string) =>
+    ['mkt', 'analytics', 'content', projectId, period] as const,
+  metaInsights: (projectId: string, platform: string, country: string) =>
+    ['mkt', 'analytics', 'meta', projectId, platform, country] as const,
+  youtubeChannel: (projectId: string, query: string) =>
+    ['mkt', 'analytics', 'yt-channel', projectId, query] as const,
 };
 
 // ─── Fetch Helpers ──────────────────────────────────────────────────────────
