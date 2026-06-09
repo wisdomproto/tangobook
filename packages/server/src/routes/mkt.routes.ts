@@ -11,6 +11,13 @@ import { presign, deleteKeys, proxy } from '../controllers/mkt/storage.controlle
 import { naverKeywords, googleKeywords } from '../controllers/mkt/keywords.controller.js';
 import { recommendKeywords, generateIdeas, trending } from '../controllers/mkt/ideas.controller.js';
 import { metaPublish } from '../controllers/mkt/publish.controller.js';
+import {
+  analyticsOverview,
+  analyticsTraffic,
+  analyticsTopPages,
+  analyticsCountryTraffic,
+  analyticsContentPerformance,
+} from '../controllers/mkt/analytics.controller.js';
 
 const router = Router();
 
@@ -42,5 +49,12 @@ router.post('/ideas/trending', trending);
 
 // ── Publish endpoints ──────────────────────────────────────────────────────────
 router.post('/publish/meta', metaPublish);
+
+// ── Analytics endpoints (server-proxy; per-project creds read server-side) ──────
+router.post('/analytics/overview', analyticsOverview);
+router.post('/analytics/traffic', analyticsTraffic);
+router.post('/analytics/top-pages', analyticsTopPages);
+router.post('/analytics/country-traffic', analyticsCountryTraffic);
+router.post('/analytics/content-performance', analyticsContentPerformance);
 
 export default router;
