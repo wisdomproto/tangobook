@@ -42,7 +42,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 
 ## 학습자 화면 (MVP 정책)
 - **사이드바**: 동화책 axis 만 active. 파닉스/어휘 = `comingSoon` 음영(코드/라우트 보존). `AppShell.PRIMARY_AXES`.
-- **LibraryPage** (`/library`): hero 배너 + 검색바 floating. 책 카드 = defaultStyle 대표 표지 1장 + 제목. 그림체 선택은 BookDetailPage 진입 후.
+- **LibraryPage** (`/library`): hero 배너 + 검색바 floating. 책 카드 = defaultStyle 대표 표지 1장 + 제목 (대표 그림체의 ko 표지가 `publicByStyleLang` 비공개면 서버 `toSummary` 가 **공개 그림체 표지로 폴백** — 비공개 그림체 카드 노출 방지). 그림체 선택은 BookDetailPage 진입 후.
 - **BookDetailPage** (`/library/:id`): AppShell 밖 풀폭. 그림체·언어 선택 바 + 16:9 표지 + 모드 카드 3개(책 읽기 coral / 영상 violet / 단어 amber). 표지 = `(effectiveStyle × lang)`: 활성 그림체는 top-level `primaryCoverByLang` 우선(CoverTab 저장처) → 폴백 그림체 `coverImage`(en 을 ko 보다 우선 X). CoverTab `setPrimary` 가 `styleAssets[활성]` 에도 mirror. ⚠️ 기존책 그림체별 ko/en 표지 미분리 多 + 버킷 오염 주의 → memory `book-detail-cell-public-cover`. **셀 단위 공개 필터**(`publicByStyleLang[style][lang]===false`=비공개): 그림체 칩=공개 언어≥1 그림체만 / 언어 토글=현재 그림체 공개 언어만 / 비공개 조합 자동 보정. 그림체 칩 라벨은 art-style-library 로드(커스텀 `style-*` 이름 표시). 부모 가이드 패널. 외부 SEO 페이지 `/library/:id/about`(BookSeoPage) 별도.
 - **VocabularyStudyPage** (`/vocabulary/:unitId`): AppShell 밖. `VocabularyStudyContent` 공용(단어 미리보기 + 게임 카드 4).
 - **한글 파닉스** (`/library/phonics/korean(/:unitId)?`): AppShell 밖 풀화면. 상세 → [features/phonics-learner/CLAUDE.md](packages/client/src/features/phonics-learner/CLAUDE.md).
