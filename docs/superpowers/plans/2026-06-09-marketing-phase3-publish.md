@@ -1,5 +1,7 @@
 # Marketing Phase 3 (발행 / Publish) Implementation Plan
 
+> **Status: COMPLETE** — all chunks landed; migration applied; 388 marketing + 47 server mkt tests green; final review APPROVED (I-1 fixed in 7af8504).
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Each chunk is independently implementable + reviewable by a fresh subagent (implementer → spec-review → quality-review). Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Replace the `/marketing/publish` `PlaceholderPage` with a real **발행 관리** screen faithfully ported from ContentFlow, and add the **only real automation in the app**: a per‑minute Express scheduler that flips due `self_hosted` scheduled publish records to `published` and (debounced) fires each project's static‑site deploy webhook. The screen has: channel cards (one automated `self_hosted` card + 3 static placeholder cards), a publish queue (list + month calendar) with per‑row quick‑scheduling + channel previews, a 5‑stage bulk‑schedule wizard, and a static Naver manual‑copy card. A thin, **un‑wired** `POST /api/mkt/publish/meta` endpoint is ported as a secondary; **YouTube publish is deferred/out of scope.**

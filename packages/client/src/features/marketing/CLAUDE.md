@@ -102,9 +102,38 @@ features/marketing/
     MarketingLayout.tsx   # auth guard + MarketingShell 래퍼 (→ /login if no session)
     ContentPage.tsx       # 콘텐츠 목록 + 채널 탭 레이아웃
     IdeasPage.tsx         # 키워드/아이디어 페이지 (Phase 2)
+    PublishPage.tsx       # 발행 관리 페이지 (Phase 3)
     SettingsPage.tsx      # 프로젝트 설정 페이지
     PlaceholderPage.tsx   # 미구현 채널/기능 placeholder
   index.ts                # 공용 export
+```
+
+### 발행 (Phase 3) 추가 파일
+
+```
+features/marketing/
+  api/
+    use-publish-records.ts   # hooks: usePublishRecords / useFetchPublishCountsByLanguage /
+                             #   useSchedulePublish / useBulkSchedulePublish /
+                             #   useCancelPublish / useUpdateScheduledAt;
+                             #   pure fn: computeBulkInsertRows;
+                             #   모든 insert에 user_id 스탬프;
+                             #   매 mutation 시 mktKeys.publishRecords + publishCounts 무효화
+  lib/
+    publish-calendar.ts      # buildMonthGrid — local-date 버케팅으로 달력 그리드 생성
+    publish-times.ts         # makeTime / BEST_POST_TIMES / pickBestTimes
+    schedule-distribution.ts # (Phase 0 이식, Phase 3 재사용) distributeSchedule
+  components/
+    publish/
+      PublishDashboard.tsx        # 발행 대시보드 메인 컨테이너
+      ChannelCards.tsx            # 채널 카드 목록 (connected=!!meta_credentials)
+      SelfHostedCard.tsx          # 자체 호스팅 자동 발행 카드
+      BulkScheduleDialog.tsx      # 5단계 일괄 예약 마법사 (distributeSchedule 재사용)
+      PublishQueue.tsx            # 발행 큐 (list+calendar 뷰 + 필터 + reschedule + 채널 미리보기)
+      PublishCalendar.tsx         # 월별 달력 (buildMonthGrid 사용)
+      NaverCopySection.tsx        # 네이버 수동 복사 안내 섹션
+  types/
+    database.ts              # + DeployWebhookQueueRow 타입 추가
 ```
 
 ## 데이터 레이어
@@ -114,7 +143,7 @@ features/marketing/
 RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 | 테이블 | 설명 |
 |---|---|
-| `mkt_projects` | 마케팅 프로젝트 (브랜드·채널·API 키·글쓰기 가이드) |
+| `mkt_projects` | 마케팅 프로젝트 (브랜드·채널·API 키·글쓰기 가이드; `published_site jsonb` + `saved_keywords jsonb` 컬럼 포함) |
 | `mkt_contents` | 콘텐츠 단위 (제목·주제·상태) |
 | `mkt_base_articles` | 기본글 (TipTap HTML body + body_plain_text) |
 | `mkt_blog_contents` | N블로그/내부블로그 버전 |
@@ -126,11 +155,16 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 | `mkt_youtube_contents` | 유튜브 버전 (placeholder) |
 | `mkt_youtube_cards` | 유튜브 카드 (placeholder) |
 | `mkt_card_templates` | 사용자 저장 카드뉴스 템플릿 |
+| `mkt_publish_records` | 발행 레코드 (status: draft/scheduled/publishing/published/failed; channel: self_hosted/naver_blog/instagram/facebook/threads/youtube; 부분 unique 인덱스 `uniq_mkt_publish_self_hosted`) — Phase 3 |
+| `mkt_deploy_webhook_queue` | 자체 호스팅 배포 웹훅 발송 큐 (project_id PK, user_id NOT NULL, retry_count, last_error; owner RLS) — Phase 3 |
 
-`mkt_projects` 에는 `saved_keywords JSONB` 컬럼 포함 — Phase 2 보관함 저장 (별도 테이블 없음, owner-row 업데이트로 RLS 자동 만족).
+`mkt_projects.saved_keywords JSONB` — Phase 2 보관함 (owner-row 업데이트로 RLS 자동 만족).
+`mkt_projects.published_site JSONB` — Phase 0부터 존재; `deploy_webhook_url` 포함.
 
-마이그레이션: `supabase/migrations/2026-06-07-marketing-schema.sql` +
-`2026-06-07-marketing-phase1a-indexes.sql` + `2026-06-07-marketing-phase1b-indexes.sql`.
+마이그레이션:
+
+- `supabase/migrations/2026-06-07-marketing-schema.sql` + `2026-06-07-marketing-phase1a-indexes.sql` + `2026-06-07-marketing-phase1b-indexes.sql`
+- `supabase/migrations/2026-06-09-marketing-phase3-publish.sql` — ALTER `mkt_publish_records` (status/channel CHECK + 3 indexes + 부분 unique 인덱스 교체) + CREATE `mkt_deploy_webhook_queue`. **라이브 DB 적용 완료**.
 
 ### R2 자산
 
@@ -148,39 +182,46 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 
 ## Express `/api/mkt` 라우트
 
-| Method | Path                     | 설명                                                                      |
-| ------ | ------------------------ | ------------------------------------------------------------------------- |
-| POST   | `/ai/generate`           | Gemini SSE 텍스트 생성 (`text/event-stream`)                              |
-| POST   | `/ai/generate-image`     | Gemini 이미지 생성 (base64 PNG 반환)                                      |
-| POST   | `/ai/translate`          | 번역 SSE                                                                  |
-| POST   | `/ai/extract-text`       | PDF/DOCX/TXT → 텍스트 추출 (`multipart/form-data`)                        |
-| POST   | `/ai/analyze-references` | URL 레퍼런스 fetch + Gemini 요약                                          |
-| POST   | `/storage/presign`       | R2 presigned upload URL 발급                                              |
-| POST   | `/storage/delete`        | R2 키 일괄 삭제                                                           |
-| GET    | `/storage/proxy?url=`    | R2 이미지 same-origin 프록시 (캔버스 CORS 우회)                           |
-| POST   | `/naver/keywords`        | 네이버 검색광고 API 키워드 조회                                           |
-| POST   | `/google/keywords`       | DataForSEO Google 키워드 조회                                             |
-| POST   | `/keywords/recommend`    | 황금키워드 오케스트레이션 (Gemini seed→Naver volume→3-tier 분류, Phase 2) |
-| POST   | `/ideas/generate`        | Gemini flash-lite 채널별 AI 아이디어 생성 (Phase 2)                       |
-| POST   | `/ideas/trending`        | YouTube Data trending + Naver trend 집계 (Phase 2)                        |
+| Method | Path                     | 설명                                                                              |
+| ------ | ------------------------ | --------------------------------------------------------------------------------- |
+| POST   | `/ai/generate`           | Gemini SSE 텍스트 생성 (`text/event-stream`)                                      |
+| POST   | `/ai/generate-image`     | Gemini 이미지 생성 (base64 PNG 반환)                                              |
+| POST   | `/ai/translate`          | 번역 SSE                                                                          |
+| POST   | `/ai/extract-text`       | PDF/DOCX/TXT → 텍스트 추출 (`multipart/form-data`)                                |
+| POST   | `/ai/analyze-references` | URL 레퍼런스 fetch + Gemini 요약                                                  |
+| POST   | `/storage/presign`       | R2 presigned upload URL 발급                                                      |
+| POST   | `/storage/delete`        | R2 키 일괄 삭제                                                                   |
+| GET    | `/storage/proxy?url=`    | R2 이미지 same-origin 프록시 (캔버스 CORS 우회)                                   |
+| POST   | `/naver/keywords`        | 네이버 검색광고 API 키워드 조회                                                   |
+| POST   | `/google/keywords`       | DataForSEO Google 키워드 조회                                                     |
+| POST   | `/keywords/recommend`    | 황금키워드 오케스트레이션 (Gemini seed→Naver volume→3-tier 분류, Phase 2)         |
+| POST   | `/ideas/generate`        | Gemini flash-lite 채널별 AI 아이디어 생성 (Phase 2)                               |
+| POST   | `/ideas/trending`        | YouTube Data trending + Naver trend 집계 (Phase 2)                                |
+| POST   | `/publish/meta`          | IG/FB/Threads Graph API v21.0 발행 (Phase 3, **un-wired** — 클라이언트 연결 없음) |
 
-서버 파일: `routes/mkt.routes.ts`, `controllers/mkt/{ai,storage,keywords,ideas}.controller.ts`,
+서버 파일: `routes/mkt.routes.ts`, `controllers/mkt/{ai,storage,keywords,ideas,publish}.controller.ts`,
 `services/mkt/gemini-sse.service.ts`, `services/mkt/ideas.service.ts`,
+`services/mkt/publish.service.ts` (publishToMeta + saveMetaRecord),
+`services/mkt/publish-scheduler.service.ts` (ONE `setInterval(tick,60_000)` — server.ts listen callback에서 시작),
+`providers/supabase-admin.provider.ts` (service-role singleton, SUPABASE_SERVICE_ROLE_KEY env),
 `services/mkt/external/{naver-searchad,dataforseo,golden-keyword,youtube-data,…}.ts`.
+
+> **스케줄러 구조**: `tick` = Step A `flipDueSelfHosted`(due self_hosted scheduled→published + 웹훅 큐 enqueue) + Step B `fireDeployWebhooks`(디바운스 POST to `published_site.deploy_webhook_url`, retry≤3). overlap guard 포함. `createApp`(테스트 공유)이 아닌 **`server.ts` listen callback**에서 시작 — 테스트 타이머 누수 방지.
 
 ## 채널 구현 현황
 
-| 채널                      | 상태 | 컴포넌트                                                                 |
-| ------------------------- | ---- | ------------------------------------------------------------------------ |
-| 기본글 (Base Article)     | 완료 | `BaseArticlePanel.tsx` + TipTap 3.x                                      |
-| N블로그 (Naver SEO)       | 완료 | `BlogPanel.tsx` — 4-step workflow (키워드→구조→생성→SEO)                 |
-| 내부블로그 (Google/GEO)   | 완료 | `InternalBlogPanel.tsx`                                                  |
-| 카드뉴스 (Instagram)      | 완료 | `CardNewsPanel.tsx` — Canvas 편집기 + WebP export + 일괄 이미지 생성     |
-| 스레드 (Threads)          | 완료 | `ThreadsPanel.tsx`                                                       |
-| 유튜브 (Phase 1c)         | 완료 | `YoutubePanel.tsx` — AI 대본, 씬별 이미지, 타임라인, 미리보기            |
-| 번역 (Phase 1d)           | 완료 | `ChannelTranslationView.tsx` — 6채널 번역 overlay (non-ko)               |
-| 이미지 에디터 (Phase 1d)  | 완료 | `ImageEditorDialog.tsx` — blog/youtube ImageCardWidget 에서 Pencil       |
-| 키워드/아이디어 (Phase 2) | 완료 | `IdeasDashboard.tsx` — 5 서브탭 (N키워드/G키워드/유행/AI아이디어/보관함) |
+| 채널                      | 상태 | 컴포넌트                                                                                              |
+| ------------------------- | ---- | ----------------------------------------------------------------------------------------------------- |
+| 기본글 (Base Article)     | 완료 | `BaseArticlePanel.tsx` + TipTap 3.x                                                                   |
+| N블로그 (Naver SEO)       | 완료 | `BlogPanel.tsx` — 4-step workflow (키워드→구조→생성→SEO)                                              |
+| 내부블로그 (Google/GEO)   | 완료 | `InternalBlogPanel.tsx`                                                                               |
+| 카드뉴스 (Instagram)      | 완료 | `CardNewsPanel.tsx` — Canvas 편집기 + WebP export + 일괄 이미지 생성                                  |
+| 스레드 (Threads)          | 완료 | `ThreadsPanel.tsx`                                                                                    |
+| 유튜브 (Phase 1c)         | 완료 | `YoutubePanel.tsx` — AI 대본, 씬별 이미지, 타임라인, 미리보기                                         |
+| 번역 (Phase 1d)           | 완료 | `ChannelTranslationView.tsx` — 6채널 번역 overlay (non-ko)                                            |
+| 이미지 에디터 (Phase 1d)  | 완료 | `ImageEditorDialog.tsx` — blog/youtube ImageCardWidget 에서 Pencil                                    |
+| 키워드/아이디어 (Phase 2) | 완료 | `IdeasDashboard.tsx` — 5 서브탭 (N키워드/G키워드/유행/AI아이디어/보관함)                              |
+| 발행 (Phase 3)            | 완료 | `PublishDashboard.tsx` — self_hosted 자동 스케줄러 + 발행 큐/달력 + 5단계 일괄 예약 + Naver 수동 복사 |
 
 ## 핵심 Gotchas (반드시 확인)
 
@@ -227,6 +268,18 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 4. **`lib/keyword-sort.ts` — shift-click multi-column sort**: shift-click으로 2차 이상 정렬 컬럼 추가. comparator가 `SortState[]` 배열을 받아 우선순위 순서로 비교. `KeywordTable.tsx` 에서 헤더 클릭 시 shift 여부로 분기. TDD 구현됨.
 5. **`sse-stream-parser.ts fetchAiGenerate` 경로**: CF 원본은 `/api/ai/generate` 였으나 탱고북 포트에서는 `/api/mkt/ai/generate`. Phase 2에서 최종 수정됨. 새 SSE 호출 시 경로 확인 필수.
 
+### (j) Phase 3 발행 Gotchas
+
+1. **부분 unique 인덱스 → `.upsert({onConflict})` 불가**: `uniq_mkt_publish_self_hosted`는 `WHERE channel='self_hosted' AND status IN ('scheduled','published')` 부분 인덱스 — supabase-js `.upsert({onConflict: 'content_id,language,channel'})` 가 부분 인덱스에서 동작하지 않음. `useSchedulePublish`는 **select-then-update/insert** 패턴으로 해결 (`7af8504` 픽스). 향후 self_hosted 단일행 예약도 동일 패턴 필수.
+2. **스케줄러는 `server.ts` listen callback에서만 시작**: `createApp`은 테스트에서도 공유됨 — 거기서 `setInterval`을 시작하면 타이머 누수. 반드시 `server.ts`의 `app.listen(port, () => startPublishScheduler())` 에서만 호출.
+3. **`SUPABASE_SERVICE_ROLE_KEY` 서버 전용 — 절대 `VITE_` 접두사 금지**: `providers/supabase-admin.provider.ts`가 RLS를 우회하는 서비스롤 클라이언트를 생성. 환경변수는 `packages/server/.env`에만. 클라이언트 코드에서 import 금지.
+4. **`mkt_publish_records` insert 시 `user_id` 스탬프 필수**: schedule/bulk/meta 모든 경로에서 `user_id` 주입. 스케줄러의 `mkt_deploy_webhook_queue` upsert도 `user_id NOT NULL` RLS 만족 위해 스탬핑.
+5. **`handlePublishNow` = faithful no-op alert**: CF 원본 동작 그대로. self_hosted 실제 발행은 스케줄러가 담당. UI 버튼의 "즉시 발행"은 사용자 안내 alert만.
+6. **`POST /api/mkt/publish/meta` 구현됨이나 un-wired**: IG/FB/Threads Graph v21.0 엔드포인트 존재 (`publish.controller.ts` + `publish.service.ts`) 하지만 클라이언트 호출 없음. YouTube 발행은 완전 deferred.
+7. **R-5 시간대**: 일괄 예약(`BulkScheduleDialog`의 `distributeSchedule`) = UTC 기준 슬롯. 수동 reschedule + 달력 버케팅(`buildMonthGrid`) = 운영자 로컬 날짜. CF 원본과 동일 동작 — 내부적으로 일관됨.
+8. **M-1 `distributeSchedule` timeSlots 빈 값 예외**: Phase 0 이식 그대로 — `BulkScheduleDialog`의 timeSlots 필드를 비우면 throw. 마법사 UI가 가드함(노출되지 않음).
+9. **M-2 `BEST_POST_TIMES` self_hosted 키 없음**: `publish-times.ts`의 `BEST_POST_TIMES` 맵이 `wordpress`를 키로 쓰고 `self_hosted`가 없어서 self_hosted 행에 최적 시간 힌트 미표시. 가드됨(harmless — CF 원본 동일).
+
 ### (h) Phase 1d 번역 + 이미지 에디터 Gotchas
 
 1. **`mkt_translations` 테이블명 + `user_id` 스탬핑** (C-1/C-2): CF 포트는 `translations` 테이블을 사용했고 insert에 `user_id` 없었음 → 둘 다 fix됨 (`channel-translator.ts`). insert 시 RLS `with check (user_id = auth.uid())`를 통과하려면 반드시 `user_id` 스탬핑 필수.
@@ -243,6 +296,7 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
   - `index` → redirect to `/marketing/content`
   - `content` → `ContentPage`
   - `ideas` → `IdeasPage` (Phase 2)
+  - `publish` → `PublishPage` (Phase 3)
   - `settings` → `SettingsPage`
   - `*` → `PlaceholderPage`
 
@@ -254,4 +308,6 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 - Phase 1c 스펙: `docs/superpowers/specs/2026-06-07-marketing-phase1c-youtube-design.md`
 - Phase 1d 스펙: `docs/superpowers/specs/2026-06-07-marketing-phase1d-translation-image-editor-design.md`
 - Phase 2 스펙: `docs/superpowers/specs/2026-06-07-marketing-phase2-keywords-ideas-design.md`
+- Phase 3 스펙: `docs/superpowers/specs/2026-06-09-marketing-phase3-publish-design.md` ✅ COMPLETE
+- Phase 3 플랜: `docs/superpowers/plans/2026-06-09-marketing-phase3-publish.md` ✅ COMPLETE
 - Memory: `marketing-port-contentflow-2026-06-07.md`

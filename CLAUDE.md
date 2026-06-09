@@ -134,8 +134,8 @@ SPA SEO 기본기. 상세 → memory `seo-infrastructure-2026-05-26.md`.
 ## /marketing — ContentFlow 포트 (브랜치: feat/marketing-phase0)
 ContentFlow AI 마케팅 자동화 SaaS 이식. `/marketing` 라우트, `features/marketing/` 전담 모듈.
 데이터: Supabase `mkt_*` 테이블(싱글 오너 RLS) + R2 (`mkt/{projectId}/…`). Express `/api/mkt` (SSE 포함).
-채널 7/7 + 키워드/아이디어 완료. Phase 1(콘텐츠: 기본글·N블로그·내부블로그·카드뉴스·스레드·유튜브·번역+이미지에디터) + Phase 2(키워드/아이디어: IdeasDashboard 5탭, 황금키워드 서버사이드 `/keywords/recommend`, AI아이디어, saved_keywords owner-row JSONB, competition HIGH/MEDIUM/LOW enum) COMPLETE.
-남음: Phase 3(발행) · 4(분석) · 5(전략). 370 마케팅 tests / 74 서버 tests.
+채널 7/7 + 키워드/아이디어 + 발행 완료. Phase 1(콘텐츠) + Phase 2(키워드/아이디어) + Phase 3(발행: self_hosted Express `setInterval` 스케줄러 + 발행 큐/대시보드/일괄예약 5단계 마법사 + `providers/supabase-admin.provider.ts` 서비스롤 클라이언트 + `mkt_deploy_webhook_queue` + `POST /api/mkt/publish/meta` un-wired) COMPLETE.
+남음: Phase 4(분석) · 5(전략). **388 마케팅 tests / 47 서버 mkt tests**.
 상세 → [features/marketing/CLAUDE.md](packages/client/src/features/marketing/CLAUDE.md) · memory `marketing-port-contentflow-2026-06-07.md`.
 
 ## 마케팅 자료

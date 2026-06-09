@@ -5,6 +5,8 @@
 | **Date** | 2026‑06‑09 |
 | **Branch / worktree** | `feat/marketing-phase0` @ `C:\projects\tangobook\.worktrees\marketing-phase0` |
 | **Status** | Spec (no implementation) |
+
+> **Status: COMPLETE** (implemented 2026-06-09, branch feat/marketing-phase0; see plan + commits 5706ac7→7af8504).
 | **Predecessor** | Phase 0 Foundation + Phase 1a–1d (full content area) + Phase 2 (keywords/ideas) — all COMPLETE & committed. |
 | **Source app** | ContentFlow (Next.js) `C:\projects\contentflow\contentflow` |
 | **Roadmap slot** | Master‑plan **Phase 3 발행**. The `/marketing/publish` page + the `self_hosted` auto‑publish scheduler. Analytics/strategy = Phase 4/5 (OUT of scope). |
