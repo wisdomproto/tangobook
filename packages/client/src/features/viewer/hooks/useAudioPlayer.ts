@@ -126,6 +126,28 @@ export function useAudioPlayer({ backgroundMusicUrl, onTtsEnded }: UseAudioPlaye
     }
   }, []);
 
+  /**
+   * 주어진 url 들의 TTS 가 재생 시작 가능할 만큼 버퍼링될 때까지 대기 (뷰어 로딩 화면에서 사용).
+   * 풀의 Audio 가 canplaythrough(readyState 4) 되면 resolve, timeoutMs 로 상한(느린 네트워크 대비).
+   */
+  const waitForTts = useCallback((urls: string[], timeoutMs = 6000): Promise<void> => {
+    const pool = preloadPoolRef.current;
+    const audios = urls.map((u) => pool.get(u)).filter((a): a is HTMLAudioElement => !!a);
+    if (audios.length === 0) return Promise.resolve();
+    const ready = Promise.all(
+      audios.map(
+        (a) =>
+          new Promise<void>((res) => {
+            if (a.readyState >= 4) return res();
+            const done = () => res();
+            a.addEventListener('canplaythrough', done, { once: true });
+            a.addEventListener('error', done, { once: true });
+          })
+      )
+    ).then(() => undefined);
+    return Promise.race([ready, new Promise<void>((res) => setTimeout(res, timeoutMs))]);
+  }, []);
+
   /** 처음으로 reset + pause (페이지 unmount, HOME 이동 등) */
   const stopTts = useCallback(() => {
     if (ttsRef.current) {
@@ -188,6 +210,7 @@ export function useAudioPlayer({ backgroundMusicUrl, onTtsEnded }: UseAudioPlaye
   return {
     playTts,
     preloadTts,
+    waitForTts,
     stopTts,
     pauseTts,
     resumeTts,

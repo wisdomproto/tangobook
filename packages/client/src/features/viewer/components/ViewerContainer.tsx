@@ -73,6 +73,8 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const [direction, setDirection] = useState(1);
   const [rewardOpen, setRewardOpen] = useState(false);
   const [wordRevealOpen, setWordRevealOpen] = useState(false);
+  // 첫 페이지(들) TTS 버퍼링 완료 여부 — 완료 전엔 로딩 화면. video/games/파닉스(비story)는 즉시 true.
+  const [ttsReady, setTtsReady] = useState(false);
 
   // state ref로 콜백에서 최신 값 접근
   const stateRef = useRef({
@@ -138,16 +140,51 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     [currentPage, lang]
   );
 
-  // 페이지 변경 시 자동 TTS 재생. 1초 딜레이 — 첫 진입 / 페이지 넘김 직후 갑자기 안 나오게.
-  // BGM 은 useAudioPlayer 가 마운트 시 바로 재생 (별도). TTS + 자막만 딜레이됨.
+  // 페이지 변경 시 자동 TTS 재생. 첫 진입은 ttsReady(버퍼링 완료) 후에만 — 로딩 끝나고 바로 재생.
+  // BGM 은 useAudioPlayer 가 마운트 시 바로 재생 (별도).
   // `mode=video|games` 또는 reward/wordReveal 화면이 열렸을 땐 TTS 재생하지 않음.
   useEffect(() => {
-    if (!currentTtsUrl) return;
+    if (!currentTtsUrl || !ttsReady) return;
     if (rewardOpen || wordRevealOpen) return;
     if (mode === 'video' || mode === 'games') return;
-    const t = setTimeout(() => audio.playTts(currentTtsUrl), 1000);
+    // 이미 버퍼링됐으니 첫 음성 즉시. 페이지 전환 안정용 짧은 딜레이만.
+    const t = setTimeout(() => audio.playTts(currentTtsUrl), 300);
     return () => clearTimeout(t);
-  }, [currentTtsUrl, rewardOpen, wordRevealOpen, mode]);
+  }, [currentTtsUrl, ttsReady, rewardOpen, wordRevealOpen, mode]);
+
+  // 첫 진입 시 첫 BUFFER_PAGES 페이지 TTS 를 버퍼링한 뒤 시작 (로딩 화면 동안). 같은 컴포넌트의
+  // Audio 풀이라 playTts 가 그대로 재사용 → 로딩 끝나면 첫 음성 즉시. video/games/파닉스(비story) 생략.
+  const BUFFER_PAGES = 3;
+  useEffect(() => {
+    if (!storybook) return;
+    const skip =
+      mode === 'video' || mode === 'games' || (storybook.type === 'phonics' && mode !== 'story');
+    if (skip) {
+      setTtsReady(true);
+      return;
+    }
+    const firstUrls = pages
+      .slice(0, BUFFER_PAGES)
+      .map((p) => getPageTtsUrl(p, lang))
+      .filter((u): u is string => !!u);
+    if (firstUrls.length === 0) {
+      setTtsReady(true);
+      return;
+    }
+    setTtsReady(false);
+    const aheadUrls = pages
+      .slice(BUFFER_PAGES, BUFFER_PAGES + 2)
+      .map((p) => getPageTtsUrl(p, lang))
+      .filter((u): u is string => !!u);
+    audio.preloadTts([...firstUrls, ...aheadUrls]);
+    let cancelled = false;
+    audio.waitForTts(firstUrls).then(() => {
+      if (!cancelled) setTtsReady(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [storybookId, lang, mode, storybook]);
 
   // RewardScreen/WordRevealScreen/영상/게임 모드로 전환될 때 진행 중이던 TTS 즉시 정지
   useEffect(() => {
@@ -305,6 +342,16 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   // 파닉스 콘텐츠 → PhonicsViewer (story 모드는 일반 동화책 뷰어 재사용)
   if (storybook.type === 'phonics' && mode !== 'story') {
     return <PhonicsViewer storybook={storybook} mode={mode} />;
+  }
+
+  // 첫 페이지 TTS 버퍼링 중 — 로딩 화면 유지 (Mascot reading). 버퍼 완료 후 첫 페이지 + 즉시 재생.
+  if (!ttsReady) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-5 bg-cream-50">
+        <Mascot state="reading" size="xl" />
+        <p className="text-ink-600 font-black text-lg break-keep">책 읽어줄 준비 중...</p>
+      </div>
+    );
   }
 
   return (
