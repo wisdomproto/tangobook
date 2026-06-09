@@ -7,7 +7,6 @@ import {
   MarketingLayout,
   ContentPage,
   SettingsPage,
-  PlaceholderPage,
   IdeasPage,
   PublishPage,
   SiteAnalysisPage,
@@ -15,6 +14,7 @@ import {
   CompetitorsPage,
   StrategyPage,
   MonitoringPage,
+  AdsPage,
 } from '../features/marketing';
 import LibraryPage from '../pages/LibraryPage';
 import GamesHubPage from '../pages/GamesHubPage';
@@ -325,7 +325,7 @@ export const router = createBrowserRouter([
           { path: 'meta-analytics', element: <MetaAnalyticsPage /> },
           { path: 'competitors', element: <CompetitorsPage /> },
           { path: 'strategy', element: <StrategyPage /> },
-          { path: 'ads', element: <PlaceholderPage title="광고 관리" /> },
+          { path: 'ads', element: <AdsPage /> },
         ],
       },
       { path: '*', element: <NotFoundPage /> },
