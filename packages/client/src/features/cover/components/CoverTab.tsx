@@ -140,6 +140,17 @@ export function CoverTab({ storybook, onUpdate, onSave }: CoverTabProps) {
       draft.primaryCoverByLang[primaryLang] = item.imageUrl;
       // ko 는 레거시 필드 (coverImage) 도 동기화 — 호환성 유지
       if (primaryLang === 'ko') draft.coverImage = item.imageUrl;
+      // styleAssets[활성 그림체] 에도 mirror — BookDetailPage 가 styleAssets 우선 읽으므로
+      // top-level 만 저장하면 학습자 화면에서 "대표 표지" 지정이 묻힌다.
+      const active = draft.artStyle;
+      if (active) {
+        if (!draft.styleAssets) draft.styleAssets = {};
+        if (!draft.styleAssets[active]) draft.styleAssets[active] = {};
+        const a = draft.styleAssets[active];
+        if (!a.primaryCoverByLang) a.primaryCoverByLang = {};
+        a.primaryCoverByLang[primaryLang] = item.imageUrl;
+        if (primaryLang === 'ko') a.coverImage = item.imageUrl;
+      }
     });
     onSave();
   };

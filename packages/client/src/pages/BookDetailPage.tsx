@@ -173,16 +173,19 @@ export default function BookDetailPage() {
   //   조합 표지가 없으면 placeholder 노출 (LibraryMaster 와 동일 정책).
   const styleAssets = effectiveStyle ? storybook.styleAssets?.[effectiveStyle] : undefined;
   const isActiveStyle = !!effectiveStyle && effectiveStyle === storybook.artStyle;
-  // (그림체) tier 안에서 요청 언어 → en → ko 순으로 표지 폴백 (vi 등 전용 표지 없는 언어 대비).
+  // (그림체, 언어) 대표 표지. 활성 그림체는 top-level(CoverTab 이 최신 저장하는 곳)을 우선,
+  // 비활성 그림체는 styleAssets 안의 마커를 본다.
   const pickCover = (l: string): string | undefined =>
-    styleAssets?.primaryCoverByLang?.[l] ??
-    (isActiveStyle ? storybook.primaryCoverByLang?.[l] : undefined);
+    (isActiveStyle ? storybook.primaryCoverByLang?.[l] : undefined) ??
+    styleAssets?.primaryCoverByLang?.[l];
+  // 폴백: 요청 언어 → 그 그림체의 대표 coverImage(언어 무관) → 그래도 없으면 다른 언어.
+  //   en 을 ko 보다 우선하지 않는다 (ko 선택인데 en 표지 뜨는 버그 방지).
   const coverUrl =
     pickCover(lang) ??
-    pickCover('en') ??
-    pickCover('ko') ??
     styleAssets?.coverImage ??
-    (isActiveStyle ? storybook.coverImage : undefined);
+    (isActiveStyle ? storybook.coverImage : undefined) ??
+    pickCover('en') ??
+    pickCover('ko');
   const langLabel = LANG_LABEL[lang]?.name ?? lang;
   // 부모 가이드: 선택 언어 번역(parentGuideTranslations[lang])이 있으면 그것, 없으면 한국어 parentGuide 폴백.
   const guide =
