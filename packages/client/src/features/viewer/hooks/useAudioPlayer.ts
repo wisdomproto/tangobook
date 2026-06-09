@@ -138,8 +138,9 @@ export function useAudioPlayer({ backgroundMusicUrl, onTtsEnded }: UseAudioPlaye
       audios.map(
         (a) =>
           new Promise<void>((res) => {
-            if (a.readyState >= 4) return res();
+            if (a.readyState >= 3) return res(); // HAVE_FUTURE_DATA — 재생 시작 가능
             const done = () => res();
+            a.addEventListener('canplay', done, { once: true });
             a.addEventListener('canplaythrough', done, { once: true });
             a.addEventListener('error', done, { once: true });
           })

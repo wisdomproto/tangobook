@@ -92,8 +92,22 @@ function toSummary(sb: Storybook): StorybookSummary {
     complete: cover && pagesImage && pagesTts && vocabulary,
   };
 
-  // 대표 그림체 (defaultStyle) 가 있으면 그 styleAssets 의 coverImage 우선 — 라이브러리·검색 등 외부 노출 일관성용
-  const targetStyle = sb.defaultStyle ?? sb.artStyle;
+  // 대표 그림체 (defaultStyle) 가 있으면 그 styleAssets 의 coverImage 우선 — 라이브러리·검색 등 외부 노출 일관성용.
+  // 단 그 그림체의 카드 언어(ko) 표지가 publicByStyleLang 으로 비공개면, 라이브러리/검색 카드엔
+  // 공개된 그림체의 표지로 폴백한다 (비공개 그림체가 카드에 노출되는 것 방지).
+  const cardLang = sb.languages?.[0] ?? 'ko';
+  const isStyleLangPublic = (style: string) => sb.publicByStyleLang?.[style]?.[cardLang] !== false;
+  let targetStyle = sb.defaultStyle ?? sb.artStyle;
+  if (targetStyle && !isStyleLangPublic(targetStyle)) {
+    const allStyles =
+      sb.availableStyles && sb.availableStyles.length > 0
+        ? sb.availableStyles
+        : sb.artStyle
+          ? [sb.artStyle]
+          : [];
+    const publicStyle = allStyles.find((s) => isStyleLangPublic(s));
+    if (publicStyle) targetStyle = publicStyle;
+  }
 
   // 그림체별 대표 표지 URL — 라이브러리 카드 배너용 (default 외 다른 그림체 썸네일).
   // 활성 그림체(`sb.artStyle`)는 top-level 필드, 그 외는 `styleAssets[s]` 에서 추출.

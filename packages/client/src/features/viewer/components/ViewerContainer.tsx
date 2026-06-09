@@ -178,7 +178,9 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       .filter((u): u is string => !!u);
     audio.preloadTts([...firstUrls, ...aheadUrls]);
     let cancelled = false;
-    audio.waitForTts(firstUrls).then(() => {
+    // 첫 페이지만 재생 가능 수준으로 버퍼되면 바로 시작 (나머지는 풀에 백그라운드 적재).
+    // 3페이지 전부 기다리면 로딩이 불필요하게 길어져 첫 음성이 늦게 나온다.
+    audio.waitForTts(firstUrls.slice(0, 1)).then(() => {
       if (!cancelled) setTtsReady(true);
     });
     return () => {
