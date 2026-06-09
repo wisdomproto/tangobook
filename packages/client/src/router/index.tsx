@@ -14,6 +14,7 @@ import {
   MetaAnalyticsPage,
   CompetitorsPage,
   StrategyPage,
+  MonitoringPage,
 } from '../features/marketing';
 import LibraryPage from '../pages/LibraryPage';
 import GamesHubPage from '../pages/GamesHubPage';
@@ -319,7 +320,7 @@ export const router = createBrowserRouter([
           { path: 'settings', element: <SettingsPage /> },
           { path: 'ideas', element: <IdeasPage /> },
           { path: 'publish', element: <PublishPage /> },
-          { path: 'monitoring', element: <PlaceholderPage title="모니터링 / 댓글" /> },
+          { path: 'monitoring', element: <MonitoringPage /> },
           { path: 'site-analysis', element: <SiteAnalysisPage /> },
           { path: 'meta-analytics', element: <MetaAnalyticsPage /> },
           { path: 'competitors', element: <CompetitorsPage /> },

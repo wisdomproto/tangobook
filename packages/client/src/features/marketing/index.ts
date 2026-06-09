@@ -12,3 +12,4 @@ export { StrategyPage } from './pages/StrategyPage';
 export { SiteAnalysisPage } from './pages/SiteAnalysisPage';
 export { MetaAnalyticsPage } from './pages/MetaAnalyticsPage';
 export { CompetitorsPage } from './pages/CompetitorsPage';
+export { MonitoringPage } from './pages/MonitoringPage';
