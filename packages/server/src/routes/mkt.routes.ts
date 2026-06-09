@@ -18,6 +18,7 @@ import {
   analyticsCountryTraffic,
   analyticsContentPerformance,
 } from '../controllers/mkt/analytics.controller.js';
+import { seoAudit, seoCrawl, seoSchemaGenerate } from '../controllers/mkt/seo.controller.js';
 
 const router = Router();
 
@@ -56,5 +57,10 @@ router.post('/analytics/traffic', analyticsTraffic);
 router.post('/analytics/top-pages', analyticsTopPages);
 router.post('/analytics/country-traffic', analyticsCountryTraffic);
 router.post('/analytics/content-performance', analyticsContentPerformance);
+
+// ── SEO endpoints (site-analysis SEO sub-tab) ──────────────────────────────────
+router.post('/seo/audit', seoAudit);
+router.post('/seo/crawl', seoCrawl);
+router.post('/seo/schema-generate', seoSchemaGenerate);
 
 export default router;
