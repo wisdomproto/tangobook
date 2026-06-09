@@ -7,7 +7,7 @@
 ```
 features/viewer/
   components/
-    ViewerContainer.tsx     # 메인 뷰어 + 자동재생 + 5페이지 프리로드 + RewardScreen 오버레이
+    ViewerContainer.tsx     # 메인 뷰어 + 진입 TTS 버퍼링 로딩(ttsReady) + 자동재생 + 프리로드 풀 + RewardScreen 오버레이
     ViewerToolbar.tsx       # 상단 Pill 툴바: 뒤로/홈 + 재생(TTS/BGM/AutoPlay) + 설정
     ViewerControls.tsx      # 좌우 64px 네비 (화면 세로 중앙)
     PageView.tsx            # framer-motion slide-fade, 이미지/자막 세로 스택
@@ -21,7 +21,7 @@ features/viewer/
     QuizViewer.tsx          # 퀴즈 뷰어
   hooks/
     useViewerSettings.ts    # tuple 반환: [settings, updateSettings]. 기본값: darkMode=true, autoPlayTts=true, textSize='md'
-    useAudioPlayer.ts       # TTS/BGM: playTts/stopTts + ttsCurrentTime/ttsDuration/isTtsPlaying. timeupdate 동기화
+    useAudioPlayer.ts       # TTS/BGM: playTts(프리로드 풀 재사용)/preloadTts/waitForTts/stopTts + ttsCurrentTime/ttsDuration/isTtsPlaying. timeupdate 동기화
     useSwipe.ts             # 스와이프 제스처
   lib/
     page-text.ts            # getPageText/getPageTtsUrl (lang fallback)
@@ -29,9 +29,9 @@ features/viewer/
 
 ## 뷰어 동작
 
-- 진입 시 항상 첫 페이지부터, **TTS 자동 재생**, 끝나면 800ms 뒤 자동 페이지 넘김
-- **마지막 페이지** TTS 끝 or onNext 호출 → **BookDetailPage (`/library/:id`)로 자동 이동**
-- **다음 5페이지 이미지·TTS 프리로드** (`new Image()` + `new Audio({preload:'auto'})`)
+- **진입 시 첫 3페이지 TTS 버퍼링** → 완료 전 Mascot reading "준비 중" 로딩(`ttsReady` 게이트, `waitForTts` canplaythrough) → 완료 후 첫 페이지 + 자동재생(300ms). video/games/파닉스(비story) 는 버퍼링 skip.
+- TTS 끝나면 800ms 뒤 자동 페이지 넘김. **마지막 페이지** TTS 끝 or onNext → **BookDetailPage (`/library/:id`)로 자동 이동**.
+- **프리로드 풀**: `preloadTts` 가 현재+다음 페이지 TTS 를 풀(url→Audio)에 적재, `playTts` 가 풀 객체 **재사용**(이미 버퍼 → 즉시 재생, AbortController 리스너). 이미지는 다음 5페이지 `new Image()`. 같은 컴포넌트 풀이라 HTTP 캐시/CORS 의존 X. TTS 는 immutable Cache-Control(재방문 캐시). 상세 → memory `viewer-tts-buffering-2026-06-09`.
 - 홈 버튼 → `/library` · 뒤로 버튼 → browser history back
 
 ## 자막 시스템 (`PageSubtitle.tsx`)
