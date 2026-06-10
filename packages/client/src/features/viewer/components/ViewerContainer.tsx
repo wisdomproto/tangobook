@@ -175,12 +175,8 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     if (!currentTtsUrl || !ttsReady) return;
     if (rewardOpen || wordRevealOpen) return;
     if (mode === 'video' || mode === 'games') return;
-    // 첫 진입은 항상 '시작' 버튼 — 사용자 탭 안에서 재생해야 모든 브라우저에서 확실히 작동.
-    if (!startedRef.current) {
-      setNeedsTapToStart(true);
-      return;
-    }
-    // 시작 후(이미 제스처로 해금됨): 페이지 넘어가면 자동재생.
+    // 시작 전(시작 버튼 대기)엔 자동재생 안 함. 시작 후(제스처로 해금됨)에만 자동재생.
+    if (!startedRef.current) return;
     const t = setTimeout(() => audio.playTts(currentTtsUrl), NEXT_TTS_DELAY_MS);
     return () => clearTimeout(t);
   }, [currentTtsUrl, ttsReady, rewardOpen, wordRevealOpen, mode]);
@@ -204,6 +200,8 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       setTtsReady(true);
       return;
     }
+    // 진입 즉시 '시작' 버튼을 띄우고(autoplay 정책 우회) 버퍼링은 뒤에서 — 첫 진입(미시작)만.
+    if (!startedRef.current) setNeedsTapToStart(true);
     setTtsReady(false);
     const aheadUrls = pages
       .slice(BUFFER_PAGES, BUFFER_PAGES + 2)
@@ -383,11 +381,6 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   // 파닉스 콘텐츠 → PhonicsViewer (story 모드는 일반 동화책 뷰어 재사용)
   if (storybook.type === 'phonics' && mode !== 'story') {
     return <PhonicsViewer storybook={storybook} mode={mode} />;
-  }
-
-  // 첫 페이지 TTS+이미지 버퍼링 중 — 차오르는 로딩 바. 버퍼 완료 후 첫 페이지 + 즉시 재생.
-  if (!ttsReady) {
-    return <ViewerLoading label="책 읽어줄 준비를 하고 있어요" />;
   }
 
   return (
