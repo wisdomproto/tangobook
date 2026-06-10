@@ -80,8 +80,10 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const [wordRevealOpen, setWordRevealOpen] = useState(false);
   // 첫 페이지(들) TTS 버퍼링 완료 여부 — 완료 전엔 로딩 화면. video/games/파닉스(비story)는 즉시 true.
   const [ttsReady, setTtsReady] = useState(false);
-  // 브라우저 autoplay 차단(iPad Safari 등)으로 첫 음성이 막히면 "탭해서 시작" 오버레이 표시.
+  // 첫 진입은 항상 '시작' 버튼 → 사용자 탭 안에서 재생(모든 브라우저 OK, autoplay 정책 우회).
   const [needsTapToStart, setNeedsTapToStart] = useState(false);
+  // 한 번 시작하면(사용자 제스처로 오디오 해금) 이후 페이지는 자동재생.
+  const startedRef = useRef(false);
 
   // state ref로 콜백에서 최신 값 접근
   const stateRef = useRef({
@@ -173,21 +175,14 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     if (!currentTtsUrl || !ttsReady) return;
     if (rewardOpen || wordRevealOpen) return;
     if (mode === 'video' || mode === 'games') return;
-    // 이미 버퍼링됐으니 첫 음성 즉시. 페이지 전환 안정용 짧은 딜레이만.
-    // autoplay 가 막히면(차단 브라우저) playTts 가 false 반환 → "탭해서 시작" 오버레이.
-    const t = setTimeout(() => {
-      audio.playTts(currentTtsUrl).then((started) => {
-        if (!started) setNeedsTapToStart(true);
-      });
-    }, NEXT_TTS_DELAY_MS);
-    // 워치독: play() 가 reject 없이 조용히 막히는 브라우저 대비 — 실제 음성이 시작 안 됐으면 오버레이.
-    const watchdog = setTimeout(() => {
-      if (!audio.hasTtsStarted()) setNeedsTapToStart(true);
-    }, NEXT_TTS_DELAY_MS + 1500);
-    return () => {
-      clearTimeout(t);
-      clearTimeout(watchdog);
-    };
+    // 첫 진입은 항상 '시작' 버튼 — 사용자 탭 안에서 재생해야 모든 브라우저에서 확실히 작동.
+    if (!startedRef.current) {
+      setNeedsTapToStart(true);
+      return;
+    }
+    // 시작 후(이미 제스처로 해금됨): 페이지 넘어가면 자동재생.
+    const t = setTimeout(() => audio.playTts(currentTtsUrl), NEXT_TTS_DELAY_MS);
+    return () => clearTimeout(t);
   }, [currentTtsUrl, ttsReady, rewardOpen, wordRevealOpen, mode]);
 
   // 첫 진입 시 첫 BUFFER_PAGES 페이지 TTS 를 버퍼링한 뒤 시작 (로딩 화면 동안). 같은 컴포넌트의
@@ -480,13 +475,10 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         <button
           type="button"
           onClick={() => {
-            if (!audio.isBgmPlaying) audio.toggleBgm();
-            const url = currentTtsUrl;
+            startedRef.current = true;
             setNeedsTapToStart(false);
-            if (url)
-              audio.playTts(url).then((started) => {
-                if (!started) setNeedsTapToStart(true);
-              });
+            if (!audio.isBgmPlaying) audio.toggleBgm();
+            if (currentTtsUrl) audio.playTts(currentTtsUrl);
           }}
           className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-5 bg-cream-50/95 backdrop-blur-sm"
         >

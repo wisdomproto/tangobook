@@ -203,14 +203,6 @@ export function useAudioPlayer({
     }
   }, []);
 
-  // 첫 음성이 실제로 시작됐는지 — play() 가 reject 없이 조용히 막히는 브라우저(autoplay 차단) 감지용.
-  // 재생중(!paused) · 진행됨(currentTime>0) · 종료됨(ended) 중 하나면 "시작된" 것. 셋 다 아니면 차단.
-  const hasTtsStarted = useCallback(() => {
-    const a = ttsRef.current;
-    if (!a) return false;
-    return !a.paused || a.currentTime > 0 || a.ended;
-  }, []);
-
   // Cleanup on unmount
   useEffect(() => {
     const pool = preloadPoolRef.current;
@@ -245,6 +237,5 @@ export function useAudioPlayer({
     ttsDuration,
     toggleBgm,
     isBgmPlaying,
-    hasTtsStarted,
   };
 }
