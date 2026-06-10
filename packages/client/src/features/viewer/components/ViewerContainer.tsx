@@ -80,6 +80,8 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const [wordRevealOpen, setWordRevealOpen] = useState(false);
   // 첫 페이지(들) TTS 버퍼링 완료 여부 — 완료 전엔 로딩 화면. video/games/파닉스(비story)는 즉시 true.
   const [ttsReady, setTtsReady] = useState(false);
+  // 브라우저 autoplay 차단(iPad Safari 등)으로 첫 음성이 막히면 "탭해서 시작" 오버레이 표시.
+  const [needsTapToStart, setNeedsTapToStart] = useState(false);
 
   // state ref로 콜백에서 최신 값 접근
   const stateRef = useRef({
@@ -172,7 +174,12 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     if (rewardOpen || wordRevealOpen) return;
     if (mode === 'video' || mode === 'games') return;
     // 이미 버퍼링됐으니 첫 음성 즉시. 페이지 전환 안정용 짧은 딜레이만.
-    const t = setTimeout(() => audio.playTts(currentTtsUrl), NEXT_TTS_DELAY_MS);
+    // autoplay 가 막히면(차단 브라우저) playTts 가 false 반환 → "탭해서 시작" 오버레이.
+    const t = setTimeout(() => {
+      audio.playTts(currentTtsUrl).then((started) => {
+        if (!started) setNeedsTapToStart(true);
+      });
+    }, NEXT_TTS_DELAY_MS);
     return () => clearTimeout(t);
   }, [currentTtsUrl, ttsReady, rewardOpen, wordRevealOpen, mode]);
 
@@ -460,6 +467,35 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       )}
 
       <MascotCorner visible={audio.isBgmPlaying} />
+
+      {/* autoplay 차단 시 — 탭으로 음성+BGM 시작 (사용자 제스처 안에서 재생 → 모든 브라우저 OK) */}
+      {needsTapToStart && (
+        <button
+          type="button"
+          onClick={() => {
+            if (!audio.isBgmPlaying) audio.toggleBgm();
+            const url = currentTtsUrl;
+            setNeedsTapToStart(false);
+            if (url)
+              audio.playTts(url).then((started) => {
+                if (!started) setNeedsTapToStart(true);
+              });
+          }}
+          className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-5 bg-cream-50/95 backdrop-blur-sm"
+        >
+          <span className="flex h-24 w-24 items-center justify-center rounded-full bg-coral-500 text-white shadow-soft animate-pulse">
+            <svg className="w-10 h-10 ml-1" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </span>
+          <span className="font-display text-xl font-black text-ink-900 break-keep">
+            탭해서 시작하기
+          </span>
+          <span className="text-sm text-ink-500 break-keep">
+            화면을 한 번 누르면 이야기가 시작돼요
+          </span>
+        </button>
+      )}
 
       {!settings.fullscreenImage && (
         <ViewerControls onPrev={onPrev} onNext={onNext} canPrev={canPrev} canNext={canNext} />

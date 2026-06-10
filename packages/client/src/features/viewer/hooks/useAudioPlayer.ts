@@ -107,10 +107,15 @@ export function useAudioPlayer({
       opt
     );
 
-    audio.play().catch((err) => {
-      console.warn('[tts] play() rejected (autoplay policy?):', err);
-      setIsTtsPlaying(false);
-    });
+    // 재생 성공 여부를 반환 — autoplay 정책으로 막히면 false (호출측이 "탭해서 시작" 처리).
+    return audio.play().then(
+      () => true,
+      (err) => {
+        console.warn('[tts] play() rejected (autoplay policy?):', err);
+        setIsTtsPlaying(false);
+        return false;
+      }
+    );
   }, []);
 
   /**
