@@ -294,7 +294,7 @@ export default function BookDetailPage() {
                       >
                         ←
                       </button>
-                      <span className="text-base font-black text-ink-800 flex items-center gap-1.5 truncate min-w-0">
+                      <span className="text-base font-black text-ink-900 flex items-center gap-1.5 truncate min-w-0">
                         <span className="shrink-0">🎨</span>
                         <span className="truncate">
                           {findArtStylePreset(effectiveStyle, styleLibrary)?.label ?? '그림체'}

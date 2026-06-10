@@ -25,10 +25,16 @@
   --color-warn: #ffc857;
   --color-danger: #e75757; /* Tailwind 'danger' 토큰과 쌍 */
   --color-fun: #a78bfa;
-  /* Ink */
-  --color-ink-900: #3a2b1f;
-  --color-ink-700: #6f5a48;
+  /* Ink — design-system/tokens/colors.ts 와 동기 (소스 오브 트루스). 전 스케일 100~900. */
+  --color-ink-100: #ede1d4;
+  --color-ink-200: #dbcdbe;
+  --color-ink-300: #c9b8a8;
+  --color-ink-400: #b29e8e;
   --color-ink-500: #9a8474;
+  --color-ink-600: #6d5a4c;
+  --color-ink-700: #3f2f24;
+  --color-ink-800: #251c15;
+  --color-ink-900: #0b0805;
   /* Dark */
   --color-dark-bg: #1f1611;
   --color-dark-text: #fff0e0;
