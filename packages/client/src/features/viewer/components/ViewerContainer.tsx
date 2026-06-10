@@ -34,6 +34,11 @@ interface ViewerContainerProps {
 const TEXT_SIZE_CYCLE: ViewerSettings['textSize'][] = ['sm', 'md', 'lg'];
 const LANG_CYCLE: LangCode[] = ['ko', 'en'];
 
+// 자동 넘김 페이싱 (4-5세 숨 고르기) — 음성이 끝난 뒤 바로 다음 음성이 깔리면 숨이 차서 쉼을 둔다.
+const PAGE_REST_MS = 900; // TTS 끝 → 다음 페이지로 넘기기 전 쉬는 시간
+const NEXT_TTS_DELAY_MS = 350; // 페이지 전환 → 다음 음성 재생까지 (장면 안정)
+const NEXT_IMG_CAP_MS = 1500; // 다음 이미지 로딩 상한 (안 와도 넘어감)
+
 export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const navigate = useNavigate();
   const [sp, setSp] = useSearchParams();
@@ -130,7 +135,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       setPageIndex((idx) => idx + 1);
     };
     if (!nextImg) {
-      setTimeout(go, 800);
+      setTimeout(go, PAGE_REST_MS);
       return;
     }
     let fired = false;
@@ -140,11 +145,11 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       go();
     };
     const im = new Image();
-    im.onload = () => setTimeout(fire, 150);
+    im.onload = () => setTimeout(fire, PAGE_REST_MS);
     im.onerror = () => fire();
     im.src = nextImg;
-    if (im.complete) setTimeout(fire, 150); // 이미 캐시면 즉시
-    setTimeout(fire, 1200); // 상한 — 이미지가 안 와도 넘어감
+    if (im.complete) setTimeout(fire, PAGE_REST_MS); // 이미 캐시면 쉬고 넘김
+    setTimeout(fire, NEXT_IMG_CAP_MS); // 상한 — 이미지가 안 와도 넘어감
   }, [pages, hasKeyObjects]);
 
   const audio = useAudioPlayer({
@@ -166,7 +171,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     if (rewardOpen || wordRevealOpen) return;
     if (mode === 'video' || mode === 'games') return;
     // 이미 버퍼링됐으니 첫 음성 즉시. 페이지 전환 안정용 짧은 딜레이만.
-    const t = setTimeout(() => audio.playTts(currentTtsUrl), 300);
+    const t = setTimeout(() => audio.playTts(currentTtsUrl), NEXT_TTS_DELAY_MS);
     return () => clearTimeout(t);
   }, [currentTtsUrl, ttsReady, rewardOpen, wordRevealOpen, mode]);
 
