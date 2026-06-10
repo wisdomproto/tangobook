@@ -21,11 +21,24 @@ export async function generateGeminiTts(options: TtsOptions): Promise<Buffer> {
   const cleaned = text.replace(/\//g, '').trim();
   let prompt: string;
   if (cleaned.length <= 3 && language !== 'ko') {
+    // 파닉스 단일 음가/글자 — 또렷하게 반복
     prompt = `${cleaned}, ${cleaned}, ${cleaned}`;
-  } else if (cleaned.includes('...')) {
-    prompt = cleaned.replace(/\.\.\./g, ',');
   } else {
-    prompt = cleaned;
+    // '...' 는 부자연스러운 긴 침묵이 되므로 쉼표로 치환
+    const body = cleaned.includes('...') ? cleaned.replace(/\.\.\./g, ',') : cleaned;
+    // Gemini 2.5 TTS 는 '서술문. "대사"' 구조에서 앞 서술문을 '연기 지시'로 오해해 음성에서 통째로
+    // 빼먹는다 (예: '무서운 교장 선생님이 버럭 화를 냈어요. "이제 넌..."' → 첫 문장이 안 읽힘).
+    // ':' 앞 지시문은 음성으로 출력되지 않는 특성을 이용해, 명시적 낭독 지시를 붙여 본문 전체를
+    // 처음부터 끝까지 읽게 강제한다. 단어/짧은 구(파닉스·어휘 단일 단어)는 오해 소지가 없어 제외.
+    const isNarration = /[.!?…。！？]/.test(body) || body.length > 15;
+    if (isNarration) {
+      prompt =
+        language === 'ko'
+          ? `다음 글을 한 글자도 빠짐없이 처음부터 끝까지 또박또박 읽어 주세요. 설명이나 지시는 하지 말고 글 내용 전체를 그대로 소리 내어 읽으세요:\n${body}`
+          : `Read the following text aloud from the very beginning to the very end, word for word. Do not add any narration or commentary — read the entire text exactly as written:\n${body}`;
+    } else {
+      prompt = body;
+    }
   }
 
   return withGeminiRetry(
