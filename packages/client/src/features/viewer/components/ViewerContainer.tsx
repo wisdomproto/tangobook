@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStorybook } from '@/features/storybook';
-import { Mascot } from '@/design-system';
 import { StateScreen } from '@/design-system';
 import { cn } from '@/lib/cn';
 import {
@@ -26,6 +25,7 @@ import { RewardScreen } from './RewardScreen';
 import { WordRevealScreen } from './WordRevealScreen';
 import { GameListViewer } from './GameListViewer';
 import { PhonicsViewer } from './PhonicsViewer';
+import { ViewerLoading } from './ViewerLoading';
 
 interface ViewerContainerProps {
   storybookId: string | undefined;
@@ -351,11 +351,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
 
   // Loading / Error
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-cream-50">
-        <Mascot state="reading" size="xl" />
-      </div>
-    );
+    return <ViewerLoading label="동화책을 펼치고 있어요" />;
   }
   if (error || !storybook) {
     return (
@@ -379,14 +375,9 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     return <PhonicsViewer storybook={storybook} mode={mode} />;
   }
 
-  // 첫 페이지 TTS 버퍼링 중 — 로딩 화면 유지 (Mascot reading). 버퍼 완료 후 첫 페이지 + 즉시 재생.
+  // 첫 페이지 TTS+이미지 버퍼링 중 — 차오르는 로딩 바. 버퍼 완료 후 첫 페이지 + 즉시 재생.
   if (!ttsReady) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-5 bg-cream-50">
-        <Mascot state="reading" size="xl" />
-        <p className="text-ink-600 font-black text-lg break-keep">책 읽어줄 준비 중...</p>
-      </div>
-    );
+    return <ViewerLoading label="책 읽어줄 준비를 하고 있어요" />;
   }
 
   return (
