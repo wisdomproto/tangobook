@@ -29,7 +29,7 @@ features/viewer/
 
 ## 뷰어 동작
 
-- **진입 시 TTS 버퍼링** → 완료 전 Mascot reading "준비 중" 로딩(`ttsReady` 게이트). 로딩 단축 위해 `waitForTts` 는 **첫 페이지만** + `canplay`(readyState≥3, canplaythrough 아님) 대기 — 나머지 페이지는 풀에 백그라운드 적재 → 완료 후 첫 페이지 + 자동재생(300ms). video/games/파닉스(비story) 는 버퍼링 skip.
+- **진입 시 TTS+이미지 버퍼링** → 완료 전 Mascot reading "준비 중" 로딩(`ttsReady` 게이트). `waitForTts` 는 **첫 페이지만** + `canplay`(readyState≥3) 대기(나머지 풀 백그라운드). **게이트엔 첫 페이지 이미지 로드(`new Image` onload)도 포함** — 음성/자막만 먼저 나오고 이미지가 늦게 뜨는 것 방지(`Promise.all([waitForTts, 첫이미지])`). **자동 넘김(`handleTtsEnded`)도 다음 페이지 이미지 onload 후 넘김**(캐시면 즉시, 상한 1.2s) → 빈 장면 방지. 완료 후 첫 페이지 + 자동재생(300ms). video/games/파닉스(비story) 는 버퍼링 skip.
 - TTS 끝나면 800ms 뒤 자동 페이지 넘김. **마지막 페이지** TTS 끝 or onNext → **BookDetailPage (`/library/:id`)로 자동 이동**.
 - **프리로드 풀**: `preloadTts` 가 현재+다음 페이지 TTS 를 풀(url→Audio)에 적재, `playTts` 가 풀 객체 **재사용**(이미 버퍼 → 즉시 재생, AbortController 리스너). 이미지는 다음 5페이지 `new Image()`. 같은 컴포넌트 풀이라 HTTP 캐시/CORS 의존 X. TTS 는 immutable Cache-Control(재방문 캐시). 상세 → memory `viewer-tts-buffering-2026-06-09`.
 - 홈 버튼 → `/library` · 뒤로 버튼 → browser history back

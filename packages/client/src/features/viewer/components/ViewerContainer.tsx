@@ -123,11 +123,29 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       }, 1000);
       return;
     }
-    setTimeout(() => {
+    // 다음 페이지 이미지가 준비된 뒤 넘김 — 음성이 끝났는데 이미지 로딩으로 빈 장면이 뜨는 것 방지.
+    const nextImg = pages[st.pageIndex + 1]?.illustrationUrl;
+    const go = () => {
       setDirection(1);
       setPageIndex((idx) => idx + 1);
-    }, 800);
-  }, [pages.length, hasKeyObjects]);
+    };
+    if (!nextImg) {
+      setTimeout(go, 800);
+      return;
+    }
+    let fired = false;
+    const fire = () => {
+      if (fired) return;
+      fired = true;
+      go();
+    };
+    const im = new Image();
+    im.onload = () => setTimeout(fire, 150);
+    im.onerror = () => fire();
+    im.src = nextImg;
+    if (im.complete) setTimeout(fire, 150); // 이미 캐시면 즉시
+    setTimeout(fire, 1200); // 상한 — 이미지가 안 와도 넘어감
+  }, [pages, hasKeyObjects]);
 
   const audio = useAudioPlayer({
     backgroundMusicUrl: storybook?.backgroundMusicUrl,
@@ -177,10 +195,20 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       .map((p) => getPageTtsUrl(p, lang))
       .filter((u): u is string => !!u);
     audio.preloadTts([...firstUrls, ...aheadUrls]);
+    // 첫 페이지 이미지도 미리 로드 — 음성/자막만 먼저 나오고 이미지가 늦게 뜨는 것 방지.
+    // 다음 페이지들 이미지는 아래 프리로드 useEffect 가 백그라운드로 데운다.
+    const firstImg = pages[0]?.illustrationUrl;
+    const waitImg = firstImg
+      ? new Promise<void>((res) => {
+          const im = new Image();
+          im.onload = () => res();
+          im.onerror = () => res();
+          im.src = firstImg;
+        })
+      : Promise.resolve();
     let cancelled = false;
-    // 첫 페이지만 재생 가능 수준으로 버퍼되면 바로 시작 (나머지는 풀에 백그라운드 적재).
-    // 3페이지 전부 기다리면 로딩이 불필요하게 길어져 첫 음성이 늦게 나온다.
-    audio.waitForTts(firstUrls.slice(0, 1)).then(() => {
+    // 첫 페이지의 음성(canplay) + 이미지가 둘 다 준비되면 로딩 해제 → 음성·이미지 동시 시작.
+    Promise.all([audio.waitForTts(firstUrls.slice(0, 1)), waitImg]).then(() => {
       if (!cancelled) setTtsReady(true);
     });
     return () => {
