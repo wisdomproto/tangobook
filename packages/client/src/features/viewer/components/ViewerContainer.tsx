@@ -180,7 +180,14 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         if (!started) setNeedsTapToStart(true);
       });
     }, NEXT_TTS_DELAY_MS);
-    return () => clearTimeout(t);
+    // 워치독: play() 가 reject 없이 조용히 막히는 브라우저 대비 — 실제 음성이 시작 안 됐으면 오버레이.
+    const watchdog = setTimeout(() => {
+      if (!audio.hasTtsStarted()) setNeedsTapToStart(true);
+    }, NEXT_TTS_DELAY_MS + 1500);
+    return () => {
+      clearTimeout(t);
+      clearTimeout(watchdog);
+    };
   }, [currentTtsUrl, ttsReady, rewardOpen, wordRevealOpen, mode]);
 
   // 첫 진입 시 첫 BUFFER_PAGES 페이지 TTS 를 버퍼링한 뒤 시작 (로딩 화면 동안). 같은 컴포넌트의

@@ -107,9 +107,10 @@ export function useAudioPlayer({
       opt
     );
 
-    // 재생 성공 여부를 반환 — autoplay 정책으로 막히면 false (호출측이 "탭해서 시작" 처리).
+    // 재생 성공 여부를 반환 — autoplay 정책으로 막히면 false. 일부 브라우저는 reject 없이
+    // resolve 후 곧바로 paused 가 되므로 !paused 로 실제 시작 여부를 확인한다.
     return audio.play().then(
-      () => true,
+      () => !audio.paused,
       (err) => {
         console.warn('[tts] play() rejected (autoplay policy?):', err);
         setIsTtsPlaying(false);
@@ -202,6 +203,14 @@ export function useAudioPlayer({
     }
   }, []);
 
+  // 첫 음성이 실제로 시작됐는지 — play() 가 reject 없이 조용히 막히는 브라우저(autoplay 차단) 감지용.
+  // 재생중(!paused) · 진행됨(currentTime>0) · 종료됨(ended) 중 하나면 "시작된" 것. 셋 다 아니면 차단.
+  const hasTtsStarted = useCallback(() => {
+    const a = ttsRef.current;
+    if (!a) return false;
+    return !a.paused || a.currentTime > 0 || a.ended;
+  }, []);
+
   // Cleanup on unmount
   useEffect(() => {
     const pool = preloadPoolRef.current;
@@ -236,5 +245,6 @@ export function useAudioPlayer({
     ttsDuration,
     toggleBgm,
     isBgmPlaying,
+    hasTtsStarted,
   };
 }
