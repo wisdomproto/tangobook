@@ -154,6 +154,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
 
   const audio = useAudioPlayer({
     backgroundMusicUrl: storybook?.backgroundMusicUrl,
+    backgroundMusicVolume: storybook?.backgroundMusicVolume,
     onTtsEnded: handleTtsEnded,
   });
 

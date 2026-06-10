@@ -33,6 +33,7 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
   const [bgmLibrary, setBgmLibrary] = useState<BgmItem[]>([]);
   const [previewingId, setPreviewingId] = useState<string | null>(null);
   const previewAudioRef = useRef<HTMLAudioElement | null>(null);
+  const [bgmVolume, setBgmVolume] = useState(storybook.backgroundMusicVolume ?? 30);
 
   useEffect(() => {
     settingsApi
@@ -40,6 +41,11 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
       .then(setBgmLibrary)
       .catch(() => {});
   }, []);
+
+  // 외부에서 볼륨이 바뀌면(다른 곳에서 저장 등) 슬라이더 동기화
+  useEffect(() => {
+    setBgmVolume(storybook.backgroundMusicVolume ?? 30);
+  }, [storybook.backgroundMusicVolume]);
 
   // Art style library
   const [showStyleLibrary, setShowStyleLibrary] = useState(false);
@@ -185,11 +191,28 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
     }
   };
 
+  // --- BGM 볼륨 (뷰어 배경음악 기본 볼륨) ---
+  const applyBgmVolumeLive = (v: number) => {
+    if (audioRef.current) audioRef.current.volume = v / 100;
+    if (previewAudioRef.current) previewAudioRef.current.volume = v / 100;
+  };
+  const handleBgmVolumeChange = (v: number) => {
+    setBgmVolume(v);
+    applyBgmVolumeLive(v); // 드래그 중 미리듣기에 즉시 반영
+  };
+  const commitBgmVolume = () => {
+    onUpdate((d) => {
+      d.backgroundMusicVolume = bgmVolume;
+    });
+    onSave(); // 슬라이더 놓을 때만 저장 (드래그 중 매 스텝 저장 방지)
+  };
+
   const toggleBgmPlay = () => {
     if (!storybook.backgroundMusicUrl) return;
     if (!audioRef.current) {
       audioRef.current = new Audio(storybook.backgroundMusicUrl);
       audioRef.current.loop = true;
+      audioRef.current.volume = bgmVolume / 100;
       audioRef.current.addEventListener('ended', () => setBgmPlaying(false));
     }
     if (bgmPlaying) {
@@ -218,6 +241,7 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
     stopPreview();
     const audio = new Audio(item.url);
     audio.loop = true;
+    audio.volume = bgmVolume / 100;
     audio.play().catch(() => {});
     previewAudioRef.current = audio;
     setPreviewingId(item.id);
@@ -444,6 +468,29 @@ export function SettingsTab({ storybook, onUpdate, onSave }: SettingsTabProps) {
             배경음악이 설정되지 않았습니다.
           </p>
         )}
+
+        {/* BGM 볼륨 슬라이더 (뷰어 기본 볼륨) */}
+        <div>
+          <div className="flex items-center justify-between mb-1">
+            <label className={labelClass}>볼륨 (뷰어 배경음악)</label>
+            <span className="text-sm font-semibold text-violet-600 tabular-nums">{bgmVolume}%</span>
+          </div>
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={1}
+            value={bgmVolume}
+            onChange={(e) => handleBgmVolumeChange(Number(e.target.value))}
+            onMouseUp={commitBgmVolume}
+            onTouchEnd={commitBgmVolume}
+            onKeyUp={commitBgmVolume}
+            className="w-full accent-violet-600 cursor-pointer"
+          />
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+            아이가 책을 읽을 때 들리는 배경음악 볼륨입니다. 기본 30%.
+          </p>
+        </div>
 
         {/* BGM 라이브러리 */}
         {bgmLibrary.length > 0 && (

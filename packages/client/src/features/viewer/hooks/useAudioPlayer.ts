@@ -2,10 +2,16 @@ import { useRef, useState, useCallback, useEffect } from 'react';
 
 interface UseAudioPlayerOptions {
   backgroundMusicUrl?: string;
+  /** 배경음악 볼륨 (0–100%, 기본 30). 기본설정에서 책별로 조절. */
+  backgroundMusicVolume?: number;
   onTtsEnded?: () => void;
 }
 
-export function useAudioPlayer({ backgroundMusicUrl, onTtsEnded }: UseAudioPlayerOptions) {
+export function useAudioPlayer({
+  backgroundMusicUrl,
+  backgroundMusicVolume,
+  onTtsEnded,
+}: UseAudioPlayerOptions) {
   const ttsRef = useRef<HTMLAudioElement | null>(null);
   const bgmRef = useRef<HTMLAudioElement | null>(null);
   // TTS 프리로드 풀: url → 미리 버퍼링된 Audio 객체. playTts 가 이 풀의 객체를 재사용한다
@@ -25,7 +31,7 @@ export function useAudioPlayer({ backgroundMusicUrl, onTtsEnded }: UseAudioPlaye
     if (!backgroundMusicUrl) return;
     const audio = new Audio(backgroundMusicUrl);
     audio.loop = true;
-    audio.volume = 0.3;
+    audio.volume = (backgroundMusicVolume ?? 30) / 100;
     bgmRef.current = audio;
     audio
       .play()
@@ -36,6 +42,11 @@ export function useAudioPlayer({ backgroundMusicUrl, onTtsEnded }: UseAudioPlaye
       audio.src = '';
     };
   }, [backgroundMusicUrl]);
+
+  // 볼륨 변경 시 재생 중인 BGM 에 즉시 반영 (오디오 재생성 없이).
+  useEffect(() => {
+    if (bgmRef.current) bgmRef.current.volume = (backgroundMusicVolume ?? 30) / 100;
+  }, [backgroundMusicVolume]);
 
   const onTtsEndedRef = useRef(onTtsEnded);
   onTtsEndedRef.current = onTtsEnded;

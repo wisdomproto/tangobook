@@ -941,6 +941,8 @@ export interface Storybook {
 
   // 배경음악
   backgroundMusicUrl?: string;
+  /** 뷰어 배경음악 볼륨 (0–100%, 기본 30). 렌더(오디오북/롱폼)는 프로젝트별 bgmVolume 별도. */
+  backgroundMusicVolume?: number;
 
   // 오디오북 프로젝트
   audiobookProjects?: AudiobookProject[];
