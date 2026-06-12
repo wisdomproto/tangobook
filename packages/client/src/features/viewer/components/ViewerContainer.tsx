@@ -177,7 +177,13 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     if (mode === 'video' || mode === 'games') return;
     // 시작 전(시작 버튼 대기)엔 자동재생 안 함. 시작 후(제스처로 해금됨)에만 자동재생.
     if (!startedRef.current) return;
-    const t = setTimeout(() => audio.playTts(currentTtsUrl), NEXT_TTS_DELAY_MS);
+    // ⏸(autoPlayTts OFF) 동안엔 페이지를 넘겨도 재생하지 않음. deps 대신 stateRef 로 읽어
+    // 토글 ON 시 effect 재실행으로 인한 이중 재생(onTogglePlayback 의 resume/play 와 중복)을 피하고,
+    // 타이머 발화 시점에 재확인해 전환 직후 ⏸ 눌러도 뒤늦게 재생되지 않게 한다.
+    if (!stateRef.current.autoPlayTts) return;
+    const t = setTimeout(() => {
+      if (stateRef.current.autoPlayTts) audio.playTts(currentTtsUrl);
+    }, NEXT_TTS_DELAY_MS);
     return () => clearTimeout(t);
   }, [currentTtsUrl, ttsReady, rewardOpen, wordRevealOpen, mode]);
 

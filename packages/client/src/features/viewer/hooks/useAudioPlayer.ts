@@ -195,8 +195,11 @@ export function useAudioPlayer({
     const audio = bgmRef.current;
     if (!audio) return;
     if (audio.paused) {
-      audio.play().catch(() => {});
-      setIsBgmPlaying(true);
+      // play() 성공 시에만 ON 표시 — 차단/로드 실패 시 버튼이 켜진 척하지 않게
+      audio
+        .play()
+        .then(() => setIsBgmPlaying(!audio.paused))
+        .catch(() => setIsBgmPlaying(false));
     } else {
       audio.pause();
       setIsBgmPlaying(false);
