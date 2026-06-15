@@ -462,6 +462,19 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 
 모든 사이드바 라우트가 실제 페이지로 연결됨 — marketing children에 `PlaceholderPage` 더 이상 없음 (`PlaceholderPage.tsx`는 모듈에 잔존하나 마케팅 트리 미사용).
 
+## 동화책 → 기본글 시딩 (콘텐츠 부트스트랩)
+
+동화책 152권(명작 51 + 자연관찰 101) 각각을 마케팅 콘텐츠 1개 + 기본글(base article) 1개로 시딩하는 파이프라인. 저작(파일)과 시딩(멱등 스크립트)을 분리.
+
+- **산출물**: `packages/server/scripts/_data/marketing/base-articles/<storybookId>.json` (152개, git 보존 — `.gitignore`에서 `_data/marketing/` 예외 처리). 각 파일 = `{storybookId, category('classic'|'nature'), title, body_html(TipTap, h2 8섹션), body_plain_text, sources, generatedAt}`.
+  - 명작 템플릿: 작품 소개·원작 이야기(웹리서치)·탱고북 각색 비교·줄거리·교훈·부모 가이드(읽어주는 법)·함께 나눌 질문·추천 연령.
+  - 자연 템플릿: 주제 소개·자연/과학 사실 검증(웹리서치)·탱고북이 다루는 내용·핵심 어휘(keyObjects)·호기심 질문·부모 가이드(관찰/체험 확장)·함께 할 활동·추천 연령.
+  - 소스 본문 = `packages/server/scripts/_data/translations/vi/<id>.json` 의 `pages[].ko`·`keyObjects`·`parentGuide`. **카테고리 분류기 = 페이지 수**(≤17 classic / ≥18 nature, 152권 전수 일치).
+- **시드 스크립트**: `packages/server/scripts/seed-marketing-base-articles.mjs` — `SUPABASE_URL`+`SUPABASE_SERVICE_ROLE_KEY` env 필요. `--owner-email`(기본 kil210@…)로 `auth.users`에서 owner 해석 → `mkt_projects` name="탱고북 동화책" ensure → book마다 `mkt_contents`(memo=`storybook:<id>` 키로 멱등, category·tags 채움) + `mkt_base_articles`(content_id 기준 select-then-insert/update) upsert. `--ids a,b,c` 또는 `--all`, `--dry-run` 지원. 모든 row `user_id` 스탬프.
+  - **멱등 키**: `mkt_contents.memo='storybook:<id>'` (마이그레이션 0 — 기존 컬럼 재사용). 재실행해도 중복 없이 갱신.
+  - 순수 헬퍼 `packages/server/scripts/lib/seed-helpers.mjs`(classify/wordcount/memo-tag/html→plain) + 산출물 검증 `scripts/validate-base-articles.test.mjs`. **vitest 설정이 `scripts/**/\*.test.mjs` 포함**(`packages/server/vitest.config.ts`).
+- 설계/플랜: `docs/superpowers/specs|plans/2026-06-15-marketing-storybook-base-articles*.md`.
+
 ## 관련 문서
 
 - 마스터 스펙: `docs/superpowers/specs/2026-06-06-contentflow-marketing-port-design.md`
