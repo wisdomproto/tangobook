@@ -69,6 +69,10 @@ packages/server/scripts/_data/*
 !packages/server/scripts/_data/translations/
 !packages/server/scripts/_data/marketing/
 !packages/server/scripts/_data/marketing/base-articles/
+!packages/server/scripts/_data/marketing/keyword-plans/
+# keyword-plans 의 _titles.json·_main-keywords.json 은 _*.json 규칙(위)에 막히므로 명시 예외
+!packages/server/scripts/_data/marketing/keyword-plans/_titles.json
+!packages/server/scripts/_data/marketing/keyword-plans/_main-keywords.json
 
 # .claude session backups
 .claude/backups/
