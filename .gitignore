@@ -64,9 +64,11 @@ jack-*.json
 
 # Dev-only analysis dumps (key-object editor)
 packages/client/public/_analysis/
-# _data 는 dump/산출물(gitignore) 이지만 translations/ 는 번역 소스라 보존
+# _data 는 dump/산출물(gitignore) 이지만 translations/ 는 번역 소스, marketing/base-articles/ 는 마케팅 기본글 템플릿으로 보존
 packages/server/scripts/_data/*
 !packages/server/scripts/_data/translations/
+!packages/server/scripts/_data/marketing/
+!packages/server/scripts/_data/marketing/base-articles/
 
 # .claude session backups
 .claude/backups/
