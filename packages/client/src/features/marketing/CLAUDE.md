@@ -475,6 +475,17 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
   - 순수 헬퍼 `packages/server/scripts/lib/seed-helpers.mjs`(classify/wordcount/memo-tag/html→plain) + 산출물 검증 `scripts/validate-base-articles.test.mjs`. **vitest 설정이 `scripts/**/\*.test.mjs` 포함**(`packages/server/vitest.config.ts`).
 - 설계/플랜: `docs/superpowers/specs|plans/2026-06-15-marketing-storybook-base-articles*.md`.
 
+## 동화책 → 다국어 키워드 전략 (블로그 SEO 선행 단계)
+
+동화책 152권 × {ko·en·vi·th} 각각에 대해 블로그가 타깃할 **primary 1 + secondary 3~5 키워드**를 Google 검색량(DataForSEO) 근거로 선정. 산출물(키워드 플랜)은 다음 단계(다국어 블로그 생성)가 소비. **네이버 블로그는 범위 밖** — Google/GEO(InternalBlogPanel) 라인만.
+
+- **순수 모듈**(TDD, `packages/server/scripts/lib/`): `keyword-candidates.mjs`(`buildCandidates(title,category,lang)` + `MAIN_KEYWORDS[lang]` 헤드 키워드 풀; 명작/자연 + 언어별 접미사 테이블) · `keyword-select.mjs`(`selectKeywords(title,candidates)` → 관련성(제목 포함) 우선 → 검색량 desc, 0볼륨 시 제목 폴백). 테스트 `keyword-plan-helpers.test.mjs`.
+- **오케스트레이터** `packages/server/scripts/research-keyword-plans.mjs`: `--ids/--all --langs ko,en,vi,th --dry-run`. 제목 해석(ko=소스 `title`, vi=소스 `titleT`, en·th=`keyword-plans/_titles.json` 맵) → 후보 생성 → **언어별 1배치** DataForSEO `keywords_data/google/search_volume/live`(location `{ko:2410,en:2840,vi:2704,th:2764}`) → 선정 → 파일. `.env` 자동 로드(`DATAFORSEO_LOGIN/PASSWORD`).
+- **산출물**(git, `.gitignore`에 keyword-plans 예외): `keyword-plans/<id>.json` = `{storybookId, category, titleKo, plans:{[lang]:{primary, secondary[], candidates[{keyword,searchVolume,competition,cpc}]}}}` + `_main-keywords.json`. 검증 `validate-keyword-plans.test.mjs`.
+- **태국어(th)**: 콘텐츠 번역 없음 — 키워드 전략만 가능(제목 맵의 태국어 제목 사용). th 블로그 생성은 별도 태국어 콘텐츠 필요.
+- **DataForSEO 잔액 필요**: 실 조회는 계정 잔액 있어야 함(없으면 402). dry-run(후보 생성)은 잔액 무관. 파일럿 6권 제목 맵 완비, 전체 152는 `_titles.json`에 en·th 제목 추가 후 `--all`.
+- 설계/플랜: `docs/superpowers/specs|plans/2026-06-15-marketing-keyword-strategy*.md`.
+
 ## 관련 문서
 
 - 마스터 스펙: `docs/superpowers/specs/2026-06-06-contentflow-marketing-port-design.md`
