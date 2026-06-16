@@ -55,9 +55,14 @@ export async function wavToMp3(wav: Buffer, bitrate = '128k'): Promise<Buffer> {
 /**
  * Convert PNG/JPG buffer to WebP.
  */
-export async function imageToWebp(input: Buffer, opts: { quality?: number } = {}): Promise<Buffer> {
-  const { quality = 85 } = opts;
-  return sharp(input).webp({ quality }).toBuffer();
+export async function imageToWebp(
+  input: Buffer,
+  opts: { quality?: number; maxWidth?: number } = {}
+): Promise<Buffer> {
+  const { quality = 85, maxWidth } = opts;
+  let img = sharp(input);
+  if (maxWidth) img = img.resize({ width: maxWidth, withoutEnlargement: true });
+  return img.webp({ quality }).toBuffer();
 }
 
 function runFfmpeg(input: Buffer, args: string[]): Promise<Buffer> {

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { generateImageWithGemini, getTextModel } from '../providers/gemini.provider.js';
 import { R2Repository } from '../repositories/r2.repository.js';
 import { buildR2Key } from '../utils/r2-key.js';
+import { imageToWebp } from '../utils/transcode.js';
 import { uploadJsonToR2, deleteFromR2, urlToR2Key } from '../providers/r2.provider.js';
 import { AppError } from '../middleware/error.middleware.js';
 import type {
@@ -596,17 +597,18 @@ ${isolatedObjectPrompt(card.word)}`;
 
   async uploadImage(file: Express.Multer.File, body: Record<string, string>): Promise<string> {
     const { storybookId, storybookTitle, type, characterName, pageNumber } = body;
-    const ext = file.originalname.split('.').pop() ?? 'png';
     const typePart = type ?? 'upload';
     const namePart = characterName ?? (pageNumber ? `page${pageNumber}` : 'misc');
+    // 업로드 이미지는 webp(최대 1536px)로 변환해 저장 — 원본 jpg/png 는 저장하지 않음(용량·로딩 최적화).
+    const webp = await imageToWebp(file.buffer, { maxWidth: 1536 });
     const key = buildR2Key({
       storybookId,
       storybookTitle: storybookTitle ?? '',
       fileType: typePart,
       identifier: namePart,
-      extension: ext,
+      extension: 'webp',
     });
-    return R2Repository.uploadBuffer(file.buffer, key, file.mimetype);
+    return R2Repository.uploadBuffer(webp, key, 'image/webp');
   },
 
   async analyzeArtStyle(file: Express.Multer.File): Promise<string> {
