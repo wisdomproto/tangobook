@@ -31,6 +31,7 @@ export function useAudioPlayer({
     if (!backgroundMusicUrl) return;
     const audio = new Audio(backgroundMusicUrl);
     audio.loop = true;
+    audio.preload = 'auto'; // 시작 화면 동안 미리 버퍼링 → 탭 시 즉시 재생(늦게 나오는 것 방지)
     audio.volume = (backgroundMusicVolume ?? 30) / 100;
     bgmRef.current = audio;
     audio

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { Page } from '@tangobook/shared';
 import type { LangCode } from '@/lib/storybook-accessors';
@@ -42,6 +42,31 @@ const reducedVariants = {
 };
 
 const stripBold = (s: string) => s.replace(/\*\*/g, '');
+
+/**
+ * 페이지 일러스트 — 완전히 로드된 뒤에만 표시(opacity 게이트).
+ * 큰 이미지가 다운로드되는 대로 위→아래로 점진 페인트되는 것을 막아 "한 번에" 나타나게 한다.
+ * 캐시된 이미지는 즉시(complete) 표시. decoding=async 로 디코딩 jank 완화.
+ */
+function PageImage({ src, className }: { src: string; className: string }) {
+  const [loaded, setLoaded] = useState(false);
+  const ref = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    setLoaded(false);
+    const img = ref.current;
+    if (img?.complete && img.naturalWidth > 0) setLoaded(true);
+  }, [src]);
+  return (
+    <img
+      ref={ref}
+      src={src}
+      alt=""
+      decoding="async"
+      onLoad={() => setLoaded(true)}
+      className={`${className} transition-opacity duration-200 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+    />
+  );
+}
 
 export function PageView({
   page,
@@ -90,15 +115,14 @@ export function PageView({
         {fullscreen ? (
           // 풀스크린 — 이미지만 가득
           page.illustrationUrl && (
-            <img src={page.illustrationUrl} alt="" className="w-full h-full object-contain" />
+            <PageImage src={page.illustrationUrl} className="w-full h-full object-contain" />
           )
         ) : (
           <>
             <div className="flex-1 w-full flex items-center justify-center min-h-0">
               {page.illustrationUrl && (
-                <img
+                <PageImage
                   src={page.illustrationUrl}
-                  alt=""
                   className="max-w-full max-h-full object-contain rounded-lg shadow-card"
                 />
               )}

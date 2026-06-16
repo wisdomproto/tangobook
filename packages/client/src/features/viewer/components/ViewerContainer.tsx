@@ -84,6 +84,8 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const [needsTapToStart, setNeedsTapToStart] = useState(false);
   // 한 번 시작하면(사용자 제스처로 오디오 해금) 이후 페이지는 자동재생.
   const startedRef = useRef(false);
+  // 마지막으로 재생을 건 TTS url — 같은 페이지를 두 번 재생(첫 음절 씹힘) 방지.
+  const lastPlayedTtsRef = useRef<string | null>(null);
 
   // state ref로 콜백에서 최신 값 접근
   const stateRef = useRef({
@@ -181,6 +183,9 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     // 토글 ON 시 effect 재실행으로 인한 이중 재생(onTogglePlayback 의 resume/play 와 중복)을 피하고,
     // 타이머 발화 시점에 재확인해 전환 직후 ⏸ 눌러도 뒤늦게 재생되지 않게 한다.
     if (!stateRef.current.autoPlayTts) return;
+    // 같은 페이지 재재생 방지 — 시작 탭 후 ttsReady 가 바뀌며 effect 가 재실행돼도 첫 음절 씹힘 X.
+    if (lastPlayedTtsRef.current === currentTtsUrl) return;
+    lastPlayedTtsRef.current = currentTtsUrl;
     const t = setTimeout(() => {
       if (stateRef.current.autoPlayTts) audio.playTts(currentTtsUrl);
     }, NEXT_TTS_DELAY_MS);
@@ -477,7 +482,10 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
             startedRef.current = true;
             setNeedsTapToStart(false);
             if (!audio.isBgmPlaying) audio.toggleBgm();
-            if (currentTtsUrl) audio.playTts(currentTtsUrl);
+            if (currentTtsUrl) {
+              lastPlayedTtsRef.current = currentTtsUrl;
+              audio.playTts(currentTtsUrl);
+            }
           }}
           className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-5 bg-cream-50/95 backdrop-blur-sm"
         >
