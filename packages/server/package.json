@@ -10,7 +10,8 @@
     "start": "node dist/server/src/server.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "sitemap": "node scripts/generate-sitemap.mjs"
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "og": "node scripts/generate-og-images.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.971.0",
