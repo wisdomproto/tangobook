@@ -34,6 +34,12 @@ const RESOURCES: ResourceItem[] = [
     desc: 'Deep-dive · 모든 시각화·표·mockup',
   },
   {
+    href: '/business-plan.html',
+    icon: '🧭',
+    label: '사업계획서 (AI 무투자 모델)',
+    desc: '다국어 글로벌 · 자연관찰 · 무투자 고마진 70%',
+  },
+  {
     href: '/seo-strategy.html',
     icon: '🔍',
     label: 'SEO 전략',
