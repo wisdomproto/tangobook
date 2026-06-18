@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>탱고북 — 사업계획서 (AI 시대 무투자·고마진 글로벌 모델)</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+  @import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@2.0/nanumsquareround.css');
+
+  :root{
+    --coral:#FF5E3A; --coral-d:#E84B2A; --coral-l:#FFE4DC;
+    --peach:#FFF0E0; --peach-d:#FFDDBF; --cream:#FFF9F3;
+    --mint:#5CC99F; --mint-l:#D8F3E7;
+    --fun:#A78BFA;
+    --ink:#3F2F24; --ink-2:#6D5A4C; --ink-soft:#9A8474;
+    --line:#EFE3D6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:'Pretendard',system-ui,sans-serif; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+  h1,h2,h3,.disp{font-family:'NanumSquareRound','Pretendard',sans-serif;}
+  a{color:var(--coral-d);}
+
+  /* hero */
+  header.hero{
+    background:linear-gradient(160deg,var(--cream),var(--peach));
+    padding:72px 0 56px; border-bottom:3px solid var(--coral-l);
+  }
+  .badge{display:inline-block; background:var(--coral); color:#fff; font-weight:800;
+    font-size:13px; padding:6px 14px; border-radius:999px; letter-spacing:.02em;}
+  .hero h1{font-size:42px; line-height:1.25; margin:18px 0 10px; font-weight:800;}
+  .hero .sub{font-size:19px; color:var(--ink-2); margin:0; max-width:680px;}
+  .hero .meta{margin-top:22px; font-size:14px; color:var(--ink-soft);}
+  .hero .meta b{color:var(--coral-d);}
+
+  section{padding:48px 0; border-bottom:1px solid var(--line);}
+  .kicker{font-size:13px; font-weight:800; color:var(--mint); letter-spacing:.08em; text-transform:uppercase; margin:0 0 6px;}
+  h2{font-size:28px; margin:0 0 8px; font-weight:800;}
+  .lead{font-size:17px; color:var(--ink-2); margin:0 0 22px;}
+  h3{font-size:18px; margin:24px 0 8px; color:var(--coral-d);}
+  p{margin:0 0 14px;}
+
+  .callout{background:#fff; border:1px solid var(--line); border-left:5px solid var(--coral);
+    border-radius:14px; padding:18px 20px; margin:18px 0; box-shadow:0 3px 14px rgba(63,47,36,.05);}
+  .callout.mint{border-left-color:var(--mint);}
+  .callout.fun{border-left-color:var(--fun);}
+  .callout b{color:var(--coral-d);}
+  .callout.mint b{color:#2A8761;}
+
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:18px 0;}
+  @media(max-width:640px){.grid{grid-template-columns:1fr;} .hero h1{font-size:32px;}}
+  .card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 20px;}
+  .card h4{margin:0 0 6px; font-size:16px; font-weight:800; font-family:'NanumSquareRound',sans-serif;}
+  .card p{font-size:14.5px; color:var(--ink-2); margin:0;}
+  .card .big{font-size:30px; font-weight:800; color:var(--coral); font-family:'NanumSquareRound',sans-serif; line-height:1.1;}
+
+  table{width:100%; border-collapse:collapse; margin:18px 0; font-size:14.5px; background:#fff; border-radius:12px; overflow:hidden;}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top;}
+  th{background:var(--peach); font-weight:800; font-size:13px;}
+  td:first-child{font-weight:700;}
+  .ok{color:#2A8761; font-weight:700;} .no{color:var(--coral-d); font-weight:700;}
+
+  ul.clean{margin:10px 0; padding-left:0; list-style:none;}
+  ul.clean li{padding:6px 0 6px 26px; position:relative; color:var(--ink-2);}
+  ul.clean li::before{content:'▪'; color:var(--coral); position:absolute; left:8px; top:6px;}
+
+  .pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:18px 0;}
+  @media(max-width:640px){.pillars{grid-template-columns:1fr;}}
+  .pillar{background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px; text-align:center;}
+  .pillar .ic{font-size:30px;} .pillar h4{margin:8px 0 4px; font-family:'NanumSquareRound',sans-serif;}
+  .pillar p{font-size:13.5px; color:var(--ink-soft); margin:0;}
+
+  .phase{display:flex; gap:16px; margin:14px 0; align-items:flex-start;}
+  .phase .tag{flex:0 0 auto; background:var(--ink); color:var(--cream); font-weight:800; font-size:13px;
+    padding:6px 12px; border-radius:8px; font-family:'NanumSquareRound',sans-serif; white-space:nowrap;}
+  .phase .body{font-size:14.5px; color:var(--ink-2);}
+  .phase .body b{color:var(--ink);}
+
+  .oneliner{background:var(--ink); color:var(--cream); border-radius:18px; padding:30px 28px; margin:8px 0;}
+  .oneliner h2{color:#fff; font-size:22px;}
+  .oneliner p{font-size:16px; color:#F3E2D2; margin:0;}
+  footer{padding:40px 0 60px; color:var(--ink-soft); font-size:13px; text-align:center;}
+
+  @media print{ body{background:#fff;} section{break-inside:avoid;} header.hero{background:#fff;} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">사업계획서 · AI 시대 무투자 모델</span>
+    <h1>탱고북 — AI로 만드는<br/>무투자·고마진 글로벌 유아 학습 플랫폼</h1>
+    <p class="sub">명작·자연관찰·생활·전래 동화 × 파닉스·어휘 학습. 한국에서 시작해 동남아 전역으로. 외부 투자 없이, 작지만 최고로.</p>
+    <div class="meta">대상 <b>4–7세</b> · 팀 <b>2인 / 3개월</b> 구축 · 목표 <b>매출 ₩10억 · 영업이익 70%</b> · 2026</div>
+  </div>
+</header>
+
+<!-- 1. THESIS -->
+<section>
+<div class="wrap">
+  <p class="kicker">핵심 명제</p>
+  <h2>AI가 인건비를 0으로 만든 순간, 사업의 정답이 바뀌었다</h2>
+  <p class="lead">과거엔 수백억 매출로 밸류를 만들고 투자를 받아야 했다. 이제 원가가 0에 수렴하니 — <b>투자가 필요하면 그건 거짓 사업</b>이다.</p>
+
+  <div class="callout">
+    <p style="margin:0;"><b>인건비 = 모든 리스크의 근원.</b> 고정비라서, 매출이 늦으면 무조건 "빨리 키워야 → 투자받아야 → 스케일 강요" 모드로 끌고 간다. AI가 수십 명분 생산 인건비를 ~0원으로 만든 것은 비용 절감이 아니라 <b>그 강제력 자체를 제거</b>한 것. 그래서 "무투자·고마진·작아도 최고" 모델이 비로소 가능해졌다.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card"><div class="big">~0원</div><h4>생산 인건비</h4><p>콘텐츠·디자인·개발·번역 = AI가 수십 명분 대체. 일회성 생성 후 저장.</p></div>
+    <div class="card"><div class="big">70%</div><h4>영업이익률</h4><p>매출의 30%는 마케팅(번 돈에서 지출, 투자 아님). 나머지가 이익.</p></div>
+  </div>
+  <p style="font-size:14px;color:var(--ink-soft);">남는 유일한 "인건비" = 창업자의 <b>취향·판단·큐레이션</b>. 외주 불가, 그게 곧 해자.</p>
+</div>
+</section>
+
+<!-- 2. PRODUCT -->
+<section>
+<div class="wrap">
+  <p class="kicker">제품</p>
+  <h2>재미·지식·스킬을 어휘로 엮은 통합 조기학습</h2>
+  <p class="lead">동화는 아이가 앱을 여는 이유(재미), 학습은 부모가 돈 내는 이유(성과). 둘을 어휘가 잇는다.</p>
+  <div class="pillars">
+    <div class="pillar"><div class="ic">📖</div><h4>동화 (재미)</h4><p>명작·전래(각국)·생활동화. 아이를 끌어들이는 후크.</p></div>
+    <div class="pillar"><div class="ic">🦋</div><h4>자연관찰 (지식)</h4><p>비차별화된 명작과 달리 경쟁자가 없는 지식 기둥.</p></div>
+    <div class="pillar"><div class="ic">🔤</div><h4>파닉스·어휘 (스킬)</h4><p>측정 가능한 학습 성과. 부모의 지불 명분.</p></div>
+  </div>
+  <div class="callout mint">
+    <p style="margin:0;"><b>어휘 = 척추.</b> 파닉스로 해독한 단어가 동화에 등장하고 어휘로 강화되며 진도로 추적된다. 이 통합 루프가 모방 어려운 IP이자 리텐션·과금의 근거. 콘텐츠 총량은 ~300권(4 카테고리)이 목적지 — 파닉스 단어가 이야기 안에서 모두 등장하기 위한 어휘 커버리지.</p>
+  </div>
+</div>
+</section>
+
+<!-- 3. WEDGE -->
+<section>
+<div class="wrap">
+  <p class="kicker">차별화 (빈틈)</p>
+  <h2>공룡이 구조적으로 못 들어오는 자리</h2>
+  <p class="lead">AI 시대엔 콘텐츠 총량이 해자가 아니다. 승부는 빈틈 + 취향 + 신뢰.</p>
+
+  <h3>① 자연관찰 — 가장 단단한 화이트스페이스</h3>
+  <ul class="clean">
+    <li>앱 경쟁자(핑크퐁·Monkey·Galaxy)엔 자연관찰 카테고리가 <b>구조적으로 없음</b> (동요·영어말하기·파닉스에 집중).</li>
+    <li>한국 자연관찰 전집은 <b>집집마다 필수</b>(수십만원 지불의사 증명). 그런데 출판사들은 제작비 부담 + 시장 축소로 <b>신규 제작 중단</b>.</li>
+    <li>→ 그들을 쫓아낸 "제작비"를 <b>AI가 무너뜨림</b>. 끈적한 수요 + 늙어가는 재고 + 재진입 못 하는 incumbent + 원가 우위. "Why now"가 완성.</li>
+  </ul>
+  <div class="callout fun">
+    <p style="margin:0;">⚠️ <b>단, 정확성이 전부.</b> 실사 퀄리티(비싸 보임)는 AI가 풀었지만 — "사진 같다 ≠ 사실이다". 실사일수록 틀리면 더 치명적. 곤충·종·라벨 등 고위험 20%만 <b>사실 검증 한 겹</b>(보이지 않는 AI + 보이는 큐레이션). 그게 전집 출판사·Nat Geo와 동급이 되는 길.</p>
+  </div>
+
+  <h3>② 프리미엄 취향 · anti-슬롭 신뢰</h3>
+  <p>공룡은 양(量)·성과불안·engagement에 묶여 "엄선된 취향"으로 못 바뀐다. AI로 만들되 전면엔 사람의 큐레이션을 둬, "아이에게 줘도 부끄럽지 않은 명작·지식" 브랜드.</p>
+</div>
+</section>
+
+<!-- 4. MARKET -->
+<section>
+<div class="wrap">
+  <p class="kicker">시장</p>
+  <h2>목표는 동남아 전역. 한국은 브랜드 원산지.</h2>
+  <p class="lead">한국 시장 자체는 성숙·포화·축소. 대신 "한국에서 시작해 성공한 K-플랫폼"이라는 브랜딩 자산 + 검증 실험실로 활용.</p>
+  <div class="grid">
+    <div class="card"><h4>🇰🇷 한국 = Proof Lab</h4><p>수익 센터 아님. 모델 검증 + 후기 + "K-플랫폼" 크레딧 생산. (vi 번역 152권이 이미 SEA 지향의 증거)</p></div>
+    <div class="card"><h4>🌏 동남아 = TAM</h4><p>젊고 거대한 시장. 비치헤드 1국 점령 후 확산. "동남아 전체"는 목표지 진입 단위 아님.</p></div>
+  </div>
+  <div class="callout">
+    <p style="margin:0;"><b>K-브랜드의 올바른 사용법.</b> 한국 origin은 "영어 권위"를 못 준다 → 영어 outcome 피바다(Monkey·Galaxy)에서 정면승부 금지. 대신 <b>한국어 학습 · K-퀄리티 프리미엄 · 명작/자연관찰 전인발달</b> 각도로 진입 = 피바다를 우회하는 차별화가 브랜딩으로 공짜로 따라온다.</p>
+  </div>
+</div>
+</section>
+
+<!-- 5. COMPETITION -->
+<section>
+<div class="wrap">
+  <p class="kicker">경쟁</p>
+  <h2>이길 필요가 없다</h2>
+  <p class="lead">점유율 싸움이 아니다. 나라마다 1,000가구만 떼오면 최고의 사업.</p>
+  <table>
+    <tr><th>플레이어</th><th>정체</th><th>우리와의 관계</th></tr>
+    <tr><td>Monkey (베트남)</td><td>영어·베트남어 종합, 평생 ~$47, 콘텐츠 SEO</td><td>고릴라 — 영어로 정면승부 X, 한국어/프리미엄으로 우회</td></tr>
+    <tr><td>Galaxy Kids (태국)</td><td>AI 영어 말하기 튜터, 구독</td><td>다른 레인(말하기 vs 읽기) — 충돌 아님</td></tr>
+    <tr><td>Epic (글로벌)</td><td>4만권 라이브러리, 로그인 게이트</td><td>웹-SEO 안 함, Nat Geo 논픽션은 낡은 포맷</td></tr>
+    <tr><td>핑크퐁</td><td>동요·캐릭터 엔터, 앱·유튜브</td><td>자연관찰·읽기 학습 없음</td></tr>
+    <tr><td>한국 전집 출판사</td><td>자연관찰 종이 전집, 수십만원</td><td>정적·단일언어·신규제작 중단 → 디지털·다국어로 공략</td></tr>
+  </table>
+  <div class="callout mint">
+    <p style="margin:0;"><b>웹-SEO 레인은 거인들이 비워뒀다.</b> 모두 앱스토어·유튜브·광고·브랜드로 유입받지, 공개 동화 페이지를 SEO하지 않는다. 우리가 먼저 점령하면 우리 땅.</p>
+  </div>
+</div>
+</section>
+
+<!-- 6. MODEL + ECONOMICS -->
+<section>
+<div class="wrap">
+  <p class="kicker">비즈니스 모델 & 유닛 이코노믹스</p>
+  <h2>월 $4.9, 레퍼럴로 굴리는 자기조달 성장</h2>
+  <div class="grid">
+    <div class="card"><div class="big">$4.9<span style="font-size:15px;">/월</span></div><h4>구독</h4><p>7일 무료 체험. 친구 초대 = +7일(상한·taper — 고래 영구공짜 방지).</p></div>
+    <div class="card"><div class="big">~1,000</div><h4>나라당 유료 가구</h4><p>₩10억 ÷ $59/년 ≈ 글로벌 1.3만 구독 ÷ 12개 언어. 점유율 0.1%로 충분.</p></div>
+  </div>
+  <table>
+    <tr><th>항목</th><th>구조</th><th>판정</th></tr>
+    <tr><td>인프라 (서버·스토리지·전송)</td><td>R2 <b>egress 0</b> → 글로벌 배포해도 대역폭 청구 없음</td><td class="ok">≈ 0</td></tr>
+    <tr><td>콘텐츠 생산</td><td>AI 일회성 생성 후 저장</td><td class="ok">≈ 0</td></tr>
+    <tr><td>마케팅</td><td>매출의 30% (번 돈에서 지출, 투자 아님)</td><td class="ok">자기조달</td></tr>
+    <tr><td>결제 수수료</td><td><b>웹/Stripe ~3% ✅ vs 앱스토어 15~30% ❌</b></td><td class="no">웹-퍼스트로 회피</td></tr>
+    <tr><td>운영</td><td>2인팀 — 진짜 희소비용은 돈이 아니라 다국어 CS 시간 (AI 자동화)</td><td class="ok">최소</td></tr>
+  </table>
+  <p style="font-size:14px;color:var(--ink-soft);">무료 동화 = 획득 자산(약한 수익화/강한 획득). 학습 = 완성 후 유료(강한 수익화/완결 필수). 분리·순차화로 "반쪽 학습 판매" 함정 회피.</p>
+</div>
+</section>
+
+<!-- 7. GTM -->
+<section>
+<div class="wrap">
+  <p class="kicker">실행 (Go-to-Market)</p>
+  <h2>최소 MVP를 최대한 많은 언어로 뿌리고, 반응을 본다</h2>
+  <p class="lead">AI 이전엔 불가능하던 걸 비용 ~0으로 그냥 해본다. 논리로 베팅하지 말고 데이터가 말하게.</p>
+  <ul class="clean">
+    <li><b>다국어 스프레이</b> — i18n "새 언어 = 한 줄" + Claude 번역 파이프라인. vi 완료 → th·id·tl·zh·en 등.</li>
+    <li><b>오가닉 유통 엔진</b> — 각 언어판 about 페이지 SEO(프리렌더·sitemap) + OG 공유 이미지 + 레퍼럴 입소문. 마케팅 30%를 더 멀리 가게 하는 레버.</li>
+    <li><b>GA 국가별 측정</b> — 나라당 1,000가구가 어디서 제일 싸게(오가닉으로) 떨어지나만 본다.</li>
+    <li><b>신호 나는 곳만 deepen</b> — 나머지는 깔아두고. 자원은 데이터가 집중시킨다.</li>
+  </ul>
+  <div class="callout">
+    <p style="margin:0;"><b>유일한 검증 기준 = 아이가 진짜 좋아하는가.</b> SEO·마진·시장 다 그 아래에 있다. kid-love는 느낌이 아니라 숫자: <b>재방문 · 완독 · "또! 또!" 반복 · D1/D7 리텐션.</b> 뜨면 맞은 것, 안 뜨면 싸고 빠르게 접는다. 아이가 좋아해야 입소문 = 공짜 유통 = 무투자 모델이 성립.</p>
+  </div>
+</div>
+</section>
+
+<!-- 8. ROADMAP -->
+<section>
+<div class="wrap">
+  <p class="kicker">로드맵</p>
+  <h2>획득 → 학습 완성 시 유료 전환 → SEA 확장</h2>
+  <div class="phase"><span class="tag">Phase A · 한국</span><div class="body"><b>획득/Proof.</b> $4.9 가격표 + 7일체험 + (상한 둔) 레퍼럴로 무료 동화 뿌림. 입소문·후기·베이스 + 모델 검증. 병행해 <b>파닉스 5권+게임 = 완결 학습(T1)</b> 제작. 락인 적립(별·호리·진도).</div></div>
+  <div class="phase"><span class="tag">D-day</span><div class="body"><b>유료 변신.</b> 학습이 진짜 완결(반쪽 금지)되면 무한 레퍼럴 종료 → 유료. 기존 무료 = <b>창립멤버 그랜드파더링</b>(손실회피 관리).</div></div>
+  <div class="phase"><span class="tag">Phase B · SEA</span><div class="body"><b>글로벌 확산.</b> 검증된 모델 + K-브랜드를 비치헤드 언어로 현지화. 한국어/프리미엄 각도. 시장별 가격 적응(베트남 평생 vs 태국 구독).</div></div>
+  <p style="font-size:14px;color:var(--ink-soft);">D-day 게이트는 "300권"이 아니라 <b>"1개 완결 학습 루프"</b>. 영어 파닉스 5권(`한글숲친구들`)은 이미 설계 완료 — 게임 완성 + 어휘게임 ON + 리포트 + 커버리지 80%만 남음.</p>
+</div>
+</section>
+
+<!-- 9. RISK -->
+<section>
+<div class="wrap">
+  <p class="kicker">리스크 & 대응</p>
+  <h2>접어야 할 신호와 막는 법</h2>
+  <table>
+    <tr><th>리스크</th><th>대응</th></tr>
+    <tr><td>아이가 안 좋아함 (치명)</td><td>리텐션으로 조기 측정 → 안 뜨면 싸게 빠르게 접음</td></tr>
+    <tr><td>자연관찰 정확성 붕괴</td><td>고위험 20% 사실 검증 한 겹 (전문가 스팟체크)</td></tr>
+    <tr><td>무료→유료 전환 실패</td><td>학습 완결 후에만 flip + 그랜드파더링 + 진도 락인</td></tr>
+    <tr><td>"무료 동화 앱"으로 갇힘</td><td>Day1부터 가격표·학습 브랜드 포지션, 무료에도 어휘·지식 노출</td></tr>
+    <tr><td>마진을 갉는 결제·앱스토어세</td><td>웹-퍼스트 결제 (Stripe ~3%)</td></tr>
+  </table>
+</div>
+</section>
+
+<!-- ONE LINER -->
+<section style="border-bottom:none;">
+<div class="wrap">
+  <div class="oneliner">
+    <h2>한 줄 요약</h2>
+    <p>AI가 인건비를 0으로 만들어 "투자 없이 작지만 최고"가 정답이 된 시대 — 명작·<b style="color:#FFC19B;">자연관찰</b>·파닉스·어휘를 어휘로 엮은 프리미엄 유아 학습 플랫폼을, 한국에서 검증하고 K-브랜드로 동남아 전역에 다국어로 뿌려, <b style="color:#FFC19B;">나라당 1,000가구</b>씩 모아 매출 ₩10억·영업이익 70%를 만든다. 검증 기준은 단 하나 — <b style="color:#FFC19B;">아이가 진짜 좋아하는가.</b></p>
+  </div>
+</div>
+</section>
+
+<footer>
+  탱고북 사업계획서 · 2026 · 2인팀 / 3개월 — AI 레버리지의 증명<br/>
+  내부 전략 문서 (투자 유치용 아님). 상세: <code>docs/monetization-d-day-scenario.md</code>
+</footer>
+
+</body>
+</html>
