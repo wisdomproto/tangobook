@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/cn';
-import type { BookIndexEntry } from '@tangobook/shared';
+import { canReadBook, type BookIndexEntry } from '@tangobook/shared';
+import { useAccess, LockBadge } from '@/features/access';
 import { useReadingStatus } from '../hooks/useReadingStatus';
 import { BookProgressBadge } from './BookProgressBadge';
 
@@ -15,6 +16,9 @@ export function BookCard({ book }: BookCardProps) {
   const { data: statusMap } = useReadingStatus();
   const status = statusMap?.get(book.id);
   const coverUrl = book.coverImageUrl;
+  // 프리미엄(잠금) 표시 — PAYWALL_ENABLED=false(개발단계)면 access 항상 entitled → 미표시.
+  const access = useAccess();
+  const locked = !canReadBook(book, access);
 
   return (
     <button
@@ -44,6 +48,7 @@ export function BookCard({ book }: BookCardProps) {
         {status && status !== 'unread' && (
           <BookProgressBadge status={status} className="absolute top-2 right-2" />
         )}
+        {locked && <LockBadge className="absolute top-2 left-2" />}
       </div>
       <h3 className="mt-2 font-black text-lg md:text-xl text-ink-900 truncate font-display leading-tight px-1">
         {book.title}

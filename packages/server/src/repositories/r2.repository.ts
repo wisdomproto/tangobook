@@ -147,6 +147,7 @@ function toSummary(sb: Storybook): StorybookSummary {
     category: sb.category,
     folder: sb.folder,
     isPublic: sb.isPublic,
+    isAccessibleForFree: sb.isAccessibleForFree,
     createdAt: sb.createdAt,
     coverImage: coverImageOut,
     coversByStyle: Object.keys(coversByStyle).length > 0 ? coversByStyle : undefined,

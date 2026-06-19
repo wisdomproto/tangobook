@@ -282,6 +282,8 @@ export interface BookIndexEntry {
   category?: string;
   folder?: string;
   isPublic?: boolean;
+  /** 유료화 — false=프리미엄(잠금 대상). 미지정/true=무료. */
+  isAccessibleForFree?: boolean;
   usedVariants: UsedVariants;
   hasCover: boolean;
   /** 라이브러리 카드 표지 URL — 첫 style의 cover.webp */

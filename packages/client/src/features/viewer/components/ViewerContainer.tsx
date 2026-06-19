@@ -12,7 +12,8 @@ import {
 } from '@/lib/storybook-accessors';
 import { useLogEvent, useLogEventsBatch } from '@/features/learning';
 import { extractPageWords } from '@/features/learning/lib/extract-page-words';
-import type { Lang } from '@tangobook/shared';
+import { canReadBook, type Lang } from '@tangobook/shared';
+import { useAccess, PaywallNotice } from '@/features/access';
 import { useViewerSettings, type ViewerSettings } from '../hooks/useViewerSettings';
 import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { getPageTtsUrl } from '../lib/page-text';
@@ -46,6 +47,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
 
   const { data: v1Storybook, isLoading, error } = useStorybook(storybookId);
   const [settings, updateSettings] = useViewerSettings();
+  const access = useAccess();
 
   const lang = (sp.get('lang') ?? settings.language) as LangCode;
   const urlStyle = sp.get('style');
@@ -379,6 +381,15 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         title="이 책을 찾을 수 없어"
         action={{ label: '🏠 라이브러리', onClick: () => navigate('/library') }}
       />
+    );
+  }
+
+  // 유료화 게이팅(딥링크 포함) — 잠긴 책은 본문 대신 유료 안내. PAYWALL_ENABLED=false 면 항상 통과.
+  if (!canReadBook(storybook, access)) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-cream-50 p-4">
+        <PaywallNotice status={access.status} onLogin={() => navigate('/login')} />
+      </div>
     );
   }
 
