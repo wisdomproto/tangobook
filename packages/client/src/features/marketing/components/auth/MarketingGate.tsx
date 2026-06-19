@@ -16,9 +16,15 @@ export function MarketingGate() {
     setError(null);
     try {
       await gateLogin(code.trim());
-      // 성공 → onAuthStateChange → AuthContext 세션 갱신 → 언마운트
-    } catch {
-      setError('비밀번호가 올바르지 않습니다.');
+      // 성공 시 gateLogin 내부에서 /marketing 으로 하드 내비게이션 → 언마운트
+    } catch (e) {
+      // 401 = 비번 오답 / 그 외(네트워크·502 등) = 서버 일시 오류이므로 구분해서 안내
+      const msg = e instanceof Error ? e.message : '';
+      setError(
+        msg.includes('401')
+          ? '비밀번호가 올바르지 않습니다.'
+          : `로그인 오류 — 잠시 후 다시 시도해 주세요. (${msg || '네트워크 오류'})`
+      );
       setLoading(false);
     }
   }
