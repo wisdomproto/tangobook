@@ -889,6 +889,13 @@ export interface Storybook {
    */
   publicByStyleLang?: Record<string, Record<string, boolean>>;
   /**
+   * 유료화(freemium) — 본문 전체를 무료로 읽을 수 있는지.
+   * SEO 구조화데이터(schema.org `isAccessibleForFree`)로 그대로 노출 → 유료 본문을 cloaking 없이 정식 표기.
+   * 미지정 = 무료(true). 유료화 시 유료 책에 `false` 지정, 무료 N권은 `true`.
+   * ⚠️ about 페이지(BookSeoPage) 마케팅 콘텐츠 자체는 항상 공개 — 이 플래그는 "본문 읽기"의 접근성만 표기.
+   */
+  isAccessibleForFree?: boolean;
+  /**
    * 커리큘럼 마스터 페이지용 부가 메타 (원제·저자·우선순위 등).
    * 4-25~27 v2 시도 시 BookManifest 에 정의되었으나 v2 폐기 후 v1 으로 옮겨옴.
    */

@@ -117,6 +117,10 @@ export default function BookSeoPage() {
       image: coverImage || undefined,
       inLanguage: storybook.languages?.length ? storybook.languages : ['ko'],
       numberOfPages: storybook.pages?.length,
+      // SEO 유료화(paywall) — 본문 전체 접근성을 정식 표기 (cloaking 회피).
+      // about 페이지 마케팅 콘텐츠는 항상 공개라 무관 — 이 값은 "본문 읽기"의 무료/유료만 나타냄.
+      // 미지정 = 무료(true). 유료화 시 유료 책 storybook.isAccessibleForFree=false.
+      isAccessibleForFree: storybook.isAccessibleForFree ?? true,
       publisher: { '@type': 'Organization', name: '탱고북', url: SITE_URL },
       audience: {
         '@type': 'PeopleAudience',
