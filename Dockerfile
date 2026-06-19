@@ -42,6 +42,14 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
+# 클라이언트(vite) 빌드는 VITE_* 를 빌드 시점에 번들로 인라인한다.
+# Railway 서비스 변수는 Docker 빌드에 build-arg 로 전달되므로 ARG 로 받아 ENV 로 노출해야
+# vite build 가 인식한다. (없으면 클라가 게스트/더미 Supabase 로 빌드되어 /marketing 게이트가 동작 안 함)
+ARG VITE_SUPABASE_URL
+ARG VITE_SUPABASE_ANON_KEY
+ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
+ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
+
 RUN pnpm build
 
 # tsc가 복사하지 않는 비-TS 파일 복사
