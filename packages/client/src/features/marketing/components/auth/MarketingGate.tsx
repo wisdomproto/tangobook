@@ -52,6 +52,7 @@ export function MarketingGate() {
         >
           {loading ? '확인 중…' : '입장'}
         </button>
+        <p className="mt-4 text-center text-[10px] text-gray-300">gate-build-0619b</p>
       </form>
     </div>
   );
