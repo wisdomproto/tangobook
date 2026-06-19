@@ -76,6 +76,13 @@ export const config = {
   supabase: {
     url: process.env.SUPABASE_URL ?? process.env.VITE_SUPABASE_URL ?? '',
     serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY ?? '',
+    anonKey: process.env.SUPABASE_ANON_KEY ?? process.env.VITE_SUPABASE_ANON_KEY ?? '',
+  },
+
+  // 마케팅 게이트 로그인: 8054 입력 시 ownerEmail 계정 세션을 service-role로 발급
+  mkt: {
+    gateCode: process.env.MKT_GATE_CODE ?? '',
+    ownerEmail: process.env.MKT_OWNER_EMAIL ?? '',
   },
 
   cron: { secret: process.env.CRON_SECRET ?? '' }, // optional manual-tick guard (spec §4.5)

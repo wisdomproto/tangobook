@@ -1,12 +1,12 @@
-import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { MarketingShell } from '../components/layout/MarketingShell';
+import { MarketingGate } from '../components/auth/MarketingGate';
 
 /**
  * Auth guard + shell wrapper for the /marketing/* route tree.
  *
  * - Loading: show a centered spinner (auth state unknown).
- * - No session: redirect to /login (marketing is operator-only).
+ * - No session: show the password gate (8054 → 소유자 세션 자동 발급).
  * - Session: render MarketingShell which provides Sidebar + TopBar + <Outlet/>.
  *
  * This component is the `element` of the `marketing` route in router/index.tsx.
@@ -28,7 +28,7 @@ export function MarketingLayout() {
   }
 
   if (!session) {
-    return <Navigate to="/login" replace />;
+    return <MarketingGate />;
   }
 
   return <MarketingShell />;

@@ -486,6 +486,13 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 - **DataForSEO 잔액 필요**: 실 조회는 계정 잔액 있어야 함(없으면 402). dry-run(후보 생성)은 잔액 무관. 파일럿 6권 제목 맵 완비, 전체 152는 `_titles.json`에 en·th 제목 추가 후 `--all`.
 - 설계/플랜: `docs/superpowers/specs|plans/2026-06-15-marketing-keyword-strategy*.md`.
 
+## 접근 — 8054 게이트 로그인
+
+`/marketing` 진입은 이메일+비번 Supabase 로그인 대신 **비밀번호(8054) 한 칸**. `MarketingLayout`이 세션 없으면 `<MarketingGate>`(`components/auth/MarketingGate.tsx`) 노출 → 8054 제출 → `api/gate.ts gateLogin()` → 서버 `POST /api/mkt/gate-login`이 **service-role로 소유자 계정(MKT_OWNER_EMAIL) 세션을 magiclink 방식으로 발급**(계정 비번 불필요, 클라 번들에 비번 미노출) → `supabase.auth.setSession()` → 기존 RLS 데이터 로드. 세션 persist 되어 재입력 불필요.
+
+- 서버: `services/mkt/gate.service.ts`(`isValidGateCode` 순수 + `mintOwnerSession`) · `controllers/mkt/gate.controller.ts` · 라우트 `/gate-login`. 서버 `.env`: `MKT_GATE_CODE`·`MKT_OWNER_EMAIL`·`SUPABASE_URL`·`SUPABASE_SERVICE_ROLE_KEY`·`SUPABASE_ANON_KEY`.
+- ⚠️ 8054는 약한 코드 — 공개 URL이면 누구나 단일 계정 데이터 접근(내부용 전제). 플랜 `docs/superpowers/plans/2026-06-15-marketing-gate-login.md`.
+
 ## 관련 문서
 
 - 마스터 스펙: `docs/superpowers/specs/2026-06-06-contentflow-marketing-port-design.md`

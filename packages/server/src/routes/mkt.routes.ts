@@ -29,8 +29,12 @@ import {
 } from '../controllers/mkt/competitors.controller.js';
 import { strategyTemplates } from '../controllers/mkt/strategy.controller.js';
 import { monitoringSearch, monitoringComment } from '../controllers/mkt/monitoring.controller.js';
+import { gateLogin } from '../controllers/mkt/gate.controller.js';
 
 const router = Router();
+
+// ── 게이트 로그인 (8054 → 소유자 세션 발급) ───────────────────────────────────
+router.post('/gate-login', gateLogin);
 
 // ── File upload middleware for extract-text ───────────────────────────────────
 const fileUpload = multer({
