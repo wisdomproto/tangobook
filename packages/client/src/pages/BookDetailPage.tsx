@@ -14,7 +14,13 @@ import { StateScreen, Skeleton, Chip, PageHeader } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { useSeo } from '@/lib/useSeo';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
-import { SUPPORTED_LANGUAGES, type ReadingLevel, type StorybookSummary } from '@tangobook/shared';
+import {
+  SUPPORTED_LANGUAGES,
+  canReadBook,
+  type ReadingLevel,
+  type StorybookSummary,
+} from '@tangobook/shared';
+import { useAccess, PaywallNotice, LockBadge } from '@/features/access';
 
 // 언어 메타는 shared SUPPORTED_LANGUAGES 단일 소스에서 derive. 새 언어 추가 시 shared 한 줄이면 토글에 자동 반영.
 const LANG_LABEL: Record<string, { flag: string; name: string }> = Object.fromEntries(
@@ -61,6 +67,9 @@ export default function BookDetailPage() {
   const [videoOpen, setVideoOpen] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
   const [videoIdToPlay, setVideoIdToPlay] = useState<string | null>(null);
+  // 유료화 접근 권한 (체험/구독). 현재는 가입일 기반 체험만 — Supabase 연동 시 구독·레퍼럴 주입.
+  const access = useAccess();
+  const [showPaywall, setShowPaywall] = useState(false);
 
   // 영상 / 게임 가용성 — v1 storybook 직접 derive
   const youtubeVideoIds = useMemo(
@@ -192,6 +201,9 @@ export default function BookDetailPage() {
     (lang !== 'ko' ? storybook.parentGuideTranslations?.[lang] : undefined) ??
     storybook.parentGuide;
 
+  // 유료 책(isAccessibleForFree===false)인데 권한 없으면 본문 읽기 잠금. 무료 책은 항상 열람.
+  const locked = !canReadBook(storybook, access);
+
   const enterMode = (mode: 'read' | 'video' | 'vocab') => {
     if (mode === 'video') {
       const vid = youtubeVideoIds[0];
@@ -214,6 +226,11 @@ export default function BookDetailPage() {
     if (mode === 'vocab') {
       // 어휘 탭의 책별 derive 단원으로 직접 이동 (Phase 1 §6.3 회유 동선)
       navigate(`/vocabulary/book-${targetId}`);
+      return;
+    }
+    // 본문 읽기 게이팅 — 잠긴 책이면 이동 대신 유료 안내.
+    if (locked) {
+      setShowPaywall(true);
       return;
     }
     const qs = new URLSearchParams({ lang });
@@ -369,8 +386,9 @@ export default function BookDetailPage() {
                   iconSrc="/icons/mode/book.webp"
                   emoji="📖"
                   title="책으로 읽기"
-                  sub="그림과 글로 천천히"
+                  sub={locked ? '프리미엄 — 구독하고 읽기' : '그림과 글로 천천히'}
                   onClick={() => enterMode('read')}
+                  locked={locked}
                 />
                 <ModeCard
                   tone="violet"
@@ -496,6 +514,19 @@ export default function BookDetailPage() {
         {/* /flex-1 wrapper 닫기 */}
       </div>
 
+      {showPaywall && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setShowPaywall(false)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div onClick={(e) => e.stopPropagation()}>
+            <PaywallNotice status={access.status} onLogin={() => navigate('/login')} />
+          </div>
+        </div>
+      )}
+
       {videoIdToPlay && (
         <YouTubeModal
           videoId={videoIdToPlay}
@@ -523,6 +554,7 @@ function ModeCard({
   sub,
   onClick,
   disabled,
+  locked,
 }: {
   tone: 'coral' | 'violet' | 'amber';
   emoji?: string;
@@ -532,6 +564,7 @@ function ModeCard({
   sub: string;
   onClick: () => void;
   disabled?: boolean;
+  locked?: boolean;
 }) {
   const TONE = {
     coral: {
@@ -584,11 +617,16 @@ function ModeCard({
     <button
       onClick={onClick}
       className={cn(
-        'group flex items-center gap-5 rounded-2xl px-6 py-5 shadow-pop hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.18)] active:translate-y-0.5 transition-all duration-100',
+        'group relative flex items-center gap-5 rounded-2xl px-6 py-5 shadow-pop hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.18)] active:translate-y-0.5 transition-all duration-100',
         TONE.bg,
         TONE.text
       )}
     >
+      {locked && (
+        <span className="absolute top-2.5 right-2.5 z-10">
+          <LockBadge />
+        </span>
+      )}
       <div className="flex-1 text-left">
         <h3 className="font-black text-2xl md:text-3xl leading-tight">{title}</h3>
         <p className={cn('text-base font-bold mt-1', TONE.sub)}>{sub}</p>
