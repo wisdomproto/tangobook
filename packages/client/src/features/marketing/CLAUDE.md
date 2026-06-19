@@ -3,6 +3,8 @@
 ContentFlow AI 마케팅 자동화 SaaS → Tangobook 이식. `/marketing` 라우트 전담.
 브랜치: `feat/marketing-phase0` (worktree `C:\projects\tangobook\.worktrees\marketing-phase0`).
 
+> **마케팅 에이전트**: 콘텐츠 제작·전략/기획은 `.claude/agents/marketing-specialist.md` 에이전트가 담당. 단일 소스 = [docs/marketing/brand-brief.md](../../../../../docs/marketing/brand-brief.md), 산출물 = `docs/marketing/drafts/`. **이 모듈(`/marketing` 코드) 기능 개발은 메인 세션, 마케팅 콘텐츠·전략은 에이전트**로 역할 분리.
+
 ## 모듈 구조
 
 ```
