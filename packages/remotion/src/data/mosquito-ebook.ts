@@ -66,12 +66,12 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ko: '모기의 항변',
           ja: '蚊のいいぶん',
         },
-        x: 0.5,
-        y: 0.28,
+        x: 0.42,
+        y: 0.16,
         anim: 'fade',
         delaySec: 0.3,
-        fontSize: 72,
-        color: '#c0392b',
+        fontSize: 88,
+        color: '#1b5e20',
       },
     ],
   },
@@ -87,7 +87,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-02.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-02.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 11.26,
+      ja: 8.86,
+    },
     overlays: [
       {
         id: 'p02-0',
@@ -96,12 +99,13 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ko: '계살 인과 자비 시독 건강',
           ja: '戒殺 因果 慈悲 屍毒 健康',
         },
-        x: 0.5,
-        y: 0.28,
+        x: 0.64,
+        y: 0.32,
         anim: 'pop',
         delaySec: 0.3,
-        fontSize: 44,
-        color: '#c0392b',
+        fontSize: 34,
+        color: '#6b4423',
+        rotate: -2,
       },
     ],
   },
@@ -117,7 +121,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-03.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-03.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 14.95,
+      ja: 11.38,
+    },
     overlays: [],
   },
   {
@@ -132,7 +139,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-04.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-04.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 12.65,
+      ja: 10.1,
+    },
     overlays: [],
   },
   {
@@ -147,7 +157,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-05.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-05.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 11.59,
+      ja: 10.18,
+    },
     overlays: [],
   },
   {
@@ -162,7 +175,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-06.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-06.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 13.85,
+      ja: 10.87,
+    },
     overlays: [],
   },
   {
@@ -177,7 +193,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-07.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-07.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 6.74,
+      ja: 5.21,
+    },
     overlays: [],
   },
   {
@@ -192,7 +211,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-08.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-08.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 5.18,
+      ja: 4.34,
+    },
     overlays: [],
   },
   {
@@ -207,7 +229,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-09.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-09.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 8.02,
+      ja: 8.14,
+    },
     overlays: [
       {
         id: 'p09-0',
@@ -216,12 +241,13 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ko: '뜨끔',
           ja: 'ギクリ',
         },
-        x: 0.5,
-        y: 0.28,
+        x: 0.15,
+        y: 0.42,
         anim: 'drop',
         delaySec: 0.3,
-        fontSize: 56,
+        fontSize: 66,
         color: '#c0392b',
+        rotate: -8,
       },
     ],
   },
@@ -237,7 +263,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-10.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-10.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 8.74,
+      ja: 10.13,
+    },
     overlays: [
       {
         id: 'p10-0',
@@ -246,12 +275,13 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ko: '캭—! 날카롭잖아!',
           ja: 'かーっ するどい！',
         },
-        x: 0.5,
-        y: 0.28,
+        x: 0.4,
+        y: 0.15,
         anim: 'drop',
         delaySec: 0.3,
-        fontSize: 56,
+        fontSize: 54,
         color: '#c0392b',
+        rotate: -4,
       },
     ],
   },
@@ -267,7 +297,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-11.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-11.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 20.42,
+      ja: 16.3,
+    },
     overlays: [
       {
         id: 'p11-0',
@@ -276,12 +309,12 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ko: '먹이사슬',
           ja: '食物連鎖',
         },
-        x: 0.5,
-        y: 0.28,
+        x: 0.85,
+        y: 0.5,
         anim: 'fade',
         delaySec: 0.3,
-        fontSize: 72,
-        color: '#c0392b',
+        fontSize: 64,
+        color: '#1b5e20',
       },
       {
         id: 'p11-1',
@@ -290,12 +323,12 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ko: '흙 풀 토끼 사자 사체',
           ja: '土 草 うさぎ ライオン 死体',
         },
-        x: 0.5,
-        y: 0.28,
+        x: 0.43,
+        y: 0.92,
         anim: 'fade',
         delaySec: 0.3,
-        fontSize: 40,
-        color: '#c0392b',
+        fontSize: 28,
+        color: '#3a3a3a',
       },
     ],
   },
@@ -311,7 +344,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-12.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-12.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 11.26,
+      ja: 10.01,
+    },
     overlays: [],
   },
   {
@@ -326,7 +362,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-13.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-13.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 8.93,
+      ja: 7.32,
+    },
     overlays: [],
   },
   {
@@ -341,7 +380,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-14.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-14.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 21.02,
+      ja: 16.32,
+    },
     overlays: [
       {
         id: 'p14-0',
@@ -351,11 +393,11 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ja: '歯型',
         },
         x: 0.5,
-        y: 0.28,
+        y: 0.1,
         anim: 'fade',
         delaySec: 0.3,
-        fontSize: 72,
-        color: '#c0392b',
+        fontSize: 60,
+        color: '#1b5e20',
       },
       {
         id: 'p14-1',
@@ -364,11 +406,11 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ko: '채식 육식',
           ja: '菜食 肉食',
         },
-        x: 0.5,
-        y: 0.28,
-        anim: 'fade',
+        x: 0.46,
+        y: 0.64,
+        anim: 'pop',
         delaySec: 0.3,
-        fontSize: 40,
+        fontSize: 38,
         color: '#c0392b',
       },
     ],
@@ -385,7 +427,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-15.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-15.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 15.91,
+      ja: 13.9,
+    },
     overlays: [],
   },
   {
@@ -400,7 +445,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-16.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-16.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 9.72,
+      ja: 10.44,
+    },
     overlays: [],
   },
   {
@@ -415,7 +463,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-17.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-17.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 35.38,
+      ja: 33.38,
+    },
     overlays: [],
   },
   {
@@ -430,7 +481,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-18.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-18.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 17.3,
+      ja: 15.86,
+    },
     overlays: [],
   },
   {
@@ -445,7 +499,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-19.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-19.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 21.96,
+      ja: 24.29,
+    },
     overlays: [],
   },
   {
@@ -460,7 +517,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-20.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-20.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 31.49,
+      ja: 31.94,
+    },
     overlays: [],
   },
   {
@@ -475,7 +535,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-21.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-21.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 19.66,
+      ja: 19.27,
+    },
     overlays: [],
   },
   {
@@ -490,7 +553,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-22.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-22.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 28.18,
+      ja: 27.86,
+    },
     overlays: [
       {
         id: 'p22-0',
@@ -500,11 +566,11 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ja: '肉1kg→6人分 / 穀物7kg→46人分',
         },
         x: 0.5,
-        y: 0.28,
+        y: 0.12,
         anim: 'fade',
         delaySec: 0.3,
-        fontSize: 40,
-        color: '#c0392b',
+        fontSize: 28,
+        color: '#3a3a3a',
       },
       {
         id: 'p22-1',
@@ -514,11 +580,11 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ja: '牛:穀物7kg 46人分 / 豚:4kg 26人分 / 鶏:2kg 13人分',
         },
         x: 0.5,
-        y: 0.28,
+        y: 0.52,
         anim: 'fade',
         delaySec: 0.3,
-        fontSize: 40,
-        color: '#c0392b',
+        fontSize: 24,
+        color: '#3a3a3a',
       },
     ],
   },
@@ -534,7 +600,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-23.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-23.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 15,
+      ja: 15.7,
+    },
     overlays: [],
   },
   {
@@ -549,7 +618,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-24.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-24.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 11.18,
+      ja: 9.55,
+    },
     overlays: [],
   },
   {
@@ -564,7 +636,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-25.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-25.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 5.09,
+      ja: 4.85,
+    },
     overlays: [],
   },
   {
@@ -579,7 +654,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-26.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-26.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 18.48,
+      ja: 19.1,
+    },
     overlays: [
       {
         id: 'p26-0',
@@ -588,11 +666,11 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ko: '죽음',
           ja: '死',
         },
-        x: 0.5,
-        y: 0.28,
+        x: 0.3,
+        y: 0.22,
         anim: 'drop',
         delaySec: 0.3,
-        fontSize: 56,
+        fontSize: 76,
         color: '#c0392b',
       },
     ],
@@ -609,7 +687,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-27.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-27.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 22.3,
+      ja: 16.32,
+    },
     overlays: [],
   },
   {
@@ -624,7 +705,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-28.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-28.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 11.57,
+      ja: 9.77,
+    },
     overlays: [],
   },
   {
@@ -639,7 +723,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-29.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-29.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 10.82,
+      ja: 9.05,
+    },
     overlays: [
       {
         id: 'p29-0',
@@ -648,12 +735,12 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ko: '자연 조화 공생 나눔 행복',
           ja: '自然 調和 共生 わかちあい しあわせ',
         },
-        x: 0.5,
-        y: 0.28,
+        x: 0.4,
+        y: 0.24,
         anim: 'pop',
         delaySec: 0.3,
-        fontSize: 44,
-        color: '#c0392b',
+        fontSize: 36,
+        color: '#1b5e20',
       },
     ],
   },
@@ -669,7 +756,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-30.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-30.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 13.42,
+      ja: 12.24,
+    },
     overlays: [
       {
         id: 'p30-0',
@@ -678,11 +768,11 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ko: '죽음',
           ja: '死',
         },
-        x: 0.5,
-        y: 0.28,
+        x: 0.42,
+        y: 0.18,
         anim: 'drop',
         delaySec: 0.3,
-        fontSize: 56,
+        fontSize: 76,
         color: '#c0392b',
       },
     ],
@@ -699,7 +789,10 @@ export const MOSQUITO_PAGES: EbookPage[] = [
       ko: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ko/page-31.mp3',
       ja: 'https://pub-554d78bf0f2346cfb850060ac23280a7.r2.dev/ebook/mosquito/tts/v1/ja/page-31.mp3',
     },
-    ttsDurationSec: {},
+    ttsDurationSec: {
+      ko: 41.16,
+      ja: 37.99,
+    },
     overlays: [
       {
         id: 'p31-0',
@@ -709,11 +802,11 @@ export const MOSQUITO_PAGES: EbookPage[] = [
           ja: 'おしまい',
         },
         x: 0.5,
-        y: 0.28,
+        y: 0.3,
         anim: 'fade',
         delaySec: 0.3,
-        fontSize: 72,
-        color: '#c0392b',
+        fontSize: 84,
+        color: '#1b5e20',
       },
     ],
   },

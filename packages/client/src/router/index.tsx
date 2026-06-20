@@ -42,6 +42,7 @@ import ParentReportsPage from '../features/auth/pages/ParentReportsPage';
 import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
 import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
 import { VocabularyHubPage, VocabularyStudyPage } from '../features/vocabulary-unit';
+import { MosquitoEbookPage } from '../features/ebook-mosquito';
 import {
   PhonicsLandingPage,
   KoreanPhonicsStudyPage,
@@ -85,6 +86,15 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <VocabularyStudyPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 모기 그림책 인터랙티브 이북 — AppShell 밖 풀화면
+        path: 'ebook/mosquito',
+        element: (
+          <ErrorBoundary>
+            <MosquitoEbookPage />
           </ErrorBoundary>
         ),
       },

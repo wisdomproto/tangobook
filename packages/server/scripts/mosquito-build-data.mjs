@@ -39,6 +39,25 @@ const extract = JSON.parse(fs.readFileSync(EXTRACT_JSON, 'utf-8'));
 const ANIM_BY_KIND = { 의성어: 'drop', 키워드: 'pop', 제목: 'fade', 라벨: 'fade' };
 const FONT_BY_KIND = { 의성어: 56, 키워드: 44, 제목: 72, 라벨: 40 };
 
+// 오버레이별 위치/스타일 (원본 글자 위치 기반). preview(/ebook/mosquito?debug=1)로 조정.
+// x,y = 이미지 박스 기준 0~1 중심. fontSize = EBOOK_HEIGHT(904) 기준 px.
+const OVERLAY_OVERRIDE = {
+  'p01-0': { x: 0.42, y: 0.16, fontSize: 88, anim: 'fade', color: '#1b5e20' }, // 蚊のいいぶん
+  'p02-0': { x: 0.64, y: 0.32, fontSize: 34, anim: 'pop', color: '#6b4423', rotate: -2 }, // 키워드 5
+  'p09-0': { x: 0.15, y: 0.42, fontSize: 66, anim: 'drop', color: '#c0392b', rotate: -8 }, // ギクリ
+  'p10-0': { x: 0.4, y: 0.15, fontSize: 54, anim: 'drop', color: '#c0392b', rotate: -4 }, // かーっ するどい
+  'p11-0': { x: 0.85, y: 0.5, fontSize: 64, anim: 'fade', color: '#1b5e20' }, // 食物連鎖
+  'p11-1': { x: 0.43, y: 0.92, fontSize: 28, anim: 'fade', color: '#3a3a3a' }, // 흙 풀 토끼 사자 사체
+  'p14-0': { x: 0.5, y: 0.1, fontSize: 60, anim: 'fade', color: '#1b5e20' }, // 歯型
+  'p14-1': { x: 0.46, y: 0.64, fontSize: 38, anim: 'pop', color: '#c0392b' }, // 채식 육식
+  'p22-0': { x: 0.5, y: 0.12, fontSize: 28, anim: 'fade', color: '#3a3a3a' }, // 肉1kg...
+  'p22-1': { x: 0.5, y: 0.52, fontSize: 24, anim: 'fade', color: '#3a3a3a' }, // 牛...
+  'p26-0': { x: 0.3, y: 0.22, fontSize: 76, anim: 'drop', color: '#c0392b' }, // 死
+  'p29-0': { x: 0.4, y: 0.24, fontSize: 36, anim: 'pop', color: '#1b5e20' }, // 自然 調和...
+  'p30-0': { x: 0.42, y: 0.18, fontSize: 76, anim: 'drop', color: '#c0392b' }, // 死
+  'p31-0': { x: 0.5, y: 0.3, fontSize: 84, anim: 'fade', color: '#1b5e20' }, // おしまい
+};
+
 const pages = extract.pages.map((p) => {
   const pad = String(p.page).padStart(2, '0');
   const ko = (p.narration?.ko ?? '').trim();
@@ -53,17 +72,21 @@ const pages = extract.pages.map((p) => {
     ttsUrl.ja = `${PUBLIC_URL}/ebook/mosquito/tts/v1/ja/page-${pad}.mp3`;
     if (durMap?.[p.page]?.ja != null) ttsDurationSec.ja = durMap[p.page].ja;
   }
-  const overlays = (p.imageText ?? []).map((t, i) => ({
-    id: `p${pad}-${i}`,
-    kind: t.type,
-    text: { ko: t.ko ?? '', ja: t.jp ?? '' },
-    x: 0.5,
-    y: 0.28,
-    anim: ANIM_BY_KIND[t.type] ?? 'fade',
-    delaySec: 0.3,
-    fontSize: FONT_BY_KIND[t.type] ?? 44,
-    color: '#c0392b',
-  }));
+  const overlays = (p.imageText ?? []).map((t, i) => {
+    const id = `p${pad}-${i}`;
+    const base = {
+      id,
+      kind: t.type,
+      text: { ko: t.ko ?? '', ja: t.jp ?? '' },
+      x: 0.5,
+      y: 0.28,
+      anim: ANIM_BY_KIND[t.type] ?? 'fade',
+      delaySec: 0.3,
+      fontSize: FONT_BY_KIND[t.type] ?? 44,
+      color: '#c0392b',
+    };
+    return { ...base, ...(OVERLAY_OVERRIDE[id] ?? {}) };
+  });
   return {
     page: p.page,
     imageUrl: imgMap[p.page] ?? '',

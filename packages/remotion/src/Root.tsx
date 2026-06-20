@@ -12,6 +12,15 @@ import {
 } from './compositions/ReelsPromo';
 import { AudiobookRenderProps, RESOLUTIONS } from './types';
 import { calculateTotalFrames } from './utils/duration';
+import { MosquitoEbookComposition } from './compositions/MosquitoEbookComposition';
+import {
+  MOSQUITO_PAGES,
+  EBOOK_WIDTH,
+  EBOOK_HEIGHT,
+  EBOOK_FPS,
+  type EbookLang,
+} from './data/mosquito-ebook';
+import { pageDurationFrames } from './utils/ebook-timing';
 
 const calculateMetadata: CalculateMetadataFunction<AudiobookRenderProps> = async ({ props }) => {
   const fps = props.fps ?? 30;
@@ -23,6 +32,21 @@ const calculateMetadata: CalculateMetadataFunction<AudiobookRenderProps> = async
     fps,
     width: resolution.width,
     height: resolution.height,
+  };
+};
+
+const calcMosquito: CalculateMetadataFunction<{ lang: EbookLang; debugCoords?: boolean }> = ({
+  props,
+}) => {
+  const total = MOSQUITO_PAGES.reduce(
+    (s, p) => s + pageDurationFrames(p.ttsDurationSec[props.lang]),
+    0
+  );
+  return {
+    durationInFrames: Math.max(1, total),
+    fps: EBOOK_FPS,
+    width: EBOOK_WIDTH,
+    height: EBOOK_HEIGHT,
   };
 };
 
@@ -72,6 +96,16 @@ export const RemotionRoot: React.FC = () => {
         fps={REELS_FPS}
         width={REELS_WIDTH}
         height={REELS_HEIGHT}
+      />
+      <Composition
+        id="MosquitoEbook"
+        component={MosquitoEbookComposition}
+        durationInFrames={300}
+        fps={EBOOK_FPS}
+        width={EBOOK_WIDTH}
+        height={EBOOK_HEIGHT}
+        defaultProps={{ lang: 'ko' as EbookLang, debugCoords: false }}
+        calculateMetadata={calcMosquito}
       />
     </>
   );
