@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777274690599",
+  "title": "벌거 벗은 임금님",
+  "hook": "벌거벗은 임금님 은 \"어리석은 사람에겐 안 보이는 옷\"이라는 사기꾼의 말…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "벌거벗은 임금님 은 \"어리석은 사람에겐 안 보이는 옷\"이라는 사기꾼의 말에 속은 임금님이 벌거벗은 채 행진하…",
+      "screen": "벌거벗은 임금님, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "벌거벗은 임금님, 어떤 동화인가요?",
+      "imagePrompt": "A proud emperor parading in his underwear while crowds watch awkwardly, lighthearted funny children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "안데르센이 1837년 발표한 「Kejserens nye Klæder」가 원작입니다. 멋진 옷을 좋아하는 임금님이 사기꾼에게 속고, 모두가 눈치만 보던 중 한 아이가 \"임금님이 벌거벗었어요!\"라고 외…",
+      "screen": "벌거벗은 임금님 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "벌거벗은 임금님 원작 이야기",
+      "imagePrompt": "Two sly weavers pretending to weave on an empty loom, comical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "멋부리기 좋아하는 임금님이 \"어리석은 사람 눈엔 안 보이는 옷\"을 만든다는 사기꾼에게 속아 벌거벗은 채 행진합니다. 어른들은 어리석어 보일까 봐 칭찬만 하지만, 한 아이가 \"임금님이 벌거벗었어요!\"…",
+      "screen": "벌거벗은 임금님 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "벌거벗은 임금님 줄거리 요약",
+      "imagePrompt": "A small child pointing and speaking up while adults look surprised, bold lighthearted children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 남의 눈치만 보지 말고 솔직하게 진실을 말하는 용기, 그리고 허영심을 경계하는 마음 입니다. \"다들 그렇다고 해도 아닌 건 아니라고 말할 수 있을까?\"를 아이와 이야기해 보세요.",
+      "screen": "벌거벗은 임금님이 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "벌거벗은 임금님이 주는 교훈",
+      "imagePrompt": "A confident child smiling after telling the truth, brave warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "벌거 벗은 임금님, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

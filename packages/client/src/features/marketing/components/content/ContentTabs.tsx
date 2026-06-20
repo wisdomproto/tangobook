@@ -7,6 +7,7 @@ import { InternalBlogPanel } from './InternalBlogPanel';
 import { ThreadsPanel } from './ThreadsPanel';
 import { CardNewsPanel } from './CardNewsPanel';
 import { YoutubePanel } from './YoutubePanel';
+import { ReelsPanel } from './ReelsPanel';
 import { useUIStore } from '../../store/ui-store';
 import { useContent } from '../../api/use-contents';
 import { useProject } from '../../api/use-projects';
@@ -94,23 +95,10 @@ const TABS = [
   { id: 'cardnews', label: '카드뉴스', active: true },
   { id: 'threads', label: '스레드', active: true },
   { id: 'youtube', label: '롱폼', active: true },
-  { id: 'shorts', label: '숏폼', active: false },
+  { id: 'shorts', label: '릴스', active: true },
 ] as const;
 
 type TabId = (typeof TABS)[number]['id'];
-
-// ── Placeholder for not-yet-implemented panels ─────────────────────────────
-
-function ComingSoonPanel({ label }: { label: string }) {
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="text-center space-y-2 p-8">
-        <p className="text-lg font-medium text-muted-foreground">준비 중</p>
-        <p className="text-sm text-muted-foreground">{label} 패널은 곧 추가됩니다.</p>
-      </div>
-    </div>
-  );
-}
 
 // ── Main component ─────────────────────────────────────────────────────────
 
@@ -242,7 +230,7 @@ export function ContentTabs() {
           <YoutubePanel content={content} project={project} />
         </TabsContent>
         <TabsContent value="shorts" className="flex-1 min-h-0 m-0 overflow-hidden">
-          <ComingSoonPanel label="숏폼" />
+          <ReelsPanel content={content} project={project} />
         </TabsContent>
       </Tabs>
     </div>

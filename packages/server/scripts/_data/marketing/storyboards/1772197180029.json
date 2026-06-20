@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772197180029",
+  "title": "정글북",
+  "hook": "정글북 은 늑대 무리에서 자란 소년 모글리가 곰 발루·흑표범 바기라와 함…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "정글북 은 늑대 무리에서 자란 소년 모글리가 곰 발루·흑표범 바기라와 함께 정글에서 성장하는 모험 명작입니다…",
+      "screen": "정글북, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "정글북, 어떤 동화인가요?",
+      "imagePrompt": "A boy raised by wolves walking through a lush jungle with a bear and a black panther, adventurous warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "영국 작가 러디어드 키플링 이 1894년에 발표한 단편 모음 『The Jungle Book』이 원작입니다. 모글리, 곰 발루, 흑표범 바기라, 호랑이 쉬어 칸 등 매력적인 동물 캐릭터와 \"정글의 법…",
+      "screen": "정글북 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "정글북 원작 이야기",
+      "imagePrompt": "A friendly big bear teaching a boy in the jungle, cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "늑대 무리에서 자란 모글리는 곰 발루에게 정글의 지혜를, 흑표범 바기라에게 용기를 배우며 자랍니다. 무서운 호랑이 쉬어 칸의 위협을 친구들과 힘을 합쳐 이겨내며, 자연 속에서 더불어 사는 법을 익힙…",
+      "screen": "정글북 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "정글북 줄거리 요약",
+      "imagePrompt": "A boy and animal friends working together against a threatening tiger in the jungle, brave children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 서로 다른 존재가 우정으로 가족이 될 수 있고, 자연 속에서 더불어 사는 지혜가 소중하다 는 것입니다. \"나와 다른 친구와 어떻게 사이좋게 지낼까?\"를 아이와 이야기해 보세요.",
+      "screen": "정글북이 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "정글북이 주는 교훈",
+      "imagePrompt": "A boy hugging his animal friends warmly in the jungle at sunset, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "정글북, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

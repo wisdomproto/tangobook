@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777277215628",
+  "title": "어린 왕자",
+  "hook": "어린 왕자 는 작은 별에서 온 어린 왕자가 사막에서 비행사를 만나 여러…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "어린 왕자 는 작은 별에서 온 어린 왕자가 사막에서 비행사를 만나 여러 별과 사람들의 이야기를 나누는 명작입…",
+      "screen": "어린 왕자, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "어린 왕자, 어떤 동화인가요?",
+      "imagePrompt": "A little prince with a golden scarf standing on a tiny planet with a single rose, dreamy children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "프랑스 작가 생텍쥐페리 가 1943년에 발표한 작품으로, 전 세계에서 가장 많이 읽힌 책 중 하나입니다. 어린 왕자, 장미, 여우, 사막의 비행사 등 상징적 인물과 \"길들인다\"는 개념이 핵심입니다.",
+      "screen": "어린 왕자 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "어린 왕자 원작 이야기",
+      "imagePrompt": "A little prince and a fox sitting together in a wheat field at sunset, tender children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "사막에 불시착한 비행사가 작은 별에서 온 어린 왕자를 만납니다. 어린 왕자는 자신의 별과 소중한 장미, 여러 별에서 만난 어른들, 그리고 여우와의 우정 이야기를 들려주지요.",
+      "screen": "어린 왕자 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "어린 왕자 줄거리 요약",
+      "imagePrompt": "A pilot and a little prince looking up at the stars together in the desert at night, peaceful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 가장 중요한 것은 눈에 보이지 않으며, 마음으로 보아야 잘 보인다 는 것입니다. 소중한 관계를 가꾸는 마음에 대해 \"나에게 소중한 것은 뭘까?\"를 아이와 이야기해 보세요.",
+      "screen": "어린 왕자가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "어린 왕자가 주는 교훈",
+      "imagePrompt": "A little prince gently caring for his single rose under a glass cover, tender children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "어린 왕자, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

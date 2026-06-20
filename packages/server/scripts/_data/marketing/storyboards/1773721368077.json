@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773721368077",
+  "title": "바리오닉스",
+  "hook": "곰이 연어를 낚듯 물고기를 잡던 바리오닉스 는 거대한 갈고리 발톱 을 가…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "곰이 연어를 낚듯 물고기를 잡던 바리오닉스 는 거대한 갈고리 발톱 을 가진 공룡이에요.",
+      "screen": "바리오닉스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "바리오닉스, 어떤 점이 신기할까요?",
+      "imagePrompt": "A Baryonyx catching a fish by a riverbank, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "바리오닉스는 몸길이 약 7.5~10m였고, 가장 큰 특징은 엄지의 거대한 갈고리 발톱(뼈만 31cm) 이에요. 이 발톱으로 강가에서 물속 물고기를 낚아챘을 거예요.",
+      "screen": "바리오닉스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "바리오닉스의 자연·과학 사실",
+      "imagePrompt": "A close-up of Baryonyx giant thumb claw, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «바리오닉스»는 거대한 엄지 발톱, 악어 같은 긴 주둥이, 강가에서 물고기를 낚는 모습을 박진감 있게 보여 줍니다.",
+      "screen": "탱고북 «바리오닉스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «바리오닉스»이 다루는 내용",
+      "imagePrompt": "A Baryonyx with a long crocodile-like snout, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "엄지 발톱(낚시), 긴 주둥이(물고기), 많은 이빨, 강가 생활 같은 포인트를 짚어 주세요. \"공룡이 물고기를 잡았다니 신기하지?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A Baryonyx hooking a fish from the water, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "바리오닉스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

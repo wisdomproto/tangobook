@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773564252115",
+  "title": "수박",
+  "hook": "여름의 시원함을 책임지는 수박 은 아삭하고 달콤한 물의 과일이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "여름의 시원함을 책임지는 수박 은 아삭하고 달콤한 물의 과일이에요.",
+      "screen": "수박, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "수박, 어떤 점이 신기할까요?",
+      "imagePrompt": "A big striped watermelon on a vine in a summer field, bright children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "수박은 무게의 91% 이상이 수분 이라 더운 여름 갈증 해소에 딱이에요. 덩굴식물 로 줄기가 땅을 기며 자라고, 암꽃·수꽃이 따로 피어 곤충이 꽃가루를 옮겨 줘야 열매가 맺힙니다.",
+      "screen": "수박의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "수박의 자연·과학 사실",
+      "imagePrompt": "A watermelon sliced open showing red flesh and black seeds, fresh children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «수박»은 노란 꽃 → 곤충의 수분 → 작은 수박이 점점 커지는 과정 → 시원하게 쪼개 먹는 여름을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «수박»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «수박»이 다루는 내용",
+      "imagePrompt": "A watermelon vine creeping along the ground with yellow flowers, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "줄무늬(위장), 큰 덩치·물(91%), 덩굴(기어 자람), 꼬리(완숙 신호) 같은 포인트를 짚어 주세요. \"수박은 왜 이렇게 물이 많을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Close-up of watermelon green stripes pattern, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "수박, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

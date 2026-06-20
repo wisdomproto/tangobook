@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777614294799",
+  "seo_title": "바다거북 특징과 모래사장 회귀의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "바다거북",
+  "secondary_keywords": [
+    "바다거북 특징",
+    "바다거북 산란",
+    "바다 보호",
+    "유아 자연관찰 책",
+    "바다 동물 그림책"
+  ],
+  "url_slug": "sea-turtle-nature-for-kids",
+  "meta_description": "바다거북이 태어난 모래사장으로 돌아와 알을 낳는 신비와 지느러미 다리 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>바다거북, 어떤 점이 신기할까요?</h2><p>넓은 바다를 헤엄치는 <strong>바다거북</strong>은 태어난 모래사장으로 먼 길을 돌아와 알을 낳는 신비로운 동물이에요.</p>",
+      "image_prompt": "A sea turtle swimming in the ocean, gentle children's book illustration, no text",
+      "alt": "바다거북",
+      "caption": "바다의 여행자"
+    },
+    {
+      "text_html": "<h2>바다거북의 자연·과학 사실</h2><p>바다거북은 다리가 <strong>지느러미(노) 모양</strong>이라 넓은 바다를 멀리 헤엄칠 수 있어요(땅거북처럼 머리를 등껍질에 넣지는 못해요). 가장 신비로운 점은 암컷이 알을 낳을 때 <strong>자신이 태어났던 바로 그 모래사장으로 돌아온다</strong>는 거예요. 밤에 모래에 구덩이를 파 알을 낳고, 아기 거북은 스스로 모래를 헤치고 나와 바다로 종종걸음을 치지요. 오래 살지만 <strong>바다 쓰레기 때문에 보호가 필요</strong>합니다.</p>",
+      "image_prompt": "A sea turtle laying eggs on a beach at night, informative children's book illustration, no text",
+      "alt": "모래사장의 바다거북",
+      "caption": "태어난 곳으로"
+    },
+    {
+      "text_html": "<h2>탱고북 «바다거북»이 다루는 내용</h2><p>탱고북 «바다거북»은 지느러미로 헤엄치는 모습, 모래사장으로 돌아오는 산란, 알에서 깨어 바다로 가는 아기 거북을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "Baby sea turtles heading to the sea, heartwarming children's book illustration, no text",
+      "alt": "바다로 가는 아기 거북",
+      "caption": "스스로 가는 길"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>지느러미 다리(헤엄), 모래사장 회귀, 밤 산란, 바다 보호 같은 포인트를 짚어 주세요. \"어떻게 태어난 곳을 찾아올까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of sea turtle flipper legs, observational children's book illustration, no text",
+      "alt": "바다거북 지느러미",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"태어난 곳으로 돌아와 알을 낳아\"라는 신비를 연어의 회귀와 비교해 보세요. \"바다 쓰레기를 줄이자\"를 이야기하면 환경을 아끼는 마음이 자랍니다.</p>",
+      "image_prompt": "A parent and child learning about ocean protection, warm children's book illustration, no text",
+      "alt": "바다 보호를 배우는 부모와 아이",
+      "caption": "바다 지키기"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 바다거북은 어떻게 태어난 곳을 찾아오나요?</strong><br>A. 암컷은 알을 낳을 때 자신이 태어났던 바로 그 모래사장으로 먼 길을 되돌아옵니다.</p><p><strong>Q. 바다거북은 왜 보호가 필요한가요?</strong><br>A. 아주 오래 사는 동물이지만 바다 쓰레기 때문에 위험에 처해 있기 때문입니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 연어의 회귀와 비교, \"바다 쓰레기 줄이기\" 이야기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

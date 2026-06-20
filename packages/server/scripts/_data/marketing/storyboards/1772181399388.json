@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772181399388",
+  "title": "인어 공주",
+  "hook": "인어 공주 는 바닷속 인어 공주가 인간 왕자를 사랑해 다리를 얻고 뭍으로…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "인어 공주 는 바닷속 인어 공주가 인간 왕자를 사랑해 다리를 얻고 뭍으로 오르는 안데르센의 동화입니다.",
+      "screen": "인어 공주, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "인어 공주, 어떤 동화인가요?",
+      "imagePrompt": "A graceful mermaid princess gazing up toward the surface of the sea with longing, beautiful underwater children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "안데르센이 1837년 발표한 「Den lille Havfrue」가 원작입니다. 원작은 인어 공주가 물거품이 되는 애틋한 결말로 유명하지만, 유아용 그림책은 대개 따뜻하게 각색합니다.",
+      "screen": "인어 공주 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "인어 공주 원작 이야기",
+      "imagePrompt": "A mermaid meeting a mysterious sea witch in a glowing underwater cave, dramatic but gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "인어 공주는 폭풍 속에서 인간 왕자를 구한 뒤 그를 깊이 사랑하게 됩니다. 사람이 되기 위해 바다 마녀와 거래해 목소리를 내어주고 다리를 얻어 뭍으로 오르지요.",
+      "screen": "인어 공주 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "인어 공주 줄거리 요약",
+      "imagePrompt": "A mermaid turned into a girl walking on a beach toward a prince, hopeful tender children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 간절한 사랑과 용기, 그리고 선택에는 마음과 책임이 따른다 는 것입니다. \"소중한 것을 위해 무언가를 포기해 본 적 있어?\"를 아이와 이야기하며 마음의 깊이를 나눠 보세요.",
+      "screen": "인어 공주가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "인어 공주가 주는 교훈",
+      "imagePrompt": "A mermaid bravely smiling despite hardship, inner strength and kindness, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "인어 공주, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

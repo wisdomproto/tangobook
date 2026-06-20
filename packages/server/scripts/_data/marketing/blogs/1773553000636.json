@@ -1,0 +1,46 @@
+{
+  "storybookId": "1773553000636",
+  "seo_title": "소나무 특징과 솔방울의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "소나무",
+  "secondary_keywords": ["소나무 특징", "솔방울", "소나무 생태", "유아 자연관찰 책", "나무 그림책"],
+  "url_slug": "pine-tree-nature-for-kids",
+  "meta_description": "소나무의 바늘잎과 솔방울이 열리고 닫히는 비밀, 송진과 호박 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>소나무, 어떤 점이 신기할까요?</h2><p>겨울에도 푸른 <strong>소나무</strong>는 우리에게 가장 친숙한 나무예요. 바늘 같은 잎과 솔방울에 신기한 과학이 담겨 있습니다.</p>",
+      "image_prompt": "A green pine tree with needle leaves and pinecones in a forest, warm children's book illustration, no text",
+      "alt": "솔방울 달린 소나무",
+      "caption": "사철 푸른 소나무"
+    },
+    {
+      "text_html": "<h2>소나무의 자연·과학 사실</h2><p>소나무 잎은 바늘처럼 가늘고 <strong>두꺼운 막으로 덮여 겨울에도 광합성</strong>을 합니다. <strong>솔방울 비늘은 습도에 따라 열리고 닫혀요</strong> — 건조하면 활짝 열려 씨앗을 날리고, 비 오면 닫아 씨앗을 보호하지요. 줄기의 <strong>송진</strong>은 항균 성분으로 상처를 봉하고, 땅속에서 굳으면 보석 <strong>호박</strong>이 됩니다. 뿌리는 송이버섯균과 공생해요.</p>",
+      "image_prompt": "A pinecone with scales open in dry weather, informative children's book illustration, no text",
+      "alt": "비늘이 열린 솔방울",
+      "caption": "습도로 여닫는 솔방울"
+    },
+    {
+      "text_html": "<h2>탱고북 «소나무»이 다루는 내용</h2><p>탱고북 «소나무»는 사계절 푸른 잎, 송홧가루 날리기, 솔방울이 열리고 닫히는 모습, 송진과 솔방울 씨앗, 숲속 생명과의 공생을 보여 줍니다.</p>",
+      "image_prompt": "Pine resin (amber) glowing golden on a pine trunk, gentle children's book illustration, no text",
+      "alt": "소나무 송진과 호박",
+      "caption": "송진이 만든 보석"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>바늘잎(겨울 광합성), 솔방울(습도로 열림/닫힘), 송진(천연 약), 호박 같은 포인트를 짚어 주세요. \"솔방울은 왜 열렸다 닫혔다 할까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "Close-up of pine needles in pairs, observational children's book illustration, no text",
+      "alt": "소나무 바늘잎",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>솔방울을 주워 물에 담갔다 말리며 비늘이 닫혔다 열리는 걸 직접 관찰해 보세요(아주 신기한 실험!). 바늘잎의 촉감을 느끼고, 송진 냄새를 맡아 보면 좋습니다.</p>",
+      "image_prompt": "A parent and child soaking a pinecone in water to watch it close, warm children's book illustration, no text",
+      "alt": "솔방울 실험을 하는 부모와 아이",
+      "caption": "솔방울 여닫기 실험"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 솔방울은 왜 열렸다 닫혔다 하나요?</strong><br>A. 습도에 반응하기 때문입니다. 건조하면 열려 씨앗을 날리고, 비 오면 닫아 씨앗을 보호해요.</p><p><strong>Q. 소나무는 겨울에도 왜 푸른가요?</strong><br>A. 바늘잎이 두꺼운 막으로 덮여 추운 겨울에도 광합성을 계속할 수 있기 때문입니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 솔방울을 물에 담갔다 말려 여닫힘을 관찰하고, 바늘잎 촉감·송진 냄새를 느껴 보세요.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

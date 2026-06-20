@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773573591972",
+  "title": "파리지옥",
+  "hook": "곤충을 잡아먹는 신기한 식물 파리지옥 은 아이들의 호기심을 단번에 사로잡…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "곤충을 잡아먹는 신기한 식물 파리지옥 은 아이들의 호기심을 단번에 사로잡아요.",
+      "screen": "파리지옥, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "파리지옥, 어떤 점이 신기할까요?",
+      "imagePrompt": "A venus flytrap with open traps waiting for insects, fascinating children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "파리지옥이 곤충을 먹는 건 질소가 거의 없는 척박한 습지 에서 영양을 얻기 위해서예요. 덫 잎 안쪽엔 감각모가 잎마다 3개씩 있는데, 약 20초 안에 두 번 자극 받아야 닫혀요(빗방울 같은 헛것에…",
+      "screen": "파리지옥의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "파리지옥의 자연·과학 사실",
+      "imagePrompt": "A venus flytrap snapping shut on an insect, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «파리지옥»은 덫 잎이 열려 곤충을 기다리다 순식간에 닫히는 모습, 천천히 소화하는 과정, 다시 열리는 덫을 흥미진진하게 보여 줍니다.",
+      "screen": "탱고북 «파리지옥»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «파리지옥»이 다루는 내용",
+      "imagePrompt": "Trigger hairs inside a venus flytrap trap, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "덫 잎(감각모), 두 번 자극(닫힘 조건), 0.1초 닫힘(빠른 운동), 척박한 습지(왜 곤충을 먹나) 같은 포인트를 짚어 주세요. \"식물이 어떻게 움직일까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Close-up of a venus flytrap open trap, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "파리지옥, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

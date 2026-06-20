@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777434565511",
+  "title": "코끼리",
+  "hook": "땅 위에서 가장 큰 동물 코끼리 는 긴 코로 물건도 잡고 물도 마시는 신…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "땅 위에서 가장 큰 동물 코끼리 는 긴 코로 물건도 잡고 물도 마시는 신기한 동물이에요.",
+      "screen": "코끼리, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "코끼리, 어떤 점이 신기할까요?",
+      "imagePrompt": "A large elephant using its long trunk in a savanna, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "코끼리의 긴 코는 윗입술과 코가 합쳐진 기관 으로, 수많은 근육 덕분에 손처럼 물건을 잡고, 물을 빨아올려 입에 부어 마시며, 높은 잎도 따 먹어요. 큰 귀는 펄럭여 몸의 열을 식히는 부채 역할을…",
+      "screen": "코끼리의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "코끼리의 자연·과학 사실",
+      "imagePrompt": "An elephant picking up an object with its trunk, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «코끼리»는 손처럼 쓰는 긴 코, 부채 같은 큰 귀, 엄니, 무리 지어 사는 모습 등 코끼리의 매력을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «코끼리»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «코끼리»이 다루는 내용",
+      "imagePrompt": "An elephant flapping its big ears, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "긴 코(손·물·먹이), 큰 귀(열 식히기), 엄니(이빨), 무리 생활 같은 포인트를 짚어 주세요. \"코로 무엇을 할 수 있을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of elephant tusks, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "코끼리, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

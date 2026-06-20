@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773615989178",
+  "title": "동굴과 갯벌",
+  "hook": "깜깜한 동굴 과 물이 들고 나는 갯벌 은 신비로운 자연 공간이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "깜깜한 동굴 과 물이 들고 나는 갯벌 은 신비로운 자연 공간이에요.",
+      "screen": "동굴과 갯벌, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "동굴과 갯벌, 어떤 점이 신기할까요?",
+      "imagePrompt": "A limestone cave with stalactites and a tidal flat side by side, beautiful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "석회 동굴은 빗물이 석회암을 천천히 녹여 만들어져요. 천장에서 자란 게 종유석 , 바닥에서 자란 게 석순 , 둘이 만나면 석주가 되는데 1m 자라는 데 수천 년이 걸리기도 해요.",
+      "screen": "동굴과 갯벌의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "동굴과 갯벌의 자연·과학 사실",
+      "imagePrompt": "Stalactites hanging from a cave ceiling and stalagmites rising, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «동굴과 갯벌»은 종유석·석순이 자라는 동굴, 박쥐 같은 어둠 속 생물, 갯벌의 게·조개·철새 등 두 신비 공간의 생명을 보여 줍니다.",
+      "screen": "탱고북 «동굴과 갯벌»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «동굴과 갯벌»이 다루는 내용",
+      "imagePrompt": "A tidal flat full of crabs and shellfish at low tide, lively children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "종유석/석순(위·아래로 자람), 동굴 생물(박쥐), 갯벌(물 들고 남), 갯벌 생물(게·조개) 같은 포인트를 짚어 주세요. \"종유석은 얼마나 오래 자랐을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A bat hanging in a dark cave, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "동굴과 갯벌, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

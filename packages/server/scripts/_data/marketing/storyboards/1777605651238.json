@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777605651238",
+  "title": "개미",
+  "hook": "작지만 힘센 개미 는 여왕개미를 중심으로 함께 사는 사회성 곤충이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "작지만 힘센 개미 는 여왕개미를 중심으로 함께 사는 사회성 곤충이에요.",
+      "screen": "개미, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "개미, 어떤 점이 신기할까요?",
+      "imagePrompt": "Ants carrying food in a line, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "일개미는 자기 몸무게의 여러 배나 되는 짐도 거뜬히 나를 만큼 힘이 세요. 머리의 더듬이로 냄새(페로몬) 길을 따라 먹이가 있는 곳을 동료에게 알리지요.",
+      "screen": "개미의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "개미의 자연·과학 사실",
+      "imagePrompt": "An ant carrying a load much bigger than itself, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «개미»는 무거운 짐을 나르는 모습, 줄지어 냄새 길을 따라가는 모습, 땅속 개미집, 역할을 나눠 일하는 개미들을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «개미»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «개미»이 다루는 내용",
+      "imagePrompt": "A cross-section of an underground ant nest with rooms, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "힘(몸무게 여러 배), 페로몬 길(소통), 개미집(방·길), 역할 분담 같은 포인트를 짚어 주세요. \"개미는 어떻게 길을 찾을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Ants following a pheromone trail, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "개미, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

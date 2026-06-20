@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773711154702",
+  "seo_title": "강아지 특징과 감각의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "강아지",
+  "secondary_keywords": [
+    "강아지 특징",
+    "강아지 후각",
+    "강아지 생태",
+    "유아 동물 책",
+    "동물 그림책"
+  ],
+  "url_slug": "dog-nature-for-kids",
+  "meta_description": "강아지의 뛰어난 후각과 청각, 꼬리 언어 등 신기한 사실과, 탱고북 동물 그림책 내용, 관찰하는 법까지. 4~7세 동물 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>강아지, 어떤 점이 신기할까요?</h2><p>사람의 가장 오랜 친구 <strong>강아지</strong>는 늑대에서 갈라져 나온 똑똑하고 다정한 동물이에요. 사람과 다른 놀라운 감각을 지녔답니다.</p>",
+      "image_prompt": "A happy dog wagging its tail, warm children's book illustration, no text",
+      "alt": "꼬리를 흔드는 강아지",
+      "caption": "사람의 오랜 친구"
+    },
+    {
+      "text_html": "<h2>강아지의 자연·과학 사실</h2><p>강아지는 1만 5천~4만 년 전 <strong>회색늑대에서 가축화</strong>됐고, 공인 견종만 340종이 넘어요. <strong>후각은 사람의 약 50배</strong>(냄새 수용체 3억 개), 청각도 사람의 2배 이상이지요. 땀샘이 적어 <strong>헐떡임으로 체온을 조절</strong>하고, 하루 12~14시간 자며 꿈도 꿔요. 꼬리의 방향·속도·높이로 다양한 감정을 표현합니다.</p>",
+      "image_prompt": "A dog sniffing the ground with its powerful nose, informative children's book illustration, no text",
+      "alt": "냄새를 맡는 강아지",
+      "caption": "사람의 50배 후각"
+    },
+    {
+      "text_html": "<h2>탱고북 «강아지»이 다루는 내용</h2><p>탱고북 «강아지»는 다양한 견종, 뛰어난 코·귀, 꼬리로 표현하는 감정, 사람과 함께 사는 모습을 따뜻하게 보여 줍니다.</p>",
+      "image_prompt": "A dog panting to cool down on a warm day, gentle children's book illustration, no text",
+      "alt": "헐떡이는 강아지",
+      "caption": "헐떡임으로 체온 조절"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>코(뛰어난 후각), 귀(예민한 청각), 헐떡임(체온 조절), 꼬리(감정) 같은 포인트를 짚어 주세요. \"강아지는 왜 헥헥거릴까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "Different dog tail positions showing emotions, observational children's book illustration, no text",
+      "alt": "강아지 꼬리 언어",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>강아지를 만날 때 천천히 다가가 냄새 맡게 해 주고, 꼬리 움직임으로 기분을 읽어 보세요. 더울 때 헐떡이는 이유(체온 조절)를 알려 주면 동물을 이해하는 마음이 자랍니다.</p>",
+      "image_prompt": "A child gently meeting a friendly dog, warm children's book illustration, no text",
+      "alt": "강아지와 인사하는 아이",
+      "caption": "천천히 다가가기"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 강아지는 왜 헥헥거리나요?</strong><br>A. 땀샘이 적어 헐떡임(panting)으로 체온을 조절하기 때문입니다. 더울 때나 운동 후에 그래요.</p><p><strong>Q. 강아지 코는 얼마나 좋은가요?</strong><br>A. 냄새 수용체가 약 3억 개로 사람의 약 50배입니다. 그래서 냄새로 세상을 읽어요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 천천히 다가가 냄새 맡게 하기, 꼬리 움직임으로 기분 읽기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

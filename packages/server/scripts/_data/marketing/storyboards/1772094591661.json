@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772094591661",
+  "title": "백조의 호수",
+  "hook": "백조의 호수 는 낮에는 백조, 밤에는 사람으로 사는 오데트 공주와 지크프…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "백조의 호수 는 낮에는 백조, 밤에는 사람으로 사는 오데트 공주와 지크프리트 왕자의 사랑 이야기입니다.",
+      "screen": "백조의 호수, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백조의 호수, 어떤 동화인가요?",
+      "imagePrompt": "A graceful swan princess by a moonlit lake transforming into a beautiful maiden, elegant ballet-inspired children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "차이코프스키(1840~1893) 가 1875~1876년 작곡해 1877년 모스크바 볼쇼이 극장에서 초연한 발레입니다. 초연은 혹평받았지만 1895년 재안무 버전이 성공해 오늘날 가장 많이 공연되는…",
+      "screen": "백조의 호수 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백조의 호수 원작 이야기",
+      "imagePrompt": "Elegant ballerinas as swans dancing on a grand theater stage, soft spotlight, magical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "지크프리트 왕자가 호숫가에서 백조들이 아가씨로 변하는 것을 보고 오데트 공주와 사랑에 빠집니다. 마법사 로트바르트의 계략으로 왕자는 변장한 오딜을 오데트로 착각하지만, 실수를 깨닫고 달려가 진심을…",
+      "screen": "백조의 호수 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백조의 호수 줄거리 요약",
+      "imagePrompt": "A prince realizing his mistake and running to the true swan princess by the lake at dawn, emotional children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 진실한 사랑은 어떤 어둠도 이겨내며, 겉모습에 속지 말고 마음을 보아야 한다 는 것입니다. 실수를 인정하고 사랑을 지키는 용기도 함께 이야기할 수 있어요.",
+      "screen": "백조의 호수가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백조의 호수가 주는 교훈",
+      "imagePrompt": "Odette and the prince happily together as the dark sorcerer fades away, triumphant warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "백조의 호수, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

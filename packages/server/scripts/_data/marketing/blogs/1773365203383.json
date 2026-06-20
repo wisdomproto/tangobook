@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773365203383",
+  "seo_title": "해바라기 특징과 향일성의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "해바라기",
+  "secondary_keywords": [
+    "해바라기 특징",
+    "해바라기 향일성",
+    "해바라기 생태",
+    "유아 자연관찰 책",
+    "식물 그림책"
+  ],
+  "url_slug": "sunflower-nature-for-kids",
+  "meta_description": "해바라기가 해를 따라 도는 진짜 이유(향일성)와 씨앗의 비밀 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>해바라기, 어떤 점이 신기할까요?</h2><p>키 크고 환한 <strong>해바라기</strong>는 해를 따라 고개를 돌린다고 알려진 여름의 대표 꽃이에요. 그 움직임에 숨은 진짜 과학을 알아봐요.</p>",
+      "image_prompt": "A tall bright sunflower facing the morning sun in a summer field, cheerful children's book illustration, no text",
+      "alt": "여름 들판의 해바라기",
+      "caption": "해를 향한 해바라기"
+    },
+    {
+      "text_html": "<h2>해바라기의 자연·과학 사실</h2><p>\"해를 따라 돈다\"는 건 <strong>어린 해바라기에만</strong> 해당돼요. 줄기가 굳지 않은 시기엔 낮에 동→서로 해를 따라가고 밤에 다시 동쪽으로 돌아오는데, 이는 빛 방향에 따른 생장(굴광성)과 일주 리듬 때문입니다(2016년 Science 연구). 다 자라 꽃이 피면 줄기가 굳어 대부분 <strong>동쪽을 향해 고정</strong>되는데, 아침 햇살을 받아 빛 에너지를 더 많이 흡수해요.</p>",
+      "image_prompt": "Young sunflowers turning from east to west following the sun, informative children's book illustration, no text",
+      "alt": "해를 따라가는 어린 해바라기",
+      "caption": "향일성의 비밀"
+    },
+    {
+      "text_html": "<h2>탱고북 «해바라기»이 다루는 내용</h2><p>탱고북 «해바라기»는 씨앗에서 싹이 트고 키가 쑥쑥 자라 해를 향하다, 마침내 꽃을 피우고 수많은 씨앗을 맺는 한살이를 환하게 보여 줍니다.</p>",
+      "image_prompt": "A sunflower full of seeds in a spiral pattern, close-up children's book illustration, no text",
+      "alt": "씨앗이 가득한 해바라기",
+      "caption": "나선으로 박힌 씨앗"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>어린 해바라기(해 따라가기), 성숙한 꽃(동쪽 고정), 씨앗(빼곡한 배열), 큰 키 같은 포인트를 짚어 주세요. \"큰 해바라기는 왜 한 방향만 볼까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A sunflower seed sprouting and growing tall, life cycle children's book illustration, no text",
+      "alt": "해바라기 한살이",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>해바라기를 심어 키 자라는 과정과 어린 시기의 고개 돌림을 관찰해 보세요. 씨앗 배열(나선)을 돋보기로 보고, 씨앗을 까 먹어 보며 \"꽃 한 송이에 씨앗이 몇 개일까?\" 세어 보면 좋습니다.</p>",
+      "image_prompt": "A parent and child measuring a growing sunflower together, warm children's book illustration, no text",
+      "alt": "해바라기 키를 재는 부모와 아이",
+      "caption": "키 재기 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 해바라기는 정말 해를 따라 도나요?</strong><br>A. 어린 해바라기만 그렇습니다. 다 자라 꽃이 피면 대부분 동쪽을 향해 고정돼요.</p><p><strong>Q. 왜 동쪽을 향하나요?</strong><br>A. 아침 햇살을 정면으로 받아 빛 에너지를 더 많이 흡수하고 이슬을 빨리 말리기 위해서입니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 직접 심어 키 자람·고개 돌림을 관찰하고, 씨앗 나선 배열을 돋보기로 보세요.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

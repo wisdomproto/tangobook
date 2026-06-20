@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773895602678",
+  "title": "파키케팔로사우루스",
+  "hook": "두껍고 둥근 머리를 가진 파키케팔로사우루스 는 \"두꺼운 머리 도마뱀\"이라…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "두껍고 둥근 머리를 가진 파키케팔로사우루스 는 \"두꺼운 머리 도마뱀\"이라는 뜻의 공룡이에요.",
+      "screen": "파키케팔로사우루스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "파키케팔로사우루스, 어떤 점이 신기할까요…",
+      "imagePrompt": "A Pachycephalosaurus with a thick domed head, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "파키케팔로사우루스는 약 6,600만 년 전 북아메리카에 살았어요. 두개골 돔의 두께가 최대 25cm 나 됐지만, 뇌 크기는 달걀만 했지요.",
+      "screen": "파키케팔로사우루스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "파키케팔로사우루스의 자연·과학 사실",
+      "imagePrompt": "A close-up of the thick skull dome, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «파키케팔로사우루스»는 두껍고 둥근 머리, 머리 둘레 돌기, 서로 밀치며 힘을 겨루는 모습 등 박치기 공룡을 박진감 있게 보여 줍니다.",
+      "screen": "탱고북 «파키케팔로사우루스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «파키케팔로사우루스»이 다루는 내…",
+      "imagePrompt": "Two Pachycephalosaurus shoving each other with their bodies, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "두꺼운 돔 머리(25cm), 작은 뇌(달걀), 밀치기(힘자랑), 머리 돌기 같은 포인트를 짚어 주세요. \"정말 머리를 박았을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A close-up of the small bumps around the head, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "파키케팔로사우루스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

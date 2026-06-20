@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772106779761",
+  "title": "성냥팔이 소녀",
+  "hook": "성냥팔이 소녀 는 추운 섣달그믐 밤, 성냥을 팔며 떨던 소녀가 성냥불 속…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "성냥팔이 소녀 는 추운 섣달그믐 밤, 성냥을 팔며 떨던 소녀가 성냥불 속에서 따뜻한 환상을 보는 안데르센의…",
+      "screen": "성냥팔이 소녀, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "성냥팔이 소녀, 어떤 동화인가요?",
+      "imagePrompt": "A poor little girl lighting a match in the cold snowy night, a warm glow on her face, tender emotional children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "안데르센이 1845년 발표한 작품으로, 소녀가 성냥을 하나씩 켤 때마다 따뜻한 난로·맛있는 음식·크리스마스트리·돌아가신 할머니의 환상을 보는 장면이 유명합니다. 가난과 무관심에 대한 안데르센의 깊은…",
+      "screen": "성냥팔이 소녀 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "성냥팔이 소녀 원작 이야기",
+      "imagePrompt": "Visions of a warm stove and a kind grandmother appearing in the glow of a match flame, dreamlike gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "춥고 배고픈 소녀가 팔리지 않는 성냥을 들고 거리에 서 있습니다. 너무 추워 성냥을 하나씩 켜자 불빛 속에 따뜻한 난로와 맛있는 음식, 그리고 사랑하는 할머니가 나타나지요.",
+      "screen": "성냥팔이 소녀 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "성냥팔이 소녀 줄거리 요약",
+      "imagePrompt": "A little girl smiling peacefully as she imagines being embraced by her loving grandmother in warm light, tender children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 추위와 어려움 속에 있는 이웃을 돌아보는 연민과 따뜻함 입니다. 우리가 당연하게 누리는 따뜻함이 누군가에겐 소중한 것임을, 아이와 함께 나눠 보세요.",
+      "screen": "성냥팔이 소녀가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "성냥팔이 소녀가 주는 교훈",
+      "imagePrompt": "Children sharing warm blankets and food with someone in need, kindness and warmth, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "성냥팔이 소녀, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

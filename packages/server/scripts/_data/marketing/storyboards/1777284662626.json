@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777284662626",
+  "title": "신드바드의 모험",
+  "hook": "신드바드의 모험 은 바다를 사랑한 상인 신드바드가 거대한 고래 섬과 어마…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "신드바드의 모험 은 바다를 사랑한 상인 신드바드가 거대한 고래 섬과 어마어마한 새 로크, 보석 계곡을 만나는…",
+      "screen": "신드바드의 모험, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "신드바드의 모험, 어떤 동화인가요?",
+      "imagePrompt": "A sailor on a ship deck spotting a green island that is actually a giant whale, adventurous children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "아랍의 옛이야기 모음 『천일야화(아라비안 나이트)』 에 실린 고전 모험담으로, 8~9세기부터 전해 내려왔습니다. 신드바드는 모두 일곱 번의 항해를 떠나며, 매번 위기를 지혜와 행운으로 이겨내고 더…",
+      "screen": "신드바드의 모험 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "신드바드의 모험 원작 이야기",
+      "imagePrompt": "A giant roc bird soaring with a sailor tied to its leg over a valley of gems, whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "항해 중 신드바드는 섬인 줄 알고 오른 곳이 거대한 고래임을 알고 놀라 바다에 빠집니다. 나무통에 매달려 낯선 섬에 닿은 그는, 거대한 새 로크의 다리에 몸을 묶어 보석 계곡에 이르지요.",
+      "screen": "신드바드의 모험 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "신드바드의 모험 줄거리 요약",
+      "imagePrompt": "A sailor collecting sparkling gems in a valley, exciting bright children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 낯선 곳에서도 침착하게 생각하면 길이 보이고, 넓은 세상을 향한 호기심이 새 경험을 가져온다 는 것입니다. \"위험할 때 침착하면 뭐가 좋을까?\"를 아이와 이야기해 보세요.",
+      "screen": "신드바드의 모험이 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "신드바드의 모험이 주는 교훈",
+      "imagePrompt": "A sailor calmly thinking of a plan while stranded at sea, resourceful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "신드바드의 모험, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

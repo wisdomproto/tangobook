@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773615711742",
+  "title": "화산과 지진",
+  "hook": "땅이 흔들리고 산이 불을 뿜는 화산과 지진 은 살아있는 지구의 모습이에요…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "땅이 흔들리고 산이 불을 뿜는 화산과 지진 은 살아있는 지구의 모습이에요.",
+      "screen": "화산과 지진, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "화산과 지진, 어떤 점이 신기할까요?",
+      "imagePrompt": "An erupting volcano with flowing lava and a shaking ground, dramatic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "지구의 겉껍질(지각)은 거대한 조각인 지각판 으로 나뉘어 1년에 몇 cm씩 움직여요. 판과 판이 부딪치거나 미끄러질 때 땅이 흔들리는 게 지진 입니다.",
+      "screen": "화산과 지진의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "화산과 지진의 자연·과학 사실",
+      "imagePrompt": "Tectonic plates moving and magma rising under the earth crust, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «화산과 지진»은 움직이는 지각판, 땅속 마그마, 화산이 터지는 모습, 땅이 흔들리는 지진을 아이 눈높이의 과학으로 보여 줍니다.",
+      "screen": "탱고북 «화산과 지진»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «화산과 지진»이 다루는 내용",
+      "imagePrompt": "Lava cooling into solid rock after a volcano eruption, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "지각판(움직임), 마그마/용암(차이), 화산(터짐), 지진(흔들림) 같은 포인트를 짚어 주세요. \"땅속은 왜 이렇게 뜨거울까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A cross-section of the earth showing crust and mantle, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "화산과 지진, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

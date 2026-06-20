@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777284718837",
+  "title": "파랑새",
+  "hook": "파랑새 는 행복을 가져다준다는 파랑새를 찾아 먼 길을 떠난 남매가, 결국…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "파랑새 는 행복을 가져다준다는 파랑새를 찾아 먼 길을 떠난 남매가, 결국 행복은 늘 우리 곁에 있었다는 깨달…",
+      "screen": "파랑새, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "파랑새, 어떤 동화인가요?",
+      "imagePrompt": "Two children following a glowing blue bird through a magical dreamland, whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "벨기에 작가 모리스 마테를링크 가 1908년에 발표한 희곡입니다. 가난한 남매 틸틸과 미틸이 요술 할머니의 부탁으로 파랑새를 찾아 추억의 나라·밤의 궁전 등을 여행하지만, 집에 돌아와 보니 집 새가…",
+      "screen": "파랑새 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "파랑새 원작 이야기",
+      "imagePrompt": "A magical fairy grandmother asking two children to find a blue bird, whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "잠든 남매에게 요술 할머니가 찾아와 행복을 주는 파랑새를 찾아 달라 부탁합니다. 남매는 환상의 나라들을 여행하며 새를 잡지만 번번이 색이 변하거나 쓰러지지요.",
+      "screen": "파랑새 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "파랑새 줄거리 요약",
+      "imagePrompt": "Children discovering their pet bird is actually blue at home, joyful realization, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 행복은 멀리서 찾는 것이 아니라 이미 내 곁에 있는 것을 알아보는 마음 이라는 것입니다. \"우리 집의 파랑새는 무엇일까?\"를 아이와 함께 찾아보세요.",
+      "screen": "파랑새가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "파랑새가 주는 교훈",
+      "imagePrompt": "A happy family together at home surrounded by warm light, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "파랑새, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

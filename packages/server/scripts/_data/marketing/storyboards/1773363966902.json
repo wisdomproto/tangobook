@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773363966902",
+  "title": "카멜레온",
+  "hook": "몸 색깔을 바꾸는 신기한 도마뱀 카멜레온 은 아이들의 호기심을 단번에 사…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "몸 색깔을 바꾸는 신기한 도마뱀 카멜레온 은 아이들의 호기심을 단번에 사로잡아요.",
+      "screen": "카멜레온, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "카멜레온, 어떤 점이 신기할까요?",
+      "imagePrompt": "A colorful chameleon on a branch slowly changing colors, vivid children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "카멜레온이 색을 바꾸는 건 단순한 위장만이 아니라 피부 속 나노 결정의 간격을 조절 해 빛을 반사하는 과학적 원리이며, 기분·온도·소통에 따라 달라집니다. 두 눈을 따로따로 움직여 사방을 살피고,…",
+      "screen": "카멜레온의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "카멜레온의 자연·과학 사실",
+      "imagePrompt": "A chameleon shooting its long tongue to catch an insect, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «카멜레온»은 주변에 따라 색이 변하는 모습, 따로 움직이는 두 눈, 긴 혀로 곤충을 잡는 사냥, 나뭇가지를 잡는 발, 알에서 깨어나는 과정을 흥미롭게 보여 줍니다.",
+      "screen": "탱고북 «카멜레온»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «카멜레온»이 다루는 내용",
+      "imagePrompt": "A chameleon with eyes looking in two different directions, whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "색 변화(나노 결정·기분·온도), 따로 보는 눈, 긴 혀(사냥), 마주 보는 발가락 같은 포인트를 짚어 주세요. \"카멜레온은 왜 색을 바꿀까?\", \"두 눈을 따로 보면 어떤 점이 좋을까?\"를 함께…",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Close-up of a chameleon's gripping toes on a branch, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "카멜레온, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

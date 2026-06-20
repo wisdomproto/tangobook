@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772097729467",
+  "title": "브레멘 음악대",
+  "hook": "브레멘 음악대 는 나이 들어 쓸모없다고 내쳐진 당나귀·사냥개·고양이·수탉…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "브레멘 음악대 는 나이 들어 쓸모없다고 내쳐진 당나귀·사냥개·고양이·수탉이 힘을 합쳐 새 삶을 찾는 이야기입…",
+      "screen": "브레멘 음악대, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "브레멘 음악대, 어떤 동화인가요?",
+      "imagePrompt": "A donkey, dog, cat, and rooster walking together on a road toward a town, cheerful determined children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "독일 그림 형제 가 수집해 1819년 『어린이와 가정을 위한 동화집』 제2판에 수록한 이야기입니다(아르네-톰프슨 130번). 독일 브레멘 시에는 네 동물이 등에 올라탄 조각상이 세계적인 관광 명소로…",
+      "screen": "브레멘 음악대 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "브레멘 음악대 원작 이야기",
+      "imagePrompt": "A statue-like pyramid of a donkey, dog, cat, and rooster stacked on each other's backs, iconic playful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "쫓겨날 처지가 된 당나귀가 음악가가 되겠다는 꿈을 품고 떠나, 늙은 사냥개·시무룩한 고양이·우는 수탉을 차례로 만나 함께합니다. 숲속 집에서 도둑들을 발견한 네 친구는 서로 등에 올라타 큰 소리를…",
+      "screen": "브레멘 음악대 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "브레멘 음악대 줄거리 요약",
+      "imagePrompt": "Four animals stacked together making a loud noise to scare robbers out of a cottage at night, funny lively children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 나이 들거나 약해졌다고 쓸모없는 게 아니며, 서로의 부족함을 채워 새 길을 만드는 협력의 가치 입니다. 꿈을 향해 나아가는 용기를 유쾌하게 전합니다.",
+      "screen": "브레멘 음악대가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "브레멘 음악대가 주는 교훈",
+      "imagePrompt": "Four animal friends happily living together in a cozy cottage, warm friendship, children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "브레멘 음악대, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

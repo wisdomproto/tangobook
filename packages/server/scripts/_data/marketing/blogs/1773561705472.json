@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773561705472",
+  "seo_title": "포도나무 특징과 덩굴손의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "포도나무",
+  "secondary_keywords": [
+    "포도나무 특징",
+    "포도 덩굴",
+    "포도나무 생태",
+    "유아 자연관찰 책",
+    "식물 그림책"
+  ],
+  "url_slug": "grapevine-nature-for-kids",
+  "meta_description": "포도나무의 덩굴손과 송이로 익는 과정, 껍질의 항산화 성분 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>포도나무, 어떤 점이 신기할까요?</h2><p>주렁주렁 송이로 익는 <strong>포도나무</strong>는 덩굴을 타고 자라는 신기한 식물이에요. 스스로 서지 못해 무언가를 꼭 붙잡고 올라갑니다.</p>",
+      "image_prompt": "A grapevine with bunches of purple grapes hanging, warm children's book illustration, no text",
+      "alt": "포도가 열린 포도나무",
+      "caption": "주렁주렁 포도송이"
+    },
+    {
+      "text_html": "<h2>포도나무의 자연·과학 사실</h2><p>포도나무는 스스로 서지 못하는 <strong>덩굴식물</strong>이라, <strong>덩굴손(tendril)</strong>이 나선으로 감겨 지지대를 단단히 붙잡아요. 5~6월에 꽃이 피고 수분되면 포도알이 맺혀 8~10월에 익습니다. 포도 <strong>껍질의 항산화 성분</strong>(안토시아닌 등)은 병충해와 자외선으로부터 열매를 지키고, 일부 포도나무는 수백 년을 살며 열매를 맺어요.</p>",
+      "image_prompt": "A grapevine tendril spiraling around a support, informative children's book illustration, no text",
+      "alt": "지지대를 감은 덩굴손",
+      "caption": "붙잡고 오르는 덩굴손"
+    },
+    {
+      "text_html": "<h2>탱고북 «포도나무»이 다루는 내용</h2><p>탱고북 «포도나무»는 덩굴손이 지지대를 감고 올라가는 모습, 작은 꽃 → 포도알 → 탐스러운 송이로 익는 과정을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "Small grape flowers turning into grapes over the season, gentle children's book illustration, no text",
+      "alt": "꽃에서 포도로",
+      "caption": "익어 가는 과정"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>덩굴손(나선·붙잡기), 송이(여러 알), 껍질 색(항산화), 계절 변화 같은 포인트를 짚어 주세요. \"포도는 어떻게 위로 자랄까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "Close-up of a grape bunch with shiny skins, observational children's book illustration, no text",
+      "alt": "포도송이",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>포도 한 송이를 보며 알이 몇 개인지 세고, 껍질 색을 관찰해 보세요. 덩굴손이 무언가를 감는 모습을 사진·영상으로 보고, 끈으로 \"감아 잡기\"를 흉내 내도 좋습니다.</p>",
+      "image_prompt": "A parent and child counting grapes in a bunch together, warm children's book illustration, no text",
+      "alt": "포도 알을 세는 부모와 아이",
+      "caption": "송이 관찰하기"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 포도나무는 어떻게 위로 자라나요?</strong><br>A. 덩굴손이 나선으로 감겨 지지대를 단단히 붙잡고 올라갑니다. 스스로는 서지 못해요.</p><p><strong>Q. 포도 껍질의 색은 왜 있나요?</strong><br>A. 안토시아닌 등 항산화 성분이 들어 병충해와 자외선으로부터 열매를 보호합니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 송이의 알 세기, 껍질 색 관찰, 끈으로 덩굴손 \"감아 잡기\" 흉내가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

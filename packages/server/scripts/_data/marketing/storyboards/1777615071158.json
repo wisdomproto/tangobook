@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777615071158",
+  "title": "판다",
+  "hook": "검고 흰 무늬가 귀여운 판다 는 곰의 한 종류이지만 거의 대나무만 먹고…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "검고 흰 무늬가 귀여운 판다 는 곰의 한 종류이지만 거의 대나무만 먹고 사는 신기한 동물이에요.",
+      "screen": "판다, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "판다, 어떤 점이 신기할까요?",
+      "imagePrompt": "A panda eating bamboo, cute children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "판다(대왕판다)는 곰이지만 거의 대나무만 먹어요. 대나무는 영양이 적어 하루 중 아주 많은 시간을 먹는 데 쓰지요.",
+      "screen": "판다의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "판다의 자연·과학 사실",
+      "imagePrompt": "A close-up of panda paw holding bamboo with a fake thumb, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «판다»는 대나무를 쥐고 먹는 모습, 가짜 엄지, 검고 흰 무늬, 새끼를 돌보는 엄마 판다를 정겹게 보여 줍니다.",
+      "screen": "탱고북 «판다»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «판다»이 다루는 내용",
+      "imagePrompt": "A mother panda with a tiny cub, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "곰인데 대나무, 가짜 엄지, 흑백 무늬, 멸종 위기 같은 포인트를 짚어 주세요. \"곰인데 왜 대나무만 먹을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of panda black and white pattern, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "판다, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

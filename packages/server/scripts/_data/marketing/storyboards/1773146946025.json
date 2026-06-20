@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773146946025",
+  "title": "토끼",
+  "hook": "토끼의 긴 귀에 숨은 진짜 비밀",
+  "totalSec": 34,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "토끼 귀는 왜 이렇게 길까요?",
+      "screen": "귀를 쫑긋 세운 토끼 클로즈업, 들판 배경.",
+      "subtitle": "귀의 비밀",
+      "imagePrompt": "A rabbit with long upright ears close-up in a field, bright nature, 9:16, no text"
+    },
+    {
+      "label": "사실1",
+      "sec": 8,
+      "narration": "소리를 잘 듣고, 더울 땐 열을 내보내 체온까지 조절해요.",
+      "screen": "귀를 펼치는 토끼 + 열 방출 표현(부드러운 그래픽).",
+      "subtitle": "체온 조절하는 귀",
+      "imagePrompt": "A rabbit spreading ears to release heat, informative nature illustration, 9:16, no text"
+    },
+    {
+      "label": "사실2",
+      "sec": 8,
+      "narration": "위험을 느끼면 뒷발로 땅을 쾅쾅 두드려 친구에게 알려요.",
+      "screen": "뒷발로 땅을 치는 토끼, 다른 토끼들이 귀를 세움.",
+      "subtitle": "뒷발 경보 신호",
+      "imagePrompt": "A rabbit thumping its hind leg to alert others, dynamic nature, 9:16, no text"
+    },
+    {
+      "label": "사실3",
+      "sec": 6,
+      "narration": "겨울엔 털이 하얗게 변해 눈밭에 숨어요.",
+      "screen": "계절 전환: 갈색 → 흰 털, 눈밭 숨바꼭질.",
+      "subtitle": "겨울 보호색",
+      "imagePrompt": "A rabbit turning white in a snowy field, winter camouflage, 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "토끼의 진짜 모습, 탱고북 자연관찰에서 만나요.",
+      "screen": "부모·아이가 그림책 관찰 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child observing a nature picture book, Tangobook logo, warm, 9:16, no text"
+    }
+  ]
+}

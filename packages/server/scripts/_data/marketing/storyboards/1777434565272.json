@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777434565272",
+  "title": "호랑이",
+  "hook": "고양잇과 중 가장 큰 호랑이 는 우리 옛이야기에도 자주 나오는 친근하면서…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "고양잇과 중 가장 큰 호랑이 는 우리 옛이야기에도 자주 나오는 친근하면서도 멋진 동물이에요.",
+      "screen": "호랑이, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호랑이, 어떤 점이 신기할까요?",
+      "imagePrompt": "A majestic tiger with orange and black stripes in tall grass, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "호랑이의 주황 바탕 검은 줄무늬는 풀숲에 몸을 숨기는 위장 역할을 해요. 놀랍게도 줄무늬는 지문처럼 한 마리 한 마리가 모두 달라요 .",
+      "screen": "호랑이의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호랑이의 자연·과학 사실",
+      "imagePrompt": "A close-up of tiger stripes, each pattern unique, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «호랑이»는 멋진 줄무늬, 소리 없는 사냥, 헤엄치는 모습, 영역을 표시하는 행동 등 호랑이의 매력을 박진감 있게 보여 줍니다.",
+      "screen": "탱고북 «호랑이»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «호랑이»이 다루는 내용",
+      "imagePrompt": "A tiger swimming in water, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "줄무늬(위장·지문), 야간 시력, 숨는 발톱, 헤엄 같은 포인트를 짚어 주세요. \"줄무늬가 다 다르다니 신기하지?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A tiger stalking silently with soft paws, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "호랑이, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

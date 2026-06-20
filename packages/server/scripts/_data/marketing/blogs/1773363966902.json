@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773363966902",
+  "seo_title": "카멜레온 특징과 생태 — 색이 변하는 비밀 자연관찰 그림책",
+  "primary_keyword": "카멜레온",
+  "secondary_keywords": [
+    "카멜레온 특징",
+    "카멜레온 색 변화",
+    "카멜레온 생태",
+    "유아 자연관찰 책",
+    "동물 그림책"
+  ],
+  "url_slug": "chameleon-nature-for-kids",
+  "meta_description": "카멜레온이 색을 바꾸는 과학과 긴 혀, 따로 움직이는 눈 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>카멜레온, 어떤 점이 신기할까요?</h2><p>몸 색깔을 바꾸는 신기한 도마뱀 <strong>카멜레온</strong>은 아이들의 호기심을 단번에 사로잡아요. 색 변화의 진짜 이유가 무엇인지 함께 알아봐요.</p>",
+      "image_prompt": "A colorful chameleon on a branch slowly changing colors, vivid children's book illustration, no text",
+      "alt": "색이 변하는 카멜레온",
+      "caption": "색을 바꾸는 도마뱀"
+    },
+    {
+      "text_html": "<h2>카멜레온의 자연·과학 사실</h2><p>카멜레온이 색을 바꾸는 건 단순한 위장만이 아니라 <strong>피부 속 나노 결정의 간격을 조절</strong>해 빛을 반사하는 과학적 원리이며, 기분·온도·소통에 따라 달라집니다. 두 눈을 <strong>따로따로</strong> 움직여 사방을 살피고, 몸 길이만큼 긴 <strong>혀를 순식간에 쏘아</strong> 곤충을 잡지요. 발가락은 나뭇가지를 꽉 잡도록 마주 보게 생겼습니다.</p>",
+      "image_prompt": "A chameleon shooting its long tongue to catch an insect, dynamic children's book illustration, no text",
+      "alt": "긴 혀로 사냥하는 카멜레온",
+      "caption": "순식간의 혀 사냥"
+    },
+    {
+      "text_html": "<h2>탱고북 «카멜레온»이 다루는 내용</h2><p>탱고북 «카멜레온»은 주변에 따라 색이 변하는 모습, 따로 움직이는 두 눈, 긴 혀로 곤충을 잡는 사냥, 나뭇가지를 잡는 발, 알에서 깨어나는 과정을 흥미롭게 보여 줍니다.</p>",
+      "image_prompt": "A chameleon with eyes looking in two different directions, whimsical children's book illustration, no text",
+      "alt": "따로 보는 두 눈",
+      "caption": "사방을 보는 눈"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>색 변화(나노 결정·기분·온도), 따로 보는 눈, 긴 혀(사냥), 마주 보는 발가락 같은 포인트를 짚어 주세요. \"카멜레온은 왜 색을 바꿀까?\", \"두 눈을 따로 보면 어떤 점이 좋을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "Close-up of a chameleon's gripping toes on a branch, observational children's book illustration, no text",
+      "alt": "나뭇가지를 잡는 발",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>색종이 위에 카멜레온 그림을 올려 \"색 맞추기\" 위장 놀이를 해 보세요. 두 손가락으로 따로 방향 보기를 흉내 내고, 긴 끈으로 \"혀 쏘기\"로 종이 곤충 낚아채기 놀이도 즐겁습니다.</p>",
+      "image_prompt": "A parent and child playing a color-matching game with paper, warm children's book illustration, no text",
+      "alt": "색 맞추기 놀이를 하는 부모와 아이",
+      "caption": "위장 놀이"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 카멜레온은 왜 색을 바꾸나요?</strong><br>A. 위장뿐 아니라 기분·온도·소통에 따라 피부 속 나노 결정으로 빛을 조절해 색을 바꿉니다.</p><p><strong>Q. 두 눈을 따로 움직일 수 있나요?</strong><br>A. 네, 두 눈을 따로 움직여 사방을 동시에 살필 수 있습니다. 먹이와 천적을 찾기에 유리해요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 색 맞추기 위장 놀이, 끈으로 혀 쏘기 놀이, 따로 방향 보기 흉내가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

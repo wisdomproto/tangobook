@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777276036923",
+  "title": "황금알을 낳는 거위",
+  "hook": "황금알을 낳는 거위 는 매일 황금알을 하나씩 낳는 거위를 가진 부부가 욕…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "황금알을 낳는 거위 는 매일 황금알을 하나씩 낳는 거위를 가진 부부가 욕심을 부리다 모든 것을 잃는 이솝 우…",
+      "screen": "황금알을 낳는 거위, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "황금알을 낳는 거위, 어떤 동화인가요?",
+      "imagePrompt": "A farmer couple amazed at a golden egg in a basket next to a white goose, cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "고대 그리스 이솝 의 우화입니다. 매일 황금알 하나에 만족하지 못한 부부가 거위 배 속에 황금이 가득할 거라 생각해 거위를 잡지만, 배 속엔 아무것도 없어 결국 모든 것을 잃는 결말이 핵심입니다.",
+      "screen": "황금알을 낳는 거위 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "황금알을 낳는 거위 원작 이야기",
+      "imagePrompt": "A golden egg glowing in a cozy farm nest, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "거위가 매일 황금알을 하나씩 낳자 부부는 부자가 됩니다. 그러나 더 빨리 부자가 되고 싶었던 부부는 거위 배 속에 황금이 가득할 거라 여겨 거위를 잡지요.",
+      "screen": "황금알을 낳는 거위 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "황금알을 낳는 거위 줄거리 요약",
+      "imagePrompt": "A couple looking regretful beside an empty nest, gentle cautionary children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 지나친 욕심은 가진 것마저 잃게 만들며, 작은 것에 감사하고 만족하는 마음이 소중하다 는 것입니다. \"더 갖고 싶어서 서두르다 실수한 적 있어?\"를 아이와 이야기해 보세요.",
+      "screen": "황금알을 낳는 거위가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "황금알을 낳는 거위가 주는 교훈",
+      "imagePrompt": "A contented family happily caring for their goose each day, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "황금알을 낳는 거위, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "storybookId": "1773554974102",
+  "seo_title": "밤나무 특징과 밤송이의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "밤나무",
+  "secondary_keywords": ["밤나무 특징", "밤송이", "밤나무 생태", "유아 자연관찰 책", "나무 그림책"],
+  "url_slug": "chestnut-tree-nature-for-kids",
+  "meta_description": "밤나무의 가시 돋은 밤송이와 율피, 단단한 목재 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>밤나무, 어떤 점이 신기할까요?</h2><p>가시 돋은 밤송이 속에 달콤한 알밤을 품은 <strong>밤나무</strong>는 가을의 대표 나무예요. 따끔한 가시 안에 보물이 숨어 있습니다.</p>",
+      "image_prompt": "A chestnut tree with spiky burrs in autumn, warm children's book illustration, no text",
+      "alt": "밤송이 달린 밤나무",
+      "caption": "가을 밤나무"
+    },
+    {
+      "text_html": "<h2>밤나무의 자연·과학 사실</h2><p>밤나무는 6~7월에 길고 하얀 수꽃이 특이한 향으로 곤충을 부르며 <strong>타가수분</strong>을 합니다. 가을이면 <strong>날카로운 가시로 둘러싸인 밤송이</strong>가 다 익어 4갈래로 쩍 벌어지며 알밤(보통 1~3개)을 내보내요. 알밤의 얇은 속껍질 <strong>율피</strong>에는 타닌이 풍부해 해충을 막고 염색에도 쓰이며, 단단한 목재는 잘 썩지 않아 기둥·가구에 쓰입니다.</p>",
+      "image_prompt": "A spiky chestnut burr split open showing the nuts inside, informative children's book illustration, no text",
+      "alt": "벌어진 밤송이와 알밤",
+      "caption": "가시 속의 보물"
+    },
+    {
+      "text_html": "<h2>탱고북 «밤나무»이 다루는 내용</h2><p>탱고북 «밤나무»는 하얀 꽃 → 곤충의 방문 → 가시 밤송이가 익어 벌어지는 과정 → 알밤이 떨어지는 가을을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "Long white chestnut flowers attracting insects, gentle children's book illustration, no text",
+      "alt": "밤나무 하얀 수꽃",
+      "caption": "향으로 부르는 꽃"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>밤송이(가시·4갈래로 벌어짐), 알밤(겉껍질·율피), 하얀 수꽃, 단단한 목재 같은 포인트를 짚어 주세요. \"밤송이는 왜 가시가 있을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "Close-up of a chestnut showing outer shell and inner skin, observational children's book illustration, no text",
+      "alt": "알밤의 껍질",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>가을에 밤송이를 (조심해서) 관찰하고, 알밤의 겉껍질과 떫은 속껍질(율피)을 벗겨 비교해 보세요. 밤송이의 가시 역할(보호)을 이야기하면 좋습니다.</p>",
+      "image_prompt": "A parent and child carefully examining a chestnut burr, warm children's book illustration, no text",
+      "alt": "밤송이를 관찰하는 부모와 아이",
+      "caption": "조심스러운 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 밤송이는 왜 가시가 있나요?</strong><br>A. 익기 전 알밤을 동물과 해충으로부터 보호하기 위해서입니다. 다 익으면 벌어져 알밤을 내보내요.</p><p><strong>Q. 알밤의 떫은 속껍질은 뭔가요?</strong><br>A. \"율피\"라고 합니다. 타닌이 풍부해 해충을 막고 천연 염색 재료로도 쓰여요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 밤송이 조심해서 보기, 겉껍질·율피 벗겨 비교, 가시의 보호 역할 이야기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

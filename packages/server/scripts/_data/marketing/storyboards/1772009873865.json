@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772009873865",
+  "title": "개구리 왕자",
+  "hook": "개구리 왕자 는 황금 공을 매개로 시작된 인연이 약속과 변신의 기적으로…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "개구리 왕자 는 황금 공을 매개로 시작된 인연이 약속과 변신의 기적으로 이어지는 그림 형제 동화집의 첫 번째…",
+      "screen": "개구리 왕자, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "개구리 왕자, 어떤 동화인가요?",
+      "imagePrompt": "A warm storybook illustration of a princess by a pond with a golden ball and a friendly frog, soft sunlight, no text, children's picture book style"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "원제는 독일어 「Der Froschkönig oder der eiserne Heinrich(개구리 왕, 혹은 철의 하인리히)」로, 그림 형제가 1812년 동화집 제1권 첫 이야기 로 수록했습니다.…",
+      "screen": "개구리 왕자 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "개구리 왕자 원작 이야기",
+      "imagePrompt": "A gentle illustration of a frog transforming into a young prince in golden light, magical sparkles, children's book style, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "막내 공주가 황금 공을 연못에 빠뜨리자, 개구리가 친구가 되어 함께 지내겠다는 약속을 받고 공을 찾아 줍니다. 공주는 약속을 잊고 도망가지만 이튿날 개구리가 성문에 나타나고, 임금님의 가르침에 따라…",
+      "screen": "개구리 왕자 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "개구리 왕자 줄거리 요약",
+      "imagePrompt": "A princess reluctantly letting a small frog sit at the royal dinner table, cozy castle interior, children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 약속은 반드시 지켜야 하고, 겉모습이 아닌 마음을 보아야 한다 는 것입니다. 또한 잘못을 인정하고 사과하는 용기도 미덕임을 보여 줍니다.",
+      "screen": "개구리 왕자가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "개구리 왕자가 주는 교훈",
+      "imagePrompt": "A princess and prince smiling together in a golden carriage, happy ending, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "개구리 왕자, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777431036899",
+  "seo_title": "물개 특징과 바다 생활의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "물개",
+  "secondary_keywords": [
+    "물개 특징",
+    "물개 바다사자",
+    "바다 포유류",
+    "유아 동물 책",
+    "동물 그림책"
+  ],
+  "url_slug": "fur-seal-nature-for-kids",
+  "meta_description": "물개가 추운 바다에서 사는 비밀(블러버·수염)과 땅에서도 걷는 이유 등 신기한 사실과, 탱고북 동물 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>물개, 어떤 점이 신기할까요?</h2><p>바다와 육지를 오가는 <strong>물개</strong>는 지느러미 발로 헤엄치고 땅에서도 걷는 신기한 바다 포유류예요.</p>",
+      "image_prompt": "A fur seal swimming and resting on rocks by the sea, gentle children's book illustration, no text",
+      "alt": "물개",
+      "caption": "바다 포유류"
+    },
+    {
+      "text_html": "<h2>물개의 자연·과학 사실</h2><p>물개는 지느러미 발을 가진 <strong>기각류</strong> 바다 포유류로, <strong>뒷지느러미를 앞으로 굽혀 땅에서도 걸어요</strong>(귀가 없는 물범과 구별돼요). 두꺼운 <strong>피하지방(블러버)</strong>이 차가운 바닷물에서 체온을 지키고, 길고 민감한 <strong>수염으로 물고기의 움직임을 감지</strong>해 사냥하지요. 새끼는 어미젖을 먹고 자라며 어미의 울음소리를 알아듣고 찾아갑니다.</p>",
+      "image_prompt": "A fur seal walking on land with flippers, informative children's book illustration, no text",
+      "alt": "땅에서 걷는 물개",
+      "caption": "지느러미로 걷기"
+    },
+    {
+      "text_html": "<h2>탱고북 «물개»이 다루는 내용</h2><p>탱고북 «물개»는 지느러미로 헤엄치는 모습, 땅에서 걷는 모습, 수염으로 사냥하는 모습, 새끼를 돌보는 어미를 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A fur seal mother with her pup, heartwarming children's book illustration, no text",
+      "alt": "새끼를 돌보는 물개",
+      "caption": "어미와 새끼"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>지느러미 발(헤엄·걷기), 블러버(체온), 수염(감각), 어미·새끼 같은 포인트를 짚어 주세요. \"물개는 추운 바다에서 어떻게 견딜까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of fur seal whiskers, observational children's book illustration, no text",
+      "alt": "물개 수염",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>수족관·동물원에서 물개가 헤엄치고 걷는 모습을 관찰해 보세요. \"두꺼운 지방이 두꺼운 옷처럼 따뜻하게 해 줘(블러버)\"를 이야기하면 이해가 쉽습니다.</p>",
+      "image_prompt": "A parent and child watching seals at an aquarium, warm children's book illustration, no text",
+      "alt": "물개를 관찰하는 부모와 아이",
+      "caption": "수족관 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 물개는 땅에서도 걸을 수 있나요?</strong><br>A. 네. 뒷지느러미를 앞으로 굽혀 땅에서도 걷습니다. 귀가 없는 물범과 구별되는 점이에요.</p><p><strong>Q. 추운 바다에서 어떻게 견디나요?</strong><br>A. 두꺼운 피하지방(블러버)이 체온을 지켜 줍니다. 수염으로는 물고기를 감지해요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 수족관·동물원에서 헤엄·걷기 관찰, \"블러버=두꺼운 옷\" 이야기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>잭과 콩나무 · Seedance 2.0 스토리보드</title>
+<style>
+  :root{
+    --coral:#FF7B6B; --coral-dark:#E85D4C;
+    --peach:#FFE4D6; --peach-soft:#FFF3EC;
+    --cream:#FFFBF5; --mint:#9FE3CF;
+    --ink:#2B2420; --ink-soft:#6B5E54;
+    --gold:#F2B84B; --line:#F0DECF;
+    --shadow:0 4px 18px rgba(180,120,80,.12);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--cream); color:var(--ink);
+    font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1120px; margin:0 auto; padding:32px 20px 80px;}
+
+  header.top{text-align:center; padding:40px 24px 30px;
+    background:linear-gradient(160deg,var(--peach),var(--peach-soft));
+    border-radius:28px; box-shadow:var(--shadow); margin-bottom:24px; overflow:hidden;}
+  header.top h1{margin:0 0 6px; font-size:2.05rem; letter-spacing:-.5px;}
+  header.top .sub{color:var(--ink-soft); font-size:1rem; margin:0;}
+  .chips{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:16px;}
+  .chip{background:#fff; border:1px solid var(--line); border-radius:999px;
+    padding:6px 14px; font-size:.84rem; color:var(--ink-soft); font-weight:600;}
+  .chip b{color:var(--coral-dark);}
+
+  .card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px 20px;
+    box-shadow:var(--shadow); margin-bottom:16px;}
+  .card h3{margin:0 0 10px; font-size:1rem; color:var(--coral-dark); display:flex; align-items:center; gap:7px;}
+  .card .note{font-size:.82rem; color:var(--ink-soft); margin:0 0 12px;}
+  .card pre{white-space:pre-wrap; font-size:.8rem; color:var(--ink-soft); margin:0;
+    font-family:inherit; background:var(--peach-soft); padding:10px 12px; border-radius:10px;}
+
+  .ref-sub{font-size:.8rem; font-weight:700; color:var(--coral-dark); margin:0 0 8px;}
+  .ref-sub:not(:first-child){margin-top:16px;}
+  .ref-sub .opt{font-weight:400; color:var(--ink-soft); opacity:.75;}
+  .ref-grid{display:flex; flex-wrap:wrap; gap:14px;}
+  .ref-item{display:flex; flex-direction:column; align-items:center; gap:6px;}
+  .ref-label{font-size:.78rem; font-weight:700; color:var(--ink-soft);}
+
+  .slot{position:relative; background:var(--peach-soft); cursor:pointer; outline:none;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;}
+  .slot.dragover{background:var(--peach); box-shadow:inset 0 0 0 3px var(--coral);}
+  .slot.active{box-shadow:inset 0 0 0 3px var(--mint);}
+  .slot img{width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0;}
+  .slot .ph{text-align:center; color:var(--ink-soft); padding:12px; font-size:.78rem; pointer-events:none;}
+  .slot .ph .ico{font-size:1.6rem; display:block; margin-bottom:4px;}
+  .slot .ph .hint{font-size:.66rem; opacity:.8; margin-top:4px;}
+  .slot .rm{position:absolute; top:6px; right:6px; background:rgba(43,36,32,.7); color:#fff;
+    border:none; border-radius:8px; padding:3px 7px; font-size:.7rem; cursor:pointer; display:none; z-index:2;}
+  .slot.has-img .rm{display:block;}
+  .slot.ref{width:118px; height:118px; border-radius:14px; border:1.5px dashed var(--line);}
+  .slot.ref.has-img{border-style:solid; border-color:var(--mint);}
+
+  .toolbar{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:18px 0 20px;}
+  .btn{cursor:pointer; border:none; border-radius:999px; padding:10px 18px; font-size:.86rem;
+    font-weight:700; background:var(--coral); color:#fff; box-shadow:var(--shadow); transition:.15s;}
+  .btn:hover{background:var(--coral-dark);}
+  .btn.ghost{background:#fff; color:var(--ink-soft); border:1px solid var(--line);}
+  .btn.ghost:hover{background:var(--peach-soft);}
+
+  .act{margin:30px 0 14px; display:flex; align-items:center; gap:12px;}
+  .act h2{margin:0; font-size:1.25rem; color:var(--coral-dark);}
+  .act .bar{flex:1; height:2px; background:linear-gradient(90deg,var(--line),transparent);}
+
+  .scene{background:#fff; border:1px solid var(--line); border-radius:20px;
+    margin-bottom:22px; box-shadow:var(--shadow); overflow:hidden;}
+  .scene.hl{border-color:var(--gold); box-shadow:0 4px 22px rgba(242,184,75,.28);}
+  .scene-top{padding:16px 20px 4px;}
+  .scene-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px;}
+  .num{background:var(--coral); color:#fff; font-weight:800; border-radius:10px;
+    width:38px; height:38px; display:flex; align-items:center; justify-content:center; font-size:1rem;}
+  .scene-head h3{margin:0; font-size:1.12rem;}
+  .dur{background:var(--peach); color:var(--coral-dark); font-weight:700; font-size:.74rem; padding:3px 9px; border-radius:999px;}
+  .hl-tag{background:var(--gold); color:#fff; font-weight:700; font-size:.7rem; padding:3px 9px; border-radius:999px;}
+
+  .refline{display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:6px 0 10px;}
+  .refline .lbl{font-size:.72rem; font-weight:700; color:var(--ink-soft);}
+  .rtag{background:var(--mint); color:#1f5446; font-size:.72rem; font-weight:700; padding:2px 9px; border-radius:999px;}
+  .rtag.none{background:var(--line); color:var(--ink-soft);}
+
+  .field{margin:7px 0; font-size:.9rem;}
+  .field b{color:var(--coral-dark); font-size:.78rem; display:inline-block; min-width:62px; vertical-align:top;}
+  .field.sound span{color:var(--ink-soft);}
+
+  .scene-main{display:grid; grid-template-columns:220px 1fr; border-top:1px solid var(--line); margin-top:10px;}
+  @media(max-width:760px){.scene-main{grid-template-columns:1fr;}}
+  .scene-main .slot{border-right:1px solid var(--line); min-height:200px;}
+  @media(max-width:760px){.scene-main .slot{border-right:none; border-bottom:1px solid var(--line); min-height:220px;}}
+  .scene-main .slot.active::after{content:"📋 붙여넣기 대상"; position:absolute; bottom:8px; left:8px;
+    background:var(--mint); color:var(--ink); font-size:.66rem; font-weight:700; padding:3px 8px; border-radius:8px; z-index:2;}
+  .promptbox{padding:14px 18px;}
+  .prompt-label{display:flex; align-items:center; gap:8px; font-size:.8rem; font-weight:700; color:var(--ink-soft); margin-bottom:6px;}
+  .prompt-label .seedtag{background:var(--ink); color:#fff; border-radius:6px; padding:2px 7px; font-size:.68rem;}
+  .promptbox pre{white-space:pre-wrap; font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+    font-size:.79rem; line-height:1.6; color:var(--ink); background:#F1F7F4;
+    border:1px solid var(--line); border-radius:12px; padding:11px 13px; margin:0;}
+  .promptbox .prompt{margin-bottom:12px;}
+  .promptbox .prompt:last-child{margin-bottom:0;}
+  .promptbox pre.p-firstimg{background:#FAF4EC;}
+  .copy{cursor:pointer; border:1px solid var(--line); background:#fff; color:var(--ink-soft);
+    border-radius:8px; padding:3px 10px; font-size:.72rem; font-weight:700;}
+  .copy:hover{background:var(--peach-soft); color:var(--coral-dark);}
+  .copy.done{background:var(--mint); color:var(--ink); border-color:var(--mint);}
+
+  footer{margin-top:34px; padding:22px; background:#fff; border:1px solid var(--line);
+    border-radius:18px; font-size:.84rem; color:var(--ink-soft); box-shadow:var(--shadow);}
+  footer b{color:var(--coral-dark);}
+  .save-state{position:fixed; bottom:18px; right:18px; background:var(--ink); color:#fff;
+    padding:8px 14px; border-radius:999px; font-size:.78rem; opacity:0; transition:.25s; z-index:50;}
+  .save-state.show{opacity:.92;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>🌱 잭과 콩나무 · Seedance 2.0 스토리보드</h1>
+    <p class="sub">유튜브 키즈용 동화 애니메이션 · 지브리풍 셀 애니 · <b>씬당 멀티샷 프롬프트 + 캐릭터 레퍼런스</b></p>
+    <div class="chips">
+      <span class="chip">📺 <b>16:9</b> · 1080p</span>
+      <span class="chip" id="totalChip">⏱ 총 <b>—</b></span>
+      <span class="chip" id="cutChip">🎞 <b>—</b></span>
+      <span class="chip">🔊 네이티브 오디오(효과음·무대사)</span>
+    </div>
+  </header>
+
+  <div class="card" style="border-color:var(--mint);">
+    <h3>🧑‍🎨 캐릭터 레퍼런스 <span style="font-weight:400;font-size:.74rem;color:var(--ink-soft)">— 가진 이미지를 올려두고, 생성 때 @Image 로 첨부</span></h3>
+    <p class="note">Seedance 2.0는 <b>이미지 최대 9장</b>을 레퍼런스로 받습니다. 각 씬 프롬프트의 <b>@Image1 · @Image2 …</b> 순서대로 캐릭터 이미지를 첨부하면 모든 컷에서 캐릭터가 일관되게 유지돼요. (칸 클릭 / 드래그 / Ctrl+V 로 올리면 자동 저장)</p>
+    <div id="refs"></div>
+  </div>
+
+  <div class="card">
+    <h3>🎨 스타일 앵커 <span style="font-weight:400;font-size:.74rem;color:var(--ink-soft)">(모든 프롬프트에 자동 포함)</span></h3>
+    <pre>Style: Studio Ghibli-inspired hand-drawn cel anime, soft painterly watercolor backgrounds, lush nature, warm natural light, earthy nostalgic palette; keep referenced characters consistent across all shots. 16:9, no on-screen text.</pre>
+  </div>
+
+  <div class="toolbar">
+    <button class="btn" id="copyAll">🎬 Seedance 프롬프트 전체 복사</button>
+    <button class="btn ghost" id="copyAllImg">🖼 첫 프레임 프롬프트 전체 복사</button>
+    <button class="btn ghost" id="clearImgs">🗑 업로드 이미지 전체 초기화</button>
+  </div>
+
+  <p style="text-align:center;font-size:.82rem;color:var(--ink-soft);margin:-4px 0 18px;">
+    💡 워크플로: 씬 프롬프트 복사 → Seedance 2.0에 붙여넣기 + <b>@Image 순서대로 캐릭터 레퍼런스 첨부</b> → 멀티샷(최대 15초) 클립 1개 생성. 씬 왼쪽 칸엔 생성된 장면 스틸을 붙여 보관할 수 있어요.
+    <br>🎙 <b>나레이션</b>은 성우 책읽기용(캐릭터 대사 없음) — TTS는 따로 제작. <b>영상 오디오</b>는 효과음만, <b>대사·음성 없음</b>(프롬프트에 자동 명시).
+  </p>
+
+  <div id="scenes"></div>
+
+  <footer>
+    <p>📌 <b>제작 메모</b></p>
+    <p>• <b>멀티샷:</b> 각 씬 프롬프트는 <code>camera cuts to…</code> 로 한 번의 생성 안에서 여러 컷을 만듭니다(긴/액션 씬 2~3컷, 잔잔한 씬 1컷). Seedance가 컷 전환·캐릭터 일관성을 자동 처리하므로 따로 이어붙일 필요가 없습니다.</p>
+    <p>• <b>레퍼런스 첨부 순서가 중요:</b> 프롬프트의 @Image 번호와 첨부 이미지 순서를 꼭 맞추세요. 각 씬의 "첨부" 줄에 순서를 표기해 뒀습니다.</p>
+    <p>• <b>오디오:</b> Seedance는 소리도 생성합니다. 프롬프트에 <b>"효과음만, 대사·음성·음악 없음"</b>을 명시했어요. 한국어 나레이션 TTS와 BGM은 편집에서 얹습니다.</p>
+    <p>• <b>씬 길이 = 나레이션 길이:</b> ⏱ 시간은 성우 나레이션 읽는 시간 기준 자동 추정(한국어 ~4.5음절/초). 스펙터클·액션 씬(7·10·13·19)은 아이 몰입을 위해 시각 최소 길이를 더 길게 잡았습니다. 모든 씬이 Seedance 15초 한도 안에 들어갑니다.</p>
+    <p>• <b>길이 지정:</b> 각 프롬프트 맨 앞에 <code>Duration: about N seconds…</code> 로 목표 길이가 들어가 있습니다. Seedance UI/API의 길이 옵션이 고정값(예: 5·10·15초)이면 <b>가장 가까운 값으로 설정</b>하세요. 실제 TTS 길이가 나오면 그 초수에 맞춰 클립을 확정하면 됩니다.</p>
+  </footer>
+</div>
+
+<div class="save-state" id="saveState">저장됨 ✓</div>
+
+<script>
+const STYLE = " Style: Studio Ghibli-inspired hand-drawn cel anime, soft painterly watercolor backgrounds, lush nature, warm natural light, earthy nostalgic palette; keep referenced characters consistent across all shots. 16:9, no on-screen text.";
+const SFX = " Audio: ambient diegetic sound effects and foley only (footsteps, wind, rustle, magic shimmer, etc.) — NO spoken dialogue, NO voice-over, NO character speech, NO background music.";
+const IMGSTYLE = " Style: Studio Ghibli-inspired hand-drawn cel anime, soft painterly watercolor background, warm natural light, earthy nostalgic palette; single still frame, cinematic 16:9 composition, no on-screen text.";
+
+/* 첫 프레임(각 씬의 오프닝 샷) 정지 이미지 프롬프트 — I2V 시작 이미지용. 캐릭터 레퍼런스는 이미지 툴에서 함께 첨부 */
+const FIRST = {
+1:`Wide establishing still at dawn: a tiny thatched cottage on a misty green hill seen from afar, thin smoke curling from the chimney, a winding dirt path through rolling countryside, low fog, warm first light on the horizon. Calm, peaceful, no people.`,
+2:`Wide still of a humble cottage interior in the morning: a quiet bare room with empty wooden shelves and a cold hearth, dust motes drifting in thin light, a small window. Empty, quiet, melancholic, no people.`,
+3:`Still at a cottage doorway in the morning: a kind mother gently places a rope into a young boy's hand, a gentle white cow with soft brown patches beside them, wildflowers and rolling hills behind, soft morning light. Warm, bittersweet.`,
+4:`Wide still on a dappled forest road: a young boy leads a white cow by a rope and slows, looking ahead curiously at a mysterious cloaked wizard waiting by the roadside. Dappled light, mysterious mood.`,
+5:`Still inside a cottage at dusk: a young boy hurries in excited and holds out a few small beans in his open hand toward his mother, who stands by an open window. Warm dim evening light, hopeful moment.`,
+6:`Night close-up still: a single small bean lying in dark soil beneath a window, faintly beginning to glow gold in silver moonlight, a few fireflies nearby. Magical, quiet, deep blue palette.`,
+7:`Night low-angle still at the foot of a cottage: a glowing green sprout bursting from the soil, a thick vine beginning to coil upward, dark starry sky above. Magical, dynamic, poised to grow.`,
+8:`Morning still: a young boy leans out a cottage window, head tilting up, eyes widening in surprise, bright cheerful light. Wonder, low angle.`,
+9:`Still: a young boy grips a giant twisting beanstalk at its base, one foot on a low huge leaf, looking up the towering vine, a tiny cottage far below, warm daylight. Adventurous, upward composition.`,
+10:`Low-angle still: a young boy climbing the last stretch of a giant beanstalk toward a glowing ceiling of clouds above, reaching up, golden light filtering through. Anticipation, wonder.`,
+11:`Wide still: a tiny young boy at the start of a cloud path, facing an enormous distant castle gate that dwarfs him, giant walls rising into mist, soft drifting clouds. Awe, vast scale.`,
+12:`Wide still inside a giant's castle: a tiny young boy tiptoeing between colossal table legs and an enormous chair, huge shadows in warm firelight. Playful scale, cozy.`,
+13:`Wide still inside a castle hall: a tiny young boy pausing nervously as a huge dark shadow creeps across the floor, dishes rattling, dust sifting from the ceiling. Suspenseful, looming, warm firelight.`,
+14:`Still inside a giant's castle: a tiny young boy whirling around looking for somewhere to hide, spotting a large round clay pot nearby, tense. Flickering firelight, urgent.`,
+15:`Still: a young boy peeking out from a hiding spot in the foreground, watching a huge comical giant settle at an enormous table in the background, warm firelight. Tense, curious.`,
+16:`Still: a huge comical giant slumped back in an enormous chair, head lolling, fast asleep with a puffed nose, dim warm firelight. Cozy, calm, restful.`,
+17:`Still in a grand dim castle hall: a young boy stepping in quietly, spotting a softly glowing golden harp on a table ahead, shimmering musical notes. Enchanted, warm magical light.`,
+18:`Close still: a young boy reaching out slowly toward a glowing golden harp, fingers hovering just above it, tense anticipation, warm magical light.`,
+19:`Wide still at the top of a giant beanstalk: a young boy clutching a glowing golden harp, gripping the vine and glancing down at the dizzying drop below, clouds all around. Thrilling, vertigo, poised.`,
+20:`Still at the foot of a giant beanstalk: a young boy landing and snatching up an axe leaning by a cottage, the towering vine beside him, a tiny giant clinging high above. Energetic, daylight, anticipation.`,
+21:`Still outside a cottage blooming with flowers at golden sunset: a young boy running toward his joyful mother with arms opening wide, a golden hen and golden harp nearby. Heartwarming, tender.`,
+22:`Still: a single green beanstalk leaf detaching at the top of the frame against a soft warm sky with fluffy clouds and gentle sparkles, a cozy empty space in the center for a logo. Calm, peaceful.`,
+};
+
+const CHARS = [
+  {id:"ref-jack", label:"잭", ico:"🧑", group:"main"},
+  {id:"ref-mom",  label:"엄마", ico:"👩", group:"main"},
+  {id:"ref-giant",label:"거인", ico:"🧌", group:"main"},
+  {id:"ref-wiz",  label:"마법사", ico:"🧙", group:"main"},
+  {id:"ref-cow",  label:"소", ico:"🐄", group:"prop"},
+  {id:"ref-hen",  label:"황금 암탉", ico:"🐔", group:"prop"},
+  {id:"ref-harp", label:"황금 하프", ico:"🎵", group:"prop"},
+];
+
+/* cast = @Image 순서. seed = 멀티샷 본문(STYLE+SFX는 렌더에서 자동 추가) */
+const SCENES = [
+{act:"ACT 1 — 가난한 잭과 소"},
+{no:1,title:"오프닝",hl:false,shots:1,cast:[],
+ narration:"옛날 옛적, 작은 시골 마을에 잭과 엄마가 살았어요.",
+ sound:"잔잔한 하프+플루트, 새소리, 바람",
+ seed:`A misty green countryside at dawn. Wide aerial shot slowly flying over rolling hills toward a tiny thatched cottage, thin smoke curling from the chimney; the camera smoothly pushes in past wildflowers and a winding dirt path as warm first light breaks through the fog. Calm, gentle, storybook opening, continuous slow motion.`},
+{no:2,title:"텅 빈 집",hl:false,shots:3,cast:["잭","엄마"],
+ narration:"집에는 먹을 것이 하나도 없었어요. 잭은 배가 고파 텅 빈 찬장을 열어 보았지요.",
+ sound:"배 꼬르륵, 나무 삐걱, 쓸쓸한 음악(편집)",
+ seed:`Inside a humble cottage in the morning. Shot 1, wide establishing: a quiet bare room with empty shelves and a cold hearth, dust motes drifting in thin light. Camera cuts to a medium: Jack (@Image1) opens a wooden cupboard and his shoulders slump; his mother (@Image2) stands behind holding an empty pot. Camera pushes in to a close-up of an empty bowl with cobwebs as Jack's hungry face leans in, eyes lowering sadly. Dim, quiet, melancholic.`},
+{no:3,title:"소를 팔러",hl:false,shots:2,cast:["잭","엄마","소"],
+ narration:"엄마는 마지막 남은 소를 팔기로 했어요. 잭은 소를 끌고 시장으로 떠났지요.",
+ sound:"경쾌한 걷기 리듬, 소 음메, 발소리",
+ seed:`Morning at a cottage doorway. Shot 1, medium: the mother (@Image2) gently places a rope into Jack's (@Image1) hand and pats his shoulder, the cow (@Image3) beside them. Camera cuts to a wide tracking shot as Jack leads the cow down a winding country path through swaying wildflowers; the cow turns its head back toward home. Soft, warm, bittersweet, continuous walking motion.`},
+{no:4,title:"신비한 마법사",hl:false,shots:3,cast:["잭","마법사","소"],
+ narration:"길에서 만난 신비한 마법사가, 소와 하늘까지 자라는 마법 콩을 바꾸자고 했어요.",
+ sound:"키라키라 마법음, 잎 바스락",
+ seed:`A dappled forest road. Shot 1, wide establishing: Jack (@Image1) walks along leading the cow (@Image3), then slows and looks ahead curiously as a mysterious cloaked figure waits by the roadside. Camera cuts to a medium shot: the wizard (@Image2) steps closer and gestures persuasively toward the cow, offering a trade. Camera slowly pushes in to a close-up of his hand uncurling to reveal five glowing magic beans, soft sparkles rising as Jack's eyes widen with wonder. Mysterious, enchanting, gentle continuous motion.`},
+
+{act:"ACT 2 — 마법 콩"},
+{no:5,title:"실망한 엄마",hl:false,shots:3,cast:["잭","엄마"],
+ narration:"잭이 콩을 가져오자 엄마는 몹시 속상했어요. 그만 콩을 창밖으로 휙 던져 버렸지요.",
+ sound:"띠용 실망음, 콩 흩어지는 소리",
+ seed:`Inside a cottage at dusk. Shot 1, medium: Jack (@Image1) hurries in excited and proudly opens his hand to show the small beans to his mother (@Image2). Camera cuts to her face falling from hope into dismay. Camera cuts to a wide shot at an open window as she flings the beans out into the twilight; they scatter and Jack slumps in disappointment. Warm dimming light, expressive emotional motion.`},
+{no:6,title:"달빛 속의 콩",hl:false,shots:1,cast:[],
+ narration:"그런데 그날 밤, 달빛 아래에서 콩이 반짝반짝 빛나기 시작했어요.",
+ sound:"두근거리는 마법 신호음, 풀벌레",
+ seed:`Night, extreme close-up of a single bean lying in dark soil beneath a window, bathed in silver moonlight. The bean begins to pulse with soft golden light; a tiny luminous sprout pushes up and sinks glowing into the earth as fireflies swirl around it. Magical, hushed, mysterious, slow continuous glow.`},
+{no:7,title:"콩나무 폭풍 성장",hl:true,shots:3,cast:[],
+ narration:"콩에서 싹이 트더니, 콩나무가 쑥쑥 자라 하늘 끝까지 닿았어요!",
+ sound:"웅장하게 차오르는 음악(편집), 잎 펼쳐지는 소리",
+ seed:`Night at the foot of the cottage. Shot 1, low-angle close-up: a glowing green sprout bursts from the soil and a thick vine begins coiling upward, leaves starting to unfurl. Camera cuts to a wider low angle as the beanstalk explodes higher, huge leaves unfurling one after another, glowing tendrils whipping outward. Camera cuts and tilts up rapidly, racing along the spiraling stalk as it punches through the clouds toward the stars. Epic, magical, fast continuous upward motion.`},
+{no:8,title:"아침의 발견",hl:false,shots:2,cast:["잭"],
+ narration:"다음 날 아침, 잭은 하늘을 찌르는 거대한 콩나무를 보고 깜짝 놀랐어요.",
+ sound:"경쾌한 발견음, 새소리",
+ seed:`Morning. Shot 1, medium: Jack (@Image1) throws open the cottage window and cranes his neck upward, mouth opening in awe, hair ruffled by the breeze. Camera cuts to a low-angle point-of-view tilting up the colossal beanstalk towering beside the house into fluffy clouds, birds circling. Bright, cheerful, sense of impossible scale.`},
+
+{act:"ACT 3 — 하늘 나라로"},
+{no:9,title:"등반",hl:false,shots:1,cast:["잭"],
+ narration:"용감한 잭은 콩나무를 타고 위로, 위로 올라갔어요.",
+ sound:"모험 리듬, 잎 스치는 소리",
+ seed:`Jack (@Image1) grips the giant twisting beanstalk and climbs hand over hand up the thick vine, gripping huge leaves. The camera tracks smoothly upward alongside him with parallax depth, the tiny cottage and patchwork fields shrinking far below. Adventurous, warm daylight, continuous climbing motion.`},
+{no:10,title:"구름을 뚫고",hl:true,shots:3,cast:["잭"],
+ narration:"구름을 뚫고 올라가자, 눈앞에 신기한 하늘 나라가 펼쳐졌어요.",
+ sound:"천상의 코러스(편집), 바람, 반짝임",
+ seed:`Shot 1, low angle: Jack (@Image1) climbs the last stretch of the beanstalk toward a glowing ceiling of clouds above, reaching up. Camera cuts to a close-up as he pushes his head up through the soft clouds, mist swirling off him, golden light washing over his amazed face. Camera cuts to a wide sweeping reveal of a magical golden sky kingdom above endless cloudscapes, a distant giant castle gleaming, sparkles drifting. Breathtaking wonder, smooth majestic motion.`},
+{no:11,title:"거대한 성",hl:false,shots:1,cast:["잭"],
+ narration:"구름 위에는 어마어마하게 큰 성이 우뚝 서 있었답니다.",
+ sound:"웅장한 신비 톤, 바람",
+ seed:`Jack (@Image1), tiny on a cloud path, walks toward an enormous castle gate that dwarfs him. The camera cranes upward along the massive stone walls disappearing into mist, soft clouds drifting around the base. Awe, overwhelming scale, slow majestic continuous motion.`},
+
+{act:"ACT 4 — 거인의 성"},
+{no:12,title:"거대한 세상",hl:false,shots:2,cast:["잭"],
+ narration:"잭은 살금살금 성 안으로 들어갔어요. 그곳은 모든 것이 잭보다 훨씬 컸답니다.",
+ sound:"살금살금 피치카토, 까치발 소리",
+ seed:`Inside a giant's castle. Shot 1, wide: Jack (@Image1) tiptoes between colossal table legs and an enormous chair, glancing around nervously, huge shadows shifting in the firelight. Camera cuts to a close scale-gag: Jack stands beside a loaf of bread as tall as he is and pokes it, a head-sized crumb tumbling down as he dodges. Playful, cozy, comic motion.`},
+{no:13,title:"쿵! 거인 등장",hl:false,shots:3,cast:["거인","잭"],
+ narration:"그때 쿵쿵쿵, 무시무시한 거인이 나타나 킁킁 냄새를 맡았어요.",
+ sound:"둥둥 발소리, 긴장 스타카토",
+ seed:`Inside a castle hall. Shot 1, wide: tiny Jack (@Image2) pauses as the whole room begins to tremble, dishes rattling, dust sifting from the ceiling, a growing shadow creeping across the floor. Camera cuts to a low angle as the giant's (@Image1) huge boots stride heavily into the doorway one after another, the floor shaking with each step. Camera cuts to a medium of the giant sniffing the air with a curious frown as Jack ducks behind a chair leg, wide-eyed. Suspenseful but playful, weighty rhythmic motion.`},
+{no:14,title:"항아리 속에 숨다",hl:false,shots:2,cast:["잭","거인"],
+ narration:"잭은 얼른 커다란 항아리 속에 몸을 숨겼어요. 가슴이 콩닥콩닥 뛰었답니다.",
+ sound:"심장박동, 항아리 울림",
+ seed:`Shot 1, quick action: Jack (@Image1) whirls around looking for somewhere to hide, spots a large round clay pot and dives inside, pulling the lid half over just as the giant (@Image2) turns. Camera cuts to a close-up: Jack peeks nervously through the gap as the giant's huge sniffing face looms close behind, blurred; Jack shrinks back holding his breath. Heart-pounding tension, flickering firelight.`},
+{no:15,title:"황금 알을 낳는 암탉",hl:true,shots:3,cast:["거인","잭","황금 암탉"],
+ narration:"거인이 부르자 황금 암탉이 반짝이는 황금 알을 낳았어요. 잭은 두 눈이 휘둥그레졌지요.",
+ sound:"마법 반짝임, 알 떨어지는 톡",
+ seed:`Shot 1, medium: from his hiding spot Jack (@Image2) peeks out, watching the giant (@Image1) settle at a huge table. Camera cuts to the giant gesturing at a golden hen (@Image3) on a cushion, its feathers glowing brighter as magic gathers. Camera pushes in to a close-up as a shining golden egg appears beneath the hen with a sparkle and rolls; Jack's eyes go huge with wonder, golden light glinting. Magical, warm glow, gentle motion.`},
+{no:16,title:"코골이 & 탈출",hl:false,shots:2,cast:["거인","잭","황금 암탉"],
+ narration:"거인이 드르렁 잠이 들자, 잭은 황금 암탉을 안고 살금살금 빠져나왔어요.",
+ sound:"우스꽝스런 코골이, 살금살금 음악",
+ seed:`Shot 1, medium: the giant (@Image1) slumps back in a huge chair, head lolling, snoring deeply with his nose puffing comically, firelight low. Camera cuts to a wide shot as Jack (@Image2) tiptoes toward the door cradling the glowing golden hen (@Image3), finger to his lips, glancing back, slipping out. Sneaky, tense, cozy shadows.`},
+
+{act:"ACT 5 — 두 번째 모험 & 추격"},
+{no:17,title:"노래하는 황금 하프",hl:false,shots:1,cast:["잭","황금 하프"],
+ narration:"며칠 뒤, 잭은 다시 올라가 스스로 노래하는 황금 하프를 발견했어요.",
+ sound:"아름다운 하프 멜로디(편집)",
+ seed:`Jack (@Image1) creeps into a grand dim castle hall and spots a glowing golden harp (@Image2) playing itself, shimmering musical notes drifting up. The camera smoothly pushes in as he reaches out slowly toward it, enchanted. Warm magical light, serene, gentle continuous motion.`},
+{no:18,title:"“도둑이야!”",hl:false,shots:3,cast:["잭","황금 하프","거인"],
+ narration:"잭이 하프를 잡는 순간, 하프가 큰 소리로 외쳤어요. 거인이 번쩍 잠에서 깼답니다!",
+ sound:"쨍 긴장 고조, 거인 포효(효과음)",
+ seed:`Shot 1, medium: Jack (@Image1) reaches out slowly toward the glowing golden harp (@Image2), fingers hovering close. Camera cuts to a close-up as his hand closes around it and the harp's carved face suddenly gasps in alarm, sharp glowing notes bursting; Jack flinches. Camera cuts to a tight reaction shot of the giant's (@Image3) eyes snapping wide open in the dark, then lunging upright in fury as his chair topples. Sudden danger, dramatic, sharp motion.`},
+{no:19,title:"추격!",hl:true,shots:3,cast:["잭","거인"],
+ narration:"잭은 하프를 안고 콩나무를 미끄러져 내려왔어요. 거인도 무섭게 뒤를 쫓아왔지요.",
+ sound:"질주 추격 음악(편집), 줄기 흔들림",
+ seed:`Shot 1, wide at the top of the beanstalk: Jack (@Image1) clutches the harp and grabs the vine, glancing down at the dizzying drop below, then swings on. Camera cuts to a plunging tracking close-up as he slides down fast, leaves whipping past, hair streaming. Camera cuts to a low angle looking up: the furious giant (@Image2) clambers onto the stalk above and chases down, the whole beanstalk swaying wildly. Thrilling, fast continuous downward motion with clear top-to-bottom direction.`},
+{no:20,title:"콩나무를 쓰러뜨리다",hl:false,shots:2,cast:["잭","거인"],
+ narration:"땅에 내려온 잭은 도끼로 콩나무를 쾅쾅 찍었어요. 콩나무가 쓰러지자 거인은 멀리 사라졌답니다.",
+ sound:"쾅쾅 도끼질, 우지끈 무너짐",
+ seed:`Shot 1, medium: Jack (@Image1) lands at the foot of the beanstalk, snatches up an axe leaning by the cottage, and swings it down hard into the thick vine, wood chips flying; the giant (@Image2) clings small and panicking high above. Camera cuts to a wide shot as the colossal stalk cracks, groans and topples across the sky, the giant tumbling far away and shrinking into the clouds; dust and leaves settle. Energetic, satisfying, bright daylight, continuous motion.`},
+{no:21,title:"해피엔딩",hl:false,shots:1,cast:["잭","엄마","황금 암탉","황금 하프"],
+ narration:"이제 잭과 엄마는 황금 암탉과 하프 덕분에 오래오래 행복하게 살았답니다.",
+ sound:"따뜻하고 밝은 피날레 음악(편집)",
+ seed:`Outside a cottage now blooming with flowers at golden sunset. Jack (@Image1) runs into his joyful mother's (@Image2) arms and they hug and spin happily; nearby the golden hen (@Image3) clucks and the golden harp (@Image4) plays a gentle tune, petals drifting in the warm light. Heartwarming, tender, soft continuous motion.`},
+{no:22,title:"엔딩 카드 (선택)",hl:false,shots:1,cast:[],
+ narration:"용기 있는 잭의 이야기, 재미있었나요?",
+ sound:"마무리 차임",
+ seed:`A single green beanstalk leaf detaches at the top of the frame and drifts gently down across a soft warm sky with fluffy clouds and twinkling sparkles, settling slowly; a cozy empty space remains in the center for a logo. Calm, gentle, peaceful closing motion.`},
+];
+
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* 나레이션 읽는 시간으로 씬 길이 추정 — 한국어 ~4.5음절/초 + 문장당 0.7s + 1.0s 여유, 최소 4초 */
+function estSec(t){
+  const syl=(t.match(/[가-힣]/g)||[]).length;
+  const sentences=(t.match(/[.!?…]/g)||[]).length || 1;
+  return Math.max(4, Math.round(syl/4.5 + sentences*0.7 + 1.0));
+}
+/* 스펙터클·액션 씬 시각 최소 길이 (아이 몰입) */
+const FLOOR = {7:12, 10:9, 13:9, 19:13};
+function durOf(s){ return Math.max(estSec(s.narration), FLOOR[s.no]||0); }
+
+/* ---------- 캐릭터 레퍼런스 ---------- */
+const refItem = c=>`
+  <div class="ref-item">
+    <div class="slot ref" data-id="${c.id}" tabindex="0">
+      <div class="ph"><span class="ico">${c.ico}</span></div>
+      <button class="rm" data-rm="${c.id}">✕</button>
+    </div>
+    <span class="ref-label">${c.label}</span>
+  </div>`;
+document.getElementById('refs').innerHTML =
+  `<div class="ref-sub">주요 캐릭터</div>
+   <div class="ref-grid">${CHARS.filter(c=>c.group==='main').map(refItem).join('')}</div>
+   <div class="ref-sub">기타 등장 요소 <span class="opt">(레퍼런스 선택)</span></div>
+   <div class="ref-grid">${CHARS.filter(c=>c.group==='prop').map(refItem).join('')}</div>`;
+
+/* ---------- 씬 ---------- */
+document.getElementById('scenes').innerHTML = SCENES.map(s=>{
+  if(s.act) return `<div class="act"><h2>${s.act}</h2><div class="bar"></div></div>`;
+  const id='s'+s.no, pad=String(s.no).padStart(2,'0'), dur=durOf(s);
+  const refs = s.cast.length
+    ? s.cast.map((c,i)=>`<span class="rtag">@Image${i+1} ${c}</span>`).join('')
+    : `<span class="rtag none">캐릭터 없음 (텍스트→영상)</span>`;
+  return `
+  <article class="scene ${s.hl?'hl':''}">
+    <div class="scene-top">
+      <div class="scene-head">
+        <span class="num">${pad}</span><h3>${s.title}</h3>
+        <span class="dur">⏱ ${dur}초 · ${s.shots}컷</span>${s.hl?'<span class="hl-tag">하이라이트</span>':''}
+      </div>
+      <div class="refline"><span class="lbl">🎬 첨부 순서:</span>${refs}</div>
+      <div class="field"><b>나레이션</b><span>${s.narration}</span></div>
+      <div class="field sound"><b>효과음</b><span>${s.sound}</span></div>
+    </div>
+    <div class="scene-main">
+      <div class="slot" data-id="${id}" tabindex="0">
+        <div class="ph"><span class="ico">🖼️</span>첫 프레임 이미지<div class="hint">생성 후 보관 · Ctrl+V · 드래그</div></div>
+        <button class="rm" data-rm="${id}">✕ 삭제</button>
+      </div>
+      <div class="promptbox">
+        <div class="prompt">
+          <div class="prompt-label">🖼 첫 프레임 이미지 프롬프트 <button class="copy" data-copy>복사</button></div>
+          <pre class="p-firstimg">${esc(FIRST[s.no] + IMGSTYLE)}</pre>
+        </div>
+        <div class="prompt">
+          <div class="prompt-label"><span class="seedtag">Seedance 2.0</span> 멀티샷 프롬프트 <button class="copy" data-copy>복사</button></div>
+          <pre class="p-seed">${esc('Duration: about ' + dur + ' seconds, one continuous multi-shot take. ' + s.seed + STYLE + SFX)}</pre>
+        </div>
+      </div>
+    </div>
+  </article>`;
+}).join('');
+
+/* 총 길이 / 컷 수 */
+(()=>{
+  const list=SCENES.filter(s=>!s.act);
+  const total=list.reduce((a,s)=>a+durOf(s),0);
+  const cuts=list.reduce((a,s)=>a+s.shots,0);
+  const tc=document.getElementById('totalChip');
+  if(tc) tc.innerHTML='⏱ 총 <b>'+Math.floor(total/60)+'분 '+String(total%60).padStart(2,'0')+'초</b>';
+  const cc=document.getElementById('cutChip');
+  if(cc) cc.innerHTML='🎞 <b>'+list.length+'씬 · '+cuts+'컷</b>';
+})();
+
+/* ---------- 복사 ---------- */
+document.addEventListener('click', e=>{
+  const b=e.target.closest('[data-copy]'); if(!b) return;
+  const pre=b.closest('.prompt').querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(()=>{
+    b.textContent='복사됨 ✓'; b.classList.add('done');
+    setTimeout(()=>{b.textContent='복사'; b.classList.remove('done');},1200);
+  });
+});
+document.getElementById('copyAll').onclick=()=>{
+  const out=[...document.querySelectorAll('.p-seed')]
+    .map(p=>`[씬 ${p.closest('.scene').querySelector('.num').textContent}] ${p.textContent}`).join('\n\n');
+  navigator.clipboard.writeText(out).then(()=>toast('Seedance 프롬프트 전체 복사됨 ✓'));
+};
+document.getElementById('copyAllImg').onclick=()=>{
+  const out=[...document.querySelectorAll('.p-firstimg')]
+    .map(p=>`[씬 ${p.closest('.scene').querySelector('.num').textContent}] ${p.textContent}`).join('\n\n');
+  navigator.clipboard.writeText(out).then(()=>toast('첫 프레임 프롬프트 전체 복사됨 ✓'));
+};
+
+/* ---------- 업로드 / 붙여넣기 / 드롭 + 저장 ---------- */
+const LS_KEY='jack-storyboard-imgs-v3';
+let store={}; try{ store=JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch(e){ store={}; }
+let activeSlot=null;
+
+document.querySelectorAll('.slot').forEach(slot=>{
+  const id=slot.dataset.id;
+  if(store[id]) setImg(slot,store[id]);
+  slot.addEventListener('click',()=>{ setActive(slot); openPicker(slot); });
+  slot.addEventListener('focus',()=>setActive(slot));
+  slot.addEventListener('dragover',e=>{ e.preventDefault(); slot.classList.add('dragover'); });
+  slot.addEventListener('dragleave',()=>slot.classList.remove('dragover'));
+  slot.addEventListener('drop',e=>{
+    e.preventDefault(); slot.classList.remove('dragover'); setActive(slot);
+    const f=[...e.dataTransfer.files].find(f=>f.type.startsWith('image/'));
+    if(f) handleFile(slot,f);
+  });
+});
+document.addEventListener('click',e=>{
+  const rm=e.target.closest('[data-rm]'); if(!rm) return;
+  e.stopPropagation();
+  const slot=document.querySelector(`.slot[data-id="${rm.dataset.rm}"]`);
+  clearImg(slot); delete store[rm.dataset.rm]; persist();
+});
+document.addEventListener('paste',e=>{
+  if(!activeSlot) return;
+  const item=[...(e.clipboardData?.items||[])].find(i=>i.type.startsWith('image/'));
+  if(item){ e.preventDefault(); handleFile(activeSlot,item.getAsFile()); }
+});
+
+function setActive(slot){ if(activeSlot) activeSlot.classList.remove('active'); activeSlot=slot; slot.classList.add('active'); }
+function openPicker(slot){
+  const inp=document.createElement('input'); inp.type='file'; inp.accept='image/*';
+  inp.onchange=()=>{ if(inp.files[0]) handleFile(slot,inp.files[0]); }; inp.click();
+}
+function handleFile(slot,file){
+  const r=new FileReader();
+  r.onload=()=>downscale(r.result,d=>{ setImg(slot,d); store[slot.dataset.id]=d; persist(); });
+  r.readAsDataURL(file);
+}
+function downscale(dataUrl,cb){
+  const img=new Image();
+  img.onload=()=>{ const max=1280; let{width:w,height:h}=img;
+    if(w>max){ h=Math.round(h*max/w); w=max; }
+    const c=document.createElement('canvas'); c.width=w; c.height=h;
+    c.getContext('2d').drawImage(img,0,0,w,h); cb(c.toDataURL('image/jpeg',0.85)); };
+  img.onerror=()=>cb(dataUrl); img.src=dataUrl;
+}
+function setImg(slot,d){ clearImg(slot); const el=document.createElement('img'); el.src=d;
+  slot.insertBefore(el,slot.firstChild); slot.classList.add('has-img'); }
+function clearImg(slot){ const o=slot.querySelector('img'); if(o) o.remove(); slot.classList.remove('has-img'); }
+function persist(){ try{ localStorage.setItem(LS_KEY,JSON.stringify(store)); toast('저장됨 ✓'); }
+  catch(e){ toast('⚠ 저장 공간 부족 — 이미지가 많아요'); } }
+document.getElementById('clearImgs').onclick=()=>{
+  if(!confirm('업로드한 이미지(레퍼런스 + 장면 스틸)를 모두 지울까요?')) return;
+  store={}; localStorage.removeItem(LS_KEY);
+  document.querySelectorAll('.slot').forEach(clearImg); toast('초기화됨');
+};
+
+let tT;
+function toast(msg){ const t=document.getElementById('saveState'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(tT); tT=setTimeout(()=>t.classList.remove('show'),1400); }
+</script>
+</body>
+</html>

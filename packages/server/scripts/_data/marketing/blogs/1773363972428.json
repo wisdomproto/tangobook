@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773363972428",
+  "seo_title": "악어 특징과 생태 — 강한 턱의 비밀 자연관찰 그림책",
+  "primary_keyword": "악어",
+  "secondary_keywords": [
+    "악어 특징",
+    "악어 생태",
+    "악어 무는 힘",
+    "유아 자연관찰 책",
+    "동물 그림책"
+  ],
+  "url_slug": "crocodile-nature-for-kids",
+  "meta_description": "악어의 강한 턱과 체온 조절, 평생 자라는 이빨 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>악어, 어떤 점이 신기할까요?</h2><p>물가에 가만히 떠 있다가 순식간에 움직이는 <strong>악어</strong>는 강의 강력한 사냥꾼이에요. 무섭게만 보이지만 알고 보면 신기한 비밀이 가득합니다.</p>",
+      "image_prompt": "A crocodile floating in a river with only eyes above water, calm children's book illustration, no text",
+      "alt": "물 위에 눈만 내놓은 악어",
+      "caption": "강의 사냥꾼"
+    },
+    {
+      "text_html": "<h2>악어의 자연·과학 사실</h2><p>악어의 이빨은 <strong>80개 내외</strong>로, 닳거나 빠져도 평생 새 이빨이 계속 자라납니다. 무는 힘은 지구 동물 중 가장 강한 수준(약 1,700kg)이지만, 입을 <strong>여는 힘은 약해</strong> 손으로도 잡아 둘 수 있어요. 변온동물이라 입을 크게 벌리는 건 위협이 아니라 몸의 열을 내보내는 <strong>체온 조절</strong> 행동이며, 어미는 둥지를 만들어 알을 정성껏 돌봅니다.</p>",
+      "image_prompt": "A crocodile basking with its mouth wide open to release heat, informative children's book illustration, no text",
+      "alt": "입을 벌린 악어",
+      "caption": "체온 조절 행동"
+    },
+    {
+      "text_html": "<h2>탱고북 «악어»이 다루는 내용</h2><p>탱고북 «악어»는 물 위로 눈만 내놓고 기다리는 모습, 강한 턱, 입을 벌려 열을 식히는 행동, 알을 지키는 어미, 아기 악어의 부화를 흥미롭게 보여 줍니다.</p>",
+      "image_prompt": "A mother crocodile guarding her nest of eggs, gentle children's book illustration, no text",
+      "alt": "알을 지키는 어미 악어",
+      "caption": "정성스러운 모성"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>이빨(평생 교체), 무는 힘 vs 여는 힘, 입 벌리기(체온 조절), 물 위의 눈·코 같은 포인트를 짚어 주세요. \"악어는 왜 입을 벌리고 있을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "Close-up of crocodile teeth and snout, observational children's book illustration, no text",
+      "alt": "악어의 이빨",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>동물원·아쿠아리움에서 악어가 물 위에 눈만 내놓고 가만히 있는 모습을 관찰해 보세요. \"입 벌림 = 더위 식히기\"를 알려 주고, 변온동물 개념은 햇볕 쬐는 도마뱀과 연결하면 좋습니다.</p>",
+      "image_prompt": "A parent and child observing a crocodile at an aquarium, warm children's book illustration, no text",
+      "alt": "악어를 관찰하는 부모와 아이",
+      "caption": "함께 관찰하기"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 악어는 왜 입을 벌리고 있나요?</strong><br>A. 위협이 아니라 변온동물이 몸의 열을 내보내는 체온 조절 행동입니다.</p><p><strong>Q. 악어 이빨은 빠지면 어떻게 되나요?</strong><br>A. 평생 새 이빨이 계속 자라 빠진 자리를 채웁니다. 약 80개 내외예요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 동물원·아쿠아리움에서 물 위의 눈·입 벌림을 관찰하고, 변온동물 개념을 도마뱀과 연결해 보세요.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

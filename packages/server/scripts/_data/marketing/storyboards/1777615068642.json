@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777615068642",
+  "title": "코뿔소",
+  "hook": "큰 뿔 과 두꺼운 피부를 가진 코뿔소 는 갑옷을 입은 듯한 초식 동물이에…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "큰 뿔 과 두꺼운 피부를 가진 코뿔소 는 갑옷을 입은 듯한 초식 동물이에요.",
+      "screen": "코뿔소, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "코뿔소, 어떤 점이 신기할까요?",
+      "imagePrompt": "A rhino with a big horn on the savanna, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "코뿔소의 큰 뿔은 뼈가 아니라 우리 머리카락·손톱과 같은 케라틴 성분 으로 되어 있어 자라기도 닳기도 해요. 두껍고 단단한 피부는 갑옷 같지요.",
+      "screen": "코뿔소의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "코뿔소의 자연·과학 사실",
+      "imagePrompt": "A close-up of a rhino horn made of keratin, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «코뿔소»는 큰 뿔, 갑옷 같은 피부, 진흙 목욕, 풀을 뜯는 모습 등 코뿔소의 매력을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «코뿔소»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «코뿔소»이 다루는 내용",
+      "imagePrompt": "A rhino taking a mud bath, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "뿔(케라틴), 두꺼운 피부, 뛰어난 후각·청각, 멸종 위기 같은 포인트를 짚어 주세요. \"코뿔소 뿔은 무엇으로 되어 있을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of rhino thick armored skin, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "코뿔소, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

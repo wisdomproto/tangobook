@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773714531390",
+  "title": "티라노사우루스 렉스",
+  "hook": "\"공룡의 왕\"이라 불리는 티라노사우루스 렉스(T.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "\"공룡의 왕\"이라 불리는 티라노사우루스 렉스(T.",
+      "screen": "티라노사우루스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "티라노사우루스, 어떤 점이 신기할까요?",
+      "imagePrompt": "A mighty Tyrannosaurus rex roaring in a prehistoric landscape, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "T. rex는 약 6,600만 년 전 백악기 후기 북아메리카에 살았어요.",
+      "screen": "티라노사우루스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "티라노사우루스의 자연·과학 사실",
+      "imagePrompt": "A close-up of T. rex giant teeth and jaw, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «티라노사우루스 렉스»는 거대한 몸집, 무시무시한 이빨과 턱, 작은 앞발, 사냥하는 모습 등 공룡의 왕을 박진감 있게 보여 줍니다.",
+      "screen": "탱고북 «티라노사우루스 렉스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «티라노사우루스 렉스»이 다루는…",
+      "imagePrompt": "A T. rex with its small front arms shown, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "큰 몸집(12m), 강한 이빨·턱, 작은 앞발, 입체 시각 같은 포인트를 짚어 주세요. \"왜 앞발은 이렇게 작을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A T. rex hunting in a Cretaceous forest, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "티라노사우루스 렉스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

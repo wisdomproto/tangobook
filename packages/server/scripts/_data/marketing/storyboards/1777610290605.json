@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777610290605",
+  "title": "고래",
+  "hook": "바닷속 가장 큰 동물 고래 는 물고기가 아니라 사람과 같은 포유류 예요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "바닷속 가장 큰 동물 고래 는 물고기가 아니라 사람과 같은 포유류 예요.",
+      "screen": "고래, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "고래, 어떤 점이 신기할까요?",
+      "imagePrompt": "A large whale swimming in the ocean, majestic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "고래는 바닷속에 살지만 포유류라 숨을 쉬어야 해서 , 가끔 물 위로 올라와 머리 위 분수공으로 \"푸우!\" 하고 숨 을 내쉬어요(따뜻한 숨이 차가운 공기를 만나 물기둥처럼 보여요). 수염으로 크릴을…",
+      "screen": "고래의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "고래의 자연·과학 사실",
+      "imagePrompt": "A whale spouting water from its blowhole, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «고래»는 분수공으로 숨 쉬는 모습, 수염·이빨고래의 먹이, 가족 무리, 노래로 소통하는 고래를 웅장하게 보여 줍니다.",
+      "screen": "탱고북 «고래»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «고래»이 다루는 내용",
+      "imagePrompt": "A whale and its calf swimming together, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "포유류(숨 쉬기), 분수공, 수염/이빨고래, 노래(소통) 같은 포인트를 짚어 주세요. \"고래는 왜 물 위로 올라올까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A baleen whale filtering krill, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "고래, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

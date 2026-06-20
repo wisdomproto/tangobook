@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773624474088",
+  "title": "유산균과 바이러스",
+  "hook": "눈에 보이지 않는 작은 미생물 중에는 몸에 좋은 유산균 도, 조심해야 할…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "눈에 보이지 않는 작은 미생물 중에는 몸에 좋은 유산균 도, 조심해야 할 바이러스 도 있어요.",
+      "screen": "유산균과 바이러스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "유산균과 바이러스, 어떤 점이 신기할까요…",
+      "imagePrompt": "Friendly probiotic microbes and a virus shown as cartoon characters, bright children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "유산균 은 우리 장에 살며 소화를 돕고 해로운 세균을 억제하는 좋은 미생물이에요. 우리 몸 면역세포의 약 70%가 장에 모여 있어, 장이 건강하면 면역력에도 도움이 되지요.",
+      "screen": "유산균과 바이러스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "유산균과 바이러스의 자연·과학 사실",
+      "imagePrompt": "Good probiotic bacteria helping inside a healthy gut, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «유산균과 바이러스»는 몸을 돕는 유산균, 조심해야 할 바이러스, 손 씻기·예방접종의 중요성을 아이 눈높이의 과학으로 보여 줍니다.",
+      "screen": "탱고북 «유산균과 바이러스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «유산균과 바이러스»이 다루는 내…",
+      "imagePrompt": "A child washing hands with soap and bubbles, cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "유산균(좋은 균·장 건강), 바이러스(작음·조심), 면역(70% 장), 손 씻기(예방) 같은 포인트를 짚어 주세요. \"왜 손을 깨끗이 씻어야 할까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A tiny virus shown much smaller than bacteria, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "유산균과 바이러스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

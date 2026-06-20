@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773896866516",
+  "title": "마이아사우라",
+  "hook": "\"좋은 엄마 도마뱀\"이라는 뜻의 마이아사우라 는 둥지를 짓고 새끼를 정성…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "\"좋은 엄마 도마뱀\"이라는 뜻의 마이아사우라 는 둥지를 짓고 새끼를 정성껏 돌본 다정한 초식 공룡이에요.",
+      "screen": "마이아사우라, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "마이아사우라, 어떤 점이 신기할까요?",
+      "imagePrompt": "A Maiasaura caring for its babies in a nest, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "마이아사우라는 약 7,700만 년 전 북아메리카에 살았어요. 지름 약 2m의 둥지 에 20~25개의 알을 낳았지요.",
+      "screen": "마이아사우라의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "마이아사우라의 자연·과학 사실",
+      "imagePrompt": "A Maiasaura nest with 20 eggs, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «마이아사우라»는 둥지의 알, 갓 깨어난 새끼, 먹이를 가져다 주는 어미, 무리 지어 새끼를 키우는 모습을 따뜻하게 보여 줍니다.",
+      "screen": "탱고북 «마이아사우라»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «마이아사우라»이 다루는 내용",
+      "imagePrompt": "A Maiasaura bringing food to its hatchlings, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "둥지(2m·알 20~25), 육아(먹이 주기), 무리 번식지, 따뜻한 어미 같은 포인트를 짚어 주세요. \"공룡도 새끼를 돌봤구나\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A nesting colony of Maiasaura, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "마이아사우라, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

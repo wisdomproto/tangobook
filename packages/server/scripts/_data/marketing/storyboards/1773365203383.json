@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773365203383",
+  "title": "해바라기",
+  "hook": "키 크고 환한 해바라기 는 해를 따라 고개를 돌린다고 알려진 여름의 대표…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "키 크고 환한 해바라기 는 해를 따라 고개를 돌린다고 알려진 여름의 대표 꽃이에요.",
+      "screen": "해바라기, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "해바라기, 어떤 점이 신기할까요?",
+      "imagePrompt": "A tall bright sunflower facing the morning sun in a summer field, cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "\"해를 따라 돈다\"는 건 어린 해바라기에만 해당돼요. 줄기가 굳지 않은 시기엔 낮에 동→서로 해를 따라가고 밤에 다시 동쪽으로 돌아오는데, 이는 빛 방향에 따른 생장(굴광성)과 일주 리듬 때문입니다…",
+      "screen": "해바라기의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "해바라기의 자연·과학 사실",
+      "imagePrompt": "Young sunflowers turning from east to west following the sun, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «해바라기»는 씨앗에서 싹이 트고 키가 쑥쑥 자라 해를 향하다, 마침내 꽃을 피우고 수많은 씨앗을 맺는 한살이를 환하게 보여 줍니다.",
+      "screen": "탱고북 «해바라기»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «해바라기»이 다루는 내용",
+      "imagePrompt": "A sunflower full of seeds in a spiral pattern, close-up children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "어린 해바라기(해 따라가기), 성숙한 꽃(동쪽 고정), 씨앗(빼곡한 배열), 큰 키 같은 포인트를 짚어 주세요. \"큰 해바라기는 왜 한 방향만 볼까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A sunflower seed sprouting and growing tall, life cycle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "해바라기, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

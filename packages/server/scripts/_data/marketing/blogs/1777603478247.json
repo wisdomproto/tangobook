@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777603478247",
+  "seo_title": "호랑나비 특징과 완전변태의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "호랑나비",
+  "secondary_keywords": [
+    "호랑나비 특징",
+    "나비 한살이",
+    "완전변태",
+    "유아 자연관찰 책",
+    "곤충 그림책"
+  ],
+  "url_slug": "swallowtail-butterfly-for-kids",
+  "meta_description": "호랑나비의 한살이(알→애벌레→번데기→나비)와 애벌레의 냄새뿔 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>호랑나비, 어떤 점이 신기할까요?</h2><p>알록달록 멋진 <strong>호랑나비</strong>는 모습이 완전히 바뀌는 신기한 곤충이에요. 작은 알에서 화려한 나비가 되기까지의 여정이 놀랍습니다.</p>",
+      "image_prompt": "A colorful swallowtail butterfly on a flower, vivid children's book illustration, no text",
+      "alt": "호랑나비",
+      "caption": "화려한 나비"
+    },
+    {
+      "text_html": "<h2>호랑나비의 자연·과학 사실</h2><p>호랑나비는 <strong>알 → 애벌레 → 번데기 → 나비</strong> 네 단계로 모습이 완전히 바뀌는 <strong>완전변태</strong> 곤충이에요. 애벌레는 귤나무·산초나무 잎을 먹고 자라는데, 위험하면 머리에서 주황색 <strong>냄새뿔(취각)</strong>을 쑥 내밀어 적을 쫓지요. 어른 나비는 빨대처럼 말린 입으로 꽃꿀을 빨고 꽃가루받이를 도와요. 날개 무늬는 아주 작은 <strong>비늘 가루</strong>로 이루어져 있습니다.</p>",
+      "image_prompt": "The butterfly life cycle from egg to caterpillar to chrysalis to butterfly, informative children's book illustration, no text",
+      "alt": "호랑나비 한살이",
+      "caption": "완전변태 4단계"
+    },
+    {
+      "text_html": "<h2>탱고북 «호랑나비»이 다루는 내용</h2><p>탱고북 «호랑나비»는 알에서 애벌레·번데기를 거쳐 나비가 되는 한살이, 냄새뿔을 내미는 애벌레, 꽃꿀을 빠는 나비를 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A swallowtail caterpillar showing its orange osmeterium, fascinating children's book illustration, no text",
+      "alt": "냄새뿔을 내민 애벌레",
+      "caption": "주황색 냄새뿔"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>완전변태 4단계, 냄새뿔(방어), 말린 입(꿀), 날개 비늘 같은 포인트를 짚어 주세요. \"애벌레가 어떻게 나비가 될까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of butterfly wing scales, observational children's book illustration, no text",
+      "alt": "나비 날개 비늘",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>한살이 그림 카드를 순서대로 놓아 보세요. 봄·여름에 귤나무·산초나무에서 호랑나비 애벌레를 찾아보고, \"냄새뿔\"을 관찰하면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child arranging butterfly life cycle cards, warm children's book illustration, no text",
+      "alt": "한살이 카드를 놓는 부모와 아이",
+      "caption": "한살이 놀이"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 호랑나비는 어떻게 나비가 되나요?</strong><br>A. 알 → 애벌레 → 번데기 → 나비의 완전변태를 거쳐 모습이 완전히 바뀝니다.</p><p><strong>Q. 애벌레의 주황색 뿔은 뭔가요?</strong><br>A. 위험을 느끼면 머리에서 내미는 \"냄새뿔(취각)\"입니다. 냄새로 적을 쫓아요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 한살이 카드 순서 놓기, 귤나무·산초나무에서 애벌레 찾기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

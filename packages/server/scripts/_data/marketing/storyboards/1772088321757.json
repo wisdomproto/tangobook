@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772088321757",
+  "title": "금발 머리 소녀와 곰 세 마리",
+  "hook": "곰 세 마리 의 집에 들어간 금발 소녀 골디락스의 이야기는, 남의 것을…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "곰 세 마리 의 집에 들어간 금발 소녀 골디락스의 이야기는, 남의 것을 함부로 쓰면 안 된다는 배려와 예절을…",
+      "screen": "금발 머리 소녀와 곰 세 마리, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "금발 머리 소녀와 곰 세 마리, 어떤 동…",
+      "imagePrompt": "A little girl with golden hair peeking into a cozy cottage of three bears, three bowls on the table, cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "영국 전래 동화로, 초기 판본에서는 소녀가 아니라 할머니 또는 여우가 주인공이었습니다. 이후 금발 소녀 골디락스(Goldilocks) 로 정착했습니다.",
+      "screen": "원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "원작 이야기",
+      "imagePrompt": "Three bowls of porridge, three chairs, and three beds in sizes big, medium, and small, playful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "숲속을 걷던 골디락스가 빈 곰 세 마리 집에 들어가, 죽을 먹고 의자에 앉고 침대에 눕습니다. 매번 아빠 곰·엄마 곰 것은 너무 크거나 뜨겁고, 아기 곰 것이 \"딱 알맞아\" 골라요.",
+      "screen": "곰 세 마리 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "곰 세 마리 줄거리 요약",
+      "imagePrompt": "Goldilocks sleeping in the smallest bed as three bears return home surprised, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 남의 물건과 공간을 함부로 쓰면 안 된다는 배려와 예절 입니다. 또한 \"딱 알맞은 것\"을 찾는 과정에서 적당함의 가치도 배울 수 있어요.",
+      "screen": "곰 세 마리가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "곰 세 마리가 주는 교훈",
+      "imagePrompt": "The little bear family looking at their messy home with surprised faces, lighthearted children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "금발 머리 소녀와 곰 세 마리, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

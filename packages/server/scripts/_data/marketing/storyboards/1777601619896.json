@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777601619896",
+  "title": "백로",
+  "hook": "논과 물가의 우아한 새 백로 는 새하얀 깃털과 긴 다리로 한눈에 알아보는…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "논과 물가의 우아한 새 백로 는 새하얀 깃털과 긴 다리로 한눈에 알아보는 물새예요.",
+      "screen": "백로, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백로, 어떤 점이 신기할까요?",
+      "imagePrompt": "A white egret standing in shallow water, elegant children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "백로는 긴 다리로 얕은 물을 사뿐히 걷고, 긴 목과 뾰족한 부리로 물고기·개구리·곤충 을 잡아요. 사냥할 때는 한참 꼼짝 않고 기다리다가 먹이가 가까이 오면 번개처럼 부리를 내리꽂는 인내의 사냥꾼…",
+      "screen": "백로의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백로의 자연·과학 사실",
+      "imagePrompt": "An egret striking quickly to catch a fish, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «백로»는 얕은 물을 걷는 모습, 꼼짝 않고 기다리는 사냥, 새하얀 깃털, 나무 위 둥지의 백로를 우아하게 보여 줍니다.",
+      "screen": "탱고북 «백로»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «백로»이 다루는 내용",
+      "imagePrompt": "Egrets nesting in a tree, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "긴 다리(얕은 물), 인내의 사냥, 새하얀 깃털, 무리 둥지 같은 포인트를 짚어 주세요. \"백로는 왜 가만히 기다릴까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of egret long legs and pointed beak, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "백로, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772084667220",
+  "title": "거인의 정원",
+  "hook": "거인의 정원 은 담을 허물고 마음을 열 때 비로소 봄이 온다는 진리를 담…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "거인의 정원 은 담을 허물고 마음을 열 때 비로소 봄이 온다는 진리를 담은 오스카 와일드의 명작 동화(188…",
+      "screen": "거인의 정원, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "거인의 정원, 어떤 동화인가요?",
+      "imagePrompt": "A giant's walled garden frozen in winter on one side and blooming spring on the other, magical contrast, children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "원제는 「이기적인 거인(The Selfish Giant)」으로, 오스카 와일드 의 1888년 동화집 『행복한 왕자와 다른 이야기들』에 수록되었습니다. 거인이 아이들을 쫓아내자 정원에 겨울만 계속되다…",
+      "screen": "거인의 정원 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "거인의 정원 원작 이야기",
+      "imagePrompt": "Children peeking through a hole in the garden wall as flowers bloom around them, hopeful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "거인이 돌아와 아이들을 쫓아내고 담장을 쌓자 정원에만 겨울이 계속됩니다. 아이들이 담의 구멍으로 들어오며 꽃이 피고, 거인은 한 꼬마를 도우며 마음이 녹아 담장을 허뭅니다.",
+      "screen": "거인의 정원 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "거인의 정원 줄거리 요약",
+      "imagePrompt": "A gentle giant lifting a small child to reach a tree branch, snow melting into spring around them, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 나누는 마음에만 봄이 온다 는 것입니다. 담을 허물고 함께 지낼 때 가장 아름답고, 아이들의 웃음이 가장 큰 선물임을 보여 줍니다.",
+      "screen": "거인의 정원이 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "거인의 정원이 주는 교훈",
+      "imagePrompt": "A giant happily playing with many children in a blooming garden full of flowers, joyful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "거인의 정원, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

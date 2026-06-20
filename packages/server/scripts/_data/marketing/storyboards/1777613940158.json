@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777613940158",
+  "title": "흰동가리",
+  "hook": "주황 바탕에 하얀 줄무늬가 멋진 흰동가리 는 애니메이션 주인공으로도 유명…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "주황 바탕에 하얀 줄무늬가 멋진 흰동가리 는 애니메이션 주인공으로도 유명한 작은 바닷물고기예요.",
+      "screen": "흰동가리, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "흰동가리, 어떤 점이 신기할까요?",
+      "imagePrompt": "A clownfish among sea anemone tentacles, vivid children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "흰동가리의 가장 신기한 점은 따끔한 독을 가진 말미잘 속에서 산다 는 거예요. 다른 물고기는 말미잘 촉수에 쏘이지만, 흰동가리는 몸을 덮은 특별한 점액 덕분에 쏘이지 않아 그 안에서 천적을 피하지요…",
+      "screen": "흰동가리의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "흰동가리의 자연·과학 사실",
+      "imagePrompt": "A clownfish safe inside a stinging anemone, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «흰동가리»는 말미잘 속에서 노는 모습, 쏘이지 않는 비밀, 서로 돕는 공생, 알록달록한 줄무늬를 정겹게 보여 줍니다.",
+      "screen": "탱고북 «흰동가리»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «흰동가리»이 다루는 내용",
+      "imagePrompt": "A clownfish cleaning around its anemone home, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "말미잘 공생, 특별한 점액(안 쏘임), 서로 돕기, 줄무늬 같은 포인트를 짚어 주세요. \"흰동가리는 왜 말미잘 속에 살까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of clownfish orange and white stripes, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "흰동가리, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

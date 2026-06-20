@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777447602938",
+  "title": "표범",
+  "hook": "꽃잎 같은 무늬를 가진 표범 은 고양잇과 중에서도 나무를 가장 잘 타는…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "꽃잎 같은 무늬를 가진 표범 은 고양잇과 중에서도 나무를 가장 잘 타는 은밀한 사냥꾼이에요.",
+      "screen": "표범, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "표범, 어떤 점이 신기할까요?",
+      "imagePrompt": "A leopard with rosette spots resting on a tree branch, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "표범 온몸의 꽃 모양 무늬(로제트) 는 나뭇잎 그늘 사이에 몸을 숨기기 좋아요. 나무를 잘 타서 잡은 먹이를 나무 위로 끌어 올려 사자·하이에나에게 빼앗기지 않는 영리함을 보이지요.",
+      "screen": "표범의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "표범의 자연·과학 사실",
+      "imagePrompt": "A close-up of leopard rosette pattern, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «표범»은 로제트 무늬로 몸을 숨기는 모습, 나무에 먹이를 올리는 모습, 소리 없이 다가가는 사냥 등 표범의 영리함을 박진감 있게 보여 줍니다.",
+      "screen": "탱고북 «표범»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «표범»이 다루는 내용",
+      "imagePrompt": "A leopard dragging prey up a tree, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "로제트 무늬(위장), 나무 타기(먹이 보관), 단독 사냥, 야간 시력 같은 포인트를 짚어 주세요. \"표범은 왜 먹이를 나무에 올릴까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A leopard stalking silently in the grass, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "표범, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

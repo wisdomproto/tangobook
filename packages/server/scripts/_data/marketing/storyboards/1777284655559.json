@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777284655559",
+  "title": "보물섬",
+  "hook": "보물섬 은 보물 지도를 손에 넣은 소년 짐 호킨스가 배를 타고 모험을 떠…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "보물섬 은 보물 지도를 손에 넣은 소년 짐 호킨스가 배를 타고 모험을 떠나, 해적들 사이에서 용기와 지혜로…",
+      "screen": "보물섬, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "보물섬, 어떤 동화인가요?",
+      "imagePrompt": "A young boy holding an old treasure map on a sailing ship deck at sea, adventurous and hopeful mood, children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "「보물섬」은 스코틀랜드 작가 로버트 루이스 스티븐슨 이 1883년에 발표한 모험 소설입니다. 외다리 해적 롱 존 실버 등 매력적인 인물과 보물 지도·무인도라는 설정으로, 이후 수많은 해적 이야기의…",
+      "screen": "스티븐슨 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "스티븐슨 원작 이야기",
+      "imagePrompt": "A one-legged pirate with a parrot on his shoulder, friendly but mysterious, on a wooden ship, classic children's adventure illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "여관에서 우연히 보물 지도를 얻은 짐은 어른들과 함께 배를 타고 보물섬으로 향합니다. 그런데 선원 중 상당수가 보물을 노리는 해적이었지요.",
+      "screen": "보물섬 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "보물섬 줄거리 요약",
+      "imagePrompt": "Children exploring a tropical treasure island with palm trees and a hidden chest of gold, exciting but gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "보물섬은 위험 앞에서도 침착하게 생각하고 용기를 내면 길이 열린다 는 것을 보여 줍니다. 또한 겉으로 친절해 보여도 속을 알 수 없는 사람을 분별하는 지혜, 약속과 신뢰의 가치도 함께 이야기할 수…",
+      "screen": "보물섬이 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "보물섬이 주는 교훈",
+      "imagePrompt": "A brave young boy standing firm and thoughtful during a stormy moment on a ship, courage and calm, children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "보물섬, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

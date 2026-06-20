@@ -1,0 +1,46 @@
+{
+  "storybookId": "1777438039433",
+  "seo_title": "사자 특징과 무리 생활의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "사자",
+  "secondary_keywords": ["사자 특징", "사자 갈기", "사자 무리", "유아 동물 책", "동물 그림책"],
+  "url_slug": "lion-nature-for-kids",
+  "meta_description": "사자가 무리(프라이드)를 이루어 함께 사냥하고 새끼를 돌보는 비밀과 수컷 갈기 등 신기한 사실과, 탱고북 동물 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>사자, 어떤 점이 신기할까요?</h2><p>\"백수의 왕\"이라 불리는 <strong>사자</strong>는 고양잇과 중 거의 유일하게 <strong>무리(프라이드)</strong>를 이루어 사는 동물이에요. 가족의 협동이 가장 큰 특징이랍니다.</p>",
+      "image_prompt": "A male lion with a full mane resting under a tree, gentle children's book illustration, no text",
+      "alt": "사자",
+      "caption": "백수의 왕"
+    },
+    {
+      "text_html": "<h2>사자의 자연·과학 사실</h2><p>수컷 사자의 풍성한 <strong>갈기</strong>는 힘과 건강을 드러내는 표시예요. 사냥은 주로 날렵한 <strong>암컷들이 협력해서</strong> 하고, 무리가 함께 새끼를 돌보는 강한 사회성이 특징이지요. 우렁찬 <strong>포효</strong>는 수 킬로미터 밖까지 퍼져 영역을 알리고 가족을 부릅니다. 의외로 하루의 많은 시간을 나무 그늘에서 쉬며 보내는 느긋한 동물이에요.</p>",
+      "image_prompt": "A pride of lionesses hunting together, dynamic children's book illustration, no text",
+      "alt": "협력하는 암사자들",
+      "caption": "함께하는 사냥"
+    },
+    {
+      "text_html": "<h2>탱고북 «사자»이 다루는 내용</h2><p>탱고북 «사자»는 수컷의 멋진 갈기, 협력하는 암컷 사냥, 함께 새끼를 돌보는 무리, 우렁찬 포효 등 사자 가족의 삶을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A lion roaring loudly, dynamic children's book illustration, no text",
+      "alt": "포효하는 사자",
+      "caption": "멀리 퍼지는 포효"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>갈기(수컷), 무리(프라이드), 협력 사냥(암컷), 포효(소통) 같은 포인트를 짚어 주세요. \"사자는 왜 무리 지어 살까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A lion family caring for cubs together, observational children's book illustration, no text",
+      "alt": "새끼를 돌보는 사자 가족",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"사자 가족은 함께 사냥하고 새끼를 돌봐\"를 우리 가족의 협동과 비교해 보세요. 호랑이(단독)와 사자(무리)의 차이를 찾으면 동물의 다양성을 배웁니다.</p>",
+      "image_prompt": "A parent and child comparing a lion and a tiger, warm children's book illustration, no text",
+      "alt": "사자와 호랑이를 비교하는 부모와 아이",
+      "caption": "사자와 호랑이"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 사자는 왜 무리 지어 사나요?</strong><br>A. 함께 사냥하고 새끼를 함께 돌보기 위해서입니다. 고양잇과 중 거의 유일하게 무리 생활을 해요.</p><p><strong>Q. 사냥은 누가 하나요?</strong><br>A. 주로 몸이 날렵한 암컷들이 협력해서 합니다. 수컷의 갈기는 힘과 건강의 표시예요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 우리 가족 협동과 비교, 호랑이(단독)와 사자(무리)의 차이 찾기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

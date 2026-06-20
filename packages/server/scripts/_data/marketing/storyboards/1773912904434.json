@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773912904434",
+  "title": "람포린쿠스",
+  "hook": "몸보다 긴 꼬리 를 가진 작은 익룡 람포린쿠스 는 바늘 같은 이빨로 물고…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "몸보다 긴 꼬리 를 가진 작은 익룡 람포린쿠스 는 바늘 같은 이빨로 물고기를 잡던 날쌘 사냥꾼이에요.",
+      "screen": "람포린쿠스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "람포린쿠스, 어떤 점이 신기할까요?",
+      "imagePrompt": "A Rhamphorhynchus flying with a long tail over water, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "람포린쿠스는 꼬리가 몸보다 긴 장미형 익룡 이에요. 단단한 긴 꼬리 끝엔 마름모 모양의 판 이 있어 비행 중 방향타 역할 을 했지요.",
+      "screen": "람포린쿠스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "람포린쿠스의 자연·과학 사실",
+      "imagePrompt": "A close-up of the diamond-shaped tail vane, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «람포린쿠스»는 몸보다 긴 꼬리, 방향타 같은 꼬리 끝, 바늘 이빨로 물고기를 잡는 모습 등 작은 익룡의 비행을 시원하게 보여 줍니다.",
+      "screen": "탱고북 «람포린쿠스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «람포린쿠스»이 다루는 내용",
+      "imagePrompt": "A Rhamphorhynchus catching a fish with needle teeth, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "긴 꼬리(방향타), 바늘 이빨(물고기), 작은 몸, 야간 사냥 같은 포인트를 짚어 주세요. \"꼬리 끝의 판은 무슨 역할일까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A Rhamphorhynchus with its long tail trailing, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "람포린쿠스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

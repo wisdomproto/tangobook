@@ -1,0 +1,46 @@
+{
+  "storybookId": "1777554575765",
+  "seo_title": "참새 특징과 깡총 뛰기의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "참새",
+  "secondary_keywords": ["참새 특징", "참새 생태", "참새 관찰", "유아 자연관찰 책", "새 그림책"],
+  "url_slug": "sparrow-nature-for-kids",
+  "meta_description": "참새가 걷지 않고 깡총 뛰는 이유와 흙목욕, 계절별 먹이 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>참새, 어떤 점이 신기할까요?</h2><p>우리 주변에서 가장 흔히 보는 <strong>참새</strong>는 작지만 씩씩한 새예요. 걷지 않고 깡총깡총 뛰는 모습이 정말 귀엽지요.</p>",
+      "image_prompt": "A small sparrow hopping on the ground, cute children's book illustration, no text",
+      "alt": "참새",
+      "caption": "깡총 뛰는 참새"
+    },
+    {
+      "text_html": "<h2>참새의 자연·과학 사실</h2><p>참새는 몸길이 13~15cm의 작은 새로, 밤색 머리와 뺨의 검은 점이 특징이에요. 재미있게도 <strong>두 발을 모아 깡총 뛰며(hopping) 걷지 않아요</strong>. 계절에 따라 먹이가 달라(봄·여름 곤충 / 가을·겨울 곡식·풀씨), 물목욕과 <strong>흙목욕(dust bath)</strong>으로 기생충을 없애지요. 한 번에 4~6개의 알을 낳고, 겨울엔 무리를 지어 체온을 지킵니다.</p>",
+      "image_prompt": "A sparrow taking a dust bath, informative children's book illustration, no text",
+      "alt": "흙목욕하는 참새",
+      "caption": "기생충 없애기"
+    },
+    {
+      "text_html": "<h2>탱고북 «참새»이 다루는 내용</h2><p>탱고북 «참새»는 깡총 뛰는 모습, 흙목욕하는 모습, 계절마다 다른 먹이, 무리 지어 겨울을 나는 참새를 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A flock of sparrows huddling in winter, gentle children's book illustration, no text",
+      "alt": "겨울 무리 참새",
+      "caption": "함께 견디는 겨울"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>깡총 뛰기(hopping), 흙목욕, 계절 먹이, 겨울 무리 같은 포인트를 짚어 주세요. \"참새는 왜 깡총깡총 뛸까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of a sparrow with brown head and cheek spot, observational children's book illustration, no text",
+      "alt": "참새 얼굴",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>공원·창밖에서 참새가 깡총 뛰는 모습을 관찰해 보세요. 흙에서 파닥이는 흙목욕을 발견하면 \"기생충을 없애는 거야\"를 이야기하면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child watching sparrows outside a window, warm children's book illustration, no text",
+      "alt": "참새를 관찰하는 부모와 아이",
+      "caption": "창밖 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 참새는 왜 걷지 않고 뛰나요?</strong><br>A. 두 발을 모아 깡총 뛰는 방식(hopping)으로 이동합니다. 작은 새들이 흔히 그래요.</p><p><strong>Q. 흙목욕은 왜 하나요?</strong><br>A. 물목욕과 함께 깃털 사이의 기생충을 없애기 위해서입니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 깡총 뛰기·흙목욕 관찰, 계절마다 먹이 달라지는 점 이야기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

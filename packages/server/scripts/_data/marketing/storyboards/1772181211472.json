@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772181211472",
+  "title": "우당탕탕 염소 삼 형제",
+  "hook": "염소 삼 형제 는 푸른 풀밭으로 가려고 다리를 건너는 세 염소와, 다리…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "염소 삼 형제 는 푸른 풀밭으로 가려고 다리를 건너는 세 염소와, 다리 밑 괴물 트롤의 이야기입니다.",
+      "screen": "우당탕탕 염소 삼 형제, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "우당탕탕 염소 삼 형제, 어떤 동화인가요…",
+      "imagePrompt": "Three goats of small, medium, and large size by a wooden bridge over a stream, green hills beyond, cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "노르웨이 전래 동화 「Three Billy Goats Gruff」가 원작으로, 19세기 아스비외른센과 모에가 수집했습니다. \"다그닥 다그닥\" 다리 건너는 소리와 트롤의 위협, 그리고 가장 큰 염소가…",
+      "screen": "우당탕탕 염소 삼 형제 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "우당탕탕 염소 삼 형제 원작 이야기",
+      "imagePrompt": "A big strong goat facing a grumpy troll under a bridge, brave and lighthearted children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "풀을 먹으러 가려면 트롤이 사는 다리를 건너야 합니다. 작은 염소와 둘째 염소는 \"곧 더 큰 형이 올 거예요\"라며 지혜롭게 트롤을 넘기고, 마지막에 가장 크고 힘센 염소가 트롤을 단단히 물리쳐 모두…",
+      "screen": "염소 삼 형제 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "염소 삼 형제 줄거리 요약",
+      "imagePrompt": "Three happy goats grazing together on a lush green hilltop after crossing the bridge, peaceful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 겁나는 상황에서도 지혜롭게 생각하고, 필요할 땐 용기를 내는 것 입니다. 작은 힘도 차례와 협력으로 큰 어려움을 넘을 수 있음을 아이와 이야기해 보세요.",
+      "screen": "염소 삼 형제가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "염소 삼 형제가 주는 교훈",
+      "imagePrompt": "The smallest goat cleverly talking its way past the troll, witty gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "우당탕탕 염소 삼 형제, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

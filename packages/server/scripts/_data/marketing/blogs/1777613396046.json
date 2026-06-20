@@ -1,0 +1,46 @@
+{
+  "storybookId": "1777613396046",
+  "seo_title": "게 특징과 옆걸음의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "게",
+  "secondary_keywords": ["게 특징", "게 옆걸음", "게 탈피", "유아 자연관찰 책", "바다 동물 그림책"],
+  "url_slug": "crab-nature-for-kids",
+  "meta_description": "게가 옆으로 걷는 이유와 단단한 껍데기, 탈피 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>게, 어떤 점이 신기할까요?</h2><p>옆으로 걷는 <strong>게</strong>는 단단한 껍데기와 큰 집게를 가진 바닷가의 인기 친구예요. 옆걸음에 재미있는 이유가 있답니다.</p>",
+      "image_prompt": "A crab on the beach with big claws, cute children's book illustration, no text",
+      "alt": "게",
+      "caption": "옆으로 걷는 게"
+    },
+    {
+      "text_html": "<h2>게의 자연·과학 사실</h2><p>게의 몸은 단단한 <strong>껍데기(외골격)</strong>로 덮여 갑옷 같아요. 다리 마디 구조 때문에 <strong>앞보다 옆으로 걷는 게 더 빠르고 편해</strong> 옆걸음을 치지요. 큰 <strong>집게</strong>는 먹이를 집고 몸을 지키고 신호를 보내는 데 두루 써요. 자라면서 작아진 껍데기를 벗고 새것으로 갈아입는 <strong>탈피</strong>를 하는데, 막 벗었을 땐 말랑해 숨어 지냅니다.</p>",
+      "image_prompt": "A crab walking sideways on sand, informative children's book illustration, no text",
+      "alt": "옆걸음하는 게",
+      "caption": "옆걸음의 비밀"
+    },
+    {
+      "text_html": "<h2>탱고북 «게»이 다루는 내용</h2><p>탱고북 «게»는 옆으로 걷는 모습, 단단한 껍데기, 큰 집게, 껍데기를 갈아입는 탈피, 갯벌·모래의 구멍 집을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A crab shedding its old shell (molting), fascinating children's book illustration, no text",
+      "alt": "탈피하는 게",
+      "caption": "껍데기 갈아입기"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>외골격(갑옷), 옆걸음, 집게(다용도), 탈피 같은 포인트를 짚어 주세요. \"게는 왜 옆으로 걸을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of crab big claw, observational children's book illustration, no text",
+      "alt": "게 집게",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>게처럼 옆으로 걷는 놀이를 해 보세요. \"껍데기가 작아지면 벗고 새것으로 갈아입어(탈피)\"를 알려 주고, 갯벌에서 게구멍을 찾으면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child walking sideways like crabs, warm children's book illustration, no text",
+      "alt": "옆으로 걷는 부모와 아이",
+      "caption": "게 걸음 놀이"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 게는 왜 옆으로 걷나요?</strong><br>A. 다리 마디 구조 때문에 앞보다 옆으로 걷는 것이 더 빠르고 편하기 때문입니다.</p><p><strong>Q. 게는 어떻게 자라나요?</strong><br>A. 작아진 껍데기를 벗고 새 껍데기로 갈아입는 \"탈피\"를 합니다. 막 벗었을 땐 몸이 말랑해요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 옆걸음 놀이, 갯벌에서 게구멍 찾기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "storybookId": "1777447602938",
+  "seo_title": "표범 특징과 로제트 무늬의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "표범",
+  "secondary_keywords": ["표범 특징", "표범 무늬", "표범 생태", "유아 동물 책", "동물 그림책"],
+  "url_slug": "leopard-nature-for-kids",
+  "meta_description": "표범의 꽃 모양 무늬(로제트)와 나무를 잘 타는 비밀, 은밀한 사냥 등 신기한 사실과, 탱고북 동물 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>표범, 어떤 점이 신기할까요?</h2><p>꽃잎 같은 무늬를 가진 <strong>표범</strong>은 고양잇과 중에서도 나무를 가장 잘 타는 은밀한 사냥꾼이에요.</p>",
+      "image_prompt": "A leopard with rosette spots resting on a tree branch, gentle children's book illustration, no text",
+      "alt": "표범",
+      "caption": "나무 위 표범"
+    },
+    {
+      "text_html": "<h2>표범의 자연·과학 사실</h2><p>표범 온몸의 <strong>꽃 모양 무늬(로제트)</strong>는 나뭇잎 그늘 사이에 몸을 숨기기 좋아요. 나무를 잘 타서 <strong>잡은 먹이를 나무 위로 끌어 올려</strong> 사자·하이에나에게 빼앗기지 않는 영리함을 보이지요. 혼자 사는 <strong>단독 사냥꾼</strong>으로, 소리 없이 다가가 단숨에 덮치는 은밀한 사냥에 능하고, 어두운 곳에서도 잘 보는 눈과 강한 다리, 날카로운 발톱을 가졌습니다.</p>",
+      "image_prompt": "A close-up of leopard rosette pattern, informative children's book illustration, no text",
+      "alt": "표범 로제트 무늬",
+      "caption": "꽃 모양 무늬"
+    },
+    {
+      "text_html": "<h2>탱고북 «표범»이 다루는 내용</h2><p>탱고북 «표범»은 로제트 무늬로 몸을 숨기는 모습, 나무에 먹이를 올리는 모습, 소리 없이 다가가는 사냥 등 표범의 영리함을 박진감 있게 보여 줍니다.</p>",
+      "image_prompt": "A leopard dragging prey up a tree, dynamic children's book illustration, no text",
+      "alt": "먹이를 나무로 올리는 표범",
+      "caption": "영리한 먹이 보관"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>로제트 무늬(위장), 나무 타기(먹이 보관), 단독 사냥, 야간 시력 같은 포인트를 짚어 주세요. \"표범은 왜 먹이를 나무에 올릴까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A leopard stalking silently in the grass, observational children's book illustration, no text",
+      "alt": "몰래 다가가는 표범",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>표범·치타·재규어의 무늬를 사진으로 비교하며 \"꽃 모양 로제트\"를 찾아보세요. \"나무에 올려 빼앗기지 않는 똑똑함\"을 이야기하면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child comparing spotted big cats, warm children's book illustration, no text",
+      "alt": "점박이 고양잇과를 비교하는 부모와 아이",
+      "caption": "무늬 비교"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 표범은 왜 먹이를 나무에 올리나요?</strong><br>A. 사자·하이에나에게 빼앗기지 않으려고 잡은 먹이를 나무 위로 끌어 올립니다. 아주 영리해요.</p><p><strong>Q. 표범 무늬는 어떻게 생겼나요?</strong><br>A. 꽃잎처럼 생긴 \"로제트\" 무늬입니다. 나뭇잎 그늘 사이에 몸을 숨기는 위장에 좋아요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 표범·치타·재규어 무늬 비교, \"나무에 먹이 올리는 똑똑함\" 이야기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

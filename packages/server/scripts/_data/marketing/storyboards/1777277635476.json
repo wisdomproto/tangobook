@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777277635476",
+  "title": "소공녀",
+  "hook": "소공녀 는 부유했던 소녀 세라가 갑자기 어려운 처지가 되어도 품위와 친절…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "소공녀 는 부유했던 소녀 세라가 갑자기 어려운 처지가 되어도 품위와 친절, 상상력을 잃지 않는 이야기입니다.",
+      "screen": "소공녀, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "소공녀, 어떤 동화인가요?",
+      "imagePrompt": "A kind girl in modest clothes helping others with a warm dignified smile, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "영국 작가 프랜시스 호지슨 버넷 이 1905년에 발표한 작품입니다. 부유한 기숙학교 학생이던 세라가 아버지의 일로 하루아침에 하녀 신세가 되지만, 끝까지 친절과 품위를 지키다 결국 행복을 되찾는 이…",
+      "screen": "소공녀 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "소공녀 원작 이야기",
+      "imagePrompt": "A girl sharing her bread kindly with a hungry child on a cold street, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "부유했던 세라는 아버지의 갑작스러운 불행으로 하녀처럼 힘든 생활을 하게 됩니다. 그러나 상상력으로 어려움을 견디고 더 어려운 이를 도우며 품위를 잃지 않지요.",
+      "screen": "소공녀 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "소공녀 줄거리 요약",
+      "imagePrompt": "A girl imagining a cozy warm room in a bare attic to comfort herself, hopeful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 어떤 처지에서도 친절과 품위를 잃지 않는 마음, 그리고 더 어려운 이를 돕는 따뜻함 입니다. \"힘들 때도 친절할 수 있을까?\"를 아이와 이야기해 보세요.",
+      "screen": "소공녀가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "소공녀가 주는 교훈",
+      "imagePrompt": "A girl regaining happiness surrounded by caring people, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "소공녀, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

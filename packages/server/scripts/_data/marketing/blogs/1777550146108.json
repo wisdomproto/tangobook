@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777550146108",
+  "seo_title": "개구리 특징과 한살이의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "개구리",
+  "secondary_keywords": [
+    "개구리 특징",
+    "개구리 한살이",
+    "올챙이",
+    "유아 자연관찰 책",
+    "동물 그림책"
+  ],
+  "url_slug": "frog-nature-for-kids",
+  "meta_description": "개구리의 한살이(알→올챙이→개구리)와 피부 호흡, 울음주머니 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>개구리, 어떤 점이 신기할까요?</h2><p>연못의 노래꾼 <strong>개구리</strong>는 알에서 올챙이를 거쳐 개구리가 되는 신기한 한살이를 보여 주는 동물이에요.</p>",
+      "image_prompt": "A frog sitting on a lotus leaf in a pond, gentle children's book illustration, no text",
+      "alt": "개구리",
+      "caption": "연못의 노래꾼"
+    },
+    {
+      "text_html": "<h2>개구리의 자연·과학 사실</h2><p>개구리는 <strong>피부로도 산소를 흡수(피부 호흡)</strong>해 피부가 늘 축축해야 해요. 한살이는 <strong>알 → 올챙이(식물성 먹이) → 변태(뒷다리→앞다리→꼬리 흡수) → 개구리(곤충 먹이)</strong> 4단계로, 정말 극적으로 변하지요. 수컷의 <strong>울음주머니</strong>가 소리를 키우고, 머리 위로 튀어나온 눈으로 물속에서도 수면 위를 살펴요. 청개구리는 발가락 빨판으로 미끄러운 곳에 달라붙습니다.</p>",
+      "image_prompt": "The frog life cycle from egg to tadpole to frog, informative children's book illustration, no text",
+      "alt": "개구리 한살이",
+      "caption": "알에서 개구리로"
+    },
+    {
+      "text_html": "<h2>탱고북 «개구리»이 다루는 내용</h2><p>탱고북 «개구리»는 알 → 올챙이 → 다리가 나오는 변태 → 개구리가 되는 한살이, 울음주머니로 노래하는 모습을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A male frog with an inflated vocal sac singing, gentle children's book illustration, no text",
+      "alt": "울음주머니로 우는 개구리",
+      "caption": "소리를 키우는 주머니"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>한살이 4단계, 피부 호흡(축축함), 울음주머니, 튀어나온 눈 같은 포인트를 짚어 주세요. \"올챙이가 어떻게 개구리가 될까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A tadpole growing legs, observational children's book illustration, no text",
+      "alt": "다리가 나오는 올챙이",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>봄에 올챙이를 관찰하며 다리가 나오는 변태 과정을 며칠간 지켜보세요(관찰 후 제자리로). 개구리 울음소리를 들으며 \"수컷이 부르는 노래\"를 이야기하면 좋습니다.</p>",
+      "image_prompt": "A parent and child observing tadpoles in a pond, warm children's book illustration, no text",
+      "alt": "올챙이를 관찰하는 부모와 아이",
+      "caption": "올챙이 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 올챙이는 어떻게 개구리가 되나요?</strong><br>A. 뒷다리 → 앞다리가 나오고 꼬리가 흡수되는 \"변태\"를 거쳐 개구리가 됩니다.</p><p><strong>Q. 개구리 피부는 왜 축축한가요?</strong><br>A. 피부로도 산소를 흡수(피부 호흡)하기 때문입니다. 그래서 늘 촉촉해야 해요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 봄에 올챙이 변태 과정 관찰(제자리로), 개구리 울음소리 듣기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

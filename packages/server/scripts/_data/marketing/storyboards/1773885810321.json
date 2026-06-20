@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773885810321",
+  "title": "안킬로사우루스",
+  "hook": "온몸이 단단한 갑옷 으로 덮인 안킬로사우루스 는 살아있는 탱크 같은 초식…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "온몸이 단단한 갑옷 으로 덮인 안킬로사우루스 는 살아있는 탱크 같은 초식 공룡이에요.",
+      "screen": "안킬로사우루스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "안킬로사우루스, 어떤 점이 신기할까요?",
+      "imagePrompt": "An armored Ankylosaurus with a tail club, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "안킬로사우루스는 약 6,600만 년 전 북아메리카에 살았고 몸길이 6~11m였어요. 등을 덮은 장갑판(피부 속 뼈) 은 눈꺼풀까지 뼈로 덮였을 정도였지요.",
+      "screen": "안킬로사우루스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "안킬로사우루스의 자연·과학 사실",
+      "imagePrompt": "A close-up of Ankylosaurus bony armor plates, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «안킬로사우루스»는 단단한 등 갑옷, 꼬리 곤봉, 배를 숨기는 방어 자세, 천적과 맞서는 모습 등 갑옷 공룡을 박진감 있게 보여 줍니다.",
+      "screen": "탱고북 «안킬로사우루스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «안킬로사우루스»이 다루는 내용",
+      "imagePrompt": "An Ankylosaurus swinging its tail club at a predator, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "등 갑옷(뼈 판), 꼬리 곤봉(무기), 약점(배), 방어 자세 같은 포인트를 짚어 주세요. \"왜 배를 땅에 붙였을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "An Ankylosaurus pressing its belly to the ground, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "안킬로사우루스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

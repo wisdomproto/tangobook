@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777613050117",
+  "title": "문어",
+  "hook": "바다에서 가장 똑똑한 동물 중 하나인 문어 는 여덟 개의 다리로 물건도…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "바다에서 가장 똑똑한 동물 중 하나인 문어 는 여덟 개의 다리로 물건도 잡고 맛도 느끼는 신기한 친구예요.",
+      "screen": "문어, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "문어, 어떤 점이 신기할까요?",
+      "imagePrompt": "An octopus with eight arms in the sea, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "문어의 여덟 다리에는 수많은 빨판 이 있어 물건을 잡고 맛도 느껴요. 주변과 어울리게 몸 색·무늬를 순식간에 바꿔 몸을 숨기고(위장) , 위험하면 먹물을 뿜어 적의 눈을 가린 뒤 달아나지요.",
+      "screen": "문어의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "문어의 자연·과학 사실",
+      "imagePrompt": "An octopus changing color to camouflage, fascinating children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «문어»는 여덟 다리와 빨판, 색을 바꾸는 위장, 먹물을 뿜는 모습, 좁은 틈에 숨는 영리한 문어를 흥미진진하게 보여 줍니다.",
+      "screen": "탱고북 «문어»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «문어»이 다루는 내용",
+      "imagePrompt": "An octopus releasing ink to escape, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "빨판(잡기·맛), 위장(색 바꾸기), 먹물(도망), 말랑한 몸 같은 포인트를 짚어 주세요. \"문어는 어떻게 몸을 숨길까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of octopus suckers, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "문어, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

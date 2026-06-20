@@ -1,0 +1,43 @@
+{
+  "storybookId": "1772107608499",
+  "caption": "300년을 이어온 신데렐라, 아이에게 어떻게 읽어줄까요? 착한 마음을 지키는 힘과 원작 이야기까지 — 탱고북 동화로 만나요. 🪄",
+  "hashtags": ["신데렐라", "명작동화", "유아동화", "동화책추천", "잠자리동화", "탱고북"],
+  "slides": [
+    {
+      "header": "탱고북 명작동화",
+      "title": "신데렐라,\n왜 300년째 사랑받을까?",
+      "body": "착한 마음과 따뜻한 미소가 가장 강한 마법이 되는 이야기.",
+      "image_prompt": "A kind girl in worn clothes smiling softly by a warm fireplace, classic fairy tale storybook illustration, no text"
+    },
+    {
+      "header": "원작 이야기",
+      "title": "뿌리는 기원전 그리스",
+      "body": "신발이 주인을 찾아가는 모티프는 그리스 로도피스 이야기까지 거슬러 올라가요.",
+      "image_prompt": "An ancient golden sandal on marble steps, soft mythic light, storybook illustration, no text"
+    },
+    {
+      "header": "유리 구두의 탄생",
+      "title": "요정 대모 · 호박 마차",
+      "body": "우리가 아는 요정 대모, 호박 마차, 유리 구두는 샤를 페로(1697) 버전에서 처음 등장.",
+      "image_prompt": "A glowing pumpkin carriage and a glass slipper under moonlight, magical fairy tale illustration, no text"
+    },
+    {
+      "header": "아이와 나눌 교훈",
+      "title": "착함은 약함이 아니에요",
+      "body": "힘든 상황에서도 마음을 지키는 단단함 — 그게 신데렐라의 진짜 마법이에요.",
+      "image_prompt": "A girl standing calm and dignified amid difficulty, gentle warm storybook illustration, no text"
+    },
+    {
+      "header": "읽어주는 법",
+      "title": "\"너라면 어땠을까?\"",
+      "body": "결말만 말하지 말고, 마음을 지킨 과정을 아이와 함께 이야기해 보세요. (4~7세)",
+      "image_prompt": "A parent and child reading a fairy tale book together at bedtime, cozy warm illustration, no text"
+    },
+    {
+      "header": "탱고북",
+      "title": "동화로 자라는\n4~7세",
+      "body": "쉬운 문장·생생한 대화체로 각색. 7일 무료체험 · tangobook.co.kr",
+      "image_prompt": "Tangobook brand closing scene, warm coral and peach storybook style, no text"
+    }
+  ]
+}

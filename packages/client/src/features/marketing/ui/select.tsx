@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { marketingPortalTarget } from './portal-target';
 import { createPortal } from 'react-dom';
 import { ChevronDown, Check } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -253,7 +254,7 @@ function SelectContent({
     >
       {children}
     </div>,
-    document.body
+    marketingPortalTarget()
   );
 }
 

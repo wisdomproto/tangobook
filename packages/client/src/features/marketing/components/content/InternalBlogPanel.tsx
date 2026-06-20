@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChannelTranslationView } from './ChannelTranslationView';
-import { Loader2, Monitor, Smartphone, RefreshCw, Eye, Calendar, Search } from 'lucide-react';
+import { Loader2, Monitor, Smartphone, RefreshCw, Eye, Calendar, Search, Copy } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
 import { Badge } from '../../ui/badge';
@@ -420,6 +420,7 @@ function InternalBlogPanelInner({
 
   // ── Preview dialog ────────────────────────────────────────────────────────
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [promptsCopied, setPromptsCopied] = useState(false);
 
   // ── Local card state ──────────────────────────────────────────────────────
   const [localCards, setLocalCards] = useState<BlogCard[]>(cards);
@@ -601,6 +602,38 @@ function InternalBlogPanelInner({
       });
     },
   });
+
+  // 섹션 1개의 이미지 프롬프트 해석 (전체 이미지 생성과 동일한 규칙)
+  const resolveCardPrompt = useCallback(
+    (card: BlogCard, idx: number): string => {
+      const c = card.content as { image_prompt?: string } | undefined;
+      if (c?.image_prompt) {
+        return `${channelModels.imageStyle ? channelModels.imageStyle + '. ' : ''}${c.image_prompt}`;
+      }
+      return buildBlogImagePromptForCard(
+        project,
+        localCards,
+        idx,
+        channelModels.imageStyle,
+        channelModels.imageInstruction
+      );
+    },
+    [channelModels, project, localCards]
+  );
+
+  // 전체 섹션의 이미지 프롬프트를 한 번에 클립보드로 복사
+  const handleCopyAllPrompts = useCallback(async () => {
+    const sorted = localCards.slice().sort((a, b) => a.sort_order - b.sort_order);
+    const text = sorted.map((c, i) => `[섹션 ${i + 1}] ${resolveCardPrompt(c, i)}`).join('\n\n');
+    try {
+      await navigator.clipboard.writeText(text);
+      setPromptsCopied(true);
+      setTimeout(() => setPromptsCopied(false), 1500);
+    } catch {
+      // 클립보드 권한 거부 시 무시 (사용자가 수동 복사 가능하도록 alert 폴백)
+      window.prompt('전체 이미지 프롬프트 (Ctrl+C 로 복사)', text);
+    }
+  }, [localCards, resolveCardPrompt]);
 
   // ── Generate handler ──────────────────────────────────────────────────────
   const handleGenerate = useCallback(() => {
@@ -942,6 +975,16 @@ function InternalBlogPanelInner({
                     취소
                   </Button>
                 )}
+                <Button
+                  size="xs"
+                  variant="outline"
+                  onClick={handleCopyAllPrompts}
+                  disabled={localCards.length === 0}
+                  className="gap-1 text-xs ml-auto"
+                  title="모든 섹션의 이미지 프롬프트를 한 번에 복사"
+                >
+                  <Copy size={11} /> {promptsCopied ? '복사됨!' : '전체 프롬프트 복사'}
+                </Button>
               </div>
 
               {/* Card list */}

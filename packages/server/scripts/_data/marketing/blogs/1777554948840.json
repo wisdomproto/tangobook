@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777554948840",
+  "seo_title": "올빼미 특징과 소리 없는 비행의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "올빼미",
+  "secondary_keywords": [
+    "올빼미 특징",
+    "올빼미 생태",
+    "야행성 새",
+    "유아 자연관찰 책",
+    "새 그림책"
+  ],
+  "url_slug": "owl-nature-for-kids",
+  "meta_description": "올빼미가 목을 270도 돌리고 소리 없이 나는 비밀, 펠릿 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>올빼미, 어떤 점이 신기할까요?</h2><p>밤의 사냥꾼 <strong>올빼미</strong>는 큰 눈과 멋진 얼굴을 가진 신비로운 새예요. 목을 빙글 돌리고 소리 없이 나는 능력이 놀랍습니다.</p>",
+      "image_prompt": "An owl perched on a branch at night with big eyes, gentle children's book illustration, no text",
+      "alt": "올빼미",
+      "caption": "밤의 사냥꾼"
+    },
+    {
+      "text_html": "<h2>올빼미의 자연·과학 사실</h2><p>올빼미의 둥근 <strong>얼굴판은 소리를 귀로 모아 주고</strong>, 귀가 비대칭이라 소리의 위치를 정확히 알아내요. 눈이 앞으로 고정돼 <strong>목을 약 270도까지</strong> 돌리지요. 깃털의 빗살 구조 덕분에 <strong>거의 소리 없이 날아</strong> 먹이가 눈치채지 못해요. 먹이를 뼈·털째 삼킨 뒤 소화 안 되는 부분을 <strong>펠릿</strong>으로 뱉어내고, 나무 구멍을 둥지로 씁니다.</p>",
+      "image_prompt": "An owl turning its head far around, informative children's book illustration, no text",
+      "alt": "목을 돌리는 올빼미",
+      "caption": "270도 목 돌리기"
+    },
+    {
+      "text_html": "<h2>탱고북 «올빼미»이 다루는 내용</h2><p>탱고북 «올빼미»는 큰 눈과 얼굴판, 목을 돌리는 모습, 소리 없이 나는 비행, 밤에 사냥하는 모습을 신비롭게 보여 줍니다.</p>",
+      "image_prompt": "An owl flying silently through the dark, gentle children's book illustration, no text",
+      "alt": "소리 없이 나는 올빼미",
+      "caption": "조용한 비행"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>얼굴판(소리 모으기), 270도 목 돌리기, 소리 없는 비행, 펠릿 같은 포인트를 짚어 주세요. \"올빼미는 왜 목을 많이 돌릴까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of an owl facial disc, observational children's book illustration, no text",
+      "alt": "올빼미 얼굴판",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"눈이 고정돼서 목을 많이 돌려\"를 직접 목을 돌려 보며 비교해 보세요. 소리 없는 비행 영상을 보고, 다른 야행성 동물과 함께 이야기하면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child turning their heads to compare with an owl, warm children's book illustration, no text",
+      "alt": "목을 돌려 보는 부모와 아이",
+      "caption": "목 돌리기 비교"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 올빼미는 왜 목을 많이 돌리나요?</strong><br>A. 눈이 앞으로 고정돼 있어 눈을 굴리지 못하기 때문에 목을 약 270도까지 돌려 주위를 봅니다.</p><p><strong>Q. 올빼미는 어떻게 소리 없이 나나요?</strong><br>A. 깃털의 빗살 구조 덕분입니다. 먹이가 눈치채지 못하게 조용히 다가가요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 목 돌리기 비교, 소리 없는 비행 영상 보기, 펠릿 이야기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

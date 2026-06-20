@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773728551576",
+  "title": "아파토사우루스",
+  "hook": "농구 코트보다 긴 아파토사우루스 는 채찍처럼 휘두르는 긴 꼬리를 가진 거…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "농구 코트보다 긴 아파토사우루스 는 채찍처럼 휘두르는 긴 꼬리를 가진 거대 초식 공룡이에요.",
+      "screen": "아파토사우루스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "아파토사우루스, 어떤 점이 신기할까요?",
+      "imagePrompt": "A huge Apatosaurus with a very long neck and tail, majestic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "아파토사우루스는 몸길이 약 23~27m, 몸무게 22~40톤이었어요. 목 길이가 8~9m로 땅과 수평으로 뻗어 낮은 식물을 넓게 훑어 먹었지요 .",
+      "screen": "아파토사우루스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "아파토사우루스의 자연·과학 사실",
+      "imagePrompt": "An Apatosaurus eating low plants with its horizontal neck, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «아파토사우루스»는 거대한 몸집, 길게 뻗은 목, 채찍 같은 꼬리, 무리 지어 사는 모습 등 거대 초식 공룡을 웅장하게 보여 줍니다.",
+      "screen": "탱고북 «아파토사우루스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «아파토사우루스»이 다루는 내용",
+      "imagePrompt": "An Apatosaurus swinging its long whip-like tail, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "긴 몸(코트보다 김), 수평 목(낮은 식물), 채찍 꼬리, 위석(소화) 같은 포인트를 짚어 주세요. \"꼬리로 소리를 냈다니 신기하지?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A close-up of pencil-shaped teeth and a gastrolith stone, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "아파토사우루스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

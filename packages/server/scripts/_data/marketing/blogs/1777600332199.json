@@ -1,0 +1,46 @@
+{
+  "storybookId": "1777600332199",
+  "seo_title": "타조 특징과 빠른 달리기의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "타조",
+  "secondary_keywords": ["타조 특징", "타조 알", "못 나는 새", "유아 자연관찰 책", "새 그림책"],
+  "url_slug": "ostrich-nature-for-kids",
+  "meta_description": "타조가 가장 큰 새이지만 날지 못하고 빨리 달리는 비밀, 큰 알 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>타조, 어떤 점이 신기할까요?</h2><p>세상에서 가장 큰 새 <strong>타조</strong>는 하늘을 날지 못하는 대신 바람처럼 달리는 신기한 새예요. 알도 새 중에서 가장 크답니다.</p>",
+      "image_prompt": "A tall ostrich running fast across a savanna, dynamic children's book illustration, no text",
+      "alt": "타조",
+      "caption": "가장 큰 새"
+    },
+    {
+      "text_html": "<h2>타조의 자연·과학 사실</h2><p>타조는 몸이 너무 커서 <strong>날지 못하지만</strong>, 길고 튼튼한 다리로 새 중 가장 빠르게(시속 약 <strong>70km</strong>) 달려요. <strong>발가락이 단 두 개</strong>뿐이라 달리기에 유리하고, 위험하면 강한 발차기로 자신을 지키지요. 타조 알은 어른 손바닥보다 클 만큼 새 알 중 가장 커요. \"위험하면 모래에 머리를 묻는다\"는 말은 <strong>사실이 아닌 오해</strong>로, 알을 돌보려 고개를 숙인 모습이 그렇게 보인 거예요.</p>",
+      "image_prompt": "A close-up of ostrich strong legs with two toes, informative children's book illustration, no text",
+      "alt": "타조 다리",
+      "caption": "두 발가락의 비밀"
+    },
+    {
+      "text_html": "<h2>탱고북 «타조»이 다루는 내용</h2><p>탱고북 «타조»는 빠르게 달리는 모습, 가장 큰 알, 함께 새끼를 돌보는 부모, 무리 지어 사는 타조를 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A giant ostrich egg next to a hand, gentle children's book illustration, no text",
+      "alt": "타조 알",
+      "caption": "가장 큰 알"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>못 나는 새, 빠른 달리기(두 발가락), 큰 알, 모래 오해 같은 포인트를 짚어 주세요. \"타조는 왜 날지 못할까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "An ostrich family caring for chicks, observational children's book illustration, no text",
+      "alt": "타조 가족",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"새인데 못 날아? 대신 빨리 달려!\"를 달리기 놀이와 연결해 보세요. 타조 알의 크기를 손바닥과 비교하고, \"모래에 머리 묻는 건 오해\"를 알려 주면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child running together like ostriches, warm children's book illustration, no text",
+      "alt": "함께 달리는 부모와 아이",
+      "caption": "달리기 놀이"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 타조는 왜 날지 못하나요?</strong><br>A. 몸이 너무 커서 날지 못합니다. 대신 길고 튼튼한 다리로 새 중 가장 빨리 달려요(시속 약 70km).</p><p><strong>Q. 타조가 모래에 머리를 묻나요?</strong><br>A. 사실이 아닌 오해입니다. 알을 돌보려 고개를 숙인 모습이 그렇게 보인 거예요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 달리기 놀이 연결, 손바닥과 알 크기 비교, \"모래 오해\" 이야기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

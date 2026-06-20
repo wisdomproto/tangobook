@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773625335362",
+  "title": "맛있는 음식의 몸속 여행",
+  "hook": "맛있게 먹은 음식은 우리 몸속에서 긴 여행 을 떠나요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "맛있게 먹은 음식은 우리 몸속에서 긴 여행 을 떠나요.",
+      "screen": "음식의 몸속 여행, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "음식의 몸속 여행, 어떤 점이 신기할까요…",
+      "imagePrompt": "A friendly diagram of food traveling through a child digestive system, bright children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "음식은 입 에서 침(아밀라아제)으로 소화가 시작되고, 식도 는 근육의 연동 운동으로 음식을 밀어 내려요(거꾸로 서도 내려가요!). 위 는 위산으로 죽처럼 만들고, 약 6~7m의 소장 이 영양분을 흡…",
+      "screen": "음식의 몸속 여행의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "음식의 몸속 여행의 자연·과학 사실",
+      "imagePrompt": "Food being chewed in the mouth with saliva, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «맛있는 음식의 몸속 여행»은 입 → 식도 → 위 → 소장 → 대장으로 이어지는 음식의 여행과 각 기관의 역할을 아이 눈높이로 보여 줍니다.",
+      "screen": "탱고북 «맛있는 음식의 몸속 여행»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «맛있는 음식의 몸속 여행»이 다…",
+      "imagePrompt": "A long small intestine absorbing nutrients, friendly children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "입(침), 식도(밀어 내림), 위(죽), 소장(흡수), 대장(대변) 같은 포인트를 짚어 주세요. \"음식은 어디로 갈까?\"를 함께 따라가며 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A cartoon stomach turning food into liquid, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "맛있는 음식의 몸속 여행, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

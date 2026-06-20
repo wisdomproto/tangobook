@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777613050117",
+  "seo_title": "문어 특징과 위장의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "문어",
+  "secondary_keywords": [
+    "문어 특징",
+    "문어 위장",
+    "문어 빨판",
+    "유아 자연관찰 책",
+    "바다 동물 그림책"
+  ],
+  "url_slug": "octopus-nature-for-kids",
+  "meta_description": "문어의 여덟 다리와 빨판, 순식간에 색을 바꾸는 위장과 먹물 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>문어, 어떤 점이 신기할까요?</h2><p>바다에서 가장 똑똑한 동물 중 하나인 <strong>문어</strong>는 여덟 개의 다리로 물건도 잡고 맛도 느끼는 신기한 친구예요.</p>",
+      "image_prompt": "An octopus with eight arms in the sea, gentle children's book illustration, no text",
+      "alt": "문어",
+      "caption": "똑똑한 바다 친구"
+    },
+    {
+      "text_html": "<h2>문어의 자연·과학 사실</h2><p>문어의 여덟 다리에는 수많은 <strong>빨판</strong>이 있어 물건을 잡고 맛도 느껴요. 주변과 어울리게 <strong>몸 색·무늬를 순식간에 바꿔 몸을 숨기고(위장)</strong>, 위험하면 <strong>먹물을 뿜어</strong> 적의 눈을 가린 뒤 달아나지요. 단단한 뼈가 없는 말랑한 몸 덕분에 자기 몸보다 좁은 틈에도 쏙 들어가요. 문제를 푸는 영리함으로 과학자도 놀라게 하는 바다 친구입니다.</p>",
+      "image_prompt": "An octopus changing color to camouflage, fascinating children's book illustration, no text",
+      "alt": "위장하는 문어",
+      "caption": "색을 바꾸는 위장"
+    },
+    {
+      "text_html": "<h2>탱고북 «문어»이 다루는 내용</h2><p>탱고북 «문어»는 여덟 다리와 빨판, 색을 바꾸는 위장, 먹물을 뿜는 모습, 좁은 틈에 숨는 영리한 문어를 흥미진진하게 보여 줍니다.</p>",
+      "image_prompt": "An octopus releasing ink to escape, dynamic children's book illustration, no text",
+      "alt": "먹물을 뿜는 문어",
+      "caption": "먹물로 도망"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>빨판(잡기·맛), 위장(색 바꾸기), 먹물(도망), 말랑한 몸 같은 포인트를 짚어 주세요. \"문어는 어떻게 몸을 숨길까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of octopus suckers, observational children's book illustration, no text",
+      "alt": "문어 빨판",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"색을 바꿔 숨고, 먹물로 도망쳐\"를 카멜레온의 색 변화와 비교해 보세요. 빨판 개수가 아주 많다는 점을 손가락과 비교하면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child looking at an octopus picture, warm children's book illustration, no text",
+      "alt": "문어를 알아보는 부모와 아이",
+      "caption": "문어 탐구"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 문어는 어떻게 몸을 숨기나요?</strong><br>A. 몸 색과 무늬를 순식간에 바꿔 주변과 어울리게 위장합니다. 위험하면 먹물도 뿜어요.</p><p><strong>Q. 문어 빨판은 무엇을 하나요?</strong><br>A. 물건을 잡고 맛도 느낍니다. 여덟 다리에 빨판이 아주 많아요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 카멜레온 색 변화와 비교, 빨판 개수를 손가락과 비교하기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

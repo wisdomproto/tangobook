@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777615071158",
+  "seo_title": "판다 특징과 대나무·가짜 엄지의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "판다",
+  "secondary_keywords": [
+    "판다 특징",
+    "판다 대나무",
+    "판다 보호",
+    "유아 자연관찰 책",
+    "동물 그림책"
+  ],
+  "url_slug": "panda-nature-for-kids",
+  "meta_description": "판다가 곰인데 거의 대나무만 먹는 이유와 가짜 엄지, 멸종 위기 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>판다, 어떤 점이 신기할까요?</h2><p>검고 흰 무늬가 귀여운 <strong>판다</strong>는 곰의 한 종류이지만 거의 <strong>대나무만</strong> 먹고 사는 신기한 동물이에요.</p>",
+      "image_prompt": "A panda eating bamboo, cute children's book illustration, no text",
+      "alt": "판다",
+      "caption": "대나무를 먹는 곰"
+    },
+    {
+      "text_html": "<h2>판다의 자연·과학 사실</h2><p>판다(대왕판다)는 곰이지만 거의 대나무만 먹어요. 대나무는 영양이 적어 <strong>하루 중 아주 많은 시간을 먹는 데</strong> 쓰지요. 앞발엔 손목뼈가 변한 <strong>\"가짜 엄지\"</strong>가 있어 대나무를 손으로 쥐듯 잡고 먹어요. 검고 흰 무늬는 눈 덮인 산과 그늘에서 몸을 숨기는 데 도움이 된다고 알려져 있어요. 새끼는 아주 작게 태어나 엄마의 보살핌으로 자라고, <strong>수가 적어 보호받는 멸종 위기 동물</strong>이자 자연 보호의 상징입니다.</p>",
+      "image_prompt": "A close-up of panda paw holding bamboo with a fake thumb, informative children's book illustration, no text",
+      "alt": "판다 가짜 엄지",
+      "caption": "대나무를 쥐는 비밀"
+    },
+    {
+      "text_html": "<h2>탱고북 «판다»이 다루는 내용</h2><p>탱고북 «판다»는 대나무를 쥐고 먹는 모습, 가짜 엄지, 검고 흰 무늬, 새끼를 돌보는 엄마 판다를 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A mother panda with a tiny cub, heartwarming children's book illustration, no text",
+      "alt": "새끼를 돌보는 판다",
+      "caption": "작게 태어나는 새끼"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>곰인데 대나무, 가짜 엄지, 흑백 무늬, 멸종 위기 같은 포인트를 짚어 주세요. \"곰인데 왜 대나무만 먹을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of panda black and white pattern, observational children's book illustration, no text",
+      "alt": "판다 흑백 무늬",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"손목뼈가 변한 가짜 엄지로 대나무를 잡아\"를 우리 엄지와 비교해 보세요. \"자연 보호의 상징\"이라는 점을 이야기하면 생명을 아끼는 마음이 자랍니다.</p>",
+      "image_prompt": "A parent and child comparing thumbs while looking at a panda, warm children's book illustration, no text",
+      "alt": "엄지를 비교하는 부모와 아이",
+      "caption": "엄지 비교"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 판다는 곰인데 왜 대나무만 먹나요?</strong><br>A. 곰의 한 종류이지만 거의 대나무만 먹습니다. 영양이 적어 하루 대부분을 먹는 데 써요.</p><p><strong>Q. 가짜 엄지가 뭔가요?</strong><br>A. 손목뼈가 변한 부분으로, 대나무를 손으로 쥐듯 잡고 먹는 데 씁니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 우리 엄지와 가짜 엄지 비교, \"자연 보호의 상징\" 이야기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

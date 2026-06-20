@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { marketingPortalTarget } from './portal-target';
 import { createPortal } from 'react-dom';
 import { ChevronRight, Check } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -115,7 +116,7 @@ interface DropdownMenuPortalProps {
 }
 
 function DropdownMenuPortal({ children }: DropdownMenuPortalProps) {
-  return createPortal(children, document.body);
+  return createPortal(children, marketingPortalTarget());
 }
 
 // ---------------------------------------------------------------------------

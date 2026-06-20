@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777615067098",
+  "title": "하마",
+  "hook": "큰 몸집의 하마 는 하루 대부분을 물속에서 보내는 신기한 동물이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "큰 몸집의 하마 는 하루 대부분을 물속에서 보내는 신기한 동물이에요.",
+      "screen": "하마, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "하마, 어떤 점이 신기할까요?",
+      "imagePrompt": "A hippo resting in water, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "하마는 큰 몸집에도 하루의 대부분을 물속에서 보내요 — 뜨거운 햇볕으로부터 약한 피부를 보호하고 더위를 식히기 위해서지요(피부에서 붉은빛 액을 내기도 해요). 눈·코·귀가 머리 위쪽에 모여 있어 몸…",
+      "screen": "하마의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "하마의 자연·과학 사실",
+      "imagePrompt": "A hippo with eyes ears and nose above the water, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «하마»는 물속에서 지내는 모습, 머리 위에 모인 눈·코·귀, 입을 크게 벌리는 과시, 밤에 풀을 뜯는 하마를 정겹게 보여 줍니다.",
+      "screen": "탱고북 «하마»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «하마»이 다루는 내용",
+      "imagePrompt": "A hippo opening its mouth wide, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "물속 생활(피부 보호), 눈·코·귀 위치, 큰 입(과시), 초식·야행 같은 포인트를 짚어 주세요. \"하마는 왜 물속에 있을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A hippo grazing grass at night, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "하마, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

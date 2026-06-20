@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777607528952",
+  "title": "사슴벌레",
+  "hook": "멋진 집게 를 가진 사슴벌레 는 아이들에게 가장 인기 있는 곤충 중 하나…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "멋진 집게 를 가진 사슴벌레 는 아이들에게 가장 인기 있는 곤충 중 하나예요.",
+      "screen": "사슴벌레, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "사슴벌레, 어떤 점이 신기할까요?",
+      "imagePrompt": "A stag beetle with large jaws on a tree, cool children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "사슴벌레의 멋진 집게는 사실 크게 자란 턱 이에요(주로 수컷). 나무 수액이 잘 나오는 좋은 자리를 두고 다른 수컷과 집게로 밀어내는 힘겨루기 를 하지요(다치게 하기보다 밀어내기).",
+      "screen": "사슴벌레의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "사슴벌레의 자연·과학 사실",
+      "imagePrompt": "Two male stag beetles pushing with their jaws, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «사슴벌레»는 큰 집게(턱), 수액 자리를 두고 겨루는 모습, 썩은 나무 속 애벌레, 겉날개를 펼쳐 나는 모습을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «사슴벌레»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «사슴벌레»이 다루는 내용",
+      "imagePrompt": "A stag beetle larva inside rotting wood, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "집게=턱, 힘겨루기(밀어내기), 완전변태, 썩은 나무 애벌레 같은 포인트를 짚어 주세요. \"집게는 사실 무엇일까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of stag beetle jaws (large mandibles), observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "사슴벌레, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773365183265",
+  "title": "민들레",
+  "hook": "노란 꽃이 하얀 솜털 공이 되어 바람에 날아가는 민들레 는 아이들이 가장…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "노란 꽃이 하얀 솜털 공이 되어 바람에 날아가는 민들레 는 아이들이 가장 좋아하는 봄 식물이에요.",
+      "screen": "민들레, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "민들레, 어떤 점이 신기할까요?",
+      "imagePrompt": "A yellow dandelion next to a white fluffy dandelion seed head in a meadow, bright children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "민들레 꽃 한 송이는 사실 수백 개의 작은 꽃이 모인 것 이에요. 씨앗에는 깃털 같은 낙하산(관모)이 달려 바람을 타고 멀리 날아가는데, 씨앗들 사이에 공기 기둥을 만들어 아주 안정적으로 나는 정교…",
+      "screen": "민들레의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "민들레의 자연·과학 사실",
+      "imagePrompt": "Dandelion seeds with feathery parachutes floating in the wind, whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «민들레»는 노란 꽃이 솜털 공으로 변하고, 바람에 씨앗이 흩날려 새 땅에 뿌리내리는 한살이를 따뜻하게 보여 줍니다. 강인하게 다시 피어나는 모습이 인상적이에요.",
+      "screen": "탱고북 «민들레»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «민들레»이 다루는 내용",
+      "imagePrompt": "A dandelion with a deep strong taproot underground, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "꽃(작은 꽃 수백 개), 씨앗(낙하산), 뿌리(강인함), 바람 타고 퍼지기 같은 포인트를 짚어 주세요. \"후 불면 씨앗은 어떻게 날아갈까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Close-up of a single dandelion seed parachute, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "민들레, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

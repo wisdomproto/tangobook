@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777554948840",
+  "title": "올빼미",
+  "hook": "밤의 사냥꾼 올빼미 는 큰 눈과 멋진 얼굴을 가진 신비로운 새예요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "밤의 사냥꾼 올빼미 는 큰 눈과 멋진 얼굴을 가진 신비로운 새예요.",
+      "screen": "올빼미, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "올빼미, 어떤 점이 신기할까요?",
+      "imagePrompt": "An owl perched on a branch at night with big eyes, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "올빼미의 둥근 얼굴판은 소리를 귀로 모아 주고 , 귀가 비대칭이라 소리의 위치를 정확히 알아내요. 눈이 앞으로 고정돼 목을 약 270도까지 돌리지요.",
+      "screen": "올빼미의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "올빼미의 자연·과학 사실",
+      "imagePrompt": "An owl turning its head far around, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «올빼미»는 큰 눈과 얼굴판, 목을 돌리는 모습, 소리 없이 나는 비행, 밤에 사냥하는 모습을 신비롭게 보여 줍니다.",
+      "screen": "탱고북 «올빼미»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «올빼미»이 다루는 내용",
+      "imagePrompt": "An owl flying silently through the dark, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "얼굴판(소리 모으기), 270도 목 돌리기, 소리 없는 비행, 펠릿 같은 포인트를 짚어 주세요. \"올빼미는 왜 목을 많이 돌릴까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of an owl facial disc, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "올빼미, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

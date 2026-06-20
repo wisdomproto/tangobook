@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773365186209",
+  "seo_title": "강아지풀 특징과 비밀 — 조의 야생 조상 자연관찰 그림책",
+  "primary_keyword": "강아지풀",
+  "secondary_keywords": [
+    "강아지풀 특징",
+    "강아지풀 생태",
+    "강아지풀 씨앗",
+    "유아 자연관찰 책",
+    "식물 그림책"
+  ],
+  "url_slug": "foxtail-grass-nature-for-kids",
+  "meta_description": "강아지풀의 복슬복슬한 이삭과 조의 야생 조상이라는 사실 등 신기한 이야기와, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>강아지풀, 어떤 점이 신기할까요?</h2><p>복슬복슬한 이삭을 살랑이는 <strong>강아지풀</strong>은 길가 어디서나 만나는 친근한 풀이에요. 강아지 꼬리를 닮아 이름도 귀엽지요.</p>",
+      "image_prompt": "Fluffy foxtail grass swaying in a field along a path, warm children's book illustration, no text",
+      "alt": "길가의 강아지풀",
+      "caption": "강아지 꼬리 닮은 풀"
+    },
+    {
+      "text_html": "<h2>강아지풀의 자연·과학 사실</h2><p>강아지풀은 전 세계에 널리 퍼진 풀로, 놀랍게도 우리가 먹는 곡식 <strong>조(粟)의 야생 조상</strong>이에요. 먼 옛날 사람들이 강아지풀 씨앗을 모아 먹다 길러서 조를 만든 것이지요. 이삭의 긴 털(강모)은 씨앗을 보호하고 동물 털·옷에 붙어 멀리 퍼지게 돕습니다. 가을에 익은 씨앗은 참새·비둘기의 중요한 먹이가 돼요.</p>",
+      "image_prompt": "Close-up of foxtail grass seed head with bristles, informative children's book illustration, no text",
+      "alt": "강아지풀 이삭",
+      "caption": "씨앗을 지키는 털"
+    },
+    {
+      "text_html": "<h2>탱고북 «강아지풀»이 다루는 내용</h2><p>탱고북 «강아지풀»은 바람에 살랑이는 이삭, 강아지 꼬리처럼 보이는 모습, 씨앗이 동물에 붙어 퍼지는 과정, 새들의 먹이가 되는 모습을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "Sparrows eating foxtail grass seeds in autumn, gentle children's book illustration, no text",
+      "alt": "강아지풀 씨앗을 먹는 참새",
+      "caption": "새들의 먹이"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>이삭(복슬복슬·강아지 꼬리), 긴 털(씨앗 보호·이동), 새 먹이, 길가에서 흔히 보기 같은 포인트를 짚어 주세요. \"왜 이삭이 옷에 잘 붙을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A foxtail grass spike resting on a child's palm, observational children's book illustration, no text",
+      "alt": "손바닥 위 강아지풀",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>산책길에서 강아지풀을 꺾어 손바닥 위에서 \"강아지처럼\" 움직여 보세요(털 때문에 기어가듯 움직임). 이삭이 옷에 붙는 걸 관찰하고, 조(곡식)와 연결해 보면 좋습니다.</p>",
+      "image_prompt": "A parent and child playing with foxtail grass on a walk, warm children's book illustration, no text",
+      "alt": "강아지풀로 노는 부모와 아이",
+      "caption": "강아지풀 놀이"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 강아지풀이 곡식과 관련이 있나요?</strong><br>A. 네, 우리가 먹는 곡식 \"조\"의 야생 조상입니다. 옛사람들이 길러서 조를 만들었어요.</p><p><strong>Q. 이삭은 왜 옷에 잘 붙나요?</strong><br>A. 이삭의 긴 털이 동물 털이나 옷에 붙어 씨앗을 멀리 퍼뜨리도록 돕기 때문입니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 손바닥 위 \"강아지 움직임\" 놀이, 옷에 붙는 관찰, 조 곡식과 연결하기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773720828930",
+  "title": "스피노사우루스",
+  "hook": "등에 커다란 돛 을 단 스피노사우루스 는 물속에서 헤엄쳤을지 모르는 특별…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "등에 커다란 돛 을 단 스피노사우루스 는 물속에서 헤엄쳤을지 모르는 특별한 공룡이에요.",
+      "screen": "스피노사우루스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "스피노사우루스, 어떤 점이 신기할까요?",
+      "imagePrompt": "A Spinosaurus with a huge sail wading in water, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "연구에 따르면 스피노사우루스의 뼈는 다른 공룡보다 조밀하고 무거워 물속 생활에 적응했고, 꼬리는 노처럼 넓어 헤엄에 알맞았어요. 주둥이 끝엔 악어처럼 수압을 감지하는 구멍도 있었지요.",
+      "screen": "스피노사우루스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "스피노사우루스의 자연·과학 사실",
+      "imagePrompt": "A Spinosaurus catching a fish with its long snout, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «스피노사우루스»는 등의 거대한 돛, 물고기를 잡는 긴 주둥이, 물가에서 헤엄치며 사냥하는 모습을 박진감 있게 보여 줍니다.",
+      "screen": "탱고북 «스피노사우루스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «스피노사우루스»이 다루는 내용",
+      "imagePrompt": "A Spinosaurus swimming with its paddle-like tail, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "등 돛(과시), 긴 주둥이(물고기 사냥), 노 같은 꼬리(헤엄), 무거운 뼈(수생 적응) 같은 포인트를 짚어 주세요. \"공룡이 헤엄을 쳤다니 신기하지?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A close-up of the tall sail on Spinosaurus back, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "스피노사우루스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

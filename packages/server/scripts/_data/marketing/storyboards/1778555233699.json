@@ -1,0 +1,48 @@
+{
+  "storybookId": "1778555233699",
+  "title": "백설공주",
+  "hook": "백설공주 는 질투에 찬 새 왕비를 피해 일곱 난쟁이와 지내던 공주가 시련…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "백설공주 는 질투에 찬 새 왕비를 피해 일곱 난쟁이와 지내던 공주가 시련을 이겨 내는 이야기입니다.",
+      "screen": "백설공주, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백설공주, 어떤 동화인가요?",
+      "imagePrompt": "A kind princess with seven cheerful dwarfs in a cozy forest cottage, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "독일 그림 형제 가 1812년 수록한 민담(KHM 53)입니다. \"거울아, 거울아\" 마법 거울, 독사과, 유리관, 일곱 난쟁이 등 상징적 장면이 유명합니다.",
+      "screen": "백설공주 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백설공주 원작 이야기",
+      "imagePrompt": "A magic mirror glowing on a castle wall, whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "마법 거울이 백설공주를 가장 아름답다고 하자 질투한 새 왕비가 공주를 해치려 합니다. 공주는 일곱 난쟁이의 집으로 피하지만, 왕비가 건넨 독사과를 먹고 깊은 잠에 빠지지요.",
+      "screen": "백설공주 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백설공주 줄거리 요약",
+      "imagePrompt": "A princess waking up surrounded by caring dwarfs, joyful warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 질투는 결국 자신을 망치고, 선하고 진실한 마음이 끝내 빛난다 는 것입니다. 겉모습에만 집착하는 왕비를 통해 내면의 가치도 함께 이야기할 수 있어요.",
+      "screen": "백설공주가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백설공주가 주는 교훈",
+      "imagePrompt": "Seven dwarfs kindly helping the princess, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "백설공주, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

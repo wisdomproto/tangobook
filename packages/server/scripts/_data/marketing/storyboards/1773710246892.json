@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773710246892",
+  "title": "뇌와 심장 이야기",
+  "hook": "생각하고 느끼게 하는 뇌 와 쉬지 않고 뛰는 심장 은 우리 몸의 가장 중…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "생각하고 느끼게 하는 뇌 와 쉬지 않고 뛰는 심장 은 우리 몸의 가장 중요한 두 기관이에요.",
+      "screen": "뇌와 심장, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "뇌와 심장, 어떤 점이 신기할까요?",
+      "imagePrompt": "A friendly cartoon brain and heart working together in a child body, bright children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "뇌 는 약 1.4kg으로, 약 860억 개의 신경 세포 가 전기 신호로 정보를 주고받아요. 몸이 쓰는 산소의 약 25%를 쓸 만큼 바쁘고, 잠자는 동안 기억을 정리하지요.",
+      "screen": "뇌와 심장의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "뇌와 심장의 자연·과학 사실",
+      "imagePrompt": "A cartoon heart pumping blood through the body, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «뇌와 심장 이야기»는 생각·기억을 담당하는 뇌, 쉬지 않고 뛰는 심장, 둘이 어떻게 함께 일하는지를 아이 눈높이로 보여 줍니다.",
+      "screen": "탱고북 «뇌와 심장 이야기»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «뇌와 심장 이야기»이 다루는 내…",
+      "imagePrompt": "A friendly brain resting and organizing memories during sleep, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "뇌(생각·기억·잠), 심장(박동·피 보내기), 박동 수(하루 10만 번), 혈관(아주 김) 같은 포인트를 짚어 주세요. \"심장은 왜 쉬지 않고 뛸까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A child feeling a heartbeat with a hand on the chest, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "뇌와 심장 이야기, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

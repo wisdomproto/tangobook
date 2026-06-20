@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772082243436",
+  "title": "개미와 베짱이",
+  "hook": "개미와 베짱이 는 여름 내내 노래한 베짱이와 부지런히 일한 개미를 통해…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "개미와 베짱이 는 여름 내내 노래한 베짱이와 부지런히 일한 개미를 통해 근면의 가치와 나눔의 아름다움을 함께…",
+      "screen": "개미와 베짱이, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "개미와 베짱이, 어떤 동화인가요?",
+      "imagePrompt": "A hardworking ant carrying grain while a grasshopper plays music in a summer meadow, bright cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "이솝 우화 페리 인덱스 373번 입니다. 원래 주인공은 베짱이가 아니라 매미 였고, 원작에서 개미는 매미를 냉정하게 거절하는 결말이었어요.",
+      "screen": "개미와 베짱이 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "개미와 베짱이 원작 이야기",
+      "imagePrompt": "A cozy ant home in winter with the ant sharing warm soup with a cold grasshopper, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "여름에 베짱이가 노래하는 동안 개미는 열심히 식량을 모읍니다. 겨울이 오자 먹을 것이 없어진 베짱이가 개미를 찾아가고, 개미는 베짱이를 따뜻하게 맞아 수프와 곡식을 나누어 줍니다.",
+      "screen": "개미와 베짱이 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "개미와 베짱이 줄거리 요약",
+      "imagePrompt": "Snowy winter scene with a grasshopper knocking on an ant's door, gentle and warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 미리 준비하는 지혜, 어려운 친구를 돕는 마음, 실수 뒤의 성장 입니다. \"놀고 싶은 날도 해야 할 일이 있다면 무엇을 먼저 할까?\"를 아이와 이야기하며 균형 잡힌 태도를 길러 보세요.",
+      "screen": "개미와 베짱이가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "개미와 베짱이가 주는 교훈",
+      "imagePrompt": "A grasshopper happily working alongside ants the next summer, growth and friendship, cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "개미와 베짱이, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777606613092",
+  "seo_title": "무당벌레 특징과 경고색의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "무당벌레",
+  "secondary_keywords": [
+    "무당벌레 특징",
+    "무당벌레 진딧물",
+    "경고색",
+    "유아 자연관찰 책",
+    "곤충 그림책"
+  ],
+  "url_slug": "ladybug-nature-for-kids",
+  "meta_description": "무당벌레가 진딧물을 잡아 농작물을 지키는 이로움과 화려한 경고색의 비밀 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>무당벌레, 어떤 점이 신기할까요?</h2><p>동글동글 귀여운 <strong>무당벌레</strong>는 사실 농부의 친구예요. 화려한 점무늬에는 똑똑한 비밀이 숨어 있답니다.</p>",
+      "image_prompt": "A ladybug on a green leaf, cute children's book illustration, no text",
+      "alt": "무당벌레",
+      "caption": "농부의 친구"
+    },
+    {
+      "text_html": "<h2>무당벌레의 자연·과학 사실</h2><p>무당벌레는 해충 <strong>진딧물을 잡아먹어 농작물을 지키는 이로운 곤충</strong>이에요. 빨강·노랑 바탕의 까만 점은 단순한 무늬가 아니라 <strong>\"나는 맛이 없어!\"라고 알리는 경고색</strong>이라, 새 같은 천적이 함부로 안 건드려요. 나비처럼 <strong>알 → 애벌레 → 번데기 → 어른벌레</strong>의 완전한 탈바꿈을 하고, 겨울엔 낙엽 밑에 모여 나며, 위험하면 다리에서 노란 액을 내어 몸을 지킵니다.</p>",
+      "image_prompt": "A ladybug eating aphids on a plant, informative children's book illustration, no text",
+      "alt": "진딧물을 잡는 무당벌레",
+      "caption": "이로운 사냥"
+    },
+    {
+      "text_html": "<h2>탱고북 «무당벌레»이 다루는 내용</h2><p>탱고북 «무당벌레»는 진딧물을 잡아먹는 모습, 화려한 경고색, 알에서 어른벌레가 되는 한살이, 낙엽 밑 겨울나기를 정겹게 보여 줍니다.</p>",
+      "image_prompt": "The ladybug life cycle from egg to adult, gentle children's book illustration, no text",
+      "alt": "무당벌레 한살이",
+      "caption": "완전변태"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>진딧물 사냥(이로움), 경고색, 완전변태, 겨울나기 같은 포인트를 짚어 주세요. \"화려한 색은 왜 있을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of ladybug warning colors and spots, observational children's book illustration, no text",
+      "alt": "무당벌레 점무늬",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>풀잎에서 무당벌레와 진딧물을 함께 찾아보세요. \"화려한 색=맛없다는 신호(경고색)\"를 알려 주고, 점 개수를 세어 보면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child finding ladybugs on leaves, warm children's book illustration, no text",
+      "alt": "무당벌레를 찾는 부모와 아이",
+      "caption": "풀잎 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 무당벌레는 왜 이로운가요?</strong><br>A. 해충 진딧물을 잡아먹어 농작물을 지켜 줍니다. 그래서 \"농부의 친구\"라 불려요.</p><p><strong>Q. 화려한 색은 왜 있나요?</strong><br>A. \"나는 맛이 없어!\"라고 알리는 경고색입니다. 천적이 함부로 건드리지 못하게 해요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 풀잎에서 무당벌레·진딧물 찾기, 점 개수 세기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773739930242",
+  "title": "스티라코사우루스",
+  "hook": "머리 뒤 프릴에 긴 가시가 왕관처럼 돋은 스티라코사우루스 는 트리케라톱스…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "머리 뒤 프릴에 긴 가시가 왕관처럼 돋은 스티라코사우루스 는 트리케라톱스의 친척 같은 멋진 초식 공룡이에요.",
+      "screen": "스티라코사우루스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "스티라코사우루스, 어떤 점이 신기할까요?",
+      "imagePrompt": "A Styracosaurus with a crown of frill spikes, majestic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "스티라코사우루스는 약 7,500만 년 전 북아메리카에 살았고 몸길이 최대 5.5m였어요. 가장 큰 특징은 프릴 가장자리에 돋은 4~6개의 긴 가시(각각 약 50~55cm) 예요.",
+      "screen": "스티라코사우루스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "스티라코사우루스의 자연·과학 사실",
+      "imagePrompt": "A close-up of Styracosaurus long frill spikes, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «스티라코사우루스»는 왕관 같은 프릴 가시, 코 위의 큰 뿔, 무리 지어 사는 모습 등 화려한 초식 공룡을 박진감 있게 보여 줍니다.",
+      "screen": "탱고북 «스티라코사우루스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «스티라코사우루스»이 다루는 내용",
+      "imagePrompt": "A herd of Styracosaurus grazing, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "프릴 가시(왕관), 코 뿔, 과시 기능, 트리케라톱스와의 닮은 점 같은 포인트를 짚어 주세요. \"가시는 무섭게 보이려고 있었을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A close-up of the nose horn and frill, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "스티라코사우루스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

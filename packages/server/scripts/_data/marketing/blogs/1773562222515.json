@@ -1,0 +1,46 @@
+{
+  "storybookId": "1773562222515",
+  "seo_title": "딸기 특징과 진짜 씨앗의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "딸기",
+  "secondary_keywords": ["딸기 특징", "딸기 씨앗", "딸기 생태", "유아 자연관찰 책", "식물 그림책"],
+  "url_slug": "strawberry-nature-for-kids",
+  "meta_description": "딸기의 진짜 씨앗(겉의 점)과 가짜 열매, 기는줄기 번식 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>딸기, 어떤 점이 신기할까요?</h2><p>빨갛고 달콤한 <strong>딸기</strong>는 아이들이 가장 좋아하는 과일이에요. 그런데 우리가 먹는 빨간 부분이 진짜 열매가 아니라는 사실, 알고 있나요?</p>",
+      "image_prompt": "Ripe red strawberries with tiny seeds on the surface, fresh children's book illustration, no text",
+      "alt": "잘 익은 딸기",
+      "caption": "달콤한 빨간 딸기"
+    },
+    {
+      "text_html": "<h2>딸기의 자연·과학 사실</h2><p>딸기의 빨갛고 달콤한 부분은 사실 꽃받침이 부풀어 자란 <strong>가짜 열매(화탁)</strong>예요. <strong>진짜 열매는 표면에 콕콕 박힌 작은 노란 점(수과)</strong> 하나하나로, 그 안에 씨앗이 들어 있지요. 딸기는 씨앗뿐 아니라 땅 위로 <strong>기는줄기(런너)</strong>를 뻗어 새 식물을 만들기도 해요. 꿀벌의 수분이 잘 돼야 크고 예쁜 딸기가 맺힙니다.</p>",
+      "image_prompt": "Close-up of a strawberry surface showing the tiny seeds (achenes), informative children's book illustration, no text",
+      "alt": "딸기 표면의 작은 씨앗",
+      "caption": "진짜 열매는 점"
+    },
+    {
+      "text_html": "<h2>탱고북 «딸기»이 다루는 내용</h2><p>탱고북 «딸기»는 흰 꽃 → 꿀벌의 방문 → 빨갛게 익는 딸기 → 기는줄기로 새 포기가 생기는 과정을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A strawberry plant sending out a runner to make a new plant, gentle children's book illustration, no text",
+      "alt": "기는줄기로 번식하는 딸기",
+      "caption": "런너로 새 포기"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>겉의 노란 점(진짜 씨앗), 빨간 부분(가짜 열매), 기는줄기(번식), 흰 꽃 같은 포인트를 짚어 주세요. \"딸기 씨앗은 어디 있을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A white strawberry flower with a bee, observational children's book illustration, no text",
+      "alt": "딸기꽃과 벌",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>딸기 표면의 노란 점(씨앗)을 돋보기로 세어 보세요. \"빨간 건 가짜, 점이 진짜 열매\"임을 알려 주고, 딸기 화분의 기는줄기가 뻗는 모습을 관찰하면 좋습니다.</p>",
+      "image_prompt": "A parent and child looking at strawberry seeds with a magnifier, warm children's book illustration, no text",
+      "alt": "돋보기로 딸기를 보는 부모와 아이",
+      "caption": "씨앗 찾기"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 딸기 씨앗은 어디 있나요?</strong><br>A. 표면에 콕콕 박힌 작은 노란 점 하나하나가 진짜 열매(수과)이고, 그 안에 씨앗이 들어 있습니다.</p><p><strong>Q. 우리가 먹는 빨간 부분은 뭔가요?</strong><br>A. 꽃받침이 부풀어 자란 가짜 열매(화탁)입니다. 진짜 열매는 겉의 점이에요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 딸기 표면 점을 돋보기로 세기, 딸기 화분의 기는줄기 관찰이 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

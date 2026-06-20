@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773363971764",
+  "title": "뱀",
+  "hook": "다리 없이 미끄러지듯 움직이는 뱀 은 신비로운 자연 친구예요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "다리 없이 미끄러지듯 움직이는 뱀 은 신비로운 자연 친구예요.",
+      "screen": "뱀, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "뱀, 어떤 점이 신기할까요?",
+      "imagePrompt": "A gentle snake gliding in an S-shape through grass, calm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "뱀은 다리가 없지만 수많은 갈비뼈와 근육, 배비늘 로 땅을 밀며 S자로 미끄러지듯 나아갑니다. 갈라진 혀를 날름 거려 공기 중의 냄새 입자를 모아 입천장의 기관으로 분석해 먹이를 찾지요.",
+      "screen": "뱀의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "뱀의 자연·과학 사실",
+      "imagePrompt": "A snake flicking its forked tongue to smell the air, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «뱀»은 다리 없이 미끄러지는 움직임, 혀로 냄새를 맡는 모습, 허물을 벗는 신기한 장면, 똬리를 트는 행동, 알에서 깨어나는 아기 뱀을 흥미롭게 보여 줍니다.",
+      "screen": "탱고북 «뱀»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «뱀»이 다루는 내용",
+      "imagePrompt": "A snake shedding its old skin, fascinating children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "움직임(배비늘·근육), 혀(냄새 맡기), 허물벗기(성장), 큰 입(삼키기) 같은 포인트를 짚어 주세요. \"다리도 없는데 어떻게 갈까?\", \"혀를 왜 날름거릴까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Close-up of a snake's belly scales used for movement, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "뱀, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

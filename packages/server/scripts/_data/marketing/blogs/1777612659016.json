@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777612659016",
+  "seo_title": "펭귄 특징과 바닷속 비행의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "펭귄",
+  "secondary_keywords": [
+    "펭귄 특징",
+    "펭귄 남극",
+    "황제펭귄",
+    "유아 자연관찰 책",
+    "바다 동물 그림책"
+  ],
+  "url_slug": "penguin-nature-for-kids",
+  "meta_description": "펭귄이 남극에만 사는 이유와 날지 못하지만 바닷속에선 날아다니는 비밀 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>펭귄, 어떤 점이 신기할까요?</h2><p>뒤뚱뒤뚱 걷는 <strong>펭귄</strong>은 날지 못하는 새지만 바닷속에서는 날아다니듯 헤엄치는 신기한 동물이에요.</p>",
+      "image_prompt": "A penguin waddling on ice in Antarctica, cute children's book illustration, no text",
+      "alt": "펭귄",
+      "caption": "남극의 새"
+    },
+    {
+      "text_html": "<h2>펭귄의 자연·과학 사실</h2><p>펭귄은 <strong>오직 남반구(남극 쪽)에만 살아요</strong> — 북극곰과는 지구 반대편이라 실제로 만날 일이 없지요. 펭귄은 새이지만 날개가 <strong>비행이 아니라 수영에 최적화</strong>돼 있어요. 날개뼈가 단단하고 납작해 물갈퀴처럼 기능하며, <strong>물속에서 시속 25~35km로 헤엄</strong>치지요. 황제펭귄은 깊이 535m까지 잠수해 20분 넘게 버틸 수 있습니다.</p>",
+      "image_prompt": "A penguin swimming fast underwater like flying, dynamic children's book illustration, no text",
+      "alt": "헤엄치는 펭귄",
+      "caption": "바닷속의 비행"
+    },
+    {
+      "text_html": "<h2>탱고북 «펭귄»이 다루는 내용</h2><p>탱고북 «펭귄»은 뒤뚱뒤뚱 걷는 모습, 바닷속을 날듯 헤엄치는 모습, 추위를 견디는 허들링, 새끼를 돌보는 펭귄을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "Emperor penguins huddling together in the cold, heartwarming children's book illustration, no text",
+      "alt": "허들링하는 펭귄",
+      "caption": "함께 견디는 추위"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>남극 전용(북극곰과 안 만남), 못 나는 새, 수영용 날개, 깊은 잠수 같은 포인트를 짚어 주세요. \"펭귄은 왜 못 날까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of a penguin flipper-like wing, observational children's book illustration, no text",
+      "alt": "펭귄 날개",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"펭귄은 남극, 북극곰은 북극(반대편)\"을 지도로 확인해 보세요. \"날개로 물속을 날아다녀\"를 영상으로 보고, 뒤뚱 걷기를 흉내 내면 즐겁습니다.</p>",
+      "image_prompt": "A parent and child checking a map of penguins and polar bears, warm children's book illustration, no text",
+      "alt": "지도를 보는 부모와 아이",
+      "caption": "남극과 북극"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 펭귄과 북극곰은 함께 사나요?</strong><br>A. 아니요. 펭귄은 남극 쪽, 북극곰은 북극에 살아 지구 반대편이라 실제로 만날 일이 없습니다.</p><p><strong>Q. 펭귄은 왜 못 날아도 괜찮나요?</strong><br>A. 날개가 수영에 최적화돼 물속에서 날아다니듯 헤엄치기 때문입니다. 깊이 잠수도 잘해요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 지도로 남극·북극 확인, 헤엄 영상 보기, 뒤뚱 걷기 흉내가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

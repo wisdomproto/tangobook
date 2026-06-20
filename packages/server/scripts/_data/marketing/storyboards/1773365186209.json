@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773365186209",
+  "title": "강아지풀",
+  "hook": "복슬복슬한 이삭을 살랑이는 강아지풀 은 길가 어디서나 만나는 친근한 풀이…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "복슬복슬한 이삭을 살랑이는 강아지풀 은 길가 어디서나 만나는 친근한 풀이에요.",
+      "screen": "강아지풀, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "강아지풀, 어떤 점이 신기할까요?",
+      "imagePrompt": "Fluffy foxtail grass swaying in a field along a path, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "강아지풀은 전 세계에 널리 퍼진 풀로, 놀랍게도 우리가 먹는 곡식 조(粟)의 야생 조상 이에요. 먼 옛날 사람들이 강아지풀 씨앗을 모아 먹다 길러서 조를 만든 것이지요.",
+      "screen": "강아지풀의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "강아지풀의 자연·과학 사실",
+      "imagePrompt": "Close-up of foxtail grass seed head with bristles, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «강아지풀»은 바람에 살랑이는 이삭, 강아지 꼬리처럼 보이는 모습, 씨앗이 동물에 붙어 퍼지는 과정, 새들의 먹이가 되는 모습을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «강아지풀»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «강아지풀»이 다루는 내용",
+      "imagePrompt": "Sparrows eating foxtail grass seeds in autumn, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "이삭(복슬복슬·강아지 꼬리), 긴 털(씨앗 보호·이동), 새 먹이, 길가에서 흔히 보기 같은 포인트를 짚어 주세요. \"왜 이삭이 옷에 잘 붙을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A foxtail grass spike resting on a child's palm, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "강아지풀, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772107608499",
+  "title": "신데렐라",
+  "hook": "착한 마음이 가장 강한 마법이 되는 순간",
+  "totalSec": 38,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "착한 마음은 약한 걸까요?",
+      "screen": "재투성이 옷차림의 소녀가 벽난로 앞에서 고개를 드는 클로즈업. 따뜻한 불빛.",
+      "subtitle": "착함은 약함이 아니에요",
+      "imagePrompt": "A kind girl in ragged clothes looking up by a warm fireplace, cinematic 9:16, fairy tale, no text"
+    },
+    {
+      "label": "전개",
+      "sec": 9,
+      "narration": "힘든 집안일 속에서도 신데렐라는 미소를 잃지 않았어요.",
+      "screen": "집안일 하는 몽타주(빗자루·물통), 작은 동물 친구들이 곁에. 부드러운 컷 전환.",
+      "subtitle": "마음을 지킨 소녀",
+      "imagePrompt": "A girl doing chores with little animal friends helping, warm storybook, 9:16, no text"
+    },
+    {
+      "label": "마법",
+      "sec": 9,
+      "narration": "그날 밤, 요정 대모가 호박을 마차로, 누더기를 드레스로 바꿔 주었죠.",
+      "screen": "요정 대모의 지팡이 빛 → 호박 마차·유리 구두·드레스로 변신. 반짝이는 입자.",
+      "subtitle": "요정 대모의 마법",
+      "imagePrompt": "A fairy godmother turning a pumpkin into a carriage with sparkling magic, moonlight, 9:16, no text"
+    },
+    {
+      "label": "반전",
+      "sec": 8,
+      "narration": "자정 종소리에 급히 떠나며 유리 구두 한 짝을 남겼어요.",
+      "screen": "계단을 뛰어 내려가는 실루엣, 떨어진 유리 구두 클로즈업, 시계 12시.",
+      "subtitle": "자정의 유리 구두",
+      "imagePrompt": "A glass slipper left on palace stairs at midnight, dramatic light, 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "신데렐라의 진짜 마법, 아이와 함께 탱고북에서 만나요.",
+      "screen": "동화책을 함께 읽는 부모·아이 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

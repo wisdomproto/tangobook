@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772085655331",
+  "title": "걸리버 여행기",
+  "hook": "걸리버 여행기 는 소인국과 거인국을 오가는 대모험을 통해 \"크기가 달라도…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "걸리버 여행기 는 소인국과 거인국을 오가는 대모험을 통해 \"크기가 달라도 마음의 크기는 같다\"는 것을 알려주…",
+      "screen": "걸리버 여행기, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "걸리버 여행기, 어떤 동화인가요?",
+      "imagePrompt": "A friendly giant man lying on a beach gently tied by tiny little people, whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "조나단 스위프트(1667~1745) 가 1726년 발표한 성인 풍자 소설로, 소인국 릴리퍼트·거인국 브로브딩내그·날아다니는 섬 라퓨타·말 지성체 후이넘 등 4편으로 구성됩니다. 원작은 사회 풍자였지…",
+      "screen": "걸리버 여행기 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "걸리버 여행기 원작 이야기",
+      "imagePrompt": "Gulliver as a tiny person standing on a giant's huge hand, scale contrast, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "항해 중 표류한 걸리버는 자신보다 아주 작은 사람들이 사는 소인국에 도착해 거인 취급을 받습니다. 이후 반대로 자신이 아주 작아지는 거인국도 여행하며, 크기에 상관없이 서로 돕고 이해하는 법을 배웁…",
+      "screen": "걸리버 여행기 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "걸리버 여행기 줄거리 요약",
+      "imagePrompt": "Tiny people building little ladders and ropes around a sleeping giant traveler, playful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 겉모습(크기)이 달라도 마음의 크기는 같다, 서로 다른 존재를 이해하고 도와야 한다 는 것입니다. 다름을 두려워하지 않고 호기심으로 대하는 태도를 아이와 함께 이야기해 보세요.",
+      "screen": "걸리버 여행기가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "걸리버 여행기가 주는 교훈",
+      "imagePrompt": "Gulliver and tiny people waving goodbye as friends at the shore, warm friendship, children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "걸리버 여행기, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

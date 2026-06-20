@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773899014599",
+  "title": "프테라노돈",
+  "hook": "큰 날개와 멋진 볏을 가진 프테라노돈 은 하늘을 날던 동물이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "큰 날개와 멋진 볏을 가진 프테라노돈 은 하늘을 날던 동물이에요.",
+      "screen": "프테라노돈, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "프테라노돈, 어떤 점이 신기할까요?",
+      "imagePrompt": "A Pteranodon soaring over the sea with large wings, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "프테라노돈은 날개 길이가 약 5.6~7m 나 됐고, 화석이 1,200개 넘게 발견된 가장 잘 연구된 익룡이에요. 이름대로 이빨이 없어 긴 부리와 목주머니로 물고기를 잡아 통째로 삼켰지요.",
+      "screen": "프테라노돈의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "프테라노돈의 자연·과학 사실",
+      "imagePrompt": "A Pteranodon catching a fish with its toothless beak, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «프테라노돈»은 큰 날개로 하늘을 나는 모습, 멋진 볏, 물고기를 잡는 긴 부리 등 익룡의 비행을 시원하게 보여 줍니다.",
+      "screen": "탱고북 «프테라노돈»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «프테라노돈»이 다루는 내용",
+      "imagePrompt": "A male Pteranodon with a large showy crest, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "익룡(공룡 아님), 큰 날개, 이빨 없는 부리, 화려한 볏 같은 포인트를 짚어 주세요. \"프테라노돈은 공룡일까 아닐까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A Pteranodon spreading its wings, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "프테라노돈, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

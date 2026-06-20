@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777602265786",
+  "title": "오리",
+  "hook": "물 위를 둥둥 떠다니는 오리 는 물갈퀴로 헤엄치고 젖지 않는 깃털을 가진…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "물 위를 둥둥 떠다니는 오리 는 물갈퀴로 헤엄치고 젖지 않는 깃털을 가진 신기한 물새예요.",
+      "screen": "오리, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "오리, 어떤 점이 신기할까요?",
+      "imagePrompt": "A duck swimming on a pond, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "오리는 발가락 사이 물갈퀴 로 물을 밀며 잘 헤엄쳐요. 깃털엔 기름기가 발려 물에 젖지 않아 , 물에서 나와도 금방 보송보송해지지요(부리로 깃털을 다듬으며 기름을 발라요).",
+      "screen": "오리의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "오리의 자연·과학 사실",
+      "imagePrompt": "A close-up of duck webbed feet, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «오리»는 물갈퀴로 헤엄치는 모습, 젖지 않는 깃털, 납작한 부리로 먹는 모습, 어미를 따라가는 새끼 오리를 정겹게 보여 줍니다.",
+      "screen": "탱고북 «오리»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «오리»이 다루는 내용",
+      "imagePrompt": "Ducklings following their mother in a line, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "물갈퀴(헤엄), 젖지 않는 깃털(기름), 납작 부리, 각인(어미 따르기) 같은 포인트를 짚어 주세요. \"오리 깃털은 왜 안 젖을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A duck preening its water-repellent feathers, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "오리, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

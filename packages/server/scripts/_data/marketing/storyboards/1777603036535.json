@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777603036535",
+  "title": "꿀벌",
+  "hook": "부지런한 꿀벌 은 여왕벌을 중심으로 함께 사는 사회성 곤충이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "부지런한 꿀벌 은 여왕벌을 중심으로 함께 사는 사회성 곤충이에요.",
+      "screen": "꿀벌, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "꿀벌, 어떤 점이 신기할까요?",
+      "imagePrompt": "A honeybee collecting nectar from a flower, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "일벌은 꽃에서 꽃꿀을 빨아 모아 벌집에서 꿀로 만들고 , 뒷다리의 \"꽃가루 바구니\"에 꽃가루를 담아 옮겨요. 이렇게 꽃과 꽃을 오가며 꽃가루받이(수분)를 도와 , 우리가 먹는 많은 열매·채소가 열리…",
+      "screen": "꿀벌의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "꿀벌의 자연·과학 사실",
+      "imagePrompt": "A honeybee with pollen baskets on its legs, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «꿀벌»은 꽃꿀을 모으는 모습, 꿀을 만드는 벌집, 꽃가루받이를 돕는 모습, 8자 춤으로 소통하는 꿀벌을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «꿀벌»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «꿀벌»이 다루는 내용",
+      "imagePrompt": "A honeybee doing a waggle dance in the hive, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "꿀 만들기, 꽃가루 바구니, 꽃가루받이(중요), 8자 춤 같은 포인트를 짚어 주세요. \"꿀벌이 없으면 어떻게 될까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of a honeycomb with honey, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "꿀벌, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

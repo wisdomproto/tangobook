@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777607890313",
+  "title": "장수풍뎅이",
+  "hook": "단단한 뿔 을 가진 장수풍뎅이 는 몸집에 비해 힘이 세서 \"천하장사\"라…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "단단한 뿔 을 가진 장수풍뎅이 는 몸집에 비해 힘이 세서 \"천하장사\"라 불리는 인기 곤충이에요.",
+      "screen": "장수풍뎅이, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "장수풍뎅이, 어떤 점이 신기할까요?",
+      "imagePrompt": "A rhinoceros beetle with a strong horn on a tree, cool children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "장수풍뎅이는 머리와 가슴에 난 단단한 뿔 이 특징이에요(주로 수컷). 이 뿔로 나무 수액이 나오는 좋은 자리를 두고 다른 수컷을 들어 올려 밀어내는 힘겨루기 를 하지요.",
+      "screen": "장수풍뎅이의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "장수풍뎅이의 자연·과학 사실",
+      "imagePrompt": "Two male rhinoceros beetles pushing with their horns, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «장수풍뎅이»는 단단한 뿔, 수액 자리를 두고 겨루는 모습, 부엽토 속 통통한 애벌레, 겉날개를 펼쳐 나는 모습을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «장수풍뎅이»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «장수풍뎅이»이 다루는 내용",
+      "imagePrompt": "A plump rhinoceros beetle larva in leaf soil, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "뿔(수컷), 힘겨루기(들어 올리기), 천하장사, 부엽토 애벌레 같은 포인트를 짚어 주세요. \"뿔로 무엇을 할까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of rhinoceros beetle horn, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "장수풍뎅이, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

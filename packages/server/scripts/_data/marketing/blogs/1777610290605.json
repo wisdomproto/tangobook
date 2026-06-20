@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777610290605",
+  "seo_title": "고래 특징과 포유류의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "고래",
+  "secondary_keywords": [
+    "고래 특징",
+    "고래 포유류",
+    "고래 분수공",
+    "유아 자연관찰 책",
+    "바다 동물 그림책"
+  ],
+  "url_slug": "whale-nature-for-kids",
+  "meta_description": "고래가 물고기가 아니라 포유류라는 사실과 분수공으로 숨 쉬는 비밀, 노래로 소통하는 모습 등과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>고래, 어떤 점이 신기할까요?</h2><p>바닷속 가장 큰 동물 <strong>고래</strong>는 물고기가 아니라 사람과 같은 <strong>포유류</strong>예요. 숨을 쉬러 물 위로 올라오는 모습이 신기하답니다.</p>",
+      "image_prompt": "A large whale swimming in the ocean, majestic children's book illustration, no text",
+      "alt": "고래",
+      "caption": "바다의 거인"
+    },
+    {
+      "text_html": "<h2>고래의 자연·과학 사실</h2><p>고래는 바닷속에 살지만 <strong>포유류라 숨을 쉬어야 해서</strong>, 가끔 물 위로 올라와 머리 위 <strong>분수공으로 \"푸우!\" 하고 숨</strong>을 내쉬어요(따뜻한 숨이 차가운 공기를 만나 물기둥처럼 보여요). 수염으로 크릴을 걸러 먹는 <strong>수염고래</strong>와 이빨로 사냥하는 <strong>이빨고래</strong>가 있고, 가장 큰 대왕고래는 지구 역사상 가장 큰 동물이에요. 가족을 이루어 노래로 소통하고 새끼에게 젖을 먹입니다.</p>",
+      "image_prompt": "A whale spouting water from its blowhole, informative children's book illustration, no text",
+      "alt": "분수공으로 숨 쉬는 고래",
+      "caption": "\"푸우!\" 하는 숨"
+    },
+    {
+      "text_html": "<h2>탱고북 «고래»이 다루는 내용</h2><p>탱고북 «고래»는 분수공으로 숨 쉬는 모습, 수염·이빨고래의 먹이, 가족 무리, 노래로 소통하는 고래를 웅장하게 보여 줍니다.</p>",
+      "image_prompt": "A whale and its calf swimming together, heartwarming children's book illustration, no text",
+      "alt": "새끼와 헤엄치는 고래",
+      "caption": "젖을 먹이는 포유류"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>포유류(숨 쉬기), 분수공, 수염/이빨고래, 노래(소통) 같은 포인트를 짚어 주세요. \"고래는 왜 물 위로 올라올까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A baleen whale filtering krill, observational children's book illustration, no text",
+      "alt": "크릴을 걸러 먹는 고래",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"고래는 물고기가 아니라 포유류야(젖을 먹여)\"를 강조해 보세요. 고래 노래 소리를 들려주고, 대왕고래의 크기를 버스·교실에 빗대면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child comparing a whale size to a bus, warm children's book illustration, no text",
+      "alt": "고래 크기를 비교하는 부모와 아이",
+      "caption": "크기 비교"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 고래는 물고기인가요?</strong><br>A. 아니요. 사람과 같은 포유류입니다. 그래서 숨을 쉬러 물 위로 올라와요.</p><p><strong>Q. 분수공은 무엇인가요?</strong><br>A. 머리 위의 콧구멍입니다. 따뜻한 숨이 차가운 공기를 만나 물기둥처럼 보여요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 고래 노래 듣기, 대왕고래 크기를 버스·교실에 빗대기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

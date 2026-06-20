@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772094228783",
+  "title": "백조 왕자",
+  "hook": "백조 왕자 는 저주로 백조가 된 오빠 열한 명을 구하기 위해 말 한마디…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "백조 왕자 는 저주로 백조가 된 오빠 열한 명을 구하기 위해 말 한마디 못한 채 쐐기풀 옷을 짜는 엘리자 공…",
+      "screen": "백조 왕자, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백조 왕자, 어떤 동화인가요?",
+      "imagePrompt": "A gentle princess weaving shirts from nettles in silence while eleven white swans fly above, moonlit, emotional children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "안데르센이 1838년 발표한 「De vilde Svaner(야생의 백조)」가 원작입니다. 그림 형제의 「여섯 마리 백조」와 비슷하지만 오빠가 열한 명이고 쐐기풀 옷 짜기 묘사가 더 상세하지요.",
+      "screen": "백조 왕자 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백조 왕자 원작 이야기",
+      "imagePrompt": "Eleven swans transforming back into young princes in a burst of light as shirts are thrown over them, miraculous children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "새 왕비의 저주로 왕자들이 백조가 되고 엘리자도 쫓겨납니다. 엘리자는 말 한마디 못한 채 쐐기풀로 오빠들의 옷을 짭니다.",
+      "screen": "백조 왕자 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백조 왕자 줄거리 요약",
+      "imagePrompt": "A brave princess silently weaving in a prison cell, determined and hopeful, soft candlelight, children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 사랑하는 이를 위한 인내는 기적을 만들고, 침묵 속에서도 마음은 전해진다 는 것입니다. 포기하지 않는 희망의 가치를 아이와 함께 이야기해 보세요.",
+      "screen": "백조 왕자가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "백조 왕자가 주는 교훈",
+      "imagePrompt": "A happy family of princes reunited with their sister in a sunlit palace garden, joyful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "백조 왕자, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

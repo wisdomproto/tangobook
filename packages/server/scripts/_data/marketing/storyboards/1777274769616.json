@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777274769616",
+  "title": "성냥갑 병정",
+  "hook": "성냥갑 병정 은 다리가 하나뿐인 작은 주석 병정이 모진 시련 속에서도 종…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "성냥갑 병정 은 다리가 하나뿐인 작은 주석 병정이 모진 시련 속에서도 종이 발레리나를 향한 한결같은 마음을…",
+      "screen": "성냥갑 병정, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "성냥갑 병정, 어떤 동화인가요?",
+      "imagePrompt": "A one-legged toy tin soldier standing tall facing a paper ballerina on a desk, tender children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "안데르센이 1838년 발표한 작품으로, 주석이 모자라 다리가 하나뿐인 마지막 병정이 주인공입니다. 원작은 병정과 발레리나가 난로 불 속에서 함께 사라지는 애틋한 결말이지만, 유아용은 대개 따뜻하게…",
+      "screen": "성냥갑 병정 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "성냥갑 병정 원작 이야기",
+      "imagePrompt": "A tin soldier riding a paper boat down a gutter stream bravely, adventurous gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "다리가 하나뿐인 병정은 예쁜 종이 발레리나에게 반합니다. 바람에 창밖으로 떨어진 병정은 종이배를 타고 하수구를 떠돌고 물고기에게 삼켜지는 등 모진 시련을 겪지만, 끝까지 울지 않고 의연합니다.",
+      "screen": "성냥갑 병정 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "성냥갑 병정 줄거리 요약",
+      "imagePrompt": "A brave tin soldier inside a dark fish belly staying calm, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 아무리 힘들어도 마음을 굳게 지키는 한결같음, 그리고 약점이 있어도 당당할 수 있다 는 것입니다. \"무서운 일이 생겨도 마음을 다잡는 법\"을 아이와 이야기해 보세요.",
+      "screen": "성냥갑 병정이 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "성냥갑 병정이 주는 교훈",
+      "imagePrompt": "A tin soldier and a ballerina happily reunited on a desk, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "성냥갑 병정, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773554053356",
+  "seo_title": "사과나무 특징과 사과의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "사과나무",
+  "secondary_keywords": [
+    "사과나무 특징",
+    "사과 위과",
+    "사과나무 생태",
+    "유아 자연관찰 책",
+    "나무 그림책"
+  ],
+  "url_slug": "apple-tree-nature-for-kids",
+  "meta_description": "사과나무 꽃과 꿀벌 수분, 사과가 가짜 열매(위과)라는 사실 등 신기한 이야기와, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>사과나무, 어떤 점이 신기할까요?</h2><p>봄에 하얀 꽃을 피우고 가을에 빨간 열매를 맺는 <strong>사과나무</strong>는 사계절의 변화를 보여 주는 친근한 나무예요. 사과에 숨은 비밀도 흥미롭습니다.</p>",
+      "image_prompt": "An apple tree with red apples in autumn, warm children's book illustration, no text",
+      "alt": "가을 사과나무",
+      "caption": "빨간 사과가 열린 나무"
+    },
+    {
+      "text_html": "<h2>사과나무의 자연·과학 사실</h2><p>사과나무 대부분은 자기 꽃가루로는 열매가 잘 안 맺혀, <strong>다른 품종의 꽃가루를 꿀벌이 옮겨 줘야</strong> 해요. 그리고 우리가 먹는 사과는 사실 씨방이 아니라 <strong>꽃턱이 부풀어 자란 \"가짜 열매(위과)\"</strong>랍니다. 사과 씨앗엔 미량의 아미그달린이 있어 많이 씹어 먹지 않도록 주의해요. 사과나무는 70~100년까지 살 수 있습니다.</p>",
+      "image_prompt": "A bee pollinating white apple blossoms in spring, informative children's book illustration, no text",
+      "alt": "사과꽃을 수분하는 꿀벌",
+      "caption": "꿀벌의 도움"
+    },
+    {
+      "text_html": "<h2>탱고북 «사과나무»이 다루는 내용</h2><p>탱고북 «사과나무»는 봄꽃 → 꿀벌의 방문 → 열매가 부풀어 가는 과정 → 가을 수확까지 사과나무의 한 해를 따뜻하게 보여 줍니다.</p>",
+      "image_prompt": "An apple sliced to show the star-shaped core and seeds, close-up children's book illustration, no text",
+      "alt": "사과 단면과 씨앗",
+      "caption": "별 모양 씨방"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>봄 꽃(5장 꽃잎), 꿀벌(수분), 위과(가짜 열매), 씨앗(과심) 같은 포인트를 짚어 주세요. \"사과는 어느 부분이 자란 걸까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "White apple blossoms with five petals, observational children's book illustration, no text",
+      "alt": "사과꽃",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>사과를 가로로 잘라 별 모양 씨방을 관찰하고, \"꽃턱이 자란 부분 = 우리가 먹는 부분\"을 알려 주세요. 봄에 사과꽃·꿀벌을 관찰하면 수분 과정을 이해할 수 있어요.</p>",
+      "image_prompt": "A parent and child slicing an apple to look at the seeds, warm children's book illustration, no text",
+      "alt": "사과를 잘라 보는 부모와 아이",
+      "caption": "사과 단면 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 사과는 진짜 열매인가요?</strong><br>A. 엄밀히는 꽃턱이 부풀어 자란 \"가짜 열매(위과)\"입니다. 진짜 씨방은 가운데 과심 부분이에요.</p><p><strong>Q. 사과나무는 혼자 열매를 맺나요?</strong><br>A. 대부분 다른 품종의 꽃가루가 있어야 열매가 잘 맺힙니다. 꿀벌이 가장 중요한 매개자예요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 사과를 가로로 잘라 별 모양 씨방 보기, 봄 사과꽃·꿀벌 관찰이 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773554053356",
+  "title": "사과나무",
+  "hook": "봄에 하얀 꽃을 피우고 가을에 빨간 열매를 맺는 사과나무 는 사계절의 변…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "봄에 하얀 꽃을 피우고 가을에 빨간 열매를 맺는 사과나무 는 사계절의 변화를 보여 주는 친근한 나무예요.",
+      "screen": "사과나무, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "사과나무, 어떤 점이 신기할까요?",
+      "imagePrompt": "An apple tree with red apples in autumn, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "사과나무 대부분은 자기 꽃가루로는 열매가 잘 안 맺혀, 다른 품종의 꽃가루를 꿀벌이 옮겨 줘야 해요. 그리고 우리가 먹는 사과는 사실 씨방이 아니라 꽃턱이 부풀어 자란 \"가짜 열매(위과)\" 랍니다.",
+      "screen": "사과나무의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "사과나무의 자연·과학 사실",
+      "imagePrompt": "A bee pollinating white apple blossoms in spring, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «사과나무»는 봄꽃 → 꿀벌의 방문 → 열매가 부풀어 가는 과정 → 가을 수확까지 사과나무의 한 해를 따뜻하게 보여 줍니다.",
+      "screen": "탱고북 «사과나무»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «사과나무»이 다루는 내용",
+      "imagePrompt": "An apple sliced to show the star-shaped core and seeds, close-up children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "봄 꽃(5장 꽃잎), 꿀벌(수분), 위과(가짜 열매), 씨앗(과심) 같은 포인트를 짚어 주세요. \"사과는 어느 부분이 자란 걸까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "White apple blossoms with five petals, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "사과나무, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

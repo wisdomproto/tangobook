@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777601011770",
+  "title": "앵무새",
+  "hook": "알록달록 멋진 앵무새 는 사람 말을 따라 하는 똑똑하고 사회성 강한 새예…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "알록달록 멋진 앵무새 는 사람 말을 따라 하는 똑똑하고 사회성 강한 새예요.",
+      "screen": "앵무새, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "앵무새, 어떤 점이 신기할까요?",
+      "imagePrompt": "A colorful parrot perched on a branch, vivid children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "앵무새가 사람 말을 따라 하는 건 뜻을 이해해서라기보다 무리와 소리로 소통하려는 습성 에서 나와요. 휘어진 단단한 부리로 단단한 씨앗을 깨 먹고, 발가락이 앞뒤로 둘씩 갈라져 먹이를 손처럼 잡지요…",
+      "screen": "앵무새의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "앵무새의 자연·과학 사실",
+      "imagePrompt": "A parrot using its foot to hold food, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «앵무새»는 알록달록한 깃털, 사람 말을 따라 하는 모습, 발로 먹이를 잡는 모습, 짝과 다정한 앵무새를 정겹게 보여 줍니다.",
+      "screen": "탱고북 «앵무새»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «앵무새»이 다루는 내용",
+      "imagePrompt": "A pair of parrots sitting close together, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "말 흉내(소통 습성), 단단한 부리, 손 같은 발, 화려한 깃털 같은 포인트를 짚어 주세요. \"앵무새는 왜 말을 따라 할까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of a parrot curved strong beak, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "앵무새, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

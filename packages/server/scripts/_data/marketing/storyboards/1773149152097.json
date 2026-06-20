@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773149152097",
+  "title": "두더지",
+  "hook": "땅속에서 부지런히 굴을 파는 두더지 는 보기 힘들어 더 궁금한 동물이에요…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "땅속에서 부지런히 굴을 파는 두더지 는 보기 힘들어 더 궁금한 동물이에요.",
+      "screen": "두더지, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "두더지, 어떤 점이 신기할까요?",
+      "imagePrompt": "A cute mole with big front paws poking out of a soil mound, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "두더지의 앞발은 삽 모양 에 강한 발톱이 달려 흙을 잘 팝니다. 눈은 거의 퇴화해 빛과 어둠만 구별하지만, 코 주변의 아이머 기관 으로 땅속 진동과 냄새를 아주 예민하게 감지하지요.",
+      "screen": "두더지의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "두더지의 자연·과학 사실",
+      "imagePrompt": "Cross-section of mole tunnels showing rooms underground, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «두더지»는 잔디밭 흙더미에서 시작해 삽 같은 앞발로 터널을 파는 모습, 잠자는 방·밥 먹는 방이 따로 있는 집 구조, 흙을 파면 식물이 잘 자란다는 생태적 역할, 아기 두더지의 성장을 따뜻…",
+      "screen": "탱고북 «두더지»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «두더지»이 다루는 내용",
+      "imagePrompt": "A mole digging soil with shovel-like paws, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "앞발(삽 모양), 터널(여러 방), 코(아이머 기관), 땅속 생활 같은 포인트를 짚어 주세요. \"눈이 잘 안 보이는데 어떻게 먹이를 찾을까?\", \"흙을 파면 왜 식물이 잘 자랄까?\"를 함께 이야기하…",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Close-up of a mole's sensitive nose and paws, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "두더지, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

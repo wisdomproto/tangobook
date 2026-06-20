@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773713269796",
+  "seo_title": "고양이 특징과 감각의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "고양이",
+  "secondary_keywords": [
+    "고양이 특징",
+    "고양이 수염",
+    "고양이 생태",
+    "유아 동물 책",
+    "동물 그림책"
+  ],
+  "url_slug": "cat-nature-for-kids",
+  "meta_description": "고양이의 밤눈과 수염, 그루밍과 그르릉 등 신기한 사실과, 탱고북 동물 그림책 내용, 관찰하는 법까지. 4~7세 동물 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>고양이, 어떤 점이 신기할까요?</h2><p>우아하고 신비로운 <strong>고양이</strong>는 어둠 속에서도 잘 보고 늘 깔끔하게 몸을 단장해요. 수염과 그르릉 소리에 비밀이 담겨 있습니다.</p>",
+      "image_prompt": "An elegant cat with glowing eyes in dim light, gentle children's book illustration, no text",
+      "alt": "어둠 속 고양이",
+      "caption": "신비로운 고양이"
+    },
+    {
+      "text_html": "<h2>고양이의 자연·과학 사실</h2><p>고양이는 약 9,500년 전 야생 고양이에서 가축화됐어요. 눈 안쪽 반사층 덕분에 <strong>사람보다 6배 적은 빛으로도</strong> 볼 수 있고, <strong>수염으로 몸 너비와 공기 진동을 감지</strong>해요. 거친 혀로 깨어있는 시간의 30~50%를 그루밍하며, <strong>0.5초 만에 몸을 뒤집어 발로 착지</strong>하지요. 그르릉 소리는 행복뿐 아니라 불안하거나 아플 때도 냅니다.</p>",
+      "image_prompt": "A close-up of a cat face showing whiskers, informative children's book illustration, no text",
+      "alt": "고양이 수염",
+      "caption": "감각 기관 수염"
+    },
+    {
+      "text_html": "<h2>탱고북 «고양이»이 다루는 내용</h2><p>탱고북 «고양이»는 어둠 속에서 빛나는 눈, 수염의 역할, 깔끔한 그루밍, 사뿐한 착지 등 고양이의 매력을 아이 눈높이로 보여 줍니다.</p>",
+      "image_prompt": "A cat grooming itself with its rough tongue, gentle children's book illustration, no text",
+      "alt": "그루밍하는 고양이",
+      "caption": "깔끔한 단장"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>눈(밤눈), 수염(감각), 그루밍(단장), 그르릉(소리) 같은 포인트를 짚어 주세요. \"고양이는 왜 어두운 데서도 잘 볼까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A cat twisting in the air to land on its feet, dynamic children's book illustration, no text",
+      "alt": "착지하는 고양이",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>고양이의 수염을 만지지 말고 관찰하고, 혀의 까끌함(그루밍)을 이야기해 보세요. 고양이가 그르릉거릴 때 기분을 함께 짐작하면 동물을 이해하는 마음이 자랍니다.</p>",
+      "image_prompt": "A child gently observing a relaxed cat, warm children's book illustration, no text",
+      "alt": "고양이를 관찰하는 아이",
+      "caption": "조용히 관찰하기"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 고양이는 왜 어두운 데서도 잘 보나요?</strong><br>A. 눈 안쪽 반사층 덕분에 사람보다 6배 적은 빛으로도 볼 수 있기 때문입니다.</p><p><strong>Q. 고양이 수염은 무슨 역할을 하나요?</strong><br>A. 몸 너비를 가늠하고 공기의 진동을 감지하는 감각 기관입니다. 함부로 만지면 안 돼요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 수염은 만지지 말고 관찰하기, 그루밍·그르릉 소리로 기분 짐작하기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

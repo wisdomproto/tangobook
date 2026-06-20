@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773365176774",
+  "title": "연꽃",
+  "hook": "진흙탕 위에 깨끗하게 피어나는 연꽃 은 보기만 해도 신기한 식물이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "진흙탕 위에 깨끗하게 피어나는 연꽃 은 보기만 해도 신기한 식물이에요.",
+      "screen": "연꽃, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "연꽃, 어떤 점이 신기할까요?",
+      "imagePrompt": "A clean pink lotus flower blooming above muddy pond water, serene children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "연잎이 늘 깨끗한 비밀은 잎 표면의 초미세 돌기 때문이에요. 물방울이 스며들지 못하고 구슬처럼 굴러가며 먼지까지 씻어 내는 이 현상을 \"연잎 효과(초소수성)\"라 하며, 방수 옷·코팅 기술에도 응용됩…",
+      "screen": "연꽃의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "연꽃의 자연·과학 사실",
+      "imagePrompt": "Water droplets rolling like beads on a lotus leaf, fascinating children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «연꽃»은 진흙 속에서 줄기를 뻗어 물 위로 깨끗한 꽃을 피우는 과정, 물방울이 구르는 잎, 씨앗이 든 연밥, 곤충의 방문을 차분하게 보여 줍니다.",
+      "screen": "탱고북 «연꽃»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «연꽃»이 다루는 내용",
+      "imagePrompt": "A lotus seed pod (yeonbap) with seeds on a pond, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "연잎 위 물방울(연잎 효과), 진흙 속 깨끗한 꽃, 연밥(씨앗 집), 곤충 방문 같은 포인트를 짚어 주세요. \"왜 연잎에는 물이 안 스며들까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Close-up of a lotus leaf surface texture, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "연꽃, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

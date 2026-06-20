@@ -1,0 +1,46 @@
+{
+  "storybookId": "1777603036535",
+  "seo_title": "꿀벌 특징과 8자 춤의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "꿀벌",
+  "secondary_keywords": ["꿀벌 특징", "꿀벌 춤", "꿀벌 수분", "유아 자연관찰 책", "곤충 그림책"],
+  "url_slug": "honeybee-nature-for-kids",
+  "meta_description": "꿀벌이 꿀을 만들고 8자 춤으로 소통하는 비밀, 꽃가루받이의 중요성 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>꿀벌, 어떤 점이 신기할까요?</h2><p>부지런한 <strong>꿀벌</strong>은 여왕벌을 중심으로 함께 사는 사회성 곤충이에요. 꿀을 만들고 춤으로 소통하는 모습이 정말 신기하답니다.</p>",
+      "image_prompt": "A honeybee collecting nectar from a flower, gentle children's book illustration, no text",
+      "alt": "꿀벌",
+      "caption": "부지런한 꿀벌"
+    },
+    {
+      "text_html": "<h2>꿀벌의 자연·과학 사실</h2><p>일벌은 꽃에서 <strong>꽃꿀을 빨아 모아 벌집에서 꿀로 만들고</strong>, 뒷다리의 \"꽃가루 바구니\"에 꽃가루를 담아 옮겨요. 이렇게 꽃과 꽃을 오가며 <strong>꽃가루받이(수분)를 도와</strong>, 우리가 먹는 많은 열매·채소가 열리게 하는 아주 중요한 곤충이지요. 좋은 꽃밭을 찾으면 <strong>\"8자 춤\"으로 동료에게 위치를 알려 주는</strong> 신기한 소통도 합니다.</p>",
+      "image_prompt": "A honeybee with pollen baskets on its legs, informative children's book illustration, no text",
+      "alt": "꽃가루를 옮기는 꿀벌",
+      "caption": "꽃가루 바구니"
+    },
+    {
+      "text_html": "<h2>탱고북 «꿀벌»이 다루는 내용</h2><p>탱고북 «꿀벌»은 꽃꿀을 모으는 모습, 꿀을 만드는 벌집, 꽃가루받이를 돕는 모습, 8자 춤으로 소통하는 꿀벌을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A honeybee doing a waggle dance in the hive, gentle children's book illustration, no text",
+      "alt": "8자 춤을 추는 꿀벌",
+      "caption": "춤으로 소통"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>꿀 만들기, 꽃가루 바구니, 꽃가루받이(중요), 8자 춤 같은 포인트를 짚어 주세요. \"꿀벌이 없으면 어떻게 될까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of a honeycomb with honey, observational children's book illustration, no text",
+      "alt": "벌집과 꿀",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"꿀벌이 꽃을 도와 열매가 열려\"를 우리가 먹는 과일과 연결해 보세요. 8자 춤을 몸으로 흉내 내고, 꽃밭에서 꿀벌을 멀리서 관찰하면 흥미가 커집니다(쏘이지 않게 주의).</p>",
+      "image_prompt": "A parent and child watching bees in a flower garden, warm children's book illustration, no text",
+      "alt": "꿀벌을 관찰하는 부모와 아이",
+      "caption": "꽃밭 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 꿀벌은 왜 중요한가요?</strong><br>A. 꽃과 꽃을 오가며 꽃가루받이를 도와, 우리가 먹는 많은 열매·채소가 열리게 합니다.</p><p><strong>Q. 8자 춤은 무엇인가요?</strong><br>A. 좋은 꽃밭을 찾으면 동료에게 위치를 알려 주는 소통 방법입니다. 8자 모양으로 춤춰요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 우리가 먹는 과일과 연결, 8자 춤 흉내, 꽃밭에서 멀리 관찰(쏘이지 않게)이 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

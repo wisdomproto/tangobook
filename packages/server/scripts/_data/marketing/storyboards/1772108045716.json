@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772108045716",
+  "title": "아기 돼지 삼형제",
+  "hook": "아기 돼지 삼형제 는 짚·나무·벽돌로 각각 집을 지은 세 돼지와 늑대의…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "아기 돼지 삼형제 는 짚·나무·벽돌로 각각 집을 지은 세 돼지와 늑대의 이야기로, 성실하게 준비하는 것의 중…",
+      "screen": "아기 돼지 삼형제, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "아기 돼지 삼형제, 어떤 동화인가요?",
+      "imagePrompt": "Three little pigs building houses of straw, sticks, and bricks in a sunny meadow, cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "영국 전래 동화로 1840년대에 활자화되었으며, 조셉 제이콥스의 『English Fairy Tales』(1890)에 실려 널리 퍼졌습니다. 늑대가 \"후!",
+      "screen": "아기 돼지 삼형제 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "아기 돼지 삼형제 원작 이야기",
+      "imagePrompt": "A big wolf huffing and puffing at a brick house while a clever pig watches from inside, lively children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "첫째와 둘째 돼지는 짚과 나무로 대충 집을 짓고 놀지만, 셋째 돼지는 시간을 들여 벽돌집을 단단히 짓습니다. 늑대가 짚집과 나무집을 후 불어 날려 버리자 두 형제는 셋째의 벽돌집으로 도망치고, 늑대…",
+      "screen": "아기 돼지 삼형제 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "아기 돼지 삼형제 줄거리 요약",
+      "imagePrompt": "Three pigs safe together inside a sturdy brick house as the wolf gives up outside, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 당장 편한 길보다 성실하게 준비하는 것이 결국 나를 지킨다 는 것입니다. \"지금 조금 힘들어도 미리 해두면 좋은 일\"을 아이와 이야기하며 성실함의 가치를 나눠 보세요.",
+      "screen": "아기 돼지 삼형제가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "아기 돼지 삼형제가 주는 교훈",
+      "imagePrompt": "A diligent pig proudly looking at his finished brick house, sense of accomplishment, children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "아기 돼지 삼형제, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

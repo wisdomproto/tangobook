@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773149047331",
+  "title": "고슴도치",
+  "hook": "뾰족한 가시 뒤에 귀여운 얼굴이 숨은 고슴도치 는 호기심을 자극하는 자연…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "뾰족한 가시 뒤에 귀여운 얼굴이 숨은 고슴도치 는 호기심을 자극하는 자연관찰 친구예요.",
+      "screen": "고슴도치, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "고슴도치, 어떤 점이 신기할까요?",
+      "imagePrompt": "A cute hedgehog with quills walking in autumn leaves at dusk, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "고슴도치의 가시는 사실 변형된 털 로, 속이 비어 가볍고 탄력 있습니다. 성체 한 마리에 약 5,000~7,000개 나 되지요.",
+      "screen": "고슴도치의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "고슴도치의 자연·과학 사실",
+      "imagePrompt": "A hedgehog curled into a defensive ball, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «고슴도치»는 가시로 몸을 지키는 방어 행동, 야행성 먹이 탐색, 겨울잠, 아기 고슴도치의 성장을 생생하게 보여 줍니다. \"뾰족한 가시 뒤에 숨은 귀염둥이\"라는 따뜻한 시선으로 마무리돼요.",
+      "screen": "탱고북 «고슴도치»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «고슴도치»이 다루는 내용",
+      "imagePrompt": "A hedgehog sleeping in a cozy nest of leaves in winter, children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "가시(변형된 털, 수천 개), 몸 말기(방어), 겨울잠(체온 변화), 야행성(밤에 활동) 같은 포인트를 짚어 주세요. \"왜 몸을 공처럼 말까?\", \"가시는 몇 개일까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Close-up of hedgehog quills showing texture, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "고슴도치, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

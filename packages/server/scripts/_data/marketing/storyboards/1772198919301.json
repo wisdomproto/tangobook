@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772198919301",
+  "title": "피터와 늑대",
+  "hook": "피터와 늑대 는 용감한 소년 피터가 친구 동물들과 함께 지혜로 늑대를 잡…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "피터와 늑대 는 용감한 소년 피터가 친구 동물들과 함께 지혜로 늑대를 잡는 이야기로, 악기마다 등장인물을 표…",
+      "screen": "피터와 늑대, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "피터와 늑대, 어떤 동화인가요?",
+      "imagePrompt": "A brave boy with a bird, a duck, and a cat in a green meadow near a forest, cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "러시아 작곡가 세르게이 프로코피예프 가 1936년 작곡한 음악 동화입니다. 피터=현악기, 새=플루트, 오리=오보에, 고양이=클라리넷, 늑대=호른 등 악기로 캐릭터를 표현해, 아이가 오케스트라 악기를…",
+      "screen": "피터와 늑대 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "피터와 늑대 원작 이야기",
+      "imagePrompt": "Musical instruments floating around animal characters, flute bird, oboe duck, horn wolf, whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "할아버지의 경고에도 피터는 친구 새와 함께 들로 나갑니다. 늑대가 나타나 오리를 삼키자, 피터는 겁먹지 않고 새와 협력해 밧줄로 늑대를 붙잡지요.",
+      "screen": "피터와 늑대 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "피터와 늑대 줄거리 요약",
+      "imagePrompt": "A boy cleverly catching a wolf with a rope from a tree while a bird distracts it, brave lively children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 두려운 상황에서도 용기와 지혜로 맞서고, 친구와 협력하면 큰일도 해낸다 는 것입니다. \"무서울 때 어떻게 용기를 낼까?\"를 아이와 이야기해 보세요.",
+      "screen": "피터와 늑대가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "피터와 늑대가 주는 교훈",
+      "imagePrompt": "Peter and his animal friends celebrating together after catching the wolf, joyful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "피터와 늑대, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

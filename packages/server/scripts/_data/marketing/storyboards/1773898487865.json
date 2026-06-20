@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773898487865",
+  "title": "이구아노돈",
+  "hook": "엄지에 뾰족한 가시 를 가진 이구아노돈 은 가장 먼저 발견된 공룡 중 하…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "엄지에 뾰족한 가시 를 가진 이구아노돈 은 가장 먼저 발견된 공룡 중 하나예요.",
+      "screen": "이구아노돈, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "이구아노돈, 어떤 점이 신기할까요?",
+      "imagePrompt": "An Iguanodon walking on two and four legs, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "이구아노돈은 약 1억 2,500만 년 전 백악기 전기 유럽 에 살았고 몸길이 최대 9~11m였어요. 가장 큰 특징인 엄지의 뾰족한 가시 는 처음엔 코뿔로 오해받았다가, 나중에 엄지 끝임이 밝혀졌지요…",
+      "screen": "이구아노돈의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "이구아노돈의 자연·과학 사실",
+      "imagePrompt": "A close-up of Iguanodon thumb spike, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «이구아노돈»은 엄지의 가시, 두 발·네 발 걷기, 무리 지어 이동하는 모습 등 친근한 초식 공룡을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «이구아노돈»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «이구아노돈»이 다루는 내용",
+      "imagePrompt": "A herd of Iguanodon migrating together, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "엄지 가시(처음엔 코뿔로 오해), 두 발·네 발, 무리 이동, 유럽 화석 같은 포인트를 짚어 주세요. \"엄지에 가시가 있다니 신기하지?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "An Iguanodon using its thumb spike, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "이구아노돈, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

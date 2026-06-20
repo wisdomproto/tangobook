@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777595882281",
+  "title": "두꺼비",
+  "hook": "울퉁불퉁한 피부의 두꺼비 는 개구리의 친척이지만 더 건조한 땅에서도 잘…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "울퉁불퉁한 피부의 두꺼비 는 개구리의 친척이지만 더 건조한 땅에서도 잘 지내는 양서류예요.",
+      "screen": "두꺼비, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "두꺼비, 어떤 점이 신기할까요?",
+      "imagePrompt": "A toad with bumpy skin on damp ground, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "두꺼비는 개구리보다 피부가 두껍고 건조하며 울퉁불퉁 해 물에서 조금 떨어진 땅에서도 잘 지내요. 등의 돌기는 사마귀가 아니라 몸을 지키는 피부 구조 로, \"만지면 사마귀가 난다\"는 말은 사실이 아닌…",
+      "screen": "두꺼비의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "두꺼비의 자연·과학 사실",
+      "imagePrompt": "A toad catching an insect with its long tongue, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «두꺼비»는 울퉁불퉁한 피부, 긴 혀로 벌레를 잡는 모습, 물속의 알과 올챙이, 어른 두꺼비가 되는 과정을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «두꺼비»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «두꺼비»이 다루는 내용",
+      "imagePrompt": "A comparison of a toad and a frog, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "두꺼운 피부(돌기), 개구리와의 차이, 해충 사냥(이로움), 변태 같은 포인트를 짚어 주세요. \"두꺼비와 개구리는 뭐가 다를까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of toad bumpy skin, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "두꺼비, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

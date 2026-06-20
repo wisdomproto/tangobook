@@ -1,0 +1,46 @@
+{
+  "storybookId": "1777605651238",
+  "seo_title": "개미 특징과 협동의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "개미",
+  "secondary_keywords": ["개미 특징", "개미 페로몬", "개미집", "유아 자연관찰 책", "곤충 그림책"],
+  "url_slug": "ant-nature-for-kids",
+  "meta_description": "개미가 힘이 센 비밀과 냄새 길(페로몬)로 소통하는 법, 역할을 나누는 협동 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>개미, 어떤 점이 신기할까요?</h2><p>작지만 힘센 <strong>개미</strong>는 여왕개미를 중심으로 함께 사는 사회성 곤충이에요. 모두가 힘을 합쳐 큰일을 해내는 협동의 대표 곤충이지요.</p>",
+      "image_prompt": "Ants carrying food in a line, gentle children's book illustration, no text",
+      "alt": "개미",
+      "caption": "협동의 곤충"
+    },
+    {
+      "text_html": "<h2>개미의 자연·과학 사실</h2><p>일개미는 <strong>자기 몸무게의 여러 배나 되는 짐도 거뜬히</strong> 나를 만큼 힘이 세요. 머리의 더듬이로 <strong>냄새(페로몬) 길을 따라</strong> 먹이가 있는 곳을 동료에게 알리지요. 땅속에 여러 방과 길로 이루어진 <strong>개미집</strong>을 짓고, 알을 돌보는 일·먹이를 모으는 일·집을 지키는 일을 <strong>역할을 나누어</strong> 합니다.</p>",
+      "image_prompt": "An ant carrying a load much bigger than itself, informative children's book illustration, no text",
+      "alt": "무거운 짐을 나르는 개미",
+      "caption": "힘센 일개미"
+    },
+    {
+      "text_html": "<h2>탱고북 «개미»이 다루는 내용</h2><p>탱고북 «개미»는 무거운 짐을 나르는 모습, 줄지어 냄새 길을 따라가는 모습, 땅속 개미집, 역할을 나눠 일하는 개미들을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A cross-section of an underground ant nest with rooms, gentle children's book illustration, no text",
+      "alt": "땅속 개미집",
+      "caption": "방과 길의 집"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>힘(몸무게 여러 배), 페로몬 길(소통), 개미집(방·길), 역할 분담 같은 포인트를 짚어 주세요. \"개미는 어떻게 길을 찾을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "Ants following a pheromone trail, observational children's book illustration, no text",
+      "alt": "냄새 길을 따라가는 개미",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>땅에서 줄지어 가는 개미를 관찰하며 \"냄새 길을 따라가는 거야\"를 이야기해 보세요. 작은 먹이를 두고 개미가 모이는 과정을 지켜보면 협동을 직접 볼 수 있습니다.</p>",
+      "image_prompt": "A parent and child watching ants on the ground, warm children's book illustration, no text",
+      "alt": "개미를 관찰하는 부모와 아이",
+      "caption": "땅 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 개미는 어떻게 먹이 있는 곳을 알리나요?</strong><br>A. 머리의 더듬이로 냄새(페로몬) 길을 따라가고, 동료에게도 그 길을 알려 줍니다.</p><p><strong>Q. 개미는 얼마나 힘이 센가요?</strong><br>A. 자기 몸무게의 여러 배나 되는 짐도 거뜬히 나를 만큼 힘이 셉니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 줄지어 가는 개미 관찰, 작은 먹이를 두고 모이는 과정 지켜보기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777442353908",
+  "seo_title": "다람쥐 특징과 도토리 저장의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "다람쥐",
+  "secondary_keywords": [
+    "다람쥐 특징",
+    "다람쥐 도토리",
+    "다람쥐 생태",
+    "유아 동물 책",
+    "동물 그림책"
+  ],
+  "url_slug": "squirrel-nature-for-kids",
+  "meta_description": "다람쥐의 볼주머니와 도토리 저장 습성, 숲을 가꾸는 역할 등 신기한 사실과, 탱고북 동물 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>다람쥐, 어떤 점이 신기할까요?</h2><p>나무를 잘 타는 작은 <strong>다람쥐</strong>는 볼주머니에 도토리를 잔뜩 담아 옮기는 귀여운 동물이에요. 사실은 숲을 가꾸는 작은 정원사랍니다.</p>",
+      "image_prompt": "A squirrel holding an acorn on a tree branch, cute children's book illustration, no text",
+      "alt": "다람쥐",
+      "caption": "나무를 타는 다람쥐"
+    },
+    {
+      "text_html": "<h2>다람쥐의 자연·과학 사실</h2><p>다람쥐는 <strong>볼주머니</strong>에 도토리를 담아 옮기고, 겨울 양식을 땅속 여기저기에 묻어 둬요. 재미있게도 <strong>묻은 걸 일부 잊어버려</strong> 그 도토리가 싹을 틔워 새 나무가 되니, 다람쥐는 <strong>\"숲을 가꾸는 정원사\"</strong>인 셈이지요. 크고 복슬복슬한 꼬리는 나무를 오르내릴 때 균형을 잡고 추울 땐 담요가 돼요. 앞니는 평생 자라 단단한 열매를 갉아 길이를 맞춥니다.</p>",
+      "image_prompt": "A squirrel with cheek pouches full of acorns, informative children's book illustration, no text",
+      "alt": "볼주머니에 도토리를 담은 다람쥐",
+      "caption": "도토리 운반"
+    },
+    {
+      "text_html": "<h2>탱고북 «다람쥐»이 다루는 내용</h2><p>탱고북 «다람쥐»는 도토리를 볼에 담는 모습, 땅에 묻어 저장하는 모습, 나무를 타는 모습, 잊은 도토리가 새 나무가 되는 이야기를 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A squirrel burying an acorn that sprouts into a tree, gentle children's book illustration, no text",
+      "alt": "도토리를 묻는 다람쥐",
+      "caption": "숲의 정원사"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>볼주머니(저장), 도토리 묻기(숲 가꾸기), 꼬리(균형·담요), 평생 자라는 앞니 같은 포인트를 짚어 주세요. \"잊은 도토리는 어떻게 될까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of a squirrel bushy tail, observational children's book illustration, no text",
+      "alt": "다람쥐 꼬리",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>공원·산에서 다람쥐가 도토리를 옮기는 모습을 관찰해 보세요. \"묻고 잊은 도토리가 나무가 돼\"를 [[참나무]] 이야기와 연결하면 자연의 순환을 배웁니다.</p>",
+      "image_prompt": "A parent and child watching a squirrel in a park, warm children's book illustration, no text",
+      "alt": "다람쥐를 관찰하는 부모와 아이",
+      "caption": "공원 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 다람쥐가 도토리를 묻으면 어떻게 되나요?</strong><br>A. 일부를 잊어버려 그 도토리가 싹을 틔워 새 나무가 됩니다. 그래서 \"숲의 정원사\"라 불려요.</p><p><strong>Q. 볼주머니는 무엇에 쓰나요?</strong><br>A. 도토리·열매를 잔뜩 담아 옮기는 데 씁니다. 겨울 양식을 땅에 저장해요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 공원·산에서 도토리 옮기는 모습 관찰, 참나무 이야기와 연결하기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

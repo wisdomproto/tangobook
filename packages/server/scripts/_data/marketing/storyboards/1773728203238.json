@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773728203238",
+  "title": "브라키오사우루스",
+  "hook": "기린처럼 목을 높이 든 브라키오사우루스 는 높은 나무의 잎을 따 먹던 거…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "기린처럼 목을 높이 든 브라키오사우루스 는 높은 나무의 잎을 따 먹던 거대한 초식 공룡이에요.",
+      "screen": "브라키오사우루스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "브라키오사우루스, 어떤 점이 신기할까요?",
+      "imagePrompt": "A towering Brachiosaurus reaching tall trees, majestic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "브라키오사우루스는 몸길이 약 21~26m, 몸무게 30~56톤의 거구였어요. 가장 큰 특징은 앞다리가 뒷다리보다 길어 등이 기린처럼 앞으로 높이 솟고 목이 자연스럽게 위를 향한 점이에요.",
+      "screen": "브라키오사우루스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "브라키오사우루스의 자연·과학 사실",
+      "imagePrompt": "A Brachiosaurus with front legs longer than back legs, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «브라키오사우루스»는 하늘 높이 솟은 목, 거대한 몸집, 높은 나무 잎을 따 먹는 모습 등 거대 초식 공룡을 웅장하게 보여 줍니다.",
+      "screen": "탱고북 «브라키오사우루스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «브라키오사우루스»이 다루는 내용",
+      "imagePrompt": "A Brachiosaurus eating leaves from a treetop, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "긴 목(높은 잎), 앞다리>뒷다리(기린 자세), 거대 몸집, 숟가락 이빨 같은 포인트를 짚어 주세요. \"왜 목이 이렇게 길까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A close-up of Brachiosaurus spoon-shaped teeth, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "브라키오사우루스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

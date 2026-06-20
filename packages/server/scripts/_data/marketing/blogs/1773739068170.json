@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773739068170",
+  "seo_title": "파라사우롤로푸스 특징 — 볏으로 소리 내는 공룡 자연관찰 그림책",
+  "primary_keyword": "파라사우롤로푸스",
+  "secondary_keywords": [
+    "파라사우롤로푸스",
+    "볏 공룡",
+    "소리 내는 공룡",
+    "유아 공룡 책",
+    "공룡 그림책"
+  ],
+  "url_slug": "parasaurolophus-for-kids",
+  "meta_description": "머리의 긴 볏으로 트롬본 같은 소리를 냈을 파라사우롤로푸스의 특징 등 신기한 사실과, 탱고북 공룡 그림책 내용, 즐기는 법까지. 4~7세 공룡 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>파라사우롤로푸스, 어떤 점이 신기할까요?</h2><p>머리에 길고 멋진 <strong>볏</strong>을 단 <strong>파라사우롤로푸스</strong>는 그 볏으로 소리를 냈을지 모르는 신기한 초식 공룡이에요.</p>",
+      "image_prompt": "A Parasaurolophus with a long head crest in a forest, gentle children's book illustration, no text",
+      "alt": "파라사우롤로푸스",
+      "caption": "볏을 단 공룡"
+    },
+    {
+      "text_html": "<h2>파라사우롤로푸스의 자연·과학 사실</h2><p>파라사우롤로푸스의 <strong>볏은 속이 빈 관으로 코와 연결</strong>돼 공기가 통할 수 있었어요. 컴퓨터 시뮬레이션 연구에 따르면 이 볏으로 <strong>트롬본처럼 낮은 소리</strong>를 냈을 거예요. 볏은 같은 종을 알아보고, 짝을 부르고, 무리와 소통하는 데 쓰였을 거예요. 몸길이 약 9.5~10m였고, 백악기 후기 북아메리카에 살았습니다.</p>",
+      "image_prompt": "A cross-section of the hollow tube crest connected to the nose, informative children's book illustration, no text",
+      "alt": "파라사우롤로푸스 볏 구조",
+      "caption": "속이 빈 관"
+    },
+    {
+      "text_html": "<h2>탱고북 «파라사우롤로푸스»이 다루는 내용</h2><p>탱고북 «파라사우롤로푸스»는 길고 멋진 볏, 볏으로 내는 소리, 무리 지어 소통하는 모습 등 노래하는 공룡을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A Parasaurolophus making a sound with its crest among a herd, gentle children's book illustration, no text",
+      "alt": "소리 내는 파라사우롤로푸스",
+      "caption": "무리와 소통"
+    },
+    {
+      "text_html": "<h2>함께 알아보면 좋은 포인트</h2><p>긴 볏(속 빈 관), 트롬본 소리, 무리 소통, 두 발·네 발 걷기 같은 포인트를 짚어 주세요. \"볏으로 어떻게 소리를 냈을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of the Parasaurolophus crest, observational children's book illustration, no text",
+      "alt": "파라사우롤로푸스 볏",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>빈 호스나 관에 바람을 불어 \"낮은 소리\"를 내 보며 볏의 원리를 흉내 내 보세요. 악기(트롬본) 소리를 들려주면 볏의 기능을 쉽게 이해합니다.</p>",
+      "image_prompt": "A parent and child blowing into a tube to make low sounds, warm children's book illustration, no text",
+      "alt": "관에 바람을 부는 부모와 아이",
+      "caption": "볏 소리 흉내"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 파라사우롤로푸스 볏은 무슨 역할을 했나요?</strong><br>A. 속이 빈 관으로 코와 연결돼 트롬본 같은 소리를 냈을 거예요. 짝을 부르고 무리와 소통했어요.</p><p><strong>Q. 볏으로 정말 소리를 냈나요?</strong><br>A. 컴퓨터 시뮬레이션 연구에서 낮은 음역대의 소리를 낼 수 있었을 것으로 추정됩니다.</p><p><strong>Q. 집에서 어떻게 즐기면 좋을까요?</strong><br>A. 빈 관에 바람 불어 소리 내기, 트롬본 소리 들려주기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

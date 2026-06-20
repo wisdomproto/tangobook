@@ -1,0 +1,46 @@
+{
+  "storybookId": "1777615067098",
+  "seo_title": "하마 특징과 물속 생활의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "하마",
+  "secondary_keywords": ["하마 특징", "하마 물속", "하마 생태", "유아 자연관찰 책", "동물 그림책"],
+  "url_slug": "hippo-nature-for-kids",
+  "meta_description": "하마가 하루 대부분을 물속에서 보내는 이유와 큰 입, 눈·코·귀의 위치 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>하마, 어떤 점이 신기할까요?</h2><p>큰 몸집의 <strong>하마</strong>는 하루 대부분을 물속에서 보내는 신기한 동물이에요. 입을 아주 크게 벌리는 모습이 인상적이지요.</p>",
+      "image_prompt": "A hippo resting in water, gentle children's book illustration, no text",
+      "alt": "하마",
+      "caption": "물속의 거인"
+    },
+    {
+      "text_html": "<h2>하마의 자연·과학 사실</h2><p>하마는 큰 몸집에도 <strong>하루의 대부분을 물속에서</strong> 보내요 — 뜨거운 햇볕으로부터 약한 피부를 보호하고 더위를 식히기 위해서지요(피부에서 붉은빛 액을 내기도 해요). <strong>눈·코·귀가 머리 위쪽에 모여</strong> 있어 몸을 물에 담근 채로도 보고 숨 쉬어요. 입을 아주 크게 벌리는 건 먹이보다 <strong>힘을 과시하는 표시</strong>예요. 풀을 먹는 초식 동물로 주로 밤에 나와 풀을 뜯고, 땅에서도 의외로 빠르게 달립니다.</p>",
+      "image_prompt": "A hippo with eyes ears and nose above the water, informative children's book illustration, no text",
+      "alt": "물에 잠긴 하마",
+      "caption": "위에 모인 눈·코·귀"
+    },
+    {
+      "text_html": "<h2>탱고북 «하마»이 다루는 내용</h2><p>탱고북 «하마»는 물속에서 지내는 모습, 머리 위에 모인 눈·코·귀, 입을 크게 벌리는 과시, 밤에 풀을 뜯는 하마를 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A hippo opening its mouth wide, dynamic children's book illustration, no text",
+      "alt": "입을 크게 벌린 하마",
+      "caption": "힘의 과시"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>물속 생활(피부 보호), 눈·코·귀 위치, 큰 입(과시), 초식·야행 같은 포인트를 짚어 주세요. \"하마는 왜 물속에 있을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A hippo grazing grass at night, observational children's book illustration, no text",
+      "alt": "풀을 뜯는 하마",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"눈·코·귀가 위에 있어 물에 잠겨도 괜찮아\"를 직접 얼굴을 가리키며 비교해 보세요. \"큰 입은 힘자랑(먹이 아님)\"을 알려 주면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child pointing to eyes nose ears like a hippo, warm children's book illustration, no text",
+      "alt": "얼굴을 가리키는 부모와 아이",
+      "caption": "눈·코·귀 비교"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 하마는 왜 물속에서 지내나요?</strong><br>A. 뜨거운 햇볕으로부터 약한 피부를 보호하고 더위를 식히기 위해서입니다.</p><p><strong>Q. 하마가 입을 크게 벌리는 이유는?</strong><br>A. 먹이를 먹기보다 힘을 과시하는 표시입니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 얼굴 가리키며 눈·코·귀 위치 비교, \"큰 입은 힘자랑\" 이야기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

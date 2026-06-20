@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777610954811",
+  "seo_title": "상어 특징과 연골·이빨의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "상어",
+  "secondary_keywords": [
+    "상어 특징",
+    "상어 이빨",
+    "상어 생태",
+    "유아 자연관찰 책",
+    "바다 동물 그림책"
+  ],
+  "url_slug": "shark-nature-for-kids",
+  "meta_description": "상어의 연골 뼈와 평생 갈리는 이빨, 뛰어난 후각 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>상어, 어떤 점이 신기할까요?</h2><p>바다의 멋진 사냥꾼 <strong>상어</strong>는 빠르게 헤엄치는 신기한 물고기예요. 영화 속과 달리 대부분은 사람을 해치지 않는답니다.</p>",
+      "image_prompt": "A shark swimming smoothly in the ocean, dynamic children's book illustration, no text",
+      "alt": "상어",
+      "caption": "바다의 사냥꾼"
+    },
+    {
+      "text_html": "<h2>상어의 자연·과학 사실</h2><p>상어는 몸을 받치는 뼈가 단단한 뼈가 아니라 <strong>말랑한 연골(물렁뼈)</strong>이라 매끄럽고 빠르게 헤엄쳐요. <strong>이빨이 빠지면 뒤에서 새 이빨이 계속 나와</strong> 평생 여러 번 갈리지요. 냄새 맡는 능력이 뛰어나 멀리 있는 먹이도 찾고, 피부는 작은 비늘로 까칠까칠해요. 가장 큰 <strong>고래상어는 작은 플랑크톤을 걸러 먹는 순한 상어</strong>로, 상어는 바다 생태계의 균형을 지키는 중요한 동물입니다.</p>",
+      "image_prompt": "A close-up of shark teeth with new teeth behind, informative children's book illustration, no text",
+      "alt": "상어 이빨",
+      "caption": "계속 나는 이빨"
+    },
+    {
+      "text_html": "<h2>탱고북 «상어»이 다루는 내용</h2><p>탱고북 «상어»는 빠르게 헤엄치는 모습, 계속 나는 이빨, 뛰어난 후각, 순한 고래상어 등 상어의 진짜 모습을 박진감 있게 보여 줍니다.</p>",
+      "image_prompt": "A gentle whale shark filtering plankton, gentle children's book illustration, no text",
+      "alt": "순한 고래상어",
+      "caption": "플랑크톤을 먹는 상어"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>연골(빠른 헤엄), 이빨 갈이, 후각, 순한 고래상어 같은 포인트를 짚어 주세요. \"상어 이빨이 계속 난다니 신기하지?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of shark rough skin scales, observational children's book illustration, no text",
+      "alt": "상어 피부 비늘",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"영화 속 무서운 상어 vs 진짜 상어\"를 비교하며 오해를 풀어 주세요. \"이빨이 계속 나서 평생 새것\"을 아이의 이갈이와 비교하면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child comparing movie sharks and real sharks, warm children's book illustration, no text",
+      "alt": "상어를 알아보는 부모와 아이",
+      "caption": "오해 풀기"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 상어 이빨은 빠지면 어떻게 되나요?</strong><br>A. 뒤에서 새 이빨이 계속 나와 평생 여러 번 갈립니다. 늘 새 이빨을 가지는 셈이에요.</p><p><strong>Q. 상어는 모두 무서운가요?</strong><br>A. 아니요. 대부분은 사람을 해치지 않으며, 가장 큰 고래상어는 플랑크톤을 걸러 먹는 순한 상어예요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. \"영화 vs 진짜 상어\" 비교, 이빨 갈이를 아이 이갈이와 비교하기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

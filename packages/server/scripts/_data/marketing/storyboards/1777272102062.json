@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777272102062",
+  "title": "라푼젤",
+  "hook": "라푼젤 은 높은 탑에 갇혀 긴 머리카락을 늘어뜨리는 소녀의 이야기로, 어…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "라푼젤 은 높은 탑에 갇혀 긴 머리카락을 늘어뜨리는 소녀의 이야기로, 어려움 속에서도 희망을 잃지 않는 마음…",
+      "screen": "라푼젤, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "라푼젤, 어떤 동화인가요?",
+      "imagePrompt": "A girl with very long golden hair looking out from a tall tower window, dreamy children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "독일 그림 형제 가 수집해 동화집에 수록한 이야기(KHM 12)입니다. \"라푼젤, 라푼젤, 머리카락을 내려 다오\"라는 유명한 대사와, 마녀에게 갇힌 라푼젤이 결국 자유와 행복을 찾는 결말이 핵심입니…",
+      "screen": "라푼젤 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "라푼젤 원작 이야기",
+      "imagePrompt": "A long braid of golden hair flowing down a stone tower, whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "마녀에게 높은 탑에 갇힌 라푼젤은 긴 머리카락을 사다리 삼아 사람을 맞이합니다. 외로운 나날 속에서도 노래하며 희망을 잃지 않던 라푼젤은, 따뜻한 인연과 용기로 마침내 탑을 벗어나 자유와 행복을 되…",
+      "screen": "라푼젤 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "라푼젤 줄거리 요약",
+      "imagePrompt": "A girl joyfully leaving a tower into a sunny meadow, freedom and hope, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 갇힌 상황에서도 희망과 용기를 잃지 않으면 길이 열린다 는 것입니다. \"힘든 일이 있을 때 어떻게 마음을 지킬까?\"를 아이와 이야기해 보세요.",
+      "screen": "라푼젤이 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "라푼젤이 주는 교훈",
+      "imagePrompt": "A girl singing hopefully by the tower window with birds around, uplifting children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "라푼젤, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

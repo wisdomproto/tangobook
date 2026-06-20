@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773739549787",
+  "title": "트리케라톱스",
+  "hook": "얼굴에 세 개의 뿔 과 큰 프릴(목 방패) 을 가진 트리케라톱스 는 아이…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "얼굴에 세 개의 뿔 과 큰 프릴(목 방패) 을 가진 트리케라톱스 는 아이들이 사랑하는 초식 공룡이에요.",
+      "screen": "트리케라톱스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "트리케라톱스, 어떤 점이 신기할까요?",
+      "imagePrompt": "A Triceratops with three horns and a large frill, majestic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "트리케라톱스는 약 6,600만 년 전 백악기 말에 살았고 몸길이 약 7.9~9m였어요. 코 위 1개, 눈 위 2개로 총 세 개의 뿔 과 머리 뒤의 큰 프릴 이 특징이지요.",
+      "screen": "트리케라톱스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "트리케라톱스의 자연·과학 사실",
+      "imagePrompt": "A close-up of Triceratops three horns and frill, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «트리케라톱스»는 세 개의 뿔, 큰 프릴, 무리 지어 사는 모습, 천적과 맞서는 장면 등 멋진 초식 공룡을 박진감 있게 보여 줍니다.",
+      "screen": "탱고북 «트리케라톱스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «트리케라톱스»이 다루는 내용",
+      "imagePrompt": "A Triceratops facing a predator with its horns, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "세 뿔(코·눈 위), 큰 프릴, 천적 방어, 과시 신호 같은 포인트를 짚어 주세요. \"뿔과 프릴은 왜 있었을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A herd of Triceratops grazing together, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "트리케라톱스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

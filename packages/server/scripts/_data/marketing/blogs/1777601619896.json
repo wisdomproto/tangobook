@@ -1,0 +1,46 @@
+{
+  "storybookId": "1777601619896",
+  "seo_title": "백로 특징과 인내의 사냥 비밀 — 자연관찰 그림책",
+  "primary_keyword": "백로",
+  "secondary_keywords": ["백로 특징", "백로 생태", "물새", "유아 자연관찰 책", "새 그림책"],
+  "url_slug": "egret-nature-for-kids",
+  "meta_description": "백로가 꼼짝 않고 기다리다 번개처럼 사냥하는 비밀과 우아한 모습 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>백로, 어떤 점이 신기할까요?</h2><p>논과 물가의 우아한 새 <strong>백로</strong>는 새하얀 깃털과 긴 다리로 한눈에 알아보는 물새예요. 인내심 강한 사냥꾼이랍니다.</p>",
+      "image_prompt": "A white egret standing in shallow water, elegant children's book illustration, no text",
+      "alt": "백로",
+      "caption": "우아한 물새"
+    },
+    {
+      "text_html": "<h2>백로의 자연·과학 사실</h2><p>백로는 긴 다리로 얕은 물을 사뿐히 걷고, 긴 목과 뾰족한 부리로 <strong>물고기·개구리·곤충</strong>을 잡아요. 사냥할 때는 <strong>한참 꼼짝 않고 기다리다가 먹이가 가까이 오면 번개처럼 부리를 내리꽂는 인내의 사냥꾼</strong>이지요. 새하얀 깃털이 물가에서 눈에 띄어 우리 옛 그림과 시에도 자주 나왔고, 봄·여름엔 무리 지어 나무 위에 둥지를 틀어 새끼를 키웁니다.</p>",
+      "image_prompt": "An egret striking quickly to catch a fish, dynamic children's book illustration, no text",
+      "alt": "사냥하는 백로",
+      "caption": "번개 같은 사냥"
+    },
+    {
+      "text_html": "<h2>탱고북 «백로»이 다루는 내용</h2><p>탱고북 «백로»는 얕은 물을 걷는 모습, 꼼짝 않고 기다리는 사냥, 새하얀 깃털, 나무 위 둥지의 백로를 우아하게 보여 줍니다.</p>",
+      "image_prompt": "Egrets nesting in a tree, gentle children's book illustration, no text",
+      "alt": "나무 위 백로 둥지",
+      "caption": "무리 둥지"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>긴 다리(얕은 물), 인내의 사냥, 새하얀 깃털, 무리 둥지 같은 포인트를 짚어 주세요. \"백로는 왜 가만히 기다릴까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of egret long legs and pointed beak, observational children's book illustration, no text",
+      "alt": "백로 다리와 부리",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"움직이면 물고기가 도망가니까 기다려\"를 무궁화꽃 놀이처럼 \"멈추기 놀이\"와 연결해 보세요. 논·물가에서 백로를 관찰하면 인내의 사냥을 직접 볼 수 있습니다.</p>",
+      "image_prompt": "A parent and child watching an egret by a rice field, warm children's book illustration, no text",
+      "alt": "백로를 관찰하는 부모와 아이",
+      "caption": "물가 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 백로는 왜 꼼짝 않고 기다리나요?</strong><br>A. 움직이면 물고기가 도망가기 때문입니다. 가까이 오면 번개처럼 부리를 내리꽂아 잡아요.</p><p><strong>Q. 백로는 어디에 사나요?</strong><br>A. 강·논·물가에 삽니다. 봄·여름엔 무리 지어 나무 위에 둥지를 틀어 새끼를 키워요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. \"멈추기 놀이\"와 연결, 논·물가에서 인내의 사냥 관찰이 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

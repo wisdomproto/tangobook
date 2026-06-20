@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777439576248",
+  "title": "곰",
+  "hook": "크고 힘센 곰 은 물고기도, 꿀도, 나무 열매도 먹는 잡식 동물이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "크고 힘센 곰 은 물고기도, 꿀도, 나무 열매도 먹는 잡식 동물이에요.",
+      "screen": "곰, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "곰, 어떤 점이 신기할까요?",
+      "imagePrompt": "A bear catching a fish by a river, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "곰은 고기와 식물을 모두 먹는 잡식 동물 로, 물고기·꿀·열매를 즐겨요. 뛰어난 후각으로 멀리 있는 먹이 냄새를 맡고 크고 단단한 발톱으로 땅을 파거나 나무를 오르지요.",
+      "screen": "곰의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "곰의 자연·과학 사실",
+      "imagePrompt": "A bear eating honey and berries, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «곰»은 물고기를 잡는 모습, 꿀과 열매를 먹는 모습, 겨울잠을 자는 굴, 새끼를 돌보는 어미 곰을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «곰»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «곰»이 다루는 내용",
+      "imagePrompt": "A bear sleeping in a winter den with cubs, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "잡식(물고기·꿀·열매), 후각·발톱, 겨울잠, 어미·새끼 같은 포인트를 짚어 주세요. \"곰은 왜 겨울에 잠을 잘까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of bear strong claws, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "곰, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

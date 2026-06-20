@@ -1,0 +1,46 @@
+{
+  "storybookId": "1773363971764",
+  "seo_title": "뱀 특징과 생태 — 다리 없는 사냥꾼 자연관찰 그림책",
+  "primary_keyword": "뱀",
+  "secondary_keywords": ["뱀 특징", "뱀 생태", "뱀 허물", "유아 자연관찰 책", "동물 그림책"],
+  "url_slug": "snake-nature-for-kids",
+  "meta_description": "뱀이 다리 없이 움직이는 법과 혀로 냄새 맡기, 허물벗기 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>뱀, 어떤 점이 신기할까요?</h2><p>다리 없이 미끄러지듯 움직이는 <strong>뱀</strong>은 신비로운 자연 친구예요. 무섭게만 보이지만 알고 보면 신기한 능력이 가득합니다.</p>",
+      "image_prompt": "A gentle snake gliding in an S-shape through grass, calm children's book illustration, no text",
+      "alt": "풀숲을 미끄러지는 뱀",
+      "caption": "다리 없는 사냥꾼"
+    },
+    {
+      "text_html": "<h2>뱀의 자연·과학 사실</h2><p>뱀은 다리가 없지만 수많은 <strong>갈비뼈와 근육, 배비늘</strong>로 땅을 밀며 S자로 미끄러지듯 나아갑니다. 갈라진 <strong>혀를 날름</strong>거려 공기 중의 냄새 입자를 모아 입천장의 기관으로 분석해 먹이를 찾지요. 몸이 자라면 낡은 피부를 통째로 벗는 <strong>허물벗기</strong>를 하고, 턱을 크게 벌려 자기보다 큰 먹이도 삼킬 수 있어요. 대부분의 뱀은 사람을 먼저 공격하지 않습니다.</p>",
+      "image_prompt": "A snake flicking its forked tongue to smell the air, informative children's book illustration, no text",
+      "alt": "혀를 날름거리는 뱀",
+      "caption": "혀로 맡는 냄새"
+    },
+    {
+      "text_html": "<h2>탱고북 «뱀»이 다루는 내용</h2><p>탱고북 «뱀»은 다리 없이 미끄러지는 움직임, 혀로 냄새를 맡는 모습, 허물을 벗는 신기한 장면, 똬리를 트는 행동, 알에서 깨어나는 아기 뱀을 흥미롭게 보여 줍니다.</p>",
+      "image_prompt": "A snake shedding its old skin, fascinating children's book illustration, no text",
+      "alt": "허물을 벗는 뱀",
+      "caption": "허물벗기"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>움직임(배비늘·근육), 혀(냄새 맡기), 허물벗기(성장), 큰 입(삼키기) 같은 포인트를 짚어 주세요. \"다리도 없는데 어떻게 갈까?\", \"혀를 왜 날름거릴까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "Close-up of a snake's belly scales used for movement, observational children's book illustration, no text",
+      "alt": "뱀의 배비늘",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>긴 끈이나 손으로 S자 미끄러짐을 흉내 내 보세요. 혀로 냄새 맡기는 \"킁킁\" 대신 \"날름\" 놀이로, 허물벗기는 양말 벗기에 비유하면 쉽게 이해합니다. (실제 뱀은 안전하게 멀리서만 관찰)</p>",
+      "image_prompt": "A parent and child making an S-shape with a rope to mimic a snake, warm children's book illustration, no text",
+      "alt": "끈으로 S자를 만드는 부모와 아이",
+      "caption": "S자 움직임 놀이"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 뱀은 다리 없이 어떻게 움직이나요?</strong><br>A. 많은 갈비뼈와 근육, 배비늘로 땅을 밀며 S자로 미끄러지듯 나아갑니다.</p><p><strong>Q. 뱀은 혀로 무엇을 하나요?</strong><br>A. 갈라진 혀로 공기 중 냄새를 모아 입천장 기관으로 분석해 먹이와 길을 찾습니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 끈으로 S자 움직임 흉내, \"날름\" 혀 놀이, 양말 벗기로 허물벗기 비유가 좋습니다(실제 뱀은 멀리서만).</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

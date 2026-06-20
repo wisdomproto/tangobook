@@ -1,0 +1,46 @@
+{
+  "storybookId": "1773710246892",
+  "seo_title": "뇌와 심장 이야기 — 우리 몸의 과학 자연관찰 그림책",
+  "primary_keyword": "뇌와 심장",
+  "secondary_keywords": ["뇌와 심장", "심장 박동", "뇌 역할", "유아 신체 책", "몸 그림책"],
+  "url_slug": "brain-heart-for-kids",
+  "meta_description": "생각을 담당하는 뇌와 쉬지 않고 뛰는 심장의 비밀 등 신체 과학 사실과, 탱고북 몸 그림책 내용, 아이와 알아보는 법까지. 4~7세 신체 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>뇌와 심장, 어떤 점이 신기할까요?</h2><p>생각하고 느끼게 하는 <strong>뇌</strong>와 쉬지 않고 뛰는 <strong>심장</strong>은 우리 몸의 가장 중요한 두 기관이에요. 지금도 열심히 일하고 있답니다.</p>",
+      "image_prompt": "A friendly cartoon brain and heart working together in a child body, bright children's book illustration, no text",
+      "alt": "뇌와 심장",
+      "caption": "가장 중요한 두 기관"
+    },
+    {
+      "text_html": "<h2>뇌와 심장의 자연·과학 사실</h2><p><strong>뇌</strong>는 약 1.4kg으로, 약 <strong>860억 개의 신경 세포</strong>가 전기 신호로 정보를 주고받아요. 몸이 쓰는 산소의 약 25%를 쓸 만큼 바쁘고, 잠자는 동안 기억을 정리하지요. <strong>심장</strong>은 1분에 60~100번, 하루 <strong>10만 번 이상</strong> 뛰며 온몸에 피를 보내요. 우리 몸의 혈관을 다 이으면 지구 두 바퀴가 넘는답니다.</p>",
+      "image_prompt": "A cartoon heart pumping blood through the body, informative children's book illustration, no text",
+      "alt": "피를 보내는 심장",
+      "caption": "하루 10만 번"
+    },
+    {
+      "text_html": "<h2>탱고북 «뇌와 심장 이야기»이 다루는 내용</h2><p>탱고북 «뇌와 심장 이야기»는 생각·기억을 담당하는 뇌, 쉬지 않고 뛰는 심장, 둘이 어떻게 함께 일하는지를 아이 눈높이로 보여 줍니다.</p>",
+      "image_prompt": "A friendly brain resting and organizing memories during sleep, gentle children's book illustration, no text",
+      "alt": "잠자는 동안 일하는 뇌",
+      "caption": "기억을 정리하는 뇌"
+    },
+    {
+      "text_html": "<h2>함께 알아보면 좋은 포인트</h2><p>뇌(생각·기억·잠), 심장(박동·피 보내기), 박동 수(하루 10만 번), 혈관(아주 김) 같은 포인트를 짚어 주세요. \"심장은 왜 쉬지 않고 뛸까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A child feeling a heartbeat with a hand on the chest, observational children's book illustration, no text",
+      "alt": "심장 박동 느끼기",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>가슴에 손을 대고 심장 박동을 느껴 보고, 제자리 뛰기 후 더 빨라지는 걸 관찰해 보세요. \"잠을 잘 자면 뇌가 기억을 정리해\"를 알려 주면 좋은 수면 습관에도 도움이 됩니다.</p>",
+      "image_prompt": "A parent and child checking heartbeat after jumping, warm children's book illustration, no text",
+      "alt": "심장 박동을 재 보는 부모와 아이",
+      "caption": "박동 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 심장은 하루에 몇 번 뛰나요?</strong><br>A. 하루 10만 번 이상 뜁니다. 쉬지 않고 온몸에 산소가 풍부한 피를 보내요.</p><p><strong>Q. 잠을 자면 뇌는 무엇을 하나요?</strong><br>A. 기억을 정리·강화하고 노폐물을 청소합니다. 그래서 잠이 아주 중요해요.</p><p><strong>Q. 집에서 어떻게 알아보면 좋을까요?</strong><br>A. 가슴에 손 대고 박동 느끼기, 뛴 뒤 빨라진 박동 관찰, 좋은 수면 습관 이야기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

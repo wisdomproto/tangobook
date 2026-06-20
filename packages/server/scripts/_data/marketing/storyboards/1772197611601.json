@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772197611601",
+  "title": "커다란 순무",
+  "hook": "커다란 순무 는 어마어마하게 큰 순무를 뽑기 위해 온 가족과 동물들이 차…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "커다란 순무 는 어마어마하게 큰 순무를 뽑기 위해 온 가족과 동물들이 차례로 힘을 보태는 이야기입니다.",
+      "screen": "커다란 순무, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "커다란 순무, 어떤 동화인가요?",
+      "imagePrompt": "A giant turnip growing huge in a garden with a surprised farmer, cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "러시아 전래 동화로, 알렉세이 톨스토이가 정리한 판본이 널리 알려졌습니다. 할아버지→할머니→손녀→강아지→고양이→생쥐까지 차례로 매달려 마침내 순무를 뽑는 누적 반복 구조가 핵심입니다.",
+      "screen": "커다란 순무 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "커다란 순무 원작 이야기",
+      "imagePrompt": "A long line of a grandpa, grandma, girl, dog, cat, and mouse pulling a giant turnip together, funny lively children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "할아버지가 순무를 심자 어마어마하게 큰 순무가 자랍니다. 혼자서는 뽑을 수 없어 할머니, 손녀, 강아지, 고양이가 차례로 매달리지만 꿈쩍도 안 하다가, 마지막에 작은 생쥐까지 힘을 보태자 \"쑥!\"…",
+      "screen": "커다란 순무 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "커다란 순무 줄거리 요약",
+      "imagePrompt": "The giant turnip finally popping out as everyone tumbles back happily, joyful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 혼자서는 어려운 일도 함께하면 해낼 수 있고, 작은 힘도 소중하다 는 것입니다. \"작은 생쥐가 없었다면 어땠을까?\"를 물어 모두의 역할이 중요함을 아이와 이야기해 보세요.",
+      "screen": "커다란 순무가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "커다란 순무가 주는 교훈",
+      "imagePrompt": "A tiny mouse proudly standing on the huge turnip, celebrating its small but vital help, cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "커다란 순무, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

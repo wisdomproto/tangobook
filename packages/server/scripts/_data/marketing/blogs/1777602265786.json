@@ -1,0 +1,46 @@
+{
+  "storybookId": "1777602265786",
+  "seo_title": "오리 특징과 물갈퀴의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "오리",
+  "secondary_keywords": ["오리 특징", "오리 물갈퀴", "오리 각인", "유아 자연관찰 책", "새 그림책"],
+  "url_slug": "duck-nature-for-kids",
+  "meta_description": "오리의 물갈퀴와 젖지 않는 깃털, 새끼의 각인 습성 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>오리, 어떤 점이 신기할까요?</h2><p>물 위를 둥둥 떠다니는 <strong>오리</strong>는 물갈퀴로 헤엄치고 젖지 않는 깃털을 가진 신기한 물새예요. 새끼 오리가 어미를 졸졸 따르는 모습도 사랑스럽지요.</p>",
+      "image_prompt": "A duck swimming on a pond, gentle children's book illustration, no text",
+      "alt": "오리",
+      "caption": "물 위의 오리"
+    },
+    {
+      "text_html": "<h2>오리의 자연·과학 사실</h2><p>오리는 발가락 사이 <strong>물갈퀴</strong>로 물을 밀며 잘 헤엄쳐요. 깃털엔 <strong>기름기가 발려 물에 젖지 않아</strong>, 물에서 나와도 금방 보송보송해지지요(부리로 깃털을 다듬으며 기름을 발라요). 납작한 부리로 물풀·벌레·곡식을 걸러 먹고, 갓 태어난 새끼 오리는 <strong>처음 본 움직이는 대상을 어미로 여겨 졸졸 따라다니는 각인 습성</strong>이 있어요.</p>",
+      "image_prompt": "A close-up of duck webbed feet, informative children's book illustration, no text",
+      "alt": "오리 물갈퀴",
+      "caption": "헤엄치는 발"
+    },
+    {
+      "text_html": "<h2>탱고북 «오리»이 다루는 내용</h2><p>탱고북 «오리»는 물갈퀴로 헤엄치는 모습, 젖지 않는 깃털, 납작한 부리로 먹는 모습, 어미를 따라가는 새끼 오리를 정겹게 보여 줍니다.</p>",
+      "image_prompt": "Ducklings following their mother in a line, heartwarming children's book illustration, no text",
+      "alt": "어미를 따라가는 새끼 오리",
+      "caption": "각인 습성"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>물갈퀴(헤엄), 젖지 않는 깃털(기름), 납작 부리, 각인(어미 따르기) 같은 포인트를 짚어 주세요. \"오리 깃털은 왜 안 젖을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A duck preening its water-repellent feathers, observational children's book illustration, no text",
+      "alt": "깃털을 다듬는 오리",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>물에 기름 한 방울을 떨어뜨려 \"물을 튕겨 내는\" 모습을 보여 주세요(깃털 원리). 새끼 오리가 어미를 따르는 각인을 영상으로 보면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child feeding ducks by a pond, warm children's book illustration, no text",
+      "alt": "오리를 관찰하는 부모와 아이",
+      "caption": "연못 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 오리 깃털은 왜 젖지 않나요?</strong><br>A. 깃털에 기름기가 발려 있어 물을 튕겨 내기 때문입니다. 부리로 깃털을 다듬으며 기름을 발라요.</p><p><strong>Q. 새끼 오리는 왜 어미를 졸졸 따라가나요?</strong><br>A. 처음 본 움직이는 대상을 어미로 여기는 \"각인\" 습성 때문입니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 물에 기름 한 방울로 깃털 원리 보기, 각인 영상 보기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

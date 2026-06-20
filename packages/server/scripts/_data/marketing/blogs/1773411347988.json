@@ -1,0 +1,46 @@
+{
+  "storybookId": "1773411347988",
+  "seo_title": "은하와 블랙홀 — 우주의 신비 자연관찰 그림책",
+  "primary_keyword": "블랙홀",
+  "secondary_keywords": ["은하와 블랙홀", "우리 은하", "블랙홀이란", "유아 우주 책", "우주 그림책"],
+  "url_slug": "galaxy-black-hole-for-kids",
+  "meta_description": "은하의 종류와 블랙홀의 비밀 등 우주의 신비와, 탱고북 우주 그림책 내용, 아이와 함께 우주를 상상하는 법까지. 5~7세 우주 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>은하와 블랙홀, 어떤 점이 신기할까요?</h2><p>수천억 개의 별이 모인 <strong>은하</strong>와 빛조차 빠져나갈 수 없는 <strong>블랙홀</strong>은 우주의 가장 신비로운 존재예요. 아이의 상상력을 우주 끝까지 넓혀 줍니다.</p>",
+      "image_prompt": "A spiral galaxy full of stars in deep space, awe-inspiring children's book illustration, no text",
+      "alt": "나선 은하",
+      "caption": "별들의 거대한 집"
+    },
+    {
+      "text_html": "<h2>은하와 블랙홀의 자연·과학 사실</h2><p><strong>은하</strong>는 수백억~수천억 개의 별과 가스가 중력으로 묶인 거대한 집합이에요. 우주엔 약 2조 개의 은하가 있고, 우리 은하(은하수)는 막대 나선 은하지요. <strong>블랙홀</strong>은 중력이 너무 강해 빛조차 빠져나갈 수 없는 천체로, 거대한 별이 수명을 다하고 폭발한 뒤 핵이 압축돼 만들어집니다.</p>",
+      "image_prompt": "A black hole bending light around it in space, dramatic children's book illustration, no text",
+      "alt": "블랙홀",
+      "caption": "빛도 못 나오는 천체"
+    },
+    {
+      "text_html": "<h2>탱고북 «은하와 블랙홀»이 다루는 내용</h2><p>탱고북 «은하와 블랙홀»은 반짝이는 별들이 모인 은하의 모습, 나선·타원 등 은하의 종류, 신비로운 블랙홀을 아이 눈높이의 상상으로 보여 줍니다.</p>",
+      "image_prompt": "The Milky Way galaxy band across a night sky, beautiful children's book illustration, no text",
+      "alt": "은하수",
+      "caption": "우리 은하"
+    },
+    {
+      "text_html": "<h2>우주를 더 깊이 아는 법</h2><p>은하(별들의 집), 우리 은하(은하수), 블랙홀(빛도 못 나옴), 은하 종류(나선·타원) 같은 포인트를 짚어 주세요. \"블랙홀에 들어가면 어떻게 될까?\"를 상상해 보세요.</p>",
+      "image_prompt": "Different galaxy shapes spiral and elliptical, informative children's book illustration, no text",
+      "alt": "은하의 종류",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>깜깜한 곳에서 은하수 사진·영상을 함께 보고, 소용돌이(나선 은하)를 그려 보세요. 블랙홀은 \"빛도 빨아들이는 청소기\"처럼 비유하면 아이가 쉽게 이해합니다.</p>",
+      "image_prompt": "A parent and child looking at galaxy images and drawing spirals, warm children's book illustration, no text",
+      "alt": "은하를 그리는 부모와 아이",
+      "caption": "우주 상상하기"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 은하가 뭔가요?</strong><br>A. 수백억~수천억 개의 별과 가스가 중력으로 묶인 거대한 집합입니다. 우리 은하는 은하수예요.</p><p><strong>Q. 블랙홀은 무엇인가요?</strong><br>A. 중력이 너무 강해 빛조차 빠져나갈 수 없는 천체입니다. 거대한 별의 마지막에 만들어져요.</p><p><strong>Q. 집에서 어떻게 즐기면 좋을까요?</strong><br>A. 은하수 사진 보기, 나선 그리기, 블랙홀을 \"빛 청소기\"로 비유해 상상하기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

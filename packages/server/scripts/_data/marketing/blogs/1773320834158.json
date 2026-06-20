@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773320834158",
+  "seo_title": "달팽이 특징과 생태 — 느림보의 비밀 자연관찰 그림책",
+  "primary_keyword": "달팽이",
+  "secondary_keywords": [
+    "달팽이 특징",
+    "달팽이 생태",
+    "달팽이 키우기 관찰",
+    "유아 자연관찰 책",
+    "동물 그림책"
+  ],
+  "url_slug": "snail-nature-for-kids",
+  "meta_description": "달팽이의 등껍질과 점액, 치설 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 아이와 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>달팽이, 어떤 점이 신기할까요?</h2><p>등에 집을 지고 천천히 기어가는 <strong>달팽이</strong>는 아이들이 비 오는 날 만나는 자연 친구예요. 느림 속에 숨은 과학이 가득합니다.</p>",
+      "image_prompt": "A snail with a spiral shell crawling on a wet leaf after rain, gentle children's book illustration, no text",
+      "alt": "비 온 뒤 잎 위의 달팽이",
+      "caption": "집을 지고 가는 달팽이"
+    },
+    {
+      "text_html": "<h2>달팽이의 자연·과학 사실</h2><p>달팽이는 끈끈한 <strong>점액</strong>을 분비해 거친 표면도 미끄러지듯 기어가고 몸을 촉촉하게 지킵니다. 입 안에는 줄칼 같은 <strong>치설</strong>이 있어 잎을 갉아 먹지요. 위험하면 <strong>등껍질</strong> 속으로 쏙 숨고, 더듬이 끝에 눈이 달려 있어요. 많은 달팽이가 암수 한 몸(자웅동체)이며, 전 세계에 수만 종이 있습니다.</p>",
+      "image_prompt": "Close-up of a snail's eye stalks (tentacles), informative children's book illustration, no text",
+      "alt": "눈 달린 더듬이",
+      "caption": "더듬이 끝의 눈"
+    },
+    {
+      "text_html": "<h2>탱고북 «달팽이»이 다루는 내용</h2><p>탱고북 «달팽이»는 점액으로 기어가는 모습, 더듬이로 주변을 살피는 행동, 등껍질에 숨는 방어, 잎을 갉아 먹는 모습, 알에서 깨어나는 아기 달팽이를 천천히 따라가며 보여 줍니다.</p>",
+      "image_prompt": "A snail retreating into its shell, defensive behavior, children's book illustration, no text",
+      "alt": "등껍질에 숨는 달팽이",
+      "caption": "집 속으로 쏙"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>등껍질(이동식 집·방어), 점액(미끄럼·보습), 더듬이(눈), 치설(잎 갉기) 같은 포인트를 짚어 주세요. \"왜 달팽이는 끈끈한 길을 남길까?\", \"눈은 어디 있을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A shiny mucus trail left by a snail on a surface, observational children's book illustration, no text",
+      "alt": "달팽이 점액 자취",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>비 온 뒤 화단에서 달팽이가 남긴 반짝이는 자취를 관찰해 보세요. 더듬이를 살짝 건드리면 쏙 들어가는 모습(부드럽게), 상추 잎을 갉는 모습을 보면 치설을 실감합니다. (관찰 후 제자리에)</p>",
+      "image_prompt": "A parent and child observing a snail on a leaf with a magnifier, warm children's book illustration, no text",
+      "alt": "돋보기로 달팽이를 보는 부모와 아이",
+      "caption": "천천히 관찰하기"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 달팽이 눈은 어디 있나요?</strong><br>A. 큰 더듬이 끝에 눈이 달려 있습니다. 더듬이로 주변을 살피며 천천히 이동해요.</p><p><strong>Q. 달팽이는 왜 끈끈한 길을 남기나요?</strong><br>A. 점액을 분비해 미끄러지듯 이동하고 몸을 촉촉하게 지키기 위해서입니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 비 온 뒤 화단에서 점액 자취·더듬이·잎 갉기를 돋보기로 관찰하고 제자리에 돌려주세요.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

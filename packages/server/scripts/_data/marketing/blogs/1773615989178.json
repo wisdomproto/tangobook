@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773615989178",
+  "seo_title": "동굴과 갯벌 — 신비한 자연 공간 자연관찰 그림책",
+  "primary_keyword": "갯벌",
+  "secondary_keywords": [
+    "동굴과 갯벌",
+    "종유석 석순",
+    "갯벌 생물",
+    "유아 자연관찰 책",
+    "자연 그림책"
+  ],
+  "url_slug": "cave-tidal-flat-for-kids",
+  "meta_description": "동굴의 종유석·석순이 만들어지는 과정과 갯벌의 풍부한 생명 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 체험하는 법까지. 5~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>동굴과 갯벌, 어떤 점이 신기할까요?</h2><p>깜깜한 <strong>동굴</strong>과 물이 들고 나는 <strong>갯벌</strong>은 신비로운 자연 공간이에요. 어둠과 갯흙 속에 놀라운 생명과 모양이 숨어 있습니다.</p>",
+      "image_prompt": "A limestone cave with stalactites and a tidal flat side by side, beautiful children's book illustration, no text",
+      "alt": "동굴과 갯벌",
+      "caption": "신비한 자연 공간"
+    },
+    {
+      "text_html": "<h2>동굴과 갯벌의 자연·과학 사실</h2><p>석회 동굴은 <strong>빗물이 석회암을 천천히 녹여</strong> 만들어져요. 천장에서 자란 게 <strong>종유석</strong>, 바닥에서 자란 게 <strong>석순</strong>, 둘이 만나면 석주가 되는데 1m 자라는 데 수천 년이 걸리기도 해요. <strong>갯벌</strong>은 하루 두 번 바닷물이 들고 나는 곳으로, 약 500종의 생물이 살아 \"지구의 신장\"이라 불려요. 바지락 한 마리가 시간당 약 1L의 바닷물을 걸러 줍니다.</p>",
+      "image_prompt": "Stalactites hanging from a cave ceiling and stalagmites rising, informative children's book illustration, no text",
+      "alt": "종유석과 석순",
+      "caption": "천천히 자라는 동굴"
+    },
+    {
+      "text_html": "<h2>탱고북 «동굴과 갯벌»이 다루는 내용</h2><p>탱고북 «동굴과 갯벌»은 종유석·석순이 자라는 동굴, 박쥐 같은 어둠 속 생물, 갯벌의 게·조개·철새 등 두 신비 공간의 생명을 보여 줍니다.</p>",
+      "image_prompt": "A tidal flat full of crabs and shellfish at low tide, lively children's book illustration, no text",
+      "alt": "생물이 가득한 갯벌",
+      "caption": "지구의 신장"
+    },
+    {
+      "text_html": "<h2>함께 알아보면 좋은 포인트</h2><p>종유석/석순(위·아래로 자람), 동굴 생물(박쥐), 갯벌(물 들고 남), 갯벌 생물(게·조개) 같은 포인트를 짚어 주세요. \"종유석은 얼마나 오래 자랐을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A bat hanging in a dark cave, observational children's book illustration, no text",
+      "alt": "동굴 속 박쥐",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>갯벌 체험장에서 게·조개를 직접 관찰해 보세요(관찰 후 제자리로). 동굴 사진·영상으로 종유석·석순을 보고, 고드름이 자라는 모습에 비유하면 이해가 쉽습니다.</p>",
+      "image_prompt": "A parent and child exploring a tidal flat with small crabs, warm children's book illustration, no text",
+      "alt": "갯벌을 체험하는 부모와 아이",
+      "caption": "갯벌 체험"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 종유석과 석순은 어떻게 다른가요?</strong><br>A. 동굴 천장에서 아래로 자란 게 종유석, 바닥에서 위로 자란 게 석순입니다. 만나면 석주가 돼요.</p><p><strong>Q. 갯벌은 왜 중요한가요?</strong><br>A. 약 500종의 생물이 살고 바닷물을 깨끗이 걸러 줘 \"지구의 신장\"이라 불립니다. 철새의 먹이터이기도 해요.</p><p><strong>Q. 집에서 어떻게 알아보면 좋을까요?</strong><br>A. 갯벌 체험으로 게·조개 관찰(제자리로), 동굴 사진 보기, 고드름에 비유하기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

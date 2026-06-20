@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773624474088",
+  "seo_title": "유산균과 바이러스 — 보이지 않는 미생물 자연관찰 그림책",
+  "primary_keyword": "유산균",
+  "secondary_keywords": [
+    "유산균과 바이러스",
+    "유산균 효능",
+    "바이러스 예방",
+    "유아 과학 책",
+    "미생물 그림책"
+  ],
+  "url_slug": "probiotics-virus-for-kids",
+  "meta_description": "몸에 좋은 유산균과 조심해야 할 바이러스의 차이, 손씻기의 중요성 등 미생물 과학과, 탱고북 그림책 내용, 생활 습관까지. 5~7세 과학 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>유산균과 바이러스, 어떤 점이 신기할까요?</h2><p>눈에 보이지 않는 작은 <strong>미생물</strong> 중에는 몸에 좋은 <strong>유산균</strong>도, 조심해야 할 <strong>바이러스</strong>도 있어요. 보이지 않는 세계가 정말 신기합니다.</p>",
+      "image_prompt": "Friendly probiotic microbes and a virus shown as cartoon characters, bright children's book illustration, no text",
+      "alt": "유산균과 바이러스",
+      "caption": "보이지 않는 미생물"
+    },
+    {
+      "text_html": "<h2>유산균과 바이러스의 자연·과학 사실</h2><p><strong>유산균</strong>은 우리 장에 살며 소화를 돕고 해로운 세균을 억제하는 좋은 미생물이에요. 우리 몸 <strong>면역세포의 약 70%가 장에 모여</strong> 있어, 장이 건강하면 면역력에도 도움이 되지요. <strong>바이러스</strong>는 유산균보다 훨씬 작아 혼자서는 못 살고 다른 세포에 들어가야 늘어나요. 가장 좋은 예방법은 예방접종과 <strong>비누로 30초 이상 손 씻기</strong>입니다.</p>",
+      "image_prompt": "Good probiotic bacteria helping inside a healthy gut, informative children's book illustration, no text",
+      "alt": "장 속 유산균",
+      "caption": "몸을 돕는 좋은 균"
+    },
+    {
+      "text_html": "<h2>탱고북 «유산균과 바이러스»이 다루는 내용</h2><p>탱고북 «유산균과 바이러스»는 몸을 돕는 유산균, 조심해야 할 바이러스, 손 씻기·예방접종의 중요성을 아이 눈높이의 과학으로 보여 줍니다.</p>",
+      "image_prompt": "A child washing hands with soap and bubbles, cheerful children's book illustration, no text",
+      "alt": "손을 씻는 아이",
+      "caption": "바이러스 예방"
+    },
+    {
+      "text_html": "<h2>함께 알아보면 좋은 포인트</h2><p>유산균(좋은 균·장 건강), 바이러스(작음·조심), 면역(70% 장), 손 씻기(예방) 같은 포인트를 짚어 주세요. \"왜 손을 깨끗이 씻어야 할까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A tiny virus shown much smaller than bacteria, observational children's book illustration, no text",
+      "alt": "아주 작은 바이러스",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>요구르트·김치 같은 유산균 음식을 함께 먹으며 \"좋은 균\"을 이야기해 보세요. 비누로 30초 손 씻기를 노래와 함께 습관으로 만들면 건강에 큰 도움이 됩니다.</p>",
+      "image_prompt": "A parent and child eating yogurt together, warm children's book illustration, no text",
+      "alt": "요구르트를 먹는 부모와 아이",
+      "caption": "좋은 균 먹기"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 유산균은 왜 몸에 좋은가요?</strong><br>A. 장에 살며 소화를 돕고 해로운 균을 억제합니다. 면역세포의 약 70%가 장에 있어 면역에도 도움이 돼요.</p><p><strong>Q. 바이러스는 어떻게 예방하나요?</strong><br>A. 예방접종과 비누로 30초 이상 손 씻기가 가장 효과적입니다.</p><p><strong>Q. 집에서 어떻게 알아보면 좋을까요?</strong><br>A. 요구르트·김치로 \"좋은 균\" 이야기, 노래와 함께 30초 손 씻기 습관 만들기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

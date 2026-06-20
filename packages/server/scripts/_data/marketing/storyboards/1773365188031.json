@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773365188031",
+  "title": "장미",
+  "hook": "아름다운 꽃과 향기로 사랑받는 장미 는 가시까지 품은 신기한 식물이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "아름다운 꽃과 향기로 사랑받는 장미 는 가시까지 품은 신기한 식물이에요.",
+      "screen": "장미, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "장미, 어떤 점이 신기할까요?",
+      "imagePrompt": "A blooming red rose with dew in a garden, beautiful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "장미의 가시는 사실 줄기 표피가 변해 굳은 \"피침\" 으로, 초식동물로부터 꽃과 줄기를 보호하고 덩굴이 담을 타고 오르도록 돕습니다. 향기의 주성분(게라니올 등)은 심리적 안정 효과가 있어 향수·아로…",
+      "screen": "장미의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "장미의 자연·과학 사실",
+      "imagePrompt": "Close-up of rose thorns on a stem, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «장미»는 봉오리가 한 겹씩 피어나는 모습, 향기를 맡는 벌·나비, 가시로 몸을 지키는 줄기, 다양한 색의 장미를 아름답게 보여 줍니다.",
+      "screen": "탱고북 «장미»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «장미»이 다루는 내용",
+      "imagePrompt": "A butterfly drawn to a fragrant rose, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "가시(보호·지지), 향기(곤충 유인), 겹겹 꽃잎, 다양한 색 같은 포인트를 짚어 주세요. \"장미는 왜 가시가 있을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Layered rose petals viewed up close, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "장미, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

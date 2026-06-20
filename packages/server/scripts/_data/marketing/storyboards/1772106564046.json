@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772106564046",
+  "title": "생강빵 아이",
+  "hook": "생강빵 아이 는 오븐에서 막 나온 생강빵이 살아 움직여 \"날 잡아 봐라!…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "생강빵 아이 는 오븐에서 막 나온 생강빵이 살아 움직여 \"날 잡아 봐라!\" 외치며 도망치는 신나는 전래 동화…",
+      "screen": "생강빵 아이, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "생강빵 아이, 어떤 동화인가요?",
+      "imagePrompt": "A cheerful gingerbread man cookie running away from a kitchen with a happy grin, playful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "영미권에 널리 퍼진 전래 동화(The Gingerbread Man) 로, 1875년 미국 잡지에 처음 활자화되었습니다. \"달려라 달려, 날 잡을 수 없어, 난 생강빵 아이니까!\"라는 반복 후렴이 핵…",
+      "screen": "생강빵 아이 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "생강빵 아이 원작 이야기",
+      "imagePrompt": "A clever fox watching a running gingerbread man near a river, sly but gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "할머니가 구운 생강빵이 살아나 도망치자, 할머니·할아버지·여러 동물이 뒤쫓지만 아무도 잡지 못합니다. 자신만만하던 생강빵 아이는 강을 건너려다 친절한 척하는 여우의 꾐에 넘어가고, 결국 여우에게 잡…",
+      "screen": "생강빵 아이 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "생강빵 아이 줄거리 요약",
+      "imagePrompt": "Many characters chasing a fast gingerbread man across a countryside path, lively energetic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 자만하면 방심하게 되고, 달콤한 말로 다가오는 낯선 상대를 조심해야 한다 는 것입니다. \"친절해 보여도 조심해야 할 때\"를 아이와 이야기하며 안전 의식으로 이어 보세요.",
+      "screen": "생강빵 아이가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "생강빵 아이가 주는 교훈",
+      "imagePrompt": "A friendly fox speaking sweetly to a gingerbread man by the water, cautionary gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "생강빵 아이, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

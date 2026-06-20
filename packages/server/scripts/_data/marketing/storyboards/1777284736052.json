@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777284736052",
+  "title": "하이디",
+  "hook": "하이디 는 알프스 산골에서 무뚝뚝한 할아버지와 살게 된 밝은 소녀 하이디…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "하이디 는 알프스 산골에서 무뚝뚝한 할아버지와 살게 된 밝은 소녀 하이디가, 맑은 마음으로 주변 사람들을 변…",
+      "screen": "하이디, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "하이디, 어떤 동화인가요?",
+      "imagePrompt": "A cheerful girl arriving at a wooden cabin high in the beautiful green Alps, bright children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "스위스 작가 요한나 슈피리 가 1880~1881년에 발표한 소설입니다. 부모를 잃은 하이디가 알프스의 할아버지에게 맡겨지고, 목동 페터·염소들과 어울리며 자라지요.",
+      "screen": "하이디 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "하이디 원작 이야기",
+      "imagePrompt": "A girl playing with goats and a young shepherd on a sunny alpine meadow, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "알프스 할아버지에게 온 하이디는 무뚝뚝한 할아버지가 만들어 준 건초 침대에 \"구름 같다\"며 행복해합니다. 목동 페터와 염소들과 어울리며 산 생활에 즐겁게 적응한 하이디는, 밝고 다정한 마음으로 할아…",
+      "screen": "하이디 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "하이디 줄거리 요약",
+      "imagePrompt": "A grumpy grandfather softening with a warm smile as the girl hugs him, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 밝고 순수한 마음이 닫힌 마음도 열 수 있고, 자연 속에서 건강하게 자라는 기쁨이 소중하다 는 것입니다. \"새로운 곳에 갔을 때 어땠어?\"를 아이의 경험과 연결해 보세요.",
+      "screen": "하이디가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "하이디가 주는 교훈",
+      "imagePrompt": "A girl happily looking over the sunny Alps with arms wide open, joyful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "하이디, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

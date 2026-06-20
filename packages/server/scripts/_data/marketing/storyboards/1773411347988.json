@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773411347988",
+  "title": "은하와 블랙홀",
+  "hook": "수천억 개의 별이 모인 은하 와 빛조차 빠져나갈 수 없는 블랙홀 은 우주…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "수천억 개의 별이 모인 은하 와 빛조차 빠져나갈 수 없는 블랙홀 은 우주의 가장 신비로운 존재예요.",
+      "screen": "은하와 블랙홀, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "은하와 블랙홀, 어떤 점이 신기할까요?",
+      "imagePrompt": "A spiral galaxy full of stars in deep space, awe-inspiring children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "은하 는 수백억~수천억 개의 별과 가스가 중력으로 묶인 거대한 집합이에요. 우주엔 약 2조 개의 은하가 있고, 우리 은하(은하수)는 막대 나선 은하지요.",
+      "screen": "은하와 블랙홀의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "은하와 블랙홀의 자연·과학 사실",
+      "imagePrompt": "A black hole bending light around it in space, dramatic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «은하와 블랙홀»은 반짝이는 별들이 모인 은하의 모습, 나선·타원 등 은하의 종류, 신비로운 블랙홀을 아이 눈높이의 상상으로 보여 줍니다.",
+      "screen": "탱고북 «은하와 블랙홀»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «은하와 블랙홀»이 다루는 내용",
+      "imagePrompt": "The Milky Way galaxy band across a night sky, beautiful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "은하(별들의 집), 우리 은하(은하수), 블랙홀(빛도 못 나옴), 은하 종류(나선·타원) 같은 포인트를 짚어 주세요. \"블랙홀에 들어가면 어떻게 될까?\"를 상상해 보세요.",
+      "screen": "우주를 더 깊이 아는 법 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "우주를 더 깊이 아는 법",
+      "imagePrompt": "Different galaxy shapes spiral and elliptical, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "은하와 블랙홀, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

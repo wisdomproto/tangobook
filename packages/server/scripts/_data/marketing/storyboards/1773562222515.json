@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773562222515",
+  "title": "딸기",
+  "hook": "빨갛고 달콤한 딸기 는 아이들이 가장 좋아하는 과일이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "빨갛고 달콤한 딸기 는 아이들이 가장 좋아하는 과일이에요.",
+      "screen": "딸기, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "딸기, 어떤 점이 신기할까요?",
+      "imagePrompt": "Ripe red strawberries with tiny seeds on the surface, fresh children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "딸기의 빨갛고 달콤한 부분은 사실 꽃받침이 부풀어 자란 가짜 열매(화탁) 예요. 진짜 열매는 표면에 콕콕 박힌 작은 노란 점(수과) 하나하나로, 그 안에 씨앗이 들어 있지요.",
+      "screen": "딸기의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "딸기의 자연·과학 사실",
+      "imagePrompt": "Close-up of a strawberry surface showing the tiny seeds (achenes), informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «딸기»는 흰 꽃 → 꿀벌의 방문 → 빨갛게 익는 딸기 → 기는줄기로 새 포기가 생기는 과정을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «딸기»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «딸기»이 다루는 내용",
+      "imagePrompt": "A strawberry plant sending out a runner to make a new plant, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "겉의 노란 점(진짜 씨앗), 빨간 부분(가짜 열매), 기는줄기(번식), 흰 꽃 같은 포인트를 짚어 주세요. \"딸기 씨앗은 어디 있을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A white strawberry flower with a bee, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "딸기, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

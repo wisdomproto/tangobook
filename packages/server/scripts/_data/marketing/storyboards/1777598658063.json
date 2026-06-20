@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777598658063",
+  "title": "딱따구리",
+  "hook": "나무를 두드리는 소리의 주인공 딱따구리 는 단단한 부리로 나무 속 벌레를…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "나무를 두드리는 소리의 주인공 딱따구리 는 단단한 부리로 나무 속 벌레를 잡는 \"숲의 목수\"예요.",
+      "screen": "딱따구리, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "딱따구리, 어떤 점이 신기할까요?",
+      "imagePrompt": "A woodpecker pecking a tree trunk, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "딱따구리는 단단한 부리로 나무를 두드려(드러밍) 속에 숨은 애벌레를 찾아요. 빠르게 쪼아도 머리가 안 다치는 건 충격을 흡수하는 특별한 머리 구조 덕분이지요.",
+      "screen": "딱따구리의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "딱따구리의 자연·과학 사실",
+      "imagePrompt": "A woodpecker using its long sticky tongue to catch a larva, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «딱따구리»는 나무를 두드리는 모습, 긴 혀로 벌레를 잡는 모습, 나무를 단단히 붙잡는 발, 다른 동물에게 집이 되는 구멍을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «딱따구리»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «딱따구리»이 다루는 내용",
+      "imagePrompt": "A woodpecker hole becoming a home for other animals, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "드러밍(나무 두드리기), 충격 흡수 머리, 긴 혀, 숲의 목수 같은 포인트를 짚어 주세요. \"왜 머리가 안 아플까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of woodpecker feet gripping a trunk, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "딱따구리, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

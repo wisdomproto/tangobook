@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773564979337",
+  "title": "은행나무",
+  "hook": "가을이면 온통 노랗게 물드는 은행나무 는 도시 어디서나 만나는 친근한 나…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "가을이면 온통 노랗게 물드는 은행나무 는 도시 어디서나 만나는 친근한 나무예요.",
+      "screen": "은행나무, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "은행나무, 어떤 점이 신기할까요?",
+      "imagePrompt": "A ginkgo tree turning bright yellow in autumn, beautiful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "은행나무는 약 2억 7천만 년 전부터 지금과 거의 같은 부채꼴 잎으로 살아온 \"살아있는 화석\" 이에요. 암수딴그루 라 암나무에만 가을에 열매(은행)가 맺히는데, 익은 은행 겉껍질의 고약한 냄새는 동…",
+      "screen": "은행나무의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "은행나무의 자연·과학 사실",
+      "imagePrompt": "A close-up of fan-shaped ginkgo leaves, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «은행나무»는 부채꼴 잎이 가을에 노랗게 물드는 모습, 암나무에 맺히는 은행, 오랜 세월을 살아온 나무의 이야기를 정겹게 보여 줍니다.",
+      "screen": "탱고북 «은행나무»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «은행나무»이 다루는 내용",
+      "imagePrompt": "A dinosaur era scene with an ancient ginkgo tree, whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "부채꼴 잎, 노란 단풍, 은행 냄새(보호), 암수딴그루 같은 포인트를 짚어 주세요. \"은행나무는 얼마나 오래됐을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Yellow ginkgo leaves scattered on the ground, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "은행나무, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

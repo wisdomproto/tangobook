@@ -1,0 +1,48 @@
+{
+  "storybookId": "1778476961082",
+  "title": "빨간모자",
+  "hook": "빨간모자 는 아픈 할머니께 음식을 가져다드리러 가던 소녀가 교활한 늑대를…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "빨간모자 는 아픈 할머니께 음식을 가져다드리러 가던 소녀가 교활한 늑대를 만나는 이야기입니다.",
+      "screen": "빨간모자, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "빨간모자, 어떤 동화인가요?",
+      "imagePrompt": "A little girl in a red hood walking through a forest path with a basket, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "유럽 민담으로 샤를 페로(1697) 와 그림 형제(1812) 판본이 유명합니다. 페로 원작은 늑대가 빨간모자를 잡아먹는 비극적 결말이지만, 그림 형제 판본은 사냥꾼이 구해 내는 결말이 더해져 오늘날…",
+      "screen": "빨간모자 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "빨간모자 원작 이야기",
+      "imagePrompt": "A wolf disguised in grandmother's cap lying in bed, lighthearted children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "빨간 모자를 쓴 소녀가 아픈 할머니께 음식을 가져다드리러 숲길을 갑니다. 길에서 만난 늑대가 어디 가는지 알아내 먼저 할머니 집에 가 변장하지요.",
+      "screen": "빨간모자 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "빨간모자 줄거리 요약",
+      "imagePrompt": "A kind huntsman rescuing the girl and grandmother, relieved warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 길에서 만난 낯선 사람에게 함부로 정보를 말하거나 따라가지 말 것 입니다. 위험을 알아챘을 때 침착하게 행동하고 어른에게 도움을 청하는 것의 중요함도 함께 배워요.",
+      "screen": "빨간모자가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "빨간모자가 주는 교훈",
+      "imagePrompt": "A child learning to be cautious with a stranger, safety-themed gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "빨간모자, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

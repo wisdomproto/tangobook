@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777284715922",
+  "title": "키다리 아저씨",
+  "hook": "키다리 아저씨 는 고아원 소녀 주디가 얼굴도 모르는 후원자에게 편지를 쓰…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "키다리 아저씨 는 고아원 소녀 주디가 얼굴도 모르는 후원자에게 편지를 쓰며 꿈을 키워 가는 따뜻한 성장 이야…",
+      "screen": "키다리 아저씨, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "키다리 아저씨, 어떤 동화인가요?",
+      "imagePrompt": "A girl writing a letter happily at a desk with a window letting in warm light, cozy children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "미국 작가 진 웹스터 가 1912년에 발표한 편지 형식의 성장 소설입니다. 고아원에서 자란 주디가 익명의 후원자 덕분에 학교에 가고, 그에게 편지를 쓰며 성장하지요.",
+      "screen": "키다리 아저씨 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "키다리 아저씨 원작 이야기",
+      "imagePrompt": "A tall shadow on a wall as a girl looks up curiously, whimsical gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "책과 글쓰기를 좋아하던 주디는 글솜씨를 눈여겨본 익명의 후원자 덕분에 학교에 갑니다. 담장 너머로 본 긴 그림자 때문에 그를 \"키다리 아저씨\"라 부르며 편지를 쓰지요.",
+      "screen": "키다리 아저씨 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "키다리 아저씨 줄거리 요약",
+      "imagePrompt": "A girl joyfully meeting her kind benefactor for the first time, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 누군가의 따뜻한 관심과 믿음이 꿈을 키우고, 도움에 감사하는 마음이 소중하다 는 것입니다. \"너의 꿈을 응원해 주는 사람은 누구야?\"를 아이와 이야기해 보세요.",
+      "screen": "키다리 아저씨가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "키다리 아저씨가 주는 교훈",
+      "imagePrompt": "A child writing a thank-you letter with a smile, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "키다리 아저씨, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

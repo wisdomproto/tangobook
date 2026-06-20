@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777607173325",
+  "title": "잠자리",
+  "hook": "하늘을 자유자재로 나는 잠자리 는 뛰어난 비행 곤충이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "하늘을 자유자재로 나는 잠자리 는 뛰어난 비행 곤충이에요.",
+      "screen": "잠자리, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "잠자리, 어떤 점이 신기할까요?",
+      "imagePrompt": "A dragonfly hovering over a pond, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "잠자리는 머리 대부분을 차지하는 커다란 겹눈 으로 거의 모든 방향을 한 번에 봐요. 네 장의 날개를 따로따로 움직여 공중에 멈추거나 뒤로도 날 수 있지요 .",
+      "screen": "잠자리의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "잠자리의 자연·과학 사실",
+      "imagePrompt": "A close-up of dragonfly large compound eyes, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «잠자리»는 큰 겹눈, 자유로운 비행, 물속에 사는 애벌레, 허물을 벗고 어른이 되는 과정을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «잠자리»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «잠자리»이 다루는 내용",
+      "imagePrompt": "A dragonfly nymph living underwater, fascinating children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "큰 겹눈(전방위 시야), 네 날개(정지·후진 비행), 물속 애벌레, 허물 벗기 같은 포인트를 짚어 주세요. \"잠자리 애벌레가 물속에 산다니 신기하지?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A dragonfly with four separate wings, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "잠자리, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

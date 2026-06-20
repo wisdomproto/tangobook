@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772198278145",
+  "title": "피리 부는 사나이",
+  "hook": "피리 부는 사나이 는 마을의 쥐 떼를 신비한 피리 소리로 쫓아낸 사나이의…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "피리 부는 사나이 는 마을의 쥐 떼를 신비한 피리 소리로 쫓아낸 사나이의 이야기로, 약속을 지키는 것이 얼마…",
+      "screen": "피리 부는 사나이, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "피리 부는 사나이, 어떤 동화인가요?",
+      "imagePrompt": "A mysterious piper in colorful clothes playing a flute as rats follow him out of a medieval town, whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "독일 하멜른 마을의 전설로, 그림 형제가 기록해 널리 알려졌습니다. 쥐 떼를 없애 주면 보상하기로 했던 마을이 약속을 어기자, 사나이가 다시 피리를 불어 떠나는 결말이 핵심입니다.",
+      "screen": "피리 부는 사나이 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "피리 부는 사나이 원작 이야기",
+      "imagePrompt": "Townspeople gratefully watching a piper lead rats away toward a river, lively children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "쥐 떼로 골치 아픈 마을이 피리 부는 사나이에게 보상을 약속하고 쥐를 쫓아 달라 부탁합니다. 사나이가 피리 소리로 쥐를 모두 쫓아내지만, 마을이 약속한 보상을 주지 않자 실망하지요.",
+      "screen": "피리 부는 사나이 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "피리 부는 사나이 줄거리 요약",
+      "imagePrompt": "A piper playing his flute thoughtfully in the empty town square at dusk, reflective children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 약속은 반드시 지켜야 하며, 어기면 신뢰를 잃는다 는 것입니다. \"약속을 안 지키면 어떤 일이 생길까?\"를 아이와 이야기하며 신뢰의 가치를 나눠 보세요.",
+      "screen": "피리 부는 사나이가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "피리 부는 사나이가 주는 교훈",
+      "imagePrompt": "Townspeople keeping their promise and thanking the piper, warm reconciled children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "피리 부는 사나이, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

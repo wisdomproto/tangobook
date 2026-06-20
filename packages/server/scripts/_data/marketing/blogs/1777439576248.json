@@ -1,0 +1,46 @@
+{
+  "storybookId": "1777439576248",
+  "seo_title": "곰 특징과 겨울잠의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "곰",
+  "secondary_keywords": ["곰 특징", "곰 겨울잠", "곰 생태", "유아 동물 책", "동물 그림책"],
+  "url_slug": "bear-nature-for-kids",
+  "meta_description": "곰이 잡식 동물이라는 사실과 겨울잠(동면), 새끼를 키우는 모습 등 신기한 이야기와, 탱고북 동물 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>곰, 어떤 점이 신기할까요?</h2><p>크고 힘센 <strong>곰</strong>은 물고기도, 꿀도, 나무 열매도 먹는 잡식 동물이에요. 추운 겨울엔 굴속에서 잠을 자는 신기한 습성도 있답니다.</p>",
+      "image_prompt": "A bear catching a fish by a river, gentle children's book illustration, no text",
+      "alt": "곰",
+      "caption": "잡식 동물 곰"
+    },
+    {
+      "text_html": "<h2>곰의 자연·과학 사실</h2><p>곰은 고기와 식물을 모두 먹는 <strong>잡식 동물</strong>로, 물고기·꿀·열매를 즐겨요. 뛰어난 후각으로 멀리 있는 먹이 냄새를 맡고 크고 단단한 발톱으로 땅을 파거나 나무를 오르지요. 먹이가 부족한 겨울엔 굴속에서 <strong>겨울잠(동면)</strong>을 자며 에너지를 아끼고, 어미 곰은 보통 <strong>겨울 굴에서 새끼를 낳아</strong> 봄까지 정성껏 키웁니다.</p>",
+      "image_prompt": "A bear eating honey and berries, informative children's book illustration, no text",
+      "alt": "꿀과 열매를 먹는 곰",
+      "caption": "다양한 먹이"
+    },
+    {
+      "text_html": "<h2>탱고북 «곰»이 다루는 내용</h2><p>탱고북 «곰»은 물고기를 잡는 모습, 꿀과 열매를 먹는 모습, 겨울잠을 자는 굴, 새끼를 돌보는 어미 곰을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A bear sleeping in a winter den with cubs, heartwarming children's book illustration, no text",
+      "alt": "겨울잠 자는 곰",
+      "caption": "겨울잠과 새끼"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>잡식(물고기·꿀·열매), 후각·발톱, 겨울잠, 어미·새끼 같은 포인트를 짚어 주세요. \"곰은 왜 겨울에 잠을 잘까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of bear strong claws, observational children's book illustration, no text",
+      "alt": "곰 발톱",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"먹이가 없는 겨울을 잠으로 견뎌(동면)\"를 이야기하고, 다른 겨울잠 동물(개구리·다람쥐)과 비교해 보세요. 곰의 후각이 사람보다 훨씬 좋다는 점도 흥미롭습니다.</p>",
+      "image_prompt": "A parent and child reading about hibernating animals, warm children's book illustration, no text",
+      "alt": "겨울잠 동물을 알아보는 부모와 아이",
+      "caption": "겨울잠 비교"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 곰은 왜 겨울잠을 자나요?</strong><br>A. 겨울에는 먹이가 부족해, 굴속에서 잠을 자며 에너지를 아끼기 위해서입니다.</p><p><strong>Q. 곰은 무엇을 먹나요?</strong><br>A. 고기와 식물을 모두 먹는 잡식 동물입니다. 물고기·꿀·열매를 즐겨 먹어요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 다른 겨울잠 동물과 비교, \"겨울을 잠으로 견딘다\" 이야기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

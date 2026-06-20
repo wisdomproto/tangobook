@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772093674655",
+  "title": "미운 아기 오리",
+  "hook": "미운오리새끼 는 다른 형제들과 생김새가 달라 미움받던 아기 새가, 사실은…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "미운오리새끼 는 다른 형제들과 생김새가 달라 미움받던 아기 새가, 사실은 아름다운 백조였음을 깨닫는 안데르센…",
+      "screen": "미운 아기 오리, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "미운 아기 오리, 어떤 동화인가요?",
+      "imagePrompt": "A small grey duckling sitting apart from yellow ducklings by a pond, looking lonely but hopeful, soft empathetic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "「미운 아기 오리」는 덴마크 작가 한스 크리스티안 안데르센 이 1843년에 발표한 창작 동화입니다. 가난한 환경에서 자라며 외모로 놀림받았던 안데르센 자신의 경험이 녹아 있어, 단순한 우화를 넘어…",
+      "screen": "안데르센 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "안데르센 원작 이야기",
+      "imagePrompt": "A gentle portrait-style illustration of a duckling growing through seasons by a pond, autumn leaves and winter snow, hopeful tone, children's book style, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "오리 가족 사이에서 태어난 회색 아기 새는 큰 덩치와 다른 생김새 때문에 형제와 동물들에게 따돌림을 당합니다. 외롭게 떠돌며 추운 겨울을 견딘 아기 새는, 봄이 오자 호수에서 아름다운 백조 무리를…",
+      "screen": "미운오리새끼 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "미운오리새끼 줄거리 요약",
+      "imagePrompt": "The grey duckling seeing its reflection as a beautiful white swan in a spring pond, graceful swans nearby, joyful realization, children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심 교훈은 겉모습으로 누군가를 판단하지 말 것, 그리고 나의 가치는 남이 아니라 내가 발견하는 것 입니다. 아이와 \"친구가 나랑 다르게 생겼을 때 어떻게 대하면 좋을까?\", \"내가 잘하는 나만의…",
+      "screen": "미운 아기 오리가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "미운 아기 오리가 주는 교훈",
+      "imagePrompt": "A confident white swan spreading its wings proudly on a sunny lake, other animals admiring, uplifting children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "미운 아기 오리, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

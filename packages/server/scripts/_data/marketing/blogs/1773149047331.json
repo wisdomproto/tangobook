@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773149047331",
+  "seo_title": "고슴도치 특징과 생태 — 가시에 숨은 과학 자연관찰 그림책",
+  "primary_keyword": "고슴도치",
+  "secondary_keywords": [
+    "고슴도치 특징",
+    "고슴도치 가시",
+    "유아 자연관찰 책",
+    "동물 그림책",
+    "고슴도치 생태"
+  ],
+  "url_slug": "hedgehog-nature-for-kids",
+  "meta_description": "고슴도치 가시의 비밀과 겨울잠, 야행성 생태 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 아이와 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>고슴도치, 어떤 점이 신기할까요?</h2><p>뾰족한 가시 뒤에 귀여운 얼굴이 숨은 <strong>고슴도치</strong>는 호기심을 자극하는 자연관찰 친구예요. 위험하면 몸을 공처럼 마는 모습이 인상적이지요.</p>",
+      "image_prompt": "A cute hedgehog with quills walking in autumn leaves at dusk, warm children's book illustration, no text",
+      "alt": "낙엽 위 고슴도치",
+      "caption": "가시를 두른 고슴도치"
+    },
+    {
+      "text_html": "<h2>고슴도치의 자연·과학 사실</h2><p>고슴도치의 가시는 사실 <strong>변형된 털</strong>로, 속이 비어 가볍고 탄력 있습니다. 성체 한 마리에 약 <strong>5,000~7,000개</strong>나 되지요. 야행성 잡식 동물이며, 겨울이면 낙엽 둥지에서 겨울잠을 자는데 체온이 35도에서 5도까지 내려갑니다. 새로운 냄새에 거품을 만들어 가시에 바르는 신기한 자가 도포 행동도 합니다.</p>",
+      "image_prompt": "A hedgehog curled into a defensive ball, gentle children's book illustration, no text",
+      "alt": "몸을 만 고슴도치",
+      "caption": "공처럼 마는 방어"
+    },
+    {
+      "text_html": "<h2>탱고북 «고슴도치»이 다루는 내용</h2><p>탱고북 «고슴도치»는 가시로 몸을 지키는 방어 행동, 야행성 먹이 탐색, 겨울잠, 아기 고슴도치의 성장을 생생하게 보여 줍니다. \"뾰족한 가시 뒤에 숨은 귀염둥이\"라는 따뜻한 시선으로 마무리돼요.</p>",
+      "image_prompt": "A hedgehog sleeping in a cozy nest of leaves in winter, children's book illustration, no text",
+      "alt": "낙엽 둥지의 겨울잠",
+      "caption": "겨울잠 자는 고슴도치"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>가시(변형된 털, 수천 개), 몸 말기(방어), 겨울잠(체온 변화), 야행성(밤에 활동) 같은 포인트를 짚어 주세요. \"왜 몸을 공처럼 말까?\", \"가시는 몇 개일까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "Close-up of hedgehog quills showing texture, observational children's book illustration, no text",
+      "alt": "고슴도치 가시",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>솔방울·밤송이의 뾰족함과 고슴도치 가시를 비교해 보세요. 몸을 동그랗게 마는 방어를 따라 해 보고, 겨울잠 개념은 이불 속에 들어가는 놀이로 체험할 수 있어요. (실제 만지기는 주의)</p>",
+      "image_prompt": "A parent and child comparing a pinecone and a hedgehog picture, warm children's book illustration, no text",
+      "alt": "솔방울과 고슴도치를 비교하는 부모와 아이",
+      "caption": "뾰족함 비교 놀이"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 고슴도치 가시는 몇 개인가요?</strong><br>A. 성체 한 마리에 약 5,000~7,000개입니다. 변형된 털로 속이 비어 가볍고 탄력 있어요.</p><p><strong>Q. 고슴도치는 겨울에 뭘 하나요?</strong><br>A. 낙엽 둥지에서 겨울잠을 잡니다. 이때 체온이 크게 내려가 에너지를 아껴요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 솔방울·밤송이의 뾰족함과 비교하고, 몸 말기 방어를 따라 해 보세요(실제 접촉은 주의).</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777615065220",
+  "title": "원숭이",
+  "hook": "사람과 닮은 점이 많은 원숭이 는 나무를 잘 타는 똑똑한 동물이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "사람과 닮은 점이 많은 원숭이 는 나무를 잘 타는 똑똑한 동물이에요.",
+      "screen": "원숭이, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "원숭이, 어떤 점이 신기할까요?",
+      "imagePrompt": "A monkey climbing a tree, lively children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "원숭이는 사람처럼 물건을 쥘 수 있는 손과 발 을 가져 나무를 잘 타고 먹이를 집어 먹어요. 일부 원숭이는 손처럼 물건을 감아 쥐는 꼬리(쥘꼬리) 로 나뭇가지에 매달리기도 하지요.",
+      "screen": "원숭이의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "원숭이의 자연·과학 사실",
+      "imagePrompt": "A monkey gripping food with its hand, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «원숭이»는 손발로 나무를 타는 모습, 꼬리로 매달리는 모습, 무리 생활, 서로 털을 골라 주는 원숭이를 정겹게 보여 줍니다.",
+      "screen": "탱고북 «원숭이»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «원숭이»이 다루는 내용",
+      "imagePrompt": "A monkey hanging from a branch by its tail, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "쥐는 손발, 쥘꼬리, 무리·표정, 털 고르기 같은 포인트를 짚어 주세요. \"원숭이는 사람과 어떤 점이 닮았을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Monkeys grooming each other, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "원숭이, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

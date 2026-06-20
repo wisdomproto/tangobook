@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777277632597",
+  "title": "빨강머리 앤",
+  "hook": "빨강머리 앤 은 입양된 고아 소녀 앤이 풍부한 상상력과 밝은 긍정으로 주…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "빨강머리 앤 은 입양된 고아 소녀 앤이 풍부한 상상력과 밝은 긍정으로 주변을 환하게 바꾸는 성장 이야기입니다…",
+      "screen": "빨강머리 앤, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "빨강머리 앤, 어떤 동화인가요?",
+      "imagePrompt": "A cheerful red-haired girl with braids looking happily at a green-roofed farmhouse, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "캐나다 작가 루시 모드 몽고메리 가 1908년에 발표한 『초록지붕집의 앤』이 원작입니다. 캐나다 프린스에드워드섬을 배경으로, 입양된 앤이 마릴라·매튜 남매와 가족이 되어 성장하는 따뜻한 이야기입니다…",
+      "screen": "빨강머리 앤 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "빨강머리 앤 원작 이야기",
+      "imagePrompt": "A girl imagining magical things in a blooming apple orchard, dreamy bright children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "실수로 남자아이 대신 입양된 앤은 처음엔 어색했지만, 풍부한 상상력과 솔직함, 따뜻한 마음으로 가족과 마을 사람들의 사랑을 받게 됩니다. 크고 작은 실수를 겪으면서도 늘 긍정적으로 다시 일어서며 멋…",
+      "screen": "빨강머리 앤 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "빨강머리 앤 줄거리 요약",
+      "imagePrompt": "A girl happily helping and laughing with her adoptive family, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 풍부한 상상력과 긍정의 힘, 그리고 실수해도 다시 일어서는 용기 입니다. \"오늘 있었던 좋은 일은 뭐야?\"처럼 긍정적으로 하루를 돌아보는 습관을 아이와 함께 길러 보세요.",
+      "screen": "빨강머리 앤이 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "빨강머리 앤이 주는 교훈",
+      "imagePrompt": "A girl smiling brightly after overcoming a small mistake, resilient cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "빨강머리 앤, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

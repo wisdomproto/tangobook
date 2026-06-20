@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772194909157",
+  "title": "잠자는 숲속의 공주",
+  "hook": "잠자는 숲속의 공주 는 저주로 깊은 잠에 빠진 공주가 오랜 시간 끝에 사…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "잠자는 숲속의 공주 는 저주로 깊은 잠에 빠진 공주가 오랜 시간 끝에 사랑으로 깨어나는 명작 동화입니다.",
+      "screen": "잠자는 숲속의 공주, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "잠자는 숲속의 공주, 어떤 동화인가요?",
+      "imagePrompt": "A peaceful princess sleeping in a rose-covered castle as vines grow around, dreamy children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "샤를 페로(1697) 와 그림 형제(1812, 「가시장미」) 판본이 유명합니다. 초대받지 못한 요정의 저주, 물레 바늘에 찔려 잠드는 설정, 그리고 100년 뒤 깨어나는 결말이 핵심입니다.",
+      "screen": "잠자는 숲속의 공주 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "잠자는 숲속의 공주 원작 이야기",
+      "imagePrompt": "A good fairy softening a curse over a baby princess's cradle, gentle magical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "요정의 저주로 공주는 물레 바늘에 찔려 깊은 잠에 빠지고, 온 성이 함께 잠듭니다. 오랜 세월이 흘러 성을 찾은 이의 진심 어린 마음으로 공주가 깨어나고, 잠들었던 성과 사람들도 모두 깨어나 다시…",
+      "screen": "잠자는 숲속의 공주 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "잠자는 숲속의 공주 줄거리 요약",
+      "imagePrompt": "A princess gently awakening as sunlight returns to the sleeping castle, hopeful warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 어려움 속에서도 희망을 잃지 않으면 결국 좋은 날이 온다 는 것입니다. 또한 진심과 사랑의 힘에 대해 아이와 이야기할 수 있어요.",
+      "screen": "잠자는 숲속의 공주가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "잠자는 숲속의 공주가 주는 교훈",
+      "imagePrompt": "The whole castle waking up with joy, birds and flowers blooming again, cheerful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "잠자는 숲속의 공주, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

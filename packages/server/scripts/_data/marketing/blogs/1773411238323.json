@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773411238323",
+  "seo_title": "태양계 행성 — 수성부터 해왕성까지 우주 자연관찰 그림책",
+  "primary_keyword": "태양계",
+  "secondary_keywords": [
+    "태양계 행성",
+    "수성 금성 지구 화성",
+    "태양계 그림책",
+    "유아 우주 책",
+    "행성 이름"
+  ],
+  "url_slug": "solar-system-for-kids",
+  "meta_description": "태양계 8개 행성의 특징(가장 뜨거운 금성·가장 큰 목성·고리의 토성 등)과, 탱고북 우주 그림책 내용, 아이와 함께 즐기는 법까지. 4~7세 우주 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>태양계, 어떤 점이 신기할까요?</h2><p>태양과 여덟 행성이 모인 <strong>태양계</strong>는 아이들이 가장 좋아하는 우주 주제예요. 행성마다 색도 크기도 성격도 모두 달라 흥미진진합니다.</p>",
+      "image_prompt": "The eight planets of the solar system around the sun in colorful order, bright children's book illustration, no text",
+      "alt": "태양계 행성들",
+      "caption": "여덟 행성"
+    },
+    {
+      "text_html": "<h2>태양계의 자연·과학 사실</h2><p><strong>수성</strong>은 가장 작고 낮밤 온도 차가 극심하고, <strong>금성</strong>은 두꺼운 대기로 가장 뜨거워요(약 464°C). <strong>지구</strong>는 생명이 있는 유일한 행성, <strong>화성</strong>은 붉은 행성이지요. <strong>목성</strong>은 가장 크고, <strong>토성</strong>은 아름다운 고리가 있어요. <strong>천왕성</strong>은 옆으로 누워 돌고, <strong>해왕성</strong>은 가장 먼 행성으로 강한 바람이 붑니다.</p>",
+      "image_prompt": "Saturn with its beautiful rings in space, vivid children's book illustration, no text",
+      "alt": "고리를 가진 토성",
+      "caption": "아름다운 고리"
+    },
+    {
+      "text_html": "<h2>탱고북 «태양계 (수성~해왕성)»이 다루는 내용</h2><p>탱고북 «태양계»는 태양에서 가까운 순서대로 여덟 행성을 만나며, 각 행성의 색과 크기, 특징을 아이 눈높이로 보여 줍니다.</p>",
+      "image_prompt": "Jupiter the largest planet with its great red spot, informative children's book illustration, no text",
+      "alt": "가장 큰 목성",
+      "caption": "거대한 목성"
+    },
+    {
+      "text_html": "<h2>행성을 더 재미있게 아는 법</h2><p>행성 순서(수금지화목토천해), 가장 큰 행성(목성), 고리(토성), 붉은 행성(화성) 같은 포인트를 짚어 주세요. \"어떤 행성이 가장 뜨거울까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "Red planet Mars in space, observational children's book illustration, no text",
+      "alt": "붉은 화성",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>행성 순서를 노래·구호(\"수금지화목토천해\")로 외워 보세요. 크기 비교를 공·구슬로 표현하고, 밤에 보이는 행성(금성·목성)을 찾아보면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child using balls of different sizes to compare planets, warm children's book illustration, no text",
+      "alt": "공으로 행성 크기를 비교하는 부모와 아이",
+      "caption": "크기 비교 놀이"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 가장 뜨거운 행성은 어디인가요?</strong><br>A. 금성입니다. 두꺼운 이산화탄소 대기의 온실 효과로 약 464°C에 달해 가장 뜨거워요.</p><p><strong>Q. 행성 순서를 어떻게 외우나요?</strong><br>A. \"수금지화목토천해\" 구호로 외우면 쉽습니다(수성·금성·지구·화성·목성·토성·천왕성·해왕성).</p><p><strong>Q. 집에서 어떻게 즐기면 좋을까요?</strong><br>A. 행성 순서 노래, 공·구슬로 크기 비교, 밤하늘에서 금성·목성 찾기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

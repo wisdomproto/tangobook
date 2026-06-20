@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777550146108",
+  "title": "개구리",
+  "hook": "연못의 노래꾼 개구리 는 알에서 올챙이를 거쳐 개구리가 되는 신기한 한살…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "연못의 노래꾼 개구리 는 알에서 올챙이를 거쳐 개구리가 되는 신기한 한살이를 보여 주는 동물이에요.",
+      "screen": "개구리, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "개구리, 어떤 점이 신기할까요?",
+      "imagePrompt": "A frog sitting on a lotus leaf in a pond, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "개구리는 피부로도 산소를 흡수(피부 호흡) 해 피부가 늘 축축해야 해요. 한살이는 알 → 올챙이(식물성 먹이) → 변태(뒷다리→앞다리→꼬리 흡수) → 개구리(곤충 먹이) 4단계로, 정말 극적으로 변…",
+      "screen": "개구리의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "개구리의 자연·과학 사실",
+      "imagePrompt": "The frog life cycle from egg to tadpole to frog, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «개구리»는 알 → 올챙이 → 다리가 나오는 변태 → 개구리가 되는 한살이, 울음주머니로 노래하는 모습을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «개구리»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «개구리»이 다루는 내용",
+      "imagePrompt": "A male frog with an inflated vocal sac singing, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "한살이 4단계, 피부 호흡(축축함), 울음주머니, 튀어나온 눈 같은 포인트를 짚어 주세요. \"올챙이가 어떻게 개구리가 될까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A tadpole growing legs, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "개구리, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

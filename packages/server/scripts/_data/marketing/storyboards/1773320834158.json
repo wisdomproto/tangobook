@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773320834158",
+  "title": "달팽이",
+  "hook": "등에 집을 지고 천천히 기어가는 달팽이 는 아이들이 비 오는 날 만나는…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "등에 집을 지고 천천히 기어가는 달팽이 는 아이들이 비 오는 날 만나는 자연 친구예요.",
+      "screen": "달팽이, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "달팽이, 어떤 점이 신기할까요?",
+      "imagePrompt": "A snail with a spiral shell crawling on a wet leaf after rain, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "달팽이는 끈끈한 점액 을 분비해 거친 표면도 미끄러지듯 기어가고 몸을 촉촉하게 지킵니다. 입 안에는 줄칼 같은 치설 이 있어 잎을 갉아 먹지요.",
+      "screen": "달팽이의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "달팽이의 자연·과학 사실",
+      "imagePrompt": "Close-up of a snail's eye stalks (tentacles), informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «달팽이»는 점액으로 기어가는 모습, 더듬이로 주변을 살피는 행동, 등껍질에 숨는 방어, 잎을 갉아 먹는 모습, 알에서 깨어나는 아기 달팽이를 천천히 따라가며 보여 줍니다.",
+      "screen": "탱고북 «달팽이»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «달팽이»이 다루는 내용",
+      "imagePrompt": "A snail retreating into its shell, defensive behavior, children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "등껍질(이동식 집·방어), 점액(미끄럼·보습), 더듬이(눈), 치설(잎 갉기) 같은 포인트를 짚어 주세요. \"왜 달팽이는 끈끈한 길을 남길까?\", \"눈은 어디 있을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A shiny mucus trail left by a snail on a surface, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "달팽이, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

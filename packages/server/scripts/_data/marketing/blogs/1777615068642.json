@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777615068642",
+  "seo_title": "코뿔소 특징과 뿔의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "코뿔소",
+  "secondary_keywords": [
+    "코뿔소 특징",
+    "코뿔소 뿔",
+    "코뿔소 보호",
+    "유아 자연관찰 책",
+    "동물 그림책"
+  ],
+  "url_slug": "rhino-nature-for-kids",
+  "meta_description": "코뿔소의 뿔이 뼈가 아니라 케라틴이라는 사실과 두꺼운 피부, 멸종 위기 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>코뿔소, 어떤 점이 신기할까요?</h2><p>큰 <strong>뿔</strong>과 두꺼운 피부를 가진 <strong>코뿔소</strong>는 갑옷을 입은 듯한 초식 동물이에요. 뿔에 의외의 비밀이 있답니다.</p>",
+      "image_prompt": "A rhino with a big horn on the savanna, gentle children's book illustration, no text",
+      "alt": "코뿔소",
+      "caption": "갑옷 같은 동물"
+    },
+    {
+      "text_html": "<h2>코뿔소의 자연·과학 사실</h2><p>코뿔소의 큰 뿔은 뼈가 아니라 <strong>우리 머리카락·손톱과 같은 케라틴 성분</strong>으로 되어 있어 자라기도 닳기도 해요. 두껍고 단단한 피부는 갑옷 같지요. 풀과 잎을 먹는 초식 동물이고, 눈은 그리 밝지 않은 대신 <strong>냄새와 소리를 아주 잘</strong> 알아채요. 더울 땐 진흙 목욕으로 피부를 보호하고, 안타깝게도 <strong>뿔을 노린 밀렵 때문에 멸종 위기</strong>라 보호가 필요합니다.</p>",
+      "image_prompt": "A close-up of a rhino horn made of keratin, informative children's book illustration, no text",
+      "alt": "코뿔소 뿔",
+      "caption": "케라틴 뿔"
+    },
+    {
+      "text_html": "<h2>탱고북 «코뿔소»이 다루는 내용</h2><p>탱고북 «코뿔소»는 큰 뿔, 갑옷 같은 피부, 진흙 목욕, 풀을 뜯는 모습 등 코뿔소의 매력을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A rhino taking a mud bath, gentle children's book illustration, no text",
+      "alt": "진흙 목욕하는 코뿔소",
+      "caption": "피부 보호"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>뿔(케라틴), 두꺼운 피부, 뛰어난 후각·청각, 멸종 위기 같은 포인트를 짚어 주세요. \"코뿔소 뿔은 무엇으로 되어 있을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of rhino thick armored skin, observational children's book illustration, no text",
+      "alt": "코뿔소 피부",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>\"뿔이 손톱과 같은 성분이래\"를 손톱과 비교해 보세요. 진흙 목욕을 하마와 비교하고, \"뿔 때문에 위험에 처했어(보호 필요)\"를 이야기하면 생명을 아끼는 마음이 자랍니다.</p>",
+      "image_prompt": "A parent and child comparing a fingernail and a rhino horn, warm children's book illustration, no text",
+      "alt": "손톱과 뿔을 비교하는 부모와 아이",
+      "caption": "뿔 성분 비교"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 코뿔소 뿔은 무엇으로 되어 있나요?</strong><br>A. 뼈가 아니라 우리 머리카락·손톱과 같은 케라틴 성분입니다. 자라기도 닳기도 해요.</p><p><strong>Q. 코뿔소는 왜 보호가 필요한가요?</strong><br>A. 뿔을 노린 밀렵 때문에 멸종 위기에 놓여 있기 때문입니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 손톱과 뿔 성분 비교, 진흙 목욕을 하마와 비교하기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

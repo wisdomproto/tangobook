@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773899653860",
+  "title": "케찰코아틀루스",
+  "hook": "날개를 펴면 작은 비행기만 한 케찰코아틀루스 는 역사상 가장 큰 비행 동…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "날개를 펴면 작은 비행기만 한 케찰코아틀루스 는 역사상 가장 큰 비행 동물 후보예요.",
+      "screen": "케찰코아틀루스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "케찰코아틀루스, 어떤 점이 신기할까요?",
+      "imagePrompt": "A giant Quetzalcoatlus with enormous wings in the sky, majestic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "케찰코아틀루스는 날개폭이 약 10~11m (최대 12m)나 됐고, 머리를 들면 키가 4~5m로 기린만 했어요. 이빨은 없었지요.",
+      "screen": "케찰코아틀루스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "케찰코아틀루스의 자연·과학 사실",
+      "imagePrompt": "A Quetzalcoatlus walking on land like a giant stork, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «케찰코아틀루스»는 거대한 날개, 기린 같은 키, 땅을 성큼성큼 걷는 모습, 하늘로 도약해 나는 모습을 웅장하게 보여 줍니다.",
+      "screen": "탱고북 «케찰코아틀루스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «케찰코아틀루스»이 다루는 내용",
+      "imagePrompt": "A Quetzalcoatlus leaping into the air to take off, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "거대 날개(10m+), 기린 같은 키, 지상 포식자, 도약 이륙 같은 포인트를 짚어 주세요. \"이렇게 큰데 정말 날았을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A Quetzalcoatlus as tall as a giraffe, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "케찰코아틀루스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

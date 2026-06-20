@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773320745960",
+  "title": "거미",
+  "hook": "정교한 거미줄을 치는 거미 는 자연의 뛰어난 건축가예요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "정교한 거미줄을 치는 거미 는 자연의 뛰어난 건축가예요.",
+      "screen": "거미, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "거미, 어떤 점이 신기할까요?",
+      "imagePrompt": "A spider on an intricate dew-covered web in morning light, beautiful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "거미는 다리가 8개 인 절지동물로, 다리 6개인 곤충과는 다른 분류예요. 거미줄은 같은 굵기의 강철보다 강한 단백질 섬유 지요.",
+      "screen": "거미의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "거미의 자연·과학 사실",
+      "imagePrompt": "A close-up of a spider showing its eight legs clearly, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «거미»는 거미의 몸 구조, 그물 사냥, 실로 먹이를 감아 저장하는 행동, 알을 배에 달고 다니는 어미, 벌루닝하는 아기 거미를 생생하게 보여 줍니다. 해충을 잡아 숲을 지켜주는 고마운 친구…",
+      "screen": "탱고북 «거미»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «거미»이 다루는 내용",
+      "imagePrompt": "Baby spiders releasing silk to float on the wind (ballooning), whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "다리 8개(곤충과 구별), 거미줄(강한 섬유·기하학 무늬), 사냥 방식, 벌루닝 같은 포인트를 짚어 주세요. \"거미는 곤충일까?\", \"거미줄은 얼마나 튼튼할까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Geometric spider web pattern glistening, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "거미, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

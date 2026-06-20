@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777600332199",
+  "title": "타조",
+  "hook": "세상에서 가장 큰 새 타조 는 하늘을 날지 못하는 대신 바람처럼 달리는…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "세상에서 가장 큰 새 타조 는 하늘을 날지 못하는 대신 바람처럼 달리는 신기한 새예요.",
+      "screen": "타조, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "타조, 어떤 점이 신기할까요?",
+      "imagePrompt": "A tall ostrich running fast across a savanna, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "타조는 몸이 너무 커서 날지 못하지만 , 길고 튼튼한 다리로 새 중 가장 빠르게(시속 약 70km ) 달려요. 발가락이 단 두 개 뿐이라 달리기에 유리하고, 위험하면 강한 발차기로 자신을 지키지요.",
+      "screen": "타조의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "타조의 자연·과학 사실",
+      "imagePrompt": "A close-up of ostrich strong legs with two toes, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «타조»는 빠르게 달리는 모습, 가장 큰 알, 함께 새끼를 돌보는 부모, 무리 지어 사는 타조를 정겹게 보여 줍니다.",
+      "screen": "탱고북 «타조»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «타조»이 다루는 내용",
+      "imagePrompt": "A giant ostrich egg next to a hand, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "못 나는 새, 빠른 달리기(두 발가락), 큰 알, 모래 오해 같은 포인트를 짚어 주세요. \"타조는 왜 날지 못할까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "An ostrich family caring for chicks, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "타조, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

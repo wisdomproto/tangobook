@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772182206245",
+  "title": "이상한 나라의 앨리스",
+  "hook": "이상한 나라의 앨리스 는 토끼 굴로 떨어진 소녀 앨리스가 말하는 토끼·모…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "이상한 나라의 앨리스 는 토끼 굴로 떨어진 소녀 앨리스가 말하는 토끼·모자 장수·여왕 등 기상천외한 존재들을…",
+      "screen": "이상한 나라의 앨리스, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "이상한 나라의 앨리스, 어떤 동화인가요?",
+      "imagePrompt": "A curious girl falling down a magical rabbit hole surrounded by floating clocks and cards, whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "영국 작가 루이스 캐럴 이 1865년에 발표한 『Alice's Adventures in Wonderland』가 원작입니다. 회중시계를 든 하얀 토끼, 차 마시는 모자 장수, \"목을 쳐라!\"의 하트…",
+      "screen": "이상한 나라의 앨리스 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "이상한 나라의 앨리스 원작 이야기",
+      "imagePrompt": "A white rabbit in a waistcoat checking a pocket watch in a fantastical garden, whimsical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "앨리스는 회중시계를 든 토끼를 따라 굴에 들어갔다가, 몸이 커졌다 작아지고 이상한 차 모임에 끼고 하트 여왕의 재판에 휘말리는 등 신기한 일들을 겪습니다. 결국 모든 것이 꿈이었음을 알고 깨어나며…",
+      "screen": "이상한 나라의 앨리스 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "이상한 나라의 앨리스 줄거리 요약",
+      "imagePrompt": "A tea party with a hatter and a girl at a long whimsical table outdoors, playful colorful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 호기심을 가지고 새로운 것을 탐험하는 즐거움, 그리고 엉뚱함 속에서도 자기 생각을 지키는 것 입니다. \"말이 안 되는 일이 일어난다면?\"을 상상하며 창의력을 함께 키워 보세요.",
+      "screen": "이상한 나라의 앨리스가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "이상한 나라의 앨리스가 주는 교훈",
+      "imagePrompt": "Alice standing confidently among oversized playing card soldiers, brave and curious children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "이상한 나라의 앨리스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

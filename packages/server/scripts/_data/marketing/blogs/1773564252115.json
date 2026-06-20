@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773564252115",
+  "seo_title": "수박 특징과 줄무늬의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "수박",
+  "secondary_keywords": [
+    "수박 특징",
+    "수박 줄무늬",
+    "수박 생태",
+    "유아 자연관찰 책",
+    "식물 그림책"
+  ],
+  "url_slug": "watermelon-nature-for-kids",
+  "meta_description": "수박이 물의 과일인 이유와 줄무늬의 비밀, 덩굴 번식 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>수박, 어떤 점이 신기할까요?</h2><p>여름의 시원함을 책임지는 <strong>수박</strong>은 아삭하고 달콤한 물의 과일이에요. 초록 줄무늬와 큰 덩치에 재미있는 비밀이 숨어 있습니다.</p>",
+      "image_prompt": "A big striped watermelon on a vine in a summer field, bright children's book illustration, no text",
+      "alt": "여름 밭의 수박",
+      "caption": "물의 과일 수박"
+    },
+    {
+      "text_html": "<h2>수박의 자연·과학 사실</h2><p>수박은 무게의 <strong>91% 이상이 수분</strong>이라 더운 여름 갈증 해소에 딱이에요. <strong>덩굴식물</strong>로 줄기가 땅을 기며 자라고, 암꽃·수꽃이 따로 피어 곤충이 꽃가루를 옮겨 줘야 열매가 맺힙니다. 초록 <strong>줄무늬는 야생 조상에게 물려받은 위장 무늬</strong>이며, 덩굴 끝 꼬리가 돌돌 말리면 다 익었다는 신호예요.</p>",
+      "image_prompt": "A watermelon sliced open showing red flesh and black seeds, fresh children's book illustration, no text",
+      "alt": "수박 단면과 씨앗",
+      "caption": "시원한 수박 속"
+    },
+    {
+      "text_html": "<h2>탱고북 «수박»이 다루는 내용</h2><p>탱고북 «수박»은 노란 꽃 → 곤충의 수분 → 작은 수박이 점점 커지는 과정 → 시원하게 쪼개 먹는 여름을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A watermelon vine creeping along the ground with yellow flowers, gentle children's book illustration, no text",
+      "alt": "땅을 기는 수박 덩굴",
+      "caption": "기어 자라는 덩굴"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>줄무늬(위장), 큰 덩치·물(91%), 덩굴(기어 자람), 꼬리(완숙 신호) 같은 포인트를 짚어 주세요. \"수박은 왜 이렇게 물이 많을까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "Close-up of watermelon green stripes pattern, observational children's book illustration, no text",
+      "alt": "수박 줄무늬",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>수박을 잘라 단면(씨앗 배열)을 관찰하고, \"거의 다 물!\"을 직접 느껴 보세요. 줄무늬를 그려 보고, 덩굴 끝 꼬리가 마르면 익은 신호라는 점을 알려 주면 좋습니다.</p>",
+      "image_prompt": "A parent and child sharing watermelon slices in summer, warm children's book illustration, no text",
+      "alt": "수박을 나눠 먹는 부모와 아이",
+      "caption": "여름의 즐거움"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 수박은 왜 물이 많나요?</strong><br>A. 무게의 91% 이상이 수분이기 때문입니다. 더운 여름 갈증 해소에 아주 좋아요.</p><p><strong>Q. 수박 줄무늬는 왜 있나요?</strong><br>A. 야생 조상에게서 물려받은 위장 무늬입니다. 자연에서 몸을 숨기는 데 도움이 됐어요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 단면 씨앗 배열 보기, 줄무늬 그리기, \"거의 다 물\" 느껴 보기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

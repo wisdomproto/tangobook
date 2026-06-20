@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773739068170",
+  "title": "파라사우롤로푸스",
+  "hook": "머리에 길고 멋진 볏 을 단 파라사우롤로푸스 는 그 볏으로 소리를 냈을지…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "머리에 길고 멋진 볏 을 단 파라사우롤로푸스 는 그 볏으로 소리를 냈을지 모르는 신기한 초식 공룡이에요.",
+      "screen": "파라사우롤로푸스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "파라사우롤로푸스, 어떤 점이 신기할까요?",
+      "imagePrompt": "A Parasaurolophus with a long head crest in a forest, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "파라사우롤로푸스의 볏은 속이 빈 관으로 코와 연결 돼 공기가 통할 수 있었어요. 컴퓨터 시뮬레이션 연구에 따르면 이 볏으로 트롬본처럼 낮은 소리 를 냈을 거예요.",
+      "screen": "파라사우롤로푸스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "파라사우롤로푸스의 자연·과학 사실",
+      "imagePrompt": "A cross-section of the hollow tube crest connected to the nose, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «파라사우롤로푸스»는 길고 멋진 볏, 볏으로 내는 소리, 무리 지어 소통하는 모습 등 노래하는 공룡을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «파라사우롤로푸스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «파라사우롤로푸스»이 다루는 내용",
+      "imagePrompt": "A Parasaurolophus making a sound with its crest among a herd, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "긴 볏(속 빈 관), 트롬본 소리, 무리 소통, 두 발·네 발 걷기 같은 포인트를 짚어 주세요. \"볏으로 어떻게 소리를 냈을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A close-up of the Parasaurolophus crest, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "파라사우롤로푸스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

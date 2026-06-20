@@ -1,0 +1,46 @@
+{
+  "storybookId": "1777447633547",
+  "seo_title": "치타 특징과 빠른 속도의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "치타",
+  "secondary_keywords": ["치타 특징", "치타 속도", "치타 생태", "유아 동물 책", "동물 그림책"],
+  "url_slug": "cheetah-nature-for-kids",
+  "meta_description": "치타가 시속 100km로 달리는 비밀과 짧은 질주, 포효하지 못하는 점 등 신기한 사실과, 탱고북 동물 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>치타, 어떤 점이 신기할까요?</h2><p>지구에서 가장 빠른 동물 <strong>치타</strong>는 바람처럼 달리는 사냥꾼이에요. 출발하자마자 순식간에 엄청난 속도에 도달한답니다.</p>",
+      "image_prompt": "A cheetah running fast across a savanna, dynamic children's book illustration, no text",
+      "alt": "치타",
+      "caption": "가장 빠른 동물"
+    },
+    {
+      "text_html": "<h2>치타의 자연·과학 사실</h2><p>치타는 최고 속도가 <strong>시속 110km</strong> 이상이고, 출발 3초 만에 시속 100km에 도달해요. 다만 <strong>20~30초, 약 300m만 전력 질주</strong>할 수 있지요. 긴 꼬리가 방향 전환 때 <strong>균형추</strong> 역할을 하고, 발톱이 지면을 꽉 잡아 줘요. 사냥 성공률은 약 58%, <strong>포효는 못 하고 가릉가릉·짹짹 소리</strong>로 소통합니다. 야생에 7,100마리도 안 남은 취약종이에요.</p>",
+      "image_prompt": "A cheetah using its long tail to balance while turning, informative children's book illustration, no text",
+      "alt": "꼬리로 균형 잡는 치타",
+      "caption": "방향을 잡는 꼬리"
+    },
+    {
+      "text_html": "<h2>탱고북 «치타»이 다루는 내용</h2><p>탱고북 «치타»는 바람처럼 달리는 모습, 균형을 잡는 긴 꼬리, 사냥하는 모습, 새끼를 돌보는 어미 등 가장 빠른 동물을 박진감 있게 보여 줍니다.</p>",
+      "image_prompt": "A cheetah resting after a short sprint, gentle children's book illustration, no text",
+      "alt": "질주 후 쉬는 치타",
+      "caption": "짧은 전력 질주"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>빠른 속도(110km/h), 짧은 질주(300m), 긴 꼬리(균형), 포효 못 함 같은 포인트를 짚어 주세요. \"치타는 왜 오래 못 달릴까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A close-up of cheetah spots and tear marks, observational children's book illustration, no text",
+      "alt": "치타 점무늬",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>제자리에서 3초 동안 빨리 달리며 \"치타처럼 빨리, 하지만 잠깐만!\"을 체험해 보세요. 표범과 무늬(점 vs 로제트)·속도를 비교하면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child sprinting for 3 seconds like a cheetah, warm children's book illustration, no text",
+      "alt": "치타처럼 달리는 부모와 아이",
+      "caption": "치타 달리기 체험"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 치타는 얼마나 빠른가요?</strong><br>A. 시속 110km 이상으로, 출발 3초 만에 시속 100km에 도달합니다. 단, 300m 정도만 달릴 수 있어요.</p><p><strong>Q. 치타는 포효하나요?</strong><br>A. 아니요. 포효하지 못하고 고양이처럼 가릉가릉·짹짹 소리로 소통합니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 3초 달리기 체험, 표범과 무늬·속도 비교가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

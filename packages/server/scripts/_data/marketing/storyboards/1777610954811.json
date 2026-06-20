@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777610954811",
+  "title": "상어",
+  "hook": "바다의 멋진 사냥꾼 상어 는 빠르게 헤엄치는 신기한 물고기예요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "바다의 멋진 사냥꾼 상어 는 빠르게 헤엄치는 신기한 물고기예요.",
+      "screen": "상어, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "상어, 어떤 점이 신기할까요?",
+      "imagePrompt": "A shark swimming smoothly in the ocean, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "상어는 몸을 받치는 뼈가 단단한 뼈가 아니라 말랑한 연골(물렁뼈) 이라 매끄럽고 빠르게 헤엄쳐요. 이빨이 빠지면 뒤에서 새 이빨이 계속 나와 평생 여러 번 갈리지요.",
+      "screen": "상어의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "상어의 자연·과학 사실",
+      "imagePrompt": "A close-up of shark teeth with new teeth behind, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «상어»는 빠르게 헤엄치는 모습, 계속 나는 이빨, 뛰어난 후각, 순한 고래상어 등 상어의 진짜 모습을 박진감 있게 보여 줍니다.",
+      "screen": "탱고북 «상어»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «상어»이 다루는 내용",
+      "imagePrompt": "A gentle whale shark filtering plankton, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "연골(빠른 헤엄), 이빨 갈이, 후각, 순한 고래상어 같은 포인트를 짚어 주세요. \"상어 이빨이 계속 난다니 신기하지?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of shark rough skin scales, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "상어, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

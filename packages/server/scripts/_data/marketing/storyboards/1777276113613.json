@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777276113613",
+  "title": "눈의 여왕",
+  "hook": "눈의 여왕 은 차가운 눈의 여왕에게 끌려간 친구 카이를 구하기 위해 소녀…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "눈의 여왕 은 차가운 눈의 여왕에게 끌려간 친구 카이를 구하기 위해 소녀 게르다가 긴 여정을 떠나는 안데르센…",
+      "screen": "눈의 여왕, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "눈의 여왕, 어떤 동화인가요?",
+      "imagePrompt": "A brave girl traveling through a snowy landscape toward an ice palace, beautiful winter children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "안데르센이 1844년 발표한 긴 동화로, 마음을 차갑게 만드는 거울 조각, 눈의 여왕의 얼음 궁전, 게르다의 모험이 핵심입니다. 영화 「겨울왕국」의 모티프가 된 작품으로도 알려져 있습니다.",
+      "screen": "눈의 여왕 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "눈의 여왕 원작 이야기",
+      "imagePrompt": "A cold elegant snow queen on an icy throne in a sparkling ice palace, beautiful winter children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "마법 거울 조각이 눈과 마음에 박힌 카이가 차갑게 변해 눈의 여왕을 따라갑니다. 게르다는 친구를 찾아 봄·여름·가을·겨울을 지나 여러 도움을 받으며 얼음 궁전에 이르지요.",
+      "screen": "눈의 여왕 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "눈의 여왕 줄거리 요약",
+      "imagePrompt": "A girl warmly embracing her friend as ice melts around them, heartwarming winter children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 진실한 우정과 포기하지 않는 용기가 차가운 마음도 녹인다 는 것입니다. \"친구가 변했을 때 끝까지 곁을 지킨 적 있어?\"를 아이와 이야기해 보세요.",
+      "screen": "눈의 여왕이 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "눈의 여왕이 주는 교훈",
+      "imagePrompt": "Two friends walking home together through a sunny spring meadow, warm hopeful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "눈의 여왕, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

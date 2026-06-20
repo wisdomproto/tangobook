@@ -1,0 +1,52 @@
+{
+  "storybookId": "1773573591972",
+  "seo_title": "파리지옥 특징과 벌레잡이의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "파리지옥",
+  "secondary_keywords": [
+    "파리지옥 특징",
+    "벌레잡이 식물",
+    "파리지옥 키우기",
+    "유아 자연관찰 책",
+    "식물 그림책"
+  ],
+  "url_slug": "venus-flytrap-nature-for-kids",
+  "meta_description": "파리지옥이 곤충을 잡아먹는 이유와 0.1초 만에 닫히는 덫의 비밀 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>파리지옥, 어떤 점이 신기할까요?</h2><p>곤충을 잡아먹는 신기한 식물 <strong>파리지옥</strong>은 아이들의 호기심을 단번에 사로잡아요. 식물이 어떻게 벌레를 잡는지 정말 궁금하지요.</p>",
+      "image_prompt": "A venus flytrap with open traps waiting for insects, fascinating children's book illustration, no text",
+      "alt": "덫을 연 파리지옥",
+      "caption": "벌레잡이 식물"
+    },
+    {
+      "text_html": "<h2>파리지옥의 자연·과학 사실</h2><p>파리지옥이 곤충을 먹는 건 <strong>질소가 거의 없는 척박한 습지</strong>에서 영양을 얻기 위해서예요. 덫 잎 안쪽엔 감각모가 잎마다 3개씩 있는데, <strong>약 20초 안에 두 번 자극</strong>받아야 닫혀요(빗방울 같은 헛것에 에너지를 안 쓰려고). 조건이 맞으면 <strong>약 0.1초 만에</strong> 덫이 탁 닫히는데, 이는 식물계에서 가장 빠른 운동 중 하나예요. 닫힌 뒤엔 5~12일에 걸쳐 천천히 소화합니다.</p>",
+      "image_prompt": "A venus flytrap snapping shut on an insect, dynamic children's book illustration, no text",
+      "alt": "덫을 닫는 파리지옥",
+      "caption": "0.1초의 사냥"
+    },
+    {
+      "text_html": "<h2>탱고북 «파리지옥»이 다루는 내용</h2><p>탱고북 «파리지옥»은 덫 잎이 열려 곤충을 기다리다 순식간에 닫히는 모습, 천천히 소화하는 과정, 다시 열리는 덫을 흥미진진하게 보여 줍니다.</p>",
+      "image_prompt": "Trigger hairs inside a venus flytrap trap, informative children's book illustration, no text",
+      "alt": "덫 안의 감각모",
+      "caption": "두 번 자극의 비밀"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>덫 잎(감각모), 두 번 자극(닫힘 조건), 0.1초 닫힘(빠른 운동), 척박한 습지(왜 곤충을 먹나) 같은 포인트를 짚어 주세요. \"식물이 어떻게 움직일까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "Close-up of a venus flytrap open trap, observational children's book illustration, no text",
+      "alt": "파리지옥 덫",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>파리지옥 화분을 키우며 덫이 닫히는 모습을 관찰해 보세요(손으로 자주 건드리면 식물이 약해지니 주의). \"두 번 건드려야 닫힌다\"는 똑똑함을 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A parent and child observing a potted venus flytrap, warm children's book illustration, no text",
+      "alt": "파리지옥 화분을 보는 부모와 아이",
+      "caption": "직접 관찰하기"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 파리지옥은 왜 곤충을 먹나요?</strong><br>A. 질소가 거의 없는 척박한 습지에서 자라기 때문에, 곤충에게서 영양분을 얻도록 진화했습니다.</p><p><strong>Q. 덫은 얼마나 빨리 닫히나요?</strong><br>A. 약 0.1초 만에 닫힙니다. 식물계에서 가장 빠른 운동 중 하나예요. 두 번 자극받아야 닫혀요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 화분으로 키우며 덫 닫힘을 관찰하세요(자주 건드리면 약해지니 주의).</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

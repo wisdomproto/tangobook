@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773720291702",
+  "title": "벨로키라프토르",
+  "hook": "작지만 영리하고 빠른 사냥꾼 벨로키랍토르 는 사실 깃털 을 가진 공룡이었…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "작지만 영리하고 빠른 사냥꾼 벨로키랍토르 는 사실 깃털 을 가진 공룡이었어요.",
+      "screen": "벨로키랍토르, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "벨로키랍토르, 어떤 점이 신기할까요?",
+      "imagePrompt": "A feathered Velociraptor running fast, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "2007년 연구에서 화석 앞발뼈의 깃혹(깃털이 붙던 흔적) 이 발견돼 벨로키랍토르가 깃털을 가졌음이 밝혀졌어요. 단, 날지는 못했고 깃털은 체온 조절·구애·알 품기에 썼을 거예요.",
+      "screen": "벨로키랍토르의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "벨로키랍토르의 자연·과학 사실",
+      "imagePrompt": "A close-up of Velociraptor feathered arm and sickle claw, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «벨로키라프토르»는 깃털 달린 몸, 낫 모양 발톱, 빠르고 영리한 사냥, 무리 행동 등 진짜 랩터의 모습을 박진감 있게 보여 줍니다.",
+      "screen": "탱고북 «벨로키라프토르»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «벨로키라프토르»이 다루는 내용",
+      "imagePrompt": "A Velociraptor using its sickle claw to catch prey, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "깃털(증거), 낫 발톱(사냥), 빠른 속도, 큰 뇌(영리함) 같은 포인트를 짚어 주세요. \"랩터가 깃털이 있었다니 신기하지?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A smart Velociraptor with large eyes at dusk, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "벨로키라프토르, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

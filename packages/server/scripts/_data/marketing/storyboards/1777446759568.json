@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777446759568",
+  "title": "늑대",
+  "hook": "무리를 이루어 사는 늑대 는 가족애가 깊은 사회적 동물이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "무리를 이루어 사는 늑대 는 가족애가 깊은 사회적 동물이에요.",
+      "screen": "늑대, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "늑대, 어떤 점이 신기할까요?",
+      "imagePrompt": "A wolf pack standing together in a forest, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "늑대는 무리(팩) 를 이루어 살며, 보통 엄마·아빠 늑대를 중심으로 한 가족 단위로 생활해요. 함께 힘을 합쳐 자기보다 큰 먹이도 사냥 하지요.",
+      "screen": "늑대의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "늑대의 자연·과학 사실",
+      "imagePrompt": "A wolf howling at the sky, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «늑대»는 무리 지어 협력 사냥하는 모습, 하울링으로 소통하는 모습, 새끼를 함께 돌보는 가족 등 늑대의 협동과 가족애를 정겹게 보여 줍니다.",
+      "screen": "탱고북 «늑대»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «늑대»이 다루는 내용",
+      "imagePrompt": "A wolf pack caring for cubs together, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "무리(팩), 협력 사냥, 하울링(소통), 개의 조상 같은 포인트를 짚어 주세요. \"늑대는 왜 함께 울까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A wolf pack hunting together, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "늑대, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773410319697",
+  "title": "선인장",
+  "hook": "물이 거의 없는 사막에서도 씩씩하게 사는 선인장 은 생존의 달인이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "물이 거의 없는 사막에서도 씩씩하게 사는 선인장 은 생존의 달인이에요.",
+      "screen": "선인장, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "선인장, 어떤 점이 신기할까요?",
+      "imagePrompt": "A green cactus with flowers in a desert under the sun, bright children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "선인장은 줄기 속 저수 세포 에 비가 올 때 물을 잔뜩 저장해 건기에 조금씩 씁니다. 가시는 변형된 잎 으로 수분 증발을 줄이고 이슬을 모으며 동물을 막지요.",
+      "screen": "선인장의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "선인장의 자연·과학 사실",
+      "imagePrompt": "A cactus stem cross-section storing water inside, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «선인장»은 메마른 사막에서 물을 저장하고, 가시로 몸을 지키며, 비가 오면 꽃을 피우는 선인장의 끈질긴 생존을 보여 줍니다.",
+      "screen": "탱고북 «선인장»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «선인장»이 다루는 내용",
+      "imagePrompt": "A cactus blooming after rain in the desert, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "줄기(물 저장), 가시(잎의 변형), 사막 환경, 비 온 뒤 꽃 같은 포인트를 짚어 주세요. \"물도 없는 사막에서 어떻게 살까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Close-up of cactus spines (modified leaves), observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "선인장, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

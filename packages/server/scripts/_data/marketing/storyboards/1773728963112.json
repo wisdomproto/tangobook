@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773728963112",
+  "title": "디플로도쿠스",
+  "hook": "목과 꼬리가 몸의 대부분을 차지하는 디플로도쿠스 는 길고 날씬한 거대 초…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "목과 꼬리가 몸의 대부분을 차지하는 디플로도쿠스 는 길고 날씬한 거대 초식 공룡이에요.",
+      "screen": "디플로도쿠스, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "디플로도쿠스, 어떤 점이 신기할까요?",
+      "imagePrompt": "A long slender Diplodocus with a very long neck and tail, majestic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "디플로도쿠스는 몸길이 약 24~27m였고, 목과 꼬리가 몸통보다 길었어요. 80개 넘는 뼈로 된 14m 꼬리 를 채찍처럼 휘둘렀을 가능성이 연구됐지요.",
+      "screen": "디플로도쿠스의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "디플로도쿠스의 자연·과학 사실",
+      "imagePrompt": "A Diplodocus swinging its 14m whip-like tail, dynamic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «디플로도쿠스»는 길게 뻗은 목과 꼬리, 빗 모양 이빨, 무리 지어 사는 모습 등 길고 날씬한 거대 공룡을 웅장하게 보여 줍니다.",
+      "screen": "탱고북 «디플로도쿠스»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «디플로도쿠스»이 다루는 내용",
+      "imagePrompt": "A Diplodocus combing leaves with its comb-shaped teeth, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "긴 목·꼬리, 14m 꼬리(채찍), 빗 이빨, 빠른 성장 같은 포인트를 짚어 주세요. \"디플로도쿠스와 아파토사우루스는 뭐가 비슷할까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A herd of Diplodocus walking together, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "디플로도쿠스, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

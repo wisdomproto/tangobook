@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773411238323",
+  "title": "태양계 (수성~해왕성)",
+  "hook": "태양과 여덟 행성이 모인 태양계 는 아이들이 가장 좋아하는 우주 주제예요…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "태양과 여덟 행성이 모인 태양계 는 아이들이 가장 좋아하는 우주 주제예요.",
+      "screen": "태양계, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "태양계, 어떤 점이 신기할까요?",
+      "imagePrompt": "The eight planets of the solar system around the sun in colorful order, bright children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "수성 은 가장 작고 낮밤 온도 차가 극심하고, 금성 은 두꺼운 대기로 가장 뜨거워요(약 464°C). 지구 는 생명이 있는 유일한 행성, 화성 은 붉은 행성이지요.",
+      "screen": "태양계의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "태양계의 자연·과학 사실",
+      "imagePrompt": "Saturn with its beautiful rings in space, vivid children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «태양계»는 태양에서 가까운 순서대로 여덟 행성을 만나며, 각 행성의 색과 크기, 특징을 아이 눈높이로 보여 줍니다.",
+      "screen": "탱고북 «태양계 (수성~해왕성)»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «태양계 (수성~해왕성)»이 다루…",
+      "imagePrompt": "Jupiter the largest planet with its great red spot, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "행성 순서(수금지화목토천해), 가장 큰 행성(목성), 고리(토성), 붉은 행성(화성) 같은 포인트를 짚어 주세요. \"어떤 행성이 가장 뜨거울까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "행성을 더 재미있게 아는 법 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "행성을 더 재미있게 아는 법",
+      "imagePrompt": "Red planet Mars in space, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "태양계 (수성~해왕성), 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

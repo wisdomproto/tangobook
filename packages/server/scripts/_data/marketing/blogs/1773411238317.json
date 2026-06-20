@@ -1,0 +1,46 @@
+{
+  "storybookId": "1773411238317",
+  "seo_title": "달과 별자리 — 밤하늘의 과학 자연관찰 그림책",
+  "primary_keyword": "별자리",
+  "secondary_keywords": ["달과 별자리", "별자리 종류", "달의 위상", "유아 우주 책", "밤하늘 관찰"],
+  "url_slug": "moon-and-constellations-for-kids",
+  "meta_description": "달의 위상 변화와 계절별 별자리, 북극성 등 밤하늘의 과학과, 탱고북 우주 그림책 내용, 아이와 별을 관찰하는 법까지. 4~7세 우주 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>달과 별자리, 어떤 점이 신기할까요?</h2><p>밤하늘의 <strong>달과 별자리</strong>는 아이의 우주 호기심을 깨우는 최고의 주제예요. 매일 모양이 바뀌는 달과 계절마다 다른 별자리가 신기합니다.</p>",
+      "image_prompt": "A child looking up at a starry night sky with the moon and constellations, dreamy children's book illustration, no text",
+      "alt": "밤하늘을 보는 아이",
+      "caption": "달과 별자리"
+    },
+    {
+      "text_html": "<h2>달과 별자리의 자연·과학 사실</h2><p><strong>달은 약 29.5일</strong> 동안 지구를 돌며, 햇빛을 반사하는 각도에 따라 초승달→반달→보름달→그믐달로 모양이 변해요. <strong>별자리</strong>는 같은 방향에서 보이는 별들을 묶은 것으로, 국제천문연맹이 하늘을 88개로 나눴습니다. 지구가 태양을 도니 계절마다 보이는 별자리가 달라지고(겨울 오리온자리 등), <strong>북극성</strong>은 늘 북쪽 같은 자리에서 빛나요.</p>",
+      "image_prompt": "Phases of the moon from crescent to full moon in a row, informative children's book illustration, no text",
+      "alt": "달의 위상 변화",
+      "caption": "모양이 변하는 달"
+    },
+    {
+      "text_html": "<h2>탱고북 «달과 별자리»이 다루는 내용</h2><p>탱고북 «달과 별자리»는 달의 모양 변화, 계절별 대표 별자리, 길잡이가 되는 북극성, 별똥별 등 밤하늘의 신비를 아이 눈높이로 보여 줍니다.</p>",
+      "image_prompt": "The Orion constellation glowing in a winter night sky, gentle children's book illustration, no text",
+      "alt": "겨울 오리온자리",
+      "caption": "계절 별자리"
+    },
+    {
+      "text_html": "<h2>함께 밤하늘을 관찰하는 법</h2><p>달의 모양 변화(29.5일), 계절 별자리, 북극성(길잡이), 별똥별 같은 포인트를 짚어 주세요. \"달은 왜 모양이 바뀔까?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "The North Star (Polaris) shining steadily in the northern sky, observational children's book illustration, no text",
+      "alt": "북극성",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 관찰·체험으로 확장하기</h2><p>맑은 밤에 함께 달을 보고 모양을 며칠간 그려 \"달 일기\"를 써 보세요. 별자리 앱이나 책으로 오리온자리 등을 찾아보고, 별똥별을 기다려 보는 것도 즐겁습니다.</p>",
+      "image_prompt": "A parent and child stargazing with a small telescope at night, warm children's book illustration, no text",
+      "alt": "별을 보는 부모와 아이",
+      "caption": "함께 별 보기"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 달은 왜 모양이 바뀌나요?</strong><br>A. 약 29.5일 동안 지구를 돌며 햇빛을 반사하는 각도가 달라지기 때문입니다.</p><p><strong>Q. 계절마다 별자리가 바뀌는 이유는?</strong><br>A. 지구가 태양을 1년에 한 바퀴 돌기 때문에 계절마다 보이는 별자리가 달라집니다.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 달 일기 그리기, 별자리 앱으로 찾기, 별똥별 기다리기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

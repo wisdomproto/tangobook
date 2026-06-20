@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773576314846",
+  "title": "버섯",
+  "hook": "비 온 뒤 숲에 쏙쏙 돋아나는 버섯 은 식물도 동물도 아닌 신기한 생물이…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "비 온 뒤 숲에 쏙쏙 돋아나는 버섯 은 식물도 동물도 아닌 신기한 생물이에요.",
+      "screen": "버섯, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "버섯, 어떤 점이 신기할까요?",
+      "imagePrompt": "Colorful mushrooms growing on a forest floor after rain, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "버섯은 균계(곰팡이 무리) 에 속해, 광합성도 안 하고 먹이를 삼키지도 않아요. 대신 밖으로 소화 효소를 뿜어 유기물을 분해한 뒤 영양분을 흡수 합니다.",
+      "screen": "버섯의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "버섯의 자연·과학 사실",
+      "imagePrompt": "A cross-section of a mushroom showing cap, gills, and stem with mycelium underground, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «버섯»은 비 온 뒤 돋아나는 버섯, 갓 아래 주름살, 땅속 균사체, 숲의 영양분을 순환시키는 분해자 역할을 아이 눈높이로 보여 줍니다.",
+      "screen": "탱고북 «버섯»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «버섯»이 다루는 내용",
+      "imagePrompt": "Mushrooms decomposing a fallen log in a forest, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "갓·주름살·자루, 균사체(땅속), 분해자 역할, 다양한 색·모양 같은 포인트를 짚어 주세요. \"버섯은 무엇을 먹고 자랄까?\"를 함께 이야기하면 좋습니다(야생 버섯 만지지 않기).",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "Close-up of mushroom gills under the cap, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "버섯, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773561705472",
+  "title": "포도나무",
+  "hook": "주렁주렁 송이로 익는 포도나무 는 덩굴을 타고 자라는 신기한 식물이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "주렁주렁 송이로 익는 포도나무 는 덩굴을 타고 자라는 신기한 식물이에요.",
+      "screen": "포도나무, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "포도나무, 어떤 점이 신기할까요?",
+      "imagePrompt": "A grapevine with bunches of purple grapes hanging, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "포도나무는 스스로 서지 못하는 덩굴식물 이라, 덩굴손(tendril) 이 나선으로 감겨 지지대를 단단히 붙잡아요. 5~6월에 꽃이 피고 수분되면 포도알이 맺혀 8~10월에 익습니다.",
+      "screen": "포도나무의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "포도나무의 자연·과학 사실",
+      "imagePrompt": "A grapevine tendril spiraling around a support, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «포도나무»는 덩굴손이 지지대를 감고 올라가는 모습, 작은 꽃 → 포도알 → 탐스러운 송이로 익는 과정을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «포도나무»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «포도나무»이 다루는 내용",
+      "imagePrompt": "Small grape flowers turning into grapes over the season, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "덩굴손(나선·붙잡기), 송이(여러 알), 껍질 색(항산화), 계절 변화 같은 포인트를 짚어 주세요. \"포도는 어떻게 위로 자랄까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Close-up of a grape bunch with shiny skins, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "포도나무, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

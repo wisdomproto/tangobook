@@ -1,0 +1,52 @@
+{
+  "storybookId": "1777607173325",
+  "seo_title": "잠자리 특징과 비행의 비밀 — 자연관찰 그림책",
+  "primary_keyword": "잠자리",
+  "secondary_keywords": [
+    "잠자리 특징",
+    "잠자리 겹눈",
+    "잠자리 애벌레",
+    "유아 자연관찰 책",
+    "곤충 그림책"
+  ],
+  "url_slug": "dragonfly-nature-for-kids",
+  "meta_description": "잠자리의 커다란 겹눈과 자유로운 비행, 물속에 사는 애벌레 등 신기한 사실과, 탱고북 자연관찰 그림책 내용, 관찰하는 법까지. 4~7세 자연관찰 가이드.",
+  "sections": [
+    {
+      "text_html": "<h2>잠자리, 어떤 점이 신기할까요?</h2><p>하늘을 자유자재로 나는 <strong>잠자리</strong>는 뛰어난 비행 곤충이에요. 큰 눈으로 거의 모든 방향을 한 번에 볼 수 있답니다.</p>",
+      "image_prompt": "A dragonfly hovering over a pond, gentle children's book illustration, no text",
+      "alt": "잠자리",
+      "caption": "뛰어난 비행 곤충"
+    },
+    {
+      "text_html": "<h2>잠자리의 자연·과학 사실</h2><p>잠자리는 머리 대부분을 차지하는 커다란 <strong>겹눈</strong>으로 거의 모든 방향을 한 번에 봐요. 네 장의 날개를 따로따로 움직여 <strong>공중에 멈추거나 뒤로도 날 수 있지요</strong>. 모기·파리를 공중에서 낚아채 잡아먹어 사람에게 이로워요. 놀랍게도 잠자리의 어린 시절(애벌레 \"수채\")은 <strong>물속에서 살며</strong>, 자란 뒤 물 밖으로 나와 허물을 벗고 날개를 펴 어른 잠자리가 됩니다.</p>",
+      "image_prompt": "A close-up of dragonfly large compound eyes, informative children's book illustration, no text",
+      "alt": "잠자리 겹눈",
+      "caption": "전방위 시야"
+    },
+    {
+      "text_html": "<h2>탱고북 «잠자리»이 다루는 내용</h2><p>탱고북 «잠자리»는 큰 겹눈, 자유로운 비행, 물속에 사는 애벌레, 허물을 벗고 어른이 되는 과정을 정겹게 보여 줍니다.</p>",
+      "image_prompt": "A dragonfly nymph living underwater, fascinating children's book illustration, no text",
+      "alt": "물속 잠자리 애벌레",
+      "caption": "물속의 어린 시절"
+    },
+    {
+      "text_html": "<h2>함께 관찰하면 좋은 포인트</h2><p>큰 겹눈(전방위 시야), 네 날개(정지·후진 비행), 물속 애벌레, 허물 벗기 같은 포인트를 짚어 주세요. \"잠자리 애벌레가 물속에 산다니 신기하지?\"를 함께 이야기하면 좋습니다.</p>",
+      "image_prompt": "A dragonfly with four separate wings, observational children's book illustration, no text",
+      "alt": "잠자리 네 날개",
+      "caption": "관찰 포인트"
+    },
+    {
+      "text_html": "<h2>부모 가이드 — 호기심을 키우는 법</h2><p>연못·물가에서 잠자리가 공중에 멈추는 모습을 관찰해 보세요. \"어릴 땐 물속에 살았어\"를 알려 주고, 큰 눈을 돋보기로 보면 흥미가 커집니다.</p>",
+      "image_prompt": "A parent and child watching dragonflies by a pond, warm children's book illustration, no text",
+      "alt": "잠자리를 관찰하는 부모와 아이",
+      "caption": "연못 관찰"
+    },
+    {
+      "text_html": "<h2>자주 묻는 질문 (FAQ)</h2><p><strong>Q. 잠자리는 어떻게 공중에 멈추나요?</strong><br>A. 네 장의 날개를 따로따로 움직이기 때문입니다. 그래서 멈추거나 뒤로도 날 수 있어요.</p><p><strong>Q. 잠자리 애벌레는 어디 사나요?</strong><br>A. 놀랍게도 물속에서 삽니다. 자란 뒤 물 밖으로 나와 허물을 벗고 어른 잠자리가 돼요.</p><p><strong>Q. 집에서 어떻게 관찰하면 좋을까요?</strong><br>A. 연못에서 정지 비행 관찰, 돋보기로 큰 겹눈 보기가 좋습니다.</p>",
+      "image_prompt": "",
+      "alt": "",
+      "caption": ""
+    }
+  ]
+}

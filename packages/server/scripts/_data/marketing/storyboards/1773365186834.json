@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773365186834",
+  "title": "나팔꽃",
+  "hook": "이른 아침 나팔 모양으로 활짝 피는 나팔꽃 은 덩굴을 타고 쑥쑥 올라가는…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "이른 아침 나팔 모양으로 활짝 피는 나팔꽃 은 덩굴을 타고 쑥쑥 올라가는 여름 꽃이에요.",
+      "screen": "나팔꽃, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "나팔꽃, 어떤 점이 신기할까요?",
+      "imagePrompt": "Morning glory flowers blooming on a vine in early morning light, fresh children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "나팔꽃은 이른 아침에 활짝 피었다가 햇볕을 몇 시간 받으면 꽃잎이 돌돌 말리며 닫혀요 . 이는 다른 꽃이 피기 전 벌·나비를 먼저 끌어들이려는 영리한 전략이지요.",
+      "screen": "나팔꽃의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "나팔꽃의 자연·과학 사실",
+      "imagePrompt": "A morning glory vine twining counterclockwise up a support, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «나팔꽃»은 덩굴이 지지대를 감고 올라가는 모습, 아침에 피었다 닫히는 꽃, 벌·나비의 방문, 씨앗이 맺히는 과정을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «나팔꽃»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «나팔꽃»이 다루는 내용",
+      "imagePrompt": "A morning glory flower curling closed in the afternoon sun, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "아침 개화·낮 닫힘(시간), 왼쪽으로 감는 덩굴(방향), 나팔 모양 꽃, 씨앗 같은 포인트를 짚어 주세요. \"나팔꽃은 왜 아침에만 필까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A bee visiting an open morning glory flower, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "나팔꽃, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

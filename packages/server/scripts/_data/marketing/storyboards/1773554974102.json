@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773554974102",
+  "title": "밤나무",
+  "hook": "가시 돋은 밤송이 속에 달콤한 알밤을 품은 밤나무 는 가을의 대표 나무예…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "가시 돋은 밤송이 속에 달콤한 알밤을 품은 밤나무 는 가을의 대표 나무예요.",
+      "screen": "밤나무, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "밤나무, 어떤 점이 신기할까요?",
+      "imagePrompt": "A chestnut tree with spiky burrs in autumn, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "밤나무는 6~7월에 길고 하얀 수꽃이 특이한 향으로 곤충을 부르며 타가수분 을 합니다. 가을이면 날카로운 가시로 둘러싸인 밤송이 가 다 익어 4갈래로 쩍 벌어지며 알밤(보통 1~3개)을 내보내요.",
+      "screen": "밤나무의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "밤나무의 자연·과학 사실",
+      "imagePrompt": "A spiky chestnut burr split open showing the nuts inside, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «밤나무»는 하얀 꽃 → 곤충의 방문 → 가시 밤송이가 익어 벌어지는 과정 → 알밤이 떨어지는 가을을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «밤나무»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «밤나무»이 다루는 내용",
+      "imagePrompt": "Long white chestnut flowers attracting insects, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "밤송이(가시·4갈래로 벌어짐), 알밤(겉껍질·율피), 하얀 수꽃, 단단한 목재 같은 포인트를 짚어 주세요. \"밤송이는 왜 가시가 있을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "Close-up of a chestnut showing outer shell and inner skin, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "밤나무, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

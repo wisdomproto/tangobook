@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773616999841",
+  "title": "극지방의 신비",
+  "hook": "얼음으로 뒤덮인 극지방 은 지구에서 가장 추운 곳이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "얼음으로 뒤덮인 극지방 은 지구에서 가장 추운 곳이에요.",
+      "screen": "극지방의 신비, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "극지방의 신비, 어떤 점이 신기할까요?",
+      "imagePrompt": "A polar bear on ice and penguins in a snowy polar landscape, beautiful children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "북극 은 얼어붙은 바다, 남극 은 얼음으로 덮인 대륙이에요(남극이 더 추워요). 북극곰 의 털은 속이 빈 투명한 관 구조로 햇빛을 피부까지 전해 따뜻하고, 황제펭귄 은 서로 빽빽이 모이는 \"허들링\"…",
+      "screen": "극지방의 신비의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "극지방의 신비의 자연·과학 사실",
+      "imagePrompt": "Emperor penguins huddling together to stay warm, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «극지방의 신비»는 얼음으로 덮인 북극·남극, 추위를 견디는 북극곰·펭귄, 밤하늘을 수놓는 오로라를 아이 눈높이로 보여 줍니다.",
+      "screen": "탱고북 «극지방의 신비»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «극지방의 신비»이 다루는 내용",
+      "imagePrompt": "Colorful aurora lights in a polar night sky, magical children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "북극/남극(바다 vs 대륙), 북극곰(투명한 털), 펭귄(허들링), 오로라(빛의 색) 같은 포인트를 짚어 주세요. \"왜 이렇게 추운 곳에서도 동물이 살까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 알아보면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 알아보면 좋은 포인트",
+      "imagePrompt": "A polar bear with translucent fur on ice, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "극지방의 신비, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

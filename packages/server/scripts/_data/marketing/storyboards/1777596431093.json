@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777596431093",
+  "title": "독수리",
+  "hook": "하늘을 누비는 큰 맹금류 독수리 는 아주 높은 곳에서도 땅 위 먹이를 또…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "하늘을 누비는 큰 맹금류 독수리 는 아주 높은 곳에서도 땅 위 먹이를 또렷이 보는 놀라운 새예요.",
+      "screen": "독수리, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "독수리, 어떤 점이 신기할까요?",
+      "imagePrompt": "An eagle soaring high in the sky with wide wings, majestic children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "독수리는 동물 중에서도 손꼽히게 뛰어난 시력 으로 높은 하늘에서 땅 위 먹이를 봐요. 넓은 날개를 펴고 따뜻한 상승 기류 를 타면 날갯짓 없이도 오래 떠 있을 수 있지요.",
+      "screen": "독수리의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "독수리의 자연·과학 사실",
+      "imagePrompt": "An eagle spotting prey far below from high up, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «독수리»는 넓은 날개로 하늘을 도는 모습, 높은 곳의 먹이를 발견하는 눈, 강한 부리·발톱, 절벽의 둥지를 웅장하게 보여 줍니다.",
+      "screen": "탱고북 «독수리»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «독수리»이 다루는 내용",
+      "imagePrompt": "An eagle gliding on a thermal updraft, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "뛰어난 시력, 상승 기류(날갯짓 없이 비행), 갈고리 부리·발톱, 높은 둥지 같은 포인트를 짚어 주세요. \"독수리는 왜 날갯짓을 안 해도 날까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of an eagle hooked beak and strong talons, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "독수리, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

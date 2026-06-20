@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777266835789",
+  "title": "피노키오",
+  "hook": "피노키오 는 나무 인형이 거짓말을 할 때마다 코가 길어지는 이야기로, 정…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "피노키오 는 나무 인형이 거짓말을 할 때마다 코가 길어지는 이야기로, 정직과 성실의 가치를 아이가 쉽게 이해…",
+      "screen": "피노키오, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "피노키오, 어떤 동화인가요?",
+      "imagePrompt": "A wooden puppet boy with a slightly long nose looking thoughtful, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "이탈리아 작가 카를로 콜로디 가 1883년에 발표한 『피노키오의 모험』이 원작입니다. 목수 제페토가 만든 나무 인형 피노키오가 여러 시련과 실수를 겪으며 정직과 용기를 배워 진짜 소년이 되는 성장…",
+      "screen": "피노키오 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "피노키오 원작 이야기",
+      "imagePrompt": "A kind old woodcarver smiling at a wooden puppet he made in his workshop, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "목수 제페토가 만든 나무 인형 피노키오는 학교를 빼먹고 거짓말을 하다 코가 길어지는 등 여러 실수를 합니다. 모험과 시련 속에서 정직·성실·용기를 배운 피노키오는, 제페토를 향한 사랑과 착한 행동으…",
+      "screen": "피노키오 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "피노키오 줄거리 요약",
+      "imagePrompt": "A puppet boy bravely helping his father, growing kinder, heartwarming children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 거짓말은 결국 드러나며, 정직·성실·용기가 진짜 사람다움을 만든다 는 것입니다. \"거짓말을 하면 어떤 일이 생길까?\"를 아이와 이야기하며 정직의 가치를 나눠 보세요.",
+      "screen": "피노키오가 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "피노키오가 주는 교훈",
+      "imagePrompt": "A real boy hugging his father joyfully, transformation and love, warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "피노키오, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

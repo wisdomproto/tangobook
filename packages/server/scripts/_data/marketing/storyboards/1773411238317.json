@@ -1,0 +1,48 @@
+{
+  "storybookId": "1773411238317",
+  "title": "달과 별자리",
+  "hook": "밤하늘의 달과 별자리 는 아이의 우주 호기심을 깨우는 최고의 주제예요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "밤하늘의 달과 별자리 는 아이의 우주 호기심을 깨우는 최고의 주제예요.",
+      "screen": "달과 별자리, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "달과 별자리, 어떤 점이 신기할까요?",
+      "imagePrompt": "A child looking up at a starry night sky with the moon and constellations, dreamy children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "달은 약 29.5일 동안 지구를 돌며, 햇빛을 반사하는 각도에 따라 초승달→반달→보름달→그믐달로 모양이 변해요. 별자리 는 같은 방향에서 보이는 별들을 묶은 것으로, 국제천문연맹이 하늘을 88개로…",
+      "screen": "달과 별자리의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "달과 별자리의 자연·과학 사실",
+      "imagePrompt": "Phases of the moon from crescent to full moon in a row, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «달과 별자리»는 달의 모양 변화, 계절별 대표 별자리, 길잡이가 되는 북극성, 별똥별 등 밤하늘의 신비를 아이 눈높이로 보여 줍니다.",
+      "screen": "탱고북 «달과 별자리»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «달과 별자리»이 다루는 내용",
+      "imagePrompt": "The Orion constellation glowing in a winter night sky, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "달의 모양 변화(29.5일), 계절 별자리, 북극성(길잡이), 별똥별 같은 포인트를 짚어 주세요. \"달은 왜 모양이 바뀔까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 밤하늘을 관찰하는 법 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 밤하늘을 관찰하는 법",
+      "imagePrompt": "The North Star (Polaris) shining steadily in the northern sky, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "달과 별자리, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

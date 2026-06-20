@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777613396046",
+  "title": "게",
+  "hook": "옆으로 걷는 게 는 단단한 껍데기와 큰 집게를 가진 바닷가의 인기 친구예…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "옆으로 걷는 게 는 단단한 껍데기와 큰 집게를 가진 바닷가의 인기 친구예요.",
+      "screen": "게, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "게, 어떤 점이 신기할까요?",
+      "imagePrompt": "A crab on the beach with big claws, cute children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "게의 몸은 단단한 껍데기(외골격) 로 덮여 갑옷 같아요. 다리 마디 구조 때문에 앞보다 옆으로 걷는 게 더 빠르고 편해 옆걸음을 치지요.",
+      "screen": "게의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "게의 자연·과학 사실",
+      "imagePrompt": "A crab walking sideways on sand, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «게»는 옆으로 걷는 모습, 단단한 껍데기, 큰 집게, 껍데기를 갈아입는 탈피, 갯벌·모래의 구멍 집을 정겹게 보여 줍니다.",
+      "screen": "탱고북 «게»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «게»이 다루는 내용",
+      "imagePrompt": "A crab shedding its old shell (molting), fascinating children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "외골격(갑옷), 옆걸음, 집게(다용도), 탈피 같은 포인트를 짚어 주세요. \"게는 왜 옆으로 걸을까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of crab big claw, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "게, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

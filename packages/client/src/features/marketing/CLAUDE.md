@@ -45,6 +45,7 @@ features/marketing/
       YoutubePanel.tsx          # 유튜브 Vrew-style scene 타임라인 (Phase 1c)
       YoutubeCardItem.tsx       # 씬 카드 (section_type + narration/screen_direction/subtitle/image_prompt/video_prompt + 16:9 이미지)
       YoutubePreviewDialog.tsx  # 유튜브 대본 미리보기 다이얼로그
+      ReelsPanel.tsx            # 릴스(숏폼) — 3 서브탭: 📋스토리보드(iframe) / 🎬영상제작(언어별 mp4+커버 R2 업로드, 카드뉴스 캡션 공용) / ✂️에디터(프리뷰). dflo 포트
       ChannelTranslationView.tsx # 번역 read-only 배너 (6개 채널 패널 마운트, non-ko 언어 선택 시 노출, Phase 1d)
       ImageEditorDialog.tsx     # 이미지 annotation 에디터 (select/text/line/arrow/rect + undo/redo + SVG arrowhead→WebP, Phase 1d)
       ContentTabs.tsx           # 채널 탭 라우터 (handleTranslate + resolveTranslationSource 포함)
@@ -350,6 +351,7 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 | 카드뉴스 (Instagram)             | 완료 | `CardNewsPanel.tsx` — Canvas 편집기 + WebP export + 일괄 이미지 생성                                    |
 | 스레드 (Threads)                 | 완료 | `ThreadsPanel.tsx`                                                                                      |
 | 유튜브 (Phase 1c)                | 완료 | `YoutubePanel.tsx` — AI 대본, 씬별 이미지, 타임라인, 미리보기                                           |
+| 릴스 (숏폼)                      | 완료 | `ReelsPanel.tsx` — 스토리보드 iframe / 영상제작(언어별 mp4+커버) / 에디터 프리뷰. `숏폼` 탭 active=true |
 | 번역 (Phase 1d)                  | 완료 | `ChannelTranslationView.tsx` — 6채널 번역 overlay (non-ko)                                              |
 | 이미지 에디터 (Phase 1d)         | 완료 | `ImageEditorDialog.tsx` — blog/youtube ImageCardWidget 에서 Pencil                                      |
 | 키워드/아이디어 (Phase 2)        | 완료 | `IdeasDashboard.tsx` — 5 서브탭 (N키워드/G키워드/유행/AI아이디어/보관함)                                |
@@ -391,6 +393,8 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 ### (f) `.marketing-scope` 테마 격리
 
 ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래스에만 적용된다. `MarketingShell` 루트 div에 이 클래스가 있어야 토큰이 인식됨. 다크모드는 `useMarketingTheme` 훅이 `.marketing-scope` div에 `.dark` 클래스를 토글.
+
+- **portal 타겟**: select/dialog/dropdown-menu/tooltip 의 `createPortal` 은 `document.body` 가 아닌 `ui/portal-target.ts` `marketingPortalTarget()`(=`.marketing-scope` 또는 body)로 보낸다. body 직접 포탈 시 스코프 토큰 미적용 → 드롭다운 배경 투명·텍스트 안 보임 버그.
 
 ### (g) `lib/` 포트 충실도
 
@@ -476,6 +480,17 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
   - **멱등 키**: `mkt_contents.memo='storybook:<id>'` (마이그레이션 0 — 기존 컬럼 재사용). 재실행해도 중복 없이 갱신.
   - 순수 헬퍼 `packages/server/scripts/lib/seed-helpers.mjs`(classify/wordcount/memo-tag/html→plain) + 산출물 검증 `scripts/validate-base-articles.test.mjs`. **vitest 설정이 `scripts/**/\*.test.mjs` 포함**(`packages/server/vitest.config.ts`).
 - 설계/플랜: `docs/superpowers/specs|plans/2026-06-15-marketing-storybook-base-articles*.md`.
+
+## 동화책 콘텐츠 시딩 — 내부블로그 · 카드뉴스 · 릴스 스토리보드 (152권 전권 완료)
+
+기본글에 이어 동화책 152권 각각에 **한국어 내부블로그(Google/GEO) · 카드뉴스(인스타 carousel) · 릴스 스토리보드** 를 생성. 저작물은 `_data/marketing/{blogs,cardnews,storyboards}/<id>.json`(git 보존), 멱등 시딩.
+
+- **내부블로그** (`seed-marketing-blogs.mjs` → `mkt_blog_contents`(channel='self_hosted') + `mkt_blog_cards`): 권당 6섹션(소개·사실/원작·탱고북/줄거리·관찰/교훈·가이드·FAQ) HTML + 섹션별 **영문 no-text 이미지 프롬프트** + seo_title/primary·secondary_keyword/url_slug/meta_description. 키워드 근거 = `docs/marketing/data/consolidated-keywords.json`. InternalBlogPanel 미리보기·이미지슬롯·"전체 프롬프트 복사"로 노출. 저작 가이드 `_data/marketing/_blog-guide.md`.
+- **카드뉴스** (`seed-marketing-cardnews.mjs` → `mkt_instagram_contents`(content_type='carousel') + `mkt_instagram_cards`): 권당 6슬라이드(표지·본문4·CTA). 카드 스키마는 **CardNewsPanel AI 생성과 동일** — `text_style`=CardCanvasData(header/title/body/footer 4블록), `text_content`=합본, `image_prompt`. 캡션·해시태그는 같은 인스타 행에 저장(릴스와 공용). instagramContents[0] 규약 유지(resolve-or-create).
+- **릴스 스토리보드** (`build-marketing-storyboards.mjs` → `packages/client/public/marketing-storyboards/<id>.html` + `index.json` manifest): 경량 공통 HTML 템플릿 + 책별 데이터(5씬: 훅·전개3·CTA, 나레이션·화면연출·자막·9:16 이미지프롬프트). ReelsPanel 📋스토리보드 탭이 iframe 로드(전 언어 공용). 잭과 콩나무(1772510956605)는 기존 정교본(22씬 HTML) 유지.
+- **일괄 파생** (`derive-cardnews-storyboards.mjs`): 블로그 JSON(섹션·이미지프롬프트·키워드·메타) + 기본글 → 카드뉴스·스토리보드 사실 기반 자동 파생(`--all`/`--ids`/`--force`, 기존 손수본 스킵). 신데렐라·토끼는 손수 샘플.
+- **릴스 데이터(마이그레이션 0)**: 언어별 {videoUrl, coverUrl} 맵은 카드뉴스와 같은 `mkt_instagram_contents` 행의 `video_settings.reels[lang]` 에 저장. 영상/커버 업로드는 `uploadToR2`(category='reels').
+- 시드 실행: `SUPABASE_URL=… SUPABASE_SERVICE_ROLE_KEY=… node packages/server/scripts/seed-marketing-{blogs,cardnews}.mjs --owner-email kil210@gmail.com --all`. **service-role 키는 .env/CLI 만 — 절대 커밋 금지(GitHub 푸시 보호)**.
 
 ## 동화책 → 다국어 키워드 전략 (블로그 SEO 선행 단계)
 

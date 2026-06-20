@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777603478247",
+  "title": "호랑나비",
+  "hook": "알록달록 멋진 호랑나비 는 모습이 완전히 바뀌는 신기한 곤충이에요.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "알록달록 멋진 호랑나비 는 모습이 완전히 바뀌는 신기한 곤충이에요.",
+      "screen": "호랑나비, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호랑나비, 어떤 점이 신기할까요?",
+      "imagePrompt": "A colorful swallowtail butterfly on a flower, vivid children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "호랑나비는 알 → 애벌레 → 번데기 → 나비 네 단계로 모습이 완전히 바뀌는 완전변태 곤충이에요. 애벌레는 귤나무·산초나무 잎을 먹고 자라는데, 위험하면 머리에서 주황색 냄새뿔(취각) 을 쑥 내밀어…",
+      "screen": "호랑나비의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호랑나비의 자연·과학 사실",
+      "imagePrompt": "The butterfly life cycle from egg to caterpillar to chrysalis to butterfly, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «호랑나비»는 알에서 애벌레·번데기를 거쳐 나비가 되는 한살이, 냄새뿔을 내미는 애벌레, 꽃꿀을 빠는 나비를 정겹게 보여 줍니다.",
+      "screen": "탱고북 «호랑나비»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «호랑나비»이 다루는 내용",
+      "imagePrompt": "A swallowtail caterpillar showing its orange osmeterium, fascinating children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "완전변태 4단계, 냄새뿔(방어), 말린 입(꿀), 날개 비늘 같은 포인트를 짚어 주세요. \"애벌레가 어떻게 나비가 될까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of butterfly wing scales, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "호랑나비, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

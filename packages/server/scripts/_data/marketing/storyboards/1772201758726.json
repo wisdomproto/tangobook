@@ -1,0 +1,48 @@
+{
+  "storybookId": "1772201758726",
+  "title": "호두까기 인형",
+  "hook": "호두까기 인형 은 크리스마스 밤, 선물 받은 호두까기 인형이 살아나 소녀…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "호두까기 인형 은 크리스마스 밤, 선물 받은 호두까기 인형이 살아나 소녀 클라라와 함께 환상의 나라로 떠나는…",
+      "screen": "호두까기 인형, 어떤 동화인가요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호두까기 인형, 어떤 동화인가요?",
+      "imagePrompt": "A nutcracker soldier doll under a glowing Christmas tree at night, magical festive children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "독일 작가 E.T.A. 호프만 의 1816년 소설을 바탕으로, 차이코프스키 가 1892년 발레로 작곡해 세계적 명작이 되었습니다.",
+      "screen": "호두까기 인형 원작 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호두까기 인형 원작 이야기",
+      "imagePrompt": "A girl and a nutcracker prince traveling through a magical land of sweets, whimsical festive children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "크리스마스 밤 클라라가 받은 호두까기 인형이 살아나 생쥐 왕과 싸웁니다. 클라라의 도움으로 승리한 인형은 멋진 왕자로 변해, 클라라를 과자 나라로 데려가 황홀한 환영을 받습니다.",
+      "screen": "호두까기 인형 줄거리 요약 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호두까기 인형 줄거리 요약",
+      "imagePrompt": "A nutcracker prince and a girl watching dancing sweets and a flower waltz, dreamy festive children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "핵심은 용기를 내어 친구를 돕는 마음, 그리고 상상의 세계가 주는 기쁨 입니다. \"선물이 살아난다면 어떤 모험을 떠나고 싶어?\"로 상상을 자극해 보세요.",
+      "screen": "호두까기 인형이 주는 교훈 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호두까기 인형이 주는 교훈",
+      "imagePrompt": "A girl bravely helping the nutcracker during the mouse battle, courageous warm children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "호두까기 인형, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1777442353908",
+  "title": "다람쥐",
+  "hook": "나무를 잘 타는 작은 다람쥐 는 볼주머니에 도토리를 잔뜩 담아 옮기는 귀…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "나무를 잘 타는 작은 다람쥐 는 볼주머니에 도토리를 잔뜩 담아 옮기는 귀여운 동물이에요.",
+      "screen": "다람쥐, 어떤 점이 신기할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "다람쥐, 어떤 점이 신기할까요?",
+      "imagePrompt": "A squirrel holding an acorn on a tree branch, cute children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "신기한 사실",
+      "sec": 8,
+      "narration": "다람쥐는 볼주머니 에 도토리를 담아 옮기고, 겨울 양식을 땅속 여기저기에 묻어 둬요. 재미있게도 묻은 걸 일부 잊어버려 그 도토리가 싹을 틔워 새 나무가 되니, 다람쥐는 \"숲을 가꾸는 정원사\" 인…",
+      "screen": "다람쥐의 자연·과학 사실 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "다람쥐의 자연·과학 사실",
+      "imagePrompt": "A squirrel with cheek pouches full of acorns, informative children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "탱고북 내용",
+      "sec": 8,
+      "narration": "탱고북 «다람쥐»는 도토리를 볼에 담는 모습, 땅에 묻어 저장하는 모습, 나무를 타는 모습, 잊은 도토리가 새 나무가 되는 이야기를 정겹게 보여 줍니다.",
+      "screen": "탱고북 «다람쥐»이 다루는 내용 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북 «다람쥐»이 다루는 내용",
+      "imagePrompt": "A squirrel burying an acorn that sprouts into a tree, gentle children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "관찰 포인트",
+      "sec": 8,
+      "narration": "볼주머니(저장), 도토리 묻기(숲 가꾸기), 꼬리(균형·담요), 평생 자라는 앞니 같은 포인트를 짚어 주세요. \"잊은 도토리는 어떻게 될까?\"를 함께 이야기하면 좋습니다.",
+      "screen": "함께 관찰하면 좋은 포인트 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 관찰하면 좋은 포인트",
+      "imagePrompt": "A close-up of a squirrel bushy tail, observational children's book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "다람쥐, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}
