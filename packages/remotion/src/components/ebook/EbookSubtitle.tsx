@@ -21,6 +21,13 @@ export const EbookSubtitle: React.FC<{ captions: EbookCaption[]; lang: EbookLang
     extrapolateRight: 'clamp',
   });
   const fontSize = active.text.length > 40 ? 40 : active.text.length > 24 ? 48 : 56;
+  const isRtl = lang === 'fa';
+  const fontFamily =
+    lang === 'ja'
+      ? '"Noto Sans JP", system-ui, sans-serif'
+      : lang === 'fa'
+        ? '"Vazirmatn", Tahoma, "Pretendard Variable", system-ui, sans-serif'
+        : '"Pretendard Variable", "NanumSquareRound", system-ui, sans-serif';
 
   return (
     <div
@@ -41,16 +48,14 @@ export const EbookSubtitle: React.FC<{ captions: EbookCaption[]; lang: EbookLang
           opacity,
           background: 'rgba(22,26,20,0.74)',
           color: '#fff',
-          fontFamily:
-            lang === 'ja'
-              ? '"Noto Sans JP", system-ui, sans-serif'
-              : '"Pretendard Variable", "NanumSquareRound", system-ui, sans-serif',
+          fontFamily,
           fontSize,
           lineHeight: 1.4,
           fontWeight: 600,
           padding: '14px 30px',
           borderRadius: 16,
           textAlign: 'center',
+          direction: isRtl ? 'rtl' : 'ltr',
           whiteSpace: 'pre-line',
           boxShadow: '0 6px 22px rgba(0,0,0,0.28)',
         }}

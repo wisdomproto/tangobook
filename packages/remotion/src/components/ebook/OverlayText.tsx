@@ -17,8 +17,9 @@ export const OverlayText: React.FC<{
 }> = ({ overlay, lang, appearFrame }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const text = overlay.text[lang];
+  const text = overlay.text[lang] ?? overlay.text.ko ?? '';
   if (!text) return null;
+  const isRtl = lang === 'fa';
 
   const t = frame - appearFrame;
   const FS = overlay.fontSize * 1.2; // 전역 글자 크기 배율(가독성 ↑)
@@ -40,6 +41,7 @@ export const OverlayText: React.FC<{
           flexDirection: isCol ? 'column' : 'row',
           alignItems: 'center',
           gap: FS * (isCol ? 0.28 : 0.5),
+          direction: isRtl ? 'rtl' : 'ltr',
           pointerEvents: 'none',
         }}
       >
@@ -61,7 +63,8 @@ export const OverlayText: React.FC<{
                 fontWeight: 800,
                 lineHeight: 1.1,
                 color: overlay.color,
-                fontFamily: '"NanumSquareRound", "Noto Sans JP", system-ui, sans-serif',
+                fontFamily:
+                  '"NanumSquareRound", "Noto Sans JP", "Vazirmatn", Tahoma, system-ui, sans-serif',
                 WebkitTextStroke: '2px #fff',
                 paintOrder: 'stroke fill',
                 textShadow: '0 3px 6px rgba(0,0,0,0.28)',
@@ -127,6 +130,7 @@ export const OverlayText: React.FC<{
         whiteSpace: 'nowrap',
         pointerEvents: 'none',
         textAlign: 'center',
+        direction: isRtl ? 'rtl' : 'ltr',
       }}
     >
       {text}
