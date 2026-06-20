@@ -4,6 +4,7 @@
 - **상태**: ✅ 구현 완료 (feat/mosquito-ebook, 2026-06-20) — 웹 이북 + ko/ja mp4. 상세 memory `mosquito-ebook-2026-06-20`
 - **유형**: 단발성 콘텐츠 (범용 기능 아님)
 - **개정(2026-06-20)**: 1차 범위를 **한국어·일본어**로 변경(페르시아어는 향후 확장). 일본어는 원본이라 `narration.jp`·`imageText.jp`가 이미 추출돼 있고 Gemini TTS가 한·일을 지원 → **Phase 0(페르시아어 TTS 검증)·RTL 처리·`SUPPORTED_LANGUAGES`에 `fa` 추가는 1차에서 제외**(`ja`는 이미 존재). 깨끗한 이미지 31장 수령 완료(`모기의_항변_추출/images2/`, `page 1.png`~`page 31.png`). 아래 본문에서 "페르시아어/fa"는 1차에서 "일본어/ja"로 치환해 읽는다.
+- **개정(2026-06-20, 샘플 다듬기)**: 단발 TTS 타임스탬프가 없어 **나레이션 줄단위 글자수 비례로 타이밍 추정**(`utils/ebook-timing.ts` `buildCaptions`) → 자막은 통짜 대신 줄단위 진행 표시, 오버레이는 `EbookOverlay.lineIndex`(해당 줄 낭독 시 등장)·`stagger`/`staggerDir`(키워드 단어 순차 등장)로 TTS 싱크. 켄번스 강화(줌+오버스캔 내 팬)·오버레이 idle 모션·글자 크기 상향(가독성). **에셋 gotcha**: 표지(`cover-v3.webp` — 모기 하단+제목 크림 여백 재합성, 프레임선 제거)와 4페이지(`page-04-v2.webp` — 깨끗본에 누락된 모기를 원본 글자판에서 크림 키잉 추출해 동일 위치 합성)는 **R2 업로드 차단으로 로컬 `public/ebook/mosquito/`(client·remotion 양쪽) + `staticFile`** 로 로드(`imageUrl` 이 `http` 아니면 staticFile). **`SAMPLE_PAGE_LIMIT`(현재 10)** 로 앞 N페이지만 노출(웹 Player·컴포지션·Root 모두 `EBOOK_PAGES` 공통 사용) — 전체 공개 시 `null`. 오버레이 좌표/색은 깨끗 이미지 보고 수동 배치(`?debug=1` 그리드).
 
 ## 1. 개요
 

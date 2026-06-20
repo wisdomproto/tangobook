@@ -14,7 +14,7 @@ import { AudiobookRenderProps, RESOLUTIONS } from './types';
 import { calculateTotalFrames } from './utils/duration';
 import { MosquitoEbookComposition } from './compositions/MosquitoEbookComposition';
 import {
-  MOSQUITO_PAGES,
+  EBOOK_PAGES,
   EBOOK_WIDTH,
   EBOOK_HEIGHT,
   EBOOK_FPS,
@@ -38,7 +38,7 @@ const calculateMetadata: CalculateMetadataFunction<AudiobookRenderProps> = async
 const calcMosquito: CalculateMetadataFunction<{ lang: EbookLang; debugCoords?: boolean }> = ({
   props,
 }) => {
-  const total = MOSQUITO_PAGES.reduce(
+  const total = EBOOK_PAGES.reduce(
     (s, p) => s + pageDurationFrames(p.ttsDurationSec[props.lang]),
     0
   );

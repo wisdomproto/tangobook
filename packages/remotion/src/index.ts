@@ -10,6 +10,7 @@ export { calculateTotalFrames } from './utils/duration';
 export { MosquitoEbookComposition } from './compositions/MosquitoEbookComposition';
 export {
   MOSQUITO_PAGES,
+  EBOOK_PAGES,
   EBOOK_FPS,
   EBOOK_WIDTH,
   EBOOK_HEIGHT,

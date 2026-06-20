@@ -3,7 +3,7 @@ import { Player, type PlayerRef } from '@remotion/player';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   MosquitoEbookComposition,
-  MOSQUITO_PAGES,
+  EBOOK_PAGES,
   EBOOK_FPS,
   EBOOK_WIDTH,
   EBOOK_HEIGHT,
@@ -26,13 +26,13 @@ export default function MosquitoEbookPage() {
   const [pageIdx, setPageIdx] = useState(0);
   const pageRef = useRef(0);
   const playerRef = useRef<PlayerRef>(null);
-  const totalPages = MOSQUITO_PAGES.length;
+  const totalPages = EBOOK_PAGES.length;
 
   // 페이지 경계 누적 프레임 (언어별 TTS 길이로 달라짐)
   const { bounds, total } = useMemo(() => {
     const b: number[] = [];
     let acc = 0;
-    for (const p of MOSQUITO_PAGES) {
+    for (const p of EBOOK_PAGES) {
       b.push(acc);
       acc += pageDurationFrames(p.ttsDurationSec[lang]);
     }
@@ -59,7 +59,12 @@ export default function MosquitoEbookPage() {
     const onFrame = (e: { detail: { frame: number } }) => {
       const i = pageRef.current;
       const end = i < bounds.length - 1 ? bounds[i + 1] : total;
-      if (e.detail.frame >= end - 1) player.pause();
+      // frameupdate 가 경계 프레임을 건너뛰면 다음 페이지 첫 프레임에 착지(off-by-one).
+      // 멈추면서 현재 페이지 마지막 프레임으로 스냅백 → 다음 페이지가 보이지 않도록.
+      if (e.detail.frame >= end - 1) {
+        player.pause();
+        if (e.detail.frame !== end - 1) player.seekTo(end - 1);
+      }
     };
     player.addEventListener('frameupdate', onFrame);
     return () => player.removeEventListener('frameupdate', onFrame);
@@ -72,6 +77,16 @@ export default function MosquitoEbookPage() {
     player.seekTo(bounds[pageRef.current] ?? 0);
     player.pause();
   }, [bounds]);
+
+  // 최초 진입 시 자동재생 (스펙 §8 — 표지 제목 오버레이가 frame 0 에 얼어붙지 않도록).
+  // 표지는 TTS 가 없어 브라우저 자동재생 정책에 걸리지 않음. 이후 페이지 넘김은 goToPage 가 재생.
+  useEffect(() => {
+    const player = playerRef.current;
+    if (!player) return;
+    player.seekTo(0);
+    player.play(); // 표지는 TTS 없음 → 브라우저 자동재생 정책에 안 걸림.
+    // 마운트 1회만 (playerRef·고정 핸들러라 deps 불필요).
+  }, []);
 
   const atFirst = pageIdx === 0;
   const atLast = pageIdx === totalPages - 1;

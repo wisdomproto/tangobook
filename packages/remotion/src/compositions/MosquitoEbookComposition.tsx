@@ -1,6 +1,6 @@
 import React from 'react';
 import { Series } from 'remotion';
-import { MOSQUITO_PAGES, type EbookLang } from '../data/mosquito-ebook';
+import { EBOOK_PAGES, type EbookLang } from '../data/mosquito-ebook';
 import { EbookPageScene } from '../components/ebook/EbookPageScene';
 import { pageDurationFrames } from '../utils/ebook-timing';
 
@@ -14,7 +14,7 @@ export const MosquitoEbookComposition: React.FC<{ lang: EbookLang; debugCoords?:
 }) => {
   return (
     <Series>
-      {MOSQUITO_PAGES.map((page) => (
+      {EBOOK_PAGES.map((page) => (
         <Series.Sequence
           key={page.page}
           durationInFrames={pageDurationFrames(page.ttsDurationSec[lang])}
