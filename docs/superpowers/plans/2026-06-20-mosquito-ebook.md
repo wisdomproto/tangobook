@@ -2,6 +2,8 @@
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> ✅ **구현 완료** (2026-06-20, `feat/mosquito-ebook`) — 전 Chunk(1~5) 완료. 상세 memory `mosquito-ebook-2026-06-20`.
+
 **Goal:** 일본 그림책 「모기의 항변」을 한국어·일본어 인터랙티브 웹 이북(`/ebook/mosquito`) + 언어별 mp4로 만든다. 깨끗한 이미지 위에 의성어/키워드/제목/라벨을 만화톤 애니메이션 오버레이로, 나레이션은 하단 자막 + TTS 낭독으로.
 
 **Architecture:** 단일 데이터(`mosquito.ts`)가 하나의 Remotion 컴포지션(`MosquitoEbookComposition`)을 구동한다. 컴포지션은 전 페이지를 `<Sequence>`로 배치한 단일 타임라인. 웹은 `@remotion/player`로 현재 페이지 구간을 seek 재생(페이지 넘김 = seek), mp4는 같은 컴포지션을 `renderMedia`로 전체 렌더. 자산(이미지·TTS)은 R2 절대 URL.

@@ -80,6 +80,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - Hori 아케이드 → [features/arcade-games/CLAUDE.md](packages/client/src/features/arcade-games/CLAUDE.md)
 - 어휘 단원 → [features/vocabulary-unit/CLAUDE.md](packages/client/src/features/vocabulary-unit/CLAUDE.md)
 - 횡단 (커리큘럼/자료실/캐싱/자산/snake_case) → [docs/architecture-notes.md](docs/architecture-notes.md)
+- 모기 이북 (단발 콘텐츠 — `/ebook/mosquito` 한·일 인터랙티브 이북 + 언어별 mp4, Remotion+TTS) → memory `mosquito-ebook-2026-06-20`
 
 ## 자주 쓰는 커맨드
 ```bash
