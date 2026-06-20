@@ -7,6 +7,8 @@ export const EbookSubtitle: React.FC<{ text: string; lang: EbookLang }> = ({ tex
   const frame = useCurrentFrame();
   if (!text) return null;
   const opacity = interpolate(frame, [0, 8], [0, 1], { extrapolateRight: 'clamp' });
+  // 긴 본문(부록 등)은 화면을 덜 채우도록 폰트 축소
+  const fontSize = text.length > 140 ? 26 : text.length > 80 ? 30 : 34;
 
   return (
     <div
@@ -30,7 +32,7 @@ export const EbookSubtitle: React.FC<{ text: string; lang: EbookLang }> = ({ tex
             lang === 'ja'
               ? '"Noto Sans JP", system-ui, sans-serif'
               : '"Pretendard Variable", "NanumSquareRound", system-ui, sans-serif',
-          fontSize: 33,
+          fontSize,
           lineHeight: 1.42,
           fontWeight: 600,
           padding: '13px 28px',

@@ -109,20 +109,20 @@ export default function MosquitoEbookPage() {
 
       <footer style={S.footer}>
         <button
-          onClick={() => goToPage(pageIdx - 1)}
+          onClick={() => goToPage(pageRef.current - 1)}
           disabled={atFirst}
           style={atFirst ? S.navOff : S.nav}
         >
           ◀ 이전
         </button>
-        <button onClick={() => goToPage(pageIdx)} style={S.replay}>
+        <button onClick={() => goToPage(pageRef.current)} style={S.replay}>
           ↻ 다시 듣기
         </button>
         <div style={S.counter}>
           {pageIdx + 1} / {totalPages}
         </div>
         <button
-          onClick={() => goToPage(pageIdx + 1)}
+          onClick={() => goToPage(pageRef.current + 1)}
           disabled={atLast}
           style={atLast ? S.navOff : S.nav}
         >
