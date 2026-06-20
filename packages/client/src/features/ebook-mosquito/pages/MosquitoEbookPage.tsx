@@ -70,23 +70,15 @@ export default function MosquitoEbookPage() {
     return () => player.removeEventListener('frameupdate', onFrame);
   }, [bounds, total]);
 
-  // 언어 바뀌면(=bounds 재계산) 현재 페이지 시작으로 맞추고 멈춤
+  // 최초 진입 + 언어 변경(=bounds 재계산) 시 현재 페이지를 처음부터 재생.
+  // 언어 바꾸면 그 페이지를 새 언어로 다시 들려주고, 최초 진입 땐 표지 오버레이가 frame 0 에 얼지 않도록.
+  // (언어 토글은 사용자 클릭이라 TTS 오디오 자동재생 정책에도 안 걸림.)
   useEffect(() => {
     const player = playerRef.current;
     if (!player) return;
     player.seekTo(bounds[pageRef.current] ?? 0);
-    player.pause();
+    player.play();
   }, [bounds]);
-
-  // 최초 진입 시 자동재생 (스펙 §8 — 표지 제목 오버레이가 frame 0 에 얼어붙지 않도록).
-  // 표지는 TTS 가 없어 브라우저 자동재생 정책에 걸리지 않음. 이후 페이지 넘김은 goToPage 가 재생.
-  useEffect(() => {
-    const player = playerRef.current;
-    if (!player) return;
-    player.seekTo(0);
-    player.play(); // 표지는 TTS 없음 → 브라우저 자동재생 정책에 안 걸림.
-    // 마운트 1회만 (playerRef·고정 핸들러라 deps 불필요).
-  }, []);
 
   const atFirst = pageIdx === 0;
   const atLast = pageIdx === totalPages - 1;
