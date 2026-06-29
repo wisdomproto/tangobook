@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/design-system';
 
 /**
@@ -280,7 +281,7 @@ export function LetterFillCanvas({
 
   return (
     <div className="flex flex-col items-center gap-3">
-      <div className="w-full max-w-sm border-2 border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden bg-white">
+      <div className="relative w-full max-w-sm border-2 border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden bg-white">
         <canvas
           ref={canvasRef}
           width={CANVAS_W}
@@ -292,6 +293,44 @@ export function LetterFillCanvas({
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerUp}
         />
+        {/* 통과 시 반짝 ring + 체크마크 그려짐 (글자채점 피드백) */}
+        <AnimatePresence>
+          {result?.passed && (
+            <motion.div
+              key="pass-fx"
+              className="pointer-events-none absolute inset-0 flex items-center justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <motion.span
+                className="absolute inset-0 rounded-xl ring-4 ring-emerald-400"
+                initial={{ opacity: 0.85, scale: 0.94 }}
+                animate={{ opacity: 0, scale: 1.05 }}
+                transition={{ duration: 0.7, repeat: 1, ease: 'easeOut' }}
+              />
+              <motion.svg
+                className="w-2/5 h-2/5"
+                viewBox="0 0 48 48"
+                fill="none"
+                initial={{ scale: 0.6 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', stiffness: 320, damping: 16, delay: 0.1 }}
+              >
+                <motion.path
+                  d="M11 25 L20 34 L37 14"
+                  stroke="#10b981"
+                  strokeWidth={6}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.4, delay: 0.18, ease: 'easeOut' }}
+                />
+              </motion.svg>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* 진척 바 — 채움 % 시각화 */}

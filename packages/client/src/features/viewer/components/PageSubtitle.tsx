@@ -75,6 +75,22 @@ function visibleTokenSlice(tokens: string[], progress: number): string {
   return tokens.slice(0, limit).join('');
 }
 
+/** 노출된 토큰들 + 현재(마지막) 단어 표시 — 진행 단어 하이라이트용 */
+function visibleTokenParts(
+  tokens: string[],
+  progress: number
+): Array<{ text: string; current: boolean }> {
+  const wordIndices = tokens.map((t, i) => (t.trim().length > 0 ? i : -1)).filter((i) => i >= 0);
+  if (wordIndices.length === 0) return [];
+  const lead = 1.08;
+  const visibleWords = Math.max(
+    1,
+    Math.min(wordIndices.length, Math.ceil(wordIndices.length * progress * lead))
+  );
+  const currentIdx = wordIndices[visibleWords - 1];
+  return tokens.slice(0, currentIdx + 1).map((t, i) => ({ text: t, current: i === currentIdx }));
+}
+
 export function PageSubtitle({
   text,
   subText,
@@ -127,7 +143,8 @@ export function PageSubtitle({
 
   const currentSentence = sentences[idx] ?? '';
   const tokens = tokenize(currentSentence);
-  const displayText = active ? visibleTokenSlice(tokens, progress) : '';
+  const displayParts = active ? visibleTokenParts(tokens, progress) : [];
+  const overall = active && duration > 0 ? Math.min(1, Math.max(0, currentTime / duration)) : 0;
 
   // 서브 텍스트(번역)도 문장별 동기화
   let displaySub: string | null = null;
@@ -146,7 +163,25 @@ export function PageSubtitle({
         TEXT_CLASS[textSize]
       )}
     >
-      <div className="min-h-[1.5em] whitespace-pre-line">{displayText}</div>
+      <div className="min-h-[1.5em] whitespace-pre-line">
+        {displayParts.map((p, i) =>
+          p.current ? (
+            <span key={i} className="text-coral-500">
+              {p.text}
+            </span>
+          ) : (
+            <span key={i}>{p.text}</span>
+          )
+        )}
+      </div>
+      {active && (
+        <div className="mx-auto mt-2 h-1 w-2/3 max-w-xs overflow-hidden rounded-full bg-black/10 dark:bg-white/15">
+          <div
+            className="h-full rounded-full bg-coral-400 transition-[width] duration-150 ease-linear"
+            style={{ width: `${overall * 100}%` }}
+          />
+        </div>
+      )}
       {displaySub && (
         <div
           className={cn(

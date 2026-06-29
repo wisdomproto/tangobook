@@ -77,3 +77,6 @@ packages/server/scripts/_data/*
 # .claude session backups
 .claude/backups/
 
+
+# Lottie / effects preview (local dev tool)
+lottie-samples/
