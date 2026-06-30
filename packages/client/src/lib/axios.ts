@@ -1,11 +1,22 @@
 import axios from 'axios';
 import type { ApiResponse } from '@tangobook/shared';
+import { supabase, isSupabaseConfigured } from './supabase';
 
 export const apiClient = axios.create({
   baseURL: '/api',
   headers: {
     'Content-Type': 'application/json',
   },
+});
+
+// 요청 인터셉터: Supabase 세션 토큰 자동 첨부 (getSession은 localStorage 읽기 — 네트워크 없음)
+apiClient.interceptors.request.use(async (config) => {
+  if (isSupabaseConfigured) {
+    const { data } = await supabase.auth.getSession();
+    const token = data.session?.access_token;
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 // 응답 인터셉터: { success, data } 구조에서 data 추출

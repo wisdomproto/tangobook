@@ -50,6 +50,9 @@ import {
   EnglishPhonicsStudyPage,
   EnglishPhonicsActivityPage,
 } from '../features/phonics-learner';
+import SubscribePage from '../features/payment/pages/SubscribePage';
+import PaymentSuccessPage from '../features/payment/pages/PaymentSuccessPage';
+import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
 
 export const router = createBrowserRouter([
   {
@@ -275,6 +278,30 @@ export const router = createBrowserRouter([
       },
       { path: 'login', element: <LoginPage /> },
       { path: 'login/callback', element: <LoginCallback /> },
+      {
+        path: 'subscribe',
+        element: (
+          <ErrorBoundary>
+            <SubscribePage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'payments/success',
+        element: (
+          <ErrorBoundary>
+            <PaymentSuccessPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'payments/fail',
+        element: (
+          <ErrorBoundary>
+            <PaymentFailPage />
+          </ErrorBoundary>
+        ),
+      },
       {
         path: 'games/korean-block',
         element: (
