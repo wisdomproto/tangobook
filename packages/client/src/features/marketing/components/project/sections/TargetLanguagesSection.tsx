@@ -29,17 +29,14 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { Project } from '../../../types/database';
+import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 
-const AVAILABLE_LANGUAGES = [
-  { code: 'ko', label: '한국어', flag: '🇰🇷' },
-  { code: 'en', label: 'English', flag: '🇺🇸' },
-  { code: 'th', label: 'ไทย', flag: '🇹🇭' },
-  { code: 'vi', label: 'Tiếng Việt', flag: '🇻🇳' },
-  { code: 'ja', label: '日本語', flag: '🇯🇵' },
-  { code: 'zh', label: '中文', flag: '🇨🇳' },
-  { code: 'ms', label: 'Bahasa Melayu', flag: '🇲🇾' },
-  { code: 'id', label: 'Bahasa Indonesia', flag: '🇮🇩' },
-];
+// 마케팅 타겟 언어 후보 = 전역 지원 언어 단일 소스(nativeName 표기). zh 간체·th 등 자동 반영.
+const AVAILABLE_LANGUAGES = SUPPORTED_LANGUAGES.map((l) => ({
+  code: l.code,
+  label: l.nativeName,
+  flag: l.flag,
+}));
 
 function SortableLangItem({
   code,

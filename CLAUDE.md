@@ -117,7 +117,7 @@ pnpm --filter {server|client|shared} {dev|build|...}
 - `AppError` → `packages/server/src/middleware/error.middleware.ts`
 
 ## 다국어(i18n) 번역
-`SUPPORTED_LANGUAGES`(`shared/constants`, `code·label·nativeName·flag`) = 언어 단일 소스. **새 언어 = 여기 한 줄** → 클라 언어 토글/라벨 자동 derive(BookDetailPage `LANG_LABEL`). 표지는 `lang→en→ko` 폴백.
+`SUPPORTED_LANGUAGES`(`shared/constants`, `code·label·nativeName·flag`) = 언어 단일 소스. **새 언어 = 여기 한 줄** → 클라 언어 토글/라벨 자동 derive(BookDetailPage `LANG_LABEL`). 표지는 `lang→en→ko` 폴백. 현재 11개(ko·en·ja·zh·es·fr·de·vi·th·ms·id), **zh = 간체(`中文(简体)`)**. 마케팅 새 프로젝트 기본 타겟 언어 = `[ko·en·zh·th·vi]`.
 - 번역 스크립트 (`packages/server/scripts/`): `translate-extract/apply/verify.mjs --lang=<code>` + 공통 `translation-core.mjs`. **Gemini 아닌 Claude 직접 번역** — `_data/translations/<lang>/<id>.json`(언어무관 `t` 키)에 채워 R2 주입.
 - R2 필드: `languages[]` · `titleTranslations` · `page.translations[lang]` · `KeyObject.nameTranslations` · `parentGuideTranslations`(신규). **vi 동화책 152권 전체**(명작 51 + 자연관찰 101, backup·파닉스 제외) 적용 완료.
 - 상세 + **새 언어 추가 체크리스트** → memory `translation-pipeline-i18n-2026-05-30.md`.

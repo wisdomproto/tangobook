@@ -79,6 +79,8 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const [pageIndex, setPageIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [rewardOpen, setRewardOpen] = useState(false);
+  // 음성 끝 ~ 다음 페이지 전환 대기 중 (자동넘김 "다음 장" 인디케이터)
+  const [advancing, setAdvancing] = useState(false);
   const [wordRevealOpen, setWordRevealOpen] = useState(false);
   // 첫 페이지(들) TTS 버퍼링 완료 여부 — 완료 전엔 로딩 화면. video/games/파닉스(비story)는 즉시 true.
   const [ttsReady, setTtsReady] = useState(false);
@@ -113,6 +115,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const goTo = useCallback(
     (next: number) => {
       if (next < 0 || next >= pages.length) return;
+      setAdvancing(false); // 수동 넘김 시 자동넘김 인디케이터 해제
       setDirection(next > pageIndex ? 1 : -1);
       setPageIndex(next);
     },
@@ -137,8 +140,11 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       return;
     }
     // 다음 페이지 이미지가 준비된 뒤 넘김 — 음성이 끝났는데 이미지 로딩으로 빈 장면이 뜨는 것 방지.
+    // 음성 끝 ~ 전환 사이 "다음 장 준비 중" dot 인디케이터 표시.
+    setAdvancing(true);
     const nextImg = pages[st.pageIndex + 1]?.illustrationUrl;
     const go = () => {
+      setAdvancing(false);
       setDirection(1);
       setPageIndex((idx) => idx + 1);
     };
@@ -484,6 +490,32 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       )}
 
       <MascotCorner visible={audio.isBgmPlaying} />
+
+      {/* 자동넘김 인디케이터 — 음성 끝 ~ 다음 페이지 전환 대기 동안 "다음 장" dot pulse */}
+      {advancing && !settings.fullscreenImage && (
+        <div
+          className={cn(
+            'pointer-events-none absolute bottom-24 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded-full px-4 py-2 shadow-soft backdrop-blur-sm',
+            settings.darkMode ? 'bg-darkbg/85 text-darktext' : 'bg-white/85 text-ink-500'
+          )}
+        >
+          <span className="text-xs font-bold break-keep">다음 장</span>
+          <span className="flex gap-1">
+            <span
+              className="h-2 w-2 rounded-full bg-coral-400 animate-bounce"
+              style={{ animationDelay: '0ms' }}
+            />
+            <span
+              className="h-2 w-2 rounded-full bg-coral-400 animate-bounce"
+              style={{ animationDelay: '150ms' }}
+            />
+            <span
+              className="h-2 w-2 rounded-full bg-coral-400 animate-bounce"
+              style={{ animationDelay: '300ms' }}
+            />
+          </span>
+        </div>
+      )}
 
       {/* autoplay 차단 시 — 탭으로 음성+BGM 시작 (사용자 제스처 안에서 재생 → 모든 브라우저 OK) */}
       {needsTapToStart && (
