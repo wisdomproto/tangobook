@@ -35,6 +35,7 @@ import vocabOverridesRoutes from './routes/vocab-overrides.routes.js';
 import letterStrokeLibraryRoutes from './routes/letter-stroke-library.routes.js';
 import koreanJamoStrokeLibraryRoutes from './routes/korean-jamo-stroke-library.routes.js';
 import mktRoutes from './routes/mkt.routes.js';
+import paymentRoutes from './routes/payment.routes.js';
 
 export function createApp() {
   const app = express();
@@ -96,6 +97,7 @@ export function createApp() {
   app.use('/api/korean-jamo-stroke-library', koreanJamoStrokeLibraryRoutes);
   // Marketing Phase 0+ — NEW namespace (never collides with /api/marketing)
   app.use('/api/mkt', mktRoutes);
+  app.use('/api/payments', paymentRoutes);
 
   // R2 프록시 — pub-xxx.r2.dev CORS 미지원 우회
   // GET /api/r2-proxy?key=storybooks/xxx/scene.mp4

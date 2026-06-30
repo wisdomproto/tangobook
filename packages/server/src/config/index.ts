@@ -86,4 +86,8 @@ export const config = {
   },
 
   cron: { secret: process.env.CRON_SECRET ?? '' }, // optional manual-tick guard (spec §4.5)
+
+  toss: {
+    secretKey: process.env.TOSS_SECRET_KEY ?? '',
+  },
 } as const;
