@@ -2,10 +2,12 @@ import { createContext, useContext, useEffect, useRef, type ReactNode } from 're
 import type { Session } from '@supabase/supabase-js';
 import type { Account, ChildProfile } from '@tangobook/shared';
 import { isSupabaseConfigured, supabase } from '@/lib/supabase';
+import { apiPost } from '@/lib/axios';
 import { useSession } from '../hooks/useSession';
 import { useCurrentAccount } from '../hooks/useCurrentAccount';
 import { useActiveProfile } from '../hooks/useActiveProfile';
 import { runMigrations } from '../lib/migrations';
+import { useReferralCapture } from '@/features/payment/hooks/useReferralCapture';
 
 export interface AuthContextValue {
   isConfigured: boolean;
@@ -26,6 +28,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const { account, profiles, loading: accLoading, refresh } = useCurrentAccount(session);
   const { activeProfile, setActiveProfile } = useActiveProfile(profiles);
   const migratedForProfile = useRef<string | null>(null);
+  const referralRedeemed = useRef(false);
+
+  // Capture ?ref=CODE from URL into localStorage (best-effort, runs once on mount)
+  useReferralCapture();
 
   useEffect(() => {
     if (!activeProfile) return;
@@ -33,6 +39,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     migratedForProfile.current = activeProfile.id;
     void runMigrations(activeProfile.id);
   }, [activeProfile]);
+
+  // Redeem referral code once per session load when the account is ready.
+  // The server RPC guards against self-referral, already-referred, and cap — so
+  // calling this for non-new accounts is harmless (returns ok:false, no side effects).
+  useEffect(() => {
+    if (!account) return;
+    if (referralRedeemed.current) return;
+    const code = localStorage.getItem('tb_ref');
+    if (!code) return;
+    referralRedeemed.current = true;
+    localStorage.removeItem('tb_ref');
+    void apiPost('/payments/referral/redeem', { code }).catch(() => {
+      // Best-effort: swallow errors (network failure, invalid code, etc.)
+    });
+  }, [account]);
 
   const signOut = async () => {
     if (isSupabaseConfigured) await supabase.auth.signOut();
