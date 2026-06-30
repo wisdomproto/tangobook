@@ -5,6 +5,7 @@ import {
   isSubscriptionActive,
   TRIAL_DAYS,
   REFERRAL_BONUS_DAYS,
+  extendPaidUntil,
 } from '@tangobook/shared';
 
 const NOW = Date.parse('2026-06-20T00:00:00Z');
@@ -75,5 +76,34 @@ describe('canReadBook', () => {
   it('유료 책(false)은 entitlement 필요', () => {
     expect(canReadBook({ isAccessibleForFree: false }, { isEntitled: false })).toBe(false);
     expect(canReadBook({ isAccessibleForFree: false }, { isEntitled: true })).toBe(true);
+  });
+});
+
+describe('extendPaidUntil', () => {
+  const NOW = Date.parse('2026-07-01T00:00:00Z');
+  it('미보유(null)면 now + days', () => {
+    expect(extendPaidUntil(null, 30, NOW)).toBe('2026-07-31T00:00:00.000Z');
+  });
+  it('미래 만료가 남아있으면 그 위에 누적', () => {
+    const future = '2026-07-10T00:00:00.000Z';
+    expect(extendPaidUntil(future, 30, NOW)).toBe('2026-08-09T00:00:00.000Z');
+  });
+  it('과거 만료면 now 기준 재시작', () => {
+    expect(extendPaidUntil('2026-06-01T00:00:00Z', 30, NOW)).toBe('2026-07-31T00:00:00.000Z');
+  });
+});
+
+describe('computeAccess with paid_until subscription', () => {
+  const NOW = Date.parse('2026-07-01T00:00:00Z');
+  it('paid_until 미래 → subscribed/entitled', () => {
+    const a = computeAccess(
+      {
+        account: { createdAt: '2026-01-01T00:00:00Z' },
+        subscription: { status: 'active', currentPeriodEnd: '2026-08-01T00:00:00Z' },
+      },
+      NOW
+    );
+    expect(a.status).toBe('subscribed');
+    expect(a.isEntitled).toBe(true);
   });
 });

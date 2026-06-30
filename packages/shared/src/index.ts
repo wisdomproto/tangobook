@@ -9,6 +9,7 @@ export * from './types/vocabulary-unit.js';
 export * from './types/book-v2.js';
 export * from './constants/cambridge-starters.js';
 export * from './constants/index.js';
+export * from './constants/plans.js';
 export * from './utils/hangul.js';
 export * from './utils/english-letters.js';
 export * from './utils/entitlement.js';

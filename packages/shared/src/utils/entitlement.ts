@@ -102,3 +102,9 @@ export function canReadBook(
   if (book.isAccessibleForFree !== false) return true;
   return access.isEntitled;
 }
+
+/** 기존 paid_until(없으면 now)에서 days 만큼 연장한 ISO. 결제 성공 시 서버가 사용. */
+export function extendPaidUntil(current: string | null, days: number, now = Date.now()): string {
+  const base = Math.max(now, current ? Date.parse(current) || now : now);
+  return new Date(base + days * 86_400_000).toISOString();
+}
