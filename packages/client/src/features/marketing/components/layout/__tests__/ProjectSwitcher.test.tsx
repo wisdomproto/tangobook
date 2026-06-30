@@ -1,6 +1,5 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { ProjectSwitcher } from '../ProjectSwitcher';
 import type { Project } from '../../../types/database';
 
@@ -57,131 +56,30 @@ function makeProject(id: string, name: string): Project {
 }
 
 const projects: Project[] = [
-  makeProject('p1', '탱고북 마케팅'),
+  makeProject('p1', '탱고북 동화책'),
   makeProject('p2', 'Alpha Project'),
 ];
 
-describe('ProjectSwitcher', () => {
-  it('shows selected project name in trigger', () => {
-    render(
-      <ProjectSwitcher
-        projects={projects}
-        selectedProjectId="p1"
-        onSelect={vi.fn()}
-        onCreateNew={vi.fn()}
-      />
-    );
-    expect(screen.getByText('탱고북 마케팅')).toBeInTheDocument();
-  });
-
-  it('shows "프로젝트 선택" when selectedProjectId is null', () => {
-    render(
-      <ProjectSwitcher
-        projects={projects}
-        selectedProjectId={null}
-        onSelect={vi.fn()}
-        onCreateNew={vi.fn()}
-      />
-    );
-    expect(screen.getByText('프로젝트 선택')).toBeInTheDocument();
-  });
-
-  it('shows avatar initial of selected project', () => {
-    render(
-      <ProjectSwitcher
-        projects={projects}
-        selectedProjectId="p2"
-        onSelect={vi.fn()}
-        onCreateNew={vi.fn()}
-      />
-    );
-    // The avatar div shows first char of name
-    expect(screen.getByText('A')).toBeInTheDocument();
-  });
-
-  it('lists all projects in dropdown after clicking trigger', async () => {
-    const user = userEvent.setup();
-    render(
-      <ProjectSwitcher
-        projects={projects}
-        selectedProjectId="p1"
-        onSelect={vi.fn()}
-        onCreateNew={vi.fn()}
-      />
-    );
-    // Open dropdown by clicking the trigger button
-    await user.click(screen.getByRole('button', { name: /탱고북|선택|프로젝트/i }));
+describe('ProjectSwitcher (fixed, static)', () => {
+  it('shows the selected project name', () => {
+    render(<ProjectSwitcher projects={projects} selectedProjectId="p2" />);
     expect(screen.getByText('Alpha Project')).toBeInTheDocument();
   });
 
-  it('calls onSelect with project id when a project item is clicked', async () => {
-    const onSelect = vi.fn();
-    const user = userEvent.setup();
-    render(
-      <ProjectSwitcher
-        projects={projects}
-        selectedProjectId="p1"
-        onSelect={onSelect}
-        onCreateNew={vi.fn()}
-      />
-    );
-    await user.click(screen.getByRole('button'));
-    // Click the second project
-    const menuItems = screen.getAllByRole('menuitem');
-    const alphaItem = menuItems.find((el) => el.textContent?.includes('Alpha Project'));
-    expect(alphaItem).toBeTruthy();
-    await user.click(alphaItem!);
-    expect(onSelect).toHaveBeenCalledWith('p2');
+  it('shows avatar initial of the selected project', () => {
+    render(<ProjectSwitcher projects={projects} selectedProjectId="p2" />);
+    expect(screen.getByText('A')).toBeInTheDocument();
   });
 
-  it('calls onCreateNew when "새 프로젝트" is clicked', async () => {
-    const onCreateNew = vi.fn();
-    const user = userEvent.setup();
-    render(
-      <ProjectSwitcher
-        projects={projects}
-        selectedProjectId="p1"
-        onSelect={vi.fn()}
-        onCreateNew={onCreateNew}
-      />
-    );
-    await user.click(screen.getByRole('button'));
-    const createItem = screen.getByText('새 프로젝트').closest('[role="menuitem"]');
-    expect(createItem).toBeTruthy();
-    await user.click(createItem!);
-    expect(onCreateNew).toHaveBeenCalledTimes(1);
+  it('falls back to 탱고북 동화책 when selection is unresolved', () => {
+    const others = [makeProject('p2', 'Alpha Project')];
+    render(<ProjectSwitcher projects={others} selectedProjectId={null} />);
+    expect(screen.getByText('탱고북 동화책')).toBeInTheDocument();
   });
 
-  it('shows checkmark next to selected project', async () => {
-    const user = userEvent.setup();
-    render(
-      <ProjectSwitcher
-        projects={projects}
-        selectedProjectId="p1"
-        onSelect={vi.fn()}
-        onCreateNew={vi.fn()}
-      />
-    );
-    await user.click(screen.getByRole('button'));
-    // The selected project row should have a check icon (lucide renders svg)
-    const menuItems = screen.getAllByRole('menuitem');
-    const tangobookItem = menuItems.find((el) => el.textContent?.includes('탱고북 마케팅'));
-    expect(tangobookItem).toBeTruthy();
-    // Check icon is an SVG inside the selected item
-    expect(tangobookItem!.querySelector('svg')).not.toBeNull();
-  });
-
-  it('shows "프로젝트가 없습니다" when projects list is empty', async () => {
-    const user = userEvent.setup();
-    render(
-      <ProjectSwitcher
-        projects={[]}
-        selectedProjectId={null}
-        onSelect={vi.fn()}
-        onCreateNew={vi.fn()}
-      />
-    );
-    await user.click(screen.getByRole('button'));
-    expect(screen.getByText('프로젝트가 없습니다')).toBeInTheDocument();
+  it('renders no interactive switcher (no button / dropdown)', () => {
+    render(<ProjectSwitcher projects={projects} selectedProjectId="p1" />);
+    expect(screen.queryByRole('button')).toBeNull();
+    expect(screen.queryByRole('menuitem')).toBeNull();
   });
 });

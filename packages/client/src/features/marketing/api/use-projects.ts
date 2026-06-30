@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from './supabase';
 import { mktKeys, fetchProjects, fetchProject } from './queries';
 import { generateId } from '../lib/utils';
+import { DEFAULT_TARGET_LANGUAGES } from '../lib/languages';
 import type { Project } from '../types/database';
 
 // ─── Read Queries ────────────────────────────────────────────────────────────
@@ -75,7 +76,7 @@ export function useCreateProject() {
         writing_guide_threads: null,
         writing_guide_youtube: null,
         api_keys: null,
-        target_languages: [],
+        target_languages: [...DEFAULT_TARGET_LANGUAGES],
         saved_keywords: null,
         reference_files: null,
         bgm_files: null,

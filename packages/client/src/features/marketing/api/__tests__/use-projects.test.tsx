@@ -178,6 +178,22 @@ describe('useCreateProject', () => {
     });
   });
 
+  it('seeds the default target languages on a new project', async () => {
+    const insertMock = vi.fn().mockResolvedValue({ error: null });
+    mockFrom.mockReturnValue({ insert: insertMock } as any);
+
+    const { result } = renderHook(() => useCreateProject(), {
+      wrapper: wrapper(queryClient),
+    });
+
+    await act(async () => {
+      await result.current.mutateAsync({ name: '언어 기본값 프로젝트' });
+    });
+
+    const inserted = insertMock.mock.calls[0][0] as Record<string, unknown>;
+    expect(inserted.target_languages).toEqual(['ko', 'en', 'zh', 'th', 'vi']);
+  });
+
   it('throws if supabase insert fails', async () => {
     mockFrom.mockReturnValue({
       insert: vi.fn().mockResolvedValue({ error: { message: 'insert error' } }),

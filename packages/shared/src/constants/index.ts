@@ -33,11 +33,14 @@ export const SUPPORTED_LANGUAGES = [
   { code: 'ko', label: '한국어', nativeName: '한국어', flag: '🇰🇷' },
   { code: 'en', label: '영어', nativeName: 'English', flag: '🇺🇸' },
   { code: 'ja', label: '일본어', nativeName: '日本語', flag: '🇯🇵' },
-  { code: 'zh', label: '중국어', nativeName: '中文', flag: '🇨🇳' },
+  { code: 'zh', label: '중국어(간체)', nativeName: '中文(简体)', flag: '🇨🇳' },
   { code: 'es', label: '스페인어', nativeName: 'Español', flag: '🇪🇸' },
   { code: 'fr', label: '프랑스어', nativeName: 'Français', flag: '🇫🇷' },
   { code: 'de', label: '독일어', nativeName: 'Deutsch', flag: '🇩🇪' },
   { code: 'vi', label: '베트남어', nativeName: 'Tiếng Việt', flag: '🇻🇳' },
+  { code: 'th', label: '태국어', nativeName: 'ไทย', flag: '🇹🇭' },
+  { code: 'ms', label: '말레이어', nativeName: 'Bahasa Melayu', flag: '🇲🇾' },
+  { code: 'id', label: '인도네시아어', nativeName: 'Bahasa Indonesia', flag: '🇮🇩' },
 ] as const;
 
 export const TTS_PROVIDERS = ['gemini', 'minimax', 'elevenlabs'] as const;

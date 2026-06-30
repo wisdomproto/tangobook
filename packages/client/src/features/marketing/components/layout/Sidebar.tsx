@@ -5,8 +5,6 @@ import type { Project } from '../../types/database';
 interface SidebarProps {
   projects: Project[];
   selectedProjectId: string | null;
-  onSelectProject: (id: string) => void;
-  onCreateNewProject: () => void;
 }
 
 const navGroups = [
@@ -40,20 +38,10 @@ const navGroups = [
   },
 ] as const;
 
-export function Sidebar({
-  projects,
-  selectedProjectId,
-  onSelectProject,
-  onCreateNewProject,
-}: SidebarProps) {
+export function Sidebar({ projects, selectedProjectId }: SidebarProps) {
   return (
     <aside className="w-56 bg-card border-r border-border flex flex-col h-full shrink-0">
-      <ProjectSwitcher
-        projects={projects}
-        selectedProjectId={selectedProjectId}
-        onSelect={onSelectProject}
-        onCreateNew={onCreateNewProject}
-      />
+      <ProjectSwitcher projects={projects} selectedProjectId={selectedProjectId} />
 
       <nav className="flex-1 overflow-y-auto p-2 space-y-4">
         {/* Project Settings — always first */}

@@ -65,7 +65,7 @@ features/marketing/
       Sidebar.tsx / SidebarNavItem.tsx
       TopBar.tsx / ProjectSwitcher.tsx / SaveStatusIndicator.tsx
     project/              # 프로젝트/콘텐츠 관리
-      CreateProjectDialog.tsx / CreateContentDialog.tsx
+      CreateContentDialog.tsx
       ContentListPanel.tsx      # 콘텐츠 목록 + 정렬
       ProjectSettings.tsx       # 브랜드·채널·키 설정 패널
       sections/                 # 설정 섹션별 분리 컴포넌트
@@ -487,6 +487,21 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 - **태국어(th)**: 콘텐츠 번역 없음 — 키워드 전략만 가능(제목 맵의 태국어 제목 사용). th 블로그 생성은 별도 태국어 콘텐츠 필요.
 - **DataForSEO 잔액 필요**: 실 조회는 계정 잔액 있어야 함(없으면 402). dry-run(후보 생성)은 잔액 무관. 파일럿 6권 제목 맵 완비, 전체 152는 `_titles.json`에 en·th 제목 추가 후 `--all`.
 - 설계/플랜: `docs/superpowers/specs|plans/2026-06-15-marketing-keyword-strategy*.md`.
+
+## 동화책 → 내부 블로그 (삽화·CTA·SEO 자동화)
+
+152개 콘텐츠의 내부 블로그(`self_hosted`)에 **원본 동화책 삽화 + 관련 글 + 동화책 CTA**를 일괄 적용하고 SEO 체크리스트를 충족시키는 스크립트군. 텍스트(작품소개/원작/줄거리/교훈/읽어주는법/FAQ)는 기존 유지, **비어있던 이미지·링크만 채움**. 멱등.
+
+- `packages/server/scripts/fill-blog-illustrations.mjs` — `storybookId`(memo)→`/api/storybooks/:id` 삽화 풀(표지+`pages[].illustrationUrl`) → 본문 섹션에 스토리순 배분(**encodeURI** — 한글 R2 URL raw 는 400) + 관련 글(같은 `category`) 추가. `--dry-run`.
+- `scripts/boost-blog-seo.mjs` — SEO 미달 보강: primary 키워드 부족분 도입 문장(부족분=4-현재), secondary 정확 표기, link 관련 글. 멱등 마커 `data-seo-boost`.
+- `scripts/add-blog-cta.mjs` — 각 글 끝에 "동화책 보러가기" CTA(`tangobook.co.kr/library/<storybookId>` = BookDetailPage `/library/:id`).
+- `scripts/verify-blog-seo.mjs` — boolean 체크리스트(slug·FAQ·H2≥2·내부링크·primary≥4회·secondary·schema) 검증(fetch 없음). **현재 152/152 통과**.
+- 스크립트는 server `.env` 의 `SUPABASE_URL`·`SUPABASE_SERVICE_ROLE_KEY` 로 R2/Supabase 직접 접근. 삽화 미생성 9권(no-img 4 + 표지만 5)은 삽화 추가 후 재실행하면 멱등 반영.
+- **미리보기 `BlogPreviewDialog`** — PC·모바일 폰 프레임 **동시** 발행 미리보기(흰 캔버스, 발행 타이포 `PUB_PROSE`, CTA 렌더). ⚠️ `ui/dialog` DialogContent 기본값에 `sm:max-w-sm` 이 있어 너비 오버라이드는 반드시 **`sm:` 프리픽스**(`sm:max-w-6xl`) — YoutubePreviewDialog 패턴. arbitrary 너비/border(`w-[390px]`·`border-[10px]`)는 HMR 중 Tailwind JIT 미인식 가능 → **인라인 style** 사용.
+
+## 프로젝트 고정 (단일 프로젝트 운영)
+
+마케팅은 단일 프로젝트(`탱고북 동화책`)로 운영. `MarketingShell` 진입 시 해당 프로젝트 **자동 선택**(이름 매칭→없으면 첫 프로젝트), `ProjectSwitcher` 는 드롭다운 없는 **정적 표시**(선택/새 프로젝트 제거, `CreateProjectDialog` 삭제). 새 프로젝트 기본 타겟 언어 = `['ko','en','zh','th','vi']`(`lib/languages.ts` `DEFAULT_TARGET_LANGUAGES`). 언어 라벨은 전역 `SUPPORTED_LANGUAGES` 단일 소스(`TargetLanguagesSection` 로컬 목록 제거, zh=간체).
 
 ## 접근 — 8054 게이트 로그인
 

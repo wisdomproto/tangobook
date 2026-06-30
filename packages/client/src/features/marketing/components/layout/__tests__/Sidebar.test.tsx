@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Sidebar } from '../Sidebar';
@@ -6,12 +6,7 @@ import { Sidebar } from '../Sidebar';
 function renderSidebar() {
   return render(
     <MemoryRouter initialEntries={['/marketing/content']}>
-      <Sidebar
-        projects={[]}
-        selectedProjectId={null}
-        onSelectProject={vi.fn()}
-        onCreateNewProject={vi.fn()}
-      />
+      <Sidebar projects={[]} selectedProjectId={null} />
     </MemoryRouter>
   );
 }
@@ -55,9 +50,9 @@ describe('Sidebar', () => {
     expect(hrefs.every((h) => h.startsWith('/marketing/'))).toBe(true);
   });
 
-  it('renders the ProjectSwitcher inside', () => {
+  it('renders the fixed project name (static ProjectSwitcher, no dropdown)', () => {
     renderSidebar();
-    // ProjectSwitcher renders a button (DropdownMenuTrigger)
-    expect(screen.getByRole('button')).toBeInTheDocument();
+    expect(screen.getByText('탱고북 동화책')).toBeInTheDocument();
+    expect(screen.queryByRole('button')).toBeNull();
   });
 });
