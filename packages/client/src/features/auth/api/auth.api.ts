@@ -27,6 +27,15 @@ export const authApi = {
     if (error) throw error;
   },
 
+  async signInWithKakao() {
+    const redirectTo = `${window.location.origin}/login/callback`;
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'kakao',
+      options: { redirectTo },
+    });
+    if (error) throw error;
+  },
+
   async signOut() {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;

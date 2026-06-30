@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { authApi } from '../api/auth.api';
+import { SocialAuthButtons } from './SocialAuthButtons';
 
 interface Props {
   onSwitchToSignIn: () => void;
@@ -27,18 +28,16 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
     }
   };
 
-  const handleGoogle = async () => {
-    try {
-      await authApi.signInWithGoogle();
-    } catch (err) {
-      alert(err instanceof Error ? err.message : 'Google 로그인 실패');
-    }
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-cream-50 p-4">
       <div className="bg-white rounded-2xl p-8 max-w-sm w-full shadow-pop flex flex-col gap-4">
         <h1 className="text-3xl font-black text-ink-900 text-center">회원가입</h1>
+        <SocialAuthButtons mode="signup" />
+        <div className="flex items-center gap-3 text-sm text-ink-400">
+          <div className="h-px flex-1 bg-ink-100" />
+          또는 이메일로
+          <div className="h-px flex-1 bg-ink-100" />
+        </div>
         <input
           type="email"
           placeholder="이메일"
@@ -69,12 +68,6 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
           className="h-14 rounded-xl bg-coral-500 text-white font-black text-lg hover:brightness-110 disabled:bg-ink-300"
         >
           가입하기
-        </button>
-        <button
-          onClick={handleGoogle}
-          className="h-14 rounded-xl bg-white border-2 border-ink-100 text-ink-900 font-bold text-lg"
-        >
-          🌐 Google로 계속
         </button>
         <button
           onClick={onSwitchToSignIn}
