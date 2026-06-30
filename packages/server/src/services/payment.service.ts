@@ -82,16 +82,23 @@ export async function extendEntitlementForPaidOrder(
 
   const now = new Date().toISOString();
 
-  // Conditional update: only flip pending → paid (avoids races)
-  const { error: updateError } = await admin
+  // Conditional update: only flip pending → paid (avoids races).
+  // Return the affected rows and gate on them — only the call that actually won
+  // the flip proceeds to extend the entitlement. This makes entitlement
+  // extension exactly-once under concurrent confirm + webhook: a losing call
+  // sees 0 affected rows (the other call already flipped it) and returns.
+  const { data: flipped, error: updateError } = await admin
     .from('payments')
     .update({ status: 'paid', payment_key: paymentKey, paid_at: now })
     .eq('order_id', paymentRow.order_id)
-    .eq('status', 'pending');
+    .eq('status', 'pending')
+    .select('order_id');
 
   if (updateError) {
     throw new AppError(500, `결제 상태 업데이트 실패: ${updateError.message}`);
   }
+  // Lost the race / already flipped by another call → do NOT extend.
+  if (!flipped || (flipped as unknown[]).length === 0) return;
 
   // Fetch current paid_until for the account
   const { data: existing } = await admin

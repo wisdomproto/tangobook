@@ -41,6 +41,10 @@ interface Seed {
   insertError?: { message: string } | null;
   updateError?: { message: string } | null;
   upsertError?: { message: string } | null;
+  // Rows returned by the conditional `payments.update(...).select('order_id')`.
+  // [] = lost the race (0 rows flipped). Defaults to one synthetic row when the
+  // stored payment is pending, so existing happy-path tests keep extending.
+  flippedRows?: Array<Record<string, unknown>>;
 }
 
 interface FakeAdmin {
@@ -61,7 +65,17 @@ function makeFakeAdmin(seed: Seed = {}): FakeAdmin {
           return { data: null, error: seed.insertError ?? null };
         }
         if (log.op === 'update') {
-          return { data: null, error: seed.updateError ?? null };
+          // Conditional flip with trailing `.select('order_id')` returns the
+          // affected rows. Default: one synthetic row when the stored payment is
+          // pending (so it "won" the flip); [] when explicitly seeded as lost.
+          const defaultFlipped =
+            (seed.paymentRow as { status?: string } | null)?.status === 'pending'
+              ? [{ order_id: (seed.paymentRow as { order_id?: string })?.order_id ?? 'tb_x' }]
+              : [];
+          return {
+            data: seed.flippedRows ?? defaultFlipped,
+            error: seed.updateError ?? null,
+          };
         }
         if (log.op === 'select') {
           return { data: seed.paymentRow ?? null, error: null };
@@ -373,5 +387,87 @@ describe('handleWebhook — idempotent on already-paid order', () => {
 
     expect(toss.getPayment).not.toHaveBeenCalled();
     expect(fake.ops.length).toBe(0);
+  });
+});
+
+// ══ 7. extendEntitlementForPaidOrder — concurrency (winning the flip) ══════════
+describe('extendEntitlementForPaidOrder — gated on winning the paid flip', () => {
+  const pendingRow = {
+    id: 'row-7',
+    order_id: 'tb_order-7',
+    account_id: 'acc-1',
+    plan: 'month1' as const,
+    amount: PLANS.month1.amount,
+    status: 'pending' as const,
+  };
+
+  it('extends the entitlement when the conditional flip affects a row (winner)', async () => {
+    const fake = makeFakeAdmin({
+      paymentRow: pendingRow,
+      flippedRows: [{ order_id: 'tb_order-7' }], // won: 1 row flipped
+      entitlementRow: { account_id: 'acc-1', paid_until: null },
+    });
+    (getSupabaseAdmin as ReturnType<typeof vi.fn>).mockReturnValue(fake.client);
+
+    await extendEntitlementForPaidOrder(pendingRow, 'pk_live_winner');
+
+    // The conditional update ran with the trailing .select('order_id')
+    const updateOp = fake.ops.find((o) => o.table === 'payments' && o.op === 'update');
+    expect(updateOp).toBeDefined();
+    expect(updateOp!.selectCols).toBe('order_id');
+
+    // Winner extends the entitlement exactly once
+    const upserts = fake.ops.filter((o) => o.table === 'entitlements' && o.op === 'upsert');
+    expect(upserts).toHaveLength(1);
+  });
+
+  it('does NOT extend the entitlement when the flip affects 0 rows (lost the race)', async () => {
+    const fake = makeFakeAdmin({
+      paymentRow: pendingRow,
+      flippedRows: [], // lost: another concurrent call already flipped pending→paid
+      entitlementRow: { account_id: 'acc-1', paid_until: null },
+    });
+    (getSupabaseAdmin as ReturnType<typeof vi.fn>).mockReturnValue(fake.client);
+
+    await extendEntitlementForPaidOrder(pendingRow, 'pk_live_loser');
+
+    // Update was attempted (the flip) …
+    expect(fake.ops.some((o) => o.table === 'payments' && o.op === 'update')).toBe(true);
+    // … but NO entitlement upsert — the loser must not double-extend.
+    expect(fake.ops.some((o) => o.table === 'entitlements' && o.op === 'upsert')).toBe(false);
+  });
+
+  it('extends exactly once across concurrent winner + loser calls (no double extension)', async () => {
+    // Winner: flip returns 1 row.
+    const winnerFake = makeFakeAdmin({
+      paymentRow: pendingRow,
+      flippedRows: [{ order_id: 'tb_order-7' }],
+      entitlementRow: { account_id: 'acc-1', paid_until: null },
+    });
+    // Loser: same order, but the conditional flip returns 0 rows.
+    const loserFake = makeFakeAdmin({
+      paymentRow: pendingRow,
+      flippedRows: [],
+      entitlementRow: { account_id: 'acc-1', paid_until: null },
+    });
+
+    // Winner runs against its client, loser against its client (each models one
+    // of the two concurrent callers hitting the same DB row).
+    (getSupabaseAdmin as ReturnType<typeof vi.fn>).mockReturnValue(winnerFake.client);
+    await extendEntitlementForPaidOrder(pendingRow, 'pk_live_winner');
+
+    (getSupabaseAdmin as ReturnType<typeof vi.fn>).mockReturnValue(loserFake.client);
+    await extendEntitlementForPaidOrder(pendingRow, 'pk_live_loser');
+
+    const winnerUpserts = winnerFake.ops.filter(
+      (o) => o.table === 'entitlements' && o.op === 'upsert'
+    );
+    const loserUpserts = loserFake.ops.filter(
+      (o) => o.table === 'entitlements' && o.op === 'upsert'
+    );
+
+    // Exactly-once: only the winner upserts the entitlement.
+    expect(winnerUpserts).toHaveLength(1);
+    expect(loserUpserts).toHaveLength(0);
   });
 });
