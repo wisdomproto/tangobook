@@ -63,6 +63,10 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - **동일 title 차단**: `R2Repository.saveStorybook` 에서 신규/title 변경 시 체크. 충돌 = `AppError(409, '같은 이름의 동화책이...')`. variant `__L\d+$`(같은 baseId) / storybook↔phonics 는 예외.
 - `normalizeStorybook` 가 `keyObjectImages[]` null entry 필터링(일부 책 silent 404 방지).
 
+## 영상 렌더 화질
+- **Remotion 렌더**(오디오북·이북: `audiobook.service.ts`·`book-v2.service.ts`·`scripts/mosquito-render.ts`) `renderMedia` = `imageFormat:'png'`(기본 jpeg/q80 아티팩트 제거) + `scale:1.5`(컴포지션 720p→1080p) + `crf:16`. **longform**(`longform.service.ts`) = 1080p + preset `medium` + `crf 18`. 컴포지션 기본 해상도 `RESOLUTIONS`(`packages/remotion/src/types.ts`)는 720p — 4K는 생성 이미지 해상도부터 올려야(Imagen `sampleImageSize`).
+- **AI 영상 업스케일**: `scripts/upscale-for-upload.sh` (fast=lanczos 1080p / ai=Real-ESRGAN x4plus). Grok 영상=720p 천장. 상세 → memory `video-quality-upscale-2026-06-30`.
+
 ## 모듈별 가이드 (해당 폴더 작업 시 자동 로드)
 - 동화책 (CRUD/사이드바/복사) → [features/storybook/CLAUDE.md](packages/client/src/features/storybook/CLAUDE.md)
 - 학습 게임 → [features/games/CLAUDE.md](packages/client/src/features/games/CLAUDE.md)

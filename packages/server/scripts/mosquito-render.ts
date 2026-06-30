@@ -39,6 +39,9 @@ for (const lang of LANGS) {
     composition,
     serveUrl: bundlePath,
     codec: 'h264',
+    imageFormat: 'png', // 무손실 중간프레임 — JPEG 아티팩트 제거
+    scale: 1.5, // 1280x904 → 1920x1356 (픽셀밀도 ↑)
+    crf: 16, // h264 기본 18 → 16
     outputLocation: out,
     inputProps,
     ...(chromiumPath ? { browserExecutable: chromiumPath } : {}),

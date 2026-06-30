@@ -184,6 +184,9 @@ export const AudiobookService = {
         composition,
         serveUrl: bundlePath,
         codec: 'h264',
+        imageFormat: 'png', // 무손실 중간프레임 — JPEG 압축 아티팩트 제거(텍스트/그라데이션)
+        scale: 1.5, // 1280x720 → 1920x1080 (레이아웃 px 유지, 픽셀밀도만 ↑). 4K면 3
+        crf: 16, // h264 기본 18 → 16 (약간 더 고품질)
         outputLocation: outputPath,
         inputProps: renderData,
         timeoutInMilliseconds: 600000, // 10 minutes

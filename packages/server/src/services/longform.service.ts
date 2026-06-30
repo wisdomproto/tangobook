@@ -845,10 +845,10 @@ export const LongformService = {
 
     const [w, h] =
       project.aspectRatio === '9:16'
-        ? [720, 1280]
+        ? [1080, 1920]
         : project.aspectRatio === '1:1'
-          ? [720, 720]
-          : [1280, 720];
+          ? [1080, 1080]
+          : [1920, 1080];
 
     // 한글 폰트 (Dockerfile에서 NanumGothic 설치됨)
     const FONT_PATHS = [
@@ -924,7 +924,9 @@ export const LongformService = {
             '-c:v',
             'libx264',
             '-preset',
-            'ultrafast',
+            'medium',
+            '-crf',
+            '18',
             '-an', // 오디오 제거 (클라이언트에서 별도 믹싱)
             '-y',
             outputPath,
@@ -944,7 +946,9 @@ export const LongformService = {
             '-c:v',
             'libx264',
             '-preset',
-            'ultrafast',
+            'medium',
+            '-crf',
+            '18',
             '-an',
             '-y',
             outputPath,
