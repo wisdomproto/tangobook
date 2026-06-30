@@ -28,10 +28,14 @@
  *   Expected: response includes `access-control-allow-origin: https://tangobook.co.kr`
  */
 
-import type { CardCanvasData } from '../types/cards';
+import type { CardCanvasData, TextBlock } from '../types/cards';
 
 const CANVAS_W = 1080;
 const CANVAS_H = 1350; // 4:5
+
+// Design space — all block coords/sizes are authored against this; renderers scale up.
+const DESIGN_W = 300;
+const DESIGN_H = 375; // 4:5
 
 /**
  * Greedy per-character word-wrap mirroring ContentFlow cardnews-panel.tsx:495-503.
@@ -67,6 +71,63 @@ export function wrapLines(measure: (text: string) => number, text: string, maxW:
   return lines;
 }
 
+// ─── Zone-fit font sizing ─────────────────────────────────────────────────────
+
+let _measureCtx: CanvasRenderingContext2D | null = null;
+function getMeasureCtx(): CanvasRenderingContext2D | null {
+  if (_measureCtx) return _measureCtx;
+  if (typeof document === 'undefined') return null;
+  _measureCtx = document.createElement('canvas').getContext('2d');
+  return _measureCtx;
+}
+
+/**
+ * Largest design-space font size (≤ baseSize) at which `text`, wrapped to
+ * `widthPct` of the card, fits within `fitHeightPct` of the card height.
+ * Measured in DESIGN space (300×375) via an offscreen canvas, so all three
+ * renderers (grid / modal / WebP) derive the same size and just apply their
+ * own scale factor.
+ */
+export function fitFontSize(opts: {
+  text: string;
+  widthPct: number;
+  fitHeightPct: number;
+  baseSize: number;
+  minSize?: number;
+  lineHeight?: number;
+  fontWeight: string;
+  fontFamily?: string;
+}): number {
+  const ctx = getMeasureCtx();
+  const min = opts.minSize ?? 10;
+  const lh = opts.lineHeight ?? 1.4;
+  const maxW = (opts.widthPct / 100) * DESIGN_W;
+  const maxH = (opts.fitHeightPct / 100) * DESIGN_H;
+  let fs = opts.baseSize;
+  if (!ctx || !opts.text) return fs;
+  while (fs > min) {
+    ctx.font = `${opts.fontWeight} ${fs}px "${opts.fontFamily ?? 'Noto Sans KR'}", sans-serif`;
+    const lines = wrapLines((t) => ctx.measureText(t).width, opts.text, maxW);
+    if (lines.length * fs * lh <= maxH) break;
+    fs -= 1;
+  }
+  return fs;
+}
+
+/** Effective design-space font size for a block — zone-fitted if `fitHeight` is set. */
+export function effectiveFontSize(block: TextBlock): number {
+  if (!block.fitHeight) return block.fontSize;
+  return fitFontSize({
+    text: block.text,
+    widthPct: block.width,
+    fitHeightPct: block.fitHeight,
+    baseSize: block.fontSize,
+    lineHeight: block.lineHeight ?? 1.4,
+    fontWeight: String(block.fontWeight),
+    fontFamily: block.fontFamily,
+  });
+}
+
 // ─── Internal helpers ───────────────────────────────────────────────────────
 
 function isDataUrl(url: string): boolean {
@@ -81,27 +142,68 @@ function proxyUrl(url: string): string {
   return `/api/mkt/storage/proxy?url=${encodeURIComponent(url)}`;
 }
 
+function drawDivider(ctx: CanvasRenderingContext2D, data: CardCanvasData): void {
+  if (!data.divider) return;
+  const dy = (data.divider.y / 100) * CANVAS_H;
+  const dx = ((data.divider.x ?? 8) / 100) * CANVAS_W;
+  const dw = ((data.divider.w ?? 18) / 100) * CANVAS_W;
+  const h = Math.max(3, CANVAS_W * 0.006);
+  ctx.fillStyle = data.divider.color;
+  if (typeof ctx.roundRect === 'function') {
+    ctx.beginPath();
+    ctx.roundRect(dx, dy, dw, h, h / 2);
+    ctx.fill();
+  } else {
+    ctx.fillRect(dx, dy, dw, h);
+  }
+}
+
 function drawTextBlocks(ctx: CanvasRenderingContext2D, data: CardCanvasData): void {
+  drawDivider(ctx, data);
+
   for (const block of data.textBlocks) {
     if (!block.text || block.hidden) continue;
 
     const x = (block.x / 100) * CANVAS_W;
     const y = (block.y / 100) * CANVAS_H;
-    const maxW = (block.width / 100) * CANVAS_W;
-    // Scale font size from the 300-wide design space to the 1080-wide export canvas.
-    const fs = block.fontSize * (CANVAS_W / 300);
+    // Zone-fit (if fitHeight set) then scale from the 300-wide design space to the 1080-wide canvas.
+    const fs = effectiveFontSize(block) * (CANVAS_W / 300);
 
-    ctx.fillStyle = block.color;
     ctx.font = `${block.fontWeight} ${fs}px "${block.fontFamily ?? 'Noto Sans KR'}", sans-serif`;
-    ctx.textAlign = block.textAlign as 'left' | 'center' | 'right';
     ctx.textBaseline = 'top';
+
+    // Pill mode — rounded background sized to a single line of text (category label / page badge).
+    if (block.pill) {
+      const tw = ctx.measureText(block.text).width;
+      const padX = fs * 0.55;
+      const padY = fs * 0.32;
+      const pw = tw + padX * 2;
+      const ph = fs + padY * 2;
+      ctx.fillStyle = block.pillColor ?? 'rgba(0,0,0,0.06)';
+      if (typeof ctx.roundRect === 'function') {
+        ctx.beginPath();
+        ctx.roundRect(x, y, pw, ph, ph / 2);
+        ctx.fill();
+      } else {
+        ctx.fillRect(x, y, pw, ph);
+      }
+      ctx.fillStyle = block.color;
+      ctx.textAlign = 'left';
+      ctx.fillText(block.text, x + padX, y + padY);
+      continue;
+    }
+
+    const maxW = (block.width / 100) * CANVAS_W;
+    ctx.fillStyle = block.color;
+    ctx.textAlign = block.textAlign as 'left' | 'center' | 'right';
 
     // X anchor depends on text alignment
     const tx =
       block.textAlign === 'center' ? x + maxW / 2 : block.textAlign === 'right' ? x + maxW : x;
 
+    const lh = block.lineHeight ?? 1.4;
     const lines = wrapLines((t) => ctx.measureText(t).width, block.text, maxW);
-    lines.forEach((line, li) => ctx.fillText(line, tx, y + li * fs * 1.4));
+    lines.forEach((line, li) => ctx.fillText(line, tx, y + li * fs * lh));
   }
 }
 
@@ -168,12 +270,35 @@ export function renderCardToBlob(data: CardCanvasData): Promise<Blob> {
     let triedProxy = false;
 
     const drawImageThenExport = (img: HTMLImageElement) => {
-      // Scale image to canvas width, center vertically around imageY %.
-      const scale = CANVAS_W / img.naturalWidth;
-      const imgH = img.naturalHeight * scale;
-      const yCenter = (data.imageY / 100) * CANVAS_H;
-      const drawY = yCenter - imgH / 2;
-      ctx.drawImage(img, 0, drawY, CANVAS_W, imgH);
+      if (data.imageRect) {
+        // Box mode: cover-fit into a rounded rect (title above / image center / body below).
+        const bx = (data.imageRect.x / 100) * CANVAS_W;
+        const by = (data.imageRect.y / 100) * CANVAS_H;
+        const bw = (data.imageRect.w / 100) * CANVAS_W;
+        const bh = (data.imageRect.h / 100) * CANVAS_H;
+        // Full-bleed (covers the whole card) → square corners (Instagram standard).
+        const isFull = data.imageRect.w >= 99 && data.imageRect.h >= 99;
+        const radius = isFull ? 0 : bw * 0.04;
+        const sc = Math.max(bw / img.naturalWidth, bh / img.naturalHeight);
+        const dw = img.naturalWidth * sc;
+        const dh = img.naturalHeight * sc;
+        const dx = bx + (bw - dw) / 2;
+        const dy = by + (bh - dh) / 2;
+        ctx.save();
+        ctx.beginPath();
+        if (typeof ctx.roundRect === 'function') ctx.roundRect(bx, by, bw, bh, radius);
+        else ctx.rect(bx, by, bw, bh);
+        ctx.clip();
+        ctx.drawImage(img, dx, dy, dw, dh);
+        ctx.restore();
+      } else {
+        // Full-width mode: scale to canvas width, center vertically around imageY %.
+        const scale = CANVAS_W / img.naturalWidth;
+        const imgH = img.naturalHeight * scale;
+        const yCenter = (data.imageY / 100) * CANVAS_H;
+        const drawY = yCenter - imgH / 2;
+        ctx.drawImage(img, 0, drawY, CANVAS_W, imgH);
+      }
 
       drawTextBlocks(ctx, data);
 

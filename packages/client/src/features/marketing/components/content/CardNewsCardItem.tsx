@@ -12,12 +12,15 @@ import {
   AlignCenter,
   AlignRight,
   AlignJustify,
+  Copy,
+  Check,
 } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Textarea } from '../../ui/textarea';
 import type { InstagramCard } from '../../types/database';
 import type { TextBlock, CardCanvasData } from '../../types/cards';
 export type { TextBlock, CardCanvasData } from '../../types/cards';
+import { effectiveFontSize } from '../../lib/canvas-export';
 import { cn } from '../../lib/utils';
 import { generateId } from '../../lib/utils';
 
@@ -424,20 +427,44 @@ function CardCanvas({
       {/* Grid guides */}
       <GridGuides light={light} show={isDragging || isDraggingImage || isResizing} />
 
-      {/* Image layer — full width, natural height, vertical drag */}
+      {/* Image layer — box mode (rounded center box) or full-width (vertical drag) */}
       {canvasData.imageUrl ? (
-        <div
-          className="absolute inset-x-0 z-[2] cursor-ns-resize"
-          style={{ top: `${canvasData.imageY}%`, transform: 'translateY(-50%)' }}
-          onPointerDown={handleImagePointerDown}
-        >
-          <img src={canvasData.imageUrl} alt="" className="w-full h-auto pointer-events-none" />
-          {isGeneratingImage && (
-            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-              <Loader2 size={24} className="animate-spin text-white" />
-            </div>
-          )}
-        </div>
+        canvasData.imageRect ? (
+          <div
+            className="absolute z-[2] overflow-hidden"
+            style={{
+              left: `${canvasData.imageRect.x}%`,
+              top: `${canvasData.imageRect.y}%`,
+              width: `${canvasData.imageRect.w}%`,
+              height: `${canvasData.imageRect.h}%`,
+              borderRadius: canvasData.imageRect.w >= 99 && canvasData.imageRect.h >= 99 ? 0 : '5%',
+            }}
+          >
+            <img
+              src={canvasData.imageUrl}
+              alt=""
+              className="w-full h-full object-cover pointer-events-none"
+            />
+            {isGeneratingImage && (
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                <Loader2 size={24} className="animate-spin text-white" />
+              </div>
+            )}
+          </div>
+        ) : (
+          <div
+            className="absolute inset-x-0 z-[2] cursor-ns-resize"
+            style={{ top: `${canvasData.imageY}%`, transform: 'translateY(-50%)' }}
+            onPointerDown={handleImagePointerDown}
+          >
+            <img src={canvasData.imageUrl} alt="" className="w-full h-auto pointer-events-none" />
+            {isGeneratingImage && (
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                <Loader2 size={24} className="animate-spin text-white" />
+              </div>
+            )}
+          </div>
+        )
       ) : (
         isGeneratingImage && (
           <div className="absolute inset-0 z-[2] flex items-center justify-center">
@@ -465,7 +492,8 @@ function CardCanvas({
             <div
               key={block.id}
               className={cn(
-                'absolute z-[3] cursor-move px-1 rounded transition-shadow overflow-hidden',
+                'absolute z-[3] cursor-move px-1 rounded transition-shadow',
+                block.pill ? 'overflow-visible' : 'overflow-hidden',
                 isSelected
                   ? 'ring-2 ring-blue-400 ring-offset-1'
                   : 'hover:ring-1 hover:ring-white/30'
@@ -473,7 +501,7 @@ function CardCanvas({
               style={{
                 left: `${block.x}%`,
                 top: `${block.y}%`,
-                width: `${block.width}%`,
+                width: block.pill ? 'auto' : `${block.width}%`,
                 ...(block.height ? { height: `${block.height}%` } : {}),
               }}
               onClick={(e) => {
@@ -483,16 +511,28 @@ function CardCanvas({
               onPointerDown={(e) => handleBlockPointerDown(e, block)}
             >
               <p
-                className="whitespace-pre-line break-words leading-tight pointer-events-none h-full"
+                className={cn(
+                  'break-words leading-tight pointer-events-none h-full',
+                  block.pill ? 'whitespace-nowrap' : 'whitespace-pre-line'
+                )}
                 style={{
-                  fontSize: `${block.fontSize}px`,
+                  fontSize: `${effectiveFontSize(block)}px`,
                   color: block.color,
                   fontFamily: block.fontFamily ? `"${block.fontFamily}", sans-serif` : undefined,
                   fontWeight: block.fontWeight,
                   textAlign: block.textAlign,
+                  ...(block.lineHeight ? { lineHeight: block.lineHeight } : {}),
                   textShadow: block.shadow
                     ? '0 1px 4px rgba(0,0,0,0.7), 0 0 8px rgba(0,0,0,0.3)'
                     : undefined,
+                  ...(block.pill
+                    ? {
+                        backgroundColor: block.pillColor ?? 'rgba(0,0,0,0.06)',
+                        borderRadius: '999px',
+                        padding: '0.28em 0.7em',
+                        display: 'inline-block',
+                      }
+                    : {}),
                 }}
               >
                 {block.text || ' '}
@@ -516,6 +556,21 @@ function CardCanvas({
             </div>
           );
         })}
+
+      {/* Divider — short accent line between image and body */}
+      {canvasData.divider && (
+        <div
+          className="absolute z-[2] pointer-events-none"
+          style={{
+            left: `${canvasData.divider.x ?? 8}%`,
+            top: `${canvasData.divider.y}%`,
+            width: `${canvasData.divider.w ?? 18}%`,
+            height: 3,
+            borderRadius: 999,
+            backgroundColor: canvasData.divider.color,
+          }}
+        />
+      )}
 
       {/* Index badge */}
       <span className="absolute top-1.5 left-1.5 text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/30 text-white/70 z-10">
@@ -693,6 +748,7 @@ export function CardNewsCardItem({
   const canvasData = parseCanvasData(card.text_style, card.background_image_url);
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null);
   const [showPrompt, setShowPrompt] = useState(false);
+  const [promptCopied, setPromptCopied] = useState(false);
   const selectedBlock = canvasData.textBlocks.find((b) => b.id === selectedBlockId) ?? null;
 
   const saveCanvas = useCallback(
@@ -874,24 +930,44 @@ export function CardNewsCardItem({
         </div>
       )}
 
-      {/* Image prompt toggle */}
+      {/* Image prompt toggle + copy */}
       <div className="px-1" onClick={(e) => e.stopPropagation()}>
-        <button
-          onClick={() => setShowPrompt(!showPrompt)}
-          className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground"
-        >
-          <ChevronDown
-            size={10}
-            className={cn('transition-transform', !showPrompt && '-rotate-90')}
-          />
-          이미지 프롬프트
-        </button>
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => setShowPrompt(!showPrompt)}
+            className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground"
+          >
+            <ChevronDown
+              size={10}
+              className={cn('transition-transform', !showPrompt && '-rotate-90')}
+            />
+            이미지 프롬프트
+          </button>
+          {card.image_prompt && (
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(card.image_prompt ?? '');
+                setPromptCopied(true);
+                setTimeout(() => setPromptCopied(false), 1500);
+              }}
+              className={cn(
+                'flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded border transition-colors',
+                promptCopied
+                  ? 'border-primary text-primary'
+                  : 'border-border text-muted-foreground hover:text-foreground hover:bg-muted'
+              )}
+            >
+              {promptCopied ? <Check size={10} /> : <Copy size={10} />}
+              {promptCopied ? '복사됨' : '프롬프트 복사'}
+            </button>
+          )}
+        </div>
         {showPrompt && (
           <Textarea
             value={card.image_prompt ?? ''}
             onChange={(e) => onUpdate(card.id, { image_prompt: e.target.value })}
             placeholder="이미지 생성 프롬프트..."
-            className="mt-1 h-14 resize-none overflow-y-auto text-[10px]"
+            className="mt-1 h-20 resize-none overflow-y-auto text-[10px]"
           />
         )}
       </div>

@@ -343,23 +343,23 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 
 ## 채널 구현 현황
 
-| 채널                             | 상태 | 컴포넌트                                                                                                |
-| -------------------------------- | ---- | ------------------------------------------------------------------------------------------------------- |
-| 기본글 (Base Article)            | 완료 | `BaseArticlePanel.tsx` + TipTap 3.x                                                                     |
-| N블로그 (Naver SEO)              | 완료 | `BlogPanel.tsx` — 4-step workflow (키워드→구조→생성→SEO)                                                |
-| 내부블로그 (Google/GEO)          | 완료 | `InternalBlogPanel.tsx`                                                                                 |
-| 카드뉴스 (Instagram)             | 완료 | `CardNewsPanel.tsx` — Canvas 편집기 + WebP export + 일괄 이미지 생성                                    |
-| 스레드 (Threads)                 | 완료 | `ThreadsPanel.tsx`                                                                                      |
-| 유튜브 (Phase 1c)                | 완료 | `YoutubePanel.tsx` — AI 대본, 씬별 이미지, 타임라인, 미리보기                                           |
-| 릴스 (숏폼)                      | 완료 | `ReelsPanel.tsx` — 스토리보드 iframe / 영상제작(언어별 mp4+커버) / 에디터 프리뷰. `숏폼` 탭 active=true |
-| 번역 (Phase 1d)                  | 완료 | `ChannelTranslationView.tsx` — 6채널 번역 overlay (non-ko)                                              |
-| 이미지 에디터 (Phase 1d)         | 완료 | `ImageEditorDialog.tsx` — blog/youtube ImageCardWidget 에서 Pencil                                      |
-| 키워드/아이디어 (Phase 2)        | 완료 | `IdeasDashboard.tsx` — 5 서브탭 (N키워드/G키워드/유행/AI아이디어/보관함)                                |
-| 발행 (Phase 3)                   | 완료 | `PublishDashboard.tsx` — self_hosted 자동 스케줄러 + 발행 큐/달력 + 5단계 일괄 예약 + Naver 수동 복사   |
-| 분석 (Phase 4)                   | 완료 | `SiteAnalysisDashboard.tsx`(GA4+SEO) · `MetaAnalyticsDashboard.tsx`(5 플랫폼) — server-proxy + recharts |
-| 모니터링/댓글 (Phase 5)          | 완료 | `MonitoringDashboard.tsx` — per-keyword 스크레이프/YouTube/IG 피드 + AI 댓글 (영속 키워드)              |
-| 광고 (Phase 5)                   | 완료 | `AdsDashboard.tsx` — 캠페인 기획 목업 (client-only) + 발행 레코드 read                                  |
-| 경쟁사 (갭/순위/SERP, Phase 4+5) | 완료 | `CompetitorsDashboard.tsx` — 콘텐츠 갭 + 키워드 순위(Gemini) + SERP 분석(DataForSEO)                    |
+| 채널                             | 상태 | 컴포넌트                                                                                                                                                          |
+| -------------------------------- | ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 기본글 (Base Article)            | 완료 | `BaseArticlePanel.tsx` + TipTap 3.x                                                                                                                               |
+| N블로그 (Naver SEO)              | 완료 | `BlogPanel.tsx` — 4-step workflow (키워드→구조→생성→SEO)                                                                                                          |
+| 내부블로그 (Google/GEO)          | 완료 | `InternalBlogPanel.tsx`                                                                                                                                           |
+| 카드뉴스 (Instagram)             | 완료 | `CardNewsPanel.tsx` — 이미지 전용 풀블리드 카드 + 카드별 AI 프롬프트(한국어 텍스트 포함)·캐릭터 레퍼런스 바·전체 프롬프트 복사 (+ 레거시 Canvas 편집/WebP export) |
+| 스레드 (Threads)                 | 완료 | `ThreadsPanel.tsx`                                                                                                                                                |
+| 유튜브 (Phase 1c)                | 완료 | `YoutubePanel.tsx` — AI 대본, 씬별 이미지, 타임라인, 미리보기                                                                                                     |
+| 릴스 (숏폼)                      | 완료 | `ReelsPanel.tsx` — 스토리보드 iframe / 영상제작(언어별 mp4+커버) / 에디터 프리뷰. `숏폼` 탭 active=true                                                           |
+| 번역 (Phase 1d)                  | 완료 | `ChannelTranslationView.tsx` — 6채널 번역 overlay (non-ko)                                                                                                        |
+| 이미지 에디터 (Phase 1d)         | 완료 | `ImageEditorDialog.tsx` — blog/youtube ImageCardWidget 에서 Pencil                                                                                                |
+| 키워드/아이디어 (Phase 2)        | 완료 | `IdeasDashboard.tsx` — 5 서브탭 (N키워드/G키워드/유행/AI아이디어/보관함)                                                                                          |
+| 발행 (Phase 3)                   | 완료 | `PublishDashboard.tsx` — self_hosted 자동 스케줄러 + 발행 큐/달력 + 5단계 일괄 예약 + Naver 수동 복사                                                             |
+| 분석 (Phase 4)                   | 완료 | `SiteAnalysisDashboard.tsx`(GA4+SEO) · `MetaAnalyticsDashboard.tsx`(5 플랫폼) — server-proxy + recharts                                                           |
+| 모니터링/댓글 (Phase 5)          | 완료 | `MonitoringDashboard.tsx` — per-keyword 스크레이프/YouTube/IG 피드 + AI 댓글 (영속 키워드)                                                                        |
+| 광고 (Phase 5)                   | 완료 | `AdsDashboard.tsx` — 캠페인 기획 목업 (client-only) + 발행 레코드 read                                                                                            |
+| 경쟁사 (갭/순위/SERP, Phase 4+5) | 완료 | `CompetitorsDashboard.tsx` — 콘텐츠 갭 + 키워드 순위(Gemini) + SERP 분석(DataForSEO)                                                                              |
 
 ## 핵심 Gotchas (반드시 확인)
 
@@ -491,6 +491,23 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 - **일괄 파생** (`derive-cardnews-storyboards.mjs`): 블로그 JSON(섹션·이미지프롬프트·키워드·메타) + 기본글 → 카드뉴스·스토리보드 사실 기반 자동 파생(`--all`/`--ids`/`--force`, 기존 손수본 스킵). 신데렐라·토끼는 손수 샘플.
 - **릴스 데이터(마이그레이션 0)**: 언어별 {videoUrl, coverUrl} 맵은 카드뉴스와 같은 `mkt_instagram_contents` 행의 `video_settings.reels[lang]` 에 저장. 영상/커버 업로드는 `uploadToR2`(category='reels').
 - 시드 실행: `SUPABASE_URL=… SUPABASE_SERVICE_ROLE_KEY=… node packages/server/scripts/seed-marketing-{blogs,cardnews}.mjs --owner-email kil210@gmail.com --all`. **service-role 키는 .env/CLI 만 — 절대 커밋 금지(GitHub 푸시 보호)**.
+
+## 카드뉴스 재설계 — 이미지 전용 카드 + 카드별 AI 프롬프트 (2026-06-30)
+
+기존 "텍스트 템플릿 오버레이 + 동화책 삽화 재사용" 방식을 폐기하고 **카드 = 사용자가 붙여넣는 완성형 AI 이미지** 워크플로우로 전환(152권/912장 전체 적용).
+
+- **카드 = 텍스트 없는 풀블리드 빈 박스**: `fill-cardnews-design.mjs`(서버 의존 X, Supabase 직접)가 모든 카드를 `text_style={bgColor, imageUrl:null, imageRect:{x:0,y:0,w:100,h:100}, textBlocks:[]}` + `background_image_url:null` 로 초기화. 사용자가 카드별 AI 이미지를 **Ctrl+V/업로드** → 풀블리드(사각 모서리=IG 표준)로 카드 채움.
+- **카드별 AI 프롬프트** (`gen-cardnews-prompts.mjs`, Gemini `gemini-2.5-flash-lite` + 503/429 retry·backoff): 시드 `_data/marketing/cardnews/<id>.json` 의 슬라이드 한국어 제목·내용을 읽어 **"완성된 카드뉴스 슬라이드(풀프레임 장면 + 한국어 텍스트 렌더)"** 프롬프트 생성 → `mkt_instagram_cards.image_prompt`.
+  - **명작(classic)**: 캐릭터를 이름·외형으로 묘사 + `Match the exact art style of the attached character reference image` 접미(STYLE_SUFFIX). ⚠️ **내부 스타일 ID(`style-1234…`)는 절대 프롬프트에 넣지 않음** — 스타일은 캐릭터 레퍼런스 이미지로만 지정(Gemini 에 artStyle id 미전달 + "no style code" 룰).
+  - **자연관찰(nature)**: 실제 대상 사실 묘사, 캐릭터·스타일접미 없음.
+  - 한국어 텍스트 = `textBlock()` 으로 프롬프트 끝에 verbatim 삽입(제목 상단 / 캡션 하단, 둥근 가독 폰트). 실행 시 **서버 3500 필요**(캐릭터·artStyle fetch). `[--all|--ids=|--title=] [--dry-run]`.
+- **CardNewsPanel UI**:
+  - **캐릭터 레퍼런스 바**(명작만): `api/use-storybook-ref.ts`(`GET /api/storybooks/:id`; `storybookIdFromMemo(content.memo)` + `content.category==='classic'` 분기)로 캐릭터 `referenceImage` 썸네일 표시 → 클릭 시 이미지 클립보드 복사(`/api/mkt/storage/proxy`→canvas→`ClipboardItem('image/png')`, 실패 시 새 탭) → AI 툴에 붙여넣어 캐릭터·그림체 일관성 유지.
+  - **프롬프트 복사**: 카드별 "프롬프트 복사"(`CardNewsCardItem`) + 툴바 "전체 프롬프트"(`[1/6]…` 일괄).
+  - **카드 그리드**: 반응형 `gridTemplateColumns: repeat(auto-fill, minmax(185px, 1fr))` 로 축소.
+  - **PreviewModal**: 그리드·WebP export 와 동일 렌더 로직으로 통일(이전엔 박스/pill/divider/fit 미지원 구버전이었음).
+- **렌더러 확장**(텍스트 카드용 잔존 기능 — 현재 이미지 전용 카드는 미사용이나 코드 보존): `TextBlock.{pill,pillColor,lineHeight,fitHeight}` · `CardCanvasData.divider` · `canvas-export.ts` `fitFontSize`/`effectiveFontSize`(영역맞춤 zone-fit, 3 렌더러 공용) · `imageRect` 박스 모드(`w≥99&&h≥99` 풀블리드 시 라운딩 0).
+- 상세 → memory `cardnews-ai-image-prompts-2026-06-30`.
 
 ## 동화책 → 다국어 키워드 전략 (블로그 SEO 선행 단계)
 

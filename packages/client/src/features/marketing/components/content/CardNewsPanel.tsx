@@ -31,6 +31,8 @@ import {
   Trash2,
   ChevronLeft,
   ChevronRight,
+  Copy,
+  Check,
 } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { Badge } from '../../ui/badge';
@@ -53,6 +55,11 @@ import { useCardImageGeneration } from '../../hooks/use-card-image-generation';
 import { useChannelModels } from '../../api/use-channel-models';
 import { useContent } from '../../api/use-contents';
 import {
+  useStorybookRef,
+  storybookIdFromMemo,
+  type StorybookCharacterRef,
+} from '../../api/use-storybook-ref';
+import {
   useCreateInstagramContent,
   useUpdateInstagramContent,
   useDeleteInstagramContent,
@@ -72,7 +79,7 @@ import {
 import { useBatchImageStore, selectBatchProgress } from '../../store/batch-image-store';
 import { useUIStore } from '../../store/ui-store';
 import { buildCardNewsImagePromptsPrompt, NO_TEXT_IMAGE_RULE } from '../../lib/prompt-builder';
-import { renderCardToBlob } from '../../lib/canvas-export';
+import { renderCardToBlob, effectiveFontSize } from '../../lib/canvas-export';
 import { supabase } from '../../api/supabase';
 import { generateId, cn } from '../../lib/utils';
 import type {
@@ -293,6 +300,85 @@ function TemplateSidebar({
   );
 }
 
+// ─── Character reference bar (classic storybooks only) ──────────────────────────
+
+/** Copy an R2 image to the clipboard as PNG (via same-origin proxy → canvas). */
+async function copyImageToClipboard(url: string): Promise<boolean> {
+  try {
+    const res = await fetch(`/api/mkt/storage/proxy?url=${encodeURIComponent(url)}`);
+    const blob = await res.blob();
+    const bitmap = await createImageBitmap(blob);
+    const canvas = document.createElement('canvas');
+    canvas.width = bitmap.width;
+    canvas.height = bitmap.height;
+    canvas.getContext('2d')?.drawImage(bitmap, 0, 0);
+    const png = await new Promise<Blob>((resolve, reject) =>
+      canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob null'))), 'image/png')
+    );
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': png })]);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * 명작 동화의 캐릭터 레퍼런스 썸네일 바. 각 캐릭터 클릭 시 이미지를 클립보드로 복사
+ * (실패 시 새 탭) → AI 이미지 생성 툴에 붙여넣어 캐릭터 일관성을 유지한다.
+ */
+function CharacterRefBar({ storybookId }: { storybookId: string }) {
+  const { data } = useStorybookRef(storybookId, true);
+  const [copied, setCopied] = useState<string | null>(null);
+  const chars = data?.characters ?? [];
+  if (!chars.length) return null;
+
+  const handleCopy = async (c: StorybookCharacterRef) => {
+    if (!c.referenceImage) return;
+    const ok = await copyImageToClipboard(c.referenceImage);
+    if (ok) {
+      setCopied(c.name);
+      setTimeout(() => setCopied((v) => (v === c.name ? null : v)), 1500);
+    } else {
+      window.open(c.referenceImage, '_blank');
+    }
+  };
+
+  return (
+    <div className="px-3 py-2 border-b border-border shrink-0">
+      <div className="text-[10px] text-muted-foreground mb-1.5">
+        🎭 캐릭터 레퍼런스 — 썸네일 클릭 시 이미지 복사, AI 이미지 생성 시 붙여넣어 캐릭터를
+        일관되게 유지하세요
+      </div>
+      <div className="flex items-start gap-2 flex-wrap">
+        {chars.map((c) => (
+          <div key={c.name} className="flex flex-col items-center gap-1 w-16">
+            <button
+              type="button"
+              onClick={() => handleCopy(c)}
+              title={`${c.name}${c.role ? ` (${c.role})` : ''} — 레퍼런스 이미지 복사`}
+              className="relative w-16 h-16 rounded-lg overflow-hidden border border-border bg-muted hover:ring-2 hover:ring-primary/40 transition-shadow"
+            >
+              {c.referenceImage ? (
+                <img src={c.referenceImage} alt={c.name} className="w-full h-full object-cover" />
+              ) : (
+                <span className="flex items-center justify-center w-full h-full text-[9px] text-muted-foreground text-center">
+                  이미지 없음
+                </span>
+              )}
+              <span className="absolute bottom-0.5 right-0.5 rounded bg-black/55 text-white p-0.5">
+                {copied === c.name ? <Check size={10} /> : <Copy size={10} />}
+              </span>
+            </button>
+            <span className="text-[9px] text-center leading-tight w-full truncate" title={c.name}>
+              {c.name}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── Preview Modal ─────────────────────────────────────────────────────────────
 
 interface PreviewModalProps {
@@ -330,7 +416,7 @@ function PreviewModal({ cards, initialIndex, onClose }: PreviewModalProps) {
         className="relative flex flex-col items-center gap-3"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Slide preview at 3× font */}
+        {/* Slide preview — mirrors CardNewsCardItem + canvas-export (box image / divider / pill). */}
         <div
           className="relative rounded-xl overflow-hidden"
           style={{
@@ -339,15 +425,46 @@ function PreviewModal({ cards, initialIndex, onClose }: PreviewModalProps) {
             backgroundColor: data?.bgColor ?? '#000',
           }}
         >
-          {data?.imageUrl && (
-            <img
-              src={data.imageUrl}
-              alt=""
-              className="absolute inset-x-0 object-cover pointer-events-none"
+          {data?.imageUrl &&
+            (data.imageRect ? (
+              <div
+                className="absolute overflow-hidden"
+                style={{
+                  left: `${data.imageRect.x}%`,
+                  top: `${data.imageRect.y}%`,
+                  width: `${data.imageRect.w}%`,
+                  height: `${data.imageRect.h}%`,
+                  borderRadius: '5%',
+                }}
+              >
+                <img
+                  src={data.imageUrl}
+                  alt=""
+                  className="w-full h-full object-cover pointer-events-none"
+                />
+              </div>
+            ) : (
+              <img
+                src={data.imageUrl}
+                alt=""
+                className="absolute inset-x-0 object-cover pointer-events-none"
+                style={{
+                  top: `${data.imageY}%`,
+                  transform: 'translateY(-50%)',
+                  width: '100%',
+                }}
+              />
+            ))}
+          {data?.divider && (
+            <div
+              className="absolute"
               style={{
-                top: `${data.imageY}%`,
-                transform: 'translateY(-50%)',
-                width: '100%',
+                left: `${data.divider.x ?? 8}%`,
+                top: `${data.divider.y}%`,
+                width: `${data.divider.w ?? 18}%`,
+                height: 3,
+                borderRadius: 999,
+                backgroundColor: data.divider.color,
               }}
             />
           )}
@@ -360,23 +477,27 @@ function PreviewModal({ cards, initialIndex, onClose }: PreviewModalProps) {
                 style={{
                   left: `${b.x}%`,
                   top: `${b.y}%`,
-                  width: `${b.width}%`,
-                  fontSize: b.fontSize * 0.9,
+                  width: b.pill ? 'auto' : `${b.width}%`,
+                  fontSize: effectiveFontSize(b) * 0.9,
                   color: b.color,
+                  fontFamily: b.fontFamily ? `"${b.fontFamily}", sans-serif` : undefined,
                   fontWeight: b.fontWeight,
                   textAlign: b.textAlign,
-                  lineHeight: 1.4,
-                  whiteSpace: 'pre-line',
+                  lineHeight: b.lineHeight ?? 1.4,
+                  whiteSpace: b.pill ? 'nowrap' : 'pre-line',
                   wordBreak: 'break-word',
+                  ...(b.pill
+                    ? {
+                        backgroundColor: b.pillColor ?? 'rgba(0,0,0,0.06)',
+                        borderRadius: '999px',
+                        padding: '0.28em 0.7em',
+                      }
+                    : {}),
                 }}
               >
                 {b.text}
               </div>
             ))}
-          {/* Index badge */}
-          <span className="absolute bottom-2 right-2 text-[10px] px-1.5 py-0.5 rounded bg-black/40 text-white/80">
-            {idx + 1}/{total}
-          </span>
         </div>
 
         {/* Navigation */}
@@ -431,6 +552,9 @@ function CardNewsPanelInner({
 }: CardNewsPanelInnerProps) {
   const contentId = content.id;
   const igContentId = igContent.id;
+  // 명작 동화(classic)만 캐릭터 레퍼런스를 노출. 자연관찰은 캐릭터 없음.
+  const storybookId = storybookIdFromMemo(content.memo);
+  const showCharacterRefs = content.category === 'classic' && !!storybookId;
 
   // ── Server-side cards → local mirror ──────────────────────────────────────
   const [localCards, setLocalCards] = useState<InstagramCard[]>(() =>
@@ -461,6 +585,7 @@ function CardNewsPanelInner({
   // ── Preview modal ─────────────────────────────────────────────────────────
   const [showPreview, setShowPreview] = useState(false);
   const [previewIndex, setPreviewIndex] = useState(0);
+  const [allPromptsCopied, setAllPromptsCopied] = useState(false);
 
   // ── Prompt dialog ─────────────────────────────────────────────────────────
   const [showPromptDialog, setShowPromptDialog] = useState(false);
@@ -1056,6 +1181,25 @@ function CardNewsPanelInner({
             <Eye size={11} /> 미리보기
           </Button>
 
+          {/* Copy all card prompts at once */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              const text = localCards
+                .map((c, i) => `[${i + 1}/${localCards.length}] ${(c.image_prompt ?? '').trim()}`)
+                .join('\n\n');
+              navigator.clipboard.writeText(text);
+              setAllPromptsCopied(true);
+              setTimeout(() => setAllPromptsCopied(false), 1500);
+            }}
+            disabled={!localCards.some((c) => c.image_prompt)}
+            className="h-7 text-[11px] gap-1"
+          >
+            {allPromptsCopied ? <Check size={11} /> : <Copy size={11} />}
+            {allPromptsCopied ? '복사됨' : '전체 프롬프트'}
+          </Button>
+
           {/* Reference image upload */}
           <label className="inline-flex items-center gap-1 h-7 px-2 text-[11px] rounded-md border border-border hover:bg-accent cursor-pointer transition-colors">
             <Upload size={11} />
@@ -1151,9 +1295,15 @@ function CardNewsPanelInner({
           </div>
         </div>
 
-        {/* Slide grid (2 columns) */}
+        {/* Character reference bar — classic storybooks only */}
+        {showCharacterRefs && storybookId && <CharacterRefBar storybookId={storybookId} />}
+
+        {/* Slide grid (compact, responsive) */}
         <div className="flex-1 overflow-y-auto p-3">
-          <div className="grid grid-cols-2 gap-3">
+          <div
+            className="grid gap-2"
+            style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(185px, 1fr))' }}
+          >
             {localCards.map((card, i) => (
               <CardNewsCardItem
                 key={card.id}
