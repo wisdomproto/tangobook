@@ -30,7 +30,7 @@ features/viewer/
 ## 뷰어 동작
 
 - **진입 시 TTS+이미지 버퍼링** → 완료 전 Mascot reading "준비 중" 로딩(`ttsReady` 게이트). `waitForTts` 는 **첫 페이지만** + `canplay`(readyState≥3) 대기(나머지 풀 백그라운드). **게이트엔 첫 페이지 이미지 로드(`new Image` onload)도 포함** — 음성/자막만 먼저 나오고 이미지가 늦게 뜨는 것 방지(`Promise.all([waitForTts, 첫이미지])`). **자동 넘김(`handleTtsEnded`)도 다음 페이지 이미지 onload 후 넘김**(캐시면 즉시, 상한 1.2s) → 빈 장면 방지. 완료 후 첫 페이지 + 자동재생(300ms). video/games/파닉스(비story) 는 버퍼링 skip.
-- TTS 끝나면 800ms 뒤 자동 페이지 넘김. **마지막 페이지** TTS 끝 or onNext → **BookDetailPage (`/library/:id`)로 자동 이동**.
+- TTS 끝나면 800ms 뒤 자동 페이지 넘김. **마지막 페이지** TTS 끝 or onNext → **RewardScreen/WordRevealScreen 오버레이** 표시(key_objects 있으면 WordReveal, 없으면 Reward). ⚠️ "BookDetailPage 자동 이동" 은 틀린 설명이었음(2026-07-01 정정).
 - **프리로드 풀**: `preloadTts` 가 현재+다음 페이지 TTS 를 풀(url→Audio)에 적재, `playTts` 가 풀 객체 **재사용**(이미 버퍼 → 즉시 재생, AbortController 리스너). 이미지는 다음 5페이지 `new Image()`. 같은 컴포넌트 풀이라 HTTP 캐시/CORS 의존 X. TTS 는 immutable Cache-Control(재방문 캐시). 상세 → memory `viewer-tts-buffering-2026-06-09`.
 - **⏸(autoPlayTts OFF) 게이트 (2026-06-12)**: 페이지 변경 자동재생 effect 가 `stateRef.current.autoPlayTts` 를 조건 + 타이머 발화 시점 양쪽에서 확인 — OFF 동안 페이지를 넘겨도 TTS 재생 안 되고, 전환 직후 ⏸ 눌러도 뒤늦게 재생되지 않음. deps 가 아닌 stateRef 로 읽는 이유: ON 토글 시 effect 재실행되면 `onTogglePlayback` 의 resume/play 와 이중 재생됨. `toggleBgm` 은 `play()` 성공 시에만 ON 표시(차단/실패 시 켜진 척 X).
 - 홈 버튼 → `/library` · 뒤로 버튼 → browser history back
@@ -73,7 +73,19 @@ LibraryPage (/library) → 카드 탭
     → "📖 책으로 읽기"
     → ViewerContainer (/viewer/:id?lang=ko)
        → TTS 자동재생 → 자막 → 자동 페이지 넘김 → 마지막 페이지
-    → BookDetailPage 자동 복귀
+       → RewardScreen 또는 WordRevealScreen 오버레이 (책 끝)
+       → 사용자가 "홈" 탭 → /library  /  "다시 읽기" → 처음으로
 ```
 
 언어 선택은 게임 목록 자동 필터링 (block/word-writing/speaking 등 언어 태그).
+
+## playlist 모드 (`playlist` prop)
+
+`<ViewerContainer playlist={{ hasNext, onBookEnd, speed }} />` 를 전달하면 활성화.
+
+- **마지막 페이지 3 interception site**: handleTtsEnded(site 1) / onNext(site 2) / ?mode=video 자동오픈(site 3) 모두 playlist 분기로 override → reward/wordReveal overlay 열지 않고 `onBookEnd()` 즉시 호출.
+- **풀스크린 강제**: `const fullscreen = playlist ? true : settings.fullscreenImage`. ✕ 풀스크린 종료 버튼은 `!playlist` 조건으로 숨김.
+- **속도 강제**: 마운트/speed 변경 시 `audio.setPlaybackRate(playlist.speed)` 적용.
+- **로드 실패 skip**: `error && playlist` effect → `onBookEnd()` once (playlistSkippedRef 가드). 에러 화면 대신 "다음 책으로 이동 중..." 로딩 표시.
+- **stall-guard**: TTS `ended` 이벤트가 `max(ttsDuration, 6s) + 900ms` 내에 미발화 시 자동 전진(또는 마지막 페이지면 onBookEnd). stallTimerRef 로 실제 ended 발화 시 취소하여 이중 호출 방지.
+- **상태 초기화**: 호출부가 `<ViewerContainer key={bookId} />` 로 remount — 내부 상태 초기화 불필요.

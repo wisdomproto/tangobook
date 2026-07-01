@@ -28,8 +28,17 @@ import { GameListViewer } from './GameListViewer';
 import { PhonicsViewer } from './PhonicsViewer';
 import { ViewerLoading } from './ViewerLoading';
 
+interface PlaylistProp {
+  hasNext: boolean;
+  onBookEnd: () => void;
+  speed: number;
+}
+
 interface ViewerContainerProps {
   storybookId: string | undefined;
+  /** When present, enables playlist mode: last-page reward is replaced by
+   *  onBookEnd(), speed/fullscreen are forced, and load errors are skipped. */
+  playlist?: PlaylistProp;
 }
 
 const TEXT_SIZE_CYCLE: ViewerSettings['textSize'][] = ['sm', 'md', 'lg'];
@@ -40,7 +49,7 @@ const PAGE_REST_MS = 900; // TTS 끝 → 다음 페이지로 넘기기 전 쉬�
 const NEXT_TTS_DELAY_MS = 350; // 페이지 전환 → 다음 음성 재생까지 (장면 안정)
 const NEXT_IMG_CAP_MS = 1500; // 다음 이미지 로딩 상한 (안 와도 넘어감)
 
-export function ViewerContainer({ storybookId }: ViewerContainerProps) {
+export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps) {
   const navigate = useNavigate();
   const [sp, setSp] = useSearchParams();
   const mode = sp.get('mode');
@@ -90,6 +99,10 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   const startedRef = useRef(false);
   // 마지막으로 재생을 건 TTS url — 같은 페이지를 두 번 재생(첫 음절 씹힘) 방지.
   const lastPlayedTtsRef = useRef<string | null>(null);
+  // playlist mode: stall-guard timer handle — cleared when TTS ends or page changes.
+  const stallTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // playlist mode: error-skip guard — fire onBookEnd at most once per mount.
+  const playlistSkippedRef = useRef(false);
 
   // state ref로 콜백에서 최신 값 접근
   const stateRef = useRef({
@@ -129,6 +142,12 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     if (!st.autoPlayTts) return;
     if (st.rewardOpen || st.wordRevealOpen) return;
     if (st.pageIndex >= pages.length - 1) {
+      // [Site 1] playlist mode: skip reward/wordReveal overlay, call onBookEnd immediately.
+      if (playlist) {
+        if (stallTimerRef.current) clearTimeout(stallTimerRef.current);
+        playlist.onBookEnd();
+        return;
+      }
       // 핵심 단어 보기 우선 — key_objects 있으면 WordRevealScreen, 없으면 기존 RewardScreen
       setTimeout(() => {
         if (hasKeyObjects) {
@@ -138,6 +157,11 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         }
       }, 1000);
       return;
+    }
+    // page changed — clear stall guard
+    if (stallTimerRef.current) {
+      clearTimeout(stallTimerRef.current);
+      stallTimerRef.current = null;
     }
     // 다음 페이지 이미지가 준비된 뒤 넘김 — 음성이 끝났는데 이미지 로딩으로 빈 장면이 뜨는 것 방지.
     // 음성 끝 ~ 전환 사이 "다음 장 준비 중" dot 인디케이터 표시.
@@ -164,7 +188,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     im.src = nextImg;
     if (im.complete) setTimeout(fire, PAGE_REST_MS); // 이미 캐시면 쉬고 넘김
     setTimeout(fire, NEXT_IMG_CAP_MS); // 상한 — 이미지가 안 와도 넘어감
-  }, [pages, hasKeyObjects]);
+  }, [pages, hasKeyObjects, playlist]);
 
   const audio = useAudioPlayer({
     backgroundMusicUrl: storybook?.backgroundMusicUrl,
@@ -177,6 +201,15 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     () => (currentPage ? getPageTtsUrl(currentPage, lang) : undefined),
     [currentPage, lang]
   );
+
+  // playlist mode: force TTS playback speed. Re-applies when speed changes.
+  // audio.setPlaybackRate is stable (useCallback []), so destructuring avoids
+  // adding the whole `audio` object to deps and triggering re-runs every render.
+  const setPlaybackRate = audio.setPlaybackRate;
+  useEffect(() => {
+    if (!playlist) return;
+    setPlaybackRate(playlist.speed);
+  }, [playlist, setPlaybackRate]);
 
   // 페이지 변경 시 자동 TTS 재생. 첫 진입은 ttsReady(버퍼링 완료) 후에만 — 로딩 끝나고 바로 재생.
   // BGM 은 useAudioPlayer 가 마운트 시 바로 재생 (별도).
@@ -199,6 +232,39 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     }, NEXT_TTS_DELAY_MS);
     return () => clearTimeout(t);
   }, [currentTtsUrl, ttsReady, rewardOpen, wordRevealOpen, mode]);
+
+  // playlist mode stall-guard: if a page is playing and no TTS `ended` event fires
+  // within max(ttsDuration, 6000) ms, advance (or call onBookEnd on last page).
+  // Cleared by handleTtsEnded (via stallTimerRef) and whenever the page changes.
+  // Uses a separate effect so we don't disturb existing TTS auto-play logic.
+  useEffect(() => {
+    if (!playlist) return;
+    if (!ttsReady || !startedRef.current) return;
+    if (rewardOpen || wordRevealOpen) return;
+    if (!stateRef.current.autoPlayTts) return;
+
+    // Compute guard duration: TTS duration (ms) + breathing room, minimum 6 s.
+    const guardMs = Math.max(audio.ttsDuration * 1000 || 0, 6000) + PAGE_REST_MS;
+
+    const timer = setTimeout(() => {
+      stallTimerRef.current = null;
+      const st = stateRef.current;
+      if (st.rewardOpen || st.wordRevealOpen) return;
+      if (st.pageIndex >= pages.length - 1) {
+        playlist.onBookEnd();
+      } else {
+        setAdvancing(false);
+        setDirection(1);
+        setPageIndex((idx) => idx + 1);
+      }
+    }, guardMs);
+
+    stallTimerRef.current = timer;
+    return () => {
+      clearTimeout(timer);
+      stallTimerRef.current = null;
+    };
+  }, [pageIndex, ttsReady, rewardOpen, wordRevealOpen, playlist, pages.length, audio.ttsDuration]);
 
   // 첫 진입 시 첫 BUFFER_PAGES 페이지 TTS 를 버퍼링한 뒤 시작 (로딩 화면 동안). 같은 컴포넌트의
   // Audio 풀이라 playTts 가 그대로 재사용 → 로딩 끝나면 첫 음성 즉시. video/games/파닉스(비story) 생략.
@@ -331,6 +397,11 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   };
   const onNext = () => {
     if (pageIndex >= pages.length - 1) {
+      // [Site 2] playlist mode: skip overlay, hand off to caller.
+      if (playlist) {
+        playlist.onBookEnd();
+        return;
+      }
       if (hasKeyObjects) {
         setWordRevealOpen(true);
       } else {
@@ -358,13 +429,15 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
   };
 
   // `?mode=video` 직접 진입 → RewardScreen autoOpenVideo로 iframe 모달 띄우기
+  // [Site 3] playlist mode: skip this entirely (caller controls UI).
   const isVideoMode = mode === 'video';
   const hasAnyVideo = storybook ? hasVideoUrl(storybook) : false;
   useEffect(() => {
+    if (playlist) return; // [Site 3] suppressed in playlist mode
     if (!isVideoMode) return;
     if (!hasAnyVideo) return;
     setRewardOpen(true);
-  }, [isVideoMode, hasAnyVideo]);
+  }, [isVideoMode, hasAnyVideo, playlist]);
 
   const onToggleLanguage = () => {
     const cur = LANG_CYCLE.indexOf(lang as 'ko' | 'en');
@@ -376,11 +449,24 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     updateSettings({ language: next });
   };
 
+  // playlist mode: skip to next book on load error (fire onBookEnd once).
+  useEffect(() => {
+    if (!playlist) return;
+    if (!error) return;
+    if (playlistSkippedRef.current) return;
+    playlistSkippedRef.current = true;
+    console.warn('[ViewerContainer] playlist: load error — skipping to next book', storybookId);
+    playlist.onBookEnd();
+  }, [error, playlist, storybookId]);
+
   // Loading / Error
   if (isLoading) {
     return <ViewerLoading label="동화책을 펼치고 있어요" />;
   }
   if (error || !storybook) {
+    // In playlist mode the useEffect above already called onBookEnd; show a
+    // minimal loading indicator rather than a dead-end error screen.
+    if (playlist) return <ViewerLoading label="다음 책으로 이동 중..." />;
     return (
       <StateScreen
         mascotState="sad"
@@ -411,6 +497,9 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
     return <PhonicsViewer storybook={storybook} mode={mode} />;
   }
 
+  // playlist mode: force fullscreen so the playlist chrome (outside this component) stays visible.
+  const fullscreen = playlist ? true : settings.fullscreenImage;
+
   return (
     <div
       className={cn(
@@ -420,7 +509,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
           : 'bg-gradient-to-b from-cream-50 to-peach-100 text-ink-900'
       )}
     >
-      {!settings.fullscreenImage && (
+      {!fullscreen && (
         <ViewerToolbar
           title={storybook.title}
           onBack={() => {
@@ -449,7 +538,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
           }}
           language={lang}
           onToggleLanguage={onToggleLanguage}
-          fullscreenImage={settings.fullscreenImage}
+          fullscreenImage={fullscreen}
           onToggleFullscreen={() => updateSettings({ fullscreenImage: !settings.fullscreenImage })}
         />
       )}
@@ -466,19 +555,20 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
           ttsCurrentTime={audio.ttsCurrentTime}
           ttsDuration={audio.ttsDuration}
           isTtsPlaying={audio.isTtsPlaying}
-          fullscreen={settings.fullscreenImage}
+          fullscreen={fullscreen}
         />
       )}
 
       {/* 페이지 진행률 — Toolbar 와 같은 line (가운데). 풀스크린 시 숨김. */}
-      {!settings.fullscreenImage && (
+      {!fullscreen && (
         <div className="absolute top-2 left-1/2 -translate-x-1/2 z-20 bg-white/90 backdrop-blur-sm px-3 h-10 flex items-center rounded-md shadow-soft pointer-events-none">
           <BookSpineProgress current={pageIndex} total={pages.length} />
         </div>
       )}
 
-      {/* 풀스크린 종료 버튼 — 풀스크린 시만 우상단 floating (반투명) */}
-      {settings.fullscreenImage && (
+      {/* 풀스크린 종료 버튼 — 풀스크린 시만 우상단 floating (반투명).
+          playlist 모드에서는 숨김 — 플레이리스트 chrome(상위 컴포넌트)이 제어권을 가짐. */}
+      {fullscreen && !playlist && (
         <button
           onClick={() => updateSettings({ fullscreenImage: false })}
           className="absolute top-3 right-3 z-30 w-11 h-11 rounded-full bg-white/40 hover:bg-white/70 backdrop-blur-sm text-ink-900 flex items-center justify-center text-lg shadow-soft transition-all"
@@ -492,7 +582,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
       <MascotCorner visible={audio.isBgmPlaying} />
 
       {/* 자동넘김 인디케이터 — 음성 끝 ~ 다음 페이지 전환 대기 동안 "다음 장" dot pulse */}
-      {advancing && !settings.fullscreenImage && (
+      {advancing && !fullscreen && (
         <div
           className={cn(
             'pointer-events-none absolute bottom-24 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded-full px-4 py-2 shadow-soft backdrop-blur-sm',
@@ -546,7 +636,7 @@ export function ViewerContainer({ storybookId }: ViewerContainerProps) {
         </button>
       )}
 
-      {!settings.fullscreenImage && (
+      {!fullscreen && (
         <ViewerControls onPrev={onPrev} onNext={onNext} canPrev={canPrev} canNext={canNext} />
       )}
 
