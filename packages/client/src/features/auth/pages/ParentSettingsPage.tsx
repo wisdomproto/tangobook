@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { authApi } from '../api/auth.api';
+import { InviteButton } from '@/features/payment';
 import { ChangePinStep } from './ChangePinStep';
 import { PIN_REQUIRED } from '@/config/features';
 
@@ -38,6 +39,14 @@ export default function ParentSettingsPage() {
           <ChangePinStep />
         </section>
       )}
+      {/* 친구 초대 — 배너와 독립된 상시 진입점(구독자 포함 누구나). */}
+      <section className="bg-white rounded-2xl p-6 shadow-soft">
+        <h3 className="text-xl font-black text-ink-900 mb-2">🎁 친구 초대</h3>
+        <p className="text-ink-600 text-sm mb-4 break-keep">
+          친구가 가입하면 무료 기간이 7일씩 늘어나요 (최대 28일).
+        </p>
+        <InviteButton className="px-6 py-3 rounded-xl bg-coral-500 text-white font-black hover:brightness-110" />
+      </section>
       <section className="bg-white rounded-2xl p-6 shadow-soft">
         <h3 className="text-xl font-black text-ink-900 mb-4">🚪 로그아웃</h3>
         <button

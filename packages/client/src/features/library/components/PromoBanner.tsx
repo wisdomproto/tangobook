@@ -47,7 +47,8 @@ export function PromoBanner() {
     headline = '로그인하면 7일 무료 체험';
     sub = '친구 초대하면 +7일 무료';
   } else if (isTrial) {
-    headline = `무료 체험 ${raw.trialDaysLeft}일 남음`;
+    // 상실("N일 남음")보다 혜택 프레이밍 — 일수는 유지(부모가 원함)하되 톤을 부드럽게.
+    headline = `무료 체험 중 🎉 ${raw.trialDaysLeft}일 남았어요`;
     sub = '친구 초대하면 +7일 늘어나요';
   } else if (!PAYWALL_ENABLED) {
     // 출시 전(유료화 OFF): 실제로 만료된 게 아니라 전체 무료 상태 —

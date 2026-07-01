@@ -102,10 +102,10 @@ describe('PromoBanner', () => {
       expect(screen.getByRole('region', { name: '프로모션 배너' })).toBeInTheDocument();
     });
 
-    it('shows trial days remaining in headline', () => {
+    it('shows trial days remaining in headline (benefit framing, count kept)', () => {
       renderBanner();
-      // trialDaysLeft is ceil((7d - 2d elapsed)) = 5
-      expect(screen.getByText(/무료 체험 \d+일 남음/)).toBeInTheDocument();
+      // trialDaysLeft is ceil((7d - 2d elapsed)) = 5 — still shows the number
+      expect(screen.getByText(/무료 체험 중 🎉 \d+일 남았어요/)).toBeInTheDocument();
     });
 
     it('shows invite sub-copy', () => {

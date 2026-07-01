@@ -531,8 +531,13 @@ export default function BookDetailPage() {
           <div onClick={(e) => e.stopPropagation()}>
             <PaywallNotice
               status={access.status}
+              coverUrl={coverUrl}
               onLogin={() => navigate('/login')}
               onSubscribe={() => navigate('/subscribe')}
+              onBrowseFree={() => {
+                setShowPaywall(false);
+                navigate('/library');
+              }}
             />
           </div>
         </div>

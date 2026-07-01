@@ -550,8 +550,10 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
       <div className="min-h-screen flex items-center justify-center bg-cream-50 p-4">
         <PaywallNotice
           status={access.status}
+          coverUrl={storybook.coverImage}
           onLogin={() => navigate('/login')}
           onSubscribe={() => navigate('/subscribe')}
+          onBrowseFree={() => navigate('/library')}
         />
       </div>
     );
