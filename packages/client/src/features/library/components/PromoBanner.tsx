@@ -3,6 +3,7 @@ import { computeAccess } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useEntitlement } from '@/features/payment/hooks/useEntitlement';
 import { InviteButton } from '@/features/payment';
+import { PAYWALL_ENABLED } from '@/features/access/config';
 
 /**
  * Single-slide promo banner advertising 7-day free trial / referral bonus.
@@ -48,10 +49,15 @@ export function PromoBanner() {
   } else if (isTrial) {
     headline = `무료 체험 ${raw.trialDaysLeft}일 남음`;
     sub = '친구 초대하면 +7일 늘어나요';
+  } else if (!PAYWALL_ENABLED) {
+    // 출시 전(유료화 OFF): 실제로 만료된 게 아니라 전체 무료 상태 —
+    // 오래된 계정(가입 7일+)이 "만료"처럼 보이던 버그. 긍정 톤 + 초대 예고.
+    headline = '지금은 모든 동화 무료 🎉';
+    sub = '친구 초대하면 정식 오픈 후 +7일';
   } else {
-    // expired
-    headline = '친구 초대하고 무료 기간 늘리기';
-    sub = '친구가 가입하면 +7일';
+    // expired (유료화 ON): 구독을 1순위로, 초대는 보조.
+    headline = '구독하고 모든 동화 계속 보기';
+    sub = '또는 친구 초대하고 +7일';
   }
 
   return (

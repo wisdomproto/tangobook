@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Outlet, NavLink, Link, useLocation } from 'react-router-dom';
+import { Outlet, NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
+import { ProfilePicker } from '@/features/auth/components/ProfilePicker';
+import { AvatarRender } from '@/features/auth/components/AvatarRender';
 import { cn } from '@/lib/cn';
 import { isDevEmail } from '@/config/dev';
 
@@ -89,8 +91,13 @@ function getPageTitle(
 }
 
 export function AppShell() {
-  const { activeProfile, session, signOut, isConfigured, account } = useAuth();
+  const { activeProfile, setActiveProfile, profiles, session, signOut, isConfigured, account } =
+    useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
+  // 아이 2명 이상인데 아직 아무도 선택 안 됨 → 학습자 화면 진입 전 "누가 놀고 있어요?" 게이트.
+  // (1명이면 useActiveProfile 이 자동 선택하므로 이 게이트는 뜨지 않음.)
+  const needsProfilePick = !!session && profiles.length > 1 && !activeProfile;
   const pageTitle = getPageTitle(location.pathname);
   // /library 는 배너가 viewport top 까지 차지 — 헤더 absolute overlay (transparent) 로
   // main 이 0부터 시작. 우상단 chip 만 pointer-events-auto 로 클릭 가능.
@@ -168,9 +175,13 @@ export function AppShell() {
             <span>로그인</span>
           </Link>
         ) : null}
-        {/* 학습 리포팅 — 부모 영역 (이전 "부모" 라벨, 자물쇠 emoji 제거). 로그인 아래. */}
+        {/* 학습 리포팅 — 리포트 화면으로 직행 (이전엔 /parent → 자녀선택으로 새어 라벨과 목적지 불일치였음). */}
         {isConfigured && (
-          <SecondaryNavButton to="/parent" iconSrc="section/reports.webp" label="학습 리포팅" />
+          <SecondaryNavButton
+            to="/parent/reports"
+            iconSrc="section/reports.webp"
+            label="학습 리포팅"
+          />
         )}
       </div>
     </>
@@ -281,8 +292,22 @@ export function AppShell() {
               )}
             </div>
 
-            {/* 우측 spacer — 로그인/로그아웃 은 사이드바 하단으로 이관 (2026-05-19). 추후 알림/별 등 추가 시 여기. */}
-            <div className="flex-shrink-0 pointer-events-auto" />
+            {/* 우측 — 아이 2명 이상일 때 현재 아이 칩(탭하면 "누가 놀고 있어요?"로 전환). */}
+            <div className="flex-shrink-0 pointer-events-auto">
+              {session && activeProfile && profiles.length > 1 && (
+                <button
+                  onClick={() => setActiveProfile(null)}
+                  className="flex items-center gap-1.5 rounded-full bg-white/90 pl-1 pr-3 py-1 shadow-soft hover:shadow-pop transition-all"
+                  aria-label={`${activeProfile.name} — 아이 바꾸기`}
+                >
+                  <AvatarRender id={activeProfile.avatarId} size="sm" />
+                  <span className="text-sm font-black text-ink-800 max-w-[80px] truncate">
+                    {activeProfile.name}
+                  </span>
+                  <span className="text-xs font-bold text-ink-400">바꾸기</span>
+                </button>
+              )}
+            </div>
           </div>
         </header>
 
@@ -290,6 +315,15 @@ export function AppShell() {
           <Outlet />
         </main>
       </div>
+
+      {/* 아이 2명 이상 + 미선택 → 진입 게이트 "누가 놀고 있어요?" (헤더 칩으로 언제든 재호출). */}
+      {needsProfilePick && (
+        <ProfilePicker
+          profiles={profiles}
+          onSelect={(p) => setActiveProfile(p)}
+          onAddNew={() => navigate('/parent/profiles')}
+        />
+      )}
     </div>
   );
 }
