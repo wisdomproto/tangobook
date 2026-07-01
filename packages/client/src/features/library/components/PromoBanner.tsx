@@ -47,7 +47,7 @@ export function PromoBanner() {
   const REFERRAL_SUB = '친구와 함께라면, 무료 기간이 서로 7일씩 늘어나요';
 
   if (isGuest) {
-    headline = '세계 명작 동화, 7일 무료로 만나보세요';
+    headline = '회원가입하면 7일 무료 체험';
     sub = REFERRAL_SUB;
   } else if (isTrial) {
     // 일수는 유지(부모가 원함)하되 상실 프레이밍 대신 담백하게.

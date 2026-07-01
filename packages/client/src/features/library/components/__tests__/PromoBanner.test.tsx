@@ -77,7 +77,7 @@ describe('PromoBanner', () => {
 
     it('shows guest headline', () => {
       renderBanner();
-      expect(screen.getByText('세계 명작 동화, 7일 무료로 만나보세요')).toBeInTheDocument();
+      expect(screen.getByText('회원가입하면 7일 무료 체험')).toBeInTheDocument();
     });
 
     it('shows two-sided referral sub-copy', () => {
