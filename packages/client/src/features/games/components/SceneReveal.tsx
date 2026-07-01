@@ -4,13 +4,16 @@ interface SceneRevealProps {
   illustrationUrl: string;
   /** 페이지 본문 (자막) */
   text?: string;
-  /** 페이지 나레이션 URL — 있으면 재생 후 onDone, 없으면 잠깐 보여주고 onDone */
+  /** 페이지 나레이션 URL — 있으면 재생 후 다음, 없으면 잠깐 보여주고 다음 */
   ttsUrl?: string;
-  /** 나레이션 끝 or 화면 탭 시 다음 단어로 */
+  /** 나레이션 끝(또는 최소 노출 후) or 화면 탭 시 다음 단어로 */
   onDone: () => void;
 }
 
-const NO_AUDIO_HOLD_MS = 2600; // 나레이션 없을 때 장면만 잠깐 노출
+// 나레이션이 짧거나 실패해도 장면을 최소 이만큼은 보여준다(순식간에 사라지지 않게).
+const MIN_VISIBLE_MS = 2500;
+// 나레이션 자체가 없을 때 장면만 노출하는 시간.
+const NO_AUDIO_HOLD_MS = 3000;
 
 /**
  * 블록 게임 정답 후 "그 단어가 나오는 동화 장면 + 나레이션" 리빌 오버레이.
@@ -22,21 +25,42 @@ export function SceneReveal({ illustrationUrl, text, ttsUrl, onDone }: SceneReve
   const [imgLoaded, setImgLoaded] = useState(false);
 
   useEffect(() => {
-    let done = false;
-    const finish = () => {
-      if (done) return;
-      done = true;
+    let advanced = false;
+    let holdTimer: ReturnType<typeof setTimeout> | undefined;
+    const mountedAt = Date.now();
+
+    const advance = () => {
+      if (advanced) return;
+      advanced = true;
       onDoneRef.current();
     };
+    // 나레이션 끝/실패 시 — 최소 노출 시간은 채우고 다음으로.
+    const finishOrHold = () => {
+      if (advanced) return;
+      const remaining = MIN_VISIBLE_MS - (Date.now() - mountedAt);
+      if (remaining <= 0) advance();
+      else holdTimer = setTimeout(advance, remaining);
+    };
+
     if (!ttsUrl) {
-      const t = setTimeout(finish, NO_AUDIO_HOLD_MS);
-      return () => clearTimeout(t);
+      holdTimer = setTimeout(advance, NO_AUDIO_HOLD_MS);
+      return () => {
+        advanced = true;
+        clearTimeout(holdTimer);
+      };
     }
+
     const audio = new Audio(ttsUrl);
-    audio.addEventListener('ended', finish);
-    audio.addEventListener('error', finish);
-    audio.play().catch(finish);
+    audio.addEventListener('ended', finishOrHold);
+    audio.addEventListener('error', finishOrHold);
+    audio.play().catch(finishOrHold);
     return () => {
+      // ⚠️ cleanup 이 advance 를 부르지 않게 — 리스너부터 제거 + 가드.
+      // (StrictMode 이중 마운트에서 src='' 가 'error' 를 발생시켜 즉시 다음 단어로 넘어가던 버그 방지)
+      advanced = true;
+      clearTimeout(holdTimer);
+      audio.removeEventListener('ended', finishOrHold);
+      audio.removeEventListener('error', finishOrHold);
       audio.pause();
       audio.src = '';
     };
