@@ -21,6 +21,8 @@ import {
   type StorybookSummary,
 } from '@tangobook/shared';
 import { useAccess, PaywallNotice, LockBadge } from '@/features/access';
+import { useAuth } from '@/features/auth/context/AuthContext';
+import { isDevEmail } from '@/config/dev';
 
 // 언어 메타는 shared SUPPORTED_LANGUAGES 단일 소스에서 derive. 새 언어 추가 시 shared 한 줄이면 토글에 자동 반영.
 const LANG_LABEL: Record<string, { flag: string; name: string }> = Object.fromEntries(
@@ -69,6 +71,9 @@ export default function BookDetailPage() {
   const [videoIdToPlay, setVideoIdToPlay] = useState<string | null>(null);
   // 유료화 접근 권한 (체험/구독). 현재는 가입일 기반 체험만 — Supabase 연동 시 구독·레퍼럴 주입.
   const access = useAccess();
+  const { account } = useAuth();
+  // "영상으로 보기" 모드는 아직 준비 중 — 개발자에게만 노출.
+  const showVideoMode = isDevEmail(account?.email);
   const [showPaywall, setShowPaywall] = useState(false);
 
   // 영상 / 게임 가용성 — v1 storybook 직접 derive
@@ -390,15 +395,17 @@ export default function BookDetailPage() {
                   onClick={() => enterMode('read')}
                   locked={locked}
                 />
-                <ModeCard
-                  tone="violet"
-                  iconSrc="/icons/mode/video.webp"
-                  emoji="▶"
-                  title="영상으로 보기"
-                  sub={videoAvailable ? '애니메이션으로 감상' : '준비 중이에요'}
-                  onClick={() => enterMode('video')}
-                  disabled={!videoAvailable}
-                />
+                {showVideoMode && (
+                  <ModeCard
+                    tone="violet"
+                    iconSrc="/icons/mode/video.webp"
+                    emoji="▶"
+                    title="영상으로 보기"
+                    sub={videoAvailable ? '애니메이션으로 감상' : '준비 중이에요'}
+                    onClick={() => enterMode('video')}
+                    disabled={!videoAvailable}
+                  />
+                )}
                 <ModeCard
                   tone="amber"
                   iconSrc="/icons/mode/word.webp"
