@@ -28,7 +28,8 @@ export function ContinuousControls() {
   const reset = usePlaylistStore((s) => s.reset);
   const togglePause = usePlaylistStore((s) => s.togglePause);
 
-  const [visible, setVisible] = useState(true);
+  // 재생 시작 시 컨트롤은 숨긴 채로 — 화면(동화)을 가리지 않게. 하단 "컨트롤 보기" 로 열기.
+  const [visible, setVisible] = useState(false);
 
   const total = queue.length;
   const current = Math.min(index + 1, total);

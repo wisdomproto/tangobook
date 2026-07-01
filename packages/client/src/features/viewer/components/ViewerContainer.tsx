@@ -242,6 +242,8 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
     if (!currentTtsUrl || !ttsReady) return;
     if (rewardOpen || wordRevealOpen) return;
     if (mode === 'video' || mode === 'games') return;
+    // 탭-투-스타트 게이트가 떠 있으면(autoplay 폴백 포함) 자동재생 보류 — 탭 후 재개.
+    if (needsTapToStart) return;
     // 시작 전(시작 버튼 대기)엔 자동재생 안 함. 시작 후(제스처로 해금됨)에만 자동재생.
     if (!startedRef.current) return;
     // ⏸(autoPlayTts OFF) 동안엔 페이지를 넘겨도 재생하지 않음. deps 대신 stateRef 로 읽어
@@ -255,7 +257,33 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
       if (stateRef.current.autoPlayTts) audio.playTts(currentTtsUrl);
     }, NEXT_TTS_DELAY_MS);
     return () => clearTimeout(t);
-  }, [currentTtsUrl, ttsReady, rewardOpen, wordRevealOpen, mode]);
+  }, [currentTtsUrl, ttsReady, rewardOpen, wordRevealOpen, mode, needsTapToStart]);
+
+  // autoStart(플레이리스트: 탭 게이트 skip 진입) — 탭 버튼과 동일하게 버퍼링 완료 시
+  // 첫 재생(BGM + TTS)을 직접 킥오프. autoplay effect 의 setTimeout 은 lang/재버퍼링 churn 에
+  // 취소될 수 있어 신뢰 불가 → 여기서 확실히 시작. 책마다 remount 되므로 autoKickedRef 초기화됨.
+  const autoKickedRef = useRef(false);
+  useEffect(() => {
+    if (!playlist?.autoStart) return;
+    if (autoKickedRef.current) return;
+    if (!ttsReady || !currentTtsUrl) return;
+    if (rewardOpen || wordRevealOpen) return;
+    autoKickedRef.current = true;
+    if (!audio.isBgmPlaying) audio.toggleBgm();
+    if (stateRef.current.autoPlayTts) {
+      lastPlayedTtsRef.current = currentTtsUrl; // autoplay effect 중복 방지
+      audio.playTts(currentTtsUrl).then((ok) => {
+        // BGM 은 마운트(제스처 직후) 재생돼 성공하지만, TTS 는 버퍼링 후라 브라우저 autoplay
+        // 정책에 막힐 수 있다(무음 + stall-guard 로 장면만 넘어감). 막히면(ok=false) 신뢰할 수
+        // 있는 탭-투-스타트 게이트로 폴백 — 탭은 사용자 제스처 안이라 항상 재생된다.
+        if (!ok) {
+          startedRef.current = false;
+          lastPlayedTtsRef.current = null;
+          setNeedsTapToStart(true);
+        }
+      });
+    }
+  }, [ttsReady, currentTtsUrl, rewardOpen, wordRevealOpen, playlist?.autoStart]);
 
   // playlist mode stall-guard: if a page is playing and no TTS `ended` event fires
   // within max(ttsDuration, 6000) ms, advance (or call onBookEnd on last page).
@@ -270,6 +298,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
     if (!ttsReady || !startedRef.current) return;
     if (rewardOpen || wordRevealOpen) return;
     if (!stateRef.current.autoPlayTts) return;
+    if (needsTapToStart) return; // ← autoplay 폴백 게이트: 탭 전엔 장면 넘김 보류
     if (playlist.paused) return; // ← paused: do not arm stall-guard timer
 
     // Compute guard duration: TTS duration (ms) + breathing room, minimum 6 s.
@@ -302,6 +331,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
     playlist?.paused,
     pages.length,
     audio.ttsDuration,
+    needsTapToStart,
   ]);
 
   // 첫 진입 시 첫 BUFFER_PAGES 페이지 TTS 를 버퍼링한 뒤 시작 (로딩 화면 동안). 같은 컴포넌트의
