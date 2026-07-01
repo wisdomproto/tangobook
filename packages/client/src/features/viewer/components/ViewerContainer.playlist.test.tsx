@@ -22,6 +22,7 @@ interface PlaylistProp {
   onBookEnd: () => void;
   speed: number;
   autoStart?: boolean;
+  paused?: boolean;
 }
 
 /**
@@ -136,6 +137,62 @@ function resolveFullscreen(
 function shouldShowExitButton(playlist: PlaylistProp | undefined, isFullscreen: boolean): boolean {
   if (playlist) return false; // hidden regardless
   return isFullscreen;
+}
+
+// ---------------------------------------------------------------------------
+// Pause/resume helpers — mirror the paused effect and stall-guard guard
+// ---------------------------------------------------------------------------
+
+/**
+ * Mirrors the paused prop effect in ViewerContainer:
+ *   if (!playlist) return;
+ *   if (playlist.paused) pauseTts(); else resumeTts();
+ */
+function applyPausedProp(
+  playlist: PlaylistProp | undefined,
+  audio: { pauseTts: () => void; resumeTts: () => void }
+): 'paused' | 'resumed' | 'noop' {
+  if (!playlist) return 'noop';
+  if (playlist.paused) {
+    audio.pauseTts();
+    return 'paused';
+  } else {
+    audio.resumeTts();
+    return 'resumed';
+  }
+}
+
+/**
+ * Mirrors the stall-guard early-return when paused:
+ *   if (playlist.paused) return; // do NOT arm timer
+ * Returns whether the stall-guard timer WOULD be armed.
+ */
+function wouldArmStallGuard(playlist: PlaylistProp | undefined): boolean {
+  if (!playlist) return false;
+  if (playlist.paused) return false; // guarded
+  return true;
+}
+
+/**
+ * Simulates a stall-guard firing: advances only if not paused.
+ * In the real component, paused prevents the timer from being armed at all,
+ * so the guard never fires while paused. This helper validates the decision.
+ */
+function simulateStallGuardFire(
+  playlist: PlaylistProp | undefined,
+  pageIndex: number,
+  totalPages: number,
+  onBookEndFn: () => void,
+  advancePage: () => void
+): 'noop' | 'advanced' | 'ended' {
+  // Guard: timer would not have been armed if paused
+  if (!playlist || playlist.paused) return 'noop';
+  if (pageIndex >= totalPages - 1) {
+    onBookEndFn();
+    return 'ended';
+  }
+  advancePage();
+  return 'advanced';
 }
 
 // ---------------------------------------------------------------------------
@@ -278,6 +335,117 @@ describe('ViewerContainer playlist mode — decision helpers', () => {
       const intercept = shouldInterceptLastPage(playlist, 2, 5);
       expect(intercept).toBe(false);
       expect(onBookEnd).not.toHaveBeenCalled();
+    });
+  });
+
+  // --- Pause / resume prop ---
+  describe('paused prop — TTS pause/resume effect', () => {
+    // Use plain function spies; cast to avoid TS Mock<> ↔ () => void mismatch
+    let pauseTtsSpy: ReturnType<typeof vi.fn>;
+    let resumeTtsSpy: ReturnType<typeof vi.fn>;
+    let audio: { pauseTts: () => void; resumeTts: () => void };
+
+    beforeEach(() => {
+      pauseTtsSpy = vi.fn();
+      resumeTtsSpy = vi.fn();
+      audio = {
+        pauseTts: pauseTtsSpy as unknown as () => void,
+        resumeTts: resumeTtsSpy as unknown as () => void,
+      };
+    });
+
+    it('[playlist + paused:true] calls pauseTts', () => {
+      const pl: PlaylistProp = { hasNext: true, onBookEnd, speed: 1, paused: true };
+      const result = applyPausedProp(pl, audio);
+      expect(result).toBe('paused');
+      expect(pauseTtsSpy).toHaveBeenCalledOnce();
+      expect(resumeTtsSpy).not.toHaveBeenCalled();
+    });
+
+    it('[playlist + paused:false] calls resumeTts', () => {
+      const pl: PlaylistProp = { hasNext: true, onBookEnd, speed: 1, paused: false };
+      const result = applyPausedProp(pl, audio);
+      expect(result).toBe('resumed');
+      expect(resumeTtsSpy).toHaveBeenCalledOnce();
+      expect(pauseTtsSpy).not.toHaveBeenCalled();
+    });
+
+    it('[playlist + paused:undefined] calls resumeTts (default playing state)', () => {
+      const pl: PlaylistProp = { hasNext: true, onBookEnd, speed: 1 };
+      const result = applyPausedProp(pl, audio);
+      expect(result).toBe('resumed');
+      expect(resumeTtsSpy).toHaveBeenCalledOnce();
+    });
+
+    it('[no playlist] is a noop — never calls pauseTts or resumeTts', () => {
+      const result = applyPausedProp(undefined, audio);
+      expect(result).toBe('noop');
+      expect(pauseTtsSpy).not.toHaveBeenCalled();
+      expect(resumeTtsSpy).not.toHaveBeenCalled();
+    });
+
+    it('transition paused:true → paused:false resumes', () => {
+      const plPaused: PlaylistProp = { hasNext: true, onBookEnd, speed: 1, paused: true };
+      applyPausedProp(plPaused, audio);
+      expect(pauseTtsSpy).toHaveBeenCalledOnce();
+
+      const plResumed: PlaylistProp = { ...plPaused, paused: false };
+      applyPausedProp(plResumed, audio);
+      expect(resumeTtsSpy).toHaveBeenCalledOnce();
+    });
+  });
+
+  // --- Stall-guard: does NOT fire while paused ---
+  describe('stall-guard halted while paused', () => {
+    let advancePageSpy: ReturnType<typeof vi.fn>;
+    let advancePage: () => void;
+
+    beforeEach(() => {
+      advancePageSpy = vi.fn();
+      advancePage = advancePageSpy as unknown as () => void;
+    });
+
+    it('[playlist + paused:true] stall-guard timer is NOT armed', () => {
+      const pl: PlaylistProp = { hasNext: true, onBookEnd, speed: 1, paused: true };
+      expect(wouldArmStallGuard(pl)).toBe(false);
+    });
+
+    it('[playlist + paused:false] stall-guard timer IS armed', () => {
+      const pl: PlaylistProp = { hasNext: true, onBookEnd, speed: 1, paused: false };
+      expect(wouldArmStallGuard(pl)).toBe(true);
+    });
+
+    it('[playlist + paused:undefined] stall-guard timer IS armed', () => {
+      const pl: PlaylistProp = { hasNext: true, onBookEnd, speed: 1 };
+      expect(wouldArmStallGuard(pl)).toBe(true);
+    });
+
+    it('[no playlist] stall-guard never armed regardless of paused', () => {
+      expect(wouldArmStallGuard(undefined)).toBe(false);
+    });
+
+    it('[paused] stall-guard fire simulation → noop (onBookEnd not called)', () => {
+      const pl: PlaylistProp = { hasNext: true, onBookEnd, speed: 1, paused: true };
+      const result = simulateStallGuardFire(pl, 2, 5, onBookEnd, advancePage);
+      expect(result).toBe('noop');
+      expect(onBookEnd).not.toHaveBeenCalled();
+      expect(advancePageSpy).not.toHaveBeenCalled();
+    });
+
+    it('[not paused, mid-book] stall-guard advances page', () => {
+      const pl: PlaylistProp = { hasNext: true, onBookEnd, speed: 1, paused: false };
+      const result = simulateStallGuardFire(pl, 2, 5, onBookEnd, advancePage);
+      expect(result).toBe('advanced');
+      expect(advancePageSpy).toHaveBeenCalledOnce();
+      expect(onBookEnd).not.toHaveBeenCalled();
+    });
+
+    it('[not paused, last page] stall-guard calls onBookEnd', () => {
+      const pl: PlaylistProp = { hasNext: false, onBookEnd, speed: 1, paused: false };
+      const result = simulateStallGuardFire(pl, 4, 5, onBookEnd, advancePage);
+      expect(result).toBe('ended');
+      expect(onBookEnd).toHaveBeenCalledOnce();
+      expect(advancePageSpy).not.toHaveBeenCalled();
     });
   });
 

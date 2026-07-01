@@ -52,6 +52,34 @@ describe('ContinuousControls', () => {
     expect(screen.getByText(/다음 책/)).toBeInTheDocument();
     expect(screen.getByText(/나가기/)).toBeInTheDocument();
   });
+
+  it('shows 일시정지 button when playing and ▶ 재생 when paused', () => {
+    usePlaylistStore.getState().setQueue([{ bookId: 'a' }], 'ko');
+    renderControls();
+    // Initially playing → shows pause button
+    expect(screen.getByText('⏸ 일시정지')).toBeInTheDocument();
+    expect(screen.queryByText('▶ 재생')).not.toBeInTheDocument();
+
+    // Click to pause
+    fireEvent.click(screen.getByText('⏸ 일시정지'));
+    expect(usePlaylistStore.getState().paused).toBe(true);
+    expect(screen.getByText('▶ 재생')).toBeInTheDocument();
+    expect(screen.queryByText('⏸ 일시정지')).not.toBeInTheDocument();
+
+    // Click to resume
+    fireEvent.click(screen.getByText('▶ 재생'));
+    expect(usePlaylistStore.getState().paused).toBe(false);
+    expect(screen.getByText('⏸ 일시정지')).toBeInTheDocument();
+  });
+
+  it('pause button calls togglePause on the store', () => {
+    usePlaylistStore.getState().setQueue([{ bookId: 'a' }], 'ko');
+    const spy = vi.spyOn(usePlaylistStore.getState(), 'togglePause');
+    renderControls();
+    fireEvent.click(screen.getByText('⏸ 일시정지'));
+    expect(spy).toHaveBeenCalledOnce();
+    spy.mockRestore();
+  });
 });
 
 describe('PlaylistEndScreen', () => {
