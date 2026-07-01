@@ -23,9 +23,12 @@ import {
 import { EnglishBlockTutorial } from './EnglishBlockTutorial/EnglishBlockTutorial';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { FeedbackOverlay } from '../FeedbackOverlay';
+import { SceneReveal } from '../SceneReveal';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { resolveTtsUrl } from '@/features/tts';
+import { useStorybook } from '@/features/storybook';
+import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { useGameLogger } from '@/features/learning';
 import { cn } from '@/lib/cn';
 
@@ -101,6 +104,9 @@ function EnglishBlockPlayerInner({
   const [grid, setGrid] = useState<(string | null)[]>(() => initGrid(currentItem.letters));
 
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
+  // 정답 후 "그 단어가 나오는 동화 장면 + 나레이션" 리빌 (소스 동화책 있을 때만).
+  const { data: sourceStorybook } = useStorybook(storybookId);
+  const [scene, setScene] = useState<WordScene | null>(null);
   const { mapRef: phonicsMapRef } = usePhonicsMap(['mod_phonics', 'mod_english']);
   const drag = useBlockDrag<LetterBlock>({
     createGhost: createEnglishGhost,
@@ -230,6 +236,25 @@ function EnglishBlockPlayerInner({
     }
   }, [grid, currentItem.word, letterCount, roundCorrect]);
 
+  // 다음 단어로 (장면 리빌 종료 포함). fromIndex = 방금 맞춘 단어 index.
+  const goToNext = useCallback(
+    (fromIndex: number) => {
+      setScene(null);
+      if (fromIndex + 1 < items.length) {
+        const nextIdx = fromIndex + 1;
+        setCurrentIndex(nextIdx);
+        setGrid(initGrid(items[nextIdx].letters));
+        setHasTriedThisRound(false);
+        setRoundCorrect(false);
+        setWrongSlots(new Set());
+        setHintActive(false);
+      } else {
+        setFinished(true);
+      }
+    },
+    [items, initGrid]
+  );
+
   const handleCheck = useCallback(() => {
     if (roundCorrect) return;
     const target = currentItem.word.toLowerCase();
@@ -261,17 +286,10 @@ function EnglishBlockPlayerInner({
           ttsUrl: wordAudioUrl,
           language: 'en',
           onDone: () => {
-            if (currentIndex + 1 < items.length) {
-              const nextIdx = currentIndex + 1;
-              setCurrentIndex(nextIdx);
-              setGrid(initGrid(items[nextIdx].letters));
-              setHasTriedThisRound(false);
-              setRoundCorrect(false);
-              setWrongSlots(new Set());
-              setHintActive(false);
-            } else {
-              setFinished(true);
-            }
+            // 단어 발음+칭찬 끝 → 그 단어가 나오는 동화 장면+나레이션 리빌 (있으면), 없으면 바로 다음.
+            const s = resolveSceneFromWord(currentItem.word, 'en', sourceStorybook);
+            if (s) setScene(s);
+            else goToNext(currentIndex);
           },
         });
       })();
@@ -293,6 +311,8 @@ function EnglishBlockPlayerInner({
     playFeedbackSound,
     roundCorrect,
     storybookId,
+    goToNext,
+    sourceStorybook,
   ]);
 
   // ref 로 handleCheck 보관 — 자동 체크 effect 가 stale closure 호출하지 않도록
@@ -565,6 +585,14 @@ function EnglishBlockPlayerInner({
       </div>
       <EnglishBlockTutorial word={currentItem.word} active={hintActive} onEnd={handleHintEnd} />
       <FeedbackOverlay kind="correct" visible={praiseVisible} />
+      {scene && (
+        <SceneReveal
+          illustrationUrl={scene.illustrationUrl}
+          text={scene.pageText}
+          ttsUrl={scene.pageTtsUrl}
+          onDone={() => goToNext(currentIndex)}
+        />
+      )}
     </MobileLandscapeGate>
   );
 }
