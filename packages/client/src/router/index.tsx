@@ -50,6 +50,7 @@ import {
   EnglishPhonicsStudyPage,
   EnglishPhonicsActivityPage,
 } from '../features/phonics-learner';
+import { ContinuousHomePage, ContinuousBuilder, ContinuousPlayPage } from '../features/continuous';
 import SubscribePage from '../features/payment/pages/SubscribePage';
 import PaymentSuccessPage from '../features/payment/pages/PaymentSuccessPage';
 import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
@@ -81,6 +82,9 @@ export const router = createBrowserRouter([
           { path: 'vocabulary', element: <VocabularyHubPage /> },
           { path: 'playground', element: <Navigate to="/library" replace /> },
           { path: 'games', element: <GamesHubPage /> },
+          // 연속재생 홈/빌더 — 사이드바 있는 브라우즈 화면 (AppShell 안)
+          { path: 'continuous', element: <ContinuousHomePage /> },
+          { path: 'continuous/new', element: <ContinuousBuilder /> },
         ],
       },
       {
@@ -273,6 +277,15 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <ViewerPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 연속재생 런타임 — 뷰어처럼 풀화면 (AppShell 밖)
+        path: 'continuous/play',
+        element: (
+          <ErrorBoundary>
+            <ContinuousPlayPage />
           </ErrorBoundary>
         ),
       },
