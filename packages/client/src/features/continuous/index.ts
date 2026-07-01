@@ -4,6 +4,7 @@ export { default as ContinuousPlayPage } from './pages/ContinuousPlayPage';
 
 export { BookMultiSelectGrid } from './components/BookMultiSelectGrid';
 export { PlaylistCard } from './components/PlaylistCard';
+export { PlaylistLibrarySection } from './components/PlaylistLibrarySection';
 
 export {
   usePlaylists,
