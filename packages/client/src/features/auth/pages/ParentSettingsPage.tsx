@@ -1,15 +1,38 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { computeAccess } from '@tangobook/shared';
 import { useAuth } from '../context/AuthContext';
 import { authApi } from '../api/auth.api';
-import { InviteButton } from '@/features/payment';
+import { InviteButton, RedeemCodeInput, useEntitlement } from '@/features/payment';
+import { PAYWALL_ENABLED } from '@/features/access/config';
 import { ChangePinStep } from './ChangePinStep';
 import { PIN_REQUIRED } from '@/config/features';
 
 export default function ParentSettingsPage() {
-  const { signOut } = useAuth();
+  const { account, signOut } = useAuth();
   const navigate = useNavigate();
   const [deleting, setDeleting] = useState(false);
+  const { paidUntil, referralBonusDays } = useEntitlement();
+
+  const access = computeAccess({
+    account: account ? { createdAt: account.createdAt } : null,
+    subscription: paidUntil ? { status: 'active', currentPeriodEnd: paidUntil } : null,
+    referralBonusDays,
+  });
+
+  // 멤버십 상태 문구
+  let membershipLine: string;
+  if (access.status === 'subscribed') {
+    const until = paidUntil ? new Date(paidUntil).toLocaleDateString('ko-KR') : '';
+    membershipLine = until ? `구독 중이에요 · ${until}까지` : '구독 중이에요';
+  } else if (access.status === 'trial') {
+    membershipLine = `무료 체험 중 🎉 ${access.trialDaysLeft}일 남았어요`;
+  } else {
+    // expired / 그 외
+    membershipLine = PAYWALL_ENABLED
+      ? '무료 체험이 끝났어요'
+      : '정식 오픈 전이라 지금은 모든 동화가 무료예요';
+  }
 
   const handleSignOut = async () => {
     await signOut();
@@ -33,20 +56,41 @@ export default function ParentSettingsPage() {
 
   return (
     <div className="space-y-6">
+      {/* 멤버십 — 상태 + 결제(구독) 진입점 */}
+      <section className="bg-white rounded-2xl p-6 shadow-soft">
+        <h3 className="text-xl font-black text-ink-900 mb-1">💳 멤버십</h3>
+        <p className="text-ink-600 text-sm mb-4 break-keep">{membershipLine}</p>
+        {access.status !== 'subscribed' && (
+          <button
+            onClick={() => navigate('/subscribe')}
+            className="px-6 py-3 rounded-xl bg-coral-500 text-white font-black hover:brightness-110"
+          >
+            구독하기
+          </button>
+        )}
+      </section>
+
+      {/* 친구 초대 — 코드 기반. 내 코드 공유 + 받은 코드 입력. */}
+      <section className="bg-white rounded-2xl p-6 shadow-soft">
+        <h3 className="text-xl font-black text-ink-900 mb-2">🎁 친구 초대</h3>
+        <p className="text-ink-600 text-sm mb-3 break-keep">
+          내 코드를 친구에게 알려주세요. 친구가 <b>회원 가입 후 코드를 입력</b>하면 무료 기간이
+          7일씩 늘어나요 (최대 28일).
+        </p>
+        <InviteButton className="px-6 py-3 rounded-xl bg-coral-500 text-white font-black hover:brightness-110" />
+
+        <div className="mt-5 border-t border-ink-100 pt-4">
+          <p className="text-sm font-black text-ink-900 mb-2">받은 코드가 있나요?</p>
+          <RedeemCodeInput />
+        </div>
+      </section>
+
       {PIN_REQUIRED && (
         <section className="bg-white rounded-2xl p-6 shadow-soft">
           <h3 className="text-xl font-black text-ink-900 mb-4">🔒 PIN 변경</h3>
           <ChangePinStep />
         </section>
       )}
-      {/* 친구 초대 — 배너와 독립된 상시 진입점(구독자 포함 누구나). */}
-      <section className="bg-white rounded-2xl p-6 shadow-soft">
-        <h3 className="text-xl font-black text-ink-900 mb-2">🎁 친구 초대</h3>
-        <p className="text-ink-600 text-sm mb-4 break-keep">
-          친구가 가입하면 무료 기간이 7일씩 늘어나요 (최대 28일).
-        </p>
-        <InviteButton className="px-6 py-3 rounded-xl bg-coral-500 text-white font-black hover:brightness-110" />
-      </section>
       <section className="bg-white rounded-2xl p-6 shadow-soft">
         <h3 className="text-xl font-black text-ink-900 mb-4">🚪 로그아웃</h3>
         <button
