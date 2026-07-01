@@ -1,7 +1,7 @@
 # 학습 리포트 개선 설계 (동화책 중심)
 
 **날짜**: 2026-07-01
-**상태**: 설계 합의 (구현 대기)
+**상태**: ✅ 구현 완료 (2026-07-01, main 병합). 플랜: [../plans/2026-07-01-learning-reports-improvement.md](../plans/2026-07-01-learning-reports-improvement.md)
 **배경**: 부모 관점 리뷰(리뷰어 subagent)가 찾은 문제들 — memory `learning-reports-parent-review-2026-07-01`.
 
 ## 1. 목표 / 비목표

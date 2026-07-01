@@ -1,5 +1,7 @@
 # 학습 리포트 개선 (동화책 중심) Implementation Plan
 
+> ✅ **구현 완료** (2026-07-01, main 병합). 3청크 subagent-driven. 리포트 테스트 green + 집계 함수 실데이터 검증, 타입체크 clean.
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 부모 학습 리포트를 동화책 중심으로 재편 — 정직한 지표(완독/읽은시간/연속일, KST) + 만난 단어, 파닉스/어휘/활동 탭은 dev-only.
