@@ -44,7 +44,9 @@ export default function ContinuousPlayPage() {
       hasNext: index < queue.length - 1,
       onBookEnd: next,
       speed,
-      autoStart: index > 0, // 첫 책만 탭으로 오디오 해금, 나머지는 자동 시작
+      // 첫 책(index 0)은 일반 동화책처럼 "탭해서 시작하기" 게이트 표시 — autoplay 차단 브라우저에서도
+      // 확실히 재생되고 일반 읽기와 일관됨. 그 탭으로 오디오가 해금돼 2번째 책부터는 자동 이어재생.
+      autoStart: index > 0,
       paused,
     }),
     [index, queue.length, next, speed, paused]

@@ -1,8 +1,10 @@
 /**
  * PlaylistLibrarySection — 나의 재생 목록 (LibraryPage 내 섹션)
- * - 로그인 + 세트 있음 → 세트 이름 + 추가 카드 표시
- * - 로그인 + 세트 없음 → 추가 카드만 표시
- * - 게스트 (account=null) → 아무것도 렌더하지 않음
+ *
+ * Render policy:
+ * - 게스트 (account=null) → null
+ * - 로그인 + 세트 0개 (or loading) → null (sidebar 연속재생 button이 진입·생성 경로)
+ * - 로그인 + 세트 ≥1 → 헤더 + 카드 행 (＋ 추가 카드 없음)
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
@@ -60,17 +62,20 @@ describe('PlaylistLibrarySection', () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it('로그인 + 세트 없음 → 섹션 헤더 + 추가 카드만 표시', () => {
+  it('로그인 + 세트 0개 → 아무것도 렌더하지 않음 (섹션 숨김)', () => {
     mockPlaylists.data = [];
-    renderSection();
-    expect(screen.getByText(/나의 재생 목록/)).toBeInTheDocument();
-    // "재생목록 추가" add card
-    expect(screen.getByLabelText('재생목록 추가')).toBeInTheDocument();
-    // no playlist names
-    expect(screen.queryByText('밤 동화 세트')).toBeNull();
+    const { container } = renderSection();
+    expect(container.firstChild).toBeNull();
   });
 
-  it('로그인 + 세트 있음 → 세트 이름들 + 추가 카드 표시', () => {
+  it('로그인 + 로딩 중 → 아무것도 렌더하지 않음', () => {
+    mockPlaylists.isLoading = true;
+    mockPlaylists.data = [];
+    const { container } = renderSection();
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('로그인 + 세트 ≥1 → 섹션 헤더 + 세트 이름 표시', () => {
     mockPlaylists.data = [
       { id: 'p1', name: '밤 동화 세트', bookIds: ['b1', 'b2'], language: 'ko' },
       { id: 'p2', name: '아침 영어 세트', bookIds: ['b3'], language: 'en' },
@@ -79,7 +84,11 @@ describe('PlaylistLibrarySection', () => {
     expect(screen.getByText(/나의 재생 목록/)).toBeInTheDocument();
     expect(screen.getByText('밤 동화 세트')).toBeInTheDocument();
     expect(screen.getByText('아침 영어 세트')).toBeInTheDocument();
-    // add card still present
-    expect(screen.getByLabelText('재생목록 추가')).toBeInTheDocument();
+  });
+
+  it('로그인 + 세트 ≥1 → 재생목록 추가 카드 없음 (sidebar가 생성 진입점)', () => {
+    mockPlaylists.data = [{ id: 'p1', name: '밤 동화 세트', bookIds: ['b1'], language: 'ko' }];
+    renderSection();
+    expect(screen.queryByLabelText('재생목록 추가')).toBeNull();
   });
 });

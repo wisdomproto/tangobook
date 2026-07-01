@@ -18,9 +18,14 @@ interface BookMultiSelectGridProps {
 export function BookMultiSelectGrid({ selectedIds, onToggle }: BookMultiSelectGridProps) {
   const { data: list, isLoading, isError } = useStorybooks();
 
-  // 공개 동화책만 (파닉스 제외). LibraryPage 와 동일 필터 규칙.
+  // 공개 동화책 + **나레이션(모든 페이지 TTS) 있는 책만**.
+  // 연속재생=자동 이어읽기(잠자리)이므로 음성 없는 책은 무음+자막없음이 되어 제외한다.
+  // (전체 공개책 중 상당수가 아직 TTS 미생성 — koCompletion.pagesTts 로 판별.)
   const books = useMemo(
-    () => (list ?? []).filter((b) => b.isPublic && (!b.type || b.type === 'storybook')),
+    () =>
+      (list ?? []).filter(
+        (b) => b.isPublic && (!b.type || b.type === 'storybook') && b.koCompletion?.pagesTts
+      ),
     [list]
   );
 

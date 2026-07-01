@@ -10,17 +10,34 @@ vi.mock('react-router-dom', async (importOriginal) => {
   return { ...actual, useNavigate: () => vi.fn() };
 });
 
+// 컨트롤은 기본 숨김(재생 화면을 가리지 않게) → 테스트는 "컨트롤 보기"로 먼저 연다.
 function renderControls() {
-  return render(
+  const utils = render(
     <MemoryRouter>
       <ContinuousControls />
     </MemoryRouter>
   );
+  fireEvent.click(screen.getByText('컨트롤 보기'));
+  return utils;
 }
 
 describe('ContinuousControls', () => {
   afterEach(() => {
     usePlaylistStore.getState().reset();
+  });
+
+  it('starts hidden — only "컨트롤 보기" shown until opened', () => {
+    usePlaylistStore.getState().setQueue([{ bookId: 'a' }], 'ko');
+    render(
+      <MemoryRouter>
+        <ContinuousControls />
+      </MemoryRouter>
+    );
+    expect(screen.getByText('컨트롤 보기')).toBeInTheDocument();
+    expect(screen.queryByText('⏸ 일시정지')).not.toBeInTheDocument();
+    // 열면 컨트롤 노출
+    fireEvent.click(screen.getByText('컨트롤 보기'));
+    expect(screen.getByText('⏸ 일시정지')).toBeInTheDocument();
   });
 
   it('renders progress "N권 중 M권" from store', () => {

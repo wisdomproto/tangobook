@@ -320,9 +320,6 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             /library 헤더는 absolute overlay (transparent) — 배너가 viewport top 까지 차지. */}
         {type === 'storybook' && <PromoBanner />}
 
-        {/* 나의 재생 목록 — 동화책 모드 + 로그인 사용자 only (컴포넌트 내부에서 게스트 자체 숨김). */}
-        {type === 'storybook' && <PlaylistLibrarySection />}
-
         {/* 검색바 (좌) + 카테고리 chip (우). 모바일 stack, md+ 가로. 검색바 적정 폭으로 줄여 chip 영역 확보. */}
         <div className="mb-8 md:mb-10 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 lg:gap-8">
           {/* 검색바 — 좌측 */}
@@ -431,6 +428,9 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             </div>
           )}
         </div>
+
+        {/* 나의 재생 목록 — 동화책 모드 + 저장된 세트 ≥1 일 때만 노출 (컴포넌트 내부에서 조건 판단). */}
+        {type === 'storybook' && <PlaylistLibrarySection />}
 
         {/* 콘텐츠 */}
         {isLoading ? (
