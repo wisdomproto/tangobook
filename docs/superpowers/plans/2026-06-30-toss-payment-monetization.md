@@ -1,5 +1,7 @@
 # 토스 결제 + 프리미엄 게이팅 Implementation Plan
 
+> ✅ **구현 완료** (2026-07-01, `feat/payment-toss` 8커밋 → main). 전 청크 subagent-driven 실행·리뷰 완료. 서버 398 tests + 클라 +23 tests green, 타입체크 clean. Supabase 스키마·referral RPC 운영 적용. `PAYWALL_ENABLED=false`(런칭 스위치 대기).
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 국내 토스페이먼츠 단건 기간권으로 동화책 유료화를 켜고, 무료 3권·7일 체험·친구초대 +7일·프로모 배너를 붙인다.

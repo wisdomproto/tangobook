@@ -79,6 +79,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - 마케팅 (블로그/카드뉴스) → [features/blog/CLAUDE.md](packages/client/src/features/blog/CLAUDE.md)
 - 마케팅 플랫폼 (ContentFlow 포트, /marketing) → [features/marketing/CLAUDE.md](packages/client/src/features/marketing/CLAUDE.md)
 - Auth (Supabase) → [features/auth/CLAUDE.md](packages/client/src/features/auth/CLAUDE.md)
+- 결제/유료화 (토스 단건 기간권 + paywall 게이팅 + 친구초대 referral) → memory `payment-toss-monetization-2026-06-30`. ⚠️ `PAYWALL_ENABLED`(`features/access/config.ts`)=런칭 스위치, 실 토스키 준비 후 true. entitlement 판정=`shared/utils/entitlement.ts`, 결제두뇌=`features/access`.
 - Learning Reports → [features/learning/CLAUDE.md](packages/client/src/features/learning/CLAUDE.md)
 - 별/호리/놀이터 → [features/rewards/CLAUDE.md](packages/client/src/features/rewards/CLAUDE.md)
 - Hori 아케이드 → [features/arcade-games/CLAUDE.md](packages/client/src/features/arcade-games/CLAUDE.md)

@@ -1,7 +1,7 @@
 # 토스 결제 + 프리미엄 게이팅 설계
 
 **날짜**: 2026-06-30
-**상태**: 설계 합의 (구현 대기)
+**상태**: ✅ 구현 완료 (2026-07-01, `feat/payment-toss` → main). PAYWALL_ENABLED=false 유지(런칭 스위치). 플랜: [../plans/2026-06-30-toss-payment-monetization.md](../plans/2026-06-30-toss-payment-monetization.md)
 **선행**: 소셜 로그인(카카오·구글) 완료 — 계정/세션 기반 마련됨
 
 ## 1. 목표 / 비목표
