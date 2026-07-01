@@ -30,6 +30,7 @@ export {
   groupByPhoneme,
   countDistinctBooks,
   groupByArtStyle,
+  booksThisWeek,
   type ArtStyleStat,
 } from './lib/aggregate';
 export {

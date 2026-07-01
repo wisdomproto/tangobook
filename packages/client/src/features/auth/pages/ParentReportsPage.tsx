@@ -12,7 +12,9 @@ import {
   PlaygroundStatsCard,
   VocabularyTabContent,
   useLearningEvents,
+  booksThisWeek,
 } from '@/features/learning';
+import { isDevEmail } from '@/config/dev';
 
 type MainTab = 'activity' | 'storybook' | 'phonics' | 'vocab';
 
@@ -24,11 +26,14 @@ const TAB_DEFS: { id: MainTab; iconSrc: string; label: string }[] = [
 ];
 
 export default function ParentReportsPage() {
-  const { activeProfile, isConfigured } = useAuth();
+  const { account, activeProfile, isConfigured } = useAuth();
+  const isDev = isDevEmail(account?.email);
   const { data: events = [], isLoading } = useLearningEvents(activeProfile?.id);
   const { data: storybooks = [] } = useStorybooks();
-  const [tab, setTab] = useState<MainTab>('activity');
+  const [tab, setTab] = useState<MainTab>('storybook');
   const [storybookLang, setStorybookLang] = useState<Lang>('ko');
+
+  const visibleTabs = TAB_DEFS.filter((t) => t.id === 'storybook' || isDev);
 
   if (!isConfigured) {
     return (
@@ -58,36 +63,46 @@ export default function ParentReportsPage() {
     );
   }
 
+  const weekCount = booksThisWeek(events, new Date());
+
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-4 md:p-6">
       <header>
         <div className="flex items-center gap-3">
           <Mascot state="reading" size="md" character="hori" />
           <div>
-            <h1 className="text-2xl font-black text-ink-900">📊 {activeProfile.name} 학습 현황</h1>
+            <h1 className="text-2xl font-black text-ink-900">
+              📖 {activeProfile.name}의 독서 현황
+            </h1>
             <p className="text-sm text-ink-500">
-              {isLoading ? '불러오는 중…' : `최근 이벤트 ${events.length}건`}
+              {isLoading
+                ? '불러오는 중…'
+                : weekCount > 0
+                  ? `이번 주 ${weekCount}권 읽었어요`
+                  : '이번 주 읽은 책이 아직 없어요'}
             </p>
           </div>
         </div>
       </header>
 
-      {/* 메인 탭바 */}
-      <div className="flex gap-2 overflow-x-auto pb-1">
-        {TAB_DEFS.map((t) => (
-          <Chip
-            key={t.id}
-            active={tab === t.id}
-            variant="coral"
-            icon={<AppIcon src={t.iconSrc} size={22} alt={t.label} />}
-            onClick={() => setTab(t.id)}
-          >
-            {t.label}
-          </Chip>
-        ))}
-      </div>
+      {/* 메인 탭바 — 부모 화면은 동화책만. 개발자 계정은 전체 탭 노출 */}
+      {visibleTabs.length > 1 && (
+        <div className="flex gap-2 overflow-x-auto pb-1">
+          {visibleTabs.map((t) => (
+            <Chip
+              key={t.id}
+              active={tab === t.id}
+              variant="coral"
+              icon={<AppIcon src={t.iconSrc} size={22} alt={t.label} />}
+              onClick={() => setTab(t.id)}
+            >
+              {t.label}
+            </Chip>
+          ))}
+        </div>
+      )}
 
-      {tab === 'activity' && (
+      {tab === 'activity' && isDev && (
         <div className="space-y-6">
           <section>
             <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
@@ -122,7 +137,7 @@ export default function ParentReportsPage() {
         </section>
       )}
 
-      {tab === 'phonics' && (
+      {tab === 'phonics' && isDev && (
         <section>
           <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
             <AppIcon src="tab/phonics.svg" size={28} alt="파닉스" />
@@ -132,7 +147,7 @@ export default function ParentReportsPage() {
         </section>
       )}
 
-      {tab === 'vocab' && (
+      {tab === 'vocab' && isDev && (
         <section>
           <h2 className="mb-3 flex items-center gap-2 text-lg font-bold">
             <AppIcon src="tab/vocab.svg" size={28} alt="어휘" />
