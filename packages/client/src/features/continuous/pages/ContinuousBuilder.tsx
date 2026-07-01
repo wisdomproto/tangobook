@@ -56,7 +56,7 @@ export default function ContinuousBuilder() {
       bookIds: selectedIds,
       language,
     });
-    navigate('/library');
+    navigate('/continuous');
   };
 
   const canSubmit = selectedIds.length > 0;
@@ -67,7 +67,7 @@ export default function ContinuousBuilder() {
         <header className="mb-5 flex items-center gap-3">
           <button
             type="button"
-            onClick={() => navigate('/library')}
+            onClick={() => navigate('/continuous')}
             aria-label="뒤로"
             className="w-10 h-10 rounded-full bg-white shadow-soft flex items-center justify-center font-black text-ink-600 hover:bg-ink-50 transition"
           >

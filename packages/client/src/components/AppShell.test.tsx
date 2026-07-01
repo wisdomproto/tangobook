@@ -35,31 +35,31 @@ describe('AppShell sidebar axis visibility', () => {
     vi.restoreAllMocks();
   });
 
-  it('guest (account=null) → 동화책 표시, 연속재생/파닉스/어휘/학습 게임 숨김', () => {
+  it('guest (account=null) → 동화책+연속재생 표시, 파닉스/어휘/학습 게임 숨김', () => {
     setup(null);
     renderShell();
     expect(screen.getByText('동화책')).toBeInTheDocument();
-    expect(screen.queryByText('연속재생')).toBeNull();
+    expect(screen.getByText('연속재생')).toBeInTheDocument();
     expect(screen.queryByText('파닉스')).toBeNull();
     expect(screen.queryByText('어휘')).toBeNull();
     expect(screen.queryByText('학습 게임')).toBeNull();
   });
 
-  it('일반 부모 계정 → 동화책 표시, 연속재생/파닉스/어휘/학습 게임 숨김', () => {
+  it('일반 부모 계정 → 동화책+연속재생 표시, 파닉스/어휘/학습 게임 숨김', () => {
     setup({ email: 'someparent@example.com' });
     renderShell();
     expect(screen.getByText('동화책')).toBeInTheDocument();
-    expect(screen.queryByText('연속재생')).toBeNull();
+    expect(screen.getByText('연속재생')).toBeInTheDocument();
     expect(screen.queryByText('파닉스')).toBeNull();
     expect(screen.queryByText('어휘')).toBeNull();
     expect(screen.queryByText('학습 게임')).toBeNull();
   });
 
-  it('개발자 계정(kil210@tangobook.co.kr) → 동화책+파닉스+어휘+학습게임 표시, 연속재생 없음', () => {
+  it('개발자 계정(kil210@tangobook.co.kr) → 동화책+연속재생+파닉스+어휘+학습게임 표시', () => {
     setup({ email: 'kil210@tangobook.co.kr' });
     renderShell();
     expect(screen.getByText('동화책')).toBeInTheDocument();
-    expect(screen.queryByText('연속재생')).toBeNull();
+    expect(screen.getByText('연속재생')).toBeInTheDocument();
     expect(screen.getByText('파닉스')).toBeInTheDocument();
     expect(screen.getByText('어휘')).toBeInTheDocument();
     expect(screen.getByText('학습 게임')).toBeInTheDocument();

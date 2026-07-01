@@ -1,19 +1,21 @@
 import { useNavigate } from 'react-router-dom';
+import { computeAccess } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
-import { useAccess } from '@/features/access';
+import { useEntitlement } from '@/features/payment/hooks/useEntitlement';
+import { InviteButton } from '@/features/payment';
 
 /**
  * Single-slide promo banner advertising 7-day free trial / referral bonus.
  *
- * Copy and CTA change based on user state:
- *   - Guest (no account): login prompt
- *   - Trial: days remaining + upgrade nudge
- *   - Expired: subscription nudge
- *   - Subscribed/entitled: hidden (returns null)
+ * Copy and CTA change based on user state computed DIRECTLY from account age +
+ * real subscription data — intentionally decoupled from PAYWALL_ENABLED so
+ * logged-in users see their trial countdown even before paywall goes live.
+ * Gating (what content is locked) still respects PAYWALL_ENABLED elsewhere.
  *
- * IMPORTANT: We detect guest via `account === null` from useAuth(), NOT via
- * useAccess().status, because when PAYWALL_ENABLED=false useAccess() returns
- * `status:'subscribed'` for everyone including guests.
+ *   - guest  → login prompt
+ *   - trial  → days remaining + InviteButton (copy invite link)
+ *   - expired → referral CTA + InviteButton
+ *   - subscribed (real paid subscription) → hidden (returns null)
  *
  * Asset: public/images/library-banner/promo.webp
  *   1872×1248, tiger mascot + gift on RIGHT half; left ~40% is open cream space.
@@ -21,33 +23,35 @@ import { useAccess } from '@/features/access';
 export function PromoBanner() {
   const navigate = useNavigate();
   const { account } = useAuth();
-  const access = useAccess();
+  const { paidUntil, referralBonusDays } = useEntitlement();
 
-  // Determine content based on user state (in priority order)
+  // Compute access state directly from account + real subscription data,
+  // NOT via useAccess() which returns 'subscribed' for everyone when PAYWALL_ENABLED=false.
+  const raw = computeAccess({
+    account: account ? { createdAt: account.createdAt } : null,
+    subscription: paidUntil ? { status: 'active', currentPeriodEnd: paidUntil } : null,
+    referralBonusDays,
+  });
+
+  // Real paid subscriber — hide banner entirely
+  if (raw.status === 'subscribed') return null;
+
+  const isGuest = raw.status === 'guest';
+  const isTrial = raw.status === 'trial';
+
   let headline: string;
   let sub: string;
-  let ctaLabel: string;
-  let ctaPath: string;
 
-  if (!account) {
-    // Guest — no account at all
+  if (isGuest) {
     headline = '로그인하면 7일 무료 체험';
     sub = '친구 초대하면 +7일 무료';
-    ctaLabel = '로그인하고 시작하기';
-    ctaPath = '/login';
-  } else if (access.status === 'trial') {
-    headline = `무료 체험 ${access.trialDaysLeft}일 남음`;
-    sub = '이용권으로 계속 즐겨요';
-    ctaLabel = '이용권 보기';
-    ctaPath = '/subscribe';
-  } else if (access.status === 'expired') {
-    headline = '이용권으로 모든 책을 열어요';
-    sub = '세계명작·자연관찰 모두';
-    ctaLabel = '이용권 보기';
-    ctaPath = '/subscribe';
+  } else if (isTrial) {
+    headline = `무료 체험 ${raw.trialDaysLeft}일 남음`;
+    sub = '친구 초대하면 +7일 늘어나요';
   } else {
-    // subscribed / entitled — hide banner entirely
-    return null;
+    // expired
+    headline = '친구 초대하고 무료 기간 늘리기';
+    sub = '친구가 가입하면 +7일';
   }
 
   return (
@@ -65,12 +69,16 @@ export function PromoBanner() {
           <p className="hidden sm:block text-xs md:text-sm lg:text-base font-bold text-ink-600 mt-1 md:mt-2 leading-snug break-keep">
             {sub}
           </p>
-          <button
-            onClick={() => navigate(ctaPath)}
-            className="mt-2 md:mt-3 bg-coral-500 text-white font-black rounded-xl px-5 py-2.5 text-xs md:text-sm hover:brightness-110 transition"
-          >
-            {ctaLabel}
-          </button>
+          {isGuest ? (
+            <button
+              onClick={() => navigate('/login')}
+              className="mt-2 md:mt-3 bg-coral-500 text-white font-black rounded-xl px-5 py-2.5 text-xs md:text-sm hover:brightness-110 transition"
+            >
+              로그인하고 시작하기
+            </button>
+          ) : (
+            <InviteButton className="mt-2 md:mt-3 bg-coral-500 text-white font-black rounded-xl px-5 py-2.5 text-xs md:text-sm hover:brightness-110 transition" />
+          )}
         </div>
       </div>
 

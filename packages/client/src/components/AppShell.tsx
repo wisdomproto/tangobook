@@ -28,6 +28,16 @@ const PRIMARY_AXES = [
     devOnly: false,
   },
   {
+    to: '/continuous',
+    iconSrc: 'tab/activity.svg',
+    label: '연속재생',
+    color: 'coral' as const,
+    end: false,
+    comingSoon: false,
+    alwaysActive: false,
+    devOnly: false,
+  },
+  {
     to: '/library/phonics',
     iconSrc: 'tab/phonics.svg',
     label: '파닉스',

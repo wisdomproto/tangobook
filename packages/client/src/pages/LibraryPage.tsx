@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import { useStorybooks } from '@/features/storybook';
 import { CategorySection, BookCard, useReadingStatus, useLibraryConfig } from '@/features/library';
 import { PromoBanner } from '@/features/library/components/PromoBanner';
-import { PlaylistLibrarySection } from '@/features/continuous';
 import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
 import { useSeo } from '@/lib/useSeo';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
@@ -319,9 +318,6 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
         {/* 롤링 배너 — 동화책 모드 only. 3 슬라이드 (그림체/어휘게임/자연관찰) 5s auto-advance.
             /library 헤더는 absolute overlay (transparent) — 배너가 viewport top 까지 차지. */}
         {type === 'storybook' && <PromoBanner />}
-
-        {/* 나의 재생 목록 — 동화책 모드 + 로그인 사용자 only (컴포넌트 내부에서 게스트 자체 숨김). */}
-        {type === 'storybook' && <PlaylistLibrarySection />}
 
         {/* 검색바 (좌) + 카테고리 chip (우). 모바일 stack, md+ 가로. 검색바 적정 폭으로 줄여 chip 영역 확보. */}
         <div className="mb-8 md:mb-10 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 lg:gap-8">
