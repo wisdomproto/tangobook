@@ -99,6 +99,8 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   const [ttsReady, setTtsReady] = useState(false);
   // 첫 진입은 항상 '시작' 버튼 → 사용자 탭 안에서 재생(모든 브라우저 OK, autoplay 정책 우회).
   const [needsTapToStart, setNeedsTapToStart] = useState(false);
+  // 전체화면은 책마다 진입 시 기본 ON (영구 저장 X) — 끄면 그 책 보는 동안만, 다음 책은 다시 전체화면.
+  const [fullscreenLocal, setFullscreenLocal] = useState(true);
   // 한 번 시작하면(사용자 제스처로 오디오 해금) 이후 페이지는 자동재생.
   // playlist autoStart(2번째 이후 책): 첫 책 탭으로 오디오 해금됨 → 탭 게이트 없이 바로 자동재생.
   // 컴포넌트가 책마다 remount(key={bookId}) 되므로 초기값으로 안전하게 세팅.
@@ -504,7 +506,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   }
 
   // playlist mode: force fullscreen so the playlist chrome (outside this component) stays visible.
-  const fullscreen = playlist ? true : settings.fullscreenImage;
+  const fullscreen = playlist ? true : fullscreenLocal;
 
   return (
     <div
@@ -545,7 +547,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
           language={lang}
           onToggleLanguage={onToggleLanguage}
           fullscreenImage={fullscreen}
-          onToggleFullscreen={() => updateSettings({ fullscreenImage: !settings.fullscreenImage })}
+          onToggleFullscreen={() => setFullscreenLocal((f) => !f)}
         />
       )}
 
@@ -576,7 +578,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
           playlist 모드에서는 숨김 — 플레이리스트 chrome(상위 컴포넌트)이 제어권을 가짐. */}
       {fullscreen && !playlist && (
         <button
-          onClick={() => updateSettings({ fullscreenImage: false })}
+          onClick={() => setFullscreenLocal(false)}
           className="absolute top-3 right-3 z-30 w-11 h-11 rounded-full bg-white/40 hover:bg-white/70 backdrop-blur-sm text-ink-900 flex items-center justify-center text-lg shadow-soft transition-all"
           title="풀스크린 끄기"
           aria-label="풀스크린 끄기"
