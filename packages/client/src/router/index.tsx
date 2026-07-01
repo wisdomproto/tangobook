@@ -54,7 +54,7 @@ import { ContinuousHomePage, ContinuousBuilder, ContinuousPlayPage } from '../fe
 import SubscribePage from '../features/payment/pages/SubscribePage';
 import PaymentSuccessPage from '../features/payment/pages/PaymentSuccessPage';
 import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
-import { InviteLandingPage, ReferralRewardToast } from '../features/payment';
+import { InviteLandingPage, InviteFriendsPage, ReferralRewardToast } from '../features/payment';
 
 export const router = createBrowserRouter([
   {
@@ -97,6 +97,7 @@ export const router = createBrowserRouter([
           // 연속재생 홈 — 사이드바 있는 브라우즈 화면 (AppShell 안). 저장된 세트 목록 + 새 세트 만들기.
           { path: 'continuous', element: <ContinuousHomePage /> },
           { path: 'continuous/new', element: <ContinuousBuilder /> },
+          { path: 'invite-friends', element: <InviteFriendsPage /> },
         ],
       },
       {

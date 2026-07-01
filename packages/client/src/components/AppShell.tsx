@@ -136,13 +136,20 @@ export function AppShell() {
         ))}
         {session && isConfigured && (
           <>
-            {/* 동화책·연속재생(아이용)과 학습 리포팅(부모용) 구분선 */}
+            {/* 동화책·연속재생(아이용)과 부모용(리포팅·초대) 구분선 */}
             <div className="w-16 h-0.5 rounded-full bg-ink-200/70 my-1.5" />
             <PrimaryNavButton
               to="/parent/reports"
               iconSrc="section/reports.webp"
               label="학습 리포팅"
               color="mint"
+              end={false}
+            />
+            <PrimaryNavButton
+              to="/invite-friends"
+              iconSrc="section/reward.webp"
+              label="친구 초대"
+              color="amber"
               end={false}
             />
           </>

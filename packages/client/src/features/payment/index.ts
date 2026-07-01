@@ -10,3 +10,4 @@ export { InviteButton } from './components/InviteButton';
 export { RedeemCodeInput } from './components/RedeemCodeInput';
 export { ReferralRewardToast } from './components/ReferralRewardToast';
 export { default as InviteLandingPage } from './pages/InviteLandingPage';
+export { default as InviteFriendsPage } from './pages/InviteFriendsPage';

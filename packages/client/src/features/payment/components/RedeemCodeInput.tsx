@@ -1,10 +1,14 @@
 import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { apiPost } from '@/lib/axios';
+import { useAuth } from '@/features/auth/context/AuthContext';
+import { ENTITLEMENT_QUERY_KEY } from '../hooks/useEntitlement';
 
 interface RedeemResult {
   ok: boolean;
   reason?: string;
   inviterBonus?: number;
+  refereeBonus?: number;
 }
 
 function reasonMessage(reason?: string): string {
@@ -25,9 +29,11 @@ function reasonMessage(reason?: string): string {
 
 /**
  * 받은 초대 코드 입력 폼. 친구가 회원 가입 후 여기에 코드를 넣으면 redeem.
- * (보상은 초대한 친구에게 +7일 적립 — 서버 RPC 가 자기초대·중복·상한 방어.)
+ * 양방향 보상 — 초대자·나 둘 다 +7일 (서버 RPC 가 자기초대·중복·상한 방어).
  */
 export function RedeemCodeInput() {
+  const { account } = useAuth();
+  const queryClient = useQueryClient();
   const [code, setCode] = useState('');
   const [state, setState] = useState<'idle' | 'busy' | 'ok' | 'err'>('idle');
   const [msg, setMsg] = useState('');
@@ -41,7 +47,19 @@ export function RedeemCodeInput() {
       const res = await apiPost<RedeemResult>('/payments/referral/redeem', { code: c });
       if (res.ok) {
         setState('ok');
-        setMsg('코드를 적용했어요! 🎉 초대해준 친구에게 무료 기간이 쌓여요.');
+        setMsg('코드를 적용했어요! 🎉 나도 +7일, 초대해준 친구도 +7일 늘었어요.');
+        if (account) {
+          // 내 보상은 여기서 인라인으로 축하하므로, ReferralRewardToast 가 중복 축하하지 않게 기준값 갱신.
+          if (typeof res.refereeBonus === 'number') {
+            try {
+              localStorage.setItem(`tb_ref_bonus_seen:${account.id}`, String(res.refereeBonus));
+            } catch {
+              // best-effort
+            }
+          }
+          // 내 늘어난 무료기간을 UI 에 반영 (멤버십 상태 등).
+          void queryClient.invalidateQueries({ queryKey: ENTITLEMENT_QUERY_KEY(account.id) });
+        }
       } else {
         setState('err');
         setMsg(reasonMessage(res.reason));

@@ -74,8 +74,8 @@ export default function ParentSettingsPage() {
       <section className="bg-white rounded-2xl p-6 shadow-soft">
         <h3 className="text-xl font-black text-ink-900 mb-2">🎁 친구 초대</h3>
         <p className="text-ink-600 text-sm mb-3 break-keep">
-          내 코드를 친구에게 알려주세요. 친구가 <b>회원 가입 후 코드를 입력</b>하면 무료 기간이
-          7일씩 늘어나요 (최대 28일).
+          내 코드를 친구에게 알려주세요. 친구가 <b>회원 가입 후 코드를 입력</b>하면 <b>둘 다</b>{' '}
+          무료 기간이 7일씩 늘어나요 (각 최대 28일).
         </p>
         <InviteButton className="px-6 py-3 rounded-xl bg-coral-500 text-white font-black hover:brightness-110" />
 

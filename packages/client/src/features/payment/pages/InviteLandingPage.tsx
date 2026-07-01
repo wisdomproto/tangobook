@@ -50,7 +50,8 @@ export default function InviteLandingPage() {
         </h1>
         <p className="text-ink-600 leading-relaxed break-keep">
           세계 명작 동화와 자연관찰 그림책을 아이 목소리로 읽어줘요. 회원 가입하면{' '}
-          <span className="font-black text-coral-600">7일 동안 모든 동화 무료</span>!
+          <span className="font-black text-coral-600">7일 동안 모든 동화 무료</span>, 초대로
+          시작하면 <span className="font-black text-coral-600">친구도 나도 +7일</span>!
         </p>
 
         {session ? (
