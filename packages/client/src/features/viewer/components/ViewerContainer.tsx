@@ -36,6 +36,9 @@ interface PlaylistProp {
    *  audio unlock from the first book's tap is per-page-session, so books 2+
    *  can auto-play programmatically without a new user gesture. */
   autoStart?: boolean;
+  /** When true, pause TTS and halt queue auto-advance. When it flips back to
+   *  false, resume TTS from current position. Controlled by playlist.store. */
+  paused?: boolean;
 }
 
 interface ViewerContainerProps {
@@ -219,6 +222,19 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
     setPlaybackRate(playlist.speed);
   }, [playlist, setPlaybackRate]);
 
+  // playlist paused prop: pause/resume TTS when the parent signals pause/resume.
+  // Only active in playlist mode (playlist truthy); no-op when not in playlist.
+  const pauseTts = audio.pauseTts;
+  const resumeTts = audio.resumeTts;
+  useEffect(() => {
+    if (!playlist) return;
+    if (playlist.paused) {
+      pauseTts();
+    } else {
+      resumeTts();
+    }
+  }, [playlist, playlist?.paused, pauseTts, resumeTts]);
+
   // 페이지 변경 시 자동 TTS 재생. 첫 진입은 ttsReady(버퍼링 완료) 후에만 — 로딩 끝나고 바로 재생.
   // BGM 은 useAudioPlayer 가 마운트 시 바로 재생 (별도).
   // `mode=video|games` 또는 reward/wordReveal 화면이 열렸을 땐 TTS 재생하지 않음.
@@ -245,11 +261,16 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   // within max(ttsDuration, 6000) ms, advance (or call onBookEnd on last page).
   // Cleared by handleTtsEnded (via stallTimerRef) and whenever the page changes.
   // Uses a separate effect so we don't disturb existing TTS auto-play logic.
+  // PAUSE guard: when playlist.paused is true we do NOT arm the timer — adding
+  // paused to the dep array means the effect re-runs on resume and re-arms it.
+  // The cleanup returned by the previous (paused) run already cleared the old
+  // timer, so there is no risk of double-advance after resume.
   useEffect(() => {
     if (!playlist) return;
     if (!ttsReady || !startedRef.current) return;
     if (rewardOpen || wordRevealOpen) return;
     if (!stateRef.current.autoPlayTts) return;
+    if (playlist.paused) return; // ← paused: do not arm stall-guard timer
 
     // Compute guard duration: TTS duration (ms) + breathing room, minimum 6 s.
     const guardMs = Math.max(audio.ttsDuration * 1000 || 0, 6000) + PAGE_REST_MS;
@@ -272,7 +293,16 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
       clearTimeout(timer);
       stallTimerRef.current = null;
     };
-  }, [pageIndex, ttsReady, rewardOpen, wordRevealOpen, playlist, pages.length, audio.ttsDuration]);
+  }, [
+    pageIndex,
+    ttsReady,
+    rewardOpen,
+    wordRevealOpen,
+    playlist,
+    playlist?.paused,
+    pages.length,
+    audio.ttsDuration,
+  ]);
 
   // 첫 진입 시 첫 BUFFER_PAGES 페이지 TTS 를 버퍼링한 뒤 시작 (로딩 화면 동안). 같은 컴포넌트의
   // Audio 풀이라 playTts 가 그대로 재사용 → 로딩 끝나면 첫 음성 즉시. video/games/파닉스(비story) 생략.

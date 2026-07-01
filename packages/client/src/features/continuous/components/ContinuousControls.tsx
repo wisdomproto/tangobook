@@ -21,10 +21,12 @@ export function ContinuousControls() {
   const index = usePlaylistStore((s) => s.index);
   const speed = usePlaylistStore((s) => s.speed);
   const sleepMinutes = usePlaylistStore((s) => s.sleepMinutes);
+  const paused = usePlaylistStore((s) => s.paused);
   const setSpeed = usePlaylistStore((s) => s.setSpeed);
   const setSleep = usePlaylistStore((s) => s.setSleep);
   const skip = usePlaylistStore((s) => s.skip);
   const reset = usePlaylistStore((s) => s.reset);
+  const togglePause = usePlaylistStore((s) => s.togglePause);
 
   const [visible, setVisible] = useState(true);
 
@@ -63,6 +65,21 @@ export function ContinuousControls() {
           숨기기
         </button>
       </div>
+
+      {/* 일시정지 / 재생 */}
+      <button
+        type="button"
+        onClick={togglePause}
+        className={cn(
+          'h-14 w-full rounded-xl text-xl font-black transition active:scale-95 break-keep',
+          paused
+            ? 'bg-coral-500 text-white shadow-soft hover:bg-coral-600'
+            : 'bg-white/20 text-white hover:bg-white/30'
+        )}
+        aria-label={paused ? '재생' : '일시정지'}
+      >
+        {paused ? '▶ 재생' : '⏸ 일시정지'}
+      </button>
 
       {/* 속도 */}
       <div className="flex items-center gap-2">

@@ -18,6 +18,7 @@ export default function ContinuousPlayPage() {
   const language = usePlaylistStore((s) => s.language);
   const speed = usePlaylistStore((s) => s.speed);
   const ended = usePlaylistStore((s) => s.ended);
+  const paused = usePlaylistStore((s) => s.paused);
   const next = usePlaylistStore((s) => s.next);
   const restart = usePlaylistStore((s) => s.restart);
   const reset = usePlaylistStore((s) => s.reset);
@@ -44,8 +45,9 @@ export default function ContinuousPlayPage() {
       onBookEnd: next,
       speed,
       autoStart: index > 0, // 첫 책만 탭으로 오디오 해금, 나머지는 자동 시작
+      paused,
     }),
-    [index, queue.length, next, speed]
+    [index, queue.length, next, speed, paused]
   );
 
   if (queue.length === 0) {
