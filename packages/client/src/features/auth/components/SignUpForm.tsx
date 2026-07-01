@@ -82,7 +82,7 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
                 : '메일 다시 보내기'}
           </button>
           <div className="rounded-xl bg-peach-50 p-3 text-sm text-ink-600">
-            💡 카카오·구글로 가입하면 이메일 확인 없이 바로 시작해요
+            💡 카카오·구글로 회원 가입하면 이메일 확인 없이 바로 시작해요
           </div>
           <button onClick={onSwitchToSignIn} className="text-sm text-ink-500 hover:text-coral-500">
             로그인으로 돌아가기

@@ -32,19 +32,19 @@ export function PaywallNotice({
       {coverUrl ? (
         <div className="relative">
           <img src={coverUrl} alt="" className="h-32 w-auto rounded-2xl object-cover shadow-soft" />
-          <span className="absolute -top-2 -right-2 rounded-full bg-coral-500 px-2.5 py-0.5 text-[11px] font-black text-white shadow-soft">
-            ⭐ 특별한 책
+          <span className="absolute -top-2 -right-2 rounded-full bg-ink-900/75 px-2.5 py-0.5 text-[11px] font-black text-white shadow-soft">
+            🔒 잠금
           </span>
         </div>
       ) : (
         <div className="text-5xl" aria-hidden>
-          ⭐
+          🔒
         </div>
       )}
-      <h2 className="font-display text-2xl font-black text-ink-900">특별한 동화예요</h2>
+      <h2 className="font-display text-2xl font-black text-ink-900">잠긴 동화예요</h2>
       <p className="leading-relaxed text-ink-600">
         {isGuest
-          ? '가입하면 7일 동안 모든 동화를 무료로 즐길 수 있어요. 친구를 초대하면 7일씩 더 늘어나요!'
+          ? '회원 가입하면 7일 동안 모든 동화를 무료로 즐길 수 있어요. 친구를 초대하면 7일씩 더 늘어나요!'
           : '무료 체험이 끝났어요. 구독하거나 친구를 초대하면 모든 동화를 계속 즐길 수 있어요.'}
       </p>
       <div className="mt-2 flex w-full flex-col gap-2">

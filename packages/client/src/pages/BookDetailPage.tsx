@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useStorybook, useStorybooks } from '@/features/storybook';
 import {
@@ -8,8 +7,6 @@ import {
   getDirectVideoUrls,
   getAvailableStyles,
 } from '@/lib/storybook-accessors';
-import { findArtStylePreset } from '@/features/editor/lib/style-assets';
-import { settingsApi } from '@/features/settings/api/settings.api';
 import { StateScreen, Skeleton, Chip, PageHeader } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { useSeo } from '@/lib/useSeo';
@@ -44,12 +41,6 @@ export default function BookDetailPage() {
   // 4-25~26 v2 시도 폐기 후 BookDetail 도 v1 으로 정리.
   const { data: storybook, isLoading, isError } = useStorybook(id);
   const { data: allStorybooks } = useStorybooks();
-  // 그림체 칩 라벨용 — 사용자 편집 그림체(style-* 커스텀 id)는 ART_STYLES preset 밖이라
-  // art-style-library 를 함께 넘겨야 "에릭칼(콜라주)" 같은 이름이 뜸 (없으면 '그림체' 폴백).
-  const { data: styleLibrary } = useQuery({
-    queryKey: ['art-style-library'],
-    queryFn: settingsApi.getArtStyleLibrary,
-  });
 
   // SEO — 책 detail 페이지는 SEO 진입 페이지 (BookSeoPage 의 /about 는 부모용 가이드, /library/:id 는 학습자 진입).
   // 책 정보 로드되면 동적으로 title/description/og 세팅. 책 상세는 학습 진입점이라 robots=index.
@@ -318,8 +309,9 @@ export default function BookDetailPage() {
                       </button>
                       <span className="text-base font-black text-ink-900 flex items-center gap-1.5 truncate min-w-0">
                         <span className="shrink-0">🎨</span>
+                        {/* 어떤 그림체인지 명시하지 않고 "그림체 N" 으로만 표시 */}
                         <span className="truncate">
-                          {findArtStylePreset(effectiveStyle, styleLibrary)?.label ?? '그림체'}
+                          그림체 {Math.max(0, styles.indexOf(effectiveStyle)) + 1}
                         </span>
                       </span>
                       <button

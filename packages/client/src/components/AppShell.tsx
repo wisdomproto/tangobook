@@ -128,16 +128,30 @@ export function AppShell() {
         </Link>
       </div>
 
-      {/* 학습 zone — 동화책 / 연속재생 (모두) + 파닉스 / 어휘 / 학습 게임 (개발자 전용). 큰 박스. */}
+      {/* 학습 zone — 동화책 / 연속재생 (모두) + 파닉스 / 어휘 / 학습 게임 (개발자 전용). 큰 박스.
+          그 아래 구분선 + 학습 리포팅(부모용, 로그인 시만). */}
       <nav className="flex flex-col gap-2.5 items-center pt-5 pb-5">
         {PRIMARY_AXES.filter((a) => !a.devOnly || isDevEmail(account?.email)).map((axis) => (
           <PrimaryNavButton key={axis.to} {...axis} />
         ))}
+        {session && isConfigured && (
+          <>
+            {/* 동화책·연속재생(아이용)과 학습 리포팅(부모용) 구분선 */}
+            <div className="w-16 h-0.5 rounded-full bg-ink-200/70 my-1.5" />
+            <PrimaryNavButton
+              to="/parent/reports"
+              iconSrc="section/reports.webp"
+              label="학습 리포팅"
+              color="mint"
+              end={false}
+            />
+          </>
+        )}
       </nav>
 
-      {/* 부모 영역 — 학습 메뉴와 시각적 분리 (상단 border + 톤 desaturate). 작은 텍스트 버튼. */}
+      {/* 부모 영역 — 로그인/로그아웃. */}
       <div className="mt-auto px-3 pt-3 pb-3 border-t-2 border-ink-200/60 bg-cream-100/30 flex flex-col gap-1.5">
-        {/* 로그인/로그아웃 — 학습 리포팅 위. session 상태에 따라 분기 */}
+        {/* 로그인/로그아웃 — session 상태에 따라 분기 */}
         {session ? (
           <button
             onClick={handleSignOut}
@@ -175,14 +189,6 @@ export function AppShell() {
             <span>로그인</span>
           </Link>
         ) : null}
-        {/* 학습 리포팅 — 리포트 화면으로 직행 (이전엔 /parent → 자녀선택으로 새어 라벨과 목적지 불일치였음). */}
-        {isConfigured && (
-          <SecondaryNavButton
-            to="/parent/reports"
-            iconSrc="section/reports.webp"
-            label="학습 리포팅"
-          />
-        )}
       </div>
     </>
   );
@@ -391,37 +397,6 @@ function PrimaryNavButton({
     >
       <AppIcon src={iconSrc} size={48} alt={label} />
       <span className="text-lg">{label}</span>
-    </NavLink>
-  );
-}
-
-function SecondaryNavButton({
-  to,
-  iconSrc,
-  emoji,
-  label,
-}: {
-  to: string;
-  iconSrc?: string;
-  emoji?: string;
-  label: string;
-}) {
-  return (
-    <NavLink
-      to={to}
-      className={({ isActive }) =>
-        cn(
-          'flex items-center gap-3 px-3 py-2.5 rounded-xl text-base font-black transition-all',
-          isActive ? 'bg-white text-ink-900 shadow-soft' : 'text-ink-700 hover:bg-white/60'
-        )
-      }
-    >
-      {iconSrc ? (
-        <AppIcon src={iconSrc} size={28} alt={label} className="rounded" />
-      ) : (
-        <span className="text-2xl">{emoji}</span>
-      )}
-      <span>{label}</span>
     </NavLink>
   );
 }

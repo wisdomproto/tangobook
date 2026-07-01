@@ -22,7 +22,7 @@ export default function InviteLandingPage() {
 
   useSeo({
     title: '친구가 탱고북에 초대했어요',
-    description: '가입하면 7일 동안 모든 동화를 무료로 즐길 수 있어요.',
+    description: '회원 가입하면 7일 동안 모든 동화를 무료로 즐길 수 있어요.',
     image: '/og-invite.png',
     path: code ? `/invite/${code}` : '/invite',
   });
@@ -49,7 +49,7 @@ export default function InviteLandingPage() {
           친구가 탱고북에 초대했어요!
         </h1>
         <p className="text-ink-600 leading-relaxed break-keep">
-          세계 명작 동화와 자연관찰 그림책을 아이 목소리로 읽어줘요. 가입하면{' '}
+          세계 명작 동화와 자연관찰 그림책을 아이 목소리로 읽어줘요. 회원 가입하면{' '}
           <span className="font-black text-coral-600">7일 동안 모든 동화 무료</span>!
         </p>
 
@@ -66,7 +66,7 @@ export default function InviteLandingPage() {
               onClick={() => navigate('/login')}
               className="mt-2 w-full h-14 rounded-xl bg-coral-500 text-white font-black text-lg hover:brightness-110 transition"
             >
-              가입하고 7일 무료 시작
+              회원 가입하고 7일 무료 시작
             </button>
             <button
               onClick={() => navigate('/library')}

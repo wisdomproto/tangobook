@@ -80,3 +80,10 @@ packages/server/scripts/_data/*
 
 # Lottie / effects preview (local dev tool)
 lottie-samples/
+
+# Claude Code isolated worktrees
+.claude/worktrees/
+
+# Server render outputs + local backup dumps (large binaries / not source)
+packages/server/out/
+packages/server/scripts/_backup*/
