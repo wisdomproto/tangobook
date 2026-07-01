@@ -3,6 +3,7 @@ import { Outlet, NavLink, Link, useLocation } from 'react-router-dom';
 import { AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { cn } from '@/lib/cn';
+import { isDevEmail } from '@/config/dev';
 
 /**
  * 학습자 화면 공통 frame — 좌측 nav (3축 + More Fun) + 상단 헤더 (페이지 타이틀 + 별).
@@ -24,6 +25,17 @@ const PRIMARY_AXES = [
     end: true,
     comingSoon: false,
     alwaysActive: true,
+    devOnly: false,
+  },
+  {
+    to: '/continuous',
+    iconSrc: 'tab/activity.svg',
+    label: '연속재생',
+    color: 'mint' as const,
+    end: false,
+    comingSoon: false,
+    alwaysActive: false,
+    devOnly: false,
   },
   {
     to: '/library/phonics',
@@ -33,6 +45,7 @@ const PRIMARY_AXES = [
     end: false,
     comingSoon: false,
     alwaysActive: false,
+    devOnly: true,
   },
   {
     to: '/vocabulary',
@@ -42,6 +55,7 @@ const PRIMARY_AXES = [
     end: false,
     comingSoon: true,
     alwaysActive: false,
+    devOnly: true,
   },
   {
     to: '/games',
@@ -51,6 +65,7 @@ const PRIMARY_AXES = [
     end: false,
     comingSoon: false,
     alwaysActive: false,
+    devOnly: true,
   },
 ];
 
@@ -74,7 +89,7 @@ function getPageTitle(
 }
 
 export function AppShell() {
-  const { activeProfile, session, signOut, isConfigured } = useAuth();
+  const { activeProfile, session, signOut, isConfigured, account } = useAuth();
   const location = useLocation();
   const pageTitle = getPageTitle(location.pathname);
   // /library 는 배너가 viewport top 까지 차지 — 헤더 absolute overlay (transparent) 로
@@ -106,9 +121,9 @@ export function AppShell() {
         </Link>
       </div>
 
-      {/* 학습 zone — 4 axis (동화책 / 파닉스 / 어휘 / 학습 게임). 큰 박스. */}
+      {/* 학습 zone — 동화책 / 연속재생 (모두) + 파닉스 / 어휘 / 학습 게임 (개발자 전용). 큰 박스. */}
       <nav className="flex flex-col gap-2.5 items-center pt-5 pb-5">
-        {PRIMARY_AXES.map((axis) => (
+        {PRIMARY_AXES.filter((a) => !a.devOnly || isDevEmail(account?.email)).map((axis) => (
           <PrimaryNavButton key={axis.to} {...axis} />
         ))}
       </nav>
