@@ -12,3 +12,15 @@
  *    (무료책 isAccessibleForFree 마킹·library-config 정렬은 이미 적용됨 — 스위치만 남음.)
  */
 export const PAYWALL_ENABLED = false;
+
+/**
+ * 게스트(미로그인) 전용 소프트 게이팅.
+ *
+ * `true`  = 유료화(PAYWALL_ENABLED) 전이라도 **로그인 안 한 방문자**에게는 무료 책만 열고
+ *           나머지(isAccessibleForFree===false, 146권)는 잠금 표시 → 가입 유도.
+ *           **로그인한 사용자는 전부 열람**(결제 준비 전이라 아직 과금 X).
+ * `false` = 게스트도 전체 열람 (완전 오픈).
+ *
+ * PAYWALL_ENABLED=true 가 되면 이 플래그와 무관하게 정식 체험/구독 게이팅이 적용된다.
+ */
+export const LOCK_FOR_GUESTS = true;

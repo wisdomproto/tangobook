@@ -19,9 +19,9 @@ export function BookCard({ book }: BookCardProps) {
   // 프리미엄(잠금) 표시 — PAYWALL_ENABLED=false(개발단계)면 access 항상 entitled → 미표시.
   const access = useAccess();
   const locked = !canReadBook(book, access);
-  // "무료" 뱃지 — 잠금이 실제 작동할 때(!isEntitled)만, 명시적 무료책(신데렐라·인어공주·백설공주)에.
-  // 게스트가 잠긴 책들 사이에서 "바로 읽을 수 있는 책"을 한눈에 찾게 함.
-  const showFreeBadge = book.isAccessibleForFree === true && !access.isEntitled;
+  // "무료" 뱃지 — 잠금이 실제 작동할 때(!isEntitled)만, 무료책(isAccessibleForFree!==false:
+  // 신데렐라·인어공주·백설공주)에. 게스트가 잠긴 책들 사이에서 읽을 수 있는 책을 한눈에 찾게 함.
+  const showFreeBadge = book.isAccessibleForFree !== false && !access.isEntitled;
 
   return (
     <button
