@@ -24,7 +24,10 @@ export function useEntitlement(): EntitlementData {
   const { data } = useQuery({
     queryKey: account ? ENTITLEMENT_QUERY_KEY(account.id) : ['entitlement', null],
     enabled: Boolean(account && isSupabaseConfigured),
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    // 친구 초대 보상(referral_bonus_days)이 서버에서 늘면 초대자가 앱에 돌아왔을 때 곧바로 잡아
+    // ReferralRewardToast 가 뜨도록 — 짧은 staleTime + 포커스 재조회.
+    staleTime: 1000 * 30, // 30s
+    refetchOnWindowFocus: true,
     queryFn: async () => {
       if (!account) return ENTITLEMENT_DEFAULTS;
       const { data, error } = await supabase
