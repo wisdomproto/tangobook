@@ -102,10 +102,10 @@ describe('PromoBanner', () => {
       expect(screen.getByRole('region', { name: '프로모션 배너' })).toBeInTheDocument();
     });
 
-    it('shows trial days remaining in headline', () => {
+    it('shows trial days remaining in headline (benefit framing, count kept)', () => {
       renderBanner();
-      // trialDaysLeft is ceil((7d - 2d elapsed)) = 5
-      expect(screen.getByText(/무료 체험 \d+일 남음/)).toBeInTheDocument();
+      // trialDaysLeft is ceil((7d - 2d elapsed)) = 5 — still shows the number
+      expect(screen.getByText(/무료 체험 중 🎉 \d+일 남았어요/)).toBeInTheDocument();
     });
 
     it('shows invite sub-copy', () => {
@@ -121,7 +121,9 @@ describe('PromoBanner', () => {
     });
   });
 
-  describe('expired user (old account, no paid subscription)', () => {
+  // 유료화 OFF(PAYWALL_ENABLED=false, 출시 전): 오래된 계정도 "만료"가 아니라 전체 무료 상태.
+  // "만료"처럼 보이던 버그 수정 후 긍정 톤 + 초대 예고 copy 를 보여준다.
+  describe('old account, paywall off (pre-launch → free-for-all copy, not expired)', () => {
     beforeEach(() => {
       mockUseAuth.mockReturnValue({ account: FAKE_ACCOUNT_OLD } as ReturnType<typeof useAuth>);
       mockUseEntitlement.mockReturnValue({ paidUntil: null, referralBonusDays: 0 });
@@ -132,14 +134,14 @@ describe('PromoBanner', () => {
       expect(screen.getByRole('region', { name: '프로모션 배너' })).toBeInTheDocument();
     });
 
-    it('shows expired/referral headline', () => {
+    it('shows positive free-for-all headline (no "expired" language)', () => {
       renderBanner();
-      expect(screen.getByText('친구 초대하고 무료 기간 늘리기')).toBeInTheDocument();
+      expect(screen.getByText('지금은 모든 동화 무료 🎉')).toBeInTheDocument();
     });
 
-    it('shows referral sub-copy', () => {
+    it('shows referral-preview sub-copy', () => {
       renderBanner();
-      expect(screen.getByText('친구가 가입하면 +7일')).toBeInTheDocument();
+      expect(screen.getByText('친구 초대하면 정식 오픈 후 +7일')).toBeInTheDocument();
     });
 
     it('shows InviteButton', () => {

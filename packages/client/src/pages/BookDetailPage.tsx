@@ -529,7 +529,16 @@ export default function BookDetailPage() {
           aria-modal="true"
         >
           <div onClick={(e) => e.stopPropagation()}>
-            <PaywallNotice status={access.status} onLogin={() => navigate('/login')} />
+            <PaywallNotice
+              status={access.status}
+              coverUrl={coverUrl}
+              onLogin={() => navigate('/login')}
+              onSubscribe={() => navigate('/subscribe')}
+              onBrowseFree={() => {
+                setShowPaywall(false);
+                navigate('/library');
+              }}
+            />
           </div>
         </div>
       )}
