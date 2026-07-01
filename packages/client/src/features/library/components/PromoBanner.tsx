@@ -43,22 +43,24 @@ export function PromoBanner() {
   let headline: string;
   let sub: string;
 
+  // 양방향 초대 카피 — 세련되고 따뜻하게, 판매 냄새 X. (드롭박스식: 친구·나 둘 다 +7일)
+  const REFERRAL_SUB = '친구와 함께라면, 무료 기간이 서로 7일씩 늘어나요';
+
   if (isGuest) {
-    headline = '로그인하면 7일 무료 체험';
-    sub = '친구 초대하면 +7일 무료';
+    headline = '세계 명작 동화, 7일 무료로 만나보세요';
+    sub = REFERRAL_SUB;
   } else if (isTrial) {
-    // 상실("N일 남음")보다 혜택 프레이밍 — 일수는 유지(부모가 원함)하되 톤을 부드럽게.
-    headline = `무료 체험 중 🎉 ${raw.trialDaysLeft}일 남았어요`;
-    sub = '친구 초대하면 +7일 늘어나요';
+    // 일수는 유지(부모가 원함)하되 상실 프레이밍 대신 담백하게.
+    headline = `모든 동화가 열려 있어요 · 무료 ${raw.trialDaysLeft}일 남음`;
+    sub = REFERRAL_SUB;
   } else if (!PAYWALL_ENABLED) {
-    // 출시 전(유료화 OFF): 실제로 만료된 게 아니라 전체 무료 상태 —
-    // 오래된 계정(가입 7일+)이 "만료"처럼 보이던 버그. 긍정 톤 + 초대 예고.
-    headline = '지금은 모든 동화 무료 🎉';
-    sub = '친구 초대하면 정식 오픈 후 +7일';
+    // 출시 전(유료화 OFF): 전체 무료 상태 — 오래된 계정이 "만료"로 보이던 버그 방지.
+    headline = '지금은 모든 동화를 무료로 즐겨요';
+    sub = REFERRAL_SUB;
   } else {
     // expired (유료화 ON): 구독을 1순위로, 초대는 보조.
-    headline = '구독하고 모든 동화 계속 보기';
-    sub = '또는 친구 초대하고 +7일';
+    headline = '구독하고 모든 동화를 계속 즐겨요';
+    sub = '친구를 초대하면 둘 다 무료 기간 +7일';
   }
 
   return (
@@ -81,7 +83,7 @@ export function PromoBanner() {
               onClick={() => navigate('/login')}
               className="mt-2 md:mt-3 bg-coral-500 text-white font-black rounded-xl px-5 py-2.5 text-xs md:text-sm hover:brightness-110 transition"
             >
-              로그인하고 시작하기
+              무료로 시작하기
             </button>
           ) : (
             <InviteButton className="mt-2 md:mt-3 bg-coral-500 text-white font-black rounded-xl px-5 py-2.5 text-xs md:text-sm hover:brightness-110 transition" />

@@ -75,19 +75,21 @@ describe('PromoBanner', () => {
       expect(screen.getByRole('region', { name: '프로모션 배너' })).toBeInTheDocument();
     });
 
-    it('shows login headline', () => {
+    it('shows guest headline', () => {
       renderBanner();
-      expect(screen.getByText('로그인하면 7일 무료 체험')).toBeInTheDocument();
+      expect(screen.getByText('세계 명작 동화, 7일 무료로 만나보세요')).toBeInTheDocument();
     });
 
-    it('shows referral sub-copy', () => {
+    it('shows two-sided referral sub-copy', () => {
       renderBanner();
-      expect(screen.getByText('친구 초대하면 +7일 무료')).toBeInTheDocument();
+      expect(
+        screen.getByText('친구와 함께라면, 무료 기간이 서로 7일씩 늘어나요')
+      ).toBeInTheDocument();
     });
 
-    it('shows login CTA button (not InviteButton)', () => {
+    it('shows start CTA button (not InviteButton)', () => {
       renderBanner();
-      expect(screen.getByRole('button', { name: '로그인하고 시작하기' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: '무료로 시작하기' })).toBeInTheDocument();
     });
   });
 
@@ -102,20 +104,22 @@ describe('PromoBanner', () => {
       expect(screen.getByRole('region', { name: '프로모션 배너' })).toBeInTheDocument();
     });
 
-    it('shows trial days remaining in headline (benefit framing, count kept)', () => {
+    it('shows trial days remaining in headline (count kept)', () => {
       renderBanner();
       // trialDaysLeft is ceil((7d - 2d elapsed)) = 5 — still shows the number
-      expect(screen.getByText(/무료 체험 중 🎉 \d+일 남았어요/)).toBeInTheDocument();
+      expect(screen.getByText(/모든 동화가 열려 있어요 · 무료 \d+일 남음/)).toBeInTheDocument();
     });
 
-    it('shows invite sub-copy', () => {
+    it('shows two-sided invite sub-copy', () => {
       renderBanner();
-      expect(screen.getByText('친구 초대하면 +7일 늘어나요')).toBeInTheDocument();
+      expect(
+        screen.getByText('친구와 함께라면, 무료 기간이 서로 7일씩 늘어나요')
+      ).toBeInTheDocument();
     });
 
     it('shows InviteButton (not login button)', () => {
       renderBanner();
-      expect(screen.queryByRole('button', { name: '로그인하고 시작하기' })).toBeNull();
+      expect(screen.queryByRole('button', { name: '무료로 시작하기' })).toBeNull();
       // InviteButton stub renders this text
       expect(screen.getByRole('button', { name: '친구 초대하고 +7일 받기' })).toBeInTheDocument();
     });
@@ -136,12 +140,14 @@ describe('PromoBanner', () => {
 
     it('shows positive free-for-all headline (no "expired" language)', () => {
       renderBanner();
-      expect(screen.getByText('지금은 모든 동화 무료 🎉')).toBeInTheDocument();
+      expect(screen.getByText('지금은 모든 동화를 무료로 즐겨요')).toBeInTheDocument();
     });
 
-    it('shows referral-preview sub-copy', () => {
+    it('shows two-sided referral sub-copy', () => {
       renderBanner();
-      expect(screen.getByText('친구 초대하면 정식 오픈 후 +7일')).toBeInTheDocument();
+      expect(
+        screen.getByText('친구와 함께라면, 무료 기간이 서로 7일씩 늘어나요')
+      ).toBeInTheDocument();
     });
 
     it('shows InviteButton', () => {

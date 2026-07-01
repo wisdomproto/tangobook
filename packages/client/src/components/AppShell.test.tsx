@@ -35,21 +35,25 @@ describe('AppShell sidebar axis visibility', () => {
     vi.restoreAllMocks();
   });
 
-  it('guest (account=null) → 동화책+연속재생 표시, 파닉스/어휘/학습 게임 숨김', () => {
+  it('guest (account=null) → 동화책만, 연속재생·학습 리포팅·친구 초대·파닉스/어휘/게임 숨김', () => {
     setup(null);
     renderShell();
     expect(screen.getByText('동화책')).toBeInTheDocument();
-    expect(screen.getByText('연속재생')).toBeInTheDocument();
+    expect(screen.queryByText('연속재생')).toBeNull(); // authOnly — 로그인 시만
+    expect(screen.queryByText('학습 리포팅')).toBeNull();
+    expect(screen.queryByText('친구 초대')).toBeNull();
     expect(screen.queryByText('파닉스')).toBeNull();
     expect(screen.queryByText('어휘')).toBeNull();
     expect(screen.queryByText('학습 게임')).toBeNull();
   });
 
-  it('일반 부모 계정 → 동화책+연속재생 표시, 파닉스/어휘/학습 게임 숨김', () => {
+  it('일반 부모 계정 → 동화책+연속재생+학습 리포팅+친구 초대, 파닉스/어휘/게임 숨김', () => {
     setup({ email: 'someparent@example.com' });
     renderShell();
     expect(screen.getByText('동화책')).toBeInTheDocument();
     expect(screen.getByText('연속재생')).toBeInTheDocument();
+    expect(screen.getByText('학습 리포팅')).toBeInTheDocument();
+    expect(screen.getByText('친구 초대')).toBeInTheDocument();
     expect(screen.queryByText('파닉스')).toBeNull();
     expect(screen.queryByText('어휘')).toBeNull();
     expect(screen.queryByText('학습 게임')).toBeNull();

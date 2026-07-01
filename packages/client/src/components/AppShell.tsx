@@ -28,6 +28,7 @@ const PRIMARY_AXES = [
     comingSoon: false,
     alwaysActive: true,
     devOnly: false,
+    authOnly: false,
   },
   {
     to: '/continuous',
@@ -38,6 +39,7 @@ const PRIMARY_AXES = [
     comingSoon: false,
     alwaysActive: false,
     devOnly: false,
+    authOnly: true, // 로그인 시만 (게스트는 동화책만)
   },
   {
     to: '/library/phonics',
@@ -48,6 +50,7 @@ const PRIMARY_AXES = [
     comingSoon: false,
     alwaysActive: false,
     devOnly: true,
+    authOnly: false,
   },
   {
     to: '/vocabulary',
@@ -58,6 +61,7 @@ const PRIMARY_AXES = [
     comingSoon: true,
     alwaysActive: false,
     devOnly: true,
+    authOnly: false,
   },
   {
     to: '/games',
@@ -68,6 +72,7 @@ const PRIMARY_AXES = [
     comingSoon: false,
     alwaysActive: false,
     devOnly: true,
+    authOnly: false,
   },
 ];
 
@@ -131,7 +136,9 @@ export function AppShell() {
       {/* 학습 zone — 동화책 / 연속재생 (모두) + 파닉스 / 어휘 / 학습 게임 (개발자 전용). 큰 박스.
           그 아래 구분선 + 학습 리포팅(부모용, 로그인 시만). */}
       <nav className="flex flex-col gap-2.5 items-center pt-5 pb-5">
-        {PRIMARY_AXES.filter((a) => !a.devOnly || isDevEmail(account?.email)).map((axis) => (
+        {PRIMARY_AXES.filter(
+          (a) => (!a.devOnly || isDevEmail(account?.email)) && (!a.authOnly || !!session)
+        ).map((axis) => (
           <PrimaryNavButton key={axis.to} {...axis} />
         ))}
         {session && isConfigured && (
