@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useStorybooks } from '@/features/storybook';
 import { StateScreen } from '@/design-system';
-import { usePlaylistStore } from '../store/playlist.store';
+import { beginPlaylist } from '../lib/begin-playlist';
 import { usePlaylists, useDeletePlaylist } from '../hooks/usePlaylists';
 import { PlaylistCard } from '../components/PlaylistCard';
 
@@ -29,12 +29,7 @@ export default function ContinuousHomePage() {
   }, [books]);
 
   const play = (bookIds: string[], language: string) => {
-    if (bookIds.length === 0) return;
-    usePlaylistStore.getState().setQueue(
-      bookIds.map((bookId) => ({ bookId })),
-      language
-    );
-    navigate('/continuous/play');
+    beginPlaylist(bookIds, language, navigate);
   };
 
   const isGuest = !account?.id;

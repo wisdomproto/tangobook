@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useStorybooks } from '@/features/storybook';
 import { usePlaylists, useDeletePlaylist } from '../hooks/usePlaylists';
-import { usePlaylistStore } from '../store/playlist.store';
+import { beginPlaylist } from '../lib/begin-playlist';
 import { PlaylistCard } from './PlaylistCard';
 
 /**
@@ -37,12 +37,7 @@ export function PlaylistLibrarySection() {
   if (isLoading || (playlists ?? []).length === 0) return null;
 
   const handlePlay = (bookIds: string[], language: string) => {
-    if (bookIds.length === 0) return;
-    usePlaylistStore.getState().setQueue(
-      bookIds.map((bookId) => ({ bookId })),
-      language
-    );
-    navigate('/continuous/play');
+    beginPlaylist(bookIds, language, navigate);
   };
 
   const handleDelete = (id: string, name: string) => {

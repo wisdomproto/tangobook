@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useStorybooks } from '@/features/storybook';
-import { usePlaylistStore } from '../store/playlist.store';
+import { beginPlaylist } from '../lib/begin-playlist';
 import { useCreatePlaylist } from '../hooks/usePlaylists';
 import { BookMultiSelectGrid } from '../components/BookMultiSelectGrid';
 
@@ -39,12 +39,7 @@ export default function ContinuousBuilder() {
     });
 
   const playNow = () => {
-    if (selectedIds.length === 0) return;
-    usePlaylistStore.getState().setQueue(
-      selectedIds.map((bookId) => ({ bookId })),
-      language
-    );
-    navigate('/continuous/play');
+    beginPlaylist(selectedIds, language, navigate);
   };
 
   const save = async () => {

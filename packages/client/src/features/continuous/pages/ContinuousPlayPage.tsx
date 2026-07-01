@@ -44,7 +44,7 @@ export default function ContinuousPlayPage() {
       hasNext: index < queue.length - 1,
       onBookEnd: next,
       speed,
-      autoStart: index > 0, // 첫 책만 탭으로 오디오 해금, 나머지는 자동 시작
+      autoStart: true, // 재생 버튼 클릭에서 오디오 해금(beginPlaylist) → 첫 책부터 탭 없이 자동재생
       paused,
     }),
     [index, queue.length, next, speed, paused]
