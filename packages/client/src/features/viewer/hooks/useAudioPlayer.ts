@@ -19,6 +19,8 @@ export function useAudioPlayer({
   const preloadPoolRef = useRef<Map<string, HTMLAudioElement>>(new Map());
   // 현재 재생에 붙인 이벤트 리스너를 한 번에 떼기 위한 컨트롤러 (풀 객체 재사용 시 누수 방지).
   const playCtrlRef = useRef<AbortController | null>(null);
+  // TTS 재생 속도 (ref — state 로 하면 stale closure 문제 + 불필요한 리렌더 발생).
+  const rateRef = useRef<number>(1);
 
   const [isTtsPlaying, setIsTtsPlaying] = useState(false);
   const [isBgmPlaying, setIsBgmPlaying] = useState(false);
@@ -108,6 +110,8 @@ export function useAudioPlayer({
       opt
     );
 
+    // 재생 속도 적용 — 풀 객체 재사용/프리로드 객체 모두 play() 직전에 설정.
+    audio.playbackRate = rateRef.current;
     // 재생 성공 여부를 반환 — autoplay 정책으로 막히면 false. 일부 브라우저는 reject 없이
     // resolve 후 곧바로 paused 가 되므로 !paused 로 실제 시작 여부를 확인한다.
     return audio.play().then(
@@ -192,6 +196,15 @@ export function useAudioPlayer({
     }
   }, []);
 
+  /**
+   * TTS 재생 속도 변경. 현재 재생 중인 TTS 에도 즉시 반영.
+   * BGM 은 영향받지 않음.
+   */
+  const setPlaybackRate = useCallback((rate: number) => {
+    rateRef.current = rate;
+    if (ttsRef.current) ttsRef.current.playbackRate = rate;
+  }, []);
+
   const toggleBgm = useCallback(() => {
     const audio = bgmRef.current;
     if (!audio) return;
@@ -236,6 +249,7 @@ export function useAudioPlayer({
     stopTts,
     pauseTts,
     resumeTts,
+    setPlaybackRate,
     isTtsPlaying,
     ttsCurrentTime,
     ttsDuration,
