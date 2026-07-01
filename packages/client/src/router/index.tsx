@@ -54,6 +54,7 @@ import { ContinuousHomePage, ContinuousBuilder, ContinuousPlayPage } from '../fe
 import SubscribePage from '../features/payment/pages/SubscribePage';
 import PaymentSuccessPage from '../features/payment/pages/PaymentSuccessPage';
 import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
+import { InviteLandingPage, ReferralRewardToast } from '../features/payment';
 
 export const router = createBrowserRouter([
   {
@@ -61,10 +62,21 @@ export const router = createBrowserRouter([
     element: (
       <AuthProvider>
         <Outlet />
+        {/* 친구 초대 보상 축하 토스트 — 앱 어디서든 뜨도록 최상단에 마운트 */}
+        <ReferralRewardToast />
       </AuthProvider>
     ),
     children: [
       { index: true, element: <Navigate to="/library" replace /> },
+      // 친구 초대 랜딩 — AppShell 밖 풀화면 (따뜻한 환영 + 코드 저장 + 가입 CTA)
+      {
+        path: 'invite/:code',
+        element: (
+          <ErrorBoundary>
+            <InviteLandingPage />
+          </ErrorBoundary>
+        ),
+      },
       // 학습자 진입점 hub 페이지들 — AppShell (좌측 nav + 상단 헤더) 안에서 렌더
       {
         element: (
