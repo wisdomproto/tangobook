@@ -29,7 +29,7 @@ const PRIMARY_AXES = [
   },
   {
     to: '/continuous',
-    iconSrc: 'tab/activity.svg',
+    iconSrc: 'tab/continuous.webp',
     label: '연속재생',
     color: 'coral' as const,
     end: false,
