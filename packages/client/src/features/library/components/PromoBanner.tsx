@@ -44,7 +44,7 @@ export function PromoBanner() {
   let sub: string;
 
   // 양방향 초대 카피 — 세련되고 따뜻하게, 판매 냄새 X. (드롭박스식: 친구·나 둘 다 +7일)
-  const REFERRAL_SUB = '친구와 함께라면, 무료 기간이 서로 7일씩 늘어나요';
+  const REFERRAL_SUB = '친구를 초대하면 무료 기간이 서로 7일씩 늘어나요';
 
   if (isGuest) {
     headline = '회원가입하면 7일 무료 체험';

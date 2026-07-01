@@ -83,7 +83,7 @@ describe('PromoBanner', () => {
     it('shows two-sided referral sub-copy', () => {
       renderBanner();
       expect(
-        screen.getByText('친구와 함께라면, 무료 기간이 서로 7일씩 늘어나요')
+        screen.getByText('친구를 초대하면 무료 기간이 서로 7일씩 늘어나요')
       ).toBeInTheDocument();
     });
 
@@ -113,7 +113,7 @@ describe('PromoBanner', () => {
     it('shows two-sided invite sub-copy', () => {
       renderBanner();
       expect(
-        screen.getByText('친구와 함께라면, 무료 기간이 서로 7일씩 늘어나요')
+        screen.getByText('친구를 초대하면 무료 기간이 서로 7일씩 늘어나요')
       ).toBeInTheDocument();
     });
 
@@ -146,7 +146,7 @@ describe('PromoBanner', () => {
     it('shows two-sided referral sub-copy', () => {
       renderBanner();
       expect(
-        screen.getByText('친구와 함께라면, 무료 기간이 서로 7일씩 늘어나요')
+        screen.getByText('친구를 초대하면 무료 기간이 서로 7일씩 늘어나요')
       ).toBeInTheDocument();
     });
 
