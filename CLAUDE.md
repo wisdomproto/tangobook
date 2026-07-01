@@ -41,7 +41,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - **학습자 헤더**: `<PageHeader>`(`design-system/primitives/`) 공용 / `<GameHeader>`(`features/games/components/`) 게임 전용. LibraryPage(absolute overlay) · AppShell(sticky 자체 헤더) 는 별도.
 
 ## 학습자 화면 (MVP 정책)
-- **사이드바**: 동화책 axis 만 active. 파닉스/어휘 = `comingSoon` 음영(코드/라우트 보존). `AppShell.PRIMARY_AXES`.
+- **사이드바** (`AppShell.PRIMARY_AXES`): 일반/게스트 = **동화책 + 연속재생**. 파닉스/어휘/게임 = `devOnly`(`config/dev.ts` `DEV_EMAILS`=개발자 이메일만 노출, 코드/라우트 보존). 연속재생 axis → `/continuous`.
 - **LibraryPage** (`/library`): hero 배너 + 검색바 floating. 책 카드 = defaultStyle 대표 표지 1장 + 제목 (대표 그림체의 ko 표지가 `publicByStyleLang` 비공개면 서버 `toSummary` 가 **공개 그림체 표지로 폴백** — 비공개 그림체 카드 노출 방지). 그림체 선택은 BookDetailPage 진입 후.
 - **BookDetailPage** (`/library/:id`): AppShell 밖 풀폭. 그림체·언어 선택 바 + 16:9 표지 + 모드 카드 3개(책 읽기 coral / 영상 violet / 단어 amber). 표지 = `(effectiveStyle × lang)`: 활성 그림체는 top-level `primaryCoverByLang` 우선(CoverTab 저장처) → 폴백 그림체 `coverImage`(en 을 ko 보다 우선 X). CoverTab `setPrimary` 가 `styleAssets[활성]` 에도 mirror. ⚠️ 기존책 그림체별 ko/en 표지 미분리 多 + 버킷 오염 주의 → memory `book-detail-cell-public-cover`. **셀 단위 공개 필터**(`publicByStyleLang[style][lang]===false`=비공개): 그림체 칩=공개 언어≥1 그림체만 / 언어 토글=현재 그림체 공개 언어만 / 비공개 조합 자동 보정. 그림체 칩 라벨은 art-style-library 로드(커스텀 `style-*` 이름 표시). 부모 가이드 패널. 외부 SEO 페이지 `/library/:id/about`(BookSeoPage) 별도.
 - **VocabularyStudyPage** (`/vocabulary/:unitId`): AppShell 밖. `VocabularyStudyContent` 공용(단어 미리보기 + 게임 카드 4).
@@ -80,6 +80,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - 마케팅 플랫폼 (ContentFlow 포트, /marketing) → [features/marketing/CLAUDE.md](packages/client/src/features/marketing/CLAUDE.md)
 - Auth (Supabase) → [features/auth/CLAUDE.md](packages/client/src/features/auth/CLAUDE.md)
 - 결제/유료화 (토스 단건 기간권 + paywall 게이팅 + 친구초대 referral) → memory `payment-toss-monetization-2026-06-30`. ⚠️ `PAYWALL_ENABLED`(`features/access/config.ts`)=런칭 스위치, 실 토스키 준비 후 true. entitlement 판정=`shared/utils/entitlement.ts`, 결제두뇌=`features/access`.
+- 연속재생 (`features/continuous/` — 동화책 여러 권 자동 이어재생/잠자리) → memory `continuous-play-2026-07-01`. ViewerContainer 재사용(`playlist` prop: `key={bookId}` remount·reward 3곳 가로채기·autoStart·속도·stall가드). `/continuous`(홈)·`/continuous/new`(빌더)·`/continuous/play`(풀스크린). 저장세트=Supabase `playlists`.
 - Learning Reports → [features/learning/CLAUDE.md](packages/client/src/features/learning/CLAUDE.md)
 - 별/호리/놀이터 → [features/rewards/CLAUDE.md](packages/client/src/features/rewards/CLAUDE.md)
 - Hori 아케이드 → [features/arcade-games/CLAUDE.md](packages/client/src/features/arcade-games/CLAUDE.md)

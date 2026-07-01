@@ -1,5 +1,7 @@
 # 연속재생 + 사이드바 dev-only + 뷰어 전체화면 Implementation Plan
 
+> ✅ **구현 완료** (2026-07-01, `feat/continuous-play` 8커밋 → main). 7청크 subagent-driven. 클라 +65 tests green, 타입체크 clean, 회귀 0. Supabase `playlists` 운영 적용. 후속=일시정지 배선.
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 부모가 동화책 여러 권을 골라 자동으로 이어 재생(연속재생/잠자리)하게 하고, 사이드바를 일반 사용자에겐 단순화(개발자만 파닉스/어휘/게임), 뷰어를 기본 전체화면으로 연다.
