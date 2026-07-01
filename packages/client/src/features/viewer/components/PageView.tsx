@@ -113,10 +113,23 @@ export function PageView({
         }
       >
         {fullscreen ? (
-          // 풀스크린 — 이미지만 가득
-          page.illustrationUrl && (
-            <PageImage src={page.illustrationUrl} className="w-full h-full object-contain" />
-          )
+          // 풀스크린 — 이미지 가득 + 자막을 하단에 오버레이(영화 자막). scrim 으로 가독성 확보.
+          <>
+            {page.illustrationUrl && (
+              <PageImage src={page.illustrationUrl} className="w-full h-full object-contain" />
+            )}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent px-3 pb-6 pt-16 sm:px-8 sm:pb-8">
+              <PageSubtitle
+                text={text}
+                subText={subText}
+                textSize={textSize}
+                isDarkMode
+                ttsCurrentTime={ttsCurrentTime}
+                ttsDuration={ttsDuration}
+                isTtsPlaying={isTtsPlaying}
+              />
+            </div>
+          </>
         ) : (
           <>
             <div className="flex-1 w-full flex items-center justify-center min-h-0">
