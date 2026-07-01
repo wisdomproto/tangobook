@@ -3,6 +3,7 @@ import type { AvatarId } from '@tangobook/shared';
 import { AvatarPicker } from './AvatarPicker';
 import { profilesApi } from '../api/profiles.api';
 import { useAuth } from '../context/AuthContext';
+import { RedeemCodeInput } from '@/features/payment';
 import { Mascot } from '@/design-system';
 
 export function ProfileCreateStep() {
@@ -11,6 +12,7 @@ export function ProfileCreateStep() {
   const [avatarId, setAvatarId] = useState<AvatarId | null>(null);
   const [birthDate, setBirthDate] = useState('');
   const [busy, setBusy] = useState(false);
+  const [showCode, setShowCode] = useState(false);
 
   const canSubmit = !busy && name.trim().length > 0 && !!avatarId && !!account;
 
@@ -69,6 +71,23 @@ export function ProfileCreateStep() {
         >
           시작하기
         </button>
+
+        {/* 초대 코드로 온 사람용 — 링크(/invite)로 오면 자동 적용되지만, 코드만 받은 경우 여기서 입력. */}
+        <div className="w-full border-t border-ink-100 pt-3">
+          {showCode ? (
+            <div className="w-full space-y-2">
+              <p className="text-sm font-black text-ink-900">받은 초대 코드를 입력해 주세요</p>
+              <RedeemCodeInput />
+            </div>
+          ) : (
+            <button
+              onClick={() => setShowCode(true)}
+              className="text-sm font-bold text-ink-400 hover:text-coral-500"
+            >
+              🎁 초대 코드가 있어요
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
