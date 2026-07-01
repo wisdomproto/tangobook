@@ -257,6 +257,16 @@ PR 리뷰 체크리스트:
 - **단어 풀 = keyObject 만**: `filterByLevel` 에 `sources.some(s => s.sourceType === 'storybook-key-object')` 가드. vocab-db 의 1433 entries 중 858 만 통과 — 단어 마스터 표(`/vocabulary-table-ko.html`)와 동일 풀. phonics 책의 flashcard/word-family/blending 어휘 (`pose→자세` 같은) 제외. 사용자 정책: "단어 마스터 표 = 진실".
 - **레벨 점수 공식 sync**: `koreanDifficulty` 가 CLAUDE.md 명시 공식 모두 반영 — `AE_E_MEDIAL` {1,5}, `COMPLEX_FINAL` {3,5,6,9,10,11,12,13,14,15,18}. 이전 누락으로 "자세"가 L1 으로 잘못 떨어지던 문제 fix.
 
+## 블록 게임 정답 → 동화 장면 리빌 (2026-07-02)
+
+한글/영어 블록 게임에서 단어를 맞추면 (단어 발음+칭찬 후) **그 단어가 처음 나오는 동화 페이지의 장면 일러스트 + 페이지 나레이션**을 보여주고 다음 단어로. 학습 payoff.
+
+- **공용 헬퍼** `lib/resolve-scene.ts` `resolveSceneFromWord(word, lang, storybook?, style?)`: 단어(문자열) → 매칭 KeyObject(ko=korean/name, en=nameEn/name 대소문자무시) → `pages[0]` → 장면(일러스트 + lang별 페이지 텍스트 + 나레이션 URL). 소스 책 없거나 매칭 실패 시 null (graceful). 유닛테스트 `resolve-scene.test.ts`.
+- **공용 오버레이** `components/SceneReveal.tsx`: 풀스크린 장면 이미지 + 페이지 자막. **오디오 생명주기 자체 소유**(언마운트 시 정지 → 다음 단어와 안 겹침). 나레이션 끝 or 탭 시 다음. **최소 노출 2.5s**(짧은/실패 나레이션도 보이게).
+  - 🔴 **버그 교훈**: cleanup 에서 `audio.src=''` 하기 전에 'error' 리스너를 **먼저 removeEventListener + advanced 가드** 해야 함. 안 그러면 빈 src 가 'error' 이벤트 발생 → 즉시 다음 단어로. StrictMode 이중 마운트(mount→cleanup→mount)에서 장면이 ~0.4s 만에 사라져 "안 뜬다"로 보였음.
+- **연결**: `KoreanBlockPlayer`/`EnglishBlockPlayer` 가 `useStorybook(storybookId)` 로 소스 책 로드, `handleCheck` 정답 `onDone` 에서 `resolveSceneFromWord` → 있으면 `setScene` (SceneReveal), 없으면 바로 다음(`goToNext`).
+- **동작 조건**: **책 컨텍스트 게임**(책상세→단어익히기→블록, `storybookId`=소스 책)에서만. 사이드바 랜덤 게임(`RandomBlockGamePage`, `storybookId="__random_pool__"`)은 소스 책 없어 skip. ⚠️ **레벨 변형**(`{id}__L4`)은 페이지 일러스트/나레이션이 비어있을 수 있음(변형은 글밥만 다름) → 그 경우 장면 미표시. 필요 시 base 책 폴백 미구현(TODO).
+
 ## TTS URL 폴백 chain 단일화 (2026-05-18)
 
 `features/tts/resolveTtsUrl.ts` — 공용 async resolver. 호출처 별로 같은 chain (한글: concat → directUrl / 영어: directUrl → concat) 을 따로 구현하던 5 곳을 통합:
