@@ -83,6 +83,7 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
   const isBatchRunning = batchProgress !== null;
   const isKorean = activeLang === 'ko';
   const [downloading, setDownloading] = useState<'images' | null>(null);
+  const [scenePromptCopied, setScenePromptCopied] = useState(false);
 
   const downloadAllImages = async () => {
     const imagePages = pages.filter((p) => p.illustrationUrl);
@@ -133,6 +134,50 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
     a.download = `${safeName}_text.txt`;
     a.click();
     URL.revokeObjectURL(url);
+  };
+
+  // 전체 페이지의 장면 프롬프트를 클립보드로 복사 (외부 이미지 생성기 붙여넣기용).
+  // 페이지별: 본문 + 장면 요약 + 조립된 프롬프트(인물·배경·분위기, 영어 우선·한글 fallback).
+  const copyAllScenePrompts = async () => {
+    if (pages.length === 0) return alert('복사할 장면 프롬프트가 없습니다.');
+
+    const ratio = storybook.illustrationAspectRatio ?? '16:9';
+    const blocks = pages.map((p) => {
+      const ss = p.scene_structure;
+      const hasEn = !!(ss?.characters_en || ss?.background_en || ss?.atmosphere_en);
+      const parts = hasEn
+        ? [ss?.characters_en, ss?.background_en, ss?.atmosphere_en]
+        : [ss?.characters, ss?.background, ss?.atmosphere];
+      const prompt = parts.filter(Boolean).join(' ').trim();
+      const scene = (p.scene_description_en || p.scene_description || '').trim();
+      const lines = [`[Page ${p.pageNumber}] ${p.text ?? ''}`.trim()];
+      if (scene) lines.push(`Scene: ${scene}`);
+      lines.push(`Prompt: ${prompt ? `${prompt} ` : ''}Aspect ratio ${ratio}.`);
+      return lines.join('\n');
+    });
+    const content = `${storybook.title}\n${'='.repeat(40)}\n\n${blocks.join('\n\n---\n\n')}\n`;
+
+    try {
+      await navigator.clipboard.writeText(content);
+      setScenePromptCopied(true);
+      window.setTimeout(() => setScenePromptCopied(false), 2000);
+    } catch {
+      // 클립보드 API 실패 시 textarea fallback
+      const ta = document.createElement('textarea');
+      ta.value = content;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        setScenePromptCopied(true);
+        window.setTimeout(() => setScenePromptCopied(false), 2000);
+      } catch {
+        alert('복사에 실패했습니다. 브라우저 클립보드 권한을 확인해 주세요.');
+      }
+      document.body.removeChild(ta);
+    }
   };
 
   const handleDragEnd = useCallback(
@@ -526,6 +571,18 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
             loading={batchScenePromptMutation.isPending}
           >
             전체 장면 프롬프트 생성
+          </Button>
+        )}
+
+        {/* Copy all scene prompts to clipboard (Korean tab only) */}
+        {isKorean && (
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={copyAllScenePrompts}
+            disabled={pages.length === 0}
+          >
+            {scenePromptCopied ? '✓ 복사됨' : '전체 장면 프롬프트 복사'}
           </Button>
         )}
 
