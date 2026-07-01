@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { useStorybooks } from '@/features/storybook';
 import { CategorySection, BookCard, useReadingStatus, useLibraryConfig } from '@/features/library';
 import { PromoBanner } from '@/features/library/components/PromoBanner';
+import { PlaylistLibrarySection } from '@/features/continuous';
 import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
 import { useSeo } from '@/lib/useSeo';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
@@ -427,6 +428,9 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             </div>
           )}
         </div>
+
+        {/* 나의 재생 목록 — 동화책 모드 + 저장된 세트 ≥1 일 때만 노출 (컴포넌트 내부에서 조건 판단). */}
+        {type === 'storybook' && <PlaylistLibrarySection />}
 
         {/* 콘텐츠 */}
         {isLoading ? (
