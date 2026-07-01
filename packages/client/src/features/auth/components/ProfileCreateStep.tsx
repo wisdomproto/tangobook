@@ -36,20 +36,27 @@ export function ProfileCreateStep() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-cream-50 to-peach-100 p-4">
       <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-pop flex flex-col gap-4 items-center">
         <Mascot state="waving" size="md" character="hori" />
-        <h1 className="text-2xl font-black text-ink-900 text-center">첫 아이 프로필을 만들어요</h1>
-        <p className="text-ink-500 text-center text-sm">나이와 이름에 맞게 학습을 추천해줄게요</p>
+        <span className="text-xs font-black text-mint-600 bg-mint-50 rounded-full px-3 py-1">
+          ✓ 부모님 계정이 만들어졌어요
+        </span>
+        <h1 className="text-2xl font-black text-ink-900 text-center">이제 아이를 등록해요</h1>
+        <p className="text-ink-500 text-center text-sm break-keep">
+          아이 프로필을 만들면 나이·이름에 맞게 추천해줘요 (나중에 최대 4명까지)
+        </p>
         <div className="w-full space-y-3">
           <AvatarPicker value={avatarId} onChange={setAvatarId} />
           <input
             type="text"
-            placeholder="이름"
+            placeholder="아이 이름"
             value={name}
             onChange={(e) => setName(e.target.value.slice(0, 10))}
             maxLength={10}
             className="w-full h-14 text-xl rounded-xl border-2 border-ink-100 px-4 focus:border-coral-500 outline-none"
           />
+          <label className="block text-xs font-bold text-ink-400 pl-1 -mb-1">생년월일 (선택)</label>
           <input
             type="date"
+            aria-label="아이 생년월일 (선택)"
             value={birthDate}
             onChange={(e) => setBirthDate(e.target.value)}
             className="w-full h-14 text-lg rounded-xl border-2 border-ink-100 px-4 focus:border-coral-500 outline-none"
