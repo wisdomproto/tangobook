@@ -81,11 +81,12 @@ LibraryPage (/library) → 카드 탭
 
 ## playlist 모드 (`playlist` prop)
 
-`<ViewerContainer playlist={{ hasNext, onBookEnd, speed }} />` 를 전달하면 활성화.
+`<ViewerContainer playlist={{ hasNext, onBookEnd, speed, autoStart }} />` 를 전달하면 활성화.
 
 - **마지막 페이지 3 interception site**: handleTtsEnded(site 1) / onNext(site 2) / ?mode=video 자동오픈(site 3) 모두 playlist 분기로 override → reward/wordReveal overlay 열지 않고 `onBookEnd()` 즉시 호출.
 - **풀스크린 강제**: `const fullscreen = playlist ? true : settings.fullscreenImage`. ✕ 풀스크린 종료 버튼은 `!playlist` 조건으로 숨김.
 - **속도 강제**: 마운트/speed 변경 시 `audio.setPlaybackRate(playlist.speed)` 적용.
 - **로드 실패 skip**: `error && playlist` effect → `onBookEnd()` once (playlistSkippedRef 가드). 에러 화면 대신 "다음 책으로 이동 중..." 로딩 표시.
 - **stall-guard**: TTS `ended` 이벤트가 `max(ttsDuration, 6s) + 900ms` 내에 미발화 시 자동 전진(또는 마지막 페이지면 onBookEnd). stallTimerRef 로 실제 ended 발화 시 취소하여 이중 호출 방지.
+- **autoStart(2번째 이후 책)**: `playlist.autoStart===true` 면 `startedRef` 초기값을 `true` 로 세팅 → 탭-투-스타트("탭해서 시작하기") 게이트 skip 하고 버퍼링 완료 후 바로 자동재생. 브라우저 오디오 해금은 첫 책 탭으로 page-session 단위 유지되므로 새 제스처 불필요. 호출부는 `autoStart: index > 0` 전달(첫 책만 탭). autoStart 없으면(첫 책·일반 뷰어) 탭 게이트 그대로.
 - **상태 초기화**: 호출부가 `<ViewerContainer key={bookId} />` 로 remount — 내부 상태 초기화 불필요.

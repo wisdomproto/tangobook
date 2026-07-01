@@ -32,6 +32,10 @@ interface PlaylistProp {
   hasNext: boolean;
   onBookEnd: () => void;
   speed: number;
+  /** Non-first books in a playlist: skip the tap-to-start gate. The browser
+   *  audio unlock from the first book's tap is per-page-session, so books 2+
+   *  can auto-play programmatically without a new user gesture. */
+  autoStart?: boolean;
 }
 
 interface ViewerContainerProps {
@@ -96,7 +100,9 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   // 첫 진입은 항상 '시작' 버튼 → 사용자 탭 안에서 재생(모든 브라우저 OK, autoplay 정책 우회).
   const [needsTapToStart, setNeedsTapToStart] = useState(false);
   // 한 번 시작하면(사용자 제스처로 오디오 해금) 이후 페이지는 자동재생.
-  const startedRef = useRef(false);
+  // playlist autoStart(2번째 이후 책): 첫 책 탭으로 오디오 해금됨 → 탭 게이트 없이 바로 자동재생.
+  // 컴포넌트가 책마다 remount(key={bookId}) 되므로 초기값으로 안전하게 세팅.
+  const startedRef = useRef(playlist?.autoStart === true);
   // 마지막으로 재생을 건 TTS url — 같은 페이지를 두 번 재생(첫 음절 씹힘) 방지.
   const lastPlayedTtsRef = useRef<string | null>(null);
   // playlist mode: stall-guard timer handle — cleared when TTS ends or page changes.

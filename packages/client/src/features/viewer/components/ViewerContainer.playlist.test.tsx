@@ -21,6 +21,27 @@ interface PlaylistProp {
   hasNext: boolean;
   onBookEnd: () => void;
   speed: number;
+  autoStart?: boolean;
+}
+
+/**
+ * Mirrors ViewerContainer's startedRef initialization:
+ *   const startedRef = useRef(playlist?.autoStart === true);
+ * When true, the tap-to-start gate is skipped and auto-play proceeds.
+ */
+function initialStartedRef(playlist: PlaylistProp | undefined): boolean {
+  return playlist?.autoStart === true;
+}
+
+/**
+ * Mirrors the buffering effect's gate:
+ *   if (!startedRef.current) setNeedsTapToStart(true);
+ * Returns whether the tap-to-start overlay ("탭해서 시작하기") would be shown.
+ * autoStart books already have startedRef=true → gate NOT shown.
+ */
+function wouldShowTapToStart(playlist: PlaylistProp | undefined): boolean {
+  const started = initialStartedRef(playlist);
+  return !started; // setNeedsTapToStart(true) only when !started
 }
 
 /**
@@ -257,6 +278,37 @@ describe('ViewerContainer playlist mode — decision helpers', () => {
       const intercept = shouldInterceptLastPage(playlist, 2, 5);
       expect(intercept).toBe(false);
       expect(onBookEnd).not.toHaveBeenCalled();
+    });
+  });
+
+  // --- autoStart: non-first books skip the tap-to-start gate ---
+  describe('autoStart — tap-to-start gate', () => {
+    it('[playlist + autoStart:true] startedRef initializes true → gate NOT shown', () => {
+      const pl: PlaylistProp = { hasNext: true, onBookEnd, speed: 1.5, autoStart: true };
+      expect(initialStartedRef(pl)).toBe(true);
+      expect(wouldShowTapToStart(pl)).toBe(false);
+    });
+
+    it('[playlist + autoStart:false] gate STILL shown (first book taps to unlock)', () => {
+      const pl: PlaylistProp = { hasNext: true, onBookEnd, speed: 1.5, autoStart: false };
+      expect(initialStartedRef(pl)).toBe(false);
+      expect(wouldShowTapToStart(pl)).toBe(true);
+    });
+
+    it('[playlist without autoStart] gate shown (undefined is falsy)', () => {
+      const pl: PlaylistProp = { hasNext: true, onBookEnd, speed: 1.5 };
+      expect(initialStartedRef(pl)).toBe(false);
+      expect(wouldShowTapToStart(pl)).toBe(true);
+    });
+
+    it('[no playlist] gate shown (normal viewer usage unchanged)', () => {
+      expect(initialStartedRef(undefined)).toBe(false);
+      expect(wouldShowTapToStart(undefined)).toBe(true);
+    });
+
+    it('[autoStart:true] does not depend on hasNext/speed — only autoStart flag', () => {
+      const pl: PlaylistProp = { hasNext: false, onBookEnd, speed: 2, autoStart: true };
+      expect(wouldShowTapToStart(pl)).toBe(false);
     });
   });
 });
