@@ -136,23 +136,26 @@ export function PageSubtitle({
   const active = hasRealTiming || isTtsPlaying;
 
   // 문장 선택 + 해당 문장 내 진행률.
-  // inactive (TTS 시작 전) → 자막 빈 문자열 (이전 마지막 문장 잔재 방지).
+  // inactive (TTS 정지/없음) → progressive 대신 페이지 전문을 정적으로 표시.
+  // (기존엔 빈 박스 — ⏸ 상태·무음 책·풀스크린에서 자막이 아예 안 보인다는 리포트의 원인)
   const { idx, progress } = active
     ? pickSentence(sentences, currentTime, duration)
     : { idx: 0, progress: 0 };
 
   const currentSentence = sentences[idx] ?? '';
   const tokens = tokenize(currentSentence);
-  const displayParts = active ? visibleTokenParts(tokens, progress) : [];
+  const displayParts = active
+    ? visibleTokenParts(tokens, progress)
+    : [{ text, current: false as const }];
   const overall = active && duration > 0 ? Math.min(1, Math.max(0, currentTime / duration)) : 0;
 
-  // 서브 텍스트(번역)도 문장별 동기화
+  // 서브 텍스트(번역)도 문장별 동기화 — inactive 시엔 전문 정적 표시
   let displaySub: string | null = null;
   if (subText && subSentences.length > 0) {
     const subIdx = Math.min(idx, subSentences.length - 1);
     const subSentence = subSentences[subIdx] ?? '';
     const subToks = tokenize(subSentence);
-    displaySub = active ? visibleTokenSlice(subToks, progress) : '';
+    displaySub = active ? visibleTokenSlice(subToks, progress) : subText;
   }
 
   return (

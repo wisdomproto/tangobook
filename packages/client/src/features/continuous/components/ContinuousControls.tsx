@@ -140,7 +140,8 @@ export function ContinuousControls() {
           onClick={exit}
           className="h-14 flex-1 rounded-xl bg-coral-500 text-lg font-black text-white shadow-soft transition hover:bg-coral-600 active:scale-95 break-keep"
         >
-          🏠 나가기
+          {/* 🏠 는 홈(/library)으로 오해됨 — 실제 목적지는 연속재생 홈이라 🚪 로 */}
+          🚪 나가기
         </button>
       </div>
     </div>

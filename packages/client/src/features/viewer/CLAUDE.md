@@ -33,7 +33,12 @@ features/viewer/
 - TTS 끝나면 800ms 뒤 자동 페이지 넘김. **마지막 페이지** TTS 끝 or onNext → **RewardScreen/WordRevealScreen 오버레이** 표시(key_objects 있으면 WordReveal, 없으면 Reward). ⚠️ "BookDetailPage 자동 이동" 은 틀린 설명이었음(2026-07-01 정정).
 - **프리로드 풀**: `preloadTts` 가 현재+다음 페이지 TTS 를 풀(url→Audio)에 적재, `playTts` 가 풀 객체 **재사용**(이미 버퍼 → 즉시 재생, AbortController 리스너). 이미지는 다음 5페이지 `new Image()`. 같은 컴포넌트 풀이라 HTTP 캐시/CORS 의존 X. TTS 는 immutable Cache-Control(재방문 캐시). 상세 → memory `viewer-tts-buffering-2026-06-09`.
 - **⏸(autoPlayTts OFF) 게이트 (2026-06-12)**: 페이지 변경 자동재생 effect 가 `stateRef.current.autoPlayTts` 를 조건 + 타이머 발화 시점 양쪽에서 확인 — OFF 동안 페이지를 넘겨도 TTS 재생 안 되고, 전환 직후 ⏸ 눌러도 뒤늦게 재생되지 않음. deps 가 아닌 stateRef 로 읽는 이유: ON 토글 시 effect 재실행되면 `onTogglePlayback` 의 resume/play 와 이중 재생됨. `toggleBgm` 은 `play()` 성공 시에만 ON 표시(차단/실패 시 켜진 척 X).
-- 홈 버튼 → `/library` · 뒤로 버튼 → browser history back
+- **▶ 토글 stale-resume 방어 (2026-07-02)**: `onTogglePlayback` ON 은 `lastPlayedTtsRef === currentTtsUrl` 일 때만 resume — ⏸ 상태로 페이지 넘기면 ttsRef 가 옛 페이지 오디오라 resume 하면 무음/엉뚱한 음성("자동재생 눌러도 TTS 안 나옴" 테스터 버그). 아니면 현재 페이지 playTts. `resumeTts` 도 play() 성공 시에만 재생 표시.
+- **언어 토글 (2026-07-02)**: `onToggleLanguage` 첫 줄에서 `stopTts()` + `lastPlayedTtsRef=null` — 안 하면 재버퍼링 동안 옛 언어가 끝까지 재생("다음 페이지부터 바뀜"+음성·자막 언어 불일치).
+- **전체화면 (기본 ON, 책마다 로컬 state)**: 탭 → 툴바+네비+진행률 오버레이 토글(4s auto-hide, `fsControls` — 컨트롤 컨테이너는 stopPropagation, playlist 모드 제외). 우상단 **상시 🏠 + ✕**. 레터박스는 같은 그림 blur cover 배경 레이어로 채움(PageView). 탭 게이트(needsTapToStart) 중엔 컨트롤 탭 비활성.
+- **음량 3단계 (2026-07-02, 전역)**: `settings.volume: low(0.35)/mid(0.7)/high(1)` (`VOLUME_GAIN`) — TTS 직접, BGM 은 저작자 `backgroundMusicVolume` × 계수. 툴바 🔊→🔉→🔈 순환. `useAudioPlayer({ volumeGain })`, 재생 중에도 즉시 반영.
+- **그림체 resolution**: `?style` → 없으면 **`defaultStyle`(대표)** → `artStyle` 폴백 (2026-07-02: 연속재생 등 style 미지정 진입이 라이브러리 표지와 같은 그림체로 재생).
+- 홈 버튼 → `/library` · 뒤로 버튼 → 책 상세(`/library/:id`)
 
 ## 자막 시스템 (`PageSubtitle.tsx`)
 
@@ -41,6 +46,7 @@ features/viewer/
 - 문장 단위로 화면 리셋 (이전 문장 지우고 새 문장)
 - 문장 내에서 **단어(어절) progressive** — TTS `currentTime/duration` 비례
 - **Fallback**: ttsDuration 없으면 `text.length / 7 (chars/sec)` 추정. `isTtsPlaying`인 동안 자체 interval(100ms)로 elapsed 누적
+- **inactive(TTS 정지/무음) = 페이지 전문 정적 표시** (2026-07-02) — 기존 빈 박스는 ⏸·무음 책·전체화면에서 "자막 안 보임" 원인이었음. progressive 는 재생 중에만.
 
 ## 라우팅 규칙 (ViewerContainer)
 

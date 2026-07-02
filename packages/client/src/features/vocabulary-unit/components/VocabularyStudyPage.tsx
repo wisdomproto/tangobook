@@ -83,6 +83,7 @@ export function VocabularyStudyPage() {
       <div className="px-6 max-w-[1600px] mx-auto">
         <PageHeader
           onBack={() => navigate(unit.storybookId ? `/library/${unit.storybookId}` : '/library')}
+          onHome={() => navigate('/library')}
           right={
             <div className="bg-white rounded-full px-2 py-1.5 shadow-soft flex gap-1">
               <Chip

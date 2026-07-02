@@ -13,13 +13,15 @@ interface GameResultScreenProps {
   onBack: () => void;
   /** 결과 화면이 어떤 동화에서 호출되었는지 메타 정보 (현재는 사용하지 않지만 시그니처 유지) */
   storybookId?: string;
+  /** 게임 언어 — 칭찬 음성 풀 선택 (미지정 시 한/영 합산 랜덤: 기존 동작) */
+  lang?: 'ko' | 'en';
 }
 
 /**
  * mvp-simplification 정책: 학습자 화면에서 별 UI 전부 hide.
  * 별 3개 평점 + "저장됨" 토스트 제거. 백엔드 별 적립은 trigger 로 자동 (부모 리포트 source).
  */
-export function GameResultScreen({ score, total, onRestart, onBack }: GameResultScreenProps) {
+export function GameResultScreen({ score, total, onRestart, onBack, lang }: GameResultScreenProps) {
   const reduce = useReducedMotion();
 
   // 카운트업 애니 (0 → score, 800ms)
@@ -58,7 +60,9 @@ export function GameResultScreen({ score, total, onRestart, onBack }: GameResult
     playUi('reward');
   }, []);
 
-  // 마운트 시 칭찬 음원 1회 (호리 + 칭찬). 한국어 / 영어 라이브러리 합산해서 랜덤 1개.
+  // 마운트 시 칭찬 음원 1회 (호리 + 칭찬).
+  // lang 지정 시 해당 언어 풀 우선(비면 반대 언어 폴백) — 한글 게임 끝에 영어 칭찬 방지.
+  // 미지정 시 기존처럼 한/영 합산 랜덤 (useGameAudio.playCorrectSequence 와 동일 정책).
   useEffect(() => {
     let cancelled = false;
     let audio: HTMLAudioElement | null = null;
@@ -66,10 +70,12 @@ export function GameResultScreen({ score, total, onRestart, onBack }: GameResult
       .getSystemSounds()
       .then((data) => {
         if (cancelled) return;
-        const pool = [
-          ...data.korean.correct.map((s) => s.url),
-          ...data.english.correct.map((s) => s.url),
-        ];
+        const koPool = data.korean.correct.map((s) => s.url);
+        const enPool = data.english.correct.map((s) => s.url);
+        let pool: string[];
+        if (lang === 'ko') pool = koPool.length > 0 ? koPool : enPool;
+        else if (lang === 'en') pool = enPool.length > 0 ? enPool : koPool;
+        else pool = [...koPool, ...enPool];
         if (pool.length === 0) return;
         const url = pool[Math.floor(Math.random() * pool.length)];
         audio = new Audio(url);
@@ -83,7 +89,7 @@ export function GameResultScreen({ score, total, onRestart, onBack }: GameResult
         audio.src = '';
       }
     };
-  }, []);
+  }, [lang]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-10 text-center bg-gradient-to-b from-cream-50 via-coral-100 to-peach-200">

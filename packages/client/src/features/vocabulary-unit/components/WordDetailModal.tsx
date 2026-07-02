@@ -4,6 +4,7 @@ import type { Lang, Page, Storybook, VocabularyUnitWord } from '@tangobook/share
 import { resolveTtsUrl } from '@/features/tts';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
+import { findValidatedPageNumber } from '@/features/games/lib/resolve-scene';
 import { settingsApi } from '@/features/settings/api/settings.api';
 
 interface WordDetailModalProps {
@@ -76,7 +77,13 @@ function findPageIllustration(
 ): { url: string; pageNumber: number; pageText?: string; pageTtsUrl?: string } | null {
   if (!storybook) return null;
   const ko = findMatchingKeyObject(word, storybook);
-  const pageNum = ko?.pages?.[0];
+  if (!ko) return null;
+  // pages[] drift 방어 — 한국어 본문에 단어가 실제 등장하는 페이지로 검증/대체 (resolve-scene 공용)
+  const pageNum = findValidatedPageNumber(
+    ko.korean ?? word.korean ?? (lang === 'ko' ? word.word : undefined),
+    storybook,
+    ko.pages
+  );
   if (!pageNum) return null;
 
   const styleUrl =

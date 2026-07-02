@@ -4,12 +4,15 @@ interface UseAudioPlayerOptions {
   backgroundMusicUrl?: string;
   /** 배경음악 볼륨 (0–100%, 기본 30). 기본설정에서 책별로 조절. */
   backgroundMusicVolume?: number;
+  /** 사용자 음량 계수 (0~1, 기본 1). TTS 직접 적용, BGM 은 저작자 볼륨 × 계수. */
+  volumeGain?: number;
   onTtsEnded?: () => void;
 }
 
 export function useAudioPlayer({
   backgroundMusicUrl,
   backgroundMusicVolume,
+  volumeGain = 1,
   onTtsEnded,
 }: UseAudioPlayerOptions) {
   const ttsRef = useRef<HTMLAudioElement | null>(null);
@@ -21,6 +24,9 @@ export function useAudioPlayer({
   const playCtrlRef = useRef<AbortController | null>(null);
   // TTS 재생 속도 (ref — state 로 하면 stale closure 문제 + 불필요한 리렌더 발생).
   const rateRef = useRef<number>(1);
+  // 사용자 음량 계수 (ref — playTts 콜백이 최신값을 읽게).
+  const gainRef = useRef<number>(volumeGain);
+  gainRef.current = volumeGain;
 
   const [isTtsPlaying, setIsTtsPlaying] = useState(false);
   const [isBgmPlaying, setIsBgmPlaying] = useState(false);
@@ -34,7 +40,7 @@ export function useAudioPlayer({
     const audio = new Audio(backgroundMusicUrl);
     audio.loop = true;
     audio.preload = 'auto'; // 시작 화면 동안 미리 버퍼링 → 탭 시 즉시 재생(늦게 나오는 것 방지)
-    audio.volume = (backgroundMusicVolume ?? 30) / 100;
+    audio.volume = ((backgroundMusicVolume ?? 30) / 100) * gainRef.current;
     bgmRef.current = audio;
     audio
       .play()
@@ -46,10 +52,11 @@ export function useAudioPlayer({
     };
   }, [backgroundMusicUrl]);
 
-  // 볼륨 변경 시 재생 중인 BGM 에 즉시 반영 (오디오 재생성 없이).
+  // 볼륨(저작자값·사용자 계수) 변경 시 재생 중인 TTS/BGM 에 즉시 반영 (오디오 재생성 없이).
   useEffect(() => {
-    if (bgmRef.current) bgmRef.current.volume = (backgroundMusicVolume ?? 30) / 100;
-  }, [backgroundMusicVolume]);
+    if (bgmRef.current) bgmRef.current.volume = ((backgroundMusicVolume ?? 30) / 100) * volumeGain;
+    if (ttsRef.current) ttsRef.current.volume = volumeGain;
+  }, [backgroundMusicVolume, volumeGain]);
 
   const onTtsEndedRef = useRef(onTtsEnded);
   onTtsEndedRef.current = onTtsEnded;
@@ -110,8 +117,9 @@ export function useAudioPlayer({
       opt
     );
 
-    // 재생 속도 적용 — 풀 객체 재사용/프리로드 객체 모두 play() 직전에 설정.
+    // 재생 속도·음량 적용 — 풀 객체 재사용/프리로드 객체 모두 play() 직전에 설정.
     audio.playbackRate = rateRef.current;
+    audio.volume = gainRef.current;
     // 재생 성공 여부를 반환 — autoplay 정책으로 막히면 false. 일부 브라우저는 reject 없이
     // resolve 후 곧바로 paused 가 되므로 !paused 로 실제 시작 여부를 확인한다.
     return audio.play().then(
@@ -190,10 +198,14 @@ export function useAudioPlayer({
 
   /** 일시정지 상태에서 이어재생 — 새 src 로 시작이 아니라 현재 currentTime 부터 */
   const resumeTts = useCallback(() => {
-    if (ttsRef.current) {
-      ttsRef.current.play().catch(() => {});
-      setIsTtsPlaying(true);
-    }
+    const audio = ttsRef.current;
+    if (!audio) return;
+    // play() 성공 시에만 재생 중 표시 — 실패를 삼키면 소리 없이 ⏸ 아이콘·자막 타이머만 도는
+    // "재생 중인 척" 상태가 됨 (toggleBgm 과 동일 패턴)
+    audio
+      .play()
+      .then(() => setIsTtsPlaying(!audio.paused))
+      .catch(() => setIsTtsPlaying(false));
   }, []);
 
   /**

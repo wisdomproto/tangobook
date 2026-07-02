@@ -220,6 +220,13 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 
 **매핑 단일화 (2026-05-18)**: `@tangobook/shared/utils/phonics-syllable` (`KOREAN_FINAL_TO_REPRESENTATIVE` / `neutralizeKoreanFinal(syllable)` / `expandKoreanFinalAliases(rep)`) 에 추출. client `usePhonicsMap.addKoreanFinalAliases` 와 server `phonics-library.service.downloadSound` 양쪽이 같은 source 사용 — sync 문제 해소.
 
+## 테스터 피드백 픽스 (2026-07-02)
+
+- **한글 블록 = 3음절 이하만**: 서버 `generateKoreanBlock` 필터가 음절수 1~3 제한(영어 `length<=6` 과 대칭 — 그리드 3×6 은 4음절 배치 불가, 쉬움 모드는 col 6 OOB 로 영구 멈춤이었음). 기존 생성 데이터 대비 `KoreanBlockPlayer` 에도 방어 필터(4음절 제외, 전부 걸러지면 원본 유지). 서버 테스트 有.
+- **`GameResultScreen` `lang?: 'ko'|'en'` prop**: 칭찬 음원을 지정 언어 풀 우선(비면 반대 언어 폴백)으로 — 미지정 시 기존 합산 랜덤(한글 게임 끝에 영어 칭찬 나오던 원인). LineMatching(lang)/KoreanBlock(ko)/EnglishBlock(en) 전달.
+- **LineMatching**: 마지막 짝 `setTimeout(1200)` → `playWordTts` promise chain 후 400ms(🔴 chain 규칙) — 발음 도중 결과 화면 급전환 제거. 영어 발음도 `playAudio` promisify 로 완료 대기. **이번 판 음절/TTS 타겟 프리페치**(마운트 시 no-cors force-cache — prefetchTop100 은 앞 100 음절뿐이라 실판 음절 미캐싱으로 발음이 느렸음) + 정답 딜레이 300→150ms.
+- **`GameHeader` 우측 = 🏠 홈**(/library 직행, 자체 navigate — 호출부 무변경).
+
 ## 블록 게임 정책 (2026-05-18 보강)
 
 KoreanBlockPlayer / EnglishBlockPlayer 공통:
@@ -261,7 +268,7 @@ PR 리뷰 체크리스트:
 
 한글/영어 블록 게임에서 단어를 맞추면 (단어 발음+칭찬 후) **그 단어가 처음 나오는 동화 페이지의 장면 일러스트 + 페이지 나레이션**을 보여주고 다음 단어로. 학습 payoff.
 
-- **공용 헬퍼** `lib/resolve-scene.ts` `resolveSceneFromWord(word, lang, storybook?, style?)`: 단어(문자열) → 매칭 KeyObject(ko=korean/name, en=nameEn/name 대소문자무시) → `pages[0]` → 장면(일러스트 + lang별 페이지 텍스트 + 나레이션 URL). 소스 책 없거나 매칭 실패 시 null (graceful). 유닛테스트 `resolve-scene.test.ts`.
+- **공용 헬퍼** `lib/resolve-scene.ts` `resolveSceneFromWord(word, lang, storybook?, style?)`: 단어(문자열) → 매칭 KeyObject(ko=korean/name, en=nameEn/name 대소문자무시) → **`findValidatedPageNumber`**(2026-07-02: `pages[]` 를 한국어 본문 텍스트로 검증 — claimed 페이지에 단어 없으면 전체 스캔으로 실제 등장 페이지 대체, 어디에도 없으면 null. 키다리 아저씨 pages drift 사례 방어. WordDetailModal 도 같은 헬퍼 사용) → 장면(일러스트 + lang별 페이지 텍스트 + 나레이션 URL). 소스 책 없거나 매칭 실패 시 null (graceful). 유닛테스트 `resolve-scene.test.ts`.
 - **공용 오버레이** `components/SceneReveal.tsx`: 풀스크린 장면 이미지 + 페이지 자막. **오디오 생명주기 자체 소유**(언마운트 시 정지 → 다음 단어와 안 겹침). 나레이션 끝 or 탭 시 다음. **최소 노출 2.5s**(짧은/실패 나레이션도 보이게).
   - 🔴 **버그 교훈**: cleanup 에서 `audio.src=''` 하기 전에 'error' 리스너를 **먼저 removeEventListener + advanced 가드** 해야 함. 안 그러면 빈 src 가 'error' 이벤트 발생 → 즉시 다음 단어로. StrictMode 이중 마운트(mount→cleanup→mount)에서 장면이 ~0.4s 만에 사라져 "안 뜬다"로 보였음.
 - **연결**: `KoreanBlockPlayer`/`EnglishBlockPlayer` 가 `useStorybook(storybookId)` 로 소스 책 로드, `handleCheck` 정답 `onDone` 에서 `resolveSceneFromWord` → 있으면 `setScene` (SceneReveal), 없으면 바로 다음(`goToNext`).

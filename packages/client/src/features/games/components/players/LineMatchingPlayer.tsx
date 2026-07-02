@@ -72,7 +72,34 @@ function LineMatchingPlayerInner({
   );
 
   // phonics 라이브러리 (한글 음절 mp3 lookup) — KoreanBlock 과 동일 방식
-  const { mapRef: phonicsMapRef } = usePhonicsMap(['mod_korean', 'mod_phonics', 'mod_english']);
+  const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap([
+    'mod_korean',
+    'mod_phonics',
+    'mod_english',
+  ]);
+
+  // 이번 판 단어들의 음원만 타겟 프리페치 — 짝 맞춘 순간 R2 왕복 없이 즉시 발음.
+  // (prefetchTop100 은 3232+ 음절 중 앞 100개만이라 이번 판 음절은 대부분 미캐싱)
+  useEffect(() => {
+    if (phonicsLoading) return;
+    const map = phonicsMapRef.current;
+    const urls = new Set<string>();
+    for (const item of items) {
+      if (/[가-힣]/.test(item.word)) {
+        for (const syl of [...item.word].filter((c) => /[가-힣]/.test(c))) {
+          const u = map.get(syl);
+          if (u) urls.add(u);
+        }
+      } else {
+        const u = item.ttsUrl ?? map.get(item.word.toLowerCase());
+        if (u) urls.add(u);
+      }
+    }
+    // R2 pub 도메인은 CORS 헤더가 없어 no-cors (opaque 응답도 HTTP 캐시에 적재됨)
+    for (const url of urls) {
+      void fetch(url, { cache: 'force-cache', mode: 'no-cors' }).catch(() => {});
+    }
+  }, [phonicsLoading, items, phonicsMapRef]);
 
   // 단어 음원 — 한글은 음절 단위 mp3 순차 재생 (서버 concat / ffmpeg 의존성 X).
   // 영어는 ttsUrl 우선 → 없으면 phonics 단일 mp3 lookup.
@@ -95,13 +122,11 @@ function LineMatchingPlayerInner({
           });
         }
       } else {
-        // 영어: ttsUrl 우선 → phonics 단일 lookup
-        if (item.ttsUrl) {
-          playAudio(item.ttsUrl);
-          return;
-        }
-        const url = map.get(item.word.toLowerCase());
-        if (url) playAudio(url);
+        // 영어: ttsUrl 우선 → phonics 단일 lookup. 재생 완료까지 대기 (마지막 짝 chain 용 —
+        // playAudio 는 ended/error/재생거부 모두 콜백을 부르므로 promise 가 안 멈춤).
+        const url = item.ttsUrl ?? map.get(item.word.toLowerCase());
+        if (!url) return;
+        await new Promise<void>((resolve) => playAudio(url, resolve));
       }
     },
     [playAudio, phonicsMapRef]
@@ -119,17 +144,18 @@ function LineMatchingPlayerInner({
       const matchedItem = items[matchedIdx];
       // 단어 1개 정답 — 효과음 + TTS (호리/칭찬음원 X). 마지막 다 맞추면 GameResultScreen 이 호리.
       playWordCorrect();
+      const isLast = newMatched.length >= items.length;
       setTimeout(() => {
-        void playWordTts(matchedItem);
-      }, 300);
+        // 🔴 chain 규칙: 마지막 짝은 발음이 "끝난 뒤" 결과 화면 — 고정 타이머(1200ms)는
+        // 다음절 단어 발음이 잘린 채 결과 화면+칭찬이 겹쳐 "급하게 넘어감"이 됨.
+        void playWordTts(matchedItem).then(() => {
+          if (isLast) setTimeout(() => setFinished(true), 400);
+        });
+      }, 150);
       setSelectedImageIdx(null);
       setSelectedWordIdx(null);
       // 튜토리얼 wait 중이면 advance
       notifyMatch(matchedIdx);
-
-      if (newMatched.length >= items.length) {
-        setTimeout(() => setFinished(true), 1200);
-      }
     } else {
       setWrongPair({ image: selectedImageIdx, word: selectedWordIdx });
       playFeedbackSound(false);
@@ -274,6 +300,7 @@ function LineMatchingPlayerInner({
         storybookId={storybookId}
         score={items.length}
         total={items.length}
+        lang={lang}
         onRestart={handleRestart}
         onBack={() => {
           onComplete(items.length, items.length);

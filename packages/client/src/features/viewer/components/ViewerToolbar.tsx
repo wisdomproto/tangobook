@@ -18,6 +18,9 @@ interface ViewerToolbarProps {
   onToggleDark: () => void;
   textSize: 'sm' | 'md' | 'lg';
   onCycleTextSize: () => void;
+  /** 음량 3단계 (전역) — 탭마다 소→중→대 순환 */
+  volume: 'low' | 'mid' | 'high';
+  onCycleVolume: () => void;
   language: string;
   onToggleLanguage?: () => void;
   fullscreenImage: boolean;
@@ -100,6 +103,12 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
           label="배경음악"
         >
           🎵
+        </PillIconBtn>
+        <PillIconBtn
+          onClick={props.onCycleVolume}
+          label={`음량: ${props.volume === 'low' ? '작게' : props.volume === 'mid' ? '보통' : '크게'}`}
+        >
+          {props.volume === 'low' ? '🔈' : props.volume === 'mid' ? '🔉' : '🔊'}
         </PillIconBtn>
 
         <Divider />

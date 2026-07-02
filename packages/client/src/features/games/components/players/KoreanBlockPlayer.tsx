@@ -212,7 +212,14 @@ function KoreanBlockPlayerInner({
   onBack,
 }: GamePlayerProps) {
   const data = gameData as KoreanBlockData;
-  const items = data.items;
+  // 방어 필터: 그리드(3×6)는 3음절까지만 배치 가능 — 서버 필터 이전에 생성된
+  // 게임 데이터에 4음절(지느러미 등)이 남아 있으면 판이 안 만들어지므로 제외.
+  const items = useMemo(() => {
+    const fit = data.items.filter(
+      (it) => [...(it.word ?? '')].filter((ch) => /[가-힣]/.test(ch)).length <= 3
+    );
+    return fit.length > 0 ? fit : data.items;
+  }, [data.items]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -553,6 +560,7 @@ function KoreanBlockPlayerInner({
           storybookId={storybookId}
           score={score}
           total={items.length}
+          lang="ko"
           onRestart={handleRestart}
           onBack={onBack}
         />

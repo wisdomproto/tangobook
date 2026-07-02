@@ -76,6 +76,33 @@ describe('generateKoreanSpeaking / generateEnglishSpeaking', () => {
   });
 });
 
+describe('generateKoreanBlock (via GameService.generate)', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    (R2Repository.getStorybook as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: 'test-book',
+      title: 'Test',
+    });
+  });
+
+  it('4음절 이상 단어는 제외 (그리드 3×6 = 3음절까지만 배치 가능)', async () => {
+    (collectStorybookImagePool as ReturnType<typeof vi.fn>).mockReturnValue([
+      { word: 'fin', korean: '지느러미', imageUrl: 'img1.webp' }, // 4음절 → 제외
+      { word: 'dino', korean: '공룡', imageUrl: 'img2.webp' },
+      { word: 'egg', korean: '알', imageUrl: 'img3.webp' },
+      { word: 'forest', korean: '숲속나무들', imageUrl: 'img4.webp' }, // 5음절 → 제외
+    ]);
+    const data = await gameService.GameService.generate('test-book', 'korean-block', {
+      type: 'korean-block',
+      itemCount: 10,
+      includeCharacters: true,
+      includeKeyObjects: true,
+    } as never);
+    const words = (data as { items: { word: string }[] }).items.map((i) => i.word).sort();
+    expect(words).toEqual(['공룡', '알']);
+  });
+});
+
 describe('buildHiddenObjectData', () => {
   const book = {
     id: 'b1',

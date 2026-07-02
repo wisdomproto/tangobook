@@ -362,6 +362,7 @@ function EnglishBlockPlayerInner({
           storybookId={storybookId}
           score={score}
           total={items.length}
+          lang="en"
           onRestart={handleRestart}
           onBack={onBack}
         />

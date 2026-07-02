@@ -218,8 +218,14 @@ async function generateKoreanBlock(
   config: GameConfig
 ): Promise<KoreanBlockData> {
   const items = generateBlockGame(storybook, config, {
+    // 블록 그리드(6칸)가 3음절까지만 배치 가능 — 4음절(예: 지느러미)은 판이 안 만들어짐.
+    // 영어 블록의 length<=6 제한과 대칭.
     filterPool: (pool) =>
-      pool.filter((item) => item.korean && [...item.korean].some(isHangulSyllable)),
+      pool.filter((item) => {
+        if (!item.korean) return false;
+        const syllables = [...item.korean].filter(isHangulSyllable);
+        return syllables.length >= 1 && syllables.length <= 3;
+      }),
     mapItem: (item) => ({
       word: item.korean,
       imageUrl: item.imageUrl,

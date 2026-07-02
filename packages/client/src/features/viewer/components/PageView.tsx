@@ -116,7 +116,20 @@ export function PageView({
           // 풀스크린 — 이미지 가득 + 자막을 하단에 오버레이(영화 자막). scrim 으로 가독성 확보.
           <>
             {page.illustrationUrl && (
-              <PageImage src={page.illustrationUrl} className="w-full h-full object-contain" />
+              <>
+                {/* 레터박스 채움 — 화면비가 안 맞을 때 빈 띠 대신 같은 그림의 blur cover 배경 */}
+                <div aria-hidden className="absolute inset-0 overflow-hidden">
+                  <img
+                    src={page.illustrationUrl}
+                    alt=""
+                    className="h-full w-full scale-110 object-cover opacity-60 blur-2xl"
+                  />
+                </div>
+                <PageImage
+                  src={page.illustrationUrl}
+                  className="relative w-full h-full object-contain"
+                />
+              </>
             )}
             <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent px-3 pb-6 pt-16 sm:px-8 sm:pb-8">
               <PageSubtitle

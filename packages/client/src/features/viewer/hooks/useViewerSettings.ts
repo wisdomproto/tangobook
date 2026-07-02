@@ -1,5 +1,7 @@
 import { useState, useCallback } from 'react';
 
+export type ViewerVolume = 'low' | 'mid' | 'high';
+
 export interface ViewerSettings {
   language: string;
   textSize: 'sm' | 'md' | 'lg';
@@ -7,7 +9,16 @@ export interface ViewerSettings {
   autoPlayTts: boolean;
   showText: boolean;
   fullscreenImage: boolean;
+  /** 음량 3단계 (전역) — TTS 직접 적용, BGM 은 저작자 볼륨 × 계수 */
+  volume: ViewerVolume;
 }
+
+/** 단계 → 실제 gain. high=1.0(기존과 동일), mid/low 는 체감 구분되는 계단. */
+export const VOLUME_GAIN: Record<ViewerVolume, number> = {
+  low: 0.35,
+  mid: 0.7,
+  high: 1,
+};
 
 interface PersistedSettings extends ViewerSettings {
   version?: number;
@@ -25,6 +36,7 @@ const DEFAULT_SETTINGS: ViewerSettings = {
   autoPlayTts: true,
   showText: true,
   fullscreenImage: true,
+  volume: 'high',
 };
 
 export function loadSettingsForTest(): PersistedSettings {

@@ -15,7 +15,12 @@ import { useLogEvent, useLogEventsBatch } from '@/features/learning';
 import { extractPageWords } from '@/features/learning/lib/extract-page-words';
 import { canReadBook, type Lang } from '@tangobook/shared';
 import { useAccess, PaywallNotice } from '@/features/access';
-import { useViewerSettings, type ViewerSettings } from '../hooks/useViewerSettings';
+import {
+  useViewerSettings,
+  VOLUME_GAIN,
+  type ViewerSettings,
+  type ViewerVolume,
+} from '../hooks/useViewerSettings';
 import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { getPageTtsUrl } from '../lib/page-text';
 import { ViewerToolbar } from './ViewerToolbar';
@@ -67,7 +72,9 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   const access = useAccess();
 
   const lang = (sp.get('lang') ?? settings.language) as LangCode;
-  const urlStyle = sp.get('style');
+  // ?style 미지정(연속재생 등) 시 대표 그림체(defaultStyle) 우선 — 라이브러리 표지와 재생 그림체 일치.
+  // artStyle 은 "저작도구에서 마지막으로 활성화된 그림체"라 대표와 다를 수 있음.
+  const urlStyle = sp.get('style') ?? v1Storybook?.defaultStyle ?? null;
 
   // v1 단일화. URL ?style 이 base.artStyle 과 다르면 styleAssets 로 표지/페이지 일러스트 즉시 swap.
   // 레벨 variant 는 sibling pattern(`${baseId}__L1` 등)으로 별도 storybook 이므로
@@ -105,6 +112,19 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   const [needsTapToStart, setNeedsTapToStart] = useState(false);
   // 전체화면은 책마다 진입 시 기본 ON (영구 저장 X) — 끄면 그 책 보는 동안만, 다음 책은 다시 전체화면.
   const [fullscreenLocal, setFullscreenLocal] = useState(true);
+  // 전체화면에서 화면 탭 → 툴바·네비 일시 표시 (기본 전체화면이라 "버튼이 아예 안 보임" 방지).
+  const [fsControls, setFsControls] = useState(false);
+  const fsControlsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const showFsControls = useCallback(() => {
+    setFsControls(true);
+    if (fsControlsTimerRef.current) clearTimeout(fsControlsTimerRef.current);
+    fsControlsTimerRef.current = setTimeout(() => setFsControls(false), 4000);
+  }, []);
+  useEffect(() => {
+    return () => {
+      if (fsControlsTimerRef.current) clearTimeout(fsControlsTimerRef.current);
+    };
+  }, []);
   // 한 번 시작하면(사용자 제스처로 오디오 해금) 이후 페이지는 자동재생.
   // playlist autoStart(2번째 이후 책): 첫 책 탭으로 오디오 해금됨 → 탭 게이트 없이 바로 자동재생.
   // 컴포넌트가 책마다 remount(key={bookId}) 되므로 초기값으로 안전하게 세팅.
@@ -206,6 +226,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   const audio = useAudioPlayer({
     backgroundMusicUrl: storybook?.backgroundMusicUrl,
     backgroundMusicVolume: storybook?.backgroundMusicVolume,
+    volumeGain: VOLUME_GAIN[settings.volume ?? 'high'],
     onTtsEnded: handleTtsEnded,
   });
 
@@ -487,10 +508,13 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
     const next = !settings.autoPlayTts;
     updateSettings({ autoPlayTts: next });
     if (next) {
-      // ON: 일시정지 중이면 이어재생, 아니면 새로 재생
-      if (audio.ttsCurrentTime > 0) {
+      // ON: "현재 페이지" 오디오가 일시정지 중일 때만 이어재생.
+      // ⏸ 상태로 페이지를 넘기면 ttsRef 는 여전히 옛 페이지 오디오라 — 그걸 resume 하면
+      // 소리가 안 나거나 엉뚱한 페이지 음성이 나옴 → 현재 페이지 TTS 를 새로 재생.
+      if (audio.ttsCurrentTime > 0 && lastPlayedTtsRef.current === currentTtsUrl) {
         audio.resumeTts();
       } else if (currentTtsUrl) {
+        lastPlayedTtsRef.current = currentTtsUrl;
         audio.playTts(currentTtsUrl);
       }
     } else {
@@ -510,6 +534,10 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   }, [isVideoMode, hasAnyVideo, playlist]);
 
   const onToggleLanguage = () => {
+    // 옛 언어 음성 즉시 정지 — 안 멈추면 재버퍼링 동안 옛 언어가 끝까지 재생되어
+    // "다음 페이지부터 바뀜 + 음성·자막 언어 불일치(한영 동시 체감)" 가 됨.
+    audio.stopTts();
+    lastPlayedTtsRef.current = null;
     const cur = LANG_CYCLE.indexOf(lang as 'ko' | 'en');
     const next = LANG_CYCLE[(cur === -1 ? 0 : cur + 1) % LANG_CYCLE.length];
     setSp((prev) => {
@@ -576,6 +604,10 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   // playlist mode: force fullscreen so the playlist chrome (outside this component) stays visible.
   const fullscreen = playlist ? true : fullscreenLocal;
 
+  // 전체화면 탭 → 컨트롤 표시/숨김 토글. playlist 는 자체 컨트롤(ContinuousControls)이 있어 제외.
+  const canTapForControls = fullscreen && !playlist && !needsTapToStart;
+  const controlsVisible = !fullscreen || (fsControls && !playlist);
+
   return (
     <div
       className={cn(
@@ -584,39 +616,55 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
           ? 'bg-darkbg text-darktext'
           : 'bg-gradient-to-b from-cream-50 to-peach-100 text-ink-900'
       )}
+      onClick={
+        canTapForControls
+          ? () => {
+              if (fsControls) setFsControls(false);
+              else showFsControls();
+            }
+          : undefined
+      }
     >
-      {!fullscreen && (
-        <ViewerToolbar
-          title={storybook.title}
-          onBack={() => {
-            audio.stopTts();
-            // 책 소개 페이지로 명시 이동 — history back 은 직전 진입 경로 따라 다른 곳으로 갈 수 있음
-            navigate(`/library/${storybookId}`);
-          }}
-          onHome={() => {
-            audio.stopTts();
-            navigate('/library');
-          }}
-          isPlaying={settings.autoPlayTts}
-          onTogglePlayback={onTogglePlayback}
-          isBgmPlaying={audio.isBgmPlaying}
-          onToggleBgm={() => audio.toggleBgm()}
-          hasBgm={!!storybook.backgroundMusicUrl}
-          darkMode={settings.darkMode}
-          onToggleDark={() => updateSettings({ darkMode: !settings.darkMode })}
-          textSize={settings.textSize}
-          onCycleTextSize={() => {
-            const next =
-              TEXT_SIZE_CYCLE[
-                (TEXT_SIZE_CYCLE.indexOf(settings.textSize) + 1) % TEXT_SIZE_CYCLE.length
-              ];
-            updateSettings({ textSize: next });
-          }}
-          language={lang}
-          onToggleLanguage={onToggleLanguage}
-          fullscreenImage={fullscreen}
-          onToggleFullscreen={() => setFullscreenLocal((f) => !f)}
-        />
+      {controlsVisible && (
+        <div onClick={(e) => e.stopPropagation()}>
+          <ViewerToolbar
+            title={storybook.title}
+            onBack={() => {
+              audio.stopTts();
+              // 책 소개 페이지로 명시 이동 — history back 은 직전 진입 경로 따라 다른 곳으로 갈 수 있음
+              navigate(`/library/${storybookId}`);
+            }}
+            onHome={() => {
+              audio.stopTts();
+              navigate('/library');
+            }}
+            isPlaying={settings.autoPlayTts}
+            onTogglePlayback={onTogglePlayback}
+            isBgmPlaying={audio.isBgmPlaying}
+            onToggleBgm={() => audio.toggleBgm()}
+            hasBgm={!!storybook.backgroundMusicUrl}
+            darkMode={settings.darkMode}
+            onToggleDark={() => updateSettings({ darkMode: !settings.darkMode })}
+            textSize={settings.textSize}
+            onCycleTextSize={() => {
+              const next =
+                TEXT_SIZE_CYCLE[
+                  (TEXT_SIZE_CYCLE.indexOf(settings.textSize) + 1) % TEXT_SIZE_CYCLE.length
+                ];
+              updateSettings({ textSize: next });
+            }}
+            volume={settings.volume ?? 'high'}
+            onCycleVolume={() => {
+              const cycle: ViewerVolume[] = ['high', 'mid', 'low'];
+              const cur = cycle.indexOf(settings.volume ?? 'high');
+              updateSettings({ volume: cycle[(cur + 1) % cycle.length] });
+            }}
+            language={lang}
+            onToggleLanguage={onToggleLanguage}
+            fullscreenImage={fullscreen}
+            onToggleFullscreen={() => setFullscreenLocal((f) => !f)}
+          />
+        </div>
       )}
 
       {currentPage && (
@@ -635,8 +683,8 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
         />
       )}
 
-      {/* 페이지 진행률 — Toolbar 와 같은 line (가운데). 풀스크린 시 숨김. */}
-      {!fullscreen && (
+      {/* 페이지 진행률 — Toolbar 와 같은 line (가운데). 풀스크린에선 탭 시에만 함께 표시. */}
+      {controlsVisible && (
         <div className="absolute top-2 left-1/2 -translate-x-1/2 z-20 bg-white/90 backdrop-blur-sm px-3 h-10 flex items-center rounded-md shadow-soft pointer-events-none">
           <BookSpineProgress current={pageIndex} total={pages.length} />
         </div>
@@ -645,14 +693,31 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
       {/* 풀스크린 종료 버튼 — 풀스크린 시만 우상단 floating (반투명).
           playlist 모드에서는 숨김 — 플레이리스트 chrome(상위 컴포넌트)이 제어권을 가짐. */}
       {fullscreen && !playlist && (
-        <button
-          onClick={() => setFullscreenLocal(false)}
-          className="absolute top-3 right-3 z-30 w-11 h-11 rounded-full bg-white/40 hover:bg-white/70 backdrop-blur-sm text-ink-900 flex items-center justify-center text-lg shadow-soft transition-all"
-          title="풀스크린 끄기"
-          aria-label="풀스크린 끄기"
+        <div
+          className="absolute top-3 right-3 z-30 flex gap-2"
+          onClick={(e) => e.stopPropagation()}
         >
-          ✕
-        </button>
+          {/* 상시 🏠 — 전체화면이 기본값이라 "홈 버튼이 안 보인다" 피드백 대응 (탭 오버레이와 별개) */}
+          <button
+            onClick={() => {
+              audio.stopTts();
+              navigate('/library');
+            }}
+            className="w-11 h-11 rounded-full bg-white/40 hover:bg-white/70 backdrop-blur-sm text-ink-900 flex items-center justify-center text-lg shadow-soft transition-all"
+            title="홈으로"
+            aria-label="홈으로"
+          >
+            🏠
+          </button>
+          <button
+            onClick={() => setFullscreenLocal(false)}
+            className="w-11 h-11 rounded-full bg-white/40 hover:bg-white/70 backdrop-blur-sm text-ink-900 flex items-center justify-center text-lg shadow-soft transition-all"
+            title="풀스크린 끄기"
+            aria-label="풀스크린 끄기"
+          >
+            ✕
+          </button>
+        </div>
       )}
 
       <MascotCorner visible={audio.isBgmPlaying} />
@@ -713,8 +778,10 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
         </button>
       )}
 
-      {!fullscreen && (
-        <ViewerControls onPrev={onPrev} onNext={onNext} canPrev={canPrev} canNext={canNext} />
+      {controlsVisible && (
+        <div onClick={(e) => e.stopPropagation()}>
+          <ViewerControls onPrev={onPrev} onNext={onNext} canPrev={canPrev} canNext={canNext} />
+        </div>
       )}
 
       <RewardScreen
