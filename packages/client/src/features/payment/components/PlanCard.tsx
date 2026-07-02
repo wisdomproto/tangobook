@@ -2,6 +2,8 @@ interface PlanCardProps {
   id: string;
   name: string;
   amount: number;
+  /** 정가 (할인 중일 때만) — 취소선 + 할인율 배지 표시 */
+  originalAmount?: number;
   days: number;
   onSelect: () => void;
   disabled?: boolean;
@@ -14,9 +16,19 @@ function formatKRW(amount: number): string {
 /**
  * Presentational card for a single subscription plan.
  */
-export function PlanCard({ id, name, amount, days, onSelect, disabled }: PlanCardProps) {
+export function PlanCard({
+  id,
+  name,
+  amount,
+  originalAmount,
+  days,
+  onSelect,
+  disabled,
+}: PlanCardProps) {
   const isYear = days >= 365;
   const perMonth = isYear ? Math.round(amount / 12) : null;
+  const hasDiscount = typeof originalAmount === 'number' && originalAmount > amount;
+  const discountPct = hasDiscount ? Math.round((1 - amount / originalAmount) * 100) : 0;
 
   return (
     <div
@@ -29,13 +41,23 @@ export function PlanCard({ id, name, amount, days, onSelect, disabled }: PlanCar
         </span>
       )}
       <h3 className="font-display text-xl font-black text-ink-900 break-keep">{name}</h3>
+      {hasDiscount && (
+        <p className="flex items-center gap-2 -mb-2">
+          <span className="text-base font-bold text-ink-300 line-through">
+            {formatKRW(originalAmount)}
+          </span>
+          <span className="rounded-full bg-danger/10 px-2 py-0.5 text-xs font-black text-danger">
+            {discountPct}%
+          </span>
+        </p>
+      )}
       <p className="text-3xl font-black text-coral-600">{formatKRW(amount)}</p>
       {perMonth && (
-        <p className="text-sm text-slate-500 break-keep">
+        <p className="text-sm text-ink-500 break-keep">
           월 {formatKRW(perMonth)} · {days}일 이용
         </p>
       )}
-      {!perMonth && <p className="text-sm text-slate-500">{days}일 이용</p>}
+      {!perMonth && <p className="text-sm text-ink-500">{days}일 이용</p>}
       <button
         type="button"
         onClick={onSelect}

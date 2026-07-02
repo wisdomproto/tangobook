@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { PLANS } from '@tangobook/shared';
+import { PLANS, LAUNCH_PROMO_LABEL } from '@tangobook/shared';
 import type { PlanId } from '@tangobook/shared';
 import { PAYWALL_ENABLED } from '@/features/access/config';
 import { PlanCard } from '../components/PlanCard';
@@ -62,8 +62,11 @@ export default function SubscribePage() {
       <h1 className="mb-2 font-display text-3xl font-black text-ink-900 break-keep text-center">
         탱고북 이용권
       </h1>
-      <p className="mb-8 text-center text-ink-500 break-keep">
+      <p className="mb-3 text-center text-ink-500 break-keep">
         동화책·자연관찰·학습 콘텐츠를 무제한으로 즐겨보세요.
+      </p>
+      <p className="mb-8 rounded-full bg-coral-500 px-5 py-2 text-center text-sm font-black text-white shadow-soft break-keep">
+        🎉 {LAUNCH_PROMO_LABEL} 중!
       </p>
 
       <div className="grid w-full max-w-md gap-4">
@@ -73,6 +76,7 @@ export default function SubscribePage() {
             id={plan.id}
             name={plan.name}
             amount={plan.amount}
+            originalAmount={plan.originalAmount}
             days={plan.days}
             onSelect={() => void handleSelect(plan.id as PlanId)}
             disabled={loading}

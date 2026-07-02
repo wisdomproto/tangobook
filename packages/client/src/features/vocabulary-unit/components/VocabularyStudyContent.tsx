@@ -15,7 +15,9 @@ import { getAvailableGames, getGameData, type VocabGameOption } from '../lib/gam
 import { LineMatchingPlayer } from '@/features/games/components/players/LineMatchingPlayer';
 import { KoreanBlockPlayer } from '@/features/games/components/players/KoreanBlockPlayer';
 import { EnglishBlockPlayer } from '@/features/games/components/players/EnglishBlockPlayer';
-import { WordWritingPlayer } from '@/features/games/components/players/WordWritingPlayer';
+// paint 모드(LetterFillCanvas) 통일 플레이어 — 레거시 WordWritingPlayer(자유 획 픽셀 채점) 대체 (2026-07-02)
+import { KoreanWordWritingPlayer } from '@/features/games/components/players/KoreanWordWritingPlayer';
+import { EnglishWordWritingPlayer } from '@/features/games/components/players/EnglishWordWritingPlayer';
 import { ConnectTheDotsPlayer } from '@/features/games/components/players/ConnectTheDotsPlayer';
 import { WordDetailModal } from './WordDetailModal';
 
@@ -416,8 +418,17 @@ function GameOverlay({
             onBack={onBack}
           />
         )}
-        {(game === 'korean-word-writing' || game === 'english-word-writing') && (
-          <WordWritingPlayer
+        {game === 'korean-word-writing' && (
+          <KoreanWordWritingPlayer
+            storybookId={effectiveStorybookId}
+            gameData={data}
+            difficulty="medium"
+            onComplete={() => onComplete()}
+            onBack={onBack}
+          />
+        )}
+        {game === 'english-word-writing' && (
+          <EnglishWordWritingPlayer
             storybookId={effectiveStorybookId}
             gameData={data}
             difficulty="medium"
