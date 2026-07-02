@@ -12,7 +12,6 @@ import {
   PlaygroundStatsCard,
   VocabularyTabContent,
   useLearningEvents,
-  booksThisWeek,
 } from '@/features/learning';
 import { isDevEmail } from '@/config/dev';
 
@@ -40,7 +39,7 @@ export default function ParentReportsPage() {
       <div className="flex flex-col items-center gap-4 py-16">
         <Mascot state="sleeping" size="lg" character="hori" />
         <p className="text-2xl font-black text-ink-900">로그인이 필요해요</p>
-        <p className="text-ink-500">Supabase 설정 후 가입하시면 학습 리포트를 볼 수 있어요</p>
+        <p className="text-ink-500 break-keep">로그인하면 아이의 독서 기록을 볼 수 있어요</p>
       </div>
     );
   }
@@ -63,26 +62,13 @@ export default function ParentReportsPage() {
     );
   }
 
-  const weekCount = booksThisWeek(events, new Date());
-
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-4 md:p-6">
+      {/* 헤더는 제목 한 줄 — 숫자·호리는 아래 WeeklyHeroCard 가 담당 (헤더/본문 수치 불일치 방지) */}
       <header>
-        <div className="flex items-center gap-3">
-          <Mascot state="reading" size="md" character="hori" />
-          <div>
-            <h1 className="text-2xl font-black text-ink-900">
-              📖 {activeProfile.name}의 독서 현황
-            </h1>
-            <p className="text-sm text-ink-500">
-              {isLoading
-                ? '불러오는 중…'
-                : weekCount > 0
-                  ? `이번 주 ${weekCount}권 읽었어요`
-                  : '이번 주 읽은 책이 아직 없어요'}
-            </p>
-          </div>
-        </div>
+        <h1 className="font-display text-2xl font-black text-ink-900">
+          {activeProfile.name}의 책 이야기
+        </h1>
       </header>
 
       {/* 메인 탭바 — 부모 화면은 동화책만. 개발자 계정은 전체 탭 노출 */}
@@ -126,14 +112,19 @@ export default function ParentReportsPage() {
 
       {tab === 'storybook' && (
         <section>
-          <div className="mb-3 flex items-center justify-between">
-            <h2 className="flex items-center gap-2 text-lg font-bold">
-              <AppIcon src="tab/storybook.svg" size={28} alt="동화책" />
-              <span>동화책</span>
-            </h2>
+          <div className="mb-3 flex items-center justify-end">
             <LanguageTabs value={storybookLang} onChange={setStorybookLang} />
           </div>
-          <StorybookReportSection events={events} storybooks={storybooks} lang={storybookLang} />
+          {isLoading ? (
+            // 로딩 스켈레톤 — 데이터 오기 전 "0" 이 번쩍이는 것 방지
+            <div className="animate-pulse space-y-5">
+              <div className="h-48 rounded-3xl bg-peach-100/70" />
+              <div className="h-44 rounded-2xl bg-white/70" />
+              <div className="h-16 rounded-2xl bg-white/70" />
+            </div>
+          ) : (
+            <StorybookReportSection events={events} storybooks={storybooks} lang={storybookLang} />
+          )}
         </section>
       )}
 

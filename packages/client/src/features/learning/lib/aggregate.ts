@@ -288,11 +288,75 @@ export function booksThisWeek(events: LearningEvent[], now: Date, lang: Lang = '
 }
 
 /**
- * Return the list of distinct words the learner has encountered.
+ * Return the list of distinct words the learner has encountered, most recent first.
  * Reuses `groupByWord` which handles lang filtering and en lowercase normalization.
  * Includes words from word_exposed, word_correct, word_wrong, word_spoken events.
  */
 export function metWords(events: LearningEvent[], lang: Lang): string[] {
   const map = groupByWord(events, lang);
-  return Array.from(map.keys());
+  return Array.from(map.entries())
+    .sort((a, b) => ((a[1].lastAt ?? '') > (b[1].lastAt ?? '') ? -1 : 1))
+    .map(([word]) => word);
+}
+
+export interface RecentBookStat {
+  storybookId: string;
+  /** page_read count for this book (완독 여부 무관) */
+  pageReads: number;
+  /** ISO string of the most recent page_read */
+  lastAt: string;
+}
+
+/**
+ * page_read 를 책별로 묶어 최근 순 정렬 — 완독하지 않은 책도 표지를 보여주기 위함
+ * (리포트의 감정 훅은 표지인데 완독에만 잠그면 저활동 사용자 화면이 텅 빈다).
+ */
+export function recentBooks(events: LearningEvent[]): RecentBookStat[] {
+  const byBook = new Map<string, RecentBookStat>();
+  for (const e of events) {
+    if (e.event_type !== 'page_read') continue;
+    if (!e.storybook_id) continue;
+    const cur = byBook.get(e.storybook_id);
+    if (!cur) {
+      byBook.set(e.storybook_id, {
+        storybookId: e.storybook_id,
+        pageReads: 1,
+        lastAt: e.created_at,
+      });
+    } else {
+      cur.pageReads += 1;
+      if (e.created_at > cur.lastAt) cur.lastAt = e.created_at;
+    }
+  }
+  return Array.from(byBook.values()).sort((a, b) => (a.lastAt > b.lastAt ? -1 : 1));
+}
+
+export interface WeekDay {
+  /** KST date key (YYYY-MM-DD) */
+  key: string;
+  /** 요일 라벨 (일~토) */
+  label: string;
+  /** 그 날 학습 이벤트가 있었는지 */
+  active: boolean;
+}
+
+const DAY_LABELS = ['일', '월', '화', '수', '목', '금', '토'];
+
+/** 최근 7일(KST, 오늘 포함)의 읽기 리듬 — 오래된 날 → 오늘 순. WeekDotsRow 용. */
+export function weekActivity(events: LearningEvent[], now: Date): WeekDay[] {
+  const dates = new Set(events.map((e) => kstDateKey(e.created_at)));
+  const todayMs = Date.parse(kstDateKey(now.toISOString()) + 'T00:00:00Z');
+  const out: WeekDay[] = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(todayMs - i * 86_400_000);
+    const key = d.toISOString().slice(0, 10);
+    out.push({ key, label: DAY_LABELS[d.getUTCDay()], active: dates.has(key) });
+  }
+  return out;
+}
+
+/** KST 날짜를 "6월 30일" 형태로 (원시 ISO 노출 방지). */
+export function formatKstDate(iso: string): string {
+  const key = kstDateKey(iso);
+  return `${Number(key.slice(5, 7))}월 ${Number(key.slice(8, 10))}일`;
 }

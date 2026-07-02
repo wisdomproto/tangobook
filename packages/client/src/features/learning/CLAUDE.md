@@ -6,12 +6,22 @@
 
 `/parent/reports` 진입 시 메인 탭 = `Chip` (variant=coral) 4개:
 
-| 탭           | 컴포넌트                                                            | 내용                                                             |
-| ------------ | ------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| 📊 활동 현황 | `RewardsOverviewCard` + `HoriInventoryCard` + `PlaygroundStatsCard` | 보상/호리/놀이터                                                 |
-| 📖 동화책    | `StorybookReportSection` (한/영 서브탭)                             | 통계 + 최근 읽은 책 + **그림체 분포**                            |
-| 🔤 파닉스    | `PhonicsReportSection` (한/영 서브탭)                               | 한글 히트맵 + 영어 스킬트리 + **타겟 단어 마스터리** (항상 노출) |
-| 🌱 어휘      | `VocabularyTabContent` (한/영 서브탭)                               | 어휘 마스터리 (동화책+파닉스+게임 통합)                          |
+| 탭           | 컴포넌트                                                            | 내용                                                         |
+| ------------ | ------------------------------------------------------------------- | ------------------------------------------------------------ |
+| 📊 활동 현황 | `RewardsOverviewCard` + `HoriInventoryCard` + `PlaygroundStatsCard` | 보상/호리/놀이터 (dev-only)                                  |
+| 📖 동화책    | `StorybookReportSection` (한/영 서브탭)                             | **히어로 + 읽은 책 스트립 + 만난 단어 + 그림체** (아래 상세) |
+| 🔤 파닉스    | `PhonicsReportSection` (한/영 서브탭)                               | 한글 히트맵 + 영어 스킬트리 + 타겟 단어 마스터리 (dev-only)  |
+| 🌱 어휘      | `VocabularyTabContent` (한/영 서브탭)                               | 어휘 마스터리 (dev-only)                                     |
+
+## 동화책 탭 (2026-07-02 히어로 리디자인 — "숫자 대시보드 → 아이 이야기")
+
+- **`WeeklyHeroCard`** — 최상단. peach→coral 그라디언트 + 호리(주간활동>0=celebrating/0=waving) + "이번 주 책 N권을 만났어요!" + `📖 이번 주 약 N분 · 🔥 연속 N일`(streak≥2만) + **최근 7일 읽기 리듬 도트**(`weekActivity`). 기존 숫자카드 3개(`StorybookSummaryCards`) 흡수·삭제. 분(分)도 이번 주 이벤트 기준.
+- **`RecentBooksStrip`** — **완독 게이트 없음**: `recentBooks()`(page_read 책별 group, 최근순)로 읽다 만 책도 표지 노출. 완독(`completedBooks` 맵)=`끝까지 읽음 🎉` coral 리본+"N번이나 읽었어요" / 미완=`읽는 중` amber 칩. 날짜 `formatKstDate`("6월 30일"). 기존 `CompletedBooksList` 대체·삭제.
+- **만난 단어** — 최근순(`metWords` lastAt desc) 40개 + "모두 N개" + 초과분 "외 N개" pill.
+- **그림체** — `<details>` 커스텀 marker(▶ 회전), `ArtStyleDistributionCard` `bare` prop(카드 chrome 없이 리스트만).
+- **빈 상태** — `ReportEmptyState` `mascot`/`ctaLabel`/`ctaTo` prop(호리 waving + "동화책 보러 가기"→/library).
+- **로딩** — ParentReportsPage 가 스켈레톤 렌더(0 플래시 방지). 페이지 헤더는 제목 한 줄만(수치 없음 — 히어로가 단일 소스, 헤더/본문 파닉스 필터 불일치 버그 제거).
+- 진입은 **ParentGate(어른 확인 곱셈, auth 모듈)** 통과 후 — `/parent/*` 전체 래핑.
 
 ## 마스터리 공식
 

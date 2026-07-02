@@ -9,6 +9,8 @@ interface Props {
   events: LearningEvent[];
   storybooks: StorybookSummary[];
   lang: Lang;
+  /** true 면 카드 chrome(배경·제목) 없이 리스트만 — <details> 안처럼 제목이 밖에 있을 때 */
+  bare?: boolean;
 }
 
 /** ART_STYLES.id → 한글 라벨 + 이모지 (UI 표시용) */
@@ -45,7 +47,7 @@ export function getArtStyleEmoji(rawStyle: string | undefined): string {
   return '🎨';
 }
 
-export function ArtStyleDistributionCard({ events, storybooks, lang }: Props) {
+export function ArtStyleDistributionCard({ events, storybooks, lang, bare = false }: Props) {
   const stats = useMemo(() => {
     const byId = new Map<string, { artStyle?: string }>();
     for (const s of storybooks) byId.set(s.id, { artStyle: s.artStyle });
@@ -64,6 +66,33 @@ export function ArtStyleDistributionCard({ events, storybooks, lang }: Props) {
     }));
   }, [stats]);
 
+  const body =
+    rows.length === 0 ? (
+      <ReportEmptyState emoji="🎨" message="아직 읽은 책이 없어요" />
+    ) : (
+      <ul className="space-y-2">
+        {rows.map((r) => (
+          <li key={r.style} className="flex items-center gap-3 text-sm">
+            <span className="w-6 shrink-0 text-center text-base">{r.emoji}</span>
+            <span className="w-20 shrink-0 truncate font-semibold text-ink-700">{r.label}</span>
+            <div className="flex-1">
+              <div className="relative h-2.5 overflow-hidden rounded-full bg-ink-100">
+                <div
+                  className="absolute inset-y-0 left-0 rounded-full bg-coral-500"
+                  style={{ width: `${Math.max(r.pct, 4)}%` }}
+                />
+              </div>
+            </div>
+            <span className="w-16 shrink-0 text-right text-xs text-ink-500">
+              {r.distinctBooks}권 · {r.pct}%
+            </span>
+          </li>
+        ))}
+      </ul>
+    );
+
+  if (bare) return body;
+
   return (
     <div className="rounded-2xl bg-white/80 p-4 shadow-sm">
       <div className="mb-3 flex items-center justify-between">
@@ -73,29 +102,7 @@ export function ArtStyleDistributionCard({ events, storybooks, lang }: Props) {
         </h3>
         {rows.length > 0 && <span className="text-xs text-ink-500">{rows.length}가지 그림체</span>}
       </div>
-      {rows.length === 0 ? (
-        <ReportEmptyState emoji="🎨" message="아직 읽은 책이 없어요" />
-      ) : (
-        <ul className="space-y-2">
-          {rows.map((r) => (
-            <li key={r.style} className="flex items-center gap-3 text-sm">
-              <span className="w-6 shrink-0 text-center text-base">{r.emoji}</span>
-              <span className="w-20 shrink-0 truncate font-semibold text-ink-700">{r.label}</span>
-              <div className="flex-1">
-                <div className="relative h-2.5 overflow-hidden rounded-full bg-ink-100">
-                  <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-coral-500"
-                    style={{ width: `${Math.max(r.pct, 4)}%` }}
-                  />
-                </div>
-              </div>
-              <span className="w-16 shrink-0 text-right text-xs text-ink-500">
-                {r.distinctBooks}권 · {r.pct}%
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
+      {body}
     </div>
   );
 }

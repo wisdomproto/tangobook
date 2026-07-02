@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import type { LearningEvent, LearningEventType, StorybookSummary } from '@tangobook/shared';
 import { StorybookReportSection } from './StorybookReportSection';
 
@@ -35,7 +36,7 @@ function book(
 // ── tests ─────────────────────────────────────────────────────────────────────
 
 describe('StorybookReportSection', () => {
-  it('renders completed book title when book is present in storybooks', () => {
+  it('renders completed book title with 끝까지 읽음 ribbon', () => {
     const storybooks = [book({ id: 'b1', title: '신데렐라' })];
     const events = [
       ev({
@@ -47,10 +48,25 @@ describe('StorybookReportSection', () => {
     ];
     render(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
     expect(screen.getByText('신데렐라')).toBeInTheDocument();
-    expect(screen.getByText('1회 완독')).toBeInTheDocument();
+    expect(screen.getByText(/끝까지 읽음/)).toBeInTheDocument();
   });
 
-  it('skips completed book whose id is NOT in storybooks (no "(알 수 없는 책)")', () => {
+  it('renders in-progress book with 읽는 중 chip (완독 게이트 없음)', () => {
+    const storybooks = [book({ id: 'b1', title: '신데렐라' })];
+    const events = [
+      ev({
+        event_type: 'page_read',
+        storybook_id: 'b1',
+        metadata: { lang: 'ko', page: 1 },
+        created_at: '2026-07-01T05:00:00Z',
+      }),
+    ];
+    render(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
+    expect(screen.getByText('신데렐라')).toBeInTheDocument();
+    expect(screen.getByText('읽는 중')).toBeInTheDocument();
+  });
+
+  it('skips book whose id is NOT in storybooks (no "(알 수 없는 책)")', () => {
     const storybooks = [book({ id: 'b1', title: '신데렐라' })];
     const events = [
       // b2 is NOT in storybooks
@@ -64,7 +80,7 @@ describe('StorybookReportSection', () => {
     render(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
     expect(screen.queryByText('(알 수 없는 책)')).not.toBeInTheDocument();
     // The section should still render without the unknown book
-    expect(screen.queryByText('1회 완독')).not.toBeInTheDocument();
+    expect(screen.queryByText(/끝까지 읽음/)).not.toBeInTheDocument();
   });
 
   it('does NOT render "총 페이지" text anywhere (regression guard)', () => {
@@ -81,20 +97,31 @@ describe('StorybookReportSection', () => {
     expect(screen.queryByText(/총 페이지/)).not.toBeInTheDocument();
   });
 
-  it('renders 3 summary cards with 이번 주 / 분 / 연속 labels', () => {
+  it('renders weekly hero card with headline (활동 있으면 N권)', () => {
     const storybooks = [book({ id: 'b1', title: '신데렐라' })];
     const events = [
       ev({
         event_type: 'page_read',
         storybook_id: 'b1',
         metadata: { lang: 'ko', page: 1 },
-        created_at: '2026-07-01T05:00:00Z',
+        // 히어로는 렌더 시점 기준 7일 창 — 테스트 고정 날짜 대신 현재 시각 사용
+        created_at: new Date().toISOString(),
       }),
     ];
     render(<StorybookReportSection events={events} storybooks={storybooks} lang="ko" />);
-    expect(screen.getByText('이번 주')).toBeInTheDocument();
-    expect(screen.getByText('분')).toBeInTheDocument();
-    expect(screen.getByText('연속')).toBeInTheDocument();
+    expect(screen.getByText('이번 주 책 1권을 만났어요!')).toBeInTheDocument();
+    expect(screen.getByText('오늘')).toBeInTheDocument(); // 주간 도트
+  });
+
+  it('renders encouraging hero when no activity this week', () => {
+    // 빈 상태 CTA(<Link>) 때문에 Router 컨텍스트 필요
+    render(
+      <MemoryRouter>
+        <StorybookReportSection events={[]} storybooks={[]} lang="ko" />
+      </MemoryRouter>
+    );
+    expect(screen.getByText('이번 주 첫 책을 기다리고 있어요')).toBeInTheDocument();
+    expect(screen.getByText('동화책 보러 가기')).toBeInTheDocument();
   });
 
   it('renders 만난 단어 chips for word_exposed events', () => {
