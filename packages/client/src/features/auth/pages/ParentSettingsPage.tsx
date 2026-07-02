@@ -4,6 +4,7 @@ import { computeAccess } from '@tangobook/shared';
 import { useAuth } from '../context/AuthContext';
 import { authApi } from '../api/auth.api';
 import { InviteButton, RedeemCodeInput, useEntitlement } from '@/features/payment';
+import { useUiSound } from '@/lib/useUiSound';
 import { PAYWALL_ENABLED } from '@/features/access/config';
 import { ChangePinStep } from './ChangePinStep';
 import { PIN_REQUIRED } from '@/config/features';
@@ -13,6 +14,7 @@ export default function ParentSettingsPage() {
   const navigate = useNavigate();
   const [deleting, setDeleting] = useState(false);
   const { paidUntil, referralBonusDays } = useEntitlement();
+  const { muted: uiMuted, toggleMuted: toggleUiMuted } = useUiSound();
 
   const access = computeAccess({
     account: account ? { createdAt: account.createdAt } : null,
@@ -83,6 +85,28 @@ export default function ParentSettingsPage() {
           <p className="text-sm font-black text-ink-900 mb-2">받은 코드가 있나요?</p>
           <RedeemCodeInput />
         </div>
+      </section>
+
+      {/* 효과음 — 버튼/페이지 넘김 등 UI 효과음 켜고 끄기 */}
+      <section className="bg-white rounded-2xl p-6 shadow-soft">
+        <h3 className="text-xl font-black text-ink-900 mb-1">🔊 효과음</h3>
+        <p className="text-ink-600 text-sm mb-4 break-keep">
+          버튼을 누르거나 페이지를 넘길 때 나는 소리예요.
+        </p>
+        <button
+          type="button"
+          onClick={toggleUiMuted}
+          aria-pressed={!uiMuted}
+          data-sound="none"
+          className={
+            'px-6 py-3 rounded-xl font-black ' +
+            (uiMuted
+              ? 'bg-ink-100 text-ink-600 hover:brightness-95'
+              : 'bg-mint-500 text-white hover:brightness-110')
+          }
+        >
+          {uiMuted ? '🔇 효과음 꺼짐' : '🔊 효과음 켜짐'}
+        </button>
       </section>
 
       {PIN_REQUIRED && (

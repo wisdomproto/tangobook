@@ -55,6 +55,7 @@ import SubscribePage from '../features/payment/pages/SubscribePage';
 import PaymentSuccessPage from '../features/payment/pages/PaymentSuccessPage';
 import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
 import { InviteLandingPage, InviteFriendsPage, ReferralRewardToast } from '../features/payment';
+import { GlobalUiSound } from '../components/GlobalUiSound';
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +65,8 @@ export const router = createBrowserRouter([
         <Outlet />
         {/* 친구 초대 보상 축하 토스트 — 앱 어디서든 뜨도록 최상단에 마운트 */}
         <ReferralRewardToast />
+        {/* 전역 UI 효과음 — 버튼 탭음 위임 리스너 + 프리로드 */}
+        <GlobalUiSound />
       </AuthProvider>
     ),
     children: [

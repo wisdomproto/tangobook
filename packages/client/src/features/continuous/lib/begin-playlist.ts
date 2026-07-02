@@ -1,3 +1,4 @@
+import { playUi } from '@/lib/uiSound';
 import { usePlaylistStore } from '../store/playlist.store';
 
 // 재생 버튼 클릭(사용자 제스처) 안에서 무음 오디오를 한 번 재생해 브라우저 오디오를 해금한다.
@@ -31,6 +32,7 @@ export function beginPlaylist(
   navigate: (to: string) => void
 ): void {
   if (bookIds.length === 0) return;
+  playUi('play');
   unlockAudio();
   usePlaylistStore.getState().setQueue(
     bookIds.map((bookId) => ({ bookId })),

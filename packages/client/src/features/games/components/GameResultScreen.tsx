@@ -4,6 +4,7 @@ import confetti from 'canvas-confetti';
 import { Mascot } from '@/design-system';
 import { Button } from '@/design-system';
 import { settingsApi } from '@/features/settings/api/settings.api';
+import { playUi } from '@/lib/uiSound';
 
 interface GameResultScreenProps {
   score: number;
@@ -51,6 +52,11 @@ export function GameResultScreen({ score, total, onRestart, onBack }: GameResult
       colors: ['#FF5E3A', '#FFC857', '#5CC99F', '#A78BFA'],
     });
   }, [reduce]);
+
+  // 마운트 시 축하 효과음 1회.
+  useEffect(() => {
+    playUi('reward');
+  }, []);
 
   // 마운트 시 칭찬 음원 1회 (호리 + 칭찬). 한국어 / 영어 라이브러리 합산해서 랜덤 1개.
   useEffect(() => {

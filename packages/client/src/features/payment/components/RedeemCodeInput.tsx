@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { apiPost } from '@/lib/axios';
 import { useAuth } from '@/features/auth/context/AuthContext';
+import { playUi } from '@/lib/uiSound';
 import { ENTITLEMENT_QUERY_KEY } from '../hooks/useEntitlement';
 
 interface RedeemResult {
@@ -47,6 +48,7 @@ export function RedeemCodeInput() {
       const res = await apiPost<RedeemResult>('/payments/referral/redeem', { code: c });
       if (res.ok) {
         setState('ok');
+        playUi('success');
         setMsg('코드를 적용했어요! 🎉 나도 +7일, 초대해준 친구도 +7일 늘었어요.');
         if (account) {
           // 내 보상은 여기서 인라인으로 축하하므로, ReferralRewardToast 가 중복 축하하지 않게 기준값 갱신.

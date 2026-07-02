@@ -39,6 +39,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - **아이콘**: 프리미티브 `<AppIcon src="category/animal.png" size={48} />`. 자산 `public/icons/{category,section,tab}/*`. 카테고리 sprite `/icons/category/sprite.webp`(3×3, LibraryPage `CATEGORY_SPRITE_MAP`). 매핑 없으면 이모지 폴백. 마스코트 호리 `public/mascot/hori/*.webp`.
 - **그림체**: 책마다 `artStyle`(마지막 active) + `defaultStyle`(대표). `defaultStyle` = 라이브러리 표지 우선. `styleAssets[styleId]` 가 그림체별 표지·캐릭터·페이지 분리 보관. /editor2 그림체 칩 ⭐/☆ 로 대표 지정.
 - **학습자 헤더**: `<PageHeader>`(`design-system/primitives/`) 공용 / `<GameHeader>`(`features/games/components/`) 게임 전용. LibraryPage(absolute overlay) · AppShell(sticky 자체 헤더) 는 별도.
+- **UI 효과음**: `lib/uiSound.ts` 싱글톤(`playUi(name)`, 음소거 `tangobook-ui-muted`) + `components/GlobalUiSound.tsx` 위임 리스너 = 모든 버튼/링크에 자동 `tap`(개별 편집 X). `data-sound="select"` 교체 / `"none"` 억제. 특수음(book-open·page-turn·reward·play·success)은 호출부 `playUi`. 자산 `public/sounds/ui/*.mp3` 12종. 게임 사운드(`useGameSound`)와 별개. 상세 → memory `ui-sound-effects-2026-07-02`.
 
 ## 학습자 화면 (MVP 정책)
 - **사이드바** (`AppShell.PRIMARY_AXES`): 일반/게스트 = **동화책**만. 파닉스/어휘/게임 = `devOnly`(`config/dev.ts` `DEV_EMAILS`=개발자 이메일만 노출, 코드/라우트 보존). **연속재생 진입은 사이드바 아님** — LibraryPage 최상단 "나의 재생 목록" 섹션(`PlaylistLibrarySection`, 로그인 시만).

@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useStorybook } from '@/features/storybook';
 import { StateScreen } from '@/design-system';
 import { cn } from '@/lib/cn';
+import { playUi } from '@/lib/uiSound';
 import {
   hasVideoUrl,
   hasGames,
@@ -142,6 +143,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
       setAdvancing(false); // 수동 넘김 시 자동넘김 인디케이터 해제
       setDirection(next > pageIndex ? 1 : -1);
       setPageIndex(next);
+      playUi('page-turn');
     },
     [pageIndex, pages.length]
   );
@@ -685,6 +687,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
       {needsTapToStart && (
         <button
           type="button"
+          data-sound="book-open"
           onClick={() => {
             startedRef.current = true;
             setNeedsTapToStart(false);
