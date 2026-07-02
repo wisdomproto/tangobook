@@ -6,6 +6,9 @@ import { useAuth } from '@/features/auth/context/AuthContext';
 
 const CLIENT_KEY = import.meta.env.VITE_TOSS_CLIENT_KEY as string | undefined;
 
+/** 토스 클라이언트 키가 설정되어 실제 결제창을 열 수 있는 상태인지. */
+export const isCheckoutConfigured = Boolean(CLIENT_KEY);
+
 interface UseCheckoutState {
   loading: boolean;
   error: string | null;

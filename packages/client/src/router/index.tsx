@@ -56,6 +56,7 @@ import PaymentSuccessPage from '../features/payment/pages/PaymentSuccessPage';
 import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
 import { InviteLandingPage, InviteFriendsPage, ReferralRewardToast } from '../features/payment';
 import { GlobalUiSound } from '../components/GlobalUiSound';
+import { ParentGate } from '../features/auth/components/ParentGate';
 
 export const router = createBrowserRouter([
   {
@@ -311,7 +312,9 @@ export const router = createBrowserRouter([
         path: 'subscribe',
         element: (
           <ErrorBoundary>
-            <SubscribePage />
+            <ParentGate>
+              <SubscribePage />
+            </ParentGate>
           </ErrorBoundary>
         ),
       },
@@ -362,9 +365,13 @@ export const router = createBrowserRouter([
       { path: 'playground/word-garden', element: <Navigate to="/library" replace /> },
       {
         path: 'parent',
-        // 학습 리포팅 (2026-05-19): PIN 게이트 제거 — 사용자 정책상 비밀번호 없이 진입.
+        // PIN 게이트 대신 경량 어른 확인(곱셈, 15분 유지) — 아이가 설정/결제/계정삭제 도달 방지.
         // 로그인 자체는 여전히 필요 (auth context 가 보장).
-        element: <ParentHomePage />,
+        element: (
+          <ParentGate>
+            <ParentHomePage />
+          </ParentGate>
+        ),
         children: [
           { index: true, element: <Navigate to="/parent/profiles" replace /> },
           { path: 'reports', element: <ParentReportsPage /> },

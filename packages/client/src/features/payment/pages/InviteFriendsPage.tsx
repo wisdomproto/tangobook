@@ -2,15 +2,16 @@ import { useEffect, useState } from 'react';
 import { apiPost } from '@/lib/axios';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { RedeemCodeInput } from '../components/RedeemCodeInput';
+import { buildInviteLink, buildInviteMessage } from '../lib/invite-message';
 
 interface ReferralCodeResponse {
   code: string;
 }
 
 const STEPS = [
-  { n: 1, t: '내 코드를 친구에게 공유해요' },
-  { n: 2, t: '친구가 회원 가입해요' },
-  { n: 3, t: '친구가 받은 코드를 입력해요' },
+  { n: 1, t: '아래 "초대 메시지 복사"를 눌러요' },
+  { n: 2, t: '카톡·문자로 친구에게 붙여넣어 보내요' },
+  { n: 3, t: '친구가 링크로 가입해요 (코드 자동 적용)' },
   { n: 4, t: '둘 다 무료 기간 +7일 🎉' },
 ];
 
@@ -36,9 +37,9 @@ export default function InviteFriendsPage() {
     };
   }, [account]);
 
-  const copy = () => {
+  const copyMessage = () => {
     if (!code) return;
-    void navigator.clipboard.writeText(code).then(
+    void navigator.clipboard.writeText(buildInviteMessage(code)).then(
       () => {
         setCopied(true);
         setTimeout(() => setCopied(false), 2500);
@@ -68,16 +69,21 @@ export default function InviteFriendsPage() {
           <p className="text-danger font-bold">코드를 불러오지 못했어요. 새로고침해 주세요.</p>
         ) : (
           <>
-            <div className="text-3xl font-black tracking-[0.3em] text-ink-900 select-all mb-3">
+            <div className="text-3xl font-black tracking-[0.3em] text-ink-900 select-all mb-1 uppercase">
               {code ?? '••••••'}
             </div>
+            {code && (
+              <p className="text-xs text-ink-400 font-bold select-all break-all mb-3">
+                {buildInviteLink(code)}
+              </p>
+            )}
             <button
               type="button"
-              onClick={copy}
+              onClick={copyMessage}
               disabled={!code}
               className="rounded-full bg-coral-500 px-8 py-3 font-black text-white shadow-soft hover:bg-coral-600 disabled:opacity-40"
             >
-              {copied ? '복사됨 ✓' : '코드 복사'}
+              {copied ? '복사됨 ✓ 카톡에 붙여넣으세요' : '초대 메시지 복사'}
             </button>
           </>
         )}

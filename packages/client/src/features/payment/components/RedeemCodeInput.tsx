@@ -10,22 +10,38 @@ interface RedeemResult {
   reason?: string;
   inviterBonus?: number;
   refereeBonus?: number;
+  /** 실제 증가분 — cap(28일) 도달 시 0 (RPC 가 반환) */
+  inviterDelta?: number;
+  refereeDelta?: number;
 }
 
+// reason 은 RPC(supabase-referral.sql)가 반환하는 값과 1:1 매핑.
 function reasonMessage(reason?: string): string {
   switch (reason) {
-    case 'self_referral':
+    case 'self':
       return '본인 코드는 사용할 수 없어요.';
     case 'already_referred':
       return '이미 초대 코드를 사용했어요.';
-    case 'cap_reached':
-      return '무료 기간이 이미 최대예요.';
+    case 'race':
+      return '잠시 후 다시 시도해 주세요.';
     case 'invalid_code':
-    case 'not_found':
       return '올바르지 않은 코드예요. 다시 확인해 주세요.';
     default:
       return '코드를 적용할 수 없어요.';
   }
+}
+
+// cap(28일) 도달 시 거짓 "+7일" 축하를 하지 않도록 실제 증가분으로 문구 결정.
+function successMessage(res: RedeemResult): string {
+  const mine = res.refereeDelta;
+  const friend = res.inviterDelta;
+  if (typeof mine !== 'number' || typeof friend !== 'number') {
+    return '코드를 적용했어요! 🎉 나도 +7일, 초대해준 친구도 +7일 늘었어요.';
+  }
+  if (mine > 0 && friend > 0)
+    return '코드를 적용했어요! 🎉 나도 +7일, 초대해준 친구도 +7일 늘었어요.';
+  if (mine > 0) return `코드를 적용했어요! 🎉 내 무료 기간이 +${mine}일 늘었어요.`;
+  return '친구와 연결됐어요! 내 무료 기간은 이미 최대(28일)라 그대로예요.';
 }
 
 /**
@@ -49,7 +65,7 @@ export function RedeemCodeInput() {
       if (res.ok) {
         setState('ok');
         playUi('success');
-        setMsg('코드를 적용했어요! 🎉 나도 +7일, 초대해준 친구도 +7일 늘었어요.');
+        setMsg(successMessage(res));
         if (account) {
           // 내 보상은 여기서 인라인으로 축하하므로, ReferralRewardToast 가 중복 축하하지 않게 기준값 갱신.
           if (typeof res.refereeBonus === 'number') {

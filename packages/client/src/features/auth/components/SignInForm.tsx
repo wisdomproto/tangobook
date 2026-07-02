@@ -23,18 +23,35 @@ export function SignInForm({ onSwitchToSignUp }: Props) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+  // 이메일 미확인 로그인 실패 → 재전송 버튼 노출 (확인 메일이 스팸함에 갔을 때 dead-end 방지)
+  const [unconfirmedEmail, setUnconfirmedEmail] = useState<string | null>(null);
 
   const handleSignIn = async () => {
     setBusy(true);
     setError(null);
     setNotice(null);
+    setUnconfirmedEmail(null);
     try {
       await authApi.signIn(email, password);
     } catch (err) {
       setError(friendlySignInError(err));
+      const raw = err instanceof Error ? err.message : '';
+      if (/not confirmed/i.test(raw)) setUnconfirmedEmail(email);
     } finally {
       setBusy(false);
     }
+  };
+
+  const handleResendConfirmation = async () => {
+    if (!unconfirmedEmail) return;
+    try {
+      await authApi.resendConfirmation(unconfirmedEmail);
+    } catch {
+      // enumeration 방지 — 성공/실패 동일 안내
+    }
+    setError(null);
+    setUnconfirmedEmail(null);
+    setNotice('확인 메일을 다시 보냈어요. 메일함(스팸함 포함)을 확인해 주세요.');
   };
 
   const handleResetPassword = async () => {
@@ -70,6 +87,14 @@ export function SignInForm({ onSwitchToSignUp }: Props) {
           <p className="rounded-xl bg-danger/10 text-danger text-sm font-bold px-4 py-3 break-keep">
             {error}
           </p>
+        )}
+        {unconfirmedEmail && (
+          <button
+            onClick={handleResendConfirmation}
+            className="h-11 rounded-xl border-2 border-coral-400 text-coral-600 text-sm font-black hover:bg-coral-50"
+          >
+            확인 메일 다시 보내기
+          </button>
         )}
         {notice && (
           <p className="rounded-xl bg-mint-50 text-mint-700 text-sm font-bold px-4 py-3 break-keep">

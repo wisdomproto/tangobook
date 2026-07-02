@@ -383,7 +383,13 @@ export default function BookDetailPage() {
                   iconSrc="/icons/mode/book.webp"
                   emoji="📖"
                   title="책으로 읽기"
-                  sub={locked ? '프리미엄 — 구독하고 읽기' : '그림과 글로 천천히'}
+                  sub={
+                    locked
+                      ? access.status === 'guest'
+                        ? '회원 가입하면 무료로 읽어요'
+                        : '프리미엄 — 구독하고 읽기'
+                      : '그림과 글로 천천히'
+                  }
                   onClick={() => enterMode('read')}
                   locked={locked}
                 />
@@ -524,8 +530,9 @@ export default function BookDetailPage() {
             <PaywallNotice
               status={access.status}
               coverUrl={coverUrl}
-              onLogin={() => navigate('/login')}
+              onLogin={() => navigate('/login?mode=signup')}
               onSubscribe={() => navigate('/subscribe')}
+              onClose={() => setShowPaywall(false)}
               onBrowseFree={() => {
                 setShowPaywall(false);
                 navigate('/library');

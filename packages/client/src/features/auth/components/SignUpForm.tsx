@@ -37,6 +37,12 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
       // 이메일 확인 OFF(자동 확인) → 세션 즉시 발급 → AuthContext 리스너가 다음 단계(프로필)로 진행.
       // 이 컴포넌트는 곧 unmount 되므로 별도 처리 불필요.
       if (data.session) return;
+      // 이미 가입+확인된 이메일 재가입 — Supabase 는 enumeration 방지로 에러 대신
+      // identities 가 빈 가짜 user 를 반환. 이때 "메일함 확인" 화면에 두면 메일이 영원히 안 옴.
+      if (data.user && (data.user.identities?.length ?? 0) === 0) {
+        setError('이미 가입된 이메일이에요. 로그인해 주세요.');
+        return;
+      }
       // 이메일 확인 ON → 확인 대기 화면. (alert + 로그인폼 튕김 대신)
       setSentTo(email);
     } catch (err) {

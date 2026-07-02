@@ -72,19 +72,24 @@ export interface RedeemResult {
   ok: boolean;
   reason?: string;
   inviterBonus?: number;
+  refereeBonus?: number;
+  /** 실제 증가분 — cap(28일) 도달 시 0 (거짓 +7 축하 방지용) */
+  inviterDelta?: number;
+  refereeDelta?: number;
 }
 
 /**
  * Redeems a referral code for a new account.
  * All guards (self-referral, already-referred, cap at 28 days) are enforced
  * atomically in the SQL RPC `redeem_referral`.
+ * Codes are stored lowercase base36; normalize here too (RPC also compares lower()).
  */
 export async function redeemReferral(newAccountId: string, code: string): Promise<RedeemResult> {
   const admin = requireAdmin();
 
   const { data, error } = await admin.rpc('redeem_referral', {
     p_new_account: newAccountId,
-    p_code: code,
+    p_code: code.trim().toLowerCase(),
   });
 
   if (error) {

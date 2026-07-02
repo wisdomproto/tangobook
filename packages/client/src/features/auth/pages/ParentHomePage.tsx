@@ -6,12 +6,14 @@ export default function ParentHomePage() {
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
+    // AppShell 사이드바 로그아웃과 동일한 보호 — 실수/아이 터치로 즉시 로그아웃 방지.
+    if (!window.confirm('로그아웃할까요?')) return;
     await signOut();
     navigate('/library');
   };
 
   return (
-    <div className="min-h-screen bg-cream-50 p-4">
+    <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100 p-4">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
           <div className="flex gap-2 overflow-x-auto items-center">

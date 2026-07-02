@@ -553,7 +553,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
         <PaywallNotice
           status={access.status}
           coverUrl={storybook.coverImage}
-          onLogin={() => navigate('/login')}
+          onLogin={() => navigate('/login?mode=signup')}
           onSubscribe={() => navigate('/subscribe')}
           onBrowseFree={() => navigate('/library')}
         />

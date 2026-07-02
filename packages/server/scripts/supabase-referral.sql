@@ -5,11 +5,20 @@
 --   referral_code text unique, referred_by uuid, updated_at.
 
 -- 양방향(드롭박스식) 보상: 초대자 +7 AND 초대받은 사람 +7 (각 최대 28일).
+-- 코드 비교는 대소문자 무시 (코드는 소문자 base36 저장, 클라 입력창은 대문자 변환).
+-- cap 도달 시 거짓 +7 축하 방지 위해 실제 증가분(inviterDelta/refereeDelta)도 반환.
 create or replace function public.redeem_referral(p_new_account uuid, p_code text)
 returns jsonb language plpgsql security definer set search_path = public as $$
-declare v_inviter uuid; v_referred uuid; v_inviter_bonus int; v_referee_bonus int;
+declare
+  v_inviter uuid;
+  v_referred uuid;
+  v_inviter_old int;
+  v_referee_old int;
+  v_inviter_bonus int;
+  v_referee_bonus int;
 begin
-  select account_id into v_inviter from public.entitlements where referral_code = p_code;
+  select account_id into v_inviter from public.entitlements
+    where lower(referral_code) = lower(p_code);
   if v_inviter is null then return jsonb_build_object('ok', false, 'reason', 'invalid_code'); end if;
   if v_inviter = p_new_account then return jsonb_build_object('ok', false, 'reason', 'self'); end if;
   insert into public.entitlements (account_id) values (p_new_account) on conflict (account_id) do nothing;
@@ -18,12 +27,20 @@ begin
   update public.entitlements set referred_by = v_inviter, updated_at = now()
     where account_id = p_new_account and referred_by is null;
   if not found then return jsonb_build_object('ok', false, 'reason', 'race'); end if;
-  -- 초대자 +7
+  -- 초대자 +7 (상한 28) — delta 계산 위해 old 캡처
+  select referral_bonus_days into v_inviter_old from public.entitlements where account_id = v_inviter;
   update public.entitlements set referral_bonus_days = least(28, referral_bonus_days + 7), updated_at = now()
     where account_id = v_inviter returning referral_bonus_days into v_inviter_bonus;
   -- 초대받은 사람도 +7 (양방향)
+  select referral_bonus_days into v_referee_old from public.entitlements where account_id = p_new_account;
   update public.entitlements set referral_bonus_days = least(28, referral_bonus_days + 7), updated_at = now()
     where account_id = p_new_account returning referral_bonus_days into v_referee_bonus;
-  return jsonb_build_object('ok', true, 'inviterBonus', v_inviter_bonus, 'refereeBonus', v_referee_bonus);
+  return jsonb_build_object(
+    'ok', true,
+    'inviterBonus', v_inviter_bonus,
+    'refereeBonus', v_referee_bonus,
+    'inviterDelta', v_inviter_bonus - coalesce(v_inviter_old, 0),
+    'refereeDelta', v_referee_bonus - coalesce(v_referee_old, 0)
+  );
 end; $$;
 grant execute on function public.redeem_referral(uuid, text) to authenticated, anon, service_role;

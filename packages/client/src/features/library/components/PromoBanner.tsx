@@ -80,7 +80,7 @@ export function PromoBanner() {
           </p>
           {isGuest ? (
             <button
-              onClick={() => navigate('/login')}
+              onClick={() => navigate('/login?mode=signup')}
               className="mt-2 md:mt-3 bg-coral-500 text-white font-black rounded-xl px-5 py-2.5 text-xs md:text-sm hover:brightness-110 transition"
             >
               무료로 시작하기

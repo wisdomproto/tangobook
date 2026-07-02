@@ -6,6 +6,7 @@
 
 - PIN 4자리 pgcrypto 해싱 (DB RPC `set_pin`/`verify_pin` SECURITY DEFINER, `set search_path` 강화)
 - 15분 memoize + 3회 오답 시 60초 lockout (`useParentGate`)
+- **`ParentGate`(2026-07-02)** — `PIN_REQUIRED=false` 상태의 경량 어른 확인(곱셈 문제, sessionStorage 15분 유지). 라우터에서 `/parent/*`·`/subscribe` 래핑 — 아이가 결제/계정삭제/로그아웃 도달 방지. `components/ParentGate.tsx`. 가입 의도 CTA 는 `/login?mode=signup`(LoginPage 가 쿼리로 authMode 초기화). SignUpForm=기가입 이메일 감지(identities 빈배열) / SignInForm=미확인 이메일 재전송 버튼.
 - localStorage → `learning_events` 자동 마이그레이션 (플러그인 레지스트리 — 이후 스펙이 `MIGRATIONS[]`에 1줄 추가로 확장)
 - 게스트 모드 호환: `isSupabaseConfigured=false`면 `ParentCornerButton` 숨김
 - Edge Function: `supabase/functions/reset-pin/` (PIN 분실 magic link, rate-limited, enumeration-safe)

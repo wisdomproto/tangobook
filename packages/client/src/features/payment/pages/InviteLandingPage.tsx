@@ -64,7 +64,7 @@ export default function InviteLandingPage() {
         ) : (
           <>
             <button
-              onClick={() => navigate('/login')}
+              onClick={() => navigate('/login?mode=signup')}
               className="mt-2 w-full h-14 rounded-xl bg-coral-500 text-white font-black text-lg hover:brightness-110 transition"
             >
               회원 가입하고 7일 무료 시작

@@ -163,8 +163,18 @@ export function AppShell() {
         )}
       </nav>
 
-      {/* 부모 영역 — 로그인/로그아웃. */}
+      {/* 부모 영역 — 부모 설정 / 로그인/로그아웃. */}
       <div className="mt-auto px-3 pt-3 pb-3 border-t-2 border-ink-200/60 bg-cream-100/30 flex flex-col gap-1.5">
+        {/* 부모 설정 — 멤버십·초대·효과음·PIN. "학습 리포팅 뒤에 숨은 설정" 문제 해소 */}
+        {session && isConfigured && (
+          <Link
+            to="/parent/settings"
+            className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
+          >
+            <span aria-hidden>⚙️</span>
+            <span>부모 설정</span>
+          </Link>
+        )}
         {/* 로그인/로그아웃 — session 상태에 따라 분기 */}
         {session ? (
           <button

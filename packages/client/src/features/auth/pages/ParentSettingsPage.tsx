@@ -62,12 +62,13 @@ export default function ParentSettingsPage() {
       <section className="bg-white rounded-2xl p-6 shadow-soft">
         <h3 className="text-xl font-black text-ink-900 mb-1">💳 멤버십</h3>
         <p className="text-ink-600 text-sm mb-4 break-keep">{membershipLine}</p>
-        {access.status !== 'subscribed' && (
+        {/* 유료화 OFF 동안은 결제 진입점 숨김 — "무료라며? 왜 구독?" 혼란 + 미설정 토스키 에러 방지 */}
+        {PAYWALL_ENABLED && access.status !== 'subscribed' && (
           <button
             onClick={() => navigate('/subscribe')}
             className="px-6 py-3 rounded-xl bg-coral-500 text-white font-black hover:brightness-110"
           >
-            구독하기
+            이용권 구매하기
           </button>
         )}
       </section>

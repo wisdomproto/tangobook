@@ -29,7 +29,10 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [sp, setSp] = useSearchParams();
   const pinReset = sp.get('pinReset') === '1';
-  const [authMode, setAuthMode] = useState<'signIn' | 'signUp'>('signIn');
+  // 가입 의도 CTA("무료로 시작하기" 등)는 ?mode=signup 으로 진입 — 로그인 폼에 떨어뜨리지 않기.
+  const [authMode, setAuthMode] = useState<'signIn' | 'signUp'>(() =>
+    sp.get('mode') === 'signup' ? 'signUp' : 'signIn'
+  );
 
   const step: Step = useMemo(
     () => computeStep(session, account?.hasPin, profiles.length, pinReset),
