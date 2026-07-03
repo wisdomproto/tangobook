@@ -36,7 +36,7 @@ export function ProfileCreateStep() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-cream-50 to-peach-100 p-4">
-      <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-pop flex flex-col gap-4 items-center">
+      <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-pop flex flex-col gap-4 items-center">
         <Mascot state="waving" size="md" character="hori" />
         <span className="text-xs font-black text-mint-600 bg-mint-50 rounded-full px-3 py-1">
           ✓ 부모님 계정이 만들어졌어요

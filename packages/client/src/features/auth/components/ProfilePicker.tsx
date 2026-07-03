@@ -24,9 +24,11 @@ export function ProfilePicker({ profiles, onSelect, onAddNew }: Props) {
   }, [profiles.length, onAddNew]);
 
   return (
-    <div className="fixed inset-0 z-40 bg-gradient-to-b from-cream-50 to-peach-100 overflow-auto p-8">
+    <div className="fixed inset-0 z-40 bg-gradient-to-b from-cream-50 to-peach-100 overflow-auto p-5 sm:p-8">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-black text-ink-900 text-center mb-8">누가 놀고 있어요?</h2>
+        <h2 className="text-2xl sm:text-3xl font-black text-ink-900 text-center mb-8 break-keep">
+          누가 놀고 있어요?
+        </h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {profiles.map((p) => (
             <button

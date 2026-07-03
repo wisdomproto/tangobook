@@ -24,6 +24,8 @@ export default function KoreanPhonicsStudyPage() {
   const navigate = useNavigate();
   const allUnits = useMemo(() => getAllKoreanUnits(), []);
   const { isUnitDone } = usePhonicsProgress('korean');
+  // 모바일: 커리큘럼 사이드바를 슬라이드 드로어로 (좁은 화면에서 고정 사이드바가 절반 차지 방지)
+  const [navOpen, setNavOpen] = useState(false);
 
   useSeo({
     title: '한글 파닉스 학습 — 탱고북',
@@ -52,6 +54,7 @@ export default function KoreanPhonicsStudyPage() {
   // ── Hooks (early return 이전에 모두 호출) ──
   useEffect(() => {
     if (unitId) markRecentUnit('korean', unitId);
+    setNavOpen(false); // 단원 선택 시 모바일 드로어 닫기
   }, [unitId]);
 
   const currentLevelKey = allUnits.find((u) => u.id === unitId)?.levelKey;
@@ -127,7 +130,19 @@ export default function KoreanPhonicsStudyPage() {
       }}
     >
       {/* 상단 헤더 — 동화책/어휘 학습 페이지와 동일 PageHeader 패턴 (흰 wash 카드 + peach pill) */}
-      <PageHeader onBack={() => navigate('/library')} backLabel="홈">
+      <PageHeader
+        onBack={() => navigate('/library')}
+        backLabel="홈"
+        right={
+          <button
+            type="button"
+            onClick={() => setNavOpen(true)}
+            className="md:hidden px-4 py-2.5 rounded-full bg-white/90 text-ink-800 font-black text-sm shadow-soft flex items-center gap-1.5 min-h-[44px]"
+          >
+            ☰ <span>단원</span>
+          </button>
+        }
+      >
         <span className="inline-flex items-center gap-2">
           <span className="text-coral-600">한글</span>
           <span>파닉스</span>
@@ -135,8 +150,29 @@ export default function KoreanPhonicsStudyPage() {
       </PageHeader>
 
       <div className="flex-1 min-h-0 flex mt-2">
-        {/* 좌측 — 커리큘럼 스크롤 list */}
-        <aside className="w-48 sm:w-56 md:w-64 shrink-0 h-full overflow-y-auto border-r border-cream-200/80 bg-white/85 backdrop-blur py-4 px-2.5 sm:px-3">
+        {/* 모바일: 드로어 백드롭 */}
+        {navOpen && (
+          <div
+            className="md:hidden fixed inset-0 bg-black/40 z-30"
+            onClick={() => setNavOpen(false)}
+            aria-hidden
+          />
+        )}
+        {/* 좌측 — 커리큘럼. 데스크톱=인라인 사이드바 / 모바일=슬라이드 드로어 */}
+        <aside
+          className={`overflow-y-auto py-4 px-2.5 sm:px-3 bg-white/95 backdrop-blur fixed left-0 top-0 bottom-0 z-40 w-72 max-w-[85vw] shadow-xl ${navOpen ? 'block' : 'hidden'} md:block md:static md:z-auto md:w-64 md:h-full md:max-w-none md:shadow-none md:border-r md:border-cream-200/80 md:bg-white/85`}
+        >
+          {/* 모바일 닫기 헤더 */}
+          <div className="md:hidden flex items-center justify-between mb-3 px-1">
+            <span className="font-black font-display text-ink-900 text-lg">단원 선택</span>
+            <button
+              onClick={() => setNavOpen(false)}
+              aria-label="닫기"
+              className="w-9 h-9 rounded-full bg-cream-100 text-ink-700 font-black"
+            >
+              ✕
+            </button>
+          </div>
           <div className="flex flex-col gap-5">
             {byLevel.map(([levelKey, level]) => {
               const isExpanded = expandedLevels.has(levelKey);

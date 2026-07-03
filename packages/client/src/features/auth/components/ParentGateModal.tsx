@@ -53,7 +53,7 @@ export function ParentGateModal({ open, onClose, onSuccess }: Props) {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl p-8 max-w-sm w-full shadow-pop flex flex-col items-center gap-4"
+        className="bg-white rounded-2xl p-6 sm:p-8 max-w-sm w-full shadow-pop flex flex-col items-center gap-4"
         onClick={(e) => e.stopPropagation()}
       >
         <Mascot state="thinking" size="md" character="hori" />

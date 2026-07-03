@@ -109,7 +109,7 @@ export function PageView({
         className={
           fullscreen
             ? 'absolute inset-0 flex items-center justify-center'
-            : 'absolute inset-0 flex flex-col items-center justify-end gap-2 sm:gap-3 px-2 sm:px-8 pt-28 pb-6 sm:pb-8'
+            : 'absolute inset-0 flex flex-col items-center justify-end gap-2 sm:gap-3 px-2 sm:px-8 pt-20 sm:pt-28 pb-6 sm:pb-8'
         }
       >
         {fullscreen ? (

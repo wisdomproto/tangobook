@@ -69,7 +69,7 @@ export default function InviteFriendsPage() {
           <p className="text-danger font-bold">코드를 불러오지 못했어요. 새로고침해 주세요.</p>
         ) : (
           <>
-            <div className="text-3xl font-black tracking-[0.3em] text-ink-900 select-all mb-1 uppercase">
+            <div className="text-2xl sm:text-3xl font-black tracking-[0.2em] sm:tracking-[0.3em] text-ink-900 select-all mb-1 uppercase break-all">
               {code ?? '••••••'}
             </div>
             {code && (

@@ -30,28 +30,29 @@ export function PageHeader({
   right,
 }: PageHeaderProps) {
   return (
-    <header className="h-20 lg:h-24 flex items-center justify-between gap-4 shrink-0 bg-white/60 backdrop-blur-sm shadow-soft rounded-3xl px-6 mx-2 mt-2">
-      <div className="flex items-center gap-2 shrink-0">
+    <header className="h-16 md:h-20 lg:h-24 flex items-center justify-between gap-2 md:gap-4 shrink-0 bg-white/60 backdrop-blur-sm shadow-soft rounded-2xl md:rounded-3xl px-3 md:px-6 mx-2 mt-2">
+      <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
         <button
           onClick={onBack}
-          className="px-6 py-3 rounded-full bg-peach-100 text-ink-900 font-black text-xl shadow-soft hover:shadow-pop transition flex items-center gap-2"
+          className="px-3 md:px-6 py-2 md:py-3 rounded-full bg-peach-100 text-ink-900 font-black text-base md:text-xl shadow-soft hover:shadow-pop transition flex items-center gap-1 md:gap-2 min-h-[44px]"
         >
           <span>←</span>
-          <span>{backLabel}</span>
+          {/* 폰(<640)에선 라벨 숨기고 화살표만 — 헤더 우측 칩과 제목 공간 확보 */}
+          <span className="hidden sm:inline">{backLabel}</span>
         </button>
         {onHome && (
           <button
             onClick={onHome}
             aria-label="홈으로"
             title="홈으로"
-            className="px-4 py-3 rounded-full bg-peach-100 text-ink-900 font-black text-xl shadow-soft hover:shadow-pop transition"
+            className="px-3 md:px-4 py-2 md:py-3 rounded-full bg-peach-100 text-ink-900 font-black text-base md:text-xl shadow-soft hover:shadow-pop transition min-h-[44px]"
           >
             🏠
           </button>
         )}
       </div>
 
-      <div className="flex-1 flex items-center justify-center min-w-0 text-3xl lg:text-4xl font-black font-display text-ink-900 truncate">
+      <div className="flex-1 flex items-center justify-center min-w-0 text-lg md:text-2xl lg:text-4xl font-black font-display text-ink-900 truncate">
         {children}
       </div>
 

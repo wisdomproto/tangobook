@@ -58,7 +58,7 @@ export function BookCard({ book }: BookCardProps) {
         )}
         {locked && <LockBadge className="absolute top-2 left-2" />}
       </div>
-      <h3 className="mt-2 font-black text-lg md:text-xl text-ink-900 truncate font-display leading-tight px-1">
+      <h3 className="mt-2 font-black text-base md:text-xl text-ink-900 truncate font-display leading-tight px-1">
         {book.title}
       </h3>
     </button>

@@ -535,11 +535,11 @@ function EnglishBlockPlayerInner({
             </div>
           )}
 
-          <div className="flex items-center gap-3 sm:gap-5">
-            <span className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-wide text-ink-900">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-5">
+            <span className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-wide text-ink-900">
               {currentItem.word}
             </span>
-            <div className="flex gap-1.5 sm:gap-2">
+            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
               {Array.from({ length: letterCount }, (_, slot) => renderCell(slot))}
             </div>
           </div>

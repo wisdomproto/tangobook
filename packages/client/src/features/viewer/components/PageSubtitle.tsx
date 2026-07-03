@@ -166,7 +166,7 @@ export function PageSubtitle({
         TEXT_CLASS[textSize]
       )}
     >
-      <div className="min-h-[1.5em] whitespace-pre-line">
+      <div className="min-h-[1.5em] whitespace-pre-line break-keep">
         {displayParts.map((p, i) =>
           p.current ? (
             <span key={i} className="text-coral-500">
@@ -188,7 +188,7 @@ export function PageSubtitle({
       {displaySub && (
         <div
           className={cn(
-            'mt-1 text-sm sm:text-base font-semibold whitespace-pre-line',
+            'mt-1 text-sm sm:text-base font-semibold whitespace-pre-line break-keep',
             isDarkMode ? 'text-ink-300' : 'text-ink-700'
           )}
         >

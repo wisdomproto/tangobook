@@ -248,18 +248,18 @@ export default function BookDetailPage() {
                   <span>{storybook.category}</span>
                 </span>
               )}
-              <span className="inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
+              <span className="hidden sm:inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
                 <span>📖</span>
                 <span>{storybook.type === 'phonics' ? '파닉스' : '동화책'}</span>
               </span>
               {storybook.pages?.length && (
-                <span className="inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
+                <span className="hidden sm:inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
                   <span>📕</span>
                   <span>페이지 {storybook.pages.length}</span>
                 </span>
               )}
               {vocabWordCount > 0 && (
-                <span className="inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
+                <span className="hidden sm:inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
                   <span className="text-coral-600">Aa</span>
                   <span>단어 {vocabWordCount}</span>
                 </span>
@@ -606,7 +606,7 @@ function ModeCard({
     return (
       <button
         disabled
-        className="flex items-center gap-5 rounded-2xl px-6 py-5 bg-ink-100/40 cursor-not-allowed select-none"
+        className="flex items-center gap-3 sm:gap-5 rounded-2xl px-4 sm:px-6 py-4 sm:py-5 bg-ink-100/40 cursor-not-allowed select-none"
         aria-disabled="true"
         title="준비 중이에요"
       >
@@ -614,9 +614,14 @@ function ModeCard({
           <h3 className="font-black text-2xl text-ink-700">{title}</h3>
           <p className="text-base font-black text-ink-700 mt-1 opacity-80">{sub}</p>
         </div>
-        <div className="w-24 h-24 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white">
+        <div className="w-16 h-16 sm:w-24 sm:h-24 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white">
           {iconSrc ? (
-            <img src={iconSrc} alt="" aria-hidden className="w-16 h-16 object-contain opacity-50" />
+            <img
+              src={iconSrc}
+              alt=""
+              aria-hidden
+              className="w-11 h-11 sm:w-16 sm:h-16 object-contain opacity-50"
+            />
           ) : (
             <span className="text-4xl opacity-40">{icon ?? emoji}</span>
           )}
@@ -632,7 +637,7 @@ function ModeCard({
     <button
       onClick={onClick}
       className={cn(
-        'group relative flex items-center gap-5 rounded-2xl px-6 py-5 shadow-pop hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.18)] active:translate-y-0.5 transition-all duration-100',
+        'group relative flex items-center gap-3 sm:gap-5 rounded-2xl px-4 sm:px-6 py-4 sm:py-5 shadow-pop hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.18)] active:translate-y-0.5 transition-all duration-100',
         TONE.bg,
         TONE.text
       )}
@@ -643,17 +648,17 @@ function ModeCard({
         </span>
       )}
       <div className="flex-1 text-left">
-        <h3 className="font-black text-2xl md:text-3xl leading-tight">{title}</h3>
+        <h3 className="font-black text-xl sm:text-2xl md:text-3xl leading-tight">{title}</h3>
         <p className={cn('text-base font-bold mt-1', TONE.sub)}>{sub}</p>
       </div>
       {/* 워시 — 흰색 85% (거의 흰 동그라미) + 안에 일러스트 (여백 있게) */}
-      <div className="w-24 h-24 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white shadow-[0_6px_16px_rgba(0,0,0,0.12),inset_0_-2px_4px_rgba(0,0,0,0.05)]">
+      <div className="w-16 h-16 sm:w-24 sm:h-24 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white shadow-[0_6px_16px_rgba(0,0,0,0.12),inset_0_-2px_4px_rgba(0,0,0,0.05)]">
         {iconSrc ? (
           <img
             src={iconSrc}
             alt=""
             aria-hidden
-            className="w-16 h-16 object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
+            className="w-11 h-11 sm:w-16 sm:h-16 object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
           />
         ) : (
           <span className="text-4xl">{icon ?? emoji}</span>

@@ -385,10 +385,10 @@ function LineMatchingPlayerInner({
         />
 
         {/* 메인 게임 영역 — 좌우 padding 으로 양옆 여백 + 좌/우 column 30% / SVG 가운데 30% */}
-        <div ref={areaRef} className="flex-1 relative min-h-0 px-12 lg:px-24">
+        <div ref={areaRef} className="flex-1 relative min-h-0 px-4 sm:px-8 lg:px-24">
           {/* 좌측 그림 column — absolute. grid-rows-N 균등. 카드 4개 = 화면 안 모두 fit. */}
           <div
-            className="absolute left-12 lg:left-24 top-0 bottom-0 w-[30%] grid gap-4"
+            className="absolute left-4 sm:left-8 lg:left-24 top-0 bottom-0 w-[38%] sm:w-[32%] lg:w-[30%] grid gap-4"
             style={{ gridTemplateRows: `repeat(${items.length}, minmax(0, 1fr))` }}
           >
             {imageOrder.map((imageItemIdx) => {
@@ -429,7 +429,7 @@ function LineMatchingPlayerInner({
 
           {/* 우측 단어 column — absolute. 동일 grid. */}
           <div
-            className="absolute right-12 lg:right-24 top-0 bottom-0 w-[30%] grid gap-4"
+            className="absolute right-4 sm:right-8 lg:right-24 top-0 bottom-0 w-[38%] sm:w-[32%] lg:w-[30%] grid gap-4"
             style={{ gridTemplateRows: `repeat(${items.length}, minmax(0, 1fr))` }}
           >
             {wordOrder.map((wordItemIdx) => {
@@ -455,11 +455,11 @@ function LineMatchingPlayerInner({
                     }
                     className={cn(
                       wordCardClass(wordItemIdx),
-                      'w-full h-full flex flex-col items-center justify-center px-6 py-4'
+                      'w-full h-full flex flex-col items-center justify-center px-2 sm:px-6 py-4'
                     )}
                     aria-label={`단어: ${wordItem.word}`}
                   >
-                    <span className="text-3xl lg:text-5xl font-black text-ink-900 font-display leading-tight">
+                    <span className="text-xl sm:text-3xl lg:text-5xl font-black text-ink-900 font-display leading-tight break-keep text-center">
                       {wordItem.word}
                     </span>
                     {wordItem.subLabel && (

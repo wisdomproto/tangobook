@@ -92,7 +92,7 @@ export function GameResultScreen({ score, total, onRestart, onBack, lang }: Game
   }, [lang]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-10 text-center bg-gradient-to-b from-cream-50 via-coral-100 to-peach-200">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 sm:p-10 text-center bg-gradient-to-b from-cream-50 via-coral-100 to-peach-200">
       <motion.div
         initial={reduce ? { opacity: 0 } : { scale: 0.5, y: 40 }}
         animate={reduce ? { opacity: 1 } : { scale: 1, y: 0 }}
@@ -101,13 +101,13 @@ export function GameResultScreen({ score, total, onRestart, onBack, lang }: Game
         <Mascot state="celebrating" size="xl" />
       </motion.div>
 
-      <h1 className="mt-6 text-4xl font-black text-ink-900 font-display">게임 끝!</h1>
+      <h1 className="mt-6 text-3xl sm:text-4xl font-black text-ink-900 font-display">게임 끝!</h1>
       <p className="mt-3 text-2xl font-bold text-ink-900">
         <span className="text-coral-500">{displayCount}</span>
         <span className="text-ink-900"> / {total}</span>
       </p>
 
-      <div className="mt-8 flex gap-3">
+      <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Button variant="primary" size="lg" onClick={onRestart}>
           🔄 다시 하기
         </Button>

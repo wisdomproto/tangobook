@@ -65,12 +65,12 @@ export function PromoBanner() {
 
   return (
     <div
-      className="relative w-full aspect-[4/1] md:aspect-[5/1] lg:aspect-[6/1] rounded-2xl overflow-hidden shadow-soft mb-8 md:mb-10 flex bg-gradient-to-br from-cream-50 to-peach-100"
+      className="relative w-full aspect-[2.3/1] sm:aspect-[4/1] md:aspect-[5/1] lg:aspect-[6/1] rounded-2xl overflow-hidden shadow-soft mb-8 md:mb-10 flex bg-gradient-to-br from-cream-50 to-peach-100"
       role="region"
       aria-label="프로모션 배너"
     >
       {/* Left zone — text overlay on the open cream area */}
-      <div className="relative w-1/2 shrink-0 flex items-center pl-14 pr-3 sm:pl-16 sm:pr-4 md:pl-20 md:pr-6 z-10">
+      <div className="relative w-3/5 sm:w-1/2 shrink-0 flex items-center pl-5 pr-3 sm:pl-16 sm:pr-4 md:pl-20 md:pr-6 z-10">
         <div className="flex-1 min-w-0">
           <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-black font-display text-ink-900 leading-tight break-keep">
             {headline}

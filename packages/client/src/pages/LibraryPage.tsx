@@ -5,6 +5,7 @@ import { CategorySection, BookCard, useReadingStatus, useLibraryConfig } from '@
 import { PromoBanner } from '@/features/library/components/PromoBanner';
 import { PlaylistLibrarySection } from '@/features/continuous';
 import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
+import { SiteFooter } from '@/components/SiteFooter';
 import { useSeo } from '@/lib/useSeo';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
 
@@ -315,7 +316,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
 
   return (
     <div className="bg-gradient-to-b from-cream-50 to-peach-100 min-h-full">
-      <div className="max-w-[1600px] mx-auto px-6 md:px-8 pt-5 md:pt-6 pb-6">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 pt-5 md:pt-6 pb-6">
         {/* 롤링 배너 — 동화책 모드 only. 3 슬라이드 (그림체/어휘게임/자연관찰) 5s auto-advance.
             /library 헤더는 absolute overlay (transparent) — 배너가 viewport top 까지 차지. */}
         {type === 'storybook' && <PromoBanner />}
@@ -468,6 +469,8 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
           </div>
         )}
       </div>
+      {/* 사업자 정보 + 법적 문서 링크 — 토스 가맹 심사 필수 표기 */}
+      <SiteFooter />
     </div>
   );
 }

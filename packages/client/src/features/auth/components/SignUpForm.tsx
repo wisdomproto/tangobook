@@ -67,7 +67,7 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
   if (sentTo) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-cream-50 p-4">
-        <div className="bg-white rounded-2xl p-8 max-w-sm w-full shadow-pop flex flex-col gap-4 text-center">
+        <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-sm w-full shadow-pop flex flex-col gap-4 text-center">
           <div className="text-5xl" aria-hidden>
             📬
           </div>
@@ -101,7 +101,7 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
   // ── 가입 폼 ───────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen flex items-center justify-center bg-cream-50 p-4">
-      <div className="bg-white rounded-2xl p-8 max-w-sm w-full shadow-pop flex flex-col gap-4">
+      <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-sm w-full shadow-pop flex flex-col gap-4">
         <div className="text-center">
           <h1 className="text-3xl font-black text-ink-900">회원가입</h1>
           <p className="text-sm text-ink-500 mt-1 break-keep">
@@ -150,6 +150,27 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
         >
           {busy ? '가입 중…' : '가입하기'}
         </button>
+        <p className="text-center text-xs text-ink-400 break-keep">
+          가입하면{' '}
+          <a
+            href="/terms"
+            target="_blank"
+            rel="noreferrer"
+            className="underline hover:text-ink-600"
+          >
+            이용약관
+          </a>
+          과{' '}
+          <a
+            href="/privacy"
+            target="_blank"
+            rel="noreferrer"
+            className="underline hover:text-ink-600"
+          >
+            개인정보처리방침
+          </a>
+          에 동의하는 것으로 봐요
+        </p>
         <button
           onClick={onSwitchToSignIn}
           className="text-sm text-ink-500 mt-2 hover:text-coral-500"

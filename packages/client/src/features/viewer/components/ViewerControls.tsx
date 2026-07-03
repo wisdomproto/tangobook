@@ -24,9 +24,9 @@ function NavBtn({ onClick, disabled, primary, label, position, children }: NavBt
       disabled={disabled}
       aria-label={label}
       className={cn(
-        'absolute top-1/2 -translate-y-1/2 z-10 w-16 h-16 rounded-full flex items-center justify-center text-3xl transition-all',
+        'absolute top-1/2 -translate-y-1/2 z-10 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-2xl sm:text-3xl transition-all',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400',
-        position === 'left' ? 'left-4 sm:left-6' : 'right-4 sm:right-6',
+        position === 'left' ? 'left-2 sm:left-6' : 'right-2 sm:right-6',
         disabled && 'opacity-30 cursor-not-allowed pointer-events-none',
         primary
           ? 'bg-coral-500 text-white shadow-pop hover:scale-105 active:scale-95'

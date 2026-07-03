@@ -66,7 +66,7 @@ export default function ParentReportsPage() {
     <div className="mx-auto max-w-5xl space-y-6 p-4 md:p-6">
       {/* 헤더는 제목 한 줄 — 숫자·호리는 아래 WeeklyHeroCard 가 담당 (헤더/본문 수치 불일치 방지) */}
       <header>
-        <h1 className="font-display text-2xl font-black text-ink-900">
+        <h1 className="font-display text-2xl font-black text-ink-900 break-keep">
           {activeProfile.name}의 책 이야기
         </h1>
       </header>

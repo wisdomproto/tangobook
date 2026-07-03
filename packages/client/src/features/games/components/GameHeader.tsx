@@ -30,13 +30,13 @@ export function GameHeader({ title, current, total, onBack }: GameHeaderProps) {
         className="px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.375rem,1.25vh,0.75rem)] rounded-full bg-peach-100 text-ink-900 font-black text-[clamp(0.875rem,2vh,1.25rem)] shadow-soft hover:shadow-pop transition flex items-center gap-2"
       >
         <span>←</span>
-        <span>뒤로 가기</span>
+        <span className="hidden sm:inline">뒤로 가기</span>
       </button>
 
-      <div className="flex items-center gap-[clamp(0.5rem,1.5vh,1rem)] text-[clamp(1.25rem,3.5vh,2.25rem)] font-black font-display text-ink-900">
-        <span className="text-warn">★</span>
-        <span>{title}</span>
-        <span className="text-coral-500">
+      <div className="flex min-w-0 flex-1 items-center justify-center gap-[clamp(0.5rem,1.5vh,1rem)] text-[clamp(1.25rem,3.5vh,2.25rem)] font-black font-display text-ink-900">
+        <span className="text-warn shrink-0">★</span>
+        <span className="truncate">{title}</span>
+        <span className="text-coral-500 shrink-0">
           {current}/{total}
         </span>
         <span className="text-warn">★</span>

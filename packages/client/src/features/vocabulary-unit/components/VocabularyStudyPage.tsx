@@ -119,7 +119,7 @@ export function VocabularyStudyPage() {
         </PageHeader>
       </div>
 
-      <main className="px-8 pt-4 pb-6 max-w-[1600px] mx-auto">
+      <main className="px-4 sm:px-8 pt-4 pb-6 max-w-[1600px] mx-auto">
         {/* 시안에는 표지 hero 없음 — 바로 단어 미리보기 + 게임 카드 */}
         <VocabularyStudyContent
           unit={unit}
