@@ -64,6 +64,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '광고 카피·랜딩·채널·KPI·6주 캘린더',
   },
   {
+    href: '/learning-comic-plan.html',
+    icon: '🕰️',
+    label: '학습만화 「타임 티코」 기획서',
+    desc: '시즌1 12화 · 세계관·캐릭터·작법 + 회차별 콘티(탭)',
+  },
+  {
     href: '/curriculum-master.html',
     icon: '📖',
     label: '커리큘럼 마스터',

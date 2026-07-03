@@ -37,6 +37,8 @@ import koreanJamoStrokeLibraryRoutes from './routes/korean-jamo-stroke-library.r
 import mktRoutes from './routes/mkt.routes.js';
 import paymentRoutes from './routes/payment.routes.js';
 import opsRoutes from './routes/ops.routes.js';
+import comicFeedbackRoutes from './routes/comic-feedback.routes.js';
+import comicAssetsRoutes from './routes/comic-assets.routes.js';
 
 export function createApp() {
   const app = express();
@@ -100,6 +102,8 @@ export function createApp() {
   app.use('/api/mkt', mktRoutes);
   app.use('/api/payments', paymentRoutes);
   app.use('/api/ops', opsRoutes);
+  app.use('/api/comic-feedback', comicFeedbackRoutes);
+  app.use('/api/comic-assets', comicAssetsRoutes);
 
   // R2 프록시 — pub-xxx.r2.dev CORS 미지원 우회
   // GET /api/r2-proxy?key=storybooks/xxx/scene.mp4
