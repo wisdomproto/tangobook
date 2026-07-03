@@ -26,6 +26,7 @@ import {
 import { KoreanBlockTutorial } from './KoreanBlockTutorial/KoreanBlockTutorial';
 import { planTutorialLayout } from './KoreanBlockTutorial/KoreanBlockTutorial.layout';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
@@ -220,6 +221,15 @@ function KoreanBlockPlayerInner({
     );
     return fit.length > 0 ? fit : data.items;
   }, [data.items]);
+
+  // 이번 판 자산 워밍 — 라운드 진입 시 이미지 지연 + 정답 시 TTS 합성 지연 방지
+  usePreloadImages(items.map((it) => it.imageUrl));
+  usePrewarmWordTts(
+    items.map((it) => ({ text: it.word, directUrl: it.ttsUrl })),
+    'korean',
+    storybookId,
+    'kblock'
+  );
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);

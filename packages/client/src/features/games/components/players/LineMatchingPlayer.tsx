@@ -7,6 +7,7 @@ import type {
 } from '@tangobook/shared';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
+import { usePreloadImages } from '../../hooks/useGamePrefetch';
 import { GameResultScreen } from '../GameResultScreen';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { GameHeader } from '../GameHeader';
@@ -41,6 +42,9 @@ function LineMatchingPlayerInner({
 }: LineMatchingPlayerProps) {
   const data = gameData as KoreanLineMatchingData | EnglishLineMatchingData;
   const items = data.items;
+
+  // 첫 화면에 그림 4장 동시 로드 — 마운트 즉시 워밍 (음절 TTS 프리페치는 아래 별도 effect)
+  usePreloadImages(items.map((it) => it.imageUrl));
 
   // 이미지는 원래 순서 유지, 단어만 셔플
   const imageOrder = useMemo(() => items.map((_, i) => i), [items]);

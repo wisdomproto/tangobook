@@ -5,6 +5,7 @@ import type { WordWritingData } from '@tangobook/shared';
 import { decomposeWord } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
@@ -34,6 +35,15 @@ export function KoreanWordWritingPlayer({
 }: GamePlayerProps) {
   const data = gameData as WordWritingData;
   const items = data.items;
+
+  // 이번 판 자산 워밍 — 이미지 + 정답 시 단어 TTS(concat) 지연 방지
+  usePreloadImages(items.map((it) => it.imageUrl));
+  usePrewarmWordTts(
+    items.map((it) => ({ text: it.word, directUrl: it.ttsUrl })),
+    'korean',
+    storybookId,
+    'wwrite-ko'
+  );
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));

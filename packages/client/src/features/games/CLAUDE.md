@@ -227,6 +227,14 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 - **LineMatching**: 마지막 짝 `setTimeout(1200)` → `playWordTts` promise chain 후 400ms(🔴 chain 규칙) — 발음 도중 결과 화면 급전환 제거. 영어 발음도 `playAudio` promisify 로 완료 대기. **이번 판 음절/TTS 타겟 프리페치**(마운트 시 no-cors force-cache — prefetchTop100 은 앞 100 음절뿐이라 실판 음절 미캐싱으로 발음이 느렸음) + 정답 딜레이 300→150ms.
 - **`GameHeader` 우측 = 🏠 홈**(/library 직행, 자체 navigate — 호출부 무변경).
 
+## 게임 자산 프리페치 (2026-07-03 — "이미지 천천히 뜸" 해결)
+
+`hooks/useGamePrefetch.ts` 공용 훅 2종 — 새 게임 만들 때 마운트 지점에 붙일 것:
+
+- **`usePreloadImages(urls)`**: 이번 판 이미지 전부 `new Image()` 워밍 — 라운드 진입 순간 로드 지연 방지. 적용: 한/영 블록·한/영 따라쓰기·그림짝·점잇기.
+- **`usePrewarmWordTts(items, language, storybookId, identifierPrefix)`**: 마운트 시 단어들을 순차 `resolveTtsUrl` → 결과 URL no-cors 프리페치. 한글 concat(음절 합성→R2)이 첫 호출에 느려서 정답 순간이 아니라 미리 만들어 둠. ⚠️ **identifierPrefix 는 정답 시 호출과 동일해야**(kblock/eblock/wwrite-ko/wwrite-en) 서버 캐시 키 일치. 적용: 블록×2·따라쓰기×2 (그림짝은 음절 mp3 직접 프리페치 방식, 점잇기는 target 해석이 런타임이라 미적용).
+- **데이터 전제**: 단어 이미지(keyObjectImages 기본+styleAssets, flashcards) **1,050장 전부 webp** — jpg 451장(장당 0.6~1.4MB!)을 `packages/server/scripts/convert-keyobj-images-webp.mjs` 로 일괄 변환(2026-07-03, 새 URL이라 immutable 캐시 안전, 백업 `_backup-keyobj-webp/`). 새 keyObject 이미지 업로드는 서버가 자동 webp 변환하므로 재발 X — 외부 스크립트로 R2 에 직접 넣을 때만 주의.
+
 ## 블록 게임 정책 (2026-05-18 보강)
 
 KoreanBlockPlayer / EnglishBlockPlayer 공통:

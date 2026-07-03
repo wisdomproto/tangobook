@@ -7,6 +7,7 @@ import { getEffectiveVocabulary } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { usePreloadImages } from '../../hooks/useGamePrefetch';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { resolveTtsUrl } from '@/features/tts';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -38,6 +39,9 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
   const data = gameData as ConnectTheDotsData;
   // polygon 칠하기 위해 최소 3점 필요
   const items = data.items.filter((it) => it.keypoints.length >= 3);
+
+  // 이번 판 원본 이미지 워밍 — 라운드 진입 시 로드 지연 방지
+  usePreloadImages(items.map((it) => it.originalImageUrl));
 
   const [itemIdx, setItemIdx] = useState(0);
   const [coverage, setCoverage] = useState(0);

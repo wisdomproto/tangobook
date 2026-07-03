@@ -22,6 +22,7 @@ import {
 } from './EnglishBlockTutorial/EnglishBlockTutorial.context';
 import { EnglishBlockTutorial } from './EnglishBlockTutorial/EnglishBlockTutorial';
 import { useGameAudio } from '../../hooks/useGameAudio';
+import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
@@ -69,6 +70,15 @@ function EnglishBlockPlayerInner({
 }: GamePlayerProps) {
   const data = gameData as EnglishBlockData;
   const items = data.items;
+
+  // 이번 판 자산 워밍 — 라운드 진입 시 이미지 지연 + 정답 시 TTS 지연 방지
+  usePreloadImages(items.map((it) => it.imageUrl));
+  usePrewarmWordTts(
+    items.map((it) => ({ text: it.word, directUrl: it.ttsUrl })),
+    'english',
+    storybookId,
+    'eblock'
+  );
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
