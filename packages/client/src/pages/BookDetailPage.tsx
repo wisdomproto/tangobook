@@ -382,7 +382,6 @@ export default function BookDetailPage() {
                   tone="coral"
                   iconSrc="/icons/mode/book.webp"
                   emoji="📖"
-                  sound="book-open"
                   title="책으로 읽기"
                   sub={
                     locked

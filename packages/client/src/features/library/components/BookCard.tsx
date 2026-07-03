@@ -26,7 +26,6 @@ export function BookCard({ book }: BookCardProps) {
   return (
     <button
       onClick={() => navigate(`/library/${book.id}`)}
-      data-sound="book-open"
       className="group flex flex-col items-stretch text-left transition-transform hover:-translate-y-1 active:scale-95"
     >
       <div

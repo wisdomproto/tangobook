@@ -3,6 +3,7 @@ import { Outlet, NavLink, Link, useLocation, useNavigate } from 'react-router-do
 import { AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { ProfilePicker } from '@/features/auth/components/ProfilePicker';
+import { AppBgm } from './AppBgm';
 import { AvatarRender } from '@/features/auth/components/AvatarRender';
 import { cn } from '@/lib/cn';
 import { isDevEmail } from '@/config/dev';
@@ -345,6 +346,9 @@ export function AppShell() {
           <Outlet />
         </main>
       </div>
+
+      {/* 메인(브라우즈) 화면 배경음악 — AppShell 이탈(뷰어/게임) 시 자동 정지 */}
+      <AppBgm />
 
       {/* 아이 2명 이상 + 미선택 → 진입 게이트 "누가 놀고 있어요?" (헤더 칩으로 언제든 재호출). */}
       {needsProfilePick && (
