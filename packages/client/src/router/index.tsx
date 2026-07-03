@@ -58,6 +58,7 @@ import { InviteLandingPage, InviteFriendsPage, ReferralRewardToast } from '../fe
 import { GlobalUiSound } from '../components/GlobalUiSound';
 import { ParentGate } from '../features/auth/components/ParentGate';
 import TermsPage from '../pages/legal/TermsPage';
+import { OpsDashboardPage } from '../features/ops';
 import PrivacyPage from '../pages/legal/PrivacyPage';
 import RefundPolicyPage from '../pages/legal/RefundPolicyPage';
 
@@ -311,6 +312,16 @@ export const router = createBrowserRouter([
       },
       { path: 'login', element: <LoginPage /> },
       { path: 'login/callback', element: <LoginCallback /> },
+      // 내부 운영 대시보드 — 비밀번호(서버 검증) 또는 DEV_EMAILS 로그인
+      {
+        path: 'admin',
+        element: (
+          <ErrorBoundary>
+            <OpsDashboardPage />
+          </ErrorBoundary>
+        ),
+      },
+      { path: 'ops', element: <Navigate to="/admin" replace /> },
       // 법적 문서 — AppShell 밖 문서 페이지 (토스 가맹 심사 확인 대상)
       { path: 'terms', element: <TermsPage /> },
       { path: 'privacy', element: <PrivacyPage /> },
