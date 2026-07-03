@@ -40,8 +40,8 @@
 
 - `groupByArtStyle(events, storybooksById, lang?)` — `metadata.style` 우선, 없으면 `storybooks.artStyle` 폴백, 둘 다 없으면 `'unknown'` 버킷
 - variant ID (`book__L1/L2/L3`) → base ID strip 폴백 (`stripVariantSuffix`)
-- 가로 막대 (이모지 + 라벨 + 권수 + %), `getArtStyleLabel/Emoji` 헬퍼 (id/prompt 양방향 매칭)
-- BookThumb 표지 하단에 그림체 칩 (가장 최근 읽은 그림체)
+- 🔴 **라벨 = "그림체 N" 익명 표기** (2026-07-03, 저작권 예방 — 학습자/부모 화면 실명 비노출 전역 정책, BookDetail 칩과 통일). 실명 헬퍼 `getArtStyleLabel/Emoji`(id/prompt 양방향 매칭)는 export 보존(저작도구용·정책 변경 시 복구)
+- 가로 막대 (🎨 + "그림체 N" + 권수 + %)
 
 ## 타겟 단어 마스터리 (한/영)
 

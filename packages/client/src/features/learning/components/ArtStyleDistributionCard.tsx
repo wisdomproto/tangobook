@@ -58,11 +58,13 @@ export function ArtStyleDistributionCard({ events, storybooks, lang, bare = fals
   const rows = useMemo(() => {
     const arr = [...stats.values()].sort((a, b) => b.pageReads - a.pageReads);
     const total = arr.reduce((acc, r) => acc + r.pageReads, 0);
-    return arr.map((r) => ({
+    // 그림체 실명(수채화·3D 픽사 등)은 저작권 이슈 예방 차원에서 학습자/부모 화면에 비노출 —
+    // BookDetailPage 칩("그림체 N")과 동일 정책. 실명 헬퍼(getArtStyleLabel)는 내부용으로 보존.
+    return arr.map((r, i) => ({
       ...r,
       pct: total === 0 ? 0 : Math.round((r.pageReads / total) * 100),
-      label: getArtStyleLabel(r.style),
-      emoji: getArtStyleEmoji(r.style),
+      label: `그림체 ${i + 1}`,
+      emoji: '🎨',
     }));
   }, [stats]);
 
