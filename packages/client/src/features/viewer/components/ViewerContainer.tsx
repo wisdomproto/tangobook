@@ -223,8 +223,18 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
     setTimeout(fire, NEXT_IMG_CAP_MS); // 상한 — 이미지가 안 와도 넘어감
   }, [pages, hasKeyObjects, playlist]);
 
+  // 기본 BGM 폴백 — 저작 BGM 없는 책은 기본 트랙 5곡 중 책 ID 해시로 고정 선택
+  // (같은 책 = 항상 같은 곡). 자산: public/sounds/bgm/default-{1..5}.mp3 (90s 루프).
+  const bgmUrl = useMemo(() => {
+    if (storybook?.backgroundMusicUrl) return storybook.backgroundMusicUrl;
+    if (!storybook) return undefined;
+    let h = 0;
+    for (let i = 0; i < storybook.id.length; i++) h = (h * 31 + storybook.id.charCodeAt(i)) | 0;
+    return `/sounds/bgm/default-${(Math.abs(h) % 5) + 1}.mp3`;
+  }, [storybook]);
+
   const audio = useAudioPlayer({
-    backgroundMusicUrl: storybook?.backgroundMusicUrl,
+    backgroundMusicUrl: bgmUrl,
     backgroundMusicVolume: storybook?.backgroundMusicVolume,
     volumeGain: VOLUME_GAIN[settings.volume ?? 'high'],
     onTtsEnded: handleTtsEnded,
@@ -642,7 +652,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
             onTogglePlayback={onTogglePlayback}
             isBgmPlaying={audio.isBgmPlaying}
             onToggleBgm={() => audio.toggleBgm()}
-            hasBgm={!!storybook.backgroundMusicUrl}
+            hasBgm={!!bgmUrl}
             darkMode={settings.darkMode}
             onToggleDark={() => updateSettings({ darkMode: !settings.darkMode })}
             textSize={settings.textSize}

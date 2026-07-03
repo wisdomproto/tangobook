@@ -37,6 +37,7 @@ features/viewer/
 - **언어 토글 (2026-07-02)**: `onToggleLanguage` 첫 줄에서 `stopTts()` + `lastPlayedTtsRef=null` — 안 하면 재버퍼링 동안 옛 언어가 끝까지 재생("다음 페이지부터 바뀜"+음성·자막 언어 불일치).
 - **전체화면 (기본 ON, 책마다 로컬 state)**: 탭 → 툴바+네비+진행률 오버레이 토글(4s auto-hide, `fsControls` — 컨트롤 컨테이너는 stopPropagation, playlist 모드 제외). 우상단 **상시 🏠 + ✕**. 레터박스는 같은 그림 blur cover 배경 레이어로 채움(PageView). 탭 게이트(needsTapToStart) 중엔 컨트롤 탭 비활성.
 - **음량 3단계 (2026-07-02, 전역)**: `settings.volume: low(0.35)/mid(0.7)/high(1)` (`VOLUME_GAIN`) — TTS 직접, BGM 은 저작자 `backgroundMusicVolume` × 계수. 툴바 🔊→🔉→🔈 순환. `useAudioPlayer({ volumeGain })`, 재생 중에도 즉시 반영.
+- **기본 BGM 폴백 (2026-07-03)**: 저작 `backgroundMusicUrl` 없는 책은 `/sounds/bgm/default-{1..5}.mp3`(90s 루프) 중 **책 ID 해시로 고정 선택**(ViewerContainer `bgmUrl` useMemo — 같은 책=항상 같은 곡). 저작 BGM 우선, hasBgm 은 이제 항상 true. 자동재생/탭게이트/음소거 연동은 기존 로직 그대로.
 - **그림체 resolution**: `?style` → 없으면 **`defaultStyle`(대표)** → `artStyle` 폴백 (2026-07-02: 연속재생 등 style 미지정 진입이 라이브러리 표지와 같은 그림체로 재생).
 - 홈 버튼 → `/library` · 뒤로 버튼 → 책 상세(`/library/:id`)
 

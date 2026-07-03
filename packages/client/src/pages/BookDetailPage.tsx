@@ -382,6 +382,7 @@ export default function BookDetailPage() {
                   tone="coral"
                   iconSrc="/icons/mode/book.webp"
                   emoji="📖"
+                  sound="book-open"
                   title="책으로 읽기"
                   sub={
                     locked
@@ -570,6 +571,7 @@ function ModeCard({
   onClick,
   disabled,
   locked,
+  sound,
 }: {
   tone: 'coral' | 'violet' | 'amber';
   emoji?: string;
@@ -580,6 +582,8 @@ function ModeCard({
   onClick: () => void;
   disabled?: boolean;
   locked?: boolean;
+  /** GlobalUiSound 오버라이드 (예: 'book-open') — 미지정 시 기본 tap. */
+  sound?: string;
 }) {
   const TONE = {
     coral: {
@@ -636,6 +640,7 @@ function ModeCard({
   return (
     <button
       onClick={onClick}
+      data-sound={sound}
       className={cn(
         'group relative flex items-center gap-3 sm:gap-5 rounded-2xl px-4 sm:px-6 py-4 sm:py-5 shadow-pop hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.18)] active:translate-y-0.5 transition-all duration-100',
         TONE.bg,
