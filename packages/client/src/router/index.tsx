@@ -57,6 +57,9 @@ import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
 import { InviteLandingPage, InviteFriendsPage, ReferralRewardToast } from '../features/payment';
 import { GlobalUiSound } from '../components/GlobalUiSound';
 import { ParentGate } from '../features/auth/components/ParentGate';
+import TermsPage from '../pages/legal/TermsPage';
+import PrivacyPage from '../pages/legal/PrivacyPage';
+import RefundPolicyPage from '../pages/legal/RefundPolicyPage';
 
 export const router = createBrowserRouter([
   {
@@ -308,6 +311,10 @@ export const router = createBrowserRouter([
       },
       { path: 'login', element: <LoginPage /> },
       { path: 'login/callback', element: <LoginCallback /> },
+      // 법적 문서 — AppShell 밖 문서 페이지 (토스 가맹 심사 확인 대상)
+      { path: 'terms', element: <TermsPage /> },
+      { path: 'privacy', element: <PrivacyPage /> },
+      { path: 'refund', element: <RefundPolicyPage /> },
       {
         path: 'subscribe',
         element: (

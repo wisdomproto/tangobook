@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PLANS, LAUNCH_PROMO_LABEL } from '@tangobook/shared';
 import type { PlanId } from '@tangobook/shared';
 import { PAYWALL_ENABLED } from '@/features/access/config';
@@ -90,6 +90,19 @@ export default function SubscribePage() {
 
       <p className="mt-8 max-w-xs text-center text-xs text-ink-400 break-keep">
         기간이 끝나도 자동으로 결제되지 않아요. 구매한 기간 동안 모든 콘텐츠를 이용할 수 있어요.
+      </p>
+      <p className="mt-3 text-center text-xs text-ink-400">
+        <Link to="/terms" className="underline hover:text-ink-600">
+          이용약관
+        </Link>
+        {' · '}
+        <Link to="/refund" className="underline hover:text-ink-600">
+          취소·환불 규정
+        </Link>
+        {' · '}
+        <Link to="/privacy" className="underline hover:text-ink-600">
+          개인정보처리방침
+        </Link>
       </p>
     </div>
   );
