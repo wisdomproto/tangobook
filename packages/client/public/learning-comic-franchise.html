@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 — 프랜차이즈 구조 가이드</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+    --violet: #7c6cff; --violet-dark: #5a48d6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--violet); border-color: var(--violet); color: #fff; }
+  header.hero { text-align: center; padding: 40px 0 40px; border-bottom: 3px solid var(--violet); margin-bottom: 40px; }
+  .hero .kicker { color: var(--violet-dark); font-weight: 800; letter-spacing: .2em; font-size: 13px; }
+  .hero h1 { font-size: 44px; font-weight: 900; margin: 10px 0 6px; }
+  .hero .sub { color: var(--ink-soft); font-size: 16px; font-weight: 600; }
+  .hero .meta { margin-top: 18px; font-size: 13px; color: var(--ink-soft); }
+  nav.toc { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 20px 24px; margin-bottom: 48px; }
+  nav.toc b { display:block; margin-bottom: 8px; color: var(--violet-dark); }
+  nav.toc a { color: var(--ink); text-decoration: none; font-weight: 600; font-size: 14px; }
+  nav.toc a:hover { color: var(--violet-dark); }
+  nav.toc ol { padding-left: 20px; }
+  h2 { font-size: 26px; font-weight: 900; margin: 64px 0 8px; padding-top: 16px; border-top: 2px solid var(--line); }
+  h2 .no { color: var(--violet); margin-right: 8px; }
+  h3 { font-size: 18px; font-weight: 800; margin: 28px 0 8px; color: var(--violet-dark); }
+  p { margin: 8px 0; }
+  .lead { font-size: 16px; color: var(--ink-soft); font-weight: 600; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; background: #fff; font-size: 14px; }
+  th { background: var(--peach); text-align: left; padding: 9px 12px; font-weight: 800; }
+  td { border-top: 1px solid var(--line); padding: 9px 12px; vertical-align: top; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 20px 24px; margin: 16px 0; }
+  .card.accent { border-left: 5px solid var(--violet); }
+  .card.coral { border-left: 5px solid var(--coral); }
+  .card.mint { border-left: 5px solid var(--mint); }
+  .rule { display:flex; gap:12px; margin: 12px 0; }
+  .rule .n { flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--violet); color:#fff; font-weight: 900; display:flex; align-items:center; justify-content:center; }
+  .tag { display:inline-block; background: var(--peach); color: var(--coral-dark); border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 800; margin-right: 6px; }
+  .tag.done { background: #d6f5ef; color: #0f8f7e; }
+  .tag.wip { background: #fff0d6; color: #b8791f; }
+  .tag.idea { background: #ece9ff; color: var(--violet-dark); }
+  .note { font-size: 13px; color: var(--ink-soft); background: var(--peach); border-radius: 10px; padding: 10px 14px; margin: 12px 0; }
+  .layer { display: grid; grid-template-columns: 130px 1fr; gap: 14px; align-items: center; margin: 10px 0; }
+  .layer .lbl { font-weight: 900; text-align: center; color:#fff; border-radius: 12px; padding: 14px 8px; font-size: 15px; }
+  .layer .lbl.brand { background: var(--ink); }
+  .layer .lbl.cat { background: var(--violet); }
+  .layer .lbl.vol { background: var(--coral); }
+  .layer .desc { font-size: 14px; }
+  .link-pill { display:inline-block; background: var(--violet); color:#fff; text-decoration:none; font-weight:800; border-radius: 999px; padding: 7px 18px; margin: 4px 6px 4px 0; font-size: 13.5px; }
+  .link-pill.ghost { background:#fff; color: var(--violet-dark); border: 1.5px solid var(--violet); }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+  @media print { body { background:#fff } .wrap { max-width: none; padding: 0 } }
+</style>
+</head>
+<body data-comic-doc="franchise">
+<div class="wrap">
+
+<nav class="tabs">
+  <a href="learning-comic-franchise.html" class="active">🗺️ 프랜차이즈</a>
+  <a href="learning-comic-plan.html">🕰️ 시대여행</a>
+  <a href="learning-comic-s2-plan.html">🏝️ 극한생존</a>
+</nav>
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · FRANCHISE BIBLE</div>
+  <h1>타임 티코 프랜차이즈</h1>
+  <div class="sub">시즌이 아니라 카테고리로 — 개연성 다리 없이 무한 확장되는 학습만화 세계관</div>
+  <div class="meta">v1.0 · 2026-07-04 · 대상: 초등 저학년(8-10세) · 카테고리별 볼륨(단독편/다부작 아크) · 탱고북 앱 독점</div>
+</header>
+
+<nav class="toc">
+  <b>차례</b>
+  <ol>
+    <li><a href="#s1">왜 '카테고리' 구조인가 — 핵심 결정</a></li>
+    <li><a href="#s2">3층 아키텍처 (브랜드 → 카테고리 → 볼륨)</a></li>
+    <li><a href="#s3">카테고리 맵 & 로드맵</a></li>
+    <li><a href="#s4">볼륨 규칙 — 무엇이 한 '권'을 이루나</a></li>
+    <li><a href="#s5">브랜드 연속성 가이드 — 느슨하게 잇는 실</a></li>
+    <li><a href="#s6">새 볼륨 추가 체크리스트</a></li>
+  </ol>
+</nav>
+
+<!-- ================================================================ -->
+<h2 id="s1"><span class="no">1</span>왜 '카테고리' 구조인가 — 핵심 결정</h2>
+<p class="lead">선형 시즌(S1→S2→S3)은 넘어갈 때마다 '개연성 다리'가 필요하다. 카테고리 구조는 그 부담 자체를 없앤다.</p>
+
+<div class="card coral">
+  <b>문제:</b> "시즌으로 이어 붙이면, 시대여행 → 무인도 → 우주로 넘어갈 때마다 <b>왜 장소가 바뀌었는지</b> 억지 브릿지(예: '우주 가다 불시착')를 깔아야 한다." 이야기가 하나의 연속 타임라인에 묶여, 다룰 수 있는 소재가 그 흐름에 갇힌다.
+</div>
+
+<div class="card accent">
+  <b>결정적 통찰 — 티코의 기계가 곧 앤솔로지 장치다.</b><br />
+  티코는 <b>시간·공간을 넘나드는 로봇</b>이다. 이 전제 자체가 "이번엔 ~로 간다"의 무한 라이선스다. 목적지끼리 서로 이어질 필요가 없다 — 티코가 데려가면 끝. 그래서 볼륨 사이 개연성 다리를 <b>폐기</b>한다. (『살아남기』의 무인도·사막·우주가 서로 독립편이고, 『마법의 시간여행(Magic Tree House)』에서 나무집이 매번 다른 시대로 데려가는 것과 같은 원리.)
+</div>
+
+<h3>계보에서 배운 것</h3>
+<table>
+  <tr><th style="width:150px">시리즈</th><th>확장 방식</th><th>우리가 가져올 것</th></tr>
+  <tr><td><b>살아남기</b> (2,800만부)</td><td>"극한 환경 생존"이라는 <b>포맷</b> + 독립 볼륨(무인도·사막·빙하·우주…)</td><td>포맷을 고정하고 배경만 무한 교체 → 개연성 다리 불필요</td></tr>
+  <tr><td><b>Why?</b> (6,000만부)</td><td>주제(우주·인체·공룡…)마다 독립 권. 연속 서사 없음</td><td>주제=카테고리. 한 권만 사도 완결</td></tr>
+  <tr><td><b>마법천자문</b> (2,200만부)</td><td>수집 엔진(한자)으로 다음 권 구매 동기</td><td>티코 부품/능력 성장 = 브랜드 연속성의 '느슨한 실'</td></tr>
+</table>
+<div class="note">⚖️ <b>트레이드오프:</b> 카테고리 구조는 확장성·병렬 생산을 얻는 대신, 시즌1이 자랑하던 "다음 화가 궁금한 연속 서사(0호 미스터리)"의 강도가 약해진다. → <b>볼륨 안(다부작 아크)에서 그 몰입을 챙기고, 볼륨 사이는 느슨하게</b>가 균형점.</div>
+
+<!-- ================================================================ -->
+<h2 id="s2"><span class="no">2</span>3층 아키텍처</h2>
+<p class="lead">브랜드는 하나, 카테고리는 포맷 축, 볼륨은 실제 '권'. 위에서 아래로 상속한다.</p>
+
+<div class="card">
+  <div class="layer"><div class="lbl brand">브랜드</div><div class="desc"><b>「타임 티코」</b> — 고정 캐스트(보리·노아·티코·0호·봉수 박사) + 티코 머신(시공간 이동) + 아트 스타일 1종. <b>모든 카테고리가 공유하는 불변 자산.</b></div></div>
+  <div class="layer"><div class="lbl cat">카테고리</div><div class="desc"><b>포맷/엔진 축.</b> 독립적으로 무한 증식. 각 카테고리는 고유한 '학습 엔진'과 세계관 룰셋을 가진다 (예: 시대여행 = 역사+과학 / 극한생존 = 생존+과학).</div></div>
+  <div class="layer"><div class="lbl vol">볼륨</div><div class="desc"><b>실제 콘텐츠 단위.</b> 대체로 <b>독립편</b>(한 권만 봐도 완결). 필요하면 여러 화를 묶어 <b>다부작 아크</b>로 낸다(예: 무인도 6부작). 볼륨끼리 개연성 다리 없음.</div></div>
+</div>
+
+<div class="note">💡 "시즌"이라는 말은 이제 <b>"카테고리 안의 다부작 아크"</b>를 뜻하도록 재정의한다. 시즌1(시대여행 12화)·시즌2(무인도 6부작)는 각각 <b>카테고리의 첫 볼륨</b>이 된다 — 프랜차이즈의 선형 진행이 아니라.</div>
+
+<!-- ================================================================ -->
+<h2 id="s3"><span class="no">3</span>카테고리 맵 & 로드맵</h2>
+<p class="lead">각 카테고리는 독립 라인이다. 하나를 늘리든 새로 열든, 다른 카테고리에 개연성 빚을 지지 않는다.</p>
+
+<table>
+  <tr><th style="width:150px">카테고리</th><th>학습 엔진</th><th>계보</th><th style="width:90px">상태</th><th>볼륨(예정 포함)</th></tr>
+  <tr>
+    <td><b>🕰️ 시대여행</b></td>
+    <td>역사 + 과학·문화</td>
+    <td>Why?역사 · 마법의 시간여행</td>
+    <td><span class="tag done">완료</span></td>
+    <td><b>Vol.1 시즌1 12화 ✅</b> (한글·화폐·공룡·다빈치·이순신…) → 이후 세계사 볼륨 확장 여지</td>
+  </tr>
+  <tr>
+    <td><b>🏝️ 극한생존</b></td>
+    <td>조상 생존술 + 현대 과학</td>
+    <td>살아남기</td>
+    <td><span class="tag done">완료</span></td>
+    <td><b>Vol.1 무인도 6부작 ✅</b> → 사막 · 빙하/극지 · 심해 · 우주 생존 등 배경 교체로 무한</td>
+  </tr>
+  <tr>
+    <td><b>🚀 우주·천문</b></td>
+    <td>우주과학 (행성·중력·별)</td>
+    <td>Why?우주 · 마젤란</td>
+    <td><span class="tag idea">기획 후보</span></td>
+    <td>티코가 우주로 데려가는 탐사 볼륨 (생존편의 '우주 생존'과는 별개 라인 — 탐구 중심)</td>
+  </tr>
+  <tr>
+    <td><b>🧠 인체·건강</b></td>
+    <td>몸의 원리 (소화·뇌·면역)</td>
+    <td>Why?인체 · 마법천자문</td>
+    <td><span class="tag idea">기획 후보</span></td>
+    <td>티코가 몸속으로 축소 잠입하는 볼륨 등</td>
+  </tr>
+  <tr>
+    <td><b>🌱 자연·생태</b></td>
+    <td>동식물·기후·환경</td>
+    <td>Why?자연 · 살아남기(자연편)</td>
+    <td><span class="tag idea">기획 후보</span></td>
+    <td>탱고북 자연관찰 동화책과 시너지</td>
+  </tr>
+</table>
+
+<div style="margin-top:18px">
+  <a class="link-pill" href="learning-comic-plan.html">🕰️ 시대여행 기획서 →</a>
+  <a class="link-pill" href="learning-comic-s2-plan.html">🏝️ 극한생존 기획서 →</a>
+</div>
+<div class="note">🔴 카테고리는 열거일 뿐 확정이 아니다. 새 카테고리는 "재미있는 배경 × 뚜렷한 학습 엔진 × 티코가 데려갈 수 있음" 세 조건만 충족하면 언제든 추가한다.</div>
+
+<!-- ================================================================ -->
+<h2 id="s4"><span class="no">4</span>볼륨 규칙 — 무엇이 한 '권'을 이루나</h2>
+<p class="lead">카테고리가 무엇이든, 볼륨은 아래 규칙을 상속한다. 이게 "타임 티코다움"을 지키는 최소 계약이다.</p>
+
+<div class="rule"><div class="n">1</div><div><b>화 = 36쪽 고정.</b> 본편 33쪽 + <b>티코피디아 부록 3쪽</b>(지식카드 2 + 퀴즈 1). 기존 뷰어·TTS·퀴즈 인프라 그대로 재사용.</div></div>
+<div class="rule"><div class="n">2</div><div><b>6비트 작법 공식.</b> A 일상 후크 → B 문제 → C 발견 → D 시도·실패·힌트 → E 해결·정리 → F 티코피디아. 카테고리가 바뀌어도 이 리듬은 유지.</div></div>
+<div class="rule"><div class="n">3</div><div><b>단독편 우선, 다부작은 선택.</b> 기본은 "한 화(혹은 한 권)만 봐도 완결". 소재가 크면 여러 화를 묶어 <b>아크</b>로(무인도 6부작처럼). <b>아크 안에서는</b> 연속 서사 OK — 몰입은 여기서 챙긴다.</div></div>
+<div class="rule"><div class="n">4</div><div><b>학습과 미션은 분리 불가.</b> 위기(문제)의 해결 무기가 곧 지식이어야 한다. 지식을 "설명"이 아니라 "도구"로 쓴다. (살아남기의 미션 구조 + Why?의 부록 신뢰.)</div></div>
+<div class="rule"><div class="n">5</div><div><b>결정타는 항상 아이들의 관찰·추리.</b> 티코(지식·되찾은 기능)와 어른(힌트)은 거들기까지만. 로봇이 다 해결하면 학습만화는 죽는다 — 전 카테고리 불변 룰.</div></div>
+<div class="rule"><div class="n">6</div><div><b>제한시간 장치는 있되, 실제 세계의 것으로.</b> 시대여행 = 티코 배터리 / 극한생존 = 자연의 시계(해·그림자·썰물·폭풍). <b>홀로그램 눈금·게이지 UI 같은 가짜 장치 금지</b> — 카테고리에 맞는 진짜 긴장 장치를 쓴다.</div></div>
+<div class="rule"><div class="n">7</div><div><b>왜곡·유치함 금지.</b> 역사는 살짝만 건드리고(위인 대체 X), 건강·성장은 <b>show-don't-tell</b>로(헥헥→안 지침, "헬스케어 스캔" 같은 명시 장치·현대 용어 X). 안전·환경 존중(불·독초·전기 등은 "어른과 함께").</div></div>
+
+<div class="note">각 카테고리의 세계관 룰셋(예: 시대여행의 "인형 위장", 생존편의 "조상 지혜+현대 과학 쌍")은 <b>해당 카테고리 기획서(SSOT)</b>에 따로 둔다. 위 7개는 카테고리를 관통하는 공통 계약.</div>
+
+<!-- ================================================================ -->
+<h2 id="s5"><span class="no">5</span>브랜드 연속성 가이드 — 느슨하게 잇는 실</h2>
+<p class="lead">볼륨 사이 '하드 브릿지'는 없지만, 브랜드를 하나로 묶는 '느슨한 실'은 이어진다. 강요하지 않되 챙긴다.</p>
+
+<h3>이어지는 것 (soft threads)</h3>
+<table>
+  <tr><th style="width:170px">요소</th><th>연속성 규칙</th></tr>
+  <tr><td><b>캐스트</b></td><td>보리·노아·티코·0호·봉수 박사는 어느 카테고리에서도 같은 성격·말버릇·비주얼 키. <b>캐릭터 시트 5종이 프랜차이즈 SSOT.</b></td></tr>
+  <tr><td><b>티코의 능력 성장</b></td><td>시즌1에서 되찾은 기능(야간투시·방수·나침반·별자리·자석팔·자가발전…)은 이후 볼륨에서도 <b>거들기·재미로 등장</b>. 능력은 쌓이기만 하고 사라지지 않는다(단, 결정타는 룰5대로 아이들).</td></tr>
+  <tr><td><b>0호와의 관계</b></td><td>시즌1 화해로 완전체가 된 0호의 '소속' 정서는 유지. 볼륨마다 큰 아크를 강요하진 않되, 팀의 일원으로 자연스럽게 함께한다.</td></tr>
+  <tr><td><b>아트·톤·부록 포맷</b></td><td>만화 전용 아트 스타일 1종 고정(동화책 그림체 variation 미적용). 티코피디아 부록의 룩앤필도 동일.</td></tr>
+</table>
+
+<h3>이어지지 않아도 되는 것 (no hard bridge)</h3>
+<div class="card mint">
+  <p>✅ <b>장소·시대·상황</b> — 티코가 데려가면 그만. "왜 여기로 왔는지" 억지 설명 불필요.<br />
+  ✅ <b>볼륨 순서</b> — 어느 볼륨을 먼저 봐도 이해에 지장 없음(독립편 원칙).<br />
+  ✅ <b>카테고리 간 인과</b> — 시대여행이 끝나야 생존편이 열리는 식의 의존 없음.</p>
+</div>
+<div class="note">✅ <b>시즌1↔시즌2 접합부 정리 완료(2026-07-04):</b> 원래 있던 '우주 출발→고장→무인도' 하드 브릿지를 폐기했다. 시대여행 피날레(ep12)는 목적지를 특정하지 않는 <b>열린 앤솔로지 결말</b>("어디로든")로, 극한생존 도입(s2-ep01)은 <b>자기완결</b>("티코가 먼 무인도로 탐험 데려가다 폭풍에 비행정 추락")로 재작업. <b>앞으로의 볼륨도 다리를 새로 깔지 않는다</b> — "티코가 이번엔 ~로 데려간다"로 바로 시작.</div>
+
+<!-- ================================================================ -->
+<h2 id="s6"><span class="no">6</span>새 볼륨 추가 체크리스트</h2>
+<p class="lead">아이디어가 떠오르면 이 틀에 얹기만 하면 된다. 순서대로.</p>
+
+<div class="card">
+  <p>① <b>카테고리 배정</b> — 기존 카테고리에 속하나? 아니면 새 카테고리(§3 3조건)를 여나?<br />
+  ② <b>규모 결정</b> — 단독편 1화? 다부작 아크 N화? (소재 크기로 판단, §4-3)<br />
+  ③ <b>학습 엔진 확정</b> — 이 볼륨이 가르치는 것과 "지식=미션 무기" 연결(§4-4)<br />
+  ④ <b>제한시간 장치</b> — 이 배경의 '진짜' 긴장 장치는 무엇인가(§4-6)<br />
+  ⑤ <b>카테고리 SSOT 작성/갱신</b> — 세계관 룰셋 + 라인업 표 (기존 두 기획서를 템플릿으로)<br />
+  ⑥ <b>집필</b> — comic-writer(SSOT 지정) → comic-editor 4축 검수 → P0/P1 반영<br />
+  ⑦ <b>연속성 점검</b> — 캐스트·티코 능력·0호가 §5대로 일관되는지</p>
+</div>
+
+<div class="note">집필 워크플로우·에이전트·검수 4축은 각 카테고리 기획서와 동일. 프랜차이즈 레벨에서 바뀌는 건 "카테고리 배정 + 연속성 점검" 두 단계뿐.</div>
+
+<footer>
+  타임 티코 프랜차이즈 구조 가이드 · TangoBook Original · 내부 기획 문서<br />
+  카테고리 기획서: <a href="learning-comic-plan.html">시대여행</a> · <a href="learning-comic-s2-plan.html">극한생존</a>
+</footer>
+
+</div>
+</body>
+</html>

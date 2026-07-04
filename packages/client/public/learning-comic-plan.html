@@ -68,7 +68,7 @@
 <body data-comic-doc="plan">
 <div class="wrap">
 
-<nav class="tabs" id="comic-tabs"><a href="learning-comic-plan.html" class="active">📘 기획서</a></nav>
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-franchise.html">🗺️ 프랜차이즈</a><a href="learning-comic-plan.html" class="active">📘 기획서</a></nav>
 
 <header class="hero">
   <div class="kicker">TANGOBOOK ORIGINAL SERIES</div>
@@ -312,7 +312,7 @@
   const nav = document.getElementById('comic-tabs');
   if (!nav) return;
   const here = (location.pathname.split('/').pop() || '');
-  const items = [['learning-comic-plan.html', '📘 기획서']];
+  const items = [['learning-comic-franchise.html', '🗺️ 프랜차이즈'], ['learning-comic-plan.html', '📘 기획서']];
   for (let i = 1; i <= 12; i++) {
     const f = 'learning-comic-ep' + String(i).padStart(2, '0') + '.html';
     try {
