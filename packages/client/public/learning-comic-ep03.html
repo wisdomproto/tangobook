@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 3화 「공룡의 알을 지켜라」 — 콘티</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 24px 0 28px; border-bottom: 3px solid var(--coral); margin-bottom: 28px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 12px; }
+  .hero h1 { font-size: 32px; font-weight: 900; margin: 8px 0 4px; }
+  .hero .sub { color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+  .divider { text-align:center; margin: 40px 0 8px; font-weight: 900; color: var(--mint); letter-spacing: .15em; font-size: 14px; }
+  .page { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 14px 0; }
+  .page .pno { font-weight: 900; color: var(--coral-dark); font-size: 15px; }
+  .page .scene { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .page .scene b { color: var(--mint); font-weight: 800; }
+  .page .text { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 8px; font-size: 15px; }
+  .page .text .sp { font-weight: 800; color: var(--coral-dark); }
+  /* 콘티 리뷰 패널 */
+  .page.with-notes { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .page.with-notes { grid-template-columns: 1fr; } }
+  .note-panel { border-left: 2px dashed var(--line); padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 900px) { .note-panel { border-left: none; border-top: 2px dashed var(--line); padding: 12px 0 0; } }
+  .note-panel label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+  .note-panel textarea { width: 100%; min-height: 96px; resize: vertical; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 13px; background: #fffdfa; }
+  .note-panel textarea:focus { outline: none; border-color: var(--coral); }
+  .note-panel textarea.has-note { border-color: var(--mint); background: #f4fffc; }
+  .note-panel .row { display: flex; align-items: center; gap: 10px; }
+  .note-panel button { background: var(--coral); color: #fff; border: none; border-radius: 999px; padding: 7px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .note-panel button:hover { background: var(--coral-dark); }
+  .note-panel .status { font-size: 12px; color: var(--mint); font-weight: 700; }
+  #feedback-bar { position: sticky; top: 54px; z-index: 10; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 18px; margin: 16px 0 24px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #feedback-bar .cnt { color: #ffd9cc; }
+  .pno-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .copy-btn:hover { background: var(--mint); color: #fff; }
+  .copy-btn.done { background: var(--mint); color: #fff; }
+  .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
+  .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+  .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cast-strip .hint a { color: var(--coral-dark); font-weight: 700; }
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .cast-item { text-align: center; }
+  .cast-item .frame { border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 26px; }
+  .cast-item .frame img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .cast-item .nm { font-size: 12.5px; font-weight: 800; margin-top: 5px; color: var(--ink-soft); }
+  .guest-section { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--coral); border-radius: 16px; padding: 18px 22px; margin: 20px 0; }
+  .guest-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+  .guest-section .hint { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .char-prompt { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt details { margin-top: 6px; }
+  .char-prompt summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 8px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+</style>
+</head>
+<body data-comic-doc="ep03">
+<div class="wrap">
+
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-plan.html">📘 기획서</a></nav>
+
+<header class="hero" id="top">
+  <div class="kicker">TIME TICO · EPISODE 03</div>
+  <h1>3화 「공룡의 알을 지켜라」</h1>
+  <div class="sub">백악기, 약 7500만 년 전의 강가 숲 · 공룡과 자연과학 — 36쪽 콘티 (장면 지시 + 페이지 텍스트) · 해금: 야간 투시</div>
+</header>
+
+<div class="cast-strip">
+  <h2>⭐ 고정 캐릭터 확정 시트</h2>
+  <div class="hint">기획서 §6에 붙여넣은 레퍼런스가 여기 자동 표시됩니다 — 컷 작업의 기준. 비어 있으면 <a href="learning-comic-plan.html#s6">기획서에서 붙여넣기 →</a></div>
+  <div class="cast-grid" id="cast-grid">
+    <div class="cast-item" data-key="bori"><div class="frame">👧</div><div class="nm">보리</div></div>
+    <div class="cast-item" data-key="noa"><div class="frame">👦</div><div class="nm">노아</div></div>
+    <div class="cast-item" data-key="tico"><div class="frame">🤖</div><div class="nm">티코</div></div>
+    <div class="cast-item" data-key="bongsu"><div class="frame">👴</div><div class="nm">봉수 박사</div></div>
+    <div class="cast-item" data-key="zero"><div class="frame">🌑</div><div class="nm">0호</div></div>
+  </div>
+</div>
+
+<div class="guest-section">
+  <h2>🎭 이 화의 게스트 캐릭터 레퍼런스</h2>
+  <div class="hint">3장면 이상 등장하거나 클로즈업이 있는 게스트는 시트를 먼저 확정한다. 아래 비주얼 키는 각 쪽 [📋 그림 프롬프트 복사]에도 자동 포함되어 컷 간 일관성을 지킨다. (단역 — 원경의 큰 육식공룡 다스플레토사우루스·뿔공룡 에이니오사우루스 무리·작은 초식공룡·익룡 — 은 장면 지시 서술로 충분, 시트 불필요)</div>
+
+  <div class="char-prompt" data-char="마이아사우라" data-key="maiasaura">
+    <div class="head"><span style="font-size:20px">🦕</span><b>엄마 마이아사우라 (+아기)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 동물(공룡) 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 무섭지 않고 다정한 카툰 비율 — 단, 몸의 골격·주둥이·다리 구조는 고증에 맞게. 순백 배경.
+
+[시트 구성] 왼쪽에 엄마 전신 3면(정면·옆·뒤 — 네 발과 두 발 자세 모두), 오른쪽 위에 표정·동작 6종 그리드(알을 살피는 다정한 눈·낯선 이를 경계하는 눈·꼬리를 내리치며 방어·지쳐 발을 동동·아기를 보고 기뻐 얼굴 비빔·안도의 눈 감음), 오른쪽 아래에 대표 포즈 2개(둥지를 몸으로 감싸 지키는 포즈, 아기에게 나뭇잎을 물어다 주는 포즈). 가운데 아래에 갓 깬 아기 마이아사우라 2~3마리(손바닥만 한 크기, 큰 눈, 짧은 주둥이, 삐약거리는 귀여운 모습). 단일 종만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 마이아사우라, 백악기 후기의 대형 오리주둥이 초식공룡(하드로사우르류). 몸길이 약 9m지만 만화적으로 순하고 듬직하게. 파라사우롤로푸스 같은 화려한 볏 없이 눈앞에 작은 돌기만 있는, 넓적하고 납작한 오리 같은 주둥이, 크고 순한 갈색 눈, 올리브빛~황갈색 몸에 등줄기를 따라 옅은 줄무늬, 도톰한 뒷다리와 짧은 앞다리(네 발·두 발 모두 가능). '좋은 엄마 도마뱀'이라는 이름답게 온화하고 보호 본능이 강한 인상. 공룡이지만 무섭지 않게, 소·코끼리 같은 따뜻한 덩치감.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-char="트로오돈" data-key="troodon">
+    <div class="head"><span style="font-size:20px">🦖</span><b>트로오돈 (밤의 사냥꾼)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 동물(공룡) 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 공포·호러 연출 절대 금지 — 눈이 크고 둥글어 오히려 귀여운 구석이 있되, 밤에는 날렵하고 살짝 위협적인 실루엣. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 3면(정면·옆·뒤), 오른쪽 위에 표정·동작 6종 그리드(어둠 속 커다란 눈이 반짝 빛남·빛을 향해 고개를 홱 돌림·킁킁 냄새 맡기·먹이를 놓쳐 어리둥절 두리번·호기심에 고개 갸웃·살금살금 자세를 낮춤), 오른쪽 아래에 대표 포즈 2개(반짝이는 빛을 쫓아 달리는 포즈, 뒷발 갈고리 발톱을 든 경계 포즈). 밤 장면용으로 눈만 크게 빛나는 실루엣 컷 1개 포함. 단일 종만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 트로오돈, 백악기 후기의 날렵한 소형 육식공룡. 몸길이 약 2.4m(사람 키 정도), 두 발로 걷는 새를 닮은 몸매. 온몸에 얼룩덜룩한 깃털(등은 짙은 갈색·배는 옅은 색), 긴 꼬리, 뒷발 두 번째 발가락에 낫처럼 굽은 갈고리 발톱. 가장 큰 특징 = 아주 크고 둥근 눈(밤에도 잘 보이도록 발달한 야행성 사냥꾼) — 이 큰 눈 덕에 무섭기보다 영리하고 호기심 많은 인상. 새와 공룡의 중간 같은 모습.</pre></details>
+  </div>
+</div>
+
+<div class="divider">— A. 일상 후크 (1~3쪽) —</div>
+
+<div class="page"><div class="pno">1쪽</div>
+  <div class="scene"><b>컷</b> 중형 와이드컷, 아이레벨.<br/><b>장소·시간</b> 늦은 밤, 봉수 박사의 창고 실험실 — 홈 베이스.<br/><b>인물</b> 작업대 위에서 티코(흰 몸체+민트 라인)가 충전 케이블을 꽂은 채 꾸벅꾸벅 졸고 있다(눈이 반달로 반쯤 감김). 창고 문으로 보리(주황 후드티, 붉은 머리끈)가 앞장서 들어오고, 노아(둥근 안경, 하늘색 셔츠)가 두꺼운 책을 끼고 뒤따른다.<br/><b>배경·소품</b> 천장까지 닿은 선반의 발명품들, 티코 가슴 시계 코어 게이지 12칸 중 <b>2칸이 민트색으로 점등</b>(1·2화 회수분).<br/><b>톤</b> 따뜻한 텅스텐 전구색, 아늑하고 나른한 밤.</div>
+  <div class="text"><span class="sp">나레이션:</span> 벌써 부품을 두 개나 찾은 티코. 오늘 밤도 아이들은 할아버지 창고에 모였어요.<br/><span class="sp">보리:</span> "티코! 가슴에 또 새 불빛이 깜빡여. 새 신호 맞지?"<br/><span class="sp">티코:</span> "(하품) 지금 충전 중이거든… 배터리 아껴, 인간들."<br/><span class="sp">???:</span> 삐빅— (티코의 두 눈이 번쩍 켜진다)</div>
+</div>
+
+<div class="page"><div class="pno">2쪽</div>
+  <div class="scene"><b>컷</b> 중형, 홀로그램 중심 정면.<br/><b>장소·시간</b> 같은 창고, 방금 그 순간.<br/><b>인물</b> 티코 가슴 코어에서 홀로그램 지구본과 시간축이 떠오르고, 그 위로 <b>커다란 공룡의 실루엣</b>이 성큼 걸어오는 영상이 재생된다. 보리는 두 주먹을 불끈 쥐고 앞으로 튀어나가고, 노아는 안경이 흘러내린 채 얼어붙는다.<br/><b>배경·소품</b> 홀로그램의 푸른빛이 세 얼굴을 물들임.<br/><b>톤</b> 설렘과 놀라움이 폭발하는 순간, 시원한 청색 발광.</div>
+  <div class="text"><span class="sp">티코:</span> "세 번째 부품 신호 포착! 좌표는… 어어? 아주아주 먼 옛날—"<br/><span class="sp">노아:</span> "잠깐, 잠깐만! 저 홀로그램… 저거 <b>공룡</b> 아니야?!"<br/><span class="sp">보리:</span> "고, 공룡?! 진짜 공룡이 나오는 데라고?!"<br/><span class="sp">티코:</span> "삐빅. 시대는 <b>백악기</b>. 지금으로부터 약 7500만 년 전이다."</div>
+</div>
+
+<div class="page"><div class="pno">3쪽</div>
+  <div class="scene"><b>컷</b> 중형, 박사 정면 브리핑.<br/><b>장소·시간</b> 창고 작업대 앞, 이어지는 밤.<br/><b>인물</b> 봉수 박사(부스스한 백발, 두꺼운 돋보기안경, 카키색 작업조끼)가 벽에 걸린 낡은 지질시대 도표를 지시봉으로 가리킨다. 아이들은 눈을 초롱초롱, 티코는 배낭 옆에 서서 우쭐한 표정.<br/><b>배경·소품</b> 도표에 공룡 실루엣과 화산 그림, 배터리 게이지 아이콘.<br/><b>톤</b> 든든한 브리핑 무드, 기대감이 차오름.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "백악기는 공룡이 온 땅을 다스리던 시대란다. 크고 사나운 녀석도 많으니 꼭 조심해야 해."<br/><span class="sp">봉수 박사:</span> "특히 해가 지면 위험해진다. 배터리가 다 되기 전에, 밤이 깊기 전에 반드시 돌아오너라."<br/><span class="sp">티코:</span> "그런데 이번엔 좋은 소식! 백악기엔 사람이 없으니 나는 인형인 척 안 해도 돼. 드디어 맘껏 떠들 수 있다고!"</div>
+</div>
+
+<div class="divider">— B. 도착 · 이질감 (4~8쪽) —</div>
+
+<div class="page"><div class="pno">4쪽</div>
+  <div class="scene"><b>컷</b> 대형 나선 낙하컷, 소용돌이 중심 구도.<br/><b>장소·시간</b> 시간 터널 내부 — 초록과 주황의 빛 리본이 나선을 그린다.<br/><b>인물</b> 셋이 함께 낙하 중: 보리는 두 팔을 만세로 활짝(함박웃음), 노아는 무릎을 끌어안고 눈을 질끈 감은 채 비명, 티코는 보리 품에 안겨 착지 카운트다운. 주위로 공룡 뼈·양치식물 잎·암모나이트 껍데기·나뭇잎 화석 조각들이 별처럼 흘러간다(이번 화 테마 암시).<br/><b>톤</b> 놀이기구 같은 신남, 환상적인 청록·주황 빛.</div>
+  <div class="text"><span class="sp">보리:</span> "<b>가자, 노아!</b> 진짜 공룡 만나러—!"<br/><span class="sp">노아:</span> "난 하나도 안 가고 싶다고오오!"<br/><span class="sp">티코:</span> "착지 준비! 3, 2, 1…!"</div>
+</div>
+
+<div class="page"><div class="pno">5쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클(이번 화 첫 간판 컷). 높은 부감에서 시작해 중앙 인물로 시선이 떨어지는 구도.<br/><b>장소·시간</b> 백악기의 강가 숲, 맑고 습한 아침. 사람 키를 훌쩍 넘는 거대한 양치식물과 소철, 갓 피어난 목련류 꽃, 원경에 연기가 옅게 오르는 화산, 하늘에는 익룡 두어 마리가 유유히 활공.<br/><b>인물</b> 강가 풀밭에 착지한 두 아이 — 위장복 기능이 백악기엔 옷 대신 '숲에 숨기 좋은 탐험복'을 골라 줘, 보리 = 카키색 탐험 조끼+반바지에 잎사귀 위장무늬, 노아 = 베이지색 탐험 셔츠+반바지. 티코가 보리 배낭에서 폴짝 튀어나온다.<br/><b>톤</b> 웅장하고 싱그러운 원시 자연, 학습 신뢰도 컷(식생 디테일 최대치).</div>
+  <div class="text"><span class="sp">나레이션:</span> 눈을 뜨니 온통 초록빛 세상! 하늘을 나는 익룡, 처음 보는 커다란 나무들이 가득했어요.<br/><span class="sp">노아:</span> "우와… 여기가 진짜 백악기구나. 공기부터 다른 것 같아."<br/><span class="sp">티코:</span> "내 위장복 기능이 백악기엔 옷 대신 '숲에 숨는 탐험복'을 골라 줬군. 완벽해!"</div>
+</div>
+
+<div class="page"><div class="pno">6쪽</div>
+  <div class="scene"><b>컷</b> 중형, 티코 클로즈업(잘난 척 포즈).<br/><b>장소·시간</b> 강가 바위 위, 아침.<br/><b>인물</b> 티코가 넓적 바위 위에 올라 팔짱을 끼고 강의하듯 뽐낸다(안테나가 우쭐 솟음). 그 아래에서 보리는 턱을 괴고 시큰둥, 노아는 손가락을 만지작.<br/><b>배경·소품</b> 화면 오른쪽 끝, 수풀 너머로 흙먼지가 살짝 피어오르기 시작(다가오는 무리의 예고).<br/><b>톤</b> 코믹한 잘난 척 무드, 밝은 아침 햇살.</div>
+  <div class="text"><span class="sp">티코:</span> "<b>내 데이터에 의하면—</b> 공룡은 느리고 둔한 커다란 도마뱀이지. 하나도 안 무섭다고. 자, 이 몸만 믿고—"<br/><span class="sp">노아:</span> "티, 티코! 뒤, 뒤!"<br/><span class="sp">보리:</span> "저 흙먼지 뭐야?!"</div>
+</div>
+
+<div class="page"><div class="pno">7쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클, 측면 러닝샷(속도감).<br/><b>장소·시간</b> 강가 넓은 벌판, 아침.<br/><b>인물</b> 코 위에 큼직한 뿔 하나가 앞으로 굽은 뿔공룡 <b>에이니오사우루스</b> 무리가 흙먼지를 일으키며 우르르 지나간다(목 주름 방패와 뿔이 늠름). 아이들은 바위 뒤에 납작 엎드려 눈만 빼꼼, 티코는 놀라 눈이 X자.<br/><b>배경·소품</b> 발밑에서 튀는 흙덩이, 스피드라인.<br/><b>톤</b> 땅이 울리는 역동적 스펙터클, 흙먼지 갈색톤.</div>
+  <div class="text"><span class="sp">나레이션:</span> 코에 커다란 뿔이 달린 공룡 무리가 땅을 울리며 눈앞을 달려갔어요.<br/><span class="sp">티코:</span> "느, 느리고 둔하다고 누가 그랬— 삐빅! 데이터 수정 중… 수정 중…!"<br/><span class="sp">보리:</span> "우와아! 하나도 안 둔한데?! 완전 빠르잖아!"</div>
+</div>
+
+<div class="page"><div class="pno">8쪽</div>
+  <div class="scene"><b>컷</b> 대형, 로우앵글(올려다보는 위압감).<br/><b>장소·시간</b> 벌판 가장자리, 아침.<br/><b>인물</b> 저 멀리 강 건너편에 커다란 육식공룡 <b>다스플레토사우루스</b>(티라노사우루스의 친척뻘)가 성큼 나타나자, 뿔공룡 무리가 사방으로 흩어진다. 큰 공룡은 원경 실루엣으로만(직접 위협 X — 저학년 안전선). 전경에서 아이들이 바위 뒤로 몸을 낮추고, 티코가 반대편 숲을 손가락으로 가리킨다.<br/><b>톤</b> 위압적이지만 무섭지 않게(원경·역광 실루엣), 긴장의 청록 그늘.</div>
+  <div class="text"><span class="sp">티코:</span> "(작게) 저건… 이 시대에서 제일 사나운 사냥꾼이야. 저 녀석하곤 눈도 마주치지 말자."<br/><span class="sp">노아:</span> "그, 그럼 부품 신호는 어느 쪽이야?"<br/><span class="sp">티코:</span> "삐빅— 이쪽! 큰 녀석 반대편, 저 숲 안쪽이다. 조용조용 가자."</div>
+</div>
+
+<div class="divider">— C. 문제 발견 (9~15쪽) —</div>
+
+<div class="page"><div class="pno">9쪽</div>
+  <div class="scene"><b>컷</b> 대형 발견컷, 완만한 부감.<br/><b>장소·시간</b> 숲 속 아늑한 빈터, 한낮.<br/><b>인물</b> 흙을 둥글게 쌓아 올린 둥지가 여러 개 옹기종기 모여 있고(집단 둥지 지대), 그 사이를 큰 오리주둥이 공룡 <b>엄마 마이아사우라</b>가 알을 살피며 천천히 걷는다. 화면 앞쪽 수풀 뒤에서 아이들과 티코가 빼꼼 내다본다.<br/><b>배경·소품</b> 둥지마다 동그란 알이 여러 개, 마른 나뭇잎으로 덮인 보금자리.<br/><b>톤</b> 평화롭고 따뜻한 초록빛, 생명의 온기.</div>
+  <div class="text"><span class="sp">보리:</span> "저것 봐! 둥지가 잔뜩이야. 알이 이렇게나 많아!"<br/><span class="sp">노아:</span> "가운데 큰 공룡… 알을 돌보고 있어. 꼭 엄마 같아."<br/><span class="sp">티코:</span> "부품 신호가 바로 저기서 난다. 둥지 한가운데야."</div>
+</div>
+
+<div class="page"><div class="pno">10쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 둥지 속을 들여다보는 시점.<br/><b>장소·시간</b> 마이아사우라 둥지 안, 한낮.<br/><b>장면</b> 동그란 알들 사이에, 꼭 알처럼 생긴 <b>티코의 부품</b>이 따뜻한 주황빛으로 은은히 빛나며 놓여 있다. 엄마 마이아사우라가 그 위로 몸을 낮춰 알들과 함께 부품까지 정성껏 품고 있다.<br/><b>배경·소품</b> 부품의 주황 발광이 알 껍데기를 발갛게 물들임.<br/><b>톤</b> 신비롭고 따뜻한 주황 빛, 뭉클한 발견의 순간.</div>
+  <div class="text"><span class="sp">노아:</span> "저기! 알들 사이에 반짝이는 거… 저게 부품이야!"<br/><span class="sp">보리:</span> "엄마 공룡이 그걸 알인 줄 알고 같이 품고 있어!"<br/><span class="sp">티코:</span> "따뜻하니까 알로 착각한 모양이군. 저걸 꺼내 와야 하는데…"</div>
+</div>
+
+<div class="page"><div class="pno">11쪽</div>
+  <div class="scene"><b>컷</b> 중형 액션컷, 다이내믹한 대각선.<br/><b>장소·시간</b> 둥지 앞, 한낮.<br/><b>인물</b> 보리가 참지 못하고 둥지로 달려들자, 엄마 마이아사우라가 커다란 몸으로 앞을 딱 막아서며 굵은 꼬리를 땅에 쿵! 내리친다. 보리는 엉덩방아를 찧고, 노아가 뒤에서 팔을 뻗어 말린다. 엄마의 눈은 사납다기보다 애처롭고 필사적.<br/><b>톤</b> 위협적이지만 무섭지 않게 — 엄마의 눈빛에 온기를 남긴다.</div>
+  <div class="text"><span class="sp">보리:</span> "잠깐만 빌릴게요! 알은 안 건드려요—"<br/><span class="sp">나레이션:</span> 쿠웅! 엄마 공룡이 앞을 막고 낮게 울었어요.<br/><span class="sp">보리:</span> "으앗! …화, 화났나 봐."<br/><span class="sp">노아:</span> "당연하지! 낯선 게 알 근처로 오는데 어느 엄마가 가만있겠어."</div>
+</div>
+
+<div class="page"><div class="pno">12쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출(시리즈 공통 포맷 ①).<br/><b>장소·시간</b> 수풀 그늘 뒤, 한낮.<br/><b>장면</b> 티코의 눈에서 빔이 나와 공중에 민트색 홀로그램 카드가 떠오른다. 카드 안: 마이아사우라 어미가 둥지의 아기들에게 나뭇잎을 물어다 주는 아이콘풍 일러스트. 카드의 빛이 올려다보는 두 아이의 얼굴을 민트색으로 물들인다.<br/><b>배경·소품</b> 공중에 뜬 민트색 홀로그램 카드(둥지·나뭇잎 아이콘), 그늘진 수풀, 카드 빛의 반사.<br/><b>톤</b> '티코피디아' 시그니처 연출, 정돈된 학습 무드.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아, 스캔! 저 공룡은 <b>마이아사우라</b>, '좋은 엄마 도마뱀'이라는 뜻이야. 여럿이 모여 둥지를 틀고, 알에서 깬 새끼를 정성껏 돌본 공룡이지."<br/><span class="sp">노아:</span> "그래서 알에 다가가니까 목숨 걸고 막은 거구나."<br/><span class="sp">보리:</span> "…미안, 엄마 공룡. 놀랐지."</div>
+</div>
+
+<div class="page"><div class="pno">13쪽</div>
+  <div class="scene"><b>컷</b> 중형, 빠르게 저무는 노을.<br/><b>장소·시간</b> 둥지 지대 근처 수풀, 해 질 녘.<br/><b>인물</b> 해가 순식간에 기울어 숲이 어둑어둑해진다. 아이들이 앞이 잘 안 보여 손을 앞으로 더듬거리고, 티코의 가슴 배터리 게이지가 <b>붉게 깜빡</b>인다.<br/><b>배경·소품</b> 주황빛이 남색으로 물드는 하늘, 나무 그림자가 길게 늘어짐.<br/><b>톤</b> 불안이 스미는 황혼, 따뜻한 색에서 차가운 색으로.</div>
+  <div class="text"><span class="sp">티코:</span> "삐빅— 경고. 해가 진다. 그리고 나쁜 소식… 내 <b>야간 투시</b> 기능은 아직 안 깨어났어. 이 어둠에선 나도 앞이 안 보여."<br/><span class="sp">노아:</span> "우린 손전등도 없는데…"<br/><span class="sp">티코:</span> "게다가 배터리도 줄고 있어. 배터리 아껴, 인간들!"</div>
+</div>
+
+<div class="page"><div class="pno">14쪽</div>
+  <div class="scene"><b>컷</b> 대형, 어둠 속 빛나는 눈들(오싹한 발견컷).<br/><b>장소·시간</b> 캄캄해진 둥지 지대, 밤.<br/><b>장면</b> 부품의 주황빛만 둥지에서 은은히 새어 나오는 어둠 속에서, 커다랗고 둥근 눈 여러 쌍이 반짝 떠올라 빛을 향해 다가온다 — 깃털 달린 밤의 사냥꾼 <b>트로오돈</b> 무리. 전경 수풀 뒤에 아이들이 숨죽인다.<br/><b>톤</b> 오싹하지만 눈이 크고 둥글어 어딘가 귀여운 — 공포 아닌 긴장. 남색 어둠 + 주황 점.</div>
+  <div class="text"><span class="sp">나레이션:</span> 캄캄한 밤, 어둠 속에서 커다란 눈들이 하나둘 반짝 떠올랐어요.<br/><span class="sp">노아:</span> "저, 저 눈들… 부품 빛을 보고 둥지로 몰려오고 있어!"<br/><span class="sp">티코:</span> "깃털 달린 사냥꾼이다. 저 알들을 노리는 거야."</div>
+</div>
+
+<div class="page"><div class="pno">15쪽</div>
+  <div class="scene"><b>컷</b> 중형, 3인 회의 구도.<br/><b>장소·시간</b> 둥지 지대 옆 수풀 뒤, 밤.<br/><b>인물</b> 아이들과 티코가 머리를 맞대고 심각하게 속삭인다. 화면 뒤로 엄마 마이아사우라가 이 둥지 저 둥지 사이를 혼자 우왕좌왕하며 지키려 애쓴다.<br/><b>톤</b> 긴박한 남색 밤, 문제가 또렷해지는 순간.</div>
+  <div class="text"><span class="sp">노아:</span> "빛 때문이야. 부품이 저 밤 사냥꾼들을 불러들이고 있어. 저 빛이 있는 한 알은 계속 위험해."<br/><span class="sp">보리:</span> "그럼 부품을 꺼내면 알도 지키고 부품도 얻는 거네!"<br/><span class="sp">노아:</span> "그런데 어두워서 안 보이고, 엄마는 못 지나가게 하고… 저 사냥꾼은 밤눈까지 밝아. 큰일이야."</div>
+</div>
+
+<div class="divider">— D. 시도 → 실패 → 힌트 (16~25쪽) —</div>
+
+<div class="page"><div class="pno">16쪽</div>
+  <div class="scene"><b>컷</b> 중형 개그+긴장컷, 하이앵글.<br/><b>장소·시간</b> 둥지 지대 가장자리, 밤.<br/><b>인물</b> 보리가 어둠 속으로 무작정 뛰어들다 나무뿌리에 발이 걸려 앞으로 꽈당 넘어진다(먼지·별 만화 기호). 놀란 트로오돈들이 잠깐 흩어졌다 이내 다시 모여든다. 노아는 이마를 짚고, 티코는 눈이 지그재그.<br/><b>배경·소품</b> 발에 걸린 굵은 나무뿌리, 흩어졌다 다시 모여드는 트로오돈 무리, 먼지·별 만화 기호.<br/><b>톤</b> 슬랩스틱 + 식은땀, 캄캄한 밤의 답답함.</div>
+  <div class="text"><span class="sp">보리:</span> "<b>생각은 뛰면서 하는 거야!</b> 내가 다 쫓아낼게—"<br/><span class="sp">나레이션:</span> 우당탕! 쿵!<br/><span class="sp">보리:</span> "아야야… 하나도 안 보여!"<br/><span class="sp">티코:</span> "무작정 뛰면 어떡해! 저 눈 큰 녀석들은 이 어둠 속을 훤히 본다고."</div>
+</div>
+
+<div class="page"><div class="pno">17쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ②.<br/><b>장소·시간</b> 수풀 뒤 어둠, 밤.<br/><b>장면</b> 홀로그램 카드에 트로오돈의 반신상과 <b>유난히 큰 눈</b>이 확대되어 강조되고, 그 옆에 달·별 아이콘이 떠 있다(밤에도 잘 본다는 표현). 카드를 올려다보는 아이들의 표정이 사뭇 진지하다.<br/><b>톤</b> 티코피디아 포맷 반복(각인), 민트 발광 속 긴장.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 저 사냥꾼은 <b>트로오돈</b>. 눈이 아주 커서 캄캄한 밤에도 잘 보고 사냥해. 몸집은 사람만 하고, 공룡 중에서도 손꼽히게 머리가 좋았다고 하지."<br/><span class="sp">노아:</span> "밤에는 우리가 훨씬 불리하다는 거네…"<br/><span class="sp">보리:</span> "눈이 크니까 저렇게 잘 보는구나."</div>
+  <!-- 고증 확인 필요: 트로오돈 '가장 똑똑한 공룡' 통설이나 뇌:몸 비율 근거는 학계 논쟁 있음 → "손꼽히게"로 완화 표현 유지 -->
+</div>
+
+<div class="page"><div class="pno">18쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷.<br/><b>장소·시간</b> 어둠 속 수풀 뒤, 밤.<br/><b>장면</b> 노아의 손목 통신기에서 봉수 박사의 홀로그램 얼굴이 떠 있다 — 가로 노이즈 라인이 지나가며 얼굴 반쪽이 글리치로 뭉개진다. 보리가 통신기를 잡고 마구 흔들고, 노아는 안테나처럼 팔을 하늘로 뻗는다.<br/><b>톤</b> 시리즈 러닝 개그(통신 두절), 과장된 리액션.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "얘들아 듣거라, 밤 사냥꾼을 힘으로 이기려 하지 말고… 그 녀석의 습성을 거꾸로… 치지직—"<br/><span class="sp">보리:</span> "할아버지? 할아버지!! 또 끊겼어!"<br/><span class="sp">티코:</span> "통신 두절. 역시 우리끼리 풀어야 하는군."</div>
+</div>
+
+<div class="page"><div class="pno">19쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 탐정 무드 — 노아의 안경알에 트로오돈이 비친다.<br/><b>장소·시간</b> 수풀 뒤, 밤.<br/><b>장면</b> 노아가 트로오돈들을 가만히 관찰한다. 트로오돈들은 <b>부품의 반짝이는 빛과 움직이는 것</b>에만 고개를 홱홱 돌리고, 어두운 곳에 가만히 있는 둥지는 그냥 지나친다. 노아의 눈이 번뜩인다(배경은 비네팅으로 어둡게).<br/><b>톤</b> 셜록 스타일 추리 연출, 진지하지만 귀엽게.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐… 저것 봐. 트로오돈은 <b>빛나고 움직이는 것</b>만 쫓아가. 가만히 어둠 속에 있는 건 못 찾아내."<br/><span class="sp">보리:</span> "그러고 보니… 아까 내가 움직이니까 우르르 몰려왔어."<br/><span class="sp">노아:</span> "<b>책에서 봤는데</b>, 밤눈 밝은 사냥꾼일수록 작은 빛과 움직임을 절대 놓치지 않는대."</div>
+</div>
+
+<div class="page"><div class="pno">20쪽</div>
+  <div class="scene"><b>컷</b> 중형, 조바심 나는 시도컷.<br/><b>장소·시간</b> 둥지 옆, 밤.<br/><b>인물</b> 아이들이 마른 나뭇잎과 흙을 그러모아 둥지의 부품 빛을 덮어 보지만, 부품이 워낙 밝아 잎사귀 틈으로 주황빛이 새어 나온다. 그 빛에 트로오돈들이 다시 고개를 돌린다.<br/><b>톤</b> 답답함과 조바심, 새어 나오는 주황 빛.</div>
+  <div class="text"><span class="sp">보리:</span> "흙으로 덮어 버리면 되잖아! 영차, 영차—"<br/><span class="sp">티코:</span> "소용없어. 이 부품은 나뭇잎 사이로도 빛이 새 나가. 아예 꺼내지 않으면 안 돼."<br/><span class="sp">노아:</span> "그럼… 반대로, 저 빛을 <b>이용</b>하면 어떨까?"</div>
+</div>
+
+<div class="page"><div class="pno">21쪽</div>
+  <div class="scene"><b>컷</b> 대형 위기컷, 둥지 포위 구도.<br/><b>장소·시간</b> 둥지 지대, 밤.<br/><b>인물</b> 트로오돈들이 둥지에 바짝 다가서고, 엄마 마이아사우라 혼자서는 이 둥지 저 둥지를 다 막지 못해 발을 동동 구른다. 알 하나가 위태롭게 노출된다.<br/><b>톤</b> 최고조의 긴장(무섭지 않은 선 유지), 창끝 대신 '큰 눈들의 포위'로 압박.</div>
+  <div class="text"><span class="sp">나레이션:</span> 사냥꾼들이 점점 둥지로 다가왔어요. 엄마 혼자서는 그 많은 둥지를 다 지킬 수 없었지요.<br/><span class="sp">보리:</span> "엄마 공룡 혼자선 무리야!"<br/><span class="sp">노아:</span> "빨리 결정해야 해. 방법은 딱 하나뿐이야."</div>
+</div>
+
+<div class="page"><div class="pno">22쪽</div>
+  <div class="scene"><b>컷</b> 중형, 노아 검지를 세운 결정적 아이디어컷.<br/><b>장소·시간</b> 수풀 뒤, 밤.<br/><b>인물</b> 노아가 검지를 세우고 눈을 반짝이며 작전을 설명한다. 보리와 티코가 그 손끝을 바라보며 "아하!" 하는 표정. 노아 머리 위로 작은 상상 그림(빛→반대편으로 유인→빛 꺼짐→어둠)이 아이콘처럼 떠오른다.<br/><b>배경·소품</b> 노아 머리 위 상상 그림(빛→반대편 유인→암전 아이콘), 어두운 수풀, 부품의 옅은 주황빛.<br/><b>톤</b> 추리가 풀리는 상쾌한 순간, 어둠 속 한 줄기 희망.</div>
+  <div class="text"><span class="sp">노아:</span> "빛을 <b>미끼</b>로 쓰는 거야! 부품을 꺼내서 등불처럼 들고, 트로오돈을 둥지 반대쪽으로 <b>꾀어내는</b> 거지."<br/><span class="sp">노아:</span> "그다음 티코가 빛을 딱 끄면— 사냥꾼들은 어둠 속에서 우릴 놓쳐. 둥지도, 우리도 안전해!"<br/><span class="sp">티코:</span> "빛으로 유인하고, 어둠으로 숨는다… 오, 나쁘지 않은데?"</div>
+</div>
+
+<div class="page"><div class="pno">23쪽</div>
+  <div class="scene"><b>컷</b> 중형, 작전 분담컷.<br/><b>장소·시간</b> 수풀 뒤, 밤.<br/><b>인물</b> 보리가 달릴 준비로 몸을 앞으로 기울이고(미끼 주자), 노아가 손가락으로 타이밍을 짚고, 티코가 자기 가슴을 톡톡 치며 스위치 담당임을 알린다.<br/><b>톤</b> 작전 회의의 씩씩함, 결의의 남색 밤.</div>
+  <div class="text"><span class="sp">보리:</span> "미끼로 달리는 건 발 빠른 내가 할게! 티코, 넌 내 등에서 스위치 담당이야."<br/><span class="sp">티코:</span> "내가 미끼 로봇도 아니고— 알았어, 알았어. 대신 배터리 아껴, 인간들!"<br/><span class="sp">노아:</span> "먼저 부품부터 꺼내야 해. 그런데 엄마 공룡을 어떻게 지나가지?"</div>
+</div>
+
+<div class="page"><div class="pno">24쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 따뜻한 교감컷.<br/><b>장소·시간</b> 둥지 앞, 밤.<br/><b>장면</b> 보리가 두 손바닥을 펴 보이며 아주 천천히 다가간다. 엄마 마이아사우라가 아이들이 사냥꾼을 막으려 한다는 걸 느끼고, 경계를 풀며 천천히 몸을 비켜 준다. 보리가 알들은 건드리지 않고 그 사이 부품만 살며시 빼낸다.<br/><b>배경·소품</b> 둥지의 알들, 알 사이로 새어 나오는 부품 주황빛, 어미의 커다란 그림자.<br/><b>톤</b> 긴장 속에서 피어나는 신뢰의 순간, 은은한 주황 빛.</div>
+  <div class="text"><span class="sp">보리:</span> "(아주 조용히) 알은 안 건드려요. 우리가… 대신 지켜 줄게요."<br/><span class="sp">나레이션:</span> 엄마 공룡은 아이들의 눈을 가만히 들여다보더니, 천천히 몸을 비켜 주었어요.<br/><span class="sp">티코:</span> "지금이야! 부품 확보!"</div>
+</div>
+
+<div class="page"><div class="pno">25쪽</div>
+  <div class="scene"><b>컷</b> 대형 액션컷(이번 화 두 번째 간판 컷), 스피드라인 파노라마.<br/><b>장소·시간</b> 둥지 지대에서 강가 쪽으로, 밤.<br/><b>인물</b> 보리가 주황빛으로 빛나는 부품을 등불처럼 머리 위로 높이 들고 둥지 반대쪽으로 질주한다. 트로오돈 무리가 일제히 빛을 쫓아 방향을 홱 틀어 보리를 따른다. 노아는 둥지 곁에 남아 조마조마하게 지켜본다.<br/><b>톤</b> 역동적인 밤의 추격, 흔들리는 주황 빛 궤적.</div>
+  <div class="text"><span class="sp">보리:</span> "이쪽이야, 반짝이 좋아하는 녀석들아! 나를 따라와!"<br/><span class="sp">나레이션:</span> 사냥꾼들이 일제히 빛을 쫓아 방향을 틀었어요. 둥지에서 점점 멀리멀리.<br/><span class="sp">티코:</span> "좋아, 조금만 더… 저 바위 지대 쪽으로!"</div>
+</div>
+
+<div class="divider">— E. 해결 · 회수 · 귀환 (26~33쪽) —</div>
+
+<div class="page"><div class="pno">26쪽</div>
+  <div class="scene"><b>컷</b> 대형 결정적 순간컷.<br/><b>장소·시간</b> 강가 바위 지대 앞, 밤.<br/><b>장면</b> 앞이 바위로 막혀 보리가 멈춰 서고, 트로오돈들이 바짝 따라붙은 순간. 보리 등 위의 티코가 부품 스위치를 딸깍 끈다 → 주황빛이 순식간에 사라지고 → 온 세상이 캄캄. 트로오돈들이 반짝이던 미끼를 잃고 어리둥절 두리번거린다.<br/><b>배경·소품</b> 앞을 막은 큰 바위, 딸깍 꺼지는 부품 스위치, 사라지는 주황빛과 스피드라인.<br/><b>톤</b> 암전의 카타르시스, 빛이 꺼지는 짜릿한 대비.</div>
+  <div class="text"><span class="sp">보리:</span> "티코, <b>지금이야!</b>"<br/><span class="sp">티코:</span> "스위치… 오프!"<br/><span class="sp">나레이션:</span> 부품의 빛이 순식간에 꺼지자, 사냥꾼들은 반짝이던 미끼를 잃고 어리둥절 두리번거렸어요.</div>
+</div>
+
+<div class="page"><div class="pno">27쪽</div>
+  <div class="scene"><b>컷</b> 중형, 숨죽인 정적컷.<br/><b>장소·시간</b> 바위 그늘, 밤.<br/><b>인물</b> 보리와 티코가 바위 뒤에 납작 엎드려 숨을 죽인다. 트로오돈들이 코를 킁킁대며 주위를 돌다 이내 어둠 속으로 멀어진다. 티코 가슴 배터리 게이지가 <b>20% 빨간 경고</b>로 깜빡인다.<br/><b>배경·소품</b> 몸을 숨긴 큰 바위, 20% 빨간 배터리 게이지, 멀어지는 트로오돈 실루엣.<br/><b>톤</b> 안도 직전의 팽팽한 정적, 짙은 남색 밤.</div>
+  <div class="text"><span class="sp">보리:</span> "(숨죽여) 쉿… 지금 움직이면 안 돼…"<br/><span class="sp">나레이션:</span> 사냥꾼들은 한참을 두리번거리다, 결국 어둠 속으로 사라졌어요.<br/><span class="sp">티코:</span> "(작게) 휴… 배터리 20%. 해 뜨기 전에 시간의 문을 열어야 해."</div>
+</div>
+
+<div class="page"><div class="pno">28쪽</div>
+  <div class="scene"><b>컷</b> 대형, 따뜻한 여명의 부화컷.<br/><b>장소·시간</b> 동틀 녘 둥지 지대, 하늘이 보라에서 분홍으로.<br/><b>장면</b> 무사히 밤을 넘긴 둥지에서 알에 톡톡 금이 가고, 갓 깬 아기 마이아사우라들이 삐약삐약 고개를 내민다. 엄마 마이아사우라가 기뻐 얼굴을 부빈다. 전경에 돌아온 보리·티코, 곁의 노아가 감격.<br/><b>톤</b> 이번 화 감동의 피크, 부드러운 파스텔 아침빛.</div>
+  <div class="text"><span class="sp">나레이션:</span> 무사히 밤을 넘긴 둥지에, 마침내 아침이 밝았어요.<br/><span class="sp">나레이션:</span> 톡, 토도독— 알에 금이 가더니,<br/><span class="sp">보리:</span> "노아, 저것 봐! 알이 깨고 있어!"<br/><span class="sp">노아:</span> "아기 공룡이다… 우리가 지켜 낸 거야!"</div>
+</div>
+
+<div class="page"><div class="pno">29쪽</div>
+  <div class="scene"><b>컷</b> 중형 개그컷.<br/><b>장소·시간</b> 둥지 지대, 이른 아침.<br/><b>인물</b> 알에서 갓 나온 아기 마이아사우라 서너 마리가 제일 먼저 눈에 띈 티코를 졸졸 따라다닌다(엄마인 줄 안다). 티코는 당황해 두 손을 허우적, 보리와 노아는 배를 잡고 웃는다.<br/><b>배경·소품</b> 깨진 알 껍데기, 졸졸 따라다니는 아기 공룡들, 이른 아침 이슬.<br/><b>톤</b> 훈훈하고 코믹한 아침, 밝은 노랑빛.</div>
+  <div class="text"><span class="sp">티코:</span> "어? 왜, 왜 나를 졸졸 따라오지?! 난 너희 엄마가 아니라—"<br/><span class="sp">노아:</span> "알에서 깨어나 처음 본 걸 엄마로 안대. 티코, 네가 온 백악기에서 제일 시끄럽게 떠들어서 그런가 봐."<br/><span class="sp">티코:</span> "이래서 조용히 했어야… 아니 근데, 좀 귀엽잖아?"</div>
+</div>
+
+<div class="page"><div class="pno">30쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 따뜻한 이별컷.<br/><b>장소·시간</b> 둥지 앞, 이른 아침.<br/><b>장면</b> 엄마 마이아사우라가 빛이 꺼진 부품을 넓적한 코끝으로 아이들 쪽에 살며시 굴려 준다. 발치에서는 아기들이 삐약거리고, 보리가 두 손으로 공손히 부품을 받는다.<br/><b>배경·소품</b> 티코 배터리 게이지가 <b>15% 빨간 경고</b>로 더 다급하게 깜빡.<br/><b>톤</b> 뭉클한 감사, 아침 이슬빛.</div>
+  <div class="text"><span class="sp">나레이션:</span> 엄마 공룡은 반짝이던 물건을 코끝으로 살며시 굴려, 아이들에게 돌려주었어요.<br/><span class="sp">보리:</span> "고마워요! 아기들 건강하게 키워요!"<br/><span class="sp">티코:</span> "삐빅— 배터리 15%! 서둘러, 인간들!"</div>
+</div>
+
+<div class="page"><div class="pno">31쪽</div>
+  <div class="scene"><b>컷</b> 대형, 게이트 통과컷.<br/><b>장소·시간</b> 강가 빈터, 해가 막 떠오르기 직전.<br/><b>장면</b> 여명 속에 초록·주황 빛의 시간의 문이 열리고, 아이들이 손을 흔들며 뛰어든다. 뒤로 엄마 마이아사우라와 아기들의 실루엣이 배웅한다.<br/><b>배경·소품</b> 초록·주황빛으로 열린 시간의 문, 배웅하는 마이아사우라 모자 실루엣, 여명의 하늘.<br/><b>톤</b> 아쉬움과 따뜻함이 섞인 새벽, 파스텔 그라데이션.</div>
+  <div class="text"><span class="sp">보리:</span> "잘 있어, 공룡 친구들!"<br/><span class="sp">나레이션:</span> 아이들은 해가 완전히 뜨기 직전, 아슬아슬하게 시간의 문으로 뛰어들었어요.<br/><span class="sp">노아:</span> "휴… 배터리, 진짜 아슬아슬했다."</div>
+</div>
+
+<div class="page"><div class="pno">32쪽</div>
+  <div class="scene"><b>컷</b> 중형, 귀환·해금 연출컷(귀환 후 창고 — 룰4 안전 지대).<br/><b>장소·시간</b> 밤의 창고 실험실.<br/><b>장면</b> 티코 가슴 코어에 부품이 스르륵 장착되며 게이지 <b>3칸째가 점등</b>. 그 순간 티코의 두 눈이 초록빛으로 번쩍 바뀌고, 캄캄하던 창고 구석구석이 티코 시야에서 환하게 보이는 연출(야간 투시 해금 — 화면 일부를 야시경 초록톤으로). 아이들이 손뼉을 친다.<br/><b>톤</b> 성취의 반짝임, 민트·초록 발광.</div>
+  <div class="text"><span class="sp">나레이션:</span> 부품이 제자리에 들어가자, 티코의 새 기능이 반짝 깨어났어요 — 캄캄한 밤도 훤히 보는 <b>야간 투시</b>!<br/><span class="sp">티코:</span> "오오! 이제 어둠도 문제없어. 아까 백악기에서 이게 있었으면 얼마나 좋았을까…!"<br/><span class="sp">보리:</span> "그러게. 근데 없어서 우리가 머리를 썼잖아. 그게 더 멋지지 않아?"</div>
+</div>
+
+<div class="page"><div class="pno">33쪽</div>
+  <div class="scene"><b>컷</b> 중형 디브리핑컷.<br/><b>장소·시간</b> 창고 옆 저녁상, 밤.<br/><b>인물</b> 봉수 박사와 아이들이 김이 오르는 저녁상에 둘러앉고, 티코가 옆에서 게이지를 자랑스레 내민다. 창밖은 별이 총총한 밤하늘(이번 화엔 0호 실루엣 없음 — 7화부터).<br/><b>톤</b> 온기 가득한 마무리, 따뜻한 전구색.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "장하다! 저 아기 공룡들은 원래도 씩씩하게 알을 깨고 나왔겠지만, 너희 덕에 가장 위험한 하룻밤을 무사히 넘겼구나."<br/><span class="sp">봉수 박사:</span> "그렇게 백악기의 깃털 달린 공룡들이 대를 이어, 먼 훗날 하늘을 나는 새가 되었단다. 너희가 본 게 바로 그 옛날 지구야."<br/><span class="sp">티코:</span> "삐빅! 감동은 나중에. 다음 부품 신호 발견 — 좌표는 조선, 물 흐르는 소리가 나는 <b>어느 공방</b>이다!"<br/><span class="sp">노아:</span> "조선? 이번엔 사람이 있는 곳이네. 티코, 또 인형이다!"</div>
+</div>
+
+<div class="divider">— F. 티코피디아 부록 (34~36쪽) —</div>
+
+<div class="page"><div class="pno">34쪽 · 티코피디아 ①</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지(부록 공통 포맷) — 배경은 민트색 홀로그램 격자.<br/><b>장면</b> 티코가 안경을 쓰고 지시봉을 든 선생님 포즈로 화면 왼쪽에. 오른쪽 큰 카드: 마이아사우라 어미가 둥근 둥지 안 아기들에게 나뭇잎을 물어다 주는 그림 + '좋은 엄마 도마뱀' 아이콘. 카드 모서리에 알과 발자국 스탬프.<br/><b>톤</b> 밝고 정돈된 인포그래픽, 부록 세계 톤.</div>
+  <div class="text"><span class="sp">티코:</span> "오늘의 티코피디아! <b>마이아사우라</b>는 '좋은 엄마 도마뱀'이라는 뜻이야. 여럿이 모여 둥지를 틀고, 알에서 깬 새끼가 스스로 걷기 전까지 먹이를 물어다 돌봤지. 공룡도 새끼를 정성껏 키웠다는 걸 알려 준 특별한 공룡이란다."</div>
+</div>
+
+<div class="page"><div class="pno">35쪽 · 티코피디아 ②</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지 ② — 도해 중심.<br/><b>장면</b> 화면 상단: 가로 연표에 '백악기'가 크게(중생대의 마지막 시대) + 공룡·화산·양치식물 아이콘. 화면 가운데: 트로오돈의 <b>큰 눈</b> 확대 도해(눈이 클수록 밤에 잘 봄 — 달·별과 점선 연결). 하단: 깃털 공룡 → 오늘날의 새로 이어지는 화살표(참새 그림). 구석에 엄지 척 하는 티코.<br/><b>톤</b> 교과서 삽화보다 밝고 만화적인 도해.</div>
+  <div class="text"><span class="sp">티코:</span> "<b>백악기</b>는 공룡이 살던 마지막 시대야. 약 1억 4천만 년 전부터 6천6백만 년 전까지지! <b>트로오돈</b>은 눈이 커서 밤에도 잘 보는 사냥꾼이었어. 그리고 놀라운 사실! 깃털 달린 공룡의 자손이 바로 오늘날의 <b>새</b>라서, 창밖 참새도 먼 옛날엔 공룡이었단다!"</div>
+  <!-- 고증 확인 필요: 백악기 약 1억4550만~6600만 년 전(단순화 표기). 새는 수각류 공룡에서 진화 = 학계 통설. -->
+</div>
+
+<div class="page"><div class="pno">36쪽 · 티코 퀴즈</div>
+  <div class="scene"><b>컷</b> 퀴즈 페이지(부록 공통 포맷) — 티코 정면 컷.<br/><b>장면</b> 티코가 문제 카드 3장을 부채꼴로 펼쳐 들고 윙크. 카드마다 ①②③ 번호와 물음표 장식. 배경 하단에 다음 화 예고 — 조선 기와지붕 공방 실루엣과 똑똑 떨어지는 물방울, 물시계 항아리 그림자, 물음표. (앱에서는 기존 퀴즈 게임 인프라로 인터랙티브 처리)<br/><b>톤</b> 마무리 팡파레 + 다음 화 기대감.</div>
+  <div class="text"><span class="sp">티코:</span> "마지막 관문, 티코 퀴즈! 셋 다 맞히면 너도 시간여행 대원!<br/>① '좋은 엄마 도마뱀'이라는 뜻의 공룡 이름은 무엇일까?<br/>② 트로오돈이 밤에도 잘 볼 수 있었던 까닭은 무엇일까?<br/>③ 오늘날의 '새'는 먼 옛날 무엇의 자손일까?<br/>…다음 화, 물시계가 멈춘 조선의 공방에서 만나자! 삐빅!"</div>
+</div>
+
+<footer>
+  타임 티코 3화 콘티 v1 · 탱고북 오리지널 · 내부 제작 자료
+</footer>
+
+</div>
+
+<script>
+// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
+(async function () {
+  const nav = document.getElementById('comic-tabs');
+  if (!nav) return;
+  const here = (location.pathname.split('/').pop() || '');
+  const items = [['learning-comic-plan.html', '📘 기획서']];
+  for (let i = 1; i <= 12; i++) {
+    const f = 'learning-comic-ep' + String(i).padStart(2, '0') + '.html';
+    try {
+      const r = await fetch(f);
+      const t = await r.text();
+      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
+    } catch (e) { /* skip */ }
+  }
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §6과 동기 유지) ─────────
+const STYLE_PROMPT = [
+  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
+  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
+  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
+  '시대 배경(건축·의상·소품)은 고증에 맞게 세밀하고 사실적으로 묘사.',
+  '화면비 16:9 와이드 일러스트.',
+  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
+].join(' ');
+
+const CHARACTER_KEYS = [
+  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
+  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
+  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
+  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸), 감정에 따라 모양이 변하는 둥근 눈.',
+  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼.',
+  '- 0호(그림자): 어둠 속 검은 실루엣에 붉은 외눈 한 점만 보인다.',
+].join('\n');
+
+// 이 화의 시대 의상 (화별로 교체)
+const EP_COSTUME = '[이 화의 의상] 백악기 장면에서는 사람의 옷 문화가 없어, 위장복 기능이 옷 대신 \'숲에 숨기 좋은 탐험복\'을 골라 준다 — 보리 = 카키색 탐험 조끼 + 반바지에 잎사귀 위장무늬, 노아 = 베이지색 탐험 셔츠 + 반바지. 둘 다 나뭇잎 장식 포인트. 현대(창고) 장면에서는 평상복(보리 주황 후드티, 노아 하늘색 셔츠).';
+
+// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
+const EP_GUEST_KEYS = [
+  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
+  '- 엄마 마이아사우라: 백악기 후기 대형 오리주둥이 초식공룡(하드로사우르류), 몸길이 약 9m지만 순하고 듬직하게. 화려한 볏 없이 눈앞에 작은 돌기만 있는 넓적한 오리 주둥이, 크고 순한 갈색 눈, 올리브~황갈색 몸에 등줄기 옅은 줄무늬. \'좋은 엄마 도마뱀\'답게 온화하고 보호 본능이 강한 인상, 무섭지 않게.',
+  '- 아기 마이아사우라: 손바닥만 한 갓 깬 새끼, 큰 눈, 짧은 주둥이, 삐약거리는 귀여운 모습.',
+  '- 트로오돈: 백악기 후기 날렵한 소형 육식공룡, 몸길이 약 2.4m(사람 키 정도), 두 발 보행. 온몸에 얼룩덜룩한 깃털, 뒷발에 낫처럼 굽은 갈고리 발톱, 가장 큰 특징은 아주 크고 둥근 눈(밤에도 잘 보는 야행성 사냥꾼). 큰 눈 덕에 무섭기보다 영리하고 호기심 많은 인상 — 공포 연출 금지.',
+  '- (단역) 다스플레토사우루스: 원경에만 등장하는 큰 육식공룡(티라노사우루스 친척), 위압적 실루엣이되 직접 위협은 하지 않게.',
+  '- (단역) 에이니오사우루스: 코 위에 앞으로 굽은 큰 뿔 하나, 목 방패를 가진 뿔공룡. 무리로 달린다.',
+].join('\n');
+
+function composeImagePrompt(pno, sceneText) {
+  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+}
+
+// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    const btn = card.querySelector('.copy-btn');
+    const pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async function () {
+      // textContent — details 접힘 상태에선 innerText 가 빈 값
+      const text = pre.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('done');
+      } catch (e) {
+        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
+      }
+      setTimeout(function () {
+        btn.textContent = '📋 시트 프롬프트 복사';
+        btn.classList.remove('done');
+      }, 1600);
+    });
+  });
+})();
+
+// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
+const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
+
+async function loadComicAssets() {
+  try {
+    const r = await fetch(ASSET_API);
+    const j = await r.json();
+    return (j && j.data) || {};
+  } catch (e) { return {}; }
+}
+
+function createPasteBox(key, assets, hint) {
+  const box = document.createElement('div');
+  box.className = 'paste-box';
+  box.tabIndex = 0;
+  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
+  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
+  const reset = function () {
+    box.classList.remove('has-img');
+    box.innerHTML = '';
+    box.textContent = hintText;
+  };
+  const setImg = function (url) {
+    box.classList.add('has-img');
+    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      if (!confirm('이 이미지를 삭제할까요?')) return;
+      try {
+        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
+        reset();
+      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
+    });
+  };
+  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+  else box.textContent = hintText;
+
+  async function upload(file) {
+    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+    box.classList.add('busy');
+    const fr = new FileReader();
+    fr.onload = async function () {
+      try {
+        const r = await fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        });
+        const j = await r.json();
+        if (j.success) setImg(j.data.url + '?t=' + Date.now());
+        else alert('저장 실패: ' + (j.error || ''));
+      } catch (e) {
+        alert('저장 실패 — 서버(3500)를 확인하세요');
+      }
+      box.classList.remove('busy');
+    };
+    fr.readAsDataURL(file);
+  }
+
+  box.addEventListener('paste', function (e) {
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (const it of items) {
+      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
+    }
+  });
+  box.addEventListener('dragover', function (e) { e.preventDefault(); });
+  box.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) upload(f);
+  });
+  box.addEventListener('click', function () { box.focus(); });
+  return box;
+}
+
+// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-plan) 자산을 읽어옴 ──
+(async function () {
+  const grid = document.getElementById('cast-grid');
+  if (!grid) return;
+  let planAssets = {};
+  try {
+    const r = await fetch('/api/comic-assets/learning-comic-plan');
+    const j = await r.json();
+    planAssets = (j && j.data) || {};
+  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
+  grid.querySelectorAll('.cast-item').forEach(function (item) {
+    const key = item.getAttribute('data-key');
+    if (planAssets[key]) {
+      const frame = item.querySelector('.frame');
+      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
+    }
+  });
+})();
+
+// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
+(function () {
+  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^[a-z0-9-]+$/.test(docId)) return;
+  const api = '/api/comic-feedback/' + docId;
+
+  function updateBar(total) {
+    const bar = document.getElementById('feedback-cnt');
+    if (bar) bar.textContent = total;
+  }
+
+  async function loadNotes() {
+    try {
+      const r = await fetch(api);
+      const j = await r.json();
+      return (j && j.data && j.data.pages) || {};
+    } catch (e) { return {}; }
+  }
+
+  async function saveNote(page, note, statusEl, ta) {
+    statusEl.textContent = '저장 중…';
+    try {
+      const r = await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, note: note }),
+      });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.error || 'save failed');
+      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
+      ta.classList.toggle('has-note', !!note.trim());
+      updateBar(j.data.total);
+      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
+    } catch (e) {
+      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
+      statusEl.style.color = '#e85c3a';
+    }
+  }
+
+  async function init() {
+    const pages = document.querySelectorAll('.page');
+    if (!pages.length) return;
+    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
+    const notes = loaded[0];
+    const assets = loaded[1];
+
+    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
+    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
+      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
+    });
+
+    const anchor = document.querySelector('header.hero');
+    if (anchor) {
+      const bar = document.createElement('div');
+      bar.id = 'feedback-bar';
+      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
+      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+    }
+
+    pages.forEach(function (card) {
+      const pnoEl = card.querySelector('.pno');
+      const m = pnoEl && pnoEl.textContent.match(/\d+/);
+      if (!m) return;
+      const pno = m[0];
+
+      const main = document.createElement('div');
+      while (card.firstChild) main.appendChild(card.firstChild);
+      card.appendChild(main);
+
+      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
+      const mainPno = main.querySelector('.pno');
+      const sceneEl = main.querySelector('.scene');
+      if (mainPno && sceneEl) {
+        const row = document.createElement('div');
+        row.className = 'pno-row';
+        mainPno.parentNode.insertBefore(row, mainPno);
+        row.appendChild(mainPno);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋 그림 프롬프트 복사';
+        copyBtn.addEventListener('click', async function () {
+          const prompt = composeImagePrompt(pno, sceneEl.innerText);
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = '복사됨 ✓';
+            copyBtn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () {
+            copyBtn.textContent = '📋 그림 프롬프트 복사';
+            copyBtn.classList.remove('done');
+          }, 1600);
+        });
+        row.appendChild(copyBtn);
+      }
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const saved = notes[pno] || '';
+      panel.innerHTML =
+        '<label>' + pno + '쪽 생성 이미지</label>' +
+        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
+        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
+        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
+      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
+      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
+      const ta = panel.querySelector('textarea');
+      if (saved) ta.classList.add('has-note');
+      const btn = panel.querySelector('button');
+      const status = panel.querySelector('.status');
+      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
+      });
+
+      card.classList.add('with-notes');
+      card.appendChild(panel);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>

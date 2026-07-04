@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 12화 「0호의 진심」 — 콘티</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 24px 0 28px; border-bottom: 3px solid var(--coral); margin-bottom: 28px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 12px; }
+  .hero h1 { font-size: 32px; font-weight: 900; margin: 8px 0 4px; }
+  .hero .sub { color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+  .divider { text-align:center; margin: 40px 0 8px; font-weight: 900; color: var(--mint); letter-spacing: .15em; font-size: 14px; }
+  .page { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 14px 0; }
+  .page .pno { font-weight: 900; color: var(--coral-dark); font-size: 15px; }
+  .page .scene { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .page .scene b { color: var(--mint); font-weight: 800; }
+  .page .text { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 8px; font-size: 15px; }
+  .page .text .sp { font-weight: 800; color: var(--coral-dark); }
+  /* 콘티 리뷰 패널 */
+  .page.with-notes { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .page.with-notes { grid-template-columns: 1fr; } }
+  .note-panel { border-left: 2px dashed var(--line); padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 900px) { .note-panel { border-left: none; border-top: 2px dashed var(--line); padding: 12px 0 0; } }
+  .note-panel label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+  .note-panel textarea { width: 100%; min-height: 96px; resize: vertical; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 13px; background: #fffdfa; }
+  .note-panel textarea:focus { outline: none; border-color: var(--coral); }
+  .note-panel textarea.has-note { border-color: var(--mint); background: #f4fffc; }
+  .note-panel .row { display: flex; align-items: center; gap: 10px; }
+  .note-panel button { background: var(--coral); color: #fff; border: none; border-radius: 999px; padding: 7px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .note-panel button:hover { background: var(--coral-dark); }
+  .note-panel .status { font-size: 12px; color: var(--mint); font-weight: 700; }
+  #feedback-bar { position: sticky; top: 54px; z-index: 10; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 18px; margin: 16px 0 24px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #feedback-bar .cnt { color: #ffd9cc; }
+  .pno-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .copy-btn:hover { background: var(--mint); color: #fff; }
+  .copy-btn.done { background: var(--mint); color: #fff; }
+  .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
+  .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+  .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cast-strip .hint a { color: var(--coral-dark); font-weight: 700; }
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .cast-item { text-align: center; }
+  .cast-item .frame { border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 26px; }
+  .cast-item .frame img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .cast-item .nm { font-size: 12.5px; font-weight: 800; margin-top: 5px; color: var(--ink-soft); }
+  .guest-section { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--coral); border-radius: 16px; padding: 18px 22px; margin: 20px 0; }
+  .guest-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+  .guest-section .hint { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .char-prompt { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt details { margin-top: 6px; }
+  .char-prompt summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 8px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+</style>
+</head>
+<body data-comic-doc="ep12">
+<div class="wrap">
+
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-plan.html">📘 기획서</a></nav>
+
+<header class="hero" id="top">
+  <div class="kicker">TIME TICO · EPISODE 12 · SEASON 1 FINALE</div>
+  <h1>12화 「0호의 진심」</h1>
+  <div class="sub">피날레 — 현대 봉수 박사의 창고 + 회상 · 그림자 0호와의 화해 → 마지막 12번째 부품 → 티코 완전체 · 시즌2 떡밥 — 36쪽 콘티 (장면 지시 + 페이지 텍스트)</div>
+</header>
+
+<div class="cast-strip">
+  <h2>⭐ 고정 캐릭터 확정 시트</h2>
+  <div class="hint">기획서 §6에 붙여넣은 레퍼런스가 여기 자동 표시됩니다 — 컷 작업의 기준. 비어 있으면 <a href="learning-comic-plan.html#s6">기획서에서 붙여넣기 →</a></div>
+  <div class="cast-grid" id="cast-grid">
+    <div class="cast-item" data-key="bori"><div class="frame">👧</div><div class="nm">보리</div></div>
+    <div class="cast-item" data-key="noa"><div class="frame">👦</div><div class="nm">노아</div></div>
+    <div class="cast-item" data-key="tico"><div class="frame">🤖</div><div class="nm">티코</div></div>
+    <div class="cast-item" data-key="bongsu"><div class="frame">👴</div><div class="nm">봉수 박사</div></div>
+    <div class="cast-item" data-key="zero"><div class="frame">🌑</div><div class="nm">0호</div></div>
+  </div>
+</div>
+
+<div class="guest-section">
+  <h2>🎭 이 화의 게스트 캐릭터 레퍼런스</h2>
+  <div class="hint">이 화는 피날레라 새 역사 인물이 없다. 대신 <b>0호가 이 화의 주역 게스트</b> — 실루엣을 벗고 처음으로 밝은 그림체 아래 전신·표정이 모두 드러나므로, 아래 두 시트(현재 모습 + 회상 속 젊은 시절 모습)를 먼저 확정한다. 이 비주얼 키는 각 쪽 [📋 그림 프롬프트 복사]에도 자동 포함된다. (단역 없음.)</div>
+
+  <div class="char-prompt" data-char="0호 완전공개" data-key="zero_full">
+    <div class="head"><span style="font-size:20px">🌑</span><b>0호 — 정체 완전 공개(피날레 표준)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩 — 다른 캐릭터들과 완전히 같은 밝은 그림체로, 이 캐릭터의 몸 색만 무광 회색. 순백 배경. 공포·호러 연출 절대 금지 — 비 오는 날 버려진 강아지처럼, 낡고 꼬질꼬질하지만 어딘가 짠하고 귀여운 인상이 핵심. 이제 강탈자가 아니라 '오래 외로웠던 형'으로 감정이 다 드러나는, 울고 웃는 표정이 풍부한 시트.
+
+[비율 — 매우 중요] 아동만화용 3등신의 땅딸막한 미니 로봇. 큰 상자형 머리 + 짧고 통통한 몸통 + 짧고 굵은 팔다리. 늘씬한 인간형 비율 절대 금지. 전체 높이 40cm — 어린이 무릎 정도 오는 작은 장난감 크기. 티코(30cm, 둥근 흰색)보다 한 뼘 정도 크고 각진 상자형.
+
+[시트 구성] 왼쪽에 전신 3면도(정면·옆·뒤). 가운데 아래에 티코(둥근 흰색 소형 로봇, 30cm)와 나란히 마주 선 크기 비교 컷 — 형과 동생처럼 닮았지만 하나는 둥글고 희며 하나는 각지고 회색임이 한눈에 보이게. 오른쪽 위에 감정 표현 8종 그리드 — 크고 둥근 붉은 외눈의 모양 변화로 표현(경계하는 좁힘·서럽게 커진 눈·눈물이 그렁 맺힌 물결눈·조심스러운 놀람·안도의 반달웃음눈·부끄러운 지그시 감김·환하게 빛나는 반짝임·마주 웃는 하트빛). 눈은 항상 크고 둥글게, 절대 날카롭게 그리지 말 것. 오른쪽 아래 2포즈 — ① 회색 담요를 꼭 끌어안고 무릎에 얼굴을 묻은 웅크린 포즈(외로움) ② 티코와 두 손을 맞잡고 마주 선 화해 포즈. 단일 캐릭터만(비교 컷 제외). 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 0호, 봉수 박사가 티코보다 먼저 만든 첫 프로토타입 미니 로봇(티코의 형). 티코가 매끈하고 둥글다면 0호는 귀엽게 각진 상자형 — 무광 회색 몸체에 작은 리벳과 이음새, 팔꿈치·무릎 관절이 드러난 초기형 구조. 군데군데 긁힘과 빛바랜 자국, 머리에 삐뚤어진 안테나 하나(오래 홀로 떠돈 세월의 흔적). 얼굴은 가로로 긴 검은 스크린에 크고 둥근 붉은 외눈 하나 — 무섭지 않고 순박한 인상. 가슴에 티코와 똑같은 시계 문양 코어 자리가 있지만 대부분 비어 있고, 코어 한가운데에 빼앗은 12번째 부품 하나가 희미하게 따뜻한 주홍빛으로 빛난다. 끝이 해진 회색 천 조각을 낡은 담요처럼 두르고 있다(박사가 어린 0호에게 손수 둘러 준 담요 — 감정 회수 소품). ★티코와 형제처럼 닮은 실루엣이 한눈에 느껴지도록.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-char="회상 0호" data-key="zero_young">
+    <div class="head"><span style="font-size:20px">🌱</span><b>0호 — 회상 속 갓 태어난 모습(회상 전용)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화) — 회상 장면 전용. 세피아빛 따뜻한 색감의 부드러운 셀 셰이딩(옛 사진 같은 노란 필터), 깨끗한 다크브라운 외곽선. 순백 배경. 공포 연출 절대 금지 — 갓 태어난 아기 로봇처럼 반짝반짝 새것이고 순진한 인상.
+
+[비율] 아동만화용 3등신의 땅딸막한 상자형 미니 로봇(40cm). 큰 상자형 머리 + 짧고 통통한 몸통 + 짧고 굵은 팔다리.
+
+[시트 구성] 왼쪽에 전신 3면도(정면·옆·뒤). 오른쪽 위에 표정 6종 그리드(처음 눈을 뜬 초롱초롱한 놀람·활짝 웃는 반달눈·박사를 올려다보는 사랑스러운 눈·호기심에 갸웃·졸린 지그시 감김·설레는 반짝임). 오른쪽 아래 2포즈 — ① 새 담요를 두르고 박사의 손가락을 두 손으로 꼭 쥔 포즈 ② 아장아장 걸음마 포즈. 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 갓 만들어진 0호. 현재의 0호와 똑같은 각진 상자형 실루엣이지만, 회색 몸체가 흠집 하나 없이 매끈하고 은은한 광택이 돈다(아직 낡지 않은 새것). 안테나는 반듯하게 곧고, 가슴 코어에는 아직 부품이 없어 텅 비어 은은한 주황 예열등만 깜빡인다. 크고 둥근 붉은 외눈이 갓 태어나 세상을 처음 보는 아기처럼 초롱초롱하다. 새로 지은 깨끗한 회색 담요를 어깨에 둘렀다(현재의 해진 담요와 같은 천이지만 새것). 옆에는 젊은(50대) 봉수 박사의 손이 다정하게 담요를 여며 주는 모습을 넣어도 좋다.</pre></details>
+  </div>
+</div>
+
+<div class="divider">— A. 도입 · 진실의 시작 (1~4쪽) —</div>
+
+<div class="page"><div class="pno">1쪽</div>
+  <div class="scene"><b>컷</b> 대형, 정적인 아이레벨 — 시즌 마지막 화의 무게를 담은 조용한 오프닝.<br/><b>장소·시간</b> 밤, 봉수 박사의 창고 실험실. 여느 때의 활기가 사라지고, 백열등 하나만 작업대를 비춘다.<br/><b>인물</b> 작업대 위에 힘없이 누운 티코 — 눈빛이 흐릿하고 가슴 게이지는 10칸만 켜진 채 마지막 두 칸이 텅 비어 어둡다. 그 곁에서 보리(주황 후드티)가 두 손으로 티코를 감싸고 입술을 깨문다. 노아(하늘색 셔츠)는 회색 실오라기를 손바닥에 올려 근심스레 본다. 뒤편에 봉수 박사가 낡은 상자('0호' 명패)를 무릎에 얹은 채 넋을 놓고 앉아 있다.<br/><b>배경·소품</b> 열린 낡은 상자, 작은 로봇 설계도, 빈 받침대, 벽의 세계지도, 꺼진 발명품들.<br/><b>톤</b> 따뜻한 텅스텐 불빛 속에 감도는 무거운 정적. 슬프지만 무섭지 않게.</div>
+  <div class="text"><span class="sp">나레이션:</span> 열한 번째 부품을 빼앗긴 밤, 창고는 어느 때보다 조용했어요.<br/><span class="sp">보리:</span> "티코 눈빛이 자꾸 흐려져… 할아버지, 티코 괜찮은 거죠?"<br/><span class="sp">봉수 박사:</span> "부품 두 개가 없으니 힘이 자꾸 새어 나간단다. …그리고 그 두 개를 지금, 0호가 가지고 있지."<br/><span class="sp">티코:</span> "(간신히) …형이. 진짜로, 나한테 형이 있었다고요?"</div>
+</div>
+
+<div class="page"><div class="pno">2쪽</div>
+  <div class="scene"><b>컷</b> 대형 회상컷 — 화면 전체가 세피아빛 옛 사진 톤으로 전환(현재→과거 전환의 시각 규칙).<br/><b>장소·시간</b> 약 20년 전, 지금보다 젊은(50대) 봉수 박사의 창고. 세피아 필터.<br/><b>인물</b> 젊은 봉수 박사(백발이 아직 희끗한 정도, 돋보기안경은 그대로)가 작업대 위 갓 태어난 0호(흠집 없이 매끈한 회색 상자형, 곧은 안테나, 새 회색 담요)에게 손수 담요를 여며 준다. 0호는 붉은 외눈을 초롱초롱 뜨고 박사의 손가락을 두 손으로 꼭 쥔다.<br/><b>배경·소품</b> 새것인 공구들, 갓 완성된 로봇 설계도, 따뜻한 담요.<br/><b>톤</b> 옛 사진 같은 노란 온기. 아기 로봇과 발명가의 첫 만남 — 뭉클함.</div>
+  <div class="text"><span class="sp">봉수 박사(회상):</span> "티코를 만들기 훨씬 전에… 이 할아비가 처음으로 만든 로봇이 0호였단다. 갓 깨어난 0호는, 이 담요를 참 좋아했지."<br/><span class="sp">나레이션:</span> 그때 박사님은 젊었고, 0호는 세상을 처음 보는 아기 같았어요.<br/><span class="sp">0호(회상):</span> "박사님… 따뜻해요."</div>
+</div>
+
+<div class="page"><div class="pno">3쪽</div>
+  <div class="scene"><b>컷</b> 중형 회상컷 — 2단 구성(위: 미완성의 벽 / 아래: 홀로 남겨짐). 세피아빛.<br/><b>상단</b> 젊은 박사가 시간 게이트 앞에서 고개를 젓는 옆모습 — 0호가 게이트에 손을 대지만 문이 열리지 않는다(0호는 '시간 지문'을 만드는 데 끝내 실패한 미완성작이었다는 설정 시각화 — 게이트가 0호를 튕겨낸다). 0호의 외눈이 물결눈(슬픔).<br/><b>하단</b> 세월이 흐르는 몽타주 — 박사의 관심이 새 설계도(티코)로 옮겨 가고, 구석에 담요를 두른 0호가 점점 먼지에 덮여 웅크린다. 담요 끝이 조금씩 해진다.<br/><b>톤</b> 세피아빛 쓸쓸함. 누구도 나쁘지 않았지만, 잊혀 간 존재의 아픔.</div>
+  <div class="text"><span class="sp">봉수 박사(회상):</span> "허나 0호는 시간의 문을 여는 힘을 끝내 만들지 못했단다. 나는 그 문제를 풀려고 밤낮없이 매달렸고… 그러다 새 로봇, 티코를 만들기 시작했지."<br/><span class="sp">나레이션:</span> 새 발명에 빠진 박사님은, 구석에 웅크린 0호를 그만 오래오래 잊고 말았어요.<br/><span class="sp">봉수 박사:</span> "그게 이 할아비의 가장 큰 잘못이란다."</div>
+</div>
+
+<div class="page"><div class="pno">4쪽</div>
+  <div class="scene"><b>컷</b> 중형 — 회상에서 현재로 돌아오는 전환컷. 세피아빛이 화면 가장자리에서 걷히며 다시 따뜻한 현재 색감으로.<br/><b>장소·시간</b> 다시 현재의 창고, 밤.<br/><b>인물</b> 상자를 안은 박사가 고개를 든다. 보리는 주먹을 불끈 쥐고 벌떡 일어서고(몸이 앞으로 기움), 노아는 회색 실오라기를 가슴에 꼭 쥔다. 작업대의 티코가 힘겹게 눈을 반짝인다. 티코 가슴 홀로그램 지구가 켜지며, 어느 좌표도 아닌 '시공간의 틈' 같은 회색 점 하나가 깜빡인다.<br/><b>배경·소품</b> 홀로그램 지구(회색 점 깜빡임), 낡은 상자, 담요 없는 빈 받침대.<br/><b>톤</b> 슬픔이 결심으로 바뀌는 전환. 불빛이 조금 더 환해진다.</div>
+  <div class="text"><span class="sp">보리:</span> "그럼 0호는 나쁜 로봇이 아니잖아요! 그냥… 오래 혼자 있었던 거잖아요!"<br/><span class="sp">노아:</span> "10화 때도, 11화 때도… 우리를 막고 부품을 뺏고서 왜 그렇게 슬픈 눈을 했는지 이제 알겠어."<br/><span class="sp">티코:</span> "(간신히) 삐빅… 형 신호가 잡혔어. 시간과 시간 사이, 아무 데도 아닌 틈에 숨어 있어."<br/><span class="sp">보리:</span> "가자, 노아! 형을 데리러 가는 거야!"</div>
+</div>
+
+<div class="divider">— B. 출발 · 시간의 틈 (5~9쪽) —</div>
+
+<div class="page"><div class="pno">5쪽</div>
+  <div class="scene"><b>컷</b> 중형, 브리핑 구도(시리즈 공통 — 박사 반신 + 배경 몽타주).<br/><b>장소·시간</b> 창고, 같은 밤.<br/><b>인물</b> 봉수 박사가 담요 여미는 손짓을 해 보이며 당부 — 머리 위 상상 구름에 '해진 회색 담요'와 '외눈을 감은 0호'. 보리는 벌써 배낭을 메고, 노아는 회색 실오라기를 조심스레 접어 주머니에 넣는다. 티코는 마지막 힘을 코어에 모으는 중(게이지 10칸 중 5칸만 남아 깜빡).<br/><b>배경·소품</b> 충전 케이블(꽂아도 잘 안 참), 담요 없는 빈 받침대, 세계지도.<br/><b>톤</b> 출발 전의 결의 + 조심스러운 긴장.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "0호는 겁이 많고 서툰 아이란다. 몰아세우면 더 깊이 숨을 게다. 싸워 이길 상대가 아니라… 마음을 열어 줄 상대야."<br/><span class="sp">노아:</span> "이 담요 조각을 보여 주면… 0호가 우리 말을 들어 줄까요?"<br/><span class="sp">봉수 박사:</span> "그 담요는, 0호가 세상에서 가장 아끼던 것이란다. 부디… 이 할아비 대신 전해 주렴. 미안하다고, 그리고 보고 싶었다고."<br/><span class="sp">티코:</span> "(속으로) …형. 이번엔 내가 찾으러 갈게."</div>
+</div>
+
+<div class="page"><div class="pno">6쪽</div>
+  <div class="scene"><b>컷</b> 대형, 나선형 구도(시간 터널 공통 포맷) — 단, 이번엔 색이 다르다.<br/><b>장소·시간</b> 시간 터널 내부 — 여느 화의 알록달록한 빛 리본 대신, 회색빛으로 바랜 낡은 나선. 지난 열한 번의 여행에서 본 물건들(훈민정음 자모, 피라미드, 공룡알, 물시계, 다빈치 노트, 나침반, 전구, 별, 배, 거북선, 프로펠러)이 색 바랜 사진처럼 흘러 지나간다(시즌 회상 장치).<br/><b>인물</b> 셋이 낙하 중 — 보리는 두 팔을 뻗어 티코를 꼭 안고(이번엔 신나기보다 결연), 노아도 눈을 뜬 채 앞을 본다. 티코는 힘없지만 눈을 반짝인다.<br/><b>톤</b> 익숙한 놀이기구가 아닌, 조금 쓸쓸하고 진지한 여정. 회색과 민트의 대비.</div>
+  <div class="text"><span class="sp">보리:</span> "이번 터널은 색이 다 바랬어… 왠지 쓸쓸해."<br/><span class="sp">노아:</span> "우리가 지나온 시대들이 다 보여. 조선, 이집트, 백악기… 여기까지 참 멀리 왔다."<br/><span class="sp">티코:</span> "(속닥) 여긴 어느 시대도 아닌 '시간의 틈'이야. 형이 아무도 못 오는 이런 데 혼자 있었다니…"</div>
+</div>
+
+<div class="page"><div class="pno">7쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클(이번 화 간판 컷 ①) — 낯설고 고요한 공간의 부감.<br/><b>장소·시간</b> 시간의 틈 — 어느 시대도 아닌 회색 황혼의 벌판. 발밑에는 잔잔한 은빛 물결 같은 안개, 하늘엔 멈춘 시계들이 별처럼 둥둥 떠 있다(고장 난 시간의 조각들). 멀리 낡은 톱니바퀴 언덕과, 조각난 게이트의 파편들.<br/><b>인물</b> 벌판에 막 내려선 두 아이 — 이번 화는 시대 위장이 필요 없어 현대 평상복 그대로(보리 주황 후드티, 노아 하늘색 셔츠). 보리 품에서 티코가 고개를 든다. 셋 다 낯선 풍경에 숨을 멈춘다.<br/><b>배경·소품</b> 떠다니는 멈춘 시계들, 은빛 안개, 조각난 게이트 파편, 톱니 언덕.<br/><b>톤</b> 몽환적이고 고요한 스펙터클. 아름답지만 외로운, 시간에서 잊힌 곳.</div>
+  <div class="text"><span class="sp">나레이션:</span> 그곳은 어느 나라도, 어느 시대도 아니었어요. 고장 난 시계들이 별처럼 떠 있는, 아주 조용한 곳이었지요.<br/><span class="sp">보리:</span> "여기가… 형이 사는 곳이야? 이렇게 넓은데, 아무도 없어."<br/><span class="sp">노아:</span> "시간에서 밀려난 물건들이 흘러드는 곳인가 봐. 여기서 몇 년을 혼자 있으면…"<br/><span class="sp">티코:</span> "이번엔 인형인 척 안 해도 돼 — 여긴 우리 넷뿐이니까, 크게 말해도 괜찮아."</div>
+</div>
+
+<div class="page"><div class="pno">8쪽</div>
+  <div class="scene"><b>컷</b> 중형, 발견 컷 — 넓은 벌판 저편의 작은 실루엣.<br/><b>장소·시간</b> 시간의 틈, 같은 시각.<br/><b>인물</b> 화면 저 멀리 톱니 언덕 그늘에, 회색 담요를 두르고 무릎을 안은 채 웅크린 0호의 작은 뒷모습. 그 앞에는 빼앗은 부품 두 개(민트빛)가 작은 돌무더기처럼 나란히 놓여 있고, 0호는 그것을 가만히 바라볼 뿐 자기 코어에 끼우지 못한다. 화면 앞쪽에는 그 뒷모습을 발견하고 멈춰 선 아이들과 티코의 옆얼굴.<br/><b>배경·소품</b> 두 개의 부품, 담요, 톱니 언덕 그늘.<br/><b>톤</b> 마침내 만나는 순간의 조용한 뭉클함. 미스터리가 연민으로 바뀌는 컷.</div>
+  <div class="text"><span class="sp">보리:</span> "저기! 담요를 두른 작은 로봇… 0호야!"<br/><span class="sp">노아:</span> "부품을 뺏어 놓고… 자기 몸엔 안 끼우고 그냥 보고만 있어?"<br/><span class="sp">티코:</span> "(속닥) 이상해. 부품이 있으면 힘이 세질 텐데, 왜 저러고만 있지?"<br/><span class="sp">나레이션:</span> 부품을 앞에 두고, 0호는 아주 오래 그렇게 앉아 있었던 것 같았어요.</div>
+</div>
+
+<div class="page"><div class="pno">9쪽</div>
+  <div class="scene"><b>컷</b> 대형, 첫 정면 대면 컷 — 0호가 홱 돌아보는 순간.<br/><b>장소·시간</b> 시간의 틈, 같은 시각.<br/><b>인물</b> 인기척에 놀란 0호가 벌떡 일어나 두 팔을 벌려 부품을 등 뒤로 감춘다 — 크고 둥근 붉은 외눈이 겁먹은 듯 커지고, 담요를 꼭 여민다. 티코와 처음으로 정면으로 마주 서는 순간(둘의 닮은 실루엣이 나란히 강조). 보리는 한 발 앞으로, 노아는 두 손을 들어 '괜찮다'는 자세.<br/><b>배경·소품</b> 등 뒤로 감춘 부품, 흩날리는 담요 자락, 떠다니는 시계들.<br/><b>톤</b> 긴장이지만 무섭지 않게 — 겁먹은 쪽은 오히려 0호. 형과 동생이 처음 눈을 맞추는 순간의 떨림.</div>
+  <div class="text"><span class="sp">0호:</span> "…오지 마! 이건, 이건 내 거야! 나도… 완전해질 수 있단 말이야!"<br/><span class="sp">티코:</span> "(속닥) …형. 나야, 티코. 우리, 같은 분이 만든… 형제잖아."<br/><span class="sp">0호:</span> "형제? 웃기지 마. 박사님은 너만 만들고, 나는… 나는 그냥 버린 실패작이야!"<br/><span class="sp">보리:</span> "아니야! 우리, 그거 아니라고 말하러 왔어!"</div>
+</div>
+
+<div class="divider">— C. 대립 · 0호의 진심 (10~16쪽) —</div>
+
+<div class="page"><div class="pno">10쪽</div>
+  <div class="scene"><b>컷</b> 중형, 0호의 격한 감정 컷 — 두 팔을 휘두르는 역동적 포즈.<br/><b>장소·시간</b> 시간의 틈, 같은 시각.<br/><b>인물</b> 0호가 서럽게 소리치며 한 발 물러선다 — 붉은 외눈이 물결눈(눈물빛), 담요가 크게 펄럭인다. 그 손짓에 떠 있던 멈춘 시계 몇 개가 흔들려 떨어진다(감정의 파장 시각화). 아이들과 티코는 놀라 멈칫하지만 물러서지 않는다.<br/><b>배경·소품</b> 흔들려 떨어지는 시계들, 펄럭이는 담요.<br/><b>톤</b> 분노처럼 보이지만 사실은 오래 참은 설움. 무섭기보다 안쓰럽게.</div>
+  <div class="text"><span class="sp">0호:</span> "너희가 뭘 알아! 박사님은 나를 만들다 멈췄어. 문도 못 여는 고장 난 로봇이라고! 그리고 반짝반짝한 너, 티코를 만들었지."<br/><span class="sp">0호:</span> "나는 구석에서 먼지만 뒤집어쓰고… 몇 년을, 몇 년을 기다렸어. 아무도 날 부르지 않았어."<br/><span class="sp">티코:</span> "(속닥) 형…"<br/><span class="sp">노아:</span> "(속닥) 보리야, 몰아세우면 안 돼. 박사님 말씀대로야."</div>
+</div>
+
+<div class="page"><div class="pno">11쪽</div>
+  <div class="scene"><b>컷</b> 중형 회상컷 — 0호의 기억(세피아빛). 0호의 외눈 클로즈업 안에 회상이 비치는 구도.<br/><b>장소·시간</b> 회상 — 티코가 폭주하던 1화 그날. 세피아빛.<br/><b>장면</b> 창고 구석에 웅크려 있던 0호의 시점 — 티코 폭주의 빛 폭발 속에서 부품 12개가 사방으로 튄다. 그중 검보라로 꺾인 한 줄기(1화 4쪽의 그 복선!)가 구석의 0호 발치로 굴러온다. 0호가 그 마지막 12번째 부품을 두 손으로 조심조심 집어 든다 — 그것이 0호를 시간의 틈으로 데려가는 첫 힘이 된다.<br/><b>톤</b> 시즌 최초 복선(1화 검보라 빛줄기)의 회수 — "아하!"의 뭉클함. 세피아 온기.</div>
+  <div class="text"><span class="sp">나레이션:</span> 티코가 폭주하던 그날, 튕겨 나간 부품 하나가 구석에 잊혀 있던 0호에게 굴러왔어요.<br/><span class="sp">0호(회상):</span> "이걸 모으면… 나도 완전해질 수 있을까? 그럼 박사님이… 나를 다시 봐 줄까?"<br/><span class="sp">0호:</span> "그래서 너희보다 먼저 부품을 찾아다녔어. 완전해져서, 박사님 앞에 당당히 서고 싶었으니까!"</div>
+</div>
+
+<div class="page"><div class="pno">12쪽</div>
+  <div class="scene"><b>컷</b> 중형, 오해가 드러나는 컷 — 노아의 관찰(룰5의 씨앗).<br/><b>장소·시간</b> 시간의 틈, 같은 시각.<br/><b>인물</b> 노아가 조심스레 한 발 다가서며, 0호가 등 뒤로 감춘 부품과 텅 빈 코어를 번갈아 본다 — 안경알 너머 눈이 반짝(관찰의 순간). 0호는 움찔 물러서지만, 노아의 부드러운 목소리에 외눈이 흔들린다. 보리는 두 손을 모으고 지켜본다.<br/><b>배경·소품</b> 0호의 텅 빈 가슴 코어, 손에 쥔 두 부품.<br/><b>톤</b> 몰아세움이 아닌 다가섬. 노아의 용기(시즌 아크 — 겁 많던 노아의 성장)가 조용히 빛나는 컷.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만. 0호야… 너 부품을 두 개나 가졌는데, 왜 네 몸엔 안 끼웠어?"<br/><span class="sp">0호:</span> "…끼우려고 했어. 여러 번. 그런데."<br/><span class="sp">노아:</span> "혹시… 티코 걸 뺏는 게, 사실은 미안했던 거 아니야?"<br/><span class="sp">0호:</span> "(외눈이 크게 흔들린다) …!"</div>
+</div>
+
+<div class="page"><div class="pno">13쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 0호의 고백 컷 — 무릎을 꿇고 부품을 내려다보는 0호.<br/><b>장소·시간</b> 시간의 틈, 같은 시각.<br/><b>인물</b> 0호가 스르르 주저앉아 두 부품을 무릎 위에 올려놓고 내려다본다 — 붉은 외눈에 눈물빛이 그렁. 담요를 어깨에 꼭 여민다. 아이들과 티코가 그 앞에 조용히 마주 앉는다(눈높이를 맞추는 배려 구도).<br/><b>배경·소품</b> 무릎 위 두 부품, 담요, 잔잔한 은빛 안개.<br/><b>톤</b> 이번 화 첫 번째 감정 피크 — 빌런의 가면이 완전히 벗겨지고 외로운 아이만 남는 컷.</div>
+  <div class="text"><span class="sp">0호:</span> "…맞아. 뺏을 때마다 심장이 아팠어. 10화 때, 부품을 빼앗고도 못 끼웠어. 11화 때도, '미안'하다고 작게 말했었어. 너희는 못 들었겠지만."<br/><span class="sp">0호:</span> "완전해지고 싶은 게 아니라… 그냥, 누가 나를 찾아와 줬으면 했나 봐. 이렇게 뺏으면… 누가 화라도 내면서 나를 봐 줄까 하고."<br/><span class="sp">보리:</span> "0호야…"</div>
+</div>
+
+<div class="page"><div class="pno">14쪽</div>
+  <div class="scene"><b>컷</b> 대형, 결정적 실마리 컷(룰5 — 아이들의 공감이 여는 마음) — 노아가 담요 조각을 두 손으로 내미는 순간.<br/><b>장소·시간</b> 시간의 틈, 같은 시각.<br/><b>인물</b> 노아가 주머니에서 꺼낸 <u>해진 회색 담요 조각</u>을 두 손에 받쳐 0호 앞으로 내민다. 0호의 외눈이 커다랗게 열리고 — 자기 담요와 같은 천임을 알아본다. 떨리는 손으로 조각을 받아 자기 담요 해진 자리에 대 본다(딱 맞는다). 보리는 눈물을 훔치고, 티코는 형에게 한 발 더 다가간다.<br/><b>배경·소품</b> 담요 조각, 0호의 담요(해진 자리와 조각이 맞물림), 은빛 안개.<br/><b>톤</b> 감정 회수 장치의 절정 — 7·10·11화 내내 흘려 온 회색 천의 의미가 여기서 하나로 이어진다. 눈물과 온기.</div>
+  <div class="text"><span class="sp">노아:</span> "이거… 네 담요에서 떨어진 거지? 우리가 가는 곳마다 이 조각이 있었어. 넌 우리 곁을 계속 맴돌고 있었던 거야."<br/><span class="sp">0호:</span> "(떨리는 소리) 이 담요를… 어떻게."<br/><span class="sp">노아:</span> "박사님이 전해 달랬어. <b>미안하다고. 그리고 보고 싶었다고.</b>"<br/><span class="sp">0호:</span> "박사님이… 나를? 나를 잊은 게, 아니라고…?"</div>
+</div>
+
+<div class="page"><div class="pno">15쪽</div>
+  <div class="scene"><b>컷</b> 중형, 티코의 진심 컷 — 형제가 처음으로 서로에게 다가서는 클로즈업.<br/><b>장소·시간</b> 시간의 틈, 같은 시각.<br/><b>인물</b> 티코가 보리 품에서 내려와, 마지막 힘을 짜내 아장아장 0호에게 걸어가 손을 내민다(둥근 미튼 손). 0호는 움찔하지만 피하지 않는다. 두 로봇의 붉은 눈과 민트 눈이 마주 본다. 아이들은 뒤에서 손을 꼭 잡고 지켜본다.<br/><b>배경·소품</b> 마주 뻗은 두 손, 흐릿하게 깜빡이는 티코 게이지.<br/><b>톤</b> 형제애의 조용한 시작. 두 로봇의 색 대비(흰-회색)가 나란히.</div>
+  <div class="text"><span class="sp">티코:</span> "형. 나도 몰랐어, 형이 있는 줄. 박사님이 나만 예뻐한 게 아니야 — 형을 못 고쳐서 미안해서, 형 얘기를 못 꺼냈던 거야."<br/><span class="sp">티코:</span> "부품, 너 가져도 돼. 힘이 세지는 것보다… 형이랑 같이 집에 가는 게 나는 더 좋아."<br/><span class="sp">0호:</span> "…같이? 나도… 집에 가도 돼?"<br/><span class="sp">보리:</span> "당연하지! 할아버지가 담요까지 챙겨서 기다리고 있는걸!"</div>
+</div>
+
+<div class="page"><div class="pno">16쪽</div>
+  <div class="scene"><b>컷</b> 대형, 화해의 포옹 컷(이번 화 감정 피크 ②) — 세 아이와 두 로봇이 하나로 모이는 구심 구도.<br/><b>장소·시간</b> 시간의 틈, 같은 시각.<br/><b>인물</b> 0호가 왈칵 티코를 끌어안는다(작은 두 로봇의 포옹). 그 위로 보리가 두 팔을 벌려 둘을 함께 감싸고, 노아가 곁에서 눈가를 훔친다. 0호의 외눈에서 따뜻한 주홍빛 눈물 한 방울이 반짝 떨어진다 — 떠 있던 멈춘 시계들이 하나둘 다시 째깍 돌기 시작한다(마음이 풀리자 멈췄던 시간이 흐른다는 시각적 은유).<br/><b>배경·소품</b> 다시 도는 시계들, 밝아지는 은빛 안개, 담요.<br/><b>톤</b> 시즌 전체 감정의 정점 — 화해의 눈물과 온기. 회색빛 세계에 색이 스며든다.</div>
+  <div class="text"><span class="sp">0호:</span> "미안해, 티코야. 부품 뺏어서. 너희 힘들게 해서. 나… 외로워서 그랬어."<br/><span class="sp">티코:</span> "괜찮아, 형. 이제 안 외로워. 우리 넷이 있잖아."<br/><span class="sp">나레이션:</span> 0호의 눈에서 따뜻한 빛 한 방울이 떨어지자, 멈춰 있던 시계들이 하나둘 다시 째깍째깍 돌기 시작했어요.<br/><span class="sp">보리:</span> "봐, 시계가 다시 움직여! 시간이… 다시 흐르기 시작했어!"</div>
+</div>
+
+<div class="divider">— D. 위기 · 함께 여는 문 (17~24쪽) —</div>
+
+<div class="page"><div class="pno">17쪽</div>
+  <div class="scene"><b>컷</b> 중형, 위기 발생 컷 — 발밑이 무너지는 순간.<br/><b>장소·시간</b> 시간의 틈, 화해 직후.<br/><b>인물</b> 갑자기 은빛 안개 벌판이 쩍쩍 갈라지며 조각나기 시작한다 — 시간이 다시 흐르자 '아무 시대도 아닌 이곳'이 무너지려 한다. 발밑이 꺼지는 순간 보리가 노아와 0호를 끌어당기고, 티코는 다급히 게이지를 확인한다(경고음).<br/><b>배경·소품</b> 갈라지는 땅, 소용돌이치는 안개, 떨어지는 시계들.<br/><b>톤</b> 화해의 온기에서 급전환되는 클라이맥스 긴장. 무섭기보다 급박하게.</div>
+  <div class="text"><span class="sp">티코:</span> "삐빅! 큰일 났어! 시간이 다시 흐르니까, 이 '틈'이 무너지고 있어!"<br/><span class="sp">노아:</span> "여긴 시간이 멈춰서 버티던 곳이었어! 흐르기 시작하면 사라지는 거야!"<br/><span class="sp">보리:</span> "빨리 시간의 문 열고 집에 가야 해! 티코, 열 수 있어?"<br/><span class="sp">0호:</span> "어, 어떡해… 다 나 때문이야!"</div>
+</div>
+
+<div class="page"><div class="pno">18쪽</div>
+  <div class="scene"><b>컷</b> 중형, 배터리 위기 컷(룰2 — 배터리 긴장) — 게이지 클로즈업.<br/><b>장소·시간</b> 무너지는 시간의 틈, 같은 시각.<br/><b>인물</b> 티코가 문을 열려 안간힘을 쓰지만, 가슴 게이지가 5%까지 떨어져 붉게 깜빡인다 — 부품 두 개가 없어 힘이 턱없이 모자란다. 티코의 눈이 흐려지고 몸이 축 처진다. 보리가 다급히 티코 등의 자가 발전 크랭크(7화 해금)를 붙잡고 미친 듯이 돌린다. 노아는 두 손을 코어에 얹는다(11화의 '힘 보태기' 에코).<br/><b>배경·소품</b> 5% 붉은 게이지, 자가 발전 크랭크, 갈라지는 배경.<br/><b>톤</b> 최대 긴장 — 아이들이 온몸으로 티코를 지탱하는 절박함.</div>
+  <div class="text"><span class="sp">티코:</span> "(힘없이) 배터리… 5%. 부품 두 개가 없으니까, 문 열 힘이… 안 나와."<br/><span class="sp">보리:</span> "안 돼! 여기서 못 나가면 우리 다 갇힌다고! 손잡이 돌릴게, 조금만 버텨!"<br/><span class="sp">노아:</span> "1퍼센트라도 모으자! 우리 손도 얹을게!"<br/><span class="sp">티코:</span> "(힘겹게) 배터리 아껴, 인간들… 이라고 늘 말했는데, 이번엔… 정말 모자라네."</div>
+</div>
+
+<div class="page"><div class="pno">19쪽</div>
+  <div class="scene"><b>컷</b> 대형, 0호의 결단 컷(이번 화 클라이맥스 ①) — 0호가 부품을 티코에게 내미는 순간.<br/><b>장소·시간</b> 무너지는 시간의 틈, 같은 시각.<br/><b>인물</b> 0호가 결심한 얼굴로, 그토록 끌어안고 있던 부품 두 개(11번째 + 자기가 처음부터 지녀 온 12번째)를 두 손으로 받쳐 티코의 가슴 코어 앞으로 내민다 — 붉은 외눈이 처음으로 환한 반달웃음. 담요가 바람에 활짝 펼쳐진다. 보리·노아가 놀라 0호를 본다.<br/><b>배경·소품</b> 두 부품(하나는 민트빛, 하나는 따뜻한 주홍빛), 펼쳐진 담요.<br/><b>톤</b> 이기심을 내려놓는 순간의 벅참 — 0호가 '뺏는 손'에서 '주는 손'으로 바뀌는 반전의 감동.</div>
+  <div class="text"><span class="sp">0호:</span> "티코야, 이거! 열한 번째 부품이랑… 내가 처음부터 갖고 있던, 마지막 열두 번째 부품!"<br/><span class="sp">0호:</span> "완전해지는 건 내가 아니라 너여도 괜찮아. 아니… 우리 다 같이 집에 가는 게, 나는 제일 좋아!"<br/><span class="sp">티코:</span> "형… 정말 괜찮겠어?"<br/><span class="sp">0호:</span> "응! 어서 받아, 동생아!"</div>
+</div>
+
+<div class="page"><div class="pno">20쪽</div>
+  <div class="scene"><b>컷</b> 대형 스펙터클(이번 화 간판 컷 ②) — 완전체 각성. 방사형 구도의 빛 폭발(단, 1화 폭주와 대비되는 '따뜻한' 빛).<br/><b>장소·시간</b> 무너지는 시간의 틈, 같은 시각.<br/><b>인물</b> 부품 두 개가 티코 가슴 코어에 스르륵 빨려 들어가 <u>12칸 게이지가 마지막까지 전부 민트색으로 점등</u> — 티코의 몸에서 부드러운 민트빛이 사방으로 퍼진다. 티코가 눈을 번쩍 뜨고 두둥실 떠오른다(완전체 각성). 0호는 티코를 두 손으로 받쳐 주고, 보리는 만세, 노아는 안경을 고쳐 쓰며 감탄.<br/><b>배경·소품</b> 12칸 완성 게이지(전부 점등), 방사형 민트 광, 무너지던 배경이 잠시 멈칫.<br/><b>톤</b> 시즌 내내 모은 12개가 완성되는 카타르시스 — 1화의 파괴적 폭발과 대비되는, 따뜻하고 완결된 빛.</div>
+  <div class="text"><span class="sp">나레이션:</span> 마지막 두 부품이 제자리를 찾자, 티코의 가슴 게이지 열두 칸이 <b>처음으로 전부</b> 반짝 켜졌어요!<br/><span class="sp">티코:</span> "…느껴져! 힘이 온몸에 가득 차! 이게 완전한 나구나!"<br/><span class="sp">보리:</span> "티코가 빛나! 완전체가 된 거야!"<br/><span class="sp">티코:</span> "형 덕분이야, 형! 자, 다 같이 집에 가자 — 이번엔 내가 문을 활짝 연다!"</div>
+</div>
+
+<div class="page"><div class="pno">21쪽</div>
+  <div class="scene"><b>컷</b> 대형 액션컷(이번 화 클라이맥스 ②) — 완전체 티코가 커다란 시간의 문을 여는 순간.<br/><b>장소·시간</b> 무너지는 시간의 틈, 같은 시각.<br/><b>인물</b> 완전체 티코가 두 팔을 활짝 벌리자, 지금까지와 비교도 안 되게 커다랗고 환한 민트빛 시간의 문이 열린다(안정적이고 눈부신 게이트). 보리가 0호의 손을 꼭 잡고, 노아가 반대쪽에서 0호를 이끈다. 무너지던 벌판 조각들이 문의 빛에 밀려난다.<br/><b>배경·소품</b> 거대한 안정된 게이트, 손을 맞잡은 네 형체, 부서지는 배경.<br/><b>톤</b> 통쾌한 탈출 클라이맥스 — 완전체의 위력을 시각적으로 각인. 눈부신 민트빛.</div>
+  <div class="text"><span class="sp">티코:</span> "내 데이터에 의하면— 완전체의 시간의 문은, 넷이 함께 지나기에도 넉넉하다! 이번엔 안 틀렸지?"<br/><span class="sp">보리:</span> "0호, 내 손 꼭 잡아! 절대 안 놓을 거야!"<br/><span class="sp">노아:</span> "이쪽 손도 잡아! 우리랑 같이 가는 거야!"<br/><span class="sp">0호:</span> "응! 나… 드디어 집에 간다!"</div>
+</div>
+
+<div class="page"><div class="pno">22쪽</div>
+  <div class="scene"><b>컷</b> 대형, 귀환 낙하 컷 — 나선 터널을 넷이 함께 지나는 구도(이번엔 회색이 아닌, 되살아난 색).<br/><b>장소·시간</b> 시간 터널 — 색이 되살아나 민트·주황·주홍의 빛 리본이 다시 화사하게 감긴다.<br/><b>인물</b> 넷이 손을 잇고 낙하 — 보리는 활짝 웃으며 만세, 노아도 이번엔 눈을 뜨고 웃는다, 완전체 티코가 앞장서 빛을 이끌고, 0호가 담요를 망토처럼 휘날리며 처음으로 신나 한다(붉은 외눈이 별처럼 반짝).<br/><b>배경·소품</b> 화사해진 빛 리본, 맞잡은 손들.<br/><b>톤</b> 쓸쓸했던 6쪽 터널과 극적으로 대비되는 환희의 귀환. 색이 돌아온 세계.</div>
+  <div class="text"><span class="sp">0호:</span> "우와아— 이런 기분이었구나! 세상이 이렇게 반짝반짝하는 거였어!"<br/><span class="sp">보리:</span> "거봐, 신나지? 이게 우리 넷의 시간여행이야!"<br/><span class="sp">티코:</span> "도착까지 3, 2, 1… 형, 착지 자세!"<br/><span class="sp">노아:</span> "이번엔 나도 하나도 안 무서워!"</div>
+</div>
+
+<div class="page"><div class="pno">23쪽</div>
+  <div class="scene"><b>컷</b> 대형, 재회 컷(이번 화 감정 피크 ③) — 창고 문이 열리고 박사와 0호가 20년 만에 마주 보는 순간.<br/><b>장소·시간</b> 밤, 봉수 박사의 창고. 넷이 게이트에서 막 나온 직후.<br/><b>인물</b> 봉수 박사가 손에 든 새 담요를 떨어뜨리며 무릎을 꿇고 두 팔을 벌린다 — 돋보기안경 너머 눈에서 눈물이 뚝뚝. 0호가 잠시 멈칫하다가, 담요를 두른 채 아장아장 달려가 박사 품에 안긴다. 보리·노아·티코가 뒤에서 서로 손을 잡고 눈물 그렁 미소.<br/><b>배경·소품</b> 떨어진 새 담요, 열린 낡은 상자, 따뜻한 백열등.<br/><b>톤</b> 시즌 전체의 감정을 매듭짓는 재회 — 아이들 눈물 콧물 오케이. 가장 따뜻한 컷.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "0호야… 0호야! 이 할아비가 미안하다. 너를 잊어서, 오래 혼자 두어서… 정말 미안하다."<br/><span class="sp">0호:</span> "박사님… 저 안 버려진 거였어요? 진짜로요?"<br/><span class="sp">봉수 박사:</span> "버리다니! 단 하루도 잊은 날이 없었단다. 다만 널 못 고쳐 미안해서, 차마 마주 보지 못했을 뿐이야. 이리 오렴, 우리 첫째."<br/><span class="sp">나레이션:</span> 20년 만에, 발명가와 첫 로봇이 다시 만났어요.</div>
+</div>
+
+<div class="page"><div class="pno">24쪽</div>
+  <div class="scene"><b>컷</b> 중형, 완전체 능력으로 0호를 고치는 컷 — 귀환 후 안전 지대(과거인 없는 현대 창고)에서의 치유 연출.<br/><b>장소·시간</b> 밤, 창고 작업대.<br/><b>인물</b> 완전체 티코가 가슴 코어에서 부드러운 민트빛을 뻗어, 박사 곁에 앉은 0호의 텅 빈 코어를 감싼다 — 0호의 코어에 은은한 주황 예열등이 되살아나고, 삐뚤어진 안테나가 스스로 반듯하게 펴진다(치유 시각화). 박사는 0호에게 새 담요를 둘러 준다. 보리·노아가 손뼉.<br/><b>배경·소품</b> 새 담요, 완전체 티코의 치유광, 되살아나는 0호의 코어.<br/><b>톤</b> 따뜻한 회복 — '완전해진 티코'의 첫 능력이 힘 자랑이 아니라 형을 돌보는 데 쓰이는 게 핵심.</div>
+  <div class="text"><span class="sp">티코:</span> "완전체가 되니까 이런 것도 되네! 형, 문 여는 힘은 없어도 괜찮아. 이제 내가 있잖아 — 어디든 같이 가면 되지."<br/><span class="sp">봉수 박사:</span> "허허… 이 할아비가 20년을 못 푼 숙제를, 티코 네가 완전해지고서 한나절에 풀어 주는구나."<br/><span class="sp">0호:</span> "따뜻해요… 이 담요처럼."<br/><span class="sp">보리:</span> "0호 안테나가 반듯해졌어! 훨씬 씩씩해 보인다!"</div>
+</div>
+
+<div class="divider">— E. 대단원 · 완전체와 새 출발 (25~33쪽) —</div>
+
+<div class="page"><div class="pno">25쪽</div>
+  <div class="scene"><b>컷</b> 대형 완전체 소개 컷 — 완전체 티코의 새 위용을 보여주는 화사한 전신.<br/><b>장소·시간</b> 밤, 창고. 소동이 가라앉은 뒤의 화기애애.<br/><b>인물</b> 완전체 티코가 자랑스럽게 가슴을 쭉 펴고 12칸 게이지를 전부 밝힌 채 서 있다 — 이전보다 라인이 또렷하고 눈빛이 총명하다. 그런데 잘난 척하다 살짝 발이 걸려 넘어질 뻔(여전한 허당 개그). 0호가 새 담요를 두른 채 옆에서 킥킥, 보리·노아가 배꼽을 잡는다.<br/><b>배경·소품</b> 12칸 완성 게이지, 새 담요 두른 0호, 저녁상 준비 중인 식탁.<br/><b>톤</b> 무거운 감동 뒤의 유쾌한 이완 — 완전체가 됐어도 티코는 여전히 티코라는 안심.</div>
+  <div class="text"><span class="sp">티코:</span> "자, 보아라! 부품 열두 개를 전부 모은, 완전체 시간여행 로봇 티코님의 위엄을— 어이쿠?!"<br/><span class="sp">노아:</span> "완전체가 됐는데 발은 여전히 걸려 넘어지네…"<br/><span class="sp">0호:</span> "푸흡… 티코 너, 하나도 안 변했다. 귀여워."<br/><span class="sp">티코:</span> "형까지! 배터리 아껴서 웃어, 인간들!"</div>
+</div>
+
+<div class="page"><div class="pno">26쪽</div>
+  <div class="scene"><b>컷</b> 중형, 안전핀 디브리핑 컷(룰3 — 역사 안전핀) — 저녁상 정리 대화.<br/><b>장소·시간</b> 밤, 창고 저녁상. 김이 오르는 찌개, 둘러앉은 넷+박사.<br/><b>인물</b> 봉수 박사가 국자를 든 채 도란도란 지난 여행을 정리, 벽에 걸린 열두 시대 사진들(조선·이집트·백악기 등)을 가리킨다. 보리는 밥을 크게 떠먹고, 노아는 공책에 여행을 정리, 0호는 티코 옆에 딱 붙어 앉아 반짝인다.<br/><b>배경·소품</b> 열두 시대 기념 사진 벽, 저녁상, 완전체 티코.<br/><b>톤</b> 훈훈한 마무리 대화. 시즌 전체를 돌아보는 따뜻한 정리.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "생각해 보렴. 한글도, 전구도, 비행기도… 다 그 시대 사람들이 스스로 해낸 훌륭한 일이었지. 너희는 그 일이 어그러지지 않게 살짝 도왔을 뿐이야."<br/><span class="sp">노아:</span> "맞아요. 우린 이름 없는 조력자였죠. 그래도… 그분들을 곁에서 지켜본 건 평생 못 잊을 거예요."<br/><span class="sp">보리:</span> "그리고 제일 큰 보물은, 부품 열두 개가 아니라 0호를 찾은 거예요!"</div>
+</div>
+
+<div class="page"><div class="pno">27쪽</div>
+  <div class="scene"><b>컷</b> 중형, 형제의 방 컷 — 0호에게 자리가 생기는 훈훈한 컷.<br/><b>장소·시간</b> 밤, 창고 한켠. 박사가 0호를 위해 아늑한 자리를 마련.<br/><b>인물</b> 박사가 선반 한켠을 비워 작은 방석과 새 담요로 0호의 자리를 만들어 준다. 그 옆에 티코의 충전 자리도 나란히. 0호가 자기 자리에 앉아 담요를 여미며 붉은 외눈을 반달로 웃는다. 티코가 옆자리에 폴짝. 아이들이 흐뭇하게 본다.<br/><b>배경·소품</b> 나란한 두 자리(형-동생), 방석, 담요, '0호' 명패를 먼지 털어 자리에 걸어 둠.<br/><b>톤</b> '가족이 된' 안정감. 더 이상 구석에 잊힌 존재가 아니라는 온기.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "여기가 이제 0호 네 자리다. 티코 옆에, 늘 볕이 드는 자리로 골랐단다."<br/><span class="sp">0호:</span> "제… 자리요? 저한테도 자리가 생긴 거예요?"<br/><span class="sp">티코:</span> "당연하지, 형. 이제 매일 아침 형이랑 인사할 수 있겠다!"<br/><span class="sp">보리:</span> "형제가 나란히 있으니까 창고가 훨씬 아늑해 보여."</div>
+</div>
+
+<div class="page"><div class="pno">28쪽</div>
+  <div class="scene"><b>컷</b> 중형, 완전체의 새 능력 시연 컷(해금 연출 — 귀환 후 창고) — 지난 열한 기능이 하나로.<br/><b>장소·시간</b> 밤, 창고.<br/><b>인물</b> 완전체 티코가 가슴 코어를 밝히자, 그동안 해금한 능력들이 한꺼번에 펼쳐진다 — 번역 홀로그램·별자리 투영·나침반·야간 투시 빛이 창고 천장에 별처럼 어우러진다. 0호가 입을 떡 벌리고, 보리·노아도 감탄. 티코는 으쓱.<br/><b>배경·소품</b> 천장 가득한 홀로그램 별·나침반·글자 문양, 완전체 게이지.<br/><b>톤</b> 시즌 내내 하나씩 모은 기능이 한자리에 모이는 뿌듯함. 화사한 빛의 향연.</div>
+  <div class="text"><span class="sp">티코:</span> "완전체가 되니까, 그동안 하나씩 깨어난 기능이 전부 한꺼번에 쓸 수 있어! 번역, 별자리, 나침반, 야간 투시… 봐, 형!"<br/><span class="sp">0호:</span> "우와아… 이걸 다 너 혼자? 굉장하다, 티코!"<br/><span class="sp">티코:</span> "혼자가 아니야. 이 열두 칸, 전부 보리랑 노아랑 형이 같이 모아 준 거니까."<br/><span class="sp">노아:</span> "그 말, 좀 멋있다 티코."</div>
+</div>
+
+<div class="page"><div class="pno">29쪽</div>
+  <div class="scene"><b>컷</b> 중형, 노아·보리의 성장 회수 컷 — 시즌 아크 매듭.<br/><b>장소·시간</b> 밤, 창고 작업대 앞.<br/><b>인물</b> 보리가 노아의 여행 공책을 들여다보다 <u>스스로 또박또박 글씨를 읽는다</u>(1화 — 글 읽기 싫어하던 보리의 성장 회수). 노아는 겁 많던 자신이 0호에게 먼저 다가섰던 걸 떠올리며 뿌듯한 미소(용기 아크 회수). 티코와 0호가 그 곁에서 공책을 함께 본다.<br/><b>배경·소품</b> 여행 공책(열두 시대 그림·글씨 가득), 백열등.<br/><b>톤</b> 조용한 성장의 확인 — 두 아이가 시즌 동안 얼마나 자랐는지 보여주는 컷.</div>
+  <div class="text"><span class="sp">보리:</span> "'우리는 조선에서 한글을 만나고, 이집트에서…' 봐, 나 이제 이만큼 술술 읽어! 글자 배우길 잘했어."<br/><span class="sp">노아:</span> "나도… 0호한테 제일 먼저 말 건 거, 나 스스로도 놀랐어. 예전 같으면 뒤에 숨었을 텐데."<br/><span class="sp">티코:</span> "너희, 처음 만났을 때랑은 완전 딴사람이야. 내 데이터에 의하면— 아주 많이 자랐어. 이건 안 틀렸지."<br/><span class="sp">0호:</span> "좋은 친구들이다, 티코. 부럽네."</div>
+</div>
+
+<div class="page"><div class="pno">30쪽</div>
+  <div class="scene"><b>컷</b> 중형, 0호도 가족이 되는 결정 컷 — 다 함께 다니자는 약속.<br/><b>장소·시간</b> 밤, 창고.<br/><b>인물</b> 보리가 0호의 두 손을 잡고 눈을 맞춘다 — "다음엔 너도 같이 가자"는 제안. 0호가 놀라 티코를 보고, 티코가 고개를 끄덕인다. 노아가 0호의 손등에 티코 같은 시계 문양이 없어도 완전체 티코가 함께라면 갈 수 있다고 설명(설정 정합성).<br/><b>배경·소품</b> 맞잡은 손, 세계지도, 완전체 티코.<br/><b>톤</b> 새 팀의 결성 — 셋에서 넷으로 늘어난 대원의 설렘.</div>
+  <div class="text"><span class="sp">보리:</span> "0호야, 다음에 또 여행 가면 너도 같이 가자! 넷이서!"<br/><span class="sp">0호:</span> "나도…? 그치만 난 시간의 문을 못 여는데…"<br/><span class="sp">티코:</span> "이제 내가 완전체잖아. 형은 문 걱정 말고, 그냥 내 손만 꼭 잡아. 그럼 어디든 같이 갈 수 있어."<br/><span class="sp">0호:</span> "그럼 나… 이제 혼자가 아니네. 우리, 형제잖아!"</div>
+</div>
+
+<div class="page"><div class="pno">31쪽</div>
+  <div class="scene"><b>컷</b> 대형, 가족사진 컷 — 시즌1을 매듭짓는 단체 기념 구도.<br/><b>장소·시간</b> 밤, 창고 앞. 박사가 삼각대에 낡은 사진기를 세운다.<br/><b>인물</b> 다 함께 모여 사진 포즈 — 가운데 완전체 티코와 담요 두른 0호가 나란히, 양옆에 보리(활짝 웃으며 브이)와 노아(수줍은 미소), 뒤에 봉수 박사가 두 팔을 벌려 모두를 감싼다. 사진기 플래시가 팡 터지는 순간.<br/><b>배경·소품</b> 낡은 사진기, 삼각대, 열두 시대 기념 사진 벽, 따뜻한 불빛.<br/><b>톤</b> 시즌1 대단원의 화목한 가족사진. 가장 밝고 꽉 찬 컷.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "자, 다 같이 여기 보렴! 우리 가족 첫 사진이다. 하나, 둘—"<br/><span class="sp">보리:</span> "치즈—! 아니, 삐빅이라고 해야 하나?"<br/><span class="sp">티코·0호:</span> "삐빅—!"<br/><span class="sp">나레이션:</span> 그렇게 두 아이와 두 로봇, 그리고 발명가 할아버지는 진짜 가족이 되었어요.</div>
+</div>
+
+<div class="page"><div class="pno">32쪽</div>
+  <div class="scene"><b>컷</b> 중형, 고요한 밤 컷 — 폭풍 뒤의 평화.<br/><b>장소·시간</b> 깊은 밤, 창고. 모두 잠든 시간.<br/><b>인물</b> 나란한 두 자리에서 티코와 0호가 담요를 덮고 나란히 잠들어 있다(충전 중, 눈이 지그시 감김). 창가 달빛이 두 로봇을 부드럽게 비춘다. 멀리 아이들 방 불이 꺼져 있고, 박사가 흐뭇하게 문을 살며시 닫는다.<br/><b>배경·소품</b> 나란한 두 자리, 달빛, 잠든 두 로봇, 살짝 열린 문틈.<br/><b>톤</b> 시즌 내내의 외로움이 완전히 가신 평화. 잔잔하고 뭉클한 정적.</div>
+  <div class="text"><span class="sp">나레이션:</span> 그날 밤, 0호는 20년 만에 처음으로 외롭지 않은 잠을 잤어요. 옆자리엔 동생 티코가 나란히 잠들어 있었지요.<br/><span class="sp">봉수 박사:</span> "(속삭이며) 잘 자거라, 우리 아이들. 참 먼 길을 돌아왔구나."</div>
+</div>
+
+<div class="page"><div class="pno">33쪽</div>
+  <div class="scene"><b>컷</b> 대형 마무리 컷 + 시즌2 떡밥(3분할 느낌).<br/><b>중앙(메인)</b> 이튿날 아침, 밝은 햇살의 창고 — 완전체 티코의 가슴 코어가 갑자기 삐빅! 하고 새롭게 반짝인다. 홀로그램 지구가 떠오르는데, 이번엔 지구가 아니라 <u>밤하늘·별·낯선 행성 궤도</u>가 함께 떠오른다(시즌2 = 우주/미래 암시). 보리·노아·0호가 놀라 모여든다.<br/><b>우상단 인셋</b> 완전체가 되며 새로 켜진 티코 등의 작은 표시등 — 지금까지 없던 '???' 좌표 신호.<br/><b>좌하단 인셋</b> 담요를 두른 0호가 처음으로 배낭 옆에 자기 몫의 작은 가방을 챙기는 손(대원이 된 0호).<br/><b>톤</b> 대단원의 밝은 마무리 + 새 모험의 설렘. 아침 햇살 가득.</div>
+  <div class="text"><span class="sp">티코:</span> "삐빅?! 이건 처음 보는 신호야. 부품 신호가 아니라… 완전체가 되니까 잡히는, 훨씬 먼 곳의 신호!"<br/><span class="sp">노아:</span> "좌표가… 땅 위가 아니야. 이건 <b>하늘 너머</b>를 가리키고 있어!"<br/><span class="sp">보리:</span> "그럼 다음엔 우주로 가는 거야?! 0호, 이번엔 너도 같이다! 가자, 얘들아!"<br/><span class="sp">나레이션:</span> 부품 열두 개를 모은 티코와 네 식구의 새로운 모험은, 이제 하늘 너머로 이어집니다. — <b>「타임 티코」 시즌2, 계속!</b></div>
+</div>
+
+<div class="divider">— F. 티코피디아 부록 (34~36쪽) —</div>
+
+<div class="page"><div class="pno">34쪽 · 티코피디아 ①</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지(부록 공통 포맷) — 배경은 민트색 홀로그램 격자.<br/><b>장면</b> 완전체 티코가 안경을 쓰고 지시봉을 든 선생님 포즈로 화면 왼쪽에(옆에 담요 두른 0호가 조수처럼 붙어 있다). 오른쪽 큰 카드: 시즌1 열두 시대를 한눈에 보는 <u>가로 대연표</u> — 백악기(공룡알) → 고대 이집트(피라미드) → 신라(첨성대) → 조선 세종(한글)·장영실(물시계) → 르네상스(다빈치) → 실크로드(대상단) → 조선 명량(거북선) → 에디슨(전구) → 라이트 형제(비행기)까지 아이콘이 시간 순으로 늘어선다.<br/><b>톤</b> 밝고 정돈된 인포그래픽. 시즌 전체를 돌아보는 뿌듯한 정리.</div>
+  <!-- 고증 확인 필요: 부록 연표의 시대 순서 = 백악기(약 1억년 전) → 고대 이집트(피라미드 대략 기원전 2500년) → 신라 첨성대(7세기) → 조선 세종·장영실(15세기 전반) → 르네상스 다빈치(15~16세기) → 실크로드는 교역 성쇠가 긴 기간이므로 '문화 교류의 길'로 폭넓게 배치 → 명량(1597) → 에디슨(1879) → 라이트 형제(1903). 저학년용 '옛날→가까운 과거' 큰 흐름으로 단순화 -->
+  <div class="text"><span class="sp">티코:</span> "오늘의 티코피디아! 우리가 여행한 <b>열두 시대</b>를 옛날부터 순서대로 늘어놓으면 이렇게 돼. 공룡이 살던 아주 먼 옛날부터, 이집트·신라·조선을 지나, 전구와 비행기가 태어난 백여 년 전까지! 시대마다 그곳 사람들이 스스로 이룬 멋진 일이 있었고, 우리는 그 곁에서 살짝 도왔을 뿐이란다."</div>
+</div>
+
+<div class="page"><div class="pno">35쪽 · 티코피디아 ②</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지 ② — 도해 중심.<br/><b>장면</b> 화면 상단: '역사는 살짝만' 도해 — 세종·에디슨·라이트 형제 같은 이들이 큰 별로 빛나고, 그 곁에 아주 작은 두 아이 그림자(이름 없는 조력자)가 손뼉 치는 그림. 중단: 시간여행의 세 가지 약속 아이콘(① 그 시대 물건은 함부로 만지지 않기 ② 역사를 바꾸지 않기 ③ 배운 것을 소중히 기록하기). 하단: 담요를 나눠 덮은 티코와 0호 그림 옆에 '외로운 친구에게 먼저 손 내밀기' 하트. 구석에 엄지 척 하는 완전체 티코.<br/><b>톤</b> 교과서 삽화보다 밝고 만화적인, 시즌을 관통하는 가치 정리.</div>
+  <div class="text"><span class="sp">티코:</span> "시간여행에서 제일 중요한 약속! 하나, 옛날 물건은 함부로 만지지 않기. 둘, <b>역사는 그분들의 것</b>이니 바꾸지 않고 지켜보기. 셋, 배운 걸 잘 기록하기. 그리고 가장 큰 배움 — 0호처럼 외로운 친구가 있으면, 먼저 다가가 손을 내미는 것! 이게 우리가 열두 번의 여행에서 배운 진짜 보물이야."</div>
+</div>
+
+<div class="page"><div class="pno">36쪽 · 티코 퀴즈</div>
+  <div class="scene"><b>컷</b> 퀴즈 페이지(부록 공통 포맷) — 완전체 티코 + 0호 정면 컷.<br/><b>장면</b> 완전체 티코와 담요 두른 0호가 나란히 문제 카드 3장을 부채꼴로 펼쳐 들고 함께 윙크. 카드마다 ①②③ 번호와 물음표 장식. 배경 하단에 시즌2 예고 — 별이 쏟아지는 밤하늘과 작은 로켓·낯선 행성 실루엣, 그 아래 네 형체(보리·노아·티코·0호)의 뒷모습. (앱에서는 기존 퀴즈 게임 인프라로 인터랙티브 처리)<br/><b>톤</b> 시즌1 대단원의 팡파레 + 시즌2를 향한 부푼 기대감.</div>
+  <div class="text"><span class="sp">티코:</span> "시즌1 마지막 관문, 티코 퀴즈! 셋 다 맞히면 너도 어엿한 시간여행 대원이야!<br/>① 티코보다 먼저 만들어진, 티코의 형 로봇 이름은 무엇일까?<br/>② 티코가 완전체가 되려면 모아야 했던 부품은 모두 몇 개였을까?<br/>③ 0호가 그토록 소중히 아끼던, 박사님이 둘러 준 물건은 무엇이었을까?<br/>…시즌1을 함께해 줘서 고마워! 다음엔 <b>하늘 너머 우주</b>에서 다시 만나자! 삐빅—!"</div>
+</div>
+
+<footer>
+  타임 티코 12화 콘티 v1.0 (시즌1 피날레) · 탱고북 오리지널 · 내부 제작 자료
+</footer>
+
+</div>
+
+<script>
+// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
+(async function () {
+  const nav = document.getElementById('comic-tabs');
+  if (!nav) return;
+  const here = (location.pathname.split('/').pop() || '');
+  const items = [['learning-comic-plan.html', '📘 기획서']];
+  for (let i = 1; i <= 12; i++) {
+    const f = 'learning-comic-ep' + String(i).padStart(2, '0') + '.html';
+    try {
+      const r = await fetch(f);
+      const t = await r.text();
+      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
+    } catch (e) { /* skip */ }
+  }
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §6과 동기 유지) ─────────
+const STYLE_PROMPT = [
+  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
+  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
+  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
+  '시대 배경(건축·의상·소품)은 고증에 맞게 세밀하고 사실적으로 묘사.',
+  '화면비 16:9 와이드 일러스트.',
+  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
+].join(' ');
+
+const CHARACTER_KEYS = [
+  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
+  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
+  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
+  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸), 감정에 따라 모양이 변하는 둥근 눈. ★이 화 후반부(20쪽 이후)는 게이지 12칸이 전부 켜진 완전체 상태 — 라인이 또렷하고 눈빛이 총명, 몸에서 은은한 민트빛.',
+  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼. (회상 장면에서는 50대의 젊은 모습 — 백발이 희끗한 정도.)',
+  '- 0호(티코의 형): 티코 이전에 만든 프로토타입. 티코와 형제처럼 닮았으나 무광 회색의 각진 상자형(40cm), 삐뚤어진 안테나(24쪽 이후 반듯하게 펴짐), 해진 회색 담요, 크고 둥근 붉은 외눈 하나. 이 화에서 실루엣을 벗고 정체 완전 공개 — 공포가 아닌 짠하고 외로운, 그러다 환하게 웃는 인상.',
+].join('\n');
+
+// 이 화의 시대 의상 (화별로 교체) — 피날레는 현대 창고 + 시간의 틈(위장 불필요) + 회상
+const EP_COSTUME = '[이 화의 의상] 이 화는 시대 위장이 없다. 현대 창고·시간의 틈·귀환 장면 모두 보리 = 주황 후드티, 노아 = 하늘색 셔츠(평상복 그대로). 회상 장면(2·3·11쪽)은 화면 전체가 세피아빛 옛 사진 톤 — 젊은 봉수 박사(50대, 희끗한 백발)와 갓 태어난 0호(흠집 없이 매끈한 새 몸체, 곧은 안테나, 새 담요)로 묘사.';
+
+// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
+// ※ 이 화의 0호는 고정 캐릭터이자 주역 게스트 — CHARACTER_KEYS 의 0호 서술과 아래 상세를 함께 반영
+const EP_GUEST_KEYS = [
+  '[이 화의 주역 — 0호(정체 완전 공개). 새 역사 인물 게스트는 없음]',
+  '- 0호(현재): 무광 회색의 귀엽게 각진 상자형 미니 로봇(40cm, 티코보다 한 뼘 큼), 큰 상자형 머리 + 짧고 굵은 팔다리, 삐뚤어진 안테나, 군데군데 긁힘과 빛바랜 자국, 끝이 해진 회색 담요를 두름. 가슴 코어에 빼앗은 부품이 따뜻한 주홍빛으로 빛남. 크고 둥근 붉은 외눈 하나로 감정 표현(서러운 물결눈·눈물빛·안도의 반달웃음·환한 반짝임). 절대 날카롭거나 무섭지 않게 — 외롭고 서툰 형의 인상. 24쪽 이후 안테나가 반듯해지고 코어 예열등이 되살아남.',
+  '- 0호(회상): 현재와 같은 실루엣이지만 흠집 없이 매끈한 새 몸체, 곧은 안테나, 텅 빈 코어(주황 예열등만), 새 회색 담요, 갓 태어나 초롱초롱한 붉은 외눈. 세피아빛 옛 사진 톤에서만 등장.',
+].join('\n');
+
+function composeImagePrompt(pno, sceneText) {
+  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+}
+
+// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    const btn = card.querySelector('.copy-btn');
+    const pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async function () {
+      // textContent — details 접힘 상태에선 innerText 가 빈 값
+      const text = pre.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('done');
+      } catch (e) {
+        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
+      }
+      setTimeout(function () {
+        btn.textContent = '📋 시트 프롬프트 복사';
+        btn.classList.remove('done');
+      }, 1600);
+    });
+  });
+})();
+
+// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
+const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
+
+async function loadComicAssets() {
+  try {
+    const r = await fetch(ASSET_API);
+    const j = await r.json();
+    return (j && j.data) || {};
+  } catch (e) { return {}; }
+}
+
+function createPasteBox(key, assets, hint) {
+  const box = document.createElement('div');
+  box.className = 'paste-box';
+  box.tabIndex = 0;
+  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
+  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
+  const reset = function () {
+    box.classList.remove('has-img');
+    box.innerHTML = '';
+    box.textContent = hintText;
+  };
+  const setImg = function (url) {
+    box.classList.add('has-img');
+    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      if (!confirm('이 이미지를 삭제할까요?')) return;
+      try {
+        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
+        reset();
+      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
+    });
+  };
+  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+  else box.textContent = hintText;
+
+  async function upload(file) {
+    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+    box.classList.add('busy');
+    const fr = new FileReader();
+    fr.onload = async function () {
+      try {
+        const r = await fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        });
+        const j = await r.json();
+        if (j.success) setImg(j.data.url + '?t=' + Date.now());
+        else alert('저장 실패: ' + (j.error || ''));
+      } catch (e) {
+        alert('저장 실패 — 서버(3500)를 확인하세요');
+      }
+      box.classList.remove('busy');
+    };
+    fr.readAsDataURL(file);
+  }
+
+  box.addEventListener('paste', function (e) {
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (const it of items) {
+      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
+    }
+  });
+  box.addEventListener('dragover', function (e) { e.preventDefault(); });
+  box.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) upload(f);
+  });
+  box.addEventListener('click', function () { box.focus(); });
+  return box;
+}
+
+// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-plan) 자산을 읽어옴 ──
+(async function () {
+  const grid = document.getElementById('cast-grid');
+  if (!grid) return;
+  let planAssets = {};
+  try {
+    const r = await fetch('/api/comic-assets/learning-comic-plan');
+    const j = await r.json();
+    planAssets = (j && j.data) || {};
+  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
+  grid.querySelectorAll('.cast-item').forEach(function (item) {
+    const key = item.getAttribute('data-key');
+    if (planAssets[key]) {
+      const frame = item.querySelector('.frame');
+      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
+    }
+  });
+})();
+
+// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
+(function () {
+  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^[a-z0-9-]+$/.test(docId)) return;
+  const api = '/api/comic-feedback/' + docId;
+
+  function updateBar(total) {
+    const bar = document.getElementById('feedback-cnt');
+    if (bar) bar.textContent = total;
+  }
+
+  async function loadNotes() {
+    try {
+      const r = await fetch(api);
+      const j = await r.json();
+      return (j && j.data && j.data.pages) || {};
+    } catch (e) { return {}; }
+  }
+
+  async function saveNote(page, note, statusEl, ta) {
+    statusEl.textContent = '저장 중…';
+    try {
+      const r = await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, note: note }),
+      });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.error || 'save failed');
+      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
+      ta.classList.toggle('has-note', !!note.trim());
+      updateBar(j.data.total);
+      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
+    } catch (e) {
+      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
+      statusEl.style.color = '#e85c3a';
+    }
+  }
+
+  async function init() {
+    const pages = document.querySelectorAll('.page');
+    if (!pages.length) return;
+    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
+    const notes = loaded[0];
+    const assets = loaded[1];
+
+    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
+    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
+      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
+    });
+
+    const anchor = document.querySelector('header.hero');
+    if (anchor) {
+      const bar = document.createElement('div');
+      bar.id = 'feedback-bar';
+      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
+      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+    }
+
+    pages.forEach(function (card) {
+      const pnoEl = card.querySelector('.pno');
+      const m = pnoEl && pnoEl.textContent.match(/\d+/);
+      if (!m) return;
+      const pno = m[0];
+
+      const main = document.createElement('div');
+      while (card.firstChild) main.appendChild(card.firstChild);
+      card.appendChild(main);
+
+      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
+      const mainPno = main.querySelector('.pno');
+      const sceneEl = main.querySelector('.scene');
+      if (mainPno && sceneEl) {
+        const row = document.createElement('div');
+        row.className = 'pno-row';
+        mainPno.parentNode.insertBefore(row, mainPno);
+        row.appendChild(mainPno);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋 그림 프롬프트 복사';
+        copyBtn.addEventListener('click', async function () {
+          const prompt = composeImagePrompt(pno, sceneEl.innerText);
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = '복사됨 ✓';
+            copyBtn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () {
+            copyBtn.textContent = '📋 그림 프롬프트 복사';
+            copyBtn.classList.remove('done');
+          }, 1600);
+        });
+        row.appendChild(copyBtn);
+      }
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const saved = notes[pno] || '';
+      panel.innerHTML =
+        '<label>' + pno + '쪽 생성 이미지</label>' +
+        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
+        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
+        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
+      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
+      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
+      const ta = panel.querySelector('textarea');
+      if (saved) ta.classList.add('has-note');
+      const btn = panel.querySelector('button');
+      const status = panel.querySelector('.status');
+      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
+      });
+
+      card.classList.add('with-notes');
+      card.appendChild(panel);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>

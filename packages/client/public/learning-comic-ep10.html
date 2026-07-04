@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 10화 「열두 척의 비밀」 — 콘티</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 24px 0 28px; border-bottom: 3px solid var(--coral); margin-bottom: 28px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 12px; }
+  .hero h1 { font-size: 32px; font-weight: 900; margin: 8px 0 4px; }
+  .hero .sub { color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+  .divider { text-align:center; margin: 40px 0 8px; font-weight: 900; color: var(--mint); letter-spacing: .15em; font-size: 14px; }
+  .page { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 14px 0; }
+  .page .pno { font-weight: 900; color: var(--coral-dark); font-size: 15px; }
+  .page .scene { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .page .scene b { color: var(--mint); font-weight: 800; }
+  .page .text { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 8px; font-size: 15px; }
+  .page .text .sp { font-weight: 800; color: var(--coral-dark); }
+  /* 콘티 리뷰 패널 */
+  .page.with-notes { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .page.with-notes { grid-template-columns: 1fr; } }
+  .note-panel { border-left: 2px dashed var(--line); padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 900px) { .note-panel { border-left: none; border-top: 2px dashed var(--line); padding: 12px 0 0; } }
+  .note-panel label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+  .note-panel textarea { width: 100%; min-height: 96px; resize: vertical; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 13px; background: #fffdfa; }
+  .note-panel textarea:focus { outline: none; border-color: var(--coral); }
+  .note-panel textarea.has-note { border-color: var(--mint); background: #f4fffc; }
+  .note-panel .row { display: flex; align-items: center; gap: 10px; }
+  .note-panel button { background: var(--coral); color: #fff; border: none; border-radius: 999px; padding: 7px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .note-panel button:hover { background: var(--coral-dark); }
+  .note-panel .status { font-size: 12px; color: var(--mint); font-weight: 700; }
+  #feedback-bar { position: sticky; top: 54px; z-index: 10; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 18px; margin: 16px 0 24px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #feedback-bar .cnt { color: #ffd9cc; }
+  .pno-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .copy-btn:hover { background: var(--mint); color: #fff; }
+  .copy-btn.done { background: var(--mint); color: #fff; }
+  .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
+  .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+  .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cast-strip .hint a { color: var(--coral-dark); font-weight: 700; }
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .cast-item { text-align: center; }
+  .cast-item .frame { border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 26px; }
+  .cast-item .frame img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .cast-item .nm { font-size: 12.5px; font-weight: 800; margin-top: 5px; color: var(--ink-soft); }
+  .guest-section { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--coral); border-radius: 16px; padding: 18px 22px; margin: 20px 0; }
+  .guest-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+  .guest-section .hint { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .char-prompt { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt details { margin-top: 6px; }
+  .char-prompt summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 8px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+</style>
+</head>
+<body data-comic-doc="ep10">
+<div class="wrap">
+
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-plan.html">📘 기획서</a></nav>
+
+<header class="hero" id="top">
+  <div class="kicker">TIME TICO · EPISODE 10</div>
+  <h1>10화 「열두 척의 비밀」</h1>
+  <div class="sub">1597년 조선, 진도 울돌목(명량) · 이순신 · 한국사·공학 — 36쪽 콘티 (장면 지시 + 페이지 텍스트) · 해금: 조류계(물살 방향 알림) 모드 · 🌑 그림자(0호) 2차 조우 — 첫 방해 공작</div>
+</header>
+
+<div class="cast-strip">
+  <h2>⭐ 고정 캐릭터 확정 시트</h2>
+  <div class="hint">기획서 §6에 붙여넣은 레퍼런스가 여기 자동 표시됩니다 — 컷 작업의 기준. 비어 있으면 <a href="learning-comic-plan.html#s6">기획서에서 붙여넣기 →</a></div>
+  <div class="cast-grid" id="cast-grid">
+    <div class="cast-item" data-key="bori"><div class="frame">👧</div><div class="nm">보리</div></div>
+    <div class="cast-item" data-key="noa"><div class="frame">👦</div><div class="nm">노아</div></div>
+    <div class="cast-item" data-key="tico"><div class="frame">🤖</div><div class="nm">티코</div></div>
+    <div class="cast-item" data-key="bongsu"><div class="frame">👴</div><div class="nm">봉수 박사</div></div>
+    <div class="cast-item" data-key="zero"><div class="frame">🌑</div><div class="nm">0호</div></div>
+  </div>
+</div>
+
+<div class="guest-section">
+  <h2>🎭 이 화의 게스트 캐릭터 레퍼런스</h2>
+  <div class="hint">3장면 이상 등장하거나 클로즈업이 있는 게스트는 시트를 먼저 확정한다. 아래 비주얼 키는 각 쪽 [📋 그림 프롬프트 복사]에도 자동 포함되어 컷 간 일관성을 지킨다. (단역 — 격군·수군 병사·피란민 어부·왜군 병사 — 은 장면 지시 서술로 충분, 시트 불필요. 실존 위인 이순신은 존중 어린 묘사 필수. 0호는 고정 캐릭터 — 이 화에서 처음으로 실루엣을 넘어 '방해하는 손'까지 드러나되, 얼굴·정체는 여전히 미스터리.)</div>
+
+  <div class="char-prompt" data-char="이순신" data-key="yisunsin">
+    <div class="head"><span style="font-size:20px">⚓</span><b>이순신 (52세 삼도수군통제사)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 어른은 4등신 카툰 비율 — 단, 나라를 지킨 실존 위인이므로 절대 우스꽝스럽지 않게, 태산 같은 위엄과 백성을 아끼는 따뜻함이 함께 담긴 존중 어린 묘사. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 2벌 — ① 갑주 차림(짙은 남색·검붉은 두정갑 갑옷, 어깨에 견갑, 허리에 환도, 투구는 팔에 끼거나 벗어 든 상태) ② 평상 군복 차림(짙은 남색 철릭 위에 붉은 띠, 흑립 대신 전립). 오른쪽 위에 표정 6종 얼굴 그리드(먼 바다를 응시하는 침착한 눈·부하를 다독이는 인자한 미소·결의에 찬 단호함·근심 어린 골똘함·놀란 듯 크게 뜬 눈·잔잔한 안도의 미소). 오른쪽 아래 대표 포즈 2개(뱃머리에서 한 손으로 먼 바다를 가리키는 포즈, 두 손을 등 뒤로 맞잡고 꼿꼿이 선 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 이순신, 52세 조선의 삼도수군통제사(1597년 기준). 다부지고 강단 있는 중년 장수, 각지고 온화한 얼굴에 짧고 단정한 검은 수염, 짙은 눈썹 아래 깊고 고요한 눈빛 — 오래 싸운 이의 피로가 눈가에 배어 있으나 흔들림이 없다. 볕에 그은 구릿빛 피부. 두정갑(검붉은 천에 금속 못을 촘촘히 박은 조선 갑옷)을 입고, 허리에 환도(조선 장검)를 찼다. 백성과 부하 앞에서는 목소리를 낮춰 다독이고, 적 앞에서는 산처럼 흔들리지 않는다. 절대 사납거나 우스꽝스럽게 그리지 않는다.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-char="막손" data-key="maksohn">
+    <div class="head"><span style="font-size:20px">🛶</span><b>막손 (11세 어촌 소년 · 픽션)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 둥글고 친근한 3등신 카툰 비율. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 3면도(정면·옆·뒤), 오른쪽 위에 표정 8종 얼굴 그리드(볕에 그은 활짝 웃음·겁먹은 울상·야무진 결심·깜짝 놀람·자랑스러운 으쓱·근심 어린 곁눈질·눈물 그렁그렁·손나팔 외침), 오른쪽 아래에 성격이 드러나는 대표 포즈 2개(작은 나룻배에서 노를 힘껏 젓는 포즈, 물살 방향을 손가락으로 가리키는 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 막손, 11세 조선 진도 어촌 소년. 울돌목 물길을 손바닥처럼 아는 뱃사공 집안의 아들. 볕에 검게 그은 얼굴, 짧게 친 검은 머리에 무명 두건을 질끈 동여맴, 씩씩하고 야무진 눈매. 낡고 물 젖은 무명 저고리와 걷어 올린 잠방이(반바지), 맨발에 정강이까지 흙탕물 자국, 허리에 작은 물고기 망태기. 전쟁으로 마을이 어수선해 어른들을 도와 배를 나르느라 손이 야무지다. 물살 소리만 듣고도 물길 방향을 알아맞힌다.</pre></details>
+  </div>
+</div>
+
+<div class="divider">— A. 일상 후크 (1~3쪽) —</div>
+
+<div class="page"><div class="pno">1쪽</div>
+  <div class="scene"><b>컷</b> 중형 와이드컷, 아이레벨.<br/><b>장소·시간</b> 비 내리는 오후, 봉수 박사의 창고 실험실 내부 — 창밖으로 굵은 빗줄기.<br/><b>인물</b> 작업대 위에 세숫대야만 한 물그릇을 놓고, 보리(주황 후드티)가 종이배를 띄워 손으로 물살을 휘휘 젓는다(장난기 가득). 노아(하늘색 셔츠)는 옆에서 물이 튈까 봐 몸을 살짝 뒤로. 그 사이에서 티코가 물그릇 가장자리에 앉아 종이배가 빙글 도는 걸 두 눈으로 좇는다(호기심 어린 둥근 눈).<br/><b>배경·소품</b> 물그릇, 종이배 여러 척, 걸레, 선반의 발명품들, 빗물 흐르는 창.<br/><b>톤</b> 비 오는 날의 아늑한 실내 + 물빛 반사. 잔잔한 도입.</div>
+  <div class="text"><span class="sp">나레이션:</span> 비가 종일 내리던 어느 오후, 보리는 물그릇에 종이배를 잔뜩 띄웠어요.<br/><span class="sp">보리:</span> "봐 봐, 물을 이쪽으로 저으면 배가 다 같이 빙글빙글 돌아!"<br/><span class="sp">노아:</span> "물살이 세지니까 작은 배는 저 혼자 힘으로 못 가고 물결에 끌려가네."<br/><span class="sp">티코:</span> "물의 힘이라… 흥미롭군. 배터리 아껴, 인간들. 나 지금 종이배 관찰 중이다."</div>
+</div>
+
+<div class="page"><div class="pno">2쪽</div>
+  <div class="scene"><b>컷</b> 중형, 작업대 중심 클로즈업.<br/><b>장소·시간</b> 같은 오후 창고.<br/><b>인물</b> 물그릇 위로 티코의 가슴 코어에서 홀로그램 지구가 떠오르고, 한반도 남서쪽 끝(진도 부근)이 진한 남색으로 깜빡인다 — 신호점 둘레로 소용돌이 물결 무늬가 함께 돈다. 보리와 노아가 양쪽에서 홀로그램에 얼굴을 들이밈. 티코의 눈이 느낌표(번쩍).<br/><b>배경·소품</b> 물그릇, 종이배, 티코 가슴 부품 게이지 12칸 중 9칸 점등(1~9화 회수분).<br/><b>톤</b> 민트 홀로그램 광 + 남색 소용돌이. 신호가 물살처럼 요동친다.</div>
+  <div class="text"><span class="sp">티코:</span> "삐빅! 열 번째 부품 신호 발견! 좌표는… 1597년, 조선의 진도 앞바다!"<br/><span class="sp">노아:</span> "신호 둘레에 물결이 빙빙 돌아. 물살이 엄청 센 곳인가 봐."<br/><span class="sp">티코:</span> "내 데이터에 의하면— 이건 잔잔한 호수다! 소풍 가기 딱 좋겠군!"<br/><span class="sp">나레이션:</span> 하지만 그곳은 조선에서 물살이 가장 사나운 바다, 울돌목이었답니다.</div>
+</div>
+
+<div class="page"><div class="pno">3쪽</div>
+  <div class="scene"><b>컷</b> 중형, 브리핑 구도(시리즈 공통 — 박사 반신 + 배경에 자료 이미지 몽타주).<br/><b>장소·시간</b> 창고, 같은 오후.<br/><b>인물</b> 봉수 박사가 낡은 역사책을 펼쳐 들고 진지하게 설명 — 머리 위 공중에 상상 몽타주(구름 프레임): 판옥선 한 척, 성난 물살의 좁은 바닷길, 갑옷 입은 장수의 뒷모습. 앞쪽에서 보리는 벌써 배낭을 메고 한 발을 문 쪽으로(몸이 앞으로 기움), 노아는 역사책을 넘겨다봄. 티코는 충전 케이블을 배에 꽂고 게이지 100%.<br/><b>배경·소품</b> 역사책, 충전 케이블, 벽의 한반도 지도(진도에 압정).<br/><b>톤</b> 따뜻한 실내 등불색 + 창밖 빗소리. 출발 전의 설렘에 묵직함 한 스푼.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "허허, 진도라면… 1597년, 이순신 장군이 단 열두 척의 배로 수백 척의 적을 막아 낸 명량 바다다. '울돌목'이라 부를 만큼 물살이 사납게 우는 곳이지."<br/><span class="sp">노아:</span> "열두 척으로 수백 척을요? 그게 어떻게 가능해요?"<br/><span class="sp">봉수 박사:</span> "장군은 힘이 아니라 '물길'로 싸웠단다. 그 좁은 바다의 물살을 읽을 줄 알았거든. 자세한 건 너희 눈으로 보고 오렴."<br/><span class="sp">보리:</span> "바다 한가운데로 시간여행이라니! 가자, 노아!"</div>
+</div>
+
+<div class="divider">— B. 도착 · 이질감 (4~8쪽) —</div>
+
+<div class="page"><div class="pno">4쪽</div>
+  <div class="scene"><b>컷</b> 대형, 나선형 구도(시간 터널 공통 포맷).<br/><b>장소·시간</b> 시간 터널 내부.<br/><b>인물</b> 셋이 낙하 중 — 보리는 두 팔을 만세로 활짝(함박웃음), 노아는 아직 현대 복장, 안경을 두 손으로 꾹 누르며 눈 질끈, 티코는 보리 품에 안겨 카운트다운. 주위로 이번 화 테마 아이콘들이 별처럼 흘러간다 — 판옥선, 소용돌이 물결, 북과 북채, 화살, 방향타(배의 키) 모양.<br/><b>배경·소품</b> 민트와 남색의 빛 리본 나선.<br/><b>톤</b> 환상적, 짜릿한 놀이기구 느낌. 이번 화는 바다 테마라 물방울 입자를 흩뿌린다.</div>
+  <div class="text"><span class="sp">보리:</span> "우와아! 이번엔 파도랑 배가 잔뜩 날아다녀!"<br/><span class="sp">티코:</span> "바다의 시대로 간다는 뜻이지. 도착까지 3, 2, 1…"<br/><span class="sp">노아:</span> "제발 바다에 풍덩 빠지지만 않게 해 줘…!"</div>
+</div>
+
+<div class="page"><div class="pno">5쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클(이번 화 간판 컷 ①). 벼랑 위에서 좁은 바닷길을 내려다보는 부감 구도.<br/><b>장소·시간</b> 1597년 음력 9월(가을), 조선 진도와 육지 사이의 좁은 해협 울돌목 — 흐린 하늘 아래. 폭이 좁은 물목으로 바닷물이 하얀 거품을 일으키며 소용돌이치고, 물살이 한 방향으로 세차게 밀려간다(소리가 우는 듯한 격류 표현). 좌우로 낮은 산과 갯바위, 멀리 진도 쪽 해안 마을과 피란민 초가.<br/><b>인물</b> 벼랑 풀밭에 막 착지한 두 아이 — 보리는 무명 저고리와 잠방이 차림에 짚신, 머리엔 무명 두건(붉은 머리끈은 두건 밖으로 살짝), 노아는 남색 무명 두루마기에 갓 대신 패랭이(둥근 안경 유지). 보리 배낭에서 티코가 빼꼼.<br/><b>톤</b> 무거운 회청색 하늘 + 하얀 격류. 시대 스펙터클, 물살의 위압감 최대치.</div>
+  <!-- 고증 확인 필요: 명량해전은 음력 9월 16일(양력 1597-10-26). 극중 도착은 해전 며칠 전 가을로 설정 -->
+  <div class="text"><span class="sp">나레이션:</span> 눈을 떠 보니, 그곳은 400여 년 전 조선의 좁은 바닷길, 울돌목이었어요.<br/><span class="sp">보리:</span> "옷이 또 변했어! 근데 저 물소리 좀 들어 봐, 바다가 울고 있어!"<br/><span class="sp">티코:</span> "(속닥) 저 좁은 물목 — 조선에서 물살이 제일 사나운 곳이다. 그리고 나는 지금부터 인형이다. 무슨 일이 있어도… 인형."<br/><span class="sp">노아:</span> "물이 저렇게 빠르게 도는데, 어떻게 배가 다녀?"</div>
+</div>
+
+<div class="page"><div class="pno">6쪽</div>
+  <div class="scene"><b>컷</b> 중형, 해안 관찰 컷 — 나룻배 앞 삼각 구도.<br/><b>장소·시간</b> 같은 날 저물녘, 울돌목 근처 어촌 갯가.<br/><b>인물</b> 물 빠진 갯벌에 끌어올린 작은 나룻배 옆 — 어촌 소년 막손(무명 두건, 걷어 올린 잠방이, 맨발)이 낡은 그물을 손보며 물살 쪽을 힐끔거린다. 그 앞을 지나던 두 아이가 걸음을 멈추고 귀를 기울인다. 노아가 소용돌이치는 물목 쪽을 돌아봄.<br/><b>배경·소품</b> 나룻배, 그물, 갯바위, 물살에 흔들리는 부표, 멀리 피란 봇짐을 인 마을 사람들.<br/><b>톤</b> 저물녘 회보라 하늘 + 갯가의 쓸쓸함. 전쟁 그림자가 스민 마을.</div>
+  <div class="text"><span class="sp">막손:</span> "거기 서 봐. 물목 가까이 가면 안 돼! 이 시각엔 물살이 사람도 배도 삼켜 버려."<br/><span class="sp">노아:</span> "너는 저 무서운 물살을 어떻게 그렇게 잘 알아?"<br/><span class="sp">막손:</span> "우리 아버지가 뱃사공이거든. 난 물소리만 들어도 물이 어느 쪽으로 도는지 알아. 지금은… 육지 쪽으로 세게 밀려가는 중이야."<br/><span class="sp">보리:</span> "우와, 물소리로 방향을 안다고? 대단하다!"</div>
+</div>
+
+<div class="page"><div class="pno">7쪽</div>
+  <div class="scene"><b>컷</b> 중형 세로컷, 언덕 위 로우앵글.<br/><b>장소·시간</b> 같은 저녁, 갯가 언덕 위.<br/><b>인물</b> 언덕 위에서 바다 건너 진영을 바라보는 두 아이의 뒷모습 — 저 멀리 좁은 바닷길 한쪽에 판옥선 열두 척이 나란히 닻을 내리고, 병사들이 오르내리며 횃불을 밝힌다. 보리 배낭 속 티코의 눈에서 민트색 레이더 동심원이 퍼지는데, 물살 위를 지날 때마다 물결처럼 일렁이며 흐트러진다(신호 불안정).<br/><b>배경·소품</b> 판옥선 실루엣, 횃불, 깃발, 저무는 바다, 갈매기.<br/><b>톤</b> 남보라 저녁 + 횃불의 주황. 결전을 앞둔 진영의 팽팽한 고요.</div>
+  <div class="text"><span class="sp">노아:</span> "저기 봐, 배가… 하나, 둘, 셋… 정말 열두 척밖에 없어."<br/><span class="sp">보리:</span> "저 조그만 배들로 수백 척을 막는다고? 믿기지가 않아."<br/><span class="sp">티코:</span> "(속닥) 부품 신호는 분명 저 배들 쪽이다. 그런데… 신호가 물살을 따라 이리저리 흔들려. 정확히 어느 배인지 잡히질 않아."</div>
+</div>
+
+<div class="page"><div class="pno">8쪽</div>
+  <div class="scene"><b>컷</b> 중형 액션+개그컷, 갯가 아침.<br/><b>장소·시간</b> 이튿날 아침, 어촌 갯가 선착장.<br/><b>인물</b> 화면 중앙 — 막손이 물통과 마른 미역 꾸러미를 잔뜩 실은 작은 배를 혼자 밀다가, 젖은 갯바위에 발이 미끄러져 배가 물살 쪽으로 주르륵. 왼쪽에서 보리가 뱃머리 밧줄을 두 손으로 꽉 붙들고 버티고, 노아는 반대쪽에서 배를 밀어 물살 반대편으로. 막손의 눈이 동그래짐.<br/><b>배경·소품</b> 밧줄, 물통, 미역 꾸러미, 미끄러운 갯바위, 아침 물안개.<br/><b>톤</b> 밝은 아침 슬랩스틱 — 만남 컷. 스피드라인과 땀방울 기호.</div>
+  <div class="text"><span class="sp">막손:</span> "으아앗— 배가 물살에 끌려간다!"<br/><span class="sp">보리:</span> "잡았다! …휴, 하마터면 배가 떠내려갈 뻔했어."<br/><span class="sp">막손:</span> "고, 고마워! 이 짐은 통제사 어른 진영에 나를 거란 말이야. 놓쳤으면 큰일 날 뻔했어."<br/><span class="sp">보리:</span> "통제사 어른? 우리도 나르는 거 도와도 돼? 힘이라면 자신 있어!"<br/><span class="sp">막손:</span> "정말? 요즘 일손이 하나도 모자라거든. 이리 와!"</div>
+</div>
+
+<div class="divider">— C. 문제 발견 (9~15쪽) —</div>
+
+<div class="page"><div class="pno">9쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클 — 판옥선 갑판을 대각선으로 길게 잡는 원근 구도(간판 컷 ②).<br/><b>장소·시간</b> 이순신의 대장선(판옥선) 갑판, 아침. 두 층으로 된 튼튼한 나무 배 — 아래층엔 노를 젓는 격군 자리, 위층 넓은 갑판엔 활과 화살통, 총통(대포)이 늘어서 있다. 높은 지휘대(장대)가 뱃머리에 우뚝.<br/><b>인물</b> 짐을 인 막손이 앞장서고, 그 뒤 두 아이가 입을 떡 벌리고 두리번. 갑판 곳곳에서 수군 병사들이 화살을 다듬고 노를 손질한다. 지휘대 위에 갑옷 입은 장수의 뒷모습이 멀리 보인다.<br/><b>배경·소품</b> 총통(대포), 화살통, 큰 북, 돛대와 돛, 방패, 나부끼는 수(帥) 자 깃발.<br/><b>톤</b> 흐린 아침빛 + 나무배의 묵직한 질감. '싸울 준비를 마친 배'의 위엄.</div>
+  <div class="text"><span class="sp">나레이션:</span> 대장선은 두 층으로 된 튼튼한 나무 배, 판옥선이었어요. 위층엔 대포와 활, 아래층엔 노를 젓는 사람들이 가득했지요.<br/><span class="sp">막손:</span> "여기가 통제사 어른이 타는 대장선이야. 이 배 한 척이 열 척 몫을 한다고 다들 그래."<br/><span class="sp">노아:</span> "대포에 활에… 배 한 척이 그대로 성 같아!"<br/><span class="sp">보리:</span> "저 위에 계신 분이… 혹시?"</div>
+</div>
+
+<div class="page"><div class="pno">10쪽</div>
+  <div class="scene"><b>컷</b> 중형, 인물 소개 컷 — 지휘대 위 반신, 존중 어린 로우앵글.<br/><b>장소·시간</b> 대장선 지휘대(장대), 아침.<br/><b>인물</b> 이순신(52세, 두정갑 갑옷, 단정한 검은 수염, 깊고 고요한 눈빛)이 뱃머리에서 한 손으로 좁은 물목을 가리키며 부하 장수에게 무언가를 이르는 옆모습 — 태산 같은 위엄. 막손이 아이들을 데려와 짐을 내려놓자, 장군이 고개를 돌려 아이들을 내려다보며 눈빛을 누그러뜨린다(백성을 아끼는 잔잔한 미소). 보리는 꾸벅, 노아는 긴장해서 안경이 흘러내림.<br/><b>배경·소품</b> 지휘대, 지도(해도), 환도, 먼 물목.<br/><b>톤</b> 존중 어린 소개 컷 — 우스꽝스럽지 않게, 피로 속에서도 흔들림 없는 눈빛.</div>
+  <div class="text"><span class="sp">막손:</span> "통제사 어른! 미역이랑 물을 날라 왔습니다. 이 아이들이 거들어 줬어요."<br/><span class="sp">이순신:</span> "고맙구나. 이 어린것들까지 나라를 돕는구나."<br/><span class="sp">이순신:</span> "배 위는 위험하니 조심히 다니거라. 저 물목이 우리를 지켜 줄 방패이자, 자칫하면 우리를 삼킬 함정이기도 하단다."<br/><span class="sp">나레이션:</span> 오래 싸운 이의 피로가 눈가에 배어 있었지만, 그 눈빛만은 바다처럼 깊고 고요했어요.</div>
+</div>
+
+<div class="page"><div class="pno">11쪽</div>
+  <div class="scene"><b>컷</b> 중형, 2단 구성(위: 조타 시험, 아래: 리액션).<br/><b>장소·시간</b> 그날 낮, 대장선 고물(배 뒤쪽).<br/><b>상단</b> 병사 둘이 배 뒤쪽의 큰 키(방향타)를 잡은 긴 손잡이(치)를 힘껏 밀지만, 손잡이가 뻑뻑하게 걸려 배가 물살에 옆으로 밀린다 — 뱃머리가 물목 쪽으로 휙 돌아가려 하고 병사들이 안간힘.<br/><b>하단</b> 그것을 굳은 얼굴로 지켜보는 부하 장수와, 그 곁에서 걱정스레 보는 이순신의 옆얼굴 클로즈업. 구석에서 짐을 내려놓는 척하며 지켜보는 아이들.<br/><b>배경·소품</b> 배 뒤쪽 큰 키(방향타)와 긴 조종 손잡이, 밧줄, 소용돌이 물살.<br/><b>톤</b> '뭔가 이상하다'는 무거운 공기. 배가 마음대로 안 도는 답답함.</div>
+  <div class="text"><span class="sp">부하 장수:</span> "장군, 큰일입니다. 요 며칠 대장선의 키가 자꾸 뻑뻑해져, 물살 속에서 배를 돌리기가 어렵습니다."<br/><span class="sp">이순신:</span> "좁은 물목에서 배를 제때 돌리지 못하면… 그 순간 우리는 끝이다. 원인을 찾아야 한다."<br/><span class="sp">노아:</span> "(속닥) 보리야, 들었지? '요 며칠' 갑자기 키가 이상해졌대."</div>
+</div>
+
+<div class="page"><div class="pno">12쪽</div>
+  <div class="scene"><b>컷</b> 중형, 감정 컷 — 삼각 구도(병사-막손-보리).<br/><b>장소·시간</b> 배 아래층 격군 자리, 같은 낮.<br/><b>인물</b> 왼쪽 — 지친 늙은 격군 병사(단역, 흰 수염, 소매 걷음)가 이마를 짚으며 막손을 나무라듯 내려다봄(화난 게 아니라 지친 표정). 중앙 — 막손이 두건을 꼭 쥔 채 고개를 푹 숙이고 울상, 그은 뺨에 눈물이 그렁. 오른쪽 전경 — 보리가 주먹을 불끈 쥐고 한 발 나서고, 노아가 소매를 붙잡아 말린다.<br/><b>배경·소품</b> 늘어선 노, 밧줄 타래, 어둑한 격군 칸.<br/><b>톤</b> 억울함이 전해지는 컷. 어른들도 나쁜 사람이 아니라 지쳐 있을 뿐인 게 보이게.</div>
+  <div class="text"><span class="sp">늙은 격군:</span> "막손아, 네가 배 뒤쪽에서 밤마다 얼쩡거리더니 키가 이 모양이 된 게 아니냐?"<br/><span class="sp">막손:</span> "저 정말… 아무것도 안 건드렸어요. 물길 소리만 들으러 갔던 거예요."<br/><span class="sp">보리:</span> "막손이는 그럴 애가 아니에요!"<br/><span class="sp">나레이션:</span> 부품을 찾으러 온 아이들 앞에, 또 억울한 친구가 먼저 생겼어요.</div>
+</div>
+
+<div class="page"><div class="pno">13쪽</div>
+  <div class="scene"><b>컷</b> 중형, 비밀 회의 컷 — 위에서 내려다보는 하이앵글.<br/><b>장소·시간</b> 배에서 내려 갯가 바위 뒤, 같은 낮.<br/><b>인물</b> 큰 갯바위 뒤에 셋이 옹기종기 — 배낭에서 나온 티코의 눈에서 민트 레이더 파형이 떠오르는데, 파형 그래프가 대장선의 배 뒤쪽(키가 있는 자리)에서만 산처럼 솟는다(홀로그램 그래프로 시각화). 보리는 팔짱, 노아는 턱을 괴고 그래프를 응시.<br/><b>배경·소품</b> 갯바위, 밀려드는 물거품, 멀리 정박한 판옥선.<br/><b>톤</b> 흐린 낮 + 민트 홀로그램. 추리 시동 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 삐빅! 알아냈다. 신호가 제일 센 곳은 대장선 배 뒤쪽, 바로 그 '키'가 달린 자리다. 내 부품이 키 틈에 딱 끼여 있는 게 분명해!"<br/><span class="sp">노아:</span> "그래서 키가 뻑뻑해진 거구나. 부품이 끼어서 배가 마음대로 안 돌아간 거야."<br/><span class="sp">보리:</span> "그럼 얼른 그 부품만 쏙 빼면 되겠네!"<br/><span class="sp">티코:</span> "(속닥) 그런데… 이상해. 신호가 자꾸 누가 일부러 흐트러뜨리는 것 같단 말이지."</div>
+</div>
+
+<div class="page"><div class="pno">14쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업 2단 — 탐정 무드(7화 14쪽 에코 연출: 발자국+천 조각).<br/><b>장소·시간</b> 대장선을 매어 둔 선착장 나무판 위, 다음 날 새벽.<br/><b>상단(마크로)</b> 이슬 젖은 나무판에 찍힌 <u>작고 네모난 기계 발자국</u> 두 줄(길이 4cm 정도, 사람도 짐승도 아닌 각진 모양) — 배 뒤쪽 키가 있는 자리에서 갯바위 쪽으로 이어진다. 그 옆 밧줄 끝에 <u>끝이 해진 낡은 회색 천 조각</u>이 걸려 바람에 살랑(7화의 그 천과 같은 회색).<br/><b>하단</b> 쪼그려 앉아 그것을 들여다보는 노아의 얼굴 클로즈업 — 안경알에 발자국이 반사, 눈이 번뜩임. 뒤에서 보리가 천 조각을 조심스레 집는다.<br/><b>톤</b> 새벽의 푸른 어스름, 비네팅으로 집중. 무섭지 않게, 수수께끼의 서늘한 설렘.</div>
+  <div class="text"><span class="sp">노아:</span> "이 발자국… 에디슨 연구소 때 봤던 거랑 똑같아! 작고 네모난 발이 두 줄로 걸어갔어."<br/><span class="sp">보리:</span> "이 회색 천 조각도… 그때 그거랑 똑같잖아. 그 빨간 눈, 여기까지 우리를 따라온 거야?"<br/><span class="sp">노아:</span> "부품을 찾는 게 우리만이 아니야. 누군가 먼저 와서, 부품을 일부러 키에 숨겨 둔 거라면…?"<br/><span class="sp">나레이션:</span> 그때는 아직 몰랐어요. 그 '누군가'가 이번엔 아이들을 막으려 한다는 것을요.</div>
+</div>
+
+<div class="page"><div class="pno">15쪽</div>
+  <div class="scene"><b>컷</b> 소형 전환컷, 저물녘 실루엣.<br/><b>장소·시간</b> 해 질 녘, 갯가 언덕 마른 풀밭.<br/><b>인물</b> 나란히 앉은 셋+막손 — 막손이 나뭇가지로 땅에 물목 지도를 그리며 설명(물살이 도는 방향에 화살표), 보리는 몸을 앞으로 기울여 경청, 노아는 공책에 메모. 보리 배낭 틈에서 티코가 눈만 내밀고 배터리 게이지를 힐끔(게이지 홀로그램 60%).<br/><b>배경·소품</b> 물목 지도 낙서, 마른 풀, 저무는 주황 하늘과 판옥선 실루엣.<br/><b>톤</b> 작전 전야의 차분한 결의. 주황→남색 그라데이션.</div>
+  <div class="text"><span class="sp">막손:</span> "물살은 하루에도 몇 번씩 방향이 홱 바뀌어. 물살이 잠깐 멈추고 잔잔해지는 때가 있는데, 그때가 배에 오르기 제일 안전해."<br/><span class="sp">보리:</span> "좋아. 그 잔잔한 틈에 키에 낀 부품을 빼서, 막손이 누명도 벗겨 주자!"<br/><span class="sp">티코:</span> "(속닥) 그때까지 배터리 아껴, 인간들!"</div>
+</div>
+
+<div class="divider">— D. 시도 → 실패 → 힌트 (16~25쪽) —</div>
+
+<div class="page"><div class="pno">16쪽</div>
+  <div class="scene"><b>컷</b> 중형 개그컷, 순간 포착.<br/><b>장소·시간</b> 정박한 대장선 배 뒤쪽, 낮.<br/><b>인물</b> 물때를 못 기다린 보리가 배 뒤쪽 키 자리로 몸을 쑥 내밀어 손을 뻗은 순간 — 물살이 배를 훅 밀어 배 전체가 크게 기우뚱! 보리가 밧줄에 대롱대롱 매달려 눈이 소용돌이, 노아가 기겁해서 보리 발목을 붙잡고, 배낭 속 티코는 X자 눈. 주위에 아무도 없음(과거인 시야 밖).<br/><b>배경·소품</b> 큰 키, 밧줄, 출렁이는 물, '철썩' 물기호(글자 아님).<br/><b>톤</b> 슬랩스틱 — 아프지 않고 우스꽝스럽게. 물에 빠지진 않는 안전한 연출.</div>
+  <div class="text"><span class="sp">보리:</span> "물때까지 어떻게 기다려! 지금 슬쩍 빼 보면… 으아, 배가 흔들려!"<br/><span class="sp">노아:</span> "보리야! 물살이 셀 때 배에 오르면 안 된다니까!"<br/><span class="sp">티코:</span> "(속닥) 인간! 바닷물은 힘이 어마어마하다! 물살을 얕보면 크게 다친다고!"<br/><span class="sp">보리:</span> "미, 미안… 생각해 보니 좀 무섭네, 이 물살."</div>
+</div>
+
+<div class="page"><div class="pno">17쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출(시리즈 공통 포맷 ①).<br/><b>장소·시간</b> 갯바위 그늘, 낮 — 주위에 아무도 없음(과거인 시야 밖).<br/><b>장면</b> 티코의 눈에서 빔이 나와 공중에 민트색 홀로그램 카드가 떠오른다. 카드 안: 배 그림 아래에 큰 키(방향타)가 물속에서 좌우로 까딱이는 도해, 그리고 물살 화살표가 키에 부딪혀 배를 옆으로 밀어내는 그림(화살표 애니메이션 느낌). 키가 조금만 틀어져도 배 방향이 크게 바뀌는 걸 부채꼴 각도로 표시. 카드 빛이 올려다보는 두 아이의 얼굴을 민트색으로 물들인다.<br/><b>톤</b> '티코피디아' 시그니처 연출 — 밝은 인포그래픽.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아, 스캔 시작! 배 뒤쪽의 넓적한 판이 <b>방향타</b>, 우리말로 '키'다. 이걸 좌우로 틀면 물살이 부딪히면서 배가 돌아가지. 키가 조금만 뻑뻑해도 물살 센 곳에선 배가 마음대로 안 돌아간다."<br/><span class="sp">노아:</span> "그럼 부품이 키 틈에 껴서, 키가 안 움직이는 거네!"<br/><span class="sp">보리:</span> "부품을 빼려면, 물살이 잠잠해질 때를 노려야겠다!"</div>
+</div>
+
+<div class="page"><div class="pno">18쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷(시리즈 러닝 개그 — 통신 두절).<br/><b>장소·시간</b> 갯가 바위 뒤, 낮.<br/><b>인물</b> 노아의 손목 통신기 위로 봉수 박사의 홀로그램 얼굴 — 가로 노이즈가 지나가며 얼굴이 지지직 뭉개지는 순간. 보리는 통신기를 두 손으로 붙잡고 흔들고, 노아는 팔을 안테나처럼 하늘로 쭉 뻗고 발끝으로 섰다. 티코는 시큰둥한 반쯤 감긴 눈.<br/><b>배경·소품</b> 갯바위, 갈매기 한 마리가 구경.<br/><b>톤</b> 과장된 리액션 개그.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "허허, 잘 듣거라. 울돌목은 물살이 하루에 네 번 방향을 바꾼단다. 그러니 부품을 뺄 때는 반드시… 치지직—"<br/><span class="sp">보리:</span> "할아버지!! 맨날 제일 중요한 데서 끊겨!"<br/><span class="sp">티코:</span> "(속닥) …결국 이번에도 우리끼리군."</div>
+</div>
+
+<div class="page"><div class="pno">19쪽</div>
+  <div class="scene"><b>컷</b> 중형, 이번 화 감정 예열 컷 — 등불 아래 지도를 펼친 렘브란트풍 조명.<br/><b>장소·시간</b> 그날 밤, 대장선 지휘 천막 안.<br/><b>인물</b> 이순신이 커다란 해도(바다 지도) 위에 손을 짚고, 좁은 물목 자리에 손가락을 대고 부하 장수들에게 낮은 목소리로 이른다 — 진지한 옆얼굴이 등불의 주홍빛에 물든다. 둘러선 장수들이 굳은 얼굴로 끄덕임. 천막 자락 틈으로 지켜보는 아이들 — 노아의 눈이 감동으로 반짝.<br/><b>배경·소품</b> 해도, 등불, 붓과 벼루, 접힌 지도들, 걸린 갑옷.<br/><b>톤</b> 경건한 장수의 밤. 주홍 불빛 + 깊은 그림자.</div>
+  <!-- 고증 확인 필요: '열두 척' 장계는 명량 이전(음력 8월경) 선조에게 올린 것. 실제 해전엔 13척 참전(전투 직전 1척 합류). 극중에서는 유명한 '열두 척' 표현을 그대로 쓰되 왜곡 아닌 단순화 -->
+  <div class="text"><span class="sp">부하 장수:</span> "장군, 적의 배가 수백 척이라 합니다. 우리는 겨우 열두 척뿐인데…"<br/><span class="sp">이순신:</span> "신에게는 아직 열두 척의 배가 남아 있소. 죽을힘을 다해 싸우면, 우리는 이길 수 있소."<br/><span class="sp">이순신:</span> "저 좁은 물목이 우리 편이다. 적이 아무리 많아도 한 번에 두어 척밖에 못 들어온다. 우리는 그 목을 지킨다."<br/><span class="sp">노아:</span> "(속닥) 멋있다… 열두 척으로도 하나도 안 두려워해."</div>
+</div>
+
+<div class="page"><div class="pno">20쪽</div>
+  <div class="scene"><b>컷</b> 대형, 0호 2차 조우 — 첫 방해 공작 컷(시즌 미스터리 심화 — 7화 실루엣의 발전형, 이번엔 '움직이는 방해자'로).<br/><b>장소·시간</b> 그날 깊은 밤, 달빛 아래 정박한 대장선 배 뒤쪽 키 자리.<br/><b>주컷</b> 아이들이 낮에 봐 둔 키 자리로 살금살금 다가간 순간 — 배 뒤쪽 그늘에서 <u>땅딸막한 상자형 실루엣</u>(7화의 그 0호)이 홱 몸을 일으키며, 짧고 굵은 팔로 키에 감긴 밧줄을 <u>탁 잡아채 배 밖으로 던져 버린다</u>. 얼굴은 그늘에 가려 <u>크고 둥근 붉은 외눈 한 점</u>만 아이들을 향해 번뜩인다. 등에 두른 해진 회색 천이 달빛에 펄럭. 보리와 노아가 놀라 얼어붙고, 티코의 눈이 크게 벌어짐(느낌표).<br/><b>인셋</b> 물살에 떠내려가는 밧줄과, 부품이 낀 키가 더 깊이 처박히는 모습(방해로 상황이 더 나빠짐).<br/><b>톤</b> 공포가 아닌 서늘한 미스터리 — 달빛의 남색, 붉은 외눈 한 점. 대화는 없고, 방해 행동만.</div>
+  <div class="text"><span class="sp">보리:</span> "누, 누구야?! 방금 밧줄을 던진 거!"<br/><span class="sp">노아:</span> "저 빨간 눈… 에디슨 연구소에서 봤던 그 그림자야! 우리가 부품 빼는 걸 막고 있어!"<br/><span class="sp">티코:</span> "(속닥) 삐빅! 그 기계 신호다! 저 녀석이 일부러 부품을 키에 더 깊이 처박았어!"<br/><span class="sp">나레이션:</span> 붉은 눈은 아무 말도 없이, 아이들을 한 번 노려보고는 어둠 속으로 사라졌어요.</div>
+</div>
+
+<div class="page"><div class="pno">21쪽</div>
+  <div class="scene"><b>컷</b> 중형, 방해의 여파 + 물음표 컷.<br/><b>장소·시간</b> 같은 밤, 갯바위 뒤로 물러난 자리.<br/><b>인물</b> 셋이 숨을 몰아쉬며 모여 앉음 — 보리는 분해서 주먹을 꼭 쥐고, 노아는 떨어진 회색 천 조각(방금 그것이 흘린 것)을 손에 쥔 채 골똘. 티코의 가슴 홀로그램에 방금 잡힌 정체불명 기계 신호의 물결선이 떴다가 뚝 끊긴다.<br/><b>배경·소품</b> 회색 천 조각, 흔들리는 등불, 어둠 속 판옥선.<br/><b>톤</b> 놀란 뒤의 정적 + 풀리지 않는 수수께끼. 무섭기보다 궁금하게.</div>
+  <div class="text"><span class="sp">보리:</span> "왜 우리를 방해하는 거야? 부품이 자기 것도 아니면서!"<br/><span class="sp">노아:</span> "이상해… 무섭게 굴었는데, 등에 두른 천이 꼭… 오래 혼자 떠돈 것처럼 낡고 쓸쓸했어."<br/><span class="sp">티코:</span> "(속닥) 내 데이터에 저런 로봇은 없다. 하지만 저 신호… 어쩐지 낯설지가 않아. 왜 이렇게 마음이 이상하지?"<br/><span class="sp">나레이션:</span> 붉은 눈의 정체가 무엇인지는, 아직 아무도 몰랐답니다.</div>
+</div>
+
+<div class="page"><div class="pno">22쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ②.<br/><b>장소·시간</b> 어촌 헛간 안, 다음 날 낮.<br/><b>장면</b> 홀로그램 카드에 울돌목 물살 도해 — 좁은 물목을 사이에 두고 물살 화살표가 한동안 한쪽으로 세게 흐르다가(빨강), 잠깐 멈추고(회색 '정지'), 다시 반대쪽으로 세게 흐르는(파랑) 3단계 리듬. 시계 그림으로 '하루 네 번 바뀜'을 표시. 카드 앞에서 막손이 손가락으로 방향을 짚으며 고개를 끄덕, 티코는 선생님 포즈.<br/><b>톤</b> 밝은 인포그래픽 + 물살의 리듬감.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 좁은 바닷길에서는 밀물과 썰물 때문에 물살이 한쪽으로 세게 흘렀다가, 잠깐 멈췄다가, 반대쪽으로 세게 흐른다. 울돌목은 이게 하루에 네 번이나 바뀌지."<br/><span class="sp">막손:</span> "맞아! 물살이 딱 멈추는 그 짧은 틈, 우리 아버지는 '물때가 죽는다'고 해."<br/><span class="sp">노아:</span> "그럼 물살이 죽는 그 틈에만 키를 만질 수 있겠구나!"</div>
+</div>
+
+<div class="page"><div class="pno">23쪽</div>
+  <div class="scene"><b>컷</b> 중형, 추리 정리 컷 — 하이앵글(물목 지도 내려다보기).<br/><b>장소·시간</b> 헛간 안, 낮.<br/><b>인물</b> 바닥에 펼친 물목 지도 — 노아가 숯 조각으로 물살이 도는 방향과 '죽는 시각'을 표시하고, 그 위에 대장선 위치와 키 자리에 동그라미. 노아의 검지가 '물때가 죽는' 짧은 틈을 콕 짚는 순간, 눈이 번뜩(안경 반사광). 보리와 막손이 양옆에서 몸을 기울여 들여다봄, 티코는 배낭에서 눈만 빼꼼.<br/><b>배경·소품</b> 물목 지도, 숯 조각, 그물, 널빤지 틈 햇살.<br/><b>톤</b> 셜록 무드 — 물살 리듬과 지도가 맞아떨어지는 쾌감.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만! 정리해 보자. 첫째, 부품은 대장선 키에 껴 있어. 둘째, 키를 만지려면 물살이 죽는 짧은 틈이어야 해."<br/><span class="sp">노아:</span> "그런데 그 빨간 눈이 우리를 막으니까… 셋째, 이번엔 방해꾼까지 따돌려야 해."<br/><span class="sp">보리:</span> "그럼 물살이 죽는 틈에, 방해꾼 몰래, 다 같이 한 번에 해치우면 되잖아!"<br/><span class="sp">막손:</span> "물때가 죽는 시각은 내가 물소리로 딱 맞힐 수 있어. 나만 믿어!"</div>
+</div>
+
+<div class="page"><div class="pno">24쪽</div>
+  <div class="scene"><b>컷</b> 중형, 작전 준비 몽타주 — 3분할 느낌.<br/><b>장소·시간</b> 헛간 안, 해 질 녘.<br/><b>장면</b> ① 막손이 귀에 손을 대고 물살 소리를 듣는 흉내 — 머리 위 상상 구름에 물살이 멈춘 잔잔한 물목 그림. ② 보리가 긴 갈고리 장대와 튼튼한 밧줄을 챙기며 힘줄 불끈(진지한 표정, 이마에 땀 한 방울). ③ 노아가 등불에 종이 갓을 씌워 빛을 가리는 손(방해꾼에게 안 들키려고) + 회색 천 조각을 미끼로 슬쩍 챙기는 그림.<br/><b>배경·소품</b> 갈고리 장대, 밧줄, 종이 갓 씌운 등불, 회색 천 조각.<br/><b>톤</b> 작전 전 몽타주의 리듬감. 하나씩 준비물이 모이는 재미.</div>
+  <div class="text"><span class="sp">노아:</span> "책에서 봤는데… 부품이 낀 키를 억지로 당기면 부러져. 물살이 죽어서 배가 안 흔들릴 때, 갈고리로 살살 빼야 해."<br/><span class="sp">보리:</span> "방해꾼은 내가 맡을게. 이 회색 천 조각을 미끼로 반대쪽으로 유인하면 되잖아!"<br/><span class="sp">막손:</span> "물때가 죽는 건 아주 잠깐이야. 신호를 주면 다들 번개같이 움직여야 해."<br/><span class="sp">노아:</span> "응. 오늘 밤, 물살이 죽는 그 틈을 노리자."</div>
+</div>
+
+<div class="page"><div class="pno">25쪽</div>
+  <div class="scene"><b>컷</b> 중형 세로컷, 야간 잠입 직전 — 긴장 조성.<br/><b>장소·시간</b> 깊은 밤, 대장선 배 뒤쪽 키 자리로 다가서는 좁은 나무판.<br/><b>인물</b> 살금살금 다가서는 네 그림자 — 막손이 앞장서 귀를 물목 쪽으로 기울이고, 보리는 갈고리 장대를 등에 X자로 메고, 노아는 종이 갓 씌운 등불을 낮게 든다. 화면 전경에 티코 가슴 배터리 게이지 홀로그램 클로즈업 — 30% 눈금이 주황색으로 깜빡(경고 표시).<br/><b>배경·소품</b> 큰 키의 검은 실루엣, 출렁이던 물이 점점 잔잔해지는 수면, 달빛.<br/><b>톤</b> 룰2 배터리 긴장 + 잠입의 두근거림. 갓 씌운 등불 하나의 최소 조명.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 경고, 배터리 30%! 오늘 밤 부품을 못 찾으면 시간의 문을 못 연다. 게다가 곧 있으면 진짜 전투가 벌어질 거다!"<br/><span class="sp">막손:</span> "쉿… 물소리가 잦아들고 있어. 곧 물때가 죽어."<br/><span class="sp">보리:</span> "좋아, 그 빨간 눈보다 먼저 부품을 빼자!"<br/><span class="sp">노아:</span> "후우… 심장이 콩닥콩닥해."</div>
+</div>
+
+<div class="divider">— E. 해결 · 회수 · 귀환 (26~33쪽) —</div>
+
+<div class="page"><div class="pno">26쪽</div>
+  <div class="scene"><b>컷</b> 대형 발견컷 — 배 뒤쪽 키 틈을 들여다보는 아이들 시점.<br/><b>장소·시간</b> 대장선 배 뒤쪽, 물때가 죽어 잔잔해진 깊은 밤.<br/><b>장면</b> 큰 키(방향타)와 배 몸통 사이 좁은 틈을 등불로 비추자 드러난 것 — 나무 키 틈에 <u>티코의 부품</u>(주먹만 한 톱니 모양 코어)이 물이끼에 감긴 채 민트색으로 숨 쉬듯 빛난다(0호가 더 깊이 처박아 놓은 상태). 틈새로 나란히 들이민 보리·노아의 얼굴이 민트빛에 물듦. 막손은 화면 뒤에서 물살 소리를 들으며 망보기. 배낭 속 티코의 눈이 별 모양.<br/><b>톤</b> 잔잔해진 수면 위 고요 + 보물 발견의 반짝임. 아직 물때가 살아나기 전 긴장.</div>
+  <div class="text"><span class="sp">보리:</span> "찾았다! 키 틈에 딱 껴서 반짝이는 저거!"<br/><span class="sp">티코:</span> "(속닥) 내 부품이다! 그 빨간 눈 녀석이 아주 깊이 처박아 놨군."<br/><span class="sp">노아:</span> "물때가 죽어서 배가 안 흔들려. 지금이 딱 기회야. 갈고리로 살살—"<br/><span class="sp">보리:</span> "알아. 그러니까 — 생각은 뛰면서 해! 갈고리 준비!"</div>
+</div>
+
+<div class="page"><div class="pno">27쪽</div>
+  <div class="scene"><b>컷</b> 대형 위기컷 — 0호의 두 번째 방해 + 물때 반전(대각선 분할).<br/><b>장소·시간</b> 대장선 배 뒤쪽, 같은 밤.<br/><b>장면</b> 화면 한쪽 — 배 그늘에서 다시 튀어나온 <u>0호의 상자형 실루엣</u>(붉은 외눈)이 짧은 팔로 등불을 툭 쳐서 꺼뜨리고 갈고리 밧줄을 잡아당긴다(방해). 화면 반대쪽 — 잔잔하던 물목이 다시 우르릉 살아나며 하얀 소용돌이가 배를 밀어 배 전체가 기우뚱(물때 반전). 갈고리를 쥔 보리가 휘청, 노아가 보리 허리를 붙잡음. 막손이 다급히 손짓. 티코는 배낭 속에서 X자 눈으로 기계음 비명.<br/><b>톤</b> 최대 긴장 — 방해꾼과 물살이 동시에 덮치지만, 아이들에게 물이 닿진 않는 거리(저학년 안전선).</div>
+  <div class="text"><span class="sp">막손:</span> "물때가 벌써 살아난다! 물살이 다시 밀려와!"<br/><span class="sp">노아:</span> "저 빨간 눈이 또 방해해! 등불까지 껐어!"<br/><span class="sp">티코:</span> "삐빅— 삐비비빅!!"<br/><span class="sp">보리:</span> "노아, 계획대로! 방해꾼은 내가 맡는다 — 넌 부품을 부탁해!"</div>
+</div>
+
+<div class="page"><div class="pno">28쪽</div>
+  <div class="scene"><b>컷</b> 대형 해결 액션컷(이번 화 간판 컷 ③) — 두 갈래 동시 액션의 사선 구도.<br/><b>장면</b> 화면 오른쪽 위 — 보리가 회색 천 조각을 흔들며 배 반대편으로 몸을 날려 0호의 붉은 눈을 그쪽으로 유인한다(0호가 천 조각 쪽으로 홱 고개를 돌림 — 천에 미련이 있는 듯). 화면 왼쪽 아래 — 그 틈에 노아가 두 발을 단단히 딛고 갈고리 장대를 키 틈에 넣어, 물살이 완전히 세지기 직전의 마지막 한 박자에 부품을 살살 걸어 <u>쏙</u> 빼낸다. 막손이 옆에서 배가 흔들리지 않게 밧줄을 붙든다. 민트 부품광이 별가루처럼 반짝.<br/><b>톤</b> 통쾌한 클라이맥스 — 두 아이가 각자 역할을 해내는 협동. 무섭지 않게, 물방울과 민트빛의 반짝임.</div>
+  <div class="text"><span class="sp">노아:</span> "물살이 완전히 세지기 전에… 침착하게… 지금이야!"<br/><span class="sp">보리:</span> "이 천 조각이 그렇게 갖고 싶어? 그럼 이쪽으로 와 봐—!"<br/><span class="sp">나레이션:</span> 붉은 눈이 천 조각을 좇아 고개를 돌린 그 짧은 틈, 노아의 갈고리가 부품을 쏙 걸어 올렸어요.<br/><span class="sp">티코:</span> "(속닥) 회수 성공! …그리고 경고, 배터리 15%. 슬슬 집에 가고 싶다, 인간들!"</div>
+</div>
+
+<div class="page"><div class="pno">29쪽</div>
+  <div class="scene"><b>컷</b> 대형, 역사의 순간 컷 — 키가 다시 살아나는 순간의 구심 구도.<br/><b>장소·시간</b> 깊은 밤 → 새벽으로 이어지는 시간 경과, 대장선.<br/><b>장면</b> 부품이 빠진 키(방향타)가 이제 부드럽게 좌우로 움직이며, 소용돌이치는 물살 속에서도 대장선 뱃머리가 원하는 대로 척 돌아간다. 키 손잡이(치)를 잡은 병사들의 놀란 얼굴, 그리고 지휘대 위 이순신이 그 움직임을 바라보며 담담히 끄덕인다(감격을 누른 미소). 배 뒤쪽 그늘에서 이 광경을 몰래 지켜보는 아이들의 눈에도 새벽빛이 맺힘.<br/><b>배경·소품</b> 부드럽게 도는 키, 살아난 물살, 창밖의 여명, 수(帥) 자 깃발.<br/><b>톤</b> 경건한 감동 — 배가 제 뜻대로 도는 순간의 조용한 전율.</div>
+  <div class="text"><span class="sp">부하 장수:</span> "장군! 키가… 키가 다시 부드럽게 돕니다! 배가 물살 속에서도 뜻대로 돌아갑니다!"<br/><span class="sp">이순신:</span> "됐다. 이제 저 물목에서, 우리는 열두 척으로도 능히 버틸 수 있다."<br/><span class="sp">이순신:</span> "물살이 우리 편이 되는 때를 놓치지 마라. 적이 몰려드는 그 순간, 좁은 목을 지킨다!"<br/><span class="sp">나레이션:</span> 며칠 뒤, 이 좁은 바다에서 열두 척의 배는 수백 척의 적을 막아 냈어요. 세상은 그날을 '명량 대첩'이라 불렀답니다.</div>
+</div>
+
+<div class="page"><div class="pno">30쪽</div>
+  <div class="scene"><b>컷</b> 중형, 훈훈한 해소 컷 — 새벽빛의 선착장.<br/><b>장소·시간</b> 새벽, 대장선 옆 선착장.<br/><b>인물</b> 막손이 키 틈에 남은 물이끼 자국(부품이 껴 있던 흔적)을 늙은 격군에게 가리키며 씩씩하게 보고 — 야무진 자랑스러운 미소. 어젯밤 나무라던 늙은 격군이 무릎을 굽혀 막손과 눈높이를 맞추고 어깨를 다독이며 미안한 표정. 뒤에 선 부하 장수가 팔짱을 끼고 흐뭇하게 끄덕임. 아이들은 한 걸음 뒤에서 서로 주먹을 콩(몰래 하이파이브).<br/><b>배경·소품</b> 키의 이끼 자국, 갈고리, 새벽 물안개.<br/><b>톤</b> 누명 해소의 후련함 + 어른의 사과라는 따뜻한 장면.</div>
+  <div class="text"><span class="sp">막손:</span> "보세요! 키 틈에 뭔가 껴 있다가 빠진 자국이 있어요. 이게 끼어서 키가 뻑뻑했던 거예요. 제가 그런 게 아니라고요!"<br/><span class="sp">늙은 격군:</span> "정말이구나… 막손아, 네 탓이라고 해서 미안하다."<br/><span class="sp">부하 장수:</span> "물길을 아는 네 덕에 큰 화를 면했다. 통제사께서 아시면 기뻐하시겠구나. 고맙다, 얘들아."</div>
+</div>
+
+<div class="page"><div class="pno">31쪽</div>
+  <div class="scene"><b>컷</b> 중형 작별컷, 새벽빛 역광.<br/><b>장소·시간</b> 이른 아침, 갯가 언덕길.<br/><b>인물</b> 이순신이 한쪽 무릎을 굽혀 아이들과 눈높이를 맞추고, 보리의 어깨에 손을 얹어 격려 — 위엄과 따뜻함이 함께 있는 미소. 노아는 감동해서 안경 밑 눈가를 슥 문지름. 옆에서 막손이 노를 번쩍 들고 활짝 웃으며 배웅. 갈매기가 새벽 하늘로 날아오른다.<br/><b>배경·소품</b> 언덕길, 정박한 판옥선들, 밝아 오는 바다.<br/><b>톤</b> 이번 화 감정 피크 — '작은 힘도 나라를 지킨다'는 메시지가 전해지는 컷. 존중 어린 마무리.</div>
+  <div class="text"><span class="sp">이순신:</span> "어린 너희가 어른들 근심을 하나 덜어 주었구나. 나라를 지키는 데 큰 힘, 작은 힘이 따로 없단다. 고맙다."<br/><span class="sp">보리:</span> "장군님, 꼭 이기세요! 저희는 장군님을 믿어요!"<br/><span class="sp">막손:</span> "또 놀러 와! 다음엔 물살이 우리 편이 되는 걸 보여 줄게!"</div>
+</div>
+
+<div class="page"><div class="pno">32쪽</div>
+  <div class="scene"><b>컷</b> 대형, 0호 미스터리 컷(이번 화 마지막 여운 — 방해 뒤의 쓸쓸함, 오버 더 숄더 구도).<br/><b>장소·시간</b> 이른 아침, 갯가 벼랑 위.<br/><b>주컷</b> 벼랑 바위 위에 웅크려 앉은 0호의 <u>실루엣 뒷모습</u>을 어깨너머로 크게 잡고, 그 시선 끝 저 아래 언덕에 민트빛 시간의 문과 그리로 뛰어가는 세 아이(작게). 실루엣 디테일: 땅딸막한 상자형 몸, 삐뚤어진 안테나, 등에 두른 회색 천 한 귀퉁이가 찢겨 나간 자국(보리가 미끼로 흔들다 남은 조각). 얼굴은 보이지 않고, 몸 윤곽만 새벽빛 림라이트로. 부품을 빼앗긴 빈손을 가만히 내려다보는 웅크린 자세(분함보다 쓸쓸함).<br/><b>인셋</b> 게이트 앞에서 홱 뒤돌아보는 보리·노아 — 벼랑 위에는 이미 아무것도 없다.<br/><b>톤</b> 공포가 아닌 쓸쓸한 미스터리. 새벽의 회보라 + 긴 그림자. 방해꾼이지만 어딘가 짠한 뒷모습.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 삐빅! 또 그 신호다 — 뒤! 벼랑 위!"<br/><span class="sp">보리:</span> "어디?! …아무것도 없잖아."<br/><span class="sp">노아:</span> "분명 있었어. 그 빨간 눈… 우리를 막았는데도, 왜 저렇게 슬퍼 보였을까?"<br/><span class="sp">나레이션:</span> 붉은 눈은 빈손을 오래 내려다보다가, 아이들이 사라진 문 쪽을 가만히 바라보았어요.</div>
+</div>
+
+<div class="page"><div class="pno">33쪽</div>
+  <div class="scene"><b>컷</b> 대형 마무리 몽타주(3분할 느낌).<br/><b>중앙(메인)</b> 창고의 저녁 — 부품이 티코 가슴에 스르륵 장착되며 민트빛 발광, 부품 게이지 12칸 중 <u>10칸</u> 점등. 동시에 티코 머리 위 안테나 끝에 작은 물방울 모양 센서가 톡 돋아나고, 물그릇에 손을 넣은 보리 쪽으로 티코가 "물살 왼쪽!" 하듯 화살표 홀로그램을 띄운다(개그 — 종이배가 그쪽으로 스르륵). 노아는 옆에서 킥킥.<br/><b>우상단 인셋</b> 식탁 위 — 봉수 박사가 아이들이 주워 온 <u>찢긴 회색 천 조각</u>을 두 손으로 받아 든 채 굳어 있는 옆얼굴. 돋보기안경 너머 눈빛이 흔들리고, 입술이 무언가 이름을 부르려다 만다(대사 없음 — 무언 복선 심화).<br/><b>좌하단 인셋</b> 티코 가슴 홀로그램 지구 — 지구 반대편, 미국 동부의 한 지점이 별빛처럼 반짝이며 그 위로 작은 날개가 파닥(다음 화 좌표).<br/><b>톤</b> 따뜻한 마무리 + 박사의 굳은 표정 한 방울의 서늘함.</div>
+  <div class="text"><span class="sp">나레이션:</span> 열 번째 부품이 돌아오자, 티코의 안테나에서 새 기능이 깨어났어요 — 물살이 어느 쪽으로 흐르는지 알려 주는 '조류계 모드'!<br/><span class="sp">봉수 박사:</span> "허허, 명량 대첩은 어차피 이순신 장군과 수군들이 이겼을 싸움이란다. 너희는 그저, 훼방꾼이 저질러 놓은 고장을 제때 고쳐서 장군의 근심 하나를 덜어 드린 거지."<br/><span class="sp">티코:</span> "그런데… 이번 그 빨간 눈은 우리를 '방해'까지 했다. 대체 누구지? 왜 자꾸 우리 앞을 막는 걸까?"<br/><span class="sp">나레이션:</span> 그런데 할아버지는, 찢긴 회색 천 조각을 보더니 이번에도 한참 동안 말이 없었어요. 마치 아는 사람을 만난 것처럼요.</div>
+</div>
+
+<div class="divider">— F. 티코피디아 부록 (34~36쪽) —</div>
+
+<div class="page"><div class="pno">34쪽 · 티코피디아 ①</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지(부록 공통 포맷) — 배경은 민트색 홀로그램 격자.<br/><b>장면</b> 티코가 갓 대신 전립을 쓰고 지시봉을 든 선생님 포즈로 화면 왼쪽에. 오른쪽 큰 카드: 좁은 물목을 사이에 둔 지도 그림(한쪽에 판옥선 열두 척, 반대쪽에 수많은 적선) + 가로 연표(1597년 음력 9월 16일 명량 대첩 ★). 카드 아래에 노를 젓는 수군들 실루엣 띠(함께 지킨 승리의 상징). 카드 모서리에 방향타(키) 스탬프.<br/><b>톤</b> 밝고 정돈된 인포그래픽. 본편과 구분되는 '부록 세계' 톤 — 존중 어린 서술.</div>
+  <!-- 고증 확인 필요: 명량 대첩 결과 - 적선 최소 31척 격침·격파, 조선 수군 전선 손실 없음. 저학년용으로 '큰 승리'로 단순 서술 -->
+  <div class="text"><span class="sp">티코:</span> "오늘의 티코피디아! <b>이순신</b> 장군은 1597년, 단 열두 척의 판옥선으로 진도 앞바다 <b>명량</b>(울돌목)에서 수백 척의 적을 막아 냈어. 힘으로 이긴 게 아니라, 좁은 물목과 사나운 물살을 우리 편으로 삼은 지혜의 승리였지. 물론 장군 혼자가 아니라, 함께 노 저은 수군과 물길을 아는 백성들이 함께 이룬 일이란다."</div>
+</div>
+
+<div class="page"><div class="pno">35쪽 · 티코피디아 ②</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지 ② — 도해 중심.<br/><b>장면</b> 화면 상단: 판옥선 단면 도해(위층 대포·활, 아래층 노 젓는 격군, 배 뒤쪽에 넓적한 키). 중단: 키(방향타)를 좌우로 틀면 배가 도는 원리 화살표 그림. 하단: 좁은 물목에서 물살이 한쪽→멈춤→반대쪽으로 바뀌는 3단계 리듬 그림(시계로 '하루 네 번'). 구석에 검지를 세워 '약속' 포즈를 한 티코(물놀이 안전 당부).<br/><b>톤</b> 교과서 삽화보다 밝고 만화적인 도해.</div>
+  <div class="text"><span class="sp">티코:</span> "<b>판옥선</b>은 두 층으로 된 튼튼한 조선 배야. 배 뒤쪽 넓적한 <b>방향타</b>(키)를 좌우로 틀면 물살이 부딪혀 배가 돌지. 좁은 바닷길에서는 밀물·썰물 때문에 <b>물살</b>이 방향을 바꾸는데, 이순신 장군은 이 물때를 정확히 읽어서 싸웠단다. 아, 진짜 바닷가에서는 물살이 위험하니 어른과 함께 — 약속!"</div>
+</div>
+
+<div class="page"><div class="pno">36쪽 · 티코 퀴즈</div>
+  <div class="scene"><b>컷</b> 퀴즈 페이지(부록 공통 포맷) — 티코 정면 컷.<br/><b>장면</b> 티코가 문제 카드 3장을 부채꼴로 펼쳐 들고 윙크. 카드마다 ①②③ 번호와 물음표 장식. 배경 하단에 다음 화 예고 — 구름 사이로 나무와 천으로 만든 커다란 날개(초기 비행기)와 자전거 바퀴, 그리고 물음표. (앱에서는 기존 퀴즈 게임 인프라로 인터랙티브 처리)<br/><b>톤</b> 마무리 팡파레 + 다음 화 기대감.</div>
+  <div class="text"><span class="sp">티코:</span> "마지막 관문, 티코 퀴즈! 셋 다 맞히면 너도 시간여행 대원!<br/>① 1597년, 단 열두 척의 배로 명량에서 큰 승리를 거둔 장군은 누구일까?<br/>② 배 뒤쪽에 달려, 좌우로 틀면 배의 방향을 바꾸는 넓적한 판을 뭐라고 부를까?<br/>③ 좁은 바닷길에서 밀물과 썰물 때문에 방향이 바뀌며 흐르는 것을 뭐라고 부를까?<br/>…다음 화, 하늘을 나는 꿈을 만든 자전거 가게 형제를 만나러 가자! 삐빅!"</div>
+</div>
+
+<footer>
+  타임 티코 10화 콘티 v1.0 · 탱고북 오리지널 · 내부 제작 자료
+</footer>
+
+</div>
+
+<script>
+// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
+(async function () {
+  const nav = document.getElementById('comic-tabs');
+  if (!nav) return;
+  const here = (location.pathname.split('/').pop() || '');
+  const items = [['learning-comic-plan.html', '📘 기획서']];
+  for (let i = 1; i <= 12; i++) {
+    const f = 'learning-comic-ep' + String(i).padStart(2, '0') + '.html';
+    try {
+      const r = await fetch(f);
+      const t = await r.text();
+      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
+    } catch (e) { /* skip */ }
+  }
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §6과 동기 유지) ─────────
+const STYLE_PROMPT = [
+  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
+  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
+  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
+  '시대 배경(건축·의상·소품)은 고증에 맞게 세밀하고 사실적으로 묘사.',
+  '화면비 16:9 와이드 일러스트.',
+  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
+].join(' ');
+
+const CHARACTER_KEYS = [
+  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
+  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
+  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
+  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸), 감정에 따라 모양이 변하는 둥근 눈.',
+  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼.',
+  '- 0호(그림자): 어둠 속 땅딸막한 상자형 미니 로봇의 검은 실루엣에 붉은 외눈 한 점, 등에 두른 해진 회색 천 조각.',
+].join('\n');
+
+// 이 화의 시대 의상 (화별로 교체)
+const EP_COSTUME = '[이 화의 의상] 1597년 조선 진도(울돌목) 장면에서 보리 = 무명 저고리 + 잠방이 + 짚신 + 무명 두건(붉은 머리끈은 두건 밖으로 살짝 보임), 노아 = 남색 무명 두루마기 + 패랭이(둥근 안경 유지). 현대(창고) 장면에서는 평상복(보리 주황 후드티, 노아 하늘색 셔츠).';
+
+// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
+const EP_GUEST_KEYS = [
+  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
+  '- 이순신(52세 삼도수군통제사): 다부지고 강단 있는 중년 장수, 각지고 온화한 얼굴에 짧고 단정한 검은 수염, 짙은 눈썹 아래 깊고 고요한 눈빛(오래 싸운 피로가 눈가에 배었으나 흔들림 없음), 볕에 그은 구릿빛 피부, 두정갑(검붉은 천에 금속 못을 촘촘히 박은 조선 갑옷)에 허리에 환도. 나라를 지킨 실존 위인 — 절대 사납거나 우스꽝스럽지 않게, 태산 같은 위엄과 백성을 아끼는 따뜻함이 함께.',
+  '- 막손(11세 조선 진도 어촌 소년): 볕에 검게 그은 얼굴, 짧게 친 검은 머리에 무명 두건, 씩씩하고 야무진 눈매, 낡고 물 젖은 무명 저고리 + 걷어 올린 잠방이 + 맨발, 허리에 작은 물고기 망태기. 물살 소리만 듣고도 물길 방향을 안다.',
+  '- 0호(이 화에서는 실루엣과 방해하는 손짓까지만): 전체 높이 40cm의 땅딸막한 상자형 미니 로봇의 순수한 검은 실루엣 — 큰 상자형 머리, 짧고 굵은 팔다리, 머리에 삐뚤어진 안테나 하나, 등에 두른 끝이 해진 회색 천 조각. 얼굴 위치에 크고 둥근 붉은 외눈 한 점만 빛난다. 얼굴 디테일·정체 묘사 금지, 공포가 아닌 쓸쓸한 미스터리 톤. 방해 장면에서는 짧은 팔로 밧줄·등불을 쳐내는 실루엣 동작만.',
+].join('\n');
+
+function composeImagePrompt(pno, sceneText) {
+  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+}
+
+// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    const btn = card.querySelector('.copy-btn');
+    const pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async function () {
+      // textContent — details 접힘 상태에선 innerText 가 빈 값
+      const text = pre.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('done');
+      } catch (e) {
+        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
+      }
+      setTimeout(function () {
+        btn.textContent = '📋 시트 프롬프트 복사';
+        btn.classList.remove('done');
+      }, 1600);
+    });
+  });
+})();
+
+// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
+const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
+
+async function loadComicAssets() {
+  try {
+    const r = await fetch(ASSET_API);
+    const j = await r.json();
+    return (j && j.data) || {};
+  } catch (e) { return {}; }
+}
+
+function createPasteBox(key, assets, hint) {
+  const box = document.createElement('div');
+  box.className = 'paste-box';
+  box.tabIndex = 0;
+  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
+  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
+  const reset = function () {
+    box.classList.remove('has-img');
+    box.innerHTML = '';
+    box.textContent = hintText;
+  };
+  const setImg = function (url) {
+    box.classList.add('has-img');
+    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      if (!confirm('이 이미지를 삭제할까요?')) return;
+      try {
+        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
+        reset();
+      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
+    });
+  };
+  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+  else box.textContent = hintText;
+
+  async function upload(file) {
+    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+    box.classList.add('busy');
+    const fr = new FileReader();
+    fr.onload = async function () {
+      try {
+        const r = await fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        });
+        const j = await r.json();
+        if (j.success) setImg(j.data.url + '?t=' + Date.now());
+        else alert('저장 실패: ' + (j.error || ''));
+      } catch (e) {
+        alert('저장 실패 — 서버(3500)를 확인하세요');
+      }
+      box.classList.remove('busy');
+    };
+    fr.readAsDataURL(file);
+  }
+
+  box.addEventListener('paste', function (e) {
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (const it of items) {
+      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
+    }
+  });
+  box.addEventListener('dragover', function (e) { e.preventDefault(); });
+  box.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) upload(f);
+  });
+  box.addEventListener('click', function () { box.focus(); });
+  return box;
+}
+
+// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-plan) 자산을 읽어옴 ──
+(async function () {
+  const grid = document.getElementById('cast-grid');
+  if (!grid) return;
+  let planAssets = {};
+  try {
+    const r = await fetch('/api/comic-assets/learning-comic-plan');
+    const j = await r.json();
+    planAssets = (j && j.data) || {};
+  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
+  grid.querySelectorAll('.cast-item').forEach(function (item) {
+    const key = item.getAttribute('data-key');
+    if (planAssets[key]) {
+      const frame = item.querySelector('.frame');
+      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
+    }
+  });
+})();
+
+// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
+(function () {
+  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^[a-z0-9-]+$/.test(docId)) return;
+  const api = '/api/comic-feedback/' + docId;
+
+  function updateBar(total) {
+    const bar = document.getElementById('feedback-cnt');
+    if (bar) bar.textContent = total;
+  }
+
+  async function loadNotes() {
+    try {
+      const r = await fetch(api);
+      const j = await r.json();
+      return (j && j.data && j.data.pages) || {};
+    } catch (e) { return {}; }
+  }
+
+  async function saveNote(page, note, statusEl, ta) {
+    statusEl.textContent = '저장 중…';
+    try {
+      const r = await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, note: note }),
+      });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.error || 'save failed');
+      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
+      ta.classList.toggle('has-note', !!note.trim());
+      updateBar(j.data.total);
+      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
+    } catch (e) {
+      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
+      statusEl.style.color = '#e85c3a';
+    }
+  }
+
+  async function init() {
+    const pages = document.querySelectorAll('.page');
+    if (!pages.length) return;
+    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
+    const notes = loaded[0];
+    const assets = loaded[1];
+
+    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
+    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
+      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
+    });
+
+    const anchor = document.querySelector('header.hero');
+    if (anchor) {
+      const bar = document.createElement('div');
+      bar.id = 'feedback-bar';
+      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
+      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+    }
+
+    pages.forEach(function (card) {
+      const pnoEl = card.querySelector('.pno');
+      const m = pnoEl && pnoEl.textContent.match(/\d+/);
+      if (!m) return;
+      const pno = m[0];
+
+      const main = document.createElement('div');
+      while (card.firstChild) main.appendChild(card.firstChild);
+      card.appendChild(main);
+
+      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
+      const mainPno = main.querySelector('.pno');
+      const sceneEl = main.querySelector('.scene');
+      if (mainPno && sceneEl) {
+        const row = document.createElement('div');
+        row.className = 'pno-row';
+        mainPno.parentNode.insertBefore(row, mainPno);
+        row.appendChild(mainPno);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋 그림 프롬프트 복사';
+        copyBtn.addEventListener('click', async function () {
+          const prompt = composeImagePrompt(pno, sceneEl.innerText);
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = '복사됨 ✓';
+            copyBtn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () {
+            copyBtn.textContent = '📋 그림 프롬프트 복사';
+            copyBtn.classList.remove('done');
+          }, 1600);
+        });
+        row.appendChild(copyBtn);
+      }
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const saved = notes[pno] || '';
+      panel.innerHTML =
+        '<label>' + pno + '쪽 생성 이미지</label>' +
+        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
+        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
+        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
+      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
+      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
+      const ta = panel.querySelector('textarea');
+      if (saved) ta.classList.add('has-note');
+      const btn = panel.querySelector('button');
+      const status = panel.querySelector('.status');
+      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
+      });
+
+      card.classList.add('with-notes');
+      card.appendChild(panel);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>

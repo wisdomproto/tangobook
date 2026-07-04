@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 4화 「멈춘 물시계」 — 콘티</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 24px 0 28px; border-bottom: 3px solid var(--coral); margin-bottom: 28px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 12px; }
+  .hero h1 { font-size: 32px; font-weight: 900; margin: 8px 0 4px; }
+  .hero .sub { color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+  .divider { text-align:center; margin: 40px 0 8px; font-weight: 900; color: var(--mint); letter-spacing: .15em; font-size: 14px; }
+  .page { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 14px 0; }
+  .page .pno { font-weight: 900; color: var(--coral-dark); font-size: 15px; }
+  .page .scene { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .page .scene b { color: var(--mint); font-weight: 800; }
+  .page .text { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 8px; font-size: 15px; }
+  .page .text .sp { font-weight: 800; color: var(--coral-dark); }
+  /* 콘티 리뷰 패널 */
+  .page.with-notes { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .page.with-notes { grid-template-columns: 1fr; } }
+  .note-panel { border-left: 2px dashed var(--line); padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 900px) { .note-panel { border-left: none; border-top: 2px dashed var(--line); padding: 12px 0 0; } }
+  .note-panel label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+  .note-panel textarea { width: 100%; min-height: 96px; resize: vertical; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 13px; background: #fffdfa; }
+  .note-panel textarea:focus { outline: none; border-color: var(--coral); }
+  .note-panel textarea.has-note { border-color: var(--mint); background: #f4fffc; }
+  .note-panel .row { display: flex; align-items: center; gap: 10px; }
+  .note-panel button { background: var(--coral); color: #fff; border: none; border-radius: 999px; padding: 7px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .note-panel button:hover { background: var(--coral-dark); }
+  .note-panel .status { font-size: 12px; color: var(--mint); font-weight: 700; }
+  #feedback-bar { position: sticky; top: 54px; z-index: 10; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 18px; margin: 16px 0 24px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #feedback-bar .cnt { color: #ffd9cc; }
+  .pno-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .copy-btn:hover { background: var(--mint); color: #fff; }
+  .copy-btn.done { background: var(--mint); color: #fff; }
+  .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
+  .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+  .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cast-strip .hint a { color: var(--coral-dark); font-weight: 700; }
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .cast-item { text-align: center; }
+  .cast-item .frame { border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 26px; }
+  .cast-item .frame img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .cast-item .nm { font-size: 12.5px; font-weight: 800; margin-top: 5px; color: var(--ink-soft); }
+  .guest-section { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--coral); border-radius: 16px; padding: 18px 22px; margin: 20px 0; }
+  .guest-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+  .guest-section .hint { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .char-prompt { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt details { margin-top: 6px; }
+  .char-prompt summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 8px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+</style>
+</head>
+<body data-comic-doc="ep04">
+<div class="wrap">
+
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-plan.html">📘 기획서</a></nav>
+
+<header class="hero" id="top">
+  <div class="kicker">TIME TICO · EPISODE 04</div>
+  <h1>4화 「멈춘 물시계」</h1>
+  <div class="sub">1434년 조선, 장영실의 공방 · 자격루와 자석 — 36쪽 콘티 (장면 지시 + 페이지 텍스트) · 해금: 자석 팔</div>
+</header>
+
+<div class="cast-strip">
+  <h2>⭐ 고정 캐릭터 확정 시트</h2>
+  <div class="hint">기획서 §6에 붙여넣은 레퍼런스가 여기 자동 표시됩니다 — 컷 작업의 기준. 비어 있으면 <a href="learning-comic-plan.html#s6">기획서에서 붙여넣기 →</a></div>
+  <div class="cast-grid" id="cast-grid">
+    <div class="cast-item" data-key="bori"><div class="frame">👧</div><div class="nm">보리</div></div>
+    <div class="cast-item" data-key="noa"><div class="frame">👦</div><div class="nm">노아</div></div>
+    <div class="cast-item" data-key="tico"><div class="frame">🤖</div><div class="nm">티코</div></div>
+    <div class="cast-item" data-key="bongsu"><div class="frame">👴</div><div class="nm">봉수 박사</div></div>
+    <div class="cast-item" data-key="zero"><div class="frame">🌑</div><div class="nm">0호</div></div>
+  </div>
+</div>
+
+<div class="guest-section">
+  <h2>🎭 이 화의 게스트 캐릭터 레퍼런스</h2>
+  <div class="hint">3장면 이상 등장하거나 클로즈업이 있는 게스트는 시트를 먼저 확정한다. 아래 비주얼 키는 각 쪽 [📋 그림 프롬프트 복사]에도 자동 포함되어 컷 간 일관성을 지킨다. (단역 — 물장수·일꾼·상인·문지기·관원 — 은 장면 지시 서술로 충분, 시트 불필요)</div>
+
+  <!-- 고증 확인 필요: 장영실의 출생 연도는 '1390년 무렵'이라는 추정만 존재 — 1434년 시점 나이를 '40대 중반'으로 잠정 처리 -->
+  <!-- 고증 확인 필요: 세종대 정4품(호군) 관복 단령의 정확한 색 — 시트 프롬프트에는 '짙은 남색 계열 단령'으로 잠정 처리 -->
+  <div class="char-prompt" data-char="장영실" data-key="jangyeongsil">
+    <div class="head"><span style="font-size:20px">🔧</span><b>장영실 (40대 중반 발명가 관리)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 어른은 4등신 카툰 비율 — 단, 실존 위인이므로 우스꽝스럽지 않게, 위엄과 따뜻함이 공존하는 존중 어린 묘사. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 2벌 — ① 공방 작업 차림(소매를 걷어 올린 무명 저고리 + 짙은 회갈색 바지 + 팔에 토시 + 허리에 연장 주머니, 머리에는 수건 두건) ② 관복 차림(짙은 남색 계열 단령 + 검은 사모 — 공식 행사용). 오른쪽 위에 표정 6종 얼굴 그리드(따뜻한 미소·골똘한 궁리·깜짝 놀람·깊은 근심·환한 안도·흐뭇한 자랑). 오른쪽 아래 대표 포즈 2개(한쪽 무릎을 꿇고 톱니 장치를 들여다보는 포즈, 아이 눈높이로 허리를 숙여 무언가를 설명하는 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 장영실, 40대 중반 조선의 발명가 관리(1434년 기준). 햇볕에 그을린 구릿빛 피부, 다부지고 단단한 체격, 짙은 눈썹 아래 반짝이는 관찰자의 눈, 짧고 단정한 턱수염. 크고 굳은살 박인 장인의 손. 상투를 틀었고 작업할 때는 수건 두건을 두른다. 노비로 태어나 실력 하나로 임금의 인정을 받은 사람 특유의 겸손하고 따뜻한 인상 — 아이에게도 눈높이를 맞춰 주는 다정함과, 장치를 볼 때의 진지한 장인의 위엄이 공존한다.</pre></details>
+  </div>
+</div>
+
+<div class="divider">— A. 일상 후크 (1~3쪽) —</div>
+
+<div class="page"><div class="pno">1쪽</div>
+  <div class="scene"><b>컷</b> 중형 와이드컷, 아이레벨.<br/><b>장소·시간</b> 토요일 한낮, 봉수 박사의 창고 실험실. 창으로 노란 햇살이 비스듬히 들어온다.<br/><b>인물</b> 작업대 앞 — 보리(주황 후드티)가 막대에 실을 묶고 그 끝에 빨간 말굽자석을 매단 '자석 낚싯대'로 클립·나사 무더기를 낚아 올리며 신남. 옆에서 노아(하늘색 셔츠)가 숙제 공책을 펴 둔 채 구경. 지나가던 티코가 안테나부터 자석에 쩍! 붙어 대롱대롱 매달려 팔다리를 버둥거린다(눈은 지그재그 당황). 티코 가슴 코어의 부품 게이지는 12칸 중 3칸 점등.<br/><b>배경·소품</b> 선반의 발명품들, 벽의 회로도, 바닥에 흩어진 클립과 나사.<br/><b>톤</b> 따뜻한 주말 오후의 유쾌한 소동. 이번 화 테마(자석) 예열 컷.</div>
+  <div class="text"><span class="sp">나레이션:</span> 부품을 세 개나 되찾은 뒤, 창고에는 오랜만에 한가한 토요일이 찾아왔어요.<br/><span class="sp">보리:</span> "히히, 자석 낚시 최고! 클립도 나사도 다 낚인다!"<br/><span class="sp">티코:</span> "삐빅?! 인간, 내 안테나 놔! 나는 낚싯감이 아니— 어라, 안 떨어지잖아!"<br/><span class="sp">노아:</span> "자석은 쇠로 된 걸 끌어당기니까… 티코, 네 안테나도 쇠였구나?"</div>
+</div>
+
+<div class="page"><div class="pno">2쪽</div>
+  <div class="scene"><b>컷</b> 중형, 티코 중심 클로즈업.<br/><b>장소·시간</b> 같은 창고, 직후.<br/><b>인물</b> 자석에서 겨우 떨어진 티코의 눈이 번쩍 느낌표 모양으로 바뀌고, 가슴 코어에서 홀로그램 지구가 떠올라 한반도의 한 지점이 주황색으로 깜빡인다. 좌우에서 보리(눈 반짝, 몸이 앞으로 기움)와 노아(안경을 고쳐 쓰며 긴장 반 설렘 반)가 홀로그램을 들여다본다.<br/><b>배경·소품</b> 작업대 위 흩어진 클립, 뒤편에서 고개를 내미는 봉수 박사.<br/><b>톤</b> 민트색 홀로그램 광이 세 얼굴을 물들이는 출동 신호 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "삐빅! 부품 신호 포착! 좌표는… 조선, 1434년!"<br/><span class="sp">보리:</span> "조선? 또 조선이야? 세종대왕님 또 만나는 거야?"<br/><span class="sp">티코:</span> "이번엔 지난번보다 9년이나 <b>전</b>이다. 그 시대 사람들은 아직 우리를 만난 적이 없지!"<br/><span class="sp">노아:</span> "시간여행은 순서대로가 아니구나… 신기해."</div>
+</div>
+
+<div class="page"><div class="pno">3쪽</div>
+  <div class="scene"><b>컷</b> 중형, 좌우 2요소 구성.<br/><b>장소·시간</b> 창고 중앙, 잠시 후.<br/><b>인물</b> 왼쪽 — 봉수 박사가 낡은 역사책을 펼쳐 들고 브리핑(돋보기안경 너머 반짝이는 눈, 책에는 물시계 삽화). 오른쪽 — 창고 벽면에 민트색 타임 게이트 소용돌이가 열리고, 보리가 노아의 손목을 잡아끌며 이미 반쯤 뛰어드는 중. 노아는 상체만 박사 쪽으로 남아 허둥지둥. 티코는 보리의 배낭 속으로 쏙.<br/><b>배경·소품</b> 게이트의 빛 리본, 바람에 날리는 종이들.<br/><b>톤</b> 브리핑의 차분함 → 출발의 속도감으로 전환되는 컷.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "1434년이라면 <b>장영실</b>의 시대다. 남의 집 종으로 태어났지만, 세종대왕이 솜씨 하나만 보고 관리로 뽑은 천재 발명가지."<br/><span class="sp">봉수 박사:</span> "그가 만든 <b>자격루</b>는 물의 힘으로 스스로 종을 치는 자동 물시계란다. 해시계는 밤이나 비 오는 날엔 소용이 없거든."<br/><span class="sp">보리:</span> "물로 움직이는 시계? 궁금하다! 가자, 노아!"<br/><span class="sp">노아:</span> "박사님 말씀 아직 안 끝났— 으아아!"</div>
+</div>
+
+<div class="divider">— B. 도착 · 이질감 (4~8쪽) —</div>
+
+<div class="page"><div class="pno">4쪽</div>
+  <div class="scene"><b>컷</b> 대형, 나선형 구도(시간 터널).<br/><b>장소·시간</b> 시간 터널 내부.<br/><b>인물</b> 민트와 주황의 빛 리본 나선 속을 셋이 낙하 중 — 보리는 수영하듯 앞장서 헤엄치는 포즈(함박웃음), 노아는 배낭끈을 꽉 쥐고 눈을 질끈, 티코는 보리 배낭에서 고개만 내밀고 카운트다운. 주위로 톱니바퀴, 물방울, 반짝이는 쇠구슬, 종·북·징의 그림자 조각들이 별처럼 흘러간다(이번 화 테마 암시).<br/><b>톤</b> 환상적인 놀이기구 느낌. 물방울이 빛을 머금어 반짝이게.</div>
+  <div class="text"><span class="sp">보리:</span> "이번엔 물방울이 날아다녀! 예쁘다!"<br/><span class="sp">노아:</span> "예쁘긴 한데 속은 여전히 울렁거려…!"<br/><span class="sp">티코:</span> "도착까지 3, 2, 1… 착지 자세!"</div>
+</div>
+
+<div class="page"><div class="pno">5쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클(이번 화 간판 컷 ①). 높은 부감에서 거리 전체 → 중앙 인물로 시선이 떨어지는 구도.<br/><b>장소·시간</b> 1434년 한양, 한여름 아침 저잣거리. 멀리 경복궁 지붕과 북악산. 초가와 기와가 섞인 거리, 삼베·모시를 널어 둔 포목전, 참외·수박을 쌓은 과일 노점, 지게꾼, 부채질하는 노인, 물동이 인 아낙.<br/><b>인물</b> 거리 한복판 — 한복으로 변신한 두 아이. 보리는 연분홍 저고리+쪽빛 치마 차림을 내려다보고 씩 웃으며 소매를 걷어붙이고, 노아는 연갈색 바지저고리의 대님을 어색하게 내려다본다. 보리의 배낭에서 티코가 빼꼼.<br/><b>배경·소품</b> 매미 소리를 암시하는 버드나무, 우물가.<br/><b>톤</b> 밝고 활기찬 여름 시대 스펙터클. 배경 디테일 최대치(학습 신뢰도 컷).</div>
+  <div class="text"><span class="sp">나레이션:</span> 눈을 떠 보니 약 590년 전, 한여름의 조선 한양이었어요. 옷도 어느새 시원한 여름 한복으로 변해 있었지요.<br/><span class="sp">보리:</span> "매미 소리다! 지난번 조선이랑 같은 냄새가 나."<br/><span class="sp">티코:</span> "(속닥) 오늘부터 나는 다시 인형이다. 알지? 무슨 일이 있어도… 인형."</div>
+</div>
+
+<div class="page"><div class="pno">6쪽</div>
+  <div class="scene"><b>컷</b> 중형, 우물가 대화 컷. 아이레벨.<br/><b>장소·시간</b> 저잣거리 우물가. 원경에 종루(커다란 종이 걸린 누각) 지붕이 보이도록.<br/><b>인물</b> 물지게를 진 물장수 아저씨(단역 — 수건을 목에 두른 순박한 인상)가 바가지로 물을 마시며 아이들과 이야기. 노아가 검지를 세우고 질문하는 포즈, 보리는 우물 난간에 팔꿈치를 얹고 갸웃.<br/><b>배경·소품</b> 우물, 두레박, 항아리들. 물장수의 손가락이 종루 방향을 가리킨다.<br/><b>톤</b> 시대의 '시간 감각'이 드러나는 관찰 컷. 밝은 아침빛.</div>
+  <div class="text"><span class="sp">노아:</span> "아저씨, 여기 사람들은 시계도 없이 시각을 어떻게 알아요?"<br/><span class="sp">물장수:</span> "종소리를 듣고 알지요. 새벽 종이 울리면 성문이 열리고, 밤 종이 울리면 다들 집으로 돌아간다오."<br/><span class="sp">보리:</span> "그럼 종 치는 사람이 시각을 틀리면요?"<br/><span class="sp">물장수:</span> "그러니 큰일이지! 헌데 요즘 궁궐에서 아주 굉장한 물시계를 만들었다는 소문이 있소."</div>
+</div>
+
+<div class="page"><div class="pno">7쪽</div>
+  <div class="scene"><b>컷</b> 중형, 상하 2요소 구성.<br/><b>상단</b> 배낭 속 티코의 눈에서 민트색 레이더 동심원이 퍼져 나가 원경의 경복궁(광화문 지붕 실루엣) 방향을 가리킨다.<br/><b>하단 전경</b> 채소 노점 앞 — 상인 둘(단역)이 마주 서서 수군수군. 한 명은 반신반의로 고개를 절레절레, 한 명은 신이 나서 손짓 발짓. 그 옆을 지나가며 아이들이 서로 마주 보고 씩 웃는다.<br/><b>톤</b> 단서 두 개(신호 방향 + 물시계 소문)가 한 컷에 겹치는 구성. ep01의 9쪽과 같은 문법.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 삐빅! 부품 신호는 경복궁 쪽… 궁궐 담장 곁의 전각이다!"<br/><span class="sp">상인 1:</span> "그 얘기 들었소? 내일 아침부터 사람 없이 <b>스스로 종을 치는 물시계</b>가 시각을 알린다더군!"<br/><span class="sp">상인 2:</span> "스스로 친다니, 그게 무슨 도깨비 장난이오?"<br/><span class="sp">보리:</span> "(속닥) 히히, 도깨비가 아니라 발명품이겠지. 우린 알지롱."</div>
+</div>
+
+<div class="page"><div class="pno">8쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드, 로우앵글(전각의 위용 강조).<br/><b>장소·시간</b> 경복궁 담장 곁, 새로 지은 전각 '보루각'과 그 옆에 딸린 장영실의 공방. 오전.<br/><b>인물</b> 전각 앞이 분주하다 — 물동이를 지고 줄지어 드나드는 일꾼들, 궤짝을 나르는 목수, 문서를 들고 서성이는 관원. 화면 앞쪽 담 모퉁이에서 아이들이 빼꼼 내다본다. 담장 위에는 <u>하얀 아기 고양이 한 마리</u>가 앉아 이 소동을 구경 중(1화 '밤이'의 아기 시절 — 대사 없는 이스터에그).<br/><b>배경·소품</b> 전각 처마의 단청, 쌓인 목재와 대나무 홈통.<br/><b>톤</b> 큰일을 앞둔 분주함. 여름 햇살에 먼지가 반짝.</div>
+  <div class="text"><span class="sp">노아:</span> "저 전각인가 봐. 사람들이 엄청 바쁘게 움직여."<br/><span class="sp">티코:</span> "(속닥) 삐빅, 부품 신호는 저 전각 안 깊은 곳이다. 그런데… 신호가 이상하게 조용해. 잠든 것처럼."<br/><span class="sp">보리:</span> "그럼 들어가서 깨워 줘야지! 들어갈 방법을 찾자."</div>
+</div>
+
+<div class="divider">— C. 문제 발견 (9~15쪽) —</div>
+
+<div class="page"><div class="pno">9쪽</div>
+  <div class="scene"><b>컷</b> 중형, 동적인 사선 구도.<br/><b>장소·시간</b> 보루각 앞길, 직후.<br/><b>인물</b> 무거운 물지게를 진 늙은 일꾼(단역 — 흰 수염, 굽은 허리)이 돌부리에 걸려 휘청하는 순간 — 보리가 몸을 날려 물동이 한쪽을 어깨로 받치고, 노아도 달려와 반대쪽 항아리를 두 팔로 끌어안는다. 물이 찰랑 넘칠 듯 말 듯. 문지기(단역)가 그 모습을 보고 고개를 끄덕이며 문을 열어 준다.<br/><b>배경·소품</b> 전각 대문, 드나드는 일꾼 행렬.<br/><b>톤</b> 착한 개입이 자연스럽게 문을 여는 컷. 아슬아슬+훈훈.</div>
+  <div class="text"><span class="sp">보리:</span> "할아버지, 제가 받칠게요! 영차!"<br/><span class="sp">일꾼:</span> "허이구, 고맙다 얘들아. 물시계에 쓸 귀한 물이니 한 방울도 흘리면 안 되거든."<br/><span class="sp">노아:</span> "(속닥) 물시계에 쓸 물이래! 보리야, 우리 지금 제대로 가고 있어."<br/><span class="sp">나레이션:</span> 그렇게 아이들은 물 나르는 일을 도우며 전각 마당까지 들어가게 되었어요.</div>
+</div>
+
+<div class="page"><div class="pno">10쪽</div>
+  <div class="scene"><b>컷</b> 중형, 공방 내부 아이레벨.<br/><b>장소·시간</b> 보루각 곁 장영실의 공방 안. 창으로 들어온 빛기둥에 톱밥 먼지가 반짝인다.<br/><b>인물</b> 공방 중앙 — 장영실(소매 걷은 무명 저고리, 머리에 수건 두건, 팔토시)이 한쪽 무릎을 꿇고 작은 톱니 물레 장치를 조심스레 돌려 보는 중. 물동이를 내려놓던 아이들과 눈이 마주치자 따뜻하게 미소 짓는다. 보리는 이미 눈이 별처럼 반짝이며 몸이 앞으로 기울었다.<br/><b>배경·소품</b> 벽에 걸린 설계 두루마리, 선반의 톱니·구슬·나무 인형 팔, 작업대의 끌과 대패.<br/><b>톤</b> 장인의 공간 특유의 정돈된 경이로움. 따뜻한 목재색.</div>
+  <div class="text"><span class="sp">장영실:</span> "무거운 물을 날라 주었구나. 고맙다, 얘들아."<br/><span class="sp">보리:</span> "우와… 이 방 굉장해요! 이 톱니도, 저 인형도, 다 아저씨가 만드셨어요?"<br/><span class="sp">장영실:</span> "허허, 궁금하냐? 나는 장영실이라 한다. 이리 오너라 — 이것들보다 백배는 굉장한 것을 보여 주마."</div>
+</div>
+
+<div class="page"><div class="pno">11쪽</div>
+  <div class="scene"><b>컷</b> 대형 세로 스펙터클(이번 화 간판 컷 ②), 로우앵글로 올려다보는 구도.<br/><b>장소·시간</b> 보루각 내부. 높은 천장, 창살 사이 빛줄기.<br/><b>인물·장면</b> 화면 가득 우뚝 선 자격루 — 층층이 놓인 큰 물항아리(파수호)에서 가는 물길이 아래의 길쭉한 원통(수수호)으로 이어지고, 그 위 누각 단에는 종·북·징과 나무 인형들이 의젓하게 서 있다. 그 앞에 선 아이들은 입을 떡 벌리고 고개를 한껏 젖혔다(콩알만 하게 대비). 장영실이 곁에서 팔을 들어 소개하는 포즈.<br/><b>배경·소품</b> 반짝이는 놋 물받이, 잘 짜인 목조 골조.<br/><b>톤</b> 경이로움 최대치. 물의 반짝임과 목재의 온기.</div>
+  <div class="text"><span class="sp">나레이션:</span> 전각 안에는 집채만 한 물시계가 우뚝 서 있었어요.<br/><span class="sp">장영실:</span> "이름은 <b>자격루</b> — '스스로 치는 물시계'라는 뜻이지. 물이 차오르면 구슬이 구르고, 인형이 저 종을 친단다."<br/><span class="sp">보리:</span> "사람이 안 쳐도 스스로요?!"<br/><span class="sp">노아:</span> "(속닥) 티코… 부품 신호, 설마 이 안이야?"</div>
+</div>
+
+<div class="page"><div class="pno">12쪽</div>
+  <div class="scene"><b>컷</b> 중형 긴장컷, 3단 진행 느낌(좌→우 시선 흐름).<br/><b>장소·시간</b> 보루각 내부, 시험 가동.<br/><b>인물·장면</b> 좌측 — 장영실이 물길을 여는 손 클로즈. 중앙 — 원통 속 잣대가 둥실 떠오르고 작은 구슬이 톡 떨어지는 디테일. 우측 — 그러나 인형의 팔은 멈춘 채 그대로, 종은 조용하다. 정적을 강조하는 여백. 하단 인셋 — 굳어 가는 장영실의 얼굴 클로즈업(깊은 근심).<br/><b>배경·소품</b> 멈춘 인형 팔의 그림자가 길게.<br/><b>톤</b> 기대 → 정적의 낙차. 소리가 사라진 듯한 연출.</div>
+  <div class="text"><span class="sp">나레이션:</span> 쪼르륵… 톡. 그런데 그다음은, 아무 소리도 나지 않았어요.<br/><span class="sp">보리:</span> "어? 종이 안 울려요."<br/><span class="sp">장영실:</span> "…또 멈췄구나. 어제부터 몇 번을 뜯어보아도 까닭을 알 수가 없다."<br/><span class="sp">티코:</span> "(속닥) 삐빅… 부품 신호가 바로 이 물시계 <b>안</b>에서 온다!"</div>
+</div>
+
+<div class="page"><div class="pno">13쪽</div>
+  <div class="scene"><b>컷</b> 중형, 좌우 대치 구도.<br/><b>장소·시간</b> 보루각 앞마당, 한낮.<br/><b>인물</b> 왼쪽 — 깐깐한 인상의 궁 관원(픽션 단역 — 마른 체형, 검은 사모, 팔짱)이 부채로 자격루 쪽을 가리키며 다그친다. 오른쪽 — 장영실이 두건을 벗어 쥐고 고개를 숙였지만 눈빛만은 단단하다. 뒤편 기둥 그늘에서 아이들이 걱정스럽게 지켜본다.<br/><b>배경·소품</b> 마당의 해 그림자(시간 압박 암시).<br/><b>톤</b> 압박감. 관원은 얄밉지만 악당은 아니게(자기 일에 진심인 깐깐함).</div>
+  <div class="text"><span class="sp">관원:</span> "내일 아침이면 전하께서 직접 들으러 오시오! 그때도 물시계가 멈춘 채면 어쩔 셈이오!"<br/><span class="sp">장영실:</span> "밤을 새워서라도 반드시 고쳐 놓겠습니다."<br/><span class="sp">나레이션:</span> 궁에는 아직도 장영실을 못 미더워하는 사람들이 있었거든요.<br/><span class="sp">노아:</span> "(속닥) 내일 아침까지라니… 시간이 없어."</div>
+</div>
+
+<div class="page"><div class="pno">14쪽</div>
+  <div class="scene"><b>컷</b> 중형, 구석 회의 컷. 아이들 삼각 구도.<br/><b>장소·시간</b> 보루각 뒤편 그늘진 구석, 오후.<br/><b>인물</b> 쪼그려 모여 앉은 보리와 노아, 배낭에서 상체를 내민 티코의 눈에 미니 레이더 화면(자격루 실루엣 속 깜빡이는 점). 배경 원경 — 등불을 든 장영실이 자격루 아래를 살피는 실루엣.<br/><b>배경·소품</b> 벽에 기대 둔 예비 대나무 홈통, 구슬 바구니.<br/><b>톤</b> 속닥속닥 작전 회의. 룰1(부품=문제의 한가운데)이 확정되는 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 확실하다. 내 부품이 이 물시계 속 어딘가에 있어. 어쩌면 그게 고장의 원인일지도 몰라."<br/><span class="sp">보리:</span> "(속닥) 그럼 부품을 찾아내면 시계도 다시 움직인다는 거네?"<br/><span class="sp">노아:</span> "(속닥) 응. 아저씨를 돕는 길이 곧 부품을 찾는 길이야."</div>
+</div>
+
+<div class="page"><div class="pno">15쪽</div>
+  <div class="scene"><b>컷</b> 중형 훈훈컷, 등불 중심의 원형 구도.<br/><b>장소·시간</b> 보루각 내부, 해 질 녘. 등불이 하나둘 켜진다.<br/><b>인물</b> 보리가 소매를 걷어붙이며 장영실 앞에 씩씩하게 나서고, 노아도 그 옆에 나란히 선다. 장영실은 놀랐다가 이내 허리를 숙여 아이들과 눈높이를 맞추고 따뜻하게 웃는다. 티코는 배낭 속에서 인형인 척(눈만 가늘게 뜸).<br/><b>배경·소품</b> 등불빛에 물든 자격루의 거대한 그림자.<br/><b>톤</b> 팀 결성의 온기. 주황 등불 vs 푸른 저녁의 대비.</div>
+  <div class="text"><span class="sp">보리:</span> "아저씨! 저희도 같이 찾을래요. 살펴보는 눈은 많을수록 좋잖아요!"<br/><span class="sp">장영실:</span> "허허… 물동이를 받쳐 내던 그 재빠른 눈이라면 큰 힘이 되겠구나. 좋다, 함께 살펴보자."<br/><span class="sp">티코:</span> "(속닥) 단, 잊지 마라 인간들 — 해 뜨기 전까지가 우리의 제한 시간이다."</div>
+</div>
+
+<div class="divider">— D. 시도 → 실패 → 힌트 (16~25쪽) —</div>
+
+<div class="page"><div class="pno">16쪽</div>
+  <div class="scene"><b>컷</b> 중형 슬랩스틱, 하이앵글(물바다 강조).<br/><b>장소·시간</b> 보루각 내부, 초저녁.<br/><b>인물</b> 보리가 물동이를 통째로 기울여 맨 위 파수호에 콸콸 붓는 순간 — 항아리가 넘쳐 물이 폭포처럼 쏟아지고, 보리는 쫄딱 젖은 채 머리에 바가지를 뒤집어썼다. 노아는 두 팔을 뻗어 말리다 물벼락에 뒷걸음, 장영실은 눈이 동그래져 얼음. 티코는 마른 선반 위 배낭 속에서 눈만 X자.<br/><b>배경·소품</b> 바닥에 번지는 물웅덩이, 둥둥 뜬 바가지, 물방울 만화 기호.<br/><b>톤</b> 유쾌한 대실패. 물보라가 등불빛에 반짝.</div>
+  <div class="text"><span class="sp">보리:</span> "물이 모자라서 힘이 없는 거 아냐? 콸콸 부어 보자 — 생각은 뛰면서 해!"<br/><span class="sp">노아:</span> "잠깐, 잠깐만! 보리야, 그러다—"<br/><span class="sp">나레이션:</span> 촤아악! 물이 넘쳐 바닥이 온통 물바다가 되고 말았어요.<br/><span class="sp">보리:</span> "…죄송해요."</div>
+</div>
+
+<div class="page"><div class="pno">17쪽</div>
+  <div class="scene"><b>컷</b> 중형, 따뜻한 사제 컷.<br/><b>장소·시간</b> 보루각 내부, 직후. 함께 물을 닦는 중.<br/><b>인물</b> 장영실이 화내기는커녕 웃으며 걸레질을 하고, 그 옆에서 젖은 보리와 노아도 걸레를 밀며 나란히. 장영실의 손이 층층이 놓인 물항아리들을 가리킨다 — 항아리 사이 물길을 따라가는 점선 강조 연출.<br/><b>배경·소품</b> 계단식 파수호 구조가 잘 보이는 앵글, 짜 놓은 걸레.<br/><b>톤</b> 실패를 감싸 주는 어른의 품. 지식이 스며드는 컷.</div>
+  <div class="text"><span class="sp">장영실:</span> "허허, 괜찮다. 나도 이 시계를 만들며 백 번도 넘게 실패했는걸."<br/><span class="sp">장영실:</span> "허나 물시계는 물이 많다고 힘이 세지는 게 아니란다. 언제나 <b>똑같은 빠르기</b>로 흘러야 시각이 맞지. 항아리를 층층이 놓은 것도 그 때문이야."<br/><span class="sp">노아:</span> "일정하게 흐르는 물이… 이 시계의 심장이구나."</div>
+</div>
+
+<div class="page"><div class="pno">18쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출(시리즈 공통 포맷).<br/><b>장소·시간</b> 보루각 뒤편 구석 — 장영실의 시야가 닿지 않는 기둥 뒤(룰4 안전 지대). 밤.<br/><b>인물·장면</b> 티코의 눈에서 빔이 나와 공중에 민트색 홀로그램 카드가 떠오른다. 카드 안 도해: 물항아리 → 원통 속 떠오르는 잣대 → 작은 구슬이 또르르 → 큰 쇠구슬이 데구루루 → 인형 팔이 종을 땡! 치는 릴레이가 화살표로 이어진 아이콘풍 일러스트. 카드 빛이 올려다보는 두 아이의 얼굴을 민트색으로 물들인다.<br/><b>톤</b> '티코피디아' 시그니처 연출.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아, 스캔! 자격루의 비밀 — 물이 차면 잣대가 둥실 떠올라 <b>작은 구슬</b>을 톡 굴리고, 작은 구슬이 <b>큰 쇠구슬</b>을 깨우면, 쇠구슬이 데구루루 굴러가 인형의 팔을 움직여 종을 치는 거다."<br/><span class="sp">보리:</span> "구슬 릴레이네!"<br/><span class="sp">노아:</span> "그럼 릴레이가 어디서 끊겼는지 찾으면 되겠다!"</div>
+</div>
+
+<div class="page"><div class="pno">19쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷.<br/><b>장소·시간</b> 같은 구석, 직후.<br/><b>인물</b> 노아의 손목 통신기에서 봉수 박사의 홀로그램 얼굴 — 가로 노이즈가 지나가며 얼굴이 지지직 뭉개지는 순간. 보리는 통신기를 귀에 대고 마구 두드리고, 노아는 팔을 안테나처럼 하늘로 뻗어 까치발. 티코는 시큰둥한 반쯤 감긴 눈.<br/><b>톤</b> 시리즈 러닝 개그(통신 두절). 과장된 리액션.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "허허, 잘 듣거라. 쇠붙이가 말을 안 들을 때는 말이다, 근처에 자— 치지직—"<br/><span class="sp">보리:</span> "할아버지?! 하필 제일 중요한 데서!"<br/><span class="sp">티코:</span> "통신 두절. …오늘도 결국 우리끼리 해결이군."</div>
+</div>
+
+<div class="page"><div class="pno">20쪽</div>
+  <div class="scene"><b>컷</b> 중형 탐정컷, 등불 아래 클로즈 중심.<br/><b>장소·시간</b> 자격루 아래쪽 구슬길(나무 홈통) 곁, 밤.<br/><b>인물·장면</b> 장영실과 아이들이 등불을 들고 구슬길을 점검. 보리가 예비 쇠구슬 하나를 홈통에 굴리는 순간 — 구슬이 길 중간에서 <u>휙 방향을 꺾으며</u> 홈통 옆 좁은 틈에 착! 달라붙는다. 구슬의 궤적을 점선+속도선으로 강조. 보리와 노아의 눈이 동시에 커진다.<br/><b>배경·소품</b> 홈통의 나뭇결, 틈새의 어둠.<br/><b>톤</b> 미스터리의 첫 꼬리를 잡는 순간. 등불 주황+어둠.</div>
+  <div class="text"><span class="sp">나레이션:</span> 물길도, 잣대도, 작은 구슬도 모두 멀쩡했어요. 남은 것은 큰 쇠구슬이 달리는 길.<br/><span class="sp">보리:</span> "굴러가라, 쇠구슬! …어? 방금 봤어? 구슬이 중간에서 휙 꺾였어!"<br/><span class="sp">노아:</span> "다시 한 번만! 이번엔 내가 눈 크게 뜨고 볼게."</div>
+</div>
+
+<div class="page"><div class="pno">21쪽</div>
+  <div class="scene"><b>컷</b> 중형, 반복 실험 연출(잔상 3연속).<br/><b>장소·시간</b> 같은 곳, 직후.<br/><b>인물·장면</b> 화면을 가로지르는 홈통 위 — 굴린 쇠구슬 세 개의 궤적이 잔상으로 겹쳐 그려지고, 셋 모두 <u>같은 지점</u>의 틈으로 끌려가 착·착·착 붙어 있다(붙은 구슬 세 개가 포도송이처럼). 그 지점을 들여다보는 노아의 옆얼굴 클로즈 — 안경알에 등불이 반사되어 번뜩. 보리는 네 번째 구슬을 쥔 채 입을 벌리고, 장영실도 수염을 쓸며 심각하게 들여다본다.<br/><b>톤</b> '같은 자리에 전부'라는 규칙성이 한눈에 보이는 관찰 컷.</div>
+  <div class="text"><span class="sp">나레이션:</span> 데구루루… 착! 데구루루… 착! 굴린 구슬마다 모두 같은 자리에 딱 붙어 멈췄어요.<br/><span class="sp">노아:</span> "구슬이 전부 저 좁은 틈으로 끌려가. 꼭 보이지 않는 손이 잡아당기는 것처럼!"<br/><span class="sp">보리:</span> "보이지 않는 손…? 서, 설마 진짜 도깨비?"</div>
+</div>
+
+<div class="page"><div class="pno">22쪽</div>
+  <div class="scene"><b>컷</b> 중형, 상하 2단 구성.<br/><b>상단(개그)</b> 구석에서 티코가 자신만만한 포즈로 미니 홀로그램을 띄운다 — 우스꽝스러운 왕눈이 두꺼비 그림(틀린 데이터). 보리와 노아가 동시에 반쯤 감긴 눈으로 쳐다봄.<br/><b>하단(발견)</b> 노아가 틈새에 등불을 바짝 대고 들여다보는 클로즈 — 틈 안쪽 깊은 곳에서 <u>민트색으로 은은히 빛나는 둥근 부품</u>에 쇠구슬들이 주렁주렁 붙어 있다(어둠 속 민트 발광 강조).<br/><b>톤</b> 개그 → 정답 발견의 리듬 전환.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 내 데이터에 의하면— 범인은 물속에 사는 커다란 두꺼비다!"<br/><span class="sp">노아:</span> "두꺼비가 어떻게 쇠구슬을 붙잡아… 책에서 봤는데, 쇠를 끌어당기는 돌이 있어. <b>자석</b>이야!"<br/><span class="sp">보리:</span> "틈 안에 뭐가 반짝여! 민트색으로!"<br/><span class="sp">티코:</span> "(속닥) 삐빅!! 내 부품이다! 저 녀석은 <b>자석 팔의 심장</b> — 쇠란 쇠는 몽땅 끌어당기는 힘센 자석이라고!"</div>
+</div>
+
+<div class="page"><div class="pno">23쪽</div>
+  <div class="scene"><b>컷</b> 중형, 단면 인셋 활용.<br/><b>장소·시간</b> 같은 곳, 밤.<br/><b>인물·장면</b> 보리가 틈에 팔을 어깨까지 쑤셔 넣고 얼굴을 잔뜩 찌푸린 채 버둥. 옆에 단면도 인셋 — 틈이 좁고 ㄱ자로 꺾여 있고, 부품은 꺾인 안쪽 깊숙한 곳에 콕 박혀 있음을 보여 준다. 장영실이 틈을 들여다보며 수염을 쓸고, 노아는 팔짱을 끼고 골똘.<br/><b>배경·소품</b> 등불 두 개, 바닥에 늘어놓은 연장들.<br/><b>톤</b> 막막함. 그러나 무겁지 않게(보리의 버둥거림이 코믹).</div>
+  <div class="text"><span class="sp">보리:</span> "제 팔이 제일 가는데도 안 닿아요!"<br/><span class="sp">장영실:</span> "허어… 쇠구슬을 잔뜩 붙들고 반짝이는 저 요상한 물건. 저것이 범인이었구나."<br/><span class="sp">노아:</span> "저건 저희가 잃어버린 물건이에요. 꼭 꺼내야 해요!"<br/><span class="sp">장영실:</span> "허나 장치를 뜯자면 꼬박 이틀 — 내일 아침까지는 도저히 무리다."</div>
+</div>
+
+<div class="page"><div class="pno">24쪽</div>
+  <div class="scene"><b>컷</b> 중형 긴장컷, 손끝 클로즈 중심.<br/><b>장소·시간</b> 같은 곳, 밤이 깊어 간다(창밖 달이 높이).<br/><b>인물·장면</b> 노아가 가늘고 긴 대나무 막대를 틈에 넣어 조심조심 — 그 순간 부품이 미끄러지며 <u>더 깊은 안쪽으로 톡 굴러 들어간다</u>. 단면 인셋: 부품 위치가 한 뼘 더 깊어짐. 모두 그대로 얼음(정지 효과선). 노아의 안경이 코끝까지 흘러내림.<br/><b>톤</b> 아차 하는 정적. 시도→실패 비트의 바닥.</div>
+  <div class="text"><span class="sp">나레이션:</span> 가늘고 긴 막대로 살살, 살살… 그런데!<br/><span class="sp">노아:</span> "안 돼! 더 깊이 들어가 버렸어…!"<br/><span class="sp">보리:</span> "미는 건 안 되겠어. 반대로… 끌어당길 수는 없을까?"<br/><span class="sp">티코:</span> "(속닥) 끌어당긴다라… 인간, 방금 아주 좋은 말 했다."</div>
+</div>
+
+<div class="page"><div class="pno">25쪽</div>
+  <div class="scene"><b>컷</b> 중형 유레카컷, 회상 인셋 활용.<br/><b>장소·시간</b> 같은 곳, 밤.<br/><b>인물·장면</b> 노아가 검지를 번쩍 세우고 눈을 반짝(안경에 별빛 하이라이트). 머리 위 말풍선풍 회상 인셋 — 1쪽 창고에서 보리가 실 끝의 자석으로 클립을 낚아 올리던 장면 미니 재현. 그 앞에서 보리가 주먹을 불끈, 장영실은 벌써 선반에서 명주실 타래와 가느다란 쇠막대를 꺼내 들고 온다.<br/><b>배경·소품</b> 명주실, 한 뼘 길이의 쇠막대.<br/><b>톤</b> 아이들의 관찰이 답을 여는 순간(룰5). 밝아지는 등불빛.</div>
+  <div class="text"><span class="sp">노아:</span> "저 부품은 자석이야. 자석은 쇠에 <b>달라붙지</b>. 그러니까 우리가 들어가는 게 아니라 — 쇠를 내려보내면, 부품이 스스로 붙을 거야!"<br/><span class="sp">보리:</span> "그거, 아침에 내가 한 자석 낚시다! 실에 쇠를 묶어서 낚아 올리자!"<br/><span class="sp">장영실:</span> "질긴 명주실에… 가는 쇠막대라. 참으로 영리한 꾀로구나!"</div>
+</div>
+
+<div class="divider">— E. 해결 · 회수 · 귀환 (26~33쪽) —</div>
+
+<div class="page"><div class="pno">26쪽</div>
+  <div class="scene"><b>컷</b> 중형 긴장컷, 2요소 대비.<br/><b>장소·시간</b> 자격루 곁, 새벽 기운이 도는 밤. 창밖 하늘이 검푸르게 밝아 오기 시작.<br/><b>인물·장면</b> 중앙 — 보리가 숨을 참고 실 끝의 쇠막대를 틈 안으로 살살 내려보낸다(실을 쥔 손가락 클로즈). 노아는 등불을 비추고, 장영실은 두 손을 모으고 지켜본다. 구석 인셋 — 티코 가슴 코어의 배터리 게이지가 붉게 15% 점멸.<br/><b>배경·소품</b> 팽팽한 명주실 한 가닥에 시선이 모이는 구도.<br/><b>톤</b> 이중 카운트다운(부품 회수 × 배터리)의 긴장.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 경고! 배터리 15%. 해 뜨기 전에 시간의 문을 못 열면 못 돌아간다 — <b>배터리 아껴, 인간들!</b>"<br/><span class="sp">노아:</span> "부품 꺼내기도, 집에 가기도, 전부 시간 싸움이야."<br/><span class="sp">보리:</span> "좋아… 낚시 시작. 떨지 마, 강보리."</div>
+</div>
+
+<div class="page"><div class="pno">27쪽</div>
+  <div class="scene"><b>컷</b> 대형 카타르시스컷.<br/><b>장소·시간</b> 같은 곳, 직후.<br/><b>인물·장면</b> 틈에서 실이 팽팽하게 당겨져 올라오는 순간 — 쇠막대 끝에 민트빛 부품이 착 달라붙어 딸려 나온다(부품의 발광이 화면의 광원). 부품에 붙어 있던 쇠구슬들이 후두둑 떨어져 데구루루 제 길로 굴러간다. 보리는 실을 두 손으로 치켜들고 함박웃음, 노아는 두 주먹을 불끈, 장영실은 눈이 휘둥그레.<br/><b>배경·소품</b> 굴러가는 쇠구슬들의 속도선.<br/><b>톤</b> 팡파레 직전의 환한 해방감. 민트빛+새벽빛.</div>
+  <div class="text"><span class="sp">나레이션:</span> 철컥! 쇠막대가 부품에 착 달라붙었어요. 살살, 살살…<br/><span class="sp">보리:</span> "잡았다아—!"<br/><span class="sp">노아:</span> "쇠구슬도 전부 풀려났어! 길이 뚫렸어!"<br/><span class="sp">티코:</span> "(삐비빅— 삐빅! ← 인형인 척 기쁨의 기계음)"</div>
+</div>
+
+<div class="page"><div class="pno">28쪽</div>
+  <div class="scene"><b>컷</b> 대형, 릴레이 성공 연출(좌→우 흐름선).<br/><b>장소·시간</b> 보루각 내부, 동트기 직전의 푸른 새벽.<br/><b>인물·장면</b> 장영실이 물길을 열자 — 잣대가 둥실, 작은 구슬 톡, 큰 쇠구슬 데구루루, 그리고 인형의 팔이 번쩍 올라가 종을 땡—! 치는 릴레이 전체를 한 화면에 흐름선으로. 종 둘레에 울림 동심원. 하단 인셋 — 두 손으로 입을 막는 장영실의 감격한 얼굴, 눈가에 맺힌 눈물 한 방울.<br/><b>톤</b> 새벽의 첫 종소리. 조용한 감동의 팡파레.</div>
+  <div class="text"><span class="sp">나레이션:</span> 쪼르륵… 톡. 데구루루— <b>땡!</b><br/><span class="sp">장영실:</span> "울린다… 다시 울린다! 하하하!"<br/><span class="sp">보리:</span> "성공이야!"<br/><span class="sp">노아:</span> "구슬 릴레이가 다시 이어졌어!"</div>
+</div>
+
+<div class="page"><div class="pno">29쪽</div>
+  <div class="scene"><b>컷</b> 중형 잔잔한 대화컷, 나란히 앉은 구도.<br/><b>장소·시간</b> 보루각 툇마루, 푸른 새벽. 하늘 끝이 살구색으로 물들기 시작.<br/><b>인물</b> 툇마루에 장영실과 두 아이가 나란히 걸터앉았다. 장영실이 민트빛 부품을 보리의 두 손에 쥐여 주는 순간(보리는 공손히 두 손으로). 노아는 곁에서 무릎을 안고 이야기에 귀 기울인다. 장영실의 옆얼굴은 온화하지만 어딘가 단단한 결의.<br/><b>배경·소품</b> 마당의 새벽 안개, 처마 끝 풍경.<br/><b>톤</b> 이번 화의 감정 피크. 신분을 넘어선 장인의 진심.</div>
+  <div class="text"><span class="sp">장영실:</span> "이 반짝이는 물건은 너희 것이라 했지. 가져가거라 — 덕분에 시계가 살아났다."<br/><span class="sp">장영실:</span> "나는 남의 집 종으로 태어났단다. 허나 전하께서는 신분이 아니라 <b>솜씨</b>를 보아 주셨지. 그러니 이 시계만은 단 한 번도 틀려서는 안 되는 게야."<br/><span class="sp">보리:</span> "그럼 이 시계가… 아저씨의 진짜 실력이네요!"<br/><span class="sp">노아:</span> "오늘 아침, 꼭 성공할 거예요."</div>
+</div>
+
+<div class="page"><div class="pno">30쪽</div>
+  <div class="scene"><b>컷</b> 대형 스펙터클(이번 화 간판 컷 ③), 축제 같은 부감.<br/><b>장소·시간</b> 이튿날 아침, 햇살이 쏟아지는 보루각.<br/><b>인물·장면</b> 자격루 누각 위 — 인형들이 종·북·징을 차례로 치고(울림 동심원 세 겹), 시각을 맡은 <u>쥐 모양 십이지 인형</u>이 팻말을 들고 의젓하게 나와 있다. 아래에는 관복 차림 관원들이 감탄해 웅성이고, 관복(단령)과 사모를 갖춘 장영실이 그 곁에 의젓하게 서 있다. 화면 구석 물동이 뒤 — 아이들이 빼꼼 내다보며 활짝 웃는다.<br/><b>배경·소품</b> 아침 햇살의 빛기둥, 반짝이는 놋그릇.<br/><b>톤</b> 승리의 아침. 밝고 장엄하게, 그러나 따뜻하게.</div>
+  <div class="text"><span class="sp">나레이션:</span> 이튿날 아침, 자격루가 처음으로 온 궁궐에 시각을 알렸어요. 땡— 둥— 징—!<br/><span class="sp">관원:</span> "사람 손 하나 없이 스스로 종을 치다니! 전하께서 크게 기뻐하시겠소!"<br/><span class="sp">나레이션:</span> 이날부터 자격루는 조선의 시각을 알리는 표준 시계가 되었답니다.<br/><span class="sp">보리:</span> "(속닥) 히히, 우리는 저 시계의 비밀을 알지."</div>
+</div>
+
+<div class="page"><div class="pno">31쪽</div>
+  <div class="scene"><b>컷</b> 중형 이별컷, 눈높이를 맞춘 구도.<br/><b>장소·시간</b> 공방 뒤뜰, 아침. 담장 너머로 궁궐 지붕들.<br/><b>인물</b> 장영실(다시 작업복 차림)이 무릎을 굽혀 아이들과 눈높이를 맞추고 한 손씩 어깨에 얹었다. 보리는 씩씩하게 웃고, 노아는 수줍게 꾸벅. 티코는 배낭에서 눈만 빼꼼(인형 위장 유지). 발치에 예비 쇠구슬 하나가 반짝(추억 소품).<br/><b>배경·소품</b> 뒤뜰의 대나무, 아침 새 두 마리.<br/><b>톤</b> 아쉬움과 따뜻함. 역광의 부드러운 아침빛.</div>
+  <div class="text"><span class="sp">장영실:</span> "너희 밝은 눈이 이 시계를 구했다. 이름도 묻지 못한 꼬마 은인들아, 고맙다."<br/><span class="sp">노아:</span> "아니에요. 이 굉장한 시계는 처음부터 끝까지 아저씨가 만드신 걸요!"<br/><span class="sp">보리:</span> "저희는 잃어버린 물건을 찾아간 것뿐인데요, 뭐. 아저씨, 조선 최고의 발명가가 되세요!"<br/><span class="sp">장영실:</span> "허허허… 어디서 온 아이들인지. 부디 잘 가거라."</div>
+</div>
+
+<div class="page"><div class="pno">32쪽</div>
+  <div class="scene"><b>컷</b> 중형 탈출컷, 속도감 있는 사선 구도.<br/><b>장소·시간</b> 보루각 뒤 큰 나무 그늘, 해가 막 떠오르는 순간(지평선의 주황 빛살).<br/><b>인물</b> 나무 그늘에 열린 민트색 게이트 소용돌이로 보리가 노아의 손을 잡아끌며 뛰어드는 순간. 티코 가슴 게이지 인셋 — 배터리 5% 붉은 점멸. 노아의 다리는 이미 게이트 빛에 반쯤 잠겼다.<br/><b>배경·소품</b> 흩날리는 나뭇잎, 게이트의 빛 리본.<br/><b>톤</b> 아슬아슬 + 상쾌한 탈출. 새벽 주황과 민트의 대비.</div>
+  <div class="text"><span class="sp">티코:</span> "배터리 5%! 문 열렸다 — 뛰어!"<br/><span class="sp">보리:</span> "가자, 노아!"<br/><span class="sp">노아:</span> "으아아, 이 놀이기구는 몇 번을 타도 적응이 안 돼!"<br/><span class="sp">나레이션:</span> 해가 떠오르기 직전, 셋은 아슬아슬하게 시간의 문을 통과했어요.</div>
+</div>
+
+<div class="page"><div class="pno">33쪽</div>
+  <div class="scene"><b>컷</b> 대형 마무리 몽타주(2분할+인셋).<br/><b>중앙(메인)</b> 창고의 저녁 — 부품이 티코의 오른팔에 스르륵 장착되며 민트빛 발광, 가슴 게이지 12칸 중 4칸째가 채워져 반짝(귀환 후 해금 연출 — 룰4 안전 지대). 그 옆 개그 디테일 — 자석 팔을 시험하던 티코가 냉장고에 팔부터 쩍 붙어 대롱대롱, 보리가 다리를 붙잡고 당기는 중. 저녁상에는 김이 오르는 국수.<br/><b>우상단 인셋</b> 티코 코어의 홀로그램 지구 — 유럽의 장화 모양 반도(이탈리아)가 주황색으로 깜빡인다.<br/><b>톤</b> 따뜻한 저녁의 웃음 + 다음 모험의 설렘.</div>
+  <div class="text"><span class="sp">나레이션:</span> 네 번째 부품이 돌아오자 티코의 팔에서 새 기능이 깨어났어요 — 쇠붙이를 끌어당기는 <b>자석 팔</b>!<br/><span class="sp">티코:</span> "삐빅! 자석 팔 시운전! …어라, 냉장고에서 팔이 안 떨어진다?! 인간들, 도와줘!"<br/><span class="sp">봉수 박사:</span> "허허, 장하다. 부품이 하필 구슬 길에 떨어져 시계를 멈춰 세웠구나. 장영실이라면 밤을 새워서라도 스스로 고쳐 냈겠지만 — 너희 덕에 첫날 아침을 무사히 지켰지."<br/><span class="sp">티코:</span> "다음 부품 신호 발견! 좌표는 바다 건너 <b>이탈리아</b> — 글씨를 거꾸로 쓰는 천재의 공방이다!"</div>
+</div>
+
+<div class="divider">— F. 티코피디아 부록 (34~36쪽) —</div>
+
+<!-- 고증 확인 필요: 자격루는 1433년(세종 15) 완성, 1434년 음력 7월 1일부터 표준 시계로 사용 — 본화 배경 계절을 한여름으로 처리 -->
+<div class="page"><div class="pno">34쪽 · 티코피디아 ①</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지(부록 공통 포맷) — 배경은 민트색 홀로그램 격자.<br/><b>장면</b> 티코가 안경을 쓰고 지시봉을 든 선생님 포즈로 화면 왼쪽에. 오른쪽 큰 카드: 자격루 전체 도해(물항아리 층계 → 원통 → 구슬길 → 종 치는 인형) + 가로 연표(1433 완성 ★ → 1434 표준 시계 ★). 카드 모서리에 물방울과 쇠구슬 스탬프.<br/><b>톤</b> 밝고 정돈된 인포그래픽. 본편과 구분되는 '부록 세계' 톤.</div>
+  <div class="text"><span class="sp">티코:</span> "오늘의 티코피디아! <b>자격루</b>는 장영실이 세종대왕의 명을 받아 1433년에 완성한 자동 물시계야. 물이 일정하게 흘러 구슬을 굴리면, 인형이 스스로 종·북·징을 쳐서 시각을 알렸지. 1434년부터는 조선의 시각을 알리는 표준 시계가 되었단다. '자격루'라는 이름은 <b>'스스로 치는 물시계'</b>라는 뜻이야."</div>
+</div>
+
+<!-- 고증 확인 필요: 자격루 기록상 작은 구슬은 구리(소동환)·큰 구슬은 쇠(대철환) — 자석에 붙는 연출은 '큰 쇠구슬'로만 한정함 -->
+<div class="page"><div class="pno">35쪽 · 티코피디아 ②</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지 ② — 도해 중심.<br/><b>장면</b> 화면 상단: 커다란 빨간 말굽자석 도해 — 양 끝에 N극(빨강)·S극(파랑) 색 구분, 주위로 클립·못·쇠구슬이 끌려오는 점선과 철가루 곡선(자기력선). 중단: 자석 두 개가 붙는 그림(다른 극)과 서로 밀어내는 그림(같은 극)의 비교 아이콘. 하단: 둥근 지구 안에 커다란 막대자석이 든 그림 + 나침반 바늘. 구석에 자석 팔로 엄지 척 하는 티코.<br/><b>톤</b> 교과서 삽화보다 밝고 만화적인 도해.</div>
+  <div class="text"><span class="sp">티코:</span> "자석의 비밀! 자석은 <b>철(쇠)</b>로 된 물건을 끌어당기는 힘을 가지고 있어. 자석의 양 끝은 <b>N극과 S극</b> — 다른 극끼리는 착 붙고, 같은 극끼리는 서로 밀어내지. 우리가 사는 지구도 커다란 자석이라서, 나침반 바늘은 언제나 남과 북을 가리킨단다. 냉장고 자석부터 내 새 자석 팔까지 — 자석은 어디에나 있어!"</div>
+</div>
+
+<div class="page"><div class="pno">36쪽 · 티코 퀴즈</div>
+  <div class="scene"><b>컷</b> 퀴즈 페이지(부록 공통 포맷) — 티코 정면 컷.<br/><b>장면</b> 티코가 문제 카드 3장을 부채꼴로 펼쳐 들고 윙크(새 자석 팔에는 클립이 몇 개 붙어 있는 개그 디테일). 카드마다 ①②③ 번호와 물음표 장식. 배경 하단에 다음 화 예고 — 거울에 비친 듯 뒤집힌 글씨가 적힌 낡은 노트와 날개 스케치 실루엣, 물음표. (앱에서는 기존 퀴즈 게임 인프라로 인터랙티브 처리)<br/><b>톤</b> 마무리 팡파레 + 다음 화 기대감.</div>
+  <div class="text"><span class="sp">티코:</span> "마지막 관문, 티코 퀴즈! 셋 다 맞히면 너도 시간여행 대원!<br/>① 스스로 종을 쳐서 시각을 알린 조선의 물시계 이름은 무엇일까?<br/>② 자격루를 만든 조선 최고의 발명가는 누구일까?<br/>③ 자석이 끌어당기는 것은 나무, 유리, 쇠 중에 무엇일까?<br/>…다음 화, 글씨를 거꾸로 쓰는 천재를 만나러 이탈리아에서 보자! 삐빅!"</div>
+</div>
+
+<footer>
+  타임 티코 4화 콘티 v1.0 · 탱고북 오리지널 · 내부 제작 자료
+</footer>
+
+</div>
+
+<script>
+// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
+(async function () {
+  const nav = document.getElementById('comic-tabs');
+  if (!nav) return;
+  const here = (location.pathname.split('/').pop() || '');
+  const items = [['learning-comic-plan.html', '📘 기획서']];
+  for (let i = 1; i <= 12; i++) {
+    const f = 'learning-comic-ep' + String(i).padStart(2, '0') + '.html';
+    try {
+      const r = await fetch(f);
+      const t = await r.text();
+      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
+    } catch (e) { /* skip */ }
+  }
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §6과 동기 유지) ─────────
+const STYLE_PROMPT = [
+  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
+  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
+  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
+  '시대 배경(건축·의상·소품)은 고증에 맞게 세밀하고 사실적으로 묘사.',
+  '화면비 16:9 와이드 일러스트.',
+  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
+].join(' ');
+
+const CHARACTER_KEYS = [
+  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
+  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
+  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
+  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸), 감정에 따라 모양이 변하는 둥근 눈.',
+  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼.',
+  '- 0호(그림자): 어둠 속 검은 실루엣에 붉은 외눈 한 점만 보인다.',
+].join('\n');
+
+// 이 화의 시대 의상 (화별로 교체)
+const EP_COSTUME = '[이 화의 의상] 1434년 조선 장면에서 보리 = 연분홍 저고리 + 쪽빛 치마(여름 모시 느낌), 노아 = 연갈색 여름 바지저고리. 현대(창고) 장면에서는 평상복(보리 주황 후드티, 노아 하늘색 셔츠).';
+
+// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
+const EP_GUEST_KEYS = [
+  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
+  '- 장영실(40대 중반 발명가 관리): 햇볕에 그을린 구릿빛 피부, 다부진 체격, 짙은 눈썹, 짧고 단정한 턱수염, 크고 굳은살 박인 손. 공방 작업 장면 = 소매 걷은 무명 저고리 + 수건 두건 + 팔토시 + 허리 연장 주머니 / 공식 행사 장면 = 짙은 남색 계열 단령 관복 + 검은 사모. 실존 위인이므로 우스꽝스럽지 않게, 위엄과 따뜻함이 공존하는 존중 어린 묘사.',
+].join('\n');
+
+function composeImagePrompt(pno, sceneText) {
+  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+}
+
+// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    const btn = card.querySelector('.copy-btn');
+    const pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async function () {
+      // textContent — details 접힘 상태에선 innerText 가 빈 값
+      const text = pre.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('done');
+      } catch (e) {
+        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
+      }
+      setTimeout(function () {
+        btn.textContent = '📋 시트 프롬프트 복사';
+        btn.classList.remove('done');
+      }, 1600);
+    });
+  });
+})();
+
+// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
+const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
+
+async function loadComicAssets() {
+  try {
+    const r = await fetch(ASSET_API);
+    const j = await r.json();
+    return (j && j.data) || {};
+  } catch (e) { return {}; }
+}
+
+function createPasteBox(key, assets, hint) {
+  const box = document.createElement('div');
+  box.className = 'paste-box';
+  box.tabIndex = 0;
+  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
+  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
+  const reset = function () {
+    box.classList.remove('has-img');
+    box.innerHTML = '';
+    box.textContent = hintText;
+  };
+  const setImg = function (url) {
+    box.classList.add('has-img');
+    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      if (!confirm('이 이미지를 삭제할까요?')) return;
+      try {
+        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
+        reset();
+      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
+    });
+  };
+  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+  else box.textContent = hintText;
+
+  async function upload(file) {
+    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+    box.classList.add('busy');
+    const fr = new FileReader();
+    fr.onload = async function () {
+      try {
+        const r = await fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        });
+        const j = await r.json();
+        if (j.success) setImg(j.data.url + '?t=' + Date.now());
+        else alert('저장 실패: ' + (j.error || ''));
+      } catch (e) {
+        alert('저장 실패 — 서버(3500)를 확인하세요');
+      }
+      box.classList.remove('busy');
+    };
+    fr.readAsDataURL(file);
+  }
+
+  box.addEventListener('paste', function (e) {
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (const it of items) {
+      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
+    }
+  });
+  box.addEventListener('dragover', function (e) { e.preventDefault(); });
+  box.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) upload(f);
+  });
+  box.addEventListener('click', function () { box.focus(); });
+  return box;
+}
+
+// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-plan) 자산을 읽어옴 ──
+(async function () {
+  const grid = document.getElementById('cast-grid');
+  if (!grid) return;
+  let planAssets = {};
+  try {
+    const r = await fetch('/api/comic-assets/learning-comic-plan');
+    const j = await r.json();
+    planAssets = (j && j.data) || {};
+  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
+  grid.querySelectorAll('.cast-item').forEach(function (item) {
+    const key = item.getAttribute('data-key');
+    if (planAssets[key]) {
+      const frame = item.querySelector('.frame');
+      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
+    }
+  });
+})();
+
+// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
+(function () {
+  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^[a-z0-9-]+$/.test(docId)) return;
+  const api = '/api/comic-feedback/' + docId;
+
+  function updateBar(total) {
+    const bar = document.getElementById('feedback-cnt');
+    if (bar) bar.textContent = total;
+  }
+
+  async function loadNotes() {
+    try {
+      const r = await fetch(api);
+      const j = await r.json();
+      return (j && j.data && j.data.pages) || {};
+    } catch (e) { return {}; }
+  }
+
+  async function saveNote(page, note, statusEl, ta) {
+    statusEl.textContent = '저장 중…';
+    try {
+      const r = await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, note: note }),
+      });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.error || 'save failed');
+      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
+      ta.classList.toggle('has-note', !!note.trim());
+      updateBar(j.data.total);
+      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
+    } catch (e) {
+      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
+      statusEl.style.color = '#e85c3a';
+    }
+  }
+
+  async function init() {
+    const pages = document.querySelectorAll('.page');
+    if (!pages.length) return;
+    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
+    const notes = loaded[0];
+    const assets = loaded[1];
+
+    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
+    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
+      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
+    });
+
+    const anchor = document.querySelector('header.hero');
+    if (anchor) {
+      const bar = document.createElement('div');
+      bar.id = 'feedback-bar';
+      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
+      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+    }
+
+    pages.forEach(function (card) {
+      const pnoEl = card.querySelector('.pno');
+      const m = pnoEl && pnoEl.textContent.match(/\d+/);
+      if (!m) return;
+      const pno = m[0];
+
+      const main = document.createElement('div');
+      while (card.firstChild) main.appendChild(card.firstChild);
+      card.appendChild(main);
+
+      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
+      const mainPno = main.querySelector('.pno');
+      const sceneEl = main.querySelector('.scene');
+      if (mainPno && sceneEl) {
+        const row = document.createElement('div');
+        row.className = 'pno-row';
+        mainPno.parentNode.insertBefore(row, mainPno);
+        row.appendChild(mainPno);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋 그림 프롬프트 복사';
+        copyBtn.addEventListener('click', async function () {
+          const prompt = composeImagePrompt(pno, sceneEl.innerText);
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = '복사됨 ✓';
+            copyBtn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () {
+            copyBtn.textContent = '📋 그림 프롬프트 복사';
+            copyBtn.classList.remove('done');
+          }, 1600);
+        });
+        row.appendChild(copyBtn);
+      }
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const saved = notes[pno] || '';
+      panel.innerHTML =
+        '<label>' + pno + '쪽 생성 이미지</label>' +
+        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
+        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
+        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
+      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
+      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
+      const ta = panel.querySelector('textarea');
+      if (saved) ta.classList.add('has-note');
+      const btn = panel.querySelector('button');
+      const status = panel.querySelector('.status');
+      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
+      });
+
+      card.classList.add('with-notes');
+      card.appendChild(panel);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>

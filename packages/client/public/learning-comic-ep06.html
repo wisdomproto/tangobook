@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 6화 「사막의 대상단」 — 콘티</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 24px 0 28px; border-bottom: 3px solid var(--coral); margin-bottom: 28px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 12px; }
+  .hero h1 { font-size: 32px; font-weight: 900; margin: 8px 0 4px; }
+  .hero .sub { color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+  .divider { text-align:center; margin: 40px 0 8px; font-weight: 900; color: var(--mint); letter-spacing: .15em; font-size: 14px; }
+  .page { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 14px 0; }
+  .page .pno { font-weight: 900; color: var(--coral-dark); font-size: 15px; }
+  .page .scene { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .page .scene b { color: var(--mint); font-weight: 800; }
+  .page .text { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 8px; font-size: 15px; }
+  .page .text .sp { font-weight: 800; color: var(--coral-dark); }
+  /* 콘티 리뷰 패널 */
+  .page.with-notes { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .page.with-notes { grid-template-columns: 1fr; } }
+  .note-panel { border-left: 2px dashed var(--line); padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 900px) { .note-panel { border-left: none; border-top: 2px dashed var(--line); padding: 12px 0 0; } }
+  .note-panel label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+  .note-panel textarea { width: 100%; min-height: 96px; resize: vertical; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 13px; background: #fffdfa; }
+  .note-panel textarea:focus { outline: none; border-color: var(--coral); }
+  .note-panel textarea.has-note { border-color: var(--mint); background: #f4fffc; }
+  .note-panel .row { display: flex; align-items: center; gap: 10px; }
+  .note-panel button { background: var(--coral); color: #fff; border: none; border-radius: 999px; padding: 7px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .note-panel button:hover { background: var(--coral-dark); }
+  .note-panel .status { font-size: 12px; color: var(--mint); font-weight: 700; }
+  #feedback-bar { position: sticky; top: 54px; z-index: 10; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 18px; margin: 16px 0 24px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #feedback-bar .cnt { color: #ffd9cc; }
+  .pno-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .copy-btn:hover { background: var(--mint); color: #fff; }
+  .copy-btn.done { background: var(--mint); color: #fff; }
+  .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
+  .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+  .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cast-strip .hint a { color: var(--coral-dark); font-weight: 700; }
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .cast-item { text-align: center; }
+  .cast-item .frame { border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 26px; }
+  .cast-item .frame img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .cast-item .nm { font-size: 12.5px; font-weight: 800; margin-top: 5px; color: var(--ink-soft); }
+  .guest-section { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--coral); border-radius: 16px; padding: 18px 22px; margin: 20px 0; }
+  .guest-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+  .guest-section .hint { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .char-prompt { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt details { margin-top: 6px; }
+  .char-prompt summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 8px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+</style>
+</head>
+<body data-comic-doc="ep06">
+<div class="wrap">
+
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-plan.html">📘 기획서</a></nav>
+
+<header class="hero" id="top">
+  <div class="kicker">TIME TICO · EPISODE 06</div>
+  <h1>6화 「사막의 대상단」</h1>
+  <div class="sub">서기 750년 무렵 실크로드, 타클라마칸 사막 · 지리·교역·문화 — 36쪽 콘티 (장면 지시 + 페이지 텍스트) · 해금: 나침반 모드</div>
+</header>
+
+<div class="cast-strip">
+  <h2>⭐ 고정 캐릭터 확정 시트</h2>
+  <div class="hint">기획서 §6에 붙여넣은 레퍼런스가 여기 자동 표시됩니다 — 컷 작업의 기준. 비어 있으면 <a href="learning-comic-plan.html#s6">기획서에서 붙여넣기 →</a></div>
+  <div class="cast-grid" id="cast-grid">
+    <div class="cast-item" data-key="bori"><div class="frame">👧</div><div class="nm">보리</div></div>
+    <div class="cast-item" data-key="noa"><div class="frame">👦</div><div class="nm">노아</div></div>
+    <div class="cast-item" data-key="tico"><div class="frame">🤖</div><div class="nm">티코</div></div>
+    <div class="cast-item" data-key="bongsu"><div class="frame">👴</div><div class="nm">봉수 박사</div></div>
+    <div class="cast-item" data-key="zero"><div class="frame">🌑</div><div class="nm">0호</div></div>
+  </div>
+</div>
+
+<div class="guest-section">
+  <h2>🎭 이 화의 게스트 캐릭터 레퍼런스</h2>
+  <div class="hint">3장면 이상 등장하거나 클로즈업이 있는 게스트는 시트를 먼저 확정한다. 아래 비주얼 키는 각 쪽 [📋 그림 프롬프트 복사]에도 자동 포함되어 컷 간 일관성을 지킨다. (단역 — 시장 상인·상단 일꾼·오아시스 마을 사람 — 은 장면 지시 서술로 충분, 시트 불필요) ※ 이 화의 게스트는 전원 픽션 캐릭터.</div>
+
+  <!-- 고증 확인 필요: 8세기 실크로드 상인 복식은 소그드 상인 벽화·기록을 참고한 카툰화 — 특정 민족을 명시하지 않고 '서역 대상단 대장'으로 처리 -->
+  <div class="char-prompt" data-char="카심" data-key="kasim">
+    <div class="head"><span style="font-size:20px">🐪</span><b>카심 (대상단 대장, 40대)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 어른은 4등신 카툰 비율. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 3면도(정면·옆·뒤), 오른쪽 위에 표정 6종 얼굴 그리드(호탕한 너털웃음·근엄하게 미간 찌푸림·깜짝 놀람·깊은 근심·감동해 눈물 글썽·장난스러운 한쪽 눈웃음). 오른쪽 아래 대표 포즈 2개(낙타 고삐를 쥐고 먼 지평선을 가리키는 포즈, 한쪽 무릎을 꿇고 두 손으로 작은 물건을 건네는 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 카심, 40대 실크로드 대상단(카라반)의 대장. 서역 상인 풍모 — 햇볕에 그을린 구릿빛 피부, 짙은 밤색 곱슬 턱수염, 굵은 눈썹, 웃음 주름이 깊게 팬 서글서글한 눈매. 다부지고 큰 체격에 어깨가 넓다. 감색(짙은 파랑) 카프탄에 금실 문양 가장자리 장식, 화려한 기하학 무늬의 넓은 허리띠, 머리에 챙 없는 갈색 펠트 고깔모자. 허리에 가죽 주머니 여러 개와 작은 청동 방울, 목에는 가죽끈으로 맨 부적 주머니. 무섭게 생겼지만 알고 보면 정 많은 사막 사나이 인상.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-char="타루" data-key="taru">
+    <div class="head"><span style="font-size:20px">🐫</span><b>타루 (새끼 쌍봉낙타)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 동물 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 귀엽고 둥근 카툰 비율. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 3면(정면·옆·뒤), 오른쪽 위에 표정·동작 6종 그리드(코를 벌름거리며 냄새 맡기·겁먹고 몸을 움츠림·신나서 폴짝 뜀·사람에게 부비적 애교·물을 첨벙이며 신남·꾸벅꾸벅 졸음), 오른쪽 아래 대표 포즈 2개(사람 뺨에 코를 부비는 포즈, 목을 길게 빼고 한 방향을 골똘히 바라보는 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 타루, 실크로드 대상단의 새끼 쌍봉낙타(혹이 두 개). 연한 모래빛의 보송보송한 솜털, 등의 혹 두 개는 아직 작고 말랑해서 한쪽으로 갸웃 기울어져 있다. 크고 순한 갈색 눈에 길고 짙은 두 겹 속눈썹, 감정에 따라 벌름거리는 콧구멍. 가늘고 긴 다리로 뒤뚱뒤뚱 걷는다. 목에 붉은 술 장식 끈과 작은 청동 방울. 겁이 많지만 정이 깊은 막내 인상.</pre></details>
+  </div>
+</div>
+
+<div class="divider">— A. 일상 후크 (1~3쪽) —</div>
+
+<div class="page"><div class="pno">1쪽</div>
+  <div class="scene"><b>컷</b> 중형 와이드컷, 아이레벨.<br/><b>장소·시간</b> 한여름 한낮, 봉수 박사의 창고 안. 열린 창으로 쨍한 햇빛이 비껴 들고 매미 소리(음파 기호)가 창밖에서 밀려온다.<br/><b>인물</b> 보리(주황 반팔 티)가 낡은 선풍기 바로 앞에 앉아 머리카락을 휘날리며 늘어져 있고, 노아(하늘색 반팔 셔츠)는 부채질을 하며 두꺼운 책을 본다. 작업대 위 티코 — 가슴 코어의 부품 게이지 12칸 중 5칸이 민트색으로 점등된 상태에서, 머리 안테나가 갑자기 주황색으로 깜빡이며 벌떡 일어선다(눈은 번쩍 느낌표 모양).<br/><b>배경·소품</b> 작업대 위 반 통 남은 수박, 흩어진 공구, 벽의 세계 지도, 돌아가는 선풍기 날개의 잔상.<br/><b>톤</b> 나른한 여름 노랑 → 티코의 주황 경보로 공기가 확 바뀌는 전환.</div>
+  <div class="text"><span class="sp">나레이션:</span> 매미가 맴맴 우는 한여름, 창고 안은 찜통이었어요.<br/><span class="sp">보리:</span> "아, 더워… 녹아 버리겠어. 이럴 땐 시원한 바다로 시간여행이나 갔으면!"<br/><span class="sp">티코:</span> "삐빅! 여섯 번째 부품 신호 발견! 좌표는… 서기 750년 무렵, 실크로드의 타클라마칸 사막!"<br/><span class="sp">노아:</span> "사, 사막?! 여기보다 백 배는 더운 데잖아!"</div>
+</div>
+
+<div class="page"><div class="pno">2쪽</div>
+  <div class="scene"><b>컷</b> 중형, 하이앵글 — 작업대의 지도를 내려다보는 구도.<br/><b>장소·시간</b> 창고 안 작업대, 같은 날 오후.<br/><b>인물</b> 봉수 박사(백발, 돋보기안경, 카키 작업조끼)가 누렇게 바랜 커다란 옛 지도를 펼치고, 손가락으로 동쪽 끝(중국)에서 사막을 지나 서쪽 먼 나라까지 길게 선을 긋는다. 보리와 노아가 지도 양옆에서 머리를 맞대고 들여다보고, 티코는 지도 한가운데 올라서서 낙타처럼 등을 구부린 익살 포즈.<br/><b>배경·소품</b> 지구본, 돋보기, 지도 위에 낙타·비단 두루마리 모양의 작은 모형들.<br/><b>톤</b> 따뜻한 텅스텐 전구빛, 출발 전 브리핑의 설렘.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "타클라마칸이라면 <b>실크로드</b>, 그러니까 '비단길' 한가운데다. 중국의 비단을 낙타 등에 싣고 서쪽 먼 나라까지 나르던, 세상에서 가장 길고 유명한 장삿길이지."<br/><span class="sp">노아:</span> "그런데 왜 위험한 사막을 굳이 건너요?"<br/><span class="sp">봉수 박사:</span> "사막 곳곳에 <b>오아시스</b>라는 샘이 있거든. 상인들은 샘에서 샘으로, 징검다리를 건너듯 사막을 지났단다."<br/><span class="sp">보리:</span> "오아시스라… 뭔가 근사한데?"</div>
+</div>
+
+<div class="page"><div class="pno">3쪽</div>
+  <div class="scene"><b>컷</b> 중형 세로컷, 로우앵글 — 열리는 게이트를 올려다보는 구도.<br/><b>장소·시간</b> 창고 중앙, 해 질 녘.<br/><b>인물</b> 창고 한가운데 민트와 주황이 섞인 시간의 소용돌이 게이트가 열려 바람이 인다. 보리는 물통 세 개를 어깨에 주렁주렁 메고 주먹을 불끈, 노아는 챙 넓은 밀짚모자를 눌러쓰고 물통을 배에 꼭 안은 채 울상. 티코는 보리의 배낭에 쏙 들어가 고개만 내밀고, 박사가 걱정스러운 얼굴로 노아의 목에 수건을 둘러 준다.<br/><b>배경·소품</b> 게이트 빛에 날리는 종이와 나사들, 벽에 붙은 사막 사진.<br/><b>톤</b> 게이트의 민트빛 역광, 출발 직전의 두근거림.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "사막은 낮엔 불가마, 밤엔 얼음장이다. 물이 곧 목숨이니 아껴 마시거라."<br/><span class="sp">보리:</span> "물통 셋, 준비 끝! 사막쯤이야, 문제없어!"<br/><span class="sp">노아:</span> "나, 나는 아직 마음의 준비가…"<br/><span class="sp">티코:</span> "출발! 3, 2, 1—"</div>
+</div>
+
+<div class="divider">— B. 도착 · 이질감 (4~8쪽) —</div>
+
+<div class="page"><div class="pno">4쪽</div>
+  <div class="scene"><b>컷</b> 대형, 나선형 구도(소용돌이 중심으로 빨려 들어가는 시선).<br/><b>장소·시간</b> 시간 터널 내부.<br/><b>인물</b> 셋이 낙하 중 — 보리는 두 팔을 활짝 펴고 함박웃음, 노아는 밀짚모자를 두 손으로 꾹 누르고 눈 질끈, 티코는 보리 품에서 카운트다운. 주위로 금빛 모래알, 펄럭이는 비단 리본, 작은 청동 방울, 낙타 실루엣이 별처럼 흘러간다(이번 화 테마 암시).<br/><b>배경·소품</b> 민트·주황·금빛의 빛 리본 나선.<br/><b>톤</b> 환상적, 놀이기구 같은 신남.</div>
+  <div class="text"><span class="sp">나레이션:</span> 시간의 문 너머로 금빛 모래알과 비단 리본이 별처럼 흘러갔어요.<br/><span class="sp">보리:</span> "어디서 달콤한 냄새 나지 않아? 킁킁!"<br/><span class="sp">티코:</span> "향신료 냄새다. 도착까지 3, 2, 1… 착지 자세!"</div>
+</div>
+
+<div class="page"><div class="pno">5쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클(이번 화 간판 컷 ①). 높은 부감에서 광활한 사막을 잡고, 사구 위 두 점 같은 인물로 시선이 떨어지는 구도.<br/><b>장소·시간</b> 타클라마칸 사막 한복판, 쨍한 오전. 바람이 그린 물결무늬 모래 언덕이 지평선 끝까지 바다처럼 이어지고, 하늘은 구름 한 점 없는 코발트빛. 원경에 야자수와 미루나무가 우거진 초록 오아시스 마을이 아지랑이 너머로 작게 보인다.<br/><b>인물</b> 사구 능선 위 — 실크로드 여행자 차림으로 변신한 두 아이. 보리(모래빛 카프탄+다홍 허리띠+목에 두른 주황 스카프, 붉은 머리끈 유지)는 제자리에서 빙그르 돌며 옷을 신기해하고, 노아(하늘색 카프탄+흰 두건, 둥근 안경)는 손차양을 하고 이마의 땀을 닦는다. 배낭에서 티코가 빼꼼.<br/><b>배경·소품</b> 발자국 두 줄, 바람에 날리는 모래 연기.<br/><b>톤</b> 황금빛 모래 vs 코발트 하늘의 대비, 압도적 광활함(학습 신뢰도 컷).</div>
+  <!-- 고증 확인 필요: '타클라마칸 = 들어가면 나올 수 없는 곳' 뜻풀이는 널리 알려진 통설(어원에는 여러 설이 있음) -->
+  <div class="text"><span class="sp">나레이션:</span> 눈을 뜨자, 모래 언덕이 바다처럼 끝없이 펼쳐져 있었어요.<br/><span class="sp">보리:</span> "우와아… 온 세상이 모래야! 근데 진짜, 진짜 덥다!"<br/><span class="sp">노아:</span> "책에서 봤는데… 타클라마칸은 '들어가면 나올 수 없는 곳'이라는 뜻이래. 우, 우리 괜찮겠지?"<br/><span class="sp">티코:</span> "부품 신호는 저쪽 — 야자수가 보이는 초록 마을, 오아시스다!"</div>
+</div>
+
+<div class="page"><div class="pno">6쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클(간판 컷 ②) — 시장 골목을 관통하는 원근 구도.<br/><b>장소·시간</b> 오아시스 마을의 저잣거리, 한낮. 흙벽돌 집들 사이로 포도 시렁이 그늘을 드리우고, 그 아래 시장이 북적인다.<br/><b>인물</b> 좌판 사이를 걷는 두 아이 — 보리는 눈이 별처럼 반짝이며 두리번, 노아는 코를 킁킁대며 향신료 자루에 홀린 표정. 주위에 카프탄·터번 등 저마다 다른 차림의 상인들, 물동이를 인 아낙, 당나귀를 끄는 소년.<br/><b>배경·소품</b> 윤기 흐르는 비단 두루마리 좌판, 색색의 유리그릇, 노랑·주홍 향신료 가루 산이 쌓인 자루들, 카펫, 옥 장신구, 멜론 수레, 매어 둔 쌍봉낙타들, 우물.<br/><b>톤</b> 색채 최대치의 활기 — 동서양이 뒤섞인 실크로드 시장의 공기(학습 신뢰도 컷).</div>
+  <div class="text"><span class="sp">나레이션:</span> 오아시스 마을은 사막 한가운데라고는 믿기지 않을 만큼 북적였어요.<br/><span class="sp">보리:</span> "비단에 카펫에, 반짝이는 유리그릇까지! 없는 게 없잖아?"<br/><span class="sp">노아:</span> "동쪽 물건과 서쪽 물건이 다 모이는 곳… 여기가 실크로드의 시장이구나."<br/><span class="sp">티코:</span> "(속닥) 구경은 나중에. 부품 신호가 이 근처야."</div>
+</div>
+
+<div class="page"><div class="pno">7쪽</div>
+  <div class="scene"><b>컷</b> 중형, 훈훈한 개그컷 — 멜론 수레를 사이에 둔 삼각 구도.<br/><b>장소·시간</b> 시장 안 멜론 수레 앞, 한낮.<br/><b>인물</b> 주름 가득한 상인 할머니(꽃무늬 두건, 단역)가 웃으며 아이들에게 말을 거는데, 두 아이는 고개를 갸웃하며 서로를 마주 본다(알아듣지 못하는 손짓). 보리의 배낭 속 티코의 안테나에서 민트색 파동이 은은히 퍼진다(번역 모듈 작동 — 배낭 틈으로만 살짝 보이게). 다음 순간 할머니가 멜론 한 쪽씩을 아이들 손에 쥐여 준다.<br/><b>배경·소품</b> 초록 줄무늬 멜론 더미, 저울, 파리 쫓는 부채.<br/><b>톤</b> 낯선 말 → 통하는 순간의 반짝임, 인심 좋은 온기.</div>
+  <div class="text"><span class="sp">나레이션:</span> 수레의 할머니가 알아들을 수 없는 말로 무어라 말을 걸어왔어요.<br/><span class="sp">노아:</span> "어, 어떡하지? 한 마디도 모르겠어."<br/><span class="sp">티코:</span> "(속닥) 번역 모듈 가동! '꼬마 나그네들, 목마르지? 멜론 한 쪽 먹고 가렴' — 이라고 하셨다."<br/><span class="sp">보리:</span> "고맙습니다, 할머니! 우와, 꿀맛이야!"</div>
+</div>
+
+<div class="page"><div class="pno">8쪽</div>
+  <div class="scene"><b>컷</b> 중형 개그컷, 살짝 로우앵글.<br/><b>장소·시간</b> 시장 가장자리, 낙타를 매어 둔 그늘.<br/><b>인물</b> 어른 쌍봉낙타 한 마리가 노아의 흰 두건 자락을 입에 물고 우물우물 — 노아는 두건을 붙잡고 버둥거리며 안경이 코끝까지 흘러내린 패닉 얼굴. 보리는 배를 잡고 웃다가 눈물이 찔끔. 배낭 속 티코의 눈이 레이더 모양으로 바뀌며 주황색 경고 깜빡임.<br/><b>배경·소품</b> 되새김질하는 낙타들의 태평한 얼굴, 여물통, 기둥에 묶인 고삐.<br/><b>톤</b> 슬랩스틱 → 마지막 말풍선에서 긴장으로 급전환.</div>
+  <div class="text"><span class="sp">노아:</span> "으아악! 낙타가 내 두건을 먹으려고 해!"<br/><span class="sp">보리:</span> "푸하하! 노아, 벌써 낙타랑 친구 됐네!"<br/><span class="sp">티코:</span> "(속닥) 삐빅! 큰일이다. 부품 신호가… 움직이고 있어! 마을 밖으로 점점 멀어지는 중!"<br/><span class="sp">보리:</span> "움직인다고? 부품에 다리라도 달렸어?!"</div>
+</div>
+
+<div class="divider">— C. 문제 발견 (9~15쪽) —</div>
+
+<div class="page"><div class="pno">9쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드, 사구 능선 위에서 내려다보는 부감(간판 컷 ③).<br/><b>장소·시간</b> 마을 밖 사막 초입, 해가 기우는 늦은 오후.<br/><b>인물</b> 전경 — 능선 위에 선 두 아이의 뒷모습 실루엣, 보리는 앞으로 몸을 기울이고 노아는 손차양. 원경 — 짐을 가득 실은 쌍봉낙타 수십 마리가 저녁 빛 속에 일렬로 걸어가는 대상단 행렬. 행렬 맨 앞, 대장 낙타에 올라탄 카심(감색 카프탄, 펠트 고깔모자)의 작은 실루엣.<br/><b>배경·소품</b> 낙타 등의 비단 꾸러미·항아리·자루, 행렬을 따라 퍼지는 방울 소리(음파 기호), 길게 늘어진 낙타 그림자.<br/><b>톤</b> 주황 노을의 실크로드 낭만 — 이 화를 대표하는 풍경 컷.</div>
+  <div class="text"><span class="sp">나레이션:</span> 마을 밖 모래 언덕 너머로 낙타 수십 마리가 줄지어 걸어가고 있었어요. 딸랑, 딸랑 — 방울 소리가 바람에 실려 왔지요.<br/><span class="sp">노아:</span> "저게 바로 <b>대상단</b>이야. 낙타에 짐을 싣고 사막을 건너는 상인들의 무리!"<br/><span class="sp">티코:</span> "(속닥) 신호는 저 행렬 안에 있다. 놓치면 사막 저편으로 사라져!"<br/><span class="sp">보리:</span> "그럼 뭘 망설여? 가자, 노아!"</div>
+</div>
+
+<div class="page"><div class="pno">10쪽</div>
+  <div class="scene"><b>컷</b> 중형, 로우앵글 — 낙타 위의 카심을 아이들 눈높이에서 올려다보는 구도.<br/><b>장소·시간</b> 멈춰 선 대상단 행렬 맨 앞, 노을.<br/><b>인물</b> 대장 낙타 위의 카심이 팔짱을 끼고 미간을 찌푸린 채 내려다본다(위압적이지만 눈매엔 걱정). 그 아래 두 아이 — 보리는 숨을 헐떡이면서도 두 손을 모아 부탁, 노아는 보리 뒤에 반쯤 숨어 고개만 꾸벅. 행렬의 낙타들이 궁금한 듯 고개를 빼고 구경한다.<br/><b>배경·소품</b> 카심의 허리 방울과 가죽 주머니들, 긴 그림자, 저녁 바람에 날리는 모래.<br/><b>톤</b> 거인 같은 어른 vs 꼬마들의 코믹한 대치.</div>
+  <div class="text"><span class="sp">보리:</span> "아저씨! 저희도 같이 가게 해 주세요, 네?"<br/><span class="sp">카심:</span> "허어, 꼬마들이 겁도 없구나. 사막은 놀이터가 아니다. 물 한 모금이 금보다 귀한 곳이야."<br/><span class="sp">노아:</span> "무, 물 긷기, 짐 나르기, 뭐든 할게요!"<br/><span class="sp">카심:</span> "안 될 말이다. 사막이 얼마나 무서운 곳인지 모르는 소리."</div>
+</div>
+
+<div class="page"><div class="pno">11쪽</div>
+  <div class="scene"><b>컷</b> 중형, 따뜻한 전환컷 — 타루와 보리의 첫 만남을 중앙에.<br/><b>장소·시간</b> 같은 자리, 노을이 짙어진 무렵.<br/><b>인물</b> 행렬 사이에서 새끼 낙타 타루(모래빛 솜털, 말랑한 혹 두 개, 목에 붉은 술 끈+청동 방울)가 뒤뚱뒤뚱 걸어 나와 보리의 뺨에 코를 부비적 — 보리는 간지러워 까르르. 낙타 위 카심의 눈이 동그래졌다가 너털웃음으로 풀어진다. 노아는 얼떨떨.<br/><b>배경·소품</b> 딸랑이는 타루의 방울, 노을에 금빛으로 빛나는 솜털.<br/><b>톤</b> 거절 → 허락으로 공기가 풀리는 훈훈함.</div>
+  <div class="text"><span class="sp">나레이션:</span> 그때, 솜털이 보송보송한 새끼 낙타가 뒤뚱뒤뚱 걸어 나와 보리에게 코를 부볐어요.<br/><span class="sp">카심:</span> "허허, 이럴 수가. 낯가림 대장 타루가 먼저 다가가다니, 처음 보는 일이구나."<br/><span class="sp">보리:</span> "하하, 간지러워! 네 이름이 타루야?"<br/><span class="sp">카심:</span> "…좋다. 새끼 낙타들을 돌보는 일을 맡기마. 대신 사막에선 내 말을 하늘처럼 따라야 한다."</div>
+</div>
+
+<div class="page"><div class="pno">12쪽</div>
+  <div class="scene"><b>컷</b> 중형, 캠프의 짐 풀기 — 카심의 손끝을 따라가는 시선 유도 구도.<br/><b>장소·시간</b> 첫날 밤 캠프, 낙타들을 둥글게 앉힌 야영지. 하늘엔 초저녁 별.<br/><b>인물</b> 카심이 낙타 등에서 내린 짐을 풀어 아이들에게 보여 준다 — 한 손에 윤기가 흐르는 붉은 비단 두루마리, 발치에 흰 종이 묶음과 향신료 자루. 보리는 물동이를 내려놓고 눈을 동그랗게, 노아는 종이 묶음에 코를 박을 듯 관찰. 뒤에서 상단 일꾼들(단역)이 천막을 친다.<br/><b>배경·소품</b> 모닥불 준비 장작, 안장과 방울, 짐 꾸러미 더미.<br/><b>톤</b> 남색 밤하늘 아래 모닥불 준비의 주황 온기 — 교역 학습 컷.</div>
+  <!-- 고증 확인 필요: 종이의 서방 전파는 751년 탈라스 전투가 계기라는 통설 — 750년 무렵 대상단 짐에 종이가 실린 설정은 시기상 자연스러움 -->
+  <div class="text"><span class="sp">카심:</span> "잘 봐라. 이 비단은 동쪽 나라에서 왔지. 사막을 건너 서쪽 끝에 닿으면 같은 무게의 금과 바꿀 만큼 귀해진단다."<br/><span class="sp">노아:</span> "이 하얀 건… 종이잖아요! 종이도 팔러 가요?"<br/><span class="sp">카심:</span> "그래. 그리고 물건만 오가는 게 아니야. 노래도, 이야기도, 새로운 생각도 이 길을 따라 함께 여행하지."<br/><span class="sp">보리:</span> "길이 물건도 나르고 생각도 나르는구나!"</div>
+</div>
+
+<div class="page"><div class="pno">13쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출(시리즈 공통 포맷 ①).<br/><b>장소·시간</b> 캠프 가장자리, 앉아 있는 낙타들의 그늘 뒤 — 사람들 시야 밖.<br/><b>인물</b> 티코의 눈에서 빔이 나와 공중에 민트색 홀로그램 카드가 떠오른다. 카드 안: 사막 지도 위에 점점이 찍힌 오아시스와 그 사이를 잇는 점선 길, 줄지어 걷는 낙타 행렬 아이콘, 해와 달 아이콘(새벽·저녁 행진 표시). 카드 빛이 올려다보는 두 아이의 얼굴을 민트색으로 물들이고, 곁에서 타루가 카드를 신기한 듯 킁킁.<br/><b>배경·소품</b> 낙타들의 둥근 실루엣, 멀리 모닥불 불빛.<br/><b>톤</b> 티코피디아 시그니처 연출.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 티코피디아, 스캔! <b>대상단(카라반)</b>은 낙타에 짐을 싣고 오아시스에서 오아시스로 사막을 건너는 상인 무리다. 한낮 뙤약볕을 피해 서늘한 새벽과 저녁에 걷지."<br/><span class="sp">노아:</span> "그래서 해 질 무렵에 출발했구나."<br/><span class="sp">티코:</span> "(속닥) 그리고 중요 정보 — 부품 신호는 행렬 맨 앞, 카심 아저씨 곁이다!"</div>
+</div>
+
+<div class="page"><div class="pno">14쪽</div>
+  <div class="scene"><b>컷</b> 중형, 모닥불을 중심으로 한 반원 구도 + 부적 클로즈업 인셋.<br/><b>장소·시간</b> 캠프 모닥불가, 밤. 머리 위로 별이 총총.<br/><b>인물</b> 카심이 목에 건 가죽끈 부적 주머니에서 엄지손가락만 한 <b>별 조각</b>(민트빛이 은은히 도는 매끈한 금속 조각 = 티코의 부품)을 꺼내 불빛에 비춰 보인다. 마주 앉은 두 아이의 눈이 커지고, 둘이 슬쩍 눈빛을 교환(곤란함). 보리 무릎 옆 배낭 틈에서 티코의 눈만 빼꼼 반짝. 타루는 보리에게 기대 꾸벅꾸벅.<br/><b>배경·소품</b> 타닥이는 모닥불, 둘러앉은 일꾼들의 등 실루엣, 찻주전자.<br/><b>톤</b> 모닥불 주황 속 민트빛 포인트 — 부품 발견의 반가움과 '어떻게 얻지?'의 곤란함이 겹치는 컷.</div>
+  <div class="text"><span class="sp">카심:</span> "이건 내 행운의 부적이다. 몇 해 전 밤, 하늘에서 별똥별처럼 떨어진 '별 조각'이지. 이걸 주운 뒤로 우리 상단은 한 번도 길을 잃지 않았어."<br/><span class="sp">보리:</span> "(속닥) 노아야, 저거… 티코 부품 맞지?"<br/><span class="sp">노아:</span> "(속닥) 응, 분명해. 그런데 저렇게 아끼시는 걸 어떻게 달라고 하지…"</div>
+</div>
+
+<div class="page"><div class="pno">15쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드, 수평선 강조 — 화면 왼쪽 절반을 삼키는 모래 벽.<br/><b>장소·시간</b> 이튿날 저녁 행진 중인 사막 한복판. 지평선에서 누런 모래 벽이 하늘 절반을 덮으며 다가오고, 그 앞의 해가 붉게 번져 흐려진다.<br/><b>인물</b> 행렬의 낙타들이 일제히 걸음을 멈추고 불안하게 울며 발을 구른다. 타루는 보리의 등 뒤로 숨어 몸을 움츠리고, 카심은 낙타에서 뛰어내려 한 팔을 높이 들어 행렬 정지 신호 — 표정이 굳어 있다. 아이들은 모래 벽을 올려다보며 얼어붙는다.<br/><b>배경·소품</b> 바람에 미친 듯 나부끼는 짐 덮개, 공중에 날리는 모래 띠.<br/><b>톤</b> 장엄한 주홍 — 무서움보다 '자연의 거대함'으로 연출(저학년 안전선).</div>
+  <div class="text"><span class="sp">나레이션:</span> 다음 날 저녁, 바람의 냄새가 달라졌어요. 지평선 끝에서 누런 모래 벽이 하늘을 덮으며 다가오고 있었지요.<br/><span class="sp">카심:</span> "<b>카라부란</b>이다! 검은 모래폭풍이 온다! 모두 낙타를 앉히고 바람을 등져라!"<br/><span class="sp">보리:</span> "타루, 이리 와! 내가 꼭 안고 있을게!"</div>
+</div>
+
+<div class="divider">— D. 시도 → 실패 → 힌트 (16~25쪽) —</div>
+
+<div class="page"><div class="pno">16쪽</div>
+  <div class="scene"><b>컷</b> 대형, 화면 전체를 사선으로 휩쓰는 바람 라인.<br/><b>장소·시간</b> 모래폭풍 한가운데의 캠프, 밤. 세상이 온통 갈색.<br/><b>인물</b> 웅크려 앉힌 낙타들의 몸 뒤에 사람들이 바싹 붙어 천으로 코와 입을 감싸고 버틴다. 화면 중앙 — 카심이 넓은 카프탄 자락으로 두 아이를 폭 감싸 안고, 보리는 그 품에서 타루를 꼭 끌어안았다. 노아 배낭 틈 티코의 눈은 X자(패닉). 인물들은 실루엣에 가깝고 등불 하나만 점처럼 빛난다.<br/><b>배경·소품</b> 날아가는 천 조각, 모래에 반쯤 묻히는 짐 꾸러미.<br/><b>톤</b> 긴박하지만 카심의 품 = 안전함. 형태는 모두 둥글게, 공포 연출 금지.</div>
+  <div class="text"><span class="sp">나레이션:</span> 우우우웅— 세상이 온통 모래 소리로 가득 찼어요. 눈을 뜰 수도, 입을 열 수도 없었지요.<br/><span class="sp">카심:</span> "고개 숙여라! 낙타 곁에 붙어 있으면 괜찮다!"<br/><span class="sp">티코:</span> "(삐빅— 삐비비빅!! ← 인형인 척 기계음으로만 비명. 관절 틈에 모래가아아!)"</div>
+</div>
+
+<div class="page"><div class="pno">17쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 부감 — 달라진 세상을 한눈에.<br/><b>장소·시간</b> 폭풍이 멎은 이른 아침. 하늘은 먼지 안개로 뿌옇고 해가 우유처럼 번져 보인다.<br/><b>인물</b> 사람들이 모래에 반쯤 묻힌 짐을 파내고, 카심은 깨진 물 항아리 조각을 들고 심각한 얼굴. 보리가 주위를 두리번거리다 텅 빈 타루의 자리(붉은 술 끈만 모래 위에 떨어져 있음)를 발견하고 낯빛이 변한다. 노아는 입을 가린다.<br/><b>배경·소품</b> 모양이 완전히 바뀐 사구들, 지워진 발자국, 반쯤 묻힌 안장과 방울.<br/><b>톤</b> 폭풍 뒤의 고요 — 막막함과 상실감.</div>
+  <div class="text"><span class="sp">나레이션:</span> 폭풍은 밤새 몰아치다 새벽에야 멎었어요. 그런데 세상이 몽땅 달라져 있었지요.<br/><span class="sp">카심:</span> "모래 언덕 모양이 다 바뀌었다… 길잡이 바위도, 발자국도 사라졌어. 게다가 물 항아리가 절반이나 깨졌구나."<br/><span class="sp">보리:</span> "잠깐… 타루! 타루가 없어요!"</div>
+</div>
+
+<div class="page"><div class="pno">18쪽</div>
+  <div class="scene"><b>컷</b> 중형, 사구 능선을 달려 오르는 대각선 구도.<br/><b>장소·시간</b> 캠프에서 떨어진 모래 언덕, 뿌연 아침. 공기가 이미 뜨거워 아지랑이가 피어오른다.<br/><b>인물</b> 보리가 스피드라인을 그리며 능선 꼭대기로 달려 올라가 우뚝 멈추고 먼 곳을 가리킨다 — 손끝 원경에 아지랑이 위로 일렁이는 <b>은빛 호수와 야자수 그림자</b>(신기루: 가장자리가 흐물흐물 일렁이게). 노아는 뒤에서 헐떡이며 손을 뻗어 말리는 중. 배낭에서 몸을 내민 티코의 눈에서 스캔 빔.<br/><b>배경·소품</b> 이글거리는 아지랑이 필터, 두 줄 발자국.<br/><b>톤</b> 희망이 반짝 — 그러나 어딘가 수상한(일렁이는) 희망.</div>
+  <div class="text"><span class="sp">보리:</span> "타루야—! …어? 저기 봐, 물이야! 호수가 있어!"<br/><span class="sp">노아:</span> "잠깐, 잠깐만! 뭔가 이상해…"<br/><span class="sp">티코:</span> "내 데이터에 의하면— 저것은 100% 진짜 호수다! 수분 반응 감지!"<br/><span class="sp">보리:</span> "역시! 생각은 뛰면서 해!"</div>
+</div>
+
+<div class="page"><div class="pno">19쪽</div>
+  <div class="scene"><b>컷</b> 중형 허탈 개그컷, 하이앵글.<br/><b>장소·시간</b> 호수가 '있던' 자리 — 그냥 평평한 모래벌판. 한낮에 가까운 뿌연 하늘.<br/><b>인물</b> 보리가 무릎을 털썩 꿇고 입을 떡 벌린 채(만화 기호: 영혼이 빠져나가는 표현), 티코는 안테나가 축 처지고 눈이 지그재그(당황). 노아가 뒤늦게 도착해 무릎에 손을 짚고 헐떡이며 검지를 세워 설명한다. 배경의 지평선엔 아까 그 '호수'가 조금 더 멀리서 여전히 일렁인다.<br/><b>배경·소품</b> 아지랑이, 바싹 마른 모래, 데굴 구르는 마른 풀 뭉치.<br/><b>톤</b> 허탈 유머 + 지식 포인트가 한 번에.</div>
+  <div class="text"><span class="sp">보리:</span> "어… 없어졌어. 분명히 여기였는데!"<br/><span class="sp">노아:</span> "역시… 책에서 봤는데, 이건 <b>신기루</b>야. 사막의 뜨거운 공기가 빛을 구부려서, 먼 하늘이 물처럼 보이는 거래."<br/><span class="sp">티코:</span> "데, 데이터 오류… 수분 반응은 내 이마에 흐른 기름이었다…"<br/><span class="sp">보리:</span> "티코, 너어어!!"</div>
+</div>
+
+<div class="page"><div class="pno">20쪽</div>
+  <div class="scene"><b>컷</b> 중형 구출컷 + 좌상단에 보리의 귀 클로즈업 인셋(딸랑— 음파 기호).<br/><b>장소·시간</b> 신기루 자리 근처, 사구 사이 움푹한 모래 골짜기.<br/><b>인물</b> 메인 — 골짜기 아래 모래에 다리가 반쯤 묻힌 채 낑낑대는 타루. 보리와 노아가 양쪽에서 두 손으로 모래를 파내며 타루를 끌어낸다(보리는 이를 악물고, 노아는 소매를 걷어붙임). 타루의 큰 눈에 눈물이 그렁그렁.<br/><b>배경·소품</b> 타루 목의 청동 방울(소리의 근원), 파헤쳐진 모래 더미, 아이들의 그림자.<br/><b>톤</b> 안도와 따뜻함 — 보리의 밝은 귀가 활약하는 컷.</div>
+  <div class="text"><span class="sp">보리:</span> "쉿! 방울 소리… 들리지? 저쪽이야!"<br/><span class="sp">나레이션:</span> 모래 골짜기 아래, 타루가 다리가 묻힌 채 울고 있었어요. 아이들은 맨손으로 모래를 파내 타루를 꺼냈지요.<br/><span class="sp">보리:</span> "괜찮아, 타루야. 무서웠지? 이제 같이 가자."<br/><span class="sp">노아:</span> "폭풍에 놀라서 여기까지 도망쳤나 봐."</div>
+</div>
+
+<div class="page"><div class="pno">21쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출(시리즈 공통 포맷 ②).<br/><b>장소·시간</b> 캠프로 돌아가는 길, 큰 사구의 그늘 — 주위에 사람 없음.<br/><b>인물</b> 티코의 홀로그램 카드가 공중에 떠 있다. 카드 안: 쌍봉낙타 도해 — 혹 속 지방 표시(도시락 아이콘), 두 겹 속눈썹 확대경 컷, 여닫는 콧구멍 화살표, 넓적한 발바닥과 모래 단면. 두 아이가 올려다보고, 정작 타루는 자기 도해 카드에 코를 들이밀고 킁킁(개그).<br/><b>배경·소품</b> 그늘의 푸른 톤 vs 카드의 민트 발광.<br/><b>톤</b> 티코피디아 포맷 반복(각인).</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아, 스캔! 낙타의 혹에는 물이 아니라 <b>지방</b>이 들어 있다 — 먹이가 없을 때 꺼내 쓰는 도시락이지. 속눈썹은 두 겹, 콧구멍은 열고 닫아서 모래바람도 끄떡없다!"<br/><span class="sp">보리:</span> "그래서 폭풍 속에서도 낙타들이 씩씩했구나."<br/><span class="sp">노아:</span> "낙타를 '<b>사막의 배</b>'라고 부르는 이유를 알겠어."</div>
+</div>
+
+<div class="page"><div class="pno">22쪽</div>
+  <div class="scene"><b>컷</b> 중형, 감사와 근심이 교차하는 캠프 컷.<br/><b>장소·시간</b> 캠프, 해가 기운 오후. 하늘은 여전히 먼지 안개로 뿌옇고 해의 위치를 가늠하기 어렵다.<br/><b>인물</b> 카심이 타루의 목을 끌어안았다가 아이들에게 깊이 고개 숙여 감사 — 그러나 고개를 든 얼굴엔 근심. 뒤편에서 일꾼들이 남은 물 항아리 앞에 모여 두런두런 걱정하고, 항아리 안 수면이 바닥 가까이 내려가 있는 인셋. 보리는 주먹을 불끈, 노아는 입술을 깨문다.<br/><b>배경·소품</b> 깨진 항아리 조각 무더기, 지친 낙타들, 낮게 깔린 먼지빛 하늘.<br/><b>톤</b> 따뜻함과 무거움이 반반 — 진짜 위기의 시작.</div>
+  <div class="text"><span class="sp">카심:</span> "타루를 찾아 주었구나. 이 은혜는 잊지 않으마. …하지만 얘들아, 큰 문제가 남았다."<br/><span class="sp">카심:</span> "폭풍에 떠밀려 우리가 어디쯤인지 알 수 없게 됐어. 하늘은 먼지로 뿌예 해도 별도 보이지 않고, 물은 이제 하루치뿐이다."<br/><span class="sp">노아:</span> "하루 안에 오아시스를 못 찾으면…"<br/><span class="sp">보리:</span> "찾으면 되잖아. 우리가 꼭 찾을 거야!"</div>
+</div>
+
+<div class="page"><div class="pno">23쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷(시리즈 러닝 개그 — 통신 두절).<br/><b>장소·시간</b> 캠프 구석, 짐 꾸러미 그늘 뒤 — 사람들과 떨어진 곳. 저녁.<br/><b>인물</b> 노아의 손목 통신기에서 봉수 박사의 홀로그램 얼굴이 떠 있고, 가로 노이즈 라인이 지나가며 얼굴이 지지직 뭉개지는 순간. 보리가 통신기를 두 손으로 붙잡고 마구 흔들고, 노아는 전파를 잡으려 두 팔을 안테나처럼 하늘로 뻗는다. 티코는 시큰둥한 반쯤 감긴 눈.<br/><b>배경·소품</b> 홀로그램의 민트 노이즈, 만화 기호 땀방울.<br/><b>톤</b> 과장된 리액션의 러닝 개그.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "허허, 잘 듣거라. 사막에서 길을 잃으면 밤하늘을 보거라. 국자 모양으로 늘어선 별 일곱 개를 찾아서 말이다… 치지직—"<br/><span class="sp">보리:</span> "국자 별이요? 찾아서 어떻게요?! 할아버지!!"<br/><span class="sp">티코:</span> "(속닥) 통신 두절. …늘 그렇듯, 제일 중요한 대목에서."<br/><span class="sp">노아:</span> "국자 모양 별 일곱 개… 어? 잠깐, 그거 나 아는 것 같아!"</div>
+</div>
+
+<div class="page"><div class="pno">24쪽</div>
+  <div class="scene"><b>컷</b> 대형 세로 스펙터클(간판 컷 ④) — 화면 위 2/3가 밤하늘.<br/><b>장소·시간</b> 캠프, 깊은 밤. 먼지 안개가 걷히며 하늘 한 조각이 열리고 별이 쏟아진다.<br/><b>인물</b> 화면 아래 — 노아가 팔을 곧게 뻗어 하늘을 가리키고, 그 손끝을 따라 카심과 일꾼들, 보리, 타루까지 모두 고개를 들어 올려다본다. 하늘 — 국자 모양의 북두칠성 일곱 별이 또렷하게 빛나고, 국자 끝 두 별에서 이어지는 방향 끝에 한 별(북극성)이 유난히 밝게 반짝인다(별들의 크기·밝기로만 강조 — 글자·선 라벨 금지).<br/><b>배경·소품</b> 은하수, 캠프의 작은 모닥불, 낙타들의 실루엣.<br/><b>톤</b> 경이로운 남색 — 이 화의 지식이 하늘 가득 펼쳐지는 컷.</div>
+  <div class="text"><span class="sp">나레이션:</span> 밤이 되자 먼지 안개가 걷히고, 하늘 가득 별이 쏟아졌어요.<br/><span class="sp">노아:</span> "책에서 봤어! 저 국자 모양이 <b>북두칠성</b>이야. 국자 끝의 두 별을 이어서 다섯 배만큼 가면… 저기! 밤새 움직이지 않고 북쪽을 지키는 별, <b>북극성</b>이에요!"<br/><span class="sp">카심:</span> "허허, 별 읽는 법을 아는 꼬마라니! 북쪽을 알았으니 큰 방향은 잡았다."<br/><span class="sp">카심:</span> "하지만 '달의 샘' 오아시스가 북쪽 어디쯤인지… 폭풍에 얼마나 밀려났는지 몰라 그것이 문제구나."</div>
+</div>
+
+<div class="page"><div class="pno">25쪽</div>
+  <div class="scene"><b>컷</b> 중형, 유레카 컷 — 우상단에 타루의 벌름거리는 콧구멍 클로즈업 인셋.<br/><b>장소·시간</b> 같은 밤 캠프.<br/><b>인물</b> 메인 — 타루가 목을 길게 빼고 코를 벌름거리며 북서쪽 어둠을 향해 낑낑거린다. 그 뒤로 어른 낙타들도 일제히 같은 방향으로 귀와 고개를 돌린 진풍경. 보리가 타루의 시선을 따라 손가락으로 가리키고, 노아는 안경이 반짝(깨달음), 카심은 수염을 쓰다듬다 눈이 커진다.<br/><b>배경·소품</b> 별하늘, 일렬로 같은 곳을 보는 낙타들의 옆얼굴 라인(리듬감 있게).<br/><b>톤</b> 관찰이 답이 되는 순간 — 유레카의 반짝임.</div>
+  <!-- 고증 확인 필요: 낙타가 물기(젖은 흙) 냄새를 감지하는 거리는 자료마다 3km~수십 km로 차이가 큼 — 구체 수치 대신 '아주 멀리'로 표현 -->
+  <div class="text"><span class="sp">보리:</span> "얘들아, 저것 봐! 타루가 아까부터 저쪽만 보면서 코를 벌름거려. 다른 낙타들도 전부 같은 쪽이야!"<br/><span class="sp">노아:</span> "그거야! 낙타는 아주 멀리 있는 젖은 흙냄새도 맡을 수 있대. 물 냄새를 맡은 거야!"<br/><span class="sp">카심:</span> "별이 큰길을 가리키고, 낙타가 샘을 가리킨다라… 좋다, 너희를 믿으마. 밤길 행군이다!"</div>
+</div>
+
+<div class="divider">— E. 해결 · 회수 · 귀환 (26~33쪽) —</div>
+
+<div class="page"><div class="pno">26쪽</div>
+  <div class="scene"><b>컷</b> 중형 와이드, 실루엣 행렬 — 화면 상단에 북극성을 크게.<br/><b>장소·시간</b> 별하늘 아래 사막, 한밤의 행군.<br/><b>인물</b> 낙타 행렬이 북극성 쪽으로 일렬로 나아가는 실루엣. 맨 앞에서 타루가 코를 치켜들고 씩씩하게 앞장서고(방울 소리 음파), 그 옆에 보리가 나란히 걷는다. 우하단 인셋 — 배낭 속 티코의 가슴 게이지 옆 배터리 표시가 노랗게 깜빡인다.<br/><b>배경·소품</b> 은하수, 모래에 길게 깔린 달그림자, 발자국 행렬.<br/><b>톤</b> 고요한 결의 — 남색과 은색의 밤 행군.</div>
+  <div class="text"><span class="sp">나레이션:</span> 대상단은 북극성을 등대 삼고, 낙타의 코를 나침반 삼아 밤새 걸었어요.<br/><span class="sp">티코:</span> "(속닥) 배터리 아껴, 인간들! 이제 40%야. 시간의 문을 열 몫은 남겨 둬야 한다고!"<br/><span class="sp">보리:</span> "조금만 힘내, 티코. 타루를 믿어 보자."</div>
+</div>
+
+<div class="page"><div class="pno">27쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클(간판 컷 ⑤) — 사구 능선에서 내려다보는 발견의 부감.<br/><b>장소·시간</b> 동트는 새벽. 하늘은 남색→분홍→금빛 그라데이션.<br/><b>인물</b> 능선 위에 행렬 전체가 늘어서 있고, 발아래 사구 사이로 <b>초승달 모양의 푸른 샘</b>과 야자수·미루나무 숲, 갈대밭이 펼쳐진다. 첫 햇살이 수면에 금가루처럼 부서진다. 보리는 만세 점프, 타루는 네 다리로 폴짝, 노아는 두 주먹을 흔들며 환호, 카심은 하늘을 향해 두 팔을 벌린다.<br/><b>배경·소품</b> 샘 위로 날아오르는 물새 떼, 샘가의 작은 오아시스 마을 지붕들.<br/><b>톤</b> 카타르시스 — 금빛과 청록의 대비.</div>
+  <!-- 고증 확인 필요: 초승달 모양 오아시스는 둔황 월아천(月牙泉)을 모티프로 한 픽션 지명 '달의 샘' — 실명 대신 가상 지명 사용 -->
+  <div class="text"><span class="sp">나레이션:</span> 새벽하늘이 밝아 올 무렵, 모래 언덕 너머로 초승달 모양의 푸른 샘이 반짝였어요.<br/><span class="sp">보리:</span> "오아시스다! 진짜 오아시스야! 이번엔 신기루 아니지?!"<br/><span class="sp">티코:</span> "(속닥) 수분 반응, 진짜다! …이번엔 정말이라고!"<br/><span class="sp">카심:</span> "달의 샘이다! 얘들아, 너희가 우리 상단을 살렸다!"</div>
+</div>
+
+<div class="page"><div class="pno">28쪽</div>
+  <div class="scene"><b>컷</b> 중형, 활기찬 군상컷 — 샘가와 물물교환 장면의 2요소 구성.<br/><b>장소·시간</b> 달의 샘 오아시스, 아침.<br/><b>인물</b> 전경 — 낙타들이 샘에 코를 박고 물을 벌컥벌컥, 타루는 얕은 물가에서 첨벙첨벙 물장난(물방울 왕관). 중경 — 카심이 오아시스 마을 사람들과 마주 서서 비단 두루마리를 건네고 말린 과일 자루와 유리구슬 꾸러미를 받는 물물교환 장면. 두 아이는 그 곁에서 턱을 괴고 흥미진진 구경.<br/><b>배경·소품</b> 항아리에 물을 채우는 일꾼들, 야자수 그늘, 갈대.<br/><b>톤</b> 잔치 같은 안도감 — 교역 학습을 놀이처럼.</div>
+  <div class="text"><span class="sp">나레이션:</span> 낙타들은 코를 박고 물을 벌컥벌컥, 타루는 첨벙첨벙 물장난을 쳤어요.<br/><span class="sp">보리:</span> "어? 카심 아저씨가 비단을 주고 과일이랑 구슬을 받네?"<br/><span class="sp">노아:</span> "돈 대신 물건과 물건을 맞바꾸는 거야. 서로에게 귀한 것을 나누니까 둘 다 이득이지."<br/><span class="sp">카심:</span> "그게 장사의 재미란다, 하하!"</div>
+</div>
+
+<div class="page"><div class="pno">29쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 이번 화의 감정 피크.<br/><b>장소·시간</b> 샘가 야자수 그늘, 아침.<br/><b>인물</b> 카심이 한쪽 무릎을 꿇고, 가죽끈에서 풀어낸 <b>별 조각(부품)</b>을 보리의 두 손 위에 살며시 얹어 준다 — 민트빛이 두 사람의 얼굴을 부드럽게 비춘다. 노아는 옆에서 감동한 얼굴, 타루는 보리의 어깨에 턱을 얹고 눈을 지그시. 배낭 틈 티코의 눈이 하트 모양.<br/><b>배경·소품</b> 나뭇잎 사이로 떨어지는 빛 조각, 잔잔한 수면 반짝임.<br/><b>톤</b> 따뜻하고 뭉클하게 — 보상이 아니라 마음을 건네는 장면.</div>
+  <div class="text"><span class="sp">카심:</span> "이 별 조각을 너희에게 주마. 아까부터 자꾸 눈이 가는 눈치더구나 — 처음부터 너희 것이었지?"<br/><span class="sp">보리:</span> "어, 어떻게 아셨어요?!"<br/><span class="sp">카심:</span> "장사꾼의 눈은 못 속인다, 하하! 생각해 보니 행운은 별이 아니라 사람이 가져오는 것이더구나. 별을 읽는 눈과 친구를 파내던 손 — 너희가 우리 상단의 진짜 행운이었다."</div>
+</div>
+
+<div class="page"><div class="pno">30쪽</div>
+  <div class="scene"><b>컷</b> 중형 이별컷, 아침의 역광.<br/><b>장소·시간</b> 오아시스 마을 어귀, 출발 준비를 마친 대상단 앞.<br/><b>인물</b> 카심이 노아의 손에 엄지손톱만 한 파란 유리구슬 하나를 쥐여 준다. 그 옆 — 타루가 보리의 카프탄 자락을 살짝 물고 놓지 않아, 보리가 웃음 반 울음 반으로 타루와 이마를 맞댄다. 뒤로 길 떠날 채비를 마친 낙타 행렬.<br/><b>배경·소품</b> 파란 유리구슬의 반짝임(클로즈업 인셋), 아침 햇살의 긴 그림자, 딸랑이는 방울.<br/><b>톤</b> 아쉬움과 온기 — 길은 다시 이어진다는 느낌.</div>
+  <div class="text"><span class="sp">카심:</span> "이 유리구슬은 저 멀리 서쪽 나라에서 온 것이다. 이 길을 따라가면 언젠가 동쪽 끝, 바다 건너 나라까지도 닿겠지."<br/><span class="sp">노아:</span> "(동쪽 끝 나라라면… 혹시 우리나라?!)"<br/><span class="sp">보리:</span> "타루야, 옷 놓아 줘야지… 나도 너 못 잊을 거야. 꼭 다시 올게!"<br/><span class="sp">나레이션:</span> 딸랑딸랑 — 방울 소리가 멀어질 때까지, 타루는 자꾸만 뒤를 돌아보았어요.</div>
+</div>
+
+<div class="page"><div class="pno">31쪽</div>
+  <div class="scene"><b>컷</b> 중형, 긴박+홀가분의 귀환컷.<br/><b>장소·시간</b> 마을 밖 큰 사구 뒤편 — 사람들 시야 밖. 오전.<br/><b>인물</b> 티코가 배낭에서 나와 두 팔을 벌리자 공중에 시간의 소용돌이 게이트가 열린다. 티코 가슴 옆 배터리 표시가 빨갛게 점멸(잔량 바닥 표현). 보리는 부품을 두 손으로 꼭 쥐고, 노아는 밀짚모자 대신 두건을 꾹 눌러쓰고 게이트로 뛰어들 준비.<br/><b>배경·소품</b> 게이트 빛에 소용돌이치는 모래, 멀어지는 대상단의 점 같은 행렬.<br/><b>톤</b> 아슬아슬한 배터리 + 임무 완수의 홀가분함.</div>
+  <div class="text"><span class="sp">티코:</span> "배터리 15%! 아슬아슬하다 — 문 연다, 뛰어들어!"<br/><span class="sp">노아:</span> "사막아 안녕! 두 번째 방문은… 좀 생각해 볼게!"<br/><span class="sp">보리:</span> "난 꼭 다시 올 거야. 타루 보러!"</div>
+</div>
+
+<div class="page"><div class="pno">32쪽</div>
+  <div class="scene"><b>컷</b> 중형, 홈 베이스의 해금 연출(귀환 후 — 룰4 안전 지대).<br/><b>장소·시간</b> 밤의 창고 실험실.<br/><b>인물</b> 작업대 위 — 별 조각 부품이 티코의 가슴 코어에 스르륵 장착되며 민트빛 발광, 게이지 12칸 중 <b>6칸째</b>가 점등된다. 티코의 머리 위로 홀로그램 나침반이 떠올라 바늘이 핑그르르 돌다 북쪽에 딱 고정. 박사는 흐뭇하게 박수, 보리는 어이없다는 표정으로 손가락질(개그), 노아는 웃음.<br/><b>배경·소품</b> 작업대 공구, 아이들이 벗어 둔 카프탄과 물통, 벽시계.<br/><b>톤</b> 홈 베이스의 안도감 + 해금의 반짝임.</div>
+  <div class="text"><span class="sp">나레이션:</span> 부품이 돌아오자, 티코의 머리 위로 반짝이는 나침반이 떠올랐어요 — 어디서든 방향을 알려 주는 '나침반 모드'!<br/><span class="sp">티코:</span> "이제 나만 있으면 절대로 길을 잃지 않는다! 대단하지?"<br/><span class="sp">보리:</span> "야! 그 기능, 사막에서 나왔어야지!!"<br/><span class="sp">노아:</span> "하하… 그래도 덕분에 별 보는 법은 평생 안 잊을 거야."</div>
+</div>
+
+<div class="page"><div class="pno">33쪽</div>
+  <div class="scene"><b>컷</b> 대형 마무리 몽타주(2요소 + 인셋).<br/><b>장소·시간</b> 창고 옆 살림방의 저녁상, 밤.<br/><b>인물</b> 중앙(메인) — 저녁상에 둘러앉은 셋과 박사. 수박 접시 위로 웃음꽃. 노아가 파란 유리구슬을 들어 보이고, 박사가 돋보기안경 너머로 들여다보며 허허 웃는다. 우상단 인셋 — 금빛 왕관 모양 장식과 유리잔이 놓인 신라 무덤(경주 고분 실루엣) 이미지, 그 위로 사막에서 한반도까지 점선처럼 이어지는 길. 하단 — 티코 가슴에서 떠오른 홀로그램 지구본, 아메리카 대륙의 한 지점이 노랗게 깜빡이며 작은 번개 아이콘이 튄다.<br/><b>배경·소품</b> 김이 오르는 찌개, 벽에 붙여 둔 사막 기념 낙타 그림(보리가 그린 낙서풍).<br/><b>톤</b> 따뜻한 마무리 + 다음 모험의 스파크.</div>
+  <!-- 고증 확인 필요: 경주 고분(황남대총 등)의 서역 유리그릇은 주로 4~6세기 무덤 출토 — '실크로드가 신라까지 이어졌다'는 큰 사실 수준으로 단순화(연대 비교 서술은 피함) -->
+  <div class="text"><span class="sp">봉수 박사:</span> "허허, 이 길은 아주 오래전부터 우리나라와도 이어져 있었단다. 경주의 신라 왕족 무덤에서도 서쪽 나라에서 만든 유리그릇이 나왔거든. 너희가 걸은 그 길이, 신라 사람들한테도 먼 나라 보물을 실어다 준 게지."<br/><span class="sp">보리:</span> "그 먼 길이 여기까지…! 카심 아저씨 말이 맞았네."<br/><span class="sp">티코:</span> "삐빅! 감동은 나중에. 다음 부품 신호 발견 — 좌표는 1879년 미국, <b>멘로파크</b>! 번쩍번쩍… 전기 신호다!"<br/><span class="sp">노아:</span> "전기라면… 혹시 발명왕 에디슨?!"</div>
+</div>
+
+<div class="divider">— F. 티코피디아 부록 (34~36쪽) —</div>
+
+<div class="page"><div class="pno">34쪽 · 티코피디아 ①</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지(부록 공통 포맷) — 배경은 민트색 홀로그램 격자.<br/><b>장면</b> 티코가 챙 없는 고깔모자(카심 모자 미니 버전)를 쓰고 지시봉을 든 선생님 포즈로 화면 왼쪽에. 오른쪽 큰 카드: 유라시아 지도 위에 동쪽 끝(중국)에서 서쪽 나라들까지 이어지는 금색 길과 낙타 행렬 아이콘. 길 위아래로 교역품 아이콘 — 서쪽으로 가는 비단·종이, 동쪽으로 오는 유리그릇·포도·호두. 지도의 동쪽 끝에 한반도와 작은 유리잔 아이콘.<br/><b>톤</b> 밝고 정돈된 인포그래픽. 본편과 구분되는 '부록 세계' 톤.</div>
+  <div class="text"><span class="sp">티코:</span> "오늘의 티코피디아! <b>실크로드(비단길)</b>는 동쪽의 중국과 서쪽의 먼 나라들을 이은, 세상에서 가장 유명한 옛 무역길이야. 중국의 <b>비단</b>이 이 길로 팔려 나가서 '비단길'이라는 이름이 붙었지. 비단과 종이는 서쪽으로, 유리·포도·호두는 동쪽으로 여행했고, 음악과 생각 같은 문화도 함께 오갔단다. 이 길은 멀리 <b>신라</b>까지 이어져서, 경주의 옛 무덤에서 서역의 유리그릇이 나왔어!"</div>
+</div>
+
+<div class="page"><div class="pno">35쪽 · 티코피디아 ②</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지 ② — 4분할 도해 중심.<br/><b>장면</b> 카드 4칸 — ① 오아시스 단면도(모래 아래 지하수가 샘으로 솟는 그림) ② 신기루 원리 미니 도해(뜨거운 모래 위에서 휘어지는 빛줄기와 가짜 호수) ③ 쌍봉낙타 도해(혹=지방 도시락, 두 겹 속눈썹, 여닫는 콧구멍) ④ 북두칠성 국자 끝 두 별에서 다섯 배 거리의 북극성 별지도. 구석에서 티코가 미니 나침반을 들고 엄지 척.<br/><b>톤</b> 교과서 삽화보다 밝고 만화적인 도해.</div>
+  <div class="text"><span class="sp">티코:</span> "사막에서 살아남기! <b>오아시스</b>는 사막 한가운데 지하수가 솟아나 샘과 나무가 자라는 곳이야. 저 멀리 보이는 가짜 호수 <b>신기루</b>는 뜨거운 공기가 빛을 구부려 만든 눈속임이지. 밤에는 북두칠성 국자 끝 두 별 사이를 다섯 배 늘리면 북쪽을 지키는 <b>북극성</b>을 찾을 수 있어. 그리고 낙타의 혹에는 물이 아니라 지방이 들어 있다는 것, 잊지 마!"</div>
+</div>
+
+<div class="page"><div class="pno">36쪽 · 티코 퀴즈</div>
+  <div class="scene"><b>컷</b> 퀴즈 페이지(부록 공통 포맷) — 티코 정면 컷.<br/><b>장면</b> 티코가 문제 카드 3장을 부채꼴로 펼쳐 들고 윙크. 카드마다 ①②③ 번호와 물음표 장식. 배경 하단에 다음 화 예고 — 어둠 속에서 따뜻한 노란 빛을 내는 전구 하나의 실루엣과 튀는 번개 불꽃, 물음표. (앱에서는 기존 퀴즈 게임 인프라로 인터랙티브 처리)<br/><b>톤</b> 마무리 팡파레 + 다음 화 기대감.</div>
+  <div class="text"><span class="sp">티코:</span> "마지막 관문, 티코 퀴즈! 셋 다 맞히면 너도 시간여행 대원!<br/>① 실크로드는 어떤 물건 덕분에 '비단길'이라는 이름이 붙었을까?<br/>② 낙타의 혹 속에 들어 있는 것은 물일까, 지방일까?<br/>③ 밤하늘에서 북쪽을 알려 주는, 움직이지 않는 별의 이름은 무엇일까?<br/>…다음 화, 번쩍번쩍 전기의 나라 멘로파크에서 만나자! 삐빅!"</div>
+</div>
+
+<footer>
+  타임 티코 6화 콘티 v1.0 · 탱고북 오리지널 · 내부 제작 자료
+</footer>
+
+</div>
+
+<script>
+// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
+(async function () {
+  const nav = document.getElementById('comic-tabs');
+  if (!nav) return;
+  const here = (location.pathname.split('/').pop() || '');
+  const items = [['learning-comic-plan.html', '📘 기획서']];
+  for (let i = 1; i <= 12; i++) {
+    const f = 'learning-comic-ep' + String(i).padStart(2, '0') + '.html';
+    try {
+      const r = await fetch(f);
+      const t = await r.text();
+      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
+    } catch (e) { /* skip */ }
+  }
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §6과 동기 유지) ─────────
+const STYLE_PROMPT = [
+  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
+  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
+  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
+  '시대 배경(건축·의상·소품)은 고증에 맞게 세밀하고 사실적으로 묘사.',
+  '화면비 16:9 와이드 일러스트.',
+  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
+].join(' ');
+
+const CHARACTER_KEYS = [
+  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
+  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
+  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
+  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸), 감정에 따라 모양이 변하는 둥근 눈.',
+  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼.',
+  '- 0호(그림자): 어둠 속 검은 실루엣에 붉은 외눈 한 점만 보인다.',
+].join('\n');
+
+// 이 화의 시대 의상 (화별로 교체)
+const EP_COSTUME = '[이 화의 의상] 서기 750년 무렵 실크로드 사막 장면에서 보리 = 모래빛 카프탄(무릎 길이)에 다홍 허리띠, 목에 두른 주황 스카프(붉은 머리끈 유지, 폭풍·한낮엔 스카프를 머리에 씀), 노아 = 하늘색 카프탄에 흰 천 두건, 둥근 안경 유지, 둘 다 가죽 신. 현대(창고) 장면에서는 여름 평상복(보리 주황 반팔 티, 노아 하늘색 반팔 셔츠).';
+
+// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
+const EP_GUEST_KEYS = [
+  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
+  '- 카심(40대 대상단 대장, 서역 상인): 구릿빛 피부, 짙은 밤색 곱슬 턱수염, 굵은 눈썹, 웃음 주름 깊은 서글서글한 눈매, 다부진 큰 체격. 감색 카프탄+금실 가장자리 장식, 화려한 무늬 허리띠, 챙 없는 갈색 펠트 고깔모자, 허리에 가죽 주머니와 청동 방울, 목에 가죽끈 부적 주머니.',
+  '- 타루(새끼 쌍봉낙타): 연한 모래빛 보송보송 솜털, 아직 작고 말랑해 한쪽으로 기운 혹 두 개, 크고 순한 갈색 눈+길고 짙은 두 겹 속눈썹, 벌름거리는 콧구멍, 목에 붉은 술 장식 끈과 작은 청동 방울, 가늘고 긴 다리로 뒤뚱거리는 걸음.',
+].join('\n');
+
+function composeImagePrompt(pno, sceneText) {
+  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+}
+
+// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    const btn = card.querySelector('.copy-btn');
+    const pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async function () {
+      // textContent — details 접힘 상태에선 innerText 가 빈 값
+      const text = pre.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('done');
+      } catch (e) {
+        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
+      }
+      setTimeout(function () {
+        btn.textContent = '📋 시트 프롬프트 복사';
+        btn.classList.remove('done');
+      }, 1600);
+    });
+  });
+})();
+
+// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
+const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
+
+async function loadComicAssets() {
+  try {
+    const r = await fetch(ASSET_API);
+    const j = await r.json();
+    return (j && j.data) || {};
+  } catch (e) { return {}; }
+}
+
+function createPasteBox(key, assets, hint) {
+  const box = document.createElement('div');
+  box.className = 'paste-box';
+  box.tabIndex = 0;
+  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
+  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
+  const reset = function () {
+    box.classList.remove('has-img');
+    box.innerHTML = '';
+    box.textContent = hintText;
+  };
+  const setImg = function (url) {
+    box.classList.add('has-img');
+    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      if (!confirm('이 이미지를 삭제할까요?')) return;
+      try {
+        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
+        reset();
+      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
+    });
+  };
+  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+  else box.textContent = hintText;
+
+  async function upload(file) {
+    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+    box.classList.add('busy');
+    const fr = new FileReader();
+    fr.onload = async function () {
+      try {
+        const r = await fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        });
+        const j = await r.json();
+        if (j.success) setImg(j.data.url + '?t=' + Date.now());
+        else alert('저장 실패: ' + (j.error || ''));
+      } catch (e) {
+        alert('저장 실패 — 서버(3500)를 확인하세요');
+      }
+      box.classList.remove('busy');
+    };
+    fr.readAsDataURL(file);
+  }
+
+  box.addEventListener('paste', function (e) {
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (const it of items) {
+      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
+    }
+  });
+  box.addEventListener('dragover', function (e) { e.preventDefault(); });
+  box.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) upload(f);
+  });
+  box.addEventListener('click', function () { box.focus(); });
+  return box;
+}
+
+// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-plan) 자산을 읽어옴 ──
+(async function () {
+  const grid = document.getElementById('cast-grid');
+  if (!grid) return;
+  let planAssets = {};
+  try {
+    const r = await fetch('/api/comic-assets/learning-comic-plan');
+    const j = await r.json();
+    planAssets = (j && j.data) || {};
+  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
+  grid.querySelectorAll('.cast-item').forEach(function (item) {
+    const key = item.getAttribute('data-key');
+    if (planAssets[key]) {
+      const frame = item.querySelector('.frame');
+      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
+    }
+  });
+})();
+
+// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
+(function () {
+  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^[a-z0-9-]+$/.test(docId)) return;
+  const api = '/api/comic-feedback/' + docId;
+
+  function updateBar(total) {
+    const bar = document.getElementById('feedback-cnt');
+    if (bar) bar.textContent = total;
+  }
+
+  async function loadNotes() {
+    try {
+      const r = await fetch(api);
+      const j = await r.json();
+      return (j && j.data && j.data.pages) || {};
+    } catch (e) { return {}; }
+  }
+
+  async function saveNote(page, note, statusEl, ta) {
+    statusEl.textContent = '저장 중…';
+    try {
+      const r = await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, note: note }),
+      });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.error || 'save failed');
+      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
+      ta.classList.toggle('has-note', !!note.trim());
+      updateBar(j.data.total);
+      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
+    } catch (e) {
+      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
+      statusEl.style.color = '#e85c3a';
+    }
+  }
+
+  async function init() {
+    const pages = document.querySelectorAll('.page');
+    if (!pages.length) return;
+    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
+    const notes = loaded[0];
+    const assets = loaded[1];
+
+    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
+    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
+      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
+    });
+
+    const anchor = document.querySelector('header.hero');
+    if (anchor) {
+      const bar = document.createElement('div');
+      bar.id = 'feedback-bar';
+      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
+      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+    }
+
+    pages.forEach(function (card) {
+      const pnoEl = card.querySelector('.pno');
+      const m = pnoEl && pnoEl.textContent.match(/\d+/);
+      if (!m) return;
+      const pno = m[0];
+
+      const main = document.createElement('div');
+      while (card.firstChild) main.appendChild(card.firstChild);
+      card.appendChild(main);
+
+      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
+      const mainPno = main.querySelector('.pno');
+      const sceneEl = main.querySelector('.scene');
+      if (mainPno && sceneEl) {
+        const row = document.createElement('div');
+        row.className = 'pno-row';
+        mainPno.parentNode.insertBefore(row, mainPno);
+        row.appendChild(mainPno);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋 그림 프롬프트 복사';
+        copyBtn.addEventListener('click', async function () {
+          const prompt = composeImagePrompt(pno, sceneEl.innerText);
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = '복사됨 ✓';
+            copyBtn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () {
+            copyBtn.textContent = '📋 그림 프롬프트 복사';
+            copyBtn.classList.remove('done');
+          }, 1600);
+        });
+        row.appendChild(copyBtn);
+      }
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const saved = notes[pno] || '';
+      panel.innerHTML =
+        '<label>' + pno + '쪽 생성 이미지</label>' +
+        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
+        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
+        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
+      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
+      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
+      const ta = panel.querySelector('textarea');
+      if (saved) ta.classList.add('has-note');
+      const btn = panel.querySelector('button');
+      const status = panel.querySelector('.status');
+      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
+      });
+
+      card.classList.add('with-notes');
+      card.appendChild(panel);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>

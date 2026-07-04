@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 5화 「거꾸로 쓴 노트」 — 콘티</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 24px 0 28px; border-bottom: 3px solid var(--coral); margin-bottom: 28px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 12px; }
+  .hero h1 { font-size: 32px; font-weight: 900; margin: 8px 0 4px; }
+  .hero .sub { color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+  .divider { text-align:center; margin: 40px 0 8px; font-weight: 900; color: var(--mint); letter-spacing: .15em; font-size: 14px; }
+  .page { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 14px 0; }
+  .page .pno { font-weight: 900; color: var(--coral-dark); font-size: 15px; }
+  .page .scene { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .page .scene b { color: var(--mint); font-weight: 800; }
+  .page .text { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 8px; font-size: 15px; }
+  .page .text .sp { font-weight: 800; color: var(--coral-dark); }
+  /* 콘티 리뷰 패널 */
+  .page.with-notes { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .page.with-notes { grid-template-columns: 1fr; } }
+  .note-panel { border-left: 2px dashed var(--line); padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 900px) { .note-panel { border-left: none; border-top: 2px dashed var(--line); padding: 12px 0 0; } }
+  .note-panel label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+  .note-panel textarea { width: 100%; min-height: 96px; resize: vertical; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 13px; background: #fffdfa; }
+  .note-panel textarea:focus { outline: none; border-color: var(--coral); }
+  .note-panel textarea.has-note { border-color: var(--mint); background: #f4fffc; }
+  .note-panel .row { display: flex; align-items: center; gap: 10px; }
+  .note-panel button { background: var(--coral); color: #fff; border: none; border-radius: 999px; padding: 7px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .note-panel button:hover { background: var(--coral-dark); }
+  .note-panel .status { font-size: 12px; color: var(--mint); font-weight: 700; }
+  #feedback-bar { position: sticky; top: 54px; z-index: 10; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 18px; margin: 16px 0 24px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #feedback-bar .cnt { color: #ffd9cc; }
+  .pno-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .copy-btn:hover { background: var(--mint); color: #fff; }
+  .copy-btn.done { background: var(--mint); color: #fff; }
+  .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
+  .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+  .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cast-strip .hint a { color: var(--coral-dark); font-weight: 700; }
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .cast-item { text-align: center; }
+  .cast-item .frame { border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 26px; }
+  .cast-item .frame img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .cast-item .nm { font-size: 12.5px; font-weight: 800; margin-top: 5px; color: var(--ink-soft); }
+  .guest-section { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--coral); border-radius: 16px; padding: 18px 22px; margin: 20px 0; }
+  .guest-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+  .guest-section .hint { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .char-prompt { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt details { margin-top: 6px; }
+  .char-prompt summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 8px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+</style>
+</head>
+<body data-comic-doc="ep05">
+<div class="wrap">
+
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-plan.html">📘 기획서</a></nav>
+
+<header class="hero" id="top">
+  <div class="kicker">TIME TICO · EPISODE 05</div>
+  <h1>5화 「거꾸로 쓴 노트」</h1>
+  <div class="sub">1490년대 초 밀라노, 다빈치의 공방 · 미술·과학(거울·빛·비행) — 36쪽 콘티 (장면 지시 + 페이지 텍스트) · 해금: 스케치 프로젝터</div>
+</header>
+
+<div class="cast-strip">
+  <h2>⭐ 고정 캐릭터 확정 시트</h2>
+  <div class="hint">기획서 §6에 붙여넣은 레퍼런스가 여기 자동 표시됩니다 — 컷 작업의 기준. 비어 있으면 <a href="learning-comic-plan.html#s6">기획서에서 붙여넣기 →</a></div>
+  <div class="cast-grid" id="cast-grid">
+    <div class="cast-item" data-key="bori"><div class="frame">👧</div><div class="nm">보리</div></div>
+    <div class="cast-item" data-key="noa"><div class="frame">👦</div><div class="nm">노아</div></div>
+    <div class="cast-item" data-key="tico"><div class="frame">🤖</div><div class="nm">티코</div></div>
+    <div class="cast-item" data-key="bongsu"><div class="frame">👴</div><div class="nm">봉수 박사</div></div>
+    <div class="cast-item" data-key="zero"><div class="frame">🌑</div><div class="nm">0호</div></div>
+  </div>
+</div>
+
+<div class="guest-section">
+  <h2>🎭 이 화의 게스트 캐릭터 레퍼런스</h2>
+  <div class="hint">3장면 이상 등장하거나 클로즈업이 있는 게스트는 시트를 먼저 확정한다. 아래 비주얼 키는 각 쪽 [📋 그림 프롬프트 복사]에도 자동 포함되어 컷 간 일관성을 지킨다. (단역 — 시장 상인·귀부인·병사·이웃 견습생 — 은 장면 지시 서술로 충분, 시트 불필요)</div>
+
+  <div class="char-prompt" data-char="레오나르도" data-key="leonardo">
+    <div class="head"><span style="font-size:20px">🎨</span><b>레오나르도 다빈치 (40대 초반)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 어른은 4등신 카툰 비율 — 단, 실존 위인이므로 우스꽝스럽지 않게, 위엄과 따뜻함·호기심이 공존하는 존중 어린 묘사. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 2벌 — ① 흙빛·짙은 자주색 긴 튜닉(르네상스 화가·기술자 평상 작업복) 위에 안료가 군데군데 묻은 앞치마 ② 소매를 걷고 팔짱을 낀 편안한 작업 자세. 오른쪽 위에 표정 6종 얼굴 그리드(호기심 가득한 미소·번뜩이는 영감·골똘한 궁리·다정한 웃음·놀란 눈·자상하게 설명하는 표정). 오른쪽 아래 대표 포즈 2개(왼손에 깃펜을 들고 노트에 쓰는 포즈 — 반드시 왼손, 새 날개 뼈대 스케치를 들어 올려 살펴보는 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 레오나르도 다빈치, 1490년대 초 40대 초반의 이탈리아 예술가이자 발명가. 밀라노 스포르차 궁정에서 일하던 시기. 어깨까지 내려오는 물결치는 밤색 곱슬머리와 짧게 다듬은 수염, 크고 따뜻하며 지적인 눈, 온화하고 다정한 인상. 손가락 끝과 소매에 물감·잉크 얼룩. 반드시 왼손잡이로 묘사 — 펜·붓은 항상 왼손에. 르네상스 거장의 기품을 유지하되 아이에게 친근한 삼촌 같은 따뜻함.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-char="살라이" data-key="salai">
+    <div class="head"><span style="font-size:20px">🧑‍🎨</span><b>살라이 (13세 견습생)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 둥글고 친근한 3등신 카툰 비율. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 3면(정면·옆·뒤), 오른쪽 위에 표정 6종 얼굴 그리드(장난스러운 웃음·시무룩·울먹임·머쓱하게 뒤통수 긁기·눈 반짝 감탄·삐진 볼), 오른쪽 아래 대표 포즈 2개(붓과 팔레트를 든 포즈, 노트를 거꾸로 들고 갸웃하는 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 살라이, 다빈치 공방의 13세 이탈리아 소년 견습생. 곱슬곱슬한 금발, 장난기 가득한 큰 눈, 볼에 주근깨. 헐렁한 리넨 셔츠 위에 물감 얼룩이 잔뜩 묻은 짧은 작업 앞치마, 소매를 걷었고 무릎까지 오는 반바지에 낡은 가죽 신. 늘 붓이나 물감통을 들고 다니며, 어딘가 어수룩하지만 사랑스러운 개구쟁이 인상.</pre></details>
+  </div>
+</div>
+
+<div class="divider">— A. 일상 후크 (1~3쪽) —</div>
+
+<div class="page"><div class="pno">1쪽</div>
+  <div class="scene"><b>컷</b> 중형 와이드컷, 아이레벨.<br/><b>장소·시간</b> 낮, 봉수 박사의 창고 실험실(홈 베이스). 선반엔 태엽·전선·반쯤 만든 발명품이 빼곡.<br/><b>인물</b> 작업대 위에 앉은 티코가 가슴 코어를 열어 부품 게이지를 점검 중(4칸 점등, 8칸 꺼짐). 보리는 의자를 뒤로 젖혀 두 다리를 책상에 턱 올리고 만화책을 읽고, 노아는 두꺼운 미술 도감을 펼쳐 그림을 들여다본다.<br/><b>배경·소품</b> 노아가 보는 책 페이지에 새 날개를 본뜬 옛 비행 기계 스케치 도판. 벽엔 지금까지 다녀온 시대 기념품(태극선·모래시계 등)이 걸림.<br/><b>톤</b> 나른한 오후의 따뜻한 텅스텐빛. 평화로운 일상.</div>
+  <div class="text"><span class="sp">노아:</span> "우와, 이것 봐. 아주 옛날에 새처럼 하늘을 날려고 했던 사람이 있대. 이 그림 좀 봐, 진짜 새 날개 같지?"<br/><span class="sp">보리:</span> "새처럼 난다고? 사람이? 에이, 그게 되겠어?"<br/><span class="sp">티코:</span> "배터리 아껴, 인간들. 나 지금 게이지 점검 중이라고. 네 칸 채웠고… 여덟 칸 남았네."</div>
+</div>
+
+<div class="page"><div class="pno">2쪽</div>
+  <div class="scene"><b>컷</b> 중형, 살짝 로우앵글(티코 강조).<br/><b>장소·시간</b> 같은 창고, 몇 초 뒤.<br/><b>인물</b> 티코의 둥근 눈이 번쩍 느낌표 모양으로 바뀌고 안테나 끝에 민트색 신호 파동이 튄다. 가슴 코어에서 홀로그램 지구가 떠올라 유럽의 한 지점(이탈리아반도)이 주황색으로 깜빡. 보리는 만화책을 내던지고 벌떡, 노아는 도감을 안은 채 어깨를 움츠린다.<br/><b>배경·소품</b> 홀로그램 지구본이 두 아이 얼굴을 민트색으로 물들임.<br/><b>톤</b> 정적을 깨는 신호 감지. 설렘의 스파크.</div>
+  <div class="text"><span class="sp">티코:</span> "삐빅! 다섯 번째 부품 신호 포착! 좌표는… 유럽, 이탈리아 밀라노. 지금으로부터 약 530년 전이다!"<br/><span class="sp">보리:</span> "왔다! 가자, 노아!"<br/><span class="sp">노아:</span> "자, 잠깐만! 마음의 준비가 아직—"</div>
+</div>
+
+<div class="page"><div class="pno">3쪽</div>
+  <div class="scene"><b>컷</b> 중형, 브리핑 구도(박사 중심 삼각).<br/><b>장소·시간</b> 창고 문 앞. 박사가 낡은 화집을 펼쳐 아이들에게 보여 준다.<br/><b>인물</b> 봉수 박사가 돋보기안경 너머로 눈을 반짝이며 화집의 옛 그림을 손가락으로 짚는다. 보리·노아가 양옆에서 고개를 들이민다. 배낭에 반쯤 들어간 티코가 빼꼼.<br/><b>배경·소품</b> 화집에 르네상스 시대 도시 그림 — 돔 성당, 마차, 물감 파는 시장. 여백에 좌우가 뒤집힌 이상한 글씨 한 줄(거울 글씨 복선 — 판독 불가하게).<br/><b>톤</b> 지식 예열 컷. 따뜻하고 기대감 있게.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "그 무렵 이탈리아는 <b>르네상스</b>라는, 예술과 과학이 함께 활짝 꽃핀 시대였단다. 그림도, 발명도 한 사람이 다 잘하는 천재들이 살았지."<br/><span class="sp">노아:</span> "예술이랑 과학을 한꺼번에요? 그게 가능해요?"<br/><span class="sp">봉수 박사:</span> "허허, 곧 만나게 될 게다. 부디 조심하고… 그곳 말은 우리랑 다르니 티코의 번역 모듈을 믿거라."</div>
+</div>
+
+<div class="divider">— B. 도착 · 이질감 (4~8쪽) —</div>
+
+<div class="page"><div class="pno">4쪽</div>
+  <div class="scene"><b>컷</b> 대형, 나선형 낙하 구도.<br/><b>장면</b> 시간 터널 내부 — 민트와 주황의 빛 리본이 나선을 그린다. 셋이 낙하 중: 보리는 두 팔 만세(함박웃음), 노아는 무릎을 안고 눈 질끈, 티코는 보리 품에서 카운트다운. 주위로 물감 방울·붓·거울 조각·새 날개 스케치가 별처럼 흘러간다(이번 화 테마 암시).<br/><b>톤</b> 환상적, 놀이기구 같은 신남.</div>
+  <div class="text"><span class="sp">보리:</span> "또 왔다, 이 느낌! 우와아아!"<br/><span class="sp">노아:</span> "난 아무리 해도 이거 적응 안 돼!"<br/><span class="sp">티코:</span> "도착까지 3, 2, 1… 착지 자세!"</div>
+</div>
+
+<div class="page"><div class="pno">5쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클(이번 화 간판 컷). 광장 부감에서 인물로 시선이 내려오는 구도.<br/><b>장소·시간</b> 르네상스 시대 밀라노의 광장, 화창한 오전. 붉은 벽돌 건물과 아치 회랑, 멀리 뾰족한 첨탑이 숲처럼 솟은 흰 대리석의 밀라노 두오모(건축 중인 고딕 대성당)와 붉은 벽돌의 스포르차 성 성벽·둥근 탑, 분수, 마차, 색색의 천을 파는 시장 좌판, 비둘기 떼.<br/><b>인물</b> 광장 한복판에 르네상스 복장으로 변신한 두 아이 — 보리는 초록 보디스+베이지 치마에 헝겊 모자를 눌러쓰고 신기해서 빙그르, 노아는 갈색 조끼+반바지+긴 양말 차림의 옷깃을 어색하게 만지작. 보리 배낭에서 티코가 빼꼼.<br/><b>톤</b> 밝고 활기찬 시대 스펙터클. 배경 디테일 최대치(학습 신뢰도 컷).</div>
+  <div class="text"><span class="sp">나레이션:</span> 눈을 떠 보니, 그곳은 약 530년 전 이탈리아의 도시 밀라노였어요. 옷도 어느새 그 시대 옷으로 바뀌어 있었지요.<br/><span class="sp">보리:</span> "노아, 여기 봐! 건물이 다 벽돌이야. 저기 뾰족뾰족한 커다란 성당 좀 봐!"<br/><span class="sp">티코:</span> "(속닥) 위장복은 기본 탑재. 그리고 지금부터 나는 인형이다. 무슨 일이 있어도… 인형."</div>
+</div>
+
+<div class="page"><div class="pno">6쪽</div>
+  <div class="scene"><b>컷</b> 중형, 시장 좌판 너머로 아이들을 보는 구도.<br/><b>장소·시간</b> 광장 한켠의 안료 파는 좌판.<br/><b>인물</b> 좌판 상인이 색색의 가루 안료(파랑·빨강·황금색)를 작은 접시에 담아 손짓하며 뭔가 말한다(이탈리아어). 보리가 파란 가루를 신기하게 손가락으로 콕 찍어 보고, 노아는 놀라 눈이 동그래진다. 배낭 속 티코의 눈에서 민트색 자막 같은 파동이 살짝.<br/><b>배경·소품</b> 유리병에 담긴 아마씨 기름, 붓 다발, 돌절구.<br/><b>톤</b> 번역 모듈이 작동하는 신기한 순간. 색색의 안료가 화사하게.</div>
+  <div class="text"><span class="sp">상인:</span> "(이탈리아어로) 최고급 파란 안료요! 저기 큰 공방에도 대는 물건이라오!"<br/><span class="sp">노아:</span> "어? 나 지금 저 아저씨 말이 다 들려. 우리말처럼!"<br/><span class="sp">티코:</span> "(속닥) 1화에서 얻은 번역 모듈이잖아. 어느 나라 말이든 알아듣게 해 준다고. 잘난 로봇을 좀 믿어."</div>
+</div>
+
+<div class="page"><div class="pno">7쪽</div>
+  <div class="scene"><b>컷</b> 중형 상하 2요소 구성.<br/><b>상단</b> 배낭 속 티코의 눈에서 민트색 레이더 동심원이 퍼져, 광장 골목 안쪽의 큰 목조 건물(공방) 방향을 가리킨다.<br/><b>하단 전경</b> 그 큰 공방 문 앞에서 사람들이 웅성웅성 모여 안을 기웃거린다. 금발 곱슬머리 소년(살라이)이 문간에 걸터앉아 시무룩하게 턱을 괴고 있다.<br/><b>톤</b> 단서 두 개(신호 방향 + 공방의 소동)가 한 컷에 겹치는 구성.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 삐빅. 부품 신호는… 저 골목 안, 사람들이 모여 있는 저 큰 공방이다."<br/><span class="sp">보리:</span> "사람들이 왜 저렇게 모여 있지? 무슨 일 있나 봐."<br/><span class="sp">노아:</span> "저 문 앞에 앉아 있는 애… 표정이 되게 안 좋은데."</div>
+</div>
+
+<div class="page"><div class="pno">8쪽</div>
+  <div class="scene"><b>컷</b> 대형 실내 스펙터클컷(공방 첫 공개). 문을 열고 들어서는 아이들의 시점.<br/><b>장소·시간</b> 다빈치의 공방 내부, 창으로 햇살이 쏟아지는 오전.<br/><b>인물</b> 넓은 작업실 가득 — 이젤에 걸린 그리다 만 초상화, 천장에 매달린 새 날개 모양 뼈대 모형, 벽엔 인체·기계 스케치가 빼곡. 한쪽엔 크고 작은 거울과 렌즈, 반대편엔 물감을 가는 견습생들. 문간의 두 아이가 입을 떡 벌리고 둘러본다.<br/><b>배경·소품</b> 작업대 위 깃펜·잉크병·해부 스케치, 도르래와 태엽 장치.<br/><b>톤</b> 경이로운 '천재의 작업실'. 예술과 과학이 한 방에 뒤섞인 스펙터클.</div>
+  <div class="text"><span class="sp">보리:</span> "우와… 여기 뭐야? 그림도 있고, 이상한 기계도 있고, 거울도 잔뜩 있어!"<br/><span class="sp">노아:</span> "천장에 저건… 새 날개잖아! 아까 도감에서 본 거랑 똑같아!"<br/><span class="sp">티코:</span> "(속닥) 내 데이터에 의하면 여긴 그냥 화가 작업실이— 아니, 이건 뭔가 좀 다른데?"</div>
+</div>
+
+<div class="divider">— C. 문제 발견 (9~15쪽) —</div>
+
+<div class="page"><div class="pno">9쪽</div>
+  <div class="scene"><b>컷</b> 중형, 삼각 구도(살라이-망가진 모형-아이들).<br/><b>장소</b> 공방 안쪽 작업 구역.<br/><b>인물</b> 금발 소년 살라이가 반쯤 조립하다 우그러진 새 날개 모형 앞에 쪼그려 앉아 울상. 부러진 나무 뼈대와 뒤엉킨 끈이 바닥에 널브러짐. 보리·노아가 다가가 들여다본다.<br/><b>배경·소품</b> 옆에 활짝 펼쳐진 커다란 노트 — 페이지 가득 좌우로 뒤집힌 이상한 글씨와 새 날개 도해(거울 글씨, 판독 불가하게).<br/><b>톤</b> 실패한 조립의 어수선함 + 소년의 낙담.</div>
+  <div class="text"><span class="sp">살라이:</span> "또 부러졌어… 스승님이 이 날개 모형을 오늘까지 다시 세워 놓으랬는데. 난 이 노트를 도무지 못 읽겠단 말이야!"<br/><span class="sp">보리:</span> "이 노트? 어디 봐— 어? 글씨가… 왜 이래?"<br/><span class="sp">노아:</span> "글자가 전부… 거꾸로야. 좌우가 뒤집혀 있어!"</div>
+</div>
+
+<div class="page"><div class="pno">10쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 노트 지면 중심.<br/><b>장면</b> 커다란 노트 한 페이지를 위에서 내려다본 컷 — 새 날개 뼈대 도해 옆으로 오른쪽에서 왼쪽으로, 글자 하나하나가 좌우로 뒤집힌 채 빼곡히 적혀 있다(문자 텍스트는 그리지 않고 '뒤집힌 획들의 흐름'으로만 표현). 페이지 위에 노아의 안경 쓴 얼굴이 바짝 다가와 잔뜩 찡그린다.<br/><b>배경·소품</b> 노트 모서리에 작은 나침반·비행 기계 스케치.<br/><b>톤</b> 수수께끼가 정면으로 제시되는 컷. 미스터리한 긴장.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만! 이 글자… 방향도 이상해. 보통은 왼쪽에서 오른쪽으로 읽잖아. 그런데 이건 오른쪽에서 왼쪽으로 갔어."<br/><span class="sp">보리:</span> "그리고 글자 하나하나가 다 뒤집혀 있어. 완전 암호잖아! 누가 이런 걸 쓴 거야?"<br/><span class="sp">살라이:</span> "우리 스승님이. 스승님 노트는 전부 이래. 그래서 나 같은 견습생은 못 읽어…"</div>
+</div>
+
+<div class="page"><div class="pno">11쪽</div>
+  <div class="scene"><b>컷</b> 대형, 등장 컷(게스트 히어로). 역광 실루엣에서 인물로.<br/><b>장소·시간</b> 공방 안쪽 문에서 걸어 들어오는 레오나르도.<br/><b>인물</b> 어깨까지 내려온 밤색 곱슬머리에 다정한 눈의 레오나르도 다빈치가 <b>왼손</b>에 깃펜을 든 채 들어선다(위엄과 따뜻함). 안료 묻은 앞치마 차림. 살라이가 화들짝 일어나고, 아이들은 그를 올려다본다.<br/><b>배경·소품</b> 그의 뒤로 창을 통해 들어온 빛기둥이 후광처럼.<br/><b>톤</b> 거장의 등장이지만 무섭지 않고 자상하게.</div>
+  <div class="text"><span class="sp">레오나르도:</span> "살라이, 또 날개가 무너졌구나. 허허, 괜찮다. 그런데… 못 보던 손님이 둘 있구나?"<br/><span class="sp">살라이:</span> "스, 스승님! 이 애들이 노트 글씨가 거꾸로라고—"<br/><span class="sp">보리:</span> "아저씨가 이 노트 쓰신 분이에요? 왜 글씨를 거꾸로 써요?"</div>
+</div>
+
+<div class="page"><div class="pno">12쪽</div>
+  <div class="scene"><b>컷</b> 중형, 티코피디아 지식카드 연출(시리즈 공통 포맷 ①).<br/><b>장면</b> 아이들이 살짝 물러선 구석에서, 배낭 속 티코의 눈에서 빔이 나와 공중에 민트색 홀로그램 카드가 뜬다. 카드 안: 돔 성당·팔레트·붓·톱니바퀴가 어우러진 르네상스 아이콘, '한 사람 = 화가+과학자' 도식. 카드 빛이 두 아이 얼굴을 물들인다.<br/><b>톤</b> '티코피디아' 시그니처 연출.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 티코피디아, 스캔! 이 시대의 이 사람은… <b>레오나르도 다빈치</b>. 그림도 최고로 잘 그리고, 기계·인체·물·빛까지 연구한 진짜 만능 천재다."<br/><span class="sp">노아:</span> "책에서 봤어! 나중에 '모나리자'라는 유명한 그림을 그리는 사람이야! 하늘 나는 기계도 상상했다고!"<br/><span class="sp">보리:</span> "그림도 그리고 발명도 한다고? 우와, 진짜 예술이랑 과학을 다 하네!"</div>
+</div>
+
+<div class="page"><div class="pno">13쪽</div>
+  <div class="scene"><b>컷</b> 중형, 대화 구도(다빈치가 노트를 펼쳐 보임).<br/><b>장소</b> 창가 작업대.<br/><b>인물</b> 레오나르도가 아이들 눈높이로 허리를 숙여 노트를 펼쳐 보인다. <b>왼손</b>으로 깃펜을 쥐고 시범 삼아 한 획을 슥 긋는데, 손이 종이 위를 왼쪽으로 지나간다. 아이들이 그의 손을 유심히 본다.<br/><b>배경·소품</b> 잉크병, 왼손 손날 옆으로 마르지 않은 잉크 자국.<br/><b>톤</b> 다정한 수업 분위기. 단서(왼손)가 슬쩍 노출되는 컷.</div>
+  <div class="text"><span class="sp">레오나르도:</span> "이 글씨 말이냐? 나만 알아보면 되는 <b>내 생각 노트</b>라서 편한 대로 쓴단다. 남에게 보일 편지는 똑바로 쓰지."<br/><span class="sp">노아:</span> "(어? 아저씨… 글씨를 <b>왼손</b>으로 쓰시네.)"<br/><span class="sp">레오나르도:</span> "다만 오늘은 큰일이구나. 이 날개 설계를 오후에 후원자님께 보여 드려야 하는데, 순서가 뒤엉켜 모형이 자꾸 무너진단다."</div>
+</div>
+
+<div class="page"><div class="pno">14쪽</div>
+  <div class="scene"><b>컷</b> 중형, 곤경 심화 컷.<br/><b>장소</b> 공방 문간, 원경.<br/><b>인물</b> 문밖에 화려한 옷의 귀족 심부름꾼이 서서 손가락으로 하늘을 가리키며(해가 기운다는 뜻) 다그친다. 레오나르도는 난처하게 이마를 짚고, 살라이는 부러진 뼈대를 끌어안고 발을 동동. 보리·노아가 그 광경을 보며 주먹을 쥔다.<br/><b>배경·소품</b> 창밖으로 서쪽으로 기울기 시작한 해.<br/><b>톤</b> 시간 압박이 걸리는 컷. 다급하지만 무섭지 않게.</div>
+  <div class="text"><span class="sp">심부름꾼:</span> "공작님께서 해 지기 전에 나는 기계 설계를 보고 싶어 하십니다. 늦으면 후원을 끊으실지도 모릅니다!"<br/><span class="sp">레오나르도:</span> "알겠소, 알겠소… 허나 설계대로 조립을 못 하니 이를 어쩐다."<br/><span class="sp">보리:</span> "노아야! 우리가 저 노트만 읽을 수 있으면 도와드릴 수 있잖아!"</div>
+</div>
+
+<div class="page"><div class="pno">15쪽</div>
+  <div class="scene"><b>컷</b> 소형 전환컷, 결의 무드.<br/><b>장소·시간</b> 공방 한쪽 구석, 셋이 머리를 맞댐.<br/><b>인물</b> 보리·노아·티코(배낭에서 반쯤 나옴)가 옹기종기 모여 작전 회의. 티코가 가슴 코어의 배터리 게이지를 슬쩍 보여 주는데 절반쯤 찼다.<br/><b>배경·소품</b> 등 뒤로 부러진 날개 모형과 펼쳐진 거울 글씨 노트.<br/><b>톤</b> 미션 확정. 조용한 결의.</div>
+  <div class="text"><span class="sp">노아:</span> "정리해 보자. 부품은 이 공방 어딘가에 있고, 저 노트를 읽어야 날개 모형을 완성할 수 있어."<br/><span class="sp">보리:</span> "그럼 답은 하나네. 저 거꾸로 글씨의 비밀을 푼다! 생각은 뛰면서 하는 거야!"<br/><span class="sp">티코:</span> "배터리는 반. 해 지기 전에 끝내고 돌아가자. 서둘러, 인간들."</div>
+</div>
+
+<div class="divider">— D. 시도 → 실패 → 힌트 (16~25쪽) —</div>
+
+<div class="page"><div class="pno">16쪽</div>
+  <div class="scene"><b>컷</b> 중형 개그컷, 하이앵글.<br/><b>장소</b> 공방 작업대.<br/><b>인물</b> 보리가 노트를 이리저리 돌려 본다 — 거꾸로, 옆으로, 뒤집어서. 급기야 노트를 머리 위로 들고 물구나무서듯 몸까지 거꾸로. 얼굴이 벌게지고 눈이 뱅글뱅글. 노아는 이마를 짚고, 티코는 어이없다는 반쯤 감긴 눈.<br/><b>배경·소품</b> 주위에 흩어진 붓과 물감통.<br/><b>톤</b> 보리식 돌진 실패. 슬랩스틱, 땀방울·별 기호.</div>
+  <div class="text"><span class="sp">보리:</span> "이렇게 돌리면 읽히나? …아니네. 이렇게? …이것도 아니야! 으으, 머리에 피 쏠려!"<br/><span class="sp">노아:</span> "보리야, 몸을 거꾸로 한다고 글씨가 똑바로 되는 게 아니잖아…"<br/><span class="sp">티코:</span> "내 데이터에 의하면, 그 방법은 어지럼증만 얻는다."</div>
+</div>
+
+<div class="page"><div class="pno">17쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷.<br/><b>장면</b> 노아의 손목 통신기에서 봉수 박사의 홀로그램 얼굴이 뜬다 — 가로 노이즈 라인이 지나가며 얼굴이 글리치로 뭉개지는 순간. 보리가 통신기를 잡고 마구 흔들고, 노아는 팔을 안테나처럼 뻗는다.<br/><b>톤</b> 시리즈 러닝 개그(통신 두절). 과장된 리액션.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "허허, 그건 말이다— 거꾸로 된 글씨를 바로 보려면 아주 흔한 물건 하나면… 집집마다 다 있는… 치지직—"<br/><span class="sp">보리:</span> "할아버지? 그 흔한 물건이 뭔데요! 할아버지!!"<br/><span class="sp">티코:</span> "통신 두절. …또 결정적인 데서 끊겼군. 우리끼리 해결하라는 우주의 뜻이다."</div>
+</div>
+
+<div class="page"><div class="pno">18쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰 컷(다빈치의 손 클로즈업 인서트 포함).<br/><b>장소</b> 창가 작업대.<br/><b>인물</b> 레오나르도가 다시 노트에 뭔가를 적는 모습을 노아가 유심히 지켜본다. 화면 한켠에 인서트 클로즈업 — 그의 <b>왼손</b>이 종이 위를 오른쪽에서 왼쪽으로 미끄러지고, 손날 뒤로는 이미 쓴 글씨가 번지지 않고 깨끗하게 남는다.<br/><b>배경·소품</b> 잉크병, 마른 잉크와 젖은 잉크의 대비.<br/><b>톤</b> 탐정 무드. 노아의 눈이 번뜩이기 직전.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만! 아저씨는 <b>왼손잡이</b>야. 왼손으로 글씨를 쓰는데…"<br/><span class="sp">보리:</span> "그게 뭐 어때서?"<br/><span class="sp">노아:</span> "생각해 봐. 왼손으로 왼쪽에서 오른쪽으로 쓰면, 방금 쓴 글씨를 손날이 지나가면서… 잉크가 번지잖아!"</div>
+</div>
+
+<div class="page"><div class="pno">19쪽</div>
+  <div class="scene"><b>컷</b> 대형 학습컷(1차 통찰) — 좌우 비교 인포그래픽 연출.<br/><b>좌측</b> 왼손이 왼→오른쪽으로 쓰는 그림: 손날이 젖은 글씨를 지나가 시커멓게 번짐(엑스 표시).<br/><b>우측</b> 왼손이 오른→왼쪽으로 쓰는 그림: 손이 아직 안 쓴 빈 곳으로만 지나가 글씨가 깨끗함(체크 표시). 도해는 만화 속 칠판/노트처럼 세계관 안에 자연스럽게.<br/><b>인물</b> 하단에 눈이 동그래진 아이들과, 흐뭇하게 지켜보는 레오나르도.<br/><b>톤</b> '지식이 그림이 되는' 핵심 컷 ①.</div>
+  <div class="text"><span class="sp">레오나르도:</span> "허허, 제법이구나. 맞다. 왼손으로 보통처럼 쓰면 손이 젖은 잉크를 자꾸 문질러 번진단다. 그래서 나는 <b>오른쪽에서 왼쪽으로, 글자도 뒤집어</b> 쓰지. 그러면 손이 깨끗한 자리로만 지나가거든."<br/><span class="sp">노아:</span> "그래서 노트가 전부 거꾸로였구나! 암호가 아니라, 잉크가 안 번지게 하려던 거였어!"<br/><span class="sp">보리:</span> "우와, 근데 그럼 이걸 어떻게 다시 똑바로 읽어요?"</div>
+</div>
+
+<div class="page"><div class="pno">20쪽</div>
+  <div class="scene"><b>컷</b> 중형, 시행착오 컷.<br/><b>장소</b> 작업대.<br/><b>인물</b> 노아가 노트를 얇은 종이에 대고 뒷면으로 비춰 보려 창가로 가져가고, 보리는 물그릇 수면에 비춰 보려 노트를 물 위에 들이댄다(물이 출렁여 실패). 티코는 두 아이를 번갈아 본다.<br/><b>배경·소품</b> 창으로 드는 역광, 물이 담긴 나무 그릇.<br/><b>톤</b> 정답에 가까워지는 시행착오. 살짝 코믹하게.</div>
+  <div class="text"><span class="sp">노아:</span> "빛에 비춰서 뒷면으로 보면… 아, 이것도 흐릿해서 잘 안 보여."<br/><span class="sp">보리:</span> "그럼 물에 비춰 볼까? 어푸— 안 돼, 물이 자꾸 흔들려!"<br/><span class="sp">티코:</span> "뒤집힌 걸 바로 보려면… '뒤집어서 비추는' 물건이 필요한데. 힌트, 힌트."</div>
+</div>
+
+<div class="page"><div class="pno">21쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 유레카 직전.<br/><b>장면</b> 우연히 벽에 세워진 커다란 거울 앞을 지나던 노아가 멈칫 — 거울 속에 노트의 뒤집힌 글씨가 <b>똑바로</b> 비친다. 노아의 안경알에 거울 속 정상 글씨가 반사되고 눈이 번쩍 커진다.<br/><b>배경·소품</b> 공방 벽에 기대 세워진 매끈한 청동/유리 거울, 그 옆으로 작은 손거울들.<br/><b>톤</b> 발견의 반짝임. 배경 비네팅으로 거울에 집중.</div>
+  <div class="text"><span class="sp">노아:</span> "어…? 거울! 거울에 비추니까 글씨가 <b>똑바로</b> 보여!"<br/><span class="sp">보리:</span> "진짜?! 어디 봐— 우와, 진짜 읽힌다! 거꾸로 쓴 글씨가 거울에선 바로 되네!"<br/><span class="sp">노아:</span> "그렇구나… 거울에 비추면 좌우가 뒤바뀌어 보이니까, 뒤집혀 쓴 글씨를 다시 뒤집으면 원래대로 돌아오는 거야!"</div>
+</div>
+
+<div class="page"><div class="pno">22쪽</div>
+  <div class="scene"><b>컷</b> 대형 학습컷(2차 통찰 — 이번 화 핵심 지식) — 거울 반사 도해.<br/><b>장면</b> 화면 중앙에 세로로 놓인 거울, 왼쪽엔 뒤집힌 글씨의 노트, 오른쪽 거울면엔 똑바로 읽히는 상. 거울면을 기준으로 좌↔우가 대칭으로 바뀌는 화살표 도해(왼손↔오른손 손 그림으로도 보조). 도해는 만화 속 소품처럼 자연스럽게.<br/><b>인물</b> 하단에 거울을 든 보리와 노트를 든 노아, 흐뭇한 레오나르도.<br/><b>톤</b> '지식이 그림이 되는' 핵심 컷 ②. 밝고 명료하게.</div>
+  <div class="text"><span class="sp">레오나르도:</span> "그래! 거울에 비추면 글씨의 좌우가 뒤바뀌어 보인단다. 내가 뒤집어 쓴 글씨를 거울이 한 번 더 뒤집으니 제자리로 돌아오지."<br/><span class="sp">노아:</span> "그래서 아저씨는 거울에 비춰 가며 자기 노트를 읽으시는 거네요!"<br/><span class="sp">티코:</span> "(속닥) 정답. 이걸 <b>거울 글씨</b>라고 한다. 내가 진작 알려 주려 했는데 인간들이 물구나무를 서서 말이지."</div>
+</div>
+
+<div class="page"><div class="pno">23쪽</div>
+  <div class="scene"><b>컷</b> 중형, 협동 작업 컷.<br/><b>장소</b> 작업대, 부러진 날개 모형 옆.<br/><b>인물</b> 보리가 큰 거울을 두 손으로 받쳐 노트 옆에 세우고, 노아가 거울에 비친 설계 순서를 또박또박 소리 내 읽는다. 살라이가 그 순서대로 날개 뼈대를 하나씩 맞춰 끼운다. 레오나르도가 흐뭇하게 팔짱을 끼고 지켜본다.<br/><b>배경·소품</b> 조립되어 가는 새 날개 뼈대, 끈과 도르래.<br/><b>톤</b> 팀워크가 살아나는 훈훈한 컷. 활기차게.</div>
+  <div class="text"><span class="sp">노아:</span> "거울에 비친 순서대로 읽을게. 먼저 긴 뼈대를 가운데 세우고, 그다음에 양쪽 날개끈을 도르래에 걸어!"<br/><span class="sp">살라이:</span> "이렇게? …맞다, 이번엔 안 무너져! 너희 정말 대단하다!"<br/><span class="sp">보리:</span> "거울 하나로 설계도가 술술 읽히네!"</div>
+</div>
+
+<div class="page"><div class="pno">24쪽</div>
+  <div class="scene"><b>컷</b> 중형, 부품 발견 컷.<br/><b>장면</b> 노트 순서를 따라가던 노아가 마지막 지시("빛을 모으는 둥근 알을 끼워라")를 읽고, 레오나르도의 광학 도구함을 연다. 그 안 — 렌즈·거울 조각들 틈에 민트색으로 은은히 빛나는 티코의 부품(둥근 렌즈 모양)이 섞여 있다. 아이들의 얼굴이 부품 빛에 물든다.<br/><b>배경·소품</b> 도구함 속 볼록·오목 렌즈, 각도기, 컴퍼스.<br/><b>톤</b> 보물 발견의 반짝임. 부품이 '광학'과 얽혀 있음을 시각화.</div>
+  <div class="text"><span class="sp">노아:</span> "마지막 순서… '빛을 모으는 둥근 알을 여기 끼워라'? 아저씨, 이 둥근 알이 어디 있어요?"<br/><span class="sp">레오나르도:</span> "빛을 모으는 알이라면 저 도구함에… 오, 이런 신기한 알은 처음 보는구나. 며칠 전 시장에서 굴러들어 왔더구나."<br/><span class="sp">티코:</span> "(속닥) 삐빅! 저거다! 내 부품이야! 빛을 다루는 렌즈 부품이라고!"</div>
+</div>
+
+<div class="page"><div class="pno">25쪽</div>
+  <div class="scene"><b>컷</b> 중형, 위기(배터리 경고) 컷.<br/><b>장소</b> 작업대.<br/><b>인물</b> 부품을 두 손으로 받아 든 보리가 환하게 웃는 순간, 배낭 속 티코의 가슴 코어에서 붉은 경고등이 깜빡이고 눈이 지그재그(당황)로 변한다. 노아가 창밖으로 기운 해를 돌아본다.<br/><b>배경·소품</b> 창밖 하늘이 주황빛으로 물들기 시작, 배터리 게이지 25%.<br/><b>톤</b> 해결 직전의 긴장 스파이크. 붉은 경고광.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 삐빅— 삐빅! 배터리 25%! 해가 지고 있어. <b>어두워지기 전에 시간의 문을 못 열면 못 돌아간다!</b>"<br/><span class="sp">보리:</span> "부품은 찾았어! 근데 설계는 아직 후원자한테 못 보여 드렸잖아. 이대로 가면 아저씨가 곤란해져."<br/><span class="sp">노아:</span> "맞아. 끝까지 도와드리고 가자!"</div>
+</div>
+
+<div class="divider">— E. 해결 · 회수 · 귀환 (26~33쪽) —</div>
+
+<div class="page"><div class="pno">26쪽</div>
+  <div class="scene"><b>컷</b> 대형 완성 컷.<br/><b>장소·시간</b> 공방, 늦은 오후 황금빛 햇살.<br/><b>인물</b> 완성된 큰 새 날개 모형이 도르래에 매달려 활짝 펼쳐진다. 살라이가 끈을 당기자 날개가 위아래로 퍼덕. 보리·노아·레오나르도가 올려다보며 환호. 배낭 속 티코의 눈은 별 모양(감탄).<br/><b>배경·소품</b> 날개 뼈대에 팽팽한 천, 도르래와 지렛대 구조.<br/><b>톤</b> 성취의 하이라이트. 황금빛으로 벅차게.</div>
+  <div class="text"><span class="sp">살라이:</span> "됐다! 날개가 움직여! 노트 순서 그대로 조립하니까 딱 맞았어!"<br/><span class="sp">레오나르도:</span> "훌륭하구나! 이제 공작님께 보여 드릴 수 있겠어. 너희가 아니었으면 오늘을 넘겼을 게다."<br/><span class="sp">보리:</span> "거울 하나로 이런 걸 다 만들다니!"</div>
+</div>
+
+<div class="page"><div class="pno">27쪽</div>
+  <div class="scene"><b>컷</b> 중형, 후원자 접견 컷.<br/><b>장소·시간</b> 공방 앞뜰, 기운 해.<br/><b>인물</b> 화려한 옷차림의 후원자(공작)와 수행원들이 도착해 퍼덕이는 날개 모형을 올려다보며 감탄. 레오나르도가 거울에 노트를 비춰 설계를 설명한다. 아이들은 살라이 뒤에 슬쩍 숨어 지켜본다.<br/><b>배경·소품</b> 뜰에 세운 날개 모형, 저녁놀.<br/><b>톤</b> 곤경이 해소되는 안도의 컷. 화사하게.</div>
+  <div class="text"><span class="sp">후원자:</span> "오오, 이것이 사람이 하늘을 나는 기계란 말인가! 과연 자네답군, 레오나르도!"<br/><span class="sp">레오나르도:</span> "이 아이들이 제 노트를 읽어 준 덕분입니다. 거울에 비추면 제 글씨도 술술 읽히지요."<br/><span class="sp">노아:</span> "(속닥) 다행이다. 아저씨 후원 안 끊기겠어."</div>
+</div>
+
+<div class="page"><div class="pno">28쪽</div>
+  <div class="scene"><b>컷</b> 중형, 감사·작별 컷.<br/><b>장소</b> 공방 안, 저녁.<br/><b>인물</b> 레오나르도가 허리를 숙여 아이들과 눈을 맞춘다. 살라이가 물감 묻은 손으로 보리·노아와 하이파이브. 티코는 배낭에서 눈만 빼꼼(인형 위장 유지).<br/><b>배경·소품</b> 창밖 노을, 정리된 작업대.<br/><b>톤</b> 정든 이별의 온기.</div>
+  <div class="text"><span class="sp">레오나르도:</span> "너희는 눈이 밝은 아이들이구나. 남들은 '이상한 글씨'라고만 하는데, 너희는 '왜 그렇게 썼을까'를 물었어. 그게 바로 배움의 시작이란다."<br/><span class="sp">보리:</span> "헤헤, 거울 덕분이죠! 근데 저 이제 거꾸로 글씨 조금 읽을 수 있을 것 같아요!"<br/><span class="sp">살라이:</span> "또 놀러 와! …이 반짝이는 알은 너희 거라며. 가져가."</div>
+</div>
+
+<div class="page"><div class="pno">29쪽</div>
+  <div class="scene"><b>컷</b> 중형, 부품 전달·귀환 준비 컷.<br/><b>장소·시간</b> 공방 뒷마당, 해가 거의 짐.<br/><b>인물</b> 살라이가 민트빛 부품을 보리의 두 손에 건넨다. 보리는 공손히 받고, 노아는 꾸벅 인사. 레오나르도가 문간에서 손을 흔든다. 배낭 속 티코 눈에 붉은 경고 점멸(배터리).<br/><b>배경·소품</b> 마당 구석에 시간의 문이 열리려는 민트색 소용돌이 기운.<br/><b>톤</b> 아쉬움 + 촉박함. 파스텔 노을.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 서둘러! 배터리 15%! 해가 완전히 넘어가기 전에!"<br/><span class="sp">보리:</span> "고맙습니다, 아저씨! 살라이도 잘 지내!"<br/><span class="sp">레오나르도:</span> "잘 가거라, 눈 밝은 손님들아. 어디서 왔는지는 모르나… 세상은 넓고 배울 것은 많단다."</div>
+</div>
+
+<div class="page"><div class="pno">30쪽</div>
+  <div class="scene"><b>컷</b> 대형, 시간의 문 통과 컷.<br/><b>장면</b> 뒷마당에 민트·주황의 빛 소용돌이가 활짝 열리고, 보리가 노아의 손을 잡고 뛰어든다. 부품을 품에 안은 채. 뒤로 멀어지는 공방과 손 흔드는 레오나르도·살라이의 실루엣.<br/><b>배경·소품</b> 소용돌이 주위로 흩날리는 물감 방울·거울 빛 반짝임.<br/><b>톤</b> 벅찬 귀환의 스펙터클. 무섭지 않게.</div>
+  <div class="text"><span class="sp">보리:</span> "가자, 노아! 문이 닫히기 전에!"<br/><span class="sp">노아:</span> "잠깐, 잠깐만— 아, 몰라, 같이 뛰어!"<br/><span class="sp">나레이션:</span> 아이들은 해가 넘어가기 직전, 아슬아슬하게 시간의 문 안으로 뛰어들었어요.</div>
+</div>
+
+<div class="page"><div class="pno">31쪽</div>
+  <div class="scene"><b>컷</b> 중형, 귀환·해금 컷(룰4 안전 지대 — 현대 창고).<br/><b>장소·시간</b> 밤, 봉수 박사의 창고. 홈 베이스.<br/><b>인물</b> 작업대 위 티코 가슴 코어에 민트빛 부품이 스르륵 장착되며 발광. 게이지 12칸 중 5칸째가 채워져 반짝. 보리·노아가 둘러서서 눈을 반짝이고, 봉수 박사가 흐뭇하게 지켜본다.<br/><b>배경·소품</b> 코어에서 퍼지는 민트색 빛무리.<br/><b>톤</b> 귀환의 안도 + 새 기능 기대. 따뜻하게.</div>
+  <div class="text"><span class="sp">나레이션:</span> 다섯 번째 부품이 돌아오자, 티코의 가슴에서 새 기능이 반짝 깨어났어요.<br/><span class="sp">티코:</span> "삐빅! 신기능 해금 — <b>스케치 프로젝터</b>! 어떤 그림이든 벽에 크게 비춰 주는 기능이다. 다빈치의 거울처럼, 빛으로 상을 옮기지."<br/><span class="sp">봉수 박사:</span> "허허, 빛을 다루는 렌즈 부품이었구나. 잘 어울리는 기능이야!"</div>
+</div>
+
+<div class="page"><div class="pno">32쪽</div>
+  <div class="scene"><b>컷</b> 대형, 신기능 시연 컷.<br/><b>장소</b> 창고 벽 앞.<br/><b>인물</b> 티코의 가슴 코어에서 빛이 뻗어 나가 창고 벽에 아이들이 그린 낙서 그림을 커다랗게 비춘다. 보리가 벽에 비친 큰 그림 위로 팔을 벌리고 신나 하고, 노아는 그 원리를 골똘히 본다. 티코는 의기양양.<br/><b>배경·소품</b> 벽에 크게 투사된 새 날개 낙서, 빛기둥 속 먼지.<br/><b>톤</b> 즐거운 시연. 밝고 신나게.</div>
+  <div class="text"><span class="sp">보리:</span> "우와! 내 낙서가 벽에 이만큼 커졌어! 이거 완전 신기하다!"<br/><span class="sp">노아:</span> "작은 그림을 빛으로 크게 비추는 거구나. 그림 그릴 때 밑그림으로 쓰면 엄청 편하겠어!"<br/><span class="sp">티코:</span> "내 데이터에 의하면, 이게 바로 예술과 과학의 만남이지. 크흠, 잘난 로봇 인정?"</div>
+</div>
+
+<div class="page"><div class="pno">33쪽</div>
+  <div class="scene"><b>컷</b> 대형 마무리 몽타주(2분할 느낌).<br/><b>중앙(메인)</b> 창고의 저녁상 — 김이 오르는 찌개, 웃음꽃. 보리가 젓가락으로 식탁에 거꾸로 글씨 흉내를 내며 깔깔댄다. 노아는 손거울을 들어 자기 글씨를 비춰 보고, 티코 가슴엔 5칸 점등한 게이지가 반짝.<br/><b>우상단 인셋</b> 티코의 홀로그램 지구본에 다음 좌표가 뜬다 — 끝없는 모래 언덕과 낙타 대열, 오아시스가 점점이 이어진 길(실크로드 암시).<br/><b>톤</b> 따뜻한 마무리 + 다음 화 설렘. (0호 복선 없음 — 7화부터)</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "장하구나! 물론 다빈치 선생이야 워낙 대단한 분이라 너희 없이도 결국 해내셨겠지만… 너희 덕에 그 바쁜 하루를 무사히 넘기셨을 게다. 거울에 비추면 좌우가 뒤바뀌어 보인다는 걸 스스로 알아낸 게 제일 기특하구나."<br/><span class="sp">보리:</span> "이제 저도 거울 있으면 비밀 편지 쓸 수 있어요! (거꾸로 슥슥)"<br/><span class="sp">티코:</span> "삐빅! 감동은 나중에. 다음 부품 신호 발견 — 좌표는 끝없는 <b>사막</b>, 낙타들이 오가는 <b>실크로드</b>다!"</div>
+</div>
+
+<div class="divider">— F. 티코피디아 부록 (34~36쪽) —</div>
+
+<div class="page"><div class="pno">34쪽 · 티코피디아 ①</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지(부록 공통 포맷) — 배경은 민트색 홀로그램 격자.<br/><b>장면</b> 티코가 안경을 쓰고 지시봉을 든 선생님 포즈로 화면 왼쪽에. 오른쪽 큰 카드: 레오나르도 다빈치의 반신 초상 스탬프 + 그를 둘러싼 업적 아이콘(붓·모나리자 액자·새 날개 기계·인체 도해·톱니바퀴). 카드 상단에 '한 사람 = 화가+과학자+발명가' 도식.<br/><b>톤</b> 밝고 정돈된 인포그래픽. 본편과 구분되는 '부록 세계' 톤.</div>
+  <div class="text"><span class="sp">티코:</span> "오늘의 티코피디아! <b>레오나르도 다빈치</b>는 약 530년 전 이탈리아 르네상스 시대의 천재야. 훗날 '모나리자' 같은 명작을 남긴 화가이면서, 하늘 나는 기계·물·빛·인체까지 연구한 과학자였지. 예술과 과학을 한 사람이 다 해낸 놀라운 사람이란다."</div>
+</div>
+
+<div class="page"><div class="pno">35쪽 · 티코피디아 ②</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지 ② — 도해 중심.<br/><b>장면</b> 화면 상단: 왼손잡이가 왼→오른쪽으로 쓰면 손이 젖은 잉크를 번지게 하는 그림(엑스) vs 오른→왼쪽 거울 글씨로 쓰면 깨끗한 그림(체크). 화면 하단: 세로 거울 앞에 뒤집힌 글씨가 거울 속에서 똑바로 되는 좌우 대칭 도해와 화살표. 구석에 손거울을 든 티코.<br/><b>톤</b> 교과서 삽화보다 밝고 만화적인 도해.</div>
+  <div class="text"><span class="sp">티코:</span> "다빈치가 노트를 <b>거꾸로 쓴 비밀</b>! 그는 왼손잡이였는데, 왼손으로 보통처럼 쓰면 손이 젖은 잉크를 문질러 번져. 그래서 <b>오른쪽에서 왼쪽으로 글자를 뒤집어</b> 썼지. 이런 글씨를 <b>거울 글씨</b>라고 해. 거울에 비추면 좌우가 뒤바뀌어 보이니까, 뒤집힌 글씨를 거울에 대면 똑바로 읽힌단다!"</div>
+</div>
+
+<div class="page"><div class="pno">36쪽 · 티코 퀴즈</div>
+  <div class="scene"><b>컷</b> 퀴즈 페이지(부록 공통 포맷) — 티코 정면 컷.<br/><b>장면</b> 티코가 문제 카드 3장을 부채꼴로 펼쳐 들고 윙크. 카드마다 ①②③ 번호와 물음표 장식. 배경 하단에 다음 화 예고 — 모래 언덕 위 낙타 대열 실루엣과 물음표. (앱에서는 기존 퀴즈 게임 인프라로 인터랙티브 처리)<br/><b>톤</b> 마무리 팡파레 + 다음 화 기대감.</div>
+  <div class="text"><span class="sp">티코:</span> "마지막 관문, 티코 퀴즈! 셋 다 맞히면 너도 시간여행 대원!<br/>① '모나리자'를 그리고 하늘 나는 기계도 상상한 르네상스 천재는 누구일까?<br/>② 다빈치가 노트를 거꾸로 쓴 가장 큰 이유는 무엇일까? (힌트: 왼손과 잉크)<br/>③ 거꾸로 쓴 글씨를 똑바로 읽으려면 어떤 물건에 비추면 될까?<br/>…다음 화, 낙타가 오가는 사막의 길 실크로드에서 만나자! 삐빅!"</div>
+</div>
+
+<footer>
+  타임 티코 5화 콘티 v1.0 · 탱고북 오리지널 · 내부 제작 자료
+</footer>
+
+</div>
+
+<script>
+// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
+(async function () {
+  const nav = document.getElementById('comic-tabs');
+  if (!nav) return;
+  const here = (location.pathname.split('/').pop() || '');
+  const items = [['learning-comic-plan.html', '📘 기획서']];
+  for (let i = 1; i <= 12; i++) {
+    const f = 'learning-comic-ep' + String(i).padStart(2, '0') + '.html';
+    try {
+      const r = await fetch(f);
+      const t = await r.text();
+      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
+    } catch (e) { /* skip */ }
+  }
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §6과 동기 유지) ─────────
+const STYLE_PROMPT = [
+  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
+  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
+  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
+  '시대 배경(건축·의상·소품)은 고증에 맞게 세밀하고 사실적으로 묘사.',
+  '화면비 16:9 와이드 일러스트.',
+  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
+].join(' ');
+
+const CHARACTER_KEYS = [
+  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
+  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
+  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
+  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸), 감정에 따라 모양이 변하는 둥근 눈.',
+  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼.',
+  '- 0호(그림자): 어둠 속 검은 실루엣에 붉은 외눈 한 점만 보인다.',
+].join('\n');
+
+// 이 화의 시대 의상 (화별로 교체)
+const EP_COSTUME = '[이 화의 의상] 1490년대 초 밀라노 르네상스 장면에서 보리 = 초록 보디스 + 베이지 치마 + 헝겊 모자, 노아 = 갈색 조끼 + 무릎 반바지 + 긴 양말 + 리넨 셔츠. 현대(창고) 장면에서는 평상복(보리 주황 후드티, 노아 하늘색 셔츠).';
+
+// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
+const EP_GUEST_KEYS = [
+  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
+  '- 레오나르도 다빈치(40대 초반): 어깨까지 내려온 밤색 곱슬머리와 짧은 수염, 크고 따뜻하며 지적인 눈, 다정한 인상. 흙빛·자주색 긴 튜닉 + 안료 묻은 앞치마. 반드시 왼손잡이 — 펜·붓은 항상 왼손에. 위엄과 따뜻함이 공존하게, 우스꽝스럽지 않게.',
+  '- 살라이(13세 견습생): 곱슬 금발, 장난기 가득한 큰 눈, 볼에 주근깨. 헐렁한 리넨 셔츠 위에 물감 얼룩 묻은 짧은 앞치마, 무릎 반바지, 낡은 가죽 신. 어수룩하지만 사랑스러운 개구쟁이.',
+].join('\n');
+
+function composeImagePrompt(pno, sceneText) {
+  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+}
+
+// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    const btn = card.querySelector('.copy-btn');
+    const pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async function () {
+      // textContent — details 접힘 상태에선 innerText 가 빈 값
+      const text = pre.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('done');
+      } catch (e) {
+        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
+      }
+      setTimeout(function () {
+        btn.textContent = '📋 시트 프롬프트 복사';
+        btn.classList.remove('done');
+      }, 1600);
+    });
+  });
+})();
+
+// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
+const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
+
+async function loadComicAssets() {
+  try {
+    const r = await fetch(ASSET_API);
+    const j = await r.json();
+    return (j && j.data) || {};
+  } catch (e) { return {}; }
+}
+
+function createPasteBox(key, assets, hint) {
+  const box = document.createElement('div');
+  box.className = 'paste-box';
+  box.tabIndex = 0;
+  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
+  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
+  const reset = function () {
+    box.classList.remove('has-img');
+    box.innerHTML = '';
+    box.textContent = hintText;
+  };
+  const setImg = function (url) {
+    box.classList.add('has-img');
+    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      if (!confirm('이 이미지를 삭제할까요?')) return;
+      try {
+        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
+        reset();
+      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
+    });
+  };
+  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+  else box.textContent = hintText;
+
+  async function upload(file) {
+    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+    box.classList.add('busy');
+    const fr = new FileReader();
+    fr.onload = async function () {
+      try {
+        const r = await fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        });
+        const j = await r.json();
+        if (j.success) setImg(j.data.url + '?t=' + Date.now());
+        else alert('저장 실패: ' + (j.error || ''));
+      } catch (e) {
+        alert('저장 실패 — 서버(3500)를 확인하세요');
+      }
+      box.classList.remove('busy');
+    };
+    fr.readAsDataURL(file);
+  }
+
+  box.addEventListener('paste', function (e) {
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (const it of items) {
+      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
+    }
+  });
+  box.addEventListener('dragover', function (e) { e.preventDefault(); });
+  box.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) upload(f);
+  });
+  box.addEventListener('click', function () { box.focus(); });
+  return box;
+}
+
+// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-plan) 자산을 읽어옴 ──
+(async function () {
+  const grid = document.getElementById('cast-grid');
+  if (!grid) return;
+  let planAssets = {};
+  try {
+    const r = await fetch('/api/comic-assets/learning-comic-plan');
+    const j = await r.json();
+    planAssets = (j && j.data) || {};
+  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
+  grid.querySelectorAll('.cast-item').forEach(function (item) {
+    const key = item.getAttribute('data-key');
+    if (planAssets[key]) {
+      const frame = item.querySelector('.frame');
+      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
+    }
+  });
+})();
+
+// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
+(function () {
+  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^[a-z0-9-]+$/.test(docId)) return;
+  const api = '/api/comic-feedback/' + docId;
+
+  function updateBar(total) {
+    const bar = document.getElementById('feedback-cnt');
+    if (bar) bar.textContent = total;
+  }
+
+  async function loadNotes() {
+    try {
+      const r = await fetch(api);
+      const j = await r.json();
+      return (j && j.data && j.data.pages) || {};
+    } catch (e) { return {}; }
+  }
+
+  async function saveNote(page, note, statusEl, ta) {
+    statusEl.textContent = '저장 중…';
+    try {
+      const r = await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, note: note }),
+      });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.error || 'save failed');
+      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
+      ta.classList.toggle('has-note', !!note.trim());
+      updateBar(j.data.total);
+      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
+    } catch (e) {
+      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
+      statusEl.style.color = '#e85c3a';
+    }
+  }
+
+  async function init() {
+    const pages = document.querySelectorAll('.page');
+    if (!pages.length) return;
+    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
+    const notes = loaded[0];
+    const assets = loaded[1];
+
+    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
+    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
+      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
+    });
+
+    const anchor = document.querySelector('header.hero');
+    if (anchor) {
+      const bar = document.createElement('div');
+      bar.id = 'feedback-bar';
+      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
+      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+    }
+
+    pages.forEach(function (card) {
+      const pnoEl = card.querySelector('.pno');
+      const m = pnoEl && pnoEl.textContent.match(/\d+/);
+      if (!m) return;
+      const pno = m[0];
+
+      const main = document.createElement('div');
+      while (card.firstChild) main.appendChild(card.firstChild);
+      card.appendChild(main);
+
+      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
+      const mainPno = main.querySelector('.pno');
+      const sceneEl = main.querySelector('.scene');
+      if (mainPno && sceneEl) {
+        const row = document.createElement('div');
+        row.className = 'pno-row';
+        mainPno.parentNode.insertBefore(row, mainPno);
+        row.appendChild(mainPno);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋 그림 프롬프트 복사';
+        copyBtn.addEventListener('click', async function () {
+          const prompt = composeImagePrompt(pno, sceneEl.innerText);
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = '복사됨 ✓';
+            copyBtn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () {
+            copyBtn.textContent = '📋 그림 프롬프트 복사';
+            copyBtn.classList.remove('done');
+          }, 1600);
+        });
+        row.appendChild(copyBtn);
+      }
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const saved = notes[pno] || '';
+      panel.innerHTML =
+        '<label>' + pno + '쪽 생성 이미지</label>' +
+        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
+        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
+        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
+      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
+      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
+      const ta = panel.querySelector('textarea');
+      if (saved) ta.classList.add('has-note');
+      const btn = panel.querySelector('button');
+      const status = panel.querySelector('.status');
+      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
+      });
+
+      card.classList.add('with-notes');
+      card.appendChild(panel);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>

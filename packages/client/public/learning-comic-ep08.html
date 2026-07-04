@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 8화 「별을 세는 탑」 — 콘티</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 24px 0 28px; border-bottom: 3px solid var(--coral); margin-bottom: 28px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 12px; }
+  .hero h1 { font-size: 32px; font-weight: 900; margin: 8px 0 4px; }
+  .hero .sub { color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+  .divider { text-align:center; margin: 40px 0 8px; font-weight: 900; color: var(--mint); letter-spacing: .15em; font-size: 14px; }
+  .page { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 14px 0; }
+  .page .pno { font-weight: 900; color: var(--coral-dark); font-size: 15px; }
+  .page .scene { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .page .scene b { color: var(--mint); font-weight: 800; }
+  .page .text { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 8px; font-size: 15px; }
+  .page .text .sp { font-weight: 800; color: var(--coral-dark); }
+  /* 콘티 리뷰 패널 */
+  .page.with-notes { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .page.with-notes { grid-template-columns: 1fr; } }
+  .note-panel { border-left: 2px dashed var(--line); padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 900px) { .note-panel { border-left: none; border-top: 2px dashed var(--line); padding: 12px 0 0; } }
+  .note-panel label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+  .note-panel textarea { width: 100%; min-height: 96px; resize: vertical; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 13px; background: #fffdfa; }
+  .note-panel textarea:focus { outline: none; border-color: var(--coral); }
+  .note-panel textarea.has-note { border-color: var(--mint); background: #f4fffc; }
+  .note-panel .row { display: flex; align-items: center; gap: 10px; }
+  .note-panel button { background: var(--coral); color: #fff; border: none; border-radius: 999px; padding: 7px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .note-panel button:hover { background: var(--coral-dark); }
+  .note-panel .status { font-size: 12px; color: var(--mint); font-weight: 700; }
+  #feedback-bar { position: sticky; top: 54px; z-index: 10; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 18px; margin: 16px 0 24px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #feedback-bar .cnt { color: #ffd9cc; }
+  .pno-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .copy-btn:hover { background: var(--mint); color: #fff; }
+  .copy-btn.done { background: var(--mint); color: #fff; }
+  .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
+  .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+  .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cast-strip .hint a { color: var(--coral-dark); font-weight: 700; }
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .cast-item { text-align: center; }
+  .cast-item .frame { border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 26px; }
+  .cast-item .frame img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .cast-item .nm { font-size: 12.5px; font-weight: 800; margin-top: 5px; color: var(--ink-soft); }
+  .guest-section { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--coral); border-radius: 16px; padding: 18px 22px; margin: 20px 0; }
+  .guest-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+  .guest-section .hint { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .char-prompt { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt details { margin-top: 6px; }
+  .char-prompt summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 8px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+</style>
+</head>
+<body data-comic-doc="ep08">
+<div class="wrap">
+
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-plan.html">📘 기획서</a></nav>
+
+<header class="hero" id="top">
+  <div class="kicker">TIME TICO · EPISODE 08</div>
+  <h1>8화 「별을 세는 탑」</h1>
+  <div class="sub">7세기 신라, 서라벌 · 선덕여왕과 첨성대 — 36쪽 콘티 (장면 지시 + 페이지 텍스트) · 해금: 별자리 모드</div>
+</header>
+
+<div class="cast-strip">
+  <h2>⭐ 고정 캐릭터 확정 시트</h2>
+  <div class="hint">기획서 §6에 붙여넣은 레퍼런스가 여기 자동 표시됩니다 — 컷 작업의 기준. 비어 있으면 <a href="learning-comic-plan.html#s6">기획서에서 붙여넣기 →</a></div>
+  <div class="cast-grid" id="cast-grid">
+    <div class="cast-item" data-key="bori"><div class="frame">👧</div><div class="nm">보리</div></div>
+    <div class="cast-item" data-key="noa"><div class="frame">👦</div><div class="nm">노아</div></div>
+    <div class="cast-item" data-key="tico"><div class="frame">🤖</div><div class="nm">티코</div></div>
+    <div class="cast-item" data-key="bongsu"><div class="frame">👴</div><div class="nm">봉수 박사</div></div>
+    <div class="cast-item" data-key="zero"><div class="frame">🌑</div><div class="nm">0호</div></div>
+  </div>
+</div>
+
+<div class="guest-section">
+  <h2>🎭 이 화의 게스트 캐릭터 레퍼런스</h2>
+  <div class="hint">3장면 이상 등장하거나 클로즈업이 있는 게스트는 시트를 먼저 확정한다. 아래 비주얼 키는 각 쪽 [📋 그림 프롬프트 복사]에도 자동 포함되어 컷 간 일관성을 지킨다. (단역 — 농부·군졸·시녀·백성 — 은 장면 지시 서술로 충분, 시트 불필요)</div>
+
+  <div class="char-prompt" data-char="선덕여왕" data-key="seondeok">
+    <div class="head"><span style="font-size:20px">👑</span><b>선덕여왕 (신라의 임금)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 어른은 4등신 카툰 비율 — 단, 실존 위인이므로 우스꽝스럽지 않게, 위엄과 따뜻함이 공존하는 존중 어린 묘사. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 2벌 — ① 공식 차림(붉은빛 도는 신라 왕실 예복 + 화려한 금관, 접견 차림) ② 밤 관측 차림(수수한 남색 겉옷을 걸치고 밤바람에 어깨걸이를 여민 모습). 오른쪽 위에 표정 6종 얼굴 그리드(온화한 미소·지혜로운 응시·먼 하늘을 바라보는 사색·백성을 걱정하는 근심·흐뭇한 감탄·결심). 오른쪽 아래 대표 포즈 2개(밤하늘을 손으로 가리키는 포즈, 두 손을 모으고 자애롭게 바라보는 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 선덕여왕, 7세기 신라의 임금(첫 여왕). 기품 있고 총명한 둥근 얼굴, 온화하지만 심지 굳은 눈매, 단정하게 틀어 올린 검은 머리에 신라 양식의 금관·금귀걸이. 신라 왕실 예복은 붉은빛과 금빛 자수로 화려하되 과하지 않게. 자세는 곧고 우아하며, 하늘과 백성을 함께 살피는 사려 깊은 지도자의 인상. 위엄과 따뜻함을 함께 갖추도록.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-char="월성 노인(천문관)" data-key="cheonmun">
+    <div class="head"><span style="font-size:20px">🔭</span><b>별 할아버지 (첨성대 천문관, 픽션 조력자)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 어른은 4등신 카툰 비율. 순백 배경. (실존 인물이 아닌 창작 조력자 캐릭터)
+
+[시트 구성] 왼쪽에 전신 3면(정면·옆·뒤), 오른쪽 위에 표정 6종 얼굴 그리드(별을 올려다보며 미소·눈을 가늘게 뜨고 하늘을 살핌·근심에 잠김·깜짝 반가움·아이들에게 다정하게 설명·눈물 글썽 고마움). 오른쪽 아래 대표 포즈 2개(긴 막대를 들어 밤하늘을 가리키는 포즈, 사다리에 한 손을 얹고 첨성대 창구를 올려다보는 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 별 할아버지, 첨성대에서 밤마다 별을 살펴 계절을 백성에게 알려 주는 신라의 천문관 노인. 하얀 수염과 성긴 백발을 상투로 틀고 신라식 두건을 둘렀다. 별을 오래 올려다본 탓에 눈가에 자글자글한 주름과 다정한 눈빛. 수수한 흙빛 신라 관복 두루마기에, 밤바람을 막는 두툼한 겉옷을 걸쳤다. 손에는 별을 가리키는 긴 막대와, 별의 위치를 적는 작은 나무판. 허리가 살짝 굽었지만 하늘을 볼 때 눈빛은 소년처럼 반짝인다.</pre></details>
+  </div>
+</div>
+
+<div class="divider">— A. 일상 후크 (1~3쪽) —</div>
+
+<div class="page"><div class="pno">1쪽</div>
+  <div class="scene"><b>컷</b> 대형 세로컷, 창고 천창을 올려다보는 로우앵글.<br/><b>장소·시간</b> 밤, 봉수 박사의 창고 실험실. 천장의 둥근 유리창으로 진짜 밤하늘 별이 조금 보인다.<br/><b>인물</b> 작업대 위 — 보리(짧은 단발+붉은 머리끈, 주황 후드티)가 낡은 별자리 지도를 어깨에 두르고 손전등을 턱 밑에 대고 장난치는 중, 옆에서 노아(둥근 안경, 하늘색 셔츠)가 두꺼운 천문 책을 펴 들고 별 그림을 가리킨다. 티코(흰 몸체+민트 라인, 가슴 시계 코어에 7칸 점등)는 선반 위에 앉아 눈을 반달로.<br/><b>배경·소품</b> 벽에 붙은 태양계 포스터, 지구본, 먼지 쌓인 망원경 한 대.<br/><b>톤</b> 아늑한 밤 실험실, 별빛 파랑 + 전구 주황의 포근한 대비.</div>
+  <div class="text"><span class="sp">노아:</span> "책에서 봤는데, 옛날 사람들은 밤하늘 별을 보고 계절이 바뀌는 걸 알았대. 달력도 없이."<br/><span class="sp">보리:</span> "별만 보고? 에이, 그게 진짜 돼? 나는 별이 다 똑같아 보이는데!"<br/><span class="sp">티코:</span> "내 데이터에 의하면— 인간은 원래 방향치야. 별 없으면 길도 못 찾지."</div>
+</div>
+
+<div class="page"><div class="pno">2쪽</div>
+  <div class="scene"><b>컷</b> 중형, 티코 중심 정면.<br/><b>장소·시간</b> 같은 밤 창고. 조금 전보다 어수선.<br/><b>인물</b> 티코의 가슴 코어에서 홀로그램 지구본이 떠오르고 한반도 남동쪽 한 점이 주황색으로 깜빡. 티코의 눈이 느낌표 모양. 보리는 별자리 지도를 내던지고 벌떡, 노아는 책을 떨어뜨릴 뻔.<br/><b>배경·소품</b> 창밖 어둠 한구석에 아주 작게, 붉은 점 하나가 스윽 지나갔다가 사라진다(0호 여운 — 대사 없음, 배경 디테일).<br/><b>톤</b> 잔잔하던 밤에 신호가 울리는 각성의 순간.</div>
+  <div class="text"><span class="sp">티코:</span> "삐빅! 여덟 번째 부품 신호 발견! 좌표는… 아주 먼 옛날 신라!"<br/><span class="sp">보리:</span> "신라? 그럼 또 시간여행이네! 가자, 노아!"<br/><span class="sp">노아:</span> "자, 잠깐만! …방금 창밖에 뭔가 빨간 게 지나가지 않았어? 어제도 그랬잖아."</div>
+</div>
+
+<div class="page"><div class="pno">3쪽</div>
+  <div class="scene"><b>컷</b> 중형, 아이레벨.<br/><b>장소·시간</b> 창고 작업대 앞. 박사가 별자리 지도를 펼쳐 짚는다.<br/><b>인물</b> 봉수 박사(부스스한 백발, 두꺼운 돋보기안경, 카키색 작업조끼)가 커다란 옛 별자리 그림을 손가락으로 짚으며 브리핑. 보리·노아가 양옆에서 귀 기울임. 티코는 배낭 위에 걸터앉아 배터리 게이지를 흘끔.<br/><b>배경·소품</b> 지도 위에 그려진 탑 모양 그림(첨성대) 한 점.<br/><b>톤</b> 출발 전 배경지식 예열 — 따뜻한 전구색.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "신라라면 아주아주 오래된 나라란다. 그 시절 서라벌에는 <b>별을 살피는 탑, 첨성대</b>가 있었지."<br/><span class="sp">봉수 박사:</span> "그때 임금님은 <b>선덕여왕</b> — 신라의 첫 여왕이시다. 별을 보고 계절을 읽어 백성의 농사를 도우셨어. 조심해서 다녀오너라!"<br/><span class="sp">티코:</span> "배터리 아껴, 인간들! 밤하늘 아래 오래 있을 것 같으니까."</div>
+</div>
+
+<div class="divider">— B. 도착 · 이질감 (4~8쪽) —</div>
+
+<div class="page"><div class="pno">4쪽</div>
+  <div class="scene"><b>컷</b> 대형, 나선형 낙하 구도.<br/><b>장면</b> 시간 터널 — 민트와 남색 빛 리본이 나선으로 감긴다. 셋이 낙하 중: 보리는 두 팔 만세로 함박웃음, 노아는 무릎을 안고 눈 질끈, 티코는 보리 품에 안겨 카운트다운. 주위로 반짝이는 별점들과 북두칠성 국자 모양, 옛 탑(첨성대) 그림 조각이 별처럼 흘러간다(이번 화 테마 암시).<br/><b>톤</b> 환상적, 밤하늘 은하수를 통과하는 듯한 신남.</div>
+  <div class="text"><span class="sp">보리:</span> "우와아아! 이번엔 별 속으로 떨어지는 것 같아!"<br/><span class="sp">노아:</span> "난 하나도 안 신나거든?! 잠깐, 잠깐만—!"<br/><span class="sp">티코:</span> "도착까지 3, 2, 1… 착지 자세!"</div>
+</div>
+
+<div class="page"><div class="pno">5쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클(이번 화 간판 컷 ①). 높은 부감에서 중앙 탑으로 시선이 떨어지는 구도.<br/><b>장소·시간</b> 7세기 신라 서라벌, 별이 총총한 초저녁. 너른 들판 가운데 우뚝 선 <b>첨성대</b> — 위로 갈수록 살짝 좁아지는 술병 모양 석조 탑, 화강암 벽돌을 원통형으로 쌓았고 중간쯤 남쪽에 네모난 창구, 꼭대기에 우물 정(井)자 돌이 놓임. 높이는 어른 키의 대여섯 배(약 9.5m). 멀리 초가·기와가 섞인 마을과 나지막한 산.<br/><b>인물</b> 탑 아래에 신라 옷으로 변신한 두 아이 — 보리는 흙빛 저고리+주름치마, 노아는 소매 넓은 신라식 바지저고리. 둘 다 고개를 한껏 젖혀 탑 꼭대기를 올려다봄. 배낭에서 티코가 빼꼼.<br/><b>톤</b> 별빛 남색 하늘 아래 은은히 빛나는 화강암. 배경 디테일 최대치(학습 신뢰도 컷).</div>
+  <div class="text"><span class="sp">나레이션:</span> 눈을 떠 보니, 그곳은 아주 먼 옛날 신라의 서라벌이었어요. 들판 한가운데에 신기한 돌탑이 우뚝 서 있었지요.<br/><span class="sp">보리:</span> "우와… 저게 별을 보는 탑이야? 돌을 저렇게 동그랗게 쌓았네!"<br/><span class="sp">티코:</span> "(속닥) 위장복 완료. 지금부터 나는 인형이다. 저 탑이 바로 첨성대 — 부품 신호도 저쪽에서 나."</div>
+</div>
+
+<div class="page"><div class="pno">6쪽</div>
+  <div class="scene"><b>컷</b> 중형, 탑 아래를 걷는 아이들 뒤를 따라가는 구도.<br/><b>장소·시간</b> 첨성대 발치, 별빛 초저녁.<br/><b>인물</b> 보리가 탑에 손을 대고 벽돌 개수를 세는 시늉(손가락 접으며), 노아는 창구를 올려다보며 골똘. 배낭 속 티코의 눈에서 가느다란 민트 레이더가 탑 꼭대기 쪽으로 퍼진다.<br/><b>배경·소품</b> 탑 옆에 세워 둔 길고 낡은 나무 사다리, 관측할 때 쓰는 긴 막대 하나가 벽에 기대어 있다.<br/><b>톤</b> 호기심 가득한 탐색 컷.</div>
+  <div class="text"><span class="sp">보리:</span> "하나, 둘, 셋… 야, 벽돌이 몇 개야 이거. 세다가 눈 돌아가겠어!"<br/><span class="sp">노아:</span> "책에서 봤는데, 이런 탑은 돌 하나하나에 다 뜻이 있대. 저 위 네모난 구멍으로 안에 들어가나 봐."<br/><span class="sp">티코:</span> "(속닥) 신호는… 저 꼭대기다. 그런데 왜 이렇게 자꾸 반짝, 반짝 흔들리지?"</div>
+</div>
+
+<div class="page"><div class="pno">7쪽</div>
+  <div class="scene"><b>컷</b> 중형, 인물 등장 구도.<br/><b>장소·시간</b> 첨성대 아래. 사방이 어둑해지고 별이 하나둘 늘어난다.<br/><b>인물</b> 탑 아래에 별 할아버지(하얀 수염, 신라식 두건, 흙빛 두루마기+두툼한 겉옷, 손에 긴 막대와 작은 나무판)가 하늘을 올려다보며 한숨. 그 곁에 근심스러운 얼굴의 젊은 관원 하나. 아이들은 나무 뒤에서 빼꼼.<br/><b>톤</b> 무언가 잘못됐다는 분위기의 첫 신호. 밤바람에 겉옷이 살짝 날림.</div>
+  <div class="text"><span class="sp">별 할아버지:</span> "허어… 또 저 별이다. 저기 저 반짝이는 별은 어제도, 그제도 없던 별인데…"<br/><span class="sp">관원:</span> "어르신, 저 별 때문에 도무지 계절을 못 읽으시겠다고요?"<br/><span class="sp">노아:</span> "(속닥) 보리야, 저 할아버지… 하늘을 보면서 걱정하고 계셔."</div>
+</div>
+
+<div class="page"><div class="pno">8쪽</div>
+  <div class="scene"><b>컷</b> 대형, 밤하늘을 올려다보는 아이들의 뒤통수 너머 시점.<br/><b>장소·시간</b> 완전히 깜깜해진 밤, 첨성대 위로 펼쳐진 별 가득한 하늘.<br/><b>장면</b> 수많은 하얀 별들 사이에 딱 하나, 유난히 크고 <b>민트빛으로 반짝이는 가짜 별</b>이 첨성대 꼭대기 바로 위에 떠 있다(부품 신호 — 진짜 별과 색·깜빡임이 다르게). 그 아래 아이들과 티코의 실루엣.<br/><b>톤</b> 신비롭고 아름답지만, 딱 하나 어긋난 별이 주는 미묘한 위화감.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 삐빅! 부품 신호가 저 별에서 나! …그런데 저건 진짜 별이 아니라 <b>내 부품</b>이 반짝이는 거야."<br/><span class="sp">보리:</span> "(속닥) 그럼 할아버지가 계속 못 알아보는 별이 바로 네 부품이었어?"<br/><span class="sp">노아:</span> "(속닥) 부품이 밤마다 반짝여서, 진짜 별처럼 하늘에 끼어든 거구나."</div>
+</div>
+
+<div class="divider">— C. 문제 발견 (9~15쪽) —</div>
+
+<div class="page"><div class="pno">9쪽</div>
+  <div class="scene"><b>컷</b> 중형, 삼각 구도(할아버지-관원-농부).<br/><b>장소·시간</b> 이튿날 낮, 첨성대 아래 너른 들판 가장자리.<br/><b>인물</b> 별 할아버지 앞에 씨앗 자루를 멘 농부 서넛이 몰려와 발을 동동. 관원은 두 손을 모으고 난처. 전경에 물동이 나르는 척 끼어든 아이들(신라 옷).<br/><b>톤</b> 답답하고 애타는 분위기. 봄 들녘의 밝은 햇살과 대비되는 근심.</div>
+  <div class="text"><span class="sp">농부:</span> "어르신, 씨는 언제 뿌립니까! 너무 일찍 뿌리면 얼어 죽고, 늦으면 못 거둡니다요!"<br/><span class="sp">별 할아버지:</span> "미안하네… 별을 봐야 날을 정하는데, 요즘 밤마다 <b>이상한 별</b>이 끼어들어 하늘을 못 읽겠구나."<br/><span class="sp">보리:</span> "(속닥) 노아야, 저 이상한 별… 우리 때문이잖아. 티코 부품 때문에."</div>
+</div>
+
+<div class="page"><div class="pno">10쪽</div>
+  <div class="scene"><b>컷</b> 소형 전환컷, 실루엣 위주.<br/><b>장소·시간</b> 들판 한켠 나무 그늘 아래.<br/><b>인물</b> 쪼그려 앉은 세 사람 — 보리는 미안한 듯 입을 삐죽, 노아는 턱을 괴고 궁리, 티코는 배터리 게이지를 걱정스레 들여다봄(게이지가 조금 줄어 있음).<br/><b>톤</b> 죄책감과 결심이 섞인 조용한 컷. 나뭇잎 사이로 든 얼룩 햇살.</div>
+  <div class="text"><span class="sp">보리:</span> "우리가 부품을 찾아가면 가짜 별도 사라지고, 할아버지도 다시 별을 볼 수 있는 거네?"<br/><span class="sp">노아:</span> "맞아. 그런데 부품은 저 탑 꼭대기에 있고… 우린 저기 어떻게 올라가는지도 몰라."<br/><span class="sp">티코:</span> "게다가 배터리 90%. 밤마다 하늘 아래 오래 있으면 금방 줄어. 서두르자!"</div>
+</div>
+
+<div class="page"><div class="pno">11쪽</div>
+  <div class="scene"><b>컷</b> 대형 세로컷, 첨성대 정면 로우앵글(탑을 우러러보는 시점).<br/><b>장소·시간</b> 낮, 첨성대 바로 앞.<br/><b>인물</b> 별 할아버지가 탑의 남쪽 중간 <b>네모난 창구</b>를 막대로 가리키며 아이들에게 설명. 보리는 목을 한껏 젖혀 입을 벌리고, 노아는 창구 위치를 손가락으로 짚으며 고개 끄덕. 티코는 배낭에서 눈만.<br/><b>배경·소품</b> 창구 아래에 걸쳐 둔 긴 나무 사다리. 탑 안은 12단쯤까지 흙과 자갈로 채워져 있음을 단면 힌트로 살짝(반쯤 보이는 내부).<br/><b>톤</b> 구조가 눈에 들어오는 학습 컷. 화강암의 따뜻한 회갈색.</div>
+  <div class="text"><span class="sp">별 할아버지:</span> "이 탑은 저 가운데 <b>남쪽 창</b>으로 사다리를 놓고 들어간단다. 그 위로 또 사다리를 놓고 오르면 꼭대기에서 별을 볼 수 있지."<br/><span class="sp">노아:</span> "가운데에 창이 있네요! 아래로 열두 단, 위로 열두 단… 창이 낀 가운데까지 하면 스물일곱 단이래!"<br/><span class="sp">보리:</span> "그럼 우리가 저기 올라가서 가짜 별을 찾으면 되겠다!"</div>
+</div>
+
+<div class="page"><div class="pno">12쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출(시리즈 공통 포맷 ①).<br/><b>장면</b> 탑 그늘 아래 — 티코의 눈에서 빔이 나와 공중에 민트색 홀로그램 카드가 떠오른다. 카드 안: 첨성대 단면 미니어처(창구·내부 사다리·꼭대기 우물 정자석), 옆에 27이라는 층수를 점으로 표현한 벽돌 띠. 카드 빛이 올려다보는 아이들 얼굴을 민트색으로 물들임.<br/><b>톤</b> '티코피디아' 시그니처 연출.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아, 스캔! 여기는 <b>첨성대</b> — 별을 살피는 탑이야. 화강암 벽돌을 27단으로 쌓았고, 꼭대기엔 우물 정(井) 자 모양 돌이 놓여 있지."<br/><span class="sp">노아:</span> "책에서 봤어! 세상에서 아주 오래된 별 관측대 중 하나래."<br/><span class="sp">보리:</span> "돌탑 하나가 다 계산해서 쌓은 거라고? 신라 사람들 진짜 똑똑하다!"</div>
+</div>
+
+<div class="page"><div class="pno">13쪽</div>
+  <div class="scene"><b>컷</b> 중형, 대각선 분할 구도(긴장).<br/><b>장소·시간</b> 낮, 첨성대 둘레. 창을 든 신라 군졸 둘이 순찰 중.<br/><b>인물</b> 화면 오른쪽 아래 — 담벼락 뒤에 웅크린 세 사람(보리는 고개를 내밀고, 노아는 보리를 끌어당김). 왼쪽 위 — 군졸들이 탑 둘레를 도는 실루엣. 탑은 함부로 오르면 안 되는 왕실의 소중한 곳임을 군졸의 경계 자세로 표현.<br/><b>톤</b> 숨죽인 긴장. 낮이지만 그림자 진 담 아래.</div>
+  <div class="text"><span class="sp">군졸:</span> "이 탑은 나라의 소중한 곳이다. 함부로 오르는 자는 벌을 받는다!"<br/><span class="sp">노아:</span> "(속닥) 마음대로 올라가면 안 되나 봐. 몰래는 무리야, 보리야."<br/><span class="sp">티코:</span> "(속닥) 그럼 방법은 하나. 별 할아버지한테 도와달라고 하는 수밖에."</div>
+</div>
+
+<div class="page"><div class="pno">14쪽</div>
+  <div class="scene"><b>컷</b> 중형, 마주 앉은 대화 구도.<br/><b>장소·시간</b> 초저녁, 첨성대 아래 작은 화톳불 곁.<br/><b>인물</b> 별 할아버지가 아이들과 마주 앉아 이야기. 보리는 몸을 앞으로 내밀고 진지하게, 노아는 두 손을 모으고 조심스럽게 부탁. 할아버지는 반신반의하면서도 다정한 눈빛.<br/><b>배경·소품</b> 화톳불의 주황 불빛, 머리 위로 막 돋는 별들.<br/><b>톤</b> 신뢰가 싹트는 따뜻한 컷.</div>
+  <div class="text"><span class="sp">보리:</span> "할아버지! 저희가 저 이상한 별을 없앨 수 있어요. 진짜예요!"<br/><span class="sp">별 할아버지:</span> "허허, 어린것들이 무슨 수로… 허나 별을 되찾을 수만 있다면. 마침 손이 부족했단다. 나를 도와 별을 세어 주겠느냐?"<br/><span class="sp">노아:</span> "네! 저희가 이상한 별과 진짜 별을 구별해 낼게요."</div>
+</div>
+
+<div class="page"><div class="pno">15쪽</div>
+  <div class="scene"><b>컷</b> 대형 스펙터클(이번 화 간판 컷 ②), 밤하늘 부감.<br/><b>장소·시간</b> 깊은 밤, 첨성대 꼭대기에서 올려다본 하늘 가득한 별.<br/><b>장면</b> 별 할아버지가 긴 막대로 <b>북두칠성(국자 모양 일곱 별)</b>을 가리키고, 그 국자 끝에서 이어진 방향에 북극성 한 점. 그 사이 엉뚱한 자리에 <b>민트빛 가짜 별</b>이 얄밉게 반짝. 옆에서 보리·노아가 손가락으로 별을 이으며 감탄.<br/><b>톤</b> 이번 화에서 가장 아름다운 밤하늘 컷. 남색 하늘에 은가루 같은 별.</div>
+  <div class="text"><span class="sp">별 할아버지:</span> "저 국자 모양 일곱 별이 <b>북두칠성</b>이란다. 국자 끝을 쭉 이으면 늘 그 자리에 있는 별, <b>북극성</b>이 나오지. 저 별로 방향을 안단다."<br/><span class="sp">노아:</span> "우와… 별이 그림처럼 이어지네요! 그런데 저기 저 민트색 별은 어느 그림에도 없어요."<br/><span class="sp">별 할아버지:</span> "그래, 바로 저 별이 내 하늘을 어지럽히는 녀석이란다."</div>
+</div>
+
+<div class="divider">— D. 시도 → 실패 → 힌트 (16~25쪽) —</div>
+
+<div class="page"><div class="pno">16쪽</div>
+  <div class="scene"><b>컷</b> 중형 개그컷, 로우앵글(사다리 오르기).<br/><b>장소·시간</b> 밤, 첨성대 남쪽 창구에 걸친 사다리.<br/><b>인물</b> 보리가 사다리를 성큼성큼 올라 창구로 쏙 들어가려다 발이 미끄덩(균형 잃고 팔 허우적, 땀방울 만화 기호). 아래에서 노아가 두 손으로 사다리를 붙잡고 발 동동, 티코는 노아 배낭에서 눈이 X자.<br/><b>톤</b> 슬랩스틱. 별빛 아래 아찔+귀여운 소동.</div>
+  <div class="text"><span class="sp">보리:</span> "이 정도 사다리쯤이야— 우왓!"<br/><span class="sp">노아:</span> "보리야, 천천히! 생각 좀 하고 올라가!"<br/><span class="sp">보리:</span> "생각은 뛰면서 하는 거라니까— 아니, 오르면서!"</div>
+</div>
+
+<div class="page"><div class="pno">17쪽</div>
+  <div class="scene"><b>컷</b> 대형, 첨성대 내부 단면컷(교육적 절개도 느낌).<br/><b>장소·시간</b> 밤, 첨성대 안쪽. 좁은 원통 내부를 아래에서 위로 올려다봄.<br/><b>장면</b> 아래 12단까지는 흙과 자갈로 채워진 바닥, 그 위로 <b>우물 정자석</b>에 걸친 사다리를 타고 한 칸씩 오르는 세 사람. 꼭대기 창으로 별빛이 쏟아져 들어와 원통 안에 빛기둥을 세운다. 벽에 손을 짚으며 조심조심.<br/><b>톤</b> 신비롭고 아늑한 내부, 위에서 내려오는 별빛 스포트라이트.</div>
+  <div class="text"><span class="sp">나레이션:</span> 탑 안은 좁고 어두웠지만, 꼭대기 창으로 별빛이 폭포처럼 쏟아져 들어왔어요.<br/><span class="sp">노아:</span> "가운데 이 돌들이 우물 정(井) 자 모양이야. 여기에 사다리를 걸치고 오르는 거구나."<br/><span class="sp">티코:</span> "(속닥) 신호가 점점 세져. 부품이 바로 위 꼭대기에 있어!"</div>
+</div>
+
+<div class="page"><div class="pno">18쪽</div>
+  <div class="scene"><b>컷</b> 중형, 꼭대기 관측대 구도.<br/><b>장소·시간</b> 밤, 첨성대 맨 꼭대기 우물 정자석 위. 하늘이 사방으로 뻥 뚫려 별 천지.<br/><b>인물</b> 세 사람이 꼭대기 돌에 앉아 하늘을 올려다본다. 보리는 감탄해 입 떡, 노아는 별을 손가락으로 이어 세고, 티코는 눈이 별 모양. 바로 머리 위에 민트빛 가짜 별.<br/><b>톤</b> 세상 꼭대기에 오른 벅참. 사방이 별.</div>
+  <div class="text"><span class="sp">보리:</span> "우와아… 여기선 하늘이 다 보여! 별이 쏟아질 것 같아!"<br/><span class="sp">티코:</span> "(속닥) 저 가짜 별… 손 닿을 듯한데 안 잡혀. 자꾸 벽돌 틈에서 반짝여."<br/><span class="sp">노아:</span> "부품은 하늘에 뜬 게 아니라, 이 탑 어딘가 틈에 껴서 빛이 위로 새어 나오는 거 아닐까?"</div>
+</div>
+
+<div class="page"><div class="pno">19쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷.<br/><b>장면</b> 노아의 손목 통신기에서 봉수 박사의 홀로그램 얼굴 — 가로 노이즈가 지나가며 얼굴이 지지직 뭉개진다. 보리가 통신기를 톡톡 두드리고, 노아는 팔을 하늘로 뻗어 안테나처럼.<br/><b>톤</b> 시리즈 러닝 개그(통신 두절). 과장된 리액션. 배경은 별밤.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "허허, 잘 듣거라. 가짜 별은 진짜 별과 다르게 색이… 그리고 깜빡이는 게… 치지직—"<br/><span class="sp">보리:</span> "할아버지? 할아버지!! 또 끊겼어!"<br/><span class="sp">티코:</span> "통신 두절. …결국 우리 눈으로 진짜와 가짜를 가려내라는 뜻이군."</div>
+</div>
+
+<div class="page"><div class="pno">20쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업 2단 — 관찰 무드.<br/><b>상단</b> 밤하늘 별들 중 하나를 확대 — 진짜 별은 하얗고 잔잔히 빛나는데, 가짜 별(부품)만 <b>민트색</b>으로 규칙적으로 깜빡 깜빡(윙— 소리 표현 파형).<br/><b>하단</b> 그걸 뚫어져라 보는 노아의 얼굴 클로즈업 — 안경알에 두 별이 나란히 비치고 눈이 번뜩. 배경은 비네팅으로 어둡게.<br/><b>톤</b> 셜록 스타일 추리 연출, 진지하지만 귀엽게.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만! 저것 봐. 진짜 별은 가만히 하얗게 빛나는데, 저 별만 <b>민트색으로 깜빡깜빡</b>해."<br/><span class="sp">보리:</span> "어? 진짜네! 딱 하나만 반짝반짝 신호등처럼 깜빡여!"<br/><span class="sp">노아:</span> "가짜 별은 색도, 깜빡임도 진짜랑 달라. 이걸로 골라내면 돼!"</div>
+</div>
+
+<div class="page"><div class="pno">21쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관측 실습 구도.<br/><b>장소·시간</b> 밤, 첨성대 꼭대기. 별 할아버지와 아이들이 함께 별을 센다.<br/><b>인물</b> 별 할아버지가 긴 막대로 진짜 별들을 하나하나 짚고, 노아가 나무판에 별 위치를 그려 표시. 보리는 국자 모양 북두칠성을 손으로 따라 그린다. 티코는 인형인 척 앉아 눈만 살짝 빛냄.<br/><b>톤</b> 협동 학습의 따뜻함. 밤하늘 아래 옹기종기.</div>
+  <div class="text"><span class="sp">별 할아버지:</span> "옳지, 진짜 별은 이렇게 늘 같은 자리에서 계절마다 조금씩 옮겨 앉는단다. 그걸 보고 씨 뿌릴 날을 정하지."<br/><span class="sp">노아:</span> "그럼 저 깜빡이는 민트색 별만 지우면, 할아버지 하늘이 원래대로 돌아오는 거예요!"<br/><span class="sp">별 할아버지:</span> "그렇지! 헌데 저 별은 대체 어디에 숨어 저리 빛나는고…"</div>
+</div>
+
+<div class="page"><div class="pno">22쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ②.<br/><b>장면</b> 홀로그램 카드에 선덕여왕의 온화한 반신상과 그 주위를 도는 아이콘들 — 별·첨성대·벼 이삭·달력. 카드를 올려다보는 아이들의 표정이 존경으로. 배경은 탑 꼭대기 밤하늘.<br/><b>톤</b> 티코피디아 포맷 반복 + 인물 학습 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 이 시대 임금 <b>선덕여왕</b>은 신라의 첫 여왕이야. 하늘의 별과 날씨를 살펴 백성의 농사를 돕고, 나라를 지혜롭게 다스렸지."<br/><span class="sp">보리:</span> "임금님이 별을 보고 백성 걱정을 했다고?"<br/><span class="sp">노아:</span> "그런 임금님이 아끼는 탑이니까, 우리가 꼭 하늘을 되돌려 드려야 해."</div>
+</div>
+
+<div class="page"><div class="pno">23쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 발견의 순간.<br/><b>장소·시간</b> 밤, 첨성대 꼭대기 우물 정자석 사이.<br/><b>장면</b> 노아가 별 대신 <b>발밑 돌 틈</b>을 살피다가, 우물 정자석 이음새 깊은 틈에서 <b>민트빛으로 반짝이는 부품</b>을 발견한다. 손전등처럼 위로 새어 나온 빛이 하늘의 '가짜 별'의 정체였음이 드러난다(빛줄기가 위로 뻗는 연출).<br/><b>톤</b> 유레카의 반짝임. 어둠 속 민트빛 발견.</div>
+  <div class="text"><span class="sp">노아:</span> "찾았다! 가짜 별은 하늘이 아니라 <b>여기</b>, 돌 틈에 있었어!"<br/><span class="sp">보리:</span> "부품이 틈에 껴서, 빛이 위로 쏘아 올라간 거였구나! 그래서 별처럼 보인 거고!"<br/><span class="sp">티코:</span> "(속닥) 바로 그거야! 그 틈에서 나를 꺼내— 아니, 부품을 꺼내 줘!"</div>
+</div>
+
+<div class="page"><div class="pno">24쪽</div>
+  <div class="scene"><b>컷</b> 중형 개그컷, 로우앵글.<br/><b>장소·시간</b> 밤, 꼭대기 돌 틈 앞.<br/><b>인물</b> 보리가 손을 틈에 쑥 넣었다가 부품이 깊어 안 닿자 낑낑(혀 내밀고 팔 쭉), 노아가 긴 막대를 건네주며 아이디어, 티코는 옆에서 조바심(눈 지그재그). 배터리 게이지가 눈에 띄게 줄어 붉은 경고 점멸 시작.<br/><b>톤</b> 슬랩스틱 + 첫 배터리 경고(E비트 진입 전 긴장 장치).</div>
+  <div class="text"><span class="sp">보리:</span> "으으— 손이 안 닿아! 조금만, 조금만 더!"<br/><span class="sp">티코:</span> "삐빅! 경고! 배터리 15%! 새벽 오기 전에 못 나가면 여기 갇힌다!"<br/><span class="sp">노아:</span> "보리야, 손 말고 이 막대로 살살 밀어 봐. 별 볼 때 쓰던 막대!"</div>
+</div>
+
+<div class="page"><div class="pno">25쪽</div>
+  <div class="scene"><b>컷</b> 대형 클라이맥스컷, 하늘을 향한 앙각.<br/><b>장소·시간</b> 밤, 첨성대 꼭대기.<br/><b>장면</b> 보리가 긴 막대로 돌 틈의 부품을 톡 밀어내자, 부품이 데구르르 굴러 노아의 두 손에 쏙. 그 순간 <b>하늘의 가짜 별이 스르륵 사라지고</b>, 진짜 별들만 남아 온 하늘이 더 또렷하게 반짝인다. 세 사람이 환하게 하늘을 올려다봄.<br/><b>톤</b> 카타르시스. 어긋났던 하늘이 제자리를 찾는 청량한 순간.</div>
+  <div class="text"><span class="sp">노아:</span> "잡았다! 부품!"<br/><span class="sp">나레이션:</span> 부품이 손에 들어오자, 하늘을 어지럽히던 민트색 가짜 별이 스르르 사라졌어요.<br/><span class="sp">보리:</span> "봐! 이상한 별이 없어졌어! 하늘이 깨끗해졌어!"</div>
+</div>
+
+<div class="divider">— E. 해결 · 회수 · 귀환 (26~33쪽) —</div>
+
+<div class="page"><div class="pno">26쪽</div>
+  <div class="scene"><b>컷</b> 중형, 감격의 관측 구도.<br/><b>장소·시간</b> 같은 밤, 첨성대 꼭대기.<br/><b>인물</b> 별 할아버지가 되찾은 하늘을 올려다보며 눈물 글썽, 긴 막대로 별자리를 술술 이어 나간다. 아이들은 옆에서 환하게 웃으며 박수. 티코는 노아 품에서 눈을 반달로.<br/><b>톤</b> 벅찬 감동. 별빛이 할아버지 얼굴에 맑게 어린다.</div>
+  <div class="text"><span class="sp">별 할아버지:</span> "보인다… 별들이 다시 제자리에 보여! 저 별의 자리로 보니, 이제 곧 <b>씨 뿌릴 때</b>로구나!"<br/><span class="sp">보리:</span> "해냈다! 할아버지가 다시 별을 읽어요!"<br/><span class="sp">노아:</span> "이제 농부 아저씨들도 씨 뿌릴 날을 알 수 있겠어요!"</div>
+</div>
+
+<div class="page"><div class="pno">27쪽</div>
+  <div class="scene"><b>컷</b> 중형, 위기 전환컷, 하이앵글.<br/><b>장소·시간</b> 밤, 첨성대 아래. 탑을 내려온 아이들.<br/><b>장면</b> 등불을 든 신라 군졸들이 탑 아래로 몰려와 아이들을 둘러싼다(군졸은 실루엣+등불 역광). 원 중앙에 부품을 든 노아와 두 손 든 보리. 별 할아버지가 급히 사다리를 내려온다.<br/><b>톤</b> 위기지만 창끝은 아이들을 직접 겨누지 않게(저학년 안전선). 등불 주황빛 포위.</div>
+  <div class="text"><span class="sp">군졸:</span> "탑에 몰래 오른 자들이 있다더니, 너희로구나! 나라의 탑을 어지럽혔느냐!"<br/><span class="sp">보리:</span> "아니에요! 저희는 하늘을 되돌려 드리려던 거예요!"<br/><span class="sp">별 할아버지:</span> "잠깐! 이 아이들이 <b>이상한 별</b>을 없애 주었네. 전하께 함께 아뢰어야 하네."<br/><span class="sp">나레이션:</span> 군졸들은 아이들을 대궐로 데려갔어요. 밤이 깊도록, 여왕님이 기다리고 계셨지요.</div>
+</div>
+
+<div class="page"><div class="pno">28쪽</div>
+  <div class="scene"><b>컷</b> 대형, 접견 구도(이번 화 간판 컷 ③).<br/><b>장소·시간</b> 밤이 깊은 궁궐 뜰. 상석에 <b>선덕여왕</b>(공식 예복+금관, 위엄 있으나 자애로운 눈), 그 앞에 별 할아버지와 무릎 꿇은 두 아이. 뒤로 관원들이 늘어섰다.<br/><b>인물</b> 별 할아버지가 두 손 모아 아뢰고, 노아가 되찾은 부품(반짝임 잦아든 상태)을 조심스레 감춘 채, 보리가 또박또박 사정을 말한다.<br/><b>톤</b> 긴장 → 여왕의 미소로 풀리는 전환점. 궁궐 등불의 따뜻한 주황.</div>
+  <div class="text"><span class="sp">별 할아버지:</span> "전하, 요사이 하늘을 어지럽히던 이상한 별을 이 아이들이 없애 주었습니다."<br/><span class="sp">선덕여왕:</span> "허어, 어린아이들이 별을 되찾아 주었단 말이냐? 어찌 그리했느냐?"<br/><span class="sp">노아:</span> "진짜 별과 가짜 별은 색과 깜빡임이 달랐습니다. 그걸 하나하나 살펴 가려냈습니다."</div>
+</div>
+
+<div class="page"><div class="pno">29쪽</div>
+  <div class="scene"><b>컷</b> 중형, 좌우 대치가 풀리는 구도.<br/><b>장소·시간</b> 같은 밤 궁궐 뜰.<br/><b>인물</b> 선덕여왕이 계단을 내려와 아이들 눈높이로 몸을 낮춰 다정하게. 군졸들이 창을 거두고 물러선다. 보리·노아는 안도의 표정. 별 할아버지는 흐뭇하게 수염을 쓰다듬는다.<br/><b>톤</b> 위엄에서 따뜻함으로. 별밤 아래 화해의 공기.</div>
+  <div class="text"><span class="sp">선덕여왕:</span> "하늘을 읽는 일은 백성의 밥과 이어져 있느니라. 별 하나가 어긋나면 온 나라 농사가 흔들리지."<br/><span class="sp">선덕여왕:</span> "너희가 눈을 밝혀 진짜와 가짜를 가려냈으니, 참으로 기특하구나."<br/><span class="sp">보리:</span> "히히, 저희 원래 별 구별 잘 못하는데… 이번엔 진짜 열심히 봤어요!"</div>
+</div>
+
+<div class="page"><div class="pno">30쪽</div>
+  <div class="scene"><b>컷</b> 대형 학습컷(이번 화 핵심 지식) — 좌우 분할 인포그래픽 연출.<br/><b>좌측</b> 별 할아버지가 밤하늘을 손으로 가리키는 옆모습.<br/><b>우측</b> 큰 도해 — 북두칠성 국자 일곱 별과, 국자 끝을 다섯 배쯤 늘여 이으면 만나는 <b>북극성</b>. 그 아래 작은 도해: 계절별로 초저녁 하늘에서 자리를 바꾸는 별자리(봄·여름·가을·겨울 네 칸). 도해는 만화 속 나무판/두루마리 그림처럼 세계관 안에 자연스럽게.<br/><b>인물</b> 하단에 눈이 동그래진 아이들 리액션 얼굴 둘.<br/><b>톤</b> '지식이 그림이 되는' 이번 화 핵심 컷.</div>
+  <div class="text"><span class="sp">별 할아버지:</span> "<b>북두칠성</b> 국자 끝을 쭉 이으면 <b>북극성</b>이 나온단다. 북극성은 늘 북쪽에 있어 길잡이가 되지."<br/><span class="sp">별 할아버지:</span> "별자리는 계절마다 자리를 옮겨. 그 자리를 보고 봄·여름·가을·겨울과 씨 뿌릴 날을 안단다."<br/><span class="sp">노아:</span> "그래서 별만 보고도 계절과 방향을 알 수 있는 거군요!"</div>
+</div>
+
+<div class="page"><div class="pno">31쪽</div>
+  <div class="scene"><b>컷</b> 중형 훈훈컷, 밤 화톳불 곁.<br/><b>장소·시간</b> 첨성대 아래, 별이 총총한 밤.<br/><b>인물</b> 쪼그려 앉은 보리가 나뭇가지로 흙바닥에 국자 모양(북두칠성)을 그리며 별 이름을 외운다. 별 할아버지가 옆에서 국자 끝에 점 하나(북극성)를 콕 찍어 준다. 노아는 손뼉, 티코는 배낭에서 흐뭇하게.<br/><b>톤</b> 이번 화의 감정 피크 — 별이 다 똑같아 보이던 보리가 처음으로 별자리를 즐거워하는 순간.</div>
+  <div class="text"><span class="sp">보리:</span> "국자 별 일곱 개… 그리고 여기 끝에 북극성! 저 이제 별 구별할 수 있어요! 별 보는 거 은근 재밌다!"<br/><span class="sp">별 할아버지:</span> "허허허, 잘 외웠다. 별은 늘 그 자리에서 너를 기다려 준단다. 언제든 하늘을 올려다보렴."<br/><span class="sp">노아:</span> "(보리가 별을 좋아하게 되다니… 오늘 진짜 신기한 날이야.)"</div>
+</div>
+
+<div class="page"><div class="pno">32쪽</div>
+  <div class="scene"><b>컷</b> 중형 이별컷.<br/><b>장소·시간</b> 동트기 직전의 첨성대 아래 — 하늘이 남색에서 보라·주황으로 물드는 그라데이션, 별들이 하나둘 옅어진다.<br/><b>인물</b> 선덕여왕이 손수 별 할아버지 곁에 서서 아이들을 배웅. 별 할아버지가 아이들의 손을 꼭 잡아 준다. 티코는 배낭 속에서 눈만 빼꼼(인형 위장 유지 — 장착은 아직).<br/><b>톤</b> 아쉬움과 따뜻함. 새벽 공기의 파스텔톤.</div>
+  <div class="text"><span class="sp">선덕여왕:</span> "너희는 대체 어디서 온 아이들이냐? 다시 별이 흐려지거든 언제든 오너라."<br/><span class="sp">보리:</span> "아주아주… 먼 데서요! 할아버지, 안녕히 계세요! 별 잘 세세요!"<br/><span class="sp">티코:</span> "(속닥) 서둘러! 배터리 5%야. 해 뜨기 전에 문을 열어야 돌아간다!"</div>
+</div>
+
+<div class="page"><div class="pno">33쪽</div>
+  <div class="scene"><b>컷</b> 대형 마무리 몽타주(3분할 느낌).<br/><b>중앙(메인)</b> 창고의 저녁상 — 김이 오르는 국, 웃음꽃. 식탁 옆에서 부품이 티코 가슴에 스르륵 장착되며 민트빛 발광(귀환 후 해금 연출 — 룰4 안전 지대). 티코 가슴 게이지 12칸 중 8칸이 채워져 반짝, 티코 눈 위로 <b>작은 별자리 홀로그램</b>이 잠깐 떠오른다(별자리 모드 해금).<br/><b>우상단 인셋</b> 신라 들판 — 별 할아버지가 별을 읽어 알려 준 날, 농부들이 씨를 뿌리는 밝은 낮 풍경.<br/><b>좌하단 인셋(아주 작게)</b> 창밖 어둠 속을 스쳐 지나가는 정체불명의 실루엣, 붉은 외눈 한 점(0호 무언 떡밥 — 대사 없음).<br/><b>톤</b> 따뜻한 마무리 + 아주 작은 서늘함 한 방울.</div>
+  <div class="text"><span class="sp">나레이션:</span> 부품이 돌아오자 티코의 가슴에서 새 기능이 반짝 깨어났어요 — 밤하늘 별자리를 그려 주는 '별자리 모드'!<br/><span class="sp">봉수 박사:</span> "장하구나! 물론 별 할아버지도 며칠 밤 애쓰면 이상한 별을 알아채셨겠지만… 너희 덕에 농사철을 놓치지 않았을 게다. 첨성대는 아주 오래오래 서라벌의 하늘을 지켰단다."<br/><span class="sp">티코:</span> "삐빅! 감동은 나중에. 다음 부품 신호 발견 — 좌표는 저 멀리 북쪽 바다, <b>바이킹의 배</b> 위다!"</div>
+</div>
+
+<div class="divider">— F. 티코피디아 부록 (34~36쪽) —</div>
+
+<div class="page"><div class="pno">34쪽 · 티코피디아 ①</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지(부록 공통 포맷) — 배경은 민트색 홀로그램 격자.<br/><b>장면</b> 티코가 두건을 쓰고 긴 막대를 든 천문관 포즈로 화면 왼쪽에. 오른쪽 큰 카드: 첨성대 정면 그림 + 단면 설명(남쪽 창구·내부 사다리·꼭대기 우물 정자석). 카드 모서리에 선덕여왕 초상 스탬프와 별 아이콘.<br/><b>톤</b> 밝고 정돈된 인포그래픽. 본편과 구분되는 '부록 세계' 톤.</div>
+  <div class="text"><span class="sp">티코:</span> "오늘의 티코피디아! <b>첨성대</b>는 신라 <b>선덕여왕</b> 때 서라벌에 세운 별 관측 탑이야. 화강암 벽돌을 27단으로 쌓았고, 지금까지 남아 있는 아주 오래된 천문대 중 하나지. 신라 사람들은 여기서 별을 살펴 계절과 농사철을 알았단다."</div>
+</div>
+
+<div class="page"><div class="pno">35쪽 · 티코피디아 ②</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지 ② — 도해 중심.<br/><b>장면</b> 화면 상단: 밤하늘 도해 — 북두칠성 국자 일곱 별과, 국자 끝을 이어 만나는 북극성이 점선으로 연결. 하단: 봄·여름·가을·겨울 네 칸에 서로 다른 위치의 별자리 아이콘 + 씨 뿌리는 농부·벼 이삭 그림. 구석에 엄지 척 하는 티코.<br/><b>톤</b> 교과서 삽화보다 밝고 만화적인 도해.</div>
+  <div class="text"><span class="sp">티코:</span> "별로 방향과 계절을 아는 비밀! <b>북두칠성</b> 국자 끝을 쭉 이으면 늘 북쪽에 있는 <b>북극성</b>이 나와 — 길잡이 별이지. 별자리는 계절마다 자리를 옮겨서, 그 자리를 보면 봄·여름·가을·겨울을 알 수 있어. 그래서 옛사람들은 별을 보고 씨 뿌릴 날을 정했단다!"</div>
+</div>
+
+<div class="page"><div class="pno">36쪽 · 티코 퀴즈</div>
+  <div class="scene"><b>컷</b> 퀴즈 페이지(부록 공통 포맷) — 티코 정면 컷.<br/><b>장면</b> 티코가 문제 카드 3장을 부채꼴로 펼쳐 들고 윙크. 카드마다 ①②③ 번호와 물음표 장식. 배경 하단에 다음 화 예고 — 파도치는 바다 위 용머리 뱃머리(바이킹 배) 실루엣과 물음표. (앱에서는 기존 퀴즈 게임 인프라로 인터랙티브 처리)<br/><b>톤</b> 마무리 팡파레 + 다음 화 기대감.</div>
+  <div class="text"><span class="sp">티코:</span> "마지막 관문, 티코 퀴즈! 셋 다 맞히면 너도 별 세는 대원!<br/>① 신라에 별을 살피는 탑 첨성대를 세운 임금님은 누구일까?<br/>② 국자 모양의 별 일곱 개를 무엇이라고 부를까?<br/>③ 옛사람들은 별을 보고 무엇을 알았을까? (계절? 노래? 이름?)<br/>…다음 화, 파도치는 북쪽 바다 바이킹의 배 위에서 만나자! 삐빅!"</div>
+</div>
+
+<footer>
+  타임 티코 8화 콘티 v1.0 · 탱고북 오리지널 · 내부 제작 자료
+</footer>
+
+</div>
+
+<script>
+// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
+(async function () {
+  const nav = document.getElementById('comic-tabs');
+  if (!nav) return;
+  const here = (location.pathname.split('/').pop() || '');
+  const items = [['learning-comic-plan.html', '📘 기획서']];
+  for (let i = 1; i <= 12; i++) {
+    const f = 'learning-comic-ep' + String(i).padStart(2, '0') + '.html';
+    try {
+      const r = await fetch(f);
+      const t = await r.text();
+      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
+    } catch (e) { /* skip */ }
+  }
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §6과 동기 유지) ─────────
+const STYLE_PROMPT = [
+  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
+  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
+  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
+  '시대 배경(건축·의상·소품)은 고증에 맞게 세밀하고 사실적으로 묘사.',
+  '화면비 16:9 와이드 일러스트.',
+  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
+].join(' ');
+
+const CHARACTER_KEYS = [
+  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
+  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
+  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
+  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸 중 8칸 점등), 감정에 따라 모양이 변하는 둥근 눈.',
+  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼.',
+  '- 0호(그림자): 어둠 속 검은 실루엣에 붉은 외눈 한 점만 보인다.',
+].join('\n');
+
+// 이 화의 시대 의상 (화별로 교체)
+const EP_COSTUME = '[이 화의 의상] 7세기 신라 서라벌 장면에서 보리 = 흙빛 저고리 + 신라식 주름치마, 노아 = 소매 넓은 신라식 바지저고리(수수한 흙빛·풀빛 계열). 현대(창고) 장면에서는 평상복(보리 주황 후드티, 노아 하늘색 셔츠).';
+
+// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
+const EP_GUEST_KEYS = [
+  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
+  '- 선덕여왕(신라의 첫 여왕): 기품 있고 총명한 둥근 얼굴, 온화하지만 심지 굳은 눈매, 틀어 올린 검은 머리에 신라 양식 금관·금귀걸이. 공식 접견 장면 = 붉은빛·금빛 자수의 신라 왕실 예복 / 밤 관측 장면 = 수수한 남색 겉옷. 위엄과 따뜻함을 함께, 우스꽝스럽지 않게.',
+  '- 별 할아버지(첨성대 천문관, 픽션 조력자): 하얀 수염과 성긴 백발을 상투로 틀고 신라식 두건, 다정한 눈가 주름. 흙빛 신라 관복 두루마기 + 밤바람 막는 두툼한 겉옷. 손에 별을 가리키는 긴 막대와 기록용 작은 나무판. 허리가 살짝 굽었으나 별 볼 때 눈빛은 소년처럼 반짝.',
+].join('\n');
+
+function composeImagePrompt(pno, sceneText) {
+  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+}
+
+// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    const btn = card.querySelector('.copy-btn');
+    const pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async function () {
+      // textContent — details 접힘 상태에선 innerText 가 빈 값
+      const text = pre.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('done');
+      } catch (e) {
+        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
+      }
+      setTimeout(function () {
+        btn.textContent = '📋 시트 프롬프트 복사';
+        btn.classList.remove('done');
+      }, 1600);
+    });
+  });
+})();
+
+// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
+const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
+
+async function loadComicAssets() {
+  try {
+    const r = await fetch(ASSET_API);
+    const j = await r.json();
+    return (j && j.data) || {};
+  } catch (e) { return {}; }
+}
+
+function createPasteBox(key, assets, hint) {
+  const box = document.createElement('div');
+  box.className = 'paste-box';
+  box.tabIndex = 0;
+  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
+  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
+  const reset = function () {
+    box.classList.remove('has-img');
+    box.innerHTML = '';
+    box.textContent = hintText;
+  };
+  const setImg = function (url) {
+    box.classList.add('has-img');
+    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      if (!confirm('이 이미지를 삭제할까요?')) return;
+      try {
+        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
+        reset();
+      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
+    });
+  };
+  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+  else box.textContent = hintText;
+
+  async function upload(file) {
+    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+    box.classList.add('busy');
+    const fr = new FileReader();
+    fr.onload = async function () {
+      try {
+        const r = await fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        });
+        const j = await r.json();
+        if (j.success) setImg(j.data.url + '?t=' + Date.now());
+        else alert('저장 실패: ' + (j.error || ''));
+      } catch (e) {
+        alert('저장 실패 — 서버(3500)를 확인하세요');
+      }
+      box.classList.remove('busy');
+    };
+    fr.readAsDataURL(file);
+  }
+
+  box.addEventListener('paste', function (e) {
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (const it of items) {
+      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
+    }
+  });
+  box.addEventListener('dragover', function (e) { e.preventDefault(); });
+  box.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) upload(f);
+  });
+  box.addEventListener('click', function () { box.focus(); });
+  return box;
+}
+
+// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-plan) 자산을 읽어옴 ──
+(async function () {
+  const grid = document.getElementById('cast-grid');
+  if (!grid) return;
+  let planAssets = {};
+  try {
+    const r = await fetch('/api/comic-assets/learning-comic-plan');
+    const j = await r.json();
+    planAssets = (j && j.data) || {};
+  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
+  grid.querySelectorAll('.cast-item').forEach(function (item) {
+    const key = item.getAttribute('data-key');
+    if (planAssets[key]) {
+      const frame = item.querySelector('.frame');
+      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
+    }
+  });
+})();
+
+// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
+(function () {
+  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^[a-z0-9-]+$/.test(docId)) return;
+  const api = '/api/comic-feedback/' + docId;
+
+  function updateBar(total) {
+    const bar = document.getElementById('feedback-cnt');
+    if (bar) bar.textContent = total;
+  }
+
+  async function loadNotes() {
+    try {
+      const r = await fetch(api);
+      const j = await r.json();
+      return (j && j.data && j.data.pages) || {};
+    } catch (e) { return {}; }
+  }
+
+  async function saveNote(page, note, statusEl, ta) {
+    statusEl.textContent = '저장 중…';
+    try {
+      const r = await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, note: note }),
+      });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.error || 'save failed');
+      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
+      ta.classList.toggle('has-note', !!note.trim());
+      updateBar(j.data.total);
+      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
+    } catch (e) {
+      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
+      statusEl.style.color = '#e85c3a';
+    }
+  }
+
+  async function init() {
+    const pages = document.querySelectorAll('.page');
+    if (!pages.length) return;
+    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
+    const notes = loaded[0];
+    const assets = loaded[1];
+
+    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
+    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
+      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
+    });
+
+    const anchor = document.querySelector('header.hero');
+    if (anchor) {
+      const bar = document.createElement('div');
+      bar.id = 'feedback-bar';
+      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
+      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+    }
+
+    pages.forEach(function (card) {
+      const pnoEl = card.querySelector('.pno');
+      const m = pnoEl && pnoEl.textContent.match(/\d+/);
+      if (!m) return;
+      const pno = m[0];
+
+      const main = document.createElement('div');
+      while (card.firstChild) main.appendChild(card.firstChild);
+      card.appendChild(main);
+
+      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
+      const mainPno = main.querySelector('.pno');
+      const sceneEl = main.querySelector('.scene');
+      if (mainPno && sceneEl) {
+        const row = document.createElement('div');
+        row.className = 'pno-row';
+        mainPno.parentNode.insertBefore(row, mainPno);
+        row.appendChild(mainPno);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋 그림 프롬프트 복사';
+        copyBtn.addEventListener('click', async function () {
+          const prompt = composeImagePrompt(pno, sceneEl.innerText);
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = '복사됨 ✓';
+            copyBtn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () {
+            copyBtn.textContent = '📋 그림 프롬프트 복사';
+            copyBtn.classList.remove('done');
+          }, 1600);
+        });
+        row.appendChild(copyBtn);
+      }
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const saved = notes[pno] || '';
+      panel.innerHTML =
+        '<label>' + pno + '쪽 생성 이미지</label>' +
+        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
+        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
+        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
+      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
+      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
+      const ta = panel.querySelector('textarea');
+      if (saved) ta.classList.add('has-note');
+      const btn = panel.querySelector('button');
+      const status = panel.querySelector('.status');
+      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
+      });
+
+      card.classList.add('with-notes');
+      card.appendChild(panel);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>

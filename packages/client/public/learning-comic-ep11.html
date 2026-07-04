@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 11화 「하늘을 나는 자전거 가게」 — 콘티</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 24px 0 28px; border-bottom: 3px solid var(--coral); margin-bottom: 28px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 12px; }
+  .hero h1 { font-size: 32px; font-weight: 900; margin: 8px 0 4px; }
+  .hero .sub { color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+  .divider { text-align:center; margin: 40px 0 8px; font-weight: 900; color: var(--mint); letter-spacing: .15em; font-size: 14px; }
+  .page { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 14px 0; }
+  .page .pno { font-weight: 900; color: var(--coral-dark); font-size: 15px; }
+  .page .scene { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .page .scene b { color: var(--mint); font-weight: 800; }
+  .page .text { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 8px; font-size: 15px; }
+  .page .text .sp { font-weight: 800; color: var(--coral-dark); }
+  /* 콘티 리뷰 패널 */
+  .page.with-notes { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .page.with-notes { grid-template-columns: 1fr; } }
+  .note-panel { border-left: 2px dashed var(--line); padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 900px) { .note-panel { border-left: none; border-top: 2px dashed var(--line); padding: 12px 0 0; } }
+  .note-panel label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+  .note-panel textarea { width: 100%; min-height: 96px; resize: vertical; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 13px; background: #fffdfa; }
+  .note-panel textarea:focus { outline: none; border-color: var(--coral); }
+  .note-panel textarea.has-note { border-color: var(--mint); background: #f4fffc; }
+  .note-panel .row { display: flex; align-items: center; gap: 10px; }
+  .note-panel button { background: var(--coral); color: #fff; border: none; border-radius: 999px; padding: 7px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .note-panel button:hover { background: var(--coral-dark); }
+  .note-panel .status { font-size: 12px; color: var(--mint); font-weight: 700; }
+  #feedback-bar { position: sticky; top: 54px; z-index: 10; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 18px; margin: 16px 0 24px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #feedback-bar .cnt { color: #ffd9cc; }
+  .pno-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .copy-btn:hover { background: var(--mint); color: #fff; }
+  .copy-btn.done { background: var(--mint); color: #fff; }
+  .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
+  .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+  .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cast-strip .hint a { color: var(--coral-dark); font-weight: 700; }
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .cast-item { text-align: center; }
+  .cast-item .frame { border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 26px; }
+  .cast-item .frame img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .cast-item .nm { font-size: 12.5px; font-weight: 800; margin-top: 5px; color: var(--ink-soft); }
+  .guest-section { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--coral); border-radius: 16px; padding: 18px 22px; margin: 20px 0; }
+  .guest-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+  .guest-section .hint { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .char-prompt { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt details { margin-top: 6px; }
+  .char-prompt summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 8px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+</style>
+</head>
+<body data-comic-doc="ep11">
+<div class="wrap">
+
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-plan.html">📘 기획서</a></nav>
+
+<header class="hero" id="top">
+  <div class="kicker">TIME TICO · EPISODE 11</div>
+  <h1>11화 「하늘을 나는 자전거 가게」</h1>
+  <div class="sub">1903년 미국 노스캐롤라이나 키티호크 · 라이트 형제와 비행의 원리 — 36쪽 콘티 (장면 지시 + 페이지 텍스트) · 🚨 0호의 부품 강탈 · 시즌 최대 위기 · 12화 피날레로 직결되는 클리프행어</div>
+</header>
+
+<div class="cast-strip">
+  <h2>⭐ 고정 캐릭터 확정 시트</h2>
+  <div class="hint">기획서 §6에 붙여넣은 레퍼런스가 여기 자동 표시됩니다 — 컷 작업의 기준. 비어 있으면 <a href="learning-comic-plan.html#s6">기획서에서 붙여넣기 →</a></div>
+  <div class="cast-grid" id="cast-grid">
+    <div class="cast-item" data-key="bori"><div class="frame">👧</div><div class="nm">보리</div></div>
+    <div class="cast-item" data-key="noa"><div class="frame">👦</div><div class="nm">노아</div></div>
+    <div class="cast-item" data-key="tico"><div class="frame">🤖</div><div class="nm">티코</div></div>
+    <div class="cast-item" data-key="bongsu"><div class="frame">👴</div><div class="nm">봉수 박사</div></div>
+    <div class="cast-item" data-key="zero"><div class="frame">🌑</div><div class="nm">0호</div></div>
+  </div>
+</div>
+
+<div class="guest-section">
+  <h2>🎭 이 화의 게스트 캐릭터 레퍼런스</h2>
+  <div class="hint">3장면 이상 등장하거나 클로즈업이 있는 게스트는 시트를 먼저 확정한다. 아래 비주얼 키는 각 쪽 [📋 그림 프롬프트 복사]에도 자동 포함되어 컷 간 일관성을 지킨다. (단역 — 마을 사람·구조대원 — 은 장면 지시 서술로 충분. <b>0호는 고정 캐릭터지만, 이 화에서 처음으로 실루엣을 벗고 정면·클로즈업으로 등장하므로 아래 '0호 정면 등장' 시트를 함께 둔다</b> — 정체·동기의 완전 공개는 12화 몫이라, 여기서는 여전히 붉은 외눈과 티코를 닮은 실루엣이 주는 '수수께끼'를 유지하되, 관객이 나쁜 로봇이 아님을 어렴풋이 느끼게 짠하고 귀여운 톤으로.)</div>
+
+  <div class="char-prompt" data-char="윌버·오빌 라이트" data-key="wright">
+    <div class="head"><span style="font-size:20px">🛩️</span><b>윌버 &amp; 오빌 라이트 형제 (자전거 가게 주인 · 실존 위인)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 어른은 4등신 카툰 비율 — 단, 실존 위인이므로 우스꽝스럽지 않게, 위엄과 따뜻함이 공존하는 존중 어린 묘사. 순백 배경.
+
+[시트 구성] 왼쪽에 두 형제의 전신 정면(형 윌버 왼쪽, 동생 오빌 오른쪽) — 둘 다 20세기 초 미국 노동자·정비공 차림: 소매를 걷은 흰 셔츠에 조끼, 멜빵, 어두운 색 바지, 캠프 작업 시에는 그 위에 낡은 재킷과 납작한 캡 모자. 가운데에 두 형제가 커다란 복엽기(위아래 두 겹 날개의 나무·천 비행기) 날개를 함께 붙잡고 조율하는 협업 포즈. 오른쪽 위에 표정 6종 그리드(골똘한 집중·확신에 찬 미소·형제끼리 티격태격 승강이·설레는 기대·실패 뒤의 담담한 끄덕임·성공의 벅찬 환호). 단일 그룹(두 형제)만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 윌버 라이트(형, 36세): 갸름하고 진중한 얼굴, 이마가 살짝 벗어짐(정수리 머리숱이 적음), 깔끔하게 면도, 회색빛 도는 눈, 과묵하고 사려 깊은 인상 — 생각에 잠기면 입을 꾹 다문다. 오빌 라이트(동생, 32세): 형보다 둥글고 밝은 얼굴, 단정하게 빗어 넘긴 다크블론드 머리, 잘 다듬은 콧수염, 장난기와 자신감이 어린 미소. 두 사람 다 자전거 정비로 다부진 손, 늘 함께 붙어 다니는 단짝 형제의 호흡. 실존 위인 — 위엄과 따뜻함이 공존하게, 진지한 발명가이면서도 아이들에게 다정하게.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-char="0호 정면" data-key="zero_front">
+    <div class="head"><span style="font-size:20px">🌑</span><b>0호 — 첫 정면 등장(강탈자)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩 — 다른 캐릭터들과 완전히 같은 밝은 그림체로, 이 캐릭터의 몸 색만 무광 회색. 순백 배경. 공포·호러 연출 절대 금지 — 비 오는 날 버려진 강아지처럼, 낡고 꼬질꼬질하지만 어딘가 짠하고 귀여운 인상이 핵심. 강탈자로 처음 정면에 서지만, 악당이 아니라 '외롭고 서툰 형'의 느낌이 배어나야 한다.
+
+[비율 — 매우 중요] 아동만화용 3등신의 땅딸막한 미니 로봇. 큰 상자형 머리 + 짧고 통통한 몸통 + 짧고 굵은 팔다리. 늘씬한 인간형 비율 절대 금지. 전체 높이 40cm — 어린이 무릎 정도 오는 작은 장난감 크기. 티코(30cm, 둥근 흰색)보다 한 뼘 정도 크고 각진 상자형.
+
+[시트 구성] 왼쪽에 전신 3면도(정면·옆·뒤). 오른쪽 위에 감정 표현 6종 그리드 — 크고 둥근 붉은 외눈의 모양 변화로 표현(경계하듯 가늘게 좁힘·부품을 낚아채는 순간 번쩍 커짐·티코를 마주보며 흔들리는 물결눈·미안함을 삼키는 지그시 감김·서럽게 커진 눈·홱 등 돌리는 옆눈). 눈은 항상 크고 둥글게, 절대 날카롭게 그리지 말 것. 오른쪽 아래 2포즈 — ① 티코의 부품을 한 손에 움켜쥐고 등을 돌린 채 어깨너머로 흘깃 돌아보는 포즈(죄책감) ② 회색 망토 자락을 휘날리며 시간의 문으로 뛰어드는 뒷모습. 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 0호, 티코 이전에 만들어진 프로토타입 미니 로봇. 티코가 매끈하고 둥글다면 0호는 귀엽게 각진 상자형 — 무광 회색 몸체에 작은 리벳과 이음새, 팔꿈치·무릎 관절이 드러난 초기형 구조. 군데군데 긁힘과 빛바랜 자국, 머리에 삐뚤어진 안테나 하나(오래 떠돈 세월의 흔적). 얼굴은 가로로 긴 검은 스크린에 크고 둥근 붉은 외눈 하나 — 무섭지 않고 순박한 인상. 가슴에 티코와 똑같은 시계 문양 코어 자리가 있지만 대부분 비어 있고, 그 코어 한가운데에 부품 하나(12번째)가 희미하게 따뜻한 주홍빛으로 빛난다. 끝이 해진 회색 천 조각을 낡은 망토처럼 두르고 있다. ★티코와 형제처럼 닮은 실루엣이 한눈에 느껴지도록(둘을 나란히 두면 '같은 사람이 만든 형과 동생'임이 보이게).</pre></details>
+  </div>
+</div>
+
+<div class="divider">— A. 일상 후크 (1~3쪽) —</div>
+
+<div class="page"><div class="pno">1쪽</div>
+  <div class="scene"><b>컷</b> 중형 와이드컷, 아이레벨.<br/><b>장소·시간</b> 늦가을 오후, 봉수 박사의 창고 실험실 — 창밖에 낙엽이 흩날리고 실내는 따뜻한 노란 불빛.<br/><b>인물</b> 작업대 위에 티코가 서서 가슴 코어를 활짝 펴 보인다 — 게이지 12칸 중 <u>10칸</u>이 민트색으로 점등, 남은 두 칸만 꺼져 있어 아이들이 감탄하며 손가락으로 센다(보리는 몸을 앞으로 기울여 코를 박고, 노아는 안경을 고쳐 쓰며). 봉수 박사는 뒤편에서 흐뭇하게 찻잔을 들고 지켜봄.<br/><b>배경·소품</b> 선반 가득한 발명품, 벽의 세계지도(여러 곳에 압정), 지난 여행 기념품들(신라 별자리 그림·명량의 작은 배 모형 등).<br/><b>톤</b> 따뜻한 텅스텐 불빛 + 민트 코어광. 거의 다 왔다는 설렘과 뿌듯함.</div>
+  <div class="text"><span class="sp">보리:</span> "여덟, 아홉, 열! 티코, 이제 딱 두 칸 남았어!"<br/><span class="sp">티코:</span> "그렇다. 열 개나 모았지. 남은 부품 두 개만 채우면 이 몸이 드디어 완전체가 된다!"<br/><span class="sp">노아:</span> "그동안 우리 진짜 멀리도 다녔다. 조선, 신라, 이집트, 바다 끝까지…"<br/><span class="sp">봉수 박사:</span> "허허, 이 늙은이는 너희가 자랑스럽구나. 자, 열한 번째 부품은 어디 있을꼬?"</div>
+</div>
+
+<div class="page"><div class="pno">2쪽</div>
+  <div class="scene"><b>컷</b> 중형, 작업대 중심 클로즈업.<br/><b>장소·시간</b> 같은 오후, 창고.<br/><b>인물</b> 티코 가슴 코어에서 홀로그램 지구가 떠오르고, 북아메리카 동부 해안의 한 지점이 주황색으로 또렷하게 깜빡인다. 그런데 지구본 옆에 <u>희미한 붉은 점 하나</u>가 같은 좌표 근처에서 잠깐 나타났다 스르륵 사라진다 — 티코의 눈이 순간 지그재그(당황)로 흔들렸다가 이내 시치미. 보리와 노아는 주황 점만 보느라 붉은 점을 눈치채지 못함.<br/><b>배경·소품</b> 민트 홀로그램 지구, 게이지 10칸 점등.<br/><b>톤</b> 민트 홀로그램 광 중심 + 스쳐 지나가는 붉은 점 한 점의 불길함(관객만 아는 복선).</div>
+  <div class="text"><span class="sp">티코:</span> "삐빅! 열한 번째 부품 신호 발견! 좌표는… 1903년, 미국 노스캐롤라이나의 키티호크!"<br/><span class="sp">노아:</span> "1903년이면… 사람이 처음으로 하늘을 난 해 아니야?"<br/><span class="sp">티코:</span> "내 데이터에 의하면— 그래! …그런데."<br/><span class="sp">나레이션:</span> 티코는 방금 지구본 옆을 스쳐 간 <b>붉은 점 하나</b>를 보고도, 아이들에게 말하지 않았어요.</div>
+</div>
+
+<div class="page"><div class="pno">3쪽</div>
+  <div class="scene"><b>컷</b> 중형, 브리핑 구도(시리즈 공통 — 박사 반신 + 배경 몽타주).<br/><b>장소·시간</b> 창고, 같은 오후.<br/><b>인물</b> 봉수 박사가 낡은 책을 펼쳐 들고 설명 — 머리 위 공중 몽타주(구름 프레임): 자전거 두 대, 위아래 두 겹 날개의 나무 비행기, 모래언덕과 바닷바람. 앞쪽에서 보리는 벌써 배낭을 메고 문 쪽으로 몸이 기울고, 노아는 공책에 받아 적음. 티코는 충전 케이블을 배에 꽂고 게이지 100%.<br/><b>배경·소품</b> 책, 충전 케이블, 벽지도(노스캐롤라이나에 압정).<br/><b>톤</b> 따뜻한 불빛, 출발 전의 설렘. 단 티코의 눈빛에 아주 옅은 그늘 한 겹.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "키티호크라면, 바닷바람 부는 모래언덕이지. 거기서 자전거 가게를 하던 <b>라이트 형제</b>가 사람을 태우고 하늘을 나는 기계를 만들었단다."<br/><span class="sp">노아:</span> "책에서 봤는데, 자전거 고치던 형제가 비행기를 만들었다는… 그게 진짜였어요?"<br/><span class="sp">봉수 박사:</span> "그래. 형 윌버와 동생 오빌, 두 형제가 힘을 합쳐서 말이다. 새가 어떻게 나는지 몇 해나 지켜보며 연구했지."<br/><span class="sp">보리:</span> "사람이 처음 나는 순간을 볼 수 있다는 거잖아! 가자, 노아!"</div>
+</div>
+
+<div class="divider">— B. 도착 · 이질감 (4~8쪽) —</div>
+
+<div class="page"><div class="pno">4쪽</div>
+  <div class="scene"><b>컷</b> 대형, 나선형 구도(시간 터널 공통 포맷).<br/><b>장소·시간</b> 시간 터널 내부.<br/><b>인물</b> 셋이 낙하 중 — 보리는 두 팔을 만세로 활짝(함박웃음), 노아는 안경을 두 손으로 꾹 누르며 눈 질끈, 티코는 보리 품에 안겨 카운트다운. 주위로 이번 화 테마 아이콘들이 흘러간다 — 자전거 바퀴, 위아래 두 겹 날개, 새의 깃털, 바람의 소용돌이, 프로펠러.<br/><b>배경·소품</b> 민트와 하늘색의 빛 리본 나선.<br/><b>톤</b> 환상적, 짜릿한 놀이기구 느낌. 이번 화는 하늘 테마라 흰 구름 조각과 바람 입자를 흩뿌린다.</div>
+  <div class="text"><span class="sp">보리:</span> "우와아! 이번엔 날개랑 바퀴가 잔뜩 날아다녀!"<br/><span class="sp">티코:</span> "하늘을 나는 시대로 간다는 뜻이지. 도착까지 3, 2, 1…"<br/><span class="sp">노아:</span> "제발 이번엔 안 떨어지고 사뿐히…!"</div>
+</div>
+
+<div class="page"><div class="pno">5쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클(이번 화 간판 컷 ①). 모래언덕 위에서 바다 쪽을 내려다보는 부감 → 중앙 인물로 시선이 떨어지는 구도.<br/><b>장소·시간</b> 1903년 12월, 미국 노스캐롤라이나 키티호크 인근 킬데블힐스 — 춥고 바람 센 겨울날. 끝없이 펼쳐진 누런 모래언덕과 억센 풀, 저 멀리 회청색 겨울 바다와 하얀 파도. 언덕 아래에 나무판자로 지은 소박한 캠프 헛간 두 채, 그 앞에 <u>위아래 두 겹 날개의 나무·천 비행기(라이트 플라이어)</u>가 나무 레일 위에 놓여 있다.<br/><b>인물</b> 언덕에 막 착지한 두 아이 — 보리는 두꺼운 갈색 울 코트에 니트 모자(붉은 머리끈은 모자 밖으로), 노아는 두툼한 회색 재킷에 목도리, 둘 다 바람에 옷자락이 펄럭. 보리 배낭에서 티코가 빼꼼.<br/><b>톤</b> 시린 겨울 하늘의 파랑 + 모래언덕의 누런빛 + 매서운 바람. 시대 스펙터클, 비행기 디테일 최대치(학습 신뢰도 컷).</div>
+  <div class="text"><span class="sp">나레이션:</span> 눈을 떠 보니, 그곳은 약 120년 전 미국의 바닷가 모래언덕이었어요.<br/><span class="sp">보리:</span> "으으, 추워! 바람이 나를 밀어내려고 해!"<br/><span class="sp">티코:</span> "(속닥) 저 아래 봐라 — 저 나무 기계가 바로 하늘을 날 비행기다. 그리고 나는 지금부터 인형이야. 무슨 일이 있어도, 인형!"<br/><span class="sp">노아:</span> "저렇게 얇은 나무랑 천으로… 정말 사람을 태우고 난다고?"</div>
+</div>
+
+<div class="page"><div class="pno">6쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰 컷 — 캠프 헛간 앞 삼각 구도.<br/><b>장소·시간</b> 같은 날 낮, 킬데블힐스 캠프 앞.<br/><b>인물</b> 헛간 앞에서 형제가 작업 중 — 형 윌버(진중한 얼굴, 이마가 살짝 벗어짐)는 날개 위에 엎드려 천을 팽팽히 당기고, 동생 오빌(밝은 얼굴, 콧수염)은 프로펠러를 손으로 천천히 돌려 보며 귀를 기울인다. 그 옆 모래에 자전거 부품 상자와 공구가 흩어져 있음. 전경에서 아이들이 언덕 뒤에 숨어 빼꼼 지켜봄.<br/><b>배경·소품</b> 캠프 헛간, 자전거 체인·바퀴살·공구 상자(자전거 가게 흔적), 날개 천, 프로펠러, 바람에 나부끼는 풀.<br/><b>톤</b> 소박하고 씩씩한 발명 현장. 겨울 햇살 + 바닷바람.</div>
+  <div class="text"><span class="sp">윌버:</span> "천을 더 팽팽하게. 바람 한 줄기도 새면 안 돼, 오빌."<br/><span class="sp">오빌:</span> "형, 프로펠러 소리가 아까보다 훨씬 힘차. 오늘은 될 것 같아!"<br/><span class="sp">노아:</span> "(속닥) 보리야, 저 상자들 봐. 자전거 부품이잖아. 진짜 자전거 가게 주인들인가 봐."<br/><span class="sp">보리:</span> "(속닥) 자전거 고치던 손으로 비행기를 만들다니… 멋지다!"</div>
+</div>
+
+<div class="page"><div class="pno">7쪽</div>
+  <div class="scene"><b>컷</b> 중형, 하늘 관찰 컷 — 로우앵글로 올려다보는 구도.<br/><b>장소·시간</b> 같은 날 오후, 모래언덕 위.<br/><b>인물</b> 형제가 잠시 손을 멈추고, 머리 위로 활공하는 바닷새(갈매기) 무리를 나란히 올려다본다 — 윌버가 손차양을 하고 새의 날개 끝을 뚫어져라 관찰, 오빌은 그 옆에서 두 팔을 새처럼 벌려 기울여 본다. 조금 떨어진 곳에서 아이들도 덩달아 하늘을 봄. 티코 배낭 속에서 눈만 빼꼼.<br/><b>배경·소품</b> 활공하는 갈매기, 기울어진 날개 끝, 바람에 눕는 풀, 겨울 구름.<br/><b>톤</b> 경이로운 관찰의 순간 — 새와 사람과 비행기가 한 화면에. 시린 파란 하늘.</div>
+  <div class="text"><span class="sp">윌버:</span> "저 새를 봐, 오빌. 바람이 밀 때마다 <b>날개 끝을 살짝 비틀어서</b> 몸을 바로 세우잖아."<br/><span class="sp">오빌:</span> "맞아. 우리도 날개를 저렇게 비틀 수 있으면, 기우뚱해도 다시 균형을 잡을 수 있어."<br/><span class="sp">노아:</span> "(속닥) 들었어? 새가 나는 걸 저렇게 오래 지켜보고 흉내 낸 거구나."<br/><span class="sp">보리:</span> "(속닥) 나는 새가 그냥 나는 줄만 알았는데…"</div>
+</div>
+
+<div class="page"><div class="pno">8쪽</div>
+  <div class="scene"><b>컷</b> 중형 액션+개그컷, 순간 포착.<br/><b>장소·시간</b> 같은 오후, 캠프 근처 모래언덕.<br/><b>인물</b> 갑자기 불어온 돌풍에 형제가 붙잡고 있던 커다란 날개 천이 연처럼 붕 떠오르며 두 사람이 발이 끌려간다("어어—"). 그 순간 왼쪽에서 보리가 달려들어 날개 한쪽 끝을 온몸으로 붙잡아 누르고, 노아는 굴러가는 공구 상자를 두 팔로 덮쳐 막는다. 형제가 놀라 돌아봄.<br/><b>배경·소품</b> 붕 뜬 날개 천, 흩날리는 모래, 굴러가는 공구, 스피드라인.<br/><b>톤</b> 밝은 슬랩스틱 — 만남 컷. 바람의 위력을 유머로.</div>
+  <div class="text"><span class="sp">오빌:</span> "으악, 날개가 날아간다—!"<br/><span class="sp">보리:</span> "잡았다! …휴, 바람 진짜 세다!"<br/><span class="sp">윌버:</span> "고맙구나, 얘들아. 이 바닷바람은 도움도 되지만, 이렇게 심술도 부린단다. 그런데 이런 추운 데는 어쩐 일이니?"<br/><span class="sp">보리:</span> "우리도 일 도우면 안 돼요? 힘이라면 자신 있어요!"<br/><span class="sp">오빌:</span> "허허, 마침 손이 모자랐는데. 이리 오렴!"</div>
+</div>
+
+<div class="divider">— C. 문제 발견 (9~15쪽) —</div>
+
+<div class="page"><div class="pno">9쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클(실내) — 캠프 헛간 안을 대각선으로 잡는 구도.<br/><b>장소·시간</b> 캠프 작업 헛간 안, 낮. 나무판자 벽 틈으로 겨울빛이 새어들고, 좁은 공간에 접이식 간이침대·난로·작업대가 빼곡.<br/><b>인물</b> 형제가 아이들에게 캠프를 구경시켜 준다 — 윌버는 벽에 붙은 커다란 설계 도면을 가리키고, 오빌은 자전거를 개조해 만든 <u>풍동 실험 장치</u>(바람 상자) 앞에서 손잡이를 돌려 보인다. 아이들 입이 떡. 티코는 배낭에서 눈만 반짝.<br/><b>배경·소품</b> 날개 설계 도면, 자전거 개조 실험 장치, 여러 크기의 날개 모형, 공구, 난로 위 주전자.<br/><b>톤</b> 좁지만 알찬 발명의 아지트. 따뜻한 난로 빛 + 겨울빛.</div>
+  <!-- 고증 확인 필요: 라이트 형제의 풍동(wind tunnel) 실험은 1901년 데이턴에서 수행 — 키티호크 캠프 현장에 실물 풍동을 두었는지는 불명확하나, '자전거를 개조한 실험 도구'라는 상징적 표현으로 저학년용 단순화 처리 -->
+  <div class="text"><span class="sp">나레이션:</span> 캠프 안은 온갖 도면과 실험 도구로 가득한, 작지만 대단한 방이었어요.<br/><span class="sp">오빌:</span> "이건 자전거를 개조해서 만든 바람 실험 장치야. 집이 있는 데이턴에서, 어떤 날개 모양이 바람을 잘 타는지 수백 번 시험했지."<br/><span class="sp">노아:</span> "날개 모형이 이렇게나 많아요…!"<br/><span class="sp">보리:</span> "하늘을 날려고 이렇게까지 한다고?"</div>
+</div>
+
+<div class="page"><div class="pno">10쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출(시리즈 공통 포맷 ①).<br/><b>장소·시간</b> 헛간 밖 언덕 뒤, 낮 — 아무도 없는 곳(과거인 시야 밖).<br/><b>장면</b> 티코의 눈에서 빔이 나와 공중에 민트색 홀로그램 카드가 떠오른다. 카드 안: 날개 단면 그림 — 위쪽은 볼록해 공기가 빠르게(화살표 슝), 아래쪽은 평평해 공기가 느리게(화살표 천천히), 그래서 날개가 위로 <u>둥실 떠오르는</u> 화살표(양력). 카드 빛이 올려다보는 두 아이 얼굴을 민트색으로 물들인다.<br/><b>톤</b> '티코피디아' 시그니처 연출 — 밝은 인포그래픽.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아, 스캔 시작! 날개는 위가 볼록하고 아래가 평평하다. 바람이 지나가면 위쪽은 빠르게, 아래쪽은 느리게 흘러서 — 날개를 위로 밀어 올리는 힘이 생긴다. 이 뜨는 힘이 바로 <b>양력</b>이다!"<br/><span class="sp">노아:</span> "그래서 얇은 나무랑 천으로도 사람이 뜰 수 있는 거구나!"<br/><span class="sp">보리:</span> "바람이 세면 셀수록 더 잘 뜨겠네?"<br/><span class="sp">티코:</span> "바로 그거다. 그래서 이 형제가 바람 센 모래언덕을 고른 거지."</div>
+</div>
+
+<div class="page"><div class="pno">11쪽</div>
+  <div class="scene"><b>컷</b> 중형, 근심 컷 — 형제 어깨너머 구도.<br/><b>장소·시간</b> 해 질 녘, 캠프 헛간 안.<br/><b>인물</b> 작업대에 두 형제가 마주 앉아 근심 어린 얼굴 — 윌버는 달력을 손으로 짚고(며칠 남지 않은 날짜에 동그라미), 오빌은 얼마 남지 않은 돈주머니를 뒤집어 동전 몇 닢을 세어 본다. 구석에서 아이들이 걱정스레 지켜봄.<br/><b>배경·소품</b> 달력, 얼마 안 되는 동전, 편지 봉투(집으로 부칠 편지), 식어 가는 난로.<br/><b>톤</b> 겨울 저녁의 쓸쓸함 + 결의. 절망이 아니라 '시간이 없다'는 조바심.</div>
+  <div class="text"><span class="sp">윌버:</span> "돈도 얼마 안 남았어. 이번 겨울 안에 성공 못 하면, 집으로 돌아가야 해."<br/><span class="sp">오빌:</span> "형, 며칠 안 남았지만 날개도 엔진도 다 준비됐어. 이제 바람 좋은 날만 기다리면 돼."<br/><span class="sp">노아:</span> "(속닥) 저 형제, 지금 아주 중요한 고비를 넘고 있는 거야."<br/><span class="sp">보리:</span> "(속닥) 근데 우리 부품은 대체 이 캠프 어디 있는 거지?"</div>
+</div>
+
+<div class="page"><div class="pno">12쪽</div>
+  <div class="scene"><b>컷</b> 중형, 비밀 회의 컷 — 하이앵글.<br/><b>장소·시간</b> 캠프 뒤 모래언덕 그늘, 해 질 녘.<br/><b>인물</b> 모래 둔덕 뒤에 셋이 옹기종기 — 배낭에서 나온 티코의 눈에서 민트 레이더 파형이 떠오르는데, 파형이 비행기(라이트 플라이어) 쪽을 가리키며 강하게 뛴다. 보리는 팔짱, 노아는 턱을 괴고 파형을 응시.<br/><b>배경·소품</b> 모래 둔덕, 억새풀, 저무는 붉은 하늘과 비행기 실루엣.<br/><b>톤</b> 노을 + 민트 홀로그램. 추리 시동 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 삐빅! 부품 신호는 저 비행기 쪽이다. 아주 강해. 그런데 신호가 딱 한 군데가 아니라, 날개 안쪽 어딘가에서 은은하게 퍼진다."<br/><span class="sp">노아:</span> "비행기 부품 사이에 우리 부품이 섞여 들어간 걸까?"<br/><span class="sp">보리:</span> "그럼 형제들 몰래 비행기를 뒤질 순 없잖아. 저건 저 사람들 목숨이 걸린 물건인데."<br/><span class="sp">티코:</span> "(속닥) …맞아. 함부로 손대면 안 되는 거다. 신중하게 가자."</div>
+</div>
+
+<div class="page"><div class="pno">13쪽</div>
+  <div class="scene"><b>컷</b> 대형, 0호 등장 예고 컷 — 밤의 캠프 밖 미스터리 연출(7·10화 실루엣 계보를 잇되 한 걸음 더 가까이).<br/><b>장소·시간</b> 깊은 밤, 캠프 헛간 밖 모래언덕.<br/><b>주컷</b> 달빛 아래 비행기 곁 — 나무 레일 위에 세워 둔 라이트 플라이어의 날개 밑에서, <u>땅딸막한 회색 실루엣 하나</u>가 날개 안쪽을 뒤지고 있다. 7·10화보다 가까이 잡혀, 이번엔 붉은 외눈뿐 아니라 <u>등에 두른 해진 회색 천과 삐뚤어진 안테나</u>까지 어렴풋이 보인다. 그 작은 손이 날개 살대 사이에서 민트빛으로 빛나는 무언가를 조심스레 더듬는다.<br/><b>인셋</b> 헛간 창가에서 잠결에 소리를 들은 노아가 눈을 비비며 창밖을 내다보는 얼굴(안경 없이, 흐릿한 시야).<br/><b>톤</b> 공포가 아닌 애틋한 미스터리 — 남색 밤, 달빛, 민트빛과 붉은 외눈. 실루엣이 어쩐지 티코를 닮았다.</div>
+  <div class="text"><span class="sp">나레이션:</span> 그날 밤, 아무도 모르게 비행기 곁으로 다가온 작은 그림자가 있었어요.<br/><span class="sp">노아:</span> "(잠결에) …저기, 비행기 밑에 뭔가 움직여…?"<br/><span class="sp">나레이션:</span> 붉은 외눈이 흠칫 노아 쪽을 돌아보더니, 소리 없이 어둠 속으로 사라졌어요.<br/><span class="sp">노아:</span> "(눈 비비며) …꿈인가."</div>
+</div>
+
+<div class="page"><div class="pno">14쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업 2단 — 탐정 무드(7화 14쪽 에코 연출).<br/><b>장소·시간</b> 비행기 옆 모래밭, 다음 날 이른 아침.<br/><b>상단(마크로)</b> 모래 위에 찍힌 <u>작고 네모난 기계 발자국</u> 두 줄(길이 4cm 정도, 사람도 새도 아닌 각진 모양)이 비행기 밑에서 모래언덕 너머로 이어진다. 그 옆 날개 살대에 걸린 <u>끝이 해진 회색 실오라기</u>가 바람에 살랑.<br/><b>하단</b> 쪼그려 앉아 그것을 들여다보는 노아의 얼굴 클로즈업 — 안경알에 발자국이 반사, 눈이 번뜩. 뒤에서 보리가 실오라기를 조심스레 집는다. 티코 배낭 속에서 눈이 물결(불안).<br/><b>톤</b> 아침 역광, 비네팅. 무섭지 않게, 수수께끼의 서늘한 설렘.</div>
+  <div class="text"><span class="sp">노아:</span> "이 발자국… 7화 에디슨 연구소에서 본 거랑 똑같아! 작고 네모난 발이 두 줄로."<br/><span class="sp">보리:</span> "이 회색 실오라기도. 그때 못에 걸려 있던 천이랑 색이 같잖아."<br/><span class="sp">티코:</span> "(속닥) …삐빅. 그 정체불명의 기계 신호. 여기까지 따라온 거다."<br/><span class="sp">노아:</span> "우리 말고도… 부품을 노리는 누군가가, 계속 우리 뒤를 밟고 있어."</div>
+</div>
+
+<div class="page"><div class="pno">15쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰·추리 정리 컷 — 비행기 옆 삼각 구도.<br/><b>장소·시간</b> 아침, 비행기 곁.<br/><b>인물</b> 오빌이 아이들에게 비행기 조종 장치를 자랑스럽게 설명 — 날개 끝을 잇는 줄(날개 비틀기 줄)과 꼬리 방향타를 손으로 움직여 보인다. 노아가 그 움직임을 보며 눈이 번쩍(안경 반사) — 어젯밤 그림자가 만지던 곳이 바로 저 줄 근처였음을 깨닫는 표정. 보리는 몸을 기울여 경청.<br/><b>배경·소품</b> 날개 비틀기 줄, 꼬리 방향타, 조종사가 엎드리는 자리(요람 모양 받침).<br/><b>톤</b> 아침 햇살 + 발견의 반짝임. 학습(3축 제어)과 미스터리가 겹치는 컷.</div>
+  <!-- 고증 확인 필요: 라이트 형제의 조종 = 날개 비틀기(wing warping, 롤) + 앞 승강타(elevator, 피치) + 뒤 방향타(rudder, yaw)의 3축 제어. 저학년용으로 '날개 비틀기 줄'과 '꼬리 방향타' 중심 단순화 -->
+  <div class="text"><span class="sp">오빌:</span> "이 줄을 당기면 <b>날개 끝이 비틀리면서</b> 기우뚱한 몸을 바로 세워. 꼬리의 이 판은 방향을 트는 <b>방향타</b>고. 새가 나는 걸 보고 만든 거란다."<br/><span class="sp">노아:</span> "(속닥) 보리야! 어젯밤 그림자가 만지던 데가 바로 이 줄 근처였어. 우리 부품은 이 <b>날개 비틀기 줄</b> 어딘가에 붙어 있는 거야!"<br/><span class="sp">보리:</span> "(속닥) 그럼 서둘러야겠다. 그림자가 먼저 채 가기 전에!"</div>
+</div>
+
+<div class="divider">— D. 시도 → 실패 → 힌트 (16~25쪽) —</div>
+
+<div class="page"><div class="pno">16쪽</div>
+  <div class="scene"><b>컷</b> 중형 개그컷, 순간 포착.<br/><b>장소·시간</b> 낮, 캠프 옆 모래언덕.<br/><b>인물</b> 성질 급한 보리가 형제 몰래 비행기 날개 줄에 손을 뻗다가, 마침 불어온 돌풍에 날개가 홱 기울며 보리가 줄에 매달려 연처럼 붕 끌려 올라간다(눈 소용돌이, 다리 대롱). 노아가 기겁해 보리 발목을 붙잡아 매달리고, 배낭 속 티코는 X자 눈. 다행히 근처에 형제는 없음(과거인 시야 밖).<br/><b>배경·소품</b> 기울어진 날개, 팽팽한 줄, 흩날리는 모래, '휘잉' 바람 기호(글자 아님).<br/><b>톤</b> 슬랩스틱 — 아프지 않고 우스꽝스럽게. 바람의 위력을 안전하게.</div>
+  <div class="text"><span class="sp">보리:</span> "지금 아무도 없을 때 얼른 떼면— 어어, 우와악?!"<br/><span class="sp">노아:</span> "보리야! 그렇게 함부로 당기면 비행기가 망가진다고!"<br/><span class="sp">티코:</span> "(속닥) 인간! 이건 저 형제가 몇 년을 매달린 물건이다! 우리가 부수면 진짜 큰일 나!"<br/><span class="sp">보리:</span> "미, 미안… 생각은 뛰면서 해야 하는데, 이번엔 좀 급했어."</div>
+</div>
+
+<div class="page"><div class="pno">17쪽</div>
+  <div class="scene"><b>컷</b> 중형, 감정 컷 — 난롯가 삼각 구도.<br/><b>장소·시간</b> 저녁, 캠프 헛간 안 난롯가.<br/><b>인물</b> 형제가 아이들에게 따뜻한 차를 나눠 주며 이야기 — 윌버가 낡은 수첩(관찰 기록)을 펼쳐 보이고, 오빌이 벽에 걸린 여러 번 부서졌던 날개 조각들을 가리킨다. 아이들은 난롯불 앞에서 귀를 기울임. 티코는 인형인 척 보리 무릎에 앉아 있음.<br/><b>배경·소품</b> 난로, 찻잔, 관찰 수첩, 벽에 걸린 부서진 날개 조각들(실패의 흔적), 램프.<br/><b>톤</b> 따뜻한 난로 빛의 정담. 실패를 부끄러워하지 않는 담담함.</div>
+  <div class="text"><span class="sp">윌버:</span> "우리도 수없이 떨어지고 부서졌단다. 처음엔 날개가 자꾸 기우뚱해서 뒤집혔지."<br/><span class="sp">오빌:</span> "그때마다 형이랑 티격태격 다투면서 고쳤어. '이건 안 돼, 저건 어때?' 하고 말이야."<br/><span class="sp">노아:</span> "형제라서 더 잘 싸우고, 더 잘 힘을 합치나 봐요."<br/><span class="sp">보리:</span> "둘이 있으니까 포기를 안 하는 거네요. 혼자였으면 진작 그만뒀을지도 몰라요."</div>
+</div>
+
+<div class="page"><div class="pno">18쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷(시리즈 러닝 개그 — 통신 두절).<br/><b>장소·시간</b> 캠프 뒤, 밤.<br/><b>인물</b> 노아의 손목 통신기 위로 봉수 박사의 홀로그램 얼굴 — 가로 노이즈가 지나가며 얼굴이 지지직 뭉개진다. 보리는 통신기를 두 손으로 흔들고, 노아는 팔을 안테나처럼 하늘로 쭉 뻗고 발끝으로 섰다. 티코는 시큰둥한 반쯤 감긴 눈.<br/><b>배경·소품</b> 모래언덕, 별밤, 억새.<br/><b>톤</b> 과장된 리액션 개그.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "허허, 잘 듣거라. 그 회색 천 조각 말이다… 그건 사실 아주 오래전 이 할아비가— 치지직—"<br/><span class="sp">보리:</span> "할아버지!! 또 제일 중요한 데서 끊겼어!"<br/><span class="sp">티코:</span> "(속닥) …할아버지가 그 천을 알아본단 말인가? 이상하다."<br/><span class="sp">노아:</span> "회색 천… 그림자… 할아버지… 뭔가 다 이어져 있는 것 같지 않아?"</div>
+</div>
+
+<div class="page"><div class="pno">19쪽</div>
+  <div class="scene"><b>컷</b> 대형, 이번 화 감정 예열 컷 — 별빛 아래 형제의 밤.<br/><b>장소·시간</b> 깊은 밤, 캠프 앞 모래언덕.<br/><b>인물</b> 형제가 나란히 모래에 앉아 별을 보며 도란도란 — 윌버는 무릎을 안고 진중하게, 오빌은 형 어깨에 살짝 기대어. 그 뒤 헛간 그늘에서 아이들이 조용히 지켜본다 — 노아의 눈이 감동으로 반짝. 티코도 배낭에서 눈만 내밀고 형제를 물끄러미(눈이 물결 — 어쩐지 마음이 흔들림).<br/><b>배경·소품</b> 쏟아지는 별, 모닥불 잔불, 비행기 실루엣, 담요.<br/><b>톤</b> 경건하고 따뜻한 밤. 형제애의 온기 — 티코의 미묘한 표정 한 방울(0호 복선).</div>
+  <div class="text"><span class="sp">오빌:</span> "형, 만약 내일 성공하면 세상이 뭐라고 할까?"<br/><span class="sp">윌버:</span> "글쎄. 우리 둘이 여기까지 온 것만으로도 난 됐어. 넌 내 하나뿐인 형제니까."<br/><span class="sp">티코:</span> "(속닥) …형제라는 건, 저렇게 서로를 끝까지 믿는 거구나."<br/><span class="sp">노아:</span> "(속닥) 티코 너, 왜 그런 표정이야?"</div>
+</div>
+
+<div class="page"><div class="pno">20쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ②.<br/><b>장소·시간</b> 헛간 뒤, 아침 — 아무도 없는 곳(과거인 시야 밖).<br/><b>장면</b> 홀로그램 카드에 비행기 3축 도해 — 가운데 비행기 그림에서 ① 앞뒤로 기우뚱(고개 드는 화살표=승강타) ② 좌우로 기우뚱(날개 끝 비틀기 화살표) ③ 방향 틀기(꼬리 방향타 화살표) 세 가지 움직임이 각각 다른 색 화살표로. 카드 앞에서 노아가 두 팔을 벌려 비행기 흉내, 티코는 선생님 포즈.<br/><b>톤</b> 밝은 인포그래픽 + 개그 한 스푼.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 하늘을 나는 건 뜨는 것만으로는 안 된다. 기우뚱할 때 <b>바로 세우는 법</b>이 있어야 하지. 라이트 형제는 새를 흉내 내어 날개 끝을 비틀고, 꼬리 방향타로 방향을 틀었다 — 이 균형 잡는 기술이 진짜 발명이었어."<br/><span class="sp">노아:</span> "뜨기만 하고 균형을 못 잡으면, 금방 뒤집혀 버리는구나!"<br/><span class="sp">보리:</span> "그래서 다른 사람들은 못 하고, 이 형제만 해낸 거네."<br/><span class="sp">티코:</span> "바로 그거다. 나는 방법은 새가 이미 다 알고 있었지."</div>
+</div>
+
+<div class="page"><div class="pno">21쪽</div>
+  <div class="scene"><b>컷</b> 중형, 작전 준비 컷 — 아이들의 계획.<br/><b>장소·시간</b> 낮, 모래언덕 그늘.<br/><b>인물</b> 노아가 나뭇가지로 모래에 비행기와 날개 줄을 그리며 설명(부품 위치에 동그라미), 보리는 몸을 기울여 경청, 티코 배낭에서 배터리 게이지 홀로그램 힐끔(60%).<br/><b>배경·소품</b> 모래 그림, 나뭇가지, 억새.<br/><b>톤</b> 작전 회의의 차분한 결의.</div>
+  <div class="text"><span class="sp">노아:</span> "형제들이 시험 비행을 준비하는 동안, 우리가 날개 줄 매듭 사이에 낀 부품을 살짝 빼내면 돼. 비행기는 절대 건드리지 않고."<br/><span class="sp">보리:</span> "좋아. 형제들이 성공하는 데 방해되면 절대 안 돼. 우린 그림자보다 먼저, 조용히."<br/><span class="sp">티코:</span> "(속닥) …그림자보다 먼저. 그래, 서둘러야 한다. 배터리 아껴, 인간들."<br/><span class="sp">나레이션:</span> 하지만 아이들은 몰랐어요. 그림자가 이미 아주 가까이 와 있다는 것을요.</div>
+</div>
+
+<div class="page"><div class="pno">22쪽</div>
+  <div class="scene"><b>컷</b> 대형 위기컷 — 0호와의 첫 정면 대치(시즌 최대 위기 개시).<br/><b>장소·시간</b> 흐린 새벽, 아직 형제가 일어나기 전 비행기 곁.<br/><b>주컷</b> 부품을 빼내려 날개 밑으로 다가간 보리·노아 앞에, 반대편 날개 밑에서 <u>0호가 처음으로 실루엣을 벗고 정면으로 모습을 드러낸다</u> — 땅딸막한 회색 상자형 몸, 삐뚤어진 안테나, 해진 회색 망토, 그리고 크고 둥근 붉은 외눈이 아이들을 정면으로 응시. 무섭기보다 낡고 짠한 인상. 아이들이 얼어붙고, 보리 품에서 튀어나온 티코와 0호의 눈이 정면으로 마주친다.<br/><b>인셋</b> 서로를 마주본 티코와 0호 — 둘의 실루엣이 형과 동생처럼 닮았다(관객이 알아차리게).<br/><b>톤</b> 시즌 최대 긴장 — 그러나 공포가 아닌 '심장이 철렁하는' 애타는 대치. 흐린 새벽의 잿빛 + 붉은 외눈.</div>
+  <div class="text"><span class="sp">보리:</span> "너, 너는—! 계속 우리를 따라다니던 그 그림자!"<br/><span class="sp">0호:</span> "……." (아무 말 없이, 붉은 눈으로 티코만 뚫어져라 바라본다)<br/><span class="sp">티코:</span> "(속닥, 떨리는 목소리) …이상해. 저 녀석, 내 몸이랑… 닮았어. 마치 나를 아는 것처럼 쳐다봐."<br/><span class="sp">노아:</span> "티코… 저 로봇, 너랑 형제 같아 보여."</div>
+</div>
+
+<div class="page"><div class="pno">23쪽</div>
+  <div class="scene"><b>컷</b> 대형 강탈 액션컷(이번 화 간판 컷 ② — 시즌 최대 위기의 정점).<br/><b>장소·시간</b> 같은 새벽, 비행기 곁.<br/><b>장면</b> 0호가 번개같이 몸을 날려 날개 줄 매듭 사이에서 <u>민트빛 부품</u>을 낚아채는 결정적 순간 — 짧고 굵은 팔을 뻗어 부품을 한 손에 움켜쥔다(붉은 눈이 번쩍 커짐). 보리가 "안 돼!" 하고 손을 뻗지만 한 발 늦고, 노아는 넘어지며 손을 뻗는다. 부품이 0호의 텅 빈 가슴 코어 근처에서 민트빛과 주홍빛으로 함께 반짝. 비행기는 전혀 건드리지 않은 채(룰3 — 형제의 물건은 무사).<br/><b>톤</b> 절망의 정점 — 그러나 0호의 눈에 아주 옅은 흔들림 한 겹(악의가 아님). 잿빛 새벽에 민트+주홍 섬광.</div>
+  <div class="text"><span class="sp">티코:</span> "삐빅— 안 돼! 그건 내 부품이야!"<br/><span class="sp">보리:</span> "잡아, 노아! 놓치면 안 돼!"<br/><span class="sp">나레이션:</span> 하지만 그림자의 손은 눈 깜짝할 새 부품을 낚아챘어요. 아이들이 몇 시간을 애태우며 찾아낸, 열한 번째 부품을요.<br/><span class="sp">0호:</span> "…미안." (아주 작게, 아이들에겐 들리지 않을 만큼)</div>
+</div>
+
+<div class="page"><div class="pno">24쪽</div>
+  <div class="scene"><b>컷</b> 대형 추격+절망 컷 — 모래언덕을 가로지르는 다이내믹 구도.<br/><b>장소·시간</b> 새벽, 모래언덕.<br/><b>장면</b> 부품을 움켜쥔 0호가 회색 망토를 휘날리며 모래언덕을 넘어 달아나고(뒷모습, 어깨너머로 흘깃 돌아보는 붉은 눈에 죄책감), 그 뒤를 보리가 젖 먹던 힘으로 쫓지만 모래에 발이 푹푹 빠져 거리가 벌어진다. 노아는 넘어졌다 일어나며 쫓고, 티코는 보리 품에서 팔을 뻗어 애타게 부른다. 저 앞에 0호가 열어 놓은 <u>또 다른 시간의 문</u>(붉은빛이 도는 게이트)이 열려 있다.<br/><b>톤</b> 애타는 추격 — 잡힐 듯 잡히지 않는 절망감. 새벽 잿빛 + 붉은 게이트빛.</div>
+  <div class="text"><span class="sp">보리:</span> "거기 서! 돌려줘, 그거 우리한테 정말 소중한 거란 말이야!"<br/><span class="sp">티코:</span> "삐비빅! 너 대체 누구야! 왜 내 부품을 가져가는 거야!"<br/><span class="sp">나레이션:</span> 그림자는 대답 없이, 자기가 열어 둔 붉은 시간의 문을 향해 달렸어요.<br/><span class="sp">노아:</span> "잠깐, 잠깐만! 저 로봇도… 우리처럼 시간의 문을 열 수 있어?!"</div>
+</div>
+
+<div class="page"><div class="pno">25쪽</div>
+  <div class="scene"><b>컷</b> 대형, 배터리 위기 겹침 컷(룰2 극대화) — 게이트 앞 좌절.<br/><b>장소·시간</b> 새벽, 붉은 시간의 문 앞.<br/><b>장면</b> 0호가 붉은 문 안으로 뛰어들어 사라지는 순간, 문이 스르륵 닫힌다. 그 앞에 다다른 보리가 문틈에 손을 뻗지만 이미 닫힘. 동시에 티코 가슴 배터리 게이지 홀로그램이 <u>15% → 주황 → 빨강</u>으로 급락하며 삐빅삐빅 경고, 티코의 눈이 반쯤 꺼지듯 깜빡인다(부품을 빼앗기며 힘까지 빠짐). 보리가 주저앉고, 노아가 티코를 감싸 안는다.<br/><b>톤</b> 시즌 최대의 절망 — 부품도, 그림자도, 이제 티코의 힘까지 위태롭다. 잿빛 새벽에 빨간 경고 점멸.</div>
+  <div class="text"><span class="sp">티코:</span> "(힘없이) 경고… 배터리… 부품을 빼앗기니까, 몸에 힘이 안 들어가…"<br/><span class="sp">보리:</span> "티코! 정신 차려! 우리 저 문 따라가야 하는데!"<br/><span class="sp">노아:</span> "지금 무리하면 티코가 꺼져 버려. 일단… 우리 힘으로 여는 문을 열어야 해."<br/><span class="sp">나레이션:</span> 열한 번째 부품을, 결국 눈앞에서 빼앗기고 말았어요.</div>
+</div>
+
+<div class="divider">— E. 해결(?) · 회수 실패 · 귀환 (26~33쪽) —</div>
+
+<div class="page"><div class="pno">26쪽</div>
+  <div class="scene"><b>컷</b> 중형, 형제에게 돌아오는 컷 — 미안함과 결심.<br/><b>장소·시간</b> 아침이 밝아 오는 캠프 앞.<br/><b>인물</b> 부품을 빼앗기고 터덜터덜 캠프로 돌아온 아이들 — 보리는 주먹을 꽉 쥐고 입술을 깨물고, 노아는 힘없이 축 처진 티코를 두 손으로 소중히 안았다. 마침 시험 비행을 준비하려 나온 형제가 아이들의 굳은 얼굴을 걱정스레 본다.<br/><b>배경·소품</b> 밝아 오는 하늘, 레일 위 비행기(무사함), 형제의 작업 채비.<br/><b>톤</b> 실패 뒤의 무거움 + 그래도 여기 사람들의 큰일이 남았다는 전환. 차가운 아침빛.</div>
+  <div class="text"><span class="sp">윌버:</span> "얘들아, 무슨 일 있었니? 얼굴이 새하얗구나."<br/><span class="sp">보리:</span> "…우리, 아주 소중한 걸 눈앞에서 빼앗겼어요. 따라가지도 못했고요."<br/><span class="sp">오빌:</span> "저런. 하지만 얘들아 — 오늘은 우리한테도 아주 중요한 날이란다. 바람이 딱 좋거든."<br/><span class="sp">노아:</span> "(속닥) 보리야… 우리가 슬퍼하는 사이에도, 이 형제의 역사는 오늘 이뤄지는 거야. 이건 우리가 지켜봐야 해."</div>
+</div>
+
+<div class="page"><div class="pno">27쪽</div>
+  <div class="scene"><b>컷</b> 대형, 역사의 순간 준비 컷 — 비행 직전의 긴장.<br/><b>장소·시간</b> 1903년 12월 17일 아침, 킬데블힐스 모래언덕. 매섭게 부는 겨울 북풍.<br/><b>인물</b> 오빌이 비행기 아래쪽 조종 자리에 엎드려 눕고, 윌버가 날개 끝을 붙잡고 나란히 달릴 준비. 근처에 캠프를 도우러 온 <u>인명구조대원 몇 명(단역)</u>이 서 있고, 한 사람은 큰 사진기를 삼각대에 얹어 셔터에 손을 얹었다. 조금 떨어져 아이들이 숨죽여 지켜봄 — 슬픔을 잠시 접고 두 손을 모은다.<br/><b>배경·소품</b> 나무 발사 레일, 프로펠러, 삼각대 사진기, 바람에 눕는 풀, 회청색 겨울 바다.<br/><b>톤</b> 역사가 이뤄지기 직전의 팽팽한 정적 + 매서운 바람. 존중 어린 경건함.</div>
+  <!-- 고증 확인 필요: 1903-12-17 오전 10:35 첫 동력 비행 = 오빌 조종, 윌버 날개 끝 잡고 나란히 달림. 사진은 인명구조대원 존 대니얼스가 오빌의 카메라로 촬영 -->
+  <div class="text"><span class="sp">윌버:</span> "바람이 세지만, 오늘이야. 준비됐지, 오빌?"<br/><span class="sp">오빌:</span> "(조종 자리에 엎드려) 응, 형. 우리 둘이 여기까지 왔잖아. 시작하자!"<br/><span class="sp">보리:</span> "(속닥) …나 지금 세상에서 제일 중요한 순간을 보고 있는 것 같아."<br/><span class="sp">티코:</span> "(힘없이, 속닥) 저건… 사람이 처음으로 하늘을 나는 순간이다. 놓치지 마라, 인간들."</div>
+</div>
+
+<div class="page"><div class="pno">28쪽</div>
+  <div class="scene"><b>컷</b> 초대형 스펙터클(이번 화 최고 간판 컷) — 하늘로 떠오르는 비행기의 결정적 순간.<br/><b>장소·시간</b> 같은 아침, 모래언덕 위 하늘.<br/><b>장면</b> 라이트 플라이어가 모래에서 <u>사뿐히 떠올라</u> 겨울 하늘로 나아가는 순간 — 오빌이 엎드려 조종하고, 윌버가 아래에서 두 팔을 번쩍 들고 환호하며 나란히 달린다. 프로펠러가 힘차게 돌고, 날개 아래 공기가 밀어 올리는 양력을 빛띠로 표현. 저 아래 아이들과 구조대원들이 입을 벌리고 하늘을 올려다본다. 삼각대 사진기가 그 순간을 찰칵.<br/><b>톤</b> 벅찬 감동의 절정 — 시린 파란 하늘에 첫 비행기 한 대. 세상이 바뀌는 순간의 전율.</div>
+  <!-- 고증 확인 필요: 첫 비행 12초·약 37m(120피트). 그날 네 번 비행, 마지막(윌버)이 59초·약 260m로 가장 김. 저학년용으로 '12초·짧게 떴다'로 단순화 -->
+  <div class="text"><span class="sp">나레이션:</span> 그리고 그날 아침, 비행기가 모래를 박차고 <b>하늘로 떠올랐어요!</b><br/><span class="sp">윌버:</span> "떴다! 오빌, 네가 날고 있어! 우리가 해냈어—!"<br/><span class="sp">보리:</span> "우와아아! 사람이 진짜 하늘을 날아!"<br/><span class="sp">나레이션:</span> 열두 걸음 남짓, 아주 짧은 시간이었지만 — 사람이 처음으로 하늘을 난 순간이었답니다.</div>
+</div>
+
+<div class="page"><div class="pno">29쪽</div>
+  <div class="scene"><b>컷</b> 중형, 벅찬 여운 컷 — 형제의 포옹.<br/><b>장소·시간</b> 같은 아침, 착지 지점 모래밭.<br/><b>인물</b> 비행을 마친 오빌이 조종 자리에서 내려오자, 윌버가 달려와 동생을 와락 끌어안는다 — 두 형제가 서로 어깨를 두드리며 눈시울이 붉어짐. 구조대원들이 모자를 벗어 환호. 아이들도 슬픔을 잠시 잊고 손뼉을 치며 뛴다. 티코는 노아 품에서 그 모습을 물끄러미 바라본다(눈이 물결 — 형제애에 마음이 아림).<br/><b>배경·소품</b> 착지한 비행기, 흩날리는 모래, 벗어 든 모자들, 겨울 햇살.<br/><b>톤</b> 승리와 형제애의 따뜻한 절정 — 티코의 애틋한 표정이 0호를 떠올리게.</div>
+  <div class="text"><span class="sp">오빌:</span> "형, 우리가 해냈어. 둘이서."<br/><span class="sp">윌버:</span> "그래. 너랑 나, 둘이 아니었으면 못 했을 거야."<br/><span class="sp">보리:</span> "형제라서 끝까지 포기 안 한 거예요. 정말 멋져요!"<br/><span class="sp">티코:</span> "(속닥, 혼잣말처럼) …형제. 서로를 끝까지 믿는 사이. 아까 그 그림자는… 왜 그렇게 슬픈 눈을 하고 있었을까."</div>
+</div>
+
+<div class="page"><div class="pno">30쪽</div>
+  <div class="scene"><b>컷</b> 중형, 작별 컷 — 황금빛 오후 역광.<br/><b>장소·시간</b> 오후, 캠프 앞 모래언덕.<br/><b>인물</b> 형제가 한쪽 무릎을 굽혀 아이들과 눈높이를 맞추고 배웅 — 윌버가 보리 어깨에 손을 얹고, 오빌이 노아에게 격려의 미소. 노아는 안경 밑 눈가를 슥 문지름. 티코는 노아 품에서 힘없이 손을 흔든다.<br/><b>배경·소품</b> 착지한 비행기, 모래언덕, 저무는 겨울 햇살.<br/><b>톤</b> 감동의 배웅 + 아이들 마음속 남은 숙제(빼앗긴 부품)의 그늘.</div>
+  <div class="text"><span class="sp">윌버:</span> "얘들아, 소중한 걸 빼앗겼다고 했지. 하지만 우리도 수없이 떨어지고 부서지고서야 오늘에 닿았단다."<br/><span class="sp">오빌:</span> "포기하지만 않으면, 다시 날아오를 수 있어. 형제가 곁에 있다면 더더욱."<br/><span class="sp">보리:</span> "…네. 저희도 절대 포기 안 할 거예요. 그 부품, 꼭 되찾을 거예요."<br/><span class="sp">노아:</span> "고마웠어요. 오늘 본 걸 평생 잊지 못할 거예요."</div>
+</div>
+
+<div class="page"><div class="pno">31쪽</div>
+  <div class="scene"><b>컷</b> 중형, 힘겨운 귀환 컷 — 아이들이 여는 시간의 문.<br/><b>장소·시간</b> 해 질 녘, 모래언덕 위.<br/><b>인물</b> 티코의 힘이 거의 다 빠져, 보리와 노아가 티코를 사이에 두고 두 손을 코어에 얹어 <u>자기들 힘을 보태며</u> 겨우 민트빛 시간의 문을 연다(7화 해금 '자가 발전 손잡이'를 보리가 급히 돌려 마지막 배터리를 짜냄 — 등의 크랭크 손잡이 연출). 문이 희미하게 열림.<br/><b>배경·소품</b> 자가 발전 크랭크 손잡이, 깜빡이는 게이지(5%), 노을.<br/><b>톤</b> 간신히 붙든 희망 — 지치고 슬프지만 서로에게 기대어. 노을의 주홍 + 민트 게이트빛.</div>
+  <div class="text"><span class="sp">보리:</span> "티코, 조금만 버텨! 내가 손잡이 돌려서 집까지 갈 힘은 만들게!"<br/><span class="sp">티코:</span> "(힘없이) …고맙다, 인간들. 부품은 빼앗겼지만… 너희가 곁에 있어서 다행이다."<br/><span class="sp">노아:</span> "우리 집에 돌아가서, 할아버지랑 같이 방법을 찾자. 그 그림자가 누군지도."<br/><span class="sp">나레이션:</span> 아이들은 힘을 모아, 겨우겨우 집으로 돌아가는 문을 열었어요.</div>
+</div>
+
+<div class="page"><div class="pno">32쪽</div>
+  <div class="scene"><b>컷</b> 대형, 창고 귀환 + 충격의 진실 예고 컷.<br/><b>장소·시간</b> 저녁, 봉수 박사의 창고.<br/><b>장면</b> 힘 빠진 티코를 안고 돌아온 아이들이 자초지종을 쏟아낸다 — 보리가 두 팔을 벌려 그림자 로봇의 크기를 설명하고, 노아가 회색 실오라기를 내민다. 그런데 봉수 박사가 그 실오라기를 받아 든 순간, <u>얼굴이 하얗게 굳는다</u> — 돋보기안경 너머 눈에 눈물이 그렁, 손이 떨린다. 뒤편 선반, 먼지 쌓인 낡은 상자 하나가 화면 구석에 살짝 보인다(다음 화 복선).<br/><b>배경·소품</b> 회색 실오라기, 굳은 박사의 얼굴, 구석의 먼지 쌓인 낡은 상자, 힘없이 눈이 꺼진 티코.<br/><b>톤</b> 귀환의 안도 + 진실이 드러나기 직전의 서늘한 정적. 따뜻한 불빛 속 박사의 창백한 얼굴.</div>
+  <div class="text"><span class="sp">보리:</span> "할아버지, 이만한 회색 로봇이 티코 부품을 뺏어 갔어요! 티코랑 형제처럼 닮았고요!"<br/><span class="sp">노아:</span> "이 회색 실오라기도 그 로봇 거예요. 할아버지, 이거 아세요?"<br/><span class="sp">봉수 박사:</span> "(떨리는 목소리) …이 천은. 내가… 아주 오래전에, 손수 만든 첫 번째 로봇에게 둘러 준 담요란다."<br/><span class="sp">보리·노아:</span> "네?! 첫 번째… 로봇이요?!"</div>
+</div>
+
+<div class="page"><div class="pno">33쪽</div>
+  <div class="scene"><b>컷</b> 대형 클리프행어 컷(12화 피날레로 직결) — 3분할 느낌.<br/><b>중앙(메인)</b> 봉수 박사가 선반 깊숙이에서 먼지 쌓인 낡은 상자를 꺼내 연다 — 상자 안에는 <u>작은 로봇 설계도와 빈 받침대</u>, 그리고 '0호'라고 적힌(글자는 그리지 않고 숫자 느낌만) 오래된 명패. 박사의 회한 어린 옆얼굴.<br/><b>우상단 인셋</b> 어딘가 낯선 시공간 — 0호가 빼앗은 민트빛 부품을 두 손으로 소중히 감싸 쥔 채, 자기 가슴의 텅 빈 코어를 내려다본다. 붉은 외눈에 눈물 같은 빛 한 방울(악당이 아니라 외로운 존재임이 확실해지는 컷).<br/><b>좌하단 인셋</b> 힘없이 눈을 감았다 겨우 뜨는 티코 — 그 위로 보리·노아가 걱정스레 감싸 안음.<br/><b>톤</b> 시즌 최대의 여운 — 절망과 연민이 뒤섞인 클리프행어. 따뜻한 불빛 + 서늘한 진실.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "티코를 만들기 전에… 이 할아비가 처음으로 만든 로봇이 있었단다. 이름은 <b>0호</b>. 그런데 티코를 만들며, 내가 그만… 0호를 오래도록 잊고 있었지."<br/><span class="sp">노아:</span> "그럼 그 그림자가… 티코의 형이었던 거예요?"<br/><span class="sp">나레이션:</span> 빼앗긴 열한 번째 부품. 힘을 잃은 티코. 그리고 어딘가에서, 홀로 부품을 끌어안은 외로운 붉은 눈 하나.<br/><span class="sp">티코:</span> "(간신히) …형. 나한테… 형이 있었다고?"<br/><span class="sp">나레이션:</span> 마지막 이야기에서, 모든 진실이 밝혀집니다. 다음 화, <b>「0호의 진심」</b>.</div>
+</div>
+
+<div class="divider">— F. 티코피디아 부록 (34~36쪽) —</div>
+
+<div class="page"><div class="pno">34쪽 · 티코피디아 ①</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지(부록 공통 포맷) — 배경은 민트색 홀로그램 격자.<br/><b>장면</b> 티코가 안경을 쓰고 지시봉을 든 선생님 포즈로 화면 왼쪽에(기운을 조금 회복한 모습). 오른쪽 큰 카드: 모래언덕 위 라이트 플라이어 그림 + 가로 연표(자전거 가게 운영 → 새 관찰·글라이더 실험 → 1903년 12월 17일 첫 동력 비행 ★). 카드 아래에 어깨동무한 두 형제 실루엣(형제애 상징). 카드 모서리에 프로펠러 스탬프.<br/><b>톤</b> 밝고 정돈된 인포그래픽. 본편과 구분되는 '부록 세계' 톤.</div>
+  <!-- 고증 확인 필요: 데이턴의 자전거 가게 상호 = 'Wright Cycle Company', 자전거 사업으로 실험 자금 조달. 1903-12-17 킬데블힐스(키티호크 인근) 첫 비행 -->
+  <div class="text"><span class="sp">티코:</span> "오늘의 티코피디아! <b>라이트 형제</b>는 미국에서 자전거 가게를 하던 형 윌버와 동생 오빌 두 형제야. 새가 나는 걸 오래 지켜보고 수없이 실험한 끝에, 1903년 12월 17일 바람 센 바닷가 모래언덕에서 사람을 태우고 하늘을 난 최초의 동력 비행기를 성공시켰지. 처음 비행은 겨우 열두 걸음 남짓이었지만, 이 짧은 순간이 온 세상의 하늘을 열었단다."</div>
+</div>
+
+<div class="page"><div class="pno">35쪽 · 티코피디아 ②</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지 ② — 도해 중심.<br/><b>장면</b> 화면 상단: 날개 단면 도해(위 볼록·아래 평평, 위 공기 빠름·아래 느림 → 위로 뜨는 화살표 = 양력). 중단: 비행기가 기우뚱할 때 바로 세우는 세 가지 — 날개 끝 비틀기·앞뒤 기울기·꼬리 방향 틀기를 새 그림과 나란히 비교(새가 날개 끝을 비트는 그림). 하단: 바람이 셀수록 잘 뜨는 이유(모래언덕+바닷바람 그림). 구석에 두 팔을 새처럼 벌린 티코.<br/><b>톤</b> 교과서 삽화보다 밝고 만화적인 도해.</div>
+  <div class="text"><span class="sp">티코:</span> "날개는 위가 볼록하고 아래가 평평해서, 바람이 지나가면 위로 밀어 올리는 힘 <b>양력</b>이 생겨 하늘로 뜬다. 하지만 뜨기만 해선 안 돼 — 기우뚱할 때 바로 세우는 <b>균형</b>이 있어야 하지. 라이트 형제는 새를 흉내 내어 <b>날개 끝을 비틀고</b> 꼬리 <b>방향타</b>로 방향을 틀었어. 바람 센 곳을 고른 것도, 양력을 크게 얻기 위해서였단다."</div>
+</div>
+
+<div class="page"><div class="pno">36쪽 · 티코 퀴즈</div>
+  <div class="scene"><b>컷</b> 퀴즈 페이지(부록 공통 포맷) — 티코 정면 컷.<br/><b>장면</b> 티코가 문제 카드 3장을 부채꼴로 펼쳐 들고 윙크(하지만 눈 한쪽이 살짝 그늘 — 부품을 빼앗긴 여운). 카드마다 ①②③ 번호와 물음표 장식. 배경 하단에 다음 화 예고 — 회색 담요를 두른 작은 로봇의 뒷모습 실루엣과, 그를 향해 손을 뻗은 티코의 실루엣, 그 사이에 물음표 하나. (앱에서는 기존 퀴즈 게임 인프라로 인터랙티브 처리)<br/><b>톤</b> 마무리 + 피날레를 향한 애타는 기대감.</div>
+  <div class="text"><span class="sp">티코:</span> "마지막 관문, 티코 퀴즈! 셋 다 맞히면 너도 시간여행 대원!<br/>① 자전거 가게를 하다가 최초로 동력 비행기를 만든 두 형제의 이름은?<br/>② 날개 위아래 공기의 흐름 차이로 생겨 비행기를 위로 뜨게 하는 힘을 뭐라고 부를까?<br/>③ 라이트 형제는 무엇이 나는 모습을 흉내 내어 날개 끝을 비트는 법을 알아냈을까?<br/>…그리고 다음 화, 드디어 그림자의 진짜 이름이 밝혀진다! <b>「0호의 진심」</b>에서 만나자! 삐빅…!"</div>
+</div>
+
+<footer>
+  타임 티코 11화 콘티 v1.0 · 탱고북 오리지널 · 내부 제작 자료
+</footer>
+
+</div>
+
+<script>
+// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
+(async function () {
+  const nav = document.getElementById('comic-tabs');
+  if (!nav) return;
+  const here = (location.pathname.split('/').pop() || '');
+  const items = [['learning-comic-plan.html', '📘 기획서']];
+  for (let i = 1; i <= 12; i++) {
+    const f = 'learning-comic-ep' + String(i).padStart(2, '0') + '.html';
+    try {
+      const r = await fetch(f);
+      const t = await r.text();
+      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
+    } catch (e) { /* skip */ }
+  }
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §6과 동기 유지) ─────────
+const STYLE_PROMPT = [
+  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
+  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
+  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
+  '시대 배경(건축·의상·소품)은 고증에 맞게 세밀하고 사실적으로 묘사.',
+  '화면비 16:9 와이드 일러스트.',
+  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
+].join(' ');
+
+const CHARACTER_KEYS = [
+  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
+  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
+  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
+  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸), 감정에 따라 모양이 변하는 둥근 눈.',
+  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼.',
+  '- 0호(그림자→정면): 티코 이전에 만든 프로토타입. 티코와 형제처럼 닮았으나 무광 회색의 각진 상자형(40cm), 삐뚤어진 안테나, 해진 회색 천 망토, 크고 둥근 붉은 외눈 하나. 공포가 아닌 짠하고 외로운 인상.',
+].join('\n');
+
+// 이 화의 시대 의상 (화별로 교체)
+const EP_COSTUME = '[이 화의 의상] 1903년 미국 키티호크(킬데블힐스) 겨울 모래언덕 장면에서 보리 = 두꺼운 갈색 울 코트 + 니트 모자(붉은 머리끈은 모자 밖으로) + 목도리, 노아 = 두툼한 회색 재킷 + 목도리 + 무릎길이 바지(둥근 안경 유지). 현대(창고) 장면에서는 평상복(보리 주황 후드티, 노아 하늘색 셔츠).';
+
+// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
+const EP_GUEST_KEYS = [
+  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
+  '- 윌버 라이트(형, 36세): 갸름하고 진중한 얼굴, 이마가 살짝 벗어짐(정수리 머리숱 적음), 깔끔하게 면도, 회색빛 눈, 과묵하고 사려 깊은 인상. 소매 걷은 흰 셔츠 + 조끼 + 멜빵 + 어두운 바지, 캠프에서는 낡은 재킷과 납작한 캡 모자. 실존 위인 — 우스꽝스럽지 않게 위엄과 따뜻함이 공존하게.',
+  '- 오빌 라이트(동생, 32세): 형보다 둥글고 밝은 얼굴, 단정히 빗어 넘긴 다크블론드 머리, 잘 다듬은 콧수염, 장난기와 자신감 어린 미소. 형과 같은 노동자·정비공 차림. 실존 위인 — 존중 어린 묘사, 두 형제가 늘 붙어 다니는 단짝 호흡.',
+  '- 0호(이 화에서 처음 실루엣을 벗고 정면 등장하는 강탈자): 전체 높이 40cm 땅딸막한 상자형 미니 로봇. 무광 회색 몸체에 리벳·이음새·드러난 관절, 긁힘과 빛바랜 자국, 머리에 삐뚤어진 안테나 하나, 끝이 해진 회색 천을 낡은 망토처럼 두름. 가로로 긴 검은 스크린에 크고 둥근 붉은 외눈 하나(무섭지 않고 순박·짠한 인상, 강탈 순간에도 죄책감·슬픔이 배어남). 가슴에 티코와 똑같은 시계 문양 코어 자리가 있으나 대부분 비고, 코어 한가운데에 12번째 부품이 희미한 주홍빛. ★티코와 형제처럼 닮은 실루엣이 한눈에 느껴지게. 공포·호러 연출 절대 금지.',
+].join('\n');
+
+function composeImagePrompt(pno, sceneText) {
+  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+}
+
+// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    const btn = card.querySelector('.copy-btn');
+    const pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async function () {
+      // textContent — details 접힘 상태에선 innerText 가 빈 값
+      const text = pre.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('done');
+      } catch (e) {
+        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
+      }
+      setTimeout(function () {
+        btn.textContent = '📋 시트 프롬프트 복사';
+        btn.classList.remove('done');
+      }, 1600);
+    });
+  });
+})();
+
+// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
+const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
+
+async function loadComicAssets() {
+  try {
+    const r = await fetch(ASSET_API);
+    const j = await r.json();
+    return (j && j.data) || {};
+  } catch (e) { return {}; }
+}
+
+function createPasteBox(key, assets, hint) {
+  const box = document.createElement('div');
+  box.className = 'paste-box';
+  box.tabIndex = 0;
+  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
+  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
+  const reset = function () {
+    box.classList.remove('has-img');
+    box.innerHTML = '';
+    box.textContent = hintText;
+  };
+  const setImg = function (url) {
+    box.classList.add('has-img');
+    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      if (!confirm('이 이미지를 삭제할까요?')) return;
+      try {
+        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
+        reset();
+      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
+    });
+  };
+  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+  else box.textContent = hintText;
+
+  async function upload(file) {
+    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+    box.classList.add('busy');
+    const fr = new FileReader();
+    fr.onload = async function () {
+      try {
+        const r = await fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        });
+        const j = await r.json();
+        if (j.success) setImg(j.data.url + '?t=' + Date.now());
+        else alert('저장 실패: ' + (j.error || ''));
+      } catch (e) {
+        alert('저장 실패 — 서버(3500)를 확인하세요');
+      }
+      box.classList.remove('busy');
+    };
+    fr.readAsDataURL(file);
+  }
+
+  box.addEventListener('paste', function (e) {
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (const it of items) {
+      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
+    }
+  });
+  box.addEventListener('dragover', function (e) { e.preventDefault(); });
+  box.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) upload(f);
+  });
+  box.addEventListener('click', function () { box.focus(); });
+  return box;
+}
+
+// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-plan) 자산을 읽어옴 ──
+(async function () {
+  const grid = document.getElementById('cast-grid');
+  if (!grid) return;
+  let planAssets = {};
+  try {
+    const r = await fetch('/api/comic-assets/learning-comic-plan');
+    const j = await r.json();
+    planAssets = (j && j.data) || {};
+  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
+  grid.querySelectorAll('.cast-item').forEach(function (item) {
+    const key = item.getAttribute('data-key');
+    if (planAssets[key]) {
+      const frame = item.querySelector('.frame');
+      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
+    }
+  });
+})();
+
+// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
+(function () {
+  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^[a-z0-9-]+$/.test(docId)) return;
+  const api = '/api/comic-feedback/' + docId;
+
+  function updateBar(total) {
+    const bar = document.getElementById('feedback-cnt');
+    if (bar) bar.textContent = total;
+  }
+
+  async function loadNotes() {
+    try {
+      const r = await fetch(api);
+      const j = await r.json();
+      return (j && j.data && j.data.pages) || {};
+    } catch (e) { return {}; }
+  }
+
+  async function saveNote(page, note, statusEl, ta) {
+    statusEl.textContent = '저장 중…';
+    try {
+      const r = await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, note: note }),
+      });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.error || 'save failed');
+      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
+      ta.classList.toggle('has-note', !!note.trim());
+      updateBar(j.data.total);
+      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
+    } catch (e) {
+      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
+      statusEl.style.color = '#e85c3a';
+    }
+  }
+
+  async function init() {
+    const pages = document.querySelectorAll('.page');
+    if (!pages.length) return;
+    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
+    const notes = loaded[0];
+    const assets = loaded[1];
+
+    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
+    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
+      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
+    });
+
+    const anchor = document.querySelector('header.hero');
+    if (anchor) {
+      const bar = document.createElement('div');
+      bar.id = 'feedback-bar';
+      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
+      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+    }
+
+    pages.forEach(function (card) {
+      const pnoEl = card.querySelector('.pno');
+      const m = pnoEl && pnoEl.textContent.match(/\d+/);
+      if (!m) return;
+      const pno = m[0];
+
+      const main = document.createElement('div');
+      while (card.firstChild) main.appendChild(card.firstChild);
+      card.appendChild(main);
+
+      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
+      const mainPno = main.querySelector('.pno');
+      const sceneEl = main.querySelector('.scene');
+      if (mainPno && sceneEl) {
+        const row = document.createElement('div');
+        row.className = 'pno-row';
+        mainPno.parentNode.insertBefore(row, mainPno);
+        row.appendChild(mainPno);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋 그림 프롬프트 복사';
+        copyBtn.addEventListener('click', async function () {
+          const prompt = composeImagePrompt(pno, sceneEl.innerText);
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = '복사됨 ✓';
+            copyBtn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () {
+            copyBtn.textContent = '📋 그림 프롬프트 복사';
+            copyBtn.classList.remove('done');
+          }, 1600);
+        });
+        row.appendChild(copyBtn);
+      }
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const saved = notes[pno] || '';
+      panel.innerHTML =
+        '<label>' + pno + '쪽 생성 이미지</label>' +
+        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
+        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
+        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
+      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
+      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
+      const ta = panel.querySelector('textarea');
+      if (saved) ta.classList.add('has-note');
+      const btn = panel.querySelector('button');
+      const status = panel.querySelector('.status');
+      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
+      });
+
+      card.classList.add('with-notes');
+      card.appendChild(panel);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>

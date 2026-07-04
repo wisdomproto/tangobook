@@ -94,7 +94,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - 횡단 (커리큘럼/자료실/캐싱/자산/snake_case) → [docs/architecture-notes.md](docs/architecture-notes.md)
 - 모기 이북 (단발 콘텐츠 — `/ebook/mosquito` 한·일 인터랙티브 이북 + 언어별 mp4, Remotion+TTS) → memory `mosquito-ebook-2026-06-20`
 - 호리네 생활동화 (호리(아기호랑이) 마스코트 앙상블 기반 생활동화 45권 라인 — 대발이·콩순이·페파 3사 분석 + 캐릭터 바이블 + 5비트 작법 공식) → [docs/saenghwal-donghwa/](docs/saenghwal-donghwa/) · memory `hori-saenghwal-donghwa-2026-07-01`
-- 학습만화 「타임 티코」 (초등 저학년 시간여행 12화 — 기획서 SSOT=`public/learning-comic-plan.html`(+회차 `learning-comic-ep{NN}.html`, 탭 자동감지), **"N화 써줘"→comic-writer 집필→comic-editor 4축 검수 사이클**, 쪽별 프롬프트 복사·수정지시(`/api/comic-feedback`)·이미지 붙여넣기/삭제(`/api/comic-assets`→`public/comic-assets/`), 캐릭터 시트 5종 확정) → memory `time-tiko-comic-2026-07-03`
+- 학습만화 「타임 티코」 (초등 저학년 시간여행 12화 — 기획서 SSOT=`public/learning-comic-plan.html`(+회차 `learning-comic-ep{NN}.html`, 탭 자동감지), **"N화 써줘"→comic-writer 집필→comic-editor 4축 검수 사이클**, 쪽별 프롬프트 복사·수정지시(`/api/comic-feedback`)·이미지 붙여넣기/삭제(`/api/comic-assets`→`public/comic-assets/`), 캐릭터 시트 5종 확정, **1~12화 전편 텍스트 콘티+검수 완료 2026-07-04 — 다음 단계=이미지 생성**) → memory `time-tiko-comic-2026-07-03`
 
 ## 자주 쓰는 커맨드
 ```bash

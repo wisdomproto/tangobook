@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 2화 「피라미드의 수상한 설계도」 — 콘티</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 24px 0 28px; border-bottom: 3px solid var(--coral); margin-bottom: 28px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 12px; }
+  .hero h1 { font-size: 32px; font-weight: 900; margin: 8px 0 4px; }
+  .hero .sub { color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+  .divider { text-align:center; margin: 40px 0 8px; font-weight: 900; color: var(--mint); letter-spacing: .15em; font-size: 14px; }
+  .page { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 14px 0; }
+  .page .pno { font-weight: 900; color: var(--coral-dark); font-size: 15px; }
+  .page .scene { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .page .scene b { color: var(--mint); font-weight: 800; }
+  .page .text { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 8px; font-size: 15px; }
+  .page .text .sp { font-weight: 800; color: var(--coral-dark); }
+  /* 콘티 리뷰 패널 */
+  .page.with-notes { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .page.with-notes { grid-template-columns: 1fr; } }
+  .note-panel { border-left: 2px dashed var(--line); padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 900px) { .note-panel { border-left: none; border-top: 2px dashed var(--line); padding: 12px 0 0; } }
+  .note-panel label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+  .note-panel textarea { width: 100%; min-height: 96px; resize: vertical; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 13px; background: #fffdfa; }
+  .note-panel textarea:focus { outline: none; border-color: var(--coral); }
+  .note-panel textarea.has-note { border-color: var(--mint); background: #f4fffc; }
+  .note-panel .row { display: flex; align-items: center; gap: 10px; }
+  .note-panel button { background: var(--coral); color: #fff; border: none; border-radius: 999px; padding: 7px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .note-panel button:hover { background: var(--coral-dark); }
+  .note-panel .status { font-size: 12px; color: var(--mint); font-weight: 700; }
+  #feedback-bar { position: sticky; top: 54px; z-index: 10; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 18px; margin: 16px 0 24px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #feedback-bar .cnt { color: #ffd9cc; }
+  .pno-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .copy-btn:hover { background: var(--mint); color: #fff; }
+  .copy-btn.done { background: var(--mint); color: #fff; }
+  .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
+  .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+  .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cast-strip .hint a { color: var(--coral-dark); font-weight: 700; }
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .cast-item { text-align: center; }
+  .cast-item .frame { border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 26px; }
+  .cast-item .frame img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .cast-item .nm { font-size: 12.5px; font-weight: 800; margin-top: 5px; color: var(--ink-soft); }
+  .guest-section { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--coral); border-radius: 16px; padding: 18px 22px; margin: 20px 0; }
+  .guest-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+  .guest-section .hint { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .char-prompt { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt details { margin-top: 6px; }
+  .char-prompt summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 8px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+</style>
+</head>
+<body data-comic-doc="ep02">
+<div class="wrap">
+
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-plan.html">📘 기획서</a></nav>
+
+<header class="hero" id="top">
+  <div class="kicker">TIME TICO · EPISODE 02</div>
+  <h1>2화 「피라미드의 수상한 설계도」</h1>
+  <div class="sub">약 4600년 전 고대 이집트, 기자의 피라미드 공사장 · 기하와 건축 — 36쪽 콘티 (장면 지시 + 페이지 텍스트) · 해금: 홀로그램 프로젝터</div>
+</header>
+
+<div class="cast-strip">
+  <h2>⭐ 고정 캐릭터 확정 시트</h2>
+  <div class="hint">기획서 §6에 붙여넣은 레퍼런스가 여기 자동 표시됩니다 — 컷 작업의 기준. 비어 있으면 <a href="learning-comic-plan.html#s6">기획서에서 붙여넣기 →</a></div>
+  <div class="cast-grid" id="cast-grid">
+    <div class="cast-item" data-key="bori"><div class="frame">👧</div><div class="nm">보리</div></div>
+    <div class="cast-item" data-key="noa"><div class="frame">👦</div><div class="nm">노아</div></div>
+    <div class="cast-item" data-key="tico"><div class="frame">🤖</div><div class="nm">티코</div></div>
+    <div class="cast-item" data-key="bongsu"><div class="frame">👴</div><div class="nm">봉수 박사</div></div>
+    <div class="cast-item" data-key="zero"><div class="frame">🌑</div><div class="nm">0호</div></div>
+  </div>
+</div>
+
+<div class="guest-section">
+  <h2>🎭 이 화의 게스트 캐릭터 레퍼런스</h2>
+  <div class="hint">3장면 이상 등장하거나 클로즈업이 있는 게스트는 시트를 먼저 확정한다. 아래 비주얼 키는 각 쪽 [📋 그림 프롬프트 복사]에도 자동 포함되어 컷 간 일관성을 지킨다. (단역 — 일꾼·공사 감독·빵 굽는 아주머니 — 은 장면 지시 서술로 충분, 시트 불필요)</div>
+
+  <div class="char-prompt" data-char="테티" data-key="teti">
+    <div class="head"><span style="font-size:20px">🧒</span><b>테티 (11세 견습 측량사)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 둥글고 친근한 3등신 카툰 비율(보리·노아와 같은 또래 아이 비율). 순백 배경.
+
+[시트 구성] 왼쪽에 전신 3면도(정면·옆·뒤), 오른쪽 위에 표정 6종 얼굴 그리드(수줍은 미소·울먹임·화들짝 놀람·굳은 결심·환하게 터지는 웃음·자랑스러움), 오른쪽 아래 대표 포즈 2개(매듭 밧줄을 두 손으로 팽팽히 당기는 포즈, 모래 바닥에 막대로 금을 긋는 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 테티, 11세 고대 이집트 소년, 왕실 측량사의 견습생. 햇볕에 그을린 건강한 갈색 피부, 크고 순한 갈색 눈. 짧게 민 머리의 오른쪽에만 길게 땋아 늘어뜨린 소년의 옆머리 타래(고대 이집트 아이들의 머리 모양). 흰 리넨 킬트(허리에 두르는 치마), 목에 파란 구슬 목걸이, 갈대 샌들. 어깨에 매듭이 여럿 지어진 측량 밧줄을 둘러메고, 허리춤에 파피루스 조각과 갈대 펜을 꽂았다. 마른 체구지만 손끝이 야무지고, 기본 표정은 성실하고 걱정이 조금 많은 얼굴.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-char="카이" data-key="kai">
+    <div class="head"><span style="font-size:20px">👴🏾</span><b>카이 (왕실 측량사 할아버지)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 둥글고 친근한 카툰 비율(어른은 4등신). 순백 배경.
+
+[시트 구성] 왼쪽에 전신 3면도(정면·옆·뒤), 오른쪽 위에 표정 6종 얼굴 그리드(허허 인자한 웃음·깊은 걱정·깜짝 놀람·지그시 눈 감은 감동·골똘한 궁리·자랑스러운 미소), 오른쪽 아래 대표 포즈 2개(밧줄의 매듭을 손끝으로 쓰다듬는 포즈, 목발을 짚고 서서 먼 곳을 바라보는 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 카이, 60대 후반의 고대 이집트 왕실 측량사 할아버지, 테티의 할아버지. 햇볕에 그을려 주름이 깊게 팬 온화한 얼굴, 흰 눈썹, 짧게 민 백발, 굳은살이 박인 크고 두툼한 손. 흰 리넨 로브(한쪽 어깨를 덮는 긴 천), 목에 낡은 가죽끈 목걸이. 오른쪽 다리에 나무 부목과 리넨 붕대를 감고 나무 목발을 짚는다. 몸은 불편하지만 눈빛은 형형하고 다정한, 평생 밧줄 하나로 살아온 존경받는 장인의 인상.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-char="헤미우누" data-key="hemiunu">
+    <div class="head"><span style="font-size:20px">🏛️</span><b>헤미우누 (대피라미드 공사 총감독)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 어른은 4등신 카툰 비율 — 단, 실존 위인이므로 우스꽝스럽지 않게, 위엄과 따뜻함이 공존하는 존중 어린 묘사. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 3면도(정면·옆·뒤), 오른쪽 위에 표정 6종 얼굴 그리드(진중한 기본 표정·지그시 살피는 눈·흡족한 끄덕임·근엄한 지시·옅고 따뜻한 미소·조용한 감탄), 오른쪽 아래 대표 포즈 2개(긴 지팡이를 짚고 서서 공사장을 살피는 포즈, 몸을 굽혀 밧줄 측량을 확인하는 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 헤미우누, 고대 이집트 파라오 쿠푸의 재상이자 대피라미드 공사 총감독(실존 인물). 풍채가 당당하고 듬직한 체격(현존하는 그의 조각상처럼 살집이 있는 몸), 짧게 민 머리, 진중하고 지혜로운 눈매. 어깨를 덮는 넓은 구슬 장식 목걸이(파랑과 금색), 허리에 흰 주름 킬트, 손에는 지위를 나타내는 긴 지팡이. 말수가 적고 누구에게나 공정하며, 좀처럼 웃지 않지만 웃을 때는 깊고 따뜻한 인상.</pre></details>
+  </div>
+</div>
+
+<div class="divider">— A. 일상 후크 (1~3쪽) —</div>
+
+<div class="page"><div class="pno">1쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드컷, 아이레벨.<br/><b>장소·시간</b> 한여름 오후, 봉수 박사의 창고 안. 열린 문으로 쨍한 햇살과 매미 소리가 쏟아진다.<br/><b>인물</b> 화면 왼쪽 — 보리(주황 후드티 소매 걷음)가 낡은 선풍기 바로 앞에 얼굴을 들이대고 입을 벌린 채 더위를 식히는 중. 가운데 — 노아(하늘색 셔츠)가 평상에 배를 깔고 두꺼운 피라미드 그림책을 펼쳐 읽고 있다. 오른쪽 작업대 — 봉수 박사가 드라이버로 티코의 등판을 정비 중, 티코는 시큰둥하게 반쯤 감긴 눈. 마지막 순간 티코의 눈이 번쩍 느낌표 모양으로 바뀐다.<br/><b>배경·소품</b> 먹다 만 수박 접시, 돌아가는 낡은 선풍기, 발명품이 빼곡한 선반, 작업대 위 공구들.<br/><b>톤</b> 나른한 여름 오후의 노란빛 → 마지막에 삐빅 하고 깨어나는 긴장 한 방울.</div>
+  <div class="text"><span class="sp">나레이션:</span> 첫 번째 부품을 찾아온 지 일주일. 창고에는 나른한 여름 오후가 흐르고 있었어요.<br/><span class="sp">보리:</span> "아아— 더워. 시원한 데로 모험 가고 싶다아."<br/><span class="sp">노아:</span> "난 지금 이집트를 모험 중이야. 책으로! 피라미드가 얼마나 큰지 알아?"<br/><span class="sp">티코:</span> "삐빅! 두 번째 부품 신호 감지! 인간들, 낮잠 끝!"</div>
+</div>
+
+<div class="page"><div class="pno">2쪽</div>
+  <div class="scene"><b>컷</b> 중형, 작업대를 둘러싼 4인 구도(브리핑 포맷).<br/><b>장소·시간</b> 창고 안, 같은 오후. 작업대 위에 모두의 시선이 모인다.<br/><b>인물</b> 작업대 중앙의 티코 — 가슴 시계 코어에서 작은 좌표 지도가 떠오르고, 사막의 한 지점이 주황색으로 깜빡인다. 박사는 돋보기안경을 치켜올리며 지도를 들여다보고, 보리는 작업대에 두 손을 짚고 몸을 앞으로 쭉, 노아는 읽던 피라미드 책을 가슴에 꼭 안고 눈을 반짝인다.<br/><b>배경·소품</b> 노아의 피라미드 그림책(펼쳐진 면에 피라미드 삽화), 벽의 세계지도, 공구 선반.<br/><b>톤</b> 따뜻한 텅스텐 조명, 출동 전 브리핑의 설렘.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "이집트로구나. 약 4600년 전, 그곳에선 세상에서 가장 큰 건물을 짓고 있었단다. 파라오 — 이집트의 임금님 — 의 무덤, 피라미드지."<!-- 고증 확인 필요: 쿠푸왕 재위는 기원전 2500년대 중반으로 정확히는 약 4600년 전 — 아동서 관례 표현 '약 4600년 전'을 사용, 검수 시 조정 여지 --><br/><span class="sp">보리:</span> "무덤을 산만큼 크게 짓는다고요?"<br/><span class="sp">노아:</span> "돌을 230만 개나 쌓았대! 트럭도 크레인도 없던 시대에!"<br/><span class="sp">티코:</span> "그리고 내 부품은 하필 그 공사장 한복판에 있군."</div>
+</div>
+
+<div class="page"><div class="pno">3쪽</div>
+  <div class="scene"><b>컷</b> 중형, 타임 게이트 앞 출발 컷.<br/><b>장소·시간</b> 창고 구석, 민트색 빛 소용돌이(타임 게이트)가 열려 바람이 인다.<br/><b>인물</b> 보리 — 배낭을 둘러메고 게이트를 향해 이미 한 발 내디딘 자세, 뒤돌아보며 씩 웃음. 노아 — 물통 세 개를 주렁주렁 매달고 밀짚모자까지 눌러쓴 과잉 준비 차림으로 허둥지둥 따라붙는다. 티코 — 보리 배낭 위칸에서 고개만 내밀고 앞을 가리킴. 박사 — 뒤에서 손을 흔들며 배웅.<br/><b>배경·소품</b> 게이트의 빛에 날리는 종이들, 노아의 물통·모자·부채 꾸러미.<br/><b>톤</b> 민트빛 역광, 모험 출발의 두근거림 + 노아의 준비물 개그.</div>
+  <div class="text"><span class="sp">노아:</span> "사막은 물이 없단 말이야! 물통, 모자, 부채, 그리고…"<br/><span class="sp">보리:</span> "가자, 노아! 나머지는 가서 생각해!"<br/><span class="sp">봉수 박사:</span> "얘들아, 그 시대 사람들에게 늘 예의 바르게! 조심히 다녀오너라!"<br/><span class="sp">티코:</span> "출발! 좌표 — 고대 이집트, 기자의 사막!"</div>
+</div>
+
+<div class="divider">— B. 도착 · 이질감 (4~8쪽) —</div>
+
+<div class="page"><div class="pno">4쪽</div>
+  <div class="scene"><b>컷</b> 대형, 나선형 구도(시간 터널 공통 포맷).<br/><b>장소·시간</b> 시간 터널 내부 — 민트와 주황의 빛 리본이 나선을 그린다.<br/><b>인물</b> 셋이 낙하 중: 보리는 두 팔 만세에 함박웃음, 노아는 물통 꾸러미를 끌어안고 눈 질끈, 티코는 보리 품에서 카운트다운. 주위로 상형문자 기호(새·눈·물결 모양)와 미니 피라미드, 파피루스 조각들이 별처럼 흘러간다(이번 화 테마 암시).<br/><b>배경·소품</b> 빛 리본 사이로 스치는 황금 스카라베(풍뎅이 장식) 한 마리.<br/><b>톤</b> 환상적, 놀이기구 같은 신남.</div>
+  <div class="text"><span class="sp">보리:</span> "두 번째라 그런가, 이제 좀 익숙한데?"<br/><span class="sp">노아:</span> "난 하나도 안 익숙하거든?!"<br/><span class="sp">티코:</span> "도착까지 3, 2, 1… 이번엔 푹신한 모래 착지다!"</div>
+</div>
+
+<div class="page"><div class="pno">5쪽</div>
+  <div class="scene"><b>컷</b> 대형 와이드 스펙터클(이번 화 간판 컷). 높은 부감에서 공사장 전경을 훑고 중앙의 아이들에게 시선이 떨어지는 구도.<br/><b>장소·시간</b> 약 4600년 전 기자 고원, 쨍한 오전. 절반 높이까지 올라간 대피라미드 — 꼭대기가 평평하게 잘린 계단 모양 몸체에 흙 경사로가 비스듬히 붙어 있다. 경사로 위로 돌 썰매를 끄는 일꾼 행렬, 아래에는 천막촌과 채석장의 먼지, 원경에 반짝이는 나일강과 돌을 실은 바지선들.<br/><b>인물</b> 모래언덕 위의 두 아이 — 보리는 흰 리넨 원피스에 붉은 허리끈 차림을 내려다보며 빙그르 신기해하고, 노아는 리넨 튜닉의 어깨천을 어색하게 만지작. 보리 배낭에서 티코가 빼꼼.<br/><b>배경·소품</b> 이글거리는 태양, 야자수 몇 그루, 멀리 스핑크스 없이 공사 중인 고원(스핑크스는 아직 없음).<br/><b>톤</b> 밝고 압도적인 시대 스펙터클. 배경 디테일 최대치(학습 신뢰도 컷).</div>
+  <div class="text"><span class="sp">나레이션:</span> 눈을 뜨자, 산처럼 거대한 돌 건물이 반쯤 지어진 채 우뚝 서 있었어요.<br/><span class="sp">보리:</span> "저게 피라미드야?! 그런데 꼭대기가 없잖아!"<br/><span class="sp">노아:</span> "지금 한창 짓는 중인 거야. 우리… 진짜 4600년 전에 온 거구나."<br/><span class="sp">티코:</span> "(속닥) 오늘부터 나는 부적 인형이다. 무슨 일이 있어도… 인형."</div>
+</div>
+
+<div class="page"><div class="pno">6쪽</div>
+  <div class="scene"><b>컷</b> 중형 거리컷, 아이레벨.<br/><b>장소·시간</b> 공사장 옆 일꾼 마을의 골목, 점심때. 흙벽돌 집들 사이로 화덕 연기가 피어오른다.<br/><b>인물</b> 화덕 앞 아주머니가 갓 구운 넓적한 빵을 아이들에게 하나씩 건네고, 웃통을 벗은 일꾼들이 항아리 음료를 나눠 마시며 왁자하게 교대 중. 보리는 빵을 두 손으로 받아 한입 크게, 노아는 꾸벅 인사하며 받는다.<br/><b>배경·소품</b> 김이 오르는 빵 무더기, 큰 음료 항아리, 양파 꾸러미, 벽에 그려진 일꾼 팀의 낙서 그림.<br/><b>톤</b> 활기차고 따뜻한 생활의 냄새 — '노예가 아니라 자부심 넘치는 일꾼들'이 전해지는 컷.</div>
+  <div class="text"><span class="sp">일꾼:</span> "하하, 꼬마 손님들! 일이 끝나면 갓 구운 빵과 보리로 빚은 음료가 나온다네. 파라오의 무덤을 짓는 건 아주 자랑스러운 일이거든!"<br/><span class="sp">보리:</span> "보리로 빚은 음료래! 내 이름이랑 똑같네!"<br/><span class="sp">노아:</span> "책에서 봤는데… 피라미드를 지은 사람들은 노예가 아니라, 품삯을 받고 일한 일꾼들이었대. 진짜였구나!"</div>
+</div>
+
+<div class="page"><div class="pno">7쪽</div>
+  <div class="scene"><b>컷</b> 대형 관찰 액션컷, 로우앵글(돌덩이의 거대함 강조).<br/><b>장소·시간</b> 공사장 운반로, 한낮.<br/><b>인물</b> 거대한 돌덩이를 실은 나무 썰매를 수십 명의 일꾼이 밧줄로 당긴다. 썰매 맨 앞의 일꾼 하나가 항아리를 기울여 모래 위에 물을 좌악 — 젖어 색이 짙어진 모래 위로 썰매가 미끄러진다. 전경에서 보리가 눈을 반짝이며 뛰어들려는 걸 노아가 옷자락을 잡아 말린다.<br/><b>배경·소품</b> 팽팽한 밧줄들, 물 항아리, 썰매 지나간 자국, 구령에 맞춰 벌어진 일꾼들의 입.<br/><b>톤</b> 기술 스펙터클 — 땀과 지혜가 함께 반짝이는 컷.</div><!-- 고증 확인 필요: '모래에 물 붓기' 운반법의 벽화 증거(제후티호테프 무덤)는 쿠푸보다 후대인 중왕국 시대. 2014년 물리 실험으로 원리는 입증 — 쿠푸 시대 적용은 합리적 추정으로 연출 -->
+  <div class="text"><span class="sp">보리:</span> "저것 봐! 모래에 물을 부으니까 저 무거운 돌이 스르륵 미끄러져!"<br/><span class="sp">일꾼:</span> "영차— 젖은 모래는 마른 모래보다 훨씬 미끄럽거든! 자, 당겨라—!"<br/><span class="sp">노아:</span> "기계가 없던 게 아니라… 지혜가 있었던 거구나."</div>
+</div>
+
+<div class="page"><div class="pno">8쪽</div>
+  <div class="scene"><b>컷</b> 중형, 상하 2요소 구성(단서 겹침 포맷).<br/><b>장소·시간</b> 공사장 가장자리 물 긷는 길, 오후.<br/><b>인물</b> 상단 — 보리 배낭 속 티코의 눈에서 민트색 레이더 동심원이 퍼져, 피라미드의 북동쪽 모퉁이 방향을 가리킨다. 하단 전경 — 물 항아리를 어깨에 진 일꾼 둘이 심각한 얼굴로 수군수군, 한 명은 손을 내저으며 몸서리치는 손짓. 아이들이 그 뒤를 슬쩍 지나가며 귀를 기울인다.<br/><b>배경·소품</b> 물 항아리, 저 멀리 북동쪽 모퉁이에 멈춰 선 일꾼들의 작은 실루엣.<br/><b>톤</b> 단서 두 개(신호 방향 + 수상한 설계도 소문)가 한 컷에 겹치는 구성.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 삐빅! 부품 신호는 피라미드의 북동쪽 모퉁이 쪽이다!"<br/><span class="sp">일꾼 1:</span> "들었나? 북동쪽 모퉁이 돌이 자꾸만 어긋난다지."<br/><span class="sp">일꾼 2:</span> "설계도가 수상하다던데. 저주받은 설계도라고 다들 수군거리더군."<br/><span class="sp">노아:</span> "수상한 설계도…? 보리야, 가 보자."</div>
+</div>
+
+<div class="divider">— C. 문제 발견 (9~15쪽) —</div>
+
+<div class="page"><div class="pno">9쪽</div>
+  <div class="scene"><b>컷</b> 대형, 하이앵글(어긋난 돌줄이 한눈에 보이도록).<br/><b>장소·시간</b> 피라미드 북동쪽 모퉁이, 새로 쌓는 층의 작업 구역. 오후의 긴 그림자.<br/><b>인물</b> 새로 놓인 돌 한 줄이 기준선에서 비스듬히 꺾여 있고, 일꾼들이 일손을 놓고 웅성거린다. 공사 감독(단역 — 가죽 허리띠에 막대를 꽂은 중년, 화났다기보다 곤란한 얼굴)이 머리를 긁적이며 한숨. 전경 구석 — 밧줄 뭉치를 끌어안고 고개를 푹 숙인 소년 테티(옆머리 타래, 흰 킬트), 눈에 눈물이 그렁.<br/><b>배경·소품</b> 비뚤어진 돌줄 vs 곧게 뻗은 기존 돌줄의 대비(점선 시각화), 박아 둔 말뚝들.<br/><b>톤</b> 소동의 술렁임 + 소년의 측은함. 감독은 무섭지 않게.</div>
+  <div class="text"><span class="sp">감독:</span> "또 어긋났구나! 이 줄을 따라 쌓으면 피라미드 전체가 삐뚤어진다. 오늘 작업은 여기까지!"<br/><span class="sp">테티:</span> "죄, 죄송해요… 분명 설계도대로 쟀는데…"<br/><span class="sp">보리:</span> "(속닥) 노아야, 저 애 좀 봐. 우리랑 나이도 비슷해 보이는데."</div>
+</div>
+
+<div class="page"><div class="pno">10쪽</div>
+  <div class="scene"><b>컷</b> 중형, 아이레벨 삼각 구도(첫 친교 컷).<br/><b>장소·시간</b> 작업 구역 옆 돌무더기 그늘, 해가 기우는 오후.<br/><b>인물</b> 보리가 물통을 내밀며 테티 옆에 쪼그려 앉고, 테티는 눈물을 훔치다 얼떨결에 물통을 받는다. 노아는 맞은편에 앉아 고개를 끄덕이며 듣는 자세. 보리 배낭 틈에서 티코가 인형인 척 뻣뻣하게 고개만 내밀고 있다.<br/><b>배경·소품</b> 테티가 끌어안은 매듭 밧줄 뭉치, 그늘을 만드는 큰 돌덩이, 흩어진 측량 말뚝.<br/><b>톤</b> 따뜻한 주황 그늘빛, 마음이 열리는 순간.</div>
+  <div class="text"><span class="sp">보리:</span> "자, 물 마셔. 아까 다 봤어. 무슨 일이야?"<br/><span class="sp">테티:</span> "고마워… 난 테티. 왕실 측량사인 카이 할아버지의 견습생이야. 할아버지가 다리를 다치셔서 모퉁이에 금 긋는 일을 내가 맡았는데… 자꾸만 삐뚤어져."<br/><span class="sp">노아:</span> "측량사? 금을 긋는 사람?"<br/><span class="sp">테티:</span> "돌을 쌓기 전에, 밧줄로 반듯한 기준선을 긋는 사람이야. 이 공사에서 제일 처음이자 제일 중요한 일이지."</div>
+</div>
+
+<div class="page"><div class="pno">11쪽</div>
+  <div class="scene"><b>컷</b> 중형, 천막 안 — 탁자 위 설계도로 시선이 모이는 구도.<br/><b>장소·시간</b> 공사장의 설계도 천막 안, 늦은 오후. 천막 틈으로 비스듬한 빛줄기.<br/><b>인물</b> 낮은 나무 탁자에 펼쳐진 파피루스 설계도 — 커다란 정사각형 도면과 상형 숫자들. 테티가 손가락으로 모퉁이 부분을 짚으며 설명하고, 보리와 노아가 양옆에서 머리를 맞대고 들여다본다. 천막 밖으로 수군거리는 일꾼들의 실루엣이 비친다.<br/><b>배경·소품</b> 둘둘 말린 파피루스 두루마리들, 갈대 펜과 잉크 접시, 문진 돌.<br/><b>톤</b> 미스터리 제시 컷 — '설계도의 누명'이 시작되는 장면.</div><!-- 고증 확인 필요: 고왕국 시대 파피루스 건축 도면의 실물 증거는 드묾(현존 도면은 대부분 후대) — 아동만화용 단순화 연출 -->
+  <div class="text"><span class="sp">테티:</span> "이게 그 설계도야. 피라미드 밑바닥은 네 변의 길이가 똑같은 <b>정사각형</b>이어야 해. 그런데 내가 재기만 하면 모퉁이가 휘어."<br/><span class="sp">일꾼(천막 밖):</span> "저 설계도가 수상한 게 분명해…"<br/><span class="sp">보리:</span> "내가 보기엔 설계도는 멀쩡한데? 뭔가 다른 게 이상한 거 아냐?"</div>
+</div>
+
+<div class="page"><div class="pno">12쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업 2단(발견 컷).<br/><b>장소·시간</b> 같은 천막 안. 테티가 두루마리를 한 아름 안고 잠깐 천막 밖으로 나간 사이(과거인 시야 밖 — 룰4).<br/><b>인물</b> 상단 — 배낭 틈 티코의 눈이 빠르게 깜빡이며 민트 동심원이 최대로 퍼진다(신호 초근접). 하단(마크로 클로즈업) — 탁자 옆에 걸어 둔 테티의 측량 밧줄: 가지런한 매듭들 사이, 한가운데쯤에 단단히 묶인 <b>둥근 구슬 하나가 민트빛으로 은은하게 빛난다</b>(티코의 부품!). 구슬을 발견한 보리·노아의 커진 눈이 반사 하이라이트로 함께 잡힌다.<br/><b>배경·소품</b> 밧줄의 꼼꼼한 매듭들, 구슬의 빛이 밧줄 올에 스미는 표현.<br/><b>톤</b> 아이들만 아는 비밀의 반짝임.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 삐빅삐빅! 신호가 바로 눈앞이다! 저 밧줄… 매듭 사이의 구슬, 저게 내 부품이야!"<br/><span class="sp">노아:</span> "(속닥) 정말이야, 은은하게 빛나고 있어…"<br/><span class="sp">보리:</span> "(속닥) 그런데 남의 밧줄에 꽁꽁 묶여 있잖아. 어떡하지?"</div>
+</div>
+
+<div class="page"><div class="pno">13쪽</div>
+  <div class="scene"><b>컷</b> 중형 + 회상 인셋(둥근 구름 프레임).<br/><b>장소·시간</b> 천막 앞, 노을이 시작되는 시각.<br/><b>인물</b> 테티가 밧줄의 구슬을 두 손으로 소중히 감싸 쥐고 이야기한다(눈빛이 자랑스러움 반, 그리움 반). 화면 위 구름 인셋 — 젊은 시절의 카이가 사막 모래 속에서 반짝이는 구슬을 주워 드는 회상 장면(석양의 사막, 놀란 젊은 카이). 아이들은 조용히 눈빛을 주고받는다.<br/><b>배경·소품</b> 밧줄 한가운데의 구슬, 인셋 속 젊은 카이의 측량 말뚝.<br/><b>톤</b> 부품에 사연이 실리는 컷 — 함부로 가져갈 수 없는 물건이 된다.</div>
+  <div class="text"><span class="sp">테티:</span> "이 구슬? 우리 할아버지의 행운 부적이야. 아주 옛날 사막 모래 속에서 주우셨대. '하늘이 떨어뜨린 별'이라고 부르셔."<br/><span class="sp">보리:</span> "(속닥) 하늘이 아니라… 시간 너머에서 떨어진 건데."<br/><span class="sp">노아:</span> "(속닥) 함부로 달라고 할 순 없어. 먼저 테티의 문제를 돕자. 부품은 그다음이야."</div>
+</div>
+
+<div class="page"><div class="pno">14쪽</div>
+  <div class="scene"><b>컷</b> 중형, 오두막 실내의 따뜻한 정물 구도.<br/><b>장소·시간</b> 일꾼 마을의 흙벽돌 오두막 안, 저녁 등잔불.<br/><b>인물</b> 갈대 돗자리에 앉은 카이 할아버지 — 오른 다리에 나무 부목과 붕대, 곁에 목발. 테티가 그 손을 꼭 잡고 있고, 아이들은 문가에서 공손히 인사하는 자세. 카이는 온화하게 웃지만 눈썹에는 근심.<br/><b>배경·소품</b> 등잔불, 벽에 걸린 여분 밧줄과 측량 말뚝들, 물 항아리, 문밖으로 보이는 보랏빛 저녁 하늘.<br/><b>톤</b> 따뜻함과 근심이 반반 — 데드라인이 제시되는 컷.</div>
+  <div class="text"><span class="sp">카이:</span> "허허, 손님들이구나. 테티를 도와준다니 고맙다. …실은 내일 아침, 총감독 헤미우누 님이 모퉁이를 검사하러 오신단다."<br/><span class="sp">테티:</span> "내일 아침까지 모퉁이를 바로잡지 못하면, 이 층 공사가 전부 멈춰요."<br/><span class="sp">보리:</span> "내일 아침이라고?!"</div>
+</div>
+
+<div class="page"><div class="pno">15쪽</div>
+  <div class="scene"><b>컷</b> 중형 원경, 프레임 인 프레임(천막 사이로 올려다보는 시점).<br/><b>장소·시간</b> 공사장 높은 감독단(돌로 쌓은 단), 해 질 녘 역광.<br/><b>인물</b> 단 위 — 헤미우누(당당한 풍채, 어깨를 덮는 넓은 구슬 목걸이, 긴 지팡이)가 감독들에게 지시를 내리는 모습. 역광 속에서도 위엄이 느껴지되 표정은 진중할 뿐 무섭지 않게. 전경 하단 — 천막 틈으로 올려다보는 세 아이(테티 포함)의 뒷모습 실루엣.<br/><b>배경·소품</b> 감독단의 깃발, 지는 해에 물든 피라미드의 계단 실루엣.<br/><b>톤</b> 위엄의 원경 + 데드라인의 무게.</div><!-- 고증 확인 필요: 헤미우누가 재상 겸 공사 총책임자였던 것은 통설이나, 현장 검사 일화 자체는 픽션 -->
+  <div class="text"><span class="sp">나레이션:</span> 총감독 헤미우누는 파라오 쿠푸의 피라미드 공사를 처음부터 이끌어 온 사람이에요.<br/><span class="sp">헤미우누(멀리):</span> "피라미드는 파라오의 천 년 집이다. 돌 하나의 어긋남도 그냥 지나치지 않는다."<br/><span class="sp">테티:</span> "…무서운 분이 아니라, 누구보다 <b>공정한</b> 분이야. 그래서 더 떨려."<br/><span class="sp">보리:</span> "좋아. 그럼 오늘 밤 안에 원인을 찾자!"</div>
+</div>
+
+<div class="divider">— D. 시도 → 실패 → 힌트 (16~25쪽) —</div>
+
+<div class="page"><div class="pno">16쪽</div>
+  <div class="scene"><b>컷</b> 중형 개그컷, 하이앵글(삐뚤빼뚤한 궤적이 한눈에).<br/><b>장소·시간</b> 북동쪽 모퉁이 작업 구역, 해 질 녘.<br/><b>인물</b> 보리가 긴 막대를 양손에 쥐고 혀를 살짝 내민 채 모래 바닥에 호기롭게 금을 긋는 중 — 등 뒤로 이어진 궤적이 점점 크게 휘어 있다. 노아가 두 팔을 휘저으며 말리는 자세, 테티는 휜 금을 눈으로 따라가며 어리둥절, 배낭 속 티코의 눈은 X자.<br/><b>배경·소품</b> 삐뚤빼뚤한 금, 기준 돌줄, 굴러다니는 측량 말뚝.<br/><b>톤</b> 슬랩스틱 — 보리식 돌진의 유쾌한 실패.</div>
+  <div class="text"><span class="sp">보리:</span> "복잡하게 잴 거 없어! 내 눈은 정확하다고. 생각은 뛰면서 해!"<br/><span class="sp">노아:</span> "잠깐, 잠깐만! 눈대중은 테티도 벌써 해 봤을 거 아냐!"<br/><span class="sp">테티:</span> "어…? 금이 점점 강 쪽으로 도망가는데…"</div>
+</div>
+
+<div class="page"><div class="pno">17쪽</div>
+  <div class="scene"><b>컷</b> 중형, 실패 확인 컷 — 점선 시각화 활용.<br/><b>장소·시간</b> 같은 자리, 어스름.<br/><b>인물</b> 보리가 그은 금을 따라 시험 삼아 놓아 본 작은 돌 두 개가 기준 돌줄과 눈에 띄게 벌어져 있다(벌어진 간격을 만화적 점선과 화살표로 강조). 보리는 머쓱하게 뒤통수를 긁고, 테티는 시무룩. 노아는 위로 갈수록 벌어지는 모양을 손짓으로 그려 보인다. 배낭 속 티코가 (속닥) 정정 개그.<br/><b>배경·소품</b> 기준 돌줄과 시험 돌의 어긋난 각도, 저물어 가는 하늘.<br/><b>톤</b> 웃음 끝에 문제의 무게가 실리는 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 내 데이터에 의하면 이 정도 어긋남은 아무 문제 없— 삐빅, 정정. 이대로 쌓으면 꼭대기가 몇 미터나 어긋난다."<br/><span class="sp">보리:</span> "몇 미터?! 아래에선 요만큼 삐뚤었을 뿐인데?"<br/><span class="sp">노아:</span> "밑에서 조금만 틀어져도, 위로 올라갈수록 점점 크게 벌어지는 거야."</div>
+</div>
+
+<div class="page"><div class="pno">18쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출(시리즈 공통 포맷 ①).<br/><b>장소·시간</b> 설계도 천막 안, 밤. 테티는 할아버지 저녁을 챙기러 잠시 자리를 비웠다(과거인 시야 밖 — 룰4).<br/><b>인물</b> 티코의 눈에서 빔이 나와 공중에 민트색 홀로그램 카드가 떠오른다. 카드 안: 피라미드 입체 미니어처 — 정사각형 밑면에서 네 모서리 선이 꼭대기 한 점으로 모이는 모습, 네 모퉁이의 직각이 반짝 강조. 카드 빛이 올려다보는 두 아이의 얼굴을 민트색으로 물들인다.<br/><b>배경·소품</b> 어두운 천막, 탁자의 설계도, 등잔불 하나.<br/><b>톤</b> 티코피디아 시그니처 연출.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아, 스캔 시작! 피라미드는 네 변이 똑같은 <b>정사각형</b> 밑바닥에서 시작해, 네 모서리가 꼭대기 한 점에서 만나는 건물이다. 그래서 밑바닥의 네 모퉁이는 반드시 반듯한 <b>직각</b>이어야 하지."<br/><span class="sp">보리:</span> "직각? 그게 뭔데?"<br/><span class="sp">노아:</span> "책 모서리처럼 반듯하게 꺾인 각이야. 문제는… 이 넓은 모래밭에서 어떻게 정확한 직각을 긋느냐는 거지."</div>
+</div>
+
+<div class="page"><div class="pno">19쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷(러닝 개그 포맷).<br/><b>장소·시간</b> 천막 안, 밤.<br/><b>인물</b> 노아의 손목 통신기에서 봉수 박사의 홀로그램 얼굴 — 가로 노이즈가 지나가며 얼굴이 지지직 뭉개지는 순간. 보리가 통신기를 붙잡고 마구 흔들고, 노아는 천막 밖으로 팔을 뻗어 안테나 자세, 티코는 시큰둥하게 반쯤 감긴 눈.<br/><b>배경·소품</b> 글리치 노이즈 라인, 튀는 픽셀 조각들.<br/><b>톤</b> 시리즈 러닝 개그 — 결정적 순간의 통신 두절.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "허허, 그건 말이다— 이집트 사람들은 밧줄에 매듭을 지어서… 셋과 넷과 다… 치지직—"<br/><span class="sp">보리:</span> "할아버지! 셋과 넷과 뭐요?! 뭐냐고요!"<br/><span class="sp">티코:</span> "통신 두절. …이번에도 우리끼리 해결하라는 뜻이군."</div>
+</div>
+
+<div class="page"><div class="pno">20쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업 2단 — 탐정 무드(시리즈 추리 포맷).<br/><b>장소·시간</b> 이튿날 이른 새벽이 아닌 그날 밤, 천막 앞 횃불 아래. 테티가 돌아와 밧줄을 모래 위에 곧게 펴 놓았다.<br/><b>인물</b> 상단(마크로) — 팽팽히 펴 놓은 측량 밧줄: 가지런한 매듭들 가운데 <b>한 칸만 유난히 넓고</b>, 그 매듭 하나만 모양이 어설프고 보풀이 일어나 있다(풀렸다 다시 묶인 흔적). 하단 — 그것을 들여다보는 노아의 얼굴 클로즈업: 안경알에 밧줄이 반사되고 눈이 번뜩인다. 배경은 비네팅으로 어둡게.<br/><b>배경·소품</b> 횃불빛에 늘어선 매듭들의 그림자, 넓은 한 칸을 강조하는 화살표 기호.<br/><b>톤</b> 셜록 스타일 추리 연출 — 이번 화의 결정적 관찰.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만…! 테티, 이 밧줄 좀 봐. 매듭과 매듭 사이는 전부 똑같아야 하는 거 아냐?"<br/><span class="sp">테티:</span> "응. 똑같은 길이로 나눈 열두 칸이어야 해."<br/><span class="sp">노아:</span> "그런데 이 칸만 다른 칸보다 길어. 그리고 이 매듭… 한 번 풀렸다가 다시 묶인 자국이야!"</div>
+</div>
+
+<div class="page"><div class="pno">21쪽</div>
+  <div class="scene"><b>컷</b> 중형, 감정 컷 — 인물 중심의 조용한 구도.<br/><b>장소·시간</b> 횃불 옆 돌무더기 그늘, 밤.<br/><b>인물</b> 테티가 고개를 푹 숙이고 두 주먹을 꼭 쥔 채 고백한다. 보리가 테티의 어깨에 손을 얹고, 노아는 밧줄을 무릎에 올린 채 부드럽게 고개를 끄덕인다. 셋 사이에 놓인 밧줄의 어설픈 매듭이 화면 중앙 하단.<br/><b>배경·소품</b> 흔들리는 횃불 그림자, 밤하늘의 별.<br/><b>톤</b> 잘못을 털어놓는 용기 — 이번 화의 감정 축.</div>
+  <div class="text"><span class="sp">테티:</span> "…미안해. 며칠 전에 짐수레 바퀴에 밧줄이 깔려서 매듭 하나가 풀렸어. 할아버지가 걱정하실까 봐, 말도 못 하고 혼자 다시 묶었는데…"<br/><span class="sp">보리:</span> "그 매듭이 엉뚱한 자리에 묶였던 거구나! 그럼 수상한 건 설계도가 아니라—"<br/><span class="sp">노아:</span> "이 밧줄이었어. 설계도는 처음부터 아무 잘못이 없었던 거야."</div>
+</div>
+
+<div class="page"><div class="pno">22쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ②(이번 화 핵심 지식).<br/><b>장소·시간</b> 천막 안, 밤. 테티는 이 소식을 카이에게 알리러 달려간 사이(과거인 시야 밖 — 룰4).<br/><b>인물</b> 티코의 홀로그램 카드: 열두 칸 매듭 밧줄이 말뚝 세 개에 걸려 <b>세 칸·네 칸·다섯 칸의 삼각형</b>으로 팽팽하게 당겨진 도해 — 세 칸 변과 네 칸 변이 만나는 모서리의 직각이 반짝 강조된다. 카드를 올려다보는 보리(입이 떡)와 노아(주먹을 탁).<br/><b>배경·소품</b> 등잔불, 실제 밧줄이 탁자 위에 함께 놓여 도해와 짝을 이룬다.<br/><b>톤</b> '지식이 그림이 되는' 이번 화 최중요 학습 컷.</div><!-- 고증 확인 필요: 밧줄 측량(코드 스트레칭 의식)은 고왕국부터 기록. 12칸 매듭 밧줄의 3·4·5 직각 활용은 교육 자료의 표준 서술이나 직접적 고고학 증거는 제한적 — 통설로 연출 -->
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 이집트 측량사의 비법 — <b>열두 칸 매듭 밧줄</b>이다. 세 칸, 네 칸, 다섯 칸으로 나눠 삼각형을 만들면, 세 칸과 네 칸이 만나는 모서리는 <b>언제나 정확한 직각</b>이 되지."<br/><span class="sp">보리:</span> "할아버지가 말한 '셋과 넷과 다…'는 다섯이었구나!"<br/><span class="sp">노아:</span> "그래서 매듭 한 칸이 어긋나면 삼각형이 일그러져서 직각도 무너졌던 거야. 밧줄부터 고치자!"</div>
+</div>
+
+<div class="page"><div class="pno">23쪽</div>
+  <div class="scene"><b>컷</b> 중형, 3분할 협동 몽타주.<br/><b>장소·시간</b> 천막 앞 모래마당, 밤. 횃불 두 개.<br/><b>인물</b> ①왼쪽 — 노아가 올바른 매듭 한 칸의 길이를 곧은 막대에 표시해 '기준 자'를 만든다. ②가운데 — 테티가 그 막대를 대 가며 한 칸씩 재어 매듭 자리를 잡고 야무지게 묶는다. ③오른쪽 — 보리가 밧줄 끝을 발로 버티고 양손으로 당겨 팽팽하게 유지, 이마에 땀방울. 티코는 배낭에서 눈만 좌우로 굴리며 망보기.<br/><b>배경·소품</b> 기준 막대, 매듭이 하나씩 늘어 가는 밧줄, 횃불빛의 그림자 셋.<br/><b>톤</b> 손발이 맞아 가는 협동의 리듬감.</div>
+  <div class="text"><span class="sp">나레이션:</span> 세 아이는 밤이 깊도록 매듭을 하나하나 다시 묶었어요.<br/><span class="sp">노아:</span> "이 막대가 기준이야. 한 칸, 한 칸, 전부 똑같은 길이로!"<br/><span class="sp">테티:</span> "측량사는 서두르지 않는다 — 할아버지가 늘 하시던 말씀이야."<br/><span class="sp">보리:</span> "좋아, 마지막 매듭… 꽉!"</div>
+</div>
+
+<div class="page"><div class="pno">24쪽</div>
+  <div class="scene"><b>컷</b> 대형, 달빛 로우앵글(이번 화 두 번째 간판 컷).<br/><b>장소·시간</b> 모래마당, 보름달과 횃불 아래 깊은 밤.<br/><b>인물</b> 말뚝 세 개에 걸려 팽팽하게 당겨진 밧줄이 완벽한 3·4·5 삼각형을 이루고, 직각 모서리가 화면 앞쪽에 크게 온다. 테티가 밧줄을 당겨 쥔 채 상기된 얼굴로 서 있고, 보리는 두 팔 만세, 노아는 무릎을 꿇고 모서리를 확인 중. 뒤편 — 목발을 짚은 카이가 어느새 다가와 달빛 속에서 흐뭇하게 지켜본다.<br/><b>배경·소품</b> 팽팽한 밧줄의 긴장감, 모래 위 삼각형의 그림자, 큰 보름달.<br/><b>톤</b> 달빛과 횃불이 섞인 성취의 컷 — 조용한 감동.</div>
+  <div class="text"><span class="sp">테티:</span> "됐어… 반듯한 직각이야!"<br/><span class="sp">카이:</span> "허허, 그 매듭을 네 손으로 되살렸구나. 테티야, 제 잘못을 말할 줄 아는 것이 측량사의 첫째 덕목이란다."<br/><span class="sp">테티:</span> "할아버지…! 죄송해요. 그리고 이 친구들이 찾아 줬어요."</div>
+</div>
+
+<div class="page"><div class="pno">25쪽</div>
+  <div class="scene"><b>컷</b> 중형, 고요한 전야 컷.<br/><b>장소·시간</b> 사그라드는 모닥불 가, 깊은 밤.<br/><b>인물</b> 테티는 밧줄을 끌어안은 채 잠들었고, 카이가 그 위에 리넨 천을 덮어 준다. 화면 구석 — 보리·노아·티코가 머리를 맞대고 속닥 회의: 티코 가슴 코어의 배터리 표시가 40%에서 노랗게 점멸한다(클로즈업 인셋).<br/><b>배경·소품</b> 모닥불 잉걸, 잠든 테티의 평온한 얼굴, 별이 쏟아지는 사막 밤하늘.<br/><b>톤</b> 결전 전야의 고요함 + 배터리 긴장 한 스푼(룰2).</div>
+  <div class="text"><span class="sp">티코:</span> "(속닥) 배터리 40%. 내일 아침 검사가 끝나면 곧장 시간의 문을 열어야 해. 배터리 아껴, 인간들!"<br/><span class="sp">노아:</span> "(속닥) 부품 이야기는… 검사가 잘 끝난 다음에 여쭤 보자."<br/><span class="sp">보리:</span> "(속닥) 응. 먼저 테티가 웃는 얼굴부터 봐야지."</div>
+</div>
+
+<div class="divider">— E. 해결 · 회수 · 귀환 (26~33쪽) —</div>
+
+<div class="page"><div class="pno">26쪽</div>
+  <div class="scene"><b>컷</b> 대형, 좌우 대치 구도(검사의 정적).<br/><b>장소·시간</b> 이튿날 이른 아침, 북동쪽 모퉁이. 낮게 뜬 해가 긴 그림자를 깐다.<br/><b>인물</b> 화면 왼쪽 — 헤미우누가 감독들을 거느리고 도착: 긴 지팡이를 짚고 진중하게 내려다본다(위엄, 그러나 험악하지 않게). 오른쪽 — 밧줄을 두 손으로 받쳐 든 테티가 앞으로 나선다: 다리는 살짝 떨리지만 눈은 또렷. 그 뒤로 말뚝을 안은 보리와 노아(조수 위치). 일꾼들이 멀찍이 빙 둘러 숨죽이고 지켜본다.<br/><b>배경·소품</b> 아침 안개가 걷히는 피라미드 몸체, 헤미우누 일행의 깃발.<br/><b>톤</b> 손에 땀을 쥐는 정적 — 시대의 어른과 소년의 대면.</div>
+  <div class="text"><span class="sp">헤미우누:</span> "네가 카이의 손자로구나. 오늘은 네가 모퉁이를 긋는다 들었다."<br/><span class="sp">테티:</span> "네! 지금 보여 드리겠습니다."<br/><span class="sp">보리:</span> "(속닥) 테티, 연습한 대로만 하면 돼!"</div>
+</div>
+
+<div class="page"><div class="pno">27쪽</div>
+  <div class="scene"><b>컷</b> 대형 부감(시연의 전모가 한눈에 보이는 앵글).<br/><b>장소·시간</b> 모퉁이 기준점, 아침 햇살.<br/><b>인물</b> 모래 위 — 박힌 말뚝 세 개에 밧줄이 팽팽히 걸려 3·4·5 삼각형이 완성되는 순간. 테티가 마지막 밧줄을 힘껏 당겨 고정하고, 보리와 노아가 각자 말뚝을 두 손으로 꽉 누르고 있다. 직각 모서리에서 두 기준선이 점선으로 쭉 뻗어 기존 돌줄과 정확히 겹쳐진다(시각화). 헤미우누가 몸을 굽혀 모서리를 지그시 확인한다.<br/><b>배경·소품</b> 팽팽한 밧줄에 맺힌 아침 빛, 곧게 뻗은 점선 기준선.<br/><b>톤</b> 정밀함이 아름다워 보이는 컷.</div>
+  <div class="text"><span class="sp">테티:</span> "세 칸, 네 칸, 다섯 칸! 이 모서리가 직각입니다!"<br/><span class="sp">나레이션:</span> 팽팽하게 당겨진 밧줄이 아침 햇살에 반짝였어요.<br/><span class="sp">헤미우누:</span> "…흠."</div>
+</div>
+
+<div class="page"><div class="pno">28쪽</div>
+  <div class="scene"><b>컷</b> 중형, 검증 → 환호의 전환 컷.<br/><b>장소·시간</b> 같은 자리, 아침.<br/><b>인물</b> 헤미우누의 지시로 일꾼 둘이 모퉁이 기준 사각형의 두 대각선에 각각 밧줄을 대어 길이를 비교한다 — 나란히 놓인 두 밧줄의 길이가 정확히 같음을 강조(반짝 효과). 헤미우누가 천천히 고개를 끄덕이며 옅은 미소. 그 순간 일꾼들이 두 팔을 번쩍 들며 환호, 감독은 가슴을 쓸어내리고, 테티는 울 것 같은 웃음.<br/><b>배경·소품</b> 나란한 두 검증 밧줄, 던져 올린 밀짚모자 하나.<br/><b>톤</b> 긴장이 한 번에 풀리는 해방감.</div><!-- 고증 확인 필요: 대각선 길이 비교로 정사각형을 검증하는 구체 절차는 재구성 — 기자 피라미드 밑면의 실측 정밀도로 보아 유사한 검증이 있었으리라는 추정 -->
+  <div class="text"><span class="sp">헤미우누:</span> "두 대각선의 길이가 똑같다 — 반듯한 사각형이라는 증거다. 모퉁이가 바로 섰다. <b>공사를 계속하라!</b>"<br/><span class="sp">일꾼들:</span> "와아아—!"<br/><span class="sp">보리:</span> "해냈어! 테티가 해냈어!"</div>
+</div>
+
+<div class="page"><div class="pno">29쪽</div>
+  <div class="scene"><b>컷</b> 중형, 따뜻한 눈높이 컷.<br/><b>장소·시간</b> 환호가 잦아든 모퉁이, 아침.<br/><b>인물</b> 헤미우누가 몸을 굽혀 테티와 눈높이를 맞추고 어깨에 큼직한 손을 얹는다. 테티는 눈물이 그렁한 채 씩씩하게 대답. 뒤편 — 보리와 노아가 슬쩍 물러나 서로 마주 보며 씩 웃는다(이름 없는 조력자 프레임 — 룰3).<br/><b>배경·소품</b> 다시 움직이기 시작한 일꾼들과 썰매, 아침의 활기.<br/><b>톤</b> 세대에서 세대로 이어지는 장인의 온기.</div>
+  <div class="text"><span class="sp">헤미우누:</span> "무엇이 잘못이었는지 어찌 알아냈느냐."<br/><span class="sp">테티:</span> "제가 매듭을 잘못 묶었습니다. 숨기지 않고 말씀드립니다. …그리고 지나가던 친구들이 찾아 주었습니다."<br/><span class="sp">헤미우누:</span> "제 잘못을 똑바로 말하는 자가 좋은 측량사가 된다. 카이가 너를 자랑스러워하겠구나."<br/><span class="sp">나레이션:</span> 아이들은 이름을 남기지 않고, 뒤에서 조용히 웃기만 했답니다.</div>
+</div>
+
+<div class="page"><div class="pno">30쪽</div>
+  <div class="scene"><b>컷</b> 중형, 증정 컷(1화 32쪽 대응 포맷).<br/><b>장소·시간</b> 오두막 앞, 눈부신 오전.<br/><b>인물</b> 카이가 밧줄에서 풀어낸 구슬(민트빛으로 은은히 빛남)을 보리의 두 손 위에 살며시 얹어 준다 — 보리는 공손히 두 손을 모아 받고, 노아는 옆에서 꾸벅. 테티가 곁에서 방긋 끄덕이고, 배낭 속 티코의 눈이 하트 모양으로 변해 있다(과거인들 시선은 구슬에 — 티코는 배낭 그늘 속).<br/><b>배경·소품</b> 매듭이 온전해진 측량 밧줄(테티의 어깨에), 오두막 문가의 아침 빛.<br/><b>톤</b> 부품 회수의 순간을 따뜻한 선물로.</div>
+  <div class="text"><span class="sp">카이:</span> "이 '하늘의 별' 말이다 — 너희가 온 뒤로 자꾸만 반짝이더구나. 임자를 만난 게지. 가져가거라."<br/><span class="sp">보리:</span> "정말… 저희가 가져도 돼요?"<br/><span class="sp">카이:</span> "허허, 우리의 행운은 이제 이 반듯한 밧줄과 테티면 충분하단다."</div>
+</div>
+
+<div class="page"><div class="pno">31쪽</div>
+  <div class="scene"><b>컷</b> 중형, 작별 준비 컷 + 배터리 카운트다운.<br/><b>장소·시간</b> 마을 어귀 모래언덕 아래, 해가 기우는 오후.<br/><b>인물</b> 테티가 파피루스 조각을 수줍게 내민다 — 조각에는 세 아이와 피라미드를 그린 서툴고 귀여운 그림. 보리가 두 손으로 받아 가슴에 꼭. 노아는 코끝이 찡한 표정. 인셋 — 배낭 속 티코 가슴 코어의 배터리 표시가 15%에서 빨갛게 점멸.<br/><b>배경·소품</b> 파피루스 그림(글자 없이 그림만), 길게 늘어진 세 아이의 그림자.<br/><b>톤</b> 아쉬움과 째깍거리는 카운트다운의 겹침.</div>
+  <div class="text"><span class="sp">테티:</span> "이거, 내가 그린 그림이야. 피라미드가 다 지어지면… 너희가 어디에 있든 보였으면 좋겠어."<br/><span class="sp">티코:</span> "(속닥) 배터리 15%! 감동은 3초 안에 끝내, 인간들!"<br/><span class="sp">보리:</span> "테티! 넌 분명 최고의 측량사가 될 거야!"</div>
+</div>
+
+<div class="page"><div class="pno">32쪽</div>
+  <div class="scene"><b>컷</b> 대형 이별 와이드(여운 컷).<br/><b>장소·시간</b> 노을 지는 사막, 모래언덕 뒤.<br/><b>인물</b> 모래언덕 그늘에 열린 민트색 소용돌이 게이트로 뛰어드는 두 아이의 실루엣(보리가 노아 손을 잡아끄는 동세). 멀리 언덕 위 — 테티가 측량 밧줄을 높이 쳐들고 크게 흔들며 배웅, 그 곁에 목발을 짚은 카이. 원경에 반쯤 지어진 피라미드의 실루엣이 노을에 물든다.<br/><b>배경·소품</b> 주황→보라 그라데이션 하늘, 게이트 빛이 모래에 뿌리는 민트 반사광.<br/><b>톤</b> 파스텔 노을의 긴 여운.</div>
+  <div class="text"><span class="sp">나레이션:</span> 아이들은 노을이 지는 사막에서 시간의 문을 열었어요.<br/><span class="sp">노아:</span> "테티라면 분명 훌륭한 측량사가 될 거야."<br/><span class="sp">보리:</span> "다음에 만나면, 다 지어진 피라미드를 보여 달라고 하자!"</div>
+</div>
+
+<div class="page"><div class="pno">33쪽</div>
+  <div class="scene"><b>컷</b> 대형 마무리 몽타주(2요소 구성).<br/><b>중앙(메인)</b> 창고의 저녁상 — 김이 오르는 국수, 웃음꽃. 식탁 옆에서 구슬 부품이 티코 가슴에 스르륵 장착되며 민트빛 발광(귀환 후 해금 연출 — 룰4 안전 지대), 부품 게이지 12칸 중 <b>2칸</b>이 채워져 반짝. 티코의 눈에서 빛이 뻗어 나와 식탁 위 공중에 <b>실물처럼 입체적인 홀로그램 대피라미드와 공사장 미니어처</b>가 떠오른다 — 박사는 젓가락을 든 채 입을 떡, 보리는 홀로그램 일꾼 행렬을 손가락으로 콕콕, 노아는 눈이 별.<br/><b>우상단 인셋</b> 4600년이 지난 오늘의 기자 — 완성된 대피라미드 앞에 관광객들의 실루엣.<br/><b>배경·소품</b> 저녁상, 창밖의 평화로운 밤(이번 화는 0호 인셋 없음).<br/><b>톤</b> 따뜻한 피날레 + 다음 모험의 예고.</div>
+  <div class="text"><span class="sp">나레이션:</span> 부품이 돌아오자 새 기능이 깨어났어요 — 무엇이든 눈앞에 실물처럼 띄우는 '홀로그램 프로젝터'!<br/><span class="sp">나레이션:</span> (창고로 돌아와 배터리를 가득 충전한 티코가 부품을 끼우자, 새 힘이 깨어났어요.)<br/><span class="sp">봉수 박사:</span> "허허, 장하다! 직각 밧줄은 원래 이집트 측량사들의 오랜 지혜란다. 카이 어르신이 나으셨어도 바로잡으셨겠지만, 너희 덕에 공사가 하루도 멈추지 않은 게지. 그 피라미드는 4600년이 지난 지금도 우뚝 서 있단다."<br/><span class="sp">티코:</span> "삐빅! 다음 부품 신호 발견 — 좌표는 아주아주 먼 옛날… 공룡들이 사는 <b>백악기</b>다!"<br/><span class="sp">노아:</span> "고, 공룡?!"</div>
+</div>
+
+<div class="divider">— F. 티코피디아 부록 (34~36쪽) —</div>
+
+<div class="page"><div class="pno">34쪽 · 티코피디아 ①</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지(부록 공통 포맷) — 배경은 민트색 홀로그램 격자.<br/><b>장소·시간</b> 부록 세계(본편과 분리된 인포그래픽 공간).<br/><b>인물</b> 티코가 안경을 쓰고 지시봉을 든 선생님 포즈로 화면 왼쪽에.<br/><b>배경·소품</b> 오른쪽 큰 카드: 대피라미드 단면 그림 — 높이 화살표(약 147m), 밑변 화살표(약 230m), 차곡차곡 쌓인 돌 블록 아이콘, 옆에 빵·음료 항아리를 든 일꾼 아이콘. 카드 모서리에 파라오 문양 스탬프.<br/><b>톤</b> 밝고 정돈된 인포그래픽 — '부록 세계' 톤.</div>
+  <div class="text"><span class="sp">티코:</span> "오늘의 티코피디아! 피라미드는 약 4600년 전 이집트 사람들이 지은 파라오(임금님)의 무덤이야. 가장 큰 쿠푸왕의 피라미드는 높이 약 147미터에, 평균 2.5톤짜리 돌을 230만 개나 쌓아 20년쯤 걸려 완성했지. 그리고 이 어마어마한 건물은 노예가 아니라, 빵과 음료를 품삯으로 받은 일꾼들이 자부심을 갖고 지었단다."</div>
+</div>
+
+<div class="page"><div class="pno">35쪽 · 티코피디아 ②</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지 ② — 도해 중심.<br/><b>장소·시간</b> 부록 세계(민트 격자 배경).<br/><b>인물</b> 구석에서 엄지를 척 든 티코.<br/><b>배경·소품</b> 상단: 열두 칸 매듭 밧줄이 말뚝 세 개에 걸려 3·4·5 삼각형이 되는 큰 도해 — 각 변에 매듭 3개·4개·5개가 또렷하고, 직각 모서리에 반짝 표시. 하단 왼쪽: 팔꿈치에서 손끝까지 화살표가 그려진 팔 그림(규빗 단위). 하단 오른쪽: 사각형에 두 대각선이 그려지고 길이가 같음을 나타내는 눈금 아이콘.<br/><b>톤</b> 교과서 삽화보다 밝고 만화적인 도해.</div>
+  <div class="text"><span class="sp">티코:</span> "이집트 측량사의 비밀 도구는 똑같은 길이의 열두 칸으로 나눈 <b>매듭 밧줄</b>! 세 칸·네 칸·다섯 칸으로 당기면 언제나 정확한 <b>직각</b>이 생겨. 길이는 팔꿈치에서 손끝까지의 '규빗'(약 52센티미터)이라는 단위로 쟀지. 사각형이 반듯한지는 <b>두 대각선의 길이가 같은지</b>로 확인했단다."</div>
+</div>
+
+<div class="page"><div class="pno">36쪽 · 티코 퀴즈</div>
+  <div class="scene"><b>컷</b> 퀴즈 페이지(부록 공통 포맷) — 티코 정면 컷.<br/><b>장소·시간</b> 부록 세계(민트 격자 배경).<br/><b>인물</b> 티코가 문제 카드 3장을 부채꼴로 펼쳐 들고 윙크. 카드마다 ①②③ 번호와 물음표 장식.<br/><b>배경·소품</b> 배경 하단에 다음 화 예고 — 울창한 수풀 사이 둥지 안의 커다란 알들 실루엣과 물음표. (앱에서는 기존 퀴즈 게임 인프라로 인터랙티브 처리)<br/><b>톤</b> 마무리 팡파레 + 다음 화 기대감.</div>
+  <div class="text"><span class="sp">티코:</span> "마지막 관문, 티코 퀴즈! 셋 다 맞히면 너도 시간여행 대원!<br/>① 피라미드는 누구를 위해 지은 무덤일까?<br/>② 매듭 밧줄을 세 칸·네 칸·다섯 칸으로 당기면 어떤 각이 생길까?<br/>③ 피라미드를 지은 일꾼들은 일한 대가로 무엇을 받았을까?<br/>…다음 화, 공룡들의 시대 백악기에서 만나자! 삐빅!"</div>
+</div>
+
+<footer>
+  타임 티코 2화 콘티 v1.0 · 탱고북 오리지널 · 내부 제작 자료
+</footer>
+
+</div>
+
+<script>
+// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
+(async function () {
+  const nav = document.getElementById('comic-tabs');
+  if (!nav) return;
+  const here = (location.pathname.split('/').pop() || '');
+  const items = [['learning-comic-plan.html', '📘 기획서']];
+  for (let i = 1; i <= 12; i++) {
+    const f = 'learning-comic-ep' + String(i).padStart(2, '0') + '.html';
+    try {
+      const r = await fetch(f);
+      const t = await r.text();
+      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
+    } catch (e) { /* skip */ }
+  }
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §6과 동기 유지) ─────────
+const STYLE_PROMPT = [
+  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
+  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
+  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
+  '시대 배경(건축·의상·소품)은 고증에 맞게 세밀하고 사실적으로 묘사.',
+  '화면비 16:9 와이드 일러스트.',
+  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
+].join(' ');
+
+const CHARACTER_KEYS = [
+  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
+  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
+  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
+  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸), 감정에 따라 모양이 변하는 둥근 눈.',
+  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼.',
+  '- 0호(그림자): 어둠 속 검은 실루엣에 붉은 외눈 한 점만 보인다.',
+].join('\n');
+
+// 이 화의 시대 의상 (화별로 교체)
+const EP_COSTUME = '[이 화의 의상] 고대 이집트 장면에서 보리 = 흰 리넨 원피스 + 붉은 허리끈(붉은 머리끈 유지), 노아 = 흰 리넨 튜닉 + 한쪽 어깨천(둥근 안경 유지), 둘 다 갈대 샌들. 현대(창고) 장면에서는 평상복(보리 주황 후드티, 노아 하늘색 셔츠).';
+
+// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
+const EP_GUEST_KEYS = [
+  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
+  '- 테티(11세 이집트 소년, 견습 측량사): 햇볕에 그을린 갈색 피부, 크고 순한 갈색 눈, 짧게 민 머리 오른쪽에만 길게 땋은 옆머리 타래, 흰 리넨 킬트, 파란 구슬 목걸이, 어깨에 매듭 측량 밧줄. 성실하고 걱정 많은 얼굴.',
+  '- 카이(60대 후반, 왕실 측량사 할아버지): 주름 깊고 온화한 얼굴, 흰 눈썹, 짧게 민 백발, 굳은살 박인 두툼한 손, 흰 리넨 로브, 오른 다리에 나무 부목과 붕대, 나무 목발.',
+  '- 헤미우누(파라오 쿠푸의 재상·공사 총감독, 실존 인물): 당당하고 살집 있는 풍채, 짧게 민 머리, 진중하고 지혜로운 눈매, 어깨를 덮는 파랑·금색 구슬 목걸이, 흰 주름 킬트, 긴 지팡이. 위엄 있게, 우스꽝스럽지 않게.',
+].join('\n');
+
+function composeImagePrompt(pno, sceneText) {
+  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+}
+
+// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    const btn = card.querySelector('.copy-btn');
+    const pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async function () {
+      // textContent — details 접힘 상태에선 innerText 가 빈 값
+      const text = pre.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('done');
+      } catch (e) {
+        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
+      }
+      setTimeout(function () {
+        btn.textContent = '📋 시트 프롬프트 복사';
+        btn.classList.remove('done');
+      }, 1600);
+    });
+  });
+})();
+
+// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
+const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
+
+async function loadComicAssets() {
+  try {
+    const r = await fetch(ASSET_API);
+    const j = await r.json();
+    return (j && j.data) || {};
+  } catch (e) { return {}; }
+}
+
+function createPasteBox(key, assets, hint) {
+  const box = document.createElement('div');
+  box.className = 'paste-box';
+  box.tabIndex = 0;
+  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
+  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
+  const reset = function () {
+    box.classList.remove('has-img');
+    box.innerHTML = '';
+    box.textContent = hintText;
+  };
+  const setImg = function (url) {
+    box.classList.add('has-img');
+    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      if (!confirm('이 이미지를 삭제할까요?')) return;
+      try {
+        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
+        reset();
+      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
+    });
+  };
+  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+  else box.textContent = hintText;
+
+  async function upload(file) {
+    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+    box.classList.add('busy');
+    const fr = new FileReader();
+    fr.onload = async function () {
+      try {
+        const r = await fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        });
+        const j = await r.json();
+        if (j.success) setImg(j.data.url + '?t=' + Date.now());
+        else alert('저장 실패: ' + (j.error || ''));
+      } catch (e) {
+        alert('저장 실패 — 서버(3500)를 확인하세요');
+      }
+      box.classList.remove('busy');
+    };
+    fr.readAsDataURL(file);
+  }
+
+  box.addEventListener('paste', function (e) {
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (const it of items) {
+      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
+    }
+  });
+  box.addEventListener('dragover', function (e) { e.preventDefault(); });
+  box.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) upload(f);
+  });
+  box.addEventListener('click', function () { box.focus(); });
+  return box;
+}
+
+// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-plan) 자산을 읽어옴 ──
+(async function () {
+  const grid = document.getElementById('cast-grid');
+  if (!grid) return;
+  let planAssets = {};
+  try {
+    const r = await fetch('/api/comic-assets/learning-comic-plan');
+    const j = await r.json();
+    planAssets = (j && j.data) || {};
+  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
+  grid.querySelectorAll('.cast-item').forEach(function (item) {
+    const key = item.getAttribute('data-key');
+    if (planAssets[key]) {
+      const frame = item.querySelector('.frame');
+      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
+    }
+  });
+})();
+
+// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
+(function () {
+  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^[a-z0-9-]+$/.test(docId)) return;
+  const api = '/api/comic-feedback/' + docId;
+
+  function updateBar(total) {
+    const bar = document.getElementById('feedback-cnt');
+    if (bar) bar.textContent = total;
+  }
+
+  async function loadNotes() {
+    try {
+      const r = await fetch(api);
+      const j = await r.json();
+      return (j && j.data && j.data.pages) || {};
+    } catch (e) { return {}; }
+  }
+
+  async function saveNote(page, note, statusEl, ta) {
+    statusEl.textContent = '저장 중…';
+    try {
+      const r = await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, note: note }),
+      });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.error || 'save failed');
+      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
+      ta.classList.toggle('has-note', !!note.trim());
+      updateBar(j.data.total);
+      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
+    } catch (e) {
+      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
+      statusEl.style.color = '#e85c3a';
+    }
+  }
+
+  async function init() {
+    const pages = document.querySelectorAll('.page');
+    if (!pages.length) return;
+    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
+    const notes = loaded[0];
+    const assets = loaded[1];
+
+    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
+    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
+      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
+    });
+
+    const anchor = document.querySelector('header.hero');
+    if (anchor) {
+      const bar = document.createElement('div');
+      bar.id = 'feedback-bar';
+      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
+      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+    }
+
+    pages.forEach(function (card) {
+      const pnoEl = card.querySelector('.pno');
+      const m = pnoEl && pnoEl.textContent.match(/\d+/);
+      if (!m) return;
+      const pno = m[0];
+
+      const main = document.createElement('div');
+      while (card.firstChild) main.appendChild(card.firstChild);
+      card.appendChild(main);
+
+      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
+      const mainPno = main.querySelector('.pno');
+      const sceneEl = main.querySelector('.scene');
+      if (mainPno && sceneEl) {
+        const row = document.createElement('div');
+        row.className = 'pno-row';
+        mainPno.parentNode.insertBefore(row, mainPno);
+        row.appendChild(mainPno);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋 그림 프롬프트 복사';
+        copyBtn.addEventListener('click', async function () {
+          const prompt = composeImagePrompt(pno, sceneEl.innerText);
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = '복사됨 ✓';
+            copyBtn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () {
+            copyBtn.textContent = '📋 그림 프롬프트 복사';
+            copyBtn.classList.remove('done');
+          }, 1600);
+        });
+        row.appendChild(copyBtn);
+      }
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const saved = notes[pno] || '';
+      panel.innerHTML =
+        '<label>' + pno + '쪽 생성 이미지</label>' +
+        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
+        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
+        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
+      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
+      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
+      const ta = panel.querySelector('textarea');
+      if (saved) ta.classList.add('has-note');
+      const btn = panel.querySelector('button');
+      const status = panel.querySelector('.status');
+      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
+      });
+
+      card.classList.add('with-notes');
+      card.appendChild(panel);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>
