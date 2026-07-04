@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 시즌2 · 3화 「살림과 하늘」 — 콘티</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 24px 0 28px; border-bottom: 3px solid var(--coral); margin-bottom: 28px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 12px; }
+  .hero h1 { font-size: 32px; font-weight: 900; margin: 8px 0 4px; }
+  .hero .sub { color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+  .divider { text-align:center; margin: 40px 0 8px; font-weight: 900; color: var(--mint); letter-spacing: .15em; font-size: 14px; }
+  .page { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 14px 0; }
+  .page .pno { font-weight: 900; color: var(--coral-dark); font-size: 15px; }
+  .page .scene { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .page .scene b { color: var(--mint); font-weight: 800; }
+  .page .text { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 8px; font-size: 15px; }
+  .page .text .sp { font-weight: 800; color: var(--coral-dark); }
+  /* 콘티 리뷰 패널 */
+  .page.with-notes { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .page.with-notes { grid-template-columns: 1fr; } }
+  .note-panel { border-left: 2px dashed var(--line); padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 900px) { .note-panel { border-left: none; border-top: 2px dashed var(--line); padding: 12px 0 0; } }
+  .note-panel label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+  .note-panel textarea { width: 100%; min-height: 96px; resize: vertical; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 13px; background: #fffdfa; }
+  .note-panel textarea:focus { outline: none; border-color: var(--coral); }
+  .note-panel textarea.has-note { border-color: var(--mint); background: #f4fffc; }
+  .note-panel .row { display: flex; align-items: center; gap: 10px; }
+  .note-panel button { background: var(--coral); color: #fff; border: none; border-radius: 999px; padding: 7px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .note-panel button:hover { background: var(--coral-dark); }
+  .note-panel .status { font-size: 12px; color: var(--mint); font-weight: 700; }
+  #feedback-bar { position: sticky; top: 54px; z-index: 10; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 18px; margin: 16px 0 24px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #feedback-bar .cnt { color: #ffd9cc; }
+  .pno-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .copy-btn:hover { background: var(--mint); color: #fff; }
+  .copy-btn.done { background: var(--mint); color: #fff; }
+  .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
+  .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+  .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cast-strip .hint a { color: var(--coral-dark); font-weight: 700; }
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .cast-item { text-align: center; }
+  .cast-item .frame { border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 26px; }
+  .cast-item .frame img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .cast-item .nm { font-size: 12.5px; font-weight: 800; margin-top: 5px; color: var(--ink-soft); }
+  .guest-section { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--coral); border-radius: 16px; padding: 18px 22px; margin: 20px 0; }
+  .guest-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+  .guest-section .hint { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .char-prompt { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt details { margin-top: 6px; }
+  .char-prompt summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 8px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+</style>
+</head>
+<body data-comic-doc="s2-ep03">
+<div class="wrap">
+
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-s2-plan.html">📘 기획서</a></nav>
+
+<header class="hero" id="top">
+  <div class="kicker">TIME TICO · SEASON 2 · EPISODE 03</div>
+  <h1>시즌2 3화 「살림과 하늘」</h1>
+  <div class="sub">현재 · 이름 모를 무인도 — 미션 둘 · ① 살림 도구·토기(간석기·토기 굽기 / 지렛대·열변화) ② 방향·시간(별자리·해그림자 / 그림자 시계·자석 나침반) · 36쪽 콘티 · 시즌 모티프: 부모 감사(빨래·정리) · 건강해지는 몸(제법 튼튼·일찍 자기) · 0호 "제일 튼튼한 대원"</div>
+</header>
+
+<div class="cast-strip">
+  <h2>⭐ 고정 캐릭터 확정 시트 (시즌1 계승)</h2>
+  <div class="hint">기획서 §7에 붙여넣은 레퍼런스가 여기 자동 표시됩니다 — 컷 작업의 기준. 비어 있으면 <a href="learning-comic-s2-plan.html#s7">기획서에서 붙여넣기 →</a></div>
+  <div class="cast-grid" id="cast-grid">
+    <div class="cast-item" data-key="bori"><div class="frame">👧</div><div class="nm">보리</div></div>
+    <div class="cast-item" data-key="noa"><div class="frame">👦</div><div class="nm">노아</div></div>
+    <div class="cast-item" data-key="tico"><div class="frame">🤖</div><div class="nm">티코</div></div>
+    <div class="cast-item" data-key="bongsu"><div class="frame">👴</div><div class="nm">봉수 박사</div></div>
+    <div class="cast-item" data-key="zero"><div class="frame">🌑</div><div class="nm">0호</div></div>
+  </div>
+</div>
+
+<div class="guest-section">
+  <h2>🎭 이 화의 게스트 캐릭터 레퍼런스</h2>
+  <div class="hint">3장면 이상 등장하거나 클로즈업이 있는 게스트는 시트를 먼저 확정한다. 아래 비주얼 키는 각 쪽 [📋 그림 프롬프트 복사]에도 자동 포함되어 컷 간 일관성을 지킨다. (단역 — 스치는 게·물고기·갈매기 — 은 장면 지시 서술로 충분, 시트 불필요)</div>
+
+  <div class="char-prompt" data-char="제비" data-key="swallow">
+    <div class="head"><span style="font-size:20px">🐦</span><b>제비 '진이' (진흙으로 집 짓는 새 — 미션① 토기 힌트)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 동물 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 귀엽고 둥근 카툰 비율. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 3면(정면·옆·뒤 — 날개 접은 모습), 오른쪽 위에 표정·동작 6종 그리드(부리에 진흙 한 덩이 물고 부지런한 표정·고개를 갸웃 기울임·"짹짹" 우는 입 벌림·날개 파닥이며 나는 포즈·진흙 집 벽에 진흙을 콕 붙이는 동작·눈 지그시 감고 뿌듯한 표정), 오른쪽 아래 대표 포즈 2개(부리에 진흙 경단을 물고 바위 처마로 날아가는 포즈, 반쯤 지은 진흙 둥지 가장자리에 앉은 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 진이, 섬 바위 처마에 사는 날렵한 제비. 윤기 나는 남색 등과 하얀 배, 이마와 목에 붉은 밤색 점, 끝이 둘로 갈라진 길고 날렵한 제비꼬리. 작고 반짝이는 검은 눈, 부지런하고 야무진 인상. 개울가 진흙을 부리로 조금씩 물어다 바위 처마에 붙여 그릇처럼 오목한 둥지를 짓는데, 그 진흙 집이 마르면 아주 단단해진다 — 미션①에서 "진흙이 굳으면 딱딱해진다"는 힌트를 아이들에게 자연스럽게 보여 주는 섬의 부지런한 이웃. 무섭지 않고 귀엽고 성실한 인상.</pre></details>
+  </div>
+
+  <div class="char-prompt" data-char="바다거북" data-key="turtle">
+    <div class="head"><span style="font-size:20px">🐢</span><b>바다거북 '느리' (밤바다 밝은 쪽으로 돌아가는 밤 손님 — 미션② 방향 힌트)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 동물 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 귀엽고 둥근 카툰 비율. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 3면(정면·옆·뒤 — 등딱지 무늬가 보이게), 오른쪽 위에 표정·동작 6종 그리드(느긋하게 눈 지그시·놀라 목 움츠림·별을 올려다보며 눈 반짝·모래를 앞발로 헤치는 동작·"끄응—" 힘주는 표정·편안히 잠든 눈), 오른쪽 아래 대표 포즈 2개(모래 위를 느릿느릿 기어 오는 포즈, 별빛 아래 바다 쪽으로 고개를 든 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 느리, 밤에 알을 낳으러 해변에 올라오는 순하고 큰 바다거북. 매끈한 초록빛·갈색 등딱지에 육각 무늬, 크고 둥근 순한 눈, 느릿느릿 온화한 움직임. 무섭지 않고 듬직하고 다정한 인상. 별이 총총한 밤에 바다에서 올라와 모래에 자국을 남기고, 별빛이 반짝이는 바다 쪽이 더 환한 걸 길잡이 삼아 다시 바다로 돌아간다 — 미션②에서 '하늘빛으로 방향을 찾는다'는 힌트를 몸소 보여 주는 섬의 밤 손님. 절대 위협적이지 않게, 온순하고 사랑스럽게.</pre></details>
+  </div>
+</div>
+
+<div class="divider">— A. 일상 후크 (1~3쪽) —</div>
+
+<div class="page"><div class="pno">1쪽</div>
+  <div class="scene"><b>컷</b> 대형 아침 생활컷, 베이스캠프 전경 부감.<br/><b>장소·시간</b> 맑은 아침, 여러 밤을 지나 제법 아늑해진 베이스캠프 — 1화의 솔가지 쉼터가 든든한 보금자리로 자랐고, 옆엔 돌을 둘러 만든 화덕(불)과 물통이 있다.<br/><b>인물</b> 보리(주황 후드티가 흙물이 배어 낡음, 소매를 걷음)가 두 팔을 쭉 뻗어 기지개를 켜며 개운하게 웃고(볼에 발그레 혈색), 노아(하늘색 셔츠가 해지고 얼룩짐, 소매를 걷음)는 옆에서 잡은 물고기를 손질하려 한다. 두 아이 모두 팔다리에 힘이 붙고 볕에 그을려 다부지다. 티코(완전체 — 흰 몸체+민트 라인, 가슴 코어 12칸 점등)가 어깨에서 아침 인사, 0호(각진 회색 몸+붉은 외눈+해진 회색 천)는 장작을 안아 나른다.<br/><b>배경·소품</b> 모락모락 화덕 연기, 아침 이슬, 반짝이는 바다, 정돈된 살림살이.<br/><b>톤</b> 규칙적으로 사는 아이들의 건강한 아침. 밝고 활기차게.</div>
+  <div class="text"><span class="sp">나레이션:</span> 무인도 생활도 여러 밤이 지나, 넷은 제법 섬 살림에 익숙해졌어요.<br/><span class="sp">보리:</span> "아아— 잘 잤다! 요즘 아침마다 어쩜 이렇게 개운하지? 눈이 저절로 떠져!"<br/><span class="sp">노아:</span> "해 지면 자고 해 뜨면 일어나니까 그래. 집에선 밤늦게까지 안 자서 아침마다 힘들었잖아."<br/><span class="sp">티코:</span> "잘 잤네. 일찍 자고 일찍 일어나니까 몸이 이렇게 달라지는 거야. 처음 왔을 땐 헥헥거리더니."</div>
+</div>
+
+<div class="page"><div class="pno">2쪽</div>
+  <div class="scene"><b>컷</b> 중형, 불편함이 쌓이는 생활 몽타주.<br/><b>장소·시간</b> 아침, 베이스캠프 주변.<br/><b>인물</b> 여러 곤란이 한 컷에 — 보리는 물고기를 맨손으로 낑낑 뜯다 "손만 아파", 노아는 국을 끓이고 싶은데 물을 담아 불에 올릴 그릇이 없어 난감, 0호는 뜨거운 조개를 손(집게)으로 집다 "앗 뜨거". 티코가 그 광경을 하나하나 눈으로 훑는다.<br/><b>배경·소품</b> 맨손으로 뜯다 만 물고기, 담을 그릇 없는 물, 김이 오르는 조개, 잎사귀에 대충 얹은 음식.<br/><b>톤</b> 반복되는 불편함이 "뭔가 필요하다"로 모이는 문제 제기 톤. 답답하지만 유머러스하게.</div>
+  <div class="text"><span class="sp">보리:</span> "이 물고기, 맨손으로는 도무지 안 뜯어져! 담을 그릇도 없어서 자꾸 흘리고."<br/><span class="sp">노아:</span> "국이라도 끓여 먹고 싶은데… 물을 불에 올릴 그릇이 없잖아. 잎사귀는 타 버리고."<br/><span class="sp">0호:</span> "…뜨거운 걸 집을 게 없어. 손이 자꾸 데어."<br/><span class="sp">티코:</span> "내 데이터에 의하면— 지금 너희한테 없는 건 딱 두 가지야. <b>자르는 것</b>이랑 <b>담는 것</b>."</div>
+</div>
+
+<div class="page"><div class="pno">3쪽</div>
+  <div class="scene"><b>컷</b> 중형, 물음표가 겹치는 도입컷 — 두 가지 물음이 한꺼번에.<br/><b>장소·시간</b> 아침, 화덕 앞에 둘러앉아.<br/><b>인물</b> 보리가 빈 손바닥을 내려다보며 두 손을 쫙 펴 보이고, 노아는 문득 걸음을 멈추고 캠프 기둥의 애매한 빗금을 헤아리며 손가락을 하나씩 꼽아 날짜를 세려다 헷갈려 머리를 긁적인다(머리 위 물음표). 티코가 어깨에서 갸웃, 0호는 든든히 곁에.<br/><b>배경·소품</b> 아무것도 들지 않은 보리의 빈 손바닥, 캠프 기둥에 하루하루 그어 둔 빗금 자국(그 수가 애매하다).<br/><b>톤</b> 살림 부족 + 날짜·방향 상실, 두 문제가 동시에 싹트는 결심 도입 톤.</div>
+  <div class="text"><span class="sp">보리:</span> "생각해 보니까, 우린 지금까지 이 <b>맨손</b> 하나로 다 해온 거였어. 자르고 담을 살림살이가 필요해."<br/><span class="sp">노아:</span> "잠깐, 잠깐만… 그러고 보니 우리 이 섬에 온 지 며칠이나 됐지? 세다가 헷갈렸어. 어느 쪽이 북쪽인지도 모르겠고."<br/><span class="sp">티코:</span> "삐빅. 나도 날짜 세는 걸 놓쳤어. 그럼 오늘 할 일은 두 가지네 — <b>살림살이 만들기</b>랑, <b>하늘 읽는 법 익히기</b>."<br/><span class="sp">보리:</span> "좋아! 생각은 뛰면서 하는 거지 — 가자, 노아! 먼저 손이 될 도구부터!"</div>
+</div>
+
+<div class="divider">— B. 문제 인식 (4~8쪽) —</div>
+
+<div class="page"><div class="pno">4쪽</div>
+  <div class="scene"><b>컷</b> 중형, 첫 시도 개그컷 — 뭉툭한 돌의 실패.<br/><b>장소·시간</b> 아침, 개울가 자갈밭.<br/><b>인물</b> 보리가 아무 돌이나 하나 주워 물고기를 자르려 대충 문지르는데, 뭉툭한 돌이라 전혀 안 잘리고 물고기만 뭉개진다. 노아가 "그게 되겠어?" 하는 표정. 티코는 이마를 짚는 시늉.<br/><b>배경·소품</b> 뭉툭한 둥근 돌, 뭉개진 물고기, 흩날리는 물비늘, 땀방울 만화 기호.<br/><b>톤</b> 무작정 덤빈 첫 실패 — 슬랩스틱으로 가볍게.</div>
+  <div class="text"><span class="sp">보리:</span> "돌로 쓱쓱 하면 잘리겠지? 자, 물고기야 잘려라— 얍!"<br/><span class="sp">노아:</span> "보리야, 그 돌은 너무 뭉툭하잖아. 그걸로는 절대—"<br/><span class="sp">나레이션:</span> 뭉툭한 돌은 물고기를 자르기는커녕 뭉개 버리고 말았어요.<br/><span class="sp">티코:</span> "삐빅. 예상 결과: 실패. 그냥 돌이 아니라 <b>날카로운 날</b>이 있어야 잘려."</div>
+</div>
+
+<div class="page"><div class="pno">5쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ① — 조상 지혜(뗀석기→간석기).<br/><b>장소·시간</b> 아침, 개울가.<br/><b>인물</b> 티코의 눈에서 빔이 나와 민트색 홀로그램 카드가 뜬다. 카드 안: 왼쪽엔 돌을 탁탁 깨서 거친 날을 낸 <b>뗀석기</b>, 오른쪽엔 그 돌을 판판한 바위에 쓱쓱 갈아 매끈하고 날카로운 날을 낸 <b>간석기</b>. 두 그림 사이에 '깨기→갈기' 화살표. 아이들이 올려다본다.<br/><b>배경·소품</b> 홀로그램 카드에 돌칼·돌도끼 아이콘, 갈리는 방향 표시선.<br/><b>톤</b> '티코피디아' 시그니처 학습 컷 — 차분하고 신뢰감 있게.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아, 시작! 아주 옛날, 처음엔 돌을 <b>탁탁 깨서</b> 거친 날을 만들어 썼어. 이걸 '<b>뗀석기</b>'라고 해."<br/><span class="sp">노아:</span> "책에서 봤는데… 그다음엔 돌을 <b>갈아서</b> 더 매끈하고 날카롭게 만들었지? 그게 '<b>간석기</b>'!"<br/><span class="sp">티코:</span> "정확해. 깨기만 한 것보다, 판판한 바위에 오래 <b>갈면</b> 훨씬 잘 드는 날이 돼."<br/><span class="sp">보리:</span> "그럼 아까 내 돌은 안 갈아서 안 잘린 거네!"</div>
+</div>
+
+<div class="page"><div class="pno">6쪽</div>
+  <div class="scene"><b>컷</b> 중형, 자연의 시계 도입 — 오늘의 마감을 세우는 컷.<br/><b>장소·시간</b> 늦은 아침, 개울가에서 하늘을 함께 보는 구도.<br/><b>인물</b> 노아가 발밑의 짧아진 그림자와 중천으로 오르는 해를 가늠하고, 보리는 소매를 걷어붙인다. 티코가 아이들 곁에서 실제 해가 하늘 어디쯤 떴는지 손으로 가리켜 보여 준다(수치·눈금 UI 없이 진짜 해·그림자로 체감하도록). 0호는 벌써 큰 돌 몇 개를 골라 안고 온다.<br/><b>배경·소품</b> 중천으로 오르는 해, 짧아진 그림자, 개울가에 널린 크고 판판한 바위들.<br/><b>톤</b> 오늘 안에 두 미션(살림·하늘)을 부지런히 해야 한다는 잔잔한 시간 압박. 밝지만 부지런하게.</div>
+  <div class="text"><span class="sp">노아:</span> "할 게 많아. 자르는 돌 도구도, 담을 그릇도, 밤엔 별 관찰까지. 오늘 안에 다 하려면 서둘러야 해."<br/><span class="sp">티코:</span> "특히 그릇은 <b>빚은 뒤 그늘에서 며칠 말려야</b> 안 터지고 구워져. 그러니 해 있을 때 서둘러 빚어 두자."<br/><span class="sp">보리:</span> "좋아, 시간 없다는 거지? 나 힘은 자신 있어. 뭐부터 할까?"<br/><span class="sp">0호:</span> "…돌은 내가 골라 왔어. 무거운 건 나한테 맡겨."</div>
+</div>
+
+<div class="page"><div class="pno">7쪽</div>
+  <div class="scene"><b>컷</b> 중형, 부모 감사 도입 비트 — 빨래·정리의 수고를 처음 체감.<br/><b>장소·시간</b> 낮, 개울가 빨래터.<br/><b>인물</b> 보리가 그동안 입어 꼬질꼬질해진 옷가지를 개울물에 담가 힘겹게 비벼 빤다(팔이 뻐근한 표정). 노아는 흩어진 살림살이(돌·조개껍데기·마른 풀)를 한쪽에 가지런히 정리하다가 문득 손을 멈춘다. 티코가 곁에서 지켜본다.<br/><b>배경·소품</b> 개울물에 담근 옷, 비누 없이 손으로만 비비는 빨래, 정리하다 만 살림살이 더미.<br/><b>톤</b> 노동 속에서 집 생각이 스미는 정서 도입. 뭉클함의 씨앗.</div>
+  <div class="text"><span class="sp">보리:</span> "빨래가 이렇게 힘든 거였어? 손으로 비비니까 팔이 다 뻐근해…"<br/><span class="sp">노아:</span> "정리도 끝이 없어. 하나 치우면 또 어질러지고. 살림이 이렇게 손이 많이 가는 거였구나."<br/><span class="sp">보리:</span> "…엄마는 매일, 이 빨래랑 정리를 다 하셨던 거잖아. 난 그냥 깨끗한 옷만 입었는데."<br/><span class="sp">티코:</span> "그러게. 누군가는 늘 그 일을 해 왔던 거지. 보이지 않게."</div>
+</div>
+
+<div class="page"><div class="pno">8쪽</div>
+  <div class="scene"><b>컷</b> 중형, 안전 경고 겸 결의컷.<br/><b>장소·시간</b> 낮, 작업터로 정한 너른 바위 앞.<br/><b>인물</b> 넷이 작업 자리에 모인다. 티코가 앞발(미튼)을 들어 "조심!" 하는 포즈로 날카로운 돌과 화덕 불을 번갈아 가리킨다. 보리·노아는 진지하게 고개를 끄덕이고, 0호는 팔을 걷는다.<br/><b>배경·소품</b> 한쪽엔 갈 돌들, 다른 쪽엔 이글거리는 화덕, 그 사이 안전 거리.<br/><b>톤</b> 위험을 짚되 겁주지 않는 안전 교육 비트 + 오늘 작업 시작의 결의.</div>
+  <div class="text"><span class="sp">티코:</span> "시작 전에 약속! 오늘 다루는 건 두 가지가 위험해. <b>날카로운 돌 날</b>이랑 <b>뜨거운 불</b>."<br/><span class="sp">노아:</span> "날 세운 돌은 손을 벨 수 있으니까, 자를 땐 손을 뒤에 두고 조심해야 해."<br/><span class="sp">보리:</span> "불에 구운 건 한참 식혀야 하고! 뜨거울 때 만지면 큰일 나."<br/><span class="sp">티코:</span> "맞아. <b>이건 어른과 함께</b> 하는 거야. 우리처럼 급할 때 말고는, 따라 만들 땐 꼭 어른이 곁에 있어야 해."</div>
+</div>
+
+<div class="divider">— C. 미션① 발견·해결 — 도구와 토기 (9~16쪽) —</div>
+
+<div class="page"><div class="pno">9쪽</div>
+  <div class="scene"><b>컷</b> 대형 협동 노동컷(간판 컷 ①) — 간석기 갈기.<br/><b>장소·시간</b> 낮, 개울가 판판한 바위 앞.<br/><b>인물</b> 역할이 한눈에 — 0호가 크고 무거운 판돌을 받침대로 놓고 눌러 고정(힘), 보리가 그 위에서 손바닥만 한 돌을 물을 뿌려 가며 쓱쓱 갈고(온몸 노동), 노아가 돌 날의 각도를 살피며 "조금 더 비스듬히"(관찰), 티코는 어깨에서 갈리는 정도를 유심히 살핀다.<br/><b>배경·소품</b> 갈리며 나오는 회색 돌가루, 뿌린 물에 젖은 바위, 점점 매끈해지는 돌 날.<br/><b>톤</b> 손이 척척 맞는 협동의 뿌듯함. 노동이 즐거운 밝은 톤.</div>
+  <div class="text"><span class="sp">보리:</span> "쓱— 쓱— 물을 뿌리면서 가니까 훨씬 잘 갈려! 돌가루가 물이랑 섞여서 매끈해져."<br/><span class="sp">노아:</span> "물이 미끄럼틀 역할을 해서 더 곱게 갈리는 거야. 조금만 더 비스듬히 갈아 봐."<br/><span class="sp">0호:</span> "…받침돌은 내가 꽉 누르고 있을게. 안 흔들리게."<br/><span class="sp">티코:</span> "좋아, 날이 서고 있어! 이렇게 오래 갈수록 손을 벨 만큼 날카로워진다."</div>
+</div>
+
+<div class="page"><div class="pno">10쪽</div>
+  <div class="scene"><b>컷</b> 중형, 성공 시연컷 — 간석기 완성.<br/><b>장소·시간</b> 낮, 개울가.<br/><b>인물</b> 보리가 완성한 매끈한 돌칼을 자랑스레 들어 보이고, 노아가 그것으로 물고기를 쓱— 깔끔하게 가른다(눈이 반짝). 아까 뭉개던 것과 딴판. 티코가 엄지 척.<br/><b>배경·소품</b> 반질반질한 돌 날, 깔끔하게 갈라진 물고기, 손잡이로 감은 덩굴.<br/><b>톤</b> 첫 성공의 통쾌함. 도구가 손을 대신해 주는 감동을 밝게.</div>
+  <div class="text"><span class="sp">노아:</span> "우와… 쓱! 이번엔 정말 깔끔하게 잘렸어! 아까 뭉개던 그 물고기 맞아?"<br/><span class="sp">보리:</span> "갈아서 만든 돌칼 하나에 이렇게 달라지다니! 손이 하나 더 생긴 것 같아!"<br/><span class="sp">티코:</span> "그게 <b>간석기</b>의 힘이야. 옛사람들도 이렇게 갈아 만든 돌칼로 자르고 다듬고 살았지."<br/><span class="sp">노아:</span> "이제 자르는 문제는 해결했어. 남은 건… <b>담는 그릇</b>이야."</div>
+</div>
+
+<div class="page"><div class="pno">11쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰 발견컷 — 게스트 제비 '진이' 등장 + 진흙 힌트.<br/><b>장소·시간</b> 낮, 개울가 위쪽 바위 처마.<br/><b>인물</b> 아이들이 그릇 만들 재료를 찾아 두리번거리는데, 머리 위 바위 처마에서 날렵한 제비 '진이'가 부리에 진흙 경단을 물고 날아와 처마 벽에 콕콕 붙인다. 반쯤 지은 오목한 진흙 둥지가 보인다. 노아가 그 광경에 눈을 반짝인다.<br/><b>배경·소품</b> 바위 처마에 붙은 진흙 둥지, 부리로 물어 나른 진흙 방울, 남색 등의 제비, 아래엔 바싹 마른 옛 둥지 조각.<br/><b>톤</b> 자연이 힌트를 보여 주는 순간 — 제비는 부지런하고 귀엽게. 노아의 관찰(룰5)이 발동.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만! 저 제비 좀 봐. 진흙을 부리로 물어다 처마에 붙여서 집을 짓고 있어."<br/><span class="sp">보리:</span> "진짜네! 물렁한 진흙으로 집을? 저게 안 무너져?"<br/><span class="sp">진이:</span> "짹짹—" (부리로 진흙을 콕콕)<br/><span class="sp">노아:</span> "저기 아래 오래된 둥지는 벌써 바싹 말라서 <b>돌처럼 단단해졌어</b>. 물렁한 진흙이 마르니까 딱딱해진 거야! 진흙으로 그릇을 빚으면 되겠어."</div>
+</div>
+
+<div class="page"><div class="pno">12쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰→추리 연결컷 — 마른 진흙만으로는 부족.<br/><b>장소·시간</b> 낮, 제비 둥지 아래. 노아가 마른 진흙 조각을 톡톡 두드려 본다.<br/><b>인물</b> 노아가 떨어진 마른 진흙 조각을 주워 손끝으로 톡톡 두드리며(딱딱한 소리) 골똘히 생각. 보리도 옆에서 젖은 진흙 한 줌을 조물조물. 티코가 "오호?" 하는 눈.<br/><b>배경·소품</b> 딱딱하게 마른 진흙 조각 + 보리 손의 물렁한 젖은 진흙, 둘의 대비.<br/><b>톤</b> 자연의 힌트를 원리로 잇는 추리 톤. 눈이 반짝이는 발견의 순간.</div>
+  <div class="text"><span class="sp">노아:</span> "젖은 진흙은 물렁물렁한데, 마르면 이렇게 딱딱해져. 진흙 속의 <b>물기</b>가 빠지면 단단해지는 거야."<br/><span class="sp">보리:</span> "그럼 진흙으로 그릇을 빚어서 바싹 말리면, 딱딱한 그릇이 되는 거 아냐?"<br/><span class="sp">티코:</span> "오, 반은 맞았어. 그런데 그냥 햇볕에 말리기만 하면… 물이 닿으면 다시 물렁해져. 국을 담으면 어떻게 될까?"<br/><span class="sp">노아:</span> "아… 다시 풀어져서 무너지겠네. 뭔가 하나가 더 필요해."</div>
+</div>
+
+<div class="page"><div class="pno">13쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰 발견컷 ② — 불의 힌트.<br/><b>장소·시간</b> 낮, 베이스캠프 화덕 근처.<br/><b>인물</b> 노아의 시선이 화덕 아래 진흙 바닥으로 향한다. 그동안 불을 피워 온 화덕 바닥의 흙이 열을 받아 벽돌처럼 딱딱하게 구워져 벌겋게 변해 있다. 노아가 그 부분을 만져 보고 눈이 커진다. 보리도 따라 만져 본다.<br/><b>배경·소품</b> 화덕 바닥의 딱딱하게 구워진 붉은 흙, 그 옆 물렁한 생흙과의 대비, 사그라든 잉걸불.<br/><b>톤</b> 매일 지나치던 것에서 답을 찾는 룰5의 두 번째 발동. "그게 답이었어!" 하는 밝은 발견.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만! 우리 매일 불 피우던 화덕 바닥 좀 봐. 여기 진흙이… 벽돌처럼 딴딴하게 굳었어!"<br/><span class="sp">보리:</span> "어? 진짜네. 여긴 물을 부어도 안 풀어질 것 같은데?"<br/><span class="sp">노아:</span> "그냥 말린 게 아니라 <b>불에 구워졌잖아</b>. 불에 구운 진흙은 물에도 안 풀어지는 거야!"<br/><span class="sp">티코:</span> "내 데이터에 의하면— 바로 그거야! 진흙 그릇을 <b>불에 굽는 것</b>, 그게 마지막 열쇠였어."</div>
+</div>
+
+<div class="page"><div class="pno">14쪽</div>
+  <div class="scene"><b>컷</b> 대형 협동 노동컷(간판 컷 ②) — 진흙 반죽 + 지렛대로 판돌 옮기기.<br/><b>장소·시간</b> 낮, 개울가 진흙 구덩이. 굽는 받침으로 쓸 커다란 판돌이 땅에 반쯤 박혀 있다.<br/><b>인물</b> 앞쪽엔 보리가 진흙을 발로 꾹꾹 밟아 반죽하며 잔돌을 골라내고, 0호가 진흙을 큰 덩이로 퍼 나른다. 뒤쪽엔 아주 크고 무거운 판돌을 옮기려는데 넷이 힘을 합쳐도 꿈쩍하지 않는다 — 그래서 긴 나무 막대 밑에 작은 받침돌을 괴어 지렛대를 만든다. 티코가 "잠깐!" 하고 눈을 반짝인다.<br/><b>배경·소품</b> 질척한 진흙 반죽·골라낸 잔돌, 땅에 박힌 큰 판돌, 긴 지레 막대와 받침돌.<br/><b>톤</b> 온몸 노동의 즐거움 + 힘만으론 안 되는 벽에 부딪혀 '꾀'로 넘어가는 다리.</div>
+  <div class="text"><span class="sp">보리:</span> "꾹꾹— 진흙을 밟아 반죽하고! 근데 저 판돌은 너무 무거워서 넷이 밀어도 꿈쩍을 안 해!"<br/><span class="sp">0호:</span> "…나도 이건 반밖에 못 들어. 너무 크고 무거워."<br/><span class="sp">노아:</span> "0호도 못 드는 거면… 우리 힘으로는 무리야. 다른 방법이 있어야 해."<br/><span class="sp">티코:</span> "삐빅! 힘으로 안 되면 <b>꾀</b>로 하는 거야. 여기 딱 맞는 옛 지혜가 있어."</div>
+</div>
+
+<div class="page"><div class="pno">15쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ② — 현대 과학(지렛대) + 통쾌한 성공.<br/><b>장소·시간</b> 낮, 판돌 옆.<br/><b>인물</b> 위쪽 작은 인셋에 티코의 홀로그램 카드 — 긴 막대(지레) 밑에 작은 받침돌(받침점)을 괴고, 막대 한쪽 끝을 누르면 반대쪽 무거운 돌이 번쩍 들리는 도해(누르는 힘 작은 화살표 / 들리는 무게 큰 화살표). 아래 큰 컷: 0호가 판돌 밑으로 막대 끝을 밀어 넣고, 보리·노아가 반대쪽 끝에 함께 매달려 꾹 누르자 판돌이 번쩍 들려 넘어간다. 넷이 환호.<br/><b>배경·소품</b> 홀로그램 시소 아이콘(받침점·긴 막대·무거운 돌), 실제 지레로 들리는 판돌, 신난 표정들.<br/><b>톤</b> 조상의 힘쓰기 지혜(지레)에 숨은 과학이 드러나며 곧장 성공으로 이어지는 통쾌한 학습 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 긴 막대기 밑에 작은 돌을 받쳐 놓고 막대 끝을 <b>꾹 누르면</b>, 반대쪽 무거운 돌이 번쩍 들려. 이걸 '<b>지레</b>'라고 해."<br/><span class="sp">노아:</span> "시소랑 똑같은 원리구나! 받침점에서 <b>멀리</b> 누를수록 작은 힘으로 무거운 걸 든대. 0호가 밑에 밀어 넣고, 우리가 끝을 눌러! 하나, 둘, 셋!"<br/><span class="sp">보리:</span> "으챠— 우와아! 들린다, 들려! 힘이 아니라 꾀네!"<br/><span class="sp">0호:</span> "…내 힘이랑, 너희 힘이랑, 지레가 합쳐졌어." (붉은 외눈이 커진다)</div>
+</div>
+
+<div class="page"><div class="pno">16쪽</div>
+  <div class="scene"><b>컷</b> 대형 굽기·완성컷(간판 컷 ③) — 조상 지혜(토기 굽기) + 열변화 완성.<br/><b>장소·시간</b> 초저녁, 화덕 앞. 노을빛. (그늘에 먼저 말려 물기를 뺀 그릇을 굽는 장면.)<br/><b>인물</b> 넷이 옮긴 판돌 위·화덕에서 진흙을 가래떡처럼 밀어 돌돌 쌓아 빚은 그릇(겉엔 빗살무늬)을 굽는다 — 처음엔 약한 잉걸불 가장자리에서 살살, 0호가 장작을 조금씩 더해 서서히 센 불로. 노아가 상태를 살피고, 보리가 나무막대로만 조심조심 위치를 옮긴다. 한쪽 작은 인셋에 티코 홀로그램 — 진흙 알갱이가 물기를 날리고 서로 꽉 들러붙어 돌처럼 굳는 3단계 도해.<br/><b>배경·소품</b> 빗살무늬토기, 붉게 달아오르는 진흙, 인셋의 '물렁 진흙→불→단단한 토기' 화살표, 노을·불빛.<br/><b>톤</b> 조상 지혜(토기·서리기)와 과학(열변화)이 한 쌍으로 맞물려 흙이 그릇이 되는 감동. 안전하게 조심스럽게.</div>
+  <div class="text"><span class="sp">노아:</span> "제비도 처마 그늘에서 천천히 말렸잖아. 그릇도 먼저 그늘에서 물기를 빼고, 약한 불부터 살살 굽자. 급하면 터지니까."<br/><span class="sp">티코:</span> "티코피디아! 진흙을 불에 구우면 속에 숨은 <b>물기가 다 날아가고</b> 알갱이들이 서로 <b>꽉 들러붙어</b> 돌처럼 단단해져. 그래서 물에도 안 풀어지지."<br/><span class="sp">보리:</span> "물렁했던 진흙이 불을 만나서 단단한 그릇으로 <b>변신</b>했어! 통통— 소리도 맑아!"<br/><span class="sp">티코:</span> "삐빅! 대성공! 자르는 <b>돌칼</b>이랑 담는 <b>토기</b>, 오늘 손이 두 개나 더 생긴 셈이야. 이걸로 첫 국도 끓여 먹자!"</div>
+</div>
+
+<div class="divider">— D. 미션② 전환·시도·힌트 — 하늘 달력 (17~24쪽) —</div>
+
+<div class="page"><div class="pno">17쪽</div>
+  <div class="scene"><b>컷</b> 중형, 미션 전환컷 — 첫 국을 먹으며 하늘로 시선.<br/><b>장소·시간</b> 저녁, 화덕 위. 별이 하나둘. 새로 만든 토기에 첫 국이 보글보글.<br/><b>인물</b> 넷이 토기 그릇에 담은 조개·나물 국을 후후 불며 먹는다(보리는 돌칼로 썬 나물을 자랑). 노아가 문득 밤하늘을 올려다본다. 티코가 그 시선을 따라간다. 0호는 자기 작은 국그릇을 꼭 안고 냄새를 킁킁.<br/><b>배경·소품</b> 김 오르는 토기 국, 돌칼, 총총 돋는 별과 초승달, 옹기종기 실루엣.<br/><b>톤</b> 살림 미션의 보람으로 배를 채우고, 자연스럽게 두 번째 미션(하늘)으로 넘어가는 전환.</div>
+  <div class="text"><span class="sp">나레이션:</span> 며칠 뒤, 그늘에서 잘 마른 그릇을 구워 드디어 첫 국을 끓였어요.<br/><span class="sp">보리:</span> "돌칼로 나물 쓱쓱 썰어서— 토기에 넣고— 보글보글! 우리 첫 국이다! 조개랑 나물 골고루 들어갔어."<br/><span class="sp">노아:</span> "그릇 하나로 국물 요리까지 되다니. …근데 얘들아, 저 별 좀 봐. 오늘 우리 며칠째인지, 어느 쪽이 북쪽인지 아직 모르잖아."<br/><span class="sp">티코:</span> "이 섬엔 달력도 나침반도 없어. 옛날 사람들은 그걸 다 <b>하늘</b>을 보고 알아냈지."<br/><span class="sp">0호:</span> "…맛있는 냄새. 나도, 별 같이 볼래." (킁킁)</div>
+</div>
+
+<div class="page"><div class="pno">18쪽</div>
+  <div class="scene"><b>컷</b> 중형, 부모 감사 비트 — 날짜·시간을 챙겨 주던 손.<br/><b>장소·시간</b> 저녁, 캠프 바위에 걸터앉은 보리.<br/><b>인물</b> 보리가 무릎을 안고 먼 바다를 바라본다(살짝 아련한 표정). 옆에서 노아도 조용히 앉는다. 화면 한쪽에 흐릿한 회상 인셋 — 집 벽에 걸린 달력에 엄마가 동그라미를 치며 "내일은 보리 소풍!" 하고 웃는 따뜻한 장면.<br/><b>배경·소품</b> 파도·별빛, 인셋 회상은 따뜻한 노란빛(벽걸이 달력·엄마 손·동그라미).<br/><b>톤</b> 원망이 아니라 그리움·감사로. 잔잔하게. (미션① 빨래 감사와 짝을 이루는 정서 심화.)</div>
+  <div class="text"><span class="sp">보리:</span> "집에선 벽에 달력이 딱 걸려 있어서 오늘이 며칠인지 그냥 알았는데."<br/><span class="sp">보리:</span> "엄마가 달력에 동그라미 치면서 '내일 소풍', '모레 할머니 오시는 날' 하고 다 챙겨 주셨거든. 난 따라가기만 하면 됐어."<br/><span class="sp">노아:</span> "날짜랑 시간을 누가 챙겨 준다는 게… 사실 엄청 고마운 거였네."<br/><span class="sp">티코:</span> "이 섬엔 달력도 시계도 없으니, 이젠 너희가 <b>직접</b> 만들 수밖에. 낮엔 해, 밤엔 별로."</div>
+</div>
+
+<div class="page"><div class="pno">19쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ③ — 조상 지혜(해그림자·별자리) + 낮 계획.<br/><b>장소·시간</b> 다음 날 오전, 볕이 잘 드는 공터. 티코가 홀로그램 카드를 띄운다.<br/><b>인물</b> 티코의 눈에서 민트색 홀로그램 카드 — 낮에는 막대기 하나가 만드는 <b>해그림자</b>로 시간·방향을 읽는 옛사람, 밤에는 <b>별자리</b>를 올려다보며 길을 찾는 옛사람이 나란히. 올려다보는 아이들 얼굴이 민트빛으로 물든다. 0호는 벌써 곧고 긴 막대기 하나를 어깨에 메고 준비.<br/><b>배경·소품</b> 홀로그램에 해·막대기·그림자 / 밤하늘·별 두 그림, 옛 사람 실루엣 스탬프, 0호가 멘 막대기.<br/><b>톤</b> '티코피디아' 시그니처 — 옛 지혜를 차분히 소개하고 낮/밤 두 계획으로 나눔.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아, 시작! 옛날 사람들은 시계도 나침반도 없었지만, <b>낮엔 해와 그림자로</b>, <b>밤엔 별로</b> 시간과 방향을 알아냈어. 그게 옛사람들의 <b>하늘 달력</b>이야."<br/><span class="sp">노아:</span> "정리하자! 낮엔 해그림자로 방향이랑 시간을 알아내고, 밤엔 별을 보고 북쪽을 확인하는 거야."<br/><span class="sp">0호:</span> "…곧고 긴 막대기, 내가 세워 줄게."<br/><span class="sp">보리:</span> "좋아! 낮 동안 부지런히 해 보고, 밤엔 별을 관찰하자. 뭐든 시켜만 줘!"</div>
+</div>
+
+<div class="page"><div class="pno">20쪽</div>
+  <div class="scene"><b>컷</b> 중형, 첫 시도의 헛발질 — 성급한 보리.<br/><b>장소·시간</b> 오전, 평평한 모래땅. 0호가 곧은 막대기를 수직으로 세웠다.<br/><b>인물</b> 0호가 막대기를 땅에 콱 꽂아 세우고, 보리가 그림자 끝에 돌멩이를 놓자마자 "됐지?" 하며 벌써 결과를 보려고 조바심. 그런데 그림자는 아직 거의 그대로다. 노아가 "아직 기다려야 해!" 하며 말리고, 티코는 이마를 짚는 시늉.<br/><b>배경·소품</b> 곧게 선 막대기와 길게 뻗은 그림자, 그림자 끝의 첫 돌멩이, 거의 안 움직인 그림자, 발 동동 구르는 보리.<br/><b>톤</b> '기다림'이 필요한 실험 — 슬랩스틱으로 가볍게. 조바심의 실패 비트.</div>
+  <div class="text"><span class="sp">0호:</span> "…여기, 똑바로 세웠어. 안 쓰러져."<br/><span class="sp">보리:</span> "그림자 끝에 돌멩이 딱! …어라? 방향 나왔지? 근데 그림자가 그대로잖아?"<br/><span class="sp">노아:</span> "잠깐, 잠깐만! 해는 천천히 움직여. 눈 깜짝할 새에 바뀌는 게 아니라고. <b>기다려야</b> 해."<br/><span class="sp">티코:</span> "삐빅. 예상 결과: 성급함. 보리, 생각은 뛰면서 하랬지만 이건 기다리면서 하는 거야. 그동안 딴 일이라도 하자!"</div>
+</div>
+
+<div class="page"><div class="pno">21쪽</div>
+  <div class="scene"><b>컷</b> 중형, 부지런히 몸 쓰기 몽타주 — 기다리는 동안의 노동 + 건강 체감.<br/><b>장소·시간</b> 정오 무렵, 캠프 주변. 여러 동작이 한 컷에.<br/><b>인물</b> 그림자가 움직이길 기다리는 동안 넷이 부지런히 일한다 — 보리는 물통을 두 개나 번쩍 들어 나르고, 노아는 조개를 척척 다듬고, 0호는 장작을 패고, 티코는 이것저것 지시. 아이들 얼굴에 땀이 맺히지만 힘든 기색보다 다부진 활기가 돈다.<br/><b>배경·소품</b> 물통·조개·장작, 송글송글 땀방울, 정오의 짧아진 그림자.<br/><b>톤</b> 규칙적으로 몸 쓰며 건강해지는 시즌 모티프 — 부지런하고 밝게. (장치·게이지 없이 대사로만 체감.)</div>
+  <div class="text"><span class="sp">보리:</span> "기다리는 김에 일이나 하자! …근데 나 요즘 물통을 두 개나 번쩍 들어도 안 힘들어. 처음엔 하나도 겨우 들었는데."<br/><span class="sp">노아:</span> "너 팔에 힘 진짜 세졌다. 나도 이제 조개 까는 거 눈 감고도 하겠어."<br/><span class="sp">티코:</span> "매일 부지런히 몸 쓰고 골고루 잘 먹으니 둘 다 몰라보게 튼튼해졌네."<br/><span class="sp">0호:</span> "…해가 움직였어. 그림자, 저쪽으로 갔어." (막대기 쪽을 가리킨다)</div>
+</div>
+
+<div class="page"><div class="pno">22쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ④ — 발견 + 현대 과학(그림자 시계).<br/><b>장소·시간</b> 이른 오후, 막대기 옆. 시간이 흘렀다.<br/><b>인물</b> 넷이 막대기 앞에 다시 모인다. 아까 놓은 첫 돌(그대로)에서 그림자 끝이 눈에 띄게 옆으로 옮겨가, 노아가 두 번째 돌을 새 그림자 끝에 놓고 두 돌을 손가락으로 잇는다. 한쪽 인셋에 티코 홀로그램 — 그림자 끝 두 점을 이은 동↔서 선과 거기 직각인 남↔북 선(十자 방위), 옆에 옛 해시계 아이콘.<br/><b>배경·소품</b> 첫 돌·둘째 돌 두 개와 잇는 선, 인셋의 해·막대기·十자 방위·해시계 스탬프.<br/><b>톤</b> 기다림이 보답받고 조상 지혜(해그림자)와 과학(해시계 원리)이 한 쌍으로 맞물리는 발견 컷.</div>
+  <div class="text"><span class="sp">노아:</span> "진짜네! 그림자 끝이 저만큼 옮겨갔어. 여기 두 번째 돌을 놓고… 두 돌을 이으니까 선이 하나 생겼어!"<br/><span class="sp">티코:</span> "티코피디아! 해는 <b>동쪽에서 떠 서쪽으로</b> 지니까 그림자는 반대로 움직여. 그림자 끝 두 점을 이은 선이 <b>동서</b>, 거기 직각이 <b>남북</b>이야. 옛사람들은 이 원리로 <b>해시계</b>를 만들었지."<br/><span class="sp">노아:</span> "잠깐, 잠깐만! 그럼 이 선에 직각으로 서면 바로 <b>북쪽</b>을 알 수 있는 거네! 막대기 하나로 방향이랑 시간을 둘 다!"<br/><span class="sp">보리:</span> "우와, 신기해! 근데 밤이 되면 해가 없잖아. 밤엔 어떡해?"</div>
+</div>
+
+<div class="page"><div class="pno">23쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰 발견컷 — 게스트 바다거북 '느리' 등장(밤·별 예고).<br/><b>장소·시간</b> 늦은 오후, 방향을 확인하고 해변 쪽으로 나온 아이들.<br/><b>인물</b> 아이들이 해변으로 나오는데, 젖은 모래에 크고 넓은 자국이 길게 나 있다. 그 끝 얕은 물가에 순한 큰 바다거북 '느리'가 느릿느릿 바다로 돌아가는 중. 노아가 그 모래 자국과 거북을 유심히 본다.<br/><b>배경·소품</b> 모래에 난 넓은 거북 기어간 자국, 온순한 눈의 바다거북 느리, 기우는 해와 반짝이는 바다.<br/><b>톤</b> 자연이 다음 힌트(밤·별·길찾기)를 예고하는 귀여운 만남 — 거북은 끝까지 온순하게.</div>
+  <div class="text"><span class="sp">보리:</span> "우와! 이 큰 자국 뭐야? …어, 저기! 엄청 큰 거북이다!"<br/><span class="sp">노아:</span> "바다거북이야. 밤에 모래에 알을 낳으러 올라왔다가 다시 바다로 가나 봐. 근데 어떻게 깜깜한 밤에 길을 안 잃고 바다를 찾아가지?"<br/><span class="sp">티코:</span> "내 데이터에 의하면— 바다거북은 밤에 <b>별빛이 반짝이는 바다 쪽이 더 환한 걸</b> 길잡이 삼아 물로 돌아간대. 하늘빛이 길을 알려 주는 셈이지."<br/><span class="sp">노아:</span> "밤하늘 빛으로 길을? 그럼 우리도 밤엔 별을 보면 방향을 알겠네!"</div>
+</div>
+
+<div class="page"><div class="pno">24쪽</div>
+  <div class="scene"><b>컷</b> 대형 별밤컷(간판 컷 ④) — 밤하늘 관측 + 티코 별자리 모드 헛발질.<br/><b>장소·시간</b> 밤, 트인 언덕. 하늘 가득 쏟아지는 별.<br/><b>인물</b> 넷이 나란히 누워 밤하늘을 올려다본다 — 보리는 감탄으로 입이 벌어지고, 노아는 손가락으로 별을 짚으며 세고, 0호는 붉은 외눈으로 함께 하늘을 본다(밤새 지켜 주는 든든함). 티코가 "별자리 모드!"를 외치는데 눈 스크린에 지지직 에러(X자)만 뜬다.<br/><b>배경·소품</b> 은하수·수많은 별·별똥별 하나, 풀밭에 누운 네 실루엣, 티코 머리 위 에러 표시.<br/><b>톤</b> 압도적 별하늘의 벅참 + 완전체지만 시간의 문 고장으로 별자리 투영이 안 되는 개그(시간여행 부활 아님을 분명히).</div>
+  <div class="text"><span class="sp">보리:</span> "우와아… 별이 이렇게 많아? 집에선 이렇게 많은 별 한 번도 못 봤는데!"<br/><span class="sp">티코:</span> "이런 건 나한테 맡겨! 시즌1 <b>별자리 모드</b> 발동— …어? 삐빅? 안 켜져?"<br/><span class="sp">노아:</span> "티코, 그거 <b>시간의 문</b>이랑 같이 고장 난 기능 아냐? 돌아가는 문도 못 여는데 별자리 모드가 되겠어?"<br/><span class="sp">보리:</span> "괜찮아! 기계 없이도, 우리 눈으로 옛날 사람들처럼 찾아보자. 배터리 아끼는 셈 치고!"</div>
+</div>
+
+<div class="divider">— E. 해결 · 회수 · 정리 (25~33쪽) —</div>
+
+<div class="page"><div class="pno">25쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰 발견컷 — 국자 모양 별무리를 알아봄(룰5 클라이맥스).<br/><b>장소·시간</b> 밤, 언덕. 노아가 하늘의 한 무리를 유심히.<br/><b>인물</b> 처음엔 보리가 제일 밝은 별을 "저게 북쪽 별!" 하고 잘못 짚지만 그 별이 옮겨간다. 그때 노아가 하늘의 밝은 별 일곱 개가 <b>국자 모양</b>으로 늘어선 걸 알아보고 눈이 커진다(안경알에 별빛 반짝). 손가락으로 국자 모양을 따라 그린다. 보리도 "어, 진짜 국자다!" 하며 따라 본다.<br/><b>배경·소품</b> 별 일곱 개가 이룬 또렷한 국자(북두칠성) 모양, 노아 손가락이 잇는 상상선, 옆에 캠프의 토기 국자 소품 대비.<br/><b>톤</b> 룰5(관찰) 발동 — 노아가 익숙한 모양을 하늘에서 찾는 결정적 순간.</div>
+  <div class="text"><span class="sp">보리:</span> "저기 제일 밝은 별! 저게 안 움직이는 별 아냐? …어? 아까보다 옆으로 옮겨갔네?"<br/><span class="sp">노아:</span> "잠깐, 잠깐만! 밝다고 다 북쪽 별은 아니야. 저기 봐 — 밝은 별 일곱 개가 우리가 쓰는 <b>국자</b>랑 똑같이 생겼어!"<br/><span class="sp">보리:</span> "어? 진짜네! 국자 손잡이랑 국자 머리까지 딱 있어. 완전 하늘에 걸린 국자야!"<br/><span class="sp">티코:</span> "내 데이터에 의하면— 정확해! 그 국자 별무리가 <b>북두칠성</b>이야. 북쪽 별을 찾는 열쇠거든!"</div>
+</div>
+
+<div class="page"><div class="pno">26쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ⑤ — 조상+과학(북두칠성→북극성).<br/><b>장소·시간</b> 밤, 언덕. 티코가 홀로그램 카드를 띄운다.<br/><b>인물</b> 티코가 카드를 띄운다. 카드 안: 북두칠성 국자 모양 + <b>국자 머리(그릇)의 바깥쪽 벽을 이루는 두 별</b>(손잡이 반대쪽, 국자 입구를 이루는 두 별)에서 화살표가 출발해 <b>다섯 배</b> 늘여져 <b>북극성</b>에 가 닿는 도해. 그 별에서 곧장 땅으로 내려 북쪽을 가리킴. 아이들이 실제 하늘과 카드를 번갈아 보며 별을 찾는다.<br/><b>배경·소품</b> 카드의 국자 도해에서 <b>국자 머리 바깥쪽 두 별(손잡이 끝 아님)에서 화살표가 출발</b>해 다섯 배 늘여진 선이 북극성 별표에 닿음 · N(북쪽) 화살표, 실제 밤하늘과 겹쳐 보이게. (작화 주의: 화살표 시작점은 손잡이 끝 별이 아니라 국자 그릇의 바깥 벽 두 별이다.)<br/><b>톤</b> 옛 지혜(별자리로 방향 찾기)와 원리(항상 북쪽에 있는 별)가 한 쌍으로 맞물리는 핵심 학습 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 국자 <b>머리</b> 쪽, <b>바깥 벽을 이루는 두 별</b>을 이어서, 그 간격의 <b>다섯 배</b>만큼 쭉 늘여 봐. 거기 있는 별이 바로 <b>북극성</b>이야."<br/><span class="sp">노아:</span> "북극성은 밤새 거의 안 움직인대! 다른 별들은 그 별을 중심으로 빙 도는 거고. 그래서 <b>기준</b>이 되는 거구나!"<br/><span class="sp">보리:</span> "그럼 북극성이 있는 쪽이 바로 <b>북쪽</b>! 낮에 그림자로 찾은 북쪽이랑 같은지 확인해 보자!"</div>
+</div>
+
+<div class="page"><div class="pno">27쪽</div>
+  <div class="scene"><b>컷</b> 중형, 검증 성공컷 — 낮과 밤의 북쪽이 일치.<br/><b>장소·시간</b> 밤, 언덕과 낮에 표시해 둔 十자 방향이 함께 보이는 자리.<br/><b>인물</b> 노아가 하늘의 북극성 방향을 손으로 가리키고, 그 손끝 아래 땅에 낮에 새긴 十자 방향 표시(북쪽)가 딱 맞아떨어진다. 보리가 두 방향이 같다는 걸 확인하고 만세. 티코와 0호도 뿌듯.<br/><b>배경·소품</b> 위로는 북극성, 아래로는 땅의 十자 방향 표시, 둘을 잇는 상상선.<br/><b>톤</b> 낮의 과학과 밤의 별이 하나로 맞물리는 통쾌한 검증 — 성취감 넘치게.</div>
+  <div class="text"><span class="sp">노아:</span> "봐! 북극성이 가리키는 북쪽이랑, 낮에 해그림자로 찾은 북쪽이랑… <b>완전히 똑같아!</b>"<br/><span class="sp">보리:</span> "우와아! 낮엔 해그림자, 밤엔 별! 두 방법이 같은 답을 가리키니까 이제 확실하잖아!"<br/><span class="sp">티코:</span> "삐빅! 검증 완료. 이제 이 섬 어디서든 북쪽을 찾을 수 있어."<br/><span class="sp">0호:</span> "…낮에도, 밤에도, 북쪽은 저기. 이제 안 헷갈려."</div>
+</div>
+
+<div class="page"><div class="pno">28쪽</div>
+  <div class="scene"><b>컷</b> 중형, 새 허점 + 지식카드 연출 ⑥ — 현대 과학(자석 나침반) + 티코 자석 팔.<br/><b>장소·시간</b> 밤 늦게~다음 날 아침으로 넘어가며, 캠프. 옅은 구름이 잠깐 북극성을 가린다.<br/><b>인물</b> 밤에 구름이 별을 가려 노아가 "흐리면 어쩌지?" 걱정. 다음 컷 아침, 티코가 홀로그램 카드를 띄운다 — 쇠바늘을 자석에 한 방향으로 문지르면 자석 힘을 띠고, 나뭇잎에 얹어 물에 띄우면 저절로 <b>남북</b>을 가리키는 도해(옆에 지구가 커다란 자석이라는 그림). 티코가 자기 <b>자석 팔(미튼)</b>을 들어 보이며 "이건 내가 거들 수 있어" 한다.<br/><b>배경·소품</b> 별 앞을 스치는 옅은 구름 / 카드에 바늘·자석·나뭇잎·물그릇·N/S·지구 자석, 티코의 반짝이는 자석 팔.<br/><b>톤</b> 하늘이 안 보여도 쓸 도구가 필요하다는 허점 → 과학 도구로 이어지는 신기하고 밝은 톤.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만… 구름이 별을 가리면? 흐린 날이나 비 오는 날엔 해도 별도 안 보이잖아."<br/><span class="sp">티코:</span> "티코피디아! 그럴 땐 <b>나침반</b>이야. 쇠바늘을 자석에 한 방향으로 문지르면 바늘도 자석 힘을 띠어. 그걸 나뭇잎에 얹어 물에 띄우면 저절로 남북을 가리키지. 지구가 커다란 <b>자석</b>이라, 바늘을 남북으로 잡아당기거든."<br/><span class="sp">보리:</span> "근데 우리한테 자석이 어디 있어? 쇠바늘도 없고!"<br/><span class="sp">티코:</span> "바늘을 자석 힘 띠게 하는 건 내 <b>자석 팔</b>이 거들 수 있어. 쇠 조각은… 저 로켓 잔해에서 찾자!"</div>
+</div>
+
+<div class="page"><div class="pno">29쪽</div>
+  <div class="scene"><b>컷</b> 중형, 재료 찾기 + 협동 제작컷 — 나침반 만들기.<br/><b>장소·시간</b> 아침, 처음 불시착한 해변의 로켓 잔해 옆 → 캠프.<br/><b>인물</b> 0호가 무거운 로켓 잔해를 번쩍 들어 길을 터 주고(힘), 노아가 곧은 쇠 조각을 찾아 든다. 캠프에서 노아가 쇠 조각을 티코의 자석 팔에 한 방향으로 조심조심 문지르고, 보리가 토기 그릇에 물을 붓고 나뭇잎을 띄운다. 0호가 그릇이 흔들리지 않게 두 손으로 받쳐 든다.<br/><b>배경·소품</b> 부서진 로켓 잔해·곧은 쇠 조각, 티코 자석 팔·물 담은 토기 그릇·나뭇잎, 집중한 얼굴들.<br/><b>톤</b> 우리 손에 있는 것으로 해결하는 룰5·자립의 컷. 티코 기능은 거들기만, 실행은 아이들. 밝고 정겹게.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만! 로켓 잔해에 곧은 쇠 조각이 있어. 이걸 티코 자석 팔에 <b>한 방향으로만</b> 슥— 슥— 여러 번 문질러야 해. 왔다 갔다 하면 안 돼."<br/><span class="sp">0호:</span> "…이 무거운 잔해는 내가 치울게. 그릇도 안 흔들리게 잡을게."<br/><span class="sp">보리:</span> "물 담은 토기랑 나뭇잎 준비 끝! 지난번에 우리가 구운 그 그릇, 이럴 때도 쓰네!"<br/><span class="sp">티코:</span> "내 데이터에 의하면— 이제 바늘을 나뭇잎에 살짝 얹고 손 떼고 기다려 봐!"</div>
+</div>
+
+<div class="page"><div class="pno">30쪽</div>
+  <div class="scene"><b>컷</b> 대형 성공컷(간판 컷 ⑤) — 나침반이 북쪽을 가리킴, 세 방법 일치.<br/><b>장소·시간</b> 아침, 캠프. 물그릇 위 클로즈업 + 아이들 반응.<br/><b>인물</b> 물 위 나뭇잎에 얹힌 쇠바늘이 스르르 돌아 딱 멈춰 한쪽(낮에 그림자로, 밤에 별로 확인한 그 북쪽)을 가리킨다. 넷이 눈이 휘둥그레져 환호. 노아가 그 방향과 땅의 十자 표시를 비교하며 "똑같아!" 만세. 티코가 자석 팔을 흔들며 뿌듯.<br/><b>배경·소품</b> 물 위 나뭇잎·바늘이 북쪽을 콕, 땅의 十자 방향 표시와 나란히, 감탄하는 얼굴들.<br/><b>톤</b> 세 가지 방법(해그림자·별·나침반)이 모두 같은 북쪽을 가리키는 이번 미션의 정점 — 통쾌하고 벅차게.</div>
+  <div class="text"><span class="sp">보리:</span> "돈다, 돌아! …멈췄어! 바늘이 딱 한 쪽을 가리켜!"<br/><span class="sp">노아:</span> "봐 봐! 해그림자로 찾은 북쪽, 별로 찾은 북쪽, 나침반이 가리키는 북쪽… <b>셋 다 똑같아!</b>"<br/><span class="sp">티코:</span> "삐빅! 완성! 이제 낮이든 밤이든, 맑든 흐리든, 이 섬 어디서든 북쪽을 찾을 수 있어!"<br/><span class="sp">보리:</span> "우리가 <b>진짜 나침반</b>을 만들었어! 그것도 우리 손으로!"</div>
+</div>
+
+<div class="page"><div class="pno">31쪽</div>
+  <div class="scene"><b>컷</b> 대형, 날짜 세기 해결 + 0호 소속 착지컷 — 하늘 달력 완성.<br/><b>장소·시간</b> 낮, 캠프 앞 너른 공터.<br/><b>인물</b> 0호가 커다란 돌들을 번쩍번쩍 옮겨, 한가운데 곧은 큰 돌 기둥을 세우고 둘레에 돌을 눈금처럼 빙 둘러 커다란 <b>돌 해시계</b>를 만든다. 그 옆 캠프 기둥엔 넷이 '하루 = 한 줄' 빗금을 또렷이 새기기로 하고, 노아가 첫 빗금을, 보리가 옆에 해·별 그림을 새겨 '하늘 달력'이라 이름 붙인다. 0호의 붉은 외눈이 뿌듯하게 반달로 웃는다.<br/><b>배경·소품</b> 가운데 곧은 돌기둥 + 둘레 돌 눈금, 기둥 그림자가 한 눈금을 가리킴, 기둥의 빗금과 해·별 그림, 땀 흘린 0호.<br/><b>톤</b> 날짜·시간 감각을 되찾고 0호의 튼튼함이 결정적이던 '제일 튼튼한 대원' 착지 — 든든하고 따뜻하게.</div>
+  <div class="text"><span class="sp">0호:</span> "…이 큰 돌들, 내가 다 옮길 수 있어. 무겁지 않아." (돌 기둥을 콱 세운다)<br/><span class="sp">보리:</span> "우와! 0호 아니었으면 이 무거운 돌 어떻게 세웠겠어. 넌 우리한테 <b>제일 튼튼한 대원</b>이야!"<br/><span class="sp">노아:</span> "이제 이 돌기둥 그림자로 시간을 보고, 기둥에 <b>하루에 한 줄씩</b> 빗금을 긋자. 이게 우리만의 <b>하늘 달력</b>이야."<br/><span class="sp">0호:</span> "…내가 세운 시계. 우리 시계. 여기가 내 자리 같아." (붉은 외눈이 반짝)</div>
+</div>
+
+<div class="page"><div class="pno">32쪽</div>
+  <div class="scene"><b>컷</b> 중형, 부모 감사·철듦 회수 + 일찍 자기 습관 — 하루를 마무리.<br/><b>장소·시간</b> 저녁, 해가 지는 캠프. 큰 돌 해시계 그림자가 길게 눕고, 살림살이(돌칼·토기·갠 옷)가 가지런하다.<br/><b>인물</b> 보리가 낮에 빨아 말린 옷을 개어 가지런히 정리하고, 노아가 새 토기 그릇들을 나뭇가지로 짠 선반에 나란히 얹는다. 큰 해시계 그림자가 '저녁' 눈금에 닿자 보리가 하품하며 기지개. 티코가 코어 불빛을 은은히 낮춰 취침 모드.<br/><b>배경·소품</b> 가지런히 갠 옷·줄지어 놓인 토기·돌칼, 노을에 물든 해시계, 하품하는 보리(zzz).<br/><b>톤</b> 감사가 행동(철듦)으로 이어지고 해·별에 맞춰 일찍 자는 건강한 리듬 — 포근하게.</div>
+  <div class="text"><span class="sp">보리:</span> "빨아 말린 옷을 개어 두고, 그릇도 자리를 정해 놓으니까 마음이 다 개운해. 살림이란 게 이런 거구나."<br/><span class="sp">보리:</span> "집에 돌아가면, 엄마 빨래랑 정리 꼭 도울 거야. 이제 얼마나 손이 가는 일인지 아니까."<br/><span class="sp">티코:</span> "삐빅— 해시계 그림자가 저녁 눈금에 닿았어. 취침 모드. 이 섬의 시계는 <b>하늘</b>이니까."<br/><span class="sp">노아:</span> "일찍 자니까 아침마다 개운하고 몸도 튼튼해지고. 집에 가서도 이렇게 살아야겠어. (하암)"</div>
+</div>
+
+<div class="page"><div class="pno">33쪽</div>
+  <div class="scene"><b>컷</b> 대형 마무리 몽타주 — 희망찬 엔딩 + 다음 화 떡밥(폭풍).<br/><b>장소·시간</b> 다음 날 아침, 캠프 전경을 담은 넓은 부감.<br/><b>인물</b> 넷이 큰 돌 해시계와 하늘 달력 기둥, 가지런한 살림(돌칼·토기) 앞에 나란히 선다 — 든든한 뒷모습. 티코가 어깨 위에서 북쪽을 가리키고, 노아가 손에 나침반(나뭇잎·물그릇)을 들었다. 그런데 저 멀리 수평선 한쪽에, 아직은 작지만 <b>거뭇한 먹구름 한 덩이</b>가 피어오른다(다음 화 좌표).<br/><b>배경·소품</b> 돌 해시계·하늘 달력·나침반·돌칼·토기, 반짝이는 바다, 수평선의 작은 먹구름. 보리 뺨에 발그레 혈색.<br/><b>톤</b> 살림과 하늘을 모두 갖춘 팀의 든든함 + 다가올 폭풍의 예감이 살짝. 밝지만 여운 있게.</div>
+  <div class="text"><span class="sp">나레이션:</span> 손이 될 도구를 갖추고 하늘까지 읽게 된 넷은, 이제 방향도 시간도 날짜도 알게 되었어요.<br/><span class="sp">보리:</span> "돌칼에 토기, 낮엔 해그림자, 밤엔 별, 흐리면 나침반! 이제 이 섬에서 길 잃을 일 없어. 가자, 노아!"<br/><span class="sp">노아:</span> "잠깐, 잠깐만… 저기 수평선 봐. 먹구름이 피어오르고 있어. 바람도 어쩐지 바뀐 것 같은데?"<br/><span class="sp">티코:</span> "삐빅! 다음 과제 — <b>폭풍이 오기 전에 대비하기</b>. 하늘이 우리한테 미리 신호를 보내고 있어!"</div>
+</div>
+
+<div class="divider">— F. 티코피디아 부록 (34~36쪽) —</div>
+
+<div class="page"><div class="pno">34쪽 · 티코피디아 ①</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지(부록 공통 포맷) — 배경은 민트색 홀로그램 격자.<br/><b>장면</b> 티코가 안경을 쓰고 지시봉을 든 선생님 포즈로 화면 왼쪽에. 오른쪽 큰 카드 — 위쪽: 돌을 깨서 거친 날을 낸 <b>뗀석기</b>와 판판한 바위에 갈아 매끈한 날을 낸 <b>간석기</b>를 나란히 비교('깨기→갈기' 화살표) + 지레 도해(긴 막대 밑에 받침돌을 괴고 작은 힘으로 무거운 돌을 번쩍 드는 시소 그림). 아래쪽: 진흙 알갱이가 물기(파란 방울)를 날리고 서로 꽉 들러붙어 돌처럼 단단해지는 3단계 + 빗살무늬토기 그림. 카드 모서리에 옛 사람 실루엣 스탬프.<br/><b>톤</b> 밝고 정돈된 인포그래픽. 본편과 구분되는 '부록 세계' 톤.</div>
+  <div class="text"><span class="sp">티코:</span> "오늘의 티코피디아, 살림 편! 옛사람들은 돌을 갈아 매끈하고 날카로운 <b>간석기</b>를 만들고, 무거운 돌은 긴 막대 밑에 받침돌을 괴는 '<b>지레</b>'로 옮겼어. 또 물렁한 진흙을 그릇으로 빚어 <b>불에 구우면</b>, 물기가 날아가고 알갱이들이 꽉 들러붙어 돌처럼 단단한 <b>토기</b>가 되지. 단, 천천히 말려 약한 불부터 시작해야 안 터진단다!"</div>
+</div>
+
+<div class="page"><div class="pno">35쪽 · 티코피디아 ②</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지 ② — 도해 중심(하늘 편).<br/><b>장면</b> 화면 상단: 곧은 <b>막대기 해시계</b> — 땅에 세운 막대기, 시간에 따라 변하는 그림자, 그림자 끝 두 점을 이은 동↔서 선과 거기 직각인 남↔북 선(十자 방위). 화면 중단: 밤하늘의 <b>북두칠성</b>(국자 모양) — 국자 <b>머리(그릇)의 바깥쪽 벽을 이루는 두 별</b>(손잡이 끝이 아님)에서 화살표가 출발해 다섯 배 늘여져 <b>북극성</b>에 닿고, 북극성이 북쪽을 가리킴. 화면 하단: 자석에 문지른 쇠바늘을 나뭇잎에 얹어 물에 띄운 <b>나침반</b>(지구가 커다란 자석이라 바늘이 남북을 가리킴). 구석에 엄지 척 티코. (작화 주의: 화살표 시작점은 국자 그릇 바깥 벽의 두 별.)<br/><b>톤</b> 교과서 삽화보다 밝고 만화적인 도해.</div>
+  <div class="text"><span class="sp">티코:</span> "이번엔 하늘 편! 낮엔 <b>막대기 그림자</b> 끝을 시간을 두고 두 번 표시해 이으면 <b>동서</b>, 거기 직각이 <b>남북</b> — 이게 <b>해시계</b>야. 밤엔 국자 모양 <b>북두칠성</b>에서 국자 머리 바깥 벽 두 별을 이어 다섯 배 늘이면 늘 북쪽에 있는 <b>북극성</b>이 나오지. 흐린 날엔 쇠바늘을 자석에 문질러 물에 띄운 <b>나침반</b>! 커다란 자석인 <b>지구</b>가 바늘을 남북으로 잡아당긴단다."</div>
+</div>
+
+<div class="page"><div class="pno">36쪽 · 티코 퀴즈</div>
+  <div class="scene"><b>컷</b> 퀴즈 페이지(부록 공통 포맷) — 티코 정면 컷.<br/><b>장면</b> 티코가 문제 카드 3장을 부채꼴로 펼쳐 들고 윙크. 카드마다 ①②③ 번호와 물음표 장식. 배경 하단에 다음 화 예고 — 수평선에 피어오르는 거뭇한 먹구름과 바람·물음표. (앱에서는 기존 퀴즈 게임 인프라로 인터랙티브 처리)<br/><b>톤</b> 마무리 팡파레 + 다음 화 기대감.</div>
+  <div class="text"><span class="sp">티코:</span> "마지막 관문, 티코 퀴즈! 셋 다 맞히면 너도 무인도 살림 대원!<br/>① 돌을 깨기만 한 것이 아니라 판판한 바위에 <b>갈아서</b> 매끈하고 날카롭게 만든 석기를 무엇이라고 할까?<br/>② 물렁한 진흙 그릇을 물에도 안 풀어지게 단단하게 만들려면 어떻게 해야 할까?<br/>③ 밤하늘에서 국자 모양 북두칠성으로 찾을 수 있는, 늘 북쪽에 있는 별의 이름은?<br/>…다음 화, 섬에 <b>폭풍</b>이 오기 전에 대비하러 가자! 삐빅!"</div>
+</div>
+
+<footer>
+  타임 티코 시즌2 · 3화 「살림과 하늘」 콘티 v2.0 · 탱고북 오리지널 · 내부 제작 자료
+</footer>
+
+</div>
+
+<script>
+// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
+(async function () {
+  const nav = document.getElementById('comic-tabs');
+  if (!nav) return;
+  const here = (location.pathname.split('/').pop() || '');
+  const items = [['learning-comic-s2-plan.html', '📘 기획서']];
+  for (let i = 1; i <= 12; i++) {
+    const f = 'learning-comic-s2-ep' + String(i).padStart(2, '0') + '.html';
+    try {
+      const r = await fetch(f);
+      const t = await r.text();
+      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
+    } catch (e) { /* skip */ }
+  }
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §7과 동기 유지) ─────────
+const STYLE_PROMPT = [
+  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
+  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
+  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
+  '무인도 자연 배경(숲·해변·바다·하늘·개울)은 사실적이고 세밀하게 묘사.',
+  '화면비 16:9 와이드 일러스트.',
+  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
+].join(' ');
+
+const CHARACTER_KEYS = [
+  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
+  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
+  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
+  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸 전부 점등 = 완전체), 감정에 따라 모양이 변하는 둥근 눈.',
+  '- 0호(40cm 구형 미니 로봇): 각진 상자형 무광 회색 몸체, 가로로 긴 검은 스크린에 크고 둥근 붉은 외눈 하나, 가슴에 주홍빛 코어, 낡아 해진 회색 천 조각을 두름. 무섭지 않고 순박하고 짠한 인상.',
+  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼 — 이 화에서는 등장하지 않는다(집에서 대기, 통신 두절).',
+].join('\n');
+
+// 이 화의 시대 의상 (화별로 교체)
+const EP_COSTUME = '[이 화의 의상] 무인도 표류 여러 날째 — 보리 = 흙물이 배어 낡고 소매를 걷은 주황 후드티 + 데님 반바지, 노아 = 해지고 얼룩진 하늘색 셔츠(소매를 걷음) + 카키 긴바지. 여러 밤을 지낸 터라 옷은 흙·풀물·모래로 꾀죄죄하지만, 두 아이 모두 팔다리에 힘이 붙고 볕에 그을려 건강하고 다부진 인상(얼굴에 발그레 혈색). 도구·토기를 만드는 장면에서는 팔과 손, 옷에 회색 돌가루나 진흙이 묻는다. 낮 장면은 밝은 햇빛 톤, 밤 별 관측 장면은 별빛·달빛의 푸른 톤으로.';
+
+// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
+const EP_GUEST_KEYS = [
+  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
+  '- 제비 진이: 윤기 나는 남색 등과 하얀 배, 이마·목에 붉은 밤색 점, 끝이 둘로 갈라진 길고 날렵한 제비꼬리, 작고 반짝이는 검은 눈. 부지런하고 야무진 인상. 개울가 진흙을 부리로 물어다 바위 처마에 붙여 오목한 둥지를 짓고, 그 진흙 집이 마르면 단단해진다(미션① "진흙이 굳으면 딱딱해진다" 힌트). 무섭지 않고 귀엽고 성실한 섬의 이웃.',
+  '- 바다거북 느리: 밤에 알을 낳으러 해변에 올라오는 순하고 큰 바다거북. 매끈한 초록빛·갈색 등딱지에 육각 무늬, 크고 둥근 순한 눈, 느릿느릿 온화한 움직임. 무섭지 않고 듬직하고 다정한 인상. 밤바다 밝은 쪽을 길잡이 삼아 돌아가는 섬의 밤 손님(미션② 방향 힌트).',
+].join('\n');
+
+function composeImagePrompt(pno, sceneText) {
+  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+}
+
+// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    const btn = card.querySelector('.copy-btn');
+    const pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async function () {
+      // textContent — details 접힘 상태에선 innerText 가 빈 값
+      const text = pre.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('done');
+      } catch (e) {
+        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
+      }
+      setTimeout(function () {
+        btn.textContent = '📋 시트 프롬프트 복사';
+        btn.classList.remove('done');
+      }, 1600);
+    });
+  });
+})();
+
+// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
+const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
+
+async function loadComicAssets() {
+  try {
+    const r = await fetch(ASSET_API);
+    const j = await r.json();
+    return (j && j.data) || {};
+  } catch (e) { return {}; }
+}
+
+function createPasteBox(key, assets, hint) {
+  const box = document.createElement('div');
+  box.className = 'paste-box';
+  box.tabIndex = 0;
+  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
+  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
+  const reset = function () {
+    box.classList.remove('has-img');
+    box.innerHTML = '';
+    box.textContent = hintText;
+  };
+  const setImg = function (url) {
+    box.classList.add('has-img');
+    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      if (!confirm('이 이미지를 삭제할까요?')) return;
+      try {
+        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
+        reset();
+      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
+    });
+  };
+  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+  else box.textContent = hintText;
+
+  async function upload(file) {
+    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+    box.classList.add('busy');
+    const fr = new FileReader();
+    fr.onload = async function () {
+      try {
+        const r = await fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        });
+        const j = await r.json();
+        if (j.success) setImg(j.data.url + '?t=' + Date.now());
+        else alert('저장 실패: ' + (j.error || ''));
+      } catch (e) {
+        alert('저장 실패 — 서버(3500)를 확인하세요');
+      }
+      box.classList.remove('busy');
+    };
+    fr.readAsDataURL(file);
+  }
+
+  box.addEventListener('paste', function (e) {
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (const it of items) {
+      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
+    }
+  });
+  box.addEventListener('dragover', function (e) { e.preventDefault(); });
+  box.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) upload(f);
+  });
+  box.addEventListener('click', function () { box.focus(); });
+  return box;
+}
+
+// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-s2-plan) 자산을 읽어옴 ──
+(async function () {
+  const grid = document.getElementById('cast-grid');
+  if (!grid) return;
+  let planAssets = {};
+  try {
+    const r = await fetch('/api/comic-assets/learning-comic-s2-plan');
+    const j = await r.json();
+    planAssets = (j && j.data) || {};
+  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
+  grid.querySelectorAll('.cast-item').forEach(function (item) {
+    const key = item.getAttribute('data-key');
+    if (planAssets[key]) {
+      const frame = item.querySelector('.frame');
+      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
+    }
+  });
+})();
+
+// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
+(function () {
+  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^[a-z0-9-]+$/.test(docId)) return;
+  const api = '/api/comic-feedback/' + docId;
+
+  function updateBar(total) {
+    const bar = document.getElementById('feedback-cnt');
+    if (bar) bar.textContent = total;
+  }
+
+  async function loadNotes() {
+    try {
+      const r = await fetch(api);
+      const j = await r.json();
+      return (j && j.data && j.data.pages) || {};
+    } catch (e) { return {}; }
+  }
+
+  async function saveNote(page, note, statusEl, ta) {
+    statusEl.textContent = '저장 중…';
+    try {
+      const r = await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, note: note }),
+      });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.error || 'save failed');
+      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
+      ta.classList.toggle('has-note', !!note.trim());
+      updateBar(j.data.total);
+      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
+    } catch (e) {
+      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
+      statusEl.style.color = '#e85c3a';
+    }
+  }
+
+  async function init() {
+    const pages = document.querySelectorAll('.page');
+    if (!pages.length) return;
+    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
+    const notes = loaded[0];
+    const assets = loaded[1];
+
+    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
+    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
+      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
+    });
+
+    const anchor = document.querySelector('header.hero');
+    if (anchor) {
+      const bar = document.createElement('div');
+      bar.id = 'feedback-bar';
+      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
+      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+    }
+
+    pages.forEach(function (card) {
+      const pnoEl = card.querySelector('.pno');
+      const m = pnoEl && pnoEl.textContent.match(/\d+/);
+      if (!m) return;
+      const pno = m[0];
+
+      const main = document.createElement('div');
+      while (card.firstChild) main.appendChild(card.firstChild);
+      card.appendChild(main);
+
+      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
+      const mainPno = main.querySelector('.pno');
+      const sceneEl = main.querySelector('.scene');
+      if (mainPno && sceneEl) {
+        const row = document.createElement('div');
+        row.className = 'pno-row';
+        mainPno.parentNode.insertBefore(row, mainPno);
+        row.appendChild(mainPno);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋 그림 프롬프트 복사';
+        copyBtn.addEventListener('click', async function () {
+          const prompt = composeImagePrompt(pno, sceneEl.innerText);
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = '복사됨 ✓';
+            copyBtn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () {
+            copyBtn.textContent = '📋 그림 프롬프트 복사';
+            copyBtn.classList.remove('done');
+          }, 1600);
+        });
+        row.appendChild(copyBtn);
+      }
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const saved = notes[pno] || '';
+      panel.innerHTML =
+        '<label>' + pno + '쪽 생성 이미지</label>' +
+        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
+        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
+        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
+      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
+      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
+      const ta = panel.querySelector('textarea');
+      if (saved) ta.classList.add('has-note');
+      const btn = panel.querySelector('button');
+      const status = panel.querySelector('.status');
+      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
+      });
+
+      card.classList.add('with-notes');
+      card.appendChild(panel);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>

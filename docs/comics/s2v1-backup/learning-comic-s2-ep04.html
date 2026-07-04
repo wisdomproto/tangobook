@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 시즌2 · 4화 「골고루의 비밀」 — 콘티</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 24px 0 28px; border-bottom: 3px solid var(--coral); margin-bottom: 28px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 12px; }
+  .hero h1 { font-size: 32px; font-weight: 900; margin: 8px 0 4px; }
+  .hero .sub { color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+  .divider { text-align:center; margin: 40px 0 8px; font-weight: 900; color: var(--mint); letter-spacing: .15em; font-size: 14px; }
+  .page { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 14px 0; }
+  .page .pno { font-weight: 900; color: var(--coral-dark); font-size: 15px; }
+  .page .scene { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .page .scene b { color: var(--mint); font-weight: 800; }
+  .page .text { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 8px; font-size: 15px; }
+  .page .text .sp { font-weight: 800; color: var(--coral-dark); }
+  /* 콘티 리뷰 패널 */
+  .page.with-notes { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .page.with-notes { grid-template-columns: 1fr; } }
+  .note-panel { border-left: 2px dashed var(--line); padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 900px) { .note-panel { border-left: none; border-top: 2px dashed var(--line); padding: 12px 0 0; } }
+  .note-panel label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+  .note-panel textarea { width: 100%; min-height: 96px; resize: vertical; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 13px; background: #fffdfa; }
+  .note-panel textarea:focus { outline: none; border-color: var(--coral); }
+  .note-panel textarea.has-note { border-color: var(--mint); background: #f4fffc; }
+  .note-panel .row { display: flex; align-items: center; gap: 10px; }
+  .note-panel button { background: var(--coral); color: #fff; border: none; border-radius: 999px; padding: 7px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .note-panel button:hover { background: var(--coral-dark); }
+  .note-panel .status { font-size: 12px; color: var(--mint); font-weight: 700; }
+  #feedback-bar { position: sticky; top: 54px; z-index: 10; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 18px; margin: 16px 0 24px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #feedback-bar .cnt { color: #ffd9cc; }
+  .pno-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .copy-btn:hover { background: var(--mint); color: #fff; }
+  .copy-btn.done { background: var(--mint); color: #fff; }
+  .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
+  .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+  .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cast-strip .hint a { color: var(--coral-dark); font-weight: 700; }
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .cast-item { text-align: center; }
+  .cast-item .frame { border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 26px; }
+  .cast-item .frame img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .cast-item .nm { font-size: 12.5px; font-weight: 800; margin-top: 5px; color: var(--ink-soft); }
+  .guest-section { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--coral); border-radius: 16px; padding: 18px 22px; margin: 20px 0; }
+  .guest-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+  .guest-section .hint { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .char-prompt { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt details { margin-top: 6px; }
+  .char-prompt summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 8px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  .safety-callout { background: #fff4f0; border: 1.5px solid var(--coral); border-radius: 14px; padding: 14px 18px; margin: 20px 0; font-size: 13.5px; color: var(--coral-dark); font-weight: 700; line-height: 1.7; }
+  .safety-callout b { color: var(--coral-dark); }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+</style>
+</head>
+<body data-comic-doc="s2-ep04">
+<div class="wrap">
+
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-s2-plan.html">📘 기획서</a></nav>
+
+<header class="hero" id="top">
+  <div class="kicker">TIME TICO · SEASON 2 · EPISODE 04</div>
+  <h1>시즌2 4화 「골고루의 비밀」</h1>
+  <div class="sub">현재 · 이름 모를 무인도 — 먹을 수 있는 식물 채집 · 조상 지혜(먹는 것/독초 판별) + 현대 과학(관찰·어른 확인·기록) · 36쪽 콘티 · 시즌 모티프: 골고루 먹기(편식 교정) · 점점 튼튼해지는 몸</div>
+</header>
+
+<div class="safety-callout">
+  ⚠️ <b>이 화의 안전 원칙(P0):</b> 이 이야기의 진짜 주제는 "함부로 입에 넣지 않기"다. 야생 식물·버섯은 아주 위험할 수 있으니 <b>아는 것만, 어른·전문가가 확인한 것만</b> 먹고, <b>모르면 절대 안 먹는다</b>. 특히 <b>버섯은 확인조차 소용없이 무조건 금지</b>(작은 양도 치명적일 수 있음)로 명확히 못 박는다. 스스로 맛보거나 소량을 입에 대 보는 자가 판별은 절대 그리지 않는다. 아이들의 안전한 성공은 티코피디아(전문 지식)의 확인과 노아의 관찰이 항상 앞선 뒤에만 일어난다.
+</div>
+
+<div class="cast-strip">
+  <h2>⭐ 고정 캐릭터 확정 시트 (시즌1 계승)</h2>
+  <div class="hint">기획서 §7에 붙여넣은 레퍼런스가 여기 자동 표시됩니다 — 컷 작업의 기준. 비어 있으면 <a href="learning-comic-s2-plan.html#s7">기획서에서 붙여넣기 →</a></div>
+  <div class="cast-grid" id="cast-grid">
+    <div class="cast-item" data-key="bori"><div class="frame">👧</div><div class="nm">보리</div></div>
+    <div class="cast-item" data-key="noa"><div class="frame">👦</div><div class="nm">노아</div></div>
+    <div class="cast-item" data-key="tico"><div class="frame">🤖</div><div class="nm">티코</div></div>
+    <div class="cast-item" data-key="bongsu"><div class="frame">👴</div><div class="nm">봉수 박사</div></div>
+    <div class="cast-item" data-key="zero"><div class="frame">🌑</div><div class="nm">0호</div></div>
+  </div>
+</div>
+
+<div class="guest-section">
+  <h2>🎭 이 화의 게스트 캐릭터 레퍼런스</h2>
+  <div class="hint">3장면 이상 등장하거나 클로즈업이 있는 게스트는 시트를 먼저 확정한다. 아래 비주얼 키는 각 쪽 [📋 그림 프롬프트 복사]에도 자동 포함되어 컷 간 일관성을 지킨다. (스치는 새·나비·물고기 등 단역은 장면 지시 서술로 충분, 시트 불필요)</div>
+
+  <div class="char-prompt" data-char="다람쥐" data-key="squirrel">
+    <div class="head"><span style="font-size:20px">🐿️</span><b>다람쥐 '도토' (섬에 사는 다람쥐)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 동물 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 귀엽고 둥근 카툰 비율. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 3면(정면·옆·뒤 — 큰 꼬리를 등에 세운 모습), 오른쪽 위에 표정·동작 6종 그리드(볼주머니가 빵빵하게 부푼 모습·앞발로 도토리를 쥐고 갉는 모습·놀라 두 발로 벌떡 선 모습·고개 갸웃 호기심·눈 반짝 신남·꼬리를 만 채 웅크림), 오른쪽 아래 대표 포즈 2개(도토리를 앞발로 소중히 감싸 든 포즈, 나뭇가지 위에서 아래를 내려다보며 아이들을 구경하는 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 도토, 섬 숲에 사는 작고 통통한 다람쥐. 등에 다섯 줄 세로 줄무늬(한국 다람쥐 특징), 밝은 갈색·크림색 털, 몸통만큼 크고 복슬복슬한 꼬리, 크고 동그란 까만 눈, 빵빵하게 부풀릴 수 있는 볼주머니. 무섭지 않고 아주 귀엽고 부지런한 인상 — 도토리·열매를 볼주머니에 잔뜩 모아 나른다. 아이들에게 "무엇을 먹어야 안전한지"를 몸으로 넌지시 보여 주는 섬의 이웃(다람쥐가 먹는 걸 무작정 따라 먹으면 안 된다는 건 이야기에서 반드시 짚는다).</pre></details>
+  </div>
+</div>
+
+<div class="divider">— A. 일상 후크 · 배고픔 (1~3쪽) —</div>
+
+<div class="page"><div class="pno">1쪽</div>
+  <div class="scene"><b>컷</b> 대형 아침컷, 밝은 부감.<br/><b>장소·시간</b> 무인도 베이스캠프 — 지난 화들에서 지은 솔가지 쉼터와, 3화에서 피운 <b>모닥불 자리</b>(잿더미에 불씨가 살아 은은히 연기). 맑은 아침, 나뭇잎 사이로 황금빛 햇살.<br/><b>인물</b> 보리(주황 후드티, 며칠 입어 소매가 조금 꾀죄죄)가 배를 움켜쥐고 벌러덩 누워 하늘을 본다. 노아(하늘색 셔츠)는 나무에 기대 힘없이 앉았다. 티코가 둘 사이를 오가며 살피고, 0호는 불씨 옆에 마른 가지를 얹어 불을 지킨다.<br/><b>배경·소품</b> 텅 빈 조개껍데기 그릇, 어제 마신 물통, 모닥불 연기, 배에서 나는 꼬르륵 만화 기호.<br/><b>톤</b> 정착은 했지만 '먹을 게 없다'는 새 문제가 밝게 열리는 아침.</div>
+  <div class="text"><span class="sp">나레이션:</span> 쉼터도 짓고, 물도 찾고, 불씨도 지켰어요. 그런데 무인도의 아침, 새로운 문제가 찾아왔어요.<br/><span class="sp">보리:</span> "꼬르륵… 아, 배고파! 어젯밤부터 아무것도 못 먹었잖아."<br/><span class="sp">노아:</span> "나도 기운이 하나도 없어. 물만 마셔서는 힘이 안 나…"<br/><span class="sp">티코:</span> "내 데이터에 의하면— 사람은 <b>골고루</b> 잘 먹어야 힘이 나. 오늘 과제는 정해졌네. <b>먹을 것 찾기!</b>"</div>
+</div>
+
+<div class="page"><div class="pno">2쪽</div>
+  <div class="scene"><b>컷</b> 중형, 편식 후크 도입 — 두 아이의 투정 클로즈업.<br/><b>장소·시간</b> 아침, 베이스캠프 모닥불 앞.<br/><b>인물</b> 보리가 벌떡 일어나 신나서 손을 번쩍 드는데, 곧 표정이 시무룩. 노아는 코를 찡그린다. 둘 다 '먹기 싫은 것'을 떠올리는 표정(머리 위 상상 말풍선 — 보리는 접시 위 나물 무침, 노아는 초록 채소가 잔뜩).<br/><b>배경·소품</b> 상상 말풍선 속 반찬 접시, 질색하는 물결 표정선.<br/><b>톤</b> 편식이라는 이 화의 정서 축을 유쾌하게 심는 컷.</div>
+  <div class="text"><span class="sp">보리:</span> "먹을 거! 좋아! …근데 나 풀때기 나물 같은 건 딱 질색이야. 집에서도 그건 늘 남겼는데."<br/><span class="sp">노아:</span> "나도 초록색 채소는 영… 엄마가 골고루 먹으랬는데 맨날 고기만 먹었어."<br/><span class="sp">티코:</span> "삐빅. 여긴 무인도야, 인간들. 냉장고도 반찬가게도 없어. 있는 걸 골고루 먹지 않으면— 힘이 안 나서 집에 못 돌아가."<br/><span class="sp">보리:</span> "으… 그건 좀 곤란한데."</div>
+</div>
+
+<div class="page"><div class="pno">3쪽</div>
+  <div class="scene"><b>컷</b> 중형, 부모 감사 씨앗 — 회상 인셋.<br/><b>장소·시간</b> 아침, 캠프. 보리가 빈 조개 그릇을 만지작거린다.<br/><b>인물</b> 보리가 텅 빈 그릇을 내려다보다 문득 집 생각. 화면 한쪽 따뜻한 노란빛 회상 인셋 — 식탁 가득 색색의 반찬(밥·국·나물·생선·채소)을 차려 주는 엄마, 보리 앞에 골고루 놓아 주는 손길.<br/><b>배경·소품</b> 회상 인셋의 알록달록 밥상, 현재의 텅 빈 조개 그릇 대비.<br/><b>톤</b> "엄마가 차려 주던 게 이런 거였구나"의 씨앗 — 뭉클하지만 가볍게.</div>
+  <div class="text"><span class="sp">보리:</span> "…집에선 밥때가 되면 밥상이 그냥 뚝딱 차려져 있었는데."<br/><span class="sp">보리:</span> "난 그중에 좋아하는 것만 골라 먹고 나물은 늘 남겼어. 그게 당연한 줄 알았지."<br/><span class="sp">노아:</span> "…이제 우리가 직접 다 찾아서 먹어야 하는 거잖아. 그것도 골고루."<br/><span class="sp">티코:</span> "가자! 이 섬이 무엇을 차려 줬는지 찾아보는 거야."</div>
+</div>
+
+<div class="divider">— B. 도착 · 이질감 (4~8쪽) —</div>
+
+<div class="page"><div class="pno">4쪽</div>
+  <div class="scene"><b>컷</b> 대형 스펙터클컷, 로우앵글.<br/><b>장소·시간</b> 오전, 숲 안쪽으로 들어선 무성한 초록 숲속. 햇살이 잎 사이로 부챗살처럼 쏟아진다.<br/><b>인물</b> 보리가 앞장서 씩씩하게 걷고(배는 여전히 꼬르륵), 노아는 두꺼운 책 대신 나뭇잎을 관찰하며 따라온다. 티코는 보리 어깨 위에서 주변을 스캔(민트 레이더 동심원), 0호가 큰 나뭇가지를 한 손으로 들어 올려 길을 터 준다.<br/><b>배경·소품</b> 온갖 풀·덤불·나무 열매·버섯이 뒤섞인 무성한 숲, 알록달록한 열매와 꽃, 낯선 잎사귀들.<br/><b>톤</b> 먹을 것이 '너무 많아 보여서 오히려 헷갈리는' 이질감의 도입 — 풍성하지만 어딘가 조심스럽게.</div>
+  <div class="text"><span class="sp">보리:</span> "우와, 여기 온통 초록초록! 열매도 있고 버섯도 있고… 먹을 게 이렇게 많은데 왜 걱정했지?"<br/><span class="sp">노아:</span> "잠깐, 잠깐만. 너무 많으니까 오히려 뭘 먹어야 할지 모르겠어."<br/><span class="sp">티코:</span> "내 데이터에 의하면— 여기서 진짜 중요한 건 '많이'가 아니라 '<b>안전한 것</b>'을 가려내는 거야."<br/><span class="sp">0호:</span> "…아무거나 먹으면… 안 돼?"</div>
+</div>
+
+<div class="page"><div class="pno">5쪽</div>
+  <div class="scene"><b>컷</b> 중형, 아찔한 저지컷(P0 안전 도입) — 손을 확 붙잡는 순간.<br/><b>장소·시간</b> 오전, 숲속. 발밑에 탐스러운 빨간 열매 덤불.<br/><b>인물</b> 배고픈 보리가 반짝이는 새빨간 열매를 냉큼 따서 입으로 가져가려는 찰나, 노아가 "안 돼!" 하며 그 손목을 두 손으로 확 붙잡는다. 보리는 흠칫하며 열매를 손에서 툭 떨어뜨린다(발밑으로 굴러감). 티코는 눈이 X자 패닉이 되어 경고음. 0호도 놀라 붉은 외눈이 커진다.<br/><b>배경·소품</b> 탐스럽지만 정체 모를 새빨간 열매(반짝이는 표면), 보리 손에서 떨어져 바닥에 구르는 열매, 놀라 흩어지는 새 한 마리.<br/><b>톤</b> 이 화 최대 위기의 첫 예고 — 무섭게 그리지 않되, "함부로 입에 넣으면 안 된다"를 강하게 각인.</div>
+  <div class="text"><span class="sp">보리:</span> "오, 딸기 비슷한 거! 맛있겠다, 얼른 한 입—"<br/><span class="sp">노아:</span> "안 돼! 잠깐, 잠깐만! 그거 우리가 아는 딸기 아니야. 처음 보는 열매잖아!"<br/><span class="sp">티코:</span> "삐빅— 경고! 모르는 열매를 그냥 입에 넣는 건 아주 위험해. 예쁘고 맛있어 보여도 <b>독</b>이 있을 수 있어. 얼른 내려놓고, 그 손으로 입·눈 만지지 마."<br/><span class="sp">노아:</span> "잘 떨어뜨렸어. 개울에서 손 씻자. 만졌던 손으로 아무 데도 만지면 안 돼."<br/><span class="sp">보리:</span> "헉… 배고파서 나도 모르게. 큰일 날 뻔했다. 얼른 손 씻을게."</div>
+</div>
+
+<div class="page"><div class="pno">6쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ① (티코피디아 시그니처) — 독초 위험 신호.<br/><b>장소·시간</b> 오전, 숲속 빈터.<br/><b>인물</b> 티코의 눈에서 빔이 나와 공중에 민트색 홀로그램 카드가 떠오른다. 카드 안: '이런 건 조심!' 도해 — ① 우유 같은 흰 즙이 나오는 줄기 ② 잔털·가시가 난 잎 ③ 코를 찡그리는 이상한/쓴 냄새 표시 ④ 버섯에 큰 X 표시. 아이들이 올려다보며 고개를 끄덕인다.<br/><b>배경·소품</b> 홀로그램 카드 모서리에 느낌표·경고 삼각형 아이콘, 각 항목 옆 작은 그림.<br/><b>톤</b> 겁주지 않고 차분히, 그러나 또렷하게 안전 규칙을 새기는 학습 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아, 스캔 시작! 이런 건 위험할 수 있으니 <b>조심</b>해. 자르면 우유 같은 흰 즙이 나오거나, 잎에 잔털·가시가 있거나, 냄새가 이상하면 안 먹는 게 좋아."<br/><span class="sp">노아:</span> "책에서 봤는데… <b>버섯</b>은 특히 위험하대. 독버섯은 아주 조금만 먹어도 큰일 난다고."<br/><span class="sp">티코:</span> "맞아. 그래서 버섯은 <b>아예 손대지 않기</b>가 규칙이야. 어른도 함부로 안 먹어."<br/><span class="sp">보리:</span> "알았어. 예뻐도 모르면 안 먹기, 버섯은 절대 안 먹기!"</div>
+</div>
+
+<div class="page"><div class="pno">7쪽</div>
+  <div class="scene"><b>컷</b> 중형, 곤경 발견컷 — 규칙은 알았지만 막막함.<br/><b>장소·시간</b> 오전, 숲속. 아이들이 이 풀 저 풀을 살펴본다.<br/><b>인물</b> 보리가 풀 한 포기를 들고 갸웃, 노아가 다른 잎을 뒤집어 보며 고민, 티코는 이것저것 스캔하지만 '판별 불가' 표시. 셋 다 곤란한 표정. 배는 여전히 꼬르륵.<br/><b>배경·소품</b> 서로 비슷비슷하게 생긴 여러 풀·잎, 티코 눈앞의 물음표 홀로그램.<br/><b>톤</b> "먹으면 안 되는 건 알겠는데, 그럼 뭘 먹지?"의 막막함 — 문제의 핵심이 드러남.</div>
+  <div class="text"><span class="sp">보리:</span> "근데… 안 되는 것만 잔뜩이잖아. 그럼 <b>먹어도 되는 건</b> 대체 뭐야?"<br/><span class="sp">노아:</span> "다 비슷비슷하게 생겨서 도무지 모르겠어. 이건 나물 같기도 하고, 독초 같기도 하고…"<br/><span class="sp">티코:</span> "삐빅. 나도 처음 보는 풀은 '확실하다'고 말 못 해. 함부로 '먹어도 된다'고 하면 안 되니까."<br/><span class="sp">노아:</span> "그럼 어떡하지? 확실하게 <b>안전한 것</b>부터 찾아야 하는데."</div>
+</div>
+
+<div class="page"><div class="pno">8쪽</div>
+  <div class="scene"><b>컷</b> 중형, 자연의 시계 도입 — 배고픔이 재촉.<br/><b>장소·시간</b> 정오 무렵, 숲속. 해가 머리 꼭대기로.<br/><b>인물</b> 보리가 배를 움켜쥐고 살짝 어지러운 듯 나무를 짚는다(볼이 창백). 노아도 다리에 힘이 풀린 기색. 티코가 걱정스레 둘을 본다. 0호가 보리를 부축.<br/><b>배경·소품</b> 머리 위 높이 뜬 해, 두 아이 배에서 꼬르륵, 흔들리는 시야 표현(살짝).<br/><b>톤</b> 이 화의 자연 시계 = '배고픔'이 째깍째깍 조여 오는 긴장. 겁주지 않되 절박하게.</div>
+  <div class="text"><span class="sp">보리:</span> "으… 아침부터 아무것도 못 먹었더니 어지러워. 빨리 뭐라도 안전한 걸 먹어야 할 것 같아."<br/><span class="sp">노아:</span> "해가 벌써 머리 위야. 이러다 오늘도 쫄쫄 굶으면… 내일은 더 힘이 없을 거야."<br/><span class="sp">티코:</span> "배고픔이 우리를 재촉하네. 하지만 급하다고 아무거나 먹으면 더 큰일 나. <b>안전하게, 그러나 빨리</b>— 방법을 찾자."<br/><span class="sp">0호:</span> "…보리, 기대. 내가 잡아 줄게."</div>
+</div>
+
+<div class="divider">— C. 문제 발견 (9~15쪽) —</div>
+
+<div class="page"><div class="pno">9쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰 발견컷 — 게스트 다람쥐 '도토' 첫 등장.<br/><b>장소·시간</b> 정오, 큰 참나무 아래.<br/><b>인물</b> 노아가 부스럭 소리에 고개를 돌린다(안경알 반짝). 시선 끝 — 나무 밑동에서 작고 통통한 줄무늬 다람쥐 '도토'가 앞발로 무언가를 야무지게 갉아 먹고, 볼주머니가 빵빵하다. 보리도 반색.<br/><b>배경·소품</b> 큰 참나무, 바닥에 굴러다니는 도토리들, 다람쥐가 갉는 도토리, 낙엽.<br/><b>톤</b> 룰5(관찰이 실마리) 발동의 문 — 다람쥐는 끝까지 귀엽게.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만! 저기 봐. 다람쥐가 뭔가를 야무지게 먹고 있어."<br/><span class="sp">보리:</span> "우와, 완전 귀엽다! 볼이 빵빵해. 뭘 저렇게 맛있게 먹지?"<br/><span class="sp">도토:</span> "치칫—" (도토리를 앞발로 쥐고 오물오물)<br/><span class="sp">노아:</span> "저 다람쥐가 <b>고르는 것</b>을 잘 보면… 이 숲에서 뭐가 먹을 만한지 힌트가 될지도 몰라!"</div>
+</div>
+
+<div class="page"><div class="pno">10쪽</div>
+  <div class="scene"><b>컷</b> 중형, 발견컷 — 도토리를 찾다.<br/><b>장소·시간</b> 정오, 참나무 아래 낙엽 바닥.<br/><b>인물</b> 다람쥐가 콕 집어 문 것과 같은 것을 보리가 낙엽 사이에서 주워 든다 — 반질반질한 갈색 <b>도토리</b>. 노아가 그것을 받아 이리저리 살핀다. 티코가 스캔(민트 확인 표시).<br/><b>배경·소품</b> 손바닥 위 도토리 여러 알, 바닥 가득 흩어진 도토리와 깍정이(도토리 모자), 위에서 지켜보는 도토.<br/><b>톤</b> "이건 아는 것이다!"의 반가움 — 확신의 실마리.</div>
+  <div class="text"><span class="sp">보리:</span> "어? 이거… <b>도토리</b>다! 나 이건 알아. 공원에서도 봤어!"<br/><span class="sp">노아:</span> "맞아, 도토리로 묵 만드는 거! 이건 우리가 <b>아는 것</b>이야. 아까 티코가 말한 '아는 것만 먹기'에 딱 맞아."<br/><span class="sp">티코:</span> "내 데이터에 의하면— 도토리는 옛날부터 사람들이 먹어 온 안전한 열매야. 다만 그냥은 못 먹어."<br/><span class="sp">보리:</span> "그냥은 못 먹어? 왜? 다람쥐는 잘만 먹던데!"</div>
+</div>
+
+<div class="page"><div class="pno">11쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷 + 안전 짚기 — 도토리를 덥석 문 보리.<br/><b>장소·시간</b> 정오, 참나무 아래.<br/><b>인물</b> 성급한 보리가 도토리를 껍질째 앞니로 덥석 깨물었다가 얼굴을 잔뜩 찡그리며 퉤퉤(혀를 내밀고 우엑). 노아와 티코가 "그러게!" 하는 표정. 도토가 나뭇가지에서 갸웃.<br/><b>배경·소품</b> 뱉어 낸 도토리 조각, 보리 입에 물음표·떫은맛 표시(쭈글 표정선), 땀방울.<br/><b>톤</b> 첫 시도의 유쾌한 실패 — "다람쥐 따라 하면 안 된다"를 웃음으로 각인.</div>
+  <div class="text"><span class="sp">보리:</span> "다람쥐도 먹는데 뭐! 나도 한 입— (와작) …우웩! 퉤퉤! 뭐야, 엄청 떫어! 혀가 오그라들어!"<br/><span class="sp">노아:</span> "그러게 왜 덥석 물어… <b>다람쥐가 먹는다고 우리도 그냥 먹으면 안 돼.</b> 동물마다 먹을 수 있는 게 다르거든."<br/><span class="sp">티코:</span> "삐빅. 바로 그거야. 도토리엔 <b>떫은 성분</b>이 있어서, 사람은 그냥 먹으면 배탈이 나. 옛사람들은 이걸 없애는 지혜가 있었지."<br/><span class="sp">보리:</span> "떫은 걸 없앤다고? 어떻게?!"</div>
+</div>
+
+<div class="page"><div class="pno">12쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ② — 조상 지혜(도토리 우려내기).<br/><b>장소·시간</b> 정오, 참나무 아래.<br/><b>인물</b> 티코가 홀로그램 카드를 띄운다. 카드 안: 옛사람이 도토리를 <b>흐르는 개울물</b>에 담가 여러 번 우려내는 도해 — 도토리 → 껍질 까기 → 빻기 → 물에 담가 떫은 물(갈색)을 흘려보내기 → 여러 번 갈아 주기. 옛 사람 실루엣 아이콘. 아이들이 카드를 올려다본다.<br/><b>배경·소품</b> 카드 옆 개울물·바가지 아이콘, 떫은 물이 빠져나가는 화살표.<br/><b>톤</b> 조상 지혜가 그림이 되는 학습 컷 — 밝고 신뢰감 있게.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 옛사람들은 도토리를 껍질을 까서 빻은 다음, <b>흐르는 물에 여러 번 우려냈어.</b> 그러면 떫은 물이 빠져나가고 먹을 수 있게 되지."<br/><span class="sp">노아:</span> "아! 그래서 도토리묵을 만들 때 물에 오래 담가 두는 거구나. 떫은맛을 물에 씻어 내는 거였어!"<br/><span class="sp">보리:</span> "옛날 사람들 진짜 똑똑하다. 그냥 버리지 않고 먹는 방법을 찾아냈네."<br/><span class="sp">티코:</span> "떫은맛이 물에 녹아 나오는 것 — 이게 옛 지혜 속에 숨은 <b>과학</b>이야."</div>
+</div>
+
+<div class="page"><div class="pno">13쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷 — 통신 두절 러닝 개그.<br/><b>장소·시간</b> 정오, 참나무 아래.<br/><b>인물</b> 노아의 손목 통신기에 봉수 박사 얼굴이 반쪽 지지직 글리치로 뜬다. 보리가 통신기를 하늘로 치켜들고 폴짝, 티코가 안테나를 쭉 뽑는다.<br/><b>배경·소품</b> 홀로그램 가로 노이즈, 지직 효과선.<br/><b>톤</b> 결정적 도움은 못 주지만 온기를 남기는 시리즈 개그.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "오호, 도토리를 찾았구나! 도토리 말고도 잎이랑 뿌리도 먹을 수 있는 게 있단다. <b>골고루</b> 찾으려면 저 개울 쪽을— 치지지직—"<br/><span class="sp">보리:</span> "할아버지! 개울 쪽에 뭐가 있다고요?!"<br/><span class="sp">노아:</span> "또 끊겼어… 근데 방금 '잎이랑 뿌리도 골고루' 하셨지?"<br/><span class="sp">티코:</span> "통신 두절. 하지만 힌트는 남았어 — 도토리 하나로는 부족해. <b>골고루</b> 찾아야 해."</div>
+</div>
+
+<div class="page"><div class="pno">14쪽</div>
+  <div class="scene"><b>컷</b> 중형, 편식 갈등 표면화 — 보리의 투정.<br/><b>장소·시간</b> 정오 지나, 개울가 근처 풀밭.<br/><b>인물</b> 노아가 개울가에서 익숙한 초록 나물(냉이·달래처럼 흔한 봄나물 느낌)을 찾아내 반색하는데, 보리는 팔짱을 끼고 입을 삐죽인다(질색). 티코가 둘 사이에서 난감.<br/><b>배경·소품</b> 개울가 풀밭에 돋은 낯익은 초록 나물, 보리 머리 위 '싫어' 표시.<br/><b>톤</b> 편식 교정 비트의 갈등 정점 — "골고루 먹어야 하는데 싫다"의 충돌을 유쾌하게.</div>
+  <div class="text"><span class="sp">노아:</span> "보리야, 이것 봐! 이건 우리 집 근처에서도 봤던 나물이야. 냄새도 좋고, 아는 거니까 안전해."<br/><span class="sp">보리:</span> "으… 그거 풀때기잖아. 난 도토리로 배 채울래. 나물은 딱 질색이라니까."<br/><span class="sp">티코:</span> "삐빅. 도토리만 먹으면 배는 부를지 몰라도 <b>힘</b>은 안 나. 잎·뿌리·열매를 <b>골고루</b> 먹어야 몸이 튼튼해지거든."<br/><span class="sp">노아:</span> "맞아. 골고루 안 먹으면 아무리 배불러도 기운이 안 나서 집에 못 가."</div>
+</div>
+
+<div class="page"><div class="pno">15쪽</div>
+  <div class="scene"><b>컷</b> 중형, 정리·결심컷 — 셋이 머리를 맞대다.<br/><b>장소·시간</b> 오후 초입, 개울가.<br/><b>인물</b> 보리·노아·티코가 둥글게 모이고 0호가 뒤에 선다. 노아가 손가락을 세워 계획을 정리, 보리는 아직 나물이 내키지 않아 뾰로통하지만 배가 꼬르륵 하자 마지못해 고개를 끄덕. 다람쥐 도토가 근처에서 구경.<br/><b>배경·소품</b> 바닥에 늘어놓은 '아는 것'들(도토리·나물), 티코가 띄운 간단한 계획 홀로그램(체크리스트 느낌, 글자 없이 아이콘).<br/><b>톤</b> 막막함을 계획으로 바꾸는 순간 — 팀워크 + 편식과의 타협.</div>
+  <div class="text"><span class="sp">노아:</span> "정리하자. <b>확실히 아는 것만</b> 모으는 거야 — 도토리, 이 나물, 그리고 아는 열매. 모르는 건 절대 안 건드려."<br/><span class="sp">보리:</span> "…그리고 골고루 먹기. (배 꼬르륵) 으, 알았어. 살려면 먹어야지! 생각은 뛰면서 하고, 일단 모으자!"<br/><span class="sp">티코:</span> "좋아! 도토리는 우려내고, 나물은 씻어서 익히고. 그런데— 확실히 모르는 걸 만났을 땐, <b>어른·전문가에게 확인받는 방법</b>이 따로 있어. 우리끼리 정하면 안 되거든."<br/><span class="sp">노아:</span> "확인받는 방법? 그게 뭔데?"</div>
+</div>
+
+<div class="divider">— D. 시도 → 실패 → 힌트 (16~25쪽) —</div>
+
+<div class="page"><div class="pno">16쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ③ — 현대 과학(관찰·확인·기록).<br/><b>장소·시간</b> 오후, 개울가.<br/><b>인물</b> 티코가 홀로그램 카드를 띄운다. 카드 안: '안전하게 확인하는 세 단계' 도해 — ① <b>관찰</b>(생김새·냄새 꼼꼼히 보기, 위험 신호 확인) ② <b>어른 확인</b>(어른·전문가에게 물어 확인받기 — 큰 체크 표시, 확인 못 받으면 안 먹기) ③ <b>기록</b>(아는 것·먹은 것·시간을 남기기). 카드에 큰 '버섯 X' 재확인. 아이들이 진지하게 본다.<br/><b>배경·소품</b> 카드에 돋보기·어른 확인 체크(✔)·공책 아이콘, 버섯 금지 표시.<br/><b>톤</b> 현대 과학 짝을 새기는 핵심 학습 컷 — '우리끼리 정하지 않고, 확인받고, 기록하는' 신중함.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 확실히 모르는 걸 만났을 땐 세 단계로 <b>천천히</b> 확인해. 첫째 <b>관찰</b> — 생김새랑 냄새를 꼼꼼히 보고 위험 신호가 없는지 살펴."<br/><span class="sp">티코:</span> "둘째 <b>어른이나 전문가에게 꼭 확인받기</b> — 우리끼리 정하면 안 돼. 확인 못 받으면 아무리 배고파도 안 먹어. 셋째 <b>기록</b> — 아는 것과 먹은 것, 시간을 남겨."<br/><span class="sp">노아:</span> "확인받기 전엔 절대 안 먹고, 아는 것부터 골고루 모으라는 거구나."<br/><span class="sp">티코:</span> "맞아. 그리고 <b>버섯은 이 확인도 소용없어.</b> 조금만 먹어도 위험하니까, 무조건 안 먹기!"</div>
+</div>
+
+<div class="page"><div class="pno">17쪽</div>
+  <div class="scene"><b>컷</b> 대형, 협동 노동컷(이번 화 간판 컷) — 도토리 우려내기 작업.<br/><b>장소·시간</b> 오후, 개울가. 흐르는 맑은 물.<br/><b>인물</b> 역할 분담이 한눈에 — 0호가 커다란 납작 돌로 껍질 깐 도토리를 쿵쿵 빻고(힘 담당), 보리가 빻은 도토리 가루를 조개껍데기 바구니에 담아 흐르는 개울물에 담근다(온몸 노동), 노아가 물 색깔을 관찰하며 언제 다 우러났는지 살피고(설계·관찰), 티코가 어깨 위에서 지시.<br/><b>배경·소품</b> 개울물에 담근 도토리 가루에서 갈색 떫은 물이 스르르 풀려 흘러감, 납작 돌·조개 바구니.<br/><b>톤</b> 힘 합치는 뿌듯함. 옛 지혜를 손으로 재현하는 학습 노동.</div>
+  <div class="text"><span class="sp">노아:</span> "물에 담그니까 진짜 <b>갈색 떫은 물</b>이 스르르 빠져나온다! 이게 그 떫은 성분이야."<br/><span class="sp">0호:</span> "…내가 빻을게. 이 정도는 나한테 가벼워." (쿵쿵)<br/><span class="sp">보리:</span> "물을 여러 번 갈아 주면 되는 거지? 손이 엄청 많이 가네…"<br/><span class="sp">티코:</span> "맞아, 떫은 물을 자꾸 새 물로 갈아 줘야 해. 조금만 더 기다리자."</div>
+</div>
+
+<div class="page"><div class="pno">18쪽</div>
+  <div class="scene"><b>컷</b> 중형, 부지런히 몸 쓰기 + 튼튼해지는 몸 — 노동의 열기.<br/><b>장소·시간</b> 오후, 개울가. 여러 동작이 한 컷에.<br/><b>인물</b> 보리와 노아가 나물을 뜯고 도토리를 나르며 땀을 뻘뻘. 아까 창백하고 어지럽던 얼굴에 발갛게 혈색이 돌고, 움직일수록 눈빛이 살아난다. 보리가 무거운 물통을 번쩍 드는데 스스로 놀란다.<br/><b>배경·소품</b> 두 아이 이마에 땀방울, 나물 바구니, 도토리 더미.<br/><b>톤</b> "점점 튼튼해지기 시작"의 시각화 — 힘들지만 힘이 붙는 걸 스스로 느끼는 밝은 톤(장치 없이).</div>
+  <div class="text"><span class="sp">보리:</span> "어? 나 이 물통 아까보다 훨씬 가볍게 드네? 며칠 전엔 조금만 움직여도 헥헥댔는데."<br/><span class="sp">노아:</span> "진짜네. 너 팔에 힘이 붙었어. 여기 와서 매일 짓고 나르고 하니까 그런가 봐."<br/><span class="sp">티코:</span> "잘 자고, 부지런히 움직이고, 이제 골고루 먹기 시작하면— 몸이 쑥쑥 튼튼해져."<br/><span class="sp">보리:</span> "골고루 먹기… 알았어. 나물도 오늘은 도전해 볼게. (꼴깍)"</div>
+</div>
+
+<div class="page"><div class="pno">19쪽</div>
+  <div class="scene"><b>컷</b> 중형, 위기컷 — 0호가 낯선 것을 가져오다.<br/><b>장소·시간</b> 오후, 개울가.<br/><b>인물</b> 도움을 주고 싶은 0호가 숲에서 처음 보는 통통한 하얀 <b>버섯</b>과 정체 모를 알록달록 열매를 두 손 가득 가져와 내민다("이것도… 먹을 수 있어?"). 노아와 티코가 화들짝 놀라 손사래. 보리도 흠칫.<br/><b>배경·소품</b> 0호 손 위의 하얀 버섯(예쁘지만 정체불명)과 낯선 열매, 놀란 효과선.<br/><b>톤</b> P0 안전의 클라이맥스 예고 — 착한 마음이 위험이 될 수 있음을 보여 주되 0호를 나무라지 않게.</div>
+  <div class="text"><span class="sp">0호:</span> "…나도 도움 되고 싶어서. 이거 예쁘지? 많이 있었어. 먹을 수 있을까?"<br/><span class="sp">노아:</span> "0호야, 안 돼! 그거 <b>버섯</b>이잖아! 버섯은 절대 만지지도, 먹지도 않기로 했잖아."<br/><span class="sp">티코:</span> "삐빅— 위험! 하얗고 예쁜 버섯 중에 아주 독한 게 많아. 조금만 먹어도 큰일 나. 0호, 얼른 내려놓자."<br/><span class="sp">0호:</span> "…미안. 나… 몰랐어. 도움 되려다가." (붉은 외눈이 물결모양으로 시무룩)</div>
+</div>
+
+<div class="page"><div class="pno">20쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 0호 다독임 + 안전 재확인 — 온기의 비트.<br/><b>장소·시간</b> 오후, 개울가. 시무룩한 0호 앞에 보리가 쪼그려 앉는다.<br/><b>인물</b> 보리가 0호의 손에서 버섯을 조심히 받아 멀리 내려놓고, 0호의 어깨를 토닥인다. 노아도 옆에서 다정하게. 0호의 붉은 외눈이 다시 조금 밝아진다.<br/><b>배경·소품</b> 멀찍이 내려놓은 버섯(손 안 대기), 개울물, 따뜻한 오후 햇살.<br/><b>톤</b> 나무람이 아니라 함께 배우는 온기 — 안전 규칙을 다시 부드럽게 각인.</div>
+  <div class="text"><span class="sp">보리:</span> "0호야, 미안해할 것 없어. 몰라서 그런 거잖아. 이제 같이 배우면 돼."<br/><span class="sp">노아:</span> "맞아. 오히려 네가 힘이 세서 무거운 도토리도 다 빻아 줬잖아. 그게 진짜 큰 도움이었어."<br/><span class="sp">티코:</span> "규칙만 기억하자, 0호. <b>모르는 건 안 먹기, 버섯은 절대 안 만지기.</b> 궁금한 건 먼저 나한테 물어봐."<br/><span class="sp">0호:</span> "…응. 다음엔 꼭 먼저 물어볼게." (붉은 외눈이 반달로 살짝 웃는다)</div>
+</div>
+
+<div class="page"><div class="pno">21쪽</div>
+  <div class="scene"><b>컷</b> 중형, 실패컷 — 우려낸 도토리 첫 맛보기.<br/><b>장소·시간</b> 늦은 오후, 개울가. 모닥불에 구운 도토리 반죽.<br/><b>인물</b> 보리가 우려낸 도토리를 불에 구워 한 입 조심조심 맛본다. 그런데 여전히 살짝 얼굴을 찡그린다(아직 떫은 기가 남음). 노아가 "아직인가?" 하는 표정. 티코가 갸웃.<br/><b>배경·소품</b> 모닥불, 구운 도토리 반죽, 보리 입가에 약간의 물음표(완전히 뱉진 않음).<br/><b>톤</b> "다 됐다!" 싶었는데 아직 부족한 실패 비트 — 다음 힌트로.</div>
+  <div class="text"><span class="sp">보리:</span> "이제 됐겠지? 우물우물… 어라? 아직도 조금 떫은데? 아까보단 훨씬 낫지만."<br/><span class="sp">노아:</span> "한 번 담근 걸로는 부족한가 봐. 떫은 물이 아직 다 안 빠졌어."<br/><span class="sp">티코:</span> "삐빅. 급했나 보다. 떫은 성분이 물에 <b>천천히</b> 녹아 나오니까, 여러 번 물을 갈면서 더 기다려야 해."<br/><span class="sp">보리:</span> "으… 밥 한 끼가 이렇게 손이 많이 가는 거였어? 엄마한테 새삼 미안하다."</div>
+</div>
+
+<div class="page"><div class="pno">22쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 부모 감사 비트 — 이번 화 정서 피크.<br/><b>장소·시간</b> 늦은 오후, 개울가. 도토리를 다시 물에 담그는 보리의 얼굴 클로즈업.<br/><b>인물</b> 보리가 도토리 바구니를 다시 물에 담그며 문득 눈가가 촉촉. 화면 한쪽 따뜻한 노란빛 회상 인셋 — 부엌에서 나물을 무치고, 도토리묵을 쑤고, 밥상 가득 반찬을 차리던 엄마의 뒷모습과 바쁜 손.<br/><b>배경·소품</b> 회상 인셋의 분주한 부엌, 현재의 개울가 대비.<br/><b>톤</b> 원망이 아니라 감사·철듦으로 — 뭉클하지만 무겁지 않게.</div>
+  <div class="text"><span class="sp">보리:</span> "엄마는 도토리 <b>떫은 걸 빼는 것까지</b> 다 해서 묵을 쒀 줬어. 손이 이렇게 가는 줄 오늘 처음 알았어."<br/><span class="sp">보리:</span> "껍질 까고, 빻고, 물에 담가 여러 번 갈아 주고… 반찬 하나에 이만큼이나 손이 갔던 거구나."<br/><span class="sp">나레이션:</span> 밥 한 끼를 손수 만들어 본 오후, 보리는 밥상 위 반찬 하나하나에 얼마나 많은 손길이 담겼는지 알게 되었어요.<br/><span class="sp">노아:</span> "…나도. 집에 가면 반찬 투정 안 할 거야. 골고루 다 먹을래."</div>
+</div>
+
+<div class="page"><div class="pno">23쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰 → 추리 연결컷 — 노아의 결정타(스스로 발견).<br/><b>장소·시간</b> 늦은 오후, 개울가. 노아가 개울물 색을 유심히 살피다 무언가를 깨닫고 벌떡.<br/><b>인물</b> 노아가 개울의 두 곳을 번갈아 본다 — 물이 고인 <b>웅덩이</b>(도토리를 담근 곳, 물빛이 아직 갈색으로 뿌옇다)와, 조금 떨어진 <b>물살 빠른 목</b>(물이 맑게 계속 흐른다). 두 물빛의 차이를 직접 눈으로 비교하다 눈이 번뜩 — 답을 스스로 찾아낸 얼굴.<br/><b>배경·소품</b> 갈색으로 뿌연 웅덩이 vs 맑게 흐르는 물목의 색 대비, 노아 안경알 반짝(회상 말풍선 없음 — 순수 관찰).<br/><b>톤</b> 룰5 클라이맥스 — 노아가 개울을 관찰해 스스로 원리를 발견하는 순간. 티코는 확인만.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만! 이것 봐. <b>웅덩이 물은 색이 그대로인데</b>, 저기 물살 빠른 데는 계속 맑아!"<br/><span class="sp">보리:</span> "어? 진짜네. 웅덩이는 아직도 갈색으로 뿌옇잖아."<br/><span class="sp">노아:</span> "고인 물은 떫은 물이 계속 그 자리에 맴돌아서 안 빠지는 거야. 근데 물살 빠른 데는 <b>새 물이 떫은맛을 데려가나 봐!</b> 저기다 담그자!"<br/><span class="sp">티코:</span> "내 데이터에 의하면— 정답이야! 흐르는 물이 떫은 성분을 계속 데려가는 거지."</div>
+</div>
+
+<div class="page"><div class="pno">24쪽</div>
+  <div class="scene"><b>컷</b> 중형, 편식 극복 첫걸음 — 보리, 나물에 도전.<br/><b>장소·시간</b> 늦은 오후, 개울가 모닥불. 데친 나물 한 접시(조개껍데기).<br/><b>인물</b> 노아가 익힌 나물을 조개껍데기에 담아 내민다. 보리가 눈 딱 감고 조금 집어 입에 넣고 오물오물— 눈이 번쩍 커진다(의외로 괜찮다!). 도토가 옆에서 구경.<br/><b>배경·소품</b> 모닥불에 데친 초록 나물, 김이 모락, 보리 얼굴에 뜬 놀람 표시.<br/><b>톤</b> 편식 교정의 전환점 — 억지가 아니라 '의외로 맛있는 발견'의 즐거움.</div>
+  <div class="text"><span class="sp">노아:</span> "자, 익힌 나물이야. 조금만 먹어 봐. 우리가 아는 안전한 거야."<br/><span class="sp">보리:</span> "으으… 알았어. 눈 딱 감고. (오물오물) …어? 어어? 이거… 생각보다 괜찮은데?"<br/><span class="sp">티코:</span> "삐빅. 배고파서일 수도 있지만— 익히니까 부드럽고 고소하지? 안 먹어 봤으니 맛을 몰랐던 거야."<br/><span class="sp">보리:</span> "진짜네! 나 이거 싫어한다고 안 먹었는데, 먹어 보니까 맛있잖아. 손해 봤네!"</div>
+</div>
+
+<div class="page"><div class="pno">25쪽</div>
+  <div class="scene"><b>컷</b> 중형, 마무리 작업 몽타주 — 흐르는 물에 다시.<br/><b>장소·시간</b> 저녁 무렵, 개울가. 물살 빠른 목.<br/><b>인물</b> 넷이 바쁘게 움직인다 — 0호가 도토리 바구니를 물살 빠른 목에 단단히 고정하고, 보리와 노아가 나물을 씻어 다듬고, 티코가 라이트로 물속을 비춰 준다. 아이들 얼굴에 땀과 웃음, 혈색이 완연.<br/><b>배경·소품</b> 물살에 흔들리며 떫은 물을 씻어 내는 도토리 바구니, 노을빛.<br/><b>톤</b> 함께 완성해 가는 뿌듯함. 배운 것을 바로 적용하는 협동.</div>
+  <div class="text"><span class="sp">보리:</span> "0호야, 바구니 단단히 고정해 줘! …우와, 물이 벌써 훨씬 맑아졌어!"<br/><span class="sp">0호:</span> "…꽉 잡아 놨어. 안 떠내려가." (붉은 외눈이 반달로 웃는다)<br/><span class="sp">노아:</span> "도토리는 흐르는 물에, 나물은 익혀서. 이제 진짜 <b>골고루</b> 한 상이 되겠어."<br/><span class="sp">티코:</span> "삐빅! 완성이 눈앞이다. 조금만 더!"</div>
+</div>
+
+<div class="divider">— E. 해결 · 회수 · 정리 (26~33쪽) —</div>
+
+<div class="page"><div class="pno">26쪽</div>
+  <div class="scene"><b>컷</b> 대형 완성컷(이번 화 두 번째 간판 컷), 노을 아래 밥상.<br/><b>장소·시간</b> 저녁, 베이스캠프 모닥불 앞. 붉게 물든 하늘.<br/><b>인물</b> 넷이 둘러앉은 가운데, 납작한 돌 위에 <b>골고루 차린 첫 밥상</b> — 떫은맛을 뺀 도토리 반죽 구이, 데친 초록 나물, 아는 열매 몇 알. 보리·노아가 눈을 반짝이며 감탄. 도토가 나뭇가지에서 지켜본다.<br/><b>배경·소품</b> 조개껍데기 접시에 색색으로 담긴 음식, 모닥불, 노을, 김이 모락.<br/><b>톤</b> 해냈다는 성취감. 이번 화 감정의 정점 — 따뜻하고 벅차게.</div>
+  <div class="text"><span class="sp">보리:</span> "우와아! 우리가… 진짜 밥상을 차렸어! 그것도 <b>골고루</b>!"<br/><span class="sp">노아:</span> "도토리는 옛사람들의 지혜로 떫은맛을 빼고, 나물은 아는 것만 골라 익히고, 열매도 한 알씩."<br/><span class="sp">티코:</span> "해가 지기 전에 아슬아슬하게 완성! 오늘은 굶지 않아도 돼."<br/><span class="sp">0호:</span> "…내가 빻은 도토리. 우리가 만든 밥상." (뿌듯)</div>
+</div>
+
+<div class="page"><div class="pno">27쪽</div>
+  <div class="scene"><b>컷</b> 중형, 편식 완전 극복 — 골고루 맛있게 먹는 장면.<br/><b>장소·시간</b> 저녁, 모닥불 밥상.<br/><b>인물</b> 보리가 나물도, 도토리도, 열매도 골고루 야무지게 먹으며 활짝 웃는다(볼이 발그레). 노아도 초록 나물을 맛있게 먹는다. 며칠 전 편식하던 두 아이가 온데간데없다.<br/><b>배경·소품</b> 비워지는 조개 접시, 두 아이 얼굴에 도는 생기와 만족.<br/><b>톤</b> 편식 교정의 완성 — 억지가 아니라 스스로 골고루 먹게 된 즐거움. 밝고 흐뭇하게.</div>
+  <div class="text"><span class="sp">보리:</span> "냠냠… 나물도, 도토리도, 다 맛있어! 골고루 먹으니까 진짜 배가 든든하고 기운이 나!"<br/><span class="sp">노아:</span> "나도 초록 채소가 이렇게 맛있는 줄 몰랐어. 안 먹어 봐서 몰랐던 거였네."<br/><span class="sp">티코:</span> "그거야. <b>한 가지만</b> 먹으면 배는 불러도 힘이 안 나고, <b>골고루</b> 먹어야 몸 곳곳에 필요한 힘이 다 채워져."<br/><span class="sp">보리:</span> "골고루의 비밀이 이거였구나! 이제 편식 안 할래!"</div>
+</div>
+
+<div class="page"><div class="pno">28쪽</div>
+  <div class="scene"><b>컷</b> 중형, 다람쥐 도토 회수 + 배려 비트.<br/><b>장소·시간</b> 저녁, 모닥불 밥상 곁.<br/><b>인물</b> 보리가 도토리 몇 알을 도토가 앉은 나무 밑동에 살포시 놓아 준다("고마웠어, 너 덕분에 찾았어"). 도토가 볼주머니에 얼른 담고 꼬리를 살랑. 넷이 흐뭇하게 본다.<br/><b>배경·소품</b> 밑동에 놓인 도토리, 볼주머니 빵빵해진 도토, 저녁 빛.<br/><b>톤</b> 자연과 나누는 배려 — 생태 존중(다 가져가지 않고 나눔)을 훈훈하게.</div>
+  <div class="text"><span class="sp">보리:</span> "도토야, 네가 도토리 먹는 걸 보고 힌트를 얻었어. 고마워. 이건 너 몫이야."<br/><span class="sp">도토:</span> "치칫—!" (도토리를 볼주머니에 쏙)<br/><span class="sp">노아:</span> "우리도 딱 먹을 만큼만 가져가자. 다 쓸어 담으면 도토랑 다른 동물들이 겨울에 굶잖아."<br/><span class="sp">티코:</span> "내 데이터에 의하면— 자연은 나눠 쓸 때 오래오래 우리를 먹여 줘. 딱 필요한 만큼만!"</div>
+</div>
+
+<div class="page"><div class="pno">29쪽</div>
+  <div class="scene"><b>컷</b> 중형, 부모 감사 회수 — 다짐.<br/><b>장소·시간</b> 저녁, 모닥불 밥상. 배부른 뒤의 나른한 온기.<br/><b>인물</b> 보리가 마지막 나물 한 젓가락을 남김없이 먹으며 결심한 표정. 노아가 고개를 끄덕. 티코가 흐뭇하게 본다.<br/><b>배경·소품</b> 깨끗이 비운 접시, 모닥불, 별이 하나둘 뜨는 하늘.<br/><b>톤</b> 감사가 다짐으로 이어지는 훈훈한 컷 — 철듦의 표현.</div>
+  <div class="text"><span class="sp">보리:</span> "집에 돌아가면, 엄마가 차려 주는 반찬 하나도 안 남기고 골고루 다 먹을 거야."<br/><span class="sp">보리:</span> "그리고 '고마워요, 잘 먹었습니다' 꼭 말할래. 밥상 차리는 게 이렇게 힘든 건지 몰랐어."<br/><span class="sp">노아:</span> "…나도. 반찬 투정했던 거 이제 안 할래."<br/><span class="sp">나레이션:</span> 스스로 밥상을 차려 본 저녁, 아이들은 골고루 먹는 일이 얼마나 소중한지 알게 되었어요.</div>
+</div>
+
+<div class="page"><div class="pno">30쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷 — 통신 두절 러닝 개그 회수.<br/><b>장소·시간</b> 저녁, 모닥불 앞.<br/><b>인물</b> 노아의 통신기에 봉수 박사 얼굴이 잠깐 또렷이 떴다가 다시 지지직. 보리가 반가워 통신기에 얼굴을 바짝, 티코가 안테나를 흔든다.<br/><b>배경·소품</b> 홀로그램 글리치, 반가움 반 아쉬움 반의 리액션.<br/><b>톤</b> 온기를 남기는 개그 — 완전히 끊기진 않았다는 실낱같은 희망.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "잘했다, 얘들아! 골고루 먹어야 힘이 나지! 이제 배도 채웠으니 바다 쪽을 봐라. <b>바다에도 먹을 게</b>— 치지지직—"<br/><span class="sp">보리:</span> "할아버지! 바다에 뭐가 있다고요?!"<br/><span class="sp">노아:</span> "또 끊겼어… 근데 방금 '바다에도 먹을 게 있다'고 하셨지?"<br/><span class="sp">티코:</span> "삐빅. 통신은 또 두절. 하지만 할아버지 말이 맞아 — 숲에서 이만큼 찾았으니, 다음은 <b>바다</b>야."</div>
+</div>
+
+<div class="page"><div class="pno">31쪽</div>
+  <div class="scene"><b>컷</b> 중형, 조상+과학 정리컷 — 배운 것 되짚기.<br/><b>장소·시간</b> 저녁, 모닥불 앞. 넷이 오늘 배운 것을 되새긴다.<br/><b>인물</b> 티코가 홀로그램으로 오늘 배운 것을 요약해 띄운다 — 독초 판별·아는 것만 먹기(조상 지혜) + 관찰·어른 확인·기록(현대 과학)이 나란히, 그리고 '버섯 X'와 '골고루' 하트. 보리·노아가 고개를 끄덕이고 0호가 흐뭇.<br/><b>배경·소품</b> 요약 홀로그램(잎·뿌리·열매 아이콘 + 돋보기 + 버섯 금지 + 하트), 모닥불빛.<br/><b>톤</b> 학습 정리 컷 — 옛 지혜와 과학이 한 쌍이었음을 각인. 밝게.</div>
+  <div class="text"><span class="sp">노아:</span> "오늘도 많이 배웠어. 옛사람들의 <b>독초 판별 지혜</b>랑, <b>관찰하고 어른에게 확인받고 기록하는</b> 방법이랑."<br/><span class="sp">티코:</span> "그거야! 옛 지혜엔 다 <b>과학</b>이 숨어 있었지. 아는 것만 먹기, 모르면 안 먹기, 버섯은 절대 안 먹기 — 이게 제일 중요해."<br/><span class="sp">보리:</span> "그리고 골고루 먹기! 그래야 힘이 나서 집에 가지!"<br/><span class="sp">0호:</span> "…나도 이제 알아. 궁금하면 먼저 물어보기."</div>
+</div>
+
+<div class="page"><div class="pno">32쪽</div>
+  <div class="scene"><b>컷</b> 중형, 튼튼해지는 몸 + 일찍 자기 — 하루 마무리.<br/><b>장소·시간</b> 밤, 솔가지 쉼터 안. 배부르고 나른한 시간.<br/><b>인물</b> 보리와 노아가 폭신한 마른 풀 이불 속에서 배를 두드리며 스르르 눈을 감는다. 며칠 전보다 확연히 혈색 좋고 편안한 얼굴. 티코가 코어 불빛을 은은히 낮춰 취침 모드, 0호가 입구를 지킨다.<br/><b>배경·소품</b> 낮춘 조명, 문밖 별, zzz 만화 기호, 배부른 만족.<br/><b>톤</b> 하루의 평화로운 마무리 — 잘 먹고 잘 자는 건강 습관의 누적. 포근하게.</div>
+  <div class="text"><span class="sp">보리:</span> "아, 배부르다… 골고루 먹으니까 몸이 든든하고 따뜻해. (하암)"<br/><span class="sp">노아:</span> "너 요즘 얼굴 진짜 좋아졌다. 처음 왔을 땐 조금만 걸어도 헥헥댔는데."<br/><span class="sp">티코:</span> "잘 먹고, 부지런히 움직이고, 일찍 자고. 그러니까 몸이 이렇게 달라지는 거야. …잘 자, 인간들."<br/><span class="sp">나레이션:</span> 잘 먹은 밤, 넷은 어느새 부쩍 튼튼해진 몸으로 곤히 잠들었어요.</div>
+</div>
+
+<div class="page"><div class="pno">33쪽</div>
+  <div class="scene"><b>컷</b> 대형 마무리 몽타주 — 희망찬 엔딩 + 다음 화 떡밥.<br/><b>장소·시간</b> 다음 날 이른 아침, 바다가 보이는 언덕 위 넓은 부감.<br/><b>인물</b> 넷이 어깨를 나란히 하고 반짝이는 바다를 바라본다 — 뒷모습. 저 멀리 <b>썰물로 드러난 갯바위와 바닷물 속 물고기 떼</b>가 반짝인다(다음 화 좌표). 보리는 주먹 불끈, 0호는 든든히, 티코는 어깨 위에서 바다를 가리킨다.<br/><b>배경·소품</b> 아침 햇살에 반짝이는 바다, 썰물의 갯바위, 물고기 그림자, 갈매기. 발치엔 베이스캠프가 아담하게.<br/><b>톤</b> 골고루 먹고 튼튼해진 팀의 든든한 뒷모습 + 다음 모험을 향한 설렘.</div>
+  <div class="text"><span class="sp">나레이션:</span> 골고루 먹는 법을 배운 넷은, 이제 몸도 마음도 부쩍 자랐어요.<br/><span class="sp">보리:</span> "좋아, 다음은 바다다! 저기 물고기 반짝이는 거 보여? 오늘은 생선도 먹어 보자! 가자, 노아!"<br/><span class="sp">노아:</span> "잠깐, 잠깐만! 바다에서 먹을 걸 얻으려면 <b>썰물</b> 때를 알아야 해. 아무 때나 되는 게 아니야."<br/><span class="sp">티코:</span> "삐빅! 다음 과제 — <b>바다 식량 낚기</b>. 썰물이 우리를 기다린다!"</div>
+</div>
+
+<div class="divider">— F. 티코피디아 부록 (34~36쪽) —</div>
+
+<div class="page"><div class="pno">34쪽 · 티코피디아 ①</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지(부록 공통 포맷) — 배경은 민트색 홀로그램 격자.<br/><b>장면</b> 티코가 안경을 쓰고 지시봉을 든 선생님 포즈로 화면 왼쪽에. 오른쪽 큰 카드: <b>독초를 조심하는 안전 규칙</b> 인포그래픽 — ① 모르는 건 절대 입에 넣지 않기 ② 흰 즙·잔털·가시·이상한 냄새는 조심 ③ 버섯은 아예 안 먹기(큰 X) ④ 아는 것만·어른이 확인한 것만 먹기. 각 항목 옆 작은 그림 아이콘.<br/><b>톤</b> 밝고 정돈된 인포그래픽. 안전 메시지를 또렷하게. 겁주지 않게.</div>
+  <div class="text"><span class="sp">티코:</span> "오늘의 티코피디아! 야생 식물은 예뻐도 <b>독</b>이 있을 수 있어. 그래서 규칙이 있지. <b>모르면 안 먹기, 아는 것만 먹기, 어른이 확인해 준 것만 먹기!</b> 자르면 흰 즙이 나오거나 냄새가 이상하면 조심하고, <b>버섯은 아예 손대지 않는 게</b> 제일 안전해. 이건 어른도 꼭 지키는 약속이란다!"</div>
+</div>
+
+<div class="page"><div class="pno">35쪽 · 티코피디아 ②</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지 ② — 도해 중심.<br/><b>장면</b> 화면 상단: <b>도토리 우려내기</b> 도해 — 도토리 → 껍질 까기 → 빻기 → 흐르는 물에 담가 갈색 떫은 물을 여러 번 흘려보내기 → 익혀 먹기. 화살표로 순서 표시. 하단: '<b>골고루 먹기</b>'를 보여 주는 그림 — 잎·뿌리·열매·(생선)이 나란히, 한 가지만 먹으면 힘이 안 나고 골고루 먹으면 힘이 나는 대비. 구석에 엄지 척 티코.<br/><b>톤</b> 교과서 삽화보다 밝고 만화적인 도해.</div>
+  <div class="text"><span class="sp">티코:</span> "옛사람들은 떫어서 못 먹을 것 같은 <b>도토리</b>도 먹었어! 껍질을 까 빻은 뒤 <b>흐르는 물에 여러 번 우려내면</b> 떫은맛이 물에 씻겨 나가거든. 옛 지혜 속에 이런 과학이 숨어 있었지. 그리고 잊지 마 — 잎도, 뿌리도, 열매도 <b>골고루</b> 먹어야 몸에 필요한 힘이 다 채워져. 한 가지만 먹으면 배는 불러도 기운이 안 난단다!"</div>
+</div>
+
+<div class="page"><div class="pno">36쪽 · 티코 퀴즈</div>
+  <div class="scene"><b>컷</b> 퀴즈 페이지(부록 공통 포맷) — 티코 정면 컷.<br/><b>장면</b> 티코가 문제 카드 3장을 부채꼴로 펼쳐 들고 윙크. 카드마다 ①②③ 번호와 물음표 장식. 배경 하단에 다음 화 예고 — 썰물로 드러난 갯바위와 바다, 물고기·낚싯대·물음표. (앱에서는 기존 퀴즈 게임 인프라로 인터랙티브 처리)<br/><b>톤</b> 마무리 팡파레 + 다음 화 기대감.</div>
+  <div class="text"><span class="sp">티코:</span> "마지막 관문, 티코 퀴즈! 셋 다 맞히면 너도 무인도 생존 대원!<br/>① 야생에서 처음 보는 열매나 풀, 그리고 <b>버섯</b>은 어떻게 해야 할까? (먹는다 / 절대 안 먹는다)<br/>② 떫어서 그냥은 못 먹는 도토리를, 옛사람들은 어떻게 해서 먹었을까?<br/>③ 한 가지만 먹지 않고 잎·뿌리·열매를 다 먹는 것을 무엇이라고 할까?<br/>…다음 화, 이 섬의 <b>바다 식량</b>을 낚으러 가자! 삐빅!"</div>
+</div>
+
+<footer>
+  타임 티코 시즌2 · 4화 「골고루의 비밀」 콘티 v1.0 · 탱고북 오리지널 · 내부 제작 자료
+</footer>
+
+</div>
+
+<script>
+// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
+(async function () {
+  const nav = document.getElementById('comic-tabs');
+  if (!nav) return;
+  const here = (location.pathname.split('/').pop() || '');
+  const items = [['learning-comic-s2-plan.html', '📘 기획서']];
+  for (let i = 1; i <= 12; i++) {
+    const f = 'learning-comic-s2-ep' + String(i).padStart(2, '0') + '.html';
+    try {
+      const r = await fetch(f);
+      const t = await r.text();
+      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
+    } catch (e) { /* skip */ }
+  }
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §7과 동기 유지) ─────────
+const STYLE_PROMPT = [
+  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
+  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
+  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
+  '무인도 자연 배경(숲·해변·바다·하늘·개울)은 사실적이고 세밀하게 묘사.',
+  '화면비 16:9 와이드 일러스트.',
+  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
+].join(' ');
+
+const CHARACTER_KEYS = [
+  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
+  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
+  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
+  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸 전부 점등 = 완전체), 감정에 따라 모양이 변하는 둥근 눈.',
+  '- 0호(40cm 구형 미니 로봇): 각진 상자형 무광 회색 몸체, 가로로 긴 검은 스크린에 크고 둥근 붉은 외눈 하나, 가슴에 주홍빛 코어, 낡아 해진 회색 천 조각을 두름. 무섭지 않고 순박하고 짠한 인상.',
+  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼 — 이 화에서는 통신 홀로그램(지지직 글리치)으로만 등장.',
+].join('\n');
+
+// 이 화의 시대 의상 (화별로 교체)
+const EP_COSTUME = '[이 화의 의상] 무인도 표류 며칠째 현대 옷차림 — 보리 = 주황 후드티 + 데님 반바지, 노아 = 하늘색 셔츠 + 카키 긴바지. 여러 날 입어 옷이 조금 해지고 흙·풀물·개울물이 묻어 꾀죄죄하다. 다만 얼굴은 이야기가 진행될수록(골고루 먹고 부지런히 움직이며) 창백함이 가시고 혈색이 돌아 점점 생기 있고 튼튼해 보이게 그린다.';
+
+// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
+const EP_GUEST_KEYS = [
+  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
+  '- 다람쥐 도토: 작고 통통한 다람쥐, 등에 다섯 줄 세로 줄무늬(한국 다람쥐), 밝은 갈색·크림색 털, 몸통만큼 크고 복슬복슬한 꼬리, 크고 동그란 까만 눈, 빵빵하게 부풀릴 수 있는 볼주머니. 무섭지 않고 아주 귀엽고 부지런한 인상. 도토리·열매를 볼주머니에 모아 나른다. 아이들이 "무엇을 먹는지" 관찰할 실마리를 주는 이웃(단, 다람쥐가 먹는다고 사람이 그냥 따라 먹으면 안 된다는 점을 이야기에서 짚는다).',
+].join('\n');
+
+function composeImagePrompt(pno, sceneText) {
+  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+}
+
+// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    const btn = card.querySelector('.copy-btn');
+    const pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async function () {
+      // textContent — details 접힘 상태에선 innerText 가 빈 값
+      const text = pre.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('done');
+      } catch (e) {
+        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
+      }
+      setTimeout(function () {
+        btn.textContent = '📋 시트 프롬프트 복사';
+        btn.classList.remove('done');
+      }, 1600);
+    });
+  });
+})();
+
+// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
+const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
+
+async function loadComicAssets() {
+  try {
+    const r = await fetch(ASSET_API);
+    const j = await r.json();
+    return (j && j.data) || {};
+  } catch (e) { return {}; }
+}
+
+function createPasteBox(key, assets, hint) {
+  const box = document.createElement('div');
+  box.className = 'paste-box';
+  box.tabIndex = 0;
+  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
+  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
+  const reset = function () {
+    box.classList.remove('has-img');
+    box.innerHTML = '';
+    box.textContent = hintText;
+  };
+  const setImg = function (url) {
+    box.classList.add('has-img');
+    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      if (!confirm('이 이미지를 삭제할까요?')) return;
+      try {
+        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
+        reset();
+      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
+    });
+  };
+  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+  else box.textContent = hintText;
+
+  async function upload(file) {
+    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+    box.classList.add('busy');
+    const fr = new FileReader();
+    fr.onload = async function () {
+      try {
+        const r = await fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        });
+        const j = await r.json();
+        if (j.success) setImg(j.data.url + '?t=' + Date.now());
+        else alert('저장 실패: ' + (j.error || ''));
+      } catch (e) {
+        alert('저장 실패 — 서버(3500)를 확인하세요');
+      }
+      box.classList.remove('busy');
+    };
+    fr.readAsDataURL(file);
+  }
+
+  box.addEventListener('paste', function (e) {
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (const it of items) {
+      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
+    }
+  });
+  box.addEventListener('dragover', function (e) { e.preventDefault(); });
+  box.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) upload(f);
+  });
+  box.addEventListener('click', function () { box.focus(); });
+  return box;
+}
+
+// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-s2-plan) 자산을 읽어옴 ──
+(async function () {
+  const grid = document.getElementById('cast-grid');
+  if (!grid) return;
+  let planAssets = {};
+  try {
+    const r = await fetch('/api/comic-assets/learning-comic-s2-plan');
+    const j = await r.json();
+    planAssets = (j && j.data) || {};
+  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
+  grid.querySelectorAll('.cast-item').forEach(function (item) {
+    const key = item.getAttribute('data-key');
+    if (planAssets[key]) {
+      const frame = item.querySelector('.frame');
+      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
+    }
+  });
+})();
+
+// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
+(function () {
+  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^[a-z0-9-]+$/.test(docId)) return;
+  const api = '/api/comic-feedback/' + docId;
+
+  function updateBar(total) {
+    const bar = document.getElementById('feedback-cnt');
+    if (bar) bar.textContent = total;
+  }
+
+  async function loadNotes() {
+    try {
+      const r = await fetch(api);
+      const j = await r.json();
+      return (j && j.data && j.data.pages) || {};
+    } catch (e) { return {}; }
+  }
+
+  async function saveNote(page, note, statusEl, ta) {
+    statusEl.textContent = '저장 중…';
+    try {
+      const r = await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, note: note }),
+      });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.error || 'save failed');
+      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
+      ta.classList.toggle('has-note', !!note.trim());
+      updateBar(j.data.total);
+      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
+    } catch (e) {
+      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
+      statusEl.style.color = '#e85c3a';
+    }
+  }
+
+  async function init() {
+    const pages = document.querySelectorAll('.page');
+    if (!pages.length) return;
+    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
+    const notes = loaded[0];
+    const assets = loaded[1];
+
+    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
+    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
+      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
+    });
+
+    const anchor = document.querySelector('header.hero');
+    if (anchor) {
+      const bar = document.createElement('div');
+      bar.id = 'feedback-bar';
+      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
+      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+    }
+
+    pages.forEach(function (card) {
+      const pnoEl = card.querySelector('.pno');
+      const m = pnoEl && pnoEl.textContent.match(/\d+/);
+      if (!m) return;
+      const pno = m[0];
+
+      const main = document.createElement('div');
+      while (card.firstChild) main.appendChild(card.firstChild);
+      card.appendChild(main);
+
+      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
+      const mainPno = main.querySelector('.pno');
+      const sceneEl = main.querySelector('.scene');
+      if (mainPno && sceneEl) {
+        const row = document.createElement('div');
+        row.className = 'pno-row';
+        mainPno.parentNode.insertBefore(row, mainPno);
+        row.appendChild(mainPno);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋 그림 프롬프트 복사';
+        copyBtn.addEventListener('click', async function () {
+          const prompt = composeImagePrompt(pno, sceneEl.innerText);
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = '복사됨 ✓';
+            copyBtn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () {
+            copyBtn.textContent = '📋 그림 프롬프트 복사';
+            copyBtn.classList.remove('done');
+          }, 1600);
+        });
+        row.appendChild(copyBtn);
+      }
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const saved = notes[pno] || '';
+      panel.innerHTML =
+        '<label>' + pno + '쪽 생성 이미지</label>' +
+        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
+        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
+        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
+      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
+      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
+      const ta = panel.querySelector('textarea');
+      if (saved) ta.classList.add('has-note');
+      const btn = panel.querySelector('button');
+      const status = panel.querySelector('.status');
+      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
+      });
+
+      card.classList.add('with-notes');
+      card.appendChild(panel);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>

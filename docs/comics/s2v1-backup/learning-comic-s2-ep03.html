@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 시즌2 · 3화 「불」 — 콘티</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 24px 0 28px; border-bottom: 3px solid var(--coral); margin-bottom: 28px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 12px; }
+  .hero h1 { font-size: 32px; font-weight: 900; margin: 8px 0 4px; }
+  .hero .sub { color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+  .divider { text-align:center; margin: 40px 0 8px; font-weight: 900; color: var(--mint); letter-spacing: .15em; font-size: 14px; }
+  .safety-callout { background: #fff3ee; border: 1.5px solid var(--coral); border-left: 5px solid var(--coral); border-radius: 14px; padding: 14px 20px; margin: 20px 0; font-size: 13.5px; color: var(--coral-dark); font-weight: 700; }
+  .safety-callout b { color: var(--coral-dark); }
+  .page { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 14px 0; }
+  .page .pno { font-weight: 900; color: var(--coral-dark); font-size: 15px; }
+  .page .scene { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .page .scene b { color: var(--mint); font-weight: 800; }
+  .page .text { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 8px; font-size: 15px; }
+  .page .text .sp { font-weight: 800; color: var(--coral-dark); }
+  /* 콘티 리뷰 패널 */
+  .page.with-notes { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .page.with-notes { grid-template-columns: 1fr; } }
+  .note-panel { border-left: 2px dashed var(--line); padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 900px) { .note-panel { border-left: none; border-top: 2px dashed var(--line); padding: 12px 0 0; } }
+  .note-panel label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+  .note-panel textarea { width: 100%; min-height: 96px; resize: vertical; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 13px; background: #fffdfa; }
+  .note-panel textarea:focus { outline: none; border-color: var(--coral); }
+  .note-panel textarea.has-note { border-color: var(--mint); background: #f4fffc; }
+  .note-panel .row { display: flex; align-items: center; gap: 10px; }
+  .note-panel button { background: var(--coral); color: #fff; border: none; border-radius: 999px; padding: 7px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .note-panel button:hover { background: var(--coral-dark); }
+  .note-panel .status { font-size: 12px; color: var(--mint); font-weight: 700; }
+  #feedback-bar { position: sticky; top: 54px; z-index: 10; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 18px; margin: 16px 0 24px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #feedback-bar .cnt { color: #ffd9cc; }
+  .pno-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .copy-btn:hover { background: var(--mint); color: #fff; }
+  .copy-btn.done { background: var(--mint); color: #fff; }
+  .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
+  .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+  .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cast-strip .hint a { color: var(--coral-dark); font-weight: 700; }
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .cast-item { text-align: center; }
+  .cast-item .frame { border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 26px; }
+  .cast-item .frame img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .cast-item .nm { font-size: 12.5px; font-weight: 800; margin-top: 5px; color: var(--ink-soft); }
+  .guest-section { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--coral); border-radius: 16px; padding: 18px 22px; margin: 20px 0; }
+  .guest-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+  .guest-section .hint { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .char-prompt { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt details { margin-top: 6px; }
+  .char-prompt summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 8px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+</style>
+</head>
+<body data-comic-doc="s2-ep03">
+<div class="wrap">
+
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-s2-plan.html">📘 기획서</a></nav>
+
+<header class="hero" id="top">
+  <div class="kicker">TIME TICO · SEASON 2 · EPISODE 03</div>
+  <h1>시즌2 3화 「불」</h1>
+  <div class="sub">현재 · 이름 모를 무인도 — 불 피우기 · 조상 지혜(활비비·부싯돌) + 현대 과학(마찰열·불의 세 가지·불씨 보존) · 36쪽 콘티 · 시즌 모티프: 건강해지는 몸(체감)</div>
+</header>
+
+<div class="safety-callout">
+  🔥 <b>안전 최우선(P0) — 이 화의 원칙.</b> 불은 위험한 도구입니다. 이 화는 "불은 반드시 어른과 함께"·화상·산불 조심을 <b>이야기 속 인물의 대사·행동으로 자연스럽게</b> 반복합니다(설교 아님). ① 불을 피우기 전 <b>돌로 화덕을 둘러</b> 불길을 가두고, ② 주변의 <b>마른 풀·나뭇잎을 치우고</b>, ③ <b>물을 미리 떠다 놓고</b> 시작하며, ④ 잠들기 전·떠나기 전 <b>반드시 물과 흙으로 완전히 끕니다.</b> 티코(로봇)와 0호(금속 몸)가 불을 직접 다루고, 아이들은 안전 거리에서 돕는 역할 분담을 지킵니다. 어린이 혼자 따라 하지 말라는 메시지가 마지막까지 유지됩니다.
+</div>
+
+<div class="cast-strip">
+  <h2>⭐ 고정 캐릭터 확정 시트 (시즌1 계승)</h2>
+  <div class="hint">기획서 §7에 붙여넣은 레퍼런스가 여기 자동 표시됩니다 — 컷 작업의 기준. 비어 있으면 <a href="learning-comic-s2-plan.html#s7">기획서에서 붙여넣기 →</a></div>
+  <div class="cast-grid" id="cast-grid">
+    <div class="cast-item" data-key="bori"><div class="frame">👧</div><div class="nm">보리</div></div>
+    <div class="cast-item" data-key="noa"><div class="frame">👦</div><div class="nm">노아</div></div>
+    <div class="cast-item" data-key="tico"><div class="frame">🤖</div><div class="nm">티코</div></div>
+    <div class="cast-item" data-key="bongsu"><div class="frame">👴</div><div class="nm">봉수 박사</div></div>
+    <div class="cast-item" data-key="zero"><div class="frame">🌑</div><div class="nm">0호</div></div>
+  </div>
+</div>
+
+<div class="guest-section">
+  <h2>🎭 이 화의 게스트 캐릭터 레퍼런스</h2>
+  <div class="hint">3장면 이상 등장하거나 클로즈업이 있는 게스트는 시트를 먼저 확정한다. 아래 비주얼 키는 각 쪽 [📋 그림 프롬프트 복사]에도 자동 포함되어 컷 간 일관성을 지킨다. (단역 — 스치는 게·물고기 — 은 장면 지시 서술로 충분, 시트 불필요)</div>
+
+  <div class="char-prompt" data-char="솔부엉이" data-key="owl">
+    <div class="head"><span style="font-size:20px">🦉</span><b>부엉이 '솔이' (1화에서 이어지는 섬의 이웃)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 동물 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 귀엽고 둥근 카툰 비율. 순백 배경.
+
+[시트 구성] 왼쪽에 전신 3면(정면·옆·뒤 — 날개 접은 모습), 오른쪽 위에 표정·동작 6종 그리드(호기심에 눈 동그랗게·고개를 갸웃 기울임·"후우—" 우는 입 벌림·놀라 깃털 부풀림·눈 지그시 감고 졸림·날개 활짝 편 포즈), 오른쪽 아래 대표 포즈 2개(나뭇가지에 앉아 아이들을 내려다보는 포즈, 부리로 마른 나뭇가지를 물어다 주는 포즈). 단일 캐릭터만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 솔이, 섬 숲에 사는 작고 통통한 갈색 부엉이. 둥글넓적한 얼굴, 크고 동그란 노란 눈, 부드러운 갈색·크림색 줄무늬 깃털, 머리 위에 작은 깃털 뿔 두 개. 무섭지 않고 순하고 귀여운 인상. 밤에 "후우— 후우—" 하고 우는 섬의 조용한 이웃 — 아이들을 해치지 않고 멀찍이서 지켜보며, 가끔 마른 나뭇가지나 이끼를 물어다 슬쩍 도와준다. 불을 무서워해 처음엔 멀리 날아올랐다가, 안전하게 통제된 작은 불이 되자 다시 가까이 내려앉는다.</pre></details>
+  </div>
+</div>
+
+<div class="divider">— A. 일상 후크 (1~3쪽) —</div>
+
+<div class="page"><div class="pno">1쪽</div>
+  <div class="scene"><b>컷</b> 대형 후크컷, 정면 로우앵글.<br/><b>장소·시간</b> 이른 저녁, 개울가 자갈밭 — 2화에서 물을 얻은 그 개울. 하늘이 서서히 보랏빛으로 물든다.<br/><b>인물</b> 화면 앞쪽 — 보리가 나뭇잎에 받은 맑은 개울물을 벌컥벌컥 마시고 개운한 표정으로 "카아—". 옆에서 노아가 방금 잡은 손바닥만 한 은빛 물고기 두 마리를 들고 난감한 얼굴. 티코가 어깨 위에서 물고기를 들여다보고, 0호는 뒤에서 나무통(대나무 물통)을 든든히 안고 섰다.<br/><b>배경·소품</b> 반짝이는 개울물, 잡은 물고기, 2화에서 만든 대나무 물통·이슬받이. 옷은 이틀째라 흙·모래가 묻어 조금 꾀죄죄.<br/><b>톤</b> 물 문제는 해결된 안도. 하지만 곧 새 문제가 올 것 같은 살짝의 불안.</div>
+  <div class="text"><span class="sp">나레이션:</span> 어제 마실 물을 찾아낸 넷은, 오늘은 개울에서 물고기까지 잡았어요.<br/><span class="sp">보리:</span> "카아— 물도 실컷 마시고, 물고기도 잡았어! 이제 배부르게 먹기만 하면 되겠다!"<br/><span class="sp">노아:</span> "그, 근데 보리야… 이 물고기, 어떻게 먹지?"<br/><span class="sp">보리:</span> "어떻게 먹긴, 냠— …어? 날것 그대로 먹는 거야, 이걸?"</div>
+</div>
+
+<div class="page"><div class="pno">2쪽</div>
+  <div class="scene"><b>컷</b> 중형 개그컷 — 날것을 앞에 두고 멈칫.<br/><b>장소·시간</b> 저녁, 개울가 바위 위. 물고기를 올려놓았다.<br/><b>인물</b> 보리가 물고기를 입 가까이 가져갔다가 미끌·비린 감촉에 얼굴을 잔뜩 찡그리며 도로 내려놓는다(우웩 만화 기호). 노아도 배를 곯아 배에서 꼬르륵 소리(만화 기호), 하지만 날생선은 도저히 못 먹겠다는 표정. 티코가 "그럴 줄 알았다"는 눈.<br/><b>배경·소품</b> 미끌미끌 비린 물고기, 두 아이 배에 뜬 꼬르륵 기호, 저물어 가는 하늘.<br/><b>톤</b> 배는 고픈데 못 먹는 딜레마 — 유머로 가볍게.</div>
+  <div class="text"><span class="sp">보리:</span> "우웩! 미끌미끌하고 비려서 도저히 못 먹겠어. 이가 안 들어가!"<br/><span class="sp">노아:</span> "나도… 배는 엄청 고픈데(꼬르륵) 날생선은 좀 무서워. 배탈 나면 어떡해."<br/><span class="sp">티코:</span> "내 데이터에 의하면— 날것을 잘못 먹으면 배탈이 나기 쉬워. 그리고 익혀 먹으면 훨씬 맛있고 안전하지."<br/><span class="sp">보리:</span> "익혀서? 그럼… 불이 있어야 하잖아!"</div>
+</div>
+
+<div class="page"><div class="pno">3쪽</div>
+  <div class="scene"><b>컷</b> 중형, 자연의 시계 도입 — 서늘해지는 저녁.<br/><b>장소·시간</b> 해가 거의 다 넘어간 저녁, 개울가. 기온이 뚝 떨어지기 시작한다.<br/><b>인물</b> 보리와 노아가 팔을 문지르며 몸을 웅크린다. 어제 첫 밤에 지은 마른 풀 쉼터가 멀리 보이지만, 오늘은 물고기를 익히고 몸을 데울 <b>불</b>이 없다는 걸 깨닫는 얼굴. 티코가 어두워지는 하늘을 스캔하고, 0호가 주위를 살핀다.<br/><b>배경·소품</b> 입김이 살짝 보이는 서늘한 공기, 멀리 보이는 마른 풀 쉼터, 어둑해지는 숲.<br/><b>톤</b> 밝음에서 문제 인식으로. 추위와 배고픔이 겹치는 밤이 다가온다.</div>
+  <div class="text"><span class="sp">노아:</span> "그러고 보니… 벌써 이렇게 추워졌어. 어젯밤보다 더 쌀쌀한 것 같아."<br/><span class="sp">보리:</span> "쉼터는 있는데, 몸을 데울 <b>불</b>이 없네. 물고기도 못 익히고."<br/><span class="sp">티코:</span> "밤이 오면 또 기온이 뚝 떨어질 거야. <b>날것을 못 먹는 것</b>도, <b>추운 것</b>도, 답은 하나야."<br/><span class="sp">노아:</span> "…불. 우리한테 지금 제일 필요한 건 불이야."</div>
+</div>
+
+<div class="divider">— B. 도착·이질감 · 문제 인식 (4~8쪽) —</div>
+
+<div class="page"><div class="pno">4쪽</div>
+  <div class="scene"><b>컷</b> 중형, 성냥·라이터가 없다는 자각 컷.<br/><b>장소·시간</b> 저녁, 개울가. 넷이 주머니와 배낭을 탈탈 턴다.<br/><b>인물</b> 보리가 후드티 주머니를 뒤집어 털지만 모래알만 후두둑. 노아가 배낭을 열어 봐도 젖은 공책과 연필뿐. 티코가 자기 가슴 코어를 열어 보지만 불을 붙일 장치는 없다(민망한 눈). 0호도 두 손을 펼쳐 보인다("나도 없어").<br/><b>배경·소품</b> 뒤집힌 주머니에서 나온 모래·조약돌, 젖은 공책, 텅 빈 배낭.<br/><b>톤</b> "당연히 있을 줄 알았던 게 없다"는 막막함 — 도시 아이의 이질감.</div>
+  <div class="text"><span class="sp">보리:</span> "불… 그냥 딸깍 켜면 되는 거 아냐? 우리 집엔 가스레인지도 있고 라이터도 있었는데!"<br/><span class="sp">노아:</span> "여긴 무인도야, 보리야. 성냥도 라이터도 없어. 전기도 없고."<br/><span class="sp">티코:</span> "삐빅… 미안해. 불 붙이는 기능은 처음부터 내 몸에 없어. 난 시간여행 로봇이지 라이터가 아니거든."<br/><span class="sp">보리:</span> "그럼… 불을 우리가 <b>직접</b> 만들어야 한다는 거야?"</div>
+</div>
+
+<div class="page"><div class="pno">5쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ① — 불의 세 가지(불의 3요소).<br/><b>장소·시간</b> 저녁, 개울가. 티코가 홀로그램 카드를 띄운다.<br/><b>인물</b> 티코의 눈에서 빔이 나와 공중에 민트색 홀로그램 삼각형 카드가 뜬다. 삼각형 세 꼭짓점에 각각 아이콘 — ① 마른 나무·풀(탈 것), ② 바람·공기(산소), ③ 작은 불씨(열). 셋이 다 모여야 가운데에 불이 피어나는 도해. 아이들이 올려다보며 고개를 끄덕인다.<br/><b>배경·소품</b> 홀로그램 삼각형, 세 아이콘, 가운데 피어나는 불꽃 그림.<br/><b>톤</b> '티코피디아' 시그니처 학습 연출 — 원리를 차분하게 정리.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아, 스캔 시작! 불이 생기려면 <b>세 가지</b>가 꼭 필요해. <b>탈 것</b>(마른 나무나 풀), <b>공기</b>, 그리고 처음 붙일 <b>열</b>. 셋 중 하나만 없어도 불은 안 생겨."<br/><span class="sp">노아:</span> "책에서 봤어! 이걸 '불의 세 가지'라고 하지. 그래서 젖은 나무는 잘 안 타는 거구나 — 물기 때문에."<br/><span class="sp">보리:</span> "탈 것이랑 공기는 여기 많아! 그럼… 처음 붙일 <b>열</b>을 어떻게 만드느냐가 문제네."</div>
+</div>
+
+<div class="page"><div class="pno">6쪽</div>
+  <div class="scene"><b>컷</b> 중형, 재료 모으기 — 부지런히 몸 쓰기.<br/><b>장소·시간</b> 저녁, 개울가와 숲 가장자리. 서둘러 움직인다.<br/><b>인물</b> 보리가 바짝 마른 나뭇가지를 한 아름 주워 나르고(볼에 혈색이 도는 활기찬 얼굴 — 1화보다 튼튼해진 몸), 노아가 젖은 나무와 마른 나무를 손으로 만져 골라낸다. 0호는 굵고 무거운 통나무를 번쩍 옮겨 온다. 티코가 "그건 젖었어, 이건 됐어!" 하고 지시.<br/><b>배경·소품</b> 마른 나뭇가지 더미, 부슬부슬한 마른 풀·나무껍질, 젖은 나무는 따로.<br/><b>톤</b> 협동 노동. 아이들이 어제보다 지치지 않고 씩씩하다(건강 아크 누적).</div>
+  <div class="text"><span class="sp">노아:</span> "마른 것만 골라야 해. 젖은 나무는 물기 때문에 안 탄댔잖아. …이건 축축하니까 빼고."<br/><span class="sp">보리:</span> "어라? 나 어제보다 하나도 안 힘드네! 나뭇가지 이만큼 날라도 팔팔해!"<br/><span class="sp">티코:</span> "잘 먹고 잘 자고 부지런히 움직이니까 몸이 튼튼해지는 거야. …근데 아직 제일 어려운 게 남았어."<br/><span class="sp">0호:</span> "…탈 것은 내가 얼마든지. 그런데 <b>열</b>은?"</div>
+</div>
+
+<div class="page"><div class="pno">7쪽</div>
+  <div class="scene"><b>컷</b> 중형, 첫 시도의 막막함 — 돌 부딪히기 실패.<br/><b>장소·시간</b> 저녁, 개울가. 보리가 성급하게 먼저 시도.<br/><b>인물</b> 보리가 아무 강돌 두 개를 골라 딱딱 부딪혀 본다. 몇 번 부딪쳐도 불꽃 한 점 안 튀고, 손만 아파 "아야!" 하며 인상. 노아가 옆에서 걱정, 티코는 "그 돌은 아니야" 하는 눈.<br/><b>배경·소품</b> 부딪히는 둥근 강돌, 애꿎게 튀는 돌가루, 보리의 빨개진 손.<br/><b>톤</b> 성급한 첫 시도의 실패 — 슬랩스틱으로 가볍게. "생각은 뛰면서 해!"의 부작용.</div>
+  <div class="text"><span class="sp">보리:</span> "돌을 부딪히면 불꽃이 튄다던데! 이렇게, 딱딱— 어라, 왜 안 되지?"<br/><span class="sp">노아:</span> "잠깐, 잠깐만! 아무 돌이나 부딪힌다고 되는 게 아닐 텐데…"<br/><span class="sp">보리:</span> "아야! 손만 아프고 불꽃은커녕 돌가루만 나와. …생각 좀 하고 할걸."<br/><span class="sp">티코:</span> "삐빅. 예상 결과: 실패. 불을 만드는 데도 <b>옛날 사람들의 방법</b>이 따로 있어. 부싯돌은 아무 돌이 아니라 아주 단단한 돌이라야 해. 오늘은 <b>활비비</b>로 하고, 부싯돌은 그런 돌을 찾으면 다음에 해 보자."</div>
+</div>
+
+<div class="page"><div class="pno">8쪽</div>
+  <div class="scene"><b>컷</b> 중형, 자연의 시계 재확인 — 어둠이 가까워짐.<br/><b>장소·시간</b> 땅거미가 짙게 내리는 저녁, 개울가. 하늘에 첫 별.<br/><b>인물</b> 노아가 어두워지는 하늘을 올려다보며 발을 동동. 보리는 배가 고파 배를 움켜쥐고, 몸을 웅크린 채 오들오들. 티코가 하늘의 어둠 정도를 스캔해 "시간이 얼마 안 남았다"고 알린다. 0호가 아이들 곁으로 바짝 붙어 바람을 막아 준다.<br/><b>배경·소품</b> 짙어지는 어둠, 첫 별, 서늘한 바람에 흔들리는 나뭇가지.<br/><b>톤</b> 긴장의 씨앗 — 배고픔·추위·어둠이 겹치는 마감이 다가온다.</div>
+  <div class="text"><span class="sp">노아:</span> "해가 완전히 졌어. 곧 깜깜해지고 더 추워질 거야. 그 전에 불을 피워야 해."<br/><span class="sp">보리:</span> "배는 고프고(꼬르륵) 춥고… 불 하나가 이렇게 간절한 건 처음이야."<br/><span class="sp">0호:</span> "…내가 바람 막아 줄게. 너희 앞에 설 테니까."<br/><span class="sp">티코:</span> "서두르자. 하지만 <b>불은 위험하니까</b>, 급할수록 순서를 지켜야 해. 안전하게."</div>
+</div>
+
+<div class="divider">— C. 문제 발견 (9~15쪽) —</div>
+
+<div class="page"><div class="pno">9쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰 발견컷 — 게스트 부엉이 솔이 등장.<br/><b>장소·시간</b> 저녁, 개울가 근처 나무. 어스름.<br/><b>인물</b> 아이들이 막막해할 때, 1화의 부엉이 솔이가 나뭇가지에 앉아 부리로 마른 나뭇가지 하나를 물어다 툭 떨어뜨려 준다(도와주려는 몸짓). 노아가 그걸 주워 들다가, 손안에서 마른 가지가 <b>바스락</b> 부서지는 것을 보고 눈이 반짝.<br/><b>배경·소품</b> 솔이가 물어다 준 바짝 마른 가지, 노아 손에서 부슬부슬 부서지는 나무껍질.<br/><b>톤</b> 자연·이웃이 힌트를 주는 순간. 솔이는 귀엽게, 노아의 관찰이 발동.</div>
+  <div class="text"><span class="sp">솔이:</span> "후우—" (마른 가지를 툭 떨어뜨린다)<br/><span class="sp">보리:</span> "어? 저 부엉이, 어제 그 솔이잖아! 나뭇가지를 물어다 줬어. 우리 도와주는 거야?"<br/><span class="sp">노아:</span> "잠깐만… 이 가지 완전 바짝 말랐어. 만지니까 부슬부슬 부서져. 이런 게 불이 잘 붙는 거 아닐까?"<br/><span class="sp">티코:</span> "내 데이터에 의하면— 정답에 가까워! 처음 불씨를 받을 건 <b>가늘고 바짝 마른 것</b>이어야 하거든."</div>
+</div>
+
+<div class="page"><div class="pno">10쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ② — 조상 지혜(활비비).<br/><b>장소·시간</b> 저녁, 개울가. 티코가 홀로그램 카드를 띄운다.<br/><b>인물</b> 티코가 홀로그램으로 <b>활비비</b> 도해를 띄운다 — 납작한 나무판(불판) 위에 곧은 막대(축)를 세우고, 활줄을 막대에 감아 활을 앞뒤로 켜면 막대가 빙글빙글 돌아가는 그림. 도는 자리에서 검은 톱밥이 쌓이고 연기가 피어오르는 단면. 아이들이 "오오—" 하며 본다.<br/><b>배경·소품</b> 홀로그램 활비비 도해(활·축·불판·누름돌), 옛 사람 실루엣 스탬프.<br/><b>톤</b> 조상 지혜가 그림이 되는 학습 컷 — 밝고 신뢰감 있게.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 아주 옛날 우리 조상들은 <b>활비비</b>로 불을 만들었어. 나무판에 막대를 세우고, 활줄을 막대에 감아 활을 앞뒤로 쓱싹쓱싹 켜면 막대가 빠르게 돌아가."<br/><span class="sp">노아:</span> "책에서 봤어! 그렇게 돌리면 나무끼리 <b>비벼져서</b> 뜨거워진다고 했어."<br/><span class="sp">보리:</span> "손을 싹싹 비비면 따뜻해지는 거랑 같은 거네! 그걸 아주 빠르게 하는 거구나!"</div>
+</div>
+
+<div class="page"><div class="pno">11쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ③ — 현대 과학(마찰열).<br/><b>장소·시간</b> 저녁, 개울가.<br/><b>인물</b> 티코가 카드를 이어 띄운다 — 두 물체가 서로 비벼지는 면을 확대해, 거친 표면이 부딪히며 붉은 열이 생기는 도해(비빌수록·빠를수록 열이 커지는 화살표). 옆에 손바닥을 싹싹 비비는 아이 아이콘. 노아가 자기 두 손을 실제로 비벼 보며 "따뜻해!" 하는 표정.<br/><b>배경·소품</b> 마찰면 확대 도해, 붉게 번지는 열, 손 비비기 아이콘.<br/><b>톤</b> 조상 지혜(활비비)와 현대 과학(마찰열)이 한 쌍으로 맞물리는 핵심 학습 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 물체 두 개를 서로 세게 비비면 <b>열</b>이 생겨. 이걸 '<b>마찰열</b>'이라고 해. 빠르게, 세게, 오래 비빌수록 더 뜨거워지지."<br/><span class="sp">노아:</span> "(손을 싹싹 비비며) 진짜네, 따뜻해졌어! 활비비는 이 마찰열을 아주 크게 모으는 도구였던 거구나."<br/><span class="sp">보리:</span> "그러니까 나무끼리 엄청 빠르게 비벼서, 불붙을 만큼 뜨겁게 만드는 거네! 해 보자!"</div>
+</div>
+
+<div class="page"><div class="pno">12쪽</div>
+  <div class="scene"><b>컷</b> 대형 협동컷(이번 화 간판 컷 ①) — 활비비 만들기 역할 분담.<br/><b>장소·시간</b> 저녁, 개울가 평평한 자리. 넷이 각자 역할.<br/><b>인물</b> 역할이 한눈에 — 0호가 튼튼한 손가락으로 곧은 나뭇가지를 다듬어 축을 만들고(힘·정밀), 노아가 납작한 나무판을 골라 홈을 파고(설계), 보리가 신발끈을 풀어 활대(휘어진 가지)에 매어 활을 만든다(온몸 노동). 티코가 어깨 위에서 "활줄은 팽팽하게!" 하고 지시.<br/><b>배경·소품</b> 다듬은 축·불판·활·누름돌, 풀어낸 신발끈, 어둑한 하늘의 별.<br/><b>톤</b> 힘을 합치는 뿌듯함. 로봇은 재료·힘까지, 조립은 아이들이 함께.</div>
+  <div class="text"><span class="sp">노아:</span> "나무판에 막대가 들어갈 홈을 파고… 여기 톱밥이 모이게 옆에 작은 틈도 내자."<br/><span class="sp">보리:</span> "활줄은 내 신발끈으로! 티코 말대로 팽팽하게 맬게. 영차—"<br/><span class="sp">0호:</span> "…축은 곧고 매끄럽게 다듬었어. 이 정도면 잘 돌 거야."<br/><span class="sp">티코:</span> "역할이 딱딱 맞네. 준비 끝나면— <b>불을 다루기 전에 할 일</b>이 있어. 그게 제일 중요해."</div>
+</div>
+
+<div class="page"><div class="pno">13쪽</div>
+  <div class="scene"><b>컷</b> 대형 안전 준비컷(P0 안전 핵심 컷) — 화덕 만들기.<br/><b>장소·시간</b> 저녁, 개울가. 불을 피우기 전 안전 조치.<br/><b>인물</b> 0호가 크고 둥근 돌들을 날라 와 동그랗게 화덕 울타리를 두른다(불길 가두기). 보리와 노아가 화덕 둘레의 마른 풀·나뭇잎을 싹싹 치워 맨흙을 드러낸다. 노아가 대나무 물통에 개울물을 가득 떠다 화덕 바로 옆에 놓는다(만일을 대비). 티코가 각 단계를 체크하듯 지켜본다.<br/><b>배경·소품</b> 돌로 둥글게 두른 화덕, 깨끗이 치운 맨흙 바닥, 옆에 놓인 물통, 젖혀 놓은 마른 풀.<br/><b>톤</b> 서두르는 와중에도 안전을 지키는 진지함 — 이 화의 안전 메시지 핵심 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "불을 피우기 전에 <b>꼭</b> 이걸 먼저 해야 해. 불은 아주 위험하거든. 첫째, <b>돌로 빙 둘러</b> 불이 밖으로 못 나가게 하고—"<br/><span class="sp">보리:</span> "둘째, 둘레의 마른 풀이랑 낙엽은 싹 치우고! 안 그러면 옮겨붙으니까. (쓱쓱)"<br/><span class="sp">노아:</span> "셋째, 물을 미리 떠다 옆에 둬. 불이 커지면 바로 끌 수 있게. 어른들이 캠핑에서 꼭 이렇게 하잖아."<br/><span class="sp">티코:</span> "완벽해. 준비 없이 불부터 붙이는 건 절대 안 돼. 어른과 함께가 아니면 더더욱."</div>
+</div>
+
+<div class="page"><div class="pno">14쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷 — 통신 두절 러닝 개그.<br/><b>장소·시간</b> 저녁, 화덕 앞.<br/><b>인물</b> 노아의 손목 통신기에 봉수 박사 얼굴이 반쯤 지지직 글리치로 뜬다. 보리가 통신기를 치켜들고 발끝으로 폴짝, 티코가 안테나를 쭉 뽑는다. 봉수 박사는 뭔가 다급히 손짓하는 실루엣.<br/><b>배경·소품</b> 홀로그램 글리치, 지직거리는 효과선, 개울물 소리.<br/><b>톤</b> 결정적 도움은 못 주지만 온기를 남기는 시리즈 개그.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "얘들아! 불을 피운다고?! 조심해야 한다! 활비비는 <b>한 번에 안 되고 끈기 있게…</b> 그리고 불씨는 살살 <b>후— 치지지직—</b>"<br/><span class="sp">보리:</span> "할아버지! 살살 뭐라고요?! 아, 또 끊겼다!"<br/><span class="sp">노아:</span> "근데 방금 '한 번에 안 되니 끈기 있게'랑 '불씨는 후— 살살'이라고 하셨지?"<br/><span class="sp">티코:</span> "통신 두절. 하지만 힌트는 남았어 — <b>끈기</b>, 그리고 불씨에 <b>후 불기</b>. 기억해 둬."</div>
+</div>
+
+<div class="page"><div class="pno">15쪽</div>
+  <div class="scene"><b>컷</b> 중형, 역할 재정리 — 안전 거리 원칙.<br/><b>장소·시간</b> 저녁, 화덕 앞. 첫 시도 직전.<br/><b>인물</b> 티코가 홀로그램으로 간단한 배치도를 띄운다 — 불을 직접 다루는 건 티코(로봇)와 0호(금속 몸이라 뜨거움에 강함), 아이들은 한 발 물러선 자리에서 마른 풀·물을 대기. 보리가 아쉬운 듯 손을 들었다가 티코 말에 고개를 끄덕이고 한 발 물러선다.<br/><b>배경·소품</b> 홀로그램 배치도(로봇=불 앞, 아이=한 걸음 뒤), 준비된 재료.<br/><b>톤</b> 로봇 역할 분담(룰4)과 안전을 동시에 전달 — 아이는 불을 직접 만지지 않는다.</div>
+  <div class="text"><span class="sp">티코:</span> "불을 직접 다루는 건 나랑 0호가 할게. 나는 안 뜨겁고, 0호는 <b>금속 몸이라</b> 불에 강하거든. 너희는 한 발 물러서서 도와줘."<br/><span class="sp">0호:</span> "…불은 내가 맡을게. 나는 뜨거워도 괜찮으니까. 처음으로… 내가 제일 잘하는 일이 생겼어."<br/><span class="sp">보리:</span> "치, 나도 하고 싶은데… 알았어. 대신 마른 풀이랑 물은 내가 딱 대기하고 있을게!"<br/><span class="sp">노아:</span> "맞아. 위험한 일은 무리하지 않는 게 진짜 용감한 거야."</div>
+</div>
+
+<div class="divider">— D. 시도 → 실패 → 힌트 (16~25쪽) —</div>
+
+<div class="page"><div class="pno">16쪽</div>
+  <div class="scene"><b>컷</b> 대형 시도컷(간판 컷 ②) — 첫 활비비 도전.<br/><b>장소·시간</b> 밤이 내리는 저녁, 화덕 앞.<br/><b>인물</b> 0호가 한 손으로 누름돌을 눌러 축을 세우고, 다른 손으로 활을 앞뒤로 쓱싹쓱싹 켠다(축이 빠르게 회전, 회전 잔상 효과선). 티코가 옆에서 "더 빠르게!" 하고 응원. 보리와 노아는 한 발 물러서서 마른 풀을 손에 쥔 채 잔뜩 기대하는 얼굴.<br/><b>배경·소품</b> 빙글빙글 도는 축, 불판의 홈, 아직은 연기 한 점 없음, 별이 총총한 하늘.<br/><b>톤</b> 첫 도전의 두근거림. 아직 결과는 안 나옴 — 긴장 유지.</div>
+  <div class="text"><span class="sp">0호:</span> "…쓱싹, 쓱싹. 이렇게… 활을 앞뒤로. (부지런히)"<br/><span class="sp">보리:</span> "0호 힘내! 조금만 더 빠르게!"<br/><span class="sp">티코:</span> "축이 잘 돌고 있어! 이대로 계속— 마찰열이 모이는 중이야!"<br/><span class="sp">노아:</span> "연기가 나면 불씨가 생기는 거래. 아직… 아직인가?"</div>
+</div>
+
+<div class="page"><div class="pno">17쪽</div>
+  <div class="scene"><b>컷</b> 중형 실패컷 ① — 첫 시도의 허점(활줄이 헐거움).<br/><b>장소·시간</b> 저녁, 화덕 앞.<br/><b>인물</b> 열심히 켜는데 축이 헛돌며 활줄이 축에서 스르륵 미끄러진다(헐거워짐). 0호가 갸웃, 노아가 다가가(안전하게, 아직 불이 없으므로) 활줄을 살펴본다. 보리는 "왜 안 되지?" 하는 얼굴.<br/><b>배경·소품</b> 축에서 미끄러지는 헐거운 신발끈 활줄, 헛도는 축, 연기 없음.<br/><b>톤</b> 첫 실패 비트 — 원인을 찾는 관찰로 이어짐.</div>
+  <div class="text"><span class="sp">0호:</span> "…이상해. 축이 자꾸 헛돌아. 줄이 미끄러져."<br/><span class="sp">노아:</span> "잠깐, 잠깐만… 활줄이 헐거워졌어. 이러면 축이 힘 있게 안 돌아가."<br/><span class="sp">보리:</span> "아, 신발끈이 늘어났나 봐! 내가 다시 팽팽하게 맬게!"<br/><span class="sp">티코:</span> "줄이 팽팽해야 축이 세게 돌아. 다시 조여서— 한 번 더!"</div>
+</div>
+
+<div class="page"><div class="pno">18쪽</div>
+  <div class="scene"><b>컷</b> 중형, 두 번째 시도 — 연기 등장(작은 성공).<br/><b>장소·시간</b> 밤, 화덕 앞. 팽팽하게 고친 뒤.<br/><b>인물</b> 0호가 다시 힘차게 활을 켜자, 불판 홈에서 드디어 <b>가느다란 연기</b>가 스멀스멀 피어오른다. 보리와 노아가 "우와!" 하며 눈이 커진다. 티코의 눈이 별 모양으로 감탄. 하지만 연기만 나고 아직 불꽃은 없다.<br/><b>배경·소품</b> 홈에서 피어오르는 가느다란 흰 연기, 쌓이는 검은 톱밥, 기대에 찬 얼굴들.<br/><b>톤</b> 첫 작은 성공의 두근거림 — 하지만 아직 갈 길이 남았다.</div>
+  <div class="text"><span class="sp">노아:</span> "연기다! 연기가 나! 방금 그거… 뜨거워졌다는 신호 아냐?"<br/><span class="sp">티코:</span> "맞아! 마찰열이 충분히 모여서 톱밥이 타기 시작한 거야. 조금만 더!"<br/><span class="sp">보리:</span> "0호 조금만 더! 거의 다 왔어!"<br/><span class="sp">0호:</span> "…쓱싹, 쓱싹. (헥— 지치지 않고) 끈기 있게, 할아버지 말대로."</div>
+</div>
+
+<div class="page"><div class="pno">19쪽</div>
+  <div class="scene"><b>컷</b> 중형 실패컷 ② — 성급하게 굵은 나무를 올림.<br/><b>장소·시간</b> 밤, 화덕 앞.<br/><b>인물</b> 보리가 신이 나서 연기 나는 톱밥 뭉치(불씨) 위에 대뜸 <b>굵은 통나무</b>를 턱 올려놓는다. 그러자 겨우 생긴 붉은 불씨가 무게에 눌리고 공기가 막혀 <b>피식</b> 꺼져 버린다(연기 한 줄기만 남고 사그라짐). 다들 "아—" 하며 허탈.<br/><b>배경·소품</b> 불씨 위에 얹힌 굵은 통나무, 눌려 꺼지는 붉은 불씨, 사그라드는 연기.<br/><b>톤</b> "다 됐다!" 싶었는데 조급함이 부른 실패 — 아쉽지만 배움으로.</div>
+  <div class="text"><span class="sp">보리:</span> "불씨 생겼다! 얼른 큰 장작 올려서 불 키우자! (턱)"<br/><span class="sp">나레이션:</span> 하지만 굵은 통나무가 작은 불씨를 짓눌러 버렸어요. 피식— 불씨가 꺼졌어요.<br/><span class="sp">노아:</span> "아— 꺼졌어! 보리야, 이렇게 작은 불씨에 갑자기 굵은 나무를 올리면…"<br/><span class="sp">티코:</span> "삐빅. 불씨가 눌리고 공기도 막혀서 꺼진 거야. <b>불의 세 가지</b>, 기억나? 공기가 통해야 한다고 했잖아."</div>
+</div>
+
+<div class="page"><div class="pno">20쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 부모 감사 비트 — 이번 화 정서 피크.<br/><b>장소·시간</b> 밤, 화덕 앞. 꺼진 불씨를 바라보는 보리 얼굴 클로즈업.<br/><b>인물</b> 무릎을 안고 꺼진 불씨를 내려다보는 보리. 배는 고프고 불은 자꾸 안 되고, 눈가가 촉촉. 화면 한쪽에 흐릿한 회상 인셋 — 집 부엌에서 엄마가 김이 모락모락 나는 따뜻한 밥과 생선구이를 식탁에 올려 주는 장면.<br/><b>배경·소품</b> 어두운 화덕, 인셋 회상은 따뜻한 노란빛(모락모락 김). 대비되는 두 온도.<br/><b>톤</b> 원망이 아니라 감사·철듦으로 — 뭉클하지만 무겁지 않게.</div>
+  <div class="text"><span class="sp">보리:</span> "…집에선 그냥 밥때가 되면 따뜻한 밥이랑 생선구이가 딱 나왔는데."<br/><span class="sp">보리:</span> "엄마가 매일 불 앞에서 이렇게 애써서 밥을 지어 주셨던 거였어. 난 그게 그냥 당연한 건 줄 알았는데…"<br/><span class="sp">나레이션:</span> 따뜻한 한 끼가, 사실은 누군가의 수고였다는 걸 보리는 그제야 알았어요.<br/><span class="sp">노아:</span> "…나도. 밥 한 끼가 이렇게 고마운 건 줄 몰랐어. 우리, 될 때까지 다시 해 보자."</div>
+</div>
+
+<div class="page"><div class="pno">21쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰 → 추리 연결컷 — 노아의 결정타(불씨 살리는 법).<br/><b>장소·시간</b> 밤, 화덕 앞. 노아가 무언가를 깨닫고 눈이 번뜩.<br/><b>인물</b> 노아가 아까 할아버지 힌트("불씨는 후— 살살")와 부슬부슬한 마른 풀을 떠올린다(머리 위 회상 말풍선 — 후 부는 입 + 마른 풀 뭉치). 그리고 손 안의 마른 풀 뭉치를 새 둥지처럼 오목하게 만든다. 두 힌트가 노아 머릿속에서 하나로 연결.<br/><b>배경·소품</b> 회상 말풍선(후 불기 + 마른 풀), 오목하게 뭉친 마른 풀 둥지, 노아 안경알에 반짝.<br/><b>톤</b> 룰5 클라이맥스 — 티코 지식·할아버지 힌트·관찰을 노아가 하나로 잇는 순간.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만! 할아버지가 '불씨는 후— 살살'이라고 하셨잖아. 굵은 나무 말고—"<br/><span class="sp">노아:</span> "이 부슬부슬한 <b>마른 풀</b>을 새 둥지처럼 오목하게 만들어서, 그 안에 불씨를 담고 <b>살살 후 불어</b> 주는 거야!"<br/><span class="sp">보리:</span> "아! 공기를 불어넣으면 불의 세 가지 중 <b>공기</b>가 채워지는 거구나! 그래서 후 부는 거였어!"<br/><span class="sp">티코:</span> "내 데이터에 의하면— 정답이야! 가는 것부터 굵은 순서로, 천천히 키우는 게 핵심이거든."</div>
+</div>
+
+<div class="page"><div class="pno">22쪽</div>
+  <div class="scene"><b>컷</b> 대형 클라이맥스컷(간판 컷 ③) — 불씨가 불꽃으로.<br/><b>장소·시간</b> 밤, 화덕 앞. 결정적 순간.<br/><b>인물</b> 0호가 다시 활비비로 불씨를 만들어 마른 풀 둥지에 살포시 옮기고, 두 손으로 감싸 든다. 노아가 안전 거리에서 입으로 "후우— 후우—" 살살 분다. 마른 풀 둥지 속에서 붉은 불씨가 점점 커지다가 <b>화르륵</b> 첫 불꽃이 피어오른다! 다들 환호. 보리는 두 손 번쩍, 티코 눈은 별 모양.<br/><b>배경·소품</b> 손바닥 위 마른 풀 둥지에서 피어나는 첫 주홍 불꽃, 얼굴들을 물들이는 따뜻한 불빛, 별밤.<br/><b>톤</b> 이번 화 감정의 정점 — 벅차고 따뜻하게. 무섭지 않은, 작고 통제된 첫 불.</div>
+  <div class="text"><span class="sp">노아:</span> "후우— 후우— (살살) …커진다! 불씨가 점점 커지고 있어!"<br/><span class="sp">나레이션:</span> 화르륵! 마른 풀 둥지 속에서 드디어 첫 불꽃이 피어올랐어요.<br/><span class="sp">보리:</span> "부, 불이다! 진짜 불이야! 우리가— 우리 손으로 불을 만들었어!"<br/><span class="sp">0호:</span> "…조심조심. 이제 화덕 안에 살살 내려놓을게. 돌 안쪽에만." (붉은 외눈이 반짝)</div>
+</div>
+
+<div class="page"><div class="pno">23쪽</div>
+  <div class="scene"><b>컷</b> 중형, 불 키우기 — 안전 원칙 재확인.<br/><b>장소·시간</b> 밤, 돌로 두른 화덕. 불이 자란다.<br/><b>인물</b> 0호가 첫 불꽃을 화덕 안 마른 잔가지 위에 놓고, 가는 나뭇가지부터 조금씩 얹어 불을 키운다(가는 것→굵은 것 순서). 티코가 "가는 것부터!" 하고 지시. 보리와 노아는 한 발 물러선 자리에서 지켜보며 물통을 곁에 둔다. 불은 화덕 돌 안쪽에서만 얌전히 탄다.<br/><b>배경·소품</b> 돌 화덕 안의 아담한 모닥불, 가는 가지→굵은 가지 순서로 쌓인 장작, 옆의 물통.<br/><b>톤</b> 불을 다루는 조심스러움 + 성취. 불은 끝까지 '통제된 작은 불'로.</div>
+  <div class="text"><span class="sp">티코:</span> "가는 나뭇가지부터 하나씩. 급하게 굵은 걸 올리면 또 꺼져. 공기가 통하게 사이사이 틈을 두고."<br/><span class="sp">0호:</span> "…가는 것부터. 천천히. (조심조심 얹는다)"<br/><span class="sp">보리:</span> "돌 밖으로는 절대 안 나가게! 물통은 내가 딱 지키고 있을게."<br/><span class="sp">노아:</span> "불은 예쁘지만 무서운 거니까… 이렇게 돌 안에 가둬 두고, 우린 한 발 떨어져서 보는 거야."</div>
+</div>
+
+<div class="page"><div class="pno">24쪽</div>
+  <div class="scene"><b>컷</b> 대형 따뜻한 식사컷 — 물고기 굽기.<br/><b>장소·시간</b> 밤, 화덕 가. 아늑한 모닥불.<br/><b>인물</b> 0호가 나뭇가지에 꿴 물고기를 화덕 불 위에 들고 노릇하게 굽는다(불 다루기는 0호). 보리와 노아가 한 발 떨어져 앉아 침을 꼴깍 삼키며 기다린다. 불빛에 네 얼굴이 발갛게 물들고, 몸이 따뜻해져 웅크렸던 자세가 풀렸다. 솔이도 이제 안심한 듯 가까운 나뭇가지에 다시 내려앉았다.<br/><b>배경·소품</b> 노릇하게 익는 물고기(모락모락 김), 화덕 한쪽에 올려 둔 대나무 물통(개울물이 끓어 김이 오름), 아늑한 모닥불빛, 다시 내려앉은 솔이, 별밤.<br/><b>톤</b> 고생 끝의 따뜻한 보상 — 포근하고 군침 도는 컷. 불은 여전히 화덕 안.</div>
+  <div class="text"><span class="sp">0호:</span> "…물고기는 내가 구울게. 불 앞은 내가. 다 되면 건네줄 테니까 조금만 기다려."<br/><span class="sp">보리:</span> "우와아— 냄새! 아까 그 미끌미끌하던 물고기가 이렇게 좋은 냄새가 나다니!"<br/><span class="sp">노아:</span> "익히니까 냄새부터 다르다. 봐, 솔이도 불이 안전해지니까 다시 내려왔어."<br/><span class="sp">티코:</span> "잘 익혀 먹으면 배탈도 안 나고 맛도 좋아. 자, 뜨거우니까 조금 식혀서— 조심조심 먹어."<br/><span class="sp">노아:</span> "아, 그리고 이제 불이 있으니까— 어제 그 개울물도 <b>펄펄 끓여서</b> 더 안전하게 마실 수 있겠다!"<br/><span class="sp">티코:</span> "맞아! 물을 펄펄 끓이면 눈에 안 보이는 <b>나쁜 세균</b>까지 죽어서 배탈 걱정이 확 줄어. 불이 생기니까 마실 물까지 더 안전해진 거지."</div>
+</div>
+
+<div class="page"><div class="pno">25쪽</div>
+  <div class="scene"><b>컷</b> 중형, 골고루 먹기 — 건강 아크 + 온기.<br/><b>장소·시간</b> 밤, 화덕 가. 다 함께 먹는 시간.<br/><b>인물</b> 보리와 노아가 노릇한 생선살을 호호 불어 맛있게 먹는다(볼이 발그레, 눈이 반짝). 아까 날것 앞에서 우웩하던 모습과 대비되게, 이번엔 뭐든 잘 먹는다. 티코가 흐뭇하게 보고, 0호도 곁에 앉아 함께한다.<br/><b>배경·소품</b> 김이 나는 생선구이, 발그레한 얼굴들, 따뜻한 모닥불.<br/><b>톤</b> 골고루 잘 먹는 건강한 식사 — 따뜻하고 만족스럽게.</div>
+  <div class="text"><span class="sp">보리:</span> "냠냠— 진짜 맛있어! 아까는 못 먹겠더니, 익히니까 이렇게 맛있을 수가!"<br/><span class="sp">노아:</span> "따뜻한 밥… 아니, 따뜻한 생선. 몸속까지 뜨끈해지는 기분이야."<br/><span class="sp">티코:</span> "잘 먹네, 인간들. 골고루 잘 먹고 부지런히 움직이니까 너희 요즘 눈에 띄게 튼튼해졌어."<br/><span class="sp">0호:</span> "…따뜻하다. 다 같이 있으니까… 더 따뜻해." (붉은 외눈이 반달로 웃는다)</div>
+</div>
+
+<div class="divider">— E. 해결 · 회수 · 정리 (26~33쪽) —</div>
+
+<div class="page"><div class="pno">26쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ④ — 불씨 보존.<br/><b>장소·시간</b> 밤, 화덕 가. 배부르게 먹은 뒤.<br/><b>인물</b> 노아가 "매번 이렇게 힘들게 불을 만들어야 하나?" 걱정하자, 티코가 홀로그램 카드를 띄운다 — 불씨를 재와 마른 이끼로 살짝 덮어 오래 살려 두는 도해(작은 불씨가 재 속에서 은은히 유지되는 그림). 노아가 "그런 방법이!" 하는 표정.<br/><b>배경·소품</b> 홀로그램 불씨 보존 도해(재+이끼로 덮은 불씨), 화덕의 잦아든 불.<br/><b>톤</b> 조상 지혜의 마지막 한 조각 — 다음을 위한 지혜. 밝게.</div>
+  <div class="text"><span class="sp">노아:</span> "근데 티코, 이렇게 힘든 걸 매일 처음부터 다시 해야 하는 거야? 그건 너무 힘든데…"<br/><span class="sp">티코:</span> "티코피디아! 옛날 사람들은 <b>불씨를 살려 두는 법</b>도 알았어. 작은 불씨를 <b>재와 마른 이끼로 살짝 덮어</b> 두면, 공기만 조금 통해서 오래오래 꺼지지 않고 살아 있거든."<br/><span class="sp">보리:</span> "우와! 그럼 내일도, 모레도, 이 불씨 하나로 다시 불을 피울 수 있는 거네!"<br/><span class="sp">노아:</span> "불씨 하나가 이렇게 소중한 거였구나. 잘 지켜야겠다."</div>
+</div>
+
+<div class="page"><div class="pno">27쪽</div>
+  <div class="scene"><b>컷</b> 중형, 조상+과학 정리컷 — 배운 것 되짚기.<br/><b>장소·시간</b> 밤, 화덕 가. 넷이 불을 둘러앉아.<br/><b>인물</b> 티코가 홀로그램으로 어제 배운 것을 요약해 띄운다 — 활비비·부싯돌(조상) + 마찰열·불의 세 가지(과학)가 나란히. 보리·노아가 고개를 끄덕이고, 0호는 흐뭇하게 불을 본다.<br/><b>배경·소품</b> 요약 홀로그램(활비비 아이콘 + 마찰열 아이콘 + 불의 세 가지 삼각형), 아늑한 불빛.<br/><b>톤</b> 학습 정리 컷 — 옛 지혜와 과학이 한 쌍이었음을 각인. 따뜻하게.</div>
+  <div class="text"><span class="sp">노아:</span> "오늘 진짜 많이 배웠어. 옛날 사람들의 <b>활비비</b>랑, 나무를 비비면 뜨거워지는 <b>마찰열</b> 원리랑."<br/><span class="sp">티코:</span> "그거야! 옛사람의 지혜엔 다 <b>과학</b>이 숨어 있었어. 활비비는 마찰열을 모으는 도구, 불의 세 가지는 탈 것·공기·열. 셋이 다 있어야 불이 살지."<br/><span class="sp">보리:</span> "그리고 제일 중요한 건— <b>불은 위험하니까 항상 조심하고, 어른과 함께</b> 다뤄야 한다는 거!"<br/><span class="sp">0호:</span> "…불은 무섭지만, 안전하게 다루면 고마운 거야."</div>
+</div>
+
+<div class="page"><div class="pno">28쪽</div>
+  <div class="scene"><b>컷</b> 중형, 0호 소속 비트 — 정서 마무리.<br/><b>장소·시간</b> 밤, 화덕 가. 아늑한 불빛.<br/><b>인물</b> 보리가 0호에게 다가가 "오늘 네가 최고였어!" 하며 어깨(에 해당하는 부분)를 툭 친다. 노아도 "불 앞은 네가 아니면 아무도 못 했어" 하고 거든다. 0호의 붉은 외눈이 물결모양으로 촉촉해진다(감동). 불빛에 넷의 얼굴이 따뜻하게 물든다.<br/><b>배경·소품</b> 아늑한 모닥불, 옹기종기 모인 넷, 별밤.<br/><b>톤</b> 외톨이였던 0호가 '꼭 필요한 형'이 되는 순간 — 뭉클하게.</div>
+  <div class="text"><span class="sp">보리:</span> "0호야, 오늘 네가 진짜 최고였어! 불 앞은 너 아니면 아무도 못 했잖아. 우리한테 꼭 필요한 형이야!"<br/><span class="sp">0호:</span> "…형? 나… 형이야?" (붉은 외눈이 커진다)<br/><span class="sp">노아:</span> "당연하지. 튼튼하고, 불에도 강하고, 우릴 지켜 주잖아. 넌 우리 팀의 큰형이야."<br/><span class="sp">0호:</span> "…큰형. 나… 그런 거 처음이야. 고마워." (반달눈)</div>
+</div>
+
+<div class="page"><div class="pno">29쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 부모 감사 회수 — 따뜻한 밥의 고마움.<br/><b>장소·시간</b> 밤, 화덕 가. 배부르고 따뜻한 뒤.<br/><b>인물</b> 보리가 잦아드는 불을 바라보며 어른스러운 표정으로 다짐한다. 노아가 곁에서 고개를 끄덕인다. 두 아이 얼굴에 따뜻한 불빛과 결심이 어린다.<br/><b>배경·소품</b> 잦아드는 아늑한 불, 별밤, 다짐 어린 두 얼굴.<br/><b>톤</b> 감사가 다짐으로 이어지는 훈훈한 컷 — 철듦의 표현.</div>
+  <div class="text"><span class="sp">보리:</span> "집에 돌아가면, 엄마 아빠한테 '따뜻한 밥 해 줘서 고맙다'고 꼭 말할 거야. 이렇게 손이 많이 가는 거였는데…"<br/><span class="sp">노아:</span> "나도. 그리고 이제 밥할 때 옆에서 도울래. 불 앞은 위험하니까 어른이랑 같이."<br/><span class="sp">보리:</span> "당연하지. 오늘 배웠잖아 — 불은 꼭 어른과 함께!"<br/><span class="sp">나레이션:</span> 스스로 불을 피워 본 밤, 아이들은 따뜻한 한 끼가 얼마나 고마운 것인지 알게 되었어요.</div>
+</div>
+
+<div class="page"><div class="pno">30쪽</div>
+  <div class="scene"><b>컷</b> 대형 안전 마무리컷(P0 안전 핵심 컷) — 불 완전히 끄기.<br/><b>장소·시간</b> 밤, 잠들기 전. 화덕.<br/><b>인물</b> 티코가 작은 불씨 한 점만 재와 이끼로 덮어 따로 보존해 두고(내일용), 나머지 화덕 불은 0호가 물을 붓고, 보리와 노아가 흙을 덮어 <b>완전히</b> 끈다. 연기가 사라질 때까지 다 함께 확인한다. 티코가 손(미튼)을 화덕 위에 대 열이 남았는지 점검.<br/><b>배경·소품</b> 물을 붓는 손·흙을 덮는 손, 꺼진 화덕에서 마지막으로 오르는 흰 연기, 따로 덮어 둔 불씨 자리.<br/><b>톤</b> 안전 메시지의 정점 — 불은 반드시 끄고 잔다. 진지하지만 따뜻하게.</div>
+  <div class="text"><span class="sp">티코:</span> "자기 전엔 <b>반드시</b> 불을 완전히 꺼야 해. 안 그러면 밤새 불이 번져서 <b>산불</b>이 날 수 있거든. 이게 제일 중요한 규칙이야."<br/><span class="sp">0호:</span> "…물을 붓고. (치익—) 남은 불씨 하나까지."<br/><span class="sp">보리:</span> "흙도 덮자! 손을 대 봐서 뜨거운 데가 없는지 다 같이 확인하고."<br/><span class="sp">노아:</span> "내일 쓸 불씨만 재로 살짝 덮어서 남기고, 나머지는 완전히 꺼졌어. 이제 안심하고 자도 돼."</div>
+</div>
+
+<div class="page"><div class="pno">31쪽</div>
+  <div class="scene"><b>컷</b> 중형, 일찍 자기 — 하루 마무리 습관.<br/><b>장소·시간</b> 깊은 밤, 마른 풀 쉼터 안(1화에서 지은 그 쉼터). 넷이 나란히.<br/><b>인물</b> 보리와 노아가 배부르고 몸이 따뜻해져 폭신한 풀 이불 속에서 스르르 눈을 감는다. 티코는 코어 불빛을 은은히 낮춰 취침 모드. 0호는 입구에서 눈을 반쯤 감고 지킨다.<br/><b>배경·소품</b> 낮춘 조명, 문밖 은하수, 완전히 꺼진 화덕, zzz 만화 기호.<br/><b>톤</b> 배부르고 따뜻한 하루의 평화로운 마무리. 조용하고 포근하게.</div>
+  <div class="text"><span class="sp">보리:</span> "배도 부르고 몸도 따뜻하니까… 잠이 솔솔 와. (하암)"<br/><span class="sp">티코:</span> "삐빅— 취침 모드. 여기선 해와 함께 자고 해와 함께 일어나는 거야. 잘 자, 인간들."<br/><span class="sp">노아:</span> "오늘도 정말 많은 걸 해냈어… 불도 피우고, 밥도 먹고. (스르륵)"<br/><span class="sp">나레이션:</span> 배부르고 따뜻한 밤, 넷은 무인도에서 또 하루를 무사히 넘겼답니다.</div>
+</div>
+
+<div class="page"><div class="pno">32쪽</div>
+  <div class="scene"><b>컷</b> 대형 아침컷 — 상쾌한 전환 + 건강 아크.<br/><b>장소·시간</b> 다음 날 이른 아침, 쉼터 앞. 나뭇잎 사이로 황금빛 아침 햇살.<br/><b>인물</b> 보리가 두 팔을 쭉 뻗어 기지개를 켜며 활짝 웃는다(볼에 혈색이 도는 개운한 얼굴). 노아도 상쾌하게 일어난다. 어제 재로 덮어 둔 불씨를 노아가 살살 후 불어 되살리자 작은 불꽃이 다시 피어난다(불씨 보존 회수). 솔이가 아침 인사하듯 나뭇가지에 앉아 있다.<br/><b>배경·소품</b> 아침 이슬, 되살아나는 작은 불씨, 반짝이는 개울, 두 아이 얼굴의 생기.<br/><b>톤</b> 위기를 넘긴 상쾌한 아침 — 밝고 희망차게. 불씨 보존이 실제로 통했다.</div>
+  <div class="text"><span class="sp">보리:</span> "아아— 잘 잤다! 몸이 완전 개운해! 요즘 아침마다 기운이 펄펄 나!"<br/><span class="sp">노아:</span> "봐 봐, 어제 남겨 둔 불씨가 아직 살아 있어! 살살 후 불면— (후우) 다시 불이 붙는다!"<br/><span class="sp">티코:</span> "잘 잤네. 불씨 하나만 잘 지키면, 매일 처음부터 안 해도 되지. 옛사람들의 지혜란!"<br/><span class="sp">보리:</span> "이제 아침도 따뜻하게 먹을 수 있겠다! 근데… 물고기만 매일 먹긴 좀 그렇지 않아?"</div>
+</div>
+
+<div class="page"><div class="pno">33쪽</div>
+  <div class="scene"><b>컷</b> 대형 마무리 몽타주 — 희망찬 엔딩 + 다음 화 떡밥.<br/><b>장소·시간</b> 아침, 섬 안쪽을 담은 넓은 부감.<br/><b>인물</b> 넷이 어깨를 나란히 하고 숲 안쪽을 바라본다 — 뒷모습. 저 멀리 숲 사이로 알록달록한 <b>열매와 나물이 우거진 풀숲</b>이 보인다(다음 화 좌표). 보리는 주먹 불끈, 0호는 든든히, 티코는 어깨 위에서 그 방향을 가리킨다. 솔이가 그 위를 난다.<br/><b>배경·소품</b> 알록달록한 열매·풀숲, 초록 숲, 파란 바다, 아침 해. 발치엔 살려 둔 불씨.<br/><b>톤</b> 불을 얻어 낸 팀의 든든한 뒷모습 + 다음 모험을 향한 설렘.</div>
+  <div class="text"><span class="sp">나레이션:</span> 불까지 손에 넣은 넷은, 이제 무인도에서 제법 씩씩한 대원이 되었어요.<br/><span class="sp">보리:</span> "좋아, 다음은 먹을 거다! 저기 숲 사이로 알록달록한 열매랑 나물이 보여? 가자, 노아!"<br/><span class="sp">노아:</span> "잠깐, 잠깐만! 아무 풀이나 함부로 먹으면 안 돼. 독이 있는 것도 있으니까, 이것도 배워야 안전해."<br/><span class="sp">티코:</span> "삐빅! 다음 과제 — <b>먹어도 되는 식물 찾기</b>. 저 풀숲에서 만나자!"</div>
+</div>
+
+<div class="divider">— F. 티코피디아 부록 (34~36쪽) —</div>
+
+<div class="page"><div class="pno">34쪽 · 티코피디아 ①</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지(부록 공통 포맷) — 배경은 민트색 홀로그램 격자.<br/><b>장면</b> 티코가 안경을 쓰고 지시봉을 든 선생님 포즈로 화면 왼쪽에. 오른쪽 큰 카드: <b>활비비</b> 도해(나무판·불판 위에 축을 세우고 활줄을 감아 켜는 그림, 도는 자리에서 검은 톱밥과 연기가 나는 단면)와, 옆에 <b>부싯돌</b> 아이콘(단단한 돌로 쇳조각을 세게 긁듯 부딪혀 작은 불꽃이 튀는 그림). 카드 모서리에 옛 사람 실루엣 스탬프.<br/><b>톤</b> 밝고 정돈된 인포그래픽. 본편과 구분되는 '부록 세계' 톤.</div>
+  <div class="text"><span class="sp">티코:</span> "오늘의 티코피디아! 옛날 사람들은 성냥 없이도 불을 만들었어. <b>활비비</b>는 나무막대를 아주 빠르게 돌려 나무끼리 비벼서 뜨겁게 만드는 방법이고, <b>부싯돌</b>은 아주 단단한 돌로 쇳조각을 세게 긁듯 부딪혀 작은 불꽃을 튀기는 방법이야. 둘 다 오랜 지혜란다!"</div>
+</div>
+
+<div class="page"><div class="pno">35쪽 · 티코피디아 ②</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지 ② — 도해 중심.<br/><b>장면</b> 화면 상단: 큰 <b>불의 세 가지</b> 삼각형 도해 — 세 꼭짓점에 탈 것(마른 나무), 공기, 열(불씨) 아이콘, 셋이 다 모여야 가운데 불이 피어나는 그림. 하단: 불을 안전하게 다루는 3규칙 아이콘 — ① 돌로 화덕 두르기 ② 물 미리 떠 두기 ③ 잘 때·떠날 때 완전히 끄기. 구석에 검지를 세워 "꼭!" 하는 티코.<br/><b>톤</b> 교과서 삽화보다 밝고 만화적인 도해. 안전 메시지를 시각으로 못박음.</div>
+  <div class="text"><span class="sp">티코:</span> "불이 생기려면 <b>세 가지</b>가 꼭 필요해 — <b>탈 것</b>(마른 나무·풀), <b>공기</b>, 그리고 <b>열</b>. 그래서 젖은 나무는 안 타고, 불씨는 후 불어 공기를 넣어 주는 거야. 그리고 제일 중요한 약속! 불은 아주 위험하니까 <b>꼭 어른과 함께</b> 다루고, 돌로 빙 둘러 피우고, 다 쓰면 물과 흙으로 <b>완전히 꺼야</b> 해. 어린이 혼자서는 절대 안 돼!"</div>
+</div>
+
+<div class="page"><div class="pno">36쪽 · 티코 퀴즈</div>
+  <div class="scene"><b>컷</b> 퀴즈 페이지(부록 공통 포맷) — 티코 정면 컷.<br/><b>장면</b> 티코가 문제 카드 3장을 부채꼴로 펼쳐 들고 윙크. 카드마다 ①②③ 번호와 물음표 장식. 배경 하단에 다음 화 예고 — 숲 사이로 보이는 알록달록한 열매·나물과 물음표. (앱에서는 기존 퀴즈 게임 인프라로 인터랙티브 처리)<br/><b>톤</b> 마무리 팡파레 + 다음 화 기대감.</div>
+  <div class="text"><span class="sp">티코:</span> "마지막 관문, 티코 퀴즈! 셋 다 맞히면 너도 무인도 생존 대원!<br/>① 옛날 사람들이 나무막대를 빠르게 돌려, 나무끼리 비벼 뜨겁게 만들어 불을 피우던 도구의 이름은?<br/>② 불이 생기려면 꼭 필요한 세 가지는 탈 것, 열, 그리고 무엇일까?<br/>③ 불을 다 쓰고 잠들기 전에 꼭 해야 하는 일은 무엇일까?<br/>…다음 화, 이 섬에서 <b>먹어도 되는 식물</b>을 찾으러 가자! 삐빅!"</div>
+</div>
+
+<footer>
+  타임 티코 시즌2 · 3화 「불」 콘티 v1.0 · 탱고북 오리지널 · 내부 제작 자료
+</footer>
+
+</div>
+
+<script>
+// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
+(async function () {
+  const nav = document.getElementById('comic-tabs');
+  if (!nav) return;
+  const here = (location.pathname.split('/').pop() || '');
+  const items = [['learning-comic-s2-plan.html', '📘 기획서']];
+  for (let i = 1; i <= 12; i++) {
+    const f = 'learning-comic-s2-ep' + String(i).padStart(2, '0') + '.html';
+    try {
+      const r = await fetch(f);
+      const t = await r.text();
+      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
+    } catch (e) { /* skip */ }
+  }
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §7과 동기 유지) ─────────
+const STYLE_PROMPT = [
+  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
+  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
+  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
+  '무인도 자연 배경(숲·해변·바다·하늘·개울)은 사실적이고 세밀하게 묘사.',
+  '화면비 16:9 와이드 일러스트.',
+  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
+].join(' ');
+
+const CHARACTER_KEYS = [
+  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
+  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
+  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
+  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸 전부 점등 = 완전체), 감정에 따라 모양이 변하는 둥근 눈.',
+  '- 0호(40cm 구형 미니 로봇): 각진 상자형 무광 회색 몸체, 가로로 긴 검은 스크린에 크고 둥근 붉은 외눈 하나, 가슴에 주홍빛 코어, 낡아 해진 회색 천 조각을 두름. 무섭지 않고 순박하고 짠한 인상. 이 화에서는 불을 직접 다루는 대원(금속 몸이라 불에 강함).',
+  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼 — 이 화에서는 통신 홀로그램(지지직 글리치)으로만 등장.',
+].join('\n');
+
+// 이 화의 시대 의상 (화별로 교체)
+const EP_COSTUME = '[이 화의 의상] 표류 사흘째 현대 옷차림 — 보리 = 주황 후드티(소매 걷음) + 데님 반바지, 노아 = 하늘색 셔츠 + 카키 긴바지. 무인도 생활 사흘째라 옷에 흙·모래·검댕이 묻어 조금 꾀죄죄하고 해졌다. 활비비를 만들며 보리는 한쪽 운동화 끈을 풀어 활줄로 썼다(신발끈 없는 한쪽 신발). 불을 다루는 장면에서도 아이들 옷·머리에 불이 옮겨붙지 않도록 안전 거리를 둔 배치로 그린다.';
+
+// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
+const EP_GUEST_KEYS = [
+  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
+  '- 부엉이 솔이: 작고 통통한 갈색 부엉이, 둥글넓적한 얼굴, 크고 동그란 노란 눈, 갈색·크림색 줄무늬 깃털, 머리 위 작은 깃털 뿔 두 개. 무섭지 않고 순하고 귀여운 인상. 1화에서 이어지는 섬의 이웃 — 가끔 마른 나뭇가지를 물어다 슬쩍 도와준다. 불을 무서워해 처음엔 멀리 날아올랐다가, 안전하게 통제된 작은 불이 되자 다시 가까이 내려앉는다.',
+].join('\n');
+
+function composeImagePrompt(pno, sceneText) {
+  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+}
+
+// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    const btn = card.querySelector('.copy-btn');
+    const pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async function () {
+      // textContent — details 접힘 상태에선 innerText 가 빈 값
+      const text = pre.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('done');
+      } catch (e) {
+        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
+      }
+      setTimeout(function () {
+        btn.textContent = '📋 시트 프롬프트 복사';
+        btn.classList.remove('done');
+      }, 1600);
+    });
+  });
+})();
+
+// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
+const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
+
+async function loadComicAssets() {
+  try {
+    const r = await fetch(ASSET_API);
+    const j = await r.json();
+    return (j && j.data) || {};
+  } catch (e) { return {}; }
+}
+
+function createPasteBox(key, assets, hint) {
+  const box = document.createElement('div');
+  box.className = 'paste-box';
+  box.tabIndex = 0;
+  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
+  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
+  const reset = function () {
+    box.classList.remove('has-img');
+    box.innerHTML = '';
+    box.textContent = hintText;
+  };
+  const setImg = function (url) {
+    box.classList.add('has-img');
+    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      if (!confirm('이 이미지를 삭제할까요?')) return;
+      try {
+        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
+        reset();
+      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
+    });
+  };
+  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+  else box.textContent = hintText;
+
+  async function upload(file) {
+    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+    box.classList.add('busy');
+    const fr = new FileReader();
+    fr.onload = async function () {
+      try {
+        const r = await fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        });
+        const j = await r.json();
+        if (j.success) setImg(j.data.url + '?t=' + Date.now());
+        else alert('저장 실패: ' + (j.error || ''));
+      } catch (e) {
+        alert('저장 실패 — 서버(3500)를 확인하세요');
+      }
+      box.classList.remove('busy');
+    };
+    fr.readAsDataURL(file);
+  }
+
+  box.addEventListener('paste', function (e) {
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (const it of items) {
+      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
+    }
+  });
+  box.addEventListener('dragover', function (e) { e.preventDefault(); });
+  box.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) upload(f);
+  });
+  box.addEventListener('click', function () { box.focus(); });
+  return box;
+}
+
+// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-s2-plan) 자산을 읽어옴 ──
+(async function () {
+  const grid = document.getElementById('cast-grid');
+  if (!grid) return;
+  let planAssets = {};
+  try {
+    const r = await fetch('/api/comic-assets/learning-comic-s2-plan');
+    const j = await r.json();
+    planAssets = (j && j.data) || {};
+  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
+  grid.querySelectorAll('.cast-item').forEach(function (item) {
+    const key = item.getAttribute('data-key');
+    if (planAssets[key]) {
+      const frame = item.querySelector('.frame');
+      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
+    }
+  });
+})();
+
+// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
+(function () {
+  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^[a-z0-9-]+$/.test(docId)) return;
+  const api = '/api/comic-feedback/' + docId;
+
+  function updateBar(total) {
+    const bar = document.getElementById('feedback-cnt');
+    if (bar) bar.textContent = total;
+  }
+
+  async function loadNotes() {
+    try {
+      const r = await fetch(api);
+      const j = await r.json();
+      return (j && j.data && j.data.pages) || {};
+    } catch (e) { return {}; }
+  }
+
+  async function saveNote(page, note, statusEl, ta) {
+    statusEl.textContent = '저장 중…';
+    try {
+      const r = await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, note: note }),
+      });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.error || 'save failed');
+      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
+      ta.classList.toggle('has-note', !!note.trim());
+      updateBar(j.data.total);
+      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
+    } catch (e) {
+      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
+      statusEl.style.color = '#e85c3a';
+    }
+  }
+
+  async function init() {
+    const pages = document.querySelectorAll('.page');
+    if (!pages.length) return;
+    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
+    const notes = loaded[0];
+    const assets = loaded[1];
+
+    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
+    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
+      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
+    });
+
+    const anchor = document.querySelector('header.hero');
+    if (anchor) {
+      const bar = document.createElement('div');
+      bar.id = 'feedback-bar';
+      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
+      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+    }
+
+    pages.forEach(function (card) {
+      const pnoEl = card.querySelector('.pno');
+      const m = pnoEl && pnoEl.textContent.match(/\d+/);
+      if (!m) return;
+      const pno = m[0];
+
+      const main = document.createElement('div');
+      while (card.firstChild) main.appendChild(card.firstChild);
+      card.appendChild(main);
+
+      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
+      const mainPno = main.querySelector('.pno');
+      const sceneEl = main.querySelector('.scene');
+      if (mainPno && sceneEl) {
+        const row = document.createElement('div');
+        row.className = 'pno-row';
+        mainPno.parentNode.insertBefore(row, mainPno);
+        row.appendChild(mainPno);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋 그림 프롬프트 복사';
+        copyBtn.addEventListener('click', async function () {
+          const prompt = composeImagePrompt(pno, sceneEl.innerText);
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = '복사됨 ✓';
+            copyBtn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () {
+            copyBtn.textContent = '📋 그림 프롬프트 복사';
+            copyBtn.classList.remove('done');
+          }, 1600);
+        });
+        row.appendChild(copyBtn);
+      }
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const saved = notes[pno] || '';
+      panel.innerHTML =
+        '<label>' + pno + '쪽 생성 이미지</label>' +
+        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
+        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
+        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
+      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
+      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
+      const ta = panel.querySelector('textarea');
+      if (saved) ta.classList.add('has-note');
+      const btn = panel.querySelector('button');
+      const status = panel.querySelector('.status');
+      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
+      });
+
+      card.classList.add('with-notes');
+      card.appendChild(panel);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>

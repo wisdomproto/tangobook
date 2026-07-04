@@ -70,6 +70,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '시즌1 12화 · 세계관·캐릭터·작법 + 회차별 콘티(탭)',
   },
   {
+    href: '/learning-comic-s2-plan.html',
+    icon: '🏝️',
+    label: '학습만화 시즌2 「무인도 생존편」 기획서',
+    desc: '무인도 6화 · 조상 생존술+현대과학+건강+부모감사 + 회차별 콘티(탭)',
+  },
+  {
     href: '/curriculum-master.html',
     icon: '📖',
     label: '커리큘럼 마스터',

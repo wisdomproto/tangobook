@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>타임 티코 시즌2 · 6화 「아픈 밤」 — 콘티</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 24px 0 28px; border-bottom: 3px solid var(--coral); margin-bottom: 28px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 12px; }
+  .hero h1 { font-size: 32px; font-weight: 900; margin: 8px 0 4px; }
+  .hero .sub { color: var(--ink-soft); font-size: 14px; font-weight: 600; }
+  .divider { text-align:center; margin: 40px 0 8px; font-weight: 900; color: var(--mint); letter-spacing: .15em; font-size: 14px; }
+  .page { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 14px 0; }
+  .page .pno { font-weight: 900; color: var(--coral-dark); font-size: 15px; }
+  .page .scene { margin: 6px 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .page .scene b { color: var(--mint); font-weight: 800; }
+  .page .text { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-top: 8px; font-size: 15px; }
+  .page .text .sp { font-weight: 800; color: var(--coral-dark); }
+  /* 콘티 리뷰 패널 */
+  .page.with-notes { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .page.with-notes { grid-template-columns: 1fr; } }
+  .note-panel { border-left: 2px dashed var(--line); padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
+  @media (max-width: 900px) { .note-panel { border-left: none; border-top: 2px dashed var(--line); padding: 12px 0 0; } }
+  .note-panel label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+  .note-panel textarea { width: 100%; min-height: 96px; resize: vertical; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 13px; background: #fffdfa; }
+  .note-panel textarea:focus { outline: none; border-color: var(--coral); }
+  .note-panel textarea.has-note { border-color: var(--mint); background: #f4fffc; }
+  .note-panel .row { display: flex; align-items: center; gap: 10px; }
+  .note-panel button { background: var(--coral); color: #fff; border: none; border-radius: 999px; padding: 7px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .note-panel button:hover { background: var(--coral-dark); }
+  .note-panel .status { font-size: 12px; color: var(--mint); font-weight: 700; }
+  #feedback-bar { position: sticky; top: 54px; z-index: 10; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 18px; margin: 16px 0 24px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  #feedback-bar .cnt { color: #ffd9cc; }
+  .pno-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .copy-btn:hover { background: var(--mint); color: #fff; }
+  .copy-btn.done { background: var(--mint); color: #fff; }
+  .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
+  .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+  .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cast-strip .hint a { color: var(--coral-dark); font-weight: 700; }
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .cast-item { text-align: center; }
+  .cast-item .frame { border: 1.5px solid var(--line); border-radius: 12px; background: var(--cream); aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 26px; }
+  .cast-item .frame img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+  .cast-item .nm { font-size: 12.5px; font-weight: 800; margin-top: 5px; color: var(--ink-soft); }
+  .guest-section { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--coral); border-radius: 16px; padding: 18px 22px; margin: 20px 0; }
+  .guest-section h2 { font-size: 18px; font-weight: 900; margin-bottom: 4px; }
+  .guest-section .hint { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+  .char-prompt { border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 12px; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt details { margin-top: 6px; }
+  .char-prompt summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 8px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  .safety { background: #fff4ef; border: 1.5px solid var(--coral); border-radius: 14px; padding: 14px 18px; margin: 20px 0; font-size: 13.5px; color: var(--coral-dark); font-weight: 700; line-height: 1.7; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+</style>
+</head>
+<body data-comic-doc="s2-ep06">
+<div class="wrap">
+
+<nav class="tabs" id="comic-tabs"><a href="learning-comic-s2-plan.html">📘 기획서</a></nav>
+
+<header class="hero" id="top">
+  <div class="kicker">TIME TICO · SEASON 2 · EPISODE 06</div>
+  <h1>시즌2 6화 「아픈 밤」</h1>
+  <div class="sub">현재 · 이름 모를 무인도 — 위생과 응급처치 · 조상 지혜(약초·쑥으로 눌러 감싸기) + 현대 과학(끓여 식힌 깨끗한 물로 소독·직접 압박 지혈·부목) · 36쪽 콘티 · 시즌 정서 피크: 아플 때 돌봄 = 부모 감사 최고조</div>
+</header>
+
+<div class="safety">
+  ⚠️ <b>안전 원칙(P0):</b> 이 화의 응급처치는 <b>실제로 안전하고 정확한 것</b>만 담는다 — ① 깨끗한 천으로 <b>직접 눌러 지혈</b>하고 다친 곳을 심장보다 높이 올린다 ② 상처는 <b>끓여서 식힌 깨끗한 물</b>로만 씻는다(더러운 물·침·아무 풀즙 바르기 금지) ③ 삔 곳은 <b>안정·차게·눌러 감기·높이기</b>(RICE)와 부목으로 고정한다. ④ <b>피가 많이 나거나·많이 아프거나·열이 심하면 반드시 어른과 병원</b>이 원칙임을 이야기 안에서 분명히 말한다(티코·노아 대사). 잘못된 민간요법(상처에 흙·된장·아무 즙 바르기 등)은 절대 넣지 않는다.
+</div>
+
+<div class="cast-strip">
+  <h2>⭐ 고정 캐릭터 확정 시트 (시즌1 계승)</h2>
+  <div class="hint">기획서 §7에 붙여넣은 레퍼런스가 여기 자동 표시됩니다 — 컷 작업의 기준. 비어 있으면 <a href="learning-comic-s2-plan.html#s7">기획서에서 붙여넣기 →</a></div>
+  <div class="cast-grid" id="cast-grid">
+    <div class="cast-item" data-key="bori"><div class="frame">👧</div><div class="nm">보리</div></div>
+    <div class="cast-item" data-key="noa"><div class="frame">👦</div><div class="nm">노아</div></div>
+    <div class="cast-item" data-key="tico"><div class="frame">🤖</div><div class="nm">티코</div></div>
+    <div class="cast-item" data-key="bongsu"><div class="frame">👴</div><div class="nm">봉수 박사</div></div>
+    <div class="cast-item" data-key="zero"><div class="frame">🌑</div><div class="nm">0호</div></div>
+  </div>
+</div>
+
+<div class="guest-section">
+  <h2>🎭 이 화의 게스트 캐릭터 레퍼런스</h2>
+  <div class="hint">3장면 이상 등장하거나 클로즈업이 있는 게스트는 시트를 먼저 확정한다. 아래 비주얼 키는 각 쪽 [📋 그림 프롬프트 복사]에도 자동 포함되어 컷 간 일관성을 지킨다. (스치는 단역 — 게·물고기·솔부엉이 카메오 — 은 장면 지시 서술로 충분, 시트 불필요)</div>
+
+  <div class="char-prompt" data-char="어미사슴과아기사슴" data-key="deer">
+    <div class="head"><span style="font-size:20px">🦌</span><b>사슴 모녀 — 어미 '노을'과 아기 '이슬' (섬에 사는 사슴)</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre>한국 아동 학습만화 동물 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 귀엽고 둥근 카툰 비율. 순백 배경.
+
+[시트 구성] 왼쪽에 어미 사슴 '노을' 전신 3면(정면·옆·뒤), 그 옆에 아기 사슴 '이슬' 전신 3면(어미의 무릎 높이). 오른쪽 위에 표정·동작 6종 그리드(어미: 다정하게 새끼를 내려다봄·귀 쫑긋 경계·안심한 눈웃음 / 아기: 다리를 절며 낑낑·엄마 품에 기댐·다 나아 폴짝 뛰는 기쁨). 오른쪽 아래 대표 포즈 2개 — ① 어미가 다친 아기 곁에 몸을 낮춰 지켜 주는 포즈 ② 어미가 쑥처럼 생긴 풀을 뜯어 아기 다리 쪽으로 가져다 대는 듯한 포즈. 단일 무리(어미+아기)만. 그림 안에 글자·라벨·텍스트 절대 금지.
+
+[캐릭터] 어미 사슴 '노을' — 따뜻한 황갈색 털에 등과 옆구리에 부드러운 크림색 점무늬, 크고 순한 검은 눈, 긴 속눈썹, 다정하고 든든한 어미의 인상(뿔은 없는 암사슴). 아기 사슴 '이슬' — 어미의 무릎에 오는 작은 새끼, 더 밝은 연갈색에 또렷한 흰 점무늬, 가느다란 다리, 크고 촉촉한 눈망울. 한쪽 앞다리를 다쳐 살짝 절뚝이지만 무섭거나 아파 보이게 과장하지 않고 짠하고 귀엽게. 무인도 숲에 사는 순한 모녀 — 아이들을 해치지 않고, 아기를 돌보는 어미의 모습이 '엄마의 돌봄'을 자연스럽게 비춘다.</pre></details>
+  </div>
+</div>
+
+<div class="divider">— A. 일상 후크 (1~3쪽) —</div>
+
+<div class="page"><div class="pno">1쪽</div>
+  <div class="scene"><b>컷</b> 대형 아침컷, 활기찬 부감.<br/><b>장소·시간</b> 맑은 아침, 그동안 지어 온 베이스캠프(1화 솔가지 쉼터가 더 튼튼해지고, 3화 불자리·5화 말리는 생선이 걸린 아담한 살림터). 뒤로 바다와 숲.<br/><b>인물</b> 보리(주황 후드티 — 이제 소매가 해지고 흙·바닷물 얼룩)가 두 팔로 조개 바구니를 번쩍 들고 씩씩하게 걸어온다. 볼에 발그레 혈색이 돌고 팔에 힘이 붙은 건강한 모습. 노아(하늘색 셔츠 — 역시 꾀죄죄)는 마른 생선을 정리하고, 티코는 불자리 옆에서 참견, 0호(회색 각진 몸, 붉은 외눈)는 장작을 한아름 안고 든든히 선다.<br/><b>배경·소품</b> 걸어 놓은 말린 생선, 대나무 물통, 모아 둔 조개껍데기, 아침 이슬.<br/><b>톤</b> 무인도 생활에 완전히 적응한 밝고 건강한 아침. 위기 전의 평화.</div>
+  <div class="text"><span class="sp">나레이션:</span> 섬 생활 여러 날, 넷은 이제 제법 살림꾼이 되었어요.<br/><span class="sp">보리:</span> "오늘 조개 대풍이야! 봐, 나 이만큼이나 들었어. 몸이 아주 가뿐한걸!"<br/><span class="sp">노아:</span> "너 요즘 진짜 튼튼해졌다. 처음엔 조금만 걸어도 헥헥댔잖아."<br/><span class="sp">티코:</span> "잘 먹고 잘 자고 부지런히 움직이니까 그렇지. …근데 보리, <b>뛰지 말고</b> 조심—"</div>
+</div>
+
+<div class="page"><div class="pno">2쪽</div>
+  <div class="scene"><b>컷</b> 중형, 장난스러운 도전 컷.<br/><b>장소·시간</b> 아침, 베이스캠프에서 개울 쪽으로 이어지는 이끼 낀 바윗길.<br/><b>인물</b> 보리가 티코의 잔소리를 웃어넘기며 바구니를 든 채 바위 위를 폴짝폴짝 건너뛴다(신났지만 발밑이 미끄러워 보이는 위태로운 구도). 노아가 뒤에서 손을 뻗으며 "잠깐!" 하는 표정, 0호도 한 발 내딛는다.<br/><b>배경·소품</b> 물기로 번들거리는 이끼 낀 바위, 튀는 물방울, 미끄럼 주의가 느껴지는 젖은 표면.<br/><b>톤</b> 사고 직전의 아슬아슬함 — 겁주지 않되 '아, 저러다…' 싶은 긴장.</div>
+  <div class="text"><span class="sp">보리:</span> "괜찮아, 괜찮아! 나 이제 다람쥐처럼 잘 뛴다니까? 생각은 뛰면서 해!"<br/><span class="sp">노아:</span> "잠깐, 잠깐만! 그 바위 이끼 껴서 미끄러—"<br/><span class="sp">티코:</span> "내 데이터에 의하면— 젖은 이끼 바위는 아주 미끄러워! 보리, 멈춰!"<br/><span class="sp">0호:</span> "…보리. 위험해."</div>
+</div>
+
+<div class="page"><div class="pno">3쪽</div>
+  <div class="scene"><b>컷</b> 대형 사고컷, 순간을 잡은 역동 구도(무섭지 않게, 슬랩스틱 톤).<br/><b>장소·시간</b> 아침, 바윗길.<br/><b>인물</b> 보리의 발이 이끼에 주르륵 미끄러지며 균형을 잃는다 — 조개 바구니가 공중에 흩날리고, 보리가 엉덩방아를 찧으며 한쪽 정강이를 뾰족한 바위 모서리에 부딪고, 그 순간 발목도 안쪽으로 접질린다(당장은 정강이 상처가 더 급해 보인다). 노아와 0호가 놀라 달려온다.<br/><b>배경·소품</b> 흩날리는 조개들, 튀는 물, '아얏!' 순간의 만화 효과선(별·번쩍). 잔혹하지 않게 — 피는 아직 보이지 않고 부딪힌 충격만.<br/><b>톤</b> 놀랐지만 과하지 않게. 사고의 순간을 짧고 분명하게.</div>
+  <div class="text"><span class="sp">나레이션:</span> 주르륵— 쿵! 보리의 발이 미끄러졌어요.<br/><span class="sp">보리:</span> "아얏!!"<br/><span class="sp">노아:</span> "보리야! 괜찮아?!"<br/><span class="sp">0호:</span> "…내가 늦었어. 조금만 빨랐으면." (붉은 외눈이 흔들린다)</div>
+</div>
+
+<div class="divider">— B. 문제 인식 (4~8쪽) —</div>
+
+<div class="page"><div class="pno">4쪽</div>
+  <div class="scene"><b>컷</b> 중형, 상처 확인컷 — 심각성 도입.<br/><b>장소·시간</b> 아침, 바윗길. 노아가 보리 옆에 무릎 꿇고 앉는다.<br/><b>인물</b> 보리가 정강이를 감싸 쥐고 얼굴을 찡그린다. 노아가 조심스레 손을 대 보니 보리의 정강이에 제법 길게 긁힌 상처가 나 피가 배어난다(잔혹하지 않게 — 붉은 자국 정도로 순화, 클로즈업 과장 금지). 티코가 다가와 걱정스러운 눈, 0호는 어쩔 줄 몰라 발을 동동.<br/><b>배경·소품</b> 흩어진 조개, 젖은 바위, 보리 정강이의 긁힌 상처(순화된 표현).<br/><b>톤</b> 사태가 장난이 아님을 알게 되는 컷 — 차분하고 진지하게, 겁주지 않게.</div>
+  <div class="text"><span class="sp">보리:</span> "으… 괜찮아, 조금 긁힌 것뿐이야. …어? 피가 나네."<br/><span class="sp">노아:</span> "조금이 아냐, 꽤 깊게 긁혔어. 피도 계속 나오고… 이거 그냥 두면 안 되겠어."<br/><span class="sp">티코:</span> "삐빅. 다친 곳은 함부로 만지면 안 돼. …그리고 이건 우리끼리만 판단하지 말고, 잘 살펴야 해."<br/><span class="sp">노아:</span> "일단… 어떻게 해야 하지? 병원도 없고, 어른도 없는데."</div>
+</div>
+
+<div class="page"><div class="pno">5쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ① — 티코피디아(안전 원칙 먼저).<br/><b>장소·시간</b> 아침, 바윗길. 다친 보리를 둘러싼 셋.<br/><b>인물</b> 티코가 눈에서 빔을 쏘아 민트색 홀로그램 카드를 띄운다. 카드 안: 사람 그림 + "① 눌러서 피 멈추기 ② 깨끗이 씻기 ③ 감싸기" 세 칸 아이콘, 그리고 카드 아래쪽에 크게 강조된 느낌표 표시("많이 아프면 어른·병원"). 아이들이 올려다본다.<br/><b>배경·소품</b> 홀로그램 3단계 아이콘, 강조된 안전 느낌표.<br/><b>톤</b> 겁주지 않되 '순서'와 '한계'를 분명히 하는 차분한 설명 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 다쳤을 땐 순서가 있어. <b>하나, 피를 멈추고. 둘, 깨끗이 씻고. 셋, 감싼다.</b> 이 순서를 꼭 지켜야 덧나지 않아."<br/><span class="sp">노아:</span> "책에서 봤어. 근데 <b>피가 아주 많이 나거나, 너무 아프면</b>— 그땐 우리끼리 하지 말고 꼭 어른한테 알려야 한대."<br/><span class="sp">티코:</span> "맞아. 다행히 보리는 눌러서 멈출 수 있는 정도야. 하지만 조금이라도 심해지면, 바로 도움을 청하는 거다."</div>
+</div>
+
+<div class="page"><div class="pno">6쪽</div>
+  <div class="scene"><b>컷</b> 중형, 첫 처치(직접 압박) 컷 — 침착한 실행.<br/><b>장소·시간</b> 아침, 베이스캠프로 옮겨 온 뒤. 보리를 평평한 곳에 앉히고.<br/><b>인물</b> 노아가 깨끗한 천(옷자락에서 그나마 깨끗한 부분을 찢어 낸)을 상처에 대고 두 손으로 지그시 누른다. 보리는 다친 다리를 통나무에 올려 심장보다 살짝 높이 둔다. 0호가 보리가 기댈 수 있게 든든한 등받이가 되어 준다.<br/><b>배경·소품</b> 깨끗한 천, 다리를 받친 통나무, 눌러 지혈하는 손.<br/><b>톤</b> 아이들이 배운 대로 침착하게 해내는 미덥고 따뜻한 컷.</div>
+  <div class="text"><span class="sp">노아:</span> "피를 멈추려면 <b>깨끗한 천으로 꾹 눌러야</b> 한대. 이렇게, 계속 누르고 있어."<br/><span class="sp">티코:</span> "피를 멎게 하는 건 <b>꾹 누르기</b>가 제일이야. 그리고 다친 다리를 <b>심장보다 높이</b> 올려 두면 부기도 덜하고 편해."<br/><span class="sp">0호:</span> "…보리, 나한테 기대. 힘들면 내가 받쳐 줄게."<br/><span class="sp">보리:</span> "고마워, 얘들아. …너희가 있어서 하나도 안 무서워."</div>
+</div>
+
+<div class="page"><div class="pno">7쪽</div>
+  <div class="scene"><b>컷</b> 중형, 새 문제 인식 — 씻을 물이 문제.<br/><b>장소·시간</b> 아침, 베이스캠프. 지혈이 얼추 된 뒤.<br/><b>인물</b> 노아가 상처를 씻으려 개울물을 손으로 뜨려다 멈칫한다(고인 웅덩이 물엔 낙엽·흙탕이 섞여 뿌옇다). 티코가 "안 돼!" 하며 눈에 X표. 보리는 다리를 올린 채 지켜본다.<br/><b>배경·소품</b> 뿌옇게 흐린 웅덩이 물, 떠 있는 낙엽·부유물, 망설이는 노아의 손.<br/><b>톤</b> "아무 물이나 쓰면 안 된다"는 위생 핵심을 세우는 컷 — 2화(정수) 학습이 여기서 되살아난다.</div>
+  <div class="text"><span class="sp">노아:</span> "상처를 씻어야 하는데… 이 웅덩이 물, 흙탕이 섞여서 뿌옇잖아."<br/><span class="sp">티코:</span> "삐빅— 안 돼! 상처에 <b>더러운 물</b>을 쓰면 눈에 안 보이는 나쁜 것들이 들어가서 더 덧나. 씻으려다 병나는 거야."<br/><span class="sp">노아:</span> "그럼 어떡하지? 깨끗해 보이는 물도 상처엔 못 믿겠어."<br/><span class="sp">보리:</span> "잠깐… 우리 2화 때 물 끓여서 깨끗하게 만드는 거 배웠잖아!"</div>
+</div>
+
+<div class="page"><div class="pno">8쪽</div>
+  <div class="scene"><b>컷</b> 중형, 자연의 시계 도입 — 시간 제한.<br/><b>장소·시간</b> 늦은 아침으로 넘어가는 시각. 하늘에 해가 조금 올랐다.<br/><b>인물</b> 티코가 보리의 상처를 살피며 진지한 표정. 노아가 걱정스레 상처와 해를 번갈아 본다. 보리는 애써 웃지만 이마에 땀이 살짝.<br/><b>배경·소품</b> 조금씩 올라가는 해, 상처를 가리키는 티코, 시간이 흐르는 느낌의 그림자.<br/><b>톤</b> "빨리 처치하지 않으면 덧난다"는 긴장을 심는 컷 — 자연의 시계 = 상처 덧나기 전.</div>
+  <div class="text"><span class="sp">티코:</span> "서둘러야 해. 상처는 오래 열어 둘수록 <b>덧나기</b> 쉬워. 나쁜 것들이 자라기 전에, 씻고 감싸야 한다."<br/><span class="sp">노아:</span> "그럼 정리하자. <b>깨끗한 물</b>을 만들어서 상처를 씻고, <b>깨끗한 것</b>으로 감싸기. 해가 더 오르기 전에 끝내야 해."<br/><span class="sp">보리:</span> "나 때문에… 다들 미안해. 내가 조심했어야 했는데."<br/><span class="sp">노아:</span> "그런 말 하지 마. 다치는 건 누구나 그래. 지금은 낫는 데만 집중하자!"</div>
+</div>
+
+<div class="divider">— C. 발견 (9~15쪽) —</div>
+
+<div class="page"><div class="pno">9쪽</div>
+  <div class="scene"><b>컷</b> 중형, 협동 처치컷 — 깨끗한 물 만들기.<br/><b>장소·시간</b> 낮, 베이스캠프 불자리.<br/><b>인물</b> 역할 분담 — 0호가 무거운 물통과 넓적한 돌그릇을 나르고, 노아가 불자리에 물을 끓인다(3화 불·2화 물 학습 회수). 티코가 김이 나는 물을 가리키며 "이제 식혀야 해". 보리는 다리를 올린 채 지켜본다.<br/><b>배경·소품</b> 끓어 김이 오르는 돌그릇 물, 불자리, 식히려 옆에 둔 그릇.<br/><b>톤</b> 그동안 배운 것(불·물)이 하나로 모여 상처를 돕는 뿌듯한 컷.</div>
+  <div class="text"><span class="sp">노아:</span> "물을 팔팔 끓이면 눈에 안 보이는 나쁜 것들이 죽는대. 이게 제일 확실한 소독이야."<br/><span class="sp">티코:</span> "맞아. 하지만 <b>뜨거운 물을 상처에 바로 부으면 안 돼!</b> 델 수 있으니까, 손등에 대도 안 뜨거울 만큼 <b>식혀서</b> 써야 해."<br/><span class="sp">보리:</span> "불도, 물도, 다 우리가 배운 거네. 이렇게 다 쓸모가 있을 줄이야."<br/><span class="sp">0호:</span> "…물, 더 필요하면 말해. 얼마든지 나를게."</div>
+</div>
+
+<div class="page"><div class="pno">10쪽</div>
+  <div class="scene"><b>컷</b> 중형, 씻기 처치컷 — 정성스러운 손길.<br/><b>장소·시간</b> 낮, 베이스캠프.<br/><b>인물</b> 노아가 끓여 식힌 깨끗한 물로 보리의 상처를 살살 흘려 씻어 낸다(문지르지 않고 흘려서 이물질을 씻어 내는 조심스러운 동작). 보리는 따끔한지 눈을 질끈 감았다가, 노아의 조심스러운 손길에 안심한다. 티코가 옆에서 "잘하고 있어" 하고 다독인다.<br/><b>배경·소품</b> 졸졸 흘러내리는 맑은 물, 씻겨 나가는 흙 알갱이, 깨끗해지는 상처.<br/><b>톤</b> 서로 돌보는 온기 — 아프지만 미덥고 따뜻하게.</div>
+  <div class="text"><span class="sp">노아:</span> "따가워도 조금만 참아. 문지르지 말고 <b>물로 살살 흘려서</b> 흙이랑 먼지를 씻어 내는 거야."<br/><span class="sp">보리:</span> "(질끈) …아야. 근데 네가 이렇게 조심해 주니까 견딜 만해."<br/><span class="sp">티코:</span> "깨끗이 씻는 게 제일 중요해. 이게 잘 되면 절반은 나은 거야."<br/><span class="sp">노아:</span> "이제 상처를 <b>깨끗한 것으로 감싸서</b> 흙먼지가 다시 못 들어가게 해야 하는데…"</div>
+</div>
+
+<div class="page"><div class="pno">11쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷 — 통신 두절 러닝 개그.<br/><b>장소·시간</b> 낮, 베이스캠프.<br/><b>인물</b> 노아의 손목 통신기에 봉수 박사 얼굴이 반쯤 지지직 글리치로 떠오른다. 보리가 통신기를 향해 손을 흔들고, 티코가 안테나를 쭉 뽑아 신호를 잡으려 애쓴다.<br/><b>배경·소품</b> 홀로그램 가로 노이즈, 지직거리는 효과선.<br/><b>톤</b> 결정적 도움은 못 주지만 온기를 남기는 시리즈 개그.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "얘들아! 보리가 다쳤다고?! 상처엔 아무거나 바르면 안 된다! <b>깨끗한 것</b>으로 감싸고… 피가 안 멎으면 꼭— 치지지직—"<br/><span class="sp">보리:</span> "할아버지! 저 괜찮아요! …아, 또 끊겼다."<br/><span class="sp">노아:</span> "근데 방금 '깨끗한 걸로 감싸라'고 하셨지? 어른들 말은 다 통하는구나."<br/><span class="sp">티코:</span> "통신 두절. 하지만 힌트는 남았어 — <b>깨끗한 것</b>. 감쌀 깨끗한 게 뭐가 있을까?"</div>
+</div>
+
+<div class="page"><div class="pno">12쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰 발견컷 — 게스트 사슴 모녀 첫 등장.<br/><b>장소·시간</b> 낮, 숲 가장자리. 노아가 감쌀 것을 찾아 둘러보다가.<br/><b>인물</b> 노아가 문득 숲 쪽에서 인기척을 느끼고 본다 — 나무 그늘에 어미 사슴 '노을'과 아기 사슴 '이슬'이 있다. 아기 이슬이 한쪽 앞다리를 절뚝이며 낑낑거리고, 어미 노을이 몸을 낮춰 새끼 곁을 지킨다. 노아가 그 모습에 눈이 커진다.<br/><b>배경·소품</b> 나무 그늘, 다친 다리를 든 아기 사슴, 곁을 지키는 어미 사슴, 부드러운 햇살.<br/><b>톤</b> '엄마의 돌봄'을 자연이 비춰 주는 뭉클한 도입 — 순하고 귀엽게.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만… 저기 사슴이야. 아기 사슴이 다리를 다쳤나 봐. 절뚝거려."<br/><span class="sp">보리:</span> "어미 사슴이 옆에서 꼭 지켜 주고 있네. …꼭 우리 엄마 같다."<br/><span class="sp">티코:</span> "다친 새끼 곁을 안 떠나는구나. …엄마는 원래 그런 거지."<br/><span class="sp">노아:</span> "저 어미가 뭘 하는지 잘 보자. 동물도 다치면 자기만의 방법이 있을지 몰라."</div>
+</div>
+
+<div class="page"><div class="pno">13쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰 발견컷 ② — 어미 사슴이 쑥을 뜯다(룰5 씨앗).<br/><b>장소·시간</b> 낮, 숲 가장자리.<br/><b>인물</b> 어미 노을이 발치의 향긋한 풀(쑥을 닮은 잎)을 뜯어 아기 이슬의 다친 다리 쪽으로 가져다 문질러 주듯 대어 준다. 노아가 숨죽이고 관찰하며 눈을 반짝인다. 티코가 그 풀을 스캔(눈에서 민트 동심원).<br/><b>배경·소품</b> 톱니 모양 잎에 은빛이 도는 쑥 닮은 풀 무리, 향이 퍼지는 듯한 표현, 어미가 코로 풀을 문지르는 동작.<br/><b>톤</b> 자연이 답의 실마리를 주는 학습 도입 — 조용하고 신비롭게.</div>
+  <div class="text"><span class="sp">노아:</span> "저것 봐! 어미가 어떤 풀을 뜯어서 아기 다리에 문질러 줘. 아무 풀이나 그러는 게 아닌 것 같아."<br/><span class="sp">티코:</span> "삐빅— 스캔. 저 풀은 향이 진하고 잎에 잔털이 많아. …이거, 내 데이터에 있는 <b>쑥</b>이랑 아주 비슷한걸!"<br/><span class="sp">보리:</span> "쑥? 나 그거 알아! 할머니가 쑥국 끓여 주셨는데!"<br/><span class="sp">노아:</span> "옛날 사람들도 저 풀을 상처에 썼을까? 왜 하필 저 풀일까?"</div>
+</div>
+
+<div class="page"><div class="pno">14쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ② — 조상 지혜(약초·쑥).<br/><b>장소·시간</b> 낮, 숲 가장자리.<br/><b>인물</b> 티코가 홀로그램 카드를 띄운다. 카드 안: 옛 사람이 쑥잎을 뜯어 상처에 대고 <b>지그시 눌러 감싸는</b> 도해 — 쑥을 깨끗한 잎·천으로 함께 감싼 그림, "상처를 눌러 덮어 준다"는 화살표. 카드 한쪽에 "생으로 붙이지 말고, 깨끗한 것과 함께"라는 주의 아이콘. 아이들이 고개를 끄덕인다.<br/><b>배경·소품</b> 카드 옆 옛 사람 실루엣, 쑥 아이콘, 주의 느낌표.<br/><b>톤</b> 조상 지혜를 안전하게 소개하는 학습 컷 — 밝되 신중하게.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 아주 옛날 우리 조상들은 <b>쑥</b> 같은 풀을 상처에 대고 지그시 <b>눌러서 감쌌어</b>. 그러면 피가 덜 나고 상처를 덮어 주거든."<br/><span class="sp">노아:</span> "그럼 우리도 쑥으로 보리 상처를 감싸면 되겠다!"<br/><span class="sp">티코:</span> "단, <b>더러운 풀즙을 상처 속에 함부로 바르는 건 아니야.</b> 깨끗이 씻은 상처를, 깨끗한 것과 함께 <b>덮고 눌러 주는</b> 게 핵심이야."</div>
+</div>
+
+<div class="page"><div class="pno">15쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ③ — 현대 과학(왜 눌러 감싸면 나을까).<br/><b>장소·시간</b> 낮, 베이스캠프로 돌아와.<br/><b>인물</b> 티코가 홀로그램 카드를 띄운다. 카드 안: 상처를 깨끗한 것으로 덮어 <b>흙먼지·나쁜 것이 못 들어오게</b> 막는 도해(파란 방패), 그리고 눌러 주면 피가 멎는 도해(피가 모여 굳는 그림). 노아가 "그래서!" 하는 표정.<br/><b>배경·소품</b> 방패 아이콘, 압박=지혈 도해, 깨끗한 천 그림.<br/><b>톤</b> 조상 지혜(쑥으로 감싸기)와 현대 과학(청결·압박)이 한 쌍으로 맞물리는 핵심 학습 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! <b>눌러 주면</b> 피가 한곳에 모여 굳어서 멎고, <b>깨끗한 것으로 덮으면</b> 흙먼지랑 나쁜 것들이 못 들어와. 옛사람이 쑥으로 감싼 건, 바로 이 두 가지를 한 거야!"<br/><span class="sp">노아:</span> "그래서 조상님 방법이 통했던 거구나. <b>깨끗이·눌러서·덮어서</b>. 다 과학이 숨어 있었어!"<br/><span class="sp">보리:</span> "옛날 사람들도, 저 어미 사슴도, 다 아는 걸 나만 몰랐네!"</div>
+</div>
+
+<div class="divider">— D. 시도 → 실패 → 힌트 (16~23쪽) —</div>
+
+<div class="page"><div class="pno">16쪽</div>
+  <div class="scene"><b>컷</b> 중형, 협동 처치 마무리 컷 — 감싸기.<br/><b>장소·시간</b> 낮, 베이스캠프.<br/><b>인물</b> 넷이 힘을 모아 상처를 감싼다 — 노아가 깨끗한 쑥잎을 상처 위에 얹고, 그 위를 끓는 물에 삶아 말린 깨끗한 천(0호가 널어 말려 온)으로 감아 준다. 티코가 "너무 꽉 조이지 마" 하고 알려 준다. 보리가 감긴 다리를 보고 안심한다.<br/><b>배경·소품</b> 얹은 쑥잎, 감는 깨끗한 천, 삶아 말린 천 조각.<br/><b>톤</b> 배운 대로 완성해 가는 미덥고 따뜻한 컷.</div>
+  <div class="text"><span class="sp">노아:</span> "깨끗이 씻은 상처에 쑥잎을 얹고… 삶아서 깨끗한 천으로 감는다. 자, 됐다!"<br/><span class="sp">티코:</span> "너무 꽉 조이면 피가 안 통해. <b>손가락 하나 들어갈 만큼</b> 여유 있게 감아야 해."<br/><span class="sp">0호:</span> "…천은 내가 삶아서 말려 뒀어. 이건 깨끗해."<br/><span class="sp">보리:</span> "고마워, 얘들아. …이제 좀 든든하다."</div>
+</div>
+
+<div class="page"><div class="pno">17쪽</div>
+  <div class="scene"><b>컷</b> 중형, 새 문제 발생 — 삔 다리(부목의 필요).<br/><b>장소·시간</b> 낮, 베이스캠프.<br/><b>인물</b> 보리가 "이제 걸을 수 있어!" 하며 일어서려다 발목에 힘이 들어가자 "아윽!" 하고 다시 주저앉는다 — 아까 미끄러질 때 접질린 발목이 이제야 부어오르며 아파 오는 것. 발목이 살짝 부어오른다. 노아가 놀라 발목을 살핀다.<br/><b>배경·소품</b> 살짝 부은 발목, 다시 주저앉는 보리, 걱정하는 얼굴들.<br/><b>톤</b> "다 끝난 줄 알았는데 하나 더" — 다음 힌트로 이어지는 실패 비트.</div>
+  <div class="text"><span class="sp">보리:</span> "상처는 감았으니까 이제 걸을 수— 아윽!" (털썩)<br/><span class="sp">노아:</span> "발목이야! 아까 미끄러질 때 접질린 발목이 이제야 부었어. 봐, 여기."<br/><span class="sp">티코:</span> "삐빅. 상처만 문제가 아니었네. <b>삔 곳</b>은 또 다르게 돌봐야 해."<br/><span class="sp">보리:</span> "으… 걸으려니까 너무 아파. 이러면 나 아무 데도 못 가잖아."</div>
+</div>
+
+<div class="page"><div class="pno">18쪽</div>
+  <div class="scene"><b>컷</b> 중형, 지식카드 연출 ④ — 현대 과학(삔 곳 RICE·부목).<br/><b>장소·시간</b> 낮, 베이스캠프.<br/><b>인물</b> 티코가 홀로그램 카드를 띄운다. 카드 안: 삔 발목을 돌보는 네 가지 아이콘 — ① 쉬기(가만히) ② 차게 하기(찬 물수건) ③ 살짝 감기 ④ 높이 올리기. 옆에 곧은 나뭇가지 두 개로 발목 양옆을 대는 <b>부목</b> 도해. 아이들이 집중해서 본다.<br/><b>배경·소품</b> 4단계 아이콘, 부목 그림, 찬 물수건.<br/><b>톤</b> 정확한 응급처치를 차분히 알려 주는 학습 컷.</div>
+  <div class="text"><span class="sp">티코:</span> "티코피디아! 삔 곳은 네 가지야. <b>쉬고 · 차게 하고 · 살살 감고 · 높이 올린다.</b> 그리고 곧은 나뭇가지를 양옆에 대서 흔들리지 않게 <b>부목</b>을 하면 덜 아프고 빨리 나아."<br/><span class="sp">노아:</span> "부목! 뼈나 발목이 움직이지 않게 딱 잡아 주는 거구나. 부러졌을지 모를 땐 함부로 움직이면 안 되니까."<br/><span class="sp">티코:</span> "맞아. 그리고 <b>너무 붓거나 심하게 아프면</b>, 이건 꼭 <b>어른·병원</b>이 볼 일이야. 잊지 마."</div>
+</div>
+
+<div class="page"><div class="pno">19쪽</div>
+  <div class="scene"><b>컷</b> 2단 구성 개그컷 — '한 번 잘못 대 봤다가 → 다시' (시도→실패→교정).<br/><b>장소·시간</b> 낮, 베이스캠프.<br/><b>인물</b> ①(위 칸) 티코의 홀로그램 안내대로 노아가 아주 곧고 두꺼운 통나무를 부목이라며 실제로 발목에 대고 넝쿨로 묶어 본다 — 너무 크고 무거워 발이 통째로 들리고 넝쿨은 자꾸 미끄러져 제대로 고정이 안 된다("이게 아닌데?"). 보리 발목이 오히려 삐뚜름해진다. ②(아래 칸) 노아가 통나무를 도로 풀어내며 알맞은 굵기의 곧은 나뭇가지로 바꾸려 한다. 티코 눈이 X자.<br/><b>배경·소품</b> 위 칸: 우스꽝스럽게 큰 통나무·들린 발·자꾸 풀리는 넝쿨·땀방울 기호. 아래 칸: 도로 풀린 넝쿨, 옆에 놓인 알맞은 나뭇가지.<br/><b>톤</b> 한 번 실제로 그르쳤다가 바로잡는 리듬 — 티코의 "내 데이터에 의하면" 헛다리 회수.</div>
+  <div class="text"><span class="sp">티코:</span> "내 데이터에 의하면— 부목은 튼튼할수록 좋아! 이 통나무를 대고 묶어!"<br/><span class="sp">노아:</span> "(묶어 보며) 어라… 자꾸 미끄러져서 안 묶여. 발만 들리고 발목은 오히려 삐뚤어졌잖아!"<br/><span class="sp">보리:</span> "아야야— 티코야, 이건 부목이 아니라 통나무 그 자체잖아!"<br/><span class="sp">노아:</span> "(도로 풀며) 다시 하자. 부목은 발목에 <b>딱 맞는 크기</b>여야 해. 너무 크면 오히려 못 고정하고 더 아파."<br/><span class="sp">티코:</span> "…크흠. 데이터엔 '크기'가 안 적혀 있었어. 삐빅."</div>
+</div>
+
+<div class="page"><div class="pno">20쪽</div>
+  <div class="scene"><b>컷</b> 중형, 관찰 → 추리 연결컷 — 노아의 결정타.<br/><b>장소·시간</b> 낮, 숲 가장자리를 다시 보는 노아.<br/><b>인물</b> 노아가 아까 본 아기 사슴을 떠올린다(머리 위 회상 말풍선 — 아기 사슴이 다친 다리를 접고 어미 곁에서 가만히 쉬는 모습). 그리고 손에 든 나뭇가지를 본다. 두 그림이 연결되며 눈이 번뜩. 곧고 알맞은 굵기의 나뭇가지를 골라 든다.<br/><b>배경·소품</b> 회상 말풍선(쉬는 아기 사슴) + 알맞은 나뭇가지, 노아 안경알에 반짝.<br/><b>톤</b> 룰5 클라이맥스 — 티코 지식·사슴 관찰을 노아가 하나로 잇는 순간.</div>
+  <div class="text"><span class="sp">노아:</span> "잠깐, 잠깐만! 아기 사슴도 다친 다리로 안 뛰었어. 다리를 접고 <b>가만히 쉬고</b> 있었잖아."<br/><span class="sp">보리:</span> "아! 무리해서 걸으면 더 나빠지는 거구나. 나도 가만히 쉬어야겠다."<br/><span class="sp">노아:</span> "그리고 부목은 이렇게 <b>발목에 딱 맞는 곧은 가지</b> 두 개면 돼. 크고 무거운 게 아니라!"<br/><span class="sp">티코:</span> "내 데이터에 의하면— …아니, 노아 말이 맞아. 정확해!"</div>
+</div>
+
+<div class="page"><div class="pno">21쪽</div>
+  <div class="scene"><b>컷</b> 대형, 협동 처치 간판컷 — 넷이 각자 역할로 부목 완성.<br/><b>장소·시간</b> 늦은 오후로 넘어가는 시각, 베이스캠프.<br/><b>인물</b> 역할 분담이 한눈에 — 0호가 곧은 나뭇가지를 알맞은 길이로 툭 부러뜨려 다듬고, 노아가 발목 양옆에 대고, 보리는 찬 물수건을 발목에 얹고, 티코가 "손가락 하나만큼 여유!" 하고 감는 세기를 봐 준다. 발목을 통나무에 올려 높이 두었다.<br/><b>배경·소품</b> 양옆에 댄 나뭇가지 부목, 살살 감은 천, 찬 물수건, 높이 올린 발.<br/><b>톤</b> 힘을 합쳐 해내는 뿌듯함 — 0호의 몸·힘이 다시 빛나는 컷.</div>
+  <div class="text"><span class="sp">0호:</span> "…이 정도 굵기면 되지? 딱 발목 길이로 다듬었어."<br/><span class="sp">노아:</span> "완벽해! 양옆에 대고… 티코, 세기 좀 봐 줘."<br/><span class="sp">티코:</span> "손가락 하나 들어갈 만큼! 좋아, 피도 잘 통해. 찬 물수건도 얹고, 발은 높이."<br/><span class="sp">보리:</span> "우와… 훨씬 편해졌어. 너희 진짜 척척박사다!"</div>
+</div>
+
+<div class="page"><div class="pno">22쪽</div>
+  <div class="scene"><b>컷</b> 중형, 저녁 무렵 — 열이 나기 시작(새 위기).<br/><b>장소·시간</b> 해 질 녘, 베이스캠프. 노을이 붉게 물든다.<br/><b>인물</b> 처치를 마치고 쉬던 보리의 볼이 발갛게 달아오르고 눈이 힘없이 풀린다. 이마에 땀이 송글, 몸을 오슬오슬 떤다. 노아가 보리 이마에 손을 대 보고 놀란다(뜨겁다). 티코와 0호가 다가온다.<br/><b>배경·소품</b> 붉은 노을, 달아오른 보리의 볼, 이마의 땀, 걱정스러운 노아의 손.<br/><b>톤</b> 하루의 피로와 상처로 열이 오르는 순간 — 겁주지 않되 또렷한 걱정.</div>
+  <div class="text"><span class="sp">노아:</span> "보리야, 너 왜 이렇게… 어? 이마가 불덩이야! 열이 나!"<br/><span class="sp">보리:</span> "(오슬오슬) 으… 갑자기 추웠다 더웠다 해. 온몸이 쑤셔…"<br/><span class="sp">티코:</span> "삐빅. 몸이 상처랑 싸우느라 열이 나는 거야. 이럴 땐 억지로 참지 말고 <b>따뜻하게 하고 푹 쉬게</b> 해야 해. 물도 자주 조금씩."<br/><span class="sp">노아:</span> "…열이 안 내리거나 더 심해지면, 이건 정말 큰 도움이 필요한 거야. 오늘 밤, 우리가 잘 지켜보자."</div>
+</div>
+
+<div class="page"><div class="pno">23쪽</div>
+  <div class="scene"><b>컷</b> 중형, 밤샘 간호 준비 — 팀이 뭉치는 컷.<br/><b>장소·시간</b> 초저녁, 쉼터 안. 어둠이 내리고 불자리 불빛만.<br/><b>인물</b> 넷이 보리를 쉼터 안 폭신한 마른 풀 자리에 눕히고 마른 풀 이불을 덮어 준다. 노아가 찬 물수건을 보리 이마에 얹고, 0호가 밤새 데울 물을 나르고, 티코는 은은한 코어 불빛으로 밤을 밝힌다.<br/><b>배경·소품</b> 이마의 물수건, 데운 물, 은은한 불빛, 잠든 보리.<br/><b>톤</b> "우리가 밤새 지킬게" — 든든하고 따뜻한 팀워크 컷.</div>
+  <div class="text"><span class="sp">노아:</span> "이마엔 찬 물수건, 몸은 따뜻하게. 물도 조금씩 자주. …오늘 밤엔 내가 옆에 있을게."<br/><span class="sp">0호:</span> "…나는 밤새 안 자도 돼. 물 데우고, 지킬게. 나한테 맡겨."<br/><span class="sp">티코:</span> "나는 불빛을 낮춰서 밤새 켜 둘게. 난 밤새 켜 둘 수 있어. 어둡지 않게."<br/><span class="sp">보리:</span> "(잠결에 작게) …고마워, 얘들아." (스르륵)</div>
+</div>
+
+<div class="divider">— E. 해결 · 정리 (24~33쪽) —</div>
+
+<div class="page"><div class="pno">24쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 부모 감사 정서 피크 ① — 이 화의 감정 정점.<br/><b>장소·시간</b> 깊은 밤, 쉼터 안. 잠든 보리의 얼굴 클로즈업.<br/><b>인물</b> 열에 들뜬 보리가 잠결에 "엄마…" 하고 작게 부른다. 눈가에 눈물이 살짝 맺힌다. 화면 한쪽에 흐릿한 회상 인셋 — 어린 보리가 열이 나 누웠을 때, 엄마가 밤새 이마에 물수건을 갈아 주며 곁을 지키던 따뜻한 장면.<br/><b>배경·소품</b> 어두운 쉼터, 따뜻한 노란빛 회상 인셋, 이마의 물수건.<br/><b>톤</b> 뭉클함의 정점 — 무겁지 않게, 그리움과 사랑으로.</div>
+  <div class="text"><span class="sp">보리:</span> "(잠결에) …엄마… 엄마…"<br/><span class="sp">나레이션:</span> 열이 나던 밤이면, 엄마는 늘 곁에서 밤새 이마를 짚어 주셨어요.<br/><span class="sp">보리:</span> "(잠결에) 아프면… 엄마가 밤새 옆에 있어 줬는데…"<br/><span class="sp">노아:</span> "(가만히 물수건을 갈아 주며) …보리야, 나 여기 있어. 아무 데도 안 가."</div>
+</div>
+
+<div class="page"><div class="pno">25쪽</div>
+  <div class="scene"><b>컷</b> 중형, 부모 감사 정서 피크 ② — 노아·0호의 밤샘.<br/><b>장소·시간</b> 깊은 밤, 쉼터 안. 별이 총총한 문밖.<br/><b>인물</b> 노아가 꾸벅꾸벅 졸면서도 보리 이마의 물수건을 정성껏 다시 적셔 얹는다. 0호는 밤새 데운 물을 나르고, 곁에서 잠든 보리를 지그시 바라본다(붉은 외눈이 부드럽게). 노아가 나직이 혼잣말.<br/><b>배경·소품</b> 물을 갈아 주는 손, 데운 물그릇, 은은한 불빛, 문밖 별.<br/><b>톤</b> 자신도 힘든데 친구를 돌보며 철드는 밤 — 잔잔하고 깊게.</div>
+  <div class="text"><span class="sp">노아:</span> "(하품) …이렇게 밤새 누굴 돌보는 거, 진짜 힘든 일이었구나. 엄마는 매번 이걸 하셨던 거야."<br/><span class="sp">0호:</span> "…나는 안 힘들어. 보리가 나으면, 그걸로 돼."<br/><span class="sp">노아:</span> "0호야… 너 정말 든든하다. 네가 있어서 오늘 밤 하나도 안 무서워."<br/><span class="sp">0호:</span> "…나도. 지킬 사람이 있다는 거, 처음이야." (붉은 외눈이 반달로 웃는다)</div>
+</div>
+
+<div class="page"><div class="pno">26쪽</div>
+  <div class="scene"><b>컷</b> 중형, 밤의 이웃 — 사슴 모녀 다시 등장(온기).<br/><b>장소·시간</b> 깊은 밤, 쉼터 밖 숲 가장자리.<br/><b>인물</b> 노아가 잠깐 밖을 보다가, 달빛 아래 어미 사슴 노을과 아기 사슴 이슬이 멀찍이 서서 이쪽을 바라보는 걸 발견한다. 아기 사슴은 아까보다 다리를 덜 절뚝인다. 노아가 조용히 미소.<br/><b>배경·소품</b> 달빛, 멀찍이 선 사슴 모녀, 별밤, 조금 나아진 아기 사슴.<br/><b>톤</b> 자연과 아이들이 같은 밤 같은 마음으로 서로를 돌보는 잔잔한 온기.</div>
+  <div class="text"><span class="sp">노아:</span> "(속삭이며) …어? 아까 그 사슴 모녀야. 아기 사슴, 다리가 좀 나았나 봐. 덜 절뚝거려."<br/><span class="sp">티코:</span> "쉬고 돌보면 낫는 거지. 사람이든 사슴이든 똑같아."<br/><span class="sp">노아:</span> "저 어미도 밤새 새끼를 지켰겠지. 우리처럼."<br/><span class="sp">나레이션:</span> 아픈 아이를 지키는 마음은, 사람이든 짐승이든 다르지 않았어요.</div>
+</div>
+
+<div class="page"><div class="pno">27쪽</div>
+  <div class="scene"><b>컷</b> 대형 아침컷 — 열이 내린 상쾌한 전환.<br/><b>장소·시간</b> 다음 날 이른 아침, 쉼터 안팎. 나뭇잎 사이로 황금빛 햇살.<br/><b>인물</b> 보리가 눈을 뜬다 — 볼의 붉은 열기가 가시고 이마의 땀도 말랐다. 개운하게 기지개를 켠다. 밤새 곁을 지키다 꾸벅 잠든 노아와, 여전히 든든히 앉은 0호가 보인다. 티코가 "잘 잤네" 하고 반긴다.<br/><b>배경·소품</b> 아침 햇살, 열이 내린 보리의 얼굴, 잠든 노아, 다 쓴 물그릇들.<br/><b>톤</b> 위기를 넘긴 안도와 벅참 — 밝고 따뜻하게.</div>
+  <div class="text"><span class="sp">보리:</span> "(눈 뜨며) …어? 나 열 내렸어. 몸이 한결 가벼워!"<br/><span class="sp">티코:</span> "잘 잤네. 그동안 잘 먹고 잘 지내서 몸이 튼튼했으니까, 이렇게 스스로 이겨 낸 거야."<br/><span class="sp">보리:</span> "노아야, 너 밤새 옆에 있어 줬구나… 여기서 그냥 잠들었네."<br/><span class="sp">노아:</span> "(부스스) …어, 벌써 아침이야? 너 열 내렸어? 정말 다행이다!"</div>
+</div>
+
+<div class="page"><div class="pno">28쪽</div>
+  <div class="scene"><b>컷</b> 클로즈업, 부모 감사 회수 — 감사가 말이 되는 순간.<br/><b>장소·시간</b> 아침, 쉼터 안. 보리와 노아가 마주 앉아.<br/><b>인물</b> 보리가 눈시울을 붉히며 노아의 손을 꼭 잡는다. 어른스럽고 진심 어린 표정. 화면 한쪽에 아주 작은 회상 인셋 — 엄마가 물수건을 갈아 주던 그 손.<br/><b>배경·소품</b> 맞잡은 손, 작은 회상 인셋, 아침 빛.<br/><b>톤</b> 감사와 철듦이 말로 피어나는 뭉클한 컷 — 담담하고 따뜻하게.</div>
+  <div class="text"><span class="sp">보리:</span> "노아야, 고마워. …밤새 이마 짚어 주고, 물수건 갈아 주고. 엄마가 나한테 해 주던 거, 네가 대신 해 줬어."<br/><span class="sp">보리:</span> "나 이제 알겠어. 아플 때 곁에 있어 주는 게 얼마나 큰 사랑인지. 엄마는… 매번 그걸 해 주셨던 거야."<br/><span class="sp">노아:</span> "집에 돌아가면, 나도 엄마 아프실 때 곁에 있어 드릴 거야. 이제 어떻게 하는지 아니까."<br/><span class="sp">나레이션:</span> 스스로 누군가를 돌봐 본 밤, 두 아이는 부모의 사랑이 얼마나 깊은 것인지 알게 되었어요.</div>
+</div>
+
+<div class="page"><div class="pno">29쪽</div>
+  <div class="scene"><b>컷</b> 중형, 0호 소속 비트 — 감사의 나눔.<br/><b>장소·시간</b> 아침, 쉼터 앞.<br/><b>인물</b> 보리가 절뚝이면서도 0호에게 다가가 두 팔로 꼭 안아 준다("네가 밤새 지켜 줬잖아"). 0호가 놀라 붉은 외눈이 물결모양으로 촉촉해진다. 노아와 티코도 곁에서 웃는다.<br/><b>배경·소품</b> 포옹, 촉촉한 0호의 외눈, 아침 햇살, 부목 감은 발.<br/><b>톤</b> 외톨이였던 0호가 '가족 같은 팀'의 중심이 되는 뭉클한 컷.</div>
+  <div class="text"><span class="sp">보리:</span> "0호야, 너 밤새 물 데우고 나 지켜 줬지? …고마워. 넌 진짜 우리 <b>든든한 형</b> 같아."<br/><span class="sp">0호:</span> "…형? 내가… 형이야?"<br/><span class="sp">노아:</span> "그럼! 힘세고, 밤새 안 자고 지켜 주고. 딱 큰형이지."<br/><span class="sp">0호:</span> "…나, 형 할래. 너희… 내가 다 지킬게." (붉은 외눈이 환하게 빛난다)</div>
+</div>
+
+<div class="page"><div class="pno">30쪽</div>
+  <div class="scene"><b>컷</b> 중형, 회복 관리 — 무리하지 않기.<br/><b>장소·시간</b> 낮, 베이스캠프. 보리가 그늘에서 다리를 올리고 쉰다.<br/><b>인물</b> 보리가 부목 감은 발을 통나무에 올린 채 그늘에서 쉬고, 노아·0호가 대신 조개 손질과 물을 나른다. 보리가 좀이 쑤셔 일어나려 하자 노아가 다정하게 말린다. 티코가 상처를 다시 살핀다.<br/><b>배경·소품</b> 올려 둔 발, 그늘, 대신 일하는 친구들, 깨끗이 다시 감은 상처.<br/><b>톤</b> "다 나을 때까진 무리 금지" — 회복 관리의 지혜를 담은 밝은 컷.</div>
+  <div class="text"><span class="sp">보리:</span> "나도 뭐라도 도울래! 가만있으니까 답답해."<br/><span class="sp">노아:</span> "안 돼. 다 나을 때까진 푹 쉬어야 빨리 낫는대. 오늘은 우리가 할게."<br/><span class="sp">티코:</span> "상처도 매일 <b>깨끗한 물로 살피고 새 천으로 갈아</b> 줘야 해. 붓거나 더 아프면 바로 말하고."<br/><span class="sp">보리:</span> "알았어… 대신 다 나으면 두 배로 일할게. 약속!"</div>
+</div>
+
+<div class="page"><div class="pno">31쪽</div>
+  <div class="scene"><b>컷</b> 중형, 조상+과학 정리컷 — 배운 것 되짚기.<br/><b>장소·시간</b> 낮, 베이스캠프.<br/><b>인물</b> 티코가 홀로그램으로 오늘 배운 것을 요약해 띄운다 — 쑥으로 감싸기(조상) + 깨끗한 물 소독·눌러 지혈·부목(과학)이 나란히. 그 옆에 크게 강조된 "많이 아프면 어른·병원" 표시. 보리·노아가 고개를 끄덕인다.<br/><b>배경·소품</b> 요약 홀로그램(쑥 아이콘 + 물방울 + 붕대 + 부목 + 안전 느낌표).<br/><b>톤</b> 학습 정리 컷 — 옛 지혜와 과학이 한 쌍, 그리고 안전 원칙을 각인. 밝게.</div>
+  <div class="text"><span class="sp">노아:</span> "오늘 진짜 많이 배웠어. 조상님들의 <b>쑥으로 감싸기</b>랑, <b>깨끗한 물로 소독·눌러서 지혈·부목</b>까지."<br/><span class="sp">티코:</span> "그거야! <b>깨끗이·눌러서·감싸기</b> — 옛 지혜엔 다 과학이 숨어 있었지. 그리고 제일 중요한 것 하나!"<br/><span class="sp">보리:</span> "알아! <b>피가 많이 나거나 너무 아프면, 꼭 어른이랑 병원!</b> 우리끼리 무리하면 안 돼."<br/><span class="sp">노아:</span> "맞아. 스스로 할 수 있는 것과, 도움을 청해야 할 것을 아는 게 진짜 지혜야."</div>
+</div>
+
+<div class="page"><div class="pno">32쪽</div>
+  <div class="scene"><b>컷</b> 소형 개그컷 — 통신 두절 러닝 개그 회수 + 다음 화 떡밥.<br/><b>장소·시간</b> 낮, 베이스캠프.<br/><b>인물</b> 노아의 통신기에 봉수 박사 얼굴이 잠깐 또렷이 떴다가 다시 지지직. 보리가 반가워 통신기에 얼굴을 바짝 들이대고, 티코가 안테나를 흔든다.<br/><b>배경·소품</b> 홀로그램 글리치, 반가움 반 아쉬움 반의 리액션.<br/><b>톤</b> 온기를 남기는 개그 — 완전히 끊기진 않았다는 실낱같은 희망.</div>
+  <div class="text"><span class="sp">봉수 박사:</span> "보리가 다 나았다고?! 아이고 다행이다, 대견해라! 이제 살림이 늘었으니… 제대로 된 <b>그릇이랑 도구</b>가 있어야— 치지지직—"<br/><span class="sp">보리:</span> "할아버지! 저 이제 씩씩해요! …아, 또 끊겼다."<br/><span class="sp">노아:</span> "근데 방금 '그릇이랑 도구'라고 하셨지? 하긴, 맨손으론 한계가 있으니까."<br/><span class="sp">티코:</span> "삐빅. 통신은 또 두절. 하지만 다음 과제가 잡혔어 — <b>제대로 된 도구랑 그릇</b> 만들기!"</div>
+</div>
+
+<div class="page"><div class="pno">33쪽</div>
+  <div class="scene"><b>컷</b> 대형 마무리 몽타주 — 희망찬 엔딩 + 다음 화 떡밥.<br/><b>장소·시간</b> 낮, 베이스캠프 앞 섬 전경.<br/><b>인물</b> 넷이 어깨를 나란히(0호가 보리를 살짝 부축) 하고 섬 안쪽을 바라본다 — 뒷모습. 저 멀리 강가에 <b>매끈한 돌과 진흙 개펄</b>이 반짝인다(다음 화 좌표 — 간석기·토기). 보리는 주먹 불끈, 0호는 든든히, 티코는 어깨 위에서 방향을 가리킨다. 숲 가장자리엔 사슴 모녀가 배웅하듯 서 있다.<br/><b>배경·소품</b> 반짝이는 강가 돌·진흙, 초록 숲, 파란 바다, 배웅하는 사슴 모녀.<br/><b>톤</b> 아픈 밤을 이겨 내고 더 단단해진 팀의 든든한 뒷모습 + 다음 모험을 향한 설렘.</div>
+  <div class="text"><span class="sp">나레이션:</span> 서로를 돌본 아픈 밤을 지나, 넷은 한층 더 단단한 한 팀이 되었어요.<br/><span class="sp">보리:</span> "좋아, 다 나으면 다음은 도구랑 그릇이다! 저기 강가에 매끈한 돌이랑 진흙 보여? 가자, 노아!"<br/><span class="sp">노아:</span> "잠깐, 잠깐만! 넌 아직 다 안 나았거든? 이번엔 무리 말고 천천히 가자."<br/><span class="sp">티코:</span> "삐빅! 다음 과제 — <b>돌과 흙으로 도구·그릇 만들기</b>. 저 강가에서 만나자!"</div>
+</div>
+
+<div class="divider">— F. 티코피디아 부록 (34~36쪽) —</div>
+
+<div class="page"><div class="pno">34쪽 · 티코피디아 ①</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지(부록 공통 포맷) — 배경은 민트색 홀로그램 격자.<br/><b>장면</b> 티코가 안경을 쓰고 지시봉을 든 선생님 포즈로 화면 왼쪽에. 오른쪽 큰 카드: 상처 응급처치 <b>3단계 순서도</b> — ① 깨끗한 천으로 눌러 지혈(+다친 곳 높이 올리기) ② 끓여 식힌 깨끗한 물로 씻기 ③ 쑥 같은 깨끗한 것으로 덮어 감싸기. 카드 아래에 크고 굵게 강조된 안전 배너("피가 많이 나거나 너무 아프면 → 꼭 어른·병원!").<br/><b>톤</b> 밝고 정돈된 인포그래픽. 안전 배너를 가장 눈에 띄게.</div>
+  <div class="text"><span class="sp">티코:</span> "오늘의 티코피디아! 다쳤을 땐 순서가 있어. <b>하나, 깨끗한 천으로 꾹 눌러 피를 멈추고(다친 곳은 심장보다 높이!). 둘, 끓여 식힌 깨끗한 물로 살살 씻고. 셋, 쑥 같은 깨끗한 것으로 덮어 감싼다.</b> 그리고 제일 중요한 약속 — <b>피가 많이 나거나 너무 아프면, 꼭 어른과 병원에 가야 해!</b>"</div>
+</div>
+
+<div class="page"><div class="pno">35쪽 · 티코피디아 ②</div>
+  <div class="scene"><b>컷</b> 지식 정리 카드 페이지 ② — 도해 중심.<br/><b>장면</b> 화면 상단: 삔 발목 돌보기 <b>네 가지</b> 아이콘 — 쉬기(가만히) · 차게 하기(찬 물수건) · 살살 감기 · 높이 올리기, 그리고 곧은 나뭇가지 두 개로 양옆을 대는 부목 도해. 화면 하단: '왜 깨끗해야 할까' — 상처를 깨끗한 것으로 덮어 흙먼지·나쁜 것(작은 벌레 아이콘)이 못 들어오게 막는 파란 방패 그림. 구석에 엄지 척 하는 티코.<br/><b>톤</b> 교과서 삽화보다 밝고 만화적인 도해.</div>
+  <div class="text"><span class="sp">티코:</span> "삐거나 부었을 땐 네 가지! <b>쉬고 · 차게 하고 · 살살 감고 · 높이 올린다.</b> 곧은 나뭇가지로 <b>부목</b>을 대면 흔들리지 않아 덜 아프지. 그리고 상처는 왜 깨끗해야 할까? <b>깨끗한 것으로 덮으면</b> 눈에 안 보이는 나쁜 것들이 못 들어와서 덧나지 않거든. 그래서 <b>더러운 물이나 아무 즙</b>은 상처에 절대 쓰면 안 돼!"</div>
+</div>
+
+<div class="page"><div class="pno">36쪽 · 티코 퀴즈</div>
+  <div class="scene"><b>컷</b> 퀴즈 페이지(부록 공통 포맷) — 티코 정면 컷.<br/><b>장면</b> 티코가 문제 카드 3장을 부채꼴로 펼쳐 들고 윙크. 카드마다 ①②③ 번호와 물음표 장식. 배경 하단에 다음 화 예고 — 강가의 매끈한 돌과 진흙, 물음표. (앱에서는 기존 퀴즈 게임 인프라로 인터랙티브 처리)<br/><b>톤</b> 마무리 팡파레 + 다음 화 기대감.</div>
+  <div class="text"><span class="sp">티코:</span> "마지막 관문, 티코 퀴즈! 셋 다 맞히면 너도 무인도 생존 대원!<br/>① 피가 날 때 제일 먼저 할 일은? (깨끗한 천으로 ○○ 지혈하기)<br/>② 상처를 씻을 때는 어떤 물을 써야 할까? (○○ 식힌 깨끗한 물)<br/>③ 삔 발목이 흔들리지 않게 곧은 나뭇가지를 양옆에 대는 것을 무엇이라고 할까?<br/>…그리고 잊지 마! 많이 아프면 꼭 <b>어른과 병원!</b> 다음 화, 이 섬에서 <b>도구와 그릇</b>을 만들러 가자! 삐빅!"</div>
+</div>
+
+<footer>
+  타임 티코 시즌2 · 6화 「아픈 밤」 콘티 v1.0 · 탱고북 오리지널 · 내부 제작 자료
+</footer>
+
+</div>
+
+<script>
+// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
+(async function () {
+  const nav = document.getElementById('comic-tabs');
+  if (!nav) return;
+  const here = (location.pathname.split('/').pop() || '');
+  const items = [['learning-comic-s2-plan.html', '📘 기획서']];
+  for (let i = 1; i <= 12; i++) {
+    const f = 'learning-comic-s2-ep' + String(i).padStart(2, '0') + '.html';
+    try {
+      const r = await fetch(f);
+      const t = await r.text();
+      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
+    } catch (e) { /* skip */ }
+  }
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §7과 동기 유지) ─────────
+const STYLE_PROMPT = [
+  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
+  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
+  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
+  '무인도 자연 배경(숲·해변·바다·하늘·개울)은 사실적이고 세밀하게 묘사.',
+  '화면비 16:9 와이드 일러스트.',
+  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
+].join(' ');
+
+const CHARACTER_KEYS = [
+  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
+  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
+  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
+  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸 전부 점등 = 완전체), 감정에 따라 모양이 변하는 둥근 눈.',
+  '- 0호(40cm 구형 미니 로봇): 각진 상자형 무광 회색 몸체, 가로로 긴 검은 스크린에 크고 둥근 붉은 외눈 하나, 가슴에 주홍빛 코어, 낡아 해진 회색 천 조각을 두름. 무섭지 않고 순박하고 짠한 인상.',
+  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼 — 이 화에서는 통신 홀로그램(지지직 글리치)으로만 등장.',
+].join('\n');
+
+// 이 화의 시대 의상 (화별로 교체)
+const EP_COSTUME = '[이 화의 의상] 섬 생활 여러 날째 — 보리 = 주황 후드티 + 데님 반바지, 노아 = 하늘색 셔츠 + 카키 긴바지. 옷은 이제 소매·바짓단이 해지고 흙·바닷물 얼룩이 배어 꾀죄죄하다. 이번 화 후반부에는 보리의 한쪽 정강이에 깨끗한 천으로 감은 상처 붕대, 한쪽 발목에 곧은 나뭇가지 두 개로 댄 부목이 추가된다(응급처치 뒤 장면). 열이 나는 장면에서는 보리의 볼이 발갛게 달아오르고 이마에 땀·물수건.';
+
+// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
+const EP_GUEST_KEYS = [
+  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
+  '- 어미 사슴 노을: 따뜻한 황갈색 털에 크림색 점무늬, 크고 순한 검은 눈과 긴 속눈썹, 뿔 없는 다정한 암사슴. 다친 새끼 곁을 지키고 향긋한 쑥 닮은 풀을 뜯어 돌본다.',
+  '- 아기 사슴 이슬: 어미 무릎 높이의 작은 새끼, 밝은 연갈색에 또렷한 흰 점무늬, 가느다란 다리, 크고 촉촉한 눈망울. 한쪽 앞다리를 다쳐 살짝 절뚝이지만 무섭지 않고 짠하고 귀엽게(뒤로 갈수록 덜 절뚝임).',
+  '- (카메오) 부엉이 솔이: 작고 통통한 갈색 부엉이, 크고 동그란 노란 눈, 밤에 "후우—" 우는 섬의 이웃 — 밤 장면 배경에만 스치듯.',
+].join('\n');
+
+function composeImagePrompt(pno, sceneText) {
+  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+}
+
+// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
+(function () {
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    const btn = card.querySelector('.copy-btn');
+    const pre = card.querySelector('pre');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async function () {
+      // textContent — details 접힘 상태에선 innerText 가 빈 값
+      const text = pre.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = '복사됨 ✓';
+        btn.classList.add('done');
+      } catch (e) {
+        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
+      }
+      setTimeout(function () {
+        btn.textContent = '📋 시트 프롬프트 복사';
+        btn.classList.remove('done');
+      }, 1600);
+    });
+  });
+})();
+
+// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
+const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
+
+async function loadComicAssets() {
+  try {
+    const r = await fetch(ASSET_API);
+    const j = await r.json();
+    return (j && j.data) || {};
+  } catch (e) { return {}; }
+}
+
+function createPasteBox(key, assets, hint) {
+  const box = document.createElement('div');
+  box.className = 'paste-box';
+  box.tabIndex = 0;
+  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
+  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
+  const reset = function () {
+    box.classList.remove('has-img');
+    box.innerHTML = '';
+    box.textContent = hintText;
+  };
+  const setImg = function (url) {
+    box.classList.add('has-img');
+    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      if (!confirm('이 이미지를 삭제할까요?')) return;
+      try {
+        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
+        reset();
+      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
+    });
+  };
+  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
+  else box.textContent = hintText;
+
+  async function upload(file) {
+    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+    box.classList.add('busy');
+    const fr = new FileReader();
+    fr.onload = async function () {
+      try {
+        const r = await fetch(ASSET_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: key, dataUrl: fr.result }),
+        });
+        const j = await r.json();
+        if (j.success) setImg(j.data.url + '?t=' + Date.now());
+        else alert('저장 실패: ' + (j.error || ''));
+      } catch (e) {
+        alert('저장 실패 — 서버(3500)를 확인하세요');
+      }
+      box.classList.remove('busy');
+    };
+    fr.readAsDataURL(file);
+  }
+
+  box.addEventListener('paste', function (e) {
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (const it of items) {
+      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
+    }
+  });
+  box.addEventListener('dragover', function (e) { e.preventDefault(); });
+  box.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) upload(f);
+  });
+  box.addEventListener('click', function () { box.focus(); });
+  return box;
+}
+
+// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-s2-plan) 자산을 읽어옴 ──
+(async function () {
+  const grid = document.getElementById('cast-grid');
+  if (!grid) return;
+  let planAssets = {};
+  try {
+    const r = await fetch('/api/comic-assets/learning-comic-s2-plan');
+    const j = await r.json();
+    planAssets = (j && j.data) || {};
+  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
+  grid.querySelectorAll('.cast-item').forEach(function (item) {
+    const key = item.getAttribute('data-key');
+    if (planAssets[key]) {
+      const frame = item.querySelector('.frame');
+      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
+    }
+  });
+})();
+
+// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
+(function () {
+  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  if (!/^[a-z0-9-]+$/.test(docId)) return;
+  const api = '/api/comic-feedback/' + docId;
+
+  function updateBar(total) {
+    const bar = document.getElementById('feedback-cnt');
+    if (bar) bar.textContent = total;
+  }
+
+  async function loadNotes() {
+    try {
+      const r = await fetch(api);
+      const j = await r.json();
+      return (j && j.data && j.data.pages) || {};
+    } catch (e) { return {}; }
+  }
+
+  async function saveNote(page, note, statusEl, ta) {
+    statusEl.textContent = '저장 중…';
+    try {
+      const r = await fetch(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: page, note: note }),
+      });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.error || 'save failed');
+      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
+      ta.classList.toggle('has-note', !!note.trim());
+      updateBar(j.data.total);
+      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
+    } catch (e) {
+      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
+      statusEl.style.color = '#e85c3a';
+    }
+  }
+
+  async function init() {
+    const pages = document.querySelectorAll('.page');
+    if (!pages.length) return;
+    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
+    const notes = loaded[0];
+    const assets = loaded[1];
+
+    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
+    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
+      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
+    });
+
+    const anchor = document.querySelector('header.hero');
+    if (anchor) {
+      const bar = document.createElement('div');
+      bar.id = 'feedback-bar';
+      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
+      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+    }
+
+    pages.forEach(function (card) {
+      const pnoEl = card.querySelector('.pno');
+      const m = pnoEl && pnoEl.textContent.match(/\d+/);
+      if (!m) return;
+      const pno = m[0];
+
+      const main = document.createElement('div');
+      while (card.firstChild) main.appendChild(card.firstChild);
+      card.appendChild(main);
+
+      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
+      const mainPno = main.querySelector('.pno');
+      const sceneEl = main.querySelector('.scene');
+      if (mainPno && sceneEl) {
+        const row = document.createElement('div');
+        row.className = 'pno-row';
+        mainPno.parentNode.insertBefore(row, mainPno);
+        row.appendChild(mainPno);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋 그림 프롬프트 복사';
+        copyBtn.addEventListener('click', async function () {
+          const prompt = composeImagePrompt(pno, sceneEl.innerText);
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = '복사됨 ✓';
+            copyBtn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () {
+            copyBtn.textContent = '📋 그림 프롬프트 복사';
+            copyBtn.classList.remove('done');
+          }, 1600);
+        });
+        row.appendChild(copyBtn);
+      }
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const saved = notes[pno] || '';
+      panel.innerHTML =
+        '<label>' + pno + '쪽 생성 이미지</label>' +
+        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
+        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
+        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
+      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
+      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
+      const ta = panel.querySelector('textarea');
+      if (saved) ta.classList.add('has-note');
+      const btn = panel.querySelector('button');
+      const status = panel.querySelector('.status');
+      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
+      });
+
+      card.classList.add('with-notes');
+      card.appendChild(panel);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>
