@@ -17,7 +17,7 @@
 
 장면 프롬프트 공통 앵커(모든 페이지 머리에 적용):
 ```
-2D storybook spread illustration, warm cozy children's-book style, soft brown outlines, gentle airbrush shading. Characters are the fixed Hori cast (baby tiger Hori: warm orange fur #F8A755 with brown stripes, cream belly, pink cheek blush). Bright friendly palette, soft depth-of-field background. 16:9 spread, no text in image, leave calm negative space at top for caption.
+Needle-felted wool plush spread illustration (handmade felt stop-motion diorama). Soft 3D wool-felt characters with visible fuzzy felted-wool fibers, chunky rounded forms, gentle soft studio lighting, vibrant saturated colors; NOT flat 2D, NOT painted, NOT smooth CG. Characters are the fixed Hori cast (baby tiger Hori: warm orange fur #F8A755 with brown stripes, cream belly, pink cheek blush). Bright friendly palette, soft depth-of-field background. 16:9 spread, no text in image, leave calm negative space at top for caption.
 SCENE:
 ```
 

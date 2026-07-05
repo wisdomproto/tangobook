@@ -26,7 +26,7 @@
 
 공통 스타일 앵커(모든 캐릭터에 포함):
 ```
-Style: 2D storybook illustration, soft brown outlines (not harsh black), gentle airbrush shading, slightly fluffy digital painting texture, warm and cozy. Super-deformed chibi: head ~1.3× body, short chubby limbs, 3-finger rounded paws, large round eyes with white highlights, pink cheek blush. Canvas 1024×1024, solid pure magenta #FF00FF background, character centered, 8% padding. No ground, no shadow, no text, no extra characters.
+Style: Needle-felted wool plush look — a soft handmade 3D wool-felt doll with visible fuzzy felted-wool fibers, chunky huggable rounded forms, gentle soft studio lighting, vibrant saturated colors, stop-motion feel. NOT flat 2D, NOT painted, NOT smooth CG, NOT clay-smooth (wool fibers must be visible). Super-deformed chibi: head ~1.3× body, short chubby limbs, 3-finger rounded paws, large round eyes with white highlights, pink cheek blush. Canvas 1024×1024, solid pure magenta #FF00FF background, character centered, 8% padding. No ground, no shadow, no text, no extra characters.
 POSE: standing idle, front view, gentle smile, arms relaxed.
 ```
 캐릭터별 교체 줄(`CHARACTER:`):
@@ -56,7 +56,7 @@ POSE: standing idle, front view, gentle smile, arms relaxed.
 
 장면 프롬프트 공통 앵커(모든 페이지 머리에 적용):
 ```
-2D storybook spread illustration, warm cozy children's-book style, soft brown outlines, gentle airbrush shading. Characters are the fixed Hori cast (baby tiger Hori: warm orange fur #F8A755 with brown stripes, cream belly, pink cheek blush). Bright friendly palette, soft depth-of-field background. 16:9 spread, no text in image, leave calm negative space at top for caption.
+Needle-felted wool plush spread illustration (handmade felt stop-motion diorama). Soft 3D wool-felt characters with visible fuzzy felted-wool fibers, chunky rounded forms, gentle soft studio lighting, vibrant saturated colors; NOT flat 2D, NOT painted, NOT smooth CG. Characters are the fixed Hori cast (baby tiger Hori: warm orange fur #F8A755 with brown stripes, cream belly, pink cheek blush). Bright friendly palette, soft depth-of-field background. 16:9 spread, no text in image, leave calm negative space at top for caption.
 SCENE:
 ```
 
