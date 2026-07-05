@@ -323,303 +323,55 @@
 </div>
 
 <script>
-// ── 공용 탭 네비 — 기획서 + 존재하는 회차 파일 자동 감지 ─────────────────
-(async function () {
-  const nav = document.getElementById('comic-tabs');
-  if (!nav) return;
-  const here = (location.pathname.split('/').pop() || '');
-  const items = [['learning-comic-plan.html', '📘 기획서']];
-  for (let i = 1; i <= 12; i++) {
-    const f = 'learning-comic-ep' + String(i).padStart(2, '0') + '.html';
-    try {
-      const r = await fetch(f);
-      const t = await r.text();
-      if (r.ok && t.includes('data-comic-doc')) items.push([f, i + '화']);
-    } catch (e) { /* skip */ }
+window.EP_GUESTS = [
+  {
+    "key": "yisunsin",
+    "name": "이순신",
+    "aliases": [
+      "이순신"
+    ],
+    "desc": "52세 삼도수군통제사. 다부지고 강단 있는 중년 장수, 각지고 온화한 얼굴에 짧고 단정한 검은 수염, 짙은 눈썹 아래 깊고 고요한 눈빛(오래 싸운 피로가 눈가에 배었으나 흔들림 없음), 볕에 그은 구릿빛 피부, 두정갑(검붉은 천에 금속 못을 촘촘히 박은 조선 갑옷)에 허리에 환도. 나라를 지킨 실존 위인 — 절대 사납거나 우스꽝스럽지 않게, 태산 같은 위엄과 백성을 아끼는 따뜻함이 함께."
+  },
+  {
+    "key": "maksohn",
+    "name": "막손",
+    "aliases": [
+      "막손"
+    ],
+    "desc": "11세 조선 진도 어촌 소년. 볕에 검게 그은 얼굴, 짧게 친 검은 머리에 무명 두건, 씩씩하고 야무진 눈매, 낡고 물 젖은 무명 저고리 + 걷어 올린 잠방이 + 맨발, 허리에 작은 물고기 망태기. 물살 소리만 듣고도 물길 방향을 안다."
   }
-  nav.innerHTML = items.map(function (it) {
-    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
-  }).join('');
-})();
-
-// ── 이미지 생성 프롬프트 합성 — 스타일(SSOT: 기획서 §6과 동기 유지) ─────────
-const STYLE_PROMPT = [
-  '[스타일] 한국 아동 학습만화 일러스트, 초등 저학년(8-10세) 대상.',
-  '밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩과 은은한 그라데이션.',
-  '캐릭터는 둥글고 친근한 3등신 카툰 비율, 표정은 크고 풍부하게.',
-  '시대 배경(건축·의상·소품)은 고증에 맞게 세밀하고 사실적으로 묘사.',
-  '화면비 16:9 와이드 일러스트.',
-  '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
-].join(' ');
-
-const CHARACTER_KEYS = [
-  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
-  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
-  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
-  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸), 감정에 따라 모양이 변하는 둥근 눈.',
-  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼.',
-  '- 0호(그림자): 어둠 속 땅딸막한 상자형 미니 로봇의 검은 실루엣에 붉은 외눈 한 점, 등에 두른 해진 회색 천 조각.',
-].join('\n');
-
-// 이 화의 시대 의상 (화별로 교체)
-const EP_COSTUME = '[이 화의 의상] 1597년 조선 진도(울돌목) 장면에서 보리 = 무명 저고리 + 잠방이 + 짚신 + 무명 두건(붉은 머리끈은 두건 밖으로 살짝 보임), 노아 = 남색 무명 두루마기 + 패랭이(둥근 안경 유지). 현대(창고) 장면에서는 평상복(보리 주황 후드티, 노아 하늘색 셔츠).';
-
-// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
-const EP_GUEST_KEYS = [
-  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
-  '- 이순신(52세 삼도수군통제사): 다부지고 강단 있는 중년 장수, 각지고 온화한 얼굴에 짧고 단정한 검은 수염, 짙은 눈썹 아래 깊고 고요한 눈빛(오래 싸운 피로가 눈가에 배었으나 흔들림 없음), 볕에 그은 구릿빛 피부, 두정갑(검붉은 천에 금속 못을 촘촘히 박은 조선 갑옷)에 허리에 환도. 나라를 지킨 실존 위인 — 절대 사납거나 우스꽝스럽지 않게, 태산 같은 위엄과 백성을 아끼는 따뜻함이 함께.',
-  '- 막손(11세 조선 진도 어촌 소년): 볕에 검게 그은 얼굴, 짧게 친 검은 머리에 무명 두건, 씩씩하고 야무진 눈매, 낡고 물 젖은 무명 저고리 + 걷어 올린 잠방이 + 맨발, 허리에 작은 물고기 망태기. 물살 소리만 듣고도 물길 방향을 안다.',
-  '- 0호(이 화에서는 실루엣과 방해하는 손짓까지만): 전체 높이 40cm의 땅딸막한 상자형 미니 로봇의 순수한 검은 실루엣 — 큰 상자형 머리, 짧고 굵은 팔다리, 머리에 삐뚤어진 안테나 하나, 등에 두른 끝이 해진 회색 천 조각. 얼굴 위치에 크고 둥근 붉은 외눈 한 점만 빛난다. 얼굴 디테일·정체 묘사 금지, 공포가 아닌 쓸쓸한 미스터리 톤. 방해 장면에서는 짧은 팔로 밧줄·등불을 쳐내는 실루엣 동작만.',
-].join('\n');
-
-function composeImagePrompt(pno, sceneText) {
-  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
-}
-
-// ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
-(function () {
-  document.querySelectorAll('.char-prompt').forEach(function (card) {
-    const btn = card.querySelector('.copy-btn');
-    const pre = card.querySelector('pre');
-    if (!btn || !pre) return;
-    btn.addEventListener('click', async function () {
-      // textContent — details 접힘 상태에선 innerText 가 빈 값
-      const text = pre.textContent.trim();
-      try {
-        await navigator.clipboard.writeText(text);
-        btn.textContent = '복사됨 ✓';
-        btn.classList.add('done');
-      } catch (e) {
-        window.prompt('복사가 막혔어요 — 직접 복사하세요:', text);
-      }
-      setTimeout(function () {
-        btn.textContent = '📋 시트 프롬프트 복사';
-        btn.classList.remove('done');
-      }, 1600);
-    });
-  });
-})();
-
-// ── 이미지 자산(레퍼런스·컷) 붙여넣기 — 저장은 /api/comic-assets ─────────────
-const ASSET_DOC_ID = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
-const ASSET_API = '/api/comic-assets/' + ASSET_DOC_ID;
-
-async function loadComicAssets() {
-  try {
-    const r = await fetch(ASSET_API);
-    const j = await r.json();
-    return (j && j.data) || {};
-  } catch (e) { return {}; }
-}
-
-function createPasteBox(key, assets, hint) {
-  const box = document.createElement('div');
-  box.className = 'paste-box';
-  box.tabIndex = 0;
-  box.title = '클릭해 선택한 뒤 Ctrl+V 로 이미지를 붙여넣으세요 (드래그&드롭도 가능)';
-  const hintText = hint || '🖼️ 클릭 후 Ctrl+V — 생성 이미지 붙여넣기';
-  const reset = function () {
-    box.classList.remove('has-img');
-    box.innerHTML = '';
-    box.textContent = hintText;
-  };
-  const setImg = function (url) {
-    box.classList.add('has-img');
-    box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del" title="이미지 삭제">✕</button>';
-    box.querySelector('.paste-del').addEventListener('click', async function (e) {
-      e.stopPropagation();
-      if (!confirm('이 이미지를 삭제할까요?')) return;
-      try {
-        await fetch(ASSET_API + '/' + key, { method: 'DELETE' });
-        reset();
-      } catch (err) { alert('삭제 실패 — 서버(3500)를 확인하세요'); }
-    });
-  };
-  if (assets[key]) setImg(assets[key] + '?t=' + Date.now());
-  else box.textContent = hintText;
-
-  async function upload(file) {
-    if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
-    box.classList.add('busy');
-    const fr = new FileReader();
-    fr.onload = async function () {
-      try {
-        const r = await fetch(ASSET_API, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ key: key, dataUrl: fr.result }),
-        });
-        const j = await r.json();
-        if (j.success) setImg(j.data.url + '?t=' + Date.now());
-        else alert('저장 실패: ' + (j.error || ''));
-      } catch (e) {
-        alert('저장 실패 — 서버(3500)를 확인하세요');
-      }
-      box.classList.remove('busy');
-    };
-    fr.readAsDataURL(file);
+];
+window.COSTUME_ZONES = [
+  {
+    "from": 1,
+    "to": 3,
+    "variant": false,
+    "bori": "주황 후드티 + 청바지 (현대 평상복)",
+    "noa": "하늘색 셔츠 + 바지 (현대 평상복)"
+  },
+  {
+    "from": 4,
+    "to": 4,
+    "variant": false,
+    "bori": "빛에 감싸여 변신 중",
+    "noa": "빛에 감싸여 변신 중"
+  },
+  {
+    "from": 5,
+    "to": 32,
+    "variant": true,
+    "bori": "무명 저고리 + 잠방이 + 짚신 + 무명 두건 (붉은 머리끈은 두건 밖으로 살짝 보임) (1597년 조선 진도·울돌목)",
+    "noa": "남색 무명 두루마기 + 패랭이 (둥근 안경 유지) (1597년 조선 진도·울돌목)"
+  },
+  {
+    "from": 33,
+    "to": 36,
+    "variant": false,
+    "bori": "주황 후드티 + 청바지 (현대 평상복)",
+    "noa": "하늘색 셔츠 + 바지 (현대 평상복)"
   }
-
-  box.addEventListener('paste', function (e) {
-    const items = (e.clipboardData && e.clipboardData.items) || [];
-    for (const it of items) {
-      if (it.type && it.type.startsWith('image/')) { e.preventDefault(); upload(it.getAsFile()); return; }
-    }
-  });
-  box.addEventListener('dragover', function (e) { e.preventDefault(); });
-  box.addEventListener('drop', function (e) {
-    e.preventDefault();
-    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-    if (f) upload(f);
-  });
-  box.addEventListener('click', function () { box.focus(); });
-  return box;
-}
-
-// ── 고정 캐릭터 확정 시트 표시 — 기획서(learning-comic-plan) 자산을 읽어옴 ──
-(async function () {
-  const grid = document.getElementById('cast-grid');
-  if (!grid) return;
-  let planAssets = {};
-  try {
-    const r = await fetch('/api/comic-assets/learning-comic-plan');
-    const j = await r.json();
-    planAssets = (j && j.data) || {};
-  } catch (e) { /* 서버 미기동 — 플레이스홀더 유지 */ }
-  grid.querySelectorAll('.cast-item').forEach(function (item) {
-    const key = item.getAttribute('data-key');
-    if (planAssets[key]) {
-      const frame = item.querySelector('.frame');
-      frame.innerHTML = '<img src="' + planAssets[key] + '?t=' + Date.now() + '" alt="" />';
-    }
-  });
-})();
-
-// ── 콘티 리뷰 모드 — 각 쪽 우측에 수정 지시 패널 + 저장 ──────────────────
-(function () {
-  const docId = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
-  if (!/^[a-z0-9-]+$/.test(docId)) return;
-  const api = '/api/comic-feedback/' + docId;
-
-  function updateBar(total) {
-    const bar = document.getElementById('feedback-cnt');
-    if (bar) bar.textContent = total;
-  }
-
-  async function loadNotes() {
-    try {
-      const r = await fetch(api);
-      const j = await r.json();
-      return (j && j.data && j.data.pages) || {};
-    } catch (e) { return {}; }
-  }
-
-  async function saveNote(page, note, statusEl, ta) {
-    statusEl.textContent = '저장 중…';
-    try {
-      const r = await fetch(api, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ page: page, note: note }),
-      });
-      const j = await r.json();
-      if (!j.success) throw new Error(j.error || 'save failed');
-      statusEl.textContent = note.trim() ? '저장됨 ✓' : '삭제됨';
-      ta.classList.toggle('has-note', !!note.trim());
-      updateBar(j.data.total);
-      setTimeout(function(){ statusEl.textContent = note.trim() ? '✓' : ''; }, 1500);
-    } catch (e) {
-      statusEl.textContent = '저장 실패 — 서버(3500) 확인';
-      statusEl.style.color = '#e85c3a';
-    }
-  }
-
-  async function init() {
-    const pages = document.querySelectorAll('.page');
-    if (!pages.length) return;
-    const loaded = await Promise.all([loadNotes(), loadComicAssets()]);
-    const notes = loaded[0];
-    const assets = loaded[1];
-
-    // 게스트 캐릭터 카드에 레퍼런스 이미지 붙여넣기 박스
-    document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
-      card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
-    });
-
-    const anchor = document.querySelector('header.hero');
-    if (anchor) {
-      const bar = document.createElement('div');
-      bar.id = 'feedback-bar';
-      bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
-      anchor.parentNode.insertBefore(bar, anchor.nextSibling);
-    }
-
-    pages.forEach(function (card) {
-      const pnoEl = card.querySelector('.pno');
-      const m = pnoEl && pnoEl.textContent.match(/\d+/);
-      if (!m) return;
-      const pno = m[0];
-
-      const main = document.createElement('div');
-      while (card.firstChild) main.appendChild(card.firstChild);
-      card.appendChild(main);
-
-      // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
-      const mainPno = main.querySelector('.pno');
-      const sceneEl = main.querySelector('.scene');
-      if (mainPno && sceneEl) {
-        const row = document.createElement('div');
-        row.className = 'pno-row';
-        mainPno.parentNode.insertBefore(row, mainPno);
-        row.appendChild(mainPno);
-        const copyBtn = document.createElement('button');
-        copyBtn.type = 'button';
-        copyBtn.className = 'copy-btn';
-        copyBtn.textContent = '📋 그림 프롬프트 복사';
-        copyBtn.addEventListener('click', async function () {
-          const prompt = composeImagePrompt(pno, sceneEl.innerText);
-          try {
-            await navigator.clipboard.writeText(prompt);
-            copyBtn.textContent = '복사됨 ✓';
-            copyBtn.classList.add('done');
-          } catch (e) {
-            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
-          }
-          setTimeout(function () {
-            copyBtn.textContent = '📋 그림 프롬프트 복사';
-            copyBtn.classList.remove('done');
-          }, 1600);
-        });
-        row.appendChild(copyBtn);
-      }
-
-      const panel = document.createElement('div');
-      panel.className = 'note-panel';
-      const saved = notes[pno] || '';
-      panel.innerHTML =
-        '<label>' + pno + '쪽 생성 이미지</label>' +
-        '<label style="margin-top:6px">' + pno + '쪽 수정 지시</label>' +
-        '<textarea placeholder="어색한 부분, 바꾸고 싶은 대사·장면을 적어주세요">' + saved.replace(/</g, '&lt;') + '</textarea>' +
-        '<div class="row"><button type="button">저장</button><span class="status">' + (saved ? '✓' : '') + '</span></div>';
-      // 첫 label 바로 뒤에 이미지 붙여넣기 박스 삽입
-      panel.insertBefore(createPasteBox('p' + pno, assets), panel.children[1]);
-      const ta = panel.querySelector('textarea');
-      if (saved) ta.classList.add('has-note');
-      const btn = panel.querySelector('button');
-      const status = panel.querySelector('.status');
-      btn.addEventListener('click', function () { saveNote(pno, ta.value, status, ta); });
-      ta.addEventListener('keydown', function (e) {
-        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote(pno, ta.value, status, ta);
-      });
-
-      card.classList.add('with-notes');
-      card.appendChild(panel);
-    });
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();
+];
 </script>
+<script src="/learning-comic-core.js"></script>
 </body>
 </html>
