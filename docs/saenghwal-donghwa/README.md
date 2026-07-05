@@ -7,6 +7,7 @@
 - [character-prompts.md](character-prompts.md) — 캐릭터 레퍼런스 생성 프롬프트(모델시트 v2)
 - [topic-master-list.md](topic-master-list.md) — 7트랙 30+주제 마스터 리스트(연령·캐릭터·장치·우선순위)
 - [pilot-golgoru-v2.md](pilot-golgoru-v2.md) — 파일럿 「골고루 먹기」 완성본(3사 공식 적용)
+- [art-style-bakeoff.md](art-style-bakeoff.md) — 그림체 확정 bake-off(후보 6종 프롬프트 + 평가 + 다음 단계). ⏳ B(펠트) vs F(아기상어식) 페이지 테스트 대기
 
 ## 상태 (2026-07-01)
 - ✅ **45권 제작 완료** — 에디터 R2, `folder='생활동화'` + `category='생활동화'`
