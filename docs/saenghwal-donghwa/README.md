@@ -9,12 +9,16 @@
 - [curriculum-45.md](curriculum-45.md) — **45편 완성 커리큘럼**(대발이 34편 실측 분석 기반 "결점=배역" 매핑, ★=근거편). topic-master-list 확장판.
 - [pilot-golgoru-v2.md](pilot-golgoru-v2.md) — 파일럿 「골고루 먹기」 완성본(3사 공식 적용)
 - [book-p1-hospital.md](book-p1-hospital.md) — P1 「주사 콕, 병균 뿅!」 병원 대본(상상역할극=몸속 병사)
-- [art-style-bakeoff.md](art-style-bakeoff.md) — 그림체 확정 bake-off(후보 6종 프롬프트 + 평가 + 다음 단계). ⏳ B(펠트) vs F(아기상어식) 페이지 테스트 대기
+- [art-style-bakeoff.md](art-style-bakeoff.md) — 그림체 bake-off. **✅ B 니들펠트(양모 인형) 확정**(2026-07-05). STYLE SSOT 2곳 = `saenghwal-core.js` STYLE_PROMPT + `saenghwal-plan.html` 캐릭터 시트 리드.
 
-## 저작도구 HTML (학습만화식, TopBar 자료실 "🐯 호리네 생활동화 기획서")
-`packages/client/public/` — 상단 탭 연결, 쪽별 🎨 프롬프트 복사(스타일 앵커 자동), 컷/캐릭터 이미지 붙여넣기(`/api/comic-assets/{docId}` R2):
-- `saenghwal-plan.html` — 기획서(개요·벤치마크·캐스트8 레퍼런스 프롬프트·45편 커리큘럼·작법)
-- `saenghwal-golgoru.html` — 편식 파일럿 10스프레드 · `saenghwal-hospital.html` — 병원 10스프레드
+## 저작도구 HTML (TopBar 자료실 "🐯 호리네 생활동화 기획서" — 자료실 최상단)
+`packages/client/public/` — 공용 스크립트 `saenghwal-core.js`(탭·프롬프트 합성·붙여넣기 엔진):
+- `saenghwal-plan.html`(기획서+캐스트8 레퍼런스) · `saenghwal-golgoru.html`(편식) · `saenghwal-hospital.html`(병원).
+- **배치 이미지 프롬프트**: 스타일(니들펠트) 1회 + `@image1~8` 고정 캐스트 + `@image9~` 화별 단역(`window.SH_GUESTS`) + 쪽별 `[등장]`(SCENE 영문 토큰 자동감지) → **[전체 프롬프트 복사]** 1버튼 + 쪽별 복사. 단역은 "🎭 이 화 새 캐릭터 레퍼런스" 섹션 자동 생성.
+- **이미지 저장** = `/api/comic-assets/{docId}` 범용(R2). 새 회차 = 기존 HTML 복제 + core `items` 탭목록 등록. SCENE엔 그림체 문구 금지·캐릭터 인식 토큰 필수.
+
+## 작가/편집장 에이전트 (학습만화와 공용)
+`comic-writer`(집필)·`comic-editor`(검수)가 **생활동화+학습만화 두 라인 공용**. 워크플로 = **"○○ 편 써줘" → comic-writer 집필 → comic-editor 검수 → 수정 → 재검수**. (편식·병원 파일럿 소급검수 = 둘 다 승인; 병원 P1=주사 은유 "약 배달" 보정·안전편 번호규칙 추가.)
 
 ## 상태 (2026-07-01)
 - ✅ **45권 제작 완료** — 에디터 R2, `folder='생활동화'` + `category='생활동화'`
@@ -25,4 +29,4 @@
 ## 공식 요약
 5비트 아크(작은 부정감정→조력자→장치→**시그니처 무지개 부릉꼬리 + 후렴 3회**→따뜻한 마무리) · 8대 장치(리프레이밍/인과/거울효과/점진수용/상상역할극/반복후렴/명시교훈/조력자속정).
 
-상세 분석·현황 → memory `hori-saenghwal-donghwa-2026-07-01`.
+상세 분석·현황 → memory `hori-saenghwal-donghwa-2026-07-01` · `debari-benchmark-analysis-2026-07-05`(벤치마크 실측·저작도구·에이전트).
