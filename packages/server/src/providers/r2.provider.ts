@@ -54,7 +54,8 @@ function cacheControlFor(contentType: string): string | undefined {
 export async function uploadBufferToR2(
   buffer: Buffer,
   key: string,
-  contentType: string
+  contentType: string,
+  cacheControlOverride?: string
 ): Promise<string> {
   await r2Client.send(
     new PutObjectCommand({
@@ -62,7 +63,7 @@ export async function uploadBufferToR2(
       Key: key,
       Body: buffer,
       ContentType: contentType,
-      CacheControl: cacheControlFor(contentType),
+      CacheControl: cacheControlOverride ?? cacheControlFor(contentType),
     })
   );
   return `${r2PublicUrl}/${key}`;

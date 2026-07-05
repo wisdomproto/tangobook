@@ -47,6 +47,13 @@
   .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 3px 12px; font-weight: 800; font-size: 12px; cursor: pointer; }
   .copy-btn:hover { background: var(--mint); color: #fff; }
   .copy-btn.done { background: var(--mint); color: #fff; }
+  .batch-bar { background: #fff; border: 1.5px solid var(--mint); border-radius: 14px; padding: 14px 18px; margin: 16px 0 24px; }
+  .batch-bar .bhead { font-size: 14px; font-weight: 900; margin-bottom: 4px; }
+  .batch-bar .bhint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; line-height: 1.6; }
+  .batch-bar .brow { display: flex; gap: 8px; flex-wrap: wrap; }
+  .batch-btn { background: var(--mint); color: #fff; border: none; border-radius: 999px; padding: 8px 18px; font-weight: 800; font-size: 13px; cursor: pointer; }
+  .batch-btn:hover { background: #1a9e8e; }
+  .batch-btn.done { background: var(--coral); }
   .cast-strip { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--mint); border-radius: 16px; padding: 16px 20px; margin: 20px 0; }
   .cast-strip h2 { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
   .cast-strip .hint { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; }
@@ -349,27 +356,82 @@ const STYLE_PROMPT = [
   '그림 안에 글자, 말풍선, 문자 텍스트를 절대 넣지 않는다.',
 ].join(' ');
 
-const CHARACTER_KEYS = [
-  '[고정 캐릭터 — 장면에 등장하는 인물만 그린다]',
-  '- 보리(9세 여자아이): 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.',
-  '- 노아(9세 남자아이): 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.',
-  '- 티코(30cm 소형 로봇): 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸), 감정에 따라 모양이 변하는 둥근 눈.',
-  '- 봉수 박사(68세 할아버지): 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼.',
-  '- 0호(그림자): 어둠 속 검은 실루엣에 붉은 외눈 한 점만 보인다.',
-].join('\n');
+// 고정 캐릭터(메인) — 배치 안에서 항상 @image1 부터 순서대로 번호를 받는다.
+// aliases: 장면 지시 텍스트에서 등장 여부를 감지하는 키워드(이름 외 별칭).
+const FIXED_CHARS = [
+  { key: 'bori',   name: '보리',     aliases: ['보리'],        desc: '9세 여자아이 — 짧은 단발머리에 붉은 머리끈, 씩씩하고 활기찬 표정, 몸이 앞으로 기운 자세.' },
+  { key: 'noa',    name: '노아',     aliases: ['노아'],        desc: '9세 남자아이 — 둥근 안경, 단정한 머리, 조심스러운 표정, 놀라면 안경이 흘러내림.' },
+  { key: 'tico',   name: '티코',     aliases: ['티코'],        desc: '30cm 소형 로봇 — 흰 몸체에 민트색 라인, 가슴에 시계 문양 코어(게이지 12칸), 감정에 따라 모양이 변하는 둥근 눈.' },
+  { key: 'bongsu', name: '봉수 박사', aliases: ['봉수', '박사'], desc: '68세 할아버지 — 부스스한 백발, 두꺼운 돋보기안경, 기름때 묻은 카키색 작업조끼.' },
+  { key: 'zero',   name: '0호',      aliases: ['0호'],         desc: '그림자 — 어둠 속 검은 실루엣에 붉은 외눈 한 점만 보인다.' },
+];
+
+// 이 화의 게스트 캐릭터 — 고정 캐릭터 다음 번호(@image6…). 화별로 교체(상단 게스트 레퍼런스 섹션과 동기).
+const EP_GUESTS = [
+  { key: 'sejong', name: '세종', aliases: ['세종'], desc: '47세 임금 — 후덕하고 너그러운 둥근 얼굴, 단정한 검은 턱수염+콧수염, 온화하지만 눈가에 옅은 피로. 밤 집무 장면 = 곤색 평상복 포 / 공식 접견 장면 = 붉은 곤룡포 + 익선관. 위엄 있게, 우스꽝스럽지 않게.' },
+  { key: 'bami',   name: '밤이', aliases: ['밤이'], desc: '고양이 — 복슬복슬한 순백색 고양이, 큰 호박색 눈(반짝이는 것을 보면 동공 확장), 분홍 코, 목에 얇은 붉은 명주 리본, 통통하고 둥근 실루엣.' },
+];
+
+const ALL_CHARS = FIXED_CHARS.concat(EP_GUESTS); // 메인 우선 순서 유지
 
 // 이 화의 시대 의상 (화별로 교체)
 const EP_COSTUME = '[이 화의 의상] 1443년 조선 장면에서 보리 = 흰 저고리 + 다홍 치마, 노아 = 옥색 바지저고리. 현대(창고) 장면에서는 평상복(보리 주황 후드티, 노아 하늘색 셔츠).';
 
-// 이 화의 게스트 캐릭터 비주얼 키 (화별로 교체 — 상단 게스트 레퍼런스 섹션과 동기)
-const EP_GUEST_KEYS = [
-  '[이 화의 게스트 — 장면에 등장할 때만 그린다]',
-  '- 세종(47세 임금): 후덕하고 너그러운 둥근 얼굴, 단정한 검은 턱수염+콧수염, 온화하지만 눈가에 옅은 피로. 밤 집무 장면 = 곤색 평상복 포 / 공식 접견 장면 = 붉은 곤룡포 + 익선관. 위엄 있게, 우스꽝스럽지 않게.',
-  '- 밤이(고양이): 복슬복슬한 순백색 고양이, 큰 호박색 눈(반짝이는 것을 보면 동공 확장), 분홍 코, 목에 얇은 붉은 명주 리본, 통통하고 둥근 실루엣.',
-].join('\n');
+// 장면 지시가 주인공을 이름 대신 집합어로 부를 때(예: "두 아이", "셋이")도 감지.
+const DUO_TERMS = ['아이들', '두 아이', '아이 둘'];        // 보리 + 노아
+const TRIO_TERMS = ['셋이', '셋 다', '세 사람', '세 명'];  // 보리 + 노아 + 티코
 
+function sceneHasChar(sceneText, c) {
+  if ((c.aliases || [c.name]).some(function (n) { return sceneText.indexOf(n) !== -1; })) return true;
+  if (c.key === 'bori' || c.key === 'noa') {
+    if (DUO_TERMS.concat(TRIO_TERMS).some(function (n) { return sceneText.indexOf(n) !== -1; })) return true;
+  }
+  if (c.key === 'tico') {
+    if (TRIO_TERMS.some(function (n) { return sceneText.indexOf(n) !== -1; })) return true;
+  }
+  return false;
+}
+
+// 여러 쪽을 한 프롬프트로 합성 — 등장 캐릭터를 메인 우선 순서로 모아 @imageN 부여.
+// pages: [{ pno, scene }]  → GPT 에 이미지를 이 순서대로 첨부하면 @imageN 과 일치한다.
+function composeBatchPrompt(pages) {
+  const union = ALL_CHARS.filter(function (c) {
+    return pages.some(function (p) { return sceneHasChar(p.scene, c); });
+  });
+  const imgId = {};
+  union.forEach(function (c, i) { imgId[c.key] = i + 1; });
+
+  const attachList = union.map(function (c) {
+    return '@image' + imgId[c.key] + ' = ' + c.name + ': ' + c.desc;
+  }).join('\n');
+
+  const head = [
+    STYLE_PROMPT,
+    '',
+    '[캐릭터 레퍼런스 — 아래 순서 그대로 레퍼런스 이미지를 첨부하세요. 각 캐릭터는 첨부한 @imageN 과 얼굴·의상·비율이 동일해야 합니다]',
+    attachList,
+    '※ 각 장면의 [등장]에 표시된 @imageN 만 그린다. 장면에 없는 캐릭터는 넣지 않는다.',
+    '',
+    EP_COSTUME,
+    '',
+    '[출력 규칙]',
+    '- 아래 ' + pages.length + '개 장면을 각각 독립된 16:9 일러스트로 그린다 (총 ' + pages.length + '장, 쪽 순서대로).',
+    '- 모든 장면에서 같은 캐릭터의 외형(얼굴·머리·의상)을 동일하게 유지한다.',
+    '- 그림 안에 글자·말풍선·문자 텍스트를 절대 넣지 않는다.',
+  ].join('\n');
+
+  const body = pages.map(function (p) {
+    const appear = union.filter(function (c) { return sceneHasChar(p.scene, c); })
+      .map(function (c) { return '@image' + imgId[c.key] + '(' + c.name + ')'; }).join(', ');
+    return '━━━━━━━━━━ ' + p.pno + '쪽 ━━━━━━━━━━\n[등장] ' + (appear || '(배경/사물 컷)') + '\n' + p.scene.trim();
+  }).join('\n\n');
+
+  return head + '\n\n' + body;
+}
+
+// 단일 쪽 프롬프트 = 1쪽짜리 배치(동일 규칙 재사용)
 function composeImagePrompt(pno, sceneText) {
-  return STYLE_PROMPT + '\n\n' + CHARACTER_KEYS + '\n\n' + EP_GUEST_KEYS + '\n\n' + EP_COSTUME + '\n\n[장면 — ' + pno + '쪽]\n' + sceneText.trim();
+  return composeBatchPrompt([{ pno: pno, scene: sceneText }]);
 }
 
 // ── 게스트 캐릭터 시트 프롬프트 복사 ──────────────────────────────────────
@@ -543,12 +605,16 @@ function createPasteBox(key, assets, hint) {
     });
 
     const anchor = document.querySelector('header.hero');
+    let barAfter = anchor; // 묶음 바를 이 요소 뒤에 삽입
     if (anchor) {
       const bar = document.createElement('div');
       bar.id = 'feedback-bar';
       bar.innerHTML = '✏️ <b>리뷰 모드</b> — 각 쪽 오른쪽에 수정 지시를 적고 [저장]을 누르세요. 저장된 지시는 클로드가 읽고 콘티에 반영합니다. <span>작성된 지시: <b class="cnt" id="feedback-cnt">' + Object.keys(notes).length + '</b>건</span>';
       anchor.parentNode.insertBefore(bar, anchor.nextSibling);
+      barAfter = bar;
     }
+
+    const pageData = []; // { pno, sceneEl } — 묶음 프롬프트용
 
     pages.forEach(function (card) {
       const pnoEl = card.querySelector('.pno');
@@ -563,6 +629,7 @@ function createPasteBox(key, assets, hint) {
       // 📋 그림 프롬프트 복사 버튼 — 쪽번호 옆
       const mainPno = main.querySelector('.pno');
       const sceneEl = main.querySelector('.scene');
+      if (sceneEl) pageData.push({ pno: pno, sceneEl: sceneEl });
       if (mainPno && sceneEl) {
         const row = document.createElement('div');
         row.className = 'pno-row';
@@ -611,6 +678,41 @@ function createPasteBox(key, assets, hint) {
       card.classList.add('with-notes');
       card.appendChild(panel);
     });
+
+    // ── 10쪽 묶음 프롬프트 바 — GPT 한 번에 최대 10장 생성용 ──────────────
+    if (pageData.length && barAfter) {
+      const groups = [];
+      for (let i = 0; i < pageData.length; i += 10) groups.push(pageData.slice(i, i + 10));
+
+      const bbar = document.createElement('div');
+      bbar.className = 'batch-bar';
+      const brow = groups.map(function (g) {
+        const a = g[0].pno, b = g[g.length - 1].pno;
+        return '<button type="button" class="batch-btn">📋 ' + a + '–' + b + '쪽 (' + g.length + '장)</button>';
+      }).join('');
+      bbar.innerHTML =
+        '<div class="bhead">🖼️ 묶음 프롬프트 — GPT에 10쪽씩 한 번에</div>' +
+        '<div class="bhint">버튼을 누르면 그 10쪽의 장면 프롬프트가 하나로 복사됩니다. 프롬프트 맨 위 <b>[캐릭터 레퍼런스]</b> 목록 순서(@image1, @image2 …)대로 레퍼런스 이미지를 GPT에 첨부하세요 — 메인 캐릭터가 먼저, 그 화 게스트가 다음 번호입니다. 각 쪽의 <b>[등장]</b>에 그 컷에 넣을 캐릭터가 표시됩니다.</div>' +
+        '<div class="brow">' + brow + '</div>';
+      barAfter.parentNode.insertBefore(bbar, barAfter.nextSibling);
+
+      bbar.querySelectorAll('.batch-btn').forEach(function (btn, idx) {
+        btn.addEventListener('click', async function () {
+          const prompt = composeBatchPrompt(groups[idx].map(function (pd) {
+            return { pno: pd.pno, scene: pd.sceneEl.innerText };
+          }));
+          const label = btn.textContent;
+          try {
+            await navigator.clipboard.writeText(prompt);
+            btn.textContent = '복사됨 ✓';
+            btn.classList.add('done');
+          } catch (e) {
+            window.prompt('복사가 막혔어요 — 직접 복사하세요:', prompt);
+          }
+          setTimeout(function () { btn.textContent = label; btn.classList.remove('done'); }, 1600);
+        });
+      });
+    }
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

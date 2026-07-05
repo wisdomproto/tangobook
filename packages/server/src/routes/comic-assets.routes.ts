@@ -1,23 +1,19 @@
 import { Router, type Request, type Response, type NextFunction } from 'express';
-import { promises as fs } from 'node:fs';
-import path from 'node:path';
+import {
+  uploadBufferToR2,
+  listR2Objects,
+  deleteFromR2,
+  r2PublicUrl,
+} from '../providers/r2.provider.js';
 
 /**
  * 학습만화 기획 자산(캐릭터 레퍼런스·컷 이미지) 저장 — 내부 저작 워크플로우용.
- * 문서의 붙여넣기 박스가 dataURL 로 POST → public/comic-assets/{docId}/{key}.{ext} 저장
- * → 정적 URL 로 즉시 표시(새로고침 유지). Claude 도 파일로 열람 가능.
+ * 문서의 붙여넣기 박스가 dataURL 로 POST → R2 `comic-assets/{docId}/{key}.{ext}` 업로드
+ * → 공개 URL 로 즉시 표시. R2 저장이라 로컬/프로덕션 어디서 붙여넣어도 영구 보관되고
+ *   Railway 재배포에도 유지된다(예전 로컬 파일시스템 방식은 프로덕션에서 유실됐음).
+ * 고정 key 에 덮어쓰므로 immutable 대신 짧은 캐시 + 클라의 ?t= 캐시버스터로 최신 반영.
  */
 const router = Router();
-
-const ASSET_DIR = path.resolve(
-  process.cwd(),
-  '..',
-  '..',
-  'packages',
-  'client',
-  'public',
-  'comic-assets'
-);
 
 const SAFE = /^[a-z0-9-]{1,64}$/;
 const EXT_BY_MIME: Record<string, string> = {
@@ -25,6 +21,12 @@ const EXT_BY_MIME: Record<string, string> = {
   'image/jpeg': 'jpg',
   'image/webp': 'webp',
 };
+const EXTS = ['png', 'jpg', 'webp'];
+const CACHE = 'public, max-age=300'; // 재붙여넣기 시 최신 반영 위해 짧게
+
+const prefixFor = (docId: string): string => `comic-assets/${docId}/`;
+const keyFor = (docId: string, key: string, ext: string): string =>
+  `comic-assets/${docId}/${key}.${ext}`;
 
 router.get('/:docId', async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -33,17 +35,13 @@ router.get('/:docId', async (req: Request, res: Response, next: NextFunction) =>
       res.status(400).json({ success: false, error: '잘못된 문서 ID' });
       return;
     }
-    let files: string[] = [];
-    try {
-      files = await fs.readdir(path.join(ASSET_DIR, docId));
-    } catch {
-      /* 폴더 없음 = 자산 없음 */
-    }
+    const objects = await listR2Objects(prefixFor(docId));
     const map: Record<string, string> = {};
-    for (const f of files) {
-      const m = f.match(/^([a-z0-9-]+)\.(png|jpg|webp)$/);
-      // 캐시버스터로 mtime 대신 파일명 고정 + 저장 시각 쿼리는 클라가 붙임
-      if (m) map[m[1]] = `/comic-assets/${docId}/${f}`;
+    for (const obj of objects) {
+      const objKey = obj.Key ?? '';
+      const base = objKey.slice(prefixFor(docId).length); // {key}.{ext}
+      const m = base.match(/^([a-z0-9-]+)\.(png|jpg|webp)$/);
+      if (m) map[m[1]] = `${r2PublicUrl}/${objKey}`;
     }
     res.json({ success: true, data: map });
   } catch (err) {
@@ -66,17 +64,18 @@ router.post('/:docId', async (req: Request, res: Response, next: NextFunction) =
       res.status(400).json({ success: false, error: 'png/jpeg/webp dataURL 이 필요합니다' });
       return;
     }
-    const ext = EXT_BY_MIME[m[1]];
+    const mime = m[1];
+    const ext = EXT_BY_MIME[mime];
     const buf = Buffer.from(m[2], 'base64');
 
-    const dir = path.join(ASSET_DIR, docId);
-    await fs.mkdir(dir, { recursive: true });
+    const url = await uploadBufferToR2(buf, keyFor(docId, keyStr, ext), mime, CACHE);
     // 같은 key 의 다른 확장자 잔재 제거 (png→jpg 교체 등)
-    for (const e of ['png', 'jpg', 'webp']) {
-      if (e !== ext) await fs.rm(path.join(dir, `${keyStr}.${e}`), { force: true });
-    }
-    await fs.writeFile(path.join(dir, `${keyStr}.${ext}`), buf);
-    res.json({ success: true, data: { url: `/comic-assets/${docId}/${keyStr}.${ext}` } });
+    await Promise.all(
+      EXTS.filter((e) => e !== ext).map((e) =>
+        deleteFromR2(keyFor(docId, keyStr, e)).catch(() => {})
+      )
+    );
+    res.json({ success: true, data: { url } });
   } catch (err) {
     next(err);
   }
@@ -90,10 +89,7 @@ router.delete('/:docId/:key', async (req: Request, res: Response, next: NextFunc
       res.status(400).json({ success: false, error: '잘못된 docId/key' });
       return;
     }
-    const dir = path.join(ASSET_DIR, docId);
-    for (const e of ['png', 'jpg', 'webp']) {
-      await fs.rm(path.join(dir, `${key}.${e}`), { force: true });
-    }
+    await Promise.all(EXTS.map((e) => deleteFromR2(keyFor(docId, key, e)).catch(() => {})));
     res.json({ success: true, data: { deleted: key } });
   } catch (err) {
     next(err);

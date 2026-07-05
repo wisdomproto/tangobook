@@ -87,3 +87,6 @@ lottie-samples/
 # Server render outputs + local backup dumps (large binaries / not source)
 packages/server/out/
 packages/server/scripts/_backup*/
+
+# 학습만화 자산은 R2 저장(comic-assets.routes.ts) — 리포에 커밋하지 않음
+packages/client/public/comic-assets/
