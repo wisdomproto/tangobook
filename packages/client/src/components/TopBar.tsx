@@ -14,6 +14,30 @@ interface ResourceItem {
 
 const RESOURCES: ResourceItem[] = [
   {
+    href: '/saenghwal-plan.html',
+    icon: '🐯',
+    label: '호리네 생활동화 기획서',
+    desc: '아기호랑이 호리 앙상블 8인 · 45편 커리큘럼·작법 + 회차별 대본·프롬프트(탭)',
+  },
+  {
+    href: '/learning-comic-franchise.html',
+    icon: '🗺️',
+    label: '학습만화 「타임 티코」 프랜차이즈',
+    desc: '카테고리 맵·볼륨 규칙·브랜드 연속성 (최상위 인덱스)',
+  },
+  {
+    href: '/learning-comic-plan.html',
+    icon: '🕰️',
+    label: '타임 티코 · 시대여행 기획서',
+    desc: '시즌1 12화 · 세계관·캐릭터·작법 + 회차별 콘티(탭)',
+  },
+  {
+    href: '/learning-comic-s2-plan.html',
+    icon: '🏝️',
+    label: '타임 티코 · 극한생존 기획서',
+    desc: '무인도 6부작 · 조상 생존술+현대과학+건강+부모감사 + 회차별 콘티(탭)',
+  },
+  {
     href: '/library-master',
     icon: '📚',
     label: '라이브러리 마스터',
@@ -62,30 +86,6 @@ const RESOURCES: ResourceItem[] = [
     icon: '🌱',
     label: '런칭 캠페인 플랜',
     desc: '광고 카피·랜딩·채널·KPI·6주 캘린더',
-  },
-  {
-    href: '/learning-comic-franchise.html',
-    icon: '🗺️',
-    label: '학습만화 「타임 티코」 프랜차이즈',
-    desc: '카테고리 맵·볼륨 규칙·브랜드 연속성 (최상위 인덱스)',
-  },
-  {
-    href: '/learning-comic-plan.html',
-    icon: '🕰️',
-    label: '타임 티코 · 시대여행 기획서',
-    desc: '시즌1 12화 · 세계관·캐릭터·작법 + 회차별 콘티(탭)',
-  },
-  {
-    href: '/learning-comic-s2-plan.html',
-    icon: '🏝️',
-    label: '타임 티코 · 극한생존 기획서',
-    desc: '무인도 6부작 · 조상 생존술+현대과학+건강+부모감사 + 회차별 콘티(탭)',
-  },
-  {
-    href: '/saenghwal-plan.html',
-    icon: '🐯',
-    label: '호리네 생활동화 기획서',
-    desc: '아기호랑이 호리 앙상블 8인 · 45편 커리큘럼·작법 + 회차별 대본·프롬프트(탭)',
   },
   {
     href: '/curriculum-master.html',
