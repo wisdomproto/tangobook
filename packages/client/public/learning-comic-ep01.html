@@ -128,6 +128,21 @@
   </div>
 </div>
 
+<div class="guest-section" id="costume-section">
+  <h2>🎽 이 화 의상 레퍼런스 (보리 · 노아)</h2>
+  <div class="hint">아이들은 시대마다 옷이 바뀝니다. 이 화의 <b>과거(시대) 의상</b> 버전 시트를 만들어두면 컷마다 옷이 흔들리지 않습니다. ① [시트 프롬프트 복사] → GPT에 <b>그 아이의 기본 레퍼런스와 함께</b> 넣어 생성 → ② 아래 칸에 붙여넣기. 그러면 과거 씬이 든 묶음 프롬프트가 이 레퍼런스를 <b>자동으로</b> 씁니다(보리·노아가 현대/과거로 분리 표기). <b>붙여넣은 뒤 새로고침</b>하면 반영됩니다.</div>
+
+  <div class="char-prompt" data-costume="bori" data-key="bori-costume">
+    <div class="head"><span style="font-size:20px">👧</span><b>보리 — 과거(시대) 의상</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre></pre></details>
+  </div>
+
+  <div class="char-prompt" data-costume="noa" data-key="noa-costume">
+    <div class="head"><span style="font-size:20px">👦</span><b>노아 — 과거(시대) 의상</b> <button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>
+    <details><summary>프롬프트 보기</summary><pre></pre></details>
+  </div>
+</div>
+
 <div class="divider">— A. 일상 후크 · 오리진 (1~5쪽 · 1화 특례 배분) —</div>
 
 <div class="page"><div class="pno">1쪽</div>
@@ -373,20 +388,47 @@ const EP_GUESTS = [
 ];
 
 const ALL_CHARS = FIXED_CHARS.concat(EP_GUESTS); // 메인 우선 순서 유지
+const ALL_CHARS_BY_KEY = {};
+ALL_CHARS.forEach(function (c) { ALL_CHARS_BY_KEY[c.key] = c; });
 
 // 이 화의 시대 의상 개요 (화별로 교체) — 상세는 아래 쪽별 [의상] 이 우선
 const EP_COSTUME = '[이 화의 의상 개요] 아이들은 시대에 따라 옷이 바뀐다 — 각 쪽 [의상] 지시를 반드시 따를 것. 다른 캐릭터(티코·봉수·세종·밤이)는 레퍼런스 그대로.';
 
-// 회차별 의상 구간 — 옷이 바뀌는 보리·노아만 지정(쪽 범위 from~to). 화별로 교체.
+// 회차별 의상 구간 — 옷이 바뀌는 보리·노아만 지정(쪽 범위 from~to). variant:true = 시대(과거) 의상. 화별로 교체.
 const COSTUME_ZONES = [
-  { from: 1,  to: 5,  bori: '주황 후드티 + 청바지 (현대 평상복)',   noa: '하늘색 셔츠 + 바지 (현대 평상복)' },
-  { from: 6,  to: 6,  bori: '빛에 감싸여 현대복→한복으로 변신 중',  noa: '빛에 감싸여 현대복→한복으로 변신 중' },
-  { from: 7,  to: 32, bori: '흰 저고리 + 다홍 치마 (1443 조선 한복)', noa: '옥색 바지저고리 (1443 조선 한복)' },
-  { from: 33, to: 36, bori: '주황 후드티 + 청바지 (현대 평상복)',   noa: '하늘색 셔츠 + 바지 (현대 평상복)' },
+  { from: 1,  to: 5,  variant: false, bori: '주황 후드티 + 청바지 (현대 평상복)',   noa: '하늘색 셔츠 + 바지 (현대 평상복)' },
+  { from: 6,  to: 6,  variant: false, bori: '빛에 감싸여 현대복→한복으로 변신 중',  noa: '빛에 감싸여 현대복→한복으로 변신 중' },
+  { from: 7,  to: 32, variant: true,  bori: '흰 저고리 + 다홍 치마 (1443 조선 한복)', noa: '옥색 바지저고리 (1443 조선 한복)' },
+  { from: 33, to: 36, variant: false, bori: '주황 후드티 + 청바지 (현대 평상복)',   noa: '하늘색 셔츠 + 바지 (현대 평상복)' },
 ];
 function costumeZoneFor(pno) {
   const n = parseInt(pno, 10);
   return COSTUME_ZONES.find(function (z) { return n >= z.from && n <= z.to; }) || null;
+}
+function pageIsVariant(pno) {
+  const z = costumeZoneFor(pno);
+  return !!(z && z.variant);
+}
+const EP_ERA_ZONE = COSTUME_ZONES.find(function (z) { return z.variant; }) || null;   // 시대(과거) 의상
+const EP_BASE_ZONE = COSTUME_ZONES.find(function (z) { return !z.variant; }) || null;  // 기본(현대) 의상
+
+// 보리·노아 의상 변형 레퍼런스(ep 자산 키 {kid}-costume) 존재 여부 — init 에서 assets 로 갱신.
+const COSTUME_REF = { bori: false, noa: false };
+
+// 과거 의상 시트 생성 프롬프트 — 기본 레퍼런스로 얼굴 고정 + 옷만 시대 의상으로.
+function costumeSheetPrompt(kidKey) {
+  const c = ALL_CHARS_BY_KEY[kidKey];
+  const outfit = EP_ERA_ZONE ? EP_ERA_ZONE[kidKey] : '';
+  return [
+    '한국 아동 학습만화 캐릭터 레퍼런스 시트(설정화). 밝고 따뜻한 색감, 깨끗하고 일정한 굵기의 다크브라운 외곽선, 부드러운 셀 셰이딩. 둥글고 친근한 3등신 카툰 비율. 순백 배경. 그림 안에 글자·라벨·텍스트 절대 금지.',
+    '',
+    '[가장 중요] 함께 첨부한 기본 레퍼런스(@image1)의 얼굴·헤어·이목구비·비율을 100% 그대로 유지하고, 옷만 아래 [의상]으로 갈아입힌 "같은 아이의 다른 옷차림" 시트를 그린다.',
+    '',
+    '[시트 구성] 전신 3면(정면·옆·뒤), 표정 4종(활짝 웃음·놀람·골똘·시무룩), 대표 포즈 2개. 단일 캐릭터만.',
+    '',
+    '[캐릭터] ' + (c ? c.name + ': ' + c.desc : kidKey),
+    '[의상] ' + outfit,
+  ].join('\n');
 }
 
 // 장면 지시가 주인공을 이름 대신 집합어로 부를 때(예: "두 아이", "셋이")도 감지.
@@ -407,22 +449,39 @@ function sceneHasChar(sceneText, c) {
 // 여러 쪽을 한 프롬프트로 합성 — 등장 캐릭터를 메인 우선 순서로 모아 @imageN 부여.
 // pages: [{ pno, scene }]  → GPT 에 이미지를 이 순서대로 첨부하면 @imageN 과 일치한다.
 function composeBatchPrompt(pages) {
-  const union = ALL_CHARS.filter(function (c) {
-    return pages.some(function (p) { return sceneHasChar(p.scene, c); });
+  // 등장 엔티티 구성(메인 우선 순서 유지). 보리·노아는 과거 의상 레퍼런스가 있으면 현대/과거로 분리.
+  const entities = [];
+  ALL_CHARS.forEach(function (c) {
+    const isKid = c.key === 'bori' || c.key === 'noa';
+    if (isKid && COSTUME_REF[c.key]) {
+      const baseAppears = pages.some(function (p) { return sceneHasChar(p.scene, c) && !pageIsVariant(p.pno); });
+      const eraAppears = pages.some(function (p) { return sceneHasChar(p.scene, c) && pageIsVariant(p.pno); });
+      if (baseAppears) entities.push({ charKey: c.key, look: 'base', label: c.name + '(현대)',
+        desc: c.desc + ' | 의상: ' + (EP_BASE_ZONE ? EP_BASE_ZONE[c.key] : '평상복') + ' — 기본(현대) 레퍼런스 첨부' });
+      if (eraAppears) entities.push({ charKey: c.key, look: 'era', label: c.name + '(과거)',
+        desc: c.desc + ' | 의상: ' + (EP_ERA_ZONE ? EP_ERA_ZONE[c.key] : '') + ' — 이 화 과거 의상 레퍼런스 첨부' });
+    } else {
+      const appears = pages.some(function (p) { return sceneHasChar(p.scene, c); });
+      if (appears) entities.push({ charKey: c.key, look: 'any', label: c.name, desc: c.desc });
+    }
   });
-  const imgId = {};
-  union.forEach(function (c, i) { imgId[c.key] = i + 1; });
+  entities.forEach(function (e, i) { e.img = i + 1; });
 
-  const attachList = union.map(function (c) {
-    return '@image' + imgId[c.key] + ' = ' + c.name + ': ' + c.desc;
+  const matchesLook = function (e, pno) {
+    if (e.look === 'any') return true;
+    return (e.look === 'era') === pageIsVariant(pno);
+  };
+
+  const attachList = entities.map(function (e) {
+    return '@image' + e.img + ' = ' + e.label + ': ' + e.desc;
   }).join('\n');
 
   const head = [
     STYLE_PROMPT,
     '',
-    '[캐릭터 레퍼런스 — 아래 순서 그대로 레퍼런스 이미지를 첨부하세요. 각 캐릭터는 첨부한 @imageN 과 얼굴·헤어·비율이 동일해야 합니다. 단, 옷은 레퍼런스가 아니라 각 쪽 [의상] 지시를 따릅니다]',
+    '[캐릭터 레퍼런스 — 아래 순서 그대로 이미지를 첨부하세요. 얼굴·헤어·비율은 @imageN 과 동일하게. 보리/노아가 (현대)·(과거)로 나뉘어 있으면 서로 다른 의상 레퍼런스이니 각각 첨부하세요]',
     attachList,
-    '※ 각 장면의 [등장]에 표시된 @imageN 만 그린다. 장면에 없는 캐릭터는 넣지 않는다.',
+    '※ 각 쪽 [등장]의 @imageN 만 그린다. 없는 캐릭터는 넣지 않는다. 옷은 각 쪽 [의상]을 따른다.',
     '',
     EP_COSTUME,
     '',
@@ -433,13 +492,15 @@ function composeBatchPrompt(pages) {
   ].join('\n');
 
   const body = pages.map(function (p) {
-    const onPage = union.filter(function (c) { return sceneHasChar(p.scene, c); });
-    const appear = onPage.map(function (c) { return '@image' + imgId[c.key] + '(' + c.name + ')'; }).join(', ');
-    // 옷이 바뀌는 보리·노아가 이 쪽에 등장하면 그 쪽 의상을 명시.
+    const on = entities.filter(function (e) {
+      return sceneHasChar(p.scene, ALL_CHARS_BY_KEY[e.charKey]) && matchesLook(e, p.pno);
+    });
+    const appear = on.map(function (e) { return '@image' + e.img + '(' + e.label + ')'; }).join(', ');
+    // 이 쪽에 등장하는 보리·노아의 정확한 옷을 명시.
     const zone = costumeZoneFor(p.pno);
-    const kids = onPage.filter(function (c) { return (c.key === 'bori' || c.key === 'noa') && zone && zone[c.key]; });
-    const costumeLine = kids.length
-      ? '\n[의상] ' + kids.map(function (c) { return c.name + ' = ' + zone[c.key]; }).join(' · ')
+    const kids = on.filter(function (e) { return e.charKey === 'bori' || e.charKey === 'noa'; });
+    const costumeLine = (kids.length && zone)
+      ? '\n[의상] ' + kids.map(function (e) { return ALL_CHARS_BY_KEY[e.charKey].name + ' = ' + zone[e.charKey]; }).join(' · ')
       : '';
     return '━━━━━━━━━━ ' + p.pno + '쪽 ━━━━━━━━━━\n[등장] ' + (appear || '(배경/사물 컷)') + costumeLine + '\n' + p.scene.trim();
   }).join('\n\n');
@@ -621,6 +682,14 @@ function createPasteBox(key, assets, hint) {
     document.querySelectorAll('.guest-section .char-prompt[data-key]').forEach(function (card) {
       card.appendChild(createPasteBox(card.getAttribute('data-key'), assets, '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기'));
     });
+
+    // 의상 변형 카드: 시트 생성 프롬프트 채우기 + 변형 레퍼런스 존재 여부 반영
+    document.querySelectorAll('#costume-section .char-prompt[data-costume]').forEach(function (card) {
+      const pre = card.querySelector('pre');
+      if (pre) pre.textContent = costumeSheetPrompt(card.getAttribute('data-costume'));
+    });
+    COSTUME_REF.bori = !!assets['bori-costume'];
+    COSTUME_REF.noa = !!assets['noa-costume'];
 
     const anchor = document.querySelector('header.hero');
     let barAfter = anchor; // 묶음 바를 이 요소 뒤에 삽입
