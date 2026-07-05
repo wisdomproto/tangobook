@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 골고루 먹으면 무지개 힘!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 A #1 · 파일럿</div>
+  <h1>🥕 골고루 먹으면 무지개 힘!</h1>
+  <div class="sub">편식하던 호리가 "색깔 = 힘" 프레임으로 한 입 도전 → 골고루 먹기 수용</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 편식 / 골고루 먹기 (벤치마크 단일 최고 인기, 대발이 83화 44만) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(편식)·엄마(조력)·콩이(먹보 친구)·두부 &nbsp;·&nbsp;
+  <b>장치</b> 리프레이밍(색=힘) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "골고루 냠냠, 무지개 힘이 쑥쑥!"</div>
+
+<div class="note">🎨 각 페이지의 <b>이미지 프롬프트 복사</b>는 공통 스타일 앵커(호리 캐스트 외형 고정)를 자동으로 앞에 붙여 복사합니다. 생성한 컷은 아래 박스에 붙여넣어 보관하세요(R2 저장).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁이 되면 호리네 식탁은 좋은 냄새로 가득해요. 오늘 저녁은 알록달록, 색깔이 참 많아요. 그런데 호리는 하얀 밥이랑 고기만 콕콕 집어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Cozy evening dinner table at the tiger family home, warm lamp light. Baby tiger Hori sitting in a high-ish chair picking only white rice and meat with chopsticks, pushing a small pile of broccoli and carrots to the edge of the plate. Mom tiger in peach apron setting down a colorful dish. Inviting, warm.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(거부)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"당근은 싫어! 브로콜리도 싫어!" 호리는 초록이랑 주황은 저 멀리 밀어 놓아요. 엄마는 살짝 걱정스러운 얼굴이 됐어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Close-up of Hori frowning, arms crossed, turning head away from a spoon of carrots and broccoli, tongue out in 'yuck'. The colorful vegetables pushed to the plate's edge. Mom tiger beside, gently concerned expression. Expressive, a little dramatic but cute.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(기운 빠짐)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날 아침, 호리는 어쩐지 기운이 하나도 없어요. 폴짝 뛰려 해도 다리가 무거워요. "이상하다… 힘이 어디 갔지?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Morning. Hori trying to jump but looking droopy and tired, little gray cloud over head, half-deflated posture, dull colors around Hori only. Soft morning light through window. Sympathetic, gentle.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(친구 등장)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 똑똑! 다람쥐 콩이가 놀러 왔어요. "호리야, 우리 텃밭 가자! 오늘 무지개 채소 따는 날이야!" 강아지 두부도 멍멍, 꼬리를 흔들어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Front door opens, squirrel Kongi (bushy tail, puffed cheeks, mischievous grin) waving excitedly holding a basket. White puppy Dubu wagging tail beside. Hori peeking out curious. Bright sunny outdoor light spilling in. Energetic, inviting.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(텃밭의 색)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">텃밭은 온통 무지개예요. 빨간 토마토, 주황 당근, 초록 브로콜리, 노랑 옥수수! "우와…" 호리의 눈이 동그래졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Sunny vegetable garden bursting with rainbow colors — red tomatoes, orange carrots, green broccoli, yellow corn. Hori standing wide-eyed and amazed, mouth in a small 'wow' O. Kongi happily picking veggies into a basket. Lush, vivid, joyful.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(색=힘)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">콩이가 속닥속닥. "채소마다 색깔 힘이 숨어 있어! 빨강은 씩씩, 주황은 반짝, 초록은 쑥쑥!" 정말? 호리는 침이 꼴깍 넘어가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Kongi whispering to Hori with a sparkly excited face, pointing at the veggies which have tiny magical glows around them (red glow, orange glow, green glow). Hori leaning in curious, a little drool, imagination sparkles in the air. Playful, magical-but-cozy.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(한 입)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 용기를 냈어요. 주황 당근을 아삭! "…어? 달다!" 초록 브로콜리도 오물오물. 생각보다 맛있어요. 골고루 냠냠, 무지개 힘이 쑥쑥!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Hori bravely taking a big crunchy bite of a carrot, eyes popping in pleasant surprise, a burst of warm colorful sparkles around the mouth. Kongi cheering with both paws up. Dynamic, triumphant little moment. Confetti-like color specks.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(힘이 솟음)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그러자 신기해요! 무거웠던 다리가 가벼워지고, 볼이 발그레, 꼬리가 살랑살랑. 호리 둘레로 무지개 색이 반짝반짝 돌아왔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Hori glowing with energy, rainbow-colored sparkle aura returning around the body, cheeks rosy, tail swishing happily, doing a little energetic hop. Bright saturated colors fully restored. Joyful, lively.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(저녁 식탁 재현)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁이 되자 호리가 먼저 외쳤어요. "엄마, 오늘은 무지개 식판이야!" 빨강 초록 주황 노랑, 골고루 한 입씩. 엄마가 빙그레 웃어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Evening dinner again, but now Hori proudly holding up a colorful plate arranged like a rainbow, taking a bite of each color, beaming. Mom tiger smiling warmly with hands together. Baby brother Hoya in bib watching and copying. Warm, heartwarming family glow.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 호리는 알아요. 골고루 먹으면 무지개 힘이 솟는다는 걸! "골고루 냠냠, 무지개 힘이 쑥쑥!" 호리는 친구들과 폴짝폴짝, 오늘도 신나게 놀아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Hori running and jumping energetically outdoors with friends Toto (bunny) and Bori (bear) and Kongi (squirrel) and puppy Dubu, all happy, a faint rainbow arc in the sky. Full of vitality and friendship. Bright, uplifting closing spread.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 골고루 먹으면 무지개 힘! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+var ANCHOR = "2D storybook spread illustration, warm cozy children's-book style, soft brown outlines, gentle airbrush shading. Characters are the fixed Hori cast (baby tiger Hori: warm orange fur #F8A755 with brown stripes, cream belly, pink cheek blush; friends: bunny Toto, bear Bori, squirrel Kongi, white puppy Dubu). Bright friendly palette, soft depth-of-field background. 16:9 spread, no text in image, leave calm negative space at top for caption.";
+var ASSET_API = '/api/comic-assets/saenghwal-golgoru';
+
+// tabs
+(function () {
+  var items = [['saenghwal-plan.html','📘 기획서'],['saenghwal-golgoru.html','🥕 편식'],['saenghwal-hospital.html','🏥 병원']];
+  var here = location.pathname.split('/').pop() || '';
+  document.getElementById('doc-tabs').innerHTML = items.map(function (it) {
+    return '<a href="'+it[0]+'"'+(it[0]===here?' class="active"':'')+'>'+it[1]+'</a>';
+  }).join('');
+})();
+
+// copy scene prompt (anchor + scene)
+(function () {
+  function flash(btn,l){var o=btn.textContent;btn.textContent=l;btn.classList.add('done');setTimeout(function(){btn.textContent=o;btn.classList.remove('done');},1600);}
+  async function copy(t,btn){try{await navigator.clipboard.writeText(t);flash(btn,'복사됨 ✓');}catch(e){window.prompt('직접 복사하세요:',t);}}
+  document.querySelectorAll('.page-card').forEach(function(card){
+    var btn=card.querySelector('.copy-btn'); var pre=card.querySelector('pre.scene');
+    if(btn&&pre) btn.addEventListener('click',function(){ copy(ANCHOR+'\nSCENE:\n'+pre.textContent.trim(), btn); });
+  });
+})();
+
+// image paste boxes (per page)
+(async function () {
+  var assets = {};
+  try { var r = await fetch(ASSET_API); var j = await r.json(); assets = (j&&j.data)||{}; } catch(e){}
+  function createPasteBox(key){
+    var box=document.createElement('div'); box.className='paste-box'; box.tabIndex=0;
+    var hint='🖼️ 클릭 후 Ctrl+V — 생성한 컷 붙여넣기';
+    function reset(){box.classList.remove('has-img');box.innerHTML='';box.textContent=hint;}
+    function setImg(url){
+      box.classList.add('has-img');
+      box.innerHTML='<img src="'+url+'" alt="" /><button type="button" class="paste-del">✕</button>';
+      box.querySelector('.paste-del').addEventListener('click',async function(e){e.stopPropagation();if(!confirm('이 이미지를 삭제할까요?'))return;try{await fetch(ASSET_API+'/'+key,{method:'DELETE'});reset();}catch(err){alert('삭제 실패 — 서버(3500) 확인');}});
+    }
+    if(assets[key]) setImg(assets[key]+'?t='+Date.now()); else box.textContent=hint;
+    async function upload(file){
+      if(!file||!/^image\/(png|jpeg|webp)$/.test(file.type))return;
+      box.classList.add('busy'); var fr=new FileReader();
+      fr.onload=async function(){try{var r=await fetch(ASSET_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:key,dataUrl:fr.result})});var j=await r.json();if(j.success)setImg(j.data.url+'?t='+Date.now());else alert('저장 실패: '+(j.error||''));}catch(e){alert('저장 실패 — 서버(3500) 확인');}box.classList.remove('busy');};
+      fr.readAsDataURL(file);
+    }
+    box.addEventListener('paste',function(e){var its=(e.clipboardData&&e.clipboardData.items)||[];for(var i=0;i<its.length;i++){if(its[i].type&&its[i].type.indexOf('image/')===0){e.preventDefault();upload(its[i].getAsFile());return;}}});
+    box.addEventListener('dragover',function(e){e.preventDefault();});
+    box.addEventListener('drop',function(e){e.preventDefault();var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f)upload(f);});
+    box.addEventListener('click',function(){box.focus();});
+    return box;
+  }
+  document.querySelectorAll('.page-card[data-page]').forEach(function(card){ card.appendChild(createPasteBox(card.getAttribute('data-page'))); });
+})();
+</script>
+</body>
+</html>

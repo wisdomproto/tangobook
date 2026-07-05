@@ -82,6 +82,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '무인도 6부작 · 조상 생존술+현대과학+건강+부모감사 + 회차별 콘티(탭)',
   },
   {
+    href: '/saenghwal-plan.html',
+    icon: '🐯',
+    label: '호리네 생활동화 기획서',
+    desc: '아기호랑이 호리 앙상블 8인 · 45편 커리큘럼·작법 + 회차별 대본·프롬프트(탭)',
+  },
+  {
     href: '/curriculum-master.html',
     icon: '📖',
     label: '커리큘럼 마스터',

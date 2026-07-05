@@ -6,8 +6,15 @@
 - [cast-bible-and-pilot.md](cast-bible-and-pilot.md) — 호리네 캐스트 바이블(8인) + 초기 파일럿
 - [character-prompts.md](character-prompts.md) — 캐릭터 레퍼런스 생성 프롬프트(모델시트 v2)
 - [topic-master-list.md](topic-master-list.md) — 7트랙 30+주제 마스터 리스트(연령·캐릭터·장치·우선순위)
+- [curriculum-45.md](curriculum-45.md) — **45편 완성 커리큘럼**(대발이 34편 실측 분석 기반 "결점=배역" 매핑, ★=근거편). topic-master-list 확장판.
 - [pilot-golgoru-v2.md](pilot-golgoru-v2.md) — 파일럿 「골고루 먹기」 완성본(3사 공식 적용)
+- [book-p1-hospital.md](book-p1-hospital.md) — P1 「주사 콕, 병균 뿅!」 병원 대본(상상역할극=몸속 병사)
 - [art-style-bakeoff.md](art-style-bakeoff.md) — 그림체 확정 bake-off(후보 6종 프롬프트 + 평가 + 다음 단계). ⏳ B(펠트) vs F(아기상어식) 페이지 테스트 대기
+
+## 저작도구 HTML (학습만화식, TopBar 자료실 "🐯 호리네 생활동화 기획서")
+`packages/client/public/` — 상단 탭 연결, 쪽별 🎨 프롬프트 복사(스타일 앵커 자동), 컷/캐릭터 이미지 붙여넣기(`/api/comic-assets/{docId}` R2):
+- `saenghwal-plan.html` — 기획서(개요·벤치마크·캐스트8 레퍼런스 프롬프트·45편 커리큘럼·작법)
+- `saenghwal-golgoru.html` — 편식 파일럿 10스프레드 · `saenghwal-hospital.html` — 병원 10스프레드
 
 ## 상태 (2026-07-01)
 - ✅ **45권 제작 완료** — 에디터 R2, `folder='생활동화'` + `category='생활동화'`

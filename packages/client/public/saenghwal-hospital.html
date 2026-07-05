@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 주사 콕, 병균 뿅!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 C #15 · P1</div>
+  <h1>🏥 주사 콕, 병균 뿅!</h1>
+  <div class="sub">주사를 무서워하던 호리가 "주사 = 몸속 병사에게 힘 주기" 상상으로 용기를 낸다</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 병원·주사 공포 극복 (병원 31만+콩순이 1위) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(환자)·엄마(조력)·곰 의사 선생님(상상 안내)·(몸속 병사/병균) &nbsp;·&nbsp;
+  <b>장치</b> 상상역할극(몸속 병사) — 시그니처 차별화 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">⚔️ 반복 후렴 — "주사 콕! 병균 뿅! 씩씩한 병사 나가신다!"</div>
+
+<div class="note">🎨 각 페이지 <b>이미지 프롬프트 복사</b>는 공통 스타일 앵커(호리 캐스트 외형 고정)를 자동으로 앞에 붙입니다. 병균은 <b>무섭지 않게 동글·바보스럽게</b> — 유아 공포 최소화.</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">에취! 콜록콜록. 오늘 아침 호리는 코가 맹맹, 이마가 뜨끈뜨끈. "엄마, 몸이 이상해요…" "우리 호리, 병원에 가 볼까?" 병원이라는 말에 호리 꼬리가 축 처졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Morning at the tiger family home. Baby tiger Hori with a red runny nose and flushed cheeks, sneezing 'achoo', a thermometer nearby. Mom tiger in peach apron gently touching Hori's forehead with a caring look. Hori's tail droops the moment 'hospital' is mentioned. Cozy, sympathetic.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(공포)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"벼, 병원은 싫어요! 주사 맞잖아요!" 호리는 뾰족한 주사 생각에 온몸이 오싹. "콕 하면 엄청 아플 거야…" 상상만 해도 눈물이 그렁그렁 맺혔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Close-up of Hori shaking its head, arms hugging itself, eyes welling with tears. A big imaginary spiky syringe looms behind Hori's head like a scary thought-bubble. Exaggerated but cute fear expression. Mom beside, gently reassuring.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>증폭(대기실)</b> <span class="tag">증폭</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">병원 대기실은 조용조용. 그런데 저쪽에서 "으앙!" 하고 우는 소리가 들려요. 호리 심장이 콩닥콩닥, 콩닥콩닥. "나도… 울면 어떡하지?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Hospital waiting room, soft pastel colors. Hori sitting stiffly on a chair against Mom's arm, ears flat, wide nervous eyes, tiny sweat drop. In the background another little animal patient crying. Visible 'thump-thump' heartbeat lines around Hori's chest. Tense but gentle, kid-friendly.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(조력자·상상 시작)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"호리 어린이, 들어오세요." 다정한 곰 선생님이 빙그레 웃었어요. "호리야, 네 몸속에 아주 씩씩한 병사들이 사는 거 알아?" "…병사요?" 호리가 눈을 동그랗게 떴어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Kind chubby bear doctor in a white coat and round glasses, kneeling to Hori's eye level with a warm smile, pointing playfully at Hori's tummy. Hori looks up, curiosity replacing fear, eyes going round. Warm exam room with cute medical posters. Inviting, magical-but-cozy.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(몸속 세계)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">선생님이 그림을 보여 줬어요. 호리 몸속엔 반짝반짝 작은 병사들이 살아요. 그런데 오늘은 까맣고 꼬물꼬물한 병균들이 몰려와 병사들이 힘이 쭉 빠졌지 뭐예요. "그래서 호리가 아픈 거란다."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Imaginative cutaway of Hori's body as a cozy castle world: tiny cute shiny soldier-cells looking tired, while fuzzy little black germ-blobs (mischievous, not scary — round with silly faces) swarm around. A storybook-style diagram Hori is peering at with wonder. Playful, whimsical, soft.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(주사=힘)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"이 주사는 말이야, 병사들에게 힘을 주는 마법 물이란다. 콕 하고 넣어 주면?" 선생님이 속삭였어요. "씩씩한 병사들이 뿅! 하고 일어나 병균을 물리치지!" 호리는 침이 꼴깍 넘어갔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Bear doctor holding a small friendly-looking syringe that sparkles with gentle magical light. Above it, an imagined scene: the tiny soldier-cells standing up strong and glowing, fists raised. Hori leaning in, fear turning into fascination, a little sparkle in its eyes. Cozy, empowering.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(주사 맞기)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 후우, 크게 숨을 쉬었어요. "…해 볼래요." 팔을 쓱 내밀고 눈을 질끈. 콕! "어? …어라?" 생각보다 하나도 안 아팠어요. 주사 콕! 병균 뿅! 씩씩한 병사 나가신다!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Hori bravely rolling up its sleeve and offering its arm, eyes squeezed shut, taking a deep breath. The bear doctor gently gives the tiny shot 'poke'. A burst of warm confetti-like sparkles. In an imagination overlay, the soldier-cells charge forward triumphantly. Dynamic, brave little moment.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(승리)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리 몸속에서 병사들이 우르르! 까만 병균들이 뿅뿅 사라졌어요. 그렁그렁하던 눈물도 쏙 들어갔지요. "나… 안 울었어요!" 호리 꼬리가 무지개처럼 살랑 폈어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Triumphant imagination scene: glowing soldier-cells cheering as the black germ-blobs pop away 'poof-poof'. Back in reality, Hori beaming with relief, tears gone, chest puffed proud. Hori's signature rainbow tail swishing up brightly. Joyful, victorious, warm.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(회복·씩씩)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집에 온 호리는 약도 꿀꺽, 물도 벌컥. 이불 속에서 폭 자고 나니 코도 뻥, 열도 쏙. "엄마! 병사들이 이겼어요!" 엄마가 호리를 꼭 안아 주었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Home again. Hori taking medicine with a big gulp and drinking water, then snug under a blanket. Next beat: Hori popping up energetic and healthy, nose clear. Mom tiger hugging Hori warmly, both smiling. Baby brother Hoya in a bib peeking happily. Heartwarming family glow.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 호리는 알아요. 주사는 무서운 게 아니라, 내 몸을 지켜 주는 거란 걸! "주사 콕! 병균 뿅! 씩씩한 병사 나가신다!" 호리는 친구들과 폴짝폴짝, 오늘도 씩씩하게 놀아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene">Hori running and jumping energetically outdoors with friends Toto (bunny), Bori (bear), Kongi (squirrel), and puppy Dubu, all healthy and happy, faint rainbow arc in the sky. Hori pointing proudly at its own arm with a tiny bandage. Bright, uplifting closing spread full of vitality.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 주사 콕, 병균 뿅! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+var ANCHOR = "2D storybook spread illustration, warm cozy children's-book style, soft brown outlines, gentle airbrush shading. Characters are the fixed Hori cast (baby tiger Hori: warm orange fur #F8A755 with brown stripes, cream belly, pink cheek blush; kind chubby bear doctor in white coat and round glasses; friends: bunny Toto, bear Bori, squirrel Kongi, white puppy Dubu). Bright friendly palette, soft depth-of-field background. 16:9 spread, no text in image, leave calm negative space at top for caption.";
+var ASSET_API = '/api/comic-assets/saenghwal-hospital';
+
+// tabs
+(function () {
+  var items = [['saenghwal-plan.html','📘 기획서'],['saenghwal-golgoru.html','🥕 편식'],['saenghwal-hospital.html','🏥 병원']];
+  var here = location.pathname.split('/').pop() || '';
+  document.getElementById('doc-tabs').innerHTML = items.map(function (it) {
+    return '<a href="'+it[0]+'"'+(it[0]===here?' class="active"':'')+'>'+it[1]+'</a>';
+  }).join('');
+})();
+
+// copy scene prompt (anchor + scene)
+(function () {
+  function flash(btn,l){var o=btn.textContent;btn.textContent=l;btn.classList.add('done');setTimeout(function(){btn.textContent=o;btn.classList.remove('done');},1600);}
+  async function copy(t,btn){try{await navigator.clipboard.writeText(t);flash(btn,'복사됨 ✓');}catch(e){window.prompt('직접 복사하세요:',t);}}
+  document.querySelectorAll('.page-card').forEach(function(card){
+    var btn=card.querySelector('.copy-btn'); var pre=card.querySelector('pre.scene');
+    if(btn&&pre) btn.addEventListener('click',function(){ copy(ANCHOR+'\nSCENE:\n'+pre.textContent.trim(), btn); });
+  });
+})();
+
+// image paste boxes (per page)
+(async function () {
+  var assets = {};
+  try { var r = await fetch(ASSET_API); var j = await r.json(); assets = (j&&j.data)||{}; } catch(e){}
+  function createPasteBox(key){
+    var box=document.createElement('div'); box.className='paste-box'; box.tabIndex=0;
+    var hint='🖼️ 클릭 후 Ctrl+V — 생성한 컷 붙여넣기';
+    function reset(){box.classList.remove('has-img');box.innerHTML='';box.textContent=hint;}
+    function setImg(url){
+      box.classList.add('has-img');
+      box.innerHTML='<img src="'+url+'" alt="" /><button type="button" class="paste-del">✕</button>';
+      box.querySelector('.paste-del').addEventListener('click',async function(e){e.stopPropagation();if(!confirm('이 이미지를 삭제할까요?'))return;try{await fetch(ASSET_API+'/'+key,{method:'DELETE'});reset();}catch(err){alert('삭제 실패 — 서버(3500) 확인');}});
+    }
+    if(assets[key]) setImg(assets[key]+'?t='+Date.now()); else box.textContent=hint;
+    async function upload(file){
+      if(!file||!/^image\/(png|jpeg|webp)$/.test(file.type))return;
+      box.classList.add('busy'); var fr=new FileReader();
+      fr.onload=async function(){try{var r=await fetch(ASSET_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:key,dataUrl:fr.result})});var j=await r.json();if(j.success)setImg(j.data.url+'?t='+Date.now());else alert('저장 실패: '+(j.error||''));}catch(e){alert('저장 실패 — 서버(3500) 확인');}box.classList.remove('busy');};
+      fr.readAsDataURL(file);
+    }
+    box.addEventListener('paste',function(e){var its=(e.clipboardData&&e.clipboardData.items)||[];for(var i=0;i<its.length;i++){if(its[i].type&&its[i].type.indexOf('image/')===0){e.preventDefault();upload(its[i].getAsFile());return;}}});
+    box.addEventListener('dragover',function(e){e.preventDefault();});
+    box.addEventListener('drop',function(e){e.preventDefault();var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f)upload(f);});
+    box.addEventListener('click',function(){box.focus();});
+    return box;
+  }
+  document.querySelectorAll('.page-card[data-page]').forEach(function(card){ card.appendChild(createPasteBox(card.getAttribute('data-page'))); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 시리즈 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --coral: #ff7c5c; --coral-dark: #e85c3a; --peach: #ffe8d9; --cream: #fff8f0;
+    --ink: #2b2320; --ink-soft: #6b5d55; --mint: #22b8a6; --line: #f0e0d2; --orange:#f8a755;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--cream); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: #fff; border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+  header.hero { text-align: center; padding: 40px 0; border-bottom: 3px solid var(--coral); margin-bottom: 40px; }
+  .hero .kicker { color: var(--coral-dark); font-weight: 800; letter-spacing: .2em; font-size: 13px; }
+  .hero h1 { font-size: 44px; font-weight: 900; margin: 10px 0 6px; }
+  .hero .sub { color: var(--ink-soft); font-size: 16px; font-weight: 600; }
+  .hero .meta { margin-top: 18px; font-size: 13px; color: var(--ink-soft); }
+  nav.toc { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 20px 24px; margin-bottom: 48px; }
+  nav.toc b { display:block; margin-bottom: 8px; color: var(--coral-dark); }
+  nav.toc a { color: var(--ink); text-decoration: none; font-weight: 600; font-size: 14px; }
+  nav.toc a:hover { color: var(--coral-dark); }
+  nav.toc ol { padding-left: 20px; }
+  h2 { font-size: 26px; font-weight: 900; margin: 64px 0 8px; padding-top: 16px; border-top: 2px solid var(--line); }
+  h2 .no { color: var(--coral); margin-right: 8px; }
+  h3 { font-size: 18px; font-weight: 800; margin: 28px 0 8px; color: var(--coral-dark); }
+  p { margin: 8px 0; }
+  .lead { font-size: 16px; color: var(--ink-soft); font-weight: 600; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; background: #fff; font-size: 13.5px; }
+  th { background: var(--peach); text-align: left; padding: 9px 12px; font-weight: 800; }
+  td { border-top: 1px solid var(--line); padding: 9px 12px; vertical-align: top; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 20px 24px; margin: 16px 0; }
+  .card.accent { border-left: 5px solid var(--coral); }
+  .card.mint { border-left: 5px solid var(--mint); }
+  .rule { display:flex; gap:12px; margin: 10px 0; }
+  .rule .n { flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--coral); color:#fff; font-weight: 900; display:flex; align-items:center; justify-content:center; }
+  .tag { display:inline-block; background: var(--peach); color: var(--coral-dark); border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 800; margin-right: 6px; }
+  .note { font-size: 13px; color: var(--ink-soft); background: var(--peach); border-radius: 10px; padding: 10px 14px; margin: 12px 0; }
+  .copy-btn { background: #fff; color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 4px 14px; font-weight: 800; font-size: 12.5px; cursor: pointer; }
+  .copy-btn:hover, .copy-btn.done { background: var(--mint); color: #fff; }
+  .char-prompt { margin: 14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:#fff; }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--peach); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt details { margin-top: 8px; }
+  .char-prompt summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdfa; margin-top: 10px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(43,35,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: #e85c3a; }
+  .paste-box:focus { border-color: var(--coral); color: var(--coral-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+  @media print { body { background:#fff } .wrap { max-width: none; padding: 0 } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 생활동화</div>
+  <h1>호리네 생활동화</h1>
+  <div class="sub">아기 호랑이 호리와 친구들이 하루하루 배우는 습관·안전·마음 이야기 — 시리즈 기획서</div>
+  <div class="meta">v1.0 · 2026-07-05 · 대상: 3~5세 코어 · 시즌1 = 45편 × 10스프레드 · 고정 앙상블 8인 · 회차별 대본·프롬프트는 상단 탭</div>
+</header>
+
+<nav class="toc">
+  <b>차례</b>
+  <ol>
+    <li><a href="#s1">시리즈 개요 & 포지셔닝</a></li>
+    <li><a href="#s2">벤치마크 분석 (대발이 100화 실측)</a></li>
+    <li><a href="#s3">캐스트 바이블 8인 (결점=배역)</a></li>
+    <li><a href="#s4">작법 공식 (5비트 + 7규칙)</a></li>
+    <li><a href="#s5">45편 커리큘럼 (7트랙)</a></li>
+    <li><a href="#s6">회차별 대본 → 상단 탭</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<h2 id="s1"><span class="no">1</span>시리즈 개요 & 포지셔닝</h2>
+<p class="lead">"아기 호랑이 호리와 여덟 친구가 매일의 작은 문제를 만나고, 놀이처럼 배우며 자란다."</p>
+<table>
+  <tr><th style="width:130px">형태</th><td>탱고북 앱 내 그림책 — 기존 뷰어·TTS 그대로 사용 (한 스프레드 = 큰 그림 1컷 + 하단 텍스트, 탭 시 낭독)</td></tr>
+  <tr><th>타겟</th><td>3~5세 코어 (2~7세 확장). 부모가 "생활 습관·안전"을 위해 반복 재생하는 소비 패턴</td></tr>
+  <tr><th>규모</th><td>시즌1 = 45편, 편당 10스프레드. 고정 앙상블 8인 = 한 번 디자인 후 전권 재사용</td></tr>
+  <tr><th>포지션</th><td>명작·자연관찰(멀티 그림체)과 별개의 <b>고정 캐릭터 IP 트랙</b> — 대발이·페파·콩순이 시장을 AI로 대체</td></tr>
+  <tr><th>제작</th><td>대본(텍스트·프롬프트) 전량 선행 완성 → 이미지 AI 생성은 마지막 단계</td></tr>
+</table>
+<div class="card accent">
+  <b>차별점:</b> 3사(대발이·페파·콩순이) 검증 공식을 그대로 계승하되, 무서운 소재를 <b>상상역할극</b>(예: 주사=몸속 병사)으로 뒤집는 콩순이식 장치를 시그니처로 삼는다. + 호리 <b>무지개 부릉꼬리</b> 시그니처 훅.
+</div>
+
+<!-- ============================================================ -->
+<h2 id="s2"><span class="no">2</span>벤치마크 분석 — 대발이 100화 실측</h2>
+<p class="lead">경쟁작 대발이TV 「공룡 대발이 생활동화」의 실제 나레이션 34편을 자막 추출·분석해 공식을 역설계했다(2026-07-05).</p>
+<h3>발견 1 — 2트랙 시리즈</h3>
+<table>
+  <tr><th>트랙</th><th>주제축</th><th>가이드(조력자)</th><th>예시</th></tr>
+  <tr><td><b>만나요 편</b></td><td>감정·자아·관계</td><td>주로 <b>엄마</b>(정서적 리프레이밍)</td><td>나는 나, 우리 엄마, 꽥꽥이는 싫어요</td></tr>
+  <tr><td><b>배워요 편</b></td><td>생활습관·안전·예절</td><td><b>또래·어른·선생님</b>(실용 규칙)</td><td>길 건너기, 먼저 드세요, 나눠 먹어요</td></tr>
+</table>
+<h3>발견 2 — 배워요 편은 "커리큘럼 블록" (71~100화 실측)</h3>
+<p>랜덤 소재가 아니라 <b>10편 단위로 한 도메인을 촘촘히</b> 판다: 🚦안전(71~80) → 🍚식습관·예절(81~90) → ⚽운동(91~93) → 🎨예술(94~100). "안전"을 1편이 아니라 벨트+횡단보도+지진+미아+성폭력예방…으로 쪼갠다.</p>
+<h3>발견 3 — 캐릭터 = 결점 1개 (핵심 엔진)</h3>
+<div class="card mint">앙상블 각자가 결점/특기를 하나씩 담당하고, 그 결점을 고치는 편에 그 캐릭터가 주인공이 된다(빠름이=성급→식사예절, 초록이=버럭→볼륨). → 캐릭터에 결점을 박아두면 <b>소재가 자동 생성</b>된다.</div>
+
+<!-- ============================================================ -->
+<h2 id="s3"><span class="no">3</span>캐스트 바이블 8인 — 결점 = 배역</h2>
+<p class="lead">고정 8인 앙상블. 한 번 디자인 = 30~40권 재사용. 각 캐릭터 레퍼런스 시트를 확정해 전권 일관성을 유지한다.</p>
+<table>
+  <tr><th>#</th><th>이름</th><th>종/나이</th><th>1차 성격</th><th>결점(배역용)</th><th>담당 주제</th></tr>
+  <tr><td>1</td><td><b>호리</b></td><td>아기 호랑이 5</td><td>호기심·다정·고집</td><td>새것 거부·자기의심</td><td>거의 전권 주인공</td></tr>
+  <tr><td>2</td><td><b>엄마</b></td><td>호랑이</td><td>다정·차분</td><td>(조력자·해결의 목소리)</td><td>습관·감정 전반</td></tr>
+  <tr><td>3</td><td><b>아빠</b></td><td>호랑이</td><td>든든·장난기</td><td>(조력자·놀이친구)</td><td>가족·자립·바깥활동</td></tr>
+  <tr><td>4</td><td><b>호야</b></td><td>아기 호랑이 2(동생)</td><td>천진·따라쟁이</td><td>떼쓰기·질투</td><td>동생 질투·배려·양보</td></tr>
+  <tr><td>5</td><td><b>토토</b></td><td>토끼 5</td><td>활발한 리더</td><td>성급·승부욕·큰소리(버럭)</td><td>차례·용기·감정조절</td></tr>
+  <tr><td>6</td><td><b>보리</b></td><td>곰 6</td><td>수줍음·느긋</td><td>두려움·부끄러움</td><td>병원·밤·낯가림</td></tr>
+  <tr><td>7</td><td><b>콩이</b></td><td>다람쥐 5</td><td>먹보·장난·호기심</td><td>편식·충동·못 참음</td><td>편식·간식·요리</td></tr>
+  <tr><td>8</td><td><b>두부</b></td><td>강아지(펫)</td><td>충성·까불</td><td>산만·못 앉음</td><td>동물·생명존중·책임</td></tr>
+</table>
+<div class="note">설계 원리(페파 Suzy/Rebecca): 토토=앞서가는 아이 / 보리=느린·수줍은 아이 / 콩이=충동·먹보 아이 → 아이가 "나는 ○○ 같아" 자기 투영. 친구는 <b>서로 다른 종</b>이라 한 장면에 모여도 즉시 구분.</div>
+
+<h3>캐릭터 레퍼런스 시트 프롬프트 <button class="copy-btn" id="copy-all-chars">전체 복사 ⧉</button></h3>
+<p style="font-size:13px;color:var(--ink-soft)">각 캐릭터 골든 idle 1장 확정 → 그걸 ref로 표정/포즈 시트 확장. 아래 프롬프트에 <b>공통 스타일 앵커가 이미 포함</b>돼 있습니다. 생성 후 확정 시트를 각 박스에 붙여넣어 보관하세요.</p>
+
+<div class="char-prompt" data-char="호리" data-key="hori">
+  <div class="head"><span class="face">🐯</span><b>호리 (주인공, 아기 호랑이)</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre>Style: 2D storybook illustration, soft brown outlines (not harsh black), gentle airbrush shading, slightly fluffy digital painting texture, warm and cozy. Super-deformed chibi: head ~1.3x body, short chubby limbs, 3-finger rounded paws, large round eyes with white highlights, pink cheek blush. Canvas 1024x1024, solid pure magenta #FF00FF background, character centered, 8% padding. No ground, no shadow, no text, no extra characters.
+CHARACTER: a baby tiger cub, warm orange fur (#F8A755) with soft brown stripes (#5A3A22), cream belly, big curious eyes, a tiny signature rainbow-tinged tail tuft.
+POSE: standing idle, front view, gentle smile, arms relaxed.</pre></details>
+</div>
+<div class="char-prompt" data-char="엄마" data-key="mom">
+  <div class="head"><span class="face">🐯</span><b>엄마 (조력자)</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>Style: 2D storybook illustration, soft brown outlines, gentle airbrush shading, fluffy cozy texture. Super-deformed chibi: head ~1.3x body, large round eyes, pink cheek blush. Canvas 1024x1024, solid pure magenta #FF00FF background, centered, 8% padding. No ground, no shadow, no text, no extra characters.
+CHARACTER: an adult mother tiger, same warm orange fur (#F8A755) and brown stripes (#5A3A22) and cream belly as Hori, taller and slender, kind half-closed eyes, wearing a soft peach apron.
+POSE: standing idle, front view, gentle smile, arms relaxed.</pre></details>
+</div>
+<div class="char-prompt" data-char="아빠" data-key="dad">
+  <div class="head"><span class="face">🐯</span><b>아빠 (조력자)</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>Style: 2D storybook illustration, soft brown outlines, gentle airbrush shading, fluffy cozy texture. Super-deformed chibi: head ~1.3x body, large round eyes, pink cheek blush. Canvas 1024x1024, solid pure magenta #FF00FF background, centered, 8% padding. No ground, no shadow, no text, no extra characters.
+CHARACTER: an adult father tiger, deeper orange fur, thicker brown stripes, broad friendly build, small round glasses, big warm smile.
+POSE: standing idle, front view, gentle smile, arms relaxed.</pre></details>
+</div>
+<div class="char-prompt" data-char="호야" data-key="hoya">
+  <div class="head"><span class="face">🐯</span><b>호야 (동생)</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>Style: 2D storybook illustration, soft brown outlines, gentle airbrush shading, fluffy cozy texture. Super-deformed chibi: head ~1.4x body (even bigger head ratio), large round eyes, pink cheek blush. Canvas 1024x1024, solid pure magenta #FF00FF background, centered, 8% padding. No ground, no shadow, no text, no extra characters.
+CHARACTER: a toddler baby tiger (Hori's little brother), same palette as Hori but even chubbier, wearing a yellow bib, tiny, wobbly, drooly happy face.
+POSE: standing idle, front view, gentle smile, arms relaxed.</pre></details>
+</div>
+<div class="char-prompt" data-char="토토" data-key="toto">
+  <div class="head"><span class="face">🐰</span><b>토토 (토끼 · 성급·버럭)</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>Style: 2D storybook illustration, soft brown outlines, gentle airbrush shading, fluffy cozy texture. Super-deformed chibi: head ~1.3x body, large round eyes, pink cheek blush. Canvas 1024x1024, solid pure magenta #FF00FF background, centered, 8% padding. No ground, no shadow, no text, no extra characters.
+CHARACTER: a bouncy bunny rabbit, white fur with light-blue inner ears, long upright ears, bright confident eyes, energetic pose leaning forward, wearing a tiny red kerchief.
+POSE: standing idle, front view, gentle smile, arms relaxed.</pre></details>
+</div>
+<div class="char-prompt" data-char="보리" data-key="bori">
+  <div class="head"><span class="face">🐻</span><b>보리 (곰 · 겁많음·수줍음)</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>Style: 2D storybook illustration, soft brown outlines, gentle airbrush shading, fluffy cozy texture. Super-deformed chibi: head ~1.3x body, large round eyes, pink cheek blush. Canvas 1024x1024, solid pure magenta #FF00FF background, centered, 8% padding. No ground, no shadow, no text, no extra characters.
+CHARACTER: a chubby light-brown bear cub, shy gentle expression, big round eyes looking slightly down, wearing blue denim overalls, soft and slow-looking.
+POSE: standing idle, front view, gentle smile, arms relaxed.</pre></details>
+</div>
+<div class="char-prompt" data-char="콩이" data-key="kongi">
+  <div class="head"><span class="face">🐿️</span><b>콩이 (다람쥐 · 먹보·편식)</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>Style: 2D storybook illustration, soft brown outlines, gentle airbrush shading, fluffy cozy texture. Super-deformed chibi: head ~1.3x body, large round eyes, pink cheek blush. Canvas 1024x1024, solid pure magenta #FF00FF background, centered, 8% padding. No ground, no shadow, no text, no extra characters.
+CHARACTER: a brown squirrel, big bushy striped tail, cheeks puffed full like storing food, mischievous grin, holding an acorn, lively.
+POSE: standing idle, front view, gentle smile, arms relaxed.</pre></details>
+</div>
+<div class="char-prompt" data-char="두부" data-key="dubu">
+  <div class="head"><span class="face">🐶</span><b>두부 (강아지 펫 · 산만)</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>Style: 2D storybook illustration, soft brown outlines, gentle airbrush shading, fluffy cozy texture. Super-deformed chibi: head ~1.3x body, large round eyes, pink cheek blush. Canvas 1024x1024, solid pure magenta #FF00FF background, centered, 8% padding. No ground, no shadow, no text, no extra characters.
+CHARACTER: a small round white puppy, one floppy brown ear, big shiny eyes, red collar, tongue out happy, sitting loyally.
+POSE: standing idle, front view, gentle smile, arms relaxed.</pre></details>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="s4"><span class="no">4</span>작법 공식 — 5비트 + 7규칙</h2>
+<h3>5비트 아크 (전편 고정)</h3>
+<div class="card">
+  <p><b>① 일상(제목=첫 대사 리프레인)</b> → <b>② 문제/유혹/아차사고</b>(작은 부정감정으로 연다) → <b>③ 전환</b>(조력자·놀이·상상) → <b>④ 도전·해결</b> → <b>⑤ 자기수용 + 한 줄 교훈 + 후렴</b></p>
+</div>
+<h3>7규칙 (대발이 실측 재확인)</h3>
+<div class="rule"><div class="n">1</div><div><b>제목 = 첫 대사(리프레인 훅).</b> 거의 전편이 제목을 그대로 첫 소리로 외치며 시작 = 각인.</div></div>
+<div class="rule"><div class="n">2</div><div><b>작은 부정감정/아차사고로 연다.</b> 평화 묘사 금지 — "차 급정거!" 같은 가벼운 위기.</div></div>
+<div class="rule"><div class="n">3</div><div><b>조력자 1명이 ④비트 해결.</b> 감정편=엄마 리프레이밍 / 생활편=또래·어른·선생님.</div></div>
+<div class="rule"><div class="n">4</div><div><b>장치 1개 + 반복 후렴 1개.</b> 편마다 후렴송 1개(예: "골고루 냠냠, 무지개 힘 쑥쑥!").</div></div>
+<div class="rule"><div class="n">5</div><div><b>생활편은 번호 규칙 2~3개를 대사로.</b> 아이가 따라 할 수 있게(예: 횡단보도 "멈춰!·손 번쩍!·차 보고 건너!").</div></div>
+<div class="rule"><div class="n">6</div><div><b>결말 = 신체적 애정 + 교훈 1줄.</b> 항상 안전·따뜻하게.</div></div>
+<div class="rule"><div class="n">7</div><div><b>호리 시그니처 훅.</b> 무지개 부릉꼬리 등 브랜드 정체성을 매 편 삽입(페파 진흙탕 원리).</div></div>
+
+<!-- ============================================================ -->
+<h2 id="s5"><span class="no">5</span>45편 커리큘럼 — 7트랙</h2>
+<p class="lead">각 편 = 주인공(결점 캐릭터) + 조력자 + 장치 + 후렴. ★ = 대발이 실측 근거편.</p>
+
+<h3>트랙 A. 건강·위생 (8)</h3>
+<table><tr><th>#</th><th>주제</th><th>주인공</th><th>후렴 예시</th></tr>
+<tr><td>1</td><td>골고루 먹기/편식 <span class="tag">파일럿 ✅</span></td><td>호리·콩이</td><td>골고루 냠냠, 무지개 힘 쑥쑥!</td></tr>
+<tr><td>2</td><td>양치 치카치카</td><td>호리</td><td>치카치카 쓱쓱, 반짝반짝!</td></tr>
+<tr><td>3</td><td>손 씻기</td><td>콩이</td><td>보글보글 뽀득뽀득!</td></tr>
+<tr><td>4</td><td>화장실 혼자</td><td>호야</td><td>쉬야 쑥, 참 잘했어요!</td></tr>
+<tr><td>5</td><td>꼭꼭 씹어 먹기 ★</td><td>콩이</td><td>꼭꼭 냠냠, 천천히!</td></tr>
+<tr><td>6</td><td>간식은 조금만 ★</td><td>콩이</td><td>간식은 요만큼, 밥이 먼저!</td></tr>
+<tr><td>7</td><td>목욕은 놀이</td><td>호리</td><td>첨벙첨벙 보글보글!</td></tr>
+<tr><td>8</td><td>일찍 자기(수면)</td><td>호리·가족</td><td>잘 자요 코~ 잘 자요 코~</td></tr></table>
+
+<h3>트랙 B. 자립·루틴 (6)</h3>
+<table><tr><th>#</th><th>주제</th><th>주인공</th></tr>
+<tr><td>9</td><td>아침에 일어나기</td><td>호리</td></tr>
+<tr><td>10</td><td>정리정돈</td><td>두부</td></tr>
+<tr><td>11</td><td>옷 혼자 입기</td><td>호야</td></tr>
+<tr><td>12</td><td>스스로 준비(가방·소풍) ★</td><td>호리</td></tr>
+<tr><td>13</td><td>앉아서 먹기 ★</td><td>두부(산만)</td></tr>
+<tr><td>14</td><td>어른 먼저·식사예절 ★</td><td>토토(성급)</td></tr></table>
+
+<h3>트랙 C. 안전 (8)</h3>
+<table><tr><th>#</th><th>주제</th><th>주인공</th><th>후렴/규칙</th></tr>
+<tr><td>15</td><td>병원·주사 <span class="tag">파일럿 ✅</span></td><td>호리·의사</td><td>주사 콕! 병균 뿅!</td></tr>
+<tr><td>16</td><td>길 건너기 ★</td><td>호리</td><td>멈춰! 손 번쩍! 차 보고 건너!</td></tr>
+<tr><td>17</td><td>안전벨트 ★</td><td>호리</td><td>찰칵! 벨트 매고 출발!</td></tr>
+<tr><td>18</td><td>미아 방지 ★</td><td>호리</td><td>손 꼭! 엄마 곁에!</td></tr>
+<tr><td>19</td><td>위험한 것 안 돼, 퉤! ★</td><td>콩이</td><td>이상하면 안 먹어, 퉤!</td></tr>
+<tr><td>20</td><td>지진 대피 ★</td><td>호리</td><td>흔들흔들, 책상 밑으로!</td></tr>
+<tr><td>21</td><td>킥보드·자전거 조심 ★</td><td>토토</td><td>천천히, 앞을 봐요!</td></tr>
+<tr><td>22</td><td>내 몸 지키기(낯선 사람) ★</td><td>호리</td><td>싫어요! 안 돼요! 엄마한테 말해요!</td></tr></table>
+
+<h3>트랙 D. 마음·감정 (8)</h3>
+<table><tr><th>#</th><th>주제</th><th>주인공</th></tr>
+<tr><td>23</td><td>자기수용(나는 나) ★</td><td>호리</td></tr>
+<tr><td>24</td><td>밤·어둠 두려움</td><td>보리</td></tr>
+<tr><td>25</td><td>화날 땐 크게 숨(버럭 그만) ★</td><td>토토</td></tr>
+<tr><td>26</td><td>부끄러워도 괜찮아</td><td>보리</td></tr>
+<tr><td>27</td><td>울고 싶을 땐 울어도 돼</td><td>호야</td></tr>
+<tr><td>28</td><td>실패해도 다시(도전)</td><td>콩이</td></tr>
+<tr><td>29</td><td>새로운 것 도전(물 무서움) ★</td><td>보리</td></tr>
+<tr><td>30</td><td>심심함·기다림 견디기</td><td>호리</td></tr></table>
+
+<h3>트랙 E. 관계·사회성 (8)</h3>
+<table><tr><th>#</th><th>주제</th><th>주인공</th></tr>
+<tr><td>31</td><td>미안해(사과)</td><td>호리</td></tr>
+<tr><td>32</td><td>차례 기다리기 ★</td><td>토토</td></tr>
+<tr><td>33</td><td>나눠 쓰기·나눔 ★</td><td>콩이</td></tr>
+<tr><td>34</td><td>고운 말</td><td>토토</td></tr>
+<tr><td>35</td><td>싸우지 말고 말로 ★</td><td>토토·콩이</td></tr>
+<tr><td>36</td><td>친구 사귀기·인사</td><td>보리</td></tr>
+<tr><td>37</td><td>함께하면 더 재밌어(협동) ★</td><td>호리</td></tr>
+<tr><td>38</td><td>큰 소리 그만(적정 볼륨) ★</td><td>토토</td></tr></table>
+
+<h3>트랙 F. 가족·성장 (4) · 트랙 G. 세상·일상 (3, P3 확장)</h3>
+<table><tr><th>#</th><th>주제</th><th>주인공</th></tr>
+<tr><td>39</td><td>동생이 생겨요(질투)</td><td>호리·호야</td></tr>
+<tr><td>40</td><td>동생 돌보기·배려</td><td>호리</td></tr>
+<tr><td>41</td><td>유치원 첫날</td><td>보리</td></tr>
+<tr><td>42</td><td>할머니댁(조부모 사랑)</td><td>호리</td></tr>
+<tr><td>43</td><td>반려동물 돌보기·생명존중</td><td>호리·두부</td></tr>
+<tr><td>44</td><td>공공장소 예절</td><td>호리</td></tr>
+<tr><td>45</td><td>계절·자연 나들이(감사)</td><td>호리·가족</td></tr></table>
+
+<div class="note">출시 로드맵 — <b>P1 즉시 12편</b>: 1편식·2양치·3손씻기·4배변·8수면·15병원·23자기수용·31사과·39동생 + 16길건너기·18미아·25화다스리기 → <b>P2 18편</b> → <b>P3 15편</b>(트랙 G 무한 확장).</div>
+
+<!-- ============================================================ -->
+<h2 id="s6"><span class="no">6</span>회차별 대본 → 상단 탭</h2>
+<p class="lead">완성된 회차 대본(페이지별 텍스트 + 장면 프롬프트 + 이미지 붙여넣기)은 상단 탭에서 확인. 프롬프트엔 캐스트 외형 앵커가 포함돼 바로 이미지화할 수 있습니다.</p>
+<table>
+  <tr><th>회차</th><th>주제</th><th>장치</th><th>상태</th></tr>
+  <tr><td><a href="saenghwal-golgoru.html" style="color:var(--coral-dark);font-weight:800">🥕 골고루 먹으면 무지개 힘!</a></td><td>편식(트랙A #1)</td><td>리프레이밍(색=힘)</td><td>대본 ✅</td></tr>
+  <tr><td><a href="saenghwal-hospital.html" style="color:var(--coral-dark);font-weight:800">🏥 주사 콕, 병균 뿅!</a></td><td>병원·주사(트랙C #15)</td><td>상상역할극(몸속 병사)</td><td>대본 ✅</td></tr>
+</table>
+
+<footer>호리네 생활동화 시리즈 기획서 v1.0 · TangoBook Original · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 상단 탭 (기획서 + 회차 자동) ──
+(function () {
+  var items = [
+    ['saenghwal-plan.html', '📘 기획서'],
+    ['saenghwal-golgoru.html', '🥕 편식'],
+    ['saenghwal-hospital.html', '🏥 병원'],
+  ];
+  var here = location.pathname.split('/').pop() || 'saenghwal-plan.html';
+  var nav = document.getElementById('doc-tabs');
+  nav.innerHTML = items.map(function (it) {
+    return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
+  }).join('');
+})();
+
+// ── 프롬프트 복사 (개별 + 전체) ──
+(function () {
+  function flash(btn, label) {
+    var orig = btn.textContent; btn.textContent = label; btn.classList.add('done');
+    setTimeout(function () { btn.textContent = orig; btn.classList.remove('done'); }, 1600);
+  }
+  async function copy(text, btn) {
+    try { await navigator.clipboard.writeText(text); flash(btn, '복사됨 ✓'); }
+    catch (e) { window.prompt('복사가 막혔어요 — 직접 복사하세요:', text); }
+  }
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    var btn = card.querySelector('.copy-btn'); var pre = card.querySelector('pre');
+    if (btn && pre) btn.addEventListener('click', function () { copy(pre.textContent, btn); });
+  });
+  var allBtn = document.getElementById('copy-all-chars');
+  if (allBtn) allBtn.addEventListener('click', function () {
+    var parts = [];
+    document.querySelectorAll('.char-prompt').forEach(function (card) {
+      var name = card.getAttribute('data-char'); var pre = card.querySelector('pre');
+      if (pre) parts.push('===== ' + name + ' 레퍼런스 시트 =====\n' + pre.textContent.trim());
+    });
+    copy(parts.join('\n\n\n'), allBtn);
+  });
+})();
+
+// ── 캐릭터 레퍼런스 이미지 붙여넣기 (R2: comic-assets/saenghwal-plan) ──
+(async function () {
+  var ASSET_API = '/api/comic-assets/saenghwal-plan';
+  var assets = {};
+  try { var r = await fetch(ASSET_API); var j = await r.json(); assets = (j && j.data) || {}; } catch (e) {}
+  function createPasteBox(key) {
+    var box = document.createElement('div');
+    box.className = 'paste-box'; box.tabIndex = 0;
+    var hint = '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기';
+    function reset() { box.classList.remove('has-img'); box.innerHTML = ''; box.textContent = hint; }
+    function setImg(url) {
+      box.classList.add('has-img');
+      box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del">✕</button>';
+      box.querySelector('.paste-del').addEventListener('click', async function (e) {
+        e.stopPropagation(); if (!confirm('이 이미지를 삭제할까요?')) return;
+        try { await fetch(ASSET_API + '/' + key, { method: 'DELETE' }); reset(); } catch (err) { alert('삭제 실패 — 서버(3500) 확인'); }
+      });
+    }
+    if (assets[key]) setImg(assets[key] + '?t=' + Date.now()); else box.textContent = hint;
+    async function upload(file) {
+      if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+      box.classList.add('busy');
+      var fr = new FileReader();
+      fr.onload = async function () {
+        try {
+          var r = await fetch(ASSET_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ key: key, dataUrl: fr.result }) });
+          var j = await r.json();
+          if (j.success) setImg(j.data.url + '?t=' + Date.now()); else alert('저장 실패: ' + (j.error || ''));
+        } catch (e) { alert('저장 실패 — 서버(3500) 확인'); }
+        box.classList.remove('busy');
+      };
+      fr.readAsDataURL(file);
+    }
+    box.addEventListener('paste', function (e) {
+      var items = (e.clipboardData && e.clipboardData.items) || [];
+      for (var i = 0; i < items.length; i++) { if (items[i].type && items[i].type.indexOf('image/') === 0) { e.preventDefault(); upload(items[i].getAsFile()); return; } }
+    });
+    box.addEventListener('dragover', function (e) { e.preventDefault(); });
+    box.addEventListener('drop', function (e) { e.preventDefault(); var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if (f) upload(f); });
+    box.addEventListener('click', function () { box.focus(); });
+    return box;
+  }
+  document.querySelectorAll('.char-prompt[data-key]').forEach(function (card) {
+    card.appendChild(createPasteBox(card.getAttribute('data-key')));
+  });
+})();
+</script>
+</body>
+</html>
