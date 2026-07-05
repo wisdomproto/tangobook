@@ -52,33 +52,11 @@ for (const doc of docs) {
   const warns = [];
   const flags = [];
 
-  // ── 1) 배터리 % 곡선 ──────────────────────────────
-  // 배터리는 %(또는 만충/충전) 로 표기, 부품은 칸 으로 표기 → 게이지 N% 는 배터리로 간주.
-  const batt = []; // {pno, pct}
-  let anchorPnoWord = null; // 만충/충전 완료 등 말로 된 앵커 첫 등장 쪽
+  // ── 1) 배터리 검사 폐기(2026-07-05) — 배터리·제한시간 설정 자체를 제거함.
+  //    잔재 감시: 배터리 언급이 남아 있으면 FAIL(제거 누락 탐지).
   for (const p of pages) {
-    if (anchorPnoWord === null && /(만충|충전\s*완료|꽉\s*채워|충전\s*케이블[^<]{0,20}100)/.test(p.text)) {
-      anchorPnoWord = p.pno;
-    }
-    // 배터리는 %(숫자) 로만 표기 — 배터리/게이지 인접 N% 를 순서대로 수집.
-    // ('절반' 등 한글 수치는 "반짝/반쪽" 오탐이 커서 제외 → 그 회차는 급락 WARN 으로만 뜰 수 있음)
-    const re = /(?:배터리|게이지)[^%<]{0,18}?(\d{1,3})\s*%/g;
-    let mm;
-    while ((mm = re.exec(p.text))) {
-      const pct = parseInt(mm[1], 10);
-      if (pct >= 0 && pct <= 100) batt.push({ pno: p.pno, pct });
-    }
-  }
-  if (batt.length) {
-    const firstBatt = batt[0];
-    const anchored = firstBatt.pct === 100 || (anchorPnoWord !== null && anchorPnoWord <= firstBatt.pno);
-    if (!anchored) {
-      fails.push(`배터리 출발 앵커 없음 — 첫 배터리 언급이 ${firstBatt.pno}쪽 ${firstBatt.pct}% (앞에 100%/만충 없음)`);
-    }
-    for (let i = 1; i < batt.length; i++) {
-      const a = batt[i - 1], b = batt[i];
-      if (b.pct > a.pct) fails.push(`배터리 역행 — ${a.pno}쪽 ${a.pct}% → ${b.pno}쪽 ${b.pct}%`);
-      else if (a.pct - b.pct > 45) warns.push(`배터리 급락(>45%p) — ${a.pno}쪽 ${a.pct}% → ${b.pno}쪽 ${b.pct}% (중간 눈금 권장)`);
+    if (/배터리/.test(p.text) || /해\s*뜨기\s*전/.test(p.text)) {
+      fails.push(`${p.pno}쪽: 배터리/제한시간 잔재 — "${(p.text.match(/[^ ]*배터리[^ ]*|해\s*뜨기\s*전[^ ]*/) || [''])[0]}" (룰2 개정으로 삭제 대상)`);
     }
   }
 
@@ -119,12 +97,12 @@ for (const doc of docs) {
 
   if (fails.length) anyFail = true;
   const status = fails.length ? '❌ FAIL' : warns.length ? '⚠️  WARN' : '✅ PASS';
-  console.log(`\n■ ${doc}  ${status}  (쪽 ${pages.length} · 배터리표기 ${batt.length} · 부품 ${parts.length})`);
+  console.log(`\n■ ${doc}  ${status}  (쪽 ${pages.length} · 부품게이지 ${parts.length})`);
   fails.forEach((x) => console.log(`   ❌ ${x}`));
   warns.forEach((x) => console.log(`   ⚠️  ${x}`));
   if (twoEv.length) console.log(`   🎬 두-사건 후보 ${twoEv.length}건(한 쪽 한 이벤트 확인): ` + twoEv.join(' | '));
   if (flags.length) console.log(`   🔎 회상어 ${flags.length}건: ` + flags.slice(0, 6).join(' | ') + (flags.length > 6 ? ' …' : ''));
 }
 
-console.log(`\n${anyFail ? '❌ 일부 회차 FAIL — 위 배터리 앵커/역행 수정 필요' : '✅ 전 회차 배터리/게이지 규칙 통과 (🔎 회상어 플래그는 사람이 확인)'}`);
+console.log(`\n${anyFail ? '❌ 일부 회차 FAIL — 위 배터리/제한시간 잔재 제거 필요' : '✅ 전 회차 배터리 잔재 0·부품게이지 정상 (🔎/🎬 플래그는 사람이 확인)'}`);
 process.exit(anyFail ? 1 : 0);
