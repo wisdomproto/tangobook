@@ -50,7 +50,7 @@ SCENE:
 - SCENE: `Hori bravely rolling up its sleeve and offering its arm, eyes squeezed shut, taking a deep breath. The elephant doctor gently gives the tiny shot 'poke'. A burst of warm confetti-like sparkles. In an imagination overlay, the soldier-cells charge forward triumphantly. Dynamic, brave little moment.`
 
 **P8 — 변화(승리)**
-- 텍스트: *"호리 몸속에서 병사들이 우르르! 까만 병균들이 뿅뿅 사라졌어요. 그렁그렁하던 눈물도 쏙 들어갔지요. \"나… 안 울었어요!\" 호리 꼬리가 무지개처럼 살랑 폈어요."*
+- 텍스트: *"호리 몸속에서 병사들이 우르르! 까만 병균들이 뿅뿅 사라졌어요. 병균 뿅! 씩씩한 병사, 이겼다! 그렁그렁하던 눈물도 쏙 들어갔지요. \"나… 안 울었어요!\" 호리 꼬리가 무지개처럼 살랑 폈어요."*
 - SCENE: `Triumphant imagination scene: glowing soldier-cells cheering as the black germ-blobs pop away 'poof-poof'. Back in reality, Hori beaming with relief, tears gone, chest puffed proud. Hori's signature rainbow tail swishing up brightly. Joyful, victorious, warm.`
 
 **P9 — 적용(회복·씩씩)**
