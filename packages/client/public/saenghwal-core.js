@@ -21,6 +21,15 @@
       '.batch-btn{background:var(--mint);color:#fff;border:none;border-radius:999px;padding:9px 20px;font-weight:800;font-size:13px;cursor:pointer;}',
       '.batch-btn:hover{background:#1a9e8e;}',
       '.batch-btn.done{background:var(--coral);}',
+      '.guest-section{background:#fff;border:1.5px solid var(--coral);border-radius:16px;padding:18px 20px;margin:16px 0 24px;}',
+      '.guest-section h3{font-size:16px;font-weight:900;color:var(--coral-dark);margin:0 0 6px;}',
+      '.guest-section .ghint{font-size:12px;color:var(--ink-soft);line-height:1.6;margin-bottom:12px;}',
+      '.guest-section .char-prompt{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;background:var(--cream);}',
+      '.guest-section .char-prompt .head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}',
+      '.guest-section .char-prompt .head b{font-size:14px;}',
+      '.guest-section .char-prompt .copy-btn{margin-left:auto;}',
+      '.guest-section summary{cursor:pointer;font-size:12.5px;font-weight:700;color:var(--ink-soft);margin-top:6px;}',
+      '.guest-section pre{white-space:pre-wrap;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:12px;line-height:1.6;margin-top:6px;color:var(--ink-soft);}',
     ].join('');
     var s = document.createElement('style');
     s.id = 'sh-core-style';
@@ -98,6 +107,15 @@
     }).join('\n\n');
 
     return head + '\n\n' + body;
+  }
+
+  // ── 단역 캐릭터 레퍼런스 시트 프롬프트 (STYLE_PROMPT와 동일 그림체 = 니들펠트) ──
+  function guestSheetPrompt(g) {
+    return [
+      'Style: Needle-felted wool plush look — a soft handmade 3D wool-felt doll with visible fuzzy felted-wool fibers, chunky huggable rounded forms, gentle soft studio lighting, vibrant saturated colors, stop-motion feel. NOT flat 2D, NOT painted, NOT smooth CG, NOT clay-smooth (wool fibers must be visible). Super-deformed chibi: head ~1.3x body, short chubby limbs, large round eyes, pink cheek blush. Canvas 1024x1024, solid pure magenta #FF00FF background, character centered, 8% padding. No ground shadow, no text, no labels, no extra characters.',
+      'CHARACTER: ' + g.name + ' — ' + g.desc,
+      'LAYOUT: one sheet with the SAME character — full-body front idle, 3/4 turn, and three face close-ups (happy, surprised, gentle). Single character only.',
+    ].join('\n');
   }
 
   // ── 페이지 데이터 수집 ──
@@ -209,5 +227,30 @@
       return box;
     }
     pages.forEach(function (p) { p.card.appendChild(createPasteBox(p.page)); });
+
+    // ── 이 화 단역 레퍼런스 섹션 (SH_GUESTS 있을 때만) ──
+    if (GUESTS.length) {
+      var sec = document.createElement('div');
+      sec.className = 'guest-section';
+      var cards = GUESTS.map(function (g) {
+        return '<div class="char-prompt" data-guest="' + g.key + '">' +
+          '<div class="head"><b>@image' + g.img + ' · ' + g.name + '</b>' +
+          '<button type="button" class="copy-btn">📋 시트 프롬프트 복사</button></div>' +
+          '<details><summary>프롬프트 보기</summary><pre></pre></details></div>';
+      }).join('');
+      sec.innerHTML =
+        '<h3>🎭 이 화 새 캐릭터(단역) 레퍼런스</h3>' +
+        '<div class="ghint">이 화에만 나오는 단역입니다(@image9~). ① [시트 프롬프트 복사] → GPT에 넣어 니들펠트 시트 생성 → ② 아래 박스에 붙여넣어 확정하세요. 그러면 전체 프롬프트의 @image 번호와 이 시트가 1:1로 맞습니다. <b>@image1~8 고정 캐스트 시트는 📘 기획서 탭에서.</b></div>' +
+        cards;
+      var firstPage = document.querySelector('.page-card');
+      if (firstPage) firstPage.parentNode.insertBefore(sec, firstPage);
+      GUESTS.forEach(function (g) {
+        var card = sec.querySelector('.char-prompt[data-guest="' + g.key + '"]');
+        card.querySelector('pre').textContent = guestSheetPrompt(g);
+        var btn = card.querySelector('.copy-btn');
+        btn.addEventListener('click', function () { copyText(guestSheetPrompt(g), btn); });
+        card.appendChild(createPasteBox(g.key));
+      });
+    }
   })();
 })();
