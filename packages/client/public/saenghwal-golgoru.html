@@ -61,7 +61,7 @@
 </div>
 <div class="refrain">🌈 반복 후렴 — "골고루 냠냠, 무지개 힘이 쑥쑥!"</div>
 
-<div class="note">🎨 각 페이지의 <b>이미지 프롬프트 복사</b>는 공통 스타일 앵커(호리 캐스트 외형 고정)를 자동으로 앞에 붙여 복사합니다. 생성한 컷은 아래 박스에 붙여넣어 보관하세요(R2 저장).</div>
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
 
 <!-- ===== pages ===== -->
 <div class="page-card" data-page="p1">
@@ -127,57 +127,6 @@
 <footer>호리네 생활동화 · 골고루 먹으면 무지개 힘! · 대본 v1.0 · 내부 저작용</footer>
 </div>
 
-<script>
-var ANCHOR = "2D storybook spread illustration, warm cozy children's-book style, soft brown outlines, gentle airbrush shading. Characters are the fixed Hori cast (baby tiger Hori: warm orange fur #F8A755 with brown stripes, cream belly, pink cheek blush; friends: bunny Toto, bear Bori, squirrel Kongi, white puppy Dubu). Bright friendly palette, soft depth-of-field background. 16:9 spread, no text in image, leave calm negative space at top for caption.";
-var ASSET_API = '/api/comic-assets/saenghwal-golgoru';
-
-// tabs
-(function () {
-  var items = [['saenghwal-plan.html','📘 기획서'],['saenghwal-golgoru.html','🥕 편식'],['saenghwal-hospital.html','🏥 병원']];
-  var here = location.pathname.split('/').pop() || '';
-  document.getElementById('doc-tabs').innerHTML = items.map(function (it) {
-    return '<a href="'+it[0]+'"'+(it[0]===here?' class="active"':'')+'>'+it[1]+'</a>';
-  }).join('');
-})();
-
-// copy scene prompt (anchor + scene)
-(function () {
-  function flash(btn,l){var o=btn.textContent;btn.textContent=l;btn.classList.add('done');setTimeout(function(){btn.textContent=o;btn.classList.remove('done');},1600);}
-  async function copy(t,btn){try{await navigator.clipboard.writeText(t);flash(btn,'복사됨 ✓');}catch(e){window.prompt('직접 복사하세요:',t);}}
-  document.querySelectorAll('.page-card').forEach(function(card){
-    var btn=card.querySelector('.copy-btn'); var pre=card.querySelector('pre.scene');
-    if(btn&&pre) btn.addEventListener('click',function(){ copy(ANCHOR+'\nSCENE:\n'+pre.textContent.trim(), btn); });
-  });
-})();
-
-// image paste boxes (per page)
-(async function () {
-  var assets = {};
-  try { var r = await fetch(ASSET_API); var j = await r.json(); assets = (j&&j.data)||{}; } catch(e){}
-  function createPasteBox(key){
-    var box=document.createElement('div'); box.className='paste-box'; box.tabIndex=0;
-    var hint='🖼️ 클릭 후 Ctrl+V — 생성한 컷 붙여넣기';
-    function reset(){box.classList.remove('has-img');box.innerHTML='';box.textContent=hint;}
-    function setImg(url){
-      box.classList.add('has-img');
-      box.innerHTML='<img src="'+url+'" alt="" /><button type="button" class="paste-del">✕</button>';
-      box.querySelector('.paste-del').addEventListener('click',async function(e){e.stopPropagation();if(!confirm('이 이미지를 삭제할까요?'))return;try{await fetch(ASSET_API+'/'+key,{method:'DELETE'});reset();}catch(err){alert('삭제 실패 — 서버(3500) 확인');}});
-    }
-    if(assets[key]) setImg(assets[key]+'?t='+Date.now()); else box.textContent=hint;
-    async function upload(file){
-      if(!file||!/^image\/(png|jpeg|webp)$/.test(file.type))return;
-      box.classList.add('busy'); var fr=new FileReader();
-      fr.onload=async function(){try{var r=await fetch(ASSET_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:key,dataUrl:fr.result})});var j=await r.json();if(j.success)setImg(j.data.url+'?t='+Date.now());else alert('저장 실패: '+(j.error||''));}catch(e){alert('저장 실패 — 서버(3500) 확인');}box.classList.remove('busy');};
-      fr.readAsDataURL(file);
-    }
-    box.addEventListener('paste',function(e){var its=(e.clipboardData&&e.clipboardData.items)||[];for(var i=0;i<its.length;i++){if(its[i].type&&its[i].type.indexOf('image/')===0){e.preventDefault();upload(its[i].getAsFile());return;}}});
-    box.addEventListener('dragover',function(e){e.preventDefault();});
-    box.addEventListener('drop',function(e){e.preventDefault();var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f)upload(f);});
-    box.addEventListener('click',function(){box.focus();});
-    return box;
-  }
-  document.querySelectorAll('.page-card[data-page]').forEach(function(card){ card.appendChild(createPasteBox(card.getAttribute('data-page'))); });
-})();
-</script>
+<script src="/saenghwal-core.js"></script>
 </body>
 </html>

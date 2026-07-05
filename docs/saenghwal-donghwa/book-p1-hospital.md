@@ -6,7 +6,7 @@
 - **주제**: 병원·주사 공포 극복
 - **타겟 연령**: 3~5세
 - **학습목표**: 주사를 무서워하던 아이가 "주사=몸속 병사에게 힘을 주는 것"이라는 상상 프레임으로 용기를 내어 주사를 맞고, 병원이 나를 지켜주는 곳임을 안다
-- **등장**: 호리(무서워하는 환자) · 엄마(조력자) · 곰 의사 선생님(상상 안내자) · (몸속 병사/병균 = 상상 캐릭터)
+- **등장**: 호리(무서워하는 환자) · 엄마(조력자) · 코끼리 의사 선생님(상상 안내자) · (몸속 병사/병균 = 상상 캐릭터)
 - **구조**: 5비트 — 일상→문제(공포)→증폭→전환(상상역할극)→도전·성공→자기수용+후렴
 - **반복 후렴(전환·성공마다)**: *"주사 콕! 병균 뿅! 씩씩한 병사 나가신다!"*
 - **분량**: 10 스프레드. 의성어 매 페이지 + 제목=오프닝.
@@ -34,8 +34,8 @@ SCENE:
 - SCENE: `Hospital waiting room, soft pastel colors. Hori sitting stiffly on a chair between Mom's arm, ears flat, wide nervous eyes, tiny sweat drop. In the background another little animal patient crying. Visible 'thump-thump' heartbeat lines around Hori's chest. Tense but gentle, kid-friendly.`
 
 **P4 — 전환(조력자·상상 시작)**
-- 텍스트: *"\"호리 어린이, 들어오세요.\" 다정한 곰 선생님이 빙그레 웃었어요. \"호리야, 네 몸속에 아주 씩씩한 병사들이 사는 거 알아?\" \"…병사요?\" 호리가 눈을 동그랗게 떴어요."*
-- SCENE: `Kind chubby bear doctor in a white coat and round glasses, kneeling to Hori's eye level with a warm smile, pointing playfully at Hori's tummy. Hori looks up, curiosity replacing fear, eyes going round. Warm exam room with cute medical posters. Inviting, magical-but-cozy.`
+- 텍스트: *"\"호리 어린이, 들어오세요.\" 다정한 코끼리 선생님이 빙그레 웃었어요. \"호리야, 네 몸속에 아주 씩씩한 병사들이 사는 거 알아?\" \"…병사요?\" 호리가 눈을 동그랗게 떴어요."*
+- SCENE: `Kind gentle elephant doctor in a white coat and round glasses, long soft trunk, kneeling to Hori's eye level with a warm smile, pointing playfully at Hori's tummy. Hori looks up, curiosity replacing fear, eyes going round. Warm exam room with cute medical posters. Inviting, magical-but-cozy.`
 
 **P5 — 발견(몸속 세계)**
 - 텍스트: *"선생님이 그림을 보여 줬어요. 호리 몸속엔 반짝반짝 작은 병사들이 살아요. 그런데 오늘은 까맣고 꼬물꼬물한 병균들이 몰려와 병사들이 힘이 쭉 빠졌지 뭐예요. \"그래서 호리가 아픈 거란다.\""*
@@ -43,11 +43,11 @@ SCENE:
 
 **P6 — 프레임 전환(주사=힘)**
 - 텍스트: *"\"이 주사는 말이야, 병사들에게 힘을 주는 마법 물이란다. 콕 하고 넣어 주면?\" 선생님이 속삭였어요. \"씩씩한 병사들이 뿅! 하고 일어나 병균을 물리치지!\" 호리는 침이 꼴깍 넘어갔어요."*
-- SCENE: `Bear doctor holding a small friendly-looking syringe that sparkles with gentle magical light. Above it, an imagined scene: the tiny soldier-cells standing up strong and glowing, fists raised. Hori leaning in, fear turning into fascination, a little sparkle in its eyes. Cozy, empowering.`
+- SCENE: `Elephant doctor holding a small friendly-looking syringe that sparkles with gentle magical light. Above it, an imagined scene: the tiny soldier-cells standing up strong and glowing, fists raised. Hori leaning in, fear turning into fascination, a little sparkle in its eyes. Cozy, empowering.`
 
 **P7 — 도전(주사 맞기)**
 - 텍스트: *"호리는 후우, 크게 숨을 쉬었어요. \"…해 볼래요.\" 팔을 쓱 내밀고 눈을 질끈. 콕! \"어? …어라?\" 생각보다 하나도 안 아팠어요. 주사 콕! 병균 뿅! 씩씩한 병사 나가신다!"*
-- SCENE: `Hori bravely rolling up its sleeve and offering its arm, eyes squeezed shut, taking a deep breath. The bear doctor gently gives the tiny shot 'poke'. A burst of warm confetti-like sparkles. In an imagination overlay, the soldier-cells charge forward triumphantly. Dynamic, brave little moment.`
+- SCENE: `Hori bravely rolling up its sleeve and offering its arm, eyes squeezed shut, taking a deep breath. The elephant doctor gently gives the tiny shot 'poke'. A burst of warm confetti-like sparkles. In an imagination overlay, the soldier-cells charge forward triumphantly. Dynamic, brave little moment.`
 
 **P8 — 변화(승리)**
 - 텍스트: *"호리 몸속에서 병사들이 우르르! 까만 병균들이 뿅뿅 사라졌어요. 그렁그렁하던 눈물도 쏙 들어갔지요. \"나… 안 울었어요!\" 호리 꼬리가 무지개처럼 살랑 폈어요."*
