@@ -374,8 +374,20 @@ const EP_GUESTS = [
 
 const ALL_CHARS = FIXED_CHARS.concat(EP_GUESTS); // 메인 우선 순서 유지
 
-// 이 화의 시대 의상 (화별로 교체)
-const EP_COSTUME = '[이 화의 의상] 1443년 조선 장면에서 보리 = 흰 저고리 + 다홍 치마, 노아 = 옥색 바지저고리. 현대(창고) 장면에서는 평상복(보리 주황 후드티, 노아 하늘색 셔츠).';
+// 이 화의 시대 의상 개요 (화별로 교체) — 상세는 아래 쪽별 [의상] 이 우선
+const EP_COSTUME = '[이 화의 의상 개요] 아이들은 시대에 따라 옷이 바뀐다 — 각 쪽 [의상] 지시를 반드시 따를 것. 다른 캐릭터(티코·봉수·세종·밤이)는 레퍼런스 그대로.';
+
+// 회차별 의상 구간 — 옷이 바뀌는 보리·노아만 지정(쪽 범위 from~to). 화별로 교체.
+const COSTUME_ZONES = [
+  { from: 1,  to: 5,  bori: '주황 후드티 + 청바지 (현대 평상복)',   noa: '하늘색 셔츠 + 바지 (현대 평상복)' },
+  { from: 6,  to: 6,  bori: '빛에 감싸여 현대복→한복으로 변신 중',  noa: '빛에 감싸여 현대복→한복으로 변신 중' },
+  { from: 7,  to: 32, bori: '흰 저고리 + 다홍 치마 (1443 조선 한복)', noa: '옥색 바지저고리 (1443 조선 한복)' },
+  { from: 33, to: 36, bori: '주황 후드티 + 청바지 (현대 평상복)',   noa: '하늘색 셔츠 + 바지 (현대 평상복)' },
+];
+function costumeZoneFor(pno) {
+  const n = parseInt(pno, 10);
+  return COSTUME_ZONES.find(function (z) { return n >= z.from && n <= z.to; }) || null;
+}
 
 // 장면 지시가 주인공을 이름 대신 집합어로 부를 때(예: "두 아이", "셋이")도 감지.
 const DUO_TERMS = ['아이들', '두 아이', '아이 둘'];        // 보리 + 노아
@@ -408,7 +420,7 @@ function composeBatchPrompt(pages) {
   const head = [
     STYLE_PROMPT,
     '',
-    '[캐릭터 레퍼런스 — 아래 순서 그대로 레퍼런스 이미지를 첨부하세요. 각 캐릭터는 첨부한 @imageN 과 얼굴·의상·비율이 동일해야 합니다]',
+    '[캐릭터 레퍼런스 — 아래 순서 그대로 레퍼런스 이미지를 첨부하세요. 각 캐릭터는 첨부한 @imageN 과 얼굴·헤어·비율이 동일해야 합니다. 단, 옷은 레퍼런스가 아니라 각 쪽 [의상] 지시를 따릅니다]',
     attachList,
     '※ 각 장면의 [등장]에 표시된 @imageN 만 그린다. 장면에 없는 캐릭터는 넣지 않는다.',
     '',
@@ -416,14 +428,20 @@ function composeBatchPrompt(pages) {
     '',
     '[출력 규칙]',
     '- 아래 ' + pages.length + '개 장면을 각각 독립된 16:9 일러스트로 그린다 (총 ' + pages.length + '장, 쪽 순서대로).',
-    '- 모든 장면에서 같은 캐릭터의 외형(얼굴·머리·의상)을 동일하게 유지한다.',
+    '- 같은 캐릭터의 얼굴·머리·비율은 모든 장면에서 동일하게 유지하되, 옷은 각 쪽 [의상] 지시대로 갈아입힌다.',
     '- 그림 안에 글자·말풍선·문자 텍스트를 절대 넣지 않는다.',
   ].join('\n');
 
   const body = pages.map(function (p) {
-    const appear = union.filter(function (c) { return sceneHasChar(p.scene, c); })
-      .map(function (c) { return '@image' + imgId[c.key] + '(' + c.name + ')'; }).join(', ');
-    return '━━━━━━━━━━ ' + p.pno + '쪽 ━━━━━━━━━━\n[등장] ' + (appear || '(배경/사물 컷)') + '\n' + p.scene.trim();
+    const onPage = union.filter(function (c) { return sceneHasChar(p.scene, c); });
+    const appear = onPage.map(function (c) { return '@image' + imgId[c.key] + '(' + c.name + ')'; }).join(', ');
+    // 옷이 바뀌는 보리·노아가 이 쪽에 등장하면 그 쪽 의상을 명시.
+    const zone = costumeZoneFor(p.pno);
+    const kids = onPage.filter(function (c) { return (c.key === 'bori' || c.key === 'noa') && zone && zone[c.key]; });
+    const costumeLine = kids.length
+      ? '\n[의상] ' + kids.map(function (c) { return c.name + ' = ' + zone[c.key]; }).join(' · ')
+      : '';
+    return '━━━━━━━━━━ ' + p.pno + '쪽 ━━━━━━━━━━\n[등장] ' + (appear || '(배경/사물 컷)') + costumeLine + '\n' + p.scene.trim();
   }).join('\n\n');
 
   return head + '\n\n' + body;
