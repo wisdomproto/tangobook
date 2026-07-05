@@ -105,12 +105,25 @@ for (const doc of docs) {
     if (meta) flags.push(`${p.pno}쪽: 메타 표기 ${meta.join(',')} — 대사에 "N화" 직접 노출 확인`);
   }
 
+  // ── 4) "한 쪽=한 이벤트" 두-사건 후보 휴리스틱(사람 확인용) ──────────────
+  //  의미 판단이라 자동 확정 불가 → 신호어로 후보만 뽑음. 지식카드 2단·피날레 몽타주(≤2)는 정상일 수 있음.
+  const twoEv = [];
+  for (const p of pages) {
+    const hits = [];
+    ['경위 설명', '3분할', '3요소', '3단'].forEach((k) => { if (p.text.includes(k)) hits.push(k); });
+    if (/차례로[^.]{0,25}(지나|스쳐|떠오|흘러|바뀌)/.test(p.text)) hits.push('차례로~(시간경과)');
+    // 배경의 '무리/행렬'이 별도 행동을 하고 전경에 다른 사건이 있으면 후보
+    if (/배경[^전]{0,60}?(행렬|무리|떼|사람들|군중)[^전]{0,40}?(끼어|들어오|나르|지나|몰려)/.test(p.text) && /전경/.test(p.text)) hits.push('배경무리+전경사건');
+    if (hits.length) twoEv.push(`${p.pno}쪽: ${hits.join('/')}`);
+  }
+
   if (fails.length) anyFail = true;
   const status = fails.length ? '❌ FAIL' : warns.length ? '⚠️  WARN' : '✅ PASS';
   console.log(`\n■ ${doc}  ${status}  (쪽 ${pages.length} · 배터리표기 ${batt.length} · 부품 ${parts.length})`);
   fails.forEach((x) => console.log(`   ❌ ${x}`));
   warns.forEach((x) => console.log(`   ⚠️  ${x}`));
-  if (flags.length) console.log(`   🔎 확인요망 ${flags.length}건: ` + flags.slice(0, 6).join(' | ') + (flags.length > 6 ? ' …' : ''));
+  if (twoEv.length) console.log(`   🎬 두-사건 후보 ${twoEv.length}건(한 쪽 한 이벤트 확인): ` + twoEv.join(' | '));
+  if (flags.length) console.log(`   🔎 회상어 ${flags.length}건: ` + flags.slice(0, 6).join(' | ') + (flags.length > 6 ? ' …' : ''));
 }
 
 console.log(`\n${anyFail ? '❌ 일부 회차 FAIL — 위 배터리 앵커/역행 수정 필요' : '✅ 전 회차 배터리/게이지 규칙 통과 (🔎 회상어 플래그는 사람이 확인)'}`);
