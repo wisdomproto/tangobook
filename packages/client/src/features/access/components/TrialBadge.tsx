@@ -17,7 +17,7 @@ import { PAYWALL_ENABLED } from '../config';
  */
 export function TrialBadge() {
   const { account } = useAuth();
-  const { paidUntil, referralBonusDays } = useEntitlement();
+  const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
 
   if (!account) return null;
 
@@ -25,6 +25,7 @@ export function TrialBadge() {
     account: { createdAt: account.createdAt },
     subscription: paidUntil ? { status: 'active', currentPeriodEnd: paidUntil } : null,
     referralBonusDays,
+    trialStartedAt,
   });
 
   if (access.status === 'trial') {

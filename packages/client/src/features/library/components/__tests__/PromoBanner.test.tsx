@@ -67,7 +67,11 @@ describe('PromoBanner', () => {
   describe('guest (no account)', () => {
     beforeEach(() => {
       mockUseAuth.mockReturnValue({ account: null } as ReturnType<typeof useAuth>);
-      mockUseEntitlement.mockReturnValue({ paidUntil: null, referralBonusDays: 0 });
+      mockUseEntitlement.mockReturnValue({
+        paidUntil: null,
+        referralBonusDays: 0,
+        trialStartedAt: null,
+      });
     });
 
     it('renders the banner region', () => {
@@ -96,7 +100,11 @@ describe('PromoBanner', () => {
   describe('trial user (account recent, no paid subscription)', () => {
     beforeEach(() => {
       mockUseAuth.mockReturnValue({ account: FAKE_ACCOUNT_RECENT } as ReturnType<typeof useAuth>);
-      mockUseEntitlement.mockReturnValue({ paidUntil: null, referralBonusDays: 0 });
+      mockUseEntitlement.mockReturnValue({
+        paidUntil: null,
+        referralBonusDays: 0,
+        trialStartedAt: null,
+      });
     });
 
     it('renders the banner region', () => {
@@ -130,7 +138,11 @@ describe('PromoBanner', () => {
   describe('old account, paywall off (pre-launch → free-for-all copy, not expired)', () => {
     beforeEach(() => {
       mockUseAuth.mockReturnValue({ account: FAKE_ACCOUNT_OLD } as ReturnType<typeof useAuth>);
-      mockUseEntitlement.mockReturnValue({ paidUntil: null, referralBonusDays: 0 });
+      mockUseEntitlement.mockReturnValue({
+        paidUntil: null,
+        referralBonusDays: 0,
+        trialStartedAt: null,
+      });
     });
 
     it('renders the banner region', () => {
@@ -161,7 +173,11 @@ describe('PromoBanner', () => {
       mockUseAuth.mockReturnValue({ account: FAKE_ACCOUNT_OLD } as ReturnType<typeof useAuth>);
       // paidUntil is in the future → computeAccess sees active subscription
       const futureDate = new Date(Date.now() + 30 * 86_400_000).toISOString();
-      mockUseEntitlement.mockReturnValue({ paidUntil: futureDate, referralBonusDays: 0 });
+      mockUseEntitlement.mockReturnValue({
+        paidUntil: futureDate,
+        referralBonusDays: 0,
+        trialStartedAt: null,
+      });
     });
 
     it('renders nothing (returns null)', () => {

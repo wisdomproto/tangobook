@@ -29,7 +29,7 @@ const GUEST_LOCKED: AccessState = {
 export function useAccess(): AccessState {
   const { account } = useAuth();
   // Always call unconditionally (hooks rules); self-disables when account is null or Supabase unconfigured.
-  const { paidUntil, referralBonusDays } = useEntitlement();
+  const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
 
   return useMemo(() => {
     if (!PAYWALL_ENABLED) {
@@ -41,6 +41,7 @@ export function useAccess(): AccessState {
       account: account ? { createdAt: account.createdAt } : null,
       subscription: paidUntil ? { status: 'active', currentPeriodEnd: paidUntil } : null,
       referralBonusDays,
+      trialStartedAt,
     });
-  }, [account, paidUntil, referralBonusDays]);
+  }, [account, paidUntil, referralBonusDays, trialStartedAt]);
 }

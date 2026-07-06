@@ -5,11 +5,14 @@ import { useAuth } from '@/features/auth/context/AuthContext';
 export interface EntitlementData {
   paidUntil: string | null;
   referralBonusDays: number;
+  /** 체험 시작 시각 override(리셋/런칭). null = 가입일 기준. */
+  trialStartedAt: string | null;
 }
 
 const ENTITLEMENT_DEFAULTS: EntitlementData = {
   paidUntil: null,
   referralBonusDays: 0,
+  trialStartedAt: null,
 };
 
 export const ENTITLEMENT_QUERY_KEY = (accountId: string) => ['entitlement', accountId] as const;
@@ -32,7 +35,7 @@ export function useEntitlement(): EntitlementData {
       if (!account) return ENTITLEMENT_DEFAULTS;
       const { data, error } = await supabase
         .from('entitlements')
-        .select('paid_until, referral_bonus_days')
+        .select('paid_until, referral_bonus_days, trial_started_at')
         .eq('account_id', account.id)
         .maybeSingle();
       if (error) throw error;
@@ -40,6 +43,7 @@ export function useEntitlement(): EntitlementData {
       return {
         paidUntil: (data.paid_until as string | null) ?? null,
         referralBonusDays: (data.referral_bonus_days as number | null) ?? 0,
+        trialStartedAt: (data.trial_started_at as string | null) ?? null,
       };
     },
   });

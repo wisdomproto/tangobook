@@ -44,6 +44,19 @@ describe('computeAccess', () => {
     expect(a.isEntitled).toBe(true);
   });
 
+  it('trialStartedAt override → 가입일 무시하고 그 시각부터 7일', () => {
+    // 가입 100일 전(가입일 기준이면 만료)이나 리셋으로 오늘 시작 → 7일 남음
+    const a = computeAccess({ account: { createdAt: ago(100) }, trialStartedAt: ago(0) }, NOW);
+    expect(a.status).toBe('trial');
+    expect(a.trialDaysLeft).toBe(TRIAL_DAYS);
+  });
+
+  it('trialStartedAt null 이면 가입일 폴백(기존 동작)', () => {
+    const a = computeAccess({ account: { createdAt: ago(0) }, trialStartedAt: null }, NOW);
+    expect(a.status).toBe('trial');
+    expect(a.trialDaysLeft).toBe(TRIAL_DAYS);
+  });
+
   it('구독 active 면 체험 만료여도 entitled', () => {
     const a = computeAccess(
       { account: { createdAt: ago(100) }, subscription: { status: 'active' } },

@@ -20,8 +20,13 @@ create table if not exists public.entitlements (
   referral_bonus_days integer not null default 0,
   referral_code text unique,
   referred_by uuid references public.accounts(id),
+  trial_started_at timestamptz,                    -- 체험 시작 override(null=가입일 기준). 기존회원 리셋/정식오픈 일괄시작용
   updated_at timestamptz not null default now()
 );
+
+-- 기존 배포 대상 컬럼 추가(멱등)
+alter table public.entitlements
+  add column if not exists trial_started_at timestamptz;
 
 alter table public.payments enable row level security;
 alter table public.entitlements enable row level security;

@@ -13,13 +13,14 @@ export default function ParentSettingsPage() {
   const { account, signOut } = useAuth();
   const navigate = useNavigate();
   const [deleting, setDeleting] = useState(false);
-  const { paidUntil, referralBonusDays } = useEntitlement();
+  const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
   const { muted: uiMuted, toggleMuted: toggleUiMuted } = useUiSound();
 
   const access = computeAccess({
     account: account ? { createdAt: account.createdAt } : null,
     subscription: paidUntil ? { status: 'active', currentPeriodEnd: paidUntil } : null,
     referralBonusDays,
+    trialStartedAt,
   });
 
   // 멤버십 상태 문구

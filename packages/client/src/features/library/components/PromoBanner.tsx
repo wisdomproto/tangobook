@@ -24,7 +24,7 @@ import { PAYWALL_ENABLED } from '@/features/access/config';
 export function PromoBanner() {
   const navigate = useNavigate();
   const { account } = useAuth();
-  const { paidUntil, referralBonusDays } = useEntitlement();
+  const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
 
   // Compute access state directly from account + real subscription data,
   // NOT via useAccess() which returns 'subscribed' for everyone when PAYWALL_ENABLED=false.
@@ -32,6 +32,7 @@ export function PromoBanner() {
     account: account ? { createdAt: account.createdAt } : null,
     subscription: paidUntil ? { status: 'active', currentPeriodEnd: paidUntil } : null,
     referralBonusDays,
+    trialStartedAt,
   });
 
   // Real paid subscriber — hide banner entirely

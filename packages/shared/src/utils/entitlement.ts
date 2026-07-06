@@ -36,6 +36,12 @@ export interface AccessInput {
   subscription?: Subscription | null;
   /** 레퍼럴로 적립된 보너스 일수(체험 연장). */
   referralBonusDays?: number;
+  /**
+   * 체험 시작 시각 override(ISO). 지정 시 이 시각 + 7일이 체험 종료 기준.
+   * 미지정/null = 가입일(account.createdAt) 사용(기본 = "가입일부터 7일").
+   * 용도: 기존 회원 체험 리셋, 정식 오픈 시 일괄 시작 등.
+   */
+  trialStartedAt?: string | null;
 }
 
 function toTime(iso?: string | null): number | null {
@@ -65,7 +71,7 @@ export function isSubscriptionActive(sub: Subscription | null | undefined, now: 
  * @param now Date.now() 주입(테스트 결정성).
  */
 export function computeAccess(input: AccessInput, now: number = Date.now()): AccessState {
-  const { account, subscription, referralBonusDays = 0 } = input;
+  const { account, subscription, referralBonusDays = 0, trialStartedAt } = input;
 
   if (isSubscriptionActive(subscription, now)) {
     return { status: 'subscribed', isEntitled: true, trialEndsAt: null, trialDaysLeft: 0 };
@@ -73,7 +79,8 @@ export function computeAccess(input: AccessInput, now: number = Date.now()): Acc
   if (!account) {
     return { status: 'guest', isEntitled: false, trialEndsAt: null, trialDaysLeft: 0 };
   }
-  const endMs = trialEndMs(account.createdAt, referralBonusDays);
+  // 체험 앵커 = 명시적 시작시각(리셋/런칭) 우선, 없으면 가입일.
+  const endMs = trialEndMs(trialStartedAt || account.createdAt, referralBonusDays);
   if (endMs != null && endMs > now) {
     return {
       status: 'trial',

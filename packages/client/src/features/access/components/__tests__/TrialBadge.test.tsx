@@ -11,8 +11,16 @@ function mockAuth(account: { id: string; createdAt: string } | null) {
   vi.spyOn(authCtx, 'useAuth').mockReturnValue({ account } as any);
 }
 
-function mockEntitlement(referralBonusDays = 0, paidUntil: string | null = null) {
-  vi.spyOn(entitlementHook, 'useEntitlement').mockReturnValue({ paidUntil, referralBonusDays });
+function mockEntitlement(
+  referralBonusDays = 0,
+  paidUntil: string | null = null,
+  trialStartedAt: string | null = null
+) {
+  vi.spyOn(entitlementHook, 'useEntitlement').mockReturnValue({
+    paidUntil,
+    referralBonusDays,
+    trialStartedAt,
+  });
 }
 
 function renderBadge() {
@@ -57,5 +65,13 @@ describe('TrialBadge', () => {
     mockEntitlement();
     renderBadge();
     expect(screen.getByText('정식 오픈 전 · 지금은 전권 무료')).toBeInTheDocument();
+  });
+
+  it('만료된 기존 계정도 trial_started_at 리셋 시 다시 7일 체험', () => {
+    // 가입 30일 전(=만료)이지만 방금 리셋 → 오늘부터 7일
+    mockAuth({ id: 'a1', createdAt: daysAgo(30) });
+    mockEntitlement(0, null, new Date().toISOString());
+    renderBadge();
+    expect(screen.getByText('🎁 무료 체험 7일 남음')).toBeInTheDocument();
   });
 });
