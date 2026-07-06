@@ -106,8 +106,8 @@ describe('PromoBanner', () => {
 
     it('shows trial days remaining in headline (count kept)', () => {
       renderBanner();
-      // trialDaysLeft is ceil((7d - 2d elapsed)) = 5 — still shows the number
-      expect(screen.getByText(/모든 동화가 열려 있어요 · 무료 \d+일 남음/)).toBeInTheDocument();
+      // trialDaysLeft is ceil((7d - 2d elapsed)) = 5 — days-first copy still shows the number
+      expect(screen.getByText(/무료 체험 \d+일 남음 · 모든 동화 열려 있어요/)).toBeInTheDocument();
     });
 
     it('shows two-sided invite sub-copy', () => {

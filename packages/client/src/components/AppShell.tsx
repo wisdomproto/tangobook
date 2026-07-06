@@ -7,6 +7,7 @@ import { AppBgm } from './AppBgm';
 import { AvatarRender } from '@/features/auth/components/AvatarRender';
 import { cn } from '@/lib/cn';
 import { isDevEmail } from '@/config/dev';
+import { TrialBadge } from '@/features/access/components/TrialBadge';
 
 /**
  * 학습자 화면 공통 frame — 좌측 nav (3축 + More Fun) + 상단 헤더 (페이지 타이틀 + 별).
@@ -166,6 +167,8 @@ export function AppShell() {
 
       {/* 부모 영역 — 부모 설정 / 로그인/로그아웃. */}
       <div className="mt-auto px-3 pt-3 pb-3 border-t-2 border-ink-200/60 bg-cream-100/30 flex flex-col gap-1.5">
+        {/* 무료 체험 남은 일수 — 로그인 시 상시 노출(배너 스크롤/캐시와 무관) */}
+        {session && isConfigured && <TrialBadge />}
         {/* 부모 설정 — 멤버십·초대·효과음·PIN. "학습 리포팅 뒤에 숨은 설정" 문제 해소 */}
         {session && isConfigured && (
           <Link

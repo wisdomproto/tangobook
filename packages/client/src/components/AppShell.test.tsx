@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppShell } from './AppShell';
 import * as authCtx from '@/features/auth/context/AuthContext';
 
@@ -19,14 +20,18 @@ function setup(account: { email: string } | null) {
 }
 
 function renderShell() {
+  // TrialBadge(사이드바 무료-체험 칩)가 useEntitlement→useQuery 를 쓰므로 QueryClient 필요.
+  const qc = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   return render(
-    <MemoryRouter initialEntries={['/library']}>
-      <Routes>
-        <Route path="/*" element={<AppShell />}>
-          <Route index element={<div>CONTENT</div>} />
-        </Route>
-      </Routes>
-    </MemoryRouter>
+    <QueryClientProvider client={qc}>
+      <MemoryRouter initialEntries={['/library']}>
+        <Routes>
+          <Route path="/*" element={<AppShell />}>
+            <Route index element={<div>CONTENT</div>} />
+          </Route>
+        </Routes>
+      </MemoryRouter>
+    </QueryClientProvider>
   );
 }
 

@@ -50,8 +50,8 @@ export function PromoBanner() {
     headline = '회원가입하면 7일 무료 체험';
     sub = REFERRAL_SUB;
   } else if (isTrial) {
-    // 일수는 유지(부모가 원함)하되 상실 프레이밍 대신 담백하게.
-    headline = `모든 동화가 열려 있어요 · 무료 ${raw.trialDaysLeft}일 남음`;
+    // 남은 일수를 앞세워 "무료 며칠 남았는지" 한눈에(부모 요청). 상실 프레이밍은 피함.
+    headline = `무료 체험 ${raw.trialDaysLeft}일 남음 · 모든 동화 열려 있어요`;
     sub = REFERRAL_SUB;
   } else if (!PAYWALL_ENABLED) {
     // 출시 전(유료화 OFF): 전체 무료 상태 — 오래된 계정이 "만료"로 보이던 버그 방지.
