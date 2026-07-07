@@ -75,7 +75,10 @@ function visibleTokenSlice(tokens: string[], progress: number): string {
   return tokens.slice(0, limit).join('');
 }
 
-/** 노출된 토큰들 + 현재(마지막) 단어 표시 — 진행 단어 하이라이트용 */
+/**
+ * 노출된 토큰들 + 현재 노출 중인 단어쌍 표시.
+ * 어린 독자용으로 단어를 **2개씩** 노출하고, 방금 나온 2단어 쌍을 강조한다.
+ */
 function visibleTokenParts(
   tokens: string[],
   progress: number
@@ -83,12 +86,15 @@ function visibleTokenParts(
   const wordIndices = tokens.map((t, i) => (t.trim().length > 0 ? i : -1)).filter((i) => i >= 0);
   if (wordIndices.length === 0) return [];
   const lead = 1.08;
-  const visibleWords = Math.max(
-    1,
-    Math.min(wordIndices.length, Math.ceil(wordIndices.length * progress * lead))
-  );
+  const raw = Math.max(1, Math.ceil(wordIndices.length * progress * lead));
+  // 2단어 단위로 올림 — 단어가 짝으로 등장.
+  const visibleWords = Math.min(wordIndices.length, Math.ceil(raw / 2) * 2);
   const currentIdx = wordIndices[visibleWords - 1];
-  return tokens.slice(0, currentIdx + 1).map((t, i) => ({ text: t, current: i === currentIdx }));
+  // 현재 쌍의 첫 단어(강조 시작).
+  const pairStartIdx = wordIndices[Math.max(0, visibleWords - 2)];
+  return tokens
+    .slice(0, currentIdx + 1)
+    .map((t, i) => ({ text: t, current: i >= pairStartIdx && i <= currentIdx }));
 }
 
 export function PageSubtitle({

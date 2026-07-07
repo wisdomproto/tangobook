@@ -7,7 +7,7 @@ import type {
 } from '@tangobook/shared';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
-import { usePreloadImages } from '../../hooks/useGamePrefetch';
+import { usePreloadImages, usePrefetchUrlsGate } from '../../hooks/useGamePrefetch';
 import { GameResultScreen } from '../GameResultScreen';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { GameHeader } from '../GameHeader';
@@ -84,8 +84,8 @@ function LineMatchingPlayerInner({
 
   // 이번 판 단어들의 음원만 타겟 프리페치 — 짝 맞춘 순간 R2 왕복 없이 즉시 발음.
   // (prefetchTop100 은 3232+ 음절 중 앞 100개만이라 이번 판 음절은 대부분 미캐싱)
-  useEffect(() => {
-    if (phonicsLoading) return;
+  const prefetchUrls = useMemo(() => {
+    if (phonicsLoading) return [];
     const map = phonicsMapRef.current;
     const urls = new Set<string>();
     for (const item of items) {
@@ -99,11 +99,10 @@ function LineMatchingPlayerInner({
         if (u) urls.add(u);
       }
     }
-    // R2 pub 도메인은 CORS 헤더가 없어 no-cors (opaque 응답도 HTTP 캐시에 적재됨)
-    for (const url of urls) {
-      void fetch(url, { cache: 'force-cache', mode: 'no-cors' }).catch(() => {});
-    }
+    return [...urls];
   }, [phonicsLoading, items, phonicsMapRef]);
+  // 게임 시작 게이트 — 이번 판 음절/단어 mp3 프리페치 완료 후 인터랙션 허용.
+  const { ready: audioReady } = usePrefetchUrlsGate(prefetchUrls, !phonicsLoading);
 
   // 단어 음원 — 한글은 음절 단위 mp3 순차 재생 (서버 concat / ffmpeg 의존성 X).
   // 영어는 ttsUrl 우선 → 없으면 phonics 단일 mp3 lookup.
@@ -383,6 +382,22 @@ function LineMatchingPlayerInner({
           total={items.length}
           onBack={onBack}
         />
+
+        {/* 오디오 로딩 overlay — 이번 판 음절/단어 mp3 프리페치 대기(짝 맞춘 순간 발음 지연 방지). */}
+        {!audioReady && (
+          <div className="absolute inset-0 z-[65] flex items-center justify-center bg-white/70 backdrop-blur-sm">
+            <div className="rounded-3xl bg-white shadow-pop px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
+              <div
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-coral-200 border-t-coral-500 animate-spin"
+                aria-hidden
+              />
+              <p className="text-xl sm:text-2xl font-black text-ink-900 font-display">
+                잠깐만 기다려 줘!
+              </p>
+              <p className="text-sm sm:text-base text-ink-500">소리 준비하는 중이에요...</p>
+            </div>
+          </div>
+        )}
 
         {/* 메인 게임 영역 — 좌우 padding 으로 양옆 여백 + 좌/우 column 30% / SVG 가운데 30% */}
         <div ref={areaRef} className="flex-1 relative min-h-0 px-4 sm:px-8 lg:px-24">

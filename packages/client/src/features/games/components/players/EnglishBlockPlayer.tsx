@@ -73,7 +73,7 @@ function EnglishBlockPlayerInner({
 
   // 이번 판 자산 워밍 — 라운드 진입 시 이미지 지연 + 정답 시 TTS 지연 방지
   usePreloadImages(items.map((it) => it.imageUrl));
-  usePrewarmWordTts(
+  const { ready: wordTtsReady } = usePrewarmWordTts(
     items.map((it) => ({ text: it.word, directUrl: it.ttsUrl })),
     'english',
     storybookId,
@@ -117,7 +117,12 @@ function EnglishBlockPlayerInner({
   // 정답 후 "그 단어가 나오는 동화 장면 + 나레이션" 리빌 (소스 동화책 있을 때만).
   const { data: sourceStorybook } = useStorybook(storybookId);
   const [scene, setScene] = useState<WordScene | null>(null);
-  const { mapRef: phonicsMapRef } = usePhonicsMap(['mod_phonics', 'mod_english']);
+  const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap([
+    'mod_phonics',
+    'mod_english',
+  ]);
+  // 게임 시작 게이트 — 맵 로드 + 단어 발음 프리워밍 완료 후 인터랙션 허용.
+  const audioReady = !phonicsLoading && wordTtsReady;
   const drag = useBlockDrag<LetterBlock>({
     createGhost: createEnglishGhost,
     ghostOffset: [26, 32],
@@ -512,6 +517,22 @@ function EnglishBlockPlayerInner({
         <div className="px-2 pt-2 shrink-0">
           <GameHeader title="영어 블록" current={score} total={items.length} onBack={onBack} />
         </div>
+
+        {/* 오디오 로딩 overlay — 맵 + 단어 발음 프리워밍까지 대기(첫 정답 발음 지연 방지). */}
+        {!audioReady && (
+          <div className="absolute inset-0 z-[65] flex items-center justify-center bg-white/70 backdrop-blur-sm">
+            <div className="rounded-3xl bg-white shadow-pop px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
+              <div
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-coral-200 border-t-coral-500 animate-spin"
+                aria-hidden
+              />
+              <p className="text-xl sm:text-2xl font-black text-ink-900 font-display">
+                잠깐만 기다려 줘!
+              </p>
+              <p className="text-sm sm:text-base text-ink-500">소리 준비하는 중이에요...</p>
+            </div>
+          </div>
+        )}
 
         <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 sm:py-6 gap-4 sm:gap-6">
           {/* 완성된 단어 타이핑 패널 */}

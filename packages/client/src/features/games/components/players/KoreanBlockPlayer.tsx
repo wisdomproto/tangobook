@@ -26,7 +26,11 @@ import {
 import { KoreanBlockTutorial } from './KoreanBlockTutorial/KoreanBlockTutorial';
 import { planTutorialLayout } from './KoreanBlockTutorial/KoreanBlockTutorial.layout';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch';
+import {
+  usePreloadImages,
+  usePrewarmWordTts,
+  usePrefetchUrlsGate,
+} from '../../hooks/useGamePrefetch';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
@@ -224,7 +228,7 @@ function KoreanBlockPlayerInner({
 
   // 이번 판 자산 워밍 — 라운드 진입 시 이미지 지연 + 정답 시 TTS 합성 지연 방지
   usePreloadImages(items.map((it) => it.imageUrl));
-  usePrewarmWordTts(
+  const { ready: wordTtsReady } = usePrewarmWordTts(
     items.map((it) => ({ text: it.word, directUrl: it.ttsUrl })),
     'korean',
     storybookId,
@@ -268,6 +272,24 @@ function KoreanBlockPlayerInner({
     'mod_korean',
     'mod_phonics',
   ]);
+  // 이번 판 음절 mp3 를 미리 받아둔다(맵 로드 후). 첫 정답 발음이 늦게 나오던 문제 해결.
+  const syllableUrls = useMemo(() => {
+    if (phonicsLoading) return [];
+    const map = phonicsMapRef.current;
+    const urls = new Set<string>();
+    for (const it of items) {
+      for (const ch of [...(it.word ?? '')]) {
+        if (/[가-힣]/.test(ch)) {
+          const u = map.get(ch);
+          if (u) urls.add(u);
+        }
+      }
+    }
+    return [...urls];
+  }, [phonicsLoading, items, phonicsMapRef]);
+  const { ready: syllableReady } = usePrefetchUrlsGate(syllableUrls, !phonicsLoading);
+  // 게임 시작 게이트 — 맵 로드 + 단어 발음 + 음절 mp3 프리워밍 완료 후 인터랙션 허용.
+  const audioReady = !phonicsLoading && wordTtsReady && syllableReady;
   const drag = useBlockDrag<JamoBlock>({
     createGhost: createKoreanGhost,
     ghostOffset: [24, 24],
@@ -595,8 +617,9 @@ function KoreanBlockPlayerInner({
           <GameHeader title="한글 블록" current={score} total={items.length} onBack={onBack} />
         </div>
 
-        {/* 파닉스 음원 로딩 overlay — 첫 진입 시 1-2초. 인터랙션 차단해서 무음/Web Speech 폴백 안 만나게. */}
-        {phonicsLoading && (
+        {/* 오디오 로딩 overlay — 맵 + 이번 판 음절 mp3 + 단어 발음 프리워밍까지 대기.
+            인터랙션 차단해서 첫 정답에 발음이 늦게 나오는(무음/Web Speech 폴백) 문제 방지. */}
+        {!audioReady && (
           <div className="absolute inset-0 z-[65] flex items-center justify-center bg-white/70 backdrop-blur-sm">
             <div className="rounded-3xl bg-white shadow-pop px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
               <div

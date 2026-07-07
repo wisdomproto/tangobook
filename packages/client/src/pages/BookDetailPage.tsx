@@ -157,6 +157,10 @@ export default function BookDetailPage() {
   // 그림체 칩 = 공개 언어가 ≥1 개인 그림체만. (모두 비공개면 폴백 — 그런 책은 isPublic=false 라 라이브러리 미노출)
   const visibleStyles = allStyles.filter((s) => allLanguages.some((l) => isCellPublic(s, l)));
   const styles = visibleStyles.length > 0 ? visibleStyles : allStyles;
+  // 그림체 선택 UI 는 세계명작에만 노출 (자연관찰 등은 대표 그림체 1종만 보여줌).
+  // 카테고리/폴더 문자열에 '명작' 포함 여부로 판별 ('세계 명작'·'세계명작'·'명작동화' 모두 커버).
+  const isClassic = /명작/.test(storybook.category ?? '') || /명작/.test(storybook.folder ?? '');
+  const canPickStyle = isClassic && styles.length > 1;
 
   // 효과 레벨/스타일 (URL params에 전달용)
   const launchLevel = storybook.curriculumMeta?.launchLevel;
@@ -200,7 +204,7 @@ export default function BookDetailPage() {
   // 유료 책(isAccessibleForFree===false)인데 권한 없으면 본문 읽기 잠금. 무료 책은 항상 열람.
   const locked = !canReadBook(storybook, access);
 
-  const enterMode = (mode: 'read' | 'video' | 'vocab') => {
+  const enterMode = (mode: 'read' | 'video' | 'vocab', opts?: { selfRead?: boolean }) => {
     if (mode === 'video') {
       const vid = youtubeVideoIds[0];
       if (vid) {
@@ -231,6 +235,8 @@ export default function BookDetailPage() {
     }
     const qs = new URLSearchParams({ lang });
     if (effectiveStyle) qs.set('style', effectiveStyle);
+    // 읽어주기(자동) = autoplay 1 / 스스로 책읽기 = autoplay 0 (자동 낭독·자동 넘김 없음)
+    qs.set('autoplay', opts?.selfRead ? '0' : '1');
     navigate(`/viewer/${targetId}?${qs.toString()}`);
   };
 
@@ -287,13 +293,35 @@ export default function BookDetailPage() {
 
         {/* hero + parentGuide wrapper — flex-1 + justify-center 으로 콘텐츠만 vertical 가운데. 헤더는 위 고정. */}
         <div className="flex-1 flex flex-col justify-center">
+          {/* 상단 3단계 안내 — 부모가 아이와 함께 읽는 흐름을 크게 안내 */}
+          <ol className="mb-5 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+            {[
+              canPickStyle
+                ? '아이가 좋아하는 그림체와 언어를 골라요'
+                : '아이가 좋아하는 언어를 골라요',
+              '책을 다 읽고, 책에 나온 단어를 공부해요',
+              '아래 부모님 가이드를 꼭 읽어보세요',
+            ].map((t, i) => (
+              <li
+                key={i}
+                className="flex items-center gap-2.5 rounded-2xl bg-white/80 px-4 py-3 shadow-soft"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-coral-500 text-white font-black">
+                  {i + 1}
+                </span>
+                <span className="font-black text-ink-800 text-sm sm:text-[15px] leading-tight break-keep">
+                  {t}
+                </span>
+              </li>
+            ))}
+          </ol>
           {/* hero — 좌: 정방형 표지 / 우: chip row + 모드 카드 3개 (세로 stack). reference 디자인. */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
             {/* 좌: 그림체 선택 바 + 언어 토글 + 정방형 표지. 표지 일러스트에 책 제목이 박혀있어 우측엔 별도 h1 미노출. */}
             <div className="flex flex-col gap-2.5">
-              {(styles.length > 1 || languages.length > 1) && (
+              {(canPickStyle || languages.length > 1) && (
                 <div className="flex items-stretch gap-2">
-                  {styles.length > 1 && (
+                  {canPickStyle && (
                     <div className="flex-1 min-w-0 flex items-center justify-between bg-white rounded-full px-2 py-1.5 shadow-soft">
                       <button
                         type="button"
@@ -381,17 +409,37 @@ export default function BookDetailPage() {
                 <ModeCard
                   tone="coral"
                   iconSrc="/icons/mode/book.webp"
-                  emoji="📖"
-                  title="책으로 읽기"
+                  emoji="🔊"
+                  title="읽어주기"
                   sub={
                     locked
                       ? access.status === 'guest'
                         ? '회원 가입하면 무료로 읽어요'
                         : '프리미엄 — 구독하고 읽기'
-                      : '그림과 글로 천천히'
+                      : '음성으로 자동으로 읽어줘요'
                   }
                   onClick={() => enterMode('read')}
                   locked={locked}
+                  sound="book-open"
+                />
+                <ModeCard
+                  tone="mint"
+                  icon={
+                    <span className="text-3xl sm:text-4xl" aria-hidden>
+                      👆
+                    </span>
+                  }
+                  title="스스로 책읽기"
+                  sub={
+                    locked
+                      ? access.status === 'guest'
+                        ? '회원 가입하면 무료로 읽어요'
+                        : '프리미엄 — 구독하고 읽기'
+                      : '내가 넘기며 천천히 읽어요'
+                  }
+                  onClick={() => enterMode('read', { selfRead: true })}
+                  locked={locked}
+                  sound="book-open"
                 />
                 {showVideoMode && (
                   <ModeCard
@@ -406,10 +454,16 @@ export default function BookDetailPage() {
                 )}
                 <ModeCard
                   tone="amber"
-                  iconSrc="/icons/mode/word.webp"
-                  emoji="✨"
+                  icon={
+                    <span
+                      className="text-2xl sm:text-3xl font-black leading-none text-ink-900"
+                      aria-hidden
+                    >
+                      가<span className="text-coral-500">A</span>
+                    </span>
+                  }
                   title="단어 익히기"
-                  sub="단어 + 게임 4종"
+                  sub="한글·영어 단어 + 게임"
                   onClick={() => enterMode('vocab')}
                   disabled={!vocabAvailable}
                 />
@@ -494,6 +548,7 @@ export default function BookDetailPage() {
                         {guide.faq.map((f, i) => (
                           <details
                             key={i}
+                            open
                             className="rounded-lg border border-ink-100 bg-cream-50 p-3 group"
                           >
                             <summary className="font-black text-ink-900 text-sm cursor-pointer list-none flex gap-2 items-start">
@@ -572,7 +627,7 @@ function ModeCard({
   locked,
   sound,
 }: {
-  tone: 'coral' | 'violet' | 'amber';
+  tone: 'coral' | 'violet' | 'amber' | 'mint';
   emoji?: string;
   icon?: ReactNode;
   iconSrc?: string;
@@ -602,6 +657,12 @@ function ModeCard({
       text: 'text-ink-900',
       sub: 'text-ink-900/75',
       arrow: 'bg-ink-900/15 text-ink-900',
+    },
+    mint: {
+      bg: 'bg-gradient-to-br from-mint-400 to-mint-500',
+      text: 'text-white',
+      sub: 'text-white/85',
+      arrow: 'bg-white/20 text-white',
     },
   }[tone];
 

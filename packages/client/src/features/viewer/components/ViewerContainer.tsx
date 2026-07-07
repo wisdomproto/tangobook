@@ -27,7 +27,6 @@ import { ViewerToolbar } from './ViewerToolbar';
 import { ViewerControls } from './ViewerControls';
 import { PageView } from './PageView';
 import { BookSpineProgress } from './BookSpineProgress';
-import { MascotCorner } from './MascotCorner';
 import { RewardScreen } from './RewardScreen';
 import { WordRevealScreen } from './WordRevealScreen';
 import { GameListViewer } from './GameListViewer';
@@ -70,6 +69,16 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   const { data: v1Storybook, isLoading, error } = useStorybook(storybookId);
   const [settings, updateSettings] = useViewerSettings();
   const access = useAccess();
+
+  // 진입 의도 — BookDetailPage 의 "읽어주기"(자동) vs "스스로 책읽기"(자동재생 OFF) 버튼이
+  // ?autoplay=1|0 을 전달한다. 마운트 시 한 번만 반영(이후엔 툴바 토글이 우선).
+  const autoplayParam = sp.get('autoplay');
+  const autoplayAppliedRef = useRef(false);
+  useEffect(() => {
+    if (autoplayAppliedRef.current || autoplayParam == null) return;
+    autoplayAppliedRef.current = true;
+    updateSettings({ autoPlayTts: autoplayParam !== '0' });
+  }, [autoplayParam, updateSettings]);
 
   const lang = (sp.get('lang') ?? settings.language) as LangCode;
   // ?style 미지정(연속재생 등) 시 대표 그림체(defaultStyle) 우선 — 라이브러리 표지와 재생 그림체 일치.
@@ -383,6 +392,9 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
       .map((p) => getPageTtsUrl(p, lang))
       .filter((u): u is string => !!u);
     if (firstUrls.length === 0) {
+      // 무음 책(TTS 없음)이라도 BGM 은 기본 ON 이어야 하므로, 탭 게이트를 띄워
+      // 사용자 제스처로 배경음악을 시작한다(autoplay 차단 우회). playTts 는 null 이라 무시됨.
+      if (!startedRef.current && bgmUrl) setNeedsTapToStart(true);
       setTtsReady(true);
       return;
     }
@@ -730,7 +742,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
         </div>
       )}
 
-      <MascotCorner visible={audio.isBgmPlaying} />
+      {/* 우하단 마스코트(호리) 는 읽기에 방해되어 미노출 (요청) */}
 
       {/* 자동넘김 인디케이터 — 음성 끝 ~ 다음 페이지 전환 대기 동안 "다음 장" dot pulse */}
       {advancing && !fullscreen && (
@@ -767,7 +779,8 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
             startedRef.current = true;
             setNeedsTapToStart(false);
             if (!audio.isBgmPlaying) audio.toggleBgm();
-            if (currentTtsUrl) {
+            // 스스로 책읽기(autoPlayTts OFF)면 첫 페이지도 자동 낭독하지 않고 BGM 만 시작.
+            if (currentTtsUrl && stateRef.current.autoPlayTts) {
               lastPlayedTtsRef.current = currentTtsUrl;
               audio.playTts(currentTtsUrl);
             }

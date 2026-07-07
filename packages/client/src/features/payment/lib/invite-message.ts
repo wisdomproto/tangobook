@@ -12,5 +12,7 @@ export function buildInviteMessage(code: string): string {
     '🐯 탱고북에서 아이랑 동화책 읽어요!',
     '아래 링크로 가입하면 우리 둘 다 무료 기간이 7일씩 늘어나요 🎁',
     buildInviteLink(code),
+    '',
+    `초대 코드: ${code.toUpperCase()} (링크가 안 열리면 가입 후 직접 입력해요)`,
   ].join('\n');
 }

@@ -1,9 +1,12 @@
 export const TARGET_AGES = ['4-5', '5-7', '7-8'] as const;
 export type TargetAge = (typeof TARGET_AGES)[number];
 
+// ⚠️ 라벨은 저작도구 내부 전용 표기다. 학습자/부모 화면엔 항상 "그림체 N" 으로만 노출
+// (그림체 실명 비노출 정책 — 저작권 예방). id 는 book 데이터의 styleId 참조이므로 변경 금지, label 만 수정 가능.
+// 대표 3종(세계명작 기준) = 수채동화풍 / 페이퍼 3D 아트 / 콜라주.
 export const ART_STYLES = [
   { id: 'photographic', label: '실사', prompt: 'Photographic realistic illustration' },
-  { id: 'watercolor', label: '수채화', prompt: 'Watercolor' },
+  { id: 'watercolor', label: '수채동화풍', prompt: 'Watercolor' },
   { id: 'cartoon', label: '카툰', prompt: 'Cartoon' },
   { id: 'traditional', label: '전통 동화책', prompt: 'Traditional Storybook' },
   { id: 'animation', label: '애니메이션', prompt: 'Animation' },
@@ -12,9 +15,15 @@ export const ART_STYLES = [
   { id: 'pencil-sketch', label: '연필 스케치', prompt: 'Pencil Sketch' },
   {
     id: 'paper-craft',
-    label: '종이공예',
+    label: '페이퍼 3D 아트',
     prompt:
       'Paper craft, layered cut paper sculpture style with kraft paper textures and visible 3D depth',
+  },
+  {
+    id: 'collage',
+    label: '콜라주',
+    prompt:
+      'Collage illustration, torn and cut textured paper layered together, hand-painted paper collage in the style of Eric Carle, bold vibrant colors, visible brush and paint texture on paper',
   },
   {
     id: 'pixar-3d',

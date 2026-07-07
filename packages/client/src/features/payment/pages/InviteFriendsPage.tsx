@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiPost } from '@/lib/axios';
 import { useAuth } from '@/features/auth/context/AuthContext';
-import { RedeemCodeInput } from '../components/RedeemCodeInput';
 import { buildInviteLink, buildInviteMessage } from '../lib/invite-message';
 
 interface ReferralCodeResponse {
@@ -100,12 +99,6 @@ export default function InviteFriendsPage() {
           </li>
         ))}
       </ol>
-
-      {/* 받은 코드 입력 */}
-      <div className="mt-6 rounded-3xl bg-white p-6 shadow-soft">
-        <p className="font-black text-ink-900 mb-2">받은 코드가 있나요?</p>
-        <RedeemCodeInput />
-      </div>
     </div>
   );
 }
