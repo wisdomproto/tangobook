@@ -18,8 +18,12 @@ function seedFromPresets(): SavedArtStyle[] {
 
 /**
  * R2 에서 library 로드.
- * - 빈 → ART_STYLES preset 으로 자동 seed 후 반환
- * - 비어있지 않은데 preset id 누락분 있으면 idempotent 보충 (사용자 변경분은 보존)
+ * - 빈 → ART_STYLES preset 으로 자동 seed (최초 1회) 후 반환
+ * - 비어있지 않으면 저장된 그대로 반환 (사용자가 지운 프리셋은 되살리지 않음)
+ *
+ * ⚠️ 과거엔 누락 preset 을 매 로드마다 backfill 했으나, 저작도구에서 그림체를 3개(장르)만
+ *    남기려 지워도 되살아나는 문제가 있어 backfill 을 제거했다. 라이브러리는 이제 완전히
+ *    사용자 관리(추가/삭제)다. 새 preset 이 필요하면 저작도구에서 직접 추가한다.
  */
 async function getLibrary(): Promise<SavedArtStyle[]> {
   let existing: SavedArtStyle[];
@@ -34,21 +38,6 @@ async function getLibrary(): Promise<SavedArtStyle[]> {
     const seeded = seedFromPresets();
     await saveLibrary(seeded);
     return seeded;
-  }
-  // 누락된 preset id 보충 (사용자가 이름/prompt 수정한 항목은 그대로 보존)
-  const existingIds = new Set(existing.map((s) => s.id));
-  const missing = ART_STYLES.filter((s) => !existingIds.has(s.id));
-  if (missing.length > 0) {
-    const now = new Date().toISOString();
-    const additions: SavedArtStyle[] = missing.map((s) => ({
-      id: s.id,
-      name: s.label,
-      prompt: s.prompt,
-      createdAt: now,
-    }));
-    const merged = [...existing, ...additions];
-    await saveLibrary(merged);
-    return merged;
   }
   return existing;
 }
