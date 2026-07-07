@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 /**
@@ -19,9 +20,11 @@ interface GameHeaderProps {
   total: number;
   /** 뒤로 가기 콜백. */
   onBack: () => void;
+  /** 우측(홈 버튼 왼쪽)에 들어갈 옵션 노드 — 명작 그림체 선택 칩 등. */
+  rightExtra?: ReactNode;
 }
 
-export function GameHeader({ title, current, total, onBack }: GameHeaderProps) {
+export function GameHeader({ title, current, total, onBack, rightExtra }: GameHeaderProps) {
   const navigate = useNavigate();
   return (
     <header className="h-[clamp(2.75rem,9vh,6rem)] flex items-center justify-between gap-[clamp(0.5rem,1.5vh,1rem)] shrink-0 mb-[clamp(0.125rem,1vh,1.5rem)] bg-white/60 backdrop-blur-sm shadow-soft rounded-3xl px-[clamp(0.75rem,1.5vw,1.5rem)] mx-2 mt-1.5">
@@ -42,16 +45,19 @@ export function GameHeader({ title, current, total, onBack }: GameHeaderProps) {
         <span className="text-warn">★</span>
       </div>
 
-      {/* 우측 🏠 홈 — 좌 버튼과 폭 균형 겸용. */}
-      <button
-        onClick={() => navigate('/library')}
-        aria-label="홈으로"
-        title="홈으로"
-        className="px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.375rem,1.25vh,0.75rem)] rounded-full bg-peach-100 text-ink-900 font-black text-[clamp(0.875rem,2vh,1.25rem)] shadow-soft hover:shadow-pop transition flex items-center gap-2"
-      >
-        <span>🏠</span>
-        <span className="hidden sm:inline">홈</span>
-      </button>
+      {/* 우측 그룹 — 그림체 선택(옵션) + 🏠 홈. 좌 버튼과 폭 균형 겸용. */}
+      <div className="flex items-center gap-2 shrink-0">
+        {rightExtra}
+        <button
+          onClick={() => navigate('/library')}
+          aria-label="홈으로"
+          title="홈으로"
+          className="px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.375rem,1.25vh,0.75rem)] rounded-full bg-peach-100 text-ink-900 font-black text-[clamp(0.875rem,2vh,1.25rem)] shadow-soft hover:shadow-pop transition flex items-center gap-2"
+        >
+          <span>🏠</span>
+          <span className="hidden sm:inline">홈</span>
+        </button>
+      </div>
     </header>
   );
 }

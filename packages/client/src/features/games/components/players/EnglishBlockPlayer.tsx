@@ -25,6 +25,7 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
+import { useGameStyle, GameStyleChip } from '../GameStyleChip';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { resolveTtsUrl } from '@/features/tts';
@@ -112,6 +113,7 @@ function EnglishBlockPlayerInner({
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   // 정답 후 "그 단어가 나오는 동화 장면 + 나레이션" 리빌 (소스 동화책 있을 때만).
   const { data: sourceStorybook } = useStorybook(storybookId);
+  const gameStyle = useGameStyle(sourceStorybook);
   const [scene, setScene] = useState<WordScene | null>(null);
   const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap([
     'mod_phonics',
@@ -298,7 +300,12 @@ function EnglishBlockPlayerInner({
           language: 'en',
           onDone: () => {
             // 단어 발음+칭찬 끝 → 그 단어가 나오는 동화 장면+나레이션 리빌 (있으면), 없으면 바로 다음.
-            const s = resolveSceneFromWord(currentItem.word, 'en', sourceStorybook);
+            const s = resolveSceneFromWord(
+              currentItem.word,
+              'en',
+              sourceStorybook,
+              gameStyle.selectedStyle
+            );
             if (s) setScene(s);
             else goToNext(currentIndex);
           },
@@ -324,6 +331,7 @@ function EnglishBlockPlayerInner({
     storybookId,
     goToNext,
     sourceStorybook,
+    gameStyle.selectedStyle,
   ]);
 
   // ref 로 handleCheck 보관 — 자동 체크 effect 가 stale closure 호출하지 않도록
@@ -511,7 +519,21 @@ function EnglishBlockPlayerInner({
       {/* vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음. */}
       <div className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-br from-cream-50 to-peach-100 overflow-y-auto">
         <div className="px-2 pt-2 shrink-0">
-          <GameHeader title="영어 블록" current={score} total={items.length} onBack={onBack} />
+          <GameHeader
+            title="영어 블록"
+            current={score}
+            total={items.length}
+            onBack={onBack}
+            rightExtra={
+              gameStyle.canPick ? (
+                <GameStyleChip
+                  styles={gameStyle.styles}
+                  index={gameStyle.index}
+                  onCycle={gameStyle.setIndex}
+                />
+              ) : undefined
+            }
+          />
         </div>
 
         {/* 오디오 로딩 overlay — 맵 + 단어 발음 프리워밍까지 대기(첫 정답 발음 지연 방지). */}

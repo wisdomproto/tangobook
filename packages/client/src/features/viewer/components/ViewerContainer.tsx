@@ -629,6 +629,11 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   // 전체화면 탭 → 컨트롤 표시/숨김 토글. playlist 는 자체 컨트롤(ContinuousControls)이 있어 제외.
   const canTapForControls = fullscreen && !playlist && !needsTapToStart;
   const controlsVisible = !fullscreen || (fsControls && !playlist);
+  // 스스로 책읽기(자동재생 OFF) — 좌/우 넘김 버튼은 기본 상시 노출(툴바는 그림 탭 시).
+  const selfRead = !settings.autoPlayTts;
+  const arrowsVisible =
+    controlsVisible ||
+    (selfRead && !needsTapToStart && !playlist && !rewardOpen && !wordRevealOpen);
 
   return (
     <div
@@ -712,9 +717,9 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
         </div>
       )}
 
-      {/* 풀스크린 종료 버튼 — 풀스크린 시만 우상단 floating (반투명).
-          playlist 모드에서는 숨김 — 플레이리스트 chrome(상위 컴포넌트)이 제어권을 가짐. */}
-      {fullscreen && !playlist && (
+      {/* 풀스크린 종료 버튼 — 풀스크린 시 우상단 floating (반투명). 툴바가 떠 있을 땐 숨김
+          (툴바에 홈/뒤로가 있어 겹침 방지). playlist 모드에서는 숨김. */}
+      {fullscreen && !playlist && !controlsVisible && (
         <div
           className="absolute top-3 right-3 z-30 flex gap-2"
           onClick={(e) => e.stopPropagation()}
@@ -774,7 +779,6 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
       {needsTapToStart && (
         <button
           type="button"
-          data-sound="book-open"
           onClick={() => {
             startedRef.current = true;
             setNeedsTapToStart(false);
@@ -801,7 +805,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
         </button>
       )}
 
-      {controlsVisible && (
+      {arrowsVisible && (
         <div onClick={(e) => e.stopPropagation()}>
           <ViewerControls onPrev={onPrev} onNext={onNext} canPrev={canPrev} canNext={canNext} />
         </div>

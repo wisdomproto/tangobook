@@ -120,11 +120,7 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
         <PillIconBtn onClick={props.onCycleTextSize} label="글자 크기">
           Aa
         </PillIconBtn>
-        {props.onToggleLanguage && (
-          <PillIconBtn onClick={props.onToggleLanguage} label="언어 바꾸기">
-            🌐
-          </PillIconBtn>
-        )}
+        {/* 언어 바꾸기 버튼 제거 — 언어는 책 진입 전(BookDetailPage)에서 선택하므로 뷰어엔 불필요. */}
         <PillIconBtn
           onClick={props.onToggleFullscreen}
           active={props.fullscreenImage}

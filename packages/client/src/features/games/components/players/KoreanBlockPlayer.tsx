@@ -33,6 +33,7 @@ import {
 } from '../../hooks/useGamePrefetch';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
+import { useGameStyle, GameStyleChip } from '../GameStyleChip';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { resolveTtsUrl } from '@/features/tts';
@@ -267,6 +268,7 @@ function KoreanBlockPlayerInner({
   const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   // 정답 후 "그 단어가 나오는 동화 장면 + 나레이션" 리빌 (소스 동화책 있을 때만).
   const { data: sourceStorybook } = useStorybook(storybookId);
+  const gameStyle = useGameStyle(sourceStorybook);
   const [scene, setScene] = useState<WordScene | null>(null);
   const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap([
     'mod_korean',
@@ -524,7 +526,12 @@ function KoreanBlockPlayerInner({
           language: 'ko',
           onDone: () => {
             // 단어 발음+칭찬 끝 → 그 단어가 나오는 동화 장면+나레이션 리빌 (있으면), 없으면 바로 다음.
-            const s = resolveSceneFromWord(currentItem.word, 'ko', sourceStorybook);
+            const s = resolveSceneFromWord(
+              currentItem.word,
+              'ko',
+              sourceStorybook,
+              gameStyle.selectedStyle
+            );
             if (s) setScene(s);
             else goToNext(currentIndex);
           },
@@ -549,6 +556,7 @@ function KoreanBlockPlayerInner({
     storybookId,
     goToNext,
     sourceStorybook,
+    gameStyle.selectedStyle,
   ]);
 
   // ref 로 handleCheck 보관 — 정답 자동 체크 useEffect 가 stale closure 피하면서
@@ -614,7 +622,21 @@ function KoreanBlockPlayerInner({
         }}
       >
         <div className="px-2 pt-2 shrink-0">
-          <GameHeader title="한글 블록" current={score} total={items.length} onBack={onBack} />
+          <GameHeader
+            title="한글 블록"
+            current={score}
+            total={items.length}
+            onBack={onBack}
+            rightExtra={
+              gameStyle.canPick ? (
+                <GameStyleChip
+                  styles={gameStyle.styles}
+                  index={gameStyle.index}
+                  onCycle={gameStyle.setIndex}
+                />
+              ) : undefined
+            }
+          />
         </div>
 
         {/* 오디오 로딩 overlay — 맵 + 이번 판 음절 mp3 + 단어 발음 프리워밍까지 대기.

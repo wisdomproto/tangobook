@@ -12,6 +12,8 @@ import { GameResultScreen } from '../GameResultScreen';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { GameHeader } from '../GameHeader';
 import { SceneReveal } from '../SceneReveal';
+import { FeedbackOverlay } from '../FeedbackOverlay';
+import { useGameStyle, GameStyleChip } from '../GameStyleChip';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { useStorybook } from '@/features/storybook';
 import {
@@ -63,8 +65,9 @@ function LineMatchingPlayerInner({
   const [scene, setScene] = useState<WordScene | null>(null);
   const sceneWasLastRef = useRef(false);
   const { data: sourceStorybook } = useStorybook(storybookId);
+  const gameStyle = useGameStyle(sourceStorybook);
 
-  const { playAudio, playFeedbackSound } = useGameAudio();
+  const { playAudio, playFeedbackSound, playCorrectSequence, praiseVisible } = useGameAudio();
   const isTutorialPlaying = useTutorialIsPlaying();
   const { highlightImageIdx, highlightWordIdx } = useTutorialHighlight();
   const expected = useTutorialExpected();
@@ -160,17 +163,26 @@ function LineMatchingPlayerInner({
       // 튜토리얼 wait 중이면 advance
       notifyMatch(matchedIdx);
       setTimeout(() => {
-        // 🔴 chain 규칙: 발음이 "끝난 뒤" 장면 리빌/결과 화면 — 고정 타이머는 다음절 단어 발음이
+        // 🔴 chain 규칙: 발음이 "끝난 뒤" 칭찬음 → 장면 리빌 — 고정 타이머는 다음절 단어 발음이
         // 잘린 채 다음 단계가 겹치는 원인.
         void playWordTts(matchedItem).then(() => {
-          // 맞춘 단어가 나오는 동화 장면 + 나레이션 리빌 (있으면), 없으면 다음/결과로.
-          const s = resolveSceneFromWord(matchedItem.word, lang, sourceStorybook);
-          if (s) {
-            sceneWasLastRef.current = isLast;
-            setScene(s);
-          } else if (isLast) {
-            setTimeout(() => setFinished(true), 400);
-          }
+          const showScene = () => {
+            // 맞춘 단어가 나오는 동화 장면 + 나레이션 리빌 (있으면), 없으면 다음/결과로.
+            const s = resolveSceneFromWord(
+              matchedItem.word,
+              lang,
+              sourceStorybook,
+              gameStyle.selectedStyle
+            );
+            if (s) {
+              sceneWasLastRef.current = isLast;
+              setScene(s);
+            } else if (isLast) {
+              setTimeout(() => setFinished(true), 400);
+            }
+          };
+          // 단어 발음 후 칭찬음(+호리 오버레이) → 장면 리빌. (2026-07 그림짝 칭찬음 누락 수정)
+          playCorrectSequence({ language: lang, onDone: showScene });
         });
       }, 150);
     } else {
@@ -189,9 +201,11 @@ function LineMatchingPlayerInner({
     items,
     playFeedbackSound,
     playWordTts,
+    playCorrectSequence,
     notifyMatch,
     sourceStorybook,
     lang,
+    gameStyle.selectedStyle,
   ]);
 
   const logGame = useGameLogger();
@@ -396,6 +410,15 @@ function LineMatchingPlayerInner({
           current={matched.length}
           total={items.length}
           onBack={onBack}
+          rightExtra={
+            gameStyle.canPick ? (
+              <GameStyleChip
+                styles={gameStyle.styles}
+                index={gameStyle.index}
+                onCycle={gameStyle.setIndex}
+              />
+            ) : undefined
+          }
         />
 
         {/* 오디오 로딩 overlay — 이번 판 음절/단어 mp3 프리페치 대기(짝 맞춘 순간 발음 지연 방지). */}
@@ -537,6 +560,7 @@ function LineMatchingPlayerInner({
           onEnd={handleHintEnd}
         />
       </div>
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       {scene && (
         <SceneReveal
           illustrationUrl={scene.illustrationUrl}

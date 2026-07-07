@@ -10,6 +10,7 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { usePreloadImages } from '../../hooks/useGamePrefetch';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { SceneReveal } from '../SceneReveal';
+import { useGameStyle, GameStyleChip } from '../GameStyleChip';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { resolveTtsUrl } from '@/features/tts';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -69,6 +70,7 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
   const viewerLang: 'ko' | 'en' = searchParams.get('lang') === 'en' ? 'en' : 'ko';
 
   const { data: storybook } = useStorybook(storybookId);
+  const gameStyle = useGameStyle(storybook);
 
   const resolveSpeakTarget = useCallback(
     (englishName: string | undefined): { text: string; language: 'korean' | 'english' } | null => {
@@ -244,13 +246,26 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
       onDone: () => {
         // 완성한 단어가 나오는 동화 장면 + 나레이션 리빌 (있으면), 없으면 다음.
         const s = target
-          ? resolveSceneFromWord(target.text, target.language === 'korean' ? 'ko' : 'en', storybook)
+          ? resolveSceneFromWord(
+              target.text,
+              target.language === 'korean' ? 'ko' : 'en',
+              storybook,
+              gameStyle.selectedStyle
+            )
           : null;
         if (s) setScene(s);
         else advanceToNext();
       },
     });
-  }, [currentItem, resolveSpeakTarget, storybook, storybookId, playWordCorrect, advanceToNext]);
+  }, [
+    currentItem,
+    resolveSpeakTarget,
+    storybook,
+    storybookId,
+    playWordCorrect,
+    advanceToNext,
+    gameStyle.selectedStyle,
+  ]);
 
   const handleImgLoad = useCallback(
     (e: SyntheticEvent<HTMLImageElement>) => {
@@ -388,6 +403,15 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
         current={completedItems}
         total={items.length}
         onBack={onBack}
+        rightExtra={
+          gameStyle.canPick ? (
+            <GameStyleChip
+              styles={gameStyle.styles}
+              index={gameStyle.index}
+              onCycle={gameStyle.setIndex}
+            />
+          ) : undefined
+        }
       />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
         {/* 안내 텍스트 */}

@@ -7,17 +7,17 @@ import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
+import { useGameStyle, GameStyleChip } from '../GameStyleChip';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { useStorybook } from '@/features/storybook';
-import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
+import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
 
 /**
- * 영어 단어 따라쓰기 — paint 모드 (LetterFillCanvas).
- *
- * 단어의 **모든 글자**를 순서대로 한 글자씩 색칠. 한 글자를 다 칠하면 그 글자 소리를 읽어주고,
- * 마지막 글자까지 끝내면 단어 전체 발음 + 칭찬 + 그 단어가 나오는 동화 장면(나레이션) 리빌.
+ * 영어 단어 따라쓰기 — 단어 전체를 한 번에 표시(WordFillCanvas)하고 **글자 단위**로 색칠 채점.
+ * 한 글자를 다 칠하면 그 글자 소리를 읽어주고, 모든 글자를 끝내면 단어 발음 + 칭찬 + 동화 장면 리빌.
+ * 체크마크는 표시하지 않는다(요청).
  */
 function lettersOf(word: string): string[] {
   if (!word) return [];
@@ -34,7 +34,6 @@ export function EnglishWordWritingPlayer({
   const data = gameData as WordWritingData;
   const items = data.items;
 
-  // 이번 판 자산 워밍 — 이미지 + 정답 시 단어 TTS 지연 방지
   usePreloadImages(items.map((it) => it.imageUrl));
   usePrewarmWordTts(
     items.map((it) => ({ text: it.word, directUrl: it.ttsUrl })),
@@ -44,18 +43,17 @@ export function EnglishWordWritingPlayer({
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [letterIndex, setLetterIndex] = useState(0);
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));
-  const [advancing, setAdvancing] = useState(false);
   const [scene, setScene] = useState<WordScene | null>(null);
+  const completedRef = useRef(false);
   const pendingPassedRef = useRef<boolean[] | null>(null);
   const logGame = useGameLogger();
   const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
   const { data: sourceStorybook } = useStorybook(storybookId);
+  const gameStyle = useGameStyle(sourceStorybook);
 
   const currentItem = items[currentIndex];
   const letters = useMemo(() => lettersOf(currentItem.word), [currentItem.word]);
-  const currentLetter = letters[letterIndex] ?? currentItem.word;
 
   const emitFinalResults = useCallback(
     (finalPassed: boolean[]) => {
@@ -76,75 +74,70 @@ export function EnglishWordWritingPlayer({
         emitFinalResults(newPassed);
         onComplete(score, items.length * 100);
       } else {
+        completedRef.current = false;
         setCurrentIndex((i) => i + 1);
-        setLetterIndex(0);
-        setAdvancing(false);
       }
     },
     [currentIndex, items.length, onComplete, emitFinalResults]
   );
 
-  const handleLetterComplete = useCallback(
-    async (ok: boolean) => {
-      if (!ok || advancing) return;
-      setAdvancing(true);
-      const isLastLetter = letterIndex >= letters.length - 1;
-      // 방금 쓴 글자 소리 읽어주기
-      const letterUrl = await resolveTtsUrl({
-        text: currentLetter,
+  const handleLetterDone = useCallback(
+    (letter: string) => {
+      void (async () => {
+        const url = await resolveTtsUrl({
+          text: letter,
+          language: 'english',
+          storybookId,
+          identifierPrefix: 'wwrite-en',
+        });
+        if (url) playAudio(url);
+      })();
+    },
+    [storybookId, playAudio]
+  );
+
+  const handleWordComplete = useCallback(() => {
+    if (completedRef.current) return;
+    completedRef.current = true;
+    const newPassed = passed.map((v, i) => (i === currentIndex ? true : v));
+    setPassed(newPassed);
+    void (async () => {
+      const wordUrl = await resolveTtsUrl({
+        text: currentItem.word,
         language: 'english',
         storybookId,
+        directUrl: currentItem.ttsUrl,
         identifierPrefix: 'wwrite-en',
       });
-      const afterLetter = () => {
-        if (!isLastLetter) {
-          setLetterIndex((i) => i + 1);
-          setAdvancing(false);
-          return;
-        }
-        const newPassed = passed.map((v, i) => (i === currentIndex ? true : v));
-        setPassed(newPassed);
-        void (async () => {
-          const wordUrl = await resolveTtsUrl({
-            text: currentItem.word,
-            language: 'english',
-            storybookId,
-            directUrl: currentItem.ttsUrl,
-            identifierPrefix: 'wwrite-en',
-          });
-          playCorrectSequence({
-            ttsUrl: wordUrl,
-            language: 'en',
-            onDone: () => {
-              const s = resolveSceneFromWord(currentItem.word, 'en', sourceStorybook);
-              if (s) {
-                pendingPassedRef.current = newPassed;
-                setScene(s);
-              } else {
-                advanceToNext(newPassed);
-              }
-            },
-          });
-        })();
-      };
-      if (letterUrl) playAudio(letterUrl, afterLetter);
-      else afterLetter();
-    },
-    [
-      advancing,
-      letterIndex,
-      letters.length,
-      currentLetter,
-      currentItem,
-      storybookId,
-      passed,
-      currentIndex,
-      advanceToNext,
-      playAudio,
-      playCorrectSequence,
-      sourceStorybook,
-    ]
-  );
+      playCorrectSequence({
+        ttsUrl: wordUrl,
+        language: 'en',
+        onDone: () => {
+          const s = resolveSceneFromWord(
+            currentItem.word,
+            'en',
+            sourceStorybook,
+            gameStyle.selectedStyle
+          );
+          if (s) {
+            pendingPassedRef.current = newPassed;
+            setScene(s);
+          } else {
+            advanceToNext(newPassed);
+          }
+        },
+      });
+    })();
+  }, [
+    passed,
+    currentIndex,
+    currentItem,
+    storybookId,
+    playCorrectSequence,
+    sourceStorybook,
+    gameStyle.selectedStyle,
+    advanceToNext,
+  ]);
 
   return (
     <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/writing-bg.webp">
@@ -153,9 +146,17 @@ export function EnglishWordWritingPlayer({
         current={passed.filter(Boolean).length}
         total={items.length}
         onBack={onBack}
+        rightExtra={
+          gameStyle.canPick ? (
+            <GameStyleChip
+              styles={gameStyle.styles}
+              index={gameStyle.index}
+              onCycle={gameStyle.setIndex}
+            />
+          ) : undefined
+        }
       />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
-        {/* 단어 hero + 일러스트 — 이미 쓴 글자는 coral, 지금 쓸 글자는 회색, 남은 글자는 연회색 */}
         <div className="flex items-center justify-center gap-3 sm:gap-5 shrink-0">
           {currentItem.imageUrl && (
             <img
@@ -164,42 +165,20 @@ export function EnglishWordWritingPlayer({
               className="h-16 sm:h-20 lg:h-24 w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
             />
           )}
-          <div className="text-center">
-            <p
-              className="font-display font-black tracking-tight leading-none whitespace-nowrap"
-              style={{
-                fontSize: 'clamp(3rem, 8vw, 7rem)',
-                filter: 'drop-shadow(0 5px 0 rgba(0,0,0,0.08))',
-              }}
-            >
-              {letters.map((ch, i) => (
-                <span
-                  key={i}
-                  style={{
-                    color: i < letterIndex ? '#FF7A3C' : i === letterIndex ? '#d4d4d8' : '#e8e8ec',
-                    WebkitTextStroke: '5px white',
-                    paintOrder: 'stroke fill',
-                  }}
-                >
-                  {ch}
-                </span>
-              ))}
-            </p>
-            <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900 mt-1">
-              {letters.length > 1 ? `${letterIndex + 1}번째 글자를 따라 써봐` : '글자를 따라 써봐'}
-            </p>
-          </div>
+          <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900">
+            글자를 따라 써봐
+          </p>
         </div>
 
-        {/* 현재 글자 paint 캔버스 — 글자마다 리셋(key) */}
         <div className="flex-1 min-h-0 w-full flex items-center justify-center">
-          <div style={{ width: 'min(420px, 55vh)' }}>
-            <LetterFillCanvas
-              key={`${currentIndex}-${letterIndex}-${currentLetter}`}
-              letter={currentLetter}
-              onResult={handleLetterComplete}
-              autoCheck
-              threshold={0.95}
+          <div style={{ width: 'min(680px, 92vw)' }}>
+            <WordFillCanvas
+              key={currentIndex}
+              word={currentItem.word}
+              syllables={letters}
+              onSyllableDone={handleLetterDone}
+              onComplete={handleWordComplete}
+              threshold={0.9}
             />
           </div>
         </div>

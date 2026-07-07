@@ -66,7 +66,7 @@ export function PromoBanner() {
 
   return (
     <div
-      className="relative w-full min-h-[140px] sm:min-h-0 sm:aspect-[4/1] md:aspect-[5/1] lg:aspect-[6/1] rounded-2xl overflow-hidden shadow-soft mb-8 md:mb-10 flex bg-gradient-to-br from-cream-50 to-peach-100"
+      className="relative w-full min-h-[140px] sm:min-h-[150px] md:min-h-[170px] lg:min-h-[190px] rounded-2xl overflow-hidden shadow-soft mb-8 md:mb-10 flex bg-gradient-to-br from-cream-50 to-peach-100"
       role="region"
       aria-label="프로모션 배너"
     >

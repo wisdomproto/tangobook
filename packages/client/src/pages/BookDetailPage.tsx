@@ -10,6 +10,7 @@ import {
 import { StateScreen, Skeleton, Chip, PageHeader } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { useSeo } from '@/lib/useSeo';
+import { useStyleGenreLabel } from '@/lib/art-style-genre';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
 import {
   SUPPORTED_LANGUAGES,
@@ -62,6 +63,7 @@ export default function BookDetailPage() {
   const [videoIdToPlay, setVideoIdToPlay] = useState<string | null>(null);
   // 유료화 접근 권한 (체험/구독). 현재는 가입일 기반 체험만 — Supabase 연동 시 구독·레퍼럴 주입.
   const access = useAccess();
+  const styleGenreLabel = useStyleGenreLabel();
   const { account } = useAuth();
   // "영상으로 보기" 모드는 아직 준비 중 — 개발자에게만 노출.
   const showVideoMode = isDevEmail(account?.email);
@@ -337,9 +339,12 @@ export default function BookDetailPage() {
                       </button>
                       <span className="text-base font-black text-ink-900 flex items-center gap-1.5 truncate min-w-0">
                         <span className="shrink-0">🎨</span>
-                        {/* 어떤 그림체인지 명시하지 않고 "그림체 N" 으로만 표시 */}
+                        {/* 장르명 표시 (수채동화풍/페이퍼 3D 아트/콜라주). 매핑 안 되면 "그림체 N" */}
                         <span className="truncate">
-                          그림체 {Math.max(0, styles.indexOf(effectiveStyle)) + 1}
+                          {styleGenreLabel(
+                            effectiveStyle,
+                            Math.max(0, styles.indexOf(effectiveStyle))
+                          )}
                         </span>
                       </span>
                       <button
@@ -420,7 +425,6 @@ export default function BookDetailPage() {
                   }
                   onClick={() => enterMode('read')}
                   locked={locked}
-                  sound="book-open"
                 />
                 <ModeCard
                   tone="mint"
@@ -439,7 +443,6 @@ export default function BookDetailPage() {
                   }
                   onClick={() => enterMode('read', { selfRead: true })}
                   locked={locked}
-                  sound="book-open"
                 />
                 {showVideoMode && (
                   <ModeCard
