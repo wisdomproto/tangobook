@@ -1,9 +1,10 @@
 /**
  * PlaylistLibrarySection — 나의 재생 목록 (LibraryPage 내 섹션)
  *
- * Render policy:
+ * Render policy (2026-07-07 — 연속재생 진입점을 사이드바→이 섹션으로 이전):
  * - 게스트 (account=null) → null
- * - 로그인 + 세트 0개 (or loading) → null (sidebar 연속재생 button이 진입·생성 경로)
+ * - 로그인 + 로딩 중 → null
+ * - 로그인 + 세트 0개 → 헤더 + "이어재생 만들기" CTA (첫 세트 생성 경로)
  * - 로그인 + 세트 ≥1 → 헤더 + 카드 행 (＋ 추가 카드 없음)
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -62,10 +63,11 @@ describe('PlaylistLibrarySection', () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it('로그인 + 세트 0개 → 아무것도 렌더하지 않음 (섹션 숨김)', () => {
+  it('로그인 + 세트 0개 → 헤더 + "이어재생 만들기" CTA 표시', () => {
     mockPlaylists.data = [];
-    const { container } = renderSection();
-    expect(container.firstChild).toBeNull();
+    renderSection();
+    expect(screen.getByText(/나의 재생 목록/)).toBeInTheDocument();
+    expect(screen.getByText('이어재생 만들기')).toBeInTheDocument();
   });
 
   it('로그인 + 로딩 중 → 아무것도 렌더하지 않음', () => {

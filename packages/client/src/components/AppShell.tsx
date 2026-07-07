@@ -32,17 +32,8 @@ const PRIMARY_AXES = [
     devOnly: false,
     authOnly: false,
   },
-  {
-    to: '/continuous',
-    iconSrc: 'tab/continuous.webp',
-    label: '연속재생',
-    color: 'coral' as const,
-    end: false,
-    comingSoon: false,
-    alwaysActive: false,
-    devOnly: false,
-    authOnly: true, // 로그인 시만 (게스트는 동화책만)
-  },
+  // 연속재생은 부모가 세팅하는 작업이라 사이드바 아이존이 아닌 메인화면(라이브러리 "나의 재생 목록")
+  // 이 1차 진입점 — PlaylistLibrarySection 이 로그인 시 항상 표시(빈 상태 CTA 포함). 2026-07-07.
   {
     to: '/library/phonics',
     iconSrc: 'tab/phonics.svg',
@@ -135,49 +126,46 @@ export function AppShell() {
         </Link>
       </div>
 
-      {/* 학습 zone — 동화책 / 연속재생 (모두) + 파닉스 / 어휘 / 학습 게임 (개발자 전용). 큰 박스.
-          그 아래 구분선 + 학습 리포팅(부모용, 로그인 시만). */}
+      {/* 아이 zone — 동화책(아이가 매일 만지는 유일한 것) + 파닉스 / 어휘 / 학습 게임 (개발자 전용).
+          부모 작업(리포팅·초대·연속재생·설정)은 위계를 정직하게 하려고 하단 부모 영역으로 분리. 2026-07-07. */}
       <nav className="flex flex-col gap-2.5 items-center pt-5 pb-5">
         {PRIMARY_AXES.filter(
           (a) => (!a.devOnly || isDevEmail(account?.email)) && (!a.authOnly || !!session)
         ).map((axis) => (
           <PrimaryNavButton key={axis.to} {...axis} />
         ))}
-        {session && isConfigured && (
-          <>
-            {/* 동화책·연속재생(아이용)과 부모용(리포팅·초대) 구분선 */}
-            <div className="w-16 h-0.5 rounded-full bg-ink-200/70 my-1.5" />
-            <PrimaryNavButton
-              to="/parent/reports"
-              iconSrc="section/reports.webp"
-              label="학습 리포팅"
-              color="mint"
-              end={false}
-            />
-            <PrimaryNavButton
-              to="/invite-friends"
-              iconSrc="section/reward.webp"
-              label="친구 초대"
-              color="amber"
-              end={false}
-            />
-          </>
-        )}
       </nav>
 
       {/* 부모 영역 — 부모 설정 / 로그인/로그아웃. */}
       <div className="mt-auto px-3 pt-3 pb-3 border-t-2 border-ink-200/60 bg-cream-100/30 flex flex-col gap-1.5">
         {/* 무료 체험 남은 일수 — 로그인 시 상시 노출(배너 스크롤/캐시와 무관) */}
         {session && isConfigured && <TrialBadge />}
-        {/* 부모 설정 — 멤버십·초대·효과음·PIN. "학습 리포팅 뒤에 숨은 설정" 문제 해소 */}
+        {/* 부모 도메인 작업 — 학습 리포팅 · 친구 초대 · 부모 설정 을 한 곳에 모아 위계 정직화. 2026-07-07.
+            (아이존 큰 버튼과 구분되는 작은 텍스트 링크) */}
         {session && isConfigured && (
-          <Link
-            to="/parent/settings"
-            className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
-          >
-            <span aria-hidden>⚙️</span>
-            <span>부모 설정</span>
-          </Link>
+          <>
+            <Link
+              to="/parent/reports"
+              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
+            >
+              <span aria-hidden>📊</span>
+              <span>학습 리포팅</span>
+            </Link>
+            <Link
+              to="/invite-friends"
+              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
+            >
+              <span aria-hidden>🎁</span>
+              <span>친구 초대</span>
+            </Link>
+            <Link
+              to="/parent/settings"
+              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
+            >
+              <span aria-hidden>⚙️</span>
+              <span>부모 설정</span>
+            </Link>
+          </>
         )}
         {/* 로그인/로그아웃 — session 상태에 따라 분기 */}
         {session ? (
