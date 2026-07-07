@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 멈춰! 손 번쩍! 차 보고 건너!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 C #16</div>
+  <h1>🚦 멈춰! 손 번쩍! 차 보고 건너!</h1>
+  <div class="sub">성급하게 먼저 뛰어나가던 호리가 아빠와 꼬마 신호등에게 '길 건너는 세 가지 약속'을 몸으로 배워요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 길 건너기 / 교통안전 (인과 — 성급히 건너면 아찔) + 번호규칙 3개 &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(성급함·먼저 뛰어감)·아빠(조력)·토토(친구)·꼬마 신호등(안내자 단역) &nbsp;·&nbsp;
+  <b>장치</b> 인과(성급히 건너다 아찔) + 번호규칙(①멈춰 ②손 번쩍 ③좌우 차 보고 건넌다) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "멈춰! 손 번쩍! 차 보고 건너!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"놀이터 가자! 빨리빨리!" 호리는 신이 나서 폴짝폴짝 앞장서요. 오늘은 아빠랑 친구 토토랑 셋이 놀이터에 가는 날이에요. 호리는 마음이 급해서 자꾸 저만치 앞으로 쪼르르 달려가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 인도를 따라 걷는 셋의 전신이 보이는 컷.<br/><b>장소·시간</b> 동네 아파트 앞 인도, 화창한 오전. 파란 하늘에 뭉게구름, 가로수 잎이 반짝이는 상쾌하고 밝은 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 앞쪽 왼편에서 두 팔을 활짝 벌리고 폴짝 뛰며 저만치 앞서 달려나가, 눈을 반짝이고 입을 크게 벌려 신난 웃음, 온몸이 앞으로 기울어 조급함이 느껴짐. Dad tiger(아빠 호랑이, 둥근 안경)는 화면 오른쪽 뒤에서 한 손을 살짝 들어 "천천히" 하듯 부르며 흐뭇하지만 살짝 걱정스러운 미소. Toto(흰 토끼, 빨간 손수건)는 아빠 곁에서 귀를 쫑긋 세우고 호리를 따라가려 발을 떼며 방긋 웃음.<br/><b>배경·소품</b> 넓은 보도블록 인도, 노란 점자블록, 가로수와 화단, 뒤로 아파트 건물과 벤치, 멀리 놀이터 미끄럼틀 지붕이 살짝 보임.<br/><b>톤</b> 화창한 오전 자연광, 채도 높고 밝은 색감, 나들이의 설레고 활기찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(먼저 뛰어듦)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저 앞에 놀이터가 보이자 호리는 더 급해졌어요. "놀이터다! 얼른 건너야지!" 호리는 좌우도 안 보고, 신호등도 안 보고, 찻길로 발을 쑥— 내밀었어요. 그때 아빠가 얼른 호리 손을 꽉 잡았어요. "호리야, 잠깐!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글로 긴장감. 횡단보도 앞에서 아빠가 호리를 붙잡는 결정적 순간.<br/><b>장소·시간</b> 동네 사거리 횡단보도 앞 인도 끝, 오전. 밝은 햇살이지만 공기에 살짝 긴장이 감도는 순간.<br/><b>인물</b> Hori는 화면 중앙에서 한 발을 이미 인도 밖 찻길 쪽으로 쑥 내밀며 몸이 앞으로 쏠려 있고, 앞만 보느라 좌우를 안 봐 눈은 놀이터 쪽만 향함, 조급한 표정. Dad tiger는 바로 뒤에서 두 손으로 호리의 손과 어깨를 꽉 붙잡아 멈춰 세우며, 눈이 커지고 "잠깐!" 하듯 다급하지만 침착하게 지켜 주는 표정. Toto는 오른쪽에서 두 손으로 입을 가리고 눈이 동그래져 걱정하는 표정.<br/><b>배경·소품</b> 흰 줄무늬 횡단보도, 인도 가장자리 턱, 신호등 기둥(멀리 서 있음), 도로 위 저만치서 다가오는 작은 자동차 한 대(멀리, 위협적이지 않게 작게), 노란 점자블록.<br/><b>톤</b> 밝은 오전 조명이지만 아빠 손과 호리 발끝에 시선이 모이게 대비, 아찔하지만 곧바로 안전하게 붙잡히는 안심되는 긴장감(무섭지 않게).</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(아찔했어)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠 손에 붙잡혀 멈춘 사이, 자동차 한 대가 부릉— 하고 앞을 지나갔어요. "휴, 놀랐지?" 호리는 가슴이 콩닥콩닥, 눈을 동그랗게 떴어요. 앞만 보고 뛰었으면 큰일 날 뻔했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 안전하게 인도로 물러선 호리·아빠와, 앞을 지나가는 자동차.<br/><b>장소·시간</b> 같은 횡단보도 앞 인도, 오전. 밝은 햇살, 방금 아찔함이 지나간 안도의 공기.<br/><b>인물</b> Hori는 화면 왼쪽에서 아빠 손에 꼭 붙잡힌 채 인도 안쪽으로 한 걸음 물러서 있고, 두 눈을 동그랗게 뜨고 입을 작게 벌려 놀란 표정, 가슴께에 한 손을 얹어 콩닥거리는 마음을 표현. Dad tiger는 호리 옆에서 한쪽 무릎을 살짝 굽혀 호리와 눈을 맞추며 등을 다독다독, 안심시키는 부드러운 미소. Toto는 오른쪽에서 가슴을 쓸어내리며 "휴" 하는 표정.<br/><b>배경·소품</b> 도로 위를 부릉 지나가는 자동차 한 대(옆모습, 둥글고 귀엽게, 무섭지 않게), 자동차 뒤로 흐릿한 속도선, 흰 횡단보도 줄, 신호등 기둥, 노란 점자블록.<br/><b>톤</b> 밝은 오전 조명, 놀란 마음이 서서히 가라앉는 안도의 정서, 사고가 아니라 "아찔했지만 괜찮아"의 따뜻한 안전감.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(아빠의 약속)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 호리 손을 꼭 잡고 눈높이를 맞췄어요. "길을 건널 땐 급한 마음보다 약속이 먼저야. 아빠랑 세 가지 약속을 지켜 볼까?" 호리는 고개를 끄덕끄덕. "응! 어떻게 하는 거야?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 아빠가 호리와 눈높이를 맞추고 손을 잡은 다정한 두 얼굴.<br/><b>장소·시간</b> 횡단보도 앞 인도, 오전. 밝고 따뜻한 햇살 아래 차분해진 공기.<br/><b>인물</b> Dad tiger는 화면 왼쪽에서 한쪽 무릎을 굽혀 앉아 두 손으로 Hori의 두 손을 꼭 잡고 눈을 맞추며 다정하고 진지하게 이야기하는 표정, 이 장면의 주 조력자로 호리에게 가장 가까이. Hori는 오른쪽에서 아빠를 빤히 올려다보며 두 눈을 반짝이고 고개를 끄덕끄덕, 이제 마음이 차분해져 귀 기울이는 표정. Toto는 뒤쪽에서 귀를 쫑긋 세우고 함께 궁금해하며 들여다봄.<br/><b>배경·소품</b> 뒤로 횡단보도와 신호등 기둥, 노란 점자블록, 가로수 그늘, 두 사람 사이에 손을 맞잡은 따뜻한 실루엣.<br/><b>톤</b> 밝고 부드러운 오전 조명, 조급함이 신뢰로 바뀌는 안심되고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(꼬마 신호등 등장)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 길 건너 신호등에 방긋 웃는 얼굴이 나타났어요. 빨간불이 눈을 찡긋. "빨간불일 땐 멈춰! 나랑 손잡고 기다리자." 호리는 신기해서 눈이 동그래졌어요. "우와, 신호등이 말을 하네!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글로 신호등을 올려다봄. 얼굴이 생긴 꼬마 신호등이 호리 일행에게 인사하는 컷.<br/><b>장소·시간</b> 횡단보도 앞, 오전. 밝은 햇살 아래 신호등이 또렷이 보이는 공기.<br/><b>인물</b> 화면 오른쪽 신호등 기둥 위, traffic light(꼬마 신호등, 얼굴이 달린 상냥한 안내자)의 빨간 등에 웃는 눈과 입이 나타나 눈을 찡긋하며 한 손(작고 통통한 팔)을 들어 "멈춰" 신호를 보냄, 하나도 안 무섭고 다정함. Hori는 화면 왼쪽 인도에서 두 손을 모으고 신호등을 올려다보며 눈이 동그래진 신기한 표정. Dad tiger는 호리 곁에서 신호등을 손으로 가리키며 미소. Toto는 옆에서 귀를 쫑긋, 입을 벌리고 놀란 웃음.<br/><b>배경·소품</b> 얼굴 달린 꼬마 신호등(빨간 등이 켜져 방긋 웃는 얼굴), 흰 횡단보도, 노란 점자블록, 정지선, 파란 하늘.<br/><b>톤</b> 밝고 명랑한 오전 조명, 신기하고 상냥한 만남의 설레는 정서, 신호등은 친근하고 귀엽게.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(세 가지 약속)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠와 꼬마 신호등이 세 가지 약속을 알려 줬어요. "하나, 인도에서 딱 멈춰! 둘, 손을 번쩍 들어 '나 건너요'! 셋, 왼쪽 오른쪽 차를 보고 건너!" 호리는 두 손을 불끈 쥐었어요. "나도 할 수 있어!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 아빠가 호리에게 세 동작을 하나씩 시범 보이는 컷.<br/><b>장소·시간</b> 횡단보도 앞 인도, 오전. 밝고 환한 햇살.<br/><b>인물</b> Dad tiger는 화면 왼쪽에서 한 손을 펴 "멈춰" 하듯 앞으로 내밀고 다른 손은 위로 번쩍 들어 시범을 보이며, 다정하게 가르치는 표정, 주 조력자로 호리를 마주 봄. Hori는 중앙에서 아빠를 따라 한 손을 하늘 높이 번쩍 들어 올리고 다른 손은 앞으로 펴 멈춤 자세를 흉내 내며 야무진 결의의 표정, 두 발을 정지선 위에 나란히 모음. traffic light(꼬마 신호등)는 오른쪽 기둥 위에서 빨간 얼굴로 방긋 웃으며 함께 손을 든 자세로 호리를 응원. Toto는 뒤에서 호리를 따라 손을 들며 방긋.<br/><b>배경·소품</b> 흰 횡단보도, 정지선, 노란 점자블록, 신호등 기둥, 아빠와 호리가 든 손 둘레에 살짝 강조된 빛무리.<br/><b>톤</b> 밝고 활기찬 오전 조명, 약속을 배우고 다짐하는 씩씩하고 두근거리는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(약속대로 건너기)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">빨간불이 초록불로 바뀌자 꼬마 신호등이 활짝 웃었어요. "이제 건너도 좋아!" 호리는 인도에서 딱 멈춰, 손을 번쩍 들고, 왼쪽 오른쪽 차를 살핀 뒤 또박또박 건넜어요. 멈춰! 손 번쩍! 차 보고 건너!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 초록불에 손 들고 씩씩하게 횡단보도를 건너는 결정적 순간.<br/><b>장소·시간</b> 사거리 횡단보도 한복판, 오전. 초록불이 켜진 밝고 안전한 공기.<br/><b>인물</b> Hori는 화면 중앙 횡단보도 흰 줄 위에서 한 손을 하늘 높이 번쩍 들고, 고개를 왼쪽으로 살짝 돌려 차가 오나 살피며 또박또박 걷는 야무지고 자신감 넘치는 표정. Dad tiger는 호리의 다른 손을 꼭 잡고 나란히 걸으며 흐뭇하게 지켜봄. Toto는 반대쪽에서 호리와 손을 잡고 함께 손을 번쩍 들며 방긋 웃음. traffic light(꼬마 신호등)는 뒤쪽 기둥 위에서 초록 얼굴로 활짝 웃으며 두 팔을 들어 "잘한다" 응원.<br/><b>배경·소품</b> 초록불이 켜진 꼬마 신호등, 넓은 흰 횡단보도 줄, 양옆 정지선에 얌전히 멈춰 선 자동차들(둥글고 귀엽게), 파란 하늘.<br/><b>톤</b> 밝고 상쾌한 오전 조명, 약속을 지켜 안전하게 건너는 씩씩하고 뿌듯한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(해냈어!)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무사히 건너편에 도착! 호리는 어깨가 으쓱, 마음이 뿌듯해요. "나 혼자 약속 지켰어!" 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! 아빠와 토토가 손뼉을 짝짝 쳐 줬어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 건너편 인도에 도착해 두 팔 벌려 기뻐하는 호리.<br/><b>장소·시간</b> 횡단보도 건너편 인도(놀이터 쪽), 오전. 밝고 생기 넘치는 햇살.<br/><b>인물</b> Hori는 화면 중앙에서 두 팔을 활짝 벌리고 폴짝 뛰며 입을 크게 벌려 가장 환하게 웃는 뿌듯한 표정, 어깨가 으쓱. 이 성공의 순간 Hori의 꼬리 줄무늬가 무지개빛으로 반짝이며 부릉— 하는 시그니처 반짝임이 터짐. Dad tiger는 왼쪽에서 두 손으로 짝짝 손뼉을 치며 자랑스럽게 웃음. Toto는 오른쪽에서 두 팔을 위로 뻗어 함께 만세하며 방긋.<br/><b>배경·소품</b> 호리 둘레에 축하하는 색색 반짝이가 팡 흩날림, 특히 꼬리 줄무늬의 무지개 반짝임, 뒤로 놀이터 미끄럼틀 입구와 가로수, 파란 하늘.<br/><b>톤</b> 밝은 오전 조명에 폭죽처럼 튀는 반짝임으로 성취의 기쁨을 강조, 역동적이고 뿌듯한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(세 약속 척척)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 호리는 길을 건널 때마다 세 약속을 스스로 지켜요. 하나, 인도에서 딱 멈춰! 둘, 손을 번쩍! 셋, 왼쪽 오른쪽 차를 보고 건너! 놀이터에서 돌아올 때도 호리가 앞장서 약속을 외쳤어요. 멈춰! 손 번쩍! 차 보고 건너!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 스스로 멈춰 서서 손을 든 호리와, 벽에 붙은 세 칸 약속 그림표.<br/><b>장소·시간</b> 다른 횡단보도 앞 인도, 낮. 밝고 산뜻한 오후 햇살.<br/><b>인물</b> Hori는 화면 중앙에서 정지선 위에 두 발을 딱 모으고 멈춰 서서 한 손을 하늘 높이 번쩍 든 채 고개를 옆으로 돌려 차를 살피는 야무진 표정, 스스로 약속을 실천하는 자신감. Toto는 오른쪽에서 호리를 따라 손을 번쩍 들며 방긋. Dad tiger는 뒤쪽에서 엄지를 척 들어 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 인도 옆 안내판에 세 칸짜리 약속 그림표 — 왼쪽 칸: 손바닥을 펴 멈추는 그림, 가운데 칸: 손을 위로 번쩍 든 그림, 오른쪽 칸: 좌우를 살피는 눈과 화살표 그림. 세 칸 모두 글자·숫자 없이 동글동글한 그림 아이콘만. 흰 횡단보도, 정지선, 노란 점자블록, 신호등 기둥.<br/><b>톤</b> 밝고 명랑한 오후 조명, 습관이 된 약속을 스스로 해내는 뿌듯하고 씩씩한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집에 돌아와 아빠가 호리를 꼭 안아 주었어요. "우리 호리, 약속을 지켜서 정말 멋졌어!" 이제 호리는 알아요. 아무리 급해도 길을 건널 땐 약속이 먼저라는 걸. 멈춰! 손 번쩍! 차 보고 건너!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 아빠가 호리를 폭 안아 주는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 호리네 집 현관 앞, 늦은 오후. 창으로 든 노란 저녁 햇살로 포근하고 환한 공기.<br/><b>인물</b> Dad tiger는 한쪽 무릎을 굽혀 앉아 두 팔로 Hori를 폭 껴안고 볼을 맞대며 흐뭇하게 미소. Hori는 아빠 품에 안겨 두 팔을 아빠 목에 두르고 눈을 반달로 접으며 활짝 웃는 개운하고 행복한 표정. 옆에서 Toto가 손을 흔들며 방긋 인사.<br/><b>배경·소품</b> 두 사람 머리 위로 작은 별 모양 반짝임 몇 개, 벽에 걸린 세 칸 약속 그림표 미니 액자(멈춤·손 번쩍·좌우 살피기 그림 아이콘만), 현관 신발장과 걸린 모자, 창밖 저녁 노을.<br/><b>톤</b> 따뜻한 저녁 햇살이 두 사람을 감싸는 뭉클하고 사랑스러운 정서, 안심되고 포근한 마무리 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 멈춰! 손 번쩍! 차 보고 건너! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"trafficlight","name":"꼬마 신호등","aliases":["traffic light","signal light","kkoma-signal"],"desc":"얼굴이 달린 상냥한 안내자 꼬마 신호등 — 둥글둥글한 세로 신호등 몸통에 빨간 등과 초록 등, 켜진 등 안에 방긋 웃는 큰 눈과 다정한 입이 나타남(빨간불=차분히 웃는 얼굴, 초록불=활짝 웃는 얼굴). 몸통 양옆에 작고 통통한 짧은 팔이 있어 손을 들어 신호를 보냄. 하나도 안 무섭고 친근하며 귀여움, 아이를 지켜 주는 다정한 길잡이 느낌"}]</script>
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

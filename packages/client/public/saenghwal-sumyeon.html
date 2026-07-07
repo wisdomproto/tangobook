@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 잘 자요, 코~ 잘 자요, 코~</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 A #8</div>
+  <h1>🌙 잘 자요, 코~ 잘 자요, 코~</h1>
+  <div class="sub">더 놀고 싶어 안 자려던 호리가 가족의 "잘 자요" 릴레이로 잠자리 루틴을 따라가며 스르르 잠드는 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 일찍 자기 / 수면 루틴 (양치→이불→불끄기→코~) &nbsp;·&nbsp;
+  <b>연령</b> 2~5세 &nbsp;·&nbsp; <b>등장</b> 호리(안 자려 함)·엄마·아빠·호야(조력=가족 릴레이) &nbsp;·&nbsp;
+  <b>장치</b> 반복후렴(가족이 차례로 "잘 자요") + 잠자리 루틴 3단계 &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "잘 자요, 코~ 잘 자요, 코~"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"싫어, 안 잘래!" 밤이 깊었는데 호리는 방바닥에서 블록을 와르르 쏟으며 놀아요. 창밖은 벌써 깜깜, 별이 반짝반짝. 그래도 호리는 하품을 꾹 참으며 "조금만 더, 조금만 더!" 해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 늦은 밤 방바닥에 앉아 노는 호리 전신.<br/><b>장소·시간</b> 호리네 집 아이 방, 늦은 밤. 창밖은 어둑하고 실내는 따뜻한 노란 수면등 하나만 켜진 아늑한 공기.<br/><b>인물</b> Hori(아기 호랑이)는 방바닥 가운데 앉아 두 손으로 블록을 와르르 쏟으며 신난 얼굴, 눈은 반짝이지만 한쪽 눈가에 살짝 졸린 기색, 입은 하품을 꾹 참느라 오므림. 잠옷 차림.<br/><b>배경·소품</b> 바닥에 색색 블록이 흩어짐, 뒤쪽 창문 너머 깜깜한 밤하늘과 노란 별 몇 개, 벽에 걸린 동그란 벽시계가 늦은 시간을 가리킴, 구석에 잠자리 이불과 베개.<br/><b>톤</b> 따뜻한 수면등의 은은한 노란 조명, 창밖 밤의 짙은 파랑과 대비되는 포근하지만 살짝 나른한 늦은 밤 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(안 자려 함)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 살며시 들어왔어요. "호리야, 잘 시간이야." "아니야, 나 하나도 안 졸려!" 호리는 도리도리 고개를 젓고 블록 성을 꼭 껴안아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 어깨너머 앵글. 안 자려 버티는 호리와 부드럽게 부르는 엄마.<br/><b>장소·시간</b> 같은 아이 방, 늦은 밤. 문가에서 새어드는 복도 불빛과 방 안 수면등.<br/><b>인물</b> Hori는 방바닥에서 블록으로 쌓은 작은 성을 두 팔로 꼭 껴안고 고개를 좌우로 도리도리 저으며 "안 졸려!" 하는 야무진 표정, 눈을 크게 뜨려 애씀. Mom tiger(엄마 호랑이)는 방문 쪽에서 무릎을 굽혀 눈높이를 맞추고 한 손을 살며시 내밀며 다정하게 미소, 재촉하지 않는 부드러운 얼굴.<br/><b>배경·소품</b> 껴안은 블록 성, 흩어진 나머지 블록, 문 틈으로 들어오는 따뜻한 복도 빛줄기, 벽시계.<br/><b>톤</b> 수면등과 복도 빛이 겹친 포근한 조명, 다투지 않는 다정하고 나긋한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(눈이 뻑뻑)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 자꾸 눈이 스르르 감겨요. 블록도 자꾸만 손에서 떨어져요, 툭. 하품이 아함— 크게 나왔어요. "어? 나 조금 졸린가…?" 호리 눈이 뻑뻑해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 졸음이 몰려오는 호리 얼굴이 화면을 크게 채움.<br/><b>장소·시간</b> 아이 방 바닥, 늦은 밤. 수면등 아래 노곤한 공기.<br/><b>인물</b> Hori는 화면 중앙에서 입을 크게 벌려 "아함—" 하품하며 눈이 반쯤 스르르 감기고 눈가가 촉촉, 한 손에 쥐고 있던 블록이 손가락 사이로 툭 떨어지는 순간, 고개가 살짝 옆으로 기울어짐, 어리둥절한 표정.<br/><b>배경·소품</b> 손끝에서 떨어지는 블록 한 개, 바닥에 흩어진 블록, 호리 머리 위에 작고 몽글한 졸음 구름과 아기별 하나가 동동, 뒤로 흐릿한 창밖 밤.<br/><b>톤</b> 수면등의 노란빛에 초점이 살짝 부드럽게 흐려져 졸음을 표현, 나른하고 사랑스러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(가족이 모임)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 아빠가 호야를 안고 방으로 왔어요. "우리 다 같이 잘 준비 하자!" 아기 호야도 눈을 비비며 "아아—" 하품을 따라 해요. 온 가족이 호리 방에 도란도란 모였어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 온 가족이 아이 방에 모이는 따뜻한 장면.<br/><b>장소·시간</b> 호리네 아이 방, 늦은 밤. 수면등과 복도 빛이 어우러진 포근한 공기.<br/><b>인물</b> Dad(아빠 호랑이, 듬직한 체구)는 방으로 막 들어서며 한 팔로 Hoya(아기 동생, 턱받이 대신 노란 잠옷)를 안고 환하게 미소, 다른 손으로 자리를 가리킴. Hoya는 아빠 품에서 작은 두 주먹으로 눈을 비비며 입을 벌려 하품을 따라 함. Hori는 바닥에서 고개를 들어 가족을 올려다보며 호기심과 반가움이 섞인 얼굴.<br/><b>배경·소품</b> 방문으로 들어오는 복도 빛, 정돈되기 시작한 잠자리 이불과 베개, 바닥의 블록, 벽시계.<br/><b>톤</b> 여러 빛이 겹친 아늑한 조명, 가족이 함께 모여드는 도란도란하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(1단계: 양치)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">잘 준비는 차례차례 하는 거래요. 첫째, 이 닦기! 치카치카 뽀득뽀득. 호리랑 호야가 나란히 서서 거품을 부글부글, 서로 보고 까르르 웃어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 세면대 앞에 나란히 선 두 아이.<br/><b>장소·시간</b> 호리네 집 욕실, 늦은 밤. 잠자리 가는 길에 잠깐 들른 욕실로, 따뜻한 노란 욕실등만 은은히 켜져 뽀얗고 포근한 공기.<br/><b>인물</b> Hori는 세면대 앞 발판에 서서 칫솔을 입에 물고 "치카치카" 위아래로 닦으며 입가에 하얀 거품, 옆의 호야를 보며 눈웃음. Hoya(아기 동생)는 옆의 낮은 발판에서 작은 칫솔을 두 손으로 쥐고 어설프게 오물오물 따라 닦으며 볼에 거품, 호리를 보고 까르르. Dad는 뒤에서 허리를 굽혀 두 아이를 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 세면대와 거울, 두 개의 컵과 칫솔, 하얀 치약 거품, 발판 두 개, 수건걸이의 색색 수건.<br/><b>톤</b> 잠깐 밝은 욕실에 들렀다 다시 어둑한 방으로 돌아가는 흐름 — 조명은 과하지 않은 따뜻한 노란 욕실등으로 낮춰 전후의 밤 정서와 부드럽게 이어지고, 거품이 뽀얗게 빛나는 상쾌하고 즐거운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>적용(2단계: 이불 · 후렴①)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘째, 이불 속으로! 호리가 폭신한 이불을 스르륵 덮어요. 엄마가 호리 이마에 뽀뽀하며 나직이 노래해요. "잘 자요, 코~ 잘 자요, 코~"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 하이앵글로 내려다봄. 이불 덮고 눕는 호리와 뽀뽀하는 엄마.<br/><b>장소·시간</b> 아이 방 침대, 늦은 밤. 수면등만 켜진 어둑하고 포근한 공기.<br/><b>인물</b> Hori는 침대에 누워 폭신한 이불을 턱밑까지 스르륵 끌어 덮으며 눈을 살포시 감으려는 편안한 미소, 두 손을 이불 위에 가지런히. Mom tiger는 침대 곁에 앉아 몸을 숙여 호리 이마에 살짝 뽀뽀하며 눈을 감고 나직이 노래하는 다정한 표정.<br/><b>배경·소품</b> 폭신한 이불과 베개, 머리맡 수면등의 따뜻한 노란 빛무리, 창밖의 별, 이불 위로 떠오르는 작은 하트와 음표 같은 포근한 기운.<br/><b>톤</b> 수면등의 부드러운 노란 조명이 침대만 감싸고 주변은 어둑하게 잦아듦, 자장가처럼 나른하고 사랑스러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>변화(3단계: 불끄기 · 후렴②)</b> <span class="tag">변화 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">셋째, 불을 딸깍 꺼요. 방이 캄캄— 무섭지 않아요, 별빛이 있으니까. 아빠도 호야를 토닥토닥. "잘 자요, 코~ 잘 자요, 코~" 아빠 목소리가 이불처럼 따뜻해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 불을 끈 어둑한 방에서 온 가족이 잠자리에 든 장면.<br/><b>장소·시간</b> 아이 방, 깊은 밤. 방 불은 껐고 창으로 든 은은한 별빛·달빛만 남은 파르스름한 공기.<br/><b>인물</b> Hori는 침대에서 이불을 덮고 편안히 누워 반쯤 감긴 눈으로 창의 별을 바라보며 살포시 미소. Dad는 침대 곁에 앉아 옆에 뉜 Hoya의 가슴을 손바닥으로 "토닥토닥" 두드리며 나직이 노래하는 인자한 표정, 눈을 지그시 감음. Hoya는 아빠 손길에 눈을 스르르 감음.<br/><b>배경·소품</b> 껴진 벽 스위치, 창으로 쏟아지는 은은한 달빛과 별빛, 천장에 별 모양 은은한 빛, 폭신한 이불들.<br/><b>톤</b> 달빛의 부드러운 파랑과 남은 온기가 어우러진 어둡지만 무섭지 않고 안전한, 포근한 밤의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>도전(호리 차례 · 시그니처)</b> <span class="tag">도전</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 호리 차례예요. 호리가 아기 호야에게 소곤소곤 노래해 줘요. 그 순간, 어둠 속에서 호리 꼬리 줄무늬가 무지개색으로 살짝 반짝— 부릉! 형아가 되어 뿌듯해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 어깨너머 앵글. 동생에게 자장가를 불러 주는 호리의 뿌듯한 순간.<br/><b>장소·시간</b> 아이 방 침대, 깊은 밤. 달빛만 든 어둑하고 고요한 공기.<br/><b>인물</b> Hori는 침대에서 몸을 옆으로 살짝 일으켜 옆에 누운 Hoya를 향해 한 손을 입가에 대고 소곤소곤 노래하며 형아다운 다정하고 뿌듯한 미소, 눈이 초승달처럼 휨. Hoya는 그 곁에서 눈을 감고 새근새근 편안한 표정.<br/><b>배경·소품</b> 호리의 꼬리 줄무늬가 어둠 속에서 무지개빛으로 은은히 반짝이는 시그니처 순간(부릉꼬리), 꼬리 둘레에 작은 무지개 반짝임 입자, 폭신한 이불, 창밖 별빛.<br/><b>톤</b> 어둑한 달빛 배경에 꼬리의 무지개 반짝임만 살포시 도드라져 성장의 순간을 강조, 뭉클하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(스르르 잠듦 · 후렴③)</b> <span class="tag">적용 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">온 가족이 나란히 눈을 감았어요. 엄마도, 아빠도, 호야도, 호리도. 방 안엔 새근새근 숨소리만 나요. "잘 자요, 코~ 잘 자요, 코~" 이제 노래는 마음속에서 흘러요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 하이앵글로 내려다봄. 온 가족이 잠든 방 전체가 한눈에 보이는 넓은 컷.<br/><b>장소·시간</b> 호리네 아이 방, 깊은 밤. 달빛만 든 고요하고 평화로운 공기.<br/><b>인물</b> Hori는 침대에서 이불을 덮고 눈을 감은 채 입가에 편안한 미소로 잠듦. 그 곁에 Hoya가 새근새근 잠들고, 침대 옆 낮은 자리에 Mom tiger와 Dad도 나란히 눈을 감고 편안히 기대어 잠든 다정한 모습.<br/><b>배경·소품</b> 잠든 가족들 위로 동동 떠오르는 작은 "코~" 숨소리 표시(꿈 거품·별 모양), 창으로 든 달빛과 별, 머리맡의 잦아든 수면등, 폭신한 이불들.<br/><b>톤</b> 달빛의 부드러운 파랑과 은은한 온기가 어우러진 더없이 평화롭고 포근한 잠의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 교훈)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아침이 밝았어요! 호리가 폴짝 일어나 기지개를 쭉— 몸이 아주 가뿐해요. 엄마가 호리를 꼭 안아 줬어요. "푹 자고 나면, 아침이 이렇게 반짝반짝하지?" 이제 호리는 잘 시간이 좋아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 아침 햇살 속에서 기지개 켜는 호리와 안아 주는 엄마.<br/><b>장소·시간</b> 호리네 아이 방, 맑은 아침. 창으로 환한 아침 햇살이 가득 쏟아지는 상쾌한 공기.<br/><b>인물</b> Hori는 침대 위에서 두 팔을 머리 위로 쭉 뻗어 기지개를 켜며 입을 크게 벌려 개운한 웃음, 볼이 발그레하고 온몸에 생기가 돎. Mom tiger는 침대 곁에서 두 팔을 벌려 호리를 포근히 감싸 안으며 이마를 맞대고 환하게 미소.<br/><b>배경·소품</b> 활짝 걷힌 커튼과 창으로 든 눈부신 아침 햇살, 개어 놓은 이불과 베개, 창밖의 파란 하늘과 지저귀는 작은 새, 바닥에 정리된 블록.<br/><b>톤</b> 창에서 쏟아지는 밝고 따뜻한 아침 햇빛, 잘 자고 일어난 개운함과 사랑이 가득한 산뜻하고 뭉클한 마무리 정서.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 잘 자요, 코~ 잘 자요, 코~ · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

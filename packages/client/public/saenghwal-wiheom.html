@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 이상하면 안 먹어, 퉤!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 C #19</div>
+  <h1>🚫 이상하면 안 먹어, 퉤!</h1>
+  <div class="sub">먹보 콩이가 공원에서 이상하게 생긴 것을 입에 넣으려다, 친구들과 아빠에게 '입에 넣기 전 세 가지 약속'을 배워요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 이물질·이상한 것 먹지 않기 / 안전 (인과 — 이상한 것 입에 넣었다 퉤, 어른께 확인) + 번호규칙 3개 &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 콩이(먹보라 아무거나 입에)·호리(말림)·토토(말림)·아빠(확인·조력) &nbsp;·&nbsp;
+  <b>장치</b> 인과(이상한 것 입에 넣었다 퉤) + 번호규칙(①모르는 건 안 만져 ②입에 안 넣어 ③어른께 물어봐) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "이상하면 안 먹어, 퉤!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">햇살 좋은 날, 콩이와 호리와 토토가 아빠랑 공원에 놀러 왔어요. 먹보 콩이는 오늘도 간식 주머니를 챙겨 왔어요. "히히, 맛있는 건 다 내 거야!" 콩이는 볼이 통통해지도록 도토리 과자를 오물오물 먹었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 공원 잔디밭에서 넷이 함께 있는 전신 컷.<br/><b>장소·시간</b> 동네 공원 잔디밭, 화창한 오전. 파란 하늘에 뭉게구름, 초록 잔디와 나무가 반짝이는 상쾌하고 밝은 공기.<br/><b>인물</b> Kongi(아기 다람쥐)는 화면 앞쪽 중앙에서 볼이 통통해지도록 도토리 모양 과자를 오물오물 먹으며 한 손에 간식 주머니를 꼭 쥐고 눈을 반짝이는 신난 표정, 먹보다운 만족스러운 얼굴. Hori(아기 호랑이)는 왼쪽에서 잔디에 앉아 방긋 웃음. Toto(흰 토끼, 빨간 손수건)는 오른쪽에서 귀를 쫑긋 세우고 나비를 바라보며 웃음. Dad tiger(아빠 호랑이, 둥근 안경)는 뒤쪽 벤치 곁에서 아이들을 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 넓은 잔디밭, 나무와 화단, 벤치, 콩이 손의 간식 주머니와 도토리 과자, 뒤로 공원 산책로와 놀이터.<br/><b>톤</b> 화창한 오전 자연광, 채도 높고 밝은 색감, 나들이의 즐겁고 평화로운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(이상한 걸 주움)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">과자를 다 먹은 콩이가 화단을 살피다 반짝이는 빨간 알갱이를 발견했어요. 사탕처럼 동글동글, 반짝반짝! "우와, 맛있는 사탕인가 봐!" 콩이는 앞뒤 안 보고 그 알갱이를 손으로 냉큼 집어 입으로 가져가려 했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 하이앵글. 이상한 빨간 알갱이를 집어 입으로 가져가려는 콩이의 손과 얼굴.<br/><b>장소·시간</b> 공원 화단 앞, 오전. 밝은 햇살 아래 화단이 또렷이 보이는 공기.<br/><b>인물</b> Kongi는 화면 중앙에서 한 손으로 반짝이는 빨간 알갱이를 집어 입 가까이로 가져가며, 눈을 반짝이고 입을 살짝 벌려 "맛있겠다" 하는 기대에 찬 먹보 표정, 앞뒤 안 살피고 성급한 자세.<br/><b>배경·소품</b> 콩이 손에 든 반짝이는 빨간 알갱이(사탕처럼 동글동글하지만 사실 이상한 것 — 약처럼 생긴 정체 모를 알갱이, 무섭지 않게 그냥 반짝이는 구슬 같은 느낌), 화단의 흙과 잎, 뒤로 공원 잔디.<br/><b>톤</b> 밝은 오전 조명이지만 알갱이에 시선이 모이게 살짝 강조, 아직 위험을 모르는 순진하고 성급한 정서(무섭지 않게).</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(친구들이 말려!)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 호리와 토토가 후다닥 달려와 콩이 손을 얼른 잡았어요. "콩이야, 안 돼! 그게 뭔지 모르잖아!" 콩이는 깜짝 놀라 손을 멈췄어요. "어? 사탕 아니야?" 호리와 토토가 고개를 절레절레 저었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 친구들이 달려와 콩이 손을 붙잡아 멈춰 세우는 순간.<br/><b>장소·시간</b> 공원 화단 앞, 오전. 밝은 햇살, 급히 말리는 가벼운 긴장이 감도는 공기.<br/><b>인물</b> Kongi는 화면 중앙에서 알갱이를 든 손을 입 앞에서 딱 멈춘 채 눈을 동그랗게 뜨고 "어?" 하며 놀란 표정. Hori는 왼쪽에서 두 손으로 콩이의 손목을 얼른 붙잡아 멈춰 세우며 "안 돼!" 하듯 눈이 커지고 다급하지만 침착한 표정. Toto는 오른쪽에서 두 손을 내저으며 고개를 절레절레, 걱정스러운 표정.<br/><b>배경·소품</b> 입 앞에서 멈춘 콩이 손의 빨간 알갱이, 화단, 잔디, 뒤로 공원 나무.<br/><b>톤</b> 밝은 오전 조명, 아찔했지만 친구들 덕에 바로 멈춘 안심되는 정서, 사고가 아니라 "친구가 지켜 줬어"의 따뜻한 안전감(무섭지 않게).</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(아빠께 확인)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">셋은 아빠에게 쪼르르 달려가 알갱이를 보여 줬어요. "아빠, 이거 먹어도 돼요?" 아빠가 알갱이를 살펴보곤 고개를 저었어요. "이건 먹는 게 아니야. 뭔지 모르는 건 입에 넣으면 안 된단다. 잘 물어봤어!" 콩이는 살짝 부끄러워 볼이 발그레했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 앵글. 아빠가 무릎을 굽혀 앉아 알갱이를 살펴보는 컷.<br/><b>장소·시간</b> 공원 벤치 곁, 오전. 밝고 따뜻한 햇살 아래 차분해진 공기.<br/><b>인물</b> Dad tiger는 화면 왼쪽에서 한쪽 무릎을 굽혀 앉아 콩이가 내민 손 위의 알갱이를 진지하게 들여다보며 고개를 살짝 젓고, 다정하게 타이르는 표정, 이 장면의 주 조력자. Kongi는 오른쪽에서 알갱이를 든 손을 아빠에게 쭉 내밀며 아빠를 올려다보고, 볼이 발그레 부끄러운 듯하면서도 궁금한 표정. Hori와 Toto는 뒤에서 나란히 서서 함께 들여다보며 귀를 쫑긋.<br/><b>배경·소품</b> 콩이 손바닥 위의 빨간 알갱이, 벤치, 잔디, 뒤로 공원 나무와 산책로.<br/><b>톤</b> 밝고 부드러운 오전 조명, 성급함이 배움으로 바뀌는 안심되고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(왜 안 될까)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 상상 이야기를 들려줬어요. "우리 입은 소중한 문이야. 그 문으로는 아는 음식만 들어가야 해. 이상한 게 들어가면 배 속 친구들이 '앗, 이게 뭐야!' 하고 놀란단다." 콩이 눈앞에 배 속에서 어리둥절해하는 작은 친구들이 그려졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 정면. 상상 속 '입 문'과 배 속 친구들이 크게 펼쳐지는 컷.<br/><b>장소·시간</b> 상상 장면(구름 같은 몽환적 테두리). 따뜻한 상상빛이 감도는 배경.<br/><b>인물</b> 상상 속 Kongi 캐릭터의 몸이 반투명하게 그려지고, 입 부분에 반짝이는 작은 문이 달려 있음. 배 속에는 tummy friends(배 속 친구, 동글동글하고 귀여운 작은 존재 서너 명)가 아는 음식(딸기·바나나 그림)에는 방긋 웃으며 반기고, 이상한 빨간 알갱이 앞에서는 두 손을 들고 "앗, 이게 뭐야!" 하며 어리둥절 놀란 표정 — 하나도 안 무섭고 귀엽고 코믹하게.<br/><b>배경·소품</b> 반짝이는 입 문, 아는 음식 그림(딸기·바나나), 물음표를 띄운 이상한 알갱이, 공중에 몽환적 반짝임.<br/><b>톤</b> 부드러운 상상빛 조명, 신기하고 살짝 코믹한 정서, 위협적이지 않고 다정한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(세 가지 약속)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠와 친구들이 세 가지 약속을 알려 줬어요. "하나, 모르는 건 손으로 안 만져! 둘, 절대 입에 안 넣어! 셋, 궁금하면 어른께 물어봐!" 콩이는 두 손을 불끈 쥐었어요. "나도 약속 지킬 수 있어!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 아빠가 세 동작을 하나씩 시범 보이는 컷.<br/><b>장소·시간</b> 공원 잔디밭, 오전. 밝고 환한 햇살.<br/><b>인물</b> Dad tiger는 화면 왼쪽에서 한 손을 저어 "안 만져" 하고, 다른 손으로 입을 가리며 "안 넣어" 시범을 보이는 다정하게 가르치는 표정, 주 조력자. Kongi는 중앙에서 아빠를 따라 두 손을 뒤로 살짝 감추고(안 만져), 입을 앙 다무는 자세로 야무진 결의의 표정. Hori는 오른쪽에서 손을 번쩍 들어 "물어봐!" 하듯 어른을 가리키며 방긋. Toto는 뒤에서 함께 손을 저으며 웃음.<br/><b>배경·소품</b> 잔디밭, 벤치, 나무, 인물들 둘레에 살짝 강조된 빛무리, 파란 하늘.<br/><b>톤</b> 밝고 활기찬 오전 조명, 약속을 배우고 다짐하는 씩씩하고 두근거리는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(스스로 퉤!)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">조금 뒤, 콩이가 잔디에서 또 이상하게 생긴 회색 덩어리를 봤어요. 예전 같으면 냉큼 집었겠지만, 이번엔 달랐어요! 콩이는 손을 뒤로 쏙 감추고 씩씩하게 외쳤어요. "이상하면 안 먹어, 퉤!" 그러곤 아빠에게 달려가 물어봤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글로 올려다봄. 스스로 손을 감추고 "퉤!" 외치는 결정적 순간.<br/><b>장소·시간</b> 공원 잔디밭, 오전. 밝은 햇살로 씩씩하고 개운한 공기.<br/><b>인물</b> Kongi는 화면 중앙에서 두 손을 등 뒤로 쏙 감추고(안 만져), 고개를 살짝 저으며 입을 크게 벌려 "퉤!" 하듯 씩씩하게 외치는, 눈을 반짝이고 결의에 찬 표정. 발밑에는 이상하게 생긴 회색 덩어리(무섭지 않게 그냥 정체 모를 물체). Hori와 Toto는 옆에서 콩이를 향해 엄지를 척 들며 "잘한다!" 응원하는 표정.<br/><b>배경·소품</b> 잔디밭 위 이상한 회색 덩어리(안 만지는 대상), 콩이 둘레에 씩씩함을 나타내는 작은 반짝임, 뒤로 벤치의 아빠 실루엣, 나무와 하늘.<br/><b>톤</b> 밝은 오전 조명, 스스로 참아 낸 씩씩하고 뿌듯한 정서, 승리의 밝은 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(해냈어!)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 살펴보곤 활짝 웃었어요. "이건 나무 열매인데 먹으면 배 아파. 콩이가 안 먹고 물어봐서 정말 잘했어!" 콩이는 어깨가 으쓱, 마음이 뿌듯했어요. 그 순간 콩이 발밑에서 반짝반짝— 참아 낸 콩이가 반짝 빛났어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 아빠 곁에서 두 팔 벌려 뿌듯해하는 콩이.<br/><b>장소·시간</b> 공원 벤치 곁, 오전. 밝고 생기 넘치는 햇살.<br/><b>인물</b> Kongi는 화면 중앙에서 두 팔을 활짝 벌리고 폴짝 뛰며 입을 크게 벌려 가장 환하게 웃는 뿌듯한 표정, 어깨가 으쓱. 이 성공의 순간 콩이 발밑과 둘레에서 색색 반짝임이 팡 흩날리며 참아 낸 콩이가 반짝 빛남(콩이 주인공의 해냄 반짝). Dad tiger는 왼쪽에서 무릎을 굽혀 앉아 두 손으로 짝짝 손뼉을 치며 자랑스럽게 웃음. Hori와 Toto는 오른쪽에서 함께 만세하며 방긋.<br/><b>배경·소품</b> 콩이 둘레에 축하하는 색색 반짝이가 팡, 벤치, 잔디, 아빠 손에 든 나무 열매(이제 안전하게 확인된), 파란 하늘.<br/><b>톤</b> 밝은 오전 조명에 폭죽처럼 튀는 반짝임으로 성취의 기쁨을 강조, 역동적이고 뿌듯한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(세 약속 척척)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 콩이는 이상한 걸 볼 때마다 세 약속을 스스로 지켜요. 하나, 모르는 건 안 만져! 둘, 입에 안 넣어! 셋, 어른께 물어봐! 놀이터에서 반짝이는 걸 본 친구에게도 콩이가 먼저 알려 줬어요. 이상하면 안 먹어, 퉤!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 손을 저으며 친구를 말리는 콩이와, 벽에 붙은 세 칸 약속 그림표.<br/><b>장소·시간</b> 공원 놀이터 옆, 낮. 밝고 산뜻한 오후 햇살.<br/><b>인물</b> Kongi는 화면 중앙에서 두 손을 저으며 옆의 친구에게 "안 돼!" 하듯 알려 주고, 다른 손으로 어른 쪽을 가리키는 야무진 표정, 스스로 약속을 실천하고 친구까지 챙기는 자신감. Hori는 오른쪽에서 콩이를 따라 손을 저으며 방긋. Toto는 뒤쪽에서 엄지를 척.<br/><b>배경·소품</b> 놀이터 안내판에 세 칸짜리 약속 그림표 — 왼쪽 칸: 손을 뒤로 감춰 안 만지는 그림, 가운데 칸: 입 앞에 가위표(안 넣기) 그림, 오른쪽 칸: 손을 들어 어른에게 물어보는 그림. 세 칸 모두 글자·숫자 없이 동글동글한 그림 아이콘만. 놀이터 미끄럼틀, 잔디, 파란 하늘.<br/><b>톤</b> 밝고 명랑한 오후 조명, 습관이 된 약속을 스스로 해내는 뿌듯하고 씩씩한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집에 가는 길, 아빠가 콩이를 번쩍 안아 주었어요. "우리 콩이, 궁금해도 꾹 참고 물어봐서 정말 멋졌어!" 이제 콩이는 알아요. 아무리 먹고 싶어도 모르는 건 입에 넣지 않는다는 걸. 이상하면 안 먹어, 퉤!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 아빠가 콩이를 번쩍 안아 주는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 공원 산책로 나가는 길, 늦은 오후. 노란 저녁 햇살로 포근하고 환한 공기.<br/><b>인물</b> Dad tiger는 두 팔로 Kongi를 번쩍 안아 올려 볼을 맞대며 흐뭇하게 미소. Kongi는 아빠 품에 안겨 두 팔을 아빠 목에 두르고 눈을 반달로 접으며 활짝 웃는 개운하고 행복한 표정. 옆에서 Hori와 Toto가 손을 흔들며 방긋 인사.<br/><b>배경·소품</b> 두 사람 머리 위로 작은 별 모양 반짝임 몇 개, 산책로와 가로수, 저녁 노을, 콩이 손의 간식 주머니.<br/><b>톤</b> 따뜻한 저녁 햇살이 감싸는 뭉클하고 사랑스러운 정서, 안심되고 포근한 마무리 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 이상하면 안 먹어, 퉤! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

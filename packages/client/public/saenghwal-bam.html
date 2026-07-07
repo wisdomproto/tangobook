@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 깜깜해도 괜찮아, 옆에 있어!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 D #24</div>
+  <h1>🌙 깜깜해도 괜찮아, 옆에 있어!</h1>
+  <div class="sub">호리네 집에서 자고 가는 밤, 어둠 속 무서운 그림자를 무서워하던 보리가 아빠와 하나씩 정체를 확인하며 안심해요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 밤·어둠 두려움 다루기 (어둠 속 무서운 그림자가 사실은 익숙한 사물임을 확인) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 보리(겁많은 곰·주인공)·아빠(호리 아빠, 어른 조력자)·호리(같이 자는 친구) &nbsp;·&nbsp;
+  <b>장치</b> 정서(두려움 명명 + 작은 불빛으로 그림자 정체 하나씩 확인) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "깜깜해도 괜찮아, 옆에 있어!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">오늘은 보리가 호리네 집에서 자고 가는 날이에요! 낮에는 신나게 뛰어놀았어요. "우리 나란히 자자!" 호리랑 보리는 폭신폭신 이불 속에 쏙 들어가 킥킥 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 이불 속에 나란히 누운 두 친구의 상반신 위주.<br/><b>장소·시간</b> 호리네 방, 초저녁. 창밖은 아직 보랏빛 노을이 남은 하늘, 실내는 노란 취침등이 켜져 아늑하고 들뜬 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 왼쪽에서 이불을 턱까지 덮고 옆으로 누워 눈을 반달로 접으며 신나게 킥킥 웃음. Bori(연갈색 통통한 곰, 파란 멜빵 위에 잠옷)는 오른쪽에서 나란히 누워 두 손으로 이불 끝을 쥐고 수줍게 배시시 웃으며 호리를 바라봄, 아직은 편안한 표정.<br/><b>배경·소품</b> 나란히 놓인 두 개의 베개, 폭신한 이불, 협탁 위 취침등과 물컵, 벽에 별 모양 스티커, 창밖 노을.<br/><b>톤</b> 노란 취침등의 포근한 저녁 조명, 친구와 자는 첫 밤의 설레고 들뜬 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(불이 꺼지자)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 "잘 자렴" 하고 취침등을 딸깍 껐어요. 그러자 방이 온통 깜깜! 보리는 갑자기 가슴이 콩닥콩닥. "우리 집이 아니야… 조금 무서워." 이불을 코까지 끌어올렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 하이앵글. 어둠 속에서 이불을 끌어올린 보리의 얼굴.<br/><b>장소·시간</b> 호리네 방, 밤. 불이 막 꺼져 방 전체가 어스름한 남색 어둠에 잠김, 창으로 희미한 달빛만 스며드는 고요한 공기.<br/><b>인물</b> Bori는 화면 중앙에서 이불을 코까지 바짝 끌어올리고 두 눈만 빼꼼 내민 채 눈동자가 불안하게 커지고 눈썹이 팔자로 처진 겁먹은 표정, 두 손으로 이불을 꼭 움켜쥠. 옆의 Hori는 이미 눈을 감고 새근새근 잠든 실루엣.<br/><b>배경·소품</b> 꺼진 취침등, 어둑한 방의 윤곽, 창으로 든 희미한 달빛 한 줄기, 보리 가슴께에 콩닥콩닥을 나타내는 작은 물결선.<br/><b>톤</b> 남색 어둠의 낮은 조명, 낯선 밤의 살짝 불안한 정서, 다만 무섭게 과장하지 않고 안쓰럽고 귀여운 겁먹음.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(무서운 그림자)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">벽을 보니— 어라? 크고 뾰족한 그림자가 스윽! 보리 눈에는 그게 무서운 괴물 같았어요. "으으… 저게 뭐지?" 보리는 눈을 질끈 감고 몸을 오들오들 떨었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글로 벽을 올려다봄. 벽에 드리운 커다란 그림자가 화면을 크게 채움.<br/><b>장소·시간</b> 호리네 방, 깊은 밤. 창밖 달빛과 가로등이 만든 어스름, 벽에 길고 뾰족한 그림자가 드리운 어둑한 공기.<br/><b>인물</b> Bori는 화면 아래쪽에서 이불을 뒤집어쓴 채 두 눈을 질끈 감고 몸을 오들오들 웅크리며 잔뜩 겁먹은 표정, 한쪽 눈만 살짝 뜨고 벽을 훔쳐봄.<br/><b>배경·소품</b> 벽에 드리운 크고 뾰족한 그림자(사실은 옷걸이에 걸린 외투와 모자지만 지금은 정체가 모호하게 보임), 창밖 달빛, 어둑한 방의 윤곽, 이불.<br/><b>톤</b> 남색 달빛 조명에 그림자만 진하게, 살짝 오싹하지만 아이 눈높이의 상상이 만든 두려움으로 과장 없이, 곧 풀릴 궁금증의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(아빠 등장)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"흑흑…" 작은 울음소리에 아빠가 살그머니 방으로 들어왔어요. "보리야, 무서웠구나. 괜찮아." 아빠가 보리 옆에 앉아 작은 손전등을 켜며 손을 꼭 잡아 줬어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 아빠가 다가와 보리를 다독이는 만남 컷.<br/><b>장소·시간</b> 호리네 방 침대 곁, 깊은 밤. 아빠가 켠 작은 손전등의 따뜻한 노란 빛이 작게 번지는 어둑한 공기.<br/><b>인물</b> Bori는 화면 오른쪽에서 이불 밖으로 얼굴을 반쯤 내밀고 눈가에 작은 눈물방울이 맺힌 채 아빠를 올려다봄, 아직 훌쩍이지만 조금 안심한 표정. Dad(진한 주황 털에 둥근 안경을 쓴 아빠 호랑이)는 침대 곁에 무릎을 굽혀 앉아 한 손으로 작은 손전등을 켜 들고 다른 손으로 보리의 손을 꼭 잡으며 다정하고 든든하게 미소.<br/><b>배경·소품</b> 아빠 손의 작고 동그란 손전등과 그 노란 빛무리, 이불, 곁에 잠든 Hori의 실루엣, 협탁.<br/><b>톤</b> 손전등의 따뜻한 노란 조명이 어둠 속에 작은 안전지대를 만드는 안심되고 든든한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(두려움에 이름을)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 다정하게 물었어요. "무엇이 무서웠어?" 보리가 벽을 가리켰어요. "저기… 뾰족한 괴물이요." 아빠가 고개를 끄덕였어요. "무서운 마음이 들었구나. 그럴 수 있어. 우리 하나씩 살펴볼까?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 보리가 벽을 가리키고 아빠가 귀 기울이는 두 얼굴.<br/><b>장소·시간</b> 호리네 방 침대 곁, 깊은 밤. 손전등 빛이 두 사람 얼굴만 부드럽게 비추는 어둑한 공기.<br/><b>인물</b> Bori는 화면 오른쪽에서 이불을 두른 채 한 손을 들어 벽 쪽을 조심스레 가리키며 눈썹이 처진 걱정스러운 표정, 아빠에게 몸을 살짝 기댐. Dad는 왼쪽에서 보리와 눈높이를 맞춰 몸을 숙이고 한 손은 손전등, 다른 손은 보리 등을 토닥이며 진지하게 귀 기울이는 다정한 표정.<br/><b>배경·소품</b> 손전등 빛무리, 멀리 벽에 여전히 흐릿한 그림자, 이불, 협탁 위 물컵.<br/><b>톤</b> 손전등의 아늑한 노란 조명, 두려운 마음을 부끄럽지 않게 꺼내 놓는 안전하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(정체 확인)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 손전등으로 그림자를 비췄어요. 파앗— "봐, 이건 아빠 외투랑 모자였네!" 뾰족했던 괴물은 옷걸이에 걸린 외투였어요. 보리는 눈이 동그래졌어요. "우와… 괴물이 아니었네?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 손전등에 밝게 드러난 옷걸이와 놀란 보리.<br/><b>장소·시간</b> 호리네 방 벽 앞, 깊은 밤. 손전등 불빛이 벽을 환하게 비춰 그림자의 정체가 또렷이 드러난 공기.<br/><b>인물</b> Dad는 화면 왼쪽에서 손전등을 옷걸이 쪽으로 쭉 뻗어 비추며 "봐" 하듯 부드럽게 웃음. Bori는 오른쪽에서 이불을 두른 채 몸을 앞으로 빼꼼 내밀고 두 눈을 동그랗게 뜨며 입을 살짝 벌린 놀랍고 안도하는 표정, 겁이 스르르 풀림.<br/><b>배경·소품</b> 손전등 빛에 또렷이 보이는 옷걸이 — 아빠의 외투와 챙 있는 모자가 걸려 있어 아까 뾰족한 그림자의 정체임이 분명, 벽, 이불.<br/><b>톤</b> 손전등의 환한 노란 조명으로 어둠이 걷히고 두려움이 우스워지는 안도와 신기함의 밝은 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(하나씩 비춰 보기)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 보리가 손전등을 들었어요. 구석에 있던 둥근 그림자를 파앗— "이건 곰인형이다!" 창가 흔들흔들 그림자도 파앗— "이건 커튼이야!" 하나씩 비추니 무서운 게 하나도 없어요. "깜깜해도 괜찮아, 옆에 있어!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 로우앵글. 보리가 직접 손전등을 들고 씩씩하게 비추는 결정적 순간.<br/><b>장소·시간</b> 호리네 방 안, 깊은 밤. 보리가 든 손전등 빛줄기가 방 구석구석을 밝게 훑는 공기.<br/><b>인물</b> Bori는 화면 중앙에서 두 손으로 작은 손전등을 야무지게 쥐고 팔을 쭉 뻗어 방 구석을 비추며 눈을 반짝이고 입을 벌려 씩씩하게 웃는 용감해진 표정, 더 이상 겁먹지 않음. Dad는 뒤에서 보리 어깨에 손을 얹고 흐뭇하게 지켜보며 미소.<br/><b>배경·소품</b> 손전등 빛에 드러난 봉제 곰인형(둥근 그림자의 정체)과 흔들리는 커튼(창가 그림자의 정체), 빛줄기, 이불.<br/><b>톤</b> 손전등이 만든 밝은 빛무리로 어둠이 친근해지는 씩씩하고 안심되는 정서, 용기를 낸 개운한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(용기가 반짝)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보리는 이제 하나도 안 무서워요. "깜깜한 건 그냥 불이 꺼진 것뿐이구나!" 그 순간 용기를 낸 보리의 두 볼이 발그레, 가슴속에 반짝 별 하나가 켜진 듯 따뜻해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 용기를 낸 보리가 환하게 웃는 뿌듯한 순간.<br/><b>장소·시간</b> 호리네 방 침대 위, 깊은 밤. 손전등을 협탁에 세워 둔 따뜻한 노란 빛이 은은히 방을 감싼 아늑한 공기.<br/><b>인물</b> Bori는 화면 중앙에서 이불 위에 앉아 두 손을 가슴에 모으고 눈을 반달로 접으며 활짝 웃음, 볼이 발그레 상기되고 뿌듯한 표정, 겁먹음이 완전히 사라짐. 곁에 잠든 Hori가 살포시 미소 지으며 새근새근.<br/><b>배경·소품</b> 협탁에 세워진 손전등의 노란 빛무리, 보리 가슴께에 작은 별 하나가 팅— 켜지는 따뜻한 반짝임, 이불, 곰인형.<br/><b>톤</b> 따뜻한 노란 조명에 작은 별빛 반짝임이 더해진 뿌듯하고 안온한 정서, 두려움을 이겨 낸 벅찬 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(무서울 때 세 가지)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 알려 줬어요. 무서울 땐 이렇게 해요. 하나, "무서워"라고 말하기! 둘, 작은 불빛으로 하나씩 살펴보기! 셋, 옆 사람 손 꼭 잡기! 보리는 아빠 손을 꼭 잡고 고개를 끄덕끄덕했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 아빠가 손가락으로 하나씩 세며 알려 주고 보리가 따라 하는 구도.<br/><b>장소·시간</b> 호리네 방 침대 곁, 깊은 밤. 손전등의 은은한 노란 빛이 감싼 아늑한 공기.<br/><b>인물</b> Dad는 화면 왼쪽에서 무릎을 굽혀 앉아 한 손을 펴 손가락으로 하나·둘·셋을 세는 듯한 다정한 설명 자세, 부드럽게 웃음. Bori는 오른쪽에서 아빠의 다른 손을 두 손으로 꼭 잡고 진지하게 고개를 끄덕이며 씩씩한 표정으로 귀 기울임.<br/><b>배경·소품</b> 협탁의 손전등 빛, 벽에 밤에 대처하는 세 가지를 그린 동글동글 그림표 — 입 벌려 말하는 얼굴·작은 손전등·맞잡은 두 손 세 칸의 그림 아이콘만(글자·숫자 없음), 이불.<br/><b>톤</b> 아늑한 노란 조명, 대처법을 배우며 든든해지는 다정하고 차분한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 보리를 폭 안아 주고, 작은 취침등을 켜 놓았어요. "무서운 마음이 들어도 괜찮아. 아빠가 옆에 있으니까." 보리는 호리 옆에 폭 안겨 스르르 잠들었어요. 깜깜해도 괜찮아, 옆에 있어!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 하이앵글. 잠자리에서 아빠가 두 아이를 감싸 주는 포근한 마무리 컷.<br/><b>장소·시간</b> 호리네 방, 깊은 밤. 작은 취침등이 다시 켜져 노란빛이 은은하게 감도는 아늑하고 평온한 공기.<br/><b>인물</b> Bori는 화면 중앙에서 이불 속에 폭 안겨 눈을 감고 편안하게 미소 지으며 곰인형을 꼭 안음, 두려움이 완전히 사라진 나른한 표정. Hori는 그 옆에서 새근새근 잠들어 살포시 웃음. Dad는 두 아이 위로 몸을 숙여 이불을 살며시 덮어 주며 이마 가까이 볼을 대고 흐뭇하고 든든하게 미소.<br/><b>배경·소품</b> 다시 켜진 취침등의 노란 빛무리, 나란한 두 베개, 이불, 창밖으로 별이 총총한 밤하늘, 벽의 별 스티커.<br/><b>톤</b> 부드러운 노란 취침등 조명, 두려움을 이겨 내고 안심하며 잠드는 포근하고 뭉클한 잠자리 정서.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 깜깜해도 괜찮아, 옆에 있어! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

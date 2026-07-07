@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 미안해 한마디면, 마음이 폭신!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 E #31</div>
+  <h1>🧡 미안해 한마디면, 마음이 폭신!</h1>
+  <div class="sub">장난치다 토토의 블록탑을 무너뜨린 호리가 부끄러워 사과를 미루다, 용기 내어 "미안해" 한마디로 마음이 폭신해짐</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 미안해(사과) / 잘못을 인정하고 사과하기 &nbsp;·&nbsp;
+  <b>연령</b> 4~6세 &nbsp;·&nbsp; <b>등장</b> 호리(사과 미룸·주인공)·토토(속상+먼저 손 내미는 조력)·엄마(정서 도닥임) &nbsp;·&nbsp;
+  <b>장치</b> 명시교훈(사과하면 마음이 폭신해진다) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "미안해 한마디면, 마음이 폭신!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(아차사고)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">우당탕! 호리가 방을 붕붕 뛰어다니다 그만, 토토가 쌓던 블록탑을 발로 툭! 와르르르— 알록달록 블록이 사방으로 굴러가요. "어… 어떡해." 호리는 그 자리에 딱 멈춰 섰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 블록탑이 막 무너지는 결정적 순간.<br/><b>장소·시간</b> 호리네 집 놀이방, 한낮. 창으로 환한 빛이 드는 알록달록한 놀이 공간.<br/><b>인물</b> Hori(아기 호랑이)는 화면 왼쪽에서 뛰다가 급히 멈춰 한 발을 든 채 몸이 굳고, 눈을 크게 뜨고 입을 벌려 "어떡해" 하는 아차 하는 표정, 두 손을 어정쩡하게 든 자세. Toto(토끼, 긴 귀)는 오른쪽 바닥에 앉아 무너지는 탑을 보며 두 손을 뻗고 눈이 휘둥그레, 귀가 쫑긋 서고 입이 벌어진 놀란 얼굴.<br/><b>배경·소품</b> 방금까지 높았던 블록탑이 반쯤 무너져 색색 블록이 사방으로 데굴데굴 굴러감, 뒤로 장난감 바구니와 러그, 창밖의 밝은 하늘.<br/><b>톤</b> 밝은 한낮 실내광, 굴러가는 블록의 동선과 튀는 효과선으로 아차사고의 순간을 강조, 귀엽지만 아찔한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(부끄러움)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">토토가 울먹울먹, 눈에 눈물이 그렁그렁. "내가 한참 쌓았는데…" 호리는 얼굴이 화끈화끈 달아올라요. '미안하다고 말해야 하는데…' 그런데 부끄러워서 입이 딱 붙어 버렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 두 얼굴을 나란히 잡는 앵글. 토토의 서운함과 호리의 부끄러움 대비.<br/><b>장소·시간</b> 같은 놀이방, 방금 그 자리. 밝은 낮.<br/><b>인물</b> Toto는 화면 왼쪽에서 무너진 블록을 내려다보며 입을 아래로 삐죽, 눈에 눈물이 그렁그렁 고여 반짝이고 어깨가 살짝 처진 서운한 표정. Hori는 오른쪽에서 두 손을 등 뒤로 감추고 고개를 살짝 숙인 채 볼이 빨갛게 화끈 달아오르고, 눈은 토토를 힐끔 보다 피하는 부끄러운 표정, 입을 꼭 다뭄.<br/><b>배경·소품</b> 두 사이에 무너진 블록 잔해, 호리 볼에 발그레한 홍조와 작은 땀방울 하나, 배경은 살짝 아웃포커스.<br/><b>톤</b> 부드러운 낮 실내광, 호리 얼굴의 붉은 홍조로 부끄러움을 강조, 안쓰럽고 조마조마한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(멀어진 사이)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">입을 꾹 다문 호리는 슬그머니 돌아서 버렸어요. 토토는 혼자 조용히 블록을 주워요. 톡, 톡, 톡… 둘 사이에 찬바람이 쌩— 방 안이 어쩐지 조용해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글로 내려다봄. 등을 돌린 둘 사이의 거리감이 보이는 컷.<br/><b>장소·시간</b> 같은 놀이방, 조금 뒤. 밝지만 어쩐지 가라앉은 낮.<br/><b>인물</b> Hori는 화면 왼쪽에서 토토에게 등을 돌린 채 어깨를 움츠리고 시무룩하게 발끝만 내려다봄, 손은 축 늘어짐. Toto는 오른쪽에서 혼자 쪼그려 앉아 굴러간 블록을 하나씩 톡톡 주워 담으며 고개를 푹 숙인 쓸쓸한 뒷모습.<br/><b>배경·소품</b> 둘 사이의 텅 빈 바닥 공간, 흩어진 블록 몇 개, 둘 사이에 옅은 하늘색 찬바람 표현과 작은 얼음 결정 같은 효과, 배경 창은 밝음.<br/><b>톤</b> 밝은 낮이지만 둘 주변만 채도를 살짝 낮추고 푸른 기를 더해 서먹하고 서운한 정서, 조용하고 쓸쓸한 공기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(엄마 도닥임)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">방으로 온 엄마가 호리의 시무룩한 얼굴을 보았어요. "우리 호리, 마음이 무겁구나?" 엄마가 호리를 무릎에 앉히고 도닥도닥. "괜찮아. 마음이 무거울 땐, 어떻게 하면 좋을까?" 호리는 가만히 생각에 잠겼어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 아이레벨. 엄마가 호리를 품에 안고 눈높이를 맞추는 다정한 컷.<br/><b>장소·시간</b> 놀이방 한쪽, 낮. 따뜻한 빛이 드는 아늑한 구석.<br/><b>인물</b> Mom tiger(엄마 호랑이, 복숭아색 앞치마)는 바닥에 앉아 Hori를 무릎에 앉히고 한 손으로 등을 도닥이며 부드럽고 다정한 눈으로 호리와 눈을 맞춤, 입가에 온화한 미소로 무언가 되묻듯 고개를 살짝 기울임. Hori는 엄마 품에 안겨 여전히 시무룩한 얼굴로 무릎을 만지작거리다 엄마 물음에 눈을 살짝 들어 곰곰이 생각하는 표정.<br/><b>배경·소품</b> 두 사람 둘레에 은은하고 포근한 빛무리, 뒤편에 아직 블록을 줍는 토토의 실루엣이 살짝 보임, 러그와 쿠션.<br/><b>톤</b> 따뜻한 주광색 조명, 엄마와 호리 둘레의 포근한 빛으로 안정감을 강조, 다독이며 스스로 답을 찾게 하는 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(마음의 무게)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 가만히 생각했어요. 사과를 안 하니까 가슴 속에 커다란 돌멩이가 콩— 얹힌 것 같아요. 무겁고, 답답하고, 콕콕 찔러요. "이 돌멩이… 어떻게 치우지?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리의 마음속을 은유로 보여주는 상상 표현 컷.<br/><b>장소·시간</b> 놀이방, 낮. 호리 혼자 생각에 잠긴 조용한 순간.<br/><b>인물</b> Hori는 화면 중앙에서 두 손을 가슴에 얹고 고개를 갸웃하며 미간을 살짝 찌푸린 채 답답한 표정, 시선은 자기 가슴을 내려다봄.<br/><b>배경·소품</b> 호리 가슴 위에 반투명하게 상상으로 겹쳐진 크고 둥근 회색 돌멩이 하나가 얹혀 무겁게 짓누르는 표현, 돌멩이 둘레에 작은 답답함 효과선, 배경은 부드럽게 흐림.<br/><b>톤</b> 차분한 낮 실내광, 회색 돌멩이의 무거운 질감으로 마음의 부담을 시각화, 골똘하고 답답한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>발견(토토의 마음)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 토토가 살며시 다가왔어요. "호리야… 나 사실 같이 놀고 싶어." 토토도 마음이 무거웠던 거예요. 호리 가슴이 쿵— 뛰었어요. 토토가 먼저 손을 내밀어 준 거예요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 어깨너머 앵글. 토토가 조심스레 다가와 손을 내미는 순간.<br/><b>장소·시간</b> 놀이방, 낮. 두 아이가 다시 가까워지는 조심스러운 공기.<br/><b>인물</b> Toto는 화면 왼쪽에서 한 손을 살며시 앞으로 내밀고 몸을 조금 앞으로 기울인 채, 눈썹이 살짝 올라간 조심스럽고 진솔한 표정, 귀는 반쯤 처짐. Hori는 오른쪽에서 고개를 들어 놀란 듯 눈이 커지고, 가슴에 손을 얹은 채 뭉클한 표정으로 토토를 바라봄.<br/><b>배경·소품</b> 두 사이의 거리가 좁혀지고 아까의 찬바람 효과가 옅어짐, 바닥에 다시 그러모은 블록 몇 개, 둘 둘레에 은은한 따뜻한 빛이 번짐.<br/><b>톤</b> 부드럽게 따뜻해지는 낮 조명, 푸른 기가 걷히고 온기가 도는 뭉클하고 조심스러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(용기 낸 한마디)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 꼭 쥔 두 주먹에 용기를 모았어요. 후우— 크게 숨을 쉬고, 토토를 똑바로 보며 말했어요. "토토야, 아까 탑 무너뜨려서… 미안해!" 미안해 한마디면, 마음이 폭신!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 로우앵글로 올려다봄. 호리가 용기 내어 사과하는 결정적 순간.<br/><b>장소·시간</b> 놀이방, 낮. 밝고 결심에 찬 공기.<br/><b>인물</b> Hori는 화면 중앙에서 두 주먹을 살짝 쥐고 가슴을 펴고 토토를 똑바로 바라보며 입을 크게 벌려 또렷하게 "미안해!"라고 말하는 결연하면서도 밝아지는 표정, 눈에 진심이 담김. Toto는 오른쪽에서 그 말을 듣고 눈이 반짝 커지며 입가에 안도의 미소가 피어나는 표정, 귀가 쫑긋 올라감.<br/><b>배경·소품</b> 호리 입가에서 부드러운 주황·노랑 반짝이가 팡 퍼지고, 호리 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리), 둘 사이에 따뜻한 빛무리.<br/><b>톤</b> 밝은 낮 햇빛에 승리의 반짝임이 더해져 용기의 순간을 강조, 벅차고 후련한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(폭신해진 마음)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 순간, 가슴을 누르던 돌멩이가 사르르— 폭신한 솜사탕으로 변했어요! 마음이 가볍고 폭신폭신. 토토도 방긋 웃으며 말해요. "괜찮아! 나도 같이 놀고 싶었어."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 마음의 변화를 은유로 보여주는 밝은 컷.<br/><b>장소·시간</b> 놀이방, 낮. 화창하고 가벼워진 공기.<br/><b>인물</b> Hori는 화면 왼쪽에서 두 팔을 가볍게 벌리고 어깨를 활짝 편 채 환하게 웃으며 홀가분한 표정, 몸이 붕 떠오를 듯 가벼워 보임. Toto는 오른쪽에서 두 손을 마주 잡고 방긋 웃으며 호리를 향해 몸을 기울인 다정한 표정.<br/><b>배경·소품</b> 아까 회색 돌멩이가 있던 호리 가슴 자리에 폭신한 분홍 솜사탕 구름이 폭 하고 피어오르는 상상 표현, 둘 둘레에 하트 모양 작은 반짝임과 폭신한 구름 입자.<br/><b>톤</b> 밝고 화사한 낮 조명, 분홍·주황의 따뜻한 색과 폭신한 질감으로 가벼워진 마음을 표현, 후련하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(다시 함께)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘은 다시 사이좋게 블록을 쌓아요. 톡톡, 차곡차곡, 아까보다 훨씬 더 높이! "우와, 우리 성이 하늘까지 닿겠다!" 미안해 한마디면, 마음이 폭신!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 두 친구가 함께 높은 탑을 쌓아 올리는 신나는 컷.<br/><b>장소·시간</b> 놀이방, 낮. 활기차고 즐거운 오후.<br/><b>인물</b> Hori는 화면 왼쪽에서 까치발을 들고 블록 하나를 조심스레 탑 꼭대기에 올리며 집중한 밝은 표정, 혀를 살짝 내밈. Toto는 오른쪽에서 다음 블록을 두 손으로 건네주며 위를 올려다보고 활짝 웃음, 귀가 쫑긋 신남.<br/><b>배경·소품</b> 아까보다 훨씬 높고 알록달록한 블록탑, 옆에 블록 바구니, 둘 둘레에 즐거운 반짝임과 작은 별 효과, 창밖의 밝은 하늘.<br/><b>톤</b> 밝고 명랑한 낮 햇빛, 채도 높은 블록 색과 활기찬 효과로 회복된 우정을 강조, 신나고 뿌듯한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(애정 + 교훈 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 두 친구를 꼬옥 폭— 안아 주었어요. "미안해라고 말할 줄 아는 우리 호리, 정말 멋져!" 이제 호리는 알아요. 잘못했을 땐 부끄러워도 미안해 한마디면, 마음이 폭신해진다는 걸! 미안해 한마디면, 마음이 폭신!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 엄마가 두 아이를 함께 품에 안는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 놀이방, 노을 지는 오후. 포근하고 다정한 공기.<br/><b>인물</b> Mom tiger는 화면 중앙에서 무릎을 굽혀 두 팔로 Hori와 Toto를 함께 폭 안고 볼을 맞대며 눈을 감고 환하게 웃음. Hori는 엄마 왼팔에 안겨 볼을 발그레 물들이고 꼬리를 살랑살랑 흔들며 행복하게 눈을 감고 웃음. Toto는 엄마 오른팔에 안겨 두 귀를 편안히 늘어뜨리고 방긋 웃음.<br/><b>배경·소품</b> 셋 둘레에 포근한 하트 반짝임과 부드러운 빛무리, 옆에 완성된 높은 블록탑, 창밖으로 따뜻한 노을빛.<br/><b>톤</b> 따뜻한 노을빛 주광색 조명, 셋을 감싸는 포근한 빛으로 안정과 사랑을 강조, 뭉클하고 다정한 마무리 정서.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 미안해 한마디면, 마음이 폭신! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

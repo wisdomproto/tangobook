@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 조심조심, 살살!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 F #40</div>
+  <h1>🤲 조심조심, 살살!</h1>
+  <div class="sub">아기 동생 호야와 놀다 세게 다뤄 울릴 뻔한 호리가 '살살 조심히' 배려하는 다정한 형이 돼요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 동생 돌보기·배려 (형제역학 — 힘 조절·양보·위험 치우기) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(형·주인공)·호야(아기 동생·조력)·엄마(다독임) &nbsp;·&nbsp;
+  <b>장치</b> 형제역학(살살·조심 — 큰 힘 살살 쓰기, 순서 양보, 위험한 것 치우기) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "조심조심, 살살!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"조심조심, 살살!" 아침부터 호리는 신이 났어요. 아기 동생 호야가 오늘따라 방긋방긋 잘 웃거든요. "호야야, 형아랑 놀자!" 호리는 두 팔을 활짝 벌리고 폴짝폴짝 뛰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 거실 놀이 공간에서 신난 형과 방긋 웃는 아기 동생.<br/><b>장소·시간</b> 호리네 집 거실 놀이 매트, 아침. 창으로 환한 아침 햇살이 들어 노랗고 포근한 공기.<br/><b>인물</b> Hori(아기 호랑이 형, 5세)는 화면 왼쪽에서 두 팔을 활짝 벌리고 발끝으로 폴짝 뛰며 입을 크게 벌려 신난 웃음, 눈이 반짝. Hoya(아기 동생, 2세·노란 턱받이, 아주 통통하고 머리 비율 큼)는 오른쪽 놀이 매트에 앉아 형을 올려다보며 두 손을 위로 뻗고 방긋방긋 웃음, 볼이 발그레.<br/><b>배경·소품</b> 폭신한 놀이 매트, 알록달록 블록과 봉제 인형, 딸랑이, 뒤로 소파와 창가 커튼, 장난감 바구니.<br/><b>톤</b> 밝은 아침 자연광이 가득한 명랑하고 활기찬 정서, 형제의 사랑스러운 놀이 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(세게 다룸)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 호야를 번쩍 안아 빙글 돌리려다 그만— 팔을 우악스럽게 콱! 잡았어요. "형아 힘 세지!" 그런데 호야 얼굴이 찡— 일그러졌어요. 너무 세게 잡혔거든요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 로우앵글. 형이 동생 팔을 세게 잡는 순간과 아파하는 동생 얼굴.<br/><b>장소·시간</b> 같은 거실 놀이 매트, 아침. 환한 실내 햇살.<br/><b>인물</b> Hori는 화면 왼쪽에서 두 손으로 Hoya의 작은 팔을 힘껏 콱 움켜쥐고 씩씩하게 힘자랑하는 표정(자기는 신났음, 상황을 아직 모름). Hoya는 오른쪽에서 잡힌 팔 쪽으로 몸이 살짝 쏠리며 눈썹이 팔자로 처지고 입이 삐죽, 눈가에 눈물이 막 차오르려는 찡그린 아픈 표정.<br/><b>배경·소품</b> 잡힌 팔 둘레에 '앗' 하는 작은 충격 표시선, 놀이 매트와 흩어진 블록, 딸랑이.<br/><b>톤</b> 밝은 아침 조명이지만 호야 쪽에 살짝 긴장된 그림자로 아픔을 강조, 밉지 않고 안쓰러운 정서(전혀 폭력적이지 않게, 힘 조절 실패로).</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(호야가 울 뻔)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"으에엥—" 호야가 울음을 터뜨릴 것 같아요. 입이 삐죽삐죽, 눈에 눈물이 그렁그렁. 호리는 깜짝 놀라 손을 뗐어요. "어… 호야야, 왜 그래? 형아가 아프게 했어?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 울음을 터뜨리려는 동생과 놀라 손을 뗀 형.<br/><b>장소·시간</b> 같은 거실 놀이 매트, 아침. 환한 실내광.<br/><b>인물</b> Hoya는 화면 중앙에서 두 주먹을 쥐고 입을 삐죽삐죽 크게 벌려 울음을 터뜨리기 직전, 눈에 큰 눈물방울이 그렁그렁 맺힘, 잡혔던 팔을 반대 손으로 문지름. Hori는 왼쪽에서 두 손을 번쩍 든 채 눈이 동그래지고 입이 벌어진 깜짝 놀란 표정, "내가 아프게 했나?" 하는 당황과 미안함이 얼굴에 스침.<br/><b>배경·소품</b> 놀이 매트, 흩어진 블록, 딸랑이, 뒤로 소파.<br/><b>톤</b> 밝은 실내 조명이지만 순간 정적이 흐르는 분위기, 안쓰럽고 미안한 정서(무섭지 않게, 형이 문제를 알아채는 전환점).</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(엄마의 다독임)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 조르르 와서 호야를 먼저 폭 안아 달래 줬어요. "호리야, 호야는 아직 아기라서 살살 다뤄야 해." 엄마가 호리 손을 잡고 부드럽게 말했어요. "형아 손은 크고 힘이 세잖아. 조심조심, 살살!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 엄마가 동생을 달래며 형에게 다정히 알려 주는 삼자 구도.<br/><b>장소·시간</b> 같은 거실, 아침. 따뜻하고 환한 실내광.<br/><b>인물</b> Mom tiger(엄마 호랑이)는 화면 중앙에서 한 팔로 Hoya를 품에 폭 안아 등을 토닥이며 달래고, 다른 손으로는 Hori의 작은 손을 부드럽게 잡고 눈을 맞추며 다정하게 설명하는 미소. Hoya는 엄마 품에 안겨 아직 훌쩍이지만 조금 진정된 표정. Hori는 왼쪽에서 엄마를 올려다보며 시무룩하게 고개를 살짝 숙이고 손가락을 만지작, 미안하고 반성하는 표정.<br/><b>배경·소품</b> 놀이 매트와 블록, 소파와 쿠션, 창가 햇살, 딸랑이.<br/><b>톤</b> 따뜻한 아침 조명이 세 사람을 감싸는 안심되고 다정한 정서, 혼내지 않고 알려 주는 부드러운 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(살살의 힘)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 호리 손바닥에 자기 손을 살포시 얹었어요. "봐, 이렇게 깃털처럼 살살. 솜사탕 만지듯이." 호리는 자기 손을 가만히 내려다봤어요. "아… 아기는 이렇게 살살 만져야 하는구나!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 엄마 손이 호리 손 위에 깃털처럼 얹히는 두 손의 클로즈업과 얼굴.<br/><b>장소·시간</b> 같은 거실 한구석, 아침. 부드럽고 아늑한 실내광.<br/><b>인물</b> Mom tiger는 화면 왼쪽에서 호리 쪽으로 몸을 숙여 자신의 손을 Hori의 펼친 작은 손바닥 위에 아주 부드럽게 살포시 얹으며 다정하게 미소, 눈을 맞춤. Hori는 오른쪽에서 자기 손을 가만히 내려다보며 두 눈을 동그랗게 뜨고 "아하!" 하는 깨달음의 진지한 표정, 입이 살짝 벌어짐.<br/><b>배경·소품</b> 두 손 둘레에 부드러운 반짝임(깃털·솜사탕 같은 포근한 곡선 이미지), 옆에 봉제 인형, 뒤로 소파는 부드럽게 아웃포커스.<br/><b>톤</b> 아늑한 실내광에 포근한 빛무리, 조심함의 감각을 배우는 따뜻하고 섬세한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(위험 치우기)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 바닥을 두리번두리번 살폈어요. 뾰족한 블록, 작은 구슬— 호야가 입에 넣거나 밟으면 큰일이에요! "이건 위험해!" 호리가 뾰족한 것들을 통에 쏙쏙 담아 저 멀리 치웠어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글로 내려다봄. 형이 바닥의 위험한 물건을 통에 담아 치우는 컷.<br/><b>장소·시간</b> 같은 거실 놀이 매트, 아침. 환한 실내광.<br/><b>인물</b> Hori는 화면 중앙에서 무릎을 굽혀 앉아 한 손으로 뾰족한 블록과 작은 구슬을 집어 다른 손에 든 장난감 통에 쏙 담으며, 야무지고 책임감 있는 진지한 표정으로 주위를 살핌. Hoya는 오른쪽 뒤에서 놀이 매트에 앉아 형이 뭘 하나 신기하게 바라보며 방긋.<br/><b>배경·소품</b> 바닥에 흩어진 뾰족한 블록·작은 구슬 몇 개, 형이 든 뚜껑 달린 장난감 통, 안전한 봉제 인형은 호야 곁에 남김, 놀이 매트.<br/><b>톤</b> 밝은 아침 조명, 동생을 지키려 스스로 챙기는 야무지고 뿌듯한 정서, 책임감 있는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(살살 다시 놀기)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 호리가 두 손을 활짝 펴서 호야를 아주 살포시 안았어요. 깃털처럼, 솜사탕처럼. "조심조심, 살살!" 호야가 까르르 웃어요. 세게 잡지 않으니 하나도 안 아프고, 훨씬 더 재밌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 아이레벨. 형이 동생을 아주 부드럽게 안아 함께 웃는 결정적 순간.<br/><b>장소·시간</b> 같은 거실 놀이 매트, 아침. 환하고 따뜻한 실내광.<br/><b>인물</b> Hori는 화면 중앙에서 두 손을 활짝 펴 손끝만으로 Hoya의 등과 옆구리를 아주 살포시 감싸 안으며, 조심스레 힘을 뺀 다정한 미소와 집중한 눈. Hoya는 형 품에 폭 안겨 두 팔을 위로 뻗고 입을 크게 벌려 까르르 환하게 웃음, 볼이 발그레.<br/><b>배경·소품</b> 두 형제 둘레에 부드러운 반짝임과 작은 하트, 뒤로 깨끗이 정리된 놀이 매트, 봉제 인형.<br/><b>톤</b> 따뜻한 아침 조명에 포근한 반짝임이 더해진 사랑스럽고 즐거운 정서, 살살 안으니 더 행복한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(순서 양보)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호야가 딸랑이를 갖고 싶어 손을 뻗어요. 예전 같으면 호리가 먼저 뺏었겠지만, 오늘은 달라요. "호야 먼저 해. 형아는 기다릴게!" 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! 다정한 형이 됐어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 형이 동생에게 장난감을 먼저 양보하며 기다려 주는 컷.<br/><b>장소·시간</b> 같은 거실 놀이 매트, 아침. 환한 실내광.<br/><b>인물</b> Hori는 화면 왼쪽에서 딸랑이를 두 손으로 Hoya에게 내밀어 건네며 "너 먼저 해" 하는 흐뭇하고 너그러운 미소, 이 성장의 순간 Hori의 꼬리 줄무늬가 무지개빛으로 반짝이며 부릉— 하는 시그니처 반짝임이 터짐. Hoya는 오른쪽에서 두 손으로 딸랑이를 받으며 눈을 반짝이고 방긋 웃음.<br/><b>배경·소품</b> 건네지는 알록달록 딸랑이, 호리 꼬리 둘레의 무지개 반짝임, 놀이 매트와 정리된 블록.<br/><b>톤</b> 밝은 아침 조명에 무지개 반짝임이 더해진 뿌듯하고 따뜻한 정서, 양보하는 형의 성장이 빛나는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(형아 규칙)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 호리는 형아 규칙을 알아요. 하나, 아기는 살살 만지기! 둘, 좋은 건 순서대로 양보하기! 셋, 위험한 건 얼른 치우기! 호야가 아장아장 걸을 때 호리가 손을 살포시 잡아 줘요. "조심조심, 살살!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 걸음마하는 동생 손을 살포시 잡아 주는 형.<br/><b>장소·시간</b> 같은 거실, 낮. 밝고 명랑한 실내광.<br/><b>인물</b> Hori는 화면 왼쪽에서 한 손으로 Hoya의 작은 손을 아주 살포시 잡고 걸음을 맞춰 주며 다정하고 야무진 미소, 힘을 뺀 조심스러운 자세. Hoya는 오른쪽에서 형 손을 붙잡고 아장아장 한 발을 내디디며 신나서 방긋 웃음.<br/><b>배경·소품</b> 벽에 형아 규칙을 그린 세 칸 그림표 — 살살 만지는 손·순서를 나타내는 화살표·위험한 것 담는 통, 그림 아이콘만(글자·숫자 없음), 거실 소파와 러그.<br/><b>톤</b> 밝은 낮 조명, 형으로서 동생을 돌보는 뿌듯하고 다정한 정서, 든든한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 두 형제를 한꺼번에 폭 안아 주었어요. "우리 호리, 이제 정말 멋진 형아네!" 호리는 호야 볼에 살포시 뽀뽀했어요. 크고 힘센 손도 살살 쓰면 세상에서 제일 다정해요. "조심조심, 살살!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 엄마가 두 형제를 한 품에 안는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 호리네 집 거실, 저녁. 노란 실내등이 켜져 포근하고 아늑한 공기.<br/><b>인물</b> Mom tiger는 화면 중앙에서 무릎을 굽혀 앉아 두 팔로 Hori와 Hoya를 한꺼번에 폭 껴안고 흐뭇하게 활짝 웃음. Hori는 엄마 품 안에서 Hoya의 볼에 살포시 뽀뽀하며 다정한 미소, 눈은 초승달. Hoya는 형 뽀뽀에 눈을 반달로 접고 까르르 행복하게 웃음.<br/><b>배경·소품</b> 세 사람 머리 위로 작은 하트와 별 반짝임 몇 개, 뒤로 깨끗이 정리된 놀이 매트와 장난감 통, 소파, 창밖 저녁 노을빛.<br/><b>톤</b> 따뜻한 저녁 실내등 조명, 하루를 마무리하는 뭉클하고 사랑 가득한 가족의 정서, 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 조심조심, 살살! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

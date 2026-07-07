@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 치카치카 쓱쓱, 반짝반짝!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 A #2</div>
+  <h1>🦷 치카치카 쓱쓱, 반짝반짝!</h1>
+  <div class="sub">양치가 귀찮던 호리가 '충치벌레 물리치기' 놀이로 아침·밤 양치 습관을 스스로 해내요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 양치 치카치카 습관 (인과 — 양치 안 하면 이가 텁텁·근질) + 상상 역할극(충치벌레 물리치기) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(양치 싫어함)·엄마(조력)·충치벌레(상상 단역)·호야(동생, 카메오 등장) &nbsp;·&nbsp;
+  <b>장치</b> 인과(이 텁텁·근질) + 상상 역할극(치약 거품으로 충치벌레 무찌르기) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "치카치카 쓱쓱, 반짝반짝!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밤이 되면 엄마가 칫솔을 살랑살랑 흔들며 노래해요. "우리 호리, 이 닦고 코~ 잘 시간!" 그런데 호리는 이불 속으로 쏙— "양치 안 할래, 귀찮단 말이야!" 하고 눈을 꼭 감아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 잠자리 직전 방 안 전체가 보이는 컷.<br/><b>장소·시간</b> 호리네 방, 밤. 창밖은 남색 밤하늘에 별이 총총, 실내는 노란 취침등이 켜져 아늑하고 나른한 공기.<br/><b>인물</b> Hori(아기 호랑이)는 침대 위에서 이불을 턱까지 끌어올리고 몸을 웅크린 채 눈을 꼭 감고 입을 삐죽, 양치하기 싫어 도망치는 표정. Mom tiger(엄마 호랑이)는 침대 옆에 서서 한 손에 작은 칫솔을 들고 살랑살랑 흔들며 다정하게 노래하듯 미소, 다른 손은 허리에 얹음.<br/><b>배경·소품</b> 침대·이불·베개, 협탁 위 취침등과 물컵, 벽에 별 모양 스티커, 엄마 손의 알록달록 칫솔, 창밖 밤하늘과 별.<br/><b>톤</b> 노란 취침등의 포근한 저녁 조명, 잠자리 특유의 나른하고 다정한 정서, 호리 표정만 살짝 완강.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(거부)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 칫솔을 내밀어도 호리는 고개를 절레절레, 도리도리. "딱 한 번만 안 하면 안 돼?" 결국 호리는 양치를 건너뛰고 쿨쿨 잠들었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 어깨너머 앵글. 호리의 거부 표정이 화면을 크게 채움.<br/><b>장소·시간</b> 같은 방, 밤. 취침등 아래.<br/><b>인물</b> Hori는 화면 중앙에서 고개를 좌우로 홱홱 돌리며(도리도리) 두 손으로 이불을 꽉 쥐고 눈을 질끈, 입을 앙 다문 거부 표정. Mom tiger는 오른쪽에서 칫솔을 살며시 내밀다 멈칫, 눈썹이 살짝 처진 안타까운 미소로 호리를 바라봄.<br/><b>배경·소품</b> 앞쪽에 내밀어진 칫솔과 작은 치약 튜브, 배경 침대와 취침등은 부드럽게 아웃포커스.<br/><b>톤</b> 따뜻한 취침등 조명, 호리 얼굴에 살짝 과장된 그림자로 완강한 거부감 강조, 귀엽지만 드라마틱한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(이가 근질)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 자다가— 어라? 이가 텁텁하고 근질근질! "이 사이가 이상해…" 낮에 먹은 과자 부스러기가 이 사이에 콕 숨어 근질거려요. 호리는 볼을 만지며 눈을 떴어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 하이앵글. 이가 근질거려 얼굴을 오물거리는 호리.<br/><b>장소·시간</b> 한밤중 침대 위, 깜깜한 방. 취침등만 희미하게 켜진 고요한 공기.<br/><b>인물</b> Hori는 침대에서 반쯤 일어나 한 손으로 한쪽 볼을 만지며, 입을 오물오물 근질거리는 듯 살짝 찡그린 갸웃한 표정, 어리둥절하게 눈을 뜸.<br/><b>배경·소품</b> 호리 볼 쪽 이 근처에 근질근질을 나타내는 작은 물결선 몇 개, 이 사이에 낀 아주 작은 갈색 과자 부스러기, 헝클어진 이불, 희미한 취침등.<br/><b>톤</b> 어두운 밤의 낮은 조명에 물결선만 살짝 반짝, 안쓰럽지 않고 갸우뚱 궁금한 정서(전혀 무섭지 않게).</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(엄마 등장)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">눈을 뜬 호리에게 엄마가 조르르 다가왔어요. "이 사이에 숨은 충치벌레가 장난친 거야. 우리 같이 쫓아내자!" 엄마가 호리 손을 꼭 잡아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 엄마가 다가와 호리를 다독이는 만남 컷.<br/><b>장소·시간</b> 호리 방 침대 곁, 한밤중. 엄마가 켠 스탠드로 주변이 조금 밝아진 아늑한 공기.<br/><b>인물</b> Hori는 침대에서 갸웃한 얼굴로 볼을 만지며 엄마를 올려다봄. Mom tiger는 침대 곁에 무릎을 굽혀 앉아 한 손으로 호리 손을 꼭 잡고 다른 손으로 등을 토닥이며, 안심시키는 부드러운 미소로 눈을 맞춤.<br/><b>배경·소품</b> 켜진 스탠드 조명, 침대와 이불, 협탁 위 물컵과 칫솔, 벽의 별 스티커.<br/><b>톤</b> 스탠드의 따뜻한 노란 조명이 두 사람을 감싸는 안정적이고 다정한 정서, 궁금증이 스르르 풀리는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(충치벌레 등장)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 상상 이야기를 시작하자, 호리 눈앞에 그림이 그려졌어요. 하얀 이 위에서 보라색 충치벌레들이 데굴데굴 뒹굴며 낄낄 웃어요. "저 녀석들이 이를 콕콕 찌른 거구나!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 상상 속 이의 세계가 크게 펼쳐지는 컷.<br/><b>장소·시간</b> 상상 장면(구름 같은 몽환적 테두리). 거대하게 확대된 하얀 치아 마을, 반짝이는 상상의 빛.<br/><b>인물</b> 커다랗고 하얀 치아들 위에서 cavity bugs(충치벌레) 서너 마리가 데굴데굴 뒹굴며 짧은 팔을 흔들고 작은 이빨을 드러내며 낄낄 웃음, 하나도 무섭지 않고 바보스럽고 귀여움. 화면 앞쪽 구석에 상상 속 작은 Hori가 눈을 동그랗게 뜨고 이 광경을 올려다봄.<br/><b>배경·소품</b> 우유처럼 하얀 거대한 치아들이 마을처럼 늘어섬, 벌레들 발밑에 작은 갈색 과자 부스러기, 공중에 몽환적 반짝임 입자.<br/><b>톤</b> 부드러운 상상빛 조명, 살짝 코믹하고 신기한 정서, 위협적이지 않고 장난스러운 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(무기=칫솔)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"충치벌레는 치약 거품을 제일 무서워해!" 엄마가 속닥였어요. 칫솔은 호리의 반짝이 검, 치약 거품은 마법 방울! 호리 눈이 반짝 빛났어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 엄마가 호리에게 귓속말하며 칫솔을 건네는 두 얼굴.<br/><b>장소·시간</b> 침대 곁, 한밤중. 스탠드 불빛 아래 아늑한 구석.<br/><b>인물</b> Mom tiger는 화면 왼쪽에서 한 손을 입가에 대고 호리 귀에 속닥이며, 다른 손으로 알록달록 칫솔을 마치 검처럼 세워 호리에게 건넴, 장난기 어린 미소. Hori는 오른쪽에서 몸을 앞으로 바짝 기울여 두 눈을 반짝, 입을 살짝 벌린 기대에 찬 표정으로 칫솔을 받으려 두 손을 뻗음.<br/><b>배경·소품</b> 엄마가 건네는 칫솔 둘레에 은은한 반짝 빛무리, 옆에 작은 치약 튜브에서 몽글몽글 거품 이미지가 상상처럼 피어오름, 스탠드 조명.<br/><b>톤</b> 따뜻한 스탠드 빛에 마법 같은 반짝임이 더해진 설레고 아늑한 정서, 모험을 시작하는 두근거림.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(치카치카)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 벌떡 일어나 세면대로 갔어요. 칫솔에 치약을 콕! 위로 쓱, 아래로 쓱, 뽀글뽀글 거품이 몽글몽글! 충치벌레들이 눈이 뱅글뱅글 돌며 도망쳐요. 치카치카 쓱쓱, 반짝반짝!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 로우앵글로 올려다봄. 힘차게 이를 닦는 결정적 순간.<br/><b>장소·시간</b> 욕실 세면대 앞, 한밤중. 욕실 등이 환하게 켜진 밝고 개운한 공기.<br/><b>인물</b> Hori는 세면대 앞 발판에 올라서서 한 손으로 칫솔을 쥐고 위아래로 힘차게 닦으며(쓱쓱), 눈을 반짝이고 입가에 거품이 몽글몽글, 씩씩한 결의의 미소. 상상 속 cavity bugs 두세 마리가 거품에 밀려 눈이 소용돌이처럼 뱅글뱅글 돌며 우스꽝스럽게 달아남.<br/><b>배경·소품</b> 세면대·거울·물컵·수도꼭지, 칫솔에서 피어오르는 하얀 거품과 반짝임, 도망치는 충치벌레들, 발판.<br/><b>톤</b> 환한 욕실 조명, 거품 반짝임과 승리의 역동적인 정서, 신나고 개운한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(반짝이는 이)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">입을 헹구고 "아—" 하고 벌리자, 이가 반짝반짝! 근질거리던 느낌도 씻은 듯 사라졌어요. 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! 해냈어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 거울 앞에서 반짝이는 이를 자랑하는 호리.<br/><b>장소·시간</b> 욕실 거울 앞, 한밤중. 환한 욕실 조명 아래 개운한 공기.<br/><b>인물</b> Hori는 거울 앞에서 입을 크게 "아—" 벌려 새하얗게 반짝이는 이를 드러내며 두 손을 볼 옆에 대고 뿌듯한 활짝 웃음, 눈은 초승달처럼 웃음, 볼이 발그레.<br/><b>배경·소품</b> 하얀 이에서 별 모양 반짝임 하나가 팅— 튀고, 특히 호리 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리), 거울에 비친 환한 얼굴, 세면대와 컵.<br/><b>톤</b> 환한 욕실 조명에 무지개 반짝임이 더해진 뿌듯하고 개운한 정서, 해냈다는 성취의 밝은 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(아침·밤 루틴)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 호리는 규칙을 알아요. 하나, 아침에 일어나면 치카치카! 둘, 자기 전에 또 치카치카! 셋, 위로 쓱 아래로 쓱 골고루! 다음 날 아침, 호리가 먼저 칫솔을 집었어요. 치카치카 쓱쓱, 반짝반짝!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 아침 욕실에서 스스로 양치하는 호리와 따라 하는 동생.<br/><b>장소·시간</b> 욕실 세면대 앞, 아침. 창으로 환한 아침 햇살이 들어오는 상쾌하고 밝은 공기.<br/><b>인물</b> Hori는 발판에 올라 스스로 칫솔을 위아래로 쓱쓱 닦으며 씩씩하고 즐거운 표정. Hoya(아기 동생, 턱받이)는 옆에서 작은 칫솔을 두 손으로 쥐고 형을 따라 어설프게 오물오물 닦으며 호리를 빤히 올려다보고 방긋 웃음.<br/><b>배경·소품</b> 세면대·거울·나란히 놓인 두 개의 칫솔컵, 벽에 붙은 작은 규칙 그림표 — 해(아침)·달(밤)·위아래 화살표 세 칸의 그림 아이콘만(글자·숫자 없음), 창밖 아침 햇살.<br/><b>톤</b> 밝은 아침 자연광이 욕실에 가득 번지는 상쾌하고 활기찬 정서, 습관이 된 뿌듯한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 호리를 꼭 안아 주었어요. "우리 호리 이가 별처럼 반짝이네!" 이제 호리는 알아요. 매일 치카치카하면 충치벌레는 얼씬도 못 한다는 걸. 치카치카 쓱쓱, 반짝반짝!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 엄마가 호리를 안아주는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 욕실 문 앞 복도, 아침. 창으로 든 밝은 햇살로 포근하고 환한 공기.<br/><b>인물</b> Mom tiger는 무릎을 굽혀 앉아 두 팔로 Hori를 폭 껴안고 볼을 맞대며 흐뭇하게 미소. Hori는 엄마 품에 안겨 두 팔을 엄마 목에 두르고 눈을 감은 채 활짝 웃으며 개운하고 행복한 표정.<br/><b>배경·소품</b> 두 사람 머리 위로 작은 별 모양 반짝임 몇 개, 뒤쪽 욕실에 나란한 칫솔컵, 창밖 아침 햇살, 벽의 별 스티커.<br/><b>톤</b> 밝고 따뜻한 아침 햇살이 두 사람을 감싸는 뭉클하고 사랑스러운 정서, 안심되고 포근한 마무리 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 치카치카 쓱쓱, 반짝반짝! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"cavitybug","name":"충치벌레","aliases":["cavity bug","cavity bugs","chungchi-bug"],"desc":"작고 동글동글한 보라색 벌레, 짧은 뭉툭한 뿔 두 개와 커다란 눈, 작은 이빨을 드러내며 씩 웃지만 하나도 무섭지 않고 바보스럽고 귀여움. 손발이 짧고 통통, 하얀 치아 위에서 뒹구는 말썽꾸러기. 겁먹으면 눈이 소용돌이처럼 뱅글뱅글 돌며 우스꽝스럽게 도망침"}]</script>
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

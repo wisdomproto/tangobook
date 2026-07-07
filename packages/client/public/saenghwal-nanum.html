@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 나누면, 더 맛있어!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 E #33</div>
+  <h1>🌰 나누면, 더 맛있어!</h1>
+  <div class="sub">도토리를 혼자 다 가지려던 콩이가 '거울효과'로 나눠 보니 친구도 웃고 자기도 더 즐거워져요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 나눠 쓰기 · 나눔 (거울효과 — 혼자 다 가지면 외롭고, 나누면 더 기쁨) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 콩이(혼자 다 먹고파)·엄마(조력)·토토·보리·두부 &nbsp;·&nbsp;
+  <b>장치</b> 거울효과(나누니 더 기쁨) + 번호 규칙(하나씩 나눠요 → 친구 먼저 물어봐요 → 함께 먹어요) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "나누면, 더 맛있어!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"우와, 도토리다!" 콩이가 나무 아래에서 도토리를 발견했어요. 데굴데굴 굴러온 통통한 도토리 한 바구니! 콩이 볼주머니가 벌써 볼록볼록 부풀어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 도토리 바구니를 발견한 콩이가 화면 중앙에.<br/><b>장소·시간</b> 호리네 앞마당 큰 나무 아래, 맑은 오후. 나뭇잎 사이로 반짝이는 햇살이 부드럽게 내려앉는 아늑한 공기.<br/><b>인물</b> Kongi(다람쥐, 복슬 줄무늬 꼬리)는 화면 중앙에서 두 손으로 도토리 하나를 들어 눈앞에 대고 눈을 반짝이며, 볼주머니를 볼록하게 부풀리고 입가에 군침 도는 신난 표정, 꼬리가 살랑.<br/><b>배경·소품</b> 콩이 앞에 도토리가 소복이 담긴 나무 바구니, 바닥에 데굴데굴 굴러온 도토리 몇 알, 큰 나무 밑동과 낙엽, 화단.<br/><b>톤</b> 나뭇잎 사이로 든 따뜻한 오후 햇살의 반짝이는 조명, 보물을 발견한 설렘과 즐거움이 가득한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(혼자 다 가지려)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">친구들이 다가왔어요. "콩이야, 우리도 도토리 구경하자!" 그런데 콩이는 바구니를 꼭 끌어안았어요. "안 돼, 이건 다 내 거야!" 친구들에게서 등을 홱 돌렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 바구니를 끌어안고 등 돌린 콩이와 다가온 친구들.<br/><b>장소·시간</b> 나무 아래, 오후. 밝은 햇살.<br/><b>인물</b> Kongi는 화면 중앙에서 두 팔로 도토리 바구니를 꽉 끌어안고 몸을 옆으로 홱 돌려 친구들에게 등을 보이며, 눈을 질끈 감고 볼을 부풀린 완강한 표정. Toto는 왼쪽에서 손을 내밀다 멈칫 어리둥절, Bori는 뒤에서 두 손을 모으고 서운한 눈, Dubu는 귀를 축 늘어뜨리고 갸웃.<br/><b>배경·소품</b> 콩이가 꽉 안은 도토리 바구니, 나무 밑동, 낙엽, 뒤로 화단.<br/><b>톤</b> 밝은 오후 조명이지만 콩이 주변에 살짝 완강한 그림자, 서운함과 어색함이 감도는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(혼자라 심심)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">친구들은 시무룩 자리를 떴어요. 콩이는 도토리를 잔뜩 안았지만… 혼자라 심심해요. 도토리를 세어 봐도 하나도 재미가 없어요. "어라, 왜 하나도 안 즐겁지?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 도토리 바구니를 안고 혼자 앉은 콩이.<br/><b>장소·시간</b> 나무 아래, 오후. 밝지만 살짝 쓸쓸한 공기.<br/><b>인물</b> Kongi는 화면 중앙에 홀로 앉아 도토리 바구니를 무릎에 안고 도토리 한 알을 만지작거리며, 입을 삐죽 내밀고 눈썹이 처진 심심하고 시무룩한 표정, 꼬리가 축 늘어짐. 화면 저 뒤로 멀어지는 친구들의 뒷모습이 작게 보임.<br/><b>배경·소품</b> 무릎 위 도토리 바구니, 바닥에 흩어진 도토리 몇 알, 나무 밑동, 낙엽.<br/><b>톤</b> 밝은 오후 조명이지만 채도가 살짝 가라앉아 외로움이 감도는 정서, 무겁지 않고 잔잔한 쓸쓸함.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(엄마 등장)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 엄마가 다가와 콩이 옆에 앉았어요. "콩이야, 도토리가 많아서 좋은데 왜 얼굴이 시무룩할까?" 콩이는 고개를 갸웃. "많은데… 이상하게 하나도 안 신나요."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 엄마가 콩이 옆에 앉아 눈을 맞추는 두 얼굴.<br/><b>장소·시간</b> 나무 아래, 오후. 부드러운 햇살이 두 사람을 비춤.<br/><b>인물</b> Mom tiger(엄마 호랑이, 복숭아색 앞치마)는 화면 왼쪽에서 콩이 곁에 무릎을 굽혀 앉아 한 손으로 콩이 등을 다정하게 쓰다듬으며 부드럽게 묻는 표정, 이 장면의 주 조력자로 콩이에게 가장 가까이. Kongi는 오른쪽에서 도토리 바구니를 안은 채 고개를 갸웃하며 엄마를 올려다보는 어리둥절한 표정.<br/><b>배경·소품</b> 콩이 무릎의 도토리 바구니, 나무 밑동, 낙엽, 부드럽게 아웃포커스된 배경.<br/><b>톤</b> 따뜻한 오후 햇살의 다정한 조명, 마음을 들여다보는 잔잔하고 사려 깊은 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(나눔의 기쁨)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 방긋 웃었어요. "맛있는 건 나눠 먹으면 더 맛있단다. 친구랑 같이 먹으면 두 배로 즐겁거든." 콩이는 눈이 반짝. "정말요? 나눠 주면 더 즐거워져요?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 엄마가 나눔을 알려 주고 콩이가 눈을 반짝이는 구도.<br/><b>장소·시간</b> 나무 아래, 오후. 밝고 화사한 햇살.<br/><b>인물</b> Mom tiger는 화면 왼쪽에서 도토리 하나를 손바닥에 올려 내밀며 "나눠 먹으면 더 맛있어" 하고 활짝 웃는 다정한 표정. Kongi는 오른쪽에서 두 눈을 크게 반짝이고 입을 살짝 벌려 "정말요?" 하며 깨달은 밝은 표정, 꼬리가 다시 살랑 올라감.<br/><b>배경·소품</b> 엄마 손바닥의 도토리 한 알에 은은한 반짝 빛무리, 콩이 무릎의 바구니, 나무 밑동, 낙엽.<br/><b>톤</b> 화사한 오후 조명, 깨달음의 밝고 따뜻한 정서, 마음이 스르르 열리는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(친구 부르기)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">콩이는 도토리 바구니를 들고 친구들에게 조르르 달려갔어요. "얘들아, 미안해! 우리 같이 먹자!" 친구들이 뒤를 돌아보며 눈을 동그랗게 떴어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 바구니를 들고 친구들에게 달려가는 콩이.<br/><b>장소·시간</b> 앞마당, 오후. 밝은 햇살.<br/><b>인물</b> Kongi는 화면 중앙에서 도토리 바구니를 두 손으로 들고 친구들 쪽으로 씩씩하게 달려가며 "같이 먹자!" 외치는 밝고 미안한 표정, 꼬리가 힘차게 흔들림. Toto는 오른쪽에서 뒤돌아보며 귀를 쫑긋 반가운 눈, Bori는 두 손을 모으고 방긋, Dubu는 꼬리를 흔들며 폴짝.<br/><b>배경·소품</b> 콩이가 든 도토리 바구니, 발밑에 살짝 이는 먼지 효과선, 나무와 화단, 파란 하늘.<br/><b>톤</b> 밝고 화사한 오후 조명, 화해와 나눔으로 향하는 설레고 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(하나씩 나눠요)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"하나, 친구에게 물어봐요! 둘, 하나씩 나눠요!" 콩이가 도토리를 조심조심 나눠 줬어요. 토토에게 하나, 보리에게 하나, 두부에게 하나. 나누면, 더 맛있어!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 콩이가 친구들에게 도토리를 하나씩 나눠 주는 구도.<br/><b>장소·시간</b> 나무 아래, 오후. 밝고 명랑한 햇살.<br/><b>인물</b> Kongi는 화면 중앙에서 도토리 바구니를 한 팔로 안고 다른 손으로 도토리를 하나 집어 친구에게 건네며 활짝 웃는 표정. Toto는 왼쪽에서 두 손을 내밀어 도토리를 받으며 귀를 쫑긋 반짝, Bori는 받은 도토리를 두 손에 소중히 쥐고 방긋, Dubu는 오른쪽에서 순서를 기다리며 꼬리를 흔듦.<br/><b>배경·소품</b> 콩이가 건네는 도토리, 친구들 손에 하나씩 놓인 도토리, 나무 밑동, 낙엽 위에 모여 앉은 자리.<br/><b>톤</b> 밝은 오후 조명, 하나씩 나누는 다정하고 훈훈한 정서, 서로 마주 보는 즐거움.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(다 함께 냠냠)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"셋, 다 함께 먹어요!" 친구들이 도토리를 오독오독 맛있게 먹어요. 함께 먹으니 훨씬 더 맛있어요! 그 순간 콩이 꼬리가 무지개색으로 반짝— 팟! 콩이 마음이 폭신폭신해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 친구들이 둥글게 모여 앉아 도토리를 나눠 먹는 화기애애한 컷.<br/><b>장소·시간</b> 나무 아래 낙엽 위, 오후. 밝고 화사한 햇살.<br/><b>인물</b> Kongi는 화면 중앙에서 도토리를 오독오독 베어 물며 가장 환하게 웃는 표정, 이 나눔의 순간 콩이의 복슬 꼬리가 무지개빛으로 반짝이며 팟— 하는 시그니처 반짝임이 터짐. Toto·Bori·Dubu는 콩이를 둘러싸고 둥글게 앉아 각자 도토리를 맛있게 먹으며 서로 마주 보고 깔깔 웃음.<br/><b>배경·소품</b> 가운데 도토리 바구니, 친구들 둘레에 무지개 반짝임과 작은 하트 몇 개, 나무 밑동, 낙엽 방석.<br/><b>톤</b> 밝은 오후 조명에 무지개 반짝임이 더해진 훈훈하고 벅찬 정서, 함께 먹는 기쁨이 터지는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(간식도 나눠요)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 콩이는 규칙을 알아요. 하나, 친구에게 먼저 물어봐요! 둘, 하나씩 나눠요! 셋, 다 함께 먹어요! 오후 간식 시간, 콩이가 먼저 쿠키를 쪼갰어요. "얘들아, 같이 먹자!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 간식 테이블에서 쿠키를 나누는 콩이와 친구들.<br/><b>장소·시간</b> 호리네 집 앞마당 간식 테이블, 오후. 밝고 명랑한 햇살.<br/><b>인물</b> Kongi는 화면 중앙에서 큰 쿠키를 두 손으로 반으로 쪼개 친구에게 내밀며 "같이 먹자!" 하고 의젓하게 웃는 표정, 이제는 스스로 나눔을 이끎. Toto·Bori·Dubu는 테이블에 둘러앉아 각자 쿠키 조각을 받아 방긋 웃음.<br/><b>배경·소품</b> 낮은 나무 테이블 위 쿠키 접시와 우유컵, 벽에 붙은 세 칸 순서 그림표 — 손 내미는 물음표·하나씩 나눈 도토리·다 함께 둘러앉은 원 아이콘만(글자·숫자 없음), 화단.<br/><b>톤</b> 밝고 화사한 오후 조명, 나눔이 몸에 밴 뿌듯하고 훈훈한 정서, 다 함께 즐거운 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 콩이를 꼭 안아 주었어요. "우리 콩이, 나눌 줄 아는 멋진 다람쥐가 됐네!" 이제 콩이는 알아요. 맛있는 걸 나누면 마음도, 웃음도 두 배가 된다는 걸. 나누면, 더 맛있어!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 엄마가 콩이를 안아 주고 친구들이 둘러싼 따뜻한 마무리 컷.<br/><b>장소·시간</b> 앞마당, 노을 지는 늦은 오후. 하늘이 발그레 물들고 부드러운 금빛 햇살이 감도는 포근한 공기.<br/><b>인물</b> Mom tiger는 화면 중앙에서 무릎을 굽혀 앉아 두 팔로 Kongi를 폭 껴안고 볼을 맞대며 흐뭇하게 웃음. Kongi는 엄마 품에 안겨 두 팔을 엄마 목에 두르고 눈을 감은 채 개운하고 행복하게 활짝 웃음, 꼬리가 편안하게 살랑. 옆에서 Toto·Bori·Dubu가 손을 흔들며 다정하게 웃음.<br/><b>배경·소품</b> 두 사람 머리 위로 작은 하트·별 반짝임 몇 개, 뒤에 빈 도토리 바구니, 노을에 물든 나무와 화단.<br/><b>톤</b> 노을의 따뜻한 금빛 조명, 하루를 마무리하는 뭉클하고 사랑스러운 정서, 나눔의 온기가 가득한 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 나누면, 더 맛있어! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 할머니 최고, 폭 안겨!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 F #42</div>
+  <h1>🧺 할머니 최고, 폭 안겨!</h1>
+  <div class="sub">시골 할머니댁이 처음엔 어색하던 호리가 할머니·할아버지의 따뜻한 사랑에 폭 안기는 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 할머니댁 방문 / 조부모 사랑 (조력자 속정 — 어색함→포근한 사랑) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(주인공)·할머니(조력·단역 @image9)·할아버지(조력·단역 @image10)·엄마(동행) &nbsp;·&nbsp;
+  <b>장치</b> 조력자 속정(무뚝뚝해 보여도 마음 깊은 사랑 · 함께한 시간이 정을 쌓음) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "할머니 최고, 폭 안겨!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"할머니 최고, 폭 안겨!" 엄마가 노래하며 차를 몰아요. 오늘은 시골 할머니댁에 가는 날! 그런데 호리는 좀 낯설어요. 할머니·할아버지를 오랜만에 만나거든요. "잘 기억이 안 나는데…" 호리가 창밖을 빤히 봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 앵글. 시골로 향하는 차 뒷좌석에서 창밖을 보는 호리.<br/><b>장소·시간</b> 시골길을 달리는 자동차 안, 맑은 아침. 창밖으로 푸른 논밭과 산이 펼쳐진 상쾌한 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 오른쪽 뒷좌석 카시트에 앉아 창문에 손을 대고 창밖을 빤히 바라보며 살짝 갸웃한, 낯설고 궁금한 표정. Mom tiger(엄마 호랑이)는 앞좌석 운전석에서 룸미러로 호리를 보며 콧노래하듯 다정하게 미소.<br/><b>배경·소품</b> 자동차 창밖으로 푸른 논밭·산·시골길·코스모스, 뒷좌석에 선물 보따리, 카시트, 창에 비친 햇살.<br/><b>톤</b> 맑은 아침 자연광, 나들이의 설렘과 오랜만의 낯섦이 섞인 정서, 따뜻하고 산뜻한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(어색한 첫 만남)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할머니 댁 마당에 도착했어요. 할머니와 할아버지가 반갑게 나오셨어요. "아이고, 우리 호리 왔니!" 그런데 호리는 쭈뼛쭈뼛, 엄마 뒤로 쏙 숨었어요. "안녕하세요…" 목소리가 개미만 해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 마당에서 조부모가 반기지만 엄마 뒤로 숨는 호리.<br/><b>장소·시간</b> 시골 할머니댁 흙마당, 아침. 낮은 기와집과 장독대, 맑은 하늘, 따스한 시골 아침 공기.<br/><b>인물</b> grandma(호랑이 할머니·쪽진 머리·앞치마·둥근 안경·인자한 미소)와 grandpa(호랑이 할아버지·흰 눈썹과 약간의 수염·개량한복 조끼·인자한 미소)는 화면 왼쪽 툇마루 앞에서 두 팔을 벌려 반갑게 맞이하며 환하게 웃음. Hori는 오른쪽에서 Mom tiger의 다리 뒤로 몸을 반쯤 숨긴 채 한 손으로 엄마 옷자락을 쥐고, 고개를 살짝 숙여 쭈뼛거리며 수줍고 어색한 표정. Mom tiger는 호리 등에 손을 얹고 다정하게 미소.<br/><b>배경·소품</b> 낮은 기와집과 툇마루, 장독대, 마당 한켠 감나무, 강아지집, 텃밭, 선물 보따리.<br/><b>톤</b> 따스한 시골 아침 조명, 반가움과 어색함이 교차하는 정서, 정겹지만 살짝 쭈뼛한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(낯선 시골집)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할머니 댁은 우리 집이랑 많이 달라요. 아궁이 냄새, 삐걱대는 마루, 처음 보는 물건들. 호리는 마루 한구석에 앉아 무릎을 안았어요. "우리 집이 좋은데… 언제 가지?" 조금 시무룩해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글로 내려다봄. 낯선 시골집 마루 구석에 웅크린 호리.<br/><b>장소·시간</b> 시골 할머니댁 대청마루, 낮. 툇문으로 햇살이 들지만 호리에겐 낯설게 느껴지는 정겨운 옛집.<br/><b>인물</b> Hori는 화면 앞쪽 마루 구석에서 무릎을 끌어안고 턱을 살짝 얹은 채 눈을 내리깔아 시무룩한, 집이 그리운 외로운 표정. 뒤쪽 부엌 쪽에서 grandma(할머니)가 일하며 호리를 힐끔 다정하게 살핌.<br/><b>배경·소품</b> 나무 마루와 문살 창, 벽에 걸린 옛 사진과 달력, 아궁이와 가마솥이 보이는 부엌, 항아리, 툇마루 밖 감나무.<br/><b>톤</b> 정겨운 낮 햇살이지만 호리 주변만 살짝 외롭고 낯설게 느껴지는 정서, 그리움이 안쓰럽게(무섭지 않게) 감도는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(할머니의 손)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 할머니가 김이 모락모락 나는 찐 고구마를 들고 다가왔어요. "우리 강아지, 이거 먹어 보렴. 할미가 아침부터 쪘단다." 할머니 손이 따뜻해요. 호리가 한 입 베어 무니 달콤한 맛이 입안에 사르르 퍼졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 할머니가 찐 고구마를 건네고 호리가 받아 먹는 다정한 만남 컷.<br/><b>장소·시간</b> 시골 할머니댁 마루, 낮. 툇문 햇살이 부드럽게 드는 아늑한 자리.<br/><b>인물</b> grandma(할머니·쪽진 머리·앞치마·둥근 안경)는 화면 왼쪽에서 무릎을 굽혀 앉아 김이 모락모락 나는 찐 고구마를 두 손으로 호리에게 내밀며 인자하게 활짝 웃음, 다른 손으로 호리 머리를 쓰다듬음. Hori는 오른쪽에서 고구마를 두 손으로 받아 한 입 베어 물며, 어색함이 살짝 풀리고 눈이 동그래지는 "맛있다" 하는 표정.<br/><b>배경·소품</b> 김이 오르는 찐 고구마, 옆에 소쿠리와 고구마 몇 개, 나무 마루, 문살 창, 감나무 그림자.<br/><b>톤</b> 따뜻한 낮 햇살의 포근한 조명, 할머니의 정성으로 마음이 스르르 녹는 다정하고 정겨운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(할아버지와 텃밭)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지가 호리 손을 잡고 텃밭으로 데려갔어요. "이 방울토마토, 네가 한번 따 보련?" 호리가 빨간 토마토를 톡— 따니 신기했어요. "우와, 진짜 열매가 달렸어요!" 할아버지가 껄껄 웃으셨어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 텃밭에서 할아버지와 방울토마토를 따는 호리.<br/><b>장소·시간</b> 시골 할머니댁 뒤뜰 텃밭, 낮. 초록 채소가 무성하고 햇살이 쨍한 상쾌한 공기.<br/><b>인물</b> grandpa(할아버지·흰 눈썹과 약간의 수염·개량한복 조끼)는 화면 왼쪽에서 허리를 굽혀 호리 손을 다정하게 잡아 주며 방울토마토 넝쿨을 가리키고 껄껄 웃는 인자한 표정. Hori는 오른쪽에서 까치발을 들고 한 손으로 빨간 방울토마토를 톡 따며, 눈을 반짝이고 입을 벌려 "우와!" 하는 신기하고 즐거운 표정.<br/><b>배경·소품</b> 방울토마토·상추·고추가 자란 텃밭 이랑, 대나무 지지대, 작은 바구니, 뒤로 기와집과 감나무, 나비 한 마리.<br/><b>톤</b> 쨍한 낮 자연광, 할아버지와 함께하는 새로운 즐거움과 신기함이 가득한 밝고 정겨운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(속정을 알아챔)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 소곤소곤 알려 줬어요. "할머니 할아버지는 우리 호리 온다고 며칠 전부터 이것저것 준비하셨대." 호리 방에는 좋아하는 간식이 한가득, 벽엔 아기 때 호리 사진이 붙어 있었어요. "나를 이렇게 많이 생각해 주셨구나…" 호리 마음이 뭉클했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 엄마가 소곤소곤 알려 주고 호리가 벽의 사진을 바라보는 순간.<br/><b>장소·시간</b> 시골 할머니댁 작은 방, 낮. 문살 창으로 햇살이 은은히 드는 아늑한 방.<br/><b>인물</b> Mom tiger는 화면 왼쪽에서 호리 어깨에 손을 얹고 몸을 숙여 귀에 소곤소곤 알려 주며 다정하게 미소. Hori는 오른쪽에서 벽에 붙은 아기 때 자기 사진과 가득 쌓인 간식을 바라보며, 눈시울이 살짝 촉촉해지고 입이 벌어진 뭉클하고 감동한 표정.<br/><b>배경·소품</b> 벽에 붙은 호리의 아기 때 사진 여러 장(그림 액자), 소반 위 가득한 호리가 좋아하는 간식·과일, 개켜 둔 이불, 문살 창.<br/><b>톤</b> 은은한 낮 햇살의 포근한 조명, 할머니 할아버지의 깊은 속정을 알아챈 뭉클하고 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(용기 내어 폭 안김)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 쪼르르 달려가 할머니 품에 폭— 안겼어요. "할머니, 저 안아 주세요!" 할머니 품은 세상에서 제일 폭신폭신하고 따뜻해요. "할머니 최고, 폭 안겨!" 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 아이레벨. 호리가 할머니 품에 폭 안기는 결정적 순간.<br/><b>장소·시간</b> 시골 할머니댁 마루, 낮. 툇문 햇살이 포근하게 드는 아늑한 공간.<br/><b>인물</b> grandma(할머니)는 화면 중앙에서 마루에 앉아 두 팔로 Hori를 폭 껴안고 볼을 맞대며 눈을 감고 인자하게 활짝 웃음. Hori는 할머니 품에 얼굴을 파묻고 두 팔로 할머니를 꼭 끌어안으며 눈을 반달로 접고 세상 행복한 웃음, 완전히 마음을 연 표정. 이 성장의 순간 Hori의 꼬리 줄무늬가 무지개빛으로 반짝이며 부릉— 하는 시그니처 반짝임이 터짐.<br/><b>배경·소품</b> 두 사람 둘레에 작은 하트와 무지개 반짝임, 나무 마루, 문살 창, 옆에 소쿠리와 고구마.<br/><b>톤</b> 따뜻한 낮 햇살에 무지개 반짝임이 더해진 뭉클하고 사랑 가득한 정서, 할머니 품의 포근함이 빛나는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(온 가족 정겨운 시간)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁이 되자 마당에 온 가족이 둘러앉았어요. 할머니가 부쳐 준 부침개, 할아버지가 들려주는 옛날이야기. 호리는 할아버지 무릎에 앉아 까르르 웃어요. 이제 할머니 댁이 하나도 안 낯설고, 세상에서 제일 정겨워요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 하이앵글. 마당 평상에 온 가족이 둘러앉은 정겨운 저녁 군집 컷.<br/><b>장소·시간</b> 시골 할머니댁 마당 평상, 저녁 무렵. 노을이 붉게 물들고 마당 등이 켜진 포근한 공기.<br/><b>인물</b> Hori는 화면 중앙에서 grandpa(할아버지) 무릎에 앉아 두 손을 모으고 옛날이야기에 빠져 입을 벌리고 까르르 웃는 즐거운 표정. grandpa는 손짓을 하며 정겹게 이야기를 들려주는 인자한 웃음. grandma(할머니)는 평상 옆에서 갓 부친 부침개 접시를 내려놓으며 흐뭇하게 미소. Mom tiger는 옆에 앉아 함께 웃음.<br/><b>배경·소품</b> 평상 위 부침개·과일·주전자, 마당의 감나무와 장독대, 켜진 마당 등, 노을 진 하늘, 강아지집.<br/><b>톤</b> 붉은 노을과 마당 등의 따뜻한 조명, 온 가족이 어우러진 정겹고 벅찬 저녁의 정서, 포근한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(집에 갈 시간)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날, 집에 갈 시간이 됐어요. 아침엔 어색하던 호리가 이번엔 아쉬워서 눈물이 핑— 돌았어요. "할머니, 할아버지, 또 올게요! 보고 싶을 거예요!" 할머니가 챙겨 준 보따리엔 고구마랑 토마토가 가득해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 마당에서 조부모와 아쉬운 작별 인사를 나누는 호리.<br/><b>장소·시간</b> 시골 할머니댁 마당, 아침. 맑은 아침 햇살이 드는 정겨운 마당.<br/><b>인물</b> Hori는 화면 중앙에서 grandma와 grandpa를 향해 두 팔을 벌려 안기며 눈에 아쉬운 눈물이 살짝 그렁, 하지만 입은 웃으며 "또 올게요!" 하는 정든 표정. grandma는 왼쪽에서 호리 손에 보따리를 쥐어 주며 인자하게 웃고, grandpa는 오른쪽에서 호리 머리를 쓰다듬으며 흐뭇하게 미소. Mom tiger는 뒤에서 차 앞에 서서 다정하게 지켜봄.<br/><b>배경·소품</b> 벽·기둥에 어색함·고구마·폭 안김을 그린 세 칸 그림표(낯섦→나눔→포옹, 그림 아이콘만·글자 없음), 고구마와 토마토가 담긴 보따리, 자동차, 감나무, 장독대.<br/><b>톤</b> 맑은 아침 조명, 정든 이와 헤어지는 아쉬움과 사랑이 가득한 뭉클하고 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">돌아오는 차 안에서 호리는 할머니가 준 토마토를 꼭 안았어요. 엄마가 웃으며 말했어요. "우리 호리, 이제 할머니 댁이 좋아졌구나!" 처음엔 어색해도, 사랑을 나누면 금세 정이 든대요. "할머니 최고, 폭 안겨!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 앵글. 집으로 돌아오는 차 안, 토마토를 안고 흐뭇한 호리.<br/><b>장소·시간</b> 시골길을 달려 돌아오는 자동차 안, 저녁 무렵. 창밖으로 붉은 노을이 지는 따뜻한 공기.<br/><b>인물</b> Hori는 화면 오른쪽 뒷좌석 카시트에 앉아 할머니가 준 방울토마토 바구니를 두 팔로 꼭 끌어안고, 눈을 반달로 접으며 흐뭇하고 행복한 미소, 창밖을 바라봄. Mom tiger는 앞좌석에서 룸미러로 호리를 보며 다정하게 웃음.<br/><b>배경·소품</b> 무릎 위 방울토마토 바구니와 고구마 보따리, 창밖으로 노을 진 논밭과 산, 카시트, 창에 어린 노을빛.<br/><b>톤</b> 붉은 노을의 포근한 조명, 사랑을 가득 담아 돌아가는 뭉클하고 만족스러운 정서, 정든 하루를 마무리하는 따뜻한 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 할머니 최고, 폭 안겨! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"grandma","name":"할머니","aliases":["grandma tiger","grandmother tiger","grandma","할머니"],"desc":"인자한 호랑이 할머니 — 옅은 회색빛 도는 주황 털에 쪽진 머리(비녀), 복숭아색 앞치마, 둥근 안경, 자잘한 주름과 따뜻한 미소, 둥근 치비 비율의 포근한 어른 인상(1.4배). 늘 손주를 챙기는 정겨운 분위기."},{"key":"grandpa","name":"할아버지","aliases":["grandpa tiger","grandfather tiger","grandpa","할아버지"],"desc":"인자한 호랑이 할아버지 — 옅은 회색빛 도는 주황 털에 흰 눈썹과 약간의 흰 수염, 개량한복 조끼(옅은 남색), 둥근 치비 비율의 포근한 어른 인상(1.4배), 껄껄 웃는 넉넉한 미소와 다정한 눈. 손주와 텃밭·옛날이야기를 함께하는 정겨운 분위기."}]</script>
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

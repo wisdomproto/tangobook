@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 화가 나면, 후~ 하고 크게 숨!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 D #25</div>
+  <h1>😤 화가 나면, 후~ 하고 크게 숨!</h1>
+  <div class="sub">지면 버럭 큰소리 내던 토토가 '화'를 이름 붙이고 크게 숨 쉬며 마음을 다스리게 되는 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 화 다스리기 / 화날 땐 크게 숨 (감정 명명 + 심호흡). 화는 나쁜 게 아니라 다스리는 것. &nbsp;·&nbsp;
+  <b>연령</b> 4~6세 &nbsp;·&nbsp; <b>등장</b> 토토(승부욕·버럭)·호리(조력)·보리·콩이 &nbsp;·&nbsp;
+  <b>장치</b> 감정 명명(화가 왔네) + 심호흡(후~ 하고 크게 숨) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "화가 나면, 후~ 하고 크게 숨!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입·아차)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"내가 일등! 내가 일등!" 놀이터에 토토의 우렁찬 소리가 쿵쿵 울려요. 오늘은 친구들과 달리기 시합을 하는 날이에요. 그런데 토토는 벌써부터 발을 쿵쿵, 눈에 불끈불끈 힘이 들어가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 출발선에 선 친구들이 한눈에 보이는 도입 컷.<br/><b>장소·시간</b> 마을 놀이터 옆 잔디 달리기 트랙, 화창한 아침. 상쾌하고 들뜬 바깥 공기.<br/><b>인물</b> Toto(토끼, 긴 귀·통통한 볼)는 화면 중앙 출발선에서 두 주먹을 불끈 쥐고 발을 쿵쿵 구르며 "내가 일등!" 외치듯 입을 크게 벌리고 눈에 힘이 잔뜩, 긴 귀가 빳빳하게 섰음. Hori(아기 호랑이)는 왼쪽에서 무릎을 살짝 굽혀 준비 자세로 토토를 흘끔 보며 웃음. Bori(곰, 통통한 몸)는 오른쪽에서 느긋하게 팔을 돌리며 몸을 풀고, Kongi(다람쥐, 복슬 꼬리)는 뒤에서 폴짝폴짝 뛰며 신남.<br/><b>배경·소품</b> 잔디에 그어진 하얀 출발선, 저 끝에 결승 리본, 놀이터 미끄럼틀과 나무 몇 그루, 파란 하늘에 흰 구름.<br/><b>톤</b> 밝고 화창한 아침 햇빛, 들뜬 시합 전 설렘, 토토에게만 살짝 강한 그림자로 과한 승부욕 강조.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(버럭)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"땅!" 다 같이 달렸어요. 그런데 이런! 토토가 그만 발이 걸려 꽈당 넘어졌어요. 호리가 먼저 결승선을 통과했지요. 토토는 얼굴이 새빨개지며 "으아앙, 반칙이야! 다시 해!" 하고 버럭 소리를 질렀어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 로우앵글. 버럭 소리치는 토토의 상기된 얼굴이 화면을 크게 채움.<br/><b>장소·시간</b> 같은 달리기 트랙 결승선 부근, 방금 그 시합 직후. 화창한 아침.<br/><b>인물</b> Toto는 화면 중앙 잔디에 한 손을 짚고 넘어진 자세로 고개를 번쩍 들어 입을 크게 벌려 소리치고, 얼굴이 새빨갛게 달아오르고 눈썹이 확 치켜올라간 잔뜩 화난 표정, 다른 손은 주먹을 불끈. Hori는 오른쪽 뒤 결승 리본 앞에서 막 통과하다 멈칫, 걱정스러운 눈으로 토토를 돌아봄.<br/><b>배경·소품</b> 토토 머리 위로 뾰족뾰족한 붉은 화 기운(만화적 열기 표시)이 확 솟고, 발끝에 걸린 작은 돌부리, 끊어진 결승 리본, 흩날리는 잔디 몇 가닥.<br/><b>톤</b> 밝은 햇빛이지만 토토 주변만 붉은 열기로 확 달아오른 분위기, 귀엽지만 드라마틱한 버럭의 순간.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(친구들이 움찔)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">우당탕, 토토가 발을 쿵쿵 구르며 소리치자 친구들이 깜짝 놀랐어요. 보리는 귀를 막고 움찔, 콩이는 뒷걸음질 쳤어요. "토토가 또 화났어…" 신났던 놀이터가 조용해졌어요. 토토도 속상해서 눈물이 그렁그렁.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글로 내려다봄. 토토와 물러서는 친구들의 거리감이 보이는 컷.<br/><b>장소·시간</b> 놀이터 트랙, 시합 직후. 화창하지만 분위기가 가라앉은 아침.<br/><b>인물</b> Toto는 화면 왼쪽에서 여전히 발을 쿵쿵 구르며 소리치지만 눈가엔 눈물이 그렁그렁 맺혀 화와 서러움이 뒤섞인 표정. Bori는 오른쪽에서 두 손으로 귀를 막고 어깨를 움츠리며 겁먹은 얼굴로 살짝 뒤로 물러섬. Kongi는 뒤쪽에서 두 손을 가슴에 모으고 뒷걸음질 치며 놀란 눈.<br/><b>배경·소품</b> 토토 발밑에 쿵쿵 진동 효과선, 머리 위 붉은 화 기운은 조금 남고 눈물방울이 반짝, 저만치 텅 빈 미끄럼틀, 새들이 놀라 포르르 날아오름.<br/><b>톤</b> 밝은 아침빛이지만 토토 둘레는 붉게, 친구들 쪽은 살짝 파랗게 얼어붙은 대비, 안쓰럽고 조용해진 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(호리 등장)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 호리가 살금살금 다가와 토토 옆에 폭 앉았어요. "토토야, 지금 마음속에 뜨거운 게 확 올라왔지?" 토토가 훌쩍이며 고개를 끄덕끄덕. "그건 '화'라는 마음이야. 화는 나쁜 게 아니야. 그냥 잠깐 다녀가는 손님이래."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 어깨너머 앵글. 나란히 앉은 두 아이의 다정한 대화 장면.<br/><b>장소·시간</b> 놀이터 잔디 위, 같은 아침. 조용하고 부드러워진 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 오른쪽에서 무릎을 접고 토토 옆에 바짝 붙어 앉아 한 손을 토토 등에 살포시 얹고, 눈을 부드럽게 반달로 뜨며 다정하게 말을 건넴. Toto는 왼쪽에서 무릎에 얼굴을 반쯤 파묻고 훌쩍이며 젖은 눈으로 호리를 올려다보고, 붉었던 얼굴이 조금 누그러지며 고개를 살짝 끄덕임.<br/><b>배경·소품</b> 두 아이 사이 공중에 작고 동글동글한 붉은 '화 손님' 캐릭터가 바보스럽게 둥둥 떠 있음(무섭지 않고 귀여운 얼굴), 잔디와 작은 들꽃, 뒤로 흐릿한 놀이터.<br/><b>톤</b> 부드러운 아침 햇살, 붉은 기운이 잦아들고 따뜻한 색이 번지는 안심되는 정서, 다정하고 포근함.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(마법의 숨)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"화 손님이 오면 어떻게 해?" 토토가 물었어요. 호리가 배에 손을 얹고 씩 웃었어요. "쉿, 마법의 숨을 쉬면 돼. 코로 스으읍— 배가 풍선처럼 볼록! 입으로 후우— 화 손님이 스르르 나가!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 심호흡 시범을 보이는 순간.<br/><b>장소·시간</b> 놀이터 잔디 위, 같은 아침. 맑고 상쾌한 공기.<br/><b>인물</b> Hori는 화면 오른쪽에서 두 손을 자기 배 위에 얹고 눈을 지그시 감은 채 코로 크게 숨을 들이쉬어 배가 풍선처럼 볼록 부푼 모습, 입가엔 편안한 미소. Toto는 왼쪽에서 눈을 동그랗게 뜨고 호리의 배를 신기하게 바라보며 호기심 어린 표정으로 자기 배에 손을 살짝 올려 봄.<br/><b>배경·소품</b> 호리 코 앞에 들이쉬는 공기 소용돌이 표시와 배 둘레에 볼록한 풍선 실루엣, 아까의 붉은 화 손님이 저만치서 스르르 옅어지며 빠져나가는 모습, 잔디와 들꽃.<br/><b>톤</b> 맑고 부드러운 햇빛, 파스텔빛 공기 표현으로 차분하고 편안한 정서, 마음이 가라앉는 느낌.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(같이 해보기)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"자, 같이 해보자. 하나— 코로 스으읍. 둘— 입으로 후우—." 토토도 호리를 따라 배를 볼록, 후우— 크게 숨을 내쉬었어요. 그러자 새빨갛던 볼이 스르르 원래 색으로 돌아왔어요. 화가 나면, 후~ 하고 크게 숨!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 아이레벨 정면. 두 아이가 나란히 숨을 내쉬는 순간.<br/><b>장소·시간</b> 놀이터 잔디 위, 같은 아침. 차분해진 공기.<br/><b>인물</b> Toto는 화면 왼쪽에서 두 손을 배에 얹고 눈을 살며시 감은 채 입을 동그랗게 오므려 "후우—" 길게 숨을 내쉬는 중, 새빨갛던 볼이 원래 보송한 색으로 돌아오고 어깨가 편안히 내려감. Hori는 오른쪽에서 나란히 같은 자세로 숨을 내쉬며 곁눈으로 토토를 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 두 아이 입 앞에 부드럽게 흩어지는 하얀 숨결 표시, 머리 위 붉은 기운이 완전히 사라지고 옅은 하늘빛 공기로 바뀜, 잔디와 들꽃, 뒤로 놀이터.<br/><b>톤</b> 부드럽고 맑은 햇빛, 붉은색이 사라지고 차분한 하늘빛으로 전환, 평온하고 뿌듯한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(친구에게 다가가기)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마음이 폭신해진 토토는 용기를 냈어요. 쭈뼛쭈뼛 보리와 콩이에게 다가가 말했어요. "아까 큰 소리 내서… 미안해. 화가 확 나서 그랬어. 이제 후~ 하고 숨 쉬었어." 그 순간 옆에 있던 호리의 꼬리 줄무늬가 무지개색으로 반짝— 부릉! 화가 나면, 후~ 하고 크게 숨!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글로 올려다봄. 토토가 친구들에게 사과하는 용기의 결정적 순간.<br/><b>장소·시간</b> 놀이터 잔디 위, 같은 아침. 화해의 따뜻한 공기.<br/><b>인물</b> Toto는 화면 중앙에서 두 손을 앞으로 모으고 어깨를 살짝 움츠린 채 쭈뼛거리며 미안한 미소로 보리와 콩이를 바라봄. Bori는 왼쪽에서 막았던 손을 내리고 놀란 듯 반가운 표정으로 토토를 봄. Kongi는 오른쪽에서 눈을 반짝이며 다가옴. Hori는 토토 옆 뒤쪽에서 두 손을 모으고 응원하듯 활짝 웃으며 지켜봄.<br/><b>배경·소품</b> 호리의 꼬리 줄무늬가 빨강·주황·노랑·초록·파랑 무지개빛으로 환하게 반짝이며 작은 색 알갱이가 팡 흩날리는 시그니처 순간(부릉꼬리), 잔디와 들꽃, 파란 하늘.<br/><b>톤</b> 밝은 햇빛에 무지개 반짝임이 더해진 벅차고 뭉클한 화해의 정서, 용기의 순간을 폭죽 같은 색 입자로 강조.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(다시 웃음)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"괜찮아, 토토야!" 보리가 웃으며 손을 내밀고, 콩이도 폴짝 안겼어요. 조용했던 놀이터에 다시 까르르 웃음이 돌아왔어요. 토토도 활짝 웃으며 귀가 살랑살랑 흔들렸지요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 다시 어우러진 친구들의 화해 장면.<br/><b>장소·시간</b> 놀이터 잔디 위, 같은 아침. 다시 밝고 활기찬 공기.<br/><b>인물</b> Bori는 화면 왼쪽에서 활짝 웃으며 토토에게 두 팔을 벌려 손을 내밀고, Kongi는 토토 품으로 폴짝 뛰어 안기며 신난 웃음. Toto는 중앙에서 두 눈을 초승달처럼 접고 입을 크게 벌려 환하게 웃으며 긴 귀가 살랑살랑 흔들림. Hori는 오른쪽에서 두 손을 마주치며 함께 즐거워함.<br/><b>배경·소품</b> 친구들 둘레에 통통 튀는 웃음 하트와 반짝임, 발밑에 폴짝 뛰는 효과선, 놀이터 미끄럼틀과 나무, 파란 하늘.<br/><b>톤</b> 밝고 화창한 햇빛에 채도가 완전히 살아난 즐겁고 따뜻한 우정의 정서, 활기참.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(다시 시합)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"우리 다시 달릴까?" 이번엔 토토가 또 이등을 했어요. 화 손님이 또 스멀스멀 올라왔지요. 하지만 토토는 얼른 배에 손을 얹고, 코로 스으읍, 입으로 후우—! "괜찮아, 다음에 또 하면 되지!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 토토가 스스로 숨을 쉬며 화를 다스리는 적용의 순간.<br/><b>장소·시간</b> 놀이터 달리기 트랙, 같은 날 조금 뒤. 화창한 낮.<br/><b>인물</b> Toto는 화면 중앙 결승선 부근에서 두 손을 배에 얹고 눈을 살짝 감은 채 입을 오므려 "후우—" 숨을 내쉬며 스스로 마음을 가라앉히는 의젓한 표정, 볼이 발그레하지만 차분함. Hori는 왼쪽에서 엄지를 척 들며 대견하게 웃고, Bori와 Kongi는 오른쪽에서 손뼉 치며 응원.<br/><b>배경·소품</b> 토토 머리 위로 올라오던 작은 붉은 화 기운이 후우 숨결에 스르르 옅어지며 사라짐, 살짝 흔들리는 결승 리본, 잔디 트랙과 놀이터.<br/><b>톤</b> 밝은 낮 햇빛, 붉은 기운이 옅어지고 차분한 색으로 정리되는 의젓하고 뿌듯한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 교훈 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리가 토토를 폭 안아 주었어요. "토토야, 화도 잘 보내 주니까 진짜 일등이다!" 이제 토토는 알아요. 화가 나는 건 나쁜 게 아니라, 크게 숨 쉬며 다스리면 된다는 걸요. "화가 나면, 후~ 하고 크게 숨!" 토토와 친구들이 까르르, 오늘도 사이좋게 뛰어놀아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 호리가 토토를 안고 친구들이 둘러선 넓은 마무리 컷.<br/><b>장소·시간</b> 놀이터 잔디밭, 화창한 낮. 탁 트이고 포근한 바깥.<br/><b>인물</b> Hori(아기 호랑이)는 화면 중앙에서 Toto를 두 팔로 폭 껴안고 볼을 맞대며 가장 환하게 웃음. Toto는 호리 품에 안겨 눈을 반달로 접고 편안하게 웃으며 긴 귀가 부드럽게 늘어짐. Bori는 왼쪽에서 느긋이 웃으며 둘을 바라보고, Kongi는 오른쪽에서 폴짝 뛰며 손을 흔듦.<br/><b>배경·소품</b> 네 아이 둘레에 따뜻한 반짝임, 하늘에 옅은 무지개 아치가 살포시 걸림, 놀이터 미끄럼틀과 나무, 흰 구름 몇 송이.<br/><b>톤</b> 밝고 화창한 낮 햇빛에 무지개 아치가 더한 포근하고 뭉클한 우정과 안심의 마무리 정서.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 화가 나면, 후~ 하고 크게 숨! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

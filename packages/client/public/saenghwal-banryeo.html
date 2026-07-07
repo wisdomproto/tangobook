@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 밥 주고 쓰다듬, 내 친구 두부!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 G #43</div>
+  <h1>🐶 밥 주고 쓰다듬, 내 친구 두부!</h1>
+  <div class="sub">두부 돌보기를 귀찮아하던 호리가 밥·물·산책·쓰다듬을 챙기며 생명을 아끼는 책임을 배워요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 반려동물 돌보기 · 생명존중 (책임 — 돌봄) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(주인공)·두부(강아지 펫, 조력)·엄마(카메오)·호야(동생, 카메오) &nbsp;·&nbsp;
+  <b>장치</b> 책임(돌봄) — ①밥·물 주기 ②쓰다듬·놀아주기 ③아프지 않게 살피기 &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "밥 주고 쓰다듬, 내 친구 두부!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"밥 주고 쓰다듬, 내 친구 두부!" 엄마가 노래하며 호리에게 강아지 두부를 맡겼어요. 두부는 꼬리를 살랑살랑, 호리를 졸졸 따라다녀요. 하지만 호리는 블록 쌓기에 폭 빠져서 "이따 이따—" 하고 손만 저어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 놀이에 빠진 호리와 다가온 두부가 함께 보이는 컷.<br/><b>장소·시간</b> 호리네 집 거실 놀이 매트, 아침. 창으로 환한 아침 햇살이 드는 밝고 포근한 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 오른쪽 놀이 매트에 앉아 블록을 높이 쌓느라 몰두, 한 손은 뒤로 뻗어 "이따" 하며 두부를 밀치듯 손을 흔들고 눈은 블록에만 고정된 시큰둥한 표정. Dubu(강아지 펫, 빨간 목줄)는 왼쪽에서 꼬리를 살랑살랑 흔들며 호리에게 코를 들이밀고 놀자는 듯 초롱초롱한 눈으로 올려다봄. 방문 쪽에서 Mom tiger(엄마 호랑이)가 앞치마 차림으로 다정하게 두 사람을 바라봄.<br/><b>배경·소품</b> 알록달록 블록 탑, 두부 밥그릇과 물그릇, 강아지 방석과 장난감 공, 창가 화분.<br/><b>톤</b> 밝은 아침 자연광이 거실에 가득한 화사하고 평화로운 정서, 두부만 살짝 시무룩.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(귀찮아함)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">두부 밥그릇이 텅 비었어요. 물그릇도 바짝 말랐고요. "낑— 낑—" 두부가 배가 고파 낑낑거려요. 그래도 호리는 "귀찮은데, 조금만 더 놀고…" 하며 슬쩍 못 본 척해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글. 빈 밥그릇 앞 두부와 못 본 척하는 호리.<br/><b>장소·시간</b> 같은 거실, 아침. 밝은 실내광.<br/><b>인물</b> Dubu는 화면 왼쪽 텅 빈 밥그릇 옆에 앉아 고개를 갸웃 숙이고 귀를 축 늘어뜨린 채 "낑낑" 하며 애처롭게 호리를 바라봄, 배가 고파 시무룩한 큰 눈. Hori는 오른쪽에서 블록 쪽으로 몸을 돌린 채 한 손으로 귀를 살짝 막고 눈을 옆으로 굴리며 "귀찮은데" 하는 짐짓 못 본 척하는 표정.<br/><b>배경·소품</b> 바닥에 놓인 텅 빈 밥그릇과 바짝 마른 물그릇, 두부 머리 위에 작은 물음표와 낑낑 표시, 놀이 매트의 블록.<br/><b>톤</b> 밝은 실내광이지만 두부 쪽에 살짝 처진 분위기, 안쓰럽지만 밉지 않고 귀여운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>증폭(시무룩한 두부)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">한참이 지나도 아무도 밥을 안 줬어요. 두부는 방석에 힘없이 엎드려 꼬리도 축, 귀도 축 늘어뜨렸어요. "두부가 왜 저러지…?" 호리는 블록을 쌓다 말고 고개를 갸웃했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 방석에 힘없이 엎드린 두부가 화면을 크게 채움.<br/><b>장소·시간</b> 거실 강아지 방석 구역, 낮. 조금 차분해진 실내광.<br/><b>인물</b> Dubu는 화면 중앙 방석 위에 배를 깔고 힘없이 엎드려 앞발에 턱을 괴고, 꼬리와 접힌 귀가 축 늘어진 채 눈을 반쯤 감고 기운 없는 표정. 화면 오른쪽 뒤에서 Hori가 블록을 손에 든 채 동작을 멈추고 두부를 갸웃 바라보며 처음으로 이상함을 느낀 궁금한 표정.<br/><b>배경·소품</b> 강아지 방석, 옆에 여전히 텅 빈 밥그릇과 마른 물그릇, 굴러다니는 장난감 공, 뒤편 블록 탑.<br/><b>톤</b> 조금 낮아진 낮 조명으로 두부의 처진 기운을 조용히 드러냄, 호리에게 '어라?' 하는 깨달음의 씨앗이 트는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(엄마의 한마디)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 다가와 조용히 말했어요. "두부는 배가 고파도 스스로 밥을 못 챙겨. 호리가 챙겨 줘야 살 수 있단다." 그 말에 호리 가슴이 쿵 내려앉았어요. "두부가 나만 기다렸구나…"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 엄마가 무릎을 굽혀 호리에게 이야기하는 만남 컷.<br/><b>장소·시간</b> 거실 방석 곁, 낮. 부드럽고 따뜻한 실내광.<br/><b>인물</b> Mom tiger는 화면 왼쪽에서 한쪽 무릎을 굽혀 호리와 눈높이를 맞추고 한 손으로 축 늘어진 두부를 부드럽게 가리키며 다정하지만 진지하게 설명하는 표정. Hori는 중앙에서 두 손을 가슴 앞에 모으고 눈을 크게 뜬 채 아랫입술을 살짝 깨물며 '아차' 하고 뉘우치는 표정, 두부를 안쓰럽게 바라봄. Dubu는 오른쪽 방석에서 여전히 힘없이 엎드림.<br/><b>배경·소품</b> 강아지 방석과 빈 밥그릇, 벽에 걸린 강아지 사진 액자, 창가 화분.<br/><b>톤</b> 따뜻한 낮 실내광이 세 존재를 감싸는 뭉클한 정서, 호리가 처음으로 책임을 느끼는 조용한 전환의 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(규칙 하나 · 밥과 물)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 벌떡 일어나 두부 밥을 소복이 담고 물그릇에 물도 찰찰 채웠어요. "두부야, 미안해. 어서 먹어!" 두부가 냠냠 밥을 먹고 물을 할짝할짝. 벌써 눈이 반짝반짝해졌어요. 밥 주고 쓰다듬, 내 친구 두부!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 밥그릇에 밥을 담아 주는 호리와 달려온 두부.<br/><b>장소·시간</b> 거실 강아지 식사 구역, 낮. 밝고 산뜻해진 실내광.<br/><b>인물</b> Hori는 화면 왼쪽에서 무릎을 굽혀 앉아 두 손으로 사료 봉지를 기울여 밥그릇에 밥을 소복이 담고, 미안하면서도 다정한 미소로 두부를 바라봄. Dubu는 오른쪽에서 밥그릇으로 달려와 냠냠 밥을 먹으며 꼬리를 힘차게 붕붕 흔들고, 늘어졌던 귀가 다시 쫑긋 서며 눈이 반짝반짝 살아남.<br/><b>배경·소품</b> 사료 봉지, 소복이 담긴 밥그릇, 물이 찰찰 채워진 물그릇, 두부 둘레에 기운 나는 작은 반짝임, 방석과 장난감.<br/><b>톤</b> 다시 화사해진 낮 조명, 두부가 기운을 되찾는 안도와 따뜻함이 번지는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(돌봄=사랑)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밥을 먹은 두부가 호리 무릎에 폭 안겨 배를 보이며 뒹굴었어요. 호리가 두부 등을 쓰다듬으니 두부는 기분이 좋아 "왈왈!" 하고 짖어요. "돌보는 게 이렇게 좋은 거였구나!" 호리 마음이 몽글몽글 따뜻해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 두부를 쓰다듬는 호리의 다정한 손과 얼굴.<br/><b>장소·시간</b> 거실 러그 위, 낮. 아늑하고 따뜻한 실내광.<br/><b>인물</b> Hori는 화면 오른쪽에서 무릎을 꿇고 앉아 한 손으로 두부의 등과 배를 부드럽게 쓰다듬으며 눈을 초승달처럼 접고 몽글몽글 행복한 미소. Dubu는 왼쪽에서 배를 위로 보이며 벌러덩 뒹굴어 네 발을 하늘로 뻗고 혀를 내밀며 세상 편안한 행복한 표정, "왈왈" 짖는 입 모양.<br/><b>배경·소품</b> 두 존재 둘레에 작은 하트 반짝임, 폭신한 러그, 굴러온 장난감 공, 창으로 드는 부드러운 햇살.<br/><b>톤</b> 아늑한 낮 조명에 사랑스러운 빛무리, 서로 교감하는 포근하고 뭉클한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(산책 · 살피기)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 호리가 목줄을 챙겼어요. "두부야, 산책 가자!" 두부는 신나서 폴짝폴짝. 호리는 걷다가 두부 발을 살펴봐요. "발에 가시 안 박혔지? 목마르지 않아?" 밥 주고 쓰다듬, 내 친구 두부!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면. 목줄을 잡고 두부를 산책시키며 발을 살피는 호리.<br/><b>장소·시간</b> 동네 산책로 공원 길, 낮. 초록 나무와 맑은 하늘, 상쾌한 바깥 공기.<br/><b>인물</b> Hori는 화면 왼쪽에서 한 손으로 두부의 목줄을 야무지게 잡고, 다른 손으로 두부의 앞발을 살며시 들어 발바닥을 들여다보며 걱정스러운 듯 세심하게 살피는 진지한 표정. Dubu는 오른쪽에서 산책이 신나 폴짝 뛰다가 발을 맡기며 꼬리를 붕붕 흔들고 혀를 내민 행복한 표정.<br/><b>배경·소품</b> 산책로와 가로수, 벤치, 작은 물통(휴대용), 발밑 잔디와 돌멩이, 파란 하늘과 뭉게구름.<br/><b>톤</b> 밝은 야외 자연광, 두부를 세심히 살피는 책임감이 느껴지는 상쾌하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(무지개 부릉꼬리)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">두부가 물을 벌컥벌컥 마시고 다시 팔짝팔짝 뛰어요. 아프지 않고 건강한 두부를 보니 호리는 어깨가 으쓱! 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! 두부를 잘 돌봤어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 물을 다 마신 두부와 뿌듯한 호리, 시그니처 무지개 순간.<br/><b>장소·시간</b> 공원 벤치 옆, 낮. 환한 오후 햇살과 초록 배경.<br/><b>인물</b> Hori는 화면 중앙에서 휴대용 물통을 내려놓으며 두 손을 허리에 얹고 가슴을 쭉 펴 어깨를 으쓱, 뿌듯하게 활짝 웃음. Dubu는 왼쪽에서 물을 다 마시고 다시 팔짝 뛰어오르며 꼬리를 힘차게 흔들고 건강하게 반짝이는 눈으로 호리를 올려다봄.<br/><b>배경·소품</b> 특히 Hori의 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리), 둘레에 축하하는 색색 반짝임이 팡 흩날림, 휴대용 물통, 공원 벤치와 가로수.<br/><b>톤</b> 환한 오후 햇살에 무지개 반짝임이 더해진 뿌듯하고 밝은 정서, 해냈다는 성취의 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(세 가지 돌봄 규칙)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 호리는 두부 돌보기 규칙을 알아요. 하나, 밥이랑 물 챙겨 주기! 둘, 쓰다듬고 놀아 주기! 셋, 아픈 데 없나 잘 살피기! 동생 호야도 옆에서 두부를 조심조심 쓰다듬어요. 밥 주고 쓰다듬, 내 친구 두부!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 동생에게 돌봄을 가르쳐 주며 셋이 함께 있는 컷.<br/><b>장소·시간</b> 집에 돌아온 거실 강아지 구역, 낮. 밝고 아늑한 실내광.<br/><b>인물</b> Hori는 화면 중앙에서 한 손으로 밥그릇을, 다른 손으로 두부를 가리키며 동생에게 돌보는 법을 알려 주는 씩씩하고 자랑스러운 표정. Hoya(아기 동생, 노란 턱받이)는 왼쪽에서 작은 손으로 두부 등을 조심조심 쓰다듬으며 호리를 빤히 올려다보고 방긋 웃음. Dubu는 오른쪽에서 두 아이 사이에서 꼬리를 흔들며 행복하게 앉아 있음.<br/><b>배경·소품</b> 소복한 밥그릇과 물그릇, 벽에 붙은 작은 돌봄 규칙 그림표 — 밥그릇·쓰다듬는 손·청진기 세 칸의 그림 아이콘만(글자·숫자 없음), 강아지 방석과 장난감.<br/><b>톤</b> 밝고 따뜻한 실내광, 돌봄이 습관이 되어 형제가 함께 나누는 뿌듯하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밤이 되자 두부가 호리 품에 폭 안겨 새근새근 잠들었어요. 호리는 두부를 꼭 안으며 속삭였어요. "두부야, 이제 내가 매일 잘 챙겨 줄게." 작은 친구를 아끼는 마음, 그게 바로 사랑이에요. 밥 주고 쓰다듬, 내 친구 두부!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 두부를 품에 안고 잠자리에 든 호리의 따뜻한 마무리 컷.<br/><b>장소·시간</b> 호리 방 침대, 밤. 창밖은 남색 밤하늘에 별이 총총, 노란 취침등이 켜진 아늑한 공기.<br/><b>인물</b> Hori는 침대에 앉아 두 팔로 Dubu를 폭 껴안고 볼을 두부 머리에 살포시 대며 눈을 부드럽게 감고 흐뭇하게 미소. Dubu는 호리 품에 안겨 몸을 동그랗게 말고 눈을 감은 채 새근새근 잠든 편안한 표정, 꼬리가 살짝 말려 있음.<br/><b>배경·소품</b> 두 존재 머리 위로 작은 별과 하트 반짝임 몇 개, 침대와 이불, 협탁 위 취침등, 강아지 방석, 창밖 별.<br/><b>톤</b> 노란 취침등의 포근한 밤 조명, 서로를 아끼는 사랑과 안심이 가득한 뭉클하고 따뜻한 마무리 정서.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 밥 주고 쓰다듬, 내 친구 두부! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

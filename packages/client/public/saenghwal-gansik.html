@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 간식은 요만큼, 밥이 먼저!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 A #6</div>
+  <h1>🍪 간식은 요만큼, 밥이 먼저!</h1>
+  <div class="sub">간식을 못 참고 잔뜩 먹다 배탈이 나 저녁밥을 못 먹은 콩이가 간식은 조금만 먹는 법을 배워요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 간식은 조금만 (인과 — 간식 너무 먹으면 배탈·저녁밥 못 먹고 시무룩) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 콩이(간식 못 참는 먹보·주인공)·엄마(조력)·호리(친구) &nbsp;·&nbsp;
+  <b>장치</b> 인과(과식→배탈·저녁밥 못 먹음) + 번호 규칙(한 접시만·밥이 먼저·정한 시간에만) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "간식은 요만큼, 밥이 먼저!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리네 집에 놀러 온 콩이는 간식 바구니를 보자 눈이 왕방울만 해졌어요. "우와, 과자다!" 엄마가 접시에 과자를 한 접시 예쁘게 담아 줬어요. "요건 간식이야. 조금만 먹자." 콩이는 벌써 침이 꼴깍 넘어가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 간식 접시를 앞에 둔 거실 장면 전체.<br/><b>장소·시간</b> 호리네 집 거실 낮은 탁자 앞, 오후 간식 시간. 창으로 따뜻한 오후 햇살이 드는 아늑한 공기.<br/><b>인물</b> Kongi(다람쥐, 주인공)는 낮은 탁자 앞에 앉아 두 손을 모으고 눈을 왕방울처럼 크게 뜨며 침을 꼴깍 삼키는 잔뜩 신난 표정. Mom tiger(엄마 호랑이)는 옆에서 무릎을 굽혀 접시에 과자를 담아 건네며 "조금만" 하듯 다정하게 미소. Hori(아기 호랑이)는 콩이 옆에 앉아 과자를 보며 방긋 웃음.<br/><b>배경·소품</b> 낮은 탁자 위 한 접시에 담긴 과자, 옆에 뚜껑 덮인 간식 바구니, 소파와 러그, 창밖 오후 햇살.<br/><b>톤</b> 따뜻한 오후 주광색 조명, 간식을 앞둔 설레고 군침 도는 즐거운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(못 참고 잔뜩)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">한 접시를 뚝딱 비운 콩이는 참을 수가 없었어요. 엄마가 잠깐 부엌에 간 사이, 간식 바구니를 슬그머니 열고 과자를 와구와구! "조금만 더, 조금만 더…" 어느새 바구니가 텅— 비었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글. 바구니를 끌어안고 몰래 먹는 콩이.<br/><b>장소·시간</b> 호리네 집 거실 낮은 탁자 앞, 오후. 밝은 실내광.<br/><b>인물</b> Kongi는 화면 중앙에서 간식 바구니를 두 팔로 끌어안고 과자를 양손 가득 쥐어 입에 와구와구 밀어 넣으며 볼주머니가 빵빵, 눈을 곁눈질로 부엌 쪽을 살피는 못 참는 조급한 표정. Hori는 옆에서 눈이 동그래져 "그만 먹어" 하듯 손을 살짝 뻗는 걱정스러운 표정.<br/><b>배경·소품</b> 거의 텅 빈 간식 바구니, 바닥에 흩어진 과자 부스러기, 콩이 입가에 묻은 부스러기, 빈 접시.<br/><b>톤</b> 밝은 오후 조명, 못 참고 잔뜩 먹는 조급함이 우스꽝스럽게 강조된 코믹하고 아슬아슬한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(배탈·저녁밥)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁이 되자 맛있는 밥이 차려졌어요. 그런데 콩이는 배가 빵빵하고 살살 아파요. "우웅, 배불러… 밥은 못 먹겠어." 좋아하는 밥을 앞에 두고도 한 입도 못 먹은 콩이는 시무룩 고개를 숙였어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 저녁 밥상 앞에서 배를 감싸 쥔 시무룩한 콩이.<br/><b>장소·시간</b> 호리네 집 식탁, 저녁. 창밖은 노을빛으로 물들고 실내는 따뜻한 등불이 켜진 공기.<br/><b>인물</b> Kongi는 식탁 의자에 앉아 두 손으로 빵빵한 배를 감싸 쥐고 눈썹을 팔자로 늘어뜨린 채 밥을 앞에 두고 고개를 푹 숙여 시무룩, 볼이 살짝 발그레(과식으로 속이 부대끼는 정도, 무섭거나 아프게 그리지 않고 안쓰럽게). Hori는 옆에서 밥을 맛있게 먹다 콩이를 걱정스레 바라봄.<br/><b>배경·소품</b> 식탁 위 김이 나는 밥과 반찬(콩이 앞 그릇은 손도 안 댐), 콩이 배 둘레에 부대낌을 나타내는 작은 물결선, 물컵, 창밖 노을.<br/><b>톤</b> 따뜻한 저녁 등불 조명이지만 콩이 쪽에 살짝 처진 분위기, 좋아하는 밥을 못 먹어 속상하고 안쓰러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(엄마 등장)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 콩이 옆에 앉아 배를 살살 문질러 줬어요. "간식을 너무 많이 먹어서 배가 밥 먹을 자리가 없어졌구나." 콩이 눈에 눈물이 그렁그렁. "밥 먹고 싶은데…" 엄마가 콩이 손을 꼭 잡아요. "괜찮아. 다음엔 조금만 먹는 법을 알려 줄게."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 엄마가 콩이 곁에서 배를 문질러 주며 달래는 만남 컷.<br/><b>장소·시간</b> 호리네 집 식탁 곁, 저녁. 따뜻한 등불 조명.<br/><b>인물</b> Mom tiger는 화면 왼쪽에서 콩이 옆에 앉아 한 손으로 콩이 배를 살살 문질러 주고 다른 손으로 콩이 손을 꼭 잡으며 다정하게 눈을 맞춤. Kongi는 중앙에서 눈에 눈물이 그렁그렁 맺힌 채 엄마를 올려다보며 아쉬워하지만 조금 안심한 표정. Hori는 오른쪽에서 콩이를 안쓰럽게 바라봄.<br/><b>배경·소품</b> 식탁 위 밥과 반찬, 물컵, 앞치마, 창밖 노을.<br/><b>톤</b> 따뜻한 저녁 조명, 혼나지 않고 다독여지는 안심되고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(뱃속 자리)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 재미난 이야기를 해 줬어요. "뱃속은 작은 방이야. 간식으로 방을 꽉 채우면, 밥이 들어올 자리가 없단다." 콩이 눈앞에 그림이 그려졌어요. 작은 배 방에 과자가 잔뜩 쌓여, 밥 친구가 문 앞에서 못 들어가고 발을 동동! "아하, 그래서 자리를 남겨 둬야 하는구나!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 상상 속 뱃속 방이 크게 펼쳐지는 컷.<br/><b>장소·시간</b> 상상 장면(구름 같은 몽환적 테두리). 아기자기한 작은 방 모양의 뱃속, 반짝이는 상상의 빛.<br/><b>인물</b> 상상 속 뱃속 방에 동글동글한 과자 캐릭터들이 방을 꽉 채우고 앉아 있고, 문 앞에서 밥그릇 모양의 귀여운 밥 친구가 들어오지 못해 발을 동동 구르며 갸웃하는 우스꽝스럽고 귀여운 이미지. 화면 앞쪽 구석에 상상 속 작은 Kongi가 두 손을 볼에 대고 눈을 동그랗게 뜨고 신기하게 올려다봄.<br/><b>배경·소품</b> 작은 방 모양의 뱃속 공간, 잔뜩 쌓인 동글동글 과자들, 문 앞의 밥 친구, 공중에 몽환적 반짝임 입자.<br/><b>톤</b> 부드러운 상상빛 조명, 신기하고 코믹한 정서, 위협적이지 않고 장난스럽게 깨닫는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(요만큼 약속)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"밥이 들어올 자리는 요만큼 꼭 남겨 두는 거야." 엄마가 손가락으로 조그맣게 '요만큼'을 만들어 보였어요. "간식은 한 접시만, 정한 시간에만!" 호리도 옆에서 거들어요. "나랑 같이 약속하자!" 콩이 눈이 반짝 빛났어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 엄마가 '요만큼'을 손가락으로 보이고 호리가 약속하는 세 얼굴.<br/><b>장소·시간</b> 호리네 집 거실, 저녁. 따뜻한 등불 아래 아늑한 구석.<br/><b>인물</b> Mom tiger는 화면 왼쪽에서 엄지와 검지를 조그맣게 벌려 '요만큼'을 만들어 보이며 다정하게 미소. Kongi는 중앙에서 몸을 앞으로 기울여 두 눈을 반짝이며 자기도 손가락으로 '요만큼'을 따라 만들어 보는 기대에 찬 표정. Hori는 오른쪽에서 새끼손가락을 내밀며 "약속하자" 하듯 씩 웃음.<br/><b>배경·소품</b> 낮은 탁자 위 간식 접시 하나(딱 한 접시), 뚜껑 덮인 간식 바구니, 세 사람 사이에 은은한 반짝 빛무리.<br/><b>톤</b> 따뜻한 저녁 조명에 설렘의 반짝임이 더해진 다정하고 두근거리는 정서, 약속을 맺는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(한 접시만)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날 오후, 간식 시간이 됐어요. 엄마가 과자를 한 접시 담아 주자, 콩이는 요만큼만 먹고 접시를 딱 내려놓았어요. 바구니는 안 열었어요! "간식은 요만큼, 밥이 먼저!" 참는 게 처음엔 힘들었지만, 콩이는 해냈어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 아이레벨. 한 접시만 먹고 접시를 내려놓는 콩이의 야무진 순간.<br/><b>장소·시간</b> 호리네 집 거실 낮은 탁자 앞, 오후. 밝고 개운한 실내광.<br/><b>인물</b> Kongi는 화면 중앙에서 다 먹은 접시를 두 손으로 탁자에 야무지게 내려놓으며, 옆의 간식 바구니 쪽을 참는 듯 눈을 질끈 감았다가 씩씩하게 고개를 돌려 "그만!" 하는 뿌듯한 표정. Hori는 옆에서 엄지를 척 들며 "잘한다!" 응원하는 활짝 웃음.<br/><b>배경·소품</b> 딱 하나 비운 접시, 뚜껑이 닫힌 간식 바구니, 낮은 탁자, 소파.<br/><b>톤</b> 밝은 오후 조명, 참아 내는 결의와 뿌듯함이 담긴 씩씩하고 개운한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(맛있는 저녁밥)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁이 되자 배가 살짝 꼬르륵! 콩이는 밥을 냠냠 아주 맛있게 먹었어요. "우와, 밥이 이렇게 맛있었어?" 배도 편안, 마음도 뿌듯! 그 순간 콩이 복슬 꼬리 둘레가 반짝반짝, 콩이가 폴짝 뛰었어요. 해냈어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 저녁 밥상에서 밥을 맛있게 먹는 콩이.<br/><b>장소·시간</b> 호리네 집 식탁, 저녁. 창밖 노을과 실내 등불이 어우러진 따뜻한 공기.<br/><b>인물</b> Kongi는 식탁 의자에 바르게 앉아 숟가락 가득 밥을 떠 입에 넣으며 눈을 반짝, 볼이 발그레하게 부풀어 "맛있어!" 하는 아주 행복한 웃음. 이 해냄의 순간 콩이 복슬 꼬리와 볼주머니 둘레에 무지개빛 반짝임이 팅— 터짐. Hori는 옆에서 함께 밥을 먹으며 방긋 웃음.<br/><b>배경·소품</b> 식탁 위 밥과 반찬(이번엔 콩이 그릇이 반쯤 비었음), 콩이 둘레에 무지개 반짝임과 별 모양 반짝임, 물컵, 창밖 노을.<br/><b>톤</b> 따뜻한 저녁 조명에 무지개 반짝임이 더해진 뿌듯하고 행복한 정서, 해냈다는 성취의 밝은 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(간식 규칙)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 콩이는 규칙을 알아요. 하나, 간식은 한 접시만! 둘, 밥이 먼저, 간식은 나중! 셋, 정한 시간에만 냠냠! 다음에도 콩이는 간식을 요만큼만 먹고 접시를 딱 내려놔요. 간식은 요만큼, 밥이 먼저!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 간식을 한 접시만 먹는 콩이와 벽의 그림 규칙표.<br/><b>장소·시간</b> 호리네 집 거실 낮은 탁자 앞, 낮. 밝고 상쾌한 실내광.<br/><b>인물</b> Kongi는 탁자 앞에 바르게 앉아 한 접시 간식을 조금씩 야무지게 집어 먹으며 즐겁고 뿌듯한 표정. Hori는 옆에서 함께 앉아 방긋 웃음.<br/><b>배경·소품</b> 탁자 위 딱 한 접시의 간식, 벽에 붙은 세 칸 그림 규칙표 — 접시 하나·밥그릇을 앞에 둔 그림·해와 시계 모양의 동글동글 그림 아이콘만(글자·숫자 없음), 소파와 창밖 낮 햇살.<br/><b>톤</b> 밝은 낮 자연광, 습관이 된 뿌듯하고 활기찬 정서, 스스로 조절하는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 콩이를 꼭 안아 주었어요. "우리 콩이, 이제 참을 줄도 아는 멋진 어린이네!" 이제 콩이는 알아요. 간식은 조금만, 밥이 먼저 먹으면 배도 편하고 밥도 더 맛있다는 걸. 간식은 요만큼, 밥이 먼저!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 엄마가 콩이를 안아 주는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 호리네 집 거실 한쪽, 저녁. 창밖 노을과 실내 등불로 포근하고 아늑한 공기.<br/><b>인물</b> Mom tiger는 무릎을 굽혀 앉아 두 팔로 Kongi를 폭 껴안고 볼을 맞대며 흐뭇하게 미소. Kongi는 엄마 품에 안겨 두 팔을 엄마에게 두르고 눈을 감은 채 활짝 웃으며 배부르고 행복한 표정. Hori는 옆에서 두 손을 모으고 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 두 사람 머리 위로 작은 별 모양 반짝임 몇 개, 뒤쪽 탁자의 정돈된 접시와 뚜껑 덮인 간식 바구니, 창밖 노을.<br/><b>톤</b> 따뜻한 저녁 조명이 감싸는 뭉클하고 사랑스러운 정서, 안심되고 포근한 마무리 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 간식은 요만큼, 밥이 먼저! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

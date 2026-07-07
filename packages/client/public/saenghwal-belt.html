@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 찰칵! 벨트 매고 출발!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 C #17</div>
+  <h1>🚗 찰칵! 벨트 매고 출발!</h1>
+  <div class="sub">벨트 매기가 귀찮던 호리가 아빠와 함께 '카시트 로켓 발사' 놀이로 안전벨트 세 가지 약속을 스스로 지켜요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 안전벨트 / 카시트 (인과 — 벨트 안 매면 급정거에 몸이 앞으로 쏠림, 다침 없음) + 번호규칙 3개 &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(귀찮아 벨트 안 매려 함)·아빠(조력·운전) &nbsp;·&nbsp;
+  <b>장치</b> 인과(살짝 급정거에 몸이 쏠렸다 벨트가 잡아줌) + 번호규칙(①카시트에 바르게 앉기 ②벨트 찰칵 ③다 맸으면 출발) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "찰칵! 벨트 매고 출발!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"찰칵! 벨트 매고 출발!" 아빠가 자동차 문을 열며 노래해요. 오늘은 아빠랑 할머니 댁에 놀러 가는 날! 호리는 신이 나서 폴짝 뛰어 뒷자리 카시트에 냉큼 올라탔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 자동차 뒷문이 열리고 카시트에 올라타는 호리와 문 옆 아빠.<br/><b>장소·시간</b> 아파트 주차장, 화창한 오전. 파란 하늘에 뭉게구름, 자동차 유리에 햇살이 반짝이는 상쾌하고 밝은 공기.<br/><b>인물</b> Hori(아기 호랑이)는 열린 뒷문으로 폴짝 뛰어올라 뒷자리 카시트에 두 손을 짚고 냉큼 올라타는 중, 눈을 반짝이고 입을 크게 벌려 신난 웃음, 몸이 들떠 통통 튀는 자세. Dad tiger(아빠 호랑이, 둥근 안경)는 열린 뒷문 옆에 서서 한 손으로 문을 잡고 다른 손으로 카시트를 가리키며 다정하게 노래하듯 미소.<br/><b>배경·소품</b> 자동차 뒷좌석 카시트(밝은 색 아동용, 어깨끈과 버클), 열린 뒷문, 주차장 바닥과 주차선, 뒤로 아파트 건물과 가로수, 아빠 손에 든 작은 나들이 가방.<br/><b>톤</b> 화창한 오전 자연광, 채도 높고 밝은 색감, 나들이 출발의 설레고 활기찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(벨트 귀찮아)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"자, 이제 벨트 찰칵 하자!" 아빠가 어깨끈을 내밀었어요. 그런데 호리는 몸을 배배 꼬며 싫어해요. "벨트 답답해! 그냥 가면 안 돼?" 호리는 끈을 슬쩍 옆으로 밀어 놓고 창밖만 봤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 어깨너머 앵글. 벨트를 밀어내는 호리의 표정이 화면을 크게 채움.<br/><b>장소·시간</b> 자동차 뒷좌석 안, 오전. 창으로 든 밝은 햇살, 아직 출발 전 정차된 조용한 공기.<br/><b>인물</b> Hori는 카시트에 앉아 몸을 배배 꼬며 한 손으로 어깨끈을 옆으로 슬쩍 밀어내고, 입을 삐죽 내밀며 고개를 창밖으로 홱 돌린 답답해하는 표정. Dad tiger는 화면 왼쪽에서 뒷좌석 쪽으로 몸을 돌려 어깨끈 버클을 손에 쥐고 내밀다 멈칫, 눈썹이 살짝 처진 안타까운 미소.<br/><b>배경·소품</b> 앞쪽에 내밀어진 벨트 버클과 어깨끈, 카시트, 창밖으로 보이는 주차장, 자동차 실내(헤드레스트·손잡이).<br/><b>톤</b> 밝은 실내 조명, 호리 얼굴에 살짝 과장된 완강함, 귀엽지만 드라마틱한 거부의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(몸이 쏠렸어)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠는 벨트를 꼭 채워 줬어요. 잠시 뒤 길에서 강아지가 톡 튀어나와 자동차가 살짝 끼익— 멈췄어요. 그 순간 호리 몸이 앞으로 쏠렸지만, 벨트가 호리를 꼭— 잡아 줬어요. "어? 벨트가 나를 붙잡았어!" 호리는 눈이 동그래졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면. 살짝 멈춘 자동차 안에서 벨트에 안전하게 붙잡힌 호리.<br/><b>장소·시간</b> 도로 위 자동차 뒷좌석 안, 오전. 밝은 햇살, 방금 살짝 멈춘 순간의 가벼운 긴장이 감도는 공기.<br/><b>인물</b> Hori는 카시트에 앉은 채 상체가 앞으로 살짝 쏠렸지만 어깨끈 벨트가 가슴을 부드럽게 꼭 잡아 주어 안전하게 멈춰 있고, 두 눈을 동그랗게 뜨고 입을 작게 벌려 "어?" 하는 놀란 표정(아프지 않고 신기해하는 얼굴). Dad tiger는 운전석에서 앞을 보며 핸들을 잡고 침착하게 브레이크를 밟은 자세, 고개를 살짝 뒤로 돌려 호리를 살피는 다정한 표정.<br/><b>배경·소품</b> 호리를 감싼 어깨끈 벨트(부드럽게 팽팽), 저 앞 도로 위로 톡 지나가는 작고 귀여운 강아지 한 마리, 자동차 앞 유리·핸들·헤드레스트, 살짝의 속도선(무섭지 않게 아주 약하게).<br/><b>톤</b> 밝은 오전 조명, 벨트가 호리를 지켜 준 안심되는 순간, 사고가 아니라 "벨트 덕분에 괜찮아"의 따뜻한 안전감(전혀 무섭지 않게).</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(아빠의 이야기)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 차를 세우고 뒤를 돌아보며 다정하게 말했어요. "봤지? 벨트가 우리 호리를 꼭 안아 준 거야. 벨트는 답답한 게 아니라 나를 지켜 주는 팔이란다." 호리는 벨트를 만져 보며 고개를 끄덕끄덕했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 아빠가 뒤를 돌아보며 호리와 눈을 맞추는 두 얼굴.<br/><b>장소·시간</b> 도로변에 잠시 정차한 자동차 안, 오전. 창으로 든 따뜻한 햇살 아래 차분해진 공기.<br/><b>인물</b> Dad tiger는 운전석에서 상체를 뒤로 돌려 뒷좌석 호리를 바라보며 한 손으로 호리의 벨트를 가볍게 톡톡 두드리고, 다정하고 진지하게 이야기하는 표정, 이 장면의 주 조력자. Hori는 카시트에서 자기 가슴의 어깨끈을 두 손으로 살며시 만져 보며 아빠를 빤히 올려다보고 고개를 끄덕끄덕, 마음이 풀려 귀 기울이는 표정.<br/><b>배경·소품</b> 호리를 감싼 벨트, 카시트, 창밖으로 보이는 가로수와 파란 하늘, 자동차 실내.<br/><b>톤</b> 밝고 부드러운 오전 조명, 답답함이 고마움으로 바뀌는 안심되고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(로켓 발사 상상)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"우리 카시트를 우주 로켓이라고 생각해 볼까?" 아빠 말에 호리 눈앞에 그림이 그려졌어요. 카시트는 반짝이는 로켓 의자, 벨트는 우주선 안전장치! "우주 비행사는 벨트를 딱 매야 별나라로 날아갈 수 있대!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 상상 속 우주 로켓으로 변한 카시트가 크게 펼쳐지는 컷.<br/><b>장소·시간</b> 상상 장면(구름 같은 몽환적 테두리). 반짝이는 별과 은하가 흐르는 우주 배경.<br/><b>인물</b> 상상 속 Hori가 로켓 조종석처럼 변한 카시트에 앉아 어깨끈 벨트를 딱 매고, 우주 비행사처럼 한 손을 씩씩하게 들어 올리며 눈을 반짝이는 씩씩한 표정. 카시트는 은빛으로 반짝이는 작은 우주 로켓 의자로 변신, 벨트는 반짝이는 안전 하네스로 표현.<br/><b>배경·소품</b> 별·행성·은하수가 흐르는 우주, 로켓 의자 아래로 뿜어지는 몽글몽글 상상의 불꽃, 공중에 떠다니는 작은 별 반짝임, 창문 밖으로 지나가는 귀여운 행성.<br/><b>톤</b> 부드러운 상상빛 조명, 신기하고 두근거리는 모험의 정서, 위협적이지 않고 설레는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(세 가지 약속)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 세 가지 약속을 알려 줬어요. "하나, 카시트에 엉덩이 쏙— 바르게 앉기! 둘, 어깨끈 내려서 벨트 찰칵! 셋, 다 맸으면 '출발!' 하고 외치기!" 호리는 두 손을 불끈 쥐었어요. "나도 우주 비행사처럼 할 수 있어!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 아빠가 세 동작을 하나씩 시범 보이는 컷.<br/><b>장소·시간</b> 자동차 뒷좌석 곁, 오전. 밝고 환한 햇살.<br/><b>인물</b> Dad tiger는 화면 왼쪽에서 뒷좌석 쪽으로 몸을 기울여 한 손으로 카시트를 톡톡, 다른 손으로 어깨끈 버클을 쥐어 "찰칵" 시범을 보이며 다정하게 가르치는 표정, 주 조력자로 호리를 마주 봄. Hori는 카시트에 엉덩이를 쏙 붙여 바르게 앉아 두 손으로 어깨끈을 잡고 가슴 앞으로 내리는 자세, 야무진 결의의 표정으로 아빠를 따라 함.<br/><b>배경·소품</b> 카시트와 어깨끈·버클, 벨트 둘레에 살짝 강조된 빛무리, 자동차 실내, 창밖 햇살.<br/><b>톤</b> 밝고 활기찬 오전 조명, 약속을 배우고 다짐하는 씩씩하고 두근거리는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(약속대로 매기)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 엉덩이를 쏙 붙여 바르게 앉고, 어깨끈을 쭉 내려 찰칵— 스스로 벨트를 맸어요! "아빠, 나 다 맸어! 출발!" 벨트가 호리를 우주선처럼 든든하게 안아 줬어요. 찰칵! 벨트 매고 출발!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글로 올려다봄. 스스로 벨트를 채우고 "출발!" 외치는 결정적 순간.<br/><b>장소·시간</b> 자동차 뒷좌석 카시트, 오전. 창으로 든 밝은 햇살로 개운하고 씩씩한 공기.<br/><b>인물</b> Hori는 카시트에 엉덩이를 쏙 붙여 바르게 앉아 한 손으로 방금 채운 버클(찰칵)을 가리키고 다른 손을 하늘 높이 번쩍 들어 "출발!"을 외치는, 눈을 반짝이고 입을 크게 벌린 씩씩한 성취의 표정. Dad tiger는 운전석에서 고개를 살짝 돌려 엄지를 척 들며 흐뭇하게 웃음.<br/><b>배경·소품</b> 딱 채워진 어깨끈 벨트와 버클, 버클 둘레에 "찰칵" 반짝임 하나, 카시트, 자동차 실내와 창밖 햇살.<br/><b>톤</b> 밝은 오전 조명, 스스로 해낸 씩씩하고 개운한 정서, 든든하고 뿌듯한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(해냈어!)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">자동차가 부드럽게 출발했어요. 호리는 벨트를 매고 창밖 풍경을 보니 하나도 답답하지 않고 오히려 든든했어요. "벨트 매니까 진짜 우주 비행사 같아!" 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! 해냈어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면. 벨트를 매고 창밖을 보며 뿌듯해하는 호리.<br/><b>장소·시간</b> 달리는 자동차 뒷좌석 안, 오전. 창밖으로 흐르는 가로수와 파란 하늘, 상쾌하게 달리는 공기.<br/><b>인물</b> Hori는 어깨끈 벨트를 매고 카시트에 편안히 앉아 한 손을 창가에 얹고 창밖을 바라보며, 어깨가 으쓱 올라가고 입가에 뿌듯한 미소, 눈은 초승달처럼 웃음. 든든하고 만족스러운 표정.<br/><b>배경·소품</b> 이 성공의 순간 Hori의 꼬리 줄무늬가 무지개빛으로 반짝이며 부릉— 하는 시그니처 반짝임이 터짐, 창밖으로 흐르듯 지나가는 가로수·구름·풍경, 어깨끈 벨트, 카시트.<br/><b>톤</b> 밝고 상쾌한 오전 조명에 무지개 반짝임이 더해진 뿌듯하고 든든한 정서, 해냈다는 성취의 밝은 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(세 약속 척척)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 호리는 차를 탈 때마다 세 약속을 스스로 지켜요. 하나, 카시트에 바르게 앉기! 둘, 벨트 찰칵! 셋, 다 맸으면 출발! 할머니 댁에서 돌아올 때도 호리가 먼저 벨트를 채우고 외쳤어요. 찰칵! 벨트 매고 출발!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 스스로 벨트를 채운 호리와, 창에 붙은 세 칸 약속 그림표.<br/><b>장소·시간</b> 자동차 뒷좌석 안, 낮. 밝고 산뜻한 오후 햇살.<br/><b>인물</b> Hori는 카시트에 엉덩이를 쏙 붙여 바르게 앉아 한 손으로 방금 채운 버클을 가리키고 다른 손을 번쩍 들어 "출발!"을 외치는 야무진 표정, 스스로 약속을 실천하는 자신감. Dad tiger는 운전석에서 고개를 살짝 돌려 흐뭇하게 엄지를 척.<br/><b>배경·소품</b> 자동차 뒷유리 옆에 붙은 세 칸짜리 약속 그림표 — 왼쪽 칸: 카시트에 엉덩이를 붙여 바르게 앉은 그림, 가운데 칸: 어깨끈 벨트를 채우는 버클 그림, 오른쪽 칸: 손을 번쩍 들고 앞을 향해 출발하는 화살표 그림. 세 칸 모두 글자·숫자 없이 동글동글한 그림 아이콘만. 카시트, 어깨끈 벨트, 창밖 햇살.<br/><b>톤</b> 밝고 명랑한 오후 조명, 습관이 된 약속을 스스로 해내는 뿌듯하고 씩씩한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집에 돌아와 아빠가 호리를 꼭 안아 주었어요. "우리 호리, 벨트 약속을 스스로 지켜서 정말 멋졌어!" 이제 호리는 알아요. 벨트는 답답한 게 아니라 나를 지켜 주는 든든한 팔이라는 걸. 찰칵! 벨트 매고 출발!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 아빠가 호리를 폭 안아 주는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 호리네 집 현관 앞, 늦은 오후. 창으로 든 노란 저녁 햇살로 포근하고 환한 공기.<br/><b>인물</b> Dad tiger는 한쪽 무릎을 굽혀 앉아 두 팔로 Hori를 폭 껴안고 볼을 맞대며 흐뭇하게 미소. Hori는 아빠 품에 안겨 두 팔을 아빠 목에 두르고 눈을 반달로 접으며 활짝 웃는 개운하고 행복한 표정.<br/><b>배경·소품</b> 두 사람 머리 위로 작은 별 모양 반짝임 몇 개, 벽에 걸린 세 칸 약속 그림표 미니 액자(바르게 앉기·벨트 찰칵·출발 화살표 그림 아이콘만), 현관 신발장과 걸린 자동차 열쇠, 창밖 저녁 노을.<br/><b>톤</b> 따뜻한 저녁 햇살이 두 사람을 감싸는 뭉클하고 사랑스러운 정서, 안심되고 포근한 마무리 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 찰칵! 벨트 매고 출발! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

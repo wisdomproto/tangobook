@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 호리는 호리니까!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 D #23</div>
+  <h1>🌈 호리는 호리니까!</h1>
+  <div class="sub">친구들과 자꾸 비교하며 시무룩해진 호리가 "내 것이 곧 힘" 프레임으로 나만의 반짝임을 되찾는 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 자기수용(나는 나) / 리프레이밍(내 고유함=강점) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(자기의심·주인공)·엄마(조력)·토토(빠름)·보리(큼) &nbsp;·&nbsp;
+  <b>장치</b> 리프레이밍(친구랑 다른 나의 것 = 나만의 힘) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "호리는 호리니까!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입) · 작은 부정감정</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"에잉, 나는 왜 이러지?" 놀이터에서 달리기 시합을 했는데, 토토가 슝— 저만치 앞서갔어요. 호리는 헉헉 숨을 몰아쉬며 꼴찌로 들어왔어요. 어깨가 축, 발끝만 콩콩 찼어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글로 내려다봄. 달리기 결승선을 막 지난 순간.<br/><b>장소·시간</b> 마을 놀이터의 흙 트랙, 화창한 오후. 밝고 상쾌한 바깥 공기, 바닥에 하얀 결승선.<br/><b>인물</b> Toto(토끼, 긴 귀·날씬한 다리)는 화면 왼쪽 앞에서 두 팔을 번쩍 든 채 껑충 뛰어오르며 활짝 웃는 승리 포즈, 귀가 뒤로 휘날림. Hori(아기 호랑이)는 화면 오른쪽 뒤에서 헉헉 숨을 몰아쉬며 어깨가 축 처지고 고개를 살짝 숙인 채 시무룩, 발끝으로 흙바닥을 콩콩 참, 눈은 부러운 듯 토토를 흘끔.<br/><b>배경·소품</b> 바닥의 하얀 결승선, 흙 트랙에 남은 발자국, 옆에 놀이터 미끄럼틀과 화단, 파란 하늘과 흰 구름.<br/><b>톤</b> 밝은 오후 햇빛이지만 호리 쪽만 살짝 채도가 낮아 풀 죽은 느낌 강조, 귀엽고 안쓰러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(비교 심화)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 높은 나뭇가지에 걸린 공. 보리가 팔을 쭈욱 뻗어 척 내려 주었어요. 호리는 폴짝폴짝 뛰어도 손끝이 닿질 않아요. "보리는 크고, 토토는 빠른데… 나는 아무것도 아니야."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 높은 가지의 공을 사이에 둔 대비 구도.<br/><b>장소·시간</b> 놀이터 한쪽의 큰 나무 아래, 같은 오후. 나뭇잎 사이로 햇살이 부서짐.<br/><b>인물</b> Bori(곰, 통통하고 큰 몸)는 화면 왼쪽에서 긴 팔을 위로 쭈욱 뻗어 나뭇가지에 걸린 빨간 공을 여유롭게 척 잡으며 온화하게 웃음. Hori는 오른쪽에서 팔을 한껏 위로 뻗고 발꿈치를 들어 폴짝 뛰지만 손끝이 공에 한참 못 미침, 입은 삐죽하고 눈썹이 처진 속상한 표정.<br/><b>배경·소품</b> 큰 나무의 낮은 가지에 걸린 빨간 공, 흩날리는 나뭇잎, 발밑에 폴짝 뛴 효과선, 뒤로 놀이터.<br/><b>톤</b> 나뭇잎 사이로 새는 부드러운 오후 햇빛, 호리 얼굴에 살짝 진 그림자로 자기의심 강조, 다정하지만 짠한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(반짝임이 사라짐)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집에 돌아온 호리는 거울 앞에 털썩 앉았어요. "내 꼬리는 왜 이렇게 짧고 알록달록하기만 할까." 시무룩— 그러자 호리의 꼬리 줄무늬가 회색으로 축 처졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 어깨너머 앵글. 거울 앞에 주저앉은 호리.<br/><b>장소·시간</b> 호리 방의 전신 거울 앞, 늦은 오후. 창으로 비스듬히 드는 노을빛에 방이 살짝 어스름.<br/><b>인물</b> Hori는 방바닥에 무릎을 안고 털썩 주저앉아 거울 속 자기 모습을 시무룩하게 바라봄, 입은 아래로 축 처지고 눈은 반쯤 감김, 한 손으로 자기 꼬리 끝을 만지작. 거울 속 호리도 똑같이 풀 죽은 표정.<br/><b>배경·소품</b> 큰 전신 거울, 호리 꼬리의 무지개 줄무늬가 지금은 회색빛으로 바래 축 늘어짐, 옆에 장난감 바구니, 창밖 노을, 호리 머리 위 작은 회색 먹구름 하나.<br/><b>톤</b> 노을빛이 스민 어스름한 방, 호리 주변만 채도가 낮아 반짝임이 사라진 느낌, 조용하고 쓸쓸한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(엄마 등장)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 엄마가 살며시 방문을 열었어요. "우리 호리, 무슨 걱정 있어?" 호리는 훌쩍, 속마음을 콕 털어놨어요. "엄마, 나는 빠르지도 크지도 않아요." 엄마는 호리를 무릎에 살포시 앉혔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 엄마가 방으로 들어와 호리에게 다가오는 순간.<br/><b>장소·시간</b> 같은 호리 방, 늦은 오후. 노을빛과 켜진 스탠드 불빛이 어우러진 포근한 공기.<br/><b>인물</b> Mom tiger(엄마 호랑이, 복숭아색 앞치마)는 화면 왼쪽에서 무릎을 굽혀 호리 눈높이로 몸을 낮추고 두 팔을 벌려 다가옴, 눈썹이 부드럽게 휘고 다정한 미소. Hori는 오른쪽에서 눈가에 눈물이 살짝 맺힌 채 훌쩍이며 엄마를 올려다봄, 두 손을 무릎 위에 모으고 속상함을 털어놓는 표정.<br/><b>배경·소품</b> 방바닥에 앉은 호리, 옆의 전신 거울과 장난감, 켜진 노란 스탠드, 창밖 노을, 호리 꼬리는 아직 회색빛.<br/><b>톤</b> 스탠드의 따뜻한 노란 불빛이 두 사람을 감싸는 포근하고 안심되는 정서, 부드럽고 다정한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(엄마의 질문)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 호리 손을 살짝 잡았어요. "호리야, 토토가 그림을 그리면 어떤 색을 쓸까?" "음… 하얀 종이에 하얀 크레파스?" 둘은 까르르 웃었어요. "그럼 호리 꼬리는?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 엄마와 호리가 마주 앉아 도란도란 이야기하는 두 얼굴.<br/><b>장소·시간</b> 호리 방 바닥, 늦은 오후. 스탠드 불빛 아래 아늑한 구석.<br/><b>인물</b> Mom tiger는 화면 왼쪽에서 두 손으로 호리의 작은 손을 살포시 감싸 쥐고 눈을 반짝이며 장난기 어린 다정한 미소로 질문을 던짐. Hori는 오른쪽에서 고개를 살짝 갸웃하며 눈을 굴려 골똘히 생각하다 입가에 슬며시 웃음이 번짐, 눈물자국은 마르는 중.<br/><b>배경·소품</b> 두 사람 사이 공중에 상상 속 하얀 종이·하얀 크레파스가 작게 동동 떠오름, 옆에 크레파스 상자, 노란 스탠드 불빛, 창밖은 어둑해짐.<br/><b>톤</b> 따뜻한 스탠드 조명, 상상 오브젝트에 은은한 빛무리, 다정하고 장난스러우며 마음이 풀리는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(내 것이 힘)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"호리 꼬리는 무지개색이라, 색칠하면 온 하늘이 알록달록해질걸!" 엄마가 속닥속닥. "토토는 빠른 게 토토, 보리는 큰 게 보리. 그리고 호리는—" 호리 눈이 반짝 커졌어요. "호리는 호리니까!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 로우앵글로 올려다봄. 깨달음이 번지는 결정적 순간.<br/><b>장소·시간</b> 호리 방, 저녁. 스탠드 불빛과 창밖 별빛이 어우러진 아늑한 공기.<br/><b>인물</b> Mom tiger는 화면 왼쪽에서 한 손을 입가에 대고 호리 귀에 대고 속닥이며 다른 손으로 호리 꼬리를 살짝 가리킴, 눈이 다정하게 휨. Hori는 오른쪽에서 두 눈을 크게 반짝 뜨고 입을 'O'로 벌린 채 무언가 깨달은 놀라운 표정, 몸을 앞으로 살짝 기울임, 볼이 발그레.<br/><b>배경·소품</b> 호리 꼬리 끝에 아주 옅은 빛기운이 살며시 감돌기 시작(아직 폭발 없이 잔잔함), 공중에 상상 반짝이 입자, 옆에 크레파스, 창밖에 뜬 별.<br/><b>톤</b> 따뜻한 스탠드 조명에 옅은 빛기운이 살짝 더해진 벅차고 설레는 정서, 마음에 불이 켜지는 조용한 예감의 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(다음 날 · 나답게) · 후렴</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날 놀이터, 토토가 슝 달리고 보리가 척 공을 내려도 이제 호리는 시무룩하지 않아요. 호리는 알록달록 무지개 그림을 슥슥 그려 친구들에게 짠! 보여 줬어요. "우와, 예쁘다!" 호리는 호리니까!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 그림을 자랑스레 펼쳐 보이는 순간.<br/><b>장소·시간</b> 마을 놀이터, 화창한 다음 날 오후. 밝고 상쾌한 바깥.<br/><b>인물</b> Hori는 화면 중앙에서 큰 도화지를 두 손으로 활짝 펼쳐 들고 자랑스럽게 짠 하며 환하게 웃음, 도화지엔 알록달록 무지개가 슥슥 그려짐. Toto는 왼쪽에서 눈을 동그랗게 뜨고 입을 벌려 감탄, Bori는 오른쪽에서 두 손을 마주치며 흐뭇하게 활짝 웃음.<br/><b>배경·소품</b> 호리가 든 무지개 그림 도화지, 옆에 크레파스가 흩어짐, 뒤로 놀이터 미끄럼틀과 화단, 파란 하늘. 호리 꼬리는 아직 평소 색으로 잔잔함.<br/><b>톤</b> 밝은 오후 햇빛에 그림 색이 쨍하게 살아나는 산뜻하고 뿌듯한 정서, 자신감이 반짝이는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(시그니처 · 무지개 부릉꼬리)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 순간! 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉부릉! 회색이던 꼬리에 색이 팡 하고 돌아왔어요. 호리는 폴짝, 세상에서 제일 신나는 얼굴이 됐어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 무지개 부릉꼬리가 터지는 시그니처 클라이맥스 컷 — 이야기에서 유일하게 꼬리 색이 폭발하는 순간.<br/><b>장소·시간</b> 놀이터, 화창한 오후. 탁 트인 밝은 바깥.<br/><b>인물</b> Hori는 화면 중앙에서 두 팔을 활짝 벌리고 가볍게 폴짝 뛰어올라 발끝이 땅에서 떠오름, 고개를 뒤로 젖히며 눈은 초승달처럼 웃고 입을 크게 벌려 세상에서 제일 신난 활짝 웃음, 꼬리를 힘차게 위로 치켜올림. Toto와 Bori는 뒤쪽 양옆에서 손뼉 치며 함께 환호.<br/><b>배경·소품</b> 호리 꼬리 줄무늬가 선명한 무지개빛으로 크게 반짝이며 채도가 최대로 터지고 색 입자가 폭죽처럼 팡 터지는 시그니처 순간(부릉꼬리), 몸 둘레로 화려한 무지개 오라, 발밑에 도약 효과선, 뒤로 놀이터와 파란 하늘.<br/><b>톤</b> 밝은 오후 햇빛에 무지개 폭죽으로 채도가 완전히 터져 나오는 벅차고 승리에 찬 정서, 이야기에서 가장 역동적이고 반짝이는 절정의 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(각자의 힘을 모아)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 친구들은 힘을 모아요. 빠른 토토가 공을 뻥 차고, 큰 보리가 척 받고, 호리는 무지개 깃발을 펄럭펄럭 흔들며 응원해요. "빠른 토토, 큰 보리, 반짝 호리!" 셋이 까르르 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 셋이 각자 역할로 어우러져 노는 넓은 컷.<br/><b>장소·시간</b> 놀이터 넓은 마당, 화창한 오후. 활기찬 바깥 공기.<br/><b>인물</b> Toto(토끼)는 화면 왼쪽에서 다리를 힘껏 뻗어 빨간 공을 뻥 차올림, 귀가 휘날림. Bori(곰)는 오른쪽에서 긴 팔을 벌려 날아오는 공을 척 받으려 함, 든든한 미소. Hori는 가운데서 알록달록 무지개 깃발을 두 손으로 펄럭펄럭 흔들며 폴짝 응원, 꼬리는 평소의 반짝이는 무지개 색으로 잔잔히 살랑, 활짝 웃음.<br/><b>배경·소품</b> 날아가는 빨간 공, 호리가 든 무지개 깃발, 발밑의 움직임 효과선, 뒤로 놀이터 미끄럼틀과 화단, 파란 하늘과 흰 구름.<br/><b>톤</b> 밝고 화창한 오후 햇빛, 셋의 색이 다 함께 살아나는 즐겁고 우정 넘치는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 애정 + 교훈 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁이 되자 엄마가 호리를 폭— 안아 주었어요. 토닥토닥, 등을 살살 쓸어 주었죠. "우리 호리, 세상에 딱 하나뿐인 무지개 호리네!" 호리 꼬리가 살랑살랑, 무지개빛으로 흔들렸어요. 이제 호리는 알아요. 남이랑 달라도 하나도 걱정 없다는 걸. 호리는 호리니까!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 로우앵글. 엄마가 호리를 꼭 껴안는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 호리네 집 거실, 저녁. 노을빛과 따뜻한 전등이 어우러진 아늑하고 포근한 공기.<br/><b>인물</b> Mom tiger는 화면 중앙에서 무릎을 굽혀 두 팔로 호리를 폭 감싸 꼭 껴안으며 눈을 감고 볼을 호리 머리에 살포시 대고 흐뭇하게 웃음, 한 손으로 호리 등을 토닥토닥 쓸어 줌. Hori는 엄마 품에 폭 안겨 두 팔로 엄마 목을 감싸고 눈을 초승달처럼 감으며 세상 편안한 함박웃음, 꼬리는 평소의 반짝이는 무지개 색으로 살랑살랑.<br/><b>배경·소품</b> 거실 소파와 쿠션, 벽에 걸린 호리의 무지개 그림 액자, 따뜻한 펜던트 전등, 창밖 노을.<br/><b>톤</b> 노을빛과 따뜻한 전등이 감싸는 뭉클하고 다정한 정서, 사랑과 안심이 가득한 포근한 마무리 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 호리는 호리니까! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

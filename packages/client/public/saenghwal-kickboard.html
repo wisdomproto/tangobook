@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 천천히, 앞을 봐요!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 C #21</div>
+  <h1>🛴 천천히, 앞을 봐요!</h1>
+  <div class="sub">킥보드를 씽씽 너무 빨리 달리던 토토가 호리와 함께 '헬멧·천천히·앞 보고 멈추기' 세 가지 약속을 몸으로 배워요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 킥보드·자전거 안전 (인과 — 너무 빨라 넘어질 뻔, 다침 없이 헬멧·멈춤으로 안전) + 번호규칙 3개 &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 토토(주인공·씽씽 과속)·호리(조력·안전 안내)·두부(강아지 펫, 카메오) &nbsp;·&nbsp;
+  <b>장치</b> 인과(너무 빨라 아찔) + 번호규칙(①헬멧 쓰기 ②천천히 ③앞 보고 멈추기) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "천천히, 앞을 봐요!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"천천히, 앞을 봐요!" 공원에 온 호리가 손을 흔들며 외쳐요. 오늘은 토토가 새 킥보드를 가져온 날이에요. 토토는 신이 나서 발을 쿵쿵— "나 이거 엄청 빨라! 봐 봐!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 공원 산책로에서 킥보드를 자랑하는 토토와 손 흔드는 호리.<br/><b>장소·시간</b> 동네 공원의 넓은 포장 산책로, 화창한 오전. 파란 하늘에 뭉게구름, 초록 잔디와 가로수가 반짝이는 상쾌한 공기.<br/><b>인물</b> Toto(흰 토끼, 빨간 손수건)는 화면 중앙에서 두 발을 나란히 킥보드 발판에 올리고 한 손으로 손잡이를 잡은 채 다른 손을 번쩍 들어 "봐 봐!" 하듯 자랑하며, 귀를 쫑긋 세우고 눈을 반짝, 입을 크게 벌린 신난 웃음. Hori(아기 호랑이)는 화면 오른쪽에서 두 손을 입가에 모아 "천천히!" 하고 외치듯 손을 흔들며 방긋 웃는 다정한 표정.<br/><b>배경·소품</b> 새것 같은 알록달록 킥보드, 넓은 산책로 바닥, 옆에 잔디밭과 나무 벤치, 뒤로 놀이터 미끄럼틀 지붕이 살짝, 화단의 꽃.<br/><b>톤</b> 화창한 오전 자연광, 채도 높고 밝은 색감, 놀러 나온 설레고 활기찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(씽씽 과속)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">토토는 발로 바닥을 쿵쿵 차며 씽— 하고 쏜살같이 달려나갔어요. "빠를수록 재밌어! 더 빨리, 더 빨리!" 호리가 뒤에서 소리쳐요. "토토야, 헬멧! 헬멧 쓰고 가!" 하지만 토토는 벌써 저만치 멀어졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글로 속도감. 킥보드를 타고 쏜살같이 달려나가는 토토.<br/><b>장소·시간</b> 같은 공원 산책로, 오전. 밝은 햇살, 바람을 가르는 빠른 공기.<br/><b>인물</b> Toto는 화면 왼쪽에서 오른쪽으로 킥보드를 타고 질주하며 몸을 앞으로 잔뜩 숙이고 귀가 바람에 뒤로 눕고, 눈을 반짝이며 입을 크게 벌려 신난 표정, 헬멧은 쓰지 않은 맨머리. Hori는 화면 오른쪽 뒤에서 한 손에 파란 헬멧을 들고 다른 손을 뻗어 "헬멧!" 하고 부르며 눈썹이 살짝 올라간 걱정스러운 표정.<br/><b>배경·소품</b> 토토 뒤로 쭉 그어진 속도선과 흩날리는 나뭇잎, Hori 손에 들린 파란 헬멧, 산책로 바닥, 잔디밭과 나무.<br/><b>톤</b> 밝은 오전 조명에 역동적인 속도선으로 지나친 빠름을 강조, 신나지만 살짝 아슬한 정서(무섭지 않게).</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(넘어질 뻔)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 산책로 앞에 작은 돌멩이가 툭! 토토는 앞을 안 보고 달리다 킥보드가 휘청— 기우뚱! 토토는 두 발을 얼른 바닥에 딛고 겨우 멈췄어요. "어어— 앗!" 가슴이 콩닥콩닥, 넘어질 뻔했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 킥보드가 휘청하자 두 발을 딛고 멈추는 아찔한 순간.<br/><b>장소·시간</b> 산책로 위, 오전. 밝은 햇살, 방금 아찔함이 지나가는 긴장의 공기.<br/><b>인물</b> Toto는 화면 중앙에서 기우뚱 기운 킥보드 위에서 몸을 뒤로 젖히며 두 발을 얼른 바닥에 쭉 뻗어 딛고 균형을 잡으려 두 팔을 활짝 벌리고, 눈이 동그래지고 입을 벌린 놀란 표정(넘어지지는 않음, 겨우 멈춤). 킥보드 앞바퀴가 작은 돌멩이에 걸려 살짝 들림.<br/><b>배경·소품</b> 산책로 위 작은 회색 돌멩이 하나, 휘청인 킥보드의 흔들림 선, 토토 머리 위에 놀람을 나타내는 작은 땀방울과 물음표, 잔디밭과 나무.<br/><b>톤</b> 밝은 오전 조명, 아찔했지만 스스로 멈춰 세운 안도의 정서, 사고가 아니라 "넘어질 뻔했지만 괜찮아"의 안전감(다침·상처 절대 없이).</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(호리가 달려와)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리가 헬멧을 들고 헐레벌떡 달려왔어요. "토토야, 괜찮아? 너무 빨리 달리면 앞이 잘 안 보여." 토토는 고개를 끄덕끄덕. "돌멩이를 아예 못 봤어…" 호리가 토토 손을 잡아 주었어요. "우리 안전하게 타는 약속 배워 볼까?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 호리가 달려와 토토와 눈높이를 맞추는 다정한 두 얼굴.<br/><b>장소·시간</b> 산책로 위, 오전. 밝고 따뜻한 햇살 아래 차분해진 공기.<br/><b>인물</b> Hori는 화면 왼쪽에서 한 손에 파란 헬멧을 들고 다른 손으로 Toto의 손을 잡으며 몸을 살짝 숙여 눈을 맞추고, 걱정과 다정함이 섞인 따뜻한 표정, 이 장면의 주 조력자. Toto는 오른쪽에서 킥보드 손잡이를 쥔 채 호리를 바라보며 고개를 끄덕끄덕, 살짝 겸연쩍고 반성하는 표정.<br/><b>배경·소품</b> Hori 손의 파란 헬멧, 옆에 세워진 킥보드, 산책로 바닥의 작은 돌멩이, 잔디밭과 벤치.<br/><b>톤</b> 밝고 부드러운 오전 조명, 조급함이 차분함으로 바뀌는 안심되고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(헬멧부터)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리가 파란 헬멧을 토토 머리에 톡 씌워 주었어요. "가장 먼저, 헬멧을 딱! 머리를 지켜 주는 든든한 모자야." 딸깍, 턱끈까지 야무지게. 토토는 머리를 살살 만지며 씩 웃었어요. "오, 든든한데?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨 정면. 호리가 토토에게 헬멧을 씌워 주는 컷.<br/><b>장소·시간</b> 산책로 위, 오전. 밝은 햇살 아래 정겨운 공기.<br/><b>인물</b> Hori는 화면 왼쪽에서 두 손으로 파란 헬멧을 Toto의 머리에 씌워 주며 다정하게 집중하는 미소. Toto는 오른쪽에서 파란 헬멧을 쓴 채 턱끈이 딸깍 채워지고, 한 손으로 헬멧을 톡톡 만지며 눈을 반짝, 든든해서 씩 웃는 표정, 귀가 헬멧 밖으로 쫑긋.<br/><b>배경·소품</b> 파란 헬멧과 채워진 턱끈, 헬멧 둘레에 살짝 강조된 안전한 반짝임, 옆에 세워진 킥보드, 잔디밭과 나무.<br/><b>톤</b> 밝고 따뜻한 오전 조명, 안전 장비를 갖추는 든든하고 뿌듯한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(세 가지 약속)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리가 세 가지 약속을 알려 줬어요. "하나, 탈 땐 꼭 헬멧을 써요! 둘, 너무 빨리 말고 천천히! 셋, 앞을 잘 보고, 위험하면 발로 콕 멈춰요!" 토토는 두 주먹을 불끈 쥐었어요. "나도 할 수 있어! 천천히, 앞을 봐요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 세 동작을 하나씩 시범 보이고 토토가 따라 다짐하는 컷.<br/><b>장소·시간</b> 산책로 위, 오전. 밝고 환한 햇살.<br/><b>인물</b> Hori는 화면 왼쪽에서 한 손으로 자기 머리를 톡 짚어 "헬멧" 시늉을 하고 다른 손을 앞으로 펴 "천천히·멈춰" 자세를 보이며 다정하게 가르치는 표정, 주 조력자로 토토를 마주 봄. Toto는 중앙에서 파란 헬멧을 쓴 채 두 주먹을 불끈 쥐고 야무진 결의의 표정으로 호리를 따라 하며 눈을 반짝. 옆에 킥보드가 얌전히 세워짐.<br/><b>배경·소품</b> 세워진 킥보드, 두 사람 손동작 둘레에 살짝 강조된 빛무리, 산책로 바닥, 잔디밭과 나무.<br/><b>톤</b> 밝고 활기찬 오전 조명, 약속을 배우고 다짐하는 씩씩하고 두근거리는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(약속대로 타기)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 토토가 헬멧을 쓰고, 천천히 또르르 달렸어요. 앞을 잘 보며 슬금슬금— 저 앞에 강아지 두부가 지나가자 토토는 발을 콕 딛어 멈췄어요. "천천히, 앞을 봐요!" 두부가 지나갈 때까지 기다렸다가 다시 살살 출발!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 헬멧 쓰고 천천히 달리다 앞을 보고 멈추는 결정적 순간.<br/><b>장소·시간</b> 공원 산책로, 오전. 밝고 안전한 햇살.<br/><b>인물</b> Toto는 화면 중앙에서 파란 헬멧을 쓰고 킥보드 위에 서서 한 발을 바닥에 콕 딛어 천천히 멈추며, 앞을 똑바로 바라보는 야무지고 침착한 표정, 귀는 차분히 세워짐(더는 빠르지 않음). 화면 앞쪽 오른편에 Dubu(강아지 펫, 빨간 목줄, 한쪽 접힌 갈색 귀)가 산책로를 가로질러 지나가며 혀를 내밀고 방긋. Hori는 화면 왼쪽 뒤에서 두 손으로 짝짝 치며 "잘한다" 응원하는 표정.<br/><b>배경·소품</b> 파란 헬멧을 쓴 토토, 천천히 멈춘 킥보드(속도선 없음), 지나가는 두부, 산책로 바닥, 잔디밭과 나무, 벤치.<br/><b>톤</b> 밝고 상쾌한 오전 조명, 약속을 지켜 안전하게 멈추는 씩씩하고 뿌듯한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(해냈어!)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">토토는 어깨가 으쓱, 마음이 뿌듯해요. "천천히 타니까 하나도 안 넘어져! 앞도 다 보여!" 신이 난 토토를 보며 호리도 활짝 웃었어요. 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! 둘은 손뼉을 짝짝 마주쳤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 토토와 호리가 손뼉을 마주치며 기뻐하는 컷.<br/><b>장소·시간</b> 공원 산책로, 오전. 밝고 생기 넘치는 햇살.<br/><b>인물</b> Toto는 화면 왼쪽에서 파란 헬멧을 쓴 채 한 손을 번쩍 들어 Hori와 손뼉을 마주치며 어깨가 으쓱, 입을 크게 벌려 환하게 웃는 뿌듯한 표정. Hori는 오른쪽에서 마주 손을 들어 짝 하고 손뼉을 치며 가장 환하게 웃음. 이 성공의 순간 Hori의 꼬리 줄무늬가 무지개빛으로 반짝이며 부릉— 하는 시그니처 반짝임이 터짐.<br/><b>배경·소품</b> 두 아이 둘레에 축하하는 색색 반짝이가 팡 흩날림, 특히 호리 꼬리의 무지개 반짝임, 옆에 얌전히 세워진 킥보드, 잔디밭과 파란 하늘.<br/><b>톤</b> 밝은 오전 조명에 폭죽처럼 튀는 반짝임으로 성취의 기쁨을 강조, 역동적이고 뿌듯한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(세 약속 척척)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 토토는 킥보드를 탈 때마다 세 약속을 스스로 지켜요. 하나, 헬멧을 딱! 둘, 천천히 또르르! 셋, 앞을 잘 보고, 위험하면 발로 콕 멈춰요! 다음에 놀러 온 날, 토토가 먼저 헬멧을 챙기며 외쳤어요. 천천히, 앞을 봐요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 스스로 헬멧을 쓰고 천천히 타는 토토와, 옆에 붙은 세 칸 약속 그림표.<br/><b>장소·시간</b> 공원 산책로 입구, 낮. 밝고 산뜻한 오후 햇살.<br/><b>인물</b> Toto는 화면 중앙에서 파란 헬멧을 스스로 쓰고 킥보드 위에 서서 앞을 똑바로 보며 천천히 출발하는 야무진 표정, 한 손은 손잡이, 한 발은 살살 바닥을 미는 자세. Hori는 오른쪽에서 엄지를 척 들어 흐뭇하게 지켜보며 방긋.<br/><b>배경·소품</b> 산책로 입구 안내판에 세 칸짜리 약속 그림표 — 왼쪽 칸: 머리에 쓴 둥근 헬멧 그림, 가운데 칸: 천천히를 뜻하는 거북이와 느린 물결 그림, 오른쪽 칸: 앞을 보는 두 눈과 발로 멈추는 그림. 세 칸 모두 글자·숫자 없이 동글동글한 그림 아이콘만. 헬멧 쓴 토토, 킥보드, 잔디밭과 나무.<br/><b>톤</b> 밝고 명랑한 오후 조명, 습관이 된 약속을 스스로 해내는 뿌듯하고 씩씩한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">놀이가 끝나고 호리가 토토를 꼭 안아 주었어요. "우리 토토, 천천히 안전하게 타서 정말 멋졌어!" 이제 토토는 알아요. 빠른 것보다 안전한 게 훨씬 재밌다는 걸. 천천히, 앞을 봐요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리와 토토가 마주 안는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 공원 벤치 앞, 늦은 오후. 노을빛 햇살이 번지는 포근하고 환한 공기.<br/><b>인물</b> Hori는 화면 왼쪽에서 두 팔로 Toto를 폭 껴안고 볼을 맞대며 흐뭇하게 미소. Toto는 파란 헬멧을 손에 든 채 호리 품에 안겨 두 팔을 호리에게 두르고 눈을 반달로 접으며 활짝 웃는 개운하고 행복한 표정.<br/><b>배경·소품</b> 두 아이 머리 위로 작은 별 모양 반짝임 몇 개, 옆 벤치에 놓인 킥보드와 파란 헬멧, 안내판의 세 칸 약속 그림표(헬멧·천천히·앞 보고 멈추기 그림 아이콘만)가 살짝 보임, 노을 진 하늘.<br/><b>톤</b> 따뜻한 저녁 노을 조명이 두 아이를 감싸는 뭉클하고 사랑스러운 정서, 안심되고 포근한 마무리 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 천천히, 앞을 봐요! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 안녕! 같이 놀자!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 E #36</div>
+  <h1>🤝 안녕! 같이 놀자!</h1>
+  <div class="sub">수줍어 인사를 못 하던 보리가 호리의 도움으로 용기 내어 첫 인사를 건네고 새 친구를 사귀어요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 친구 사귀기 · 인사 (다의성 — 인사가 마음의 문을 여는 열쇠) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 보리(수줍어 인사 못 함·주인공)·호리(조력)·새 친구 다오(단역, 놀이터 또래) &nbsp;·&nbsp;
+  <b>장치</b> 다의성(인사="안녕"이 곧 마음을 여는 열쇠) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "안녕! 같이 놀자!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">화창한 아침, 보리와 호리가 놀이터에 왔어요. 그런데 미끄럼틀 앞에 처음 보는 친구가 놀고 있어요. 호리가 폴짝폴짝 "안녕! 같이 놀자!" 하고 외쳐요. 보리는 뒤에서 슬금슬금 호리 등 뒤로 숨어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 놀이터 전경에서 세 아이가 처음 마주치는 순간.<br/><b>장소·시간</b> 동네 놀이터, 화창한 아침. 파란 하늘에 뭉게구름, 초록 잔디와 노란 모래밭에 아침 햇살이 반짝이는 상쾌한 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 중앙에서 두 팔을 활짝 벌리고 폴짝 뛰며 밝게 "안녕!" 외치는 씩씩한 표정. Bori(곰, 파란 멜빵바지)는 Hori의 등 뒤에 반쯤 몸을 가리고 두 손으로 멜빵끈을 꼭 쥔 채 눈만 빼꼼 내밀며 수줍어 볼이 발그레. new friend(수달 아기, 처음 보는 또래)는 화면 오른쪽 미끄럼틀 앞에서 작은 삽을 들고 이쪽을 돌아보며 호기심 어린 눈으로 방긋.<br/><b>배경·소품</b> 미끄럼틀·그네·모래밭·작은 삽과 양동이, 벤치, 잔디밭 가장자리의 들꽃 몇 송이, 파란 하늘.<br/><b>톤</b> 밝은 아침 자연광, 활기차고 설레는 정서, 보리 쪽만 살짝 수줍은 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(수줍음)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보리도 같이 놀고 싶어요. 하지만 "안녕" 한마디가 목에 콕 걸려서 나오질 않아요. 심장이 콩닥콩닥, 발끝만 꼼지락꼼지락. "말 걸면… 어색하면 어쩌지?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 하이앵글로 내려다봄. 망설이는 보리의 얼굴과 발끝 위주.<br/><b>장소·시간</b> 놀이터 한쪽, 아침. 밝은 햇살 아래 모래밭.<br/><b>인물</b> Bori는 화면 중앙에서 고개를 살짝 숙이고 두 손을 배 앞에 모아 꼬옥 쥔 채 발끝으로 모래를 꼼지락 그으며 입을 오므린 망설이는 표정, 볼이 발그레하고 눈은 새 친구 쪽을 힐끔 곁눈질. 가슴 부근에 콩닥콩닥을 나타내는 작은 하트 물결선.<br/><b>배경·소품</b> 발밑 모래에 발끝으로 그은 작은 곡선 자국, 뒤로 흐릿하게 미끄럼틀과 노는 새 친구(new friend)의 실루엣, 아웃포커스된 배경.<br/><b>톤</b> 밝은 아침 조명이지만 보리 얼굴에 살짝 소심한 그림자, 부끄럽고 조마조마한 정서(귀엽게).</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>증폭(혼자 서성)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리와 새 친구는 벌써 모래성을 쌓으며 까르르 웃어요. 보리는 혼자 저만치서 빙빙 서성이기만 해요. 같이 놀고 싶은데 다가가지 못해서 눈물이 핑— 돌아요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 즐겁게 노는 둘과 멀찍이 떨어져 서성이는 보리의 거리감이 보이는 구도.<br/><b>장소·시간</b> 놀이터 모래밭, 아침. 밝은 햇살.<br/><b>인물</b> 화면 왼쪽 앞에서 Hori와 new friend가 모래성을 함께 쌓으며 마주 보고 까르르 웃음, 손에 모래를 쥐고 즐거운 표정. 화면 오른쪽 뒤 멀찍이 Bori가 혼자 두 손을 등 뒤로 모으고 어깨를 움츠린 채 발끝으로 서성이며, 눈가에 눈물이 살짝 그렁그렁, 부러운 듯 그 둘을 바라봄.<br/><b>배경·소품</b> 반쯤 쌓인 모래성과 양동이·삽, 보리 발밑에 서성인 둥근 발자국, 둘과 보리 사이의 빈 모래밭 여백으로 거리감 강조.<br/><b>톤</b> 밝은 아침 햇살이지만 보리 주변만 살짝 쓸쓸한 공기, 소외감이 안쓰럽지만 과하지 않은 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(호리 등장·조력)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 호리가 보리를 발견하고 조르르 달려왔어요. "보리야, 왜 혼자 있어? 같이 놀자!" 호리가 보리 손을 꼭 잡아요. "인사는 딱 한마디면 돼. '안녕'이 마음의 문을 여는 열쇠거든!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 보리에게 다가와 손을 잡아 주는 만남 컷.<br/><b>장소·시간</b> 놀이터 모래밭 가장자리, 아침. 밝은 햇살.<br/><b>인물</b> Hori는 화면 왼쪽에서 두 손으로 Bori의 손을 꼭 잡고 눈을 맞추며 씩씩하고 다정하게 웃음, 한 손을 들어 "괜찮아" 하는 격려의 몸짓. Bori는 오른쪽에서 아직 어깨를 살짝 움츠렸지만 호리를 바라보며 눈이 동그래지고, 마음이 조금 놓인 듯 입꼬리가 살짝 풀림.<br/><b>배경·소품</b> 두 손이 맞잡힌 곳에 작은 반짝임, 뒤로 모래성과 새 친구가 흐릿하게 보임, 열쇠를 연상시키는 은은한 빛무리.<br/><b>톤</b> 밝고 따뜻한 아침 조명, 친구의 손길에 용기가 스며드는 안심되고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(인사=열쇠)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리가 손을 오므려 귀에 대고 속닥였어요. "'안녕' 하고 웃으면, 친구 마음의 문이 딸깍 열려. 그럼 우리 셋이 같이 놀 수 있어!" 보리는 마음속으로 '안녕'을 조그맣게 연습해 봐요. 안녕… 안녕!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 호리가 보리에게 귓속말하며 용기를 불어넣는 두 얼굴.<br/><b>장소·시간</b> 놀이터 벤치 옆, 아침. 부드러운 아침 햇살이 비치는 아늑한 구석.<br/><b>인물</b> Hori는 화면 왼쪽에서 한 손을 입가에 오므려 대고 Bori의 귀에 속닥이며 장난기 어린 다정한 미소. Bori는 오른쪽에서 두 손을 가슴 앞에 모으고 입술을 살짝 오므려 '안녕'을 소리 없이 연습하듯 움직이며, 눈을 반짝이고 결심이 차오르는 표정.<br/><b>배경·소품</b> 두 아이 사이 공중에 작은 열쇠 모양의 은은한 상상 빛무리 하나가 반짝, 뒤로 벤치와 들꽃, 아웃포커스된 미끄럼틀.<br/><b>톤</b> 부드러운 아침 빛에 마법 같은 반짝임이 더해진 설레고 다정한 정서, 용기가 자라나는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(한 걸음)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보리는 크게 숨을 들이쉬었어요. 후우— 그리고 새 친구를 향해 한 걸음, 또 한 걸음. 호리가 옆에서 엄지를 척! 새 친구가 고개를 들고 보리를 방긋 바라봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 보리가 새 친구에게 조심조심 다가가는 결정적 걸음.<br/><b>장소·시간</b> 놀이터 모래밭, 아침. 밝은 햇살.<br/><b>인물</b> Bori는 화면 중앙에서 한 발을 앞으로 내디디며 두 주먹을 살짝 쥐고 크게 숨을 고르는 진지하고 용감한 표정, 볼은 아직 발그레하지만 눈빛은 또렷. Hori는 왼쪽 뒤에서 엄지를 척 들어 올리며 응원하는 활짝 웃음. new friend는 오른쪽 모래성 앞에서 고개를 들어 다가오는 보리를 방긋 호기심 어린 눈으로 바라봄.<br/><b>배경·소품</b> 보리 발밑에 앞으로 향한 발자국 두어 개, 반쯤 쌓인 모래성과 삽·양동이, 뒤로 미끄럼틀.<br/><b>톤</b> 밝은 아침 조명, 한 걸음 내딛는 두근거림과 응원이 어우러진 씩씩하고 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(첫 인사)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보리가 용기를 내어 손을 흔들었어요. "안녕! 같이 놀자!" 목소리가 조금 떨렸지만 씩씩하게 나왔어요. 그 순간 보리 발밑에서 노란 반짝임이 팡— 하고 피어올랐어요. 해냈어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 로우앵글로 올려다봄. 보리가 처음으로 인사를 건네는 승리의 순간.<br/><b>장소·시간</b> 놀이터 모래밭, 아침. 밝고 상쾌한 햇살.<br/><b>인물</b> Bori는 화면 중앙에서 한 손을 번쩍 들어 활짝 흔들며 입을 크게 벌려 "안녕!" 외치는 환한 웃음, 볼이 발그레 상기되고 눈이 반짝, 용기를 낸 뿌듯함이 얼굴 가득. new friend는 오른쪽에서 반가워 두 손을 마주 들고 눈을 반짝이며 마주 웃음. Hori는 왼쪽 뒤에서 두 팔을 번쩍 들고 함께 기뻐함.<br/><b>배경·소품</b> Bori의 발밑과 둘레로 노란색·주황색 반짝임이 팡 흩날리는 시그니처 반짝임(보리의 용기 순간), 모래성, 삽과 양동이.<br/><b>톤</b> 밝은 아침 햇살에 폭죽처럼 튀는 반짝임으로 첫 인사의 승리를 강조, 역동적이고 벅찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(친구가 됨)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">새 친구가 방긋 웃으며 대답했어요. "안녕! 나는 다오야. 같이 모래성 쌓자!" 딸깍— 마음의 문이 열렸어요. 셋은 어느새 손을 맞잡고 빙글빙글 돌며 까르르 웃어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 세 친구가 손을 맞잡고 빙글빙글 도는 즐거운 구도.<br/><b>장소·시간</b> 놀이터 모래밭, 아침. 밝고 환한 햇살.<br/><b>인물</b> Bori(중앙 왼쪽), Hori(중앙 오른쪽), new friend(다오, 앞쪽)가 세 손을 서로 맞잡고 둥글게 원을 만들어 빙글 돌며 모두 입을 크게 벌려 까르르 웃음, 발이 살짝 들리고 몸이 즐겁게 기울어짐, 보리 표정이 완전히 활짝 펴짐.<br/><b>배경·소품</b> 발밑에 빙글 도는 부드러운 효과선과 작은 반짝임, 반쯤 쌓인 모래성, 흩날리는 들꽃잎, 파란 하늘.<br/><b>톤</b> 밝은 아침 햇살에 채도가 화사하게 살아나고, 새 친구를 사귄 기쁨과 우정이 가득한 즐겁고 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(다음에도 인사)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 보리는 알아요. 하나, 눈을 맞추고! 둘, 웃으며! 셋, "안녕! 같이 놀자!" 다음 날, 그네 타는 또 다른 친구에게도 보리가 먼저 손을 흔들었어요. "안녕! 같이 놀자!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 이튿날 보리가 다른 친구에게 스스로 인사하는 구도.<br/><b>장소·시간</b> 놀이터 그네 옆, 다음 날 낮. 맑고 밝은 햇살.<br/><b>인물</b> Bori는 화면 중앙에서 한 손을 활짝 흔들며 눈을 맞추고 환하게 웃는 자신감 넘치는 표정, 이제 조금도 움츠러들지 않음. 그네에 앉은 또 다른 작은 동물 친구(다람쥐 같은 실루엣, 단역 아님·배경 또래)가 반갑게 마주 손을 흔듦. Hori는 옆에서 흐뭇하게 지켜보며 엄지를 척.<br/><b>배경·소품</b> 그네와 미끄럼틀, 벽면 없이 열린 놀이터, 벤치 옆에 인사 순서를 그린 세 칸 그림표 — 눈맞춤·웃는 얼굴·흔드는 손 아이콘만(글자·숫자 없음), 파란 하늘.<br/><b>톤</b> 밝고 산뜻한 낮 조명, 스스로 먼저 다가가는 성장의 뿌듯하고 명랑한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집으로 가는 길, 호리가 보리를 폭 안아 주었어요. "보리야, 오늘 정말 멋졌어!" 이제 보리는 알아요. 부끄러워도 '안녕' 한마디면 새 친구가 생긴다는 걸. 안녕! 같이 놀자!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 보리를 안아 주는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 놀이터에서 집으로 가는 길, 늦은 오후. 노을빛이 부드럽게 물든 포근한 공기.<br/><b>인물</b> Hori는 화면 왼쪽에서 두 팔로 Bori를 폭 껴안고 볼을 맞대며 흐뭇하게 미소. Bori는 오른쪽에서 호리 품에 안겨 눈을 반달로 접으며 개운하고 뿌듯한 활짝 웃음, 한 손을 살짝 들어 저 멀리 다오에게 손을 흔듦.<br/><b>배경·소품</b> 두 아이 머리 위로 작은 하트 반짝임 몇 개, 저 멀리 놀이터에서 손 흔드는 다오의 작은 실루엣, 노을 진 하늘과 길가의 들꽃.<br/><b>톤</b> 따뜻한 노을빛 조명이 두 아이를 감싸는 뭉클하고 사랑스러운 정서, 우정으로 채워진 포근한 마무리 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 안녕! 같이 놀자! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"newfriend","name":"새 친구 다오","aliases":["new friend","otter cub","Dao","다오"],"desc":"놀이터에서 처음 만난 또래 아기 동물(수달) — 매끄러운 갈색 털, 크림색 배와 둥근 얼굴, 통통한 볼과 크고 반짝이는 호기심 많은 눈, 작은 물갈퀴 손발, 상냥하고 밝은 미소. 둥근 치비 비율에 초록색 반팔 티셔츠, 손에 작은 모래삽. 호기심 많고 먼저 반겨 주는 다정한 또래."}]</script>
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 첨벙첨벙 보글보글!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 A #7</div>
+  <h1>🛁 첨벙첨벙 보글보글!</h1>
+  <div class="sub">목욕이 싫던 호리가 아빠의 '거품 물놀이'로 목욕을 신나는 놀이로 바꿔 즐겨요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 목욕은 놀이 (리프레이밍 — 목욕→거품·물장난 놀이) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(목욕 싫어함·주인공)·아빠(조력) &nbsp;·&nbsp;
+  <b>장치</b> 리프레이밍(목욕→놀이) + 즐거운 놀이 순서(머리 감기→거품칠→헹구기) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "첨벙첨벙 보글보글!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"호리야, 목욕할 시간이야!" 아빠가 욕조에 따뜻한 물을 졸졸 받아요. 그런데 하루 종일 신나게 놀던 호리는 목욕이라는 말만 들어도 몸이 배배 꼬여요. "아, 목욕 싫은데…"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 욕조에 물을 받는 아빠와 머뭇거리는 호리.<br/><b>장소·시간</b> 호리네 집 욕실, 저녁. 김이 살짝 오르는 따뜻한 욕조, 벽등이 노랗게 켜진 아늑한 공기.<br/><b>인물</b> Dad tiger(아빠 호랑이, 작고 둥근 안경)는 욕조 앞에 무릎을 굽혀 수도꼭지로 따뜻한 물을 받으며 호리를 돌아보고 다정하게 웃음. Hori(아기 호랑이)는 욕실 문가에서 한 손으로 문틀을 붙잡고 몸을 배배 꼬며 입을 삐죽, 목욕하기 싫어 머뭇거리는 표정.<br/><b>배경·소품</b> 물이 차오르는 욕조, 김이 살짝 오름, 선반의 샴푸·비누·목욕 컵, 벽에 걸린 수건, 창밖 저녁 어스름.<br/><b>톤</b> 따뜻한 저녁 욕실 조명, 목욕을 앞두고 살짝 완강한 호리와 포근한 공기의 대비가 있는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(도망)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"머리에 물 들어가는 거 싫어! 눈 따가운 것도 싫어!" 호리는 수건을 뒤집어쓰고 거실로 도로록 도망가요. "목욕 안 할 거야!" 아빠는 슬쩍 미소를 지었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글. 수건을 뒤집어쓰고 도망가는 호리.<br/><b>장소·시간</b> 호리네 집 욕실 문에서 거실로 이어지는 길, 저녁. 따뜻한 실내 등불.<br/><b>인물</b> Hori는 화면 중앙에서 마른 수건을 머리부터 뒤집어쓰고 두 팔을 앞으로 뻗은 채 도로록 달아나며, 수건 사이로 삐죽 나온 얼굴이 "싫어" 하듯 입을 앙 다문 완강하지만 귀여운 표정. Dad tiger는 욕실 문가에 서서 도망가는 호리를 보며 팔짱을 끼고 "저 녀석" 하듯 슬쩍 미소, 화나지 않고 여유로운 눈빛.<br/><b>배경·소품</b> 호리가 뒤집어쓴 수건, 뒤쪽 열린 욕실 문 너머 김 오르는 욕조, 거실 러그와 소파.<br/><b>톤</b> 따뜻한 저녁 실내광, 도망치는 장난스러움과 아빠의 여유가 어우러진 코믹하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(끈적끈적)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 소파에 앉으니 몸이 어쩐지 끈적끈적, 근질근질해요. 하루 종일 뛰어놀아서 땀이 송골송골. "어? 몸이 왜 이렇게 찝찝하지?" 호리는 팔을 긁적긁적하며 갸웃했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 팔을 긁적이며 갸웃하는 호리.<br/><b>장소·시간</b> 호리네 집 거실 소파 위, 저녁. 따뜻한 실내 등불.<br/><b>인물</b> Hori는 소파에 앉아 한 손으로 반대쪽 팔을 긁적긁적 긁으며 다른 손으로 목덜미를 만지고, 몸이 찝찝한 듯 코를 찡긋 갸웃하는 어리둥절한 표정, 이마에 땀이 송골송골.<br/><b>배경·소품</b> 호리 몸 둘레에 끈적끈적·근질근질을 나타내는 작은 물결선 몇 개, 이마의 작은 땀방울, 벗어 둔 수건, 소파 쿠션, 뒤로 열린 욕실 문의 김.<br/><b>톤</b> 따뜻한 저녁 조명, 몸이 찝찝해 갸우뚱 궁금해지는 안쓰럽지 않고 코믹한 정서(무섭지 않게).</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(아빠 등장)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 커다란 스펀지와 알록달록 목욕 장난감을 들고 조르르 다가왔어요. "호리야, 목욕 말고— 거품 나라 대탐험 갈래?" 호리가 눈을 동그랗게 떴어요. "거품 나라? 그게 뭔데?" 아빠가 씩 웃으며 손을 내밀어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 목욕 장난감을 든 아빠가 호리에게 다가와 손 내미는 만남 컷.<br/><b>장소·시간</b> 호리네 집 거실, 저녁. 따뜻한 실내 등불.<br/><b>인물</b> Dad tiger는 화면 왼쪽에서 한 손에 커다란 스펀지와 알록달록 고무 오리·물총 같은 목욕 장난감을 잔뜩 들고 다른 손을 호리에게 내밀며 장난기 어린 큰 미소로 눈을 맞춤. Hori는 오른쪽 소파에서 눈이 동그래져 몸을 앞으로 기울이며 "그게 뭔데?" 하듯 호기심 가득한 표정, 완강함이 스르르 풀림.<br/><b>배경·소품</b> 아빠 손의 스펀지·고무 오리·물총·목욕 컵, 소파, 뒤로 김 오르는 욕조가 살짝 보임.<br/><b>톤</b> 따뜻한 저녁 조명, 새로운 놀이 제안에 호기심이 반짝 켜지는 설레고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(거품 나라)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 욕조에 비누를 풀어 휘휘 젓자, 하얀 거품이 뭉게뭉게 산처럼 부풀어 올랐어요! 알록달록 오리들이 둥둥 떠다녀요. 호리 눈앞에 거품 나라가 펼쳐졌어요. "우와— 진짜 거품 산이다!" 호리 눈이 반짝반짝.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 거품이 산처럼 부풀어 오른 욕조가 크게 펼쳐지는 컷.<br/><b>장소·시간</b> 호리네 집 욕실, 저녁. 김이 살짝 오르는 따뜻하고 아늑한 공기, 노란 벽등.<br/><b>인물</b> Dad tiger는 욕조 옆에 무릎을 굽혀 앉아 두 손으로 물을 휘휘 저어 뭉게뭉게 거품을 만들며 호리를 향해 활짝 웃음. Hori는 욕조 가장자리에 두 손을 짚고 눈을 반짝반짝 크게 뜨며 입을 벌린 채 부풀어 오르는 거품 산을 신기하게 올려다보는 감탄 표정, 완전히 마음이 열림.<br/><b>배경·소품</b> 욕조 가득 뭉게뭉게 부푼 하얀 거품 산, 그 위에 둥둥 뜬 알록달록 고무 오리들, 살랑이는 김과 공중의 작은 비눗방울, 목욕 컵과 스펀지.<br/><b>톤</b> 따뜻한 욕실 조명에 비눗방울이 반짝이는 신기하고 설레는 정서, 놀이터로 변신한 즐거운 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(거품 놀이)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"거품 나라 탐험은 순서가 있어!" 아빠가 속닥였어요. "먼저 머리 감기로 폭포를 지나고, 몸에 거품칠로 눈사람이 되고, 마지막에 헹구기로 반짝반짝!" 호리는 신이 나서 발을 동동. "빨리 하자, 아빠!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 아빠가 놀이 순서를 속닥이고 신난 호리 두 얼굴.<br/><b>장소·시간</b> 호리네 집 욕실 욕조 곁, 저녁. 김이 살짝 오르는 따뜻한 조명.<br/><b>인물</b> Dad tiger는 화면 왼쪽에서 한 손을 입가에 대고 호리 귀에 속닥이며 다른 손으로 거품 산을 가리키는 장난기 어린 미소. Hori는 오른쪽에서 이미 옷을 벗고 욕조에 들어갈 준비를 한 채 두 발을 동동 구르며 "빨리 하자" 하듯 두 주먹을 쥐고 눈을 반짝, 잔뜩 기대에 찬 활짝 웃음.<br/><b>배경·소품</b> 뭉게뭉게 거품 산과 오리들, 벽에 걸린 샤워기(폭포 상상), 목욕 컵, 스펀지.<br/><b>톤</b> 따뜻한 욕실 조명에 설렘의 반짝임이 더해진 두근거리고 신나는 정서, 모험이 시작되는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(첨벙첨벙)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 욕조로 풍덩! 아빠가 컵으로 물을 졸졸 부어 폭포처럼 머리를 감겨 줘요. 몸엔 스펀지로 거품칠 뽀글뽀글, 온몸이 하얀 눈사람! 오리들과 물장난도 첨벙첨벙! 첨벙첨벙 보글보글!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 로우앵글로 올려다봄. 거품 목욕을 신나게 즐기는 결정적 순간.<br/><b>장소·시간</b> 호리네 집 욕실 욕조 안, 저녁. 김이 살짝 오르고 벽등이 환하게 밝은 신나는 공기.<br/><b>인물</b> Hori는 욕조 안에 앉아 온몸에 하얀 거품을 잔뜩 뒤집어써 눈사람처럼 되어 두 손으로 거품을 첨벙 튀기며 입을 크게 벌려 까르르 웃는 신난 표정, 머리 위에 삼각 거품 뿔. Dad tiger는 욕조 옆에서 목욕 컵으로 물을 졸졸 부어 머리를 헹궈 주며 함께 활짝 웃음.<br/><b>배경·소품</b> 사방으로 튀는 물방울과 거품, 둥둥 떠다니는 알록달록 오리들, 호리 머리 위 거품 뿔, 목욕 컵과 스펀지, 벽의 샤워기.<br/><b>톤</b> 환한 욕실 조명에 물방울 반짝임이 튀는 역동적이고 신나는 정서, 목욕이 최고의 놀이가 된 즐거운 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(뽀송뽀송)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">거품을 다 헹구고 나오니 몸이 뽀송뽀송, 개운해요! 끈적끈적하던 느낌도 씻은 듯 사라졌어요. "목욕이 이렇게 재밌는 거였어?" 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! 해냈어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 보송한 수건을 두르고 개운하게 웃는 호리.<br/><b>장소·시간</b> 호리네 집 욕실 앞, 저녁. 환한 벽등 아래 개운한 공기.<br/><b>인물</b> Hori는 화면 중앙에서 커다랗고 폭신한 수건을 망토처럼 두르고 두 팔을 활짝 벌리며 "재밌었어!" 하듯 입을 크게 벌려 개운하고 뿌듯한 활짝 웃음, 볼이 발그레하고 털이 보송보송. 이 해냄의 순간 특히 호리 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리). Dad tiger는 옆에서 다른 수건으로 호리 머리를 살살 말려 주며 흐뭇하게 웃음.<br/><b>배경·소품</b> 호리를 감싼 폭신한 수건, 둘레에 무지개 반짝임과 물방울 반짝임, 뒤로 김 빠진 욕조와 정돈된 오리들.<br/><b>톤</b> 환한 욕실 조명에 무지개 반짝임이 더해진 뿌듯하고 개운한 정서, 해냈다는 성취의 밝은 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(목욕 놀이 순서)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 호리는 목욕 놀이 순서를 알아요. 하나, 머리 감기 폭포 지나기! 둘, 거품칠로 눈사람 되기! 셋, 헹구기로 반짝반짝! 다음 날 저녁, 호리가 먼저 욕실로 뛰어가요. "아빠, 거품 나라 또 가자!" 첨벙첨벙 보글보글!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 스스로 욕실로 뛰어가는 호리와 벽의 그림 순서표.<br/><b>장소·시간</b> 호리네 집 욕실 앞, 저녁. 김이 살짝 오르는 따뜻하고 밝은 공기.<br/><b>인물</b> Hori는 화면 중앙에서 목욕 장난감 오리를 한 손에 들고 욕실 문을 향해 신나게 뛰어가며 "또 가자!" 하듯 활짝 웃는 씩씩한 표정. Dad tiger는 욕실 안에서 물을 받으며 호리를 반갑게 맞이하는 미소.<br/><b>배경·소품</b> 김 오르는 욕조, 벽에 붙은 세 칸 그림 순서표 — 물줄기가 머리로 내려오는 그림·거품 뒤집어쓴 몸 그림·반짝이는 물방울로 헹구는 그림의 동글동글 그림 아이콘만(글자·숫자 없음), 고무 오리와 스펀지.<br/><b>톤</b> 따뜻하고 밝은 욕실 조명, 목욕이 기다려지는 뿌듯하고 신나는 정서, 즐거운 습관이 된 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아빠가 뽀송한 호리를 꼭 안아 주었어요. "우리 호리, 반짝반짝 깨끗해졌네!" 이제 호리는 알아요. 목욕은 무서운 게 아니라 세상에서 제일 신나는 물놀이라는 걸. 첨벙첨벙 보글보글!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 아빠가 뽀송한 호리를 안아 주는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 호리네 집 욕실 앞 복도, 저녁. 따뜻한 벽등으로 포근하고 아늑한 공기.<br/><b>인물</b> Dad tiger는 무릎을 굽혀 앉아 폭신한 수건에 감싼 Hori를 두 팔로 폭 껴안고 볼을 맞대며 흐뭇하게 미소. Hori는 아빠 품에 안겨 두 팔을 아빠 목에 두르고 눈을 감은 채 활짝 웃으며 개운하고 행복한 표정, 털이 보송보송.<br/><b>배경·소품</b> 두 사람 머리 위로 작은 별 모양 반짝임 몇 개, 뒤쪽 욕실에 정돈된 오리와 스펀지, 벽에 걸린 수건, 창밖 저녁 어스름.<br/><b>톤</b> 따뜻한 벽등 조명이 두 사람을 감싸는 뭉클하고 사랑스러운 정서, 안심되고 포근한 마무리 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 첨벙첨벙 보글보글! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

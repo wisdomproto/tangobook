@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 고운 말 하면, 고운 말 와요</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 E #34</div>
+  <h1>💬 고운 말 하면, 고운 말 와요</h1>
+  <div class="sub">툭툭 막말하던 토토가 '거울효과'로 고운 말은 고운 말로, 나쁜 말은 속상함으로 돌아온다는 걸 배워요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 고운 말 쓰기 (거울효과 — 고운 말 하면 고운 말 오고, 나쁜 말 하면 속상함이 돌아옴) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 토토(툭툭 막말)·친구들(보리·두부·콩이, 조력)·호리 &nbsp;·&nbsp;
+  <b>장치</b> 거울효과(말이 되돌아옴) + 번호 규칙(먼저 생각해요 → 고운 말로 바꿔요 → 고마워·미안해) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "고운 말 하면, 고운 말 와요"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"야, 저리 비켜!" 토토가 툭 하고 소리쳤어요. 오늘도 토토는 말이 뾰족뾰족해요. 친구들이랑 블록 놀이를 하러 모였는데, 토토는 자꾸 툭툭 막말을 해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 블록 놀이방에서 토토가 툭 소리치는 도입 컷.<br/><b>장소·시간</b> 호리네 집 놀이방, 맑은 오후. 창으로 밝은 햇살이 드는 아늑한 실내 공기.<br/><b>인물</b> Toto(흰 토끼, 빨간 손수건)는 화면 중앙에서 한 손을 휙 내저으며 "비켜!" 하고 툭 쏘아붙이는 뾰족한 표정, 눈썹이 살짝 치켜올라감. 옆에 Bori(연갈색 곰)는 블록을 들고 멈칫 놀란 눈, Dubu(흰 강아지)는 귀를 쫑긋 세우고 갸웃.<br/><b>배경·소품</b> 바닥에 알록달록 블록이 흩어진 놀이 매트, 반쯤 쌓다 만 블록탑, 장난감 바구니, 창가.<br/><b>톤</b> 밝은 오후 실내광이지만 토토 주변에 살짝 뾰족한 지그재그 효과선, 순간의 어수선함이 감도는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(막말)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보리가 쌓은 블록탑을 보고 토토가 말했어요. "그거 완전 이상해, 못 만들었네!" 보리는 눈물이 그렁그렁. 두부도 옆에서 귀를 축 늘어뜨렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 토토의 막말에 속상해진 보리가 함께 보이는 구도.<br/><b>장소·시간</b> 놀이방, 오후. 밝은 실내광.<br/><b>인물</b> Toto는 화면 왼쪽에서 보리의 블록탑을 손가락으로 가리키며 "이상해" 하고 톡 쏘는 표정, 입을 삐죽. Bori는 오른쪽에서 자기가 쌓은 블록탑 옆에 서서 두 손을 모으고 고개를 살짝 숙인 채 눈에 눈물이 그렁그렁 맺힌 속상한 표정. Dubu는 뒤에서 귀를 축 늘어뜨리고 시무룩.<br/><b>배경·소품</b> 보리가 정성껏 쌓은 블록탑, 흩어진 블록, 놀이 매트, 장난감 바구니.<br/><b>톤</b> 밝은 실내광이지만 보리 쪽에 살짝 가라앉은 그림자, 서운하고 속상한 정서가 감돎(무겁지 않게).</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(아무도 안 놀아)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">뾰족한 말을 들은 친구들이 하나둘 자리를 떴어요. "토토랑은 속상해서 못 놀겠어…" 어느새 토토 혼자만 남았어요. "어라, 왜 다 가 버렸지?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글. 혼자 남은 토토와 멀어지는 친구들.<br/><b>장소·시간</b> 놀이방, 오후. 밝지만 살짝 조용해진 공기.<br/><b>인물</b> Toto는 화면 중앙에 홀로 블록 사이에 앉아 두 팔을 늘어뜨리고 입을 삐죽 내민 채 어리둥절하고 서운한 표정, 귀가 살짝 처짐. 화면 뒤쪽으로 Bori·Dubu·Kongi가 등을 돌리고 놀이방 문 쪽으로 걸어 나가는 뒷모습이 작게 보임.<br/><b>배경·소품</b> 흩어진 블록, 아무도 없는 놀이 매트, 열린 놀이방 문, 장난감 바구니.<br/><b>톤</b> 밝은 실내광이지만 채도가 살짝 가라앉아 외로움이 감도는 정서, 잔잔한 쓸쓸함.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(호리 등장)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 호리가 다가와 토토 옆에 앉았어요. "토토야, 누가 너한테 '못 만들었네' 하면 기분이 어떨까?" 토토는 곰곰 생각했어요. "음… 나도 되게 속상할 것 같아…"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 호리가 토토 옆에 앉아 말을 건네는 두 얼굴.<br/><b>장소·시간</b> 놀이방, 오후. 부드러운 햇살이 두 아이를 비춤.<br/><b>인물</b> Hori(아기 호랑이, 주황 털에 갈색 줄무늬)는 화면 왼쪽에서 토토 곁에 나란히 앉아 한 손을 토토 어깨에 얹고 눈을 맞추며 부드럽게 묻는 표정, 이 장면의 주 조력자로 토토에게 가장 가까이. Toto는 오른쪽에서 귀를 살짝 늘어뜨리고 한 손을 턱에 대며 곰곰 생각하는 얼굴, 눈이 아래로 향하며 무언가 깨닫는 표정.<br/><b>배경·소품</b> 흩어진 블록, 놀이 매트, 뒤로 장난감 바구니가 부드럽게 아웃포커스.<br/><b>톤</b> 따뜻한 오후 햇살의 다정한 조명, 마음을 들여다보는 잔잔하고 사려 깊은 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(거울효과)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리가 방긋 웃으며 말했어요. "말은 거울 같아. 고운 말 하면 고운 말이 오고, 뾰족한 말 하면 속상함이 돌아와." 토토는 눈이 반짝. "아, 그래서 다들 속상했구나!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 거울처럼 마주 보며 설명하고 토토가 깨닫는 구도.<br/><b>장소·시간</b> 놀이방, 오후. 밝고 화사한 햇살.<br/><b>인물</b> Hori는 화면 왼쪽에서 두 손바닥을 서로 마주 대 거울 모양을 만들어 보이며 "말은 거울 같아" 하고 밝게 설명하는 다정한 표정. Toto는 오른쪽에서 두 눈을 크게 반짝이고 입을 살짝 벌려 "아!" 하며 깨달은 밝은 표정, 귀가 다시 쫑긋 섬.<br/><b>배경·소품</b> 두 손 사이에 은은한 반짝 빛무리(거울 은유), 놀이 매트, 흩어진 블록.<br/><b>톤</b> 화사한 오후 조명, 깨달음의 밝고 산뜻한 정서, 마음이 스르르 열리는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(고운 말로 바꾸기)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">토토는 친구들에게 조르르 달려갔어요. "하나, 먼저 생각해요! 둘, 고운 말로 바꿔요!" '이상해' 대신 '멋지다', '비켜' 대신 '같이 하자'. 토토가 입을 오물오물 연습해요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 친구들에게 다가가 고운 말을 연습하는 토토.<br/><b>장소·시간</b> 놀이방 문 앞, 오후. 밝은 햇살.<br/><b>인물</b> Toto는 화면 중앙에서 친구들 쪽으로 다가가 한 손을 가슴에 얹고 입을 오물오물 고운 말을 고르는 진지하고 설레는 표정, 귀가 쫑긋. Bori는 오른쪽에서 뒤돌아보며 조심스레 기대하는 눈, Dubu는 꼬리를 살짝 흔들며 갸웃, Kongi는 뒤에서 지켜봄.<br/><b>배경·소품</b> 토토 입가에 몽글몽글 부드러운 말풍선 모양의 반짝임(고운 말 은유, 글자 없음), 놀이방 문, 흩어진 블록.<br/><b>톤</b> 밝은 오후 조명, 화해로 향하는 설레고 조심스러운 정서, 용기를 내는 따뜻한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(고운 말 건네기)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">토토가 보리에게 다가가 웃으며 말했어요. "보리야, 아까 미안해. 네 블록탑 진짜 멋지다!" 보리 얼굴이 활짝 폈어요. "정말? 고마워, 토토야!" 고운 말 하면, 고운 말 와요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 토토가 보리에게 고운 말을 건네고 보리가 환해지는 구도.<br/><b>장소·시간</b> 놀이방, 오후. 밝고 명랑한 햇살.<br/><b>인물</b> Toto는 화면 왼쪽에서 보리에게 몸을 기울여 두 손을 내밀며 "멋지다!" 하고 진심으로 웃는 다정한 표정, 귀가 활짝. Bori는 오른쪽에서 두 손을 볼에 대고 눈이 반짝 커지며 입을 크게 벌려 환하게 웃는 표정, 눈물이 기쁨으로 바뀜.<br/><b>배경·소품</b> 두 아이 사이에 오가는 고운 말을 나타내는 몽글몽글 하트·반짝임, 보리의 블록탑, 놀이 매트.<br/><b>톤</b> 밝은 오후 조명에 따뜻한 반짝임, 마음이 통하는 훈훈하고 뭉클한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(다시 다 함께)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">친구들이 방긋방긋 다시 모여들었어요. "셋, 고마워·미안해!" 고운 말이 오가니 놀이방이 다시 웃음으로 가득해요. 그 순간 토토의 빨간 손수건이 무지개색으로 반짝— 팟!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 친구들이 다시 둥글게 모여 함께 웃는 화기애애한 컷.<br/><b>장소·시간</b> 놀이방, 오후. 밝고 화사한 햇살.<br/><b>인물</b> Toto는 화면 중앙에서 친구들과 어울려 두 팔을 벌리고 가장 환하게 웃는 표정, 이 화해의 순간 Toto의 빨간 손수건이 무지개빛으로 반짝이며 팟— 하는 시그니처 반짝임이 터짐. Bori·Dubu·Kongi가 토토를 둘러싸고 함께 블록을 쌓으며 서로 마주 보고 깔깔 웃음.<br/><b>배경·소품</b> 가운데 함께 쌓은 커다란 블록탑, 친구들 둘레에 무지개 반짝임과 작은 하트 몇 개, 놀이 매트.<br/><b>톤</b> 밝은 오후 조명에 무지개 반짝임이 더해진 훈훈하고 벅찬 정서, 고운 말이 부른 웃음이 가득한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(고운 말 습관)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 토토는 규칙을 알아요. 하나, 먼저 생각해요! 둘, 고운 말로 바꿔요! 셋, 고마워·미안해를 잊지 않아요! 콩이가 도토리를 나눠 주자 토토가 먼저 말했어요. "우와, 고마워!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 콩이가 나눠 준 것에 토토가 고운 말로 답하는 구도.<br/><b>장소·시간</b> 놀이방 한쪽 간식 자리, 오후. 밝고 명랑한 햇살.<br/><b>인물</b> Kongi는 화면 왼쪽에서 도토리 하나를 토토에게 건네며 방긋 웃음. Toto는 오른쪽에서 두 손으로 도토리를 받으며 "고마워!" 하고 활짝 웃는 표정, 이제는 스스로 고운 말을 먼저 함, 귀가 쫑긋. 뒤에서 Bori·Dubu가 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 콩이 손의 도토리, 벽에 붙은 세 칸 순서 그림표 — 생각하는 물음표·거울에 비친 하트·마주 잡은 두 손 아이콘만(글자·숫자 없음), 놀이 매트.<br/><b>톤</b> 밝고 화사한 오후 조명, 고운 말이 몸에 밴 뿌듯하고 훈훈한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리가 토토를 폭 안아 주었어요. "토토야, 고운 말 하니까 다들 방긋방긋하지?" 이제 토토는 알아요. 고운 말은 고운 말로, 웃음은 웃음으로 돌아온다는 걸. 고운 말 하면, 고운 말 와요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 호리가 토토를 안아 주고 친구들이 둘러싼 따뜻한 마무리 컷.<br/><b>장소·시간</b> 놀이방, 노을 지는 늦은 오후. 창으로 든 금빛 노을이 방을 포근하게 물들이는 공기.<br/><b>인물</b> Hori는 화면 중앙에서 두 팔로 Toto를 폭 껴안고 볼을 맞대며 흐뭇하게 웃음. Toto는 호리 품에 안겨 두 팔을 벌리고 눈을 반달로 접으며 개운하고 행복하게 웃음, 귀가 편안하게 늘어짐. 옆에서 Bori·Dubu·Kongi가 어깨동무하며 다정하게 웃음.<br/><b>배경·소품</b> 두 아이 머리 위로 작은 하트·별 반짝임 몇 개, 함께 쌓은 블록탑, 창밖 노을 하늘.<br/><b>톤</b> 노을의 따뜻한 금빛 조명, 하루를 마무리하는 뭉클하고 사랑스러운 정서, 고운 말의 온기가 가득한 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 고운 말 하면, 고운 말 와요 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 쉬야 쑥, 참 잘했어요!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 A #4</div>
+  <h1>🚽 쉬야 쑥, 참 잘했어요!</h1>
+  <div class="sub">기저귀에 실수하던 아기 호야가 엄마의 '조금씩' 응원과 함께 변기 성공을 수용해요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 화장실 혼자 가기 / 배변 훈련 (점진수용) &nbsp;·&nbsp;
+  <b>연령</b> 2~4세 &nbsp;·&nbsp; <b>등장</b> 호야(2세·배변)·엄마(조력)·호리(형 응원) &nbsp;·&nbsp;
+  <b>장치</b> 점진수용(조금씩 성공 · 작은 걸음 칭찬) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "쉬야 쑥, 참 잘했어요!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"으앙— 축축해!" 아침부터 호야가 울어요. 밤새 기저귀가 촉촉하게 젖어서 엉덩이가 찝찝해요. 아기 호야는 아직 쉬가 마려운 걸 잘 몰라요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글로 내려다봄. 우는 아기 호야의 상반신 위주.<br/><b>장소·시간</b> 호리네 집 아기 방, 이른 아침. 커튼 사이로 부드러운 아침 햇살이 스며들어 노랗고 포근한 공기.<br/><b>인물</b> Hoya(아기 호랑이 동생, 아직 아주 작고 통통, 기저귀 착용)는 아기 침대 매트 위에 앉아 두 주먹을 쥐고 입을 크게 벌려 "으앙" 울며 눈을 질끈 감음, 눈가에 작은 눈물방울, 젖은 기저귀 때문에 엉덩이를 들썩이며 찝찝한 표정. 방문 쪽에서 Mom tiger(엄마 호랑이)가 막 들어오려 고개를 빼꼼 내밀며 걱정스러운 눈.<br/><b>배경·소품</b> 아기 침대, 옆에 봉제 곰인형과 딸랑이, 벽에 동물 모빌, 바닥에 부드러운 러그, 창가 커튼.<br/><b>톤</b> 이른 아침 노란 주광색 조명, 축축하고 찝찝한 불편함이 느껴지지만 밉지 않고 안쓰러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(실수)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 예쁜 팬티를 입혀 줬어요. 그런데 놀다 보니 또 쉬— 바닥에 웅덩이가 졸졸. "괜찮아, 괜찮아." 엄마는 웃지만, 호야는 눈치가 보여서 고개를 푹 숙여요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 실수한 호야와 바닥 웅덩이가 함께 보임.<br/><b>장소·시간</b> 호리네 집 거실 놀이 매트, 오전. 밝고 환한 실내 햇살.<br/><b>인물</b> Hoya는 화면 중앙 놀이 매트 위에 서서 노란 팬티 차림으로 고개를 푹 숙이고 두 손을 배 앞에 모은 채 시무룩, 다리 사이 바닥에 작은 물웅덩이가 졸졸 번짐, 볼이 발그레 부끄러움. Mom tiger는 왼쪽에서 무릎을 굽혀 앉아 부드러운 손수건을 들고 다정하게 웃으며 "괜찮아" 하는 눈빛.<br/><b>배경·소품</b> 놀이 매트 위 블록 장난감 몇 개, 바닥의 작은 물웅덩이, 엄마 손의 손수건, 뒤로 소파와 창.<br/><b>톤</b> 밝은 오전 실내광, 실수했지만 혼나지 않는 안전하고 따뜻한 분위기, 살짝 민망하지만 포근한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(변기가 무서워)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 아기 변기를 가져왔어요. 그런데 호야는 변기가 조금 무서워요. "싫어— 안 앉을래!" 발을 동동, 몸을 배배 꼬며 도망가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 뒷걸음질 치는 호야와 변기가 마주 놓인 구도.<br/><b>장소·시간</b> 호리네 집 욕실 앞, 오전. 타일 벽에 환한 조명이 반사되어 밝지만 조금 낯선 공기.<br/><b>인물</b> Hoya는 화면 오른쪽에서 두 팔을 뒤로 뻗어 벽을 짚고 뒷걸음질, 발을 동동 구르며 고개를 절레절레 흔들고 눈썹을 잔뜩 찡그린 채 "싫어" 하는 완강한 표정, 몸을 배배 꼬음. Mom tiger는 왼쪽에 무릎 꿇고 앉아 작은 아기 변기를 두 손으로 내밀며 눈을 맞추고 부드럽게 달램.<br/><b>배경·소품</b> 알록달록한 아기 변기(귀여운 동물 얼굴 무늬), 욕실 타일 벽, 작은 발판, 수건걸이.<br/><b>톤</b> 밝은 욕실 조명이지만 호야 쪽에 살짝 긴장된 그림자로 낯섦과 두려움 강조, 귀엽고 안쓰러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(엄마의 손, 형의 응원)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 호야를 폭 안고 손을 꼭 잡아 줬어요. "엄마랑 같이 해 보자. 하나도 안 무서워." 옆에서 형 호리도 씩 웃어요. "형도 처음엔 그랬어! 할 수 있어!" 호야는 엄마를 빤히 올려다봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 엄마가 호야 손을 잡아 주고 형이 옆에서 응원하는 구도.<br/><b>장소·시간</b> 호리네 집 욕실 앞, 오전. 밝고 환한 실내광.<br/><b>인물</b> Mom tiger는 화면 왼쪽에서 한쪽 무릎을 굽혀 호야와 눈높이를 맞추고 두 손으로 호야의 작은 손을 꼭 잡으며 다정하게 웃음, 다른 방향 시선으로 아기 변기를 부드럽게 가리킴. Hoya는 중앙에서 엄마를 빤히 올려다보며 눈이 동그래지고, 아직 머뭇거리지만 엄마 손을 붙잡고 살짝 안심한 표정. Hori(형 아기 호랑이, 호야보다 크고 씩씩함)는 오른쪽 뒤에서 두 주먹을 불끈 쥐고 씩 웃으며 "할 수 있어" 하고 응원하는 활기찬 표정.<br/><b>배경·소품</b> 옆에 아기 변기, 욕실 타일 벽, 작은 발판, 벽의 동물 그림.<br/><b>톤</b> 밝고 따뜻한 오전 조명, 엄마 품과 형의 응원으로 긴장이 풀리는 안심되고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(작게 나눠서)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 알려 줬어요. "한꺼번에 안 해도 돼. 조금씩, 한 걸음씩!" 먼저 변기에 살짝 앉아만 보기. "우와, 앉았네!" 그것만으로도 엄마가 손뼉을 짝짝, 형도 폴짝폴짝.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 변기에 처음 앉아 본 호야를 엄마가 이끌고 형이 응원.<br/><b>장소·시간</b> 호리네 집 욕실, 오전. 밝고 산뜻한 조명.<br/><b>인물</b> Hoya는 화면 중앙 아기 변기에 팬티 차림으로 조심조심 걸터앉아 두 손으로 변기 양옆을 붙잡고, 아직 긴장했지만 해냈다는 듯 살짝 입꼬리가 올라감. Mom tiger는 왼쪽에서 호야 쪽으로 몸을 기울여 한 손을 내밀어 도와주며 두 손을 모아 "우와" 하고 활짝 웃는 격려의 표정, 이 장면의 주 조력자로 호야에게 가장 가까이 붙어 있음. Hori는 오른쪽 뒤에서 두 손으로 짝짝 손뼉을 치며 폴짝 뛰어 응원하는 활짝 웃음.<br/><b>배경·소품</b> 알록달록 아기 변기, 발밑 작은 발판, 욕실 타일 벽, 벽에 별·하트 그림 스티커가 붙는 칭찬판.<br/><b>톤</b> 밝고 명랑한 오전 조명, 작은 성공도 크게 축하하는 따뜻하고 뿌듯한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(신호 알아채기)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마가 배를 살살 만지며 알려 줬어요. "배가 간질간질하면, 그게 쉬 신호란다. 그럼 얼른 가면 돼!" 옆에서 형 호리가 고개를 끄덕끄덕. "형도 처음엔 그랬어!" 호야는 자기 배에 손을 얹고 간질간질을 느껴 보기로 했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 엄마가 호야에게 배 신호를 알려 주는 다정한 얼굴들.<br/><b>장소·시간</b> 호리네 집 거실 한구석, 낮. 아늑하고 부드러운 실내광.<br/><b>인물</b> Mom tiger는 화면 왼쪽에서 호야 쪽으로 몸을 숙여 한 손으로 호야의 작은 배를 살살 짚어 주며 눈을 맞추고 다정하게 설명하는 표정, 이 장면의 주 조력자로 호야와 가장 가까이. Hoya는 중앙에서 엄마 손이 얹힌 자기 배에 자신도 한 손을 얹고 두 눈을 반짝이며 진지하게 귀 기울여 고개를 끄덕끄덕. Hori는 오른쪽에서 함께 고개를 끄덕이며 씩 웃어 응원하는 표정.<br/><b>배경·소품</b> 호야 배 둘레에 살랑거리는 작은 간질간질 표시(부드러운 곡선 반짝임), 뒤로 소파와 쿠션, 장난감 바구니.<br/><b>톤</b> 부드러운 낮 실내광에 아늑한 빛무리, 엄마와 배우는 설레고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(첫 성공)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">얼마 뒤, 호야 배가 간질간질! "쉬 마려워!" 호야는 아장아장 변기로 달려가 앉았어요. 쪼르르— 성공이에요! "쉬야 쑥, 참 잘했어요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 로우앵글. 변기에 앉아 첫 성공을 해낸 결정적 순간.<br/><b>장소·시간</b> 호리네 집 욕실, 낮. 밝고 상쾌한 조명.<br/><b>인물</b> Hoya는 화면 중앙 아기 변기에 야무지게 앉아 두 주먹을 꼭 쥐고 눈이 번쩍 커지며 입을 크게 벌려 해냈다는 환한 웃음, 볼이 발그레 상기됨. Hori는 오른쪽에서 두 팔을 번쩍 들고 폴짝 뛰며 "잘한다!" 응원하는 활짝 웃음, 이 성공의 순간 Hori의 꼬리 줄무늬가 무지개빛으로 반짝이며 부릉— 하는 시그니처 반짝임이 터짐.<br/><b>배경·소품</b> 아기 변기, 호야 둘레에 축하하는 색색 반짝이가 팡 흩날림, 벽의 칭찬판에 별 모양 그림 스티커 하나가 붙는 순간, 욕실 타일.<br/><b>톤</b> 밝은 낮 조명에 폭죽처럼 튀는 반짝임으로 첫 성공의 승리를 강조, 역동적이고 뿌듯한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(뿌듯함)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호야는 어깨가 으쓱! 엉덩이도 뽀송뽀송, 기분이 날아갈 듯해요. "나 혼자 했어!" 엄마가 호야를 번쩍 안아 빙글빙글 돌려 줬어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 안겨 번쩍 들린 호야가 화면 위쪽에서 환하게 웃는 구도.<br/><b>장소·시간</b> 호리네 집 욕실 앞 복도, 낮. 밝고 생기 넘치는 실내광.<br/><b>인물</b> Hoya는 화면 중앙 위에서 엄마 품에 번쩍 안겨 두 팔을 활짝 벌리고 다리를 뽀송하게 뻗은 채 "나 혼자 했어!" 하며 입을 크게 벌려 가장 환하게 웃음, 어깨가 으쓱. Mom tiger는 호야를 두 팔로 안아 빙글 돌리며 흐뭇하게 웃음. Hori는 옆에서 두 팔을 위로 뻗어 함께 만세하며 폴짝, 자랑스러운 형의 웃음.<br/><b>배경·소품</b> 둘레에 작은 별과 반짝임, 발밑에 빙글 도는 효과선, 벽의 칭찬판, 복도 창으로 드는 햇살.<br/><b>톤</b> 밝은 낮 햇빛에 채도가 활짝 살아나고, 해냈다는 자부심과 가족의 사랑이 가득한 즐겁고 벅찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(다음에도 혼자)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 호야는 배가 간질간질하면 스스로 말해요. "쉬 마려워! 화장실 갈래!" 하나 바지 내리기, 둘 변기에 앉기, 셋 다 하면 손 씻기! 오늘도 아장아장 혼자 성공. "쉬야 쑥, 참 잘했어요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 스스로 화장실로 향하는 야무진 호야.<br/><b>장소·시간</b> 호리네 집 거실에서 욕실로 가는 길, 낮. 밝고 명랑한 실내광.<br/><b>인물</b> Hoya는 화면 중앙에서 한 손을 번쩍 들어 "화장실 갈래!" 외치며 아장아장 씩씩하게 걸어가고, 스스로 팬티 허리춤을 살짝 잡은 자세, 야무지고 자신감 넘치는 표정. Hori는 뒤쪽에서 엄지를 척 들어 올리며 흐뭇하게 지켜봄. Mom tiger는 소파 쪽에서 손을 흔들며 미소.<br/><b>배경·소품</b> 열린 욕실 문 너머 아기 변기가 보이고, 벽에 바지·아기 변기·비누 거품 손을 그린 세 개의 동글동글 순서 그림 스티커가 왼쪽부터 나란히 붙어 있음(글자 없이 그림만), 거실 소파와 러그.<br/><b>톤</b> 밝고 산뜻한 낮 조명, 스스로 해내는 독립과 성장의 뿌듯하고 명랑한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밤이 되자 엄마가 호야를 폭 안아 주었어요. "우리 호야, 이제 형아처럼 다 컸네!" 조금씩 하다 보니 혼자서도 척척. 실수해도 괜찮아요. 우리는 조금씩 크니까요. "쉬야 쑥, 참 잘했어요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 하이앵글. 잠자리에서 온 가족이 호야를 안아 주는 포근한 마무리 컷.<br/><b>장소·시간</b> 호리네 집 아기 방, 밤. 작은 무드등이 켜져 노란빛이 은은하게 감도는 아늑한 공기.<br/><b>인물</b> Hoya는 화면 중앙에서 뽀송한 잠옷 차림으로 Mom tiger 품에 폭 안겨 눈을 반달로 접으며 나른하고 만족스러운 미소, 한 손으로 곰인형을 꼭 안음. Mom tiger는 호야를 두 팔로 감싸 안고 이마에 살짝 볼을 대며 따뜻하게 웃음. Hori는 옆에 앉아 동생의 등을 토닥토닥하며 자랑스럽고 다정한 웃음.<br/><b>배경·소품</b> 아기 침대와 이불, 머리맡 무드등, 창밖으로 별이 총총한 밤하늘, 벽의 칭찬판에 별·하트 모양 그림 스티커가 여러 개 붙어 있음, 봉제 곰인형.<br/><b>톤</b> 부드러운 노란 무드등 조명, 하루의 성취를 마무리하는 포근하고 뭉클한 잠자리 정서.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 쉬야 쑥, 참 잘했어요! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

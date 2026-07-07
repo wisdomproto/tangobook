@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 보글보글 뽀득뽀득!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 A #3</div>
+  <h1>🫧 보글보글 뽀득뽀득!</h1>
+  <div class="sub">안 씻고 먹다 배탈 난 콩이가 호리와 '거품 손 씻기'를 배워 손 씻기 습관 수용</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 손 씻기 &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 콩이(안 씻고 먹음)·호리(조력)·세균 꼬물이(단역) &nbsp;·&nbsp;
+  <b>장치</b> 인과(안 씻고 먹어 배탈) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "보글보글 뽀득뽀득!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"냠냠, 얼른 먹어야지!" 놀이터에서 실컷 논 콩이가 쪼르르 달려와요. 모래를 만지작만지작하던 손 그대로, 노릇노릇 김이 나는 빵을 덥석 집었어요. "콩이야, 손은?" 호리가 물어도 콩이는 못 들은 척, 냠냠.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 간식 테이블로 달려온 콩이가 손 그대로 빵을 집는 순간.<br/><b>장소·시간</b> 놀이터 옆 야외 간식 테이블, 늦은 오후. 모래 놀이터에서 방금 나온 상쾌한 바깥 공기, 따뜻한 햇살.<br/><b>인물</b> Kongi(다람쥐, 복슬복슬한 꼬리·볼록한 볼)는 화면 오른쪽에서 손바닥에 모래가 잔뜩 묻은 채로 노릇한 빵을 두 손으로 덥석 집어 입으로 가져가며 신난 함박웃음, 눈은 빵에만 고정. Hori(아기 호랑이)는 왼쪽에서 손가락으로 콩이의 손을 가리키며 고개를 살짝 기울여 "손은?" 하고 묻는 궁금한 표정, 눈썹이 살짝 올라감.<br/><b>배경·소품</b> 테이블 위 빵 바구니와 우유컵, 콩이 손·손톱에 묻은 회색 모래 알갱이가 또렷이 보임, 뒤로 모래 놀이터와 미끄럼틀, 나무 그늘.<br/><b>톤</b> 따뜻한 오후 햇빛, 밝고 평범한 간식 시간이지만 모래 묻은 손을 살짝 강조해 작은 걱정을 심는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(안 씻고 먹음)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"손 씻기는 귀찮아! 빨리 먹고 또 놀 거야!" 콩이는 우걱우걱, 볼이 빵빵하게 먹어 치워요. 그런데 모래 묻은 손끝에서 아주아주 작은 꼬물이들이 방긋 웃으며 빵 위로 폴짝 옮겨 타요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 하이앵글. 볼이 빵빵한 콩이와 손끝의 작은 세균들이 함께 보이는 컷.<br/><b>장소·시간</b> 같은 간식 테이블, 늦은 오후. 방금 그 자리.<br/><b>인물</b> Kongi는 화면 중앙에서 두 볼이 빵빵하게 부풀 만큼 빵을 우걱우걱 밀어 넣으며 눈을 질끈 감고 신난 표정, 손사래를 치듯 다른 손을 휘휘 저어 "귀찮아" 하는 몸짓. germ(작고 동글동글한 회녹색 세균, 바보스럽고 귀여운 큰 눈, 짧은 뿔뿔이 돌기)들 서너 마리가 콩이 손끝에서 빵 위로 폴짝 건너뛰며 장난스러운 방긋 웃음.<br/><b>배경·소품</b> 콩이 손톱의 모래, 빵 위로 이어지는 작은 점선 같은 이동 궤적, 앞쪽 빵, 뒤로 흐릿한 놀이터.<br/><b>톤</b> 따뜻한 오후 햇빛이지만 세균들 주위에만 살짝 탁한 연둣빛 기운, 무섭지 않고 코믹하게 위생 문제를 암시하는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(배탈)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">조금 뒤, 콩이 배 속에서 꾸르륵 꾸르륵! 배가 살살 아파 왔어요. "아이고 배야…" 콩이가 배를 문지르며 시무룩, 눈물이 찔끔. 곁에 있던 호리가 "괜찮아, 내가 있어!" 얼른 다가왔어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 배를 문지르는 콩이와 다가오는 호리.<br/><b>장소·시간</b> 놀이터 옆 벤치, 해 질 무렵. 노을빛이 살짝 물든 바깥.<br/><b>인물</b> Kongi는 화면 중앙 벤치 앞에서 한 손으로 배를 살살 문지르며 눈썹을 팔자로 내리고 입을 삐죽, 눈가에 눈물이 찔끔 맺힌 시무룩한 표정. Hori는 오른쪽에서 두 손을 앞으로 내밀며 콩이에게 얼른 다가와 "괜찮아" 하고 안심시키는 다정하고 든든한 표정.<br/><b>배경·소품</b> 콩이 배 위로 꾸르륵 소용돌이 표시와 작은 회녹색 세균 꼬물이 한두 마리가 배 근처를 뱅뱅, 벤치와 잔디, 뒤로 노을 진 놀이터.<br/><b>톤</b> 노을빛 저녁 조명, 콩이 쪽은 살짝 시무룩하지만 다가오는 호리 쪽에 안심되는 따뜻한 빛이 도는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(호리가 도와요)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리가 콩이 손을 살펴봤어요. "콩이야, 손에 작은 꼬물이 세균이 붙어 있었나 봐. 그게 빵을 타고 배 속으로 쏙!" 콩이 눈이 휘둥그레졌어요. "그럼 어떡해?" "걱정 마! 나랑 세면대로 가자!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 앵글. 호리가 콩이의 손을 들여다보며 설명하는 두 사람.<br/><b>장소·시간</b> 놀이터에서 실내 화장실 세면대로 향하는 입구, 저녁. 안쪽은 밝은 전등, 아늑한 실내.<br/><b>인물</b> Hori는 화면 왼쪽에서 콩이의 손목을 살며시 잡아 손바닥을 펼쳐 보이며 다른 손으로 손끝을 가리키고 차분히 설명하는 다정하고 씩씩한 표정. Kongi는 오른쪽에서 자기 손바닥을 내려다보며 눈을 휘둥그레 크게 뜨고 입을 벌린 놀란 얼굴, 아직 다른 손은 배에 얹음.<br/><b>배경·소품</b> 콩이 손바닥 위에 작고 바보스러운 회녹색 세균 꼬물이 두어 마리가 방긋, 뒤쪽으로 열린 세면대 문과 밝은 실내, 세면대가 살짝 보임.<br/><b>톤</b> 실내 전등의 따뜻한 빛이 번지며 안심되는 분위기, 호리 쪽에 밝은 희망의 빛, 문제 해결이 시작되는 든든한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(세면대)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">세면대 앞에 나란히 섰어요. "손 씻기는 딱 세 가지야! 하나— 촉촉 적시기!" 호리가 수도꼭지를 틀자 쏴아— 물이 시원하게 쏟아져요. 콩이도 두 손을 물에 대었어요. 손끝의 꼬물이들이 흠칫, 뒤로 물러나요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 세면대 앞에 나란히 선 두 아이.<br/><b>장소·시간</b> 밝은 실내 화장실 세면대, 저녁. 하얀 타일과 깨끗한 공기, 따뜻한 전등.<br/><b>인물</b> Hori는 화면 왼쪽에서 발판 위에 올라서서 한 손으로 수도꼭지를 틀고 다른 손 검지를 하나 펴 보이며 "하나!" 하고 콩이를 돌아보고 활짝 웃으며 시범을 보임. Kongi는 오른쪽에서 두 손을 조심스레 쏟아지는 물에 갖다 대며 눈을 반짝, 호기심과 기대가 섞인 표정.<br/><b>배경·소품</b> 수도꼭지에서 쏴아 쏟아지는 맑은 물줄기, 세면대 옆 거품 비누통과 수건, 발판, 거울, 콩이 손끝의 세균 꼬물이들이 물을 피해 손등 쪽으로 흠칫 물러남.<br/><b>톤</b> 밝고 깨끗한 실내 조명, 물의 시원한 파랑이 상쾌하게 살아나는 산뜻하고 씩씩한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(거품 놀이)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"둘— 비누로 보글보글 거품 내기!" 호리가 두 손을 싹싹 비비자 하얀 거품이 뭉게뭉게 피어났어요. "우와, 구름 같아!" 콩이도 신나게 손을 비벼요. 보글보글 뽀득뽀득!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 하얀 거품이 뭉게뭉게 피어나는 두 손을 크게.<br/><b>장소·시간</b> 같은 세면대, 저녁. 밝은 실내, 물소리와 거품이 어우러진 아늑한 공기.<br/><b>인물</b> Hori는 화면 왼쪽에서 두 손을 마주 비벼 하얀 거품을 잔뜩 만들며 눈을 초승달처럼 웃고 콩이에게 보여 줌. Kongi는 오른쪽에서 자기 손에도 거품을 내며 두 눈을 동그랗게 뜨고 입을 'O'로 벌려 "우와" 감탄, 신난 표정.<br/><b>배경·소품</b> 두 아이 손에 뭉게뭉게 피어오른 하얀 거품과 공중에 동동 떠오른 무지갯빛 비눗방울 몇 개, 거품 비누통, 세면대와 거울, 거품 속에서 세균 꼬물이들이 미끄러지며 당황한 표정.<br/><b>톤</b> 밝은 실내 조명에 비눗방울이 무지개빛으로 반짝여 놀이처럼 즐겁고 뽀송한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(구석구석 뽀득)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"셋— 구석구석 뽀득뽀득 헹구기! 손등도 쓱쓱, 손가락 사이사이도 요리조리!" 콩이가 야무지게 문지르고 쏴아 헹구니 꼬물이 세균들이 주르륵 물에 씻겨 내려가요. "하나 둘 셋, 뽀득뽀득 끝! 세균아 안녕—!" 보글보글 뽀득뽀득!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 로우앵글. 손등·손가락 사이를 문지르고 헹구는 결정적 순간.<br/><b>장소·시간</b> 같은 세면대, 저녁. 밝은 실내.<br/><b>인물</b> Kongi는 화면 중앙에서 한 손으로 다른 손등을 쓱쓱 문지르고 손가락 사이를 요리조리 깍지 껴 비비며 야무진 집중 표정, 입을 앙 다물고 눈은 손에 고정. Hori는 옆에서 세 손가락을 펴 "하나 둘 셋" 세어 보이며 "잘한다!" 응원하듯 활짝 웃음.<br/><b>배경·소품</b> 손가락 사이로 삐져나온 거품, 수도꼭지에서 쏟아지는 물에 회녹색 세균 꼬물이들이 주르륵 배수구로 씻겨 내려가며 손을 흔드는 우스운 작별 포즈, 배수구 소용돌이, 세면대와 거울.<br/><b>톤</b> 밝은 실내 조명, 물과 거품이 상쾌하게 튀고 세균이 씻겨 내려가는 통쾌하고 개운한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(뽀송한 손)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">수건에 손을 톡톡 닦으니 손이 보송보송, 반짝반짝! 아까 아프던 배도 한참 쉬고 나니 조금씩 나아졌어요. "이제부터 씻고 먹으면 배가 안 아프겠구나!" 콩이가 활짝 웃자, 옆에 선 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉부릉!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 깨끗해진 손을 자랑스레 펼쳐 보이는 콩이와 곁의 호리.<br/><b>장소·시간</b> 세면대 앞, 저녁. 밝고 뽀송한 실내 공기.<br/><b>인물</b> Kongi는 화면 중앙에서 보송보송 깨끗해진 두 손을 얼굴 옆으로 활짝 펼쳐 보이며 눈을 반달로 접고 함박웃음, 자세가 곧게 서며 기운이 돌아옴. Hori는 오른쪽에서 콩이를 흐뭇하게 바라보며 함께 기뻐하는 미소.<br/><b>배경·소품</b> 콩이 손 둘레에 뽀득한 반짝임 표시, 손에 든 수건, 세균 꼬물이는 이제 하나도 없이 깨끗함, 특히 호리 꼬리 줄무늬가 무지갯빛으로 반짝이는 시그니처 순간(부릉꼬리), 세면대와 거울.<br/><b>톤</b> 밝고 깨끗한 실내 조명에 무지개 반짝임이 더해져 해냈다는 뿌듯함과 개운함이 넘치는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(집에서 먼저)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날, 간식 시간이 되자 콩이가 먼저 외쳤어요. "잠깐! 먹기 전엔 손부터!" 하나 촉촉 적시고, 둘 보글보글 거품, 셋 구석구석 뽀득 헹구기까지! 콩이는 이제 척척 혼자 해내요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 콩이가 스스로 세면대에서 손 씻기 순서를 해내는 장면.<br/><b>장소·시간</b> 다음 날 집 세면대, 낮. 창으로 환한 햇살이 드는 밝은 실내.<br/><b>인물</b> Kongi는 화면 중앙 발판 위에서 두 손을 마주 비벼 거품을 내며 한 손 검지를 번쩍 치켜들어 "손부터!" 외치는 씩씩하고 자신만만한 표정, 눈은 반짝. Hori는 왼쪽 뒤에서 문틀에 기대 팔짱 끼고 대견하게 바라보며 빙그레 웃음.<br/><b>배경·소품</b> 세면대 위 순서를 나타내듯 촉촉한 물방울·하얀 거품·헹궈지는 물이 어우러짐, 발판, 수건걸이의 수건, 거울, 창밖 햇살.<br/><b>톤</b> 밝은 낮 자연광이 실내로 번져 스스로 습관을 해내는 뿌듯하고 자립적인 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리가 콩이를 폭 안아 주었어요. "우리 콩이, 이제 손 씻기 대장이네!" 이제 콩이는 알아요. 씻고 먹으면 배도 안 아프고 마음도 개운하다는 걸! "보글보글 뽀득뽀득!" 둘은 깨끗한 손으로 냠냠, 오늘 간식은 두 배로 맛있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 서로 폭 껴안은 두 아이가 화면 가득 따뜻하게.<br/><b>장소·시간</b> 집 식탁 겸 간식 자리, 화창한 낮. 밝고 포근한 실내.<br/><b>인물</b> Hori는 화면 왼쪽에서 두 팔을 활짝 벌려 콩이를 폭 끌어안으며 가장 환하게 웃음. Kongi는 오른쪽에서 호리 품에 안겨 두 손(깨끗한 손)을 호리 등에 두르고 눈을 감고 행복하게 웃음, 뺨을 호리 어깨에 기댐.<br/><b>배경·소품</b> 옆 식탁에 깨끗한 빵과 우유컵, 둘 둘레에 은은한 따뜻한 반짝임, 창밖 화창한 하늘, 세균 꼬물이는 하나도 없이 말끔함.<br/><b>톤</b> 밝고 화창한 낮 햇빛, 서로 안은 온기가 번지는 뭉클하고 다정한 마무리 정서.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 보글보글 뽀득뽀득! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"germ","name":"세균 꼬물이","aliases":["germ","germ creature","꼬물이"],"desc":"아주 작고 동글동글한 회녹색 세균 캐릭터, 바보스럽고 귀여운 큰 눈망울, 몸통 둘레에 짧고 뭉툭한 뿔뿔이 돌기, 장난스러운 방긋 웃음. 절대 무섭지 않고 코믹하게 — 물과 거품에 약해 미끄러지고 당황하는 표정"}]</script>
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 차례차례, 나도 너도!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 E #32</div>
+  <h1>🎢 차례차례, 나도 너도!</h1>
+  <div class="sub">먼저 하려고 새치기하던 토토가 '거울효과'로 차례를 지키니 모두가 즐거워지는 걸 배워요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 차례 기다리기 / 줄 서기 (거울효과 — 내가 새치기하면 속상, 차례 지키면 모두 즐거움) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 토토(먼저 하려 새치기)·콩이(조력)·보리·두부·호리 &nbsp;·&nbsp;
+  <b>장치</b> 거울효과 + 번호 규칙(줄 서기 → 내 차례 기다리기 → 다 하면 다음 친구) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "차례차례, 나도 너도!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"와, 미끄럼틀이다!" 놀이터에 도착한 토토가 깡충깡충 신이 났어요. 친구들이 우르르 미끄럼틀 계단 앞에 모였어요. 오늘은 미끄럼틀을 몇 번이나 탈까요?</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 놀이터 전체가 시원하게 보이는 도입 컷.<br/><b>장소·시간</b> 동네 놀이터, 맑은 오후. 파란 하늘에 뭉게구름, 따뜻한 햇살이 놀이터에 가득한 활기찬 공기.<br/><b>인물</b> Toto(흰 토끼, 빨간 손수건)는 화면 앞쪽에서 두 귀를 쫑긋 세우고 깡충 뛰어오르며 미끄럼틀을 가리키는 신난 표정. Bori(연갈색 곰, 파란 멜빵바지)는 뒤에서 수줍게 손을 모으고 미소, Dubu(흰 강아지, 빨간 목줄)는 혀를 내밀고 꼬리를 흔들며 폴짝, Kongi(다람쥐, 복슬 꼬리)는 옆에서 볼주머니를 볼록하게 하고 방긋.<br/><b>배경·소품</b> 알록달록한 미끄럼틀과 계단, 옆에 그네 두 개, 모래밭과 벤치, 화단의 꽃, 파란 하늘.<br/><b>톤</b> 맑은 오후 햇살의 화사하고 명랑한 조명, 친구들이 함께 노는 설렘과 활기가 가득한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(새치기)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">친구들이 한 줄로 섰는데, 토토는 못 참아요. "내가 먼저 탈래!" 슝— 줄 앞으로 쏙 끼어들었어요. 계단을 오르던 보리가 그만 뒤로 밀렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 줄 앞으로 끼어드는 토토와 밀린 친구가 한 화면에.<br/><b>장소·시간</b> 놀이터 미끄럼틀 계단 앞, 오후. 밝은 햇살 아래.<br/><b>인물</b> Toto는 화면 중앙에서 몸을 앞으로 쭉 기울여 친구들 사이를 새치기하며 계단 손잡이를 붙잡고, 귀를 뒤로 눕히고 눈을 반짝이며 "내가 먼저!" 하는 급한 표정. Bori는 오른쪽에서 토토에게 밀려 한 발 뒤로 휘청, 두 손을 벌리고 눈이 동그래진 당황한 얼굴. Kongi와 Dubu는 뒤쪽 줄에서 어리둥절 서로를 봄.<br/><b>배경·소품</b> 미끄럼틀 계단과 손잡이, 바닥에 그려진 줄 서기 표시(발자국 그림), 모래밭, 벤치.<br/><b>톤</b> 밝은 오후 조명이지만 토토 주변에 살짝 급한 속도선, 순간의 어수선함과 미안함이 감도는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결과(친구들이 속상)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">토토가 자꾸 먼저 타니, 친구들은 아무도 못 타요. "나도 타고 싶은데…" 보리가 시무룩, 두부는 입을 삐죽. 신났던 놀이터가 조용해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 시무룩해진 친구들이 나란히 서 있는 구도.<br/><b>장소·시간</b> 놀이터 미끄럼틀 옆, 오후. 밝지만 살짝 가라앉은 공기.<br/><b>인물</b> Bori는 화면 왼쪽에서 두 손을 모으고 고개를 푹 숙여 시무룩, 눈썹이 처짐. Dubu는 가운데서 귀를 축 늘어뜨리고 입을 삐죽 내밀며 속상한 표정. Kongi는 오른쪽에서 볼주머니를 오물거리며 걱정스레 미끄럼틀 위 토토를 올려다봄. 미끄럼틀 꼭대기의 Toto는 혼자 또 타려다 친구들의 시무룩한 얼굴을 보고 멈칫.<br/><b>배경·소품</b> 미끄럼틀과 계단, 아무도 서지 않은 텅 빈 줄 표시, 모래밭, 조용해진 벤치.<br/><b>톤</b> 밝은 오후 조명이지만 채도가 살짝 가라앉아 서운함이 감도는 정서, 무겁지 않고 잔잔한 아쉬움.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(콩이 등장)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 콩이가 조르르 다가와 토토 손을 잡았어요. "토토야, 만약에 다른 친구가 계속 새치기하면 어떤 기분일까?" 토토는 곰곰 생각했어요. "음… 나도 속상할 것 같아…"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 콩이가 토토에게 말을 건네는 두 얼굴.<br/><b>장소·시간</b> 미끄럼틀 아래, 오후. 부드러운 오후 햇살이 두 아이를 비춤.<br/><b>인물</b> Kongi는 화면 왼쪽에서 한 손으로 토토의 손을 다정하게 잡고 눈을 맞추며 부드럽게 묻는 표정, 이 장면의 주 조력자로 토토에게 가장 가까이 붙어 있음. Toto는 오른쪽에서 귀를 살짝 늘어뜨리고 한 손을 턱에 대며 곰곰 생각하는 얼굴, 눈이 아래로 향하며 무언가 깨닫는 듯한 표정.<br/><b>배경·소품</b> 미끄럼틀 기둥, 뒤로 시무룩한 친구들이 부드럽게 아웃포커스, 모래밭.<br/><b>톤</b> 따뜻한 오후 햇살의 다정한 조명, 마음을 들여다보는 잔잔하고 사려 깊은 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(거울효과)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">콩이가 방긋 웃으며 말했어요. "우리 차례차례 타 보자! 그럼 나도 타고, 너도 타고, 모두 탈 수 있어." 토토는 눈이 반짝. "아, 차례를 지키면 다 같이 즐겁구나!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 콩이가 손가락을 세워 방법을 알려 주고 토토가 눈을 반짝이는 구도.<br/><b>장소·시간</b> 미끄럼틀 앞, 오후. 밝고 화사한 햇살.<br/><b>인물</b> Kongi는 화면 왼쪽에서 검지를 세워 "차례차례" 하고 밝게 설명하며 활짝 웃음, 다른 손으로 줄 표시를 가리킴. Toto는 오른쪽에서 두 눈을 크게 반짝이고 입을 살짝 벌려 "아!" 하며 깨달은 밝은 표정, 귀가 쫑긋 다시 섬. 뒤쪽 Bori·Dubu는 기대에 차 고개를 빼꼼.<br/><b>배경·소품</b> 바닥에 그려진 발자국 줄 표시가 또렷이 보이고, 미끄럼틀 계단, 화단의 꽃, 파란 하늘.<br/><b>톤</b> 화사한 오후 조명, 깨달음의 밝고 산뜻한 정서, 답답함이 스르르 풀리는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(줄 서기)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">친구들이 다시 한 줄로 예쁘게 섰어요. "하나, 줄을 서요!" 발자국 그림 위에 콩콩 발을 맞춰요. 토토도 이번엔 맨 뒤에 얌전히 섰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글. 한 줄로 예쁘게 선 친구들을 위에서 내려다봄.<br/><b>장소·시간</b> 미끄럼틀 계단 앞, 오후. 밝은 햇살.<br/><b>인물</b> Bori가 맨 앞에서 계단 손잡이를 잡고 설렌 미소, 그 뒤 Dubu가 꼬리를 흔들며 차례를 기다리고, 그 뒤 Kongi가 방긋, 맨 뒤에 Toto가 두 손을 앞으로 모으고 발자국 표시 위에 얌전히 서서 순서를 기다리는 의젓한 표정. 모두 나란히 한 줄.<br/><b>배경·소품</b> 바닥의 발자국 줄 표시 위에 아이들 발이 하나씩 맞춰 놓임, 미끄럼틀 계단, 모래밭, 벤치.<br/><b>톤</b> 밝고 질서 있는 오후 조명, 차분하고 흐뭇한 정서, 다 함께 지키는 규칙의 뿌듯함.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(내 차례 기다리기)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"둘, 내 차례를 기다려요!" 보리가 슈웅— 미끄럼틀을 타고 내려가요. 토토는 발을 동동 타고 싶지만 꾹 참고 기다려요. 차례차례, 나도 너도!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 미끄럼틀을 타는 친구와 기다리는 토토가 함께 보이는 역동 컷.<br/><b>장소·시간</b> 미끄럼틀 앞, 오후. 밝고 신나는 햇살.<br/><b>인물</b> Bori는 화면 오른쪽 미끄럼틀 위에서 두 팔을 벌리고 "슈웅" 신나게 미끄러져 내려오며 활짝 웃음, 주변에 시원한 속도선. Toto는 왼쪽 줄에서 발을 살짝 동동거리며 타고 싶은 마음을 꾹 참고 두 손을 꼭 쥔 채 씩씩하게 자기 차례를 기다리는 의젓한 표정. 뒤로 Dubu·Kongi가 손뼉을 치며 응원.<br/><b>배경·소품</b> 미끄럼틀 미끄럼면과 속도선, 발자국 줄 표시, 모래밭, 파란 하늘.<br/><b>톤</b> 밝은 오후 조명에 역동적인 속도감, 기다림도 즐거운 활기찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(내 차례!)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">드디어 토토 차례! "셋, 다 타면 다음 친구!" 토토가 슈웅— 신나게 내려오자, 친구들이 다 함께 손뼉을 짝짝. 그 순간 토토의 빨간 손수건이 무지개색으로 반짝— 팟! 기다린 만큼 더 신났어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 미끄럼틀을 타고 내려오는 토토와 환호하는 친구들.<br/><b>장소·시간</b> 미끄럼틀 앞, 오후. 밝고 화사한 햇살.<br/><b>인물</b> Toto는 화면 중앙 미끄럼틀 아래로 두 팔을 번쩍 들고 "슈웅" 내려오며 입을 크게 벌려 가장 환하게 웃는 표정, 귀가 바람에 날림. 이 성공의 순간 Toto의 빨간 손수건이 무지개빛으로 반짝이며 팟— 하는 시그니처 반짝임이 터짐. 아래에서 Bori·Dubu·Kongi가 두 손을 번쩍 들고 짝짝 손뼉을 치며 환호.<br/><b>배경·소품</b> 미끄럼틀 미끄럼면, 토토 둘레에 무지개 반짝임과 색색 반짝이가 팡 흩날림, 발자국 줄 표시, 파란 하늘.<br/><b>톤</b> 밝은 오후 조명에 무지개 반짝임이 더해진 신나고 뿌듯한 정서, 기다림의 보람이 터지는 승리의 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(그네도 차례차례)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 토토는 규칙을 알아요. 하나, 줄을 서요! 둘, 내 차례를 기다려요! 셋, 다 타면 다음 친구! 그네 앞에서도 토토가 먼저 외쳤어요. "차례차례 타자!" 모두가 방긋 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 그네 앞에서 차례를 정하는 친구들.<br/><b>장소·시간</b> 놀이터 그네 쪽, 오후. 밝고 명랑한 햇살.<br/><b>인물</b> Toto는 화면 왼쪽에서 한 손을 번쩍 들고 "차례차례!" 외치며 의젓하게 웃는 표정, 이제는 스스로 규칙을 이끎. Kongi는 그네에 앉아 발을 구르며 즐겁게 흔들리고, Bori·Dubu는 옆에서 한 줄로 서서 방긋 웃으며 자기 차례를 기다림.<br/><b>배경·소품</b> 그네 두 개, 옆에 미끄럼틀, 벽에 붙은 세 칸 순서 그림표 — 줄 선 발자국·기다리는 시계·다음 친구를 향한 화살표 아이콘만(글자·숫자 없음), 모래밭, 화단.<br/><b>톤</b> 밝고 화사한 오후 조명, 규칙이 몸에 밴 뿌듯하고 명랑한 정서, 다 함께 즐거운 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">콩이가 토토를 폭 안아 주었어요. "토토야, 차례 지키니까 훨씬 더 재밌지?" 이제 토토는 알아요. 조금 기다리면 나도 너도 모두 즐겁다는 걸. 차례차례, 나도 너도!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 놀이터에서 친구들이 어깨동무하고 웃는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 놀이터, 노을 지는 늦은 오후. 하늘이 발그레 물들고 부드러운 금빛 햇살이 감도는 포근한 공기.<br/><b>인물</b> Kongi는 화면 중앙에서 두 팔로 Toto를 폭 껴안고 볼을 맞대며 흐뭇하게 웃음. Toto는 콩이 품에 안겨 두 팔을 벌리고 개운하고 행복하게 활짝 웃음, 귀가 편안하게 늘어짐. 옆에서 Bori·Dubu가 함께 어깨동무하며 다정하게 웃음.<br/><b>배경·소품</b> 미끄럼틀과 그네가 노을빛에 물들고, 친구들 머리 위로 작은 하트·별 반짝임 몇 개, 발자국 줄 표시, 노을 하늘.<br/><b>톤</b> 노을의 따뜻한 금빛 조명, 하루를 마무리하는 뭉클하고 사랑스러운 정서, 우정이 가득한 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 차례차례, 나도 너도! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

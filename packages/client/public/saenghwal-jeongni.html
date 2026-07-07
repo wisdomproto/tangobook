@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 제자리 척척, 방이 방긋!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 B #10</div>
+  <h1>🧸 제자리 척척, 방이 방긋!</h1>
+  <div class="sub">장난감을 안 치우던 두부가 "치우면 방이 방긋" 거울효과로 정리의 기쁨을 배워요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 정리정돈 / 스스로 치우기 &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 두부(어지름·주인공)·토토(조력)·호리(함께) &nbsp;·&nbsp;
+  <b>장치</b> 거울효과 (안 치우면 밟혀서 아프고, 치우면 방이 방긋) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "제자리 척척, 방이 방긋!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입 · 어질러진 방)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"우당탕! 이것도 놀고 저것도 놀자!" 두부는 오늘도 장난감을 와르르 쏟았어요. 공이 데굴데굴, 블록이 우수수, 인형이 폴싹. 놀 땐 신나는데, 치우는 건 영 싫어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글로 방을 내려다봄. 장난감이 사방에 흩어진 놀이방 전체.<br/><b>장소·시간</b> 두부의 놀이방, 환한 오후. 창으로 밝은 햇살이 들어와 활기찬 공기.<br/><b>인물</b> Dubu(하얀 강아지)는 방 한가운데 앉아 두 앞발로 장난감 상자를 뒤집어 쏟으며 혀를 내밀고 신난 웃음, 꼬리를 세차게 흔들고 귀가 팔랑임.<br/><b>배경·소품</b> 바닥에 데굴데굴 굴러다니는 색색 공·흩어진 블록·엎어진 곰인형·자동차 장난감, 텅 빈 장난감 상자, 벽 선반과 그림 아이콘으로 종류가 구분된 정리함, 창밖 파란 하늘.<br/><b>톤</b> 밝은 오후 햇빛, 알록달록 어질러진 색감이 활기차면서도 살짝 정신없는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(아차사고 · 밟음)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">물 마시러 가려던 두부, "아야! 아야야!" 딱딱한 블록을 콕 밟고 폴짝 뛰었어요. 이번엔 공을 데구르르 밟고 엉덩방아까지 쿵! 방바닥이 온통 지뢰밭이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 아이레벨. 블록을 밟고 아파하는 결정적 순간.<br/><b>장소·시간</b> 같은 놀이방, 오후. 밝은 실내.<br/><b>인물</b> Dubu는 화면 중앙에서 한쪽 뒷발을 번쩍 들고 앞발로 아픈 발을 감싸며 눈을 질끈 감고 입을 크게 벌려 아파서 소리치는 표정, 얼굴이 찡그려지고 귀가 뒤로 젖혀짐, 몸이 균형을 잃고 기우뚱.<br/><b>배경·소품</b> 발밑에 밟힌 뾰족한 블록과 데굴 구르는 공, 주변에 여전히 흩어진 장난감들, 발 부위에 작은 통증 표시 별 효과.<br/><b>톤</b> 밝은 실내광이지만 두부 얼굴에 살짝 과장된 그림자로 아픈 순간 강조, 귀엽지만 아찔한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>증폭(결과 · 못 찾음)</b> <span class="tag">결과</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">게다가 제일 아끼는 삑삑이 오리를 잃어버렸어요. "내 오리 어디 갔지?" 이불도 들춰 보고 상자도 뒤져 봐도 없어요. 두부는 그만 눈물이 그렁그렁, 콧등이 시큰해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글. 어질러진 방을 헤매며 찾는 두부.<br/><b>장소·시간</b> 놀이방, 오후. 밝지만 두부 주변만 살짝 가라앉은 공기.<br/><b>인물</b> Dubu는 방 한쪽에서 무릎을 굽히고 이불 자락을 앞발로 들춰 보며 두리번, 눈에 눈물이 그렁그렁 맺히고 입꼬리가 아래로 축 처져 시무룩, 귀가 힘없이 늘어짐.<br/><b>배경·소품</b> 들춰진 이불·뒤집힌 상자·여기저기 흩어진 장난감 더미, 두부 머리 위에 작은 물음표, 삑삑이 오리는 장난감 더미에 반쯤 파묻혀 살짝만 보임.<br/><b>톤</b> 밝은 실내광 속 두부 주변만 채도가 낮아 속상함이 도드라짐, 안쓰럽고 부드러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(조력자 등장 · 토토와 호리)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 똑똑! 토토랑 호리가 놀러 왔어요. "두부야, 왜 울상이야?" 방을 쓱 둘러본 토토가 방긋 웃어요. "걱정 마! 우리가 마법 하나 알려 줄게!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 열린 방문 앞에서의 만남.<br/><b>장소·시간</b> 놀이방 입구, 오후. 문밖 복도의 부드러운 빛이 스며듦.<br/><b>인물</b> Toto(토끼, 긴 귀)는 문 앞에서 한 손을 허리에 얹고 다른 손을 번쩍 들며 자신만만한 활짝 웃음, 몸을 앞으로 기울여 씩씩함. Hori(아기 호랑이)는 토토 옆에서 두 손을 모으고 두부를 다정하게 바라보며 걱정 어린 미소. Dubu는 방 안쪽에서 눈물을 훔치며 고개를 들어 둘을 바라봄, 귀가 살짝 쫑긋 올라감.<br/><b>배경·소품</b> 열린 방문, 여전히 어질러진 바닥, 문틀, 복도 벽.<br/><b>톤</b> 문밖에서 스며드는 부드러운 빛이 방 안을 밝힘, 든든하고 안심되는 따뜻한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(거울효과 ①안 치우면)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">토토가 손가락을 딱! "봐 봐. 안 치우면 어떻게 되냐면—" 발이 콕콕 아프고, 오리도 꽁꽁 숨고, 방은 잔뜩 찡그려요. "우웩, 이건 아파하는 방이야!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 토토가 어질러진 바닥을 손으로 가리키며 설명.<br/><b>장소·시간</b> 놀이방 한가운데, 오후. 밝은 실내.<br/><b>인물</b> Toto는 화면 왼쪽에서 한 손으로 어질러진 바닥을 가리키며 눈썹을 찡그리고 코를 찡긋, 설명하는 진지한 표정. Dubu는 오른쪽에서 토토가 가리키는 곳을 따라 보며 앞발을 입에 대고 우웩 하듯 살짝 찡그린 놀란 얼굴. Hori는 뒤에서 함께 바닥을 내려다보며 고개를 끄덕임.<br/><b>배경·소품</b> 어질러진 바닥 위에 상상 오버레이로 찡그린 방 얼굴 모양(뾰족한 블록이 눈살처럼)이 살짝 겹쳐 보이고, 발바닥에 작은 아픔 표시, 장난감 더미에 반쯤 숨은 오리, 그림 아이콘으로 종류가 구분된 정리함.<br/><b>톤</b> 밝은 실내광에 어질러진 구역만 살짝 어둑한 상상 톤, 살짝 익살스럽고 경각심 주는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(거울효과 ②치우면 방긋)</b> <span class="tag">발견</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"그런데 말이야, 치우면—" 토토가 눈을 반짝였어요. "발도 안 아프고, 오리도 척 나타나고, 방이 활짝 웃어! 그게 바로 방긋 마법이야." 두부는 침이 꼴깍, 해 보고 싶어졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머. 토토가 두부에게 반짝이며 속삭이는 두 얼굴.<br/><b>장소·시간</b> 놀이방 한가운데, 오후. 아늑한 실내.<br/><b>인물</b> Toto는 왼쪽에서 두 손을 활짝 펼쳐 보이며 눈을 반짝, 신나고 설레는 표정. Dubu는 오른쪽에서 몸을 토토 쪽으로 바짝 기울여 눈을 크게 뜨고 입가에 기대감 어린 미소, 꼬리가 살짝 흔들리기 시작함.<br/><b>배경·소품</b> 두 사람 사이 공중에 상상 오버레이로 '방긋 웃는 깨끗한 방' 모습(정리된 선반·활짝 웃는 방 얼굴)이 은은한 빛무리와 함께 떠오르고, 반짝이 입자가 감돎.<br/><b>톤</b> 부드러운 실내광에 빛무리가 더해진 설레고 마법 같은 분위기, 기대감이 부푸는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(정리 규칙 · 후렴①)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">토토가 정리 노래를 가르쳐 줬어요. "하나, 종류대로 모아! 둘, 제자리에 쏙! 셋, 다 하면 방긋!" 공은 공 상자에 데구르르, 블록은 블록 통에 차곡차곡, 인형은 선반에 폭! 제자리 척척, 방이 방긋!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 셋이 함께 장난감을 분류해 담는 활기찬 장면.<br/><b>장소·시간</b> 놀이방, 오후. 밝고 신나는 실내.<br/><b>인물</b> Toto는 왼쪽에서 손가락 세 개를 펼쳐 하나·둘·셋 세며 씩씩하게 지휘하는 활짝 웃음. Dubu는 가운데서 두 앞발로 색색 공을 상자에 쏙 넣으며 신난 표정, 꼬리를 흔듦. Hori는 오른쪽에서 블록을 통에 담으며 두부를 향해 응원의 미소.<br/><b>배경·소품</b> 공 그림 스티커가 붙은 빨간 상자·블록 그림의 파란 통·곰인형 실루엣이 그려진 초록 선반 등 그림 아이콘으로 구분된 정리함 세 개, 각자 손에 든 장난감, 바닥이 조금씩 깨끗해지는 중, 상자마다 알록달록.<br/><b>톤</b> 밝은 오후 햇빛, 정돈되어 가는 산뜻함과 협동의 즐거운 활기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(다 같이 해냄 · 시그니처 · 후렴②)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마지막 블록까지 통에 쏙! 바닥이 반짝반짝, 방이 활짝 웃어요. 셋이 해냈어요! 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉부릉! 제자리 척척, 방이 방긋!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 정리를 끝내고 다 함께 환호하는 순간.<br/><b>장소·시간</b> 말끔해진 놀이방, 오후. 밝고 상쾌한 실내.<br/><b>인물</b> Dubu는 화면 중앙에서 두 앞발을 번쩍 들고 폴짝 뛰며 입을 크게 벌려 환호, 꼬리가 세차게 흔들림. Toto는 왼쪽에서 두 손을 번쩍 들고 만세하는 활짝 웃음. Hori는 오른쪽에서 두 팔을 벌리고 뿌듯하게 웃으며 함께 환호.<br/><b>배경·소품</b> 말끔히 정돈된 선반과 상자들, 반짝반짝 빛나는 깨끗한 바닥, 벽 뒤로 '방긋 웃는 방'의 상냥한 분위기, 특히 Hori의 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리)과 공중에 색색 반짝이 입자가 팡 터짐.<br/><b>톤</b> 밝은 오후 햇빛에 채도가 활짝 살아나고 무지개 반짝임으로 성취의 기쁨을 강조, 뿌듯하고 벅찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(오리 되찾음)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 선반 위, 삑삑이 오리가 방긋 웃고 있지 뭐예요! "내 오리다!" 삑! 두부가 오리를 꼭 껴안았어요. "치우니까 잃어버린 것도 척 나타나네!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 아이레벨. 되찾은 오리를 꼭 껴안는 두부.<br/><b>장소·시간</b> 정돈된 놀이방, 오후. 밝고 따뜻한 실내.<br/><b>인물</b> Dubu는 화면 중앙에서 두 앞발로 노란 삑삑이 오리를 가슴에 꼭 껴안고 볼을 부비며 눈을 초승달처럼 감고 활짝 웃음, 꼬리를 살랑살랑. Toto와 Hori는 옆에서 흐뭇하게 바라보며 마주 보고 미소.<br/><b>배경·소품</b> 방금까지 오리가 있던 정돈된 선반, 그림 아이콘으로 종류가 구분된 정리함, 두부 품 안의 노란 삑삑이 오리, 오리 주변에 작은 하트 표시.<br/><b>톤</b> 밝고 따뜻한 오후 햇빛, 되찾은 기쁨의 뭉클하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 교훈 + 후렴③)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 두부는 알아요. 놀고 나서 척척 치우면 방도 나도 기분이 방긋! 토토와 호리가 두부를 포옥 안아 주었어요. 두부 볼이 발그레, 마음이 폭신폭신! "우리 두부, 정리 대장이네!" 제자리 척척, 방이 방긋!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 셋이 서로 폭 껴안는 따뜻한 마무리.<br/><b>장소·시간</b> 말끔한 놀이방, 노을 지는 늦은 오후. 창으로 부드러운 주황빛이 들어오는 포근한 공기.<br/><b>인물</b> Dubu는 화면 가운데서 오리를 한 손에 든 채 볼이 발그레 상기되어 활짝 웃고, Toto와 Hori가 양옆에서 두부를 폭 껴안음. Toto는 두부 어깨를 감싸고, Hori는 두부의 등을 토닥이며 셋 다 눈을 감고 환하게 웃음.<br/><b>배경·소품</b> 깔끔하게 정돈된 선반과 상자, 반짝이는 바닥, 창밖 노을, 벽에 걸린 작은 액자, 공중에 옅은 하트 몇 개.<br/><b>톤</b> 노을빛이 섞인 따뜻한 늦은 오후 조명, 우정과 뿌듯함이 어우러진 포근하고 사랑스러운 마무리 정서.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 제자리 척척, 방이 방긋! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 생활동화 — 싫어요! 안 돼요! 엄마한테 말해요!</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 생활동화 · 트랙 C #22</div>
+  <h1>🙅 싫어요! 안 돼요! 엄마한테 말해요!</h1>
+  <div class="sub">놀이터에서 낯선 아저씨가 "따라오면 사탕 줄게" 해도, 호리가 세 마디 약속의 말로 씩씩하게 거절하고 엄마에게 달려가요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 낯선 사람 대처 / 내 몸 지키기 (역할극 — 약속의 말 세 마디) + 번호규칙 3개 &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(주인공)·엄마(조력)·토토(친구, 카메오)·낯선 아저씨(단역 @image9, 전혀 무섭지 않게) &nbsp;·&nbsp;
+  <b>장치</b> 역할극(약속의 말) + 번호규칙(①싫으면 "싫어요!" ②따라 안 가 "안 돼요!" ③얼른 엄마에게 말하기) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🌈 반복 후렴 — "싫어요! 안 돼요! 엄마한테 말해요!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"싫어요! 안 돼요! 엄마한테 말해요!" 오늘 아침 엄마가 호리와 손을 마주 잡고 약속의 말을 연습해요. "우리 호리, 모르는 어른이 따라오라고 하면 이렇게 말하는 거야!" 호리는 씩씩하게 따라 했어요. 오늘은 놀이터에 놀러 가는 날이거든요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 엄마와 호리가 손을 마주 잡고 약속의 말을 연습하는 컷.<br/><b>장소·시간</b> 호리네 집 현관 앞, 화창한 아침. 창으로 든 밝은 햇살로 상쾌하고 다정한 공기.<br/><b>인물</b> Mom tiger(엄마 호랑이, 복숭아색 앞치마)는 화면 왼쪽에서 한쪽 무릎을 굽혀 앉아 두 손으로 Hori의 두 손을 마주 잡고 눈을 맞추며 다정하게 웃는 표정, 입을 동그랗게 벌려 약속의 말을 함께 외치는 모습. Hori(아기 호랑이)는 오른쪽에서 엄마를 마주 보며 한 손을 펴 앞으로 내밀고 씩씩하게 따라 외치는 야무진 표정, 눈을 반짝.<br/><b>배경·소품</b> 현관 신발장과 걸린 모자, 호리의 작은 가방과 신발, 창밖 아침 햇살, 벽에 걸린 가족 사진.<br/><b>톤</b> 화창한 아침 자연광, 채도 높고 밝은 색감, 함께 약속을 다지는 든든하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>문제(놀이터에서 혼자)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">놀이터에 도착한 호리는 신나게 모래놀이를 했어요. 엄마는 벤치에 앉아 지켜보고 있었죠. 호리가 모래성에 푹 빠져 있을 때, 저쪽에서 낯선 아저씨가 방긋 웃으며 다가왔어요. "꼬마야, 여기 좀 볼래?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 모래놀이하는 호리에게 낯선 어른이 다가오는 컷.<br/><b>장소·시간</b> 동네 놀이터 모래밭, 화창한 오전. 파란 하늘에 뭉게구름, 미끄럼틀과 그네가 있는 밝고 안전한 공기.<br/><b>인물</b> Hori는 화면 앞쪽 중앙에서 모래밭에 쪼그려 앉아 두 손으로 모래성을 쌓으며 놀이에 푹 빠진 즐거운 표정. unfamiliar grown-up(낯선 아저씨, 평범하고 웃는 얼굴의 어른 동물)은 화면 오른쪽에서 허리를 살짝 숙여 호리에게 방긋 웃으며 한 손을 흔들어 부름, 전혀 위협적이거나 무섭지 않고 그냥 평범하게 웃는 얼굴. 화면 왼쪽 뒤 벤치에 Mom tiger가 앉아 호리를 지켜보고 있음(조금 떨어진 거리).<br/><b>배경·소품</b> 모래밭과 모래성, 작은 삽과 양동이, 뒤로 미끄럼틀·그네·정글짐, 벤치에 앉은 엄마, 화단의 꽃.<br/><b>톤</b> 화창한 오전 조명, 밝고 안전한 놀이터 분위기(전혀 어둡거나 불안하지 않게), 호리는 즐겁고 아저씨는 그저 평범하게 웃음.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>유혹(사탕 줄게)</b> <span class="tag">문제</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 알록달록한 사탕을 손에 들고 흔들었어요. "저기 저쪽에 강아지도 있고 장난감도 많아. 아저씨 따라오면 이 사탕 줄게." 호리는 사탕을 보고 잠깐 눈이 동그래졌어요. '어? 따라가도 될까…?'</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 앵글. 아저씨가 사탕을 내밀고 호리가 잠깐 망설이는 컷.<br/><b>장소·시간</b> 놀이터 모래밭 가장자리, 오전. 밝은 햇살 아래.<br/><b>인물</b> unfamiliar grown-up은 화면 왼쪽에서 한 손에 알록달록한 사탕 몇 개를 쥐고 살랑살랑 흔들며 방긋 웃음, 여전히 평범하고 부드러운 인상(무섭지 않게). Hori는 오른쪽에서 모래밭에 앉은 채 사탕을 바라보며 눈이 동그래지고 입을 살짝 벌린 잠깐의 망설임 표정, 머리 위에 작은 물음표.<br/><b>배경·소품</b> 아저씨 손의 알록달록한 사탕(반짝이는 유혹), 호리 머리 위 작은 물음표, 모래성과 삽, 뒤로 놀이터 기구.<br/><b>톤</b> 밝은 오전 조명, 잠깐의 갈등을 담되 위협감 없이 밝고 안전한 정서, 물음표로 "따라가도 될까?" 하는 망설임만 표현.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>전환(약속의 말이 떠올라)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바로 그때, 호리는 아침에 엄마와 한 약속이 번쩍 떠올랐어요. '모르는 어른이 따라오라고 하면— 싫어요! 안 돼요! 엄마한테 말해요!' 호리는 사탕에서 눈을 딱 떼고, 두 발로 땅을 꾹 딛었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨 정면. 약속의 말을 떠올리며 마음을 다잡는 호리.<br/><b>장소·시간</b> 놀이터 모래밭, 오전. 밝은 햇살.<br/><b>인물</b> Hori는 화면 중앙에서 벌떡 일어서며 사탕에서 눈을 딱 떼고 정면을 야무지게 바라보는 결의의 표정, 두 발을 땅에 꾹 딛고 두 주먹을 살짝 쥠. 머리 위 상상 말풍선 대신 부드러운 회상 이미지처럼 아침의 엄마와 손 잡은 장면이 작고 동그랗게 떠오름(엄마와 손 잡은 실루엣).<br/><b>배경·소품</b> 호리 머리 위 동그란 회상 이미지(아침 엄마와의 약속 장면), 모래성, 뒤로 흐릿하게 선 낯선 아저씨(초점 밖), 놀이터 기구.<br/><b>톤</b> 밝은 오전 조명에 호리에게 시선이 모이는 강조, 망설임이 용기로 바뀌는 씩씩하고 결연한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>발견(싫어요!)</b> <span class="tag">발견 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 고개를 절레절레 흔들며 큰 소리로 외쳤어요. "싫어요!" 손바닥을 쫙 펴 앞으로 내밀고 한 걸음 뒤로 물러섰어요. "저는 모르는 사람 안 따라가요!" 목소리가 놀이터에 쩌렁쩌렁 울렸어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 손바닥을 펴 "싫어요!" 외치는 씩씩한 호리.<br/><b>장소·시간</b> 놀이터 모래밭, 오전. 밝고 환한 햇살.<br/><b>인물</b> Hori는 화면 중앙에서 한 손바닥을 쫙 펴 앞으로 힘차게 내밀고 고개를 절레절레 돌리며 입을 크게 벌려 "싫어요!" 외치는 당차고 씩씩한 표정, 한 발은 뒤로 물러서는 자세. unfamiliar grown-up은 화면 왼쪽에서 사탕 든 손을 멈칫 내리며 살짝 당황해 어색하게 웃는 표정(여전히 무섭지 않게, 물러나는 분위기).<br/><b>배경·소품</b> 호리가 내민 손바닥 둘레에 힘찬 강조선, 아저씨 사탕은 힘을 잃은 듯 아래로, 모래성, 뒤로 놀이터 기구.<br/><b>톤</b> 밝고 환한 오전 조명, 당당하게 거절하는 씩씩하고 통쾌한 정서, 호리가 주인공으로 화면을 꽉 채움.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>프레임 전환(안 돼요!)</b> <span class="tag">전환 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 한 발 더 다가오려 하자, 호리는 더 크게 외쳤어요. "안 돼요! 따라 안 가요!" 그리고 몸을 홱 돌려 엄마가 있는 쪽으로 달릴 준비를 했어요. 마음속으로 세 가지 약속을 또박또박— 싫어요! 안 돼요! 엄마한테 말해요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. "안 돼요!" 외치며 몸을 돌려 달릴 준비를 하는 호리.<br/><b>장소·시간</b> 놀이터 모래밭, 오전. 밝은 햇살.<br/><b>인물</b> Hori는 화면 중앙에서 두 손을 앞으로 펴 "안 돼요!" 하듯 단호하게 내밀면서 상체는 엄마 쪽(화면 오른쪽)으로 홱 돌려 달릴 준비를 하는 야무진 표정, 발끝이 이미 엄마 방향. unfamiliar grown-up은 화면 왼쪽에서 두 손을 어정쩡하게 든 채 더 다가오지 못하고 멈춰 서서 겸연쩍은 표정(위협감 없이).<br/><b>배경·소품</b> 호리 발끝의 움직임 선(엄마 쪽으로), 멀리 벤치에 앉은 Mom tiger가 보임, 모래성, 놀이터 기구.<br/><b>톤</b> 밝은 오전 조명, 단호하게 거절하고 안전한 쪽으로 향하는 씩씩하고 결연한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>도전(엄마에게 달려가!)</b> <span class="tag">도전 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 뒤도 안 돌아보고 엄마에게 쏜살같이 달려갔어요. "엄마! 저기 모르는 아저씨가 사탕 줄 테니 따라오래요!" 엄마가 얼른 두 팔을 활짝 벌려 호리를 꼭 안았어요. "잘했어, 우리 호리! 정말 잘했어!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 엄마 품으로 달려가 안기는 결정적 순간.<br/><b>장소·시간</b> 놀이터 벤치 앞, 오전. 밝고 안전한 햇살.<br/><b>인물</b> Hori는 화면 중앙에서 두 팔을 활짝 벌리고 엄마를 향해 힘껏 달려가 안기는 순간, 입을 크게 벌려 "엄마!" 부르며 안심과 씩씩함이 섞인 표정, 뒤쪽 낯선 아저씨를 손으로 가리킴. Mom tiger는 화면 오른쪽에서 벤치에서 일어나 두 팔을 활짝 벌려 호리를 폭 안으며 안심시키는 다정하고 든든한 미소. 화면 왼쪽 먼 뒤에 unfamiliar grown-up이 어색하게 자리를 뜨는 뒷모습(작게, 위협감 없이).<br/><b>배경·소품</b> 엄마 품을 향한 호리의 달리기 속도선, 호리가 가리키는 방향, 벤치, 놀이터 기구, 파란 하늘.<br/><b>톤</b> 밝고 상쾌한 오전 조명, 안전한 어른에게 달려가 안기는 안심되고 뭉클한 정서, 통쾌하고 든든한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>변화(해냈어!)</b> <span class="tag">변화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엄마는 호리를 꼭 안고 등을 토닥토닥. "약속의 말을 세 마디나 지켰네! 우리 호리가 스스로를 지켰어!" 호리는 어깨가 으쓱, 마음이 뿌듯해요. 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! 해냈어요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 엄마 품에 안겨 뿌듯해하는 호리, 꼬리의 무지개 반짝임.<br/><b>장소·시간</b> 놀이터 벤치 앞, 오전. 밝고 생기 넘치는 햇살.<br/><b>인물</b> Mom tiger는 화면 왼쪽에서 한쪽 무릎을 굽혀 앉아 두 팔로 Hori를 폭 안고 한 손으로 등을 토닥이며 자랑스럽고 다정하게 웃음. Hori는 엄마 품에 안겨 어깨가 으쓱, 두 눈을 반달로 접으며 가장 환하게 웃는 뿌듯한 표정. 이 성공의 순간 Hori의 꼬리 줄무늬가 무지개빛으로 반짝이며 부릉— 하는 시그니처 반짝임이 터짐.<br/><b>배경·소품</b> 두 사람 둘레에 축하하는 색색 반짝이가 팡 흩날림, 특히 호리 꼬리의 무지개 반짝임, 벤치, 놀이터 기구, 파란 하늘.<br/><b>톤</b> 밝은 오전 조명에 폭죽처럼 튀는 반짝임으로 성취의 기쁨을 강조, 뿌듯하고 사랑스러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>적용(세 약속 척척)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 호리는 약속의 말 세 마디를 척척 알아요. 하나, 싫으면 큰 소리로 "싫어요!" 둘, 따라 안 가고 "안 돼요!" 셋, 얼른 엄마한테 말해요! 친구 토토에게도 알려 주었어요. "우리 같이 연습하자!" 둘은 손바닥을 마주치며 외쳤어요. 싫어요! 안 돼요! 엄마한테 말해요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리와 토토가 약속의 말을 연습하고, 옆에 세 칸 약속 그림표.<br/><b>장소·시간</b> 놀이터 한쪽, 낮. 밝고 산뜻한 오후 햇살.<br/><b>인물</b> Hori는 화면 왼쪽에서 한 손바닥을 펴 앞으로 내밀며 씩씩하게 약속의 말을 외치는 야무진 표정. Toto(흰 토끼, 빨간 손수건)는 오른쪽에서 호리를 따라 손바닥을 펴 마주 대며 방긋 웃는 신난 표정, 둘이 손바닥을 마주침.<br/><b>배경·소품</b> 옆 안내판에 세 칸짜리 약속 그림표 — 왼쪽 칸: 손바닥을 쫙 펴 거절하는 그림, 가운데 칸: 등 돌려 달아나는 발자국 그림, 오른쪽 칸: 엄마에게 달려가 손을 잡는 그림. 세 칸 모두 글자·숫자 없이 동글동글한 그림 아이콘만. 놀이터 기구, 잔디밭.<br/><b>톤</b> 밝고 명랑한 오후 조명, 약속을 친구와 나누는 든든하고 씩씩한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(자기수용 + 후렴)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집에 돌아와 엄마가 호리를 꼭 안아 주었어요. "우리 호리, 스스로를 지켜서 정말 자랑스러워!" 이제 호리는 알아요. 모르는 어른이 뭘 준다고 해도 따라가지 않고, 씩씩하게 말한다는 걸. 싫어요! 안 돼요! 엄마한테 말해요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 엄마가 호리를 폭 안아 주는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 호리네 집 거실, 늦은 오후. 창으로 든 노란 저녁 햇살로 포근하고 환한 공기.<br/><b>인물</b> Mom tiger는 한쪽 무릎을 굽혀 앉아 두 팔로 Hori를 폭 껴안고 볼을 맞대며 흐뭇하고 자랑스럽게 미소. Hori는 엄마 품에 안겨 두 팔을 엄마 목에 두르고 눈을 반달로 접으며 활짝 웃는 개운하고 행복한 표정.<br/><b>배경·소품</b> 두 사람 머리 위로 작은 별 모양 반짝임 몇 개, 벽에 걸린 세 칸 약속 그림표 미니 액자(거절·등 돌리기·엄마에게 달려가기 그림 아이콘만), 거실 소파와 창밖 저녁 노을.<br/><b>톤</b> 따뜻한 저녁 햇살이 두 사람을 감싸는 뭉클하고 사랑스러운 정서, 안심되고 포근한 마무리 분위기.</pre></details>
+</div>
+
+<footer>호리네 생활동화 · 싫어요! 안 돼요! 엄마한테 말해요! · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"stranger","name":"낯선 아저씨","aliases":["unfamiliar grown-up","stranger","natseon-ajeossi"],"desc":"평범하고 웃는 얼굴의 어른 동물(예: 둥글둥글한 너구리나 곰이 아닌 다른 종의 통통한 어른) — 전혀 무섭거나 위협적이지 않고, 그냥 평범하게 방긋 웃는 인상. 수수한 외투와 모자 차림, 한 손에 알록달록한 사탕 몇 개나 작은 장난감을 들고 있음. 표정은 온화하지만 아이가 따라가서는 안 되는 '모르는 어른'을 나타냄. 어둡거나 그늘진 연출·험상궂은 표정 절대 금지, 밝고 안전한 톤 유지"}]</script>
+<script src="/saenghwal-core.js"></script>
+</body>
+</html>
