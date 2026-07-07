@@ -62,6 +62,19 @@ function addKoreanFinalAliases(map: Map<string, string>): void {
   }
 }
 
+function buildPhonicsMap(lib: PhonicsLibrary, modules: ModuleKey[]): Map<string, string> {
+  const map = new Map<string, string>();
+  for (const mod of modules) {
+    const items = lib[mod];
+    if (!Array.isArray(items)) continue; // 방어 — 부분 shape 시 skip
+    for (const item of items) {
+      if (!map.has(item.sound)) map.set(item.sound, item.url);
+    }
+  }
+  if (modules.includes('mod_korean')) addKoreanFinalAliases(map);
+  return map;
+}
+
 interface PhonicsMapResult {
   /** sound → R2 URL 맵. ref 라 변경 시 re-render X. */
   mapRef: MutableRefObject<Map<string, string>>;
@@ -80,24 +93,24 @@ interface PhonicsMapResult {
  * modules 순서대로 로드하며, 먼저 등록된 sound 가 우선 (중복 시 첫 entry 유지).
  */
 export function usePhonicsMap(modules: ModuleKey[]): PhonicsMapResult {
+  // 최초 렌더에서 캐시를 동기 로드 — 캐시 hit 이면 loading=false 로 시작해 첫 프레임 로딩 플래시 제거.
+  // (modules 는 caller 가 매번 새 array 를 넘기지만 내용은 고정이라 첫 값으로 캡처)
+  const modulesRef = useRef(modules);
   const mapRef = useRef<Map<string, string>>(new Map());
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(() => {
+    const cached = loadCachedLibrary();
+    if (cached) {
+      mapRef.current = buildPhonicsMap(cached, modulesRef.current);
+      return false;
+    }
+    return true;
+  });
 
   useEffect(() => {
     let cancelled = false;
 
-    const buildMap = (lib: PhonicsLibrary): Map<string, string> => {
-      const map = new Map<string, string>();
-      for (const mod of modules) {
-        const items = lib[mod];
-        if (!Array.isArray(items)) continue; // 방어 — 부분 shape 시 skip
-        for (const item of items) {
-          if (!map.has(item.sound)) map.set(item.sound, item.url);
-        }
-      }
-      if (modules.includes('mod_korean')) addKoreanFinalAliases(map);
-      return map;
-    };
+    const buildMap = (lib: PhonicsLibrary): Map<string, string> =>
+      buildPhonicsMap(lib, modulesRef.current);
 
     const prefetchTop100 = (map: Map<string, string>): void => {
       void (async () => {

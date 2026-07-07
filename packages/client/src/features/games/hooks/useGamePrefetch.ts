@@ -4,6 +4,44 @@ import { resolveTtsUrl } from '@/features/tts';
 /** 로딩 게이트가 무한정 걸리지 않도록 하는 상한(ms) — 네트워크가 느려도 이 시간 뒤엔 시작. */
 const PREWARM_MAX_MS = 6000;
 
+// ─────────────────────────────────────────────────────────────────
+// 워밍 플래그 — "이미 프리페치한 오디오"를 기록해 재진입 시 로딩 게이트를 스킵한다.
+// 세션(모듈 Set) + localStorage(리로드에도 유지). URL/토큰이 이미 warmed 면 fetch 없이 즉시 통과.
+// (실제 바이트는 HTTP force-cache 에 있고, 이 플래그는 "받아둔 적 있음"을 표시한다.)
+// ─────────────────────────────────────────────────────────────────
+const WARM_KEY = 'tangobook-warmed-audio-v1';
+const WARM_CAP = 4000;
+
+function loadWarmed(): string[] {
+  try {
+    const raw = localStorage.getItem(WARM_KEY);
+    const arr = raw ? JSON.parse(raw) : [];
+    return Array.isArray(arr) ? arr : [];
+  } catch {
+    return [];
+  }
+}
+
+const warmed = new Set<string>(loadWarmed());
+let warmDirty = false;
+
+function markWarm(token: string): void {
+  if (!token || warmed.has(token)) return;
+  warmed.add(token);
+  warmDirty = true;
+}
+
+function persistWarmed(): void {
+  if (!warmDirty) return;
+  warmDirty = false;
+  try {
+    // 최근 WARM_CAP 개만 유지 (무한 성장 방지)
+    localStorage.setItem(WARM_KEY, JSON.stringify([...warmed].slice(-WARM_CAP)));
+  } catch {
+    /* quota/disabled — ignore */
+  }
+}
+
 /**
  * 게임 시작 시 이번 판 이미지 전부 워밍 — 라운드 진입 순간의 로드 지연 방지.
  * (단어 이미지는 수백 KB 급이라 온디맨드 로드 시 눈에 띄게 늦게 뜸 — 2026-07-03)
@@ -34,7 +72,8 @@ interface PrewarmItem {
  * 한글은 서버 concat(음절 합성→R2 업로드)이 처음엔 느려서, 정답 때가 아니라 지금 만들어 둔다.
  * 결과 URL 은 no-cors 프리페치로 HTTP 캐시에도 적재.
  *
- * 반환 `ready` = 이번 판 단어 TTS 프리워밍 완료(또는 상한 타임아웃). 게임 시작 로딩 게이트에 사용.
+ * 반환 `ready` = 프리워밍 완료(또는 이미 warmed 라 즉시). 게임 시작 로딩 게이트에 사용.
+ * **이미 워밍한 단어 세트면 게이트 없이 즉시 ready=true** (재진입 시 로딩 반복 X).
  *
  * ⚠️ identifierPrefix 는 정답 시 resolveTtsUrl 호출과 **동일해야** 서버 캐시 키가 일치한다.
  */
@@ -44,23 +83,29 @@ export function usePrewarmWordTts(
   storybookId: string | undefined,
   identifierPrefix: string
 ): { ready: boolean } {
-  const key = items.map((i) => i.text + ' ' + (i.directUrl ?? '')).join('|');
-  const [ready, setReady] = useState(false);
+  const tokens = items.map(
+    (i) => `tts|${identifierPrefix}|${storybookId ?? ''}|${i.text}|${i.directUrl ?? ''}`
+  );
+  const key = tokens.join('|');
+  const alreadyWarm = !storybookId || items.length === 0 || tokens.every((t) => warmed.has(t));
+  const [ready, setReady] = useState(alreadyWarm);
+
   useEffect(() => {
-    // 프리워밍할 게 없으면(소스 책 없음/빈 판) 바로 준비 완료 — 게이트가 걸리지 않게.
-    if (!storybookId || items.length === 0) {
+    if (!storybookId || items.length === 0 || tokens.every((t) => warmed.has(t))) {
       setReady(true);
       return;
     }
     setReady(false);
     let alive = true;
-    // 상한 타이머 — 느린 네트워크에서도 게임이 멈추지 않도록.
     const cap = setTimeout(() => {
       if (alive) setReady(true);
     }, PREWARM_MAX_MS);
     void (async () => {
-      for (const it of items) {
+      for (let i = 0; i < items.length; i++) {
         if (!alive) return;
+        const it = items[i];
+        const token = tokens[i];
+        if (warmed.has(token)) continue;
         try {
           const url = await resolveTtsUrl({
             text: it.text,
@@ -69,14 +114,17 @@ export function usePrewarmWordTts(
             directUrl: it.directUrl,
             identifierPrefix,
           });
-          if (alive && url)
+          if (alive && url) {
             await fetch(url, { cache: 'force-cache', mode: 'no-cors' }).catch(() => {});
+          }
+          markWarm(token);
         } catch {
           // best-effort — 실패해도 정답 시 원래 경로로 resolve
         }
       }
       if (alive) {
         clearTimeout(cap);
+        persistWarmed();
         setReady(true);
       }
     })();
@@ -92,16 +140,19 @@ export function usePrewarmWordTts(
 /**
  * 미리 정해진 URL 목록(예: 이번 판 음절 mp3)을 프리페치하고 완료 여부를 반환하는 게이트.
  * enabled=false 동안엔 대기(예: phonics 맵 로딩 중). 상한 타이머로 무한 대기 방지.
+ * **이미 warmed 된 URL 만 있으면 즉시 ready=true** (재진입 시 로딩 반복 X).
  */
 export function usePrefetchUrlsGate(urls: string[], enabled: boolean): { ready: boolean } {
   const key = urls.join('|');
-  const [ready, setReady] = useState(false);
+  const allWarm = urls.length === 0 || urls.every((u) => warmed.has(u));
+  const [ready, setReady] = useState(enabled && allWarm);
+
   useEffect(() => {
     if (!enabled) {
       setReady(false);
       return;
     }
-    if (urls.length === 0) {
+    if (urls.length === 0 || urls.every((u) => warmed.has(u))) {
       setReady(true);
       return;
     }
@@ -110,11 +161,17 @@ export function usePrefetchUrlsGate(urls: string[], enabled: boolean): { ready: 
     const cap = setTimeout(() => {
       if (alive) setReady(true);
     }, PREWARM_MAX_MS);
+    const missing = urls.filter((u) => !warmed.has(u));
     void Promise.all(
-      urls.map((u) => fetch(u, { cache: 'force-cache', mode: 'no-cors' }).catch(() => {}))
+      missing.map((u) =>
+        fetch(u, { cache: 'force-cache', mode: 'no-cors' })
+          .then(() => markWarm(u))
+          .catch(() => {})
+      )
     ).then(() => {
       if (alive) {
         clearTimeout(cap);
+        persistWarmed();
         setReady(true);
       }
     });

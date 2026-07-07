@@ -111,8 +111,10 @@ function LineMatchingPlayerInner({
     }
     return [...urls];
   }, [phonicsLoading, items, phonicsMapRef]);
-  // 게임 시작 게이트 — 이번 판 음절/단어 mp3 프리페치 완료 후 인터랙션 허용.
-  const { ready: audioReady } = usePrefetchUrlsGate(prefetchUrls, !phonicsLoading);
+  // 음절 mp3 는 백그라운드 워밍(짝 맞추기까지 수초 여유). 게이트는 phonics 맵 로드만 —
+  // localStorage 캐시 hit 시 즉시라 재진입 시 로딩이 반복되지 않는다.
+  usePrefetchUrlsGate(prefetchUrls, !phonicsLoading);
+  const audioReady = !phonicsLoading;
 
   // 단어 음원 — 한글은 음절 단위 mp3 순차 재생 (서버 concat / ffmpeg 의존성 X).
   // 영어는 ttsUrl 우선 → 없으면 phonics 단일 mp3 lookup.

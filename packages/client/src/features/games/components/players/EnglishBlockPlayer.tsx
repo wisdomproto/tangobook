@@ -70,7 +70,8 @@ function EnglishBlockPlayerInner({
 
   // 이번 판 자산 워밍 — 라운드 진입 시 이미지 지연 + 정답 시 TTS 지연 방지
   usePreloadImages(items.map((it) => it.imageUrl));
-  const { ready: wordTtsReady } = usePrewarmWordTts(
+  // 단어 TTS 는 정답 때 필요 → 게이트로 막지 않고 백그라운드 워밍 (매 진입 랜덤 단어라 재로딩 방지).
+  usePrewarmWordTts(
     items.map((it) => ({ text: it.word, directUrl: it.ttsUrl })),
     'english',
     storybookId,
@@ -119,8 +120,8 @@ function EnglishBlockPlayerInner({
     'mod_phonics',
     'mod_english',
   ]);
-  // 게임 시작 게이트 — 맵 로드 + 단어 발음 프리워밍 완료 후 인터랙션 허용.
-  const audioReady = !phonicsLoading && wordTtsReady;
+  // 게임 시작 게이트 — 맵 로드만(캐시 hit 시 즉시). 단어 발음은 백그라운드 워밍.
+  const audioReady = !phonicsLoading;
   const drag = useBlockDrag<LetterBlock>({
     createGhost: createEnglishGhost,
     ghostOffset: [26, 32],
