@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import type { PointerEvent as ReactPointerEvent, SyntheticEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { GamePlayerProps } from '../../registry/game-registry';
@@ -6,6 +6,7 @@ import type { ConnectTheDotsData, ConnectTheDotsItem } from '@tangobook/shared';
 import { getEffectiveVocabulary } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
+import { FeedbackOverlay } from '../FeedbackOverlay';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { usePreloadImages } from '../../hooks/useGamePrefetch';
 import { GamePlayerLayout } from '../GamePlayerLayout';
@@ -34,14 +35,16 @@ import { useGameLogger } from '@/features/learning';
 const PAINT_COLOR = '#10b981'; // emerald
 const MASK_COLOR = 'rgba(160, 160, 160, 0.45)'; // 반투명 회색 — 안 칠한 영역
 const POLYGON_OUTLINE = '#FF6F61'; // coral — polygon 윤곽선
-const THRESHOLD = 0.85; // 85% 채우면 통과 — 두꺼운 펜이라 도달 쉬움
+const THRESHOLD = 0.95; // 95% 채우면 통과 — 그림을 거의 다 칠해야 완성 인정
 const PEN_RATIO = 0.08; // canvas width 대비 펜 두께 비율 (~8%)
 const DOT_RADIUS_PX = 14; // 점 표시 (참고용, interaction X)
 
 function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: GamePlayerProps) {
   const data = gameData as ConnectTheDotsData;
-  // polygon 칠하기 위해 최소 3점 필요
-  const items = data.items.filter((it) => it.keypoints.length >= 3);
+  // polygon 칠하기 위해 최소 3점 필요.
+  // ⚠️ memoize 필수 — 매 렌더 새 배열이면 sortedKps→drawMask useCallback 신원이 매번 바뀌어
+  //    reset useEffect 가 매 렌더 실행되고 clearRect 로 방금 칠한 paint 를 지운다(→ 0% 고정).
+  const items = useMemo(() => data.items.filter((it) => it.keypoints.length >= 3), [data]);
 
   // 이번 판 원본 이미지 워밍 — 라운드 진입 시 로드 지연 방지
   usePreloadImages(items.map((it) => it.originalImageUrl));
@@ -60,10 +63,10 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
   const lastPointRef = useRef<{ x: number; y: number } | null>(null);
   const maskPixelsRef = useRef(0);
   const completedRef = useRef(false); // pointer handler 내부 stale closure 회피
+  const drawMaskRef = useRef<() => void>(() => {}); // reset effect 가 매 렌더 재실행되지 않게 (아래서 최신 drawMask 주입)
+  const revealTimerRef = useRef<number | null>(null); // 완성본 감상 후 칭찬 시퀀스 예약 타이머
 
-  const { playWordCorrect, playFeedbackSound: _playFeedback } = useGameAudio();
-  // 색칠 게임에서 오답 음원 사용 X — TypeScript 미사용 경고 회피
-  void _playFeedback;
+  const { playCorrectSequence, praiseVisible } = useGameAudio();
   const logGame = useGameLogger();
 
   const [searchParams] = useSearchParams();
@@ -96,7 +99,10 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
 
   const currentItem: ConnectTheDotsItem | undefined = items[itemIdx];
 
-  const sortedKps = currentItem ? [...currentItem.keypoints].sort((a, b) => a.order - b.order) : [];
+  const sortedKps = useMemo(
+    () => (currentItem ? [...currentItem.keypoints].sort((a, b) => a.order - b.order) : []),
+    [currentItem]
+  );
 
   /** polygon mask + 윤곽선 그리기, mask 픽셀 수 측정 */
   const drawMask = useCallback(() => {
@@ -139,6 +145,9 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
     }
     maskPixelsRef.current = count;
   }, [sortedKps]);
+  // 최신 drawMask 를 ref 로 보관 — reset useEffect 가 drawMask 신원 변화에 재실행되어
+  // clearRect 로 paint 를 지우는 걸 막는다(itemIdx 변경 시에만 mask 재생성).
+  drawMaskRef.current = drawMask;
 
   const measureCoverage = useCallback((): number => {
     const canvas = canvasRef.current;
@@ -221,8 +230,15 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
     if (completedRef.current) return;
     completedRef.current = true;
     setCompleted(true);
-    setTimeout(() => setShowImage(true), 300);
 
+    // 1) 완성본을 깨끗하게 보여주기 — canvas(paint + 회색 mask + 윤곽선)를 지우고 이미지 완전 불투명.
+    //    점 표시(dots)도 completed 시 숨김 → 아이가 자기가 완성한 그림을 온전히 감상.
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    if (canvas && ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setShowImage(true);
+
+    // 단어 오디오 준비 (칭찬 시퀀스에서 단어 발음으로 사용)
     const target = resolveSpeakTarget(currentItem?.objectName);
     let wordAudioUrl: string | undefined;
     if (target && currentItem) {
@@ -241,28 +257,37 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
         identifierPrefix: 'dot',
       });
     }
-    playWordCorrect({
-      ttsUrl: wordAudioUrl,
-      onDone: () => {
-        // 완성한 단어가 나오는 동화 장면 + 나레이션 리빌 (있으면), 없으면 다음.
-        const s = target
-          ? resolveSceneFromWord(
-              target.text,
-              target.language === 'korean' ? 'ko' : 'en',
-              storybook,
-              gameStyle.selectedStyle
-            )
-          : null;
-        if (s) setScene(s);
-        else advanceToNext();
-      },
-    });
+
+    const proceed = () => {
+      // 3) 완성한 단어가 나오는 동화 장면 + 나레이션 리빌 (있으면), 없으면 다음.
+      const s = target
+        ? resolveSceneFromWord(
+            target.text,
+            target.language === 'korean' ? 'ko' : 'en',
+            storybook,
+            gameStyle.selectedStyle
+          )
+        : null;
+      if (s) setScene(s);
+      else advanceToNext();
+    };
+
+    // 2) 완성본을 잠깐(1.1s) 감상 → 칭찬(효과음 + 호리 오버레이 + 단어 발음 + 칭찬 음원) → 장면.
+    const t = window.setTimeout(() => {
+      revealTimerRef.current = null;
+      playCorrectSequence({
+        ttsUrl: wordAudioUrl,
+        language: target?.language === 'korean' ? 'ko' : 'en',
+        onDone: proceed,
+      });
+    }, 1100);
+    revealTimerRef.current = t;
   }, [
     currentItem,
     resolveSpeakTarget,
     storybook,
     storybookId,
-    playWordCorrect,
+    playCorrectSequence,
     advanceToNext,
     gameStyle.selectedStyle,
   ]);
@@ -280,7 +305,8 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
     [drawMask]
   );
 
-  // currentItem 변경 시 reset
+  // currentItem(=itemIdx) 변경 시에만 reset — deps 에 drawMask 를 넣으면 매 렌더 재실행돼
+  // 방금 칠한 paint 를 clearRect 로 지워 0% 에 고정된다(2026-07-07 버그 fix). ref 로 최신 접근.
   useEffect(() => {
     completedRef.current = false;
     setCoverage(0);
@@ -288,9 +314,9 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
     setShowImage(false);
     // mask는 image onLoad 에서 다시 그림. 캔버스 사이즈가 이미 정해진 경우 즉시 redraw.
     if (canvasRef.current && canvasRef.current.width > 0) {
-      drawMask();
+      drawMaskRef.current();
     }
-  }, [itemIdx, drawMask]);
+  }, [itemIdx]);
 
   // pointer up 글로벌 (canvas 밖에서 떼도 안전)
   useEffect(() => {
@@ -311,6 +337,13 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
       window.removeEventListener('pointercancel', up);
     };
   }, [measureCoverage, triggerComplete]);
+
+  // 언마운트 시 완성본 감상 타이머 정리 (뒤로가기 중 칭찬 시퀀스가 늦게 뜨는 것 방지)
+  useEffect(() => {
+    return () => {
+      if (revealTimerRef.current != null) window.clearTimeout(revealTimerRef.current);
+    };
+  }, []);
 
   const toCanvas = (e: ReactPointerEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current!;
@@ -446,21 +479,22 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
               onPointerMove={handlePointerMove}
             />
 
-            {/* 점 시각 표시 (참고용, interaction X) */}
+            {/* 점 시각 표시 (참고용, interaction X). 완성 시 숨겨 깨끗한 완성본 감상. */}
             <div className="absolute inset-0 pointer-events-none">
-              {sortedKps.map((kp, i) => (
-                <div
-                  key={i}
-                  className="absolute rounded-full bg-coral-500 ring-2 ring-white shadow-pop"
-                  style={{
-                    left: `${kp.x * 100}%`,
-                    top: `${kp.y * 100}%`,
-                    width: DOT_RADIUS_PX * 2,
-                    height: DOT_RADIUS_PX * 2,
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                />
-              ))}
+              {!completed &&
+                sortedKps.map((kp, i) => (
+                  <div
+                    key={i}
+                    className="absolute rounded-full bg-coral-500 ring-2 ring-white shadow-pop"
+                    style={{
+                      left: `${kp.x * 100}%`,
+                      top: `${kp.y * 100}%`,
+                      width: DOT_RADIUS_PX * 2,
+                      height: DOT_RADIUS_PX * 2,
+                      transform: 'translate(-50%, -50%)',
+                    }}
+                  />
+                ))}
             </div>
           </div>
         </div>
@@ -489,6 +523,8 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
           </div>
         )}
       </div>
+      {/* 칭찬 오버레이 — 완성본 감상 후 호리 cheering + confetti + "잘했어!" */}
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
       {scene && (
         <SceneReveal
           illustrationUrl={scene.illustrationUrl}
