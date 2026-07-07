@@ -12,7 +12,6 @@ const CANVAS_W = 720;
 const CANVAS_H = 360;
 const LINE_WIDTH = 56;
 const GUIDE_COLOR = '#e5e7eb'; // gray-200 글자 가이드
-const DONE_COLOR = '#FF7A3C'; // 완료된 음절 재도색 색 (coral)
 const PAINT_COLOR = '#10b981'; // emerald — 칠하는 중
 const HANGUL_RE = /[ㄱ-ㆎ가-힣]/;
 
@@ -118,10 +117,8 @@ export function WordFillCanvas({
       const r = img[p];
       const g = img[p + 1];
       const b = img[p + 2];
-      // emerald(초록 우세) = 사용자가 칠한 영역. 완료 재도색(coral)도 칠한 것으로 간주.
-      const isPaint = g > r + 20 && g > b + 20;
-      const isDone = r > g + 20 && r > b; // coral
-      if (!isPaint && !isDone) continue;
+      // emerald(초록 우세) = 사용자가 칠한 영역.
+      if (!(g > r + 20 && g > b + 20)) continue;
       const px = (p / 4) % CANVAS_W;
       for (let i = 0; i < ranges.length; i++) {
         if (px >= ranges[i].start && px < ranges[i].end) {
@@ -134,12 +131,7 @@ export function WordFillCanvas({
       if (doneRef.current[i]) continue;
       if (ranges[i].guide > 0 && painted[i] / ranges[i].guide >= threshold) {
         doneRef.current[i] = true;
-        // 완료 음절을 coral 로 재도색해 "완료" 시각 표시 (source-atop)
-        ctx.save();
-        ctx.globalCompositeOperation = 'source-atop';
-        ctx.fillStyle = DONE_COLOR;
-        ctx.fillRect(ranges[i].start, 0, ranges[i].end - ranges[i].start, CANVAS_H);
-        ctx.restore();
+        // 완성해도 자동 재도색하지 않는다 (요청) — 사용자가 칠한 emerald 그대로 유지.
         setDoneCount(doneRef.current.filter(Boolean).length);
         onSyllableDone?.(syllables[i], i);
       }

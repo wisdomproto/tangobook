@@ -14,6 +14,7 @@ import { switchStyleAssets, findArtStylePreset } from '@/features/editor/lib/sty
 import { syncBookPublicAfterCellToggle } from '@/features/library/lib/public-sync';
 import { settingsApi } from '@/features/settings/api/settings.api';
 import { StyleLibraryEditModal } from '@/features/settings/components/StyleLibraryEditModal';
+import { useStyleGenreMap, STYLE_GENRES, type StyleGenreSlug } from '@/lib/art-style-genre';
 
 interface LevelInfo {
   label: string;
@@ -253,6 +254,8 @@ function CardBody({
     staleTime: 60_000,
   });
   const [styleEditOpen, setStyleEditOpen] = useState(false);
+  // 학습자용 그림체 장르(수채동화풍/페이퍼3D/콜라주) 수동 지정 — styleId 전역 맵.
+  const { map: styleGenreMap, setGenre } = useStyleGenreMap();
 
   // 그림체 정규화 — storybook 없을 땐 빈 array
   const allStyles = useMemo(() => {
@@ -430,6 +433,49 @@ function CardBody({
           >
             ⚙️ 그림체 편집
           </button>
+        </div>
+      </div>
+
+      {/* 학습자 장르 지정 row — 각 그림체를 학습자에게 보여줄 장르(수채동화풍/페이퍼3D/콜라주)로 매핑.
+          전역 styleId→장르 맵에 저장돼 라이브러리 표지·책 상세·게임 라벨에 반영됨. */}
+      <div className="px-5 py-2 bg-amber-50/60 dark:bg-slate-800/40 border-b border-slate-200 dark:border-slate-700 text-xs">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-[10px] font-bold text-amber-700 uppercase mr-1">학습자 장르</span>
+          {allStyles.map((styleId) => {
+            const preset = findArtStylePreset(styleId, styleLibrary);
+            const label = preset?.label ?? '커스텀';
+            const current = styleGenreMap[styleId] ?? '';
+            return (
+              <label
+                key={styleId}
+                className="flex items-center gap-1 bg-white dark:bg-slate-800 rounded px-1.5 py-0.5 border border-slate-200 dark:border-slate-600"
+                title={styleId}
+              >
+                <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">
+                  🎨 {label}
+                </span>
+                <select
+                  value={current}
+                  onChange={(e) =>
+                    setGenre(styleId, (e.target.value || null) as StyleGenreSlug | null)
+                  }
+                  className={cn(
+                    'text-[11px] font-bold rounded border px-1 py-0.5 cursor-pointer',
+                    current
+                      ? 'border-emerald-300 text-emerald-700 bg-emerald-50 dark:bg-slate-700 dark:text-emerald-300'
+                      : 'border-slate-300 text-slate-500 bg-white dark:bg-slate-800 dark:text-slate-400'
+                  )}
+                >
+                  <option value="">미지정</option>
+                  {STYLE_GENRES.map((g) => (
+                    <option key={g.slug} value={g.slug}>
+                      {g.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            );
+          })}
         </div>
       </div>
 

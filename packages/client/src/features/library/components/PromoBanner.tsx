@@ -73,8 +73,9 @@ export function PromoBanner() {
       {/* Left zone — text overlay on the open cream area.
           모바일은 고정 aspect 대신 콘텐츠 높이(min-h)로 — 긴 한글 헤드라인 잘림 방지. */}
       <div className="relative w-3/5 sm:w-1/2 shrink-0 flex items-center py-4 sm:py-0 pl-5 pr-3 sm:pl-16 sm:pr-4 md:pl-20 md:pr-6 z-10">
-        <div className="flex-1 min-w-0">
-          <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-black font-display text-ink-900 leading-tight break-keep">
+        <div className="min-w-0">
+          {/* 헤드라인은 1줄 고정 — 길면 오른쪽 일러스트 위로 얹혀서 노출 (요청). */}
+          <h2 className="whitespace-nowrap text-base sm:text-lg md:text-xl lg:text-2xl font-black font-display text-ink-900 leading-tight [text-shadow:0_1px_2px_rgba(255,255,255,0.7)]">
             {headline}
           </h2>
           <p className="hidden sm:block text-xs md:text-sm lg:text-base font-bold text-ink-600 mt-1 md:mt-2 leading-snug break-keep">

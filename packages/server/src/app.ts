@@ -32,6 +32,7 @@ import playgroundRoutes from './routes/playground.routes.js';
 import vocabularyUnitRoutes from './routes/vocabulary-unit.routes.js';
 import libraryConfigRoutes from './routes/library-config.routes.js';
 import vocabOverridesRoutes from './routes/vocab-overrides.routes.js';
+import styleGenreMapRoutes from './routes/style-genre-map.routes.js';
 import letterStrokeLibraryRoutes from './routes/letter-stroke-library.routes.js';
 import koreanJamoStrokeLibraryRoutes from './routes/korean-jamo-stroke-library.routes.js';
 import mktRoutes from './routes/mkt.routes.js';
@@ -96,6 +97,7 @@ export function createApp() {
   app.use('/api/vocabulary-units', vocabularyUnitRoutes);
   app.use('/api/library-config', libraryConfigRoutes);
   app.use('/api/vocab-overrides', vocabOverridesRoutes);
+  app.use('/api/style-genre-map', styleGenreMapRoutes);
   app.use('/api/letter-stroke-library', letterStrokeLibraryRoutes);
   app.use('/api/korean-jamo-stroke-library', koreanJamoStrokeLibraryRoutes);
   // Marketing Phase 0+ — NEW namespace (never collides with /api/marketing)
