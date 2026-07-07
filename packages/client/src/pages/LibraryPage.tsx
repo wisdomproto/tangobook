@@ -7,6 +7,7 @@ import { PlaylistLibrarySection } from '@/features/continuous';
 import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
 import { SiteFooter } from '@/components/SiteFooter';
 import { useSeo } from '@/lib/useSeo';
+import { useStyleGenreMap, STYLE_GENRES, type StyleGenreSlug } from '@/lib/art-style-genre';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
 
 /**
@@ -182,6 +183,10 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   // 4-5세 인지부하 ↓ — 카테고리 chip 기본 4개만 노출, "더 ▾" 토글로 펼치기
   const [showAllCategories, setShowAllCategories] = useState(false);
   const CATEGORY_DEFAULT_VISIBLE = 4;
+  // 그림풍 일괄 전환 — null=대표(defaultStyle), 아니면 그 장르 표지로 전 책 swap.
+  // 여러 그림체 표지가 있는 책(주로 세계명작)만 실제로 바뀜. styleId→장르 맵은 editor2 수동 지정(R2).
+  const [styleGenre, setStyleGenre] = useState<StyleGenreSlug | null>(null);
+  const { map: styleGenreMap } = useStyleGenreMap();
 
   const matchesType = (b: BookIndexEntry): boolean => {
     if (type === 'storybook') return !b.type || b.type === 'storybook';
@@ -235,6 +240,31 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     statusMap,
     libConfig?.bookPriority,
   ]);
+
+  // 현재 보이는 책들 중 실제로 존재하는 그림풍(장르)만 선택지로 노출.
+  // (세계명작 섹션이 보이는 뷰에서만 뜸 — 자연관찰 등 단일 그림체 카테고리 필터 시 자동 숨김)
+  const availableGenres = useMemo(() => {
+    if (type !== 'storybook') return [];
+    const present = new Set<string>();
+    for (const b of filtered) {
+      for (const styleId of Object.keys(b.coversByStyle ?? {})) {
+        const g = styleGenreMap[styleId];
+        if (g) present.add(g);
+      }
+    }
+    return STYLE_GENRES.filter((g) => present.has(g.slug));
+  }, [filtered, type, styleGenreMap]);
+
+  // 책 표지를 선택 장르 표지로 교체 (해당 장르 표지 없으면 대표 그대로).
+  const applyGenreCover = (b: BookIndexEntry): BookIndexEntry => {
+    if (!styleGenre) return b;
+    for (const [styleId, url] of Object.entries(b.coversByStyle ?? {})) {
+      if (url && styleGenreMap[styleId] === styleGenre) {
+        return b.coverImageUrl === url ? b : { ...b, coverImageUrl: url };
+      }
+    }
+    return b;
+  };
 
   // 카테고리 chip — 동화책일 때만
   const allCategories = useMemo(() => {
@@ -430,6 +460,35 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
           )}
         </div>
 
+        {/* 그림풍 일괄 전환 — 여러 그림체 표지가 있는 책(주로 세계명작)의 표지를 한 장르로 swap.
+            실명(지브리 등) 비노출 정책 → 장르 라벨(수채동화풍·페이퍼 3D 아트·콜라주)만 표시. */}
+        {type === 'storybook' && availableGenres.length > 0 && (
+          <div className="mb-8 flex items-center gap-2 flex-wrap">
+            <span className="mr-1 text-sm font-black text-ink-600 flex items-center gap-1">
+              <span aria-hidden>🎨</span> 그림풍
+            </span>
+            <Chip
+              variant="coral"
+              active={styleGenre === null}
+              onClick={() => setStyleGenre(null)}
+              className="!text-base !px-5 !py-2"
+            >
+              대표
+            </Chip>
+            {availableGenres.map((g) => (
+              <Chip
+                key={g.slug}
+                variant="coral"
+                active={styleGenre === g.slug}
+                onClick={() => setStyleGenre(g.slug)}
+                className="!text-base !px-5 !py-2"
+              >
+                {g.label}
+              </Chip>
+            ))}
+          </div>
+        )}
+
         {/* 나의 재생 목록 — 동화책 모드 + 저장된 세트 ≥1 일 때만 노출 (컴포넌트 내부에서 조건 판단). */}
         {type === 'storybook' && <PlaylistLibrarySection />}
 
@@ -453,7 +512,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
               key={cat}
               icon={getCategoryIconNode(cat, 32)}
               title={cat}
-              books={books}
+              books={styleGenre ? books.map(applyGenreCover) : books}
               onShowMore={() => {
                 setActiveCategory(cat);
                 setReadingFilter(false);
@@ -464,7 +523,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 sm:gap-6">
             {filtered.map((b) => (
-              <BookCard key={b.id} book={b} />
+              <BookCard key={b.id} book={applyGenreCover(b)} />
             ))}
           </div>
         )}
