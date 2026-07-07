@@ -1,27 +1,30 @@
-import { useCallback, useMemo, useState } from 'react';
-import { Button } from '@/design-system';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch';
 import { GamePlayerLayout } from '../GamePlayerLayout';
+import { FeedbackOverlay } from '../FeedbackOverlay';
+import { SceneReveal } from '../SceneReveal';
+import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
+import { useStorybook } from '@/features/storybook';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 
 /**
- * 영어 단어 따라쓰기 — 단어 전체 표시 + 첫 글자만 stroke 단위 채점 (글로벌 letter-stroke-library).
+ * 영어 단어 따라쓰기 — paint 모드 (LetterFillCanvas).
  *
- * 한글 단어쓰기 (`WordWritingPlayer`) 는 canvas pixel 채점 그대로 유지.
- * 영어만 stroke 단위로 분리 — 알파벳 stroke library 한 곳 편집으로 모든 영어 쓰기 일관.
- *
- * 흐름:
- *   1. 단어 전체 (예: apple) hero 표시. 첫 글자 (a) 강조 색.
- *   2. 아래 LetterTracingCanvas 가 첫 글자 한 칸. stroke 데이터는 library 우선.
- *   3. 모든 stroke 통과 (onComplete) → 단어 TTS 재생 → 다음 단어.
- *   4. 모든 단어 완료 → onComplete (score = items.length * 100, 통과 단어당 +100).
+ * 단어의 **모든 글자**를 순서대로 한 글자씩 색칠. 한 글자를 다 칠하면 그 글자 소리를 읽어주고,
+ * 마지막 글자까지 끝내면 단어 전체 발음 + 칭찬 + 그 단어가 나오는 동화 장면(나레이션) 리빌.
  */
+function lettersOf(word: string): string[] {
+  if (!word) return [];
+  const letters = [...word].filter((ch) => /[a-zA-Z]/.test(ch));
+  return letters.length > 0 ? letters : [...word];
+}
+
 export function EnglishWordWritingPlayer({
   storybookId,
   gameData,
@@ -41,20 +44,18 @@ export function EnglishWordWritingPlayer({
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [letterIndex, setLetterIndex] = useState(0);
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));
   const [advancing, setAdvancing] = useState(false);
+  const [scene, setScene] = useState<WordScene | null>(null);
+  const pendingPassedRef = useRef<boolean[] | null>(null);
   const logGame = useGameLogger();
-  const { playAudio, playFeedbackSound } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { data: sourceStorybook } = useStorybook(storybookId);
 
   const currentItem = items[currentIndex];
-  const writingChar = useMemo(() => firstWritingChar(currentItem.word), [currentItem.word]);
-  // 단어 나머지 (예: cup → "up") — 캔버스 옆에 큰 텍스트로 보여서 단어 컨텍스트 유지
-  const restWord = useMemo(() => {
-    const w = currentItem.displayWord ?? currentItem.word;
-    const idx = writingChar ? w.indexOf(writingChar) : -1;
-    if (idx < 0) return '';
-    return w.slice(idx + writingChar.length);
-  }, [currentItem.displayWord, currentItem.word, writingChar]);
+  const letters = useMemo(() => lettersOf(currentItem.word), [currentItem.word]);
+  const currentLetter = letters[letterIndex] ?? currentItem.word;
 
   const emitFinalResults = useCallback(
     (finalPassed: boolean[]) => {
@@ -62,24 +63,21 @@ export function EnglishWordWritingPlayer({
         word: it.word,
         correct: !!finalPassed[i],
       }));
-      logGame({
-        gameType: 'english-word-writing',
-        storybookId,
-        lang: 'en',
-        results,
-      });
+      logGame({ gameType: 'english-word-writing', storybookId, lang: 'en', results });
     },
     [items, logGame, storybookId]
   );
 
   const advanceToNext = useCallback(
     (newPassed: boolean[]) => {
+      setScene(null);
       if (currentIndex + 1 >= items.length) {
         const score = newPassed.reduce((a, b) => a + (b ? 100 : 0), 0);
         emitFinalResults(newPassed);
         onComplete(score, items.length * 100);
       } else {
         setCurrentIndex((i) => i + 1);
+        setLetterIndex(0);
         setAdvancing(false);
       }
     },
@@ -90,57 +88,63 @@ export function EnglishWordWritingPlayer({
     async (ok: boolean) => {
       if (!ok || advancing) return;
       setAdvancing(true);
-      // 정답 처리: 단어 TTS 재생 후 다음
-      const wordAudioUrl = await resolveTtsUrl({
-        text: currentItem.word,
+      const isLastLetter = letterIndex >= letters.length - 1;
+      // 방금 쓴 글자 소리 읽어주기
+      const letterUrl = await resolveTtsUrl({
+        text: currentLetter,
         language: 'english',
         storybookId,
-        directUrl: currentItem.ttsUrl,
         identifierPrefix: 'wwrite-en',
       });
-      const newPassed = passed.map((v, i) => (i === currentIndex ? true : v));
-      setPassed(newPassed);
-      const continueNext = () => advanceToNext(newPassed);
-      if (wordAudioUrl) {
-        playAudio(wordAudioUrl, continueNext);
-      } else {
-        playFeedbackSound(true);
-        setTimeout(continueNext, 600);
-      }
+      const afterLetter = () => {
+        if (!isLastLetter) {
+          setLetterIndex((i) => i + 1);
+          setAdvancing(false);
+          return;
+        }
+        const newPassed = passed.map((v, i) => (i === currentIndex ? true : v));
+        setPassed(newPassed);
+        void (async () => {
+          const wordUrl = await resolveTtsUrl({
+            text: currentItem.word,
+            language: 'english',
+            storybookId,
+            directUrl: currentItem.ttsUrl,
+            identifierPrefix: 'wwrite-en',
+          });
+          playCorrectSequence({
+            ttsUrl: wordUrl,
+            language: 'en',
+            onDone: () => {
+              const s = resolveSceneFromWord(currentItem.word, 'en', sourceStorybook);
+              if (s) {
+                pendingPassedRef.current = newPassed;
+                setScene(s);
+              } else {
+                advanceToNext(newPassed);
+              }
+            },
+          });
+        })();
+      };
+      if (letterUrl) playAudio(letterUrl, afterLetter);
+      else afterLetter();
     },
     [
       advancing,
+      letterIndex,
+      letters.length,
+      currentLetter,
       currentItem,
       storybookId,
       passed,
       currentIndex,
       advanceToNext,
       playAudio,
-      playFeedbackSound,
+      playCorrectSequence,
+      sourceStorybook,
     ]
   );
-
-  // 단어 컨텍스트 — 첫 글자만 회색(쓰기 대상) 강조, 나머지는 coral
-  const renderedWord = useMemo(() => {
-    const word = currentItem.displayWord ?? currentItem.word;
-    const wcStart = writingChar ? word.indexOf(writingChar) : -1;
-    const wcEnd = wcStart >= 0 ? wcStart + writingChar.length : -1;
-    return word.split('').map((ch, i) => {
-      const isWritingRange = i >= wcStart && i < wcEnd;
-      return (
-        <span
-          key={i}
-          style={{
-            color: isWritingRange ? '#d4d4d8' : '#FF7A3C',
-            WebkitTextStroke: '5px white',
-            paintOrder: 'stroke fill',
-          }}
-        >
-          {ch}
-        </span>
-      );
-    });
-  }, [currentItem.displayWord, currentItem.word, writingChar]);
 
   return (
     <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/writing-bg.webp">
@@ -151,7 +155,7 @@ export function EnglishWordWritingPlayer({
         onBack={onBack}
       />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
-        {/* 단어 hero + 일러스트 */}
+        {/* 단어 hero + 일러스트 — 이미 쓴 글자는 coral, 지금 쓸 글자는 회색, 남은 글자는 연회색 */}
         <div className="flex items-center justify-center gap-3 sm:gap-5 shrink-0">
           {currentItem.imageUrl && (
             <img
@@ -168,50 +172,47 @@ export function EnglishWordWritingPlayer({
                 filter: 'drop-shadow(0 5px 0 rgba(0,0,0,0.08))',
               }}
             >
-              {renderedWord}
+              {letters.map((ch, i) => (
+                <span
+                  key={i}
+                  style={{
+                    color: i < letterIndex ? '#FF7A3C' : i === letterIndex ? '#d4d4d8' : '#e8e8ec',
+                    WebkitTextStroke: '5px white',
+                    paintOrder: 'stroke fill',
+                  }}
+                >
+                  {ch}
+                </span>
+              ))}
             </p>
             <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900 mt-1">
-              첫 글자를 따라 써보세요
+              {letters.length > 1 ? `${letterIndex + 1}번째 글자를 따라 써봐` : '글자를 따라 써봐'}
             </p>
           </div>
         </div>
 
-        {/* 첫 글자 paint 캔버스 + 옆 나머지 글자 ("cup" → 캔버스: c, 옆: up) */}
+        {/* 현재 글자 paint 캔버스 — 글자마다 리셋(key) */}
         <div className="flex-1 min-h-0 w-full flex items-center justify-center">
-          <div className="flex items-center gap-2 sm:gap-4">
-            <div className="shrink-0" style={{ width: 'min(360px, 45vh)' }}>
-              <LetterFillCanvas
-                key={`${currentIndex}-${writingChar}`}
-                letter={writingChar}
-                onResult={handleLetterComplete}
-                autoCheck
-                threshold={0.95}
-              />
-            </div>
-            {restWord && (
-              <span
-                className="font-display font-black leading-none whitespace-nowrap"
-                style={{
-                  fontSize: 'clamp(3rem, 15vh, 9rem)',
-                  color: '#FF7A3C',
-                  WebkitTextStroke: '5px white',
-                  paintOrder: 'stroke fill',
-                  filter: 'drop-shadow(0 5px 0 rgba(0,0,0,0.08))',
-                }}
-              >
-                {restWord}
-              </span>
-            )}
+          <div style={{ width: 'min(420px, 55vh)' }}>
+            <LetterFillCanvas
+              key={`${currentIndex}-${letterIndex}-${currentLetter}`}
+              letter={currentLetter}
+              onResult={handleLetterComplete}
+              autoCheck
+              threshold={0.95}
+            />
           </div>
         </div>
       </div>
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
+      {scene && (
+        <SceneReveal
+          illustrationUrl={scene.illustrationUrl}
+          text={scene.pageText}
+          ttsUrl={scene.pageTtsUrl}
+          onDone={() => advanceToNext(pendingPassedRef.current ?? passed)}
+        />
+      )}
     </GamePlayerLayout>
   );
-}
-
-/** 영어 단어의 따라쓰기 대상 = 첫 글자 1자. 짧은 단어(≤2자)는 첫 글자만. */
-function firstWritingChar(word: string): string {
-  if (!word) return word;
-  if (word.length <= 2) return word[0];
-  return word[0];
 }

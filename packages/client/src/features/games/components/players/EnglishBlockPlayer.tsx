@@ -9,7 +9,7 @@ import {
 import { motion } from 'framer-motion';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { EnglishBlockData, EnglishBlockLetter } from '@tangobook/shared';
-import { VOWELS, CONSONANTS, isEnglishVowel } from '@tangobook/shared';
+import { isEnglishVowel } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { MobileLandscapeGate } from '../MobileLandscapeGate';
@@ -39,15 +39,11 @@ interface LetterBlock {
   isVowel: boolean;
 }
 
-const ALL_CONSONANTS: LetterBlock[] = CONSONANTS.map((ch, i) => ({
-  id: `con-${i}`,
+// 하단 글자 패널 = a~z 알파벳 순서 (자음/모음 분리 대신 아이가 익숙한 abcd 순).
+const ALL_LETTERS: LetterBlock[] = 'abcdefghijklmnopqrstuvwxyz'.split('').map((ch, i) => ({
+  id: `ltr-${i}`,
   char: ch,
-  isVowel: false,
-}));
-const ALL_VOWELS: LetterBlock[] = VOWELS.map((ch, i) => ({
-  id: `vow-${i}`,
-  char: ch,
-  isVowel: true,
+  isVowel: isEnglishVowel(ch),
 }));
 
 function createEnglishGhost(char: string): HTMLDivElement {
@@ -602,16 +598,10 @@ function EnglishBlockPlayerInner({
           </div>
         </div>
 
-        <div className="shrink-0 px-3 sm:px-6 py-4 sm:py-6 flex flex-col sm:flex-row gap-4 sm:gap-6 bg-white/40 backdrop-blur-sm">
-          <div className="flex-1 min-w-0">
-            <p className="text-lg sm:text-xl font-black text-ink-900 mb-2 sm:mb-3 ml-1">
-              Consonants
-            </p>
-            <div className="flex flex-wrap gap-1.5 sm:gap-2">{ALL_CONSONANTS.map(renderBlock)}</div>
-          </div>
-          <div className="shrink-0">
-            <p className="text-lg sm:text-xl font-black text-ink-900 mb-2 sm:mb-3 ml-1">Vowels</p>
-            <div className="flex flex-wrap gap-1.5 sm:gap-2">{ALL_VOWELS.map(renderBlock)}</div>
+        <div className="shrink-0 px-3 sm:px-6 py-4 sm:py-6 bg-white/40 backdrop-blur-sm">
+          <p className="text-lg sm:text-xl font-black text-ink-900 mb-2 sm:mb-3 ml-1">ABC</p>
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
+            {ALL_LETTERS.map(renderBlock)}
           </div>
         </div>
       </div>

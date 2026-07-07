@@ -9,6 +9,8 @@ import { GameResultScreen } from '../GameResultScreen';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { usePreloadImages } from '../../hooks/useGamePrefetch';
 import { GamePlayerLayout } from '../GamePlayerLayout';
+import { SceneReveal } from '../SceneReveal';
+import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { resolveTtsUrl } from '@/features/tts';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameLogger } from '@/features/learning';
@@ -49,6 +51,8 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
   const [completedItems, setCompletedItems] = useState(0);
   const [finished, setFinished] = useState(false);
   const [showImage, setShowImage] = useState(false);
+  // 완성한 단어가 나오는 동화 장면 + 나레이션 리빌 (소스 동화책 있을 때만).
+  const [scene, setScene] = useState<WordScene | null>(null);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
@@ -146,8 +150,9 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
       const g = imageData.data[i + 1];
       const b = imageData.data[i + 2];
       const a = imageData.data[i + 3];
-      // emerald: #10b981 ≈ rgb(16, 185, 129) — R<128, G>128, B<200
-      if (a > 0 && r < 128 && g > 128 && b < 200) painted++;
+      // emerald(#10b981)는 "초록 우세" — 반투명 회색 마스크 위에 source-atop 으로 칠하면
+      // 알파 블렌딩으로 밝기가 낮아져 고정 임계값(g>128)을 못 넘던 문제 → 초록 우세로 판정.
+      if (a > 0 && g > r + 20 && g > b + 20) painted++;
     }
     return painted / maskPixelsRef.current;
   }, []);
@@ -236,7 +241,14 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
     }
     playWordCorrect({
       ttsUrl: wordAudioUrl,
-      onDone: advanceToNext,
+      onDone: () => {
+        // 완성한 단어가 나오는 동화 장면 + 나레이션 리빌 (있으면), 없으면 다음.
+        const s = target
+          ? resolveSceneFromWord(target.text, target.language === 'korean' ? 'ko' : 'en', storybook)
+          : null;
+        if (s) setScene(s);
+        else advanceToNext();
+      },
     });
   }, [currentItem, resolveSpeakTarget, storybook, storybookId, playWordCorrect, advanceToNext]);
 
@@ -453,6 +465,17 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
           </div>
         )}
       </div>
+      {scene && (
+        <SceneReveal
+          illustrationUrl={scene.illustrationUrl}
+          text={scene.pageText}
+          ttsUrl={scene.pageTtsUrl}
+          onDone={() => {
+            setScene(null);
+            advanceToNext();
+          }}
+        />
+      )}
     </GamePlayerLayout>
   );
 }

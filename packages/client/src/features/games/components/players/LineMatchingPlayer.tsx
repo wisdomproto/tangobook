@@ -11,6 +11,9 @@ import { usePreloadImages, usePrefetchUrlsGate } from '../../hooks/useGamePrefet
 import { GameResultScreen } from '../GameResultScreen';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { GameHeader } from '../GameHeader';
+import { SceneReveal } from '../SceneReveal';
+import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
+import { useStorybook } from '@/features/storybook';
 import {
   TutorialProvider,
   useTutorialHighlight,
@@ -56,8 +59,12 @@ function LineMatchingPlayerInner({
   const [wrongPair, setWrongPair] = useState<{ image: number; word: number } | null>(null);
   const [finished, setFinished] = useState(false);
   const [hintActive, setHintActive] = useState(false);
+  // 짝을 맞춘 단어가 나오는 동화 장면 + 나레이션 리빌 (소스 동화책 있을 때만).
+  const [scene, setScene] = useState<WordScene | null>(null);
+  const sceneWasLastRef = useRef(false);
+  const { data: sourceStorybook } = useStorybook(storybookId);
 
-  const { playAudio, playFeedbackSound, playWordCorrect } = useGameAudio();
+  const { playAudio, playFeedbackSound } = useGameAudio();
   const isTutorialPlaying = useTutorialIsPlaying();
   const { highlightImageIdx, highlightWordIdx } = useTutorialHighlight();
   const expected = useTutorialExpected();
@@ -146,19 +153,26 @@ function LineMatchingPlayerInner({
       setMatched(newMatched);
       const matchedItem = items[matchedIdx];
       // 단어 1개 정답 — 효과음 + TTS (호리/칭찬음원 X). 마지막 다 맞추면 GameResultScreen 이 호리.
-      playWordCorrect();
+      playFeedbackSound(true);
       const isLast = newMatched.length >= items.length;
-      setTimeout(() => {
-        // 🔴 chain 규칙: 마지막 짝은 발음이 "끝난 뒤" 결과 화면 — 고정 타이머(1200ms)는
-        // 다음절 단어 발음이 잘린 채 결과 화면+칭찬이 겹쳐 "급하게 넘어감"이 됨.
-        void playWordTts(matchedItem).then(() => {
-          if (isLast) setTimeout(() => setFinished(true), 400);
-        });
-      }, 150);
       setSelectedImageIdx(null);
       setSelectedWordIdx(null);
       // 튜토리얼 wait 중이면 advance
       notifyMatch(matchedIdx);
+      setTimeout(() => {
+        // 🔴 chain 규칙: 발음이 "끝난 뒤" 장면 리빌/결과 화면 — 고정 타이머는 다음절 단어 발음이
+        // 잘린 채 다음 단계가 겹치는 원인.
+        void playWordTts(matchedItem).then(() => {
+          // 맞춘 단어가 나오는 동화 장면 + 나레이션 리빌 (있으면), 없으면 다음/결과로.
+          const s = resolveSceneFromWord(matchedItem.word, lang, sourceStorybook);
+          if (s) {
+            sceneWasLastRef.current = isLast;
+            setScene(s);
+          } else if (isLast) {
+            setTimeout(() => setFinished(true), 400);
+          }
+        });
+      }, 150);
     } else {
       setWrongPair({ image: selectedImageIdx, word: selectedWordIdx });
       playFeedbackSound(false);
@@ -173,10 +187,11 @@ function LineMatchingPlayerInner({
     selectedWordIdx,
     matched,
     items,
-    playWordCorrect,
     playFeedbackSound,
     playWordTts,
     notifyMatch,
+    sourceStorybook,
+    lang,
   ]);
 
   const logGame = useGameLogger();
@@ -522,6 +537,17 @@ function LineMatchingPlayerInner({
           onEnd={handleHintEnd}
         />
       </div>
+      {scene && (
+        <SceneReveal
+          illustrationUrl={scene.illustrationUrl}
+          text={scene.pageText}
+          ttsUrl={scene.pageTtsUrl}
+          onDone={() => {
+            setScene(null);
+            if (sceneWasLastRef.current) setTimeout(() => setFinished(true), 200);
+          }}
+        />
+      )}
     </GamePlayerLayout>
   );
 }

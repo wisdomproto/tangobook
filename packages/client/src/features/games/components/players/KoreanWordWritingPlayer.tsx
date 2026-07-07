@@ -1,5 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
-import { Button } from '@/design-system';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData } from '@tangobook/shared';
 import { decomposeWord } from '@tangobook/shared';
@@ -7,24 +6,25 @@ import { GameHeader } from '../GameHeader';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch';
 import { GamePlayerLayout } from '../GamePlayerLayout';
+import { FeedbackOverlay } from '../FeedbackOverlay';
+import { SceneReveal } from '../SceneReveal';
+import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
+import { useStorybook } from '@/features/storybook';
 import { LetterFillCanvas } from '@/features/phonics/components/LetterFillCanvas';
 
 /**
  * 한글 단어 따라쓰기 — paint 모드 (LetterFillCanvas).
  *
- * 한글 단어의 첫 음절 1자 (꽃밭→꽃) 만 채점.
- * paint 모드: 글자 영역 안만 painted, 채움 비율 (coverage) 로 통과 판정.
- * 폰트 fidelity 100% (NanumSquareRound 그대로 채점 대상).
- *
- * 영어 단어쓰기 (EnglishWordWritingPlayer) 는 stroke library, 한글은 paint — 본질적으로 다른 시스템.
+ * 단어의 **모든 음절**을 순서대로 한 글자씩 색칠. 한 음절을 다 칠하면 그 음절을 읽어주고,
+ * 마지막 음절까지 끝내면 단어 전체 발음 + 칭찬 + 그 단어가 나오는 동화 장면(나레이션) 리빌.
+ * paint 모드: 글자 영역 안만 painted, 채움 비율(coverage)로 통과 판정. 폰트 fidelity 100%.
  */
-function firstWritingChar(word: string): string {
-  if (!word) return word;
-  const hangul = word.match(/[가-힣]/);
-  if (hangul) return hangul[0];
-  return word[0];
+function syllablesOf(word: string): string[] {
+  if (!word) return [];
+  const hangul = [...word].filter((ch) => /[가-힣]/.test(ch));
+  return hangul.length > 0 ? hangul : [...word];
 }
 
 export function KoreanWordWritingPlayer({
@@ -46,13 +46,18 @@ export function KoreanWordWritingPlayer({
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [syllableIndex, setSyllableIndex] = useState(0);
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));
   const [advancing, setAdvancing] = useState(false);
+  const [scene, setScene] = useState<WordScene | null>(null);
+  const pendingPassedRef = useRef<boolean[] | null>(null);
   const logGame = useGameLogger();
-  const { playAudio } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { data: sourceStorybook } = useStorybook(storybookId);
 
   const currentItem = items[currentIndex];
-  const writingChar = useMemo(() => firstWritingChar(currentItem.word), [currentItem.word]);
+  const syllables = useMemo(() => syllablesOf(currentItem.word), [currentItem.word]);
+  const currentSyllable = syllables[syllableIndex] ?? currentItem.word;
 
   const emitFinalResults = useCallback(
     (finalPassed: boolean[]) => {
@@ -64,24 +69,21 @@ export function KoreanWordWritingPlayer({
           results.push({ correct, consonant: syl.cho, vowel: syl.jung });
         }
       }
-      logGame({
-        gameType: 'korean-word-writing',
-        storybookId,
-        lang: 'ko',
-        results,
-      });
+      logGame({ gameType: 'korean-word-writing', storybookId, lang: 'ko', results });
     },
     [items, logGame, storybookId]
   );
 
   const advanceToNext = useCallback(
     (newPassed: boolean[]) => {
+      setScene(null);
       if (currentIndex + 1 >= items.length) {
         const score = newPassed.reduce((a, b) => a + (b ? 100 : 0), 0);
         emitFinalResults(newPassed);
         onComplete(score, items.length * 100);
       } else {
         setCurrentIndex((i) => i + 1);
+        setSyllableIndex(0);
         setAdvancing(false);
       }
     },
@@ -92,33 +94,65 @@ export function KoreanWordWritingPlayer({
     async (ok: boolean) => {
       if (!ok || advancing) return;
       setAdvancing(true);
-      // 전체 단어 발음 (resolveTtsUrl 정책 그대로)
-      const wordAudioUrl = await resolveTtsUrl({
-        text: currentItem.word,
+      const isLastSyllable = syllableIndex >= syllables.length - 1;
+      // 방금 칠한 음절 읽어주기
+      const sylUrl = await resolveTtsUrl({
+        text: currentSyllable,
         language: 'korean',
         storybookId,
-        directUrl: currentItem.ttsUrl,
         identifierPrefix: 'wwrite-ko',
       });
-      const newPassed = passed.map((v, i) => (i === currentIndex ? true : v));
-      setPassed(newPassed);
-      const continueNext = () => advanceToNext(newPassed);
-      if (wordAudioUrl) {
-        playAudio(wordAudioUrl, continueNext);
-      } else {
-        setTimeout(continueNext, 600);
-      }
+      const afterSyllable = () => {
+        if (!isLastSyllable) {
+          // 다음 음절로 — 캔버스는 key 변경으로 리셋.
+          setSyllableIndex((i) => i + 1);
+          setAdvancing(false);
+          return;
+        }
+        // 마지막 음절 → 단어 완성. 단어 전체 발음 + 칭찬 → 동화 장면 리빌 → 다음 단어.
+        const newPassed = passed.map((v, i) => (i === currentIndex ? true : v));
+        setPassed(newPassed);
+        void (async () => {
+          const wordUrl = await resolveTtsUrl({
+            text: currentItem.word,
+            language: 'korean',
+            storybookId,
+            directUrl: currentItem.ttsUrl,
+            identifierPrefix: 'wwrite-ko',
+          });
+          playCorrectSequence({
+            ttsUrl: wordUrl,
+            language: 'ko',
+            onDone: () => {
+              const s = resolveSceneFromWord(currentItem.word, 'ko', sourceStorybook);
+              if (s) {
+                pendingPassedRef.current = newPassed;
+                setScene(s);
+              } else {
+                advanceToNext(newPassed);
+              }
+            },
+          });
+        })();
+      };
+      if (sylUrl) playAudio(sylUrl, afterSyllable);
+      else afterSyllable();
     },
-    [advancing, currentItem, storybookId, passed, currentIndex, advanceToNext, playAudio]
+    [
+      advancing,
+      syllableIndex,
+      syllables.length,
+      currentSyllable,
+      currentItem,
+      storybookId,
+      passed,
+      currentIndex,
+      advanceToNext,
+      playAudio,
+      playCorrectSequence,
+      sourceStorybook,
+    ]
   );
-
-  // 단어 컨텍스트 — 첫 음절만 회색 강조 + 나머지는 coral (paint canvas 옆 표시)
-  const restWord = useMemo(() => {
-    const w = currentItem.displayWord ?? currentItem.word;
-    const idx = writingChar ? w.indexOf(writingChar) : -1;
-    if (idx < 0) return '';
-    return w.slice(idx + writingChar.length);
-  }, [currentItem.displayWord, currentItem.word, writingChar]);
 
   return (
     <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/writing-bg.webp">
@@ -129,7 +163,7 @@ export function KoreanWordWritingPlayer({
         onBack={onBack}
       />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
-        {/* 단어 hero + 일러스트 */}
+        {/* 단어 hero + 일러스트 — 이미 칠한 음절은 coral, 지금 칠할 음절은 회색, 남은 음절은 연회색 */}
         <div className="flex items-center justify-center gap-3 sm:gap-5 shrink-0">
           {currentItem.imageUrl && (
             <img
@@ -146,39 +180,34 @@ export function KoreanWordWritingPlayer({
                 filter: 'drop-shadow(0 5px 0 rgba(0,0,0,0.08))',
               }}
             >
-              <span
-                style={{
-                  color: '#d4d4d8',
-                  WebkitTextStroke: '5px white',
-                  paintOrder: 'stroke fill',
-                }}
-              >
-                {writingChar}
-              </span>
-              {restWord && (
+              {syllables.map((syl, i) => (
                 <span
+                  key={i}
                   style={{
-                    color: '#FF7A3C',
+                    color:
+                      i < syllableIndex ? '#FF7A3C' : i === syllableIndex ? '#d4d4d8' : '#e8e8ec',
                     WebkitTextStroke: '5px white',
                     paintOrder: 'stroke fill',
                   }}
                 >
-                  {restWord}
+                  {syl}
                 </span>
-              )}
+              ))}
             </p>
             <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900 mt-1">
-              첫 글자를 색칠해봐
+              {syllables.length > 1
+                ? `${syllableIndex + 1}번째 글자를 색칠해봐`
+                : '글자를 색칠해봐'}
             </p>
           </div>
         </div>
 
-        {/* 첫 음절 paint canvas */}
+        {/* 현재 음절 paint canvas — 음절마다 리셋(key) */}
         <div className="flex-1 min-h-0 w-full flex items-center justify-center">
           <div style={{ width: 'min(420px, 55vh)' }}>
             <LetterFillCanvas
-              key={`${currentIndex}-${writingChar}`}
-              letter={writingChar}
+              key={`${currentIndex}-${syllableIndex}-${currentSyllable}`}
+              letter={currentSyllable}
               onResult={handleResult}
               autoCheck
               threshold={0.95}
@@ -186,6 +215,15 @@ export function KoreanWordWritingPlayer({
           </div>
         </div>
       </div>
+      <FeedbackOverlay kind="correct" visible={praiseVisible} />
+      {scene && (
+        <SceneReveal
+          illustrationUrl={scene.illustrationUrl}
+          text={scene.pageText}
+          ttsUrl={scene.pageTtsUrl}
+          onDone={() => advanceToNext(pendingPassedRef.current ?? passed)}
+        />
+      )}
     </GamePlayerLayout>
   );
 }
