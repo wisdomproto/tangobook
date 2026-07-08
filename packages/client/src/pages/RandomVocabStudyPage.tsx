@@ -126,21 +126,31 @@ export default function RandomVocabStudyPage() {
             </div>
           }
         >
-          <span className="truncate">🎮 어휘 게임</span>
+          <span className="truncate">🎮 어휘 게임{book?.title ? ` · ${book.title}` : ''}</span>
         </PageHeader>
       </div>
 
       <main className="px-4 sm:px-8 pt-4 pb-6 max-w-[1600px] mx-auto">
-        {/* 어떤 동화책·그림체에서 나온 낱말인지 안내 (그림체는 실명 대신 장르 라벨) */}
-        <div className="mb-4 flex items-center gap-2 flex-wrap px-1">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 shadow-soft text-base font-black text-ink-800 break-keep">
-            📖 {book?.title}
-          </span>
-          {currentStyle && (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 shadow-soft text-base font-black text-ink-600 break-keep">
-              🎨 {styleLabel(currentStyle, 0)}
-            </span>
+        {/* 어떤 동화책·그림체에서 나온 낱말인지 안내 — 표지 썸네일 + 제목 + 장르(실명 비노출) */}
+        <div className="mb-5 flex w-fit items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-soft">
+          {book?.coverImage && (
+            <img
+              src={book.coverImage}
+              alt=""
+              aria-hidden
+              className="h-14 w-14 shrink-0 rounded-xl object-cover shadow-sm"
+            />
           )}
+          <div className="flex min-w-0 flex-col">
+            <span className="font-display text-lg font-black leading-tight text-ink-900 break-keep sm:text-xl">
+              📖 {book?.title}
+            </span>
+            {currentStyle && (
+              <span className="text-sm font-bold text-ink-500 break-keep">
+                🎨 {styleLabel(currentStyle, 0)}
+              </span>
+            )}
+          </div>
         </div>
         <VocabularyStudyContent
           unit={unit}
