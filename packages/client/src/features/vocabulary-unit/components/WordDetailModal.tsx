@@ -116,6 +116,8 @@ export function WordDetailModal({
 }: WordDetailModalProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const praiseAudioRef = useRef<HTMLAudioElement | null>(null);
+  const praiseTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const revealTriggeredRef = useRef(false); // 3회째 발음→칭찬 chain 중복 발동 방지
   const [phase, setPhase] = useState<'word' | 'page'>('word');
   const [clickCount, setClickCount] = useState(0);
   const [pressed, setPressed] = useState(false);
@@ -168,52 +170,137 @@ export function WordDetailModal({
     return () => window.removeEventListener('keydown', handler);
   }, [onClose]);
 
-  // 언마운트 시 진행 중 오디오 (단어 + 칭찬) 중단
+  // 언마운트 시 진행 중 오디오 (단어 + 칭찬) + 예약 타이머 정리
   useEffect(() => {
+    const timers = praiseTimersRef.current;
     return () => {
       if (audioRef.current) audioRef.current.pause();
       if (praiseAudioRef.current) praiseAudioRef.current.pause();
+      timers.forEach(clearTimeout);
     };
   }, []);
 
-  const playUrl = (url: string) => {
+  // 첫 탭 발음 지연 방지 — 마운트 시 단어 TTS 를 미리 resolve + HTTP 캐시 워밍(한글 concat 첫 호출 느림).
+  useEffect(() => {
+    let alive = true;
+    void (async () => {
+      const text = lang === 'ko' ? (word.korean ?? word.word) : word.word;
+      const url = await resolveTtsUrl({
+        text,
+        language: lang === 'ko' ? 'korean' : 'english',
+        storybookId: storybook?.id,
+        directUrl: pickWordTtsUrl(word, lang, storybook),
+        identifierPrefix: 'vocab',
+      }).catch(() => undefined);
+      if (alive && url) void fetch(url, { cache: 'force-cache', mode: 'no-cors' }).catch(() => {});
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [word, lang, storybook]);
+
+  const playUrl = (url: string, onEnded?: () => void) => {
     try {
       if (audioRef.current) audioRef.current.pause();
       const audio = new Audio(url);
       audioRef.current = audio;
-      void audio.play().catch(() => {});
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        onEnded?.();
+      };
+      audio.addEventListener('ended', finish);
+      audio.addEventListener('error', finish);
+      void audio.play().catch(finish);
     } catch {
-      /* fallthrough */
+      onEnded?.();
     }
   };
 
-  const playWord = async () => {
-    const text = lang === 'ko' ? (word.korean ?? word.word) : word.word;
-    const url = await resolveTtsUrl({
-      text,
-      language: lang === 'ko' ? 'korean' : 'english',
-      storybookId: storybook?.id,
-      directUrl: pickWordTtsUrl(word, lang, storybook),
-      identifierPrefix: 'vocab',
+  // 단어 발음 — 재생 완료(ended)까지 기다리는 Promise. 3회째 칭찬을 발음 "뒤에" chain 하기 위함.
+  // 안전 상한(3.5s): 어떤 이유로 ended/error 가 안 와도 칭찬이 멈추지 않게 (실브라우저에선 발음 ~1s
+  // 뒤 ended 로 먼저 resolve).
+  const playWord = (): Promise<void> =>
+    new Promise<void>((resolve) => {
+      let settled = false;
+      let safety: ReturnType<typeof setTimeout>;
+      const finish = () => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(safety);
+        resolve();
+      };
+      safety = setTimeout(finish, 3500);
+      praiseTimersRef.current.push(safety);
+      void (async () => {
+        const text = lang === 'ko' ? (word.korean ?? word.word) : word.word;
+        const url = await resolveTtsUrl({
+          text,
+          language: lang === 'ko' ? 'korean' : 'english',
+          storybookId: storybook?.id,
+          directUrl: pickWordTtsUrl(word, lang, storybook),
+          identifierPrefix: 'vocab',
+        }).catch(() => undefined);
+        if (url) {
+          playUrl(url, finish);
+        } else if ('speechSynthesis' in window) {
+          // 단어는 학습 핵심이라 url 못 찾을 때 Web Speech fallback (페이지 TTS 와 정책 다름)
+          const utter = new SpeechSynthesisUtterance(getDisplayLabel(word, lang));
+          utter.lang = lang === 'ko' ? 'ko-KR' : 'en-US';
+          utter.rate = 0.9;
+          utter.onend = finish;
+          utter.onerror = finish;
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.speak(utter);
+        } else {
+          finish();
+        }
+      })();
     });
-    if (url) playUrl(url);
-    // 단어는 학습 핵심이라 url 못 찾을 때 Web Speech fallback (페이지 TTS 와 정책 다름)
-    else if ('speechSynthesis' in window) {
-      const utter = new SpeechSynthesisUtterance(getDisplayLabel(word, lang));
-      utter.lang = lang === 'ko' ? 'ko-KR' : 'en-US';
-      utter.rate = 0.9;
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utter);
+
+  // 3회 도달 칭찬 시퀀스 — 효과음 chime → (500ms) 시스템 칭찬 음원(onended 까지) → 페이지 전환.
+  // 🔴 반드시 단어 발음이 "끝난 뒤" 호출(handleIllustrationClick 에서 playWord().then) — 동시 재생 방지.
+  const startPraise = () => {
+    setShowPraise(true);
+    playFeedbackSound(true); // 정답 효과음 chime
+    const advance = () => {
+      setShowPraise(false);
+      setPhase('page');
+    };
+    const fallback = setTimeout(advance, 5000); // onended 미발동 안전망
+    praiseTimersRef.current.push(fallback);
+    if (praiseUrls.length === 0) {
+      const t = setTimeout(() => {
+        clearTimeout(fallback);
+        advance();
+      }, 1200);
+      praiseTimersRef.current.push(t);
+    } else {
+      // 효과음 chime 후 칭찬 음원 — 음원 끝(onended)에 정확히 페이지 전환
+      const t = setTimeout(() => {
+        const url = praiseUrls[Math.floor(Math.random() * praiseUrls.length)];
+        const audio = new Audio(url);
+        praiseAudioRef.current = audio;
+        const done = () => {
+          clearTimeout(fallback);
+          advance();
+        };
+        audio.addEventListener('ended', done);
+        audio.addEventListener('error', done);
+        audio.play().catch(done);
+      }, 500);
+      praiseTimersRef.current.push(t);
     }
   };
 
   const handleIllustrationClick = () => {
-    if (phase !== 'word' || showPraise) return;
+    if (phase !== 'word' || showPraise || revealTriggeredRef.current) return;
     // 눌림 애니메이션 (250ms scale 0.92 → 1.0)
     setPressed(true);
     setTimeout(() => setPressed(false), 250);
-    void playWord();
-    setClickCount((c) => c + 1);
+    const nextCount = clickCount + 1;
+    setClickCount(nextCount);
     // 그림체 swap — 2장 이상이면 직전 이미지 제외하고 랜덤
     if (wordImageUrls.length > 1) {
       setImageIdx((cur) => {
@@ -226,57 +313,13 @@ export function WordDetailModal({
         return next;
       });
     }
-  };
-
-  // clickCount 가 REVEAL_PAGE_AFTER_CLICKS 도달 시 칭찬 시퀀스 — 효과음 + 시스템 칭찬 음원.
-  // 칭찬 음원 onended 까지 정확히 대기 후 페이지 전환 (이전 고정 timer 는 음원보다 일찍 끝나는 문제).
-  useEffect(() => {
-    if (phase !== 'word' || clickCount < REVEAL_PAGE_AFTER_CLICKS) return;
-    setShowPraise(true);
-    playFeedbackSound(true); // 정답 효과음 chime
-
-    let cancelled = false;
-    const fallbackTimer = setTimeout(() => {
-      // 음원이 없거나 onended 가 안 fire (브라우저 차단 등) 시 안전망
-      if (cancelled) return;
-      setShowPraise(false);
-      setPhase('page');
-    }, 5000);
-
-    const advance = () => {
-      if (cancelled) return;
-      clearTimeout(fallbackTimer);
-      setShowPraise(false);
-      setPhase('page');
-    };
-
-    if (praiseUrls.length === 0) {
-      // 음원 풀 비어있으면 효과음만 듣고 1.5s 후 전환
-      setTimeout(() => {
-        if (!cancelled) advance();
-      }, 1500);
-    } else {
-      // 효과음 chime 끝나는 시점 후 칭찬 음원 — 약 500ms 딜레이
-      setTimeout(() => {
-        if (cancelled) return;
-        const url = praiseUrls[Math.floor(Math.random() * praiseUrls.length)];
-        const audio = new Audio(url);
-        praiseAudioRef.current = audio;
-        audio.addEventListener('ended', advance);
-        audio.addEventListener('error', advance);
-        audio.play().catch(advance);
-      }, 500);
+    // 단어 발음 재생 — 마지막(3회째)이면 발음이 끝난 뒤 칭찬 (동시 재생 방지).
+    const wordDone = playWord();
+    if (nextCount >= REVEAL_PAGE_AFTER_CLICKS) {
+      revealTriggeredRef.current = true;
+      void wordDone.then(() => startPraise());
     }
-
-    return () => {
-      cancelled = true;
-      clearTimeout(fallbackTimer);
-      if (praiseAudioRef.current) {
-        praiseAudioRef.current.pause();
-        praiseAudioRef.current = null;
-      }
-    };
-  }, [clickCount, phase, lang, praiseUrls, playFeedbackSound]);
+  };
 
   const label = getDisplayLabel(word, lang);
   const wordImage = wordImageUrls[imageIdx] ?? wordImageUrls[0];
