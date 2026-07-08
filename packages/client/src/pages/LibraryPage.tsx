@@ -183,9 +183,10 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   // 4-5세 인지부하 ↓ — 카테고리 chip 기본 4개만 노출, "더 ▾" 토글로 펼치기
   const [showAllCategories, setShowAllCategories] = useState(false);
   const CATEGORY_DEFAULT_VISIBLE = 4;
-  // 그림풍 일괄 전환 — null=대표(defaultStyle), 아니면 그 장르 표지로 전 책 swap.
+  // 그림풍 일괄 전환 — 표지 기본값 = 수채동화풍(2026-07-08). 드롭박스로 다른 그림풍 선택 가능.
   // 여러 그림체 표지가 있는 책(주로 세계명작)만 실제로 바뀜. styleId→장르 맵은 editor2 수동 지정(R2).
-  const [styleGenre, setStyleGenre] = useState<StyleGenreSlug | null>(null);
+  // 해당 장르 표지가 없는 책은 대표 표지로 폴백.
+  const [styleGenre, setStyleGenre] = useState<StyleGenreSlug>('watercolor');
   const { map: styleGenreMap } = useStyleGenreMap();
 
   const matchesType = (b: BookIndexEntry): boolean => {
@@ -257,7 +258,6 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
 
   // 책 표지를 선택 장르 표지로 교체 (해당 장르 표지 없으면 대표 그대로).
   const applyGenreCover = (b: BookIndexEntry): BookIndexEntry => {
-    if (!styleGenre) return b;
     for (const [styleId, url] of Object.entries(b.coversByStyle ?? {})) {
       if (url && styleGenreMap[styleId] === styleGenre) {
         return b.coverImageUrl === url ? b : { ...b, coverImageUrl: url };
@@ -344,34 +344,25 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     );
   }
 
-  // 그림풍 선택기 — "세계 명작" 섹션 타이틀 오른쪽에 노출. 여러 그림체 표지가 있는 책의 표지를
-  // 한 장르로 일괄 swap. 실명(지브리 등) 비노출 정책 → 장르 라벨만 표시.
+  // 그림풍 선택기 — "세계 명작" 섹션 타이틀 오른쪽 드롭박스. 여러 그림체 표지가 있는 책의 표지를
+  // 한 장르로 일괄 swap. 기본=수채동화풍. 실명(지브리 등) 비노출 정책 → 장르 라벨만 표시.
   const genreSelector =
     availableGenres.length > 0 ? (
-      <div className="flex items-center gap-1.5 flex-wrap justify-end">
-        <span className="text-xs sm:text-sm font-black text-ink-500 flex items-center gap-1">
-          <span aria-hidden>🎨</span> 그림풍
-        </span>
-        <Chip
-          variant="coral"
-          active={styleGenre === null}
-          onClick={() => setStyleGenre(null)}
-          className="!text-xs sm:!text-sm !px-3 !py-1.5"
+      <label className="flex items-center gap-1.5 text-xs sm:text-sm font-black text-ink-600">
+        <span aria-hidden>🎨</span>
+        <span className="sr-only">그림풍</span>
+        <select
+          value={styleGenre}
+          onChange={(e) => setStyleGenre(e.target.value as StyleGenreSlug)}
+          className="cursor-pointer rounded-full border-2 border-peach-200 bg-white px-3 py-1.5 pr-7 text-xs sm:text-sm font-black text-ink-800 shadow-soft focus:border-coral-400 focus:outline-none"
         >
-          대표
-        </Chip>
-        {availableGenres.map((g) => (
-          <Chip
-            key={g.slug}
-            variant="coral"
-            active={styleGenre === g.slug}
-            onClick={() => setStyleGenre(g.slug)}
-            className="!text-xs sm:!text-sm !px-3 !py-1.5"
-          >
-            {g.label}
-          </Chip>
-        ))}
-      </div>
+          {availableGenres.map((g) => (
+            <option key={g.slug} value={g.slug}>
+              {g.label}
+            </option>
+          ))}
+        </select>
+      </label>
     ) : undefined;
 
   return (
@@ -513,7 +504,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
               key={cat}
               icon={getCategoryIconNode(cat, 32)}
               title={cat}
-              books={styleGenre ? books.map(applyGenreCover) : books}
+              books={books.map(applyGenreCover)}
               headerExtra={cat === '세계 명작' ? genreSelector : undefined}
               onShowMore={() => {
                 setActiveCategory(cat);
