@@ -8,7 +8,7 @@ import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { usePreloadImages } from '../../hooks/useGamePrefetch';
+import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { SceneReveal } from '../SceneReveal';
 import { useGameStyle, GameStyleChip } from '../GameStyleChip';
@@ -96,6 +96,25 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
     },
     [viewerLang, storybook]
   );
+
+  // 정답(완성) 시 단어 발음 프리워밍 — 완성까지 수초 걸리므로 마운트 때 미리 디코드해 지연 방지.
+  // (identifierPrefix 'dot' 은 triggerComplete 의 resolveTtsUrl 호출과 동일해야 캐시 키 일치.)
+  const prewarmItems = useMemo(() => {
+    const out: { text: string; directUrl?: string }[] = [];
+    for (const it of items) {
+      const target = resolveSpeakTarget(it.objectName);
+      if (!target) continue;
+      const objLower = it.objectName?.toLowerCase();
+      const ko = storybook?.key_objects?.find(
+        (k) => k.name?.toLowerCase() === objLower || k.nameEn?.toLowerCase() === objLower
+      );
+      const ttsLang = target.language === 'korean' ? 'ko' : 'en';
+      const directUrl = ko?.ttsUrls?.[ttsLang] ?? (ttsLang === 'ko' ? ko?.ttsUrl : undefined);
+      out.push({ text: target.text, directUrl });
+    }
+    return out;
+  }, [items, resolveSpeakTarget, storybook]);
+  usePrewarmWordTts(prewarmItems, viewerLang === 'en' ? 'english' : 'korean', storybookId, 'dot');
 
   const currentItem: ConnectTheDotsItem | undefined = items[itemIdx];
 

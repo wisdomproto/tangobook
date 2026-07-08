@@ -43,6 +43,42 @@ function persistWarmed(): void {
 }
 
 /**
+ * 오디오 URL 을 **실제 재생 가능한 상태까지** 워밍 — `<audio>` 엘리먼트로 로드/디코드.
+ *
+ * 🔴 `fetch(no-cors)` 로 바이트만 받으면 R2 pub 의 opaque 응답이 `<audio>` 재생에 재사용되지
+ *    않아 첫 발음이 여전히 늦다(게임마다 "첫 단어 음원 늦음" 원인). Audio 엘리먼트로 `load()`
+ *    → `canplaythrough`/`loadeddata` 까지 기다리면 미디어 캐시에 확실히 적재돼 다음 `new Audio`
+ *    재생이 즉시. 엘리먼트는 이벤트 리스너 클로저가 완료까지 참조를 잡아 GC 로 abort 되지 않는다.
+ */
+function warmAudioUrl(url: string): Promise<void> {
+  return new Promise<void>((resolve) => {
+    try {
+      const audio = new Audio();
+      audio.preload = 'auto';
+      audio.muted = true;
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        audio.removeEventListener('canplaythrough', finish);
+        audio.removeEventListener('loadeddata', finish);
+        audio.removeEventListener('error', finish);
+        resolve();
+      };
+      audio.addEventListener('canplaythrough', finish, { once: true });
+      audio.addEventListener('loadeddata', finish, { once: true });
+      audio.addEventListener('error', finish, { once: true });
+      // 일부 브라우저 이벤트 미발동 대비 상한
+      setTimeout(finish, 4000);
+      audio.src = url;
+      audio.load();
+    } catch {
+      resolve();
+    }
+  });
+}
+
+/**
  * 게임 시작 시 이번 판 이미지 전부 워밍 — 라운드 진입 순간의 로드 지연 방지.
  * (단어 이미지는 수백 KB 급이라 온디맨드 로드 시 눈에 띄게 늦게 뜸 — 2026-07-03)
  */
@@ -115,7 +151,7 @@ export function usePrewarmWordTts(
             identifierPrefix,
           });
           if (alive && url) {
-            await fetch(url, { cache: 'force-cache', mode: 'no-cors' }).catch(() => {});
+            await warmAudioUrl(url); // 바이트 fetch 아닌 실제 오디오 디코드 워밍 (첫 발음 즉시)
           }
           markWarm(token);
         } catch {
@@ -163,11 +199,7 @@ export function usePrefetchUrlsGate(urls: string[], enabled: boolean): { ready: 
     }, PREWARM_MAX_MS);
     const missing = urls.filter((u) => !warmed.has(u));
     void Promise.all(
-      missing.map((u) =>
-        fetch(u, { cache: 'force-cache', mode: 'no-cors' })
-          .then(() => markWarm(u))
-          .catch(() => {})
-      )
+      missing.map((u) => warmAudioUrl(u).then(() => markWarm(u))) // 실제 오디오 디코드 워밍
     ).then(() => {
       if (alive) {
         clearTimeout(cap);
