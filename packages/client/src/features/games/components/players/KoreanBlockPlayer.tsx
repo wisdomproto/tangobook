@@ -291,10 +291,11 @@ function KoreanBlockPlayerInner({
     }
     return [...urls];
   }, [phonicsLoading, items, phonicsMapRef]);
-  // 음절 mp3 는 백그라운드 워밍(주 오디오는 단어 concat). 게이트엔 넣지 않아 재진입 로딩 X.
-  usePrefetchUrlsGate(syllableUrls, !phonicsLoading);
-  // 게임 시작 게이트 — phonics 맵 로드만(localStorage 캐시 hit 시 즉시). 재진입 시 로딩 안 뜸.
-  const audioReady = !phonicsLoading;
+  // 이번 판 음절 mp3 프리페치 **완료까지** 게이트 — 블록 놓을 때 첫 음절 소리가 늦지 않게.
+  // (음절은 재사용되는 제한된 집합이라 warmed 면 즉시 → 재진입/다음 판 로딩 반복 최소.) 2026-07-08:
+  // 이전엔 이 게이트 반환값을 무시해 phonics 맵만 로드되면 시작 → 첫 음절 발음이 R2 왕복으로 늦던 문제 fix.
+  const { ready: syllablesReady } = usePrefetchUrlsGate(syllableUrls, !phonicsLoading);
+  const audioReady = !phonicsLoading && syllablesReady;
   const drag = useBlockDrag<JamoBlock>({
     createGhost: createKoreanGhost,
     ghostOffset: [24, 24],
