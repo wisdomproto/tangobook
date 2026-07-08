@@ -32,7 +32,7 @@ export function PlanCard({
 
   return (
     <div
-      className="relative flex flex-col gap-3 rounded-3xl bg-white p-6 shadow-pop"
+      className="relative flex flex-col items-center gap-3 rounded-3xl bg-white p-6 text-center shadow-pop"
       data-plan-id={id}
     >
       {isYear && (
@@ -42,7 +42,7 @@ export function PlanCard({
       )}
       <h3 className="font-display text-xl font-black text-ink-900 break-keep">{name}</h3>
       {hasDiscount && (
-        <p className="flex items-center gap-2 -mb-2">
+        <p className="flex items-center justify-center gap-2 -mb-2">
           <span className="text-base font-bold text-ink-300 line-through">
             {formatKRW(originalAmount)}
           </span>

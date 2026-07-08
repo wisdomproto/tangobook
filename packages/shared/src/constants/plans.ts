@@ -6,7 +6,9 @@
  */
 export const PLANS = {
   month1: { id: 'month1', amount: 4950, originalAmount: 9900, days: 30, name: '1개월 이용권' },
-  year1: { id: 'year1', amount: 49500, originalAmount: 99000, days: 365, name: '12개월 이용권' },
+  // 연간 정가 79,000(월환산 6,583 = 월간 정가 9,900 대비 33% 저렴) — 연간 전환 유인 강화(2026-07-08).
+  // 오픈 반값 프로모 실결제 = 39,500(50%). 프로모 종료 시 amount=79000 로 되돌리고 originalAmount 제거.
+  year1: { id: 'year1', amount: 39500, originalAmount: 79000, days: 365, name: '12개월 이용권' },
 } as const;
 
 /** 할인 프로모션 라벨 — 이용권 화면 배지/헤드라인 공용. */

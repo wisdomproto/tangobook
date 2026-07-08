@@ -11,7 +11,7 @@
  *    설정돼 있어야 함. 테스트 키 상태로 true 배포 시 잠금은 보이는데 결제가 깨짐.
  *    (무료책 isAccessibleForFree 마킹·library-config 정렬은 이미 적용됨 — 스위치만 남음.)
  */
-export const PAYWALL_ENABLED = false;
+export const PAYWALL_ENABLED = true;
 
 /**
  * 게스트(미로그인) 전용 소프트 게이팅.
