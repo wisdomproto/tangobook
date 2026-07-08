@@ -111,10 +111,11 @@ function LineMatchingPlayerInner({
     }
     return [...urls];
   }, [phonicsLoading, items, phonicsMapRef]);
-  // 음절 mp3 는 백그라운드 워밍(짝 맞추기까지 수초 여유). 게이트는 phonics 맵 로드만 —
-  // localStorage 캐시 hit 시 즉시라 재진입 시 로딩이 반복되지 않는다.
-  usePrefetchUrlsGate(prefetchUrls, !phonicsLoading);
-  const audioReady = !phonicsLoading;
+  // 이번 판 음절/단어 mp3 프리페치 **완료까지** 게이트 — 첫 짝을 빨리 맞춰도 발음이 늦지 않게.
+  // (재진입 시 warmed 라 즉시 ready=true → 로딩 반복 X, 상한 6s.) 2026-07-08: 이전엔 이 게이트
+  // 반환값을 무시해 phonics 맵만 로드되면 시작 → 첫 정답 음원이 R2 왕복으로 늦던 문제 fix.
+  const { ready: urlsReady } = usePrefetchUrlsGate(prefetchUrls, !phonicsLoading);
+  const audioReady = !phonicsLoading && urlsReady;
 
   // 단어 음원 — 한글은 음절 단위 mp3 순차 재생 (서버 concat / ffmpeg 의존성 X).
   // 영어는 ttsUrl 우선 → 없으면 phonics 단일 mp3 lookup.
