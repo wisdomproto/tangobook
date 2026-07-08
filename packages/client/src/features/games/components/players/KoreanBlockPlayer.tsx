@@ -229,9 +229,9 @@ function KoreanBlockPlayerInner({
 
   // 이번 판 자산 워밍 — 라운드 진입 시 이미지 지연 + 정답 시 TTS 합성 지연 방지
   usePreloadImages(items.map((it) => it.imageUrl));
-  // 정답 단어 발음(concat/ttsUrl) 프리워밍 — 게임 열 때 게이트(아래 audioReady)로 다운로드 완료까지
-  // 대기 → 첫 정답부터 즉시 재생. warmed 면 즉시 통과(재진입/같은 단어 반복 X). 2026-07-08.
-  const { ready: wordReady } = usePrewarmWordTts(
+  // 정답 단어 발음(concat/ttsUrl) 백그라운드 프리워밍 — 논블로킹. 실제 캐싱은 R2 immutable
+  // Cache-Control + 서비스워커가 담당(한 번 받으면 영구 로컬) → 게임에 스피너 게이트 불필요.
+  usePrewarmWordTts(
     items.map((it) => ({ text: it.word, directUrl: it.ttsUrl })),
     'korean',
     storybookId,
@@ -291,11 +291,10 @@ function KoreanBlockPlayerInner({
     }
     return [...urls];
   }, [phonicsLoading, items, phonicsMapRef]);
-  // 이번 판 음절 mp3 프리페치 **완료까지** 게이트 — 블록 놓을 때 첫 음절 소리가 늦지 않게.
-  // (음절은 재사용되는 제한된 집합이라 warmed 면 즉시 → 재진입/다음 판 로딩 반복 최소.) 2026-07-08:
-  // 이전엔 이 게이트 반환값을 무시해 phonics 맵만 로드되면 시작 → 첫 음절 발음이 R2 왕복으로 늦던 문제 fix.
-  const { ready: syllablesReady } = usePrefetchUrlsGate(syllableUrls, !phonicsLoading);
-  const audioReady = !phonicsLoading && syllablesReady && wordReady;
+  // 이번 판 음절 mp3 백그라운드 프리페치 — 논블로킹(캐싱은 Cache-Control+SW 담당).
+  usePrefetchUrlsGate(syllableUrls, !phonicsLoading);
+  // 게임 시작 게이트 = phonics 맵(음절→URL JSON) 로드만. 맵은 localStorage 캐시라 재진입 즉시.
+  const audioReady = !phonicsLoading;
   const drag = useBlockDrag<JamoBlock>({
     createGhost: createKoreanGhost,
     ghostOffset: [24, 24],

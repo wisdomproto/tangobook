@@ -29,20 +29,29 @@ function hasLangData(words: VocabularyUnitWord[], lang: Lang): boolean {
   return words.some((w) => (w.nameEn && w.nameEn.trim()) || ENGLISH_RE.test(w.word));
 }
 
+// 세션 동안 마지막으로 뽑은 책 — 게임 재진입 시 같은 책 유지 (🎲 로만 변경). 모듈 스코프라 remount 초월.
+let sessionBookId: string | undefined;
+
 export default function RandomVocabStudyPage() {
   const navigate = useNavigate();
   const [lang, setLang] = useState<Lang | null>(null); // null = 자동 (한국어 우선)
-  const [seed, setSeed] = useState(0); // 🎲 다른 책 — 랜덤 재추첨
+  const [seed, setSeed] = useState(0); // 🎲 재추첨 트리거 (재렌더)
   const { data: books, isLoading: booksLoading } = useStorybooks();
 
-  // 세계 명작(공개) 중 랜덤 1권 id — books 로드 시 확정, seed 바뀌면 재추첨.
+  const classicIds = useMemo(
+    () => (books ?? []).filter((b) => b.category === '세계 명작' && b.isPublic).map((b) => b.id),
+    [books]
+  );
+
+  // 세계 명작(공개) 중 랜덤 1권 — **재진입 시 같은 책 유지**(모듈 변수 sessionBookId). 🎲 로만 변경.
+  // (매 진입 재추첨하면 매번 새 책 fetch → "단어 모으는 중" 반복 로딩이 뜸.)
   const pickedId = useMemo(() => {
-    if (!books) return undefined;
-    const classics = books.filter((b) => b.category === '세계 명작' && b.isPublic).map((b) => b.id);
-    if (classics.length === 0) return undefined;
-    return classics[Math.floor(Math.random() * classics.length)];
-    // seed 를 의도적으로 dependency 에 포함 (재추첨 트리거)
-  }, [books, seed]);
+    if (classicIds.length === 0) return sessionBookId;
+    if (sessionBookId && classicIds.includes(sessionBookId)) return sessionBookId;
+    sessionBookId = classicIds[Math.floor(Math.random() * classicIds.length)];
+    return sessionBookId;
+    // seed: 🎲 재추첨 시 재계산 (이미 sessionBookId 갱신돼 있어 그 값 유지)
+  }, [classicIds, seed]);
 
   // 그 책만 fetch — 책 상세 "단어 익히기" 와 동일 캐시 키(['storybook', id]) 공유.
   const { data: book, isLoading: bookLoading } = useStorybook(pickedId);
@@ -95,7 +104,16 @@ export default function RandomVocabStudyPage() {
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={() => setSeed((s) => s + 1)}
+                onClick={() => {
+                  if (classicIds.length === 0) return;
+                  // 직전 책과 다른 책으로 재추첨
+                  let next = sessionBookId;
+                  for (let i = 0; i < 8 && next === sessionBookId; i++) {
+                    next = classicIds[Math.floor(Math.random() * classicIds.length)];
+                  }
+                  sessionBookId = next;
+                  setSeed((s) => s + 1);
+                }}
                 className="rounded-full bg-white px-4 py-2.5 shadow-soft text-base font-black text-ink-700 hover:shadow-pop transition"
                 aria-label="다른 책으로 바꾸기"
               >

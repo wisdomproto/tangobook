@@ -36,8 +36,8 @@ export function KoreanWordWritingPlayer({
   const items = data.items;
 
   usePreloadImages(items.map((it) => it.imageUrl));
-  // 정답 단어 + 각 음절(handleSyllableDone 도 음절을 재생) 발음 프리워밍 — 게임 열 때 미리 다운로드/
-  // 디코드하고 audioReady 로 게이트 → 첫 색칠 발음부터 즉시. warmed 면 즉시 통과. 2026-07-08.
+  // 정답 단어 + 각 음절(handleSyllableDone 도 음절 재생) 백그라운드 프리워밍 — 논블로킹.
+  // (캐싱은 R2 immutable Cache-Control + 서비스워커 담당 → 스피너 게이트 불필요.)
   const prewarmItems = useMemo(() => {
     const out: { text: string; directUrl?: string }[] = [];
     for (const it of items) {
@@ -46,7 +46,7 @@ export function KoreanWordWritingPlayer({
     }
     return out;
   }, [items]);
-  const { ready: audioReady } = usePrewarmWordTts(prewarmItems, 'korean', storybookId, 'wwrite-ko');
+  usePrewarmWordTts(prewarmItems, 'korean', storybookId, 'wwrite-ko');
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));
@@ -168,20 +168,6 @@ export function KoreanWordWritingPlayer({
           ) : undefined
         }
       />
-      {!audioReady && (
-        <div className="absolute inset-0 z-[65] flex items-center justify-center bg-white/70 backdrop-blur-sm">
-          <div className="rounded-3xl bg-white shadow-pop px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
-            <div
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-coral-200 border-t-coral-500 animate-spin"
-              aria-hidden
-            />
-            <p className="text-xl sm:text-2xl font-black text-ink-900 font-display">
-              잠깐만 기다려 줘!
-            </p>
-            <p className="text-sm sm:text-base text-ink-500">소리 준비하는 중이에요...</p>
-          </div>
-        </div>
-      )}
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
         <div className="flex items-center justify-center gap-3 sm:gap-5 shrink-0">
           {currentItem.imageUrl && (
