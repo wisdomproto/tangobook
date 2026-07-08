@@ -75,7 +75,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 
 ## 모듈별 가이드 (해당 폴더 작업 시 자동 로드)
 - 동화책 (CRUD/사이드바/복사) → [features/storybook/CLAUDE.md](packages/client/src/features/storybook/CLAUDE.md)
-- 학습 게임 → [features/games/CLAUDE.md](packages/client/src/features/games/CLAUDE.md). **어휘 게임(사이드바 "어휘 게임" → `/games/vocab`, 2026-07-08 부활)**: 세계명작 랜덤 6권(`POOL_BOOKS`) 병렬 fetch→keyObject merge 가상 단원을 `VocabularyStudyContent`(책 상세 "단어 익히기"와 동일)에 공급 → **동화책 게임 4종**(그림짝·블록·그림 그리기·따라쓰기) 한/영 토글+🎲재추출. `deriveStorybookUnit` 이 keypoints 담아 그림 그리기까지 활성. 파일 `pages/RandomVocabStudyPage.tsx`. (구 `RandomBlockGamePage` 블록 전용 라우트는 보존.)
+- 학습 게임 → [features/games/CLAUDE.md](packages/client/src/features/games/CLAUDE.md). **어휘 게임(사이드바 "어휘 게임" → `/games/vocab`, 2026-07-08 부활)**: 세계명작 **랜덤 1권**을 `deriveStorybookUnit` → `VocabularyStudyContent`(책 상세 "단어 익히기"와 동일)에 공급 → **동화책 게임 4종**(그림짝·블록·그림 그리기·따라쓰기) 한/영 토글+🎲 다른 책. 파일 `pages/RandomVocabStudyPage.tsx`. 🔴 **1권인 이유**: 게임 플레이어는 `storybookId` 하나로 (1)정답 음원 프리워밍 cache 키 (2)정답 후 "그 단어 나온 동화책 페이지" 장면 리빌 을 결정 — 여러 책 mix 시 storybookId 가 가짜라 음원이 정답 순간 concat 되어 늦고 장면 리빌도 안 뜸(초기 mix 설계 폐기). 진짜 책 1권을 공급하면 책 안 게임과 완전히 동일 경로라 그 fix 들을 그대로 물려받음(keypoints 도 실책 데이터라 그림 그리기 활성). (구 `RandomBlockGamePage` 블록 전용 라우트는 보존.)
 - 롱폼 영상 → [features/longform-video/CLAUDE.md](packages/client/src/features/longform-video/CLAUDE.md)
 - /editor2 (3축 variation) → [features/editor/CLAUDE.md](packages/client/src/features/editor/CLAUDE.md)
 - 뷰어 + 디자인 시스템 → [features/viewer/CLAUDE.md](packages/client/src/features/viewer/CLAUDE.md)

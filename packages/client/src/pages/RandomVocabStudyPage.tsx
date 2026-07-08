@@ -1,36 +1,26 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useQueries } from '@tanstack/react-query';
 import { Chip, Mascot, PageHeader } from '@/design-system';
-import { useStorybooks } from '@/features/storybook';
-import { storybookApi } from '@/features/storybook/api/storybook.api';
+import { useStorybooks, useStorybook } from '@/features/storybook';
 import { deriveStorybookUnit } from '@/features/vocabulary-unit/lib/derive-storybook-unit';
 import { VocabularyStudyContent } from '@/features/vocabulary-unit/components/VocabularyStudyContent';
-import type { Lang, Storybook, VocabularyUnit, VocabularyUnitWord } from '@tangobook/shared';
+import type { Lang, VocabularyUnitWord } from '@tangobook/shared';
 
 /**
- * 어휘 게임 — 세계 명작 여러 권의 낱말을 랜덤으로 섞어 동화책 게임 4종(그림짝·블록·그림 그리기·
- * 따라쓰기)을 그대로 플레이. 사이드바 "어휘 게임" 진입점. AppShell 밖 풀화면.
+ * 어휘 게임 — 세계 명작 중 **랜덤 1권**의 "단어 익히기"(동화책 게임 4종)를 그대로 플레이.
+ * 사이드바 "어휘 게임" 진입점. AppShell 밖 풀화면.
  *
- * 설계: `VocabularyStudyContent`(책 상세의 "단어 익히기"와 동일 컴포넌트)를 재사용하되,
- *       unit 을 한 책이 아니라 **랜덤 명작 N권의 keyObject 를 merge** 한 가상 단원으로 공급한다.
- *       실제 책 데이터를 쓰므로 이미지·TTS·keypoints(그림 그리기)까지 온전히 동작.
- *
- * 로딩: 명작 요약 목록에서 N권을 랜덤 선택 → 그 책들만 병렬 fetch(캐시 공유). 전권 로드 X.
+ * 🔴 왜 mix 가 아니라 1권인가 (2026-07-08 재설계): 게임 플레이어는 `storybookId` 하나로
+ *   동작 — 정답 음원 프리워밍(cache 키)·정답 후 "그 단어가 나온 동화책 페이지" 장면 리빌이
+ *   모두 그 책 컨텍스트를 필요로 한다. 여러 책을 섞으면 storybookId 가 가짜라 (1) 정답 음원이
+ *   정답 순간에야 concat 되어 늦게 나오고 (2) 장면 리빌이 안 뜬다. 랜덤 1권을 실제 책으로
+ *   공급하면 책 안 "단어 익히기" 와 **완전히 동일한 경로**를 타므로 그 fix 들을 그대로 물려받는다.
+ *   (책 데이터가 이미 이미지·TTS·keypoints 를 다 가지므로 그림 그리기 포함 4종 전부 활성.)
+ *   콘텐츠 다양성은 진입 시 랜덤 + 🎲 다른 책 버튼으로 확보.
  */
-const POOL_BOOKS = 6;
 
 const HANGUL_RE = /[가-힣]/;
 const ENGLISH_RE = /^[a-zA-Z]+$/;
-
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
 
 function hasLangData(words: VocabularyUnitWord[], lang: Lang): boolean {
   if (lang === 'ko')
@@ -41,53 +31,26 @@ function hasLangData(words: VocabularyUnitWord[], lang: Lang): boolean {
 export default function RandomVocabStudyPage() {
   const navigate = useNavigate();
   const [lang, setLang] = useState<Lang | null>(null); // null = 자동 (한국어 우선)
-  const [seed, setSeed] = useState(0); // 🎲 다른 낱말 — 명작 N권 재추출
+  const [seed, setSeed] = useState(0); // 🎲 다른 책 — 랜덤 재추첨
   const { data: books, isLoading: booksLoading } = useStorybooks();
 
-  // 세계 명작(공개) 중 랜덤 N권 id — books 로드 시 확정, seed 바뀌면 재추출.
-  const pickedIds = useMemo(() => {
-    if (!books) return [];
+  // 세계 명작(공개) 중 랜덤 1권 id — books 로드 시 확정, seed 바뀌면 재추첨.
+  const pickedId = useMemo(() => {
+    if (!books) return undefined;
     const classics = books.filter((b) => b.category === '세계 명작' && b.isPublic).map((b) => b.id);
-    return shuffle(classics).slice(0, POOL_BOOKS);
-    // seed 를 의도적으로 dependency 에 포함 (재추출 트리거)
+    if (classics.length === 0) return undefined;
+    return classics[Math.floor(Math.random() * classics.length)];
+    // seed 를 의도적으로 dependency 에 포함 (재추첨 트리거)
   }, [books, seed]);
 
-  // 선택한 책들만 병렬 fetch — useStorybook 과 동일 캐시 키 공유(중복 요청 방지).
-  const results = useQueries({
-    queries: pickedIds.map((id) => ({
-      queryKey: ['storybook', id],
-      queryFn: () => storybookApi.getById(id),
-      staleTime: 5 * 60 * 1000,
-    })),
-  });
+  // 그 책만 fetch — 책 상세 "단어 익히기" 와 동일 캐시 키(['storybook', id]) 공유.
+  const { data: book, isLoading: bookLoading } = useStorybook(pickedId);
 
-  // 로드된 책 id 서명 — merge memo 를 안정화(매 렌더 새 배열로 인한 재계산·재셔플 방지).
-  const loadedSig = results.map((r) => (r.data ? r.data.id : '')).join('|');
+  // 실제 책 → 단원 (storybookId 세팅됨 → 게임이 진짜 책 컨텍스트로 동작).
+  const unit = useMemo(() => (book ? deriveStorybookUnit(book) : null), [book]);
+  const currentStyle = book?.defaultStyle ?? book?.artStyle;
 
-  // 랜덤 명작 낱말 merge — 한 번 로드되면 고정(게임 내부에서 매 판 다시 N개 랜덤 추출).
-  const words = useMemo<VocabularyUnitWord[]>(() => {
-    const bks = results.map((r) => r.data).filter((b): b is Storybook => !!b);
-    if (bks.length === 0) return [];
-    // loadedSig 로 안정화 — results 는 매 렌더 새 배열이라 deps 에 직접 넣지 않는다.
-    return shuffle(bks.flatMap((b) => deriveStorybookUnit(b).words));
-  }, [loadedSig]);
-
-  const unit = useMemo<VocabularyUnit | null>(() => {
-    if (words.length === 0) return null;
-    const now = new Date().toISOString();
-    return {
-      id: '__random_classic_pool__',
-      source: 'custom',
-      nameKo: '세계 명작 어휘',
-      nameEn: 'World Classics',
-      words,
-      language: 'ko',
-      createdAt: now,
-      updatedAt: now,
-    };
-  }, [words]);
-
-  const loading = booksLoading || (pickedIds.length > 0 && words.length === 0);
+  const loading = booksLoading || (!!pickedId && (bookLoading || !unit));
 
   if (loading) {
     return (
@@ -132,9 +95,9 @@ export default function RandomVocabStudyPage() {
                 type="button"
                 onClick={() => setSeed((s) => s + 1)}
                 className="rounded-full bg-white px-4 py-2.5 shadow-soft text-base font-black text-ink-700 hover:shadow-pop transition"
-                aria-label="다른 낱말로 바꾸기"
+                aria-label="다른 책으로 바꾸기"
               >
-                🎲 다른 낱말
+                🎲 다른 책
               </button>
               <div className="bg-white rounded-full px-2 py-1.5 shadow-soft flex gap-1">
                 <Chip
@@ -166,7 +129,12 @@ export default function RandomVocabStudyPage() {
       </div>
 
       <main className="px-4 sm:px-8 pt-4 pb-6 max-w-[1600px] mx-auto">
-        <VocabularyStudyContent unit={unit} lang={effectiveLang} />
+        <VocabularyStudyContent
+          unit={unit}
+          storybook={book ?? undefined}
+          currentStyle={currentStyle ?? undefined}
+          lang={effectiveLang}
+        />
       </main>
     </div>
   );
