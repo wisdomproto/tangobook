@@ -144,31 +144,33 @@ export function VocabularyStudyPage() {
       </div>
 
       <main className="px-4 sm:px-8 pt-4 pb-6 max-w-[1600px] mx-auto">
-        {/* 그림체 선택 — 여러 그림체 보유 책만. 선택 시 게임/미리보기 이미지가 그 그림체로 재derive.
-            실명 비노출 정책 → 장르 라벨("그림체 N"). */}
-        {canPickStyle && (
-          <div className="mb-4 flex flex-wrap items-center gap-2">
-            <span className="text-sm font-black text-ink-500">🎨 그림체</span>
-            {styles.map((s, i) => (
-              <Chip
-                key={s}
-                variant="coral"
-                active={s === activeStyle}
-                onClick={() => setSelectedStyle(s)}
-                aria-label={`그림체 ${i + 1}`}
-                className="!text-base !px-4 !py-2"
-              >
-                {styleGenreLabel(s, i)}
-              </Chip>
-            ))}
-          </div>
-        )}
-        {/* 시안에는 표지 hero 없음 — 바로 단어 미리보기 + 게임 카드 */}
+        {/* 시안에는 표지 hero 없음 — 바로 단어 미리보기 + 게임 카드.
+            그림체 선택(여러 그림체 보유 책만)은 "단어 둘러보기" 헤딩 줄 오른쪽에 배치.
+            선택 시 게임/미리보기 이미지가 그 그림체로 재derive. 실명 비노출 → 장르 라벨. */}
         <VocabularyStudyContent
           unit={unit}
           storybook={storybook ?? undefined}
           currentStyle={activeStyle}
           lang={effectiveLang}
+          stylePicker={
+            canPickStyle ? (
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-sm font-black text-ink-500">🎨 그림체</span>
+                {styles.map((s, i) => (
+                  <Chip
+                    key={s}
+                    variant="coral"
+                    active={s === activeStyle}
+                    onClick={() => setSelectedStyle(s)}
+                    aria-label={`그림체 ${i + 1}`}
+                    className="!text-sm !px-3 !py-1.5"
+                  >
+                    {styleGenreLabel(s, i)}
+                  </Chip>
+                ))}
+              </div>
+            ) : undefined
+          }
         />
       </main>
     </div>
