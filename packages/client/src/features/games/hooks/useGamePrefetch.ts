@@ -123,11 +123,10 @@ export function usePrewarmWordTts(
     (i) => `tts|${identifierPrefix}|${storybookId ?? ''}|${i.text}|${i.directUrl ?? ''}`
   );
   const key = tokens.join('|');
-  const alreadyWarm = !storybookId || items.length === 0 || tokens.every((t) => warmed.has(t));
-  const [ready, setReady] = useState(alreadyWarm);
+  const [ready, setReady] = useState(!storybookId || items.length === 0);
 
   useEffect(() => {
-    if (!storybookId || items.length === 0 || tokens.every((t) => warmed.has(t))) {
+    if (!storybookId || items.length === 0) {
       setReady(true);
       return;
     }
@@ -137,11 +136,12 @@ export function usePrewarmWordTts(
       if (alive) setReady(true);
     }, PREWARM_MAX_MS);
     void (async () => {
+      // 🔴 warmed 플래그로 스킵하지 않는다 — 플래그는 영구지만 실제 캐시는 evict 가능(false-positive).
+      //    항상 resolve+warm 하되, cache-control 덕에 진짜 캐시된 URL 은 즉시 통과(concat 서버도 캐시).
       for (let i = 0; i < items.length; i++) {
         if (!alive) return;
         const it = items[i];
         const token = tokens[i];
-        if (warmed.has(token)) continue;
         try {
           const url = await resolveTtsUrl({
             text: it.text,
@@ -180,15 +180,14 @@ export function usePrewarmWordTts(
  */
 export function usePrefetchUrlsGate(urls: string[], enabled: boolean): { ready: boolean } {
   const key = urls.join('|');
-  const allWarm = urls.length === 0 || urls.every((u) => warmed.has(u));
-  const [ready, setReady] = useState(enabled && allWarm);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     if (!enabled) {
       setReady(false);
       return;
     }
-    if (urls.length === 0 || urls.every((u) => warmed.has(u))) {
+    if (urls.length === 0) {
       setReady(true);
       return;
     }
@@ -197,10 +196,10 @@ export function usePrefetchUrlsGate(urls: string[], enabled: boolean): { ready: 
     const cap = setTimeout(() => {
       if (alive) setReady(true);
     }, PREWARM_MAX_MS);
-    const missing = urls.filter((u) => !warmed.has(u));
-    void Promise.all(
-      missing.map((u) => warmAudioUrl(u).then(() => markWarm(u))) // 실제 오디오 디코드 워밍
-    ).then(() => {
+    // 🔴 warmed 플래그로 스킵하지 않는다 — 플래그는 localStorage 영구지만 실제 브라우저/엣지 캐시는
+    //    evict 될 수 있어 "warmed=있음"이 false-positive(그 음절 재생 시 cold 다운로드 ~500ms). 항상
+    //    실제 로드로 워밍하되, cache-control(immutable) 덕에 진짜 캐시된 건 canplaythrough 즉시 통과.
+    void Promise.all(urls.map((u) => warmAudioUrl(u).then(() => markWarm(u)))).then(() => {
       if (alive) {
         clearTimeout(cap);
         persistWarmed();
