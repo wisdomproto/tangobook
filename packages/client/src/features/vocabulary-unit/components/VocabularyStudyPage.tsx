@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Skeleton, Chip, Mascot, PageHeader } from '@/design-system';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
+import { useStyleGenreLabel } from '@/lib/art-style-genre';
 import type { Lang, VocabularyUnit, VocabularyUnitWord } from '@tangobook/shared';
 import { useVocabularyUnit } from '../hooks/useVocabularyUnits';
+import { isStorybookUnitId, storybookIdFromUnitId } from '../lib/derive-storybook-unit';
 import { VocabularyStudyContent } from './VocabularyStudyContent';
 
 const HANGUL_RE = /[가-힣]/;
@@ -34,13 +36,38 @@ function getDisplayUnitName(unit: VocabularyUnit, lang: Lang): string {
  */
 export function VocabularyStudyPage() {
   const { unitId } = useParams<{ unitId: string }>();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { data: unit, isLoading } = useVocabularyUnit(unitId);
+  const styleGenreLabel = useStyleGenreLabel(); // 그림체 실명 비노출 → 장르 라벨
 
-  const [lang, setLang] = useState<Lang | null>(null); // null = 단원 default 따라감
+  // 책 상세에서 넘어온 선택 그림체/언어 (?style=&lang=). 없으면 책 대표 그림체 폴백.
+  const [selectedStyle, setSelectedStyle] = useState<string | undefined>(
+    searchParams.get('style') ?? undefined
+  );
+  const [lang, setLang] = useState<Lang | null>((searchParams.get('lang') as Lang) || null);
 
-  // 책 표지의 그림체 자동 매칭 — storybook source 단원만 fetch
-  const { data: storybook } = useStorybook(unit?.storybookId);
+  // storybook 을 unitId 에서 직접 파싱해 먼저 fetch — activeStyle 을 derive 전에 계산하기 위함
+  // (unit→storybook→style→unit 순환 회피). book 단원이 아니면 undefined.
+  const bookId = unitId && isStorybookUnitId(unitId) ? storybookIdFromUnitId(unitId) : undefined;
+  const { data: storybook } = useStorybook(bookId ?? undefined);
+
+  // 선택 가능한 그림체 목록 + 현재 활성 그림체 (선택 → 대표 → 활성 폴백).
+  const styles: string[] =
+    storybook?.availableStyles && storybook.availableStyles.length > 0
+      ? storybook.availableStyles
+      : storybook?.styleAssets
+        ? Object.keys(storybook.styleAssets)
+        : [];
+  const activeStyle: string | undefined =
+    (selectedStyle && styles.includes(selectedStyle) ? selectedStyle : undefined) ??
+    storybook?.defaultStyle ??
+    storybook?.artStyle ??
+    undefined;
+  const canPickStyle = styles.length > 1;
+
+  // 활성 그림체를 derive 에 전달 → 게임/미리보기/모달 이미지가 그 그림체로 나옴.
+  // (derive 는 캐시된 책 데이터 계산이라 그림체 변경 시 재fetch 없이 재derive.)
+  const { data: unit, isLoading } = useVocabularyUnit(unitId, activeStyle);
 
   if (isLoading) {
     return (
@@ -73,16 +100,13 @@ export function VocabularyStudyPage() {
     lang ??
     (unit.language && hasLangData(unit.words, unit.language) ? unit.language : hasKo ? 'ko' : 'en');
 
-  // 표지/스타일 — VocabularyStudyContent 의 단어 미리보기 이미지 derive 에 사용
-  const currentStyle = storybook?.defaultStyle ?? storybook?.artStyle;
-
   const displayName = getDisplayUnitName(unit, effectiveLang);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100">
       <div className="px-6 max-w-[1600px] mx-auto">
         <PageHeader
-          onBack={() => navigate(unit.storybookId ? `/library/${unit.storybookId}` : '/library')}
+          onBack={() => navigate(bookId ? `/library/${bookId}` : '/library')}
           onHome={() => navigate('/library')}
           right={
             <div className="bg-white rounded-full px-2 py-1.5 shadow-soft flex gap-1">
@@ -120,11 +144,30 @@ export function VocabularyStudyPage() {
       </div>
 
       <main className="px-4 sm:px-8 pt-4 pb-6 max-w-[1600px] mx-auto">
+        {/* 그림체 선택 — 여러 그림체 보유 책만. 선택 시 게임/미리보기 이미지가 그 그림체로 재derive.
+            실명 비노출 정책 → 장르 라벨("그림체 N"). */}
+        {canPickStyle && (
+          <div className="mb-4 flex flex-wrap items-center gap-2">
+            <span className="text-sm font-black text-ink-500">🎨 그림체</span>
+            {styles.map((s, i) => (
+              <Chip
+                key={s}
+                variant="coral"
+                active={s === activeStyle}
+                onClick={() => setSelectedStyle(s)}
+                aria-label={`그림체 ${i + 1}`}
+                className="!text-base !px-4 !py-2"
+              >
+                {styleGenreLabel(s, i)}
+              </Chip>
+            ))}
+          </div>
+        )}
         {/* 시안에는 표지 hero 없음 — 바로 단어 미리보기 + 게임 카드 */}
         <VocabularyStudyContent
           unit={unit}
           storybook={storybook ?? undefined}
-          currentStyle={currentStyle ?? undefined}
+          currentStyle={activeStyle}
           lang={effectiveLang}
         />
       </main>

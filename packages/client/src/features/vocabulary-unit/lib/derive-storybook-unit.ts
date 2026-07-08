@@ -35,15 +35,29 @@ export function storybookUnitIdFromBookId(bookId: string): string {
  * - 한 단어 = N 이미지 (그림체별 누적, isPrimary = defaultStyle 또는 artStyle)
  * - 그림체 자산 부분 누락 시 graceful (가용 이미지만)
  * - styleAssets 가 없으면 top-level keyObjectImages 폴백
+ *
+ * @param preferredStyle 학습자가 고른 그림체 — isPrimary(게임/미리보기/모달이 집는 이미지)를
+ *   이 그림체로 지정. 미지정/미보유 시 책 활성 그림체(book.artStyle) 폴백.
+ *   책 상세에서 그림체 선택 → 단어 게임 이미지가 그 그림체로 나오게 하는 핵심 (2026-07-08).
  */
-export function deriveStorybookUnit(book: Storybook): VocabularyUnit {
-  const styleKey = book.artStyle ?? 'paper-craft';
+export function deriveStorybookUnit(book: Storybook, preferredStyle?: string): VocabularyUnit {
   const stylesToUse: string[] =
     book.availableStyles && book.availableStyles.length > 0
       ? book.availableStyles
       : book.styleAssets
         ? Object.keys(book.styleAssets)
-        : [styleKey];
+        : [book.artStyle ?? 'paper-craft'];
+  // isPrimary 기준 그림체 — 호출자 preferredStyle 우선(해당 그림체 자산 보유 시), 없으면 책 활성 그림체.
+  const styleKey =
+    preferredStyle && stylesToUse.includes(preferredStyle)
+      ? preferredStyle
+      : (book.artStyle ?? 'paper-craft');
+
+  // 활성 그림체(artStyle)의 keyObj 이미지는 styleAssets 가 아니라 top-level book.keyObjectImages 에
+  // 저장된 책이 있음(에디터가 활성 그림체를 top-level 에 두고 다른 그림체만 styleAssets 로 mirror).
+  //   예) 백조왕자·빨간구두 — styleAssets[수채]=0 인데 top-level keyObjectImages 가 수채 이미지.
+  // 이 경우 styleAssets 만 보면 수채를 못 찾아 콜라주 등으로 폴백됨 → 활성 그림체는 top-level 도 소스로 인정.
+  const activeStyle = book.artStyle ?? 'paper-craft';
 
   const keyObjects: KeyObject[] = book.key_objects ?? [];
 
@@ -51,7 +65,11 @@ export function deriveStorybookUnit(book: Storybook): VocabularyUnit {
     const images: VocabularyWordImage[] = [];
     for (const style of stylesToUse) {
       const sa = book.styleAssets?.[style];
-      const styleImages: KeyObjectImage[] = sa?.keyObjectImages ?? [];
+      let styleImages: KeyObjectImage[] = sa?.keyObjectImages ?? [];
+      // 활성 그림체인데 styleAssets 에 이미지가 없으면 top-level 을 그 그림체 소스로 사용
+      if (styleImages.length === 0 && style === activeStyle) {
+        styleImages = book.keyObjectImages ?? [];
+      }
       const img = styleImages.find((im) => im.objectName === ko.name);
       if (img?.imageUrl) {
         images.push({

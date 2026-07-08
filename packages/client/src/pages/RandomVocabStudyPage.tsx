@@ -57,8 +57,12 @@ export default function RandomVocabStudyPage() {
   const { data: book, isLoading: bookLoading } = useStorybook(pickedId);
 
   // 실제 책 → 단원 (storybookId 세팅됨 → 게임이 진짜 책 컨텍스트로 동작).
-  const unit = useMemo(() => (book ? deriveStorybookUnit(book) : null), [book]);
+  // 대표 그림체를 derive 에 전달 → 게임 이미지가 아래 표시 라벨(currentStyle)과 일치.
   const currentStyle = book?.defaultStyle ?? book?.artStyle;
+  const unit = useMemo(
+    () => (book ? deriveStorybookUnit(book, book.defaultStyle ?? book.artStyle) : null),
+    [book]
+  );
   const styleLabel = useStyleGenreLabel(); // 그림체 실명 비노출 → 장르 라벨
 
   const loading = booksLoading || (!!pickedId && (bookLoading || !unit));
@@ -144,7 +148,8 @@ export default function RandomVocabStudyPage() {
             </div>
           }
         >
-          <span className="truncate">🎮 어휘 게임{book?.title ? ` · ${book.title}` : ''}</span>
+          {/* 책 제목은 아래 카드(📖)에 나오므로 헤더는 중복 제거 — 좁은 폭 확보 */}
+          <span className="truncate">🎮 어휘 게임</span>
         </PageHeader>
       </div>
 

@@ -226,8 +226,12 @@ export default function BookDetailPage() {
         ? `${baseId}__${effectiveLevel}`
         : storybook.id;
     if (mode === 'vocab') {
-      // 어휘 탭의 책별 derive 단원으로 직접 이동 (Phase 1 §6.3 회유 동선)
-      navigate(`/vocabulary/book-${targetId}`);
+      // 어휘 탭의 책별 derive 단원으로 직접 이동 (Phase 1 §6.3 회유 동선).
+      // 선택 그림체·언어를 함께 전달 → 단어 게임 이미지가 고른 그림체로 나옴.
+      const vq = new URLSearchParams();
+      if (effectiveStyle) vq.set('style', effectiveStyle);
+      vq.set('lang', lang);
+      navigate(`/vocabulary/book-${targetId}?${vq.toString()}`);
       return;
     }
     // 본문 읽기 게이팅 — 잠긴 책이면 이동 대신 유료 안내.

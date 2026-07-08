@@ -51,8 +51,11 @@ export function useVocabularyUnits() {
  * 단일 단원 fetch.
  * - 'book-{id}' → useStorybook 으로 책 fetch + 실시간 derive
  * - 그 외 → R2 카탈로그 fetch
+ *
+ * @param preferredStyle book-{id} 단원일 때 학습자가 고른 그림체 — 게임/미리보기 이미지를
+ *   그 그림체로 지정 (derive 는 캐시된 책 데이터 기반 계산이라 그림체 변경 시 재fetch 없이 재derive).
  */
-export function useVocabularyUnit(id: string | undefined) {
+export function useVocabularyUnit(id: string | undefined, preferredStyle?: string) {
   const isBookUnit = id ? isStorybookUnitId(id) : false;
   const bookId = id && isBookUnit ? storybookIdFromUnitId(id) : null;
 
@@ -66,7 +69,7 @@ export function useVocabularyUnit(id: string | undefined) {
 
   if (isBookUnit) {
     return {
-      data: bookQuery.data ? deriveStorybookUnit(bookQuery.data) : undefined,
+      data: bookQuery.data ? deriveStorybookUnit(bookQuery.data, preferredStyle) : undefined,
       isLoading: bookQuery.isLoading,
       isError: bookQuery.isError,
     } as { data: VocabularyUnit | undefined; isLoading: boolean; isError: boolean };
