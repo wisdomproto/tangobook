@@ -7,6 +7,8 @@
  *  1) 배터리 곡선: 출발 앵커(100%/만충) 존재 · 단조 비증가 · 급락(>40%p) 경고
  *  2) 부품 게이지: 단조 비감소
  *  3) 위험 회상어 자동 플래그(어제/어젯밤/그저께/지난밤 + 메타 "N화") — 사람이 원인장면 있는지 확인용
+ *  4) 두-사건 후보 휴리스틱(🎬, 한 쪽=한 이벤트 확인용)
+ *  5) 키워드 과반복 렌즈(🔁, 2026-07-07 — 결론 1회 원칙 보조: 같은 핵심어 5쪽+ 등장 시 반복 후보)
  * 종료코드: 위반(FAIL) 있으면 1, 경고/플래그만이면 0.
  */
 import { promises as fs } from 'node:fs';
@@ -23,7 +25,10 @@ const docs = args.length
 
 const stripTags = (s) => s.replace(/<[^>]+>/g, ' ').replace(/&lt;/g, '<').replace(/\s+/g, ' ').trim();
 
-// HTML 을 쪽별 {pno, text} 로 분해
+// HTML 을 쪽별 {pno, text, narr} 로 분해
+//  text = 쪽 전체(장면 지시 포함, 배터리/게이지/회상어 검사용)
+//  narr = 독자용 페이지 텍스트(<div class="text"> — 나레이션·대사)만. 키워드 과반복 렌즈는 이것만 본다
+//         (SCENE 라벨 컷/장소/인물/소품/톤 이 매 쪽 반복돼 노이즈가 되는 것을 방지).
 function parsePages(html) {
   const pages = [];
   const re = /<div class="page">\s*<div class="pno">([\s\S]*?)<\/div>([\s\S]*?)(?=<div class="page">|<footer|<div class="divider")/g;
@@ -31,7 +36,9 @@ function parsePages(html) {
   while ((m = re.exec(html))) {
     const pno = (m[1].match(/\d+/) || [])[0];
     if (!pno) continue;
-    pages.push({ pno: parseInt(pno, 10), text: stripTags(m[2]) });
+    const body = m[2];
+    const narrM = body.match(/<div class="text">([\s\S]*?)<\/div>\s*(?=<\/div>|<div class="page">|$)/);
+    pages.push({ pno: parseInt(pno, 10), text: stripTags(body), narr: narrM ? stripTags(narrM[1]) : '' });
   }
   return pages;
 }
@@ -95,12 +102,52 @@ for (const doc of docs) {
     if (hits.length) twoEv.push(`${p.pno}쪽: ${hits.join('/')}`);
   }
 
+  // ── 5) 키워드 과반복 렌즈(2026-07-07, 결론 1회 원칙 보조) ──────────────
+  //  같은 핵심어가 여러 쪽에 반복 등장하면 "결론 반복 = 늘어짐" 후보. 자동 확정 불가(핵심어는
+  //  정상 반복도 있음) → 사람 확인용 🔁 플래그. 캐릭터명·기능어는 제외, 조사 대충 stem.
+  const STOP = new Set([
+    '나레이션', '보리', '노아', '티코', '박사', '봉수', '할아버지', '티코피디아', '아이들', '얘들',
+    '우리', '서로', '모두', '다들', '여기', '저기', '거기', '이것', '그것', '저것', '무엇', '누구', '어디', '언제',
+    '이제', '지금', '오늘', '아까', '방금', '다시', '먼저', '아직', '벌써', '이미', '드디어', '마침내', '갑자기',
+    '천천히', '얼른', '조금', '정말', '진짜', '너무', '가장', '함께', '같이', '계속', '자꾸',
+    '그리고', '그러나', '하지만', '그런데', '그래서', '그러자', '그러면', '그러니까',
+    '있어', '없어', '거야', '그래', '맞아', '좋아', '이야', '뭐야', '해야', '봐야', '되지', '이제야',
+    '순간', '모습', '생각', '소리', '사람', '사람들', '시작', '하나', '이야기', '그때', '이때', '표정', '얼굴', '마음', '눈앞',
+  ]);
+  const PARTICLES = ['으로서', '으로써', '에서는', '에게서', '이라도', '에서', '에게', '한테', '까지', '부터', '조차', '마저', '밖에', '으로', '로서', '로써', '처럼', '만큼', '보다', '든지', '이나', '이랑', '이란', '께서', '라도', '란', '은', '는', '이', '가', '을', '를', '에', '의', '도', '로', '과', '와', '랑', '께', '들', '나'];
+  const stem = (w) => {
+    for (const p of PARTICLES) {
+      if (w.length > p.length + 1 && w.endsWith(p)) return w.slice(0, -p.length);
+    }
+    return w;
+  };
+  const wordPages = new Map(); // stem -> Set(pno)
+  for (const p of pages) {
+    const seen = new Set();
+    for (const raw of p.narr.match(/[가-힣]{2,}/g) || []) {
+      const s = stem(raw);
+      if (s.length < 2 || STOP.has(s) || STOP.has(raw)) continue;
+      seen.add(s);
+    }
+    for (const s of seen) {
+      if (!wordPages.has(s)) wordPages.set(s, new Set());
+      wordPages.get(s).add(p.pno);
+    }
+  }
+  const REPEAT_MIN = 5; // 5쪽 이상 등장 = 과반복 후보(핵심어라도 같은 결론 반복이면 압축 검토)
+  const repeats = [...wordPages.entries()]
+    .map(([w, set]) => ({ w, n: set.size, pnos: [...set].sort((a, b) => a - b) }))
+    .filter((r) => r.n >= REPEAT_MIN)
+    .sort((a, b) => b.n - a.n)
+    .slice(0, 8);
+
   if (fails.length) anyFail = true;
   const status = fails.length ? '❌ FAIL' : warns.length ? '⚠️  WARN' : '✅ PASS';
   console.log(`\n■ ${doc}  ${status}  (쪽 ${pages.length} · 부품게이지 ${parts.length})`);
   fails.forEach((x) => console.log(`   ❌ ${x}`));
   warns.forEach((x) => console.log(`   ⚠️  ${x}`));
   if (twoEv.length) console.log(`   🎬 두-사건 후보 ${twoEv.length}건(한 쪽 한 이벤트 확인): ` + twoEv.join(' | '));
+  if (repeats.length) console.log(`   🔁 키워드 과반복 ${repeats.length}건(결론 반복 확인): ` + repeats.map((r) => `${r.w}(${r.n}쪽:${r.pnos.join(',')})`).join(' | '));
   if (flags.length) console.log(`   🔎 회상어 ${flags.length}건: ` + flags.slice(0, 6).join(' | ') + (flags.length > 6 ? ' …' : ''));
 }
 
