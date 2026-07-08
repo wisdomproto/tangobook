@@ -344,6 +344,36 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     );
   }
 
+  // 그림풍 선택기 — "세계 명작" 섹션 타이틀 오른쪽에 노출. 여러 그림체 표지가 있는 책의 표지를
+  // 한 장르로 일괄 swap. 실명(지브리 등) 비노출 정책 → 장르 라벨만 표시.
+  const genreSelector =
+    availableGenres.length > 0 ? (
+      <div className="flex items-center gap-1.5 flex-wrap justify-end">
+        <span className="text-xs sm:text-sm font-black text-ink-500 flex items-center gap-1">
+          <span aria-hidden>🎨</span> 그림풍
+        </span>
+        <Chip
+          variant="coral"
+          active={styleGenre === null}
+          onClick={() => setStyleGenre(null)}
+          className="!text-xs sm:!text-sm !px-3 !py-1.5"
+        >
+          대표
+        </Chip>
+        {availableGenres.map((g) => (
+          <Chip
+            key={g.slug}
+            variant="coral"
+            active={styleGenre === g.slug}
+            onClick={() => setStyleGenre(g.slug)}
+            className="!text-xs sm:!text-sm !px-3 !py-1.5"
+          >
+            {g.label}
+          </Chip>
+        ))}
+      </div>
+    ) : undefined;
+
   return (
     <div className="bg-gradient-to-b from-cream-50 to-peach-100 min-h-full">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 pt-5 md:pt-6 pb-6">
@@ -460,36 +490,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
           )}
         </div>
 
-        {/* 그림풍 일괄 전환 — 여러 그림체 표지가 있는 책(주로 세계명작)의 표지를 한 장르로 swap.
-            실명(지브리 등) 비노출 정책 → 장르 라벨(수채동화풍·페이퍼 3D 아트·콜라주)만 표시. */}
-        {type === 'storybook' && availableGenres.length > 0 && (
-          <div className="mb-8 flex items-center gap-2 flex-wrap">
-            <span className="mr-1 text-sm font-black text-ink-600 flex items-center gap-1">
-              <span aria-hidden>🎨</span> 그림풍
-            </span>
-            <Chip
-              variant="coral"
-              active={styleGenre === null}
-              onClick={() => setStyleGenre(null)}
-              className="!text-base !px-5 !py-2"
-            >
-              대표
-            </Chip>
-            {availableGenres.map((g) => (
-              <Chip
-                key={g.slug}
-                variant="coral"
-                active={styleGenre === g.slug}
-                onClick={() => setStyleGenre(g.slug)}
-                className="!text-base !px-5 !py-2"
-              >
-                {g.label}
-              </Chip>
-            ))}
-          </div>
-        )}
-
-        {/* 나의 재생 목록 — 동화책 모드 + 저장된 세트 ≥1 일 때만 노출 (컴포넌트 내부에서 조건 판단). */}
+        {/* 나의 재생 목록 — 로그인 시 노출(컴포넌트 내부 조건 판단), 헤더 접기/펴기(기본 접힘). */}
         {type === 'storybook' && <PlaylistLibrarySection />}
 
         {/* 콘텐츠 */}
@@ -513,6 +514,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
               icon={getCategoryIconNode(cat, 32)}
               title={cat}
               books={styleGenre ? books.map(applyGenreCover) : books}
+              headerExtra={cat === '세계 명작' ? genreSelector : undefined}
               onShowMore={() => {
                 setActiveCategory(cat);
                 setReadingFilter(false);

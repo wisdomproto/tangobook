@@ -9,6 +9,8 @@ interface CategorySectionProps {
   books: BookIndexEntry[];
   limit?: number;
   onShowMore?: () => void;
+  /** 타이틀 오른쪽(권수 배지 옆) 커스텀 노드 — 예: 세계명작 그림풍 선택기 */
+  headerExtra?: ReactNode;
 }
 
 export function CategorySection({
@@ -17,6 +19,7 @@ export function CategorySection({
   books,
   limit = 9,
   onShowMore,
+  headerExtra,
 }: CategorySectionProps) {
   const visible = books.slice(0, limit);
   const hasMore = books.length > limit;
@@ -27,9 +30,12 @@ export function CategorySection({
           <span className="shrink-0">{icon}</span>
           <span className="truncate">{title}</span>
         </h2>
-        <span className="shrink-0 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white shadow-soft text-xs sm:text-base text-ink-700 font-black">
-          {books.length}권
-        </span>
+        <div className="flex items-center gap-2 shrink-0 flex-wrap justify-end">
+          {headerExtra}
+          <span className="shrink-0 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white shadow-soft text-xs sm:text-base text-ink-700 font-black">
+            {books.length}권
+          </span>
+        </div>
       </header>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-6">
         {visible.map((b) => (

@@ -1,14 +1,15 @@
 /**
  * PlaylistLibrarySection — 나의 재생 목록 (LibraryPage 내 섹션)
  *
- * Render policy (2026-07-07 — 연속재생 진입점을 사이드바→이 섹션으로 이전):
+ * Render policy (2026-07-07 진입점 이전 + 2026-07-08 접기/펴기):
  * - 게스트 (account=null) → null
  * - 로그인 + 로딩 중 → null
- * - 로그인 + 세트 0개 → 헤더 + "이어재생 만들기" CTA (첫 세트 생성 경로)
- * - 로그인 + 세트 ≥1 → 헤더 + 카드 행 (＋ 추가 카드 없음)
+ * - 로그인 → 헤더만 (기본 접힘). 헤더 클릭 시 펼침:
+ *   - 세트 0개 → "이어재생 만들기" CTA (첫 세트 생성 경로)
+ *   - 세트 ≥1 → 카드 행 (＋ 추가 카드 없음)
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 // ---- mocks ----
@@ -63,10 +64,17 @@ describe('PlaylistLibrarySection', () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it('로그인 + 세트 0개 → 헤더 + "이어재생 만들기" CTA 표시', () => {
-    mockPlaylists.data = [];
+  it('로그인 → 기본 접힘: 헤더만, 본문(CTA/세트) 숨김', () => {
+    mockPlaylists.data = [{ id: 'p1', name: '밤 동화 세트', bookIds: ['b1'], language: 'ko' }];
     renderSection();
     expect(screen.getByText(/나의 재생 목록/)).toBeInTheDocument();
+    expect(screen.queryByText('밤 동화 세트')).toBeNull(); // 접혀 있어 숨김
+  });
+
+  it('로그인 + 세트 0개 → 펼치면 "이어재생 만들기" CTA 표시', () => {
+    mockPlaylists.data = [];
+    renderSection();
+    fireEvent.click(screen.getByRole('button', { name: /나의 재생 목록/ }));
     expect(screen.getByText('이어재생 만들기')).toBeInTheDocument();
   });
 
@@ -77,13 +85,13 @@ describe('PlaylistLibrarySection', () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it('로그인 + 세트 ≥1 → 섹션 헤더 + 세트 이름 표시', () => {
+  it('로그인 + 세트 ≥1 → 펼치면 세트 이름 표시', () => {
     mockPlaylists.data = [
       { id: 'p1', name: '밤 동화 세트', bookIds: ['b1', 'b2'], language: 'ko' },
       { id: 'p2', name: '아침 영어 세트', bookIds: ['b3'], language: 'en' },
     ];
     renderSection();
-    expect(screen.getByText(/나의 재생 목록/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /나의 재생 목록/ }));
     expect(screen.getByText('밤 동화 세트')).toBeInTheDocument();
     expect(screen.getByText('아침 영어 세트')).toBeInTheDocument();
   });

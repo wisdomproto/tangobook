@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useStorybooks } from '@/features/storybook';
@@ -14,6 +14,9 @@ import { PlaylistCard } from './PlaylistCard';
  *   - loading → null (hidden)
  *   - 0 playlists → 섹션 헤더 + "이어재생 만들기" CTA 카드 (부모가 첫 세트를 만드는 경로)
  *   - ≥1 playlists → header + horizontal card row (+ "새 세트" 헤더 버튼)
+ *
+ * 헤더는 접기/펴기 토글 — 기본 접힘(2026-07-08). 부모용 보조 기능이라 기본은 접어 라이브러리
+ * 첫 화면을 동화책 위주로 유지.
  */
 export function PlaylistLibrarySection() {
   const navigate = useNavigate();
@@ -21,6 +24,7 @@ export function PlaylistLibrarySection() {
   const { data: playlists, isLoading } = usePlaylists();
   const { data: books } = useStorybooks();
   const deletePlaylist = useDeletePlaylist();
+  const [open, setOpen] = useState(false); // default 접힘
 
   const coverOf = useMemo(() => {
     const m = new Map<string, string>();
@@ -49,12 +53,21 @@ export function PlaylistLibrarySection() {
 
   return (
     <section className="mb-8">
-      {/* 섹션 헤더 */}
+      {/* 섹션 헤더 — 클릭 시 접기/펴기 토글 */}
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-xl font-black text-ink-900 font-display flex items-center gap-2">
-          🎬 나의 재생 목록
-        </h2>
-        {!isEmpty && (
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+          className="flex items-center gap-2 text-xl font-black text-ink-900 font-display hover:text-coral-600 transition"
+        >
+          <span>🎬 나의 재생 목록</span>
+          {!isEmpty && <span className="text-sm text-ink-400 font-black">{list.length}</span>}
+          <span aria-hidden className="text-base text-ink-400">
+            {open ? '▾' : '▸'}
+          </span>
+        </button>
+        {open && !isEmpty && (
           <button
             type="button"
             onClick={() => navigate('/continuous/new')}
@@ -65,8 +78,8 @@ export function PlaylistLibrarySection() {
         )}
       </div>
 
-      {/* 빈 상태 — 첫 세트 만들기 CTA (부모가 여러 권을 골라 잠자리용 이어재생을 만드는 경로) */}
-      {isEmpty ? (
+      {/* 펼쳤을 때만 본문 — 빈 상태 CTA / 카드 행 */}
+      {!open ? null : isEmpty ? (
         <button
           type="button"
           onClick={() => navigate('/continuous/new')}
