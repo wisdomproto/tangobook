@@ -136,6 +136,11 @@ export function createApp() {
   // 프로덕션: 클라이언트 정적 파일 서빙 (개발 모드에서는 Vite가 처리)
   if (process.env.NODE_ENV === 'production') {
     const clientDist = path.join(process.cwd(), 'packages/client/dist');
+    // 서비스워커는 no-cache 로 — 브라우저가 매번 최신 sw.js 를 확인해 업데이트가 전파되게.
+    app.get('/sw.js', (_req, res) => {
+      res.setHeader('Cache-Control', 'no-cache');
+      res.sendFile(path.join(clientDist, 'sw.js'));
+    });
     app.use(express.static(clientDist));
     app.get('/{*path}', (_req, res) => {
       res.sendFile(path.join(clientDist, 'index.html'));
