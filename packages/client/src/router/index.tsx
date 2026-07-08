@@ -19,6 +19,7 @@ import {
 import LibraryPage from '../pages/LibraryPage';
 import GamesHubPage from '../pages/GamesHubPage';
 import RandomBlockGamePage from '../pages/RandomBlockGamePage';
+import RandomVocabStudyPage from '../pages/RandomVocabStudyPage';
 
 function EditorV2BidRedirect() {
   const { bid } = useParams();
@@ -349,6 +350,15 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <PaymentFailPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 어휘 게임 — 세계 명작 랜덤 낱말로 동화책 게임 4종 (사이드바 "어휘 게임" 진입점). AppShell 밖.
+        path: 'games/vocab',
+        element: (
+          <ErrorBoundary>
+            <RandomVocabStudyPage />
           </ErrorBoundary>
         ),
       },

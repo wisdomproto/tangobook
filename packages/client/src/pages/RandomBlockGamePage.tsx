@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMemo, useState } from 'react';
 import { Mascot } from '@/design-system';
 import { useVocabularyList } from '@/features/vocabulary/hooks/useVocabulary';
+import { useStorybooks } from '@/features/storybook';
 import {
   unitToKoreanBlockData,
   unitToEnglishBlockData,
@@ -76,12 +77,22 @@ function levelOfWord(word: string, lang: 'ko' | 'en'): Level {
   return 'L3';
 }
 
-function filterByLevel(entries: VocabEntry[], lang: 'ko' | 'en', level: Level): VocabEntry[] {
+function filterByLevel(
+  entries: VocabEntry[],
+  lang: 'ko' | 'en',
+  level: Level,
+  classicIds: Set<string>
+): VocabEntry[] {
   return entries.filter((e) => {
-    // 단어 마스터 표(/vocabulary-table-ko.html)와 동일 풀: 동화책 keyObject 만.
-    // 'storybook-vocabulary' (educational_content.vocabulary) source 단어는 keyObject 가
-    // 아니라 단어 마스터 표에 미노출 → 게임 풀에서도 제외해야 일관성 유지 ("자세" 같은 단어).
-    if (!e.sources.some((s) => s.sourceType === 'storybook-key-object')) return false;
+    // 세계명작 책의 keyObject 단어만 (자연관찰 등 다른 카테고리 제외) — 사용자 정책 2026-07-08.
+    // 단어 마스터 표와 동일하게 'storybook-key-object' source 만 인정하되, 그 출처 책이
+    // 세계명작(classicIds)인 것으로 한정. ('storybook-vocabulary' 단어는 keyObject 아님 → 제외)
+    if (
+      !e.sources.some(
+        (s) => s.sourceType === 'storybook-key-object' && classicIds.has(s.storybookId)
+      )
+    )
+      return false;
     const w = lang === 'ko' ? (e.korean ?? '') : (e.word ?? '');
     if (!w) return false;
     return levelOfWord(w, lang) === level;
@@ -100,14 +111,24 @@ export function RandomBlockGamePage({ lang }: Props) {
   const [level, setLevel] = useState<Level | null>(null);
   const [seed, setSeed] = useState(0);
   const { data: entries, isLoading, isError } = useVocabularyList();
+  const { data: books, isLoading: booksLoading } = useStorybooks();
+
+  // 세계명작 책 id 집합 — 게임 단어 풀을 이 카테고리로 한정 (자연관찰 등 제외).
+  const classicIds = useMemo(() => {
+    const s = new Set<string>();
+    (books ?? []).forEach((b) => {
+      if (b.category === '세계 명작') s.add(b.id);
+    });
+    return s;
+  }, [books]);
 
   const gameData = useMemo(() => {
     if (!entries || !level) return null;
-    const filtered = filterByLevel(entries, lang, level);
+    const filtered = filterByLevel(entries, lang, level, classicIds);
     if (filtered.length === 0) return null;
     const unit = vocabEntriesToVirtualUnit(filtered, lang);
     return lang === 'ko' ? unitToKoreanBlockData(unit) : unitToEnglishBlockData(unit);
-  }, [entries, lang, level, seed]);
+  }, [entries, lang, level, seed, classicIds]);
 
   const handleBack = () => {
     if (level) {
@@ -117,7 +138,7 @@ export function RandomBlockGamePage({ lang }: Props) {
     }
   };
 
-  if (isLoading) {
+  if (isLoading || booksLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-cream-50 to-peach-100 gap-6 px-6 text-center">
         <Mascot character="hori" state="thinking" size="xl" />
@@ -165,9 +186,9 @@ export function RandomBlockGamePage({ lang }: Props) {
   if (!level) {
     const counts = entries
       ? {
-          L1: filterByLevel(entries, lang, 'L1').length,
-          L2: filterByLevel(entries, lang, 'L2').length,
-          L3: filterByLevel(entries, lang, 'L3').length,
+          L1: filterByLevel(entries, lang, 'L1', classicIds).length,
+          L2: filterByLevel(entries, lang, 'L2', classicIds).length,
+          L3: filterByLevel(entries, lang, 'L3', classicIds).length,
         }
       : { L1: 0, L2: 0, L3: 0 };
 

@@ -35,6 +35,18 @@ const PRIMARY_AXES = [
   // 연속재생은 부모가 세팅하는 작업이라 사이드바 아이존이 아닌 메인화면(라이브러리 "나의 재생 목록")
   // 이 1차 진입점 — PlaylistLibrarySection 이 로그인 시 항상 표시(빈 상태 CTA 포함). 2026-07-07.
   {
+    // 어휘 게임 — 세계명작 낱말 랜덤 풀 블록 게임. 허브에서 한글/영어 선택. 2026-07-08 부활.
+    to: '/games/vocab',
+    iconSrc: 'game/korean-block.webp',
+    label: '어휘 게임',
+    color: 'mint' as const,
+    end: false,
+    comingSoon: false,
+    alwaysActive: false,
+    devOnly: false,
+    authOnly: false,
+  },
+  {
     to: '/library/phonics',
     iconSrc: 'tab/phonics.svg',
     label: '파닉스',
