@@ -229,9 +229,9 @@ function KoreanBlockPlayerInner({
 
   // 이번 판 자산 워밍 — 라운드 진입 시 이미지 지연 + 정답 시 TTS 합성 지연 방지
   usePreloadImages(items.map((it) => it.imageUrl));
-  // 단어 concat TTS 는 정답 때(수초 후) 필요하므로 게이트로 막지 않고 백그라운드로만 워밍.
-  // (매 진입 랜덤 단어라 이걸 게이트에 넣으면 로딩이 매번 반복됨.)
-  usePrewarmWordTts(
+  // 정답 단어 발음(concat/ttsUrl) 프리워밍 — 게임 열 때 게이트(아래 audioReady)로 다운로드 완료까지
+  // 대기 → 첫 정답부터 즉시 재생. warmed 면 즉시 통과(재진입/같은 단어 반복 X). 2026-07-08.
+  const { ready: wordReady } = usePrewarmWordTts(
     items.map((it) => ({ text: it.word, directUrl: it.ttsUrl })),
     'korean',
     storybookId,
@@ -295,7 +295,7 @@ function KoreanBlockPlayerInner({
   // (음절은 재사용되는 제한된 집합이라 warmed 면 즉시 → 재진입/다음 판 로딩 반복 최소.) 2026-07-08:
   // 이전엔 이 게이트 반환값을 무시해 phonics 맵만 로드되면 시작 → 첫 음절 발음이 R2 왕복으로 늦던 문제 fix.
   const { ready: syllablesReady } = usePrefetchUrlsGate(syllableUrls, !phonicsLoading);
-  const audioReady = !phonicsLoading && syllablesReady;
+  const audioReady = !phonicsLoading && syllablesReady && wordReady;
   const drag = useBlockDrag<JamoBlock>({
     createGhost: createKoreanGhost,
     ghostOffset: [24, 24],

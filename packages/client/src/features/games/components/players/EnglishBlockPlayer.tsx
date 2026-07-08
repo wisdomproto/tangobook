@@ -70,8 +70,9 @@ function EnglishBlockPlayerInner({
 
   // 이번 판 자산 워밍 — 라운드 진입 시 이미지 지연 + 정답 시 TTS 지연 방지
   usePreloadImages(items.map((it) => it.imageUrl));
-  // 단어 TTS 는 정답 때 필요 → 게이트로 막지 않고 백그라운드 워밍 (매 진입 랜덤 단어라 재로딩 방지).
-  usePrewarmWordTts(
+  // 정답 단어 발음 프리워밍 — 게임 열 때 게이트(audioReady)로 다운로드 완료까지 대기 → 첫 정답부터
+  // 즉시. warmed 면 즉시 통과. 2026-07-08.
+  const { ready: wordReady } = usePrewarmWordTts(
     items.map((it) => ({ text: it.word, directUrl: it.ttsUrl })),
     'english',
     storybookId,
@@ -121,7 +122,7 @@ function EnglishBlockPlayerInner({
     'mod_english',
   ]);
   // 게임 시작 게이트 — 맵 로드만(캐시 hit 시 즉시). 단어 발음은 백그라운드 워밍.
-  const audioReady = !phonicsLoading;
+  const audioReady = !phonicsLoading && wordReady;
   const drag = useBlockDrag<LetterBlock>({
     createGhost: createEnglishGhost,
     ghostOffset: [26, 32],

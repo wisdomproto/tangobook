@@ -114,7 +114,12 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
     }
     return out;
   }, [items, resolveSpeakTarget, storybook]);
-  usePrewarmWordTts(prewarmItems, viewerLang === 'en' ? 'english' : 'korean', storybookId, 'dot');
+  const { ready: audioReady } = usePrewarmWordTts(
+    prewarmItems,
+    viewerLang === 'en' ? 'english' : 'korean',
+    storybookId,
+    'dot'
+  );
 
   const currentItem: ConnectTheDotsItem | undefined = items[itemIdx];
 
@@ -465,6 +470,20 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
           ) : undefined
         }
       />
+      {!audioReady && (
+        <div className="absolute inset-0 z-[65] flex items-center justify-center bg-white/70 backdrop-blur-sm">
+          <div className="rounded-3xl bg-white shadow-pop px-10 py-8 sm:px-12 sm:py-10 flex flex-col items-center gap-4 border-2 border-coral-200">
+            <div
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-[6px] border-coral-200 border-t-coral-500 animate-spin"
+              aria-hidden
+            />
+            <p className="text-xl sm:text-2xl font-black text-ink-900 font-display">
+              잠깐만 기다려 줘!
+            </p>
+            <p className="text-sm sm:text-base text-ink-500">소리 준비하는 중이에요...</p>
+          </div>
+        </div>
+      )}
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
         {/* 안내 텍스트 */}
         <div className="h-14 sm:h-16 flex items-center justify-center shrink-0">
