@@ -3,7 +3,6 @@ import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
@@ -35,19 +34,6 @@ export function EnglishWordWritingPlayer({
 }: GamePlayerProps) {
   const data = gameData as WordWritingData;
   const items = data.items;
-
-  usePreloadImages(items.map((it) => it.imageUrl));
-  // 정답 단어 + 각 글자(handleLetterDone 도 글자 재생) 백그라운드 프리워밍 — 논블로킹.
-  // (캐싱은 R2 immutable Cache-Control + 서비스워커 담당 → 스피너 게이트 불필요.)
-  const prewarmItems = useMemo(() => {
-    const out: { text: string; directUrl?: string }[] = [];
-    for (const it of items) {
-      out.push({ text: it.word, directUrl: it.ttsUrl });
-      for (const l of lettersOf(it.word)) out.push({ text: l });
-    }
-    return out;
-  }, [items]);
-  usePrewarmWordTts(prewarmItems, 'english', storybookId, 'wwrite-en');
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));
