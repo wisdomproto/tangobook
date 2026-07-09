@@ -126,6 +126,8 @@ if (oldOutputUrl) {
   - 업로드 시 contentType 기반 `Cache-Control` 자동 분기 — 이미지/오디오/영상 = `public, max-age=31536000, immutable`, JSON = 헤더 없음 (고정 key 덮어쓰기라 캐시 금지). 호출처 수정 없이 전 업로드 자동 적용.
   - **immutable 안전 근거**: `buildR2Key`(`utils/r2-key.ts`)가 모든 자산 key 에 `Date.now()` 를 박아 콘텐츠 변경 시 URL 자체가 바뀜 → 같은 URL = 영원히 같은 바이트.
   - 기존 이미지 backfill: `scripts/backfill-cache-control.mjs` (dry-run 기본 / `--apply`, `CopyObject` + `MetadataDirective:REPLACE`, 본문 무변경·멱등). 2026-06 16,713장 적용 완료(실패 0). `.r2.dev` 는 Cloudflare CDN edge 캐시도 활용.
+- **자산 durable 캐시 서비스워커** (`public/sw.js` + `lib/asset-cache.ts`, 2026-07): 모든 `.r2.dev` 자산(이미지·mp3 파닉스/TTS/BGM)·동일출처 정적(/sounds 등)을 **Cache Storage 에 cache-first 영구 저장** → 브라우저 HTTP 캐시(evict 가능)와 달리 반복 다운로드 제거. `navigator.storage.persist()` 로 evict 방지 요청(브라우저 휴리스틱, fresh localhost 는 false 흔함). ⚠️ **앱 JS/HTML/API(JSON) 는 어디서도 캐시 안 함**(가로채지 않음)→HMR·동적데이터 무관. **dev(localhost)는 `.r2.dev` 만 캐시**(동일출처 정적은 편집 stale 방지로 제외), prod 는 전부. 캐시명 `tango-assets-v1`(activate 시 옛 버전 정리). dev 활성화엔 하드리프레시 1회.
+- **파닉스 음원 목록 정적 인덱스** (`phonics-library.service.ts`, 2026-07): sound→URL 목록을 요청마다 `listR2Objects`(1600+ 객체, ~8s) 하던 걸 **`phonics-library/_index.json`** 정적 파일로 굽고 그것만 GET(~빠름). 음원 추가/삭제 시 `invalidateListCache` 가 인덱스 삭제→다음 `list()` 재빌드. 서버 재시작 후 목록 ~8s→9ms.
 - **클라이언트 에셋 프리로드**:
   - `hooks/useAssetPreloadProgress(urls)` — 확장자로 audio/video/image 판별 후 `new Audio()`/`<video>`/`new Image()`. CORS 없이 브라우저 HTTP 캐시 hit. deps는 `[key]`만.
   - `features/audiobook/hooks/useTtsDurations` — 모듈 레벨 `durationCache` Map 영구 캐시

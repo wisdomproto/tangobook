@@ -245,7 +245,8 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 - 🔴 **`GameOverlay`의 `data = getGameData(...)`는 반드시 `useMemo([unit,lang,game])`**: getGameData가 내부 `shuffleInPlace`로 매 호출 items 순서를 바꿔서, memo 없으면 프리로드 `coreKey`가 매 렌더 변해 effect 무한 재시작(게이트 0%에 영구 멈춤). 실측으로 잡은 버그(2026-07-09).
 - 🔴 **TTS `storybookId`는 `effectiveStorybookId`(동기)** 사용(`book?.id` 비동기면 한글 concat이 조기 반환). `buildTtsSpec`는 `directUrl: it.ttsUrl` 필수(영어는 directUrl 우선이라 빠지면 프리워밍 헛돎). 점잇기/그림짝은 제외(점잇기는 런타임 target이라 플레이어 `usePrewarmWordTts('dot')` 유지).
 - 플레이어 6종의 중복 프리페치(`usePreloadImages`/`usePrewarmWordTts`/`usePrefetchUrlsGate`)는 제거, **`usePhonicsMap`/음절 재생 런타임 로직·점잇기 dot 프리워밍은 유지**. `usePreloadImages`/`usePrefetchUrlsGate`는 이제 미사용(향후 재사용 프리미티브로 보존).
-- 🟡 **알려진 후속**(minor): 낱말쓰기 개별 글자/음절 TTS 프리워밍은 게이트 core에서 빠짐(정답 단어 concat은 커버 — 첫 글자만 약간 콜드). 진행률바가 콜드 concat 구간에 잠시 0% 정체(스펙상 트레이드오프). → memory `game-asset-preload-gate-2026-07-09`.
+- 🟡 **알려진 후속**(minor): 낱말쓰기 개별 글자/음절 TTS 프리워밍은 게이트 core에서 빠짐(정답 단어 concat은 커버 — 첫 글자만 약간 콜드). 진행률바가 콜드 concat 구간에 잠시 0% 정체(스펙상 트레이드오프).
+- 🔴 **파닉스 음원 로딩 근본 개선(2026-07-09)** — 게임 음원 "매번 느림" 3원인 수정: ①**안 쓰는 게임도 파닉스 로드**: 따라쓰기·점잇기·영어는 음절맵 안 씀(concat 발음) → `usePhonicsMap(modules, enabled)` 플래그, GameOverlay `needsSyllables = korean-block||korean-line-matching` 일 때만 enable. ②**목록 ~8초**: 서버 `list()` 가 매 요청 `listR2Objects`(1600+, ~8s)+5분캐시 → **정적 인덱스 `phonics-library/_index.json`** 을 GET(빠름), 음원 추가/삭제 시만 재빌드. + 클라 usePhonicsMap in-flight 공유·prefetchTop100 세션1회+지연·<10분 신선 refresh 스킵. ③**오디오 영구 캐시는 이미 있음**: `public/sw.js`(cache-first `.r2.dev` mp3)+`lib/asset-cache.ts`(`persist()`)가 prod 전용이라 dev 만 재다운로드였음 → dev 도 R2-scoped 등록. 실측: 어휘/동화책 게임 음원 ~20ms·목록 재fetch 0·캐시 재사용. → memory `game-asset-preload-gate-2026-07-09`.
 - 설계/계획: `docs/superpowers/specs/2026-07-09-game-asset-preload-gate-design.md` · `docs/superpowers/plans/2026-07-09-game-asset-preload-gate.md`.
 
 ## 블록 게임 정책 (2026-05-18 보강)
