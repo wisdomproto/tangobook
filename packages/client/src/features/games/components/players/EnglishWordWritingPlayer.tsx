@@ -177,12 +177,12 @@ export function EnglishWordWritingPlayer({
         onBack={onBack}
       />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
-        <div className="flex items-center justify-center gap-3 sm:gap-5 shrink-0">
+        <div className="flex flex-col items-center justify-center gap-2 sm:gap-3 shrink-0">
           {currentItem.imageUrl && (
             <img
               src={currentItem.imageUrl}
               alt={currentItem.word}
-              className="h-24 sm:h-32 lg:h-40 w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
+              className="h-48 sm:h-60 lg:h-72 w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
             />
           )}
           <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900">
