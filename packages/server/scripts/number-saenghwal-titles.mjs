@@ -17,6 +17,8 @@ const CATEGORY = '생활동화';
 
 const args = parseArgs(process.argv.slice(2));
 const APPLY = args.flags.has('apply');
+// 연속 번호: 현재 순서(커리큘럼+슬롯+뒤번호) 유지하되 빈틈 없이 01..N 재부여.
+const SEQUENTIAL = args.flags.has('sequential');
 // 나머지(슬롯 못 채운) orphan 순번 시작. 기본 46 (커리큘럼 최대 45 다음).
 const ORPHAN_START = args.orphans ? Number(args.orphans) : 46;
 
@@ -77,12 +79,16 @@ for (const b of [...numbered, ...slotted]) plan.push({ id: b.id, num: b.num, bas
 let n = ORPHAN_START;
 for (const b of rest) plan.push({ id: b.id, num: n++, base: stripPrefix(b.title), orphan: true });
 plan.sort((a, b) => a.num - b.num);
+// 연속 모드: 정렬 순서 그대로 01..N 재부여(빈틈 제거).
+if (SEQUENTIAL) plan.forEach((p, i) => (p.num = i + 1));
 
-console.log(`생활동화 ${books.length}권 · 커리큘럼 ${numbered.length} · 슬롯 orphan ${slotted.length} · 뒤번호 orphan ${rest.length}\n` + '='.repeat(64));
+const W = String(plan.length).length; // 자리수 (48권 → 2)
+console.log(`생활동화 ${books.length}권 · 커리큘럼 ${numbered.length} · 슬롯 orphan ${slotted.length} · 뒤번호 orphan ${rest.length}${SEQUENTIAL ? ' · 연속번호' : ''}\n` + '='.repeat(64));
 let applied = 0;
 for (const p of plan) {
-  const newTitle = `${pad(p.num)}. ${p.base}`;
-  console.log(`${pad(p.num)}. ${p.base}${p.orphan ? '   (orphan)' : ''}  [${p.id}]`);
+  const nn = String(p.num).padStart(W, '0');
+  const newTitle = `${nn}. ${p.base}`;
+  console.log(`${nn}. ${p.base}${p.orphan ? '   (orphan)' : ''}  [${p.id}]`);
   if (!APPLY) continue;
   const book = await getStorybook(p.id);
   if (book.title === newTitle) continue;
