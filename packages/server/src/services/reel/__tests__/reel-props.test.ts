@@ -1,5 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { firstClause, splitIntoBuckets, pickMorph, MORPH_LINES } from '../reel-props';
+import {
+  firstClause,
+  splitIntoBuckets,
+  pickMorph,
+  MORPH_LINES,
+  buildReelProps,
+} from '../reel-props';
+
+const range = (a: number, b: number) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
 
 const styleWithPages = (id: string, pages: number[]) => ({
   coverImage: `https://r2/${id}/cover.png`,
@@ -59,5 +67,71 @@ describe('pickMorph', () => {
     };
     const genreMap = { A: 'collage', X: 'pixar-3d' };
     expect(pickMorph(styleAssets, genreMap)).toBeNull();
+  });
+});
+
+describe('buildReelProps', () => {
+  const ACTIVE = 'style-1778824179240';
+  const WATER = 'style-1778405374347';
+  const PAPER = 'paper-craft';
+
+  const makeStorybook = () => ({
+    title: '개구리 왕자',
+    artStyle: ACTIVE,
+    styleAssets: {
+      [ACTIVE]: styleWithPages(ACTIVE, range(1, 15)),
+      [WATER]: styleWithPages(WATER, range(1, 15)),
+      [PAPER]: styleWithPages(PAPER, range(1, 15)),
+    },
+  });
+
+  const makeStoryboard = (nScenes = 5) => ({
+    title: '개구리 왕자',
+    scenes: ['훅', '원작·배경', '줄거리', '교훈', 'CTA'].slice(0, nScenes).map((label, i) => ({
+      label,
+      subtitle: `${label} 자막`,
+      narration: `${label} 나레이션 문장입니다.`,
+      imagePrompt: `${label} prompt`,
+    })),
+  });
+
+  const genreMap = { [ACTIVE]: 'collage', [WATER]: 'watercolor', [PAPER]: 'paper3d' };
+
+  it('4 씬 조립 + 훅 라벨=책 제목 + 모프', () => {
+    const storybook = makeStorybook();
+    const out = buildReelProps({ storybook, storyboard: makeStoryboard(), genreMap });
+    expect(out).not.toBeNull();
+    expect(out!.bookTitle).toBe('개구리 왕자');
+    expect(out!.scenes.length).toBe(4);
+    expect(out!.scenes[0].label).toBe('개구리 왕자');
+    expect(out!.scenes[0].imageUrls).toEqual([encodeURI(storybook.styleAssets[ACTIVE].coverImage)]);
+    expect(out!.scenes[1].label).toBe('원작·배경');
+    for (const s of out!.scenes) {
+      expect(s.imageUrls.length).toBeGreaterThanOrEqual(1);
+    }
+    expect(out!.styleMorph).not.toBeNull();
+    expect(out!.styleMorph!.styles.length).toBe(3);
+    expect(out!.styleMorph!.lines).toEqual(MORPH_LINES);
+  });
+
+  it('스토리보드가 5 씬 미만이면 null', () => {
+    const out = buildReelProps({
+      storybook: makeStorybook(),
+      storyboard: makeStoryboard(4),
+      genreMap,
+    });
+    expect(out).toBeNull();
+  });
+
+  it('활성 그림풍에 일러스트가 없으면 null', () => {
+    const storybook = {
+      title: '개구리 왕자',
+      artStyle: ACTIVE,
+      styleAssets: {
+        [ACTIVE]: { coverImage: 'https://r2/x/cover.png', pageIllustrations: {} },
+      },
+    };
+    const out = buildReelProps({ storybook, storyboard: makeStoryboard(), genreMap });
+    expect(out).toBeNull();
   });
 });

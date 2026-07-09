@@ -44,15 +44,11 @@ export function pickMorph(
   if (mapped.length < 2) return null;
 
   // intersect page numbers across all mapped styles
-  let common: Set<number> | null = null;
+  let common: number[] | null = null;
   for (const m of mapped) {
-    if (common === null) {
-      common = new Set(m.pages);
-    } else {
-      common = new Set([...common].filter((p) => m.pages.has(p)));
-    }
+    common = common === null ? [...m.pages] : common.filter((p) => m.pages.has(p));
   }
-  if (!common || common.size === 0) return null;
+  if (!common || common.length === 0) return null;
   const page = Math.max(...common);
 
   const styles = mapped
@@ -78,6 +74,66 @@ export function splitIntoBuckets<T>(items: T[], n: number): T[][] {
     const take = base + (i < extra ? 1 : 0);
     out[i] = items.slice(idx, idx + take);
     idx += take;
+  }
+  return out;
+}
+
+export interface ReelScene {
+  label: string;
+  body: string;
+  imageUrls: string[];
+}
+
+export interface ReelProps {
+  bookTitle: string;
+  scenes: ReelScene[];
+  styleMorph: { lines: string[]; styles: Array<{ url: string; label: string }> } | null;
+}
+
+export function buildReelProps({
+  storybook,
+  storyboard,
+  genreMap,
+}: {
+  storybook: any;
+  storyboard: any;
+  genreMap: Record<string, string>;
+}): ReelProps | null {
+  const scenes = storyboard?.scenes;
+  if (!Array.isArray(scenes) || scenes.length < 5) return null; // guard: needs 5-scene storyboard
+  const activeId = storybook.artStyle;
+  const sa = storybook.styleAssets?.[activeId];
+  const pi = sa?.pageIllustrations || {};
+  const pages = Object.keys(pi)
+    .map(Number)
+    .filter((n) => pi[String(n)]?.illustrationUrl)
+    .sort((a, b) => a - b);
+  if (pages.length === 0) return null; // guard: needs active-style illustrations
+  const cover = encodeURI(
+    sa.coverImage || storybook.coverImage || pi[String(pages[0])].illustrationUrl
+  );
+  const urlOf = (p: number) => encodeURI(pi[String(p)].illustrationUrl);
+
+  const bookTitle = storybook.title || storyboard.title || '';
+  const out: ReelProps = {
+    bookTitle,
+    scenes: [],
+    styleMorph: pickMorph(storybook.styleAssets || {}, genreMap),
+  };
+  // 훅: 헤드라인=책 제목(내부 라벨 "훅" 아님)
+  out.scenes.push({
+    label: bookTitle,
+    body: firstClause(scenes[0].narration || scenes[0].subtitle),
+    imageUrls: [cover],
+  });
+  const buckets = splitIntoBuckets(pages, 3);
+  for (let i = 1; i <= 3; i++) {
+    const bucket = buckets[i - 1].length ? buckets[i - 1] : pages; // empty-bucket fallback
+    out.scenes.push({
+      label: scenes[i].label,
+      body: firstClause(scenes[i].narration || scenes[i].subtitle),
+      imageUrls: bucket.map(urlOf),
+    });
   }
   return out;
 }
