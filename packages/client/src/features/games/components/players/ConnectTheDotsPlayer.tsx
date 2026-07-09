@@ -16,6 +16,7 @@ import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { resolveTtsUrl } from '@/features/tts';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import { useGameLogger } from '@/features/learning';
+import { playDrawStroke } from '@/lib/uiSound';
 
 /**
  * Paint-fill 모드 (2026-05-25) — 기존 "순서대로 점 탭" → "polygon 영역 색칠".
@@ -384,6 +385,7 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
     lastPointRef.current = pt;
     const ctx = canvasRef.current!.getContext('2d')!;
     paintDot(ctx, pt.x, pt.y);
+    playDrawStroke();
     const cov = measureCoverage();
     setCoverage(cov);
     if (cov >= THRESHOLD) {
@@ -399,6 +401,7 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
     const last = lastPointRef.current!;
     paintLine(ctx, last, pt);
     lastPointRef.current = pt;
+    playDrawStroke();
     // 그리는 도중에도 coverage 갱신 — 진척 바 실시간
     const cov = measureCoverage();
     setCoverage(cov);

@@ -19,7 +19,8 @@ export type UiSoundName =
   | 'star'
   | 'reward'
   | 'success'
-  | 'play';
+  | 'play'
+  | 'draw';
 
 const ALL_SOUNDS: UiSoundName[] = [
   'tap',
@@ -34,6 +35,7 @@ const ALL_SOUNDS: UiSoundName[] = [
   'reward',
   'success',
   'play',
+  'draw',
 ];
 
 const STORAGE_KEY = 'tangobook-ui-muted';
@@ -112,4 +114,15 @@ export function playUi(name: UiSoundName): void {
   } catch {
     /* ignore */
   }
+}
+
+// 그리기/색칠 중 연속 stroke 효과음 — 자체 스로틀로 연타 소음 방지.
+// pointermove 마다 호출해도 안전(기본 110ms 간격으로만 실제 재생).
+let lastDrawStroke = 0;
+export function playDrawStroke(minGapMs = 110): void {
+  if (muted || typeof window === 'undefined') return;
+  const now = Date.now();
+  if (now - lastDrawStroke < minGapMs) return;
+  lastDrawStroke = now;
+  playUi('draw');
 }

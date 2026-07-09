@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/design-system';
+import { playDrawStroke } from '@/lib/uiSound';
 
 /**
  * paint-bucket 채점 캔버스 — 글자 영역 안만 painted, 채움 비율로 통과 판정.
@@ -182,6 +183,7 @@ export function LetterFillCanvas({
     setHasDrawn(true);
     const ctx = canvasRef.current!.getContext('2d')!;
     drawPaintCircle(ctx, pt.x, pt.y);
+    playDrawStroke();
   };
 
   const handlePointerMove = (e: ReactPointerEvent<HTMLCanvasElement>) => {
@@ -192,6 +194,7 @@ export function LetterFillCanvas({
     const last = lastPointRef.current!;
     drawPaintLine(ctx, last, pt);
     lastPointRef.current = pt;
+    playDrawStroke();
   };
 
   const handlePointerUp = () => {
