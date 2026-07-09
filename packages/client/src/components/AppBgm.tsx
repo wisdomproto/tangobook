@@ -8,12 +8,18 @@ import { isUiMuted, subscribeUiMuted } from '@/lib/uiSound';
  * AppShell 밖(뷰어/게임/파닉스/부모/결제)으로 나가면 언마운트로 자동 정지 —
  * 뷰어 BGM·나레이션과 겹치지 않는다.
  *
- * - 곡: 기본 BGM 5곡 중 메인 테마 1곡 고정 (바꾸려면 MAIN_BGM_URL 만 수정)
+ * - 곡: 플랫폼 BGM `main-{1..4}.mp3` 중 **세션당 랜덤 1곡**(모듈 싱글톤이라 페이지 로드마다
+ *   한 번 고름 — 화면 이동 때마다 바뀌지 않음). 곡 추가/교체는 MAIN_BGM_URLS 만 수정.
  * - 끄기 2경로: ① 플로팅 🎵 버튼(배경음만, localStorage 영속) ② 부모설정 🔊
  *   효과음 음소거(tangobook-ui-muted — 효과음+배경음 전체)
  * - autoplay 차단 브라우저: 첫 pointerdown(사용자 제스처)에서 시작
  */
-const MAIN_BGM_URL = '/sounds/bgm/default-1.mp3';
+const MAIN_BGM_URLS = [
+  '/sounds/bgm/main-1.mp3',
+  '/sounds/bgm/main-2.mp3',
+  '/sounds/bgm/main-3.mp3',
+  '/sounds/bgm/main-4.mp3',
+];
 const MAIN_BGM_VOLUME = 0.25; // 나레이션 없는 화면이지만 은은하게
 
 // ── 배경음 전용 음소거 store (UI 효과음 음소거와 별개) ─────────────────────
@@ -49,7 +55,9 @@ let sharedAudio: HTMLAudioElement | null = null;
 
 function ensureAudio(): HTMLAudioElement {
   if (!sharedAudio) {
-    sharedAudio = new Audio(MAIN_BGM_URL);
+    // 세션당 1곡 랜덤 — 싱글톤이라 최초 생성 시 한 번만 고름.
+    const url = MAIN_BGM_URLS[Math.floor(Math.random() * MAIN_BGM_URLS.length)];
+    sharedAudio = new Audio(url);
     sharedAudio.loop = true;
     sharedAudio.preload = 'auto';
     sharedAudio.volume = MAIN_BGM_VOLUME;
