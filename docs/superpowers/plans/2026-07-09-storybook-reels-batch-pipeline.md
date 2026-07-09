@@ -144,7 +144,7 @@ import { StoryScene } from '../components/reels/storybook/StoryScene';
 import { StyleShowcase } from '../components/reels/storybook/StyleShowcase';
 import { Closing } from '../components/reels/storybook/Closing';
 import {
-  StorybookReelProps, sceneDurations, MORPH_SEC, CTA_SEC, MORPH_LINES,
+  StorybookReelProps, sceneDurations, MORPH_SEC, CTA_SEC,
   REEL_FPS, BGM_SRC, computeReelFrames,
 } from '../data/storybook-reel';
 
@@ -164,7 +164,7 @@ export const StorybookReel: React.FC<StorybookReelProps> = (props) => {
         ))}
         {props.styleMorph && (
           <Series.Sequence durationInFrames={MORPH_SEC * REEL_FPS}>
-            <StyleShowcase title="다양한 그림체로" lines={MORPH_LINES} styles={props.styleMorph.styles} />
+            <StyleShowcase title="다양한 그림체로" lines={props.styleMorph.lines} styles={props.styleMorph.styles} />
           </Series.Sequence>
         )}
         <Series.Sequence durationInFrames={CTA_SEC * REEL_FPS}>
@@ -368,7 +368,7 @@ export function pickMorph(styleAssets: any, genreMap: Record<string,string>) {
 - Modify: `packages/server/src/services/reel/reel-props.ts`
 - Modify: `packages/server/src/services/reel/__tests__/reel-props.test.ts`
 
-- [ ] **Step 1: 실패 테스트** — 실제 개구리 왕자 축약 픽스처(storybook: artStyle + styleAssets[active].pageIllustrations 15p + coverImage; storyboard: 5 scenes). 기대: `scenes.length===4`(훅+본문3), 각 scene.imageUrls≥1(encodeURI된 URL), scene[0].imageUrls=[cover], styleMorph.styles.length===3, bookTitle==='개구리 왕자'. 그리고 스토리보드 4장면(비정상)이면 null.
+- [ ] **Step 1: 실패 테스트** — 실제 개구리 왕자 축약 픽스처(storybook: artStyle + styleAssets[active].pageIllustrations 15p + coverImage; storyboard: 5 scenes). 기대: `scenes.length===4`(훅+본문3), 각 scene.imageUrls≥1(encodeURI된 URL), scene[0].imageUrls=[cover], **scene[0].label==='개구리 왕자'**(헤드라인=책 제목, 내부 라벨 "훅" 아님), scene[1].label==='원작·배경'(스토리보드 라벨), styleMorph.styles.length===3 + styleMorph.lines===MORPH_LINES, bookTitle==='개구리 왕자'. 그리고 스토리보드 4장면(비정상)이면 null.
 
 - [ ] **Step 2: 실패 확인** → **Step 3: 구현**
 
@@ -386,9 +386,10 @@ export function buildReelProps({ storybook, storyboard, genreMap }: {
   const cover = encodeURI(sa.coverImage || storybook.coverImage || pi[String(pages[0])].illustrationUrl);
   const urlOf = (p: number) => encodeURI(pi[String(p)].illustrationUrl);
 
-  // 훅
-  const out: any = { bookTitle: storybook.title || storyboard.title || '', scenes: [], styleMorph: pickMorph(storybook.styleAssets || {}, genreMap) };
-  out.scenes.push({ label: scenes[0].label, body: firstClause(scenes[0].narration || scenes[0].subtitle), imageUrls: [cover] });
+  // 훅 — 헤드라인은 책 제목(내부 라벨 "훅"이 아니라). 나머지 장면은 스토리보드 라벨.
+  const bookTitle = storybook.title || storyboard.title || '';
+  const out: any = { bookTitle, scenes: [], styleMorph: pickMorph(storybook.styleAssets || {}, genreMap) };
+  out.scenes.push({ label: bookTitle, body: firstClause(scenes[0].narration || scenes[0].subtitle), imageUrls: [cover] });
   // 본문 3장면: pages를 3버킷
   const buckets = splitIntoBuckets(pages, 3);
   for (let i = 1; i <= 3; i++) {
@@ -450,12 +451,13 @@ Expected: `51` + genreMap 키 수 출력
 
 - [ ] **Step 1: 구현**
   - args 파싱: `--book`, `--limit`, `--dry-run`, `--owner-email`, `--category`(기본 classics).
-  - bootstrap: `bundle({ entryPoint: <remotion entry> })` 1회(audiobook.service의 remotionEntry 경로 재사용) → serveUrl.
+  - bootstrap: `bundle({ entryPoint })` 1회 → serveUrl. entryPoint는 **명시 경로**: `pnpm --filter @tangobook/server exec tsx`는 cwd=`packages/server`라 `path.resolve(process.cwd(), '../remotion/src/entry.ts')`. (audiobook.service는 `src/services`의 `__dirname` 기준이라 그 리터럴을 그대로 복사하면 안 됨.)
   - 대상 id 목록: `--book` 있으면 그것만, 아니면 `resolveClassicBookIds()` (+`--limit`).
   - `loadGenreMap()` 1회.
   - ownerUserId = `resolveOwnerUserId(--owner-email)` (dry-run이면 skip).
   - 각 id: `fetchStorybook` + `loadStoryboard` → `buildReelProps`. null이면 skip+log.
-    - `selectComposition({serveUrl, id:'StorybookReel', inputProps})` → `renderMedia({composition, serveUrl, inputProps, codec:'h264', imageFormat:'png', outputLocation: tmp, delayRenderTimeoutInMilliseconds:60000})`.
+    - `selectComposition({serveUrl, id:'StorybookReel', inputProps})` → `renderMedia({composition, serveUrl, inputProps, codec:'h264', imageFormat:'png', outputLocation: tmp, timeoutInMilliseconds:60000, chromiumOptions:{gl:'angle', headless:true}})`.
+      - ⚠️ 옵션명은 **`timeoutInMilliseconds`**(존재하지 않는 `delayRenderTimeoutInMilliseconds` 아님). 원격 R2 이미지 로딩 지연 대비. `selectComposition`에도 `timeoutInMilliseconds:60000` 전달. `chromiumOptions.gl:'angle'`은 audiobook.service와 동일(헤드리스 안정성).
     - `--dry-run`: mp4를 로컬 `out/reels/{id}.mp4`에만 두고 R2/DB skip. props 요약(장면수·모핑유무·타깃 resolve 결과) 출력.
     - 실제: `uploadReelMp4` → coverUrl=책 표지 R2 URL(encodeURI) → `connectReelToMarketing`.
   - try/catch per book(실패 기록·계속). 끝에 요약(성공·스킵·실패·모핑 유무 카운트).

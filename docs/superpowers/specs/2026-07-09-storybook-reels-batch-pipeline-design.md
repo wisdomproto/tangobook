@@ -58,7 +58,7 @@ Zod `inputProps` 스키마:
 - 이미지는 **R2 URL을 `<Img src>`로 직접 로드**(staticFile 아님). ⚠️ R2 삽화 URL은
   **한글 파일명 포함** → 빌더가 반드시 `encodeURI` 적용(마케팅 파이프라인 기존 gotcha:
   raw 한글 R2 URL은 400). 원격 로드가 헤드리스 렌더에서 지연/타임아웃 위험이 있어
-  `delayRenderTimeoutInMilliseconds`를 여유있게(예: 60s) 설정하고, **1권 dry-run에서
+  `timeoutInMilliseconds`(존재하지 않는 `delayRenderTimeoutInMilliseconds` 아님)를 여유있게(예: 60s) 설정하고, **1권 dry-run에서
   원격 이미지 렌더 성공을 명시적으로 검증**한다. dry-run에서 원격 로드가 불안정하면
   **폴백**: 그 책 삽화를 로컬 임시 디렉터리로 선다운로드 후 `staticFile`(frog 방식)로
   전환(플랜에서 결정).
@@ -103,11 +103,12 @@ Chromium을 lazy import(Railway 노트) — 로컬 실행이라 문제 없음.
 
 각 bookId에 대해:
 1. `build-reel-props` → inputProps (없으면 스킵).
-2. `selectComposition({serveUrl, id:'StorybookReel', inputProps})` → 동적 duration
-   해석 → `renderMedia({composition, serveUrl, inputProps, imageFormat:'png',
-   delayRenderTimeoutInMilliseconds:60000})` → 로컬 mp4.
-3. R2 업로드: 표지(책 표지 webp) + mp4 → `mkt/{projectId}/reels/{id}-{ts}.mp4`.
-   (R2 provider 직접 PUT, 서버 크리덴셜.)
+2. `selectComposition({serveUrl, id:'StorybookReel', inputProps, timeoutInMilliseconds:60000})`
+   → 동적 duration 해석 → `renderMedia({composition, serveUrl, inputProps, codec:'h264',
+   imageFormat:'png', timeoutInMilliseconds:60000, chromiumOptions:{gl:'angle',headless:true}})`
+   → 로컬 mp4.
+3. R2 업로드: **mp4만** `mkt/{projectId}/reels/{id}-{ts}.mp4` PUT(R2 provider, 서버 크리덴셜).
+   커버는 재업로드 불필요 — **책 표지 R2 URL(encodeURI)을 coverUrl로 그대로 사용**.
 4. Supabase(서비스롤): `mkt_contents.memo='storybook:{id}'`로 content_id·project_id
    조회 → **그 콘텐츠의 기존 인스타(캐러셀) 행을 resolve**(카드뉴스 시드가 이미 생성해둠;
    `ReelsPanel`은 `instagramContents[0]` 단일행 규약에 의존) → **그 행의**
