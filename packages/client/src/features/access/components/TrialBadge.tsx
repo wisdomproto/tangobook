@@ -32,7 +32,9 @@ export function TrialBadge() {
     return (
       <div className="mx-1 mb-1 rounded-xl bg-peach-100 px-3 py-2 text-center">
         <p className="text-[13px] font-black text-coral-600 break-keep">
-          🎁 무료 체험 {access.trialDaysLeft}일 남음
+          🎁 무료 체험{' '}
+          <span className="text-[1.45em] leading-none tabular-nums">{access.trialDaysLeft}일</span>{' '}
+          남음
         </p>
       </div>
     );

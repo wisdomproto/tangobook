@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { computeAccess } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
@@ -41,7 +42,7 @@ export function PromoBanner() {
   const isGuest = raw.status === 'guest';
   const isTrial = raw.status === 'trial';
 
-  let headline: string;
+  let headline: ReactNode;
   let sub: string;
 
   // 양방향 초대 카피 — 세련되고 따뜻하게, 판매 냄새 X. (드롭박스식: 친구·나 둘 다 +7일)
@@ -52,7 +53,14 @@ export function PromoBanner() {
     sub = REFERRAL_SUB;
   } else if (isTrial) {
     // 남은 일수를 앞세워 "무료 며칠 남았는지" 한눈에(부모 요청). 상실 프레이밍은 피함.
-    headline = `무료 체험 ${raw.trialDaysLeft}일 남음 · 모든 동화 열려 있어요`;
+    // 'N일' 강조 — 코랄색 + 크게(부모 요청).
+    headline = (
+      <>
+        무료 체험{' '}
+        <span className="text-coral-600 text-[1.3em] tabular-nums">{raw.trialDaysLeft}일</span> 남음
+        · 모든 동화 열려 있어요
+      </>
+    );
     sub = REFERRAL_SUB;
   } else if (!PAYWALL_ENABLED) {
     // 출시 전(유료화 OFF): 전체 무료 상태 — 오래된 계정이 "만료"로 보이던 버그 방지.

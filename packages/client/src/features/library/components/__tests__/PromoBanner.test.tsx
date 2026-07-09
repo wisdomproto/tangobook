@@ -112,10 +112,18 @@ describe('PromoBanner', () => {
       expect(screen.getByRole('region', { name: '프로모션 배너' })).toBeInTheDocument();
     });
 
-    it('shows trial days remaining in headline (count kept)', () => {
+    it('shows trial days remaining in headline (count kept, N일 emphasized)', () => {
       renderBanner();
-      // trialDaysLeft is ceil((7d - 2d elapsed)) = 5 — days-first copy still shows the number
-      expect(screen.getByText(/무료 체험 \d+일 남음 · 모든 동화 열려 있어요/)).toBeInTheDocument();
+      // trialDaysLeft is ceil((7d - 2d elapsed)) = 5 — days-first copy still shows the number.
+      // 'N일' 은 별도 span 으로 강조되어 텍스트가 분리되므로 h2 의 textContent 로 매칭.
+      const h2 = screen.getByText(
+        (_, el) =>
+          el?.tagName === 'H2' &&
+          /무료 체험 \d+일 남음 · 모든 동화 열려 있어요/.test(el.textContent ?? '')
+      );
+      expect(h2).toBeInTheDocument();
+      // 강조된 'N일' span 존재 확인
+      expect(h2.querySelector('.text-coral-600')?.textContent).toMatch(/\d+일/);
     });
 
     it('shows two-sided invite sub-copy', () => {

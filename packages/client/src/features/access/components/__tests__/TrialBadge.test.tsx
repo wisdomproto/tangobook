@@ -49,7 +49,12 @@ describe('TrialBadge', () => {
     mockAuth({ id: 'a1', createdAt: daysAgo(2) });
     mockEntitlement();
     renderBadge();
-    expect(screen.getByText(/무료 체험 \d+일 남음/)).toBeInTheDocument();
+    // 'N일' 이 강조 span 으로 분리되므로 p 의 textContent 로 매칭.
+    expect(
+      screen.getByText(
+        (_, el) => el?.tagName === 'P' && /무료 체험 \d+일 남음/.test(el.textContent ?? '')
+      )
+    ).toBeInTheDocument();
   });
 
   it('초대 보너스가 남은 일수에 더해짐', () => {
@@ -57,7 +62,13 @@ describe('TrialBadge', () => {
     mockAuth({ id: 'a1', createdAt: daysAgo(2) });
     mockEntitlement(7);
     renderBadge();
-    expect(screen.getByText('🎁 무료 체험 12일 남음')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        (_, el) =>
+          el?.tagName === 'P' &&
+          /🎁 무료 체험 12일 남음/.test((el.textContent ?? '').replace(/\s+/g, ' '))
+      )
+    ).toBeInTheDocument();
   });
 
   it('체험 만료 + 정식 오픈 전 → 전권 무료 안내', () => {
@@ -72,6 +83,12 @@ describe('TrialBadge', () => {
     mockAuth({ id: 'a1', createdAt: daysAgo(30) });
     mockEntitlement(0, null, new Date().toISOString());
     renderBadge();
-    expect(screen.getByText('🎁 무료 체험 7일 남음')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        (_, el) =>
+          el?.tagName === 'P' &&
+          /🎁 무료 체험 7일 남음/.test((el.textContent ?? '').replace(/\s+/g, ' '))
+      )
+    ).toBeInTheDocument();
   });
 });
