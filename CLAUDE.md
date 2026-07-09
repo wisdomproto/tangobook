@@ -45,6 +45,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - **법적 문서 + 푸터**(`pages/legal/`, `components/SiteFooter.tsx`, `config/business.ts`): 이용약관/개인정보/환불(`/terms /privacy /refund`) + 사업자정보 단일소스 `BUSINESS_INFO`(🔴 회사명·대표·사업자번호·통판신고번호·주소 실값 TODO). 토스 가맹 심사·전상법 신원표시 필수. 결제 go-live 절차(테스트키 검증 완료) → memory `legal-docs-footer-2026-07-03`.
 - **🔴 그림체 실명 비노출 정책**: 학습자·부모 화면에 그림체 이름(수채화·"3D 픽사" 등) 표기 금지(저작권 예방) — 항상 "그림체 N"(BookDetail 칩·리포트 분포카드 통일). 저작도구 내부 화면만 실명 OK. 실명 헬퍼 `getArtStyleLabel`(learning)은 보존.
 - **`/admin` 운영 대시보드**(`features/ops/` + 서버 `/api/ops/overview`): Supabase first-party KPI(가입·활성 자녀·D1/D7 리텐션·매출·초대)+recharts 14일 추이+인기책 TOP10. 접근=**비번(env `OPS_PASSWORD`, 기본 8054, 서버 검증) or `OPS_EMAILS` 로그인**. `/ops`→`/admin` redirect. GA4는 미설치(획득분석 보조로 추후). 상세 → memory `ops-admin-dashboard-2026-07-03`.
+- **`/members` 회원 관리 대시보드**(`features/members/` + 서버 `/api/ops/members*`): 회원 목록·자녀별 활동(shared 집계 공식 공유 = 부모 리포트와 수치 일치)·무료 체험/유료 부여·차단(Supabase Auth ban)·삭제(Auth deleteUser→accounts FK cascade). 목록 요약바(총회원·오늘활동·체험/구독/만료)+이메일 검색+행 클릭 상세 드로어(권한 부여 버튼·자녀 활동·결제 이력·이메일 확인 삭제). 인증 = /admin 과 동일(비번/OPS_EMAILS, `ops-auth.middleware`). 순수 로직=`members-grant.ts`(grant 검증)·`members-activity.ts`(자녀 요약, TDD). 스펙 → docs/superpowers/specs/2026-07-09-members-admin-dashboard-design.md
 
 ## 학습자 화면 (MVP 정책)
 - **사이드바** (`AppShell.PRIMARY_AXES`): 일반/게스트 = **동화책**만. 파닉스/어휘/게임 = `devOnly`(`config/dev.ts` `DEV_EMAILS`=개발자 이메일만 노출, 코드/라우트 보존). **연속재생 진입은 사이드바 아님** — LibraryPage 최상단 "나의 재생 목록" 섹션(`PlaylistLibrarySection`, 로그인 시만).
