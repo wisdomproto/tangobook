@@ -12,7 +12,8 @@
 
 - 클라 라우트 `/members` — AppShell 밖 독립 페이지. 어디에도 링크 노출하지 않음(URL 직접 진입).
 - 인증은 기존 ops 방식 재사용: `x-ops-password` 헤더(env `OPS_PASSWORD`) **또는**
-  Bearer 토큰 이메일 allowlist(env `OPS_EMAILS`). 서버 `requireOpsUser` 공유.
+  Bearer 토큰 이메일 allowlist(env `OPS_EMAILS`). 서버 `requireOpsUser` 공유
+  — 현재 ops.controller module-private이므로 미들웨어/유틸로 추출(export) 선행.
 - 클라는 `/admin`과 동일한 비번 게이트 화면 + sessionStorage 보관(`features/ops/api/ops.api.ts` 헬퍼 재사용).
 
 ## 서버 API (`/api/ops` 하위, 전부 service role)
@@ -30,12 +31,19 @@
 이메일 · 가입일 · 자녀 수 · 접근상태(`computeAccess` 재사용: trial/subscribed/expired + 남은 일수)
 · `paid_until` · `referral_bonus_days` · `trial_started_at` · 마지막 활동일 · 총 완독 수 · 차단 여부.
 
+차단 여부는 accounts 테이블이 아니라 Supabase Auth(`banned_until`)에 있음 —
+`auth.admin.listUsers` 페이지네이션 루프(기본 50/page)로 전체 유저를 받아 매핑.
+
 ### GET /ops/members/:accountId — 상세
 
 - 계정: 가입일, 초대코드, 초대한 수/받은 초대, 결제 이력(payments), entitlements 원값, 차단 여부.
 - 자녀별 활동(learning_events를 child_profiles로 join, KST 기준 JS 집계 — 기존 ops.service 패턴):
   마지막 접속일 · 완독 권수 · 누적 읽은 시간 · 연속 접속일(streak) · 최근 7일 활동 도트
   · 만난 단어 수(word_exposed) · 게임 플레이 횟수.
+- "게임 플레이 횟수" = 게임 이벤트를 **(profile, game_type, KST 날짜)로 그룹한 세션 수**
+  (게임 1판이 단어별 이벤트 여러 개를 남기므로 이벤트 raw count 아님).
+- 읽은 시간·streak 공식은 클라 `features/learning/lib/aggregate.ts`에만 있음 —
+  부모 리포트와 수치 불일치를 막기 위해 **공식을 shared로 이동**해 서버·클라가 공유.
 
 ### POST /ops/members/:accountId/grant
 
@@ -47,6 +55,7 @@
 
 - entitlements upsert(`on conflict account_id`).
 - 검증: days 정수 1~365, until은 미래 시각. 위반 시 `AppError(400)`.
+- 존재하지 않는 accountId → 상세/grant/ban/delete 모두 `AppError(404)`.
 
 ### POST /ops/members/:accountId/ban
 
@@ -92,3 +101,5 @@
 
 - 감사(audit) 테이블, 페이지네이션(수백 계정까지 JS 집계로 충분), CSV 내보내기,
   이메일 발송, 자녀 프로필 개별 편집.
+- **권한 회수(revoke) UI** — grant는 부여만(paid-until 미래, bonus-days ≥1).
+  잘못 부여한 권한 회수는 SQL 직접 수정으로 처리(내부 도구 YAGNI).
