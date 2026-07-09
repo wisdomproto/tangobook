@@ -12,6 +12,9 @@ import type {
   VocabularyUnitWord,
 } from '@tangobook/shared';
 import { getAvailableGames, getGameData, type VocabGameOption } from '../lib/game-data-adapter';
+import { useGameAssetPreload } from '@/features/games/hooks/useGameAssetPreload';
+import { usePhonicsMap } from '@/features/games/hooks/usePhonicsMap';
+import { GameLoadingGate } from '@/features/games/components/GameLoadingGate';
 import { LineMatchingPlayer } from '@/features/games/components/players/LineMatchingPlayer';
 import { KoreanBlockPlayer } from '@/features/games/components/players/KoreanBlockPlayer';
 import { EnglishBlockPlayer } from '@/features/games/components/players/EnglishBlockPlayer';
@@ -116,6 +119,8 @@ export function VocabularyStudyContent({
             unit={unit}
             game={activeGame}
             lang={lang}
+            storybook={storybook}
+            currentStyle={currentStyle}
             onComplete={() => handleGameComplete(activeGame)}
             onBack={handleGameBack}
           />
@@ -337,12 +342,16 @@ function GameOverlay({
   unit,
   game,
   lang,
+  storybook,
+  currentStyle,
   onComplete,
   onBack,
 }: {
   unit: VocabularyUnit;
   game: GameTypeId;
   lang: Lang;
+  storybook?: Storybook;
+  currentStyle?: string;
   onComplete: () => void;
   onBack: () => void;
 }) {
@@ -350,6 +359,27 @@ function GameOverlay({
   // storybook source 단원이면 진짜 책 id (ConnectTheDotsPlayer 의 useStorybook lookup 등에 활용).
   // custom 단원은 게임 진입 disabled 라 도달 불가지만 안전망 placeholder.
   const effectiveStorybookId = unit.storybookId ?? `vocab-${unit.id}`;
+
+  // 🔴 hooks 규칙: early return 앞에서 모든 훅 호출.
+  const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap([
+    'mod_korean',
+    'mod_phonics',
+  ]);
+  const preload = useGameAssetPreload({
+    data: (data ?? { type: game, items: [] }) as {
+      type: string;
+      items?: Array<Record<string, unknown>>;
+    },
+    game,
+    lang,
+    book: storybook,
+    phonicsMap: phonicsMapRef.current,
+    phonicsReady: !phonicsLoading,
+    style: currentStyle,
+    storybookId: effectiveStorybookId,
+  });
+  const [skipped, setSkipped] = useState(false);
+  const gateReady = preload.ready || skipped;
 
   if (!data) {
     return (
@@ -369,6 +399,23 @@ function GameOverlay({
             ← 돌아가기
           </button>
         </div>
+      </motion.div>
+    );
+  }
+
+  if (!gateReady) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 bg-cream-50"
+      >
+        <GameLoadingGate
+          loaded={preload.loaded}
+          total={preload.total}
+          onSkip={() => setSkipped(true)}
+        />
       </motion.div>
     );
   }
