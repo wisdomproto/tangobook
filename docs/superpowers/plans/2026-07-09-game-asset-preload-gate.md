@@ -8,6 +8,8 @@
 
 **Tech Stack:** React 18 + TypeScript + Vite + TanStack Query + vitest. 기존 워밍 유틸(`warmAudioUrl`, `usePhonicsMap`, `resolveTtsUrl`, `resolveSceneFromWord`) 재사용.
 
+**Status:** ✅ 구현 완료 (main 병합). 전 태스크 TDD 구현 + 스펙/품질 리뷰 + preview 런타임 검증. 실측으로 버그 2건 추가 수정(getGameData shuffle→게이트 무한멈춤 memo fix, 6초 상한 콜드 concat 미적용 fix). 상세 memory `game-asset-preload-gate-2026-07-09`.
+
 **Spec:** `docs/superpowers/specs/2026-07-09-game-asset-preload-gate-design.md`
 
 ---

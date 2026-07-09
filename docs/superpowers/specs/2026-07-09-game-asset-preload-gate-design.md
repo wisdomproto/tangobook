@@ -1,7 +1,7 @@
 # 동화게임 자산 프리로드 로딩 게이트 — 설계
 
 - 날짜: 2026-07-09
-- 상태: 설계 승인 대기 → 구현 계획 예정
+- 상태: ✅ 구현 완료 (main 병합). 구현 계획 `docs/superpowers/plans/2026-07-09-game-asset-preload-gate.md`, 상세 memory `game-asset-preload-gate-2026-07-09`.
 - 범위: 동화책 학습게임(그림짝·블록·그림그리기·따라쓰기 4종) 및 어휘게임(`/games/vocab`, 동일 경로)
 
 ## 1. 문제

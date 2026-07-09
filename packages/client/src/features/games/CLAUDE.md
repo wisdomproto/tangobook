@@ -235,6 +235,19 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 - **`usePrewarmWordTts(items, language, storybookId, identifierPrefix)`**: 마운트 시 단어들을 순차 `resolveTtsUrl` → 결과 URL no-cors 프리페치. 한글 concat(음절 합성→R2)이 첫 호출에 느려서 정답 순간이 아니라 미리 만들어 둠. ⚠️ **identifierPrefix 는 정답 시 호출과 동일해야**(kblock/eblock/wwrite-ko/wwrite-en) 서버 캐시 키 일치. 적용: 블록×2·따라쓰기×2 (그림짝은 음절 mp3 직접 프리페치 방식, 점잇기는 target 해석이 런타임이라 미적용).
 - **데이터 전제**: 단어 이미지(keyObjectImages 기본+styleAssets, flashcards) **1,050장 전부 webp** — jpg 451장(장당 0.6~1.4MB!)을 `packages/server/scripts/convert-keyobj-images-webp.mjs` 로 일괄 변환(2026-07-03, 새 URL이라 immutable 캐시 안전, 백업 `_backup-keyobj-webp/`). 새 keyObject 이미지 업로드는 서버가 자동 webp 변환하므로 재발 X — 외부 스크립트로 R2 에 직접 넣을 때만 주의.
 
+## 게임 진입 프리로드 로딩 게이트 (2026-07-09 — 첫 렉 제거)
+
+위 프리페치가 **fire-and-forget**(완료 안 기다림)이라 첫 판 자산이 로컬 캐시에 없으면 렉이 있었다 → **게임 진입 시 핵심 자산 준비될 때까지 진행률바를 보여주고 시작**하는 게이트를 `GameOverlay`(VocabularyStudyContent)에 통합. 어휘게임(`/games/vocab`)도 같은 경로라 자동 커버.
+
+- **핵심(core, 게이트 대기)** = 이번 판 단어 이미지 + 정답 TTS + 한글 음절 mp3. **배경(bg, 게이트 제외)** = 블록 게임 한정 SceneReveal 삽화·나레이션(백그라운드 워밍).
+- **구성**: `lib/collect-game-assets.ts`(순수 수집: `extractItemImages`/`extractItemWords`/`collectSyllableUrls`/`collectSceneAssets`/`buildTtsSpec`) → `hooks/useGameAssetPreload.ts`(워밍+진행률 `{ready,loaded,total}`, **6초 상한**은 콜드 concat까지 덮게 async 시작 전 등록) → `components/GameLoadingGate.tsx`(진행률바, **250ms 지연 표시**로 캐시 hit 시 깜빡임 방지, "바로 시작" 탈출).
+- **워밍 유틸**: `useGamePrefetch.ts`의 `warmAudioUrl`(오디오 디코드 워밍) + 신규 `warmImageUrl`(이미지 디코드) — 진행률 카운트 위해 완료를 Promise 반환. 개별 실패는 `loaded`로 세어 게이트를 안 막음.
+- 🔴 **`GameOverlay`의 `data = getGameData(...)`는 반드시 `useMemo([unit,lang,game])`**: getGameData가 내부 `shuffleInPlace`로 매 호출 items 순서를 바꿔서, memo 없으면 프리로드 `coreKey`가 매 렌더 변해 effect 무한 재시작(게이트 0%에 영구 멈춤). 실측으로 잡은 버그(2026-07-09).
+- 🔴 **TTS `storybookId`는 `effectiveStorybookId`(동기)** 사용(`book?.id` 비동기면 한글 concat이 조기 반환). `buildTtsSpec`는 `directUrl: it.ttsUrl` 필수(영어는 directUrl 우선이라 빠지면 프리워밍 헛돎). 점잇기/그림짝은 제외(점잇기는 런타임 target이라 플레이어 `usePrewarmWordTts('dot')` 유지).
+- 플레이어 6종의 중복 프리페치(`usePreloadImages`/`usePrewarmWordTts`/`usePrefetchUrlsGate`)는 제거, **`usePhonicsMap`/음절 재생 런타임 로직·점잇기 dot 프리워밍은 유지**. `usePreloadImages`/`usePrefetchUrlsGate`는 이제 미사용(향후 재사용 프리미티브로 보존).
+- 🟡 **알려진 후속**(minor): 낱말쓰기 개별 글자/음절 TTS 프리워밍은 게이트 core에서 빠짐(정답 단어 concat은 커버 — 첫 글자만 약간 콜드). 진행률바가 콜드 concat 구간에 잠시 0% 정체(스펙상 트레이드오프). → memory `game-asset-preload-gate-2026-07-09`.
+- 설계/계획: `docs/superpowers/specs/2026-07-09-game-asset-preload-gate-design.md` · `docs/superpowers/plans/2026-07-09-game-asset-preload-gate.md`.
+
 ## 블록 게임 정책 (2026-05-18 보강)
 
 KoreanBlockPlayer / EnglishBlockPlayer 공통:
