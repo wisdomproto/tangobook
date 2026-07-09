@@ -1,87 +1,42 @@
 /**
- * ChannelConnectionsSection — displays channel connection status.
+ * ChannelConnectionsSection — Meta(글로벌) 연동 상태 + 연결/해제.
  *
- * Meta OAuth (Instagram/Facebook/Threads) requires a server-side OAuth flow at
- * /api/mkt/auth/meta which is NOT built yet (Phase 2).
- * The connect button is rendered but disabled with a clear TODO comment and
- * an alert explaining it is a future feature.
- *
- * YouTube and Naver Blog are always "manual only" (no OAuth support).
+ * dflo 방식 이식: /api/auth/meta 로 top-level redirect → FB 로그인 → 콜백이 토큰 묶음을
+ * 서버에 암호화 저장(글로벌 단일 연동, 프로젝트별 아님). 토큰은 절대 클라로 오지 않는다.
+ * YouTube / Naver Blog 는 수동 전용(OAuth 미지원).
  */
-
-import { Link2, ExternalLink, CheckCircle2 } from 'lucide-react';
+import { useEffect } from 'react';
+import { Link2, ExternalLink, CheckCircle2, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '../../../ui';
-import type { Project, MetaCredentials } from '../../../types/database';
-
-interface ChannelConfig {
-  id: string;
-  name: string;
-  icon: string;
-  iconBg: string;
-  iconText: string;
-  description: string;
-  manualOnly?: boolean;
-  metaChannel?: boolean;
-}
-
-const CHANNELS: ChannelConfig[] = [
-  {
-    id: 'instagram',
-    name: 'Instagram',
-    icon: 'IG',
-    iconBg: 'bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400',
-    iconText: 'text-white',
-    description: '인스타그램 카드뉴스/릴스 발행',
-    metaChannel: true,
-  },
-  {
-    id: 'facebook',
-    name: 'Facebook',
-    icon: 'FB',
-    iconBg: 'bg-blue-500',
-    iconText: 'text-white',
-    description: '페이스북 페이지 포스트 발행',
-    metaChannel: true,
-  },
-  {
-    id: 'youtube',
-    name: 'YouTube',
-    icon: 'YT',
-    iconBg: 'bg-red-600',
-    iconText: 'text-white',
-    description: '유튜브 영상 업로드 및 관리',
-  },
-  {
-    id: 'threads',
-    name: 'Threads',
-    icon: 'T',
-    iconBg: 'bg-neutral-900',
-    iconText: 'text-white',
-    description: '스레드 포스트 발행',
-    metaChannel: true,
-  },
-  {
-    id: 'naver_blog',
-    name: 'Naver Blog',
-    icon: 'N',
-    iconBg: 'bg-green-500',
-    iconText: 'text-white',
-    description: '네이버 블로그 포스트 발행',
-    manualOnly: true,
-  },
-];
+import type { Project } from '../../../types/database';
+import {
+  useMetaConnection,
+  useDisconnectMeta,
+  startMetaConnect,
+} from '../../../api/use-meta-connection';
 
 interface Props {
   project: Project;
   onUpdate: (updates: Partial<Project>) => void;
 }
 
-export function ChannelConnectionsSection({ project, onUpdate }: Props) {
-  const metaCredentials: MetaCredentials | null = project.meta_credentials ?? null;
+export function ChannelConnectionsSection(_props: Props) {
+  const { data: conn, isLoading, refetch } = useMetaConnection();
+  const disconnect = useDisconnectMeta();
 
-  const disconnectMeta = () => {
-    onUpdate({ meta_credentials: null });
-  };
+  // OAuth 복귀 처리: ?meta_connected=1 / ?meta_error=... → 상태 갱신 + URL 정리.
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.has('meta_connected') || url.searchParams.has('meta_error')) {
+      void refetch();
+      url.searchParams.delete('meta_connected');
+      url.searchParams.delete('meta_error');
+      window.history.replaceState({}, '', url.pathname + url.search);
+    }
+  }, [refetch]);
+
+  const connected = !!conn?.connected;
+  const pages = conn?.pages ?? [];
 
   return (
     <Card>
@@ -91,106 +46,91 @@ export function ChannelConnectionsSection({ project, onUpdate }: Props) {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        <p className="text-sm text-muted-foreground">
-          채널을 연동하면 ContentFlow에서 직접 콘텐츠를 발행할 수 있습니다.
+        <p className="text-sm text-muted-foreground break-keep">
+          페이스북으로 연결하면 Instagram·Facebook·Threads에 카드뉴스를 직접 발행/예약할 수
+          있습니다. 토큰은 서버에 암호화 저장되며 브라우저로 전달되지 않습니다.
         </p>
 
-        {/* TODO (Phase 2): Meta OAuth flow — /api/mkt/auth/meta endpoint not yet built.
-            When implemented, clicking the Meta 연결 button should redirect to:
-            `/api/mkt/auth/meta?projectId=${project.id}`
-            The server handles the OAuth handshake and redirects back with
-            `?meta_connected=<encoded MetaCredentials>`.
-        */}
-        <div className="rounded-lg bg-muted/50 border border-border p-2.5 text-xs text-muted-foreground">
-          <strong>참고:</strong> Meta (Instagram/Facebook/Threads) OAuth 연동은 Phase 2에서
-          구현됩니다. 현재는 API 키 탭에서 직접 액세스 토큰을 입력하세요.
+        {/* Meta 연동 카드 */}
+        <div className="p-3 rounded-lg border bg-card space-y-3">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 text-white">
+              Meta
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium">Meta (Instagram / Facebook / Threads)</span>
+                {isLoading ? (
+                  <Loader2 size={12} className="animate-spin text-muted-foreground" />
+                ) : connected ? (
+                  <Badge
+                    variant="outline"
+                    className="text-xs text-green-600 border-green-500/40 gap-1"
+                  >
+                    <CheckCircle2 size={10} /> 연결됨
+                  </Badge>
+                ) : (
+                  <Badge
+                    variant="outline"
+                    className="text-xs text-muted-foreground border-muted-foreground/30"
+                  >
+                    미연결
+                  </Badge>
+                )}
+              </div>
+              {connected && conn?.userName && (
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {conn.userName} 계정으로 연결됨
+                </p>
+              )}
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              {connected ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-xs h-7 px-2"
+                  disabled={disconnect.isPending}
+                  onClick={() => disconnect.mutate()}
+                >
+                  {disconnect.isPending ? '해제 중…' : '연결 해제'}
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-xs h-7 px-2"
+                  onClick={() => startMetaConnect(window.location.href)}
+                >
+                  <ExternalLink size={12} className="mr-1" /> 페이스북 연결
+                </Button>
+              )}
+            </div>
+          </div>
+
+          {/* 연결된 페이지·계정 목록 */}
+          {connected && pages.length > 0 && (
+            <div className="border-t border-border pt-2 space-y-1">
+              {pages.map((p) => (
+                <div
+                  key={p.id}
+                  className="flex items-center justify-between text-xs text-muted-foreground"
+                >
+                  <span className="truncate">{p.name}</span>
+                  <span className="flex items-center gap-2 shrink-0">
+                    {p.instagram && <span>@{p.instagram.username}</span>}
+                    <span className="text-[10px] opacity-70">FB·Threads</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        <div className="grid gap-3">
-          {CHANNELS.map((channel) => {
-            const isMetaConnected = channel.metaChannel && !!metaCredentials;
-            return (
-              <div key={channel.id} className="p-3 rounded-lg border bg-card">
-                <div className="flex items-center gap-4">
-                  <div
-                    className={`w-10 h-10 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 ${channel.iconBg} ${channel.iconText}`}
-                  >
-                    {channel.icon}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium">{channel.name}</span>
-                      {channel.manualOnly && (
-                        <Badge variant="outline" className="text-xs px-1.5 py-0">
-                          수동 전용
-                        </Badge>
-                      )}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-0.5">{channel.description}</p>
-                    {isMetaConnected && metaCredentials && (
-                      <div className="mt-1 text-xs text-muted-foreground">
-                        {channel.id === 'instagram' && metaCredentials.pages?.[0]?.instagram && (
-                          <span>@{metaCredentials.pages[0].instagram.username}</span>
-                        )}
-                        {channel.id === 'facebook' && metaCredentials.pages?.[0] && (
-                          <span>{metaCredentials.pages[0].name}</span>
-                        )}
-                        {channel.id === 'threads' && <span>{metaCredentials.userName}</span>}
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    {channel.metaChannel ? (
-                      isMetaConnected ? (
-                        <>
-                          <Badge
-                            variant="outline"
-                            className="text-xs text-green-600 border-green-500/40 gap-1"
-                          >
-                            <CheckCircle2 size={10} /> 연결됨
-                          </Badge>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="text-xs h-7 px-2"
-                            onClick={disconnectMeta}
-                          >
-                            연결 해제
-                          </Button>
-                        </>
-                      ) : (
-                        <>
-                          <Badge
-                            variant="outline"
-                            className="text-xs text-muted-foreground border-muted-foreground/30"
-                          >
-                            미연결
-                          </Badge>
-                          {/* TODO Phase 2: replace disabled with real OAuth redirect */}
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            disabled
-                            className="text-xs h-7 px-2 opacity-50"
-                            title="Phase 2에서 구현 예정"
-                          >
-                            <ExternalLink size={12} className="mr-1" /> Meta 연결
-                          </Button>
-                        </>
-                      )
-                    ) : (
-                      <Badge
-                        variant="outline"
-                        className="text-xs text-muted-foreground border-muted-foreground/30"
-                      >
-                        {channel.manualOnly ? '수동' : '미연결'}
-                      </Badge>
-                    )}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        <div className="rounded-lg bg-muted/50 border border-border p-2.5 text-xs text-muted-foreground break-keep">
+          YouTube / 네이버 블로그는 자동 발행 미지원(수동 전용)입니다. 발행은 콘텐츠의 카드뉴스
+          패널에서
+          <strong> 소셜 발행</strong> 버튼으로 진행합니다.
         </div>
       </CardContent>
     </Card>

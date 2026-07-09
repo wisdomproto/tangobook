@@ -47,6 +47,7 @@ import {
 import { PromptEditDialog } from './PromptEditDialog';
 import { ChannelModelSelector } from './ChannelModelSelector';
 import { ChannelContentList } from './ChannelContentList';
+import { MetaPublishDialog } from '../publish/MetaPublishDialog';
 import { ChannelTranslationView } from './ChannelTranslationView';
 import { GenerationButton } from './GenerationButton';
 import { CARD_TEMPLATES, type CardTemplate } from './cardnews-templates';
@@ -1020,6 +1021,7 @@ function CardNewsPanelInner({
 
   // ── Canvas WebP download (Chunk 0 renderCardToBlob, O-G fonts) ────────────
   const [isDownloading, setIsDownloading] = useState(false);
+  const [showMetaPublish, setShowMetaPublish] = useState(false);
 
   const handleDownloadAllImages = useCallback(async () => {
     setIsDownloading(true);
@@ -1179,6 +1181,16 @@ function CardNewsPanelInner({
             className="h-7 text-[11px] gap-1"
           >
             <Eye size={11} /> 미리보기
+          </Button>
+
+          {/* Social publish (Meta) */}
+          <Button
+            variant="default"
+            size="sm"
+            onClick={() => setShowMetaPublish(true)}
+            className="h-7 text-[11px] gap-1"
+          >
+            <Upload size={11} /> 소셜 발행
           </Button>
 
           {/* Copy all card prompts at once */}
@@ -1345,6 +1357,15 @@ function CardNewsPanelInner({
           cards={localCards}
           initialIndex={previewIndex}
           onClose={() => setShowPreview(false)}
+        />
+      )}
+
+      {/* Social publish (Meta) dialog */}
+      {showMetaPublish && (
+        <MetaPublishDialog
+          projectId={project.id}
+          contentId={contentId}
+          onClose={() => setShowMetaPublish(false)}
         />
       )}
     </div>

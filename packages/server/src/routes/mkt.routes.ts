@@ -10,7 +10,12 @@ import {
 import { presign, deleteKeys, proxy } from '../controllers/mkt/storage.controller.js';
 import { naverKeywords, googleKeywords } from '../controllers/mkt/keywords.controller.js';
 import { recommendKeywords, generateIdeas, trending } from '../controllers/mkt/ideas.controller.js';
-import { metaPublish } from '../controllers/mkt/publish.controller.js';
+import {
+  metaPublish,
+  publishRun,
+  publishDeletePost,
+} from '../controllers/mkt/publish.controller.js';
+import { metaConnection, metaDisconnect } from '../controllers/mkt/meta-connection.controller.js';
 import {
   analyticsOverview,
   analyticsTraffic,
@@ -64,6 +69,12 @@ router.post('/ideas/trending', trending);
 
 // ── Publish endpoints ──────────────────────────────────────────────────────────
 router.post('/publish/meta', metaPublish);
+router.post('/publish/run', publishRun);
+router.post('/publish/delete-post', publishDeletePost);
+
+// ── Meta connection (글로벌 암호화 연동 — 토큰 서버 전용) ─────────────────────────
+router.get('/meta/connection', metaConnection);
+router.delete('/meta/connection', metaDisconnect);
 
 // ── Analytics endpoints (server-proxy; per-project creds read server-side) ──────
 router.post('/analytics/overview', analyticsOverview);

@@ -36,6 +36,7 @@ import styleGenreMapRoutes from './routes/style-genre-map.routes.js';
 import letterStrokeLibraryRoutes from './routes/letter-stroke-library.routes.js';
 import koreanJamoStrokeLibraryRoutes from './routes/korean-jamo-stroke-library.routes.js';
 import mktRoutes from './routes/mkt.routes.js';
+import { metaAuthRouter } from './routes/meta-auth.routes.js';
 import paymentRoutes from './routes/payment.routes.js';
 import opsRoutes from './routes/ops.routes.js';
 import comicFeedbackRoutes from './routes/comic-feedback.routes.js';
@@ -102,6 +103,8 @@ export function createApp() {
   app.use('/api/korean-jamo-stroke-library', koreanJamoStrokeLibraryRoutes);
   // Marketing Phase 0+ — NEW namespace (never collides with /api/marketing)
   app.use('/api/mkt', mktRoutes);
+  // Meta OAuth (top-level — FB top-level redirect + callback + data-deletion)
+  app.use('/api/auth/meta', metaAuthRouter);
   app.use('/api/payments', paymentRoutes);
   app.use('/api/ops', opsRoutes);
   app.use('/api/comic-feedback', comicFeedbackRoutes);

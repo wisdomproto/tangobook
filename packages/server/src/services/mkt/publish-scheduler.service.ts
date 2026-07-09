@@ -1,5 +1,6 @@
 import { getSupabaseAdmin } from '../../providers/supabase-admin.provider.js';
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { publishRecord } from './publish-executor.service.js';
 
 /**
  * Publish scheduler — the only real automation in the marketing port.
@@ -52,6 +53,7 @@ export async function tick(): Promise<void> {
     if (!admin) return;
     await flipDueSelfHosted(admin);
     await fireDeployWebhooks(admin);
+    await publishDueMeta(admin);
   } catch (err) {
     console.error('[mkt] publish tick error:', (err as Error).message);
   } finally {
@@ -100,6 +102,40 @@ export async function flipDueSelfHosted(admin: SupabaseClient): Promise<void> {
     .upsert(rows, { onConflict: 'project_id' });
 
   if (upsertError) throw new Error(upsertError.message);
+}
+
+/**
+ * Step C — publish due Meta (instagram/facebook/threads) scheduled records.
+ *
+ * Unlike self_hosted (which only flips a status + pings a webhook), Meta records must be
+ * actively pushed to the Graph API at their scheduled time (IG/Threads have no native
+ * scheduling). Each due record is handed to `publishRecord` (the shared executor), which
+ * extracts the content, publishes, and records success/failure/backoff-retry itself.
+ *
+ * Batched (limit per tick) so a slow IG carousel poll can't starve the loop — the overlap
+ * guard already serialises ticks, and remaining due rows are picked up next minute.
+ */
+const META_BATCH = 5;
+
+export async function publishDueMeta(admin: SupabaseClient): Promise<void> {
+  const nowIso = new Date().toISOString();
+  const { data: due, error } = await admin
+    .from('mkt_publish_records')
+    .select('id')
+    .eq('status', 'scheduled')
+    .in('channel', ['instagram', 'facebook', 'threads'])
+    .lte('scheduled_at', nowIso)
+    .order('scheduled_at', { ascending: true })
+    .limit(META_BATCH);
+
+  if (error) throw new Error(error.message);
+  if (!due?.length) return;
+
+  // Sequential: each publish drives multiple Graph calls (+polling) — parallel would spike
+  // rate limits. Executor is self-contained (updates each record's terminal/retry state).
+  for (const row of due as Array<{ id: string }>) {
+    await publishRecord(row.id);
+  }
 }
 
 /**
