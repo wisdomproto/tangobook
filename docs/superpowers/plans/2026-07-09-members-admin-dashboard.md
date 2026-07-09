@@ -1,6 +1,8 @@
 # 회원 관리 대시보드 (`/members`) Implementation Plan
 
-> **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
+> ✅ **완료 (2026-07-09)** — Task 1~10 전편 구현·검증·커밋 완료(main). typecheck 전패키지 PASS · 서버 412 tests PASS · API 실검증(401/8054/404) · 브라우저 UI 확인. grant/ban/delete 뮤테이션은 실계정 대상 미실행(프로덕션 Supabase 변경 회피 — 버리는 테스트 계정 권장). 상세 → memory `members-admin-dashboard-2026-07-09`.
+
+> **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** 운영자가 회원을 조회하고 무료 체험/유료 권한 부여·차단·삭제·활동 통계를 처리하는 내부 대시보드(`/members`) 구축.
 
@@ -31,7 +33,7 @@
 
 이동 대상(서버가 재사용할 함수만): `kstDateKey` · `estimateReadingMinutes` · `computeStreak` · `completedBooks`(+`CompletedBookStat`) · `weekActivity`(+`WeekDay`). 나머지(groupByWord 등 mastery 의존 함수, `formatKstDate`)는 클라에 유지.
 
-- [ ] **Step 1: shared에 파일 생성**
+- [x] **Step 1: shared에 파일 생성**
 
 `packages/shared/src/utils/learning-aggregate.ts` — 아래 내용. 함수 본문은 `packages/client/src/features/learning/lib/aggregate.ts`의 해당 함수를 **그대로 복사**(수정 금지 — 수치 일치가 목적). import는 shared 내부 상대경로로 교체:
 
@@ -61,7 +63,7 @@ export function weekActivity(events: LearningEvent[], now: Date): WeekDay[] { /*
 
 주의: `learning-events` 타입 경로는 `packages/shared/src/types/learning-events.ts`. shared는 ESM이라 import 확장자 `.js` 필수(Railway 메모리 규칙).
 
-- [ ] **Step 2: shared index에 export 추가**
+- [x] **Step 2: shared index에 export 추가**
 
 `packages/shared/src/index.ts`의 `export * from './utils/entitlement.js';` 아래에:
 
@@ -69,7 +71,7 @@ export function weekActivity(events: LearningEvent[], now: Date): WeekDay[] { /*
 export * from './utils/learning-aggregate.js';
 ```
 
-- [ ] **Step 3: 클라 aggregate.ts를 re-export로 전환**
+- [x] **Step 3: 클라 aggregate.ts를 re-export로 전환**
 
 `packages/client/src/features/learning/lib/aggregate.ts`에서 이동한 5개 함수/타입/상수 정의를 **삭제**하고 파일 상단에 추가:
 
@@ -93,14 +95,14 @@ export { kstDateKey, completedBooks, estimateReadingMinutes, computeStreak, week
 export type { CompletedBookStat, WeekDay } from '@tangobook/shared';
 ```
 
-- [ ] **Step 4: 기존 테스트로 회귀 확인**
+- [x] **Step 4: 기존 테스트로 회귀 확인**
 
 Run: `pnpm --filter shared build && pnpm --filter client test -- aggregate`
 Expected: 기존 `aggregate.test.ts` 전부 PASS (import 경로 그대로, re-export 경유).
 Run: `pnpm typecheck`
 Expected: 전 패키지 PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/shared/src packages/client/src/features/learning/lib/aggregate.ts
@@ -114,7 +116,7 @@ git commit -m "refactor(shared): move reading-time/streak formulas to shared for
 - Modify: `packages/server/src/controllers/ops.controller.ts` (private 함수 제거)
 - Modify: `packages/server/src/routes/ops.routes.ts` (미들웨어 적용)
 
-- [ ] **Step 1: 미들웨어 생성**
+- [x] **Step 1: 미들웨어 생성**
 
 `packages/server/src/middleware/ops-auth.middleware.ts` — 기존 `ops.controller.ts:12-39`의 `OPS_PASSWORD`/`OPS_EMAILS`/`requireOpsUser` 본문을 **그대로 이동**하고 미들웨어로 감쌈:
 
@@ -142,7 +144,7 @@ export async function opsAuth(req: Request, _res: Response, next: NextFunction):
 }
 ```
 
-- [ ] **Step 2: ops.controller/routes 정리**
+- [x] **Step 2: ops.controller/routes 정리**
 
 `ops.controller.ts`: `requireOpsUser`와 상수 삭제, `getOverview`에서 `await requireOpsUser(req);` 줄 삭제.
 `ops.routes.ts`:
@@ -152,7 +154,7 @@ import { opsAuth } from '../middleware/ops-auth.middleware.js';
 router.get('/overview', opsAuth, OpsController.getOverview);
 ```
 
-- [ ] **Step 3: 거부 케이스 단위 테스트** (스펙 테스트 항목)
+- [x] **Step 3: 거부 케이스 단위 테스트** (스펙 테스트 항목)
 
 `packages/server/src/middleware/ops-auth.middleware.test.ts` — supabase 불필요한 두 경로만:
 
@@ -175,7 +177,7 @@ describe('assertOpsUser', () => {
 });
 ```
 
-- [ ] **Step 4: 검증 + Commit**
+- [x] **Step 4: 검증 + Commit**
 
 Run: `pnpm --filter server test && pnpm typecheck` → PASS.
 수동: dev 서버에서 `curl -s localhost:3500/api/ops/overview` → 401 JSON, `curl -s -H "x-ops-password: 8054" localhost:3500/api/ops/overview` → success true.
@@ -191,7 +193,7 @@ git commit -m "refactor(server): extract ops auth into reusable middleware"
 - Create: `packages/server/src/services/members-grant.ts`
 - Test: `packages/server/src/services/members-grant.test.ts`
 
-- [ ] **Step 1: 실패하는 테스트 작성**
+- [x] **Step 1: 실패하는 테스트 작성**
 
 ```ts
 import { describe, it, expect } from 'vitest';
@@ -239,12 +241,12 @@ describe('resolveGrantUpdate', () => {
 });
 ```
 
-- [ ] **Step 2: 실패 확인**
+- [x] **Step 2: 실패 확인**
 
 Run: `pnpm --filter server test -- members-grant`
 Expected: FAIL (`members-grant.js` 모듈 없음).
 
-- [ ] **Step 3: 구현**
+- [x] **Step 3: 구현**
 
 ```ts
 import { AppError } from '../middleware/error.middleware.js';
@@ -285,7 +287,7 @@ export function resolveGrantUpdate(
 }
 ```
 
-- [ ] **Step 4: 통과 확인 + Commit**
+- [x] **Step 4: 통과 확인 + Commit**
 
 Run: `pnpm --filter server test -- members-grant` → PASS.
 
@@ -300,7 +302,7 @@ git commit -m "feat(server): pure grant-resolution logic for member entitlements
 - Create: `packages/server/src/services/members-activity.ts`
 - Test: `packages/server/src/services/members-activity.test.ts`
 
-- [ ] **Step 1: 실패하는 테스트 작성**
+- [x] **Step 1: 실패하는 테스트 작성**
 
 ```ts
 import { describe, it, expect } from 'vitest';
@@ -347,9 +349,9 @@ describe('summarizeChildActivity', () => {
 });
 ```
 
-- [ ] **Step 2: 실패 확인** — Run: `pnpm --filter server test -- members-activity` → FAIL (모듈 없음).
+- [x] **Step 2: 실패 확인** — Run: `pnpm --filter server test -- members-activity` → FAIL (모듈 없음).
 
-- [ ] **Step 3: 구현**
+- [x] **Step 3: 구현**
 
 ```ts
 import type { LearningEvent, WeekDay } from '@tangobook/shared';
@@ -401,7 +403,7 @@ export function summarizeChildActivity(events: LearningEvent[], now: Date): Chil
 }
 ```
 
-- [ ] **Step 4: 통과 확인 + Commit**
+- [x] **Step 4: 통과 확인 + Commit**
 
 Run: `pnpm --filter server test -- members-activity` → PASS.
 
@@ -417,7 +419,7 @@ git commit -m "feat(server): per-child activity summary logic (TDD)"
 
 순수 로직은 Task 3·4에 있으므로 이 파일은 I/O 조립만(단위 테스트 없음 — supabase mock YAGNI, 수동 검증).
 
-- [ ] **Step 1: 서비스 구현**
+- [x] **Step 1: 서비스 구현**
 
 ```ts
 import { getSupabaseAdmin } from '../providers/supabase-admin.provider.js';
@@ -706,7 +708,7 @@ export async function deleteMember(accountId: string): Promise<void> {
 }
 ```
 
-- [ ] **Step 2: 검증 + Commit**
+- [x] **Step 2: 검증 + Commit**
 
 Run: `pnpm typecheck` → PASS. (I/O 조립 파일 — 동작은 Task 6 수동 검증에서.)
 
@@ -721,7 +723,7 @@ git commit -m "feat(server): members service — list/detail aggregation + grant
 - Create: `packages/server/src/controllers/members.controller.ts`
 - Modify: `packages/server/src/routes/ops.routes.ts`
 
-- [ ] **Step 1: 컨트롤러**
+- [x] **Step 1: 컨트롤러**
 
 ```ts
 import type { Request, Response, NextFunction } from 'express';
@@ -762,7 +764,7 @@ export const MembersController = {
 };
 ```
 
-- [ ] **Step 2: 라우트 추가** (`ops.routes.ts`)
+- [x] **Step 2: 라우트 추가** (`ops.routes.ts`)
 
 ```ts
 import { MembersController } from '../controllers/members.controller.js';
@@ -774,7 +776,7 @@ router.post('/members/:accountId/ban', opsAuth, MembersController.ban);
 router.delete('/members/:accountId', opsAuth, MembersController.remove);
 ```
 
-- [ ] **Step 3: 수동 검증 + Commit**
+- [x] **Step 3: 수동 검증 + Commit**
 
 Run: `pnpm typecheck && pnpm --filter server test` → PASS.
 dev 서버 살아있는 상태에서:
@@ -800,7 +802,7 @@ git commit -m "feat(server): members admin endpoints (list/detail/grant/ban/dele
 - Create: `packages/client/src/features/members/api/members.api.ts`
 - (barrel `index.ts`는 페이지 파일이 생기는 Task 9에서 생성 — 이 커밋 단독으로도 typecheck green 유지)
 
-- [ ] **Step 1: API 모듈**
+- [x] **Step 1: API 모듈**
 
 서버 응답 타입을 미러링(수동 동기화 — 기존 ops.api 패턴). 비번 헤더는 ops 헬퍼 재사용:
 
@@ -869,7 +871,7 @@ export const membersApi = {
 };
 ```
 
-- [ ] **Step 2: Commit** (typecheck는 이 파일 단독으로 통과해야 함: `pnpm --filter client typecheck`)
+- [x] **Step 2: Commit** (typecheck는 이 파일 단독으로 통과해야 함: `pnpm --filter client typecheck`)
 
 ```bash
 git add packages/client/src/features/members
@@ -881,7 +883,7 @@ git commit -m "feat(members): admin members api module"
 **Files:**
 - Create: `packages/client/src/features/members/pages/MembersDashboardPage.tsx`
 
-- [ ] **Step 1: 페이지 구현**
+- [x] **Step 1: 페이지 구현**
 
 `OpsDashboardPage`의 게이트 패턴 재사용(같은 sessionStorage 키 — /admin과 비번 한 번만 입력). 핵심 골격:
 
@@ -1017,7 +1019,7 @@ export default function MembersDashboardPage() {
 구현 시 게이트 폼은 `OpsDashboardPage.tsx:50-86`의 `OpsPasswordGate`를 그대로 옮겨 써도 됨(로컬 함수 복사 — 두 페이지가 스타일 다르게 진화할 수 있어 공유 컴포넌트化는 YAGNI).
 정렬은 마지막활동 desc 고정(스펙의 "정렬"을 단순화 — 헤더 클릭 정렬은 필요해지면 추가).
 
-- [ ] **Step 2: typecheck** — Drawer가 아직 없으므로 Task 9와 함께 검증.
+- [x] **Step 2: typecheck** — Drawer가 아직 없으므로 Task 9와 함께 검증.
 
 ### Task 9: MemberDetailDrawer — 상세 + 액션 + barrel
 
@@ -1030,7 +1032,7 @@ export default function MembersDashboardPage() {
 export { default as MembersDashboardPage } from './pages/MembersDashboardPage';
 ```
 
-- [ ] **Step 1: 드로어 구현**
+- [x] **Step 1: 드로어 구현**
 
 ```tsx
 import { useState } from 'react';
@@ -1179,7 +1181,7 @@ export function MemberDetailDrawer({
 }
 ```
 
-- [ ] **Step 2: typecheck + Commit**
+- [x] **Step 2: typecheck + Commit**
 
 Run: `pnpm typecheck` → PASS.
 
@@ -1194,7 +1196,7 @@ git commit -m "feat(members): dashboard page + detail drawer with grant/ban/dele
 - Modify: `packages/client/src/router/index.tsx`
 - Modify: `CLAUDE.md` (admin 항목에 한 줄)
 
-- [ ] **Step 1: 라우트 추가**
+- [x] **Step 1: 라우트 추가**
 
 `router/index.tsx`의 `admin` 라우트(318행 부근) 아래에:
 
@@ -1212,7 +1214,7 @@ git commit -m "feat(members): dashboard page + detail drawer with grant/ban/dele
 
 import: `import { MembersDashboardPage } from '../features/members';` (기존 lazy 패턴을 쓰는 파일이면 그 패턴을 따를 것 — 62행 `OpsDashboardPage` import 방식과 동일하게).
 
-- [ ] **Step 2: 수동 E2E**
+- [x] **Step 2: 수동 E2E**
 
 1. `localhost:5174/members` → 비번 게이트 → `8054` 입력 → 회원 테이블 표시.
 2. 본인 계정 행 클릭 → 드로어에서 자녀 활동·결제·초대 표시 확인.
@@ -1220,7 +1222,7 @@ import: `import { MembersDashboardPage } from '../features/members';` (기존 la
 4. 테스트 계정으로 차단 → 그 계정 로그인 시도 → 실패 확인 → 해제.
 5. (선택) 버리는 테스트 계정으로 삭제 플로우 확인.
 
-- [ ] **Step 3: CLAUDE.md 갱신**
+- [x] **Step 3: CLAUDE.md 갱신**
 
 루트 CLAUDE.md의 `/admin 운영 대시보드` 불릿에 이어서 한 줄:
 
@@ -1228,7 +1230,7 @@ import: `import { MembersDashboardPage } from '../features/members';` (기존 la
 - **`/members` 회원 관리 대시보드**(`features/members/` + 서버 `/api/ops/members*`): 회원 목록·자녀별 활동(shared 집계 공식 공유)·무료/유료 부여·차단(Auth ban)·삭제. 인증 = /admin 과 동일(비번/OPS_EMAILS, `ops-auth.middleware`). 스펙 → docs/superpowers/specs/2026-07-09-members-admin-dashboard-design.md
 ```
 
-- [ ] **Step 4: 최종 검증 + Commit**
+- [x] **Step 4: 최종 검증 + Commit**
 
 Run: `pnpm typecheck && pnpm --filter server test && pnpm --filter client test -- aggregate` → PASS.
 
