@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Skeleton, Chip, Mascot, PageHeader } from '@/design-system';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
-import { useStyleGenreLabel } from '@/lib/art-style-genre';
 import type { Lang, VocabularyUnit, VocabularyUnitWord } from '@tangobook/shared';
 import { useVocabularyUnit } from '../hooks/useVocabularyUnits';
 import { isStorybookUnitId, storybookIdFromUnitId } from '../lib/derive-storybook-unit';
@@ -38,12 +37,10 @@ export function VocabularyStudyPage() {
   const { unitId } = useParams<{ unitId: string }>();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const styleGenreLabel = useStyleGenreLabel(); // 그림체 실명 비노출 → 장르 라벨
 
-  // 책 상세에서 넘어온 선택 그림체/언어 (?style=&lang=). 없으면 책 대표 그림체 폴백.
-  const [selectedStyle, setSelectedStyle] = useState<string | undefined>(
-    searchParams.get('style') ?? undefined
-  );
+  // 책 상세에서 넘어온 선택 그림체/언어 (?style=&lang=). 그림체는 여기서 바꾸지 않으므로 URL 값만 읽음
+  // (게임 화면에선 그림체 수정 불가 — 책 상세에서 정한 그림체를 그대로 사용).
+  const selectedStyle = searchParams.get('style') ?? undefined;
   const [lang, setLang] = useState<Lang | null>((searchParams.get('lang') as Lang) || null);
 
   // storybook 을 unitId 에서 직접 파싱해 먼저 fetch — activeStyle 을 derive 전에 계산하기 위함
@@ -58,12 +55,15 @@ export function VocabularyStudyPage() {
       : storybook?.styleAssets
         ? Object.keys(storybook.styleAssets)
         : [];
+  // 활성 그림체는 반드시 선택지(styles=availableStyles) 안에서 고름 — defaultStyle/artStyle 이
+  // availableStyles 에 없는 stale 값(예: 하이디 defaultStyle=pixar-3d)이면 라벨이 "그림체 N" 으로
+  // 폴백되고 게임 이미지도 엉뚱해지므로 styles 로 제한 후 styles[0] 최종 폴백.
+  const inStyles = (s: string | undefined) => (s && styles.includes(s) ? s : undefined);
   const activeStyle: string | undefined =
-    (selectedStyle && styles.includes(selectedStyle) ? selectedStyle : undefined) ??
-    storybook?.defaultStyle ??
-    storybook?.artStyle ??
-    undefined;
-  const canPickStyle = styles.length > 1;
+    inStyles(selectedStyle) ??
+    inStyles(storybook?.defaultStyle) ??
+    inStyles(storybook?.artStyle) ??
+    styles[0];
 
   // 활성 그림체를 derive 에 전달 → 게임/미리보기/모달 이미지가 그 그림체로 나옴.
   // (derive 는 캐시된 책 데이터 계산이라 그림체 변경 시 재fetch 없이 재derive.)
@@ -152,25 +152,6 @@ export function VocabularyStudyPage() {
           storybook={storybook ?? undefined}
           currentStyle={activeStyle}
           lang={effectiveLang}
-          stylePicker={
-            canPickStyle ? (
-              <div className="flex flex-wrap items-center gap-1.5">
-                <span className="text-sm font-black text-ink-500">🎨 그림체</span>
-                {styles.map((s, i) => (
-                  <Chip
-                    key={s}
-                    variant="coral"
-                    active={s === activeStyle}
-                    onClick={() => setSelectedStyle(s)}
-                    aria-label={`그림체 ${i + 1}`}
-                    className="!text-sm !px-3 !py-1.5"
-                  >
-                    {styleGenreLabel(s, i)}
-                  </Chip>
-                ))}
-              </div>
-            ) : undefined
-          }
         />
       </main>
     </div>

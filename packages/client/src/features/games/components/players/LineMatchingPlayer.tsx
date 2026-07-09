@@ -13,7 +13,7 @@ import { GamePlayerLayout } from '../GamePlayerLayout';
 import { GameHeader } from '../GameHeader';
 import { SceneReveal } from '../SceneReveal';
 import { FeedbackOverlay } from '../FeedbackOverlay';
-import { useGameStyle, GameStyleChip } from '../GameStyleChip';
+import { useGameStyle } from '../GameStyleChip';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { useStorybook } from '@/features/storybook';
 import {
@@ -412,15 +412,6 @@ function LineMatchingPlayerInner({
           current={matched.length}
           total={items.length}
           onBack={onBack}
-          rightExtra={
-            gameStyle.canPick ? (
-              <GameStyleChip
-                styles={gameStyle.styles}
-                index={gameStyle.index}
-                onCycle={gameStyle.setIndex}
-              />
-            ) : undefined
-          }
         />
 
         {/* 오디오 로딩 overlay — 이번 판 음절/단어 mp3 프리페치 대기(짝 맞춘 순간 발음 지연 방지). */}
@@ -567,6 +558,7 @@ function LineMatchingPlayerInner({
         <SceneReveal
           illustrationUrl={scene.illustrationUrl}
           text={scene.pageText}
+          highlight={scene.highlight}
           ttsUrl={scene.pageTtsUrl}
           onDone={() => {
             setScene(null);

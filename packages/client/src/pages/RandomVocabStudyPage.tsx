@@ -4,7 +4,6 @@ import { Chip, Mascot, PageHeader } from '@/design-system';
 import { useStorybooks, useStorybook } from '@/features/storybook';
 import { deriveStorybookUnit } from '@/features/vocabulary-unit/lib/derive-storybook-unit';
 import { VocabularyStudyContent } from '@/features/vocabulary-unit/components/VocabularyStudyContent';
-import { useStyleGenreLabel } from '@/lib/art-style-genre';
 import type { Lang, VocabularyUnitWord } from '@tangobook/shared';
 
 /**
@@ -56,14 +55,23 @@ export default function RandomVocabStudyPage() {
   // 그 책만 fetch — 책 상세 "단어 익히기" 와 동일 캐시 키(['storybook', id]) 공유.
   const { data: book, isLoading: bookLoading } = useStorybook(pickedId);
 
+  // 활성 그림체 = 책 대표(defaultStyle) → artStyle → 첫 그림체. availableStyles 에 없는 stale 값
+  // (예: 하이디 defaultStyle=pixar-3d)은 제외해 게임 이미지가 엉뚱해지지 않도록 함. 어휘 게임 화면에선
+  // 그림체를 바꾸지 않음(선택기 미노출) — 책 대표 그림체로 고정.
+  const styles: string[] = book
+    ? book.availableStyles && book.availableStyles.length > 0
+      ? book.availableStyles
+      : Object.keys(book.styleAssets ?? {})
+    : [];
+  const inStyles = (s: string | undefined) => (s && styles.includes(s) ? s : undefined);
+  const currentStyle: string | undefined =
+    inStyles(book?.defaultStyle) ?? inStyles(book?.artStyle) ?? styles[0];
+
   // 실제 책 → 단원 (storybookId 세팅됨 → 게임이 진짜 책 컨텍스트로 동작).
-  // 대표 그림체를 derive 에 전달 → 게임 이미지가 아래 표시 라벨(currentStyle)과 일치.
-  const currentStyle = book?.defaultStyle ?? book?.artStyle;
   const unit = useMemo(
-    () => (book ? deriveStorybookUnit(book, book.defaultStyle ?? book.artStyle) : null),
-    [book]
+    () => (book ? deriveStorybookUnit(book, currentStyle) : null),
+    [book, currentStyle]
   );
-  const styleLabel = useStyleGenreLabel(); // 그림체 실명 비노출 → 장르 라벨
 
   const loading = booksLoading || (!!pickedId && (bookLoading || !unit));
 
@@ -154,7 +162,7 @@ export default function RandomVocabStudyPage() {
       </div>
 
       <main className="px-4 sm:px-8 pt-4 pb-6 max-w-[1600px] mx-auto">
-        {/* 어떤 동화책·그림체에서 나온 낱말인지 안내 — 표지 썸네일 + 제목 + 장르(실명 비노출) */}
+        {/* 어떤 동화책에서 나온 낱말인지 안내 — 표지 썸네일 + 제목. 그림체는 아래 드랍박스로 선택. */}
         <div className="mb-5 flex w-fit items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-soft">
           {book?.coverImage && (
             <img
@@ -164,16 +172,9 @@ export default function RandomVocabStudyPage() {
               className="h-14 w-14 shrink-0 rounded-xl object-cover shadow-sm"
             />
           )}
-          <div className="flex min-w-0 flex-col">
-            <span className="font-display text-lg font-black leading-tight text-ink-900 break-keep sm:text-xl">
-              📖 {book?.title}
-            </span>
-            {currentStyle && (
-              <span className="text-sm font-bold text-ink-500 break-keep">
-                🎨 {styleLabel(currentStyle, 0)}
-              </span>
-            )}
-          </div>
+          <span className="font-display text-lg font-black leading-tight text-ink-900 break-keep sm:text-xl">
+            📖 {book?.title}
+          </span>
         </div>
         <VocabularyStudyContent
           unit={unit}

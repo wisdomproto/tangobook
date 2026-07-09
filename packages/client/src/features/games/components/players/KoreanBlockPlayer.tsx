@@ -33,7 +33,7 @@ import {
 } from '../../hooks/useGamePrefetch';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
-import { useGameStyle, GameStyleChip } from '../GameStyleChip';
+import { useGameStyle } from '../GameStyleChip';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { resolveTtsUrl } from '@/features/tts';
@@ -625,21 +625,7 @@ function KoreanBlockPlayerInner({
         }}
       >
         <div className="px-2 pt-2 shrink-0">
-          <GameHeader
-            title="한글 블록"
-            current={score}
-            total={items.length}
-            onBack={onBack}
-            rightExtra={
-              gameStyle.canPick ? (
-                <GameStyleChip
-                  styles={gameStyle.styles}
-                  index={gameStyle.index}
-                  onCycle={gameStyle.setIndex}
-                />
-              ) : undefined
-            }
-          />
+          <GameHeader title="한글 블록" current={score} total={items.length} onBack={onBack} />
         </div>
 
         {/* 오디오 로딩 overlay — 맵 + 이번 판 음절 mp3 + 단어 발음 프리워밍까지 대기.
@@ -868,6 +854,7 @@ function KoreanBlockPlayerInner({
         <SceneReveal
           illustrationUrl={scene.illustrationUrl}
           text={scene.pageText}
+          highlight={scene.highlight}
           ttsUrl={scene.pageTtsUrl}
           onDone={() => goToNext(currentIndex)}
         />

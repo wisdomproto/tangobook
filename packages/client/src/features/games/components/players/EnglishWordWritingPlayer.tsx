@@ -7,7 +7,7 @@ import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
-import { useGameStyle, GameStyleChip } from '../GameStyleChip';
+import { useGameStyle } from '../GameStyleChip';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
@@ -24,6 +24,8 @@ function lettersOf(word: string): string[] {
   const letters = [...word].filter((ch) => /[a-zA-Z]/.test(ch));
   return letters.length > 0 ? letters : [...word];
 }
+
+const REST_MS = 450; // 마지막 글자 재생 완료 후 단어를 읽기 전 '쉬는' 간격
 
 export function EnglishWordWritingPlayer({
   storybookId,
@@ -51,9 +53,10 @@ export function EnglishWordWritingPlayer({
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));
   const [scene, setScene] = useState<WordScene | null>(null);
   const completedRef = useRef(false);
+  const lastLetterRef = useRef(''); // 가장 마지막에 완성한 글자 — 완성 시 이 글자 → 쉼 → 단어 순서로 재생
   const pendingPassedRef = useRef<boolean[] | null>(null);
   const logGame = useGameLogger();
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
   const { data: sourceStorybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(sourceStorybook);
 
@@ -86,21 +89,30 @@ export function EnglishWordWritingPlayer({
     [currentIndex, items.length, onComplete, emitFinalResults]
   );
 
+  // 한 글자 완성 → 그 글자 소리. 단, 단어를 완성하는 마지막 글자면 여기서 재생하지 않고
+  // handleWordComplete 가 [마지막 글자 → 쉼 → 단어 → 칭찬] 체인을 소유한다(음원 겹침 방지).
+  // onSyllableDone 직후 onComplete 가 동기로 불리므로, microtask 로 미뤄 completedRef 로 판별한다.
   const handleLetterDone = useCallback(
     (letter: string) => {
-      void (async () => {
-        const url = await resolveTtsUrl({
-          text: letter,
-          language: 'english',
-          storybookId,
-          identifierPrefix: 'wwrite-en',
-        });
-        if (url) playAudio(url);
-      })();
+      lastLetterRef.current = letter;
+      queueMicrotask(() => {
+        if (completedRef.current) return; // 마지막 글자 = handleWordComplete 가 처리
+        void (async () => {
+          const url = await resolveTtsUrl({
+            text: letter,
+            language: 'english',
+            storybookId,
+            identifierPrefix: 'wwrite-en',
+          });
+          if (url) playAudio(url);
+        })();
+      });
     },
     [storybookId, playAudio]
   );
 
+  // 모든 글자 완성 → [마지막 글자 → 쉼 → 단어 → 칭찬] 순서로 재생 후 장면 리빌 → 다음 단어.
+  // 각 단계는 onEnded 콜백으로 이어 붙여 음원 길이에 상관없이 잘리거나 겹치지 않는다.
   const handleWordComplete = useCallback(() => {
     if (completedRef.current) return;
     completedRef.current = true;
@@ -114,31 +126,57 @@ export function EnglishWordWritingPlayer({
         directUrl: currentItem.ttsUrl,
         identifierPrefix: 'wwrite-en',
       });
-      playCorrectSequence({
-        ttsUrl: wordUrl,
-        language: 'en',
-        onDone: () => {
-          const s = resolveSceneFromWord(
-            currentItem.word,
-            'en',
-            sourceStorybook,
-            gameStyle.selectedStyle
-          );
-          if (s) {
-            pendingPassedRef.current = newPassed;
-            setScene(s);
-          } else {
-            advanceToNext(newPassed);
-          }
-        },
-      });
+      // 마지막 글자 (여러 글자 단어일 때만 — 1글자면 단어와 같으므로 생략)
+      const lastLetter = lastLetterRef.current || letters[letters.length - 1];
+      const lastLetterUrl =
+        letters.length > 1
+          ? await resolveTtsUrl({
+              text: lastLetter,
+              language: 'english',
+              storybookId,
+              identifierPrefix: 'wwrite-en',
+            })
+          : undefined;
+
+      // 단어 끝까지 재생 후 → 칭찬(ttsUrl 없이 = 칭찬 파트만) → 장면 리빌/다음
+      const playWordThenPraise = () => {
+        playAudio(wordUrl, () => {
+          playCorrectSequence({
+            language: 'en',
+            onDone: () => {
+              const s = resolveSceneFromWord(
+                currentItem.word,
+                'en',
+                sourceStorybook,
+                gameStyle.selectedStyle
+              );
+              if (s) {
+                pendingPassedRef.current = newPassed;
+                setScene(s);
+              } else {
+                advanceToNext(newPassed);
+              }
+            },
+          });
+        });
+      };
+
+      if (lastLetterUrl) {
+        // 마지막 글자 끝까지 → 쉬고 → 단어
+        playAudio(lastLetterUrl, () => scheduleTimer(playWordThenPraise, REST_MS));
+      } else {
+        playWordThenPraise();
+      }
     })();
   }, [
     passed,
     currentIndex,
     currentItem,
     storybookId,
+    letters,
+    playAudio,
     playCorrectSequence,
+    scheduleTimer,
     sourceStorybook,
     gameStyle.selectedStyle,
     advanceToNext,
@@ -151,15 +189,6 @@ export function EnglishWordWritingPlayer({
         current={passed.filter(Boolean).length}
         total={items.length}
         onBack={onBack}
-        rightExtra={
-          gameStyle.canPick ? (
-            <GameStyleChip
-              styles={gameStyle.styles}
-              index={gameStyle.index}
-              onCycle={gameStyle.setIndex}
-            />
-          ) : undefined
-        }
       />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
         <div className="flex items-center justify-center gap-3 sm:gap-5 shrink-0">
@@ -193,6 +222,7 @@ export function EnglishWordWritingPlayer({
         <SceneReveal
           illustrationUrl={scene.illustrationUrl}
           text={scene.pageText}
+          highlight={scene.highlight}
           ttsUrl={scene.pageTtsUrl}
           onDone={() => advanceToNext(pendingPassedRef.current ?? passed)}
         />

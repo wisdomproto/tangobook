@@ -25,7 +25,7 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
-import { useGameStyle, GameStyleChip } from '../GameStyleChip';
+import { useGameStyle } from '../GameStyleChip';
 import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { resolveTtsUrl } from '@/features/tts';
@@ -520,21 +520,7 @@ function EnglishBlockPlayerInner({
       {/* vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음. */}
       <div className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-br from-cream-50 to-peach-100 overflow-y-auto">
         <div className="px-2 pt-2 shrink-0">
-          <GameHeader
-            title="영어 블록"
-            current={score}
-            total={items.length}
-            onBack={onBack}
-            rightExtra={
-              gameStyle.canPick ? (
-                <GameStyleChip
-                  styles={gameStyle.styles}
-                  index={gameStyle.index}
-                  onCycle={gameStyle.setIndex}
-                />
-              ) : undefined
-            }
-          />
+          <GameHeader title="영어 블록" current={score} total={items.length} onBack={onBack} />
         </div>
 
         {/* 오디오 로딩 overlay — 맵 + 단어 발음 프리워밍까지 대기(첫 정답 발음 지연 방지). */}
@@ -634,6 +620,7 @@ function EnglishBlockPlayerInner({
         <SceneReveal
           illustrationUrl={scene.illustrationUrl}
           text={scene.pageText}
+          highlight={scene.highlight}
           ttsUrl={scene.pageTtsUrl}
           onDone={() => goToNext(currentIndex)}
         />

@@ -299,25 +299,57 @@ export default function BookDetailPage() {
 
         {/* hero + parentGuide wrapper — flex-1 + justify-center 으로 콘텐츠만 vertical 가운데. 헤더는 위 고정. */}
         <div className="flex-1 flex flex-col justify-center">
-          {/* 상단 3단계 안내 — 부모가 아이와 함께 읽는 흐름을 크게 안내 */}
-          <ol className="mb-5 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+          {/* 상단 3단계 안내 — 아이와 함께 읽는 흐름. 전용 일러스트 아이콘 + 2줄 제목 + 부제 + 점선 커넥터. */}
+          <ol className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
             {[
-              canPickStyle
-                ? '아이가 좋아하는 그림체와 언어를 골라요'
-                : '아이가 좋아하는 언어를 골라요',
-              '책을 다 읽고, 책에 나온 단어를 공부해요',
-              '아래 부모님 가이드를 꼭 읽어보세요',
-            ].map((t, i) => (
+              {
+                icon: '/icons/guide/step-choose.webp',
+                title: canPickStyle ? '그림체와 언어 고르기' : '읽을 언어 고르기',
+                sub: '아이 취향에 맞게 시작해요',
+              },
+              {
+                icon: '/icons/guide/step-learn.webp',
+                title: '읽고 단어 익히기',
+                sub: '책 속 단어로 어휘력을 키워요',
+              },
+              {
+                icon: '/icons/guide/step-guide.webp',
+                title: '부모님 가이드 읽기',
+                sub: '책 특징 · 교훈 · 읽어주는 팁',
+              },
+            ].map((s, i) => (
               <li
                 key={i}
-                className="flex items-center gap-2.5 rounded-2xl bg-white/80 px-4 py-3 shadow-soft"
+                className="relative flex items-center gap-3.5 rounded-3xl bg-white/90 px-4 py-4 shadow-soft"
               >
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-coral-500 text-white font-black">
-                  {i + 1}
-                </span>
-                <span className="font-black text-ink-800 text-sm sm:text-[15px] leading-tight break-keep">
-                  {t}
-                </span>
+                <div className="relative shrink-0">
+                  <img
+                    src={s.icon}
+                    alt=""
+                    aria-hidden
+                    className="h-14 w-14 object-contain sm:h-16 sm:w-16"
+                  />
+                  <span className="absolute -left-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-coral-500 text-xs font-black text-white ring-2 ring-white">
+                    {i + 1}
+                  </span>
+                </div>
+                <div className="min-w-0">
+                  <p className="break-keep text-[15px] font-black leading-tight text-ink-900 sm:text-base">
+                    {s.title}
+                  </p>
+                  <p className="mt-1 break-keep text-xs font-bold leading-snug text-ink-500 sm:text-[13px]">
+                    {s.sub}
+                  </p>
+                </div>
+                {/* 점선 커넥터 — sm+ 에서 카드 사이 (마지막 카드 제외) */}
+                {i < 2 && (
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute right-0 top-1/2 hidden -translate-y-1/2 translate-x-1/2 text-lg font-black tracking-widest text-peach-300 sm:block"
+                  >
+                    ···
+                  </span>
+                )}
               </li>
             ))}
           </ol>
@@ -677,24 +709,24 @@ function ModeCard({
     return (
       <button
         disabled
-        className="flex items-center gap-3 sm:gap-5 rounded-2xl px-4 sm:px-6 py-4 sm:py-5 bg-ink-100/40 cursor-not-allowed select-none"
+        className="flex items-center gap-4 sm:gap-6 rounded-3xl px-5 sm:px-7 py-5 sm:py-7 bg-ink-100/40 cursor-not-allowed select-none"
         aria-disabled="true"
         title="준비 중이에요"
       >
         <div className="flex-1 text-left">
-          <h3 className="font-black text-2xl text-ink-700">{title}</h3>
-          <p className="text-base font-black text-ink-700 mt-1 opacity-80">{sub}</p>
+          <h3 className="font-black text-2xl sm:text-3xl text-ink-700">{title}</h3>
+          <p className="text-base sm:text-lg font-black text-ink-700 mt-1.5 opacity-80">{sub}</p>
         </div>
-        <div className="w-16 h-16 sm:w-24 sm:h-24 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white">
+        <div className="w-20 h-20 sm:w-28 sm:h-28 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white">
           {iconSrc ? (
             <img
               src={iconSrc}
               alt=""
               aria-hidden
-              className="w-11 h-11 sm:w-16 sm:h-16 object-contain opacity-50"
+              className="w-14 h-14 sm:w-[72px] sm:h-[72px] object-contain opacity-50"
             />
           ) : (
-            <span className="text-4xl opacity-40">{icon ?? emoji}</span>
+            <span className="text-5xl opacity-40">{icon ?? emoji}</span>
           )}
         </div>
         <span className="w-10 h-10 rounded-full bg-ink-100/60 text-ink-500 text-2xl font-black flex items-center justify-center shrink-0">
@@ -709,7 +741,7 @@ function ModeCard({
       onClick={onClick}
       data-sound={sound}
       className={cn(
-        'group relative flex items-center gap-3 sm:gap-5 rounded-2xl px-4 sm:px-6 py-4 sm:py-5 shadow-pop hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.18)] active:translate-y-0.5 transition-all duration-100',
+        'group relative flex items-center gap-4 sm:gap-6 rounded-3xl px-5 sm:px-7 py-5 sm:py-7 shadow-pop hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(0,0,0,0.18)] active:translate-y-0.5 transition-all duration-100',
         TONE.bg,
         TONE.text
       )}
@@ -720,20 +752,20 @@ function ModeCard({
         </span>
       )}
       <div className="flex-1 text-left">
-        <h3 className="font-black text-xl sm:text-2xl md:text-3xl leading-tight">{title}</h3>
-        <p className={cn('text-base font-bold mt-1', TONE.sub)}>{sub}</p>
+        <h3 className="font-black text-2xl sm:text-3xl md:text-[2rem] leading-tight">{title}</h3>
+        <p className={cn('text-base sm:text-lg font-bold mt-1.5', TONE.sub)}>{sub}</p>
       </div>
       {/* 워시 — 흰색 85% (거의 흰 동그라미) + 안에 일러스트 (여백 있게) */}
-      <div className="w-16 h-16 sm:w-24 sm:h-24 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white shadow-[0_6px_16px_rgba(0,0,0,0.12),inset_0_-2px_4px_rgba(0,0,0,0.05)]">
+      <div className="w-20 h-20 sm:w-28 sm:h-28 shrink-0 rounded-full bg-white/85 flex items-center justify-center ring-2 ring-white shadow-[0_6px_16px_rgba(0,0,0,0.12),inset_0_-2px_4px_rgba(0,0,0,0.05)]">
         {iconSrc ? (
           <img
             src={iconSrc}
             alt=""
             aria-hidden
-            className="w-11 h-11 sm:w-16 sm:h-16 object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
+            className="w-14 h-14 sm:w-[72px] sm:h-[72px] object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
           />
         ) : (
-          <span className="text-4xl">{icon ?? emoji}</span>
+          <span className="text-5xl">{icon ?? emoji}</span>
         )}
       </div>
       <span

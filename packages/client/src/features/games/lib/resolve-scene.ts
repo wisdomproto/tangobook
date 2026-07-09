@@ -8,6 +8,8 @@ export interface WordScene {
   pageText?: string;
   /** 해당 페이지의 (언어별) 나레이션 오디오 URL — 없으면 무음 */
   pageTtsUrl?: string;
+  /** 자막에서 강조(하이라이트)할 맞춘 단어형 (ko=한글 / en=영어). 본문에 없으면 SceneReveal 이 무시. */
+  highlight?: string;
 }
 
 /** 블록 게임의 정답 단어(문자열)와 매칭되는 KeyObject 찾기. */
@@ -80,6 +82,8 @@ export function resolveSceneFromWord(
 
   const pageText = lang === 'ko' ? page?.text : (page?.translations?.[lang]?.text ?? page?.text);
   const pageTtsUrl = lang === 'ko' ? page?.ttsUrl : page?.translations?.[lang]?.ttsUrl;
+  // 자막 하이라이트할 단어형 — ko=한글, en(그 외)=영어. 본문에 실제 등장할 때만 강조됨(SceneReveal).
+  const highlight = lang === 'ko' ? (ko.korean ?? word) : (ko.nameEn ?? word);
 
-  return { illustrationUrl: url, pageNumber: pageNum, pageText, pageTtsUrl };
+  return { illustrationUrl: url, pageNumber: pageNum, pageText, pageTtsUrl, highlight };
 }

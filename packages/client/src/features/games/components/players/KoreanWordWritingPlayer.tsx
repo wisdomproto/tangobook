@@ -8,7 +8,7 @@ import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
-import { useGameStyle, GameStyleChip } from '../GameStyleChip';
+import { useGameStyle } from '../GameStyleChip';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { resolveTtsUrl } from '@/features/tts';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
@@ -25,6 +25,8 @@ function syllablesOf(word: string): string[] {
   const hangul = [...word].filter((ch) => /[가-힣]/.test(ch));
   return hangul.length > 0 ? hangul : [...word];
 }
+
+const REST_MS = 450; // 마지막 음절 재생 완료 후 단어를 읽기 전 '쉬는' 간격
 
 export function KoreanWordWritingPlayer({
   storybookId,
@@ -52,9 +54,10 @@ export function KoreanWordWritingPlayer({
   const [passed, setPassed] = useState<boolean[]>(() => items.map(() => false));
   const [scene, setScene] = useState<WordScene | null>(null);
   const completedRef = useRef(false);
+  const lastSylRef = useRef(''); // 가장 마지막에 완성한 음절 — 완성 시 이 음절 → 쉼 → 단어 순서로 재생
   const pendingPassedRef = useRef<boolean[] | null>(null);
   const logGame = useGameLogger();
-  const { playAudio, playCorrectSequence, praiseVisible } = useGameAudio();
+  const { playAudio, playCorrectSequence, praiseVisible, scheduleTimer } = useGameAudio();
   const { data: sourceStorybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(sourceStorybook);
 
@@ -91,23 +94,30 @@ export function KoreanWordWritingPlayer({
     [currentIndex, items.length, onComplete, emitFinalResults]
   );
 
-  // 한 음절 완성 → 그 음절 읽어주기 (fire-and-forget)
+  // 한 음절 완성 → 그 음절 읽어주기. 단, 이 음절이 단어를 완성하는 마지막 음절이면 여기서 재생하지 않고
+  // handleWordComplete 가 [마지막 음절 → 쉼 → 단어 → 칭찬] 체인을 소유한다(음원 겹침 방지).
+  // onSyllableDone 직후 onComplete 가 동기로 불리므로, microtask 로 미뤄 completedRef 로 판별한다.
   const handleSyllableDone = useCallback(
     (syl: string) => {
-      void (async () => {
-        const url = await resolveTtsUrl({
-          text: syl,
-          language: 'korean',
-          storybookId,
-          identifierPrefix: 'wwrite-ko',
-        });
-        if (url) playAudio(url);
-      })();
+      lastSylRef.current = syl;
+      queueMicrotask(() => {
+        if (completedRef.current) return; // 마지막 음절 = handleWordComplete 가 처리
+        void (async () => {
+          const url = await resolveTtsUrl({
+            text: syl,
+            language: 'korean',
+            storybookId,
+            identifierPrefix: 'wwrite-ko',
+          });
+          if (url) playAudio(url);
+        })();
+      });
     },
     [storybookId, playAudio]
   );
 
-  // 모든 음절 완성 → 단어 발음 + 칭찬 + 동화 장면 리빌 → 다음 단어
+  // 모든 음절 완성 → [마지막 음절 → 쉼 → 단어 → 칭찬] 순서로 재생 후 동화 장면 리빌 → 다음 단어.
+  // 각 단계는 onEnded 콜백으로 이어 붙여 음원 길이에 상관없이 잘리거나 겹치지 않는다.
   const handleWordComplete = useCallback(() => {
     if (completedRef.current) return;
     completedRef.current = true;
@@ -121,31 +131,57 @@ export function KoreanWordWritingPlayer({
         directUrl: currentItem.ttsUrl,
         identifierPrefix: 'wwrite-ko',
       });
-      playCorrectSequence({
-        ttsUrl: wordUrl,
-        language: 'ko',
-        onDone: () => {
-          const s = resolveSceneFromWord(
-            currentItem.word,
-            'ko',
-            sourceStorybook,
-            gameStyle.selectedStyle
-          );
-          if (s) {
-            pendingPassedRef.current = newPassed;
-            setScene(s);
-          } else {
-            advanceToNext(newPassed);
-          }
-        },
-      });
+      // 마지막 음절(여러 음절 단어일 때만 — 1음절이면 단어와 같으므로 생략)
+      const lastSyl = lastSylRef.current || syllables[syllables.length - 1];
+      const lastSylUrl =
+        syllables.length > 1
+          ? await resolveTtsUrl({
+              text: lastSyl,
+              language: 'korean',
+              storybookId,
+              identifierPrefix: 'wwrite-ko',
+            })
+          : undefined;
+
+      // 단어 끝까지 재생 후 → 칭찬(ttsUrl 없이 = 칭찬 파트만) → 장면 리빌/다음
+      const playWordThenPraise = () => {
+        playAudio(wordUrl, () => {
+          playCorrectSequence({
+            language: 'ko',
+            onDone: () => {
+              const s = resolveSceneFromWord(
+                currentItem.word,
+                'ko',
+                sourceStorybook,
+                gameStyle.selectedStyle
+              );
+              if (s) {
+                pendingPassedRef.current = newPassed;
+                setScene(s);
+              } else {
+                advanceToNext(newPassed);
+              }
+            },
+          });
+        });
+      };
+
+      if (lastSylUrl) {
+        // 마지막 음절 끝까지 → 쉬고 → 단어
+        playAudio(lastSylUrl, () => scheduleTimer(playWordThenPraise, REST_MS));
+      } else {
+        playWordThenPraise();
+      }
     })();
   }, [
     passed,
     currentIndex,
     currentItem,
     storybookId,
+    syllables,
+    playAudio,
     playCorrectSequence,
+    scheduleTimer,
     sourceStorybook,
     gameStyle.selectedStyle,
     advanceToNext,
@@ -158,15 +194,6 @@ export function KoreanWordWritingPlayer({
         current={passed.filter(Boolean).length}
         total={items.length}
         onBack={onBack}
-        rightExtra={
-          gameStyle.canPick ? (
-            <GameStyleChip
-              styles={gameStyle.styles}
-              index={gameStyle.index}
-              onCycle={gameStyle.setIndex}
-            />
-          ) : undefined
-        }
       />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
         <div className="flex items-center justify-center gap-3 sm:gap-5 shrink-0">
@@ -200,6 +227,7 @@ export function KoreanWordWritingPlayer({
         <SceneReveal
           illustrationUrl={scene.illustrationUrl}
           text={scene.pageText}
+          highlight={scene.highlight}
           ttsUrl={scene.pageTtsUrl}
           onDone={() => advanceToNext(pendingPassedRef.current ?? passed)}
         />

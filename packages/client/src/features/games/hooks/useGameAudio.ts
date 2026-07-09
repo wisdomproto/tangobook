@@ -174,5 +174,7 @@ export function useGameAudio() {
     playWordCorrect,
     playCorrectSequence,
     praiseVisible,
+    /** 언마운트 시 자동 정리되는 setTimeout — 오디오 사이 의도적 '쉬는' 간격 등에 사용. */
+    scheduleTimer,
   };
 }

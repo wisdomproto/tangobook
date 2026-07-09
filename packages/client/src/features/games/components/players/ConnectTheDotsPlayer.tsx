@@ -11,7 +11,7 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { SceneReveal } from '../SceneReveal';
-import { useGameStyle, GameStyleChip } from '../GameStyleChip';
+import { useGameStyle } from '../GameStyleChip';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { resolveTtsUrl } from '@/features/tts';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
@@ -456,15 +456,6 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
         current={completedItems}
         total={items.length}
         onBack={onBack}
-        rightExtra={
-          gameStyle.canPick ? (
-            <GameStyleChip
-              styles={gameStyle.styles}
-              index={gameStyle.index}
-              onCycle={gameStyle.setIndex}
-            />
-          ) : undefined
-        }
       />
       <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
         {/* 안내 텍스트 */}
@@ -549,6 +540,7 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
         <SceneReveal
           illustrationUrl={scene.illustrationUrl}
           text={scene.pageText}
+          highlight={scene.highlight}
           ttsUrl={scene.pageTtsUrl}
           onDone={() => {
             setScene(null);

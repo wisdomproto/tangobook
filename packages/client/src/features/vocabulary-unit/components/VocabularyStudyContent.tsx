@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Mascot } from '@/design-system';
@@ -37,8 +37,6 @@ interface VocabularyStudyContentProps {
   /** 현재 활성 그림체 — 단어 상세 모달의 페이지 일러스트 변형 */
   currentStyle?: string;
   lang: Lang;
-  /** 그림체 선택 UI — "단어 둘러보기" 헤딩 줄 오른쪽에 배치 (부모가 상태 소유). */
-  stylePicker?: ReactNode;
 }
 
 /**
@@ -55,7 +53,6 @@ export function VocabularyStudyContent({
   storybook,
   currentStyle,
   lang,
-  stylePicker,
 }: VocabularyStudyContentProps) {
   const [activeGame, setActiveGame] = useState<GameTypeId | null>(null);
   const [selectedWord, setSelectedWord] = useState<VocabularyUnitWord | null>(null);
@@ -79,13 +76,12 @@ export function VocabularyStudyContent({
     <>
       {/* 단어 sub-section — 시안 따라 큰 헤딩 + 큰 카드. 탭하면 단어 상세 모달. */}
       <section className="mb-4">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-2 px-1">
+        <div className="flex items-baseline gap-3 mb-2 px-1">
           <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
             <span>📚</span>
             <span>단어 둘러보기</span>
           </h2>
           <span className="text-sm font-bold text-ink-500">탭하면 자세히</span>
-          {stylePicker && <div className="ml-auto">{stylePicker}</div>}
         </div>
         <WordPreviewBanner words={unit.words} lang={lang} onWordClick={setSelectedWord} />
       </section>
