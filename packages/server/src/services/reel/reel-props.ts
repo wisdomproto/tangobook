@@ -10,6 +10,7 @@ export function firstClause(text: string, maxLen = 40): string {
   return s.trim();
 }
 
+// ⚠️ remotion `data/storybook-reel.ts`의 MORPH_LINES 와 동일하게 유지(패키지 경계로 import 회피).
 export const MORPH_LINES = ['탱고북에선', '한 권의 이야기를', '아이의 취향대로 고를 수 있습니다'];
 
 const MORPH_GENRE_ORDER = ['collage', 'watercolor', 'paper3d'] as const;
@@ -55,7 +56,8 @@ export function pickMorph(
     .slice()
     .sort(
       (a, b) =>
-        MORPH_GENRE_ORDER.indexOf(a.genre as any) - MORPH_GENRE_ORDER.indexOf(b.genre as any)
+        MORPH_GENRE_ORDER.indexOf(a.genre as (typeof MORPH_GENRE_ORDER)[number]) -
+        MORPH_GENRE_ORDER.indexOf(b.genre as (typeof MORPH_GENRE_ORDER)[number])
     )
     .map((m) => ({
       url: encodeURI(styleAssets[m.sid].pageIllustrations![String(page)]!.illustrationUrl!),

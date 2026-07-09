@@ -191,7 +191,7 @@ export const RemotionRoot: React.FC = () => {
         id="StorybookReel"
         component={StorybookReel}
         schema={StorybookReelPropsSchema}
-        durationInFrames={1170}
+        durationInFrames={computeReelFrames(FROG_DEFAULT)}
         fps={REEL_FPS}
         width={REEL_WIDTH}
         height={REEL_HEIGHT}

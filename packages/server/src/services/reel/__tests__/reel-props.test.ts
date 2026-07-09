@@ -68,6 +68,14 @@ describe('pickMorph', () => {
     const genreMap = { A: 'collage', X: 'pixar-3d' };
     expect(pickMorph(styleAssets, genreMap)).toBeNull();
   });
+  it('공통 페이지가 없으면 null', () => {
+    const styleAssets = {
+      A: styleWithPages('A', [1, 2]),
+      B: styleWithPages('B', [3, 4]),
+    };
+    const genreMap = { A: 'collage', B: 'watercolor' };
+    expect(pickMorph(styleAssets, genreMap)).toBeNull();
+  });
 });
 
 describe('buildReelProps', () => {
@@ -121,6 +129,24 @@ describe('buildReelProps', () => {
       genreMap,
     });
     expect(out).toBeNull();
+  });
+
+  it('페이지<3이면 빈 버킷은 전체 페이지로 폴백(모든 씬 이미지≥1)', () => {
+    const storybook = {
+      title: '개구리 왕자',
+      artStyle: ACTIVE,
+      styleAssets: {
+        [ACTIVE]: styleWithPages(ACTIVE, [1, 2]),
+        [WATER]: styleWithPages(WATER, range(1, 15)),
+        [PAPER]: styleWithPages(PAPER, range(1, 15)),
+      },
+    };
+    const out = buildReelProps({ storybook, storyboard: makeStoryboard(), genreMap });
+    expect(out).not.toBeNull();
+    expect(out!.scenes.length).toBe(4);
+    for (const s of out!.scenes) expect(s.imageUrls.length).toBeGreaterThanOrEqual(1);
+    // splitIntoBuckets([1,2],3) = [[1],[2],[]] → 3번째 본문 씬은 전체 페이지로 폴백
+    expect(out!.scenes[3].imageUrls.length).toBe(2);
   });
 
   it('활성 그림풍에 일러스트가 없으면 null', () => {

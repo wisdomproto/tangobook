@@ -18,6 +18,8 @@ export const StyleShowcase: React.FC<Props> = ({ title, lines, styles }) => {
   const { fps, durationInFrames } = useVideoConfig();
   const n = styles.length;
   const BEAT = durationInFrames / n; // 그림체당 유지 프레임
+  // 메시지 줄은 그림체 수가 아니라 줄 수에 맞춰 등장(그림체 2개여도 마지막 줄이 잘리지 않음).
+  const LINE_BEAT = durationInFrames / Math.max(lines.length, 1);
 
   // 그림체 순차 전환, 컷 사이 크로스페이드
   const beat = Math.min(Math.floor(frame / BEAT), n - 1);
@@ -138,7 +140,7 @@ export const StyleShowcase: React.FC<Props> = ({ title, lines, styles }) => {
       {/* 하단: 그림체 전환에 맞춰 한 줄씩 쌓이는 메시지 */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
         {lines.map((line, i) => {
-          const appear = i * BEAT;
+          const appear = i * LINE_BEAT;
           const pop = spring({
             frame: frame - appear,
             fps,
