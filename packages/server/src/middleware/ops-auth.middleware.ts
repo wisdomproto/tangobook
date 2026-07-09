@@ -1,4 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
+import { timingSafeEqual } from 'node:crypto';
 import { getSupabaseAdmin } from '../providers/supabase-admin.provider.js';
 import { AppError } from './error.middleware.js';
 
@@ -14,12 +15,24 @@ const OPS_EMAILS = (process.env.OPS_EMAILS ?? 'kil210@tangobook.co.kr')
   .map((e) => e.trim().toLowerCase())
   .filter(Boolean);
 
+/** 타이밍 공격 방어 비교 — 길이 다르면 timingSafeEqual 없이 즉시 false. */
+function safeCompare(a: string, b: string): boolean {
+  const bufA = Buffer.from(a);
+  const bufB = Buffer.from(b);
+  if (bufA.length !== bufB.length) return false;
+  return timingSafeEqual(bufA, bufB);
+}
+
 /** 운영 대시보드 접근 검증 — (a) x-ops-password 헤더 (b) Bearer 이메일 allowlist. */
 export async function assertOpsUser(req: Request): Promise<void> {
   // (a) 운영 비밀번호
   const pw = req.headers['x-ops-password'];
   if (typeof pw === 'string' && pw.length > 0) {
-    if (pw === OPS_PASSWORD) return;
+    // 기본 비밀번호(8054)는 프로덕션에서 회원 데이터를 보호하기엔 부족함 — env 미설정 시 차단.
+    if (process.env.NODE_ENV === 'production' && !process.env.OPS_PASSWORD) {
+      throw new AppError(403, '운영 비밀번호가 설정되지 않았습니다');
+    }
+    if (safeCompare(pw, OPS_PASSWORD)) return;
     throw new AppError(403, '비밀번호가 틀렸습니다');
   }
 
