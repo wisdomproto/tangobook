@@ -60,6 +60,12 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
     setLoaded(0);
     setReady(false);
 
+    // 6초 상한 — TTS resolve(콜드 concat: 음절 합성→R2 업로드)까지 포함해 전체 대기를 bound.
+    // 상한 전에 async 밖에서 걸어야 콜드 concat 이 오래 걸려도 게임이 6초 뒤 무조건 시작된다.
+    const cap = setTimeout(() => {
+      if (alive) setReady(true);
+    }, PRELOAD_MAX_MS);
+
     void (async () => {
       const resolvedTts = ttsSpec
         ? (
@@ -82,13 +88,11 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
       const coreTotal = images.length + coreAudio.length;
       setTotal(coreTotal);
       if (coreTotal === 0) {
+        clearTimeout(cap);
         setReady(true);
         return;
       }
 
-      const cap = setTimeout(() => {
-        if (alive) setReady(true);
-      }, PRELOAD_MAX_MS);
       const bump = () => {
         if (alive) setLoaded((n) => n + 1);
       };
@@ -104,6 +108,7 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
 
     return () => {
       alive = false;
+      clearTimeout(cap);
     };
   }, [coreKey]);
 
