@@ -355,7 +355,10 @@ function GameOverlay({
   onComplete: () => void;
   onBack: () => void;
 }) {
-  const data = getGameData(unit, lang, game);
+  // 🔴 getGameData 는 내부에서 shuffleInPlace 로 매 호출마다 items 순서를 바꾼다(비결정적).
+  //    memo 없이 매 렌더 호출하면 프리로드 게이트의 coreKey 가 매 렌더 바뀌어 effect 가 무한 재시작
+  //    (게이트가 0% 에서 안 넘어감) → unit/lang/game 별로 한 번만 생성해 안정화.
+  const data = useMemo(() => getGameData(unit, lang, game), [unit, lang, game]);
   // storybook source 단원이면 진짜 책 id (ConnectTheDotsPlayer 의 useStorybook lookup 등에 활용).
   // custom 단원은 게임 진입 disabled 라 도달 불가지만 안전망 placeholder.
   const effectiveStorybookId = unit.storybookId ?? `vocab-${unit.id}`;
