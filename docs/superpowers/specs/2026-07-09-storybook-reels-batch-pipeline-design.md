@@ -55,8 +55,15 @@ Zod `inputProps` 스키마:
   } | null,
 }
 ```
-- 이미지는 **R2 URL을 `<Img src>`로 직접 로드**(staticFile 아님). BGM만 로컬
-  staticFile(`reels/frog/bgm.mp3` 재사용).
+- 이미지는 **R2 URL을 `<Img src>`로 직접 로드**(staticFile 아님). ⚠️ R2 삽화 URL은
+  **한글 파일명 포함** → 빌더가 반드시 `encodeURI` 적용(마케팅 파이프라인 기존 gotcha:
+  raw 한글 R2 URL은 400). 원격 로드가 헤드리스 렌더에서 지연/타임아웃 위험이 있어
+  `delayRenderTimeoutInMilliseconds`를 여유있게(예: 60s) 설정하고, **1권 dry-run에서
+  원격 이미지 렌더 성공을 명시적으로 검증**한다. dry-run에서 원격 로드가 불안정하면
+  **폴백**: 그 책 삽화를 로컬 임시 디렉터리로 선다운로드 후 `staticFile`(frog 방식)로
+  전환(플랜에서 결정).
+- BGM은 로컬 staticFile. `frog/` → `storybook/` 추출 시 **중립 경로 `reels/bgm.mp3`**로
+  이동(일반 컴포지션이 frog 전용 경로를 들지 않도록).
 - `calculateMetadata`가 props에서 총 프레임 계산: 훅 4s + (장면 수−1)×8s +
   (styleMorph ? 6s : 0) + CTA 6s.
 - 기존 Frog 컴포넌트(`FrogStoryScene`/`FrogStyleShowcase`/`FrogClosing`)를 일반
@@ -72,27 +79,40 @@ Zod `inputProps` 스키마:
   - 훅: 표지 또는 1페이지 1장.
   - 장면 2~4: 활성 그림체 `pageIllustrations`를 페이지 순서로 3구간 균등 분배(초/중/말).
   - 자막: `label`(칩) + **나레이션 첫 문장**(본문, 문장부호 기준 트림, 최대 ~40자).
-  - CTA: 로고 카드(고정).
-- **모핑 씬 조건부**: `style-genre-map`에 매핑된 그림체가 **2개 이상**이고 그 그림체들에
-  **공통으로 존재하는 페이지**(예: 클라이맥스 근처)가 있으면 그 페이지의 각 그림체
-  삽화 URL + 장르명 라벨로 `styleMorph` 구성. 아니면 `null`.
+  - CTA: 로고 카드(고정). 스토리보드의 자체 CTA 장면은 사용하지 않음.
+- **입력 가드**: 스토리보드가 5장면 구조(훅 + 본문 3 + CTA)가 아니거나 활성 그림체
+  삽화가 하나도 없으면 그 책은 `null` 반환 → 배치 러너가 스킵. (명작 51권은 시드로
+  콘텐츠·삽화가 갖춰져 있어 스킵은 예외 케이스.)
+- **모핑 씬 조건부**: `style-genre-map`에 매핑된 그림체가 **2개 이상**일 때, 그 그림체들에
+  **공통으로 존재하는 페이지 인덱스 중 가장 큰 값**(=이야기 후반/클라이맥스 근처, 결정적·
+  테스트 가능한 규칙)을 골라, 각 그림체의 그 페이지 삽화 URL + 장르명 라벨로 `styleMorph`
+  구성. 공통 페이지가 하나도 없거나 그림체 <2 → `null`.
   - lines는 고정 카피(위 예시). 책 제목 비의존이라 재사용 가능.
 - 순수 함수로 작성(입력 JSON 2개 → props 객체), 단위 테스트 가능.
 
 ### 3. 배치 러너 (`packages/server/scripts/render-book-reels.mjs`)
 
+**렌더 부트스트랩(배치 시작 시 1회)**: `bundle({entryPoint: remotionEntry})`로
+Remotion 번들을 만들어 serveUrl을 캐시(audiobook.service 패턴 그대로). Remotion은
+Chromium을 lazy import(Railway 노트) — 로컬 실행이라 문제 없음.
+
 각 bookId에 대해:
-1. `build-reel-props` → inputProps.
-2. `@remotion/renderer` `renderMedia`(`StorybookReel`, inputProps, 1080×1920,
-   `imageFormat:'png'`) → 로컬 mp4.
+1. `build-reel-props` → inputProps (없으면 스킵).
+2. `selectComposition({serveUrl, id:'StorybookReel', inputProps})` → 동적 duration
+   해석 → `renderMedia({composition, serveUrl, inputProps, imageFormat:'png',
+   delayRenderTimeoutInMilliseconds:60000})` → 로컬 mp4.
 3. R2 업로드: 표지(책 표지 webp) + mp4 → `mkt/{projectId}/reels/{id}-{ts}.mp4`.
    (R2 provider 직접 PUT, 서버 크리덴셜.)
 4. Supabase(서비스롤): `mkt_contents.memo='storybook:{id}'`로 content_id·project_id
-   조회 → 해당 `mkt_instagram_contents` 행 없으면 생성 →
-   `video_settings.reels.ko = {videoUrl, coverUrl}` 병합 업데이트(user_id 스탬프).
+   조회 → **그 콘텐츠의 기존 인스타(캐러셀) 행을 resolve**(카드뉴스 시드가 이미 생성해둠;
+   `ReelsPanel`은 `instagramContents[0]` 단일행 규약에 의존) → **그 행의**
+   `video_settings.reels.ko = {videoUrl, coverUrl}`만 병합 업데이트. 행이 정말 없을
+   때만 신규 생성(두 번째 인스타 행을 만들지 않아 `[0]` 불변식 보존).
+   - `user_id`는 다른 시드 스크립트와 동일하게 **`--owner-email` → `auth.users`**로
+     resolve해 스탬프.
 5. 로그/요약(성공·스킵·모핑 유무).
 
-- **--dry-run / --limit / --book=<id>** 플래그. 기본 명작 카테고리 필터.
+- **--dry-run / --limit / --book=<id> / --owner-email=<email>** 플래그. 기본 명작 필터.
 - **먼저 1권 실행** → 마케팅 페이지에서 확인 → 51권 배치.
 
 ### 4. 격리 실행
