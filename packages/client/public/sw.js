@@ -9,14 +9,20 @@
  */
 const CACHE = 'tango-assets-v1';
 
+// dev(localhost) 에선 동일 출처 정적 자산(/sounds 등)을 캐시하지 않는다 — 개발 중 파일 교체 시
+// stale 방지. R2 자산은 내용이 안 바뀌므로(재업로드 드묾) dev 에서도 캐시 OK → 파닉스 mp3 반복
+// 다운로드 제거. (prod 는 전부 캐시.)
+const IS_DEV_HOST = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(self.location.hostname);
+
 /** 캐시 대상 판별 — immutable 미디어/정적 자산만. */
 function isCacheableAsset(url) {
   // Cloudflare R2 public 자산 (이미지 webp/png/jpg · 음원 mp3 등)
   if (url.hostname.endsWith('.r2.dev')) return true;
   // R2 프록시 (CORS 우회 오디오/비디오) — key 로 immutable
   if (url.pathname.startsWith('/api/r2-proxy')) return true;
-  // 동일 출처 정적 자산 (효과음/아이콘/이미지/로고/마스코트/릴스 등)
-  if (/^\/(sounds|icons|images|logo|mascot|reels|fonts)\//.test(url.pathname)) return true;
+  // 동일 출처 정적 자산 (효과음/아이콘/이미지/로고/마스코트/릴스 등) — dev 는 stale 방지로 제외
+  if (!IS_DEV_HOST && /^\/(sounds|icons|images|logo|mascot|reels|fonts)\//.test(url.pathname))
+    return true;
   return false;
 }
 
