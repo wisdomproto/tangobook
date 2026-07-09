@@ -5,6 +5,7 @@ import { resolveTtsUrl } from '@/features/tts';
 import { FeedbackOverlay } from '@/features/games/components/FeedbackOverlay';
 import { useGameAudio } from '@/features/games/hooks/useGameAudio';
 import { findValidatedPageNumber } from '@/features/games/lib/resolve-scene';
+import { renderCaption } from '@/features/games/components/SceneReveal';
 import { settingsApi } from '@/features/settings/api/settings.api';
 
 interface WordDetailModalProps {
@@ -332,6 +333,20 @@ export function WordDetailModal({
     // 사용자 정책: 해당 lang ttsUrl 없으면 Web Speech 폴백 X — 무음.
   }, [phase, pageInfo?.pageTtsUrl]);
 
+  // phase='page' 배경음 — SceneReveal 과 동일 패턴(5곡 랜덤·저볼륨 루프). 페이지 이탈/닫기 시 정지.
+  useEffect(() => {
+    if (phase !== 'page') return;
+    const n = 1 + Math.floor(Math.random() * 5);
+    const bgm = new Audio(`/sounds/bgm/default-${n}.mp3`);
+    bgm.loop = true;
+    bgm.volume = 0.16;
+    bgm.play().catch(() => {});
+    return () => {
+      bgm.pause();
+      bgm.src = '';
+    };
+  }, [phase]);
+
   const progressDots = Array.from({ length: REVEAL_PAGE_AFTER_CLICKS }, (_, i) => i < clickCount);
 
   return (
@@ -445,10 +460,12 @@ export function WordDetailModal({
                   </div>
                 )}
 
-                {/* 페이지 텍스트 (lang 별) — TTS 는 mount 시 자동 재생됨 */}
+                {/* 페이지 텍스트 (lang 별) — 맞춘 단어 하이라이트. TTS 는 mount 시 자동 재생됨 */}
                 {pageInfo?.pageText && (
                   <div className="bg-amber-50 rounded-2xl p-4">
-                    <p className="text-base text-ink-700 leading-relaxed">{pageInfo.pageText}</p>
+                    <p className="text-base text-ink-700 leading-relaxed">
+                      {renderCaption(pageInfo.pageText, label)}
+                    </p>
                   </div>
                 )}
 

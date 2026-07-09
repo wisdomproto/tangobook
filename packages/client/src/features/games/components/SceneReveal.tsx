@@ -20,7 +20,7 @@ const NO_AUDIO_HOLD_MS = 3000;
 const SCENE_BGM_VOLUME = 0.16;
 
 /** 자막 텍스트에서 맞춘 단어를 amber 칩으로 강조. 매칭 없으면 원문 그대로. 대소문자 무시. */
-function renderCaption(text: string, term?: string) {
+export function renderCaption(text: string, term?: string) {
   if (!term || !term.trim()) return text;
   const esc = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const parts = text.split(new RegExp(`(${esc})`, 'gi'));
