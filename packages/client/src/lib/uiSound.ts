@@ -83,6 +83,7 @@ export function isUiMuted(): boolean {
 
 export function setUiMuted(next: boolean): void {
   muted = next;
+  if (next) stopDrawLoop(); // 음소거 시 진행 중인 그리기 루프 즉시 정지
   try {
     localStorage.setItem(STORAGE_KEY, String(next));
   } catch {
@@ -116,13 +117,39 @@ export function playUi(name: UiSoundName): void {
   }
 }
 
-// 그리기/색칠 중 연속 stroke 효과음 — 자체 스로틀로 연타 소음 방지.
-// pointermove 마다 호출해도 안전(기본 110ms 간격으로만 실제 재생).
-let lastDrawStroke = 0;
-export function playDrawStroke(minGapMs = 110): void {
+// 그리기/색칠 중 "글쓰는 소리" — 그리는 동안 draw.mp3 를 루프 재생하고, 손을 떼거나 멈추면
+// (마지막 feed 후 ~220ms) 자동 정지. pointerdown/move 에서 feedDrawLoop() 만 호출하면 됨
+// (pointerup 배선 불필요 — keepalive 타이머가 정지 담당).
+let drawLoop: HTMLAudioElement | null = null;
+let drawLoopTimer: ReturnType<typeof setTimeout> | null = null;
+
+function ensureDrawLoop(): HTMLAudioElement {
+  if (!drawLoop) {
+    drawLoop = new Audio(url('draw'));
+    drawLoop.loop = true;
+    drawLoop.volume = 0.5; // 은은하게
+    drawLoop.preload = 'auto';
+  }
+  return drawLoop;
+}
+
+/** 그리는 중 매 stroke(pointerdown/move)에서 호출 — 루프 시작/유지. 멈추면 자동 정지. */
+export function feedDrawLoop(): void {
   if (muted || typeof window === 'undefined') return;
-  const now = Date.now();
-  if (now - lastDrawStroke < minGapMs) return;
-  lastDrawStroke = now;
-  playUi('draw');
+  const a = ensureDrawLoop();
+  if (a.paused) void a.play().catch(() => {});
+  if (drawLoopTimer) clearTimeout(drawLoopTimer);
+  drawLoopTimer = setTimeout(stopDrawLoop, 220);
+}
+
+/** 즉시 정지 (손 뗌/언마운트/음소거). */
+export function stopDrawLoop(): void {
+  if (drawLoopTimer) {
+    clearTimeout(drawLoopTimer);
+    drawLoopTimer = null;
+  }
+  if (drawLoop && !drawLoop.paused) {
+    drawLoop.pause();
+    drawLoop.currentTime = 0;
+  }
 }
