@@ -450,7 +450,10 @@ Expected: `51` + genreMap 키 수 출력
 - Create: `packages/server/scripts/render-book-reels.ts`
 
 - [ ] **Step 1: 구현**
-  - args 파싱: `--book`, `--limit`, `--dry-run`, `--owner-email`, `--category`(기본 classics).
+  - **env 로딩**: 파일 최상단 `import 'dotenv/config'`(또는 server config import)로 `packages/server/.env`의
+    `SUPABASE_URL`·`SUPABASE_SERVICE_ROLE_KEY`·R2 크리덴셜 로드(getSupabaseAdmin/R2 provider가 process.env 사용).
+  - args 파싱: `--book`, `--limit`, `--dry-run`, `--owner-email`(**기본 `kil210@gmail.com`** — 마케팅
+    프로젝트 `탱고북 동화책` 소유자, seed-marketing-cardnews.mjs와 동일 기본값), `--category`(기본 classics).
   - bootstrap: `bundle({ entryPoint })` 1회 → serveUrl. entryPoint는 **명시 경로**: `pnpm --filter @tangobook/server exec tsx`는 cwd=`packages/server`라 `path.resolve(process.cwd(), '../remotion/src/entry.ts')`. (audiobook.service는 `src/services`의 `__dirname` 기준이라 그 리터럴을 그대로 복사하면 안 됨.)
   - 대상 id 목록: `--book` 있으면 그것만, 아니면 `resolveClassicBookIds()` (+`--limit`).
   - `loadGenreMap()` 1회.
@@ -473,7 +476,7 @@ Expected: `out/reels/1772009873865.mp4` 생성 + 로그(장면 4, 모핑 있음)
 
 - [ ] **Step 1: 개구리 왕자 1권 실제 실행**
 
-Run: `pnpm --filter @tangobook/server exec tsx scripts/render-book-reels.ts --book=1772009873865 --owner-email=<운영자이메일>`
+Run: `pnpm --filter @tangobook/server exec tsx scripts/render-book-reels.ts --book=1772009873865` (owner 기본 kil210@gmail.com)
 Expected: R2 업로드 성공(mp4 publicUrl 200) + Supabase `mkt_instagram_contents.video_settings.reels.ko` 기록.
 
 - [ ] **Step 2: 마케팅 페이지 확인** — `/marketing` → 개구리 왕자 콘텐츠 → 릴스 탭 🎬 영상 제작에서 mp4·커버 노출 확인. (preview 도구 또는 사용자 확인.)
@@ -484,7 +487,7 @@ Expected: R2 업로드 성공(mp4 publicUrl 200) + Supabase `mkt_instagram_conte
 
 - [ ] **Step 1: 배치 실행(백그라운드)**
 
-Run: `pnpm --filter @tangobook/server exec tsx scripts/render-book-reels.ts --owner-email=<운영자이메일>`
+Run: `pnpm --filter @tangobook/server exec tsx scripts/render-book-reels.ts` (owner 기본 kil210@gmail.com)
 Expected: ~1.5–2h. 요약: 성공 N·스킵·실패·모핑 유무.
 
 - [ ] **Step 2: 스팟 체크** — 마케팅 페이지에서 3~5권 릴스 육안 확인(자막·모핑·품질). 자막 밋밋하면 `firstClause`/장면 매핑 규칙 개선 후 재렌더(멱등: 같은 key 덮어쓰기).
