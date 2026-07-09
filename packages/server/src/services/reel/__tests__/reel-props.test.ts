@@ -112,6 +112,7 @@ describe('buildReelProps', () => {
     expect(out!.bookTitle).toBe('개구리 왕자');
     expect(out!.scenes.length).toBe(4);
     expect(out!.scenes[0].label).toBe('개구리 왕자');
+    expect(out!.scenes[0].body).toBe('훅 자막'); // subtitle 우선
     expect(out!.scenes[0].imageUrls).toEqual([encodeURI(storybook.styleAssets[ACTIVE].coverImage)]);
     expect(out!.scenes[1].label).toBe('원작·배경');
     for (const s of out!.scenes) {

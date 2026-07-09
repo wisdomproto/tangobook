@@ -122,18 +122,18 @@ export function buildReelProps({
     scenes: [],
     styleMorph: pickMorph(storybook.styleAssets || {}, genreMap),
   };
+  // 본문 자막은 스토리보드의 subtitle(화면 자막용으로 설계된 깔끔한 문구)을 우선 사용.
+  // 없을 때만 나레이션 첫 절로 폴백(나레이션은 성우 대본이라 길고 중간에서 잘리면 어색).
+  const bodyOf = (sc: any) =>
+    sc.subtitle?.trim() ? sc.subtitle.trim() : firstClause(sc.narration);
   // 훅: 헤드라인=책 제목(내부 라벨 "훅" 아님)
-  out.scenes.push({
-    label: bookTitle,
-    body: firstClause(scenes[0].narration || scenes[0].subtitle),
-    imageUrls: [cover],
-  });
+  out.scenes.push({ label: bookTitle, body: bodyOf(scenes[0]), imageUrls: [cover] });
   const buckets = splitIntoBuckets(pages, 3);
   for (let i = 1; i <= 3; i++) {
     const bucket = buckets[i - 1].length ? buckets[i - 1] : pages; // empty-bucket fallback
     out.scenes.push({
       label: scenes[i].label,
-      body: firstClause(scenes[i].narration || scenes[i].subtitle),
+      body: bodyOf(scenes[i]),
       imageUrls: bucket.map(urlOf),
     });
   }
