@@ -50,7 +50,7 @@ function persistWarmed(): void {
  *    → `canplaythrough`/`loadeddata` 까지 기다리면 미디어 캐시에 확실히 적재돼 다음 `new Audio`
  *    재생이 즉시. 엘리먼트는 이벤트 리스너 클로저가 완료까지 참조를 잡아 GC 로 abort 되지 않는다.
  */
-function warmAudioUrl(url: string): Promise<void> {
+export function warmAudioUrl(url: string): Promise<void> {
   return new Promise<void>((resolve) => {
     try {
       const audio = new Audio();
@@ -72,6 +72,31 @@ function warmAudioUrl(url: string): Promise<void> {
       setTimeout(finish, 4000);
       audio.src = url;
       audio.load();
+    } catch {
+      resolve();
+    }
+  });
+}
+
+/**
+ * 이미지 URL 을 디코드 완료까지 워밍. 진행률 카운트를 위해 완료를 Promise 로 반환.
+ * onload/onerror 둘 다 resolve(막지 않음) + 4초 상한.
+ */
+export function warmImageUrl(url: string): Promise<void> {
+  return new Promise<void>((resolve) => {
+    if (!url) return resolve();
+    try {
+      const img = new Image();
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        resolve();
+      };
+      img.onload = finish;
+      img.onerror = finish;
+      setTimeout(finish, 4000);
+      img.src = url;
     } catch {
       resolve();
     }
