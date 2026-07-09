@@ -13,6 +13,7 @@ export * from './constants/plans.js';
 export * from './utils/hangul.js';
 export * from './utils/english-letters.js';
 export * from './utils/entitlement.js';
+export * from './utils/learning-aggregate.js';
 export {
   KOREAN_FINAL_TO_REPRESENTATIVE,
   neutralizeKoreanFinal,
