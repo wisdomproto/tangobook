@@ -53,21 +53,45 @@ export function PlaylistLibrarySection() {
 
   return (
     <section className="mb-8">
-      {/* 섹션 헤더 — 클릭 시 접기/펴기 토글 */}
-      <div className="flex items-center justify-between mb-3">
-        <button
-          type="button"
-          onClick={() => setOpen((o) => !o)}
-          aria-expanded={open}
-          className="flex items-center gap-2 text-xl font-black text-ink-900 font-display hover:text-coral-600 transition"
+      {/* 눈에 띄는 재생목록 배너 — 클릭 시 접기/펴기 토글 */}
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="group flex w-full items-center gap-3 rounded-2xl border-2 border-coral-200 bg-gradient-to-r from-coral-100 via-peach-100 to-peach-200 px-4 py-3 shadow-pop transition hover:border-coral-400 hover:brightness-[1.02] active:scale-[0.99]"
+      >
+        <span
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-coral-500 text-2xl shadow-pop"
+          aria-hidden
         >
-          <span>🎬 나의 재생 목록</span>
-          {!isEmpty && <span className="text-sm text-ink-400 font-black">{list.length}</span>}
-          <span aria-hidden className="text-base text-ink-400">
-            {open ? '▾' : '▸'}
+          🎬
+        </span>
+        <span className="min-w-0 text-left">
+          <span className="flex items-center gap-2">
+            <span className="text-lg font-black text-ink-900 font-display break-keep">
+              나의 재생 목록
+            </span>
+            {!isEmpty && (
+              <span className="rounded-full bg-coral-500 px-2 py-0.5 text-xs font-black text-white tabular-nums">
+                {list.length}
+              </span>
+            )}
           </span>
-        </button>
-        {open && !isEmpty && (
+          <span className="block text-xs font-bold text-ink-500 break-keep">
+            여러 권을 골라 잠자리에 연달아 들려주는 재생 목록
+          </span>
+        </span>
+        <span
+          aria-hidden
+          className="ml-auto shrink-0 text-lg font-black text-coral-500 transition group-hover:translate-x-0.5"
+        >
+          {open ? '▾' : '▸'}
+        </span>
+      </button>
+
+      {/* 펼쳤을 때 — "+ 새 세트" 버튼 (세트 있을 때) */}
+      {open && !isEmpty && (
+        <div className="mb-2 mt-3 flex justify-end">
           <button
             type="button"
             onClick={() => navigate('/continuous/new')}
@@ -75,15 +99,15 @@ export function PlaylistLibrarySection() {
           >
             + 새 세트
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* 펼쳤을 때만 본문 — 빈 상태 CTA / 카드 행 */}
       {!open ? null : isEmpty ? (
         <button
           type="button"
           onClick={() => navigate('/continuous/new')}
-          className="w-full flex items-center gap-4 rounded-2xl border-2 border-dashed border-coral-300 bg-coral-50/60 px-5 py-4 text-left hover:border-coral-400 hover:bg-coral-50 transition"
+          className="mt-3 w-full flex items-center gap-4 rounded-2xl border-2 border-dashed border-coral-200 bg-coral-100/50 px-5 py-4 text-left hover:border-coral-400 hover:bg-coral-100 transition"
         >
           <span className="text-3xl shrink-0" aria-hidden>
             🎬
