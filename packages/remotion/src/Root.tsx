@@ -10,6 +10,13 @@ import {
   REELS_HEIGHT,
   REELS_DURATION,
 } from './compositions/ReelsPromo';
+import {
+  FrogPrinceReel,
+  FROG_FPS,
+  FROG_WIDTH,
+  FROG_HEIGHT,
+  FROG_DURATION,
+} from './compositions/FrogPrinceReel';
 import { AudiobookRenderProps, RESOLUTIONS } from './types';
 import { calculateTotalFrames } from './utils/duration';
 import { MosquitoEbookComposition } from './compositions/MosquitoEbookComposition';
@@ -96,6 +103,14 @@ export const RemotionRoot: React.FC = () => {
         fps={REELS_FPS}
         width={REELS_WIDTH}
         height={REELS_HEIGHT}
+      />
+      <Composition
+        id="FrogPrinceReel"
+        component={FrogPrinceReel}
+        durationInFrames={FROG_DURATION}
+        fps={FROG_FPS}
+        width={FROG_WIDTH}
+        height={FROG_HEIGHT}
       />
       <Composition
         id="MosquitoEbook"
