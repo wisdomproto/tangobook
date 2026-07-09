@@ -1,5 +1,6 @@
 import { useRef, useCallback, useEffect, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
+import { feedDrawLoop } from '@/lib/uiSound';
 
 /**
  * 단어 전체 색칠 캔버스 — 단어의 모든 음절/글자를 한 번에 표시하고, **음절 단위**로 채움을 채점한다.
@@ -182,6 +183,7 @@ export function WordFillCanvas({
     const pt = toCanvas(e);
     lastPointRef.current = null;
     paintTo(pt.x, pt.y);
+    feedDrawLoop();
     evaluate();
   };
   const onMove = (e: ReactPointerEvent<HTMLCanvasElement>) => {
@@ -189,6 +191,7 @@ export function WordFillCanvas({
     e.preventDefault();
     const pt = toCanvas(e);
     paintTo(pt.x, pt.y);
+    feedDrawLoop();
     evaluate();
   };
   const onUp = () => {
