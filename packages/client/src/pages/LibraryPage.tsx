@@ -216,7 +216,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
       ? byCat.filter((b) => statusMap?.get(b.id) === 'reading')
       : byCat;
     // 단일 카테고리 보기에선 라이브러리 마스터에서 정한 bookPriority 순서를 따름
-    // (카테고리 섹션 미리보기 9권과 동일 순서). 그 외에는 최신순 (updatedAt desc).
+    // (카테고리 섹션 미리보기 8권과 동일 순서). 그 외에는 최신순 (updatedAt desc).
     const priorityIds = activeCategory ? libConfig?.bookPriority?.[activeCategory] : undefined;
     const priorityIdx = priorityIds?.length
       ? new Map(priorityIds.map((id, i) => [id, i]))

@@ -17,7 +17,7 @@ export function CategorySection({
   icon,
   title,
   books,
-  limit = 9,
+  limit = 8,
   onShowMore,
   headerExtra,
 }: CategorySectionProps) {
