@@ -182,7 +182,7 @@ export function EnglishWordWritingPlayer({
             <img
               src={currentItem.imageUrl}
               alt={currentItem.word}
-              className="h-16 sm:h-20 lg:h-24 w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
+              className="h-24 sm:h-32 lg:h-40 w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
             />
           )}
           <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900">
