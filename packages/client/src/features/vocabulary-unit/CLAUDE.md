@@ -102,6 +102,7 @@ VocabularyWordImage {
   - lang='ko' → `page.text` + `page.ttsUrl`
   - lang='en' (또는 그 외) → `page.translations[lang].text` + `page.translations[lang].ttsUrl`
   - **사용자 정책**: 해당 lang TTS 없으면 무음 (Web Speech 폴백 X). 단어 TTS 는 학습 핵심이라 마지막에 Web Speech 폴백 유지 — 페이지 TTS 와 정책 다름.
+  - **자막 하이라이트 + 배경음 (2026-07-09)**: 자막에 맞춘 단어를 amber 칩으로 강조 — **SceneReveal 의 `renderCaption`(export) 재사용**(block 게임 장면 리빌과 동일 하이라이트). 배경음도 SceneReveal 패턴 이식(phase='page' 마운트 시 `default-{1..5}.mp3` 랜덤·저볼륨 0.16 루프, 이탈 시 정지). 이전엔 자체 구현이라 하이라이트·BGM 둘 다 없었음. ⚠️ `findPageIllustration`(자체)은 아직 `resolveSceneFromWord` 와 중복 — 후속 통합 여지.
 
 ## 진입 동선
 
