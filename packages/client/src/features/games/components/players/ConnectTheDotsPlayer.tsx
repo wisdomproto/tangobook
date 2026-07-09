@@ -8,7 +8,7 @@ import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { useGameAudio } from '../../hooks/useGameAudio';
-import { usePreloadImages, usePrewarmWordTts } from '../../hooks/useGamePrefetch';
+import { usePrewarmWordTts } from '../../hooks/useGamePrefetch';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { SceneReveal } from '../SceneReveal';
 import { useGameStyle } from '../GameStyleChip';
@@ -45,9 +45,6 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
   // ⚠️ memoize 필수 — 매 렌더 새 배열이면 sortedKps→drawMask useCallback 신원이 매번 바뀌어
   //    reset useEffect 가 매 렌더 실행되고 clearRect 로 방금 칠한 paint 를 지운다(→ 0% 고정).
   const items = useMemo(() => data.items.filter((it) => it.keypoints.length >= 3), [data]);
-
-  // 이번 판 원본 이미지 워밍 — 라운드 진입 시 로드 지연 방지
-  usePreloadImages(items.map((it) => it.originalImageUrl));
 
   const [itemIdx, setItemIdx] = useState(0);
   const [coverage, setCoverage] = useState(0);

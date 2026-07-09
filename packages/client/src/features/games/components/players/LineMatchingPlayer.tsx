@@ -7,7 +7,6 @@ import type {
 } from '@tangobook/shared';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
-import { usePreloadImages, usePrefetchUrlsGate } from '../../hooks/useGamePrefetch';
 import { GameResultScreen } from '../GameResultScreen';
 import { GamePlayerLayout } from '../GamePlayerLayout';
 import { GameHeader } from '../GameHeader';
@@ -47,9 +46,6 @@ function LineMatchingPlayerInner({
 }: LineMatchingPlayerProps) {
   const data = gameData as KoreanLineMatchingData | EnglishLineMatchingData;
   const items = data.items;
-
-  // 첫 화면에 그림 4장 동시 로드 — 마운트 즉시 워밍 (음절 TTS 프리페치는 아래 별도 effect)
-  usePreloadImages(items.map((it) => it.imageUrl));
 
   // 이미지는 원래 순서 유지, 단어만 셔플
   const imageOrder = useMemo(() => items.map((_, i) => i), [items]);
@@ -92,27 +88,6 @@ function LineMatchingPlayerInner({
     'mod_english',
   ]);
 
-  // 이번 판 단어들의 음원만 타겟 프리페치 — 짝 맞춘 순간 R2 왕복 없이 즉시 발음.
-  // (prefetchTop100 은 3232+ 음절 중 앞 100개만이라 이번 판 음절은 대부분 미캐싱)
-  const prefetchUrls = useMemo(() => {
-    if (phonicsLoading) return [];
-    const map = phonicsMapRef.current;
-    const urls = new Set<string>();
-    for (const item of items) {
-      if (/[가-힣]/.test(item.word)) {
-        for (const syl of [...item.word].filter((c) => /[가-힣]/.test(c))) {
-          const u = map.get(syl);
-          if (u) urls.add(u);
-        }
-      } else {
-        const u = item.ttsUrl ?? map.get(item.word.toLowerCase());
-        if (u) urls.add(u);
-      }
-    }
-    return [...urls];
-  }, [phonicsLoading, items, phonicsMapRef]);
-  // 이번 판 음절/단어 mp3 백그라운드 프리페치 — 논블로킹(캐싱은 Cache-Control+SW 담당).
-  usePrefetchUrlsGate(prefetchUrls, !phonicsLoading);
   // 게임 시작 게이트 = phonics 맵 로드만(localStorage 캐시라 재진입 즉시).
   const audioReady = !phonicsLoading;
 
