@@ -344,11 +344,16 @@ git add -A && git commit -m "feat(games): collect scene reveal assets for block 
 - Modify: `packages/client/src/features/games/lib/collect-game-assets.ts`
 - Test: `packages/client/src/features/games/lib/collect-game-assets.test.ts`
 
-각 게임의 정답 TTS는 `resolveTtsUrl({text, language, storybookId, directUrl, identifierPrefix})`로 resolve된다. `identifierPrefix`는 게임별 고정(`kblock`/`eblock`/`wwrite-ko`/`wwrite-en`/`dot`), LineMatching은 TTS 프리워밍 대상 아님(음절 직접). **정확한 매핑은 각 플레이어의 기존 `usePrewarmWordTts` 호출을 참조**(KoreanBlockPlayer:234, EnglishBlockPlayer:74, Korean/EnglishWordWritingPlayer:51/50, ConnectTheDotsPlayer:118).
+각 게임의 정답 TTS는 `resolveTtsUrl({text, language, storybookId, directUrl, identifierPrefix})`로 resolve된다. **확인된 사실**(원본 대조 완료):
+- 게임 data items 는 `ttsUrl` 필드를 갖는다(`game-data-adapter.ts:61,85,104,152` — `...(tts ? { ttsUrl: tts } : {})`).
+- 각 플레이어 prewarmItems = `items.map(it => ({ text: it.word, directUrl: it.ttsUrl }))` (블록×2·따라쓰기×2). `text`는 이미 lang 반영된 단어(`game-data-adapter`가 ko면 korean 단어를 `word`에 넣음).
+- `identifierPrefix`: `kblock`/`eblock`/`wwrite-ko`/`wwrite-en`.
 
-- [ ] **Step 0: 기존 prewarmItems 구성 확인**
+🔴 **반드시 `directUrl: it.ttsUrl`을 실어야 한다.** `resolveTtsUrl`은 **영어일 때 directUrl 우선**(`resolveTtsUrl.ts:59`)이라, directUrl을 빼면 프리워밍이 런타임과 **다른 URL**을 데워 첫 발음이 여전히 늦다(이 기능의 목적 실패).
 
-Read: 위 5개 플레이어의 `usePrewarmWordTts` 호출부 + `prewarmItems` 정의. 각 게임이 `{text, directUrl}`를 어떻게 만드는지(text=단어, directUrl=keyObject ttsUrl 등) 정확히 파악해 아래 `buildTtsSpec`에 반영한다.
+🔴 **점잇기(connect-the-dots)와 LineMatching은 `buildTtsSpec` 대상 아님(null 반환).**
+- 점잇기: 런타임에 target을 resolve하고 KeyObject에서 directUrl을 찾으므로(`ConnectTheDotsPlayer:102-118`) 게이트가 정확히 못 만든다 → 플레이어의 런타임 `usePrewarmWordTts('dot')`를 **유지**(Task 9). spec §9 준수.
+- LineMatching: 음절 직접 재생(TTS concat 미사용).
 
 - [ ] **Step 1: 실패 테스트 작성**
 
@@ -356,17 +361,30 @@ Read: 위 5개 플레이어의 `usePrewarmWordTts` 호출부 + `prewarmItems` �
 import { buildTtsSpec } from './collect-game-assets';
 
 describe('buildTtsSpec', () => {
-  it('korean-block: language=korean, prefix=kblock, 단어 텍스트', () => {
-    const spec = buildTtsSpec({ type: 'korean-block', items: [{ word: '나무' }] } as any, 'korean-block', 'ko');
+  it('korean-block: language=korean, prefix=kblock, text+directUrl', () => {
+    const spec = buildTtsSpec(
+      { type: 'korean-block', items: [{ word: '나무', ttsUrl: 'https://r2/na.mp3' }] } as any,
+      'korean-block'
+    );
     expect(spec?.language).toBe('korean');
     expect(spec?.identifierPrefix).toBe('kblock');
-    expect(spec?.items.map((i) => i.text)).toEqual(['나무']);
+    expect(spec?.items).toEqual([{ text: '나무', directUrl: 'https://r2/na.mp3' }]);
   });
-  it('english-block: prefix=eblock', () => {
-    expect(buildTtsSpec({ type: 'english-block', items: [{ word: 'tree' }] } as any, 'english-block', 'en')?.identifierPrefix).toBe('eblock');
+  it('english-block: prefix=eblock, directUrl 포함', () => {
+    const spec = buildTtsSpec(
+      { type: 'english-block', items: [{ word: 'tree', ttsUrl: 'https://r2/t.mp3' }] } as any,
+      'english-block'
+    );
+    expect(spec?.identifierPrefix).toBe('eblock');
+    expect(spec?.items[0].directUrl).toBe('https://r2/t.mp3');
   });
-  it('line-matching 은 TTS 프리워밍 대상 아님(null)', () => {
-    expect(buildTtsSpec({ type: 'korean-line-matching', items: [] } as any, 'korean-line-matching', 'ko')).toBeNull();
+  it('ttsUrl 없어도 text 는 수집(directUrl undefined)', () => {
+    const spec = buildTtsSpec({ type: 'korean-block', items: [{ word: '숲' }] } as any, 'korean-block');
+    expect(spec?.items).toEqual([{ text: '숲', directUrl: undefined }]);
+  });
+  it('line-matching / connect-the-dots 는 대상 아님(null)', () => {
+    expect(buildTtsSpec({ type: 'korean-line-matching', items: [] } as any, 'korean-line-matching')).toBeNull();
+    expect(buildTtsSpec({ type: 'connect-the-dots', items: [{ objectName: 'x' }] } as any, 'connect-the-dots')).toBeNull();
   });
 });
 ```
@@ -385,31 +403,30 @@ export interface TtsSpec {
   identifierPrefix: string;
 }
 
-const TTS_PREFIX: Record<string, { prefix: string; language: 'korean' | 'english' } | undefined> = {
+// 점잇기/LineMatching 은 제외 — 점잇기는 런타임 target resolve(플레이어 프리워밍 유지),
+// LineMatching 은 음절 직접 재생(concat 미사용).
+const TTS_PREFIX: Record<string, { prefix: string; language: 'korean' | 'english' }> = {
   'korean-block': { prefix: 'kblock', language: 'korean' },
   'english-block': { prefix: 'eblock', language: 'english' },
   'korean-word-writing': { prefix: 'wwrite-ko', language: 'korean' },
   'english-word-writing': { prefix: 'wwrite-en', language: 'english' },
-  'connect-the-dots': { prefix: 'dot', language: 'korean' }, // 실제 language 는 viewerLang 기준(Step 0 참조)
 };
 
 /**
- * 게임별 정답 TTS 프리워밍 스펙. LineMatching 등 미대상 게임은 null.
- * ⚠️ identifierPrefix/language/directUrl 은 각 플레이어의 기존 resolveTtsUrl 호출과 정확히 일치해야
- *    서버 concat 캐시 키가 맞는다(Step 0 에서 확인한 값 사용).
+ * 게임별 정답 TTS 프리워밍 스펙. 대상 아닌 게임은 null.
+ * text/directUrl 은 각 플레이어의 prewarmItems(= { text: it.word, directUrl: it.ttsUrl })와 동일.
+ * ⚠️ directUrl 을 빼면 영어 프리워밍이 런타임과 다른 URL 을 데운다 — 반드시 포함.
  */
-export function buildTtsSpec(data: AnyGameData, game: string, lang: Lang): TtsSpec | null {
+export function buildTtsSpec(data: AnyGameData, game: string): TtsSpec | null {
   const cfg = TTS_PREFIX[game];
   if (!cfg) return null;
-  const items = extractItemWords(data).map((text) => ({ text }));
+  const items = (data.items ?? [])
+    .map((it) => ({ text: (it.word as string) ?? '', directUrl: it.ttsUrl as string | undefined }))
+    .filter((i) => !!i.text);
   if (items.length === 0) return null;
-  // directUrl(keyObject ttsUrl) 이 게임 데이터에 있으면 Step 0 확인 후 여기서 매핑.
-  const language = game === 'connect-the-dots' ? (lang === 'en' ? 'english' : 'korean') : cfg.language;
-  return { items, language, identifierPrefix: cfg.prefix };
+  return { items, language: cfg.language, identifierPrefix: cfg.prefix };
 }
 ```
-
-주의: `directUrl` 매핑은 Step 0 확인 결과에 따라 채운다(게임 데이터 item에 `ttsUrl`이 있으면 포함). 없으면 생략해도 `resolveTtsUrl`이 concat/directUrl chain으로 처리.
 
 - [ ] **Step 4: 통과 확인**
 
@@ -433,6 +450,10 @@ git add -A && git commit -m "feat(games): build per-game TTS prewarm spec"
 - Test: `packages/client/src/features/games/hooks/useGameAssetPreload.test.ts`
 
 훅 책임: (1) core URL(이미지+음절+TTS) 확정, (2) `warmImageUrl`/`warmAudioUrl`로 워밍하며 완료 카운트, (3) `{ ready, loaded, total }` 반환, (4) bg(장면) 워밍은 게이트와 무관, (5) 언마운트/게임 전환 시 취소.
+
+🔴 **`storybookId`는 인자로 받는다(= `effectiveStorybookId`, 동기).** `book?.id`는 `useStorybook`이 비동기라 초기 `undefined` → `resolveTtsUrl`의 concat이 `if(!storybookId) return undefined`로 조기 반환되어 한글 프리워밍이 아예 안 된다(`resolveTtsUrl.ts:37`). 런타임 플레이어가 쓰는 `effectiveStorybookId = unit.storybookId ?? \`vocab-${unit.id}\``와 정확히 같은 값을 써야 concat 캐시 키가 맞는다. 이 값은 `coreKey`에도 포함(book 로드 타이밍과 무관하게 즉시 확정되므로 재실행 이슈 없음).
+
+참고(phonics ref stale 안전 근거): `phonicsMap`은 `mapRef.current`를 렌더 시점에 읽지만, cache-miss 경로에서 `loading:false` 전이가 re-render를 유발하고 그때 `mapRef.current`가 populated된 Map으로 재할당돼 있어 `syllables` useMemo가 재계산된다. cache-hit 경로는 초기 렌더에서 이미 채워짐.
 
 - [ ] **Step 1: 실패 테스트 작성**
 
@@ -459,7 +480,7 @@ describe('useGameAssetPreload', () => {
     const { result } = renderHook(() =>
       useGameAssetPreload({
         data: blockData, game: 'korean-block', lang: 'ko',
-        book: undefined, phonicsMap: new Map([['나', 'u-na'], ['무', 'u-mu']]), phonicsReady: true, style: undefined,
+        book: undefined, phonicsMap: new Map([['나', 'u-na'], ['무', 'u-mu']]), phonicsReady: true, style: undefined, storybookId: 'book-1',
       })
     );
     await waitFor(() => expect(result.current.ready).toBe(true));
@@ -471,7 +492,7 @@ describe('useGameAssetPreload', () => {
     const { result } = renderHook(() =>
       useGameAssetPreload({
         data: blockData, game: 'korean-block', lang: 'ko',
-        book: undefined, phonicsMap: null, phonicsReady: false, style: undefined,
+        book: undefined, phonicsMap: null, phonicsReady: false, style: undefined, storybookId: 'book-1',
       })
     );
     // 이미지 1 + TTS 1 = 2 (음절 0), phonics 미준비라 아직 ready 아님
@@ -510,10 +531,11 @@ interface Args {
   phonicsMap: Map<string, string> | null;
   phonicsReady: boolean;
   style: string | undefined;
+  storybookId: string; // effectiveStorybookId (동기, concat 캐시 키)
 }
 
 export function useGameAssetPreload(args: Args): { ready: boolean; loaded: number; total: number } {
-  const { data, game, lang, book, phonicsMap, phonicsReady, style } = args;
+  const { data, game, lang, book, phonicsMap, phonicsReady, style, storybookId } = args;
 
   // 동기 수집 (phonics 맵 준비 전엔 음절 빈 배열)
   const images = useMemo(() => extractItemImages(data), [data]);
@@ -526,21 +548,26 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
     () => collectSceneAssets(words, lang, book, style, game),
     [words, lang, book, style, game]
   );
-  const ttsSpec = useMemo(() => buildTtsSpec(data, game, lang), [data, game, lang]);
+  const ttsSpec = useMemo(() => buildTtsSpec(data, game), [data, game]);
 
   // 진행률 상태
   const [loaded, setLoaded] = useState(0);
   const [total, setTotal] = useState(0);
   const [ready, setReady] = useState(false);
 
-  // core 자산 워밍 — phonicsReady 전이 시 음절이 합류하므로 deps 에 포함
-  const coreKey = [...images, ...syllables, ttsSpec ? ttsSpec.identifierPrefix + ttsSpec.items.length : '', phonicsReady]
-    .join('|');
+  // core 워밍 재실행 키 — 음절(phonicsReady 전이)·TTS(storybookId)까지 반영.
+  const coreKey = [
+    ...images,
+    ...syllables,
+    ttsSpec ? `${ttsSpec.identifierPrefix}:${ttsSpec.items.length}` : '',
+    storybookId,
+    phonicsReady,
+  ].join('|');
   const bgKey = [...scene.sceneImages, ...scene.sceneNarrations].join('|');
 
   useEffect(() => {
-    // phonics 맵이 아직 로딩 중이면(음절 미확정) 게이트 유지 — 맵 준비 후 재실행.
     if (!phonicsReady) {
+      // phonics 맵 로딩 중 — 음절 미확정이라 게이트 유지, 맵 준비되면 coreKey 변해 재실행.
       setReady(false);
       return;
     }
@@ -548,31 +575,27 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
     setLoaded(0);
     setReady(false);
 
-    // TTS URL 확정 (비동기) → core 워밍 목록에 합류
     void (async () => {
-      const ttsUrls: string[] = [];
-      if (ttsSpec && book !== undefined) {
-        // storybookId 는 GameOverlay 가 넘긴 book.id (아래 통합 시). 여기선 book?.id 사용.
-      }
-      // 이미지 + 음절은 즉시 URL. TTS 는 resolve 후 합류.
+      // 이미지·음절은 즉시 URL. TTS 는 resolve 후 core 에 합류.
       const resolvedTts = ttsSpec
-        ? (await Promise.all(
-            ttsSpec.items.map((it) =>
-              resolveTtsUrl({
-                text: it.text,
-                language: ttsSpec.language,
-                storybookId: book?.id,
-                directUrl: it.directUrl,
-                identifierPrefix: ttsSpec.identifierPrefix,
-              }).catch(() => undefined)
+        ? (
+            await Promise.all(
+              ttsSpec.items.map((it) =>
+                resolveTtsUrl({
+                  text: it.text,
+                  language: ttsSpec.language,
+                  storybookId,
+                  directUrl: it.directUrl,
+                  identifierPrefix: ttsSpec.identifierPrefix,
+                }).catch(() => undefined)
+              )
             )
-          )).filter((u): u is string => !!u)
+          ).filter((u): u is string => !!u)
         : [];
       if (!alive) return;
 
-      const coreImages = images;
       const coreAudio = [...syllables, ...resolvedTts];
-      const coreTotal = coreImages.length + coreAudio.length;
+      const coreTotal = images.length + coreAudio.length;
       setTotal(coreTotal);
       if (coreTotal === 0) {
         setReady(true);
@@ -582,15 +605,13 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
       const cap = setTimeout(() => {
         if (alive) setReady(true);
       }, PRELOAD_MAX_MS);
-
       const bump = () => {
         if (alive) setLoaded((n) => n + 1);
       };
-      const tasks = [
-        ...coreImages.map((u) => warmImageUrl(u).then(bump)),
+      await Promise.all([
+        ...images.map((u) => warmImageUrl(u).then(bump)),
         ...coreAudio.map((u) => warmAudioUrl(u).then(bump)),
-      ];
-      await Promise.all(tasks);
+      ]);
       if (alive) {
         clearTimeout(cap);
         setReady(true);
@@ -600,25 +621,21 @@ export function useGameAssetPreload(args: Args): { ready: boolean; loaded: numbe
     return () => {
       alive = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [coreKey]);
+  }, [coreKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // 배경(장면) 워밍 — ready 와 무관, 조용히. 실패 무시.
+  // 배경(장면) 워밍 — ready 와 무관, 조용히. 완료는 항상 resolve(막지 않음).
   useEffect(() => {
-    let alive = true;
     for (const u of scene.sceneImages) void warmImageUrl(u);
     for (const u of scene.sceneNarrations) void warmAudioUrl(u);
-    return () => {
-      alive = false;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bgKey]);
+  }, [bgKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return { ready, loaded, total };
 }
 ```
 
-⚠️ **eslint 주의**: 프로젝트 pre-commit 에서 `react-hooks/exhaustive-deps` disable 주석이 에러가 될 수 있음(memory `library-payment-vocabgame-2026-07-08`). disable 주석 대신 `coreKey`/`bgKey` 문자열을 deps 로 쓰는 현재 방식으로 충분하면 disable 주석을 제거하고, 필요한 원시값만 deps 에 추가한다. 구현 시 lint 통과를 확인.
+⚠️ **eslint 주의**: 이 저장소는 pre-commit 에서 미사용 변수와 `react-hooks/exhaustive-deps` **disable 주석**이 에러가 될 수 있다(memory `library-payment-vocabgame-2026-07-08`). 구현 시:
+- 위 스켈레톤에 **미사용 변수·빈 블록이 없도록** 유지(데드코드 금지).
+- `coreKey`/`bgKey` 문자열 deps 패턴이 disable 주석 없이 lint를 통과하는지 확인. 통과 안 되면 `eslint-disable-line`이 허용되는지 프로젝트 설정을 보고, 안 되면 원시 deps를 명시적으로 나열하는 방식으로 바꾼다. **커밋 전 `pnpm --filter client lint` 필수.**
 
 - [ ] **Step 4: 통과 확인**
 
@@ -712,30 +729,33 @@ git commit -m "feat(games): GameLoadingGate progress bar UI"
 **Files:**
 - Modify: `packages/client/src/features/vocabulary-unit/components/VocabularyStudyContent.tsx:336-442`
 
+- [ ] **Step 0: GameOverlay props에 `storybook`·`currentStyle` 추가 스레딩**
+
+`VocabularyStudyContent`는 이미 `storybook`·`currentStyle`을 props로 받는다(`VocabularyStudyContent.tsx:36-38, 53-54`). 하지만 `<GameOverlay>` 호출부(`:113-122`)는 `unit/game/lang/onComplete/onBack`만 넘긴다. → **GameOverlay props에 `storybook?: Storybook`·`currentStyle?: string`을 추가**하고 호출부에서 내려준다. `useStorybook`을 GameOverlay 안에서 새로 부르지 않는다(중복 로드/undefined 타이밍 회피). `VocabularyStudyPage` 등 storybook이 없는 경로는 `undefined` 폴백(장면 bg만 비게 됨 — graceful).
+
 - [ ] **Step 1: 소스 로드 + 프리로드 훅 배선**
 
 `GameOverlay` 상단(`const data = getGameData(...)` 뒤)에 추가:
 
 ```tsx
-// 장면 수집엔 Storybook 객체가 필요 — 여기서 로드해 프리로드에 넘김.
-const { data: book } = useStorybook(unit.storybookId); // storybook source 단원만 유효, custom 은 undefined
+const effectiveStorybookId = unit.storybookId ?? `vocab-${unit.id}`; // 기존 라인 재사용
 const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap(['mod_korean', 'mod_phonics']);
-const preferredStyle = /* VocabularyStudyContent 가 이미 아는 선택 그림체 (searchParams style ?? book?.defaultStyle ?? book?.artStyle) */;
 
 const preload = useGameAssetPreload({
   data: data ?? { type: game, items: [] },
   game, lang,
-  book,
+  book: storybook,           // prop 으로 받은 Storybook (Step 0)
   phonicsMap: phonicsMapRef.current,
   phonicsReady: !phonicsLoading,
-  style: preferredStyle,
+  style: currentStyle,       // prop 으로 받은 선택 그림체 (Step 0)
+  storybookId: effectiveStorybookId,
 });
 
 const [skipped, setSkipped] = useState(false);
 const gateReady = preload.ready || skipped;
 ```
 
-Read: `VocabularyStudyContent.tsx`에서 `useStorybook` import 경로와 `preferredStyle`(선택 그림체) 소스를 확인해 정확히 배선. `usePhonicsMap`은 `@/features/games/hooks/usePhonicsMap`.
+`usePhonicsMap`은 `@/features/games/hooks/usePhonicsMap`. `currentStyle`이 실제 리빌 그림체(`useGameStyle`)와 다를 수 있으나, 장면은 bg(게이트 밖)라 헛워밍은 무해 — 파리티를 원하면 `collectSceneAssets`에 넘기는 style을 `useGameStyle(storybook)` 결과로 맞춘다(선택).
 
 - [ ] **Step 2: 게이트 렌더 분기**
 
@@ -773,15 +793,21 @@ git commit -m "feat(games): gate game start on asset preload in GameOverlay"
 - [ ] **Step 1: 대조표 작성**
 
 각 플레이어가 프리페치하던 자산이 새 게이트 core/bg에 포함되는지 확인:
-- `usePreloadImages(items.map(it => it.imageUrl))` → 게이트 `images` 커버 ✅ → 제거 가능.
-- `usePrewarmWordTts(...)` (블록×2·따라쓰기×2·점잇기) → 게이트 `buildTtsSpec` 커버 ✅ → 제거 가능.
+- `usePreloadImages(items.map(it => it.imageUrl))` (전 플레이어) → 게이트 `images` 커버 ✅ → 제거 가능.
+- `usePrewarmWordTts(...)` **블록×2·따라쓰기×2만** → 게이트 `buildTtsSpec` 커버 ✅ → 제거 가능.
+- `usePrewarmWordTts('dot')` **점잇기** → 게이트가 런타임 target을 못 만들어 커버 못 함 → **유지**(제거 X). spec §9.
 - `usePrefetchUrlsGate(syllableUrls, ...)` (KoreanBlock·LineMatching) → 게이트 `syllables` 커버 ✅ → 제거 가능.
-- `usePhonicsMap` 자체(음절 재생에 런타임 필요) → **유지**(제거 X, 게임 플레이 중 map lookup에 씀).
-- **점잇기 런타임 target TTS**(spec §9) → 게이트가 부분만 커버. 점잇기 플레이어의 런타임 resolve 경로는 **유지**.
+- `usePhonicsMap` 훅 자체(음절 재생에 런타임 map lookup 필요) → **유지**(제거 X).
+- LineMatching은 `usePrewarmWordTts`를 **안 씀**(음절 직접) — `usePreloadImages` + `usePrefetchUrlsGate`만 제거.
 
-- [ ] **Step 2: 이미지/TTS/음절 프리페치 호출만 제거**
+- [ ] **Step 2: 중복 프리페치 호출 제거 (점잇기 dot 프리워밍은 유지)**
 
-각 플레이어에서 `usePreloadImages`/`usePrewarmWordTts`/`usePrefetchUrlsGate` **호출 라인과 관련 `prewarmItems`/`syllableUrls` useMemo**를 제거. import도 정리. `usePhonicsMap` 훅 자체와 그 `mapRef` 사용(음절 재생)은 남긴다. `phonicsLoading` 기반 자체 로딩 게이트(`audioReady`)도 남길지 판단 — 게이트가 이미 phonics 준비를 기다리므로 플레이어 진입 시엔 맵이 로드돼 있으나, 안전을 위해 기존 로컬 게이트는 보수적으로 유지 가능(중복이나 무해).
+- **KoreanBlockPlayer**: `usePreloadImages`, `usePrewarmWordTts('kblock')`, `usePrefetchUrlsGate(syllableUrls)` + `syllableUrls` useMemo 제거. import 정리. `usePhonicsMap`/`mapRef`(음절 재생)는 유지.
+- **EnglishBlockPlayer**: `usePreloadImages`, `usePrewarmWordTts('eblock')` 제거.
+- **Korean/EnglishWordWritingPlayer**: `usePreloadImages`, `usePrewarmWordTts('wwrite-*')` + `prewarmItems` useMemo 제거.
+- **LineMatchingPlayer**: `usePreloadImages`, `usePrefetchUrlsGate(syllableUrls)` 제거(`usePrewarmWordTts` 원래 없음). `usePhonicsMap` 유지.
+- **ConnectTheDotsPlayer**: `usePreloadImages` 제거. 🔴 **`usePrewarmWordTts('dot')`는 유지**(런타임 target — 게이트 미커버).
+- `phonicsLoading` 기반 로컬 게이트(`audioReady`)는 보수적으로 유지 가능(게이트가 이미 phonics를 기다리므로 진입 시 로드돼 있으나 중복은 무해).
 
 - [ ] **Step 3: typecheck + 게임별 수동 확인**
 
