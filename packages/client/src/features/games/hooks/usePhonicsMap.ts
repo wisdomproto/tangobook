@@ -92,12 +92,14 @@ interface PhonicsMapResult {
  *
  * modules 순서대로 로드하며, 먼저 등록된 sound 가 우선 (중복 시 첫 entry 유지).
  */
-export function usePhonicsMap(modules: ModuleKey[]): PhonicsMapResult {
+export function usePhonicsMap(modules: ModuleKey[], enabled = true): PhonicsMapResult {
   // 최초 렌더에서 캐시를 동기 로드 — 캐시 hit 이면 loading=false 로 시작해 첫 프레임 로딩 플래시 제거.
   // (modules 는 caller 가 매번 새 array 를 넘기지만 내용은 고정이라 첫 값으로 캡처)
+  // enabled=false → 음절맵 안 쓰는 게임(따라쓰기·점잇기·영어): list fetch/prefetch 스킵, 즉시 ready.
   const modulesRef = useRef(modules);
   const mapRef = useRef<Map<string, string>>(new Map());
   const [loading, setLoading] = useState<boolean>(() => {
+    if (!enabled) return false;
     const cached = loadCachedLibrary();
     if (cached) {
       mapRef.current = buildPhonicsMap(cached, modulesRef.current);
@@ -107,6 +109,7 @@ export function usePhonicsMap(modules: ModuleKey[]): PhonicsMapResult {
   });
 
   useEffect(() => {
+    if (!enabled) return; // 비활성 게임은 파닉스 라이브러리 로드 안 함(~8s fetch + mp3 200개 prefetch 절약)
     let cancelled = false;
 
     const buildMap = (lib: PhonicsLibrary): Map<string, string> =>
@@ -152,8 +155,8 @@ export function usePhonicsMap(modules: ModuleKey[]): PhonicsMapResult {
       cancelled = true;
     };
     // modules 배열은 caller 가 매번 새 array 만들어 inline 으로 넘기는 패턴이라 deps 에 넣으면 무한 reload.
-    // 의도적으로 빈 deps — modules 는 mount 시 한 번만 사용.
-  }, []);
+    // 의도적으로 modules 제외 — mount 시 한 번만 사용. enabled 전이 시엔 재실행 필요.
+  }, [enabled]);
 
   return { mapRef, loading };
 }

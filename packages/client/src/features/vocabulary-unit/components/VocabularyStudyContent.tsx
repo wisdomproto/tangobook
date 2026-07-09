@@ -364,10 +364,13 @@ function GameOverlay({
   const effectiveStorybookId = unit.storybookId ?? `vocab-${unit.id}`;
 
   // 🔴 hooks 규칙: early return 앞에서 모든 훅 호출.
-  const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap([
-    'mod_korean',
-    'mod_phonics',
-  ]);
+  // 파닉스 음절맵은 **음절 mp3 를 직접 재생하는 게임만** 필요(한글 블록·그림짝). 따라쓰기·점잇기·영어
+  // 게임은 concat 으로 발음하므로 맵 불필요 → enabled=false 로 ~8s list fetch + mp3 200개 prefetch 스킵.
+  const needsSyllables = game === 'korean-block' || game === 'korean-line-matching';
+  const { mapRef: phonicsMapRef, loading: phonicsLoading } = usePhonicsMap(
+    ['mod_korean', 'mod_phonics'],
+    needsSyllables
+  );
   const preload = useGameAssetPreload({
     data: (data ?? { type: game, items: [] }) as {
       type: string;
