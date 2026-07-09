@@ -1,5 +1,6 @@
 import {
   uploadBufferToR2,
+  uploadJsonToR2,
   downloadFromR2,
   deleteFromR2,
   deleteManyFromR2,
@@ -31,11 +32,34 @@ type ListResult = {
   mod_korean: PhonicsAudioItem[];
 };
 const LIST_CACHE_TTL_MS = 5 * 60 * 1000;
+// 정적 인덱스 — 빌드한 sound→URL 목록을 R2 객체 1개로 저장. 이후 list() 는 이 파일만 GET(빠름)해서
+// listObjects(1600+ 객체, ~8s)를 회피. 음원 추가/삭제 시 삭제→다음 list() 가 재생성. (parseKey 는 .mp3
+// 만 매칭하므로 이 _index.json 은 목록에 안 섞임.)
+const INDEX_KEY = `${LIBRARY_PREFIX}/_index.json`;
 let listCache: ListResult | null = null;
 let listCacheAt = 0;
 function invalidateListCache(): void {
   listCache = null;
   listCacheAt = 0;
+  // 정적 인덱스도 무효화 — 다음 list() 가 R2 나열로 재빌드 후 재저장.
+  void deleteFromR2(INDEX_KEY).catch(() => {});
+}
+
+async function readIndexFromR2(): Promise<ListResult | null> {
+  try {
+    const buf = await downloadFromR2(INDEX_KEY);
+    const parsed = JSON.parse(buf.toString('utf8')) as Partial<ListResult>;
+    if (
+      Array.isArray(parsed.mod_phonics) &&
+      Array.isArray(parsed.mod_english) &&
+      Array.isArray(parsed.mod_korean)
+    ) {
+      return parsed as ListResult;
+    }
+    return null;
+  } catch {
+    return null; // 없거나 파싱 실패 → 재빌드 유도
+  }
 }
 
 /** 서버 기동 시 호출 — 첫 사용자 요청 전에 phonics list 캐시를 채움 (R2 listObjects 7초 → 캐시 hit 즉시). */
@@ -239,13 +263,21 @@ export const PhonicsLibraryService = {
     mod_korean: PhonicsAudioItem[];
   }> {
     // === In-memory cache (5분 TTL) ===
-    // R2 listObjects 가 1600+ 객체 fetch 해서 매번 5초 걸림. 클라 spinner 가 길어짐.
-    // 음원 추가/삭제는 phonics 페이지 (드물 작업) — 5분 stale 허용.
     const now = Date.now();
     if (listCache && now - listCacheAt < LIST_CACHE_TTL_MS) {
       return listCache;
     }
 
+    // === 정적 인덱스 우선 (R2 객체 1개 GET ~50ms) — listObjects(~8s) 회피 ===
+    // 서버 재시작/캐시 만료 후에도 이 파일만 읽으면 됨. 음원 추가/삭제 시 invalidateListCache 가 삭제 → 재빌드.
+    const index = await readIndexFromR2();
+    if (index) {
+      listCache = index;
+      listCacheAt = now;
+      return index;
+    }
+
+    // === 인덱스 없음(최초/무효화 후) → R2 나열로 1회 빌드 후 인덱스 저장 ===
     const objects = await listR2Objects(LIBRARY_PREFIX);
 
     const result: {
@@ -287,6 +319,8 @@ export const PhonicsLibraryService = {
 
     listCache = result;
     listCacheAt = now;
+    // 정적 인덱스 저장(best-effort) — 다음부터 listObjects 없이 이 파일만 GET.
+    void uploadJsonToR2(result, INDEX_KEY).catch(() => {});
     return result;
   },
 

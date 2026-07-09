@@ -10,6 +10,8 @@ type ModuleKey = 'mod_korean' | 'mod_phonics' | 'mod_english';
 // 라이브러리 schema 변경 시 CACHE_KEY 뒤 v 숫자 bump → 옛 캐시 자동 무효.
 // ─────────────────────────────────────────────────────────────────
 const CACHE_KEY = 'tangobook-phonics-library-v1';
+// 캐시가 이만큼 신선하면 백그라운드 refresh 스킵 — 게임 재진입마다 ~8s list fetch 반복 방지.
+const CACHE_FRESH_MS = 10 * 60 * 1000; // 10분
 
 interface PhonicsLibrary {
   mod_phonics: PhonicsAudioItem[];
@@ -17,30 +19,36 @@ interface PhonicsLibrary {
   mod_korean: PhonicsAudioItem[];
 }
 
-function loadCachedLibrary(): PhonicsLibrary | null {
+function isValidLib(lib: unknown): lib is PhonicsLibrary {
+  const l = lib as PhonicsLibrary | undefined;
+  return (
+    !!l &&
+    Array.isArray(l.mod_phonics) &&
+    Array.isArray(l.mod_english) &&
+    Array.isArray(l.mod_korean)
+  );
+}
+
+/** 캐시 entry (lib + 저장시각). 옛 형식({lib}만)은 at=0 으로 stale 취급. */
+function loadCachedEntry(): { lib: PhonicsLibrary; at: number } | null {
   try {
     const raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as { lib?: PhonicsLibrary };
-    const lib = parsed?.lib;
-    // 옛 캐시 / 부분 shape 방어 — 3 모듈 모두 array 여야 valid.
-    if (
-      !lib ||
-      !Array.isArray(lib.mod_phonics) ||
-      !Array.isArray(lib.mod_english) ||
-      !Array.isArray(lib.mod_korean)
-    ) {
-      return null;
-    }
-    return lib;
+    const parsed = JSON.parse(raw) as { lib?: PhonicsLibrary; at?: number };
+    if (!isValidLib(parsed?.lib)) return null;
+    return { lib: parsed.lib!, at: typeof parsed.at === 'number' ? parsed.at : 0 };
   } catch {
     return null;
   }
 }
 
+function loadCachedLibrary(): PhonicsLibrary | null {
+  return loadCachedEntry()?.lib ?? null;
+}
+
 function saveCachedLibrary(lib: PhonicsLibrary): void {
   try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({ lib }));
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ lib, at: Date.now() }));
   } catch {
     /* quota exceeded / disabled — silently ignore */
   }
@@ -82,13 +90,40 @@ interface PhonicsMapResult {
   loading: boolean;
 }
 
+// ── 세션 전역 가드 (중복 fetch/prefetch 홍수 방지) ─────────────────────────
+// 🔴 문제: usePhonicsMap 이 GameOverlay + 플레이어에서 각각 마운트되고 dev StrictMode 로 2배 →
+//    진입마다 목록 fetch 4회(~8s) + prefetchTop100 4회(mp3 400개)가 게이트의 이번 판 음절 워밍을 굶김
+//    (그림짝 게이트가 33% 에서 멈추던 원인). 아래 가드로 목록 fetch 는 in-flight 공유, prefetch 는 세션 1회.
+let inflightLib: Promise<PhonicsLibrary> | null = null;
+function fetchLibShared(): Promise<PhonicsLibrary> {
+  if (!inflightLib) {
+    inflightLib = settingsApi.getPhonicsLibrary().finally(() => {
+      inflightLib = null;
+    });
+  }
+  return inflightLib;
+}
+
+let top100Prefetched = false;
+function prefetchTop100Once(map: Map<string, string>): void {
+  if (top100Prefetched) return;
+  top100Prefetched = true;
+  // 게이트의 이번 판 음절 워밍이 먼저 가도록 살짝 지연 후, 자주 쓰는 100개만 세션 1회 프리페치.
+  setTimeout(() => {
+    const urls = [...map.values()].slice(0, 100);
+    void Promise.all(
+      urls.map((url) => fetch(url, { cache: 'force-cache', mode: 'no-cors' }).catch(() => {}))
+    );
+  }, 1500);
+}
+
 /**
- * 파닉스 음원 라이브러리를 로드 + 모든 mp3 백그라운드 prefetch.
+ * 파닉스 음원 라이브러리를 로드 + 자주 쓰는 mp3 세션 1회 prefetch.
  *
  * 동작:
- *  1. localStorage 캐시 (24h TTL) 확인 — hit 이면 즉시 map 빌드 + `loading: false`. 동시에 백그라운드 refresh.
- *  2. miss/stale 이면 `/api/settings/phonics-library` list fetch (sound → URL 맵 빌드).
- *  3. fetch 후 localStorage 저장 + 자주 쓰는 100개 mp3 백그라운드 prefetch (HTTP cache 채움).
+ *  1. localStorage 캐시 확인 — hit 이면 즉시 map 빌드 + `loading: false`.
+ *  2. 캐시가 신선(<10분)하면 백그라운드 refresh 스킵(재진입마다 ~8s fetch 반복 방지). stale/miss 면 공유 fetch.
+ *  3. prefetchTop100 은 세션 1회 + 1.5s 지연(게이트 워밍 우선).
  *
  * modules 순서대로 로드하며, 먼저 등록된 sound 가 우선 (중복 시 첫 entry 유지).
  */
@@ -109,46 +144,39 @@ export function usePhonicsMap(modules: ModuleKey[], enabled = true): PhonicsMapR
   });
 
   useEffect(() => {
-    if (!enabled) return; // 비활성 게임은 파닉스 라이브러리 로드 안 함(~8s fetch + mp3 200개 prefetch 절약)
+    if (!enabled) return; // 비활성 게임은 파닉스 라이브러리 로드 안 함(~8s fetch + mp3 prefetch 절약)
     let cancelled = false;
 
     const buildMap = (lib: PhonicsLibrary): Map<string, string> =>
       buildPhonicsMap(lib, modulesRef.current);
 
-    const prefetchTop100 = (map: Map<string, string>): void => {
-      void (async () => {
-        const urls = [...map.values()].slice(0, 100);
-        await Promise.all(
-          urls.map((url) => fetch(url, { cache: 'force-cache', mode: 'no-cors' }).catch(() => {}))
-        );
-      })();
-    };
-
-    // 1. localStorage cache hit → 즉시 사용
-    const cached = loadCachedLibrary();
-    if (cached) {
-      mapRef.current = buildMap(cached);
+    // 1. localStorage cache hit → 즉시 사용 + prefetch(세션 1회)
+    const entry = loadCachedEntry();
+    if (entry) {
+      mapRef.current = buildMap(entry.lib);
       setLoading(false);
-      prefetchTop100(mapRef.current);
+      prefetchTop100Once(mapRef.current);
+      // 캐시가 신선하면 백그라운드 refresh 스킵 — 재진입마다 반복되던 ~8s fetch 제거.
+      if (Date.now() - entry.at < CACHE_FRESH_MS) {
+        return () => {
+          cancelled = true;
+        };
+      }
     }
 
-    // 2. 항상 백그라운드 refresh (캐시 hit 이면 silent update, miss 면 그게 첫 load)
-    settingsApi
-      .getPhonicsLibrary()
+    // 2. stale/miss → 공유 fetch (동시 마운트/StrictMode 는 in-flight 하나로 합쳐짐)
+    fetchLibShared()
       .then((lib) => {
         if (cancelled) return;
         saveCachedLibrary(lib);
         mapRef.current = buildMap(lib);
-        if (!cached) {
-          // cache 없었으면 이제 첫 ready — loading off
+        if (!entry) {
           setLoading(false);
-          prefetchTop100(mapRef.current);
+          prefetchTop100Once(mapRef.current);
         }
-        // cache 있었으면 이미 loading=false 였고 map 도 silent 갱신만 함 (재렌더 없음).
       })
       .catch(() => {
-        // network fail — cache 있었으면 그대로 진행, 없었으면 loading false 로 (게임 진입은 가능, 음원만 누락)
-        if (!cancelled && !cached) setLoading(false);
+        if (!cancelled && !entry) setLoading(false);
       });
 
     return () => {
