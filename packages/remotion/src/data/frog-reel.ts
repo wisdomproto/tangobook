@@ -58,8 +58,9 @@ export const FROG_SCENES: FrogScene[] = [
  */
 export const FROG_STYLE_SHOWCASE = {
   title: '다양한 그림체로',
-  body: '같은 이야기, 취향대로 골라 보세요',
-  durationSec: 5,
+  // 그림체 전환에 맞춰 한 줄씩 쌓이는 메시지(마지막 줄 코랄 강조).
+  lines: ['탱고북에선', '한 권의 이야기를', '아이의 취향대로 고를 수 있습니다'],
+  durationSec: 6, // 3 그림체 × 2초
   styles: [
     { src: 'reels/frog/style-collage.webp', label: '콜라주' },
     { src: 'reels/frog/style-watercolor.webp', label: '수채동화풍' },

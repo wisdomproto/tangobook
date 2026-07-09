@@ -1,47 +1,44 @@
 import React from 'react';
-import { AbsoluteFill, Img, staticFile, interpolate, useCurrentFrame } from 'remotion';
+import {
+  AbsoluteFill,
+  Img,
+  staticFile,
+  interpolate,
+  spring,
+  useCurrentFrame,
+  useVideoConfig,
+} from 'remotion';
 import { loadFont } from '@remotion/google-fonts/NotoSansKR';
 import { FROG_STYLE_SHOWCASE } from '../../../data/frog-reel';
 
 const { fontFamily } = loadFont('normal', { weights: ['700', '800'] });
 
-const IMG_H = 860;
-const CUT = 30; // 프레임당 컷(1.0s) — 차분하게
-const FADE = 10; // 컷 사이 부드러운 크로스페이드
+const IMG_H = 820;
+const FADE = 12; // 그림체 간 크로스페이드
 
 export const FrogStyleShowcase: React.FC = () => {
   const frame = useCurrentFrame();
-  const { title, body, styles } = FROG_STYLE_SHOWCASE;
+  const { fps, durationInFrames } = useVideoConfig();
+  const { title, lines, styles } = FROG_STYLE_SHOWCASE;
   const n = styles.length;
+  const BEAT = durationInFrames / n; // 그림체당 유지 프레임
 
-  const slot = Math.floor(frame / CUT);
-  const local = frame - slot * CUT;
-  const t = Math.min(local / FADE, 1); // 0→1 크로스페이드 진행
-  const curIdx = slot % n;
-  const prevIdx = (slot - 1 + n) % n;
-  // 완만한 드리프트 줌(정신없지 않게)
-  const curScale = interpolate(local, [0, CUT], [1.0, 1.04]);
-  // 이전→현재 두 레이어를 겹쳐 부드럽게 교차
+  // 그림체 순차 전환 (콜라주 → 수채 → 페이퍼3D), 컷 사이 크로스페이드
+  const beat = Math.min(Math.floor(frame / BEAT), n - 1);
+  const local = frame - beat * BEAT;
+  const t = Math.min(local / FADE, 1);
+  const curScale = interpolate(local, [0, BEAT], [1.0, 1.05]);
   const layers = [
-    ...(slot > 0 && t < 1 ? [{ style: styles[prevIdx], opacity: 1 - t, scale: 1.04, z: 1 }] : []),
-    { style: styles[curIdx], opacity: t, scale: curScale, z: 2 },
+    ...(beat > 0 && t < 1 ? [{ style: styles[beat - 1], opacity: 1 - t, scale: 1.05, z: 1 }] : []),
+    { style: styles[beat], opacity: t, scale: curScale, z: 2 },
   ];
-  // 라벨은 더 진하게 보이는 그림체를 표시(중간에 자연스럽게 전환)
-  const shown = t >= 0.5 || slot === 0 ? styles[curIdx] : styles[prevIdx];
+  const shown = styles[beat];
 
   const titleDown = interpolate(frame, [2, 18], [-40, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
   const titleOpacity = interpolate(frame, [2, 18], [0, 1], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const bodyUp = interpolate(frame, [12, 28], [40, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const bodyOpacity = interpolate(frame, [12, 28], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
@@ -53,10 +50,10 @@ export const FrogStyleShowcase: React.FC = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '140px 24px 150px',
+        padding: '130px 24px 140px',
       }}
     >
-      {/* 상단 제목 */}
+      {/* 상단: 브랜드 칩 + 제목 */}
       <div
         style={{
           textAlign: 'center',
@@ -74,7 +71,7 @@ export const FrogStyleShowcase: React.FC = () => {
             borderRadius: 999,
             padding: '12px 36px',
             display: 'inline-block',
-            marginBottom: 26,
+            marginBottom: 24,
             boxShadow: '0 8px 22px rgba(255,107,94,0.35)',
           }}
         >
@@ -84,7 +81,7 @@ export const FrogStyleShowcase: React.FC = () => {
           style={{
             fontFamily,
             fontWeight: 800,
-            fontSize: 92,
+            fontSize: 88,
             color: '#2B2B2B',
             lineHeight: 1.18,
             wordBreak: 'keep-all',
@@ -94,7 +91,7 @@ export const FrogStyleShowcase: React.FC = () => {
         </div>
       </div>
 
-      {/* 가운데: 그림체가 빠르게 넘어가는 대형 패널 */}
+      {/* 가운데: 그림체 전환 대형 패널 + 장르 배지 */}
       <div
         style={{
           width: '100%',
@@ -122,7 +119,6 @@ export const FrogStyleShowcase: React.FC = () => {
             }}
           />
         ))}
-        {/* 그림체 장르 라벨 배지 */}
         <div
           style={{
             position: 'absolute',
@@ -143,22 +139,37 @@ export const FrogStyleShowcase: React.FC = () => {
         </div>
       </div>
 
-      {/* 하단 내용 */}
-      <div
-        style={{
-          fontFamily,
-          fontWeight: 700,
-          fontSize: 58,
-          color: '#4A3B33',
-          textAlign: 'center',
-          lineHeight: 1.4,
-          wordBreak: 'keep-all',
-          maxWidth: 940,
-          transform: `translateY(${bodyUp}px)`,
-          opacity: bodyOpacity,
-        }}
-      >
-        {body}
+      {/* 하단: 그림체 전환에 맞춰 한 줄씩 쌓이는 메시지 */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+        {lines.map((line, i) => {
+          const appear = i * BEAT;
+          const pop = spring({
+            frame: frame - appear,
+            fps,
+            config: { damping: 13, stiffness: 180 },
+          });
+          const op = interpolate(pop, [0, 1], [0, 1]);
+          const up = interpolate(pop, [0, 1], [40, 0]);
+          const isLast = i === lines.length - 1;
+          return (
+            <div
+              key={line}
+              style={{
+                fontFamily,
+                fontWeight: 800,
+                fontSize: isLast ? 62 : 66,
+                color: isLast ? '#FF6B5E' : '#3A2E27',
+                lineHeight: 1.22,
+                textAlign: 'center',
+                wordBreak: 'keep-all',
+                opacity: op,
+                transform: `translateY(${up}px)`,
+              }}
+            >
+              {line}
+            </div>
+          );
+        })}
       </div>
     </AbsoluteFill>
   );
