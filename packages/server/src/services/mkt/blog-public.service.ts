@@ -80,6 +80,49 @@ export async function listPublishedBlogs(): Promise<BlogPostSummary[]> {
     .sort((a, b) => (b.publishedAt ?? '').localeCompare(a.publishedAt ?? ''));
 }
 
+/** 발행된 블로그의 url_slug(및 content_id 폴백) 집합. 교차 링크 유효성 판정용. */
+async function publishedSlugSet(): Promise<Set<string>> {
+  const sb = admin();
+  const pub = await publishedContentMap();
+  const set = new Set<string>();
+  if (pub.size === 0) return set;
+  const { data } = await sb
+    .from('mkt_blog_contents')
+    .select('content_id, url_slug')
+    .eq('channel', 'self_hosted')
+    .in('content_id', [...pub.keys()]);
+  for (const r of (data ?? []) as Array<{ content_id: string; url_slug: string | null }>) {
+    if (r.url_slug) set.add(r.url_slug);
+    set.add(r.content_id);
+  }
+  return set;
+}
+
+/**
+ * 본문 HTML 안의 교차 블로그 링크(<a href=".../blog/<slug>">)를 정리한다.
+ * - 발행된 블로그 → 링크 유지
+ * - 미발행(예약만 된) 블로그 → <a> 를 풀어 일반 텍스트로 (죽은 링크 방지)
+ * - 블로그가 아닌 링크(동화책 CTA 등) → 그대로 유지
+ * 매일 발행이 진행되면 미발행 링크가 자동으로 살아난다.
+ */
+function sanitizeCrossLinks(html: string, published: Set<string>): string {
+  if (!html) return html;
+  return html.replace(
+    /<a\b[^>]*href=["']([^"']*)["'][^>]*>([\s\S]*?)<\/a>/gi,
+    (full, href: string, inner: string) => {
+      const m = /\/blog\/([^/"'?#]+)/.exec(href);
+      if (!m) return full; // 블로그 링크 아님 — 유지
+      let slug = m[1];
+      try {
+        slug = decodeURIComponent(slug);
+      } catch {
+        /* keep raw */
+      }
+      return published.has(slug) ? full : inner; // 발행됨=링크, 미발행=텍스트
+    }
+  );
+}
+
 export async function getPublishedBlog(slug: string): Promise<BlogPostDetail | null> {
   const sb = admin();
   // url_slug 우선, 없으면 content_id 로 조회.
@@ -123,6 +166,18 @@ export async function getPublishedBlog(slug: string): Promise<BlogPostDetail | n
   const memo = (content?.memo as string) ?? '';
   const storybookId = memo.startsWith('storybook:') ? memo.slice('storybook:'.length) : null;
 
+  // 교차 블로그 링크 정리 — 미발행 블로그 링크는 텍스트로 강등(죽은 링크 방지).
+  const published = await publishedSlugSet();
+  const cleanCards = (
+    (cards ?? []) as Array<{ card_type: string; content: Record<string, unknown> }>
+  ).map((c) => {
+    const ct = { ...(c.content ?? {}) };
+    for (const k of ['html', 'text']) {
+      if (typeof ct[k] === 'string') ct[k] = sanitizeCrossLinks(ct[k] as string, published);
+    }
+    return { type: c.card_type, content: ct };
+  });
+
   return {
     slug: (blog.url_slug as string) || contentId,
     title: (blog.seo_title as string) || (blog.title as string) || '(제목 없음)',
@@ -131,8 +186,6 @@ export async function getPublishedBlog(slug: string): Promise<BlogPostDetail | n
     publishedAt: (rec[0] as { published_at: string | null }).published_at,
     primaryKeyword: (blog.primary_keyword as string) ?? null,
     storybookId,
-    cards: ((cards ?? []) as Array<{ card_type: string; content: Record<string, unknown> }>).map(
-      (c) => ({ type: c.card_type, content: c.content ?? {} })
-    ),
+    cards: cleanCards,
   };
 }
