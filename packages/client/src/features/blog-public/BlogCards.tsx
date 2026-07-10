@@ -54,9 +54,31 @@ export function BlogCards({ cards }: { cards: BlogCardData[] }) {
         }
 
         // text (기본) / list(문자열) — 저작 HTML 그대로.
+        // 마케팅 블로그 카드는 card_type='text' 이면서 content 에 삽화 url 을 함께 담는다
+        // (텍스트+삽화 결합 카드). html 아래에 이미지가 있으면 같이 렌더.
         const html = str(ct.html) || str(ct.text);
-        if (!html) return null;
-        return <div key={i} dangerouslySetInnerHTML={{ __html: html }} />;
+        const imgUrl = str(ct.url) || str(ct.image_url);
+        if (!html && !imgUrl) return null;
+        return (
+          <div key={i} className="space-y-4">
+            {html && <div dangerouslySetInnerHTML={{ __html: html }} />}
+            {imgUrl && (
+              <figure className="my-2">
+                <img
+                  src={encodeURI(imgUrl)}
+                  alt={str(ct.alt)}
+                  loading="lazy"
+                  className="w-full rounded-2xl"
+                />
+                {str(ct.caption) && (
+                  <figcaption className="mt-2 text-center text-sm text-ink/50 break-keep">
+                    {str(ct.caption)}
+                  </figcaption>
+                )}
+              </figure>
+            )}
+          </div>
+        );
       })}
     </div>
   );
