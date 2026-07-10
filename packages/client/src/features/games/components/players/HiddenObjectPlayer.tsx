@@ -72,19 +72,18 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
       nextFound.add(hit.objectName);
       setFound(nextFound);
       setScore((s) => s + 1);
-      playWordCorrect({ ttsUrl: hit.ttsUrl });
 
       const sceneCleared = targets.every((t) => nextFound.has(t.objectName));
-      if (sceneCleared) {
-        if (sceneIdx + 1 >= scenes.length) {
-          setTimeout(() => setFinished(true), 700);
-        } else {
-          setTimeout(() => {
-            setSceneIdx((i) => i + 1);
-            setFound(new Set());
-          }, 700);
+      // 씬 클리어 시 전환은 마지막 사물 발음이 끝난 뒤(onDone) — 고정 setTimeout(700)은
+      // 다음절 단어 발음이 잘린 채 다음 씬/결과 화면이 겹치는 원인이었다.
+      const advance = () => {
+        if (sceneIdx + 1 >= scenes.length) setFinished(true);
+        else {
+          setSceneIdx((i) => i + 1);
+          setFound(new Set());
         }
-      }
+      };
+      playWordCorrect({ ttsUrl: hit.ttsUrl, onDone: sceneCleared ? advance : undefined });
     },
     [scene, targets, found, sceneIdx, scenes.length, playWordCorrect, imgReady]
   );
