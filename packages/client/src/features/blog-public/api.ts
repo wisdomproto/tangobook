@@ -24,7 +24,7 @@ export interface BlogPostDetail extends BlogPostSummary {
 export function useBlogPosts() {
   return useQuery({
     queryKey: ['blog', 'list'],
-    queryFn: () => apiGet<BlogPostSummary[]>('/api/blog'),
+    queryFn: () => apiGet<BlogPostSummary[]>('/blog'),
     staleTime: 5 * 60 * 1000,
   });
 }
@@ -33,6 +33,6 @@ export function useBlogPost(slug: string) {
   return useQuery({
     queryKey: ['blog', 'post', slug],
     enabled: !!slug,
-    queryFn: () => apiGet<BlogPostDetail>(`/api/blog/${encodeURIComponent(slug)}`),
+    queryFn: () => apiGet<BlogPostDetail>(`/blog/${encodeURIComponent(slug)}`),
   });
 }
