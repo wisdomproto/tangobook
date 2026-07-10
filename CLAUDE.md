@@ -155,7 +155,8 @@ ContentFlow AI 마케팅 자동화 SaaS 이식 — **전 단계(Phase 0~5) 완�
 - Phase 1(콘텐츠 7채널) · 2(키워드/아이디어) · 3(발행: self_hosted `setInterval` 스케줄러 + 큐/대시보드/5단계 일괄예약 + `supabase-admin.provider` 서비스롤 + `mkt_deploy_webhook_queue`).
 - **Phase 4(분석)**: GA4 서비스계정 JWT(RS256 `node:crypto`, no SDK)→runReport REST + SEO 감사(cheerio) + Meta/YouTube 인사이트 + 경쟁사(갭/순위, Gemini). client는 `recharts` 차트만, 시크릿은 서버에서 프로젝트별 resolve.
 - **Phase 5(전략/모니터링/광고/SERP)**: 전략 HTML 뷰어+클라 파싱 import · 모니터링(지식인/블로그 스크레이프 + YouTube/IG + AI 댓글) · 광고 목업(client-only) · 경쟁사 SERP(DataForSEO).
-마이그레이션은 **Phase 3에서만**(4·5는 기존 컬럼 재사용, 0 SQL). **415 마케팅 tests / 161 서버 mkt tests**. 남음 = main 머지(`finishing-a-development-branch`).
+마이그레이션은 **Phase 3에서만**(4·5는 기존 컬럼 재사용, 0 SQL). **415 마케팅 tests / 161 서버 mkt tests**.
+- **계정 연동 + 멀티채널 실발행(2026-07-10, dflo 이식)**: Meta **글로벌 OAuth**(`/api/auth/meta`→암호화 `mkt_meta_connection`, 토큰 서버전용) + YouTube(`youtube.provider` 재활용). 공용 실행기 `publish-executor`가 **카드뉴스(IG캐러셀·FB앨범)·릴스(IG릴스·FB영상·Threads·YouTube쇼츠)** 실발행+백오프재시도, 스케줄러 Step C=예약 자동발행. UI=릴스패널 "소셜 발행"(`ReelsPublishDialog`)·카드뉴스 "소셜 발행"(`MetaPublishDialog`)·발행큐 dflo 보드(언어pills+채널컬럼). 🔴 New Pages Experience 페이지 `/me/accounts` 누락→`META_EXTRA_PAGE_IDS` env · IG=비즈니스계정 페이지연결 필수 · Meta앱=콘텐츠관리 이용사례. env=`META_APP_ID/SECRET·META_REDIRECT_BASE·META_TOKEN_ENC_KEY·CORS_ORIGIN·META_EXTRA_PAGE_IDS`. → memory `meta-connect-publish-2026-07-10`.
 상세 → [features/marketing/CLAUDE.md](packages/client/src/features/marketing/CLAUDE.md) · memory `marketing-port-contentflow-2026-06-07.md`.
 
 ## 마케팅 자료

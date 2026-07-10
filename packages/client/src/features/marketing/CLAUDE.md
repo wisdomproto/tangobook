@@ -273,6 +273,7 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 | `mkt_card_templates` | 사용자 저장 카드뉴스 템플릿 |
 | `mkt_publish_records` | 발행 레코드 (status: draft/scheduled/publishing/published/failed; channel: self_hosted/naver_blog/instagram/facebook/threads/youtube; 부분 unique 인덱스 `uniq_mkt_publish_self_hosted`) — Phase 3 |
 | `mkt_deploy_webhook_queue` | 자체 호스팅 배포 웹훅 발송 큐 (project_id PK, user_id NOT NULL, retry_count, last_error; owner RLS) — Phase 3 |
+| `mkt_meta_connection` | Meta 글로벌 연동 (AES-256-GCM 암호화 토큰 묶음, 서비스롤 전용) — 2026-07-10 |
 
 `mkt_projects.saved_keywords JSONB` — Phase 2 보관함 (owner-row 업데이트로 RLS 자동 만족).
 `mkt_projects.published_site JSONB` — Phase 0부터 존재; `deploy_webhook_url` 포함.
@@ -298,39 +299,44 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 
 ## Express `/api/mkt` 라우트
 
-| Method | Path                             | 설명                                                                              |
-| ------ | -------------------------------- | --------------------------------------------------------------------------------- |
-| POST   | `/ai/generate`                   | Gemini SSE 텍스트 생성 (`text/event-stream`)                                      |
-| POST   | `/ai/generate-image`             | Gemini 이미지 생성 (base64 PNG 반환)                                              |
-| POST   | `/ai/translate`                  | 번역 SSE                                                                          |
-| POST   | `/ai/extract-text`               | PDF/DOCX/TXT → 텍스트 추출 (`multipart/form-data`)                                |
-| POST   | `/ai/analyze-references`         | URL 레퍼런스 fetch + Gemini 요약                                                  |
-| POST   | `/storage/presign`               | R2 presigned upload URL 발급                                                      |
-| POST   | `/storage/delete`                | R2 키 일괄 삭제                                                                   |
-| GET    | `/storage/proxy?url=`            | R2 이미지 same-origin 프록시 (캔버스 CORS 우회)                                   |
-| POST   | `/naver/keywords`                | 네이버 검색광고 API 키워드 조회                                                   |
-| POST   | `/google/keywords`               | DataForSEO Google 키워드 조회                                                     |
-| POST   | `/keywords/recommend`            | 황금키워드 오케스트레이션 (Gemini seed→Naver volume→3-tier 분류, Phase 2)         |
-| POST   | `/ideas/generate`                | Gemini flash-lite 채널별 AI 아이디어 생성 (Phase 2)                               |
-| POST   | `/ideas/trending`                | YouTube Data trending + Naver trend 집계 (Phase 2)                                |
-| POST   | `/publish/meta`                  | IG/FB/Threads Graph API v21.0 발행 (Phase 3, **un-wired** — 클라이언트 연결 없음) |
-| POST   | `/analytics/overview`            | GA4 방문/페이지뷰/세션 요약 (server-proxy, Phase 4)                               |
-| POST   | `/analytics/traffic`             | GA4 트래픽 소스 (Phase 4)                                                         |
-| POST   | `/analytics/top-pages`           | GA4 상위 페이지 (Phase 4)                                                         |
-| POST   | `/analytics/country-traffic`     | GA4 국가별 트래픽 (Phase 4)                                                       |
-| POST   | `/analytics/content-performance` | GA4 콘텐츠 성과 (Phase 4)                                                         |
-| POST   | `/analytics/meta-insights`       | Meta(IG/FB/Threads) 인사이트 — 토큰 서버사이드 (Phase 4)                          |
-| POST   | `/analytics/youtube-channel`     | YouTube 채널 정보 (Phase 4)                                                       |
-| POST   | `/seo/audit`                     | URL SEO 감사 (cheerio + SSRF 가드, Phase 4)                                       |
-| POST   | `/seo/crawl`                     | URL 크롤 + 텍스트 추출 (Phase 4)                                                  |
-| POST   | `/seo/schema-generate`           | JSON-LD 스키마 생성 (Gemini, Phase 4)                                             |
-| POST   | `/competitors/gap-analysis`      | 콘텐츠 갭 분석 (Gemini, Phase 4)                                                  |
-| POST   | `/competitors/keyword-rankings`  | 키워드 순위 (Gemini, Phase 4)                                                     |
-| POST   | `/competitors/suggest`           | 경쟁사 추천 (Gemini, Phase 4)                                                     |
-| GET    | `/strategy/templates`            | 전략 HTML 템플릿 목록 (disk readdir; import 파싱은 client-side, Phase 5)          |
-| POST   | `/monitoring/search`             | 지식인/N블로그/구글블로그 스크레이프 + YouTube/IG (server-proxy, Phase 5)         |
-| POST   | `/monitoring/comment`            | AI 댓글 생성 (Gemini, Phase 5)                                                    |
-| POST   | `/competitors/serp`              | 경쟁사 SERP top-10 (DataForSEO `serp/google/organic/live/advanced`, Phase 5)      |
+| Method     | Path                                                                   | 설명                                                                                                              |
+| ---------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| POST       | `/ai/generate`                                                         | Gemini SSE 텍스트 생성 (`text/event-stream`)                                                                      |
+| POST       | `/ai/generate-image`                                                   | Gemini 이미지 생성 (base64 PNG 반환)                                                                              |
+| POST       | `/ai/translate`                                                        | 번역 SSE                                                                                                          |
+| POST       | `/ai/extract-text`                                                     | PDF/DOCX/TXT → 텍스트 추출 (`multipart/form-data`)                                                                |
+| POST       | `/ai/analyze-references`                                               | URL 레퍼런스 fetch + Gemini 요약                                                                                  |
+| POST       | `/storage/presign`                                                     | R2 presigned upload URL 발급                                                                                      |
+| POST       | `/storage/delete`                                                      | R2 키 일괄 삭제                                                                                                   |
+| GET        | `/storage/proxy?url=`                                                  | R2 이미지 same-origin 프록시 (캔버스 CORS 우회)                                                                   |
+| POST       | `/naver/keywords`                                                      | 네이버 검색광고 API 키워드 조회                                                                                   |
+| POST       | `/google/keywords`                                                     | DataForSEO Google 키워드 조회                                                                                     |
+| POST       | `/keywords/recommend`                                                  | 황금키워드 오케스트레이션 (Gemini seed→Naver volume→3-tier 분류, Phase 2)                                         |
+| POST       | `/ideas/generate`                                                      | Gemini flash-lite 채널별 AI 아이디어 생성 (Phase 2)                                                               |
+| POST       | `/ideas/trending`                                                      | YouTube Data trending + Naver trend 집계 (Phase 2)                                                                |
+| GET        | `/auth/meta` · `/auth/meta/callback` · POST `/auth/meta/data-deletion` | **Meta OAuth**(top-level, `/api/auth/meta`) — 글로벌 암호화 연동. 상세 → memory `meta-connect-publish-2026-07-10` |
+| GET/DELETE | `/mkt/meta/connection`                                                 | Meta 연동 상태(토큰 제외 pages) / 해제                                                                            |
+| GET        | `/mkt/youtube/status`                                                  | 연결된 유튜브 채널(오디오북 공용) 상태                                                                            |
+| POST       | `/publish/run`                                                         | 발행 레코드 1건 즉시 발행 — 공용 실행기(`publish-executor`), IG/FB/Threads/YouTube                                |
+| POST       | `/publish/delete-post`                                                 | 발행된 채널 게시물 삭제(FB만)                                                                                     |
+| POST       | `/publish/meta`                                                        | (레거시) IG/FB/Threads 직접 발행 — 실행기로 대체됨                                                                |
+| POST       | `/analytics/overview`                                                  | GA4 방문/페이지뷰/세션 요약 (server-proxy, Phase 4)                                                               |
+| POST       | `/analytics/traffic`                                                   | GA4 트래픽 소스 (Phase 4)                                                                                         |
+| POST       | `/analytics/top-pages`                                                 | GA4 상위 페이지 (Phase 4)                                                                                         |
+| POST       | `/analytics/country-traffic`                                           | GA4 국가별 트래픽 (Phase 4)                                                                                       |
+| POST       | `/analytics/content-performance`                                       | GA4 콘텐츠 성과 (Phase 4)                                                                                         |
+| POST       | `/analytics/meta-insights`                                             | Meta(IG/FB/Threads) 인사이트 — 토큰 서버사이드 (Phase 4)                                                          |
+| POST       | `/analytics/youtube-channel`                                           | YouTube 채널 정보 (Phase 4)                                                                                       |
+| POST       | `/seo/audit`                                                           | URL SEO 감사 (cheerio + SSRF 가드, Phase 4)                                                                       |
+| POST       | `/seo/crawl`                                                           | URL 크롤 + 텍스트 추출 (Phase 4)                                                                                  |
+| POST       | `/seo/schema-generate`                                                 | JSON-LD 스키마 생성 (Gemini, Phase 4)                                                                             |
+| POST       | `/competitors/gap-analysis`                                            | 콘텐츠 갭 분석 (Gemini, Phase 4)                                                                                  |
+| POST       | `/competitors/keyword-rankings`                                        | 키워드 순위 (Gemini, Phase 4)                                                                                     |
+| POST       | `/competitors/suggest`                                                 | 경쟁사 추천 (Gemini, Phase 4)                                                                                     |
+| GET        | `/strategy/templates`                                                  | 전략 HTML 템플릿 목록 (disk readdir; import 파싱은 client-side, Phase 5)                                          |
+| POST       | `/monitoring/search`                                                   | 지식인/N블로그/구글블로그 스크레이프 + YouTube/IG (server-proxy, Phase 5)                                         |
+| POST       | `/monitoring/comment`                                                  | AI 댓글 생성 (Gemini, Phase 5)                                                                                    |
+| POST       | `/competitors/serp`                                                    | 경쟁사 SERP top-10 (DataForSEO `serp/google/organic/live/advanced`, Phase 5)                                      |
 
 서버 파일: `routes/mkt.routes.ts`, `controllers/mkt/{ai,storage,keywords,ideas,publish,analytics,seo,competitors,strategy,monitoring}.controller.ts`,
 `services/mkt/gemini-sse.service.ts`, `services/mkt/ideas.service.ts`,
@@ -343,23 +349,23 @@ RLS는 모든 테이블에서 `user_id = auth.uid()` 로 적용.
 
 ## 채널 구현 현황
 
-| 채널                             | 상태 | 컴포넌트                                                                                                                                                          |
-| -------------------------------- | ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 기본글 (Base Article)            | 완료 | `BaseArticlePanel.tsx` + TipTap 3.x                                                                                                                               |
-| N블로그 (Naver SEO)              | 완료 | `BlogPanel.tsx` — 4-step workflow (키워드→구조→생성→SEO)                                                                                                          |
-| 내부블로그 (Google/GEO)          | 완료 | `InternalBlogPanel.tsx`                                                                                                                                           |
-| 카드뉴스 (Instagram)             | 완료 | `CardNewsPanel.tsx` — 이미지 전용 풀블리드 카드 + 카드별 AI 프롬프트(한국어 텍스트 포함)·캐릭터 레퍼런스 바·전체 프롬프트 복사 (+ 레거시 Canvas 편집/WebP export) |
-| 스레드 (Threads)                 | 완료 | `ThreadsPanel.tsx`                                                                                                                                                |
-| 유튜브 (Phase 1c)                | 완료 | `YoutubePanel.tsx` — AI 대본, 씬별 이미지, 타임라인, 미리보기                                                                                                     |
-| 릴스 (숏폼)                      | 완료 | `ReelsPanel.tsx` — 스토리보드 iframe / 영상제작(언어별 mp4+커버) / 에디터 프리뷰. `숏폼` 탭 active=true                                                           |
-| 번역 (Phase 1d)                  | 완료 | `ChannelTranslationView.tsx` — 6채널 번역 overlay (non-ko)                                                                                                        |
-| 이미지 에디터 (Phase 1d)         | 완료 | `ImageEditorDialog.tsx` — blog/youtube ImageCardWidget 에서 Pencil                                                                                                |
-| 키워드/아이디어 (Phase 2)        | 완료 | `IdeasDashboard.tsx` — 5 서브탭 (N키워드/G키워드/유행/AI아이디어/보관함)                                                                                          |
-| 발행 (Phase 3)                   | 완료 | `PublishDashboard.tsx` — self_hosted 자동 스케줄러 + 발행 큐/달력 + 5단계 일괄 예약 + Naver 수동 복사                                                             |
-| 분석 (Phase 4)                   | 완료 | `SiteAnalysisDashboard.tsx`(GA4+SEO) · `MetaAnalyticsDashboard.tsx`(5 플랫폼) — server-proxy + recharts                                                           |
-| 모니터링/댓글 (Phase 5)          | 완료 | `MonitoringDashboard.tsx` — per-keyword 스크레이프/YouTube/IG 피드 + AI 댓글 (영속 키워드)                                                                        |
-| 광고 (Phase 5)                   | 완료 | `AdsDashboard.tsx` — 캠페인 기획 목업 (client-only) + 발행 레코드 read                                                                                            |
-| 경쟁사 (갭/순위/SERP, Phase 4+5) | 완료 | `CompetitorsDashboard.tsx` — 콘텐츠 갭 + 키워드 순위(Gemini) + SERP 분석(DataForSEO)                                                                              |
+| 채널                             | 상태 | 컴포넌트                                                                                                                                                                           |
+| -------------------------------- | ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 기본글 (Base Article)            | 완료 | `BaseArticlePanel.tsx` + TipTap 3.x                                                                                                                                                |
+| N블로그 (Naver SEO)              | 완료 | `BlogPanel.tsx` — 4-step workflow (키워드→구조→생성→SEO)                                                                                                                           |
+| 내부블로그 (Google/GEO)          | 완료 | `InternalBlogPanel.tsx`                                                                                                                                                            |
+| 카드뉴스 (Instagram)             | 완료 | `CardNewsPanel.tsx` — 이미지 전용 풀블리드 카드 + 카드별 AI 프롬프트(한국어 텍스트 포함)·캐릭터 레퍼런스 바·전체 프롬프트 복사 (+ 레거시 Canvas 편집/WebP export)                  |
+| 스레드 (Threads)                 | 완료 | `ThreadsPanel.tsx`                                                                                                                                                                 |
+| 유튜브 (Phase 1c)                | 완료 | `YoutubePanel.tsx` — AI 대본, 씬별 이미지, 타임라인, 미리보기                                                                                                                      |
+| 릴스 (숏폼)                      | 완료 | `ReelsPanel.tsx` — 스토리보드 iframe / 영상제작(언어별 mp4+커버) / 에디터 프리뷰. `숏폼` 탭 active=true                                                                            |
+| 번역 (Phase 1d)                  | 완료 | `ChannelTranslationView.tsx` — 6채널 번역 overlay (non-ko)                                                                                                                         |
+| 이미지 에디터 (Phase 1d)         | 완료 | `ImageEditorDialog.tsx` — blog/youtube ImageCardWidget 에서 Pencil                                                                                                                 |
+| 키워드/아이디어 (Phase 2)        | 완료 | `IdeasDashboard.tsx` — 5 서브탭 (N키워드/G키워드/유행/AI아이디어/보관함)                                                                                                           |
+| 발행 (Phase 3 + 실발행)          | 완료 | `PublishDashboard` + **Meta 연동/멀티채널 실발행**(2026-07-10): IG/FB/Threads/YouTube 쇼츠. 발행 큐=dflo 보드(언어pills+채널컬럼). 상세 → memory `meta-connect-publish-2026-07-10` |
+| 분석 (Phase 4)                   | 완료 | `SiteAnalysisDashboard.tsx`(GA4+SEO) · `MetaAnalyticsDashboard.tsx`(5 플랫폼) — server-proxy + recharts                                                                            |
+| 모니터링/댓글 (Phase 5)          | 완료 | `MonitoringDashboard.tsx` — per-keyword 스크레이프/YouTube/IG 피드 + AI 댓글 (영속 키워드)                                                                                         |
+| 광고 (Phase 5)                   | 완료 | `AdsDashboard.tsx` — 캠페인 기획 목업 (client-only) + 발행 레코드 read                                                                                                             |
+| 경쟁사 (갭/순위/SERP, Phase 4+5) | 완료 | `CompetitorsDashboard.tsx` — 콘텐츠 갭 + 키워드 순위(Gemini) + SERP 분석(DataForSEO)                                                                                               |
 
 ## 핵심 Gotchas (반드시 확인)
 
@@ -414,8 +420,8 @@ ContentFlow OKLCH 토큰은 전역 `:root` 가 아닌 `.marketing-scope` 클래�
 2. **스케줄러는 `server.ts` listen callback에서만 시작**: `createApp`은 테스트에서도 공유됨 — 거기서 `setInterval`을 시작하면 타이머 누수. 반드시 `server.ts`의 `app.listen(port, () => startPublishScheduler())` 에서만 호출.
 3. **`SUPABASE_SERVICE_ROLE_KEY` 서버 전용 — 절대 `VITE_` 접두사 금지**: `providers/supabase-admin.provider.ts`가 RLS를 우회하는 서비스롤 클라이언트를 생성. 환경변수는 `packages/server/.env`에만. 클라이언트 코드에서 import 금지.
 4. **`mkt_publish_records` insert 시 `user_id` 스탬프 필수**: schedule/bulk/meta 모든 경로에서 `user_id` 주입. 스케줄러의 `mkt_deploy_webhook_queue` upsert도 `user_id NOT NULL` RLS 만족 위해 스탬핑.
-5. **`handlePublishNow` = faithful no-op alert**: CF 원본 동작 그대로. self_hosted 실제 발행은 스케줄러가 담당. UI 버튼의 "즉시 발행"은 사용자 안내 alert만.
-6. **`POST /api/mkt/publish/meta` 구현됨이나 un-wired**: IG/FB/Threads Graph v21.0 엔드포인트 존재 (`publish.controller.ts` + `publish.service.ts`) 하지만 클라이언트 호출 없음. YouTube 발행은 완전 deferred.
+5. **~~`handlePublishNow` = no-op~~ → 실발행 배선됨 (2026-07-10)**: `PublishQueue`의 "즉시 발행"은 이제 메타 채널에서 **실제 `runPublish`**(`/api/mkt/publish/run`) 호출. self_hosted/youtube만 안내 alert.
+6. **~~`/publish/meta` un-wired~~ → 계정 연동 + 멀티채널 발행 완성 (2026-07-10)**: Meta 글로벌 OAuth 연동 + 공용 실행기(`publish-executor.service.ts`)로 IG/FB/Threads/**YouTube 쇼츠** 실발행. 릴스 패널 "소셜 발행" 버튼(`ReelsPublishDialog`)·카드뉴스 "소셜 발행"(`MetaPublishDialog`). 스케줄러 Step C=예약 자동발행. 🔴 상세·Meta앱 셋업·함정 → **memory `meta-connect-publish-2026-07-10`**. `mkt_meta_connection` 테이블(암호화 토큰) + `META_*` env(REDIRECT_BASE·TOKEN_ENC_KEY·EXTRA_PAGE_IDS 등).
 7. **R-5 시간대**: 일괄 예약(`BulkScheduleDialog`의 `distributeSchedule`) = UTC 기준 슬롯. 수동 reschedule + 달력 버케팅(`buildMonthGrid`) = 운영자 로컬 날짜. CF 원본과 동일 동작 — 내부적으로 일관됨.
 8. **M-1 `distributeSchedule` timeSlots 빈 값 예외**: Phase 0 이식 그대로 — `BulkScheduleDialog`의 timeSlots 필드를 비우면 throw. 마법사 UI가 가드함(노출되지 않음).
 9. **M-2 `BEST_POST_TIMES` self_hosted 키 없음**: `publish-times.ts`의 `BEST_POST_TIMES` 맵이 `wordpress`를 키로 쓰고 `self_hosted`가 없어서 self_hosted 행에 최적 시간 힌트 미표시. 가드됨(harmless — CF 원본 동일).
