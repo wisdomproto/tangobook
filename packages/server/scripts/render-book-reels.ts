@@ -41,6 +41,16 @@ async function loadRemotion() {
   };
 }
 
+/** 네트워크 작업(R2 업로드·Supabase)에 타임아웃 — stall 시 그 책만 실패 처리하고 계속. */
+function withTimeout<T>(p: Promise<T>, ms: number, label: string): Promise<T> {
+  return Promise.race([
+    p,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error(`timeout ${ms}ms: ${label}`)), ms)
+    ),
+  ]);
+}
+
 interface Args {
   book: string | null;
   limit: number | null;
@@ -152,19 +162,39 @@ async function main() {
 
       // ===== 썸네일만 갱신 모드 (영상 재렌더 없이 coverUrl 만 교체) =====
       if (args.thumbsOnly) {
-        const thumbPath = await renderThumb(id, props);
-        console.log(`  ✓ ${id} thumb(${morph === 'yes' ? 'styles' : 'poster'}) → ${thumbPath}`);
-        summary.rendered++;
-        if (props.styleMorph) summary.morphYes++;
-        if (args.dryRun) continue;
-        const target = await resolveMarketingTarget(id);
-        if (!target) {
-          console.log(`    · ${id} 마케팅 콘텐츠 없음 — skip`);
+        if (args.dryRun) {
+          const thumbPath = await renderThumb(id, props);
+          console.log(`  ✓ ${id} thumb(dry) → ${thumbPath}`);
+          summary.rendered++;
           continue;
         }
-        const coverUrl = await uploadThumbnail(target.projectId, id, thumbPath);
-        const result = await updateReelCover({ bookId: id, coverUrl });
-        console.log(`    · ${id} 썸네일 교체(${result}) → ${coverUrl}`);
+        // 대상 먼저 조회 → 이미 썸네일이면 건너뜀(재개 안전)
+        const target = await withTimeout(resolveMarketingTarget(id), 30000, `resolve ${id}`);
+        if (!target) {
+          console.log(`    · ${id} 마케팅 콘텐츠 없음 — skip`);
+          summary.skipped++;
+          continue;
+        }
+        const curCover = (target.igRow?.video_settings as any)?.reels?.ko?.coverUrl ?? '';
+        if (curCover.includes(`${id}-thumb-`)) {
+          console.log(`  = ${id} 이미 썸네일 있음 — skip`);
+          summary.skipped++;
+          continue;
+        }
+        const thumbPath = await renderThumb(id, props);
+        const coverUrl = await withTimeout(
+          uploadThumbnail(target.projectId, id, thumbPath),
+          60000,
+          `upload ${id}`
+        );
+        const result = await withTimeout(
+          updateReelCover({ bookId: id, coverUrl }),
+          30000,
+          `db ${id}`
+        );
+        console.log(`  ✓ ${id} 썸네일 교체(${result}) → ${coverUrl.slice(-46)}`);
+        summary.rendered++;
+        if (props.styleMorph) summary.morphYes++;
         continue;
       }
 
