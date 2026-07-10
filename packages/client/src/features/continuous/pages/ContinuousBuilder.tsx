@@ -61,9 +61,11 @@ export default function ContinuousBuilder() {
   const canSubmit = selectedIds.length > 0;
 
   return (
-    <div className="bg-gradient-to-b from-cream-50 to-peach-100 min-h-full">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-8 pt-6 pb-32">
-        <header className="mb-5 flex items-center gap-3">
+    // AppShell 헤더(h-16 md:h-20) 아래 뷰포트를 꽉 채우는 flex 컬럼 → 상단(헤더·선택·언어·검색)은
+    // 고정, 책 그리드만 내부 스크롤. (AppShell main 이 window 스크롤이라 position:sticky 가 안 먹음.)
+    <div className="flex h-[calc(100dvh-4rem)] flex-col bg-gradient-to-b from-cream-50 to-peach-100 md:h-[calc(100dvh-5rem)]">
+      <div className="mx-auto flex min-h-0 w-full max-w-[1200px] flex-1 flex-col px-6 pt-5 md:px-8">
+        <header className="mb-4 flex shrink-0 items-center gap-3">
           <button
             type="button"
             onClick={() => navigate('/continuous')}
@@ -80,9 +82,9 @@ export default function ContinuousBuilder() {
           </div>
         </header>
 
-        {/* 선택된 책 — 순서 조정 */}
+        {/* 선택된 책 — 순서 조정 (많이 담아도 상단이 안 커지게 max-h + 내부 스크롤) */}
         {selectedIds.length > 0 && (
-          <div className="mb-6 rounded-2xl bg-white shadow-soft p-4">
+          <div className="mb-4 max-h-[28vh] shrink-0 overflow-y-auto rounded-2xl bg-white p-4 shadow-soft">
             <h2 className="font-black text-ink-900 mb-2">선택한 책 ({selectedIds.length})</h2>
             <ol className="space-y-1.5">
               {selectedIds.map((id, i) => (
@@ -125,17 +127,18 @@ export default function ContinuousBuilder() {
           </div>
         )}
 
-        {/* 언어 선택 — 한국어·영어만 */}
-        <div className="mb-6">
-          <label className="block font-black text-ink-900 mb-2">언어</label>
-          <div className="flex flex-wrap gap-2">
+        {/* 상단 고정 영역 — 언어 + 검색 (책 그리드만 아래에서 스크롤) */}
+        <div className="mb-3 shrink-0">
+          {/* 언어 — 한국어·영어만 */}
+          <div className="mb-2.5 flex flex-wrap items-center gap-2">
+            <span className="mr-1 font-black text-ink-900">언어</span>
             {playlistLangs.map((l) => (
               <button
                 key={l.code}
                 type="button"
                 onClick={() => setLanguage(l.code)}
                 className={
-                  'rounded-full px-4 py-2 font-bold text-sm transition ' +
+                  'rounded-full px-4 py-1.5 font-bold text-sm transition ' +
                   (language === l.code
                     ? 'bg-coral-500 text-white shadow-soft'
                     : 'bg-white text-ink-600 shadow-soft hover:bg-ink-50')
@@ -145,25 +148,29 @@ export default function ContinuousBuilder() {
               </button>
             ))}
           </div>
-        </div>
 
-        {/* 책 그리드 — 카테고리별 + 검색 */}
-        <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="font-black text-ink-900">책 고르기</h2>
-          <div className="relative w-full sm:max-w-xs">
-            <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-400">
-              🔍
-            </span>
-            <input
-              type="search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="책 제목·카테고리 검색"
-              className="w-full rounded-full border-2 border-ink-100 bg-white py-2 pl-9 pr-4 text-sm font-bold text-ink-900 outline-none focus:border-coral-400"
-            />
+          {/* 책 고르기 + 검색 */}
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <h2 className="font-black text-ink-900">책 고르기</h2>
+            <div className="relative w-full sm:max-w-xs">
+              <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-400">
+                🔍
+              </span>
+              <input
+                type="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="책 제목·카테고리 검색"
+                className="w-full rounded-full border-2 border-ink-100 bg-white py-2 pl-9 pr-4 text-sm font-bold text-ink-900 outline-none focus:border-coral-400"
+              />
+            </div>
           </div>
         </div>
-        <BookMultiSelectGrid selectedIds={selectedIds} onToggle={toggle} search={search} />
+
+        {/* 책 그리드 — 유일한 스크롤 영역 */}
+        <div className="-mx-6 min-h-0 flex-1 overflow-y-auto px-6 pb-28 md:-mx-8 md:px-8">
+          <BookMultiSelectGrid selectedIds={selectedIds} onToggle={toggle} search={search} />
+        </div>
       </div>
 
       {/* 하단 고정 액션 바 */}
