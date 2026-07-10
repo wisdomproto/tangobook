@@ -34,6 +34,8 @@ import KoreanJamoStrokeBulkEditorPage from '../pages/KoreanJamoStrokeBulkEditorP
 import LetterFillDemoPage from '../pages/LetterFillDemoPage';
 import ConnectTheDotsDemoPage from '../pages/ConnectTheDotsDemoPage';
 import ViewerPage from '../pages/ViewerPage';
+import BlogListPage from '../features/blog-public/BlogListPage';
+import BlogPostPage from '../features/blog-public/BlogPostPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
 import LoginPage from '../features/auth/components/LoginPage';
@@ -117,6 +119,23 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <VocabularyStudyPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 공개 블로그 — AppShell 밖 풀폭 (동화·자연관찰 SEO 글, 외부 노출)
+        path: 'blog',
+        element: (
+          <ErrorBoundary>
+            <BlogListPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'blog/:slug',
+        element: (
+          <ErrorBoundary>
+            <BlogPostPage />
           </ErrorBoundary>
         ),
       },
