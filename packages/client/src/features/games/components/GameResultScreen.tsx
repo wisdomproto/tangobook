@@ -27,7 +27,7 @@ function praiseFor(score: number, total: number): { title: string; sub: string }
 }
 
 // 히어로 이미지 슬롯 — 사용자가 넣어줄 축하 일러스트. 없으면(로드 실패) 마스코트로 폴백.
-const HERO_IMAGE_URL = '/images/games/result-celebrate.png';
+const HERO_IMAGE_URL = '/images/games/result-celebrate.webp';
 
 /**
  * mvp-simplification 정책: 학습자 화면에서 별 UI 전부 hide.
