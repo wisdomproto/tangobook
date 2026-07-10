@@ -1,5 +1,7 @@
 # 동화책 릴스 배치 파이프라인 Implementation Plan
 
+> **상태(2026-07-10): ✅ 구현 완료.** Chunk 1~3 전부 스펙+품질 리뷰 통과, TDD 13테스트, 개구리 왕자 1권 full 검증(R2 200 + Supabase reels.ko) 후 명작 배치 = **성공 46 / 스킵 1(스토리보드 없음) / 실패 4(R2 책데이터 404)**. 자막은 스토리보드 subtitle 사용(나레이션 중간잘림 회피). 데이터 공백 5권은 원본 보존 후 `--book=<id>` 개별 재실행.
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 개구리 왕자 릴스를 props 기반 일반 컴포지션으로 만들고, 명작 51권 한국어 릴스를 자동 렌더해 R2 + 마케팅 페이지에 연결한다.
