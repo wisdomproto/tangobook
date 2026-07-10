@@ -16,6 +16,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Loader2, Copy, Check, Film, ExternalLink, Trash2 } from 'lucide-react';
 import { useContent } from '../../api/use-contents';
+import { ReelsPublishDialog } from '../publish/ReelsPublishDialog';
 import {
   useCreateInstagramContent,
   useUpdateInstagramContent,
@@ -88,6 +89,7 @@ export function ReelsPanel({ content, project }: ReelsPanelProps) {
 
   const [sub, setSub] = useState<Sub>('storyboard');
   const [reels, setReels] = useState<ReelsMap>({});
+  const [showPublish, setShowPublish] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [coverUploading, setCoverUploading] = useState(false);
   const [dragOver, setDragOver] = useState<'cover' | 'video' | null>(null);
@@ -230,10 +232,30 @@ export function ReelsPanel({ content, project }: ReelsPanelProps) {
             {s.label}
           </button>
         ))}
-        <span className="ml-auto rounded-full bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">
-          발행은 상단 📥 발행 큐에 넣기
-        </span>
+        <button
+          type="button"
+          onClick={() => setShowPublish(true)}
+          disabled={!cur.videoUrl}
+          className={cn(
+            'ml-auto rounded-full px-3 py-1 text-xs font-semibold transition-colors',
+            cur.videoUrl
+              ? 'bg-primary text-primary-foreground hover:opacity-90'
+              : 'bg-muted text-muted-foreground cursor-not-allowed'
+          )}
+          title={cur.videoUrl ? '' : '먼저 이 언어의 영상을 업로드하세요'}
+        >
+          📤 소셜 발행
+        </button>
       </div>
+
+      {showPublish && (
+        <ReelsPublishDialog
+          projectId={project.id}
+          contentId={content.id}
+          language={lang}
+          onClose={() => setShowPublish(false)}
+        />
+      )}
 
       {/* ── 스토리보드 ── */}
       {sub === 'storyboard' ? (
