@@ -305,14 +305,21 @@ function KoreanBlockPlayerInner({
   // 라이브러리 로딩 중 (phonicsLoading) 일 때는 spinner overlay 가 인터랙션을 막고 있어 호출 X.
   // 로딩 완료 후 라이브러리 miss 면 Web Speech API(`speechSynthesis`) 로 ko-KR 폴백.
   const prevSyllablesRef = useRef<string[]>([]);
+  // 단어를 완성하는 마지막 음절 — 여기서 바로 읽지 않고 handleCheck 가
+  // "마지막 글자 → 단어 → 칭찬" 체인의 첫 링크로 재생 (바로 재생하면 단어 발음이 끼어들어 잘림).
+  const pendingLastSyllableRef = useRef<{ url?: string; text: string } | null>(null);
   useEffect(() => {
     if (phonicsLoading) return;
     const prev = prevSyllablesRef.current;
+    const completesWord =
+      composedSyllables.join('') === currentItem.word && currentItem.word.length > 0;
     for (let i = 0; i < composedSyllables.length; i++) {
       const cur = composedSyllables[i];
       if (cur !== prev[i]) {
         const url = phonicsMapRef.current.get(cur);
-        if (url) {
+        if (completesWord) {
+          pendingLastSyllableRef.current = { url, text: cur };
+        } else if (url) {
           playAudio(url);
         } else if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
           try {
@@ -328,7 +335,7 @@ function KoreanBlockPlayerInner({
       }
     }
     prevSyllablesRef.current = [...composedSyllables];
-  }, [composedSyllables, playAudio, phonicsMapRef, phonicsLoading]);
+  }, [composedSyllables, playAudio, phonicsMapRef, phonicsLoading, currentItem.word]);
 
   // 정답 시 단어 타이핑 효과
   useEffect(() => {
@@ -491,28 +498,61 @@ function KoreanBlockPlayerInner({
       // FeedbackOverlay (호리 cheering + confetti + "잘했어!") 가 praiseVisible 기반으로 표시.
       // 한글 정책: phonics 음절 합성 우선 → 실패 시 ttsUrl 폴백 (resolveTtsUrl).
       (async () => {
-        const wordAudioUrl = await resolveTtsUrl({
+        // 마지막 음절 소리를 먼저 끝까지 재생 → 그 다음 단어 발음 → 칭찬 (체인).
+        // 음절 소리는 즉시 재생(반응성), 단어 URL 은 그 사이 백그라운드로 resolve.
+        const last = pendingLastSyllableRef.current;
+        pendingLastSyllableRef.current = null;
+        const wordUrlPromise = resolveTtsUrl({
           text: currentItem.word,
           language: 'korean',
           storybookId,
           directUrl: currentItem.ttsUrl,
           identifierPrefix: 'kblock',
         });
-        playCorrectSequence({
-          ttsUrl: wordAudioUrl,
-          language: 'ko',
-          onDone: () => {
-            // 단어 발음+칭찬 끝 → 그 단어가 나오는 동화 장면+나레이션 리빌 (있으면), 없으면 바로 다음.
-            const s = resolveSceneFromWord(
-              currentItem.word,
-              'ko',
-              sourceStorybook,
-              gameStyle.selectedStyle
-            );
-            if (s) setScene(s);
-            else goToNext(currentIndex);
-          },
-        });
+        const playWord = async () => {
+          const wordAudioUrl = await wordUrlPromise;
+          playCorrectSequence({
+            ttsUrl: wordAudioUrl,
+            language: 'ko',
+            onDone: () => {
+              // 단어 발음+칭찬 끝 → 그 단어가 나오는 동화 장면+나레이션 리빌 (있으면), 없으면 바로 다음.
+              const s = resolveSceneFromWord(
+                currentItem.word,
+                'ko',
+                sourceStorybook,
+                gameStyle.selectedStyle
+              );
+              if (s) setScene(s);
+              else goToNext(currentIndex);
+            },
+          });
+        };
+        if (last?.url) {
+          // 라이브러리 음절 mp3 → playAudio 가 ended/error/재생실패 모두에서 onEnded 호출 (안 멈춤).
+          playAudio(last.url, () => void playWord());
+        } else if (last && typeof window !== 'undefined' && 'speechSynthesis' in window) {
+          // 라이브러리 miss → speechSynthesis 로 음절 읽고 끝나면 단어. onend 미발화 대비 안전 타임아웃.
+          let advanced = false;
+          const go = () => {
+            if (advanced) return;
+            advanced = true;
+            void playWord();
+          };
+          try {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(last.text);
+            u.lang = 'ko-KR';
+            u.rate = 0.9;
+            u.onend = go;
+            u.onerror = go;
+            window.speechSynthesis.speak(u);
+            window.setTimeout(go, 1400);
+          } catch {
+            go();
+          }
+        } else {
+          void playWord();
+        }
       })();
     } else {
       playFeedbackSound(false);
@@ -527,6 +567,7 @@ function KoreanBlockPlayerInner({
     currentIndex,
     items,
     initGrid,
+    playAudio,
     playCorrectSequence,
     playFeedbackSound,
     roundCorrect,
