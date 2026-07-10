@@ -200,7 +200,10 @@ async function publishYouTube(
   recordId: string
 ): Promise<ExecResult> {
   const lang = (q.language as string) || 'ko';
-  const meta = (q.metadata ?? {}) as PublishMeta & { title?: string };
+  const meta = (q.metadata ?? {}) as PublishMeta & {
+    title?: string;
+    privacy?: 'public' | 'unlisted' | 'private';
+  };
 
   const reel = await loadReel(sb, q.content_id as string, lang);
   if (!reel.videoUrl) return fail(sb, recordId, '유튜브에 올릴 릴스 영상이 없습니다.');
@@ -222,7 +225,7 @@ async function publishYouTube(
       {
         title,
         description,
-        privacy: 'public',
+        privacy: meta.privacy || 'public',
         categoryId: '22',
         tags: ['탱고북', '동화', 'shorts'],
         language: lang,
