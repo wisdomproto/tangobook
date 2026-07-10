@@ -9,9 +9,9 @@ export const META_SCOPES = [
   'pages_show_list',
   'pages_manage_posts',
   'pages_read_engagement',
-  'pages_manage_metadata',
   'instagram_basic',
   'instagram_content_publish',
+  // pages_manage_metadata 제거 — 페이지 웹훅 구독용이라 발행엔 불필요. 요청하면 Invalid Scope 유발.
   // ⚠️ 광고 권한(ads_management/ads_read)은 뺐다 — 이 앱은 "Facebook 로그인" 이용 사례만 붙였고
   // 마케팅 API 제품이 없어서, ads_* 를 요청하면 로그인 다이얼로그에서 Invalid Scope 로 막힐 수 있다.
   // 광고 집행 기능을 붙일 때 마케팅 API 이용 사례 추가 + 여기에 ads_management/ads_read 재추가.
