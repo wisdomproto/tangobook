@@ -45,15 +45,16 @@ export function ContinuousControls() {
   };
 
   if (!visible) {
-    // "컨트롤 보기" 버튼 제거(재생 화면 immersive) → 하단을 탭하면 컨트롤을 연다.
-    // 하단 얇은 투명 영역이라 중앙의 첫 책 "탭해서 시작하기" 버튼(뷰어 내부 z-50)과 안 겹침.
-    // 나가기는 우상단 🏠(ContinuousPlayPage)가 상시 커버.
+    // 재생 중(started 후, 컨트롤 숨김) — 화면 아무 곳이나 탭하면 컨트롤을 연다.
+    // 🔴 전체화면 탭 레이어가 안전한 이유: 이 hidden 분기는 started(탭해서 시작함) 이후에만 뜬다.
+    //   시작 화면(started 전)엔 컨트롤이 보여(visible=true) 이 레이어 자체가 없으므로, 첫 책
+    //   "탭해서 시작하기" 게이트를 가리지 않는다. 우상단 🏠(z-80)는 이 위라 그대로 눌림.
     return (
       <button
         type="button"
         onClick={() => setVisible(true)}
         aria-label="컨트롤 열기"
-        className="fixed inset-x-0 bottom-0 z-[70] h-16"
+        className="fixed inset-0 z-[70]"
       />
     );
   }
