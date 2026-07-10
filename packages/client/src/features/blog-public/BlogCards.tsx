@@ -6,6 +6,17 @@ function str(v: unknown): string {
   return typeof v === 'string' ? v : '';
 }
 
+// 이미지 URL 안전 인코딩. 저장된 URL 이 이미 퍼센트 인코딩(%EA…)돼 있으면 그대로 쓰고
+// (encodeURI 하면 %→%25 이중 인코딩 → 404), 한글 등 raw 문자면 인코딩한다.
+function safeSrc(u: string): string {
+  try {
+    if (decodeURI(u) !== u) return u; // 이미 인코딩됨
+  } catch {
+    return u; // 깨진 인코딩 — 원본 유지
+  }
+  return encodeURI(u);
+}
+
 export function BlogCards({ cards }: { cards: BlogCardData[] }) {
   return (
     <div className="blog-prose space-y-5">
@@ -19,7 +30,7 @@ export function BlogCards({ cards }: { cards: BlogCardData[] }) {
           return (
             <figure key={i} className="my-6">
               <img
-                src={encodeURI(url)}
+                src={safeSrc(url)}
                 alt={str(ct.alt)}
                 loading="lazy"
                 className="w-full rounded-2xl"
@@ -65,7 +76,7 @@ export function BlogCards({ cards }: { cards: BlogCardData[] }) {
             {imgUrl && (
               <figure className="my-2">
                 <img
-                  src={encodeURI(imgUrl)}
+                  src={safeSrc(imgUrl)}
                   alt={str(ct.alt)}
                   loading="lazy"
                   className="w-full rounded-2xl"
