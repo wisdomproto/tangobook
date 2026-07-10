@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useStorybooks } from '@/features/storybook';
 import { useLibraryConfig, makeCategoryComparator } from '@/features/library';
+import { useStyleGenreMap, type StyleGenreSlug } from '@/lib/art-style-genre';
 import { SkeletonBookCard } from '@/design-system';
 import { cn } from '@/lib/cn';
 
@@ -11,6 +12,8 @@ interface BookMultiSelectGridProps {
   onToggle: (id: string) => void;
   /** 제목/카테고리 검색어 (없으면 전체). */
   search?: string;
+  /** 표지 미리보기 그림풍 (메인 라이브러리와 동일: coversByStyle × style-genre-map). 없으면 대표 표지. */
+  styleGenre?: StyleGenreSlug;
 }
 
 // 카테고리 헤더 이모지 (메인 라이브러리 sprite 대신 가벼운 폴백).
@@ -30,14 +33,29 @@ export function BookMultiSelectGrid({
   selectedIds,
   onToggle,
   search = '',
+  styleGenre,
 }: BookMultiSelectGridProps) {
   const { data: list, isLoading, isError } = useStorybooks();
   const { data: libConfig } = useLibraryConfig();
+  const { map: styleGenreMap } = useStyleGenreMap();
 
   const compareCategory = useMemo(
     () => makeCategoryComparator(libConfig?.categoryOrder),
     [libConfig?.categoryOrder]
   );
+
+  // 선택 그림풍의 표지 → 없으면 대표 표지(coverImage). (메인 라이브러리와 동일 로직)
+  const coverFor = (b: {
+    coverImage?: string;
+    coversByStyle?: Record<string, string>;
+  }): string | undefined => {
+    if (styleGenre && b.coversByStyle) {
+      for (const [styleId, url] of Object.entries(b.coversByStyle)) {
+        if (url && styleGenreMap[styleId] === styleGenre) return url;
+      }
+    }
+    return b.coverImage;
+  };
 
   // 공개 동화책 + **나레이션(모든 페이지 TTS) 있는 책만** (연속재생=자동 이어읽기라 무음 책 제외).
   const books = useMemo(
@@ -106,6 +124,7 @@ export function BookMultiSelectGrid({
             {catBooks.map((b) => {
               const order = orderOf.get(b.id);
               const selected = order !== undefined;
+              const cover = coverFor(b);
               return (
                 <button
                   key={b.id}
@@ -120,13 +139,13 @@ export function BookMultiSelectGrid({
                   <div
                     className={cn(
                       'relative aspect-video overflow-hidden rounded-2xl shadow-soft',
-                      !b.coverImage &&
+                      !cover &&
                         'flex items-center justify-center bg-gradient-to-br from-peach-200 to-peach-300 text-4xl'
                     )}
                   >
-                    {b.coverImage ? (
+                    {cover ? (
                       <img
-                        src={b.coverImage}
+                        src={cover}
                         alt={b.title}
                         className="h-full w-full object-cover"
                         loading="lazy"

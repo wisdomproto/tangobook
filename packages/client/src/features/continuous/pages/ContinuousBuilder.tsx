@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
+import { STYLE_GENRES, type StyleGenreSlug } from '@/lib/art-style-genre';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useStorybooks } from '@/features/storybook';
 import { beginPlaylist } from '../lib/begin-playlist';
@@ -22,6 +23,8 @@ export default function ContinuousBuilder() {
   const [language, setLanguage] = useState('ko');
   const [name, setName] = useState('');
   const [search, setSearch] = useState('');
+  // 표지 미리보기 그림풍 (메인 라이브러리와 동일 기본값). 재생은 각 책 대표 그림체 유지.
+  const [styleGenre, setStyleGenre] = useState<StyleGenreSlug>('watercolor');
 
   // 연속재생은 한국어·영어만 (나레이션·자막 지원 언어).
   const playlistLangs = SUPPORTED_LANGUAGES.filter((l) => l.code === 'ko' || l.code === 'en');
@@ -149,9 +152,24 @@ export default function ContinuousBuilder() {
             ))}
           </div>
 
-          {/* 책 고르기 + 검색 */}
+          {/* 책 고르기 + 그림풍 + 검색 */}
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <h2 className="font-black text-ink-900">책 고르기</h2>
+            <div className="flex items-center gap-2">
+              <h2 className="font-black text-ink-900">책 고르기</h2>
+              {/* 그림풍 — 표지 미리보기만 (세계명작 표지가 이 그림풍으로 swap, 나머지는 대표 표지) */}
+              <select
+                value={styleGenre}
+                onChange={(e) => setStyleGenre(e.target.value as StyleGenreSlug)}
+                aria-label="그림풍"
+                className="rounded-full border-2 border-ink-100 bg-white px-3 py-1.5 text-sm font-bold text-ink-700 outline-none focus:border-coral-400"
+              >
+                {STYLE_GENRES.map((g) => (
+                  <option key={g.slug} value={g.slug}>
+                    🎨 {g.label}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div className="relative w-full sm:max-w-xs">
               <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-400">
                 🔍
@@ -169,7 +187,12 @@ export default function ContinuousBuilder() {
 
         {/* 책 그리드 — 유일한 스크롤 영역 */}
         <div className="-mx-6 min-h-0 flex-1 overflow-y-auto px-6 pb-28 md:-mx-8 md:px-8">
-          <BookMultiSelectGrid selectedIds={selectedIds} onToggle={toggle} search={search} />
+          <BookMultiSelectGrid
+            selectedIds={selectedIds}
+            onToggle={toggle}
+            search={search}
+            styleGenre={styleGenre}
+          />
         </div>
       </div>
 
