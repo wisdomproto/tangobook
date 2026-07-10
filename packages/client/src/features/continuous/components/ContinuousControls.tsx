@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePlaylistStore } from '../store/playlist.store';
 import { cn } from '@/lib/cn';
@@ -27,9 +27,14 @@ export function ContinuousControls() {
   const skip = usePlaylistStore((s) => s.skip);
   const reset = usePlaylistStore((s) => s.reset);
   const togglePause = usePlaylistStore((s) => s.togglePause);
+  const started = usePlaylistStore((s) => s.started);
 
-  // 재생 시작 시 컨트롤은 숨긴 채로 — 화면(동화)을 가리지 않게. 하단 "컨트롤 보기" 로 열기.
-  const [visible, setVisible] = useState(false);
+  // 시작 화면(첫 책 "탭해서 시작하기") 동안은 컨트롤을 보여줘 속도·슬립타이머를 세팅하게 하고,
+  // 탭해서 시작하면(started) 숨긴다. 이후엔 하단 탭으로 다시 열고, 바의 ▾ 로 접는다.
+  const [visible, setVisible] = useState(true);
+  useEffect(() => {
+    if (started) setVisible(false);
+  }, [started]);
 
   const total = queue.length;
   const current = Math.min(index + 1, total);
@@ -54,7 +59,8 @@ export function ContinuousControls() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 flex flex-col gap-3 bg-ink-900/80 px-4 pb-5 pt-4 backdrop-blur-md">
+    // z-[70]: 시작 화면의 탭 게이트(뷰어 내부 z-50) 위에 떠서 세팅 가능.
+    <div className="fixed bottom-0 left-0 right-0 z-[70] flex flex-col gap-3 bg-ink-900/80 px-4 pb-5 pt-4 backdrop-blur-md">
       {/* 진행 표시 + 숨김 토글 */}
       <div className="flex items-center justify-between">
         <span className="font-display text-lg font-black text-white break-keep">

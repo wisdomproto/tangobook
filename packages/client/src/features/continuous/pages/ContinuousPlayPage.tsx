@@ -20,6 +20,7 @@ export default function ContinuousPlayPage() {
   const ended = usePlaylistStore((s) => s.ended);
   const paused = usePlaylistStore((s) => s.paused);
   const next = usePlaylistStore((s) => s.next);
+  const markStarted = usePlaylistStore((s) => s.markStarted);
   const restart = usePlaylistStore((s) => s.restart);
   const reset = usePlaylistStore((s) => s.reset);
   const clearSleep = usePlaylistStore((s) => s.clearSleep);
@@ -53,8 +54,9 @@ export default function ContinuousPlayPage() {
       //   그 탭이 오디오를 확실히 해금 → 2번째 책부터는 autoStart 로 자동 이어재생.
       autoStart: index > 0,
       paused,
+      onStart: markStarted,
     }),
-    [index, queue.length, next, speed, paused]
+    [index, queue.length, next, speed, paused, markStarted]
   );
 
   if (queue.length === 0) {

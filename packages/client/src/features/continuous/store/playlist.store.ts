@@ -12,12 +12,15 @@ interface PlaylistState {
   sleepMinutes: number | null;
   paused: boolean;
   ended: boolean;
+  /** 첫 책 "탭해서 시작하기" 를 눌러 재생을 시작했는지 — 시작 전엔 컨트롤을 보여주고, 시작하면 숨긴다. */
+  started: boolean;
 
   setQueue: (books: PlaylistItem[], language: string) => void;
   next: () => void;
   skip: () => void;
   restart: () => void;
   reset: () => void;
+  markStarted: () => void;
   setSpeed: (n: number) => void;
   togglePause: () => void;
   setSleep: (minutes: number | null) => void;
@@ -44,6 +47,7 @@ export const usePlaylistStore = create<PlaylistState>((set, get) => ({
   sleepMinutes: null,
   paused: false,
   ended: false,
+  started: false,
 
   setQueue: (books, language) => {
     clearSleepTimer();
@@ -54,6 +58,7 @@ export const usePlaylistStore = create<PlaylistState>((set, get) => ({
       ended: false,
       paused: false,
       sleepMinutes: null,
+      started: false,
     });
   },
 
@@ -70,7 +75,8 @@ export const usePlaylistStore = create<PlaylistState>((set, get) => ({
   // 현재 책 건너뛰기 = 다음 책으로 (동작 동일).
   skip: () => get().next(),
 
-  restart: () => set({ index: 0, ended: false }),
+  // 다시 보기 — 첫 책부터 → 시작 화면(컨트롤 표시) 다시 노출.
+  restart: () => set({ index: 0, ended: false, started: false }),
 
   reset: () => {
     clearSleepTimer();
@@ -82,8 +88,11 @@ export const usePlaylistStore = create<PlaylistState>((set, get) => ({
       sleepMinutes: null,
       paused: false,
       ended: false,
+      started: false,
     });
   },
+
+  markStarted: () => set({ started: true }),
 
   setSpeed: (n) => set({ speed: n }),
 
