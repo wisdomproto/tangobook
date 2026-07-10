@@ -1,12 +1,21 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
-import { STYLE_GENRES, type StyleGenreSlug } from '@/lib/art-style-genre';
+import {
+  STYLE_GENRES,
+  classifyGenre,
+  useStyleGenreMap,
+  type StyleGenreSlug,
+} from '@/lib/art-style-genre';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useStorybooks } from '@/features/storybook';
 import { beginPlaylist } from '../lib/begin-playlist';
 import { useCreatePlaylist } from '../hooks/usePlaylists';
 import { BookMultiSelectGrid } from '../components/BookMultiSelectGrid';
+
+const GENRE_SLUG_LABEL: Record<string, string> = Object.fromEntries(
+  STYLE_GENRES.map((g) => [g.slug, g.label])
+);
 
 /**
  * 세트 만들기 — 책 다중 선택 + 순서 조정 + 언어 선택.
@@ -17,6 +26,7 @@ export default function ContinuousBuilder() {
   const navigate = useNavigate();
   const { account } = useAuth();
   const { data: books } = useStorybooks();
+  const { map: styleGenreMap } = useStyleGenreMap();
   const createPlaylist = useCreatePlaylist();
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -32,7 +42,36 @@ export default function ContinuousBuilder() {
   const isGuest = !account?.id;
 
   const titleOf = (id: string) => (books ?? []).find((b) => b.id === id)?.title ?? id;
-  const coverOf = (id: string) => (books ?? []).find((b) => b.id === id)?.coverImage;
+
+  // 선택한 책의 표지(선택 그림풍 우선) + 그림체 장르명. (없으면 대표 표지/장르)
+  const coverGenreOf = (id: string): { cover?: string; genre?: string } => {
+    const b = (books ?? []).find((x) => x.id === id) as
+      | { coverImage?: string; artStyle?: string; coversByStyle?: Record<string, string> }
+      | undefined;
+    if (!b) return {};
+    const cbs = b.coversByStyle;
+    // 1) 현재 선택 그림풍을 이 책이 가지고 있으면 그 표지·장르
+    if (styleGenre && cbs) {
+      for (const [styleId, url] of Object.entries(cbs)) {
+        if (url && styleGenreMap[styleId] === styleGenre) {
+          return { cover: url, genre: GENRE_SLUG_LABEL[styleGenre] };
+        }
+      }
+    }
+    // 2) 폴백 — 대표 표지 + 대표 장르(맵 우선, 없으면 프롬프트 분류)
+    let genre: string | undefined;
+    if (cbs) {
+      for (const styleId of Object.keys(cbs)) {
+        const slug = styleGenreMap[styleId];
+        if (slug && GENRE_SLUG_LABEL[slug]) {
+          genre = GENRE_SLUG_LABEL[slug];
+          break;
+        }
+      }
+    }
+    if (!genre) genre = classifyGenre(b.artStyle, b.artStyle) ?? undefined;
+    return { cover: b.coverImage, genre };
+  };
 
   const toggle = (id: string) =>
     setSelectedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
@@ -124,57 +163,65 @@ export default function ContinuousBuilder() {
           <div className="mb-4 max-h-[28vh] shrink-0 overflow-y-auto rounded-2xl bg-white p-4 shadow-soft">
             <h2 className="font-black text-ink-900 mb-2">선택한 책 ({selectedIds.length})</h2>
             <ol className="space-y-1.5">
-              {selectedIds.map((id, i) => (
-                <li
-                  key={id}
-                  className="flex items-center gap-2 rounded-xl bg-peach-50 px-2.5 py-1.5"
-                >
-                  <span className="w-6 h-6 rounded-full bg-coral-500 text-white text-sm font-black flex items-center justify-center shrink-0">
-                    {i + 1}
-                  </span>
-                  {coverOf(id) ? (
-                    <img
-                      src={coverOf(id)}
-                      alt=""
-                      loading="lazy"
-                      className="h-8 w-12 shrink-0 rounded-md object-cover shadow-soft"
-                    />
-                  ) : (
-                    <span className="flex h-8 w-12 shrink-0 items-center justify-center rounded-md bg-peach-200 text-sm">
-                      📖
+              {selectedIds.map((id, i) => {
+                const { cover, genre } = coverGenreOf(id);
+                return (
+                  <li
+                    key={id}
+                    className="flex items-center gap-2 rounded-xl bg-peach-50 px-2.5 py-1.5"
+                  >
+                    <span className="w-6 h-6 rounded-full bg-coral-500 text-white text-sm font-black flex items-center justify-center shrink-0">
+                      {i + 1}
                     </span>
-                  )}
-                  <span className="flex-1 font-bold text-ink-800 truncate break-keep">
-                    {titleOf(id)}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => move(i, -1)}
-                    disabled={i === 0}
-                    aria-label="위로"
-                    className="w-8 h-8 rounded-lg bg-white shadow-soft font-black text-ink-600 disabled:opacity-30 hover:bg-ink-50 transition"
-                  >
-                    ↑
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => move(i, 1)}
-                    disabled={i === selectedIds.length - 1}
-                    aria-label="아래로"
-                    className="w-8 h-8 rounded-lg bg-white shadow-soft font-black text-ink-600 disabled:opacity-30 hover:bg-ink-50 transition"
-                  >
-                    ↓
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => toggle(id)}
-                    aria-label="빼기"
-                    className="w-8 h-8 rounded-lg bg-white shadow-soft font-black text-ink-500 hover:text-red-500 transition"
-                  >
-                    ✕
-                  </button>
-                </li>
-              ))}
+                    {cover ? (
+                      <img
+                        src={cover}
+                        alt=""
+                        loading="lazy"
+                        className="h-8 w-12 shrink-0 rounded-md object-cover shadow-soft"
+                      />
+                    ) : (
+                      <span className="flex h-8 w-12 shrink-0 items-center justify-center rounded-md bg-peach-200 text-sm">
+                        📖
+                      </span>
+                    )}
+                    <span className="min-w-0 flex-1 truncate break-keep font-bold text-ink-800">
+                      {titleOf(id)}
+                    </span>
+                    {genre && (
+                      <span className="hidden shrink-0 rounded-full bg-peach-200 px-2 py-0.5 text-[11px] font-bold text-ink-600 sm:inline">
+                        🎨 {genre}
+                      </span>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => move(i, -1)}
+                      disabled={i === 0}
+                      aria-label="위로"
+                      className="w-8 h-8 rounded-lg bg-white shadow-soft font-black text-ink-600 disabled:opacity-30 hover:bg-ink-50 transition"
+                    >
+                      ↑
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => move(i, 1)}
+                      disabled={i === selectedIds.length - 1}
+                      aria-label="아래로"
+                      className="w-8 h-8 rounded-lg bg-white shadow-soft font-black text-ink-600 disabled:opacity-30 hover:bg-ink-50 transition"
+                    >
+                      ↓
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => toggle(id)}
+                      aria-label="빼기"
+                      className="w-8 h-8 rounded-lg bg-white shadow-soft font-black text-ink-500 hover:text-red-500 transition"
+                    >
+                      ✕
+                    </button>
+                  </li>
+                );
+              })}
             </ol>
           </div>
         )}
@@ -201,10 +248,10 @@ export default function ContinuousBuilder() {
             ))}
           </div>
 
-          {/* 책 고르기 + 그림풍 + 검색 */}
+          {/* 그림체 고르기(그림풍) + 검색 */}
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2">
-              <h2 className="font-black text-ink-900">책 고르기</h2>
+              <h2 className="font-black text-ink-900">그림체 고르기</h2>
               {/* 그림풍 — 표지 미리보기만 (세계명작 표지가 이 그림풍으로 swap, 나머지는 대표 표지) */}
               <select
                 value={styleGenre}
