@@ -57,6 +57,18 @@
       '.ep-item.done a{text-decoration:line-through;color:var(--ink-soft);}',
       '.ep-badge{flex:0 0 auto;cursor:pointer;border:0;background:transparent;font-size:15px;line-height:1;padding:3px;border-radius:6px;}',
       '.ep-badge:hover{background:#f1f1f1;}',
+      '.ep-memo{flex:0 0 auto;cursor:pointer;border:0;background:transparent;font-size:14px;line-height:1;padding:3px;border-radius:6px;opacity:.35;}',
+      '.ep-memo:hover{background:#f1f1f1;opacity:.75;}',
+      '.ep-memo.has{opacity:1;}',
+      '#ep-memo-modal{position:fixed;inset:0;z-index:1003;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;padding:16px;}',
+      '#ep-memo-modal.on{display:flex;}',
+      '#ep-memo-modal .box{background:#fff;border-radius:14px;width:min(480px,94vw);max-height:86vh;display:flex;flex-direction:column;box-shadow:0 12px 40px rgba(0,0,0,.3);overflow:hidden;}',
+      '#ep-memo-modal .mhead{padding:14px 16px;border-bottom:1px solid var(--line);font-weight:800;font-size:15px;color:var(--ink);word-break:keep-all;}',
+      '#ep-memo-modal textarea{border:0;outline:none;resize:none;padding:14px 16px;font-family:inherit;font-size:14px;line-height:1.6;min-height:180px;flex:1;color:var(--ink);background:#fff;}',
+      '#ep-memo-modal .mrow{display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;border-top:1px solid var(--line);}',
+      '#ep-memo-modal button{border:0;border-radius:9px;padding:9px 18px;font-weight:800;font-size:13px;cursor:pointer;}',
+      '#ep-memo-modal .save{background:var(--coral);color:#fff;}',
+      '#ep-memo-modal .cancel{background:#eee;color:var(--ink-soft);}',
       'body.ep-open #ep-backdrop{opacity:1;pointer-events:auto;}',
       '@media(min-width:1024px){body.ep-open #ep-backdrop{opacity:0;pointer-events:none;}}',
     ].join('');
@@ -194,6 +206,45 @@
     var STATUS_API = '/api/saenghwal-status';
     var status = {};
     try { var rs = await fetch(STATUS_API); var jss = await rs.json(); status = (jss && jss.data) || {}; } catch (e) {}
+    var MEMO_API = '/api/saenghwal-memo';
+    var memo = {};
+    try { var rm = await fetch(MEMO_API); var jm = await rm.json(); memo = (jm && jm.data) || {}; } catch (e) {}
+
+    // 메모 편집 모달 (1회 생성, 회차 공용)
+    var modal = document.createElement('div'); modal.id = 'ep-memo-modal';
+    modal.innerHTML = '<div class="box"><div class="mhead"></div>' +
+      '<textarea placeholder="이 회차 메모…"></textarea>' +
+      '<div class="mrow"><button class="cancel" type="button">취소</button><button class="save" type="button">저장</button></div></div>';
+    document.body.appendChild(modal);
+    var mHead = modal.querySelector('.mhead');
+    var mTa = modal.querySelector('textarea');
+    var cur = null; // { docId, onSaved }
+    function closeModal() { modal.classList.remove('on'); cur = null; }
+    function openMemo(docId, title, onSaved) {
+      cur = { docId: docId, onSaved: onSaved };
+      mHead.textContent = title;
+      mTa.value = memo[docId] || '';
+      modal.classList.add('on');
+      setTimeout(function () { mTa.focus(); }, 30);
+    }
+    modal.querySelector('.cancel').addEventListener('click', closeModal);
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+    modal.querySelector('.save').addEventListener('click', async function () {
+      if (!cur) return;
+      var docId = cur.docId, onSaved = cur.onSaved, text = mTa.value, prev = memo[docId] || '';
+      if (text.trim()) memo[docId] = text; else delete memo[docId];
+      if (onSaved) onSaved(!!text.trim());
+      closeModal();
+      try {
+        var r = await fetch(MEMO_API, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ docId: docId, memo: text }) });
+        if (!r.ok) throw new Error('http');
+      } catch (err) {
+        if (prev) memo[docId] = prev; else delete memo[docId];
+        if (onSaved) onSaved(!!prev);
+        alert('메모 저장 실패 — 서버 확인');
+      }
+    });
+
     var idx = [];
     try { var ri = await fetch('/saenghwal-index.json'); idx = await ri.json(); } catch (e) {}
     var eps = idx
@@ -219,6 +270,16 @@
       row.className = 'ep-item' + (e.file === here ? ' active' : '') + (s === 'done' ? ' done' : '');
       var n = document.createElement('span'); n.className = 'n'; n.textContent = e.num;
       var a = document.createElement('a'); a.href = e.file; a.textContent = e.title;
+      var mbtn = document.createElement('button');
+      mbtn.type = 'button'; mbtn.className = 'ep-memo' + (memo[e.docId] ? ' has' : ''); mbtn.textContent = '📝';
+      mbtn.title = (memo[e.docId] ? '메모 있음' : '메모 없음') + ' (클릭하여 편집)';
+      mbtn.addEventListener('click', function (ev) {
+        ev.preventDefault(); ev.stopPropagation();
+        openMemo(e.docId, e.title, function (has) {
+          mbtn.classList.toggle('has', has);
+          mbtn.title = (has ? '메모 있음' : '메모 없음') + ' (클릭하여 편집)';
+        });
+      });
       var badge = document.createElement('button');
       badge.type = 'button'; badge.className = 'ep-badge'; badge.textContent = ICON[s]; badge.title = LABEL[s] + ' (클릭하여 변경)';
       badge.addEventListener('click', async function (ev) {
@@ -238,7 +299,7 @@
           alert('상태 저장 실패 — 서버 확인');
         }
       });
-      row.appendChild(n); row.appendChild(a); row.appendChild(badge);
+      row.appendChild(n); row.appendChild(a); row.appendChild(mbtn); row.appendChild(badge);
       list.appendChild(row);
     });
     updateSummary();
