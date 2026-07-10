@@ -1,6 +1,7 @@
 import { SelfHostedCard } from './SelfHostedCard';
 import type { Project } from '../../types/database';
 import { useMetaConnection } from '../../api/use-meta-connection';
+import { useYoutubeStatus } from '../../api/use-youtube-status';
 
 const CHANNELS = [
   {
@@ -20,11 +21,12 @@ interface Props {
 export function ChannelCards({ project }: Props) {
   // 글로벌 Meta 연동 상태(설정 화면과 동일 소스) — project.meta_credentials(레거시) 아님.
   const { data: conn } = useMetaConnection();
+  const { data: yt } = useYoutubeStatus();
   const metaConnected = !!conn?.connected;
 
   function isConnected(channelId: string): boolean {
     if (channelId === 'instagram' || channelId === 'facebook') return metaConnected;
-    // YouTube: 자동 발행 미구현 → 항상 미연결
+    if (channelId === 'youtube') return !!yt?.connected;
     return false;
   }
 

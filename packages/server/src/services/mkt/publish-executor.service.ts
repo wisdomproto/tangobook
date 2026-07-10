@@ -16,6 +16,7 @@ import {
   deletePost,
 } from './external/meta-graph-publish.js';
 import { getBundle, findPageToken } from './meta-connection.store.js';
+import { YouTubeProvider } from '../../providers/youtube.provider.js';
 
 export interface ExecResult {
   ok: boolean;
@@ -85,6 +86,9 @@ export async function publishRecord(recordId: string): Promise<ExecResult> {
 
   const { data: q } = await sb.from('mkt_publish_records').select('*').eq('id', recordId).single();
   if (!q) return { ok: false, error: '발행 레코드 없음' };
+
+  // YouTube 는 Meta 번들/토큰이 아니라 기존 youtube.provider(오디오북·롱폼 공용) 로 업로드.
+  if (q.channel === 'youtube') return publishYouTube(sb, q, recordId);
 
   const platform = q.channel as Platform;
   if (!['facebook', 'instagram', 'threads'].includes(platform)) {
@@ -183,6 +187,64 @@ export async function deleteChannelPost(recordId: string): Promise<ExecResult> {
     return { ok: true };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : '게시물 삭제 실패' };
+  }
+}
+
+/**
+ * YouTube(쇼츠) 발행. 릴스 mp4 를 R2에서 받아 기존 youtube.provider 로 업로드.
+ * target_id(metadata) = 내부 유튜브 채널 id(선택, 없으면 첫 채널). 제목=콘텐츠 제목, 설명=캡션+#Shorts.
+ */
+async function publishYouTube(
+  sb: SupabaseClient,
+  q: Record<string, unknown>,
+  recordId: string
+): Promise<ExecResult> {
+  const lang = (q.language as string) || 'ko';
+  const meta = (q.metadata ?? {}) as PublishMeta & { title?: string };
+
+  const reel = await loadReel(sb, q.content_id as string, lang);
+  if (!reel.videoUrl) return fail(sb, recordId, '유튜브에 올릴 릴스 영상이 없습니다.');
+
+  const { data: c } = await sb
+    .from('mkt_contents')
+    .select('title')
+    .eq('id', q.content_id as string)
+    .single();
+  const title = (meta.title || (c?.title as string) || '탱고북 동화').slice(0, 100);
+  const description = [reel.caption?.trim(), '#Shorts #탱고북 #동화'].filter(Boolean).join('\n\n');
+
+  try {
+    const res = await fetch(encodeURI(reel.videoUrl));
+    if (!res.ok) return fail(sb, recordId, `영상 다운로드 실패 (${res.status})`);
+    const buf = Buffer.from(await res.arrayBuffer());
+    const up = await YouTubeProvider.uploadVideo(
+      buf,
+      {
+        title,
+        description,
+        privacy: 'public',
+        categoryId: '22',
+        tags: ['탱고북', '동화', 'shorts'],
+        language: lang,
+      },
+      undefined,
+      meta.target_id || undefined
+    );
+    const now = new Date().toISOString();
+    await sb
+      .from('mkt_publish_records')
+      .update({
+        status: 'published',
+        platform_post_id: up.videoId,
+        published_url: up.videoUrl,
+        published_at: now,
+        error_message: null,
+        updated_at: now,
+      })
+      .eq('id', recordId);
+    return { ok: true, postId: up.videoId };
+  } catch (e) {
+    return fail(sb, recordId, e instanceof Error ? e.message : 'YouTube 발행 실패');
   }
 }
 
