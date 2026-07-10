@@ -17,8 +17,8 @@
 
 - **`WeeklyHeroCard`** — 최상단. peach→coral 그라디언트 + 호리(주간활동>0=celebrating/0=waving) + "이번 주 책 N권을 만났어요!" + `📖 이번 주 약 N분 · 🔥 연속 N일`(streak≥2만) + **최근 7일 읽기 리듬 도트**(`weekActivity`). 기존 숫자카드 3개(`StorybookSummaryCards`) 흡수·삭제. 분(分)도 이번 주 이벤트 기준.
 - **`RecentBooksStrip`** — **완독 게이트 없음**: `recentBooks()`(page_read 책별 group, 최근순)로 읽다 만 책도 표지 노출. 완독(`completedBooks` 맵)=`끝까지 읽음 🎉` coral 리본+"N번이나 읽었어요" / 미완=`읽는 중` amber 칩. 날짜 `formatKstDate`("6월 30일"). 기존 `CompletedBooksList` 대체·삭제.
-- **만난 단어** — 최근순(`metWords` lastAt desc) 40개 + "모두 N개" + 초과분 "외 N개" pill.
-- **그림체** — `<details>` 커스텀 marker(▶ 회전), `ArtStyleDistributionCard` `bare` prop(카드 chrome 없이 리스트만).
+- **학습한 단어** (`MetWordsCard`, 2026-07-10) — 단어별 **카드 그리드**(표지 썸네일 + 단어 + 만난 책 이름"외 N권" + `📖 읽음`(word_exposed)/`🎮 게임`(word_correct/wrong/spoken) 배지). 기본 24개 + "전체 N개 보기" 토글(전부). 🔴 **언어 분류 = 단어 문자(`wordScriptLang`) 기준** — `metadata.lang` 누락 시 한/영 탭에 섞이던 버그 해결. 데이터=`wordDetails(events, lang)`.
+- **그림체** — `<details>` marker + `ArtStyleGenreCard`(`bare`). 🔴 **메인 3종 장르만**(수채동화풍·페이퍼 3D 아트·콜라주, 이름 노출) — `groupByGenre` + `useStyleGenreLabel`(style→장르), 3종 아닌 스타일 제외. (구 `ArtStyleDistributionCard`="그림체 N" 익명 버전은 미사용 보존.)
 - **빈 상태** — `ReportEmptyState` `mascot`/`ctaLabel`/`ctaTo` prop(호리 waving + "동화책 보러 가기"→/library).
 - **로딩** — ParentReportsPage 가 스켈레톤 렌더(0 플래시 방지). 페이지 헤더는 제목 한 줄만(수치 없음 — 히어로가 단일 소스, 헤더/본문 파닉스 필터 불일치 버그 제거).
 - 진입은 **ParentGate(어른 확인 곱셈, auth 모듈)** 통과 후 — `/parent/*` 전체 래핑.
@@ -36,12 +36,12 @@
 - `phoneme_correct` / `phoneme_wrong` (영어: `metadata.phoneme`)
 - `LearningEventMetadata` 강타입 (shared)
 
-## 그림체 분포 (`ArtStyleDistributionCard`)
+## 그림체 분포 (`ArtStyleGenreCard`, 2026-07-10 — 장르 3종)
 
-- `groupByArtStyle(events, storybooksById, lang?)` — `metadata.style` 우선, 없으면 `storybooks.artStyle` 폴백, 둘 다 없으면 `'unknown'` 버킷
-- variant ID (`book__L1/L2/L3`) → base ID strip 폴백 (`stripVariantSuffix`)
-- 🔴 **라벨 = "그림체 N" 익명 표기** (2026-07-03, 저작권 예방 — 학습자/부모 화면 실명 비노출 전역 정책, BookDetail 칩과 통일). 실명 헬퍼 `getArtStyleLabel/Emoji`(id/prompt 양방향 매칭)는 export 보존(저작도구용·정책 변경 시 복구)
-- 가로 막대 (🎨 + "그림체 N" + 권수 + %)
+- `groupByGenre(events, storybooksById, resolveGenre, lang?)` — `metadata.style`(없으면 book `artStyle` 폴백) → `resolveGenre` 로 **장르명 or null**(3종 아님=제외) 변환 후 집계. variant ID → base strip.
+- `resolveGenre` = 컴포넌트가 `useStyleGenreLabel()`(수동 `style-genre-map` + 프롬프트 `classifyGenre`)로 만들어 넘김. 3종 라벨(`STYLE_GENRES`: 수채동화풍·페이퍼 3D 아트·콜라주)에 매칭될 때만 통과.
+- 🔴 **메인 3종 장르명 노출** — 라이브러리 드롭박스와 동일한 학습자 장르 라벨(마케팅 안전, 실명 아님). 구 `ArtStyleDistributionCard`(그림체 N 익명 + `getArtStyleLabel/Emoji`)는 미사용 보존(정책 변경 시 복구).
+- 가로 막대 (이모지 + 장르명 + 권수 + %)
 
 ## 타겟 단어 마스터리 (한/영)
 
