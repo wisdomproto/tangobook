@@ -128,8 +128,11 @@ const ALL_VOWELS: JamoBlock[] = VOWEL_ORDER.map((ch, i) => ({
  * 알고리즘: 위→아래, 좌→우 스캔. cho 발견 시 우측 (수평 모음) 우선 → 없으면 아래 (수직 모음) 시도.
  * 합성에 쓰인 셀은 다시 cho 로 처리되지 않게 mark.
  */
-function parseSpatialKorean(grid: (string | null)[][]): string[] {
-  const out: string[] = [];
+export function parseSpatialKorean(grid: (string | null)[][]): string[] {
+  // 음절을 시작(cho) 위치와 함께 모아, 마지막에 **읽기 순서(열 왼→오, 같은 열이면 위→아래)**로 정렬.
+  // 🔴 행 순서로 읽으면 '거울' 처럼 뒤 음절이 세로(수직모음+받침)라 cho 가 윗행에 오는 경우
+  //    (울 ㅇ=row0, 거 ㄱ=row1) → '울거' 로 잘못 읽힘. 열 우선 정렬로 한글 읽기 순서 보장(2026-07-10).
+  const out: { syl: string; r: number; c: number }[] = [];
   const used = new Set<string>(); // 'r-c' — jung/jong 으로 흡수된 셀
   for (let r = 0; r < grid.length; r++) {
     let c = 0;
@@ -159,7 +162,7 @@ function parseSpatialKorean(grid: (string | null)[][]): string[] {
           used.add(`${r + 1}-${c + 1}`);
         }
         const composed = composeHangul(cho, jungH, jong);
-        if (composed) out.push(composed);
+        if (composed) out.push({ syl: composed, r, c });
         c += 2;
         continue;
       }
@@ -176,7 +179,7 @@ function parseSpatialKorean(grid: (string | null)[][]): string[] {
           used.add(`${r + 2}-${c}`);
         }
         const composed = composeHangul(cho, jungV, jong);
-        if (composed) out.push(composed);
+        if (composed) out.push({ syl: composed, r, c });
         c++;
         continue;
       }
@@ -184,7 +187,9 @@ function parseSpatialKorean(grid: (string | null)[][]): string[] {
       c++;
     }
   }
-  return out;
+  // 읽기 순서 = 음절 시작(cho) 위치 왼→오(열 우선), 같은 열이면 위→아래.
+  out.sort((a, b) => a.c - b.c || a.r - b.r);
+  return out.map((x) => x.syl);
 }
 
 // 3행 × 6열 고정 그리드 — 각 행이 1음절. 단어 음절 수 ≤ 3 가정.
