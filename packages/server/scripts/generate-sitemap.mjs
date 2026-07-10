@@ -99,6 +99,28 @@ async function main() {
   entries.push(urlEntry({ loc: `${SITE_URL}/library`, lastmod: today, changefreq: 'daily', priority: 0.9 }));
   entries.push(urlEntry({ loc: `${SITE_URL}/library/phonics/korean`, lastmod: today, changefreq: 'weekly', priority: 0.7 }));
   entries.push(urlEntry({ loc: `${SITE_URL}/vocabulary`, lastmod: today, changefreq: 'weekly', priority: 0.6 }));
+  entries.push(urlEntry({ loc: `${SITE_URL}/blog`, lastmod: today, changefreq: 'daily', priority: 0.8 }));
+
+  // 공개 블로그 (발행된 self_hosted 내부 블로그) — 공개 API 에서 목록 fetch
+  let blogCount = 0;
+  try {
+    const res = await fetch(`${SITE_URL}/api/blog`);
+    const body = await res.json();
+    const posts = Array.isArray(body?.data) ? body.data : [];
+    for (const p of posts) {
+      if (!p?.slug) continue;
+      entries.push(urlEntry({
+        loc: `${SITE_URL}/blog/${encodeURIComponent(p.slug)}`,
+        lastmod: fmtDate(p.publishedAt),
+        changefreq: 'monthly',
+        priority: 0.7,
+      }));
+      blogCount++;
+    }
+    console.log(`[sitemap] 공개 블로그: ${blogCount}`);
+  } catch (e) {
+    console.warn(`[sitemap] 블로그 목록 실패 (스킵): ${e.message}`);
+  }
 
   // 책별 라우트
   let publicCount = 0;
@@ -158,8 +180,9 @@ async function main() {
   console.log('[sitemap] 작성 완료:');
   console.log(`  ${outPath}`);
   console.log(`  공개 책: ${publicCount} (책당 2 URL = ${publicCount * 2})`);
-  console.log(`  정적: 4`);
-  console.log(`  총 URL: ${4 + publicCount * 2}`);
+  console.log(`  공개 블로그: ${blogCount}`);
+  console.log(`  정적: 5`);
+  console.log(`  총 URL: ${5 + publicCount * 2 + blogCount}`);
   console.log(`  스킵: variant=${skippedVariant} private=${skippedPrivate} non-storybook=${skippedNonStorybook}`);
 }
 
