@@ -14,7 +14,7 @@ features/games/
     players/*.tsx            # 게임 플레이어 UI
     config/*.tsx             # 게임 설정 패널
     FeedbackOverlay.tsx      # 정답/오답 피드백 (호리 + confetti + shake)
-    GameResultScreen.tsx     # 결과 화면 (celebrating + 별점 + count-up)
+    GameResultScreen.tsx     # 결과 화면 (카드 + 히어로 이미지 + 장식 + count-up + 만점 콘페티)
     GameProgressBar.tsx      # 진행바 (dot + 점수 뱃지)
     config/ConfigControls.tsx # NumberSelector, ConfigCheckbox
   hooks/
@@ -66,6 +66,14 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 - **생성**: `buildHiddenObjectData`(server `game.service.ts`) 가 저장된 씬→`HiddenObjectData`. 라벨(ko)·썸네일(`keyObjectImages`)·TTS(`key_objects[].ttsUrl`)를 objectName 으로 resolve.
 - **플레이**: `HiddenObjectPlayer`. 탭 판정은 `utils/hitTest.ts`(`toImageNorm` object-fit contain 레터박스 보정 + `hitNormalizedBox`). 정답=✓ 링 펄스 + 단어 TTS(`playWordCorrect`) + 레일 체크 / 빗나감=페널티 없음. 다 찾으면 `GameResultScreen`.
 - 언어 중립(라벨 ko 기본, 다국어는 follow-up). `contentRequirements.needsHiddenObjectScenes` 플래그(현재 GamesTab 가용성 필터엔 미연결 — 씬 0개면 서버 400 + 패널 경고로 graceful).
+
+## 결과 화면 (GameResultScreen, 2026-07-10 리디자인)
+
+모든 게임 공용 단일 컴포넌트(`score`/`total`/`lang` prop). 별점 UI 는 mvp-simplification 으로 제거됨.
+
+- **레이아웃**: 흰 카드(`rounded-[2.5rem]` + `shadow-pop`) + 뒤 선버스트 글로우 + 둥둥 떠다니는 풍선·별·반짝이(framer-motion, reduced-motion 존중) + 점수 배지(🏆/⭐ + count-up) + 완성도별 응원 문구(`praiseFor`: 완벽/참잘/잘했어요). 만점이면 양옆 콘페티 추가.
+- **히어로 이미지**: `public/images/games/result-celebrate.webp`(트로피 든 호리, 투명 배경) — `HERO_IMAGE_URL`. **로드 실패 시 `<Mascot state="celebrating">` 폴백**(`heroFailed` state). 교체는 webp 파일만 갈아끼우면 됨.
+- 마운트 시 `playUi('reward')` + 칭찬 음원 1회(`settingsApi.getSystemSounds`, `lang` 풀 우선).
 
 ## 새 게임 추가 방법
 
@@ -257,6 +265,8 @@ KoreanBlockPlayer / EnglishBlockPlayer 공통:
 - **정답 자동 체크**: 블록 배치가 정답과 일치하면 "확인" 버튼 없이 즉시 정답 처리. `useEffect` 가 composed/grid 변경 watch → `handleCheckRef.current()` 호출. 오답 분기는 자동 발동 X (사용자가 직접 확인 버튼 클릭 시에만 wrong 표시). `roundCorrect` 가드로 중복 방지.
 - **handleCheckRef pattern**: `useRef(handleCheck)` + render body 에서 `ref.current = handleCheck` (effect 로 하면 자동 체크 effect 가 ref 갱신보다 먼저 fire 해 stale closure 호출 → 오답 처리됨).
 - **정답 시퀀스**: `playCorrectSequence({ ttsUrl, language, onDone })` — 효과음 → 0.5s → 단어 발음 (audio `ended` 이벤트 대기) → 시스템 칭찬 음원 (audio `ended` 이벤트 대기) → onDone. `playAudio(url, onEnded)` 콜백으로 chain — 단어 길이/칭찬 길이 무관 안 잘림. 동시에 `FeedbackOverlay kind="correct"` (호리 cheering + confetti + "잘했어!" 랜덤) 가 `praiseVisible` state 로 표시. **2026-05-19 변경**: 고정 1.2s/1.5s 타임아웃은 다음절 한글 단어 (강아지·바나나 등) TTS 가 잘리는 원인 → ended 이벤트 chain 으로 교체.
+- 🔴 **마지막 글자 소리 → 단어 체인 (2026-07-10 fix)**: 단어를 **완성하는** 마지막 블록을 놓으면 (1) grid 변경 effect 가 그 글자/음절 소리를 `playAudio` 로 재생하고 (2) 자동 체크 effect 가 `handleCheck`→`playCorrectSequence`(단어) 를 **동시에** 발동 → `playAudio` 단일 채널이라 마지막 글자 소리가 단어에 즉시 잘렸다. **수정**: 완성 글자는 grid effect 에서 재생하지 않고 `pendingLastLetterRef`(한글=`pendingLastSyllableRef`)에 담아 `handleCheck` 가 **글자(즉시)→onEnded→단어→칭찬** 으로 chain. 단어 URL 은 그 사이 백그라운드 resolve(지연 X). 한글은 라이브러리 miss 시 `speechSynthesis` 폴백을 `onend`+안전 타임아웃(1.4s)으로 chain. (낱말쓰기 `Korean/EnglishWordWritingPlayer` 는 원래부터 이 패턴 — 마지막 음절→쉼→단어→칭찬 + `completedRef` 중복 가드, 참고 구현.)
+- 🟢 **점수 = 완료 기준 (2026-07-10)**: 예전엔 첫 시도로 맞춰야만 `setScore`(첫 시도 아니면 완성해도 점수 X → "다 맞췄는데 2/3"). 완성하면 +1 로 변경(다 맞추면 만점). **정확도(첫 시도 여부)는 리포트용 `wordResultsRef.correct` 플래그로만 기록** — 부모 리포트 수치 불변. 매칭/찾기 게임은 원래 완료 기준이라 이제 통일.
 
 ### 🔴 RULE — TTS chain 절대 setTimeout 가정 X
 
@@ -279,7 +289,12 @@ PR 리뷰 체크리스트:
 
 - [ ] `setTimeout` + `playCorrectSequence` 조합 없음
 - [ ] `setTimeout` + `setCurrentIdx` (다음 카드) 조합 없음
+- [ ] `setTimeout` + `setFinished`/씬 전환 조합 없음 — 마지막 정답 단어 발음이 잘림 (2026-07-10 숨은그림 `playWordCorrect({onDone})` 로 chain 수정)
+- [ ] 한 이벤트에서 소리 2개 동시 발화 금지 (`playAudio` 는 단일 채널이라 앞 소리를 끊음 — 블록 마지막 글자↔단어). 순서가 필요하면 `onEnded` chain
 - [ ] useEffect 완료 감지 + playCorrectSequence 패턴 — 핸들러 내부 chain 으로 옮기는 게 안전
+
+> **정답 오디오 전수 리뷰 (2026-07-10)**: 블록(글자↔단어 컷)·숨은그림(마지막 단어 컷) 2건 수정. 그림짝·점잇기·낱말쓰기·스토리이미지·말하기는 이미 `onEnded`/`onDone` chain 이라 정상. 낱말쓰기가 기준 구현.
+
 - **z-index**: `FeedbackOverlay` 의 `fixed z-40` 이 player wrapper `fixed z-[60]` 의 stacking context 안에서 최상위 — SpeakingPlayer 도 동일 패턴.
 
 `RandomBlockGamePage` (사이드바 진입) 한정:
