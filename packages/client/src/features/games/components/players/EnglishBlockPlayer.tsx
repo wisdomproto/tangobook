@@ -271,7 +271,9 @@ function EnglishBlockPlayerInner({
     }
     if (allCorrect) {
       const isFirstTry = !hasTriedThisRound;
-      if (isFirstTry) setScore((s) => s + 1);
+      // 4-5세 정책: 완성 = 성공. 중간에 한 번 틀렸다 고쳐도 완성하면 점수(다 맞추면 만점).
+      // 정확도(첫 시도 여부)는 리포트용 correct 플래그로만 기록.
+      setScore((s) => s + 1);
       wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
       setRoundCorrect(true);
       // 정답 시퀀스 (playCorrectSequence): 효과음 → 단어 발음 → 시스템 칭찬 음원 → onDone.
