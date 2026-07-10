@@ -80,15 +80,15 @@ const LANG_FLAGS: Record<string, string> = {
   zh: '🇨🇳',
 };
 
-// dflo LOCALES 패턴(ChannelRegistryTab) — 발행 페이지는 "국가(시장)별"로 본다.
-// 국가 섹션(국기+국가명+건수) → 그 안에 채널 컬럼.
+// dflo LOCALES 패턴(ChannelRegistryTab) — 발행 페이지는 "언어별"로 묶어 본다.
+// 언어 섹션(국기+언어명+건수) → 그 안에 채널 컬럼.
 const LOCALES: Array<{ code: string; label: string; flag: string }> = [
-  { code: 'ko', label: '한국', flag: '🇰🇷' },
-  { code: 'en', label: '미국', flag: '🇺🇸' },
-  { code: 'zh', label: '중국', flag: '🇨🇳' },
-  { code: 'th', label: '태국', flag: '🇹🇭' },
-  { code: 'vi', label: '베트남', flag: '🇻🇳' },
-  { code: 'ja', label: '일본', flag: '🇯🇵' },
+  { code: 'ko', label: '한국어', flag: '🇰🇷' },
+  { code: 'en', label: '영어', flag: '🇺🇸' },
+  { code: 'zh', label: '중국어', flag: '🇨🇳' },
+  { code: 'th', label: '태국어', flag: '🇹🇭' },
+  { code: 'vi', label: '베트남어', flag: '🇻🇳' },
+  { code: 'ja', label: '일본어', flag: '🇯🇵' },
 ];
 
 const META_CHANNELS = ['instagram', 'facebook', 'threads'];
@@ -394,9 +394,9 @@ export function PublishQueue({ projectId }: Props) {
 
   return (
     <div className="space-y-3">
-      {/* 국가 pills + 뷰 토글 */}
+      {/* 언어 pills + 뷰 토글 */}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs text-muted-foreground">국가</span>
+        <span className="text-xs text-muted-foreground">언어</span>
         <div className="flex gap-1 flex-wrap">
           <button
             onClick={() => setLangFilter('all')}
@@ -457,7 +457,7 @@ export function PublishQueue({ projectId }: Props) {
       ) : activeLocales.length === 0 ? (
         <div className="text-center py-12 text-muted-foreground text-sm">발행 기록이 없습니다</div>
       ) : (
-        /* 국가별 섹션 → 채널 컬럼 (dflo ChannelRegistryTab 패턴) */
+        /* 언어별 섹션 → 채널 컬럼 (dflo ChannelRegistryTab 패턴) */
         <div className="space-y-5">
           {activeLocales.map((locale) => {
             const localeRecords = langRecords.filter((r) => r.language === locale.code);
