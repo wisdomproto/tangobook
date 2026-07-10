@@ -60,99 +60,111 @@ export function ContinuousControls() {
   }
 
   return (
-    // z-[70]: 시작 화면의 탭 게이트(뷰어 내부 z-50) 위에 떠서 세팅 가능.
-    <div className="fixed bottom-0 left-0 right-0 z-[70] flex flex-col gap-3 bg-ink-900/80 px-4 pb-5 pt-4 backdrop-blur-md">
-      {/* 진행 표시 + 숨김 토글 */}
-      <div className="flex items-center justify-between">
-        <span className="font-display text-lg font-black text-white break-keep">
-          {total > 0 ? `${total}권 중 ${current}권` : '재생 중'}
-        </span>
+    <>
+      {/* 재생 중(started)엔 바 밖 아무 곳 탭 → 컨트롤 숨김. 🔴 시작 화면(started 전)엔 넣지 않음 —
+          넣으면 중앙 "탭해서 시작하기" 게이트를 덮어 시작이 안 됨. 바(z-70) 아래(z-65)라 바 버튼은 정상. */}
+      {started && (
         <button
           type="button"
           onClick={() => setVisible(false)}
-          className="rounded-full bg-white/15 px-3 py-1 text-xs font-bold text-white/80 break-keep"
-        >
-          숨기기
-        </button>
-      </div>
-
-      {/* 일시정지 / 재생 */}
-      <button
-        type="button"
-        onClick={togglePause}
-        className={cn(
-          'h-14 w-full rounded-xl text-xl font-black transition active:scale-95 break-keep',
-          paused
-            ? 'bg-coral-500 text-white shadow-soft hover:bg-coral-600'
-            : 'bg-white/20 text-white hover:bg-white/30'
-        )}
-        aria-label={paused ? '재생' : '일시정지'}
-      >
-        {paused ? '▶ 재생' : '⏸ 일시정지'}
-      </button>
-
-      {/* 속도 */}
-      <div className="flex items-center gap-2">
-        <span className="w-12 shrink-0 text-xs font-bold text-white/60 break-keep">속도</span>
-        <div className="flex flex-1 gap-2">
-          {SPEED_OPTIONS.map((s) => (
-            <button
-              key={s}
-              type="button"
-              onClick={() => setSpeed(s)}
-              className={cn(
-                'h-12 flex-1 rounded-xl text-base font-black transition active:scale-95 break-keep',
-                speed === s
-                  ? 'bg-coral-500 text-white shadow-soft'
-                  : 'bg-white/15 text-white/80 hover:bg-white/25'
-              )}
-            >
-              {s}×
-            </button>
-          ))}
+          aria-label="컨트롤 숨기기"
+          className="fixed inset-0 z-[65]"
+        />
+      )}
+      {/* z-[70]: 시작 화면의 탭 게이트(뷰어 내부 z-50) 위에 떠서 세팅 가능. */}
+      <div className="fixed bottom-0 left-0 right-0 z-[70] flex flex-col gap-3 bg-ink-900/80 px-4 pb-5 pt-4 backdrop-blur-md">
+        {/* 진행 표시 + 숨김 토글 */}
+        <div className="flex items-center justify-between">
+          <span className="font-display text-lg font-black text-white break-keep">
+            {total > 0 ? `${total}권 중 ${current}권` : '재생 중'}
+          </span>
+          <button
+            type="button"
+            onClick={() => setVisible(false)}
+            className="rounded-full bg-white/15 px-3 py-1 text-xs font-bold text-white/80 break-keep"
+          >
+            숨기기
+          </button>
         </div>
-      </div>
 
-      {/* 슬립타이머 */}
-      <div className="flex items-center gap-2">
-        <span className="w-12 shrink-0 text-xs font-bold text-white/60 break-keep">잠자기</span>
-        <div className="flex flex-1 gap-2">
-          {SLEEP_OPTIONS.map((opt) => (
-            <button
-              key={opt.label}
-              type="button"
-              onClick={() => setSleep(opt.value)}
-              className={cn(
-                'h-12 flex-1 rounded-xl text-base font-black transition active:scale-95 break-keep',
-                sleepMinutes === opt.value
-                  ? 'bg-mint-500 text-white shadow-soft'
-                  : 'bg-white/15 text-white/80 hover:bg-white/25'
-              )}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* 다음 책 / 나가기 */}
-      <div className="flex gap-3">
+        {/* 일시정지 / 재생 */}
         <button
           type="button"
-          onClick={skip}
-          className="h-14 flex-1 rounded-xl bg-white/15 text-lg font-black text-white transition hover:bg-white/25 active:scale-95 break-keep"
+          onClick={togglePause}
+          className={cn(
+            'h-14 w-full rounded-xl text-xl font-black transition active:scale-95 break-keep',
+            paused
+              ? 'bg-coral-500 text-white shadow-soft hover:bg-coral-600'
+              : 'bg-white/20 text-white hover:bg-white/30'
+          )}
+          aria-label={paused ? '재생' : '일시정지'}
         >
-          ⏭ 다음 책
+          {paused ? '▶ 재생' : '⏸ 일시정지'}
         </button>
-        <button
-          type="button"
-          onClick={exit}
-          className="h-14 flex-1 rounded-xl bg-coral-500 text-lg font-black text-white shadow-soft transition hover:bg-coral-600 active:scale-95 break-keep"
-        >
-          {/* 🏠 는 홈(/library)으로 오해됨 — 실제 목적지는 연속재생 홈이라 🚪 로 */}
-          🚪 나가기
-        </button>
+
+        {/* 속도 */}
+        <div className="flex items-center gap-2">
+          <span className="w-12 shrink-0 text-xs font-bold text-white/60 break-keep">속도</span>
+          <div className="flex flex-1 gap-2">
+            {SPEED_OPTIONS.map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => setSpeed(s)}
+                className={cn(
+                  'h-12 flex-1 rounded-xl text-base font-black transition active:scale-95 break-keep',
+                  speed === s
+                    ? 'bg-coral-500 text-white shadow-soft'
+                    : 'bg-white/15 text-white/80 hover:bg-white/25'
+                )}
+              >
+                {s}×
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* 슬립타이머 */}
+        <div className="flex items-center gap-2">
+          <span className="w-12 shrink-0 text-xs font-bold text-white/60 break-keep">잠자기</span>
+          <div className="flex flex-1 gap-2">
+            {SLEEP_OPTIONS.map((opt) => (
+              <button
+                key={opt.label}
+                type="button"
+                onClick={() => setSleep(opt.value)}
+                className={cn(
+                  'h-12 flex-1 rounded-xl text-base font-black transition active:scale-95 break-keep',
+                  sleepMinutes === opt.value
+                    ? 'bg-mint-500 text-white shadow-soft'
+                    : 'bg-white/15 text-white/80 hover:bg-white/25'
+                )}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* 다음 책 / 나가기 */}
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={skip}
+            className="h-14 flex-1 rounded-xl bg-white/15 text-lg font-black text-white transition hover:bg-white/25 active:scale-95 break-keep"
+          >
+            ⏭ 다음 책
+          </button>
+          <button
+            type="button"
+            onClick={exit}
+            className="h-14 flex-1 rounded-xl bg-coral-500 text-lg font-black text-white shadow-soft transition hover:bg-coral-600 active:scale-95 break-keep"
+          >
+            {/* 🏠 는 홈(/library)으로 오해됨 — 실제 목적지는 연속재생 홈이라 🚪 로 */}
+            🚪 나가기
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
