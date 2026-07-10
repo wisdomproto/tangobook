@@ -21,8 +21,11 @@ import {
   resolveOwnerUserId,
   resolveMarketingTarget,
   uploadReelMp4,
+  uploadThumbnail,
   connectReelToMarketing,
+  updateReelCover,
 } from '../src/services/reel/reel-publish.js';
+import type { ReelProps } from '../src/services/reel/reel-props.js';
 
 // Remotion 은 Chromium 이 필요하므로 lazy import (config 로드 시점 부담 회피).
 async function loadRemotion() {
@@ -33,6 +36,7 @@ async function loadRemotion() {
   return {
     bundle: bundler.bundle,
     renderMedia: renderer.renderMedia,
+    renderStill: renderer.renderStill,
     selectComposition: renderer.selectComposition,
   };
 }
@@ -41,6 +45,7 @@ interface Args {
   book: string | null;
   limit: number | null;
   dryRun: boolean;
+  thumbsOnly: boolean;
   ownerEmail: string;
   category: string;
 }
@@ -50,6 +55,7 @@ function parseArgs(argv: string[]): Args {
     book: null,
     limit: null,
     dryRun: false,
+    thumbsOnly: false,
     ownerEmail: 'kil210@gmail.com',
     category: 'classics',
   };
@@ -59,6 +65,7 @@ function parseArgs(argv: string[]): Args {
     const [key, inlineVal] = eq > 0 ? [arg.slice(0, eq), arg.slice(eq + 1)] : [arg, null];
     const next = () => inlineVal ?? argv[++i];
     if (key === '--dry-run') a.dryRun = true;
+    else if (key === '--thumbs-only') a.thumbsOnly = true;
     else if (key === '--book') a.book = next();
     else if (key === '--limit') a.limit = parseInt(next(), 10);
     else if (key === '--owner-email') a.ownerEmail = next();
@@ -74,7 +81,7 @@ async function main() {
   );
 
   // 1. Remotion 번들 (1회)
-  const { bundle, selectComposition, renderMedia } = await loadRemotion();
+  const { bundle, selectComposition, renderMedia, renderStill } = await loadRemotion();
   const remotionEntry = path.resolve(process.cwd(), '../remotion/src/entry.ts');
   console.log('[render-book-reels] bundling remotion:', remotionEntry);
   const serveUrl = await bundle({ entryPoint: remotionEntry });
@@ -101,6 +108,33 @@ async function main() {
   const outDir = path.resolve(process.cwd(), 'out/reels');
   fs.mkdirSync(outDir, { recursive: true });
 
+  // 썸네일(9:16) 렌더 → 로컬 PNG 경로 반환. 3그림체 있으면 그림체 3분할, 없으면 포스터.
+  async function renderThumb(id: string, props: ReelProps): Promise<string> {
+    const compId = props.styleMorph ? 'ReelThumbStyles' : 'ReelThumbPoster';
+    const thumbProps = {
+      bookTitle: props.bookTitle,
+      coverUrl: props.scenes[0].imageUrls[0],
+      styles: props.styleMorph?.styles ?? [],
+    };
+    const comp = await selectComposition({
+      serveUrl,
+      id: compId,
+      inputProps: thumbProps,
+      timeoutInMilliseconds: 60000,
+      ...browserOpts,
+    });
+    const thumbPath = path.join(outDir, `${id}-thumb.png`);
+    await renderStill({
+      composition: comp,
+      serveUrl,
+      output: thumbPath,
+      inputProps: thumbProps,
+      timeoutInMilliseconds: 60000,
+      ...browserOpts,
+    });
+    return thumbPath;
+  }
+
   const summary = { rendered: 0, skipped: 0, failed: 0, morphYes: 0 };
 
   for (const id of ids) {
@@ -116,6 +150,25 @@ async function main() {
       }
       const morph = props.styleMorph ? 'yes' : 'no';
 
+      // ===== 썸네일만 갱신 모드 (영상 재렌더 없이 coverUrl 만 교체) =====
+      if (args.thumbsOnly) {
+        const thumbPath = await renderThumb(id, props);
+        console.log(`  ✓ ${id} thumb(${morph === 'yes' ? 'styles' : 'poster'}) → ${thumbPath}`);
+        summary.rendered++;
+        if (props.styleMorph) summary.morphYes++;
+        if (args.dryRun) continue;
+        const target = await resolveMarketingTarget(id);
+        if (!target) {
+          console.log(`    · ${id} 마케팅 콘텐츠 없음 — skip`);
+          continue;
+        }
+        const coverUrl = await uploadThumbnail(target.projectId, id, thumbPath);
+        const result = await updateReelCover({ bookId: id, coverUrl });
+        console.log(`    · ${id} 썸네일 교체(${result}) → ${coverUrl}`);
+        continue;
+      }
+
+      // ===== 전체 렌더 (영상 + 썸네일) =====
       const composition = await selectComposition({
         serveUrl,
         id: 'StorybookReel',
@@ -149,7 +202,8 @@ async function main() {
         continue;
       }
       const videoUrl = await uploadReelMp4(target.projectId, id, outPath);
-      const coverUrl = props.scenes[0].imageUrls[0]; // 표지 (buildReelProps 가 encodeURI 처리)
+      const thumbPath = await renderThumb(id, props);
+      const coverUrl = await uploadThumbnail(target.projectId, id, thumbPath); // 썸네일을 커버로
       const result = await connectReelToMarketing({ bookId: id, videoUrl, coverUrl, ownerUserId });
       console.log(`    · ${id} 업로드+연결(${result}) → ${videoUrl}`);
     } catch (err) {

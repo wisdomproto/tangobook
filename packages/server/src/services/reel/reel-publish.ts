@@ -13,6 +13,17 @@ export async function uploadReelMp4(
   return uploadBufferToR2(buffer, key, 'video/mp4');
 }
 
+/** 렌더된 썸네일 PNG 를 R2 에 업로드하고 공개 URL 반환. */
+export async function uploadThumbnail(
+  projectId: string,
+  bookId: string,
+  filePath: string
+): Promise<string> {
+  const buffer = fs.readFileSync(filePath);
+  const key = `mkt/${projectId}/reels/${bookId}-thumb-${Date.now()}.png`;
+  return uploadBufferToR2(buffer, key, 'image/png');
+}
+
 function requireAdmin() {
   const sb = getSupabaseAdmin();
   if (!sb) throw new Error('Supabase admin 미설정 (SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY 필요)');
@@ -113,4 +124,29 @@ export async function connectReelToMarketing({
   });
   if (error) throw new Error(`인스타 콘텐츠 생성 실패(${bookId}): ${error.message}`);
   return 'inserted';
+}
+
+/**
+ * 기존 릴스의 coverUrl(썸네일)만 교체. **videoUrl 은 그대로 유지**(영상 재렌더 없이 썸네일만 갱신).
+ * 인스타 행/기존 reels.ko 없으면 'skipped'.
+ */
+export async function updateReelCover({
+  bookId,
+  coverUrl,
+}: {
+  bookId: string;
+  coverUrl: string;
+}): Promise<'updated' | 'skipped'> {
+  const sb = requireAdmin();
+  const target = await resolveMarketingTarget(bookId);
+  if (!target?.igRow) return 'skipped';
+  const vs = (target.igRow.video_settings as Record<string, any> | null) ?? {};
+  const ko = (vs.reels?.ko as Record<string, any> | undefined) ?? {};
+  const nextVs = { ...vs, reels: { ...(vs.reels ?? {}), ko: { ...ko, coverUrl } } };
+  const { error } = await sb
+    .from('mkt_instagram_contents')
+    .update({ video_settings: nextVs, updated_at: new Date().toISOString() })
+    .eq('id', target.igRow.id);
+  if (error) throw new Error(`썸네일 coverUrl 갱신 실패(${bookId}): ${error.message}`);
+  return 'updated';
 }

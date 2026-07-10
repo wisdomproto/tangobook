@@ -19,6 +19,13 @@ import {
 } from './compositions/FrogPrinceReel';
 import { StorybookReel } from './compositions/StorybookReel';
 import {
+  ThumbPoster,
+  ThumbStyles,
+  ThumbHybrid,
+  THUMB_FROG,
+  ThumbSchema,
+} from './compositions/ReelThumbnail';
+import {
   StorybookReelPropsSchema,
   type StorybookReelProps,
   computeReelFrames,
@@ -197,6 +204,36 @@ export const RemotionRoot: React.FC = () => {
         height={REEL_HEIGHT}
         defaultProps={FROG_DEFAULT}
         calculateMetadata={({ props }) => ({ durationInFrames: computeReelFrames(props) })}
+      />
+      <Composition
+        id="ReelThumbPoster"
+        component={ThumbPoster}
+        schema={ThumbSchema}
+        durationInFrames={1}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={THUMB_FROG}
+      />
+      <Composition
+        id="ReelThumbStyles"
+        component={ThumbStyles}
+        schema={ThumbSchema}
+        durationInFrames={1}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={THUMB_FROG}
+      />
+      <Composition
+        id="ReelThumbHybrid"
+        component={ThumbHybrid}
+        schema={ThumbSchema}
+        durationInFrames={1}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={THUMB_FROG}
       />
       <Composition
         id="MosquitoEbook"
