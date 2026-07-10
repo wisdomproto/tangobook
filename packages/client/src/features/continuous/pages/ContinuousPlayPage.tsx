@@ -47,10 +47,11 @@ export default function ContinuousPlayPage() {
       hasNext: index < queue.length - 1,
       onBookEnd: next,
       speed,
-      // 연속재생은 첫 책부터 자동재생 — 진입이 "지금 재생" 클릭(beginPlaylist)이라 그 제스처에서
-      // 오디오가 해금돼 첫 책도 바로 재생된다. autoplay 를 막는 브라우저는 ViewerContainer 의
-      // 폴백 게이트("탭해서 시작하기")가 자동으로 뜬다.
-      autoStart: true,
+      // 🔴 첫 책(index 0)만 "탭해서 시작하기" 게이트 — 브라우저가 첫 책 나레이션 autoplay 를 막으면
+      //   (진입 클릭 제스처가 버퍼링 동안 만료) TTS 가 무음이 되고, autoPlayTts ON(autoplay=1) 상태에선
+      //   stall-guard 가 무음 책을 순식간에 넘겨 "다 읽었어요"로 직행하는 버그가 있었다.
+      //   그 탭이 오디오를 확실히 해금 → 2번째 책부터는 autoStart 로 자동 이어재생.
+      autoStart: index > 0,
       paused,
     }),
     [index, queue.length, next, speed, paused]
