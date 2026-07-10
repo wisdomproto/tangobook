@@ -12,11 +12,11 @@ export const META_SCOPES = [
   'pages_manage_metadata',
   'instagram_basic',
   'instagram_content_publish',
-  // 광고 Marketing API — 캠페인/광고세트/광고 생성(ads_management) + 성과 조회(ads_read).
-  'ads_management',
-  'ads_read',
-  // ⚠️ threads_basic / threads_content_publish 는 Facebook 로그인 다이얼로그에서 Invalid Scope
-  // (Threads API 는 별도 OAuth — graph.threads.net). 여기 넣으면 다이얼로그 전체가 막힘. 추후 별도 연동.
+  // ⚠️ 광고 권한(ads_management/ads_read)은 뺐다 — 이 앱은 "Facebook 로그인" 이용 사례만 붙였고
+  // 마케팅 API 제품이 없어서, ads_* 를 요청하면 로그인 다이얼로그에서 Invalid Scope 로 막힐 수 있다.
+  // 광고 집행 기능을 붙일 때 마케팅 API 이용 사례 추가 + 여기에 ads_management/ads_read 재추가.
+  // ⚠️ threads_basic / threads_content_publish 도 여기 넣으면 다이얼로그 전체가 막힌다
+  // (Threads API 는 별도 OAuth — graph.threads.net). 추후 별도 연동.
 ];
 
 export function buildAuthUrl(opts: { appId: string; redirectUri: string; state: string }): string {
