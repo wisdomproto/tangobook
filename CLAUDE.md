@@ -69,6 +69,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - **POST /api/storybooks** body 는 `{ storybook: {...} }` wrapper 필수. raw object → 500 "Cannot read properties of undefined (reading 'id')".
 - **동일 title 차단**: `R2Repository.saveStorybook` 에서 신규/title 변경 시 체크. 충돌 = `AppError(409, '같은 이름의 동화책이...')`. variant `__L\d+$`(같은 baseId) / storybook↔phonics 는 예외.
 - `normalizeStorybook` 가 `keyObjectImages[]` null entry 필터링(일부 책 silent 404 방지).
+- **`koCompletion.pagesTts`(summary 완성도 플래그, `r2.repository.ts` `toSummary`)** = **글 있는 페이지만** TTS 요구(`텍스트 페이지.every(ttsUrl)`) — 텍스트 없는 마지막 빈 페이지까지 요구하던 `pages.every` 는 완비된 책을 오분류(공룡 등 연속재생 선택기에서 통째로 빠짐, 2026-07-10 fix). 나레이션 없는 책 **배치 생성** = `scripts/generate-storybook-narration.mjs`(로컬 서버 `/api/tts/generate` gemini + `translation-core` 저장, `--dry-run/--book/--limit`, 멱등). 현재 공개 149권 **전부 나레이션 완비**. 상세 → memory `narration-backfill-completion-flag-2026-07-10`.
 
 ## 영상 렌더 화질
 - **Remotion 렌더**(오디오북·이북: `audiobook.service.ts`·`book-v2.service.ts`·`scripts/mosquito-render.ts`) `renderMedia` = `imageFormat:'png'`(기본 jpeg/q80 아티팩트 제거) + `scale:1.5`(컴포지션 720p→1080p) + `crf:16`. **longform**(`longform.service.ts`) = 1080p + preset `medium` + `crf 18`. 컴포지션 기본 해상도 `RESOLUTIONS`(`packages/remotion/src/types.ts`)는 720p — 4K는 생성 이미지 해상도부터 올려야(Imagen `sampleImageSize`).
