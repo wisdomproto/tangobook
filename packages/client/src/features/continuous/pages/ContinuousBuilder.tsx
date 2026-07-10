@@ -32,6 +32,7 @@ export default function ContinuousBuilder() {
   const isGuest = !account?.id;
 
   const titleOf = (id: string) => (books ?? []).find((b) => b.id === id)?.title ?? id;
+  const coverOf = (id: string) => (books ?? []).find((b) => b.id === id)?.coverImage;
 
   const toggle = (id: string) =>
     setSelectedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
@@ -68,20 +69,53 @@ export default function ContinuousBuilder() {
     // 고정, 책 그리드만 내부 스크롤. (AppShell main 이 window 스크롤이라 position:sticky 가 안 먹음.)
     <div className="flex h-[calc(100dvh-4rem)] flex-col bg-gradient-to-b from-cream-50 to-peach-100 md:h-[calc(100dvh-5rem)]">
       <div className="mx-auto flex min-h-0 w-full max-w-[1200px] flex-1 flex-col px-6 pt-5 md:px-8">
-        <header className="mb-4 flex shrink-0 items-center gap-3">
-          <button
-            type="button"
-            onClick={() => navigate('/continuous')}
-            aria-label="뒤로"
-            className="w-10 h-10 rounded-full bg-white shadow-soft flex items-center justify-center font-black text-ink-600 hover:bg-ink-50 transition"
-          >
-            ←
-          </button>
-          <div>
-            <h1 className="text-2xl md:text-3xl font-black text-ink-900 font-display">
-              세트 만들기
-            </h1>
-            <p className="text-ink-500 font-bold text-sm">읽을 책을 순서대로 골라주세요</p>
+        <header className="mb-4 flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => navigate('/continuous')}
+              aria-label="뒤로"
+              className="w-10 h-10 rounded-full bg-white shadow-soft flex items-center justify-center font-black text-ink-600 hover:bg-ink-50 transition"
+            >
+              ←
+            </button>
+            <div>
+              <h1 className="text-2xl md:text-3xl font-black text-ink-900 font-display">
+                세트 만들기
+              </h1>
+              <p className="text-ink-500 font-bold text-sm">읽을 책을 순서대로 골라주세요</p>
+            </div>
+          </div>
+
+          {/* 액션 — 세트 이름 + 지금 재생 + 세트 저장 (하단 바에서 헤더 우측으로 이동) */}
+          <div className="flex flex-wrap items-center gap-2">
+            {!isGuest && (
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="세트 이름 (예: 잠자리 동화)"
+                className="min-w-0 flex-1 rounded-xl border-2 border-ink-100 bg-white px-3 py-2 text-sm font-bold text-ink-900 outline-none focus:border-coral-400 sm:w-44 sm:flex-none"
+              />
+            )}
+            <button
+              type="button"
+              onClick={playNow}
+              disabled={!canSubmit}
+              className="rounded-xl bg-coral-500 px-4 py-2 text-sm font-black text-white shadow-soft transition hover:bg-coral-600 active:scale-95 disabled:opacity-40"
+            >
+              ▶ 지금 재생
+            </button>
+            {!isGuest && (
+              <button
+                type="button"
+                onClick={save}
+                disabled={!canSubmit || createPlaylist.isPending}
+                className="rounded-xl bg-mint-500 px-4 py-2 text-sm font-black text-white shadow-soft transition hover:bg-mint-600 active:scale-95 disabled:opacity-40"
+              >
+                {createPlaylist.isPending ? '저장 중…' : '💾 세트 저장'}
+              </button>
+            )}
           </div>
         </header>
 
@@ -91,10 +125,25 @@ export default function ContinuousBuilder() {
             <h2 className="font-black text-ink-900 mb-2">선택한 책 ({selectedIds.length})</h2>
             <ol className="space-y-1.5">
               {selectedIds.map((id, i) => (
-                <li key={id} className="flex items-center gap-2 rounded-xl bg-peach-50 px-3 py-2">
+                <li
+                  key={id}
+                  className="flex items-center gap-2 rounded-xl bg-peach-50 px-2.5 py-1.5"
+                >
                   <span className="w-6 h-6 rounded-full bg-coral-500 text-white text-sm font-black flex items-center justify-center shrink-0">
                     {i + 1}
                   </span>
+                  {coverOf(id) ? (
+                    <img
+                      src={coverOf(id)}
+                      alt=""
+                      loading="lazy"
+                      className="h-8 w-12 shrink-0 rounded-md object-cover shadow-soft"
+                    />
+                  ) : (
+                    <span className="flex h-8 w-12 shrink-0 items-center justify-center rounded-md bg-peach-200 text-sm">
+                      📖
+                    </span>
+                  )}
                   <span className="flex-1 font-bold text-ink-800 truncate break-keep">
                     {titleOf(id)}
                   </span>
@@ -186,48 +235,13 @@ export default function ContinuousBuilder() {
         </div>
 
         {/* 책 그리드 — 유일한 스크롤 영역 */}
-        <div className="-mx-6 min-h-0 flex-1 overflow-y-auto px-6 pb-28 md:-mx-8 md:px-8">
+        <div className="-mx-6 min-h-0 flex-1 overflow-y-auto px-6 pb-4 md:-mx-8 md:px-8">
           <BookMultiSelectGrid
             selectedIds={selectedIds}
             onToggle={toggle}
             search={search}
             styleGenre={styleGenre}
           />
-        </div>
-      </div>
-
-      {/* 하단 고정 액션 바 */}
-      <div className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur border-t border-ink-100 px-6 py-3 z-30">
-        <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          {!isGuest && (
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="세트 이름 (예: 잠자리 동화)"
-              className="flex-1 min-w-0 rounded-xl border-2 border-ink-100 px-4 py-2.5 font-bold text-ink-900 outline-none focus:border-coral-400"
-            />
-          )}
-          <div className="flex gap-2 shrink-0">
-            <button
-              type="button"
-              onClick={playNow}
-              disabled={!canSubmit}
-              className="flex-1 sm:flex-none rounded-xl bg-coral-500 hover:bg-coral-600 text-white font-black px-6 py-3 shadow-soft active:scale-95 transition disabled:opacity-40"
-            >
-              ▶ 지금 재생
-            </button>
-            {!isGuest && (
-              <button
-                type="button"
-                onClick={save}
-                disabled={!canSubmit || createPlaylist.isPending}
-                className="flex-1 sm:flex-none rounded-xl bg-mint-500 hover:bg-mint-600 text-white font-black px-6 py-3 shadow-soft active:scale-95 transition disabled:opacity-40"
-              >
-                {createPlaylist.isPending ? '저장 중…' : '💾 세트 저장'}
-              </button>
-            )}
-          </div>
         </div>
       </div>
     </div>
