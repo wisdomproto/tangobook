@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 import {
   STYLE_GENRES,
@@ -10,7 +10,7 @@ import {
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useStorybooks } from '@/features/storybook';
 import { beginPlaylist } from '../lib/begin-playlist';
-import { useCreatePlaylist } from '../hooks/usePlaylists';
+import { usePlaylists, useCreatePlaylist, useUpdatePlaylist } from '../hooks/usePlaylists';
 import { BookMultiSelectGrid } from '../components/BookMultiSelectGrid';
 
 const GENRE_SLUG_LABEL: Record<string, string> = Object.fromEntries(
@@ -24,10 +24,13 @@ const GENRE_SLUG_LABEL: Record<string, string> = Object.fromEntries(
  */
 export default function ContinuousBuilder() {
   const navigate = useNavigate();
+  const { id: editId } = useParams(); // /continuous/edit/:id → 편집 모드
   const { account } = useAuth();
   const { data: books } = useStorybooks();
   const { map: styleGenreMap } = useStyleGenreMap();
+  const { data: playlists } = usePlaylists();
   const createPlaylist = useCreatePlaylist();
+  const updatePlaylist = useUpdatePlaylist();
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [language, setLanguage] = useState('ko');
@@ -40,6 +43,18 @@ export default function ContinuousBuilder() {
   const playlistLangs = SUPPORTED_LANGUAGES.filter((l) => l.code === 'ko' || l.code === 'en');
 
   const isGuest = !account?.id;
+
+  // 편집 모드: 저장된 세트를 한 번만 폼에 프리필 (재조회로 사용자 편집 덮어쓰기 방지).
+  const editingSet = editId ? playlists?.find((p) => p.id === editId) : undefined;
+  const prefilledRef = useRef(false);
+  useEffect(() => {
+    if (editId && editingSet && !prefilledRef.current) {
+      prefilledRef.current = true;
+      setSelectedIds(editingSet.bookIds);
+      setName(editingSet.name);
+      setLanguage(editingSet.language);
+    }
+  }, [editId, editingSet]);
 
   const titleOf = (id: string) => (books ?? []).find((b) => b.id === id)?.title ?? id;
 
@@ -92,16 +107,24 @@ export default function ContinuousBuilder() {
   const save = async () => {
     if (isGuest || selectedIds.length === 0 || !account?.id) return;
     const finalName = name.trim() || `내 세트 (${selectedIds.length}권)`;
-    await createPlaylist.mutateAsync({
-      accountId: account.id,
-      name: finalName,
-      bookIds: selectedIds,
-      language,
-    });
+    if (editId) {
+      await updatePlaylist.mutateAsync({
+        id: editId,
+        patch: { name: finalName, bookIds: selectedIds, language },
+      });
+    } else {
+      await createPlaylist.mutateAsync({
+        accountId: account.id,
+        name: finalName,
+        bookIds: selectedIds,
+        language,
+      });
+    }
     navigate('/continuous');
   };
 
   const canSubmit = selectedIds.length > 0;
+  const saving = createPlaylist.isPending || updatePlaylist.isPending;
 
   return (
     // AppShell 헤더(h-16 md:h-20) 아래 뷰포트를 꽉 채우는 flex 컬럼 → 상단(헤더·선택·언어·검색)은
@@ -120,7 +143,7 @@ export default function ContinuousBuilder() {
             </button>
             <div>
               <h1 className="text-2xl md:text-3xl font-black text-ink-900 font-display">
-                세트 만들기
+                {editId ? '세트 편집' : '세트 만들기'}
               </h1>
               <p className="text-ink-500 font-bold text-sm">읽을 책을 순서대로 골라주세요</p>
             </div>
@@ -149,10 +172,10 @@ export default function ContinuousBuilder() {
               <button
                 type="button"
                 onClick={save}
-                disabled={!canSubmit || createPlaylist.isPending}
+                disabled={!canSubmit || saving}
                 className="rounded-xl bg-mint-500 px-4 py-2 text-sm font-black text-white shadow-soft transition hover:bg-mint-600 active:scale-95 disabled:opacity-40"
               >
-                {createPlaylist.isPending ? '저장 중…' : '💾 세트 저장'}
+                {saving ? '저장 중…' : editId ? '💾 변경 저장' : '💾 세트 저장'}
               </button>
             )}
           </div>

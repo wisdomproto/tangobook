@@ -94,6 +94,7 @@ export default function ContinuousHomePage() {
                     .map((id) => coverOf.get(id))
                     .filter((u): u is string => Boolean(u))}
                   onPlay={() => play(p.bookIds, p.language)}
+                  onEdit={() => navigate(`/continuous/edit/${p.id}`)}
                   onDelete={() => {
                     if (window.confirm(`"${p.name}" 세트를 삭제할까요?`)) {
                       deletePlaylist.mutate(p.id);

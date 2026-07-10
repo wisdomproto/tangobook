@@ -11,6 +11,8 @@ interface PlaylistCardProps {
   onPlay: () => void;
   /** 삭제. */
   onDelete: () => void;
+  /** 편집 (책/순서/이름 수정). 없으면 편집 버튼 숨김. */
+  onEdit?: () => void;
 }
 
 /** 저장된 연속재생 세트 카드 — 이름 + 책 수 + 커버 썸네일 + 삭제 버튼. 순수 표현 컴포넌트. */
@@ -21,6 +23,7 @@ export function PlaylistCard({
   coverUrls,
   onPlay,
   onDelete,
+  onEdit,
 }: PlaylistCardProps) {
   const lang = SUPPORTED_LANGUAGES.find((l) => l.code === language);
   const thumbs = coverUrls.slice(0, 4);
@@ -60,6 +63,16 @@ export function PlaylistCard({
           </span>
         </div>
       </button>
+      {onEdit && (
+        <button
+          type="button"
+          onClick={onEdit}
+          aria-label={`${name} 세트 편집`}
+          className="absolute top-2.5 right-12 h-9 w-9 rounded-full bg-white/90 text-ink-600 shadow-soft backdrop-blur transition hover:bg-white hover:text-coral-500 flex items-center justify-center font-black"
+        >
+          ✏️
+        </button>
+      )}
       <button
         type="button"
         onClick={onDelete}

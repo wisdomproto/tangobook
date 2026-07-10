@@ -107,6 +107,7 @@ export const router = createBrowserRouter([
           // 연속재생 홈 — 사이드바 있는 브라우즈 화면 (AppShell 안). 저장된 세트 목록 + 새 세트 만들기.
           { path: 'continuous', element: <ContinuousHomePage /> },
           { path: 'continuous/new', element: <ContinuousBuilder /> },
+          { path: 'continuous/edit/:id', element: <ContinuousBuilder /> },
           { path: 'invite-friends', element: <InviteFriendsPage /> },
         ],
       },
