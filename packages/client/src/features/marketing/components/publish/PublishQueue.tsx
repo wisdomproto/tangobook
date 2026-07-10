@@ -80,6 +80,17 @@ const LANG_FLAGS: Record<string, string> = {
   zh: '🇨🇳',
 };
 
+// dflo LOCALES 패턴(ChannelRegistryTab) — 발행 페이지는 "국가(시장)별"로 본다.
+// 국가 섹션(국기+국가명+건수) → 그 안에 채널 컬럼.
+const LOCALES: Array<{ code: string; label: string; flag: string }> = [
+  { code: 'ko', label: '한국', flag: '🇰🇷' },
+  { code: 'en', label: '미국', flag: '🇺🇸' },
+  { code: 'zh', label: '중국', flag: '🇨🇳' },
+  { code: 'th', label: '태국', flag: '🇹🇭' },
+  { code: 'vi', label: '베트남', flag: '🇻🇳' },
+  { code: 'ja', label: '일본', flag: '🇯🇵' },
+];
+
 const META_CHANNELS = ['instagram', 'facebook', 'threads'];
 
 function kindOf(record: PublishRecord): keyof typeof KIND_META {
@@ -122,11 +133,11 @@ export function PublishQueue({ projectId }: Props) {
 
   // 언어 필터만 상단에서 — 채널은 컬럼, 상태는 컬럼별 필터.
   const langRecords = records.filter((r) => langFilter === 'all' || r.language === langFilter);
-  const recordLanguages = [...new Set(records.map((r) => r.language))].filter(Boolean);
 
-  // 컬럼은 레코드에 실제 존재하는 채널만(언어 무관 — 언어 전환 시 컬럼이 흔들리지 않게).
-  const presentChannels = new Set(records.map((r) => r.channel));
-  const columns = CHANNEL_COLS.filter((c) => presentChannels.has(c.id));
+  // 국가 pill = 레코드에 있는 국가(언어무관 순서 고정). 국가 섹션 = 언어필터 적용 후 존재하는 국가.
+  const presentLangs = new Set(records.map((r) => r.language));
+  const countryPills = LOCALES.filter((l) => presentLangs.has(l.code));
+  const activeLocales = LOCALES.filter((l) => langRecords.some((r) => r.language === l.code));
 
   // ── Handlers ─────────────────────────────────────────────────────────────
 
@@ -339,13 +350,53 @@ export function PublishQueue({ projectId }: Props) {
     );
   }
 
+  // 채널 컬럼 1개 (국가 섹션 안에서 sourceRecords 로 스코프).
+  function renderColumn(col: (typeof CHANNEL_COLS)[number], sourceRecords: PublishRecord[]) {
+    const colStatus = statusByCol[col.id] ?? 'all';
+    const colItems = sourceRecords
+      .filter((r) => r.channel === col.id && (colStatus === 'all' || r.status === colStatus))
+      .sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
+    return (
+      <div
+        key={col.id}
+        className="flex min-w-[240px] flex-1 flex-col rounded-xl border border-border bg-muted/30"
+      >
+        <div className="flex shrink-0 items-center gap-2 border-b border-border px-3 py-2">
+          <span className={cn('rounded px-2 py-0.5 text-xs font-semibold', col.badge)}>
+            {col.label}
+          </span>
+          <span className="text-xs text-muted-foreground">{colItems.length}</span>
+          <select
+            value={colStatus}
+            onChange={(e) => setStatusByCol((p) => ({ ...p, [col.id]: e.target.value }))}
+            className="ml-auto rounded-md border border-border bg-background px-2 py-1 text-xs text-muted-foreground"
+          >
+            <option value="all">전체</option>
+            {STATUS_FILTERS.map((s) => (
+              <option key={s} value={s}>
+                {STATUS_LABELS[s]}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="min-h-0 flex-1 space-y-2 overflow-y-auto p-2 max-h-[55vh]">
+          {colItems.length === 0 ? (
+            <p className="py-10 text-center text-xs text-muted-foreground/50">없음</p>
+          ) : (
+            colItems.map(renderCard)
+          )}
+        </div>
+      </div>
+    );
+  }
+
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
     <div className="space-y-3">
-      {/* 언어 pills + 뷰 토글 */}
+      {/* 국가 pills + 뷰 토글 */}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs text-muted-foreground">언어</span>
+        <span className="text-xs text-muted-foreground">국가</span>
         <div className="flex gap-1 flex-wrap">
           <button
             onClick={() => setLangFilter('all')}
@@ -356,20 +407,20 @@ export function PublishQueue({ projectId }: Props) {
                 : 'bg-muted text-muted-foreground'
             )}
           >
-            전체
+            🌐 전체
           </button>
-          {recordLanguages.map((lang) => (
+          {countryPills.map((l) => (
             <button
-              key={lang}
-              onClick={() => setLangFilter(lang)}
+              key={l.code}
+              onClick={() => setLangFilter(l.code)}
               className={cn(
                 'px-2.5 py-1 rounded-full text-xs',
-                langFilter === lang
+                langFilter === l.code
                   ? 'bg-primary text-primary-foreground'
                   : 'bg-muted text-muted-foreground'
               )}
             >
-              {LANG_FLAGS[lang] ?? '🌐'} {lang.toUpperCase()}
+              {l.flag} {l.label}
             </button>
           ))}
         </div>
@@ -403,49 +454,27 @@ export function PublishQueue({ projectId }: Props) {
         </div>
       ) : view === 'calendar' ? (
         <PublishCalendar records={langRecords} onSelectRecord={(r) => void openPreview(r)} />
-      ) : columns.length === 0 ? (
+      ) : activeLocales.length === 0 ? (
         <div className="text-center py-12 text-muted-foreground text-sm">발행 기록이 없습니다</div>
       ) : (
-        /* 채널 컬럼 보드 */
-        <div className="flex gap-3 overflow-x-auto pb-2">
-          {columns.map((col) => {
-            const colStatus = statusByCol[col.id] ?? 'all';
-            const colItems = langRecords
-              .filter(
-                (r) => r.channel === col.id && (colStatus === 'all' || r.status === colStatus)
-              )
-              .sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
+        /* 국가별 섹션 → 채널 컬럼 (dflo ChannelRegistryTab 패턴) */
+        <div className="space-y-5">
+          {activeLocales.map((locale) => {
+            const localeRecords = langRecords.filter((r) => r.language === locale.code);
+            const cols = CHANNEL_COLS.filter((c) => localeRecords.some((r) => r.channel === c.id));
             return (
-              <div
-                key={col.id}
-                className="flex min-w-[260px] flex-1 flex-col rounded-xl border border-border bg-muted/30"
-              >
-                <div className="flex shrink-0 items-center gap-2 border-b border-border px-3 py-2">
-                  <span className={cn('rounded px-2 py-0.5 text-xs font-semibold', col.badge)}>
-                    {col.label}
+              <section key={locale.code}>
+                <div className="mb-2 flex items-center gap-2">
+                  <span className="text-base leading-none">{locale.flag}</span>
+                  <span className="text-sm font-bold break-keep">{locale.label}</span>
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                    {localeRecords.length}건
                   </span>
-                  <span className="text-xs text-muted-foreground">{colItems.length}</span>
-                  <select
-                    value={colStatus}
-                    onChange={(e) => setStatusByCol((p) => ({ ...p, [col.id]: e.target.value }))}
-                    className="ml-auto rounded-md border border-border bg-background px-2 py-1 text-xs text-muted-foreground"
-                  >
-                    <option value="all">전체</option>
-                    {STATUS_FILTERS.map((s) => (
-                      <option key={s} value={s}>
-                        {STATUS_LABELS[s]}
-                      </option>
-                    ))}
-                  </select>
                 </div>
-                <div className="min-h-0 flex-1 space-y-2 overflow-y-auto p-2 max-h-[60vh]">
-                  {colItems.length === 0 ? (
-                    <p className="py-10 text-center text-xs text-muted-foreground/50">없음</p>
-                  ) : (
-                    colItems.map(renderCard)
-                  )}
+                <div className="flex gap-3 overflow-x-auto pb-2">
+                  {cols.map((col) => renderColumn(col, localeRecords))}
                 </div>
-              </div>
+              </section>
             );
           })}
         </div>
