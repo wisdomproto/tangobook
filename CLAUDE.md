@@ -147,7 +147,8 @@ SPA SEO 기본기. 상세 → memory `seo-infrastructure-2026-05-26.md`.
 - **OG 이미지**: `og-image.png`(기본/사이트) · `og-invite.png`(친구초대 레퍼럴) → 생성기 `pnpm --filter server og`(`generate-og-images.mjs`, sharp+librsvg, 번들 Pretendard `scripts/assets/og-fonts/`). 1200×630, 로고 webp 합성. 책별 OG = BookSeoPage 가 실제 표지 URL 사용.
 - 동적: `src/lib/useSeo.ts` hook — LibraryPage · BookDetailPage · KoreanPhonicsStudyPage · BookSeoPage 적용.
 - Prerender: `packages/client/scripts/prerender.mjs`(puppeteer). CMD `pnpm --filter client build:prerender`. 정적 4라우트 + **동화책 about 페이지 전체**(sitemap.xml 에서 추출, `/api/*` 를 `PRERENDER_API_ORIGIN`(기본 prod)로 요청 프록시해 실제 책 데이터로 렌더). env: `PRERENDER_BOOKS=0`(끄기)·`PRERENDER_BOOK_LIMIT`(제한). API 도달 불가 시 about 자동 스킵.
-- 🔴 다음 할 일(메모리 참조): 책별 OG 카드(표지 합성) / CI 통합 / GSC·네이버 서치어드바이저 등록 / Core Web Vitals / 유료화 시 무료 11권 selection 재검토 + paywall 구조화데이터(`isAccessibleForFree`).
+- **✅ 검색엔진 등록 완료(2026-07-10)**: Google Search Console(도메인 속성 `tangobook.co.kr`, 도메인 공급업체 자동 소유확인) + 네이버 서치어드바이저(`www.tangobook.co.kr`, `naver-site-verification` 메타태그 `index.html` head) 둘 다 사이트맵 `https://www.tangobook.co.kr/sitemap.xml`(302 URL, 149권) 제출 완료. → memory `seo-search-console-registration-2026-07-10`.
+- 🔴 다음 할 일(메모리 참조): 책별 OG 카드(표지 합성) / CI 통합 / Core Web Vitals / 유료화 시 무료 11권 selection 재검토 + paywall 구조화데이터(`isAccessibleForFree`).
 
 ## /marketing — ContentFlow 포트 ✅ Phase 0~5 완료 (main 통합)
 ContentFlow AI 마케팅 자동화 SaaS 이식 — **전 단계(Phase 0~5) 완료, 포트 종료. 모든 `/marketing` 라우트 라이브**. `features/marketing/` 전담 모듈.
