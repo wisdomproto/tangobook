@@ -10,14 +10,14 @@ vi.mock('react-router-dom', async (importOriginal) => {
   return { ...actual, useNavigate: () => vi.fn() };
 });
 
-// 컨트롤은 기본 숨김(재생 화면을 가리지 않게) → 테스트는 "컨트롤 보기"로 먼저 연다.
+// 컨트롤은 기본 숨김(재생 화면을 가리지 않게) → 테스트는 하단 "컨트롤 열기" 탭 영역으로 먼저 연다.
 function renderControls() {
   const utils = render(
     <MemoryRouter>
       <ContinuousControls />
     </MemoryRouter>
   );
-  fireEvent.click(screen.getByText('컨트롤 보기'));
+  fireEvent.click(screen.getByLabelText('컨트롤 열기'));
   return utils;
 }
 
@@ -26,17 +26,17 @@ describe('ContinuousControls', () => {
     usePlaylistStore.getState().reset();
   });
 
-  it('starts hidden — only "컨트롤 보기" shown until opened', () => {
+  it('starts hidden — only bottom "컨트롤 열기" tap zone until opened', () => {
     usePlaylistStore.getState().setQueue([{ bookId: 'a' }], 'ko');
     render(
       <MemoryRouter>
         <ContinuousControls />
       </MemoryRouter>
     );
-    expect(screen.getByText('컨트롤 보기')).toBeInTheDocument();
+    expect(screen.getByLabelText('컨트롤 열기')).toBeInTheDocument();
     expect(screen.queryByText('⏸ 일시정지')).not.toBeInTheDocument();
-    // 열면 컨트롤 노출
-    fireEvent.click(screen.getByText('컨트롤 보기'));
+    // 하단 탭 → 컨트롤 노출
+    fireEvent.click(screen.getByLabelText('컨트롤 열기'));
     expect(screen.getByText('⏸ 일시정지')).toBeInTheDocument();
   });
 

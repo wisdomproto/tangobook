@@ -40,14 +40,16 @@ export function ContinuousControls() {
   };
 
   if (!visible) {
+    // "컨트롤 보기" 버튼 제거(재생 화면 immersive) → 하단을 탭하면 컨트롤을 연다.
+    // 하단 얇은 투명 영역이라 중앙의 첫 책 "탭해서 시작하기" 버튼(뷰어 내부 z-50)과 안 겹침.
+    // 나가기는 우상단 🏠(ContinuousPlayPage)가 상시 커버.
     return (
       <button
         type="button"
         onClick={() => setVisible(true)}
-        className="fixed bottom-4 left-1/2 z-40 -translate-x-1/2 rounded-full bg-ink-900/60 px-5 py-2 text-sm font-bold text-white backdrop-blur-sm break-keep"
-      >
-        컨트롤 보기
-      </button>
+        aria-label="컨트롤 열기"
+        className="fixed inset-x-0 bottom-0 z-[70] h-16"
+      />
     );
   }
 
