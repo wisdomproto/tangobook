@@ -41,6 +41,7 @@ import paymentRoutes from './routes/payment.routes.js';
 import opsRoutes from './routes/ops.routes.js';
 import comicFeedbackRoutes from './routes/comic-feedback.routes.js';
 import comicAssetsRoutes from './routes/comic-assets.routes.js';
+import saenghwalStatusRoutes from './routes/saenghwal-status.routes.js';
 
 export function createApp() {
   const app = express();
@@ -109,6 +110,7 @@ export function createApp() {
   app.use('/api/ops', opsRoutes);
   app.use('/api/comic-feedback', comicFeedbackRoutes);
   app.use('/api/comic-assets', comicAssetsRoutes);
+  app.use('/api/saenghwal-status', saenghwalStatusRoutes);
 
   // R2 프록시 — pub-xxx.r2.dev CORS 미지원 우회
   // GET /api/r2-proxy?key=storybooks/xxx/scene.mp4
