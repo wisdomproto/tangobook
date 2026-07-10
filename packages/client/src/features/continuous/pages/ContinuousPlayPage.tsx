@@ -75,6 +75,18 @@ export default function ContinuousPlayPage() {
   return (
     <>
       <ViewerContainer key={current.bookId} storybookId={current.bookId} playlist={playlist} />
+      {/* 상시 우상단 나가기 — 컨트롤이 숨겨져 있어도 언제든 홈으로. */}
+      <button
+        type="button"
+        onClick={() => {
+          reset();
+          navigate('/library');
+        }}
+        aria-label="홈으로 나가기"
+        className="fixed right-3 top-3 z-[80] flex h-11 w-11 items-center justify-center rounded-full bg-black/40 text-lg text-white backdrop-blur transition hover:bg-black/60 active:scale-95"
+      >
+        🏠
+      </button>
       <ContinuousControls />
     </>
   );
