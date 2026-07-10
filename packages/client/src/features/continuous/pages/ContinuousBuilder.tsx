@@ -21,6 +21,10 @@ export default function ContinuousBuilder() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [language, setLanguage] = useState('ko');
   const [name, setName] = useState('');
+  const [search, setSearch] = useState('');
+
+  // 연속재생은 한국어·영어만 (나레이션·자막 지원 언어).
+  const playlistLangs = SUPPORTED_LANGUAGES.filter((l) => l.code === 'ko' || l.code === 'en');
 
   const isGuest = !account?.id;
 
@@ -121,11 +125,11 @@ export default function ContinuousBuilder() {
           </div>
         )}
 
-        {/* 언어 선택 */}
+        {/* 언어 선택 — 한국어·영어만 */}
         <div className="mb-6">
           <label className="block font-black text-ink-900 mb-2">언어</label>
           <div className="flex flex-wrap gap-2">
-            {SUPPORTED_LANGUAGES.map((l) => (
+            {playlistLangs.map((l) => (
               <button
                 key={l.code}
                 type="button"
@@ -143,9 +147,23 @@ export default function ContinuousBuilder() {
           </div>
         </div>
 
-        {/* 책 그리드 */}
-        <h2 className="font-black text-ink-900 mb-3">책 고르기</h2>
-        <BookMultiSelectGrid selectedIds={selectedIds} onToggle={toggle} />
+        {/* 책 그리드 — 카테고리별 + 검색 */}
+        <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="font-black text-ink-900">책 고르기</h2>
+          <div className="relative w-full sm:max-w-xs">
+            <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-400">
+              🔍
+            </span>
+            <input
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="책 제목·카테고리 검색"
+              className="w-full rounded-full border-2 border-ink-100 bg-white py-2 pl-9 pr-4 text-sm font-bold text-ink-900 outline-none focus:border-coral-400"
+            />
+          </div>
+        </div>
+        <BookMultiSelectGrid selectedIds={selectedIds} onToggle={toggle} search={search} />
       </div>
 
       {/* 하단 고정 액션 바 */}

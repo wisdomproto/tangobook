@@ -53,6 +53,15 @@ vi.mock('@/features/storybook', () => ({
   }),
 }));
 
+// useLibraryConfig(useQuery) 가 QueryClient 를 요구하므로 목킹. makeCategoryComparator 는 실제 동작 유지.
+vi.mock('@/features/library', () => ({
+  useLibraryConfig: () => ({ data: undefined }),
+  makeCategoryComparator:
+    () =>
+    (a: string, b: string, fa = 0, fb = 0) =>
+      fb - fa,
+}));
+
 import { BookMultiSelectGrid } from './BookMultiSelectGrid';
 
 describe('BookMultiSelectGrid', () => {
@@ -75,8 +84,14 @@ describe('BookMultiSelectGrid', () => {
 
   it('shows selection order badge for selected books', () => {
     render(<BookMultiSelectGrid selectedIds={['b2', 'b1']} onToggle={() => {}} />);
-    // 거북이 first (order 1), 토끼 second (order 2)
+    // 거북이 first (order 1), 토끼 second (order 2). 카테고리 개수는 "N권"이라 숫자 배지와 안 겹침.
     expect(screen.getByText('1')).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
+  });
+
+  it('filters by search query (title)', () => {
+    render(<BookMultiSelectGrid selectedIds={[]} onToggle={() => {}} search="토끼" />);
+    expect(screen.getByText('토끼')).toBeInTheDocument();
+    expect(screen.queryByText('거북이')).not.toBeInTheDocument();
   });
 });

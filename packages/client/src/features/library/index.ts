@@ -7,3 +7,4 @@ export { useReadingStatus, type ReadingStatus } from './hooks/useReadingStatus';
 export { useLibraryConfig, useUpdateLibraryConfig } from './hooks/useLibraryConfig';
 export { useCategoryActions } from './hooks/useCategoryActions';
 export { libraryConfigApi } from './api/library-config.api';
+export { makeCategoryComparator, DEFAULT_PRIORITY_CATEGORIES } from './lib/category-order';

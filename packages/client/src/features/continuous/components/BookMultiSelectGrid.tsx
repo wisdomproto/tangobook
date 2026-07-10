@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useStorybooks } from '@/features/storybook';
+import { useLibraryConfig, makeCategoryComparator } from '@/features/library';
 import { SkeletonBookCard } from '@/design-system';
 import { cn } from '@/lib/cn';
 
@@ -8,19 +9,37 @@ interface BookMultiSelectGridProps {
   selectedIds: string[];
   /** 카드 탭 시 토글. */
   onToggle: (id: string) => void;
+  /** 제목/카테고리 검색어 (없으면 전체). */
+  search?: string;
 }
 
-/**
- * 공개 동화책을 그리드로 렌더하고 탭으로 선택 토글.
- * 선택 순서를 번호 배지로 표시 (재생 순서 = 선택 순서).
- * Controlled — 선택 상태는 부모(ContinuousBuilder)가 소유.
- */
-export function BookMultiSelectGrid({ selectedIds, onToggle }: BookMultiSelectGridProps) {
-  const { data: list, isLoading, isError } = useStorybooks();
+// 카테고리 헤더 이모지 (메인 라이브러리 sprite 대신 가벼운 폴백).
+const CATEGORY_EMOJI: Record<string, string> = {
+  '세계 명작': '📚',
+  '자연 관찰': '🔭',
+  '생활 동화': '🏠',
+  '전래 동화': '📜',
+  기타: '✨',
+};
 
-  // 공개 동화책 + **나레이션(모든 페이지 TTS) 있는 책만**.
-  // 연속재생=자동 이어읽기(잠자리)이므로 음성 없는 책은 무음+자막없음이 되어 제외한다.
-  // (전체 공개책 중 상당수가 아직 TTS 미생성 — koCompletion.pagesTts 로 판별.)
+/**
+ * 공개 동화책을 **카테고리별 섹션 + 검색**으로 렌더하고 탭으로 선택 토글 (메인 라이브러리와 동일 그룹핑).
+ * 선택 순서를 번호 배지로 표시 (재생 순서 = 선택 순서). Controlled — 선택 상태는 부모가 소유.
+ */
+export function BookMultiSelectGrid({
+  selectedIds,
+  onToggle,
+  search = '',
+}: BookMultiSelectGridProps) {
+  const { data: list, isLoading, isError } = useStorybooks();
+  const { data: libConfig } = useLibraryConfig();
+
+  const compareCategory = useMemo(
+    () => makeCategoryComparator(libConfig?.categoryOrder),
+    [libConfig?.categoryOrder]
+  );
+
+  // 공개 동화책 + **나레이션(모든 페이지 TTS) 있는 책만** (연속재생=자동 이어읽기라 무음 책 제외).
   const books = useMemo(
     () =>
       (list ?? []).filter(
@@ -28,6 +47,23 @@ export function BookMultiSelectGrid({ selectedIds, onToggle }: BookMultiSelectGr
       ),
     [list]
   );
+
+  // 검색 필터 (제목 또는 카테고리) → 카테고리별 그룹 → 카테고리 순서 정렬.
+  const groups = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    const filtered = q
+      ? books.filter(
+          (b) => b.title.toLowerCase().includes(q) || (b.category ?? '').toLowerCase().includes(q)
+        )
+      : books;
+    const map = new Map<string, typeof filtered>();
+    for (const b of filtered) {
+      const key = b.category || '기타';
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(b);
+    }
+    return [...map.entries()].sort((a, b) => compareCategory(a[0], b[0], a[1].length, b[1].length));
+  }, [books, search, compareCategory]);
 
   const orderOf = useMemo(() => {
     const m = new Map<string, number>();
@@ -37,7 +73,7 @@ export function BookMultiSelectGrid({ selectedIds, onToggle }: BookMultiSelectGr
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
         {Array.from({ length: 8 }).map((_, i) => (
           <SkeletonBookCard key={i} />
         ))}
@@ -46,59 +82,74 @@ export function BookMultiSelectGrid({ selectedIds, onToggle }: BookMultiSelectGr
   }
 
   if (isError) {
-    return <p className="text-ink-500 font-bold py-8 text-center">책 목록을 불러오지 못했어요</p>;
+    return <p className="py-8 text-center font-bold text-ink-500">책 목록을 불러오지 못했어요</p>;
   }
 
-  if (books.length === 0) {
-    return <p className="text-ink-500 font-bold py-8 text-center">아직 공개된 책이 없어요</p>;
+  if (groups.length === 0) {
+    return (
+      <p className="py-8 text-center font-bold text-ink-500">
+        {search.trim() ? '검색 결과가 없어요' : '아직 공개된 책이 없어요'}
+      </p>
+    );
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-      {books.map((b) => {
-        const order = orderOf.get(b.id);
-        const selected = order !== undefined;
-        return (
-          <button
-            key={b.id}
-            type="button"
-            onClick={() => onToggle(b.id)}
-            aria-pressed={selected}
-            className={cn(
-              'group flex flex-col items-stretch text-left transition-transform active:scale-95 rounded-2xl',
-              selected && 'ring-4 ring-coral-400'
-            )}
-          >
-            <div
-              className={cn(
-                'aspect-video rounded-2xl overflow-hidden relative shadow-soft',
-                !b.coverImage &&
-                  'bg-gradient-to-br from-peach-200 to-peach-300 flex items-center justify-center text-4xl'
-              )}
-            >
-              {b.coverImage ? (
-                <img
-                  src={b.coverImage}
-                  alt={b.title}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : (
-                '📖'
-              )}
-              {selected && (
-                <span className="absolute top-1.5 left-1.5 w-8 h-8 rounded-full bg-coral-500 text-white font-black text-lg flex items-center justify-center shadow-pop">
-                  {order}
-                </span>
-              )}
-            </div>
-            <h3 className="mt-1.5 font-black text-sm md:text-base text-ink-900 truncate font-display leading-tight px-1">
-              {b.title}
-            </h3>
-          </button>
-        );
-      })}
+    <div className="space-y-6">
+      {groups.map(([category, catBooks]) => (
+        <section key={category}>
+          <h3 className="mb-2.5 flex items-center gap-1.5 font-display text-lg font-black text-ink-900">
+            <span>{CATEGORY_EMOJI[category] ?? '📖'}</span>
+            <span className="break-keep">{category}</span>
+            <span className="text-sm font-bold text-ink-400">{catBooks.length}권</span>
+          </h3>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+            {catBooks.map((b) => {
+              const order = orderOf.get(b.id);
+              const selected = order !== undefined;
+              return (
+                <button
+                  key={b.id}
+                  type="button"
+                  onClick={() => onToggle(b.id)}
+                  aria-pressed={selected}
+                  className={cn(
+                    'group flex flex-col items-stretch rounded-2xl text-left transition-transform active:scale-95',
+                    selected && 'ring-4 ring-coral-400'
+                  )}
+                >
+                  <div
+                    className={cn(
+                      'relative aspect-video overflow-hidden rounded-2xl shadow-soft',
+                      !b.coverImage &&
+                        'flex items-center justify-center bg-gradient-to-br from-peach-200 to-peach-300 text-4xl'
+                    )}
+                  >
+                    {b.coverImage ? (
+                      <img
+                        src={b.coverImage}
+                        alt={b.title}
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      '📖'
+                    )}
+                    {selected && (
+                      <span className="absolute left-1.5 top-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-coral-500 text-lg font-black text-white shadow-pop">
+                        {order}
+                      </span>
+                    )}
+                  </div>
+                  <h4 className="mt-1.5 truncate px-1 font-display text-sm font-black leading-tight text-ink-900 md:text-base">
+                    {b.title}
+                  </h4>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }
