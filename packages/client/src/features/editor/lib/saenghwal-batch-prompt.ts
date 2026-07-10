@@ -88,9 +88,13 @@ function sceneHasChar(scene: string, aliases: string[]): boolean {
   return aliases.some((a) => a && s.includes(a.toLowerCase()));
 }
 
-/** 기획서와 동일한 전체 배치 프롬프트 문자열 합성 */
-export function composeSaenghwalBatchPrompt(sb: Storybook): string {
-  const pages = (sb.pages ?? []).slice().sort((a, b) => a.pageNumber - b.pageNumber);
+/**
+ * 기획서와 동일한 배치 프롬프트 문자열 합성.
+ * `subset` 지정 시 그 쪽번호들만 body 에 포함(쪽별 복사용) — 스타일·@image 범례는 그대로 붙는다.
+ */
+export function composeSaenghwalBatchPrompt(sb: Storybook, subset?: number[]): string {
+  let pages = (sb.pages ?? []).slice().sort((a, b) => a.pageNumber - b.pageNumber);
+  if (subset && subset.length) pages = pages.filter((p) => subset.includes(p.pageNumber));
 
   // 단역(guest) = role '단역' 캐릭터 → @image9~
   const guests: Cast[] = (sb.characters ?? [])
