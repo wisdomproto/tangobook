@@ -31,6 +31,20 @@ export function loadStoryboard(id: string): any | null {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
+let _captions: Record<string, string[]> | null = null;
+
+/**
+ * 손수 작성한 릴스 자막 (_data/marketing/reel-captions.json = `{ bookId: [4 문자열] }`).
+ * 씬 0..3(훅·원작·줄거리·교훈) 자막. 파일/책 없으면 undefined → buildReelProps 가 subtitle 폴백.
+ */
+export function loadReelCaptions(id: string): string[] | undefined {
+  if (!_captions) {
+    const file = path.join(SCRIPTS_DATA, 'marketing', 'reel-captions.json');
+    _captions = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
+  }
+  return _captions![id];
+}
+
 let _genreMap: Record<string, string> | null = null;
 
 /** styleId → genre 매핑 (R2 _index/style-genre-map.json). 모듈 캐시. */

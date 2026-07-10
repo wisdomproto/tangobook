@@ -96,10 +96,12 @@ export function buildReelProps({
   storybook,
   storyboard,
   genreMap,
+  captions,
 }: {
   storybook: any;
   storyboard: any;
   genreMap: Record<string, string>;
+  captions?: string[]; // 씬 0..3 자막 오버라이드(손수 작성). 있으면 subtitle/narration보다 우선.
 }): ReelProps | null {
   const scenes = storyboard?.scenes;
   if (!Array.isArray(scenes) || scenes.length < 5) return null; // guard: needs 5-scene storyboard
@@ -122,18 +124,21 @@ export function buildReelProps({
     scenes: [],
     styleMorph: pickMorph(storybook.styleAssets || {}, genreMap),
   };
-  // 본문 자막은 스토리보드의 subtitle(화면 자막용으로 설계된 깔끔한 문구)을 우선 사용.
-  // 없을 때만 나레이션 첫 절로 폴백(나레이션은 성우 대본이라 길고 중간에서 잘리면 어색).
-  const bodyOf = (sc: any) =>
-    sc.subtitle?.trim() ? sc.subtitle.trim() : firstClause(sc.narration);
+  // 자막 우선순위: 손수 작성한 captions[i] > 스토리보드 subtitle > 나레이션 첫 절.
+  // (subtitle 은 "○○ 원작 이야기" 식 라벨이라 스토리를 못 담음 → 손수 캡션이 최우선.)
+  const bodyOf = (sc: any, i: number) => {
+    const hand = captions?.[i]?.trim();
+    if (hand) return hand;
+    return sc.subtitle?.trim() ? sc.subtitle.trim() : firstClause(sc.narration);
+  };
   // 훅: 헤드라인=책 제목(내부 라벨 "훅" 아님)
-  out.scenes.push({ label: bookTitle, body: bodyOf(scenes[0]), imageUrls: [cover] });
+  out.scenes.push({ label: bookTitle, body: bodyOf(scenes[0], 0), imageUrls: [cover] });
   const buckets = splitIntoBuckets(pages, 3);
   for (let i = 1; i <= 3; i++) {
     const bucket = buckets[i - 1].length ? buckets[i - 1] : pages; // empty-bucket fallback
     out.scenes.push({
       label: scenes[i].label,
-      body: bodyOf(scenes[i]),
+      body: bodyOf(scenes[i], i),
       imageUrls: bucket.map(urlOf),
     });
   }

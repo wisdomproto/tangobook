@@ -150,6 +150,31 @@ describe('buildReelProps', () => {
     expect(out!.scenes[3].imageUrls.length).toBe(2);
   });
 
+  it('captions 오버라이드가 subtitle/narration보다 우선', () => {
+    const out = buildReelProps({
+      storybook: makeStorybook(),
+      storyboard: makeStoryboard(),
+      genreMap,
+      captions: ['훅캡션', '원작캡션', '줄거리캡션', '교훈캡션'],
+    });
+    expect(out!.scenes.map((s) => s.body)).toEqual([
+      '훅캡션',
+      '원작캡션',
+      '줄거리캡션',
+      '교훈캡션',
+    ]);
+  });
+  it('captions 일부만 있으면 그 씬만 오버라이드(나머지는 subtitle 폴백)', () => {
+    const out = buildReelProps({
+      storybook: makeStorybook(),
+      storyboard: makeStoryboard(),
+      genreMap,
+      captions: ['훅캡션'], // 씬0만
+    });
+    expect(out!.scenes[0].body).toBe('훅캡션');
+    expect(out!.scenes[1].body).toBe('원작·배경 자막'); // subtitle 폴백
+  });
+
   it('활성 그림풍에 일러스트가 없으면 null', () => {
     const storybook = {
       title: '개구리 왕자',

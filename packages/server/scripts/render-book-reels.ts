@@ -14,6 +14,7 @@ import {
   fetchStorybook,
   loadStoryboard,
   loadGenreMap,
+  loadReelCaptions,
 } from '../src/services/reel/reel-targets.js';
 import { buildReelProps } from '../src/services/reel/reel-props.js';
 import {
@@ -106,7 +107,8 @@ async function main() {
     try {
       const storybook = await fetchStorybook(id);
       const storyboard = loadStoryboard(id);
-      const props = buildReelProps({ storybook, storyboard, genreMap });
+      const captions = loadReelCaptions(id);
+      const props = buildReelProps({ storybook, storyboard, genreMap, captions });
       if (!props) {
         console.log(`  - ${id} SKIP (릴스 props 생성 불가 — 스토리보드/삽화 부족)`);
         summary.skipped++;
