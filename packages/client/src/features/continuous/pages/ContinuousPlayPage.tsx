@@ -24,14 +24,17 @@ export default function ContinuousPlayPage() {
   const reset = usePlaylistStore((s) => s.reset);
   const clearSleep = usePlaylistStore((s) => s.clearSleep);
 
-  // ViewerContainer 는 URL `?lang=` 를 읽는다 — store 언어를 1회 주입.
+  // ViewerContainer 는 URL `?lang=`·`?autoplay=` 를 읽는다 — store 언어 + 자동재생 강제 주입.
+  // 🔴 autoplay=1 필수: 사용자의 뷰어 autoPlayTts 설정이 OFF(영속)면 연속재생도 나레이션 없이
+  //   BGM 만 나온다(자막은 정적 전문). 잠자리 연속재생은 나레이션이 핵심이라 항상 켠다.
   const spLang = sp.get('lang');
+  const spAutoplay = sp.get('autoplay');
   useEffect(() => {
     if (queue.length === 0) return;
-    if (spLang !== language) {
-      setSp({ lang: language }, { replace: true });
+    if (spLang !== language || spAutoplay !== '1') {
+      setSp({ lang: language, autoplay: '1' }, { replace: true });
     }
-  }, [spLang, language, queue.length, setSp]);
+  }, [spLang, spAutoplay, language, queue.length, setSp]);
 
   // 페이지 이탈 시 슬립타이머 확실히 해제 (setTimeout 누수 방지).
   useEffect(() => () => clearSleep(), [clearSleep]);
