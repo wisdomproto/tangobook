@@ -18,6 +18,7 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useContents, useDeleteContent, useReorderContents } from '../../api/use-contents';
+import { ContentStatusPanel } from '../content/ContentStatusPanel';
 import { useUIStore } from '../../store/ui-store';
 import { CreateContentDialog } from './CreateContentDialog';
 import { Button } from '../../ui/button';
@@ -148,6 +149,7 @@ function SortableContentItem({
 
 export function ContentListPanel() {
   const [createOpen, setCreateOpen] = useState(false);
+  const [statusOpen, setStatusOpen] = useState(false);
   const [catFilter, setCatFilter] = useState<string | null>(null);
 
   const { selectedProjectId, selectedContentId, setSelectedContentId } = useUIStore();
@@ -210,16 +212,27 @@ export function ContentListPanel() {
             <span className="text-sm font-semibold">
               콘텐츠 <span className="text-muted-foreground font-normal">({sorted.length})</span>
             </span>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-7 w-7 p-0"
-              onClick={() => setCreateOpen(true)}
-              title="새 콘텐츠"
-              aria-label="새 콘텐츠"
-            >
-              <Plus size={14} />
-            </Button>
+            <div className="flex items-center gap-1">
+              <Button
+                size="sm"
+                variant="ghost"
+                className="h-7 px-1.5 text-[11px]"
+                onClick={() => setStatusOpen(true)}
+                title="콘텐츠 현황 (언어 × 채널 준비/배포 상태)"
+              >
+                📊 현황
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                className="h-7 w-7 p-0"
+                onClick={() => setCreateOpen(true)}
+                title="새 콘텐츠"
+                aria-label="새 콘텐츠"
+              >
+                <Plus size={14} />
+              </Button>
+            </div>
           </div>
 
           {/* Category filter chips */}
@@ -301,6 +314,14 @@ export function ContentListPanel() {
         onOpenChange={setCreateOpen}
         projectId={selectedProjectId}
       />
+
+      {statusOpen && (
+        <ContentStatusPanel
+          contents={sorted}
+          projectId={selectedProjectId}
+          onClose={() => setStatusOpen(false)}
+        />
+      )}
     </>
   );
 }
