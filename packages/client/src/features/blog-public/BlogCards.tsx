@@ -22,7 +22,7 @@ export function BlogCards({ cards }: { cards: BlogCardData[] }) {
     <div className="blog-prose space-y-5">
       {cards.map((c, i) => {
         const ct = c.content ?? {};
-        if (c.type === 'divider') return <hr key={i} className="my-8 border-ink/10" />;
+        if (c.type === 'divider') return <hr key={i} className="my-8 border-ink-100" />;
 
         if (c.type === 'image') {
           const url = str(ct.url) || str(ct.image_url);
@@ -36,7 +36,7 @@ export function BlogCards({ cards }: { cards: BlogCardData[] }) {
                 className="w-full rounded-2xl"
               />
               {str(ct.caption) && (
-                <figcaption className="mt-2 text-center text-sm text-ink/50 break-keep">
+                <figcaption className="mt-2 text-center text-sm text-ink-500 break-keep">
                   {str(ct.caption)}
                 </figcaption>
               )}
@@ -48,7 +48,7 @@ export function BlogCards({ cards }: { cards: BlogCardData[] }) {
           return (
             <blockquote
               key={i}
-              className="border-l-4 border-coral pl-4 italic text-ink/80 break-keep"
+              className="border-l-4 border-coral-400 pl-4 italic text-ink-700 break-keep"
               dangerouslySetInnerHTML={{ __html: str(ct.html) || str(ct.text) }}
             />
           );
@@ -82,7 +82,7 @@ export function BlogCards({ cards }: { cards: BlogCardData[] }) {
                   className="w-full rounded-2xl"
                 />
                 {str(ct.caption) && (
-                  <figcaption className="mt-2 text-center text-sm text-ink/50 break-keep">
+                  <figcaption className="mt-2 text-center text-sm text-ink-500 break-keep">
                     {str(ct.caption)}
                   </figcaption>
                 )}
