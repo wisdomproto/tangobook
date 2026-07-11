@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Lang, LearningEvent, StorybookSummary } from '@tangobook/shared';
-import { STYLE_GENRES, useStyleGenreLabel } from '@/lib/art-style-genre';
+import { STYLE_GENRES, useStyleGenreLabel, genreLabel } from '@/lib/art-style-genre';
 import { groupByGenre } from '../lib/aggregate';
 import { ReportEmptyState } from './ReportEmptyState';
 
@@ -25,7 +25,7 @@ const GENRE_EMOJI: Record<string, string> = {
  * styleId → 장르 변환은 useStyleGenreLabel(수동 맵 + 프롬프트 분류). 3종에 안 맞는 스타일은 제외.
  */
 export function ArtStyleGenreCard({ events, storybooks, lang, bare = false }: Props) {
-  const { t } = useTranslation('learning');
+  const { t, i18n } = useTranslation('learning');
   const labelOf = useStyleGenreLabel();
 
   const rows = useMemo(() => {
@@ -52,7 +52,9 @@ export function ArtStyleGenreCard({ events, storybooks, lang, bare = false }: Pr
         {rows.map((r) => (
           <li key={r.genre} className="flex items-center gap-3 text-sm">
             <span className="w-6 shrink-0 text-center text-base">{r.emoji}</span>
-            <span className="w-24 shrink-0 truncate font-semibold text-ink-700">{r.genre}</span>
+            <span className="w-24 shrink-0 truncate font-semibold text-ink-700">
+              {genreLabel(r.genre, i18n.language)}
+            </span>
             <div className="flex-1">
               <div className="relative h-2.5 overflow-hidden rounded-full bg-ink-100">
                 <div

@@ -5,6 +5,7 @@ import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 import {
   STYLE_GENRES,
   classifyGenre,
+  genreLabel,
   useStyleGenreMap,
   type StyleGenreSlug,
 } from '@/lib/art-style-genre';
@@ -24,7 +25,7 @@ const GENRE_SLUG_LABEL: Record<string, string> = Object.fromEntries(
  * [세트 저장] = useCreatePlaylist → /continuous (게스트는 숨김).
  */
 export default function ContinuousBuilder() {
-  const { t } = useTranslation('continuous');
+  const { t, i18n } = useTranslation('continuous');
   const navigate = useNavigate();
   const { id: editId } = useParams(); // /continuous/edit/:id → 편집 모드
   const { account } = useAuth();
@@ -292,7 +293,7 @@ export default function ContinuousBuilder() {
               >
                 {STYLE_GENRES.map((g) => (
                   <option key={g.slug} value={g.slug}>
-                    🎨 {g.label}
+                    🎨 {genreLabel(g.label, i18n.language)}
                   </option>
                 ))}
               </select>

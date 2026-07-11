@@ -15,7 +15,12 @@ import { PlaylistLibrarySection } from '@/features/continuous';
 import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
 import { SiteFooter } from '@/components/SiteFooter';
 import { useSeo } from '@/lib/useSeo';
-import { useStyleGenreMap, STYLE_GENRES, type StyleGenreSlug } from '@/lib/art-style-genre';
+import {
+  useStyleGenreMap,
+  STYLE_GENRES,
+  genreLabel,
+  type StyleGenreSlug,
+} from '@/lib/art-style-genre';
 import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
 
 /**
@@ -112,7 +117,7 @@ const getCategoryIconNode = (cat: string, size = 22): ReactNode => {
 
 /** 마스터 페이지 config 비어있을 때 fallback 우선순위. */
 export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
-  const { t } = useTranslation('library');
+  const { t, i18n } = useTranslation('library');
   useSeo(
     type === 'phonics'
       ? {
@@ -358,7 +363,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
         >
           {availableGenres.map((g) => (
             <option key={g.slug} value={g.slug}>
-              {g.label}
+              {genreLabel(g.label, i18n.language)}
             </option>
           ))}
         </select>

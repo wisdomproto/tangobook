@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { settingsApi } from '@/features/settings/api/settings.api';
 import { apiGet, apiPut } from '@/lib/axios';
 
@@ -21,6 +22,30 @@ const SLUG_LABEL: Record<string, string> = Object.fromEntries(
 );
 
 export type GenreLabel = (typeof STYLE_GENRES)[number]['label'];
+
+// 장르 라벨 다국어 — key=한국어 라벨(데이터 값). ko 는 원본이라 폴백.
+const GENRE_LABEL_I18N: Record<string, Record<string, string>> = {
+  수채동화풍: { en: 'Watercolor', vi: 'Màu nước', zh: '水彩童话风', th: 'สีน้ำ' },
+  '페이퍼 3D 아트': {
+    en: 'Paper 3D Art',
+    vi: 'Nghệ thuật giấy 3D',
+    zh: '纸艺3D',
+    th: 'อาร์ตกระดาษ 3D',
+  },
+  콜라주: { en: 'Collage', vi: 'Cắt dán', zh: '拼贴画', th: 'คอลลาจ' },
+};
+
+/** 그림풍 장르 한국어 라벨 → 현재 UI 언어 라벨 (매핑/언어 없으면 원본). */
+export function genreLabel(koLabel: string, lang: string): string {
+  if (!koLabel || lang === 'ko') return koLabel;
+  return GENRE_LABEL_I18N[koLabel]?.[lang] ?? koLabel;
+}
+
+/** 컴포넌트용 훅 — `const gl = useGenreLabel(); gl('수채동화풍')`. */
+export function useGenreLabel(): (koLabel: string) => string {
+  const { i18n } = useTranslation();
+  return (koLabel: string) => genreLabel(koLabel, i18n.language);
+}
 
 /** 프롬프트/ID 기반 자동 분류 (수동 지정이 없을 때의 폴백). */
 export function classifyGenre(prompt: string | undefined, id?: string): GenreLabel | null {
