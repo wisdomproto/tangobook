@@ -1,0 +1,41 @@
+{
+  "logo": {
+    "alt": "Tangobook",
+    "home": "Về trang chủ"
+  },
+  "sidebar": {
+    "storybooks": "Truyện tranh",
+    "vocabGames": "Trò chơi từ vựng",
+    "phonics": "Phát âm",
+    "vocabulary": "Từ vựng",
+    "learningGames": "Trò chơi học tập",
+    "reports": "Báo cáo học tập",
+    "inviteFriends": "Mời bạn bè",
+    "parentSettings": "Cài đặt phụ huynh",
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "logoutConfirm": "Bạn muốn đăng xuất chứ?",
+    "comingSoon": "Sắp ra mắt",
+    "comingSoonTitle": "Đang chuẩn bị"
+  },
+  "pageTitle": {
+    "phonics": "Phát âm",
+    "wordStudy": "Học từ",
+    "vocabMaster": "Bậc thầy từ vựng",
+    "parentMode": "Chế độ phụ huynh"
+  },
+  "header": {
+    "openMenu": "Mở menu",
+    "closeMenu": "Đóng menu",
+    "switchChild": "{{name}} — Đổi bé",
+    "switch": "Đổi"
+  },
+  "bgm": {
+    "turnOn": "Bật nhạc nền",
+    "turnOff": "Tắt nhạc nền"
+  },
+  "pageHeader": {
+    "back": "Quay lại",
+    "home": "Về trang chủ"
+  }
+}

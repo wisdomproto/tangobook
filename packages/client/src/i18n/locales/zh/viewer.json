@@ -1,0 +1,94 @@
+{
+  "loading": {
+    "openingBook": "正在翻开绘本",
+    "nextBook": "正在切换到下一本…"
+  },
+  "error": {
+    "notFound": "找不到这本绘本",
+    "goLibrary": "🏠 书库"
+  },
+  "tapToStart": {
+    "title": "点击开始",
+    "subtitle": "轻点一下屏幕，故事就开始啦"
+  },
+  "advancing": "下一页",
+  "fullscreen": {
+    "home": "回到首页",
+    "exit": "退出全屏"
+  },
+  "toolbar": {
+    "back": "返回",
+    "home": "回到首页",
+    "autoplay": "自动播放",
+    "autoplayStop": "停止自动播放",
+    "bgm": "背景音乐",
+    "volume": "音量：{{level}}",
+    "volumeLow": "小声",
+    "volumeMid": "适中",
+    "volumeHigh": "大声",
+    "darkMode": "夜间模式",
+    "textSize": "字体大小",
+    "fullscreenImage": "放大查看图片"
+  },
+  "nav": {
+    "prev": "上一页",
+    "next": "下一页"
+  },
+  "reward": {
+    "badge": "📖 恭喜读完",
+    "titleEnd": "故事结束啦！🎉",
+    "titleDone": "全部读完啦！🎉",
+    "subBoth": "接下来想怎么玩呢？",
+    "subVideo": "想用动画再看一遍吗？",
+    "subGame": "去玩和故事有关的游戏吧？",
+    "subNone": "下次读哪本书呢？",
+    "watchAnimation": "🎬 观看动画 ↗",
+    "playGame": "🎮 去玩游戏",
+    "goOtherBooksBig": "🏠 去看别的绘本",
+    "otherBooks": "🏠 别的绘本",
+    "reread": "↻ 再读一遍"
+  },
+  "wordReveal": {
+    "dialogLabel": "我们认识的单词",
+    "title": "我们认识的小伙伴 🌟",
+    "tappedSuffix": "点过啦",
+    "noWords": "这本绘本还没有登记核心单词。",
+    "allTapped": "🎉 全都听过啦！稍后进入词汇单元…",
+    "tapHint": "🖐️ 点击单词听发音吧",
+    "cardListen": "听 {{korean}}（{{name}}）的发音",
+    "cardListened": "（点过了）",
+    "moreVocab": "📚 学更多词汇",
+    "reread": "🔄 再读一遍",
+    "library": "🏠 书库"
+  },
+  "video": {
+    "defaultTitle": "动画",
+    "openYouTube": "在 YouTube 打开",
+    "openYouTubeArrow": "在 YouTube 打开 ↗",
+    "close": "关闭"
+  },
+  "continuous": {
+    "openControls": "打开控制栏",
+    "hideControls": "隐藏控制栏",
+    "hide": "隐藏",
+    "progress": "第 {{current}} / {{total}} 本",
+    "playing": "播放中",
+    "play": "▶ 播放",
+    "pause": "⏸ 暂停",
+    "ariaPlay": "播放",
+    "ariaPause": "暂停",
+    "speed": "速度",
+    "sleep": "睡眠",
+    "sleepOff": "关闭",
+    "sleepMinutes": "{{minutes}} 分钟",
+    "nextBook": "⏭ 下一本",
+    "exit": "🚪 退出",
+    "exitHome": "退出回首页",
+    "end": {
+      "title": "全部读完啦",
+      "subtitle": "今晚也好好睡一觉吧",
+      "restart": "🔁 再看一遍",
+      "exit": "🏠 退出"
+    }
+  }
+}

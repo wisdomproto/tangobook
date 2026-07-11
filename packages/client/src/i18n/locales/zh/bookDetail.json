@@ -1,0 +1,55 @@
+{
+  "notFound": {
+    "title": "找不到这本书",
+    "description": "看看别的书吧？",
+    "toLibrary": "🏠 回到书库"
+  },
+  "meta": {
+    "phonics": "自然拼读",
+    "storybook": "童话书",
+    "pages": "{{count}} 页",
+    "words": "{{count}} 个单词",
+    "ageSuffix": "{{age}} 岁"
+  },
+  "level": {
+    "L1Age": "3~4 岁",
+    "L2Age": "4~6 岁",
+    "L3Age": "6~7 岁"
+  },
+  "steps": {
+    "chooseStyleLangTitle": "选择画风和语言",
+    "chooseLangTitle": "选择阅读语言",
+    "chooseSub": "按孩子的喜好开始吧",
+    "learnTitle": "阅读并学习单词",
+    "learnSub": "用书中的单词培养词汇量",
+    "guideTitle": "阅读家长指南",
+    "guideSub": "图书特点 · 寓意 · 讲读小贴士"
+  },
+  "style": {
+    "prev": "上一种画风",
+    "next": "下一种画风"
+  },
+  "lang": {
+    "toggleAria": "语言 {{name}}",
+    "coverMissing": "{{lang}} 封面还没有哦"
+  },
+  "modes": {
+    "read": "读给我听",
+    "readSub": "自动用语音朗读",
+    "selfRead": "自己读书",
+    "selfReadSub": "自己翻页慢慢读",
+    "lockedGuestSub": "注册后即可免费阅读",
+    "lockedPremiumSub": "高级内容 — 订阅后阅读",
+    "vocab": "学习单词",
+    "vocabSub": "韩语·英语单词 + 游戏",
+    "preparing": "正在准备中"
+  },
+  "guide": {
+    "title": "家长指南",
+    "subtitle": "图书特点 · 寓意 · 讲读方法",
+    "overview": "📖 图书特点",
+    "lessons": "💡 想传达给孩子的寓意",
+    "readingTips": "🎭 讲读方法",
+    "faq": "❓ 常见问题"
+  }
+}

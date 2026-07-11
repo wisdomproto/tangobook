@@ -1,0 +1,41 @@
+{
+  "logo": {
+    "alt": "Tangobook",
+    "home": "回到首页"
+  },
+  "sidebar": {
+    "storybooks": "童话书",
+    "vocabGames": "词汇游戏",
+    "phonics": "自然拼读",
+    "vocabulary": "词汇",
+    "learningGames": "学习游戏",
+    "reports": "学习报告",
+    "inviteFriends": "邀请好友",
+    "parentSettings": "家长设置",
+    "login": "登录",
+    "logout": "退出登录",
+    "logoutConfirm": "要退出登录吗？",
+    "comingSoon": "敬请期待",
+    "comingSoonTitle": "正在准备中"
+  },
+  "pageTitle": {
+    "phonics": "自然拼读",
+    "wordStudy": "学习单词",
+    "vocabMaster": "词汇大师",
+    "parentMode": "家长模式"
+  },
+  "header": {
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单",
+    "switchChild": "{{name}} — 切换孩子",
+    "switch": "切换"
+  },
+  "bgm": {
+    "turnOn": "打开背景音乐",
+    "turnOff": "关闭背景音乐"
+  },
+  "pageHeader": {
+    "back": "返回",
+    "home": "回到首页"
+  }
+}

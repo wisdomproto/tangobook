@@ -1,0 +1,40 @@
+{
+  "weeklyHero": {
+    "headlineActive": "本周已经读了 {{count}} 本绘本！",
+    "headlineEmpty": "正在等待本周的第一本绘本",
+    "subActive": "一直坚持得很好 👏",
+    "subEmpty": "今天读一本，一起翻开吧？",
+    "metaMinutes": "📖 本周约 {{minutes}} 分钟",
+    "metaStreak": "🔥 连续 {{streak}} 天",
+    "today": "今天",
+    "readOn": "周{{label}}读过",
+    "notReadOn": "周{{label}}没读"
+  },
+  "recentBooks": {
+    "title": "读过的绘本",
+    "completed": "已读完 🎉",
+    "reading": "阅读中",
+    "readCount": "读了 {{count}} 遍"
+  },
+  "metWords": {
+    "title": "认识了这些单词",
+    "count": "共 {{count}} 个",
+    "fallbackBook": "绘本",
+    "extraBooks": "等 {{count}} 本",
+    "read": "📖 已读",
+    "played": "🎮 游戏",
+    "collapse": "收起",
+    "showAll": "查看全部 {{count}} 个"
+  },
+  "artStyle": {
+    "empty": "还没有读过的绘本",
+    "title": "喜欢这些画风",
+    "stat": "{{count}} 本 · {{pct}}%"
+  },
+  "storybookReport": {
+    "artStyleTitle": "喜欢这些画风",
+    "emptyKo": "还没有读过韩文绘本",
+    "emptyEn": "还没有读过英文绘本",
+    "goToLibrary": "去看绘本"
+  }
+}

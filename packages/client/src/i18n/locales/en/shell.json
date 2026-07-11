@@ -1,0 +1,41 @@
+{
+  "logo": {
+    "alt": "Tangobook",
+    "home": "Go home"
+  },
+  "sidebar": {
+    "storybooks": "Storybooks",
+    "vocabGames": "Word Games",
+    "phonics": "Phonics",
+    "vocabulary": "Vocabulary",
+    "learningGames": "Learning Games",
+    "reports": "Learning Reports",
+    "inviteFriends": "Invite Friends",
+    "parentSettings": "Parent Settings",
+    "login": "Log in",
+    "logout": "Log out",
+    "logoutConfirm": "Log out?",
+    "comingSoon": "Coming soon",
+    "comingSoonTitle": "Coming soon"
+  },
+  "pageTitle": {
+    "phonics": "Phonics",
+    "wordStudy": "Learn Words",
+    "vocabMaster": "Vocabulary Master",
+    "parentMode": "Parent Mode"
+  },
+  "header": {
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "switchChild": "{{name}} — Switch child",
+    "switch": "Switch"
+  },
+  "bgm": {
+    "turnOn": "Turn on background music",
+    "turnOff": "Turn off background music"
+  },
+  "pageHeader": {
+    "back": "Back",
+    "home": "Go home"
+  }
+}

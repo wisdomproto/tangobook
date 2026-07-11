@@ -1,0 +1,38 @@
+{
+  "home": {
+    "back": "返回",
+    "title": "连续播放 🎬",
+    "subtitle": "自动接连朗读多本绘本，最适合当睡前故事！",
+    "newSet": "＋ 新建播放集",
+    "guestNotice": "🔒 登录后就能保存播放集。现在只能即时播放。",
+    "deleteConfirm": "要删除「{{name}}」播放集吗？",
+    "emptyTitle": "还没有保存的播放集",
+    "emptyDescription": "新建一个播放集，把多本绘本接连听下来吧！"
+  },
+  "builder": {
+    "back": "返回",
+    "createTitle": "新建播放集",
+    "editTitle": "编辑播放集",
+    "subtitle": "请按顺序选择要朗读的绘本",
+    "namePlaceholder": "播放集名称（例如：睡前故事）",
+    "playNow": "▶ 立即播放",
+    "saving": "保存中…",
+    "saveChanges": "💾 保存修改",
+    "saveSet": "💾 保存播放集",
+    "defaultSetName": "我的播放集（{{count}}本）",
+    "selectedBooks": "已选绘本（{{count}}）",
+    "moveUp": "上移",
+    "moveDown": "下移",
+    "remove": "移除",
+    "language": "语言",
+    "chooseStyle": "选择画风",
+    "styleAriaLabel": "画风",
+    "searchPlaceholder": "搜索绘本标题·分类"
+  },
+  "grid": {
+    "loadError": "无法加载绘本列表",
+    "noResults": "没有搜索结果",
+    "empty": "还没有公开的绘本",
+    "bookCount": "{{count}}本"
+  }
+}

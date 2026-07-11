@@ -1,0 +1,94 @@
+{
+  "loading": {
+    "openingBook": "Đang mở truyện tranh",
+    "nextBook": "Đang chuyển sang cuốn tiếp theo..."
+  },
+  "error": {
+    "notFound": "Không tìm thấy cuốn sách này",
+    "goLibrary": "🏠 Thư viện"
+  },
+  "tapToStart": {
+    "title": "Chạm để bắt đầu",
+    "subtitle": "Chạm vào màn hình một lần để câu chuyện bắt đầu"
+  },
+  "advancing": "Trang tiếp",
+  "fullscreen": {
+    "home": "Về trang chủ",
+    "exit": "Tắt toàn màn hình"
+  },
+  "toolbar": {
+    "back": "Quay lại",
+    "home": "Về trang chủ",
+    "autoplay": "Tự động phát",
+    "autoplayStop": "Dừng tự động phát",
+    "bgm": "Nhạc nền",
+    "volume": "Âm lượng: {{level}}",
+    "volumeLow": "Nhỏ",
+    "volumeMid": "Vừa",
+    "volumeHigh": "Lớn",
+    "darkMode": "Chế độ tối",
+    "textSize": "Cỡ chữ",
+    "fullscreenImage": "Xem hình phóng to"
+  },
+  "nav": {
+    "prev": "Trang trước",
+    "next": "Trang tiếp"
+  },
+  "reward": {
+    "badge": "📖 Chúc mừng đọc xong",
+    "titleEnd": "Hết chuyện rồi! 🎉",
+    "titleDone": "Con đã đọc hết cả cuốn! 🎉",
+    "subBoth": "Bây giờ mình chơi tiếp thế nào nhỉ?",
+    "subVideo": "Con muốn xem lại bằng hoạt hình không?",
+    "subGame": "Mình đi chơi trò chơi với câu chuyện nhé?",
+    "subNone": "Lần sau mình đọc cuốn nào nhỉ?",
+    "watchAnimation": "🎬 Xem hoạt hình ↗",
+    "playGame": "🎮 Đi chơi trò chơi",
+    "goOtherBooksBig": "🏠 Đi xem cuốn khác",
+    "otherBooks": "🏠 Cuốn khác",
+    "reread": "↻ Đọc lại"
+  },
+  "wordReveal": {
+    "dialogLabel": "Những từ chúng ta đã gặp",
+    "title": "Những người bạn chúng ta đã gặp 🌟",
+    "tappedSuffix": "đã chạm thử",
+    "noWords": "Cuốn sách này chưa đăng ký từ trọng tâm nào.",
+    "allTapped": "🎉 Con đã nghe hết rồi! Lát nữa mình sẽ sang phần từ vựng…",
+    "tapHint": "🖐️ Chạm vào từ để nghe cách phát âm",
+    "cardListen": "Nghe phát âm {{korean}} ({{name}})",
+    "cardListened": " (đã chạm thử)",
+    "moreVocab": "📚 Học thêm từ vựng",
+    "reread": "🔄 Đọc lại",
+    "library": "🏠 Thư viện"
+  },
+  "video": {
+    "defaultTitle": "Hoạt hình",
+    "openYouTube": "Mở trên YouTube",
+    "openYouTubeArrow": "Mở trên YouTube ↗",
+    "close": "Đóng"
+  },
+  "continuous": {
+    "openControls": "Mở điều khiển",
+    "hideControls": "Ẩn điều khiển",
+    "hide": "Ẩn",
+    "progress": "Cuốn {{current}}/{{total}}",
+    "playing": "Đang phát",
+    "play": "▶ Phát",
+    "pause": "⏸ Tạm dừng",
+    "ariaPlay": "Phát",
+    "ariaPause": "Tạm dừng",
+    "speed": "Tốc độ",
+    "sleep": "Hẹn giờ ngủ",
+    "sleepOff": "Tắt",
+    "sleepMinutes": "{{minutes}} phút",
+    "nextBook": "⏭ Cuốn tiếp theo",
+    "exit": "🚪 Thoát",
+    "exitHome": "Thoát về trang chủ",
+    "end": {
+      "title": "Đã đọc xong hết rồi",
+      "subtitle": "Đêm nay con ngủ ngon nhé",
+      "restart": "🔁 Xem lại",
+      "exit": "🏠 Thoát"
+    }
+  }
+}

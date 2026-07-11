@@ -1,0 +1,96 @@
+{
+  "price": "{{amount}} KRW",
+  "plans": {
+    "month1": { "name": "1-Month Pass" },
+    "year1": { "name": "12-Month Pass" }
+  },
+  "launchPromo": "Launch half-price sale",
+  "planCard": {
+    "perMonth": "{{price}}/mo · {{days}} days",
+    "daysUse": "{{days}} days",
+    "select": "Select"
+  },
+  "subscribe": {
+    "preOpenTitle": "Every story is free right now",
+    "preOpenDesc": "Passes go on sale at official launch. Until then, read to your heart's content!",
+    "goLibrary": "Go to storybooks",
+    "back": "← Back",
+    "title": "Tangobook Pass",
+    "subtitle": "Enjoy unlimited storybooks, nature observation, and learning content.",
+    "promoBadge": "🎉 {{label}} on now!",
+    "loadingCheckout": "Loading checkout…",
+    "noAutoRenew": "You won't be charged automatically when the pass ends. You can use all content for the period you purchased.",
+    "terms": "Terms of Service",
+    "refund": "Cancellation & Refund Policy",
+    "privacy": "Privacy Policy"
+  },
+  "paymentSuccess": {
+    "invalidInfo": "Payment information is invalid.",
+    "invalidAmount": "Payment amount is invalid.",
+    "confirmFailed": "Payment approval failed.",
+    "confirming": "Confirming payment…",
+    "wait": "Please wait a moment.",
+    "failTitle": "Payment failed",
+    "retry": "Try again",
+    "successTitle": "Subscription complete!",
+    "successDesc": "Enjoy all of Tangobook's content.",
+    "redirecting": "Taking you to the library…"
+  },
+  "paymentFail": {
+    "title": "Payment failed",
+    "errorCode": "Error code: {{code}}",
+    "retry": "Try again",
+    "backToLibrary": "Back to library"
+  },
+  "inviteFriends": {
+    "title": "Invite a friend and you both get +7 days",
+    "subtitle": "You and your friend each get 7 more free days (up to 28 days each)",
+    "step1": "Tap \"Copy invite message\" below",
+    "step2": "Paste it and send to a friend via Kakao or text",
+    "step3": "Your friend signs up through the link (code applied automatically)",
+    "step4": "You both get +7 free days 🎉",
+    "myCode": "My invite code",
+    "loadCodeError": "Couldn't load your code. Please refresh.",
+    "copied": "Copied ✓ Paste it in Kakao",
+    "copyMessage": "Copy invite message"
+  },
+  "inviteLanding": {
+    "seoTitle": "A friend invited you to Tangobook",
+    "seoDesc": "Sign up to enjoy every story free for 7 days.",
+    "giftBadge": "🎁 Friend invite gift",
+    "title": "A friend invited you to Tangobook!",
+    "desc": "World classics and nature observation picture books, read in a child's voice. Sign up for <hl>every story free for 7 days</hl>, and start with an invite for <hl>+7 days for both of you</hl>!",
+    "goLibrary": "Go see the stories",
+    "signup": "Sign up and start 7 days free",
+    "browseFirst": "I'll look around first"
+  },
+  "redeem": {
+    "reasonSelf": "You can't use your own code.",
+    "reasonAlreadyReferred": "You've already used an invite code.",
+    "reasonRace": "Please try again in a moment.",
+    "reasonInvalidCode": "That code isn't valid. Please check and try again.",
+    "reasonDefault": "The code couldn't be applied.",
+    "successBoth": "Code applied! 🎉 You got +7 days and the friend who invited you got +7 days too.",
+    "successMine": "Code applied! 🎉 Your free period grew by +{{days}} days.",
+    "successCapped": "Connected with your friend! Your free period is already at the max (28 days), so it stays the same.",
+    "requestFailed": "Couldn't apply the code. Please try again in a moment.",
+    "placeholder": "Enter the code you received",
+    "inputAria": "Invite code you received",
+    "applying": "Applying…",
+    "apply": "Apply"
+  },
+  "inviteButton": {
+    "loading": "Getting your code…",
+    "copiedLabel": "Invite message copied ✓",
+    "copy": "Copy invite message",
+    "fetchError": "Couldn't get your code. Please try again.",
+    "myCode": "My code",
+    "copyCodeOnly": "Copy code only"
+  },
+  "rewardToast": {
+    "message": "Friend invite successful! Your free period grew by <u>+{{days}} days</u>"
+  },
+  "invite": {
+    "messageTemplate": "🐯 Read storybooks with your kid on Tangobook!\nSign up through the link below and we both get 7 more free days each 🎁\n{{link}}\n\nInvite code: {{code}} (If the link won't open, enter it yourself after signing up)"
+  }
+}

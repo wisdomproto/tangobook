@@ -1,0 +1,94 @@
+{
+  "loading": {
+    "openingBook": "กำลังเปิดนิทาน",
+    "nextBook": "กำลังไปยังเล่มถัดไป..."
+  },
+  "error": {
+    "notFound": "ไม่พบหนังสือเล่มนี้",
+    "goLibrary": "🏠 คลังหนังสือ"
+  },
+  "tapToStart": {
+    "title": "แตะเพื่อเริ่ม",
+    "subtitle": "แตะหน้าจอหนึ่งครั้งแล้วเรื่องราวจะเริ่มขึ้น"
+  },
+  "advancing": "หน้าถัดไป",
+  "fullscreen": {
+    "home": "ไปหน้าแรก",
+    "exit": "ปิดเต็มจอ"
+  },
+  "toolbar": {
+    "back": "ย้อนกลับ",
+    "home": "ไปหน้าแรก",
+    "autoplay": "เล่นอัตโนมัติ",
+    "autoplayStop": "หยุดเล่นอัตโนมัติ",
+    "bgm": "เพลงประกอบ",
+    "volume": "ระดับเสียง: {{level}}",
+    "volumeLow": "เบา",
+    "volumeMid": "ปานกลาง",
+    "volumeHigh": "ดัง",
+    "darkMode": "โหมดมืด",
+    "textSize": "ขนาดตัวอักษร",
+    "fullscreenImage": "ดูภาพขนาดใหญ่"
+  },
+  "nav": {
+    "prev": "หน้าก่อนหน้า",
+    "next": "หน้าถัดไป"
+  },
+  "reward": {
+    "badge": "📖 ยินดีด้วยที่อ่านจบ",
+    "titleEnd": "จบเรื่องแล้ว! 🎉",
+    "titleDone": "อ่านจบหมดแล้ว! 🎉",
+    "subBoth": "จะเล่นอะไรต่อดีนะ?",
+    "subVideo": "อยากดูเป็นแอนิเมชันอีกสักครั้งไหม?",
+    "subGame": "ไปเล่นเกมจากเรื่องนี้กันไหม?",
+    "subNone": "ครั้งหน้าจะอ่านเล่มไหนดี?",
+    "watchAnimation": "🎬 ดูแอนิเมชัน ↗",
+    "playGame": "🎮 ไปเล่นเกม",
+    "goOtherBooksBig": "🏠 ไปดูหนังสือเล่มอื่น",
+    "otherBooks": "🏠 เล่มอื่น",
+    "reread": "↻ อ่านอีกครั้ง"
+  },
+  "wordReveal": {
+    "dialogLabel": "คำที่เราได้เจอ",
+    "title": "เพื่อนที่เราได้เจอ 🌟",
+    "tappedSuffix": "แตะแล้ว",
+    "noWords": "หนังสือเล่มนี้ยังไม่มีคำศัพท์หลักที่ลงทะเบียนไว้",
+    "allTapped": "🎉 ฟังครบแล้ว! อีกสักครู่จะไปยังบทเรียนคำศัพท์…",
+    "tapHint": "🖐️ แตะคำเพื่อฟังการออกเสียง",
+    "cardListen": "ฟังการออกเสียง {{korean}} ({{name}})",
+    "cardListened": " (แตะแล้ว)",
+    "moreVocab": "📚 เรียนคำศัพท์เพิ่ม",
+    "reread": "🔄 อ่านอีกครั้ง",
+    "library": "🏠 คลังหนังสือ"
+  },
+  "video": {
+    "defaultTitle": "แอนิเมชัน",
+    "openYouTube": "เปิดใน YouTube",
+    "openYouTubeArrow": "เปิดใน YouTube ↗",
+    "close": "ปิด"
+  },
+  "continuous": {
+    "openControls": "เปิดแผงควบคุม",
+    "hideControls": "ซ่อนแผงควบคุม",
+    "hide": "ซ่อน",
+    "progress": "เล่มที่ {{current}} จาก {{total}} เล่ม",
+    "playing": "กำลังเล่น",
+    "play": "▶ เล่น",
+    "pause": "⏸ หยุดชั่วคราว",
+    "ariaPlay": "เล่น",
+    "ariaPause": "หยุดชั่วคราว",
+    "speed": "ความเร็ว",
+    "sleep": "ตั้งเวลานอน",
+    "sleepOff": "ปิด",
+    "sleepMinutes": "{{minutes}} นาที",
+    "nextBook": "⏭ เล่มถัดไป",
+    "exit": "🚪 ออก",
+    "exitHome": "ออกไปหน้าแรก",
+    "end": {
+      "title": "อ่านจบแล้ว",
+      "subtitle": "คืนนี้ก็หลับฝันดีนะ",
+      "restart": "🔁 ดูอีกครั้ง",
+      "exit": "🏠 ออก"
+    }
+  }
+}

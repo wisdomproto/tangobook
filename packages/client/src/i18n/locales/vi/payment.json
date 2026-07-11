@@ -1,0 +1,96 @@
+{
+  "price": "{{amount}}원",
+  "plans": {
+    "month1": { "name": "Gói 1 tháng" },
+    "year1": { "name": "Gói 12 tháng" }
+  },
+  "launchPromo": "Ưu đãi giảm nửa giá mừng khai trương",
+  "planCard": {
+    "perMonth": "{{price}}/tháng · dùng {{days}} ngày",
+    "daysUse": "Dùng {{days}} ngày",
+    "select": "Chọn"
+  },
+  "subscribe": {
+    "preOpenTitle": "Hiện tất cả truyện đều miễn phí",
+    "preOpenDesc": "Việc mua gói sẽ mở cùng lúc với ngày ra mắt chính thức. Trong thời gian này, hãy đọc thỏa thích nhé!",
+    "goLibrary": "Đi xem truyện tranh",
+    "back": "← Quay lại",
+    "title": "Gói Tangobook",
+    "subtitle": "Tận hưởng không giới hạn truyện tranh·quan sát thiên nhiên·nội dung học tập.",
+    "promoBadge": "🎉 Đang có {{label}}!",
+    "loadingCheckout": "Đang tải cửa sổ thanh toán…",
+    "noAutoRenew": "Khi hết hạn sẽ không tự động thanh toán lại. Bạn có thể sử dụng toàn bộ nội dung trong thời gian đã mua.",
+    "terms": "Điều khoản sử dụng",
+    "refund": "Quy định hủy·hoàn tiền",
+    "privacy": "Chính sách bảo mật thông tin cá nhân"
+  },
+  "paymentSuccess": {
+    "invalidInfo": "Thông tin thanh toán không hợp lệ.",
+    "invalidAmount": "Số tiền thanh toán không hợp lệ.",
+    "confirmFailed": "Xác nhận thanh toán thất bại.",
+    "confirming": "Đang xác nhận thanh toán…",
+    "wait": "Vui lòng đợi trong giây lát.",
+    "failTitle": "Thanh toán thất bại",
+    "retry": "Thử lại",
+    "successTitle": "Đăng ký hoàn tất!",
+    "successDesc": "Hãy tận hưởng toàn bộ nội dung của Tangobook.",
+    "redirecting": "Đang chuyển đến thư viện…"
+  },
+  "paymentFail": {
+    "title": "Thanh toán thất bại",
+    "errorCode": "Mã lỗi: {{code}}",
+    "retry": "Thử lại",
+    "backToLibrary": "Quay lại thư viện"
+  },
+  "inviteFriends": {
+    "title": "Mời bạn bè và cả hai đều được +7 ngày",
+    "subtitle": "Cả bạn và người bạn mời đều được cộng thêm 7 ngày miễn phí (tối đa 28 ngày mỗi người)",
+    "step1": "Nhấn \"Sao chép lời mời\" bên dưới",
+    "step2": "Dán và gửi cho bạn bè qua tin nhắn·KakaoTalk",
+    "step3": "Bạn của bạn đăng ký bằng đường link (mã tự động áp dụng)",
+    "step4": "Cả hai được +7 ngày miễn phí 🎉",
+    "myCode": "Mã mời của tôi",
+    "loadCodeError": "Không tải được mã. Vui lòng làm mới trang.",
+    "copied": "Đã sao chép ✓ Hãy dán vào tin nhắn",
+    "copyMessage": "Sao chép lời mời"
+  },
+  "inviteLanding": {
+    "seoTitle": "Bạn của bạn đã mời bạn đến Tangobook",
+    "seoDesc": "Đăng ký thành viên để tận hưởng miễn phí toàn bộ truyện trong 7 ngày.",
+    "giftBadge": "🎁 Quà tặng mời bạn",
+    "title": "Bạn của bạn đã mời bạn đến Tangobook!",
+    "desc": "Đọc truyện kinh điển thế giới và sách tranh quan sát thiên nhiên bằng giọng đọc dành cho bé. Đăng ký thành viên để được <hl>miễn phí toàn bộ truyện trong 7 ngày</hl>, bắt đầu qua lời mời thì <hl>cả bạn và người mời đều +7 ngày</hl>!",
+    "goLibrary": "Đi xem truyện",
+    "signup": "Đăng ký và bắt đầu 7 ngày miễn phí",
+    "browseFirst": "Xem qua trước đã"
+  },
+  "redeem": {
+    "reasonSelf": "Không thể sử dụng mã của chính mình.",
+    "reasonAlreadyReferred": "Bạn đã sử dụng mã mời rồi.",
+    "reasonRace": "Vui lòng thử lại sau giây lát.",
+    "reasonInvalidCode": "Mã không hợp lệ. Vui lòng kiểm tra lại.",
+    "reasonDefault": "Không thể áp dụng mã.",
+    "successBoth": "Đã áp dụng mã! 🎉 Bạn được +7 ngày, và người bạn mời cũng được +7 ngày.",
+    "successMine": "Đã áp dụng mã! 🎉 Thời gian miễn phí của bạn tăng thêm +{{days}} ngày.",
+    "successCapped": "Đã kết nối với bạn bè! Thời gian miễn phí của bạn đã đạt mức tối đa (28 ngày) nên giữ nguyên.",
+    "requestFailed": "Áp dụng thất bại. Vui lòng thử lại sau giây lát.",
+    "placeholder": "Nhập mã đã nhận",
+    "inputAria": "Mã mời đã nhận",
+    "applying": "Đang áp dụng…",
+    "apply": "Áp dụng"
+  },
+  "inviteButton": {
+    "loading": "Đang lấy mã…",
+    "copiedLabel": "Đã sao chép lời mời ✓",
+    "copy": "Sao chép lời mời",
+    "fetchError": "Không lấy được mã. Vui lòng thử lại.",
+    "myCode": "Mã của tôi",
+    "copyCodeOnly": "Chỉ sao chép mã"
+  },
+  "rewardToast": {
+    "message": "Mời bạn thành công! Thời gian miễn phí tăng thêm <u>+{{days}} ngày</u>"
+  },
+  "invite": {
+    "messageTemplate": "🐯 Cùng đọc truyện với bé trên Tangobook nhé!\nĐăng ký qua link bên dưới thì cả hai chúng ta đều được cộng thêm 7 ngày miễn phí 🎁\n{{link}}\n\nMã mời: {{code}} (nếu link không mở được, hãy nhập trực tiếp sau khi đăng ký)"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "notFound": {
+    "title": "Không tìm thấy cuốn sách này",
+    "description": "Con muốn xem cuốn khác không?",
+    "toLibrary": "🏠 Về thư viện"
+  },
+  "meta": {
+    "phonics": "Phonics",
+    "storybook": "Truyện tranh",
+    "pages": "{{count}} trang",
+    "words": "{{count}} từ",
+    "ageSuffix": "{{age}} tuổi"
+  },
+  "level": {
+    "L1Age": "3~4 tuổi",
+    "L2Age": "4~6 tuổi",
+    "L3Age": "6~7 tuổi"
+  },
+  "steps": {
+    "chooseStyleLangTitle": "Chọn phong cách tranh và ngôn ngữ",
+    "chooseLangTitle": "Chọn ngôn ngữ để đọc",
+    "chooseSub": "Bắt đầu theo sở thích của bé",
+    "learnTitle": "Đọc và học từ vựng",
+    "learnSub": "Phát triển vốn từ qua các từ trong truyện",
+    "guideTitle": "Đọc hướng dẫn dành cho ba mẹ",
+    "guideSub": "Đặc điểm sách · bài học · mẹo đọc cho bé"
+  },
+  "style": {
+    "prev": "Phong cách trước",
+    "next": "Phong cách tiếp theo"
+  },
+  "lang": {
+    "toggleAria": "Ngôn ngữ {{name}}",
+    "coverMissing": "Bìa {{lang}} chưa có"
+  },
+  "modes": {
+    "read": "Đọc cho bé nghe",
+    "readSub": "Tự động đọc bằng giọng nói",
+    "selfRead": "Tự đọc sách",
+    "selfReadSub": "Bé tự lật trang và đọc từ từ",
+    "lockedGuestSub": "Đăng ký thành viên để đọc miễn phí",
+    "lockedPremiumSub": "Premium — đăng ký để đọc",
+    "vocab": "Học từ vựng",
+    "vocabSub": "Từ tiếng Hàn·tiếng Anh + trò chơi",
+    "preparing": "Đang chuẩn bị"
+  },
+  "guide": {
+    "title": "Hướng dẫn cho ba mẹ",
+    "subtitle": "Đặc điểm sách · bài học · cách đọc cho bé",
+    "overview": "📖 Đặc điểm của sách",
+    "lessons": "💡 Bài học muốn gửi đến bé",
+    "readingTips": "🎭 Cách đọc cho bé nghe",
+    "faq": "❓ Câu hỏi thường gặp"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "weeklyHero": {
+    "headlineActive": "Tuần này bé đã gặp {{count}} cuốn sách!",
+    "headlineEmpty": "Đang chờ cuốn sách đầu tiên trong tuần",
+    "subActive": "Bé đang làm rất tốt và đều đặn 👏",
+    "subEmpty": "Hôm nay mình cùng mở một cuốn nhé?",
+    "metaMinutes": "📖 Khoảng {{minutes}} phút trong tuần này",
+    "metaStreak": "🔥 Liên tục {{streak}} ngày",
+    "today": "Hôm nay",
+    "readOn": "Đọc vào thứ {{label}}",
+    "notReadOn": "Không đọc vào thứ {{label}}"
+  },
+  "recentBooks": {
+    "title": "Sách đã đọc",
+    "completed": "Đã đọc hết 🎉",
+    "reading": "Đang đọc",
+    "readCount": "Đã đọc tới {{count}} lần"
+  },
+  "metWords": {
+    "title": "Bé đã gặp những từ này",
+    "count": "Tổng cộng {{count}} từ",
+    "fallbackBook": "Truyện tranh",
+    "extraBooks": "và {{count}} cuốn khác",
+    "read": "📖 Đã đọc",
+    "played": "🎮 Trò chơi",
+    "collapse": "Thu gọn",
+    "showAll": "Xem tất cả {{count}} từ"
+  },
+  "artStyle": {
+    "empty": "Chưa có cuốn sách nào đã đọc",
+    "title": "Bé thích phong cách tranh này",
+    "stat": "{{count}} cuốn · {{pct}}%"
+  },
+  "storybookReport": {
+    "artStyleTitle": "Bé thích phong cách tranh này",
+    "emptyKo": "Bé chưa đọc sách tiếng Hàn",
+    "emptyEn": "Bé chưa đọc sách tiếng Anh",
+    "goToLibrary": "Đi xem truyện tranh"
+  }
+}

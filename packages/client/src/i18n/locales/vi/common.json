@@ -1,0 +1,29 @@
+{
+  "appName": "Tangobook",
+  "tagline": "Nền tảng học tiếng Hàn và tiếng Anh qua truyện cổ tích cho trẻ 4-7 tuổi",
+  "nav": {
+    "library": "Truyện tranh",
+    "vocabGames": "Trò chơi từ vựng",
+    "back": "Quay lại",
+    "home": "Trang chủ"
+  },
+  "action": {
+    "confirm": "Xác nhận",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "close": "Đóng",
+    "retry": "Thử lại",
+    "seeMore": "Xem thêm",
+    "start": "Bắt đầu"
+  },
+  "state": {
+    "loading": "Đang tải…",
+    "error": "Đã xảy ra sự cố. Vui lòng thử lại sau ít phút.",
+    "empty": "Chưa có gì ở đây"
+  },
+  "language": {
+    "label": "Ngôn ngữ",
+    "uiLanguage": "Ngôn ngữ hiển thị"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "home": {
+    "back": "Quay lại",
+    "title": "Phát liên tục 🎬",
+    "subtitle": "Tự động đọc nhiều cuốn liền nhau. Hoàn hảo cho truyện kể trước giờ ngủ!",
+    "newSet": "＋ Tạo bộ mới",
+    "guestNotice": "🔒 Đăng nhập để lưu bộ truyện. Hiện tại chỉ có thể phát tức thì.",
+    "deleteConfirm": "Xóa bộ \"{{name}}\" không?",
+    "emptyTitle": "Chưa có bộ nào được lưu",
+    "emptyDescription": "Hãy tạo bộ mới và nghe nhiều cuốn liền nhau nhé!"
+  },
+  "builder": {
+    "back": "Quay lại",
+    "createTitle": "Tạo bộ truyện",
+    "editTitle": "Chỉnh sửa bộ truyện",
+    "subtitle": "Hãy chọn sách theo thứ tự muốn đọc",
+    "namePlaceholder": "Tên bộ (ví dụ: Truyện trước giờ ngủ)",
+    "playNow": "▶ Phát ngay",
+    "saving": "Đang lưu…",
+    "saveChanges": "💾 Lưu thay đổi",
+    "saveSet": "💾 Lưu bộ truyện",
+    "defaultSetName": "Bộ của tôi ({{count}} cuốn)",
+    "selectedBooks": "Sách đã chọn ({{count}})",
+    "moveUp": "Lên trên",
+    "moveDown": "Xuống dưới",
+    "remove": "Bỏ ra",
+    "language": "Ngôn ngữ",
+    "chooseStyle": "Chọn phong cách tranh",
+    "styleAriaLabel": "Phong cách tranh",
+    "searchPlaceholder": "Tìm theo tên sách·danh mục"
+  },
+  "grid": {
+    "loadError": "Không tải được danh sách sách",
+    "noResults": "Không có kết quả tìm kiếm",
+    "empty": "Chưa có sách nào được công khai",
+    "bookCount": "{{count}} cuốn"
+  }
+}

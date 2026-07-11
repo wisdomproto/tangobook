@@ -1,0 +1,30 @@
+{
+  "header": {
+    "back": "返回",
+    "home": "首页",
+    "homeAria": "回到首页"
+  },
+  "result": {
+    "perfectTitle": "太完美了！",
+    "perfectSub": "全部都答对了！你真棒 🌟",
+    "greatTitle": "做得真好！",
+    "greatSub": "你真的很努力 👏",
+    "goodTitle": "做得不错！",
+    "goodSub": "下次可以做得更好 💪",
+    "restart": "🔄 再玩一次",
+    "confirm": "确定"
+  },
+  "feedback": {
+    "correct1": "做得好！",
+    "correct2": "答对了！",
+    "correct3": "太棒了！",
+    "correct4": "真厉害！",
+    "incorrect1": "再试一次好吗？",
+    "incorrect2": "没关系",
+    "incorrect3": "再来一次！"
+  },
+  "loadingGate": {
+    "preparing": "正在准备图画和声音",
+    "skip": "直接开始"
+  }
+}

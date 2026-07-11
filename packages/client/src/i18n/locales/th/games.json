@@ -1,0 +1,30 @@
+{
+  "header": {
+    "back": "ย้อนกลับ",
+    "home": "หน้าแรก",
+    "homeAria": "ไปหน้าแรก"
+  },
+  "result": {
+    "perfectTitle": "สมบูรณ์แบบ!",
+    "perfectSub": "ตอบถูกหมดเลย! เยี่ยมมาก 🌟",
+    "greatTitle": "ทำได้ดีมาก!",
+    "greatSub": "ตั้งใจมากเลยนะ 👏",
+    "goodTitle": "ทำได้ดี!",
+    "goodSub": "ครั้งหน้าจะทำได้ดีกว่านี้แน่ 💪",
+    "restart": "🔄 เล่นอีกครั้ง",
+    "confirm": "ตกลง"
+  },
+  "feedback": {
+    "correct1": "เก่งมาก!",
+    "correct2": "ถูกต้อง!",
+    "correct3": "สุดยอด!",
+    "correct4": "เจ๋งไปเลย!",
+    "incorrect1": "ลองอีกทีไหม?",
+    "incorrect2": "ไม่เป็นไรนะ",
+    "incorrect3": "อีกครั้ง!"
+  },
+  "loadingGate": {
+    "preparing": "กำลังเตรียมภาพและเสียง",
+    "skip": "เริ่มเลย"
+  }
+}

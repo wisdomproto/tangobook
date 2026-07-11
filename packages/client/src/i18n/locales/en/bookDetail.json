@@ -1,0 +1,55 @@
+{
+  "notFound": {
+    "title": "We can't find this book",
+    "description": "Want to see another book?",
+    "toLibrary": "🏠 To library"
+  },
+  "meta": {
+    "phonics": "Phonics",
+    "storybook": "Storybook",
+    "pages": "{{count}} pages",
+    "words": "{{count}} words",
+    "ageSuffix": "Age {{age}}"
+  },
+  "level": {
+    "L1Age": "Ages 3-4",
+    "L2Age": "Ages 4-6",
+    "L3Age": "Ages 6-7"
+  },
+  "steps": {
+    "chooseStyleLangTitle": "Choose art style and language",
+    "chooseLangTitle": "Choose a language to read",
+    "chooseSub": "Start with what your child likes",
+    "learnTitle": "Read and learn words",
+    "learnSub": "Build vocabulary with words from the book",
+    "guideTitle": "Read the parent guide",
+    "guideSub": "Book highlights · lessons · reading tips"
+  },
+  "style": {
+    "prev": "Previous art style",
+    "next": "Next art style"
+  },
+  "lang": {
+    "toggleAria": "Language {{name}}",
+    "coverMissing": "There's no {{lang}} cover yet"
+  },
+  "modes": {
+    "read": "Read to me",
+    "readSub": "We'll read it aloud automatically",
+    "selfRead": "Read on my own",
+    "selfReadSub": "I turn the pages and read slowly",
+    "lockedGuestSub": "Sign up to read it for free",
+    "lockedPremiumSub": "Premium — subscribe to read",
+    "vocab": "Learn words",
+    "vocabSub": "Korean & English words + games",
+    "preparing": "Coming soon"
+  },
+  "guide": {
+    "title": "Parent guide",
+    "subtitle": "Book highlights · lessons · how to read it aloud",
+    "overview": "📖 About this book",
+    "lessons": "💡 Lessons to share with your child",
+    "readingTips": "🎭 How to read it aloud",
+    "faq": "❓ Frequently asked questions"
+  }
+}

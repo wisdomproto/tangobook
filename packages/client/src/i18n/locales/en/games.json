@@ -1,0 +1,30 @@
+{
+  "header": {
+    "back": "Back",
+    "home": "Home",
+    "homeAria": "Go home"
+  },
+  "result": {
+    "perfectTitle": "Perfect!",
+    "perfectSub": "You got them all right! Amazing 🌟",
+    "greatTitle": "Great job!",
+    "greatSub": "You worked so hard 👏",
+    "goodTitle": "Well done!",
+    "goodSub": "You'll do even better next time 💪",
+    "restart": "🔄 Play Again",
+    "confirm": "OK"
+  },
+  "feedback": {
+    "correct1": "Nice work!",
+    "correct2": "Correct!",
+    "correct3": "The best!",
+    "correct4": "Awesome!",
+    "incorrect1": "Want to try again?",
+    "incorrect2": "It's okay",
+    "incorrect3": "One more time!"
+  },
+  "loadingGate": {
+    "preparing": "Getting the pictures and sounds ready",
+    "skip": "Start now"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "error": {
+    "title": "Can't connect",
+    "description": "Please check your Wi-Fi",
+    "retry": "↻ Try again"
+  },
+  "search": {
+    "placeholderStorybook": "What book shall we find?",
+    "placeholderPhonics": "Which phonics shall we find?",
+    "retry": "🔎 Search again"
+  },
+  "empty": {
+    "noResultTitle": "No book like that",
+    "noResultDescription": "Want to try different words?",
+    "noBooksTitle": "No books yet",
+    "noBooksDescription": "We'll have some ready soon!"
+  },
+  "chips": {
+    "all": "All",
+    "korean": "Korean",
+    "english": "English",
+    "reading": "Reading",
+    "collapse": "▴ Collapse",
+    "more": "More ▾ +{{count}}",
+    "collapseAria": "Collapse categories",
+    "moreAria": "Show more categories"
+  },
+  "category": {
+    "other": "Other"
+  },
+  "genre": {
+    "label": "Art style"
+  },
+  "section": {
+    "bookCount": "{{count}} books",
+    "showMore": "See more ({{count}} books)"
+  },
+  "card": {
+    "free": "Free"
+  },
+  "playlist": {
+    "title": "My playlists",
+    "subtitle": "A playlist that plays several books in a row at bedtime",
+    "newSet": "+ New set",
+    "createTitle": "Create a continuous set",
+    "createSubtitle": "Pick several books to play in a row at bedtime",
+    "deleteConfirm": "Delete the \"{{name}}\" set?",
+    "bookCount": "{{count}} books",
+    "play": "▶ Play",
+    "editAria": "Edit {{name}} set",
+    "deleteAria": "Delete {{name}} set"
+  }
+}

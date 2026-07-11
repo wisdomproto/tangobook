@@ -1,0 +1,53 @@
+{
+  "error": {
+    "title": "Không kết nối được",
+    "description": "Hãy kiểm tra wifi nhé",
+    "retry": "↻ Thử lại"
+  },
+  "search": {
+    "placeholderStorybook": "Tìm sách gì nào?",
+    "placeholderPhonics": "Tìm phần phát âm nào?",
+    "retry": "🔎 Tìm lại"
+  },
+  "empty": {
+    "noResultTitle": "Không có sách cần tìm",
+    "noResultDescription": "Thử tìm bằng từ khác nhé?",
+    "noBooksTitle": "Chưa có sách nào cả",
+    "noBooksDescription": "Cô giáo sẽ chuẩn bị ngay thôi!"
+  },
+  "chips": {
+    "all": "Tất cả",
+    "korean": "Tiếng Hàn",
+    "english": "Tiếng Anh",
+    "reading": "Đang đọc",
+    "collapse": "▴ Thu gọn",
+    "more": "Thêm ▾ +{{count}}",
+    "collapseAria": "Thu gọn danh mục",
+    "moreAria": "Xem thêm danh mục"
+  },
+  "category": {
+    "other": "Khác"
+  },
+  "genre": {
+    "label": "Phong cách tranh"
+  },
+  "section": {
+    "bookCount": "{{count}} cuốn",
+    "showMore": "Xem thêm ({{count}} cuốn)"
+  },
+  "card": {
+    "free": "Miễn phí"
+  },
+  "playlist": {
+    "title": "Danh sách phát của tôi",
+    "subtitle": "Danh sách phát chọn nhiều cuốn để đọc nối tiếp cho bé trước giờ ngủ",
+    "newSet": "+ Bộ mới",
+    "createTitle": "Tạo phát nối tiếp",
+    "createSubtitle": "Chọn nhiều cuốn để đọc nối tiếp cho bé trước giờ ngủ",
+    "deleteConfirm": "Bạn muốn xóa bộ \"{{name}}\" chứ?",
+    "bookCount": "{{count}} cuốn sách",
+    "play": "▶ Phát",
+    "editAria": "Chỉnh sửa bộ {{name}}",
+    "deleteAria": "Xóa bộ {{name}}"
+  }
+}

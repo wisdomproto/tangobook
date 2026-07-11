@@ -1,0 +1,40 @@
+{
+  "weeklyHero": {
+    "headlineActive": "สัปดาห์นี้ได้เจอหนังสือ {{count}} เล่มแล้ว!",
+    "headlineEmpty": "กำลังรอหนังสือเล่มแรกของสัปดาห์นี้",
+    "subActive": "ทำได้ดีอย่างสม่ำเสมอเลย 👏",
+    "subEmpty": "วันนี้มาเปิดอ่านด้วยกันสักเล่มไหม?",
+    "metaMinutes": "📖 สัปดาห์นี้ประมาณ {{minutes}} นาที",
+    "metaStreak": "🔥 ต่อเนื่อง {{streak}} วัน",
+    "today": "วันนี้",
+    "readOn": "อ่านวัน{{label}}",
+    "notReadOn": "ไม่ได้อ่านวัน{{label}}"
+  },
+  "recentBooks": {
+    "title": "หนังสือที่อ่านแล้ว",
+    "completed": "อ่านจบแล้ว 🎉",
+    "reading": "กำลังอ่าน",
+    "readCount": "อ่านไปตั้ง {{count}} ครั้ง"
+  },
+  "metWords": {
+    "title": "ได้เจอคำเหล่านี้",
+    "count": "ทั้งหมด {{count}} คำ",
+    "fallbackBook": "นิทาน",
+    "extraBooks": "และอีก {{count}} เล่ม",
+    "read": "📖 อ่านแล้ว",
+    "played": "🎮 เกม",
+    "collapse": "ย่อ",
+    "showAll": "ดูทั้งหมด {{count}} คำ"
+  },
+  "artStyle": {
+    "empty": "ยังไม่มีหนังสือที่อ่าน",
+    "title": "ชอบสไตล์ภาพแบบนี้",
+    "stat": "{{count}} เล่ม · {{pct}}%"
+  },
+  "storybookReport": {
+    "artStyleTitle": "ชอบสไตล์ภาพแบบนี้",
+    "emptyKo": "ยังไม่ได้อ่านหนังสือภาษาเกาหลี",
+    "emptyEn": "ยังไม่ได้อ่านหนังสือภาษาอังกฤษ",
+    "goToLibrary": "ไปดูนิทาน"
+  }
+}

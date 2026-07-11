@@ -1,0 +1,31 @@
+{
+  "trial": {
+    "daysLeft": "🎁 <big>{{days}} days</big> of free trial left",
+    "preOpen": "Before official launch · Everything is free right now"
+  },
+  "lock": {
+    "badge": "🔒 Locked",
+    "lockedContent": "Locked content"
+  },
+  "paywall": {
+    "close": "Close",
+    "lockedBadge": "🔒 Locked",
+    "title": "This story is locked",
+    "guestDesc": "Sign up to enjoy every story free for 7 days. Invite a friend and you both get 7 more days each!",
+    "expiredDesc": "Your free trial has ended. Subscribe or invite a friend to keep enjoying every story.",
+    "startFree": "Start 7 days free",
+    "browseFree": "Browse free books first",
+    "subscribe": "Subscribe to keep reading",
+    "subscribePreparing": "Subscriptions coming soon"
+  },
+  "promo": {
+    "region": "Promotion banner",
+    "guestHeadline": "Sign up for a 7-day free trial",
+    "trialHeadline": "<big>{{days}} days</big> of free trial left · Every story is open",
+    "preOpenHeadline": "Enjoy every story free right now",
+    "expiredHeadline": "Subscribe to keep enjoying every story",
+    "referralSub": "Invite a friend and you both get 7 more free days each",
+    "expiredSub": "Invite a friend and you both get +7 free days",
+    "startFree": "Start for free"
+  }
+}

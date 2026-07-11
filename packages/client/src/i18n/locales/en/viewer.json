@@ -1,0 +1,94 @@
+{
+  "loading": {
+    "openingBook": "Opening the storybook",
+    "nextBook": "Moving to the next book..."
+  },
+  "error": {
+    "notFound": "This book couldn't be found",
+    "goLibrary": "🏠 Library"
+  },
+  "tapToStart": {
+    "title": "Tap to start",
+    "subtitle": "Tap the screen once and the story begins"
+  },
+  "advancing": "Next page",
+  "fullscreen": {
+    "home": "Home",
+    "exit": "Exit fullscreen"
+  },
+  "toolbar": {
+    "back": "Back",
+    "home": "Home",
+    "autoplay": "Autoplay",
+    "autoplayStop": "Stop autoplay",
+    "bgm": "Background music",
+    "volume": "Volume: {{level}}",
+    "volumeLow": "Low",
+    "volumeMid": "Medium",
+    "volumeHigh": "High",
+    "darkMode": "Dark mode",
+    "textSize": "Text size",
+    "fullscreenImage": "View image larger"
+  },
+  "nav": {
+    "prev": "Previous page",
+    "next": "Next page"
+  },
+  "reward": {
+    "badge": "📖 Finished!",
+    "titleEnd": "The End! 🎉",
+    "titleDone": "You read it all the way through! 🎉",
+    "subBoth": "How should we play next?",
+    "subVideo": "Want to watch it as an animation too?",
+    "subGame": "Shall we go play a game with this story?",
+    "subNone": "Which book should we read next?",
+    "watchAnimation": "🎬 Watch Animation ↗",
+    "playGame": "🎮 Go Play a Game",
+    "goOtherBooksBig": "🏠 See Other Books",
+    "otherBooks": "🏠 Other Books",
+    "reread": "↻ Read Again"
+  },
+  "wordReveal": {
+    "dialogLabel": "Words we met",
+    "title": "Friends we met 🌟",
+    "tappedSuffix": "tapped",
+    "noWords": "This book doesn't have any key words yet.",
+    "allTapped": "🎉 You've heard them all! Heading to the vocabulary unit soon…",
+    "tapHint": "🖐️ Tap a word to hear how it sounds",
+    "cardListen": "Hear {{korean}} ({{name}})",
+    "cardListened": " (tapped)",
+    "moreVocab": "📚 Learn More Words",
+    "reread": "🔄 Read Again",
+    "library": "🏠 Library"
+  },
+  "video": {
+    "defaultTitle": "Animation",
+    "openYouTube": "Open on YouTube",
+    "openYouTubeArrow": "Open on YouTube ↗",
+    "close": "Close"
+  },
+  "continuous": {
+    "openControls": "Open controls",
+    "hideControls": "Hide controls",
+    "hide": "Hide",
+    "progress": "Book {{current}} of {{total}}",
+    "playing": "Playing",
+    "play": "▶ Play",
+    "pause": "⏸ Pause",
+    "ariaPlay": "Play",
+    "ariaPause": "Pause",
+    "speed": "Speed",
+    "sleep": "Sleep",
+    "sleepOff": "Off",
+    "sleepMinutes": "{{minutes}} min",
+    "nextBook": "⏭ Next Book",
+    "exit": "🚪 Exit",
+    "exitHome": "Exit to home",
+    "end": {
+      "title": "All done reading",
+      "subtitle": "Sleep well tonight too",
+      "restart": "🔁 Watch Again",
+      "exit": "🏠 Exit"
+    }
+  }
+}

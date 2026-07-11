@@ -1,0 +1,38 @@
+{
+  "home": {
+    "back": "Back",
+    "title": "Continuous Play 🎬",
+    "subtitle": "Reads several books back-to-back automatically. Perfect for bedtime stories!",
+    "newSet": "＋ New Set",
+    "guestNotice": "🔒 Sign in to save your sets. For now, you can only play instantly.",
+    "deleteConfirm": "Delete the \"{{name}}\" set?",
+    "emptyTitle": "No saved sets yet",
+    "emptyDescription": "Create a new set and listen to several books in a row!"
+  },
+  "builder": {
+    "back": "Back",
+    "createTitle": "Create Set",
+    "editTitle": "Edit Set",
+    "subtitle": "Pick the books to read, in order",
+    "namePlaceholder": "Set name (e.g. Bedtime Stories)",
+    "playNow": "▶ Play Now",
+    "saving": "Saving…",
+    "saveChanges": "💾 Save Changes",
+    "saveSet": "💾 Save Set",
+    "defaultSetName": "My Set ({{count}} books)",
+    "selectedBooks": "Selected Books ({{count}})",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "remove": "Remove",
+    "language": "Language",
+    "chooseStyle": "Choose an art style",
+    "styleAriaLabel": "Art style",
+    "searchPlaceholder": "Search by title or category"
+  },
+  "grid": {
+    "loadError": "Couldn't load the book list",
+    "noResults": "No search results",
+    "empty": "No published books yet",
+    "bookCount": "{{count}} books"
+  }
+}

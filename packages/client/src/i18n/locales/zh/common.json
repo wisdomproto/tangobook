@@ -1,0 +1,29 @@
+{
+  "appName": "Tangobook",
+  "tagline": "用童话陪伴 4-7 岁孩子学韩语·英语的启蒙平台",
+  "nav": {
+    "library": "童话书",
+    "vocabGames": "词汇游戏",
+    "back": "返回",
+    "home": "首页"
+  },
+  "action": {
+    "confirm": "确定",
+    "cancel": "取消",
+    "save": "保存",
+    "delete": "删除",
+    "close": "关闭",
+    "retry": "重试",
+    "seeMore": "查看更多",
+    "start": "开始"
+  },
+  "state": {
+    "loading": "加载中…",
+    "error": "出了点问题，请稍后再试。",
+    "empty": "这里还什么都没有"
+  },
+  "language": {
+    "label": "语言",
+    "uiLanguage": "界面语言"
+  }
+}

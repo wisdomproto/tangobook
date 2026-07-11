@@ -1,0 +1,31 @@
+{
+  "trial": {
+    "daysLeft": "🎁 Còn <big>{{days}} ngày</big> dùng thử miễn phí",
+    "preOpen": "Trước khi ra mắt chính thức · Hiện tất cả đều miễn phí"
+  },
+  "lock": {
+    "badge": "🔒 Đã khóa",
+    "lockedContent": "Nội dung đã khóa"
+  },
+  "paywall": {
+    "close": "Đóng",
+    "lockedBadge": "🔒 Đã khóa",
+    "title": "Truyện đã khóa",
+    "guestDesc": "Đăng ký thành viên để đọc miễn phí tất cả truyện trong 7 ngày. Mời bạn bè thì cả hai đều được cộng thêm 7 ngày!",
+    "expiredDesc": "Thời gian dùng thử miễn phí đã kết thúc. Đăng ký hoặc mời bạn bè để tiếp tục thưởng thức tất cả truyện.",
+    "startFree": "Bắt đầu 7 ngày miễn phí",
+    "browseFree": "Xem sách miễn phí trước",
+    "subscribe": "Đăng ký để đọc tiếp",
+    "subscribePreparing": "Đang chuẩn bị đăng ký"
+  },
+  "promo": {
+    "region": "Biểu ngữ khuyến mãi",
+    "guestHeadline": "Đăng ký thành viên để dùng thử miễn phí 7 ngày",
+    "trialHeadline": "Còn <big>{{days}} ngày</big> dùng thử miễn phí · Tất cả truyện đang mở",
+    "preOpenHeadline": "Hiện tất cả truyện đều miễn phí",
+    "expiredHeadline": "Đăng ký để tiếp tục thưởng thức tất cả truyện",
+    "referralSub": "Mời bạn bè thì thời gian miễn phí của cả hai cùng tăng thêm 7 ngày",
+    "expiredSub": "Mời bạn bè thì cả hai đều được cộng thêm 7 ngày miễn phí",
+    "startFree": "Bắt đầu miễn phí"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "weeklyHero": {
+    "headlineActive": "You met {{count}} books this week!",
+    "headlineEmpty": "Waiting for your first book this week",
+    "subActive": "You're doing great, keep it up 👏",
+    "subEmpty": "Shall we open one book together today?",
+    "metaMinutes": "📖 About {{minutes}} min this week",
+    "metaStreak": "🔥 {{streak}}-day streak",
+    "today": "Today",
+    "readOn": "Read on {{label}}",
+    "notReadOn": "Not read on {{label}}"
+  },
+  "recentBooks": {
+    "title": "Books Read",
+    "completed": "Read to the end 🎉",
+    "reading": "Reading",
+    "readCount": "Read {{count}} times"
+  },
+  "metWords": {
+    "title": "Words you met",
+    "count": "{{count}} in all",
+    "fallbackBook": "Storybook",
+    "extraBooks": "+{{count}} more",
+    "read": "📖 Read",
+    "played": "🎮 Game",
+    "collapse": "Collapse",
+    "showAll": "See all {{count}}"
+  },
+  "artStyle": {
+    "empty": "No books read yet",
+    "title": "Art styles you love",
+    "stat": "{{count}} books · {{pct}}%"
+  },
+  "storybookReport": {
+    "artStyleTitle": "Art styles you love",
+    "emptyKo": "No Korean books read yet",
+    "emptyEn": "No English books read yet",
+    "goToLibrary": "Go to the library"
+  }
+}

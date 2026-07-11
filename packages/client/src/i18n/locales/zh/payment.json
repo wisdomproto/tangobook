@@ -1,0 +1,96 @@
+{
+  "price": "{{amount}}원",
+  "plans": {
+    "month1": { "name": "1个月使用券" },
+    "year1": { "name": "12个月使用券" }
+  },
+  "launchPromo": "开业纪念五折优惠",
+  "planCard": {
+    "perMonth": "每月 {{price}} · 可用 {{days}} 天",
+    "daysUse": "可用 {{days}} 天",
+    "select": "选择"
+  },
+  "subscribe": {
+    "preOpenTitle": "现在所有绘本都免费",
+    "preOpenDesc": "使用券将在正式开放时开售。在那之前请尽情阅读吧！",
+    "goLibrary": "去看绘本",
+    "back": "← 返回",
+    "title": "Tangobook 使用券",
+    "subtitle": "无限畅享绘本·自然观察·学习内容。",
+    "promoBadge": "🎉 {{label}} 进行中！",
+    "loadingCheckout": "正在加载支付页面…",
+    "noAutoRenew": "到期后不会自动扣费。在购买的期限内可使用所有内容。",
+    "terms": "使用条款",
+    "refund": "取消·退款规定",
+    "privacy": "隐私政策"
+  },
+  "paymentSuccess": {
+    "invalidInfo": "支付信息不正确。",
+    "invalidAmount": "支付金额不正确。",
+    "confirmFailed": "支付确认失败。",
+    "confirming": "正在确认支付…",
+    "wait": "请稍候。",
+    "failTitle": "支付失败",
+    "retry": "重试",
+    "successTitle": "订阅完成！",
+    "successDesc": "尽情享受 Tangobook 的所有内容吧。",
+    "redirecting": "正在跳转到书库…"
+  },
+  "paymentFail": {
+    "title": "支付失败了",
+    "errorCode": "错误代码：{{code}}",
+    "retry": "重试",
+    "backToLibrary": "返回书库"
+  },
+  "inviteFriends": {
+    "title": "邀请好友，双方各得 +7 天",
+    "subtitle": "好友和你的免费时长都会各增加 7 天（各最多 28 天）",
+    "step1": "点击下方的「复制邀请消息」",
+    "step2": "用微信·短信粘贴发送给好友",
+    "step3": "好友通过链接注册（邀请码自动应用）",
+    "step4": "双方免费时长 +7 天 🎉",
+    "myCode": "我的邀请码",
+    "loadCodeError": "无法加载邀请码，请刷新页面。",
+    "copied": "已复制 ✓ 粘贴到聊天里吧",
+    "copyMessage": "复制邀请消息"
+  },
+  "inviteLanding": {
+    "seoTitle": "好友邀请你加入 Tangobook",
+    "seoDesc": "注册后可免费畅享所有绘本 7 天。",
+    "giftBadge": "🎁 好友邀请礼物",
+    "title": "好友邀请你加入 Tangobook！",
+    "desc": "用孩子的声音为你朗读世界名著绘本和自然观察绘本。注册即可 <hl>7 天畅读所有绘本</hl>，通过邀请开始还能 <hl>好友和你各 +7 天</hl>！",
+    "goLibrary": "去看绘本",
+    "signup": "注册并开启 7 天免费",
+    "browseFirst": "先随便看看"
+  },
+  "redeem": {
+    "reasonSelf": "不能使用自己的邀请码。",
+    "reasonAlreadyReferred": "你已经使用过邀请码了。",
+    "reasonRace": "请稍后再试。",
+    "reasonInvalidCode": "邀请码不正确，请重新确认。",
+    "reasonDefault": "无法应用该邀请码。",
+    "successBoth": "邀请码已应用！🎉 你 +7 天，邀请你的好友也 +7 天。",
+    "successMine": "邀请码已应用！🎉 你的免费时长增加了 {{days}} 天。",
+    "successCapped": "已和好友建立关联！你的免费时长已达上限（28 天），保持不变。",
+    "requestFailed": "应用失败，请稍后再试。",
+    "placeholder": "输入收到的邀请码",
+    "inputAria": "收到的邀请码",
+    "applying": "应用中…",
+    "apply": "应用"
+  },
+  "inviteButton": {
+    "loading": "正在获取邀请码…",
+    "copiedLabel": "邀请消息已复制 ✓",
+    "copy": "复制邀请消息",
+    "fetchError": "无法获取邀请码，请重试。",
+    "myCode": "我的邀请码",
+    "copyCodeOnly": "仅复制邀请码"
+  },
+  "rewardToast": {
+    "message": "好友邀请成功！免费时长 <u>+{{days}} 天</u>"
+  },
+  "invite": {
+    "messageTemplate": "🐯 来 Tangobook 和孩子一起读绘本吧！\n通过下方链接注册，我们双方的免费时长都会各增加 7 天 🎁\n{{link}}\n\n邀请码：{{code}}（如果链接打不开，注册后可手动输入）"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "header": {
+    "back": "Quay lại",
+    "home": "Trang chủ",
+    "homeAria": "Về trang chủ"
+  },
+  "result": {
+    "perfectTitle": "Tuyệt vời!",
+    "perfectSub": "Con đã đúng hết tất cả! Giỏi quá 🌟",
+    "greatTitle": "Con làm giỏi lắm!",
+    "greatSub": "Con đã cố gắng thật nhiều 👏",
+    "goodTitle": "Làm tốt lắm!",
+    "goodSub": "Lần sau con sẽ làm tốt hơn nữa 💪",
+    "restart": "🔄 Chơi lại",
+    "confirm": "Xác nhận"
+  },
+  "feedback": {
+    "correct1": "Giỏi lắm!",
+    "correct2": "Chính xác!",
+    "correct3": "Tuyệt vời!",
+    "correct4": "Xuất sắc!",
+    "incorrect1": "Thử lại nhé?",
+    "incorrect2": "Không sao đâu",
+    "incorrect3": "Một lần nữa nào!"
+  },
+  "loadingGate": {
+    "preparing": "Đang chuẩn bị hình ảnh và âm thanh",
+    "skip": "Bắt đầu ngay"
+  }
+}

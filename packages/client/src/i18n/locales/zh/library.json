@@ -1,0 +1,53 @@
+{
+  "error": {
+    "title": "连接不上",
+    "description": "检查一下 Wi-Fi 吧",
+    "retry": "↻ 重试"
+  },
+  "search": {
+    "placeholderStorybook": "想找什么书呀？",
+    "placeholderPhonics": "想找哪种自然拼读？",
+    "retry": "🔎 重新搜索"
+  },
+  "empty": {
+    "noResultTitle": "没有找到想要的书",
+    "noResultDescription": "换个词再找找？",
+    "noBooksTitle": "还没有书哦",
+    "noBooksDescription": "老师很快就会准备好的！"
+  },
+  "chips": {
+    "all": "全部",
+    "korean": "韩语",
+    "english": "英语",
+    "reading": "阅读中",
+    "collapse": "▴ 收起",
+    "more": "更多 ▾ +{{count}}",
+    "collapseAria": "收起分类",
+    "moreAria": "查看更多分类"
+  },
+  "category": {
+    "other": "其他"
+  },
+  "genre": {
+    "label": "画风"
+  },
+  "section": {
+    "bookCount": "{{count}} 本",
+    "showMore": "查看更多（{{count}} 本）"
+  },
+  "card": {
+    "free": "免费"
+  },
+  "playlist": {
+    "title": "我的播放列表",
+    "subtitle": "挑选多本书，在睡前连续讲给孩子听的播放列表",
+    "newSet": "+ 新建列表",
+    "createTitle": "创建连续播放",
+    "createSubtitle": "挑选多本书，在睡前连续讲给孩子听",
+    "deleteConfirm": "要删除“{{name}}”列表吗？",
+    "bookCount": "{{count}} 本书",
+    "play": "▶ 播放",
+    "editAria": "编辑 {{name}} 列表",
+    "deleteAria": "删除 {{name}} 列表"
+  }
+}

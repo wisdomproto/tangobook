@@ -1,0 +1,41 @@
+{
+  "logo": {
+    "alt": "Tangobook",
+    "home": "ไปหน้าแรก"
+  },
+  "sidebar": {
+    "storybooks": "นิทาน",
+    "vocabGames": "เกมคำศัพท์",
+    "phonics": "โฟนิกส์",
+    "vocabulary": "คำศัพท์",
+    "learningGames": "เกมการเรียนรู้",
+    "reports": "รายงานการเรียนรู้",
+    "inviteFriends": "ชวนเพื่อน",
+    "parentSettings": "การตั้งค่าผู้ปกครอง",
+    "login": "เข้าสู่ระบบ",
+    "logout": "ออกจากระบบ",
+    "logoutConfirm": "ต้องการออกจากระบบไหม?",
+    "comingSoon": "เร็ว ๆ นี้",
+    "comingSoonTitle": "กำลังเตรียมอยู่"
+  },
+  "pageTitle": {
+    "phonics": "โฟนิกส์",
+    "wordStudy": "เรียนรู้คำศัพท์",
+    "vocabMaster": "มาสเตอร์คำศัพท์",
+    "parentMode": "โหมดผู้ปกครอง"
+  },
+  "header": {
+    "openMenu": "เปิดเมนู",
+    "closeMenu": "ปิดเมนู",
+    "switchChild": "{{name}} — เปลี่ยนเด็ก",
+    "switch": "เปลี่ยน"
+  },
+  "bgm": {
+    "turnOn": "เปิดเพลงประกอบ",
+    "turnOff": "ปิดเพลงประกอบ"
+  },
+  "pageHeader": {
+    "back": "กลับ",
+    "home": "ไปหน้าแรก"
+  }
+}

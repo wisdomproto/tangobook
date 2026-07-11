@@ -1,0 +1,29 @@
+{
+  "appName": "Tangobook",
+  "tagline": "A Korean & English learning platform where kids ages 4-7 grow through storybooks",
+  "nav": {
+    "library": "Storybooks",
+    "vocabGames": "Word Games",
+    "back": "Back",
+    "home": "Home"
+  },
+  "action": {
+    "confirm": "OK",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "close": "Close",
+    "retry": "Try again",
+    "seeMore": "See more",
+    "start": "Get started"
+  },
+  "state": {
+    "loading": "Loading…",
+    "error": "Something went wrong. Please try again in a moment.",
+    "empty": "Nothing here yet"
+  },
+  "language": {
+    "label": "Language",
+    "uiLanguage": "Display language"
+  }
+}

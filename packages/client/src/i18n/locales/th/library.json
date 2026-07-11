@@ -1,0 +1,53 @@
+{
+  "error": {
+    "title": "เชื่อมต่อไม่ได้",
+    "description": "ลองเช็กสัญญาณ Wi-Fi ดูนะ",
+    "retry": "↻ ลองอีกครั้ง"
+  },
+  "search": {
+    "placeholderStorybook": "อยากหานิทานเรื่องอะไร?",
+    "placeholderPhonics": "อยากหาโฟนิกส์แบบไหน?",
+    "retry": "🔎 ค้นหาอีกครั้ง"
+  },
+  "empty": {
+    "noResultTitle": "ไม่มีหนังสือที่หา",
+    "noResultDescription": "ลองค้นด้วยคำอื่นไหม?",
+    "noBooksTitle": "ยังไม่มีหนังสือ",
+    "noBooksDescription": "คุณครูกำลังเตรียมให้เร็วๆ นี้!"
+  },
+  "chips": {
+    "all": "ทั้งหมด",
+    "korean": "เกาหลี",
+    "english": "อังกฤษ",
+    "reading": "กำลังอ่าน",
+    "collapse": "▴ ย่อ",
+    "more": "เพิ่ม ▾ +{{count}}",
+    "collapseAria": "ย่อหมวดหมู่",
+    "moreAria": "ดูหมวดหมู่เพิ่มเติม"
+  },
+  "category": {
+    "other": "อื่นๆ"
+  },
+  "genre": {
+    "label": "สไตล์ภาพ"
+  },
+  "section": {
+    "bookCount": "{{count}} เล่ม",
+    "showMore": "ดูเพิ่มเติม ({{count}} เล่ม)"
+  },
+  "card": {
+    "free": "ฟรี"
+  },
+  "playlist": {
+    "title": "เพลย์ลิสต์ของฉัน",
+    "subtitle": "เพลย์ลิสต์ที่เลือกหลายเล่มมาเปิดต่อกันตอนก่อนนอน",
+    "newSet": "+ ชุดใหม่",
+    "createTitle": "สร้างการเล่นต่อเนื่อง",
+    "createSubtitle": "เลือกหลายเล่มมาเปิดต่อกันตอนก่อนนอน",
+    "deleteConfirm": "ต้องการลบชุด \"{{name}}\" ไหม?",
+    "bookCount": "{{count}} เล่ม",
+    "play": "▶ เล่น",
+    "editAria": "แก้ไขชุด {{name}}",
+    "deleteAria": "ลบชุด {{name}}"
+  }
+}
