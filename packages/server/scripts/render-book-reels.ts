@@ -11,12 +11,16 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {
   resolveClassicBookIds,
+  resolveNatureBookIds,
   fetchStorybook,
   loadStoryboard,
   loadGenreMap,
   loadReelCaptions,
+  loadNatureReelCaptions,
+  resolveSeriesCovers,
 } from '../src/services/reel/reel-targets.js';
 import { buildReelProps } from '../src/services/reel/reel-props.js';
+import { buildNatureReelProps } from '../src/services/reel/nature-reel-props.js';
 import {
   resolveOwnerUserId,
   resolveMarketingTarget,
@@ -25,7 +29,6 @@ import {
   connectReelToMarketing,
   updateReelCover,
 } from '../src/services/reel/reel-publish.js';
-import type { ReelProps } from '../src/services/reel/reel-props.js';
 
 // Remotion 은 Chromium 이 필요하므로 lazy import (config 로드 시점 부담 회피).
 async function loadRemotion() {
@@ -97,12 +100,14 @@ async function main() {
   const serveUrl = await bundle({ entryPoint: remotionEntry });
 
   // 2. 대상 id 결정
-  let ids = args.book ? [args.book] : resolveClassicBookIds();
+  const isNature = args.category === 'nature';
+  let ids = args.book ? [args.book] : isNature ? resolveNatureBookIds() : resolveClassicBookIds();
   if (!args.book && args.limit != null) ids = ids.slice(0, args.limit);
   console.log(`[render-book-reels] 대상 ${ids.length}권`);
 
   // 3. genreMap (1회) + ownerUserId (프로덕션만)
   const genreMap = await loadGenreMap();
+  const series = isNature ? await resolveSeriesCovers() : null;
   let ownerUserId = '';
   if (!args.dryRun) {
     ownerUserId = await resolveOwnerUserId(args.ownerEmail);
@@ -119,13 +124,24 @@ async function main() {
   fs.mkdirSync(outDir, { recursive: true });
 
   // 썸네일(9:16) 렌더 → 로컬 PNG 경로 반환. 3그림체 있으면 그림체 3분할, 없으면 포스터.
-  async function renderThumb(id: string, props: ReelProps): Promise<string> {
-    const compId = props.styleMorph ? 'ReelThumbStyles' : 'ReelThumbPoster';
-    const thumbProps = {
-      bookTitle: props.bookTitle,
-      coverUrl: props.scenes[0].imageUrls[0],
-      styles: props.styleMorph?.styles ?? [],
-    };
+  async function renderThumb(id: string, props: any, nature: boolean): Promise<string> {
+    const compId = nature
+      ? 'ReelThumbNature'
+      : props.styleMorph
+        ? 'ReelThumbStyles'
+        : 'ReelThumbPoster';
+    const thumbProps = nature
+      ? {
+          bookTitle: props.bookTitle,
+          coverUrl: props.scenes[0].imageUrls[0],
+          headline: props.scenes[0].body,
+          categoryLabel: props.category,
+        }
+      : {
+          bookTitle: props.bookTitle,
+          coverUrl: props.scenes[0].imageUrls[0],
+          styles: props.styleMorph?.styles ?? [],
+        };
     const comp = await selectComposition({
       serveUrl,
       id: compId,
@@ -151,19 +167,26 @@ async function main() {
     try {
       const storybook = await fetchStorybook(id);
       const storyboard = loadStoryboard(id);
-      const captions = loadReelCaptions(id);
-      const props = buildReelProps({ storybook, storyboard, genreMap, captions });
+      const props: any = isNature
+        ? buildNatureReelProps({
+            storybook,
+            storyboard,
+            captions: loadNatureReelCaptions(id),
+            seriesCovers: series!.covers,
+            seriesLabels: series!.labels,
+          })
+        : buildReelProps({ storybook, storyboard, genreMap, captions: loadReelCaptions(id) });
       if (!props) {
         console.log(`  - ${id} SKIP (릴스 props 생성 불가 — 스토리보드/삽화 부족)`);
         summary.skipped++;
         continue;
       }
-      const morph = props.styleMorph ? 'yes' : 'no';
+      const morph = isNature ? 'nature' : props.styleMorph ? 'yes' : 'no';
 
       // ===== 썸네일만 갱신 모드 (영상 재렌더 없이 coverUrl 만 교체) =====
       if (args.thumbsOnly) {
         if (args.dryRun) {
-          const thumbPath = await renderThumb(id, props);
+          const thumbPath = await renderThumb(id, props, isNature);
           console.log(`  ✓ ${id} thumb(dry) → ${thumbPath}`);
           summary.rendered++;
           continue;
@@ -181,7 +204,7 @@ async function main() {
           summary.skipped++;
           continue;
         }
-        const thumbPath = await renderThumb(id, props);
+        const thumbPath = await renderThumb(id, props, isNature);
         const coverUrl = await withTimeout(
           uploadThumbnail(target.projectId, id, thumbPath),
           60000,
@@ -194,14 +217,14 @@ async function main() {
         );
         console.log(`  ✓ ${id} 썸네일 교체(${result}) → ${coverUrl.slice(-46)}`);
         summary.rendered++;
-        if (props.styleMorph) summary.morphYes++;
+        if (!isNature && props.styleMorph) summary.morphYes++;
         continue;
       }
 
       // ===== 전체 렌더 (영상 + 썸네일) =====
       const composition = await selectComposition({
         serveUrl,
-        id: 'StorybookReel',
+        id: isNature ? 'NatureReel' : 'StorybookReel',
         inputProps: props,
         timeoutInMilliseconds: 60000,
         ...browserOpts,
@@ -221,7 +244,7 @@ async function main() {
 
       console.log(`  ✓ ${id} scenes=${props.scenes.length} morph=${morph} → ${outPath}`);
       summary.rendered++;
-      if (props.styleMorph) summary.morphYes++;
+      if (!isNature && props.styleMorph) summary.morphYes++;
 
       if (args.dryRun) continue; // dry-run: 로컬 mp4 유지, 업로드/연결 없음
 
@@ -232,7 +255,7 @@ async function main() {
         continue;
       }
       const videoUrl = await uploadReelMp4(target.projectId, id, outPath);
-      const thumbPath = await renderThumb(id, props);
+      const thumbPath = await renderThumb(id, props, isNature);
       const coverUrl = await uploadThumbnail(target.projectId, id, thumbPath); // 썸네일을 커버로
       const result = await connectReelToMarketing({ bookId: id, videoUrl, coverUrl, ownerUserId });
       console.log(`    · ${id} 업로드+연결(${result}) → ${videoUrl}`);
