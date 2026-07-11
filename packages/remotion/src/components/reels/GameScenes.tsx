@@ -58,11 +58,12 @@ function Caption({ text }: { text: string }) {
 
 // ─────────────────────────── 이 책에서 배우는 단어 (Book Words) ───────────────────────────
 // 동화책마다 배우는 핵심 단어가 있다 — 게임 학습의 출발점. (예: 백설공주 → 사과·왕비·거울·숲)
+// 실제 백설공주 책의 keyObject 삽화 (콘텐츠 그대로).
 const BOOK_WORDS = [
-  { emoji: '🍎', word: '사과' },
-  { emoji: '👑', word: '왕비' },
-  { emoji: '🪞', word: '거울' },
-  { emoji: '🌳', word: '숲' },
+  { img: 'apple', word: '사과' },
+  { img: 'mirror', word: '거울' },
+  { img: 'forest', word: '숲' },
+  { img: 'castle', word: '성' },
 ];
 
 export const BookWords: React.FC = () => {
@@ -130,7 +131,24 @@ export const BookWords: React.FC = () => {
                   opacity: pop,
                 }}
               >
-                <span style={{ fontSize: 76 }}>{w.emoji}</span>
+                <div
+                  style={{
+                    width: 110,
+                    height: 110,
+                    borderRadius: 20,
+                    backgroundColor: '#FFF6EE',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    flex: '0 0 auto',
+                  }}
+                >
+                  <Img
+                    src={staticFile(`reels/words/${w.img}.webp`)}
+                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                  />
+                </div>
                 <span style={{ fontFamily, fontWeight: 800, fontSize: 62, color: INK }}>
                   {w.word}
                 </span>
@@ -145,10 +163,11 @@ export const BookWords: React.FC = () => {
 
 // ─────────────────────────── 그림짝 맞추기 (Line Matching) ───────────────────────────
 // 그림 카드(좌) ↔ 단어 카드(우)를 곡선 줄로 잇는다. 맞은 쌍 = 초록선.
+// 실제 백설공주 책의 keyObject 삽화로 그림-단어 짝짓기.
 const LM_PAIRS = [
-  { emoji: '🍎', word: '사과', picY: 620, wordY: 1160 },
-  { emoji: '🐱', word: '고양이', picY: 900, wordY: 620 },
-  { emoji: '🌸', word: '꽃', picY: 1180, wordY: 900 },
+  { img: 'apple', word: '사과', picY: 620, wordY: 1160 },
+  { img: 'mirror', word: '거울', picY: 900, wordY: 620 },
+  { img: 'forest', word: '숲', picY: 1180, wordY: 900 },
 ];
 const LM_PIC_X = 300;
 const LM_WORD_X = 780;
@@ -206,13 +225,14 @@ export const LineMatchGame: React.FC = () => {
             backgroundColor: '#fff',
             border: `5px solid ${SUCCESS}`,
             boxShadow: '0 10px 26px rgba(0,0,0,0.12)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: 130,
+            overflow: 'hidden',
+            padding: 14,
           }}
         >
-          {p.emoji}
+          <Img
+            src={staticFile(`reels/words/${p.img}.webp`)}
+            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+          />
         </div>
       ))}
 
