@@ -18,12 +18,16 @@ import {
   FROG_DURATION,
 } from './compositions/FrogPrinceReel';
 import { StorybookReel } from './compositions/StorybookReel';
+import { NatureReel } from './compositions/NatureReel';
 import {
   ThumbPoster,
   ThumbStyles,
   ThumbHybrid,
   THUMB_FROG,
   ThumbSchema,
+  NatureThumb,
+  NatureThumbSchema,
+  THUMB_NATURE_SAMPLE,
 } from './compositions/ReelThumbnail';
 import {
   StorybookReelPropsSchema,
@@ -34,6 +38,11 @@ import {
   REEL_HEIGHT,
   MORPH_LINES,
 } from './data/storybook-reel';
+import {
+  NatureReelPropsSchema,
+  type NatureReelProps,
+  computeNatureReelFrames,
+} from './data/nature-reel';
 import { AudiobookRenderProps, RESOLUTIONS } from './types';
 import { calculateTotalFrames } from './utils/duration';
 import { MosquitoEbookComposition } from './compositions/MosquitoEbookComposition';
@@ -151,6 +160,17 @@ const FROG_DEFAULT: StorybookReelProps = {
   },
 };
 
+const NATURE_DEFAULT: NatureReelProps = {
+  bookTitle: '기가노토사우루스',
+  category: '공룡 친구들',
+  scenes: FROG_DEFAULT.scenes.slice(0, 3),
+  series: {
+    covers: Array(8).fill(FROG_DEFAULT.scenes[0].imageUrls[0]),
+    labels: ['공룡', '육지', '식물', '곤충', '바다', '하늘', '우주', '우리몸'],
+    headline: '우리 아이 첫 자연도감 100권+',
+  },
+};
+
 export const RemotionRoot: React.FC = () => {
   return (
     <>
@@ -204,6 +224,27 @@ export const RemotionRoot: React.FC = () => {
         height={REEL_HEIGHT}
         defaultProps={FROG_DEFAULT}
         calculateMetadata={({ props }) => ({ durationInFrames: computeReelFrames(props) })}
+      />
+      <Composition
+        id="NatureReel"
+        component={NatureReel}
+        schema={NatureReelPropsSchema}
+        durationInFrames={computeNatureReelFrames(NATURE_DEFAULT)}
+        fps={REEL_FPS}
+        width={REEL_WIDTH}
+        height={REEL_HEIGHT}
+        defaultProps={NATURE_DEFAULT}
+        calculateMetadata={({ props }) => ({ durationInFrames: computeNatureReelFrames(props) })}
+      />
+      <Composition
+        id="ReelThumbNature"
+        component={NatureThumb}
+        schema={NatureThumbSchema}
+        durationInFrames={1}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={THUMB_NATURE_SAMPLE}
       />
       <Composition
         id="ReelThumbPoster"
