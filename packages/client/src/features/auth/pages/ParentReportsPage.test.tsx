@@ -124,27 +124,11 @@ describe('ParentReportsPage — header', () => {
     expect(screen.getByText(/아이/)).toBeInTheDocument();
   });
 
-  it('shows "이번 주 N권 읽었어요" when there are books this week', () => {
-    // Inject a page_read event with lastPage=true completed this week
-    const now = new Date();
-    mockEvents.data = [
-      {
-        id: 'e1',
-        event_type: 'page_read',
-        created_at: now.toISOString(),
-        storybook_id: 'book-1',
-        profile_id: 'p1',
-        metadata: { lastPage: true, totalPages: 5, lang: 'ko' },
-      },
-    ];
+  // 주간 요약 카피("이번 주 …")는 2026-07-02 히어로 리디자인으로 WeeklyHeroCard 로 이동 —
+  // 해당 동작은 learning/components/WeeklyHeroCard.test.tsx 가 검증한다.
+  it('header stays a single title line (no weekly numbers — WeeklyHeroCard owns them)', () => {
     renderPage();
-    expect(screen.getByText(/이번 주 1권 읽었어요/)).toBeInTheDocument();
-  });
-
-  it('shows "아직 없어요" message when no books read this week', () => {
-    mockEvents.data = [];
-    renderPage();
-    expect(screen.getByText(/이번 주 읽은 책이 아직 없어요/)).toBeInTheDocument();
+    expect(screen.queryByText(/이번 주/)).toBeNull();
   });
 });
 

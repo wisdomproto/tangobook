@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter, Navigate, Outlet, useParams } from 'react-router-dom';
 import { ErrorBoundary } from '@/design-system';
 import { AppLayout } from '../components/AppLayout';
@@ -45,7 +46,9 @@ import ParentReportsPage from '../features/auth/pages/ParentReportsPage';
 import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
 import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
 import { VocabularyHubPage, VocabularyStudyPage } from '../features/vocabulary-unit';
-import { MosquitoEbookPage } from '../features/ebook-mosquito';
+// 🔴 lazy 필수: @tangobook/remotion(Player + loadFont 사이드이펙트 15개)을 통째로 끌고 와서
+// 정적 import 시 메인 번들 비대 + 모든 페이지에서 Noto Sans KR 폰트 요청 124개 발생.
+const MosquitoEbookPage = lazy(() => import('../features/ebook-mosquito/pages/MosquitoEbookPage'));
 import {
   PhonicsLandingPage,
   KoreanPhonicsStudyPage,
@@ -145,7 +148,9 @@ export const router = createBrowserRouter([
         path: 'ebook/mosquito',
         element: (
           <ErrorBoundary>
-            <MosquitoEbookPage />
+            <Suspense fallback={null}>
+              <MosquitoEbookPage />
+            </Suspense>
           </ErrorBoundary>
         ),
       },
