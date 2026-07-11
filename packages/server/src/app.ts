@@ -146,11 +146,48 @@ export function createApp() {
   // 프로덕션: 클라이언트 정적 파일 서빙 (개발 모드에서는 Vite가 처리)
   if (process.env.NODE_ENV === 'production') {
     const clientDist = path.join(process.cwd(), 'packages/client/dist');
+
+    // 비-www → www 301 (중복 호스트 SEO 신호 제거 — sitemap/canonical 은 www 기준)
+    app.use((req, res, next) => {
+      const host = (req.headers['x-forwarded-host'] as string) || req.headers.host || '';
+      if (host === 'tangobook.co.kr') {
+        res.redirect(301, `https://www.tangobook.co.kr${req.originalUrl}`);
+        return;
+      }
+      next();
+    });
+
     // 서비스워커는 no-cache 로 — 브라우저가 매번 최신 sw.js 를 확인해 업데이트가 전파되게.
     app.get('/sw.js', (_req, res) => {
       res.setHeader('Cache-Control', 'no-cache');
       res.sendFile(path.join(clientDist, 'sw.js'));
     });
+
+    // SEO SSR-lite — 책별 about 페이지에 meta/JSON-LD/본문 주입 (네이버 Yeti 등
+    // JS 미실행 크롤러 대응). 실패 시 SPA 폴백. 상세 → seo-ssr.service.ts.
+    let cachedIndexHtml: string | null = null;
+    app.get('/library/:id/about', async (req, res, next) => {
+      try {
+        const { renderAboutSeo, injectAboutSeo } = await import('./services/seo-ssr.service.js');
+        const { StorybookService } = await import('./services/storybook.service.js');
+        const storybook = await StorybookService.getById(req.params.id as string);
+        if (!storybook) {
+          next(); // SPA 가 404 UI 처리
+          return;
+        }
+        if (!cachedIndexHtml) {
+          const { readFile } = await import('node:fs/promises');
+          cachedIndexHtml = await readFile(path.join(clientDist, 'index.html'), 'utf-8');
+        }
+        res
+          .setHeader('Cache-Control', 'public, max-age=300')
+          .type('html')
+          .send(injectAboutSeo(cachedIndexHtml, renderAboutSeo(storybook)));
+      } catch {
+        next(); // 어떤 실패든 SPA 폴백 — SEO 주입이 서비스를 죽이면 안 됨
+      }
+    });
+
     app.use(express.static(clientDist));
     app.get('/{*path}', (_req, res) => {
       res.sendFile(path.join(clientDist, 'index.html'));

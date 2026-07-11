@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 
-const SITE_URL =
-  typeof window !== 'undefined' && window.location?.origin?.includes('localhost')
-    ? window.location.origin
-    : 'https://www.tangobook.co.kr';
+// 🔴 canonical 은 항상 정식 www 호스트 고정 — localhost origin 을 쓰면 prerender 로
+// 구운 HTML 의 canonical 이 localhost 로 오염된다(JS 미실행 크롤러가 그대로 읽음).
+const SITE_URL = 'https://www.tangobook.co.kr';
 
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
 

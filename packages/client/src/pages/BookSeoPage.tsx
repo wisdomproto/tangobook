@@ -11,7 +11,9 @@ const LEVEL_INFO: Record<ReadingLevel, { label: string; age: string }> = {
   L3: { label: '나무', age: '6~7세' },
 };
 
-const SITE_URL = typeof window !== 'undefined' ? window.location.origin : 'https://tangobook.co.kr';
+// 🔴 canonical/og:url/JSON-LD 는 항상 정식 www 호스트 — window.origin 을 쓰면
+// prerender(localhost)·비-www 접속에서 오염된 canonical 이 크롤러에 노출된다.
+const SITE_URL = 'https://www.tangobook.co.kr';
 
 function setMetaTag(name: string, content: string, attr: 'name' | 'property' = 'name') {
   if (typeof document === 'undefined') return;
@@ -88,7 +90,8 @@ export default function BookSeoPage() {
   // SEO meta + JSON-LD
   useEffect(() => {
     if (!storybook) return;
-    const title = `${storybook.title} | 부모를 위한 동화책 가이드 | 탱고북`;
+    // 서버 SSR(seo-ssr.service.ts)과 동일 포맷 유지 — "동화책" 인접 배치 + 줄거리·교훈 롱테일
+    const title = `${storybook.title} 동화책 - 줄거리·교훈·읽어주기 팁 | 탱고북`;
     const overview = storybook.parentGuide?.overview || '아이와 함께 읽는 동화책';
     const description = summarize(overview);
     const coverImage = storybook.coverImage || (storybook.coverImages?.[0]?.imageUrl ?? '');
