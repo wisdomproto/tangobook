@@ -234,6 +234,23 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        // 다국어 SEO 라우트 — ko 는 bare, 그 외 /:lang 프리픽스 (서버 SSR 와 동일 규칙)
+        path: ':lang/library/:id/about',
+        element: (
+          <ErrorBoundary>
+            <BookSeoPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: ':lang/guide/:hub',
+        element: (
+          <ErrorBoundary>
+            <GuideHubPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
         path: 'curriculum-master',
         element: (
           <ErrorBoundary>

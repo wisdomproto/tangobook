@@ -1,4 +1,4 @@
-// 카테고리 허브 페이지 (/guide/classics · /guide/nature) — SEO 랜딩.
+// 카테고리 허브 페이지 (/guide/classics · /guide/nature, non-ko 는 /:lang/guide/*) — SEO 랜딩.
 // 152개 블로그가 secondary 로 나눠 갖던 카테고리 키워드("유아 명작 동화" 등)를 모으는
 // 허브. 서버 SSR(seo-ssr.service.ts renderHubSeo)과 동일한 콘텐츠를 React 로 렌더.
 import { useMemo } from 'react';
@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useStorybooks } from '@/features/storybook';
 import { Skeleton, StateScreen } from '@/design-system';
 import { useSeo } from '@/lib/useSeo';
+import { SUPPORTED_LANGUAGES, seoStrings, HUB_STRINGS } from '@tangobook/shared';
 import type { StorybookSummary } from '@tangobook/shared';
 
 const HUBS = {
@@ -25,36 +26,51 @@ const HUBS = {
   },
 } as const;
 
+const LANG_CODES: string[] = SUPPORTED_LANGUAGES.map((l) => l.code);
+
 const VARIANT_RE = /__L\d+$/;
 
+/** toSummary 가 titleTranslations 를 실어주는 경우의 로컬 확장 (서버 renderHubSeo 와 동일 캐스트) */
+type SummaryWithTranslations = StorybookSummary & {
+  titleTranslations?: Record<string, string>;
+};
+
 export default function GuideHubPage() {
-  const { hub: hubSlug = '' } = useParams();
+  const { hub: hubSlug = '', lang: langParam } = useParams();
+  const lang = langParam && LANG_CODES.includes(langParam) ? langParam : 'ko';
+  const isKo = lang === 'ko';
   const hub = HUBS[hubSlug as keyof typeof HUBS];
+  // non-ko 카피 — HUB_STRINGS 에 없는 언어는 ko 카피로 폴백 렌더
+  const copy = (!isKo && HUB_STRINGS[lang]?.[hubSlug as 'classics' | 'nature']) || hub;
+  const S = seoStrings(lang);
+  const prefix = isKo ? '' : `/${lang}`;
   const { data: books, isLoading } = useStorybooks();
 
   useSeo({
-    title: hub?.title,
-    description: hub?.intro,
-    path: `/guide/${hubSlug}`,
+    title: copy?.title,
+    description: copy?.intro,
+    path: `${prefix}/guide/${hubSlug}`,
   });
 
   const grouped = useMemo(() => {
     if (!hub || !books) return [];
-    const list = books.filter(
+    const list = (books as SummaryWithTranslations[]).filter(
       (b) =>
         !VARIANT_RE.test(b.id) &&
         (b.type ?? 'storybook') === 'storybook' &&
         b.isPublic !== false &&
-        (hub.isClassics ? b.category === '세계 명작' : b.category !== '세계 명작')
+        (hub.isClassics ? b.category === '세계 명작' : b.category !== '세계 명작') &&
+        // non-ko 는 해당 언어 번역 제목이 있는 책만 (서버 renderHubSeo 와 동일)
+        (isKo || Boolean(b.titleTranslations?.[lang]))
     );
-    const byCat = new Map<string, StorybookSummary[]>();
+    const byCat = new Map<string, SummaryWithTranslations[]>();
     for (const b of list) {
       const cat = b.category || '기타';
       if (!byCat.has(cat)) byCat.set(cat, []);
       byCat.get(cat)!.push(b);
     }
     return [...byCat.entries()];
-  }, [hub, books]);
+  }, [hub, books, isKo, lang]);
 
   if (!hub) return <StateScreen mascotState="thinking" title="페이지를 찾을 수 없어요" />;
   if (isLoading) {
@@ -67,49 +83,55 @@ export default function GuideHubPage() {
   }
 
   const total = grouped.reduce((n, [, items]) => n + items.length, 0);
+  const c = copy ?? hub; // hub 존재 가드 통과 후라 non-undefined
+  const displayTitle = (b: SummaryWithTranslations) =>
+    isKo ? b.title : (b.titleTranslations?.[lang] ?? b.title);
 
   return (
     <article className="bg-gradient-to-b from-peach-50 to-white min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
         <nav className="text-xs text-slate-500 mb-4" aria-label="Breadcrumb">
           <Link to="/library" className="hover:text-coral-600">
-            라이브러리
+            {S.libraryBreadcrumb}
           </Link>
           <span className="mx-1">›</span>
-          <span className="text-slate-700 font-bold">{hub.h1}</span>
+          <span className="text-slate-700 font-bold">{c.h1}</span>
         </nav>
 
         <header className="mb-8">
           <h1 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight break-keep">
-            {hub.h1}
+            {c.h1}
           </h1>
-          <p className="mt-3 text-base text-slate-600 leading-relaxed break-keep">{hub.intro}</p>
-          <p className="mt-2 text-sm font-bold text-coral-600">총 {total}권</p>
+          <p className="mt-3 text-base text-slate-600 leading-relaxed break-keep">{c.intro}</p>
+          {isKo && <p className="mt-2 text-sm font-bold text-coral-600">총 {total}권</p>}
         </header>
 
         {grouped.map(([cat, items]) => (
           <section key={cat} className="mb-10">
             <h2 className="text-xl font-black text-slate-900 mb-3 border-l-4 border-coral-500 pl-3">
-              {cat} ({items.length}권)
+              {cat} ({items.length}
+              {isKo ? '권' : ''})
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {items.map((b) => (
                 <Link
                   key={b.id}
-                  to={`/library/${b.id}/about`}
+                  to={`${prefix}/library/${b.id}/about`}
                   className="block rounded-xl border border-slate-200 bg-white overflow-hidden hover:shadow-pop transition"
                 >
                   <div className="aspect-video bg-slate-100">
                     {b.coverImage && (
                       <img
                         src={b.coverImage}
-                        alt={`${b.title} 표지`}
+                        alt={isKo ? `${b.title} 표지` : displayTitle(b)}
                         loading="lazy"
                         className="w-full h-full object-cover"
                       />
                     )}
                   </div>
-                  <div className="p-2 text-sm font-bold text-slate-800 line-clamp-2">{b.title}</div>
+                  <div className="p-2 text-sm font-bold text-slate-800 line-clamp-2">
+                    {displayTitle(b)}
+                  </div>
                 </Link>
               ))}
             </div>
@@ -121,11 +143,11 @@ export default function GuideHubPage() {
             to="/library"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-coral-500 text-white font-black text-lg hover:bg-coral-600 shadow-pop"
           >
-            ⭐ 탱고북 라이브러리에서 바로 읽기
+            ⭐ {isKo ? '탱고북 라이브러리에서 바로 읽기' : S.libraryBreadcrumb}
           </Link>
           <div className="mt-3 text-xs text-slate-500">
             <Link to="/blog" className="underline hover:text-coral-600">
-              블로그 가이드 보기
+              {S.blogListLink}
             </Link>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import { SignInForm } from './SignInForm';
 import { SignUpForm } from './SignUpForm';
@@ -25,6 +26,7 @@ function computeStep(
 }
 
 export default function LoginPage() {
+  const { t } = useTranslation('auth');
   const { session, account, profiles, loading } = useAuth();
   const navigate = useNavigate();
   const [sp, setSp] = useSearchParams();
@@ -61,9 +63,9 @@ export default function LoginPage() {
       <button
         onClick={() => navigate('/library')}
         className="fixed top-4 left-4 z-50 px-4 py-2 rounded-full bg-white shadow-soft text-ink-700 font-bold text-sm hover:bg-peach-100 transition"
-        title="라이브러리로 돌아가기"
+        title={t('login.backToLibrary')}
       >
-        ← 돌아가기
+        {t('login.back')}
       </button>
     ) : null;
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { authApi } from '../api/auth.api';
 
 interface Props {
@@ -12,8 +13,8 @@ interface Props {
  * 로고는 공식 브랜드 가이드 색상의 인라인 SVG (외부 자산 의존 없음).
  */
 export function SocialAuthButtons({ mode }: Props) {
+  const { t } = useTranslation('auth');
   const [busy, setBusy] = useState<'kakao' | 'google' | null>(null);
-  const verb = mode === 'signup' ? '시작하기' : '로그인';
 
   const run = async (provider: 'kakao' | 'google', fn: () => Promise<void>) => {
     setBusy(provider);
@@ -21,7 +22,7 @@ export function SocialAuthButtons({ mode }: Props) {
       await fn();
       // 성공 시 외부로 리다이렉트되므로 setBusy(null) 도달 안 함
     } catch (err) {
-      alert(err instanceof Error ? err.message : '로그인 실패');
+      alert(err instanceof Error ? err.message : t('social.error'));
       setBusy(null);
     }
   };
@@ -34,7 +35,7 @@ export function SocialAuthButtons({ mode }: Props) {
         className="h-14 rounded-xl bg-[#FEE500] text-[#191600] font-bold text-lg flex items-center justify-center gap-3 hover:brightness-95 disabled:opacity-60 transition"
       >
         <KakaoLogo />
-        카카오로 {verb}
+        {mode === 'signup' ? t('social.kakaoSignUp') : t('social.kakaoSignIn')}
       </button>
       <button
         onClick={() => run('google', authApi.signInWithGoogle)}
@@ -42,7 +43,7 @@ export function SocialAuthButtons({ mode }: Props) {
         className="h-14 rounded-xl bg-white border-2 border-ink-100 text-ink-900 font-bold text-lg flex items-center justify-center gap-3 hover:bg-ink-50 disabled:opacity-60 transition"
       >
         <GoogleLogo />
-        Google로 {verb}
+        {mode === 'signup' ? t('social.googleSignUp') : t('social.googleSignIn')}
       </button>
     </div>
   );

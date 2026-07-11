@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/cn';
 
 interface ViewerControlsProps {
@@ -39,9 +40,15 @@ function NavBtn({ onClick, disabled, primary, label, position, children }: NavBt
 }
 
 export function ViewerControls(props: ViewerControlsProps) {
+  const { t } = useTranslation('viewer');
   return (
     <>
-      <NavBtn onClick={props.onPrev} disabled={!props.canPrev} position="left" label="이전 페이지">
+      <NavBtn
+        onClick={props.onPrev}
+        disabled={!props.canPrev}
+        position="left"
+        label={t('nav.prev')}
+      >
         ←
       </NavBtn>
       <NavBtn
@@ -49,7 +56,7 @@ export function ViewerControls(props: ViewerControlsProps) {
         disabled={!props.canNext}
         primary
         position="right"
-        label="다음 페이지"
+        label={t('nav.next')}
       >
         →
       </NavBtn>

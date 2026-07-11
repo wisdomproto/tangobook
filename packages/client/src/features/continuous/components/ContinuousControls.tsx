@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { usePlaylistStore } from '../store/playlist.store';
 import { cn } from '@/lib/cn';
 
 const SPEED_OPTIONS = [0.75, 1, 1.25] as const;
-const SLEEP_OPTIONS: { label: string; value: number | null }[] = [
-  { label: '끄기', value: null },
-  { label: '20분', value: 20 },
-  { label: '30분', value: 30 },
-];
+const SLEEP_OPTIONS: { value: number | null }[] = [{ value: null }, { value: 20 }, { value: 30 }];
 
 /**
  * 연속재생 하단 컨트롤 바. 4-5세 부모가 조작 — 큰 터치 타깃.
@@ -16,6 +13,7 @@ const SLEEP_OPTIONS: { label: string; value: number | null }[] = [
  * 탭하면 노출 토글(선택) — 재생 화면을 가리지 않게.
  */
 export function ContinuousControls() {
+  const { t } = useTranslation('viewer');
   const navigate = useNavigate();
   const queue = usePlaylistStore((s) => s.queue);
   const index = usePlaylistStore((s) => s.index);
@@ -53,7 +51,7 @@ export function ContinuousControls() {
       <button
         type="button"
         onClick={() => setVisible(true)}
-        aria-label="컨트롤 열기"
+        aria-label={t('continuous.openControls')}
         className="fixed inset-0 z-[70]"
       />
     );
@@ -67,7 +65,7 @@ export function ContinuousControls() {
         <button
           type="button"
           onClick={() => setVisible(false)}
-          aria-label="컨트롤 숨기기"
+          aria-label={t('continuous.hideControls')}
           className="fixed inset-0 z-[65]"
         />
       )}
@@ -76,14 +74,14 @@ export function ContinuousControls() {
         {/* 진행 표시 + 숨김 토글 */}
         <div className="flex items-center justify-between">
           <span className="font-display text-lg font-black text-white break-keep">
-            {total > 0 ? `${total}권 중 ${current}권` : '재생 중'}
+            {total > 0 ? t('continuous.progress', { total, current }) : t('continuous.playing')}
           </span>
           <button
             type="button"
             onClick={() => setVisible(false)}
             className="rounded-full bg-white/15 px-3 py-1 text-xs font-bold text-white/80 break-keep"
           >
-            숨기기
+            {t('continuous.hide')}
           </button>
         </div>
 
@@ -97,14 +95,16 @@ export function ContinuousControls() {
               ? 'bg-coral-500 text-white shadow-soft hover:bg-coral-600'
               : 'bg-white/20 text-white hover:bg-white/30'
           )}
-          aria-label={paused ? '재생' : '일시정지'}
+          aria-label={paused ? t('continuous.ariaPlay') : t('continuous.ariaPause')}
         >
-          {paused ? '▶ 재생' : '⏸ 일시정지'}
+          {paused ? t('continuous.play') : t('continuous.pause')}
         </button>
 
         {/* 속도 */}
         <div className="flex items-center gap-2">
-          <span className="w-12 shrink-0 text-xs font-bold text-white/60 break-keep">속도</span>
+          <span className="w-12 shrink-0 text-xs font-bold text-white/60 break-keep">
+            {t('continuous.speed')}
+          </span>
           <div className="flex flex-1 gap-2">
             {SPEED_OPTIONS.map((s) => (
               <button
@@ -126,11 +126,13 @@ export function ContinuousControls() {
 
         {/* 슬립타이머 */}
         <div className="flex items-center gap-2">
-          <span className="w-12 shrink-0 text-xs font-bold text-white/60 break-keep">잠자기</span>
+          <span className="w-12 shrink-0 text-xs font-bold text-white/60 break-keep">
+            {t('continuous.sleep')}
+          </span>
           <div className="flex flex-1 gap-2">
             {SLEEP_OPTIONS.map((opt) => (
               <button
-                key={opt.label}
+                key={opt.value ?? 'off'}
                 type="button"
                 onClick={() => setSleep(opt.value)}
                 className={cn(
@@ -140,7 +142,9 @@ export function ContinuousControls() {
                     : 'bg-white/15 text-white/80 hover:bg-white/25'
                 )}
               >
-                {opt.label}
+                {opt.value == null
+                  ? t('continuous.sleepOff')
+                  : t('continuous.sleepMinutes', { minutes: opt.value })}
               </button>
             ))}
           </div>
@@ -153,7 +157,7 @@ export function ContinuousControls() {
             onClick={skip}
             className="h-14 flex-1 rounded-xl bg-white/15 text-lg font-black text-white transition hover:bg-white/25 active:scale-95 break-keep"
           >
-            ⏭ 다음 책
+            {t('continuous.nextBook')}
           </button>
           <button
             type="button"
@@ -161,7 +165,7 @@ export function ContinuousControls() {
             className="h-14 flex-1 rounded-xl bg-coral-500 text-lg font-black text-white shadow-soft transition hover:bg-coral-600 active:scale-95 break-keep"
           >
             {/* 🏠 는 홈(/library)으로 오해됨 — 실제 목적지는 연속재생 홈이라 🚪 로 */}
-            🚪 나가기
+            {t('continuous.exit')}
           </button>
         </div>
       </div>

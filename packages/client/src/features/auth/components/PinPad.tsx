@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/cn';
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export function PinPad({ onComplete, error, disabled }: Props) {
+  const { t } = useTranslation('auth');
   const [pin, setPin] = useState('');
 
   useEffect(() => {
@@ -60,9 +62,9 @@ export function PinPad({ onComplete, error, disabled }: Props) {
           onClick={() => setPin('')}
           disabled={disabled}
           className="h-16 rounded-2xl bg-white shadow-soft text-sm font-bold text-ink-500"
-          aria-label="지우기"
+          aria-label={t('pin.clear')}
         >
-          지우기
+          {t('pin.clear')}
         </button>
         <button
           type="button"

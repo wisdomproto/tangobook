@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Mascot } from '@/design-system';
 import { PinPad } from './PinPad';
 import { useParentGate } from '../hooks/useParentGate';
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export function ParentGateModal({ open, onClose, onSuccess }: Props) {
+  const { t } = useTranslation('auth');
   const gate = useParentGate();
   const [error, setError] = useState(false);
   const [remainingSec, setRemainingSec] = useState(0);
@@ -57,17 +59,18 @@ export function ParentGateModal({ open, onClose, onSuccess }: Props) {
         onClick={(e) => e.stopPropagation()}
       >
         <Mascot state="thinking" size="md" character="hori" />
-        <h2 className="text-xl font-black text-ink-900">부모님만 들어올 수 있어요</h2>
+        <h2 className="text-xl font-black text-ink-900">{t('parentGateModal.title')}</h2>
         {gate.isLockedOut ? (
           <p className="text-danger font-bold text-center">
-            잠깐만 쉬었다 다시 해주세요
-            <br />({remainingSec}초 남음)
+            {t('parentGateModal.lockout')}
+            <br />
+            {t('parentGateModal.lockoutRemaining', { seconds: remainingSec })}
           </p>
         ) : (
           <PinPad onComplete={handleComplete} error={error} disabled={gate.isLockedOut} />
         )}
         <button onClick={onClose} className="text-ink-500 text-sm font-bold mt-2">
-          닫기
+          {t('parentGateModal.close')}
         </button>
       </div>
     </div>

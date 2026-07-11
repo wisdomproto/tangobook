@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BookCard } from './BookCard';
 import type { BookIndexEntry } from '@tangobook/shared';
 
@@ -21,6 +22,7 @@ export function CategorySection({
   onShowMore,
   headerExtra,
 }: CategorySectionProps) {
+  const { t } = useTranslation('library');
   const visible = books.slice(0, limit);
   const hasMore = books.length > limit;
   return (
@@ -33,7 +35,7 @@ export function CategorySection({
         <div className="flex items-center gap-2 shrink-0 flex-wrap justify-end">
           {headerExtra}
           <span className="shrink-0 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white shadow-soft text-xs sm:text-base text-ink-700 font-black">
-            {books.length}권
+            {t('section.bookCount', { count: books.length })}
           </span>
         </div>
       </header>
@@ -47,7 +49,7 @@ export function CategorySection({
           onClick={onShowMore}
           className="mt-3 sm:mt-4 w-full py-3 sm:py-4 bg-coral-100 rounded-xl sm:rounded-2xl shadow-soft text-coral-600 font-black text-sm sm:text-lg hover:bg-coral-200 transition-colors"
         >
-          더 보기 ({books.length - limit}권)
+          {t('section.showMore', { count: books.length - limit })}
         </button>
       )}
     </section>

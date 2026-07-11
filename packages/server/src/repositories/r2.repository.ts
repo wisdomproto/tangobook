@@ -154,6 +154,11 @@ function toSummary(sb: Storybook): StorybookSummary {
     isAccessibleForFree: sb.isAccessibleForFree,
     createdAt: sb.createdAt,
     coverImage: coverImageOut,
+    // 다국어 허브/카드 표기용 — 언어별 제목 (없는 책은 생략)
+    titleTranslations:
+      sb.titleTranslations && Object.keys(sb.titleTranslations).length > 0
+        ? sb.titleTranslations
+        : undefined,
     coversByStyle: Object.keys(coversByStyle).length > 0 ? coversByStyle : undefined,
     coversByLang: Object.keys(coversByLang).length > 0 ? coversByLang : undefined,
     pageCount: pages.length,

@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const STORAGE_KEY = 'tb-parent-gate-ok';
 const VALID_MS = 15 * 60 * 1000; // 한 번 통과하면 15분 유지
@@ -26,6 +27,7 @@ function makeQuestion() {
  * sessionStorage 라 탭 닫으면 리셋, 통과 후 15분간 재확인 없음.
  */
 export function ParentGate({ children }: { children: ReactNode }) {
+  const { t } = useTranslation('auth');
   const navigate = useNavigate();
   const [ok, setOk] = useState(isVerified);
   const [q, setQ] = useState(makeQuestion);
@@ -54,11 +56,9 @@ export function ParentGate({ children }: { children: ReactNode }) {
       <div className="w-full max-w-sm bg-white rounded-3xl shadow-soft p-8 text-center">
         <div className="text-4xl mb-3">🧑‍🏫</div>
         <h1 className="font-display text-xl font-black text-ink-900 break-keep">
-          어른이신지 확인할게요
+          {t('parentGate.title')}
         </h1>
-        <p className="text-sm text-ink-500 mt-2 break-keep">
-          아이 보호를 위해 간단한 곱셈을 풀어 주세요
-        </p>
+        <p className="text-sm text-ink-500 mt-2 break-keep">{t('parentGate.description')}</p>
 
         <p className="mt-6 text-3xl font-black text-ink-900 tracking-wider">
           {q.a} × {q.b} = ?
@@ -76,20 +76,18 @@ export function ParentGate({ children }: { children: ReactNode }) {
             onChange={(e) => setAnswer(e.target.value.replace(/\D/g, '').slice(0, 3))}
             inputMode="numeric"
             autoFocus
-            aria-label="곱셈 정답"
+            aria-label={t('parentGate.answerLabel')}
             className="flex-1 min-w-0 rounded-xl border-2 border-ink-100 px-4 py-3 text-center text-xl font-black text-ink-900 outline-none focus:border-coral-400"
           />
           <button
             type="submit"
             className="shrink-0 rounded-xl bg-coral-500 px-6 py-3 font-black text-white hover:brightness-110"
           >
-            확인
+            {t('parentGate.submit')}
           </button>
         </form>
         {wrong && (
-          <p className="mt-3 text-danger text-sm font-bold break-keep">
-            다시 한 번 풀어 주세요 (문제가 바뀌었어요)
-          </p>
+          <p className="mt-3 text-danger text-sm font-bold break-keep">{t('parentGate.wrong')}</p>
         )}
 
         <button
@@ -98,7 +96,7 @@ export function ParentGate({ children }: { children: ReactNode }) {
           data-sound="back"
           className="mt-6 text-sm font-bold text-ink-400 hover:text-ink-600"
         >
-          ← 돌아가기
+          {t('parentGate.back')}
         </button>
       </div>
     </div>

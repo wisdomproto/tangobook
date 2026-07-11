@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Mascot } from '@/design-system';
 import { PinPad } from './PinPad';
 import { authApi } from '../api/auth.api';
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export function SetPinStep({ onComplete }: Props = {}) {
+  const { t } = useTranslation('auth');
   const { refresh } = useAuth();
   const [phase, setPhase] = useState<'first' | 'confirm'>('first');
   const [firstPin, setFirstPin] = useState<string | null>(null);
@@ -46,9 +48,9 @@ export function SetPinStep({ onComplete }: Props = {}) {
     <div className="flex flex-col items-center gap-4 max-w-sm">
       <Mascot state="thinking" size="md" character="hori" />
       <h2 className="text-2xl font-black text-ink-900">
-        {phase === 'first' ? 'PIN 만들기' : 'PIN 다시 입력해주세요'}
+        {phase === 'first' ? t('pin.create') : t('pin.confirm')}
       </h2>
-      <p className="text-ink-500 text-center">부모님만 볼 영역을 보호해요 🔒</p>
+      <p className="text-ink-500 text-center">{t('pin.protectNote')}</p>
       <PinPad onComplete={phase === 'first' ? handleFirst : handleConfirm} error={error} />
     </div>
   );

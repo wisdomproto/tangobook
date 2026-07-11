@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import confetti from 'canvas-confetti';
 import { Mascot } from '@/design-system';
 import { cn } from '@/lib/cn';
@@ -11,8 +12,14 @@ interface FeedbackOverlayProps {
   positionHint?: 'center' | 'top';
 }
 
-const CORRECT_TEXTS = ['잘했어!', '정답!', '최고야!', '멋져!'];
-const INCORRECT_TEXTS = ['다시 해볼까?', '괜찮아', '한 번 더!'];
+// 문구 풀은 games ns feedback.* 키 (마운트 시 랜덤 선택).
+const CORRECT_KEYS = [
+  'feedback.correct1',
+  'feedback.correct2',
+  'feedback.correct3',
+  'feedback.correct4',
+];
+const INCORRECT_KEYS = ['feedback.incorrect1', 'feedback.incorrect2', 'feedback.incorrect3'];
 
 /**
  * 게임 정답/오답 피드백 오버레이.
@@ -27,13 +34,15 @@ export function FeedbackOverlay({
   durationMs,
   positionHint = 'center',
 }: FeedbackOverlayProps) {
+  const { t } = useTranslation('games');
   const effectiveDuration = durationMs ?? (kind === 'correct' ? 1200 : 800);
 
   // 마운트 시 랜덤 문구 고정 (리렌더마다 바뀌지 않게, visible true 전환 시 재선택)
-  const text = useMemo(() => {
-    const pool = kind === 'correct' ? CORRECT_TEXTS : INCORRECT_TEXTS;
+  const textKey = useMemo(() => {
+    const pool = kind === 'correct' ? CORRECT_KEYS : INCORRECT_KEYS;
     return pool[Math.floor(Math.random() * pool.length)];
   }, [kind, visible]);
+  const text = t(textKey);
 
   // 정답 시 confetti (prefers-reduced-motion 존중)
   useEffect(() => {

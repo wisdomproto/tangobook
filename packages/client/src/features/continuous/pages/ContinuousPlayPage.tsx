@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ViewerContainer } from '@/features/viewer/components/ViewerContainer';
 import { usePlaylistStore } from '../store/playlist.store';
 import { ContinuousControls } from '../components/ContinuousControls';
@@ -10,6 +11,7 @@ import { PlaylistEndScreen } from '../components/PlaylistEndScreen';
  * 재생 상태/컨트롤/슬립타이머는 playlist.store 가 단일 소유.
  */
 export default function ContinuousPlayPage() {
+  const { t } = useTranslation('viewer');
   const navigate = useNavigate();
   const [sp, setSp] = useSearchParams();
 
@@ -85,7 +87,7 @@ export default function ContinuousPlayPage() {
           reset();
           navigate('/library');
         }}
-        aria-label="홈으로 나가기"
+        aria-label={t('continuous.exitHome')}
         className="fixed right-3 top-3 z-[80] flex h-11 w-11 items-center justify-center rounded-full bg-black/40 text-lg text-white backdrop-blur transition hover:bg-black/60 active:scale-95"
       >
         🏠

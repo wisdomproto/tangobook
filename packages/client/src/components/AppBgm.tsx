@@ -1,4 +1,5 @@
 import { useEffect, useSyncExternalStore } from 'react';
+import { useTranslation } from 'react-i18next';
 import { isUiMuted, subscribeUiMuted } from '@/lib/uiSound';
 
 /**
@@ -66,6 +67,7 @@ function ensureAudio(): HTMLAudioElement {
 }
 
 export function AppBgm() {
+  const { t } = useTranslation('shell');
   const uiMuted = useSyncExternalStore(subscribeUiMuted, isUiMuted, isUiMuted);
   const bgmOff = useSyncExternalStore(subscribeBgmMuted, isBgmMuted, isBgmMuted);
   const silenced = uiMuted || bgmOff;
@@ -111,8 +113,8 @@ export function AppBgm() {
       type="button"
       onClick={() => setBgmMuted(!bgmOff)}
       data-sound="toggle"
-      aria-label={bgmOff ? '배경음악 켜기' : '배경음악 끄기'}
-      title={bgmOff ? '배경음악 켜기' : '배경음악 끄기'}
+      aria-label={bgmOff ? t('bgm.turnOn') : t('bgm.turnOff')}
+      title={bgmOff ? t('bgm.turnOn') : t('bgm.turnOff')}
       className="fixed bottom-4 right-4 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-xl shadow-pop backdrop-blur-sm transition hover:scale-105 active:scale-95"
     >
       {bgmOff ? '🔇' : '🎵'}

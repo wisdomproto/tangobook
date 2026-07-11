@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { ChildProfile, AvatarId } from '@tangobook/shared';
 import { AvatarPicker } from './AvatarPicker';
 import { cn } from '@/lib/cn';
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export function ProfileCreateModal({ open, mode, initial, onSubmit, onCancel, onDelete }: Props) {
+  const { t } = useTranslation('auth');
   const [name, setName] = useState(initial?.name ?? '');
   const [avatarId, setAvatarId] = useState<AvatarId | null>(initial?.avatarId ?? null);
   const [birthDate, setBirthDate] = useState(initial?.birthDate ?? '');
@@ -62,7 +64,7 @@ export function ProfileCreateModal({ open, mode, initial, onSubmit, onCancel, on
 
   const handleDelete = async () => {
     if (!onDelete || !initial) return;
-    const ok = window.confirm(`${initial.name} 프로필을 삭제할까요? 학습 기록도 사라져요.`);
+    const ok = window.confirm(t('profileModal.deleteConfirm', { name: initial.name }));
     if (!ok) return;
     setBusy(true);
     try {
@@ -82,13 +84,13 @@ export function ProfileCreateModal({ open, mode, initial, onSubmit, onCancel, on
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-2xl font-black text-ink-900 mb-4">
-          {mode === 'create' ? '아이 프로필 만들기' : '아이 프로필 편집'}
+          {mode === 'create' ? t('profileModal.createTitle') : t('profileModal.editTitle')}
         </h2>
         <div className="space-y-4">
           <AvatarPicker value={avatarId} onChange={setAvatarId} />
           <input
             type="text"
-            placeholder="이름"
+            placeholder={t('profileModal.namePlaceholder')}
             value={name}
             onChange={(e) => setName(e.target.value.slice(0, 10))}
             maxLength={10}
@@ -106,7 +108,7 @@ export function ProfileCreateModal({ open, mode, initial, onSubmit, onCancel, on
             onClick={onCancel}
             className="flex-1 py-3 rounded-xl bg-white border-2 border-ink-100 text-ink-900 font-bold"
           >
-            취소
+            {t('profileModal.cancel')}
           </button>
           <button
             onClick={handleSubmit}
@@ -116,7 +118,7 @@ export function ProfileCreateModal({ open, mode, initial, onSubmit, onCancel, on
               canSubmit ? 'bg-coral-500 hover:brightness-110' : 'bg-ink-300 cursor-not-allowed'
             )}
           >
-            {mode === 'create' ? '만들기' : '저장'}
+            {mode === 'create' ? t('profileModal.create') : t('profileModal.save')}
           </button>
         </div>
         {mode === 'edit' && onDelete && (
@@ -125,7 +127,7 @@ export function ProfileCreateModal({ open, mode, initial, onSubmit, onCancel, on
             disabled={busy}
             className="mt-3 text-danger text-sm font-bold hover:underline w-full text-center"
           >
-            🗑️ 이 프로필 삭제
+            {t('profileModal.delete')}
           </button>
         )}
       </div>

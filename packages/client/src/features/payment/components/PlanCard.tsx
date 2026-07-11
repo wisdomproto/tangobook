@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 interface PlanCardProps {
   id: string;
   name: string;
@@ -7,10 +9,6 @@ interface PlanCardProps {
   days: number;
   onSelect: () => void;
   disabled?: boolean;
-}
-
-function formatKRW(amount: number): string {
-  return amount.toLocaleString('ko-KR') + '원';
 }
 
 /**
@@ -25,10 +23,13 @@ export function PlanCard({
   onSelect,
   disabled,
 }: PlanCardProps) {
+  const { t } = useTranslation('payment');
   const isYear = days >= 365;
   const perMonth = isYear ? Math.round(amount / 12) : null;
   const hasDiscount = typeof originalAmount === 'number' && originalAmount > amount;
   const discountPct = hasDiscount ? Math.round((1 - amount / originalAmount) * 100) : 0;
+
+  const formatKRW = (n: number): string => t('price', { amount: n.toLocaleString('ko-KR') });
 
   return (
     <div
@@ -54,17 +55,17 @@ export function PlanCard({
       <p className="text-3xl font-black text-coral-600">{formatKRW(amount)}</p>
       {perMonth && (
         <p className="text-sm text-ink-500 break-keep">
-          월 {formatKRW(perMonth)} · {days}일 이용
+          {t('planCard.perMonth', { price: formatKRW(perMonth), days })}
         </p>
       )}
-      {!perMonth && <p className="text-sm text-ink-500">{days}일 이용</p>}
+      {!perMonth && <p className="text-sm text-ink-500">{t('planCard.daysUse', { days })}</p>}
       <button
         type="button"
         onClick={onSelect}
         disabled={disabled}
         className="mt-2 w-full rounded-full bg-coral-500 py-3 font-black text-white shadow-pop transition hover:bg-coral-600 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        선택하기
+        {t('planCard.select')}
       </button>
     </div>
   );

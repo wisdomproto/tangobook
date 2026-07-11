@@ -3,7 +3,22 @@ import type { ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useStorybook, useStorybooks } from '@/features/storybook';
 import { Skeleton, StateScreen } from '@/design-system';
+import { SUPPORTED_LANGUAGES, seoStrings, fill, HUB_STRINGS } from '@tangobook/shared';
 import type { Storybook, StorybookSummary, ReadingLevel } from '@tangobook/shared';
+
+const LANG_CODES: string[] = SUPPORTED_LANGUAGES.map((l) => l.code);
+
+/** ko = bare 경로, 그 외 = /lang 프리픽스 (서버 seo-ssr.service langPrefix 와 동일 규칙) */
+function langPrefix(lang: string): string {
+  return lang === 'ko' ? '' : `/${lang}`;
+}
+
+/** 해당 언어의 about 페이지 존재 여부 — 서버 hasAboutLang 미러 */
+function hasAboutLang(sb: Storybook, lang: string): boolean {
+  if (lang === 'ko') return true;
+  if (!LANG_CODES.includes(lang)) return false;
+  return Boolean(sb.titleTranslations?.[lang] && sb.parentGuideTranslations?.[lang]);
+}
 
 const LEVEL_INFO: Record<ReadingLevel, { label: string; age: string }> = {
   L1: { label: '씨앗', age: '3~4세' },
@@ -35,6 +50,19 @@ function setCanonical(href: string) {
     document.head.appendChild(link);
   }
   link.setAttribute('href', href);
+}
+
+/** hreflang alternate 링크 주입 — 기존(SSR 주입 포함) hreflang 링크는 교체 */
+function setHreflangs(entries: Array<{ hreflang: string; href: string }>) {
+  if (typeof document === 'undefined') return;
+  document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove());
+  entries.forEach(({ hreflang, href }) => {
+    const link = document.createElement('link');
+    link.setAttribute('rel', 'alternate');
+    link.setAttribute('hreflang', hreflang);
+    link.setAttribute('href', href);
+    document.head.appendChild(link);
+  });
 }
 
 function setJsonLd(id: string, data: object | object[]) {
@@ -69,7 +97,9 @@ function pickKoreanWord(ko: { korean?: string; name?: string; nameEn?: string })
 }
 
 export default function BookSeoPage() {
-  const { id = '' } = useParams();
+  const { id = '', lang: langParam } = useParams();
+  const lang = langParam && LANG_CODES.includes(langParam) ? langParam : 'ko';
+  const isKo = lang === 'ko';
   const { data: storybook, isLoading, isError } = useStorybook(id);
   const { data: storybookList } = useStorybooks();
 
@@ -90,12 +120,20 @@ export default function BookSeoPage() {
   // SEO meta + JSON-LD
   useEffect(() => {
     if (!storybook) return;
-    // 서버 SSR(seo-ssr.service.ts)과 동일 포맷 유지 — "동화책" 인접 배치 + 줄거리·교훈 롱테일
-    const title = `${storybook.title} 동화책 - 줄거리·교훈·읽어주기 팁 | 탱고북`;
-    const overview = storybook.parentGuide?.overview || '아이와 함께 읽는 동화책';
+    // 서버 SSR(seo-ssr.service.ts renderAboutSeo)과 동일 포맷 유지 — "동화책" 인접 배치 + 줄거리·교훈 롱테일
+    const S = seoStrings(lang);
+    const displayTitle = isKo
+      ? storybook.title
+      : (storybook.titleTranslations?.[lang] ?? storybook.title);
+    const guide = isKo
+      ? storybook.parentGuide
+      : (storybook.parentGuideTranslations?.[lang] ?? storybook.parentGuide);
+    const title = fill(S.aboutTitle, displayTitle);
+    const overview =
+      guide?.overview || (isKo ? '아이와 함께 읽는 동화책' : `${displayTitle} — Tangobook`);
     const description = summarize(overview);
     const coverImage = storybook.coverImage || (storybook.coverImages?.[0]?.imageUrl ?? '');
-    const canonical = `${SITE_URL}/library/${storybook.id}/about`;
+    const canonical = `${SITE_URL}${langPrefix(lang)}/library/${storybook.id}/about`;
 
     document.title = title;
     setMetaTag('description', description);
@@ -110,11 +148,25 @@ export default function BookSeoPage() {
     if (coverImage) setMetaTag('twitter:image', coverImage);
     setCanonical(canonical);
 
+    // hreflang alternate — 번역(제목+가이드)이 존재하는 언어들만 상호 링크 (서버 hasAboutLang 미러)
+    const altLangs = LANG_CODES.filter((l) => hasAboutLang(storybook, l));
+    if (altLangs.length > 1) {
+      setHreflangs([
+        ...altLangs.map((l) => ({
+          hreflang: l,
+          href: `${SITE_URL}${langPrefix(l)}/library/${storybook.id}/about`,
+        })),
+        { hreflang: 'x-default', href: `${SITE_URL}/library/${storybook.id}/about` },
+      ]);
+    } else {
+      setHreflangs([]);
+    }
+
     // JSON-LD: Book
     const bookSchema = {
       '@context': 'https://schema.org',
       '@type': 'Book',
-      name: storybook.title,
+      name: displayTitle,
       description: overview,
       url: canonical,
       image: coverImage || undefined,
@@ -135,7 +187,7 @@ export default function BookSeoPage() {
     };
 
     // JSON-LD: FAQPage
-    const faqs = storybook.parentGuide?.faq ?? [];
+    const faqs = guide?.faq ?? [];
     const faqSchema = faqs.length
       ? {
           '@context': 'https://schema.org',
@@ -153,25 +205,32 @@ export default function BookSeoPage() {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: '라이브러리', item: `${SITE_URL}/library` },
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: S.libraryBreadcrumb,
+          item: `${SITE_URL}/library`,
+        },
         {
           '@type': 'ListItem',
           position: 2,
-          name: storybook.category || '동화책',
+          name: storybook.category || S.h1Suffix,
           item: `${SITE_URL}/library?category=${encodeURIComponent(storybook.category || '')}`,
         },
-        { '@type': 'ListItem', position: 3, name: storybook.title, item: canonical },
+        { '@type': 'ListItem', position: 3, name: displayTitle, item: canonical },
       ],
     };
 
     // JSON-LD: LearningResource
     const keyObjectsKo = (storybook.key_objects ?? [])
-      .map((k) => pickKoreanWord(k).ko)
+      .map((k) =>
+        isKo ? pickKoreanWord(k).ko : (k.nameTranslations?.[lang] ?? pickKoreanWord(k).ko)
+      )
       .filter(Boolean);
     const learningSchema = {
       '@context': 'https://schema.org',
       '@type': 'LearningResource',
-      name: storybook.title,
+      name: displayTitle,
       description: overview,
       url: canonical,
       educationalLevel: storybook.readingLevel ? LEVEL_INFO[storybook.readingLevel].label : '유아',
@@ -191,13 +250,14 @@ export default function BookSeoPage() {
     setJsonLd('learning', learningSchema);
 
     return () => {
-      // 페이지 떠날 때 JSON-LD 정리 (다른 페이지에 잔존 방지)
+      // 페이지 떠날 때 JSON-LD·hreflang 정리 (다른 페이지에 잔존 방지)
       ['book', 'faq', 'breadcrumb', 'learning'].forEach((k) => {
         const s = document.querySelector(`script[data-jsonld="${k}"]`);
         if (s) s.remove();
       });
+      setHreflangs([]);
     };
-  }, [storybook]);
+  }, [storybook, lang, isKo]);
 
   if (isLoading) {
     return (
@@ -212,20 +272,30 @@ export default function BookSeoPage() {
     return <StateScreen mascotState="thinking" title="책을 찾을 수 없어요" />;
   }
 
-  return <BookSeoContent storybook={storybook} sameCategoryBooks={sameCategoryBooks} />;
+  return <BookSeoContent storybook={storybook} sameCategoryBooks={sameCategoryBooks} lang={lang} />;
 }
 
 function BookSeoContent({
   storybook,
   sameCategoryBooks,
+  lang,
 }: {
   storybook: Storybook;
   sameCategoryBooks: StorybookSummary[];
+  lang: string;
 }) {
-  const overview = storybook.parentGuide?.overview;
-  const lessons = storybook.parentGuide?.lessons ?? [];
-  const tips = storybook.parentGuide?.readingTips ?? [];
-  const faqs = storybook.parentGuide?.faq ?? [];
+  const isKo = lang === 'ko';
+  const S = seoStrings(lang);
+  const displayTitle = isKo
+    ? storybook.title
+    : (storybook.titleTranslations?.[lang] ?? storybook.title);
+  const guide = isKo
+    ? storybook.parentGuide
+    : (storybook.parentGuideTranslations?.[lang] ?? storybook.parentGuide);
+  const overview = guide?.overview;
+  const lessons = guide?.lessons ?? [];
+  const tips = guide?.readingTips ?? [];
+  const faqs = guide?.faq ?? [];
   const cover =
     storybook.coverImage || storybook.coverImages?.[0]?.imageUrl || '/images/placeholder-book.png';
   const pageCount = storybook.pages?.length ?? 0;
@@ -235,9 +305,21 @@ function BookSeoContent({
   const keyObjects = (storybook.key_objects ?? [])
     .map((k) => {
       const { ko, en } = pickKoreanWord(k);
-      return { ko, en, definition: k.definition, example: k.example };
+      if (isKo) return { ko, en, definition: k.definition, example: k.example };
+      // non-ko: 번역 단어만, definition/example 은 ko 전용이라 숨김
+      return {
+        ko: k.nameTranslations?.[lang] ?? ko,
+        en: '',
+        definition: undefined,
+        example: undefined,
+      };
     })
     .filter((k) => k.ko);
+
+  const isClassics = storybook.category === '세계 명작';
+  // 허브 링크 — 해당 언어 허브 카피(HUB_STRINGS)가 있으면 언어 경로로 (서버와 동일)
+  const hubPrefix = isKo || HUB_STRINGS[lang] ? langPrefix(lang) : '';
+  const hubHref = `${hubPrefix}${isClassics ? '/guide/classics' : '/guide/nature'}`;
 
   return (
     <article className="bg-gradient-to-b from-peach-50 to-white min-h-screen">
@@ -245,7 +327,7 @@ function BookSeoContent({
         {/* Breadcrumb */}
         <nav className="text-xs text-slate-500 mb-4" aria-label="Breadcrumb">
           <Link to="/library" className="hover:text-coral-600">
-            라이브러리
+            {S.libraryBreadcrumb}
           </Link>
           {storybook.category && (
             <>
@@ -254,7 +336,7 @@ function BookSeoContent({
             </>
           )}
           <span className="mx-1">›</span>
-          <span className="text-slate-700 font-bold">{storybook.title}</span>
+          <span className="text-slate-700 font-bold">{displayTitle}</span>
         </nav>
 
         {/* Hero */}
@@ -262,14 +344,14 @@ function BookSeoContent({
           <div className="aspect-square rounded-3xl overflow-hidden shadow-pop bg-white">
             <img
               src={cover}
-              alt={`${storybook.title} 표지`}
+              alt={isKo ? `${displayTitle} 표지` : displayTitle}
               className="w-full h-full object-cover"
             />
           </div>
           <div className="flex flex-col justify-between">
             <div>
               <h1 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight">
-                {storybook.title}
+                {displayTitle}
               </h1>
               {overview && (
                 <p className="mt-3 text-base text-slate-600 leading-relaxed">
@@ -284,15 +366,18 @@ function BookSeoContent({
                 )}
                 {levelInfo && (
                   <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-800 font-bold">
-                    🌱 {levelInfo.label} · {levelInfo.age}
+                    🌱{' '}
+                    {isKo
+                      ? `${levelInfo.label} · ${levelInfo.age}`
+                      : `${S.ageLabel} · ${levelInfo.age}`}
                   </span>
                 )}
                 {pageCount > 0 && (
                   <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 font-bold">
-                    📄 {pageCount}쪽
+                    📄 {isKo ? `${pageCount}쪽` : `${pageCount} ${S.pagesLabel}`}
                   </span>
                 )}
-                {keyObjects.length > 0 && (
+                {isKo && keyObjects.length > 0 && (
                   <span className="px-3 py-1 rounded-full bg-violet-100 text-violet-800 font-bold">
                     📚 핵심단어 {keyObjects.length}개
                   </span>
@@ -308,21 +393,26 @@ function BookSeoContent({
               to={`/library/${storybook.id}`}
               className="mt-6 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-coral-500 text-white font-black text-base hover:bg-coral-600 shadow-pop w-full md:w-auto"
             >
-              ⭐ 지금 우리 아이와 함께 읽기
+              ⭐ {isKo ? '지금 우리 아이와 함께 읽기' : fill(S.readNow, displayTitle)}
             </Link>
           </div>
         </header>
 
-        {/* Overview */}
-        {overview && (
-          <Section title="이 책은 어떤 책인가요?">
-            <p className="text-slate-700 leading-relaxed whitespace-pre-line">{overview}</p>
-          </Section>
-        )}
+        {/* Overview — non-ko 는 섹션 제목 문자열이 없어 문단만 (서버 body 와 동일) */}
+        {overview &&
+          (isKo ? (
+            <Section title="이 책은 어떤 책인가요?">
+              <p className="text-slate-700 leading-relaxed whitespace-pre-line">{overview}</p>
+            </Section>
+          ) : (
+            <section className="mb-10">
+              <p className="text-slate-700 leading-relaxed whitespace-pre-line">{overview}</p>
+            </section>
+          ))}
 
         {/* Lessons */}
         {lessons.length > 0 && (
-          <Section title="무엇을 배울 수 있나요?">
+          <Section title={isKo ? '무엇을 배울 수 있나요?' : fill(S.lessonsHeading, displayTitle)}>
             <ul className="space-y-2">
               {lessons.map((l, i) => (
                 <li key={i} className="flex gap-2 text-slate-700">
@@ -336,7 +426,7 @@ function BookSeoContent({
 
         {/* Key Objects (어휘 long-tail SEO) */}
         {keyObjects.length > 0 && (
-          <Section title="이 책에서 배우는 핵심 단어">
+          <Section title={isKo ? '이 책에서 배우는 핵심 단어' : fill(S.wordsHeading, displayTitle)}>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {keyObjects.map((k, i) => (
                 <div key={i} className="rounded-xl border border-slate-200 bg-white p-3">
@@ -356,7 +446,7 @@ function BookSeoContent({
 
         {/* FAQ */}
         {faqs.length > 0 && (
-          <Section title="자주 묻는 질문">
+          <Section title={isKo ? '자주 묻는 질문' : S.faqHeading}>
             <div className="space-y-3">
               {faqs.map((f, i) => (
                 <details key={i} className="rounded-xl border border-slate-200 bg-white p-4 group">
@@ -376,7 +466,7 @@ function BookSeoContent({
 
         {/* Reading Tips */}
         {tips.length > 0 && (
-          <Section title="부모님을 위한 읽어주기 팁">
+          <Section title={isKo ? '부모님을 위한 읽어주기 팁' : fill(S.tipsHeading, displayTitle)}>
             <ul className="space-y-2">
               {tips.map((t, i) => (
                 <li key={i} className="flex gap-2 text-slate-700">
@@ -388,8 +478,8 @@ function BookSeoContent({
           </Section>
         )}
 
-        {/* Related */}
-        {sameCategoryBooks.length > 0 && (
+        {/* Related — ko 전용 (요약 데이터에 번역 제목이 없어 non-ko 는 숨김, 서버 body 에도 없음) */}
+        {isKo && sameCategoryBooks.length > 0 && (
           <Section title="같이 보면 좋은 책">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {sameCategoryBooks.map((b) => (
@@ -420,17 +510,12 @@ function BookSeoContent({
             to={`/library/${storybook.id}`}
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-coral-500 text-white font-black text-lg hover:bg-coral-600 shadow-pop"
           >
-            ⭐ 지금 우리 아이와 함께 읽기
+            ⭐ {isKo ? '지금 우리 아이와 함께 읽기' : fill(S.readNow, displayTitle)}
           </Link>
           <div className="mt-3 text-xs text-slate-500">
-            탱고북에서 함께 — 아이와 부모를 위한 AI 동화책 플랫폼 ·{' '}
-            <Link
-              to={storybook.category === '세계 명작' ? '/guide/classics' : '/guide/nature'}
-              className="underline hover:text-coral-600"
-            >
-              {storybook.category === '세계 명작'
-                ? '세계 명작 동화 전집 보기'
-                : '자연관찰 그림책 전체 보기'}
+            {isKo && <>탱고북에서 함께 — 아이와 부모를 위한 AI 동화책 플랫폼 · </>}
+            <Link to={hubHref} className="underline hover:text-coral-600">
+              {isClassics ? S.classicsHubLink : S.natureHubLink}
             </Link>
           </div>
         </div>

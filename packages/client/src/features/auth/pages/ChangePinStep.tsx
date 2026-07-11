@@ -1,17 +1,19 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { PinPad } from '../components/PinPad';
 import { authApi } from '../api/auth.api';
 import { useParentGate } from '../hooks/useParentGate';
 
 type Phase = 'verifyCurrent' | 'newFirst' | 'newConfirm';
 
-const LABEL: Record<Phase, string> = {
-  verifyCurrent: '현재 PIN 입력',
-  newFirst: '새 PIN 만들기',
-  newConfirm: '새 PIN 다시 입력',
+const LABEL_KEY: Record<Phase, string> = {
+  verifyCurrent: 'pin.change.verifyCurrent',
+  newFirst: 'pin.change.newFirst',
+  newConfirm: 'pin.change.newConfirm',
 };
 
 export function ChangePinStep() {
+  const { t } = useTranslation('auth');
   const gate = useParentGate();
   const [phase, setPhase] = useState<Phase>('verifyCurrent');
   const [firstNew, setFirstNew] = useState<string | null>(null);
@@ -54,7 +56,7 @@ export function ChangePinStep() {
     }
     try {
       await authApi.setPin(pin);
-      alert('PIN이 변경됐어요');
+      alert(t('pin.change.changed'));
       setPhase('verifyCurrent');
       setFirstNew(null);
     } catch {
@@ -71,9 +73,9 @@ export function ChangePinStep() {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <h4 className="text-lg font-black text-ink-900">{LABEL[phase]}</h4>
+      <h4 className="text-lg font-black text-ink-900">{t(LABEL_KEY[phase])}</h4>
       {gate.isLockedOut ? (
-        <p className="text-danger font-bold">잠시 후 다시 시도해주세요</p>
+        <p className="text-danger font-bold">{t('pin.change.lockout')}</p>
       ) : (
         <PinPad onComplete={onComplete} error={error} disabled={gate.isLockedOut} />
       )}

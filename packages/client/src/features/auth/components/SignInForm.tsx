@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { authApi } from '../api/auth.api';
 import { supabase } from '@/lib/supabase';
 import { PIN_REQUIRED } from '@/config/features';
@@ -8,16 +9,16 @@ interface Props {
   onSwitchToSignUp: () => void;
 }
 
-function friendlySignInError(err: unknown): string {
+function signInErrorKey(err: unknown): string {
   const msg = err instanceof Error ? err.message : '';
   if (/invalid login credentials|invalid.*credentials/i.test(msg))
-    return '이메일 또는 비밀번호가 틀려요.';
-  if (/email not confirmed|not confirmed/i.test(msg))
-    return '이메일 확인이 필요해요. 메일함의 링크를 눌러 주세요.';
-  return '로그인에 실패했어요. 잠시 후 다시 시도해 주세요.';
+    return 'signIn.error.invalidCredentials';
+  if (/email not confirmed|not confirmed/i.test(msg)) return 'signIn.error.emailNotConfirmed';
+  return 'signIn.error.generic';
 }
 
 export function SignInForm({ onSwitchToSignUp }: Props) {
+  const { t } = useTranslation('auth');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
@@ -34,7 +35,7 @@ export function SignInForm({ onSwitchToSignUp }: Props) {
     try {
       await authApi.signIn(email, password);
     } catch (err) {
-      setError(friendlySignInError(err));
+      setError(t(signInErrorKey(err)));
       const raw = err instanceof Error ? err.message : '';
       if (/not confirmed/i.test(raw)) setUnconfirmedEmail(email);
     } finally {
@@ -51,12 +52,12 @@ export function SignInForm({ onSwitchToSignUp }: Props) {
     }
     setError(null);
     setUnconfirmedEmail(null);
-    setNotice('확인 메일을 다시 보냈어요. 메일함(스팸함 포함)을 확인해 주세요.');
+    setNotice(t('signIn.notice.confirmationResent'));
   };
 
   const handleResetPassword = async () => {
     if (!email) {
-      setError('이메일을 먼저 입력해 주세요.');
+      setError(t('signIn.error.emailRequired'));
       return;
     }
     try {
@@ -65,22 +66,20 @@ export function SignInForm({ onSwitchToSignUp }: Props) {
       // enumeration 방지 — 성공/실패 동일 안내
     }
     setError(null);
-    setNotice('비밀번호 재설정 메일을 보냈어요. 메일함을 확인해 주세요.');
+    setNotice(t('signIn.notice.passwordResetSent'));
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-cream-50 p-4">
       <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-sm w-full shadow-pop flex flex-col gap-4">
         <div className="text-center">
-          <h1 className="text-3xl font-black text-ink-900">탱고북</h1>
-          <p className="text-sm text-ink-500 mt-1 break-keep">
-            부모님 계정으로 로그인 · 7일 무료 체험 · 학습 리포트
-          </p>
+          <h1 className="text-3xl font-black text-ink-900">{t('signIn.title')}</h1>
+          <p className="text-sm text-ink-500 mt-1 break-keep">{t('signIn.subtitle')}</p>
         </div>
         <SocialAuthButtons mode="signin" />
         <div className="flex items-center gap-3 text-sm text-ink-400">
           <div className="h-px flex-1 bg-ink-100" />
-          또는 이메일로
+          {t('signIn.orWithEmail')}
           <div className="h-px flex-1 bg-ink-100" />
         </div>
         {error && (
@@ -93,7 +92,7 @@ export function SignInForm({ onSwitchToSignUp }: Props) {
             onClick={handleResendConfirmation}
             className="h-11 rounded-xl border-2 border-coral-400 text-coral-600 text-sm font-black hover:bg-coral-50"
           >
-            확인 메일 다시 보내기
+            {t('signIn.resendConfirmation')}
           </button>
         )}
         {notice && (
@@ -103,14 +102,14 @@ export function SignInForm({ onSwitchToSignUp }: Props) {
         )}
         <input
           type="email"
-          placeholder="이메일"
+          placeholder={t('signIn.emailPlaceholder')}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="h-14 text-xl rounded-xl border-2 border-ink-100 px-4 focus:border-coral-500 outline-none"
         />
         <input
           type="password"
-          placeholder="비밀번호"
+          placeholder={t('signIn.passwordPlaceholder')}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="h-14 text-xl rounded-xl border-2 border-ink-100 px-4 focus:border-coral-500 outline-none"
@@ -120,31 +119,31 @@ export function SignInForm({ onSwitchToSignUp }: Props) {
           disabled={busy || !email || !password}
           className="h-14 rounded-xl bg-coral-500 text-white font-black text-lg hover:brightness-110 disabled:bg-ink-300"
         >
-          {busy ? '로그인 중…' : '로그인'}
+          {busy ? t('signIn.submitting') : t('signIn.submit')}
         </button>
         <div className="flex justify-between text-sm text-ink-500 mt-2">
           <button onClick={onSwitchToSignUp} className="font-bold hover:text-coral-500">
-            회원가입
+            {t('signIn.signUpLink')}
           </button>
           <button onClick={handleResetPassword} className="hover:text-coral-500">
-            비밀번호 찾기
+            {t('signIn.forgotPassword')}
           </button>
           {/* PIN 미사용(PIN_REQUIRED=false) 동안엔 PIN 분실 링크 숨김 — 겪지 않은 기능의 복구 노출 방지 */}
           {PIN_REQUIRED && (
             <button
               onClick={async () => {
-                const e = window.prompt('이메일을 입력해주세요', email);
+                const e = window.prompt(t('signIn.pinResetPrompt'), email);
                 if (!e) return;
                 try {
                   await authApi.requestPinReset(e);
                 } catch {
                   // enumeration 방지
                 }
-                setNotice('PIN 재설정 메일을 보냈어요. 메일함을 확인해 주세요.');
+                setNotice(t('signIn.notice.pinResetSent'));
               }}
               className="hover:text-coral-500"
             >
-              PIN 잊었어요
+              {t('signIn.forgotPin')}
             </button>
           )}
         </div>

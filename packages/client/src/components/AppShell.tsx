@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { ProfilePicker } from '@/features/auth/components/ProfilePicker';
@@ -24,7 +25,7 @@ const PRIMARY_AXES = [
   {
     to: '/library',
     iconSrc: 'tab/storybook.svg',
-    label: '동화책',
+    labelKey: 'sidebar.storybooks',
     color: 'coral' as const,
     end: true,
     comingSoon: false,
@@ -38,7 +39,7 @@ const PRIMARY_AXES = [
     // 어휘 게임 — 세계명작 낱말 랜덤 풀 블록 게임. 허브에서 한글/영어 선택. 2026-07-08 부활.
     to: '/games/vocab',
     iconSrc: 'game/korean-block.webp',
-    label: '어휘 게임',
+    labelKey: 'sidebar.vocabGames',
     color: 'mint' as const,
     end: false,
     comingSoon: false,
@@ -49,7 +50,7 @@ const PRIMARY_AXES = [
   {
     to: '/library/phonics',
     iconSrc: 'tab/phonics.svg',
-    label: '파닉스',
+    labelKey: 'sidebar.phonics',
     color: 'mint' as const,
     end: false,
     comingSoon: false,
@@ -60,7 +61,7 @@ const PRIMARY_AXES = [
   {
     to: '/vocabulary',
     iconSrc: 'tab/vocab.svg',
-    label: '어휘',
+    labelKey: 'sidebar.vocabulary',
     color: 'amber' as const,
     end: false,
     comingSoon: true,
@@ -71,7 +72,7 @@ const PRIMARY_AXES = [
   {
     to: '/games',
     iconSrc: 'game/korean-block.webp',
-    label: '학습 게임',
+    labelKey: 'sidebar.learningGames',
     color: 'violet' as const,
     end: false,
     comingSoon: false,
@@ -88,19 +89,21 @@ const PRIMARY_AXES = [
  */
 function getPageTitle(
   pathname: string
-): { iconSrc?: string; emoji?: string; title: string } | null {
+): { iconSrc?: string; emoji?: string; titleKey: string } | null {
   // /library 는 LibraryPage 자체가 hero 배너에 큰 제목 노출 → AppShell 헤더 중복 hide
   if (pathname === '/library') return null;
   if (pathname.startsWith('/library/phonics'))
-    return { iconSrc: 'tab/phonics.svg', title: '파닉스' };
+    return { iconSrc: 'tab/phonics.svg', titleKey: 'pageTitle.phonics' };
   if (pathname.startsWith('/vocabulary/book-'))
-    return { iconSrc: 'tab/vocab.svg', title: '단어 익히기' };
-  if (pathname.startsWith('/vocabulary')) return { iconSrc: 'tab/vocab.svg', title: '어휘 마스터' };
-  if (pathname.startsWith('/parent')) return { emoji: '👨‍👩‍👧', title: '부모님 모드' };
+    return { iconSrc: 'tab/vocab.svg', titleKey: 'pageTitle.wordStudy' };
+  if (pathname.startsWith('/vocabulary'))
+    return { iconSrc: 'tab/vocab.svg', titleKey: 'pageTitle.vocabMaster' };
+  if (pathname.startsWith('/parent')) return { emoji: '👨‍👩‍👧', titleKey: 'pageTitle.parentMode' };
   return null;
 }
 
 export function AppShell() {
+  const { t } = useTranslation('shell');
   const { activeProfile, setActiveProfile, profiles, session, signOut, isConfigured, account } =
     useAuth();
   const location = useLocation();
@@ -125,7 +128,7 @@ export function AppShell() {
   }, [location.pathname]);
 
   const handleSignOut = async () => {
-    if (!window.confirm('로그아웃할까요?')) return;
+    if (!window.confirm(t('sidebar.logoutConfirm'))) return;
     await signOut();
   };
 
@@ -133,8 +136,12 @@ export function AppShell() {
     <>
       {/* 로고 영역 — 사이드바 좌상단. 헤더 height(80px) 와 정렬. */}
       <div className="h-20 flex items-center justify-center px-2 border-b border-ink-100/40">
-        <Link to="/library" aria-label="홈으로">
-          <img src="/logo/logo-kr.webp" alt="탱고북" className="h-14 w-auto object-contain" />
+        <Link to="/library" aria-label={t('logo.home')}>
+          <img
+            src="/logo/logo-kr.webp"
+            alt={t('logo.alt')}
+            className="h-14 w-auto object-contain"
+          />
         </Link>
       </div>
 
@@ -144,7 +151,7 @@ export function AppShell() {
         {PRIMARY_AXES.filter(
           (a) => (!a.devOnly || isDevEmail(account?.email)) && (!a.authOnly || !!session)
         ).map((axis) => (
-          <PrimaryNavButton key={axis.to} {...axis} />
+          <PrimaryNavButton key={axis.to} {...axis} label={t(axis.labelKey)} />
         ))}
       </nav>
 
@@ -161,21 +168,21 @@ export function AppShell() {
               className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
             >
               <span aria-hidden>📊</span>
-              <span>학습 리포팅</span>
+              <span>{t('sidebar.reports')}</span>
             </Link>
             <Link
               to="/invite-friends"
               className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
             >
               <span aria-hidden>🎁</span>
-              <span>친구 초대</span>
+              <span>{t('sidebar.inviteFriends')}</span>
             </Link>
             <Link
               to="/parent/settings"
               className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
             >
               <span aria-hidden>⚙️</span>
-              <span>부모 설정</span>
+              <span>{t('sidebar.parentSettings')}</span>
             </Link>
           </>
         )}
@@ -184,7 +191,7 @@ export function AppShell() {
           <button
             onClick={handleSignOut}
             className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-danger transition-all"
-            aria-label="로그아웃"
+            aria-label={t('sidebar.logout')}
           >
             <svg
               width="16"
@@ -201,7 +208,7 @@ export function AppShell() {
               <polyline points="16 17 21 12 16 7" />
               <line x1="21" y1="12" x2="9" y2="12" />
             </svg>
-            <span>로그아웃</span>
+            <span>{t('sidebar.logout')}</span>
             {activeProfile && (
               <span className="ml-auto text-[11px] text-ink-400 truncate max-w-[60px]">
                 {activeProfile.name}
@@ -214,7 +221,7 @@ export function AppShell() {
             className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black bg-coral-500 hover:bg-coral-600 text-white shadow-soft hover:shadow-pop transition-all"
           >
             <span>🔑</span>
-            <span>로그인</span>
+            <span>{t('sidebar.login')}</span>
           </Link>
         ) : null}
       </div>
@@ -243,7 +250,7 @@ export function AppShell() {
             <button
               onClick={() => setDrawerOpen(false)}
               className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/80 shadow-soft text-ink-700 flex items-center justify-center"
-              aria-label="메뉴 닫기"
+              aria-label={t('header.closeMenu')}
             >
               <svg
                 width="18"
@@ -285,7 +292,7 @@ export function AppShell() {
               <button
                 onClick={() => setDrawerOpen(true)}
                 className="md:hidden w-10 h-10 rounded-full bg-white/90 shadow-soft text-ink-700 flex items-center justify-center flex-shrink-0 pointer-events-auto"
-                aria-label="메뉴 열기"
+                aria-label={t('header.openMenu')}
               >
                 <svg
                   width="22"
@@ -304,10 +311,14 @@ export function AppShell() {
               {/* 모바일 로고 — 사이드바 hidden 일 때 헤더에 노출. /library overlay 헤더에서도 보임. */}
               <Link
                 to="/library"
-                aria-label="홈으로"
+                aria-label={t('logo.home')}
                 className="md:hidden pointer-events-auto flex items-center"
               >
-                <img src="/logo/logo-kr.webp" alt="탱고북" className="h-9 w-auto object-contain" />
+                <img
+                  src="/logo/logo-kr.webp"
+                  alt={t('logo.alt')}
+                  className="h-9 w-auto object-contain"
+                />
               </Link>
               {pageTitle && (
                 <h1 className="hidden sm:flex text-xl md:text-3xl font-black font-display text-ink-900 truncate items-center gap-2">
@@ -315,13 +326,13 @@ export function AppShell() {
                     <AppIcon
                       src={pageTitle.iconSrc}
                       size={28}
-                      alt={pageTitle.title}
+                      alt={t(pageTitle.titleKey)}
                       className="md:[width:36px] md:[height:36px]"
                     />
                   ) : pageTitle.emoji ? (
                     <span>{pageTitle.emoji}</span>
                   ) : null}
-                  <span>{pageTitle.title}</span>
+                  <span>{t(pageTitle.titleKey)}</span>
                 </h1>
               )}
             </div>
@@ -332,13 +343,13 @@ export function AppShell() {
                 <button
                   onClick={() => setActiveProfile(null)}
                   className="flex items-center gap-1.5 rounded-full bg-white/90 pl-1 pr-3 py-1 shadow-soft hover:shadow-pop transition-all"
-                  aria-label={`${activeProfile.name} — 아이 바꾸기`}
+                  aria-label={t('header.switchChild', { name: activeProfile.name })}
                 >
                   <AvatarRender id={activeProfile.avatarId} size="sm" />
                   <span className="text-sm font-black text-ink-800 max-w-[80px] truncate">
                     {activeProfile.name}
                   </span>
-                  <span className="text-xs font-bold text-ink-400">바꾸기</span>
+                  <span className="text-xs font-bold text-ink-400">{t('header.switch')}</span>
                 </button>
               )}
             </div>
@@ -398,18 +409,21 @@ function PrimaryNavButton({
   comingSoon?: boolean;
   alwaysActive?: boolean;
 }) {
+  const { t } = useTranslation('shell');
   if (comingSoon) {
     // 차분한 disabled 톤 — 카드 음영 + sub-label "준비 중" (배지 대신)
     return (
       <div
         role="button"
         aria-disabled="true"
-        title="준비 중이에요"
+        title={t('sidebar.comingSoonTitle')}
         className="w-28 h-28 rounded-3xl flex flex-col items-center justify-center gap-1 bg-ink-100/40 cursor-not-allowed select-none"
       >
         <AppIcon src={iconSrc} size={44} alt={label} className="opacity-35" />
         <span className="text-lg font-black text-ink-500">{label}</span>
-        <span className="text-xs font-black text-ink-400 tracking-wide">준비 중</span>
+        <span className="text-xs font-black text-ink-400 tracking-wide">
+          {t('sidebar.comingSoon')}
+        </span>
       </div>
     );
   }

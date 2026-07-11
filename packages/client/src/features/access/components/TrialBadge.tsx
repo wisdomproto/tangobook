@@ -1,4 +1,5 @@
 import { computeAccess } from '@tangobook/shared';
+import { Trans, useTranslation } from 'react-i18next';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useEntitlement } from '@/features/payment/hooks/useEntitlement';
 import { PAYWALL_ENABLED } from '../config';
@@ -16,6 +17,7 @@ import { PAYWALL_ENABLED } from '../config';
  *  - expired     → PAYWALL 전이면 "정식 오픈 전 · 전권 무료", 후면 null
  */
 export function TrialBadge() {
+  const { t } = useTranslation('access');
   const { account } = useAuth();
   const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
 
@@ -32,9 +34,12 @@ export function TrialBadge() {
     return (
       <div className="mx-1 mb-1 rounded-xl bg-peach-100 px-3 py-2 text-center">
         <p className="text-[13px] font-black text-coral-600 break-keep">
-          🎁 무료 체험{' '}
-          <span className="text-[1.45em] leading-none tabular-nums">{access.trialDaysLeft}일</span>{' '}
-          남음
+          <Trans
+            t={t}
+            i18nKey="trial.daysLeft"
+            values={{ days: access.trialDaysLeft }}
+            components={{ big: <span className="text-[1.45em] leading-none tabular-nums" /> }}
+          />
         </p>
       </div>
     );
@@ -44,9 +49,7 @@ export function TrialBadge() {
   if (access.status !== 'subscribed' && !PAYWALL_ENABLED) {
     return (
       <div className="mx-1 mb-1 rounded-xl bg-cream-100 px-3 py-2 text-center">
-        <p className="text-[12px] font-bold text-ink-500 break-keep">
-          정식 오픈 전 · 지금은 전권 무료
-        </p>
+        <p className="text-[12px] font-bold text-ink-500 break-keep">{t('trial.preOpen')}</p>
       </div>
     );
   }

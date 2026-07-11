@@ -1,13 +1,15 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 
 export default function ParentHomePage() {
+  const { t } = useTranslation('auth');
   const { signOut } = useAuth();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
     // AppShell 사이드바 로그아웃과 동일한 보호 — 실수/아이 터치로 즉시 로그아웃 방지.
-    if (!window.confirm('로그아웃할까요?')) return;
+    if (!window.confirm(t('parentHome.signOutConfirm'))) return;
     await signOut();
     navigate('/library');
   };
@@ -20,24 +22,24 @@ export default function ParentHomePage() {
             <button
               onClick={() => navigate('/library')}
               className="px-4 py-2 rounded-full font-bold whitespace-nowrap bg-white text-ink-900 shadow-soft hover:bg-peach-100 transition"
-              title="라이브러리로 돌아가기"
+              title={t('parentHome.backToLibrary')}
             >
-              ← 돌아가기
+              {t('parentHome.back')}
             </button>
             <NavLink to="/parent/reports" className={({ isActive }) => tabClass(isActive)}>
-              📊 학습 리포트
+              {t('parentHome.tabReports')}
             </NavLink>
             <NavLink to="/parent/profiles" className={({ isActive }) => tabClass(isActive)}>
-              👦 자녀
+              {t('parentHome.tabProfiles')}
             </NavLink>
             <NavLink to="/parent/settings" className={({ isActive }) => tabClass(isActive)}>
-              ⚙️ 설정
+              {t('parentHome.tabSettings')}
             </NavLink>
           </div>
           <button
             onClick={handleSignOut}
             className="text-2xl hover:opacity-70"
-            aria-label="로그아웃"
+            aria-label={t('parentHome.signOut')}
           >
             🚪
           </button>

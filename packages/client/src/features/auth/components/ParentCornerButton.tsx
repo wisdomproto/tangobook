@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import { useParentGate } from '../hooks/useParentGate';
 import { ParentGateModal } from './ParentGateModal';
 import { PIN_REQUIRED } from '@/config/features';
 
 export function ParentCornerButton() {
+  const { t } = useTranslation('auth');
   const { isConfigured, session } = useAuth();
   const gate = useParentGate();
   const navigate = useNavigate();
@@ -32,7 +34,7 @@ export function ParentCornerButton() {
         onClick={handleClick}
         className="px-3 py-2 rounded-full bg-white shadow-soft text-ink-900 font-bold text-sm hover:shadow-pop"
       >
-        {session ? '👤 부모님 영역' : '🔒 부모'}
+        {session ? t('parentCorner.parentArea') : t('parentCorner.parentLocked')}
       </button>
       <ParentGateModal
         open={open}

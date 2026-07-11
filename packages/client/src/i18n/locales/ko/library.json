@@ -1,0 +1,53 @@
+{
+  "error": {
+    "title": "연결이 안 돼",
+    "description": "와이파이를 확인해줘",
+    "retry": "↻ 다시 시도"
+  },
+  "search": {
+    "placeholderStorybook": "무슨 책 찾을까?",
+    "placeholderPhonics": "어떤 파닉스 찾을까?",
+    "retry": "🔎 다시 검색"
+  },
+  "empty": {
+    "noResultTitle": "찾는 책이 없네",
+    "noResultDescription": "다른 말로 찾아볼까?",
+    "noBooksTitle": "책이 아직 없어",
+    "noBooksDescription": "선생님이 곧 준비해 줄 거야!"
+  },
+  "chips": {
+    "all": "전체",
+    "korean": "한글",
+    "english": "영어",
+    "reading": "읽는 중",
+    "collapse": "▴ 접기",
+    "more": "더 ▾ +{{count}}",
+    "collapseAria": "카테고리 접기",
+    "moreAria": "카테고리 더 보기"
+  },
+  "category": {
+    "other": "기타"
+  },
+  "genre": {
+    "label": "그림풍"
+  },
+  "section": {
+    "bookCount": "{{count}}권",
+    "showMore": "더 보기 ({{count}}권)"
+  },
+  "card": {
+    "free": "무료"
+  },
+  "playlist": {
+    "title": "나의 재생 목록",
+    "subtitle": "여러 권을 골라 잠자리에 연달아 들려주는 재생 목록",
+    "newSet": "+ 새 세트",
+    "createTitle": "이어재생 만들기",
+    "createSubtitle": "여러 권을 골라 잠자리에 연달아 들려주세요",
+    "deleteConfirm": "\"{{name}}\" 세트를 삭제할까요?",
+    "bookCount": "책 {{count}}권",
+    "play": "▶ 재생",
+    "editAria": "{{name}} 세트 편집",
+    "deleteAria": "{{name}} 세트 삭제"
+  }
+}

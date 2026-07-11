@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useStorybooks } from '@/features/storybook';
 import { usePlaylists, useDeletePlaylist } from '../hooks/usePlaylists';
@@ -19,6 +20,7 @@ import { PlaylistCard } from './PlaylistCard';
  * 첫 화면을 동화책 위주로 유지.
  */
 export function PlaylistLibrarySection() {
+  const { t } = useTranslation('library');
   const navigate = useNavigate();
   const { account } = useAuth();
   const { data: playlists, isLoading } = usePlaylists();
@@ -46,7 +48,7 @@ export function PlaylistLibrarySection() {
   };
 
   const handleDelete = (id: string, name: string) => {
-    if (window.confirm(`"${name}" 세트를 삭제할까요?`)) {
+    if (window.confirm(t('playlist.deleteConfirm', { name }))) {
       deletePlaylist.mutate(id);
     }
   };
@@ -69,7 +71,7 @@ export function PlaylistLibrarySection() {
         <span className="min-w-0 text-left">
           <span className="flex items-center gap-2">
             <span className="text-lg font-black text-ink-900 font-display break-keep">
-              나의 재생 목록
+              {t('playlist.title')}
             </span>
             {!isEmpty && (
               <span className="rounded-full bg-coral-500 px-2 py-0.5 text-xs font-black text-white tabular-nums">
@@ -78,7 +80,7 @@ export function PlaylistLibrarySection() {
             )}
           </span>
           <span className="block text-xs font-bold text-ink-500 break-keep">
-            여러 권을 골라 잠자리에 연달아 들려주는 재생 목록
+            {t('playlist.subtitle')}
           </span>
         </span>
         <span
@@ -97,7 +99,7 @@ export function PlaylistLibrarySection() {
             onClick={() => navigate('/continuous/new')}
             className="text-sm font-black text-coral-600 hover:text-coral-700 transition"
           >
-            + 새 세트
+            {t('playlist.newSet')}
           </button>
         </div>
       )}
@@ -114,10 +116,10 @@ export function PlaylistLibrarySection() {
           </span>
           <span className="min-w-0">
             <span className="block text-base font-black text-ink-900 break-keep">
-              이어재생 만들기
+              {t('playlist.createTitle')}
             </span>
             <span className="block text-sm text-ink-500 break-keep">
-              여러 권을 골라 잠자리에 연달아 들려주세요
+              {t('playlist.createSubtitle')}
             </span>
           </span>
           <span className="ml-auto text-2xl text-coral-500 shrink-0" aria-hidden>

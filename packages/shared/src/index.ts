@@ -41,3 +41,4 @@ export {
   canonicalizeStyleAssets,
   getArtStyleLabel,
 } from './utils/art-style.js';
+export * from './constants/seo-i18n.js';

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Mascot } from '@/design-system';
@@ -32,6 +33,7 @@ export function RewardScreen({
   onRereadFromStart,
   onPlayGame,
 }: RewardScreenProps) {
+  const { t } = useTranslation('viewer');
   const reduce = useReducedMotion();
 
   const videoAvailable = !!videoId || !!directVideoUrl;
@@ -101,7 +103,7 @@ export function RewardScreen({
             transition={reduce ? { duration: 0.2 } : { delay: 0.15 }}
             className="inline-block bg-ink-900 text-white text-xs font-black uppercase tracking-wider px-3 py-1 rounded-md mt-4"
           >
-            📖 완독 축하
+            {t('reward.badge')}
           </motion.div>
 
           <motion.h1
@@ -110,7 +112,7 @@ export function RewardScreen({
             transition={reduce ? { duration: 0.2 } : { delay: 0.25 }}
             className="text-4xl font-black text-ink-900 mt-3 font-display"
           >
-            {caseType === 'D' ? '이야기 끝! 🎉' : '끝까지 다 읽었어! 🎉'}
+            {caseType === 'D' ? t('reward.titleEnd') : t('reward.titleDone')}
           </motion.h1>
 
           <motion.p
@@ -120,12 +122,12 @@ export function RewardScreen({
             className="text-ink-700 text-base font-semibold mt-2"
           >
             {caseType === 'A'
-              ? '이제 어떻게 더 놀까?'
+              ? t('reward.subBoth')
               : caseType === 'B'
-                ? '애니메이션으로 한번 더 볼래?'
+                ? t('reward.subVideo')
                 : caseType === 'C'
-                  ? '이야기로 게임하러 가볼까?'
-                  : '다음엔 어떤 책 읽을까?'}
+                  ? t('reward.subGame')
+                  : t('reward.subNone')}
           </motion.p>
 
           {/* Primary (상단, 크게) */}
@@ -148,7 +150,7 @@ export function RewardScreen({
                   caseType === 'B' && 'text-lg px-10 py-5'
                 )}
               >
-                🎬 애니메이션 보기 ↗
+                {t('reward.watchAnimation')}
               </button>
             )}
             {gameAvailable && (
@@ -160,7 +162,7 @@ export function RewardScreen({
                   caseType === 'C' && 'text-lg px-10 py-5'
                 )}
               >
-                🎮 게임 하러 가기
+                {t('reward.playGame')}
               </button>
             )}
             {caseType === 'D' && (
@@ -168,7 +170,7 @@ export function RewardScreen({
                 onClick={onGoHome}
                 className="flex items-center gap-2.5 px-10 py-5 rounded-xl font-black text-white shadow-pop bg-gradient-to-br from-coral-400 to-coral-500 hover:brightness-105 text-lg"
               >
-                🏠 다른 책 보러 가기
+                {t('reward.goOtherBooksBig')}
               </button>
             )}
           </motion.div>
@@ -186,14 +188,14 @@ export function RewardScreen({
                 onClick={onGoHome}
                 className="px-5 py-2.5 bg-white rounded-lg shadow-soft font-bold text-sm text-ink-900 flex items-center gap-1.5"
               >
-                🏠 다른 책
+                {t('reward.otherBooks')}
               </button>
             )}
             <button
               onClick={onRereadFromStart}
               className="px-5 py-2.5 bg-white rounded-lg shadow-soft font-bold text-sm text-ink-900 flex items-center gap-1.5"
             >
-              ↻ 다시 읽기
+              {t('reward.reread')}
             </button>
           </motion.div>
         </motion.div>

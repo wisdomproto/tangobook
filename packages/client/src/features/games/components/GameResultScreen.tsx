@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, useReducedMotion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Mascot } from '@/design-system';
@@ -17,13 +18,13 @@ interface GameResultScreenProps {
   lang?: 'ko' | 'en';
 }
 
-// 완성도별 헤드라인/응원 문구 (4-5세 톤 — 항상 긍정).
-function praiseFor(score: number, total: number): { title: string; sub: string } {
+// 완성도별 헤드라인/응원 문구 키 (4-5세 톤 — 항상 긍정). 실제 문구는 games ns result.* 키.
+function praiseFor(score: number, total: number): { titleKey: string; subKey: string } {
   if (total > 0 && score >= total)
-    return { title: '완벽해요!', sub: '전부 다 맞혔어요! 최고예요 🌟' };
+    return { titleKey: 'result.perfectTitle', subKey: 'result.perfectSub' };
   if (total > 0 && score >= Math.ceil(total * 0.6))
-    return { title: '참 잘했어요!', sub: '정말 열심히 했어요 👏' };
-  return { title: '잘했어요!', sub: '다음엔 더 잘할 수 있어요 💪' };
+    return { titleKey: 'result.greatTitle', subKey: 'result.greatSub' };
+  return { titleKey: 'result.goodTitle', subKey: 'result.goodSub' };
 }
 
 // 히어로 이미지 슬롯 — 사용자가 넣어줄 축하 일러스트. 없으면(로드 실패) 마스코트로 폴백.
@@ -34,10 +35,11 @@ const HERO_IMAGE_URL = '/images/games/result-celebrate.webp';
  * 별 3개 평점 + "저장됨" 토스트 제거. 백엔드 별 적립은 trigger 로 자동 (부모 리포트 source).
  */
 export function GameResultScreen({ score, total, onRestart, onBack, lang }: GameResultScreenProps) {
+  const { t } = useTranslation('games');
   const reduce = useReducedMotion();
   const [heroFailed, setHeroFailed] = useState(false);
   const perfect = total > 0 && score >= total;
-  const { title, sub } = praiseFor(score, total);
+  const { titleKey, subKey } = praiseFor(score, total);
 
   // 카운트업 애니 (0 → score, 800ms)
   const [displayCount, setDisplayCount] = useState(0);
@@ -175,9 +177,9 @@ export function GameResultScreen({ score, total, onRestart, onBack, lang }: Game
           transition={reduce ? {} : { delay: 0.15, type: 'spring', stiffness: 240, damping: 12 }}
           className="font-display text-4xl font-black text-ink-900 sm:text-5xl"
         >
-          {title}
+          {t(titleKey)}
         </motion.h1>
-        <p className="mt-2 text-base font-bold text-ink-500 sm:text-lg">{sub}</p>
+        <p className="mt-2 text-base font-bold text-ink-500 sm:text-lg">{t(subKey)}</p>
 
         {/* 점수 배지 */}
         <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 shadow-md ring-4 ring-coral-100">
@@ -190,10 +192,10 @@ export function GameResultScreen({ score, total, onRestart, onBack, lang }: Game
 
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Button variant="primary" size="lg" onClick={onRestart}>
-            🔄 다시 하기
+            {t('result.restart')}
           </Button>
           <Button variant="secondary" size="lg" onClick={onBack}>
-            확인
+            {t('result.confirm')}
           </Button>
         </div>
       </motion.div>

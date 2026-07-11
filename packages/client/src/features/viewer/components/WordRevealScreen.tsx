@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Mascot } from '@/design-system';
@@ -44,6 +45,7 @@ export function WordRevealScreen({
   onGoHome,
   onRereadFromStart,
 }: WordRevealScreenProps) {
+  const { t } = useTranslation('viewer');
   const reduce = useReducedMotion();
   const logEvent = useLogEvent();
   const navigate = useNavigate();
@@ -163,14 +165,14 @@ export function WordRevealScreen({
           transition={{ duration: 0.4 }}
           className="fixed inset-0 z-50 bg-gradient-to-b from-cream-50 to-peach-100 overflow-y-auto"
           role="dialog"
-          aria-label="우리가 만난 단어들"
+          aria-label={t('wordReveal.dialogLabel')}
         >
           {/* Header — 마스코트 + 타이틀 + 진척 카운터 */}
           <div className="flex items-center justify-center gap-3 sm:gap-4 p-4 sm:p-6 pb-2">
             <Mascot state="celebrating" size="md" />
             <div className="text-center">
               <h1 className="text-xl sm:text-3xl font-bold text-coral-600">
-                우리가 만난 친구들 🌟
+                {t('wordReveal.title')}
               </h1>
               <p className="text-sm sm:text-base text-ink-500 mt-1">{storybook.title}</p>
               {wordCount > 0 && (
@@ -178,7 +180,7 @@ export function WordRevealScreen({
                   <span className="text-coral-500 font-black text-base">{tappedCount}</span>
                   <span className="text-ink-500 text-sm">/</span>
                   <span className="text-ink-700 text-sm font-bold">{wordCount}</span>
-                  <span className="text-xs text-ink-500 ml-1">눌러봤어요</span>
+                  <span className="text-xs text-ink-500 ml-1">{t('wordReveal.tappedSuffix')}</span>
                 </div>
               )}
             </div>
@@ -187,9 +189,7 @@ export function WordRevealScreen({
           {/* Word Grid */}
           <div className="px-3 sm:px-8 max-w-5xl mx-auto pb-6">
             {wordCount === 0 ? (
-              <div className="text-center py-12 text-ink-400">
-                이 책에는 핵심 단어가 아직 등록되지 않았어요.
-              </div>
+              <div className="text-center py-12 text-ink-400">{t('wordReveal.noWords')}</div>
             ) : (
               <div className={cn('grid gap-2 sm:gap-3', gridCols)}>
                 {items.map((item, idx) => {
@@ -237,7 +237,7 @@ export function WordRevealScreen({
                           : 'border-transparent hover:border-coral-200'
                       )}
                       onClick={() => handleCardTap(item)}
-                      aria-label={`${item.korean} (${item.name}) 발음 듣기${isTapped ? ' (눌러봤음)' : ''}`}
+                      aria-label={`${t('wordReveal.cardListen', { korean: item.korean, name: item.name })}${isTapped ? t('wordReveal.cardListened') : ''}`}
                     >
                       <img
                         src={item.imageUrl}
@@ -315,11 +315,9 @@ export function WordRevealScreen({
           {/* 안내 문구 / 모두 누름 축하 */}
           <p className="text-center text-ink-600 text-sm sm:text-base mb-4 px-4">
             {allTapped ? (
-              <span className="text-coral-600 font-black">
-                🎉 다 들어봤어요! 잠시 후 어휘 단원으로 가요…
-              </span>
+              <span className="text-coral-600 font-black">{t('wordReveal.allTapped')}</span>
             ) : (
-              '🖐️ 단어를 눌러 발음을 들어보세요'
+              t('wordReveal.tapHint')
             )}
           </p>
 
@@ -336,21 +334,21 @@ export function WordRevealScreen({
                     : 'bg-coral-500 hover:bg-coral-600 text-white'
                 )}
               >
-                📚 어휘 더 익히기
+                {t('wordReveal.moreVocab')}
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={onRereadFromStart}
                 className="px-4 sm:px-6 py-3 bg-white hover:bg-cream-50 text-ink-700 font-bold rounded-full shadow-md border-2 border-ink-200 flex items-center gap-2 text-sm sm:text-base"
               >
-                🔄 다시 읽기
+                {t('wordReveal.reread')}
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={onGoHome}
                 className="px-4 sm:px-6 py-3 bg-white hover:bg-cream-50 text-ink-700 font-bold rounded-full shadow-md border-2 border-ink-200 flex items-center gap-2 text-sm sm:text-base"
               >
-                🏠 라이브러리
+                {t('wordReveal.library')}
               </motion.button>
             </div>
           </div>

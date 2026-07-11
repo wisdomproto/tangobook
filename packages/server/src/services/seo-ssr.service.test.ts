@@ -5,6 +5,7 @@ import {
   renderBlogSeo,
   renderBlogListSeo,
   renderHubSeo,
+  hasAboutLang,
   HUBS,
 } from './seo-ssr.service.js';
 import type { Storybook } from '@tangobook/shared';
@@ -126,6 +127,87 @@ describe('renderAboutSeo', () => {
     const s = renderAboutSeo(evil);
     expect(s.bodyHtml).not.toContain('<script>alert(1)</script>');
     expect(s.title).not.toContain('<script>');
+  });
+});
+
+describe('renderAboutSeo — 다국어 (lang)', () => {
+  const multiBook = {
+    ...(book as any),
+    languages: ['ko', 'en', 'zh'],
+    titleTranslations: { zh: '青蛙王子' },
+    parentGuideTranslations: {
+      zh: {
+        overview: '格林兄弟的经典童话，讲述承诺的珍贵。',
+        lessons: ['遵守承诺', '不以貌取人'],
+        readingTips: ['模仿青蛙的叫声'],
+        faq: [{ q: '适合几岁的孩子？', a: '适合4~6岁。' }],
+      },
+    },
+    key_objects: [
+      { name: 'frog', korean: '개구리', nameTranslations: { zh: '青蛙' } },
+      { name: 'crown', korean: '왕관', nameTranslations: { zh: '王冠' } },
+    ],
+  } as unknown as Storybook;
+
+  it('hasAboutLang: ko 항상 true / 가이드 번역 있는 zh true / en·th·미지원 false', () => {
+    expect(hasAboutLang(multiBook, 'ko')).toBe(true);
+    expect(hasAboutLang(multiBook, 'zh')).toBe(true);
+    expect(hasAboutLang(multiBook, 'en')).toBe(false); // languages 엔 있지만 가이드 번역 없음
+    expect(hasAboutLang(multiBook, 'th')).toBe(false);
+    expect(hasAboutLang(multiBook, 'xx')).toBe(false);
+  });
+
+  it('zh: 번역 제목·가이드·단어로 렌더 + /zh/ canonical', () => {
+    const seo = renderAboutSeo(multiBook, 'zh');
+    expect(seo.title).toContain('青蛙王子');
+    expect(seo.canonical).toBe('https://www.tangobook.co.kr/zh/library/1772009873865/about');
+    expect(seo.bodyHtml).toContain('青蛙王子');
+    expect(seo.bodyHtml).toContain('遵守承诺');
+    expect(seo.bodyHtml).toContain('青蛙');
+    expect(seo.bodyHtml).not.toContain('약속은 지켜야'); // ko 가이드 아님
+  });
+
+  it('hreflang: 번역 존재 언어만 상호 링크 + x-default=ko', () => {
+    const seo = renderAboutSeo(multiBook, 'ko');
+    expect(seo.alternatesHtml).toContain('hreflang="ko"');
+    expect(seo.alternatesHtml).toContain('hreflang="zh"');
+    expect(seo.alternatesHtml).toContain('/zh/library/1772009873865/about');
+    expect(seo.alternatesHtml).toContain('hreflang="x-default"');
+    expect(seo.alternatesHtml).not.toContain('hreflang="en"'); // 가이드 번역 없음
+  });
+
+  it('ko 는 기존 동작 유지 (bare 경로) + alternates 가 head 에 주입됨', () => {
+    const seo = renderAboutSeo(multiBook, 'ko');
+    expect(seo.canonical).toBe('https://www.tangobook.co.kr/library/1772009873865/about');
+    const html = injectAboutSeo(INDEX_HTML, seo);
+    expect(html).toContain('rel="alternate" hreflang="zh"');
+  });
+});
+
+describe('renderHubSeo — 다국어', () => {
+  const hubBooks = [
+    {
+      id: '1',
+      title: '신데렐라',
+      category: '세계 명작',
+      coverImage: '',
+      languages: ['ko', 'zh'],
+      titleTranslations: { zh: '灰姑娘' },
+    },
+    { id: '2', title: '람포린쿠스', category: '공룡 친구들', coverImage: '', languages: ['ko'] },
+  ] as any[];
+
+  it('zh classics 허브: zh 카피 + 번역 제목 + /zh/ canonical + /zh/ about 링크', () => {
+    const seo = renderHubSeo(HUBS.classics, hubBooks, 'zh');
+    expect(seo.canonical).toBe('https://www.tangobook.co.kr/zh/guide/classics');
+    expect(seo.title).toContain('经典童话');
+    expect(seo.bodyHtml).toContain('灰姑娘');
+    expect(seo.bodyHtml).toContain('/zh/library/1/about');
+  });
+
+  it('zh nature 허브: zh 번역 없는 책 제외', () => {
+    const seo = renderHubSeo(HUBS.nature, hubBooks, 'zh');
+    expect(seo.bodyHtml).not.toContain('람포린쿠스');
   });
 });
 

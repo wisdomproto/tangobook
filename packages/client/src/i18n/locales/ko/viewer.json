@@ -1,0 +1,94 @@
+{
+  "loading": {
+    "openingBook": "동화책을 펼치고 있어요",
+    "nextBook": "다음 책으로 이동 중..."
+  },
+  "error": {
+    "notFound": "이 책을 찾을 수 없어",
+    "goLibrary": "🏠 라이브러리"
+  },
+  "tapToStart": {
+    "title": "탭해서 시작하기",
+    "subtitle": "화면을 한 번 누르면 이야기가 시작돼요"
+  },
+  "advancing": "다음 장",
+  "fullscreen": {
+    "home": "홈으로",
+    "exit": "풀스크린 끄기"
+  },
+  "toolbar": {
+    "back": "뒤로 가기",
+    "home": "홈으로",
+    "autoplay": "자동재생",
+    "autoplayStop": "자동재생 멈춤",
+    "bgm": "배경음악",
+    "volume": "음량: {{level}}",
+    "volumeLow": "작게",
+    "volumeMid": "보통",
+    "volumeHigh": "크게",
+    "darkMode": "다크모드",
+    "textSize": "글자 크기",
+    "fullscreenImage": "이미지 크게 보기"
+  },
+  "nav": {
+    "prev": "이전 페이지",
+    "next": "다음 페이지"
+  },
+  "reward": {
+    "badge": "📖 완독 축하",
+    "titleEnd": "이야기 끝! 🎉",
+    "titleDone": "끝까지 다 읽었어! 🎉",
+    "subBoth": "이제 어떻게 더 놀까?",
+    "subVideo": "애니메이션으로 한번 더 볼래?",
+    "subGame": "이야기로 게임하러 가볼까?",
+    "subNone": "다음엔 어떤 책 읽을까?",
+    "watchAnimation": "🎬 애니메이션 보기 ↗",
+    "playGame": "🎮 게임 하러 가기",
+    "goOtherBooksBig": "🏠 다른 책 보러 가기",
+    "otherBooks": "🏠 다른 책",
+    "reread": "↻ 다시 읽기"
+  },
+  "wordReveal": {
+    "dialogLabel": "우리가 만난 단어들",
+    "title": "우리가 만난 친구들 🌟",
+    "tappedSuffix": "눌러봤어요",
+    "noWords": "이 책에는 핵심 단어가 아직 등록되지 않았어요.",
+    "allTapped": "🎉 다 들어봤어요! 잠시 후 어휘 단원으로 가요…",
+    "tapHint": "🖐️ 단어를 눌러 발음을 들어보세요",
+    "cardListen": "{{korean}} ({{name}}) 발음 듣기",
+    "cardListened": " (눌러봤음)",
+    "moreVocab": "📚 어휘 더 익히기",
+    "reread": "🔄 다시 읽기",
+    "library": "🏠 라이브러리"
+  },
+  "video": {
+    "defaultTitle": "애니메이션",
+    "openYouTube": "YouTube에서 열기",
+    "openYouTubeArrow": "YouTube에서 열기 ↗",
+    "close": "닫기"
+  },
+  "continuous": {
+    "openControls": "컨트롤 열기",
+    "hideControls": "컨트롤 숨기기",
+    "hide": "숨기기",
+    "progress": "{{total}}권 중 {{current}}권",
+    "playing": "재생 중",
+    "play": "▶ 재생",
+    "pause": "⏸ 일시정지",
+    "ariaPlay": "재생",
+    "ariaPause": "일시정지",
+    "speed": "속도",
+    "sleep": "잠자기",
+    "sleepOff": "끄기",
+    "sleepMinutes": "{{minutes}}분",
+    "nextBook": "⏭ 다음 책",
+    "exit": "🚪 나가기",
+    "exitHome": "홈으로 나가기",
+    "end": {
+      "title": "다 읽었어요",
+      "subtitle": "오늘 밤도 편히 자요",
+      "restart": "🔁 다시 보기",
+      "exit": "🏠 나가기"
+    }
+  }
+}

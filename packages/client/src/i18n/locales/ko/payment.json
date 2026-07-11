@@ -1,0 +1,96 @@
+{
+  "price": "{{amount}}원",
+  "plans": {
+    "month1": { "name": "1개월 이용권" },
+    "year1": { "name": "12개월 이용권" }
+  },
+  "launchPromo": "오픈 기념 반값 할인",
+  "planCard": {
+    "perMonth": "월 {{price}} · {{days}}일 이용",
+    "daysUse": "{{days}}일 이용",
+    "select": "선택하기"
+  },
+  "subscribe": {
+    "preOpenTitle": "지금은 모든 동화가 무료예요",
+    "preOpenDesc": "이용권 구매는 정식 오픈과 함께 열려요. 그동안은 마음껏 읽어 주세요!",
+    "goLibrary": "동화책 보러 가기",
+    "back": "← 돌아가기",
+    "title": "탱고북 이용권",
+    "subtitle": "동화책·자연관찰·학습 콘텐츠를 무제한으로 즐겨보세요.",
+    "promoBadge": "🎉 {{label}} 중!",
+    "loadingCheckout": "결제창을 불러오는 중…",
+    "noAutoRenew": "기간이 끝나도 자동으로 결제되지 않아요. 구매한 기간 동안 모든 콘텐츠를 이용할 수 있어요.",
+    "terms": "이용약관",
+    "refund": "취소·환불 규정",
+    "privacy": "개인정보처리방침"
+  },
+  "paymentSuccess": {
+    "invalidInfo": "결제 정보가 올바르지 않습니다.",
+    "invalidAmount": "결제 금액이 올바르지 않습니다.",
+    "confirmFailed": "결제 승인에 실패했습니다.",
+    "confirming": "결제 확인 중…",
+    "wait": "잠시만 기다려 주세요.",
+    "failTitle": "결제 실패",
+    "retry": "다시 시도",
+    "successTitle": "구독 완료!",
+    "successDesc": "탱고북의 모든 콘텐츠를 즐겨보세요.",
+    "redirecting": "라이브러리로 이동합니다…"
+  },
+  "paymentFail": {
+    "title": "결제에 실패했어요",
+    "errorCode": "오류 코드: {{code}}",
+    "retry": "다시 시도",
+    "backToLibrary": "라이브러리로 돌아가기"
+  },
+  "inviteFriends": {
+    "title": "친구 초대하고 둘 다 +7일",
+    "subtitle": "친구도 나도 무료 기간이 7일씩 늘어나요 (각 최대 28일)",
+    "step1": "아래 \"초대 메시지 복사\"를 눌러요",
+    "step2": "카톡·문자로 친구에게 붙여넣어 보내요",
+    "step3": "친구가 링크로 가입해요 (코드 자동 적용)",
+    "step4": "둘 다 무료 기간 +7일 🎉",
+    "myCode": "내 초대 코드",
+    "loadCodeError": "코드를 불러오지 못했어요. 새로고침해 주세요.",
+    "copied": "복사됨 ✓ 카톡에 붙여넣으세요",
+    "copyMessage": "초대 메시지 복사"
+  },
+  "inviteLanding": {
+    "seoTitle": "친구가 탱고북에 초대했어요",
+    "seoDesc": "회원 가입하면 7일 동안 모든 동화를 무료로 즐길 수 있어요.",
+    "giftBadge": "🎁 친구 초대 선물",
+    "title": "친구가 탱고북에 초대했어요!",
+    "desc": "세계 명작 동화와 자연관찰 그림책을 아이 목소리로 읽어줘요. 회원 가입하면 <hl>7일 동안 모든 동화 무료</hl>, 초대로 시작하면 <hl>친구도 나도 +7일</hl>!",
+    "goLibrary": "동화 보러 가기",
+    "signup": "회원 가입하고 7일 무료 시작",
+    "browseFirst": "먼저 둘러볼래요"
+  },
+  "redeem": {
+    "reasonSelf": "본인 코드는 사용할 수 없어요.",
+    "reasonAlreadyReferred": "이미 초대 코드를 사용했어요.",
+    "reasonRace": "잠시 후 다시 시도해 주세요.",
+    "reasonInvalidCode": "올바르지 않은 코드예요. 다시 확인해 주세요.",
+    "reasonDefault": "코드를 적용할 수 없어요.",
+    "successBoth": "코드를 적용했어요! 🎉 나도 +7일, 초대해준 친구도 +7일 늘었어요.",
+    "successMine": "코드를 적용했어요! 🎉 내 무료 기간이 +{{days}}일 늘었어요.",
+    "successCapped": "친구와 연결됐어요! 내 무료 기간은 이미 최대(28일)라 그대로예요.",
+    "requestFailed": "적용에 실패했어요. 잠시 후 다시 시도해 주세요.",
+    "placeholder": "받은 코드 입력",
+    "inputAria": "받은 초대 코드",
+    "applying": "적용 중…",
+    "apply": "적용"
+  },
+  "inviteButton": {
+    "loading": "코드 받는 중…",
+    "copiedLabel": "초대 메시지 복사됨 ✓",
+    "copy": "초대 메시지 복사",
+    "fetchError": "코드를 받지 못했어요. 다시 시도해 주세요.",
+    "myCode": "내 코드",
+    "copyCodeOnly": "코드만 복사"
+  },
+  "rewardToast": {
+    "message": "친구 초대 성공! 무료 기간 <u>+{{days}}일</u> 늘었어요"
+  },
+  "invite": {
+    "messageTemplate": "🐯 탱고북에서 아이랑 동화책 읽어요!\n아래 링크로 가입하면 우리 둘 다 무료 기간이 7일씩 늘어나요 🎁\n{{link}}\n\n초대 코드: {{code}} (링크가 안 열리면 가입 후 직접 입력해요)"
+  }
+}

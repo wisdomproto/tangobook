@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * 학습자 화면 공용 헤더 — 둥둥 떠있는 흰 wash 카드 (시안 톤).
@@ -22,13 +23,9 @@ interface PageHeaderProps {
   right?: ReactNode;
 }
 
-export function PageHeader({
-  onBack,
-  backLabel = '뒤로 가기',
-  onHome,
-  children,
-  right,
-}: PageHeaderProps) {
+export function PageHeader({ onBack, backLabel, onHome, children, right }: PageHeaderProps) {
+  const { t } = useTranslation('shell');
+  const resolvedBackLabel = backLabel ?? t('pageHeader.back');
   return (
     <header className="h-16 md:h-20 lg:h-24 flex items-center justify-between gap-2 md:gap-4 shrink-0 bg-white/60 backdrop-blur-sm shadow-soft rounded-2xl md:rounded-3xl px-3 md:px-6 mx-2 mt-2">
       <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
@@ -38,13 +35,13 @@ export function PageHeader({
         >
           <span>←</span>
           {/* 폰(<640)에선 라벨 숨기고 화살표만 — 헤더 우측 칩과 제목 공간 확보 */}
-          <span className="hidden sm:inline">{backLabel}</span>
+          <span className="hidden sm:inline">{resolvedBackLabel}</span>
         </button>
         {onHome && (
           <button
             onClick={onHome}
-            aria-label="홈으로"
-            title="홈으로"
+            aria-label={t('pageHeader.home')}
+            title={t('pageHeader.home')}
             className="px-3 md:px-4 py-2 md:py-3 rounded-full bg-peach-100 text-ink-900 font-black text-base md:text-xl shadow-soft hover:shadow-pop transition min-h-[44px]"
           >
             🏠

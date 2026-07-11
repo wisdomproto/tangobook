@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Trans, useTranslation } from 'react-i18next';
 import { computeAccess } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useEntitlement } from '@/features/payment/hooks/useEntitlement';
@@ -23,6 +24,7 @@ import { PAYWALL_ENABLED } from '@/features/access/config';
  *   1872×1248, tiger mascot + gift on RIGHT half; left ~40% is open cream space.
  */
 export function PromoBanner() {
+  const { t } = useTranslation('access');
   const navigate = useNavigate();
   const { account } = useAuth();
   const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
@@ -46,37 +48,38 @@ export function PromoBanner() {
   let sub: string;
 
   // 양방향 초대 카피 — 세련되고 따뜻하게, 판매 냄새 X. (드롭박스식: 친구·나 둘 다 +7일)
-  const REFERRAL_SUB = '친구를 초대하면 무료 기간이 서로 7일씩 늘어나요';
+  const referralSub = t('promo.referralSub');
 
   if (isGuest) {
-    headline = '회원가입하면 7일 무료 체험';
-    sub = REFERRAL_SUB;
+    headline = t('promo.guestHeadline');
+    sub = referralSub;
   } else if (isTrial) {
     // 남은 일수를 앞세워 "무료 며칠 남았는지" 한눈에(부모 요청). 상실 프레이밍은 피함.
     // 'N일' 강조 — 코랄색 + 크게(부모 요청).
     headline = (
-      <>
-        무료 체험{' '}
-        <span className="text-coral-600 text-[1.3em] tabular-nums">{raw.trialDaysLeft}일</span> 남음
-        · 모든 동화 열려 있어요
-      </>
+      <Trans
+        t={t}
+        i18nKey="promo.trialHeadline"
+        values={{ days: raw.trialDaysLeft }}
+        components={{ big: <span className="text-coral-600 text-[1.3em] tabular-nums" /> }}
+      />
     );
-    sub = REFERRAL_SUB;
+    sub = referralSub;
   } else if (!PAYWALL_ENABLED) {
     // 출시 전(유료화 OFF): 전체 무료 상태 — 오래된 계정이 "만료"로 보이던 버그 방지.
-    headline = '지금은 모든 동화를 무료로 즐겨요';
-    sub = REFERRAL_SUB;
+    headline = t('promo.preOpenHeadline');
+    sub = referralSub;
   } else {
     // expired (유료화 ON): 구독을 1순위로, 초대는 보조.
-    headline = '구독하고 모든 동화를 계속 즐겨요';
-    sub = '친구를 초대하면 둘 다 무료 기간 +7일';
+    headline = t('promo.expiredHeadline');
+    sub = t('promo.expiredSub');
   }
 
   return (
     <div
       className="relative w-full min-h-[140px] sm:min-h-[150px] md:min-h-[170px] lg:min-h-[190px] rounded-2xl overflow-hidden shadow-soft mb-8 md:mb-10 flex bg-gradient-to-br from-cream-50 to-peach-100"
       role="region"
-      aria-label="프로모션 배너"
+      aria-label={t('promo.region')}
     >
       {/* Left zone — text overlay on the open cream area.
           모바일은 고정 aspect 대신 콘텐츠 높이(min-h)로 — 긴 한글 헤드라인 잘림 방지. */}
@@ -94,7 +97,7 @@ export function PromoBanner() {
               onClick={() => navigate('/login?mode=signup')}
               className="mt-2 md:mt-3 bg-coral-500 text-white font-black rounded-xl px-5 py-2.5 text-xs md:text-sm hover:brightness-110 transition"
             >
-              무료로 시작하기
+              {t('promo.startFree')}
             </button>
           ) : (
             <InviteButton className="mt-2 md:mt-3 bg-coral-500 text-white font-black rounded-xl px-5 py-2.5 text-xs md:text-sm hover:brightness-110 transition" />

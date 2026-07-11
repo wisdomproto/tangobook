@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/cn';
 import { canReadBook, type BookIndexEntry } from '@tangobook/shared';
 import { useAccess, LockBadge } from '@/features/access';
@@ -12,6 +13,7 @@ interface BookCardProps {
 /** 책 카드 — 일러스트 풀 (정사각형 가까운 비율) + 아래 제목. 카드 배경/패딩 X (reference 디자인).
  *  표지는 책의 대표 그림체(defaultStyle)만 노출 — 그림체 선택은 BookDetailPage 에서. */
 export function BookCard({ book }: BookCardProps) {
+  const { t } = useTranslation('library');
   const navigate = useNavigate();
   const { data: statusMap } = useReadingStatus();
   const status = statusMap?.get(book.id);
@@ -53,7 +55,7 @@ export function BookCard({ book }: BookCardProps) {
         )}
         {showFreeBadge && (
           <span className="absolute top-2 left-2 rounded-full bg-coral-500 text-white text-xs font-black px-2.5 py-1 shadow-soft">
-            무료
+            {t('card.free')}
           </span>
         )}
         {locked && <LockBadge className="absolute top-2 left-2" />}

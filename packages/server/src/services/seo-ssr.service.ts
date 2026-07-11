@@ -7,10 +7,33 @@
  * R2 저장소를 들고 있으므로 요청 시점에 head 치환 + #root 본문 주입이 가장 견고하다.
  * React 는 createRoot().render() 라 주입된 본문은 브라우저에서 자연히 교체된다.
  */
-import type { Storybook, StorybookSummary, ReadingLevel } from '@tangobook/shared';
+import type { Storybook, StorybookSummary, ReadingLevel, ParentGuide } from '@tangobook/shared';
+import { SUPPORTED_LANGUAGES, seoStrings, fill, HUB_STRINGS } from '@tangobook/shared';
 import type { BlogPostDetail, BlogPostSummary } from './mkt/blog-public.service.js';
 
 export const SITE_URL = 'https://www.tangobook.co.kr';
+
+const LANG_CODES: string[] = SUPPORTED_LANGUAGES.map((l) => l.code);
+
+/** ko = bare 경로 (기제출 sitemap 보존), 그 외 = /lang 프리픽스 */
+export function langPrefix(lang: string): string {
+  return lang === 'ko' ? '' : `/${lang}`;
+}
+
+/**
+ * 해당 언어의 about 페이지가 존재하는가 — 🔴 언어 추가 자동화의 핵심 술어.
+ * 번역 apply 가 titleTranslations + parentGuideTranslations 를 채우면
+ * hreflang·sitemap·SSR 라우트가 전부 여기서 자동 derive 된다 (코드 변경 0).
+ */
+export function hasAboutLang(storybook: Storybook, lang: string): boolean {
+  if (lang === 'ko') return true;
+  if (!LANG_CODES.includes(lang)) return false;
+  const sb = storybook as Storybook & {
+    titleTranslations?: Record<string, string>;
+    parentGuideTranslations?: Record<string, ParentGuide>;
+  };
+  return Boolean(sb.titleTranslations?.[lang] && sb.parentGuideTranslations?.[lang]);
+}
 
 const LEVEL_INFO: Record<ReadingLevel, { label: string; age: string; min: number; max: number }> = {
   L1: { label: '씨앗', age: '3~4세', min: 3, max: 4 },
@@ -25,6 +48,8 @@ export interface AboutSeo {
   ogImage: string;
   jsonLdHtml: string;
   bodyHtml: string;
+  /** hreflang 상호 링크 (<link rel="alternate">) — 없으면 빈 문자열 */
+  alternatesHtml: string;
 }
 
 function escapeHtml(s: string): string {
@@ -69,33 +94,63 @@ function pickKoreanWord(k: { korean?: string; name?: string }): string {
   return HANGUL.test(name) ? name : '';
 }
 
-export function renderAboutSeo(storybook: Storybook): AboutSeo {
+export function renderAboutSeo(storybook: Storybook, lang: string = 'ko'): AboutSeo {
   const sb = storybook as Storybook & {
-    key_objects?: Array<{ korean?: string; name?: string; definition?: string; example?: string }>;
+    key_objects?: Array<{
+      korean?: string;
+      name?: string;
+      definition?: string;
+      example?: string;
+      nameTranslations?: Record<string, string>;
+    }>;
+    titleTranslations?: Record<string, string>;
+    parentGuideTranslations?: Record<string, ParentGuide>;
   };
-  const title = `${sb.title} 동화책 - 줄거리·교훈·읽어주기 팁 | 탱고북`;
-  const overview = sb.parentGuide?.overview || `${sb.title} — 아이와 함께 읽는 동화책`;
+  const isKo = lang === 'ko';
+  const S = seoStrings(lang);
+  const displayTitle = isKo ? sb.title : (sb.titleTranslations?.[lang] ?? sb.title);
+  const guide = isKo ? sb.parentGuide : (sb.parentGuideTranslations?.[lang] ?? sb.parentGuide);
+
+  const title = fill(S.aboutTitle, displayTitle);
+  const overview = guide?.overview || `${displayTitle} — Tangobook`;
   const description = summarize(overview);
-  const canonical = `${SITE_URL}/library/${sb.id}/about`;
+  const canonical = `${SITE_URL}${langPrefix(lang)}/library/${sb.id}/about`;
   const ogImage = encodeUrl(sb.coverImage || sb.coverImages?.[0]?.imageUrl || '');
   const level = sb.readingLevel ? LEVEL_INFO[sb.readingLevel] : null;
-  const lessons = sb.parentGuide?.lessons ?? [];
-  const tips = sb.parentGuide?.readingTips ?? [];
-  const faqs = sb.parentGuide?.faq ?? [];
+  const lessons = guide?.lessons ?? [];
+  const tips = guide?.readingTips ?? [];
+  const faqs = guide?.faq ?? [];
   const words = (sb.key_objects ?? [])
-    .map((k) => ({ ko: pickKoreanWord(k), definition: k.definition, example: k.example }))
+    .map((k) => ({
+      ko: isKo ? pickKoreanWord(k) : (k.nameTranslations?.[lang] ?? pickKoreanWord(k)),
+      definition: isKo ? k.definition : undefined, // 정의문은 ko 전용 (번역 없음)
+      example: isKo ? k.example : undefined,
+    }))
     .filter((w) => w.ko);
+
+  // hreflang — 번역이 존재하는 언어들만 상호 링크 + x-default(ko)
+  const altLangs = LANG_CODES.filter((l) => hasAboutLang(storybook, l));
+  const alternatesHtml =
+    altLangs.length > 1
+      ? altLangs
+          .map(
+            (l) =>
+              `<link rel="alternate" hreflang="${l}" href="${SITE_URL}${langPrefix(l)}/library/${sb.id}/about" />`
+          )
+          .join('\n    ') +
+        `\n    <link rel="alternate" hreflang="x-default" href="${SITE_URL}/library/${sb.id}/about" />`
+      : '';
 
   // ── JSON-LD ────────────────────────────────────────────────────────────────
   const schemas: object[] = [];
   schemas.push({
     '@context': 'https://schema.org',
     '@type': 'Book',
-    name: sb.title,
+    name: displayTitle,
     description: overview,
     url: canonical,
     image: ogImage || undefined,
-    inLanguage: sb.languages?.length ? sb.languages : ['ko'],
+    inLanguage: [lang],
     numberOfPages: sb.pages?.length,
     isAccessibleForFree: sb.isAccessibleForFree ?? true,
     publisher: { '@type': 'Organization', name: '탱고북', url: SITE_URL },
@@ -118,25 +173,30 @@ export function renderAboutSeo(storybook: Storybook): AboutSeo {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: '라이브러리', item: `${SITE_URL}/library` },
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: S.libraryBreadcrumb,
+        item: `${SITE_URL}/library`,
+      },
       {
         '@type': 'ListItem',
         position: 2,
-        name: sb.category || '동화책',
+        name: sb.category || S.h1Suffix,
         item: `${SITE_URL}/library?category=${encodeURIComponent(sb.category || '')}`,
       },
-      { '@type': 'ListItem', position: 3, name: sb.title, item: canonical },
+      { '@type': 'ListItem', position: 3, name: displayTitle, item: canonical },
     ],
   });
   schemas.push({
     '@context': 'https://schema.org',
     '@type': 'LearningResource',
-    name: sb.title,
+    name: displayTitle,
     description: overview,
     url: canonical,
     educationalLevel: level?.label ?? '유아',
     educationalUse: '어휘 학습, 정서 발달, 함께 읽기',
-    inLanguage: sb.languages?.length ? sb.languages : ['ko'],
+    inLanguage: [lang],
     teaches: words.slice(0, 20).map((w) => w.ko),
     provider: { '@type': 'Organization', name: '탱고북', url: SITE_URL },
   });
@@ -145,20 +205,30 @@ export function renderAboutSeo(storybook: Storybook): AboutSeo {
     .join('\n    ');
 
   // ── 본문 (JS 미실행 크롤러용 — 브라우저에선 React 가 교체) ─────────────────
-  const t = escapeHtml(sb.title);
+  const t = escapeHtml(displayTitle);
+  // ko 는 조사(이/가·으로/로) 처리, 그 외 언어는 SEO_STRINGS 템플릿
+  const lessonsHeading = isKo
+    ? `${t}${josa(sb.title, '이', '가')} 주는 교훈`
+    : escapeHtml(fill(S.lessonsHeading, displayTitle));
+  const wordsHeading = isKo
+    ? `${t}${josa(sb.title, '으로', '로')} 배우는 유아 단어`
+    : escapeHtml(fill(S.wordsHeading, displayTitle));
+
   const parts: string[] = [];
-  parts.push(`<article><h1>${t} 동화책</h1>`);
+  parts.push(`<article><h1>${t} ${S.h1Suffix}</h1>`);
   parts.push(`<p>${escapeHtml(overview)}</p>`);
   if (level)
-    parts.push(`<p>추천 연령: ${level.age} (${level.label}) · ${sb.pages?.length ?? 0}쪽</p>`);
+    parts.push(
+      `<p>${S.ageLabel}: ${level.age}${isKo ? ` (${level.label})` : ''} · ${sb.pages?.length ?? 0}${S.pagesLabel}</p>`
+    );
   if (lessons.length) {
     parts.push(
-      `<h2>${t}${josa(sb.title, '이', '가')} 주는 교훈</h2><ul>${lessons.map((l) => `<li>${escapeHtml(l)}</li>`).join('')}</ul>`
+      `<h2>${lessonsHeading}</h2><ul>${lessons.map((l) => `<li>${escapeHtml(l)}</li>`).join('')}</ul>`
     );
   }
   if (words.length) {
     parts.push(
-      `<h2>${t}${josa(sb.title, '으로', '로')} 배우는 유아 단어</h2><ul>${words
+      `<h2>${wordsHeading}</h2><ul>${words
         .map(
           (w) =>
             `<li><strong>${escapeHtml(w.ko)}</strong>${w.definition ? ` — ${escapeHtml(w.definition)}` : ''}</li>`
@@ -168,22 +238,23 @@ export function renderAboutSeo(storybook: Storybook): AboutSeo {
   }
   if (faqs.length) {
     parts.push(
-      `<h2>자주 묻는 질문</h2>${faqs
+      `<h2>${S.faqHeading}</h2>${faqs
         .map((f) => `<h3>${escapeHtml(f.q)}</h3><p>${escapeHtml(f.a)}</p>`)
         .join('')}`
     );
   }
   if (tips.length) {
     parts.push(
-      `<h2>${t} 읽어주기 팁 (4~7세)</h2><ul>${tips.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>`
+      `<h2>${escapeHtml(fill(S.tipsHeading, displayTitle))}</h2><ul>${tips.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>`
     );
   }
-  // 카테고리 허브로 내부링크 — "유아 명작 동화"류 카테고리 키워드를 허브가 모으는 구조
-  const hubHref = sb.category === '세계 명작' ? '/guide/classics' : '/guide/nature';
-  const hubLabel =
-    sb.category === '세계 명작' ? '세계 명작 동화 전집 보기' : '자연관찰 그림책 전체 보기';
+  // 카테고리 허브로 내부링크 — 해당 언어 허브 카피가 있으면 언어 경로로
+  const isClassics = sb.category === '세계 명작';
+  const hubLangPrefix = isKo || HUB_STRINGS[lang] ? langPrefix(lang) : '';
+  const hubHref = `${hubLangPrefix}${isClassics ? '/guide/classics' : '/guide/nature'}`;
+  const hubLabel = isClassics ? S.classicsHubLink : S.natureHubLink;
   parts.push(
-    `<p><a href="/library/${sb.id}">${t} 지금 읽으러 가기 — 탱고북</a> · <a href="${hubHref}">${hubLabel}</a></p></article>`
+    `<p><a href="/library/${sb.id}">${escapeHtml(fill(S.readNow, displayTitle))}</a> · <a href="${hubHref}">${escapeHtml(hubLabel)}</a></p></article>`
   );
 
   return {
@@ -193,6 +264,7 @@ export function renderAboutSeo(storybook: Storybook): AboutSeo {
     ogImage,
     jsonLdHtml,
     bodyHtml: parts.join(''),
+    alternatesHtml,
   };
 }
 
@@ -301,6 +373,7 @@ export function renderBlogSeo(post: BlogPostDetail): AboutSeo {
       .map((s) => `<script type="application/ld+json">${JSON.stringify(s)}</script>`)
       .join('\n    '),
     bodyHtml: bodyParts.join(''),
+    alternatesHtml: '', // 블로그는 ko 전용
   };
 }
 
@@ -325,6 +398,7 @@ export function renderBlogListSeo(posts: BlogPostSummary[]): AboutSeo {
       publisher: { '@type': 'Organization', name: '탱고북', url: SITE_URL },
     })}</script>`,
     bodyHtml: `<article><h1>${escapeHtml(title)}</h1><p>${escapeHtml(description)}</p><ul>${items}</ul></article>`,
+    alternatesHtml: '',
   };
 }
 
@@ -367,19 +441,53 @@ export function filterHubBooks(hub: HubConfig, books: StorybookSummary[]): Story
   );
 }
 
-export function renderHubSeo(hub: HubConfig, books: StorybookSummary[]): AboutSeo {
-  const list = filterHubBooks(hub, books);
-  const canonical = `${SITE_URL}/guide/${hub.slug}`;
-  const description = summarize(hub.intro);
+/** 허브가 존재하는 언어들 — ko + HUB_STRINGS 에 카피가 있는 언어 */
+export function hubLangs(): string[] {
+  return ['ko', ...Object.keys(HUB_STRINGS)];
+}
+
+export function renderHubSeo(
+  hub: HubConfig,
+  books: StorybookSummary[],
+  lang: string = 'ko'
+): AboutSeo {
+  const isKo = lang === 'ko';
+  const copy = isKo
+    ? { title: hub.title, h1: hub.h1, intro: hub.intro }
+    : HUB_STRINGS[lang]?.[hub.slug as 'classics' | 'nature'];
+  // 카피 없는 언어는 ko 로 폴백 (라우트에서 hubLangs 로 걸러지지만 방어)
+  const c = copy ?? { title: hub.title, h1: hub.h1, intro: hub.intro };
+  const S = seoStrings(lang);
+
+  const withT = books as Array<StorybookSummary & { titleTranslations?: Record<string, string> }>;
+  const list = filterHubBooks(hub, books).filter(
+    (b) => isKo || (b as (typeof withT)[number]).titleTranslations?.[lang]
+  ) as typeof withT;
+  const displayTitle = (b: (typeof withT)[number]) =>
+    isKo ? b.title : (b.titleTranslations?.[lang] ?? b.title);
+  const aboutHref = (b: { id: string }) => `${langPrefix(lang)}/library/${b.id}/about`;
+
+  const canonical = `${SITE_URL}${langPrefix(lang)}/guide/${hub.slug}`;
+  const description = summarize(c.intro);
+
+  // hreflang — 허브 카피가 존재하는 언어들 상호 링크
+  const alternatesHtml =
+    hubLangs()
+      .map(
+        (l) =>
+          `<link rel="alternate" hreflang="${l}" href="${SITE_URL}${langPrefix(l)}/guide/${hub.slug}" />`
+      )
+      .join('\n    ') +
+    `\n    <link rel="alternate" hreflang="x-default" href="${SITE_URL}/guide/${hub.slug}" />`;
 
   const schemas: object[] = [
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      name: hub.h1,
-      description: hub.intro,
+      name: c.h1,
+      description: c.intro,
       url: canonical,
-      inLanguage: ['ko'],
+      inLanguage: [lang],
       publisher: { '@type': 'Organization', name: '탱고북', url: SITE_URL },
       mainEntity: {
         '@type': 'ItemList',
@@ -387,15 +495,15 @@ export function renderHubSeo(hub: HubConfig, books: StorybookSummary[]): AboutSe
         itemListElement: list.slice(0, 60).map((b, i) => ({
           '@type': 'ListItem',
           position: i + 1,
-          name: b.title,
-          url: `${SITE_URL}/library/${b.id}/about`,
+          name: displayTitle(b),
+          url: `${SITE_URL}${aboutHref(b)}`,
         })),
       },
     },
   ];
 
-  // 카테고리별 그룹 (nature 허브 가독성)
-  const byCategory = new Map<string, StorybookSummary[]>();
+  // 카테고리별 그룹 (nature 허브 가독성) — 카테고리명은 ko 유지(고유 브랜드 섹션명)
+  const byCategory = new Map<string, typeof withT>();
   for (const b of list) {
     const cat = b.category || '기타';
     if (!byCategory.has(cat)) byCategory.set(cat, []);
@@ -404,21 +512,25 @@ export function renderHubSeo(hub: HubConfig, books: StorybookSummary[]): AboutSe
   const sections = [...byCategory.entries()]
     .map(
       ([cat, items]) =>
-        `<h2>${escapeHtml(cat)} (${items.length}권)</h2><ul>${items
-          .map((b) => `<li><a href="/library/${b.id}/about">${escapeHtml(b.title)} 동화책</a></li>`)
+        `<h2>${escapeHtml(cat)} (${items.length})</h2><ul>${items
+          .map(
+            (b) =>
+              `<li><a href="${aboutHref(b)}">${escapeHtml(displayTitle(b))}${isKo ? ' 동화책' : ''}</a></li>`
+          )
           .join('')}</ul>`
     )
     .join('');
 
   return {
-    title: escapeHtml(hub.title),
+    title: escapeHtml(c.title),
     description: escapeHtml(description),
     canonical,
     ogImage: `${SITE_URL}/og-image.png`,
     jsonLdHtml: schemas
       .map((s) => `<script type="application/ld+json">${JSON.stringify(s)}</script>`)
       .join('\n    '),
-    bodyHtml: `<article><h1>${escapeHtml(hub.h1)}</h1><p>${escapeHtml(hub.intro)}</p>${sections}<p><a href="/library">탱고북 라이브러리에서 바로 읽기</a> · <a href="/blog">블로그 가이드 보기</a></p></article>`,
+    bodyHtml: `<article><h1>${escapeHtml(c.h1)}</h1><p>${escapeHtml(c.intro)}</p>${sections}<p><a href="/library">${escapeHtml(S.libraryBreadcrumb)}</a> · <a href="/blog">${escapeHtml(S.blogListLink)}</a></p></article>`,
+    alternatesHtml,
   };
 }
 
@@ -462,6 +574,11 @@ export function injectAboutSeo(indexHtml: string, seo: AboutSeo): string {
     if (single.test(html)) html = html.replace(single, tag);
     else if (multi.test(html)) html = html.replace(multi, tag);
     else html = html.replace('</head>', `  ${tag}\n  </head>`);
+  }
+
+  // hreflang 상호 링크 (다국어 페이지)
+  if (seo.alternatesHtml) {
+    html = html.replace('</head>', `  ${seo.alternatesHtml}\n  </head>`);
   }
 
   // 책 JSON-LD 는 사이트 Organization 스키마와 공존 — head 끝에 append

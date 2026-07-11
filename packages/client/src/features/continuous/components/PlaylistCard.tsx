@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 
 interface PlaylistCardProps {
@@ -25,6 +26,7 @@ export function PlaylistCard({
   onDelete,
   onEdit,
 }: PlaylistCardProps) {
+  const { t } = useTranslation('library');
   const lang = SUPPORTED_LANGUAGES.find((l) => l.code === language);
   const thumbs = coverUrls.slice(0, 4);
 
@@ -56,10 +58,11 @@ export function PlaylistCard({
         <div className="p-4">
           <h3 className="font-black text-lg text-ink-900 font-display truncate">{name}</h3>
           <p className="mt-0.5 text-sm font-bold text-ink-500">
-            {lang ? `${lang.flag} ` : ''}책 {bookCount}권
+            {lang ? `${lang.flag} ` : ''}
+            {t('playlist.bookCount', { count: bookCount })}
           </p>
           <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-coral-500 text-white font-black text-sm px-4 py-2 shadow-soft">
-            ▶ 재생
+            {t('playlist.play')}
           </span>
         </div>
       </button>
@@ -67,7 +70,7 @@ export function PlaylistCard({
         <button
           type="button"
           onClick={onEdit}
-          aria-label={`${name} 세트 편집`}
+          aria-label={t('playlist.editAria', { name })}
           className="absolute top-2.5 right-12 h-9 w-9 rounded-full bg-white/90 text-ink-600 shadow-soft backdrop-blur transition hover:bg-white hover:text-coral-500 flex items-center justify-center font-black"
         >
           ✏️
@@ -76,7 +79,7 @@ export function PlaylistCard({
       <button
         type="button"
         onClick={onDelete}
-        aria-label={`${name} 세트 삭제`}
+        aria-label={t('playlist.deleteAria', { name })}
         className="absolute top-2.5 right-2.5 w-9 h-9 rounded-full bg-white/90 backdrop-blur text-ink-500 hover:text-red-500 hover:bg-white shadow-soft flex items-center justify-center font-black transition"
       >
         ✕

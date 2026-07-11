@@ -1,0 +1,41 @@
+{
+  "logo": {
+    "alt": "탱고북",
+    "home": "홈으로"
+  },
+  "sidebar": {
+    "storybooks": "동화책",
+    "vocabGames": "어휘 게임",
+    "phonics": "파닉스",
+    "vocabulary": "어휘",
+    "learningGames": "학습 게임",
+    "reports": "학습 리포팅",
+    "inviteFriends": "친구 초대",
+    "parentSettings": "부모 설정",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "logoutConfirm": "로그아웃할까요?",
+    "comingSoon": "준비 중",
+    "comingSoonTitle": "준비 중이에요"
+  },
+  "pageTitle": {
+    "phonics": "파닉스",
+    "wordStudy": "단어 익히기",
+    "vocabMaster": "어휘 마스터",
+    "parentMode": "부모님 모드"
+  },
+  "header": {
+    "openMenu": "메뉴 열기",
+    "closeMenu": "메뉴 닫기",
+    "switchChild": "{{name}} — 아이 바꾸기",
+    "switch": "바꾸기"
+  },
+  "bgm": {
+    "turnOn": "배경음악 켜기",
+    "turnOff": "배경음악 끄기"
+  },
+  "pageHeader": {
+    "back": "뒤로 가기",
+    "home": "홈으로"
+  }
+}

@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useStorybook, useStorybooks } from '@/features/storybook';
 import {
@@ -27,15 +28,10 @@ const LANG_LABEL: Record<string, { flag: string; name: string }> = Object.fromEn
   SUPPORTED_LANGUAGES.map((l) => [l.code, { flag: l.flag, name: l.nativeName }])
 );
 
-const LEVEL_INFO: Record<ReadingLevel, { label: string; age: string }> = {
-  L1: { label: '씨앗', age: '3~4세' },
-  L2: { label: '새싹', age: '4~6세' },
-  L3: { label: '나무', age: '6~7세' },
-};
-
 const LEVEL_ORDER: ReadingLevel[] = ['L1', 'L2', 'L3'];
 
 export default function BookDetailPage() {
+  const { t } = useTranslation('bookDetail');
   const { id = '' } = useParams();
   const navigate = useNavigate();
   // v1 단일화 — useStorybook(id) 를 메인 source 로, useStorybooks() 로 sibling 조회.
@@ -142,9 +138,9 @@ export default function BookDetailPage() {
     return (
       <StateScreen
         mascotState="sad"
-        title="이 책을 찾을 수 없어"
-        description="다른 책 볼래?"
-        action={{ label: '🏠 라이브러리로', onClick: () => navigate('/library') }}
+        title={t('notFound.title')}
+        description={t('notFound.description')}
+        action={{ label: t('notFound.toLibrary'), onClick: () => navigate('/library') }}
       />
     );
   }
@@ -262,26 +258,28 @@ export default function BookDetailPage() {
               )}
               <span className="hidden sm:inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
                 <span>📖</span>
-                <span>{storybook.type === 'phonics' ? '파닉스' : '동화책'}</span>
+                <span>
+                  {storybook.type === 'phonics' ? t('meta.phonics') : t('meta.storybook')}
+                </span>
               </span>
               {storybook.pages?.length && (
                 <span className="hidden sm:inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
                   <span>📕</span>
-                  <span>페이지 {storybook.pages.length}</span>
+                  <span>{t('meta.pages', { count: storybook.pages.length })}</span>
                 </span>
               )}
               {vocabWordCount > 0 && (
                 <span className="hidden sm:inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
                   <span className="text-coral-600">Aa</span>
-                  <span>단어 {vocabWordCount}</span>
+                  <span>{t('meta.words', { count: vocabWordCount })}</span>
                 </span>
               )}
               {(() => {
                 const ageText =
-                  baseLevel && LEVEL_INFO[baseLevel]
-                    ? LEVEL_INFO[baseLevel].age
+                  baseLevel && LEVEL_ORDER.includes(baseLevel)
+                    ? t(`level.${baseLevel}Age`)
                     : storybook.targetAge
-                      ? `${storybook.targetAge.replace('-', '~')}세`
+                      ? t('meta.ageSuffix', { age: storybook.targetAge.replace('-', '~') })
                       : null;
                 if (!ageText) return null;
                 return (
@@ -304,18 +302,18 @@ export default function BookDetailPage() {
             {[
               {
                 icon: '/icons/guide/step-choose.webp',
-                title: canPickStyle ? '그림체와 언어 고르기' : '읽을 언어 고르기',
-                sub: '아이 취향에 맞게 시작해요',
+                title: canPickStyle ? t('steps.chooseStyleLangTitle') : t('steps.chooseLangTitle'),
+                sub: t('steps.chooseSub'),
               },
               {
                 icon: '/icons/guide/step-learn.webp',
-                title: '읽고 단어 익히기',
-                sub: '책 속 단어로 어휘력을 키워요',
+                title: t('steps.learnTitle'),
+                sub: t('steps.learnSub'),
               },
               {
                 icon: '/icons/guide/step-guide.webp',
-                title: '부모님 가이드 읽기',
-                sub: '책 특징 · 교훈 · 읽어주는 팁',
+                title: t('steps.guideTitle'),
+                sub: t('steps.guideSub'),
               },
             ].map((s, i) => (
               <li
@@ -369,7 +367,7 @@ export default function BookDetailPage() {
                           setSelectedStyle(styles[prev]);
                         }}
                         className="w-10 h-10 rounded-full bg-peach-100 hover:bg-peach-200 text-ink-900 text-xl font-black flex items-center justify-center transition shrink-0"
-                        aria-label="이전 그림체"
+                        aria-label={t('style.prev')}
                       >
                         ←
                       </button>
@@ -391,7 +389,7 @@ export default function BookDetailPage() {
                           setSelectedStyle(styles[next]);
                         }}
                         className="w-10 h-10 rounded-full bg-peach-100 hover:bg-peach-200 text-ink-900 text-xl font-black flex items-center justify-center transition shrink-0"
-                        aria-label="다음 그림체"
+                        aria-label={t('style.next')}
                       >
                         →
                       </button>
@@ -408,7 +406,7 @@ export default function BookDetailPage() {
                             type="button"
                             onClick={() => setLang(code)}
                             aria-pressed={active}
-                            aria-label={`언어 ${label.name}`}
+                            aria-label={t('lang.toggleAria', { name: label.name })}
                             className={cn(
                               'w-10 h-10 rounded-full text-xl flex items-center justify-center transition',
                               active
@@ -436,7 +434,7 @@ export default function BookDetailPage() {
                   <div className="w-full h-full flex flex-col items-center justify-center gap-3 bg-ink-100 text-ink-500">
                     <div className="text-[72px]">📭</div>
                     <div className="text-sm font-black px-4 text-center">
-                      {langLabel} 표지가 아직 없어요
+                      {t('lang.coverMissing', { lang: langLabel })}
                     </div>
                   </div>
                 )}
@@ -451,13 +449,13 @@ export default function BookDetailPage() {
                   tone="coral"
                   iconSrc="/icons/mode/book.webp"
                   emoji="🔊"
-                  title="읽어주기"
+                  title={t('modes.read')}
                   sub={
                     locked
                       ? access.status === 'guest'
-                        ? '회원 가입하면 무료로 읽어요'
-                        : '프리미엄 — 구독하고 읽기'
-                      : '음성으로 자동으로 읽어줘요'
+                        ? t('modes.lockedGuestSub')
+                        : t('modes.lockedPremiumSub')
+                      : t('modes.readSub')
                   }
                   onClick={() => enterMode('read')}
                   locked={locked}
@@ -469,13 +467,13 @@ export default function BookDetailPage() {
                       👆
                     </span>
                   }
-                  title="스스로 책읽기"
+                  title={t('modes.selfRead')}
                   sub={
                     locked
                       ? access.status === 'guest'
-                        ? '회원 가입하면 무료로 읽어요'
-                        : '프리미엄 — 구독하고 읽기'
-                      : '내가 넘기며 천천히 읽어요'
+                        ? t('modes.lockedGuestSub')
+                        : t('modes.lockedPremiumSub')
+                      : t('modes.selfReadSub')
                   }
                   onClick={() => enterMode('read', { selfRead: true })}
                   locked={locked}
@@ -501,8 +499,8 @@ export default function BookDetailPage() {
                       가<span className="text-coral-500">A</span>
                     </span>
                   }
-                  title="단어 익히기"
-                  sub="한글·영어 단어 + 게임"
+                  title={t('modes.vocab')}
+                  sub={t('modes.vocabSub')}
                   onClick={() => enterMode('vocab')}
                   disabled={!vocabAvailable}
                 />
@@ -520,9 +518,9 @@ export default function BookDetailPage() {
               >
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">👨‍👩‍👧</span>
-                  <span className="font-black text-ink-900 text-base">부모님 가이드</span>
+                  <span className="font-black text-ink-900 text-base">{t('guide.title')}</span>
                   <span className="text-xs text-ink-500 ml-1 hidden sm:inline">
-                    책 특징 · 교훈 · 읽어주는 법
+                    {t('guide.subtitle')}
                   </span>
                 </div>
                 <span
@@ -540,7 +538,7 @@ export default function BookDetailPage() {
                   {guide.overview && (
                     <section>
                       <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
-                        📖 책의 특징
+                        {t('guide.overview')}
                       </h3>
                       <p className="text-sm text-ink-700 leading-relaxed">{guide.overview}</p>
                     </section>
@@ -549,7 +547,7 @@ export default function BookDetailPage() {
                   {guide.lessons && guide.lessons.length > 0 && (
                     <section>
                       <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
-                        💡 아이에게 전할 교훈
+                        {t('guide.lessons')}
                       </h3>
                       <ul className="space-y-1.5">
                         {guide.lessons.map((lesson, i) => (
@@ -565,7 +563,7 @@ export default function BookDetailPage() {
                   {guide.readingTips && guide.readingTips.length > 0 && (
                     <section>
                       <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
-                        🎭 읽어주는 법
+                        {t('guide.readingTips')}
                       </h3>
                       <ul className="space-y-1.5">
                         {guide.readingTips.map((tip, i) => (
@@ -581,7 +579,7 @@ export default function BookDetailPage() {
                   {guide.faq && guide.faq.length > 0 && (
                     <section>
                       <h3 className="text-xs font-black text-coral-500 uppercase tracking-wider mb-2">
-                        ❓ 자주 묻는 질문
+                        {t('guide.faq')}
                       </h3>
                       <div className="space-y-2">
                         {guide.faq.map((f, i) => (
@@ -678,6 +676,7 @@ function ModeCard({
   /** GlobalUiSound 오버라이드 (예: 'book-open') — 미지정 시 기본 tap. */
   sound?: string;
 }) {
+  const { t } = useTranslation('bookDetail');
   const TONE = {
     coral: {
       bg: 'bg-gradient-to-br from-coral-400 to-coral-500',
@@ -711,7 +710,7 @@ function ModeCard({
         disabled
         className="flex items-center gap-4 sm:gap-6 rounded-3xl px-5 sm:px-7 py-5 sm:py-7 bg-ink-100/40 cursor-not-allowed select-none"
         aria-disabled="true"
-        title="준비 중이에요"
+        title={t('modes.preparing')}
       >
         <div className="flex-1 text-left">
           <h3 className="font-black text-2xl sm:text-3xl text-ink-700">{title}</h3>

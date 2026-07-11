@@ -191,14 +191,20 @@ export function createApp() {
       }
     };
 
-    app.get('/library/:id/about', (req, res, next) =>
-      sendSeo(res, next, async () => {
-        const { renderAboutSeo } = await import('./services/seo-ssr.service.js');
-        const { StorybookService } = await import('./services/storybook.service.js');
-        const storybook = await StorybookService.getById(req.params.id as string);
-        return storybook ? renderAboutSeo(storybook) : null;
-      })
-    );
+    // 언어별 about — ko 는 bare, 그 외 /:lang 프리픽스. 번역(가이드) 있는 언어만 렌더.
+    const aboutHandler =
+      (langFromPath: boolean) =>
+      (req: express.Request, res: express.Response, next: express.NextFunction) =>
+        sendSeo(res, next, async () => {
+          const { renderAboutSeo, hasAboutLang } = await import('./services/seo-ssr.service.js');
+          const { StorybookService } = await import('./services/storybook.service.js');
+          const lang = langFromPath ? String(req.params.lang) : 'ko';
+          const storybook = await StorybookService.getById(req.params.id as string);
+          if (!storybook || !hasAboutLang(storybook, lang)) return null;
+          return renderAboutSeo(storybook, lang);
+        });
+    app.get('/library/:id/about', aboutHandler(false));
+    app.get('/:lang/library/:id/about', aboutHandler(true));
 
     app.get('/blog', (_req, res, next) =>
       sendSeo(res, next, async () => {
@@ -217,20 +223,26 @@ export function createApp() {
       })
     );
 
-    app.get('/guide/:hub', (req, res, next) =>
-      sendSeo(res, next, async () => {
-        const { renderHubSeo, HUBS } = await import('./services/seo-ssr.service.js');
-        const hub = HUBS[req.params.hub as keyof typeof HUBS];
-        if (!hub) return null;
-        const { StorybookService } = await import('./services/storybook.service.js');
-        // sitemap 과 동일한 공개 기준: variant(__L\d) 제외 + storybook 타입 + 공개
-        const books = (await StorybookService.list()).filter(
-          (b) =>
-            !/__L\d+$/.test(b.id) && (b.type ?? 'storybook') === 'storybook' && b.isPublic !== false
-        );
-        return renderHubSeo(hub, books);
-      })
-    );
+    const hubHandler =
+      (langFromPath: boolean) =>
+      (req: express.Request, res: express.Response, next: express.NextFunction) =>
+        sendSeo(res, next, async () => {
+          const { renderHubSeo, HUBS, hubLangs } = await import('./services/seo-ssr.service.js');
+          const hub = HUBS[req.params.hub as keyof typeof HUBS];
+          const lang = langFromPath ? String(req.params.lang) : 'ko';
+          if (!hub || !hubLangs().includes(lang)) return null;
+          const { StorybookService } = await import('./services/storybook.service.js');
+          // sitemap 과 동일한 공개 기준: variant(__L\d) 제외 + storybook 타입 + 공개
+          const books = (await StorybookService.list()).filter(
+            (b) =>
+              !/__L\d+$/.test(b.id) &&
+              (b.type ?? 'storybook') === 'storybook' &&
+              b.isPublic !== false
+          );
+          return renderHubSeo(hub, books, lang);
+        });
+    app.get('/guide/:hub', hubHandler(false));
+    app.get('/:lang/guide/:hub', hubHandler(true));
 
     app.use(express.static(clientDist));
     app.get('/{*path}', (_req, res) => {

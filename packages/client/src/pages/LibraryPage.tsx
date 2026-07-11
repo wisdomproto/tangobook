@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useStorybooks } from '@/features/storybook';
 import {
   CategorySection,
@@ -109,6 +110,7 @@ const getCategoryIconNode = (cat: string, size = 22): ReactNode => {
 
 /** 마스터 페이지 config 비어있을 때 fallback 우선순위. */
 export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
+  const { t } = useTranslation('library');
   useSeo(
     type === 'phonics'
       ? {
@@ -179,6 +181,10 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   // 해당 장르 표지가 없는 책은 대표 표지로 폴백.
   const [styleGenre, setStyleGenre] = useState<StyleGenreSlug>('watercolor');
   const { map: styleGenreMap } = useStyleGenreMap();
+
+  // 카테고리명은 R2 데이터(번역 대상 아님) — 단, 무카테고리 폴백 '기타'만 UI 번역.
+  // 내부 key ('기타') 는 그대로 유지하고 표시 시점에만 치환.
+  const displayCategory = (cat: string) => (cat === '기타' ? t('category.other') : cat);
 
   const matchesType = (b: BookIndexEntry): boolean => {
     if (type === 'storybook') return !b.type || b.type === 'storybook';
@@ -328,9 +334,9 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     return (
       <StateScreen
         mascotState="sad"
-        title="연결이 안 돼"
-        description="와이파이를 확인해줘"
-        action={{ label: '↻ 다시 시도', onClick: () => location.reload() }}
+        title={t('error.title')}
+        description={t('error.description')}
+        action={{ label: t('error.retry'), onClick: () => location.reload() }}
       />
     );
   }
@@ -341,7 +347,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     availableGenres.length > 0 ? (
       <label className="flex items-center gap-1.5 text-xs sm:text-sm font-black text-ink-600">
         <span aria-hidden>🎨</span>
-        <span className="sr-only">그림풍</span>
+        <span className="sr-only">{t('genre.label')}</span>
         <select
           value={styleGenre}
           onChange={(e) => setStyleGenre(e.target.value as StyleGenreSlug)}
@@ -370,7 +376,9 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             <span className="text-xl">🔍</span>
             <input
               type="text"
-              placeholder={type === 'storybook' ? '무슨 책 찾을까?' : '어떤 파닉스 찾을까?'}
+              placeholder={t(
+                type === 'storybook' ? 'search.placeholderStorybook' : 'search.placeholderPhonics'
+              )}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="flex-1 min-w-0 outline-none text-base bg-transparent text-ink-900 placeholder:text-ink-500 font-bold"
@@ -382,9 +390,13 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             <div className="flex-1 flex gap-2 overflow-x-auto pb-1">
               {(
                 [
-                  { id: 'all', label: '전체', count: phonicsCounts.korean + phonicsCounts.english },
-                  { id: 'korean', label: '한글', count: phonicsCounts.korean },
-                  { id: 'english', label: '영어', count: phonicsCounts.english },
+                  {
+                    id: 'all',
+                    label: t('chips.all'),
+                    count: phonicsCounts.korean + phonicsCounts.english,
+                  },
+                  { id: 'korean', label: t('chips.korean'), count: phonicsCounts.korean },
+                  { id: 'english', label: t('chips.english'), count: phonicsCounts.english },
                 ] as const
               ).map((c) => (
                 <Chip
@@ -414,7 +426,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
                 }}
                 className="!text-base !px-5 !py-2"
               >
-                전체
+                {t('chips.all')}
               </Chip>
               {readingCount > 0 && (
                 <Chip
@@ -428,7 +440,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
                   }}
                   className="!text-base !px-5 !py-2"
                 >
-                  읽는 중
+                  {t('chips.reading')}
                 </Chip>
               )}
               {(() => {
@@ -453,7 +465,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
                     }}
                     className="!text-base !px-5 !py-2"
                   >
-                    {cat}
+                    {displayCategory(cat)}
                   </Chip>
                 ));
               })()}
@@ -461,11 +473,11 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
                 <button
                   onClick={() => setShowAllCategories((v) => !v)}
                   className="shrink-0 px-4 py-2 rounded-full bg-white shadow-soft text-sm font-black text-ink-600 hover:bg-ink-50 transition"
-                  aria-label={showAllCategories ? '카테고리 접기' : '카테고리 더 보기'}
+                  aria-label={showAllCategories ? t('chips.collapseAria') : t('chips.moreAria')}
                 >
                   {showAllCategories
-                    ? '▴ 접기'
-                    : `더 ▾ +${allCategories.length - CATEGORY_DEFAULT_VISIBLE}`}
+                    ? t('chips.collapse')
+                    : t('chips.more', { count: allCategories.length - CATEGORY_DEFAULT_VISIBLE })}
                 </button>
               )}
             </div>
@@ -485,16 +497,16 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
         ) : filtered.length === 0 ? (
           <StateScreen
             mascotState="thinking"
-            title={search ? '찾는 책이 없네' : '책이 아직 없어'}
-            description={search ? '다른 말로 찾아볼까?' : '선생님이 곧 준비해 줄 거야!'}
-            action={search ? { label: '🔎 다시 검색', onClick: () => setSearch('') } : undefined}
+            title={search ? t('empty.noResultTitle') : t('empty.noBooksTitle')}
+            description={search ? t('empty.noResultDescription') : t('empty.noBooksDescription')}
+            action={search ? { label: t('search.retry'), onClick: () => setSearch('') } : undefined}
           />
         ) : showCategoryGroups && grouped ? (
           grouped.map(([cat, books]) => (
             <CategorySection
               key={cat}
               icon={getCategoryIconNode(cat, 32)}
-              title={cat}
+              title={displayCategory(cat)}
               books={books.map(applyGenreCover)}
               headerExtra={cat === '세계 명작' ? genreSelector : undefined}
               onShowMore={() => {

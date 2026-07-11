@@ -1,0 +1,55 @@
+{
+  "notFound": {
+    "title": "이 책을 찾을 수 없어",
+    "description": "다른 책 볼래?",
+    "toLibrary": "🏠 라이브러리로"
+  },
+  "meta": {
+    "phonics": "파닉스",
+    "storybook": "동화책",
+    "pages": "페이지 {{count}}",
+    "words": "단어 {{count}}",
+    "ageSuffix": "{{age}}세"
+  },
+  "level": {
+    "L1Age": "3~4세",
+    "L2Age": "4~6세",
+    "L3Age": "6~7세"
+  },
+  "steps": {
+    "chooseStyleLangTitle": "그림체와 언어 고르기",
+    "chooseLangTitle": "읽을 언어 고르기",
+    "chooseSub": "아이 취향에 맞게 시작해요",
+    "learnTitle": "읽고 단어 익히기",
+    "learnSub": "책 속 단어로 어휘력을 키워요",
+    "guideTitle": "부모님 가이드 읽기",
+    "guideSub": "책 특징 · 교훈 · 읽어주는 팁"
+  },
+  "style": {
+    "prev": "이전 그림체",
+    "next": "다음 그림체"
+  },
+  "lang": {
+    "toggleAria": "언어 {{name}}",
+    "coverMissing": "{{lang}} 표지가 아직 없어요"
+  },
+  "modes": {
+    "read": "읽어주기",
+    "readSub": "음성으로 자동으로 읽어줘요",
+    "selfRead": "스스로 책읽기",
+    "selfReadSub": "내가 넘기며 천천히 읽어요",
+    "lockedGuestSub": "회원 가입하면 무료로 읽어요",
+    "lockedPremiumSub": "프리미엄 — 구독하고 읽기",
+    "vocab": "단어 익히기",
+    "vocabSub": "한글·영어 단어 + 게임",
+    "preparing": "준비 중이에요"
+  },
+  "guide": {
+    "title": "부모님 가이드",
+    "subtitle": "책 특징 · 교훈 · 읽어주는 법",
+    "overview": "📖 책의 특징",
+    "lessons": "💡 아이에게 전할 교훈",
+    "readingTips": "🎭 읽어주는 법",
+    "faq": "❓ 자주 묻는 질문"
+  }
+}

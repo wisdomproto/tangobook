@@ -6,6 +6,7 @@ import { RouterProvider } from 'react-router-dom';
 import { queryClient } from './lib/query-client';
 import { router } from './router';
 import { registerAssetCache } from './lib/asset-cache';
+import './i18n'; // UI 다국어 초기화 (localStorage 언어 감지 + lazy 로케일 로드)
 import './index.css';
 import './store/theme.store';
 

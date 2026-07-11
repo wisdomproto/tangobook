@@ -1140,6 +1140,7 @@ export type StorybookSummary = Pick<
   | 'folder'
   | 'isPublic'
   | 'isAccessibleForFree'
+  | 'titleTranslations'
 > & {
   pageCount?: number;
   phonicsLanguage?: 'korean' | 'english';

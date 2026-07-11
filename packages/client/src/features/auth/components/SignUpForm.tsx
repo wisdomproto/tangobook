@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 import { authApi } from '../api/auth.api';
 import { SocialAuthButtons } from './SocialAuthButtons';
 
@@ -6,17 +7,18 @@ interface Props {
   onSwitchToSignIn: () => void;
 }
 
-/** Supabase 에러 메시지를 부모 친화적인 한국어로 매핑 (raw 영문 노출 방지). */
-function friendlyError(err: unknown): string {
+/** Supabase 에러 메시지를 부모 친화적인 문구 키로 매핑 (raw 영문 노출 방지). */
+function signUpErrorKey(err: unknown): string {
   const msg = err instanceof Error ? err.message : '';
   if (/already registered|already exists|User already/i.test(msg))
-    return '이미 가입된 이메일이에요. 로그인해 주세요.';
-  if (/invalid.*email|email.*invalid/i.test(msg)) return '이메일 형식을 확인해 주세요.';
-  if (/password/i.test(msg)) return '비밀번호는 6자 이상이어야 해요.';
-  return '가입에 실패했어요. 잠시 후 다시 시도해 주세요.';
+    return 'signUp.error.alreadyRegistered';
+  if (/invalid.*email|email.*invalid/i.test(msg)) return 'signUp.error.invalidEmail';
+  if (/password/i.test(msg)) return 'signUp.error.password';
+  return 'signUp.error.generic';
 }
 
 export function SignUpForm({ onSwitchToSignIn }: Props) {
+  const { t } = useTranslation('auth');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
@@ -40,13 +42,13 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
       // 이미 가입+확인된 이메일 재가입 — Supabase 는 enumeration 방지로 에러 대신
       // identities 가 빈 가짜 user 를 반환. 이때 "메일함 확인" 화면에 두면 메일이 영원히 안 옴.
       if (data.user && (data.user.identities?.length ?? 0) === 0) {
-        setError('이미 가입된 이메일이에요. 로그인해 주세요.');
+        setError(t('signUp.error.alreadyRegistered'));
         return;
       }
       // 이메일 확인 ON → 확인 대기 화면. (alert + 로그인폼 튕김 대신)
       setSentTo(email);
     } catch (err) {
-      setError(friendlyError(err));
+      setError(t(signUpErrorKey(err)));
     } finally {
       setBusy(false);
     }
@@ -71,10 +73,14 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
           <div className="text-5xl" aria-hidden>
             📬
           </div>
-          <h1 className="text-2xl font-black text-ink-900">메일함을 확인해 주세요</h1>
+          <h1 className="text-2xl font-black text-ink-900">{t('signUp.emailSent.title')}</h1>
           <p className="text-ink-600 leading-relaxed">
-            <span className="font-black text-ink-900 break-all">{sentTo}</span> 으로 확인 링크를
-            보냈어요. 링크를 누르면 바로 시작돼요.
+            <Trans
+              t={t}
+              i18nKey="signUp.emailSent.body"
+              values={{ email: sentTo }}
+              components={{ email: <span className="font-black text-ink-900 break-all" /> }}
+            />
           </p>
           <button
             onClick={handleResend}
@@ -82,16 +88,16 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
             className="h-12 rounded-xl border-2 border-coral-400 text-coral-600 font-black hover:bg-coral-50 disabled:opacity-50"
           >
             {resendState === 'sending'
-              ? '보내는 중…'
+              ? t('signUp.emailSent.resending')
               : resendState === 'sent'
-                ? '메일을 다시 보냈어요 ✓'
-                : '메일 다시 보내기'}
+                ? t('signUp.emailSent.resent')
+                : t('signUp.emailSent.resend')}
           </button>
           <div className="rounded-xl bg-peach-50 p-3 text-sm text-ink-600">
-            💡 카카오·구글로 회원 가입하면 이메일 확인 없이 바로 시작해요
+            {t('signUp.emailSent.socialTip')}
           </div>
           <button onClick={onSwitchToSignIn} className="text-sm text-ink-500 hover:text-coral-500">
-            로그인으로 돌아가기
+            {t('signUp.emailSent.backToSignIn')}
           </button>
         </div>
       </div>
@@ -103,15 +109,13 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
     <div className="min-h-screen flex items-center justify-center bg-cream-50 p-4">
       <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-sm w-full shadow-pop flex flex-col gap-4">
         <div className="text-center">
-          <h1 className="text-3xl font-black text-ink-900">회원가입</h1>
-          <p className="text-sm text-ink-500 mt-1 break-keep">
-            부모님 계정으로 시작해요 · 아이는 가입 후 등록 (최대 4명)
-          </p>
+          <h1 className="text-3xl font-black text-ink-900">{t('signUp.title')}</h1>
+          <p className="text-sm text-ink-500 mt-1 break-keep">{t('signUp.subtitle')}</p>
         </div>
         <SocialAuthButtons mode="signup" />
         <div className="flex items-center gap-3 text-sm text-ink-400">
           <div className="h-px flex-1 bg-ink-100" />
-          또는 이메일로
+          {t('signUp.orWithEmail')}
           <div className="h-px flex-1 bg-ink-100" />
         </div>
         {error && (
@@ -121,61 +125,64 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
         )}
         <input
           type="email"
-          placeholder="이메일"
+          placeholder={t('signUp.emailPlaceholder')}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="h-14 text-xl rounded-xl border-2 border-ink-100 px-4 focus:border-coral-500 outline-none"
         />
         <input
           type="password"
-          placeholder="비밀번호 (6자 이상)"
+          placeholder={t('signUp.passwordPlaceholder')}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="h-14 text-xl rounded-xl border-2 border-ink-100 px-4 focus:border-coral-500 outline-none"
         />
         <input
           type="password"
-          placeholder="비밀번호 확인"
+          placeholder={t('signUp.confirmPlaceholder')}
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
           className="h-14 text-xl rounded-xl border-2 border-ink-100 px-4 focus:border-coral-500 outline-none"
         />
         {confirm && password !== confirm && (
-          <p className="text-danger text-sm">비밀번호가 일치하지 않아요</p>
+          <p className="text-danger text-sm">{t('signUp.passwordMismatch')}</p>
         )}
         <button
           onClick={handleSignUp}
           disabled={!canSubmit}
           className="h-14 rounded-xl bg-coral-500 text-white font-black text-lg hover:brightness-110 disabled:bg-ink-300"
         >
-          {busy ? '가입 중…' : '가입하기'}
+          {busy ? t('signUp.submitting') : t('signUp.submit')}
         </button>
         <p className="text-center text-xs text-ink-400 break-keep">
-          가입하면{' '}
-          <a
-            href="/terms"
-            target="_blank"
-            rel="noreferrer"
-            className="underline hover:text-ink-600"
-          >
-            이용약관
-          </a>
-          과{' '}
-          <a
-            href="/privacy"
-            target="_blank"
-            rel="noreferrer"
-            className="underline hover:text-ink-600"
-          >
-            개인정보처리방침
-          </a>
-          에 동의하는 것으로 봐요
+          <Trans
+            t={t}
+            i18nKey="signUp.terms"
+            components={{
+              termsLink: (
+                <a
+                  href="/terms"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline hover:text-ink-600"
+                />
+              ),
+              privacyLink: (
+                <a
+                  href="/privacy"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline hover:text-ink-600"
+                />
+              ),
+            }}
+          />
         </p>
         <button
           onClick={onSwitchToSignIn}
           className="text-sm text-ink-500 mt-2 hover:text-coral-500"
         >
-          이미 계정이 있어요 → 로그인
+          {t('signUp.haveAccount')}
         </button>
       </div>
     </div>

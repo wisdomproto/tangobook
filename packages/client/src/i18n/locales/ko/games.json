@@ -1,0 +1,30 @@
+{
+  "header": {
+    "back": "뒤로 가기",
+    "home": "홈",
+    "homeAria": "홈으로"
+  },
+  "result": {
+    "perfectTitle": "완벽해요!",
+    "perfectSub": "전부 다 맞혔어요! 최고예요 🌟",
+    "greatTitle": "참 잘했어요!",
+    "greatSub": "정말 열심히 했어요 👏",
+    "goodTitle": "잘했어요!",
+    "goodSub": "다음엔 더 잘할 수 있어요 💪",
+    "restart": "🔄 다시 하기",
+    "confirm": "확인"
+  },
+  "feedback": {
+    "correct1": "잘했어!",
+    "correct2": "정답!",
+    "correct3": "최고야!",
+    "correct4": "멋져!",
+    "incorrect1": "다시 해볼까?",
+    "incorrect2": "괜찮아",
+    "incorrect3": "한 번 더!"
+  },
+  "loadingGate": {
+    "preparing": "그림과 소리를 준비하고 있어요",
+    "skip": "바로 시작"
+  }
+}

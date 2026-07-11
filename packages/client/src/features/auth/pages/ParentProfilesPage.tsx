@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 import type { ChildProfile } from '@tangobook/shared';
 import { useAuth } from '../context/AuthContext';
 import { ProfileCreateModal, type ProfileInput } from '../components/ProfileCreateModal';
@@ -6,6 +7,7 @@ import { AvatarRender } from '../components/AvatarRender';
 import { profilesApi } from '../api/profiles.api';
 
 export default function ParentProfilesPage() {
+  const { t } = useTranslation('auth');
   const { account, profiles, refresh, activeProfile, setActiveProfile } = useAuth();
   const [modalMode, setModalMode] = useState<'create' | 'edit' | null>(null);
   const [editing, setEditing] = useState<ChildProfile | null>(null);
@@ -45,9 +47,9 @@ export default function ParentProfilesPage() {
 
   return (
     <>
-      <h2 className="text-2xl font-black text-ink-900 mb-1">자녀 프로필 관리</h2>
+      <h2 className="text-2xl font-black text-ink-900 mb-1">{t('profiles.title')}</h2>
       <p className="text-sm text-ink-500 mb-4">
-        카드를 탭하면 <strong>활성 프로필로 선택</strong>돼요. 활성 중인 카드를 다시 탭하면 편집.
+        <Trans t={t} i18nKey="profiles.description" />
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {profiles.map((p) => {
@@ -62,14 +64,16 @@ export default function ParentProfilesPage() {
               <button
                 onClick={() => (isActive ? handleEdit(p) : setActiveProfile(p))}
                 className="w-full flex flex-col items-center gap-2 hover:scale-105 transition-transform"
-                title={isActive ? '편집' : '이 아이로 선택'}
+                title={isActive ? t('profiles.edit') : t('profiles.selectThisChild')}
               >
                 <AvatarRender id={p.avatarId} size="lg" />
                 <div className="text-xl font-black text-ink-900">{p.name}</div>
                 {isActive ? (
-                  <span className="text-xs font-bold text-coral-500">✓ 현재 활성</span>
+                  <span className="text-xs font-bold text-coral-500">
+                    {t('profiles.activeNow')}
+                  </span>
                 ) : (
-                  <span className="text-xs text-ink-400">탭해서 선택</span>
+                  <span className="text-xs text-ink-400">{t('profiles.tapToSelect')}</span>
                 )}
               </button>
               {isActive && (
@@ -79,7 +83,7 @@ export default function ParentProfilesPage() {
                     handleEdit(p);
                   }}
                   className="absolute top-1 right-1 w-7 h-7 rounded-full bg-ink-100 hover:bg-ink-200 text-sm"
-                  title="편집"
+                  title={t('profiles.edit')}
                 >
                   ✏️
                 </button>
@@ -90,10 +94,10 @@ export default function ParentProfilesPage() {
         {canAddNew && (
           <button
             onClick={handleCreate}
-            aria-label="새 아이 추가"
+            aria-label={t('profiles.addNew')}
             className="bg-white rounded-2xl p-4 shadow-soft hover:scale-105 hover:shadow-pop flex flex-col items-center justify-center text-5xl text-coral-500 font-black min-h-[160px]"
           >
-            +<span className="text-sm text-ink-700 mt-2">새 아이 추가</span>
+            +<span className="text-sm text-ink-700 mt-2">{t('profiles.addNew')}</span>
           </button>
         )}
       </div>

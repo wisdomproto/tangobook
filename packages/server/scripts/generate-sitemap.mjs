@@ -100,8 +100,17 @@ async function main() {
   entries.push(urlEntry({ loc: `${SITE_URL}/library/phonics/korean`, lastmod: today, changefreq: 'weekly', priority: 0.7 }));
   entries.push(urlEntry({ loc: `${SITE_URL}/vocabulary`, lastmod: today, changefreq: 'weekly', priority: 0.6 }));
   entries.push(urlEntry({ loc: `${SITE_URL}/blog`, lastmod: today, changefreq: 'daily', priority: 0.8 }));
-  entries.push(urlEntry({ loc: `${SITE_URL}/guide/classics`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
-  entries.push(urlEntry({ loc: `${SITE_URL}/guide/nature`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
+  // 허브 — 언어별 (SSOT = shared seo-i18n HUB_STRINGS; dist 없으면 폴백 목록)
+  let hubLangList = ['ko', 'en', 'vi', 'zh', 'th'];
+  try {
+    const { HUB_STRINGS } = await import('../../shared/dist/constants/seo-i18n.js');
+    hubLangList = ['ko', ...Object.keys(HUB_STRINGS)];
+  } catch { /* shared 미빌드 시 폴백 */ }
+  for (const lang of hubLangList) {
+    const p = lang === 'ko' ? '' : `/${lang}`;
+    entries.push(urlEntry({ loc: `${SITE_URL}${p}/guide/classics`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
+    entries.push(urlEntry({ loc: `${SITE_URL}${p}/guide/nature`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
+  }
 
   // 공개 블로그 (발행된 self_hosted 내부 블로그) — 공개 API 에서 목록 fetch
   let blogCount = 0;
@@ -126,6 +135,7 @@ async function main() {
 
   // 책별 라우트
   let publicCount = 0;
+  let langAboutCount = 0;
   let skippedVariant = 0;
   let skippedPrivate = 0;
   let skippedNonStorybook = 0;
@@ -158,6 +168,18 @@ async function main() {
         priority: 0.8,
         image: cover || undefined,
       }));
+      // 언어별 about — 번역(제목+부모가이드) 있는 언어 자동 derive (SSR hasAboutLang 와 동일 술어)
+      for (const lang of Object.keys(book.parentGuideTranslations ?? {})) {
+        if (lang === 'ko' || !book.titleTranslations?.[lang]) continue;
+        entries.push(urlEntry({
+          loc: `${SITE_URL}/${lang}/library/${book.id}/about`,
+          lastmod,
+          changefreq: 'monthly',
+          priority: 0.7,
+          image: cover || undefined,
+        }));
+        langAboutCount++;
+      }
       publicCount++;
     } catch (e) {
       console.warn(`[sitemap] skip ${key}: ${e.message}`);
@@ -181,10 +203,9 @@ async function main() {
 
   console.log('[sitemap] 작성 완료:');
   console.log(`  ${outPath}`);
-  console.log(`  공개 책: ${publicCount} (책당 2 URL = ${publicCount * 2})`);
+  console.log(`  공개 책: ${publicCount} (책당 2 URL = ${publicCount * 2}) + 언어별 about ${langAboutCount}`);
   console.log(`  공개 블로그: ${blogCount}`);
-  console.log(`  정적: 5`);
-  console.log(`  총 URL: ${5 + publicCount * 2 + blogCount}`);
+  console.log(`  총 URL: ${entries.length}`);
   console.log(`  스킵: variant=${skippedVariant} private=${skippedPrivate} non-storybook=${skippedNonStorybook}`);
 }
 

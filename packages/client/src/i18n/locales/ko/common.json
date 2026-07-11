@@ -1,0 +1,29 @@
+{
+  "appName": "탱고북",
+  "tagline": "동화로 자라는 4-7세 한글·영어 학습 플랫폼",
+  "nav": {
+    "library": "동화책",
+    "vocabGames": "어휘 게임",
+    "back": "돌아가기",
+    "home": "홈"
+  },
+  "action": {
+    "confirm": "확인",
+    "cancel": "취소",
+    "save": "저장",
+    "delete": "삭제",
+    "close": "닫기",
+    "retry": "다시 시도",
+    "seeMore": "더 보기",
+    "start": "시작하기"
+  },
+  "state": {
+    "loading": "불러오는 중…",
+    "error": "문제가 생겼어요. 잠시 후 다시 시도해 주세요.",
+    "empty": "아직 아무것도 없어요"
+  },
+  "language": {
+    "label": "언어",
+    "uiLanguage": "화면 언어"
+  }
+}

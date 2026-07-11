@@ -1,4 +1,5 @@
 import type { AccessStatus } from '@tangobook/shared';
+import { useTranslation } from 'react-i18next';
 import { InviteButton } from '@/features/payment';
 
 interface PaywallNoticeProps {
@@ -29,6 +30,7 @@ export function PaywallNotice({
   onBrowseFree,
   onClose,
 }: PaywallNoticeProps) {
+  const { t } = useTranslation('access');
   const isGuest = status === 'guest';
   return (
     <div className="relative mx-auto flex max-w-md flex-col items-center gap-4 rounded-3xl bg-white p-8 text-center shadow-pop">
@@ -36,7 +38,7 @@ export function PaywallNotice({
         <button
           type="button"
           onClick={onClose}
-          aria-label="닫기"
+          aria-label={t('paywall.close')}
           data-sound="close"
           className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full text-ink-400 hover:bg-ink-50 hover:text-ink-600"
         >
@@ -47,7 +49,7 @@ export function PaywallNotice({
         <div className="relative">
           <img src={coverUrl} alt="" className="h-32 w-auto rounded-2xl object-cover shadow-soft" />
           <span className="absolute -top-2 -right-2 rounded-full bg-ink-900/75 px-2.5 py-0.5 text-[11px] font-black text-white shadow-soft">
-            🔒 잠금
+            {t('paywall.lockedBadge')}
           </span>
         </div>
       ) : (
@@ -55,11 +57,9 @@ export function PaywallNotice({
           🔒
         </div>
       )}
-      <h2 className="font-display text-2xl font-black text-ink-900">잠긴 동화예요</h2>
+      <h2 className="font-display text-2xl font-black text-ink-900">{t('paywall.title')}</h2>
       <p className="leading-relaxed text-ink-600">
-        {isGuest
-          ? '회원 가입하면 7일 동안 모든 동화를 무료로 즐길 수 있어요. 친구를 초대하면 둘 다 7일씩 더 늘어나요!'
-          : '무료 체험이 끝났어요. 구독하거나 친구를 초대하면 모든 동화를 계속 즐길 수 있어요.'}
+        {isGuest ? t('paywall.guestDesc') : t('paywall.expiredDesc')}
       </p>
       <div className="mt-2 flex w-full flex-col gap-2">
         {isGuest ? (
@@ -69,7 +69,7 @@ export function PaywallNotice({
               onClick={onLogin}
               className="w-full rounded-full bg-coral-500 px-6 py-3 font-black text-white shadow-pop hover:bg-coral-600"
             >
-              7일 무료로 시작하기
+              {t('paywall.startFree')}
             </button>
             {onBrowseFree && (
               <button
@@ -77,7 +77,7 @@ export function PaywallNotice({
                 onClick={onBrowseFree}
                 className="mt-1 text-sm font-bold text-ink-500 hover:text-coral-500"
               >
-                무료 책 먼저 보러가기
+                {t('paywall.browseFree')}
               </button>
             )}
           </>
@@ -89,7 +89,7 @@ export function PaywallNotice({
               disabled={!onSubscribe}
               className="w-full rounded-full bg-coral-500 px-6 py-3 font-black text-white shadow-pop hover:bg-coral-600 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {onSubscribe ? '구독하고 계속 보기' : '구독 준비 중'}
+              {onSubscribe ? t('paywall.subscribe') : t('paywall.subscribePreparing')}
             </button>
             <InviteButton className="w-full rounded-full border-2 border-coral-500 px-6 py-3 font-black text-coral-600 hover:bg-coral-50" />
             {onBrowseFree && (
@@ -98,7 +98,7 @@ export function PaywallNotice({
                 onClick={onBrowseFree}
                 className="mt-1 text-sm font-bold text-ink-500 hover:text-coral-500"
               >
-                무료 책 먼저 보러가기
+                {t('paywall.browseFree')}
               </button>
             )}
           </>

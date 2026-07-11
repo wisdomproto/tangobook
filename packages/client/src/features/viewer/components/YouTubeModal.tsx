@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface YouTubeModalProps {
   videoId: string;
@@ -8,6 +9,7 @@ interface YouTubeModalProps {
 }
 
 export function YouTubeModal({ videoId, open, onClose, title }: YouTubeModalProps) {
+  const { t } = useTranslation('viewer');
   // ESC로 닫기
   useEffect(() => {
     if (!open) return;
@@ -38,7 +40,7 @@ export function YouTubeModal({ videoId, open, onClose, title }: YouTubeModalProp
         <div className="flex justify-between items-center px-4 py-3">
           <div className="text-white font-black text-sm flex items-center gap-2">
             <span>🎬</span>
-            <span>{title ?? '애니메이션'}</span>
+            <span>{title ?? t('video.defaultTitle')}</span>
           </div>
           <div className="flex items-center gap-2">
             <a
@@ -46,13 +48,13 @@ export function YouTubeModal({ videoId, open, onClose, title }: YouTubeModalProp
               target="_blank"
               rel="noopener noreferrer"
               className="px-3 py-1.5 rounded-full bg-white/15 text-white text-xs font-bold hover:bg-white/25 flex items-center gap-1"
-              title="YouTube에서 열기"
+              title={t('video.openYouTube')}
             >
-              YouTube에서 열기 ↗
+              {t('video.openYouTubeArrow')}
             </a>
             <button
               onClick={onClose}
-              aria-label="닫기"
+              aria-label={t('video.close')}
               className="w-10 h-10 rounded-full bg-white/15 text-white flex items-center justify-center text-lg hover:bg-white/25"
             >
               ✕

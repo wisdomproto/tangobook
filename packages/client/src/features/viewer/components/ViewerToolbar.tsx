@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/cn';
 
 interface ViewerToolbarProps {
@@ -61,22 +62,29 @@ function Divider() {
 }
 
 export function ViewerToolbar(props: ViewerToolbarProps) {
+  const { t } = useTranslation('viewer');
+  const volumeLevelLabel =
+    props.volume === 'low'
+      ? t('toolbar.volumeLow')
+      : props.volume === 'mid'
+        ? t('toolbar.volumeMid')
+        : t('toolbar.volumeHigh');
   return (
     <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-2 z-20 pointer-events-none flex-wrap">
       {/* 좌: 뒤로가기 + 홈 + 제목 */}
       <div className="flex items-center gap-1 sm:gap-2 bg-white/90 backdrop-blur-sm rounded-md px-1.5 py-1.5 sm:px-2 sm:py-2 shadow-soft pointer-events-auto">
         <button
           onClick={props.onBack}
-          aria-label="뒤로 가기"
-          title="뒤로 가기"
+          aria-label={t('toolbar.back')}
+          title={t('toolbar.back')}
           className="w-9 h-9 sm:w-10 sm:h-10 rounded-md bg-peach-100 hover:bg-peach-200 text-ink-700 flex items-center justify-center text-base sm:text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400"
         >
           ←
         </button>
         <button
           onClick={props.onHome}
-          aria-label="홈으로"
-          title="홈으로"
+          aria-label={t('toolbar.home')}
+          title={t('toolbar.home')}
           className="w-9 h-9 sm:w-10 sm:h-10 rounded-md bg-peach-100 hover:bg-peach-200 flex items-center justify-center text-base sm:text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral-400"
         >
           🏠
@@ -92,7 +100,7 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
         <PillIconBtn
           onClick={props.onTogglePlayback}
           active={props.isPlaying}
-          label={props.isPlaying ? '자동재생 멈춤' : '자동재생'}
+          label={props.isPlaying ? t('toolbar.autoplayStop') : t('toolbar.autoplay')}
         >
           {props.isPlaying ? '⏸' : '▶'}
         </PillIconBtn>
@@ -100,13 +108,13 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
           onClick={props.onToggleBgm}
           active={props.isBgmPlaying}
           disabled={!props.hasBgm}
-          label="배경음악"
+          label={t('toolbar.bgm')}
         >
           🎵
         </PillIconBtn>
         <PillIconBtn
           onClick={props.onCycleVolume}
-          label={`음량: ${props.volume === 'low' ? '작게' : props.volume === 'mid' ? '보통' : '크게'}`}
+          label={t('toolbar.volume', { level: volumeLevelLabel })}
         >
           {props.volume === 'low' ? '🔈' : props.volume === 'mid' ? '🔉' : '🔊'}
         </PillIconBtn>
@@ -114,17 +122,21 @@ export function ViewerToolbar(props: ViewerToolbarProps) {
         <Divider />
 
         {/* 설정 그룹 */}
-        <PillIconBtn onClick={props.onToggleDark} active={props.darkMode} label="다크모드">
+        <PillIconBtn
+          onClick={props.onToggleDark}
+          active={props.darkMode}
+          label={t('toolbar.darkMode')}
+        >
           🌗
         </PillIconBtn>
-        <PillIconBtn onClick={props.onCycleTextSize} label="글자 크기">
+        <PillIconBtn onClick={props.onCycleTextSize} label={t('toolbar.textSize')}>
           Aa
         </PillIconBtn>
         {/* 언어 바꾸기 버튼 제거 — 언어는 책 진입 전(BookDetailPage)에서 선택하므로 뷰어엔 불필요. */}
         <PillIconBtn
           onClick={props.onToggleFullscreen}
           active={props.fullscreenImage}
-          label="이미지 크게 보기"
+          label={t('toolbar.fullscreenImage')}
         >
           ⛶
         </PillIconBtn>

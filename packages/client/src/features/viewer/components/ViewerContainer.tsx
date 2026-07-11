@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useStorybook } from '@/features/storybook';
 import { StateScreen } from '@/design-system';
 import { cn } from '@/lib/cn';
@@ -64,6 +65,7 @@ const NEXT_TTS_DELAY_MS = 350; // 페이지 전환 → 다음 음성 재생까�
 const NEXT_IMG_CAP_MS = 1500; // 다음 이미지 로딩 상한 (안 와도 넘어감)
 
 export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps) {
+  const { t } = useTranslation('viewer');
   const navigate = useNavigate();
   const [sp, setSp] = useSearchParams();
   const mode = sp.get('mode');
@@ -583,17 +585,17 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
 
   // Loading / Error
   if (isLoading) {
-    return <ViewerLoading label="동화책을 펼치고 있어요" />;
+    return <ViewerLoading label={t('loading.openingBook')} />;
   }
   if (error || !storybook) {
     // In playlist mode the useEffect above already called onBookEnd; show a
     // minimal loading indicator rather than a dead-end error screen.
-    if (playlist) return <ViewerLoading label="다음 책으로 이동 중..." />;
+    if (playlist) return <ViewerLoading label={t('loading.nextBook')} />;
     return (
       <StateScreen
         mascotState="sad"
-        title="이 책을 찾을 수 없어"
-        action={{ label: '🏠 라이브러리', onClick: () => navigate('/library') }}
+        title={t('error.notFound')}
+        action={{ label: t('error.goLibrary'), onClick: () => navigate('/library') }}
       />
     );
   }
@@ -733,16 +735,16 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
               navigate('/library');
             }}
             className="w-11 h-11 rounded-full bg-white/40 hover:bg-white/70 backdrop-blur-sm text-ink-900 flex items-center justify-center text-lg shadow-soft transition-all"
-            title="홈으로"
-            aria-label="홈으로"
+            title={t('fullscreen.home')}
+            aria-label={t('fullscreen.home')}
           >
             🏠
           </button>
           <button
             onClick={() => setFullscreenLocal(false)}
             className="w-11 h-11 rounded-full bg-white/40 hover:bg-white/70 backdrop-blur-sm text-ink-900 flex items-center justify-center text-lg shadow-soft transition-all"
-            title="풀스크린 끄기"
-            aria-label="풀스크린 끄기"
+            title={t('fullscreen.exit')}
+            aria-label={t('fullscreen.exit')}
           >
             ✕
           </button>
@@ -759,7 +761,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
             settings.darkMode ? 'bg-darkbg/85 text-darktext' : 'bg-white/85 text-ink-500'
           )}
         >
-          <span className="text-xs font-bold break-keep">다음 장</span>
+          <span className="text-xs font-bold break-keep">{t('advancing')}</span>
           <span className="flex gap-1">
             <span
               className="h-2 w-2 rounded-full bg-coral-400 animate-bounce"
@@ -800,11 +802,9 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
             </svg>
           </span>
           <span className="font-display text-xl font-black text-ink-900 break-keep">
-            탭해서 시작하기
+            {t('tapToStart.title')}
           </span>
-          <span className="text-sm text-ink-500 break-keep">
-            화면을 한 번 누르면 이야기가 시작돼요
-          </span>
+          <span className="text-sm text-ink-500 break-keep">{t('tapToStart.subtitle')}</span>
         </button>
       )}
 
