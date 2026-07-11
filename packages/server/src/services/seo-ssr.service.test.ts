@@ -138,6 +138,7 @@ describe('renderBlogSeo', () => {
     publishedAt: '2026-07-11T00:00:00Z',
     primaryKeyword: '신데렐라 동화',
     storybookId: '1772107608499',
+    thumbnail: null,
     cards: [
       { type: 'text', content: { html: '<h2>줄거리</h2><p>옛날 옛적…</p>' } },
       { type: 'image', content: { url: 'https://pub-x.r2.dev/삽화 1.webp', alt: '신데렐라 삽화' } },
@@ -175,8 +176,22 @@ describe('renderBlogSeo', () => {
 
 describe('renderBlogListSeo', () => {
   const posts: BlogPostSummary[] = [
-    { slug: 'a-post', title: '포스트 A', description: '', category: null, publishedAt: null },
-    { slug: 'b-post', title: '포스트 B', description: '', category: null, publishedAt: null },
+    {
+      slug: 'a-post',
+      title: '포스트 A',
+      description: '',
+      category: null,
+      publishedAt: null,
+      thumbnail: null,
+    },
+    {
+      slug: 'b-post',
+      title: '포스트 B',
+      description: '',
+      category: null,
+      publishedAt: null,
+      thumbnail: null,
+    },
   ];
   it('renders list page with links to every post', () => {
     const seo = renderBlogListSeo(posts);

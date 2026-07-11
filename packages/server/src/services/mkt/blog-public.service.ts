@@ -11,6 +11,7 @@ export interface BlogPostSummary {
   description: string;
   category: string | null;
   publishedAt: string | null;
+  thumbnail: string | null;
 }
 
 export interface BlogCardData {
@@ -47,6 +48,13 @@ async function publishedContentMap(): Promise<Map<string, string>> {
   return m;
 }
 
+/** content 에서 이미지 url 추출(마케팅 카드는 text 카드에도 url 을 담는다). */
+function cardImageUrl(content: Record<string, unknown> | null): string | null {
+  if (!content) return null;
+  const u = content.url ?? content.image_url;
+  return typeof u === 'string' && u ? u : null;
+}
+
 export async function listPublishedBlogs(): Promise<BlogPostSummary[]> {
   const sb = admin();
   const pub = await publishedContentMap();
@@ -55,7 +63,7 @@ export async function listPublishedBlogs(): Promise<BlogPostSummary[]> {
 
   const { data: blogs } = await sb
     .from('mkt_blog_contents')
-    .select('content_id, title, seo_title, meta_description, url_slug')
+    .select('id, content_id, title, seo_title, meta_description, url_slug')
     .eq('channel', 'self_hosted')
     .in('content_id', ids);
   const { data: contents } = await sb.from('mkt_contents').select('id, category').in('id', ids);
@@ -66,6 +74,26 @@ export async function listPublishedBlogs(): Promise<BlogPostSummary[]> {
     ])
   );
 
+  // 썸네일 — 각 블로그의 앞쪽 카드(sort_order ≤ 2)에서 첫 이미지 url.
+  const blogIds = ((blogs ?? []) as Array<{ id: string }>).map((b) => b.id);
+  const thumbByBlogId = new Map<string, string>();
+  if (blogIds.length) {
+    const { data: cards } = await sb
+      .from('mkt_blog_cards')
+      .select('blog_content_id, content, sort_order')
+      .in('blog_content_id', blogIds)
+      .lte('sort_order', 2)
+      .order('sort_order');
+    for (const c of (cards ?? []) as Array<{
+      blog_content_id: string;
+      content: Record<string, unknown> | null;
+    }>) {
+      if (thumbByBlogId.has(c.blog_content_id)) continue;
+      const url = cardImageUrl(c.content);
+      if (url) thumbByBlogId.set(c.blog_content_id, url);
+    }
+  }
+
   return ((blogs ?? []) as Array<Record<string, unknown>>)
     .map((b) => {
       const contentId = b.content_id as string;
@@ -75,6 +103,7 @@ export async function listPublishedBlogs(): Promise<BlogPostSummary[]> {
         description: (b.meta_description as string) || '',
         category: catById.get(contentId) ?? null,
         publishedAt: pub.get(contentId) ?? null,
+        thumbnail: thumbByBlogId.get(b.id as string) ?? null,
       };
     })
     .sort((a, b) => (b.publishedAt ?? '').localeCompare(a.publishedAt ?? ''));
@@ -186,6 +215,7 @@ export async function getPublishedBlog(slug: string): Promise<BlogPostDetail | n
     publishedAt: (rec[0] as { published_at: string | null }).published_at,
     primaryKeyword: (blog.primary_keyword as string) ?? null,
     storybookId,
+    thumbnail: cleanCards.map((c) => cardImageUrl(c.content)).find(Boolean) ?? null,
     cards: cleanCards,
   };
 }

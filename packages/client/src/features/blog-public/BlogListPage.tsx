@@ -1,13 +1,34 @@
-// 공개 블로그 목록 — /blog. 발행된 자체 내부 블로그(동화책 SEO 글) 리스트.
+// 공개 블로그 목록 — /blog. 발행된 자체 내부 블로그(동화책 SEO 글)를 카드 그리드로.
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSeo } from '@/lib/useSeo';
 import { SiteFooter } from '@/components/SiteFooter';
-import { useBlogPosts } from './api';
+import { useBlogPosts, type BlogPostSummary } from './api';
 
-const CAT_LABEL: Record<string, { label: string; cls: string }> = {
-  classic: { label: '세계명작', cls: 'bg-coral/10 text-coral' },
-  nature: { label: '자연관찰', cls: 'bg-emerald-500/10 text-emerald-600' },
+const CAT_META: Record<string, { label: string; emoji: string; badge: string; grad: string }> = {
+  classic: {
+    label: '세계명작',
+    emoji: '📖',
+    badge: 'bg-coral/12 text-coral',
+    grad: 'from-coral/25 to-peach/40',
+  },
+  nature: {
+    label: '자연관찰',
+    emoji: '🌿',
+    badge: 'bg-emerald-500/12 text-emerald-600',
+    grad: 'from-emerald-400/20 to-mint/40',
+  },
 };
+
+// 이미 퍼센트 인코딩된 url 은 그대로(encodeURI 하면 %→%25 이중 인코딩), raw 한글은 인코딩.
+function safeSrc(u: string): string {
+  try {
+    if (decodeURI(u) !== u) return u;
+  } catch {
+    return u;
+  }
+  return encodeURI(u);
+}
 
 function fmtDate(iso: string | null): string {
   if (!iso) return '';
@@ -17,8 +38,43 @@ function fmtDate(iso: string | null): string {
     : d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
+function Cover({ post, className }: { post: BlogPostSummary; className?: string }) {
+  const cat = post.category ? CAT_META[post.category] : undefined;
+  if (post.thumbnail) {
+    return (
+      <img
+        src={safeSrc(post.thumbnail)}
+        alt={post.title}
+        loading="lazy"
+        className={`h-full w-full object-cover ${className ?? ''}`}
+      />
+    );
+  }
+  return (
+    <div
+      className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${cat?.grad ?? 'from-peach/40 to-cream'} ${className ?? ''}`}
+    >
+      <span className="text-5xl opacity-70">{cat?.emoji ?? '🐯'}</span>
+    </div>
+  );
+}
+
+function CatBadge({ category }: { category: string | null }) {
+  const cat = category ? CAT_META[category] : undefined;
+  if (!cat) return null;
+  return (
+    <span
+      className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold ${cat.badge}`}
+    >
+      <span>{cat.emoji}</span>
+      {cat.label}
+    </span>
+  );
+}
+
 export default function BlogListPage() {
   const { data: posts = [], isLoading } = useBlogPosts();
+  const [filter, setFilter] = useState<'all' | 'classic' | 'nature'>('all');
 
   useSeo({
     title: '탱고북 블로그 — 동화·자연관찰 이야기',
@@ -27,69 +83,189 @@ export default function BlogListPage() {
     path: '/blog',
   });
 
+  const counts = useMemo(() => {
+    const c = { all: posts.length, classic: 0, nature: 0 };
+    for (const p of posts) {
+      if (p.category === 'classic') c.classic++;
+      else if (p.category === 'nature') c.nature++;
+    }
+    return c;
+  }, [posts]);
+
+  const filtered = useMemo(
+    () => (filter === 'all' ? posts : posts.filter((p) => p.category === filter)),
+    [posts, filter]
+  );
+
+  const [featured, ...rest] = filtered;
+
+  const TABS: Array<{ key: 'all' | 'classic' | 'nature'; label: string }> = [
+    { key: 'all', label: `전체 ${counts.all}` },
+    { key: 'classic', label: `📖 세계명작 ${counts.classic}` },
+    { key: 'nature', label: `🌿 자연관찰 ${counts.nature}` },
+  ];
+
   return (
-    <div className="min-h-dvh bg-cream flex flex-col">
-      {/* 헤더 */}
-      <header className="border-b border-ink/10 bg-white/70 backdrop-blur">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3 sm:px-6">
-          <Link to="/library" className="text-lg font-display font-bold text-ink">
-            🐯 탱고북
-          </Link>
-          <span className="text-sm font-semibold text-ink/60">블로그</span>
-        </div>
-      </header>
+    <div className="relative min-h-dvh overflow-hidden bg-cream">
+      {/* 배경 분위기 — 부드러운 블롭 */}
+      <div className="pointer-events-none absolute inset-0 -z-0">
+        <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-peach/40 blur-3xl" />
+        <div className="absolute right-[-6rem] top-40 h-64 w-64 rounded-full bg-mint/30 blur-3xl" />
+        <div className="absolute bottom-10 left-1/3 h-56 w-56 rounded-full bg-coral/10 blur-3xl" />
+      </div>
 
-      <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 sm:px-6">
-        <h1 className="font-display text-2xl font-bold text-ink break-keep sm:text-3xl">
-          동화·자연관찰 이야기
-        </h1>
-        <p className="mt-2 text-sm text-ink/60 break-keep">
-          세계명작 동화와 자연관찰을 부모와 아이가 함께 읽어요.
-        </p>
+      <div className="relative z-10 flex min-h-dvh flex-col">
+        {/* 헤더 */}
+        <header className="sticky top-0 z-20 border-b border-ink/5 bg-cream/80 backdrop-blur-md">
+          <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
+            <Link to="/library" className="text-lg font-display font-bold text-ink">
+              🐯 탱고북
+            </Link>
+            <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-ink/60">
+              블로그
+            </span>
+          </div>
+        </header>
 
-        {isLoading ? (
-          <p className="py-16 text-center text-sm text-ink/40">불러오는 중…</p>
-        ) : posts.length === 0 ? (
-          <p className="py-16 text-center text-sm text-ink/40 break-keep">
-            곧 새 글이 하나씩 올라옵니다. 조금만 기다려 주세요 🌱
-          </p>
-        ) : (
-          <ul className="mt-6 space-y-3">
-            {posts.map((p) => {
-              const cat = p.category ? CAT_LABEL[p.category] : undefined;
-              return (
-                <li key={p.slug}>
-                  <Link
-                    to={`/blog/${encodeURIComponent(p.slug)}`}
-                    className="block rounded-2xl border border-ink/10 bg-white p-4 transition hover:border-coral/40 hover:shadow-sm"
+        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6 sm:py-14">
+          {/* Hero */}
+          <div className="text-center">
+            <span className="inline-block rounded-full bg-coral/10 px-3 py-1 text-xs font-bold text-coral">
+              탱고북 이야기
+            </span>
+            <h1 className="mt-4 font-display text-3xl font-extrabold leading-tight text-ink break-keep sm:text-[42px]">
+              동화 <span className="text-coral">·</span> 자연관찰 이야기
+            </h1>
+            <p className="mx-auto mt-3 max-w-xl text-sm text-ink/55 break-keep sm:text-base">
+              세계명작 동화와 자연관찰을 부모와 아이가 함께 읽어요. 작품 이야기부터 읽어주는 법,
+              함께 나눌 질문까지.
+            </p>
+          </div>
+
+          {/* 필터 탭 */}
+          {posts.length > 0 && (
+            <div className="mt-8 flex flex-wrap justify-center gap-2">
+              {TABS.map((t) => {
+                const active = filter === t.key;
+                return (
+                  <button
+                    key={t.key}
+                    type="button"
+                    onClick={() => setFilter(t.key)}
+                    className={`min-h-[40px] rounded-full px-4 text-sm font-bold transition ${
+                      active
+                        ? 'bg-ink text-white shadow-sm'
+                        : 'bg-white/70 text-ink/60 hover:bg-white'
+                    }`}
                   >
+                    {t.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* 목록 */}
+          {isLoading ? (
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="animate-pulse overflow-hidden rounded-3xl border border-ink/5 bg-white"
+                >
+                  <div className="aspect-[4/3] bg-ink/5" />
+                  <div className="space-y-2 p-4">
+                    <div className="h-3 w-16 rounded bg-ink/10" />
+                    <div className="h-4 w-3/4 rounded bg-ink/10" />
+                    <div className="h-3 w-full rounded bg-ink/5" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="mt-16 text-center">
+              <div className="text-5xl">🌱</div>
+              <p className="mt-4 text-sm text-ink/50 break-keep">
+                곧 새 글이 하나씩 올라옵니다. 조금만 기다려 주세요.
+              </p>
+            </div>
+          ) : (
+            <div className="mt-10 space-y-10">
+              {/* Featured — 최신 글 크게 */}
+              {featured && (
+                <Link
+                  to={`/blog/${encodeURIComponent(featured.slug)}`}
+                  className="group grid overflow-hidden rounded-[2rem] border border-ink/5 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg md:grid-cols-2"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden md:aspect-auto md:h-full">
+                    <Cover
+                      post={featured}
+                      className="transition duration-500 group-hover:scale-[1.04]"
+                    />
+                    <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold text-coral shadow-sm">
+                      최신 글
+                    </span>
+                  </div>
+                  <div className="flex flex-col justify-center gap-3 p-6 sm:p-8">
                     <div className="flex items-center gap-2">
-                      {cat && (
-                        <span
-                          className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${cat.cls}`}
-                        >
-                          {cat.label}
-                        </span>
-                      )}
-                      <span className="text-xs text-ink/40">{fmtDate(p.publishedAt)}</span>
+                      <CatBadge category={featured.category} />
+                      <span className="text-xs text-ink/40">{fmtDate(featured.publishedAt)}</span>
                     </div>
-                    <h2 className="mt-1.5 font-display text-base font-bold text-ink break-keep">
-                      {p.title}
+                    <h2 className="font-display text-2xl font-extrabold leading-snug text-ink break-keep sm:text-[26px]">
+                      {featured.title}
                     </h2>
-                    {p.description && (
-                      <p className="mt-1 line-clamp-2 text-sm text-ink/60 break-keep">
-                        {p.description}
+                    {featured.description && (
+                      <p className="line-clamp-3 text-sm leading-relaxed text-ink/60 break-keep">
+                        {featured.description}
                       </p>
                     )}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </main>
+                    <span className="mt-1 inline-flex items-center gap-1 text-sm font-bold text-coral">
+                      이야기 읽기
+                      <span className="transition group-hover:translate-x-0.5">→</span>
+                    </span>
+                  </div>
+                </Link>
+              )}
 
-      <SiteFooter />
+              {/* 나머지 카드 그리드 */}
+              {rest.length > 0 && (
+                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                  {rest.map((p) => (
+                    <Link
+                      key={p.slug}
+                      to={`/blog/${encodeURIComponent(p.slug)}`}
+                      className="group flex flex-col overflow-hidden rounded-3xl border border-ink/5 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                    >
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <Cover
+                          post={p}
+                          className="transition duration-500 group-hover:scale-[1.05]"
+                        />
+                      </div>
+                      <div className="flex flex-1 flex-col gap-2 p-4">
+                        <div className="flex items-center gap-2">
+                          <CatBadge category={p.category} />
+                          <span className="text-[11px] text-ink/35">{fmtDate(p.publishedAt)}</span>
+                        </div>
+                        <h3 className="font-display text-base font-bold leading-snug text-ink break-keep">
+                          {p.title}
+                        </h3>
+                        {p.description && (
+                          <p className="line-clamp-2 text-[13px] leading-relaxed text-ink/55 break-keep">
+                            {p.description}
+                          </p>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </main>
+
+        <SiteFooter />
+      </div>
     </div>
   );
 }

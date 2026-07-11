@@ -8,6 +8,7 @@ export interface BlogPostSummary {
   description: string;
   category: string | null;
   publishedAt: string | null;
+  thumbnail: string | null;
 }
 
 export interface BlogCardData {
