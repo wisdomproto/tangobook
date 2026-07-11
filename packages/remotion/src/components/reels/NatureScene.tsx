@@ -37,6 +37,20 @@ export const NatureScene: React.FC = () => {
   });
   return (
     <AbsoluteFill style={{ backgroundColor: '#0E2A22' }}>
+      {/* 블러 풀블리드 배경 — 세로 여백 제거 */}
+      <AbsoluteFill>
+        <Img
+          src={staticFile(IMGS[cut])}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            filter: 'blur(48px) brightness(0.55)',
+            transform: 'scale(1.25)',
+            opacity: fade,
+          }}
+        />
+      </AbsoluteFill>
       <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Img
           src={staticFile(IMGS[cut])}
@@ -45,6 +59,7 @@ export const NatureScene: React.FC = () => {
             borderRadius: 24,
             opacity: fade,
             transform: `scale(${zoom})`,
+            boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
           }}
         />
       </AbsoluteFill>

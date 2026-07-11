@@ -18,6 +18,7 @@ import {
   FROG_DURATION,
 } from './compositions/FrogPrinceReel';
 import { StorybookReel } from './compositions/StorybookReel';
+import { AdReel, AD_DURATION, AD_FPS, AD_WIDTH, AD_HEIGHT } from './compositions/AdReel';
 import {
   ThumbPoster,
   ThumbStyles,
@@ -185,6 +186,14 @@ export const RemotionRoot: React.FC = () => {
         fps={REELS_FPS}
         width={REELS_WIDTH}
         height={REELS_HEIGHT}
+      />
+      <Composition
+        id="AdReel"
+        component={AdReel}
+        durationInFrames={AD_DURATION}
+        fps={AD_FPS}
+        width={AD_WIDTH}
+        height={AD_HEIGHT}
       />
       <Composition
         id="FrogPrinceReel"

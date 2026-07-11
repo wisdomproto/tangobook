@@ -31,10 +31,28 @@ export const ClassicCollage: React.FC = () => {
   const scale = interpolate(local, [0, framesPerCut], [1.0, 1.08]);
   return (
     <AbsoluteFill style={{ backgroundColor: '#1A1A2E' }}>
+      {/* 블러 풀블리드 배경 — 세로 여백 제거 */}
+      <AbsoluteFill>
+        <Img
+          src={staticFile(COVERS[cut])}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            filter: 'blur(48px) brightness(0.5)',
+            transform: 'scale(1.25)',
+          }}
+        />
+      </AbsoluteFill>
       <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Img
           src={staticFile(COVERS[cut])}
-          style={{ width: '88%', borderRadius: 24, transform: `scale(${scale})` }}
+          style={{
+            width: '88%',
+            borderRadius: 24,
+            transform: `scale(${scale})`,
+            boxShadow: '0 20px 60px rgba(0,0,0,0.45)',
+          }}
         />
       </AbsoluteFill>
       <AbsoluteFill style={{ justifyContent: 'flex-start', alignItems: 'center', paddingTop: 140 }}>

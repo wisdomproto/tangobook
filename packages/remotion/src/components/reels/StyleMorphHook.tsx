@@ -25,14 +25,28 @@ export const StyleMorphHook: React.FC<{ durationInFrames: number }> = ({ duratio
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
         return (
-          <AbsoluteFill
-            key={src}
-            style={{ opacity, justifyContent: 'center', alignItems: 'center' }}
-          >
+          <AbsoluteFill key={src} style={{ opacity }}>
+            {/* 블러 풀블리드 배경 */}
             <Img
               src={staticFile(src)}
-              style={{ width: '78%', borderRadius: 32, boxShadow: '0 20px 60px rgba(0,0,0,0.18)' }}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                filter: 'blur(48px) brightness(0.55)',
+                transform: 'scale(1.25)',
+              }}
             />
+            <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <Img
+                src={staticFile(src)}
+                style={{
+                  width: '84%',
+                  borderRadius: 32,
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.45)',
+                }}
+              />
+            </AbsoluteFill>
           </AbsoluteFill>
         );
       })}
@@ -44,11 +58,11 @@ export const StyleMorphHook: React.FC<{ durationInFrames: number }> = ({ duratio
             fontFamily,
             fontWeight: 800,
             fontSize: 72,
-            color: '#2B2B2B',
+            color: '#fff',
             textAlign: 'center',
             lineHeight: 1.3,
             whiteSpace: 'pre-line',
-            textShadow: '0 2px 12px rgba(255,255,255,0.8)',
+            textShadow: '0 4px 20px rgba(0,0,0,0.6)',
           }}
         >
           {'동화책 그림체가\n하나일 필요 있어요?'}
