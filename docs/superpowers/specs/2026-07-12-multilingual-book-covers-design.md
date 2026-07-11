@@ -21,7 +21,18 @@
 | D5 | 오버레이 적용 범위 | **서피스별 선택** — 홀로 선 표지엔 오버레이 ON, 캡션이 옆에 있는 카드는 오버레이 OFF + 캡션 현지화 |
 
 ### 제목 오버레이 시각 스펙 (확정)
-- **폰트**: 한글 = Jua(주아) / 라틴 = Baloo 2 / 중문 = ZCOOL KuaiLe(站酷快乐). (언어별 폰트는 `SUPPORTED_LANGUAGES` 확장에 맞춰 매핑 테이블로 관리)
+- **폰트 매핑 테이블** (인앱 CSS `@import` = 서버 TTF 번들 **동일 셋**, 미러 필수):
+
+  | 언어 | 스크립트 | 폰트 | 폴백 |
+  |------|----------|------|------|
+  | ko | 한글 | **Jua** | system rounded |
+  | en·es·fr·de·ms·id | 라틴 | **Baloo 2** | system-ui |
+  | vi | 라틴(성조부호) | **Baloo 2** (베트남어 글리프 지원 확인됨) | Be Vietnam Pro |
+  | zh | 한자(간체) | **ZCOOL KuaiLe** (站酷快乐) | Noto Sans SC |
+  | ja | 가나/한자 | **Noto Sans JP** (라운드 대체 없어 가독 우선) | system |
+  | th | 태국어 | **Noto Sans Thai** | system |
+
+  - `SUPPORTED_LANGUAGES` 확장 시 이 테이블에 한 줄 추가 = 인앱·서버 양쪽 반영. 매핑 없으면 라틴(Baloo 2)+system 폴백.
 - **색**: 흰색, `text-shadow` 은은하게
 - **배치**: 상단 중앙, 필(pill) 형태
 - **배경**: 글래스모피즘 — `backdrop-blur` + **다크 틴트 46%**(strong), 흰 테두리 얇게, inset 하이라이트
@@ -37,9 +48,13 @@
 - `StorybookSummary` 확장:
   - `cleanCoverImage?: string` — 대표(targetStyle) 클린 표지
   - `cleanCoversByStyle?: Record<string, string>` — 그림체별 클린 표지(`coversByStyle`와 짝)
+- **`BookIndexEntry` 확장** (`packages/shared/src/types/book-v2.ts`): 라이브러리 그리드 카드는 `StorybookSummary`가 아니라 **`BookIndexEntry`**(필드명 `coverImageUrl`·`coversByStyle`)를 쓰고, 별도 빌더(`book-v2.repository.ts`)로 채워진다. 여기에도 클린 표지 필드를 추가해야 카드가 레거시 폴백으로 안 빠진다:
+  - `cleanCoverImageUrl?: string` (`coverImageUrl` 네이밍 컨벤션에 맞춤)
+  - `cleanCoversByStyle?: Record<string, string>`
+  - 빌더가 Storybook 레코드의 `cleanCoverImage`/`styleAssets[*].cleanCoverImage`에서 채운다. (동시 세션이 이미 `titleTranslations`를 이 타입에 추가한 선례 있음 — 같은 패턴)
 - 제목 현지화는 기존 필드 재사용: `titleTranslations[lang] ?? title`
 
-`toSummary`(`r2.repository.ts`)에서 `coversByStyle` 산출 로직과 동일한 방식으로 `cleanCoversByStyle` / `cleanCoverImage`를 채운다.
+`toSummary`(`r2.repository.ts`)와 `book-v2.repository.ts` 인덱스 빌더 양쪽에서 `coversByStyle` 산출 로직과 동일한 방식으로 `cleanCoversByStyle` / `cleanCover*`를 채운다.
 
 ## 4. 컴포넌트 — `<BookCover>` (design-system)
 
@@ -56,9 +71,10 @@ props: {
 ```
 
 해석 순서:
-- 이미지: `cleanCoversByStyle[style] ?? cleanCoverImage ?? coverImage(레거시 폴백)`
+- **프롭 타입 정규화**: `<BookCover>`는 `StorybookSummary`(`coverImage`/`cleanCoverImage`)와 `BookIndexEntry`(`coverImageUrl`/`cleanCoverImageUrl`) 둘 다 받는다 → 내부 정규화 함수가 필드명 차이를 흡수해 `{ clean, cleanByStyle, legacy, title, titleTranslations }`로 통일.
+- 이미지: `cleanByStyle[style] ?? clean ?? legacy(레거시 폴백)`
 - 제목: `titleTranslations[lang] ?? title`
-- **폴백 안전장치**: 클린 표지가 없으면 레거시 `coverImage`를 오버레이 없이 노출 → 롤아웃 중 무중단.
+- **폴백 안전장치**: 클린 표지가 없으면 레거시 표지를 오버레이 없이 노출 → 롤아웃 중 무중단.
 - `overlayTitle=true`일 때만 글래스 필 오버레이 렌더.
 
 폰트: `index.css`에 Jua/Baloo 2/ZCOOL KuaiLe CDN `@import` 추가(기존 폰트 로드 방식과 동일).
@@ -75,7 +91,7 @@ props: {
 - (책 × 그림체) 순회. 소스 = 각 그림체의 표지 이미지.
 - **강화 프롬프트**: 재해석 절대 금지 · 주 피사체/구도/색/원근 100% 보존 · 텍스트와 장식 스티커만 제거하고 배경을 자연스럽게 확장.
 - **자동 충실도 게이트**: 생성 직후 비전 모델(Gemini)에 (원본, 클린) 동시 투입 → `{ 주피사체·구도 동일?: bool, 텍스트 잔존?: bool, 사유: string }` 판정.
-  - 실패 → 더 엄격한 프롬프트로 재시도(최대 N회).
+  - 실패 → 더 엄격한 프롬프트로 재시도(기본 **2회**, `--retries`로 조정).
   - 그래도 실패 → **리뷰 리포트 JSON에 플래그**(수동 확인 대상만 좁힘, 전수 검수 회피).
 - 통과분 R2 업로드: 공개 버킷 `covers/clean/{id}-{style}-{ts}.webp`, `Cache-Control: immutable`.
 - 결과를 Storybook R2 레코드 `styleAssets[style].cleanCoverImage`(+ 대표는 top-level)에 기록.
@@ -86,15 +102,15 @@ props: {
 - 엔드포인트: `GET /api/og/book/:id.png?lang=<code>&style=<id>`
 - 기존 OG 생성 인프라(`generate-og-images.mjs`: `sharp` + librsvg + 번들 폰트) 재사용·확장.
 - 합성: 클린 표지(cover-fit) + 오버레이(반투명 다크 라운드 46% + 흰 제목, 언어별 폰트). 1200×630.
-- 캐시: 결과를 R2 `og/book/{id}-{style}-{lang}.png`에 저장 → 재요청은 캐시 반환(키 = id·style·lang).
-- 서버 폰트 번들에 **주아·Baloo 2·站酷快乐 TTF** 추가(기존 Pretendard 번들 방식과 동일).
+- 캐시 + **무효화**: 결과를 R2에 저장하되 **캐시 키에 클린 표지 버전을 포함**한다 — `og/book/{id}-{style}-{lang}-{cleanVer}.png`(`cleanVer` = 클린 표지 URL의 타임스탬프/해시). 클린 표지를 `--force` 재생성하면 URL의 ts가 바뀌므로 OG 키도 자동으로 갈라져 **stale 합성물이 서빙되지 않는다**(별도 purge 불필요). 엔드포인트는 요청 시점의 클린 표지 URL에서 `cleanVer`를 도출해 키를 만든다.
+- 서버 폰트 번들에 **§2 폰트 매핑 테이블의 전 언어 TTF**(주아·Baloo 2·站酷快乐·Noto Sans JP·Noto Sans Thai 등) 추가 — 인앱 CSS `@import` 셋과 미러(기존 Pretendard 번들 방식과 동일).
 - 배선: `BookSeoPage`의 `useSeo` og:image + SSR(`seo-ssr.service.ts`) og 메타를 현재 언어 기준 이 엔드포인트로 교체. 책별 실제 표지 반영.
 
 ## 7. 롤아웃 (독립 배포 · 무중단)
 
 폴백(§4) 덕분에 어느 단계에서 멈춰도 안 깨진다.
 
-1. **데이터 필드 + 생성 스크립트 + 게이트** → 대표 그림체 147권 생성. (잃어버린 매핑 문제 해소)
+1. **데이터 필드 + 생성 스크립트 + 게이트** → 대표 그림체 공개 149권 생성. (잃어버린 매핑 문제 해소. 명작 46 + 자연관찰 101 + 기타 공개분; 실제 대상은 스크립트가 공개·표지보유 기준으로 산출)
 2. **`<BookCover>` + 인앱 배선** (카드=클린+캡션 현지화 / 홀로선 표지=오버레이). + `BookDetailPage` 제목 현지화 수정.
 3. **명작 나머지 그림체 클린** 배치 채움.
 4. **OG/SEO 엔드포인트 + BookSeoPage·SSR 배선.**
