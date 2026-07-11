@@ -44,6 +44,8 @@ interface PlaylistProp {
   /** When true, pause TTS and halt queue auto-advance. When it flips back to
    *  false, resume TTS from current position. Controlled by playlist.store. */
   paused?: boolean;
+  /** 첫 책 "탭해서 시작하기" 를 눌러 재생을 시작한 순간 호출 — 시작 전 보여주던 컨트롤을 숨기는 신호. */
+  onStart?: () => void;
 }
 
 interface ViewerContainerProps {
@@ -782,6 +784,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
           onClick={() => {
             startedRef.current = true;
             setNeedsTapToStart(false);
+            playlist?.onStart?.(); // 연속재생: 시작 화면 컨트롤 숨김 신호
             if (!audio.isBgmPlaying) audio.toggleBgm();
             // 스스로 책읽기(autoPlayTts OFF)면 첫 페이지도 자동 낭독하지 않고 BGM 만 시작.
             if (currentTtsUrl && stateRef.current.autoPlayTts) {

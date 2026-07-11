@@ -4,12 +4,13 @@ import {
   completedBooks,
   computeStreak,
   estimateReadingMinutes,
-  metWords,
   recentBooks,
   weekActivity,
+  wordDetails,
 } from '../lib/aggregate';
 import { ReportEmptyState } from './ReportEmptyState';
-import { ArtStyleDistributionCard } from './ArtStyleDistributionCard';
+import { ArtStyleGenreCard } from './ArtStyleGenreCard';
+import { MetWordsCard } from './MetWordsCard';
 import { WeeklyHeroCard } from './WeeklyHeroCard';
 import { RecentBooksStrip } from './RecentBooksStrip';
 
@@ -19,7 +20,6 @@ interface Props {
   lang: Lang;
 }
 
-const MET_WORDS_LIMIT = 40;
 const WEEK_MS = 7 * 86_400_000;
 
 export function StorybookReportSection({ events, storybooks, lang }: Props) {
@@ -42,9 +42,8 @@ export function StorybookReportSection({ events, storybooks, lang }: Props) {
   const recent = recentBooks(relevant);
   const completed = new Map(completedBooks(relevant).map((c) => [c.storybookId, c]));
 
-  // Met words (최근 순, capped)
-  const allWords = metWords(relevant, lang);
-  const words = allWords.slice(0, MET_WORDS_LIMIT);
+  // 학습한 단어 — 단어별 상세(어느 책·읽음·게임), 언어는 단어 문자로 분류(섞임 방지)
+  const wordItems = wordDetails(relevant, lang);
 
   const hasAnyActivity = relevant.some((e) => e.event_type === 'page_read');
 
@@ -65,34 +64,10 @@ export function StorybookReportSection({ events, storybooks, lang }: Props) {
         />
       )}
 
-      {/* 만난 단어 */}
-      {words.length > 0 && (
-        <div>
-          <h3 className="mb-2 text-base font-bold text-ink-900">
-            <span>이런 단어들을 만났어요</span>
-            <span className="ml-1.5 text-sm font-black text-coral-500">
-              모두 {allWords.length}개
-            </span>
-          </h3>
-          <div className="flex flex-wrap gap-1.5">
-            {words.map((w) => (
-              <span
-                key={w}
-                className="break-keep rounded-full bg-peach-100 px-3 py-1 text-xs font-medium text-ink-700"
-              >
-                {w}
-              </span>
-            ))}
-            {allWords.length > words.length && (
-              <span className="rounded-full bg-ink-100 px-3 py-1 text-xs font-bold text-ink-500">
-                외 {allWords.length - words.length}개
-              </span>
-            )}
-          </div>
-        </div>
-      )}
+      {/* 학습한 단어 — 카드 그리드(책 표지 + 읽음/게임 배지 + 전체 보기) */}
+      <MetWordsCard details={wordItems} storybooks={storybooks} />
 
-      {/* 그림체 분포: 재미 요소, 학습 성과 아님 */}
+      {/* 그림체 분포: 재미 요소, 학습 성과 아님. 메인 3종 장르만. */}
       <details className="rounded-2xl bg-white/80 p-4 shadow-sm">
         <summary className="cursor-pointer select-none list-none text-base font-bold text-ink-700 [&::-webkit-details-marker]:hidden">
           <span className="mr-1.5 inline-block text-xs text-ink-400 transition-transform [details[open]_&]:rotate-90">
@@ -102,7 +77,7 @@ export function StorybookReportSection({ events, storybooks, lang }: Props) {
         </summary>
         <div className="mt-3">
           {/* storybooks 전체 넘김 — phonics 포함해도 relevant 이벤트는 이미 phonics 제외됨 */}
-          <ArtStyleDistributionCard events={relevant} storybooks={storybooks} lang={lang} bare />
+          <ArtStyleGenreCard events={relevant} storybooks={storybooks} lang={lang} bare />
         </div>
       </details>
     </div>

@@ -25,6 +25,10 @@ import { ttsApi } from '@/features/tts/api/tts.api';
 import { translationApi } from '@/features/translation/api/translation.api';
 import { storybookApi } from '@/features/storybook/api/storybook.api';
 import { pushImageHistory } from '@/lib/image-history';
+import {
+  composeSaenghwalBatchPrompt,
+  isSaenghwalBook,
+} from '@/features/editor/lib/saenghwal-batch-prompt';
 import { TTS_VOICES, SUPPORTED_LANGUAGES, ASPECT_RATIOS } from '@tangobook/shared';
 import type { Storybook, Page } from '@tangobook/shared';
 
@@ -84,6 +88,7 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
   const isKorean = activeLang === 'ko';
   const [downloading, setDownloading] = useState<'images' | null>(null);
   const [scenePromptCopied, setScenePromptCopied] = useState(false);
+  const [saenghwalCopied, setSaenghwalCopied] = useState(false);
 
   const downloadAllImages = async () => {
     const imagePages = pages.filter((p) => p.illustrationUrl);
@@ -173,6 +178,34 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
         document.execCommand('copy');
         setScenePromptCopied(true);
         window.setTimeout(() => setScenePromptCopied(false), 2000);
+      } catch {
+        alert('복사에 실패했습니다. 브라우저 클립보드 권한을 확인해 주세요.');
+      }
+      document.body.removeChild(ta);
+    }
+  };
+
+  // 생활동화 전체 배치 프롬프트 복사 (기획서와 동일: 니들펠트 스타일 + @image1~8 캐스트 + 전 페이지 SCENE)
+  const copySaenghwalBatchPrompt = async () => {
+    if (pages.length === 0) return alert('복사할 페이지가 없습니다.');
+    const content = composeSaenghwalBatchPrompt(storybook);
+    const done = () => {
+      setSaenghwalCopied(true);
+      window.setTimeout(() => setSaenghwalCopied(false), 2000);
+    };
+    try {
+      await navigator.clipboard.writeText(content);
+      done();
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = content;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        done();
       } catch {
         alert('복사에 실패했습니다. 브라우저 클립보드 권한을 확인해 주세요.');
       }
@@ -583,6 +616,18 @@ export function PagesTab({ storybook, onUpdate, onSave }: PagesTabProps) {
             disabled={pages.length === 0}
           >
             {scenePromptCopied ? '✓ 복사됨' : '전체 장면 프롬프트 복사'}
+          </Button>
+        )}
+
+        {/* 생활동화: 기획서와 동일한 배치 프롬프트 (니들펠트 + @image1~8 + [등장]) */}
+        {isKorean && isSaenghwalBook(storybook) && (
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={copySaenghwalBatchPrompt}
+            disabled={pages.length === 0}
+          >
+            {saenghwalCopied ? '✓ 복사됨' : '🖼️ 생활동화 전체 프롬프트'}
           </Button>
         )}
 

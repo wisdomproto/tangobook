@@ -16,6 +16,7 @@ import {
   publishDeletePost,
 } from '../controllers/mkt/publish.controller.js';
 import { metaConnection, metaDisconnect } from '../controllers/mkt/meta-connection.controller.js';
+import { youtubeStatus } from '../controllers/mkt/youtube.controller.js';
 import {
   analyticsOverview,
   analyticsTraffic,
@@ -75,6 +76,7 @@ router.post('/publish/delete-post', publishDeletePost);
 // ── Meta connection (글로벌 암호화 연동 — 토큰 서버 전용) ─────────────────────────
 router.get('/meta/connection', metaConnection);
 router.delete('/meta/connection', metaDisconnect);
+router.get('/youtube/status', youtubeStatus);
 
 // ── Analytics endpoints (server-proxy; per-project creds read server-side) ──────
 router.post('/analytics/overview', analyticsOverview);

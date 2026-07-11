@@ -9,10 +9,14 @@ import {
   publishFacebook,
   publishInstagram,
   publishThreads,
+  publishFacebookReel,
+  publishInstagramReel,
+  publishThreadsVideo,
   fetchPermalink,
   deletePost,
 } from './external/meta-graph-publish.js';
 import { getBundle, findPageToken } from './meta-connection.store.js';
+import { YouTubeProvider } from '../../providers/youtube.provider.js';
 
 export interface ExecResult {
   ok: boolean;
@@ -24,7 +28,7 @@ export interface ExecResult {
 export interface PublishMeta {
   target_id?: string; // Graph 타겟 id (ig business id / page id / threads id)
   page_name?: string; // 표시용
-  content_kind?: 'cardnews' | 'post';
+  content_kind?: 'cardnews' | 'post' | 'reels';
 }
 
 // 자동 재시도 정책: 실패 시 백오프 재예약. retry_count 0→1: 15분, 1→2: 1시간, 2→3: 3시간. 소진 시 최종 failed.
@@ -83,6 +87,9 @@ export async function publishRecord(recordId: string): Promise<ExecResult> {
   const { data: q } = await sb.from('mkt_publish_records').select('*').eq('id', recordId).single();
   if (!q) return { ok: false, error: '발행 레코드 없음' };
 
+  // YouTube 는 Meta 번들/토큰이 아니라 기존 youtube.provider(오디오북·롱폼 공용) 로 업로드.
+  if (q.channel === 'youtube') return publishYouTube(sb, q, recordId);
+
   const platform = q.channel as Platform;
   if (!['facebook', 'instagram', 'threads'].includes(platform)) {
     return fail(sb, recordId, 'Meta 채널이 아닙니다.');
@@ -96,8 +103,19 @@ export async function publishRecord(recordId: string): Promise<ExecResult> {
   const kind: PublishMeta['content_kind'] = meta.content_kind ?? 'cardnews';
 
   // ── 콘텐츠 추출 (발행 순간) ──
-  const { caption, imageUrls } = await loadCardnews(sb, q.content_id as string, lang);
-  if (kind === 'cardnews') {
+  const media =
+    kind === 'reels'
+      ? { ...(await loadReel(sb, q.content_id as string, lang)), imageUrls: [] as string[] }
+      : {
+          ...(await loadCardnews(sb, q.content_id as string, lang)),
+          videoUrl: null as string | null,
+          coverUrl: null as string | null,
+        };
+  const { caption, imageUrls, videoUrl, coverUrl } = media;
+
+  if (kind === 'reels') {
+    if (!videoUrl) return fail(sb, recordId, `이 언어(${lang})의 릴스 영상이 없습니다.`);
+  } else {
     const v = validatePublish(platform, imageUrls);
     if (!v.ok) return fail(sb, recordId, v.reason || '발행 불가');
   }
@@ -110,7 +128,13 @@ export async function publishRecord(recordId: string): Promise<ExecResult> {
 
   try {
     let postId = '';
-    if (platform === 'facebook')
+    if (kind === 'reels') {
+      const v = videoUrl as string;
+      if (platform === 'facebook') postId = await publishFacebookReel(targetId, token, caption, v);
+      else if (platform === 'instagram')
+        postId = await publishInstagramReel(targetId, token, caption, v, coverUrl);
+      else postId = await publishThreadsVideo(targetId, token, caption, v);
+    } else if (platform === 'facebook')
       postId = await publishFacebook(targetId, token, caption, imageUrls);
     else if (platform === 'instagram')
       postId = await publishInstagram(targetId, token, caption, imageUrls);
@@ -167,6 +191,67 @@ export async function deleteChannelPost(recordId: string): Promise<ExecResult> {
 }
 
 /**
+ * YouTube(쇼츠) 발행. 릴스 mp4 를 R2에서 받아 기존 youtube.provider 로 업로드.
+ * target_id(metadata) = 내부 유튜브 채널 id(선택, 없으면 첫 채널). 제목=콘텐츠 제목, 설명=캡션+#Shorts.
+ */
+async function publishYouTube(
+  sb: SupabaseClient,
+  q: Record<string, unknown>,
+  recordId: string
+): Promise<ExecResult> {
+  const lang = (q.language as string) || 'ko';
+  const meta = (q.metadata ?? {}) as PublishMeta & {
+    title?: string;
+    privacy?: 'public' | 'unlisted' | 'private';
+  };
+
+  const reel = await loadReel(sb, q.content_id as string, lang);
+  if (!reel.videoUrl) return fail(sb, recordId, '유튜브에 올릴 릴스 영상이 없습니다.');
+
+  const { data: c } = await sb
+    .from('mkt_contents')
+    .select('title')
+    .eq('id', q.content_id as string)
+    .single();
+  const title = (meta.title || (c?.title as string) || '탱고북 동화').slice(0, 100);
+  const description = [reel.caption?.trim(), '#Shorts #탱고북 #동화'].filter(Boolean).join('\n\n');
+
+  try {
+    const res = await fetch(encodeURI(reel.videoUrl));
+    if (!res.ok) return fail(sb, recordId, `영상 다운로드 실패 (${res.status})`);
+    const buf = Buffer.from(await res.arrayBuffer());
+    const up = await YouTubeProvider.uploadVideo(
+      buf,
+      {
+        title,
+        description,
+        privacy: meta.privacy || 'public',
+        categoryId: '22',
+        tags: ['탱고북', '동화', 'shorts'],
+        language: lang,
+      },
+      undefined,
+      meta.target_id || undefined
+    );
+    const now = new Date().toISOString();
+    await sb
+      .from('mkt_publish_records')
+      .update({
+        status: 'published',
+        platform_post_id: up.videoId,
+        published_url: up.videoUrl,
+        published_at: now,
+        error_message: null,
+        updated_at: now,
+      })
+      .eq('id', recordId);
+    return { ok: true, postId: up.videoId };
+  } catch (e) {
+    return fail(sb, recordId, e instanceof Error ? e.message : 'YouTube 발행 실패');
+  }
+}
+
+/**
  * 카드뉴스 캡션(+이미지)을 콘텐츠에서 로드. tangobook 카드뉴스 = mkt_instagram_cards 의
  * background_image_url(카드당 1장 풀블리드). 캡션 = mkt_instagram_contents.caption + hashtags.
  * (dflo 의 언어별 canvas.images[lang] 와 달리 이미지는 단일 소스 — 텍스트가 이미지에 구워져 ko 기준.)
@@ -203,4 +288,34 @@ async function loadCardnews(
     .filter((u): u is string => typeof u === 'string' && u.length > 0);
 
   return { caption, imageUrls };
+}
+
+/**
+ * 릴스(영상) 로드. tangobook 릴스 = mkt_instagram_contents.video_settings.reels[lang]
+ * ({ videoUrl, coverUrl }). 캡션 = 그 콘텐츠의 caption + hashtags (카드뉴스 공용).
+ */
+async function loadReel(
+  sb: SupabaseClient,
+  contentId: string,
+  lang: string
+): Promise<{ caption: string; videoUrl: string | null; coverUrl: string | null }> {
+  const { data: igContents } = await sb
+    .from('mkt_instagram_contents')
+    .select('caption, hashtags, video_settings')
+    .eq('content_id', contentId);
+  const list = (igContents ?? []) as Array<{
+    caption: string | null;
+    hashtags: string[] | null;
+    video_settings: { reels?: Record<string, { videoUrl?: string; coverUrl?: string }> } | null;
+  }>;
+  const ig = list.find((c) => c.video_settings?.reels) ?? list[0];
+  if (!ig) return { caption: '', videoUrl: null, coverUrl: null };
+
+  const reels = ig.video_settings?.reels ?? {};
+  const reel = reels[lang] ?? reels.ko ?? Object.values(reels)[0];
+
+  const tags = (ig.hashtags ?? []).map((h) => (h.startsWith('#') ? h : `#${h}`)).join(' ');
+  const caption = [ig.caption?.trim(), tags].filter(Boolean).join('\n\n');
+
+  return { caption, videoUrl: reel?.videoUrl ?? null, coverUrl: reel?.coverUrl ?? null };
 }

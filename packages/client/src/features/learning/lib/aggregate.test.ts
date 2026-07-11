@@ -11,6 +11,9 @@ import {
   computeStreak,
   booksThisWeek,
   metWords,
+  wordScriptLang,
+  wordDetails,
+  groupByGenre,
 } from './aggregate';
 
 let idSeq = 0;
@@ -492,5 +495,68 @@ describe('metWords', () => {
     const words = metWords(events, 'en');
     expect(words).toHaveLength(1);
     expect(words[0]).toBe('apple');
+  });
+});
+
+describe('wordScriptLang', () => {
+  it('classifies by the word itself, not metadata', () => {
+    expect(wordScriptLang('고양이')).toBe('ko');
+    expect(wordScriptLang('cat')).toBe('en');
+    expect(wordScriptLang('123')).toBeNull();
+  });
+});
+
+describe('wordDetails', () => {
+  it('splits ko/en by script even when metadata.lang is missing', () => {
+    // 🔴 metadata.lang 없는 이벤트는 예전엔 양쪽 탭에 섞였다 — 이제 단어 문자로만 분류.
+    const events = [
+      ev({ event_type: 'word_exposed', word: '사과', storybook_id: 'b1' }),
+      ev({ event_type: 'word_exposed', word: 'apple', storybook_id: 'b1' }),
+    ];
+    expect(wordDetails(events, 'ko').map((d) => d.word)).toEqual(['사과']);
+    expect(wordDetails(events, 'en').map((d) => d.word)).toEqual(['apple']);
+  });
+
+  it('marks read (word_exposed) vs played (game) and collects books', () => {
+    const events = [
+      ev({ event_type: 'word_exposed', word: '토끼', storybook_id: 'b1' }),
+      ev({ event_type: 'word_correct', word: '토끼', storybook_id: 'b1__L2' }),
+      ev({ event_type: 'word_wrong', word: '토끼', storybook_id: 'b2' }),
+    ];
+    const [d] = wordDetails(events, 'ko');
+    expect(d.word).toBe('토끼');
+    expect(d.read).toBe(true);
+    expect(d.played).toBe(true);
+    expect(d.correct).toBe(1);
+    expect(d.wrong).toBe(1);
+    // variant suffix 제거 후 base id 로 dedupe (b1__L2 → b1)
+    expect(new Set(d.books.map((b) => b.id))).toEqual(new Set(['b1', 'b2']));
+  });
+
+  it('a word only seen while reading is read but not played', () => {
+    const [d] = wordDetails(
+      [ev({ event_type: 'word_exposed', word: '별', storybook_id: 'b1' })],
+      'ko'
+    );
+    expect(d.read).toBe(true);
+    expect(d.played).toBe(false);
+  });
+});
+
+describe('groupByGenre', () => {
+  const resolve = (raw: string): string | null =>
+    raw === 'watercolor' ? '수채동화풍' : raw === 'collage' ? '콜라주' : null;
+
+  it('buckets page_reads by resolved genre and drops unmapped styles', () => {
+    const byId = new Map<string, { artStyle?: string }>();
+    const events = [
+      ev({ event_type: 'page_read', storybook_id: 'b1', metadata: { style: 'watercolor' } }),
+      ev({ event_type: 'page_read', storybook_id: 'b2', metadata: { style: 'watercolor' } }),
+      ev({ event_type: 'page_read', storybook_id: 'b3', metadata: { style: 'collage' } }),
+      ev({ event_type: 'page_read', storybook_id: 'b4', metadata: { style: 'pixar-3d' } }),
+    ];
+    const rows = groupByGenre(events, byId, resolve);
+    expect(rows.map((r) => r.genre)).toEqual(['수채동화풍', '콜라주']); // pixar-3d 제외
+    expect(rows[0]).toMatchObject({ genre: '수채동화풍', pageReads: 2, distinctBooks: 2 });
   });
 });

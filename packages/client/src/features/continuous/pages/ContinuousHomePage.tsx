@@ -38,13 +38,23 @@ export default function ContinuousHomePage() {
   return (
     <div className="bg-gradient-to-b from-cream-50 to-peach-100 min-h-full">
       <div className="max-w-[1200px] mx-auto px-6 md:px-8 pt-6 pb-10">
-        <header className="mb-6">
-          <h1 className="text-2xl md:text-3xl font-black text-ink-900 font-display">
-            연속 재생 🎬
-          </h1>
-          <p className="mt-1 text-ink-500 font-bold">
-            여러 권을 이어서 자동으로 읽어줘요. 잠자리 동화로 딱!
-          </p>
+        <header className="mb-6 flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => navigate('/library')}
+            aria-label="뒤로"
+            className="w-10 h-10 shrink-0 rounded-full bg-white shadow-soft flex items-center justify-center font-black text-ink-600 hover:bg-ink-50 transition"
+          >
+            ←
+          </button>
+          <div>
+            <h1 className="text-2xl md:text-3xl font-black text-ink-900 font-display">
+              연속 재생 🎬
+            </h1>
+            <p className="mt-1 text-ink-500 font-bold">
+              여러 권을 이어서 자동으로 읽어줘요. 잠자리 동화로 딱!
+            </p>
+          </div>
         </header>
 
         {/* 새 세트 만들기 — 항상 최상단, 눈에 잘 띄게 */}
@@ -84,6 +94,7 @@ export default function ContinuousHomePage() {
                     .map((id) => coverOf.get(id))
                     .filter((u): u is string => Boolean(u))}
                   onPlay={() => play(p.bookIds, p.language)}
+                  onEdit={() => navigate(`/continuous/edit/${p.id}`)}
                   onDelete={() => {
                     if (window.confirm(`"${p.name}" 세트를 삭제할까요?`)) {
                       deletePlaylist.mutate(p.id);

@@ -27,13 +27,16 @@ begin
   update public.entitlements set referred_by = v_inviter, updated_at = now()
     where account_id = p_new_account and referred_by is null;
   if not found then return jsonb_build_object('ok', false, 'reason', 'race'); end if;
-  -- 초대자 +7 (상한 28) — delta 계산 위해 old 캡처
+  -- 초대자 +7 (상한 28) — delta 계산 위해 old 캡처.
+  -- greatest(): 수동(ops) 부여로 이미 28 초과인 계정을 redeem 이 깎아내리지 않도록.
   select referral_bonus_days into v_inviter_old from public.entitlements where account_id = v_inviter;
-  update public.entitlements set referral_bonus_days = least(28, referral_bonus_days + 7), updated_at = now()
+  update public.entitlements
+    set referral_bonus_days = greatest(referral_bonus_days, least(28, referral_bonus_days + 7)), updated_at = now()
     where account_id = v_inviter returning referral_bonus_days into v_inviter_bonus;
   -- 초대받은 사람도 +7 (양방향)
   select referral_bonus_days into v_referee_old from public.entitlements where account_id = p_new_account;
-  update public.entitlements set referral_bonus_days = least(28, referral_bonus_days + 7), updated_at = now()
+  update public.entitlements
+    set referral_bonus_days = greatest(referral_bonus_days, least(28, referral_bonus_days + 7)), updated_at = now()
     where account_id = p_new_account returning referral_bonus_days into v_referee_bonus;
   return jsonb_build_object(
     'ok', true,
@@ -43,4 +46,7 @@ begin
     'refereeDelta', v_referee_bonus - coalesce(v_referee_old, 0)
   );
 end; $$;
-grant execute on function public.redeem_referral(uuid, text) to authenticated, anon, service_role;
+-- 🔴 service_role ONLY. p_new_account 는 호출자가 넘기는 값이라 클라이언트(anon key)가
+-- 직접 호출하면 임의 계정으로 위조 가능 — 반드시 서버(admin client) 경유만 허용.
+revoke execute on function public.redeem_referral(uuid, text) from public, anon, authenticated;
+grant execute on function public.redeem_referral(uuid, text) to service_role;

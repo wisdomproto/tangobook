@@ -137,6 +137,7 @@ export function PlaylistLibrarySection() {
                   .map((id) => coverOf.get(id))
                   .filter((u): u is string => Boolean(u))}
                 onPlay={() => handlePlay(p.bookIds, p.language)}
+                onEdit={() => navigate(`/continuous/edit/${p.id}`)}
                 onDelete={() => handleDelete(p.id, p.name)}
               />
             </div>

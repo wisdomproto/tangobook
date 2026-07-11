@@ -13,6 +13,10 @@ import { illustrationApi } from '../api/illustration.api';
 import { ttsApi } from '@/features/tts/api/tts.api';
 import { translationApi } from '@/features/translation/api/translation.api';
 import { pushImageHistory } from '@/lib/image-history';
+import {
+  composeSaenghwalBatchPrompt,
+  isSaenghwalBook,
+} from '@/features/editor/lib/saenghwal-batch-prompt';
 import { TTS_VOICES } from '@tangobook/shared';
 import type { Storybook, Page } from '@tangobook/shared';
 
@@ -57,6 +61,34 @@ export function PageCard({
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [voice, setVoice] = useState<string>(TTS_VOICES[0].id);
   const [ttsVersion, setTtsVersion] = useState(0);
+  const [promptCopied, setPromptCopied] = useState(false);
+
+  // 생활동화 쪽별 프롬프트 복사 (기획서와 동일: 스타일 + @image 범례 + 이 쪽 [등장]/SCENE)
+  const copySaenghwalPagePrompt = async () => {
+    const content = composeSaenghwalBatchPrompt(storybook, [page.pageNumber]);
+    const done = () => {
+      setPromptCopied(true);
+      window.setTimeout(() => setPromptCopied(false), 2000);
+    };
+    try {
+      await navigator.clipboard.writeText(content);
+      done();
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = content;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        done();
+      } catch {
+        alert('복사에 실패했습니다. 브라우저 클립보드 권한을 확인해 주세요.');
+      }
+      document.body.removeChild(ta);
+    }
+  };
 
   // --- Sortable ---
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -315,6 +347,16 @@ export function PageCard({
                 )}
                 {imageUrl && (
                   <DownloadButton href={imageUrl} filename={`page-${page.pageNumber}.png`} />
+                )}
+                {isKorean && isSaenghwalBook(storybook) && (
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={copySaenghwalPagePrompt}
+                    title="이 쪽 이미지 프롬프트 복사 (니들펠트 스타일 + @image 캐스트 + 이 쪽 [등장]/SCENE)"
+                  >
+                    {promptCopied ? '✓' : '🖼️ 프롬프트'}
+                  </Button>
                 )}
                 <UploadMenu
                   onFile={handleFileUpload}

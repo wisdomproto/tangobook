@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter, Navigate, Outlet, useParams } from 'react-router-dom';
 import { ErrorBoundary } from '@/design-system';
 import { AppLayout } from '../components/AppLayout';
@@ -34,6 +35,8 @@ import KoreanJamoStrokeBulkEditorPage from '../pages/KoreanJamoStrokeBulkEditorP
 import LetterFillDemoPage from '../pages/LetterFillDemoPage';
 import ConnectTheDotsDemoPage from '../pages/ConnectTheDotsDemoPage';
 import ViewerPage from '../pages/ViewerPage';
+import BlogListPage from '../features/blog-public/BlogListPage';
+import BlogPostPage from '../features/blog-public/BlogPostPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginCallback from '../pages/LoginCallback';
 import LoginPage from '../features/auth/components/LoginPage';
@@ -43,7 +46,9 @@ import ParentReportsPage from '../features/auth/pages/ParentReportsPage';
 import ParentProfilesPage from '../features/auth/pages/ParentProfilesPage';
 import ParentSettingsPage from '../features/auth/pages/ParentSettingsPage';
 import { VocabularyHubPage, VocabularyStudyPage } from '../features/vocabulary-unit';
-import { MosquitoEbookPage } from '../features/ebook-mosquito';
+// 🔴 lazy 필수: @tangobook/remotion(Player + loadFont 사이드이펙트 15개)을 통째로 끌고 와서
+// 정적 import 시 메인 번들 비대 + 모든 페이지에서 Noto Sans KR 폰트 요청 124개 발생.
+const MosquitoEbookPage = lazy(() => import('../features/ebook-mosquito/pages/MosquitoEbookPage'));
 import {
   PhonicsLandingPage,
   KoreanPhonicsStudyPage,
@@ -58,6 +63,7 @@ import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
 import { InviteLandingPage, InviteFriendsPage, ReferralRewardToast } from '../features/payment';
 import { GlobalUiSound } from '../components/GlobalUiSound';
 import { ParentGate } from '../features/auth/components/ParentGate';
+import { RequireAuthed } from '../features/auth/guards/RequireAuthed';
 import TermsPage from '../pages/legal/TermsPage';
 import { OpsDashboardPage } from '../features/ops';
 import { MembersDashboardPage } from '../features/members';
@@ -107,6 +113,7 @@ export const router = createBrowserRouter([
           // 연속재생 홈 — 사이드바 있는 브라우즈 화면 (AppShell 안). 저장된 세트 목록 + 새 세트 만들기.
           { path: 'continuous', element: <ContinuousHomePage /> },
           { path: 'continuous/new', element: <ContinuousBuilder /> },
+          { path: 'continuous/edit/:id', element: <ContinuousBuilder /> },
           { path: 'invite-friends', element: <InviteFriendsPage /> },
         ],
       },
@@ -120,11 +127,30 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        // 공개 블로그 — AppShell 밖 풀폭 (동화·자연관찰 SEO 글, 외부 노출)
+        path: 'blog',
+        element: (
+          <ErrorBoundary>
+            <BlogListPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: 'blog/:slug',
+        element: (
+          <ErrorBoundary>
+            <BlogPostPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
         // 모기 그림책 인터랙티브 이북 — AppShell 밖 풀화면
         path: 'ebook/mosquito',
         element: (
           <ErrorBoundary>
-            <MosquitoEbookPage />
+            <Suspense fallback={null}>
+              <MosquitoEbookPage />
+            </Suspense>
           </ErrorBoundary>
         ),
       },
@@ -341,9 +367,11 @@ export const router = createBrowserRouter([
         path: 'subscribe',
         element: (
           <ErrorBoundary>
-            <ParentGate>
-              <SubscribePage />
-            </ParentGate>
+            <RequireAuthed>
+              <ParentGate>
+                <SubscribePage />
+              </ParentGate>
+            </RequireAuthed>
           </ErrorBoundary>
         ),
       },
@@ -403,12 +431,14 @@ export const router = createBrowserRouter([
       { path: 'playground/word-garden', element: <Navigate to="/library" replace /> },
       {
         path: 'parent',
-        // PIN 게이트 대신 경량 어른 확인(곱셈, 15분 유지) — 아이가 설정/결제/계정삭제 도달 방지.
-        // 로그인 자체는 여전히 필요 (auth context 가 보장).
+        // RequireAuthed(로그인) → ParentGate(경량 어른 확인: 곱셈, 15분 유지).
+        // 아이가 설정/결제/계정삭제 도달 방지 + 미로그인은 /login 으로.
         element: (
-          <ParentGate>
-            <ParentHomePage />
-          </ParentGate>
+          <RequireAuthed>
+            <ParentGate>
+              <ParentHomePage />
+            </ParentGate>
+          </RequireAuthed>
         ),
         children: [
           { index: true, element: <Navigate to="/parent/profiles" replace /> },

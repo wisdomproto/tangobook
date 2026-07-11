@@ -38,6 +38,39 @@
       '.ref-chip b{font-size:11.5px;font-weight:800;color:var(--ink);white-space:nowrap;}',
       '.ref-chip .im{color:var(--coral-dark);font-weight:900;}',
       '.ref-chip.guest{border-color:var(--coral);}',
+      // ── 좌측 회차 사이드바 (상단 탭 대체) ──
+      '#doc-tabs{display:none;}',
+      '#ep-toggle{position:fixed;top:10px;left:10px;z-index:1002;background:var(--coral);color:#fff;border:0;border-radius:10px;padding:8px 12px;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);}',
+      '#ep-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:1000;opacity:0;pointer-events:none;transition:opacity .25s;}',
+      '#ep-side{position:fixed;top:0;left:0;height:100vh;width:300px;max-width:85vw;background:#fff;z-index:1001;box-shadow:2px 0 16px rgba(0,0,0,.18);transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;}',
+      'body.ep-open #ep-side{transform:translateX(0);}',
+      '#ep-side .ep-head{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;}',
+      '#ep-side .ep-head b{font-size:15px;flex:1;}',
+      '#ep-summary{font-size:12px;color:var(--ink-soft);}',
+      '#ep-close{border:0;background:transparent;font-size:16px;cursor:pointer;color:var(--ink-soft);padding:2px 4px;}',
+      '#ep-list{overflow-y:auto;padding:4px 0;flex:1;}',
+      '.ep-item{display:flex;align-items:center;gap:8px;padding:7px 12px;border-bottom:1px solid #f1f1f1;}',
+      '.ep-item .n{flex:0 0 22px;text-align:right;color:var(--ink-soft);font-weight:800;font-size:12px;}',
+      '.ep-item a{flex:1;color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;line-height:1.3;word-break:keep-all;}',
+      '.ep-item a:hover{color:var(--coral-dark);text-decoration:underline;}',
+      '.ep-item.active a{color:var(--coral-dark);font-weight:800;}',
+      '.ep-item.done a{text-decoration:line-through;color:var(--ink-soft);}',
+      '.ep-badge{flex:0 0 auto;cursor:pointer;border:0;background:transparent;font-size:15px;line-height:1;padding:3px;border-radius:6px;}',
+      '.ep-badge:hover{background:#f1f1f1;}',
+      '.ep-memo{flex:0 0 auto;cursor:pointer;border:0;background:transparent;font-size:14px;line-height:1;padding:3px;border-radius:6px;opacity:.35;}',
+      '.ep-memo:hover{background:#f1f1f1;opacity:.75;}',
+      '.ep-memo.has{opacity:1;}',
+      '#ep-memo-modal{position:fixed;inset:0;z-index:1003;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;padding:16px;}',
+      '#ep-memo-modal.on{display:flex;}',
+      '#ep-memo-modal .box{background:#fff;border-radius:14px;width:min(480px,94vw);max-height:86vh;display:flex;flex-direction:column;box-shadow:0 12px 40px rgba(0,0,0,.3);overflow:hidden;}',
+      '#ep-memo-modal .mhead{padding:14px 16px;border-bottom:1px solid var(--line);font-weight:800;font-size:15px;color:var(--ink);word-break:keep-all;}',
+      '#ep-memo-modal textarea{border:0;outline:none;resize:none;padding:14px 16px;font-family:inherit;font-size:14px;line-height:1.6;min-height:180px;flex:1;color:var(--ink);background:#fff;}',
+      '#ep-memo-modal .mrow{display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;border-top:1px solid var(--line);}',
+      '#ep-memo-modal button{border:0;border-radius:9px;padding:9px 18px;font-weight:800;font-size:13px;cursor:pointer;}',
+      '#ep-memo-modal .save{background:var(--coral);color:#fff;}',
+      '#ep-memo-modal .cancel{background:#eee;color:var(--ink-soft);}',
+      'body.ep-open #ep-backdrop{opacity:1;pointer-events:auto;}',
+      '@media(min-width:1024px){body.ep-open #ep-backdrop{opacity:0;pointer-events:none;}}',
     ].join('');
     var s = document.createElement('style');
     s.id = 'sh-core-style';
@@ -151,26 +184,126 @@
     catch (e) { window.prompt('복사가 막혔어요 — 직접 복사하세요:', text); }
   }
 
-  // ── 탭 (공용 인덱스 /saenghwal-index.json 기반, 실패 시 폴백) ──
-  (function () {
-    var nav = document.getElementById('doc-tabs');
-    if (!nav) return;
-    var fallback = [
-      ['saenghwal-plan.html', '📘 기획서'],
-      ['saenghwal-golgoru.html', '🥕 편식'],
-      ['saenghwal-hospital.html', '🏥 병원'],
-      ['saenghwal-sonssitgi.html', '🫧 손씻기'],
-    ];
-    var here = location.pathname.split('/').pop() || '';
-    function render(items) {
-      nav.innerHTML = items.map(function (it) {
-        return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
-      }).join('');
+  // ── 좌측 회차 사이드바 (번호순 · 컨텐츠 제목 · 완성/진행 상태, R2 저장) — 상단 탭 대체 ──
+  (async function () {
+    var toggle = document.createElement('button');
+    toggle.id = 'ep-toggle'; toggle.type = 'button'; toggle.textContent = '☰ 회차';
+    var backdrop = document.createElement('div'); backdrop.id = 'ep-backdrop';
+    var side = document.createElement('aside'); side.id = 'ep-side';
+    side.innerHTML =
+      '<div class="ep-head"><b>회차 목록</b><span id="ep-summary"></span>' +
+      '<button id="ep-close" type="button" aria-label="닫기">✕</button></div><div id="ep-list"></div>';
+    document.body.appendChild(toggle);
+    document.body.appendChild(backdrop);
+    document.body.appendChild(side);
+    var list = side.querySelector('#ep-list');
+    var summary = side.querySelector('#ep-summary');
+    function open(o) { document.body.classList.toggle('ep-open', o); }
+    toggle.addEventListener('click', function () { open(!document.body.classList.contains('ep-open')); });
+    backdrop.addEventListener('click', function () { open(false); });
+    side.querySelector('#ep-close').addEventListener('click', function () { open(false); });
+
+    var STATUS_API = '/api/saenghwal-status';
+    var status = {};
+    try { var rs = await fetch(STATUS_API); var jss = await rs.json(); status = (jss && jss.data) || {}; } catch (e) {}
+    var MEMO_API = '/api/saenghwal-memo';
+    var memo = {};
+    try { var rm = await fetch(MEMO_API); var jm = await rm.json(); memo = (jm && jm.data) || {}; } catch (e) {}
+
+    // 메모 편집 모달 (1회 생성, 회차 공용)
+    var modal = document.createElement('div'); modal.id = 'ep-memo-modal';
+    modal.innerHTML = '<div class="box"><div class="mhead"></div>' +
+      '<textarea placeholder="이 회차 메모…"></textarea>' +
+      '<div class="mrow"><button class="cancel" type="button">취소</button><button class="save" type="button">저장</button></div></div>';
+    document.body.appendChild(modal);
+    var mHead = modal.querySelector('.mhead');
+    var mTa = modal.querySelector('textarea');
+    var cur = null; // { docId, onSaved }
+    function closeModal() { modal.classList.remove('on'); cur = null; }
+    function openMemo(docId, title, onSaved) {
+      cur = { docId: docId, onSaved: onSaved };
+      mHead.textContent = title;
+      mTa.value = memo[docId] || '';
+      modal.classList.add('on');
+      setTimeout(function () { mTa.focus(); }, 30);
     }
-    fetch('/saenghwal-index.json').then(function (r) { return r.json(); }).then(function (j) {
-      var items = (j && j.length) ? j.map(function (e) { return [e.file, e.label]; }) : fallback;
-      render(items);
-    }).catch(function () { render(fallback); });
+    modal.querySelector('.cancel').addEventListener('click', closeModal);
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+    modal.querySelector('.save').addEventListener('click', async function () {
+      if (!cur) return;
+      var docId = cur.docId, onSaved = cur.onSaved, text = mTa.value, prev = memo[docId] || '';
+      if (text.trim()) memo[docId] = text; else delete memo[docId];
+      if (onSaved) onSaved(!!text.trim());
+      closeModal();
+      try {
+        var r = await fetch(MEMO_API, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ docId: docId, memo: text }) });
+        if (!r.ok) throw new Error('http');
+      } catch (err) {
+        if (prev) memo[docId] = prev; else delete memo[docId];
+        if (onSaved) onSaved(!!prev);
+        alert('메모 저장 실패 — 서버 확인');
+      }
+    });
+
+    var idx = [];
+    try { var ri = await fetch('/saenghwal-index.json'); idx = await ri.json(); } catch (e) {}
+    var eps = idx
+      .filter(function (e) { return e.file && e.file !== 'saenghwal-plan.html'; })
+      .map(function (e) {
+        var m = (e.label || '').match(/(\d+)/);
+        return { file: e.file, docId: e.file.replace(/\.html$/, ''), num: m ? +m[1] : 0, title: e.title || (e.label || '').replace(/^\s*\d+\s*/, '') };
+      })
+      .sort(function (a, b) { return a.num - b.num; });
+
+    var here = location.pathname.split('/').pop() || '';
+    var CYCLE = { '': 'wip', 'wip': 'done', 'done': '' };
+    var ICON = { '': '⬜', 'wip': '🟡', 'done': '✅' };
+    var LABEL = { '': '미정', 'wip': '진행 중', 'done': '완성' };
+    function updateSummary() {
+      var d = 0, w = 0;
+      eps.forEach(function (e) { var s = status[e.docId] || ''; if (s === 'done') d++; else if (s === 'wip') w++; });
+      summary.textContent = '✅ ' + d + ' · 🟡 ' + w + ' / ' + eps.length;
+    }
+    eps.forEach(function (e) {
+      var s = status[e.docId] || '';
+      var row = document.createElement('div');
+      row.className = 'ep-item' + (e.file === here ? ' active' : '') + (s === 'done' ? ' done' : '');
+      var n = document.createElement('span'); n.className = 'n'; n.textContent = e.num;
+      var a = document.createElement('a'); a.href = e.file; a.textContent = e.title;
+      var mbtn = document.createElement('button');
+      mbtn.type = 'button'; mbtn.className = 'ep-memo' + (memo[e.docId] ? ' has' : ''); mbtn.textContent = '📝';
+      mbtn.title = (memo[e.docId] ? '메모 있음' : '메모 없음') + ' (클릭하여 편집)';
+      mbtn.addEventListener('click', function (ev) {
+        ev.preventDefault(); ev.stopPropagation();
+        openMemo(e.docId, e.title, function (has) {
+          mbtn.classList.toggle('has', has);
+          mbtn.title = (has ? '메모 있음' : '메모 없음') + ' (클릭하여 편집)';
+        });
+      });
+      var badge = document.createElement('button');
+      badge.type = 'button'; badge.className = 'ep-badge'; badge.textContent = ICON[s]; badge.title = LABEL[s] + ' (클릭하여 변경)';
+      badge.addEventListener('click', async function (ev) {
+        ev.preventDefault(); ev.stopPropagation();
+        var prev = status[e.docId] || '';
+        var next = CYCLE[prev];
+        if (next) status[e.docId] = next; else delete status[e.docId];
+        badge.textContent = ICON[next]; badge.title = LABEL[next] + ' (클릭하여 변경)';
+        row.classList.toggle('done', next === 'done'); updateSummary();
+        try {
+          var r = await fetch(STATUS_API, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ docId: e.docId, status: next }) });
+          if (!r.ok) throw new Error('http');
+        } catch (err) {
+          if (prev) status[e.docId] = prev; else delete status[e.docId];
+          badge.textContent = ICON[prev]; badge.title = LABEL[prev] + ' (클릭하여 변경)';
+          row.classList.toggle('done', prev === 'done'); updateSummary();
+          alert('상태 저장 실패 — 서버 확인');
+        }
+      });
+      row.appendChild(n); row.appendChild(a); row.appendChild(mbtn); row.appendChild(badge);
+      list.appendChild(row);
+    });
+    updateSummary();
+    if (window.innerWidth >= 1024) open(true);
   })();
 
   // ── 전체 묶음 프롬프트 바 (hero 뒤) + 쪽별 복사 버튼 + 붙여넣기 ──

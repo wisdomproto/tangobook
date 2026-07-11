@@ -118,17 +118,31 @@ function EnglishBlockPlayerInner({
 
   // 글자 배치 시 음원 자동 재생
   const prevGridRef = useRef<(string | null)[]>([]);
+  // 단어를 완성하는 마지막 글자의 소리 URL — 여기서 바로 재생하지 않고 handleCheck 가
+  // "마지막 글자 → 단어 → 칭찬" 체인의 첫 링크로 재생 (바로 재생하면 단어 발음이 끼어들어 잘림).
+  const pendingLastLetterRef = useRef<string | null>(null);
   useEffect(() => {
     const prev = prevGridRef.current;
+    const target = currentItem.word.toLowerCase();
+    let completesWord = true;
+    for (let i = 0; i < letterCount; i++) {
+      if (!grid[i] || grid[i] !== target[i]) {
+        completesWord = false;
+        break;
+      }
+    }
     for (let i = 0; i < grid.length; i++) {
       const cur = grid[i];
       if (cur && cur !== prev[i]) {
         const url = phonicsMapRef.current.get(cur);
-        if (url) playAudio(url);
+        if (url) {
+          if (completesWord) pendingLastLetterRef.current = url;
+          else playAudio(url);
+        }
       }
     }
     prevGridRef.current = [...grid];
-  }, [grid, playAudio, phonicsMapRef]);
+  }, [grid, playAudio, phonicsMapRef, currentItem.word, letterCount]);
 
   // 정답 확정 시 타이핑 효과: 한 글자씩 증가
   useEffect(() => {
@@ -271,35 +285,47 @@ function EnglishBlockPlayerInner({
     }
     if (allCorrect) {
       const isFirstTry = !hasTriedThisRound;
-      if (isFirstTry) setScore((s) => s + 1);
+      // 4-5세 정책: 완성 = 성공. 중간에 한 번 틀렸다 고쳐도 완성하면 점수(다 맞추면 만점).
+      // 정확도(첫 시도 여부)는 리포트용 correct 플래그로만 기록.
+      setScore((s) => s + 1);
       wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
       setRoundCorrect(true);
       // 정답 시퀀스 (playCorrectSequence): 효과음 → 단어 발음 → 시스템 칭찬 음원 → onDone.
       // FeedbackOverlay (호리 cheering + confetti + "잘했어!") 가 praiseVisible 로 표시.
       // 영어 정책: ttsUrl 우선 → 없으면 phonics concat 폴백 (resolveTtsUrl).
       (async () => {
-        const wordAudioUrl = await resolveTtsUrl({
+        // 마지막 글자 소리를 먼저 끝까지 재생 → 그 다음 단어 발음 → 칭찬 (체인).
+        // 글자 소리는 즉시 재생(반응성), 단어 URL 은 그 사이 백그라운드로 resolve.
+        const letterUrl = pendingLastLetterRef.current;
+        pendingLastLetterRef.current = null;
+        const wordUrlPromise = resolveTtsUrl({
           text: currentItem.word,
           language: 'english',
           storybookId,
           directUrl: currentItem.ttsUrl,
           identifierPrefix: 'eblock',
         });
-        playCorrectSequence({
-          ttsUrl: wordAudioUrl,
-          language: 'en',
-          onDone: () => {
-            // 단어 발음+칭찬 끝 → 그 단어가 나오는 동화 장면+나레이션 리빌 (있으면), 없으면 바로 다음.
-            const s = resolveSceneFromWord(
-              currentItem.word,
-              'en',
-              sourceStorybook,
-              gameStyle.selectedStyle
-            );
-            if (s) setScene(s);
-            else goToNext(currentIndex);
-          },
-        });
+        const playWord = async () => {
+          const wordAudioUrl = await wordUrlPromise;
+          playCorrectSequence({
+            ttsUrl: wordAudioUrl,
+            language: 'en',
+            onDone: () => {
+              // 단어 발음+칭찬 끝 → 그 단어가 나오는 동화 장면+나레이션 리빌 (있으면), 없으면 바로 다음.
+              const s = resolveSceneFromWord(
+                currentItem.word,
+                'en',
+                sourceStorybook,
+                gameStyle.selectedStyle
+              );
+              if (s) setScene(s);
+              else goToNext(currentIndex);
+            },
+          });
+        };
+        // playAudio 는 onEnded 를 ended/error/재생실패 모두에서 호출 → 소리가 없어도 체인이 멈추지 않음.
+        if (letterUrl) playAudio(letterUrl, () => void playWord());
+        else void playWord();
       })();
     } else {
       playFeedbackSound(false);
@@ -315,6 +341,7 @@ function EnglishBlockPlayerInner({
     currentIndex,
     items,
     initGrid,
+    playAudio,
     playCorrectSequence,
     playFeedbackSound,
     roundCorrect,

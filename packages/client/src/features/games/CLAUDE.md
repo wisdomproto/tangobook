@@ -14,7 +14,7 @@ features/games/
     players/*.tsx            # 게임 플레이어 UI
     config/*.tsx             # 게임 설정 패널
     FeedbackOverlay.tsx      # 정답/오답 피드백 (호리 + confetti + shake)
-    GameResultScreen.tsx     # 결과 화면 (celebrating + 별점 + count-up)
+    GameResultScreen.tsx     # 결과 화면 (카드 + 히어로 이미지 + 장식 + count-up + 만점 콘페티)
     GameProgressBar.tsx      # 진행바 (dot + 점수 뱃지)
     config/ConfigControls.tsx # NumberSelector, ConfigCheckbox
   hooks/
@@ -66,6 +66,14 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 - **생성**: `buildHiddenObjectData`(server `game.service.ts`) 가 저장된 씬→`HiddenObjectData`. 라벨(ko)·썸네일(`keyObjectImages`)·TTS(`key_objects[].ttsUrl`)를 objectName 으로 resolve.
 - **플레이**: `HiddenObjectPlayer`. 탭 판정은 `utils/hitTest.ts`(`toImageNorm` object-fit contain 레터박스 보정 + `hitNormalizedBox`). 정답=✓ 링 펄스 + 단어 TTS(`playWordCorrect`) + 레일 체크 / 빗나감=페널티 없음. 다 찾으면 `GameResultScreen`.
 - 언어 중립(라벨 ko 기본, 다국어는 follow-up). `contentRequirements.needsHiddenObjectScenes` 플래그(현재 GamesTab 가용성 필터엔 미연결 — 씬 0개면 서버 400 + 패널 경고로 graceful).
+
+## 결과 화면 (GameResultScreen, 2026-07-10 리디자인)
+
+모든 게임 공용 단일 컴포넌트(`score`/`total`/`lang` prop). 별점 UI 는 mvp-simplification 으로 제거됨.
+
+- **레이아웃**: 흰 카드(`rounded-[2.5rem]` + `shadow-pop`) + 뒤 선버스트 글로우 + 둥둥 떠다니는 풍선·별·반짝이(framer-motion, reduced-motion 존중) + 점수 배지(🏆/⭐ + count-up) + 완성도별 응원 문구(`praiseFor`: 완벽/참잘/잘했어요). 만점이면 양옆 콘페티 추가.
+- **히어로 이미지**: `public/images/games/result-celebrate.webp`(트로피 든 호리, 투명 배경) — `HERO_IMAGE_URL`. **로드 실패 시 `<Mascot state="celebrating">` 폴백**(`heroFailed` state). 교체는 webp 파일만 갈아끼우면 됨.
+- 마운트 시 `playUi('reward')` + 칭찬 음원 1회(`settingsApi.getSystemSounds`, `lang` 풀 우선).
 
 ## 새 게임 추가 방법
 
@@ -183,6 +191,7 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
   - 수평 모음 케이스: (a) cho 아래 `(r+1, c)` 또는 (b) jung 아래 `(r+1, c+1)`
   - 수직 모음 케이스: jung 아래 `(r+2, c)` — 그래서 받침 있는 수직 모음 단어 (국/물/꿀) 는 3행 필요 (2행으로 줄이면 안 됨)
   - 인라인 `(r, c+2)` 위치의 자음은 다음 음절의 cho 로 취급 (예: `ㄱ ㅏ ㄱ` 가로 → `가`, 마지막 ㄱ 은 jung 못 만나 음절 형성 X). 가로 일렬로 놓는 placement 가 의도치 않게 받침 인식되어 `각`/`렛` 으로 잘못 합성되던 버그 (62a91a8 회귀) 차단.
+- 🔴 **읽기 순서 = 열 우선 정렬 (2026-07-10 fix)**: `parseSpatialKorean` 이 예전엔 음절을 **행 순서(위→아래)** 로 수집해서, 뒤 음절이 수직 모음이라 cho 가 윗행에 놓이는 단어(예: "거울" — 거=가운데행 / 울=ㅇ 윗행)를 `울거` 로 잘못 읽어 **오답 처리**되었다. 각 음절을 `{syl, r, c}` 로 모아 `out.sort((a,b)=>a.c-b.c||a.r-b.r)`(시작 셀의 **열 먼저**, 한글 좌→우 읽기 순서)로 정렬. `parseSpatialKorean` export + 유닛테스트 `KoreanBlockPlayer.parse.test.ts`(거울/가나/국/바다).
 - 자모 패널 reorder (학습 순서): 자음 = 기본 14 (ㄱ~ㅎ) → 쌍자음 5 / 모음 = 기본 10 (ㅏ~ㅣ) → 어려운 11 (ㅐ~ㅢ)
 - 합성에 쓰인 셀은 `used` set 으로 mark → 다른 음절 cho 로 재처리 X.
 - "초기화" 버튼: 셀 모두 비움.
@@ -256,6 +265,8 @@ KoreanBlockPlayer / EnglishBlockPlayer 공통:
 - **정답 자동 체크**: 블록 배치가 정답과 일치하면 "확인" 버튼 없이 즉시 정답 처리. `useEffect` 가 composed/grid 변경 watch → `handleCheckRef.current()` 호출. 오답 분기는 자동 발동 X (사용자가 직접 확인 버튼 클릭 시에만 wrong 표시). `roundCorrect` 가드로 중복 방지.
 - **handleCheckRef pattern**: `useRef(handleCheck)` + render body 에서 `ref.current = handleCheck` (effect 로 하면 자동 체크 effect 가 ref 갱신보다 먼저 fire 해 stale closure 호출 → 오답 처리됨).
 - **정답 시퀀스**: `playCorrectSequence({ ttsUrl, language, onDone })` — 효과음 → 0.5s → 단어 발음 (audio `ended` 이벤트 대기) → 시스템 칭찬 음원 (audio `ended` 이벤트 대기) → onDone. `playAudio(url, onEnded)` 콜백으로 chain — 단어 길이/칭찬 길이 무관 안 잘림. 동시에 `FeedbackOverlay kind="correct"` (호리 cheering + confetti + "잘했어!" 랜덤) 가 `praiseVisible` state 로 표시. **2026-05-19 변경**: 고정 1.2s/1.5s 타임아웃은 다음절 한글 단어 (강아지·바나나 등) TTS 가 잘리는 원인 → ended 이벤트 chain 으로 교체.
+- 🔴 **마지막 글자 소리 → 단어 체인 (2026-07-10 fix)**: 단어를 **완성하는** 마지막 블록을 놓으면 (1) grid 변경 effect 가 그 글자/음절 소리를 `playAudio` 로 재생하고 (2) 자동 체크 effect 가 `handleCheck`→`playCorrectSequence`(단어) 를 **동시에** 발동 → `playAudio` 단일 채널이라 마지막 글자 소리가 단어에 즉시 잘렸다. **수정**: 완성 글자는 grid effect 에서 재생하지 않고 `pendingLastLetterRef`(한글=`pendingLastSyllableRef`)에 담아 `handleCheck` 가 **글자(즉시)→onEnded→단어→칭찬** 으로 chain. 단어 URL 은 그 사이 백그라운드 resolve(지연 X). 한글은 라이브러리 miss 시 `speechSynthesis` 폴백을 `onend`+안전 타임아웃(1.4s)으로 chain. (낱말쓰기 `Korean/EnglishWordWritingPlayer` 는 원래부터 이 패턴 — 마지막 음절→쉼→단어→칭찬 + `completedRef` 중복 가드, 참고 구현.)
+- 🟢 **점수 = 완료 기준 (2026-07-10)**: 예전엔 첫 시도로 맞춰야만 `setScore`(첫 시도 아니면 완성해도 점수 X → "다 맞췄는데 2/3"). 완성하면 +1 로 변경(다 맞추면 만점). **정확도(첫 시도 여부)는 리포트용 `wordResultsRef.correct` 플래그로만 기록** — 부모 리포트 수치 불변. 매칭/찾기 게임은 원래 완료 기준이라 이제 통일.
 
 ### 🔴 RULE — TTS chain 절대 setTimeout 가정 X
 
@@ -278,7 +289,12 @@ PR 리뷰 체크리스트:
 
 - [ ] `setTimeout` + `playCorrectSequence` 조합 없음
 - [ ] `setTimeout` + `setCurrentIdx` (다음 카드) 조합 없음
+- [ ] `setTimeout` + `setFinished`/씬 전환 조합 없음 — 마지막 정답 단어 발음이 잘림 (2026-07-10 숨은그림 `playWordCorrect({onDone})` 로 chain 수정)
+- [ ] 한 이벤트에서 소리 2개 동시 발화 금지 (`playAudio` 는 단일 채널이라 앞 소리를 끊음 — 블록 마지막 글자↔단어). 순서가 필요하면 `onEnded` chain
 - [ ] useEffect 완료 감지 + playCorrectSequence 패턴 — 핸들러 내부 chain 으로 옮기는 게 안전
+
+> **정답 오디오 전수 리뷰 (2026-07-10)**: 블록(글자↔단어 컷)·숨은그림(마지막 단어 컷) 2건 수정. 그림짝·점잇기·낱말쓰기·스토리이미지·말하기는 이미 `onEnded`/`onDone` chain 이라 정상. 낱말쓰기가 기준 구현.
+
 - **z-index**: `FeedbackOverlay` 의 `fixed z-40` 이 player wrapper `fixed z-[60]` 의 stacking context 안에서 최상위 — SpeakingPlayer 도 동일 패턴.
 
 `RandomBlockGamePage` (사이드바 진입) 한정:
@@ -295,6 +311,7 @@ PR 리뷰 체크리스트:
   - 🔴 **버그 교훈**: cleanup 에서 `audio.src=''` 하기 전에 'error' 리스너를 **먼저 removeEventListener + advanced 가드** 해야 함. 안 그러면 빈 src 가 'error' 이벤트 발생 → 즉시 다음 단어로. StrictMode 이중 마운트(mount→cleanup→mount)에서 장면이 ~0.4s 만에 사라져 "안 뜬다"로 보였음.
 - **연결**: `KoreanBlockPlayer`/`EnglishBlockPlayer` 가 `useStorybook(storybookId)` 로 소스 책 로드, `handleCheck` 정답 `onDone` 에서 `resolveSceneFromWord` → 있으면 `setScene` (SceneReveal), 없으면 바로 다음(`goToNext`).
 - **동작 조건**: **책 컨텍스트 게임**(책상세→단어익히기→블록, `storybookId`=소스 책)에서만. 사이드바 랜덤 게임(`RandomBlockGamePage`, `storybookId="__random_pool__"`)은 소스 책 없어 skip. ⚠️ **레벨 변형**(`{id}__L4`)은 페이지 일러스트/나레이션이 비어있을 수 있음(변형은 글밥만 다름) → 그 경우 장면 미표시. 필요 시 base 책 폴백 미구현(TODO).
+- 🔴 **장면 그림체 = 진입 그림체 일치 (2026-07-10 fix)**: `useGameStyle`(`components/GameStyleChip.tsx`)가 `useSearchParams().get('style')` 를 최우선으로 읽어 SceneReveal 의 `selectedStyle` 에 넘긴다(우선순위: URL `?style` → `defaultStyle` → `styles[0]` → `artStyle`). 책 상세에서 특정 그림체로 "단어 익히기" 진입(`/vocabulary/:id?style=…`)하면 게임 이미지는 그 그림체로 뜨지만 예전엔 SceneReveal 만 `defaultStyle` 을 써서 **정답 장면 그림체가 진입 그림체와 안 맞던 버그**가 있었다.
 
 ## TTS URL 폴백 chain 단일화 (2026-05-18)
 

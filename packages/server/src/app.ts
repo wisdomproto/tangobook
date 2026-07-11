@@ -37,10 +37,13 @@ import letterStrokeLibraryRoutes from './routes/letter-stroke-library.routes.js'
 import koreanJamoStrokeLibraryRoutes from './routes/korean-jamo-stroke-library.routes.js';
 import mktRoutes from './routes/mkt.routes.js';
 import { metaAuthRouter } from './routes/meta-auth.routes.js';
+import blogPublicRoutes from './routes/blog-public.routes.js';
 import paymentRoutes from './routes/payment.routes.js';
 import opsRoutes from './routes/ops.routes.js';
 import comicFeedbackRoutes from './routes/comic-feedback.routes.js';
 import comicAssetsRoutes from './routes/comic-assets.routes.js';
+import saenghwalStatusRoutes from './routes/saenghwal-status.routes.js';
+import saenghwalMemoRoutes from './routes/saenghwal-memo.routes.js';
 
 export function createApp() {
   const app = express();
@@ -105,10 +108,14 @@ export function createApp() {
   app.use('/api/mkt', mktRoutes);
   // Meta OAuth (top-level — FB top-level redirect + callback + data-deletion)
   app.use('/api/auth/meta', metaAuthRouter);
+  // 공개 블로그 (발행된 self_hosted 내부 블로그 외부 노출)
+  app.use('/api/blog', blogPublicRoutes);
   app.use('/api/payments', paymentRoutes);
   app.use('/api/ops', opsRoutes);
   app.use('/api/comic-feedback', comicFeedbackRoutes);
   app.use('/api/comic-assets', comicAssetsRoutes);
+  app.use('/api/saenghwal-status', saenghwalStatusRoutes);
+  app.use('/api/saenghwal-memo', saenghwalMemoRoutes);
 
   // R2 프록시 — pub-xxx.r2.dev CORS 미지원 우회
   // GET /api/r2-proxy?key=storybooks/xxx/scene.mp4
@@ -139,11 +146,48 @@ export function createApp() {
   // 프로덕션: 클라이언트 정적 파일 서빙 (개발 모드에서는 Vite가 처리)
   if (process.env.NODE_ENV === 'production') {
     const clientDist = path.join(process.cwd(), 'packages/client/dist');
+
+    // 비-www → www 301 (중복 호스트 SEO 신호 제거 — sitemap/canonical 은 www 기준)
+    app.use((req, res, next) => {
+      const host = (req.headers['x-forwarded-host'] as string) || req.headers.host || '';
+      if (host === 'tangobook.co.kr') {
+        res.redirect(301, `https://www.tangobook.co.kr${req.originalUrl}`);
+        return;
+      }
+      next();
+    });
+
     // 서비스워커는 no-cache 로 — 브라우저가 매번 최신 sw.js 를 확인해 업데이트가 전파되게.
     app.get('/sw.js', (_req, res) => {
       res.setHeader('Cache-Control', 'no-cache');
       res.sendFile(path.join(clientDist, 'sw.js'));
     });
+
+    // SEO SSR-lite — 책별 about 페이지에 meta/JSON-LD/본문 주입 (네이버 Yeti 등
+    // JS 미실행 크롤러 대응). 실패 시 SPA 폴백. 상세 → seo-ssr.service.ts.
+    let cachedIndexHtml: string | null = null;
+    app.get('/library/:id/about', async (req, res, next) => {
+      try {
+        const { renderAboutSeo, injectAboutSeo } = await import('./services/seo-ssr.service.js');
+        const { StorybookService } = await import('./services/storybook.service.js');
+        const storybook = await StorybookService.getById(req.params.id as string);
+        if (!storybook) {
+          next(); // SPA 가 404 UI 처리
+          return;
+        }
+        if (!cachedIndexHtml) {
+          const { readFile } = await import('node:fs/promises');
+          cachedIndexHtml = await readFile(path.join(clientDist, 'index.html'), 'utf-8');
+        }
+        res
+          .setHeader('Cache-Control', 'public, max-age=300')
+          .type('html')
+          .send(injectAboutSeo(cachedIndexHtml, renderAboutSeo(storybook)));
+      } catch {
+        next(); // 어떤 실패든 SPA 폴백 — SEO 주입이 서비스를 죽이면 안 됨
+      }
+    });
+
     app.use(express.static(clientDist));
     app.get('/{*path}', (_req, res) => {
       res.sendFile(path.join(clientDist, 'index.html'));

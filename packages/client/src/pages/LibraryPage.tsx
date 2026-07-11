@@ -1,7 +1,13 @@
 import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useStorybooks } from '@/features/storybook';
-import { CategorySection, BookCard, useReadingStatus, useLibraryConfig } from '@/features/library';
+import {
+  CategorySection,
+  BookCard,
+  useReadingStatus,
+  useLibraryConfig,
+  makeCategoryComparator,
+} from '@/features/library';
 import { PromoBanner } from '@/features/library/components/PromoBanner';
 import { PlaylistLibrarySection } from '@/features/continuous';
 import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
@@ -102,21 +108,6 @@ const getCategoryIconNode = (cat: string, size = 22): ReactNode => {
 };
 
 /** 마스터 페이지 config 비어있을 때 fallback 우선순위. */
-const DEFAULT_PRIORITY_CATEGORIES = ['세계 명작', '자연 관찰', '생활 동화', '전래 동화', '기타'];
-
-function makeCategoryComparator(configOrder: string[] | undefined) {
-  // config 가 있으면 그 순서, 없으면 default. 둘 다에 없는 카테고리는 권수 desc.
-  const order = configOrder?.length ? configOrder : DEFAULT_PRIORITY_CATEGORIES;
-  return (a: string, b: string, fallbackA = 0, fallbackB = 0): number => {
-    const ai = order.indexOf(a);
-    const bi = order.indexOf(b);
-    if (ai !== -1 && bi !== -1) return ai - bi;
-    if (ai !== -1) return -1;
-    if (bi !== -1) return 1;
-    return fallbackB - fallbackA;
-  };
-}
-
 export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   useSeo(
     type === 'phonics'

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { ContinuousControls } from './ContinuousControls';
 import { PlaylistEndScreen } from './PlaylistEndScreen';
@@ -10,15 +10,13 @@ vi.mock('react-router-dom', async (importOriginal) => {
   return { ...actual, useNavigate: () => vi.fn() };
 });
 
-// 컨트롤은 기본 숨김(재생 화면을 가리지 않게) → 테스트는 "컨트롤 보기"로 먼저 연다.
+// 시작 전(started=false)에는 컨트롤이 기본 표시(시작 화면에서 세팅) → 클릭 없이 바로 렌더.
 function renderControls() {
-  const utils = render(
+  return render(
     <MemoryRouter>
       <ContinuousControls />
     </MemoryRouter>
   );
-  fireEvent.click(screen.getByText('컨트롤 보기'));
-  return utils;
 }
 
 describe('ContinuousControls', () => {
@@ -26,17 +24,21 @@ describe('ContinuousControls', () => {
     usePlaylistStore.getState().reset();
   });
 
-  it('starts hidden — only "컨트롤 보기" shown until opened', () => {
+  it('shows controls on the setup screen, hides after start (markStarted)', () => {
     usePlaylistStore.getState().setQueue([{ bookId: 'a' }], 'ko');
     render(
       <MemoryRouter>
         <ContinuousControls />
       </MemoryRouter>
     );
-    expect(screen.getByText('컨트롤 보기')).toBeInTheDocument();
+    // 시작 전: 컨트롤 노출 (속도·슬립 세팅 가능)
+    expect(screen.getByText('⏸ 일시정지')).toBeInTheDocument();
+    // 탭해서 시작 → 컨트롤 숨김, 하단 "컨트롤 열기" 탭 영역만
+    act(() => usePlaylistStore.getState().markStarted());
     expect(screen.queryByText('⏸ 일시정지')).not.toBeInTheDocument();
-    // 열면 컨트롤 노출
-    fireEvent.click(screen.getByText('컨트롤 보기'));
+    expect(screen.getByLabelText('컨트롤 열기')).toBeInTheDocument();
+    // 하단 탭 → 다시 컨트롤 노출
+    fireEvent.click(screen.getByLabelText('컨트롤 열기'));
     expect(screen.getByText('⏸ 일시정지')).toBeInTheDocument();
   });
 

@@ -341,25 +341,6 @@ POSE: standing idle, front view, gentle smile, arms relaxed.</pre></details>
 </div>
 
 <script>
-// ── 상단 탭 (공용 인덱스 /saenghwal-index.json 기반, 실패 시 폴백) ──
-(function () {
-  var fallback = [
-    ['saenghwal-plan.html', '📘 기획서'],
-    ['saenghwal-golgoru.html', '🥕 편식'],
-    ['saenghwal-hospital.html', '🏥 병원'],
-  ];
-  var here = location.pathname.split('/').pop() || 'saenghwal-plan.html';
-  var nav = document.getElementById('doc-tabs');
-  function render(items) {
-    nav.innerHTML = items.map(function (it) {
-      return '<a href="' + it[0] + '"' + (it[0] === here ? ' class="active"' : '') + '>' + it[1] + '</a>';
-    }).join('');
-  }
-  fetch('/saenghwal-index.json').then(function (r) { return r.json(); }).then(function (j) {
-    render((j && j.length) ? j.map(function (e) { return [e.file, e.label]; }) : fallback);
-  }).catch(function () { render(fallback); });
-})();
-
 // ── 프롬프트 복사 (개별 + 전체) ──
 (function () {
   function flash(btn, label) {
@@ -432,5 +413,6 @@ POSE: standing idle, front view, gentle smile, arms relaxed.</pre></details>
   });
 })();
 </script>
+<script src="/saenghwal-core.js"></script>
 </body>
 </html>

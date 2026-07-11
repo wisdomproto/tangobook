@@ -128,8 +128,11 @@ const ALL_VOWELS: JamoBlock[] = VOWEL_ORDER.map((ch, i) => ({
  * 알고리즘: 위→아래, 좌→우 스캔. cho 발견 시 우측 (수평 모음) 우선 → 없으면 아래 (수직 모음) 시도.
  * 합성에 쓰인 셀은 다시 cho 로 처리되지 않게 mark.
  */
-function parseSpatialKorean(grid: (string | null)[][]): string[] {
-  const out: string[] = [];
+export function parseSpatialKorean(grid: (string | null)[][]): string[] {
+  // 음절을 시작(cho) 위치와 함께 모아, 마지막에 **읽기 순서(열 왼→오, 같은 열이면 위→아래)**로 정렬.
+  // 🔴 행 순서로 읽으면 '거울' 처럼 뒤 음절이 세로(수직모음+받침)라 cho 가 윗행에 오는 경우
+  //    (울 ㅇ=row0, 거 ㄱ=row1) → '울거' 로 잘못 읽힘. 열 우선 정렬로 한글 읽기 순서 보장(2026-07-10).
+  const out: { syl: string; r: number; c: number }[] = [];
   const used = new Set<string>(); // 'r-c' — jung/jong 으로 흡수된 셀
   for (let r = 0; r < grid.length; r++) {
     let c = 0;
@@ -159,7 +162,7 @@ function parseSpatialKorean(grid: (string | null)[][]): string[] {
           used.add(`${r + 1}-${c + 1}`);
         }
         const composed = composeHangul(cho, jungH, jong);
-        if (composed) out.push(composed);
+        if (composed) out.push({ syl: composed, r, c });
         c += 2;
         continue;
       }
@@ -176,7 +179,7 @@ function parseSpatialKorean(grid: (string | null)[][]): string[] {
           used.add(`${r + 2}-${c}`);
         }
         const composed = composeHangul(cho, jungV, jong);
-        if (composed) out.push(composed);
+        if (composed) out.push({ syl: composed, r, c });
         c++;
         continue;
       }
@@ -184,7 +187,9 @@ function parseSpatialKorean(grid: (string | null)[][]): string[] {
       c++;
     }
   }
-  return out;
+  // 읽기 순서 = 음절 시작(cho) 위치 왼→오(열 우선), 같은 열이면 위→아래.
+  out.sort((a, b) => a.c - b.c || a.r - b.r);
+  return out.map((x) => x.syl);
 }
 
 // 3행 × 6열 고정 그리드 — 각 행이 1음절. 단어 음절 수 ≤ 3 가정.
@@ -300,14 +305,21 @@ function KoreanBlockPlayerInner({
   // 라이브러리 로딩 중 (phonicsLoading) 일 때는 spinner overlay 가 인터랙션을 막고 있어 호출 X.
   // 로딩 완료 후 라이브러리 miss 면 Web Speech API(`speechSynthesis`) 로 ko-KR 폴백.
   const prevSyllablesRef = useRef<string[]>([]);
+  // 단어를 완성하는 마지막 음절 — 여기서 바로 읽지 않고 handleCheck 가
+  // "마지막 글자 → 단어 → 칭찬" 체인의 첫 링크로 재생 (바로 재생하면 단어 발음이 끼어들어 잘림).
+  const pendingLastSyllableRef = useRef<{ url?: string; text: string } | null>(null);
   useEffect(() => {
     if (phonicsLoading) return;
     const prev = prevSyllablesRef.current;
+    const completesWord =
+      composedSyllables.join('') === currentItem.word && currentItem.word.length > 0;
     for (let i = 0; i < composedSyllables.length; i++) {
       const cur = composedSyllables[i];
       if (cur !== prev[i]) {
         const url = phonicsMapRef.current.get(cur);
-        if (url) {
+        if (completesWord) {
+          pendingLastSyllableRef.current = { url, text: cur };
+        } else if (url) {
           playAudio(url);
         } else if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
           try {
@@ -323,7 +335,7 @@ function KoreanBlockPlayerInner({
       }
     }
     prevSyllablesRef.current = [...composedSyllables];
-  }, [composedSyllables, playAudio, phonicsMapRef, phonicsLoading]);
+  }, [composedSyllables, playAudio, phonicsMapRef, phonicsLoading, currentItem.word]);
 
   // 정답 시 단어 타이핑 효과
   useEffect(() => {
@@ -477,35 +489,70 @@ function KoreanBlockPlayerInner({
     const allCorrect = composed === currentItem.word && composed.length > 0;
     if (allCorrect) {
       const isFirstTry = !hasTriedThisRound;
-      if (isFirstTry) setScore((s) => s + 1);
+      // 4-5세 정책: 완성 = 성공. 중간에 한 번 틀렸다 고쳐도 완성하면 점수(다 맞추면 만점).
+      // 정확도(첫 시도 여부)는 리포트용 correct 플래그로만 기록.
+      setScore((s) => s + 1);
       wordResultsRef.current.push({ word: currentItem.word, correct: isFirstTry });
       setRoundCorrect(true);
       // 정답 시퀀스 (playCorrectSequence): 효과음 → 0.5s → 단어 발음 → 시스템 칭찬 음원 → onDone.
       // FeedbackOverlay (호리 cheering + confetti + "잘했어!") 가 praiseVisible 기반으로 표시.
       // 한글 정책: phonics 음절 합성 우선 → 실패 시 ttsUrl 폴백 (resolveTtsUrl).
       (async () => {
-        const wordAudioUrl = await resolveTtsUrl({
+        // 마지막 음절 소리를 먼저 끝까지 재생 → 그 다음 단어 발음 → 칭찬 (체인).
+        // 음절 소리는 즉시 재생(반응성), 단어 URL 은 그 사이 백그라운드로 resolve.
+        const last = pendingLastSyllableRef.current;
+        pendingLastSyllableRef.current = null;
+        const wordUrlPromise = resolveTtsUrl({
           text: currentItem.word,
           language: 'korean',
           storybookId,
           directUrl: currentItem.ttsUrl,
           identifierPrefix: 'kblock',
         });
-        playCorrectSequence({
-          ttsUrl: wordAudioUrl,
-          language: 'ko',
-          onDone: () => {
-            // 단어 발음+칭찬 끝 → 그 단어가 나오는 동화 장면+나레이션 리빌 (있으면), 없으면 바로 다음.
-            const s = resolveSceneFromWord(
-              currentItem.word,
-              'ko',
-              sourceStorybook,
-              gameStyle.selectedStyle
-            );
-            if (s) setScene(s);
-            else goToNext(currentIndex);
-          },
-        });
+        const playWord = async () => {
+          const wordAudioUrl = await wordUrlPromise;
+          playCorrectSequence({
+            ttsUrl: wordAudioUrl,
+            language: 'ko',
+            onDone: () => {
+              // 단어 발음+칭찬 끝 → 그 단어가 나오는 동화 장면+나레이션 리빌 (있으면), 없으면 바로 다음.
+              const s = resolveSceneFromWord(
+                currentItem.word,
+                'ko',
+                sourceStorybook,
+                gameStyle.selectedStyle
+              );
+              if (s) setScene(s);
+              else goToNext(currentIndex);
+            },
+          });
+        };
+        if (last?.url) {
+          // 라이브러리 음절 mp3 → playAudio 가 ended/error/재생실패 모두에서 onEnded 호출 (안 멈춤).
+          playAudio(last.url, () => void playWord());
+        } else if (last && typeof window !== 'undefined' && 'speechSynthesis' in window) {
+          // 라이브러리 miss → speechSynthesis 로 음절 읽고 끝나면 단어. onend 미발화 대비 안전 타임아웃.
+          let advanced = false;
+          const go = () => {
+            if (advanced) return;
+            advanced = true;
+            void playWord();
+          };
+          try {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(last.text);
+            u.lang = 'ko-KR';
+            u.rate = 0.9;
+            u.onend = go;
+            u.onerror = go;
+            window.speechSynthesis.speak(u);
+            window.setTimeout(go, 1400);
+          } catch {
+            go();
+          }
+        } else {
+          void playWord();
+        }
       })();
     } else {
       playFeedbackSound(false);
@@ -520,6 +567,7 @@ function KoreanBlockPlayerInner({
     currentIndex,
     items,
     initGrid,
+    playAudio,
     playCorrectSequence,
     playFeedbackSound,
     roundCorrect,

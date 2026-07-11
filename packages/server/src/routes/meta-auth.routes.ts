@@ -50,7 +50,13 @@ metaAuthRouter.get('/callback', async (req, res) => {
       redirectUri: `${redirectBase()}/api/auth/meta/callback`,
       code,
     });
-    const extraPageIds = await getRegisteredPageIds();
+    // 새 페이지 경험(New Pages Experience) 페이지는 /me/accounts 에 안 잡히는 경우가 많다
+    // (dflo 교훈). META_EXTRA_PAGE_IDS(콤마 구분)로 알려진 page id 를 직접 조회해 보강한다.
+    const envPageIds = (process.env.META_EXTRA_PAGE_IDS || '')
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const extraPageIds = [...new Set([...(await getRegisteredPageIds()), ...envPageIds])];
     const bundle = await fetchAccounts(token, extraPageIds);
     const expiresAt = new Date(Date.now() + expiresInSec * 1000).toISOString();
     await saveConnection(bundle, expiresAt);

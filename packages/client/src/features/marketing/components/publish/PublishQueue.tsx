@@ -1,19 +1,11 @@
 /**
- * PublishQueue — list + calendar view of mkt_publish_records.
+ * PublishQueue — 발행 큐. dflo(v4 PublishQueuePage/Board/Card)의 "언어별 + 채널별" 구성 이식.
  *
- * Faithful port of ContentFlow publish-queue.tsx (469 lines).
- * Key adaptations vs. CF original:
- *   • Props `{ projectId }` instead of reading useProjectStore.selectedProjectId
- *   • Data via usePublishRecords (TanStack Query, Chunk 6) — no local useState fetch
- *   • Reschedule via useUpdateScheduledAt.mutate (Chunk 6) — not direct supabase.update
- *   • Delete via useCancelPublish.mutate (Chunk 6)
- *   • Calendar view delegates to <PublishCalendar> (no inline date math)
- *   • Quick-pick times via makeTime + pickBestTimes (publish-times.ts, Chunk 6)
- *   • Preview fetches use `mkt_blog_contents`/`mkt_blog_cards`/`mkt_instagram_contents`/
- *     `mkt_instagram_cards`/`mkt_threads_contents`/`mkt_threads_cards` table names
- *   • handlePublishNow is a faithful no-op alert (CF :138) — non-negotiable
- *   • title read from record.metadata?.title (JSONB, spec §8 delta)
- *   • No 'use client', no @/components/ui/*, plain <img>
+ *   • 상단: 언어 pills(전체 + 레코드 언어) — 전체 보드를 언어로 필터
+ *   • 리스트 뷰 = 채널 컬럼 보드: 채널마다 컬럼(헤더=배지+개수+컬럼별 상태 필터), 컬럼 안 카드
+ *   • 카드: 언어 배지 + 콘텐츠 종류(블로그/카드뉴스/릴스/기본글) + 상태색 + 예약 + 즉시 발행 + 삭제 + 미리보기
+ *   • 즉시 발행: 메타(IG/FB/Threads)는 실제 발행(runPublish). self_hosted/naver/youtube 는 안내.
+ *   • 캘린더 뷰 + 채널별 미리보기 다이얼로그는 기존 유지.
  */
 
 import { useState } from 'react';
@@ -26,21 +18,14 @@ import {
   useUpdateScheduledAt,
   useCancelPublish,
 } from '../../api/use-publish-records';
+import { runPublish } from '../../api/use-meta-connection';
 import { supabase } from '../../api/supabase';
 import { makeTime, pickBestTimes } from '../../lib/publish-times';
 import { PublishCalendar } from './PublishCalendar';
 import { BlogPreviewDialog } from '../content/BlogPreviewDialog';
 import type { PublishRecord, BlogCard, InstagramCard, ThreadsCard } from '../../types/database';
 
-// ─── Constants (verbatim from CF) ────────────────────────────────────────────
-
-const STATUS_COLORS: Record<string, string> = {
-  draft: 'bg-muted text-muted-foreground',
-  scheduled: 'bg-yellow-500/10 text-yellow-500',
-  publishing: 'bg-blue-500/10 text-blue-500',
-  published: 'bg-green-500/10 text-green-500',
-  failed: 'bg-red-500/10 text-red-500',
-};
+// ─── Constants ────────────────────────────────────────────────────────────────
 
 const STATUS_LABELS: Record<string, string> = {
   draft: '임시',
@@ -50,15 +35,41 @@ const STATUS_LABELS: Record<string, string> = {
   failed: '실패',
 };
 
-const CHANNEL_FILTERS = [
-  { id: 'all', label: '전체', icon: '📋' },
-  { id: 'self_hosted', label: 'Self', icon: '🌐' },
-  { id: 'naver_blog', label: 'N', icon: '📗' },
-  { id: 'instagram', label: 'IG', icon: '📸' },
-  { id: 'facebook', label: 'FB', icon: '👤' },
-  { id: 'threads', label: 'TH', icon: '💬' },
-  { id: 'youtube', label: 'YT', icon: '🎬' },
+// 발행 전/후가 한눈에 — 카드 배경 + 좌측 액센트바를 상태별로 (dflo STATUS_CARD).
+const STATUS_CARD: Record<string, string> = {
+  draft: 'border-border border-l-4 border-l-muted-foreground/40 bg-card',
+  scheduled: 'border-yellow-500/30 border-l-4 border-l-yellow-500 bg-yellow-500/5',
+  publishing: 'border-blue-500/30 border-l-4 border-l-blue-500 bg-blue-500/5',
+  published: 'border-green-500/40 border-l-4 border-l-green-500 bg-green-500/5',
+  failed: 'border-red-500/40 border-l-4 border-l-red-500 bg-red-500/5',
+};
+
+const STATUS_PILL: Record<string, string> = {
+  draft: 'bg-muted text-muted-foreground',
+  scheduled: 'bg-yellow-500/10 text-yellow-500',
+  publishing: 'bg-blue-500/10 text-blue-500',
+  published: 'bg-green-500/10 text-green-500',
+  failed: 'bg-red-500/10 text-red-500',
+};
+
+const STATUS_FILTERS = ['draft', 'scheduled', 'publishing', 'published', 'failed'];
+
+// 채널 컬럼 순서 + 라벨/배지.
+const CHANNEL_COLS: Array<{ id: string; label: string; badge: string }> = [
+  { id: 'self_hosted', label: '자체 사이트', badge: 'bg-violet-500/15 text-violet-500' },
+  { id: 'naver_blog', label: '네이버', badge: 'bg-[#03c75a]/15 text-[#03c75a]' },
+  { id: 'instagram', label: 'Instagram', badge: 'bg-pink-500/15 text-pink-500' },
+  { id: 'facebook', label: 'Facebook', badge: 'bg-blue-500/15 text-blue-500' },
+  { id: 'threads', label: 'Threads', badge: 'bg-foreground/10 text-foreground' },
+  { id: 'youtube', label: 'YouTube', badge: 'bg-red-500/15 text-red-500' },
 ];
+
+const KIND_META: Record<string, { label: string; cls: string }> = {
+  blog: { label: '📝 블로그', cls: 'bg-sky-500/10 text-sky-500' },
+  cardnews: { label: '🖼 카드뉴스', cls: 'bg-violet-500/10 text-violet-500' },
+  reels: { label: '🎬 릴스', cls: 'bg-rose-500/10 text-rose-500' },
+  post: { label: '📄 기본글', cls: 'bg-muted text-muted-foreground' },
+};
 
 const LANG_FLAGS: Record<string, string> = {
   ko: '🇰🇷',
@@ -69,52 +80,32 @@ const LANG_FLAGS: Record<string, string> = {
   zh: '🇨🇳',
 };
 
-const STATUS_FILTERS = [
-  { value: 'all', label: '전체' },
-  { value: 'scheduled', label: '예약' },
-  { value: 'published', label: '발행됨' },
-  { value: 'failed', label: '실패' },
+// dflo LOCALES 패턴(ChannelRegistryTab) — 발행 페이지는 "언어별"로 묶어 본다.
+// 언어 섹션(국기+언어명+건수) → 그 안에 채널 컬럼.
+const LOCALES: Array<{ code: string; label: string; flag: string }> = [
+  { code: 'ko', label: '한국어', flag: '🇰🇷' },
+  { code: 'en', label: '영어', flag: '🇺🇸' },
+  { code: 'zh', label: '중국어', flag: '🇨🇳' },
+  { code: 'th', label: '태국어', flag: '🇹🇭' },
+  { code: 'vi', label: '베트남어', flag: '🇻🇳' },
+  { code: 'ja', label: '일본어', flag: '🇯🇵' },
 ];
 
-// ─── Channel icon helper ──────────────────────────────────────────────────────
+const META_CHANNELS = ['instagram', 'facebook', 'threads'];
 
-function channelBg(channel: string): string {
-  switch (channel) {
-    case 'self_hosted':
-      return 'bg-violet-600';
-    case 'naver_blog':
-      return 'bg-[#03c75a]';
-    case 'instagram':
-      return 'bg-gradient-to-br from-[#f09433] to-[#dc2743]';
-    case 'facebook':
-      return 'bg-[#1877f2]';
-    case 'youtube':
-      return 'bg-[#ff0000]';
-    case 'threads':
-      return 'bg-foreground';
-    default:
-      return 'bg-muted-foreground';
-  }
+function kindOf(record: PublishRecord): keyof typeof KIND_META {
+  const k = record.metadata?.content_kind as string | undefined;
+  if (k && k in KIND_META) return k as keyof typeof KIND_META;
+  if (record.channel === 'self_hosted' || record.channel === 'naver_blog') return 'blog';
+  return 'post';
 }
 
-function channelLabel(channel: string): string {
-  switch (channel) {
-    case 'self_hosted':
-      return 'S';
-    case 'naver_blog':
-      return 'N';
-    case 'instagram':
-      return 'IG';
-    case 'facebook':
-      return 'FB';
-    case 'youtube':
-      return 'YT';
-    case 'threads':
-      return 'T';
-    default:
-      return channel.slice(0, 2).toUpperCase();
-  }
-}
+const QUICK_PICKS = [
+  { label: '오늘 저녁 7시', at: () => makeTime(0, 19) },
+  { label: '내일 오전 8시', at: () => makeTime(1, 8) },
+  { label: '내일 저녁 7시', at: () => makeTime(1, 19) },
+  { label: '모레 오전 9시', at: () => makeTime(2, 9) },
+];
 
 // ─── Preview state ────────────────────────────────────────────────────────────
 
@@ -124,75 +115,73 @@ type PreviewState =
   | { channel: 'threads'; record: PublishRecord; cards: ThreadsCard[] }
   | null;
 
-// ─── Component ────────────────────────────────────────────────────────────────
-
 interface Props {
   projectId: string;
 }
 
 export function PublishQueue({ projectId }: Props) {
   const [view, setView] = useState<'list' | 'calendar'>('list');
-  const [statusFilter, setStatusFilter] = useState('all');
-  const [channelFilter, setChannelFilter] = useState('all');
   const [langFilter, setLangFilter] = useState('all');
-
-  // Publish-now animation (visual only — button is a no-op)
-  const [publishingId] = useState<string | null>(null);
-
-  // Preview dialog state
+  const [statusByCol, setStatusByCol] = useState<Record<string, string>>({});
+  const [publishingId, setPublishingId] = useState<string | null>(null);
   const [preview, setPreview] = useState<PreviewState>(null);
   const [previewLoading, setPreviewLoading] = useState(false);
 
-  const { data: records = [], isLoading } = usePublishRecords(projectId);
+  const { data: records = [], isLoading, refetch } = usePublishRecords(projectId);
   const updateScheduledAt = useUpdateScheduledAt();
   const cancelPublish = useCancelPublish();
 
-  // ── Filter ────────────────────────────────────────────────────────────────
+  // 언어 필터만 상단에서 — 채널은 컬럼, 상태는 컬럼별 필터.
+  const langRecords = records.filter((r) => langFilter === 'all' || r.language === langFilter);
 
-  const filteredRecords = records.filter((r) => {
-    if (statusFilter !== 'all' && r.status !== statusFilter) return false;
-    if (channelFilter !== 'all' && r.channel !== channelFilter) return false;
-    if (langFilter !== 'all' && r.language !== langFilter) return false;
-    return true;
-  });
-
-  // Languages appearing in this project's records (for the language filter dropdown)
-  const recordLanguages = [...new Set(records.map((r) => r.language))].filter(Boolean);
+  // 국가 pill = 레코드에 있는 국가(언어무관 순서 고정). 국가 섹션 = 언어필터 적용 후 존재하는 국가.
+  const presentLangs = new Set(records.map((r) => r.language));
+  const countryPills = LOCALES.filter((l) => presentLangs.has(l.code));
+  const activeLocales = LOCALES.filter((l) => langRecords.some((r) => r.language === l.code));
 
   // ── Handlers ─────────────────────────────────────────────────────────────
 
-  /** Faithful no-op — CF :138. Non-negotiable. */
-  const handlePublishNow = async (_record: PublishRecord) => {
-    alert('직접 발행은 현재 지원하지 않습니다. 내부 블로그 API를 통해 자동 발행됩니다.');
-  };
-
   const handleSchedule = (id: string, localStr: string | null) => {
     if (!localStr) return;
-    updateScheduledAt.mutate({
-      id,
-      projectId,
-      scheduledAt: new Date(localStr).toISOString(),
-    });
+    updateScheduledAt.mutate({ id, projectId, scheduledAt: new Date(localStr).toISOString() });
+  };
+  const handleDelete = (recordId: string) => cancelPublish.mutate({ recordId, projectId });
+
+  /** 즉시 발행 — 메타 채널은 실제 발행(runPublish), 그 외는 안내. */
+  const handlePublishNow = async (record: PublishRecord) => {
+    if (!META_CHANNELS.includes(record.channel)) {
+      if (record.channel === 'self_hosted') alert('자체 사이트는 예약 시각에 자동 발행됩니다.');
+      else if (record.channel === 'youtube') alert('YouTube 자동 발행은 아직 지원하지 않습니다.');
+      else alert('이 채널은 자동 발행을 지원하지 않습니다(수동 발행).');
+      return;
+    }
+    if (
+      record.status === 'published' &&
+      !window.confirm('이미 발행된 항목입니다. 다시 발행하면 중복 게시됩니다. 계속할까요?')
+    )
+      return;
+    setPublishingId(record.id);
+    try {
+      await runPublish(record.id);
+      await refetch();
+    } catch (e) {
+      alert(e instanceof Error ? e.message : '발행 실패');
+    } finally {
+      setPublishingId(null);
+    }
   };
 
-  const handleDelete = (recordId: string) => {
-    cancelPublish.mutate({ recordId, projectId });
-  };
-
-  // ── On-demand preview fetch ───────────────────────────────────────────────
+  // ── Preview fetch (기존 유지) ──────────────────────────────────────────────
 
   const openPreview = async (record: PublishRecord) => {
     setPreviewLoading(true);
     try {
       const ch = record.channel;
-
       if (ch === 'self_hosted' || ch === 'naver_blog') {
-        // Fetch the blog content row for this content_id, then its cards
         const { data: blogContents } = await supabase
           .from('mkt_blog_contents')
           .select('id, seo_title')
           .eq('content_id', record.content_id);
-
         let cards: BlogCard[] = [];
         if (blogContents && blogContents.length > 0) {
           const { data: rawCards } = await supabase
@@ -204,7 +193,6 @@ export function PublishQueue({ projectId }: Props) {
         }
         setPreview({ channel: ch, record, cards });
       } else if (ch === 'instagram' || ch === 'facebook') {
-        // metadata.igContentId holds the mkt_instagram_contents.id
         const igContentId = record.metadata?.igContentId as string | undefined;
         let cards: InstagramCard[] = [];
         if (igContentId) {
@@ -217,7 +205,6 @@ export function PublishQueue({ projectId }: Props) {
         }
         setPreview({ channel: ch, record, cards });
       } else if (ch === 'threads') {
-        // metadata.threadsContentId holds the mkt_threads_contents.id
         const tcId = record.metadata?.threadsContentId as string | undefined;
         let cards: ThreadsCard[] = [];
         if (tcId) {
@@ -234,10 +221,7 @@ export function PublishQueue({ projectId }: Props) {
       setPreviewLoading(false);
     }
   };
-
   const closePreview = () => setPreview(null);
-
-  // ── Scheduled row helpers ─────────────────────────────────────────────────
 
   function toDatetimeLocal(isoStr: string | null): string {
     if (!isoStr) return '';
@@ -245,14 +229,203 @@ export function PublishQueue({ projectId }: Props) {
     return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
   }
 
+  // ── Single card ────────────────────────────────────────────────────────────
+
+  function renderCard(record: PublishRecord) {
+    const kind = KIND_META[kindOf(record)];
+    const pushing = publishingId === record.id;
+    const bestTime = pickBestTimes(record.language ?? 'ko')[record.channel];
+    return (
+      <div key={record.id} className={cn('rounded-xl border p-3', STATUS_CARD[record.status])}>
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="rounded bg-primary/10 px-1.5 py-0.5 text-xs font-semibold text-primary">
+            {LANG_FLAGS[record.language] ?? '🌐'} {record.language?.toUpperCase()}
+          </span>
+          <span className={cn('rounded px-1.5 py-0.5 text-xs font-semibold', kind.cls)}>
+            {kind.label}
+          </span>
+          <span
+            className={cn(
+              'ml-auto rounded-full px-2 py-0.5 text-xs',
+              STATUS_PILL[record.status] ?? 'bg-muted text-muted-foreground'
+            )}
+          >
+            {STATUS_LABELS[record.status] ?? record.status}
+          </span>
+        </div>
+
+        <div className="mt-2 flex items-center gap-1.5">
+          <span className="text-sm font-medium truncate break-keep">
+            {(record.metadata?.title as string | undefined) ?? 'Untitled'}
+          </span>
+          <button
+            onClick={() => void openPreview(record)}
+            disabled={previewLoading}
+            className="shrink-0 text-muted-foreground hover:text-primary"
+            title="미리보기"
+          >
+            <Eye size={13} />
+          </button>
+        </div>
+
+        {/* 예약 영역 — 발행 전(published 아님)만 */}
+        {record.status !== 'published' && (
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            <div className="relative">
+              <Clock
+                size={12}
+                className="absolute left-1.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
+              />
+              <input
+                type="datetime-local"
+                value={toDatetimeLocal(record.scheduled_at)}
+                onChange={(e) => handleSchedule(record.id, e.target.value || null)}
+                className="h-7 pl-6 pr-1 text-[10px] bg-muted border border-border rounded"
+              />
+            </div>
+            {QUICK_PICKS.map((qp) => (
+              <button
+                key={qp.label}
+                onClick={() =>
+                  updateScheduledAt.mutate({ id: record.id, projectId, scheduledAt: qp.at() })
+                }
+                className="rounded-full bg-muted px-2 py-1 text-[10px] text-muted-foreground hover:bg-accent"
+              >
+                {qp.label}
+              </button>
+            ))}
+            {bestTime && <span className="text-[10px] text-muted-foreground">💡 {bestTime}</span>}
+          </div>
+        )}
+
+        {/* published 행: 보기 링크 + 발행일 */}
+        {record.status === 'published' && (
+          <div className="mt-2 flex flex-wrap items-center gap-3 text-xs">
+            {record.published_url && (
+              <a
+                href={record.published_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline hover:opacity-80"
+              >
+                보기 ↗
+              </a>
+            )}
+            {record.published_at && (
+              <span className="text-muted-foreground">{record.published_at.slice(0, 10)}</span>
+            )}
+          </div>
+        )}
+
+        {/* 액션 행 */}
+        <div className="mt-2 flex items-center gap-2">
+          {record.status !== 'published' && (
+            <Button
+              size="sm"
+              className="h-7 text-xs gap-1 bg-green-600 hover:bg-green-700"
+              disabled={pushing}
+              onClick={() => void handlePublishNow(record)}
+            >
+              {pushing ? (
+                <>
+                  <Loader2 size={10} className="animate-spin" /> 발행 중
+                </>
+              ) : (
+                <>
+                  <Rocket size={10} /> 즉시 발행
+                </>
+              )}
+            </Button>
+          )}
+          <Button
+            size="sm"
+            variant="ghost"
+            className="ml-auto h-7 w-7 p-0 text-muted-foreground hover:text-destructive"
+            onClick={() => handleDelete(record.id)}
+          >
+            <Trash2 size={12} />
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  // 채널 컬럼 1개 (국가 섹션 안에서 sourceRecords 로 스코프).
+  function renderColumn(col: (typeof CHANNEL_COLS)[number], sourceRecords: PublishRecord[]) {
+    const colStatus = statusByCol[col.id] ?? 'all';
+    const colItems = sourceRecords
+      .filter((r) => r.channel === col.id && (colStatus === 'all' || r.status === colStatus))
+      .sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
+    return (
+      <div
+        key={col.id}
+        className="flex min-w-[240px] flex-1 flex-col rounded-xl border border-border bg-muted/30"
+      >
+        <div className="flex shrink-0 items-center gap-2 border-b border-border px-3 py-2">
+          <span className={cn('rounded px-2 py-0.5 text-xs font-semibold', col.badge)}>
+            {col.label}
+          </span>
+          <span className="text-xs text-muted-foreground">{colItems.length}</span>
+          <select
+            value={colStatus}
+            onChange={(e) => setStatusByCol((p) => ({ ...p, [col.id]: e.target.value }))}
+            className="ml-auto rounded-md border border-border bg-background px-2 py-1 text-xs text-muted-foreground"
+          >
+            <option value="all">전체</option>
+            {STATUS_FILTERS.map((s) => (
+              <option key={s} value={s}>
+                {STATUS_LABELS[s]}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="min-h-0 flex-1 space-y-2 overflow-y-auto p-2 max-h-[55vh]">
+          {colItems.length === 0 ? (
+            <p className="py-10 text-center text-xs text-muted-foreground/50">없음</p>
+          ) : (
+            colItems.map(renderCard)
+          )}
+        </div>
+      </div>
+    );
+  }
+
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
-    <div className="space-y-4">
-      {/* Header: View toggle + Filters */}
-      <div className="flex items-center gap-3 flex-wrap">
-        {/* View toggle */}
-        <div className="flex bg-muted rounded-md overflow-hidden">
+    <div className="space-y-3">
+      {/* 언어 pills + 뷰 토글 */}
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-xs text-muted-foreground">언어</span>
+        <div className="flex gap-1 flex-wrap">
+          <button
+            onClick={() => setLangFilter('all')}
+            className={cn(
+              'px-2.5 py-1 rounded-full text-xs',
+              langFilter === 'all'
+                ? 'bg-primary text-primary-foreground'
+                : 'bg-muted text-muted-foreground'
+            )}
+          >
+            🌐 전체
+          </button>
+          {countryPills.map((l) => (
+            <button
+              key={l.code}
+              onClick={() => setLangFilter(l.code)}
+              className={cn(
+                'px-2.5 py-1 rounded-full text-xs',
+                langFilter === l.code
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-muted text-muted-foreground'
+              )}
+            >
+              {l.flag} {l.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="ml-auto flex bg-muted rounded-md overflow-hidden">
           <button
             onClick={() => setView('list')}
             className={cn(
@@ -272,56 +445,6 @@ export function PublishQueue({ projectId }: Props) {
             <CalendarDays size={12} /> 캘린더
           </button>
         </div>
-
-        {/* Channel filter */}
-        <div className="flex gap-1 flex-wrap">
-          {CHANNEL_FILTERS.map((ch) => (
-            <button
-              key={ch.id}
-              onClick={() => setChannelFilter(ch.id)}
-              className={cn(
-                'px-2 py-1 rounded text-[10px]',
-                channelFilter === ch.id
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-muted text-muted-foreground hover:text-foreground'
-              )}
-            >
-              {ch.icon} {ch.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Language filter */}
-        <select
-          value={langFilter}
-          onChange={(e) => setLangFilter(e.target.value)}
-          className="bg-muted text-xs rounded-md px-2 py-1.5 border border-border"
-        >
-          <option value="all">🌐 전체</option>
-          {recordLanguages.map((lang) => (
-            <option key={lang} value={lang}>
-              {LANG_FLAGS[lang] ?? '🌐'} {lang.toUpperCase()}
-            </option>
-          ))}
-        </select>
-
-        {/* Status filter */}
-        <div className="flex gap-1 ml-auto">
-          {STATUS_FILTERS.map((f) => (
-            <button
-              key={f.value}
-              onClick={() => setStatusFilter(f.value)}
-              className={cn(
-                'px-2 py-1 rounded text-[10px]',
-                statusFilter === f.value
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-muted text-muted-foreground'
-              )}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
       </div>
 
       {/* Content */}
@@ -329,200 +452,35 @@ export function PublishQueue({ projectId }: Props) {
         <div className="text-center py-12 text-muted-foreground text-sm flex items-center justify-center gap-2">
           <Loader2 size={14} className="animate-spin" /> 로딩중...
         </div>
-      ) : view === 'list' ? (
-        /* List View */
-        <div className="max-h-[60vh] overflow-y-auto space-y-2 pr-1">
-          {filteredRecords.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground text-sm">
-              발행 기록이 없습니다
-            </div>
-          ) : (
-            filteredRecords.map((record) => (
-              <div
-                key={record.id}
-                className="bg-card border border-border rounded-lg p-3 flex items-center gap-3"
-              >
-                {/* Channel icon */}
-                <div
-                  className={cn(
-                    'w-8 h-8 rounded-md flex items-center justify-center text-white text-xs font-bold shrink-0',
-                    channelBg(record.channel)
-                  )}
-                >
-                  {channelLabel(record.channel)}
-                </div>
-
-                {/* Title + meta */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-sm truncate">
-                      {(record.metadata?.title as string | undefined) ?? 'Untitled'}
-                    </span>
-                    <button
-                      onClick={() => void openPreview(record)}
-                      className="shrink-0 text-muted-foreground hover:text-primary transition-colors"
-                      title="미리보기"
-                      disabled={previewLoading}
-                    >
-                      <Eye size={12} />
-                    </button>
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    {LANG_FLAGS[record.language] ?? '🌐'} {record.language?.toUpperCase()}
-                    {record.published_at && (
-                      <span className="ml-2">
-                        ·{' '}
-                        {new Date(record.published_at).toLocaleString('ko-KR', {
-                          month: 'short',
-                          day: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}{' '}
-                        발행
-                      </span>
-                    )}
-                    {record.scheduled_at && record.status === 'scheduled' && (
-                      <span className="ml-2 text-yellow-500">
-                        ·{' '}
-                        {new Date(record.scheduled_at).toLocaleString('ko-KR', {
-                          month: 'short',
-                          day: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}{' '}
-                        예약
-                      </span>
-                    )}
-                    {record.published_url && (
-                      <a
-                        href={record.published_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ml-2 text-primary hover:underline"
-                      >
-                        보기 →
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-                {/* Status pill */}
-                <span
-                  className={cn(
-                    'px-2 py-0.5 rounded text-xs shrink-0',
-                    STATUS_COLORS[record.status] ?? 'bg-muted text-muted-foreground'
-                  )}
-                >
-                  {STATUS_LABELS[record.status] ?? record.status}
-                </span>
-
-                {/* Schedule controls — only for scheduled rows */}
-                {record.status === 'scheduled' &&
-                  (() => {
-                    const lang = record.language ?? 'ko';
-                    const times = pickBestTimes(lang);
-                    const bestTimeText = times[record.channel];
-
-                    const quickPicks = [
-                      { label: '오늘 저녁 7시', time: makeTime(0, 19) },
-                      { label: '내일 오전 8시', time: makeTime(1, 8) },
-                      { label: '내일 저녁 7시', time: makeTime(1, 19) },
-                      { label: '모레 오전 9시', time: makeTime(2, 9) },
-                    ];
-
-                    return (
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        {/* datetime-local picker */}
-                        <div className="relative">
-                          <Clock
-                            size={12}
-                            className="absolute left-1.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
-                          />
-                          <input
-                            type="datetime-local"
-                            value={toDatetimeLocal(record.scheduled_at)}
-                            onChange={(e) => handleSchedule(record.id, e.target.value || null)}
-                            className="h-7 pl-6 pr-1 text-[10px] bg-muted border border-border rounded w-36"
-                          />
-                        </div>
-
-                        {/* Quick-pick dropdown */}
-                        <div className="relative group/quick">
-                          <button className="h-7 px-1.5 flex items-center justify-center rounded border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors text-[10px] gap-0.5">
-                            <Clock size={10} /> ▼
-                          </button>
-                          <div className="absolute top-full right-0 mt-1 w-52 rounded-lg border border-border bg-popover text-popover-foreground shadow-lg hidden group-hover/quick:block z-50">
-                            <div className="p-2 space-y-0.5">
-                              <div className="text-[9px] text-muted-foreground font-semibold mb-1">
-                                ⚡ 빠른 예약
-                              </div>
-                              {quickPicks.map((qp) => (
-                                <button
-                                  key={qp.label}
-                                  onClick={() =>
-                                    updateScheduledAt.mutate({
-                                      id: record.id,
-                                      projectId,
-                                      scheduledAt: qp.time,
-                                    })
-                                  }
-                                  className="w-full text-left px-2 py-1 rounded text-[10px] hover:bg-accent transition-colors"
-                                >
-                                  {qp.label}
-                                </button>
-                              ))}
-                            </div>
-                            {bestTimeText && (
-                              <div className="border-t border-border px-2 py-1.5 text-[9px]">
-                                <span className="text-muted-foreground">📊 추천:</span>{' '}
-                                <span className="text-primary">{bestTimeText}</span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* 즉시 발행 — faithful no-op */}
-                        <Button
-                          size="sm"
-                          className="h-7 text-xs gap-1 bg-green-600 hover:bg-green-700"
-                          disabled={publishingId === record.id}
-                          onClick={() => void handlePublishNow(record)}
-                        >
-                          {publishingId === record.id ? (
-                            <>
-                              <Loader2 size={10} className="animate-spin" /> 발행 중
-                            </>
-                          ) : (
-                            <>
-                              <Rocket size={10} /> 즉시 발행
-                            </>
-                          )}
-                        </Button>
-                      </div>
-                    );
-                  })()}
-
-                {/* Delete button */}
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="h-7 w-7 p-0 shrink-0 text-muted-foreground hover:text-destructive"
-                  onClick={() => handleDelete(record.id)}
-                >
-                  <Trash2 size={12} />
-                </Button>
-              </div>
-            ))
-          )}
-        </div>
+      ) : view === 'calendar' ? (
+        <PublishCalendar records={langRecords} onSelectRecord={(r) => void openPreview(r)} />
+      ) : activeLocales.length === 0 ? (
+        <div className="text-center py-12 text-muted-foreground text-sm">발행 기록이 없습니다</div>
       ) : (
-        /* Calendar View */
-        <PublishCalendar records={filteredRecords} onSelectRecord={(r) => void openPreview(r)} />
+        /* 언어별 섹션 → 채널 컬럼 (dflo ChannelRegistryTab 패턴) */
+        <div className="space-y-5">
+          {activeLocales.map((locale) => {
+            const localeRecords = langRecords.filter((r) => r.language === locale.code);
+            const cols = CHANNEL_COLS.filter((c) => localeRecords.some((r) => r.channel === c.id));
+            return (
+              <section key={locale.code}>
+                <div className="mb-2 flex items-center gap-2">
+                  <span className="text-base leading-none">{locale.flag}</span>
+                  <span className="text-sm font-bold break-keep">{locale.label}</span>
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                    {localeRecords.length}건
+                  </span>
+                </div>
+                <div className="flex gap-3 overflow-x-auto pb-2">
+                  {cols.map((col) => renderColumn(col, localeRecords))}
+                </div>
+              </section>
+            );
+          })}
+        </div>
       )}
 
-      {/* ── Preview Dialogs ─────────────────────────────────────────────────── */}
-
-      {/* naver_blog / self_hosted → BlogPreviewDialog */}
+      {/* ── Preview Dialogs (기존 유지) ─────────────────────────────────────── */}
       {preview && (preview.channel === 'naver_blog' || preview.channel === 'self_hosted') && (
         <BlogPreviewDialog
           open={!!preview}
@@ -534,7 +492,6 @@ export function PublishQueue({ projectId }: Props) {
         />
       )}
 
-      {/* instagram / facebook → card background images */}
       {preview && (preview.channel === 'instagram' || preview.channel === 'facebook') && (
         <Dialog
           open={!!preview}
@@ -599,7 +556,6 @@ export function PublishQueue({ projectId }: Props) {
         </Dialog>
       )}
 
-      {/* threads → post bodies */}
       {preview && preview.channel === 'threads' && (
         <Dialog
           open={!!preview}

@@ -42,6 +42,7 @@ const STATIC_ROUTES = [
   '/library',
   '/library/phonics/korean',
   '/vocabulary',
+  '/blog',
 ];
 
 const PREVIEW_PORT = 4173;
@@ -84,6 +85,19 @@ async function aboutRoutesFromSitemap() {
     return [...new Set(routes)];
   } catch {
     console.warn('[prerender] dist/sitemap.xml 없음 — about 페이지 건너뜀.');
+    return [];
+  }
+}
+
+/** dist/sitemap.xml 에서 공개 블로그 글 라우트(/blog/:slug) 추출. */
+async function blogRoutesFromSitemap() {
+  try {
+    const xml = await fs.readFile(path.join(distDir, 'sitemap.xml'), 'utf-8');
+    const routes = [...xml.matchAll(/<loc>\s*https?:\/\/[^/]+(\/blog\/[^<\s]+)\s*<\/loc>/g)].map(
+      (m) => m[1]
+    );
+    return [...new Set(routes)];
+  } catch {
     return [];
   }
 }
@@ -167,14 +181,20 @@ async function main() {
   await ensureDist();
 
   let bookRoutes = PRERENDER_BOOKS ? (await aboutRoutesFromSitemap()).slice(0, BOOK_LIMIT) : [];
-  if (bookRoutes.length) {
-    // API 도달성 프로브 — 안 닿으면 about 페이지 전체 스킵 (헛도는 timeout 방지)
+  let blogRoutes = PRERENDER_BOOKS ? await blogRoutesFromSitemap() : [];
+  if (bookRoutes.length || blogRoutes.length) {
+    // API 도달성 프로브 — 안 닿으면 API 필요한 페이지(about·blog) 전체 스킵 (헛도는 timeout 방지)
     const reachable = await probeApi();
     if (reachable) {
-      console.log(`[prerender] 동화책 about ${bookRoutes.length}개 — API 프록시: ${API_ORIGIN}`);
+      console.log(
+        `[prerender] 동화책 about ${bookRoutes.length} + 블로그 ${blogRoutes.length}개 — API 프록시: ${API_ORIGIN}`
+      );
     } else {
-      console.warn(`[prerender] API(${API_ORIGIN}) 도달 불가 — about 페이지 ${bookRoutes.length}개 건너뜀.`);
+      console.warn(
+        `[prerender] API(${API_ORIGIN}) 도달 불가 — about ${bookRoutes.length} + 블로그 ${blogRoutes.length}개 건너뜀.`
+      );
       bookRoutes = [];
+      blogRoutes = [];
     }
   }
 
@@ -207,6 +227,17 @@ async function main() {
     }
 
     for (const route of bookRoutes) {
+      try {
+        await prerenderRoute(browser, baseUrl, route, { isBook: true });
+        ok++;
+      } catch (e) {
+        fail++;
+        console.warn(`✗ ${route} — ${e.message}`);
+      }
+    }
+
+    // 블로그 글 — API 프록시 필요(about 과 동일 처리)
+    for (const route of blogRoutes) {
       try {
         await prerenderRoute(browser, baseUrl, route, { isBook: true });
         ok++;

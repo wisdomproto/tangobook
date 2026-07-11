@@ -216,3 +216,148 @@ export function formatKstDate(iso: string): string {
   const key = kstDateKey(iso);
   return `${Number(key.slice(5, 7))}월 ${Number(key.slice(8, 10))}일`;
 }
+
+// ── 단어별 상세 (어느 책 · 읽음 · 게임) ────────────────────────────────────────
+
+const HANGUL_RE = /[가-힣ㄱ-ㅎㅏ-ㅣ]/;
+const LATIN_RE = /[A-Za-z]/;
+
+/**
+ * 단어 자체의 문자로 언어 판별 — 이벤트 `metadata.lang` 은 누락이 잦아
+ * (한글 탭에 영어 단어가 섞이는 원인) 신뢰할 수 없다. 한글자 있으면 ko, 라틴 있으면 en.
+ */
+export function wordScriptLang(word: string): Lang | null {
+  if (HANGUL_RE.test(word)) return 'ko';
+  if (LATIN_RE.test(word)) return 'en';
+  return null;
+}
+
+export interface WordDetailBook {
+  /** base storybook id (variant suffix 제거) */
+  id: string;
+  /** 이 책에서 이 단어를 만난 가장 최근 시각 */
+  lastAt: string;
+}
+
+export interface WordDetail {
+  word: string;
+  /** 이 단어를 만난 책들 (최근 순) */
+  books: WordDetailBook[];
+  /** 동화책을 읽다가 만남 (word_exposed) */
+  read: boolean;
+  /** 게임에서 다룸 (word_correct/word_wrong/word_spoken) */
+  played: boolean;
+  correct: number;
+  wrong: number;
+  lastAt: string | null;
+}
+
+/**
+ * 학습한 단어 전체를 단어별로 묶어 "어느 책 · 읽었는지 · 게임했는지" 까지 반환 (최근 순).
+ * 🔴 언어 분류는 `metadata.lang` 이 아니라 **단어의 문자(스크립트)** 기준 — 한/영 섞임 방지.
+ */
+export function wordDetails(events: LearningEvent[], lang: Lang): WordDetail[] {
+  interface Acc {
+    word: string;
+    books: Map<string, string>; // baseId → lastAt
+    read: boolean;
+    played: boolean;
+    correct: number;
+    wrong: number;
+    lastAt: string | null;
+  }
+  const map = new Map<string, Acc>();
+  for (const e of events) {
+    if (!e.word) continue;
+    if (!WORD_TYPES.has(e.event_type)) continue;
+    if (wordScriptLang(e.word) !== lang) continue;
+    const key = lang === 'en' ? e.word.toLowerCase() : e.word;
+    let cur = map.get(key);
+    if (!cur) {
+      cur = {
+        word: key,
+        books: new Map(),
+        read: false,
+        played: false,
+        correct: 0,
+        wrong: 0,
+        lastAt: null,
+      };
+      map.set(key, cur);
+    }
+    if (e.event_type === 'word_exposed') cur.read = true;
+    else if (e.event_type === 'word_correct' || e.event_type === 'word_spoken') {
+      cur.played = true;
+      cur.correct += 1;
+    } else if (e.event_type === 'word_wrong') {
+      cur.played = true;
+      cur.wrong += 1;
+    }
+    if (e.storybook_id) {
+      const base = stripVariantSuffix(e.storybook_id);
+      const prev = cur.books.get(base);
+      if (!prev || e.created_at > prev) cur.books.set(base, e.created_at);
+    }
+    if (!cur.lastAt || e.created_at > cur.lastAt) cur.lastAt = e.created_at;
+  }
+  return Array.from(map.values())
+    .map((v) => ({
+      word: v.word,
+      books: Array.from(v.books.entries())
+        .map(([id, lastAt]) => ({ id, lastAt }))
+        .sort((a, b) => (a.lastAt > b.lastAt ? -1 : 1)),
+      read: v.read,
+      played: v.played,
+      correct: v.correct,
+      wrong: v.wrong,
+      lastAt: v.lastAt,
+    }))
+    .sort((a, b) => ((a.lastAt ?? '') > (b.lastAt ?? '') ? -1 : 1));
+}
+
+// ── 그림체 장르 집계 (수채동화풍/페이퍼 3D 아트/콜라주) ────────────────────────
+
+export interface GenreStat {
+  genre: string; // 표시명 (STYLE_GENRES.label)
+  pageReads: number;
+  distinctBooks: number;
+}
+
+/**
+ * page_read 를 **학습자 장르**(3종)로 집계 — 원시 스타일 id 는 컴포넌트가 넘긴
+ * `resolveGenre` 로 장르명(또는 null=3종 아님)으로 변환한다. null 은 제외.
+ */
+export function groupByGenre(
+  events: LearningEvent[],
+  storybooksById: Map<string, { artStyle?: string }>,
+  resolveGenre: (rawStyle: string) => string | null,
+  lang?: Lang
+): GenreStat[] {
+  const toBooks = new Map<string, Set<string>>();
+  const toReads = new Map<string, number>();
+  const lookup = (id: string): string | undefined =>
+    storybooksById.get(id)?.artStyle ?? storybooksById.get(stripVariantSuffix(id))?.artStyle;
+
+  for (const e of events) {
+    if (e.event_type !== 'page_read') continue;
+    if (lang && e.metadata?.lang && e.metadata.lang !== lang) continue;
+    const raw = e.metadata?.style ?? (e.storybook_id ? lookup(e.storybook_id) : undefined);
+    if (!raw) continue;
+    const genre = resolveGenre(raw);
+    if (!genre) continue;
+    toReads.set(genre, (toReads.get(genre) ?? 0) + 1);
+    if (e.storybook_id) {
+      const set = toBooks.get(genre) ?? new Set<string>();
+      set.add(stripVariantSuffix(e.storybook_id));
+      toBooks.set(genre, set);
+    }
+  }
+
+  return Array.from(toReads.entries())
+    .map(([genre, pageReads]) => ({
+      genre,
+      pageReads,
+      distinctBooks: toBooks.get(genre)?.size ?? 0,
+    }))
+    .sort((a, b) => b.pageReads - a.pageReads);
+}

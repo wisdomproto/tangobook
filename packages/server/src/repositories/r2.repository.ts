@@ -82,7 +82,11 @@ function toSummary(sb: Storybook): StorybookSummary {
   const pages = sb.pages ?? [];
   const cover = !!sb.coverImage || !!sb.coverImages?.[0]?.imageUrl;
   const pagesImage = pages.length > 0 && pages.every((p) => !!p.illustrationUrl);
-  const pagesTts = pages.length > 0 && pages.every((p) => !!p.ttsUrl);
+  // 나레이션은 **글이 있는 페이지**에만 필요 — 텍스트 없는 페이지(마지막 빈 페이지 등)는 TTS 없어도 완성으로 본다.
+  // (예: 공룡 자연관찰 책들은 글 있는 18쪽 전부 나레이션인데, 텍스트 없는 19쪽 때문에 every 가 false 였음
+  //  → 연속재생 선택기(koCompletion.pagesTts 필터)에서 통째로 빠지던 버그.)
+  const ttsTextPages = pages.filter((p) => (p.text ?? '').trim().length > 0);
+  const pagesTts = ttsTextPages.length > 0 && ttsTextPages.every((p) => !!p.ttsUrl);
   const vocabulary = (sb.key_objects?.length ?? 0) > 0;
   const koCompletion = {
     cover,
