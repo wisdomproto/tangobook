@@ -59,6 +59,7 @@ interface Args {
   limit: number | null;
   dryRun: boolean;
   thumbsOnly: boolean;
+  forceThumb: boolean;
   ownerEmail: string;
   category: string;
 }
@@ -69,6 +70,7 @@ function parseArgs(argv: string[]): Args {
     limit: null,
     dryRun: false,
     thumbsOnly: false,
+    forceThumb: false,
     ownerEmail: 'kil210@gmail.com',
     category: 'classics',
   };
@@ -79,6 +81,7 @@ function parseArgs(argv: string[]): Args {
     const next = () => inlineVal ?? argv[++i];
     if (key === '--dry-run') a.dryRun = true;
     else if (key === '--thumbs-only') a.thumbsOnly = true;
+    else if (key === '--force-thumb') a.forceThumb = true;
     else if (key === '--book') a.book = next();
     else if (key === '--limit') a.limit = parseInt(next(), 10);
     else if (key === '--owner-email') a.ownerEmail = next();
@@ -191,8 +194,8 @@ async function main() {
           continue;
         }
         const curCover = (target.igRow?.video_settings as any)?.reels?.ko?.coverUrl ?? '';
-        if (curCover.includes(`${id}-thumb-`)) {
-          console.log(`  = ${id} 이미 썸네일 있음 — skip`);
+        if (!args.forceThumb && curCover.includes(`${id}-thumb-`)) {
+          console.log(`  = ${id} 이미 썸네일 있음 — skip (재교체는 --force-thumb)`);
           summary.skipped++;
           continue;
         }
