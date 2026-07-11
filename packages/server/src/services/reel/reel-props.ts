@@ -67,6 +67,41 @@ export function pickMorph(
   return { lines: MORPH_LINES, styles };
 }
 
+function hashStr(s: string): number {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+function styleHasIllustrations(sa: StyleAsset): boolean {
+  const pi = sa?.pageIllustrations || {};
+  return Object.keys(pi).some((k) => pi[k]?.illustrationUrl);
+}
+
+/**
+ * 메인 스토리 씬에 쓸 그림체를 3개 매핑 장르 중 **책ID 해시로 고정 선택**(책마다 다르게, 재렌더엔 동일).
+ * 매핑된 그림체가 없으면 null(호출부가 활성 그림체로 폴백).
+ */
+export function pickMainStyle(
+  styleAssets: Record<string, StyleAsset>,
+  genreMap: Record<string, string>,
+  seed: string
+): string | null {
+  const mapped = Object.keys(styleAssets)
+    .filter(
+      (sid) =>
+        MORPH_GENRE_ORDER.includes(genreMap[sid] as never) &&
+        styleHasIllustrations(styleAssets[sid])
+    )
+    .sort(
+      (a, b) =>
+        MORPH_GENRE_ORDER.indexOf(genreMap[a] as never) -
+        MORPH_GENRE_ORDER.indexOf(genreMap[b] as never)
+    );
+  if (!mapped.length) return null;
+  return mapped[hashStr(seed) % mapped.length];
+}
+
 export function splitIntoBuckets<T>(items: T[], n: number): T[][] {
   const out: T[][] = Array.from({ length: n }, () => []);
   const base = Math.floor(items.length / n);
@@ -84,7 +119,11 @@ export interface ReelScene {
   label: string;
   body: string;
   imageUrls: string[];
+  durSec?: number;
 }
+
+// 씬별 길이(초): 훅 · 원작(짧게) · 줄거리(충실·길게) · 교훈(짧게). 줄거리 중심 재배치.
+const SCENE_DURS = [4, 5, 12, 5];
 
 export interface ReelProps {
   bookTitle: string;
@@ -105,8 +144,10 @@ export function buildReelProps({
 }): ReelProps | null {
   const scenes = storyboard?.scenes;
   if (!Array.isArray(scenes) || scenes.length < 5) return null; // guard: needs 5-scene storyboard
-  const activeId = storybook.artStyle;
-  const sa = storybook.styleAssets?.[activeId];
+  // 메인 삽화 그림체 = 3개 중 책ID 해시로 고정 랜덤(다양성). 매핑 없으면 활성 그림체.
+  const seed = String(storybook.id ?? storyboard.storybookId ?? storybook.title ?? '');
+  const mainId = pickMainStyle(storybook.styleAssets || {}, genreMap, seed) ?? storybook.artStyle;
+  const sa = storybook.styleAssets?.[mainId];
   const pi = sa?.pageIllustrations || {};
   const pages = Object.keys(pi)
     .map(Number)
@@ -132,7 +173,12 @@ export function buildReelProps({
     return sc.subtitle?.trim() ? sc.subtitle.trim() : firstClause(sc.narration);
   };
   // 훅: 헤드라인=책 제목(내부 라벨 "훅" 아님)
-  out.scenes.push({ label: bookTitle, body: bodyOf(scenes[0], 0), imageUrls: [cover] });
+  out.scenes.push({
+    label: bookTitle,
+    body: bodyOf(scenes[0], 0),
+    imageUrls: [cover],
+    durSec: SCENE_DURS[0],
+  });
   const buckets = splitIntoBuckets(pages, 3);
   for (let i = 1; i <= 3; i++) {
     const bucket = buckets[i - 1].length ? buckets[i - 1] : pages; // empty-bucket fallback
@@ -140,6 +186,7 @@ export function buildReelProps({
       label: scenes[i].label,
       body: bodyOf(scenes[i], i),
       imageUrls: bucket.map(urlOf),
+      durSec: SCENE_DURS[i],
     });
   }
   return out;

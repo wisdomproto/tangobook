@@ -15,6 +15,7 @@ export const SceneSchema = z.object({
   label: z.string(),
   body: z.string(),
   imageUrls: z.array(z.string()).min(1),
+  durSec: z.number().optional(), // 씬별 길이(초). 없으면 훅=4·나머지=8.
 });
 export const MorphStyleSchema = z.object({ url: z.string(), label: z.string() });
 export const StorybookReelPropsSchema = z.object({
@@ -27,7 +28,7 @@ export const StorybookReelPropsSchema = z.object({
 export type StorybookReelProps = z.infer<typeof StorybookReelPropsSchema>;
 
 export function sceneDurations(props: StorybookReelProps): number[] {
-  return props.scenes.map((_, i) => (i === 0 ? HOOK_SEC : BODY_SEC) * REEL_FPS);
+  return props.scenes.map((s, i) => (s.durSec ?? (i === 0 ? HOOK_SEC : BODY_SEC)) * REEL_FPS);
 }
 export function computeReelFrames(props: StorybookReelProps): number {
   const scenes = sceneDurations(props).reduce((a, b) => a + b, 0);

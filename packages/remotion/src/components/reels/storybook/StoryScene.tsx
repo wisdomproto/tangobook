@@ -74,6 +74,7 @@ interface Props {
 
 export const StoryScene: React.FC<Props> = ({ title, body, imageUrls, hero }) => {
   const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
 
   const titleDown = interpolate(frame, [2, 18], [-40, 0], {
     extrapolateLeft: 'clamp',
@@ -83,14 +84,32 @@ export const StoryScene: React.FC<Props> = ({ title, body, imageUrls, hero }) =>
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const bodyUp = interpolate(frame, [12, 28], [40, 0], {
+
+  // 긴 줄거리는 문장 단위로 순차 노출(한 번에 벽처럼 뜨지 않게). 문장 끝(. ! ?) 기준 분할.
+  // 짧은 캡션(문장 1개)은 그대로 한 번에 표시.
+  const segments = body
+    .split(/(?<=[.!?])\s*/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const segLen = durationInFrames / segments.length;
+  const segIdx =
+    segments.length > 1 ? Math.min(Math.floor(frame / segLen), segments.length - 1) : 0;
+  const shownBody = segments[segIdx] ?? body;
+  const local = frame - segIdx * segLen;
+  // 첫 세그먼트는 씬 등장 애니, 이후 세그먼트는 각자 페이드/슬라이드 인.
+  const segEnter = interpolate(local, [0, 10], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const bodyOpacity = interpolate(frame, [12, 28], [0, 1], {
+  const firstEnter = interpolate(frame, [12, 28], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
+  const bodyOpacity = segIdx === 0 ? Math.min(firstEnter, segEnter) : segEnter;
+  const bodyUp = interpolate(bodyOpacity, [0, 1], [40, 0]);
+  // 폰트는 현재 보이는 세그먼트 길이에 맞춰 자동 축소.
+  const segLenChars = shownBody.replace(/\n/g, '').length;
+  const bodyFont = segLenChars > 60 ? 44 : segLenChars > 44 ? 50 : segLenChars > 28 ? 54 : 58;
 
   return (
     <AbsoluteFill
@@ -148,18 +167,18 @@ export const StoryScene: React.FC<Props> = ({ title, body, imageUrls, hero }) =>
         style={{
           fontFamily,
           fontWeight: 700,
-          fontSize: 58,
+          fontSize: bodyFont,
           color: '#4A3B33',
           textAlign: 'center',
           lineHeight: 1.4,
           whiteSpace: 'pre-line',
           wordBreak: 'keep-all',
-          maxWidth: 940,
+          maxWidth: 980,
           transform: `translateY(${bodyUp}px)`,
           opacity: bodyOpacity,
         }}
       >
-        {body}
+        {shownBody}
       </div>
     </AbsoluteFill>
   );

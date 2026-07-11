@@ -3,6 +3,7 @@ import {
   firstClause,
   splitIntoBuckets,
   pickMorph,
+  pickMainStyle,
   MORPH_LINES,
   buildReelProps,
 } from '../reel-props';
@@ -78,6 +79,27 @@ describe('pickMorph', () => {
   });
 });
 
+describe('pickMainStyle', () => {
+  const genreMap = { A: 'collage', B: 'watercolor', C: 'paper3d', X: 'pixar-3d' };
+  const sa = {
+    A: styleWithPages('A', [1, 2]),
+    B: styleWithPages('B', [1, 2]),
+    C: styleWithPages('C', [1, 2]),
+    X: styleWithPages('X', [1, 2]), // 미매핑 → 제외
+  };
+  it('매핑된 3그림체 중 하나를 선택(미매핑 제외)', () => {
+    const picked = pickMainStyle(sa, genreMap, 'book-1');
+    expect(['A', 'B', 'C']).toContain(picked);
+    expect(picked).not.toBe('X');
+  });
+  it('같은 seed면 항상 같은 선택(결정적)', () => {
+    expect(pickMainStyle(sa, genreMap, 'seed-42')).toBe(pickMainStyle(sa, genreMap, 'seed-42'));
+  });
+  it('매핑된 그림체가 없으면 null', () => {
+    expect(pickMainStyle({ X: sa.X }, genreMap, 's')).toBeNull();
+  });
+});
+
 describe('buildReelProps', () => {
   const ACTIVE = 'style-1778824179240';
   const WATER = 'style-1778405374347';
@@ -113,7 +135,11 @@ describe('buildReelProps', () => {
     expect(out!.scenes.length).toBe(4);
     expect(out!.scenes[0].label).toBe('개구리 왕자');
     expect(out!.scenes[0].body).toBe('훅 자막'); // subtitle 우선
-    expect(out!.scenes[0].imageUrls).toEqual([encodeURI(storybook.styleAssets[ACTIVE].coverImage)]);
+    // 메인 그림체는 3개 중 해시로 선택 → 그 그림체의 표지를 사용
+    const mainId = pickMainStyle(storybook.styleAssets, genreMap, '개구리 왕자')!;
+    expect(out!.scenes[0].imageUrls).toEqual([
+      encodeURI((storybook.styleAssets as any)[mainId].coverImage),
+    ]);
     expect(out!.scenes[1].label).toBe('원작·배경');
     for (const s of out!.scenes) {
       expect(s.imageUrls.length).toBeGreaterThanOrEqual(1);
@@ -133,13 +159,14 @@ describe('buildReelProps', () => {
   });
 
   it('페이지<3이면 빈 버킷은 전체 페이지로 폴백(모든 씬 이미지≥1)', () => {
+    // 3그림체 모두 2페이지 → 어느 그림체가 선택돼도 <3 폴백 트리거
     const storybook = {
       title: '개구리 왕자',
       artStyle: ACTIVE,
       styleAssets: {
         [ACTIVE]: styleWithPages(ACTIVE, [1, 2]),
-        [WATER]: styleWithPages(WATER, range(1, 15)),
-        [PAPER]: styleWithPages(PAPER, range(1, 15)),
+        [WATER]: styleWithPages(WATER, [1, 2]),
+        [PAPER]: styleWithPages(PAPER, [1, 2]),
       },
     };
     const out = buildReelProps({ storybook, storyboard: makeStoryboard(), genreMap });
