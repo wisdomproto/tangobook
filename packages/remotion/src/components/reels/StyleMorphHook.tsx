@@ -11,7 +11,10 @@ const STYLES = [
   'reels/styles/db-04-custom.jpg',
 ];
 
-export const StyleMorphHook: React.FC<{ durationInFrames: number }> = ({ durationInFrames }) => {
+export const StyleMorphHook: React.FC<{ durationInFrames: number; caption?: string }> = ({
+  durationInFrames,
+  caption = '동화책 그림체가\n하나일 필요 있어요?',
+}) => {
   const frame = useCurrentFrame();
   const per = durationInFrames / STYLES.length;
   return (
@@ -65,7 +68,7 @@ export const StyleMorphHook: React.FC<{ durationInFrames: number }> = ({ duratio
             textShadow: '0 4px 20px rgba(0,0,0,0.6)',
           }}
         >
-          {'동화책 그림체가\n하나일 필요 있어요?'}
+          {caption}
         </div>
       </AbsoluteFill>
     </AbsoluteFill>

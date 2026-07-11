@@ -25,10 +25,11 @@ const COVERS = [
 export const ClassicCollage: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const framesPerCut = 0.4 * fps;
+  // 차분한 페이스 — 표지 1장을 약 2초 홀드 (기존 0.4초 = 정신없음).
+  const framesPerCut = 2 * fps;
   const cut = Math.floor(frame / framesPerCut) % COVERS.length;
   const local = frame % framesPerCut;
-  const scale = interpolate(local, [0, framesPerCut], [1.0, 1.08]);
+  const scale = interpolate(local, [0, framesPerCut], [1.0, 1.05]);
   return (
     <AbsoluteFill style={{ backgroundColor: '#1A1A2E' }}>
       {/* 블러 풀블리드 배경 — 세로 여백 제거 */}
