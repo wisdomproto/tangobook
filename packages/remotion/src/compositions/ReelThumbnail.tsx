@@ -318,46 +318,49 @@ export const THUMB_CENTER_SAMPLE: CenterPosterProps = {
 
 export const CenterPoster: React.FC<CenterPosterProps> = ({ bookTitle, heroUrl, badge }) => {
   return (
-    <AbsoluteFill style={{ backgroundColor: '#241a14' }}>
-      {/* 배경: 같은 삽화를 흐리게·확대해 세로 프레임을 채움 (좌우 크롭돼도 블러라 무관) */}
-      <Img
-        src={heroUrl}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          filter: 'blur(30px) brightness(0.5)',
-          transform: 'scale(1.2)',
-        }}
-      />
+    <AbsoluteFill
+      style={{
+        background:
+          'radial-gradient(ellipse 95% 62% at 50% 42%, #17436e 0%, #0b2540 46%, #050f1e 100%)',
+      }}
+    >
+      {/* 카드 뒤 은은한 블루 글로우 */}
       <AbsoluteFill
         style={{
           background:
-            'linear-gradient(180deg, rgba(20,12,8,0.5) 0%, rgba(20,12,8,0.3) 48%, rgba(20,12,8,0.78) 100%)',
+            'radial-gradient(ellipse 68% 40% at 50% 46%, rgba(95,170,255,0.24) 0%, rgba(95,170,255,0) 62%)',
         }}
       />
-      {/* 중앙 스택: 배지 + 온전한 16:9 삽화(크롭 없음) + 제목 — 세로 정중앙(그리드 안전) */}
+      {/* 중앙 스택: 배지 + 온전한 16:9 삽화(크롭 없음) + 큰 제목 — 세로 정중앙(그리드 안전) */}
       <AbsoluteFill
         style={{
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '0 48px',
-          gap: 40,
+          padding: '0 52px',
+          gap: 46,
         }}
       >
-        <div style={{ ...chip(), fontSize: 62, padding: '20px 60px' }}>{badge}</div>
+        <div
+          style={{
+            ...chip(),
+            fontSize: 62,
+            padding: '20px 60px',
+            boxShadow: '0 0 36px rgba(255,107,94,0.6), 0 10px 26px rgba(255,107,94,0.4)',
+          }}
+        >
+          {badge}
+        </div>
         <div
           style={{
             width: '100%',
             aspectRatio: '16 / 9',
             borderRadius: 32,
             overflow: 'hidden',
-            border: '8px solid #fff',
-            boxShadow: '0 24px 60px rgba(0,0,0,0.5)',
-            backgroundColor: '#241a14',
+            border: '6px solid rgba(255,255,255,0.96)',
+            boxShadow:
+              '0 0 64px rgba(120,185,255,0.6), 0 0 26px rgba(255,255,255,0.5), 0 20px 50px rgba(0,0,0,0.5)',
+            backgroundColor: '#0a1626',
           }}
         >
           <Img src={heroUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -366,12 +369,13 @@ export const CenterPoster: React.FC<CenterPosterProps> = ({ bookTitle, heroUrl, 
           style={{
             fontFamily,
             fontWeight: 800,
-            fontSize: 120,
+            fontSize: 150,
             color: '#fff',
             textAlign: 'center',
-            lineHeight: 1.1,
+            lineHeight: 1.06,
             wordBreak: 'keep-all',
-            textShadow: '0 6px 26px rgba(0,0,0,0.8), 0 2px 8px rgba(0,0,0,0.9)',
+            textShadow:
+              '0 0 38px rgba(150,200,255,0.8), 0 0 14px rgba(255,255,255,0.55), 0 4px 18px rgba(0,0,0,0.5)',
           }}
         >
           {bookTitle}
