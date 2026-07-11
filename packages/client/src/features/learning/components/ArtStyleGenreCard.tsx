@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Lang, LearningEvent, StorybookSummary } from '@tangobook/shared';
 import { STYLE_GENRES, useStyleGenreLabel } from '@/lib/art-style-genre';
 import { groupByGenre } from '../lib/aggregate';
@@ -24,6 +25,7 @@ const GENRE_EMOJI: Record<string, string> = {
  * styleId → 장르 변환은 useStyleGenreLabel(수동 맵 + 프롬프트 분류). 3종에 안 맞는 스타일은 제외.
  */
 export function ArtStyleGenreCard({ events, storybooks, lang, bare = false }: Props) {
+  const { t } = useTranslation('learning');
   const labelOf = useStyleGenreLabel();
 
   const rows = useMemo(() => {
@@ -44,7 +46,7 @@ export function ArtStyleGenreCard({ events, storybooks, lang, bare = false }: Pr
 
   const body =
     rows.length === 0 ? (
-      <ReportEmptyState emoji="🎨" message="아직 읽은 책이 없어요" />
+      <ReportEmptyState emoji="🎨" message={t('artStyle.empty')} />
     ) : (
       <ul className="space-y-2">
         {rows.map((r) => (
@@ -60,7 +62,7 @@ export function ArtStyleGenreCard({ events, storybooks, lang, bare = false }: Pr
               </div>
             </div>
             <span className="w-16 shrink-0 text-right text-xs text-ink-500">
-              {r.distinctBooks}권 · {r.pct}%
+              {t('artStyle.stat', { count: r.distinctBooks, pct: r.pct })}
             </span>
           </li>
         ))}
@@ -71,7 +73,7 @@ export function ArtStyleGenreCard({ events, storybooks, lang, bare = false }: Pr
 
   return (
     <div className="rounded-2xl bg-white/80 p-4 shadow-sm">
-      <h3 className="mb-3 text-base font-bold">이런 그림체를 좋아해요</h3>
+      <h3 className="mb-3 text-base font-bold">{t('artStyle.title')}</h3>
       {body}
     </div>
   );

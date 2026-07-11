@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type { Lang, LearningEvent, StorybookSummary } from '@tangobook/shared';
 import {
   booksThisWeek,
@@ -23,6 +24,7 @@ interface Props {
 const WEEK_MS = 7 * 86_400_000;
 
 export function StorybookReportSection({ events, storybooks, lang }: Props) {
+  const { t } = useTranslation('learning');
   const now = new Date();
 
   // phonics storybook은 파닉스 섹션에서만 집계 (동화책 섹션에서 제외)
@@ -58,8 +60,8 @@ export function StorybookReportSection({ events, storybooks, lang }: Props) {
       {!hasAnyActivity && (
         <ReportEmptyState
           mascot
-          message={`${lang === 'ko' ? '한글' : '영어'} 책을 아직 읽지 않았어요`}
-          ctaLabel="동화책 보러 가기"
+          message={t(lang === 'ko' ? 'storybookReport.emptyKo' : 'storybookReport.emptyEn')}
+          ctaLabel={t('storybookReport.goToLibrary')}
           ctaTo="/library"
         />
       )}
@@ -73,7 +75,7 @@ export function StorybookReportSection({ events, storybooks, lang }: Props) {
           <span className="mr-1.5 inline-block text-xs text-ink-400 transition-transform [details[open]_&]:rotate-90">
             ▶
           </span>
-          이런 그림체를 좋아해요
+          {t('storybookReport.artStyleTitle')}
         </summary>
         <div className="mt-3">
           {/* storybooks 전체 넘김 — phonics 포함해도 relevant 이벤트는 이미 phonics 제외됨 */}

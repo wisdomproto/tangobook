@@ -1,0 +1,40 @@
+{
+  "weeklyHero": {
+    "headlineActive": "이번 주 책 {{count}}권을 만났어요!",
+    "headlineEmpty": "이번 주 첫 책을 기다리고 있어요",
+    "subActive": "꾸준히 잘하고 있어요 👏",
+    "subEmpty": "오늘 한 권, 함께 펼쳐볼까요?",
+    "metaMinutes": "📖 이번 주 약 {{minutes}}분",
+    "metaStreak": "🔥 연속 {{streak}}일",
+    "today": "오늘",
+    "readOn": "{{label}}요일 읽음",
+    "notReadOn": "{{label}}요일 안 읽음"
+  },
+  "recentBooks": {
+    "title": "읽은 책",
+    "completed": "끝까지 읽음 🎉",
+    "reading": "읽는 중",
+    "readCount": "{{count}}번이나 읽었어요"
+  },
+  "metWords": {
+    "title": "이런 단어들을 만났어요",
+    "count": "모두 {{count}}개",
+    "fallbackBook": "동화책",
+    "extraBooks": "외 {{count}}권",
+    "read": "📖 읽음",
+    "played": "🎮 게임",
+    "collapse": "접기",
+    "showAll": "전체 {{count}}개 보기"
+  },
+  "artStyle": {
+    "empty": "아직 읽은 책이 없어요",
+    "title": "이런 그림체를 좋아해요",
+    "stat": "{{count}}권 · {{pct}}%"
+  },
+  "storybookReport": {
+    "artStyleTitle": "이런 그림체를 좋아해요",
+    "emptyKo": "한글 책을 아직 읽지 않았어요",
+    "emptyEn": "영어 책을 아직 읽지 않았어요",
+    "goToLibrary": "동화책 보러 가기"
+  }
+}

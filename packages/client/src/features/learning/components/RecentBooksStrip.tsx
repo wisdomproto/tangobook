@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type { StorybookSummary } from '@tangobook/shared';
 import type { CompletedBookStat, RecentBookStat } from '../lib/aggregate';
 import { formatKstDate } from '../lib/aggregate';
@@ -18,6 +19,7 @@ const stripVariant = (id: string) => id.replace(/__L[1-4]$/, '');
  * 완독한 책엔 🎉 리본, 아니면 "읽는 중" 칩.
  */
 export function RecentBooksStrip({ items, completed, storybooks }: Props) {
+  const { t } = useTranslation('learning');
   if (items.length === 0) return null;
 
   const byId = new Map(storybooks.map((s) => [s.id, s]));
@@ -33,7 +35,7 @@ export function RecentBooksStrip({ items, completed, storybooks }: Props) {
 
   return (
     <div>
-      <h3 className="mb-2 text-base font-bold text-ink-900">읽은 책</h3>
+      <h3 className="mb-2 text-base font-bold text-ink-900">{t('recentBooks.title')}</h3>
       <div className="flex gap-3 overflow-x-auto pb-2">
         {resolved.map(({ item, book, done }) => (
           <div key={item.storybookId} className="flex w-32 shrink-0 flex-col items-center">
@@ -54,14 +56,14 @@ export function RecentBooksStrip({ items, completed, storybooks }: Props) {
                   (done ? 'bg-coral-500 text-white' : 'bg-white/90 text-amber-600')
                 }
               >
-                {done ? '끝까지 읽음 🎉' : '읽는 중'}
+                {done ? t('recentBooks.completed') : t('recentBooks.reading')}
               </span>
             </div>
             <div className="mt-1.5 w-full break-keep text-center text-xs font-semibold text-ink-700">
               {book.title}
             </div>
             <div className="text-[10px] font-medium text-coral-500">
-              {done && done.count > 1 ? `${done.count}번이나 읽었어요` : ''}
+              {done && done.count > 1 ? t('recentBooks.readCount', { count: done.count }) : ''}
             </div>
             <div className="text-[10px] text-ink-400">{formatKstDate(item.lastAt)}</div>
           </div>

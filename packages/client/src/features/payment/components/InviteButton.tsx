@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { apiPost } from '@/lib/axios';
 import { buildInviteMessage } from '../lib/invite-message';
 
@@ -12,6 +13,7 @@ interface ReferralCodeResponse {
  * 가입 후 코드를 입력해 +7일을 받는다 (둘 다 +7일).
  */
 export function InviteButton({ className }: { className?: string }) {
+  const { t } = useTranslation('payment');
   const [code, setCode] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -49,14 +51,18 @@ export function InviteButton({ className }: { className?: string }) {
   return (
     <div className="flex flex-col gap-2">
       <button onClick={handleClick} disabled={loading} className={className}>
-        {loading ? '코드 받는 중…' : copied ? '초대 메시지 복사됨 ✓' : '초대 메시지 복사'}
+        {loading
+          ? t('inviteButton.loading')
+          : copied
+            ? t('inviteButton.copiedLabel')
+            : t('inviteButton.copy')}
       </button>
-      {error && (
-        <p className="text-danger text-xs font-bold">코드를 받지 못했어요. 다시 시도해 주세요.</p>
-      )}
+      {error && <p className="text-danger text-xs font-bold">{t('inviteButton.fetchError')}</p>}
       {code && (
         <div className="flex items-center gap-2 rounded-xl bg-peach-50 px-3 py-2">
-          <span className="text-xs font-bold text-ink-500 shrink-0">내 코드</span>
+          <span className="text-xs font-bold text-ink-500 shrink-0">
+            {t('inviteButton.myCode')}
+          </span>
           <span
             className="flex-1 select-all font-black tracking-widest text-ink-900 uppercase"
             onClick={(e) => {
@@ -82,7 +88,7 @@ export function InviteButton({ className }: { className?: string }) {
             }}
             className="shrink-0 rounded-lg bg-white px-2.5 py-1 text-xs font-black text-coral-600 shadow-soft"
           >
-            코드만 복사
+            {t('inviteButton.copyCodeOnly')}
           </button>
         </div>
       )}

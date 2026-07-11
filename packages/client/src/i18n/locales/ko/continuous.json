@@ -1,0 +1,38 @@
+{
+  "home": {
+    "back": "뒤로",
+    "title": "연속 재생 🎬",
+    "subtitle": "여러 권을 이어서 자동으로 읽어줘요. 잠자리 동화로 딱!",
+    "newSet": "＋ 새 세트 만들기",
+    "guestNotice": "🔒 로그인하면 세트를 저장할 수 있어요. 지금은 즉석 재생만 가능해요.",
+    "deleteConfirm": "\"{{name}}\" 세트를 삭제할까요?",
+    "emptyTitle": "저장된 세트가 없어요",
+    "emptyDescription": "새 세트를 만들어 여러 권을 이어서 들어보세요!"
+  },
+  "builder": {
+    "back": "뒤로",
+    "createTitle": "세트 만들기",
+    "editTitle": "세트 편집",
+    "subtitle": "읽을 책을 순서대로 골라주세요",
+    "namePlaceholder": "세트 이름 (예: 잠자리 동화)",
+    "playNow": "▶ 지금 재생",
+    "saving": "저장 중…",
+    "saveChanges": "💾 변경 저장",
+    "saveSet": "💾 세트 저장",
+    "defaultSetName": "내 세트 ({{count}}권)",
+    "selectedBooks": "선택한 책 ({{count}})",
+    "moveUp": "위로",
+    "moveDown": "아래로",
+    "remove": "빼기",
+    "language": "언어",
+    "chooseStyle": "그림체 고르기",
+    "styleAriaLabel": "그림풍",
+    "searchPlaceholder": "책 제목·카테고리 검색"
+  },
+  "grid": {
+    "loadError": "책 목록을 불러오지 못했어요",
+    "noResults": "검색 결과가 없어요",
+    "empty": "아직 공개된 책이 없어요",
+    "bookCount": "{{count}}권"
+  }
+}

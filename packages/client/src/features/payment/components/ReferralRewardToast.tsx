@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Trans } from 'react-i18next';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { useEntitlement } from '../hooks/useEntitlement';
 
@@ -67,7 +68,12 @@ export function ReferralRewardToast() {
           🎉
         </span>
         <span className="flex-1 text-left font-black break-keep">
-          친구 초대 성공! 무료 기간 <span className="underline">+{gained}일</span> 늘었어요
+          <Trans
+            i18nKey="rewardToast.message"
+            ns="payment"
+            values={{ days: gained }}
+            components={{ u: <span className="underline" /> }}
+          />
         </span>
         <span className="text-white/70 text-lg" aria-hidden>
           ✕

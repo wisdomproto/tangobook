@@ -62,6 +62,11 @@ vi.mock('@/features/library', () => ({
       fb - fa,
 }));
 
+// useStyleGenreMap(useQuery) 도 QueryClient 요구 → 목킹 (그림풍 드롭박스 추가분).
+vi.mock('@/lib/art-style-genre', () => ({
+  useStyleGenreMap: () => ({ map: {}, setGenre: () => {}, saving: false }),
+}));
+
 import { BookMultiSelectGrid } from './BookMultiSelectGrid';
 
 describe('BookMultiSelectGrid', () => {

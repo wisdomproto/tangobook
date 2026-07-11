@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Mascot } from '@/design-system';
 import type { WeekDay } from '../lib/aggregate';
 
@@ -17,15 +18,16 @@ interface Props {
  * 호리 + 이번 주 한 줄 요약 + 읽기 리듬 도트. 숫자 0일 때도 응원 톤 유지.
  */
 export function WeeklyHeroCard({ weekBooks, weekMinutes, streak, days }: Props) {
+  const { t } = useTranslation('learning');
   const active = weekBooks > 0;
   const headline = active
-    ? `이번 주 책 ${weekBooks}권을 만났어요!`
-    : '이번 주 첫 책을 기다리고 있어요';
-  const sub = active ? '꾸준히 잘하고 있어요 👏' : '오늘 한 권, 함께 펼쳐볼까요?';
+    ? t('weeklyHero.headlineActive', { count: weekBooks })
+    : t('weeklyHero.headlineEmpty');
+  const sub = active ? t('weeklyHero.subActive') : t('weeklyHero.subEmpty');
 
   const meta: string[] = [];
-  if (weekMinutes > 0) meta.push(`📖 이번 주 약 ${weekMinutes}분`);
-  if (streak >= 2) meta.push(`🔥 연속 ${streak}일`);
+  if (weekMinutes > 0) meta.push(t('weeklyHero.metaMinutes', { minutes: weekMinutes }));
+  if (streak >= 2) meta.push(t('weeklyHero.metaStreak', { streak }));
 
   return (
     <div className="rounded-3xl bg-gradient-to-br from-peach-100 to-coral-100 p-5 sm:p-6 shadow-soft">
@@ -57,7 +59,11 @@ export function WeeklyHeroCard({ weekBooks, weekMinutes, streak, days }: Props) 
                     ? 'bg-coral-500 text-white font-black shadow-soft'
                     : 'bg-ink-100 text-transparent')
                 }
-                aria-label={d.active ? `${d.label}요일 읽음` : `${d.label}요일 안 읽음`}
+                aria-label={
+                  d.active
+                    ? t('weeklyHero.readOn', { label: d.label })
+                    : t('weeklyHero.notReadOn', { label: d.label })
+                }
               >
                 {d.active ? '✓' : '·'}
               </span>
@@ -67,7 +73,7 @@ export function WeeklyHeroCard({ weekBooks, weekMinutes, streak, days }: Props) 
                   (isToday ? 'text-coral-600' : d.active ? 'text-ink-600' : 'text-ink-300')
                 }
               >
-                {isToday ? '오늘' : d.label}
+                {isToday ? t('weeklyHero.today') : d.label}
               </span>
             </div>
           );

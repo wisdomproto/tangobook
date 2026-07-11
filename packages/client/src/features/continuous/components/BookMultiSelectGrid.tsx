@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useStorybooks } from '@/features/storybook';
 import { useLibraryConfig, makeCategoryComparator } from '@/features/library';
 import { useStyleGenreMap, type StyleGenreSlug } from '@/lib/art-style-genre';
@@ -35,6 +36,7 @@ export function BookMultiSelectGrid({
   search = '',
   styleGenre,
 }: BookMultiSelectGridProps) {
+  const { t } = useTranslation('continuous');
   const { data: list, isLoading, isError } = useStorybooks();
   const { data: libConfig } = useLibraryConfig();
   const { map: styleGenreMap } = useStyleGenreMap();
@@ -100,13 +102,13 @@ export function BookMultiSelectGrid({
   }
 
   if (isError) {
-    return <p className="py-8 text-center font-bold text-ink-500">책 목록을 불러오지 못했어요</p>;
+    return <p className="py-8 text-center font-bold text-ink-500">{t('grid.loadError')}</p>;
   }
 
   if (groups.length === 0) {
     return (
       <p className="py-8 text-center font-bold text-ink-500">
-        {search.trim() ? '검색 결과가 없어요' : '아직 공개된 책이 없어요'}
+        {search.trim() ? t('grid.noResults') : t('grid.empty')}
       </p>
     );
   }
@@ -118,7 +120,9 @@ export function BookMultiSelectGrid({
           <h3 className="mb-2.5 flex items-center gap-1.5 font-display text-lg font-black text-ink-900">
             <span>{CATEGORY_EMOJI[category] ?? '📖'}</span>
             <span className="break-keep">{category}</span>
-            <span className="text-sm font-bold text-ink-400">{catBooks.length}권</span>
+            <span className="text-sm font-bold text-ink-400">
+              {t('grid.bookCount', { count: catBooks.length })}
+            </span>
           </h3>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
             {catBooks.map((b) => {

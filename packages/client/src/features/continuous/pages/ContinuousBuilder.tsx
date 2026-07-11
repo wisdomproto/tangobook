@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 import {
   STYLE_GENRES,
@@ -23,6 +24,7 @@ const GENRE_SLUG_LABEL: Record<string, string> = Object.fromEntries(
  * [세트 저장] = useCreatePlaylist → /continuous (게스트는 숨김).
  */
 export default function ContinuousBuilder() {
+  const { t } = useTranslation('continuous');
   const navigate = useNavigate();
   const { id: editId } = useParams(); // /continuous/edit/:id → 편집 모드
   const { account } = useAuth();
@@ -106,7 +108,7 @@ export default function ContinuousBuilder() {
 
   const save = async () => {
     if (isGuest || selectedIds.length === 0 || !account?.id) return;
-    const finalName = name.trim() || `내 세트 (${selectedIds.length}권)`;
+    const finalName = name.trim() || t('builder.defaultSetName', { count: selectedIds.length });
     if (editId) {
       await updatePlaylist.mutateAsync({
         id: editId,
@@ -136,16 +138,16 @@ export default function ContinuousBuilder() {
             <button
               type="button"
               onClick={() => navigate('/library')}
-              aria-label="뒤로"
+              aria-label={t('builder.back')}
               className="w-10 h-10 rounded-full bg-white shadow-soft flex items-center justify-center font-black text-ink-600 hover:bg-ink-50 transition"
             >
               ←
             </button>
             <div>
               <h1 className="text-2xl md:text-3xl font-black text-ink-900 font-display">
-                {editId ? '세트 편집' : '세트 만들기'}
+                {editId ? t('builder.editTitle') : t('builder.createTitle')}
               </h1>
-              <p className="text-ink-500 font-bold text-sm">읽을 책을 순서대로 골라주세요</p>
+              <p className="text-ink-500 font-bold text-sm">{t('builder.subtitle')}</p>
             </div>
           </div>
 
@@ -156,7 +158,7 @@ export default function ContinuousBuilder() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="세트 이름 (예: 잠자리 동화)"
+                placeholder={t('builder.namePlaceholder')}
                 className="min-w-0 flex-1 rounded-xl border-2 border-ink-100 bg-white px-3 py-2 text-sm font-bold text-ink-900 outline-none focus:border-coral-400 sm:w-44 sm:flex-none"
               />
             )}
@@ -166,7 +168,7 @@ export default function ContinuousBuilder() {
               disabled={!canSubmit}
               className="rounded-xl bg-coral-500 px-4 py-2 text-sm font-black text-white shadow-soft transition hover:bg-coral-600 active:scale-95 disabled:opacity-40"
             >
-              ▶ 지금 재생
+              {t('builder.playNow')}
             </button>
             {!isGuest && (
               <button
@@ -175,7 +177,11 @@ export default function ContinuousBuilder() {
                 disabled={!canSubmit || saving}
                 className="rounded-xl bg-mint-500 px-4 py-2 text-sm font-black text-white shadow-soft transition hover:bg-mint-600 active:scale-95 disabled:opacity-40"
               >
-                {saving ? '저장 중…' : editId ? '💾 변경 저장' : '💾 세트 저장'}
+                {saving
+                  ? t('builder.saving')
+                  : editId
+                    ? t('builder.saveChanges')
+                    : t('builder.saveSet')}
               </button>
             )}
           </div>
@@ -184,7 +190,9 @@ export default function ContinuousBuilder() {
         {/* 선택된 책 — 순서 조정 (많이 담아도 상단이 안 커지게 max-h + 내부 스크롤) */}
         {selectedIds.length > 0 && (
           <div className="mb-4 max-h-[28vh] shrink-0 overflow-y-auto rounded-2xl bg-white p-4 shadow-soft">
-            <h2 className="font-black text-ink-900 mb-2">선택한 책 ({selectedIds.length})</h2>
+            <h2 className="font-black text-ink-900 mb-2">
+              {t('builder.selectedBooks', { count: selectedIds.length })}
+            </h2>
             <ol className="space-y-1.5">
               {selectedIds.map((id, i) => {
                 const { cover, genre } = coverGenreOf(id);
@@ -220,7 +228,7 @@ export default function ContinuousBuilder() {
                       type="button"
                       onClick={() => move(i, -1)}
                       disabled={i === 0}
-                      aria-label="위로"
+                      aria-label={t('builder.moveUp')}
                       className="w-8 h-8 rounded-lg bg-white shadow-soft font-black text-ink-600 disabled:opacity-30 hover:bg-ink-50 transition"
                     >
                       ↑
@@ -229,7 +237,7 @@ export default function ContinuousBuilder() {
                       type="button"
                       onClick={() => move(i, 1)}
                       disabled={i === selectedIds.length - 1}
-                      aria-label="아래로"
+                      aria-label={t('builder.moveDown')}
                       className="w-8 h-8 rounded-lg bg-white shadow-soft font-black text-ink-600 disabled:opacity-30 hover:bg-ink-50 transition"
                     >
                       ↓
@@ -237,7 +245,7 @@ export default function ContinuousBuilder() {
                     <button
                       type="button"
                       onClick={() => toggle(id)}
-                      aria-label="빼기"
+                      aria-label={t('builder.remove')}
                       className="w-8 h-8 rounded-lg bg-white shadow-soft font-black text-ink-500 hover:text-red-500 transition"
                     >
                       ✕
@@ -253,7 +261,7 @@ export default function ContinuousBuilder() {
         <div className="mb-3 shrink-0">
           {/* 언어 — 한국어·영어만 */}
           <div className="mb-2.5 flex flex-wrap items-center gap-2">
-            <span className="mr-1 font-black text-ink-900">언어</span>
+            <span className="mr-1 font-black text-ink-900">{t('builder.language')}</span>
             {playlistLangs.map((l) => (
               <button
                 key={l.code}
@@ -274,12 +282,12 @@ export default function ContinuousBuilder() {
           {/* 그림체 고르기(그림풍) + 검색 */}
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2">
-              <h2 className="font-black text-ink-900">그림체 고르기</h2>
+              <h2 className="font-black text-ink-900">{t('builder.chooseStyle')}</h2>
               {/* 그림풍 — 표지 미리보기만 (세계명작 표지가 이 그림풍으로 swap, 나머지는 대표 표지) */}
               <select
                 value={styleGenre}
                 onChange={(e) => setStyleGenre(e.target.value as StyleGenreSlug)}
-                aria-label="그림풍"
+                aria-label={t('builder.styleAriaLabel')}
                 className="rounded-full border-2 border-ink-100 bg-white px-3 py-1.5 text-sm font-bold text-ink-700 outline-none focus:border-coral-400"
               >
                 {STYLE_GENRES.map((g) => (
@@ -297,7 +305,7 @@ export default function ContinuousBuilder() {
                 type="search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="책 제목·카테고리 검색"
+                placeholder={t('builder.searchPlaceholder')}
                 className="w-full rounded-full border-2 border-ink-100 bg-white py-2 pl-9 pr-4 text-sm font-bold text-ink-900 outline-none focus:border-coral-400"
               />
             </div>
