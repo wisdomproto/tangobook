@@ -221,6 +221,82 @@ export const ThumbHybrid: React.FC<ThumbProps> = ({ bookTitle, styles }) => {
   );
 };
 
+export const NatureThumbSchema = z.object({
+  bookTitle: z.string(),
+  coverUrl: z.string(),
+  headline: z.string(),
+  categoryLabel: z.string(),
+});
+export type NatureThumbProps = z.infer<typeof NatureThumbSchema>;
+
+export const THUMB_NATURE_SAMPLE: NatureThumbProps = {
+  bookTitle: '기가노토사우루스',
+  coverUrl: THUMB_FROG.coverUrl,
+  headline: '티라노보다 컸다고?',
+  categoryLabel: '공룡 친구들',
+};
+
+export const NatureThumb: React.FC<NatureThumbProps> = ({
+  bookTitle,
+  coverUrl,
+  headline,
+  categoryLabel,
+}) => {
+  return (
+    <AbsoluteFill
+      style={{
+        background: 'linear-gradient(165deg, #FFF3E9 0%, #FFDCC6 100%)',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '130px 60px 120px',
+      }}
+    >
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ ...chip(), marginBottom: 28 }}>{categoryLabel}</div>
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 800,
+            fontSize: 104,
+            color: '#2B2B2B',
+            lineHeight: 1.12,
+            wordBreak: 'keep-all',
+          }}
+        >
+          {bookTitle}
+        </div>
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 800,
+            fontSize: 66,
+            color: '#FF6B5E',
+            lineHeight: 1.2,
+            marginTop: 22,
+            wordBreak: 'keep-all',
+          }}
+        >
+          {headline}
+        </div>
+      </div>
+      <div
+        style={{
+          width: '100%',
+          aspectRatio: '1 / 1',
+          borderRadius: 40,
+          overflow: 'hidden',
+          boxShadow: '0 30px 70px rgba(120,60,30,0.28)',
+          border: '10px solid #fff',
+          backgroundColor: '#241a14',
+        }}
+      >
+        <Img src={coverUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 /** ② 그림체 3분할: 같은 장면을 3개 그림체로 세로 스택 + 제목 오버레이 */
 export const ThumbStyles: React.FC<ThumbProps> = ({ bookTitle, styles }) => {
   return (
