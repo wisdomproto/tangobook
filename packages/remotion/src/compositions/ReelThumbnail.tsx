@@ -348,7 +348,7 @@ export const CenterPoster: React.FC<CenterPosterProps> = ({ bookTitle, heroUrl, 
           gap: 40,
         }}
       >
-        <div style={{ ...chip(), fontSize: 46, padding: '14px 44px' }}>{badge}</div>
+        <div style={{ ...chip(), fontSize: 62, padding: '20px 60px' }}>{badge}</div>
         <div
           style={{
             width: '100%',
