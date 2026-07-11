@@ -308,6 +308,7 @@ export const CenterPosterSchema = z.object({
   badge: z.string(),
   bg: z.string().optional(), // 배경 그라디언트 CSS (시리즈별 테마). 없으면 네이비.
   glowRgb: z.string().optional(), // 글로우 색 "r,g,b". 없으면 블루.
+  badgeBg: z.string().optional(), // 배지 배경색 (시리즈별). 없으면 coral.
   headline: z.string().optional(),
 });
 export type CenterPosterProps = z.infer<typeof CenterPosterSchema>;
@@ -315,6 +316,7 @@ export type CenterPosterProps = z.infer<typeof CenterPosterSchema>;
 const DEFAULT_BG =
   'radial-gradient(ellipse 95% 62% at 50% 42%, #17436e 0%, #0b2540 46%, #050f1e 100%)';
 const DEFAULT_GLOW = '120,185,255';
+const DEFAULT_BADGE = '#FF6B5E';
 
 export const THUMB_CENTER_SAMPLE: CenterPosterProps = {
   bookTitle: '개구리 왕자',
@@ -328,8 +330,10 @@ export const CenterPoster: React.FC<CenterPosterProps> = ({
   badge,
   bg,
   glowRgb,
+  badgeBg,
 }) => {
   const glow = glowRgb || DEFAULT_GLOW;
+  const badgeColor = badgeBg || DEFAULT_BADGE;
   return (
     <AbsoluteFill style={{ background: bg || DEFAULT_BG }}>
       {/* 카드 뒤 은은한 컬러 글로우 (시리즈 테마색) */}
@@ -353,7 +357,8 @@ export const CenterPoster: React.FC<CenterPosterProps> = ({
             ...chip(),
             fontSize: 62,
             padding: '20px 60px',
-            boxShadow: '0 0 36px rgba(255,107,94,0.6), 0 10px 26px rgba(255,107,94,0.4)',
+            backgroundColor: badgeColor,
+            boxShadow: `0 0 36px rgba(${glow},0.55), 0 10px 26px rgba(0,0,0,0.35)`,
           }}
         >
           {badge}
@@ -371,19 +376,30 @@ export const CenterPoster: React.FC<CenterPosterProps> = ({
         >
           <Img src={heroUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
+        {/* 제목 영역 고정 높이(2줄분) + 위 정렬 → 1줄/2줄 상관없이 이미지 위치 불변 */}
         <div
           style={{
-            fontFamily,
-            fontWeight: 800,
-            fontSize: 150,
-            color: '#fff',
-            textAlign: 'center',
-            lineHeight: 1.06,
-            wordBreak: 'keep-all',
-            textShadow: `0 0 38px rgba(${glow},0.8), 0 0 14px rgba(255,255,255,0.55), 0 4px 18px rgba(0,0,0,0.5)`,
+            height: 340,
+            width: '100%',
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
           }}
         >
-          {bookTitle}
+          <div
+            style={{
+              fontFamily,
+              fontWeight: 800,
+              fontSize: 150,
+              color: '#fff',
+              textAlign: 'center',
+              lineHeight: 1.06,
+              wordBreak: 'keep-all',
+              textShadow: `0 0 38px rgba(${glow},0.8), 0 0 14px rgba(255,255,255,0.55), 0 4px 18px rgba(0,0,0,0.5)`,
+            }}
+          >
+            {bookTitle}
+          </div>
         </div>
       </AbsoluteFill>
     </AbsoluteFill>

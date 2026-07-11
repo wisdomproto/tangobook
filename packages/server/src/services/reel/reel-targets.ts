@@ -67,6 +67,16 @@ export function loadNatureReelCaptions(id: string): string[] | undefined {
   return _natureCaptions![id];
 }
 
+let _cleanCovers: Record<string, string> | null = null;
+/** 텍스트 제거한 클린 표지 URL (generate-clean-covers.ts 산출). 썸네일 히어로용. 없으면 undefined. */
+export function loadCleanCover(id: string): string | undefined {
+  if (!_cleanCovers) {
+    const file = path.join(SCRIPTS_DATA, 'marketing', 'clean-covers.json');
+    _cleanCovers = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
+  }
+  return _cleanCovers![id];
+}
+
 /** 도감 시리즈 씬용 8테마 대표 책(카테고리→대표 bookId+라벨). */
 export const NATURE_SERIES_COVERS: Array<{ label: string; bookId: string }> = [
   { label: '공룡', bookId: '1773714531390' },
