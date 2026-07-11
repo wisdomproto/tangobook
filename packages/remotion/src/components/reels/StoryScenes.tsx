@@ -104,9 +104,9 @@ export const StorybookIntro: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: '#1A1A2E' }}>
       <StoryPage
-        cover="reels/covers/cover-cinderella.webp"
+        cover="reels/covers/cover-snow-white.webp"
         cardScale={0.92 + pop * 0.08}
-        sentence={<>옛날, 마음씨 고운 소녀가 살았어요.</>}
+        sentence={<>옛날, 마음씨 고운 백설공주가 살았어요.</>}
       />
       {/* 상단 라벨 + 나레이션 */}
       <AbsoluteFill style={{ alignItems: 'center', paddingTop: 130 }}>
