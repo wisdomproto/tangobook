@@ -1,6 +1,14 @@
 import { describe, it, expect } from 'vitest';
-import { renderAboutSeo, injectAboutSeo } from './seo-ssr.service.js';
+import {
+  renderAboutSeo,
+  injectAboutSeo,
+  renderBlogSeo,
+  renderBlogListSeo,
+  renderHubSeo,
+  HUBS,
+} from './seo-ssr.service.js';
 import type { Storybook } from '@tangobook/shared';
+import type { BlogPostDetail, BlogPostSummary } from './mkt/blog-public.service.js';
 
 // Minimal storybook fixture matching what the about page consumes
 const book = {
@@ -118,6 +126,88 @@ describe('renderAboutSeo', () => {
     const s = renderAboutSeo(evil);
     expect(s.bodyHtml).not.toContain('<script>alert(1)</script>');
     expect(s.title).not.toContain('<script>');
+  });
+});
+
+describe('renderBlogSeo', () => {
+  const post: BlogPostDetail = {
+    slug: 'cinderella-fairy-tale-for-kids',
+    title: '신데렐라 동화 줄거리와 교훈 — 아이에게 읽어주는 법',
+    description: '신데렐라 줄거리와 교훈, 읽어주는 팁.',
+    category: '명작동화',
+    publishedAt: '2026-07-11T00:00:00Z',
+    primaryKeyword: '신데렐라 동화',
+    storybookId: '1772107608499',
+    cards: [
+      { type: 'text', content: { html: '<h2>줄거리</h2><p>옛날 옛적…</p>' } },
+      { type: 'image', content: { url: 'https://pub-x.r2.dev/삽화 1.webp', alt: '신데렐라 삽화' } },
+      { type: 'list', content: { items: ['교훈 하나', '교훈 둘'] } },
+      { type: 'quote', content: { text: '인용문' } },
+      { type: 'divider', content: {} },
+    ],
+  };
+  const seo = renderBlogSeo(post);
+
+  it('builds blog title/description/canonical', () => {
+    expect(seo.title).toContain('신데렐라 동화 줄거리와 교훈');
+    expect(seo.canonical).toBe('https://www.tangobook.co.kr/blog/cinderella-fairy-tale-for-kids');
+    expect(seo.description).toContain('신데렐라 줄거리와 교훈');
+  });
+
+  it('uses first image card (percent-encoded) as og:image', () => {
+    expect(seo.ogImage).toContain('%EC%82%BD%ED%99%94%201.webp');
+  });
+
+  it('renders BlogPosting JSON-LD with datePublished', () => {
+    expect(seo.jsonLdHtml).toContain('"@type":"BlogPosting"');
+    expect(seo.jsonLdHtml).toContain('2026-07-11');
+  });
+
+  it('renders body from cards: authored html passthrough, images, lists, quotes', () => {
+    expect(seo.bodyHtml).toContain('<h1>신데렐라 동화 줄거리와 교훈');
+    expect(seo.bodyHtml).toContain('<h2>줄거리</h2><p>옛날 옛적…</p>'); // 저작 HTML 그대로
+    expect(seo.bodyHtml).toContain('<img src="https://pub-x.r2.dev/%EC%82%BD%ED%99%94%201.webp"');
+    expect(seo.bodyHtml).toContain('alt="신데렐라 삽화"');
+    expect(seo.bodyHtml).toContain('<li>교훈 하나</li>');
+    expect(seo.bodyHtml).toContain('<blockquote>인용문</blockquote>');
+  });
+});
+
+describe('renderBlogListSeo', () => {
+  const posts: BlogPostSummary[] = [
+    { slug: 'a-post', title: '포스트 A', description: '', category: null, publishedAt: null },
+    { slug: 'b-post', title: '포스트 B', description: '', category: null, publishedAt: null },
+  ];
+  it('renders list page with links to every post', () => {
+    const seo = renderBlogListSeo(posts);
+    expect(seo.canonical).toBe('https://www.tangobook.co.kr/blog');
+    expect(seo.bodyHtml).toContain('href="/blog/a-post"');
+    expect(seo.bodyHtml).toContain('href="/blog/b-post"');
+    expect(seo.bodyHtml).toContain('포스트 B');
+  });
+});
+
+describe('renderHubSeo', () => {
+  const summaries = [
+    { id: '1', title: '신데렐라', category: '세계 명작', coverImage: 'https://x/신데렐라.webp' },
+    { id: '2', title: '람포린쿠스', category: '공룡 친구들', coverImage: '' },
+    { id: '3', title: '민들레', category: '식물 친구들', coverImage: '' },
+  ] as any[];
+
+  it('classics hub lists only 세계 명작 books with about links', () => {
+    const seo = renderHubSeo(HUBS.classics, summaries);
+    expect(seo.canonical).toBe('https://www.tangobook.co.kr/guide/classics');
+    expect(seo.bodyHtml).toContain('href="/library/1/about"');
+    expect(seo.bodyHtml).not.toContain('람포린쿠스');
+    expect(seo.title).toContain('명작');
+    expect(seo.jsonLdHtml).toContain('"@type":"CollectionPage"');
+  });
+
+  it('nature hub lists non-classics books', () => {
+    const seo = renderHubSeo(HUBS.nature, summaries);
+    expect(seo.bodyHtml).toContain('람포린쿠스');
+    expect(seo.bodyHtml).toContain('민들레');
+    expect(seo.bodyHtml).not.toContain('신데렐라');
   });
 });
 

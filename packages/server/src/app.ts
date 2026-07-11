@@ -163,18 +163,21 @@ export function createApp() {
       res.sendFile(path.join(clientDist, 'sw.js'));
     });
 
-    // SEO SSR-lite — 책별 about 페이지에 meta/JSON-LD/본문 주입 (네이버 Yeti 등
+    // SEO SSR-lite — about/블로그/허브 페이지에 meta/JSON-LD/본문 주입 (네이버 Yeti 등
     // JS 미실행 크롤러 대응). 실패 시 SPA 폴백. 상세 → seo-ssr.service.ts.
     let cachedIndexHtml: string | null = null;
-    app.get('/library/:id/about', async (req, res, next) => {
+    const sendSeo = async (
+      res: express.Response,
+      next: express.NextFunction,
+      build: () => Promise<import('./services/seo-ssr.service.js').AboutSeo | null>
+    ) => {
       try {
-        const { renderAboutSeo, injectAboutSeo } = await import('./services/seo-ssr.service.js');
-        const { StorybookService } = await import('./services/storybook.service.js');
-        const storybook = await StorybookService.getById(req.params.id as string);
-        if (!storybook) {
+        const seo = await build();
+        if (!seo) {
           next(); // SPA 가 404 UI 처리
           return;
         }
+        const { injectAboutSeo } = await import('./services/seo-ssr.service.js');
         if (!cachedIndexHtml) {
           const { readFile } = await import('node:fs/promises');
           cachedIndexHtml = await readFile(path.join(clientDist, 'index.html'), 'utf-8');
@@ -182,11 +185,52 @@ export function createApp() {
         res
           .setHeader('Cache-Control', 'public, max-age=300')
           .type('html')
-          .send(injectAboutSeo(cachedIndexHtml, renderAboutSeo(storybook)));
+          .send(injectAboutSeo(cachedIndexHtml, seo));
       } catch {
         next(); // 어떤 실패든 SPA 폴백 — SEO 주입이 서비스를 죽이면 안 됨
       }
-    });
+    };
+
+    app.get('/library/:id/about', (req, res, next) =>
+      sendSeo(res, next, async () => {
+        const { renderAboutSeo } = await import('./services/seo-ssr.service.js');
+        const { StorybookService } = await import('./services/storybook.service.js');
+        const storybook = await StorybookService.getById(req.params.id as string);
+        return storybook ? renderAboutSeo(storybook) : null;
+      })
+    );
+
+    app.get('/blog', (_req, res, next) =>
+      sendSeo(res, next, async () => {
+        const { renderBlogListSeo } = await import('./services/seo-ssr.service.js');
+        const { listPublishedBlogs } = await import('./services/mkt/blog-public.service.js');
+        return renderBlogListSeo(await listPublishedBlogs());
+      })
+    );
+
+    app.get('/blog/:slug', (req, res, next) =>
+      sendSeo(res, next, async () => {
+        const { renderBlogSeo } = await import('./services/seo-ssr.service.js');
+        const { getPublishedBlog } = await import('./services/mkt/blog-public.service.js');
+        const post = await getPublishedBlog(String(req.params.slug));
+        return post ? renderBlogSeo(post) : null;
+      })
+    );
+
+    app.get('/guide/:hub', (req, res, next) =>
+      sendSeo(res, next, async () => {
+        const { renderHubSeo, HUBS } = await import('./services/seo-ssr.service.js');
+        const hub = HUBS[req.params.hub as keyof typeof HUBS];
+        if (!hub) return null;
+        const { StorybookService } = await import('./services/storybook.service.js');
+        // sitemap 과 동일한 공개 기준: variant(__L\d) 제외 + storybook 타입 + 공개
+        const books = (await StorybookService.list()).filter(
+          (b) =>
+            !/__L\d+$/.test(b.id) && (b.type ?? 'storybook') === 'storybook' && b.isPublic !== false
+        );
+        return renderHubSeo(hub, books);
+      })
+    );
 
     app.use(express.static(clientDist));
     app.get('/{*path}', (_req, res) => {

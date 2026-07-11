@@ -28,6 +28,7 @@ function EditorV2BidRedirect() {
 }
 import BookDetailPage from '../pages/BookDetailPage';
 import BookSeoPage from '../pages/BookSeoPage';
+import GuideHubPage from '../pages/GuideHubPage';
 import CurriculumMasterPage from '../pages/CurriculumMasterPage';
 import LibraryMasterPage from '../pages/LibraryMasterPage';
 import LetterStrokeBulkEditorPage from '../pages/LetterStrokeBulkEditorPage';
@@ -220,6 +221,15 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <BookSeoPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 카테고리 허브 SEO 랜딩 (classics/nature) — 서버 SSR(seo-ssr) 짝 페이지
+        path: 'guide/:hub',
+        element: (
+          <ErrorBoundary>
+            <GuideHubPage />
           </ErrorBoundary>
         ),
       },

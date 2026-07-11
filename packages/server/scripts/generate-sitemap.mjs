@@ -100,6 +100,8 @@ async function main() {
   entries.push(urlEntry({ loc: `${SITE_URL}/library/phonics/korean`, lastmod: today, changefreq: 'weekly', priority: 0.7 }));
   entries.push(urlEntry({ loc: `${SITE_URL}/vocabulary`, lastmod: today, changefreq: 'weekly', priority: 0.6 }));
   entries.push(urlEntry({ loc: `${SITE_URL}/blog`, lastmod: today, changefreq: 'daily', priority: 0.8 }));
+  entries.push(urlEntry({ loc: `${SITE_URL}/guide/classics`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
+  entries.push(urlEntry({ loc: `${SITE_URL}/guide/nature`, lastmod: today, changefreq: 'weekly', priority: 0.8 }));
 
   // 공개 블로그 (발행된 self_hosted 내부 블로그) — 공개 API 에서 목록 fetch
   let blogCount = 0;

@@ -423,7 +423,15 @@ function BookSeoContent({
             ⭐ 지금 우리 아이와 함께 읽기
           </Link>
           <div className="mt-3 text-xs text-slate-500">
-            탱고북에서 함께 — 아이와 부모를 위한 AI 동화책 플랫폼
+            탱고북에서 함께 — 아이와 부모를 위한 AI 동화책 플랫폼 ·{' '}
+            <Link
+              to={storybook.category === '세계 명작' ? '/guide/classics' : '/guide/nature'}
+              className="underline hover:text-coral-600"
+            >
+              {storybook.category === '세계 명작'
+                ? '세계 명작 동화 전집 보기'
+                : '자연관찰 그림책 전체 보기'}
+            </Link>
           </div>
         </div>
       </div>
