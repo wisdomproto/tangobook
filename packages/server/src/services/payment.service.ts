@@ -118,6 +118,15 @@ export async function extendEntitlementForPaidOrder(
     );
 
   if (upsertError) {
+    // Revert the paid flip — otherwise the row stays 'paid' with the
+    // entitlement never extended, and every retry (webhook redelivery /
+    // confirm) hits the idempotency guard: customer paid, no access, no heal.
+    // Reverting to 'pending' lets the next webhook/confirm retry extend.
+    await admin
+      .from('payments')
+      .update({ status: 'pending', payment_key: null, paid_at: null })
+      .eq('order_id', paymentRow.order_id)
+      .eq('status', 'paid');
     throw new AppError(500, `이용권 연장 실패: ${upsertError.message}`);
   }
 }
@@ -201,6 +210,10 @@ export async function handleWebhook(body: unknown): Promise<void> {
   // Re-verify with Toss (don't trust webhook body alone)
   const tossPayment = await toss.getPayment(paymentKey);
   if (tossPayment.status !== 'DONE') return;
+  // Bind the key to the order: a real paymentKey belongs to exactly one Toss
+  // orderId. Without this check, one paid key could be replayed against other
+  // pending orders of the same amount to mint entitlements for free.
+  if (tossPayment.orderId !== orderId) return;
 
   const admin = requireAdmin();
   const { data: row } = await admin

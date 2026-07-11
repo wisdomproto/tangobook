@@ -372,6 +372,45 @@ describe('handleWebhook — idempotent on already-paid order', () => {
     expect(fake.ops.some((o) => o.op === 'upsert')).toBe(false);
   });
 
+  it('rejects a replayed paymentKey whose Toss orderId belongs to a DIFFERENT order', async () => {
+    // Replay attack: attacker paid once (paymentKey pk_live_replay bound to
+    // tb_order_REAL at Toss), then posts the same key against their own fresh
+    // pending order tb_order_FAKE with a matching amount. The webhook must
+    // verify Toss's orderId matches the webhook's orderId and refuse to extend.
+    const fakePendingRow = {
+      id: 'row-replay',
+      order_id: 'tb_order_FAKE',
+      account_id: 'acc-attacker',
+      plan: 'month1',
+      amount: PLANS.month1.amount,
+      status: 'pending', // fresh order, would win the flip if not rejected
+    };
+    const fake = makeFakeAdmin({
+      paymentRow: fakePendingRow,
+      entitlementRow: { account_id: 'acc-attacker', paid_until: null },
+    });
+    (getSupabaseAdmin as ReturnType<typeof vi.fn>).mockReturnValue(fake.client);
+    (toss.getPayment as ReturnType<typeof vi.fn>).mockResolvedValue({
+      paymentKey: 'pk_live_replay',
+      status: 'DONE',
+      orderId: 'tb_order_REAL', // Toss says this key belongs to another order
+      totalAmount: PLANS.month1.amount, // amount matches — only orderId gives it away
+    });
+
+    await handleWebhook({
+      eventType: 'PAYMENT_STATUS_CHANGED',
+      data: {
+        paymentKey: 'pk_live_replay',
+        orderId: 'tb_order_FAKE',
+        status: 'DONE',
+      },
+    });
+
+    // Must NOT flip the fake order to paid, must NOT extend the entitlement
+    expect(fake.ops.some((o) => o.table === 'payments' && o.op === 'update')).toBe(false);
+    expect(fake.ops.some((o) => o.table === 'entitlements' && o.op === 'upsert')).toBe(false);
+  });
+
   it('no-ops for non-DONE webhook status (does not call getPayment)', async () => {
     const fake = makeFakeAdmin();
     (getSupabaseAdmin as ReturnType<typeof vi.fn>).mockReturnValue(fake.client);
@@ -435,6 +474,29 @@ describe('extendEntitlementForPaidOrder — gated on winning the paid flip', () 
     expect(fake.ops.some((o) => o.table === 'payments' && o.op === 'update')).toBe(true);
     // … but NO entitlement upsert — the loser must not double-extend.
     expect(fake.ops.some((o) => o.table === 'entitlements' && o.op === 'upsert')).toBe(false);
+  });
+
+  it('reverts the paid flip when the entitlement upsert fails, so a retry can heal', async () => {
+    // Without the revert, the row stays 'paid' while the entitlement was never
+    // extended — every later retry (webhook redelivery / confirm) hits the
+    // idempotency guard and returns without extending: customer paid, no access.
+    const fake = makeFakeAdmin({
+      paymentRow: pendingRow,
+      flippedRows: [{ order_id: 'tb_order-7' }], // won the flip
+      entitlementRow: { account_id: 'acc-1', paid_until: null },
+      upsertError: { message: 'transient db error' },
+    });
+    (getSupabaseAdmin as ReturnType<typeof vi.fn>).mockReturnValue(fake.client);
+
+    await expect(extendEntitlementForPaidOrder(pendingRow, 'pk_live_fail')).rejects.toMatchObject({
+      statusCode: 500,
+    });
+
+    // A second payments.update must have run, reverting status back to 'pending'
+    const updates = fake.ops.filter((o) => o.table === 'payments' && o.op === 'update');
+    expect(updates.length).toBe(2);
+    const revertPayload = updates[1].payload as Record<string, unknown>;
+    expect(revertPayload.status).toBe('pending');
   });
 
   it('extends exactly once across concurrent winner + loser calls (no double extension)', async () => {
