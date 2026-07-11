@@ -58,6 +58,7 @@
 - 자연관찰은 **팩트 정확성이 생명** → 각 책의 `educational_content` / `pages[].text` 를 근거로 사실 확인 후 작성. 세계기록급 수치·연대는 책 데이터 범위에서만.
 - 씬별 톤: 훅=호기심 자극("티라노보다 컸다고?") · 사실=놀라운 팩트 2~3개 · 관찰=실천형.
 - 저장 위치: `_data/marketing/reel-captions-nature.json` = `{ bookId: [훅, 사실, 관찰] }` (3씬 자막; 도감·CTA 는 정적). 명작 `reel-captions.json` 와 분리.
+- **로더**: `reel-targets.ts` 에 신규 `loadNatureReelCaptions(id): string[] | undefined` (기존 `loadReelCaptions` 는 `reel-captions.json` 하드코딩이라 재사용 불가 — 파일명만 다른 별도 함수, 모듈 캐시 동일 패턴). `buildNatureReelProps` 가 `captions` 로 받음.
 - 파일럿 5권에서 톤·정확성 먼저 검증.
 
 ## 기술 구조
@@ -77,6 +78,8 @@
 
 `packages/remotion/src/components/reels/storybook/SeriesShowcase.tsx`. 8테마 대표 표지 그리드(실사풍) + "우리 아이 첫 자연도감 100권+" 메시지 + 카테고리 라벨. 표지는 각 카테고리 대표 책 표지를 R2 에서 뽑아 prop 으로 주입(순수 빌더가 URL 배열 구성). 정적 8장이라 책마다 동일(모듈 캐시 가능).
 
+**대표 표지 출처(provenance)**: `render-book-reels.ts`(또는 `reel-targets.ts`)에 상수 `NATURE_SERIES_COVERS: Array<{ category: string; bookId: string; label: string }>` 8개(공룡·육지·식물·곤충·바다·하늘·우주·우리몸 각 1권 대표, id 는 books-by-category.json 에서 수동 선별). 러너가 각 bookId 의 R2 JSON `coverImage` 를 fetch → `covers: string[8]`(encodeURI) 로 `buildNatureReelProps` 에 주입. 8장은 책 무관 정적이라 배치 시작 시 1회 resolve 해 모듈 캐시.
+
 ### 컴포지션 배선
 
 기존 `StorybookReel` 컴포지션을 확장 또는 신규 `NatureReel` 컴포지션. **결정: 신규 `NatureReel` 컴포지션**(`packages/remotion/src/compositions/NatureReel.tsx`) — StoryScene/Closing 재사용 + SeriesShowcase, `calculateMetadata` 동적 duration. 명작 `StorybookReel` 무변경(회귀 안전). Zod 스키마 `data/nature-reel.ts`.
@@ -87,7 +90,8 @@
 
 ### 배치 러너 & 발행
 
-- `render-book-reels.ts` 에 `--category=nature` 배선: `resolveNatureBookIds`(books-by-category.json category=/공룡|동물|식물|곤충|바다|하늘|우주|우리 몸/ 필터, 파닉스·명작·backup 제외) + `buildNatureReelProps` + `NatureReel`/`NatureThumb` 선택. 파일럿은 `--book=<id>` 또는 `--category=dino --limit=5`.
+- `render-book-reels.ts` 는 **이미 `--category`(기본 `'classics'`)를 파싱하지만 무시**하고 항상 `resolveClassicBookIds()` 호출 + 컴포지션/썸네일 id 하드코딩(`StorybookReel`·`ReelThumbStyles`). 따라서 러너 변경 = **명확히 스코프된 분기**(재작성 아님): `--category=nature` 시 `resolveNatureBookIds`(books-by-category.json category=/공룡|동물|식물|곤충|바다|하늘|우주|우리 몸/ 필터, 파닉스·명작·backup 제외) + `buildNatureReelProps` + `NatureReel`/`NatureThumb` 선택.
+- **파일럿 실행 = `--book=<id>` 명시 경로** (공룡 5권 id 를 books-by-category.json 에서 확정 후 나열). 모호한 `--limit` 대신 정확한 5권을 지정 — 러너는 명작 배치에서 이미 `--book` 지원.
 - 마케팅 연결: **명작과 동일** — 자연관찰 책도 `mkt_contents.memo='storybook:{id}'` + 캐러셀 행 보유(실측 확인, `has_reel_ko=false`). `connectReelToMarketing` 이 `reels.ko` 병합. 새 행 생성 불필요.
 - IG 예약: **기존 `schedule-reels-instagram.ts` 그대로 재사용**(멱등, reel 보유 콘텐츠 자동 수집). 명작 예약과 안 겹침(이미 큐에 있는 콘텐츠 skip). 자연관찰 우선순위는 카테고리순 정렬 후속 옵션.
 
