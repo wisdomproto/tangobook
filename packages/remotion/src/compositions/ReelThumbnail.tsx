@@ -306,9 +306,15 @@ export const CenterPosterSchema = z.object({
   bookTitle: z.string(),
   heroUrl: z.string(),
   badge: z.string(),
+  bg: z.string().optional(), // 배경 그라디언트 CSS (시리즈별 테마). 없으면 네이비.
+  glowRgb: z.string().optional(), // 글로우 색 "r,g,b". 없으면 블루.
   headline: z.string().optional(),
 });
 export type CenterPosterProps = z.infer<typeof CenterPosterSchema>;
+
+const DEFAULT_BG =
+  'radial-gradient(ellipse 95% 62% at 50% 42%, #17436e 0%, #0b2540 46%, #050f1e 100%)';
+const DEFAULT_GLOW = '120,185,255';
 
 export const THUMB_CENTER_SAMPLE: CenterPosterProps = {
   bookTitle: '개구리 왕자',
@@ -316,19 +322,20 @@ export const THUMB_CENTER_SAMPLE: CenterPosterProps = {
   badge: '명작 그림책',
 };
 
-export const CenterPoster: React.FC<CenterPosterProps> = ({ bookTitle, heroUrl, badge }) => {
+export const CenterPoster: React.FC<CenterPosterProps> = ({
+  bookTitle,
+  heroUrl,
+  badge,
+  bg,
+  glowRgb,
+}) => {
+  const glow = glowRgb || DEFAULT_GLOW;
   return (
-    <AbsoluteFill
-      style={{
-        background:
-          'radial-gradient(ellipse 95% 62% at 50% 42%, #17436e 0%, #0b2540 46%, #050f1e 100%)',
-      }}
-    >
-      {/* 카드 뒤 은은한 블루 글로우 */}
+    <AbsoluteFill style={{ background: bg || DEFAULT_BG }}>
+      {/* 카드 뒤 은은한 컬러 글로우 (시리즈 테마색) */}
       <AbsoluteFill
         style={{
-          background:
-            'radial-gradient(ellipse 68% 40% at 50% 46%, rgba(95,170,255,0.24) 0%, rgba(95,170,255,0) 62%)',
+          background: `radial-gradient(ellipse 68% 40% at 50% 46%, rgba(${glow},0.24) 0%, rgba(${glow},0) 62%)`,
         }}
       />
       {/* 중앙 스택: 배지 + 온전한 16:9 삽화(크롭 없음) + 큰 제목 — 세로 정중앙(그리드 안전) */}
@@ -358,8 +365,7 @@ export const CenterPoster: React.FC<CenterPosterProps> = ({ bookTitle, heroUrl, 
             borderRadius: 32,
             overflow: 'hidden',
             border: '6px solid rgba(255,255,255,0.96)',
-            boxShadow:
-              '0 0 64px rgba(120,185,255,0.6), 0 0 26px rgba(255,255,255,0.5), 0 20px 50px rgba(0,0,0,0.5)',
+            boxShadow: `0 0 64px rgba(${glow},0.6), 0 0 26px rgba(255,255,255,0.5), 0 20px 50px rgba(0,0,0,0.5)`,
             backgroundColor: '#0a1626',
           }}
         >
@@ -374,8 +380,7 @@ export const CenterPoster: React.FC<CenterPosterProps> = ({ bookTitle, heroUrl, 
             textAlign: 'center',
             lineHeight: 1.06,
             wordBreak: 'keep-all',
-            textShadow:
-              '0 0 38px rgba(150,200,255,0.8), 0 0 14px rgba(255,255,255,0.55), 0 4px 18px rgba(0,0,0,0.5)',
+            textShadow: `0 0 38px rgba(${glow},0.8), 0 0 14px rgba(255,255,255,0.55), 0 4px 18px rgba(0,0,0,0.5)`,
           }}
         >
           {bookTitle}

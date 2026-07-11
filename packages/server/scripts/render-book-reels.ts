@@ -54,6 +54,27 @@ function withTimeout<T>(p: Promise<T>, ms: number, label: string): Promise<T> {
   ]);
 }
 
+// 썸네일 시리즈별 테마색 — 그리드에서 카테고리가 색으로 그룹핑되게. (배경 그라디언트 + 글로우 rgb)
+const THUMB_THEMES: Array<{ match: RegExp; c1: string; c2: string; c3: string; glow: string }> = [
+  { match: /명작/, c1: '#4a1c40', c2: '#26102a', c3: '#0e0712', glow: '255,150,205' }, // 로즈/플럼
+  { match: /공룡/, c1: '#0e3a30', c2: '#08201b', c3: '#040f0c', glow: '90,255,190' }, // 에메랄드
+  { match: /육지/, c1: '#3e2a10', c2: '#20160a', c3: '#100b05', glow: '255,200,110' }, // 사바나 앰버
+  { match: /식물/, c1: '#233e14', c2: '#12200b', c3: '#080f05', glow: '175,255,110' }, // 리프 그린
+  { match: /곤충/, c1: '#3e163a', c2: '#200f20', c3: '#100610', glow: '255,150,235' }, // 꽃밭 마젠타
+  { match: /바다/, c1: '#0d3a52', c2: '#072030', c3: '#040f18', glow: '100,215,255' }, // 오션 시안
+  { match: /하늘/, c1: '#17436e', c2: '#0b2540', c3: '#050f1e', glow: '150,200,255' }, // 스카이 블루
+  { match: /우주/, c1: '#281a56', c2: '#150f30', c3: '#080614', glow: '175,160,255' }, // 딥 스페이스 퍼플
+  { match: /우리 ?몸/, c1: '#4a1620', c2: '#280c12', c3: '#120609', glow: '255,140,150' }, // 바디 코럴
+];
+function themeForThumb(nature: boolean, category: string): { bg: string; glowRgb: string } {
+  const key = nature ? category : '명작';
+  const t = THUMB_THEMES.find((x) => x.match.test(key)) ?? THUMB_THEMES[6]; // 기본 스카이 블루
+  return {
+    bg: `radial-gradient(ellipse 95% 62% at 50% 42%, ${t.c1} 0%, ${t.c2} 46%, ${t.c3} 100%)`,
+    glowRgb: t.glow,
+  };
+}
+
 interface Args {
   book: string | null;
   limit: number | null;
@@ -132,10 +153,13 @@ async function main() {
     // hero = 글자 없는 16:9 본문 삽화(표지는 제목이 구워져 있어 회피). 배경 블러로 세로 프레임 채움.
     const compId = 'ReelThumbCentered';
     const heroUrl = props.scenes[1]?.imageUrls?.[0] ?? props.scenes[0].imageUrls[0];
+    const theme = themeForThumb(nature, props.category ?? '');
     const thumbProps = {
       bookTitle: props.bookTitle,
       heroUrl,
       badge: nature ? props.category : '명작 그림책',
+      bg: theme.bg,
+      glowRgb: theme.glowRgb,
     };
     const comp = await selectComposition({
       serveUrl,
