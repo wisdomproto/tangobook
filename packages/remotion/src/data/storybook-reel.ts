@@ -36,3 +36,21 @@ export function computeReelFrames(props: StorybookReelProps): number {
   return scenes + morph + CTA_SEC * REEL_FPS;
 }
 export const BGM_SRC = 'reels/bgm.mp3';
+
+// 릴스 BGM 풀 — 책마다 다양하게(책 제목 해시로 고정 선택 → 재렌더 시 동일).
+export const BGM_TRACKS = [
+  'reels/bgm-1.mp3',
+  'reels/bgm-2.mp3',
+  'reels/bgm-3.mp3',
+  'reels/bgm-4.mp3',
+  'reels/bgm-5.mp3',
+  'reels/bgm-6.mp3',
+  'reels/bgm-7.mp3',
+  'reels/bgm-8.mp3',
+  'reels/bgm-9.mp3',
+];
+export function pickBgm(seed: string): string {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
+  return BGM_TRACKS[h % BGM_TRACKS.length];
+}

@@ -10,7 +10,7 @@ import {
   NATURE_SERIES_SEC,
   NATURE_CTA_SEC,
   REEL_FPS,
-  BGM_SRC,
+  pickBgm,
 } from '../data/nature-reel';
 
 export const NatureReel: React.FC<NatureReelProps> = (props) => {
@@ -19,7 +19,7 @@ export const NatureReel: React.FC<NatureReelProps> = (props) => {
   return (
     <AbsoluteFill style={{ backgroundColor: '#1A1310' }}>
       <Audio
-        src={staticFile(BGM_SRC)}
+        src={staticFile(pickBgm(props.bookTitle))}
         loop
         volume={(f) =>
           interpolate(f, [0, 15, total - 40, total], [0, 0.55, 0.55, 0], {

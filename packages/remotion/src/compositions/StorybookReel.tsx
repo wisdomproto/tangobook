@@ -9,7 +9,7 @@ import {
   MORPH_SEC,
   CTA_SEC,
   REEL_FPS,
-  BGM_SRC,
+  pickBgm,
   computeReelFrames,
 } from '../data/storybook-reel';
 
@@ -19,7 +19,7 @@ export const StorybookReel: React.FC<StorybookReelProps> = (props) => {
   return (
     <AbsoluteFill style={{ backgroundColor: '#1A1310' }}>
       <Audio
-        src={staticFile(BGM_SRC)}
+        src={staticFile(pickBgm(props.bookTitle))}
         loop
         volume={(f) =>
           interpolate(f, [0, 15, total - 40, total], [0, 0.55, 0.55, 0], {

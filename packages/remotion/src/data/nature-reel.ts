@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { REEL_FPS, REEL_WIDTH, REEL_HEIGHT, SceneSchema, BGM_SRC } from './storybook-reel';
+import { REEL_FPS, REEL_WIDTH, REEL_HEIGHT, SceneSchema, BGM_SRC, pickBgm } from './storybook-reel';
 
-export { REEL_FPS, REEL_WIDTH, REEL_HEIGHT, BGM_SRC };
+export { REEL_FPS, REEL_WIDTH, REEL_HEIGHT, BGM_SRC, pickBgm };
 export const NATURE_SERIES_SEC = 5;
 export const NATURE_CTA_SEC = 6;
 export const NATURE_HOOK_SEC = 4;
