@@ -28,6 +28,9 @@ import {
   NatureThumb,
   NatureThumbSchema,
   THUMB_NATURE_SAMPLE,
+  CenterPoster,
+  CenterPosterSchema,
+  THUMB_CENTER_SAMPLE,
 } from './compositions/ReelThumbnail';
 import {
   StorybookReelPropsSchema,
@@ -275,6 +278,16 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
         defaultProps={THUMB_FROG}
+      />
+      <Composition
+        id="ReelThumbCentered"
+        component={CenterPoster}
+        schema={CenterPosterSchema}
+        durationInFrames={1}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={THUMB_CENTER_SAMPLE}
       />
       <Composition
         id="MosquitoEbook"

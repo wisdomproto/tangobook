@@ -125,23 +125,15 @@ async function main() {
 
   // 썸네일(9:16) 렌더 → 로컬 PNG 경로 반환. 3그림체 있으면 그림체 3분할, 없으면 포스터.
   async function renderThumb(id: string, props: any, nature: boolean): Promise<string> {
-    const compId = nature
-      ? 'ReelThumbNature'
-      : props.styleMorph
-        ? 'ReelThumbStyles'
-        : 'ReelThumbPoster';
-    const thumbProps = nature
-      ? {
-          bookTitle: props.bookTitle,
-          coverUrl: props.scenes[0].imageUrls[0],
-          headline: props.scenes[0].body,
-          categoryLabel: props.category,
-        }
-      : {
-          bookTitle: props.bookTitle,
-          coverUrl: props.scenes[0].imageUrls[0],
-          styles: props.styleMorph?.styles ?? [],
-        };
+    // 중앙정렬 포스터(그리드 안전) 통일 — 명작·자연관찰 공용.
+    // hero = 글자 없는 16:9 본문 삽화(표지는 제목이 구워져 있어 회피). 배경 블러로 세로 프레임 채움.
+    const compId = 'ReelThumbCentered';
+    const heroUrl = props.scenes[1]?.imageUrls?.[0] ?? props.scenes[0].imageUrls[0];
+    const thumbProps = {
+      bookTitle: props.bookTitle,
+      heroUrl,
+      badge: nature ? props.category : '명작 그림책',
+    };
     const comp = await selectComposition({
       serveUrl,
       id: compId,

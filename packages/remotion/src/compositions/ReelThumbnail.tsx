@@ -297,6 +297,90 @@ export const NatureThumb: React.FC<NatureThumbProps> = ({
   );
 };
 
+/**
+ * ④ 중앙정렬 포스터 (그리드 안전): 글자 없는 삽화를 풀블리드로 깔고, 제목·배지를
+ *    세로 정중앙에 배치. 인스타 프로필 그리드가 위·아래를 잘라도(1:1~4:5 크롭) 제목이
+ *    항상 보인다. 명작·자연관찰 공용 — 배지=카테고리/브랜드, headline=선택(자연관찰 훅).
+ */
+export const CenterPosterSchema = z.object({
+  bookTitle: z.string(),
+  heroUrl: z.string(),
+  badge: z.string(),
+  headline: z.string().optional(),
+});
+export type CenterPosterProps = z.infer<typeof CenterPosterSchema>;
+
+export const THUMB_CENTER_SAMPLE: CenterPosterProps = {
+  bookTitle: '개구리 왕자',
+  heroUrl: THUMB_FROG.styles[0].url,
+  badge: '명작 그림책',
+};
+
+export const CenterPoster: React.FC<CenterPosterProps> = ({ bookTitle, heroUrl, badge }) => {
+  return (
+    <AbsoluteFill style={{ backgroundColor: '#241a14' }}>
+      {/* 배경: 같은 삽화를 흐리게·확대해 세로 프레임을 채움 (좌우 크롭돼도 블러라 무관) */}
+      <Img
+        src={heroUrl}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          filter: 'blur(30px) brightness(0.5)',
+          transform: 'scale(1.2)',
+        }}
+      />
+      <AbsoluteFill
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(20,12,8,0.5) 0%, rgba(20,12,8,0.3) 48%, rgba(20,12,8,0.78) 100%)',
+        }}
+      />
+      {/* 중앙 스택: 배지 + 온전한 16:9 삽화(크롭 없음) + 제목 — 세로 정중앙(그리드 안전) */}
+      <AbsoluteFill
+        style={{
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0 48px',
+          gap: 40,
+        }}
+      >
+        <div style={{ ...chip(), fontSize: 46, padding: '14px 44px' }}>{badge}</div>
+        <div
+          style={{
+            width: '100%',
+            aspectRatio: '16 / 9',
+            borderRadius: 32,
+            overflow: 'hidden',
+            border: '8px solid #fff',
+            boxShadow: '0 24px 60px rgba(0,0,0,0.5)',
+            backgroundColor: '#241a14',
+          }}
+        >
+          <Img src={heroUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        </div>
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 800,
+            fontSize: 120,
+            color: '#fff',
+            textAlign: 'center',
+            lineHeight: 1.1,
+            wordBreak: 'keep-all',
+            textShadow: '0 6px 26px rgba(0,0,0,0.8), 0 2px 8px rgba(0,0,0,0.9)',
+          }}
+        >
+          {bookTitle}
+        </div>
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
 /** ② 그림체 3분할: 같은 장면을 3개 그림체로 세로 스택 + 제목 오버레이 */
 export const ThumbStyles: React.FC<ThumbProps> = ({ bookTitle, styles }) => {
   return (
