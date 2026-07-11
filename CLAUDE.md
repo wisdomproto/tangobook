@@ -132,11 +132,13 @@ pnpm --filter {server|client|shared} {dev|build|...}
 - `Storybook` / `Character` / `Page` / `KeyObject` / `BlendingExercise` / `ParentGuide` / `ReadingLevel` / `VocabularyUnit` / `BookManifest` / `LibraryConfig` / `ApiResponse<T>` → `@tangobook/shared`
 - `AppError` → `packages/server/src/middleware/error.middleware.ts`
 
-## 다국어(i18n) 번역
-`SUPPORTED_LANGUAGES`(`shared/constants`, `code·label·nativeName·flag`) = 언어 단일 소스. **새 언어 = 여기 한 줄** → 클라 언어 토글/라벨 자동 derive(BookDetailPage `LANG_LABEL`). 표지는 `lang→en→ko` 폴백. 현재 11개(ko·en·ja·zh·es·fr·de·vi·th·ms·id), **zh = 간체(`中文(简体)`)**. 마케팅 새 프로젝트 기본 타겟 언어 = `[ko·en·zh·th·vi]`.
-- 번역 스크립트 (`packages/server/scripts/`): `translate-extract/apply/verify.mjs --lang=<code>` + 공통 `translation-core.mjs`. **Gemini 아닌 Claude 직접 번역** — `_data/translations/<lang>/<id>.json`(언어무관 `t` 키)에 채워 R2 주입.
-- R2 필드: `languages[]` · `titleTranslations` · `page.translations[lang]` · `KeyObject.nameTranslations` · `parentGuideTranslations`(신규). **vi 동화책 152권 전체**(명작 51 + 자연관찰 101, backup·파닉스 제외) 적용 완료.
-- 상세 + **새 언어 추가 체크리스트** → memory `translation-pipeline-i18n-2026-05-30.md`.
+## 다국어(i18n) — 콘텐츠 + UI + SEO (해외 진출 1단계 완료, 2026-07-12)
+`SUPPORTED_LANGUAGES`(`shared/constants`, `code·label·nativeName·flag`) = 언어 단일 소스. **새 언어 = `/add-language <code>` 한 줄**(스킬/커맨드 `.claude/commands/add-language.md` = 전체 파이프라인 오케스트레이션). 현재 11개(ko·en·ja·zh·es·fr·de·vi·th·ms·id), **zh = 간체**. 🔴 **콘텐츠·UI 실제 완비 = ko·en·vi·zh·th 5개**(마케팅 타겟). ja·es·fr·de·ms·id 는 코드상 지원되나 콘텐츠·UI 미번역 → `/add-language` 로 추후.
+- **콘텐츠 번역** (동화책 149권): `translate-extract/apply/verify.mjs --lang=<code>` + `translation-core.mjs`. **Claude 직접 번역**(Gemini X) — `_data/translations/<lang>/<id>.json`(언어무관 `t` 키) 채워 R2 주입. R2 필드 `languages[]`·`titleTranslations`·`page.translations[lang]`·`KeyObject.nameTranslations`·`parentGuideTranslations`. **vi·zh·th 149/149 완비**. 🔴 배치 번역 서브에이전트 = **"워커, Agent 금지, 직접 Read/Edit" 프롬프트 필수**(오케스트레이터 환각 방지). apply 는 책단위 원자성(미완 자동 skip). languages drift(콘텐츠 있는데 플래그 누락) 일괄 점검.
+- **UI i18n** (`packages/client/src/i18n/`): **react-i18next**, ko eager 번들(폴백)+그 외 lazy glob, `setUiLanguage(code)`(localStorage `tangobook-ui-lang`). **11 네임스페이스**(common·shell·access·auth·library·bookDetail·payment·viewer·games·learning·continuous, ~500키) × **en·vi·zh·th 완역**(`locales/<lang>/*.json`). 부모설정에 언어 셀렉터. 🔴 **ko 미지정 시 기존 동작 불변**. 검증 `packages/client/scripts/verify-locales.mjs`(키파리티+보간+Trans마크업).
+- **데이터 라벨 다국어** — 카테고리명·책제목·그림풍 장르는 R2 데이터(t() 아님) → 고정 딕셔너리로 표시 시점 치환: `features/library/lib/category-i18n.ts`(`useCategoryLabel`) · `lib/art-style-genre.ts`(`genreLabel`/`useGenreLabel`) · 책카드 `titleTranslations[uiLang]`. 내부 key(한국어) 유지.
+- **SEO 다국어**: `/:lang/library/:id/about`·`/:lang/guide/:hub` SSR(`seo-ssr.service` lang 인자) + hreflang(x-default=ko). 🔴 `hasAboutLang(book,lang)`=titleTranslations+parentGuideTranslations 존재로 판정 → hreflang·sitemap·라우트 전부 자동 derive(언어추가 코드0). 문자열 `shared/constants/seo-i18n.ts`. sitemap 언어별 URL 자동(912).
+- 상세 → memory `i18n-multilingual-2026-07-12` · `translation-pipeline-i18n-2026-05-30` · `global-expansion-design-2026-07-11`(투트랙 결제·세금 등 해외 설계).
 
 ## PRD 문서
 `docs/PRD_*.md` (Master / AuthorTool_Storybook / AuthorTool_Phonics / Viewer / Marketing / v2 / UIUX_AuthorTool)
