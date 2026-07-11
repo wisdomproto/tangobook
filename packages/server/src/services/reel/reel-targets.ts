@@ -16,6 +16,18 @@ export function resolveClassicBookIds(): string[] {
   return json.books.filter((b) => /명작|세계/.test(b.category ?? '')).map((b) => b.id);
 }
 
+/** 자연관찰 동화책 id (books-by-category.json, 육지동물·공룡·식물·곤충·바다·하늘·우주·우리몸). */
+export function resolveNatureBookIds(): string[] {
+  const file = path.join(SCRIPTS_DATA, 'books-by-category.json');
+  const json = JSON.parse(fs.readFileSync(file, 'utf8')) as {
+    books: Array<{ id: string; category?: string }>;
+  };
+  return json.books
+    .filter((b) => /공룡|동물|식물|곤충|바다|하늘|우주|우리 몸/.test(b.category ?? ''))
+    .filter((b) => !/파닉스|명작|세계|backup/.test(b.category ?? ''))
+    .map((b) => b.id);
+}
+
 /** R2 공개 URL 에서 동화책 JSON fetch. */
 export async function fetchStorybook(id: string): Promise<any> {
   const url = encodeURI(`${config.r2.publicUrl}/storybook-${id}.json`);
@@ -43,6 +55,43 @@ export function loadReelCaptions(id: string): string[] | undefined {
     _captions = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
   }
   return _captions![id];
+}
+
+let _natureCaptions: Record<string, string[]> | null = null;
+/** 손수 작성 자연관찰 릴스 자막 [훅, 사실, 관찰]. 파일/책 없으면 undefined. */
+export function loadNatureReelCaptions(id: string): string[] | undefined {
+  if (!_natureCaptions) {
+    const file = path.join(SCRIPTS_DATA, 'marketing', 'reel-captions-nature.json');
+    _natureCaptions = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
+  }
+  return _natureCaptions![id];
+}
+
+/** 도감 시리즈 씬용 8테마 대표 책(카테고리→대표 bookId+라벨). */
+export const NATURE_SERIES_COVERS: Array<{ label: string; bookId: string }> = [
+  { label: '공룡', bookId: '1773714531390' },
+  { label: '육지동물', bookId: '1777438039433' },
+  { label: '식물', bookId: '1773365203383' },
+  { label: '곤충', bookId: '1777603478247' },
+  { label: '바다동물', bookId: '1777610290605' },
+  { label: '하늘동물', bookId: '1777596431093' },
+  { label: '우주와 자연', bookId: '1773615989178' },
+  { label: '우리 몸', bookId: '1773710246892' },
+];
+
+let _seriesResolved: { covers: string[]; labels: string[] } | null = null;
+/** 8 대표 표지 URL(encodeURI) + 라벨. R2 coverImage fetch, 모듈 캐시. */
+export async function resolveSeriesCovers(): Promise<{ covers: string[]; labels: string[] }> {
+  if (_seriesResolved) return _seriesResolved;
+  const covers: string[] = [];
+  const labels: string[] = [];
+  for (const { label, bookId } of NATURE_SERIES_COVERS) {
+    const sb = await fetchStorybook(bookId);
+    covers.push(encodeURI(sb.coverImage || sb.pages?.[0]?.illustrationUrl || ''));
+    labels.push(label);
+  }
+  _seriesResolved = { covers, labels };
+  return _seriesResolved;
 }
 
 let _genreMap: Record<string, string> | null = null;
