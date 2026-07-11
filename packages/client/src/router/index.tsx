@@ -60,6 +60,7 @@ import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
 import { InviteLandingPage, InviteFriendsPage, ReferralRewardToast } from '../features/payment';
 import { GlobalUiSound } from '../components/GlobalUiSound';
 import { ParentGate } from '../features/auth/components/ParentGate';
+import { RequireAuthed } from '../features/auth/guards/RequireAuthed';
 import TermsPage from '../pages/legal/TermsPage';
 import { OpsDashboardPage } from '../features/ops';
 import { MembersDashboardPage } from '../features/members';
@@ -361,9 +362,11 @@ export const router = createBrowserRouter([
         path: 'subscribe',
         element: (
           <ErrorBoundary>
-            <ParentGate>
-              <SubscribePage />
-            </ParentGate>
+            <RequireAuthed>
+              <ParentGate>
+                <SubscribePage />
+              </ParentGate>
+            </RequireAuthed>
           </ErrorBoundary>
         ),
       },
@@ -423,12 +426,14 @@ export const router = createBrowserRouter([
       { path: 'playground/word-garden', element: <Navigate to="/library" replace /> },
       {
         path: 'parent',
-        // PIN 게이트 대신 경량 어른 확인(곱셈, 15분 유지) — 아이가 설정/결제/계정삭제 도달 방지.
-        // 로그인 자체는 여전히 필요 (auth context 가 보장).
+        // RequireAuthed(로그인) → ParentGate(경량 어른 확인: 곱셈, 15분 유지).
+        // 아이가 설정/결제/계정삭제 도달 방지 + 미로그인은 /login 으로.
         element: (
-          <ParentGate>
-            <ParentHomePage />
-          </ParentGate>
+          <RequireAuthed>
+            <ParentGate>
+              <ParentHomePage />
+            </ParentGate>
+          </RequireAuthed>
         ),
         children: [
           { index: true, element: <Navigate to="/parent/profiles" replace /> },
