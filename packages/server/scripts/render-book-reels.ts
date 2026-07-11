@@ -153,6 +153,7 @@ function themeForThumb(
 interface Args {
   book: string | null;
   limit: number | null;
+  offset: number;
   dryRun: boolean;
   thumbsOnly: boolean;
   forceThumb: boolean;
@@ -164,6 +165,7 @@ function parseArgs(argv: string[]): Args {
   const a: Args = {
     book: null,
     limit: null,
+    offset: 0,
     dryRun: false,
     thumbsOnly: false,
     forceThumb: false,
@@ -180,6 +182,7 @@ function parseArgs(argv: string[]): Args {
     else if (key === '--force-thumb') a.forceThumb = true;
     else if (key === '--book') a.book = next();
     else if (key === '--limit') a.limit = parseInt(next(), 10);
+    else if (key === '--offset') a.offset = parseInt(next(), 10);
     else if (key === '--owner-email') a.ownerEmail = next();
     else if (key === '--category') a.category = next();
   }
@@ -201,7 +204,9 @@ async function main() {
   // 2. 대상 id 결정
   const isNature = args.category === 'nature';
   let ids = args.book ? [args.book] : isNature ? resolveNatureBookIds() : resolveClassicBookIds();
-  if (!args.book && args.limit != null) ids = ids.slice(0, args.limit);
+  if (!args.book && (args.offset > 0 || args.limit != null)) {
+    ids = ids.slice(args.offset, args.limit != null ? args.offset + args.limit : undefined);
+  }
   console.log(`[render-book-reels] 대상 ${ids.length}권`);
 
   // 3. genreMap (1회) + ownerUserId (프로덕션만)
