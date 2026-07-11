@@ -10,6 +10,7 @@ import {
   makeCategoryComparator,
 } from '@/features/library';
 import { PromoBanner } from '@/features/library/components/PromoBanner';
+import { useCategoryLabel } from '@/features/library/lib/category-i18n';
 import { PlaylistLibrarySection } from '@/features/continuous';
 import { StateScreen, SkeletonBookCard, Chip } from '@/design-system';
 import { SiteFooter } from '@/components/SiteFooter';
@@ -34,6 +35,7 @@ function summaryToEntry(s: StorybookSummary): BookIndexEntry {
   return {
     id: s.id,
     title: s.title,
+    titleTranslations: s.titleTranslations,
     // v1 storybook 은 type 미지정이면 'storybook' 으로 호환 (legacy 룰).
     type: s.type ?? 'storybook',
     category: s.category,
@@ -182,9 +184,10 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   const [styleGenre, setStyleGenre] = useState<StyleGenreSlug>('watercolor');
   const { map: styleGenreMap } = useStyleGenreMap();
 
-  // 카테고리명은 R2 데이터(번역 대상 아님) — 단, 무카테고리 폴백 '기타'만 UI 번역.
-  // 내부 key ('기타') 는 그대로 유지하고 표시 시점에만 치환.
-  const displayCategory = (cat: string) => (cat === '기타' ? t('category.other') : cat);
+  // 카테고리명은 R2 데이터라 내부 key(한국어)는 그대로 유지하고, 표시 시점에만
+  // UI 언어 라벨로 치환 (categoryLabel 딕셔너리, 매핑 없으면 원본 폴백).
+  const catLabel = useCategoryLabel();
+  const displayCategory = (cat: string) => (cat === '기타' ? t('category.other') : catLabel(cat));
 
   const matchesType = (b: BookIndexEntry): boolean => {
     if (type === 'storybook') return !b.type || b.type === 'storybook';

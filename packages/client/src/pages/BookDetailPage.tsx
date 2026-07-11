@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useStorybook, useStorybooks } from '@/features/storybook';
+import { useCategoryLabel } from '@/features/library/lib/category-i18n';
 import {
   getYoutubeVideoIds,
   getDirectVideoUrls,
@@ -32,6 +33,7 @@ const LEVEL_ORDER: ReadingLevel[] = ['L1', 'L2', 'L3'];
 
 export default function BookDetailPage() {
   const { t } = useTranslation('bookDetail');
+  const catLabel = useCategoryLabel();
   const { id = '' } = useParams();
   const navigate = useNavigate();
   // v1 단일화 — useStorybook(id) 를 메인 source 로, useStorybooks() 로 sibling 조회.
@@ -253,7 +255,7 @@ export default function BookDetailPage() {
               {storybook.category && (
                 <span className="inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">
                   <span>🌍</span>
-                  <span>{storybook.category}</span>
+                  <span>{catLabel(storybook.category)}</span>
                 </span>
               )}
               <span className="hidden sm:inline-flex items-center gap-1.5 bg-white/85 rounded-full px-3.5 py-1.5 text-xs font-black text-ink-700 shadow-soft">

@@ -13,7 +13,9 @@ interface BookCardProps {
 /** 책 카드 — 일러스트 풀 (정사각형 가까운 비율) + 아래 제목. 카드 배경/패딩 X (reference 디자인).
  *  표지는 책의 대표 그림체(defaultStyle)만 노출 — 그림체 선택은 BookDetailPage 에서. */
 export function BookCard({ book }: BookCardProps) {
-  const { t } = useTranslation('library');
+  const { t, i18n } = useTranslation('library');
+  // UI 언어에 해당 번역 제목이 있으면 카드 제목도 그 언어로 (없으면 ko 원본).
+  const displayTitle = book.titleTranslations?.[i18n.language] ?? book.title;
   const navigate = useNavigate();
   const { data: statusMap } = useReadingStatus();
   const status = statusMap?.get(book.id);
@@ -40,7 +42,7 @@ export function BookCard({ book }: BookCardProps) {
         {coverUrl ? (
           <img
             src={coverUrl}
-            alt={book.title}
+            alt={displayTitle}
             className="w-full h-full object-cover"
             loading="lazy"
             decoding="async"
@@ -61,7 +63,7 @@ export function BookCard({ book }: BookCardProps) {
         {locked && <LockBadge className="absolute top-2 left-2" />}
       </div>
       <h3 className="mt-2 font-black text-base md:text-xl text-ink-900 truncate font-display leading-tight px-1">
-        {book.title}
+        {displayTitle}
       </h3>
     </button>
   );

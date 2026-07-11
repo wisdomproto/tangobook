@@ -278,6 +278,8 @@ export interface CardNewsProjectV2 {
 export interface BookIndexEntry {
   id: string;
   title: string;
+  /** 언어별 번역 제목 — 라이브러리 카드가 UI 언어에 맞춰 표시 (없으면 title=ko 폴백). */
+  titleTranslations?: Record<string, string>;
   type: StorybookType;
   category?: string;
   folder?: string;
