@@ -249,55 +249,86 @@ export const LineMatchGame: React.FC = () => {
 };
 
 // ─────────────────────────── 블록 맞추기 (Block) ───────────────────────────
-// 글자 블록을 슬롯에 끼워 단어를 완성. 완성되면 ✓.
-const BLOCK_TILES = ['사', '과'];
+// 아래 트레이의 글자 블록을 슬롯으로 끌어와 단어(사과)를 완성한다. 단계적으로 날아 들어감.
+const SLOT_Y = 760; // 슬롯 중심 y
+const SLOT_CX = [438, 642]; // 슬롯 중심 x
+const TRAY_Y = 1360; // 트레이 중심 y
+// 트레이 초기 위치(사, 과, 나 distractor) → 정답 타일은 슬롯으로 이동.
+const B_TILES = [
+  { ch: '사', fromX: 366, toX: SLOT_CX[0], toSlot: true, start: 20 },
+  { ch: '과', fromX: 540, toX: SLOT_CX[1], toSlot: true, start: 52 },
+  { ch: '나', fromX: 714, toX: 714, toSlot: false, start: 0 },
+];
 
 export const BlockGame: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const done = frame >= 55;
-  const checkPop = spring({ frame: frame - 55, fps, config: { damping: 10 } });
+  const done = frame >= 86;
+  const checkPop = spring({ frame: frame - 86, fps, config: { damping: 10 } });
   return (
     <AbsoluteFill style={{ background: 'linear-gradient(160deg,#FFF1E8 0%,#FFE0D2 100%)' }}>
       <Chip label="블록 맞추기 🧩" />
 
-      {/* 정답 슬롯 (단어) */}
-      <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 60 }}>
-        <div style={{ display: 'flex', gap: 26 }}>
-          {BLOCK_TILES.map((t, i) => {
-            const arrive = spring({ frame: frame - (12 + i * 16), fps, config: { damping: 13 } });
-            return (
-              <div
-                key={i}
-                style={{
-                  width: 200,
-                  height: 200,
-                  borderRadius: 28,
-                  border: `5px dashed ${arrive > 0.5 ? SUCCESS : '#E9C9BA'}`,
-                  backgroundColor: arrive > 0.5 ? '#fff' : 'rgba(255,255,255,0.4)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontFamily,
-                  fontWeight: 800,
-                  fontSize: 120,
-                  color: CORAL,
-                  transform: `translateY(${(1 - arrive) * 120}px) scale(${0.6 + arrive * 0.4})`,
-                  opacity: arrive,
-                  boxShadow: arrive > 0.9 ? '0 12px 30px rgba(0,0,0,0.14)' : 'none',
-                }}
-              >
-                {t}
-              </div>
-            );
-          })}
-        </div>
-      </AbsoluteFill>
+      {/* 빈 슬롯 2칸 */}
+      {SLOT_CX.map((cx, i) => (
+        <div
+          key={`slot-${i}`}
+          style={{
+            position: 'absolute',
+            left: cx - 100,
+            top: SLOT_Y - 100,
+            width: 200,
+            height: 200,
+            borderRadius: 28,
+            border: '5px dashed #E4B9A6',
+            backgroundColor: 'rgba(255,255,255,0.35)',
+          }}
+        />
+      ))}
+
+      {/* 타일들 (트레이 → 슬롯 이동) */}
+      {B_TILES.map((t, i) => {
+        const p = t.toSlot
+          ? interpolate(frame, [t.start, t.start + 22], [0, 1], {
+              extrapolateLeft: 'clamp',
+              extrapolateRight: 'clamp',
+            })
+          : 0;
+        const x = t.fromX + (t.toX - t.fromX) * p;
+        const y = TRAY_Y + (SLOT_Y - TRAY_Y) * p;
+        const placed = t.toSlot && p > 0.98;
+        return (
+          <div
+            key={i}
+            style={{
+              position: 'absolute',
+              left: x - 100,
+              top: y - 100,
+              width: 200,
+              height: 200,
+              borderRadius: 28,
+              backgroundColor: '#fff',
+              border: `5px solid ${placed ? SUCCESS : '#F0C9B8'}`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontFamily,
+              fontWeight: 800,
+              fontSize: 120,
+              color: CORAL,
+              boxShadow: '0 12px 26px rgba(0,0,0,0.14)',
+              transform: `rotate(${t.toSlot && p > 0 && p < 1 ? 4 : 0}deg)`,
+            }}
+          >
+            {t.ch}
+          </div>
+        );
+      })}
 
       {/* 정답 도장 */}
       {done && (
         <AbsoluteFill
-          style={{ justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 470 }}
+          style={{ justifyContent: 'flex-start', alignItems: 'center', paddingTop: 540 }}
         >
           <div
             style={{
@@ -312,12 +343,12 @@ export const BlockGame: React.FC = () => {
               boxShadow: '0 10px 26px rgba(0,0,0,0.18)',
             }}
           >
-            ✓ 완성!
+            ✓ 사과 완성!
           </div>
         </AbsoluteFill>
       )}
 
-      <Caption text="블록으로 단어를 만들어요" />
+      <Caption text="블록을 끼워 단어를 만들어요" />
     </AbsoluteFill>
   );
 };
@@ -327,12 +358,12 @@ export const BlockGame: React.FC = () => {
 export const WritingGame: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const trace = interpolate(frame, [12, 58], [0, 1], {
+  const trace = interpolate(frame, [16, 92], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const done = frame >= 60;
-  const checkPop = spring({ frame: frame - 60, fps, config: { damping: 10 } });
+  const done = frame >= 96;
+  const checkPop = spring({ frame: frame - 96, fps, config: { damping: 10 } });
   const CHAR = '사';
   return (
     <AbsoluteFill style={{ backgroundColor: '#FFF6EE' }}>
@@ -403,6 +434,20 @@ export const WritingGame: React.FC = () => {
           >
             {CHAR}
           </div>
+          {/* 펜 커서 — 획을 따라 왼→오 이동 */}
+          {!done && (
+            <div
+              style={{
+                position: 'absolute',
+                left: `${trace * 100}%`,
+                top: '44%',
+                fontSize: 90,
+                transform: 'translate(-30%, -50%) rotate(8deg)',
+              }}
+            >
+              ✏️
+            </div>
+          )}
         </div>
       </AbsoluteFill>
 
