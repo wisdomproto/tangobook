@@ -1,5 +1,13 @@
 import React from 'react';
-import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
+import {
+  AbsoluteFill,
+  Img,
+  staticFile,
+  interpolate,
+  spring,
+  useCurrentFrame,
+  useVideoConfig,
+} from 'remotion';
 import { loadFont } from '@remotion/google-fonts/NotoSansKR';
 
 const { fontFamily } = loadFont('normal', { weights: ['700', '800'] });
@@ -47,6 +55,93 @@ function Caption({ text }: { text: string }) {
     </AbsoluteFill>
   );
 }
+
+// ─────────────────────────── 이 책에서 배우는 단어 (Book Words) ───────────────────────────
+// 동화책마다 배우는 핵심 단어가 있다 — 게임 학습의 출발점. (예: 백설공주 → 사과·왕비·거울·숲)
+const BOOK_WORDS = [
+  { emoji: '🍎', word: '사과' },
+  { emoji: '👑', word: '왕비' },
+  { emoji: '🪞', word: '거울' },
+  { emoji: '🌳', word: '숲' },
+];
+
+export const BookWords: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const coverIn = spring({ frame, fps, config: { damping: 14 } });
+  return (
+    <AbsoluteFill style={{ backgroundColor: '#FFF6EE' }}>
+      <AbsoluteFill
+        style={{ flexDirection: 'column', alignItems: 'center', paddingTop: 150, gap: 26 }}
+      >
+        {/* 책 표지 */}
+        <div
+          style={{
+            width: '58%',
+            borderRadius: 24,
+            overflow: 'hidden',
+            boxShadow: '0 18px 44px rgba(0,0,0,0.2)',
+            transform: `scale(${0.8 + coverIn * 0.2})`,
+          }}
+        >
+          <Img
+            src={staticFile('reels/covers/cover-snow-white.webp')}
+            style={{ width: '100%', display: 'block' }}
+          />
+        </div>
+        {/* 라벨 */}
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 800,
+            fontSize: 50,
+            color: CORAL,
+            backgroundColor: CORAL_SOFT,
+            borderRadius: 999,
+            padding: '14px 44px',
+          }}
+        >
+          이 책에서 배우는 단어
+        </div>
+        {/* 단어 카드 2×2 */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: 22,
+            width: '80%',
+            marginTop: 8,
+          }}
+        >
+          {BOOK_WORDS.map((w, i) => {
+            const pop = spring({ frame: frame - (14 + i * 9), fps, config: { damping: 13 } });
+            return (
+              <div
+                key={w.word}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 20,
+                  backgroundColor: '#fff',
+                  borderRadius: 26,
+                  padding: '22px 30px',
+                  boxShadow: '0 8px 22px rgba(0,0,0,0.1)',
+                  transform: `scale(${0.7 + pop * 0.3})`,
+                  opacity: pop,
+                }}
+              >
+                <span style={{ fontSize: 76 }}>{w.emoji}</span>
+                <span style={{ fontFamily, fontWeight: 800, fontSize: 62, color: INK }}>
+                  {w.word}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
 
 // ─────────────────────────── 그림짝 맞추기 (Line Matching) ───────────────────────────
 // 그림 카드(좌) ↔ 단어 카드(우)를 곡선 줄로 잇는다. 맞은 쌍 = 초록선.
