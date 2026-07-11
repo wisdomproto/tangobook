@@ -1,6 +1,5 @@
 import { useMemo, useState, type FormEvent } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { isAxiosError } from 'axios';
 // 🔴 auth 는 barrel(index.ts) 없음 — OpsDashboardPage 와 동일하게 context 직접 import.
 //    AuthContextValue 는 `user` 가 아니라 `account` 필드.
 import { useAuth } from '@/features/auth/context/AuthContext';
@@ -102,10 +101,14 @@ export default function MembersDashboardPage() {
       try {
         return await membersApi.list();
       } catch (e) {
-        if (isAxiosError(e) && e.response?.status === 403) {
+        // axios 응답 인터셉터가 에러를 `[403] 메시지` 형태의 평범한 Error 로 바꿈 → 메시지로 판별.
+        // 저장된 비번(x-ops-password)이 요청을 가려 403 이면 지우고, dev 로그인 토큰 경로로 재시도.
+        const msg = e instanceof Error ? e.message : '';
+        if (/\[40[13]\]/.test(msg) && getStoredOpsPassword()) {
           clearOpsPassword();
           setPwEntered(false);
           setWrong(true);
+          void qc.invalidateQueries({ queryKey: MEMBERS_KEY });
         }
         throw e;
       }
