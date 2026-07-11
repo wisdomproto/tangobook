@@ -396,8 +396,12 @@ export function ReelsPanel({ content, project }: ReelsPanelProps) {
               {cur.videoUrl ? (
                 <div className="space-y-2">
                   <video
+                    key={cur.videoUrl}
                     src={cur.videoUrl}
+                    poster={cur.coverUrl ?? undefined}
                     controls
+                    playsInline
+                    preload="metadata"
                     className="mx-auto max-h-[440px] rounded-lg bg-black"
                     style={{ aspectRatio: '9 / 16' }}
                   >
