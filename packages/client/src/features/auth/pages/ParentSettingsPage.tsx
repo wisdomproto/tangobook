@@ -7,7 +7,7 @@ import { authApi } from '../api/auth.api';
 import { InviteButton, RedeemCodeInput, useEntitlement } from '@/features/payment';
 import { useUiSound } from '@/lib/useUiSound';
 import { PAYWALL_ENABLED } from '@/features/access/config';
-import { setUiLanguage } from '@/i18n';
+import { setUiLanguage, AVAILABLE_UI_LANGS } from '@/i18n';
 import { ChangePinStep } from './ChangePinStep';
 import { PIN_REQUIRED } from '@/config/features';
 
@@ -107,7 +107,7 @@ export default function ParentSettingsPage() {
           aria-label={t('common:language.uiLanguage')}
           className="h-12 min-w-[200px] rounded-xl border-2 border-ink-100 px-3 font-bold text-ink-900 bg-white focus:border-coral-500 outline-none"
         >
-          {SUPPORTED_LANGUAGES.map((l) => (
+          {SUPPORTED_LANGUAGES.filter((l) => AVAILABLE_UI_LANGS.includes(l.code)).map((l) => (
             <option key={l.code} value={l.code}>
               {l.flag} {l.nativeName}
             </option>

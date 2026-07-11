@@ -14,6 +14,14 @@ const koModules = import.meta.glob('./locales/ko/*.json', { eager: true }) as Re
 >;
 const localeModules = import.meta.glob('./locales/*/*.json');
 
+// 실제 로케일 파일이 존재하는 언어만 = UI 언어 셀렉터에 노출할 목록.
+// (SUPPORTED_LANGUAGES 는 콘텐츠·SEO 용 11개 전체지만, UI 번역이 없는 언어를
+//  고르면 ko 로 폴백돼 "안 바뀐다"고 느껴지므로 셀렉터는 이걸 쓴다.)
+// 새 언어 UI 번역 추가 = locales/<lang>/ 폴더 생기면 자동으로 여기 포함.
+export const AVAILABLE_UI_LANGS: string[] = [
+  ...new Set(Object.keys(localeModules).map((p) => p.split('/')[2])),
+];
+
 function nsFromPath(path: string, lang: string): string {
   return path.slice(`./locales/${lang}/`.length).replace(/\.json$/, '');
 }
@@ -26,17 +34,18 @@ for (const [path, mod] of Object.entries(koModules)) {
 function detectLang(): string {
   try {
     const saved = localStorage.getItem(UI_LANG_KEY);
-    if (saved && UI_LANGS.includes(saved)) return saved;
+    // 실제 로케일 있는 언어만 인정 — 과거에 저장된 미번역 언어(ja 등)는 ko 로 폴백.
+    if (saved && AVAILABLE_UI_LANGS.includes(saved)) return saved;
   } catch {
     /* SSR/프리렌더 등 localStorage 부재 */
   }
   const nav = typeof navigator !== 'undefined' ? navigator.language.slice(0, 2) : 'ko';
-  return UI_LANGS.includes(nav) ? nav : 'ko';
+  return AVAILABLE_UI_LANGS.includes(nav) ? nav : 'ko';
 }
 
 /** 언어 변경 + 영속화. 부모 설정·언어 스위처에서 사용. */
 export async function setUiLanguage(lang: string): Promise<void> {
-  if (!UI_LANGS.includes(lang)) return;
+  if (!AVAILABLE_UI_LANGS.includes(lang)) return; // 번역 없는 언어는 무시
   try {
     localStorage.setItem(UI_LANG_KEY, lang);
   } catch {
