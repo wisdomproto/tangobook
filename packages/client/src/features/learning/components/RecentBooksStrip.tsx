@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import type { StorybookSummary } from '@tangobook/shared';
+import { BookCover } from '@/design-system';
 import type { CompletedBookStat, RecentBookStat } from '../lib/aggregate';
 import { formatKstDate } from '../lib/aggregate';
 
@@ -19,7 +20,7 @@ const stripVariant = (id: string) => id.replace(/__L[1-4]$/, '');
  * 완독한 책엔 🎉 리본, 아니면 "읽는 중" 칩.
  */
 export function RecentBooksStrip({ items, completed, storybooks }: Props) {
-  const { t } = useTranslation('learning');
+  const { t, i18n } = useTranslation('learning');
   if (items.length === 0) return null;
 
   const byId = new Map(storybooks.map((s) => [s.id, s]));
@@ -40,16 +41,7 @@ export function RecentBooksStrip({ items, completed, storybooks }: Props) {
         {resolved.map(({ item, book, done }) => (
           <div key={item.storybookId} className="flex w-32 shrink-0 flex-col items-center">
             <div className="relative h-40 w-32 overflow-hidden rounded-xl bg-peach-100 shadow-soft">
-              {book.coverImage ? (
-                <img
-                  src={book.coverImage}
-                  alt={book.title}
-                  loading="lazy"
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center text-3xl">📖</div>
-              )}
+              <BookCover book={book} lang={i18n.language} overlayTitle={false} />
               <span
                 className={
                   'absolute left-1 top-1 rounded-full px-2 py-0.5 text-[10px] font-black shadow-soft ' +
@@ -60,7 +52,7 @@ export function RecentBooksStrip({ items, completed, storybooks }: Props) {
               </span>
             </div>
             <div className="mt-1.5 w-full break-keep text-center text-xs font-semibold text-ink-700">
-              {book.title}
+              {book.titleTranslations?.[i18n.language] ?? book.title}
             </div>
             <div className="text-[10px] font-medium text-coral-500">
               {done && done.count > 1 ? t('recentBooks.readCount', { count: done.count }) : ''}

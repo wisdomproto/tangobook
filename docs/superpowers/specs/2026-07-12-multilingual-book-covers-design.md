@@ -1,7 +1,7 @@
 # 동화책 표지 다국어화 — 설계 문서
 
 - 날짜: 2026-07-12
-- 상태: 설계 확정 (구현 대기)
+- 상태: **구현 완료** (`feat/multilingual-covers`, 미배포). ⚠️ **실행 중 접근 B로 전환** — 아래 설계는 접근 A(런타임 오버레이)였으나, 사용자 요청으로 vi/th/zh는 **제목을 이미지에 구워 `primaryCoverByLang` 등록**(접근 B)으로 구현. 클린 표지 생성·충실도 게이트·`<BookCover>`·폰트 SSOT 등 기반은 그대로 재사용. 파이프라인·결과·재시도 TODO → memory `multilingual-cover-images-2026-07-12`.
 - 관련: i18n(`SUPPORTED_LANGUAGES`, `titleTranslations`) · 디자인시스템(coverImage/styleAssets/defaultStyle) · SEO 인프라 · 마케팅 릴스 클린 표지(`feat/nature-reels`)
 
 ## 1. 문제

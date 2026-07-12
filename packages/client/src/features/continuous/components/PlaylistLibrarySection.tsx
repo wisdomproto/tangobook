@@ -28,10 +28,12 @@ export function PlaylistLibrarySection() {
   const deletePlaylist = useDeletePlaylist();
   const [open, setOpen] = useState(false); // default 접힘
 
+  // 클린 표지(제목 없음) 우선 — 세트 썸네일은 중립적 표지가 다국어에 적합. 없으면 레거시 폴백.
   const coverOf = useMemo(() => {
     const m = new Map<string, string>();
     (books ?? []).forEach((b) => {
-      if (b.coverImage) m.set(b.id, b.coverImage);
+      const cover = b.cleanCoverImage ?? b.coverImage;
+      if (cover) m.set(b.id, cover);
     });
     return m;
   }, [books]);

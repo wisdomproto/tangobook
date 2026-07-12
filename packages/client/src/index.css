@@ -9,6 +9,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&display=swap');
 
+/* Cover-title overlay fonts (per-language, see shared/cover-fonts.ts) */
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Baloo+2:wght@700;800&family=ZCOOL+KuaiLe&family=Noto+Sans+JP:wght@700;900&family=Noto+Sans+Thai:wght@700;900&display=swap');
+
 /* Marketing feature — scope-isolated OKLCH tokens (never touches global :root) */
 @import './features/marketing/theme/marketing-tokens.css';
 

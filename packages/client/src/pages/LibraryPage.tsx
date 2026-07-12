@@ -49,6 +49,8 @@ function summaryToEntry(s: StorybookSummary): BookIndexEntry {
     isAccessibleForFree: s.isAccessibleForFree,
     coverImageUrl: s.coverImage,
     coversByStyle: s.coversByStyle,
+    cleanCoverImageUrl: s.cleanCoverImage,
+    cleanCoversByStyle: s.cleanCoversByStyle,
     phonicsLanguage: s.phonicsLanguage,
     updatedAt: s.createdAt,
     usedVariants: { levels: [], languages: [], styles: [] },
@@ -265,7 +267,8 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   const applyGenreCover = (b: BookIndexEntry): BookIndexEntry => {
     for (const [styleId, url] of Object.entries(b.coversByStyle ?? {})) {
       if (url && styleGenreMap[styleId] === styleGenre) {
-        return b.coverImageUrl === url ? b : { ...b, coverImageUrl: url };
+        const cleanCoverImageUrl = b.cleanCoversByStyle?.[styleId] ?? b.cleanCoverImageUrl;
+        return b.coverImageUrl === url ? b : { ...b, coverImageUrl: url, cleanCoverImageUrl };
       }
     }
     return b;

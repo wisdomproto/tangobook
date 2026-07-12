@@ -64,15 +64,24 @@ export default function ContinuousBuilder() {
   // 선택한 책의 표지(선택 그림풍 우선) + 그림체 장르명. (없으면 대표 표지/장르)
   const coverGenreOf = (id: string): { cover?: string; genre?: string } => {
     const b = (books ?? []).find((x) => x.id === id) as
-      | { coverImage?: string; artStyle?: string; coversByStyle?: Record<string, string> }
+      | {
+          coverImage?: string;
+          cleanCoverImage?: string;
+          artStyle?: string;
+          coversByStyle?: Record<string, string>;
+          cleanCoversByStyle?: Record<string, string>;
+        }
       | undefined;
     if (!b) return {};
     const cbs = b.coversByStyle;
-    // 1) 현재 선택 그림풍을 이 책이 가지고 있으면 그 표지·장르
+    // 1) 현재 선택 그림풍을 이 책이 가지고 있으면 그 표지·장르 (클린 표지 우선)
     if (styleGenre && cbs) {
       for (const [styleId, url] of Object.entries(cbs)) {
         if (url && styleGenreMap[styleId] === styleGenre) {
-          return { cover: url, genre: GENRE_SLUG_LABEL[styleGenre] };
+          return {
+            cover: b.cleanCoversByStyle?.[styleId] ?? url,
+            genre: GENRE_SLUG_LABEL[styleGenre],
+          };
         }
       }
     }
@@ -88,7 +97,7 @@ export default function ContinuousBuilder() {
       }
     }
     if (!genre) genre = classifyGenre(b.artStyle, b.artStyle) ?? undefined;
-    return { cover: b.coverImage, genre };
+    return { cover: b.cleanCoverImage ?? b.coverImage, genre };
   };
 
   const toggle = (id: string) =>

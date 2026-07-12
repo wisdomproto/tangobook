@@ -9,7 +9,7 @@ import {
   getDirectVideoUrls,
   getAvailableStyles,
 } from '@/lib/storybook-accessors';
-import { StateScreen, Skeleton, Chip, PageHeader } from '@/design-system';
+import { StateScreen, Skeleton, Chip, PageHeader, BookCover } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { useSeo } from '@/lib/useSeo';
 import { useStyleGenreLabel } from '@/lib/art-style-genre';
@@ -195,7 +195,17 @@ export default function BookDetailPage() {
     (isActiveStyle ? storybook.coverImage : undefined) ??
     pickCover('en') ??
     pickCover('ko');
-  const langLabel = LANG_LABEL[lang]?.name ?? lang;
+  // hero 표지 어댑터 — BookCover(resolveCover)는 summary-shape(coverImage/cleanCoverImage)만 읽는다.
+  // detail 객체의 per-(style,lang) 표지는 styleAssets 안에 있어 coverUrl 이 이미 style+lang 을 해석함.
+  // 클린 표지는 language-agnostic(오버레이가 언어 담당) → 선택 그림체 기준으로만 고른다.
+  const heroCleanCover =
+    styleAssets?.cleanCoverImage ?? (isActiveStyle ? storybook.cleanCoverImage : undefined);
+  const heroBook = {
+    title: storybook.title,
+    titleTranslations: storybook.titleTranslations,
+    coverImage: coverUrl,
+    cleanCoverImage: heroCleanCover,
+  };
   // 부모 가이드: 선택 언어 번역(parentGuideTranslations[lang])이 있으면 그것, 없으면 한국어 parentGuide 폴백.
   const guide =
     (lang !== 'ko' ? storybook.parentGuideTranslations?.[lang] : undefined) ??
@@ -424,22 +434,13 @@ export default function BookDetailPage() {
                   )}
                 </div>
               )}
-              <div className="relative aspect-video rounded-3xl overflow-hidden bg-gradient-to-br from-peach-200 to-peach-300 shadow-card w-full">
-                {coverUrl ? (
-                  <img
-                    src={coverUrl}
-                    alt={storybook.title}
-                    className="w-full h-full object-cover transition-opacity duration-300"
-                    key={coverUrl}
-                  />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center gap-3 bg-ink-100 text-ink-500">
-                    <div className="text-[72px]">📭</div>
-                    <div className="text-sm font-black px-4 text-center">
-                      {t('lang.coverMissing', { lang: langLabel })}
-                    </div>
-                  </div>
-                )}
+              <div className="relative aspect-video w-full">
+                <BookCover
+                  book={heroBook}
+                  lang={lang}
+                  overlayTitle
+                  className="rounded-3xl shadow-card"
+                />
               </div>
             </div>
 

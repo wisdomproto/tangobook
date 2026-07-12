@@ -130,6 +130,15 @@ function toSummary(sb: Storybook): StorybookSummary {
 
   const coverImageOut = coversByStyle[targetStyle ?? ''] ?? sb.coverImage;
 
+  // 그림체별 클린 표지 URL — 다국어 오버레이 베이스 (coversByStyle 와 짝).
+  const cleanCoversByStyle: Record<string, string> = {};
+  if (sb.artStyle && sb.cleanCoverImage) cleanCoversByStyle[sb.artStyle] = sb.cleanCoverImage;
+  for (const [style, assets] of Object.entries(sb.styleAssets ?? {})) {
+    const url = assets?.cleanCoverImage;
+    if (url && !cleanCoversByStyle[style]) cleanCoversByStyle[style] = url;
+  }
+  const cleanCoverImageOut = cleanCoversByStyle[targetStyle ?? ''] ?? sb.cleanCoverImage;
+
   // defaultStyle 기준 언어별 대표 표지 — 라이브러리 마스터 언어 토글용
   const coversByLang: Record<string, string> = {};
   const targetStyleAssets = sb.styleAssets?.[targetStyle ?? ''];
@@ -161,6 +170,8 @@ function toSummary(sb: Storybook): StorybookSummary {
         : undefined,
     coversByStyle: Object.keys(coversByStyle).length > 0 ? coversByStyle : undefined,
     coversByLang: Object.keys(coversByLang).length > 0 ? coversByLang : undefined,
+    cleanCoverImage: cleanCoverImageOut,
+    cleanCoversByStyle: Object.keys(cleanCoversByStyle).length > 0 ? cleanCoversByStyle : undefined,
     pageCount: pages.length,
     phonicsLanguage: sb.phonicsConfig?.language,
     hasVideo: hasAudiobookVideo || hasLongformVideo,
@@ -328,3 +339,6 @@ export const R2Repository = {
     await deleteFromR2(key);
   },
 };
+
+// 테스트 전용 export — toSummary 순수 변환 검증용.
+export { toSummary as __toSummaryForTest };
