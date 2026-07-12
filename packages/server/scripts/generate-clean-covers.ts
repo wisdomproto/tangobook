@@ -19,7 +19,7 @@ import sharp from 'sharp';
 import type { Part as GenAIPart } from '@google/genai';
 import type { Storybook } from '@tangobook/shared';
 import { getAI, generateImageWithGemini } from '../src/providers/gemini.provider.js';
-import { uploadBase64ToR2 } from '../src/providers/r2.provider.js';
+import { uploadBufferToR2 } from '../src/providers/r2.provider.js';
 import { R2Repository } from '../src/repositories/r2.repository.js';
 import { parseGeminiJSON } from '../src/utils/parse-gemini-json.js';
 import { config } from '../src/config/index.js';
@@ -138,21 +138,27 @@ async function processStyle(
     );
   }
 
-  if (dryRun && cleanB64) {
-    const suffix = verdict?.pass ? 'clean' : 'clean-FAIL';
-    const p = path.join(outDir, `${id}-${style}-${suffix}.png`);
-    fs.writeFileSync(p, Buffer.from(cleanB64, 'base64'));
+  // 업로드 형식과 동일하게 webp 로 트랜스코드 (dry-run 로컬 파일도 실제 업로드본과 일치).
+  const webpBuf = cleanB64
+    ? await sharp(Buffer.from(cleanB64, 'base64')).webp({ quality: 90 }).toBuffer()
+    : undefined;
+
+  if (dryRun && webpBuf) {
+    const suffix = verdict?.pass ? '' : '-FAIL';
+    const p = path.join(outDir, `${id}-${style}${suffix}.webp`);
+    fs.writeFileSync(p, webpBuf);
     console.log(`  ${verdict?.pass ? '✓' : '✗'} ${id}/${style} → ${p}`);
   }
 
-  if (!verdict?.pass || !cleanB64) {
+  if (!verdict?.pass || !webpBuf) {
     review.push({ id, style, reason: verdict?.reason });
     return { status: 'fail' };
   }
 
   if (dryRun) return { status: 'ok' };
 
-  const cleanUrl = await uploadBase64ToR2(cleanB64, buildCleanKey(id, style, Date.now()));
+  const ts = Date.now();
+  const cleanUrl = await uploadBufferToR2(webpBuf, buildCleanKey(id, style, ts), 'image/webp');
   sb.styleAssets ??= {};
   sb.styleAssets[style] ??= {};
   sb.styleAssets[style].cleanCoverImage = cleanUrl;
