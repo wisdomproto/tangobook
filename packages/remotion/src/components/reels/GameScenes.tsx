@@ -265,6 +265,16 @@ export const LineMatchGame: React.FC = () => {
         </div>
       ))}
 
+      {/* 줄 이어질 때 연결 효과음 */}
+      <Sequence from={12}>
+        <Audio src={staticFile('reels/audio/sfx-connect.mp3')} />
+      </Sequence>
+      <Sequence from={26}>
+        <Audio src={staticFile('reels/audio/sfx-connect.mp3')} />
+      </Sequence>
+      <Sequence from={40}>
+        <Audio src={staticFile('reels/audio/sfx-connect.mp3')} />
+      </Sequence>
       <Caption text="그림과 단어, 짝을 맞춰요" />
     </AbsoluteFill>
   );
@@ -395,12 +405,21 @@ export const BlockGame: React.FC = () => {
 
       <Caption text="혼자서 단어를 완성해요" />
 
-      {/* 정답(사과) 완성 순간 — 칭찬음 + 실제 '사과' 단어 음원 */}
-      <Sequence from={84}>
-        <Audio src={staticFile('reels/audio/praise.mp3')} />
+      {/* 게임 효과음 + 파닉스 — 진짜 게임처럼: 타일 놓을 때 탭 + 음절 읽기(사→과), 완성 시 칭찬음 */}
+      <Sequence from={42}>
+        <Audio src={staticFile('reels/audio/sfx-tap.mp3')} />
       </Sequence>
-      <Sequence from={92}>
-        <Audio src={staticFile('reels/audio/apple-word.mp3')} />
+      <Sequence from={44}>
+        <Audio src={staticFile('reels/audio/syl-sa.mp3')} />
+      </Sequence>
+      <Sequence from={74}>
+        <Audio src={staticFile('reels/audio/sfx-tap.mp3')} />
+      </Sequence>
+      <Sequence from={76}>
+        <Audio src={staticFile('reels/audio/syl-gwa.mp3')} />
+      </Sequence>
+      <Sequence from={88}>
+        <Audio src={staticFile('reels/audio/praise.mp3')} />
       </Sequence>
     </AbsoluteFill>
   );
@@ -526,6 +545,10 @@ export const WritingGame: React.FC = () => {
         </AbsoluteFill>
       )}
 
+      {/* 연필 쓰는 효과음 (따라쓰는 동안) */}
+      <Sequence from={16}>
+        <Audio src={staticFile('reels/audio/sfx-draw.mp3')} />
+      </Sequence>
       <Caption text="놀이처럼, 글씨 쓰는 법까지" />
     </AbsoluteFill>
   );
