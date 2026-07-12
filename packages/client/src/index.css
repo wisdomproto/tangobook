@@ -4,6 +4,9 @@
 /* NanumSquareRound — 둥근 한글체 (헤딩/디스플레이, 4-5세 친화) */
 @import url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound/nanumsquareround.css');
 
+/* Cover-title overlay fonts (per-language, see shared/cover-fonts.ts) */
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Baloo+2:wght@700;800&family=ZCOOL+KuaiLe&family=Noto+Sans+JP:wght@700;900&family=Noto+Sans+Thai:wght@700;900&display=swap');
+
 /* Marketing feature — scope-isolated OKLCH tokens (never touches global :root) */
 @import './features/marketing/theme/marketing-tokens.css';
 

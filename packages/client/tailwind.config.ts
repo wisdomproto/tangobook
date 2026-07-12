@@ -15,6 +15,12 @@ const fontFamily = {
     'sans-serif',
   ],
   display: ['NanumSquareRound', 'Pretendard Variable', 'Pretendard', 'sans-serif'],
+  // Cover-title overlay fonts (per-language, see shared/cover-fonts.ts)
+  'cover-ko': ['Jua', 'sans-serif'],
+  'cover-latin': ['"Baloo 2"', 'sans-serif'],
+  'cover-zh': ['"ZCOOL KuaiLe"', 'sans-serif'],
+  'cover-ja': ['"Noto Sans JP"', 'sans-serif'],
+  'cover-th': ['"Noto Sans Thai"', 'sans-serif'],
 };
 
 export default {
