@@ -312,7 +312,9 @@ export const PageLink: React.FC = () => {
           cover="reels/sw-scene-apple.webp"
           sentence={
             <>
-              왕비가 빨간 <span style={{ color: '#FFC24D' }}>사과</span>를 건넸어요.
+              예쁜 아가씨, 여기 아주 맛있는
+              <br />
+              빨간 <span style={{ color: '#FFC24D' }}>사과</span>가 있답니다.
             </>
           }
         />
