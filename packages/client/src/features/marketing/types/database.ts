@@ -4,6 +4,8 @@ import type { FunnelConfig, GA4Config, ImportedStrategy } from './analytics';
 
 export type ThemePreference = 'light' | 'dark' | 'system';
 export type ContentStatus = 'draft' | 'in_progress' | 'published';
+/** 콘텐츠 성격 — 정규(스토리북·블로그 등) vs 광고(릴스/영상 광고). */
+export type ContentKind = 'regular' | 'ad';
 export type ChannelType =
   | 'self_hosted'
   | 'naver_blog'
@@ -221,6 +223,7 @@ export interface Content {
   tags: string[] | null;
   memo: string | null;
   topic: string | null;
+  content_kind: ContentKind;
   status: ContentStatus;
   ai_model_settings: Record<string, unknown> | null;
   confirmed: boolean;

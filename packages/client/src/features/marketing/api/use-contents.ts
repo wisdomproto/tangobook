@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from './supabase';
 import { mktKeys, fetchContents, fetchContentGraph } from './queries';
 import { generateId } from '../lib/utils';
-import type { Content } from '../types/database';
+import type { Content, ContentKind } from '../types/database';
 
 export function useUpdateContent() {
   const queryClient = useQueryClient();
@@ -61,6 +61,7 @@ export function useCreateContent() {
       category?: string;
       tags?: string[];
       topic?: string;
+      content_kind?: ContentKind;
     }) => {
       const {
         data: { user },
@@ -81,6 +82,7 @@ export function useCreateContent() {
         tags: data.tags ?? null,
         memo: null,
         topic: data.topic ?? null,
+        content_kind: data.content_kind ?? 'regular',
         status: 'draft',
         confirmed: false,
         ai_model_settings: null,

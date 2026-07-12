@@ -152,7 +152,13 @@ export function ContentListPanel() {
   const [statusOpen, setStatusOpen] = useState(false);
   const [catFilter, setCatFilter] = useState<string | null>(null);
 
-  const { selectedProjectId, selectedContentId, setSelectedContentId } = useUIStore();
+  const {
+    selectedProjectId,
+    selectedContentId,
+    setSelectedContentId,
+    contentKindTab,
+    setContentKindTab,
+  } = useUIStore();
   const { data: contents = [] } = useContents(selectedProjectId);
   const deleteContent = useDeleteContent();
   const reorderContents = useReorderContents();
@@ -162,16 +168,31 @@ export function ContentListPanel() {
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
-  // Sort by sort_order
-  const sorted = [...contents].sort((a, b) => a.sort_order - b.sort_order);
+  const isAd = contentKindTab === 'ad';
 
-  // Unique categories present in the list
-  const categories = [...new Set(sorted.map((c) => c.category).filter(Boolean))] as string[];
+  // Sort by sort_order, then split by kind (정규 / 광고)
+  const sorted = [...contents]
+    .sort((a, b) => a.sort_order - b.sort_order)
+    .filter((c) => (c.content_kind ?? 'regular') === contentKindTab);
+
+  // Counts per kind (for tab badges)
+  const regularCount = contents.filter((c) => (c.content_kind ?? 'regular') === 'regular').length;
+  const adCount = contents.filter((c) => c.content_kind === 'ad').length;
+
+  // Unique categories present in the list (광고 탭은 카테고리 미사용)
+  const categories = isAd
+    ? []
+    : ([...new Set(sorted.map((c) => c.category).filter(Boolean))] as string[]);
 
   // Apply category filter
   const filtered = catFilter
     ? sorted.filter((c) => getCatLetter(c.category) === catFilter)
     : sorted;
+
+  function switchKind(kind: 'regular' | 'ad') {
+    setContentKindTab(kind);
+    setCatFilter(null);
+  }
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
@@ -206,11 +227,35 @@ export function ContentListPanel() {
   return (
     <>
       <aside className="w-64 border-r border-border flex flex-col h-full bg-background shrink-0">
+        {/* 정규 / 광고 탭 */}
+        <div className="flex shrink-0 border-b border-border">
+          {[
+            { kind: 'regular' as const, label: '정규 콘텐츠', count: regularCount },
+            { kind: 'ad' as const, label: '광고 콘텐츠', count: adCount },
+          ].map((t) => (
+            <button
+              key={t.kind}
+              onClick={() => switchKind(t.kind)}
+              className={cn(
+                'flex-1 px-2 py-2 text-xs font-semibold border-b-2 transition-colors',
+                contentKindTab === t.kind
+                  ? 'border-primary text-foreground'
+                  : 'border-transparent text-muted-foreground hover:text-foreground'
+              )}
+            >
+              {t.kind === 'ad' ? '📣 ' : ''}
+              {t.label}
+              <span className="ml-1 font-normal text-muted-foreground">({t.count})</span>
+            </button>
+          ))}
+        </div>
+
         {/* Header */}
         <div className="p-3 border-b border-border">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-semibold">
-              콘텐츠 <span className="text-muted-foreground font-normal">({sorted.length})</span>
+              {isAd ? '광고' : '콘텐츠'}{' '}
+              <span className="text-muted-foreground font-normal">({sorted.length})</span>
             </span>
             <div className="flex items-center gap-1">
               <Button
@@ -275,13 +320,13 @@ export function ContentListPanel() {
         <div className="flex-1 overflow-y-auto px-1 py-2 space-y-0.5">
           {filtered.length === 0 ? (
             <div className="text-center py-8 text-xs text-muted-foreground">
-              콘텐츠가 없습니다
+              {isAd ? '광고 콘텐츠가 없습니다' : '콘텐츠가 없습니다'}
               <br />
               <button
                 onClick={() => setCreateOpen(true)}
                 className="mt-2 text-primary hover:underline"
               >
-                + 새 콘텐츠 만들기
+                {isAd ? '+ 새 광고 만들기' : '+ 새 콘텐츠 만들기'}
               </button>
             </div>
           ) : (
@@ -313,6 +358,7 @@ export function ContentListPanel() {
         open={createOpen}
         onOpenChange={setCreateOpen}
         projectId={selectedProjectId}
+        kind={contentKindTab}
       />
 
       {statusOpen && (

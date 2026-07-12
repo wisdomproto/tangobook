@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import type { Content } from '../../../types/database';
+import type { Content, ContentKind } from '../../../types/database';
 
 // ---------------------------------------------------------------------------
 // Mocks
@@ -10,10 +10,12 @@ import type { Content } from '../../../types/database';
 const mockDeleteMutate = vi.fn();
 const mockReorderMutate = vi.fn();
 const mockSetSelectedContentId = vi.fn();
+const mockSetContentKindTab = vi.fn();
 
 // Mutable state for selectedProjectId / selectedContentId so tests can control them
 let _selectedProjectId: string | null = 'proj-1';
 let _selectedContentId: string | null = null;
+let _contentKindTab: ContentKind = 'regular';
 let _contents: Content[] = [];
 
 vi.mock('../../../api/use-contents', () => ({
@@ -27,6 +29,8 @@ vi.mock('../../../store/ui-store', () => ({
     selectedProjectId: _selectedProjectId,
     selectedContentId: _selectedContentId,
     setSelectedContentId: mockSetSelectedContentId,
+    contentKindTab: _contentKindTab,
+    setContentKindTab: mockSetContentKindTab,
   }),
 }));
 
@@ -60,7 +64,8 @@ function makeContent(
   id: string,
   title: string,
   category: string | null = null,
-  sortOrder = 0
+  sortOrder = 0,
+  kind: ContentKind = 'regular'
 ): Content {
   return {
     id,
@@ -71,6 +76,7 @@ function makeContent(
     tags: null,
     memo: null,
     topic: null,
+    content_kind: kind,
     status: 'draft',
     ai_model_settings: null,
     confirmed: false,
@@ -89,6 +95,7 @@ describe('ContentListPanel', () => {
     vi.clearAllMocks();
     _selectedProjectId = 'proj-1';
     _selectedContentId = null;
+    _contentKindTab = 'regular';
     _contents = [];
   });
 
@@ -202,7 +209,32 @@ describe('ContentListPanel', () => {
   it('shows count in header', () => {
     _contents = [makeContent('c1', '콘텐츠 1'), makeContent('c2', '콘텐츠 2')];
     render(<ContentListPanel />);
-    expect(screen.getByText('(2)')).toBeInTheDocument();
+    // (2) appears in both the header and the 정규 콘텐츠 tab badge
+    expect(screen.getAllByText('(2)').length).toBeGreaterThan(0);
+  });
+
+  it('renders 정규 / 광고 tabs and only shows contents of the active kind', () => {
+    _contents = [
+      makeContent('c1', '정규 글', null, 0, 'regular'),
+      makeContent('c2', '광고 릴스', null, 1, 'ad'),
+    ];
+    render(<ContentListPanel />);
+    // Regular tab active by default → only regular content visible
+    expect(screen.getByText('정규 콘텐츠', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('광고 콘텐츠', { exact: false })).toBeInTheDocument();
+    expect(screen.getByTitle('정규 글')).toBeInTheDocument();
+    expect(screen.queryByTitle('광고 릴스')).not.toBeInTheDocument();
+  });
+
+  it('shows ad contents when 광고 tab is the active kind', () => {
+    _contentKindTab = 'ad';
+    _contents = [
+      makeContent('c1', '정규 글', null, 0, 'regular'),
+      makeContent('c2', '광고 릴스', null, 1, 'ad'),
+    ];
+    render(<ContentListPanel />);
+    expect(screen.getByTitle('광고 릴스')).toBeInTheDocument();
+    expect(screen.queryByTitle('정규 글')).not.toBeInTheDocument();
   });
 
   it('opens CreateContentDialog when + button is clicked', async () => {

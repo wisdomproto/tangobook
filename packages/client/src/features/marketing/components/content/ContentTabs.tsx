@@ -105,6 +105,9 @@ type TabId = (typeof TABS)[number]['id'];
 // Korean-only tabs — auto-switch away when language changes to non-ko
 const KO_ONLY_TABS: TabId[] = ['blog'];
 
+// 광고 콘텐츠는 릴스(영상) 중심 — 릴스 + 캡션용 카드뉴스만 노출, 기본은 릴스.
+const AD_TAB_IDS: TabId[] = ['cardnews', 'shorts'];
+
 export function ContentTabs() {
   const { selectedContentId, selectedProjectId, selectedLanguage } = useUIStore();
 
@@ -116,6 +119,10 @@ export function ContentTabs() {
   const translateChannel = useTranslateChannel();
 
   const content = contentGraph?.content;
+  const isAd = content?.content_kind === 'ad';
+
+  // 광고 콘텐츠는 릴스/카드뉴스만, 정규는 전체 탭.
+  const visibleTabs = isAd ? TABS.filter((t) => AD_TAB_IDS.includes(t.id)) : TABS;
 
   // When language is not ko, blog tab is not available — auto-switch to base-article
   const handleTabChange = (tabId: string) => {
@@ -128,6 +135,16 @@ export function ContentTabs() {
       setActiveTab('base-article');
     }
   }, [selectedLanguage, activeTab]);
+
+  // 콘텐츠 성격이 바뀌어 현재 탭이 노출 목록에 없으면 기본 탭으로 이동
+  // (광고 선택 시 → 릴스, 정규 선택 시 → 기본글).
+  useEffect(() => {
+    if (!content) return;
+    const allowed = content.content_kind === 'ad' ? AD_TAB_IDS : TABS.map((t) => t.id);
+    if (!allowed.includes(activeTab)) {
+      setActiveTab(content.content_kind === 'ad' ? 'shorts' : 'base-article');
+    }
+  }, [content, activeTab]);
 
   const handleTranslate = async (lang: string) => {
     if (lang === 'ko') return;
@@ -189,7 +206,7 @@ export function ContentTabs() {
         onValueChange={handleTabChange}
       >
         <TabsList className="justify-start rounded-none border-b px-3 py-0 h-auto bg-transparent gap-0 shrink-0">
-          {TABS.map((tab) => {
+          {visibleTabs.map((tab) => {
             // Hide blog tab when language !== ko
             if (tab.id === 'blog' && selectedLanguage !== 'ko') return null;
             return (
