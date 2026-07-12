@@ -75,7 +75,13 @@ async function withRetry<T>(fn: () => Promise<T>, n = 3): Promise<T> {
   throw last;
 }
 
-/** 피델리티 게이트: 원본 png + 편집 png 를 비전 모델로 비교 → JSON 판정. */
+/**
+ * 피델리티 게이트: 원본 png + 편집 png 를 비전 모델로 비교 → JSON 판정.
+ * 게이트 호출은 이미지 생성과 동일하게 withRetry 로 감싸 일시적 429/503/RESOURCE_EXHAUSTED 를 재시도.
+ * 재시도 후에도 실패하거나(overload 등) 응답이 malformed 이면 **실패 판정**으로 반환 —
+ * throw 하지 않아서 이미 생성한(유료) 이미지를 버리지 않고, 상위의 stricter-retry 사다리 + 리뷰 리포트로
+ * 정상 실패 경로와 통합된다.
+ */
 async function runFidelityGate(originalPngB64: string, cleanPngB64: string): Promise<GateVerdict> {
   const parts: GenAIPart[] = [
     { text: 'ORIGINAL:' },
@@ -84,17 +90,23 @@ async function runFidelityGate(originalPngB64: string, cleanPngB64: string): Pro
     { inlineData: { data: cleanPngB64, mimeType: 'image/png' } },
     { text: GATE_PROMPT },
   ];
-  const result = await getAI().models.generateContent({
-    model: GATE_MODEL,
-    contents: [{ role: 'user', parts }],
-    config: { responseMimeType: 'application/json' },
-  });
-  const text = result.candidates?.[0]?.content?.parts?.find((p) => p.text)?.text ?? '';
-  const v = parseGeminiJSON<{ sameSubject: boolean; textRemains: boolean; reason?: string }>(
-    text,
-    '피델리티 게이트 JSON 파싱 실패'
-  );
-  return parseGateVerdict(v);
+  try {
+    const result = await withRetry(() =>
+      getAI().models.generateContent({
+        model: GATE_MODEL,
+        contents: [{ role: 'user', parts }],
+        config: { responseMimeType: 'application/json' },
+      })
+    );
+    const text = result.candidates?.[0]?.content?.parts?.find((p) => p.text)?.text ?? '';
+    const v = parseGeminiJSON<{ sameSubject?: unknown; textRemains?: unknown; reason?: string }>(
+      text,
+      '피델리티 게이트 JSON 파싱 실패'
+    );
+    return parseGateVerdict(v);
+  } catch (e) {
+    return { pass: false, reason: `gate error: ${(e as Error).message}` };
+  }
 }
 
 interface StyleOutcome {

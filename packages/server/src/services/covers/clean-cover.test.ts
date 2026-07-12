@@ -22,4 +22,7 @@ describe('clean-cover helpers', () => {
     expect(parseGateVerdict({ sameSubject: false, textRemains: false }).pass).toBe(false);
     expect(parseGateVerdict({ sameSubject: true, textRemains: true }).pass).toBe(false);
   });
+  it('parseGateVerdict fails closed on an incomplete verdict', () => {
+    expect(parseGateVerdict({ sameSubject: true } as any).pass).toBe(false);
+  });
 });

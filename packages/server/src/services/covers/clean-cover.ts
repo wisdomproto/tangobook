@@ -34,11 +34,15 @@ export interface GateVerdict {
   reason?: string;
 }
 
-/** 피델리티 게이트 판정: 주제/구도 동일 AND 텍스트 잔존 없음 일 때만 통과. */
+/**
+ * 피델리티 게이트 판정: 주제/구도 동일 AND 텍스트 잔존 없음 일 때만 통과.
+ * fail-closed — 필드 누락/비-boolean 값이면 통과 아님 (텍스트 있는 표지가 새어나가지 않도록).
+ */
 export function parseGateVerdict(v: {
-  sameSubject: boolean;
-  textRemains: boolean;
+  sameSubject?: unknown;
+  textRemains?: unknown;
   reason?: string;
 }): GateVerdict {
-  return { pass: v.sameSubject && !v.textRemains, reason: v.reason };
+  const pass = v.sameSubject === true && v.textRemains === false;
+  return { pass, reason: typeof v.reason === 'string' ? v.reason : undefined };
 }
