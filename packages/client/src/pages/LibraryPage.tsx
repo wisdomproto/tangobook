@@ -36,7 +36,7 @@ import type { BookIndexEntry, StorybookSummary } from '@tangobook/shared';
  * - updatedAt ← createdAt (StorybookSummary 에 updatedAt 없음. 정렬 안정성 측면에서도 createdAt 이 적합)
  * - usedVariants ← dummy (라이브러리에서 미사용)
  */
-function summaryToEntry(s: StorybookSummary): BookIndexEntry {
+function summaryToEntry(s: StorybookSummary, uiLang: string): BookIndexEntry {
   return {
     id: s.id,
     title: s.title,
@@ -47,8 +47,11 @@ function summaryToEntry(s: StorybookSummary): BookIndexEntry {
     folder: s.folder,
     isPublic: s.isPublic,
     isAccessibleForFree: s.isAccessibleForFree,
-    coverImageUrl: s.coverImage,
+    // 대표 표지 = UI 언어별 표지 우선(ko/en 원본 · vi/th/zh 구운 것), 없으면 언어무관 원본.
+    coverImageUrl: s.coversByLang?.[uiLang] ?? s.coverImage,
     coversByStyle: s.coversByStyle,
+    coversByLang: s.coversByLang,
+    coverLangByStyle: s.coverLangByStyle,
     cleanCoverImageUrl: s.cleanCoverImage,
     cleanCoversByStyle: s.cleanCoversByStyle,
     phonicsLanguage: s.phonicsLanguage,
@@ -171,7 +174,10 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
         }
   );
   const { data: list, isLoading, isError } = useStorybooks();
-  const all = useMemo<BookIndexEntry[] | undefined>(() => list?.map(summaryToEntry), [list]);
+  const all = useMemo<BookIndexEntry[] | undefined>(
+    () => list?.map((s) => summaryToEntry(s, i18n.language)),
+    [list, i18n.language]
+  );
   const { data: statusMap } = useReadingStatus();
   const { data: libConfig } = useLibraryConfig();
   const compareByPriority = useMemo(
@@ -267,8 +273,10 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   const applyGenreCover = (b: BookIndexEntry): BookIndexEntry => {
     for (const [styleId, url] of Object.entries(b.coversByStyle ?? {})) {
       if (url && styleGenreMap[styleId] === styleGenre) {
+        // 선택 그림풍 × UI 언어 표지 우선(ko/en 원본 · vi/th/zh 구운 것), 없으면 그 그림풍 원본.
+        const cover = b.coverLangByStyle?.[styleId]?.[i18n.language] ?? url;
         const cleanCoverImageUrl = b.cleanCoversByStyle?.[styleId] ?? b.cleanCoverImageUrl;
-        return b.coverImageUrl === url ? b : { ...b, coverImageUrl: url, cleanCoverImageUrl };
+        return b.coverImageUrl === cover ? b : { ...b, coverImageUrl: cover, cleanCoverImageUrl };
       }
     }
     return b;

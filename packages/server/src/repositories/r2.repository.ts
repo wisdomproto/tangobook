@@ -139,6 +139,19 @@ function toSummary(sb: Storybook): StorybookSummary {
   }
   const cleanCoverImageOut = cleanCoversByStyle[targetStyle ?? ''] ?? sb.cleanCoverImage;
 
+  // 그림체 × 언어 표지 맵 — 활성 그림체는 top-level primaryCoverByLang, 그 외는 styleAssets[style].
+  const coverLangByStyle: Record<string, Record<string, string>> = {};
+  const addLangMap = (style: string | undefined, mp?: Record<string, string>) => {
+    if (!style || !mp) return;
+    for (const [lang, url] of Object.entries(mp)) {
+      if (url && !coverLangByStyle[style]?.[lang]) (coverLangByStyle[style] ??= {})[lang] = url;
+    }
+  };
+  addLangMap(sb.artStyle, sb.primaryCoverByLang);
+  for (const [style, assets] of Object.entries(sb.styleAssets ?? {})) {
+    addLangMap(style, assets?.primaryCoverByLang);
+  }
+
   // defaultStyle 기준 언어별 대표 표지 — 라이브러리 마스터 언어 토글용
   const coversByLang: Record<string, string> = {};
   const targetStyleAssets = sb.styleAssets?.[targetStyle ?? ''];
@@ -172,6 +185,7 @@ function toSummary(sb: Storybook): StorybookSummary {
     coversByLang: Object.keys(coversByLang).length > 0 ? coversByLang : undefined,
     cleanCoverImage: cleanCoverImageOut,
     cleanCoversByStyle: Object.keys(cleanCoversByStyle).length > 0 ? cleanCoversByStyle : undefined,
+    coverLangByStyle: Object.keys(coverLangByStyle).length > 0 ? coverLangByStyle : undefined,
     availableStyles: sb.availableStyles,
     pageCount: pages.length,
     phonicsLanguage: sb.phonicsConfig?.language,

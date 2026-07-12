@@ -1217,6 +1217,8 @@ export type StorybookSummary = Pick<
   cleanCoversByStyle?: Record<string, string>;
   /** 노출되는 그림체 목록 (editor2 그림체별 클린 표지 매트릭스 등). */
   availableStyles?: string[];
+  /** 그림체 × 언어 표지 맵 — `styleAssets[style].primaryCoverByLang`. 카드가 (선택 그림풍 × UI 언어) 표지 노출에 사용. */
+  coverLangByStyle?: Record<string, Record<string, string>>;
   /**
    * 한글 기본 콘텐츠 완성도 — 커리큘럼 마스터 페이지에서 ✅ 완성 여부 판단에 사용.
    * 모든 필드가 true 이면 `complete: true`. 부분 완성은 wip 으로 분류.

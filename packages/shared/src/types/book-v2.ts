@@ -299,6 +299,10 @@ export interface BookIndexEntry {
   cleanCoverImageUrl?: string;
   /** 그림체별 클린 표지 URL 맵. */
   cleanCoversByStyle?: Record<string, string>;
+  /** 대표 그림체의 언어별 표지 (lang→url). 카드가 UI 언어별 표지 노출에 사용. */
+  coversByLang?: Record<string, string>;
+  /** 그림체 × 언어 표지 맵 (style→lang→url). 선택 그림풍 × UI 언어 표지 노출에 사용. */
+  coverLangByStyle?: Record<string, Record<string, string>>;
   /** phonics 책 분리용 (라이브러리 탭). bid 패턴(kr-h..., en-b...)으로 derive */
   phonicsLanguage?: 'korean' | 'english';
   /** 커리큘럼 마스터 페이지에서 정렬·표시용 (no/originalTitle/author/source/priority/launchLevel) */
