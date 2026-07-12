@@ -49,7 +49,7 @@ const trans = () => (
 export const AdReel: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: '#FFF6EE' }}>
-      <Audio src={staticFile('reels/bgm.mp3')} volume={0.35} />
+      <Audio src={staticFile('reels/bgm.mp3')} volume={0.35} loop />
       <TransitionSeries>
         <TransitionSeries.Sequence durationInFrames={SCENES.hook}>
           <OpeningHook />
