@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Skeleton, Chip, Mascot, PageHeader } from '@/design-system';
+import i18n from '@/i18n';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import type { Lang, VocabularyUnit, VocabularyUnitWord } from '@tangobook/shared';
 import { useVocabularyUnit } from '../hooks/useVocabularyUnits';
@@ -108,8 +109,10 @@ export function VocabularyStudyPage() {
   }
 
   const availableLangs = LANG_CHIPS.filter((c) => hasLangData(unit.words, c.code));
+  const uiLang = i18n.language as Lang;
   const effectiveLang: Lang =
     (lang && hasLangData(unit.words, lang) ? lang : null) ??
+    (hasLangData(unit.words, uiLang) ? uiLang : null) ?? // 진입 링크/설정한 UI 언어 우선
     (unit.language && hasLangData(unit.words, unit.language) ? unit.language : null) ??
     availableLangs[0]?.code ??
     'ko';

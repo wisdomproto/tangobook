@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import i18n from '@/i18n';
 import { useStorybook, useStorybooks } from '@/features/storybook';
 import { useCategoryLabel } from '@/features/library/lib/category-i18n';
 import {
@@ -53,7 +54,9 @@ export default function BookDetailPage() {
     type: 'book',
   });
 
-  const [langState, setLang] = useState<string>('ko');
+  // 기본 선택 언어 = 현재 UI 언어(진입 링크 /en 등). 책이 그 언어를 지원하면 그 언어로 열림
+  // (아래 `lang` 계산에서 미지원 시 첫 공개 언어로 폴백).
+  const [langState, setLang] = useState<string>(i18n.language);
   const [selectedLevel, setSelectedLevel] = useState<ReadingLevel | null>(null);
   const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
   const [videoOpen, setVideoOpen] = useState(false);
@@ -173,7 +176,13 @@ export default function BookDetailPage() {
   // 언어 토글 = 현재 그림체에서 공개된 언어만 + 선택 언어가 비공개면 첫 공개 언어로 보정.
   const visibleLangs = allLanguages.filter((l) => isCellPublic(effectiveStyle, l));
   const languages = visibleLangs.length > 0 ? visibleLangs : allLanguages;
-  const lang = languages.includes(langState) ? langState : languages[0];
+  // 기본 언어 = 사용자가 토글로 고른 값 → 없으면 UI 언어(책이 지원하면) → 없으면 첫 공개 언어.
+  // 진입 링크(/en 등)로 UI 언어가 en 이면 책도 영어로 열림.
+  const lang = languages.includes(langState)
+    ? langState
+    : languages.includes(i18n.language)
+      ? i18n.language
+      : languages[0];
 
   // (그림체 × 언어) 조합 대표 표지.
   //   1) styleAssets[style].primaryCoverByLang[lang] — 그림체별 자산 안 (style, lang) 마커

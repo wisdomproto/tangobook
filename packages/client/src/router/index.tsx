@@ -36,6 +36,7 @@ import KoreanJamoStrokeBulkEditorPage from '../pages/KoreanJamoStrokeBulkEditorP
 import LetterFillDemoPage from '../pages/LetterFillDemoPage';
 import ConnectTheDotsDemoPage from '../pages/ConnectTheDotsDemoPage';
 import ViewerPage from '../pages/ViewerPage';
+import { LangEntry } from '../pages/LangEntry';
 import BlogListPage from '../features/blog-public/BlogListPage';
 import BlogPostPage from '../features/blog-public/BlogPostPage';
 import NotFoundPage from '../pages/NotFoundPage';
@@ -230,6 +231,16 @@ export const router = createBrowserRouter([
         element: (
           <ErrorBoundary>
             <GuideHubPage />
+          </ErrorBoundary>
+        ),
+      },
+      {
+        // 언어별 진입 링크 — /en·/vi·/zh·/th·/ko 로 UI+책 기본 언어 설정 후 라이브러리로.
+        // 정적 라우트(library/blog/subscribe 등)가 이 :lang 보다 우선 매칭되므로 안전.
+        path: ':lang',
+        element: (
+          <ErrorBoundary>
+            <LangEntry />
           </ErrorBoundary>
         ),
       },

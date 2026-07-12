@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
+import { setUiLanguage, AVAILABLE_UI_LANGS } from '@/i18n';
 import { authApi } from '../api/auth.api';
 import { SocialAuthButtons } from './SocialAuthButtons';
 
@@ -18,7 +20,11 @@ function signUpErrorKey(err: unknown): string {
 }
 
 export function SignUpForm({ onSwitchToSignIn }: Props) {
-  const { t } = useTranslation('auth');
+  const { t, i18n } = useTranslation('auth');
+  // 가입 시 언어 선택(필수). 기본 = 현재 UI 언어(진입 링크 /en 등으로 이미 설정됨).
+  // 바꾸면 폼이 즉시 그 언어로 다시 그려지고, 이후 앱 전체가 그 언어로 시작.
+  const [lang, setLang] = useState(i18n.language);
+  const uiLangs = SUPPORTED_LANGUAGES.filter((l) => AVAILABLE_UI_LANGS.includes(l.code));
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
@@ -112,6 +118,27 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
           <h1 className="text-3xl font-black text-ink-900">{t('signUp.title')}</h1>
           <p className="text-sm text-ink-500 mt-1 break-keep">{t('signUp.subtitle')}</p>
         </div>
+        {/* 언어 선택 — 바꾸면 폼·앱 전체가 그 언어로. 기본 = 진입 시 UI 언어. */}
+        <label className="flex items-center gap-2 rounded-xl border-2 border-ink-100 px-3 h-12 focus-within:border-coral-500">
+          <span className="text-lg" aria-hidden>
+            🌐
+          </span>
+          <select
+            value={lang}
+            onChange={(e) => {
+              setLang(e.target.value);
+              void setUiLanguage(e.target.value);
+            }}
+            aria-label={t('signUp.language', { defaultValue: 'Language' })}
+            className="flex-1 bg-transparent font-bold text-ink-900 outline-none cursor-pointer"
+          >
+            {uiLangs.map((l) => (
+              <option key={l.code} value={l.code}>
+                {l.flag} {l.nativeName}
+              </option>
+            ))}
+          </select>
+        </label>
         <SocialAuthButtons mode="signup" />
         <div className="flex items-center gap-3 text-sm text-ink-400">
           <div className="h-px flex-1 bg-ink-100" />
