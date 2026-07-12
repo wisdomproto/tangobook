@@ -1,6 +1,8 @@
 import React from 'react';
 import {
   AbsoluteFill,
+  Audio,
+  Sequence,
   Img,
   staticFile,
   interpolate,
@@ -392,6 +394,11 @@ export const BlockGame: React.FC = () => {
       )}
 
       <Caption text="혼자서 단어를 완성해요" />
+
+      {/* 정답(사과) 완성 순간 — 실제 '사과' 단어 음원 */}
+      <Sequence from={86}>
+        <Audio src={staticFile('reels/audio/apple-word.mp3')} />
+      </Sequence>
     </AbsoluteFill>
   );
 };

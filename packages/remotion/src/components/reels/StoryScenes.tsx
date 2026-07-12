@@ -1,6 +1,8 @@
 import React from 'react';
 import {
   AbsoluteFill,
+  Audio,
+  Sequence,
   Img,
   staticFile,
   interpolate,
@@ -292,6 +294,11 @@ export const PageLink: React.FC = () => {
           방금 배운 단어가, 동화 속에서 다시 살아나요
         </div>
       </AbsoluteFill>
+
+      {/* 실제 동화책 9쪽 나레이션 (사과 장면) */}
+      <Sequence from={8}>
+        <Audio src={staticFile('reels/audio/page9-narration-trim.mp3')} />
+      </Sequence>
     </AbsoluteFill>
   );
 };

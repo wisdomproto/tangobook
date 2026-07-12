@@ -26,7 +26,7 @@ const SCENES = {
   block: 118, // 블록(정답 삽화 힌트)
   writing: 100, // 글씨
   lineMatch: 88, // 그림짝
-  pageLink: 145, // 클라이맥스 — 단어가 동화 속으로
+  pageLink: 178, // 클라이맥스 — 단어가 동화 속으로 (9쪽 나레이션 수용)
   grid: 100, // 명작+자연관찰
   style: STYLE_FRAMES, // 여러 그림체
   cta: 145, // CTA
@@ -44,7 +44,7 @@ const trans = () => (
 export const AdReel: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: '#FFF6EE' }}>
-      <Audio src={staticFile('reels/bgm.mp3')} volume={0.55} />
+      <Audio src={staticFile('reels/bgm.mp3')} volume={0.35} />
       <TransitionSeries>
         <TransitionSeries.Sequence durationInFrames={SCENES.hook}>
           <OpeningHook />
