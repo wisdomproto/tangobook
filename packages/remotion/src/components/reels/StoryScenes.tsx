@@ -96,6 +96,91 @@ function StoryPage({
   );
 }
 
+// ─────────── ⓪ 오프닝 감정 훅 — 부모 공감(밤마다 읽어주기, 힘들죠) ───────────
+export const OpeningHook: React.FC = () => {
+  const frame = useCurrentFrame();
+  const line1 = interpolate(frame, [6, 22], [0, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  const line1Y = interpolate(frame, [6, 22], [30, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  const line2 = interpolate(frame, [50, 66], [0, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  const line2Y = interpolate(frame, [50, 66], [30, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  return (
+    <AbsoluteFill style={{ backgroundColor: '#141019' }}>
+      {/* 밤 분위기 — 동화 삽화를 어둡게 깔아 잠자리 느낌 */}
+      <AbsoluteFill>
+        <Img
+          src={staticFile('reels/covers/cover-snow-white.webp')}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            filter: 'blur(30px) brightness(0.32) saturate(0.9)',
+            transform: 'scale(1.25)',
+          }}
+        />
+      </AbsoluteFill>
+      <AbsoluteFill
+        style={{
+          background: 'linear-gradient(180deg, rgba(20,16,25,0.55) 0%, rgba(20,16,25,0.85) 100%)',
+        }}
+      />
+      {/* 달 */}
+      <AbsoluteFill style={{ alignItems: 'center', paddingTop: 210 }}>
+        <div style={{ fontSize: 90, opacity: 0.9 }}>🌙</div>
+      </AbsoluteFill>
+      {/* 공감 카피 */}
+      <AbsoluteFill
+        style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 40 }}
+      >
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 800,
+            fontSize: 76,
+            color: '#fff',
+            textAlign: 'center',
+            lineHeight: 1.35,
+            whiteSpace: 'pre-line',
+            wordBreak: 'keep-all',
+            opacity: line1,
+            transform: `translateY(${line1Y}px)`,
+            textShadow: '0 4px 20px rgba(0,0,0,0.6)',
+          }}
+        >
+          {'"엄마, 한 번만\n더 읽어줘…"'}
+        </div>
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 700,
+            fontSize: 52,
+            color: '#FFD9C7',
+            textAlign: 'center',
+            lineHeight: 1.4,
+            whiteSpace: 'pre-line',
+            wordBreak: 'keep-all',
+            opacity: line2,
+            transform: `translateY(${line2Y}px)`,
+          }}
+        >
+          {'매일 밤, 목이 쉬도록\n읽어주고 계신가요?'}
+        </div>
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
 // ─────────── ① 동화 자체 — 명작 동화를 실감나게 읽어줘요 ───────────
 export const StorybookIntro: React.FC = () => {
   const frame = useCurrentFrame();
@@ -121,7 +206,7 @@ export const StorybookIntro: React.FC = () => {
             padding: '14px 44px',
           }}
         >
-          세계명작 동화, 읽어줘요 📖
+          이제 탱고북이 대신 읽어줘요 📖
         </div>
       </AbsoluteFill>
       <AbsoluteFill
@@ -198,7 +283,7 @@ export const PageLink: React.FC = () => {
             opacity: chipPop,
           }}
         >
-          그 단어가 나온 동화 장면으로 이어져요
+          방금 배운 단어가, 동화 속에서 다시 살아나요
         </div>
       </AbsoluteFill>
     </AbsoluteFill>

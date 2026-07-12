@@ -87,7 +87,7 @@ export const ClosingScene: React.FC = () => {
           opacity: textOpacity,
         }}
       >
-        지금 무료로 보기 👇
+        오늘 밤, 아이에게 읽어주세요 👇
       </div>
 
       <SparkleParticles seed={777} count={50} />

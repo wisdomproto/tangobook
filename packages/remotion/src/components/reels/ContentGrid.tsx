@@ -115,7 +115,7 @@ export const ContentGrid: React.FC = () => {
               textShadow: '0 2px 12px rgba(255,255,255,0.8)',
             }}
           >
-            200여 권의 그림책
+            매일 새 이야기가 늘어요
           </div>
         </div>
       </AbsoluteFill>

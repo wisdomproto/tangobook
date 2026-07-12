@@ -263,7 +263,7 @@ export const LineMatchGame: React.FC = () => {
         </div>
       ))}
 
-      <Caption text="그림과 단어를 이어요" />
+      <Caption text="그림과 단어, 짝을 맞춰요" />
     </AbsoluteFill>
   );
 };
@@ -391,7 +391,7 @@ export const BlockGame: React.FC = () => {
         </AbsoluteFill>
       )}
 
-      <Caption text="블록을 끼워 단어를 만들어요" />
+      <Caption text="혼자서 단어를 완성해요" />
     </AbsoluteFill>
   );
 };
@@ -516,7 +516,7 @@ export const WritingGame: React.FC = () => {
         </AbsoluteFill>
       )}
 
-      <Caption text="손으로 따라 써요" />
+      <Caption text="놀이처럼, 글씨 쓰는 법까지" />
     </AbsoluteFill>
   );
 };
