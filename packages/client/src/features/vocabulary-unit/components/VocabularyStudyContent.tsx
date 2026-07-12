@@ -170,9 +170,13 @@ function WordPreviewBanner({ words, lang, onWordClick }: WordPreviewBannerProps)
       words
         .map((w) => {
           const main = getDisplayWord(w, lang);
-          // sub = 반대 언어 (있으면). lang=ko 면 영어, lang=en 면 한글
+          // sub = 보조 뜻. ko→영어 / en→한글. vi·zh·th 는 모국어라 한글 뜻이 소음 → 없음.
           const sub =
-            lang === 'ko' ? (w.nameEn ?? (w.word !== main ? w.word : '')) : (w.korean ?? '');
+            lang === 'ko'
+              ? (w.nameEn ?? (w.word !== main ? w.word : ''))
+              : lang === 'en'
+                ? (w.korean ?? '')
+                : '';
           const img = w.images?.find((im) => im.isPrimary)?.imageUrl ?? w.images?.[0]?.imageUrl;
           if (!main) return null;
           return { main, sub, img, word: w };

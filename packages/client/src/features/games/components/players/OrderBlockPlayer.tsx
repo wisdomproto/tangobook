@@ -244,7 +244,7 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
       <div className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-b from-sky-200 via-cream-50 to-peach-100 overflow-hidden">
         <div className="px-2 pt-2 shrink-0">
           <GameHeader
-            title={t('orderBlock.title', { defaultValue: '글자 블록' })}
+            title={t('cards.block.label')}
             current={score}
             total={items.length}
             onBack={onBack}
@@ -336,8 +336,8 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
             <button
               onClick={handleReset}
               disabled={roundCorrect}
-              title="다시"
-              aria-label="다시"
+              title={t('study.retry')}
+              aria-label={t('study.retry')}
               className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/95 shadow-soft text-xl font-black text-ink-700 hover:scale-105 active:scale-95 disabled:opacity-40"
             >
               ↺

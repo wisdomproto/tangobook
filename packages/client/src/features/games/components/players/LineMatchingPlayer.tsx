@@ -1,4 +1,5 @@
 import { useState, useEffect, useLayoutEffect, useMemo, useCallback, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type {
   KoreanLineMatchingData,
@@ -51,6 +52,7 @@ function LineMatchingPlayerInner({
   const imageOrder = useMemo(() => items.map((_, i) => i), [items]);
   const wordOrder = useMemo(() => shuffle(items.map((_, i) => i)), [items]);
 
+  const { t } = useTranslation('games');
   const [selectedImageIdx, setSelectedImageIdx] = useState<number | null>(null);
   const [selectedWordIdx, setSelectedWordIdx] = useState<number | null>(null);
   const [matched, setMatched] = useState<MatchedPair[]>([]);
@@ -383,7 +385,7 @@ function LineMatchingPlayerInner({
     <GamePlayerLayout maxWidth="full" bgImageUrl="/images/games/line-matching-bg.webp">
       <div className="flex flex-col w-full h-full relative">
         <GameHeader
-          title="그림짝 맞추기"
+          title={t('cards.lineMatching.label')}
           current={matched.length}
           total={items.length}
           onBack={onBack}

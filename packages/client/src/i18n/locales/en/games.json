@@ -35,7 +35,9 @@
     "done": "Done!",
     "otherGame": "Try another game?",
     "back": "← Back",
-    "detailAria": "View {{word}} details"
+    "detailAria": "View {{word}} details",
+    "retry": "Retry",
+    "close": "Close"
   },
   "cards": {
     "lineMatching": {
@@ -64,5 +66,13 @@
       "dots": "Need words with outline dots",
       "writing": "Not enough words with images"
     }
+  },
+  "connectDots": {
+    "done": "Done!",
+    "instruction": "Paint the whole shape!",
+    "goal": "Goal {{pct}}%"
+  },
+  "wordDetail": {
+    "tapHint": "Tap the picture to hear the word!"
   }
 }

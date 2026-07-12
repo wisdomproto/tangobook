@@ -35,7 +35,9 @@
     "done": "Xong!",
     "otherGame": "Thử trò chơi khác nhé?",
     "back": "← Quay lại",
-    "detailAria": "Xem chi tiết {{word}}"
+    "detailAria": "Xem chi tiết {{word}}",
+    "retry": "Làm lại",
+    "close": "Đóng"
   },
   "cards": {
     "lineMatching": {
@@ -64,5 +66,13 @@
       "dots": "Cần từ có điểm viền",
       "writing": "Không đủ từ có hình"
     }
+  },
+  "connectDots": {
+    "done": "Xong!",
+    "instruction": "Tô kín cả hình nhé!",
+    "goal": "Mục tiêu {{pct}}%"
+  },
+  "wordDetail": {
+    "tapHint": "Chạm vào hình để nghe từ nhé!"
   }
 }

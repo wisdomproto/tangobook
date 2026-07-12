@@ -71,8 +71,13 @@ export function unitToLineMatchingData(
     const word = pickWord(w, lang);
     if (!imageUrl || !word) continue;
     const tts = pickTts(w, lang);
+    // 보조 라벨(뜻) — ko: 영어 / en: 한글. vi·zh·th 는 모국어 어휘라 한글 뜻이 소음 → 없음.
     const subLabel =
-      lang === 'ko' ? (w.nameEn ?? (w.word !== word ? w.word : '')) : (w.korean ?? '');
+      lang === 'ko'
+        ? (w.nameEn ?? (w.word !== word ? w.word : ''))
+        : lang === 'en'
+          ? (w.korean ?? '')
+          : '';
     candidates.push({
       word,
       imageUrl,

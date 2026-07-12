@@ -35,7 +35,9 @@
     "done": "完成！",
     "otherGame": "试试别的游戏？",
     "back": "← 返回",
-    "detailAria": "查看{{word}}详情"
+    "detailAria": "查看{{word}}详情",
+    "retry": "重来",
+    "close": "关闭"
   },
   "cards": {
     "lineMatching": {
@@ -64,5 +66,13 @@
       "dots": "需要有轮廓点的单词",
       "writing": "带图片的单词不足"
     }
+  },
+  "connectDots": {
+    "done": "完成！",
+    "instruction": "把整个形状都涂满！",
+    "goal": "目标 {{pct}}%"
+  },
+  "wordDetail": {
+    "tapHint": "点击图片听单词！"
   }
 }

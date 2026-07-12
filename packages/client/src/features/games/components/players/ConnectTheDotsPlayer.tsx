@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { PointerEvent as ReactPointerEvent, SyntheticEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { GamePlayerProps } from '../../registry/game-registry';
@@ -47,6 +48,7 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
   //    reset useEffect 가 매 렌더 실행되고 clearRect 로 방금 칠한 paint 를 지운다(→ 0% 고정).
   const items = useMemo(() => data.items.filter((it) => it.keypoints.length >= 3), [data]);
 
+  const { t } = useTranslation('games');
   const [itemIdx, setItemIdx] = useState(0);
   const [coverage, setCoverage] = useState(0);
   const [completed, setCompleted] = useState(false);
@@ -452,7 +454,7 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
   return (
     <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/point-drawing-bg.webp">
       <GameHeader
-        title="단어 그림 그리기"
+        title={t('cards.connectDots.label')}
         current={completedItems}
         total={items.length}
         onBack={onBack}
@@ -461,10 +463,12 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
         {/* 안내 텍스트 */}
         <div className="h-14 sm:h-16 flex items-center justify-center shrink-0">
           {completed ? (
-            <p className="text-3xl sm:text-4xl font-black text-success">🎉 완성!</p>
+            <p className="text-3xl sm:text-4xl font-black text-success">
+              🎉 {t('connectDots.done')}
+            </p>
           ) : (
             <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900 break-keep text-center px-4">
-              큰 붓으로 <span className="text-coral-500">모양 안</span>을 모두 칠해주세요!
+              {t('connectDots.instruction')}
             </p>
           )}
         </div>
@@ -521,7 +525,7 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
               >
                 {pct}% {coverage >= THRESHOLD && '✓'}
               </span>
-              <span className="text-ink-500">목표 {thresholdPct}%</span>
+              <span className="text-ink-500">{t('connectDots.goal', { pct: thresholdPct })}</span>
             </div>
             <div className="h-4 bg-white/70 backdrop-blur rounded-full overflow-hidden border-2 border-peach-200">
               <div

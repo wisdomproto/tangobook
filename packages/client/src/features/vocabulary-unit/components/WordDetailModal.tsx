@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Lang, Page, Storybook, VocabularyUnitWord } from '@tangobook/shared';
 import { resolveTtsUrl } from '@/features/tts';
@@ -115,6 +116,7 @@ export function WordDetailModal({
   lang,
   onClose,
 }: WordDetailModalProps) {
+  const { t } = useTranslation('games');
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const praiseAudioRef = useRef<HTMLAudioElement | null>(null);
   const praiseTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -371,7 +373,7 @@ export function WordDetailModal({
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 w-12 h-12 rounded-full bg-cream-50 hover:bg-coral-100 shadow-soft text-2xl font-black text-ink-700 flex items-center justify-center transition"
-          aria-label="닫기"
+          aria-label={t('study.close')}
         >
           ✕
         </button>
@@ -435,7 +437,7 @@ export function WordDetailModal({
                     />
                   ))}
                 </div>
-                <p className="text-sm text-ink-500 font-bold">그림을 눌러 단어를 들어봐!</p>
+                <p className="text-sm text-ink-500 font-bold">{t('wordDetail.tapHint')}</p>
               </motion.div>
             ) : (
               <motion.div

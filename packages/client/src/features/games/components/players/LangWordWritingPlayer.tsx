@@ -166,7 +166,7 @@ export function LangWordWritingPlayer({
   return (
     <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/writing-bg.webp">
       <GameHeader
-        title={t('orderWriting.title', { defaultValue: '따라 쓰기' })}
+        title={t('cards.writing.label')}
         current={passed.filter(Boolean).length}
         total={items.length}
         onBack={onBack}
