@@ -28,4 +28,9 @@ describe('BookCover', () => {
     render(<BookCover book={book} lang="ko" overlayTitle={false} />);
     expect(screen.queryByText('개구리 왕자')).not.toBeInTheDocument();
   });
+  it('renders placeholder with accessible name when no cover at all', () => {
+    const noCover = { title: '개구리 왕자' } as any;
+    render(<BookCover book={noCover} lang="ko" overlayTitle />);
+    expect(screen.getByRole('img', { name: '개구리 왕자' })).toBeInTheDocument();
+  });
 });

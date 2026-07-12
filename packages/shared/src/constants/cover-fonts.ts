@@ -1,11 +1,11 @@
 // Canonical lang→font-family map for cover-title overlays. Unknown languages fall
-// back to the Latin font. Adding a language font is a THREE-PLACE change (the font
-// string can't be consumed from TS by CSS/Tailwind):
+// back to the Latin font. Adding a language font is a TWO-PLACE change (the font
+// string can't be loaded by CSS from TS):
 //   1) add a row here,
-//   2) add the family to the webfont `@import` in packages/client/src/index.css,
-//   3) add a `font-cover-*` token in packages/client/tailwind.config.ts + map it in
-//      BookCover's coverFontClass (Chunk 2).
-// Plan #2 (server OG) also bundles the TTFs listed in COVER_FONT_FAMILIES.
+//   2) add the family to the webfont `@import` in packages/client/src/index.css.
+// BookCover consumes coverTitleFont(lang).family directly as an inline font-family,
+// so no Tailwind token is needed. Plan #2 (server OG) also bundles the TTFs listed
+// in COVER_FONT_FAMILIES.
 export interface CoverFont {
   family: string;
 }
