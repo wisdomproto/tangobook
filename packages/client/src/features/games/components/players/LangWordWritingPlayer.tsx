@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { OrderWritingData } from '@tangobook/shared';
@@ -10,7 +10,7 @@ import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
 import { useGameStyle } from '../GameStyleChip';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
-import { resolveTtsUrl } from '@/features/tts';
+import { resolveTtsUrl, resolveUnitTtsUrl, prewarmUnitTts } from '@/features/tts';
 import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { useStorybook } from '@/features/storybook';
 import { WordFillCanvas } from '@/features/phonics/components/WordFillCanvas';
@@ -62,6 +62,11 @@ export function LangWordWritingPlayer({
   const currentItem = items[currentIndex];
   const units = useMemo(() => unitsFor(currentItem.word, lang), [currentItem.word, lang]);
 
+  // 이 단어 유닛 발음을 백그라운드 생성/캐시 — 유닛 완성 시 지연 없이 읽어줌.
+  useEffect(() => {
+    prewarmUnitTts(units, lang);
+  }, [units, lang]);
+
   const emitFinalResults = useCallback(
     (finalPassed: boolean[]) => {
       const results: GameWordResult[] = items.map((it, i) => ({
@@ -95,12 +100,13 @@ export function LangWordWritingPlayer({
       queueMicrotask(() => {
         if (completedRef.current) return;
         void (async () => {
-          const url = await resolveTtsUrl({ text: unit, language: lang, storybookId });
-          if (url) playAudio(url);
+          // vi/zh/th 낱유닛 발음 — Google native TTS lazy 캐시(phonics concat 없음).
+          const url = await resolveUnitTtsUrl(unit, lang);
+          if (url && !completedRef.current) playAudio(url);
         })();
       });
     },
-    [lang, storybookId, playAudio]
+    [lang, playAudio]
   );
 
   const handleWordComplete = useCallback(() => {
@@ -138,10 +144,7 @@ export function LangWordWritingPlayer({
       };
       // 마지막 유닛(여러 유닛일 때만) 끝까지 → 쉬고 → 단어. TTS 없으면 wordUrl=undefined 라 즉시 진행.
       const lastUnit = lastUnitRef.current || units[units.length - 1];
-      const lastUnitUrl =
-        units.length > 1
-          ? await resolveTtsUrl({ text: lastUnit, language: lang, storybookId })
-          : undefined;
+      const lastUnitUrl = units.length > 1 ? await resolveUnitTtsUrl(lastUnit, lang) : undefined;
       if (lastUnitUrl) {
         playAudio(lastUnitUrl, () => scheduleTimer(playWordThenPraise, REST_MS));
       } else {

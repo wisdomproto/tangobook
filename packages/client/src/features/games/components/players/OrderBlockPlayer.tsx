@@ -10,7 +10,7 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
 import { useGameStyle } from '../GameStyleChip';
-import { resolveTtsUrl } from '@/features/tts';
+import { resolveTtsUrl, resolveUnitTtsUrl, prewarmUnitTts } from '@/features/tts';
 import { useStorybook } from '@/features/storybook';
 import { resolveSceneFromWord, type WordScene } from '../../lib/resolve-scene';
 import { useGameLogger } from '@/features/learning';
@@ -62,7 +62,7 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
   const triedRef = useRef(false);
 
   const logGame = useGameLogger();
-  const { playCorrectSequence, playFeedbackSound, praiseVisible } = useGameAudio();
+  const { playAudio, playCorrectSequence, playFeedbackSound, praiseVisible } = useGameAudio();
   const { data: sourceStorybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(sourceStorybook);
 
@@ -95,8 +95,10 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
       setWrongSlots(new Set());
       triedRef.current = false;
       setScene(null);
+      // 이 라운드 유닛 발음을 백그라운드 생성/캐시 — 첫 배치 때 지연 없이 재생.
+      prewarmUnitTts(units, lang);
     },
-    [items]
+    [items, lang]
   );
 
   useEffect(() => {
@@ -181,10 +183,18 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
       setSlots(next);
       setTiles((prev) => prev.map((p) => (p.id === id ? { ...p, used: true } : p)));
       setWrongSlots(new Set());
-      // 유닛별 읽기 seam — 나중에 unitTts(한자 음원 등) 채우면 여기서 재생.
+      // 유닛별 읽기 — 배치한 글자/한자/어절을 발음(vi/zh/th native TTS, lazy 캐시).
+      // 단, 이 배치로 단어가 "완성"되면 재생하지 않고 checkFull→handleCorrect 가 단어 발음을 소유
+      // (playAudio 단일 채널이라 유닛음이 단어음에 잘리는 것 방지 — 블록 게임 chain 규칙과 동일).
+      const completesWord = !next.some((v) => v === null);
+      if (!completesWord) {
+        void resolveUnitTtsUrl(tl.char, lang).then((url) => {
+          if (url) playAudio(url);
+        });
+      }
       checkFull(next);
     },
-    [roundCorrect, tileById, slots, checkFull]
+    [roundCorrect, tileById, slots, checkFull, lang, playAudio]
   );
 
   const freeSlot = useCallback(

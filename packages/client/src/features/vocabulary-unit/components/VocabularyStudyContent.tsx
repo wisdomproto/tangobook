@@ -504,6 +504,7 @@ function GameOverlay({
             difficulty="medium"
             onComplete={() => onComplete()}
             onBack={onBack}
+            lang={lang}
           />
         )}
         {game === 'korean-word-writing' && (

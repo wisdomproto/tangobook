@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import type { PointerEvent as ReactPointerEvent, SyntheticEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { GamePlayerProps } from '../../registry/game-registry';
-import type { ConnectTheDotsData, ConnectTheDotsItem } from '@tangobook/shared';
+import type { ConnectTheDotsData, ConnectTheDotsItem, Lang } from '@tangobook/shared';
 import { getEffectiveVocabulary } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
@@ -41,7 +41,23 @@ const THRESHOLD = 0.95; // 95% 채우면 통과 — 그림을 거의 다 칠해�
 const PEN_RATIO = 0.08; // canvas width 대비 펜 두께 비율 (~8%)
 const DOT_RADIUS_PX = 14; // 점 표시 (참고용, interaction X)
 
-function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: GamePlayerProps) {
+interface ConnectTheDotsPlayerProps extends GamePlayerProps {
+  /** 어휘 게임(vocab GameOverlay)에서 명시 전달. 미지정 시 책 뷰어 `?lang`(ko/en) 폴백. */
+  lang?: Lang;
+}
+
+/** Lang → resolveTtsUrl language 파라미터 */
+function ttsLangOf(lang: Lang): 'korean' | 'english' | 'vi' | 'zh' | 'th' {
+  return lang === 'ko' ? 'korean' : lang === 'en' ? 'english' : lang;
+}
+
+function ConnectTheDotsPlayer({
+  storybookId,
+  gameData,
+  onComplete,
+  onBack,
+  lang: propLang,
+}: ConnectTheDotsPlayerProps) {
   const data = gameData as ConnectTheDotsData;
   // polygon 칠하기 위해 최소 3점 필요.
   // ⚠️ memoize 필수 — 매 렌더 새 배열이면 sortedKps→drawMask useCallback 신원이 매번 바뀌어
@@ -70,29 +86,41 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
   const logGame = useGameLogger();
 
   const [searchParams] = useSearchParams();
-  const viewerLang: 'ko' | 'en' = searchParams.get('lang') === 'en' ? 'en' : 'ko';
+  // 어휘 게임은 prop 으로 lang 전달(vi/zh/th 포함). 책 뷰어 registry 경로는 `?lang`(ko/en) 폴백.
+  const viewerLang: Lang = propLang ?? (searchParams.get('lang') === 'en' ? 'en' : 'ko');
 
   const { data: storybook } = useStorybook(storybookId);
   const gameStyle = useGameStyle(storybook);
 
+  // objectName(영어) → 발음 대상 { text, lang }. viewerLang 에 맞는 표기/음원 선택.
+  //  - en: 영어 원어
+  //  - ko: key_object.korean (없으면 영어)
+  //  - vi/zh/th: key_object.nameTranslations[lang] (없으면 발음 스킵 — 다른 언어로 새지 않게)
   const resolveSpeakTarget = useCallback(
-    (englishName: string | undefined): { text: string; language: 'korean' | 'english' } | null => {
+    (englishName: string | undefined): { text: string; lang: Lang } | null => {
       if (!englishName) return null;
       const en = englishName.trim();
       if (!en) return null;
-      if (viewerLang === 'en') return { text: en, language: 'english' };
+      if (viewerLang === 'en') return { text: en, lang: 'en' };
       const enLower = en.toLowerCase();
-      const ko =
-        storybook?.key_objects
-          ?.find((k) => k.name?.toLowerCase() === enLower || k.nameEn?.toLowerCase() === enLower)
-          ?.korean?.trim() ||
-        (storybook
-          ? getEffectiveVocabulary(storybook)
-              .find((v) => v.word?.toLowerCase() === enLower)
-              ?.korean?.trim()
-          : '');
-      if (ko) return { text: ko, language: 'korean' };
-      return { text: en, language: 'english' };
+      const ko = storybook?.key_objects?.find(
+        (k) => k.name?.toLowerCase() === enLower || k.nameEn?.toLowerCase() === enLower
+      );
+      if (viewerLang === 'ko') {
+        const koText =
+          ko?.korean?.trim() ||
+          (storybook
+            ? getEffectiveVocabulary(storybook)
+                .find((v) => v.word?.toLowerCase() === enLower)
+                ?.korean?.trim()
+            : '');
+        if (koText) return { text: koText, lang: 'ko' };
+        return { text: en, lang: 'en' };
+      }
+      // vi/zh/th
+      const tr = ko?.nameTranslations?.[viewerLang]?.trim();
+      if (tr) return { text: tr, lang: viewerLang };
+      return null;
     },
     [viewerLang, storybook]
   );
@@ -108,14 +136,14 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
       const ko = storybook?.key_objects?.find(
         (k) => k.name?.toLowerCase() === objLower || k.nameEn?.toLowerCase() === objLower
       );
-      const ttsLang = target.language === 'korean' ? 'ko' : 'en';
-      const directUrl = ko?.ttsUrls?.[ttsLang] ?? (ttsLang === 'ko' ? ko?.ttsUrl : undefined);
+      const directUrl =
+        ko?.ttsUrls?.[target.lang] ?? (target.lang === 'ko' ? ko?.ttsUrl : undefined);
       out.push({ text: target.text, directUrl });
     }
     return out;
   }, [items, resolveSpeakTarget, storybook]);
-  // 백그라운드 프리워밍 — 논블로킹(캐싱은 Cache-Control+SW 담당).
-  usePrewarmWordTts(prewarmItems, viewerLang === 'en' ? 'english' : 'korean', storybookId, 'dot');
+  // 백그라운드 프리워밍 — 논블로킹. vi/zh/th 는 'english' 경로(directUrl 우선)로 URL 워밍.
+  usePrewarmWordTts(prewarmItems, viewerLang === 'ko' ? 'korean' : 'english', storybookId, 'dot');
 
   const currentItem: ConnectTheDotsItem | undefined = items[itemIdx];
 
@@ -266,12 +294,12 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
       const ko = storybook?.key_objects?.find((k) => {
         return k.name?.toLowerCase() === objNameLower || k.nameEn?.toLowerCase() === objNameLower;
       });
-      const ttsLang = target.language === 'korean' ? 'ko' : 'en';
-      const keyObjTts = ko?.ttsUrls?.[ttsLang] ?? (ttsLang === 'ko' ? ko?.ttsUrl : undefined);
+      const keyObjTts =
+        ko?.ttsUrls?.[target.lang] ?? (target.lang === 'ko' ? ko?.ttsUrl : undefined);
 
       wordAudioUrl = await resolveTtsUrl({
         text: target.text,
-        language: target.language,
+        language: ttsLangOf(target.lang),
         storybookId,
         directUrl: keyObjTts,
         identifierPrefix: 'dot',
@@ -281,12 +309,7 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
     const proceed = () => {
       // 3) 완성한 단어가 나오는 동화 장면 + 나레이션 리빌 (있으면), 없으면 다음.
       const s = target
-        ? resolveSceneFromWord(
-            target.text,
-            target.language === 'korean' ? 'ko' : 'en',
-            storybook,
-            gameStyle.selectedStyle
-          )
+        ? resolveSceneFromWord(target.text, target.lang, storybook, gameStyle.selectedStyle)
         : null;
       if (s) setScene(s);
       else advanceToNext();
@@ -297,7 +320,7 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
       revealTimerRef.current = null;
       playCorrectSequence({
         ttsUrl: wordAudioUrl,
-        language: target?.language === 'korean' ? 'ko' : 'en',
+        language: target?.lang,
         onDone: proceed,
       });
     }, 1100);
@@ -431,6 +454,7 @@ function ConnectTheDotsPlayer({ storybookId, gameData, onComplete, onBack }: Gam
         storybookId={storybookId}
         score={completedItems}
         total={items.length}
+        lang={viewerLang}
         onRestart={() => {
           setItemIdx(0);
           setCoverage(0);
