@@ -23,12 +23,29 @@
 //   --api=<origin>       연동 조회 오리진(기본 https://tangobook.co.kr)
 import 'dotenv/config';
 import { getSupabaseAdmin } from '../src/providers/supabase-admin.provider.js';
+import { resolveNatureBookIds } from '../src/services/reel/reel-targets.js';
 
 interface ReelRow {
   content_id: string;
   title: string;
   project_id: string;
   owner_id: string;
+  bookId: string;
+  isNature: boolean;
+}
+
+/** 명작·자연관찰을 번갈아 섞음(짝수 인덱스=명작, 홀수=자연관찰). 한쪽 소진 시 나머지 append. */
+function interleave(classics: ReelRow[], nature: ReelRow[]): ReelRow[] {
+  const out: ReelRow[] = [];
+  let ci = 0;
+  let ni = 0;
+  // 자연관찰이 약 2배라 명작1:자연관찰2 리듬으로 섞어 고르게 분포.
+  while (ci < classics.length || ni < nature.length) {
+    if (ci < classics.length) out.push(classics[ci++]);
+    if (ni < nature.length) out.push(nature[ni++]);
+    if (ni < nature.length) out.push(nature[ni++]);
+  }
+  return out;
 }
 
 // 유명작 우선 — 인지도 높은 명작부터 강한 훅으로 유입. 목록에 없는 제목은 뒤에 가나다순.
@@ -177,20 +194,32 @@ async function main() {
 
   const { data: contents, error: e2 } = await sb
     .from('mkt_contents')
-    .select('id, title, project_id, project:mkt_projects(user_id)')
+    .select('id, title, project_id, memo, project:mkt_projects(user_id)')
     .in('id', reelContentIds);
   if (e2) throw new Error(e2.message);
-  let rows: ReelRow[] = (contents ?? []).map((c: any) => ({
-    content_id: c.id,
-    title: c.title ?? '',
-    project_id: c.project_id,
-    owner_id: c.project?.user_id,
-  }));
+  const natureSet = new Set(resolveNatureBookIds());
+  let rows: ReelRow[] = (contents ?? []).map((c: any) => {
+    const bookId = (c.memo ?? '').replace('storybook:', '');
+    return {
+      content_id: c.id,
+      title: c.title ?? '',
+      project_id: c.project_id,
+      owner_id: c.project?.user_id,
+      bookId,
+      isNature: natureSet.has(bookId),
+    };
+  });
 
-  // 3) 유명작 우선 정렬
-  rows.sort(
-    (a, b) => marqueeRank(a.title) - marqueeRank(b.title) || a.title.localeCompare(b.title, 'ko')
-  );
+  // 3) 명작(유명작순)·자연관찰(가나다순)으로 나눠 번갈아 섞음
+  const classics = rows
+    .filter((r) => !r.isNature)
+    .sort(
+      (a, b) => marqueeRank(a.title) - marqueeRank(b.title) || a.title.localeCompare(b.title, 'ko')
+    );
+  const nature = rows
+    .filter((r) => r.isNature)
+    .sort((a, b) => a.title.localeCompare(b.title, 'ko'));
+  rows = interleave(classics, nature);
 
   // 4) 멱등 — 이미 예약/발행/발행중인 IG 릴스 레코드가 있는 콘텐츠는 건너뜀
   const { data: existing, error: e3 } = await sb
