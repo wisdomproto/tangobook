@@ -99,6 +99,8 @@ function StoryPage({
 // ─────────── ⓪ 오프닝 감정 훅 — 부모 공감(밤마다 읽어주기, 힘들죠) ───────────
 export const OpeningHook: React.FC = () => {
   const frame = useCurrentFrame();
+  // 잔잔한 켄번즈 줌
+  const zoom = interpolate(frame, [0, 120], [1.04, 1.12], { extrapolateRight: 'clamp' });
   const line1 = interpolate(frame, [6, 22], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
@@ -107,47 +109,50 @@ export const OpeningHook: React.FC = () => {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const line2 = interpolate(frame, [50, 66], [0, 1], {
+  const line2 = interpolate(frame, [52, 68], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const line2Y = interpolate(frame, [50, 66], [30, 0], {
+  const line2Y = interpolate(frame, [52, 68], [30, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
   return (
     <AbsoluteFill style={{ backgroundColor: '#141019' }}>
-      {/* 밤 분위기 — 동화 삽화를 어둡게 깔아 잠자리 느낌 */}
+      {/* 밤 잠자리 — 엄마가 아이에게 그림책 읽어주는 실제 감성 이미지 */}
       <AbsoluteFill>
         <Img
-          src={staticFile('reels/covers/cover-snow-white.webp')}
+          src={staticFile('reels/hook-bedtime.webp')}
           style={{
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            filter: 'blur(30px) brightness(0.32) saturate(0.9)',
-            transform: 'scale(1.25)',
+            transform: `scale(${zoom})`,
           }}
         />
       </AbsoluteFill>
+      {/* 하단 스크림 — 자막 가독성 */}
       <AbsoluteFill
         style={{
-          background: 'linear-gradient(180deg, rgba(20,16,25,0.55) 0%, rgba(20,16,25,0.85) 100%)',
+          background:
+            'linear-gradient(180deg, rgba(15,12,20,0) 42%, rgba(15,12,20,0.72) 74%, rgba(15,12,20,0.92) 100%)',
         }}
       />
-      {/* 달 */}
-      <AbsoluteFill style={{ alignItems: 'center', paddingTop: 210 }}>
-        <div style={{ fontSize: 90, opacity: 0.9 }}>🌙</div>
-      </AbsoluteFill>
-      {/* 공감 카피 */}
+      {/* 공감 카피 (하단) */}
       <AbsoluteFill
-        style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 40 }}
+        style={{
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          gap: 26,
+          paddingBottom: 190,
+        }}
       >
         <div
           style={{
             fontFamily,
             fontWeight: 800,
-            fontSize: 76,
+            fontSize: 72,
             color: '#fff',
             textAlign: 'center',
             lineHeight: 1.35,
@@ -155,7 +160,7 @@ export const OpeningHook: React.FC = () => {
             wordBreak: 'keep-all',
             opacity: line1,
             transform: `translateY(${line1Y}px)`,
-            textShadow: '0 4px 20px rgba(0,0,0,0.6)',
+            textShadow: '0 4px 22px rgba(0,0,0,0.75)',
           }}
         >
           {'"엄마, 한 번만\n더 읽어줘…"'}
@@ -164,7 +169,7 @@ export const OpeningHook: React.FC = () => {
           style={{
             fontFamily,
             fontWeight: 700,
-            fontSize: 52,
+            fontSize: 50,
             color: '#FFD9C7',
             textAlign: 'center',
             lineHeight: 1.4,
@@ -172,6 +177,7 @@ export const OpeningHook: React.FC = () => {
             wordBreak: 'keep-all',
             opacity: line2,
             transform: `translateY(${line2Y}px)`,
+            textShadow: '0 3px 16px rgba(0,0,0,0.7)',
           }}
         >
           {'매일 밤, 목이 쉬도록\n읽어주고 계신가요?'}
