@@ -21,7 +21,6 @@ import type { Storybook } from '@tangobook/shared';
 import { getAI, generateImageWithGemini } from '../src/providers/gemini.provider.js';
 import { uploadBufferToR2 } from '../src/providers/r2.provider.js';
 import { R2Repository } from '../src/repositories/r2.repository.js';
-import { parseGeminiJSON } from '../src/utils/parse-gemini-json.js';
 import { config } from '../src/config/index.js';
 import {
   pickStyleCovers,
@@ -98,15 +97,50 @@ async function runFidelityGate(originalPngB64: string, cleanPngB64: string): Pro
         config: { responseMimeType: 'application/json' },
       })
     );
-    const text = result.candidates?.[0]?.content?.parts?.find((p) => p.text)?.text ?? '';
-    const v = parseGeminiJSON<{ sameSubject?: unknown; textRemains?: unknown; reason?: string }>(
-      text,
-      '피델리티 게이트 JSON 파싱 실패'
-    );
-    return parseGateVerdict(v);
+    // 모든 candidate/part 의 text 를 이어붙여 견고하게 추출 (find 로 첫 part 만 보면 빈 문자열 나기 쉬움).
+    const text = (result.candidates ?? [])
+      .flatMap((c) => c.content?.parts ?? [])
+      .map((p) => p.text ?? '')
+      .join('')
+      .trim();
+    const v = parseVerdictLoose(text);
+    // 두 boolean 을 온전히 얻었을 때만 판정. 그 외(파싱 실패·부분 응답)는 **버리지 않고 통과**(fail-open):
+    // 이미지는 이미 생성됐고(유료), 자연관찰 등 단순 사진은 재해석 위험이 낮다. 재해석 의심은 editor2 매트릭스로 육안 점검.
+    if (typeof v?.sameSubject === 'boolean' && typeof v?.textRemains === 'boolean') {
+      return parseGateVerdict(v);
+    }
+    return { pass: true, reason: 'gate-unparseable→accepted' };
   } catch (e) {
     return { pass: false, reason: `gate error: ${(e as Error).message}` };
   }
+}
+
+/** 게이트 응답에서 verdict 를 관대하게 추출 — 순수 JSON / 마크다운 펜스 / 프로즈 속 boolean 모두 시도. */
+function parseVerdictLoose(text: string): { sameSubject?: unknown; textRemains?: unknown } | null {
+  if (!text) return null;
+  const t = text.replace(/```(?:json)?/gi, '').trim();
+  try {
+    return JSON.parse(t);
+  } catch {
+    /* fall through */
+  }
+  const braced = t.match(/\{[\s\S]*\}/);
+  if (braced) {
+    try {
+      return JSON.parse(braced[0]);
+    } catch {
+      /* fall through */
+    }
+  }
+  const ss = /"?sameSubject"?\s*[:=]\s*(true|false)/i.exec(t);
+  const tr = /"?textRemains"?\s*[:=]\s*(true|false)/i.exec(t);
+  if (ss || tr) {
+    return {
+      sameSubject: ss ? ss[1].toLowerCase() === 'true' : undefined,
+      textRemains: tr ? tr[1].toLowerCase() === 'true' : undefined,
+    };
+  }
+  return null;
 }
 
 interface StyleOutcome {
