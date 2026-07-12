@@ -1,4 +1,7 @@
-export type Lang = 'ko' | 'en';
+// 학습·게임·어휘 레이어에서 쓰는 언어 코드. 콘텐츠·UI 완비 5개(런칭 타겟).
+// 대부분의 코드는 `lang === 'ko' ? ... : ...` 이진 분기라 ko 외는 라틴/영어 흐름을 탄다;
+// 언어별 특수 처리는 splitUnits(문자 분해)·폰트·라벨 배선에서 명시적으로 한다.
+export type Lang = 'ko' | 'en' | 'vi' | 'zh' | 'th';
 
 export type LearningEventType =
   | 'page_read'

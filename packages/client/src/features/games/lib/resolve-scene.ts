@@ -18,9 +18,15 @@ function matchKeyObject(word: string, lang: Lang, storybook: Storybook) {
   const wl = w.toLowerCase();
   return storybook.key_objects?.find((k) => {
     if (lang === 'ko') return k.korean === w || k.name === w;
-    // 영어(또는 그 외): nameEn / name 을 대소문자 무시 매칭
+    if (lang === 'en')
+      return (
+        (!!k.nameEn && k.nameEn.toLowerCase() === wl) || (!!k.name && k.name.toLowerCase() === wl)
+      );
+    // vi/zh/th: 번역 이름으로 매칭 (nameEn/name 폴백도 허용)
     return (
-      (!!k.nameEn && k.nameEn.toLowerCase() === wl) || (!!k.name && k.name.toLowerCase() === wl)
+      k.nameTranslations?.[lang]?.trim() === w ||
+      (!!k.nameEn && k.nameEn.toLowerCase() === wl) ||
+      (!!k.name && k.name.toLowerCase() === wl)
     );
   });
 }
@@ -82,8 +88,13 @@ export function resolveSceneFromWord(
 
   const pageText = lang === 'ko' ? page?.text : (page?.translations?.[lang]?.text ?? page?.text);
   const pageTtsUrl = lang === 'ko' ? page?.ttsUrl : page?.translations?.[lang]?.ttsUrl;
-  // 자막 하이라이트할 단어형 — ko=한글, en(그 외)=영어. 본문에 실제 등장할 때만 강조됨(SceneReveal).
-  const highlight = lang === 'ko' ? (ko.korean ?? word) : (ko.nameEn ?? word);
+  // 자막 하이라이트할 단어형 — 본문에 실제 등장할 때만 강조됨(SceneReveal).
+  const highlight =
+    lang === 'ko'
+      ? (ko.korean ?? word)
+      : lang === 'en'
+        ? (ko.nameEn ?? word)
+        : (ko.nameTranslations?.[lang] ?? word);
 
   return { illustrationUrl: url, pageNumber: pageNum, pageText, pageTtsUrl, highlight };
 }

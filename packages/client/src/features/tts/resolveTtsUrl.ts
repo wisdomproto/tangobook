@@ -20,7 +20,11 @@ import { phonicsApi } from '@/features/phonics/api/phonics.api';
  */
 export interface ResolveTtsOptions {
   text: string;
-  language: 'korean' | 'english';
+  /**
+   * 'korean'/'english' = 기존 phonics concat 지원 언어.
+   * 'vi'|'zh'|'th' = 아직 phonics 라이브러리 없음 → directUrl 만(없으면 무음). TTS 생성 후 여기 확장.
+   */
+  language: 'korean' | 'english' | 'vi' | 'zh' | 'th';
   /** phonics concat 캐시 key 의 storybook 식별자. 책 단위 캐시 분리용. concat 사용 시 필수. */
   storybookId?: string;
   /** caller 가 미리 알고 있는 직접 URL (예: word.ttsUrl, key_object.ttsUrl) */
@@ -40,7 +44,7 @@ async function tryConcat(opts: ResolveTtsOptions): Promise<string | undefined> {
       text,
       storybookId,
       identifier: `${identifierPrefix}-${language === 'korean' ? 'ko' : 'en'}-${encodeURIComponent(text)}`,
-      language,
+      language: language as 'korean' | 'english',
     });
     return audioUrl;
   } catch {
@@ -55,7 +59,11 @@ export async function resolveTtsUrl(opts: ResolveTtsOptions): Promise<string | u
     if (concat) return concat;
     return opts.directUrl;
   }
-  // 영어: directUrl 우선
-  if (opts.directUrl) return opts.directUrl;
-  return await tryConcat(opts);
+  if (opts.language === 'english') {
+    // 영어: directUrl 우선
+    if (opts.directUrl) return opts.directUrl;
+    return await tryConcat(opts);
+  }
+  // vi/zh/th: phonics 라이브러리 없음 → directUrl 만(없으면 무음). 단어 TTS 생성 후 채움.
+  return opts.directUrl;
 }

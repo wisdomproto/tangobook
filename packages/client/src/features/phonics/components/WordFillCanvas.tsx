@@ -16,7 +16,7 @@ const GUIDE_COLOR = '#e5e7eb'; // gray-200 글자 가이드
 const PAINT_COLOR = '#10b981'; // emerald — 칠하는 중
 const HANGUL_RE = /[ㄱ-ㆎ가-힣]/;
 
-function fontFamily(text: string): string {
+function fontFamilyFor(text: string): string {
   return HANGUL_RE.test(text)
     ? "'NanumSquareRound', 'NanumSquare', system-ui, sans-serif"
     : 'system-ui, sans-serif';
@@ -30,6 +30,8 @@ interface WordFillCanvasProps {
   onComplete?: () => void;
   /** 음절별 통과 threshold (0~1). */
   threshold?: number;
+  /** 글꼴 override (zh=Noto Sans SC, th=Noto Sans Thai 등). 미지정 시 한글/라틴 자동 감지. */
+  fontFamily?: string;
 }
 
 export function WordFillCanvas({
@@ -38,6 +40,7 @@ export function WordFillCanvas({
   onSyllableDone,
   onComplete,
   threshold = 0.9,
+  fontFamily,
 }: WordFillCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
@@ -56,7 +59,7 @@ export function WordFillCanvas({
     ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
 
     // 단어 전체가 폭에 맞도록 폰트 크기 조정
-    const fam = fontFamily(word);
+    const fam = fontFamily ?? fontFamilyFor(word);
     let size = CANVAS_H * 0.7;
     ctx.font = `bold ${size}px ${fam}`;
     while (ctx.measureText(word).width > CANVAS_W * 0.92 && size > 40) {
@@ -95,12 +98,36 @@ export function WordFillCanvas({
     rangesRef.current = ranges;
     doneRef.current = ranges.map(() => false);
     setDoneCount(0);
-  }, [word, syllables]);
+  }, [word, syllables, fontFamily]);
 
   useEffect(() => {
-    drawGuide();
+    let alive = true;
+    let drew = false;
+    const fam = fontFamily ?? fontFamilyFor(word);
+    // 최초 1회만 그림(로드 완료 / 안전 타임아웃 중 먼저 오는 쪽) → 사용자 획을 지우지 않음.
+    const draw = () => {
+      if (!alive || drew) return;
+      drew = true;
+      drawGuide();
+    };
     lastPointRef.current = null;
-  }, [drawGuide]);
+    const fonts = (typeof document !== 'undefined' ? document.fonts : undefined) as
+      | (FontFaceSet & { load?: (font: string, text?: string) => Promise<unknown> })
+      | undefined;
+    if (fonts?.load) {
+      // 웹폰트(zh/th/한글) 로딩을 기다렸다 그려야 두부/폴백 글리프로 zone 이 틀어지지 않음.
+      fonts.load(`bold 80px ${fam}`, word).then(draw).catch(draw);
+      const t = setTimeout(draw, 400); // 로드가 늦어도 일단 그림
+      return () => {
+        alive = false;
+        clearTimeout(t);
+      };
+    }
+    draw();
+    return () => {
+      alive = false;
+    };
+  }, [drawGuide, word, fontFamily]);
 
   /** 칠한 뒤 음절별 coverage 측정 → 새로 완료된 음절 처리. */
   const evaluate = useCallback(() => {

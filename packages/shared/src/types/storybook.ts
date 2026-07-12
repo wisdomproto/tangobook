@@ -1,3 +1,5 @@
+import type { Lang } from './learning-events.js';
+
 // === StorybookType 구분 ===
 export type StorybookType = 'storybook' | 'phonics';
 
@@ -314,7 +316,10 @@ export type GameTypeId =
   | 'english-line-matching'
   | 'korean-story-image'
   | 'english-story-image'
-  | 'hidden-object';
+  | 'hidden-object'
+  // 순서 맞추기 블록 / 따라쓰기 — vi/zh/th 공용. ko/en 은 자체 게임 사용.
+  | 'order-block'
+  | 'order-writing';
 
 export type GameDifficulty = 'easy' | 'medium' | 'hard';
 
@@ -363,7 +368,9 @@ export type GameData =
   | EnglishLineMatchingData
   | KoreanStoryImageData
   | EnglishStoryImageData
-  | HiddenObjectData;
+  | HiddenObjectData
+  | OrderBlockData
+  | OrderWritingData;
 
 // --- 낱말 쓰기 ---
 export interface WordWritingConfig {
@@ -458,6 +465,33 @@ export interface EnglishBlockItem {
 export interface EnglishBlockData {
   type: 'english-block';
   items: EnglishBlockItem[];
+}
+
+// --- 순서 맞추기 블록 (vi/zh/th 공용) ---
+// 주어진 유닛(splitUnits 결과)을 섞어 두고 순서대로 배치. ko(자모 조합)·en(a~z 스펠러)은
+// 자체 플레이어를 쓰고, 이 타입은 라틴/한자/타이처럼 "정답 글자를 순서만 맞추는" 언어용.
+export interface OrderBlockItem {
+  /** 정답 단어(표시 언어) */
+  word: string;
+  /** 타일 = 정답 순서. splitUnits(word, lang) 결과. 반복 유닛은 그대로 중복 포함. */
+  units: string[];
+  imageUrl: string;
+  /** 단어 발음 URL — 없으면 무음(나중에 TTS 생성 시 채움). */
+  ttsUrl?: string;
+}
+export interface OrderBlockData {
+  type: 'order-block';
+  /** 표시/분해/폰트 언어 (vi | zh | th). */
+  lang: Lang;
+  items: OrderBlockItem[];
+}
+
+// --- 따라쓰기 (vi/zh/th 공용) ---
+// WordFillCanvas 로 단어 통째 색칠 + 유닛(음절/음소) zone 별 채점. ko/en 은 자체 플레이어.
+export interface OrderWritingData {
+  type: 'order-writing';
+  lang: Lang;
+  items: WordWritingItem[];
 }
 
 // --- 말하기 (ko/en 공통) ---

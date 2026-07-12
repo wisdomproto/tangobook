@@ -18,6 +18,8 @@ import { GameLoadingGate } from '@/features/games/components/GameLoadingGate';
 import { LineMatchingPlayer } from '@/features/games/components/players/LineMatchingPlayer';
 import { KoreanBlockPlayer } from '@/features/games/components/players/KoreanBlockPlayer';
 import { EnglishBlockPlayer } from '@/features/games/components/players/EnglishBlockPlayer';
+import { OrderBlockPlayer } from '@/features/games/components/players/OrderBlockPlayer';
+import { LangWordWritingPlayer } from '@/features/games/components/players/LangWordWritingPlayer';
 // paint 모드(LetterFillCanvas) 통일 플레이어 — 레거시 WordWritingPlayer(자유 획 픽셀 채점) 대체 (2026-07-02)
 import { KoreanWordWritingPlayer } from '@/features/games/components/players/KoreanWordWritingPlayer';
 import { EnglishWordWritingPlayer } from '@/features/games/components/players/EnglishWordWritingPlayer';
@@ -30,6 +32,10 @@ const ENGLISH_RE = /^[a-zA-Z]+$/;
 function getDisplayWord(w: VocabularyUnitWord, lang: Lang): string | null {
   if (lang === 'ko')
     return (w.korean && w.korean.trim()) || (HANGUL_RE.test(w.word) ? w.word : null);
+  if (lang !== 'en') {
+    const tr = w.nameTranslations?.[lang]?.trim();
+    if (tr) return tr;
+  }
   return (w.nameEn && w.nameEn.trim()) || (ENGLISH_RE.test(w.word) ? w.word : null);
 }
 
@@ -455,6 +461,24 @@ function GameOverlay({
         )}
         {game === 'english-block' && (
           <EnglishBlockPlayer
+            storybookId={effectiveStorybookId}
+            gameData={data}
+            difficulty="medium"
+            onComplete={() => onComplete()}
+            onBack={onBack}
+          />
+        )}
+        {game === 'order-block' && (
+          <OrderBlockPlayer
+            storybookId={effectiveStorybookId}
+            gameData={data}
+            difficulty="medium"
+            onComplete={() => onComplete()}
+            onBack={onBack}
+          />
+        )}
+        {game === 'order-writing' && (
+          <LangWordWritingPlayer
             storybookId={effectiveStorybookId}
             gameData={data}
             difficulty="medium"

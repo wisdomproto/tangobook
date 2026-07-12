@@ -57,6 +57,19 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 
 > 정리 철학: "단어 모르는 4~5세 아이 기준. 중복·복잡 게임 제거, 단순 매칭·쓰기·그리기·듣기 하나씩".
 
+**다국어 어휘 게임 (vi/zh/th, 2026-07-12)** — 어휘 학습 화면(`/vocabulary/:id`)이 ko/en 외 **vi·zh·th**도 지원(콘텐츠 완비 5개). ko/en은 기존 게임 그대로, vi/zh/th는 **문자체계 무관 공용 2게임**:
+
+- `order-block` = **순서 맞추기 블록**(`OrderBlockPlayer`, 탭-투-플레이스): 정답 단어의 유닛을 섞어 트레이에 두고 탭하면 왼쪽 빈 칸부터 채워짐 → 순서 채점. ko의 자모 조합/en의 a~z 스펠러와 달리 "주어진 글자를 순서만" 맞춤.
+- `order-writing` = **따라쓰기**(`LangWordWritingPlayer`): 기존 `WordFillCanvas` 재사용, 유닛 zone별 채점 + `onUnitDone` 유닛별 읽기.
+- 🔴 **유닛 분해 = `splitUnits(word, lang)`**(shared, +test): zh=한자(`Array.from`) / vi=성조 붙은 낱글자(`NFC`+`Array.from`) / th=**결합 단위**(`Intl.Segmenter` grapheme — ◌ 안 깨짐, `ไก่`→`ไ·ก่`). **이 유닛이 블록 타일 = 오디오 키.**
+- **쓰기 zone 단위**: zh=한자·vi=낱글자·th=단어전체(1음절 어휘, 결합조각 단독 발음 회피).
+- **폰트**: zh=`Noto Sans SC`·th=`Noto Sans Thai` `@import`(index.css), vi=Pretendard/시스템. 🔴 **`WordFillCanvas` `fontFamily` prop + 캔버스 폰트로드 게이트**(`document.fonts.load` 후 그림 — canvas는 웹폰트 안 기다려서 두부 채점 방지). 블록 타일은 DOM이라 CSS만.
+- **`Lang` 확장** `'ko'|'en'|'vi'|'zh'|'th'`(learning-events.ts) — 이진 ternary 구조라 리플 0(non-ko=en 흐름), 언어특수는 splitUnits/폰트/라벨에서 명시.
+- **라벨 배선**: 어댑터(`unitToOrderBlockData`/`unitToOrderWritingData`, `nameTranslations[lang]` 필수·영어 폴백 X)·`getDisplayWord`·`resolveSceneFromWord`(nameTranslations 매칭) 전부 vi/zh/th 확장. `resolveTtsUrl` language에 vi/zh/th 추가(현재 directUrl만).
+- 🔴 **오디오 seam 완비, 음원은 미생성**: vi/zh/th 단어 TTS 없음 → 현재 **무음**. `resolveTtsUrl(lang)` + 유닛별 `onUnitDone` 자리 다 심어둬서 `key_objects[].ttsUrls[lang]` 채우면 재작업 0으로 재생. (zh 타일별 한자 읽기는 unitTts 필드 추가 시.)
+- 진입/토글: `VocabularyStudyPage`가 5개 언어 칩(한국어·English·Tiếng Việt·中文·ไทย, 콘텐츠 있는 것만 노출).
+- 🔴 **레지스트리 미등록**: order-block/order-writing은 vocab GameOverlay가 직접 렌더(`game==='order-block'`)라 등록 불필요(에디터 생성 게임 아님).
+
 ## 숨은그림 찾기 (hidden-object, 2026-06-06)
 
 전부 찾기형 I Spy. **AI 통짜 씬** 1장에 책 어휘 사물을 숨기고, 체크리스트(키오브젝트 썸네일+단어) 단어를 장면에서 탭해 모두 찾으면 보상.
@@ -149,13 +162,14 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 - **인터랙션 가드**: `isPlaying` 동안 차단 / `expected` 외 차단 / 정답 placement 시 notify→advance
 - **공용 음성 자산**: `/sounds/games/tutorial/hori-{intro,pop,place,syllable-done,end}.mp3` (mp3 없어도 말풍선 graceful)
 
-| 게임           | 트리거 조건               | 시연 방식                  | 사용자 액션             |
-| -------------- | ------------------------- | -------------------------- | ----------------------- |
-| 한글/영어 블록 | difficulty=easy 쉬움 only | 글자별 pop+arrow+cell glow | 해당 자모를 셀로 드래그 |
-| 그림짝 (Line)  | 매칭 안 된 쌍 존재 시     | 1쌍 highlight + 곡선 arrow | 그림↔단어 클릭          |
-| 점잇기         | 진행 중 (2점 이상)        | 1번→2번 점 pulse 순차      | 점 탭                   |
-| 스토리 그림    | feedback 없을 때          | 정답 이미지 ring-pulse     | 정답 이미지 클릭        |
-| 낱말쓰기       | result 화면 X             | 캔버스 테두리 pulse        | 첫 stroke 시작          |
+| 게임          | 트리거 조건               | 시연 방식                  | 사용자 액션                                                                                                 |
+| ------------- | ------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| 한글 블록     | difficulty=easy 쉬움 only | 글자별 pop+arrow+cell glow | 해당 자모를 셀로 드래그                                                                                     |
+| 영어 블록     | difficulty=easy 쉬움 only | 글자별 pop+arrow+slot glow | 해당 글자 타일을 **탭** (2026-07-12 드래그→탭 전환, 4-5세 드래그 부담↓. 튜토리얼 멘트는 generic이라 무변경) |
+| 그림짝 (Line) | 매칭 안 된 쌍 존재 시     | 1쌍 highlight + 곡선 arrow | 그림↔단어 클릭                                                                                              |
+| 점잇기        | 진행 중 (2점 이상)        | 1번→2번 점 pulse 순차      | 점 탭                                                                                                       |
+| 스토리 그림   | feedback 없을 때          | 정답 이미지 ring-pulse     | 정답 이미지 클릭                                                                                            |
+| 낱말쓰기      | result 화면 X             | 캔버스 테두리 pulse        | 첫 stroke 시작                                                                                              |
 
 각 게임 폴더: `{Game}Tutorial/` (constants/context/component).
 
@@ -262,6 +276,7 @@ last.getBoundingClientRect().bottom - window.innerHeight; // 음수면 안전, �
 
 KoreanBlockPlayer / EnglishBlockPlayer 공통:
 
+- 🔴 **인터랙션 (2026-07-12)**: **한글 = 드래그**(자모 조합형이라 공간 배치가 의미), **영어 = 탭-투-플레이스**(`handleTilePlace` — 글자 타일 탭 시 왼쪽 빈 슬롯부터 채움, `useBlockDrag` 제거). vi/zh/th `OrderBlockPlayer`도 탭. 4-5세 드래그 부담 완화. (영어 튜토리얼은 pop+arrow 가리키기만 하고 멘트가 generic이라 탭에도 그대로 맞음 — 무변경.)
 - **정답 자동 체크**: 블록 배치가 정답과 일치하면 "확인" 버튼 없이 즉시 정답 처리. `useEffect` 가 composed/grid 변경 watch → `handleCheckRef.current()` 호출. 오답 분기는 자동 발동 X (사용자가 직접 확인 버튼 클릭 시에만 wrong 표시). `roundCorrect` 가드로 중복 방지.
 - **handleCheckRef pattern**: `useRef(handleCheck)` + render body 에서 `ref.current = handleCheck` (effect 로 하면 자동 체크 effect 가 ref 갱신보다 먼저 fire 해 stale closure 호출 → 오답 처리됨).
 - **정답 시퀀스**: `playCorrectSequence({ ttsUrl, language, onDone })` — 효과음 → 0.5s → 단어 발음 (audio `ended` 이벤트 대기) → 시스템 칭찬 음원 (audio `ended` 이벤트 대기) → onDone. `playAudio(url, onEnded)` 콜백으로 chain — 단어 길이/칭찬 길이 무관 안 잘림. 동시에 `FeedbackOverlay kind="correct"` (호리 cheering + confetti + "잘했어!" 랜덤) 가 `praiseVisible` state 로 표시. **2026-05-19 변경**: 고정 1.2s/1.5s 타임아웃은 다음절 한글 단어 (강아지·바나나 등) TTS 가 잘리는 원인 → ended 이벤트 chain 으로 교체.

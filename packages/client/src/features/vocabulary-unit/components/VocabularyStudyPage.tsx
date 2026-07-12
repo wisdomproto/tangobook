@@ -10,13 +10,26 @@ import { VocabularyStudyContent } from './VocabularyStudyContent';
 const HANGUL_RE = /[가-힣]/;
 const ENGLISH_RE = /^[a-zA-Z]+$/;
 
-/** 단원 단어 목록에 lang 데이터가 충분한지 — 토글 disabled 결정용 */
+/** 단원 단어 목록에 lang 데이터가 충분한지 — 토글 노출/disabled 결정용 */
 function hasLangData(words: VocabularyUnitWord[], lang: Lang): boolean {
   if (lang === 'ko') {
     return words.some((w) => (w.korean && w.korean.trim()) || HANGUL_RE.test(w.word));
   }
-  return words.some((w) => (w.nameEn && w.nameEn.trim()) || ENGLISH_RE.test(w.word));
+  if (lang === 'en') {
+    return words.some((w) => (w.nameEn && w.nameEn.trim()) || ENGLISH_RE.test(w.word));
+  }
+  // vi/zh/th: 번역된 단어가 하나라도 있으면 노출
+  return words.some((w) => !!w.nameTranslations?.[lang]?.trim());
 }
+
+/** 어휘 학습 언어 토글 — 콘텐츠 완비 5개(런칭 타겟) 고정 순서. */
+const LANG_CHIPS: { code: Lang; label: string }[] = [
+  { code: 'ko', label: '한국어' },
+  { code: 'en', label: 'English' },
+  { code: 'vi', label: 'Tiếng Việt' },
+  { code: 'zh', label: '中文' },
+  { code: 'th', label: 'ไทย' },
+];
 
 function getDisplayUnitName(unit: VocabularyUnit, lang: Lang): string {
   if (lang === 'ko') return unit.nameKo;
@@ -94,11 +107,12 @@ export function VocabularyStudyPage() {
     );
   }
 
-  const hasKo = hasLangData(unit.words, 'ko');
-  const hasEn = hasLangData(unit.words, 'en');
+  const availableLangs = LANG_CHIPS.filter((c) => hasLangData(unit.words, c.code));
   const effectiveLang: Lang =
-    lang ??
-    (unit.language && hasLangData(unit.words, unit.language) ? unit.language : hasKo ? 'ko' : 'en');
+    (lang && hasLangData(unit.words, lang) ? lang : null) ??
+    (unit.language && hasLangData(unit.words, unit.language) ? unit.language : null) ??
+    availableLangs[0]?.code ??
+    'ko';
 
   const displayName = getDisplayUnitName(unit, effectiveLang);
 
@@ -109,28 +123,22 @@ export function VocabularyStudyPage() {
           onBack={() => navigate(bookId ? `/library/${bookId}` : '/library')}
           onHome={() => navigate('/library')}
           right={
-            <div className="bg-white rounded-full px-2 py-1.5 shadow-soft flex gap-1">
-              <Chip
-                variant="coral"
-                active={effectiveLang === 'ko'}
-                onClick={() => hasKo && setLang('ko')}
-                disabled={!hasKo}
-                aria-label="한국어"
-                className="!text-lg !px-6 !py-2.5"
-              >
-                한국어
-              </Chip>
-              <Chip
-                variant="coral"
-                active={effectiveLang === 'en'}
-                onClick={() => hasEn && setLang('en')}
-                disabled={!hasEn}
-                aria-label="English"
-                className="!text-lg !px-6 !py-2.5"
-              >
-                English
-              </Chip>
-            </div>
+            availableLangs.length > 1 ? (
+              <div className="bg-white rounded-full px-2 py-1.5 shadow-soft flex gap-1 flex-wrap">
+                {availableLangs.map((c) => (
+                  <Chip
+                    key={c.code}
+                    variant="coral"
+                    active={effectiveLang === c.code}
+                    onClick={() => setLang(c.code)}
+                    aria-label={c.label}
+                    className="!text-base sm:!text-lg !px-4 sm:!px-6 !py-2.5"
+                  >
+                    {c.label}
+                  </Chip>
+                ))}
+              </div>
+            ) : null
           }
         >
           <img

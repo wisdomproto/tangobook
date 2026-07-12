@@ -4,6 +4,11 @@
 /* NanumSquareRound — 둥근 한글체 (헤딩/디스플레이, 4-5세 친화) */
 @import url('https://cdn.jsdelivr.net/gh/innks/NanumSquareRound/nanumsquareround.css');
 
+/* 다국어 어휘 게임(블록·따라쓰기) 글리프 — zh 간체 / th 타이.
+   Google Fonts 가 unicode-range 서브셋으로 필요한 조각만 내려줌(용량 관리). */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&display=swap');
+
 /* Marketing feature — scope-isolated OKLCH tokens (never touches global :root) */
 @import './features/marketing/theme/marketing-tokens.css';
 

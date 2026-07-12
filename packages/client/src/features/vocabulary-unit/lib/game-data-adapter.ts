@@ -12,10 +12,28 @@ import type {
   WordWritingItem,
   ConnectTheDotsData,
   ConnectTheDotsItem,
+  OrderBlockData,
+  OrderBlockItem,
+  OrderWritingData,
   VocabularyUnit,
   VocabularyUnitWord,
 } from '@tangobook/shared';
-import { decomposeWord, decomposeEnglishWord } from '@tangobook/shared';
+import { decomposeWord, decomposeEnglishWord, splitUnits } from '@tangobook/shared';
+
+/** 순서 맞추기 블록 타일 최대 개수 (그리드/트레이 가독성). */
+const MAX_ORDER_UNITS = 6;
+
+/** 표시/게임 단어를 언어별로 고른다. vi/zh/th 는 nameTranslations 우선(없으면 영어 폴백). */
+function pickWord(w: VocabularyUnitWord, lang: Lang): string | undefined {
+  const raw =
+    lang === 'ko'
+      ? (w.korean ?? w.word)
+      : lang === 'en'
+        ? w.word
+        : (w.nameTranslations?.[lang] ?? w.word);
+  const t = raw?.trim();
+  return t || undefined;
+}
 
 const HANGUL_RE = /[가-힣]/;
 const ENGLISH_WORD_RE = /^[a-z]+$/;
@@ -50,7 +68,7 @@ export function unitToLineMatchingData(
   const candidates: LineMatchingItem[] = [];
   for (const w of unit.words) {
     const imageUrl = pickPrimaryImage(w);
-    const word = lang === 'ko' ? (w.korean ?? w.word) : w.word;
+    const word = pickWord(w, lang);
     if (!imageUrl || !word) continue;
     const tts = pickTts(w, lang);
     const subLabel =
@@ -106,6 +124,53 @@ export function unitToEnglishBlockData(unit: VocabularyUnit): EnglishBlockData |
   }
   if (candidates.length === 0) return null;
   return { type: 'english-block', items: shuffleInPlace(candidates).slice(0, BLOCK_COUNT) };
+}
+
+/**
+ * 단원 → 순서 맞추기 블록 데이터 (vi/zh/th). 정답 = nameTranslations[lang] 이 있어야 함
+ * (영어 폴백 X — 중국어 판에서 영어 철자를 맞추게 하면 안 됨). 타일 = splitUnits(word, lang).
+ */
+export function unitToOrderBlockData(unit: VocabularyUnit, lang: Lang): OrderBlockData | null {
+  const candidates: OrderBlockItem[] = [];
+  for (const w of unit.words) {
+    const word = w.nameTranslations?.[lang]?.trim();
+    if (!word) continue;
+    const units = splitUnits(word, lang);
+    if (units.length === 0 || units.length > MAX_ORDER_UNITS) continue;
+    // vi/zh/th 는 ko ttsUrl 폴백 금지 — 해당 언어 음원만(현재 없음 → 무음, 나중에 채움).
+    const tts = w.ttsUrls?.[lang];
+    candidates.push({
+      word,
+      units,
+      imageUrl: pickPrimaryImage(w) ?? '',
+      ...(tts ? { ttsUrl: tts } : {}),
+    });
+  }
+  if (candidates.length === 0) return null;
+  return { type: 'order-block', lang, items: shuffleInPlace(candidates).slice(0, BLOCK_COUNT) };
+}
+
+/**
+ * 단원 → 따라쓰기 데이터 (vi/zh/th). 정답 = nameTranslations[lang], 이미지 필요.
+ */
+export function unitToOrderWritingData(unit: VocabularyUnit, lang: Lang): OrderWritingData | null {
+  const candidates: WordWritingItem[] = [];
+  for (const w of unit.words) {
+    const word = w.nameTranslations?.[lang]?.trim();
+    if (!word) continue;
+    const referenceImageUrl = pickPrimaryImage(w);
+    if (!referenceImageUrl) continue;
+    const tts = w.ttsUrls?.[lang];
+    candidates.push({
+      word,
+      displayWord: word,
+      imageUrl: referenceImageUrl,
+      referenceImageUrl,
+      ...(tts ? { ttsUrl: tts } : {}),
+    });
+  }
+  if (candidates.length === 0) return null;
+  return { type: 'order-writing', lang, items: shuffleInPlace(candidates).slice(0, WRITING_COUNT) };
 }
 
 /**
@@ -175,11 +240,19 @@ export interface VocabGameOption {
 
 /** 단원에서 즉시 플레이 가능한 게임 4종 */
 export function getAvailableGames(unit: VocabularyUnit, lang: Lang): VocabGameOption[] {
-  const lineData = unitToLineMatchingData(unit, lang);
-  const blockData = lang === 'ko' ? unitToKoreanBlockData(unit) : unitToEnglishBlockData(unit);
-  const writingData = unitToWordWritingData(unit, lang);
-  const dotsData = unitToConnectTheDotsData(unit);
   const isKo = lang === 'ko';
+  const isEn = lang === 'en';
+  const isOrder = !isKo && !isEn; // vi/zh/th = 순서 맞추기 계열
+  const lineData = unitToLineMatchingData(unit, lang);
+  const blockData = isKo
+    ? unitToKoreanBlockData(unit)
+    : isEn
+      ? unitToEnglishBlockData(unit)
+      : unitToOrderBlockData(unit, lang);
+  const writingData = isOrder
+    ? unitToOrderWritingData(unit, lang)
+    : unitToWordWritingData(unit, lang);
+  const dotsData = unitToConnectTheDotsData(unit);
 
   return [
     {
@@ -194,9 +267,9 @@ export function getAvailableGames(unit: VocabularyUnit, lang: Lang): VocabGameOp
       unavailableReason: !lineData ? '이미지 있는 단어가 3개 이상 필요해요' : undefined,
     },
     {
-      id: isKo ? 'korean-block' : 'english-block',
+      id: isKo ? 'korean-block' : isEn ? 'english-block' : 'order-block',
       emoji: '🧱',
-      label: isKo ? '한글 블록' : '영어 블록',
+      label: isKo ? '한글 블록' : isEn ? '영어 블록' : '글자 블록',
       subtitle: '글자 블록으로 단어를 만들어요!',
       iconSrc: '/icons/game/korean-block.webp',
       bgFrom: 'from-coral-400',
@@ -205,7 +278,9 @@ export function getAvailableGames(unit: VocabularyUnit, lang: Lang): VocabGameOp
       unavailableReason: !blockData
         ? isKo
           ? '한글 단어가 부족해요'
-          : '6글자 이하 영문 단어가 부족해요'
+          : isEn
+            ? '6글자 이하 영문 단어가 부족해요'
+            : '이 언어의 단어가 부족해요'
         : undefined,
     },
     {
@@ -220,7 +295,7 @@ export function getAvailableGames(unit: VocabularyUnit, lang: Lang): VocabGameOp
       unavailableReason: !dotsData ? '윤곽선 점이 있는 단어가 필요해요' : undefined,
     },
     {
-      id: isKo ? 'korean-word-writing' : 'english-word-writing',
+      id: isKo ? 'korean-word-writing' : isEn ? 'english-word-writing' : 'order-writing',
       emoji: '✏️',
       label: '따라 쓰기',
       subtitle: '손가락으로 글자를 따라써요!',
@@ -243,11 +318,15 @@ export function getGameData(unit: VocabularyUnit, lang: Lang, gameType: GameType
       return unitToKoreanBlockData(unit);
     case 'english-block':
       return unitToEnglishBlockData(unit);
+    case 'order-block':
+      return unitToOrderBlockData(unit, lang);
     case 'connect-the-dots':
       return unitToConnectTheDotsData(unit);
     case 'korean-word-writing':
     case 'english-word-writing':
       return unitToWordWritingData(unit, lang);
+    case 'order-writing':
+      return unitToOrderWritingData(unit, lang);
     default:
       return null;
   }

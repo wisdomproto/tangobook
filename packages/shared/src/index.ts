@@ -11,6 +11,7 @@ export * from './constants/cambridge-starters.js';
 export * from './constants/index.js';
 export * from './constants/plans.js';
 export * from './utils/hangul.js';
+export { splitUnits, splitGraphemeClusters } from './utils/split-units.js';
 export * from './utils/english-letters.js';
 export * from './utils/entitlement.js';
 export * from './utils/learning-aggregate.js';

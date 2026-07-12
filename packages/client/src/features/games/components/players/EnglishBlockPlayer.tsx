@@ -1,11 +1,4 @@
-import {
-  useState,
-  useCallback,
-  useRef,
-  useEffect,
-  type DragEvent as ReactDragEvent,
-  type TouchEvent as ReactTouchEvent,
-} from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { EnglishBlockData, EnglishBlockLetter } from '@tangobook/shared';
@@ -25,7 +18,6 @@ import { useGameAudio } from '../../hooks/useGameAudio';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
 import { useGameStyle } from '../GameStyleChip';
-import { useBlockDrag } from '../../hooks/useBlockDrag';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { resolveTtsUrl } from '@/features/tts';
 import { useStorybook } from '@/features/storybook';
@@ -45,17 +37,6 @@ const ALL_LETTERS: LetterBlock[] = 'abcdefghijklmnopqrstuvwxyz'.split('').map((c
   char: ch,
   isVowel: isEnglishVowel(ch),
 }));
-
-function createEnglishGhost(char: string): HTMLDivElement {
-  const ghost = document.createElement('div');
-  const barColor = isEnglishVowel(char) ? '#FF5E3A' : '#FF9A5A';
-  ghost.innerHTML = `<span style="flex:1;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#3A2B1F">${char}</span><div style="width:100%;height:6px;background:${barColor};border-radius:0 0 14px 14px"></div>`;
-  ghost.setAttribute(
-    'style',
-    `width:52px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:14px;background:white;box-shadow:0 8px 24px rgba(0,0,0,.2);overflow:hidden`
-  );
-  return ghost;
-}
 
 function EnglishBlockPlayerInner({
   storybookId,
@@ -111,10 +92,6 @@ function EnglishBlockPlayerInner({
   ]);
   // 게임 시작 게이트 — 맵 로드만(캐시 hit 시 즉시). 단어 발음은 백그라운드 워밍.
   const audioReady = !phonicsLoading;
-  const drag = useBlockDrag<LetterBlock>({
-    createGhost: createEnglishGhost,
-    ghostOffset: [26, 32],
-  });
 
   // 글자 배치 시 음원 자동 재생
   const prevGridRef = useRef<(string | null)[]>([]);
@@ -214,11 +191,15 @@ function EnglishBlockPlayerInner({
     [grid, expected, notifyPlacement, playPlacementTick]
   );
 
-  const onPlace = useCallback(
-    (key: string, block: LetterBlock) => {
-      placeBlock(parseInt(key), block);
+  // 탭-투-플레이스: 글자 타일을 누르면 왼쪽 빈 슬롯부터 채워진다 (4-5세 드래그 어려움 → 탭).
+  const handleTilePlace = useCallback(
+    (block: LetterBlock) => {
+      if (roundCorrect) return;
+      const slot = grid.indexOf(null);
+      if (slot < 0) return;
+      placeBlock(slot, block);
     },
-    [placeBlock]
+    [roundCorrect, grid, placeBlock]
   );
 
   const handleCellClick = useCallback(
@@ -461,9 +442,6 @@ function EnglishBlockPlayerInner({
       <div
         key={cellKey}
         data-slot={slot}
-        ref={drag.cellRef(cellKey)}
-        onDragOver={interactable ? drag.handleDragOver : undefined}
-        onDrop={interactable ? (e) => drag.handleDrop(cellKey, e, onPlace) : undefined}
         onClick={() => interactable && handleCellClick(slot)}
         className={cn(
           'w-12 h-14 sm:w-16 sm:h-[4.5rem] lg:w-[4.5rem] lg:h-[5.5rem] rounded-md flex flex-col items-center justify-center overflow-hidden transition-all select-none',
@@ -492,20 +470,12 @@ function EnglishBlockPlayerInner({
     const dimmed = expected !== null && expected.letter !== block.char;
     const interactable = !isTutorialPlaying && !dimmed;
     return (
-      <motion.div
+      <motion.button
         key={block.id}
+        type="button"
         data-letter-tile={block.char}
-        draggable={interactable}
-        onDragStart={
-          ((e: ReactDragEvent) => interactable && drag.handleDragStart(block, e)) as never
-        }
-        onTouchStart={
-          ((e: ReactTouchEvent) => interactable && drag.handleTouchStart(block, e)) as never
-        }
-        onTouchMove={drag.handleTouchMove as never}
-        onTouchEnd={
-          ((e: ReactTouchEvent) => interactable && drag.handleTouchEnd(e, onPlace)) as never
-        }
+        onClick={() => interactable && handleTilePlace(block)}
+        disabled={!interactable}
         animate={
           popping
             ? { scale: [1, 1.3, 1.1, 1.15, 1.1], rotate: [0, -8, 6, -4, 0] }
@@ -514,9 +484,9 @@ function EnglishBlockPlayerInner({
         transition={{ duration: 0.5, ease: 'easeOut' }}
         className={cn(
           'w-10 h-12 sm:w-12 sm:h-14 lg:w-14 lg:h-[4rem] rounded-md flex flex-col items-center justify-center overflow-hidden select-none bg-white shadow-soft',
-          interactable ? 'cursor-grab' : 'cursor-not-allowed',
+          interactable ? 'cursor-pointer' : 'cursor-not-allowed',
           interactable &&
-            'transition-transform hover:scale-105 hover:shadow-pop active:scale-[1.08] active:shadow-pop active:rotate-2 active:cursor-grabbing',
+            'transition-transform hover:scale-105 hover:shadow-pop active:scale-95 active:shadow-pop',
           popping && 'ring-4 ring-coral-300 shadow-pop',
           dimmed && 'opacity-30'
         )}
@@ -527,7 +497,7 @@ function EnglishBlockPlayerInner({
         <div
           className={cn('w-full h-1.5 lg:h-2', block.isVowel ? 'bg-coral-500' : 'bg-peach-500')}
         />
-      </motion.div>
+      </motion.button>
     );
   };
 
