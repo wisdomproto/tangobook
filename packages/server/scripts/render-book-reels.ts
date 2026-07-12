@@ -232,9 +232,11 @@ async function main() {
     // 중앙정렬 포스터(그리드 안전) 통일 — 명작·자연관찰 공용.
     // hero = 글자 없는 16:9 본문 삽화(표지는 제목이 구워져 있어 회피). 배경 블러로 세로 프레임 채움.
     const compId = 'ReelThumbCentered';
-    // 히어로 = 텍스트 제거한 클린 표지(가장 아이코닉). 없으면 글자 없는 본문 삽화 폴백
-    // (원본 표지는 제목이 구워져 있어 이중 제목 방지 위해 회피).
-    const clean = loadCleanCover(id);
+    // 히어로 = 텍스트 제거한 클린 표지(가장 아이코닉). 우선순위:
+    //   ① storybook.cleanCoverImage (multilingual-covers 세션 산출, fidelity gate 통과한 충실 버전)
+    //   ② loadCleanCover 로컬 맵 (초기 재해석 버전)
+    //   ③ 글자 없는 본문 삽화 (원본 표지는 제목이 구워져 있어 회피)
+    const clean = props.cleanCoverImage || loadCleanCover(id);
     const heroUrl = clean
       ? encodeURI(clean)
       : (props.scenes[1]?.imageUrls?.[0] ?? props.scenes[0].imageUrls[0]);
@@ -286,6 +288,9 @@ async function main() {
         summary.skipped++;
         continue;
       }
+      // 클린 표지(다국어 세션 산출) — 활성 그림체 우선, 없으면 top-level.
+      props.cleanCoverImage =
+        storybook.styleAssets?.[storybook.artStyle]?.cleanCoverImage ?? storybook.cleanCoverImage;
       const morph = isNature ? 'nature' : props.styleMorph ? 'yes' : 'no';
 
       // ===== 썸네일만 갱신 모드 (영상 재렌더 없이 coverUrl 만 교체) =====
