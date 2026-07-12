@@ -84,10 +84,9 @@ export const AdReel: React.FC = () => {
             durationInFrames={SCENES.style}
             caption={'한 권을\n여러 그림체로'}
             images={[
-              'reels/styles/sw-photo.webp',
-              'reels/styles/sw-pixar.webp',
-              'reels/styles/sw-paper.webp',
-              'reels/styles/sw-custom.webp',
+              'reels/morph-watercolor.webp',
+              'reels/morph-paper.webp',
+              'reels/morph-collage.webp',
             ]}
           />
         </TransitionSeries.Sequence>
