@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Outlet, NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import i18n from '@/i18n';
 import { AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { ProfilePicker } from '@/features/auth/components/ProfilePicker';
@@ -139,7 +140,7 @@ export function AppShell() {
       <div className="h-20 flex items-center justify-center px-2 border-b border-ink-100/40">
         <Link to="/library" aria-label={t('logo.home')}>
           <img
-            src="/logo/logo-kr.webp"
+            src={i18n.language === 'ko' ? '/logo/logo-kr.webp' : '/logo/logo-en.webp'}
             alt={t('logo.alt')}
             className="h-14 w-auto object-contain"
           />
@@ -316,7 +317,7 @@ export function AppShell() {
                 className="md:hidden pointer-events-auto flex items-center"
               >
                 <img
-                  src="/logo/logo-kr.webp"
+                  src={i18n.language === 'ko' ? '/logo/logo-kr.webp' : '/logo/logo-en.webp'}
                   alt={t('logo.alt')}
                   className="h-9 w-auto object-contain"
                 />
@@ -422,7 +423,9 @@ function PrimaryNavButton({
         className="w-28 h-28 rounded-3xl flex flex-col items-center justify-center gap-1 bg-ink-100/40 cursor-not-allowed select-none"
       >
         <AppIcon src={iconSrc} size={44} alt={label} className="opacity-35" />
-        <span className="text-lg font-black text-ink-500">{label}</span>
+        <span className="text-sm leading-tight text-center break-keep font-black text-ink-500">
+          {label}
+        </span>
         <span className="text-xs font-black text-ink-400 tracking-wide">
           {t('sidebar.comingSoon')}
         </span>
@@ -443,7 +446,7 @@ function PrimaryNavButton({
       }}
     >
       <AppIcon src={iconSrc} size={48} alt={label} />
-      <span className="text-lg">{label}</span>
+      <span className="text-sm leading-tight text-center break-keep">{label}</span>
     </NavLink>
   );
 }

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { canReadBook, type BookIndexEntry } from '@tangobook/shared';
+import { canReadBook, coverTitleFont, type BookIndexEntry } from '@tangobook/shared';
 import { BookCover } from '@/design-system';
 import { useAccess, LockBadge } from '@/features/access';
 import { useReadingStatus } from '../hooks/useReadingStatus';
@@ -48,7 +48,10 @@ export function BookCard({ book }: BookCardProps) {
         )}
         {locked && <LockBadge className="absolute top-2 left-2" />}
       </div>
-      <h3 className="mt-2 font-black text-base md:text-xl text-ink-900 truncate font-display leading-tight px-1">
+      <h3
+        className="mt-2 font-black text-base md:text-xl text-ink-900 truncate leading-tight px-1"
+        style={{ fontFamily: `"${coverTitleFont(i18n.language).family}", "Baloo 2", sans-serif` }}
+      >
         {displayTitle}
       </h3>
     </button>
