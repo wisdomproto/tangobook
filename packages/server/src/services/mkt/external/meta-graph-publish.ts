@@ -21,7 +21,12 @@ async function gpost(path: string, body: Record<string, unknown>): Promise<{ id:
 // "Media ID is not available" 가 남 → FINISHED 될 때까지 대기.
 // IG 는 status_code(enum), Threads 는 status(enum) 필드를 씀 → 둘 다 확인.
 // 영상은 처리가 길어 maxAttempts 를 늘려 호출(이미지=20≈30s, 영상=40≈60s).
-async function waitMediaReady(containerId: string, token: string, maxAttempts = 20): Promise<void> {
+async function waitMediaReady(
+  containerId: string,
+  token: string,
+  maxAttempts = 20,
+  intervalMs = 1500
+): Promise<void> {
   let last = '';
   for (let i = 0; i < maxAttempts; i++) {
     const res = await fetch(
@@ -30,13 +35,16 @@ async function waitMediaReady(containerId: string, token: string, maxAttempts = 
     const j = (await res.json().catch(() => ({}))) as {
       status_code?: string;
       status?: string;
-      error?: unknown;
+      error?: { is_transient?: boolean; code?: number };
     };
     last = JSON.stringify(j).slice(0, 400);
     const code = j.status_code || j.status; // IG=status_code, Threads=status
     if (code === 'FINISHED') return;
     if (code === 'ERROR' || code === 'EXPIRED') throw new Error(`미디어 처리 실패: ${last}`);
-    await new Promise((r) => setTimeout(r, 1500));
+    // (#4) Application request limit reached 등 transient 앱 한도 → 짧은 간격 연타가 한도를 더
+    // 악화시키므로 넉넉히 백오프(애초에 이 폴링 연타가 한도를 트립시켰다).
+    const transient = j.error?.is_transient || j.error?.code === 4;
+    await new Promise((r) => setTimeout(r, transient ? Math.max(intervalMs, 15_000) : intervalMs));
   }
   throw new Error(`미디어 처리 타임아웃(컨테이너 준비 안 됨) · last=${last}`);
 }
@@ -172,7 +180,7 @@ export async function publishInstagramReel(
     ...(coverUrl ? { cover_url: coverUrl } : {}),
     access_token: token,
   });
-  await waitMediaReady(c.id, token, 120); // 릴스(영상) 처리 최대 ~3분 — 60s 로는 큰 mp4 타임아웃
+  await waitMediaReady(c.id, token, 36, 5000); // 릴스: ~3분(5s 간격) — 요청 수 최소화(앱 한도 회피)
   const r = await gpost(`${igId}/media_publish`, { creation_id: c.id, access_token: token });
   return r.id;
 }
