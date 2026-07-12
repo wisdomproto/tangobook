@@ -395,8 +395,11 @@ export const BlockGame: React.FC = () => {
 
       <Caption text="혼자서 단어를 완성해요" />
 
-      {/* 정답(사과) 완성 순간 — 실제 '사과' 단어 음원 */}
-      <Sequence from={86}>
+      {/* 정답(사과) 완성 순간 — 칭찬음 + 실제 '사과' 단어 음원 */}
+      <Sequence from={84}>
+        <Audio src={staticFile('reels/audio/praise.mp3')} />
+      </Sequence>
+      <Sequence from={92}>
         <Audio src={staticFile('reels/audio/apple-word.mp3')} />
       </Sequence>
     </AbsoluteFill>

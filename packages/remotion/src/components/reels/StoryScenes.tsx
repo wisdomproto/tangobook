@@ -3,6 +3,7 @@ import {
   AbsoluteFill,
   Audio,
   Sequence,
+  Series,
   Img,
   staticFile,
   interpolate,
@@ -221,6 +222,71 @@ export const StorybookIntro: React.FC = () => {
         style={{ justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 200 }}
       >
         <NarrationBars frame={frame} />
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
+// ─────────── ① 탱고북이 여러 페이지를 실제로 읽어준다 ───────────
+const READ_PAGES = [
+  {
+    img: 'reels/read-p1.webp',
+    audio: 'reels/audio/read-p1-trim.mp3',
+    text: '옛날 아주 먼 옛날,\n눈처럼 하얀 백설공주가 살았어요.',
+  },
+  {
+    img: 'reels/read-p2.webp',
+    audio: 'reels/audio/read-p2-trim.mp3',
+    text: '무엇이든 대답하는\n신비한 거울이 있었어요.',
+  },
+  {
+    img: 'reels/read-p3.webp',
+    audio: 'reels/audio/read-p3-trim.mp3',
+    text: '거울이 대답했어요.\n"백설공주가 가장 예뻐요!"',
+  },
+];
+export const READ_PAGE_FRAMES = 100;
+
+function ReadingPage({ page }: { page: (typeof READ_PAGES)[number] }) {
+  const frame = useCurrentFrame();
+  return (
+    <AbsoluteFill style={{ backgroundColor: '#1A1A2E' }}>
+      <StoryPage cover={page.img} sentence={page.text} />
+      <AbsoluteFill
+        style={{ justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 200 }}
+      >
+        <NarrationBars frame={frame} />
+      </AbsoluteFill>
+      <Audio src={staticFile(page.audio)} />
+    </AbsoluteFill>
+  );
+}
+
+export const StorybookReading: React.FC = () => {
+  return (
+    <AbsoluteFill style={{ backgroundColor: '#1A1A2E' }}>
+      <Series>
+        {READ_PAGES.map((p, i) => (
+          <Series.Sequence key={i} durationInFrames={READ_PAGE_FRAMES}>
+            <ReadingPage page={p} />
+          </Series.Sequence>
+        ))}
+      </Series>
+      {/* 상단 라벨 (항상 표시) */}
+      <AbsoluteFill style={{ alignItems: 'center', paddingTop: 130, pointerEvents: 'none' }}>
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 800,
+            fontSize: 48,
+            color: '#fff',
+            backgroundColor: CORAL,
+            borderRadius: 999,
+            padding: '14px 44px',
+          }}
+        >
+          이제 탱고북이 대신 읽어줘요 📖
+        </div>
       </AbsoluteFill>
     </AbsoluteFill>
   );

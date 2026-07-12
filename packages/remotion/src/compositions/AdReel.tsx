@@ -3,7 +3,7 @@ import { AbsoluteFill, Audio, staticFile } from 'remotion';
 import { TransitionSeries, linearTiming } from '@remotion/transitions';
 import { fade } from '@remotion/transitions/fade';
 import { BookWords, LineMatchGame, BlockGame, WritingGame } from '../components/reels/GameScenes';
-import { OpeningHook, StorybookIntro, PageLink } from '../components/reels/StoryScenes';
+import { OpeningHook, StorybookReading, PageLink } from '../components/reels/StoryScenes';
 import { StyleMorphHook } from '../components/reels/StyleMorphHook';
 import { ContentGrid } from '../components/reels/ContentGrid';
 import { ClosingScene } from '../components/reels/ClosingScene';
@@ -21,7 +21,7 @@ const STYLE_FRAMES = 90;
 
 const SCENES = {
   hook: 120, // 공감 훅
-  intro: 100, // 탱고북이 읽어줌
+  intro: 300, // 탱고북이 여러 페이지를 읽어줌 (3쪽 × 100)
   bookWords: 95, // 배우는 단어
   block: 118, // 블록(정답 삽화 힌트)
   writing: 100, // 글씨
@@ -51,7 +51,7 @@ export const AdReel: React.FC = () => {
         </TransitionSeries.Sequence>
         {trans()}
         <TransitionSeries.Sequence durationInFrames={SCENES.intro}>
-          <StorybookIntro />
+          <StorybookReading />
         </TransitionSeries.Sequence>
         {trans()}
         <TransitionSeries.Sequence durationInFrames={SCENES.bookWords}>
