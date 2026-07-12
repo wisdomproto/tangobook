@@ -86,7 +86,7 @@ export const BookWords: React.FC = () => {
           }}
         >
           <Img
-            src={staticFile('reels/covers/cover-snow-white.webp')}
+            src={staticFile('reels/sw-scene-intro.webp')}
             style={{ width: '100%', display: 'block' }}
           />
         </div>

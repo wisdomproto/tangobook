@@ -195,7 +195,7 @@ export const StorybookIntro: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: '#1A1A2E' }}>
       <StoryPage
-        cover="reels/covers/cover-snow-white.webp"
+        cover="reels/sw-scene-intro.webp"
         cardScale={0.92 + pop * 0.08}
         sentence={<>옛날, 마음씨 고운 백설공주가 살았어요.</>}
       />
@@ -243,7 +243,7 @@ export const PageLink: React.FC = () => {
         }}
       >
         <StoryPage
-          cover="reels/covers/cover-snow-white.webp"
+          cover="reels/sw-scene-apple.webp"
           sentence={
             <>
               왕비가 빨간 <span style={{ color: '#FFC24D' }}>사과</span>를 건넸어요.
