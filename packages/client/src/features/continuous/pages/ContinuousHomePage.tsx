@@ -21,11 +21,12 @@ export default function ContinuousHomePage() {
   const { data: books } = useStorybooks();
   const deletePlaylist = useDeletePlaylist();
 
-  // bookId → coverImage 맵 (세트 썸네일 해석용).
+  // bookId → 표지 맵 (세트 썸네일 해석용). 클린 표지(제목 없음) 우선 — 없으면 레거시 폴백.
   const coverOf = useMemo(() => {
     const m = new Map<string, string>();
     (books ?? []).forEach((b) => {
-      if (b.coverImage) m.set(b.id, b.coverImage);
+      const cover = b.cleanCoverImage ?? b.coverImage;
+      if (cover) m.set(b.id, cover);
     });
     return m;
   }, [books]);

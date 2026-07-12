@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useStorybooks } from '@/features/storybook';
 import { useLibraryConfig, makeCategoryComparator } from '@/features/library';
 import { useStyleGenreMap, type StyleGenreSlug } from '@/lib/art-style-genre';
-import { SkeletonBookCard } from '@/design-system';
+import { SkeletonBookCard, BookCover } from '@/design-system';
 import { cn } from '@/lib/cn';
 
 interface BookMultiSelectGridProps {
@@ -36,7 +36,7 @@ export function BookMultiSelectGrid({
   search = '',
   styleGenre,
 }: BookMultiSelectGridProps) {
-  const { t } = useTranslation('continuous');
+  const { t, i18n } = useTranslation('continuous');
   const { data: list, isLoading, isError } = useStorybooks();
   const { data: libConfig } = useLibraryConfig();
   const { map: styleGenreMap } = useStyleGenreMap();
@@ -46,17 +46,14 @@ export function BookMultiSelectGrid({
     [libConfig?.categoryOrder]
   );
 
-  // 선택 그림풍의 표지 → 없으면 대표 표지(coverImage). (메인 라이브러리와 동일 로직)
-  const coverFor = (b: {
-    coverImage?: string;
-    coversByStyle?: Record<string, string>;
-  }): string | undefined => {
+  // 선택 그림풍에 해당하는 styleId (clean/legacy 표지 해석 키). 없으면 undefined → 대표 표지 폴백.
+  const styleIdFor = (b: { coversByStyle?: Record<string, string> }): string | undefined => {
     if (styleGenre && b.coversByStyle) {
-      for (const [styleId, url] of Object.entries(b.coversByStyle)) {
-        if (url && styleGenreMap[styleId] === styleGenre) return url;
+      for (const styleId of Object.keys(b.coversByStyle)) {
+        if (styleGenreMap[styleId] === styleGenre) return styleId;
       }
     }
-    return b.coverImage;
+    return undefined;
   };
 
   // 공개 동화책 + **나레이션(모든 페이지 TTS) 있는 책만** (연속재생=자동 이어읽기라 무음 책 제외).
@@ -128,7 +125,6 @@ export function BookMultiSelectGrid({
             {catBooks.map((b) => {
               const order = orderOf.get(b.id);
               const selected = order !== undefined;
-              const cover = coverFor(b);
               return (
                 <button
                   key={b.id}
@@ -140,24 +136,13 @@ export function BookMultiSelectGrid({
                     selected && 'ring-4 ring-coral-400'
                   )}
                 >
-                  <div
-                    className={cn(
-                      'relative aspect-video overflow-hidden rounded-2xl shadow-soft',
-                      !cover &&
-                        'flex items-center justify-center bg-gradient-to-br from-peach-200 to-peach-300 text-4xl'
-                    )}
-                  >
-                    {cover ? (
-                      <img
-                        src={cover}
-                        alt={b.title}
-                        className="h-full w-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    ) : (
-                      '📖'
-                    )}
+                  <div className="relative aspect-video overflow-hidden rounded-2xl shadow-soft">
+                    <BookCover
+                      book={b}
+                      lang={i18n.language}
+                      style={styleIdFor(b)}
+                      overlayTitle={false}
+                    />
                     {selected && (
                       <span className="absolute left-1.5 top-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-coral-500 text-lg font-black text-white shadow-pop">
                         {order}
