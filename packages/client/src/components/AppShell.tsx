@@ -5,6 +5,7 @@ import { AppIcon } from '@/design-system';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { ProfilePicker } from '@/features/auth/components/ProfilePicker';
 import { AppBgm } from './AppBgm';
+import { UiLangMenu } from './UiLangMenu';
 import { AvatarRender } from '@/features/auth/components/AvatarRender';
 import { cn } from '@/lib/cn';
 import { isDevEmail } from '@/config/dev';
@@ -337,8 +338,9 @@ export function AppShell() {
               )}
             </div>
 
-            {/* 우측 — 아이 2명 이상일 때 현재 아이 칩(탭하면 "누가 놀고 있어요?"로 전환). */}
-            <div className="flex-shrink-0 pointer-events-auto">
+            {/* 우측 — UI 언어 선택 + (아이 2명 이상일 때) 현재 아이 칩. */}
+            <div className="flex-shrink-0 pointer-events-auto flex items-center gap-2">
+              <UiLangMenu />
               {session && activeProfile && profiles.length > 1 && (
                 <button
                   onClick={() => setActiveProfile(null)}
