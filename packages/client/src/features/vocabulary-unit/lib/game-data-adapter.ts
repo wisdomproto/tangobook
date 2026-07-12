@@ -238,8 +238,11 @@ export interface VocabGameOption {
   unavailableReason?: string;
 }
 
-/** 단원에서 즉시 플레이 가능한 게임 4종 */
-export function getAvailableGames(unit: VocabularyUnit, lang: Lang): VocabGameOption[] {
+/** i18n `t` — games 네임스페이스 스코프. 라벨/부제/비활성사유 localize 용. */
+type TFn = (key: string) => string;
+
+/** 단원에서 즉시 플레이 가능한 게임 4종. 라벨은 `t`(games ns)로 localize. */
+export function getAvailableGames(unit: VocabularyUnit, lang: Lang, t: TFn): VocabGameOption[] {
   const isKo = lang === 'ko';
   const isEn = lang === 'en';
   const isOrder = !isKo && !isEn; // vi/zh/th = 순서 맞추기 계열
@@ -258,52 +261,56 @@ export function getAvailableGames(unit: VocabularyUnit, lang: Lang): VocabGameOp
     {
       id: isKo ? 'korean-line-matching' : 'english-line-matching',
       emoji: '🎯',
-      label: '그림짝 맞추기',
-      subtitle: '그림과 단어를 짝지어 보세요!',
+      label: t('cards.lineMatching.label'),
+      subtitle: t('cards.lineMatching.subtitle'),
       iconSrc: '/icons/game/line-matching.webp',
       bgFrom: 'from-coral-400',
       bgTo: 'to-coral-600',
       available: !!lineData,
-      unavailableReason: !lineData ? '이미지 있는 단어가 3개 이상 필요해요' : undefined,
+      unavailableReason: !lineData ? t('cards.unavailable.line') : undefined,
     },
     {
       id: isKo ? 'korean-block' : isEn ? 'english-block' : 'order-block',
       emoji: '🧱',
-      label: isKo ? '한글 블록' : isEn ? '영어 블록' : '글자 블록',
-      subtitle: '글자 블록으로 단어를 만들어요!',
+      label: isKo
+        ? t('cards.block.labelKo')
+        : isEn
+          ? t('cards.block.labelEn')
+          : t('cards.block.label'),
+      subtitle: t('cards.block.subtitle'),
       iconSrc: '/icons/game/korean-block.webp',
       bgFrom: 'from-coral-400',
       bgTo: 'to-coral-600',
       available: !!blockData,
       unavailableReason: !blockData
         ? isKo
-          ? '한글 단어가 부족해요'
+          ? t('cards.unavailable.blockKo')
           : isEn
-            ? '6글자 이하 영문 단어가 부족해요'
-            : '이 언어의 단어가 부족해요'
+            ? t('cards.unavailable.blockEn')
+            : t('cards.unavailable.blockOrder')
         : undefined,
     },
     {
       id: 'connect-the-dots',
       emoji: '🪡',
-      label: '단어 그림 그리기',
-      subtitle: '점을 이어 단어를 그려 보세요!',
+      label: t('cards.connectDots.label'),
+      subtitle: t('cards.connectDots.subtitle'),
       iconSrc: '/icons/game/connect-dots.webp',
       bgFrom: 'from-coral-400',
       bgTo: 'to-coral-600',
       available: !!dotsData,
-      unavailableReason: !dotsData ? '윤곽선 점이 있는 단어가 필요해요' : undefined,
+      unavailableReason: !dotsData ? t('cards.unavailable.dots') : undefined,
     },
     {
       id: isKo ? 'korean-word-writing' : isEn ? 'english-word-writing' : 'order-writing',
       emoji: '✏️',
-      label: '따라 쓰기',
-      subtitle: '손가락으로 글자를 따라써요!',
+      label: t('cards.writing.label'),
+      subtitle: t('cards.writing.subtitle'),
       iconSrc: '/icons/game/word-writing.webp',
       bgFrom: 'from-coral-400',
       bgTo: 'to-coral-600',
       available: !!writingData,
-      unavailableReason: !writingData ? '이미지 있는 단어가 부족해요' : undefined,
+      unavailableReason: !writingData ? t('cards.unavailable.writing') : undefined,
     },
   ];
 }

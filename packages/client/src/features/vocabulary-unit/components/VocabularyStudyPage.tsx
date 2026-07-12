@@ -3,7 +3,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Skeleton, Chip, Mascot, PageHeader } from '@/design-system';
 import i18n from '@/i18n';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
-import type { Lang, VocabularyUnit, VocabularyUnitWord } from '@tangobook/shared';
+import type { Lang, Storybook, VocabularyUnit, VocabularyUnitWord } from '@tangobook/shared';
 import { useVocabularyUnit } from '../hooks/useVocabularyUnits';
 import { isStorybookUnitId, storybookIdFromUnitId } from '../lib/derive-storybook-unit';
 import { VocabularyStudyContent } from './VocabularyStudyContent';
@@ -32,8 +32,11 @@ const LANG_CHIPS: { code: Lang; label: string }[] = [
   { code: 'th', label: 'ไทย' },
 ];
 
-function getDisplayUnitName(unit: VocabularyUnit, lang: Lang): string {
+function getDisplayUnitName(unit: VocabularyUnit, lang: Lang, storybook?: Storybook): string {
   if (lang === 'ko') return unit.nameKo;
+  // 책 단원이면 표지 제목의 해당 언어 번역 우선(vi/zh/th 도 커버). 없으면 en → ko 폴백.
+  const translated = storybook?.titleTranslations?.[lang]?.trim();
+  if (translated) return translated;
   return unit.nameEn ?? unit.nameKo;
 }
 
@@ -117,7 +120,7 @@ export function VocabularyStudyPage() {
     availableLangs[0]?.code ??
     'ko';
 
-  const displayName = getDisplayUnitName(unit, effectiveLang);
+  const displayName = getDisplayUnitName(unit, effectiveLang, storybook);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100">

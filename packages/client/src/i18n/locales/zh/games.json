@@ -26,5 +26,43 @@
   "loadingGate": {
     "preparing": "正在准备图画和声音",
     "skip": "直接开始"
+  },
+  "study": {
+    "wordsHeading": "词汇浏览",
+    "wordsHint": "点击查看详情",
+    "gamesHeading": "游戏学习",
+    "gamesHint": "第一次从第1个开始",
+    "done": "完成！",
+    "otherGame": "试试别的游戏？",
+    "back": "← 返回",
+    "detailAria": "查看{{word}}详情"
+  },
+  "cards": {
+    "lineMatching": {
+      "label": "图片配对",
+      "subtitle": "把图片和单词配对！"
+    },
+    "block": {
+      "label": "字母积木",
+      "labelKo": "韩文积木",
+      "labelEn": "英文积木",
+      "subtitle": "用字母积木拼出单词！"
+    },
+    "connectDots": {
+      "label": "画出单词",
+      "subtitle": "连接圆点画出来！"
+    },
+    "writing": {
+      "label": "跟着写",
+      "subtitle": "用手指描写字母！"
+    },
+    "unavailable": {
+      "line": "需要3个以上带图片的单词",
+      "blockKo": "韩文单词不足",
+      "blockEn": "6个字母以内的英文单词不足",
+      "blockOrder": "该语言的单词不足",
+      "dots": "需要有轮廓点的单词",
+      "writing": "带图片的单词不足"
+    }
   }
 }

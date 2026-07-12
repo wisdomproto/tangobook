@@ -26,5 +26,43 @@
   "loadingGate": {
     "preparing": "Getting the pictures and sounds ready",
     "skip": "Start now"
+  },
+  "study": {
+    "wordsHeading": "Explore Words",
+    "wordsHint": "Tap for details",
+    "gamesHeading": "Learn with Games",
+    "gamesHint": "New? Start with #1",
+    "done": "Done!",
+    "otherGame": "Try another game?",
+    "back": "← Back",
+    "detailAria": "View {{word}} details"
+  },
+  "cards": {
+    "lineMatching": {
+      "label": "Match Pictures",
+      "subtitle": "Match the picture to the word!"
+    },
+    "block": {
+      "label": "Letter Blocks",
+      "labelKo": "Hangul Blocks",
+      "labelEn": "English Blocks",
+      "subtitle": "Build words with letter blocks!"
+    },
+    "connectDots": {
+      "label": "Draw the Word",
+      "subtitle": "Connect the dots to draw!"
+    },
+    "writing": {
+      "label": "Trace & Write",
+      "subtitle": "Trace the letters with your finger!"
+    },
+    "unavailable": {
+      "line": "Need 3+ words with images",
+      "blockKo": "Not enough Korean words",
+      "blockEn": "Not enough short English words",
+      "blockOrder": "Not enough words in this language",
+      "dots": "Need words with outline dots",
+      "writing": "Not enough words with images"
+    }
   }
 }

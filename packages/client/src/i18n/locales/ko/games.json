@@ -26,5 +26,43 @@
   "loadingGate": {
     "preparing": "그림과 소리를 준비하고 있어요",
     "skip": "바로 시작"
+  },
+  "study": {
+    "wordsHeading": "단어 둘러보기",
+    "wordsHint": "탭하면 자세히",
+    "gamesHeading": "게임으로 익히기",
+    "gamesHint": "처음이면 1번부터",
+    "done": "완료!",
+    "otherGame": "다른 게임 해볼까?",
+    "back": "← 돌아가기",
+    "detailAria": "{{word}} 자세히 보기"
+  },
+  "cards": {
+    "lineMatching": {
+      "label": "그림짝 맞추기",
+      "subtitle": "그림과 단어를 짝지어 보세요!"
+    },
+    "block": {
+      "label": "글자 블록",
+      "labelKo": "한글 블록",
+      "labelEn": "영어 블록",
+      "subtitle": "글자 블록으로 단어를 만들어요!"
+    },
+    "connectDots": {
+      "label": "단어 그림 그리기",
+      "subtitle": "점을 이어 단어를 그려 보세요!"
+    },
+    "writing": {
+      "label": "따라 쓰기",
+      "subtitle": "손가락으로 글자를 따라써요!"
+    },
+    "unavailable": {
+      "line": "이미지 있는 단어가 3개 이상 필요해요",
+      "blockKo": "한글 단어가 부족해요",
+      "blockEn": "6글자 이하 영문 단어가 부족해요",
+      "blockOrder": "이 언어의 단어가 부족해요",
+      "dots": "윤곽선 점이 있는 단어가 필요해요",
+      "writing": "이미지 있는 단어가 부족해요"
+    }
   }
 }

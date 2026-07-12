@@ -26,5 +26,43 @@
   "loadingGate": {
     "preparing": "Đang chuẩn bị hình ảnh và âm thanh",
     "skip": "Bắt đầu ngay"
+  },
+  "study": {
+    "wordsHeading": "Khám phá từ vựng",
+    "wordsHint": "Chạm để xem chi tiết",
+    "gamesHeading": "Học qua trò chơi",
+    "gamesHint": "Mới chơi? Bắt đầu từ số 1",
+    "done": "Xong!",
+    "otherGame": "Thử trò chơi khác nhé?",
+    "back": "← Quay lại",
+    "detailAria": "Xem chi tiết {{word}}"
+  },
+  "cards": {
+    "lineMatching": {
+      "label": "Ghép hình",
+      "subtitle": "Ghép hình với từ nhé!"
+    },
+    "block": {
+      "label": "Khối chữ",
+      "labelKo": "Khối chữ Hàn",
+      "labelEn": "Khối chữ Anh",
+      "subtitle": "Ghép chữ thành từ nhé!"
+    },
+    "connectDots": {
+      "label": "Vẽ từ",
+      "subtitle": "Nối các điểm để vẽ nhé!"
+    },
+    "writing": {
+      "label": "Tập viết",
+      "subtitle": "Dùng ngón tay tô theo chữ nhé!"
+    },
+    "unavailable": {
+      "line": "Cần 3 từ trở lên có hình",
+      "blockKo": "Không đủ từ tiếng Hàn",
+      "blockEn": "Không đủ từ tiếng Anh ngắn",
+      "blockOrder": "Không đủ từ trong ngôn ngữ này",
+      "dots": "Cần từ có điểm viền",
+      "writing": "Không đủ từ có hình"
+    }
   }
 }

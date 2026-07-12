@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Mascot } from '@/design-system';
@@ -63,11 +64,12 @@ export function VocabularyStudyContent({
   currentStyle,
   lang,
 }: VocabularyStudyContentProps) {
+  const { t } = useTranslation('games');
   const [activeGame, setActiveGame] = useState<GameTypeId | null>(null);
   const [selectedWord, setSelectedWord] = useState<VocabularyUnitWord | null>(null);
   const { refetch: refetchBalance } = useStarBalance();
 
-  const games = getAvailableGames(unit, lang);
+  const games = getAvailableGames(unit, lang, t);
 
   // 사용자 정책 (2026-05-10): 게임은 매번 랜덤 N개 단어라 "완료" 개념 X.
   // 게임 카드 done 표시 / 단원 완료 메시지 모두 제거. 게임 결과는 GameResultScreen 에서 호리/칭찬.
@@ -88,9 +90,9 @@ export function VocabularyStudyContent({
         <div className="flex items-baseline gap-3 mb-2 px-1">
           <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
             <span>📚</span>
-            <span>단어 둘러보기</span>
+            <span>{t('study.wordsHeading')}</span>
           </h2>
-          <span className="text-sm font-bold text-ink-500">탭하면 자세히</span>
+          <span className="text-sm font-bold text-ink-500">{t('study.wordsHint')}</span>
         </div>
         <WordPreviewBanner words={unit.words} lang={lang} onWordClick={setSelectedWord} />
       </section>
@@ -100,9 +102,9 @@ export function VocabularyStudyContent({
         <div className="flex items-baseline gap-3 mb-2 px-1">
           <h2 className="text-2xl lg:text-3xl font-black font-display text-ink-900 flex items-center gap-2">
             <span>🎮</span>
-            <span>게임으로 익히기</span>
+            <span>{t('study.gamesHeading')}</span>
           </h2>
-          <span className="text-sm font-bold text-ink-500">처음이면 1번부터</span>
+          <span className="text-sm font-bold text-ink-500">{t('study.gamesHint')}</span>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
           {games.map((g, i) => (
@@ -161,6 +163,7 @@ interface WordPreviewBannerProps {
 }
 
 function WordPreviewBanner({ words, lang, onWordClick }: WordPreviewBannerProps) {
+  const { t } = useTranslation('games');
   // 시안 따라 한글+영어 양쪽 표시 — 메인 라벨은 lang 우선, sub 라벨은 반대 언어
   const items = useMemo(
     () =>
@@ -198,7 +201,7 @@ function WordPreviewBanner({ words, lang, onWordClick }: WordPreviewBannerProps)
             key={`${it.main}-${i}`}
             onClick={() => onWordClick(it.word)}
             className="snap-start shrink-0 w-24 sm:w-28 lg:w-32 bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-pop hover:-translate-y-0.5 active:scale-95 transition flex flex-col"
-            aria-label={`${it.main} 자세히 보기`}
+            aria-label={t('study.detailAria', { word: it.main })}
           >
             <div className="aspect-square w-full bg-gradient-to-b from-cream-50 to-white flex items-center justify-center">
               {it.img ? (
@@ -245,6 +248,7 @@ function GameCard({
   done: boolean;
   onPlay: () => void;
 }) {
+  const { t } = useTranslation('games');
   // 좌상단 번호 배지 — "처음이면 1번부터" 결정 마비 해소. 모든 state 공통.
   const numberBadge = (
     <span
@@ -291,7 +295,7 @@ function GameCard({
           <span className="text-2xl lg:text-3xl font-black text-ink-700 line-through decoration-success decoration-4">
             {game.label}
           </span>
-          <span className="text-base font-black text-success">완료!</span>
+          <span className="text-base font-black text-success">{t('study.done')}</span>
         </div>
       </button>
     );
@@ -361,6 +365,7 @@ function GameOverlay({
   onComplete: () => void;
   onBack: () => void;
 }) {
+  const { t } = useTranslation('games');
   // 🔴 getGameData 는 내부에서 shuffleInPlace 로 매 호출마다 items 순서를 바꾼다(비결정적).
   //    memo 없이 매 렌더 호출하면 프리로드 게이트의 coreKey 가 매 렌더 바뀌어 effect 가 무한 재시작
   //    (게이트가 0% 에서 안 넘어감) → unit/lang/game 별로 한 번만 생성해 안정화.
@@ -403,12 +408,14 @@ function GameOverlay({
       >
         <div className="bg-white rounded-3xl shadow-pop p-8 max-w-sm w-full text-center">
           <Mascot state="thinking" size="md" />
-          <p className="mt-3 text-lg text-ink-700 font-black font-display">다른 게임 해볼까?</p>
+          <p className="mt-3 text-lg text-ink-700 font-black font-display">
+            {t('study.otherGame')}
+          </p>
           <button
             onClick={onBack}
             className="mt-5 px-6 py-3 rounded-full bg-amber-500 text-white font-black shadow-pop text-lg"
           >
-            ← 돌아가기
+            {t('study.back')}
           </button>
         </div>
       </motion.div>
