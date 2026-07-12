@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { cn } from '@/lib/cn';
 import { canReadBook, type BookIndexEntry } from '@tangobook/shared';
+import { BookCover } from '@/design-system';
 import { useAccess, LockBadge } from '@/features/access';
 import { useReadingStatus } from '../hooks/useReadingStatus';
 import { BookProgressBadge } from './BookProgressBadge';
@@ -19,7 +19,6 @@ export function BookCard({ book }: BookCardProps) {
   const navigate = useNavigate();
   const { data: statusMap } = useReadingStatus();
   const status = statusMap?.get(book.id);
-  const coverUrl = book.coverImageUrl;
   // 프리미엄(잠금) 표시 — PAYWALL_ENABLED=false(개발단계)면 access 항상 entitled → 미표시.
   const access = useAccess();
   const locked = !canReadBook(book, access);
@@ -32,26 +31,13 @@ export function BookCard({ book }: BookCardProps) {
       onClick={() => navigate(`/library/${book.id}`)}
       className="group flex flex-col items-stretch text-left transition-transform hover:-translate-y-1 active:scale-95"
     >
-      <div
-        className={cn(
-          'aspect-video rounded-2xl overflow-hidden relative shadow-soft group-hover:shadow-pop transition-shadow',
-          !coverUrl &&
-            'bg-gradient-to-br from-peach-200 to-peach-300 flex items-center justify-center text-5xl'
-        )}
-      >
-        {coverUrl ? (
-          <img
-            src={coverUrl}
-            alt={displayTitle}
-            className="w-full h-full object-cover"
-            loading="lazy"
-            decoding="async"
-            width={640}
-            height={360}
-          />
-        ) : (
-          '📖'
-        )}
+      <div className="aspect-video rounded-2xl overflow-hidden relative shadow-soft group-hover:shadow-pop transition-shadow">
+        <BookCover
+          book={book}
+          lang={i18n.language}
+          overlayTitle={false}
+          imgClassName="group-hover:scale-[1.02] transition-transform"
+        />
         {status && status !== 'unread' && (
           <BookProgressBadge status={status} className="absolute top-2 right-2" />
         )}
