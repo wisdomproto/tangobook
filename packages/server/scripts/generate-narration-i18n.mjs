@@ -29,7 +29,7 @@ const LIMIT = Number(argVal('--limit') || 0);
 const ONLY_BOOK = argVal('--book');
 const ONLY_LANG = argVal('--lang');
 const LANGS = ONLY_LANG ? [ONLY_LANG] : ['vi', 'zh', 'th'];
-const CONC = Number(argVal('--conc') || 4); // 동시 생성 수 (Gemini withGeminiRetry 가 429 backoff)
+const CONC = Number(argVal('--conc') || 3); // 동시 생성 수 (Gemini withGeminiRetry 가 429 backoff)
 
 /** items 를 conc 개씩 동시 처리. worker(item,i) 성공 카운트 반환. */
 async function runPool(items, conc, worker) {
@@ -59,21 +59,32 @@ async function fetchBooks() {
 }
 
 async function genPageTts(storybookId, lang, text, pageNumber) {
-  const res = await fetch(`${API}/api/tts/generate`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      text,
-      provider: 'gemini',
-      voice: VOICE,
-      language: lang,
-      storybookId,
-      identifier: `narr-${lang}-p${pageNumber}`,
-    }),
+  const body = JSON.stringify({
+    text,
+    provider: 'gemini',
+    voice: VOICE,
+    language: lang,
+    storybookId,
+    identifier: `narr-${lang}-p${pageNumber}`,
   });
-  if (!res.ok) throw new Error(`tts ${res.status}: ${(await res.text()).slice(0, 160)}`);
-  const json = await res.json();
-  return json.data.audioUrl;
+  // 연결 실패(서버 재시작 blip)·5xx 는 재시도. tsx dev 서버가 파일변경/부하로 잠깐 죽어도 견딤.
+  let lastErr;
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      const res = await fetch(`${API}/api/tts/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+      });
+      if (!res.ok) throw new Error(`tts ${res.status}: ${(await res.text()).slice(0, 120)}`);
+      const json = await res.json();
+      return json.data.audioUrl;
+    } catch (e) {
+      lastErr = e;
+      await sleep(2000 * (attempt + 1)); // 2s,4s,6s,8s backoff (서버 재기동 대기)
+    }
+  }
+  throw lastErr;
 }
 
 async function processBook(summary) {
