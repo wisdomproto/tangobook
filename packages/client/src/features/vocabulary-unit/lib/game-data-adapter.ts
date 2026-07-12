@@ -57,7 +57,10 @@ function pickPrimaryImage(w: VocabularyUnitWord): string | undefined {
 }
 
 function pickTts(w: VocabularyUnitWord, lang: Lang): string | undefined {
-  return w.ttsUrl ?? w.ttsUrls?.[lang];
+  // ko: 기본 ttsUrl(한국어) → ko 전용. 비-ko: 해당 언어 전용(ttsUrls[lang]).
+  // 🔴 vi/zh/th 에 ko `ttsUrl` 폴백 금지 — 베트남 단어를 한국어로 읽어버림.
+  if (lang === 'ko') return w.ttsUrl ?? w.ttsUrls?.ko;
+  return w.ttsUrls?.[lang] ?? (lang === 'en' ? w.ttsUrl : undefined);
 }
 
 /** 단원 → 그림짝(LineMatching) 데이터 — 후보 중 랜덤 N개 (사용자 정책 2026-05-10) */

@@ -458,7 +458,7 @@ function GameOverlay({
             difficulty="medium"
             onComplete={() => onComplete()}
             onBack={onBack}
-            lang={game === 'korean-line-matching' ? 'ko' : 'en'}
+            lang={lang}
           />
         )}
         {game === 'korean-block' && (

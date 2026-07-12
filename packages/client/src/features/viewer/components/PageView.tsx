@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { Page } from '@tangobook/shared';
 import type { LangCode } from '@/lib/storybook-accessors';
@@ -82,11 +83,16 @@ export function PageView({
   fullscreen,
 }: PageViewProps) {
   const reduce = useReducedMotion();
+  const { i18n } = useTranslation();
+  // 보조 자막(한국어 원문)은 한국어 사용자에게만 이중언어 보조로 노출.
+  // UI 언어가 vi/zh/th 등 비한국어면 한글 원문은 소음이라 숨긴다.
+  const showKoSub = i18n.language === 'ko';
 
   const text = useMemo(() => stripBold(getPageText(page, lang)), [page, lang]);
   const subText = useMemo(
-    () => (showSubtext && lang !== 'ko' && page.text !== text ? stripBold(page.text) : null),
-    [page, text, showSubtext, lang]
+    () =>
+      showSubtext && showKoSub && lang !== 'ko' && page.text !== text ? stripBold(page.text) : null,
+    [page, text, showSubtext, showKoSub, lang]
   );
 
   return (

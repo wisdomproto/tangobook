@@ -5,7 +5,9 @@ import type {
   KoreanLineMatchingData,
   EnglishLineMatchingData,
   LineMatchingItem,
+  Lang,
 } from '@tangobook/shared';
+import { warmAudioUrl } from '../../hooks/useGamePrefetch';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { usePhonicsMap } from '../../hooks/usePhonicsMap';
 import { GameResultScreen } from '../GameResultScreen';
@@ -31,7 +33,7 @@ import { decomposeWord } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 
 interface LineMatchingPlayerProps extends GamePlayerProps {
-  lang: 'ko' | 'en';
+  lang: Lang;
 }
 
 interface MatchedPair {
@@ -47,6 +49,14 @@ function LineMatchingPlayerInner({
 }: LineMatchingPlayerProps) {
   const data = gameData as KoreanLineMatchingData | EnglishLineMatchingData;
   const items = data.items;
+
+  // vi/zh/th·en 은 단어 발음이 direct ttsUrl(R2). 정답 순간 콜드 페치로 늦지 않게
+  // 마운트 시 미리 오디오를 워밍(한글은 음절 mp3 라 ttsUrl 없음 → 스킵).
+  useEffect(() => {
+    for (const it of items) {
+      if (it.ttsUrl) void warmAudioUrl(it.ttsUrl);
+    }
+  }, [items]);
 
   // 이미지는 원래 순서 유지, 단어만 셔플
   const imageOrder = useMemo(() => items.map((_, i) => i), [items]);

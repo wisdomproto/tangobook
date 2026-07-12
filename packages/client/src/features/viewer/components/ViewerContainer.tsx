@@ -659,7 +659,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
       {controlsVisible && (
         <div onClick={(e) => e.stopPropagation()}>
           <ViewerToolbar
-            title={storybook.title}
+            title={storybook.titleTranslations?.[lang]?.trim() || storybook.title}
             onBack={() => {
               audio.stopTts();
               // 책 소개 페이지로 명시 이동 — history back 은 직전 진입 경로 따라 다른 곳으로 갈 수 있음
@@ -815,7 +815,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
       )}
 
       <RewardScreen
-        title={storybook.title}
+        title={storybook.titleTranslations?.[lang]?.trim() || storybook.title}
         videoId={getPrimaryVideoId(storybook) ?? undefined}
         directVideoUrl={getDirectVideoUrls(storybook)[0]}
         hasGames={hasGames(storybook)}
