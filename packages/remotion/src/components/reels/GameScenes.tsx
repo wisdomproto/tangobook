@@ -289,6 +289,29 @@ export const BlockGame: React.FC = () => {
     <AbsoluteFill style={{ background: 'linear-gradient(160deg,#FFF1E8 0%,#FFE0D2 100%)' }}>
       <Chip label="블록 맞추기 🧩" />
 
+      {/* 정답 삽화 힌트 (실제 사과) — 블록 위에 표시 */}
+      <div
+        style={{
+          position: 'absolute',
+          left: 540 - 130,
+          top: 330,
+          width: 260,
+          height: 260,
+          borderRadius: 32,
+          backgroundColor: '#fff',
+          boxShadow: '0 12px 30px rgba(0,0,0,0.12)',
+          padding: 22,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Img
+          src={staticFile('reels/words/apple.webp')}
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+        />
+      </div>
+
       {/* 빈 슬롯 2칸 */}
       {SLOT_CX.map((cx, i) => (
         <div
@@ -345,10 +368,10 @@ export const BlockGame: React.FC = () => {
         );
       })}
 
-      {/* 정답 도장 */}
+      {/* 정답 도장 (블록 아래) */}
       {done && (
         <AbsoluteFill
-          style={{ justifyContent: 'flex-start', alignItems: 'center', paddingTop: 540 }}
+          style={{ justifyContent: 'flex-start', alignItems: 'center', paddingTop: 960 }}
         >
           <div
             style={{
