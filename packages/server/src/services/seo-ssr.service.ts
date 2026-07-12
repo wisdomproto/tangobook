@@ -8,7 +8,13 @@
  * React 는 createRoot().render() 라 주입된 본문은 브라우저에서 자연히 교체된다.
  */
 import type { Storybook, StorybookSummary, ReadingLevel, ParentGuide } from '@tangobook/shared';
-import { SUPPORTED_LANGUAGES, seoStrings, fill, HUB_STRINGS } from '@tangobook/shared';
+import {
+  SUPPORTED_LANGUAGES,
+  seoStrings,
+  fill,
+  HUB_STRINGS,
+  LANDING_STRINGS,
+} from '@tangobook/shared';
 import type { BlogPostDetail, BlogPostSummary } from './mkt/blog-public.service.js';
 
 export const SITE_URL = 'https://www.tangobook.co.kr';
@@ -545,6 +551,29 @@ const metaPatternMultiline = (attr: 'name' | 'property', key: string) =>
   new RegExp(
     `<meta\\s*\\n?\\s*${attr}="${key.replace(/[:]/g, '\\$&')}"\\s*\\n?\\s*content="[\\s\\S]*?"\\s*\\n?\\s*/?>`
   );
+
+/**
+ * 언어별 진입/랜딩(/en·/vi·/zh·/th·/ko) OG·title — 소셜 공유 미리보기가 해당 언어로 뜨게.
+ * SPA 는 그대로 부팅(LangEntry 가 리다이렉트)하고, 크롤러만 이 주입된 head 를 읽는다.
+ */
+export function renderLandingSeo(lang: string): AboutSeo | null {
+  const s = LANDING_STRINGS[lang];
+  if (!s) return null;
+  const langs = Object.keys(LANDING_STRINGS);
+  const alternatesHtml =
+    langs
+      .map((l) => `<link rel="alternate" hreflang="${l}" href="${SITE_URL}${langPrefix(l)}" />`)
+      .join('') + `<link rel="alternate" hreflang="x-default" href="${SITE_URL}" />`;
+  return {
+    title: escapeHtml(s.title),
+    description: escapeHtml(s.description),
+    canonical: `${SITE_URL}${langPrefix(lang)}`,
+    ogImage: `${SITE_URL}/og-image.png`,
+    jsonLdHtml: '',
+    bodyHtml: '',
+    alternatesHtml,
+  };
+}
 
 export function injectAboutSeo(indexHtml: string, seo: AboutSeo): string {
   let html = indexHtml;

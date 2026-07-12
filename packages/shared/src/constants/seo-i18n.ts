@@ -196,6 +196,39 @@ export function seoStrings(lang: string): SeoStrings {
   return SEO_STRINGS[lang] ?? en;
 }
 
+/** 랜딩/진입(/en·/vi·/zh·/th·/ko) OG·title 카피 — 소셜 공유 미리보기용. 콘텐츠 완비 5개. */
+export interface LandingStrings {
+  title: string;
+  description: string;
+}
+export const LANDING_STRINGS: Record<string, LandingStrings> = {
+  ko: {
+    title: '탱고북 — 명작동화·자연관찰로 배우는 4~7세 한글·영어 학습',
+    description:
+      '세계 명작동화와 자연관찰 그림책으로 4~7세 아이가 읽고 듣고 놀며 배우는 학습 플랫폼. 원어민 나레이션·단어 게임·부모 리포트까지.',
+  },
+  en: {
+    title: 'Tangobook — Kids learn to read with classic fairy tales',
+    description:
+      'Classic fairy tales and nature picture books for ages 4–7 — native narration, word games and parent guides in English, Vietnamese, Chinese, Thai and Korean.',
+  },
+  vi: {
+    title: 'Tangobook — Bé học đọc qua truyện cổ tích kinh điển',
+    description:
+      'Truyện cổ tích kinh điển và sách tranh thiên nhiên cho bé 4–7 tuổi — giọng đọc bản xứ, trò chơi từ vựng và hướng dẫn cho cha mẹ.',
+  },
+  zh: {
+    title: 'Tangobook — 用经典童话陪孩子学阅读（4–7岁）',
+    description:
+      '经典世界童话与自然观察绘本，专为 4–7 岁孩子打造——母语朗读、词语游戏和家长指南，支持中文·英语·越南语·泰语·韩语。',
+  },
+  th: {
+    title: 'Tangobook — เด็กเรียนรู้การอ่านผ่านนิทานคลาสสิก (4–7 ปี)',
+    description:
+      'นิทานคลาสสิกระดับโลกและนิทานภาพธรรมชาติสำหรับเด็ก 4–7 ปี — เสียงอ่านเจ้าของภาษา เกมคำศัพท์ และคู่มือสำหรับผู้ปกครอง',
+  },
+};
+
 export function fill(template: string, title: string): string {
   return template.replace(/\{title\}/g, title);
 }
