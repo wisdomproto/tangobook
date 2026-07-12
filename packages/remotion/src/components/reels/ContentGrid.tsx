@@ -12,10 +12,11 @@ import { loadFont } from '@remotion/google-fonts/NotoSansKR';
 
 const { fontFamily } = loadFont('normal', { weights: ['700', '800'] });
 
-const COVERS = Array.from(
-  { length: 15 },
-  (_, i) => `reels/grid/g-${String(i + 1).padStart(2, '0')}.jpg`
-);
+// 세계명작 9권 + 자연관찰 6권 = 15권 (실제 표지) · 3×5
+const COVERS = [
+  ...Array.from({ length: 9 }, (_, i) => `reels/grid-classics/c${i + 1}.webp`),
+  ...Array.from({ length: 6 }, (_, i) => `reels/grid-nature/n${i + 1}.webp`),
+];
 
 const COLS = 3;
 const GAP = 14;

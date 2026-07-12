@@ -58,16 +58,17 @@ export const AdReel: React.FC = () => {
           <BookWords />
         </TransitionSeries.Sequence>
         {trans()}
-        <TransitionSeries.Sequence durationInFrames={SCENES.block}>
-          <BlockGame />
-        </TransitionSeries.Sequence>
-        {trans()}
         <TransitionSeries.Sequence durationInFrames={SCENES.writing}>
           <WritingGame />
         </TransitionSeries.Sequence>
         {trans()}
         <TransitionSeries.Sequence durationInFrames={SCENES.lineMatch}>
           <LineMatchGame />
+        </TransitionSeries.Sequence>
+        {trans()}
+        {/* 블록으로 '사과' 완성 → 곧바로 사과가 나오는 동화 페이지로 연결 */}
+        <TransitionSeries.Sequence durationInFrames={SCENES.block}>
+          <BlockGame />
         </TransitionSeries.Sequence>
         {trans()}
         <TransitionSeries.Sequence durationInFrames={SCENES.pageLink}>
