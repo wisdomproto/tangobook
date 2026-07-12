@@ -7,3 +7,5 @@ export { ErrorBoundary } from './ErrorBoundary';
 export { Mascot, MASCOT_EMOJI_FALLBACK, type MascotState, type MascotSize } from './Mascot';
 export { AppIcon, type AppIconProps } from './AppIcon';
 export { PageHeader } from './PageHeader';
+export { BookCover, type BookCoverProps } from './BookCover';
+export { resolveCover, type CoverInput, type ResolvedCover } from './bookCover.util';
