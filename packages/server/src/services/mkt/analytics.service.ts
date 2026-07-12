@@ -183,16 +183,25 @@ export function mapContent(report: GA4Report): GA4ContentRow[] {
 
 // ─── Report builders (build the runReport body per §4.2, map rows) ────────────
 
-type Period = '7d' | '30d';
+type Period = 'today' | 'yesterday' | '7d' | '30d';
 
-/** `'7d'→'7daysAgo'`, anything else → `'30daysAgo'`. The client always sends a period. */
-function startDateFor(period: Period): string {
-  return period === '30d' ? '30daysAgo' : '7daysAgo';
+/** Map the client period to a GA4 relative date range. */
+function dateRangeFor(period: Period): { startDate: string; endDate: string } {
+  switch (period) {
+    case 'today':
+      return { startDate: 'today', endDate: 'today' };
+    case 'yesterday':
+      return { startDate: 'yesterday', endDate: 'yesterday' };
+    case '30d':
+      return { startDate: '30daysAgo', endDate: 'today' };
+    default:
+      return { startDate: '7daysAgo', endDate: 'today' };
+  }
 }
 
 /** overview = 2 runReport calls (summary + daily) → GA4OverviewData. */
 export async function getOverview(cfg: ResolvedGa4, period: Period): Promise<GA4OverviewData> {
-  const dateRanges = [{ startDate: startDateFor(period), endDate: 'today' }];
+  const dateRanges = [dateRangeFor(period)];
   const [summary, daily] = await Promise.all([
     runReport(cfg, {
       dateRanges,
@@ -216,7 +225,7 @@ export async function getOverview(cfg: ResolvedGa4, period: Period): Promise<GA4
 
 export async function getTraffic(cfg: ResolvedGa4, period: Period): Promise<GA4TrafficSource[]> {
   const report = await runReport(cfg, {
-    dateRanges: [{ startDate: startDateFor(period), endDate: 'today' }],
+    dateRanges: [dateRangeFor(period)],
     metrics: [{ name: 'sessions' }, { name: 'activeUsers' }],
     dimensions: [{ name: 'sessionDefaultChannelGroup' }],
     orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
@@ -227,7 +236,7 @@ export async function getTraffic(cfg: ResolvedGa4, period: Period): Promise<GA4T
 
 export async function getTopPages(cfg: ResolvedGa4, period: Period): Promise<GA4TopPage[]> {
   const report = await runReport(cfg, {
-    dateRanges: [{ startDate: startDateFor(period), endDate: 'today' }],
+    dateRanges: [dateRangeFor(period)],
     metrics: [{ name: 'screenPageViews' }, { name: 'activeUsers' }],
     dimensions: [{ name: 'pagePath' }, { name: 'pageTitle' }],
     orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
@@ -238,7 +247,7 @@ export async function getTopPages(cfg: ResolvedGa4, period: Period): Promise<GA4
 
 export async function getCountry(cfg: ResolvedGa4, period: Period): Promise<GA4CountryRow[]> {
   const report = await runReport(cfg, {
-    dateRanges: [{ startDate: startDateFor(period), endDate: 'today' }],
+    dateRanges: [dateRangeFor(period)],
     metrics: [{ name: 'sessions' }, { name: 'totalUsers' }],
     dimensions: [{ name: 'country' }],
     orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
@@ -249,7 +258,7 @@ export async function getCountry(cfg: ResolvedGa4, period: Period): Promise<GA4C
 
 export async function getContent(cfg: ResolvedGa4, period: Period): Promise<GA4ContentRow[]> {
   const report = await runReport(cfg, {
-    dateRanges: [{ startDate: startDateFor(period), endDate: 'today' }],
+    dateRanges: [dateRangeFor(period)],
     metrics: [{ name: 'sessions' }, { name: 'averageSessionDuration' }, { name: 'bounceRate' }],
     dimensions: [{ name: 'pagePath' }],
     orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],

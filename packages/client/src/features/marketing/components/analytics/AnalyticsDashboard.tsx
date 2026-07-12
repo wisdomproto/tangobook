@@ -32,7 +32,7 @@ interface AnalyticsDashboardProps {
 export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
   const { data: project } = useProject(projectId);
   const queryClient = useQueryClient();
-  const [period, setPeriod] = useState<'7d' | '30d'>('7d');
+  const [period, setPeriod] = useState<'today' | 'yesterday' | '7d' | '30d'>('7d');
 
   const ga4Config = (project?.ga4_config ?? null) as GA4Config | null;
   const funnelConfig = (project?.funnel_config ?? null) as FunnelConfig | null;
@@ -92,22 +92,24 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
         </div>
         <div className="flex items-center gap-2">
           <div className="flex rounded-lg border overflow-hidden">
-            <button
-              className={`px-3 py-1.5 text-xs font-semibold transition-colors break-keep ${
-                period === '7d' ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
-              }`}
-              onClick={() => setPeriod('7d')}
-            >
-              7일
-            </button>
-            <button
-              className={`px-3 py-1.5 text-xs font-semibold transition-colors break-keep ${
-                period === '30d' ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
-              }`}
-              onClick={() => setPeriod('30d')}
-            >
-              30일
-            </button>
+            {(
+              [
+                ['today', '오늘'],
+                ['yesterday', '어제'],
+                ['7d', '7일'],
+                ['30d', '30일'],
+              ] as const
+            ).map(([val, label]) => (
+              <button
+                key={val}
+                className={`px-3 py-1.5 text-xs font-semibold transition-colors break-keep ${
+                  period === val ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
+                }`}
+                onClick={() => setPeriod(val)}
+              >
+                {label}
+              </button>
+            ))}
           </div>
           <Button variant="outline" size="sm" onClick={handleRefresh} disabled={isLoading}>
             <RefreshCw size={14} className={isLoading ? 'animate-spin' : ''} />

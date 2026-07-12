@@ -1,5 +1,5 @@
 import { Card, CardContent } from '../../ui/card';
-import { Users, Eye, MousePointerClick, Timer } from 'lucide-react';
+import { Users, Eye, MousePointerClick, Timer, TrendingDown } from 'lucide-react';
 import type { GA4OverviewData } from '../../types/analytics';
 
 interface OverviewCardsProps {
@@ -14,7 +14,7 @@ function formatDuration(seconds: number): string {
 }
 
 /**
- * 4-card summary row: 세션 / 사용자 / 페이지뷰 / 이탈률.
+ * 5-card summary row: 세션 / 사용자 / 페이지뷰 / 체류시간 / 이탈률.
  * Port of CF overview-cards.tsx. Korean labels get break-keep (narrow-card rule).
  */
 export function OverviewCards({ data }: OverviewCardsProps) {
@@ -38,15 +38,21 @@ export function OverviewCards({ data }: OverviewCardsProps) {
       color: 'text-purple-600',
     },
     {
+      label: '체류시간',
+      value: formatDuration(data.avgSessionDuration),
+      icon: Timer,
+      color: 'text-rose-600',
+    },
+    {
       label: '이탈률',
       value: `${(data.bounceRate * 100).toFixed(1)}%`,
-      icon: Timer,
+      icon: TrendingDown,
       color: 'text-amber-600',
     },
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+    <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
       {cards.map((c) => (
         <Card key={c.label}>
           <CardContent className="p-4">

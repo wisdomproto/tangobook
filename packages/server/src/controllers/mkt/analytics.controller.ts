@@ -19,7 +19,7 @@ import {
  * unconfigured, which propagates as a graceful "연결 필요" state to the client.
  */
 
-type AnalyticsBody = { projectId?: string; period?: '7d' | '30d' };
+type AnalyticsBody = { projectId?: string; period?: 'today' | 'yesterday' | '7d' | '30d' };
 
 /** POST /api/mkt/analytics/overview  Body: { projectId, period? } */
 export const analyticsOverview = asyncHandler(async (req: Request, res: Response) => {

@@ -56,7 +56,7 @@ const STALE_TIME = 5 * 60 * 1_000; // 5 minutes
 /** POST /api/mkt/analytics/overview  Body: { projectId, period } */
 export function useGa4Overview(
   projectId: string,
-  period: '7d' | '30d' = '7d',
+  period: 'today' | 'yesterday' | '7d' | '30d' = '7d',
   enabled = !!projectId
 ) {
   return useQuery({
@@ -70,7 +70,7 @@ export function useGa4Overview(
 /** POST /api/mkt/analytics/traffic  Body: { projectId, period } */
 export function useGa4Traffic(
   projectId: string,
-  period: '7d' | '30d' = '30d',
+  period: 'today' | 'yesterday' | '7d' | '30d' = '30d',
   enabled = !!projectId
 ) {
   return useQuery({
@@ -84,7 +84,7 @@ export function useGa4Traffic(
 /** POST /api/mkt/analytics/top-pages  Body: { projectId, period } */
 export function useGa4TopPages(
   projectId: string,
-  period: '7d' | '30d' = '30d',
+  period: 'today' | 'yesterday' | '7d' | '30d' = '30d',
   enabled = !!projectId
 ) {
   return useQuery({
@@ -98,7 +98,7 @@ export function useGa4TopPages(
 /** POST /api/mkt/analytics/country-traffic  Body: { projectId, period } */
 export function useGa4Country(
   projectId: string,
-  period: '7d' | '30d' = '30d',
+  period: 'today' | 'yesterday' | '7d' | '30d' = '30d',
   enabled = !!projectId
 ) {
   return useQuery({
@@ -112,7 +112,7 @@ export function useGa4Country(
 /** POST /api/mkt/analytics/content-performance  Body: { projectId, period } */
 export function useGa4Content(
   projectId: string,
-  period: '7d' | '30d' = '30d',
+  period: 'today' | 'yesterday' | '7d' | '30d' = '30d',
   enabled = !!projectId
 ) {
   return useQuery({
