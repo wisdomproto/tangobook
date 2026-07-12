@@ -1,7 +1,7 @@
 # 자연관찰 릴스 파이프라인 설계
 
 - **날짜**: 2026-07-11
-- **상태**: 설계 승인 대기 → 파일럿(공룡 5권)
+- **상태**: ✅ 구현 완료 (자연관찰 96/101 라이브, 총 142 릴스 IG 예약 2/day). 🔴 구현 중 피벗: 썸네일 히어로=클린표지→**원본표지**(사용자 선택, 이중제목 감수)·시리즈별 색+글로우+배지·**BGM 다양화(9곡)**·`--offset` 청크(OOM회피)·IG interleave. getBundle flakiness fix. 상세 → memory `nature-reels-thumbnail-bgm-2026-07-12`. ⚠️ `feat/nature-reels` main 미병합.
 - **관련**: [명작 릴스 파이프라인](2026-07-09-storybook-reels-batch-pipeline-design.md) · memory `storybook-reels-pipeline-2026-07-10`
 
 ## 배경 / 문제
