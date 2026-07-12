@@ -3,6 +3,7 @@ import { useEditorStore } from '@/store/editor.store';
 import { useStorybooks, useCreateVariant, useDeleteStorybook } from '@/features/storybook';
 import { LevelEditCard } from '@/features/editor/components/LevelEditCard';
 import { AddLevelConfirmModal } from '@/features/editor/components/VariantConfirmModals';
+import { CleanCoverMatrixModal } from '@/features/editor/components/CleanCoverMatrixModal';
 import type { ReadingLevel } from '@tangobook/shared';
 
 const LEVEL_INFO: Record<ReadingLevel, { label: string; age: string; emoji: string }> = {
@@ -92,6 +93,7 @@ export function EditorPanelV2({ storybookId }: { storybookId: string }) {
   const createVariantMutation = useCreateVariant();
   const deleteMutation = useDeleteStorybook();
   const [pendingLevelAdd, setPendingLevelAdd] = useState<ReadingLevel | null>(null);
+  const [showCleanMatrix, setShowCleanMatrix] = useState(false);
 
   const handleAddLevel = useCallback((lv: ReadingLevel) => {
     setPendingLevelAdd(lv);
@@ -153,8 +155,16 @@ export function EditorPanelV2({ storybookId }: { storybookId: string }) {
     <div>
       {/* 책 제목 헤더 — 책별 메타는 각 레벨 카드 안 "책 관리" 탭에 있음 */}
       <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-6 py-3">
-        <div className="flex items-center">
+        <div className="flex items-center justify-between gap-3">
           <span className="text-sm text-slate-600 dark:text-slate-300 truncate">{baseTitle}</span>
+          <button
+            type="button"
+            onClick={() => setShowCleanMatrix(true)}
+            className="shrink-0 whitespace-nowrap rounded-md bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-300 dark:hover:bg-indigo-900/50"
+            title="세계명작+자연관찰 책의 그림체별 클린 표지(텍스트 없는 버전) 현황 · 빈칸=미생성"
+          >
+            🖼️ 그림체별 클린 표지
+          </button>
         </div>
       </div>
 
@@ -215,6 +225,8 @@ export function EditorPanelV2({ storybookId }: { storybookId: string }) {
           }}
         />
       )}
+
+      {showCleanMatrix && <CleanCoverMatrixModal onClose={() => setShowCleanMatrix(false)} />}
     </div>
   );
 }

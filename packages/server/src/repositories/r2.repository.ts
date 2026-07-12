@@ -172,6 +172,7 @@ function toSummary(sb: Storybook): StorybookSummary {
     coversByLang: Object.keys(coversByLang).length > 0 ? coversByLang : undefined,
     cleanCoverImage: cleanCoverImageOut,
     cleanCoversByStyle: Object.keys(cleanCoversByStyle).length > 0 ? cleanCoversByStyle : undefined,
+    availableStyles: sb.availableStyles,
     pageCount: pages.length,
     phonicsLanguage: sb.phonicsConfig?.language,
     hasVideo: hasAudiobookVideo || hasLongformVideo,

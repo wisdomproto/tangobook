@@ -1215,6 +1215,8 @@ export type StorybookSummary = Pick<
   cleanCoverImage?: string;
   /** 그림체별 클린 표지 URL 맵 (`coversByStyle`와 짝). */
   cleanCoversByStyle?: Record<string, string>;
+  /** 노출되는 그림체 목록 (editor2 그림체별 클린 표지 매트릭스 등). */
+  availableStyles?: string[];
   /**
    * 한글 기본 콘텐츠 완성도 — 커리큘럼 마스터 페이지에서 ✅ 완성 여부 판단에 사용.
    * 모든 필드가 true 이면 `complete: true`. 부분 완성은 wip 으로 분류.
