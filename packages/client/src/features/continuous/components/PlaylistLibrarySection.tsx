@@ -32,7 +32,7 @@ export function PlaylistLibrarySection() {
   const coverOf = useMemo(() => {
     const m = new Map<string, string>();
     (books ?? []).forEach((b) => {
-      const cover = b.cleanCoverImage ?? b.coverImage;
+      const cover = b.coverImage;
       if (cover) m.set(b.id, cover);
     });
     return m;

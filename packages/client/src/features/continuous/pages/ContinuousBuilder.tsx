@@ -79,7 +79,7 @@ export default function ContinuousBuilder() {
       for (const [styleId, url] of Object.entries(cbs)) {
         if (url && styleGenreMap[styleId] === styleGenre) {
           return {
-            cover: b.cleanCoversByStyle?.[styleId] ?? url,
+            cover: url,
             genre: GENRE_SLUG_LABEL[styleGenre],
           };
         }
@@ -97,7 +97,7 @@ export default function ContinuousBuilder() {
       }
     }
     if (!genre) genre = classifyGenre(b.artStyle, b.artStyle) ?? undefined;
-    return { cover: b.cleanCoverImage ?? b.coverImage, genre };
+    return { cover: b.coverImage, genre };
   };
 
   const toggle = (id: string) =>

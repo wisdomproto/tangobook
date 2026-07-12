@@ -8,21 +8,19 @@ const book = {
   cleanCoverImage: 'clean.webp',
 } as any;
 describe('BookCover', () => {
-  it('renders clean cover img with localized alt', () => {
+  // 접근 B: 실제 표지가 있으면 그걸 그대로(오버레이 X) — 클린은 굽기 베이스라 노출 안 함.
+  it('renders the real cover (not the clean base) with localized alt, no overlay', () => {
     render(<BookCover book={book} lang="en" overlayTitle />);
     const img = screen.getByRole('img') as HTMLImageElement;
-    expect(img.src).toContain('clean.webp');
+    expect(img.src).toContain('legacy.webp');
     expect(img.alt).toBe('The Frog Prince');
-  });
-  it('shows overlay title text when overlayTitle + clean cover present', () => {
-    render(<BookCover book={book} lang="en" overlayTitle />);
-    expect(screen.getByText('The Frog Prince')).toBeInTheDocument();
-  });
-  it('suppresses overlay on legacy fallback (no clean cover)', () => {
-    const legacyOnly = { ...book, cleanCoverImage: undefined };
-    render(<BookCover book={legacyOnly} lang="en" overlayTitle />);
     expect(screen.queryByText('The Frog Prince')).not.toBeInTheDocument();
-    expect((screen.getByRole('img') as HTMLImageElement).src).toContain('legacy.webp');
+  });
+  it('overlays title only when falling back to the clean base (no real cover)', () => {
+    const cleanOnly = { ...book, coverImage: undefined };
+    render(<BookCover book={cleanOnly} lang="en" overlayTitle />);
+    expect((screen.getByRole('img') as HTMLImageElement).src).toContain('clean.webp');
+    expect(screen.getByText('The Frog Prince')).toBeInTheDocument();
   });
   it('does not render overlay text when overlayTitle=false (caption surfaces)', () => {
     render(<BookCover book={book} lang="ko" overlayTitle={false} />);
