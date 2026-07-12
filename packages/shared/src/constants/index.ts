@@ -1739,6 +1739,9 @@ export const PHONICS_CATEGORIES = ['Level 1', 'Level 2', 'Level 3', 'Level 4', '
 // === YouTube ===
 export { YOUTUBE_CATEGORIES, YOUTUBE_PRIVACY_OPTIONS } from './youtube.js';
 
+// === Cover-title fonts ===
+export * from './cover-fonts.js';
+
 // === Speaking Games ===
 import type { SpeakingDifficulty, SpeakingDifficultyPreset } from '../types/storybook.js';
 
