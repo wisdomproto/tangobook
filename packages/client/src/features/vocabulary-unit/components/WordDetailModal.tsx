@@ -23,8 +23,27 @@ const REVEAL_PAGE_AFTER_CLICKS = 3;
 
 function getDisplayLabel(word: VocabularyUnitWord, lang: Lang): string {
   if (lang === 'ko') return word.korean ?? word.word;
+  // vi/zh/th: 해당 언어 번역 우선(없으면 영어 폴백). 미리보기 배너 getDisplayWord 와 동일 정책.
+  if (lang !== 'en') {
+    const tr = word.nameTranslations?.[lang]?.trim();
+    if (tr) return tr;
+  }
   return word.nameEn ?? word.word;
 }
+
+/** Lang → resolveTtsUrl language 파라미터 (ko→korean, en→english, vi/zh/th 그대로) */
+function ttsLangOf(lang: Lang): 'korean' | 'english' | 'vi' | 'zh' | 'th' {
+  return lang === 'ko' ? 'korean' : lang === 'en' ? 'english' : lang;
+}
+
+/** Lang → Web Speech BCP-47 (directUrl 없을 때 폴백 발음 언어) */
+const SPEECH_LANG: Record<Lang, string> = {
+  ko: 'ko-KR',
+  en: 'en-US',
+  vi: 'vi-VN',
+  zh: 'zh-CN',
+  th: 'th-TH',
+};
 
 /** storybook.key_objects 에서 단어와 매칭되는 KeyObject — TTS/페이지 lookup 공용 헬퍼 */
 function findMatchingKeyObject(
@@ -187,10 +206,10 @@ export function WordDetailModal({
   useEffect(() => {
     let alive = true;
     void (async () => {
-      const text = lang === 'ko' ? (word.korean ?? word.word) : word.word;
+      const text = getDisplayLabel(word, lang);
       const url = await resolveTtsUrl({
         text,
-        language: lang === 'ko' ? 'korean' : 'english',
+        language: ttsLangOf(lang),
         storybookId: storybook?.id,
         directUrl: pickWordTtsUrl(word, lang, storybook),
         identifierPrefix: 'vocab',
@@ -237,10 +256,10 @@ export function WordDetailModal({
       safety = setTimeout(finish, 3500);
       praiseTimersRef.current.push(safety);
       void (async () => {
-        const text = lang === 'ko' ? (word.korean ?? word.word) : word.word;
+        const text = getDisplayLabel(word, lang);
         const url = await resolveTtsUrl({
           text,
-          language: lang === 'ko' ? 'korean' : 'english',
+          language: ttsLangOf(lang),
           storybookId: storybook?.id,
           directUrl: pickWordTtsUrl(word, lang, storybook),
           identifierPrefix: 'vocab',
@@ -249,8 +268,8 @@ export function WordDetailModal({
           playUrl(url, finish);
         } else if ('speechSynthesis' in window) {
           // 단어는 학습 핵심이라 url 못 찾을 때 Web Speech fallback (페이지 TTS 와 정책 다름)
-          const utter = new SpeechSynthesisUtterance(getDisplayLabel(word, lang));
-          utter.lang = lang === 'ko' ? 'ko-KR' : 'en-US';
+          const utter = new SpeechSynthesisUtterance(text);
+          utter.lang = SPEECH_LANG[lang];
           utter.rate = 0.9;
           utter.onend = finish;
           utter.onerror = finish;
@@ -389,6 +408,10 @@ export function WordDetailModal({
             )}
             {lang === 'en' && word.korean && (
               <p className="mt-2 text-xl text-ink-500 font-bold">{word.korean}</p>
+            )}
+            {/* vi/zh/th: 영어 원어를 보조 라벨로(인지 도움) — 메인 라벨과 다를 때만 */}
+            {lang !== 'ko' && lang !== 'en' && (word.nameEn ?? word.word) !== label && (
+              <p className="mt-2 text-xl text-ink-500 font-bold">{word.nameEn ?? word.word}</p>
             )}
           </div>
 
