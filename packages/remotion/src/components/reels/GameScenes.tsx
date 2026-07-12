@@ -66,6 +66,8 @@ const BOOK_WORDS = [
   { img: 'mirror', word: '거울' },
   { img: 'forest', word: '숲' },
   { img: 'castle', word: '성' },
+  { img: 'bed', word: '침대' },
+  { img: 'house', word: '집' },
 ];
 
 export const BookWords: React.FC = () => {
@@ -75,7 +77,14 @@ export const BookWords: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: '#FFF6EE' }}>
       <AbsoluteFill
-        style={{ flexDirection: 'column', alignItems: 'center', paddingTop: 150, gap: 26 }}
+        style={{
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingTop: 90,
+          paddingBottom: 60,
+          gap: 26,
+        }}
       >
         {/* 책 표지 */}
         <div
@@ -545,9 +554,12 @@ export const WritingGame: React.FC = () => {
         </AbsoluteFill>
       )}
 
-      {/* 연필 쓰는 효과음 (따라쓰는 동안) */}
+      {/* 연필 쓰는 효과음 (따라쓰는 동안) + 완성 시 정답음 */}
       <Sequence from={16}>
         <Audio src={staticFile('reels/audio/sfx-draw.mp3')} />
+      </Sequence>
+      <Sequence from={98}>
+        <Audio src={staticFile('reels/audio/praise.mp3')} />
       </Sequence>
       <Caption text="놀이처럼, 글씨 쓰는 법까지" />
     </AbsoluteFill>
