@@ -22,18 +22,23 @@ async function gpost(path: string, body: Record<string, unknown>): Promise<{ id:
 // IG 는 status_code(enum), Threads 는 status(enum) 필드를 씀 → 둘 다 확인.
 // 영상은 처리가 길어 maxAttempts 를 늘려 호출(이미지=20≈30s, 영상=40≈60s).
 async function waitMediaReady(containerId: string, token: string, maxAttempts = 20): Promise<void> {
+  let last = '';
   for (let i = 0; i < maxAttempts; i++) {
     const res = await fetch(
       `${GRAPH}/${containerId}?fields=status_code,status&access_token=${token}`
     );
-    const j = (await res.json()) as { status_code?: string; status?: string };
+    const j = (await res.json().catch(() => ({}))) as {
+      status_code?: string;
+      status?: string;
+      error?: unknown;
+    };
+    last = JSON.stringify(j).slice(0, 400);
     const code = j.status_code || j.status; // IG=status_code, Threads=status
     if (code === 'FINISHED') return;
-    if (code === 'ERROR' || code === 'EXPIRED')
-      throw new Error(`미디어 처리 실패: ${j.status || code || 'ERROR'}`);
+    if (code === 'ERROR' || code === 'EXPIRED') throw new Error(`미디어 처리 실패: ${last}`);
     await new Promise((r) => setTimeout(r, 1500));
   }
-  throw new Error('미디어 처리 타임아웃(컨테이너 준비 안 됨)');
+  throw new Error(`미디어 처리 타임아웃(컨테이너 준비 안 됨) · last=${last}`);
 }
 
 export async function publishFacebook(
