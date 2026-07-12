@@ -3,7 +3,12 @@ import { AbsoluteFill, Audio, staticFile } from 'remotion';
 import { TransitionSeries, linearTiming } from '@remotion/transitions';
 import { fade } from '@remotion/transitions/fade';
 import { BookWords, LineMatchGame, BlockGame, WritingGame } from '../components/reels/GameScenes';
-import { OpeningHook, StorybookReading, PageLink } from '../components/reels/StoryScenes';
+import {
+  OpeningHook,
+  StorybookReading,
+  READING_TOTAL,
+  PageLink,
+} from '../components/reels/StoryScenes';
 import { StyleMorphHook } from '../components/reels/StyleMorphHook';
 import { ContentGrid } from '../components/reels/ContentGrid';
 import { ClosingScene } from '../components/reels/ClosingScene';
@@ -21,7 +26,7 @@ const STYLE_FRAMES = 90;
 
 const SCENES = {
   hook: 120, // 공감 훅
-  intro: 300, // 탱고북이 여러 페이지를 읽어줌 (3쪽 × 100)
+  intro: READING_TOTAL, // 탱고북이 2쪽 읽어줌 (음성 길이에 맞춤)
   bookWords: 95, // 배우는 단어
   block: 118, // 블록(정답 삽화 힌트)
   writing: 100, // 글씨

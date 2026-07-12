@@ -215,7 +215,7 @@ export const StorybookIntro: React.FC = () => {
             padding: '14px 44px',
           }}
         >
-          이제 탱고북이 대신 읽어줘요 📖
+          한글도, 영어도 읽어줘요 📖
         </div>
       </AbsoluteFill>
       <AbsoluteFill
@@ -228,24 +228,22 @@ export const StorybookIntro: React.FC = () => {
 };
 
 // ─────────── ① 탱고북이 여러 페이지를 실제로 읽어준다 ───────────
+// 자막 문장 = 나레이션 음성(같은 Leda TTS) 100% 일치. 페이지 길이 = 음성 길이에 맞춤.
 const READ_PAGES = [
   {
     img: 'reels/read-p1.webp',
-    audio: 'reels/audio/read-p1-trim.mp3',
-    text: '옛날 아주 먼 옛날,\n눈처럼 하얀 백설공주가 살았어요.',
+    audio: 'reels/audio/page1-ko.mp3', // 실제 한글 나레이션(첫 문장) 4.56s
+    text: '옛날 아주 먼 옛날, 피부가 눈처럼 하얀\n백설공주가 살았어요.',
+    frames: 146,
   },
   {
     img: 'reels/read-p2.webp',
-    audio: 'reels/audio/read-p2-trim.mp3',
-    text: '무엇이든 대답하는\n신비한 거울이 있었어요.',
-  },
-  {
-    img: 'reels/read-p3.webp',
-    audio: 'reels/audio/read-p3-trim.mp3',
-    text: '거울이 대답했어요.\n"백설공주가 가장 예뻐요!"',
+    audio: 'reels/audio/page2-en.mp3', // 실제 영어 나레이션(첫 문장) 4.97s
+    text: 'The new queen had a magical mirror\nthat could answer any question.',
+    frames: 156,
   },
 ];
-export const READ_PAGE_FRAMES = 100;
+export const READING_TOTAL = READ_PAGES.reduce((a, p) => a + p.frames, 0); // 248
 
 function ReadingPage({ page }: { page: (typeof READ_PAGES)[number] }) {
   const frame = useCurrentFrame();
@@ -267,7 +265,7 @@ export const StorybookReading: React.FC = () => {
     <AbsoluteFill style={{ backgroundColor: '#1A1A2E' }}>
       <Series>
         {READ_PAGES.map((p, i) => (
-          <Series.Sequence key={i} durationInFrames={READ_PAGE_FRAMES}>
+          <Series.Sequence key={i} durationInFrames={p.frames}>
             <ReadingPage page={p} />
           </Series.Sequence>
         ))}
@@ -285,7 +283,7 @@ export const StorybookReading: React.FC = () => {
             padding: '14px 44px',
           }}
         >
-          이제 탱고북이 대신 읽어줘요 📖
+          한글도, 영어도 읽어줘요 📖
         </div>
       </AbsoluteFill>
     </AbsoluteFill>
