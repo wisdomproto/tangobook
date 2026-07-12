@@ -1,0 +1,238 @@
+{
+  "id": "1773411238317",
+  "lang": "zh",
+  "title": "달과 별자리",
+  "titleT": "月亮和星座",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "해가 지고 어둠이 찾아오면, 밤하늘은 거대한 도화지로 변해요. 수많은 별이 저마다의 자리를 지키며 빛나고 있죠.",
+      "en": "When the sun goes down and darkness comes, the night sky turns into a giant canvas. Lots of stars sparkle, each holding its very own place.",
+      "t": "太阳落山、夜幕降临后，夜空就变成了一张巨大的画纸。数不清的星星各自守着自己的位置，闪闪发光。"
+    },
+    {
+      "n": 2,
+      "ko": "\"찾았다!\" 별들을 선으로 이으면 동물이나 사람의 모양이 나타나요. 이것을 바로 '별자리'라고 불러요.",
+      "en": "\"Found it!\" When you connect the stars with lines, the shape of an animal or a person appears. We call this a 'constellation'.",
+      "t": "\"找到啦！\"把星星用线连起来，就会出现动物或人的形状。这就是\"星座\"。"
+    },
+    {
+      "n": 3,
+      "ko": "북쪽 하늘에는 언제나 같은 자리를 지키는 북극성이 있어요. 길을 잃은 사람들에게 방향을 알려주는 소중한 별이지요.",
+      "en": "Look up at the northern sky, and you'll always see the North Star, faithfully staying in its very own spot. It's a treasured star that helps people who are lost find their way.",
+      "t": "北边的天空中，有一颗总是守在同一个位置的北极星。它是给迷路的人指引方向的珍贵星星。"
+    },
+    {
+      "n": 4,
+      "ko": "북극성을 찾으려면 국자 모양의 북두칠성을 먼저 찾아보세요. 커다란 곰의 꼬리 부분에 있는 일곱 개의 밝은 별이랍니다.",
+      "en": "To find the North Star, first look for the Big Dipper. It looks like a big spoon! They are seven bright stars that make up the tail of the Great Bear.",
+      "t": "想找北极星，先找找勺子形状的北斗七星吧。它是大熊尾巴上的七颗亮晶晶的星星。"
+    },
+    {
+      "n": 5,
+      "ko": "봄에는 사자 모양의 사자자리가 나타나요. 갈기를 휘날리며 밤하늘을 달리는 용맹한 모습이죠.",
+      "en": "In springtime, the Leo constellation appears, looking just like a big lion! With its mane flowing, it looks so brave as it runs across the night sky.",
+      "t": "春天，狮子形状的狮子座出现了。它甩着鬃毛在夜空中奔跑，多么威风呀。"
+    },
+    {
+      "n": 6,
+      "ko": "여름 밤하늘에는 은하수가 강물처럼 흘러요. 그 사이로 거문고자리, 독수리자리, 백조자리가 멋진 여름의 삼각형을 만들지요.",
+      "en": "In the summer night sky, the Milky Way flows like a river. And among them, Lyra, Aquila, and Cygnus make a wonderful Summer Triangle.",
+      "t": "夏天的夜空中，银河像河水一样流淌。天琴座、天鹰座和天鹅座在其中搭出一个漂亮的夏季大三角。"
+    },
+    {
+      "n": 7,
+      "ko": "가을에는 커다란 사각형 모양의 페가수스자리를 볼 수 있어요. 날개 달린 천마가 밤하늘을 날아오르는 모습이에요.",
+      "en": "In autumn, you can see the big square shape of the Pegasus constellation. It looks just like a winged horse soaring through the night sky!",
+      "t": "秋天，可以看到大大的四边形的飞马座。那是一匹长着翅膀的天马在夜空中飞翔的样子。"
+    },
+    {
+      "n": 8,
+      "ko": "겨울에는 가장 화려한 오리온자리가 나타나요. 허리띠처럼 나란히 놓인 세 개의 별이 사냥꾼의 멋진 모습을 보여주죠.",
+      "en": "In winter, the brightest and most beautiful Orion constellation appears. Three stars, lined up just like a belt, show us the hunter looking so cool!",
+      "t": "冬天，最耀眼的猎户座登场了。像腰带一样排成一排的三颗星星，展现出猎人神气的模样。"
+    },
+    {
+      "n": 9,
+      "ko": "별자리는 지구가 태양 주위를 돌기 때문에 계절마다 조금씩 다르게 보여요. 제자리에 있는 별들을 우리가 다른 방향에서 \n보는 거예요.",
+      "en": "Constellations look a little different each season because our Earth travels around the Sun. The stars themselves stay right where they are, but we get to see them from a different spot!",
+      "t": "因为地球绕着太阳转，所以每个季节看到的星座都有点不一样。星星们还在原地，是我们从不同的方向\n看它们呀。"
+    },
+    {
+      "n": 10,
+      "ko": "망원경으로 별을 보면 훨씬 더 밝고 크게 볼 수 있어요. 보석처럼 반짝이는 별들의 진짜 색깔도 알 수 있답니다.",
+      "en": "When you look at stars through a telescope, you can see them so much brighter and bigger! You can even learn the real colors of the stars twinkling like precious jewels.",
+      "t": "用望远镜看星星，会看得更亮更大。还能看到像宝石一样闪烁的星星们真正的颜色呢。"
+    },
+    {
+      "n": 11,
+      "ko": "별자리에는 그리스 로마 신화 같은 재미있는 이야기들이 숨어 있어요. 옛날 사람들은 별을 보며 수많은 상상을 했지요.",
+      "en": "Hidden within the constellations are fun stories, just like the Greek and Roman myths. Long, long ago, people looked up at the stars and imagined so many wonderful things.",
+      "t": "星座里藏着许多有趣的故事，比如希腊罗马神话。古时候的人们仰望星空，展开了无数的想象。"
+    },
+    {
+      "n": 12,
+      "ko": "태양이 지나는 길목에 있는 12개의 별자리를 **'황도 12궁'**이라고 불러요. 여러분이 태어난 달의 별자리는 무엇인가요?",
+      "en": "The twelve groups of stars found along the path the sun travels are called the **'12 Zodiac Signs'**. What's your star sign, the one for the month you were born?",
+      "t": "太阳经过的路上的12个星座，被称为**\"黄道十二宫\"**。你出生那个月的星座是什么呢？"
+    },
+    {
+      "n": 13,
+      "ko": "\"슈우웅!\" 가끔 별이 떨어지는 것 같은 '유성(별똥별)'을 볼 수 있어요. 이건 별이 아니라 우주의 먼지 조각이 타는 거예요.",
+      "en": "\"Whoosh!\" Sometimes, we can see something that looks like a star falling, called a 'shooting star'. But it's not a star at all! It's actually a tiny piece of space dust burning up.",
+      "t": "\"嗖——！\"有时能看到好像星星掉下来的\"流星\"。其实那不是星星，而是宇宙里的小尘埃在燃烧。"
+    },
+    {
+      "n": 14,
+      "ko": "별자리는 아주 옛날부터 배를 타는 사람들이나 여행자들에게 소중한 나침반이 되어주었답니다.",
+      "en": "Long, long ago, constellations served as a precious compass for sailors and travelers.",
+      "t": "从很久以前开始，星座就是航海的人和旅行者们珍贵的指南针。"
+    },
+    {
+      "n": 15,
+      "ko": "별들은 사실 아주 멀리 떨어져 있어요. 우리 눈에는 가까워 보여도 빛의 속도로 수만 년을 가야 할 만큼 멀답니다.",
+      "en": "Stars are actually very, very far away. To our eyes, they might look close, but they're so far away that it would take tens of thousands of years to reach them, even if you could fly as fast as light!",
+      "t": "其实星星们离我们非常非常远。虽然看起来很近，可就算用光的速度，也要飞上几万年才能到呢。"
+    },
+    {
+      "n": 16,
+      "ko": "깜깜한 밤을 빛으로 채워주는 아름다운 별자리들은 정말 우주가 우리에게 주는 신비로운 선물이지요?",
+      "en": "Aren't the beautiful constellations, filling the dark night with their light, truly a wondrous gift from the universe to us?",
+      "t": "用光芒填满漆黑夜晚的美丽星座，真是宇宙送给我们的神奇礼物，对不对？"
+    },
+    {
+      "n": 17,
+      "ko": "계절마다 바뀌는 화려한 별자리와 반짝이는 성운들을 광활한 밤하늘 배경 속에서 자세히 살펴보세요!",
+      "en": "Explore the beautiful constellations that change with each season, and the sparkling nebulae, all set against the vast night sky!",
+      "t": "在辽阔的夜空背景中，仔细看看随季节变换的绚丽星座和闪闪发光的星云吧！"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 밤하늘의 이야기꾼 별자리! 다음엔 어떤 친구를 만나러 갈까요?",
+      "en": "I'm Constellation, the night sky's storyteller! Who should I go meet next?",
+      "t": "我是夜空中的故事大王星座！接下来我们去见哪位朋友呢？"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "별",
+      "en": "Star",
+      "t": "星星"
+    },
+    {
+      "i": 1,
+      "korean": "하늘",
+      "en": "Sky",
+      "t": "天空"
+    },
+    {
+      "i": 2,
+      "korean": "북극성",
+      "en": "North Star",
+      "t": "北极星"
+    },
+    {
+      "i": 3,
+      "korean": "은하수",
+      "en": "Milky Way",
+      "t": "银河"
+    },
+    {
+      "i": 4,
+      "korean": "망원경",
+      "en": "telescope",
+      "t": "望远镜"
+    },
+    {
+      "i": 5,
+      "korean": "별똥별",
+      "en": "shooting star",
+      "t": "流星"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "밤하늘을 환히 비추는 달과 반짝이는 별자리들을 만나봐요. 보름달과 초승달, 그리고 옛이야기 속 별자리들의 모습을 함께 올려다보며 우주의 신비를 아이와 함께 느껴 보세요.",
+      "t": "来认识照亮夜空的月亮和闪闪发光的星座吧。和孩子一起仰望满月、月牙，还有古老传说中的星座，共同感受宇宙的神奇。"
+    },
+    "lessons": [
+      {
+        "ko": "북극성과 계절마다 바뀌는 별자리를 찾아보며 밤하늘을 관찰하는 눈을 키워요.",
+        "t": "通过寻找北极星和随季节变换的星座，培养观察夜空的眼光。"
+      },
+      {
+        "ko": "별을 이어 그림을 그리고 이야기를 지어낸 옛사람들처럼 상상력을 키워요.",
+        "t": "像连星成画、编织故事的古人一样，培养孩子的想象力。"
+      },
+      {
+        "ko": "별자리가 길 잃은 사람들의 나침반이 되어 주었다는 걸 알아요.",
+        "t": "了解星座曾是迷路之人的指南针。"
+      }
+    ],
+    "readingTips": [
+      {
+        "ko": "밤하늘 이야기답게 조용하고 신비로운 목소리로 읽다가, 별똥별 장면에서는 \"슈우웅!\" 하고 손으로 포물선을 그려 주세요.",
+        "t": "请用安静而神秘的声音来读这个夜空的故事，读到流星的场景时，喊一声\"嗖——！\"并用手画出一道弧线。"
+      },
+      {
+        "ko": "\"국자 모양 북두칠성을 찾으면 무엇을 알 수 있을까?\" 물어보고 북극성 찾는 방법을 함께 익혀 봐요.",
+        "t": "问问孩子\"找到勺子形状的北斗七星，能知道什么呢？\"，一起学习寻找北极星的方法吧。"
+      },
+      {
+        "ko": "맑은 날 밤, 아이와 함께 하늘을 올려다보세요. 검은 종이에 별 스티커를 붙여 나만의 별자리를 만들고 이름과 이야기를 지어 보는 놀이도 좋아요.",
+        "t": "晴朗的夜晚，和孩子一起仰望天空吧。也可以在黑色纸上贴星星贴纸，创造属于自己的星座，再给它起名字、编故事，都是很好的游戏。"
+      }
+    ],
+    "faq": [
+      {
+        "q_ko": "달과 별자리 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 3~7세 밤하늘 좋아하는 아이에게 적합해요.",
+        "q_t": "《月亮和星座》这本书推荐给几岁的孩子？",
+        "a_t": "适合3至7岁喜欢夜空的孩子。"
+      },
+      {
+        "q_ko": "달과 별자리는 무엇인가요?",
+        "a_ko": "달은 지구 둘레를 도는 우리의 친구 위성이에요. 별자리는 밤하늘 별을 이은 그림으로 큰곰자리·전갈자리 등이 있어요.",
+        "q_t": "月亮和星座是什么？",
+        "a_t": "月亮是绕着地球转的我们的朋友——卫星。星座是把夜空中的星星连起来的图画，有大熊座、天蝎座等等。"
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'달, 별, 별자리, 밤, 우주, 보름달, 초승달' 같은 우주 명사를 만나요.",
+        "q_t": "孩子能学到哪些词语？",
+        "a_t": "会接触到\"月亮、星星、星座、夜晚、宇宙、满月、月牙\"等宇宙类词语。"
+      },
+      {
+        "q_ko": "달은 왜 모양이 바뀌어요?",
+        "a_ko": "달이 지구를 도는 동안 햇빛이 달의 다른 쪽을 비춰서 보이는 모양이 매일 조금씩 달라져요. 28일 주기로 반복돼요.",
+        "q_t": "月亮为什么会变形状？",
+        "a_t": "月亮绕地球转的时候，阳光照到月亮的不同位置，所以我们看到的形状每天都会有点变化。它以28天为一个周期循环。"
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "없어요. 따뜻한 자연관찰 책이에요.",
+        "q_t": "书里有可怕的场景吗？",
+        "a_t": "没有。这是一本温暖的自然观察绘本。"
+      },
+      {
+        "q_ko": "활동 추천?",
+        "a_ko": "밤하늘 별 보기, 달 모양 28일 관찰 일기, 별자리 종이접기, 큰곰자리 그리기 같은 활동이 좋아요.",
+        "q_t": "有哪些推荐的亲子活动？",
+        "a_t": "可以看夜空数星星、记录28天月相观察日记、折星座折纸，或者画大熊座，这些活动都很不错。"
+      },
+      {
+        "q_ko": "영어로?",
+        "a_ko": "네, Moon and Constellations 영어 버전이 함께 제공돼요.",
+        "q_t": "可以用英语阅读吗？",
+        "a_t": "可以，同时提供英文版《Moon and Constellations》。"
+      },
+      {
+        "q_ko": "비슷한 책은?",
+        "a_ko": "'태양계', '은하·블랙홀' 같은 우주 시리즈가 함께 사랑받아요.",
+        "q_t": "还有类似的书吗？",
+        "a_t": "《太阳系》《银河与黑洞》等宇宙系列也同样深受喜爱。"
+      }
+    ]
+  }
+}

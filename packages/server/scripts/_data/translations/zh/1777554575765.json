@@ -1,0 +1,268 @@
+{
+  "id": "1777554575765",
+  "lang": "zh",
+  "title": "참새",
+  "titleT": "麻雀",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "따스한 햇살이 내리쬐는 아침이야. 어디선가 즐거운 노랫소리가 들려!",
+      "en": "It's a warm, sunny morning. Somewhere, a cheerful song is playing.",
+      "t": "暖暖的阳光洒下来的清晨。不知从哪里传来了欢快的歌声！"
+    },
+    {
+      "n": 2,
+      "ko": "짹짹! 작고 귀여운 참새들이 나타났어.",
+      "en": "Chirp, chirp! Little, cute sparrows appeared in a flock!",
+      "t": "叽叽喳喳！又小又可爱的麻雀们出现啦。"
+    },
+    {
+      "n": 3,
+      "ko": "참새는 갈색이랑 검은색 무늬 옷을 입었어. 덤불 속에 숨으면 쏙 안 보이지!",
+      "en": "The sparrow is dressed in brown and black patterns. When it hides in the bushes, you can hardly see it.",
+      "t": "麻雀穿着褐色和黑色斑纹的衣裳。躲进灌木丛里就一下子看不见了！"
+    },
+    {
+      "n": 4,
+      "ko": "부리가 짧고 단단해. 딱딱한 곡식도 쉽게 까서 먹어!",
+      "en": "Its beak is short, strong, and shaped like a cone. It can easily crack open and eat even tough seed shells.",
+      "t": "嘴巴又短又坚硬。就算是硬硬的谷粒，也能轻松剥开来吃！"
+    },
+    {
+      "n": 5,
+      "ko": "참새는 걷지 않아. 두 발로 톡톡 뛰어다니지!",
+      "en": "Sparrows don't walk around. They go hop-hop on their two feet! They move so quickly and nimbly.",
+      "t": "麻雀不会走路。它用两只脚一蹦一蹦地跳来跳去！"
+    },
+    {
+      "n": 6,
+      "ko": "날개는 작지만 아주 튼튼해. 화살처럼 빠르게 날아가!",
+      "en": "Their little wings are super strong! They can zip through short distances, fast as an arrow.",
+      "t": "翅膀虽然小，却非常有力。飞起来像箭一样快！"
+    },
+    {
+      "n": 7,
+      "ko": "물에 몸을 첨벙첨벙 담가 깃털을 씻어. 먼지를 털어내는 거야!",
+      "en": "I love to wash myself where the water splashes! I shake off all the dust hiding in my feathers.",
+      "t": "它把身子扑通扑通泡进水里，清洗羽毛。是在抖掉灰尘呢！"
+    },
+    {
+      "n": 8,
+      "ko": "모래에 몸을 비비기도 해. 나쁜 벌레를 쫓아내는 거야!",
+      "en": "They love to take sand baths too! They rub their bodies in the super soft sand, chasing away any naughty bugs.",
+      "t": "有时还会在沙子里蹭一蹭身子。是在赶走坏虫子呢！"
+    },
+    {
+      "n": 9,
+      "ko": "여름엔 벌레를 잡아먹고, 가을엔 곡식을 냠냠 먹어.",
+      "en": "Chomp chomp! In summer, they eat bad bugs, and in autumn, they munch on yummy, ripe grains.",
+      "t": "夏天捕食虫子，秋天就美美地吃谷粒。"
+    },
+    {
+      "n": 10,
+      "ko": "지푸라기를 물어와 아늑한 집을 만들어. 정말 부지런하지?",
+      "en": "They build nests under roof tiles or in tree holes. They bring straw to make a cozy home.",
+      "t": "它衔来稻草，搭起温馨的家。真勤快吧？"
+    },
+    {
+      "n": 11,
+      "ko": "둥지 안은 깃털이랑 부드러운 풀로 가득해. 포근포근 따뜻하지!",
+      "en": "The nest is full of feathers and soft grass. It's a super warm place to lay eggs and keep them cozy.",
+      "t": "巢里铺满了羽毛和柔软的草。暖融融的，可舒服啦！"
+    },
+    {
+      "n": 12,
+      "ko": "삐약삐약! 아기 참새들이 태어났어. 엄마 밥을 기다리지.",
+      "en": "\"Cheep, cheep!\" Little baby sparrows with yellow mouths were born. They are waiting for their mommy's food.",
+      "t": "叽叽叽！小麻雀们出生啦。它们正等着妈妈喂食呢。"
+    },
+    {
+      "n": 13,
+      "ko": "엄마랑 아빠가 쉬지 않고 먹이를 날라줘. 아기들이 쑥쑥 자라지!",
+      "en": "Mommy and Daddy are always bringing food. They're helping their babies grow big and strong!",
+      "t": "爸爸妈妈不停地叼来食物。宝宝们一天天茁壮成长！"
+    },
+    {
+      "n": 14,
+      "ko": "아기 참새가 처음으로 둥지 밖으로 나왔어. 두근두근 첫 날개짓을 배우지!",
+      "en": "The little sparrow ventured out of its nest for the very first time. With a fluttery heart, it learned to flap its wings.",
+      "t": "小麻雀第一次飞出了巢。心怦怦跳着，学起了第一次扑翅膀！"
+    },
+    {
+      "n": 15,
+      "ko": "겨울이 오면 친구들이랑 옹기종기 모여. 서로 몸을 맞대고 따뜻하게 지내지.",
+      "en": "When winter comes, we gather more often with our friends. We snuggle up to each other to keep warm from the cold as we wait for spring.",
+      "t": "冬天来了，就和伙伴们挤在一起。彼此依偎着，暖暖地度过。"
+    },
+    {
+      "n": 16,
+      "ko": "작지만 용감하고 부지런한 참새! 정말 소중한 친구야.",
+      "en": "Small, but brave and busy, a little guardian right around us – aren't sparrows truly precious animals?",
+      "t": "虽然小小的，却又勇敢又勤快的麻雀！真是个珍贵的朋友。"
+    },
+    {
+      "n": 17,
+      "ko": "짧은 부리랑 귀여운 뺨 무늬를 찾아봐!",
+      "en": "Let's take a close look at the sparrow's little beak and its cute cheek patterns!",
+      "t": "找一找短短的嘴巴和脸颊上可爱的斑纹吧！"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 부지런한 우리 이웃 참새! 자, 이제 다음 친구를 만나러 가볼까?",
+      "en": "I'm your busy neighborhood sparrow! Who will I go to see next?",
+      "t": "我就是勤快的邻家麻雀！好啦，现在去见下一个朋友吧？"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "나뭇가지",
+      "en": "Branch",
+      "t": "树枝"
+    },
+    {
+      "i": 1,
+      "korean": "잎",
+      "en": "Leaf",
+      "t": "叶子"
+    },
+    {
+      "i": 2,
+      "korean": "나무",
+      "en": "Tree",
+      "t": "树"
+    },
+    {
+      "i": 3,
+      "korean": "하늘",
+      "en": "Sky",
+      "t": "天空"
+    },
+    {
+      "i": 4,
+      "korean": "태양",
+      "en": "Sun",
+      "t": "太阳"
+    },
+    {
+      "i": 5,
+      "korean": "참새",
+      "en": "Sparrow",
+      "t": "麻雀"
+    },
+    {
+      "i": 6,
+      "korean": "부리",
+      "en": "beak",
+      "t": "喙"
+    },
+    {
+      "i": 7,
+      "korean": "곡식",
+      "en": "grain",
+      "t": "谷粒"
+    },
+    {
+      "i": 8,
+      "korean": "날개",
+      "en": "wing",
+      "t": "翅膀"
+    },
+    {
+      "i": 9,
+      "korean": "깃털",
+      "en": "feather",
+      "t": "羽毛"
+    },
+    {
+      "i": 10,
+      "korean": "둥지",
+      "en": "nest",
+      "t": "鸟巢"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "짹짹 울며 우리 동네 이곳저곳을 부지런히 날아다니는 작은 참새를 만나봐요. 가족과 함께 둥지를 짓고 알을 품는 참새의 일상을 따라가며 가까이 사는 새 친구를 함께 살펴보세요.",
+      "t": "来认识一下叽叽喳喳叫着、在我们小区里勤快飞来飞去的小麻雀吧。跟随它和家人一起筑巢、孵蛋的日常，和孩子一起观察这位住在身边的鸟儿朋友。"
+    },
+    "lessons": [
+      {
+        "ko": "둥지를 짓고 쉬지 않고 먹이를 나르는 참새의 부지런함을 배워요.",
+        "t": "学习麻雀筑巢、不停叼来食物的勤劳。"
+      },
+      {
+        "ko": "겨울에 서로 몸을 맞대고 따뜻하게 지내는 참새처럼 함께하는 마음을 느껴요.",
+        "t": "像冬天彼此依偎取暖的麻雀一样，感受相互陪伴的心意。"
+      },
+      {
+        "ko": "우리 동네에서 늘 만나는 새를 자세히 들여다보는 관찰의 눈을 키워요.",
+        "t": "培养仔细观察小区里常见的鸟儿的眼力。"
+      }
+    ],
+    "readingTips": [
+      {
+        "ko": "\"짹짹!\" 참새 소리와 \"삐약삐약\" 아기 새 소리를 다르게 연기해 주세요. 아기 새는 더 작고 여리게요.",
+        "t": "\"叽叽喳喳！\"麻雀的叫声和\"叽叽叽\"雏鸟的叫声要念得不一样。雏鸟的声音要更小、更细嫩。"
+      },
+      {
+        "ko": "\"참새는 왜 모래에 몸을 비빌까?\" 물어보고 나쁜 벌레를 쫓는 목욕이라는 답을 함께 찾아봐요.",
+        "t": "问问\"麻雀为什么在沙子里蹭身子呢？\"，一起找出\"这是赶走坏虫子的沙浴\"这个答案吧。"
+      },
+      {
+        "ko": "창밖이나 공원에서 참새를 찾아보세요. 걷지 않고 톡톡 뛰어다니는지, 뺨에 무늬가 있는지 책에서 본 대로 확인하는 재미가 커요.",
+        "t": "在窗外或公园里找一找麻雀吧。看看它是不是不走路、一蹦一蹦地跳，脸颊上有没有斑纹，像书里那样一一对照，可有意思了。"
+      }
+    ],
+    "faq": [
+      {
+        "q_ko": "참새 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 4~6세 아이에게 딱 좋아요. 매일 동네에서 만나는 새라서 책을 읽은 뒤 바로 관찰로 이어지기 가장 좋은 책이에요.",
+        "q_t": "麻雀这本书推荐给几岁的孩子呢？",
+        "a_t": "很适合4~6岁的孩子。因为它是每天在小区里都能见到的鸟，所以是读完就能马上去观察、最合适的一本书。"
+      },
+      {
+        "q_ko": "이 책에서 무엇을 배울 수 있나요?",
+        "a_ko": "톡톡 뛰어다니는 걸음, 물과 모래로 하는 목욕, 둥지를 짓고 아기를 키우는 모습까지 참새의 일 년 생활을 배워요. 작아도 부지런하고 용감한 참새의 매력을 느낄 수 있어요.",
+        "q_t": "这本书能学到什么呢？",
+        "a_t": "从一蹦一蹦的步伐、用水和沙子洗澡，到筑巢养育宝宝，可以了解麻雀一整年的生活。也能感受到麻雀虽小却勤快、勇敢的魅力。"
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "참새, 부리, 날개, 깃털, 둥지, 곡식, 나무, 나뭇가지, 하늘처럼 새와 자연에 관한 기초 단어를 익힐 수 있어요.",
+        "q_t": "能学到哪些单词呢？",
+        "a_t": "可以学到麻雀、喙、翅膀、羽毛、鸟巢、谷粒、树、树枝、天空等有关鸟儿和自然的基础单词。"
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "없어요. 처음부터 끝까지 따스한 햇살 아래 참새 가족의 일상이 포근하게 이어져요. 잠자리 독서로도 좋아요.",
+        "q_t": "有没有可怕的场面呢？",
+        "a_t": "没有。从头到尾都是暖阳下麻雀一家温馨的日常。当作睡前读物也很好。"
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "참새처럼 두 발을 모아 톡톡 뛰기 놀이를 해 보세요. 산책길에 참새를 만나면 몇 마리인지 세어 보고, 무얼 먹고 있는지 함께 이야기해 봐요.",
+        "q_t": "读完书后适合一起做的活动有哪些呢？",
+        "a_t": "像麻雀一样并拢双脚一蹦一蹦地跳一跳吧。散步时遇到麻雀，数一数有几只，聊一聊它们在吃什么。"
+      },
+      {
+        "q_ko": "아이와 참새를 관찰할 때 뭘 보면 좋나요?",
+        "a_ko": "걷지 않고 두 발로 톡톡 뛰는 모습, 뺨의 검은 무늬, 짧고 단단한 부리를 찾아보세요. 책에서 본 특징을 실제로 확인하면 관찰력이 쑥 자라요.",
+        "q_t": "和孩子观察麻雀时看什么比较好呢？",
+        "a_t": "找一找它不走路、用两只脚一蹦一蹦跳的样子，脸颊上的黑斑，还有又短又硬的嘴巴吧。把书里看到的特征在现实中一一确认，观察力就会突飞猛进。"
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, 영어 버전이 함께 제공돼요. sparrow, nest 같은 단어를 그림과 함께 자연스럽게 만날 수 있어요.",
+        "q_t": "也能用英语阅读吗？",
+        "a_t": "可以，还附有英文版。可以结合图画，自然而然地认识 sparrow、nest 这些单词。"
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책은요?",
+        "a_ko": "하늘 동물 친구들 카테고리의 「타조」와 함께 읽어 보세요. 우리 곁의 작은 새와 세상에서 제일 큰 새, 둘을 비교하는 재미가 있어요.",
+        "q_t": "有没有类似风格的其他书呢？",
+        "a_t": "和天空动物朋友系列的《鸵鸟》一起读吧。把身边的小鸟和世界上最大的鸟放在一起比一比，可有意思了。"
+      }
+    ]
+  }
+}

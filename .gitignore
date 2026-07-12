@@ -90,3 +90,6 @@ packages/server/scripts/_backup*/
 
 # 학습만화 자산은 R2 저장(comic-assets.routes.ts) — 리포에 커밋하지 않음
 packages/client/public/comic-assets/
+
+# Encrypted Meta token bundle for one-off ad-reel publish (local secret, never commit)
+packages/server/scripts/_enc.txt

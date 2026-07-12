@@ -156,7 +156,9 @@
       "Bash(node packages/server/scripts/list-jack-illustrations.mjs)",
       "Bash(node packages/server/scripts/check-r2-versioning.mjs)",
       "Bash(node -e \"let s=''; process.stdin.on\\('data',c=>s+=c\\); process.stdin.on\\('end',\\(\\)=>{const d=JSON.parse\\(s\\).data; console.log\\('artStyle:', JSON.stringify\\(d.artStyle\\)\\);}\\);\")",
-      "Bash(cat C:/projects/tangobook/.claude/launch.json 2>&1)"
+      "Bash(cat C:/projects/tangobook/.claude/launch.json 2>&1)",
+      "Bash(node -e \"const fs=require\\('fs'\\);const dir='packages/server/scripts/_data/translations/th';const files=fs.readdirSync\\(dir\\);let empty=0,total=0;for\\(const f of files\\){const j=JSON.parse\\(fs.readFileSync\\(dir+'/'+f,'utf8'\\)\\);const s=JSON.stringify\\(j\\);total++;if\\(/\\\\\"t\\\\\":\\\\s*\\\\\"\\\\\"/.test\\(s\\)\\)empty++;}console.log\\('th files:',total,'with empty t:',empty\\)\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const dir='packages/server/scripts/_data/translations/zh';const files=fs.readdirSync\\(dir\\);let empty=0,total=0;for\\(const f of files\\){const j=JSON.parse\\(fs.readFileSync\\(dir+'/'+f,'utf8'\\)\\);const s=JSON.stringify\\(j\\);total++;if\\(/\\\\\"t\\\\\":\\\\s*\\\\\"\\\\\"/.test\\(s\\)\\)empty++;}console.log\\('zh files:',total,'with empty t:',empty\\)\")"
     ]
   },
   "hooks": {

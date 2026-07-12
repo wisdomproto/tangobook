@@ -1,0 +1,268 @@
+{
+  "id": "1773363971764",
+  "lang": "th",
+  "title": "뱀",
+  "titleT": "งู",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "풀숲에서 스르륵 소리가 나. 다리가 없는데 누구보다 빠른 친구, 바로 뱀이야!",
+      "en": "A \"swish\" sound comes from the grass. It has no legs, but this friend moves faster than anyone! It's a snake!",
+      "t": "มีเสียง ฟืดฟาด ดังมาจากพงหญ้า เพื่อนที่ไม่มีขาแต่เร็วกว่าใคร นั่นก็คืองูนั่นเอง!"
+    },
+    {
+      "n": 2,
+      "ko": "뱀 몸은 단단하고 매끄러운 비늘로 덮여 있어. 거친 땅 위에서도 거뜬히 다니지!",
+      "en": "A snake's whole body is covered in hard, smooth scales. Thanks to these scales, they can slither and slide even over rough ground without getting hurt!",
+      "t": "ตัวของงูปกคลุมด้วยเกล็ดแข็งลื่นเป็นมัน จึงเลื้อยไปบนพื้นขรุขระได้สบายๆ เลยล่ะ!"
+    },
+    {
+      "n": 3,
+      "ko": "낼름낼름! 뱀은 갈라진 혀를 내밀어 냄새를 맡아. 먹이가 어디 있는지 찾는 거야.",
+      "en": "\"Flick, flick!\" The snake sticks out its forked tongue to sniff the air. With its tongue, it finds where its food is, and even where its friends are!",
+      "t": "แลบลิ้นแผล็บๆ! งูแลบลิ้นสองแฉกออกมาดมกลิ่น เพื่อหาว่าเหยื่ออยู่ตรงไหนไงล่ะ"
+    },
+    {
+      "n": 4,
+      "ko": "뱀은 눈을 깜빡이지 않아. 항상 눈을 크게 뜨고 있는 것처럼 보이지!",
+      "en": "Snakes don't have eyelids, so they never blink! Instead, clear scales act like little shields to protect their eyes, making them always look big and wide open.",
+      "t": "งูไม่กะพริบตาเลยนะ เลยดูเหมือนลืมตาโตอยู่ตลอดเวลาไงล่ะ!"
+    },
+    {
+      "n": 5,
+      "ko": "뱀은 배를 땅에 대고 구불구불 움직여. 정말 신기하지?",
+      "en": "Snakes push against the ground with the wide scales on their tummies to slither forward. Isn't their wiggly-wobbly way of moving just so amazing?",
+      "t": "งูเอาท้องแนบพื้นแล้วเลื้อยคดเคี้ยวไปมา น่าอัศจรรย์จริงๆ เลยใช่ไหม?"
+    },
+    {
+      "n": 6,
+      "ko": "입은 아주 크게 벌어져. 자기 머리보다 큰 먹이도 꿀꺽 삼킬 수 있어!",
+      "en": "Oh, wow! A snake's jaw is so, so special. Its jawbones can open super-duper wide, up and down, so it can swallow a whole meal that's even bigger than its own head in just one big gulp!",
+      "t": "ปากของมันอ้าได้กว้างมากๆ ขนาดเหยื่อที่ตัวใหญ่กว่าหัวตัวเองก็กลืน อึ้บ ลงไปได้เลย!"
+    },
+    {
+      "n": 7,
+      "ko": "몸이 커지면 허물을 벗어. 쏙 빠져나오면 반짝반짝 새 비늘이 나타나!",
+      "en": "As their bodies grow bigger, they shed their old skin, just like taking off old clothes. Once they've slipped out from head to tail, their sparkling new scales appear!",
+      "t": "พอตัวโตขึ้นมันจะลอกคราบ พอถอดคราบออกมาปุ๊บ เกล็ดใหม่แวววาวก็ปรากฏขึ้น!"
+    },
+    {
+      "n": 8,
+      "ko": "뱀은 햇볕 쬐는 걸 좋아해. 바위 위에 올라가 몸을 따뜻하게 데우지.",
+      "en": "Snakes love to soak up the sun! They can't make their bodies warm all by themselves, so they climb onto a rock and let the warm sun fill them with energy.",
+      "t": "งูชอบอาบแดดมาก มันจะเลื้อยขึ้นไปบนก้อนหินเพื่อให้ตัวอุ่นๆ"
+    },
+    {
+      "n": 9,
+      "ko": "첨벙! 수영을 잘하는 뱀도 있어. 물속에서 물고기를 잡기도 해!",
+      "en": "Splash! Some snakes are really good at swimming. They can hold their breath underwater to catch fish, and even cross rivers!",
+      "t": "ตูม! มีงูที่ว่ายน้ำเก่งด้วยนะ จับปลาในน้ำได้อีกต่างหาก!"
+    },
+    {
+      "n": 10,
+      "ko": "뱀은 알을 낳아. 알 속에서 아기 뱀들이 무럭무럭 자라지.",
+      "en": "Mommy snake lays eggs with tough, white shells. Inside the eggs, the baby snakes grow big and strong, getting ready to come out into the world.",
+      "t": "งูวางไข่ ในไข่มีลูกงูตัวน้อยเติบโตอย่างแข็งแรง"
+    },
+    {
+      "n": 11,
+      "ko": "톡톡! 아기 뱀은 코끝으로 알껍질을 뚫고 나와. 태어나자마자 혼자 먹이를 찾아 떠나!",
+      "en": "Tap, tap! The baby snake uses its special 'egg tooth,' right on the tip of its nose, to break free from its eggshell. As soon as it hatches, it wiggles around all by itself and goes off to find something delicious to eat!",
+      "t": "ต๊อกๆ! ลูกงูใช้ปลายจมูกเจาะเปลือกไข่ออกมา พอเกิดปุ๊บก็ออกเดินทางหาอาหารเองได้เลย!"
+    },
+    {
+      "n": 12,
+      "ko": "뱀은 쥐랑 벌레를 잡아먹어. 숲을 지켜주는 고마운 친구야!",
+      "en": "Snakes eat mice and insects, which helps keep nature in balance. They're such helpful friends! So, we shouldn't ever bother them, should we?",
+      "t": "งูคอยจับหนูกับแมลงกิน เป็นเพื่อนแสนดีที่ช่วยปกป้องผืนป่าเลยนะ!"
+    },
+    {
+      "n": 13,
+      "ko": "독을 가진 뱀도 있어. 멀리서 바라보는 게 안전해!",
+      "en": "Some snakes have strong poison. They use their fangs to put their prey to sleep or to protect themselves. It's safe to watch them from far away.",
+      "t": "มีงูที่มีพิษด้วยนะ มองดูจากที่ไกลๆ จะปลอดภัยกว่า!"
+    },
+    {
+      "n": 14,
+      "ko": "추운 겨울이 오면 땅속에서 쿨쿨 겨울잠을 자. 봄이 올 때까지 푹 쉬지.",
+      "en": "When the cold winter comes, the snakes gather with their friends and settle down for a long, long winter sleep deep underground or in cozy cracks in the rocks. They rest ever so deeply until spring finally arrives!",
+      "t": "พอฤดูหนาวอันหนาวเหน็บมาถึง มันจะนอนจำศีลหลับปุ๋ยอยู่ใต้ดิน พักผ่อนเต็มที่จนกว่าฤดูใบไม้ผลิจะมาถึง"
+    },
+    {
+      "n": 15,
+      "ko": "뱀은 몸을 자유자재로 구불구불 구부릴 수 있어. 좁은 틈도 쏙 빠져나가지!",
+      "en": "Snakes have so many bones! Thanks to hundreds of backbones and ribs, they can bend their bodies any way they like and easily slip through even the narrowest gaps.",
+      "t": "งูโค้งงอตัวคดเคี้ยวได้ตามใจชอบ ช่องแคบๆ ก็ลอดผ่านไปได้สบาย!"
+    },
+    {
+      "n": 16,
+      "ko": "다리가 없어도 숲속을 씩씩하게 누비는 뱀! 정말 신기한 친구지?",
+      "en": "Snakes are truly mysterious and wise animals, aren't they? They glide through the forest and make wonderful catches, even without any feet!",
+      "t": "งูที่ท่องไปทั่วป่าอย่างองอาจแม้ไม่มีขา! เป็นเพื่อนที่น่าอัศจรรย์จริงๆ เลยใช่ไหม?"
+    },
+    {
+      "n": 17,
+      "ko": "매끈한 비늘이랑 갈라진 혀를 찾아봐!",
+      "en": "Look closely at the snake's smooth scales and its forked tongue, and the way it's sunbathing on a rock, in a forest meadow with rocks all around!",
+      "t": "ลองหาเกล็ดลื่นเป็นมันกับลิ้นสองแฉกดูสิ!"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 숲속의 신비로운 사냥꾼 뱀! 자, 이제 다음 친구를 만나러 가볼까?",
+      "en": "I'm Snake, the mysterious forest hunter! Which friend should I go meet next?",
+      "t": "ฉันคืองูนักล่าแสนลึกลับแห่งผืนป่า! เอาล่ะ ไปหาเพื่อนคนต่อไปกันดีกว่า?"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "숲",
+      "en": "Forest",
+      "t": "ป่า"
+    },
+    {
+      "i": 1,
+      "korean": "나뭇잎",
+      "en": "Leaf",
+      "t": "ใบไม้"
+    },
+    {
+      "i": 2,
+      "korean": "나뭇가지",
+      "en": "Branch",
+      "t": "กิ่งไม้"
+    },
+    {
+      "i": 3,
+      "korean": "돌",
+      "en": "Stone",
+      "t": "ก้อนหิน"
+    },
+    {
+      "i": 4,
+      "korean": "개구리",
+      "en": "Frog",
+      "t": "กบ"
+    },
+    {
+      "i": 5,
+      "korean": "뱀",
+      "en": "snake",
+      "t": "งู"
+    },
+    {
+      "i": 6,
+      "korean": "비늘",
+      "en": "scale",
+      "t": "เกล็ด"
+    },
+    {
+      "i": 7,
+      "korean": "혀",
+      "en": "tongue",
+      "t": "ลิ้น"
+    },
+    {
+      "i": 8,
+      "korean": "허물",
+      "en": "shed skin",
+      "t": "คราบงู"
+    },
+    {
+      "i": 9,
+      "korean": "알",
+      "en": "egg",
+      "t": "ไข่"
+    },
+    {
+      "i": 10,
+      "korean": "쥐",
+      "en": "mouse",
+      "t": "หนู"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "다리 없이도 부드럽게 미끄러지듯 움직이는 신비로운 사냥꾼 뱀을 만나봐요. 갈라진 혀로 냄새를 맡고 통째로 먹이를 삼키는 뱀의 비밀을 따라가며 자연의 놀라운 모습을 함께 살펴보세요.",
+      "t": "มาพบกับงู นักล่าแสนลึกลับที่เคลื่อนไหวลื่นไหลได้แม้ไม่มีขากันค่ะ ลองติดตามความลับของงู ทั้งการดมกลิ่นด้วยลิ้นสองแฉกและการกลืนเหยื่อทั้งตัว พร้อมสำรวจความน่าทึ่งของธรรมชาติไปด้วยกันนะคะ"
+    },
+    "lessons": [
+      {
+        "ko": "다리 없이도 씩씩하게 살아가는 뱀의 신기한 몸의 비밀을 관찰하는 눈을 키워요.",
+        "t": "ฝึกสายตาช่างสังเกตความลับอันน่าอัศจรรย์ของร่างกายงูที่ใช้ชีวิตอย่างองอาจแม้ไม่มีขาค่ะ"
+      },
+      {
+        "ko": "쥐와 벌레를 잡아 숲을 지켜주는 뱀의 고마움을 알아요.",
+        "t": "ได้รู้จักความน่าขอบคุณของงูที่ช่วยจับหนูและแมลง ปกป้องผืนป่าค่ะ"
+      },
+      {
+        "ko": "독이 있는 뱀은 멀리서 바라보는 안전 약속을 배워요.",
+        "t": "เรียนรู้ข้อตกลงเรื่องความปลอดภัยว่างูมีพิษต้องมองดูจากที่ไกลๆ ค่ะ"
+      }
+    ],
+    "readingTips": [
+      {
+        "ko": "\"스르륵\", \"낼름낼름!\" 뱀의 움직임을 소리와 손짓으로 표현하며 읽어 주세요.",
+        "t": "อ่านพร้อมแสดงการเคลื่อนไหวของงูด้วยเสียงและท่าทางมือ เช่น \"ฟืดฟาด\" \"แลบลิ้นแผล็บๆ!\" นะคะ"
+      },
+      {
+        "ko": "\"뱀은 다리가 없는데 어떻게 움직일까?\" 구불구불 움직이는 비밀을 아이와 이야기해 봐요.",
+        "t": "ลองคุยกับลูกเรื่องความลับของการเลื้อยคดเคี้ยวว่า \"งูไม่มีขาแล้วเคลื่อนที่ได้ยังไงนะ?\" ค่ะ"
+      },
+      {
+        "ko": "팔을 구불구불 움직이며 뱀 흉내를 내 보고, 숲에서 뱀을 만나면 만지지 않고 멀리서 보기로 약속해요.",
+        "t": "ลองเลียนแบบงูด้วยการขยับแขนคดเคี้ยวไปมา และตกลงกันว่าถ้าเจองูในป่าจะไม่จับ แค่มองดูจากที่ไกลๆ ค่ะ"
+      }
+    ],
+    "faq": [
+      {
+        "q_ko": "뱀 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 4~7세 아이에게 적합해요. 다리 없이 미끄러지는 신비한 동물의 매력을 만나요.",
+        "q_t": "หนังสืองูเหมาะกับเด็กอายุเท่าไรคะ?",
+        "a_t": "เหมาะกับเด็กอายุ 4-7 ขวบค่ะ เด็กจะได้พบเสน่ห์ของสัตว์ลึกลับที่เลื้อยไปได้โดยไม่มีขาค่ะ"
+      },
+      {
+        "q_ko": "뱀은 어떤 동물인가요?",
+        "a_ko": "다리가 없이 비늘로 덮인 긴 몸을 가진 파충류예요. 혀로 공기 냄새를 맡고, 일부 뱀은 독을 가지고 있지만 대부분은 무해해요.",
+        "q_t": "งูเป็นสัตว์แบบไหนคะ?",
+        "a_t": "เป็นสัตว์เลื้อยคลานลำตัวยาวปกคลุมด้วยเกล็ดและไม่มีขาค่ะ ใช้ลิ้นดมกลิ่นในอากาศ งูบางชนิดมีพิษแต่ส่วนใหญ่ไม่มีอันตรายค่ะ"
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'뱀, 비늘, 혀, 꼬리, 풀숲, 사냥, 미끄럼' 같은 동물·자연 명사를 만나요.",
+        "q_t": "เด็กจะได้เรียนรู้คำศัพท์อะไรบ้างคะ?",
+        "a_t": "เด็กจะได้พบคำนามเกี่ยวกับสัตว์และธรรมชาติ เช่น 'งู เกล็ด ลิ้น หาง พงหญ้า การล่า การเลื้อย' ค่ะ"
+      },
+      {
+        "q_ko": "뱀은 어떻게 다리 없이 움직여요?",
+        "a_ko": "비늘과 근육을 좌우로 흔들어 미끄러지듯 움직여요. S자로 굽혔다 펴며 앞으로 나아가는 모습이 신기해요.",
+        "q_t": "งูเคลื่อนที่ได้ยังไงทั้งที่ไม่มีขาคะ?",
+        "a_t": "มันใช้เกล็ดและกล้ามเนื้อโยกซ้ายขวาเลื้อยไปเหมือนไถลค่ะ ภาพที่มันโค้งตัวเป็นรูปตัว S แล้วยืดออกเพื่อเคลื่อนไปข้างหน้านั้นน่าอัศจรรย์มากค่ะ"
+      },
+      {
+        "q_ko": "독사가 무섭지 않을까요?",
+        "a_ko": "대부분 뱀은 사람을 먼저 공격하지 않고 멀리 피해요. '풀숲에서 뱀을 만나면 멀리 돌아간다' 라는 안전 약속을 함께 정해 보세요.",
+        "q_t": "งูพิษน่ากลัวไหมคะ?",
+        "a_t": "งูส่วนใหญ่ไม่โจมตีคนก่อนและมักเลี่ยงหนีไปไกลๆ ค่ะ ลองตั้งข้อตกลงเรื่องความปลอดภัยร่วมกันว่า 'ถ้าเจองูในพงหญ้าให้เดินอ้อมไปไกลๆ' นะคะ"
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "줄로 S자 그리기, 종이를 길게 잘라 뱀 만들기, 혀로 냄새 맡기 흉내, 비늘 패턴 그리기 같은 활동이 좋아요.",
+        "q_t": "หลังอ่านจบ ทำกิจกรรมอะไรร่วมกันดีคะ?",
+        "a_t": "กิจกรรมที่แนะนำ เช่น วาดรูปตัว S ด้วยเชือก ตัดกระดาษยาวๆ ทำเป็นงู เล่นเลียนแบบการแลบลิ้นดมกลิ่น หรือวาดลายเกล็ดงูค่ะ"
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, Snake 영어 버전이 함께 제공돼요.",
+        "q_t": "อ่านเป็นภาษาอังกฤษได้ไหมคะ?",
+        "a_t": "ได้ค่ะ มีเวอร์ชันภาษาอังกฤษ Snake ให้อ่านด้วยค่ะ"
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책도 있나요?",
+        "a_ko": "'악어', '도마뱀', '거북이' 같은 파충류 시리즈가 함께 사랑받아요.",
+        "q_t": "มีหนังสือแนวเดียวกันเรื่องอื่นอีกไหมคะ?",
+        "a_t": "ซีรีส์สัตว์เลื้อยคลาน เช่น 'จระเข้' 'กิ้งก่า' และ 'เต่า' ก็เป็นที่ชื่นชอบเช่นกันค่ะ"
+      }
+    ]
+  }
+}

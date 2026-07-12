@@ -27,11 +27,9 @@ export function SiteFooter() {
           <p>
             {B.companyName} · 대표 {B.ceoName} · 사업자등록번호 {B.businessNumber}
           </p>
+          <p>통신판매업신고 {B.mailOrderNumber}</p>
           <p>
-            통신판매업신고 {B.mailOrderNumber} · {B.address}
-          </p>
-          <p>
-            고객센터 {B.supportEmail} ({B.supportHours})
+            고객센터 {B.supportPhone} · {B.supportEmail} ({B.supportHours})
           </p>
         </div>
         <p className="pt-1 text-ink-400">
