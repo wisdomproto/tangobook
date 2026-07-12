@@ -313,7 +313,9 @@ export default function BookDetailPage() {
             </div>
           }
         >
-          <span className="truncate">{storybook.title}</span>
+          <span className="truncate">
+            {storybook.titleTranslations?.[lang]?.trim() || storybook.title}
+          </span>
         </PageHeader>
 
         {/* hero + parentGuide wrapper — flex-1 + justify-center 으로 콘텐츠만 vertical 가운데. 헤더는 위 고정. */}

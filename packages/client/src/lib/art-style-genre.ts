@@ -41,6 +41,20 @@ export function genreLabel(koLabel: string, lang: string): string {
   return GENRE_LABEL_I18N[koLabel]?.[lang] ?? koLabel;
 }
 
+// "그림체 N" 폴백 라벨 다국어 (장르 매핑/분류 실패 시).
+const GENRE_FALLBACK_WORD: Record<string, string> = {
+  en: 'Style',
+  vi: 'Phong cách',
+  zh: '画风',
+  th: 'สไตล์',
+};
+function genreFallback(index: number, lang: string): string {
+  const n = index + 1;
+  if (lang === 'ko') return `그림체 ${n}`;
+  const word = GENRE_FALLBACK_WORD[lang];
+  return word ? `${word} ${n}` : `그림체 ${n}`;
+}
+
 /** 컴포넌트용 훅 — `const gl = useGenreLabel(); gl('수채동화풍')`. */
 export function useGenreLabel(): (koLabel: string) => string {
   const { i18n } = useTranslation();
@@ -98,6 +112,8 @@ export function useStyleGenreLabel(): (
   styleId: string | undefined,
   fallbackIndex: number
 ) => string {
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
   const { data: mapData } = useQuery({
     queryKey: MAP_KEY,
     queryFn: () => apiGet<StyleGenreMap>('/style-genre-map'),
@@ -111,10 +127,12 @@ export function useStyleGenreLabel(): (
   const map = mapData ?? {};
   const byId = new Map((libData ?? []).map((s) => [s.id, s]));
   return (styleId, fallbackIndex) => {
-    const fallback = `그림체 ${fallbackIndex + 1}`;
+    const fallback = genreFallback(fallbackIndex, lang);
     if (!styleId) return fallback;
     const manual = map[styleId];
-    if (manual && SLUG_LABEL[manual]) return SLUG_LABEL[manual];
-    return classifyGenre(byId.get(styleId)?.prompt, styleId) ?? fallback;
+    // 라벨은 항상 UI 언어로 번역해서 반환 (수채동화풍 → Màu nước 등).
+    if (manual && SLUG_LABEL[manual]) return genreLabel(SLUG_LABEL[manual], lang);
+    const classified = classifyGenre(byId.get(styleId)?.prompt, styleId);
+    return classified ? genreLabel(classified, lang) : fallback;
   };
 }
