@@ -1,5 +1,7 @@
 # Multilingual Book Covers (In-App) Implementation Plan — Plan #1
 
+> **상태(2026-07-12): 구현 완료** (`feat/multilingual-covers`, 미배포). Chunk 1–4 전부 구현·리뷰 통과. 실행 단계에서 **접근 B로 전환**(vi/th/zh 제목을 클린 표지에 구워 `primaryCoverByLang` 등록 — 런타임 오버레이 아님). 배치 파이프라인·결과(103/149 완비)·거부 46권 재시도 TODO → memory `multilingual-cover-images-2026-07-12`. Plan #2(OG/SEO)는 미착수.
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Replace baked-in-Korean-title book covers with text-free "clean" covers plus a per-language title overlay, so every in-app cover surface shows the viewer's-language title.
