@@ -232,14 +232,8 @@ async function main() {
     // 중앙정렬 포스터(그리드 안전) 통일 — 명작·자연관찰 공용.
     // hero = 글자 없는 16:9 본문 삽화(표지는 제목이 구워져 있어 회피). 배경 블러로 세로 프레임 채움.
     const compId = 'ReelThumbCentered';
-    // 히어로 = 텍스트 제거한 클린 표지(가장 아이코닉). 우선순위:
-    //   ① storybook.cleanCoverImage (multilingual-covers 세션 산출, fidelity gate 통과한 충실 버전)
-    //   ② loadCleanCover 로컬 맵 (초기 재해석 버전)
-    //   ③ 글자 없는 본문 삽화 (원본 표지는 제목이 구워져 있어 회피)
-    const clean = props.cleanCoverImage || loadCleanCover(id);
-    const heroUrl = clean
-      ? encodeURI(clean)
-      : (props.scenes[1]?.imageUrls?.[0] ?? props.scenes[0].imageUrls[0]);
+    // 히어로 = 원본 표지(제목 포함) — 디자인 프레임(배지·시리즈색·제목·글로우) 안 가운데 이미지.
+    const heroUrl = props.scenes[0].imageUrls[0];
     const theme = themeForThumb(nature, props.category ?? '');
     const thumbProps = {
       bookTitle: props.bookTitle,
