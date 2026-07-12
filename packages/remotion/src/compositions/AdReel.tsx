@@ -79,7 +79,16 @@ export const AdReel: React.FC = () => {
         </TransitionSeries.Sequence>
         {trans()}
         <TransitionSeries.Sequence durationInFrames={SCENES.style}>
-          <StyleMorphHook durationInFrames={SCENES.style} caption={'한 권을\n여러 그림체로'} />
+          <StyleMorphHook
+            durationInFrames={SCENES.style}
+            caption={'한 권을\n여러 그림체로'}
+            images={[
+              'reels/styles/sw-photo.webp',
+              'reels/styles/sw-pixar.webp',
+              'reels/styles/sw-paper.webp',
+              'reels/styles/sw-custom.webp',
+            ]}
+          />
         </TransitionSeries.Sequence>
         {trans()}
         <TransitionSeries.Sequence durationInFrames={SCENES.cta}>

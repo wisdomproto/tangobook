@@ -4,17 +4,19 @@ import { loadFont } from '@remotion/google-fonts/NotoSansKR';
 
 const { fontFamily } = loadFont('normal', { weights: ['700', '800'] });
 
-const STYLES = [
+const DEFAULT_STYLES = [
   'reels/styles/db-01-watercolor.jpg',
   'reels/styles/db-02-pixar3d.jpg',
   'reels/styles/db-03-papercraft.jpg',
   'reels/styles/db-04-custom.jpg',
 ];
 
-export const StyleMorphHook: React.FC<{ durationInFrames: number; caption?: string }> = ({
-  durationInFrames,
-  caption = '동화책 그림체가\n하나일 필요 있어요?',
-}) => {
+export const StyleMorphHook: React.FC<{
+  durationInFrames: number;
+  caption?: string;
+  images?: string[];
+}> = ({ durationInFrames, caption = '동화책 그림체가\n하나일 필요 있어요?', images }) => {
+  const STYLES = images && images.length ? images : DEFAULT_STYLES;
   const frame = useCurrentFrame();
   const per = durationInFrames / STYLES.length;
   return (
