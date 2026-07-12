@@ -167,7 +167,7 @@ export async function publishInstagramReel(
     ...(coverUrl ? { cover_url: coverUrl } : {}),
     access_token: token,
   });
-  await waitMediaReady(c.id, token, 40); // 영상 처리 = 이미지보다 김
+  await waitMediaReady(c.id, token, 120); // 릴스(영상) 처리 최대 ~3분 — 60s 로는 큰 mp4 타임아웃
   const r = await gpost(`${igId}/media_publish`, { creation_id: c.id, access_token: token });
   return r.id;
 }
