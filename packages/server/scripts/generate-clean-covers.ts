@@ -209,7 +209,15 @@ async function main() {
       summary.fail++;
       continue;
     }
-    let styles = pickStyleCovers(sb);
+    // 표시되는 그림체만 (availableStyles = 앱 노출 3종/명작·1종/자연). 낡은 styleAssets 키(watercolor 등) 제외.
+    const displaySet = new Set<string>(
+      (sb.availableStyles && sb.availableStyles.length > 0
+        ? sb.availableStyles
+        : sb.artStyle
+          ? [sb.artStyle]
+          : []) as string[]
+    );
+    let styles = pickStyleCovers(sb).filter((s) => displaySet.has(s.style));
     if (styleFilter) styles = styles.filter((s) => s.style === styleFilter);
 
     for (const { style, url } of styles) {
@@ -229,6 +237,11 @@ async function main() {
         review.push({ id: t.id, style, reason: (e as Error).message });
       }
     }
+    // 파일 진행 로그 (백그라운드 stdout 버퍼링 우회 — 즉시 flush)
+    fs.appendFileSync(
+      path.resolve(process.cwd(), 'out/clean-progress.log'),
+      `${new Date().toISOString()} done ${t.id} · ${JSON.stringify(summary)}\n`
+    );
   }
 
   if (review.length > 0) {
