@@ -61,7 +61,7 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 
 - `order-block` = **순서 맞추기 블록**(`OrderBlockPlayer`, 탭-투-플레이스): 정답 단어의 유닛을 섞어 트레이에 두고 탭하면 왼쪽 빈 칸부터 채워짐 → 순서 채점. ko의 자모 조합/en의 a~z 스펠러와 달리 "주어진 글자를 순서만" 맞춤.
 - `order-writing` = **따라쓰기**(`LangWordWritingPlayer`): 기존 `WordFillCanvas` 재사용, 유닛 zone별 채점 + `onUnitDone` 유닛별 읽기.
-- 🔴 **유닛 분해 = `splitUnits(word, lang)`**(shared, +test): zh=한자(`Array.from`) / vi=성조 붙은 낱글자(`NFC`+`Array.from`) / th=**결합 단위**(`Intl.Segmenter` grapheme — ◌ 안 깨짐, `ไก่`→`ไ·ก่`). **이 유닛이 블록 타일 = 오디오 키.**
+- 🔴 **유닛 분해 = `splitUnits(word, lang)`**(shared, +test): **공백 있는 단어(주로 vi 구 `cây đũa thần`)는 어절 단위**(빈 타일 방지·의미) / zh=한자(`Array.from`) / vi 단일단어=성조 낱글자(`NFC`) / th=**결합 단위**(`Intl.Segmenter` grapheme — ◌ 안 깨짐, `ไก่`→`ไ·ก่`). **이 유닛이 블록 타일 = 오디오 키.** 블록 최대 타일 `MAX_ORDER_UNITS=10`, `OrderBlockPlayer`는 어절(공백 있던 단어)일 때 타일 auto폭+flex-wrap+작은 폰트.
 - **쓰기 zone 단위**: zh=한자·vi=낱글자·th=단어전체(1음절 어휘, 결합조각 단독 발음 회피).
 - **폰트**: zh=`Noto Sans SC`·th=`Noto Sans Thai` `@import`(index.css), vi=Pretendard/시스템. 🔴 **`WordFillCanvas` `fontFamily` prop + 캔버스 폰트로드 게이트**(`document.fonts.load` 후 그림 — canvas는 웹폰트 안 기다려서 두부 채점 방지). 블록 타일은 DOM이라 CSS만.
 - **`Lang` 확장** `'ko'|'en'|'vi'|'zh'|'th'`(learning-events.ts) — 이진 ternary 구조라 리플 0(non-ko=en 흐름), 언어특수는 splitUnits/폰트/라벨에서 명시.
