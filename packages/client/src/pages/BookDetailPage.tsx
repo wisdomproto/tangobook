@@ -195,6 +195,17 @@ export default function BookDetailPage() {
     (isActiveStyle ? storybook.coverImage : undefined) ??
     pickCover('en') ??
     pickCover('ko');
+  // hero 표지 어댑터 — BookCover(resolveCover)는 summary-shape(coverImage/cleanCoverImage)만 읽는다.
+  // detail 객체의 per-(style,lang) 표지는 styleAssets 안에 있어 coverUrl 이 이미 style+lang 을 해석함.
+  // 클린 표지는 language-agnostic(오버레이가 언어 담당) → 선택 그림체 기준으로만 고른다.
+  const heroCleanCover =
+    styleAssets?.cleanCoverImage ?? (isActiveStyle ? storybook.cleanCoverImage : undefined);
+  const heroBook = {
+    title: storybook.title,
+    titleTranslations: storybook.titleTranslations,
+    coverImage: coverUrl,
+    cleanCoverImage: heroCleanCover,
+  };
   // 부모 가이드: 선택 언어 번역(parentGuideTranslations[lang])이 있으면 그것, 없으면 한국어 parentGuide 폴백.
   const guide =
     (lang !== 'ko' ? storybook.parentGuideTranslations?.[lang] : undefined) ??
@@ -425,9 +436,8 @@ export default function BookDetailPage() {
               )}
               <div className="relative aspect-video w-full">
                 <BookCover
-                  book={storybook}
+                  book={heroBook}
                   lang={lang}
-                  style={effectiveStyle}
                   overlayTitle
                   className="rounded-3xl shadow-card"
                 />

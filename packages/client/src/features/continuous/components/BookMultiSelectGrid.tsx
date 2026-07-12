@@ -150,7 +150,7 @@ export function BookMultiSelectGrid({
                     )}
                   </div>
                   <h4 className="mt-1.5 truncate px-1 font-display text-sm font-black leading-tight text-ink-900 md:text-base">
-                    {b.title}
+                    {b.titleTranslations?.[i18n.language] ?? b.title}
                   </h4>
                 </button>
               );
