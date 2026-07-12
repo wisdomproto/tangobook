@@ -790,6 +790,8 @@ export interface StyleAssets {
   // 표지 (전체 셋)
   coverImages?: CoverImageItem[];
   coverImage?: string;
+  /** 텍스트 제거한 클린 표지 (다국어 오버레이 베이스). generate-clean-covers.ts 산출. */
+  cleanCoverImage?: string;
   coverPrompt?: string;
   coverImageHistory?: string[];
   coverCharacterRefs?: number[];
@@ -921,6 +923,8 @@ export interface Storybook {
   // 표지
   coverPrompt?: string;
   coverImage?: string;
+  /** 텍스트 제거한 클린 표지 (다국어 오버레이 베이스). generate-clean-covers.ts 산출. */
+  cleanCoverImage?: string;
   coverImageHistory?: string[];
   coverCharacterRefs?: number[];
   coverImages?: CoverImageItem[];
@@ -1157,6 +1161,10 @@ export type StorybookSummary = Pick<
    * 키에 해당 언어 표지가 없으면 그 언어 표지가 "없음" 으로 처리.
    */
   coversByLang?: Record<string, string>;
+  /** 대표 그림체 클린 표지 (다국어 오버레이 베이스). 없으면 클라가 coverImage 폴백. */
+  cleanCoverImage?: string;
+  /** 그림체별 클린 표지 URL 맵 (`coversByStyle`와 짝). */
+  cleanCoversByStyle?: Record<string, string>;
   /**
    * 한글 기본 콘텐츠 완성도 — 커리큘럼 마스터 페이지에서 ✅ 완성 여부 판단에 사용.
    * 모든 필드가 true 이면 `complete: true`. 부분 완성은 wip 으로 분류.
