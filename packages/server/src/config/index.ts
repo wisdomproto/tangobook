@@ -29,6 +29,12 @@ export const config = {
     apiKey: process.env.ELEVENLABS_API_KEY ?? '',
   },
 
+  // Google Cloud Text-to-Speech (native cmn-CN/vi-VN/th-TH voices).
+  // 전용 키 GOOGLE_TTS_API_KEY, 없으면 GEMINI_API_KEY 폴백(단, 그 키에 Cloud TTS API 허용 필요).
+  googleTts: {
+    apiKey: process.env.GOOGLE_TTS_API_KEY ?? process.env.GEMINI_API_KEY ?? '',
+  },
+
   naverAd: {
     apiKey: process.env.NAVER_AD_API_KEY ?? '',
     secretKey: process.env.NAVER_AD_SECRET_KEY ?? '',

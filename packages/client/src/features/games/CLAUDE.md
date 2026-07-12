@@ -66,7 +66,7 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 - **폰트**: zh=`Noto Sans SC`·th=`Noto Sans Thai` `@import`(index.css), vi=Pretendard/시스템. 🔴 **`WordFillCanvas` `fontFamily` prop + 캔버스 폰트로드 게이트**(`document.fonts.load` 후 그림 — canvas는 웹폰트 안 기다려서 두부 채점 방지). 블록 타일은 DOM이라 CSS만.
 - **`Lang` 확장** `'ko'|'en'|'vi'|'zh'|'th'`(learning-events.ts) — 이진 ternary 구조라 리플 0(non-ko=en 흐름), 언어특수는 splitUnits/폰트/라벨에서 명시.
 - **라벨 배선**: 어댑터(`unitToOrderBlockData`/`unitToOrderWritingData`, `nameTranslations[lang]` 필수·영어 폴백 X)·`getDisplayWord`·`resolveSceneFromWord`(nameTranslations 매칭) 전부 vi/zh/th 확장. `resolveTtsUrl` language에 vi/zh/th 추가(현재 directUrl만).
-- 🔴 **오디오 seam 완비, 음원은 미생성**: vi/zh/th 단어 TTS 없음 → 현재 **무음**. `resolveTtsUrl(lang)` + 유닛별 `onUnitDone` 자리 다 심어둬서 `key_objects[].ttsUrls[lang]` 채우면 재작업 0으로 재생. (zh 타일별 한자 읽기는 unitTts 필드 추가 시.)
+- **오디오 = Google Cloud TTS (native 보이스, 2026-07-12)**: 단어 완성/통과·그림짝 시 단어 발음. **서버 `provider:'google'`**(`providers/google-tts.provider.ts`, `TtsService`) + 배치 `scripts/generate-vocab-tts.mjs`(node — 🔴bash curl은 한자 UTF-8 깨짐)가 149권 keyObject 단어를 `key_objects[].ttsUrls[lang]` 에 주입 → 어댑터 `w.ttsUrls?.[lang]` → `resolveTtsUrl(lang)`(directUrl) → 재생. **보이스=STT 되받아쓰기로 검증 선정**(zh/th Chirp3-HD Leda 0.83~0.98·vi Chirp3-HD Achernar). 🔴 **Gemini TTS는 짧은 CJK/타이 단어에 무응답**이라 부적합, Google native 사용. 키=`GOOGLE_TTS_API_KEY`(Cloud TTS API 허용 필요). 🟡 vi 는 낱단어 성조 오인 여지(추후 분류사 프레이밍 개선), zh 타일별 한자 읽기는 `OrderBlockItem.unitTts` 필드 추가 시 phase2. 상세 → memory `multilingual-vocab-games-2026-07-12`.
 - 진입/토글: `VocabularyStudyPage`가 5개 언어 칩(한국어·English·Tiếng Việt·中文·ไทย, 콘텐츠 있는 것만 노출).
 - 🔴 **레지스트리 미등록**: order-block/order-writing은 vocab GameOverlay가 직접 렌더(`game==='order-block'`)라 등록 불필요(에디터 생성 게임 아님).
 

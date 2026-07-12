@@ -1,11 +1,14 @@
 import { R2Repository } from '../repositories/r2.repository.js';
 import { AppError } from '../middleware/error.middleware.js';
 import { generateGeminiTts } from '../providers/gemini-tts.provider.js';
+import { generateGoogleTts } from '../providers/google-tts.provider.js';
 import { buildR2Key } from '../utils/r2-key.js';
+
+type TtsProvider = 'gemini' | 'google' | 'minimax' | 'elevenlabs';
 
 interface TtsRequest {
   text: string;
-  provider: 'gemini' | 'minimax' | 'elevenlabs';
+  provider: TtsProvider;
   voice?: string;
   language?: string;
   storybookId: string;
@@ -15,7 +18,7 @@ interface TtsRequest {
 
 interface TtsBatchRequest {
   pages: Array<{ pageNumber: number; text: string }>;
-  provider: 'gemini' | 'minimax' | 'elevenlabs';
+  provider: TtsProvider;
   voice?: string;
   language?: string;
   storybookId: string;
@@ -32,6 +35,11 @@ export const TtsService = {
     switch (provider) {
       case 'gemini':
         audioBuffer = await generateGeminiTts({ text, voice, language });
+        ext = 'mp3';
+        mimeType = 'audio/mpeg';
+        break;
+      case 'google':
+        audioBuffer = await generateGoogleTts({ text, voice, language });
         ext = 'mp3';
         mimeType = 'audio/mpeg';
         break;
