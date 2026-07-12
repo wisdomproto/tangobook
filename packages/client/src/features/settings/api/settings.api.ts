@@ -79,12 +79,11 @@ export const settingsApi = {
     return (res.data as { success: true; data: { deleted: number } }).data;
   },
 
-  // 시스템 사운드 라이브러리
+  // 시스템 사운드 라이브러리 (korean/english/vietnamese/chinese/thai)
   getSystemSounds: () =>
-    apiGet<{
-      korean: { correct: SystemSoundItem[]; wrong: SystemSoundItem[] };
-      english: { correct: SystemSoundItem[]; wrong: SystemSoundItem[] };
-    }>('/system-sounds'),
+    apiGet<Record<SystemSoundLanguage, { correct: SystemSoundItem[]; wrong: SystemSoundItem[] }>>(
+      '/system-sounds'
+    ),
 
   uploadSystemSounds: async (
     files: File[],

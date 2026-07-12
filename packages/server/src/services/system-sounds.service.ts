@@ -6,11 +6,19 @@ import {
   r2PublicUrl,
 } from '../providers/r2.provider.js';
 import { AppError } from '../middleware/error.middleware.js';
-import type { SystemSoundLanguage, SystemSoundType, SystemSoundItem } from '@tangobook/shared';
+import {
+  SYSTEM_SOUND_LANGUAGES,
+  type SystemSoundLanguage,
+  type SystemSoundType,
+  type SystemSoundItem,
+} from '@tangobook/shared';
 
 const PREFIX = 'system-sounds';
-const VALID_LANGUAGES: SystemSoundLanguage[] = ['korean', 'english'];
+const VALID_LANGUAGES: SystemSoundLanguage[] = SYSTEM_SOUND_LANGUAGES;
 const VALID_TYPES: SystemSoundType[] = ['correct', 'wrong'];
+const KEY_RE = new RegExp(
+  `^system-sounds\\/(${VALID_LANGUAGES.join('|')})\\/(correct|wrong)\\/(.+)\\.mp3$`
+);
 
 function buildKey(language: SystemSoundLanguage, type: SystemSoundType, name: string): string {
   return `${PREFIX}/${language}/${type}/${name}.mp3`;
@@ -19,7 +27,7 @@ function buildKey(language: SystemSoundLanguage, type: SystemSoundType, name: st
 function parseKey(
   key: string
 ): { language: SystemSoundLanguage; type: SystemSoundType; name: string } | null {
-  const match = key.match(/^system-sounds\/(korean|english)\/(correct|wrong)\/(.+)\.mp3$/);
+  const match = key.match(KEY_RE);
   if (!match) return null;
   return {
     language: match[1] as SystemSoundLanguage,
@@ -28,10 +36,16 @@ function parseKey(
   };
 }
 
-type SoundsLibrary = {
-  korean: { correct: SystemSoundItem[]; wrong: SystemSoundItem[] };
-  english: { correct: SystemSoundItem[]; wrong: SystemSoundItem[] };
-};
+type SoundsLibrary = Record<
+  SystemSoundLanguage,
+  { correct: SystemSoundItem[]; wrong: SystemSoundItem[] }
+>;
+
+function emptyLibrary(): SoundsLibrary {
+  return Object.fromEntries(
+    VALID_LANGUAGES.map((l) => [l, { correct: [], wrong: [] }])
+  ) as unknown as SoundsLibrary;
+}
 
 export const SystemSoundsService = {
   async upload(
@@ -63,10 +77,7 @@ export const SystemSoundsService = {
   async list(): Promise<SoundsLibrary> {
     const objects = await listR2Objects(PREFIX);
 
-    const result: SoundsLibrary = {
-      korean: { correct: [], wrong: [] },
-      english: { correct: [], wrong: [] },
-    };
+    const result: SoundsLibrary = emptyLibrary();
 
     for (const obj of objects) {
       if (!obj.Key) continue;

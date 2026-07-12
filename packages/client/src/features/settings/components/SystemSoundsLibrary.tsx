@@ -1,16 +1,20 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import type { SystemSoundLanguage, SystemSoundType, SystemSoundItem } from '@tangobook/shared';
+import {
+  SYSTEM_SOUND_LANGUAGES,
+  type SystemSoundLanguage,
+  type SystemSoundType,
+  type SystemSoundItem,
+} from '@tangobook/shared';
 import { settingsApi } from '../api/settings.api';
 
-type SoundsLibrary = {
-  korean: { correct: SystemSoundItem[]; wrong: SystemSoundItem[] };
-  english: { correct: SystemSoundItem[]; wrong: SystemSoundItem[] };
-};
+type SoundsLibrary = Record<
+  SystemSoundLanguage,
+  { correct: SystemSoundItem[]; wrong: SystemSoundItem[] }
+>;
 
-const EMPTY_LIBRARY: SoundsLibrary = {
-  korean: { correct: [], wrong: [] },
-  english: { correct: [], wrong: [] },
-};
+const EMPTY_LIBRARY: SoundsLibrary = Object.fromEntries(
+  SYSTEM_SOUND_LANGUAGES.map((l) => [l, { correct: [], wrong: [] }])
+) as unknown as SoundsLibrary;
 
 /** FileSystemEntry에서 재귀적으로 모든 .mp3 File을 수집 */
 async function collectMp3Files(entries: FileSystemEntry[]): Promise<File[]> {
@@ -49,6 +53,9 @@ const BATCH_SIZE = 5;
 const LANG_TABS: { key: SystemSoundLanguage; label: string }[] = [
   { key: 'korean', label: '한글' },
   { key: 'english', label: '영어' },
+  { key: 'vietnamese', label: '베트남어' },
+  { key: 'chinese', label: '중국어' },
+  { key: 'thai', label: '태국어' },
 ];
 
 const SOUND_SECTIONS: { key: SystemSoundType; label: string; emoji: string }[] = [

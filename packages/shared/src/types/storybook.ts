@@ -13,7 +13,23 @@ export interface PhonicsAudioItem {
 }
 
 // === 시스템 사운드 라이브러리 (글로벌) ===
-export type SystemSoundLanguage = 'korean' | 'english';
+export type SystemSoundLanguage = 'korean' | 'english' | 'vietnamese' | 'chinese' | 'thai';
+/** 시스템 사운드 지원 언어 (서버 VALID_LANGUAGES·authoring 탭·풀 로딩의 단일 소스). */
+export const SYSTEM_SOUND_LANGUAGES: SystemSoundLanguage[] = [
+  'korean',
+  'english',
+  'vietnamese',
+  'chinese',
+  'thai',
+];
+/** 학습 Lang(ko/en/vi/zh/th) → 시스템 사운드 언어. 게임 칭찬음 풀 선택용. */
+export const LANG_TO_SYSTEM_SOUND: Record<string, SystemSoundLanguage> = {
+  ko: 'korean',
+  en: 'english',
+  vi: 'vietnamese',
+  zh: 'chinese',
+  th: 'thai',
+};
 export type SystemSoundType = 'correct' | 'wrong';
 
 export interface SystemSoundItem {

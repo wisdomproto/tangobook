@@ -118,6 +118,7 @@ export function LangWordWritingPlayer({
       const playWordThenPraise = () => {
         playAudio(wordUrl, () => {
           playCorrectSequence({
+            language: lang,
             onDone: () => {
               const s = resolveSceneFromWord(
                 currentItem.word,

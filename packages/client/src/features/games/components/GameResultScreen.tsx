@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, useReducedMotion } from 'framer-motion';
 import confetti from 'canvas-confetti';
+import { LANG_TO_SYSTEM_SOUND, type Lang } from '@tangobook/shared';
 import { Mascot } from '@/design-system';
 import { Button } from '@/design-system';
 import { settingsApi } from '@/features/settings/api/settings.api';
@@ -14,8 +15,8 @@ interface GameResultScreenProps {
   onBack: () => void;
   /** 결과 화면이 어떤 동화에서 호출되었는지 메타 정보 (현재는 사용하지 않지만 시그니처 유지) */
   storybookId?: string;
-  /** 게임 언어 — 칭찬 음성 풀 선택 (미지정 시 한/영 합산 랜덤: 기존 동작) */
-  lang?: 'ko' | 'en';
+  /** 게임 언어(ko/en/vi/zh/th) — 칭찬 음성 풀 선택 (미지정 시 전체 합산 랜덤) */
+  lang?: Lang;
 }
 
 // 완성도별 헤드라인/응원 문구 키 (4-5세 톤 — 항상 긍정). 실제 문구는 games ns result.* 키.
@@ -90,12 +91,10 @@ export function GameResultScreen({ score, total, onRestart, onBack, lang }: Game
       .getSystemSounds()
       .then((data) => {
         if (cancelled) return;
-        const koPool = data.korean.correct.map((s) => s.url);
-        const enPool = data.english.correct.map((s) => s.url);
-        let pool: string[];
-        if (lang === 'ko') pool = koPool.length > 0 ? koPool : enPool;
-        else if (lang === 'en') pool = enPool.length > 0 ? enPool : koPool;
-        else pool = [...koPool, ...enPool];
+        const allUrls = Object.values(data).flatMap((g) => (g?.correct ?? []).map((s) => s.url));
+        const ssLang = lang ? LANG_TO_SYSTEM_SOUND[lang] : undefined;
+        const langPool = ssLang ? (data[ssLang]?.correct ?? []).map((s) => s.url) : [];
+        const pool = langPool.length > 0 ? langPool : allUrls;
         if (pool.length === 0) return;
         const url = pool[Math.floor(Math.random() * pool.length)];
         audio = new Audio(url);

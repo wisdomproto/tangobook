@@ -120,6 +120,7 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
       });
       playCorrectSequence({
         ttsUrl: url,
+        language: lang,
         onDone: () => {
           const s = resolveSceneFromWord(
             currentItem.word,
@@ -224,6 +225,7 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
           storybookId={storybookId}
           score={score}
           total={items.length}
+          lang={lang}
           onRestart={handleRestart}
           onBack={onBack}
         />

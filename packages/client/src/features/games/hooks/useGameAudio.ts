@@ -1,12 +1,13 @@
 import { useRef, useCallback, useEffect, useState } from 'react';
+import { LANG_TO_SYSTEM_SOUND, type Lang } from '@tangobook/shared';
 import { settingsApi } from '@/features/settings/api/settings.api';
 import { useGameSound } from './useGameSound';
 
 export interface CorrectSequenceOpts {
   ttsUrl?: string;
   systemSounds?: { correctUrl?: string; incorrectUrl?: string };
-  /** 'ko' 또는 'en' 지정 시 해당 언어 칭찬 음원만 랜덤 선택. 생략 시 양 언어 pool 모두 사용 */
-  language?: 'ko' | 'en';
+  /** 지정 시 해당 언어(ko/en/vi/zh/th) 칭찬 음원만 랜덤 선택. 생략/풀 없으면 전체 pool 사용. */
+  language?: Lang;
   onDone?: () => void;
 }
 
@@ -20,17 +21,19 @@ export function useGameAudio() {
   const allAudiosRef = useRef<Set<HTMLAudioElement>>(new Set());
   // playCorrectSequence 내부 setTimeout 들을 모아 언마운트 시 clearTimeout
   const pendingTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
-  // 언어별 분리 저장. 플레이어가 language 지정 시 해당 pool만, 아니면 합쳐서 사용
-  const [koreanSoundUrls, setKoreanSoundUrls] = useState<string[]>([]);
-  const [englishSoundUrls, setEnglishSoundUrls] = useState<string[]>([]);
+  // 언어별 칭찬 음원 풀 (SystemSoundLanguage → url[]). 플레이어가 language 지정 시 해당 pool만.
+  const [correctPools, setCorrectPools] = useState<Record<string, string[]>>({});
 
   // 시스템 칭찬 음원 라이브러리 자동 로드
   useEffect(() => {
     settingsApi
       .getSystemSounds()
       .then((data) => {
-        setKoreanSoundUrls(data.korean.correct.map((s) => s.url));
-        setEnglishSoundUrls(data.english.correct.map((s) => s.url));
+        const pools: Record<string, string[]> = {};
+        for (const [lang, group] of Object.entries(data)) {
+          pools[lang] = (group?.correct ?? []).map((s) => s.url);
+        }
+        setCorrectPools(pools);
       })
       .catch(() => {});
   }, []);
@@ -107,18 +110,12 @@ export function useGameAudio() {
       playFeedbackSound(true);
       setPraiseVisible(true);
 
-      // 시스템 칭찬 음원: props로 전달된 URL 우선, 없으면 라이브러리에서 랜덤 선택
-      // language 지정 시 해당 언어 pool만 사용. 비어있으면 반대 언어로 fallback. 둘 다 비면 undefined
-      const pool =
-        opts?.language === 'ko'
-          ? koreanSoundUrls.length > 0
-            ? koreanSoundUrls
-            : englishSoundUrls
-          : opts?.language === 'en'
-            ? englishSoundUrls.length > 0
-              ? englishSoundUrls
-              : koreanSoundUrls
-            : [...koreanSoundUrls, ...englishSoundUrls];
+      // 시스템 칭찬 음원: props로 전달된 URL 우선, 없으면 라이브러리에서 랜덤 선택.
+      // language 지정 시 해당 언어(ko/en/vi/zh/th) pool만. 비어있으면 전체 pool 로 fallback.
+      const allUrls = Object.values(correctPools).flat();
+      const ssLang = opts?.language ? LANG_TO_SYSTEM_SOUND[opts.language] : undefined;
+      const langPool = ssLang ? (correctPools[ssLang] ?? []) : [];
+      const pool = langPool.length > 0 ? langPool : allUrls;
       const correctUrl =
         opts?.systemSounds?.correctUrl ||
         (pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : undefined);
@@ -145,7 +142,7 @@ export function useGameAudio() {
         }
       }, 500);
     },
-    [playFeedbackSound, playAudio, koreanSoundUrls, englishSoundUrls, scheduleTimer]
+    [playFeedbackSound, playAudio, correctPools, scheduleTimer]
   );
 
   // 언마운트 시 재생 중 오디오 + 예약 타이머 모두 정리.

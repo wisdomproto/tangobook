@@ -87,6 +87,7 @@ scripts/synthesize-game-sfx.mjs  # 사운드 재생성 (사인파 합성)
 - **레이아웃**: 흰 카드(`rounded-[2.5rem]` + `shadow-pop`) + 뒤 선버스트 글로우 + 둥둥 떠다니는 풍선·별·반짝이(framer-motion, reduced-motion 존중) + 점수 배지(🏆/⭐ + count-up) + 완성도별 응원 문구(`praiseFor`: 완벽/참잘/잘했어요). 만점이면 양옆 콘페티 추가.
 - **히어로 이미지**: `public/images/games/result-celebrate.webp`(트로피 든 호리, 투명 배경) — `HERO_IMAGE_URL`. **로드 실패 시 `<Mascot state="celebrating">` 폴백**(`heroFailed` state). 교체는 webp 파일만 갈아끼우면 됨.
 - 마운트 시 `playUi('reward')` + 칭찬 음원 1회(`settingsApi.getSystemSounds`, `lang` 풀 우선).
+- 🔴 **칭찬(정답)음 다국어 (2026-07-12)**: `SystemSoundLanguage`가 `korean|english|vietnamese|chinese|thai` 5개(shared `SYSTEM_SOUND_LANGUAGES`·`LANG_TO_SYSTEM_SOUND`). R2 `system-sounds/{lang}/correct/*.mp3` 언어당 5개 랜덤. `useGameAudio`/`GameResultScreen`이 게임 `lang`(ko/en/vi/zh/th)으로 해당 풀 선택(비면 전체 합산). 저작도구 시스템사운드 라이브러리(`SystemSoundsLibrary`) 5언어 탭. 생성=`scripts/generate-praise-sounds.mjs`(Google TTS 단어 음원과 같은 보이스 → R2 직접 PUT). OrderBlockPlayer/LangWordWritingPlayer가 `language:lang` 전달.
 
 ## 새 게임 추가 방법
 
