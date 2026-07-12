@@ -68,6 +68,12 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
 
   const currentItem = items[currentIndex];
   const target = useMemo(() => currentItem?.units ?? [], [currentItem]);
+  // 공백 있던 단어(vi 구)는 어절 타일 → auto 폭 + 작은 폰트. 단일 글자(한자/음절)는 정사각형.
+  const wordMode = /\s/.test(currentItem?.word ?? '');
+  const unitFontSize = wordMode ? 'clamp(1rem, 3.2vh, 2rem)' : 'clamp(1.75rem, 6vh, 4rem)';
+  const tileSizeClass = wordMode
+    ? 'min-w-[clamp(3rem,9vh,5rem)] px-[clamp(0.6rem,1.8vw,1.25rem)] h-[clamp(3rem,11vh,6.5rem)]'
+    : 'w-[clamp(3rem,10vh,6rem)] h-[clamp(3.5rem,12vh,7rem)]';
 
   // 라운드 초기화
   const loadRound = useCallback(
@@ -257,13 +263,18 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
               />
             )}
             <div
-              className="font-black leading-none whitespace-nowrap text-coral-500"
+              className={cn(
+                'font-black leading-tight text-coral-500 text-center',
+                !wordMode && 'whitespace-nowrap'
+              )}
               style={{
                 fontFamily: font,
-                fontSize: 'clamp(2.5rem, min(12vw, 18vh), 10rem)',
+                fontSize: wordMode
+                  ? 'clamp(1.75rem, min(7vw, 12vh), 5rem)'
+                  : 'clamp(2.5rem, min(12vw, 18vh), 10rem)',
                 WebkitTextStroke: 'clamp(3px,0.6vh,6px) white',
                 paintOrder: 'stroke fill',
-                letterSpacing: '0.08em',
+                letterSpacing: '0.04em',
               }}
             >
               {currentItem.word}
@@ -273,7 +284,7 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
           {/* 슬롯 */}
           <section
             className={cn(
-              'flex-[3] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-6 py-3 flex items-center justify-center gap-[clamp(0.5rem,1.5vw,1rem)] transition-all',
+              'flex-[3] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-6 py-3 flex flex-wrap items-center justify-center gap-[clamp(0.5rem,1.5vw,1rem)] transition-all',
               roundCorrect && 'ring-[6px] ring-success/70 bg-success/20'
             )}
           >
@@ -285,10 +296,10 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
                   key={idx}
                   onClick={() => freeSlot(idx)}
                   disabled={roundCorrect}
-                  style={{ fontFamily: font }}
+                  style={{ fontFamily: font, fontSize: unitFontSize }}
                   className={cn(
-                    'w-[clamp(3rem,10vh,6rem)] h-[clamp(3.5rem,12vh,7rem)] rounded-2xl flex items-center justify-center font-black select-none transition-all',
-                    'text-[clamp(1.75rem,6vh,4rem)]',
+                    tileSizeClass,
+                    'rounded-2xl flex items-center justify-center font-black select-none transition-all whitespace-nowrap',
                     tid !== null
                       ? 'bg-white shadow-soft border-2 border-cream-50'
                       : 'bg-peach-100/60 border-[3px] border-dashed border-peach-200',
@@ -303,17 +314,18 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
           </section>
 
           {/* 트레이 + 초기화 */}
-          <section className="flex-[2] min-h-0 rounded-3xl bg-cream-50/95 shadow-pop border-2 border-dashed border-cream-50 px-6 py-3 flex items-center justify-center gap-[clamp(0.5rem,1.5vw,1rem)] relative">
+          <section className="flex-[2] min-h-0 rounded-3xl bg-cream-50/95 shadow-pop border-2 border-dashed border-cream-50 px-6 py-3 flex flex-wrap items-center justify-center gap-[clamp(0.5rem,1.5vw,1rem)] relative">
             {tiles.map((tl) => (
               <motion.button
                 key={tl.id}
                 onClick={() => placeTile(tl.id)}
                 disabled={tl.used || roundCorrect}
-                style={{ fontFamily: font }}
+                style={{ fontFamily: font, fontSize: unitFontSize }}
                 animate={{ opacity: tl.used ? 0 : 1, scale: tl.used ? 0.6 : 1 }}
                 className={cn(
-                  'w-[clamp(3rem,10vh,6rem)] h-[clamp(3.5rem,12vh,7rem)] rounded-2xl flex items-center justify-center font-black text-white select-none',
-                  'text-[clamp(1.75rem,6vh,4rem)] bg-gradient-to-b from-coral-400 to-coral-600 shadow-pop',
+                  tileSizeClass,
+                  'rounded-2xl flex items-center justify-center font-black text-white select-none whitespace-nowrap',
+                  'bg-gradient-to-b from-coral-400 to-coral-600 shadow-pop',
                   !tl.used && 'hover:scale-105 active:scale-95',
                   tl.used && 'pointer-events-none'
                 )}

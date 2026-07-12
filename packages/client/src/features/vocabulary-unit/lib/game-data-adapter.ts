@@ -20,8 +20,8 @@ import type {
 } from '@tangobook/shared';
 import { decomposeWord, decomposeEnglishWord, splitUnits } from '@tangobook/shared';
 
-/** 순서 맞추기 블록 타일 최대 개수 (그리드/트레이 가독성). */
-const MAX_ORDER_UNITS = 6;
+/** 순서 맞추기 블록 타일 최대 개수 (그리드/트레이 가독성). vi 어절·긴 zh/th 단어 수용 위해 10. */
+const MAX_ORDER_UNITS = 10;
 
 /** 표시/게임 단어를 언어별로 고른다. vi/zh/th 는 nameTranslations 우선(없으면 영어 폴백). */
 function pickWord(w: VocabularyUnitWord, lang: Lang): string | undefined {

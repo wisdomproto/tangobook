@@ -16,6 +16,9 @@ import type { Lang } from '../types/learning-events.js';
 export function splitUnits(word: string, lang: Lang): string[] {
   const w = (word ?? '').normalize('NFC').trim();
   if (!w) return [];
+  // 공백 있는 구(주로 vi: "cây đũa thần")는 어절 단위로 — 낱자로 쪼개면 공백이 빈 타일이 되고
+  // 순서 맞추기가 과하게 길어진다. 어절 타일이 의미도 있고 표시 단어와도 일치.
+  if (/\s/.test(w)) return w.split(/\s+/).filter(Boolean);
   if (lang === 'th') return splitGraphemeClusters(w, 'th');
   return Array.from(w);
 }

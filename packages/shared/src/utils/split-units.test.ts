@@ -22,6 +22,13 @@ describe('splitUnits', () => {
     expect(splitUnits('ช้าง', 'th')).toEqual(['ช้', 'า', 'ง']);
   });
 
+  it('vi: 공백 있는 구는 어절 단위 (빈 타일 방지)', () => {
+    expect(splitUnits('cây đũa thần', 'vi')).toEqual(['cây', 'đũa', 'thần']);
+    expect(splitUnits('quả bí ngô', 'vi')).toEqual(['quả', 'bí', 'ngô']);
+    // 공백 없는 단일 단어는 낱자 그대로
+    expect(splitUnits('mèo', 'vi')).toEqual(['m', 'è', 'o']);
+  });
+
   it('빈 문자열/공백은 빈 배열', () => {
     expect(splitUnits('', 'zh')).toEqual([]);
     expect(splitUnits('   ', 'vi')).toEqual([]);
