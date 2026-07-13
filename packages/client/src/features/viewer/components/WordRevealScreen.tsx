@@ -18,11 +18,12 @@ interface WordRevealScreenProps {
 }
 
 interface WordItem {
-  name: string; // English (KeyObject.name)
+  name: string; // English (KeyObject.name) — 로깅/키/keyObject 매칭용 canonical
   korean: string; // 한국어 (KeyObject.korean)
+  display: string; // 화면 표시 단어 (UI 언어 하나만)
+  tts?: string; // UI 언어 발음 TTS
+  ttsLocale: 'ko-KR' | 'en-US'; // 브라우저 TTS 폴백 locale
   imageUrl?: string; // styleAssets keyObjectImages 매칭
-  ttsUrlKo?: string; // 한국어 발음 TTS
-  ttsUrlEn?: string; // 영어 발음 TTS
   example?: string; // 영어 예문
 }
 
@@ -45,7 +46,8 @@ export function WordRevealScreen({
   onGoHome,
   onRereadFromStart,
 }: WordRevealScreenProps) {
-  const { t } = useTranslation('viewer');
+  const { t, i18n } = useTranslation('viewer');
+  const uiLang = i18n.language;
   const reduce = useReducedMotion();
   const logEvent = useLogEvent();
   const navigate = useNavigate();
@@ -59,16 +61,28 @@ export function WordRevealScreen({
     const styleKey = currentStyle ?? storybook.artStyle ?? 'paper-craft';
     const styleImages: KeyObjectImage[] = storybook.styleAssets?.[styleKey]?.keyObjectImages ?? [];
     return ko
-      .map((k: KeyObject) => ({
-        name: k.name,
-        korean: k.korean ?? k.name,
-        imageUrl: styleImages.find((img) => img.objectName === k.name)?.imageUrl,
-        ttsUrlKo: k.ttsUrl,
-        ttsUrlEn: k.ttsUrls?.en,
-        example: k.example,
-      }))
+      .map((k: KeyObject) => {
+        // 단일 언어 정책 (2026-07-13): UI 언어 단어 하나만 표시·발음. (전엔 한국어+영어 병기·둘 다 발음.)
+        const korean = k.korean ?? k.name;
+        const display =
+          uiLang === 'ko'
+            ? korean
+            : uiLang === 'en'
+              ? k.name
+              : (k.nameTranslations?.[uiLang] ?? k.name);
+        const tts = uiLang === 'ko' ? k.ttsUrl : k.ttsUrls?.[uiLang];
+        return {
+          name: k.name,
+          korean,
+          display,
+          tts,
+          ttsLocale: (uiLang === 'ko' ? 'ko-KR' : 'en-US') as 'ko-KR' | 'en-US',
+          imageUrl: styleImages.find((img) => img.objectName === k.name)?.imageUrl,
+          example: k.example,
+        };
+      })
       .filter((w) => !!w.imageUrl); // E: image 있는 단어만 (큐레이션 된 것)
-  }, [storybook, currentStyle]);
+  }, [storybook, currentStyle, uiLang]);
 
   // 화면 열릴 때마다 누적 reset
   useEffect(() => {
@@ -104,19 +118,12 @@ export function WordRevealScreen({
       });
       setPulseWord(word.name);
 
-      // TTS 재생: 한국어 → 영어 순. 파일 있으면 파일, 없으면 브라우저 TTS fallback
-      if (word.ttsUrlKo) {
-        playAudio(word.ttsUrlKo);
+      // TTS 재생: UI 언어 하나만. 파일 있으면 파일, 없으면 브라우저 TTS fallback.
+      if (word.tts) {
+        playAudio(word.tts);
       } else {
-        speakText(word.korean, 'ko-KR');
+        speakText(word.display, word.ttsLocale);
       }
-      setTimeout(() => {
-        if (word.ttsUrlEn) {
-          playAudio(word.ttsUrlEn);
-        } else {
-          speakText(word.name, 'en-US');
-        }
-      }, 800);
 
       // word_exposed emit (Supabase trigger 가 별 자동 적립)
       logEvent({
@@ -237,11 +244,11 @@ export function WordRevealScreen({
                           : 'border-transparent hover:border-coral-200'
                       )}
                       onClick={() => handleCardTap(item)}
-                      aria-label={`${t('wordReveal.cardListen', { korean: item.korean, name: item.name })}${isTapped ? t('wordReveal.cardListened') : ''}`}
+                      aria-label={`${t('wordReveal.cardListen', { word: item.display })}${isTapped ? t('wordReveal.cardListened') : ''}`}
                     >
                       <img
                         src={item.imageUrl}
-                        alt={item.korean}
+                        alt={item.display}
                         className={cn(
                           'absolute inset-0 w-full h-full object-cover transition-all duration-300',
                           isTapped ? '' : 'brightness-95'
@@ -286,13 +293,10 @@ export function WordRevealScreen({
                         </motion.div>
                       )}
 
-                      {/* 단어 라벨 (이미지 위 오버레이) */}
+                      {/* 단어 라벨 (이미지 위 오버레이) — UI 언어 하나만 */}
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 via-black/60 to-transparent p-2 sm:p-3">
-                        <div className="text-white font-bold text-sm sm:text-lg leading-tight">
-                          {item.korean}
-                        </div>
-                        <div className="text-cream-100 text-xs sm:text-sm font-medium">
-                          {item.name}
+                        <div className="text-white font-bold text-sm sm:text-lg leading-tight break-keep">
+                          {item.display}
                         </div>
                       </div>
 

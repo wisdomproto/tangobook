@@ -410,9 +410,9 @@ function LineMatchingPlayerInner({
                 aria-hidden
               />
               <p className="text-xl sm:text-2xl font-black text-ink-900 font-display">
-                잠깐만 기다려 줘!
+                {t('audioLoading.title')}
               </p>
-              <p className="text-sm sm:text-base text-ink-500">소리 준비하는 중이에요...</p>
+              <p className="text-sm sm:text-base text-ink-500">{t('audioLoading.sub')}</p>
             </div>
           </div>
         )}
@@ -495,11 +495,6 @@ function LineMatchingPlayerInner({
                     <span className="text-xl sm:text-3xl lg:text-5xl font-black text-ink-900 font-display leading-tight break-keep text-center">
                       {wordItem.word}
                     </span>
-                    {wordItem.subLabel && (
-                      <span className="text-sm lg:text-base font-bold text-ink-500 mt-1">
-                        {wordItem.subLabel}
-                      </span>
-                    )}
                   </button>
                   {connectionDot(wordDotState(wordItemIdx), 'left')}
                 </div>

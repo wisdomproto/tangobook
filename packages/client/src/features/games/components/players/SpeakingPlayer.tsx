@@ -168,11 +168,6 @@ export function SpeakingPlayer({
             {preset.showWord && (
               <div data-testid="speaking-word" className="text-5xl font-black text-ink-900">
                 {current.displayWord}
-                {current.koreanMeaning && (
-                  <div className="text-lg font-normal text-ink-900 mt-1">
-                    {current.koreanMeaning}
-                  </div>
-                )}
               </div>
             )}
 

@@ -8,6 +8,10 @@
     "notReady": "Couldn't get the words ready",
     "toLibrary": "To Library"
   },
+  "audioLoading": {
+    "title": "Just a moment!",
+    "sub": "Getting the sounds ready..."
+  },
   "header": {
     "back": "Back",
     "home": "Home",

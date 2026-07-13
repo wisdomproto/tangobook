@@ -55,7 +55,7 @@
     "noWords": "이 책에는 핵심 단어가 아직 등록되지 않았어요.",
     "allTapped": "🎉 다 들어봤어요! 잠시 후 어휘 단원으로 가요…",
     "tapHint": "🖐️ 단어를 눌러 발음을 들어보세요",
-    "cardListen": "{{korean}} ({{name}}) 발음 듣기",
+    "cardListen": "{{word}} 발음 듣기",
     "cardListened": " (눌러봤음)",
     "moreVocab": "📚 어휘 더 익히기",
     "reread": "🔄 다시 읽기",

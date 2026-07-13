@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { Page } from '@tangobook/shared';
 import type { LangCode } from '@/lib/storybook-accessors';
@@ -11,7 +10,6 @@ interface PageViewProps {
   pageIndex: number;
   direction: number; // 1 forward, -1 backward
   lang: LangCode;
-  showSubtext?: boolean;
   textSize?: 'sm' | 'md' | 'lg';
   isDarkMode?: boolean;
   ttsCurrentTime?: number;
@@ -74,7 +72,6 @@ export function PageView({
   pageIndex,
   direction,
   lang,
-  showSubtext,
   textSize = 'md',
   isDarkMode,
   ttsCurrentTime,
@@ -83,17 +80,9 @@ export function PageView({
   fullscreen,
 }: PageViewProps) {
   const reduce = useReducedMotion();
-  const { i18n } = useTranslation();
-  // 보조 자막(한국어 원문)은 한국어 사용자에게만 이중언어 보조로 노출.
-  // UI 언어가 vi/zh/th 등 비한국어면 한글 원문은 소음이라 숨긴다.
-  const showKoSub = i18n.language === 'ko';
-
+  // 단일 언어 정책 (2026-07-13): 뷰어 자막은 선택한 읽기 언어 하나만 — 한국어 원문 이중언어
+  // 보조 자막(subText) 제거. (showSubtext = settings.showText = 자막 on/off 은 그대로.)
   const text = useMemo(() => stripBold(getPageText(page, lang)), [page, lang]);
-  const subText = useMemo(
-    () =>
-      showSubtext && showKoSub && lang !== 'ko' && page.text !== text ? stripBold(page.text) : null,
-    [page, text, showSubtext, showKoSub, lang]
-  );
 
   return (
     <AnimatePresence mode="wait" initial={false} custom={direction}>
@@ -140,7 +129,6 @@ export function PageView({
             <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent px-3 pb-6 pt-16 sm:px-8 sm:pb-8">
               <PageSubtitle
                 text={text}
-                subText={subText}
                 textSize={textSize}
                 isDarkMode
                 ttsCurrentTime={ttsCurrentTime}
@@ -162,7 +150,6 @@ export function PageView({
             <div className="w-full flex-shrink-0">
               <PageSubtitle
                 text={text}
-                subText={subText}
                 textSize={textSize}
                 isDarkMode={isDarkMode}
                 ttsCurrentTime={ttsCurrentTime}

@@ -164,29 +164,21 @@ interface WordPreviewBannerProps {
 
 function WordPreviewBanner({ words, lang, onWordClick }: WordPreviewBannerProps) {
   const { t } = useTranslation('games');
-  // 시안 따라 한글+영어 양쪽 표시 — 메인 라벨은 lang 우선, sub 라벨은 반대 언어
+  // 단일 언어 정책 (2026-07-13): 재생 언어 단어 하나만 표시 — 반대 언어 보조 라벨(sub) 제거.
   const items = useMemo(
     () =>
       words
         .map((w) => {
           const main = getDisplayWord(w, lang);
-          // sub = 보조 뜻. ko→영어 / en→한글. vi·zh·th 는 모국어라 한글 뜻이 소음 → 없음.
-          const sub =
-            lang === 'ko'
-              ? (w.nameEn ?? (w.word !== main ? w.word : ''))
-              : lang === 'en'
-                ? (w.korean ?? '')
-                : '';
           const img = w.images?.find((im) => im.isPrimary)?.imageUrl ?? w.images?.[0]?.imageUrl;
           if (!main) return null;
-          return { main, sub, img, word: w };
+          return { main, img, word: w };
         })
         .filter(
           (
             x
           ): x is {
             main: string;
-            sub: string;
             img: string | undefined;
             word: VocabularyUnitWord;
           } => x !== null
@@ -224,11 +216,6 @@ function WordPreviewBanner({ words, lang, onWordClick }: WordPreviewBannerProps)
               <div className="text-lg lg:text-xl font-black text-ink-900 font-display truncate leading-tight">
                 {it.main}
               </div>
-              {it.sub && (
-                <div className="text-xs font-bold text-ink-500 truncate leading-tight">
-                  {it.sub}
-                </div>
-              )}
             </div>
           </button>
         ))}

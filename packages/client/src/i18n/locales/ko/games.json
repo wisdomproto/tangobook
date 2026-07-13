@@ -8,6 +8,10 @@
     "notReady": "단어를 준비하지 못했어요",
     "toLibrary": "라이브러리로"
   },
+  "audioLoading": {
+    "title": "잠깐만 기다려 줘!",
+    "sub": "소리 준비하는 중이에요..."
+  },
   "header": {
     "back": "뒤로 가기",
     "home": "홈",

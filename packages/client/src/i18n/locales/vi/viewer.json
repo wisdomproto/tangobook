@@ -55,7 +55,7 @@
     "noWords": "Cuốn sách này chưa đăng ký từ trọng tâm nào.",
     "allTapped": "🎉 Con đã nghe hết rồi! Lát nữa mình sẽ sang phần từ vựng…",
     "tapHint": "🖐️ Chạm vào từ để nghe cách phát âm",
-    "cardListen": "Nghe phát âm {{korean}} ({{name}})",
+    "cardListen": "Nghe phát âm {{word}}",
     "cardListened": " (đã chạm thử)",
     "moreVocab": "📚 Học thêm từ vựng",
     "reread": "🔄 Đọc lại",

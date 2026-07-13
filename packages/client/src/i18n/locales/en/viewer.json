@@ -55,7 +55,7 @@
     "noWords": "This book doesn't have any key words yet.",
     "allTapped": "🎉 You've heard them all! Heading to the vocabulary unit soon…",
     "tapHint": "🖐️ Tap a word to hear how it sounds",
-    "cardListen": "Hear {{korean}} ({{name}})",
+    "cardListen": "Hear {{word}}",
     "cardListened": " (tapped)",
     "moreVocab": "📚 Learn More Words",
     "reread": "🔄 Read Again",

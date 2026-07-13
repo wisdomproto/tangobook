@@ -379,7 +379,7 @@ export function WordDetailModal({
       onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-label={`${label} 단어 상세`}
+      aria-label={t('study.detailAria', { word: label })}
     >
       <motion.div
         initial={{ scale: 0.85, y: 20 }}
@@ -398,21 +398,12 @@ export function WordDetailModal({
         </button>
 
         <div className="p-6 lg:p-8">
-          {/* 단어 라벨 (양 phase 공통) */}
+          {/* 단어 라벨 (양 phase 공통) — 단일 언어 정책 (2026-07-13): 재생 언어 단어 하나만.
+              (전엔 ko=영어 / en=한국어 / vi·zh·th=영어 를 보조 라벨로 병기했음.) */}
           <div className="text-center mb-5">
-            <h2 className="text-5xl lg:text-6xl font-black font-display text-ink-900 leading-tight">
+            <h2 className="text-5xl lg:text-6xl font-black font-display text-ink-900 leading-tight break-keep">
               {label}
             </h2>
-            {lang === 'ko' && word.nameEn && (
-              <p className="mt-2 text-xl text-ink-500 font-bold">{word.nameEn}</p>
-            )}
-            {lang === 'en' && word.korean && (
-              <p className="mt-2 text-xl text-ink-500 font-bold">{word.korean}</p>
-            )}
-            {/* vi/zh/th: 영어 원어를 보조 라벨로(인지 도움) — 메인 라벨과 다를 때만 */}
-            {lang !== 'ko' && lang !== 'en' && (word.nameEn ?? word.word) !== label && (
-              <p className="mt-2 text-xl text-ink-500 font-bold">{word.nameEn ?? word.word}</p>
-            )}
           </div>
 
           <AnimatePresence mode="wait">

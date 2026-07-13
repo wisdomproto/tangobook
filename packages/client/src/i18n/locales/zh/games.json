@@ -8,6 +8,10 @@
     "notReady": "还没准备好单词",
     "toLibrary": "回到书库"
   },
+  "audioLoading": {
+    "title": "稍等一下哦！",
+    "sub": "正在准备声音..."
+  },
   "header": {
     "back": "返回",
     "home": "首页",

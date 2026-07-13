@@ -8,6 +8,10 @@
     "notReady": "Chưa chuẩn bị được từ",
     "toLibrary": "Về thư viện"
   },
+  "audioLoading": {
+    "title": "Chờ một chút nhé!",
+    "sub": "Đang chuẩn bị âm thanh..."
+  },
   "header": {
     "back": "Quay lại",
     "home": "Trang chủ",

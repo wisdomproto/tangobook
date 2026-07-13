@@ -704,7 +704,6 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
           pageIndex={pageIndex}
           direction={direction}
           lang={lang}
-          showSubtext={settings.showText}
           textSize={settings.textSize}
           isDarkMode={settings.darkMode}
           ttsCurrentTime={audio.ttsCurrentTime}

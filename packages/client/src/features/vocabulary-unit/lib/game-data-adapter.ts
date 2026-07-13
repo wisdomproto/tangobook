@@ -74,18 +74,12 @@ export function unitToLineMatchingData(
     const word = pickWord(w, lang);
     if (!imageUrl || !word) continue;
     const tts = pickTts(w, lang);
-    // 보조 라벨(뜻) — ko: 영어 / en: 한글. vi·zh·th 는 모국어 어휘라 한글 뜻이 소음 → 없음.
-    const subLabel =
-      lang === 'ko'
-        ? (w.nameEn ?? (w.word !== word ? w.word : ''))
-        : lang === 'en'
-          ? (w.korean ?? '')
-          : '';
+    // 단일 언어 정책 (2026-07-13): 게임 화면엔 플레이 언어 단어 하나만 — 다른 언어 뜻(subLabel)
+    // 병기 제거. (전에는 ko=영어 / en=한글 을 부제로 병기했음.)
     candidates.push({
       word,
       imageUrl,
       ...(tts ? { ttsUrl: tts } : {}),
-      ...(subLabel ? { subLabel } : {}),
     });
   }
   if (candidates.length < 3) return null;

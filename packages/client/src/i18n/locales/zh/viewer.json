@@ -55,7 +55,7 @@
     "noWords": "这本绘本还没有登记核心单词。",
     "allTapped": "🎉 全都听过啦！稍后进入词汇单元…",
     "tapHint": "🖐️ 点击单词听发音吧",
-    "cardListen": "听 {{korean}}（{{name}}）的发音",
+    "cardListen": "听 {{word}} 的发音",
     "cardListened": "（点过了）",
     "moreVocab": "📚 学更多词汇",
     "reread": "🔄 再读一遍",
