@@ -536,11 +536,28 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
             />
           ))
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 sm:gap-6">
-            {filtered.map((b) => (
-              <BookCard key={b.id} book={applyGenreCover(b)} />
-            ))}
-          </div>
+          <>
+            {/* 카테고리 필터/검색 뷰 상단 툴바 — 제목(활성 카테고리) + 그림풍 드롭박스(명작 등 여러 그림체 책).
+                섹션 헤더가 안 뜨는 평면 뷰에서도 그림체 전환 가능하게. */}
+            {(genreSelector || activeCategory) && (
+              <div className="mb-4 flex items-center justify-between gap-3">
+                {activeCategory ? (
+                  <h2 className="flex items-center gap-2 text-lg font-black text-ink-900 sm:text-xl">
+                    {getCategoryIconNode(activeCategory, 28)}
+                    <span className="break-keep">{displayCategory(activeCategory)}</span>
+                  </h2>
+                ) : (
+                  <span />
+                )}
+                {genreSelector}
+              </div>
+            )}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 sm:gap-6">
+              {filtered.map((b) => (
+                <BookCard key={b.id} book={applyGenreCover(b)} />
+              ))}
+            </div>
+          </>
         )}
       </div>
       {/* 사업자 정보 + 법적 문서 링크 — 토스 가맹 심사 필수 표기 */}
