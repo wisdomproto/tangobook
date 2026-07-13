@@ -16,6 +16,26 @@ export interface TtsOptions {
   retries?: number;
 }
 
+// 앱 2글자 언어코드 → Gemini TTS 억양 고정용 BCP-47 로케일.
+// languageCode 를 안 넘기면 모델이 텍스트만 보고 억양을 자동 결정 → 같은 voice 여도
+// 영어가 en-US/en-GB 를 오간다. 명시하면 발음이 결정적으로 고정된다.
+// zh·ms 는 Gemini 2.5 TTS 미지원(어휘 발음은 Google TTS 경로 사용)이라 매핑 제외 → 자동감지 유지.
+const TTS_LOCALE: Record<string, string> = {
+  ko: 'ko-KR',
+  en: 'en-US',
+  ja: 'ja-JP',
+  es: 'es-US',
+  fr: 'fr-FR',
+  de: 'de-DE',
+  vi: 'vi-VN',
+  th: 'th-TH',
+  id: 'id-ID',
+};
+
+export function resolveTtsLocale(language?: string): string | undefined {
+  return language ? TTS_LOCALE[language] : undefined;
+}
+
 export async function generateGeminiTts(options: TtsOptions): Promise<Buffer> {
   const { text, voice = config.gemini.ttsVoice, language = 'ko', retries = 3 } = options;
   const cleaned = text.replace(/\//g, '').trim();
@@ -50,6 +70,7 @@ export async function generateGeminiTts(options: TtsOptions): Promise<Buffer> {
           responseModalities: ['AUDIO'],
           speechConfig: {
             voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } },
+            ...(resolveTtsLocale(language) ? { languageCode: resolveTtsLocale(language) } : {}),
           },
         },
       });
