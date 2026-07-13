@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { authApi } from '../api/auth.api';
 
@@ -6,17 +6,27 @@ interface Props {
   mode: 'signin' | 'signup';
 }
 
+type Provider = 'kakao' | 'google' | 'facebook';
+
 /**
- * 카카오 + 구글 소셜 로그인 버튼 (공용).
- * Supabase 네이티브 OAuth provider 로 위임 — 클릭 시 외부 동의 화면으로
- * 리다이렉트되고, 복귀는 /login/callback 에서 detectSessionInUrl 이 자동 처리한다.
- * 로고는 공식 브랜드 가이드 색상의 인라인 SVG (외부 자산 의존 없음).
+ * 소셜 로그인 버튼 (공용) — **로케일별 provider 노출**.
+ * - 한국어(ko) UI: 카카오 + 구글 (카카오는 한국 전용)
+ * - 그 외 언어: 구글 + 페이스북 (Facebook = 전세계 소셜로그인 1위·동남아 최강)
+ * 이메일/비번은 별도(범용 안전망)라 이 컴포넌트 밖에서 항상 노출.
+ *
+ * 뒤단 entitlement 는 provider 무관 하나로 통일 — Supabase 네이티브 OAuth 로 위임,
+ * 복귀는 /login/callback 의 detectSessionInUrl 이 자동 처리. 로고는 인라인 SVG.
+ * (2단계: 태국·대만 LINE, iOS 네이티브 시 Apple — memory overseas-login-strategy-2026-07-13)
  */
 export function SocialAuthButtons({ mode }: Props) {
-  const { t } = useTranslation('auth');
-  const [busy, setBusy] = useState<'kakao' | 'google' | null>(null);
+  const { t, i18n } = useTranslation('auth');
+  const [busy, setBusy] = useState<Provider | null>(null);
 
-  const run = async (provider: 'kakao' | 'google', fn: () => Promise<void>) => {
+  // 한국어 UI = 카카오+구글, 그 외 = 구글+페이스북. 구글은 어디서나.
+  const providers: Provider[] =
+    i18n.language === 'ko' ? ['kakao', 'google'] : ['google', 'facebook'];
+
+  const run = async (provider: Provider, fn: () => Promise<void>) => {
     setBusy(provider);
     try {
       await fn();
@@ -27,24 +37,46 @@ export function SocialAuthButtons({ mode }: Props) {
     }
   };
 
+  const label = (provider: Provider) =>
+    mode === 'signup' ? t(`social.${provider}SignUp`) : t(`social.${provider}SignIn`);
+
+  const config: Record<
+    Provider,
+    { fn: () => Promise<void>; className: string; logo: ReactElement }
+  > = {
+    kakao: {
+      fn: authApi.signInWithKakao,
+      className: 'bg-[#FEE500] text-[#191600] hover:brightness-95',
+      logo: <KakaoLogo />,
+    },
+    google: {
+      fn: authApi.signInWithGoogle,
+      className: 'bg-white border-2 border-ink-100 text-ink-900 hover:bg-ink-50',
+      logo: <GoogleLogo />,
+    },
+    facebook: {
+      fn: authApi.signInWithFacebook,
+      className: 'bg-[#1877F2] text-white hover:brightness-95',
+      logo: <FacebookLogo />,
+    },
+  };
+
   return (
     <div className="flex flex-col gap-3">
-      <button
-        onClick={() => run('kakao', authApi.signInWithKakao)}
-        disabled={busy !== null}
-        className="h-14 rounded-xl bg-[#FEE500] text-[#191600] font-bold text-lg flex items-center justify-center gap-3 hover:brightness-95 disabled:opacity-60 transition"
-      >
-        <KakaoLogo />
-        {mode === 'signup' ? t('social.kakaoSignUp') : t('social.kakaoSignIn')}
-      </button>
-      <button
-        onClick={() => run('google', authApi.signInWithGoogle)}
-        disabled={busy !== null}
-        className="h-14 rounded-xl bg-white border-2 border-ink-100 text-ink-900 font-bold text-lg flex items-center justify-center gap-3 hover:bg-ink-50 disabled:opacity-60 transition"
-      >
-        <GoogleLogo />
-        {mode === 'signup' ? t('social.googleSignUp') : t('social.googleSignIn')}
-      </button>
+      {providers.map((p) => {
+        const c = config[p];
+        return (
+          <button
+            key={p}
+            onClick={() => run(p, c.fn)}
+            disabled={busy !== null}
+            className={`h-14 rounded-xl font-bold text-lg flex items-center justify-center gap-3 disabled:opacity-60 transition ${c.className}`}
+          >
+            {c.logo}
+            {label(p)}
+          </button>
+        );
+      })}
     </div>
   );
 }
@@ -78,6 +110,17 @@ function GoogleLogo() {
       <path
         fill="#34A853"
         d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48"
+      />
+    </svg>
+  );
+}
+
+function FacebookLogo() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 36 36" aria-hidden="true">
+      <path
+        fill="#fff"
+        d="M20.9 35.7V22.9h4.3l.8-5H20.9v-3.2c0-1.4.5-2.6 2.7-2.6h2.4V7.6c-.4-.1-1.9-.2-3.6-.2-3.6 0-6 2.2-6 6.2v3.5h-4v5h4v12.8z"
       />
     </svg>
   );

@@ -36,6 +36,15 @@ export const authApi = {
     if (error) throw error;
   },
 
+  async signInWithFacebook() {
+    const redirectTo = `${window.location.origin}/login/callback`;
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'facebook',
+      options: { redirectTo },
+    });
+    if (error) throw error;
+  },
+
   async signOut() {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
