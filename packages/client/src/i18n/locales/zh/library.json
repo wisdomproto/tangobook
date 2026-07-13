@@ -25,6 +25,10 @@
     "collapseAria": "收起分类",
     "moreAria": "查看更多分类"
   },
+  "badge": {
+    "reading": "阅读中",
+    "finished": "已读完"
+  },
   "category": {
     "other": "其他"
   },

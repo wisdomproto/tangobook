@@ -25,6 +25,10 @@
     "collapseAria": "카테고리 접기",
     "moreAria": "카테고리 더 보기"
   },
+  "badge": {
+    "reading": "읽는 중",
+    "finished": "완독"
+  },
   "category": {
     "other": "기타"
   },

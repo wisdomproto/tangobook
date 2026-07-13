@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/cn';
 import type { ReadingStatus } from '../hooks/useReadingStatus';
 
@@ -8,10 +9,10 @@ interface BookProgressBadgeProps {
 
 const STYLES: Record<
   Exclude<ReadingStatus, 'unread'>,
-  { icon: string; bg: string; label: string }
+  { icon: string; bg: string; labelKey: string }
 > = {
-  reading: { icon: '📖', bg: 'bg-warn text-ink-900', label: '읽는 중' },
-  finished: { icon: '✅', bg: 'bg-success text-white', label: '완독' },
+  reading: { icon: '📖', bg: 'bg-warn text-ink-900', labelKey: 'badge.reading' },
+  finished: { icon: '✅', bg: 'bg-success text-white', labelKey: 'badge.finished' },
 };
 
 /**
@@ -21,8 +22,10 @@ const STYLES: Record<
  * - unread: null (안 보임)
  */
 export function BookProgressBadge({ status, className }: BookProgressBadgeProps) {
+  const { t } = useTranslation('library');
   if (!status || status === 'unread') return null;
   const s = STYLES[status];
+  const label = t(s.labelKey);
   return (
     <div
       className={cn(
@@ -30,10 +33,10 @@ export function BookProgressBadge({ status, className }: BookProgressBadgeProps)
         s.bg,
         className
       )}
-      title={s.label}
+      title={label}
     >
       <span>{s.icon}</span>
-      <span>{s.label}</span>
+      <span>{label}</span>
     </div>
   );
 }

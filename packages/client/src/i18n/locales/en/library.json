@@ -25,6 +25,10 @@
     "collapseAria": "Collapse categories",
     "moreAria": "Show more categories"
   },
+  "badge": {
+    "reading": "Reading",
+    "finished": "Finished"
+  },
   "category": {
     "other": "Other"
   },

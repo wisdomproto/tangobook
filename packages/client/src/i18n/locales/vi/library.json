@@ -25,6 +25,10 @@
     "collapseAria": "Thu gọn danh mục",
     "moreAria": "Xem thêm danh mục"
   },
+  "badge": {
+    "reading": "Đang đọc",
+    "finished": "Đã đọc xong"
+  },
   "category": {
     "other": "Khác"
   },

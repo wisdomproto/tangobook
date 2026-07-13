@@ -25,6 +25,10 @@
     "collapseAria": "ย่อหมวดหมู่",
     "moreAria": "ดูหมวดหมู่เพิ่มเติม"
   },
+  "badge": {
+    "reading": "กำลังอ่าน",
+    "finished": "อ่านจบแล้ว"
+  },
   "category": {
     "other": "อื่นๆ"
   },
