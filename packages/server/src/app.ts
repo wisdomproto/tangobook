@@ -51,12 +51,9 @@ export function createApp() {
   // 미들웨어
   app.use(corsMiddleware);
 
-  // COOP/COEP headers for FFmpeg.wasm (SharedArrayBuffer)
-  app.use((_req, res, next) => {
-    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
-    res.setHeader('Cross-Origin-Embedder-Policy', 'credentialless');
-    next();
-  });
+  // ⚠️ COOP/COEP(credentialless) 헤더는 설정하지 않는다 — cross-origin iframe(토스 결제창·YouTube 등)을
+  // "연결을 거부했습니다"로 차단한다. 클라 SharedArrayBuffer(ffmpeg.wasm) 사용처가 없어 불필요.
+  // (vite.config.ts dev 서버에서도 동일 이유로 제거됨. 다시 추가하면 배포 결제창이 깨진다.)
 
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true }));
