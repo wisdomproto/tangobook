@@ -345,7 +345,9 @@ export function AppShell() {
             <div
               className={cn(
                 'flex-shrink-0 pointer-events-auto flex items-center gap-2',
-                isLibraryRoot && 'mt-1.5 sm:mt-2 mr-1'
+                // /library 는 배너 일러스트 위 오버레이 → 프로스티드 백드롭으로 컨트롤 가독성 확보.
+                isLibraryRoot &&
+                  'mt-1.5 sm:mt-2 mr-1 rounded-full bg-white/55 px-1.5 py-1 shadow-soft backdrop-blur-sm'
               )}
             >
               {/* 홈에 설치(PWA) — 언어 선택 왼쪽. 설치 가능한 환경에서만 노출. */}

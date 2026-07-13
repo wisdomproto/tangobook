@@ -77,7 +77,7 @@ export function PromoBanner() {
 
   return (
     <div
-      className="relative w-full min-h-[140px] sm:min-h-[150px] md:min-h-[170px] lg:min-h-[190px] rounded-2xl overflow-hidden shadow-soft mb-8 md:mb-10 flex bg-gradient-to-br from-cream-50 to-peach-100"
+      className="relative w-full min-h-[118px] sm:min-h-[126px] md:min-h-[140px] lg:min-h-[156px] rounded-2xl overflow-hidden shadow-soft mb-8 md:mb-10 flex bg-gradient-to-br from-cream-50 to-peach-100"
       role="region"
       aria-label={t('promo.region')}
     >
