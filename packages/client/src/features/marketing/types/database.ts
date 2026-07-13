@@ -375,6 +375,8 @@ export interface YoutubeContent {
   status: ContentStatus;
   youtube_video_id: string | null;
   published_at: string | null;
+  /** 롱폼 오디오북 영상 메타: { bookId, artStyle, language, aspectRatio, captions: {lang: srt} }. */
+  video_settings: Record<string, unknown> | null;
   created_at: string;
   updated_at: string;
 }
