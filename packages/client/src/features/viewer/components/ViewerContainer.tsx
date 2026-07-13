@@ -809,7 +809,14 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
 
       {arrowsVisible && (
         <div onClick={(e) => e.stopPropagation()}>
-          <ViewerControls onPrev={onPrev} onNext={onNext} canPrev={canPrev} canNext={canNext} />
+          {/* 마지막 페이지에서도 '다음' 활성 — onNext 가 끝 처리(WordReveal/Reward/playlist onBookEnd)를
+              수행한다. 비활성이면 '스스로 읽기'(수동) 모드에서 마지막 장 화살표가 죽어 게임/책끝으로 못 감. */}
+          <ViewerControls
+            onPrev={onPrev}
+            onNext={onNext}
+            canPrev={canPrev}
+            canNext={canNext || pageIndex === pages.length - 1}
+          />
         </div>
       )}
 

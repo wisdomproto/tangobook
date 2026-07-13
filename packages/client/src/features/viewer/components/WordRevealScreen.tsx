@@ -68,7 +68,7 @@ export function WordRevealScreen({
           uiLang === 'ko'
             ? korean
             : uiLang === 'en'
-              ? k.name
+              ? (k.nameEn ?? k.name) // 영어 라벨 = nameEn (name 은 이미지 키라 한글/영어 뒤섞임 → 음성과 불일치)
               : (k.nameTranslations?.[uiLang] ?? k.name);
         const tts = uiLang === 'ko' ? k.ttsUrl : k.ttsUrls?.[uiLang];
         return {
