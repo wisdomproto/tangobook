@@ -6,7 +6,7 @@ import { BlogPanel } from './BlogPanel';
 import { InternalBlogPanel } from './InternalBlogPanel';
 import { ThreadsPanel } from './ThreadsPanel';
 import { CardNewsPanel } from './CardNewsPanel';
-import { YoutubePanel } from './YoutubePanel';
+import { LongformPanel } from './LongformPanel';
 import { ReelsPanel } from './ReelsPanel';
 import { useUIStore } from '../../store/ui-store';
 import { useContent } from '../../api/use-contents';
@@ -244,7 +244,7 @@ export function ContentTabs() {
           <ThreadsPanel content={content} project={project} />
         </TabsContent>
         <TabsContent value="youtube" className="flex-1 min-h-0 m-0 overflow-hidden">
-          <YoutubePanel content={content} project={project} />
+          <LongformPanel content={content} project={project} />
         </TabsContent>
         <TabsContent value="shorts" className="flex-1 min-h-0 m-0 overflow-hidden">
           <ReelsPanel content={content} project={project} />
