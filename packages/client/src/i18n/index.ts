@@ -102,4 +102,13 @@ void i18n.use(initReactI18next).init({
 // 초기 언어가 ko 가 아니면 해당 로케일 lazy 로드
 if (initialLang !== 'ko') void loadLanguage(initialLang);
 
+// <html lang> 을 UI 언어와 동기화 — 언어별 디스플레이 폰트(index.css `:root[lang=...]`) 및
+// 스크린리더·hreflang 힌트용. NanumSquareRound 는 한글 전용이라 vi/th/zh 는 이 lang 으로 폰트 스왑.
+if (typeof document !== 'undefined') {
+  document.documentElement.lang = initialLang;
+  i18n.on('languageChanged', (lng) => {
+    document.documentElement.lang = lng;
+  });
+}
+
 export default i18n;

@@ -74,6 +74,27 @@
   }
 }
 
+/* 언어별 폰트 통일 — 헤딩용 NanumSquareRound(font-display)는 한글 전용이라 vi/th/zh 에선
+   성조·자모·한자를 글자마다 폴백해 "짜깁기"로 보인다. 각 스크립트를 온전히 덮는 폰트로 헤딩을
+   통일(cover-fonts.ts 와 동일 계열). <html lang> 은 i18n 이 UI 언어로 세팅. ko 는 기본 유지. */
+:root[lang='en'] .font-display,
+:root[lang='vi'] .font-display {
+  font-family: 'Baloo 2', 'Pretendard Variable', sans-serif;
+}
+:root[lang='zh'] .font-display {
+  font-family: 'ZCOOL KuaiLe', 'Noto Sans SC', sans-serif;
+}
+:root[lang='th'] .font-display {
+  font-family: 'Noto Sans Thai', 'Pretendard Variable', sans-serif;
+}
+/* 본문도 한자/타이는 Pretendard 미포함이라 해당 스크립트 폰트를 우선(폴백 일관화). vi 는 Pretendard 커버. */
+:root[lang='zh'] body {
+  font-family: 'Noto Sans SC', 'Pretendard Variable', sans-serif;
+}
+:root[lang='th'] body {
+  font-family: 'Noto Sans Thai', 'Pretendard Variable', sans-serif;
+}
+
 /* 자연 배경 애니메이션 (파닉스 뷰어) */
 @keyframes float {
   0%,
