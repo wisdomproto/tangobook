@@ -446,7 +446,7 @@ function LineMatchingPlayerInner({
                       (expected !== null && expected.itemIdx !== imageItemIdx)
                     }
                     className={cn(imageCardClass(imageItemIdx), 'w-full h-full overflow-hidden')}
-                    aria-label="그림 선택"
+                    aria-label={t('lineMatching.imageAria')}
                   >
                     <img
                       src={imageItem.imageUrl}
@@ -490,7 +490,7 @@ function LineMatchingPlayerInner({
                       wordCardClass(wordItemIdx),
                       'w-full h-full flex flex-col items-center justify-center px-2 sm:px-6 py-4'
                     )}
-                    aria-label={`단어: ${wordItem.word}`}
+                    aria-label={t('lineMatching.wordAria', { word: wordItem.word })}
                   >
                     <span className="text-xl sm:text-3xl lg:text-5xl font-black text-ink-900 font-display leading-tight break-keep text-center">
                       {wordItem.word}

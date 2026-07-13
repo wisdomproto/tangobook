@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * 모바일 가로 강제 gate — 세로(portrait) + 모바일(`pointer: coarse`) 일 때 회전 prompt 표시.
@@ -11,6 +12,7 @@ import { useEffect, useState, type ReactNode } from 'react';
  * - 데스크탑 (coarse pointer X) 은 세로로 리사이즈돼도 gate 안 띄움.
  */
 export function MobileLandscapeGate({ children }: { children: ReactNode }) {
+  const { t } = useTranslation('games');
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -53,13 +55,15 @@ export function MobileLandscapeGate({ children }: { children: ReactNode }) {
           <div className="text-5xl text-coral-500 animate-pulse" aria-hidden>
             ↻
           </div>
-          <h2 className="text-2xl font-black font-display text-ink-900">가로로 돌려주세요!</h2>
-          <p className="text-base text-ink-500">게임은 가로 모드에서 더 잘 보여요.</p>
+          <h2 className="text-2xl font-black font-display text-ink-900">
+            {t('landscapeGate.title')}
+          </h2>
+          <p className="text-base text-ink-500">{t('landscapeGate.sub')}</p>
           <button
             onClick={handleConfirm}
             className="mt-2 px-8 py-3 rounded-full bg-gradient-to-b from-coral-400 to-coral-600 text-white font-black text-lg shadow-pop hover:scale-105 active:scale-95 transition"
           >
-            확인
+            {t('result.confirm')}
           </button>
         </div>
       </div>

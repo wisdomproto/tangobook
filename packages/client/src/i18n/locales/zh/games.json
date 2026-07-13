@@ -50,7 +50,9 @@
     "back": "← 返回",
     "detailAria": "查看{{word}}详情",
     "retry": "重来",
-    "close": "关闭"
+    "close": "关闭",
+    "unitNotFound": "找不到这个单元",
+    "toLibrary": "🏠 回到书库"
   },
   "cards": {
     "lineMatching": {
@@ -83,9 +85,46 @@
   "connectDots": {
     "done": "完成！",
     "instruction": "把整个形状都涂满！",
-    "goal": "目标 {{pct}}%"
+    "goal": "目标 {{pct}}%",
+    "noDots": "还没有可以画的单词。"
   },
   "wordDetail": {
-    "tapHint": "点击图片听单词！"
+    "tapHint": "点击图片听单词！",
+    "listenAria": "听 {{word}}（{{current}}/{{total}}）",
+    "pageImageAlt": "{{word}} - 书的第 {{page}} 页",
+    "pageLabel": "📖 书的第 {{page}} 页",
+    "noPage": "找不到出现这个单词的页面。"
+  },
+  "lineMatching": {
+    "imageAria": "选择图片",
+    "wordAria": "单词：{{word}}"
+  },
+  "blockGame": {
+    "check": "确认",
+    "reset": "重置",
+    "resetTitle": "清空所有积木",
+    "consonants": "辅音",
+    "vowels": "元音",
+    "orderPrompt": "按顺序点一点",
+    "dragHint": "把下面的积木\n放到这里！",
+    "next": "下一个 →",
+    "seeResult": "查看结果",
+    "help": "🪄 帮帮我"
+  },
+  "writingGame": {
+    "paintPrompt": "给字涂上颜色吧！",
+    "tracePrompt": "跟着描字吧！",
+    "tracePolite": "跟着写一写吧",
+    "accuracy": "准确度：{{pct}}%",
+    "scoreGreat": "做得好！",
+    "scoreOk": "还不错！",
+    "scoreRetry": "再试一次好吗？",
+    "clear": "擦除",
+    "rewrite": "重新写",
+    "nextWord": "下一个单词"
+  },
+  "landscapeGate": {
+    "title": "请把屏幕横过来！",
+    "sub": "横屏玩游戏看得更清楚哦。"
   }
 }

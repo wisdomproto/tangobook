@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/design-system';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData, GameTypeId, Lang } from '@tangobook/shared';
@@ -38,6 +39,7 @@ function firstWritingChar(word: string): string {
 }
 
 function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: GamePlayerProps) {
+  const { t } = useTranslation('games');
   const data = gameData as WordWritingData;
   const items = data.items;
 
@@ -383,7 +385,7 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
   return (
     <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/writing-bg.webp">
       <GameHeader
-        title="따라 쓰기"
+        title={t('cards.writing.label')}
         current={scores.filter((s) => s >= 70).length}
         total={items.length}
         onBack={onBack}
@@ -412,7 +414,7 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
               {currentItem.displayWord}
             </p>
             <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900 mt-1">
-              따라 써보세요
+              {t('writingGame.tracePolite')}
             </p>
           </div>
         </div>
@@ -445,14 +447,14 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
                   {currentScore >= 80 ? '🎉' : currentScore >= 50 ? '👍' : '💪'}
                 </div>
                 <p className="text-3xl sm:text-4xl font-black text-ink-900">
-                  정확도: {currentScore}%
+                  {t('writingGame.accuracy', { pct: currentScore })}
                 </p>
                 <p className="text-xl sm:text-2xl font-bold text-ink-700">
                   {currentScore >= 80
-                    ? '잘했어요!'
+                    ? t('writingGame.scoreGreat')
                     : currentScore >= 50
-                      ? '괜찮아요!'
-                      : '다시 해볼까요?'}
+                      ? t('writingGame.scoreOk')
+                      : t('writingGame.scoreRetry')}
                 </p>
               </div>
             )}
@@ -464,10 +466,10 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
           {!showResult ? (
             <>
               <Button variant="ghost" size="md" onClick={handleClear}>
-                지우기
+                {t('writingGame.clear')}
               </Button>
               <Button size="md" onClick={handleCheck} disabled={!hasDrawn}>
-                확인
+                {t('blockGame.check')}
               </Button>
             </>
           ) : currentScore < 50 ? (
@@ -480,10 +482,12 @@ function WordWritingPlayerInner({ storybookId, gameData, onComplete, onBack }: G
                   handleClear();
                 }}
               >
-                다시 쓰기
+                {t('writingGame.rewrite')}
               </Button>
               <Button size="md" onClick={advanceToNext}>
-                {currentIndex + 1 >= items.length ? '결과 보기' : '다음 단어'}
+                {currentIndex + 1 >= items.length
+                  ? t('blockGame.seeResult')
+                  : t('writingGame.nextWord')}
               </Button>
             </>
           ) : null}

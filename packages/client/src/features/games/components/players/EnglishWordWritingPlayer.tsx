@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { WordWritingData } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
@@ -32,6 +33,7 @@ export function EnglishWordWritingPlayer({
   onComplete,
   onBack,
 }: GamePlayerProps) {
+  const { t } = useTranslation('games');
   const data = gameData as WordWritingData;
   const items = data.items;
 
@@ -171,7 +173,7 @@ export function EnglishWordWritingPlayer({
   return (
     <GamePlayerLayout maxWidth="3xl" bgImageUrl="/images/games/writing-bg.webp">
       <GameHeader
-        title="따라 쓰기"
+        title={t('cards.writing.label')}
         current={passed.filter(Boolean).length}
         total={items.length}
         onBack={onBack}
@@ -186,7 +188,7 @@ export function EnglishWordWritingPlayer({
             />
           )}
           <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900">
-            글자를 따라 써봐
+            {t('writingGame.tracePrompt')}
           </p>
         </div>
 

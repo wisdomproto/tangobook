@@ -50,7 +50,9 @@
     "back": "← Back",
     "detailAria": "View {{word}} details",
     "retry": "Retry",
-    "close": "Close"
+    "close": "Close",
+    "unitNotFound": "Couldn't find this unit",
+    "toLibrary": "🏠 To Library"
   },
   "cards": {
     "lineMatching": {
@@ -83,9 +85,46 @@
   "connectDots": {
     "done": "Done!",
     "instruction": "Paint the whole shape!",
-    "goal": "Goal {{pct}}%"
+    "goal": "Goal {{pct}}%",
+    "noDots": "No words are ready to draw yet."
   },
   "wordDetail": {
-    "tapHint": "Tap the picture to hear the word!"
+    "tapHint": "Tap the picture to hear the word!",
+    "listenAria": "Listen to {{word}} ({{current}}/{{total}})",
+    "pageImageAlt": "{{word}} - page {{page}} of the book",
+    "pageLabel": "📖 Page {{page}} of the book",
+    "noPage": "We couldn't find a page with this word."
+  },
+  "lineMatching": {
+    "imageAria": "Select picture",
+    "wordAria": "Word: {{word}}"
+  },
+  "blockGame": {
+    "check": "Check",
+    "reset": "Reset",
+    "resetTitle": "Clear all blocks",
+    "consonants": "Consonants",
+    "vowels": "Vowels",
+    "orderPrompt": "Tap in order",
+    "dragHint": "Put the blocks\nhere!",
+    "next": "Next →",
+    "seeResult": "See Results",
+    "help": "🪄 Help"
+  },
+  "writingGame": {
+    "paintPrompt": "Color in the letters!",
+    "tracePrompt": "Trace the letters!",
+    "tracePolite": "Trace along!",
+    "accuracy": "Accuracy: {{pct}}%",
+    "scoreGreat": "Well done!",
+    "scoreOk": "Not bad!",
+    "scoreRetry": "Shall we try again?",
+    "clear": "Erase",
+    "rewrite": "Write again",
+    "nextWord": "Next word"
+  },
+  "landscapeGate": {
+    "title": "Please rotate to landscape!",
+    "sub": "Games look better in landscape mode."
   }
 }

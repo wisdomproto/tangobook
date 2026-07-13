@@ -50,7 +50,9 @@
     "back": "← กลับ",
     "detailAria": "ดูรายละเอียด {{word}}",
     "retry": "ลองใหม่",
-    "close": "ปิด"
+    "close": "ปิด",
+    "unitNotFound": "ไม่พบบทเรียนนี้",
+    "toLibrary": "🏠 ไปที่คลังหนังสือ"
   },
   "cards": {
     "lineMatching": {
@@ -83,9 +85,46 @@
   "connectDots": {
     "done": "เสร็จแล้ว!",
     "instruction": "ระบายให้เต็มทั้งรูป!",
-    "goal": "เป้าหมาย {{pct}}%"
+    "goal": "เป้าหมาย {{pct}}%",
+    "noDots": "ยังไม่มีคำให้วาดเลย"
   },
   "wordDetail": {
-    "tapHint": "แตะรูปเพื่อฟังคำศัพท์!"
+    "tapHint": "แตะรูปเพื่อฟังคำศัพท์!",
+    "listenAria": "ฟัง {{word}} ({{current}}/{{total}})",
+    "pageImageAlt": "{{word}} - หน้า {{page}} ของหนังสือ",
+    "pageLabel": "📖 หน้า {{page}} ของหนังสือ",
+    "noPage": "ไม่พบหน้าที่มีคำนี้"
+  },
+  "lineMatching": {
+    "imageAria": "เลือกภาพ",
+    "wordAria": "คำ: {{word}}"
+  },
+  "blockGame": {
+    "check": "ตรวจ",
+    "reset": "รีเซ็ต",
+    "resetTitle": "ล้างบล็อกทั้งหมด",
+    "consonants": "พยัญชนะ",
+    "vowels": "สระ",
+    "orderPrompt": "แตะตามลำดับ",
+    "dragHint": "วางบล็อก\nตรงนี้!",
+    "next": "ถัดไป →",
+    "seeResult": "ดูผล",
+    "help": "🪄 ช่วยหน่อย"
+  },
+  "writingGame": {
+    "paintPrompt": "ระบายสีตัวอักษรกัน!",
+    "tracePrompt": "เขียนตามตัวอักษร!",
+    "tracePolite": "ลองเขียนตามนะ",
+    "accuracy": "ความแม่นยำ: {{pct}}%",
+    "scoreGreat": "เก่งมาก!",
+    "scoreOk": "ใช้ได้เลย!",
+    "scoreRetry": "ลองอีกทีไหม?",
+    "clear": "ลบ",
+    "rewrite": "เขียนใหม่",
+    "nextWord": "คำถัดไป"
+  },
+  "landscapeGate": {
+    "title": "หมุนจอเป็นแนวนอนนะ!",
+    "sub": "เกมจะดูสวยกว่าเมื่ออยู่แนวนอน"
   }
 }

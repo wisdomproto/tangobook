@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Skeleton, Chip, Mascot, PageHeader } from '@/design-system';
 import i18n from '@/i18n';
@@ -51,6 +52,7 @@ function getDisplayUnitName(unit: VocabularyUnit, lang: Lang, storybook?: Storyb
  * 용도 (직접 URL 접근 시 동작) + 어휘 단원 단독 학습 시 fallback.
  */
 export function VocabularyStudyPage() {
+  const { t } = useTranslation('games');
   const { unitId } = useParams<{ unitId: string }>();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -99,13 +101,13 @@ export function VocabularyStudyPage() {
       <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-amber-100 via-yellow-50 to-cream-50 text-center">
         <Mascot state="thinking" size="lg" />
         <h2 className="mt-4 text-2xl font-black text-ink-900 font-display">
-          단원을 찾을 수 없어요
+          {t('study.unitNotFound')}
         </h2>
         <button
           onClick={() => navigate('/library')}
           className="mt-6 px-5 py-3 rounded-full bg-amber-500 text-white font-black shadow-pop"
         >
-          🏠 라이브러리로
+          {t('study.toLibrary')}
         </button>
       </div>
     );

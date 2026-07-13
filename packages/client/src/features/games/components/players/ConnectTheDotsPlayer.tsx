@@ -440,9 +440,7 @@ function ConnectTheDotsPlayer({
       <GamePlayerLayout maxWidth="lg" onBack={onBack}>
         <div className="text-center py-16">
           <div className="text-5xl mb-4">🎨</div>
-          <p className="text-lg text-ink-900 dark:text-peach-200">
-            점이 3개 이상 배치된 핵심단어가 없습니다. 핵심사물 탭에서 점을 먼저 등록해주세요.
-          </p>
+          <p className="text-lg text-ink-900 dark:text-peach-200">{t('connectDots.noDots')}</p>
         </div>
       </GamePlayerLayout>
     );

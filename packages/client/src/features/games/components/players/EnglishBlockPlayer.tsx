@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { EnglishBlockData, EnglishBlockLetter } from '@tangobook/shared';
 import { isEnglishVowel } from '@tangobook/shared';
@@ -45,6 +46,7 @@ function EnglishBlockPlayerInner({
   onComplete: _onComplete,
   onBack,
 }: GamePlayerProps) {
+  const { t } = useTranslation('games');
   const data = gameData as EnglishBlockData;
   const items = data.items;
 
@@ -506,7 +508,12 @@ function EnglishBlockPlayerInner({
       {/* vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음. */}
       <div className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-br from-cream-50 to-peach-100 overflow-y-auto">
         <div className="px-2 pt-2 shrink-0">
-          <GameHeader title="영어 블록" current={score} total={items.length} onBack={onBack} />
+          <GameHeader
+            title={t('cards.block.labelEn')}
+            current={score}
+            total={items.length}
+            onBack={onBack}
+          />
         </div>
 
         {/* 오디오 로딩 overlay — 맵 + 단어 발음 프리워밍까지 대기(첫 정답 발음 지연 방지). */}
@@ -518,9 +525,9 @@ function EnglishBlockPlayerInner({
                 aria-hidden
               />
               <p className="text-xl sm:text-2xl font-black text-ink-900 font-display">
-                잠깐만 기다려 줘!
+                {t('audioLoading.title')}
               </p>
-              <p className="text-sm sm:text-base text-ink-500">소리 준비하는 중이에요...</p>
+              <p className="text-sm sm:text-base text-ink-500">{t('audioLoading.sub')}</p>
             </div>
           </div>
         )}
@@ -567,7 +574,7 @@ function EnglishBlockPlayerInner({
                   : 'bg-coral-500 hover:bg-coral-600 text-white shadow-pop'
               )}
             >
-              확인
+              {t('blockGame.check')}
             </button>
             <button
               onClick={handleNext}
@@ -579,7 +586,7 @@ function EnglishBlockPlayerInner({
                   : 'bg-peach-500 hover:bg-peach-300 text-white'
               )}
             >
-              {currentIndex + 1 < items.length ? '다음 →' : '결과 보기'}
+              {currentIndex + 1 < items.length ? t('blockGame.next') : t('blockGame.seeResult')}
             </button>
             {difficulty === 'easy' && (
               <button
@@ -587,7 +594,7 @@ function EnglishBlockPlayerInner({
                 disabled={hintActive || isTutorialPlaying || roundCorrect}
                 className="px-6 py-2.5 sm:px-10 sm:py-3.5 bg-gradient-to-b from-warn to-peach-500 text-white rounded-md text-xl font-black transition-all shadow-pop hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
-                🪄 도와줘
+                {t('blockGame.help')}
               </button>
             )}
           </div>

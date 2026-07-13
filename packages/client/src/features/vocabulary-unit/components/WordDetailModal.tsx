@@ -419,7 +419,11 @@ export function WordDetailModal({
                 {wordImage ? (
                   <button
                     onClick={handleIllustrationClick}
-                    aria-label={`${label} 듣기 (${clickCount}/${REVEAL_PAGE_AFTER_CLICKS})`}
+                    aria-label={t('wordDetail.listenAria', {
+                      word: label,
+                      current: clickCount,
+                      total: REVEAL_PAGE_AFTER_CLICKS,
+                    })}
                     className="rounded-2xl overflow-hidden border-4 border-amber-100 shadow-soft hover:shadow-pop transition-all duration-200 ease-out cursor-pointer focus:outline-none focus:ring-4 focus:ring-coral-300"
                     style={{
                       transform: pressed ? 'scale(0.92)' : 'scale(1)',
@@ -466,12 +470,12 @@ export function WordDetailModal({
                   <div className="rounded-2xl overflow-hidden border-4 border-amber-100">
                     <img
                       src={pageInfo.url}
-                      alt={`${label} - 책의 ${pageInfo.pageNumber}쪽`}
+                      alt={t('wordDetail.pageImageAlt', { word: label, page: pageInfo.pageNumber })}
                       loading="lazy"
                       className="w-full h-auto object-cover"
                     />
                     <p className="bg-amber-50 px-4 py-2 text-sm text-ink-500 font-bold text-center">
-                      📖 책의 {pageInfo.pageNumber}쪽
+                      {t('wordDetail.pageLabel', { page: pageInfo.pageNumber })}
                     </p>
                   </div>
                 )}
@@ -488,7 +492,7 @@ export function WordDetailModal({
                 {/* 페이지 없는 책 (custom 단원 등) — fallback 메시지 */}
                 {!pageInfo?.url && !pageInfo?.pageText && (
                   <p className="text-center text-ink-500 font-bold py-8">
-                    이 단어가 등장하는 페이지를 찾을 수 없어요.
+                    {t('wordDetail.noPage')}
                   </p>
                 )}
               </motion.div>

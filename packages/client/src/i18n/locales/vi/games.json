@@ -50,7 +50,9 @@
     "back": "← Quay lại",
     "detailAria": "Xem chi tiết {{word}}",
     "retry": "Làm lại",
-    "close": "Đóng"
+    "close": "Đóng",
+    "unitNotFound": "Không tìm thấy bài học này",
+    "toLibrary": "🏠 Về thư viện"
   },
   "cards": {
     "lineMatching": {
@@ -83,9 +85,46 @@
   "connectDots": {
     "done": "Xong!",
     "instruction": "Tô kín cả hình nhé!",
-    "goal": "Mục tiêu {{pct}}%"
+    "goal": "Mục tiêu {{pct}}%",
+    "noDots": "Chưa có từ nào để vẽ."
   },
   "wordDetail": {
-    "tapHint": "Chạm vào hình để nghe từ nhé!"
+    "tapHint": "Chạm vào hình để nghe từ nhé!",
+    "listenAria": "Nghe {{word}} ({{current}}/{{total}})",
+    "pageImageAlt": "{{word}} - trang {{page}} của sách",
+    "pageLabel": "📖 Trang {{page}} của sách",
+    "noPage": "Không tìm thấy trang có từ này."
+  },
+  "lineMatching": {
+    "imageAria": "Chọn hình",
+    "wordAria": "Từ: {{word}}"
+  },
+  "blockGame": {
+    "check": "Kiểm tra",
+    "reset": "Đặt lại",
+    "resetTitle": "Xóa hết khối",
+    "consonants": "Phụ âm",
+    "vowels": "Nguyên âm",
+    "orderPrompt": "Chạm theo thứ tự",
+    "dragHint": "Đặt khối\nvào đây!",
+    "next": "Tiếp →",
+    "seeResult": "Xem kết quả",
+    "help": "🪄 Giúp với"
+  },
+  "writingGame": {
+    "paintPrompt": "Tô màu chữ nào!",
+    "tracePrompt": "Viết theo chữ nào!",
+    "tracePolite": "Hãy viết theo nhé!",
+    "accuracy": "Độ chính xác: {{pct}}%",
+    "scoreGreat": "Giỏi lắm!",
+    "scoreOk": "Cũng được đấy!",
+    "scoreRetry": "Thử lại nhé?",
+    "clear": "Xóa",
+    "rewrite": "Viết lại",
+    "nextWord": "Từ tiếp theo"
+  },
+  "landscapeGate": {
+    "title": "Hãy xoay ngang màn hình!",
+    "sub": "Trò chơi hiển thị đẹp hơn khi nằm ngang."
   }
 }

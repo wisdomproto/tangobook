@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import type { GamePlayerProps } from '../../registry/game-registry';
 import type { KoreanBlockData } from '@tangobook/shared';
 import { JUNGSUNG, composeHangul, decomposeWord } from '@tangobook/shared';
@@ -217,6 +218,7 @@ function KoreanBlockPlayerInner({
   onComplete: _onComplete,
   onBack,
 }: GamePlayerProps) {
+  const { t } = useTranslation('games');
   const data = gameData as KoreanBlockData;
   // 방어 필터: 그리드(3×6)는 3음절까지만 배치 가능 — 서버 필터 이전에 생성된
   // 게임 데이터에 4음절(지느러미 등)이 남아 있으면 판이 안 만들어지므로 제외.
@@ -640,7 +642,12 @@ function KoreanBlockPlayerInner({
         }}
       >
         <div className="px-2 pt-2 shrink-0">
-          <GameHeader title="한글 블록" current={score} total={items.length} onBack={onBack} />
+          <GameHeader
+            title={t('cards.block.labelKo')}
+            current={score}
+            total={items.length}
+            onBack={onBack}
+          />
         </div>
 
         {/* 오디오 로딩 overlay — 맵 + 이번 판 음절 mp3 + 단어 발음 프리워밍까지 대기.
@@ -653,9 +660,9 @@ function KoreanBlockPlayerInner({
                 aria-hidden
               />
               <p className="text-xl sm:text-2xl font-black text-ink-900 font-display">
-                잠깐만 기다려 줘!
+                {t('audioLoading.title')}
               </p>
-              <p className="text-sm sm:text-base text-ink-500">소리 준비하는 중이에요...</p>
+              <p className="text-sm sm:text-base text-ink-500">{t('audioLoading.sub')}</p>
             </div>
           </div>
         )}
@@ -785,10 +792,8 @@ function KoreanBlockPlayerInner({
             {!isEasyMode && !roundCorrect && (
               <div className="absolute left-[clamp(1rem,3vw,2.5rem)] top-1/2 -translate-y-1/2 flex flex-row items-center gap-[clamp(0.375rem,1vw,0.75rem)] shrink-0 pointer-events-none select-none">
                 <div className="px-[clamp(0.875rem,2vw,1.5rem)] py-[clamp(0.5rem,1.5vh,1rem)] rounded-3xl bg-gradient-to-br from-peach-100 to-peach-200 border-[3px] border-white shadow-pop">
-                  <p className="text-[clamp(0.875rem,2vh,1.375rem)] font-black text-ink-900 font-display whitespace-nowrap text-center leading-tight">
-                    아래 블록을
-                    <br />
-                    여기에 놓아요!
+                  <p className="text-[clamp(0.875rem,2vh,1.375rem)] font-black text-ink-900 font-display whitespace-pre-line text-center leading-tight">
+                    {t('blockGame.dragHint')}
                   </p>
                 </div>
                 <motion.div
@@ -814,12 +819,12 @@ function KoreanBlockPlayerInner({
                     : 'bg-gradient-to-b from-coral-400 to-coral-600 text-white shadow-pop hover:scale-105 active:scale-95'
                 )}
               >
-                확인
+                {t('blockGame.check')}
               </button>
               <button
                 onClick={handleResetGrid}
                 disabled={roundCorrect || isPlaying}
-                title="블록 모두 비우기"
+                title={t('blockGame.resetTitle')}
                 className={cn(
                   'px-[clamp(0.875rem,2.25vw,1.5rem)] py-[clamp(0.25rem,1vh,0.625rem)] rounded-2xl text-[clamp(0.875rem,2vh,1.125rem)] font-bold transition-all flex items-center justify-center gap-1.5',
                   roundCorrect || isPlaying
@@ -828,7 +833,7 @@ function KoreanBlockPlayerInner({
                 )}
               >
                 <span aria-hidden>↺</span>
-                <span>초기화</span>
+                <span>{t('blockGame.reset')}</span>
               </button>
             </div>
           </section>
@@ -846,14 +851,14 @@ function KoreanBlockPlayerInner({
             // 자음/모음 패널 — 가로 풀폭 50/50, 세로 비중 2 (1).
             <div className="flex-[2] min-h-0 flex flex-row gap-[clamp(0.625rem,2vw,1.5rem)] items-stretch">
               <div className="flex-1 flex">
-                <BlockPanel title="자음" tone="consonant">
+                <BlockPanel title={t('blockGame.consonants')} tone="consonant">
                   {ALL_CONSONANTS.map((b) => (
                     <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
                   ))}
                 </BlockPanel>
               </div>
               <div className="flex-1 flex">
-                <BlockPanel title="모음" tone="vowel">
+                <BlockPanel title={t('blockGame.vowels')} tone="vowel">
                   {ALL_VOWELS.map((b) => (
                     <BlockTile key={b.id} block={b} drag={drag} onPlace={onPlace} />
                   ))}
@@ -914,12 +919,13 @@ function EasyOrderStrip({
   onTap: (stepIdx: number) => void;
   disabled: boolean;
 }) {
+  const { t } = useTranslation('games');
   return (
     <div className="relative rounded-3xl bg-cream-50/95 shadow-pop px-[clamp(0.75rem,1.5vw,1rem)] pt-[clamp(2rem,6vh,4rem)] pb-[clamp(0.5rem,1.5vh,1.25rem)] border-2 border-dashed border-cream-50 shrink-0">
       <div className="absolute -top-[clamp(1.25rem,3vh,2rem)] left-1/2 -translate-x-1/2">
         <span className="px-[clamp(1.25rem,3vw,2rem)] py-[clamp(0.375rem,1.25vh,0.875rem)] rounded-full text-white text-[clamp(0.875rem,2.25vh,1.5rem)] font-black font-display shadow-pop border-[3px] border-white flex items-center gap-2 whitespace-nowrap bg-gradient-to-b from-coral-400 to-coral-600">
           <span className="text-[clamp(1rem,2.5vh,1.625rem)]">⭐</span>
-          <span>순서대로 눌러봐</span>
+          <span>{t('blockGame.orderPrompt')}</span>
           <span className="text-[clamp(1rem,2.5vh,1.625rem)]">⭐</span>
         </span>
       </div>
