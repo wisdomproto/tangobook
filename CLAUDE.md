@@ -152,6 +152,7 @@ SPA SEO 기본기. 상세 → memory `seo-infrastructure-2026-05-26.md`.
 - 동적: `src/lib/useSeo.ts` hook — LibraryPage · BookDetailPage · KoreanPhonicsStudyPage · BookSeoPage 적용.
 - Prerender: `packages/client/scripts/prerender.mjs`(puppeteer). CMD `pnpm --filter client build:prerender`. 정적 4라우트 + **동화책 about 페이지 전체**(sitemap.xml 에서 추출, `/api/*` 를 `PRERENDER_API_ORIGIN`(기본 prod)로 요청 프록시해 실제 책 데이터로 렌더). env: `PRERENDER_BOOKS=0`(끄기)·`PRERENDER_BOOK_LIMIT`(제한). API 도달 불가 시 about 자동 스킵.
 - **✅ 검색엔진 등록 완료(2026-07-10)**: Google Search Console(도메인 속성 `tangobook.co.kr`, 도메인 공급업체 자동 소유확인) + 네이버 서치어드바이저(`www.tangobook.co.kr`, `naver-site-verification` 메타태그 `index.html` head) 둘 다 사이트맵 `https://www.tangobook.co.kr/sitemap.xml`(302 URL, 149권) 제출 완료. → memory `seo-search-console-registration-2026-07-10`.
+- **✅ GA4 설치(2026-07-13)**: `index.html` head 에 gtag.js(측정 ID `G-XENG7XW959`, 향상된 측정 → SPA 자동추적). 마케팅 「사이트 분석」이 이 속성(545209190)을 서비스계정으로 조회 — 자격증명은 `mkt_projects.ga4_config`(env보다 우선). → memory `ga4-marketing-analytics-2026-07-13`.
 - **IndexNow 즉시 색인**(2026-07-10): `pnpm --filter server indexnow`(`scripts/submit-indexnow.mjs`) = 공개 책 URL 을 네이버(`searchadvisor.naver.com/indexnow`)+공유망(`api.indexnow.org`, Bing·Yandex)에 POST. 키 파일 `public/b3b333d656886ff7c80be13b2e827c8a.txt`(배포 필수). 플래그 `--dry-run/--limit N/--url <url>`. 새 책 낼 때 `sitemap` 뒤에 실행(또는 `--url` 로 그 책만). ⚠️ 공유망은 키 파일 배포 후 소유권 검증에 수분~수시간(첫 제출 403 `SiteVerificationNotCompleted`=정상, 재시도).
 - 🔴 다음 할 일(메모리 참조): 책별 OG 카드(표지 합성) / CI 통합 / Core Web Vitals / 유료화 시 무료 11권 selection 재검토 + paywall 구조화데이터(`isAccessibleForFree`).
 
