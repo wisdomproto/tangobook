@@ -5,7 +5,19 @@ import { initReactI18next } from 'react-i18next';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 
 export const UI_LANG_KEY = 'tangobook-ui-lang';
+// 사용자가 셀렉터/설정에서 언어를 "직접" 고르면 이 플래그가 켜진다 → 이후 /:lang URL 프리픽스가
+// 언어를 덮어쓰지 않음 (한 번 vi 링크 탔다고 한국어 선택이 계속 vi 로 고정되던 문제 방지).
+export const UI_LANG_EXPLICIT_KEY = 'tangobook-ui-lang-explicit';
 export const UI_LANGS: string[] = SUPPORTED_LANGUAGES.map((l) => l.code);
+
+/** 사용자가 언어를 직접 고른 적이 있는가 (LangEntry 가 덮어쓸지 판단). */
+export function hasExplicitUiLang(): boolean {
+  try {
+    return localStorage.getItem(UI_LANG_EXPLICIT_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
 
 // ko(원문·폴백)는 eager 번들 — 첫 렌더에서 키 깜빡임 방지. 그 외 언어는 lazy.
 const koModules = import.meta.glob('./locales/ko/*.json', { eager: true }) as Record<
@@ -43,11 +55,16 @@ function detectLang(): string {
   return AVAILABLE_UI_LANGS.includes(nav) ? nav : 'ko';
 }
 
-/** 언어 변경 + 영속화. 부모 설정·언어 스위처에서 사용. */
-export async function setUiLanguage(lang: string): Promise<void> {
+/**
+ * 언어 변경 + 영속화.
+ * @param opts.explicit 사용자가 셀렉터/설정에서 직접 고른 경우 true — 이후 /:lang URL 이 덮어쓰지 못하게 플래그 저장.
+ *   (LangEntry 처럼 URL 로 자동 설정하는 경우는 explicit 없이 호출 → 다음 명시적 선택 전까진 URL 이 계속 우선.)
+ */
+export async function setUiLanguage(lang: string, opts?: { explicit?: boolean }): Promise<void> {
   if (!AVAILABLE_UI_LANGS.includes(lang)) return; // 번역 없는 언어는 무시
   try {
     localStorage.setItem(UI_LANG_KEY, lang);
+    if (opts?.explicit) localStorage.setItem(UI_LANG_EXPLICIT_KEY, '1');
   } catch {
     /* ignore */
   }

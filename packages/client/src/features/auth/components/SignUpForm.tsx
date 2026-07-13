@@ -127,7 +127,7 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
             value={lang}
             onChange={(e) => {
               setLang(e.target.value);
-              void setUiLanguage(e.target.value);
+              void setUiLanguage(e.target.value, { explicit: true });
             }}
             aria-label={t('signUp.language', { defaultValue: 'Language' })}
             className="flex-1 bg-transparent font-bold text-ink-900 outline-none cursor-pointer"

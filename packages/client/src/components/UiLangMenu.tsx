@@ -53,7 +53,7 @@ export function UiLangMenu() {
                   role="option"
                   aria-selected={active}
                   onClick={() => {
-                    void setUiLanguage(l.code);
+                    void setUiLanguage(l.code, { explicit: true });
                     setOpen(false);
                   }}
                   className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm font-bold hover:bg-peach-50 ${

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { setUiLanguage, AVAILABLE_UI_LANGS } from '@/i18n';
+import { setUiLanguage, AVAILABLE_UI_LANGS, hasExplicitUiLang } from '@/i18n';
 
 /**
  * 언어별 진입 링크 — tangobook.co.kr/en · /vi · /zh · /th · /ko.
@@ -13,12 +13,14 @@ import { setUiLanguage, AVAILABLE_UI_LANGS } from '@/i18n';
 export function LangEntry() {
   const { lang } = useParams<{ lang: string }>();
   const supported = !!lang && AVAILABLE_UI_LANGS.includes(lang);
+  // 사용자가 언어를 직접 고른 적이 있으면 URL 프리픽스가 덮어쓰지 않음 — 그의 선택 유지.
+  const skipOverride = supported && hasExplicitUiLang();
   // 언어 로케일 로드 완료 후 진입 — 라이브러리가 이전 언어로 잠깐 떴다 바뀌는 깜빡임 방지.
-  const [ready, setReady] = useState(!supported);
+  const [ready, setReady] = useState(!supported || skipOverride);
   useEffect(() => {
-    if (!supported || !lang) return;
+    if (!supported || !lang || skipOverride) return;
     void setUiLanguage(lang).finally(() => setReady(true));
-  }, [lang, supported]);
+  }, [lang, supported, skipOverride]);
   if (!ready) return null;
   return <Navigate to="/library" replace />;
 }

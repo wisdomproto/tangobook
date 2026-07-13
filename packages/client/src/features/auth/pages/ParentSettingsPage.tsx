@@ -103,7 +103,7 @@ export default function ParentSettingsPage() {
         </p>
         <select
           value={i18n.language}
-          onChange={(e) => void setUiLanguage(e.target.value)}
+          onChange={(e) => void setUiLanguage(e.target.value, { explicit: true })}
           aria-label={t('common:language.uiLanguage')}
           className="h-12 min-w-[200px] rounded-xl border-2 border-ink-100 px-3 font-bold text-ink-900 bg-white focus:border-coral-500 outline-none"
         >
