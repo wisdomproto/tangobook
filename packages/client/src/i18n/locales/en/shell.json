@@ -3,6 +3,13 @@
     "alt": "Tangobook",
     "home": "Go home"
   },
+  "install": {
+    "button": "Install App",
+    "iosTitle": "Add to Home Screen",
+    "iosStep1": "Tap the Share button (⬆️) at the bottom.",
+    "iosStep2": "Choose 'Add to Home Screen' — done!",
+    "gotIt": "Got it"
+  },
   "sidebar": {
     "storybooks": "Storybooks",
     "vocabGames": "Word Games",

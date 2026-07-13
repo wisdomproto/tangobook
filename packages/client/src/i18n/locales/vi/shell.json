@@ -3,6 +3,13 @@
     "alt": "Tangobook",
     "home": "Về trang chủ"
   },
+  "install": {
+    "button": "Cài đặt ứng dụng",
+    "iosTitle": "Thêm vào Màn hình chính",
+    "iosStep1": "Nhấn nút Chia sẻ (⬆️) ở dưới cùng.",
+    "iosStep2": "Chọn 'Thêm vào Màn hình chính' là xong!",
+    "gotIt": "Đã hiểu"
+  },
   "sidebar": {
     "storybooks": "Truyện tranh",
     "vocabGames": "Trò chơi từ vựng",

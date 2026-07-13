@@ -3,6 +3,13 @@
     "alt": "Tangobook",
     "home": "回到首页"
   },
+  "install": {
+    "button": "安装应用",
+    "iosTitle": "添加到主屏幕",
+    "iosStep1": "点击底部的分享按钮（⬆️）。",
+    "iosStep2": "选择「添加到主屏幕」即可！",
+    "gotIt": "知道了"
+  },
   "sidebar": {
     "storybooks": "童话书",
     "vocabGames": "词汇游戏",

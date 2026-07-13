@@ -3,6 +3,13 @@
     "alt": "탱고북",
     "home": "홈으로"
   },
+  "install": {
+    "button": "홈에 설치",
+    "iosTitle": "홈 화면에 추가하기",
+    "iosStep1": "화면 아래 공유 버튼(⬆️)을 누르세요.",
+    "iosStep2": "'홈 화면에 추가'를 선택하면 끝!",
+    "gotIt": "알겠어요"
+  },
   "sidebar": {
     "storybooks": "동화책",
     "vocabGames": "어휘 게임",

@@ -7,6 +7,7 @@ import { useAuth } from '@/features/auth/context/AuthContext';
 import { ProfilePicker } from '@/features/auth/components/ProfilePicker';
 import { AppBgm } from './AppBgm';
 import { UiLangMenu } from './UiLangMenu';
+import { InstallPwaButton } from './InstallPwaButton';
 import { AvatarRender } from '@/features/auth/components/AvatarRender';
 import { cn } from '@/lib/cn';
 import { isDevEmail } from '@/config/dev';
@@ -188,6 +189,8 @@ export function AppShell() {
             </Link>
           </>
         )}
+        {/* 홈에 설치 (PWA) — 설치 가능한 환경에서만 노출 (세션 무관). */}
+        <InstallPwaButton />
         {/* 로그인/로그아웃 — session 상태에 따라 분기 */}
         {session ? (
           <button
@@ -339,8 +342,14 @@ export function AppShell() {
               )}
             </div>
 
-            {/* 우측 — UI 언어 선택 + (아이 2명 이상일 때) 현재 아이 칩. */}
-            <div className="flex-shrink-0 pointer-events-auto flex items-center gap-2">
+            {/* 우측 — UI 언어 선택 + (아이 2명 이상일 때) 현재 아이 칩.
+                /library 오버레이 헤더에선 배너 모서리에 딱 붙지 않게 살짝 안쪽으로. */}
+            <div
+              className={cn(
+                'flex-shrink-0 pointer-events-auto flex items-center gap-2',
+                isLibraryRoot && 'mt-1.5 sm:mt-2 mr-1'
+              )}
+            >
               <UiLangMenu />
               {session && activeProfile && profiles.length > 1 && (
                 <button
