@@ -56,7 +56,7 @@ async function main() {
         const url = await genTitleTts(book.id, lang, title);
         book.titleTtsUrls[lang] = url;
         touched = true; ok++;
-        await new Promise((r) => setTimeout(r, 1200)); // rate limit
+        await new Promise((r) => setTimeout(r, 2500)); // rate limit / 서버 부하 완화
       } catch (e) {
         console.error(`  ! ${book.title} [${lang}]: ${e.message}`);
         fail++;
