@@ -243,7 +243,7 @@ async function main() {
     status: 'scheduled',
     scheduled_at: p.at.toISOString(),
     retry_count: 0,
-    metadata: { target_id: targetId, page_name: pageName, content_kind: 'reels' },
+    metadata: { target_id: targetId, page_name: pageName, content_kind: 'reels', title: p.title },
     updated_at: nowIso,
   }));
   const { error: eIns } = await sb.from('mkt_publish_records').insert(records);

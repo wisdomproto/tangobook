@@ -92,6 +92,8 @@ const LOCALES: Array<{ code: string; label: string; flag: string }> = [
 ];
 
 const META_CHANNELS = ['instagram', 'facebook', 'threads'];
+// 실행기(publish-executor)가 실제 발행 가능한 채널 — 메타 + 유튜브(쇼츠).
+const PUBLISHABLE_CHANNELS = [...META_CHANNELS, 'youtube'];
 
 function kindOf(record: PublishRecord): keyof typeof KIND_META {
   const k = record.metadata?.content_kind as string | undefined;
@@ -149,9 +151,8 @@ export function PublishQueue({ projectId }: Props) {
 
   /** 즉시 발행 — 메타 채널은 실제 발행(runPublish), 그 외는 안내. */
   const handlePublishNow = async (record: PublishRecord) => {
-    if (!META_CHANNELS.includes(record.channel)) {
+    if (!PUBLISHABLE_CHANNELS.includes(record.channel)) {
       if (record.channel === 'self_hosted') alert('자체 사이트는 예약 시각에 자동 발행됩니다.');
-      else if (record.channel === 'youtube') alert('YouTube 자동 발행은 아직 지원하지 않습니다.');
       else alert('이 채널은 자동 발행을 지원하지 않습니다(수동 발행).');
       return;
     }

@@ -54,6 +54,7 @@ export async function tick(): Promise<void> {
     await flipDueSelfHosted(admin);
     await fireDeployWebhooks(admin);
     await publishDueMeta(admin);
+    await publishDueYoutube(admin);
   } catch (err) {
     console.error('[mkt] publish tick error:', (err as Error).message);
   } finally {
@@ -133,6 +134,37 @@ export async function publishDueMeta(admin: SupabaseClient): Promise<void> {
 
   // Sequential: each publish drives multiple Graph calls (+polling) — parallel would spike
   // rate limits. Executor is self-contained (updates each record's terminal/retry state).
+  for (const row of due as Array<{ id: string }>) {
+    await publishRecord(row.id);
+  }
+}
+
+/**
+ * Step D — publish due `youtube` scheduled records, one per tick.
+ *
+ * YouTube uploads are heavy (download reel mp4 from R2 → resumable upload) and quota-capped
+ * (default 6 uploads/day: each `videos.insert` costs 1600 of 10k units). We cap at ONE per
+ * tick so a daily-spaced queue drains 1/day without ever bursting the quota, and a single
+ * multi-minute upload can't stall the IG/meta path (it runs after `publishDueMeta`). The
+ * shared executor (`publishRecord` → `publishYouTube`) handles upload + terminal/retry state;
+ * new uploads default to `public` (metadata.privacy).
+ */
+const YT_BATCH = 1;
+
+export async function publishDueYoutube(admin: SupabaseClient): Promise<void> {
+  const nowIso = new Date().toISOString();
+  const { data: due, error } = await admin
+    .from('mkt_publish_records')
+    .select('id')
+    .eq('status', 'scheduled')
+    .eq('channel', 'youtube')
+    .lte('scheduled_at', nowIso)
+    .order('scheduled_at', { ascending: true })
+    .limit(YT_BATCH);
+
+  if (error) throw new Error(error.message);
+  if (!due?.length) return;
+
   for (const row of due as Array<{ id: string }>) {
     await publishRecord(row.id);
   }

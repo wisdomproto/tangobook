@@ -280,6 +280,24 @@ export const YouTubeProvider = {
     };
   },
 
+  /**
+   * Update a video's privacy (public | unlisted | private). Uses videos.update with
+   * only the `status` part — other snippet fields are left untouched. Requires the
+   * youtube.force-ssl scope (already requested).
+   */
+  async setPrivacy(
+    videoId: string,
+    privacy: 'public' | 'unlisted' | 'private',
+    channelId?: string
+  ): Promise<void> {
+    const youtube = await this.getAuthenticatedClient(channelId);
+    await youtube.videos.update({
+      part: ['status'],
+      requestBody: { id: videoId, status: { privacyStatus: privacy } },
+    });
+    console.log(`[youtube] Privacy set to ${privacy} for video ${videoId}`);
+  },
+
   /** Set thumbnail for a YouTube video */
   async setThumbnail(videoId: string, imageBuffer: Buffer, channelId?: string): Promise<void> {
     const youtube = await this.getAuthenticatedClient(channelId);
