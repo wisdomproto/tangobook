@@ -37,7 +37,10 @@ const APPLY = process.argv.includes('--apply');
 const CACHE_CONTROL = 'public, max-age=31536000, immutable';
 const urlToKey = (u) => decodeURIComponent(new URL(u).pathname.replace(/^\//, ''));
 const isRasterCover = (u) =>
-  typeof u === 'string' && /cover/i.test(u) && /\.(jpe?g|png)$/i.test(u) && u.startsWith('http');
+  typeof u === 'string' &&
+  /cover/i.test(u) &&
+  /\.(jpe?g|jfif|png)$/i.test(u) &&
+  u.startsWith('http');
 
 function collectCoverUrls(sb) {
   const urls = new Set();
@@ -101,7 +104,7 @@ async function worker() {
       let changedText = rawText;
       let bookConv = 0;
       for (const url of coverUrls) {
-        const webpUrl = url.replace(/\.(jpe?g|png)$/i, '.webp');
+        const webpUrl = url.replace(/\.(jpe?g|jfif|png)$/i, '.webp');
         const webpKey = urlToKey(webpUrl);
         if (APPLY) {
           if (await exists(webpKey)) {
