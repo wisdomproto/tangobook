@@ -50,6 +50,11 @@ ARG VITE_SUPABASE_ANON_KEY
 ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
 ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
 
+# 토스 결제창 클라이언트 키 — 빌드 시점 인라인 필수(없으면 배포 클라가 isCheckoutConfigured=false
+# 로 빌드되어 /subscribe 가 "준비 중" 화면만 뜨고 결제창이 안 뜬다). Railway 서비스 변수로 설정.
+ARG VITE_TOSS_CLIENT_KEY
+ENV VITE_TOSS_CLIENT_KEY=$VITE_TOSS_CLIENT_KEY
+
 RUN pnpm build
 
 # tsc가 복사하지 않는 비-TS 파일 복사

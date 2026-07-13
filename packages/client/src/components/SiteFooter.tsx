@@ -3,6 +3,10 @@ import { BUSINESS_INFO } from '@/config/business';
 
 const B = BUSINESS_INFO;
 
+// 통신판매업 신고번호 미발급(TODO 값) 상태에서는 미완성 문자열 대신 안내 문구를 노출.
+// business.ts 에 실제 번호가 채워지면 자동으로 번호가 표시된다.
+const mailOrderLabel = B.mailOrderNumber.startsWith('TODO') ? '신고 준비 중' : B.mailOrderNumber;
+
 /**
  * 사이트 푸터 — 사업자 정보 + 법적 문서 링크.
  * PG(토스) 가맹 심사 필수 표기 (전자상거래법 신원정보 표시).
@@ -27,7 +31,8 @@ export function SiteFooter() {
           <p>
             {B.companyName} · 대표 {B.ceoName} · 사업자등록번호 {B.businessNumber}
           </p>
-          <p>통신판매업신고 {B.mailOrderNumber}</p>
+          <p>통신판매업신고 {mailOrderLabel}</p>
+          <p>주소 {B.address}</p>
           <p>
             고객센터 {B.supportPhone} · {B.supportEmail} ({B.supportHours})
           </p>
