@@ -12,7 +12,6 @@ import type {
   YouTubeUploadMeta,
   YouTubeGeneratedMeta,
   Storybook,
-  Page,
   GeneratedCaption,
 } from '@tangobook/shared';
 import { getAudioDuration } from '../utils/audio-duration.js';
@@ -21,6 +20,7 @@ import { deleteFromR2, downloadFromR2, urlToR2Key } from '../providers/r2.provid
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
 import { generateSrt } from '../utils/srt-generator.js';
 import { translateSrt } from '../utils/srt-translator.js';
+import { buildYoutubeMetaPrompt } from '../utils/youtube-meta-prompt.js';
 import { parseYouTubeVideoId } from '../utils/youtube-url.js';
 
 // Remotion은 Chromium이 필요하므로 서버 시작 시가 아닌 렌더링 요청 시에만 lazy import
@@ -43,13 +43,6 @@ type RenderProgress = { progress: number; step: string; error?: string };
 const renderProgressMap = new Map<string, RenderProgress>();
 const youtubeProgressMap = new Map<string, RenderProgress>();
 const captionProgressMap = new Map<string, RenderProgress>();
-
-function getPageText(page: Page, lang: string): string {
-  if (lang !== 'ko' && page.translations?.[lang]?.text) {
-    return page.translations[lang].text;
-  }
-  return page.text;
-}
 
 let cachedBundlePath: string | null = null;
 
@@ -388,45 +381,13 @@ export const AudiobookService = {
     const project = storybook.audiobookProjects?.find((p: AudiobookProject) => p.id === projectId);
     if (!project) throw new AppError(404, '오디오북 프로젝트를 찾을 수 없습니다.');
 
-    const pages = storybook.pages ?? [];
     const lang = project.language ?? 'ko';
 
-    const storybookInfo = [
-      `Title: ${storybook.title}`,
-      storybook.category ? `Category: ${storybook.category}` : '',
-      `Type: Audiobook (animated storybook video)`,
-      `Content Language: ${lang}`,
-      `Aspect Ratio: ${project.aspectRatio}`,
-      `Pages: ${pages.length}`,
-      pages.length > 0
-        ? `Content Summary:\n${pages
-            .slice(0, 10)
-            .map((p) => `- p${p.pageNumber}: ${getPageText(p, lang).slice(0, 100)}`)
-            .join('\n')}`
-        : '',
-    ]
-      .filter(Boolean)
-      .join('\n');
-
-    const geminiPrompt = [
-      prompt,
-      '',
-      '=== Storybook Info ===',
-      storybookInfo,
-      '',
-      'Based on the above info and the user prompt, generate YouTube upload settings as JSON.',
-      'Output ONLY the JSON below (no other text):',
-      '{',
-      '  "title": "video title",',
-      '  "description": "video description",',
-      '  "tags": ["tag1", "tag2", "tag3"],',
-      '  "privacy": "public | private | unlisted",',
-      '  "categoryId": "YouTube category ID (Education: 27, Entertainment: 24, People/Blogs: 22)",',
-      '  "language": "ko | en"',
-      '}',
-      '',
-      `IMPORTANT: The video content is in "${lang === 'ko' ? 'Korean' : 'English'}". Write the title, description, and tags in ${lang === 'ko' ? 'Korean' : 'English'}.`,
-    ].join('\n');
+    const geminiPrompt = buildYoutubeMetaPrompt(storybook, {
+      language: lang,
+      aspectRatio: project.aspectRatio,
+      userPrompt: prompt,
+    });
 
     const raw = await generateTextWithGemini(geminiPrompt, 3);
 
