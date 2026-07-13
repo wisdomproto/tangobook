@@ -27,7 +27,10 @@ export function CleanCoverMatrixModal({ onClose }: { onClose: () => void }) {
   const [onlyMissing, setOnlyMissing] = useState(false);
 
   const { order, groups, total, missing } = useMemo(() => {
-    const target = (books ?? []).filter((b) => b.type === 'storybook' && isTargetCat(b.category));
+    // 레거시 책은 type 미지정(=storybook) → phonics 만 제외. (type==='storybook' 엄격 비교는 전부 걸러냄)
+    const target = (books ?? []).filter(
+      (b) => b.type !== 'phonics' && b.isPublic !== false && isTargetCat(b.category)
+    );
     let total = 0;
     let missing = 0;
     for (const b of target) {
