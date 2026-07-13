@@ -885,6 +885,11 @@ export interface Storybook {
    */
   titleTranslations?: Record<string, string>;
   /**
+   * 언어별 제목 낭독 TTS URL — 뷰어 진입 "표지+제목 인트로" 낭독용. `titleTtsUrls[lang]`.
+   * Google native TTS 로 배치 생성(generate-title-tts.mjs). ko 는 `title`, 그 외는 `titleTranslations[lang]` 기준.
+   */
+  titleTtsUrls?: Record<string, string>;
+  /**
    * 언어별 대표 표지 URL.
    * 키 = lang code (ko/en/ja/...), 값 = coverImages[i].imageUrl 중 하나.
    * `ko` 는 비어 있으면 `coverImage` (legacy 필드) 로 fallback.

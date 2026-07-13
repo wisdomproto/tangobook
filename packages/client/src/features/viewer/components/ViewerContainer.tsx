@@ -26,6 +26,7 @@ import { useAudioPlayer } from '../hooks/useAudioPlayer';
 import { getPageTtsUrl } from '../lib/page-text';
 import { ViewerToolbar } from './ViewerToolbar';
 import { ViewerControls } from './ViewerControls';
+import { TitleIntro } from './TitleIntro';
 import { PageView } from './PageView';
 import { BookSpineProgress } from './BookSpineProgress';
 import { RewardScreen } from './RewardScreen';
@@ -123,6 +124,8 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
   const [ttsReady, setTtsReady] = useState(false);
   // 첫 진입은 항상 '시작' 버튼 → 사용자 탭 안에서 재생(모든 브라우저 OK, autoplay 정책 우회).
   const [needsTapToStart, setNeedsTapToStart] = useState(false);
+  // 표지+제목 인트로 오버레이. 연속재생 2번째+ (autoStart) 는 탭 게이트 없이 자동 낭독부터 시작.
+  const [introActive, setIntroActive] = useState(playlist?.autoStart === true);
   // 전체화면은 책마다 진입 시 기본 ON (영구 저장 X) — 끄면 그 책 보는 동안만, 다음 책은 다시 전체화면.
   const [fullscreenLocal, setFullscreenLocal] = useState(true);
   // 전체화면에서 화면 탭 → 툴바·네비 일시 표시 (기본 전체화면이라 "버튼이 아예 안 보임" 방지).
@@ -288,8 +291,8 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
     if (!currentTtsUrl || !ttsReady) return;
     if (rewardOpen || wordRevealOpen) return;
     if (mode === 'video' || mode === 'games') return;
-    // 탭-투-스타트 게이트가 떠 있으면(autoplay 폴백 포함) 자동재생 보류 — 탭 후 재개.
-    if (needsTapToStart) return;
+    // 탭-투-스타트 게이트 또는 표지+제목 인트로가 떠 있으면 자동재생 보류 — 완료(낭독 끝) 후 재개.
+    if (needsTapToStart || introActive) return;
     // 시작 전(시작 버튼 대기)엔 자동재생 안 함. 시작 후(제스처로 해금됨)에만 자동재생.
     if (!startedRef.current) return;
     // ⏸(autoPlayTts OFF) 동안엔 페이지를 넘겨도 재생하지 않음. deps 대신 stateRef 로 읽어
@@ -303,7 +306,7 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
       if (stateRef.current.autoPlayTts) audio.playTts(currentTtsUrl);
     }, NEXT_TTS_DELAY_MS);
     return () => clearTimeout(t);
-  }, [currentTtsUrl, ttsReady, rewardOpen, wordRevealOpen, mode, needsTapToStart]);
+  }, [currentTtsUrl, ttsReady, rewardOpen, wordRevealOpen, mode, needsTapToStart, introActive]);
 
   // autoStart(플레이리스트: 탭 게이트 skip 진입) — 탭 버튼과 동일하게 버퍼링 완료 시
   // 첫 재생(BGM + TTS)을 직접 킥오프. autoplay effect 의 setTimeout 은 lang/재버퍼링 churn 에
@@ -528,6 +531,30 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
     }
     goTo(pageIndex + 1);
   };
+
+  // 표지+제목 인트로 데이터 (읽기 언어·현재 그림체) + 시작 핸들러.
+  const introStyle = urlStyle ?? storybook?.artStyle ?? undefined;
+  const introTitle =
+    (lang !== 'ko' ? storybook?.titleTranslations?.[lang] : undefined) ?? storybook?.title ?? '';
+  const introTitleTts = storybook?.titleTtsUrls?.[lang];
+  const introCover =
+    (introStyle ? storybook?.styleAssets?.[introStyle]?.primaryCoverByLang?.[lang] : undefined) ??
+    storybook?.primaryCoverByLang?.[lang] ??
+    (introStyle ? storybook?.styleAssets?.[introStyle]?.coverImage : undefined) ??
+    storybook?.coverImage;
+  const introVolume = VOLUME_GAIN[settings.volume ?? 'high'];
+  // 탭 게이트(첫 책/개별) 시작 — TitleIntro 가 탭→제목 낭독 후 이걸 호출 → 첫 페이지 재생.
+  const handleIntroStart = () => {
+    startedRef.current = true;
+    setNeedsTapToStart(false);
+    playlist?.onStart?.(); // 연속재생: 시작 화면 컨트롤 숨김 신호
+    if (!audio.isBgmPlaying) audio.toggleBgm();
+    if (currentTtsUrl && stateRef.current.autoPlayTts) {
+      lastPlayedTtsRef.current = currentTtsUrl;
+      audio.playTts(currentTtsUrl);
+    }
+  };
+
   // 자동재생 master switch — autoPlayTts 토글 + TTS 동기화
   // 멈출 땐 pauseTts (현재 위치 유지) — 다시 켤 때 이어재생.
   const onTogglePlayback = () => {
@@ -778,33 +805,27 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
         </div>
       )}
 
-      {/* autoplay 차단 시 — 탭으로 음성+BGM 시작 (사용자 제스처 안에서 재생 → 모든 브라우저 OK) */}
+      {/* 표지+제목 인트로 — 탭 게이트(첫 책/개별) 겸용. 탭 → 제목 낭독 → 첫 페이지(handleIntroStart). */}
       {needsTapToStart && (
-        <button
-          type="button"
-          onClick={() => {
-            startedRef.current = true;
-            setNeedsTapToStart(false);
-            playlist?.onStart?.(); // 연속재생: 시작 화면 컨트롤 숨김 신호
-            if (!audio.isBgmPlaying) audio.toggleBgm();
-            // 스스로 책읽기(autoPlayTts OFF)면 첫 페이지도 자동 낭독하지 않고 BGM 만 시작.
-            if (currentTtsUrl && stateRef.current.autoPlayTts) {
-              lastPlayedTtsRef.current = currentTtsUrl;
-              audio.playTts(currentTtsUrl);
-            }
-          }}
-          className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-5 bg-cream-50/95 backdrop-blur-sm"
-        >
-          <span className="flex h-24 w-24 items-center justify-center rounded-full bg-coral-500 text-white shadow-soft animate-pulse">
-            <svg className="w-10 h-10 ml-1" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </span>
-          <span className="font-display text-xl font-black text-ink-900 break-keep">
-            {t('tapToStart.title')}
-          </span>
-          <span className="text-sm text-ink-500 break-keep">{t('tapToStart.subtitle')}</span>
-        </button>
+        <TitleIntro
+          autoPlay={false}
+          coverUrl={introCover}
+          title={introTitle}
+          titleTtsUrl={introTitleTts}
+          volumeGain={introVolume}
+          onComplete={handleIntroStart}
+        />
+      )}
+      {/* 연속재생 2번째+ (autoStart) — 탭 없이 자동 낭독 → 낭독 끝나면 첫 페이지 자동재생. */}
+      {introActive && !needsTapToStart && (
+        <TitleIntro
+          autoPlay
+          coverUrl={introCover}
+          title={introTitle}
+          titleTtsUrl={introTitleTts}
+          volumeGain={introVolume}
+          onComplete={() => setIntroActive(false)}
+        />
       )}
 
       {arrowsVisible && (
