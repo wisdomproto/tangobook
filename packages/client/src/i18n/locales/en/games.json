@@ -1,4 +1,13 @@
 {
+  "vocabHub": {
+    "title": "Word Games",
+    "anotherBook": "Another book",
+    "anotherBookAria": "Switch to another book",
+    "loading": "Gathering words...",
+    "loadingSub": "Just a moment!",
+    "notReady": "Couldn't get the words ready",
+    "toLibrary": "To Library"
+  },
   "header": {
     "back": "Back",
     "home": "Home",

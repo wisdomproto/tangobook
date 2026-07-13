@@ -1,4 +1,13 @@
 {
+  "vocabHub": {
+    "title": "词汇游戏",
+    "anotherBook": "换一本",
+    "anotherBookAria": "换一本书",
+    "loading": "正在收集单词...",
+    "loadingSub": "稍等一下哦！",
+    "notReady": "还没准备好单词",
+    "toLibrary": "回到书库"
+  },
   "header": {
     "back": "返回",
     "home": "首页",

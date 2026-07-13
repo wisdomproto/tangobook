@@ -1,4 +1,13 @@
 {
+  "vocabHub": {
+    "title": "어휘 게임",
+    "anotherBook": "다른 책",
+    "anotherBookAria": "다른 책으로 바꾸기",
+    "loading": "단어 모으는 중...",
+    "loadingSub": "잠깐만 기다려 줘!",
+    "notReady": "단어를 준비하지 못했어요",
+    "toLibrary": "라이브러리로"
+  },
   "header": {
     "back": "뒤로 가기",
     "home": "홈",

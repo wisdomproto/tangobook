@@ -1,4 +1,13 @@
 {
+  "vocabHub": {
+    "title": "Trò chơi từ vựng",
+    "anotherBook": "Sách khác",
+    "anotherBookAria": "Đổi sang sách khác",
+    "loading": "Đang gom từ...",
+    "loadingSub": "Chờ một chút nhé!",
+    "notReady": "Chưa chuẩn bị được từ",
+    "toLibrary": "Về thư viện"
+  },
   "header": {
     "back": "Quay lại",
     "home": "Trang chủ",

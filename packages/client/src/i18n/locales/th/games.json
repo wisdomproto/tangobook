@@ -1,4 +1,13 @@
 {
+  "vocabHub": {
+    "title": "เกมคำศัพท์",
+    "anotherBook": "เล่มอื่น",
+    "anotherBookAria": "เปลี่ยนเป็นเล่มอื่น",
+    "loading": "กำลังรวบรวมคำ...",
+    "loadingSub": "รอสักครู่นะ!",
+    "notReady": "ยังเตรียมคำไม่เสร็จ",
+    "toLibrary": "ไปที่คลังหนังสือ"
+  },
   "header": {
     "back": "ย้อนกลับ",
     "home": "หน้าแรก",

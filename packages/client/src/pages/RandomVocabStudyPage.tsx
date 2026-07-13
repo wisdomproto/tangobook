@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Chip, Mascot, PageHeader } from '@/design-system';
 import { useStorybooks, useStorybook } from '@/features/storybook';
@@ -32,6 +33,7 @@ function hasLangData(words: VocabularyUnitWord[], lang: Lang): boolean {
 let sessionBookId: string | undefined;
 
 export default function RandomVocabStudyPage() {
+  const { t, i18n } = useTranslation('games');
   const navigate = useNavigate();
   const [lang, setLang] = useState<Lang | null>(null); // null = 자동 (한국어 우선)
   const [seed, setSeed] = useState(0); // 🎲 재추첨 트리거 (재렌더)
@@ -80,9 +82,9 @@ export default function RandomVocabStudyPage() {
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-cream-50 to-peach-100 gap-6 px-6 text-center">
         <Mascot character="hori" state="thinking" size="xl" />
         <h2 className="text-3xl md:text-4xl font-black text-ink-900 font-display animate-pulse">
-          단어 모으는 중...
+          {t('vocabHub.loading')}
         </h2>
-        <p className="text-lg font-bold text-ink-500">잠깐만 기다려 줘! 🐯</p>
+        <p className="text-lg font-bold text-ink-500">{t('vocabHub.loadingSub')} 🐯</p>
       </div>
     );
   }
@@ -91,12 +93,12 @@ export default function RandomVocabStudyPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-cream-50 to-peach-100 text-center gap-4">
         <Mascot character="hori" state="thinking" size="lg" />
-        <h2 className="text-2xl font-black text-ink-900 font-display">단어를 준비하지 못했어요</h2>
+        <h2 className="text-2xl font-black text-ink-900 font-display">{t('vocabHub.notReady')}</h2>
         <button
           onClick={() => navigate('/library')}
           className="mt-2 px-6 py-3 bg-coral-500 text-white rounded-full font-black shadow-pop"
         >
-          🏠 라이브러리로
+          🏠 {t('vocabHub.toLibrary')}
         </button>
       </div>
     );
@@ -127,9 +129,9 @@ export default function RandomVocabStudyPage() {
                   setSeed((s) => s + 1);
                 }}
                 className="rounded-full bg-white px-4 py-2.5 shadow-soft text-base font-black text-ink-700 hover:shadow-pop transition"
-                aria-label="다른 책으로 바꾸기"
+                aria-label={t('vocabHub.anotherBookAria')}
               >
-                🎲 다른 책
+                🎲 {t('vocabHub.anotherBook')}
               </button>
               <div className="bg-white rounded-full px-2 py-1.5 shadow-soft flex gap-1">
                 <Chip
@@ -157,7 +159,7 @@ export default function RandomVocabStudyPage() {
           }
         >
           {/* 책 제목은 아래 카드(📖)에 나오므로 헤더는 중복 제거 — 좁은 폭 확보 */}
-          <span className="truncate">🎮 어휘 게임</span>
+          <span className="truncate">🎮 {t('vocabHub.title')}</span>
         </PageHeader>
       </div>
 
@@ -173,7 +175,7 @@ export default function RandomVocabStudyPage() {
             />
           )}
           <span className="font-display text-lg font-black leading-tight text-ink-900 break-keep sm:text-xl">
-            📖 {book?.title}
+            📖 {book?.titleTranslations?.[i18n.language] ?? book?.title}
           </span>
         </div>
         <VocabularyStudyContent
