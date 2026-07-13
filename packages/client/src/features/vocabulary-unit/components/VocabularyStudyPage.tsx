@@ -4,34 +4,11 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Skeleton, Chip, Mascot, PageHeader } from '@/design-system';
 import i18n from '@/i18n';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
-import type { Lang, Storybook, VocabularyUnit, VocabularyUnitWord } from '@tangobook/shared';
+import type { Lang, Storybook, VocabularyUnit } from '@tangobook/shared';
 import { useVocabularyUnit } from '../hooks/useVocabularyUnits';
 import { isStorybookUnitId, storybookIdFromUnitId } from '../lib/derive-storybook-unit';
+import { availableVocabLangs, resolveVocabLang } from '../lib/vocab-lang';
 import { VocabularyStudyContent } from './VocabularyStudyContent';
-
-const HANGUL_RE = /[가-힣]/;
-const ENGLISH_RE = /^[a-zA-Z]+$/;
-
-/** 단원 단어 목록에 lang 데이터가 충분한지 — 토글 노출/disabled 결정용 */
-function hasLangData(words: VocabularyUnitWord[], lang: Lang): boolean {
-  if (lang === 'ko') {
-    return words.some((w) => (w.korean && w.korean.trim()) || HANGUL_RE.test(w.word));
-  }
-  if (lang === 'en') {
-    return words.some((w) => (w.nameEn && w.nameEn.trim()) || ENGLISH_RE.test(w.word));
-  }
-  // vi/zh/th: 번역된 단어가 하나라도 있으면 노출
-  return words.some((w) => !!w.nameTranslations?.[lang]?.trim());
-}
-
-/** 어휘 학습 언어 토글 — 콘텐츠 완비 5개(런칭 타겟) 고정 순서. */
-const LANG_CHIPS: { code: Lang; label: string }[] = [
-  { code: 'ko', label: '한국어' },
-  { code: 'en', label: 'English' },
-  { code: 'vi', label: 'Tiếng Việt' },
-  { code: 'zh', label: '中文' },
-  { code: 'th', label: 'ไทย' },
-];
 
 function getDisplayUnitName(unit: VocabularyUnit, lang: Lang, storybook?: Storybook): string {
   if (lang === 'ko') return unit.nameKo;
@@ -113,14 +90,13 @@ export function VocabularyStudyPage() {
     );
   }
 
-  const availableLangs = LANG_CHIPS.filter((c) => hasLangData(unit.words, c.code));
-  const uiLang = i18n.language as Lang;
-  const effectiveLang: Lang =
-    (lang && hasLangData(unit.words, lang) ? lang : null) ??
-    (hasLangData(unit.words, uiLang) ? uiLang : null) ?? // 진입 링크/설정한 UI 언어 우선
-    (unit.language && hasLangData(unit.words, unit.language) ? unit.language : null) ??
-    availableLangs[0]?.code ??
-    'ko';
+  const availableLangs = availableVocabLangs(unit.words);
+  const effectiveLang = resolveVocabLang({
+    selected: lang,
+    words: unit.words,
+    uiLang: i18n.language,
+    unitLang: unit.language,
+  });
 
   const displayName = getDisplayUnitName(unit, effectiveLang, storybook);
 

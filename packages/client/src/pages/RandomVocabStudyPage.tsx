@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { Chip, Mascot, PageHeader } from '@/design-system';
 import { useStorybooks, useStorybook } from '@/features/storybook';
 import { deriveStorybookUnit } from '@/features/vocabulary-unit/lib/derive-storybook-unit';
+import { availableVocabLangs, resolveVocabLang } from '@/features/vocabulary-unit/lib/vocab-lang';
 import { VocabularyStudyContent } from '@/features/vocabulary-unit/components/VocabularyStudyContent';
-import type { Lang, VocabularyUnitWord } from '@tangobook/shared';
+import type { Lang } from '@tangobook/shared';
 
 /**
  * 어휘 게임 — 세계 명작 중 **랜덤 1권**의 "단어 익히기"(동화책 게임 4종)를 그대로 플레이.
@@ -19,15 +20,6 @@ import type { Lang, VocabularyUnitWord } from '@tangobook/shared';
  *   (책 데이터가 이미 이미지·TTS·keypoints 를 다 가지므로 그림 그리기 포함 4종 전부 활성.)
  *   콘텐츠 다양성은 진입 시 랜덤 + 🎲 다른 책 버튼으로 확보.
  */
-
-const HANGUL_RE = /[가-힣]/;
-const ENGLISH_RE = /^[a-zA-Z]+$/;
-
-function hasLangData(words: VocabularyUnitWord[], lang: Lang): boolean {
-  if (lang === 'ko')
-    return words.some((w) => (w.korean && w.korean.trim()) || HANGUL_RE.test(w.word));
-  return words.some((w) => (w.nameEn && w.nameEn.trim()) || ENGLISH_RE.test(w.word));
-}
 
 // 세션 동안 마지막으로 뽑은 책 — 게임 재진입 시 같은 책 유지 (🎲 로만 변경). 모듈 스코프라 remount 초월.
 let sessionBookId: string | undefined;
@@ -104,9 +96,13 @@ export default function RandomVocabStudyPage() {
     );
   }
 
-  const hasKo = hasLangData(unit.words, 'ko');
-  const hasEn = hasLangData(unit.words, 'en');
-  const effectiveLang: Lang = lang ?? (hasKo ? 'ko' : 'en');
+  // 표시 가능한 언어 전체 + UI 언어 우선 기본값 (사용자가 이 화면에서 안 고르면 UI 언어로).
+  const availableLangs = availableVocabLangs(unit.words);
+  const effectiveLang: Lang = resolveVocabLang({
+    selected: lang,
+    words: unit.words,
+    uiLang: i18n.language,
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100">
@@ -133,28 +129,22 @@ export default function RandomVocabStudyPage() {
               >
                 🎲 {t('vocabHub.anotherBook')}
               </button>
-              <div className="bg-white rounded-full px-2 py-1.5 shadow-soft flex gap-1">
-                <Chip
-                  variant="coral"
-                  active={effectiveLang === 'ko'}
-                  onClick={() => hasKo && setLang('ko')}
-                  disabled={!hasKo}
-                  aria-label="한국어"
-                  className="!text-lg !px-6 !py-2.5"
-                >
-                  한국어
-                </Chip>
-                <Chip
-                  variant="coral"
-                  active={effectiveLang === 'en'}
-                  onClick={() => hasEn && setLang('en')}
-                  disabled={!hasEn}
-                  aria-label="English"
-                  className="!text-lg !px-6 !py-2.5"
-                >
-                  English
-                </Chip>
-              </div>
+              {availableLangs.length > 1 && (
+                <div className="bg-white rounded-full px-2 py-1.5 shadow-soft flex gap-1 flex-wrap">
+                  {availableLangs.map((c) => (
+                    <Chip
+                      key={c.code}
+                      variant="coral"
+                      active={effectiveLang === c.code}
+                      onClick={() => setLang(c.code)}
+                      aria-label={c.label}
+                      className="!text-base sm:!text-lg !px-4 sm:!px-6 !py-2.5"
+                    >
+                      {c.label}
+                    </Chip>
+                  ))}
+                </div>
+              )}
             </div>
           }
         >
