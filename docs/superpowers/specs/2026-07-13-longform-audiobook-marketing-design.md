@@ -98,6 +98,8 @@ buildStyledAudiobookRenderData(
 
 Remotion lazy import·`withTimeout` 네트워크 가드는 reels 파이프라인 패턴 그대로.
 
+**멱등성/재실행**: 같은 (book, style, lang) 재실행 시 §4.4 매칭으로 기존 행을 update(중복 행 X). `--force` 없으면 이미 `video_url` 있는 조합은 렌더 스킵(썸네일/메타만 갱신 옵션 `--meta-only`는 추후 배치 확장에서). 향후 51권 일괄 배치의 resume 근거.
+
 ### 4.4 마케팅 등록 서비스 (server)
 
 `packages/server/src/services/reel/` 옆에 `longform-publish.ts` (또는 `audiobook-publish.ts`). `reel-publish.ts` 의 `resolveMarketingTarget`(memo=`storybook:<id>`)·`resolveOwnerUserId` 재사용.
@@ -110,8 +112,7 @@ connectLongformToMarketing({
 ```
 
 - `mkt_contents`(memo=`storybook:<bookId>`) 없으면 `'skipped'`
-- 같은 (content_id, artStyle, language) 의 `mkt_youtube_contents` 행 조회
-  - 있으면 update, 없으면 insert (**조합당 1행** — 중복 생성 금지)
+- **행 매칭/중복 방지 (명시)**: `mkt_youtube_contents` 에서 `content_id` 로 전 행을 fetch(조합 수 적음, 책당 최대 그림체×언어) 후 **`video_settings->>'artStyle' === artStyle && video_settings->>'language' === language`** 로 JS 매칭. 매칭 행 있으면 update, 없으면 insert (**조합당 1행** — 중복 생성 금지). JSONB 필터를 SQL로 밀지 않고 JS 매칭하는 이유: supabase-js 로 `->>'key'` eq 필터가 되지만 조합 수가 작아 fetch-후-매칭이 단순·안전.
 - 저장 컬럼:
   - `video_url` = mp4 URL
   - `thumbnail_url` = 썸네일 URL
@@ -125,8 +126,9 @@ connectLongformToMarketing({
 
 `AudiobookService` 에 이미 존재하는 로직을 순수 헬퍼로 추출해 파이프라인과 오디오북 서비스가 공유:
 
-- **메타**: `generateYouTubeMeta` 의 프롬프트 조립을 `buildYoutubeMetaPrompt(storybook, { language, aspectRatio })` 로 추출(순수). 파이프라인이 `generateTextWithGemini` 호출 후 JSON 파싱(기존 파싱 로직 재사용). 반환 = `{ title, description, tags, categoryId, language }`
+- **메타**: `generateYouTubeMeta` 의 프롬프트 조립을 `buildYoutubeMetaPrompt(storybook, { language, aspectRatio })` 로 추출(순수). 파이프라인이 `generateTextWithGemini` 호출 후 JSON 파싱(기존 파싱 로직 재사용). 반환 = `{ title, description, tags, categoryId, privacy, language }` — **`privacy` 필드 유지**(기존 오디오북 탭이 `YouTubeGeneratedMeta.privacy` 의존, 동작 불변 위해). 롱폼 마케팅 경로는 privacy 미저장. 프롬프트가 쓰는 `getPageText`(현재 audiobook.service 모듈 private)도 헬퍼 옆으로 이동.
 - **자막**: `generateSrt(renderData)`(기존, renderData 기반) + `translateSrt(baseSrt, baseLang, targetLang)`(기존) 재사용. base 언어 = 렌더 언어, 타깃 = 책 `languages[]` 전체. 반환 = `{ [lang]: srt }`
+  - 🔴 **선행 수정**: `translateSrt` 의 `LANGUAGE_NAMES` 맵에 현재 ko/en/ja/zh/es/fr/de 만 있어 **vi/th 누락**. 미등재 언어는 프롬프트에 raw 코드가 들어가 번역 품질 저하 → **vi(Vietnamese)·th(Thai) 추가**(및 향후 책 언어 커버). 이 수정 없이는 "as-is 재사용"이 성립 안 함.
 - 추출 후 `AudiobookService.generateYouTubeMeta`/`generateCaptions` 는 추출된 헬퍼를 호출하도록 리팩터(동작 불변, 기존 오디오북 탭 회귀 없음)
 
 ### 4.6 롱폼 패널 재작성 (client)
