@@ -382,7 +382,8 @@ async function main() {
     });
     console.log(`\n[render-book-audiobooks] 완료 — 마케팅 등록(${result})`);
   } finally {
-    fs.rmSync(workDir, { recursive: true, force: true });
+    // dry-run 은 산출물(mp4/thumb)을 육안 검증용으로 남긴다. 실제 실행만 tmp 정리.
+    if (!args.dryRun) fs.rmSync(workDir, { recursive: true, force: true });
   }
 }
 
