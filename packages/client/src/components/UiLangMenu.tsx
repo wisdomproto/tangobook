@@ -42,7 +42,7 @@ export function UiLangMenu() {
       {open && (
         <ul
           role="listbox"
-          className="absolute right-0 top-full z-50 mt-1.5 w-44 overflow-hidden rounded-2xl bg-white py-1 shadow-pop ring-1 ring-ink-100"
+          className="absolute left-1/2 top-full z-50 mt-1.5 w-40 -translate-x-1/2 overflow-hidden rounded-2xl bg-white py-1 shadow-pop ring-1 ring-ink-100"
         >
           {LANGS.map((l) => {
             const active = l.code === i18n.language;

@@ -148,6 +148,12 @@ export function AppShell() {
         </Link>
       </div>
 
+      {/* 로고 바로 아래 — UI 언어 선택 + 홈에 설치(PWA). 배너 위 오버레이 대신 깨끗한 사이드바 면에. */}
+      <div className="flex flex-col items-center gap-2 px-2 py-3 border-b border-ink-100/40">
+        <UiLangMenu />
+        <InstallPwaButton />
+      </div>
+
       {/* 아이 zone — 동화책(아이가 매일 만지는 유일한 것) + 파닉스 / 어휘 / 학습 게임 (개발자 전용).
           부모 작업(리포팅·초대·연속재생·설정)은 위계를 정직하게 하려고 하단 부모 영역으로 분리. 2026-07-07. */}
       <nav className="flex flex-col gap-2.5 items-center pt-5 pb-5">
@@ -340,19 +346,9 @@ export function AppShell() {
               )}
             </div>
 
-            {/* 우측 — UI 언어 선택 + (아이 2명 이상일 때) 현재 아이 칩.
-                /library 오버레이 헤더에선 배너 모서리에 딱 붙지 않게 살짝 안쪽으로. */}
-            <div
-              className={cn(
-                'flex-shrink-0 pointer-events-auto flex items-center gap-2',
-                // /library 는 배너 일러스트 위 오버레이 → 프로스티드 백드롭으로 컨트롤 가독성 확보.
-                isLibraryRoot &&
-                  'mt-1.5 sm:mt-2 mr-1 rounded-full bg-white/55 px-1.5 py-1 shadow-soft backdrop-blur-sm'
-              )}
-            >
-              {/* 홈에 설치(PWA) — 언어 선택 왼쪽. 설치 가능한 환경에서만 노출. */}
-              <InstallPwaButton />
-              <UiLangMenu />
+            {/* 우측 — (아이 2명 이상일 때) 현재 아이 전환 칩만.
+                UI 언어 선택 · 홈에 설치는 좌측 사이드바 상단(로고 아래)으로 이동. */}
+            <div className="flex-shrink-0 pointer-events-auto flex items-center gap-2">
               {session && activeProfile && profiles.length > 1 && (
                 <button
                   onClick={() => setActiveProfile(null)}
