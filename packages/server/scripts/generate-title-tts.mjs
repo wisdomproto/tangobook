@@ -62,7 +62,7 @@ async function main() {
         fail++;
       }
     }
-    if (touched && !DRY) await putStorybook(book);
+    if (touched && !DRY) await putStorybook(book.id, book);
     if (!DRY) console.log(`  ✓ ${book.title} (ok=${ok} skip=${skip} fail=${fail})`);
   }
   console.log(`\n[title-tts] 완료 — ok=${ok} skip=${skip} fail=${fail} missing(제목없음)=${missing}`);

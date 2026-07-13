@@ -57,7 +57,7 @@ async function main() {
       touched = true;
       console.log(`  ✓ ${job.label} p${pn} → ...${url.slice(-44)}`);
     }
-    if (touched && !DRY) await putStorybook(book);
+    if (touched && !DRY) await putStorybook(book.id, book);
   }
   console.log('\n[en-narration] 완료');
 }
