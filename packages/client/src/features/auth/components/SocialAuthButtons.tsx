@@ -9,6 +9,13 @@ interface Props {
 type Provider = 'kakao' | 'google' | 'facebook';
 
 /**
+ * 페이스북 로그인 노출 스위치. Supabase 에 Facebook provider(+ Meta 앱) 설정이 끝나면 true.
+ * 🔴 false 인 동안 비-ko 로케일은 구글만 노출(이메일은 항상 별도) — 설정 안 된 페북 버튼이
+ *    에러 나는 것 방지. (오픈은 구글+이메일로 충분, 페북은 후속.)
+ */
+const FACEBOOK_LOGIN_ENABLED = false;
+
+/**
  * 소셜 로그인 버튼 (공용) — **로케일별 provider 노출**.
  * - 한국어(ko) UI: 카카오 + 구글 (카카오는 한국 전용)
  * - 그 외 언어: 구글 + 페이스북 (Facebook = 전세계 소셜로그인 1위·동남아 최강)
@@ -22,9 +29,13 @@ export function SocialAuthButtons({ mode }: Props) {
   const { t, i18n } = useTranslation('auth');
   const [busy, setBusy] = useState<Provider | null>(null);
 
-  // 한국어 UI = 카카오+구글, 그 외 = 구글+페이스북. 구글은 어디서나.
+  // 한국어 UI = 카카오+구글, 그 외 = 구글(+페이스북 준비되면). 구글은 어디서나, 이메일은 항상 별도.
   const providers: Provider[] =
-    i18n.language === 'ko' ? ['kakao', 'google'] : ['google', 'facebook'];
+    i18n.language === 'ko'
+      ? ['kakao', 'google']
+      : FACEBOOK_LOGIN_ENABLED
+        ? ['google', 'facebook']
+        : ['google'];
 
   const run = async (provider: Provider, fn: () => Promise<void>) => {
     setBusy(provider);
