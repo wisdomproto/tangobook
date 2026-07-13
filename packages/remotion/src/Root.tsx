@@ -21,6 +21,12 @@ import { StorybookReel } from './compositions/StorybookReel';
 import { AdReel, AD_DURATION, AD_FPS, AD_WIDTH, AD_HEIGHT } from './compositions/AdReel';
 import { AdThumbnail, AD_THUMB_W, AD_THUMB_H } from './compositions/AdThumbnail';
 import {
+  LongformThumbnail,
+  LongformThumbSchema,
+  LT_W,
+  LT_H,
+} from './compositions/LongformThumbnail';
+import {
   ThumbPoster,
   ThumbStyles,
   ThumbHybrid,
@@ -203,6 +209,20 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={AD_THUMB_W}
         height={AD_THUMB_H}
+      />
+      <Composition
+        id="LongformThumbnail"
+        component={LongformThumbnail}
+        durationInFrames={1}
+        fps={30}
+        width={LT_W}
+        height={LT_H}
+        schema={LongformThumbSchema}
+        defaultProps={{
+          title: '개구리 왕자',
+          heroImageUrl: 'https://placehold.co/1280x720',
+          lang: 'ko',
+        }}
       />
       <Composition
         id="FrogPrinceReel"
