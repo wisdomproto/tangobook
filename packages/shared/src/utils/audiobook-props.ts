@@ -96,3 +96,58 @@ export function buildAudiobookRenderData(
     fps: 30,
   };
 }
+
+export function buildStyledAudiobookRenderData(
+  storybook: Storybook,
+  opts: { artStyle: string; language: string }
+): AudiobookRenderData {
+  const { artStyle, language: lang } = opts;
+  const styleAsset = (storybook.styleAssets ?? {})[artStyle] as
+    | {
+        pageIllustrations?: Record<string, { illustrationUrl?: string }>;
+        primaryCoverByLang?: Record<string, string>;
+        coverImage?: string;
+      }
+    | undefined;
+  const pageIllos = styleAsset?.pageIllustrations ?? {};
+
+  const slides: AudiobookSlideData[] = (storybook.pages ?? [])
+    .map((page): AudiobookSlideData | null => {
+      const styled = pageIllos[String(page.pageNumber)]?.illustrationUrl;
+      if (!styled) return null; // 그 그림체에 이미지 없는 페이지 스킵
+      const isTranslation = lang !== 'ko' && page.translations?.[lang];
+      const text = isTranslation ? page.translations![lang].text : page.text;
+      const ttsUrl = isTranslation ? page.translations![lang].ttsUrl : page.ttsUrl;
+
+      return {
+        imageUrl: styled,
+        ttsUrl,
+        ttsDuration: undefined,
+        subtitleText: text,
+      };
+    })
+    .filter((s): s is AudiobookSlideData => s !== null);
+
+  const coverImageUrl =
+    styleAsset?.primaryCoverByLang?.[lang] || styleAsset?.coverImage || storybook.coverImage;
+  const cover = coverImageUrl
+    ? { imageUrl: coverImageUrl, title: storybook.title || '', duration: 3, showTitle: true }
+    : undefined;
+
+  return {
+    slides,
+    aspectRatio: '16:9',
+    cover,
+    bgmUrl: storybook.backgroundMusicUrl,
+    bgmVolume: 30,
+    subtitleStyle: {
+      fontSize: 24,
+      color: '#ffffff',
+      backgroundColor: '#00000080',
+      position: 'bottom',
+      wordsPerGroup: 2,
+    },
+    enableParticles: true,
+    fps: 30,
+  };
+}
