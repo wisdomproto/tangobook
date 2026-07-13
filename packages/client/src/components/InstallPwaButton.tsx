@@ -30,14 +30,14 @@ export function InstallPwaButton() {
     <>
       <button
         onClick={() => (ios ? setIosGuide(true) : void promptInstall())}
-        className="flex items-center gap-1 rounded-full bg-coral-500 px-2.5 py-1.5 text-sm font-black text-white shadow-soft transition-all hover:bg-coral-600 hover:shadow-pop"
+        className="flex w-28 items-center justify-center gap-1.5 rounded-2xl bg-coral-500 px-2 py-3 text-sm font-black text-white shadow-soft transition-all hover:bg-coral-600 hover:shadow-pop"
         aria-label={t('install.button')}
         data-sound="select"
       >
-        <span className="text-base leading-none" aria-hidden>
+        <span className="text-lg leading-none" aria-hidden>
           📲
         </span>
-        <span className="hidden text-xs sm:inline">{t('install.button')}</span>
+        <span className="truncate">{t('install.button')}</span>
       </button>
 
       {iosGuide && (

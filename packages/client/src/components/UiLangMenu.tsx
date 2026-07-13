@@ -29,14 +29,14 @@ export function UiLangMenu() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1.5 text-sm font-black text-ink-800 shadow-soft transition-all hover:shadow-pop"
+        className="flex w-28 items-center justify-center gap-1.5 rounded-2xl bg-white px-2 py-3 text-sm font-black text-ink-800 shadow-soft transition-all hover:shadow-pop"
         aria-label="언어 선택 / Select language"
         aria-haspopup="listbox"
         aria-expanded={open}
         data-sound="select"
       >
-        <span className="text-base leading-none">{cur?.flag ?? '🌐'}</span>
-        <span className="hidden text-xs sm:inline">{cur?.nativeName}</span>
+        <span className="text-lg leading-none">{cur?.flag ?? '🌐'}</span>
+        <span className="truncate">{cur?.nativeName}</span>
         <span className="text-[10px] text-ink-400">▾</span>
       </button>
       {open && (
