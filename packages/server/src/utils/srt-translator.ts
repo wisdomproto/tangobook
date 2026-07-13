@@ -1,6 +1,6 @@
 import { generateTextWithGemini } from '../providers/gemini.provider.js';
 
-const LANGUAGE_NAMES: Record<string, string> = {
+export const LANGUAGE_NAMES: Record<string, string> = {
   ko: 'Korean',
   en: 'English',
   ja: 'Japanese',
@@ -8,6 +8,10 @@ const LANGUAGE_NAMES: Record<string, string> = {
   es: 'Spanish',
   fr: 'French',
   de: 'German',
+  vi: 'Vietnamese',
+  th: 'Thai',
+  ms: 'Malay',
+  id: 'Indonesian',
 };
 
 /**
