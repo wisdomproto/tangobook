@@ -20,7 +20,10 @@ export {
   neutralizeKoreanFinal,
   expandKoreanFinalAliases,
 } from './utils/phonics-syllable.js';
-export { buildAudiobookRenderData } from './utils/audiobook-props.js';
+export {
+  buildAudiobookRenderData,
+  buildStyledAudiobookRenderData,
+} from './utils/audiobook-props.js';
 export type { AudiobookSlideData, AudiobookRenderData } from './utils/audiobook-props.js';
 export { getEffectiveVocabulary } from './utils/effective-vocabulary.js';
 export { getWordHotspots } from './utils/hotspots.js';
