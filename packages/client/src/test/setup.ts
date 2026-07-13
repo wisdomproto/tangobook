@@ -2,7 +2,10 @@ import '@testing-library/jest-dom/vitest';
 import { vi } from 'vitest';
 
 // i18n 초기화 — useTranslation 을 쓰는 컴포넌트가 테스트에서 ko 원문을 그대로 렌더하도록.
-import '@/i18n';
+// 🔴 jsdom navigator.language='en-US' 라 detectLang 이 'en' 을 고름(텍스트는 ko 폴백이라 안 보였음).
+// i18n.language 를 직접 읽는 로직(예: useAccess 해외 무료 게이트)이 정상 동작하도록 ko 로 고정.
+import i18n from '@/i18n';
+await i18n.changeLanguage('ko');
 
 // jsdom doesn't implement canvas context; stub it for libraries that touch
 // canvas at import time (e.g. lottie-web reads fillStyle during module init).

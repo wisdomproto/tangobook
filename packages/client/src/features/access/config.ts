@@ -24,3 +24,17 @@ export const PAYWALL_ENABLED = true;
  * PAYWALL_ENABLED=true 가 되면 이 플래그와 무관하게 정식 체험/구독 게이팅이 적용된다.
  */
 export const LOCK_FOR_GUESTS = true;
+
+/**
+ * 해외(비-한국어 로케일) 무료 임시 브릿지 — Paddle(해외 결제) 나오기 전까지.
+ *
+ * `true`  = UI 언어가 ko 가 아닌 **로그인 사용자**는 페이월 미적용(전권 무료).
+ *           국내 결제(토스)는 해외 카드가 안 되므로, 해외는 우선 트래픽·가입만 확보하고
+ *           수익화는 Paddle 연동 후로 미룬다. (게스트는 그대로 가입 유도 소프트게이팅 유지.)
+ * `false` = 로케일 무관 정식 게이팅.
+ *
+ * 🔴 Paddle 연동 완료 시 false 로 되돌리고 해외도 정식 체험/구독 적용.
+ * ⚠️ 판정 기준 = UI 언어(로케일) — 국내 사용자가 UI 를 영어로 바꾸면 우회되는 임시 허점이나,
+ *    Paddle 전까지의 런칭 브릿지라 감수. (region 기반 정교화는 Paddle 시점에.)
+ */
+export const OVERSEAS_FREE_UNTIL_PADDLE = true;

@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { computeAccess, type AccessState } from '@tangobook/shared';
 import { useAuth } from '@/features/auth/context/AuthContext';
-import { PAYWALL_ENABLED, LOCK_FOR_GUESTS } from '../config';
+import { PAYWALL_ENABLED, LOCK_FOR_GUESTS, OVERSEAS_FREE_UNTIL_PADDLE } from '../config';
 import { useEntitlement } from '@/features/payment/hooks/useEntitlement';
 
 /** 유료화 비활성(개발단계) 시 — 항상 접근 허용. */
@@ -28,6 +29,8 @@ const GUEST_LOCKED: AccessState = {
  */
 export function useAccess(): AccessState {
   const { account } = useAuth();
+  const { i18n } = useTranslation();
+  const isOverseas = i18n.language !== 'ko';
   // Always call unconditionally (hooks rules); self-disables when account is null or Supabase unconfigured.
   const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
 
@@ -37,11 +40,14 @@ export function useAccess(): AccessState {
       if (LOCK_FOR_GUESTS && !account) return GUEST_LOCKED;
       return ALWAYS_ENTITLED;
     }
+    // 해외(비-ko 로케일) 로그인 사용자는 Paddle 나오기 전까지 페이월 미적용 = 전권 무료.
+    // (게스트는 그대로 소프트게이팅 → 가입 유도. 해외 우선 목표 = 트래픽·가입.)
+    if (OVERSEAS_FREE_UNTIL_PADDLE && isOverseas && account) return ALWAYS_ENTITLED;
     return computeAccess({
       account: account ? { createdAt: account.createdAt } : null,
       subscription: paidUntil ? { status: 'active', currentPeriodEnd: paidUntil } : null,
       referralBonusDays,
       trialStartedAt,
     });
-  }, [account, paidUntil, referralBonusDays, trialStartedAt]);
+  }, [account, isOverseas, paidUntil, referralBonusDays, trialStartedAt]);
 }
