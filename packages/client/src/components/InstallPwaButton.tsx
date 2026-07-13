@@ -9,10 +9,11 @@ import {
 } from '@/lib/pwa-install';
 
 /**
- * "홈에 설치" 버튼 (사이드바) — PWA 설치 유도.
+ * "홈에 설치" 버튼 (헤더 우상단, 언어 선택 왼쪽) — PWA 설치 유도.
  * - Chrome/Android/데스크탑: beforeinstallprompt 준비되면 노출 → 클릭 시 네이티브 설치 프롬프트.
  * - iOS Safari: 프롬프트 미지원 → "공유 → 홈 화면에 추가" 안내 모달.
  * - 이미 설치(스탠드얼론) 상태거나 설치 불가 환경이면 렌더 안 함.
+ * 스타일은 UiLangMenu 와 동일한 컴팩트 pill (좁은 화면에선 아이콘만).
  */
 export function InstallPwaButton() {
   const { t } = useTranslation('shell');
@@ -29,12 +30,14 @@ export function InstallPwaButton() {
     <>
       <button
         onClick={() => (ios ? setIosGuide(true) : void promptInstall())}
-        className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-coral-600 hover:bg-white/60 transition-all"
+        className="flex items-center gap-1 rounded-full bg-coral-500 px-2.5 py-1.5 text-sm font-black text-white shadow-soft transition-all hover:bg-coral-600 hover:shadow-pop"
         aria-label={t('install.button')}
         data-sound="select"
       >
-        <span aria-hidden>📲</span>
-        <span>{t('install.button')}</span>
+        <span className="text-base leading-none" aria-hidden>
+          📲
+        </span>
+        <span className="hidden text-xs sm:inline">{t('install.button')}</span>
       </button>
 
       {iosGuide && (

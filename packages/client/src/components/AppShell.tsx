@@ -189,8 +189,6 @@ export function AppShell() {
             </Link>
           </>
         )}
-        {/* 홈에 설치 (PWA) — 설치 가능한 환경에서만 노출 (세션 무관). */}
-        <InstallPwaButton />
         {/* 로그인/로그아웃 — session 상태에 따라 분기 */}
         {session ? (
           <button
@@ -350,6 +348,8 @@ export function AppShell() {
                 isLibraryRoot && 'mt-1.5 sm:mt-2 mr-1'
               )}
             >
+              {/* 홈에 설치(PWA) — 언어 선택 왼쪽. 설치 가능한 환경에서만 노출. */}
+              <InstallPwaButton />
               <UiLangMenu />
               {session && activeProfile && profiles.length > 1 && (
                 <button
