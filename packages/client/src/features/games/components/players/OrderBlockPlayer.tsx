@@ -96,7 +96,9 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
       triedRef.current = false;
       setScene(null);
       // 이 라운드 유닛 발음을 백그라운드 생성/캐시 — 첫 배치 때 지연 없이 재생.
-      prewarmUnitTts(units, lang);
+      // 🔴 th 제외: 타일이 결합조각(단독 음절 아님)이라 조각 단독발음이 어색 → per-tile 발음 안 함
+      // (완성 시 통단어만 발음, LangWordWriting 의 th 통단어 정책과 동일).
+      if (lang !== 'th') prewarmUnitTts(units, lang);
     },
     [items, lang]
   );
@@ -183,11 +185,12 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
       setSlots(next);
       setTiles((prev) => prev.map((p) => (p.id === id ? { ...p, used: true } : p)));
       setWrongSlots(new Set());
-      // 유닛별 읽기 — 배치한 글자/한자/어절을 발음(vi/zh/th native TTS, lazy 캐시).
+      // 유닛별 읽기 — 배치한 글자/한자/어절을 발음(vi/zh native TTS, lazy 캐시).
       // 단, 이 배치로 단어가 "완성"되면 재생하지 않고 checkFull→handleCorrect 가 단어 발음을 소유
       // (playAudio 단일 채널이라 유닛음이 단어음에 잘리는 것 방지 — 블록 게임 chain 규칙과 동일).
+      // 🔴 th 제외: 결합조각 단독발음이 어색 → 완성 시 통단어만 발음.
       const completesWord = !next.some((v) => v === null);
-      if (!completesWord) {
+      if (!completesWord && lang !== 'th') {
         void resolveUnitTtsUrl(tl.char, lang).then((url) => {
           if (url) playAudio(url);
         });
