@@ -27,7 +27,12 @@ export function BookCover({
   const showOverlay = overlayTitle && hasClean;
   return (
     <div
-      className={cn('relative w-full h-full overflow-hidden', className)}
+      className={cn(
+        // 로딩 중(이미지 미도착)엔 뒷배경 peach 플레이스홀더가 비쳐 "빈 카드"가 아닌 "로딩 중"으로 보임.
+        // 이미지가 도착하면 object-cover 가 위를 덮어 가림.
+        'relative w-full h-full overflow-hidden bg-gradient-to-br from-peach-100 to-peach-200/70',
+        className
+      )}
       style={{ containerType: 'inline-size' }}
     >
       {img ? (
