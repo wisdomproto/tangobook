@@ -10,15 +10,31 @@
 //   pnpm --filter @tangobook/server exec tsx scripts/render-classics-ko.ts --force     # 완료분도 재렌더
 import 'dotenv/config';
 import { spawnSync } from 'node:child_process';
-import {
-  resolveClassicBookIds,
-  fetchStorybook,
-  loadGenreMap,
-} from '../src/services/reel/reel-targets.js';
+import { fetchStorybook, loadGenreMap } from '../src/services/reel/reel-targets.js';
 import { getSupabaseAdmin } from '../src/providers/supabase-admin.provider.js';
 
 const LANG = 'ko';
 const GENRES = ['watercolor', 'paper3d', 'collage']; // 메인 3그림체
+const API = process.env.TTS_API_ORIGIN || 'http://localhost:3500';
+
+/**
+ * 현재 라이브 공개 세계명작 id. books-by-category.json(스크립트용 stale 스냅샷)이 아니라
+ * 서버 요약 API 로 실시간 조회 — 신규 공개(예: 헨젤과 그레텔) 반영 + 비공개/삭제 제외.
+ */
+async function fetchPublicClassicIds(): Promise<string[]> {
+  const res = await fetch(`${API}/api/storybooks`);
+  if (!res.ok)
+    throw new Error(`storybooks 목록 조회 실패: HTTP ${res.status} (로컬 서버 ${API} 필요)`);
+  const json = (await res.json()) as { data?: any[] } | any[];
+  const list = (Array.isArray(json) ? json : (json.data ?? [])) as Array<{
+    id: string;
+    category?: string;
+    isPublic?: boolean;
+  }>;
+  return list
+    .filter((b) => /세계|명작/.test(b.category ?? '') && b.isPublic !== false)
+    .map((b) => String(b.id));
+}
 
 const argv = process.argv.slice(2);
 const has = (f: string) => argv.includes(f);
@@ -39,7 +55,7 @@ interface Combo {
 
 async function main() {
   const genreMap = await loadGenreMap(); // styleId -> slug
-  const bookIds = resolveClassicBookIds();
+  const bookIds = await fetchPublicClassicIds();
   console.log(
     `명작 ${bookIds.length}권 · 그림체 매핑 ${Object.keys(genreMap).length}개 · lang=${LANG}${FORCE ? ' · FORCE' : ''}`
   );
