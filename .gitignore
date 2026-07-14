@@ -93,3 +93,7 @@ packages/client/public/comic-assets/
 
 # Encrypted Meta token bundle for one-off ad-reel publish (local secret, never commit)
 packages/server/scripts/_enc.txt
+
+# 네이버 블로그 로컬 세션 (절대 커밋 금지)
+naver-session.json
+packages/server/naver-session.json
