@@ -36,7 +36,8 @@
     "openMenu": "Mở menu",
     "closeMenu": "Đóng menu",
     "switchChild": "{{name}} — Đổi bé",
-    "switch": "Đổi"
+    "switch": "Đổi",
+    "profileMenu": "Mở menu hồ sơ của {{name}}"
   },
   "bgm": {
     "turnOn": "Bật nhạc nền",

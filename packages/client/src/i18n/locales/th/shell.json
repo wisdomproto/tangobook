@@ -36,7 +36,8 @@
     "openMenu": "เปิดเมนู",
     "closeMenu": "ปิดเมนู",
     "switchChild": "{{name}} — เปลี่ยนเด็ก",
-    "switch": "เปลี่ยน"
+    "switch": "เปลี่ยน",
+    "profileMenu": "เปิดเมนูโปรไฟล์ของ {{name}}"
   },
   "bgm": {
     "turnOn": "เปิดเพลงประกอบ",

@@ -36,7 +36,8 @@
     "openMenu": "打开菜单",
     "closeMenu": "关闭菜单",
     "switchChild": "{{name}} — 切换孩子",
-    "switch": "切换"
+    "switch": "切换",
+    "profileMenu": "打开{{name}}的档案菜单"
   },
   "bgm": {
     "turnOn": "打开背景音乐",
