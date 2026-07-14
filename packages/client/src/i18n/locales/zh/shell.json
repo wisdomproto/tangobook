@@ -23,7 +23,8 @@
     "logout": "退出登录",
     "logoutConfirm": "要退出登录吗？",
     "comingSoon": "敬请期待",
-    "comingSoonTitle": "正在准备中"
+    "comingSoonTitle": "正在准备中",
+    "feedback": "意见反馈"
   },
   "pageTitle": {
     "phonics": "自然拼读",
@@ -44,5 +45,17 @@
   "pageHeader": {
     "back": "返回",
     "home": "回到首页"
+  },
+  "feedback": {
+    "title": "意见反馈",
+    "subtitle": "请告诉我们您的期望或遇到的问题。",
+    "placeholder": "请输入您的意见",
+    "inputAria": "反馈内容",
+    "send": "发送",
+    "sending": "发送中…",
+    "cancel": "取消",
+    "close": "关闭",
+    "thanks": "感谢您的宝贵意见！",
+    "error": "发送失败，请稍后重试。"
   }
 }

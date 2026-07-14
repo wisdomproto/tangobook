@@ -46,6 +46,7 @@ export const mktKeys = {
     ['mkt', 'analytics', 'yt-channel', projectId, query] as const,
   strategyTemplates: () => ['mkt', 'strategy', 'templates'] as const,
   monitoringKeywords: (projectId: string) => ['mkt', 'monitoring', 'keywords', projectId] as const,
+  feedback: () => ['mkt', 'feedback'] as const,
 };
 
 // ─── Fetch Helpers ──────────────────────────────────────────────────────────

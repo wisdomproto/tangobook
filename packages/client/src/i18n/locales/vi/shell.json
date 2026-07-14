@@ -23,7 +23,8 @@
     "logout": "Đăng xuất",
     "logoutConfirm": "Bạn muốn đăng xuất chứ?",
     "comingSoon": "Sắp ra mắt",
-    "comingSoonTitle": "Đang chuẩn bị"
+    "comingSoonTitle": "Đang chuẩn bị",
+    "feedback": "Góp ý"
   },
   "pageTitle": {
     "phonics": "Phát âm",
@@ -44,5 +45,17 @@
   "pageHeader": {
     "back": "Quay lại",
     "home": "Về trang chủ"
+  },
+  "feedback": {
+    "title": "Góp ý",
+    "subtitle": "Hãy cho chúng tôi biết mong muốn hoặc điều chưa hài lòng của bạn.",
+    "placeholder": "Nhập góp ý của bạn",
+    "inputAria": "Nội dung góp ý",
+    "send": "Gửi",
+    "sending": "Đang gửi…",
+    "cancel": "Hủy",
+    "close": "Đóng",
+    "thanks": "Cảm ơn góp ý quý báu của bạn!",
+    "error": "Gửi không thành công. Vui lòng thử lại sau giây lát."
   }
 }

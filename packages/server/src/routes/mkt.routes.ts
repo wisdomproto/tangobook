@@ -36,6 +36,7 @@ import {
 import { strategyTemplates } from '../controllers/mkt/strategy.controller.js';
 import { monitoringSearch, monitoringComment } from '../controllers/mkt/monitoring.controller.js';
 import { gateLogin } from '../controllers/mkt/gate.controller.js';
+import { feedbackList } from '../controllers/mkt/feedback.controller.js';
 
 const router = Router();
 
@@ -108,5 +109,8 @@ router.get('/strategy/templates', strategyTemplates);
 // ── Monitoring (server-proxy; scrape + youtube + ig-token-server-side + gemini) ──
 router.post('/monitoring/search', monitoringSearch);
 router.post('/monitoring/comment', monitoringComment);
+
+// ── 건의함 (사용자 피드백 열람 — service-role 전체 조회) ─────────────────────────
+router.get('/feedback', feedbackList);
 
 export default router;

@@ -16,6 +16,7 @@ import {
   StrategyPage,
   MonitoringPage,
   AdsPage,
+  FeedbackPage,
 } from '../features/marketing';
 import LibraryPage from '../pages/LibraryPage';
 import GamesHubPage from '../pages/GamesHubPage';
@@ -505,6 +506,7 @@ export const router = createBrowserRouter([
           { path: 'competitors', element: <CompetitorsPage /> },
           { path: 'strategy', element: <StrategyPage /> },
           { path: 'ads', element: <AdsPage /> },
+          { path: 'feedback', element: <FeedbackPage /> },
         ],
       },
       { path: '*', element: <NotFoundPage /> },

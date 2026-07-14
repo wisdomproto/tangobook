@@ -12,6 +12,7 @@ import { AvatarRender } from '@/features/auth/components/AvatarRender';
 import { cn } from '@/lib/cn';
 import { isDevEmail } from '@/config/dev';
 import { TrialBadge } from '@/features/access/components/TrialBadge';
+import { FeedbackDialog } from '@/features/feedback';
 
 /**
  * 학습자 화면 공통 frame — 좌측 nav (3축 + More Fun) + 상단 헤더 (페이지 타이틀 + 별).
@@ -119,6 +120,7 @@ export function AppShell() {
   // main 이 0부터 시작. 우상단 chip 만 pointer-events-auto 로 클릭 가능.
   const isLibraryRoot = location.pathname === '/library';
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   // 학습자 화면은 라이트 모드 고정
   useEffect(() => {
@@ -193,6 +195,14 @@ export function AppShell() {
               <span aria-hidden>⚙️</span>
               <span>{t('sidebar.parentSettings')}</span>
             </Link>
+            <button
+              type="button"
+              onClick={() => setFeedbackOpen(true)}
+              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
+            >
+              <span aria-hidden>💬</span>
+              <span>{t('sidebar.feedback')}</span>
+            </button>
           </>
         )}
         {/* 로그인/로그아웃 — session 상태에 따라 분기 */}
@@ -370,6 +380,9 @@ export function AppShell() {
           <Outlet />
         </main>
       </div>
+
+      {/* 건의하기 모달 — 부모 영역 "건의하기" 버튼에서 호출 */}
+      <FeedbackDialog open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
 
       {/* 메인(브라우즈) 화면 배경음악 — AppShell 이탈(뷰어/게임) 시 자동 정지 */}
       <AppBgm />
