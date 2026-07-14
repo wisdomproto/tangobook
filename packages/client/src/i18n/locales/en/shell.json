@@ -36,7 +36,8 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "switchChild": "{{name}} — Switch child",
-    "switch": "Switch"
+    "switch": "Switch",
+    "profileMenu": "Open {{name}}'s profile menu"
   },
   "bgm": {
     "turnOn": "Turn on background music",

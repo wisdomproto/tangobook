@@ -121,6 +121,8 @@ export function AppShell() {
   const isLibraryRoot = location.pathname === '/library';
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
+  // 헤더 프로필 칩 → 프로필 시트(선택/전환/관리) 수동 오픈.
+  const [pickerOpen, setPickerOpen] = useState(false);
 
   // 학습자 화면은 라이트 모드 고정
   useEffect(() => {
@@ -356,20 +358,34 @@ export function AppShell() {
               )}
             </div>
 
-            {/* 우측 — (아이 2명 이상일 때) 현재 아이 전환 칩만.
+            {/* 우측 — 현재 아이 프로필 칩(아바타+이름). 아이 1명이어도 상시 노출.
+                탭 → 프로필 시트(여러 명=전환 / 어느 경우나 추가·관리).
                 UI 언어 선택 · 홈에 설치는 좌측 사이드바 상단(로고 아래)으로 이동. */}
             <div className="flex-shrink-0 pointer-events-auto flex items-center gap-2">
-              {session && activeProfile && profiles.length > 1 && (
+              {session && activeProfile && (
                 <button
-                  onClick={() => setActiveProfile(null)}
-                  className="flex items-center gap-1.5 rounded-full bg-white/90 pl-1 pr-3 py-1 shadow-soft hover:shadow-pop transition-all"
-                  aria-label={t('header.switchChild', { name: activeProfile.name })}
+                  onClick={() => setPickerOpen(true)}
+                  className="flex items-center gap-1.5 rounded-full bg-white/90 pl-1 pr-2.5 py-1 shadow-soft hover:shadow-pop transition-all"
+                  aria-label={t('header.profileMenu', { name: activeProfile.name })}
                 >
                   <AvatarRender id={activeProfile.avatarId} size="sm" />
                   <span className="text-sm font-black text-ink-800 max-w-[80px] truncate">
                     {activeProfile.name}
                   </span>
-                  <span className="text-xs font-bold text-ink-400">{t('header.switch')}</span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-ink-400 shrink-0"
+                    aria-hidden
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
                 </button>
               )}
             </div>
@@ -387,12 +403,20 @@ export function AppShell() {
       {/* 메인(브라우즈) 화면 배경음악 — AppShell 이탈(뷰어/게임) 시 자동 정지 */}
       <AppBgm />
 
-      {/* 아이 2명 이상 + 미선택 → 진입 게이트 "누가 놀고 있어요?" (헤더 칩으로 언제든 재호출). */}
-      {needsProfilePick && (
+      {/* 프로필 시트 "누가 놀고 있어요?" — ①아이 2명+ 미선택 시 필수 진입 게이트(닫기 없음)
+          ②헤더 프로필 칩 탭 시 수동 오픈(전환/추가·관리, activeProfile 있으면 ✕ 닫기). */}
+      {(needsProfilePick || pickerOpen) && (
         <ProfilePicker
           profiles={profiles}
-          onSelect={(p) => setActiveProfile(p)}
-          onAddNew={() => navigate('/parent/profiles')}
+          onSelect={(p) => {
+            setActiveProfile(p);
+            setPickerOpen(false);
+          }}
+          onAddNew={() => {
+            setPickerOpen(false);
+            navigate('/parent/profiles');
+          }}
+          onClose={activeProfile ? () => setPickerOpen(false) : undefined}
         />
       )}
     </div>
