@@ -1,4 +1,5 @@
 import { getSupabaseAdmin } from '../../providers/supabase-admin.provider.js';
+import { deleteFromR2, urlToR2Key } from '../../providers/r2.provider.js';
 import { resolveMarketingTarget, resolveOwnerUserId } from './reel-publish.js';
 
 export { resolveOwnerUserId };
@@ -6,6 +7,8 @@ export { resolveOwnerUserId };
 export interface YoutubeRowLike {
   id: string;
   video_settings: Record<string, any> | null;
+  video_url?: string | null;
+  thumbnail_url?: string | null;
 }
 
 /**
@@ -55,7 +58,7 @@ export async function connectLongformToMarketing(input: {
 
   const { data: rows, error: selErr } = await sb
     .from('mkt_youtube_contents')
-    .select('id, video_settings')
+    .select('id, video_settings, video_url, thumbnail_url')
     .eq('content_id', target.contentId);
   if (selErr) throw new Error(`mkt_youtube_contents 조회 실패(${input.bookId}): ${selErr.message}`);
 
@@ -83,6 +86,16 @@ export async function connectLongformToMarketing(input: {
   if (existing) {
     const { error } = await sb.from('mkt_youtube_contents').update(payload).eq('id', existing.id);
     if (error) throw new Error(`youtube 행 갱신 실패(${input.bookId}): ${error.message}`);
+    // 이전 R2 영상/썸네일 정리 (새 URL 과 다를 때만) — 재렌더 시 orphan 누적 방지.
+    for (const oldUrl of [existing.video_url, existing.thumbnail_url]) {
+      if (oldUrl && oldUrl !== input.videoUrl && oldUrl !== input.thumbnailUrl) {
+        try {
+          await deleteFromR2(urlToR2Key(oldUrl));
+        } catch {
+          /* 이미 없을 수 있음 — 무시 */
+        }
+      }
+    }
     return 'updated';
   }
 
