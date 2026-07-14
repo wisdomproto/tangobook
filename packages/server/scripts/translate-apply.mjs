@@ -24,6 +24,13 @@ if (!LANG) {
 }
 const DRY = args.flags.has('dry-run');
 const ONLY_ID = args.id ?? null;
+// 특정 책들만 적용(쉼표 구분). 한 언어 dir 에 여러 배치(명작+생활동화 등)가 섞였을 때 사용.
+const ONLY_IDS = args.ids
+  ? String(args.ids)
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean)
+  : null;
 
 /** 빈 t 칸 검증. 본문/제목/단어 누락은 책 전체 skip, 가이드 누락은 가이드만 제외. */
 function validate(tr) {
@@ -87,6 +94,7 @@ async function main() {
   const dir = langDir(LANG);
   let files = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.json')) : [];
   if (ONLY_ID) files = files.filter((f) => f === `${ONLY_ID}.json`);
+  if (ONLY_IDS) files = files.filter((f) => ONLY_IDS.includes(f.replace(/\.json$/, '')));
   if (!files.length) {
     console.log(`적용할 파일 없음 (${dir}). 먼저 translate-extract.mjs --lang=${LANG} 실행.`);
     return;

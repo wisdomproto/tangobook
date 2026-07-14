@@ -1,0 +1,276 @@
+{
+  "id": "1777434565511",
+  "lang": "en",
+  "title": "코끼리",
+  "titleT": "Elephant",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "넓은 초원에 흙먼지가 폴폴! 누가 오는 걸까?",
+      "en": "",
+      "t": "Dust puffs up across the wide savanna! Who could be coming?"
+    },
+    {
+      "n": 2,
+      "ko": "쿵쾅쿵쾅! 커다란 코끼리 가족이 나타났어. 정말 크지?",
+      "en": "",
+      "t": "Thump, thump, thump! A big elephant family appears. Aren't they huge?"
+    },
+    {
+      "n": 3,
+      "ko": "코끼리는 땅에서 제일 큰 동물이야. 다리가 기둥처럼 튼튼해!",
+      "en": "",
+      "t": "The elephant is the biggest animal on land. Its legs are as strong as pillars!"
+    },
+    {
+      "n": 4,
+      "ko": "코끼리 코는 정말 길쭉길쭉해. 손처럼 뭐든 잡을 수 있어!",
+      "en": "",
+      "t": "An elephant's trunk is so long and stretchy. It can grab anything, just like a hand!"
+    },
+    {
+      "n": 5,
+      "ko": "높은 나무 잎사귀도 코로 쑥 잡아. 냠냠, 입에 쏙 넣지!",
+      "en": "",
+      "t": "It reaches leaves high up in the trees with its trunk. Yum, yum, right into its mouth!"
+    },
+    {
+      "n": 6,
+      "ko": "목이 마르면 코로 물을 쭈욱 빨아올려. 입에 꿀꺽꿀꺽 마시지.",
+      "en": "",
+      "t": "When it's thirsty, it slurps up water with its trunk. Gulp, gulp, down it goes!"
+    },
+    {
+      "n": 7,
+      "ko": "커다란 귀를 펄럭펄럭! 더울 땐 귀로 부채질을 해. 시원하겠지?",
+      "en": "",
+      "t": "Flap, flap go the big ears! When it's hot, it fans itself with them. Nice and cool, right?"
+    },
+    {
+      "n": 8,
+      "ko": "뿌우우! 하얀 뿔은 아주 단단해. 나무껍질도 쓱쓱 벗길 수 있어.",
+      "en": "",
+      "t": "Toooot! Its white tusks are very strong. It can even peel tree bark right off."
+    },
+    {
+      "n": 9,
+      "ko": "철푸덕! 몸에 진흙을 발라. 피부를 지키는 거야!",
+      "en": "",
+      "t": "Splat! It smears mud all over its body. That keeps its skin safe!"
+    },
+    {
+      "n": 10,
+      "ko": "아기 코끼리가 엄마 꼬리를 꼭 잡았어. 같이 가자는 뜻이야!",
+      "en": "",
+      "t": "The baby elephant holds tight to mom's tail. It means, \"Let's go together!\""
+    },
+    {
+      "n": 11,
+      "ko": "아기 코끼리들이 코를 맞대고 영차영차! 누가 더 힘이 센지 겨루는 거야.",
+      "en": "",
+      "t": "The baby elephants press their trunks together, heave-ho! They're seeing who is stronger."
+    },
+    {
+      "n": 12,
+      "ko": "발바닥으로 멀리 있는 소리를 들어. 정말 신기하지?",
+      "en": "",
+      "t": "It hears far-away sounds through the soles of its feet. Isn't that amazing?"
+    },
+    {
+      "n": 13,
+      "ko": "꼬르륵! 코끼리 가족이 숲에서 풀을 먹어. 냠냠 쩝쩝!",
+      "en": "",
+      "t": "Rumble, rumble! The elephant family eats grass in the forest. Munch, munch, yum!"
+    },
+    {
+      "n": 14,
+      "ko": "밤이 되면 코끼리들이 서서 잠을 자. 서로 몸을 기대고 쉬지.",
+      "en": "",
+      "t": "When night comes, the elephants sleep standing up. They lean on each other to rest."
+    },
+    {
+      "n": 15,
+      "ko": "할머니부터 아기까지 다 함께 모여 살아. 사이좋은 가족이야!",
+      "en": "",
+      "t": "From grandma to the baby, they all live together. What a close, loving family!"
+    },
+    {
+      "n": 16,
+      "ko": "듬직하고 멋진 코끼리! 정말 든든한 친구지?",
+      "en": "",
+      "t": "The big, wonderful elephant! Such a dependable friend, isn't it?"
+    },
+    {
+      "n": 17,
+      "ko": "길쭉길쭉 신기한 코랑 커다란 귀를 찾아봐!",
+      "en": "",
+      "t": "See if you can find the long, wonderful trunk and the big ears!"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 듬직한 코끼리! 자, 이제 다음 친구를 만나러 가볼까?",
+      "en": "",
+      "t": "I'm the mighty elephant! Now, shall we go meet the next friend?"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "나무",
+      "en": "tree",
+      "t": "tree"
+    },
+    {
+      "i": 1,
+      "korean": "나뭇잎",
+      "en": "leaf",
+      "t": "leaf"
+    },
+    {
+      "i": 2,
+      "korean": "물",
+      "en": "water",
+      "t": "water"
+    },
+    {
+      "i": 3,
+      "korean": "진흙",
+      "en": "mud",
+      "t": "mud"
+    },
+    {
+      "i": 4,
+      "korean": "풀",
+      "en": "grass",
+      "t": "grass"
+    },
+    {
+      "i": 5,
+      "korean": "달",
+      "en": "moon",
+      "t": "moon"
+    },
+    {
+      "i": 6,
+      "korean": "코끼리",
+      "en": "elephant",
+      "t": "elephant"
+    },
+    {
+      "i": 7,
+      "korean": "코",
+      "en": "trunk",
+      "t": "trunk"
+    },
+    {
+      "i": 8,
+      "korean": "귀",
+      "en": "ear",
+      "t": "ear"
+    },
+    {
+      "i": 9,
+      "korean": "초원",
+      "en": "savanna",
+      "t": "savanna"
+    },
+    {
+      "i": 10,
+      "korean": "상아",
+      "en": "tusk",
+      "t": "tusk"
+    },
+    {
+      "i": 11,
+      "korean": "꼬리",
+      "en": "tail",
+      "t": "tail"
+    },
+    {
+      "i": 12,
+      "korean": "숲",
+      "en": "forest",
+      "t": "forest"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "기다란 코로 물도 마시고 친구도 안아주는 다정한 거인, 코끼리를 만나봐요. 큰 귀를 부채처럼 펄럭이며 가족과 함께 살아가는 코끼리의 따뜻한 일상을 살펴보세요.",
+      "t": "Meet the elephant, a gentle giant that drinks water and hugs its friends with its long trunk. Watch the warm daily life of an elephant as it fans its big ears and lives together with its family."
+    },
+    "lessons": [
+      {
+        "ko": "먹고 마시고 안아주는 코끼리 코의 신기한 쓰임을 관찰하는 눈을 키워요.",
+        "t": "Sharpen your child's eye for observation by noticing the amazing ways an elephant's trunk is used to eat, drink, and hug."
+      },
+      {
+        "ko": "할머니부터 아기까지 함께 사는 코끼리 가족에게서 서로 돕는 사랑을 배워요.",
+        "t": "Learn about caring for one another from the elephant family, where everyone from grandma to the baby lives together."
+      }
+    ],
+    "readingTips": [
+      {
+        "ko": "\"쿵쾅쿵쾅!\", \"뿌우우!\" 코끼리 발소리와 울음소리를 몸짓과 함께 크게 표현해 주세요.",
+        "t": "Act out the elephant's footsteps and calls loudly with gestures, like \"Thump, thump!\" and \"Toooot!\""
+      },
+      {
+        "ko": "\"코끼리는 코로 뭘 할 수 있을까?\" 물 마시기, 나뭇잎 따기 등 코의 쓰임을 함께 찾아봐요.",
+        "t": "Ask, \"What can an elephant do with its trunk?\" and explore its uses together, such as drinking water and picking leaves."
+      },
+      {
+        "ko": "팔을 코처럼 길게 뻗어 코끼리 흉내 놀이를 하고, 동물원에서 진짜 코끼리의 코와 귀를 관찰해 보세요.",
+        "t": "Stretch your arm out like a trunk and play at being an elephant, and observe a real elephant's trunk and ears at the zoo."
+      }
+    ],
+    "faq": [
+      {
+        "q_ko": "코끼리 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 3~6세 아이에게 적합해요. 의성어가 가득한 짧은 문장이라 어린 아이도 즐겁게 들을 수 있어요.",
+        "q_t": "What age is the elephant book recommended for?",
+        "a_t": "It's great for children ages 3 to 6. The short sentences are full of playful sounds, so even young children love listening to it."
+      },
+      {
+        "q_ko": "코끼리에 대해 무엇을 배울 수 있나요?",
+        "a_ko": "손처럼 뭐든 잡는 긴 코, 부채질하는 커다란 귀, 피부를 지키는 진흙 목욕, 발바닥으로 소리를 듣는 신기한 능력, 가족이 모여 사는 모습까지 배울 수 있어요.",
+        "q_t": "What can my child learn about elephants?",
+        "a_t": "Your child can learn about the long trunk that grabs things like a hand, the big ears that fan the elephant, mud baths that protect its skin, its amazing ability to hear sounds through its feet, and how the family lives all together."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "코끼리, 코, 귀, 상아, 초원, 진흙, 나뭇잎 같은 단어를 그림과 함께 자연스럽게 익힐 수 있어요.",
+        "q_t": "What words can my child learn?",
+        "a_t": "Your child can naturally pick up words like elephant, trunk, ear, tusk, savanna, mud, and leaf alongside the pictures."
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "네, 무서운 장면은 없어요. 코끼리 가족이 먹고 놀고 서로 기대어 쉬는 따뜻한 일상 이야기예요.",
+        "q_t": "Are there any scary scenes?",
+        "a_t": "No, there are no scary scenes. It's a warm, everyday story of an elephant family eating, playing, and resting against one another."
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "팔을 코처럼 흔들며 코끼리 걸음 흉내 놀이를 해 봐요. 신문지를 말아 긴 코를 만들어 물건을 집어 보는 놀이도 재미있어요.",
+        "q_t": "What activities are good to do after reading the book?",
+        "a_t": "Swing your arm like a trunk and play at walking like an elephant. Rolling up a newspaper into a long trunk and picking things up with it is fun, too."
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, 영어 버전이 함께 제공돼요. 한국어로 먼저 읽고 영어로 다시 읽으면 두 언어를 자연스럽게 익힐 수 있어요.",
+        "q_t": "Can we read it in English too?",
+        "a_t": "Yes, an English version is included. Reading it first in Korean and then again in English helps your child pick up both languages naturally."
+      },
+      {
+        "q_ko": "실제 코끼리는 어디서 볼 수 있나요?",
+        "a_ko": "동물원에 가면 코끼리를 직접 볼 수 있어요. 코로 먹이를 집는 모습과 펄럭이는 큰 귀를 함께 관찰해 보세요.",
+        "q_t": "Where can we see a real elephant?",
+        "a_t": "You can see an elephant in person at the zoo. Watch together as it picks up food with its trunk and flaps its big ears."
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책도 있나요?",
+        "a_ko": "육지 동물 친구들 시리즈의 캥거루, 하마 등 다른 동물 이야기가 있어요. 함께 읽으면 동물 세계가 더 넓어져요.",
+        "q_t": "Are there other books like this one?",
+        "a_t": "There are other animal stories in the Land Animal Friends series, like the kangaroo and the hippo. Reading them together opens up an even wider animal world."
+      }
+    ]
+  }
+}

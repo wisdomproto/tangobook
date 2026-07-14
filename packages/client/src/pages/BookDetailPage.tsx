@@ -82,7 +82,9 @@ export default function BookDetailPage() {
   const videoAvailable = youtubeVideoIds.length > 0 || directVideoUrls.length > 0;
   // KeyObject 1개 이상이면 "단어 익히기" 모드 카드 노출 (클릭 → /vocabulary/book-:id 학습 페이지).
   // 책 상세 = 진입점만, 학습 자체는 별도 페이지로 분리 (busy 해소).
-  const vocabAvailable = (storybook?.key_objects?.length ?? 0) > 0;
+  // 책별로 "단어 익히기" 모드를 숨길 수 있음 (editor2 토글). 생활동화 등 어휘 학습 없는 콘텐츠.
+  const hideVocab = !!storybook?.hideVocabulary;
+  const vocabAvailable = !hideVocab && (storybook?.key_objects?.length ?? 0) > 0;
   const vocabWordCount = storybook?.key_objects?.length ?? 0;
 
   // 레벨 sibling 추출 — 현재 책의 baseId 기준으로 같은 base 의 sibling __L1/L2/L3 찾기
@@ -321,18 +323,27 @@ export default function BookDetailPage() {
         {/* hero + parentGuide wrapper — flex-1 + justify-center 으로 콘텐츠만 vertical 가운데. 헤더는 위 고정. */}
         <div className="flex-1 flex flex-col justify-center">
           {/* 상단 3단계 안내 — 아이와 함께 읽는 흐름. 전용 일러스트 아이콘 + 2줄 제목 + 부제 + 점선 커넥터. */}
-          <ol className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+          <ol
+            className={`mb-5 grid grid-cols-1 gap-3 sm:gap-4 ${
+              hideVocab ? 'sm:grid-cols-2' : 'sm:grid-cols-3'
+            }`}
+          >
             {[
               {
                 icon: '/icons/guide/step-choose.webp',
                 title: canPickStyle ? t('steps.chooseStyleLangTitle') : t('steps.chooseLangTitle'),
                 sub: t('steps.chooseSub'),
               },
-              {
-                icon: '/icons/guide/step-learn.webp',
-                title: t('steps.learnTitle'),
-                sub: t('steps.learnSub'),
-              },
+              // "읽고 단어 익히기" 단계 — 단어 익히기 숨김 책에선 제외.
+              ...(hideVocab
+                ? []
+                : [
+                    {
+                      icon: '/icons/guide/step-learn.webp',
+                      title: t('steps.learnTitle'),
+                      sub: t('steps.learnSub'),
+                    },
+                  ]),
               {
                 icon: '/icons/guide/step-guide.webp',
                 title: t('steps.guideTitle'),
@@ -503,21 +514,23 @@ export default function BookDetailPage() {
                     disabled={!videoAvailable}
                   />
                 )}
-                <ModeCard
-                  tone="amber"
-                  icon={
-                    <span
-                      className="text-2xl sm:text-3xl font-black leading-none text-ink-900"
-                      aria-hidden
-                    >
-                      가<span className="text-coral-500">A</span>
-                    </span>
-                  }
-                  title={t('modes.vocab')}
-                  sub={t('modes.vocabSub')}
-                  onClick={() => enterMode('vocab')}
-                  disabled={!vocabAvailable}
-                />
+                {!hideVocab && (
+                  <ModeCard
+                    tone="amber"
+                    icon={
+                      <span
+                        className="text-2xl sm:text-3xl font-black leading-none text-ink-900"
+                        aria-hidden
+                      >
+                        가<span className="text-coral-500">A</span>
+                      </span>
+                    }
+                    title={t('modes.vocab')}
+                    sub={t('modes.vocabSub')}
+                    onClick={() => enterMode('vocab')}
+                    disabled={!vocabAvailable}
+                  />
+                )}
               </div>
             </div>
           </div>

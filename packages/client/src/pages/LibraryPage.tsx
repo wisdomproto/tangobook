@@ -92,11 +92,34 @@ const CATEGORY_SPRITE_MAP: Record<string, [number, number]> = {
   '우주와 자연': [2, 2],
 };
 
+// 스프라이트(3×3) 밖의 카테고리는 개별 아이콘 파일로 렌더 (스프라이트 재생성 없이 추가).
+const CATEGORY_ICON_URL: Record<string, string> = {
+  생활동화: '/icons/category/saenghwal.webp',
+};
+
 const CATEGORY_EMOJI_FALLBACK: Record<string, string> = {
   '우리 몸 이야기': '🫀',
 };
 
 const getCategoryIconNode = (cat: string, size = 22): ReactNode => {
+  const iconUrl = CATEGORY_ICON_URL[cat];
+  if (iconUrl) {
+    return (
+      <span
+        role="img"
+        aria-label={cat}
+        className="inline-block shrink-0 align-middle"
+        style={{
+          width: size,
+          height: size,
+          backgroundImage: `url(${iconUrl})`,
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+    );
+  }
   const cell = CATEGORY_SPRITE_MAP[cat];
   if (cell) {
     const [col, row] = cell;

@@ -116,6 +116,31 @@ export function BookManageTab({ storybook, onUpdate, onSave }: BookManageTabProp
         </div>
       </section>
 
+      {/* 콘텐츠 설정 */}
+      <section className="space-y-2">
+        <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">⚙️ 콘텐츠 설정</h3>
+        <label className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300 cursor-pointer">
+          <input
+            type="checkbox"
+            className="mt-0.5"
+            checked={!storybook.hideVocabulary}
+            onChange={(e) => {
+              onUpdate((draft) => {
+                draft.hideVocabulary = !e.target.checked;
+              });
+              onSave();
+            }}
+          />
+          <span>
+            단어 익히기 표시
+            <span className="ml-2 text-[11px] text-slate-400 dark:text-slate-500">
+              끄면 책 상세의 "단어 익히기" 카드 + 상단 3단계 가이드의 2번째 단계를 숨김 (생활동화
+              등)
+            </span>
+          </span>
+        </label>
+      </section>
+
       {/* 완성도 매트릭스 */}
       <section className="space-y-2">
         <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">

@@ -1,0 +1,244 @@
+{
+  "id": "1777615065220",
+  "lang": "en",
+  "title": "원숭이",
+  "titleT": "Monkey",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "초록 나뭇잎이 가득한 숲속이야. 나뭇가지 사이에서 누가 폴짝폴짝 뛰어다녀!",
+      "en": "",
+      "t": "It's a forest full of green leaves. Someone is hopping and leaping through the branches!"
+    },
+    {
+      "n": 2,
+      "ko": "키키키! 장난꾸러기 원숭이가 나타났어!",
+      "en": "",
+      "t": "Hee hee hee! A playful little monkey has appeared!"
+    },
+    {
+      "n": 3,
+      "ko": "원숭이 몸은 복슬복슬한 털로 덮여 있어. 춥고 더운 걸 막아주지!",
+      "en": "",
+      "t": "The monkey's body is covered in soft, fluffy fur. It keeps him warm and cool!"
+    },
+    {
+      "n": 4,
+      "ko": "손을 봐봐! 사람 손이랑 비슷하게 생겼어. 나뭇가지를 꽉 잡을 수 있지!",
+      "en": "",
+      "t": "Look at his hands! They look a lot like our hands. He can grip the branches tight!"
+    },
+    {
+      "n": 5,
+      "ko": "꼬리가 길쭉길쭉해. 나무 위에서 넘어지지 않게 도와주지!",
+      "en": "",
+      "t": "His tail is long and slim. It helps him not to fall up in the trees!"
+    },
+    {
+      "n": 6,
+      "ko": "눈이 앞을 향해 있어. 멀리 있는 것도 잘 볼 수 있지!",
+      "en": "",
+      "t": "His eyes face forward. He can see things far away really well!"
+    },
+    {
+      "n": 7,
+      "ko": "냠냠! 과일이랑 나뭇잎을 좋아해. 벌레도 잘 잡아먹지!",
+      "en": "",
+      "t": "Yum yum! He loves fruit and leaves. He catches and eats bugs too!"
+    },
+    {
+      "n": 8,
+      "ko": "원숭이는 친구들이랑 다 함께 모여 살아. 사이좋게 지내지!",
+      "en": "",
+      "t": "Monkeys all live together with their friends. They get along so well!"
+    },
+    {
+      "n": 9,
+      "ko": "키키! 끼끼! 큰 소리로 친구들에게 알려줘. 위험하다는 뜻이야!",
+      "en": "",
+      "t": "Kee kee! Screech screech! He tells his friends in a loud voice. It means danger is coming!"
+    },
+    {
+      "n": 10,
+      "ko": "서로 털을 쓱쓱 골라줘. 사랑한다는 뜻이야!",
+      "en": "",
+      "t": "They groom each other's fur, gently smoothing it out. It's their way of saying “I love you!”"
+    },
+    {
+      "n": 11,
+      "ko": "밤이 되면 나무 위에서 잠을 자. 나무 위가 제일 안전하거든!",
+      "en": "",
+      "t": "When night comes, they sleep up in the trees. Up in the trees is the safest place of all!"
+    },
+    {
+      "n": 12,
+      "ko": "아기 원숭이가 태어났어! 엄마 배에 꼭 붙어 있지.",
+      "en": "",
+      "t": "A baby monkey is born! He clings tight to his mother's tummy."
+    },
+    {
+      "n": 13,
+      "ko": "조금 크면 엄마 등을 타고 다녀. 엄마랑 함께 숲속을 돌아다니지!",
+      "en": "",
+      "t": "When he grows a bit bigger, he rides on his mother's back. He roams the forest together with her!"
+    },
+    {
+      "n": 14,
+      "ko": "아기 원숭이는 개구쟁이야. 폴짝폴짝 뛰며 신나게 놀지!",
+      "en": "",
+      "t": "The baby monkey is a little rascal. He hops and leaps and plays with all his might!"
+    },
+    {
+      "n": 15,
+      "ko": "원숭이는 종류가 아주 많아. 코가 긴 원숭이, 아주 작은 원숭이도 있어!",
+      "en": "",
+      "t": "There are so many kinds of monkeys. There's a monkey with a long nose, and a teeny-tiny monkey too!"
+    },
+    {
+      "n": 16,
+      "ko": "원숭이는 아주 똑똑해. 돌로 딱딱한 열매를 탁 깨먹기도 해!",
+      "en": "",
+      "t": "Monkeys are very clever. They even crack open hard nuts with a stone!"
+    },
+    {
+      "n": 17,
+      "ko": "복슬복슬한 털이랑 길쭉한 꼬리를 찾아봐!",
+      "en": "",
+      "t": "See if you can find the fluffy fur and the long, slim tail!"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 숲속의 장난꾸러기 원숭이! 자, 이제 다음 친구를 만나러 가볼까?",
+      "en": "",
+      "t": "I'm the playful little monkey of the forest! So, shall we go meet the next friend now?"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "바나나",
+      "en": "banana",
+      "t": "banana"
+    },
+    {
+      "i": 1,
+      "korean": "나무",
+      "en": "tree",
+      "t": "tree"
+    },
+    {
+      "i": 2,
+      "korean": "잎",
+      "en": "leaf",
+      "t": "leaf"
+    },
+    {
+      "i": 3,
+      "korean": "숲",
+      "en": "forest",
+      "t": "forest"
+    },
+    {
+      "i": 4,
+      "korean": "손",
+      "en": "hand",
+      "t": "hand"
+    },
+    {
+      "i": 5,
+      "korean": "껍질",
+      "en": "peel",
+      "t": "peel"
+    },
+    {
+      "i": 6,
+      "korean": "원숭이",
+      "en": "",
+      "t": "monkey"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "나무 사이를 휙휙 옮겨 다니며 친구들과 어울려 노는 똑똑한 원숭이를 만나봐요. 손가락처럼 잡을 수 있는 꼬리와 다양한 표정으로 마음을 나누는 원숭이의 일상을 함께 살펴보세요.",
+      "t": "Meet a clever monkey who swings from tree to tree and plays together with his friends. Take a look at the daily life of a monkey who shares his feelings through a tail that can grip like fingers and a whole range of expressions."
+    },
+    "lessons": [
+      {
+        "ko": "친구들과 함께 어울려 사는 즐거움을 배워요.",
+        "t": "Children learn the joy of living and getting along together with friends."
+      },
+      {
+        "ko": "서로 털을 골라주듯 사랑을 표현하는 법을 알아가요.",
+        "t": "They discover ways to show love, just as monkeys groom each other's fur."
+      },
+      {
+        "ko": "사람 손을 닮은 손과 긴 꼬리, 원숭이의 특징을 관찰하는 눈을 키워요.",
+        "t": "They build an eye for observing a monkey's features, like hands that resemble ours and a long tail."
+      }
+    ],
+    "readingTips": [
+      {
+        "ko": "\"키키키!\" 원숭이 울음소리를 신나게 흉내 내며 읽어 주세요. 위험을 알리는 \"끼끼!\"는 조금 다급하게!",
+        "t": "Read aloud while cheerfully imitating the monkey's call, “Hee hee hee!” Make the danger call “Screech screech!” a little more urgent!"
+      },
+      {
+        "ko": "\"원숭이는 왜 나무 위에서 잘까?\" 아이와 안전한 잠자리 이야기를 나눠 봐요.",
+        "t": "Ask, “Why do monkeys sleep up in the trees?” and chat with your child about safe places to sleep."
+      },
+      {
+        "ko": "동물원에 가면 원숭이의 긴 꼬리와 사람 손을 닮은 손을 직접 관찰해 보세요.",
+        "t": "When you visit the zoo, observe a monkey's long tail and its human-like hands up close."
+      }
+    ],
+    "faq": [
+      {
+        "q_ko": "원숭이 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 3~7세 아이에게 적합해요. 우리 닮은 영리한 동물의 매력을 만나요.",
+        "q_t": "What age is the Monkey book recommended for?",
+        "a_t": "It's a good fit for children ages 3 to 7. They meet the charm of a clever animal that resembles us."
+      },
+      {
+        "q_ko": "원숭이는 어떤 동물인가요?",
+        "a_ko": "세계 곳곳 숲에 사는 영장류 동물이에요. 우리 사람과 가장 가깝고, 두 손·두 발과 긴 꼬리로 나무 사이를 자유롭게 이동해요.",
+        "q_t": "What kind of animal is a monkey?",
+        "a_t": "It's a primate that lives in forests all over the world. Monkeys are among the closest animals to us humans, and they move freely through the trees using two hands, two feet, and a long tail."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'원숭이, 손, 발, 꼬리, 나무, 바나나, 무리' 같은 동물·자연 명사를 만나요.",
+        "q_t": "What words can my child learn?",
+        "a_t": "Children meet animal and nature words like monkey, hand, foot, tail, tree, banana, and troop."
+      },
+      {
+        "q_ko": "원숭이는 왜 그렇게 똑똑한가요?",
+        "a_ko": "사람과 가까운 영장류라 도구를 쓰고 서로 가르치고 배워요. 거울 속 자기 모습도 알아본다고 알려져 있어요.",
+        "q_t": "Why are monkeys so clever?",
+        "a_t": "As primates close to humans, they use tools and teach and learn from one another. They're even known to recognize their own reflection in a mirror."
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "없어요. 따뜻한 자연관찰 책이에요.",
+        "q_t": "Are there any scary scenes?",
+        "a_t": "No. It's a warm nature-observation book."
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "원숭이 흉내내며 나무 매달리기, 바나나 그리기, 동물원·다큐 함께 보기, 손가락 놀이 같은 활동이 좋아요.",
+        "q_t": "What activities are good to do together after reading?",
+        "a_t": "Great activities include imitating a monkey by hanging from playground bars, drawing bananas, watching zoo trips or documentaries together, and playing finger games."
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, Monkey 영어 버전이 함께 제공돼요.",
+        "q_t": "Can we read it in English too?",
+        "a_t": "Yes, an English version titled Monkey is included."
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책도 있나요?",
+        "a_ko": "'고릴라', '코알라', '판다' 같은 다른 육지 동물 시리즈가 함께 사랑받아요.",
+        "q_t": "Are there other books with a similar feel?",
+        "a_t": "Other land-animal titles like Gorilla, Koala, and Panda are loved just as much."
+      }
+    ]
+  }
+}

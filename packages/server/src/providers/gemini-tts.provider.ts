@@ -14,6 +14,7 @@ export interface TtsOptions {
   voice?: string;
   language?: string;
   retries?: number;
+  model?: string; // 요청별 TTS 모델 오버라이드 (없으면 config.gemini.ttsModel)
 }
 
 // 앱 2글자 언어코드 → Gemini TTS 억양 고정용 BCP-47 로케일.
@@ -37,7 +38,13 @@ export function resolveTtsLocale(language?: string): string | undefined {
 }
 
 export async function generateGeminiTts(options: TtsOptions): Promise<Buffer> {
-  const { text, voice = config.gemini.ttsVoice, language = 'ko', retries = 3 } = options;
+  const {
+    text,
+    voice = config.gemini.ttsVoice,
+    language = 'ko',
+    retries = 3,
+    model = config.gemini.ttsModel,
+  } = options;
   const cleaned = text.replace(/\//g, '').trim();
   let prompt: string;
   if (cleaned.length <= 3 && language !== 'ko') {
@@ -64,7 +71,7 @@ export async function generateGeminiTts(options: TtsOptions): Promise<Buffer> {
   return withGeminiRetry(
     async () => {
       const response = await getAI().models.generateContent({
-        model: config.gemini.ttsModel,
+        model,
         contents: [{ parts: [{ text: prompt }] }],
         config: {
           responseModalities: ['AUDIO'],

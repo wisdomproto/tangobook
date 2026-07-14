@@ -953,6 +953,12 @@ export interface Storybook {
    */
   isAccessibleForFree?: boolean;
   /**
+   * "단어 익히기"(어휘 학습) 모드 숨김 — 책 상세의 단어 익히기 카드 + 상단 3단계 가이드의
+   * 2번째("읽고 단어 익히기") 단계를 숨긴다. 미지정 = 표시(기본). 생활동화 등 어휘 학습이
+   * 없는 콘텐츠에서 editor2 토글로 켠다. 2026-07-14 추가.
+   */
+  hideVocabulary?: boolean;
+  /**
    * 커리큘럼 마스터 페이지용 부가 메타 (원제·저자·우선순위 등).
    * 4-25~27 v2 시도 시 BookManifest 에 정의되었으나 v2 폐기 후 v1 으로 옮겨옴.
    */

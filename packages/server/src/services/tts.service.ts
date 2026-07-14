@@ -19,6 +19,7 @@ interface TtsRequest {
   storybookId: string;
   pageNumber?: number;
   identifier?: string; // 범용 식별자 (phonics-word-bat 등)
+  model?: string; // gemini TTS 모델 오버라이드 (없으면 config 기본)
 }
 
 interface TtsBatchRequest {
@@ -31,7 +32,7 @@ interface TtsBatchRequest {
 
 export const TtsService = {
   async generate(req: TtsRequest): Promise<string> {
-    const { provider, text, voice, language, storybookId, pageNumber, identifier } = req;
+    const { provider, text, voice, language, storybookId, pageNumber, identifier, model } = req;
 
     let audioBuffer: Buffer;
     let ext: string;
@@ -39,7 +40,7 @@ export const TtsService = {
 
     switch (provider) {
       case 'gemini':
-        audioBuffer = await generateGeminiTts({ text, voice, language });
+        audioBuffer = await generateGeminiTts({ text, voice, language, model });
         ext = 'mp3';
         mimeType = 'audio/mpeg';
         break;

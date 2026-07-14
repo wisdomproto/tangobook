@@ -30,6 +30,9 @@ const ONLY_BOOK = argVal('--book');
 const ONLY_LANG = argVal('--lang');
 const LANGS = ONLY_LANG ? [ONLY_LANG] : ['vi', 'zh', 'th'];
 const CONC = Number(argVal('--conc') || 3); // 동시 생성 수 (Gemini withGeminiRetry 가 429 backoff)
+const TTS_MODEL = argVal('--tts-model'); // gemini TTS 모델 오버라이드(없으면 서버 기본). preview 모델 quota 분산용
+const INCLUDE_PRIVATE = hasFlag('--include-private'); // 비공개 책도 대상(editor2 초안 등)
+const CATEGORY = argVal('--category'); // 특정 카테고리만(예: 생활동화)
 
 /** items 를 conc 개씩 동시 처리. worker(item,i) 성공 카운트 반환. */
 async function runPool(items, conc, worker) {
@@ -55,7 +58,12 @@ async function fetchBooks() {
   if (!res.ok) throw new Error(`목록 조회 실패 ${res.status} — 로컬 서버(${API})가 떠 있어야 합니다`);
   const json = await res.json();
   const list = json.data ?? json;
-  return list.filter((b) => b.isPublic && (!b.type || b.type === 'storybook'));
+  return list.filter(
+    (b) =>
+      (INCLUDE_PRIVATE || b.isPublic) &&
+      (!b.type || b.type === 'storybook') &&
+      (!CATEGORY || b.category === CATEGORY)
+  );
 }
 
 async function genPageTts(storybookId, lang, text, pageNumber) {
@@ -66,6 +74,7 @@ async function genPageTts(storybookId, lang, text, pageNumber) {
     language: lang,
     storybookId,
     identifier: `narr-${lang}-p${pageNumber}`,
+    ...(TTS_MODEL ? { model: TTS_MODEL } : {}),
   });
   // 연결 실패(서버 재시작 blip)·5xx 는 재시도. tsx dev 서버가 파일변경/부하로 잠깐 죽어도 견딤.
   let lastErr;

@@ -1,0 +1,244 @@
+{
+  "id": "1777447633547",
+  "lang": "en",
+  "title": "치타",
+  "titleT": "Cheetah",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "넓은 초원에 뭔가 쌩하고 지나갔어. 누구일까?",
+      "en": "",
+      "t": "Something whooshed past across the wide savanna. Who could it be?"
+    },
+    {
+      "n": 2,
+      "ko": "세상에서 가장 빠른 치타야! 정말 멋지지?",
+      "en": "",
+      "t": "It's the cheetah, the fastest animal in the world! Isn't he amazing?"
+    },
+    {
+      "n": 3,
+      "ko": "치타 몸에는 까만 점무늬가 콕콕 박혀 있어. 풀숲에 숨으면 쏙 안 보이지.",
+      "en": "",
+      "t": "The cheetah's body is dotted all over with little black spots. When he hides in the grass, you can't see him at all."
+    },
+    {
+      "n": 4,
+      "ko": "눈 아래 까만 선이 보이지? 쨍쨍한 햇빛을 막아주는 거야.",
+      "en": "",
+      "t": "Can you see the black line under his eyes? It blocks out the bright, dazzling sunlight."
+    },
+    {
+      "n": 5,
+      "ko": "치타는 몸이 날씬하고 다리가 쭉쭉 길어. 팡팡 튀어나가듯 달리지!",
+      "en": "",
+      "t": "The cheetah has a slender body and long, long legs. He runs as if he's springing forward with a bound!"
+    },
+    {
+      "n": 6,
+      "ko": "꼬리는 달릴 때 넘어지지 않게 도와줘.",
+      "en": "",
+      "t": "His tail helps him keep his balance so he doesn't tumble while running."
+    },
+    {
+      "n": 7,
+      "ko": "발톱이 뾰족뾰족해. 그래서 미끄러지지 않고 쌩쌩 달릴 수 있어.",
+      "en": "",
+      "t": "His claws are sharp and pointy. That's how he can race along without slipping."
+    },
+    {
+      "n": 8,
+      "ko": "먹이가 보이면 살금살금 다가가. 숨을 꾹 참고 조심조심!",
+      "en": "",
+      "t": "When he spots his prey, he creeps up ever so quietly. Holding his breath, careful, careful!"
+    },
+    {
+      "n": 9,
+      "ko": "후다다닥! 자동차만큼 빠르게 달려. 하지만 헉헉 힘들어서 잠깐만 달릴 수 있어.",
+      "en": "",
+      "t": "Dash dash dash! He runs as fast as a car. But he pants and tires out, so he can only run for a little while."
+    },
+    {
+      "n": 10,
+      "ko": "밥을 먹고 나면 사자가 와서 빼앗아 가기도 해. 그래서 얼른 먹어야 해!",
+      "en": "",
+      "t": "After he catches a meal, a lion might come and take it away. So he has to eat it quickly!"
+    },
+    {
+      "n": 11,
+      "ko": "짠, 아기 치타가 태어났어! 등에 보들보들한 털이 솔솔 나 있지.",
+      "en": "",
+      "t": "Ta-da, a baby cheetah is born! Soft, downy fur grows gently along his back."
+    },
+    {
+      "n": 12,
+      "ko": "엄마를 따라 콩콩 뛰며 달리는 법을 배워. 이렇게 쑥쑥 자라지.",
+      "en": "",
+      "t": "He follows his mother, bounding along and learning how to run. This is how he grows up so quickly."
+    },
+    {
+      "n": 13,
+      "ko": "치타는 어흥 하고 울지 않아. 갸릉갸릉 기분 좋은 소리를 내거나 삐약삐약 귀엽게 울어!",
+      "en": "",
+      "t": "The cheetah doesn't roar. He makes a happy purring sound, or chirps sweetly like a little bird!"
+    },
+    {
+      "n": 14,
+      "ko": "낮에는 쌩쌩 달리고, 가끔은 나무 위에서 쿨쿨 낮잠도 자.",
+      "en": "",
+      "t": "By day he races around, and sometimes he takes a cozy nap up in a tree."
+    },
+    {
+      "n": 15,
+      "ko": "치타가 신나게 뛰려면 넓은 초원이 필요해. 우리가 잘 지켜줘야 해!",
+      "en": "",
+      "t": "For the cheetah to run to his heart's content, he needs a wide savanna. We have to protect it well!"
+    },
+    {
+      "n": 16,
+      "ko": "쌩쌩 초원의 달리기 대장, 치타! 정말 멋지고 씩씩한 친구야.",
+      "en": "",
+      "t": "Whoosh, whoosh, the running champion of the savanna, the cheetah! He's such a cool and spirited friend."
+    },
+    {
+      "n": 17,
+      "ko": "날씬한 몸이랑 까만 눈 아래 선을 다시 한번 찾아봐!\n",
+      "en": "",
+      "t": "See if you can spot the slender body and the black line under his eyes one more time!\n"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 초원의 달리기 대장 치타! 다음엔 누구를 만나러 갈까?",
+      "en": "",
+      "t": "I'm the cheetah, the running champion of the savanna! Who shall we go meet next?"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "초원",
+      "en": "savanna",
+      "t": "savanna"
+    },
+    {
+      "i": 1,
+      "korean": "풀",
+      "en": "grass",
+      "t": "grass"
+    },
+    {
+      "i": 2,
+      "korean": "발톱",
+      "en": "claw",
+      "t": "claw"
+    },
+    {
+      "i": 3,
+      "korean": "나무",
+      "en": "tree",
+      "t": "tree"
+    },
+    {
+      "i": 4,
+      "korean": "치타",
+      "en": "cheetah",
+      "t": "cheetah"
+    },
+    {
+      "i": 5,
+      "korean": "꼬리",
+      "en": "tail",
+      "t": "tail"
+    },
+    {
+      "i": 6,
+      "korean": "털",
+      "en": "fur",
+      "t": "fur"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "바람보다 빠르게 초원을 가르며 달리는 치타를 만나봐요. 점박이 무늬와 길고 가는 다리로 누구보다 멋지게 달리는 치타의 비밀을 따라가며 야생의 놀라움을 함께 느껴 보세요.",
+      "t": "Meet the cheetah, who races across the savanna faster than the wind. Follow the secrets behind how this spotted, long-legged runner sprints more magnificently than anyone, and feel the wonder of the wild together."
+    },
+    "lessons": [
+      {
+        "ko": "세상에서 가장 빠른 치타의 달리기 비밀을 관찰하는 눈을 길러요.",
+        "t": "Children build an eye for observing the running secrets of the cheetah, the fastest animal in the world."
+      },
+      {
+        "ko": "아기 치타가 엄마를 따라 달리기를 배우며 자라는 모습을 만나요.",
+        "t": "They meet a baby cheetah growing up as it follows its mother and learns to run."
+      },
+      {
+        "ko": "치타가 마음껏 달릴 수 있는 넓은 초원을 지켜줘야 한다는 걸 알게 돼요.",
+        "t": "They come to understand that we must protect the wide savanna where cheetahs can run freely."
+      }
+    ],
+    "readingTips": [
+      {
+        "ko": "\"쌩!\" 달리는 장면은 빠르고 신나게, \"갸릉갸릉\" 우는 장면은 부드럽고 귀엽게 목소리를 바꿔 주세요.",
+        "t": "Change your voice: read the running scenes fast and excited with a “Whoosh!”, and the purring “purr, purr” scenes soft and sweet."
+      },
+      {
+        "ko": "\"치타는 왜 잠깐만 달릴 수 있을까?\" 하고 물으며 함께 헉헉 숨 고르기 흉내를 내 봐요.",
+        "t": "Ask, “Why can the cheetah only run for a little while?” and pretend to catch your breath, panting together."
+      },
+      {
+        "ko": "거실에서 살금살금 다가가다 신호에 맞춰 후다닥 달리는 '치타 사냥 놀이'로 확장해 보세요.",
+        "t": "Try extending it into a “cheetah hunt” game, creeping up quietly in the living room and then dashing off on cue."
+      }
+    ],
+    "faq": [
+      {
+        "q_ko": "치타 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 3~7세 아이에게 적합해요. 세상에서 가장 빠른 동물의 매력에 빠진 아이가 좋아해요.",
+        "q_t": "What age is the Cheetah book recommended for?",
+        "a_t": "It's a good fit for children ages 3 to 7. Children who are fascinated by the fastest animal in the world will love it."
+      },
+      {
+        "q_ko": "치타는 어떤 동물인가요?",
+        "a_ko": "아프리카 초원에 사는 고양이과 동물로, 세상에서 가장 빠른 육상 동물이에요. 시속 100km 이상으로 달릴 수 있고 점박이 무늬가 특징이에요.",
+        "q_t": "What kind of animal is a cheetah?",
+        "a_t": "It's a member of the cat family that lives on the African savanna, and it's the fastest land animal in the world. It can run over 100 km per hour, and its spotted pattern is its trademark."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'치타, 점박이, 다리, 꼬리, 초원, 사냥, 빠름' 같은 동물·자연 명사를 만나요.",
+        "q_t": "What words can my child learn?",
+        "a_t": "Children meet animal and nature words like cheetah, spots, legs, tail, savanna, hunting, and speed."
+      },
+      {
+        "q_ko": "치타는 왜 그렇게 빠른가요?",
+        "a_ko": "긴 다리와 유연한 척추로 큰 보폭을 만들고, 가벼운 몸과 큰 콧구멍으로 빠르게 산소를 흡입해요. 다만 100m 정도만 빨리 달리고 곧 쉬어야 해요.",
+        "q_t": "Why is the cheetah so fast?",
+        "a_t": "Its long legs and flexible spine create a huge stride, and its light body and large nostrils let it take in oxygen quickly. But it can only sprint for about 100 meters before it has to rest."
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "사냥 장면이 있지만 부드럽게 그려져 만 4세 이상 안심하고 봐요.",
+        "q_t": "Are there any scary scenes?",
+        "a_t": "There is a hunting scene, but it's drawn gently, so children ages 4 and up can watch with peace of mind."
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "달리기 시합, 점박이 패턴 그리기, 표범·재규어와 비교 그림, 동물원·다큐 함께 보기 같은 활동이 좋아요.",
+        "q_t": "What activities are good to do together after reading?",
+        "a_t": "Great activities include running races, drawing spotted patterns, comparing pictures with leopards and jaguars, and watching zoo trips or documentaries together."
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, Cheetah 영어 버전이 함께 제공돼요.",
+        "q_t": "Can we read it in English too?",
+        "a_t": "Yes, an English version titled Cheetah is included."
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책도 있나요?",
+        "a_ko": "'표범', '사자', '호랑이' 같은 고양이과 맹수 시리즈가 함께 사랑받아요.",
+        "q_t": "Are there other books with a similar feel?",
+        "a_t": "Other big-cat titles like Leopard, Lion, and Tiger are loved just as much."
+      }
+    ]
+  }
+}

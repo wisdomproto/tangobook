@@ -1,0 +1,270 @@
+{
+  "id": "1777440865383",
+  "lang": "en",
+  "title": "기린",
+  "titleT": "Giraffe",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "초록 잎이 가득한 숲속이야. 나무 위로 쑥 올라온 게 뭘까?",
+      "en": "",
+      "t": "We're in a forest full of green leaves. What is that peeking up above the trees?"
+    },
+    {
+      "n": 2,
+      "ko": "세상에서 키가 제일 큰 기린이야! 정말 크지?",
+      "en": "",
+      "t": "It's the giraffe, the tallest animal in the whole world! Isn't it so tall?"
+    },
+    {
+      "n": 3,
+      "ko": "기린은 목이 아주아주 길어. 높은 나무 잎사귀도 냠냠 잘 먹지.",
+      "en": "",
+      "t": "A giraffe has a very, very long neck. It can munch the leaves way up high!"
+    },
+    {
+      "n": 4,
+      "ko": "쭈욱! 까맣고 긴 혀가 나왔어. 뾰족뾰족 가시나무도 슥슥 잘 먹어!",
+      "en": "",
+      "t": "Stretch! Out comes a long, black tongue. It even eats prickly thorn trees with ease!"
+    },
+    {
+      "n": 5,
+      "ko": "몸에는 예쁜 무늬가 있어. 나무 그늘에 숨으면 쏙 안 보이지!",
+      "en": "",
+      "t": "Its body has pretty patterns. Hidden in the shade of the trees, you can hardly see it!"
+    },
+    {
+      "n": 6,
+      "ko": "머리 위엔 귀여운 뿔이 톡톡! 귀는 쫑긋쫑긋, 멀리서 나는 소리도 다 들어.",
+      "en": "",
+      "t": "On top of its head are two cute little horns! Its ears perk up, and it can hear sounds from far away."
+    },
+    {
+      "n": 7,
+      "ko": "꿀깍꿀깍, 물을 마실 땐 다리를 쫘악 벌려. 키가 너무 크거든!",
+      "en": "",
+      "t": "Gulp, gulp! To drink water, it spreads its legs way out wide. It's just too tall!"
+    },
+    {
+      "n": 8,
+      "ko": "쿨쿨, 기린은 서서 잠을 자. 아주 잠깐만 눈을 꼭 감고 쉬지.",
+      "en": "",
+      "t": "Zzz, a giraffe sleeps standing up. It closes its eyes tight and rests for just a little while."
+    },
+    {
+      "n": 9,
+      "ko": "쿵쾅쿵쾅! 기린이 신나게 달려가. 기다란 다리로 겅중겅중 참 멋지지?",
+      "en": "",
+      "t": "Thump, thump! The giraffe runs off, full of joy. Bounding on its long legs, isn't it wonderful?"
+    },
+    {
+      "n": 10,
+      "ko": "탁탁! 수컷 기린들이 목을 부딪쳐. 누가 더 힘이 센지 겨루는 거야.",
+      "en": "",
+      "t": "Bump, bump! The male giraffes swing their necks together. They're seeing who is stronger."
+    },
+    {
+      "n": 11,
+      "ko": "엄마 기린 옆에 아기 기린이 꼭 붙어 있어. 정말 귀엽지?",
+      "en": "",
+      "t": "A baby giraffe stays close by its mommy's side. Isn't it adorable?"
+    },
+    {
+      "n": 12,
+      "ko": "냠냠, 아기도 엄마를 따라 나뭇잎을 먹어. 쑥쑥 자라면 엄마처럼 커질 거야!",
+      "en": "",
+      "t": "Munch, munch. The baby eats leaves just like its mommy. As it grows and grows, it'll be big like her one day!"
+    },
+    {
+      "n": 13,
+      "ko": "기린 친구들이 다 함께 걸어가. 키가 커서 멀리서 오는 친구도 금방 알아봐.",
+      "en": "",
+      "t": "The giraffe friends all walk along together. Being so tall, they spot a friend coming from far away."
+    },
+    {
+      "n": 14,
+      "ko": "두근두근! 기린 심장은 아주 커. 키가 크면 심장도 커야 해!",
+      "en": "",
+      "t": "Thump, thump! A giraffe's heart is very big. When you're this tall, your heart has to be big too!"
+    },
+    {
+      "n": 15,
+      "ko": "해가 뉘엿뉘엿 졌어. 기린 친구들이 나무 아래 모여 하루를 마무리해.",
+      "en": "",
+      "t": "The sun is slowly setting. The giraffe friends gather beneath the trees to end the day."
+    },
+    {
+      "n": 16,
+      "ko": "숲속을 지키는 키다리 기린! 정말 멋진 친구야.",
+      "en": "",
+      "t": "The tall giraffe, keeper of the forest! What a wonderful friend."
+    },
+    {
+      "n": 17,
+      "ko": "길쭉길쭉한 목이랑 알록달록 무늬를 찾아봐!\n",
+      "en": "",
+      "t": "Find the long, long neck and the colorful patterns!\n"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 멋쟁이 키다리 기린! 자, 이제 다음 친구를 만나러 가볼까?",
+      "en": "",
+      "t": "I'm the tall and stylish giraffe! Now, shall we go meet the next friend?"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "나무",
+      "en": "tree",
+      "t": "tree"
+    },
+    {
+      "i": 1,
+      "korean": "나뭇잎",
+      "en": "leaf",
+      "t": "leaf"
+    },
+    {
+      "i": 2,
+      "korean": "가지",
+      "en": "branch",
+      "t": "branch"
+    },
+    {
+      "i": 3,
+      "korean": "뿔",
+      "en": "horn",
+      "t": "horn"
+    },
+    {
+      "i": 4,
+      "korean": "혀",
+      "en": "tongue",
+      "t": "tongue"
+    },
+    {
+      "i": 5,
+      "korean": "웅덩이",
+      "en": "puddle",
+      "t": "puddle"
+    },
+    {
+      "i": 6,
+      "korean": "그림자",
+      "en": "shadow",
+      "t": "shadow"
+    },
+    {
+      "i": 7,
+      "korean": "목",
+      "en": "Neck",
+      "t": "neck"
+    },
+    {
+      "i": 8,
+      "korean": "물",
+      "en": "Water",
+      "t": "water"
+    },
+    {
+      "i": 9,
+      "korean": "숲",
+      "en": "forest",
+      "t": "forest"
+    },
+    {
+      "i": 10,
+      "korean": "기린",
+      "en": "giraffe",
+      "t": "giraffe"
+    },
+    {
+      "i": 11,
+      "korean": "귀",
+      "en": "ear",
+      "t": "ear"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "하늘에 닿을 듯 긴 목으로 높은 나뭇잎을 따 먹는 키다리 기린을 만나봐요. 알록달록 무늬와 우아한 걸음걸이에 숨은 기린의 하루를 따라가며 초원 친구의 매력을 함께 살펴보세요.",
+      "t": "Meet the tall giraffe, who reaches high leaves with a neck that seems to touch the sky. Follow a day in the life of this giraffe, with its colorful patterns and graceful stride, and discover together the charm of this friend of the plains."
+    },
+    "lessons": [
+      {
+        "ko": "긴 목으로 높은 나뭇잎을 먹는 기린의 특징을 관찰하는 눈을 길러요.",
+        "t": "Develop an observant eye for the giraffe's traits, like eating high leaves with its long neck."
+      },
+      {
+        "ko": "세상에서 키가 가장 큰 동물의 특별한 몸을 알아요.",
+        "t": "Learn about the special body of the tallest animal in the world."
+      }
+    ],
+    "readingTips": [
+      {
+        "ko": "\"세상에서 키가 제일 큰 기린이야!\" 감탄하는 마음을 담아 크게 읽어 주세요.",
+        "t": "Read \"It's the tallest giraffe in the world!\" out loud with a sense of wonder."
+      },
+      {
+        "ko": "\"기린은 왜 목이 이렇게 길까?\" 아이와 까닭을 상상해 봐요.",
+        "t": "Ask \"Why do you think a giraffe's neck is so long?\" and imagine the reasons together with your child."
+      },
+      {
+        "ko": "까치발로 서서 키를 키워 보거나, 동물원에서 기린을 찾아보면 좋아요.",
+        "t": "Try standing on tiptoe to make yourselves taller, or look for a giraffe at the zoo."
+      }
+    ],
+    "faq": [
+      {
+        "q_ko": "기린 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 3~7세 아이에게 적합해요. 세상에서 가장 키 큰 동물의 매력을 만나요.",
+        "q_t": "What ages is the giraffe book recommended for?",
+        "a_t": "It's a good fit for children ages 3 to 7. They'll discover the charm of the tallest animal in the world."
+      },
+      {
+        "q_ko": "기린은 어떤 동물인가요?",
+        "a_ko": "아프리카 초원에 사는 세상에서 가장 키 큰 동물이에요. 키가 약 5~6m로 2층 건물 높이까지 닿고, 긴 목으로 높은 나뭇잎을 먹어요.",
+        "q_t": "What kind of animal is a giraffe?",
+        "a_t": "It's the tallest animal in the world, living on the African plains. Standing about 5 to 6 meters tall, as high as a two-story building, it eats high leaves with its long neck."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'기린, 목, 다리, 무늬, 잎, 나무, 초원' 같은 동물·자연 명사를 만나요.",
+        "q_t": "What words can my child learn?",
+        "a_t": "Your child will meet animal and nature words like \"giraffe, neck, legs, pattern, leaf, tree, plains.\""
+      },
+      {
+        "q_ko": "기린은 왜 그렇게 키가 커요?",
+        "a_ko": "다른 동물이 닿지 못하는 높은 나뭇잎을 먹기 위해 긴 목으로 진화했어요. 덕분에 멀리서 위험도 빨리 볼 수 있어요.",
+        "q_t": "Why are giraffes so tall?",
+        "a_t": "They evolved long necks to reach high leaves that other animals can't. It also helps them spot danger from far away."
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "없어요. 평화로운 자연관찰 책이에요.",
+        "q_t": "Are there any scary scenes?",
+        "a_t": "No. It's a peaceful nature observation book."
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "키 재기 미션 (5m가 얼마인지 표시해보기), 긴 목 그림 그리기, 무늬(점박이) 색칠하기, 동물원·다큐 함께 보기 같은 활동이 좋아요.",
+        "q_t": "What are some good activities to do after reading?",
+        "a_t": "Try a height-measuring mission (marking out how much 5 meters is), drawing a long neck, coloring in the spotted patterns, or watching giraffes at the zoo or in a documentary together."
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, Giraffe 영어 버전이 함께 제공돼요.",
+        "q_t": "Can we read it in English too?",
+        "a_t": "Yes, an English version, Giraffe, is included as well."
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책도 있나요?",
+        "a_ko": "'코끼리', '하마', '코뿔소' 같은 아프리카 거대 동물 시리즈가 함께 사랑받아요.",
+        "q_t": "Are there other books with a similar feel?",
+        "a_t": "The African giant-animal series, with titles like \"Elephant,\" \"Hippo,\" and \"Rhinoceros,\" is loved right alongside this one."
+      }
+    ]
+  }
+}

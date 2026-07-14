@@ -1,0 +1,280 @@
+{
+  "id": "1777439576248",
+  "lang": "en",
+  "title": "곰",
+  "titleT": "Bear",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "깊은 산속에 커다란 바위가 있어. 뒤에 누가 숨어 있을까?",
+      "en": "",
+      "t": "Deep in the mountains there's a big, big rock. Who could be hiding behind it?"
+    },
+    {
+      "n": 2,
+      "ko": "우와, 덩치가 엄청 큰 곰이야! 정말 듬직하지?",
+      "en": "",
+      "t": "Wow, it's a great big bear! Isn't it so strong and steady?"
+    },
+    {
+      "n": 3,
+      "ko": "북슬북슬! 곰은 온몸이 부드러운 털로 덮여 있어. 추운 겨울도 거뜬해.",
+      "en": "",
+      "t": "So fluffy! A bear's whole body is covered in soft fur. Even cold winters are no trouble at all."
+    },
+    {
+      "n": 4,
+      "ko": "킁킁, 크킁! 곰이 커다란 코를 벌름벌름 움직여. 멀리서 나는 냄새도 잘 맡아.",
+      "en": "",
+      "t": "Sniff, sniff! The bear wiggles its big nose. It can smell things from far, far away."
+    },
+    {
+      "n": 5,
+      "ko": "커다란 발바닥에는 뾰족뾰족 발톱이 숨어 있어. 정말 무섭지?",
+      "en": "",
+      "t": "Hidden in its big paws are sharp, pointy claws. Aren't they scary?"
+    },
+    {
+      "n": 6,
+      "ko": "첨벙첨벙! 곰은 물고기를 아주 좋아해. 잡아볼까?",
+      "en": "",
+      "t": "Splash, splash! Bears love fish very much. Shall we try to catch one?"
+    },
+    {
+      "n": 7,
+      "ko": "휙, 와락! 도망가는 물고기를 한 번에 꽉 잡았어. 야호!",
+      "en": "",
+      "t": "Swoosh, snatch! It grabbed the fleeing fish in one quick catch. Hooray!"
+    },
+    {
+      "n": 8,
+      "ko": "곰은 달콤한 꿀이랑 열매도 좋아해. 냠냠, 정말 맛있나 봐!",
+      "en": "",
+      "t": "Bears also love sweet honey and berries. Yum, yum, they must be so tasty!"
+    },
+    {
+      "n": 9,
+      "ko": "쓱싹쓱싹! 곰이 나무에 등을 마구 비벼. 가려운 데가 있나 봐!",
+      "en": "",
+      "t": "Rub, rub! The bear scratches its back against a tree. It must have an itch!"
+    },
+    {
+      "n": 10,
+      "ko": "찬바람이 휭휭 불면 곰은 졸려. 포근한 굴속에서 쿨쿨 겨울잠을 자지.",
+      "en": "",
+      "t": "When the cold wind whooshes by, the bear gets sleepy. In a cozy den it sleeps all winter long, zzz."
+    },
+    {
+      "n": 11,
+      "ko": "따뜻한 봄, 예쁜 아기 곰이 태어났어! 정말 귀엽지?",
+      "en": "",
+      "t": "In the warm spring, a sweet baby bear is born! Isn't it adorable?"
+    },
+    {
+      "n": 12,
+      "ko": "아기 곰들이 폴짝폴짝 장난을 쳐. 헤헤, 정말 신나는 하루야!",
+      "en": "",
+      "t": "The baby bears hop and play and tumble about. Hee-hee, what a fun day!"
+    },
+    {
+      "n": 13,
+      "ko": "엄마 곰이 물고기 잡는 법을 가르쳐 줘. 아기 곰도 엄마처럼 첨벙첨벙!",
+      "en": "",
+      "t": "Mommy bear teaches how to catch fish. The baby bear splashes just like Mommy!"
+    },
+    {
+      "n": 14,
+      "ko": "엄마 곰이 옆에 있으면 아기 곰은 하나도 안 무서워. 엄마가 지켜주거든!",
+      "en": "",
+      "t": "With Mommy bear beside it, the baby bear isn't scared at all. Mommy keeps it safe!"
+    },
+    {
+      "n": 15,
+      "ko": "오늘도 곰이 어슬렁어슬렁 숲을 돌아봐. 숲속 대장이 왔다!",
+      "en": "",
+      "t": "Today the bear ambles through the forest again. The chief of the forest is here!"
+    },
+    {
+      "n": 16,
+      "ko": "덩치는 크지만 마음은 아주 따뜻해. 숲속 친구들에게 다정한 친구야!",
+      "en": "",
+      "t": "It may be big, but its heart is very warm. It's a kind friend to everyone in the forest!"
+    },
+    {
+      "n": 17,
+      "ko": "북슬북슬 털이랑 뾰족뾰족 발톱을 찾아봐! 동글동글 귀도 참 귀엽지?",
+      "en": "",
+      "t": "Find the fluffy fur and the sharp, pointy claws! Aren't the round little ears so cute too?"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 덩치 큰 털보 곰! 자, 이제 다음 친구를 만나러 가볼까?",
+      "en": "",
+      "t": "I'm the big, furry bear! Now, shall we go meet the next friend?"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "바위",
+      "en": "rock",
+      "t": "rock"
+    },
+    {
+      "i": 1,
+      "korean": "코",
+      "en": "nose",
+      "t": "nose"
+    },
+    {
+      "i": 2,
+      "korean": "발톱",
+      "en": "claw",
+      "t": "claw"
+    },
+    {
+      "i": 3,
+      "korean": "물고기",
+      "en": "fish",
+      "t": "fish"
+    },
+    {
+      "i": 4,
+      "korean": "꿀",
+      "en": "honey",
+      "t": "honey"
+    },
+    {
+      "i": 5,
+      "korean": "나무",
+      "en": "tree",
+      "t": "tree"
+    },
+    {
+      "i": 6,
+      "korean": "동굴",
+      "en": "cave",
+      "t": "cave"
+    },
+    {
+      "i": 7,
+      "korean": "곰",
+      "en": "bear",
+      "t": "bear"
+    },
+    {
+      "i": 8,
+      "korean": "산",
+      "en": "mountain",
+      "t": "mountain"
+    },
+    {
+      "i": 9,
+      "korean": "털",
+      "en": "fur",
+      "t": "fur"
+    },
+    {
+      "i": 10,
+      "korean": "발",
+      "en": "foot",
+      "t": "paw"
+    },
+    {
+      "i": 11,
+      "korean": "열매",
+      "en": "berry",
+      "t": "berry"
+    },
+    {
+      "i": 12,
+      "korean": "숲",
+      "en": "forest",
+      "t": "forest"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "두툼한 털옷을 입고 숲을 어슬렁거리는 듬직한 곰을 만나봐요. 꿀과 열매를 좋아하고 겨울잠을 자며 새끼를 키우는 곰의 일상을 따라가며 숲속 친구의 매력을 함께 느껴 보세요.",
+      "t": "Meet the sturdy bear, ambling through the forest in its thick, furry coat. Follow the everyday life of a bear that loves honey and berries, sleeps through winter, and raises its cubs, and feel together the charm of this friend of the forest."
+    },
+    "lessons": [
+      {
+        "ko": "털, 코, 발톱까지 곰의 몸 구석구석을 관찰하는 눈을 길러요.",
+        "t": "Develop an observant eye for every part of a bear's body, from its fur to its nose to its claws."
+      },
+      {
+        "ko": "겨울잠을 자고 봄에 아기를 키우는 곰의 사계절을 배워요.",
+        "t": "Learn about the bear's four seasons, sleeping through winter and raising cubs in spring."
+      },
+      {
+        "ko": "덩치가 커도 마음은 따뜻한 곰처럼 다정한 마음을 만나요.",
+        "t": "Meet a warm and caring heart, like the bear that is big yet gentle."
+      }
+    ],
+    "readingTips": [
+      {
+        "ko": "\"킁킁, 크킁!\" 냄새 맡는 소리와 \"첨벙첨벙!\" 물고기 잡는 소리를 실감 나게 연기해 주세요.",
+        "t": "Act out the sniffing sounds, \"Sniff, sniff!\" and the fish-catching sounds, \"Splash, splash!\" to make them come alive."
+      },
+      {
+        "ko": "\"곰은 겨울에 왜 쿨쿨 잠을 잘까?\" 하고 물으며 이불 속에서 겨울잠 놀이를 해 봐요.",
+        "t": "Ask \"Why does a bear sleep all winter?\" and play a hibernation game snuggled under the blankets."
+      },
+      {
+        "ko": "동물원에서 곰을 만나면 커다란 발바닥과 벌름거리는 코를 책과 비교하며 관찰해 보세요.",
+        "t": "If you see a bear at the zoo, compare its big paws and wiggling nose with the book as you observe."
+      }
+    ],
+    "faq": [
+      {
+        "q_ko": "곰 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 3~7세 아이에게 적합해요. 큰 털북숭이 친구의 매력을 만나요.",
+        "q_t": "What ages is the bear book recommended for?",
+        "a_t": "It's a good fit for children ages 3 to 7. They'll discover the charm of this big, furry friend."
+      },
+      {
+        "q_ko": "곰은 어떤 동물인가요?",
+        "a_ko": "북반구 숲·산에 사는 거대 잡식 동물이에요. 두꺼운 털과 강한 발톱이 특징이고, 겨울이 오면 굴에 들어가 긴 잠(동면)을 자요.",
+        "q_t": "What kind of animal is a bear?",
+        "a_t": "It's a large omnivore that lives in the forests and mountains of the Northern Hemisphere. Known for its thick fur and strong claws, it retreats into a den for a long sleep (hibernation) when winter comes."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'곰, 털, 발, 발톱, 굴, 꿀, 잠, 숲' 같은 동물·자연 명사를 만나요.",
+        "q_t": "What words can my child learn?",
+        "a_t": "Your child will meet animal and nature words like \"bear, fur, paw, claw, den, honey, sleep, forest.\""
+      },
+      {
+        "q_ko": "곰은 왜 겨울잠을 자요?",
+        "a_ko": "겨울에는 먹이가 적어서 굴에서 긴 잠을 자며 에너지를 아껴요. 가을에 많이 먹어둔 지방으로 봄까지 버텨요.",
+        "q_t": "Why do bears hibernate?",
+        "a_t": "In winter there's little food, so they sleep a long time in their dens to save energy. They live off the fat they built up by eating a lot in autumn, lasting until spring."
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "큰 몸집이 위협적으로 보이지만 부드럽게 그려져 만 4세 이상 안심하고 봐요.",
+        "q_t": "Are there any scary scenes?",
+        "a_t": "The bear's large size may look imposing, but it's drawn in a gentle way, so children ages 4 and up can enjoy it with ease."
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "이불·텐트로 곰 굴 만들기, 곰 인형 안고 자기, 꿀 맛보기, 손가락 곰 발자국 찍기 같은 활동이 좋아요.",
+        "q_t": "What are some good activities to do after reading?",
+        "a_t": "Try building a bear den out of blankets or a tent, sleeping with a teddy bear, tasting honey, or making bear paw prints with your fingers."
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, Bear 영어 버전이 함께 제공돼요.",
+        "q_t": "Can we read it in English too?",
+        "a_t": "Yes, an English version, Bear, is included as well."
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책도 있나요?",
+        "a_ko": "'판다', '북극곰', '늑대' 같은 다른 육지 동물 친구들 시리즈가 함께 사랑받아요.",
+        "q_t": "Are there other books with a similar feel?",
+        "a_t": "The series of other land-animal friends, with titles like \"Panda,\" \"Polar Bear,\" and \"Wolf,\" is loved right alongside this one."
+      }
+    ]
+  }
+}

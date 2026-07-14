@@ -1,0 +1,274 @@
+{
+  "id": "1777442972423",
+  "lang": "en",
+  "title": "여우",
+  "titleT": "Fox",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "펑펑! 하얀 눈이 소복소복 쌓였어. 나무 뒤에 누가 숨어 있을까?",
+      "en": "",
+      "t": "Down it comes! White snow piles up soft and deep. Who is hiding behind the tree?"
+    },
+    {
+      "n": 2,
+      "ko": "살금살금! 붉은 여우가 나타났어.",
+      "en": "",
+      "t": "Softly, softly! A red fox has appeared."
+    },
+    {
+      "n": 3,
+      "ko": "붉은 털이 정말 보들보들해 보여. 정말 예쁘지?",
+      "en": "",
+      "t": "Its red fur looks so soft and fluffy. Isn't it pretty?"
+    },
+    {
+      "n": 4,
+      "ko": "번쩍번쩍! 어두운 밤에도 눈이 빛나. 쫑긋쫑긋, 멀리서 나는 소리도 잘 들어.",
+      "en": "",
+      "t": "Shine, shine! Its eyes glow even in the dark night. Perk, perk — it can hear sounds from far away."
+    },
+    {
+      "n": 5,
+      "ko": "발바닥이 푹신푹신해. 사뿐사뿐 걸어도 소리가 안 나. 안쪽엔 뾰족한 발톱도 숨어 있어!",
+      "en": "",
+      "t": "Its paw pads are soft and squishy. It steps so lightly you can't hear a thing. And sharp claws hide inside!"
+    },
+    {
+      "n": 6,
+      "ko": "날름날름! 여우 혀는 아주 까칠해. 뾰족한 이빨도 숨어 있지.",
+      "en": "",
+      "t": "Lick, lick! The fox's tongue is very rough. And sharp teeth hide there too."
+    },
+    {
+      "n": 7,
+      "ko": "첨벙첨벙! 여우는 수영도 아주 잘해.",
+      "en": "",
+      "t": "Splash, splash! The fox is a great swimmer, too."
+    },
+    {
+      "n": 8,
+      "ko": "쓱싹쓱싹! 나무에 발톱 자국을 내. 여기는 내 땅이라는 뜻이야!",
+      "en": "",
+      "t": "Scritch-scratch! It leaves claw marks on a tree. It means \"This is my land!\""
+    },
+    {
+      "n": 9,
+      "ko": "꼬르륵, 배가 고파졌어. 풀숲에 납작 엎드려 먹이를 기다려.",
+      "en": "",
+      "t": "Grumble — now it's hungry. It lies flat in the grass and waits for its food."
+    },
+    {
+      "n": 10,
+      "ko": "후다닥! 번개처럼 빠르게 달려가. 숲속에서 제일 멋진 사냥꾼이지.",
+      "en": "",
+      "t": "Whoosh! It dashes off as fast as lightning. It's the finest hunter in the forest."
+    },
+    {
+      "n": 11,
+      "ko": "냠냠 쩝쩝, 배불리 밥을 먹었어. 시원한 물도 꿀꺽꿀꺽 마시네.",
+      "en": "",
+      "t": "Yum, yum, it ate until its tummy was full. And it gulps down some cool water, too."
+    },
+    {
+      "n": 12,
+      "ko": "따뜻한 풀숲에 엄마 여우가 있어. 핥짝핥짝, 아기 여우를 깨끗하게 씻겨 줘.",
+      "en": "",
+      "t": "In the warm grass is the mother fox. Lick, lick, she cleans her baby fox all nice and tidy."
+    },
+    {
+      "n": 13,
+      "ko": "아기 여우는 엄마를 따라 걷고 뛰는 법을 배워. 꼬리를 살랑살랑 흔들며 따라가지.",
+      "en": "",
+      "t": "The baby fox learns to walk and run after its mother. It follows along, swishing its tail gently."
+    },
+    {
+      "n": 14,
+      "ko": "데굴데굴! 형제들과 뒹굴며 놀아. 폴짝폴짝 뛰며 하루 종일 신나게 놀았어.",
+      "en": "",
+      "t": "Roll, roll! It tumbles and plays with its brothers and sisters. Hop, hop, they played happily all day long."
+    },
+    {
+      "n": 15,
+      "ko": "까만 밤하늘에 달님이 떴어. 높은 바위 위에 여우가 올라섰네.",
+      "en": "",
+      "t": "The moon has risen in the black night sky. The fox stands up high on a tall rock."
+    },
+    {
+      "n": 16,
+      "ko": "똑똑하고 멋진 붉은 여우! 정말 신기한 친구지?",
+      "en": "",
+      "t": "The clever and wonderful red fox! What an amazing friend, isn't it?"
+    },
+    {
+      "n": 17,
+      "ko": "붉은 털이랑 커다란 꼬리를 찾아봐! 보들보들 만져보고 싶지?",
+      "en": "",
+      "t": "Can you find its red fur and its big bushy tail? Don't you want to give it a soft, fluffy pat?"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 멋쟁이 붉은 여우! 자, 이제 다음 친구를 만나러 가볼까?",
+      "en": "",
+      "t": "I'm the dashing red fox! Now, shall we go meet the next friend?"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "눈",
+      "en": "snow",
+      "t": "snow"
+    },
+    {
+      "i": 1,
+      "korean": "꼬리",
+      "en": "tail",
+      "t": "tail"
+    },
+    {
+      "i": 2,
+      "korean": "나무",
+      "en": "tree",
+      "t": "tree"
+    },
+    {
+      "i": 3,
+      "korean": "물",
+      "en": "water",
+      "t": "water"
+    },
+    {
+      "i": 4,
+      "korean": "혀",
+      "en": "tongue",
+      "t": "tongue"
+    },
+    {
+      "i": 5,
+      "korean": "바위",
+      "en": "rock",
+      "t": "rock"
+    },
+    {
+      "i": 6,
+      "korean": "달",
+      "en": "moon",
+      "t": "moon"
+    },
+    {
+      "i": 7,
+      "korean": "여우",
+      "en": "Fox",
+      "t": "fox"
+    },
+    {
+      "i": 8,
+      "korean": "털",
+      "en": "fur",
+      "t": "fur"
+    },
+    {
+      "i": 9,
+      "korean": "발",
+      "en": "paw",
+      "t": "paw"
+    },
+    {
+      "i": 10,
+      "korean": "발톱",
+      "en": "claw",
+      "t": "claw"
+    },
+    {
+      "i": 11,
+      "korean": "이빨",
+      "en": "tooth",
+      "t": "tooth"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "붉은 털 외투와 멋진 꼬리를 휘날리며 숲을 누비는 영리한 여우를 만나봐요. 살금살금 다가가 먹잇감을 잡는 꾀 많은 여우의 모습 속에서 자연의 똑똑한 친구를 함께 살펴보세요.",
+      "t": "Meet the clever fox, roaming the forest in its red coat with its beautiful tail streaming behind. In the crafty fox that creeps up softly to catch its prey, discover one of nature's smartest friends."
+    },
+    "lessons": [
+      {
+        "ko": "푹신한 발바닥과 커다란 꼬리, 여우의 특징을 관찰하는 눈을 키워요.",
+        "t": "Sharpen the eye for observing a fox's features, like its soft paw pads and big bushy tail."
+      },
+      {
+        "ko": "엄마 여우의 보살핌 속에 아기가 자라듯 가족의 사랑을 느껴요.",
+        "t": "Feel the love of family as the baby grows up in the care of the mother fox."
+      },
+      {
+        "ko": "형제들과 뒹굴며 노는 여우처럼 함께 노는 즐거움을 배워요.",
+        "t": "Learn the joy of playing together, just like the fox tumbling about with its brothers and sisters."
+      }
+    ],
+    "readingTips": [
+      {
+        "ko": "\"살금살금\"은 천천히 속삭이듯, \"후다닥!\"은 빠르고 신나게. 속도 변화로 사냥꾼 여우를 실감 나게 읽어 주세요.",
+        "t": "Read \"softly, softly\" slowly, like a whisper, and \"whoosh!\" fast and excited. Change your pace to bring the hunter fox to life."
+      },
+      {
+        "ko": "\"여우는 왜 사뿐사뿐 걸어도 소리가 안 날까?\" 푹신한 발바닥의 비밀을 아이와 이야기해 봐요.",
+        "t": "Ask, \"Why can the fox walk so lightly without a sound?\" and talk with your child about the secret of its soft paw pads."
+      },
+      {
+        "ko": "동물원에서 여우를 만나면 커다란 꼬리와 쫑긋한 귀를 찾아보세요. 겨울 눈밭 사진 속 여우를 찾아보는 것도 재미있어요.",
+        "t": "If you see a fox at the zoo, look for its big tail and perky ears. It's also fun to spot a fox in photos of a snowy winter field."
+      }
+    ],
+    "faq": [
+      {
+        "q_ko": "여우 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 3~7세 아이에게 적합해요. 영리한 빨간 털 친구의 매력을 만나요.",
+        "q_t": "What age is the Fox book recommended for?",
+        "a_t": "It's a good fit for children ages 3 to 7. They'll meet the charm of this clever red-furred friend."
+      },
+      {
+        "q_ko": "여우는 어떤 동물인가요?",
+        "a_ko": "북반구 곳곳에 사는 작은 야생 개과 동물이에요. 빨간 털과 풍성한 꼬리가 특징이고, 매우 영리하며 도시 근처에서도 발견돼요.",
+        "q_t": "What kind of animal is a fox?",
+        "a_t": "It's a small wild member of the dog family found all across the Northern Hemisphere. It's known for its red fur and bushy tail, it's very clever, and it can even be spotted near cities."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'여우, 털, 꼬리, 귀, 굴, 숲, 사냥' 같은 동물·자연 명사를 만나요.",
+        "q_t": "What words can my child learn?",
+        "a_t": "They'll meet animal and nature words like \"fox, fur, tail, ears, den, forest, hunting.\""
+      },
+      {
+        "q_ko": "여우는 왜 동화에 자주 나오나요?",
+        "a_ko": "영리하고 꾀가 많은 동물로 알려져서 옛이야기에 자주 등장해요. 어린 왕자의 여우, 이솝의 여우 등 많은 명작에 나와요.",
+        "q_t": "Why do foxes appear so often in stories?",
+        "a_t": "Because they're known as clever, crafty animals, they show up often in old tales. The fox in The Little Prince and the fox in Aesop's fables are just a few of the many classics they appear in."
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "없어요. 잔잔한 자연관찰 책이에요.",
+        "q_t": "Are there any scary scenes?",
+        "a_t": "No. It's a gentle nature-observation book."
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "여우 꼬리 만들어 흔들기, 빨강·주황 색칠하기, 동화 속 여우 캐릭터 함께 떠올려 보기 같은 활동이 좋아요.",
+        "q_t": "What activities go well with the book?",
+        "a_t": "Great activities include making a fox tail and swishing it around, coloring with red and orange, and thinking together of fox characters from other stories."
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, Fox 영어 버전이 함께 제공돼요.",
+        "q_t": "Can we read it in English too?",
+        "a_t": "Yes, an English version, Fox, is included."
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책도 있나요?",
+        "a_ko": "'늑대', '강아지', '고양이' 같은 다른 육지 동물 친구들 시리즈가 함께 사랑받아요.",
+        "q_t": "Are there other books with a similar feel?",
+        "a_t": "Other land-animal friend titles like \"Wolf,\" \"Puppy,\" and \"Cat\" are loved right alongside this one."
+      }
+    ]
+  }
+}

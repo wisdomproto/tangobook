@@ -1,0 +1,268 @@
+{
+  "id": "1777446759568",
+  "lang": "en",
+  "title": "늑대",
+  "titleT": "Wolf",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "쌩쌩! 차가운 바람이 부는 겨울 산이야. 멀리서 긴 울음소리가 들려. 누굴까?",
+      "en": "",
+      "t": "Whoosh, whoosh! A cold wind blows over the winter mountain. A long howl comes from far away. Who could it be?"
+    },
+    {
+      "n": 2,
+      "ko": "아우우~! 은빛 늑대가 친구들을 불렀어. 숲속 동물들이 깜짝 놀랐지.",
+      "en": "",
+      "t": "Awoooo~! A silver wolf is calling to its friends. All the animals in the forest gave a little jump."
+    },
+    {
+      "n": 3,
+      "ko": "후다닥! 늑대 가족이 모였어. 사이좋게 함께 살아가지.",
+      "en": "",
+      "t": "Pitter-patter! The wolf family has gathered. They live together, side by side."
+    },
+    {
+      "n": 4,
+      "ko": "쫑긋쫑긋! 늑대 귀가 움직여. 아주 먼 곳의 소리도 잘 들어. 바스락, 무슨 소리지?",
+      "en": "",
+      "t": "Perk, perk! The wolf's ears twitch. It can hear sounds from very far away. Rustle — what was that sound?"
+    },
+    {
+      "n": 5,
+      "ko": "쿵쾅쿵쾅! 늑대 발바닥은 넓고 튼튼해. 눈 위에서도 쌩쌩 달릴 수 있어.",
+      "en": "",
+      "t": "Thump, thump! The wolf's paws are wide and strong. It can run swiftly even on top of the snow."
+    },
+    {
+      "n": 6,
+      "ko": "킁킁! 코를 벌렁벌렁 움직여. 맛있는 냄새도 금방 맡지.",
+      "en": "",
+      "t": "Sniff, sniff! Its nose wiggles this way and that. It catches a yummy smell in no time."
+    },
+    {
+      "n": 7,
+      "ko": "늑대들은 힘을 합쳐 먹이를 찾아. 영차영차, 다 함께 달려가지!",
+      "en": "",
+      "t": "The wolves work together to find food. Heave-ho, off they run, all together!"
+    },
+    {
+      "n": 8,
+      "ko": "으르렁! 뾰족한 이빨을 보이며 무섭게 말해. 가까이 오지 말라는 뜻이야.",
+      "en": "",
+      "t": "Grrr! It bares its sharp teeth and speaks fiercely. It means \"Don't come any closer.\""
+    },
+    {
+      "n": 9,
+      "ko": "냠냠 쩝쩝! 다 함께 맛있게 먹어. 차례차례 나눠 먹지.",
+      "en": "",
+      "t": "Yum, yum! They all eat happily together. They take turns and share."
+    },
+    {
+      "n": 10,
+      "ko": "늑대 가족은 서로 아주 사랑해. 얼굴을 쓱쓱 핥아주며 인사해.",
+      "en": "",
+      "t": "The wolf family loves each other very much. They say hello by licking each other's faces."
+    },
+    {
+      "n": 11,
+      "ko": "따뜻한 봄이 왔어! 굴속에서 아기 늑대들이 태어났어. 정말 귀엽지?",
+      "en": "",
+      "t": "Warm spring has come! Baby wolves have been born inside the den. Aren't they adorable?"
+    },
+    {
+      "n": 12,
+      "ko": "뒹굴뒹굴! 아기 늑대들이 신나게 장난을 쳐. 앙앙 깨물며 노는 법을 배우는 거야.",
+      "en": "",
+      "t": "Roll, roll! The baby wolves play and tumble happily. With little nips and nibbles, they're learning how to play."
+    },
+    {
+      "n": 13,
+      "ko": "커다란 곰이 나타났어! 늑대들이 다 함께 모여 섰어. 무섭지 않다는 뜻이야!",
+      "en": "",
+      "t": "A big bear has appeared! The wolves all stand together. It means \"We're not afraid!\""
+    },
+    {
+      "n": 14,
+      "ko": "타다닥 타닥! 늑대는 오래오래 달려. 숲속 최고의 사냥꾼이지.",
+      "en": "",
+      "t": "Pat-pat, pat-pat! The wolf runs on and on and on. It's the best hunter in the forest."
+    },
+    {
+      "n": 15,
+      "ko": "깜깜한 밤, 늑대 눈이 반짝반짝 빛나. 오늘도 숲을 든든하게 지키지.",
+      "en": "",
+      "t": "In the dark night, the wolf's eyes shine and sparkle. Today, as always, it watches over the forest."
+    },
+    {
+      "n": 16,
+      "ko": "용감하고 다정한 늑대! 숲속을 지켜주는 멋진 친구야.",
+      "en": "",
+      "t": "The brave and loving wolf! A wonderful friend who protects the forest."
+    },
+    {
+      "n": 17,
+      "ko": "늑대의 반짝이는 눈이랑 커다란 발바닥을 찾아봐!",
+      "en": "",
+      "t": "Can you find the wolf's shining eyes and its big paws?"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 용감한 숲속 늑대! 자, 이제 다음 친구를 만나러 가볼까?",
+      "en": "",
+      "t": "I'm the brave wolf of the forest! Now, shall we go meet the next friend?"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "눈",
+      "en": "snow",
+      "t": "snow"
+    },
+    {
+      "i": 1,
+      "korean": "바위",
+      "en": "rock",
+      "t": "rock"
+    },
+    {
+      "i": 2,
+      "korean": "달",
+      "en": "moon",
+      "t": "moon"
+    },
+    {
+      "i": 3,
+      "korean": "고기",
+      "en": "meat",
+      "t": "meat"
+    },
+    {
+      "i": 4,
+      "korean": "풀",
+      "en": "grass",
+      "t": "grass"
+    },
+    {
+      "i": 5,
+      "korean": "굴",
+      "en": "den",
+      "t": "den"
+    },
+    {
+      "i": 6,
+      "korean": "늑대",
+      "en": "wolf",
+      "t": "wolf"
+    },
+    {
+      "i": 7,
+      "korean": "귀",
+      "en": "ear",
+      "t": "ear"
+    },
+    {
+      "i": 8,
+      "korean": "코",
+      "en": "nose",
+      "t": "nose"
+    },
+    {
+      "i": 9,
+      "korean": "발",
+      "en": "paw",
+      "t": "paw"
+    },
+    {
+      "i": 10,
+      "korean": "이빨",
+      "en": "tooth",
+      "t": "tooth"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "무리를 이루어 함께 사냥하고 서로를 지키는 용맹한 늑대를 만나봐요. 우두머리 늑대를 중심으로 단단히 뭉친 가족의 모습 속에서 협동의 힘을 자연스럽게 배워 봐요.",
+      "t": "Meet the brave wolf, who hunts as a pack and protects its own. In the tightly bonded family gathered around its leader, children naturally learn the power of teamwork."
+    },
+    "lessons": [
+      {
+        "ko": "가족과 힘을 합쳐 살아가는 늑대에게서 협동의 힘을 배워요.",
+        "t": "Learn the power of teamwork from the wolf, who lives by joining forces with its family."
+      },
+      {
+        "ko": "먹이를 나누고 서로 핥아주는 늑대 가족의 다정한 사랑을 느껴요.",
+        "t": "Feel the warm love of the wolf family, who share their food and groom one another."
+      },
+      {
+        "ko": "쫑긋한 귀와 넓은 발바닥, 늑대의 특징을 관찰하는 눈을 키워요.",
+        "t": "Sharpen the eye for observing a wolf's features, like its perky ears and wide paws."
+      }
+    ],
+    "readingTips": [
+      {
+        "ko": "\"아우우~!\" 늑대 울음소리를 아이와 함께 길게 따라 해 보세요.",
+        "t": "Try howling \"Awoooo~!\" together with your child, nice and long."
+      },
+      {
+        "ko": "\"늑대들은 왜 다 같이 모여 살까?\" 가족이 함께해서 좋은 점을 이야기해 봐요.",
+        "t": "Ask, \"Why do wolves all live together?\" and talk about the good things that come from being with family."
+      },
+      {
+        "ko": "동화 속 무서운 늑대와 이 책의 다정한 늑대 가족이 어떻게 다른지 비교하며 이야기해 봐요.",
+        "t": "Talk about how the scary wolf in fairy tales is different from the loving wolf family in this book."
+      }
+    ],
+    "faq": [
+      {
+        "q_ko": "늑대 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 4~7세 아이에게 적합해요. 무리지어 사는 멋진 야생 동물의 모습을 만나요.",
+        "q_t": "What age is the Wolf book recommended for?",
+        "a_t": "It's a good fit for children ages 4 to 7. They'll meet a magnificent wild animal that lives in a pack."
+      },
+      {
+        "q_ko": "늑대는 어떤 동물인가요?",
+        "a_ko": "북반구 숲·툰드라에 사는 야생 개과 동물이에요. 5~10마리 무리(팩)로 사냥하고, 우두머리를 중심으로 가족처럼 협력해요. 강아지의 조상이에요.",
+        "q_t": "What kind of animal is a wolf?",
+        "a_t": "It's a wild member of the dog family that lives in the forests and tundra of the Northern Hemisphere. Wolves hunt in packs of 5 to 10, cooperating like a family around their leader. They are the ancestors of the dog."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'늑대, 무리, 가족, 다리, 꼬리, 숲, 달, 울음' 같은 동물·자연 명사를 만나요.",
+        "q_t": "What words can my child learn?",
+        "a_t": "They'll meet animal and nature words like \"wolf, pack, family, legs, tail, forest, moon, howl.\""
+      },
+      {
+        "q_ko": "늑대는 왜 달을 보며 울어요?",
+        "a_ko": "달을 보고 우는 게 아니라 무리에게 자기 위치를 알리는 신호예요. 멀리 있는 가족과 소통하는 늑대의 말이에요.",
+        "q_t": "Why do wolves howl at the moon?",
+        "a_t": "They're not really howling at the moon — it's a signal to tell the pack where they are. It's how a wolf talks to family members who are far away."
+      },
+      {
+        "q_ko": "동화 속 늑대처럼 무서운가요?",
+        "a_ko": "동화 속 늑대는 무서워 보이지만 실제 늑대는 무리를 사랑하고 가족과 협력하는 사회적 동물이에요. 사람을 먼저 공격하는 일은 거의 없어요.",
+        "q_t": "Is it scary like the wolf in fairy tales?",
+        "a_t": "The wolf in fairy tales looks scary, but real wolves are social animals that love their pack and cooperate with their family. They almost never attack people first."
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "늑대 울음소리 따라하기 (아우~), 가족 사진과 무리 비교 그림, 강아지와 늑대 비교 사진 보기, 달 그리기 같은 활동이 좋아요.",
+        "q_t": "What activities go well with the book?",
+        "a_t": "Great activities include imitating the wolf's howl (awoooo~), drawing a picture that compares your own family with a wolf pack, looking at photos comparing dogs and wolves, and drawing the moon."
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, Wolf 영어 버전이 함께 제공돼요.",
+        "q_t": "Can we read it in English too?",
+        "a_t": "Yes, an English version, Wolf, is included."
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책도 있나요?",
+        "a_ko": "'사자', '호랑이', '강아지' 같은 다른 육지 동물 시리즈가 함께 사랑받아요.",
+        "q_t": "Are there other books with a similar feel?",
+        "a_t": "Other land-animal titles like \"Lion,\" \"Tiger,\" and \"Puppy\" are loved right alongside this one."
+      }
+    ]
+  }
+}

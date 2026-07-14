@@ -1,0 +1,276 @@
+{
+  "id": "1777438039433",
+  "lang": "en",
+  "title": "사자",
+  "titleT": "Lion",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "해가 쨍쨍! 넓은 초원이야. 풀숲에 누가 숨어 있을까?",
+      "en": "",
+      "t": "The sun is blazing! It's a wide, open plain. Who could be hiding in the grass?"
+    },
+    {
+      "n": 2,
+      "ko": "으르렁! 멋진 사자가 나타났어. 노란 갈기가 바람에 펄럭펄럭!",
+      "en": "",
+      "t": "Roar! A magnificent lion appears. Its golden mane flutters in the wind!"
+    },
+    {
+      "n": 3,
+      "ko": "사자 얼굴을 봐봐. 털이 덥수룩덥수룩! 갈기가 크면 아주 힘이 세대.",
+      "en": "",
+      "t": "Look at the lion's face. So shaggy and full! A big mane means it's very strong, they say."
+    },
+    {
+      "n": 4,
+      "ko": "어두운 밤에도 눈이 반짝반짝 빛나. 캄캄해도 아주 잘 볼 수 있어!",
+      "en": "",
+      "t": "Even in the dark night, its eyes shine bright. It can see very well, even in the pitch black!"
+    },
+    {
+      "n": 5,
+      "ko": "코를 킁킁! 킁킁! 멀리 있는 냄새도 잘 맡아.",
+      "en": "",
+      "t": "Sniff, sniff goes its nose! It can smell things from far away."
+    },
+    {
+      "n": 6,
+      "ko": "날름날름! 사자 혀는 아주 까칠까칠해.",
+      "en": "",
+      "t": "Lick, lick! A lion's tongue is very rough and scratchy."
+    },
+    {
+      "n": 7,
+      "ko": "꼬리 끝에 까만 털 뭉치가 대롱대롱. 기분이 좋으면 꼬리를 살랑살랑 흔들어.",
+      "en": "",
+      "t": "A tuft of black fur dangles at the tip of its tail. When it's happy, it sways its tail softly."
+    },
+    {
+      "n": 8,
+      "ko": "사자는 낮잠을 참 좋아해. 나무 밑에서 쿨쿨 드르렁!",
+      "en": "",
+      "t": "Lions love a good nap. Under a tree they snooze away, snoring, zzz!"
+    },
+    {
+      "n": 9,
+      "ko": "사자는 가족이 함께 모여 살아. 서로 꼭 지켜주지.",
+      "en": "",
+      "t": "Lions live together as a family. They keep one another safe."
+    },
+    {
+      "n": 10,
+      "ko": "엄마 사자들이 다 함께 사냥을 나가. 정말 용감하지?",
+      "en": "",
+      "t": "The mother lions all go out hunting together. Aren't they so brave?"
+    },
+    {
+      "n": 11,
+      "ko": "쉿! 엄마 사자들이 살금살금 다가가. 발소리도 안 나!",
+      "en": "",
+      "t": "Shh! The mother lions creep closer, ever so softly. Not a single footstep is heard!"
+    },
+    {
+      "n": 12,
+      "ko": "우다다다! 온 힘을 다해 달려가. 무서울 게 없는 초원의 왕이야!",
+      "en": "",
+      "t": "Dash, dash, dash! They run with all their might. They're the king of the plains, afraid of nothing!"
+    },
+    {
+      "n": 13,
+      "ko": "냠냠 쩝쩝! 가족이 모두 모여 밥을 먹어. 정말 배고팠나봐!",
+      "en": "",
+      "t": "Munch, munch, gobble, gobble! The whole family gathers to eat. They must have been so hungry!"
+    },
+    {
+      "n": 14,
+      "ko": "엄마가 아기를 할짝할짝 핥아줘. 아기 사자는 기분이 좋아!",
+      "en": "",
+      "t": "Mommy licks her baby gently, lick, lick. The baby lion feels so happy!"
+    },
+    {
+      "n": 15,
+      "ko": "아기 사자들이 데굴데굴 우당탕! 신나게 장난치며 놀아.",
+      "en": "",
+      "t": "The baby lions roll and tumble, thud and bump! They play and romp with joy."
+    },
+    {
+      "n": 16,
+      "ko": "하늘이 빨갛게 물들었어. 사자는 오늘도 늠름하게 초원을 지켰지.",
+      "en": "",
+      "t": "The sky is glowing red. Today, too, the lion proudly watched over the plains."
+    },
+    {
+      "n": 17,
+      "ko": "사자 몸을 꼼꼼히 살펴봐! 정말 크고 멋진 친구지?",
+      "en": "",
+      "t": "Take a careful look at the lion's body! It's such a big and magnificent friend, isn't it?"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 멋진 초원의 왕 사자! 자, 이제 다음 친구를 만나러 가볼까?",
+      "en": "",
+      "t": "I'm the lion, the great king of the plains! Now, shall we go meet the next friend?"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "풀",
+      "en": "grass",
+      "t": "grass"
+    },
+    {
+      "i": 1,
+      "korean": "별",
+      "en": "star",
+      "t": "star"
+    },
+    {
+      "i": 2,
+      "korean": "나무",
+      "en": "tree",
+      "t": "tree"
+    },
+    {
+      "i": 3,
+      "korean": "바위",
+      "en": "rock",
+      "t": "rock"
+    },
+    {
+      "i": 4,
+      "korean": "고기",
+      "en": "meat",
+      "t": "meat"
+    },
+    {
+      "i": 5,
+      "korean": "해",
+      "en": "sun",
+      "t": "sun"
+    },
+    {
+      "i": 6,
+      "korean": "사자",
+      "en": "lion",
+      "t": "lion"
+    },
+    {
+      "i": 7,
+      "korean": "갈기",
+      "en": "mane",
+      "t": "mane"
+    },
+    {
+      "i": 8,
+      "korean": "눈",
+      "en": "eye",
+      "t": "eye"
+    },
+    {
+      "i": 9,
+      "korean": "초원",
+      "en": "savanna",
+      "t": "savanna"
+    },
+    {
+      "i": 10,
+      "korean": "코",
+      "en": "nose",
+      "t": "nose"
+    },
+    {
+      "i": 11,
+      "korean": "혀",
+      "en": "tongue",
+      "t": "tongue"
+    },
+    {
+      "i": 12,
+      "korean": "꼬리",
+      "en": "tail",
+      "t": "tail"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "갈기 휘날리며 초원을 누비는 백수의 왕 사자를 만나봐요. 무리 지어 사냥하고 가족을 지키는 늠름한 모습 속에서 동물 가족의 사랑을 자연스럽게 배워 봐요.",
+      "t": "Meet the lion, king of the beasts, roaming the plains with its mane flowing. In its proud way of hunting as a group and protecting its family, learn naturally about the love within an animal family."
+    },
+    "lessons": [
+      {
+        "ko": "덥수룩한 갈기와 까칠한 혀 등 사자의 특징을 관찰하는 눈을 키워요.",
+        "t": "Develop an observant eye for the lion's traits, like its shaggy mane and rough tongue."
+      },
+      {
+        "ko": "가족이 함께 모여 서로 지켜주는 사자 가족의 사랑을 느껴요.",
+        "t": "Feel the love of a lion family that gathers together and protects one another."
+      }
+    ],
+    "readingTips": [
+      {
+        "ko": "\"으르렁!\" 사자 울음소리는 굵고 우렁차게, 아기 사자 장난 장면은 귀엽고 경쾌하게 읽어 주세요.",
+        "t": "Read the lion's \"Roar!\" in a deep, booming voice, and read the baby lions' playful scenes in a cute, lively tone."
+      },
+      {
+        "ko": "\"사자 가족은 어떻게 서로 지켜줄까?\" 아이와 함께 이야기해 봐요.",
+        "t": "Talk with your child about \"How do you think a lion family keeps one another safe?\""
+      },
+      {
+        "ko": "동물원에서 사자를 만나면 수컷의 갈기와 꼬리 끝 까만 털 뭉치를 찾아보세요.",
+        "t": "If you see a lion at the zoo, look for the male's mane and the tuft of black fur at the tip of its tail."
+      }
+    ],
+    "faq": [
+      {
+        "q_ko": "사자 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 3~7세 아이에게 적합해요. '초원의 왕' 의 멋진 모습이 어린이의 시선을 사로잡아요.",
+        "q_t": "What ages is the lion book recommended for?",
+        "a_t": "It's a good fit for children ages 3 to 7. The magnificent sight of the \"king of the plains\" captures children's attention."
+      },
+      {
+        "q_ko": "사자는 어떤 동물인가요?",
+        "a_ko": "아프리카 초원에 사는 큰 고양이과 동물이에요. 수컷은 멋진 갈기가 있고, 무리(프라이드)지어 사냥하고 가족처럼 협력해요.",
+        "q_t": "What kind of animal is a lion?",
+        "a_t": "It's a big cat that lives on the African plains. Males have a magnificent mane, and they hunt in groups (prides) and cooperate like a family."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'사자, 갈기, 발톱, 꼬리, 무리, 초원, 사냥, 으르렁' 같은 동물·소리 명사를 만나요.",
+        "q_t": "What words can my child learn?",
+        "a_t": "Your child will meet animal and sound words like \"lion, mane, claw, tail, pride, plains, hunt, roar.\""
+      },
+      {
+        "q_ko": "수컷 사자 갈기는 왜 있나요?",
+        "a_ko": "수컷의 멋진 갈기는 다른 수컷에게 자기를 자랑하고 적을 막을 때 목을 보호해요. 암컷 사자는 갈기가 없어요.",
+        "q_t": "Why do male lions have a mane?",
+        "a_t": "A male's grand mane shows off to other males and protects his neck when fending off enemies. Female lions don't have manes."
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "사냥 장면이 있지만 부드럽게 그려져 만 4세 이상 안심하고 봐요.",
+        "q_t": "Are there any scary scenes?",
+        "a_t": "There's a hunting scene, but it's drawn in a gentle way, so children ages 4 and up can enjoy it with ease."
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "사자 갈기 가면 만들기, '으르렁' 흉내내기, 초원 풍경 그리기, 동물원·다큐 함께 보기 같은 활동이 좋아요.",
+        "q_t": "What are some good activities to do after reading?",
+        "a_t": "Try making a lion mane mask, imitating the \"roar,\" drawing a scene of the plains, or watching lions at the zoo or in a documentary together."
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, Lion 영어 버전이 함께 제공돼요.",
+        "q_t": "Can we read it in English too?",
+        "a_t": "Yes, an English version, Lion, is included as well."
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책도 있나요?",
+        "a_ko": "'호랑이', '치타', '표범' 같은 고양이과 맹수 시리즈가 함께 사랑받아요.",
+        "q_t": "Are there other books with a similar feel?",
+        "a_t": "The big-cat predator series, with titles like \"Tiger,\" \"Cheetah,\" and \"Leopard,\" is loved right alongside this one."
+      }
+    ]
+  }
+}

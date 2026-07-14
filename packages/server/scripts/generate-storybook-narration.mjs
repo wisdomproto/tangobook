@@ -25,6 +25,9 @@ const VOICE = argVal('--voice') || 'Leda';
 const DRY = hasFlag('--dry-run');
 const LIMIT = Number(argVal('--limit') || 0);
 const ONLY_BOOK = argVal('--book');
+const INCLUDE_PRIVATE = hasFlag('--include-private'); // 비공개 책도 대상(editor2 초안 등)
+const CATEGORY = argVal('--category'); // 특정 카테고리만(예: 생활동화)
+const TTS_MODEL = argVal('--tts-model'); // gemini TTS 모델 오버라이드(없으면 서버 기본). preview 모델 quota 분산용
 const DELAY_MS = 1500; // Gemini rate limit 방지
 
 async function fetchMissingBooks() {
@@ -34,21 +37,32 @@ async function fetchMissingBooks() {
   const list = json.data ?? json;
   return list.filter(
     (b) =>
-      b.isPublic &&
+      (INCLUDE_PRIVATE || b.isPublic) &&
       (!b.type || b.type === 'storybook') &&
+      (!CATEGORY || b.category === CATEGORY) &&
       !(b.koCompletion && b.koCompletion.pagesTts)
   );
 }
 
 async function genPageTts(storybookId, pageNumber, text) {
-  const res = await fetch(`${API}/api/tts/generate`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text, provider: 'gemini', voice: VOICE, language: 'ko', storybookId, pageNumber }),
-  });
-  if (!res.ok) throw new Error(`tts ${res.status}: ${(await res.text()).slice(0, 200)}`);
-  const json = await res.json();
-  return json.data.audioUrl;
+  const body = JSON.stringify({ text, provider: 'gemini', voice: VOICE, language: 'ko', storybookId, pageNumber, ...(TTS_MODEL ? { model: TTS_MODEL } : {}) });
+  // 연결 실패(dev 서버 tsx watch 재시작 blip) · 5xx · 500 은 재시도. (i18n 스크립트와 동일)
+  let lastErr;
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      const res = await fetch(`${API}/api/tts/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+      });
+      if (!res.ok) throw new Error(`tts ${res.status}: ${(await res.text()).slice(0, 200)}`);
+      return (await res.json()).data.audioUrl;
+    } catch (e) {
+      lastErr = e;
+      await sleep(2000 * (attempt + 1)); // 2s,4s,6s,8s backoff (서버 재기동 대기)
+    }
+  }
+  throw lastErr;
 }
 
 async function processBook(summary) {

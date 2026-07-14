@@ -1,0 +1,262 @@
+{
+  "id": "1777442353908",
+  "lang": "en",
+  "title": "다람쥐",
+  "titleT": "Squirrel",
+  "pages": [
+    {
+      "n": 1,
+      "ko": "톡톡! 도토리가 떨어지는 가을 숲이야. 나뭇잎 사이에 누가 숨어 있을까?",
+      "en": "",
+      "t": "Tap, tap! Acorns are falling in the autumn forest. Who is hiding among the leaves?"
+    },
+    {
+      "n": 2,
+      "ko": "조르르! 귀여운 줄무늬 다람쥐가 나타났어.",
+      "en": "",
+      "t": "Scurry, scurry! A cute little striped squirrel has appeared."
+    },
+    {
+      "n": 3,
+      "ko": "다람쥐는 나무 타기 대장이야! 뾰족한 발톱으로 미끄러운 나무도 휘리릭 올라가지.",
+      "en": "",
+      "t": "The squirrel is a champion tree climber! With its sharp claws, it zips right up even the slippery trees."
+    },
+    {
+      "n": 4,
+      "ko": "어머나, 양볼이 볼록볼록해! 입안에 도토리가 가득 들었구나.",
+      "en": "",
+      "t": "Oh my, its cheeks are all puffed out! Its mouth is stuffed full of acorns."
+    },
+    {
+      "n": 5,
+      "ko": "살랑살랑 커다란 꼬리를 흔들어. 높은 곳에서 폴짝 뛸 때 꼭 필요해.",
+      "en": "",
+      "t": "It swishes its big tail this way and that. It really needs it when it hops from high places."
+    },
+    {
+      "n": 6,
+      "ko": "앞니가 아주 튼튼해. 딱딱한 도토리도 오도독오도독 잘 깨물지.",
+      "en": "",
+      "t": "Its front teeth are very strong. It crunches right through even the hardest acorns, crunch-crunch."
+    },
+    {
+      "n": 7,
+      "ko": "다람쥐는 부지런히 먹이를 모아. 땅속이나 나무 구멍에 쏙쏙 숨겨두지.",
+      "en": "",
+      "t": "The squirrel busily gathers food. It tucks it away neatly in the ground or in holes in the trees."
+    },
+    {
+      "n": 8,
+      "ko": "살금살금 다가와 땅을 파서 도토리를 묻었어. 근데 어디에 뒀는지 깜빡 잊기도 해!",
+      "en": "",
+      "t": "It creeps up softly, digs in the ground, and buries an acorn. But sometimes it forgets where it put it!"
+    },
+    {
+      "n": 9,
+      "ko": "깜빡 잊은 도토리는 어떻게 될까? 파릇파릇 새싹이 되어 쑥쑥 자라지!",
+      "en": "",
+      "t": "What happens to the forgotten acorn? It sprouts into a fresh green shoot and grows up, up, up!"
+    },
+    {
+      "n": 10,
+      "ko": "벌떡! 뒷발로 서서 두리번두리번. 무서운 게 오는지 살펴보는 거야.",
+      "en": "",
+      "t": "Up it pops! It stands on its hind legs and looks all around. It's checking to see if anything scary is coming."
+    },
+    {
+      "n": 11,
+      "ko": "쌩쌩 추운 겨울이 왔어. 다람쥐는 포근한 집에서 쿨쿨 겨울잠을 자.",
+      "en": "",
+      "t": "The cold, windy winter has come. The squirrel sleeps away the winter, snug in its cozy home."
+    },
+    {
+      "n": 12,
+      "ko": "따뜻한 봄이 되니 아기 다람쥐들이 태어났어! 엄마를 따라 조르르 나무 타기를 배우지.",
+      "en": "",
+      "t": "When warm spring arrives, baby squirrels are born! Scurrying after their mother, they learn to climb the trees."
+    },
+    {
+      "n": 13,
+      "ko": "우당탕탕! 아기 다람쥐들은 장난꾸러기야. 꼬리를 흔들며 신나게 뛰놀지.",
+      "en": "",
+      "t": "Bumpity-bump! The baby squirrels are little rascals. They swish their tails and romp about happily."
+    },
+    {
+      "n": 14,
+      "ko": "영차영차, 다람쥐는 참 부지런해. 숲속을 뽈뽈 다니며 먹이를 찾지.",
+      "en": "",
+      "t": "Heave-ho, the squirrel is so hardworking. It scampers all around the forest, looking for food."
+    },
+    {
+      "n": 15,
+      "ko": "어둑어둑 밤이 왔어. 해가 지면 아늑한 집으로 돌아가.",
+      "en": "",
+      "t": "The dusky night has come. When the sun goes down, it heads back to its cozy home."
+    },
+    {
+      "n": 16,
+      "ko": "귀엽고 부지런한 다람쥐! 정말 똑똑한 친구지?",
+      "en": "",
+      "t": "The cute and hardworking squirrel! Such a clever friend, isn't it?"
+    },
+    {
+      "n": 17,
+      "ko": "예쁜 줄무늬랑 앙증맞은 두 앞발을 찾아봐!",
+      "en": "",
+      "t": "Can you find the pretty stripes and the dainty little front paws?"
+    },
+    {
+      "n": 18,
+      "ko": "나는야 부지런한 숲속 꼬마 다람쥐! 자, 이제 다음 친구를 만나러 가볼까?",
+      "en": "",
+      "t": "I'm the busy little squirrel of the forest! Now, shall we go meet the next friend?"
+    }
+  ],
+  "keyObjects": [
+    {
+      "i": 0,
+      "korean": "도토리",
+      "en": "acorn",
+      "t": "acorn"
+    },
+    {
+      "i": 1,
+      "korean": "나무",
+      "en": "tree",
+      "t": "tree"
+    },
+    {
+      "i": 2,
+      "korean": "꼬리",
+      "en": "tail",
+      "t": "tail"
+    },
+    {
+      "i": 3,
+      "korean": "싹",
+      "en": "sprout",
+      "t": "sprout"
+    },
+    {
+      "i": 4,
+      "korean": "눈",
+      "en": "snow",
+      "t": "snow"
+    },
+    {
+      "i": 5,
+      "korean": "잎",
+      "en": "leaf",
+      "t": "leaf"
+    },
+    {
+      "i": 6,
+      "korean": "다람쥐",
+      "en": "squirrel",
+      "t": "squirrel"
+    },
+    {
+      "i": 7,
+      "korean": "숲",
+      "en": "forest",
+      "t": "forest"
+    },
+    {
+      "i": 8,
+      "korean": "발톱",
+      "en": "claw",
+      "t": "claw"
+    },
+    {
+      "i": 9,
+      "korean": "이빨",
+      "en": "tooth",
+      "t": "tooth"
+    }
+  ],
+  "parentGuide": {
+    "overview": {
+      "ko": "볼을 빵빵하게 부풀려 도토리를 모으는 작은 다람쥐를 만나봐요. 나무를 휙휙 타고 다니며 겨울을 준비하는 부지런한 다람쥐의 하루를 따라가며 숲의 작은 친구를 함께 살펴보세요.",
+      "t": "Meet the little squirrel that puffs out its cheeks to gather acorns. Follow the busy squirrel's day as it darts up and down the trees getting ready for winter, and take a close look at this tiny friend of the forest."
+    },
+    "lessons": [
+      {
+        "ko": "겨울을 위해 도토리를 부지런히 모으는 다람쥐처럼 미리 준비하는 지혜를 배워요.",
+        "t": "Learn the wisdom of preparing ahead, just like the squirrel busily gathering acorns for winter."
+      },
+      {
+        "ko": "깜빡 잊은 도토리가 새싹이 되어 자라는 자연의 신기한 순환을 느껴요.",
+        "t": "Feel the wonderful cycle of nature, as a forgotten acorn grows into a new sprout."
+      },
+      {
+        "ko": "줄무늬, 볼록한 볼, 커다란 꼬리처럼 다람쥐만의 특징을 관찰하는 눈을 키워요.",
+        "t": "Sharpen the eye for observing what makes a squirrel special, like its stripes, puffy cheeks, and big tail."
+      }
+    ],
+    "readingTips": [
+      {
+        "ko": "도토리를 깨물 때는 \"오도독오도독\", 나무를 오를 때는 \"조르르, 휘리릭!\" 경쾌한 효과음으로 읽어 주세요. 볼을 빵빵하게 부풀리는 표정 연기도 좋아요.",
+        "t": "Read with lively sound effects — \"crunch-crunch\" when it nibbles an acorn, and \"scurry, zip!\" when it climbs a tree. Puffing out your own cheeks makes for a fun bit of acting, too."
+      },
+      {
+        "ko": "\"다람쥐가 깜빡 잊은 도토리는 어떻게 될까?\" 물어보고 새싹이 되는 반전을 함께 발견해 봐요.",
+        "t": "Ask, \"What happens to the acorn the squirrel forgot?\" and discover together the surprise of it growing into a sprout."
+      },
+      {
+        "ko": "가을 공원이나 숲에서 도토리를 주워 보세요. 다람쥐처럼 땅에 묻어 두고 다음 산책 때 기억나는지 놀이해 보면 책 속 장면이 그대로 살아나요.",
+        "t": "Gather acorns at a park or in the woods in autumn. Bury them in the ground like a squirrel, then see on your next walk whether you remember where they are — it brings the book's scenes to life."
+      }
+    ],
+    "faq": [
+      {
+        "q_ko": "다람쥐 책은 몇 살 아이에게 추천하나요?",
+        "a_ko": "만 3~7세 아이에게 적합해요. 도토리 모으는 사랑스러운 모습이 가장 어린 아이도 좋아해요.",
+        "q_t": "What age is the Squirrel book recommended for?",
+        "a_t": "It's a good fit for children ages 3 to 7. Even the youngest ones love the adorable sight of a squirrel gathering acorns."
+      },
+      {
+        "q_ko": "다람쥐는 어떤 동물인가요?",
+        "a_ko": "전 세계 숲에 사는 작은 설치류예요. 풍성한 꼬리로 균형을 잡고 나무를 잘 타며, 가을에 도토리를 모아 겨울을 준비해요.",
+        "q_t": "What kind of animal is a squirrel?",
+        "a_t": "It's a small rodent that lives in forests all over the world. It balances with its bushy tail and is a great tree climber, and in autumn it gathers acorns to prepare for winter."
+      },
+      {
+        "q_ko": "어떤 단어를 배울 수 있나요?",
+        "a_ko": "'다람쥐, 도토리, 나무, 꼬리, 발, 숲, 가을' 같은 동물·자연 명사를 만나요.",
+        "q_t": "What words can my child learn?",
+        "a_t": "They'll meet animal and nature words like \"squirrel, acorn, tree, tail, paws, forest, autumn.\""
+      },
+      {
+        "q_ko": "다람쥐는 왜 도토리를 묻어요?",
+        "a_ko": "겨울에 먹기 위해 땅속에 저장해요. 그런데 다 못 찾기 때문에 묻힌 도토리가 새 나무로 자라요. 다람쥐가 숲을 만드는 셈이에요!",
+        "q_t": "Why do squirrels bury acorns?",
+        "a_t": "They store them in the ground to eat in winter. But since they can't find them all, the buried acorns grow into new trees. In a way, squirrels are the ones who grow the forest!"
+      },
+      {
+        "q_ko": "무서운 장면은 없나요?",
+        "a_ko": "없어요. 따뜻한 자연관찰 책이에요.",
+        "q_t": "Are there any scary scenes?",
+        "a_t": "No. It's a warm nature-observation book."
+      },
+      {
+        "q_ko": "책을 읽고 함께 하면 좋은 활동은요?",
+        "a_ko": "도토리·솔방울 모으기, 종이로 도토리 모으기 놀이 (숨겼다 찾기), 가을 잎 줍기 같은 활동이 좋아요.",
+        "q_t": "What activities go well with the book?",
+        "a_t": "Great activities include collecting acorns and pinecones, playing an acorn-gathering game with paper ones (hide them, then find them), and picking up autumn leaves."
+      },
+      {
+        "q_ko": "영어로도 읽을 수 있나요?",
+        "a_ko": "네, Squirrel 영어 버전이 함께 제공돼요.",
+        "q_t": "Can we read it in English too?",
+        "a_t": "Yes, an English version, Squirrel, is included."
+      },
+      {
+        "q_ko": "비슷한 결의 다른 책도 있나요?",
+        "a_ko": "'고슴도치', '두더지', '햄스터' 같은 작은 동물 시리즈가 함께 사랑받아요.",
+        "q_t": "Are there other books with a similar feel?",
+        "a_t": "Small-animal titles like \"Hedgehog,\" \"Mole,\" and \"Hamster\" are loved right alongside this one."
+      }
+    ]
+  }
+}
