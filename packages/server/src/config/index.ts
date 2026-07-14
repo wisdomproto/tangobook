@@ -18,6 +18,9 @@ export const config = {
     secretAccessKey: process.env.R2_SECRET_ACCESS_KEY ?? '',
     bucketName: process.env.R2_BUCKET_NAME ?? '',
     publicUrl: process.env.R2_PUBLIC_URL ?? '',
+    // 커스텀 도메인(CDN) — pub-*.r2.dev(레이트리밋) 대신 클라 응답에서 이 도메인으로 URL 치환.
+    // storybook-images 버킷의 Cloudflare custom domain. env 로 오버라이드 가능.
+    cdnUrl: process.env.R2_CDN_URL ?? 'https://assets.tangobook.co.kr',
   },
 
   minimax: {

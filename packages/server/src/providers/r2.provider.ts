@@ -37,6 +37,30 @@ async function withR2Timeout<T>(p: Promise<T>, ms: number, label: string): Promi
 
 export const r2BucketName = config.r2.bucketName;
 export const r2PublicUrl = config.r2.publicUrl;
+export const r2CdnUrl = config.r2.cdnUrl;
+
+// pub-*.r2.dev 호스트 → CDN 커스텀 도메인 호스트 (모듈 로드 시 1회 계산).
+const CDN_HOST_SWAP: { from: string; to: string } | null = (() => {
+  try {
+    if (!r2PublicUrl || !r2CdnUrl) return null;
+    const from = new URL(r2PublicUrl).host;
+    const to = new URL(r2CdnUrl).host;
+    return from && to && from !== to ? { from, to } : null;
+  } catch {
+    return null;
+  }
+})();
+
+/**
+ * 클라 응답 데이터의 R2 URL 호스트를 CDN 커스텀 도메인으로 치환.
+ * pub-*.r2.dev 는 Cloudflare 레이트리밋 엔드포인트라 라이브러리에서 표지 수십 장을 동시에
+ * 로드하면 일부가 드롭됨 → assets 커스텀 도메인(CDN 엣지 캐시)으로 서빙해 해소.
+ * 🔴 저장 데이터는 불변(pub 호스트 그대로) — 응답 시점에만 rewrite 해서 내부 스크립트/재저장 오염 방지.
+ */
+export function toCdnUrls<T>(data: T): T {
+  if (!CDN_HOST_SWAP || data == null) return data;
+  return JSON.parse(JSON.stringify(data).split(CDN_HOST_SWAP.from).join(CDN_HOST_SWAP.to)) as T;
+}
 
 /**
  * contentType 기반 Cache-Control 결정.
