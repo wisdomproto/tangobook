@@ -117,9 +117,7 @@ describe('PromoBanner', () => {
       // trialDaysLeft is ceil((7d - 2d elapsed)) = 5 — days-first copy still shows the number.
       // 'N일' 은 별도 span 으로 강조되어 텍스트가 분리되므로 h2 의 textContent 로 매칭.
       const h2 = screen.getByText(
-        (_, el) =>
-          el?.tagName === 'H2' &&
-          /무료 체험 \d+일 남음 · 모든 동화 열려 있어요/.test(el.textContent ?? '')
+        (_, el) => el?.tagName === 'H2' && /무료 체험 \d+일 남음/.test(el.textContent ?? '')
       );
       expect(h2).toBeInTheDocument();
       // 강조된 'N일' span 존재 확인
@@ -141,9 +139,8 @@ describe('PromoBanner', () => {
     });
   });
 
-  // 유료화 OFF(PAYWALL_ENABLED=false, 출시 전): 오래된 계정도 "만료"가 아니라 전체 무료 상태.
-  // "만료"처럼 보이던 버그 수정 후 긍정 톤 + 초대 예고 copy 를 보여준다.
-  describe('old account, paywall off (pre-launch → free-for-all copy, not expired)', () => {
+  // 유료화 ON(PAYWALL_ENABLED=true, 현재 라이브): 체험 만료 + 미구독 오래된 계정 → 구독 유도 copy.
+  describe('old account, paywall on (trial expired → subscribe copy)', () => {
     beforeEach(() => {
       mockUseAuth.mockReturnValue({ account: FAKE_ACCOUNT_OLD } as ReturnType<typeof useAuth>);
       mockUseEntitlement.mockReturnValue({
@@ -158,16 +155,14 @@ describe('PromoBanner', () => {
       expect(screen.getByRole('region', { name: '프로모션 배너' })).toBeInTheDocument();
     });
 
-    it('shows positive free-for-all headline (no "expired" language)', () => {
+    it('shows subscribe headline', () => {
       renderBanner();
-      expect(screen.getByText('지금은 모든 동화를 무료로 즐겨요')).toBeInTheDocument();
+      expect(screen.getByText('구독하고 모든 동화를 계속 즐겨요')).toBeInTheDocument();
     });
 
-    it('shows two-sided referral sub-copy', () => {
+    it('shows two-sided referral sub-copy (expired)', () => {
       renderBanner();
-      expect(
-        screen.getByText('친구를 초대하면 무료 기간이 서로 7일씩 늘어나요')
-      ).toBeInTheDocument();
+      expect(screen.getByText('친구를 초대하면 둘 다 무료 기간 +7일')).toBeInTheDocument();
     });
 
     it('shows InviteButton', () => {

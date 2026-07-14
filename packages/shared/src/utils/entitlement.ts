@@ -72,15 +72,33 @@ export function isSubscriptionActive(sub: Subscription | null | undefined, now: 
  */
 export function computeAccess(input: AccessInput, now: number = Date.now()): AccessState {
   const { account, subscription, referralBonusDays = 0, trialStartedAt } = input;
+  const bonusMs = Math.max(0, referralBonusDays) * DAY_MS;
 
-  if (isSubscriptionActive(subscription, now)) {
+  // 구독 종료 시각(ms) — active/trialing 일 때만. currentPeriodEnd 미지정 = 무기한(Infinity).
+  // 지난 시각이어도(구독 막 종료) 여기서 잡아 아래 보너스 이월의 기준으로 쓴다.
+  const subEndMs =
+    subscription && (subscription.status === 'active' || subscription.status === 'trialing')
+      ? (toTime(subscription.currentPeriodEnd) ?? Infinity)
+      : null;
+
+  // 구독이 지금 유효하게 커버 중이면 subscribed.
+  // (레퍼럴 보너스는 구독 종료 뒤로 이월되어, 종료 시점의 재평가에서 아래 trial 로 이어진다.)
+  if (subEndMs != null && subEndMs > now) {
     return { status: 'subscribed', isEntitled: true, trialEndsAt: null, trialDaysLeft: 0 };
   }
   if (!account) {
     return { status: 'guest', isEntitled: false, trialEndsAt: null, trialDaysLeft: 0 };
   }
-  // 체험 앵커 = 명시적 시작시각(리셋/런칭) 우선, 없으면 가입일.
-  const endMs = trialEndMs(trialStartedAt || account.createdAt, referralBonusDays);
+
+  // 무료 종료 = (체험 앵커 종료 vs 구독 종료 중 더 나중) + 레퍼럴 보너스.
+  // → 구독자가 초대한 보너스도 구독 종료 뒤로 붙고, 순수 체험자는 기존과 동일(구독 없음).
+  const trialAnchorEnd = trialEndMs(trialStartedAt || account.createdAt, 0);
+  const ends = [trialAnchorEnd, subEndMs].filter(
+    (x): x is number => x != null && Number.isFinite(x)
+  );
+  const baseEnd = ends.length ? Math.max(...ends) : null;
+  const endMs = baseEnd != null ? baseEnd + bonusMs : null;
+
   if (endMs != null && endMs > now) {
     return {
       status: 'trial',
