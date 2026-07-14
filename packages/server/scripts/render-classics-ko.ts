@@ -89,10 +89,15 @@ async function main() {
       noMapping.push(`${bookId}(fetch실패)`);
       continue;
     }
-    const styles = Object.keys(book?.styleAssets ?? {});
+    const styleAssets = book?.styleAssets ?? {};
+    const styles = Object.keys(styleAssets);
     let picked = 0;
     for (const genre of GENRES) {
-      const styleId = styles.find((s) => genreMap[s] === genre);
+      // 그 장르에 매핑된 style 중 페이지 삽화가 실제로 있는 것만 (photographic 등 삽화 없는 style 제외).
+      const styleId = styles.find(
+        (s) =>
+          genreMap[s] === genre && Object.keys(styleAssets[s]?.pageIllustrations ?? {}).length > 0
+      );
       if (!styleId) continue;
       picked++;
       if (done.has(`${bookId}|${styleId}|${LANG}`)) continue;
