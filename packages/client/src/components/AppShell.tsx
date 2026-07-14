@@ -11,7 +11,6 @@ import { InstallPwaButton } from './InstallPwaButton';
 import { AvatarRender } from '@/features/auth/components/AvatarRender';
 import { cn } from '@/lib/cn';
 import { isDevEmail } from '@/config/dev';
-import { TrialBadge } from '@/features/access/components/TrialBadge';
 import { FeedbackDialog } from '@/features/feedback';
 
 /**
@@ -123,6 +122,8 @@ export function AppShell() {
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   // 헤더 프로필 칩 → 프로필 시트(선택/전환/관리) 수동 오픈.
   const [pickerOpen, setPickerOpen] = useState(false);
+  // 하단 부모 메뉴(리포팅·초대·설정·건의) 접기/펴기 — 기본 접힘(사이드바 정리).
+  const [parentMenuOpen, setParentMenuOpen] = useState(false);
 
   // 학습자 화면은 라이트 모드 고정
   useEffect(() => {
@@ -141,21 +142,12 @@ export function AppShell() {
 
   const sidebarContent = (
     <>
-      {/* 로고 영역 — 사이드바 좌상단. 헤더 height(80px) 와 정렬. */}
-      <div className="h-20 flex items-center justify-center px-2 border-b border-ink-100/40">
-        <Link to="/library" aria-label={t('logo.home')}>
-          <img
-            src={i18n.language === 'ko' ? '/logo/logo-kr.webp' : '/logo/logo-en.webp'}
-            alt={t('logo.alt')}
-            className="h-14 w-auto object-contain"
-          />
-        </Link>
-      </div>
+      {/* 로고는 라이브러리 배너로 이동(2026-07-14, 사이드바 정리). 상단 여백 = 모바일 드로어 ✕(top-3) 클리어런스. */}
+      <div className="h-12 md:h-4 shrink-0" aria-hidden />
 
-      {/* 현재 아이 프로필 칩 — 아이 1명이어도 상시. 탭 → 프로필 시트(전환/추가·관리).
-          배너 우상단 일러스트와 겹치던 헤더 칩을 사이드바 상단으로 이동(2026-07-14). */}
+      {/* 현재 아이 프로필 칩 — 아이 1명이어도 상시. 탭 → 프로필 시트(전환/추가·관리). 사이드바 최상단. */}
       {session && activeProfile && (
-        <div className="flex justify-center px-2 pt-3">
+        <div className="flex justify-center px-2 pb-1">
           <button
             onClick={() => setPickerOpen(true)}
             className="flex items-center gap-1.5 rounded-full bg-white pl-1 pr-2.5 py-1 shadow-soft hover:shadow-pop transition-all max-w-full"
@@ -201,41 +193,71 @@ export function AppShell() {
 
       {/* 부모 영역 — 부모 설정 / 로그인/로그아웃. */}
       <div className="mt-auto px-3 pt-3 pb-3 border-t-2 border-ink-200/60 bg-cream-100/30 flex flex-col gap-1.5">
-        {/* 무료 체험 남은 일수 — 로그인 시 상시 노출(배너 스크롤/캐시와 무관) */}
-        {session && isConfigured && <TrialBadge />}
-        {/* 부모 도메인 작업 — 학습 리포팅 · 친구 초대 · 부모 설정 을 한 곳에 모아 위계 정직화. 2026-07-07.
-            (아이존 큰 버튼과 구분되는 작은 텍스트 링크) */}
+        {/* 부모 도메인 작업 — 학습 리포팅 · 친구 초대 · 부모 설정 · 건의하기.
+            사이드바 정리를 위해 접이식(기본 접힘). 2026-07-14. */}
         {session && isConfigured && (
           <>
-            <Link
-              to="/parent/reports"
-              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
-            >
-              <span aria-hidden>📊</span>
-              <span>{t('sidebar.reports')}</span>
-            </Link>
-            <Link
-              to="/invite-friends"
-              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
-            >
-              <span aria-hidden>🎁</span>
-              <span>{t('sidebar.inviteFriends')}</span>
-            </Link>
-            <Link
-              to="/parent/settings"
-              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
-            >
-              <span aria-hidden>⚙️</span>
-              <span>{t('sidebar.parentSettings')}</span>
-            </Link>
             <button
               type="button"
-              onClick={() => setFeedbackOpen(true)}
-              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
+              onClick={() => setParentMenuOpen((o) => !o)}
+              aria-expanded={parentMenuOpen}
+              className="flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
             >
-              <span aria-hidden>💬</span>
-              <span>{t('sidebar.feedback')}</span>
+              <span className="flex items-center gap-2">
+                <span aria-hidden>👨‍👩‍👧</span>
+                <span>{t('sidebar.parentMenu')}</span>
+              </span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={cn(
+                  'text-ink-400 shrink-0 transition-transform',
+                  parentMenuOpen && 'rotate-180'
+                )}
+                aria-hidden
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
             </button>
+            {parentMenuOpen && (
+              <div className="flex flex-col gap-1.5">
+                <Link
+                  to="/parent/reports"
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
+                >
+                  <span aria-hidden>📊</span>
+                  <span>{t('sidebar.reports')}</span>
+                </Link>
+                <Link
+                  to="/invite-friends"
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
+                >
+                  <span aria-hidden>🎁</span>
+                  <span>{t('sidebar.inviteFriends')}</span>
+                </Link>
+                <Link
+                  to="/parent/settings"
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
+                >
+                  <span aria-hidden>⚙️</span>
+                  <span>{t('sidebar.parentSettings')}</span>
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setFeedbackOpen(true)}
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-black text-ink-600 hover:bg-white/60 hover:text-ink-900 transition-all"
+                >
+                  <span aria-hidden>💬</span>
+                  <span>{t('sidebar.feedback')}</span>
+                </button>
+              </div>
+            )}
           </>
         )}
         {/* 로그인/로그아웃 — session 상태에 따라 분기 */}

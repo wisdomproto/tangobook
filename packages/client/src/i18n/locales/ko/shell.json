@@ -24,7 +24,8 @@
     "logoutConfirm": "로그아웃할까요?",
     "comingSoon": "준비 중",
     "comingSoonTitle": "준비 중이에요",
-    "feedback": "건의하기"
+    "feedback": "건의하기",
+    "parentMenu": "부모 메뉴"
   },
   "pageTitle": {
     "phonics": "파닉스",

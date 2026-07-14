@@ -24,7 +24,8 @@
     "logoutConfirm": "Log out?",
     "comingSoon": "Coming soon",
     "comingSoonTitle": "Coming soon",
-    "feedback": "Send Feedback"
+    "feedback": "Send Feedback",
+    "parentMenu": "Parent Menu"
   },
   "pageTitle": {
     "phonics": "Phonics",
