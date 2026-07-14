@@ -152,6 +152,37 @@ export function AppShell() {
         </Link>
       </div>
 
+      {/* 현재 아이 프로필 칩 — 아이 1명이어도 상시. 탭 → 프로필 시트(전환/추가·관리).
+          배너 우상단 일러스트와 겹치던 헤더 칩을 사이드바 상단으로 이동(2026-07-14). */}
+      {session && activeProfile && (
+        <div className="flex justify-center px-2 pt-3">
+          <button
+            onClick={() => setPickerOpen(true)}
+            className="flex items-center gap-1.5 rounded-full bg-white pl-1 pr-2.5 py-1 shadow-soft hover:shadow-pop transition-all max-w-full"
+            aria-label={t('header.profileMenu', { name: activeProfile.name })}
+          >
+            <AvatarRender id={activeProfile.avatarId} size="sm" />
+            <span className="text-sm font-black text-ink-800 truncate max-w-[84px]">
+              {activeProfile.name}
+            </span>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-ink-400 shrink-0"
+              aria-hidden
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+        </div>
+      )}
+
       {/* 로고 바로 아래 — UI 언어 선택 + 홈에 설치(PWA). 배너 위 오버레이 대신 깨끗한 사이드바 면에. */}
       <div className="flex flex-col items-center gap-2 px-2 py-3 border-b border-ink-100/40">
         <UiLangMenu />
@@ -358,37 +389,8 @@ export function AppShell() {
               )}
             </div>
 
-            {/* 우측 — 현재 아이 프로필 칩(아바타+이름). 아이 1명이어도 상시 노출.
-                탭 → 프로필 시트(여러 명=전환 / 어느 경우나 추가·관리).
-                UI 언어 선택 · 홈에 설치는 좌측 사이드바 상단(로고 아래)으로 이동. */}
-            <div className="flex-shrink-0 pointer-events-auto flex items-center gap-2">
-              {session && activeProfile && (
-                <button
-                  onClick={() => setPickerOpen(true)}
-                  className="flex items-center gap-1.5 rounded-full bg-white/90 pl-1 pr-2.5 py-1 shadow-soft hover:shadow-pop transition-all"
-                  aria-label={t('header.profileMenu', { name: activeProfile.name })}
-                >
-                  <AvatarRender id={activeProfile.avatarId} size="sm" />
-                  <span className="text-sm font-black text-ink-800 max-w-[80px] truncate">
-                    {activeProfile.name}
-                  </span>
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-ink-400 shrink-0"
-                    aria-hidden
-                  >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </button>
-              )}
-            </div>
+            {/* 우측 — 프로필 칩은 좌측 사이드바 상단(로고 아래)으로 이동(2026-07-14, 배너 겹침 해소). */}
+            <div className="flex-shrink-0" />
           </div>
         </header>
 
