@@ -211,11 +211,10 @@ async function main() {
   }
   console.log(`[render-book-audiobooks] slides=${renderData.slides.length}`);
 
-  // 2.5. 랜덤 BGM — 책에 저작 BGM 이 없으면 기본 5곡 중 무작위 1곡을 은은한 배경음으로 넣는다.
-  if (!renderData.bgmUrl) {
-    renderData.bgmUrl = DEFAULT_BGM_URLS[Math.floor(Math.random() * DEFAULT_BGM_URLS.length)];
-    console.log(`[render-book-audiobooks] BGM(random)=${renderData.bgmUrl}`);
-  }
+  // 2.5. 랜덤 BGM — 롱폼 영상은 기본 5곡 중 무작위 1곡을 은은한 배경음으로 넣는다.
+  // (책 저작 backgroundMusicUrl 은 다른 책 BGM 이 잘못 연결된 경우가 있어 사용하지 않음.)
+  renderData.bgmUrl = DEFAULT_BGM_URLS[Math.floor(Math.random() * DEFAULT_BGM_URLS.length)];
+  console.log(`[render-book-audiobooks] BGM(random)=${renderData.bgmUrl}`);
 
   // 3. TTS/BGM 길이 프로브 (SRT 타이밍 정확도를 위해 렌더 전에 완료)
   await probeTtsDurations(renderData);
