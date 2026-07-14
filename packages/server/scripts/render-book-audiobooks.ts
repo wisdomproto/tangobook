@@ -10,6 +10,9 @@ import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
+import { fileURLToPath } from 'node:url';
+
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 import { fetchStorybook } from '../src/services/reel/reel-targets.js';
 import {
   resolveOwnerUserId,
@@ -23,11 +26,8 @@ import {
 } from '../src/services/reel/longform-publish.js';
 import { getSupabaseAdmin } from '../src/providers/supabase-admin.provider.js';
 import { uploadBufferToR2 } from '../src/providers/r2.provider.js';
-import { generateTextWithGemini } from '../src/providers/gemini.provider.js';
 import { getAudioDuration } from '../src/utils/audio-duration.js';
 import { generateSrt } from '../src/utils/srt-generator.js';
-import { translateSrt } from '../src/utils/srt-translator.js';
-import { buildYoutubeMetaPrompt } from '../src/utils/youtube-meta-prompt.js';
 import { buildStyledAudiobookRenderData } from '@tangobook/shared';
 import type { AudiobookRenderData, Storybook, StyleAssets } from '@tangobook/shared';
 
@@ -88,10 +88,6 @@ function parseArgs(argv: string[]): Args {
   return a;
 }
 
-const DEFAULT_META_PROMPT =
-  "You are writing YouTube metadata for a children's animated storybook audiobook. " +
-  'Make the title inviting for parents and kids searching for bedtime stories.';
-
 // 기본 BGM — 뷰어/메인과 동일한 배포 정적 자산(default-1..5.mp3). 헤드리스 렌더는 절대 URL 필요.
 const SITE_ORIGIN = (process.env.PUBLIC_SITE_ORIGIN || 'https://www.tangobook.co.kr').replace(
   /\/$/,
@@ -111,62 +107,58 @@ async function probeTtsDurations(renderData: AudiobookRenderData): Promise<void>
   }
 }
 
-interface ParsedYoutubeMeta {
-  title?: string;
-  description?: string;
-  tags?: unknown;
-  categoryId?: string;
-}
-
-async function generateMeta(storybook: Storybook, lang: string): Promise<LongformMeta> {
-  const prompt = buildYoutubeMetaPrompt(storybook, {
-    language: lang,
-    aspectRatio: '16:9',
-    userPrompt: DEFAULT_META_PROMPT,
-  });
-  const raw = await generateTextWithGemini(prompt, 3);
-  const cleaned = raw
-    .replace(/```json?\s*/g, '')
-    .replace(/```\s*/g, '')
-    .trim();
-
-  let parsed: ParsedYoutubeMeta = {};
-  try {
-    parsed = JSON.parse(cleaned) as ParsedYoutubeMeta;
-  } catch {
-    console.warn(
-      '[render-book-audiobooks] Gemini 메타 JSON 파싱 실패 — 폴백 사용:',
-      cleaned.slice(0, 200)
-    );
+// Claude 가 직접 작성한 책별 유튜브 메타(제목·설명·태그). Gemini 미사용.
+const META_FILE = path.join(SCRIPT_DIR, '_data', 'longform-meta.json');
+type MetaEntry = { title?: string; description?: string; tags?: string[] };
+let _metaData: Record<string, Record<string, MetaEntry>> | null = null;
+function loadMetaData(): Record<string, Record<string, MetaEntry>> {
+  if (!_metaData) {
+    try {
+      _metaData = JSON.parse(fs.readFileSync(META_FILE, 'utf8'));
+    } catch {
+      _metaData = {};
+    }
   }
-
-  return {
-    title: parsed.title || storybook.title,
-    description: parsed.description || '',
-    tags: Array.isArray(parsed.tags) ? (parsed.tags as string[]) : [],
-    categoryId: parsed.categoryId || '27',
-  };
+  return _metaData;
 }
 
-async function generateCaptions(
+function buildLongformMeta(storybook: Storybook, lang: string): LongformMeta {
+  const entry = loadMetaData()[storybook.id]?.[lang];
+  if (entry) {
+    return {
+      title: entry.title || storybook.title,
+      description: entry.description || '',
+      tags: Array.isArray(entry.tags) ? entry.tags : [],
+      categoryId: '27',
+    };
+  }
+  // 메타 미작성 책/언어 — 최소 폴백(제목만).
+  console.warn(`[render-book-audiobooks] 메타 없음(${storybook.id}/${lang}) — 제목 폴백`);
+  return { title: storybook.title, description: '', tags: [storybook.title], categoryId: '27' };
+}
+
+// 다국어 자막(SRT). 책에 이미 있는 page.translations[lang].text 로 재구성 — Gemini 번역 미사용.
+// 다른 언어 자막도 base(오디오) 언어의 슬라이드 타이밍을 그대로 써서 싱크를 맞춘다.
+function generateCaptions(
   renderData: AudiobookRenderData,
   baseLang: string,
-  storybook: Storybook
-): Promise<Record<string, string>> {
+  storybook: Storybook,
+  artStyle: string
+): Record<string, string> {
+  const captions: Record<string, string> = {};
   const baseSrt = generateSrt(renderData);
-  const captions: Record<string, string> = { [baseLang]: baseSrt };
-  if (!baseSrt.trim()) return captions;
+  if (baseSrt.trim()) captions[baseLang] = baseSrt;
 
   const otherLangs = (storybook.languages ?? []).filter((l) => l !== baseLang);
   for (const tl of otherLangs) {
-    try {
-      captions[tl] = await translateSrt(baseSrt, baseLang, tl);
-    } catch (err) {
-      console.warn(
-        `[render-book-audiobooks] 자막 번역 실패(${baseLang}→${tl}):`,
-        (err as Error).message
-      );
-    }
+    const langData = buildStyledAudiobookRenderData(storybook, { artStyle, language: tl });
+    // 자막 언어만 바뀌고 타이밍(오디오)은 base 언어 그대로 — 슬라이드는 그림체가 같아 1:1 정렬.
+    langData.slides.forEach((s, i) => {
+      s.ttsDuration = renderData.slides[i]?.ttsDuration;
+    });
+    langData.cover = renderData.cover;
+    const srt = generateSrt(langData);
+    if (srt.trim()) captions[tl] = srt;
   }
   return captions;
 }
@@ -371,13 +363,12 @@ async function main() {
     console.log(`  video → ${videoUrl}`);
     console.log(`  thumb → ${thumbnailUrl}`);
 
-    // 9. YouTube 메타 생성 (Gemini)
-    console.log('[render-book-audiobooks] generating YouTube meta...');
-    const meta = await withTimeout(generateMeta(storybook, lang), 120_000, 'gemini meta');
+    // 9. YouTube 메타 (Claude 작성 데이터, Gemini 미사용)
+    const meta = buildLongformMeta(storybook, lang);
 
-    // 10. 다국어 SRT 자막
+    // 10. 다국어 SRT 자막 (기존 번역 텍스트로 재구성, Gemini 미사용)
     console.log('[render-book-audiobooks] generating captions...');
-    const captions = await generateCaptions(renderData, lang, storybook);
+    const captions = generateCaptions(renderData, lang, storybook, style);
 
     // 11. 마케팅 롱폼 탭 등록
     const ownerUserId = await resolveOwnerUserId(args.ownerEmail);
