@@ -1,6 +1,12 @@
+import { useEffect, useState } from 'react';
 import { coverTitleFont } from '@tangobook/shared';
 import { cn } from '@/lib/cn';
 import { resolveCover, type CoverInput } from './bookCover.util';
+
+// 표지 R2 도메인(pub-*.r2.dev)이 레이트리밋을 걸어, 라이브러리에서 수십 장을 동시에
+// 요청하면 일부가 드롭(429/네트워크 실패)되고 <img>는 자동 재시도를 안 해 카드가 계속 빈다.
+// → onError 시 지연·재마운트로 재요청. staggered delay + jitter 로 재요청이 몰리지 않게.
+const MAX_COVER_RETRIES = 4;
 
 export interface BookCoverProps {
   book: CoverInput;
@@ -25,6 +31,13 @@ export function BookCover({
 }: BookCoverProps) {
   const { img, hasClean, title } = resolveCover(book, { style, lang });
   const showOverlay = overlayTitle && hasClean;
+
+  // 이미지 로드 실패 시 재시도 카운터. img 가 바뀌면 리셋.
+  const [retry, setRetry] = useState(0);
+  useEffect(() => setRetry(0), [img]);
+  // 마지막 재시도부터는 캐시-버스트 쿼리로 부정 캐시/드롭을 확실히 우회.
+  const src = img && retry > 0 ? `${img}${img.includes('?') ? '&' : '?'}cb=${retry}` : img;
+
   return (
     <div
       className={cn(
@@ -37,12 +50,19 @@ export function BookCover({
     >
       {img ? (
         <img
-          src={img}
+          src={src}
           alt={title}
           className={cn('w-full h-full object-cover', imgClassName)}
           loading={loading}
           decoding="async"
-          key={img}
+          key={`${img}:${retry}`}
+          onError={() => {
+            // key 가 retry 를 포함 → 실패할 때마다 img 가 remount 되어 이 클로저의 retry 는 항상 최신.
+            if (retry >= MAX_COVER_RETRIES) return;
+            // 400ms·800ms·1.2s·1.6s + jitter — 재요청이 동시에 몰리지 않게 분산.
+            const delay = 400 * (retry + 1) + Math.random() * 350;
+            window.setTimeout(() => setRetry(retry + 1), delay);
+          }}
         />
       ) : (
         <div
