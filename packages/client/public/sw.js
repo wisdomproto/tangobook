@@ -7,7 +7,9 @@
  *
  * ⚠️ HTML/JS/CSS/API(JSON) 은 캐시하지 않는다(항상 네트워크) — 앱 업데이트/동적 데이터 stale 방지.
  */
-const CACHE = 'tango-assets-v2';
+// v3 (2026-07-14): opaque(no-cors) 실패 응답을 성공으로 오인해 캐시하던 버그로 표지가 "한번
+// 실패하면 영구 blank" 되던 문제 → 캐시 로직 수정 + 버전 올려 오염된 v2 캐시를 activate 시 자동 삭제.
+const CACHE = 'tango-assets-v3';
 
 // dev(localhost) 에선 동일 출처 정적 자산(/sounds 등)을 캐시하지 않는다 — 개발 중 파일 교체 시
 // stale 방지. R2 자산은 내용이 안 바뀌므로(재업로드 드묾) dev 에서도 캐시 OK → 파닉스 mp3 반복
@@ -69,8 +71,11 @@ self.addEventListener('fetch', (event) => {
 
       try {
         const res = await fetch(req);
-        // 정상(200) 또는 opaque(no-cors R2) 응답만 저장. 저장 실패(quota 등)는 무시하고 응답만 반환.
-        if (res && (res.status === 200 || res.type === 'opaque')) {
+        // 🔴 opaque(no-cors, 주로 cross-origin R2/CDN 이미지) 응답은 캐시하지 않는다 — status 가
+        // 0 이라 성공/실패(429 드롭)를 구분할 수 없어, 실패를 캐시하면 표지가 영구 blank 된다.
+        // cross-origin 이미지는 CDN 엣지 + 브라우저 immutable HTTP 캐시가 담당(SW 캐시 불필요).
+        // 동일 출처 정적 자산(/sounds·/icons·/api/r2-proxy 등, non-opaque 200)만 SW 캐시.
+        if (res && res.status === 200 && res.type !== 'opaque') {
           cache.put(req, res.clone()).catch(() => {});
         }
         return res;
