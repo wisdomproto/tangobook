@@ -24,7 +24,7 @@ import { PAYWALL_ENABLED } from '@/features/access/config';
  *   1872×1248, tiger mascot + gift on RIGHT half; left ~40% is open cream space.
  */
 export function PromoBanner() {
-  const { t, i18n } = useTranslation('access');
+  const { t } = useTranslation('access');
   const navigate = useNavigate();
   const { account } = useAuth();
   const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
@@ -105,14 +105,18 @@ export function PromoBanner() {
         </div>
       </div>
 
-      {/* Right zone — 브랜드 로고. 기존 호랑이 일러스트 대신 로고 배치(2026-07-14, 사이드바 로고 이동). */}
-      <div className="relative flex-1 flex items-center justify-center overflow-hidden px-3 sm:px-4">
-        <img
-          src={i18n.language === 'ko' ? '/logo/logo-kr.webp' : '/logo/logo-en.webp'}
-          alt="탱고북"
-          className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain"
-        />
-      </div>
+      {/* Right zone — promo illustration with left-edge fade mask */}
+      <div
+        className="relative flex-1 overflow-hidden"
+        style={{
+          backgroundImage: 'url(/images/library-banner/promo.webp)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 100%)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 100%)',
+        }}
+        aria-hidden
+      />
     </div>
   );
 }

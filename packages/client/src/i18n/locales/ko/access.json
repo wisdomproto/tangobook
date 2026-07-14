@@ -21,7 +21,7 @@
   "promo": {
     "region": "프로모션 배너",
     "guestHeadline": "회원가입하면 7일 무료 체험",
-    "trialHeadline": "무료 체험 <big>{{days}}일</big> 남음 · 모든 동화 열려 있어요",
+    "trialHeadline": "무료 체험 <big>{{days}}일</big> 남음",
     "preOpenHeadline": "지금은 모든 동화를 무료로 즐겨요",
     "expiredHeadline": "구독하고 모든 동화를 계속 즐겨요",
     "referralSub": "친구를 초대하면 무료 기간이 서로 7일씩 늘어나요",

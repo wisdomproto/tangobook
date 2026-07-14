@@ -21,7 +21,7 @@
   "promo": {
     "region": "Biểu ngữ khuyến mãi",
     "guestHeadline": "Đăng ký thành viên để dùng thử miễn phí 7 ngày",
-    "trialHeadline": "Còn <big>{{days}} ngày</big> dùng thử miễn phí · Tất cả truyện đang mở",
+    "trialHeadline": "Còn <big>{{days}} ngày</big> dùng thử miễn phí",
     "preOpenHeadline": "Hiện tất cả truyện đều miễn phí",
     "expiredHeadline": "Đăng ký để tiếp tục thưởng thức tất cả truyện",
     "referralSub": "Mời bạn bè thì thời gian miễn phí của cả hai cùng tăng thêm 7 ngày",

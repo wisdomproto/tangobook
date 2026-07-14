@@ -21,7 +21,7 @@
   "promo": {
     "region": "Promotion banner",
     "guestHeadline": "Sign up for a 7-day free trial",
-    "trialHeadline": "<big>{{days}} days</big> of free trial left · Every story is open",
+    "trialHeadline": "<big>{{days}} days</big> of free trial left",
     "preOpenHeadline": "Enjoy every story free right now",
     "expiredHeadline": "Subscribe to keep enjoying every story",
     "referralSub": "Invite a friend and you both get 7 more free days each",
