@@ -4,6 +4,7 @@ import {
   type GenerateScenePromptRequest,
 } from '../services/storybook.service.js';
 import { asyncHandler } from '../middleware/async-handler.js';
+import { toCdnUrls } from '../providers/r2.provider.js';
 import type {
   GenerateStorybookRequest,
   GenerateStoryRequest,
@@ -13,7 +14,7 @@ import type {
 export const StorybookController = {
   list: asyncHandler(async (_req, res) => {
     const storybooks = await StorybookService.list();
-    res.json({ success: true, data: storybooks });
+    res.json({ success: true, data: toCdnUrls(storybooks) });
   }),
 
   getById: asyncHandler(async (req, res) => {
@@ -22,7 +23,7 @@ export const StorybookController = {
       res.status(404).json({ success: false, error: '동화책을 찾을 수 없습니다.' });
       return;
     }
-    res.json({ success: true, data: storybook });
+    res.json({ success: true, data: toCdnUrls(storybook) });
   }),
 
   save: asyncHandler(async (req, res) => {
