@@ -14,3 +14,4 @@ export { MetaAnalyticsPage } from './pages/MetaAnalyticsPage';
 export { CompetitorsPage } from './pages/CompetitorsPage';
 export { MonitoringPage } from './pages/MonitoringPage';
 export { AdsPage } from './pages/AdsPage';
+export { FeedbackPage } from './pages/FeedbackPage';

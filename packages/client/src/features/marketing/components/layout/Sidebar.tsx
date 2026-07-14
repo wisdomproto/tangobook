@@ -36,6 +36,10 @@ const navGroups = [
     label: '전략',
     items: [{ to: '/marketing/strategy', icon: '💡', label: '마케팅 전략' }],
   },
+  {
+    label: '사용자',
+    items: [{ to: '/marketing/feedback', icon: '💬', label: '건의함' }],
+  },
 ] as const;
 
 export function Sidebar({ projects, selectedProjectId }: SidebarProps) {

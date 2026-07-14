@@ -23,7 +23,8 @@
     "logout": "Log out",
     "logoutConfirm": "Log out?",
     "comingSoon": "Coming soon",
-    "comingSoonTitle": "Coming soon"
+    "comingSoonTitle": "Coming soon",
+    "feedback": "Send Feedback"
   },
   "pageTitle": {
     "phonics": "Phonics",
@@ -44,5 +45,17 @@
   "pageHeader": {
     "back": "Back",
     "home": "Go home"
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "subtitle": "Tell us what you'd love to see or anything that isn't working.",
+    "placeholder": "Write your feedback",
+    "inputAria": "Feedback message",
+    "send": "Send",
+    "sending": "Sending…",
+    "cancel": "Cancel",
+    "close": "Close",
+    "thanks": "Thank you for your feedback!",
+    "error": "Couldn't send. Please try again in a moment."
   }
 }

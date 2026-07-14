@@ -23,7 +23,8 @@
     "logout": "로그아웃",
     "logoutConfirm": "로그아웃할까요?",
     "comingSoon": "준비 중",
-    "comingSoonTitle": "준비 중이에요"
+    "comingSoonTitle": "준비 중이에요",
+    "feedback": "건의하기"
   },
   "pageTitle": {
     "phonics": "파닉스",
@@ -44,5 +45,17 @@
   "pageHeader": {
     "back": "뒤로 가기",
     "home": "홈으로"
+  },
+  "feedback": {
+    "title": "건의하기",
+    "subtitle": "탱고북에 바라는 점이나 불편한 점을 자유롭게 남겨 주세요.",
+    "placeholder": "의견을 입력해 주세요",
+    "inputAria": "건의 내용",
+    "send": "보내기",
+    "sending": "보내는 중…",
+    "cancel": "취소",
+    "close": "닫기",
+    "thanks": "소중한 의견 감사합니다!",
+    "error": "전송에 실패했어요. 잠시 후 다시 시도해 주세요."
   }
 }
