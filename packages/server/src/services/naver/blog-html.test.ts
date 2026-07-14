@@ -1,53 +1,51 @@
 import { describe, it, expect } from 'vitest';
-import { buildInjectionPlan } from './blog-html.js';
-import type { BlogPostV2 } from '@tangobook/shared';
+import { buildInjectionPlan, type BlogSource } from './blog-html.js';
 
-const base: BlogPostV2 = {
-  id: 'post1',
-  language: 'ko',
-  title: '제목',
-  summary: 's',
-  tags: ['태그1', '태그2'],
-  sections: [
+const base: BlogSource = {
+  blogContentId: 'blog1',
+  bookId: 'book1',
+  title: '캥거루 특징과 주머니 육아의 비밀',
+  tags: ['캥거루', '캥거루 특징', '유대류'],
+  cards: [
     {
-      id: 's1',
-      header: '소제목1',
-      text: '본문1',
-      imageUrl: 'https://r2/a.jpg',
-      imageCaption: '캡션1',
+      id: 'c0',
+      html: '<h2>캥거루</h2><p>주머니 동물</p>',
+      imageUrl: 'https://r2/cover.webp',
+      caption: '주머니 동물',
     },
-    { id: 's2', header: '소제목2', text: '본문2' },
+    { id: 'c1', html: '<h2>자연·과학</h2><p>유대류예요</p>' },
   ],
-  createdAt: '',
-  updatedAt: '',
 };
 
-describe('buildInjectionPlan', () => {
+describe('buildInjectionPlan (Supabase mkt blog source)', () => {
   it('제목과 태그를 그대로 전달한다', () => {
     const plan = buildInjectionPlan(base);
-    expect(plan.title).toBe('제목');
-    expect(plan.tags).toEqual(['태그1', '태그2']);
+    expect(plan.title).toBe('캥거루 특징과 주머니 육아의 비밀');
+    expect(plan.tags).toEqual(['캥거루', '캥거루 특징', '유대류']);
   });
 
-  it('섹션을 순서대로 블록으로 변환한다 (소제목→본문→이미지)', () => {
+  it('카드를 순서대로 블록으로 변환한다 (HTML→이미지)', () => {
     const plan = buildInjectionPlan(base);
-    // s1: header, text, image  /  s2: header, text
+    // c0: html + image  /  c1: html only
     expect(plan.blocks).toEqual([
-      { kind: 'heading', text: '소제목1', sectionId: 's1' },
-      { kind: 'text', text: '본문1', sectionId: 's1' },
-      { kind: 'image', imageUrl: 'https://r2/a.jpg', caption: '캡션1', sectionId: 's1' },
-      { kind: 'heading', text: '소제목2', sectionId: 's2' },
-      { kind: 'text', text: '본문2', sectionId: 's2' },
+      { kind: 'html', html: '<h2>캥거루</h2><p>주머니 동물</p>', sectionId: 'c0' },
+      { kind: 'image', imageUrl: 'https://r2/cover.webp', caption: '주머니 동물', sectionId: 'c0' },
+      { kind: 'html', html: '<h2>자연·과학</h2><p>유대류예요</p>', sectionId: 'c1' },
     ]);
   });
 
-  it('빈 header/text 는 블록을 생성하지 않는다', () => {
+  it('빈 html·이미지 없는 카드는 블록을 만들지 않는다', () => {
+    const plan = buildInjectionPlan({ ...base, cards: [{ id: 'x', html: '   ' }] });
+    expect(plan.blocks).toEqual([]);
+  });
+
+  it('이미지만 있고 html 이 비면 이미지 블록만 만든다', () => {
     const plan = buildInjectionPlan({
       ...base,
-      sections: [{ id: 'x', header: '', text: '', imageUrl: 'https://r2/x.jpg' }],
+      cards: [{ id: 'y', html: '', imageUrl: 'https://r2/y.webp' }],
     });
     expect(plan.blocks).toEqual([
-      { kind: 'image', imageUrl: 'https://r2/x.jpg', caption: undefined, sectionId: 'x' },
+      { kind: 'image', imageUrl: 'https://r2/y.webp', caption: undefined, sectionId: 'y' },
     ]);
   });
 });

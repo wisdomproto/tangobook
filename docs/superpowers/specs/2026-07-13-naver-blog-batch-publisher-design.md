@@ -1,12 +1,19 @@
 # 네이버 블로그 이미지 포함 배치 발행기 — 설계
 
 - 날짜: 2026-07-13
-- 상태: 설계 승인 대기
+- 상태: 구현 중 (Chunk 1 진행)
 - 관련: `features/blog`, `features/marketing`, `packages/server/scripts/render-book-reels.ts`(패턴 참조)
+
+> ## ⚠️ 2026-07-14 소스 변경 (구현 중 실측으로 확정)
+> 최초 설계는 발행 소스를 R2 `books/{bid}/marketing/blog/{postId}.json`(`BlogPostV2`)로 가정했으나, **실제 완비된 블로그 152개는 Supabase 마케팅 시스템**(`mkt_blog_contents` + `mkt_blog_cards`)에 있다(각 8섹션 = 1,216 카드, 이미지 720장, 전부 `status='draft'`·미발행). 따라서 **발행 소스를 Supabase 로 변경**한다.
+> - **소스 테이블**: `mkt_blog_contents`(발행 단위: id·content_id·title·primary_keyword·secondary_keywords·status) + `mkt_blog_cards`(섹션: `card_type='text'`, `content` jsonb `{ text: HTML, url: 이미지, caption, alt }`, `sort_order`).
+> - **본문이 이미 HTML**(`<h2><p><strong>`) → 주입 블록에 `html` kind 추가. heading/text 분리 불필요.
+> - **이력 매핑**: `book_id = mkt_blog_contents.content_id`, `post_id = mkt_blog_contents.id`, `language = 'ko'` → §5.2 이력 테이블 스키마 **그대로 재사용**.
+> - **유닛 경계 재조정**: `blog-source.ts`(Supabase I/O → `BlogSource`) → `blog-html.ts`(순수 `BlogSource → InjectionPlan`). §4·§5·§10 의 `BlogPostV2` 표현은 이 `BlogSource`(Supabase)로 대체해 읽는다.
 
 ## 1. 목적 (왜)
 
-각 책의 마케팅 블로그 글(`books/{bid}/marketing/blog/{postId}.json`)을 **네이버 블로그로 옮겨 발행**한다. 텍스트는 복붙으로 해결되지만 **이미지를 일일이 다운로드→업로드하는 수작업이 진짜 페인포인트**다. 이 도구의 핵심 가치는 **이미지 업로드 자동화**이며, 텍스트는 그와 함께 실려 들어간다.
+마케팅 시스템의 블로그 글(Supabase `mkt_blog_contents`/`mkt_blog_cards`, 위 소스 변경 참조)을 **네이버 블로그로 옮겨 발행**한다. 텍스트는 복붙으로 해결되지만 **이미지를 일일이 다운로드→업로드하는 수작업이 진짜 페인포인트**다. 이 도구의 핵심 가치는 **이미지 업로드 자동화**이며, 텍스트는 그와 함께 실려 들어간다.
 
 규모: 공개 블로그 글 152개를 **대량·지속 발행**. 신간이 나올 때마다 새 글을 계속 밀어낸다.
 
