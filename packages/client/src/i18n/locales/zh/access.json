@@ -21,7 +21,7 @@
   "promo": {
     "region": "促销横幅",
     "guestHeadline": "注册即可免费体验 7 天",
-    "trialHeadline": "免费体验还剩 <big>{{days}}天</big> · 所有童话已解锁",
+    "trialHeadline": "免费体验还剩 <big>{{days}}天</big>",
     "preOpenHeadline": "现在所有童话都免费畅享",
     "expiredHeadline": "订阅后继续畅享所有童话",
     "referralSub": "邀请好友，你们双方的免费时长各再延长 7 天",

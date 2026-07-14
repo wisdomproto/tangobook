@@ -142,12 +142,20 @@ export function AppShell() {
 
   const sidebarContent = (
     <>
-      {/* 로고는 라이브러리 배너로 이동(2026-07-14, 사이드바 정리). 상단 여백 = 모바일 드로어 ✕(top-3) 클리어런스. */}
-      <div className="h-12 md:h-4 shrink-0" aria-hidden />
+      {/* 로고 영역 — 사이드바 좌상단. 헤더 height(80px) 와 정렬. */}
+      <div className="h-20 flex items-center justify-center px-2 border-b border-ink-100/40">
+        <Link to="/library" aria-label={t('logo.home')}>
+          <img
+            src={i18n.language === 'ko' ? '/logo/logo-kr.webp' : '/logo/logo-en.webp'}
+            alt={t('logo.alt')}
+            className="h-14 w-auto object-contain"
+          />
+        </Link>
+      </div>
 
-      {/* 현재 아이 프로필 칩 — 아이 1명이어도 상시. 탭 → 프로필 시트(전환/추가·관리). 사이드바 최상단. */}
+      {/* 현재 아이 프로필 칩 — 아이 1명이어도 상시. 탭 → 프로필 시트(전환/추가·관리). */}
       {session && activeProfile && (
-        <div className="flex justify-center px-2 pb-1">
+        <div className="flex justify-center px-2 pt-3">
           <button
             onClick={() => setPickerOpen(true)}
             className="flex items-center gap-1.5 rounded-full bg-white pl-1 pr-2.5 py-1 shadow-soft hover:shadow-pop transition-all max-w-full"
