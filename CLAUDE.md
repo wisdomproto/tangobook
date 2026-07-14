@@ -131,6 +131,7 @@ pnpm --filter {server|client|shared} {dev|build|...}
 
 ## R2 데이터 호환성
 - 기존 동화책 211+권 저장됨. `Storybook` 인터페이스 호환 유지. 새 필드는 `optional`. snake_case 혼용은 [docs/architecture-notes.md](docs/architecture-notes.md).
+- **🔴 CDN 커스텀 도메인**(2026-07-14): 이미지/오디오 버킷 `storybook-images` 의 공개 URL 은 원래 `pub-554d78…r2.dev`(Cloudflare **레이트리밋** 개발용 — 라이브러리에서 표지 수십 장 동시 로드 시 일부 드롭 → 랜덤 빈 표지). Cloudflare **custom domain `assets.tangobook.co.kr`**(CDN 엣지캐시) 연결 후, 서버가 **응답 시점에 host 치환**: `toCdnUrls`(`providers/r2.provider.ts`, `R2_PUBLIC_URL`→`R2_CDN_URL` host swap, JSON stringify/replace)를 `storybook.controller` list/getById 에 적용. **🔴 저장 데이터는 pub host 그대로**(내부 스크립트/재저장 오염 방지 — 응답만 rewrite). 클라 `BookCover`(`design-system/primitives`)엔 로딩 placeholder + onError 재시도(4회, r2.dev 시절 잔여 안전망). env `R2_CDN_URL`(기본 `https://assets.tangobook.co.kr`).
 
 ## 주요 타입 위치
 - `Storybook` / `Character` / `Page` / `KeyObject` / `BlendingExercise` / `ParentGuide` / `ReadingLevel` / `VocabularyUnit` / `BookManifest` / `LibraryConfig` / `ApiResponse<T>` → `@tangobook/shared`
