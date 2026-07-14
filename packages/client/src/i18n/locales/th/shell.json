@@ -24,7 +24,8 @@
     "logoutConfirm": "ต้องการออกจากระบบไหม?",
     "comingSoon": "เร็ว ๆ นี้",
     "comingSoonTitle": "กำลังเตรียมอยู่",
-    "feedback": "ส่งความคิดเห็น"
+    "feedback": "ส่งความคิดเห็น",
+    "parentMenu": "เมนูผู้ปกครอง"
   },
   "pageTitle": {
     "phonics": "โฟนิกส์",
