@@ -374,7 +374,10 @@ describe('createPaddleCheckout', () => {
 describe('confirmPaddlePayment', () => {
   const pending = { id: 'r1', order_id: 'tb_o1', account_id: 'acc-1', plan: 'month1', amount: 0, status: 'pending', provider: 'paddle', currency: 'USD' };
   it('verifies txn, records amount, extends entitlement, returns paidUntil', async () => {
-    const fake = makeFakeAdmin({ paymentRow: pending, flippedRows: [{ order_id: 'tb_o1' }], entitlementRow: { account_id: 'acc-1', paid_until: null } });
+    // 🔴 makeFakeAdmin 는 upsert 결과를 entitlementRow 로 write-back 하지 않는다 → 최종
+    //    entitlements.select 는 시드값을 그대로 반환. 반환 paidUntil 을 검증하려면 문자열로 시드.
+    //    (또는 toss happy-path 처럼 entitlements.upsert payload 의 paid_until 을 검증.)
+    const fake = makeFakeAdmin({ paymentRow: pending, flippedRows: [{ order_id: 'tb_o1' }], entitlementRow: { account_id: 'acc-1', paid_until: '2027-01-01T00:00:00.000Z' } });
     (getSupabaseAdmin as any).mockReturnValue(fake.client);
     (getPaddleTransaction as any).mockResolvedValue({
       id: 'txn_1', status: 'completed', currency_code: 'USD',
@@ -536,6 +539,8 @@ Expected: PASS (all scenarios).
 
 Run: `pnpm --filter server test`
 Expected: PASS (기존 + 신규 모두 그린).
+
+> 🔴 이 유닛 테스트는 provider 를 mock 하므로 **실제 Paddle 스키마/이벤트명을 검증하지 않는다**. green 이어도 `custom_data`·`items[].price.id`·`event_type`·API base URL 이 실제와 맞는지는 보장 안 됨 — 진짜 게이트는 sandbox E2E(구현 후 수동 작업 §1).
 
 - [ ] **Step 6: Commit**
 
@@ -729,7 +734,8 @@ git commit -m "feat(access): auto-disable overseas free bridge when Paddle confi
 `payment.api.ts` 의 `paymentApi` 에:
 ```ts
   paddleCheckout(plan: string): Promise<{ orderId: string; priceId: string }> {
-    return apiPost('/payments/paddle/checkout', { plan });
+    // 🔴 제네릭 명시 필수 — 없으면 Promise<unknown> 이 되어 typecheck 실패.
+    return apiPost<{ orderId: string; priceId: string }>('/payments/paddle/checkout', { plan });
   },
   paddleConfirm(transactionId: string): Promise<ConfirmResponse> {
     return apiPost<ConfirmResponse>('/payments/paddle/confirm', { transactionId });
@@ -752,7 +758,11 @@ import { ENTITLEMENT_QUERY_KEY } from './useEntitlement';
 
 const CLIENT_TOKEN = import.meta.env.VITE_PADDLE_CLIENT_TOKEN as string | undefined;
 const ENV = (import.meta.env.VITE_PADDLE_ENV as 'sandbox' | 'production') ?? 'sandbox';
+// 훅 준비 판정(오버레이 열 수 있나). access/config 의 isPaddleConfigured 와 같은 신호(클라 토큰)지만
+// 레이어가 다르다: 이건 결제 UI 준비, 저건 게이팅 auto-off. 둘 다 유지(오타 아님).
 export const isPaddleCheckoutConfigured = Boolean(CLIENT_TOKEN);
+// 🔴 priceId 는 서버 paddleCheckout 응답에서 받는다(위조 방지). 클라 VITE_PADDLE_PRICE_* 는
+//    이 구현에선 읽지 않음 — Paddle 셋업 시 서버 env(PADDLE_PRICE_*)만 필수, 클라 price env 는 불필요.
 
 export function useCheckoutPaddle() {
   const { account } = useAuth();
@@ -930,7 +940,7 @@ superpowers:finishing-a-development-branch 로 병합/PR 결정.
 ## 구현 후 남는 수동 작업 (사용자)
 Spec §"Paddle 계정 셋업 가이드" 참조:
 1. Paddle Sandbox 가입 → sandbox 토큰·priceId 로 E2E 검증(오버레이→confirm→entitlement 연장→열람)
-2. 상품 2개(month1/year1 one-time USD) 생성 → priceId 를 클라/서버 env 양쪽 매핑
+2. 상품 2개(month1/year1 one-time USD) 생성 → priceId 를 **서버 env**(`PADDLE_PRICE_MONTH1/YEAR1`)에 매핑(클라는 서버 응답으로 받으므로 클라 price env 불필요). 클라는 `VITE_PADDLE_CLIENT_TOKEN`·`VITE_PADDLE_ENV` 만 설정.
 3. 웹훅 등록(`/api/payments/paddle/webhook`, 완료 이벤트) → secret
 4. 세무사: "Paddle 정산 = 외화획득 영세율" 전달
 5. 심사 통과 → production 토큰·키·priceId 동시 배포(🔴 컷오버 순서) + `reset-overseas-trials.sql` 실행
