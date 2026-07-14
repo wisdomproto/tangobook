@@ -7,7 +7,7 @@
  *
  * ⚠️ HTML/JS/CSS/API(JSON) 은 캐시하지 않는다(항상 네트워크) — 앱 업데이트/동적 데이터 stale 방지.
  */
-const CACHE = 'tango-assets-v1';
+const CACHE = 'tango-assets-v2';
 
 // dev(localhost) 에선 동일 출처 정적 자산(/sounds 등)을 캐시하지 않는다 — 개발 중 파일 교체 시
 // stale 방지. R2 자산은 내용이 안 바뀌므로(재업로드 드묾) dev 에서도 캐시 OK → 파닉스 mp3 반복
@@ -16,6 +16,9 @@ const IS_DEV_HOST = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(self.location.host
 
 /** 캐시 대상 판별 — immutable 미디어/정적 자산만. */
 function isCacheableAsset(url) {
+  // 비디오(mp4 등)는 Range 스트리밍이라 캐시 대상에서 제외한다. SW 캐시가 Range 요청에
+  // 비-Range 응답을 돌려주면 미디어가 깨져(재생 후 재재생·탐색 불가) + 대용량 quota 문제.
+  if (/\.(mp4|webm|mov|m4v)$/i.test(url.pathname)) return false;
   // Cloudflare R2 public 자산 (이미지 webp/png/jpg · 음원 mp3 등)
   if (url.hostname.endsWith('.r2.dev')) return true;
   // R2 프록시 (CORS 우회 오디오/비디오) — key 로 immutable
@@ -47,6 +50,9 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
+  // Range 요청(비디오/오디오 스트리밍)은 절대 캐시-우선으로 가로채지 않는다 — 캐시된 비-Range
+  // 응답을 Range 요청에 돌려주면 미디어 엘리먼트가 깨진다(재생 후 재재생/탐색 불가).
+  if (req.headers.has('range')) return;
   let url;
   try {
     url = new URL(req.url);
