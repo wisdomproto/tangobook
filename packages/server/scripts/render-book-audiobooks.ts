@@ -92,6 +92,13 @@ const DEFAULT_META_PROMPT =
   "You are writing YouTube metadata for a children's animated storybook audiobook. " +
   'Make the title inviting for parents and kids searching for bedtime stories.';
 
+// 기본 BGM — 뷰어/메인과 동일한 배포 정적 자산(default-1..5.mp3). 헤드리스 렌더는 절대 URL 필요.
+const SITE_ORIGIN = (process.env.PUBLIC_SITE_ORIGIN || 'https://www.tangobook.co.kr').replace(
+  /\/$/,
+  ''
+);
+const DEFAULT_BGM_URLS = [1, 2, 3, 4, 5].map((n) => `${SITE_ORIGIN}/sounds/bgm/default-${n}.mp3`);
+
 /** Probe TTS durations for slides that have TTS URLs. Mutates renderData in-place (mirrors audiobook.service). */
 async function probeTtsDurations(renderData: AudiobookRenderData): Promise<void> {
   const slidesWithTts = renderData.slides.filter((s) => s.ttsUrl);
@@ -203,6 +210,12 @@ async function main() {
     throw new Error(`(${style}) 그림체에 삽화가 있는 페이지가 없습니다 — 렌더 불가.`);
   }
   console.log(`[render-book-audiobooks] slides=${renderData.slides.length}`);
+
+  // 2.5. 랜덤 BGM — 책에 저작 BGM 이 없으면 기본 5곡 중 무작위 1곡을 은은한 배경음으로 넣는다.
+  if (!renderData.bgmUrl) {
+    renderData.bgmUrl = DEFAULT_BGM_URLS[Math.floor(Math.random() * DEFAULT_BGM_URLS.length)];
+    console.log(`[render-book-audiobooks] BGM(random)=${renderData.bgmUrl}`);
+  }
 
   // 3. TTS/BGM 길이 프로브 (SRT 타이밍 정확도를 위해 렌더 전에 완료)
   await probeTtsDurations(renderData);

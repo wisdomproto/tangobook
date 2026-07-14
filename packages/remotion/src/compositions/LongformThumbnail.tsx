@@ -45,12 +45,7 @@ function titleFont(lang: string): { family: string; weight: number } {
   return TITLE_FONT_BY_LANG[lang] ?? { family: balooFamily, weight: 800 };
 }
 
-export const LongformThumbnail: React.FC<LongformThumbProps> = ({
-  title,
-  heroImageUrl,
-  lang,
-  styleLabel,
-}) => {
+export const LongformThumbnail: React.FC<LongformThumbProps> = ({ title, heroImageUrl, lang }) => {
   const font = titleFont(lang);
 
   return (
@@ -80,23 +75,6 @@ export const LongformThumbnail: React.FC<LongformThumbProps> = ({
           padding: '0 64px 56px',
         }}
       >
-        {styleLabel ? (
-          <div
-            style={{
-              fontFamily: balooFamily,
-              fontWeight: 700,
-              fontSize: 26,
-              color: '#fff',
-              backgroundColor: 'rgba(0,0,0,0.4)',
-              borderRadius: 999,
-              padding: '8px 22px',
-              marginBottom: 18,
-              letterSpacing: 0.2,
-            }}
-          >
-            {styleLabel}
-          </div>
-        ) : null}
         <div
           style={{
             fontFamily: font.family,
