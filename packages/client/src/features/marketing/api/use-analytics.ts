@@ -152,6 +152,34 @@ export function useGa4Language(
   });
 }
 
+/** POST /api/mkt/analytics/new-returning  Body: { projectId, period } — 신규 vs 재방문 */
+export function useGa4NewReturning(
+  projectId: string,
+  period: 'today' | 'yesterday' | '7d' | '30d' = '7d',
+  enabled = !!projectId
+) {
+  return useQuery({
+    queryKey: mktKeys.analyticsNewReturning(projectId, period),
+    enabled: enabled && !!projectId,
+    staleTime: STALE_TIME,
+    queryFn: () => postMkt<GA4TrafficSource[]>('/analytics/new-returning', { projectId, period }),
+  });
+}
+
+/** POST /api/mkt/analytics/membership  Body: { projectId, period } — 회원 vs 비회원(membership) */
+export function useGa4Membership(
+  projectId: string,
+  period: 'today' | 'yesterday' | '7d' | '30d' = '7d',
+  enabled = !!projectId
+) {
+  return useQuery({
+    queryKey: mktKeys.analyticsMembership(projectId, period),
+    enabled: enabled && !!projectId,
+    staleTime: STALE_TIME,
+    queryFn: () => postMkt<GA4TrafficSource[]>('/analytics/membership', { projectId, period }),
+  });
+}
+
 // ─── Meta / YouTube hooks ────────────────────────────────────────────────────
 // Meta: 501 (not connected) resolves to { connected: false, overview: DEFAULT, contents: [] }
 // so the empty-state renders gracefully rather than throwing.

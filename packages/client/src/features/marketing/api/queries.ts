@@ -44,6 +44,10 @@ export const mktKeys = {
     ['mkt', 'analytics', 'source', projectId, period] as const,
   analyticsLanguage: (projectId: string, period: string) =>
     ['mkt', 'analytics', 'language', projectId, period] as const,
+  analyticsNewReturning: (projectId: string, period: string) =>
+    ['mkt', 'analytics', 'new-returning', projectId, period] as const,
+  analyticsMembership: (projectId: string, period: string) =>
+    ['mkt', 'analytics', 'membership', projectId, period] as const,
   metaInsights: (projectId: string, platform: string, country: string) =>
     ['mkt', 'analytics', 'meta', projectId, platform, country] as const,
   youtubeChannel: (projectId: string, query: string) =>

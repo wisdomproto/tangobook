@@ -12,6 +12,8 @@ import {
   useGa4Content,
   useGa4Source,
   useGa4Language,
+  useGa4NewReturning,
+  useGa4Membership,
 } from '../../api/use-analytics';
 import { OverviewCards } from './OverviewCards';
 import { PageviewsChart } from './PageviewsChart';
@@ -29,6 +31,10 @@ const LANG_LABELS: Record<string, string> = {
   zh: '🇨🇳 中文',
   th: '🇹🇭 ภาษาไทย',
 };
+// GA4 newVsReturning 값 → 라벨
+const NEWRET_LABELS: Record<string, string> = { new: '🆕 신규', returning: '🔁 재방문' };
+// 커스텀 membership 값 → 라벨
+const MEMBER_LABELS: Record<string, string> = { member: '👤 회원', guest: '🚶 비회원' };
 import type { GA4Config, FunnelConfig } from '../../types/analytics';
 
 interface AnalyticsDashboardProps {
@@ -59,6 +65,8 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
   const content = useGa4Content(projectId, period, enabled);
   const source = useGa4Source(projectId, period, enabled);
   const language = useGa4Language(projectId, period, enabled);
+  const newReturning = useGa4NewReturning(projectId, period, enabled);
+  const membership = useGa4Membership(projectId, period, enabled);
 
   // Surface first error as a banner (GA4 quota / 429 → banner, not crash)
   const firstError =
@@ -145,6 +153,23 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <PageviewsChart data={overview.data.dailyPageviews} />
             <TrafficChart data={traffic.data ?? []} />
+          </div>
+          {/* 사용자 구분 — 신규/재방문 + 회원/비회원 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <BreakdownCard
+              title="신규 vs 재방문 (사용자)"
+              data={newReturning.data ?? []}
+              isLoading={newReturning.isLoading}
+              labelMap={NEWRET_LABELS}
+              emptyText="아직 방문 데이터가 없어요"
+            />
+            <BreakdownCard
+              title="회원 vs 비회원 (사용자)"
+              data={membership.data ?? []}
+              isLoading={membership.isLoading}
+              labelMap={MEMBER_LABELS}
+              emptyText="회원/비회원 데이터 없음 — GA4에 커스텀 측정기준 'membership' 등록 + 방문 누적 후 표시"
+            />
           </div>
           {/* 유입 소스(메타/구글/직접 등) + 앱 UI 언어별 분포 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

@@ -302,6 +302,43 @@ export async function getLanguage(cfg: ResolvedGa4, period: Period): Promise<GA4
   }
 }
 
+/**
+ * 신규 vs 재방문 사용자 (GA4 기본 `newVsReturning`: 'new'/'returning'). 커스텀 등록 불필요.
+ * mapTraffic 재사용 — 표시 숫자 = activeUsers(metric[0]), percentage = 사용자 비중.
+ */
+export async function getNewReturning(
+  cfg: ResolvedGa4,
+  period: Period
+): Promise<GA4TrafficSource[]> {
+  const report = await runReport(cfg, {
+    dateRanges: [dateRangeFor(period)],
+    metrics: [{ name: 'activeUsers' }, { name: 'sessions' }],
+    dimensions: [{ name: 'newVsReturning' }],
+    orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
+    limit: 5,
+  });
+  return mapTraffic(report);
+}
+
+/**
+ * 회원 vs 비회원 (커스텀 유저속성 `membership` = 'member'/'guest', 클라가 gtag 로 전송).
+ * 🔴 GA4 관리자에서 유저-스코프 커스텀 디멘션 `membership` 등록 필요. 미등록 시 [] 반환.
+ */
+export async function getMembership(cfg: ResolvedGa4, period: Period): Promise<GA4TrafficSource[]> {
+  try {
+    const report = await runReport(cfg, {
+      dateRanges: [dateRangeFor(period)],
+      metrics: [{ name: 'activeUsers' }, { name: 'sessions' }],
+      dimensions: [{ name: 'customUser:membership' }],
+      orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
+      limit: 5,
+    });
+    return mapTraffic(report);
+  } catch {
+    return [];
+  }
+}
+
 // ─── Meta / YouTube analytics (server-proxy; token read server-side) ──────────
 // R-1 / R-6: `meta_credentials.pages[].pageAccessToken` is resolved here and
 // NEVER returned to the client or logged. The client sends only { projectId, platform }.

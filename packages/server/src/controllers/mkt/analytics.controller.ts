@@ -10,6 +10,8 @@ import {
   getContent,
   getSource,
   getLanguage,
+  getNewReturning,
+  getMembership,
   getMetaInsights,
   getYoutubeChannel,
 } from '../../services/mkt/analytics.service.js';
@@ -83,6 +85,24 @@ export const analyticsLanguage = asyncHandler(async (req: Request, res: Response
   if (!projectId) throw new AppError(400, 'projectId is required');
   const cfg = await resolveGa4Config(projectId);
   const data = await getLanguage(cfg, period ?? '7d');
+  res.json({ success: true, data });
+});
+
+/** POST /api/mkt/analytics/new-returning  Body: { projectId, period? } — 신규 vs 재방문 */
+export const analyticsNewReturning = asyncHandler(async (req: Request, res: Response) => {
+  const { projectId, period } = req.body as AnalyticsBody;
+  if (!projectId) throw new AppError(400, 'projectId is required');
+  const cfg = await resolveGa4Config(projectId);
+  const data = await getNewReturning(cfg, period ?? '7d');
+  res.json({ success: true, data });
+});
+
+/** POST /api/mkt/analytics/membership  Body: { projectId, period? } — 회원 vs 비회원(membership 커스텀 디멘션) */
+export const analyticsMembership = asyncHandler(async (req: Request, res: Response) => {
+  const { projectId, period } = req.body as AnalyticsBody;
+  if (!projectId) throw new AppError(400, 'projectId is required');
+  const cfg = await resolveGa4Config(projectId);
+  const data = await getMembership(cfg, period ?? '7d');
   res.json({ success: true, data });
 });
 

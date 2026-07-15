@@ -20,7 +20,7 @@ declare global {
  *  ② 앱 UI 언어를 GA4 커스텀 유저속성 `app_language` 로 전송(언어별 분포 카드용).
  */
 export function AnalyticsControl() {
-  const { account } = useAuth();
+  const { account, loading } = useAuth();
 
   // ① 내부계정 판정 — 로그인 이메일 있을 때만 세팅/해제(로그아웃·로딩 중엔 기존 플래그 유지).
   useEffect(() => {
@@ -37,7 +37,13 @@ export function AnalyticsControl() {
     window['ga-disable-G-XENG7XW959'] = internal; // GA4 즉시 on/off
   }, [account?.email]);
 
-  // ② 앱 UI 언어 → GA4 유저속성. 내부계정(__tbNoTrack)은 전송 안 함.
+  // ② 회원 vs 비회원 → GA4 유저속성 membership (auth 확정 후, 내부계정 제외).
+  useEffect(() => {
+    if (loading || window.__tbNoTrack) return;
+    window.gtag?.('set', 'user_properties', { membership: account ? 'member' : 'guest' });
+  }, [account, loading]);
+
+  // ③ 앱 UI 언어 → GA4 유저속성. 내부계정(__tbNoTrack)은 전송 안 함.
   useEffect(() => {
     const send = (lang: string) => {
       if (window.__tbNoTrack) return;
