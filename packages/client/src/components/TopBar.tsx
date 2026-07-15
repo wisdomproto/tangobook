@@ -20,6 +20,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '아기호랑이 호리 앙상블 8인 · 45편 커리큘럼·작법 + 회차별 대본·프롬프트(탭)',
   },
   {
+    href: '/yuchiwon-plan.html',
+    icon: '🌈',
+    label: '호리네 유치원동화 기획서',
+    desc: '무지개반 + 양 선생님 · 유치원 적응·사회정서 20편 (대발이 유치원동화 역설계) + 회차별 대본(☰ 회차)',
+  },
+  {
     href: '/learning-comic-franchise.html',
     icon: '🗺️',
     label: '학습만화 「타임 티코」 프랜차이즈',

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 유치원동화 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:920px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:34px 0; border-bottom:3px solid var(--coral); margin-bottom:28px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:32px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  h2 { font-size:22px; font-weight:900; margin:34px 0 12px; padding-bottom:6px; border-bottom:2px solid var(--line); }
+  h2 .no { display:inline-flex; width:28px; height:28px; border-radius:8px; background:var(--coral); color:#fff; align-items:center; justify-content:center; font-size:15px; margin-right:10px; }
+  h3 { font-size:16.5px; font-weight:800; margin:20px 0 8px; color:var(--coral-dark); }
+  p.lead { color:var(--ink-soft); font-size:14px; margin-bottom:10px; }
+  table { width:100%; border-collapse:collapse; margin:10px 0 16px; font-size:13.5px; }
+  th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+  th { background:var(--peach); color:var(--coral-dark); font-weight:800; }
+  td b { color:var(--coral-dark); }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:11px 15px; margin:16px 0; }
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin:12px 0; }
+  .cast { background:#fff; border:1px solid var(--line); border-radius:14px; padding:10px; text-align:center; }
+  .cast .thumb { width:100%; aspect-ratio:1; border-radius:10px; background:var(--cream); display:flex; align-items:center; justify-content:center; font-size:38px; overflow:hidden; }
+  .cast .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+  .cast b { display:block; margin-top:7px; font-size:14px; }
+  .cast .role { font-size:11.5px; color:var(--ink-soft); }
+  .cast .im { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:6px; padding:0 6px; font-size:11px; font-weight:800; margin-top:4px; }
+  .cast .fixed { font-size:11px; color:var(--mint); font-weight:800; margin-top:3px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.sheet { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12px; line-height:1.6; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:70px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-weight:800; cursor:pointer; }
+  .paste-box:focus { border-color:var(--coral); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">호리네 유치원동화 · 사회정서 트랙 · 20편 기획서</div>
+  <h1>🌈 호리네 유치원동화</h1>
+  <div class="sub">유치원 「무지개반」에서 벌어지는 적응·감정·관계 이야기 — 대발이 유치원동화 20편 역설계</div>
+</header>
+
+<h2><span class="no">1</span>포지셔닝</h2>
+<table>
+  <tr><th>정체</th><td>기존 <b>생활동화 45편(습관·안전)</b> 과 <b>별개 라인</b>. 집→기관 <b>전환기의 감정·관계</b>(분리불안·교사애착·질투·피해의식·정직·부끄러움).</td></tr>
+  <tr><th>무대·가이드</th><td>유치원 <b>「무지개반」</b>(고정 무대) + <b>양 선생님</b>(신규 상시 가이드 = 감정코칭·중재·우화·정상화). 대발이 「별님반+선생님」 대응.</td></tr>
+  <tr><th>그림체</th><td>니들펠트(양모 인형) — 생활동화와 동일. <b>양 선생님이 양털이라 스타일과 메타적으로 딱.</b></td></tr>
+  <tr><th>분량</th><td>20편 완결 단편(각 10 스프레드). 벤치마크: <a href="/library/../" style="color:var(--coral-dark)">docs/saenghwal-donghwa/debari-yuchiwon-benchmark.md</a></td></tr>
+</table>
+
+<h2><span class="no">2</span>전체 아크 — 01↔20 북엔드</h2>
+<table>
+  <tr><th>구간</th><th>내용</th></tr>
+  <tr><td><b>Y01 오프너</b></td><td>호리 혼자 남겨짐 → 무지개반 발견 → "나도 갈래"</td></tr>
+  <tr><td><b>Y02~06 적응기</b></td><td>첫 등원(분리불안)·인사·배탈·교사애착·하루 일과</td></tr>
+  <tr><td><b>Y07~19 무지개반 일상</b></td><td>캐릭터 결점편 + 사회정서 13편</td></tr>
+  <tr><td><b>Y20 피날레</b></td><td>양 선생님 POV, "떠나기 싫어"(Y01 가고싶어와 대칭)</td></tr>
+</table>
+
+<h2><span class="no">3</span>캐스트 9인 — 결점 = 배역</h2>
+<p class="lead">호리 고정 8인(생활동화와 동일 · 레퍼런스 <b>자동 재사용</b>) + <b>양 선생님(신규)</b>. 회차 HTML은 <code>yuchiwon-core.js</code>가 이 레퍼런스를 @image1~9로 자동 합성.</p>
+<div class="cast-grid" id="cast-grid">
+  <div class="cast" data-key="hori"><div class="thumb">🐯</div><b>호리 <span class="im">@image1</span></b><div class="role">주인공 · 장난/미숙/허세/용기</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="mom"><div class="thumb">🐯</div><b>엄마 <span class="im">@image2</span></b><div class="role">집 가이드 · 리프레이밍/우화</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="dad"><div class="thumb">🐯</div><b>아빠 <span class="im">@image3</span></b><div class="role">집 가이드</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="hoya"><div class="thumb">🐯</div><b>호야 <span class="im">@image4</span></b><div class="role">동생 · 떼쓰기/질투/실수</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="toto"><div class="thumb">🐰</div><b>토토 <span class="im">@image5</span></b><div class="role">성급/버럭/허세/피해의식</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="bori"><div class="thumb">🐻</div><b>보리 <span class="im">@image6</span></b><div class="role">두려움/부끄러움/걱정/신중</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="kongi"><div class="thumb">🐿️</div><b>콩이 <span class="im">@image7</span></b><div class="role">편식/충동/먹보/배탈</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="dubu"><div class="thumb">🐶</div><b>두부 <span class="im">@image8</span></b><div class="role">펫 · 산만/위생/관찰(코)</div><div class="fixed">기존 레퍼런스</div></div>
+</div>
+
+<h3>🆕 양 선생님 <span class="im" style="font-size:12px">@image9</span> — 레퍼런스 생성 필요</h3>
+<p class="lead">무지개반 담임. 아래 시트 프롬프트로 니들펠트 이미지를 생성 → 박스에 붙여넣으면 전 회차에 자동 반영(R2: comic-assets/yuchiwon-plan/teacher).</p>
+<div class="cast" style="max-width:220px" data-key="teacher"><div class="thumb">🐑</div><b>양 선생님 <span class="im">@image9</span></b><div class="role">무지개반 담임 · 감정코칭/중재/정상화</div></div>
+<details open><summary>양 선생님 시트 프롬프트 보기</summary><pre class="sheet" id="teacher-sheet"></pre></details>
+<button class="copy-btn" id="copy-teacher">📋 양 선생님 시트 프롬프트 복사</button>
+<div id="teacher-paste-slot"></div>
+
+<h2><span class="no">4</span>작법 — 5비트</h2>
+<table>
+  <tr><th>비트</th><th>내용</th></tr>
+  <tr><td><b>① 훅</b></td><td>제목을 첫 상황/대사로(리프레인 훅). 유치원 무대 세팅.</td></tr>
+  <tr><td><b>② 결점·사건</b></td><td>주역 캐릭터의 결점이 유치원 상황에서 문제 유발.</td></tr>
+  <tr><td><b>③ 감정 심화</b></td><td>반복·소외·감정 고조(좋아하는 것도 못 즐김 / 걱정 반복 등).</td></tr>
+  <tr><td><b>④ 전환</b></td><td>가이드(선생님/엄마/할머니) 리프레이밍 <b>또는</b> 자각(회상). 또래 정상화("나도 그래").</td></tr>
+  <tr><td><b>⑤ 착지</b></td><td>감정 해소 + 관계 회복 + 한 줄 교훈(평서문).</td></tr>
+</table>
+<div class="note">🔴 <b>한 쪽 = 한 이벤트</b>(그림책). SCENE은 학습만화 밀도 <b>5라벨 풀 콘티</b>(컷 / 장소·시간 / 인물(캐릭터별 포즈·표정 개별) / 배경·소품 / 톤). 집합어("아이들") 대신 개별 서술. SCENE에 그림체 문구 금지(core가 자동 부착). 캐릭터 인식 토큰 필수(Hori/Mom tiger/Toto/bunny/sheep teacher…).</div>
+
+<h2><span class="no">5</span>20편 커리큘럼</h2>
+<p class="lead">엔진·5비트 상세 → <b>docs/saenghwal-donghwa/curriculum-yuchiwon-20.md</b>. 회차 대본은 상단 <b>☰ 회차</b> 또는 아래.</p>
+<table>
+  <tr><th>#</th><th>제목</th><th>주역(결점)</th><th>주제·포맷</th><th>가이드</th></tr>
+  <tr><td>Y01</td><td>다들 어디 가?</td><td>호리</td><td>유치원 발견(반복비트·오프너)</td><td>—</td></tr>
+  <tr><td>Y02</td><td>나도 무지개반 갈래</td><td>호리</td><td>첫 등원 분리불안</td><td>엄마</td></tr>
+  <tr><td>Y03</td><td>안녕, 이 한마디</td><td>보리(부끄럼)</td><td>사회불안·인사 코칭</td><td>선생님+또래</td></tr>
+  <tr><td>Y04</td><td>배 아파, 집에 가고 싶어</td><td>콩이(배탈)</td><td>신체불편·활동 소외</td><td>자기해소</td></tr>
+  <tr><td>Y05</td><td>선생님이 좋아졌어</td><td>보리</td><td>교사애착(회상)</td><td>선생님</td></tr>
+  <tr><td>Y06</td><td>무지개반의 하루</td><td>콩이(화자)</td><td>무갈등 하루 일과</td><td>—</td></tr>
+  <tr><td>Y07</td><td>아차, 깜빡했다</td><td>토토(성급)</td><td>규칙 공동제작</td><td>선생님+또래</td></tr>
+  <tr><td>Y08</td><td>밥 먹기 대장</td><td>앙상블</td><td>식습관·발표 포맷</td><td>선생님</td></tr>
+  <tr><td>Y09</td><td>옛날 옛적 깜빡 도깨비</td><td>호리(깜빡)</td><td>우화 삽입</td><td>선생님</td></tr>
+  <tr><td>Y10</td><td>으앙, 실수했어</td><td>송이/호야(신입)</td><td>실수·수치심 정상화</td><td>선생님+또래</td></tr>
+  <tr><td>Y11</td><td>내가 그랬어</td><td>토토(허세)</td><td>정직</td><td>자기자각</td></tr>
+  <tr><td>Y12 ★</td><td>걱정 몽글이, 안녕!</td><td>앙상블</td><td>불안·의인화 POV</td><td>자기대처</td></tr>
+  <tr><td>Y13</td><td>짝꿍은 누구랑?</td><td>호리</td><td>친절=인기·엄마 우화</td><td>엄마</td></tr>
+  <tr><td>Y14</td><td>너랑 안 놀아!</td><td>보리·콩이</td><td>우정·질투</td><td>자기깨달음</td></tr>
+  <tr><td>Y15 ★</td><td>나만 미워하는 것 같아</td><td>토토(피해의식)</td><td>재해석(소크라테스)</td><td>할머니/아빠</td></tr>
+  <tr><td>Y16</td><td>범인은 누구?</td><td>두부(관찰)</td><td>추리 포맷·이해</td><td>또래</td></tr>
+  <tr><td>Y17</td><td>나도 미안해</td><td>호리</td><td>관점전환·대칭 사과</td><td>또래</td></tr>
+  <tr><td>Y18</td><td>이거 무슨 냄새?</td><td>두부(위생)</td><td>위생</td><td>또래</td></tr>
+  <tr><td>Y19</td><td>안 돼, 위험해!</td><td>호리(허세)</td><td>안전·지킴이 전환</td><td>자기경험</td></tr>
+  <tr><td>Y20</td><td>내일 또 만나요</td><td>양 선생님(화자)</td><td>선생님 POV 피날레·북엔드</td><td>선생님</td></tr>
+</table>
+
+<footer>호리네 유치원동화 · 20편 기획서 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 양 선생님 시트 프롬프트 (니들펠트, saenghwal-core STYLE와 동일 계열) ──
+var TEACHER_DESC = '무지개반 담임 양(羊) 선생님 — 온몸이 폭신한 크림색 양털 뭉게구름, 둥근 치비 비율(어른이지만 아이들보다 살짝만 큼 1.4배·각진 데 없이 포근), 도톰한 둥근 안경과 부드러운 미소, 연두색 카디건, 늘 따뜻하고 차분한 담임 인상.';
+var TEACHER_SHEET = [
+  'Style: Needle-felted wool plush look — a soft handmade 3D wool-felt doll with visible fuzzy felted-wool fibers, chunky huggable rounded forms, gentle soft studio lighting, vibrant saturated colors, stop-motion feel. NOT flat 2D, NOT painted, NOT smooth CG, NOT clay-smooth (wool fibers must be visible). Super-deformed chibi: head ~1.3x body, short chubby limbs, large round eyes, pink cheek blush. Canvas 1024x1024, solid pure magenta #FF00FF background, character centered, 8% padding. No ground shadow, no text, no labels, no extra characters.',
+  'CHARACTER: 양 선생님 (Ms. Sheep, kindergarten teacher) — ' + TEACHER_DESC,
+  'LAYOUT: one sheet with the SAME character — full-body front idle, 3/4 turn, and three face close-ups (warm smile, gentle concern, encouraging). Single character only.'
+].join('\n');
+document.getElementById('teacher-sheet').textContent = TEACHER_SHEET;
+function flash(btn,l){ var o=btn.textContent; btn.textContent=l; btn.classList.add('done'); setTimeout(function(){btn.textContent=o;btn.classList.remove('done');},1500); }
+document.getElementById('copy-teacher').addEventListener('click', function(){ navigator.clipboard.writeText(TEACHER_SHEET).then(function(){flash(document.getElementById('copy-teacher'),'복사됨 ✓');}); });
+
+// ── 호리 8인 레퍼런스: saenghwal-plan 저장분 자동 로드(읽기전용) ──
+fetch('/api/comic-assets/saenghwal-plan').then(function(r){return r.json();}).then(function(j){
+  var a=(j&&j.data)||{};
+  document.querySelectorAll('#cast-grid .cast').forEach(function(c){
+    var k=c.getAttribute('data-key'); if(a[k]){ c.querySelector('.thumb').innerHTML='<img src="'+a[k]+'?t='+Date.now()+'" alt="" />'; }
+  });
+}).catch(function(){});
+
+// ── 양 선생님 붙여넣기 박스 (R2: comic-assets/yuchiwon-plan/teacher) ──
+(function(){
+  var API='/api/comic-assets/yuchiwon-plan', KEY='teacher';
+  var box=document.createElement('div'); box.className='paste-box'; box.tabIndex=0;
+  var hint='🖼️ 클릭 후 Ctrl+V — 생성한 양 선생님 시트 붙여넣기';
+  function reset(){ box.classList.remove('has-img'); box.textContent=hint; }
+  function setImg(u){ box.classList.add('has-img'); box.innerHTML='<img src="'+u+'" alt="" /><button type="button" class="paste-del">✕</button>';
+    box.querySelector('.paste-del').addEventListener('click', function(e){ e.stopPropagation(); if(!confirm('삭제할까요?'))return; fetch(API+'/'+KEY,{method:'DELETE'}).then(reset); }); }
+  fetch(API).then(function(r){return r.json();}).then(function(j){ var u=(j&&j.data&&j.data[KEY]); if(u) setImg(u+'?t='+Date.now()); else box.textContent=hint; }).catch(function(){box.textContent=hint;});
+  function up(file){ if(!file||!/^image\/(png|jpeg|webp)$/.test(file.type))return; box.classList.add('busy'); var fr=new FileReader();
+    fr.onload=function(){ fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,dataUrl:fr.result})}).then(function(r){return r.json();}).then(function(j){ if(j.success)setImg(j.data.url+'?t='+Date.now()); else alert('저장 실패'); box.classList.remove('busy'); }).catch(function(){alert('저장 실패 — 서버(3500)'); box.classList.remove('busy');}); };
+    fr.readAsDataURL(file); }
+  box.addEventListener('paste', function(e){ var it=(e.clipboardData&&e.clipboardData.items)||[]; for(var i=0;i<it.length;i++){ if(it[i].type&&it[i].type.indexOf('image/')===0){ e.preventDefault(); up(it[i].getAsFile()); return; } } });
+  box.addEventListener('click', function(){ box.focus(); });
+  document.getElementById('teacher-paste-slot').appendChild(box);
+})();
+</script>
+<script src="/yuchiwon-core.js"></script>
+</body>
+</html>

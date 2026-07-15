@@ -1,0 +1,27 @@
+[
+  { "file": "yuchiwon-plan.html", "label": "📘 기획서" },
+  { "file": "yuchiwon-Y01.html", "label": "Y01 🏠 유치원 발견", "title": "다들 어디 가?" },
+  { "file": "yuchiwon-Y02.html", "label": "Y02 🎒 첫 등원", "title": "나도 무지개반 갈래" },
+  { "file": "yuchiwon-Y03.html", "label": "Y03 👋 인사", "title": "안녕, 이 한마디" },
+  { "file": "yuchiwon-Y04.html", "label": "Y04 🚽 배탈·소외", "title": "배 아파, 집에 가고 싶어" },
+  { "file": "yuchiwon-Y05.html", "label": "Y05 🐑 교사 애착", "title": "선생님이 좋아졌어" },
+  { "file": "yuchiwon-Y06.html", "label": "Y06 🌱 하루 일과", "title": "무지개반의 하루" },
+  { "file": "yuchiwon-Y07.html", "label": "Y07 ⚠️ 규칙", "title": "아차, 깜빡했다" },
+  { "file": "yuchiwon-Y08.html", "label": "Y08 🍚 식습관", "title": "밥 먹기 대장" },
+  { "file": "yuchiwon-Y09.html", "label": "Y09 📖 우화", "title": "옛날 옛적 깜빡 도깨비" },
+  { "file": "yuchiwon-Y10.html", "label": "Y10 💧 실수·부끄럼", "title": "으앙, 실수했어" },
+  { "file": "yuchiwon-Y11.html", "label": "Y11 💛 정직", "title": "내가 그랬어" },
+  { "file": "yuchiwon-Y12.html", "label": "Y12 ☁️ 불안(의인화)", "title": "걱정 몽글이, 안녕!" },
+  { "file": "yuchiwon-Y13.html", "label": "Y13 🤝 친절·인기", "title": "짝꿍은 누구랑?" },
+  { "file": "yuchiwon-Y14.html", "label": "Y14 👭 우정·질투", "title": "너랑 안 놀아!" },
+  {
+    "file": "yuchiwon-Y15.html",
+    "label": "Y15 🔍 피해의식·재해석",
+    "title": "나만 미워하는 것 같아"
+  },
+  { "file": "yuchiwon-Y16.html", "label": "Y16 🕵️ 추리·이해", "title": "범인은 누구?" },
+  { "file": "yuchiwon-Y17.html", "label": "Y17 🙇 대칭 사과", "title": "나도 미안해" },
+  { "file": "yuchiwon-Y18.html", "label": "Y18 🫧 위생", "title": "이거 무슨 냄새?" },
+  { "file": "yuchiwon-Y19.html", "label": "Y19 🚑 안전", "title": "안 돼, 위험해!" },
+  { "file": "yuchiwon-Y20.html", "label": "Y20 🌙 피날레", "title": "내일 또 만나요" }
+]

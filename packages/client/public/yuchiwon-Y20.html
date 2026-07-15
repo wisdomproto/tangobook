@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 유치원동화 — 내일 또 만나요</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">호리네 유치원동화 · Y20 · 피날레</div>
+  <h1>🌙 내일 또 만나요</h1>
+  <div class="sub">양 선생님 1인칭 POV — 소동 가득한 무지개반의 하루, 그리고 헤어지기 아쉬운 하원 (Y01 오프너와 북엔드)</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 피날레(선생님 POV · bookend) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 양 선생님·호리·콩이·토토·보리·두부 &nbsp;·&nbsp;
+  <b>장치</b> POV 전환 · 하루 소동 총집합 · 대칭 착지 &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드 &nbsp;·&nbsp; <b>≈대발이</b> 20화
+</div>
+<div class="refrain">🌈 반복 후렴 — "괜찮아, 그럴 수 있어." … "내일 또 만나요!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~9 고정) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다(양 선생님=@image9 고정 캐스트). 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입) — 선생님 자기소개</b> <span class="tag">도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">나는 무지개반 선생님이에요. 매일 아침, 나는 반짝반짝 닦은 교실 문 앞에서 친구들을 기다려요. 딸랑딸랑 문이 열리면 호리도, 콩이도, 두부도 폴짝폴짝 들어오지요. "선생님, 안녕하세요!" 아이고, 오늘도 시끌벅적 하루가 시작되네요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 교실 문 앞에 서서 아이들을 맞는 선생님과 우르르 들어오는 아이들이 한 화면에.<br/><b>장소·시간</b> 무지개반 교실 입구, 맑은 아침. 알록달록 펠트 교실과 무지개 아치 간판, 창으로 환한 햇살이 드는 상쾌한 공기.<br/><b>인물</b> sheep teacher(양 선생님, 크림색 양털·연두 카디건·둥근 안경)는 화면 오른쪽 문가에서 몸을 살짝 숙여 두 팔을 벌리고 활짝 웃으며 아이들을 맞이함. Hori(아기 호랑이)는 왼쪽 앞에서 손을 번쩍 들고 폴짝 뛰며 인사, Kongi(다람쥐, 노란 가방)와 Dubu(강아지, 빨간 목줄)가 그 뒤로 신나게 뛰어 들어옴.<br/><b>배경·소품</b> 무지개 아치 간판이 달린 교실 문, 신발장, 벽의 알록달록 그림과 이름표, 바닥의 폭신한 펠트 매트, 창밖 파란 하늘.<br/><b>톤</b> 밝고 화창한 아침 햇빛, 채도 높은 색감, 하루가 시작되는 포근하고 활기찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>소동 1 — 호리(가방을 두고 옴)</b> <span class="tag">소동</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">제일 먼저 호리가 그만 울상이 됐어요. "선생님… 저, 가방을 집에 두고 왔어요." 눈에 눈물이 그렁그렁. 나는 호리를 살포시 안아 주었어요. "괜찮아, 그럴 수 있어. 오늘은 선생님 크레파스를 같이 쓰자." 그제야 호리가 배시시 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 무릎을 굽혀 호리를 안아 주는 선생님과 빈손의 호리 투샷.<br/><b>장소·시간</b> 무지개반 교실 안, 아침. 밝은 실내, 사물함 앞.<br/><b>인물</b> Hori는 화면 왼쪽에서 두 손을 빈 채로 모으고 어깨를 움츠린 채 눈물이 그렁그렁, 입을 삐죽 내밀어 울상. sheep teacher는 오른쪽에서 무릎을 굽혀 한 팔로 호리를 살며시 감싸 안고 다른 손으로 등을 토닥이며 눈웃음 짓는 다정한 표정.<br/><b>배경·소품</b> 이름표가 붙은 빈 사물함 한 칸(호리 자리·가방 없음), 옆 아이들 가방걸이에 걸린 색색 가방들, 선생님 손 근처의 크레파스 통.<br/><b>톤</b> 밝은 아침 실내광, 호리 주변만 살짝 촉촉한 정서, 안심시키는 포근하고 다정한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>소동 2 — 콩이(물통을 쏟음)</b> <span class="tag">소동</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그림을 그리던 콩이가 그만, 촤르르! 물통을 쏟았어요. 책상이 온통 물바다가 됐지요. 콩이는 어쩔 줄 몰라 발을 동동 굴렀어요. 나는 얼른 걸레를 들고 달려갔어요. "괜찮아, 그럴 수 있어. 같이 쓱쓱 닦으면 되는걸."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글. 물이 쏟아진 책상 옆에서 당황한 콩이와 걸레를 든 선생님.<br/><b>장소·시간</b> 무지개반 미술 책상, 오전. 창가 밝은 실내.<br/><b>인물</b> Kongi(다람쥐, 복슬 꼬리)는 화면 왼쪽 낮은 책상 앞에서 두 손을 볼에 대고 눈을 동그랗게 뜬 채 발을 동동 구르는 당황한 표정. sheep teacher는 오른쪽에서 걸레를 손에 들고 몸을 숙여 다가오며 "괜찮다"는 듯 부드럽게 웃음.<br/><b>배경·소품</b> 물이 촤르르 번진 낮은 책상, 넘어진 물통, 젖어 번진 그림 종이, 흩어진 색연필, 걸레와 물자국.<br/><b>톤</b> 밝은 오전 햇빛, 당황스럽지만 무섭지 않게 귀엽고 소란스러운 정서, 선생님 쪽은 든든하고 침착한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>소동 3 — 토토·보리(다툼)</b> <span class="tag">소동</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">블록 놀이를 하던 토토와 보리가 다퉜어요. "이건 내 거야!" "아니야, 내가 먼저 잡았어!" 토토는 씩씩 화가 나고, 보리는 눈물이 글썽. 나는 둘 사이에 살며시 앉아 두 손을 잡아 주었어요. "한 사람씩 이야기해 볼까? 토토 마음도, 보리 마음도 선생님이 다 들어 줄게."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 두 아이 사이에 앉은 선생님을 가운데 둔 삼각 구도.<br/><b>장소·시간</b> 무지개반 블록 놀이 코너, 오전. 폭신한 매트가 깔린 놀이 공간.<br/><b>인물</b> Toto(토끼, 긴 귀·빨간 손수건)는 화면 왼쪽에서 볼을 부풀리고 눈썹을 치켜올린 채 파란 블록을 두 손으로 꼭 붙잡은 씩씩난 표정. Bori(곰, 파란 멜빵바지)는 오른쪽에서 같은 블록 끝을 잡고 눈물이 글썽, 고개를 숙인 서운한 표정. sheep teacher는 가운데 낮게 앉아 양쪽으로 팔을 뻗어 두 아이의 손을 부드럽게 잡고 차분히 달램.<br/><b>배경·소품</b> 바닥에 흩어진 색색 블록, 반쯤 쌓다 만 블록 탑, 둘이 잡아당기는 파란 블록.<br/><b>톤</b> 밝은 실내광, 다툼이지만 무겁지 않게 아기자기, 선생님이 있어 안전하고 포근한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>소동 4 — 두부(큰 실수)</b> <span class="tag">소동</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 두부예요. 신나게 뛰어다니다가 와르르! 친구들이 높이 쌓은 블록 성을 그만 무너뜨렸어요. 두부는 귀가 축 처져 고개를 푹 숙였어요. 나는 두부 등을 토닥토닥 두드려 주었어요. "괜찮아, 그럴 수 있어. 성은 다시 쌓으면 더 멋있어지는걸."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글. 무너진 블록 더미 옆에 풀 죽은 두부와 등을 토닥이는 선생님.<br/><b>장소·시간</b> 무지개반 블록 코너, 오전. 밝은 실내.<br/><b>인물</b> Dubu(강아지, 빨간 목줄·한쪽 접힌 귀)는 화면 가운데서 귀가 축 처지고 꼬리도 아래로 늘어진 채 고개를 푹 숙여 미안한 표정, 발밑에 무너진 블록. sheep teacher는 오른쪽에서 무릎을 굽혀 한 손으로 두부의 등을 다정하게 토닥이며 괜찮다는 듯 부드럽게 웃음.<br/><b>배경·소품</b> 와르르 무너져 흩어진 색색 블록 더미, 한쪽에 아직 남은 블록 벽 조각, 바닥의 폭신한 매트.<br/><b>톤</b> 밝은 오전 햇빛, 실수했지만 혼내지 않는 따뜻한 정서, 두부 주변은 살짝 시무룩·선생님 쪽은 포근한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>전환(다시 웃음)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">소동이 지나가면, 무지개반은 다시 깔깔깔 웃음소리로 가득해요. 다 같이 노래를 부르고, 맛있는 점심도 냠냠. 나는 이 조그만 얼굴들을 가만히 바라봐요. 넘어지고 쏟고 다퉈도, 우리는 이렇게 또 함께 웃지요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 둥근 점심 식탁에 둘러앉아 웃는 아이들과 그들을 바라보는 선생님.<br/><b>장소·시간</b> 무지개반 점심 식탁, 한낮. 창으로 환한 햇살이 드는 화기애애한 실내.<br/><b>인물</b> Hori·Kongi·Toto·Bori·Dubu가 둥근 낮은 식탁에 둘러앉아 저마다 숟가락을 들고 입을 크게 벌려 냠냠, 서로 마주 보며 깔깔 웃음(각자 특징이 보이게: 호랑이 줄무늬, 다람쥐 꼬리, 토끼 귀, 곰 멜빵, 강아지 목줄). sheep teacher는 화면 뒤쪽에서 두 손을 모으고 흐뭇하게 아이들을 바라보며 미소.<br/><b>배경·소품</b> 색색 그릇에 담긴 아기자기한 펠트 음식, 컵, 벽의 아이들 그림, 창밖 화단.<br/><b>톤</b> 밝고 따뜻한 한낮 햇살, 소동 뒤의 평화로움, 채도 높고 화목한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>하원 준비</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느새 창밖 해가 뉘엿뉘엿 저물어요. "얘들아, 이제 집에 갈 시간이야. 가방 챙기자." 호리도 콩이도 주섬주섬 겉옷을 입고 신발을 신어요. 밖에는 엄마들이 마중을 나와 손을 흔들고 있어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 하원 준비로 겉옷을 입는 아이들과 안내하는 선생님.<br/><b>장소·시간</b> 무지개반 사물함 앞, 해질 무렵. 창밖으로 노을이 물든 오후.<br/><b>인물</b> Hori는 화면 왼쪽에서 겉옷 소매에 팔을 끼우느라 낑낑, 볼이 발그레. Kongi는 그 옆에서 노란 가방을 어깨에 메며 신발을 신음. sheep teacher는 오른쪽에서 몸을 숙여 호리의 옷매무새를 도와주며 다정하게 웃음.<br/><b>배경·소품</b> 이름표가 붙은 사물함, 걸린 겉옷과 가방, 신발장, 창밖 노을과 마중 나온 엄마들의 실루엣.<br/><b>톤</b> 노을빛의 따뜻한 주황 실내광, 하루를 마치는 나른하고 포근한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>감정(더 있고 싶어)</b> <span class="tag">감정 심화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 아이들이 문 앞에서 꾸물꾸물, 발이 안 떨어지나 봐요. "선생님, 저 유치원에 더 있고 싶어요." 호리가 내 손을 두 손으로 꼭 잡았어요. 토토도, 보리도 아쉬운 얼굴로 고개를 끄덕끄덕. 아이고, 우리 무지개반이 그렇게 좋아요?</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 선생님 손에 매달리듯 붙잡는 호리와 곁에 아쉬워하는 아이들.<br/><b>장소·시간</b> 무지개반 교실 문 앞, 해질 무렵. 노을빛이 드는 아늑한 실내.<br/><b>인물</b> Hori는 화면 앞쪽에서 두 손으로 선생님의 한 손을 꼭 잡고 올려다보며 입을 삐죽, 아쉬워하는 조르는 눈. Toto는 옆에서 귀를 늘어뜨리고 고개를 끄덕이는 아쉬운 표정, Bori는 그 뒤에서 발끝을 만지작거리며 서운한 미소. sheep teacher는 오른쪽에서 몸을 숙여 호리를 내려다보며 흐뭇하고 뭉클한 미소.<br/><b>배경·소품</b> 열린 교실 문, 문틈으로 보이는 노을진 바깥, 아이들이 멘 가방들, 벽의 무지개 그림.<br/><b>톤</b> 노을의 따뜻한 주황빛, 헤어지기 아쉬운 뭉클하고 사랑스러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>배웅(교훈) — 잘 쉬어야 내일도 즐거워</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">나는 무릎을 굽혀 한 명 한 명 꼭 안아 주었어요. "오늘 참 잘 놀았어. 집에 가서 푹 자고, 잘 쉬어야 내일도 즐겁지." 그제야 아이들이 방긋 웃었어요. "내일 또 만나요, 선생님!" 손을 흔들며 하나둘 엄마 품으로 달려가요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 무릎 굽혀 아이를 안아 주는 선생님과 손 흔들며 나서는 아이들.<br/><b>장소·시간</b> 무지개반 정문 앞, 해질 무렵. 노을이 곱게 물든 마당.<br/><b>인물</b> sheep teacher는 화면 가운데서 무릎을 굽혀 두 팔로 Bori를 꼭 안아 주며 눈을 감고 다정하게 웃음. Hori와 Toto는 왼쪽에서 뒤돌아 손을 번쩍 흔들며 활짝 웃고, Kongi와 Dubu는 오른쪽에서 엄마 품으로 폴짝 달려감.<br/><b>배경·소품</b> 무지개 아치 간판이 달린 정문, 마중 나온 엄마들, 노을진 하늘, 흔드는 작은 손들.<br/><b>톤</b> 노을의 포근한 주황빛, 사랑과 아쉬움이 어우러진 따뜻한 배웅의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(텅 빈 교실 · 북엔드)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아이들이 모두 돌아가고, 무지개반은 조용해졌어요. 나는 흩어진 블록과 크레파스를 도란도란 정리하며 빙그레 웃어요. 넘어지고 웃던 오늘도 참 반짝이는 하루였어요. "잘 자렴, 우리 무지개반. 내일 또 만나요."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 하이앵글. 텅 빈 교실을 홀로 정리하는 선생님의 뒷모습이 살짝 보이는 잔잔한 컷.<br/><b>장소·시간</b> 무지개반 교실, 저녁. 아이들이 떠나 고요해진 실내, 창밖은 보랏빛으로 저무는 하늘.<br/><b>인물</b> sheep teacher는 화면 가운데서 몸을 살짝 숙여 흩어진 색색 블록과 크레파스를 통에 담으며 창밖을 향해 잔잔하고 흐뭇하게 미소, 혼자지만 따뜻한 표정.<br/><b>배경·소품</b> 정돈되어 가는 블록 통과 크레파스, 벽에 나란히 걸린 아이들 그림과 이름표, 무지개 아치 간판, 창밖의 보랏빛 저녁 하늘과 첫 별 하나.<br/><b>톤</b> 저녁의 부드러운 보랏빛과 실내의 따뜻한 노란 불빛이 어우러진 포근하고 뭉클한 마무리, 내일을 기다리는 여운.</pre></details>
+</div>
+
+<footer>호리네 유치원동화 · Y20 내일 또 만나요 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/yuchiwon-core.js"></script>
+</body>
+</html>

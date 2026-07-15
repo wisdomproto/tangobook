@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 유치원동화 — 다들 어디 가?</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">호리네 유치원동화 · Y01 · 오프너</div>
+  <h1>🏠 다들 어디 가?</h1>
+  <div class="sub">놀 친구를 찾아 나선 호리 — 다들 등원 준비로 바쁘다 → "무지개반"을 발견하고 "나도 갈래!"</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 유치원 발견(시리즈 오프너) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리·토토·보리·콩이·두부·엄마 &nbsp;·&nbsp;
+  <b>장치</b> 반복 훅 비트(친구 부름×4) &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드 &nbsp;·&nbsp; <b>≈대발이</b> 01화
+</div>
+<div class="refrain">🌈 반복 후렴 — "얘들아, 같이 놀자!" … "미안해, 나 지금 바빠!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~9 고정 + 단역) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아침 햇살이 반짝, 호리는 신이 났어요. 오늘은 친구들이랑 실컷 놀 거예요. "얘들아, 같이 놀자!" 호리는 장난감 자동차를 들고 폴짝폴짝 집을 나섰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 현관을 나서는 호리의 전신이 시원하게 보임.<br/><b>장소·시간</b> 호리네 집 앞 마당, 맑은 아침. 화단에 꽃이 피고 파란 하늘, 상쾌하고 활기찬 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 가운데서 한 손에 빨간 장난감 자동차를 번쩍 들고 다른 손을 흔들며 폴짝 뛰어오름, 눈은 초승달처럼 웃고 입을 크게 벌려 신난 표정, 꼬리가 위로 살랑.<br/><b>배경·소품</b> 호리네 집 현관문과 화단, 발밑에 폴짝 뛰는 효과선, 손에 든 빨간 자동차, 뒤로 파란 하늘과 흰 구름 몇 송이.<br/><b>톤</b> 밝고 화창한 아침 햇빛, 채도 높은 색감, 하루가 시작되는 설레고 경쾌한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>부름 1 — 토토(바쁨)</b> <span class="tag">반복·후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">먼저 토토네 집. "토토야, 자동차 놀이 하자!" 그런데 토토는 바쁜가 봐요. 치카치카 양치하고, 세수도 뽀득뽀득. "미안해, 나 지금 바빠!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 어깨너머 앵글. 세면대 앞 토토와 문가의 호리를 한 화면에.<br/><b>장소·시간</b> 토토네 집 화장실 앞, 아침. 밝은 실내등 아래 물기 반짝이는 세면대.<br/><b>인물</b> Toto(토끼, 긴 귀)는 화면 오른쪽 세면대 앞에서 칫솔을 입에 물고 치카치카, 한 손엔 컵을 들고 몸은 거울을 향한 채 고개만 호리 쪽으로 살짝 돌려 미안한 미소. Hori는 왼쪽 문가에서 빨간 자동차를 든 채 고개를 빼꼼 내밀어 초대하는 표정이었다가 살짝 김빠진 눈.<br/><b>배경·소품</b> 세면대·거울·수건걸이, 컵과 치약 거품, 문틀, 바닥에 놓인 빨간 자동차.<br/><b>톤</b> 밝고 청량한 아침 실내광, 물방울 반짝임, 경쾌하지만 호리 쪽은 살짝 아쉬운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>부름 2 — 보리(바쁨)</b> <span class="tag">반복·후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음은 보리네 집. "보리야, 꽃 보러 가자!" 그런데 보리도 바쁜가 봐요. 단정하게 머리 빗고, 반짝반짝 옷도 갈아입어요. "미안해, 나 지금 바빠!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 거울 앞에서 단장하는 보리와 창가의 호리.<br/><b>장소·시간</b> 보리네 집 방, 아침. 창으로 부드러운 햇살이 드는 아늑한 방.<br/><b>인물</b> Bori(곰, 통통한 몸·파란 멜빵바지)는 화면 오른쪽 거울 앞에서 빗으로 머리를 단정히 빗으며 몸을 살짝 돌려 호리에게 미안한 듯 눈웃음, 표정은 부드럽고 수줍음. Hori는 왼쪽 창가에서 손에 든 분홍 꽃 한 송이를 내밀다 멈칫, 어리둥절한 눈.<br/><b>배경·소품</b> 거울과 옷걸이, 빗, 호리가 든 분홍 꽃, 창밖 화단, 방 안의 아기자기한 펠트 소품.<br/><b>톤</b> 창에서 드는 포근한 아침 햇살, 부드럽고 정겨운 분위기, 호리 쪽엔 옅은 물음표 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>부름 3 — 콩이(바쁨)</b> <span class="tag">반복·후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 콩이네 집. "콩이야, 모래 성 만들자!" 그런데 콩이도 바쁜가 봐요. 이것저것 준비물을 챙기고, 노란 가방을 척 메요. "미안해, 나 지금 바빠!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글. 가방을 메는 콩이와 문가의 호리.<br/><b>장소·시간</b> 콩이네 집 거실, 아침. 밝은 실내, 현관으로 이어지는 공간.<br/><b>인물</b> Kongi(다람쥐, 복슬 꼬리·볼록한 볼)는 화면 오른쪽에서 노란 가방을 어깨에 척 메며 도토리 모양 물통·색연필을 챙기느라 분주, 고개만 돌려 호리에게 장난스러운 미안한 미소. Hori는 왼쪽 문가에서 모래놀이 삽과 양동이를 든 채 눈을 동그랗게 뜨고 바라봄.<br/><b>배경·소품</b> 노란 가방, 도토리 물통, 색연필 몇 자루, 호리가 든 모래놀이 삽·양동이, 현관 신발장.<br/><b>톤</b> 밝은 아침 실내광, 분주하고 경쾌한 준비 분위기, 호리 쪽은 점점 커지는 궁금함.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>부름 4 — 두부(바쁨)</b> <span class="tag">반복·후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마지막으로 두부. "두부야, 우리 달리기 하자!" 그런데 두부도 바쁜가 봐요. 엄마랑 노란 버스 앞에 줄을 서요. 멍멍! "미안, 나도 지금 바빠!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 노란 버스 앞 줄과 달려온 호리.<br/><b>장소·시간</b> 동네 버스 정류장, 아침. 노란 유치원 버스가 서 있고 화창한 하늘.<br/><b>인물</b> Dubu(하얀 강아지, 빨간 목줄)는 화면 오른쪽에서 엄마 손을 잡고 노란 버스 앞에 얌전히 줄을 서서 꼬리를 살랑, 고개만 호리 쪽으로 돌려 혀 내밀고 미안한 표정. Hori는 왼쪽에서 헐레벌떡 달려와 멈춰 서서 숨을 고르며 버스를 올려다보는 어리둥절한 얼굴.<br/><b>배경·소품</b> 노란 유치원 버스, 버스 앞에 줄 선 실루엣들, 정류장 표지, 파란 하늘.<br/><b>톤</b> 밝은 아침 햇빛, 노란 버스가 화면의 포인트 컬러, 경쾌하지만 호리는 어리둥절한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>감정(속상함)</b> <span class="tag">감정 심화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리는 그만 시무룩해졌어요. "다들 어디 가는 거야? 나만 빼고…" 어깨가 축 처지고, 손에 든 자동차도 힘없이 툭.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글로 내려다봄. 혼자 남은 호리의 쓸쓸한 전신.<br/><b>장소·시간</b> 버스 정류장 근처 길가, 아침. 친구들은 가고 텅 빈 거리, 밝지만 허전한 공기.<br/><b>인물</b> Hori는 화면 가운데 홀로 서서 어깨가 축 처지고 고개를 푹 숙임, 눈은 아래를 보며 입은 시무룩하게 다물림, 한 손에 든 빨간 자동차가 힘없이 아래로 툭 내려감, 꼬리도 축 늘어짐.<br/><b>배경·소품</b> 텅 빈 길, 멀리 떠나는 노란 버스의 뒷모습, 발밑에 호리 그림자, 흩날리는 낙엽 한 장.<br/><b>톤</b> 밝은 아침 햇빛이지만 호리 주변만 채도가 살짝 낮아 외로움 강조, 안쓰럽고 조용한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>발견(무지개반)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 노란 버스가 멈춘 곳을 봤어요. 알록달록 무지개 간판이 걸린 집! 토토도 보리도 콩이도 두부도 모두 그 안으로 쏙쏙. "아하! 다들 유치원에 가는구나!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 무지개 간판의 유치원 건물이 시원하게 보이는 발견 컷.<br/><b>장소·시간</b> 무지개반 유치원 앞, 아침. 아기자기한 펠트 건물과 무지개 간판, 화창한 하늘.<br/><b>인물</b> Hori는 화면 앞쪽에서 두 손을 살짝 들고 눈을 크게 동그랗게 뜬 채 입을 'O'로 벌려 "아하!" 하는 깨달음의 표정, 건물을 올려다봄. 문 앞으로 Toto·Bori·Kongi·Dubu가 차례로 들어가는 뒷모습(각자 특징이 보이게: 토끼 긴 귀, 곰 멜빵, 다람쥐 노란 가방, 강아지 빨간 목줄).<br/><b>배경·소품</b> 무지개 아치 간판이 달린 펠트 유치원 건물, 열린 정문, 노란 버스, 창문 안으로 보이는 아늑한 교실, 파란 하늘.<br/><b>톤</b> 밝고 화창한 햇빛, 무지개 간판이 화면의 색 포인트, 궁금증이 풀리는 산뜻하고 기대되는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>소망(나도 갈래)</b> <span class="tag">전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">유치원 안에서는 노랫소리, 웃음소리가 흘러나와요. 다 같이 그림 그리고, 블록 쌓고, 정말 재밌어 보여요. "나도… 나도 저기서 놀고 싶어!" 호리의 눈이 반짝였어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 창문 너머를 들여다보는 어깨너머 앵글.<br/><b>장소·시간</b> 무지개반 유치원 창가 바깥, 아침. 창 안은 환하고 따뜻한 교실.<br/><b>인물</b> Hori는 화면 앞쪽에서 유치원 낮은 창틀을 두 손으로 붙잡고 까치발로 서서 안을 들여다봄, 눈이 별처럼 반짝이고 입가에 부러운 미소, 꼬리가 다시 살짝 위로 올라감. 창 안으로 아이들이 그림 그리고 블록 쌓으며 즐겁게 노는 모습이 흐릿하게 보임.<br/><b>배경·소품</b> 유치원 창문, 창 안의 색색 그림·블록·교구, 창틀의 작은 화분, 밖에 선 호리.<br/><b>톤</b> 창 안에서 새어 나오는 따뜻한 실내광과 밝은 아침 바깥광의 대비, 동경과 설렘이 피어나는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>약속(엄마)</b> <span class="tag">적용</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집으로 달려온 호리가 엄마를 꼭 안았어요. "엄마! 나도 유치원 가고 싶어!" 엄마가 빙그레 웃으며 호리 머리를 쓰다듬어요. "그래, 우리 호리도 이제 무지개반 친구가 되는 거야. 내일부터!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 엄마 품에 안긴 호리의 다정한 투샷.<br/><b>장소·시간</b> 호리네 집 거실, 낮. 따뜻한 햇살이 드는 아늑한 실내.<br/><b>인물</b> Hori는 화면 가운데서 엄마 허리를 두 팔로 꼭 끌어안고 고개를 들어 올려다보며 눈을 반짝, 볼이 발그레 상기된 조르는 표정. Mom tiger(복숭아색 앞치마)는 몸을 살짝 숙여 한 손으로 호리 머리를 부드럽게 쓰다듬고 다른 손으로 등을 토닥이며 흐뭇하게 빙그레 웃음.<br/><b>배경·소품</b> 거실 소파와 창, 벽의 작은 액자, 바닥에 놓인 빨간 자동차, 창밖의 화단.<br/><b>톤</b> 따뜻한 낮 햇살, 포근하고 다정한 가족의 정서, 설렘과 안정감이 어우러진 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(설렘 · 다음 예고)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 밤, 호리는 좀처럼 잠이 안 와요. 무지개반은 어떤 곳일까? 친구들이랑 뭐 하고 놀까? "내일은 나도 무지개반!" 호리는 이불 속에서 두근두근, 웃음이 삐죽 났어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글. 이불 속 호리의 설레는 얼굴.<br/><b>장소·시간</b> 호리 방 침대, 밤. 창밖은 별이 뜨고 무드등이 은은히 켜진 포근한 밤 공기.<br/><b>인물</b> Hori는 침대에 누워 이불을 턱까지 덮고 두 눈을 말똥말똥 뜬 채 천장을 보며 볼이 발그레, 입가엔 설레는 미소가 삐죽, 이불 밖으로 나온 꼬리 끝이 살랑살랑 흔들림.<br/><b>배경·소품</b> 침대와 이불, 머리맡 무드등, 창밖의 밤하늘과 별, 호리 머리 위에 몽글몽글 떠오르는 무지개 간판·크레파스·블록의 작은 상상 이미지.<br/><b>톤</b> 무드등의 따뜻한 주황빛과 창밖 밤의 남색이 어우러진 포근한 밤 분위기, 내일을 향한 두근거리는 설렘.</pre></details>
+</div>
+
+<footer>호리네 유치원동화 · Y01 다들 어디 가? · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/yuchiwon-core.js"></script>
+</body>
+</html>

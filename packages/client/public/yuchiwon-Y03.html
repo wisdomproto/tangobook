@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 유치원동화 — 안녕, 이 한마디</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">호리네 유치원동화 · Y03 · 적응기</div>
+  <h1>🙈 안녕, 이 한마디</h1>
+  <div class="sub">인사하고 싶은데 입이 안 떨어지는 보리 — 양 선생님과 호리의 도움으로 첫 "안녕"을 꺼내다</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 사회불안·인사 코칭 &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 보리·호리·토토·콩이·양 선생님 &nbsp;·&nbsp;
+  <b>장치</b> 인사 도전 반복 + 선생님·또래 코칭 &nbsp;·&nbsp; <b>구조</b> 5비트 &nbsp;·&nbsp; <b>분량</b> 10 스프레드 &nbsp;·&nbsp; <b>≈대발이</b> 03화
+</div>
+<div class="refrain">🌈 반복 후렴 — "안녕… 이 한마디가 왜 이렇게 어려울까?"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~9 고정 + 단역) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>일상(도입)</b> <span class="tag">일상</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">무지개반 아침이 되면 여기저기서 인사 소리가 넘쳐요. "안녕!" "안녕하세요!" 토토도 콩이도 손을 번쩍 흔들어요. 보리도 인사하고 싶어요. 마음속으론 벌써 백 번도 더 했는걸요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 아침 인사가 오가는 무지개반 교실 전경.<br/><b>장소·시간</b> 무지개반 교실, 등원 아침. 색색 게시판과 옷걸이가 있는 환한 교실.<br/><b>인물</b> Toto(토끼, 긴 귀)는 화면 왼쪽에서 손을 번쩍 흔들며 활짝 인사, Kongi(다람쥐, 복슬 꼬리)는 가운데서 폴짝 뛰며 손을 흔듦. 화면 오른쪽 문가에 Bori(곰, 파란 멜빵)는 가방을 두 손으로 꼭 안고 서서 그 모습을 바라봄, 입은 열고 싶은 듯 살짝 벌어졌지만 소리는 못 냄, 눈이 부러운 듯 반짝.<br/><b>배경·소품</b> 이름표가 붙은 옷걸이, 색색 게시판, 교실 문, 아이들 신발.<br/><b>톤</b> 밝고 활기찬 아침 교실광, 인사가 오가는 왁자한 분위기, 보리 쪽만 살짝 조심스러운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>결점(입이 안 떨어짐)</b> <span class="tag">결점·사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보리도 "안녕!" 하려고 입을 벌렸어요. 그런데 목소리가 쏙 숨어 버렸어요. 볼이 발그레 빨개지고, 가방 끈만 꼬옥. "안녕… 이 한마디가 왜 이렇게 어려울까?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨 정면. 인사하려다 얼어붙은 보리의 얼굴과 상반신.<br/><b>장소·시간</b> 무지개반 교실 문가, 등원 아침. 환한 교실 한쪽.<br/><b>인물</b> Bori는 화면 가운데서 입을 살짝 벌렸다가 도로 오므리며 소리를 삼킴, 두 볼이 발그레 빨개지고 눈이 아래로 살짝 내려감, 두 손으로 가방 끈을 꼭 쥐고 어깨를 움츠림.<br/><b>배경·소품</b> 교실 문틀, 흐릿한 게시판, 보리 머리 위로 작게 떠올랐다 스러지는 하트·음표 모양.<br/><b>톤</b> 밝은 교실광이지만 보리에게 부드럽게 초점이 모임, 수줍고 조마조마한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>결점(혼자 놂)</b> <span class="tag">결점·사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">인사를 못 하니까 같이 놀자는 말도 못 꺼냈어요. 보리는 교실 구석에서 혼자 블록을 만지작만지작. 친구들 웃음소리가 들려도 다가가지 못했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글. 구석에서 혼자 노는 보리를 살짝 위에서 내려다봄.<br/><b>장소·시간</b> 무지개반 교실 놀이 구역, 오전. 밝지만 보리 자리만 한적한 구석.<br/><b>인물</b> Bori는 화면 앞쪽 구석에 홀로 앉아 블록 하나를 손끝으로 만지작거림, 고개를 살짝 숙이고 눈은 저편 친구들을 힐끔, 어깨가 안으로 말림. 화면 안쪽 멀리 Toto와 Kongi가 함께 블록 탑을 쌓으며 웃는 뒷모습이 흐릿하게.<br/><b>배경·소품</b> 색색 블록 바구니, 보리 앞의 낮은 블록, 저편의 큰 블록 탑, 교실 러그.<br/><b>톤</b> 밝은 오전광이지만 보리 주변만 채도가 살짝 낮음, 외롭고 머뭇거리는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>감정(부러움)</b> <span class="tag">감정 심화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">친구들은 금세 친해져서 깔깔깔 웃어요. 보리는 그 모습을 물끄러미 바라봤어요. "나도 저기 끼고 싶은데…" 마음은 저만치 달려가는데 발이 안 떨어져요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 앵글. 보리의 어깨 너머로 어울려 노는 친구들을 바라봄.<br/><b>장소·시간</b> 무지개반 교실, 오전. 놀이가 무르익은 활기찬 교실.<br/><b>인물</b> 화면 앞쪽 뒷모습으로 Bori가 두 손을 무릎에 얹고 앉아 친구들 쪽을 바라봄, 옆얼굴에 부러운 미소와 아쉬움이 섞임. 화면 안쪽에 Toto와 Kongi가 마주 보고 깔깔 웃으며 블록을 쌓음.<br/><b>배경·소품</b> 블록 탑, 흩어진 장난감, 교실 창으로 드는 햇살, 보리와 친구들 사이의 빈 공간.<br/><b>톤</b> 밝은 교실광, 친구들 쪽은 따뜻하고 보리 쪽은 살짝 쓸쓸한 대비, 동경과 망설임의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>도전 실패(또 못 함)</b> <span class="tag">감정 심화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보리는 용기를 내서 친구들 곁으로 한 발짝 다가갔어요. "아, 안…" 그런데 또 목소리가 쏙 들어가 버렸어요. 보리는 얼른 뒤돌아 자리로 돌아왔어요. 콩닥콩닥, 심장만 세게 뛰었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면. 다가가려다 멈칫 뒤돌아서는 보리.<br/><b>장소·시간</b> 무지개반 교실 놀이 구역 근처, 오전. 친구들 무리와 조금 떨어진 자리.<br/><b>인물</b> Bori는 화면 가운데서 한 발을 앞으로 내밀었다가 몸을 반쯤 뒤로 돌림, 입을 벌리다 만 채 볼이 빨개지고 눈을 질끈, 두 손을 가슴 앞에 모아 쥠. 화면 안쪽에 Toto와 Kongi가 노는 데 열중해 아직 보리를 눈치채지 못함.<br/><b>배경·소품</b> 보리 발밑의 방향이 엇갈린 발자국 느낌, 블록과 장난감, 보리 가슴 위로 콩닥이는 하트 효과.<br/><b>톤</b> 밝은 교실광, 용기와 후퇴가 엇갈리는 긴장, 안쓰럽고 조마조마한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>감정(시무룩)</b> <span class="tag">감정 심화</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보리는 그만 시무룩해졌어요. "난 왜 안녕도 못 할까…" 무릎을 끌어안고 고개를 폭 숙였어요. 눈물이 찔끔 나올 것 같았어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글. 무릎을 안고 웅크린 보리를 위에서 내려다봄.<br/><b>장소·시간</b> 무지개반 교실 구석, 오전. 친구들과 떨어진 조용한 자리.<br/><b>인물</b> Bori는 화면 가운데서 두 무릎을 끌어안고 그 위에 얼굴을 폭 숙임, 눈가에 눈물이 찔끔 맺히고 눈썹이 팔자로 처짐, 어깨가 축 늘어짐.<br/><b>배경·소품</b> 보리 옆에 놓인 블록 하나, 교실 러그, 발밑 그림자, 저편 친구들은 화면 밖.<br/><b>톤</b> 밝은 오전광이지만 보리 주변만 부드럽게 어두워짐, 속상하고 자책하는 조용한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>전환(선생님 코칭)</b> <span class="tag">전환·가이드</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 포근한 양 선생님이 곁에 살포시 앉았어요. "보리야, 말이 안 나오면 손부터 흔들어 볼까? 이렇게, 안녕~" 선생님이 손을 살랑살랑 흔들자, 보리도 따라 손을 조금 흔들어 봤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 나란히 앉아 손 흔드는 법을 보여 주는 선생님과 보리.<br/><b>장소·시간</b> 무지개반 교실 구석, 오전. 보리가 앉아 있던 조용한 자리.<br/><b>인물</b> sheep teacher(양 선생님, 뽀글뽀글한 양털·연두색 카디건)는 화면 오른쪽에 보리와 나란히 앉아 한 손을 얼굴 옆에서 살랑살랑 흔들며 다정하게 눈웃음. Bori는 왼쪽에서 고개를 들어 선생님을 보며 한 손을 어색하게 조금 들어 따라 흔듦, 눈물이 마르고 눈에 조심스러운 호기심.<br/><b>배경·소품</b> 두 사람 사이 러그, 블록 몇 개, 창으로 드는 햇살, 선생님 카디건의 작은 무지개 자수.<br/><b>톤</b> 따뜻한 오전 햇살, 포근하고 다독이는 정서, 얼음이 살짝 녹는 순간.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>전환(호리 먼저 손 내밈)</b> <span class="tag">전환·가이드</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 호리가 보리 앞으로 쪼르르 다가왔어요. "보리야, 안녕! 나랑 같이 놀래?" 호리가 먼저 손을 쑥 내밀었어요. 따뜻한 손을 보자 보리 마음도 몽글몽글해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 손을 내미는 호리와 그 손을 바라보는 보리.<br/><b>장소·시간</b> 무지개반 교실 구석, 오전. 선생님이 곁에서 지켜보는 자리.<br/><b>인물</b> Hori(아기 호랑이)는 화면 왼쪽에서 몸을 살짝 숙여 한 손을 보리에게 쑥 내밀며 활짝 웃음, 눈이 초승달처럼 반짝. Bori는 오른쪽에서 그 손을 바라보며 볼이 발그레하지만 입가에 작은 미소가 피어오름, 손을 마주 내밀까 말까 살짝 든다. 화면 뒤쪽에 sheep teacher가 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 두 아이 사이의 내민 손, 러그와 블록, 창으로 드는 햇살, 선생님의 연두색 카디건.<br/><b>톤</b> 따뜻하고 밝은 오전광, 마음이 이어지는 다정한 정서, 설렘이 피어나는 순간.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>착지(첫 "안녕" 성공)</b> <span class="tag">착지</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보리는 크게 숨을 후우 쉬고, 호리 손을 마주 잡았어요. 그리고 아주 작게, 하지만 또렷하게 말했어요. "…안녕." 처음으로 입 밖에 나온 한마디! 보리 얼굴에 환한 웃음이 활짝 피었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨 정면. 손을 마주 잡고 첫 인사를 건네는 보리의 환한 얼굴.<br/><b>장소·시간</b> 무지개반 교실 구석, 오전. 밝은 햇살이 두 아이를 비추는 자리.<br/><b>인물</b> Bori는 화면 가운데서 Hori의 손을 두 손으로 마주 잡고 입을 살짝 벌려 작게 "안녕"을 건넴, 볼은 여전히 발그레하지만 눈이 환하게 웃고 입가에 활짝 미소, 어깨의 힘이 풀림. Hori는 곁에서 눈을 반짝이며 같이 활짝 웃음.<br/><b>배경·소품</b> 마주 잡은 두 손, 보리 머리 위로 또렷하게 피어오르는 밝은 하트·별 반짝임, 흐릿한 교실 배경.<br/><b>톤</b> 밝고 따뜻한 햇살, 해냈다는 기쁨이 터지는 환한 정서, 뿌듯하고 벅찬 순간.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>마무리(다음 날 · 교훈)</b> <span class="tag">마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날 아침, 보리가 교실 문을 열자마자 손을 번쩍 흔들었어요. "얘들아, 안녕!" 처음이 어렵지, 한 번 해 보니 두 번째는 훨씬 쉬웠어요. 작은 인사 한마디가 마음의 문을 활짝 열어 주었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 교실 문을 열고 씩씩하게 인사하는 보리.<br/><b>장소·시간</b> 무지개반 교실 문가, 다음 날 등원 아침. 환하고 활기찬 교실.<br/><b>인물</b> Bori는 화면 가운데서 한 손을 번쩍 들어 활짝 흔들며 씩씩하게 인사, 눈은 초승달처럼 웃고 입을 크게 벌림, 어깨가 활짝 펴짐. 화면 양옆에서 Hori와 Toto, Kongi가 반갑게 손을 마주 흔들며 웃음.<br/><b>배경·소품</b> 교실 문과 이름표 옷걸이, 색색 게시판, 아침 햇살, 아이들 사이 오가는 하트·별 반짝임.<br/><b>톤</b> 밝고 화창한 아침 교실광, 활기차고 따뜻한 정서, 마음의 문이 열린 개운한 분위기.</pre></details>
+</div>
+
+<footer>호리네 유치원동화 · Y03 안녕, 이 한마디 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script src="/yuchiwon-core.js"></script>
+</body>
+</html>
