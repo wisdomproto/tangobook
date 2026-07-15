@@ -98,6 +98,10 @@ export interface GA4DailyRow {
   avgSessionSec: number;
   engagementSec: number;
 }
+export interface GA4HourRow {
+  hour: number; // 0~23
+  sessions: number;
+}
 
 // --- Meta channel analytics ---
 export interface MetaContentMetric {

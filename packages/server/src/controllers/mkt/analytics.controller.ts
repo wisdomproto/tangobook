@@ -13,6 +13,8 @@ import {
   getNewReturning,
   getMembership,
   getDaily,
+  getDevice,
+  getHourly,
   getMetaInsights,
   getYoutubeChannel,
 } from '../../services/mkt/analytics.service.js';
@@ -113,6 +115,24 @@ export const analyticsDaily = asyncHandler(async (req: Request, res: Response) =
   if (!projectId) throw new AppError(400, 'projectId is required');
   const cfg = await resolveGa4Config(projectId);
   const data = await getDaily(cfg, period ?? '7d');
+  res.json({ success: true, data });
+});
+
+/** POST /api/mkt/analytics/device  Body: { projectId, period? } — 디바이스 분포 */
+export const analyticsDevice = asyncHandler(async (req: Request, res: Response) => {
+  const { projectId, period } = req.body as AnalyticsBody;
+  if (!projectId) throw new AppError(400, 'projectId is required');
+  const cfg = await resolveGa4Config(projectId);
+  const data = await getDevice(cfg, period ?? '7d');
+  res.json({ success: true, data });
+});
+
+/** POST /api/mkt/analytics/hourly  Body: { projectId, period? } — 시간대별 세션 */
+export const analyticsHourly = asyncHandler(async (req: Request, res: Response) => {
+  const { projectId, period } = req.body as AnalyticsBody;
+  if (!projectId) throw new AppError(400, 'projectId is required');
+  const cfg = await resolveGa4Config(projectId);
+  const data = await getHourly(cfg, period ?? '7d');
   res.json({ success: true, data });
 });
 

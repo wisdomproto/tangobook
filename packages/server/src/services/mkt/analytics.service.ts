@@ -71,6 +71,10 @@ export interface GA4DailyRow {
   avgSessionSec: number; // averageSessionDuration (초, 세션 평균)
   engagementSec: number; // userEngagementDuration (총 참여 초 — PV당 체류 계산용)
 }
+export interface GA4HourRow {
+  hour: number; // 0~23
+  sessions: number;
+}
 
 export interface ResolvedGa4 {
   propertyId: string;
@@ -357,6 +361,33 @@ export async function getDaily(cfg: ResolvedGa4, period: Period): Promise<GA4Dai
     newUsers: int(r.metricValues?.[2]?.value),
     avgSessionSec: flt(r.metricValues?.[3]?.value),
     engagementSec: flt(r.metricValues?.[4]?.value),
+  }));
+}
+
+/** 디바이스 분포 (deviceCategory: desktop/mobile/tablet). mapTraffic 재사용(dim[0]=device). */
+export async function getDevice(cfg: ResolvedGa4, period: Period): Promise<GA4TrafficSource[]> {
+  const report = await runReport(cfg, {
+    dateRanges: [dateRangeFor(period)],
+    metrics: [{ name: 'activeUsers' }, { name: 'sessions' }],
+    dimensions: [{ name: 'deviceCategory' }],
+    orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
+    limit: 5,
+  });
+  return mapTraffic(report);
+}
+
+/** 시간대별 세션 (GA4 `hour` 00~23). 데이터 있는 시간만 반환 — 0~23 채우기는 클라. */
+export async function getHourly(cfg: ResolvedGa4, period: Period): Promise<GA4HourRow[]> {
+  const report = await runReport(cfg, {
+    dateRanges: [dateRangeFor(period)],
+    metrics: [{ name: 'sessions' }],
+    dimensions: [{ name: 'hour' }],
+    orderBys: [{ dimension: { dimensionName: 'hour' } }],
+    limit: 24,
+  });
+  return (report.rows ?? []).map((r) => ({
+    hour: int(r.dimensionValues?.[0]?.value),
+    sessions: int(r.metricValues?.[0]?.value),
   }));
 }
 

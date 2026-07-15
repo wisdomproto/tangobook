@@ -15,9 +15,12 @@ import {
   useGa4NewReturning,
   useGa4Membership,
   useGa4Daily,
+  useGa4Device,
+  useGa4Hourly,
 } from '../../api/use-analytics';
 import { OverviewCards } from './OverviewCards';
 import { DailyTrafficChart } from './DailyTrafficChart';
+import { HourlyTrafficChart } from './HourlyTrafficChart';
 import { TrafficChart } from './TrafficChart';
 import { TopPagesTable } from './TopPagesTable';
 import { CountryTraffic } from './CountryTraffic';
@@ -36,6 +39,12 @@ const LANG_LABELS: Record<string, string> = {
 const NEWRET_LABELS: Record<string, string> = { new: '🆕 신규', returning: '🔁 재방문' };
 // 커스텀 membership 값 → 라벨
 const MEMBER_LABELS: Record<string, string> = { member: '👤 회원', guest: '🚶 비회원' };
+// GA4 deviceCategory 값 → 라벨
+const DEVICE_LABELS: Record<string, string> = {
+  desktop: '💻 데스크톱',
+  mobile: '📱 모바일',
+  tablet: '🖥️ 태블릿',
+};
 import type { GA4Config, FunnelConfig } from '../../types/analytics';
 
 interface AnalyticsDashboardProps {
@@ -69,6 +78,8 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
   const newReturning = useGa4NewReturning(projectId, period, enabled);
   const membership = useGa4Membership(projectId, period, enabled);
   const daily = useGa4Daily(projectId, period, enabled);
+  const device = useGa4Device(projectId, period, enabled);
+  const hourly = useGa4Hourly(projectId, period, enabled);
 
   // Surface first error as a banner (GA4 quota / 429 → banner, not crash)
   const firstError =
@@ -191,6 +202,16 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <TrafficChart data={traffic.data ?? []} />
             <CountryTraffic data={country.data ?? []} />
+          </div>
+          {/* 디바이스 + 시간대별 트래픽 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <BreakdownCard
+              title="💻 디바이스"
+              data={device.data ?? []}
+              isLoading={device.isLoading}
+              labelMap={DEVICE_LABELS}
+            />
+            <HourlyTrafficChart data={hourly.data ?? []} isLoading={hourly.isLoading} />
           </div>
           <TopPagesTable
             pages={topPages.data ?? []}

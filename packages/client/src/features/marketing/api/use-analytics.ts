@@ -7,6 +7,7 @@ import type {
   GA4CountryRow,
   GA4ContentRow,
   GA4DailyRow,
+  GA4HourRow,
   SeoAuditResult,
   MetaInsightsResult,
   MetaOverviewMetrics,
@@ -192,6 +193,34 @@ export function useGa4Daily(
     enabled: enabled && !!projectId,
     staleTime: STALE_TIME,
     queryFn: () => postMkt<GA4DailyRow[]>('/analytics/daily', { projectId, period }),
+  });
+}
+
+/** POST /api/mkt/analytics/device  Body: { projectId, period } — 디바이스 분포 */
+export function useGa4Device(
+  projectId: string,
+  period: 'today' | 'yesterday' | '7d' | '30d' = '7d',
+  enabled = !!projectId
+) {
+  return useQuery({
+    queryKey: mktKeys.analyticsDevice(projectId, period),
+    enabled: enabled && !!projectId,
+    staleTime: STALE_TIME,
+    queryFn: () => postMkt<GA4TrafficSource[]>('/analytics/device', { projectId, period }),
+  });
+}
+
+/** POST /api/mkt/analytics/hourly  Body: { projectId, period } — 시간대별 세션 */
+export function useGa4Hourly(
+  projectId: string,
+  period: 'today' | 'yesterday' | '7d' | '30d' = '7d',
+  enabled = !!projectId
+) {
+  return useQuery({
+    queryKey: mktKeys.analyticsHourly(projectId, period),
+    enabled: enabled && !!projectId,
+    staleTime: STALE_TIME,
+    queryFn: () => postMkt<GA4HourRow[]>('/analytics/hourly', { projectId, period }),
   });
 }
 
