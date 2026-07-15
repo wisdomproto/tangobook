@@ -8,6 +8,8 @@ import {
   getTopPages,
   getCountry,
   getContent,
+  getSource,
+  getLanguage,
   getMetaInsights,
   getYoutubeChannel,
 } from '../../services/mkt/analytics.service.js';
@@ -63,6 +65,24 @@ export const analyticsContentPerformance = asyncHandler(async (req: Request, res
   if (!projectId) throw new AppError(400, 'projectId is required');
   const cfg = await resolveGa4Config(projectId);
   const data = await getContent(cfg, period ?? '30d');
+  res.json({ success: true, data });
+});
+
+/** POST /api/mkt/analytics/source  Body: { projectId, period? } — 유입 소스/매체 */
+export const analyticsSource = asyncHandler(async (req: Request, res: Response) => {
+  const { projectId, period } = req.body as AnalyticsBody;
+  if (!projectId) throw new AppError(400, 'projectId is required');
+  const cfg = await resolveGa4Config(projectId);
+  const data = await getSource(cfg, period ?? '7d');
+  res.json({ success: true, data });
+});
+
+/** POST /api/mkt/analytics/language  Body: { projectId, period? } — 앱 UI 언어별(app_language 커스텀 디멘션) */
+export const analyticsLanguage = asyncHandler(async (req: Request, res: Response) => {
+  const { projectId, period } = req.body as AnalyticsBody;
+  if (!projectId) throw new AppError(400, 'projectId is required');
+  const cfg = await resolveGa4Config(projectId);
+  const data = await getLanguage(cfg, period ?? '7d');
   res.json({ success: true, data });
 });
 

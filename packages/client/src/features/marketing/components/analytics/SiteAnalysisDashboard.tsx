@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { cn } from '../../lib/utils';
-import { useProject } from '../../api/use-projects';
-import { MarketingLanguageTabs } from '../ideas/MarketingLanguageTabs';
 import { AnalyticsDashboard } from './AnalyticsDashboard';
 import { SeoDashboard } from './seo/SeoDashboard';
 
@@ -13,27 +11,14 @@ interface SiteAnalysisDashboardProps {
 
 /**
  * 2-sub-tab wrapper: "GA4 트래픽" | "SEO 분석".
- * Uses MarketingLanguageTabs (display-only lang context — the language row is
- * shown here for visual parity with the CF design; it does not filter GA4 data
- * which is site-global, not per-language).
- * Port of CF analytics/site-analysis-dashboard.tsx.
+ * (상단 언어 탭은 GA4 가 사이트 전역이라 필터가 안 돼 아무 기능이 없어 제거함 — 2026-07-14.
+ *  언어별 분포는 AnalyticsDashboard 의 "언어별" 카드(app_language 커스텀 디멘션)로 대체.)
  */
 export function SiteAnalysisDashboard({ projectId }: SiteAnalysisDashboardProps) {
   const [activeTab, setActiveTab] = useState<TabId>('ga4');
-  const [selectedLang, setSelectedLang] = useState('ko');
-  const { data: project } = useProject(projectId);
-
-  const targetLanguages = (project?.target_languages as string[] | undefined) ?? [];
 
   return (
     <div className="p-6 max-w-6xl space-y-4">
-      {/* Language row (display-only context for the dashboard) */}
-      <MarketingLanguageTabs
-        targetLanguages={targetLanguages}
-        selectedLang={selectedLang}
-        onLangChange={setSelectedLang}
-      />
-
       {/* Sub-tab bar */}
       <div className="flex gap-1 border-b border-border pb-1">
         <button

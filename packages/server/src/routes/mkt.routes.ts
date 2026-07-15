@@ -23,6 +23,8 @@ import {
   analyticsTopPages,
   analyticsCountryTraffic,
   analyticsContentPerformance,
+  analyticsSource,
+  analyticsLanguage,
   metaInsights,
   youtubeChannel,
 } from '../controllers/mkt/analytics.controller.js';
@@ -85,6 +87,8 @@ router.post('/analytics/traffic', analyticsTraffic);
 router.post('/analytics/top-pages', analyticsTopPages);
 router.post('/analytics/country-traffic', analyticsCountryTraffic);
 router.post('/analytics/content-performance', analyticsContentPerformance);
+router.post('/analytics/source', analyticsSource);
+router.post('/analytics/language', analyticsLanguage);
 
 // Meta + YouTube analytics endpoints (4b; token read server-side — R-1/R-6)
 router.post('/analytics/meta-insights', metaInsights);

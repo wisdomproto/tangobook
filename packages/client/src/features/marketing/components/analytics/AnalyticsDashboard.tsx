@@ -10,6 +10,8 @@ import {
   useGa4TopPages,
   useGa4Country,
   useGa4Content,
+  useGa4Source,
+  useGa4Language,
 } from '../../api/use-analytics';
 import { OverviewCards } from './OverviewCards';
 import { PageviewsChart } from './PageviewsChart';
@@ -17,6 +19,16 @@ import { TrafficChart } from './TrafficChart';
 import { TopPagesTable } from './TopPagesTable';
 import { CountryTraffic } from './CountryTraffic';
 import { ContentPerformance } from './ContentPerformance';
+import { BreakdownCard } from './BreakdownCard';
+
+// 앱 UI 언어코드 → 표시 라벨 (customUser:app_language 값 = i18n.language).
+const LANG_LABELS: Record<string, string> = {
+  ko: '🇰🇷 한국어',
+  en: '🇺🇸 English',
+  vi: '🇻🇳 Tiếng Việt',
+  zh: '🇨🇳 中文',
+  th: '🇹🇭 ภาษาไทย',
+};
 import type { GA4Config, FunnelConfig } from '../../types/analytics';
 
 interface AnalyticsDashboardProps {
@@ -32,7 +44,7 @@ interface AnalyticsDashboardProps {
 export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
   const { data: project } = useProject(projectId);
   const queryClient = useQueryClient();
-  const [period, setPeriod] = useState<'today' | 'yesterday' | '7d' | '30d'>('7d');
+  const [period, setPeriod] = useState<'today' | 'yesterday' | '7d' | '30d'>('today');
 
   const ga4Config = (project?.ga4_config ?? null) as GA4Config | null;
   const funnelConfig = (project?.funnel_config ?? null) as FunnelConfig | null;
@@ -45,6 +57,8 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
   const topPages = useGa4TopPages(projectId, period, enabled);
   const country = useGa4Country(projectId, period, enabled);
   const content = useGa4Content(projectId, period, enabled);
+  const source = useGa4Source(projectId, period, enabled);
+  const language = useGa4Language(projectId, period, enabled);
 
   // Surface first error as a banner (GA4 quota / 429 → banner, not crash)
   const firstError =
@@ -131,6 +145,22 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <PageviewsChart data={overview.data.dailyPageviews} />
             <TrafficChart data={traffic.data ?? []} />
+          </div>
+          {/* 유입 소스(메타/구글/직접 등) + 앱 UI 언어별 분포 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <BreakdownCard
+              title="유입 소스 (소스/매체)"
+              data={source.data ?? []}
+              isLoading={source.isLoading}
+              emptyText="아직 유입 데이터가 없어요 (광고/트래픽 유입 시 facebook·google 등으로 표시)"
+            />
+            <BreakdownCard
+              title="언어별 (앱에서 고른 언어)"
+              data={language.data ?? []}
+              isLoading={language.isLoading}
+              labelMap={LANG_LABELS}
+              emptyText="언어별 데이터 없음 — GA4에 커스텀 측정기준 'app_language' 등록 + 방문 누적 후 표시"
+            />
           </div>
           <TopPagesTable
             pages={topPages.data ?? []}

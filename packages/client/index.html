@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#FF6F61" />
 
+    <!-- 내부/테스트 계정(로그인 시 localStorage tb_internal=1) 은 트래킹 제외 → GA4 비활성 + 픽셀 미발화 -->
+    <script>
+      window.__tbInternal = (function () {
+        try {
+          return localStorage.getItem('tb_internal') === '1';
+        } catch (e) {
+          return false;
+        }
+      })();
+      if (window.__tbInternal) window['ga-disable-G-XENG7XW959'] = true;
+    </script>
+
     <!-- Google Analytics 4 (gtag.js) — 향상된 측정으로 SPA 라우트 이동 자동 추적 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XENG7XW959"></script>
     <script>
@@ -34,8 +46,10 @@
         s = b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t, s);
       })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '1580220763664630');
-      fbq('track', 'PageView');
+      if (!window.__tbInternal) {
+        fbq('init', '1580220763664630');
+        fbq('track', 'PageView');
+      }
     </script>
     <!-- End Meta Pixel (noscript img 생략 — SPA 라 JS 없으면 앱 자체 미동작) -->
 

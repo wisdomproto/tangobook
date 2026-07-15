@@ -267,6 +267,41 @@ export async function getContent(cfg: ResolvedGa4, period: Period): Promise<GA4C
   return mapContent(report);
 }
 
+/**
+ * 유입 소스/매체 (sessionSourceMedium: 'facebook / cpc', 'google / organic', '(direct) / (none)' …).
+ * 메타 광고로 들어왔는지 등 실제 유입 경로 파악용. mapTraffic 재사용(dim[0]=channel 라벨).
+ */
+export async function getSource(cfg: ResolvedGa4, period: Period): Promise<GA4TrafficSource[]> {
+  const report = await runReport(cfg, {
+    dateRanges: [dateRangeFor(period)],
+    metrics: [{ name: 'sessions' }, { name: 'activeUsers' }],
+    dimensions: [{ name: 'sessionSourceMedium' }],
+    orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+    limit: 12,
+  });
+  return mapTraffic(report);
+}
+
+/**
+ * 앱 UI 언어별 세션 (커스텀 유저속성 `app_language` = 클라가 gtag 로 전송).
+ * 🔴 GA4 관리자에서 유저-스코프 커스텀 디멘션 `app_language` 등록 + 데이터 하루+ 쌓여야 값이 나옴.
+ * 미등록/데이터 없음(GA4 400/빈 응답) 시 대시보드가 안 깨지게 빈 배열 반환.
+ */
+export async function getLanguage(cfg: ResolvedGa4, period: Period): Promise<GA4TrafficSource[]> {
+  try {
+    const report = await runReport(cfg, {
+      dateRanges: [dateRangeFor(period)],
+      metrics: [{ name: 'sessions' }, { name: 'activeUsers' }],
+      dimensions: [{ name: 'customUser:app_language' }],
+      orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+      limit: 12,
+    });
+    return mapTraffic(report);
+  } catch {
+    return [];
+  }
+}
+
 // ─── Meta / YouTube analytics (server-proxy; token read server-side) ──────────
 // R-1 / R-6: `meta_credentials.pages[].pageAccessToken` is resolved here and
 // NEVER returned to the client or logged. The client sends only { projectId, platform }.

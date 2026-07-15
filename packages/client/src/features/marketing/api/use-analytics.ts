@@ -124,6 +124,34 @@ export function useGa4Content(
   });
 }
 
+/** POST /api/mkt/analytics/source  Body: { projectId, period } — 유입 소스/매체 */
+export function useGa4Source(
+  projectId: string,
+  period: 'today' | 'yesterday' | '7d' | '30d' = '7d',
+  enabled = !!projectId
+) {
+  return useQuery({
+    queryKey: mktKeys.analyticsSource(projectId, period),
+    enabled: enabled && !!projectId,
+    staleTime: STALE_TIME,
+    queryFn: () => postMkt<GA4TrafficSource[]>('/analytics/source', { projectId, period }),
+  });
+}
+
+/** POST /api/mkt/analytics/language  Body: { projectId, period } — 앱 UI 언어별(app_language) */
+export function useGa4Language(
+  projectId: string,
+  period: 'today' | 'yesterday' | '7d' | '30d' = '7d',
+  enabled = !!projectId
+) {
+  return useQuery({
+    queryKey: mktKeys.analyticsLanguage(projectId, period),
+    enabled: enabled && !!projectId,
+    staleTime: STALE_TIME,
+    queryFn: () => postMkt<GA4TrafficSource[]>('/analytics/language', { projectId, period }),
+  });
+}
+
 // ─── Meta / YouTube hooks ────────────────────────────────────────────────────
 // Meta: 501 (not connected) resolves to { connected: false, overview: DEFAULT, contents: [] }
 // so the empty-state renders gracefully rather than throwing.

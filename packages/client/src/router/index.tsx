@@ -66,6 +66,7 @@ import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
 import { InviteLandingPage, InviteFriendsPage, ReferralRewardToast } from '../features/payment';
 import { GlobalUiSound } from '../components/GlobalUiSound';
 import { MetaPixelTracker } from '../components/MetaPixelTracker';
+import { AnalyticsControl } from '../components/AnalyticsControl';
 import { ParentGate } from '../features/auth/components/ParentGate';
 import { RequireAuthed } from '../features/auth/guards/RequireAuthed';
 import TermsPage from '../pages/legal/TermsPage';
@@ -86,6 +87,8 @@ export const router = createBrowserRouter([
         <GlobalUiSound />
         {/* Meta Pixel — SPA 라우트 이동 시 PageView 재발화 (초기 로드는 index.html base code) */}
         <MetaPixelTracker />
+        {/* 트래킹 제어 — 내부계정 제외 + 앱 UI 언어를 GA4 유저속성으로 전송 */}
+        <AnalyticsControl />
       </AuthProvider>
     ),
     children: [
