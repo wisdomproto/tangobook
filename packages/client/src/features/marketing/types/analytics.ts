@@ -90,6 +90,14 @@ export interface GA4ContentRow {
   avgDuration: number;
   bounceRate: number;
 }
+export interface GA4DailyRow {
+  date: string; // YYYYMMDD
+  pv: number;
+  users: number;
+  newUsers: number;
+  avgSessionSec: number;
+  engagementSec: number;
+}
 
 // --- Meta channel analytics ---
 export interface MetaContentMetric {

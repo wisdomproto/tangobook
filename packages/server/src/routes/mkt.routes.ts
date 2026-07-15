@@ -27,6 +27,7 @@ import {
   analyticsLanguage,
   analyticsNewReturning,
   analyticsMembership,
+  analyticsDaily,
   metaInsights,
   youtubeChannel,
 } from '../controllers/mkt/analytics.controller.js';
@@ -93,6 +94,7 @@ router.post('/analytics/source', analyticsSource);
 router.post('/analytics/language', analyticsLanguage);
 router.post('/analytics/new-returning', analyticsNewReturning);
 router.post('/analytics/membership', analyticsMembership);
+router.post('/analytics/daily', analyticsDaily);
 
 // Meta + YouTube analytics endpoints (4b; token read server-side — R-1/R-6)
 router.post('/analytics/meta-insights', metaInsights);

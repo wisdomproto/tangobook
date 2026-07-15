@@ -63,6 +63,14 @@ export interface GA4ContentRow {
   avgDuration: number;
   bounceRate: number;
 }
+export interface GA4DailyRow {
+  date: string; // YYYYMMDD
+  pv: number; // screenPageViews
+  users: number; // activeUsers
+  newUsers: number;
+  avgSessionSec: number; // averageSessionDuration (초, 세션 평균)
+  engagementSec: number; // userEngagementDuration (총 참여 초 — PV당 체류 계산용)
+}
 
 export interface ResolvedGa4 {
   propertyId: string;
@@ -324,6 +332,34 @@ export async function getNewReturning(
  * 회원 vs 비회원 (커스텀 유저속성 `membership` = 'member'/'guest', 클라가 gtag 로 전송).
  * 🔴 GA4 관리자에서 유저-스코프 커스텀 디멘션 `membership` 등록 필요. 미등록 시 [] 반환.
  */
+/**
+ * 날짜별 리치 지표 (PV·사용자·신규·체류시간 등). 날짜별 막대차트 + 지표 pills 용.
+ * 재방문 = users - newUsers, PV/사용자·PV당 체류는 클라에서 파생 계산.
+ */
+export async function getDaily(cfg: ResolvedGa4, period: Period): Promise<GA4DailyRow[]> {
+  const report = await runReport(cfg, {
+    dateRanges: [dateRangeFor(period)],
+    metrics: [
+      { name: 'screenPageViews' },
+      { name: 'activeUsers' },
+      { name: 'newUsers' },
+      { name: 'averageSessionDuration' },
+      { name: 'userEngagementDuration' },
+    ],
+    dimensions: [{ name: 'date' }],
+    orderBys: [{ dimension: { dimensionName: 'date' } }],
+    limit: 62,
+  });
+  return (report.rows ?? []).map((r) => ({
+    date: r.dimensionValues?.[0]?.value ?? '',
+    pv: int(r.metricValues?.[0]?.value),
+    users: int(r.metricValues?.[1]?.value),
+    newUsers: int(r.metricValues?.[2]?.value),
+    avgSessionSec: flt(r.metricValues?.[3]?.value),
+    engagementSec: flt(r.metricValues?.[4]?.value),
+  }));
+}
+
 export async function getMembership(cfg: ResolvedGa4, period: Period): Promise<GA4TrafficSource[]> {
   try {
     const report = await runReport(cfg, {

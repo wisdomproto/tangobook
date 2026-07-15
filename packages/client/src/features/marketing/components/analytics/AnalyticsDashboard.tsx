@@ -14,9 +14,10 @@ import {
   useGa4Language,
   useGa4NewReturning,
   useGa4Membership,
+  useGa4Daily,
 } from '../../api/use-analytics';
 import { OverviewCards } from './OverviewCards';
-import { PageviewsChart } from './PageviewsChart';
+import { DailyTrafficChart } from './DailyTrafficChart';
 import { TrafficChart } from './TrafficChart';
 import { TopPagesTable } from './TopPagesTable';
 import { CountryTraffic } from './CountryTraffic';
@@ -67,6 +68,7 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
   const language = useGa4Language(projectId, period, enabled);
   const newReturning = useGa4NewReturning(projectId, period, enabled);
   const membership = useGa4Membership(projectId, period, enabled);
+  const daily = useGa4Daily(projectId, period, enabled);
 
   // Surface first error as a banner (GA4 quota / 429 → banner, not crash)
   const firstError =
@@ -150,10 +152,8 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
       {overview.data && (
         <>
           <OverviewCards data={overview.data} />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <PageviewsChart data={overview.data.dailyPageviews} />
-            <TrafficChart data={traffic.data ?? []} />
-          </div>
+          {/* 날짜별 트래픽 — 지표 pills + 평일/주말 막대 */}
+          <DailyTrafficChart data={daily.data ?? []} isLoading={daily.isLoading} />
           {/* 사용자 구분 — 신규/재방문 + 회원/비회원 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <BreakdownCard
@@ -187,14 +187,16 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
               emptyText="언어별 데이터 없음 — GA4에 커스텀 측정기준 'app_language' 등록 + 방문 누적 후 표시"
             />
           </div>
+          {/* 유입 채널(그룹) + 국가 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <TrafficChart data={traffic.data ?? []} />
+            <CountryTraffic data={country.data ?? []} />
+          </div>
           <TopPagesTable
             pages={topPages.data ?? []}
             websiteUrl={funnelConfig?.websiteUrl ?? undefined}
           />
-          <div className="grid grid-cols-2 gap-4 mt-6">
-            <ContentPerformance data={content.data ?? []} />
-            <CountryTraffic data={country.data ?? []} />
-          </div>
+          <ContentPerformance data={content.data ?? []} />
         </>
       )}
 

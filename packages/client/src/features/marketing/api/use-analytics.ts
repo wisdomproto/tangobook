@@ -6,6 +6,7 @@ import type {
   GA4TopPage,
   GA4CountryRow,
   GA4ContentRow,
+  GA4DailyRow,
   SeoAuditResult,
   MetaInsightsResult,
   MetaOverviewMetrics,
@@ -177,6 +178,20 @@ export function useGa4Membership(
     enabled: enabled && !!projectId,
     staleTime: STALE_TIME,
     queryFn: () => postMkt<GA4TrafficSource[]>('/analytics/membership', { projectId, period }),
+  });
+}
+
+/** POST /api/mkt/analytics/daily  Body: { projectId, period } — 날짜별 리치 지표 */
+export function useGa4Daily(
+  projectId: string,
+  period: 'today' | 'yesterday' | '7d' | '30d' = '7d',
+  enabled = !!projectId
+) {
+  return useQuery({
+    queryKey: mktKeys.analyticsDaily(projectId, period),
+    enabled: enabled && !!projectId,
+    staleTime: STALE_TIME,
+    queryFn: () => postMkt<GA4DailyRow[]>('/analytics/daily', { projectId, period }),
   });
 }
 

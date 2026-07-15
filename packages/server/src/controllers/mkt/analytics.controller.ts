@@ -12,6 +12,7 @@ import {
   getLanguage,
   getNewReturning,
   getMembership,
+  getDaily,
   getMetaInsights,
   getYoutubeChannel,
 } from '../../services/mkt/analytics.service.js';
@@ -103,6 +104,15 @@ export const analyticsMembership = asyncHandler(async (req: Request, res: Respon
   if (!projectId) throw new AppError(400, 'projectId is required');
   const cfg = await resolveGa4Config(projectId);
   const data = await getMembership(cfg, period ?? '7d');
+  res.json({ success: true, data });
+});
+
+/** POST /api/mkt/analytics/daily  Body: { projectId, period? } — 날짜별 리치 지표 */
+export const analyticsDaily = asyncHandler(async (req: Request, res: Response) => {
+  const { projectId, period } = req.body as AnalyticsBody;
+  if (!projectId) throw new AppError(400, 'projectId is required');
+  const cfg = await resolveGa4Config(projectId);
+  const data = await getDaily(cfg, period ?? '7d');
   res.json({ success: true, data });
 });
 
