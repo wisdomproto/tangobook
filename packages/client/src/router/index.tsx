@@ -65,6 +65,7 @@ import PaymentSuccessPage from '../features/payment/pages/PaymentSuccessPage';
 import PaymentFailPage from '../features/payment/pages/PaymentFailPage';
 import { InviteLandingPage, InviteFriendsPage, ReferralRewardToast } from '../features/payment';
 import { GlobalUiSound } from '../components/GlobalUiSound';
+import { MetaPixelTracker } from '../components/MetaPixelTracker';
 import { ParentGate } from '../features/auth/components/ParentGate';
 import { RequireAuthed } from '../features/auth/guards/RequireAuthed';
 import TermsPage from '../pages/legal/TermsPage';
@@ -83,6 +84,8 @@ export const router = createBrowserRouter([
         <ReferralRewardToast />
         {/* 전역 UI 효과음 — 버튼 탭음 위임 리스너 + 프리로드 */}
         <GlobalUiSound />
+        {/* Meta Pixel — SPA 라우트 이동 시 PageView 재발화 (초기 로드는 index.html base code) */}
+        <MetaPixelTracker />
       </AuthProvider>
     ),
     children: [

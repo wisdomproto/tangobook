@@ -16,6 +16,29 @@
       gtag('config', 'G-XENG7XW959');
     </script>
 
+    <!-- Meta Pixel (tangonote2 dataset) — 초기 PageView. SPA 라우트 이동은 MetaPixelTracker 가 재발화. -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1580220763664630');
+      fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel (noscript img 생략 — SPA 라 JS 없으면 앱 자체 미동작) -->
+
     <!-- Search engine site verification -->
     <meta name="naver-site-verification" content="9c846b56e8444d69a9a964386534006efd310611" />
 
