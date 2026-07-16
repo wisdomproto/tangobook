@@ -34,6 +34,27 @@ apiClient.interceptors.response.use(
     const data = error.response?.data;
     const serverMsg = data && typeof data === 'object' && 'error' in data ? data.error : null;
     const status = error.response?.status;
+
+    // 프록시/서버 재시작 창 또는 네트워크 단절 — 우리 서버의 { success, error } 대신
+    // 프록시(Railway/Envoy)가 평문 "no healthy upstream" 등을 반환하거나 응답 자체가 없음.
+    // 이 경우 파싱 실패 메시지("Unexpected token 'o'…")를 그대로 노출하지 말고 친절 안내 + 재시도
+    // 신호(transient)를 준다. (serverMsg 가 있는 정상 AppError 응답은 기존대로 그대로 전달.)
+    const isTransient =
+      !serverMsg &&
+      (!error.response || // 네트워크/타임아웃
+        (typeof status === 'number' && status >= 500) || // 5xx (502/503/504 = 프록시 upstream 다운)
+        typeof data === 'string'); // 서버가 아닌 프록시가 평문 바디 반환
+
+    if (isTransient) {
+      const err = new Error(
+        '서버가 잠시 응답하지 않고 있어요. 잠시 후 다시 시도해 주세요.'
+      ) as Error & {
+        transient?: boolean;
+      };
+      err.transient = true;
+      return Promise.reject(err);
+    }
+
     const message = serverMsg
       ? status
         ? `[${status}] ${serverMsg}`

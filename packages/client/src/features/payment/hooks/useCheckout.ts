@@ -15,6 +15,24 @@ interface UseCheckoutState {
 }
 
 /**
+ * 주문 생성(POST /payments/checkout) — 서버 재시작 창(Railway 프록시 "no healthy upstream" 등
+ * transient 5xx)에 걸리기 쉬운 첫 호출이라 transient 에러면 짧게 한 번 재시도한다.
+ * 짧은 blip 은 사용자 눈에 안 보이게 넘어가고, 재시도도 실패하면 친절 메시지가 노출된다.
+ * (재시도 시 pending payments 행이 하나 더 생기지만 confirm 안 되면 무해 — 권한 X.)
+ */
+async function requestCheckoutWithRetry(planId: PlanId) {
+  try {
+    return await paymentApi.checkout(planId);
+  } catch (err) {
+    if ((err as { transient?: boolean })?.transient) {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      return await paymentApi.checkout(planId);
+    }
+    throw err;
+  }
+}
+
+/**
  * Initiates the Toss Payments checkout flow for a plan.
  *
  * Flow:
@@ -40,7 +58,7 @@ export function useCheckout() {
 
     setState({ loading: true, error: null });
     try {
-      const { orderId, amount, orderName } = await paymentApi.checkout(planId);
+      const { orderId, amount, orderName } = await requestCheckoutWithRetry(planId);
 
       const tossPayments = await loadTossPayments(CLIENT_KEY);
       const payment = tossPayments.payment({ customerKey: account.id });
