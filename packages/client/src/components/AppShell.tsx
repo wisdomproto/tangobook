@@ -143,7 +143,7 @@ export function AppShell() {
   const sidebarContent = (
     <>
       {/* 로고 영역 — 사이드바 좌상단. 헤더 height(80px) 와 정렬. */}
-      <div className="h-20 flex items-center justify-center px-2 border-b border-ink-100/40">
+      <div className="h-20 shrink-0 flex items-center justify-center px-2 border-b border-ink-100/40">
         <Link to="/library" aria-label={t('logo.home')}>
           <img
             src={i18n.language === 'ko' ? '/logo/logo-kr.webp' : '/logo/logo-en.webp'}
@@ -155,7 +155,7 @@ export function AppShell() {
 
       {/* 현재 아이 프로필 칩 — 아이 1명이어도 상시. 탭 → 프로필 시트(전환/추가·관리). */}
       {session && activeProfile && (
-        <div className="flex justify-center px-2 pt-3">
+        <div className="flex justify-center px-2 pt-3 shrink-0">
           <button
             onClick={() => setPickerOpen(true)}
             className="flex items-center gap-1.5 rounded-full bg-white pl-1 pr-2.5 py-1 shadow-soft hover:shadow-pop transition-all max-w-full"
@@ -184,14 +184,14 @@ export function AppShell() {
       )}
 
       {/* 로고 바로 아래 — UI 언어 선택 + 홈에 설치(PWA). 배너 위 오버레이 대신 깨끗한 사이드바 면에. */}
-      <div className="flex flex-col items-center gap-2 px-2 py-3 border-b border-ink-100/40">
+      <div className="flex flex-col items-center gap-2 px-2 py-3 border-b border-ink-100/40 shrink-0">
         <UiLangMenu />
         <InstallPwaButton />
       </div>
 
       {/* 아이 zone — 동화책(아이가 매일 만지는 유일한 것) + 파닉스 / 어휘 / 학습 게임 (개발자 전용).
           부모 작업(리포팅·초대·연속재생·설정)은 위계를 정직하게 하려고 하단 부모 영역으로 분리. 2026-07-07. */}
-      <nav className="flex flex-col gap-2.5 items-center pt-5 pb-5">
+      <nav className="flex-1 min-h-0 overflow-y-auto w-full flex flex-col gap-2.5 items-center pt-5 pb-5">
         {PRIMARY_AXES.filter(
           (a) => (!a.devOnly || isDevEmail(account?.email)) && (!a.authOnly || !!session)
         ).map((axis) => (
@@ -199,8 +199,8 @@ export function AppShell() {
         ))}
       </nav>
 
-      {/* 부모 영역 — 부모 설정 / 로그인/로그아웃. */}
-      <div className="mt-auto px-3 pt-3 pb-3 border-t-2 border-ink-200/60 bg-cream-100/30 flex flex-col gap-1.5">
+      {/* 부모 영역 — 부모 설정 / 로그인/로그아웃. 하단 고정(nav flex-1 이 위 공간을 채워 밀어냄). */}
+      <div className="shrink-0 px-3 pt-3 pb-3 border-t-2 border-ink-200/60 bg-cream-100/30 flex flex-col gap-1.5">
         {/* 부모 도메인 작업 — 학습 리포팅 · 친구 초대 · 부모 설정 · 건의하기.
             사이드바 정리를 위해 접이식(기본 접힘). 2026-07-14. */}
         {session && isConfigured && (
@@ -313,7 +313,7 @@ export function AppShell() {
   return (
     <div className="flex min-h-screen bg-cream-50">
       {/* 데스크탑 좌측 nav — 태블릿 기준 w-44 (176px). 모바일 hide. */}
-      <aside className="hidden md:flex w-44 flex-shrink-0 sticky top-0 h-screen flex-col bg-cream-50 border-r border-ink-100/60">
+      <aside className="hidden md:flex w-44 flex-shrink-0 sticky top-0 h-[100dvh] flex-col bg-cream-50 border-r border-ink-100/60">
         {sidebarContent}
       </aside>
 
@@ -326,7 +326,7 @@ export function AppShell() {
             aria-hidden
           />
           <aside
-            className="md:hidden fixed top-0 left-0 z-50 w-44 h-screen flex flex-col bg-cream-50 border-r border-ink-100/60 shadow-2xl"
+            className="md:hidden fixed top-0 left-0 z-50 w-44 h-[100dvh] flex flex-col bg-cream-50 border-r border-ink-100/60 shadow-2xl"
             style={{ animation: 'slide-in 180ms ease-out' }}
           >
             <button
