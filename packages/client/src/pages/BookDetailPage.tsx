@@ -324,7 +324,7 @@ export default function BookDetailPage() {
         <div className="flex-1 flex flex-col justify-center">
           {/* 상단 3단계 안내 — 아이와 함께 읽는 흐름. 전용 일러스트 아이콘 + 2줄 제목 + 부제 + 점선 커넥터. */}
           <ol
-            className={`mb-5 grid grid-cols-1 gap-3 sm:gap-4 ${
+            className={`mt-4 sm:mt-5 mb-5 grid grid-cols-1 gap-3 sm:gap-4 ${
               hideVocab ? 'sm:grid-cols-2' : 'sm:grid-cols-3'
             }`}
           >

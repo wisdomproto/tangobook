@@ -6,6 +6,7 @@ import { useAuth } from '@/features/auth/context/AuthContext';
 import { useEntitlement } from '@/features/payment/hooks/useEntitlement';
 import { InviteButton } from '@/features/payment';
 import { PAYWALL_ENABLED } from '@/features/access/config';
+import { InstallPwaButton, useCanInstallPwa } from '@/components/InstallPwaButton';
 
 /**
  * Single-slide promo banner advertising 7-day free trial / referral bonus.
@@ -28,6 +29,8 @@ export function PromoBanner() {
   const navigate = useNavigate();
   const { account } = useAuth();
   const { paidUntil, referralBonusDays, trialStartedAt } = useEntitlement();
+  // 홈에 설치 가능 여부 (로그인 무관). 가능하면 배너 우측 일러스트 대신 큰 설치 버튼 노출.
+  const { show: canInstallPwa } = useCanInstallPwa();
 
   // Compute access state directly from account + real subscription data,
   // NOT via useAccess() which returns 'subscribed' for everyone when PAYWALL_ENABLED=false.
@@ -105,18 +108,28 @@ export function PromoBanner() {
         </div>
       </div>
 
-      {/* Right zone — promo illustration with left-edge fade mask */}
-      <div
-        className="relative flex-1 overflow-hidden"
-        style={{
-          backgroundImage: 'url(/images/library-banner/promo.webp)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 100%)',
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 100%)',
-        }}
-        aria-hidden
-      />
+      {/* Right zone — 설치 가능(Chrome/Android/iOS Safari)하면 호랑이 일러스트 대신 큰 "홈에 설치"
+          버튼(로그인 무관, 사용자 요청 2026-07-16). 설치 불가 환경(데스크탑·인앱 브라우저)은 일러스트 폴백. */}
+      {canInstallPwa ? (
+        <div className="relative z-10 flex flex-1 items-center justify-center overflow-hidden px-3 sm:px-4">
+          <InstallPwaButton
+            className="flex items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-coral-500 px-4 py-3 text-sm font-black text-white shadow-pop transition hover:brightness-110 sm:px-5 sm:py-3.5 sm:text-base md:px-6 md:py-4 md:text-lg"
+            iconClassName="text-xl leading-none sm:text-2xl"
+          />
+        </div>
+      ) : (
+        <div
+          className="relative flex-1 overflow-hidden"
+          style={{
+            backgroundImage: 'url(/images/library-banner/promo.webp)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 100%)',
+            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 100%)',
+          }}
+          aria-hidden
+        />
+      )}
     </div>
   );
 }

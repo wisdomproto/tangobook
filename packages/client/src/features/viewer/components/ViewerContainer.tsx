@@ -748,6 +748,24 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
         </div>
       )}
 
+      {/* 풀스크린 좌상단 뒤로가기 — 책 소개(/library/:id)로. 없으면 사용자가 인앱 브라우저(인스타
+          그램 등) 하단 뒤로가기를 눌러 인스타로 빠져나가는 문제(사용자 리포트, 2026-07-16).
+          툴바 표시 중(컨트롤 visible)엔 툴바 뒤로 버튼이 있어 숨김. playlist 모드도 숨김. */}
+      {fullscreen && !playlist && !controlsVisible && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            audio.stopTts();
+            navigate(`/library/${storybookId}`);
+          }}
+          className="absolute top-3 left-3 z-30 w-11 h-11 rounded-full bg-white/40 hover:bg-white/70 backdrop-blur-sm text-ink-900 flex items-center justify-center text-lg shadow-soft transition-all"
+          title={t('toolbar.back')}
+          aria-label={t('toolbar.back')}
+        >
+          ←
+        </button>
+      )}
+
       {/* 풀스크린 종료 버튼 — 풀스크린 시 우상단 floating (반투명). 툴바가 떠 있을 땐 숨김
           (툴바에 홈/뒤로가 있어 겹침 방지). playlist 모드에서는 숨김. */}
       {fullscreen && !playlist && !controlsVisible && (

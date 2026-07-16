@@ -214,10 +214,10 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
   // 4-5세 인지부하 ↓ — 카테고리 chip 기본 4개만 노출, "더 ▾" 토글로 펼치기
   const [showAllCategories, setShowAllCategories] = useState(false);
   const CATEGORY_DEFAULT_VISIBLE = 4;
-  // 그림풍 일괄 전환 — 표지 기본값 = 수채동화풍(2026-07-08). 드롭박스로 다른 그림풍 선택 가능.
-  // 여러 그림체 표지가 있는 책(주로 세계명작)만 실제로 바뀜. styleId→장르 맵은 editor2 수동 지정(R2).
-  // 해당 장르 표지가 없는 책은 대표 표지로 폴백.
-  const [styleGenre, setStyleGenre] = useState<StyleGenreSlug>('watercolor');
+  // 그림풍 일괄 전환 — 표지 기본값 = 페이퍼 3D 아트(2026-07-16, 사용자 요청. 이전 수채동화풍).
+  // 드롭박스로 다른 그림풍 선택 가능. 여러 그림체 표지가 있는 책(주로 세계명작)만 실제로 바뀜.
+  // styleId→장르 맵은 editor2 수동 지정(R2). 해당 장르 표지가 없는 책은 대표 표지로 폴백.
+  const [styleGenre, setStyleGenre] = useState<StyleGenreSlug>('paper3d');
   const { map: styleGenreMap } = useStyleGenreMap();
 
   // 카테고리명은 R2 데이터라 내부 key(한국어)는 그대로 유지하고, 표시 시점에만

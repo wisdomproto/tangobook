@@ -62,22 +62,28 @@ export function useAudioPlayer({
   onTtsEndedRef.current = onTtsEnded;
 
   const playTts = useCallback((url: string) => {
-    const pool = preloadPoolRef.current;
-    // 이전 재생의 리스너 제거 + 정지. 풀 객체는 src 를 비우지 않고 보존(재사용).
+    // 이전 재생 리스너 제거.
     playCtrlRef.current?.abort();
-    const prev = ttsRef.current;
-    if (prev) {
-      prev.pause();
-      const prevInPool = [...pool.values()].includes(prev);
-      if (!prevInPool) prev.src = '';
-    }
 
-    // 프리로드 풀에 버퍼링된 객체가 있으면 재사용(즉시 재생), 없으면 새로 생성.
-    const audio = pool.get(url) ?? new Audio(url);
-    ttsRef.current = audio;
+    // 🔴 단일 재생 엘리먼트 재사용 (인앱 브라우저 대응, 2026-07-16).
+    // 인스타그램 등 in-app WebView 는 사용자 제스처로 "해금된 바로 그" <audio> 엘리먼트만
+    // 이후 재생을 허용한다. 페이지마다 프리로드 풀의 다른 Audio 객체를 재생하면 2페이지부터
+    // autoplay 가 차단돼 `ended` 가 안 뜨고 자동넘김이 멈춘다(크롬/PWA 는 관대해 괜찮지만
+    // 인스타 인앱은 멈춤 — 사용자 리포트). 그래서 재생은 항상 이 하나의 엘리먼트(ttsRef)로 하고,
+    // 프리로드 풀(preloadTts)은 HTTP 캐시 워밍용으로만 유지한다(src 만 바꿔도 워밍된 캐시에서
+    // 즉시 로드 — TTS 는 immutable Cache-Control).
+    let audio = ttsRef.current;
+    if (!audio) {
+      audio = new Audio();
+      ttsRef.current = audio;
+    }
+    if (audio.getAttribute('src') !== url) {
+      audio.pause();
+      audio.src = url;
+    }
     audio.currentTime = 0;
     setTtsCurrentTime(0);
-    // 프리로드로 메타데이터가 이미 로드됐으면 duration 즉시 반영(loadedmetadata 가 이미 지나 안 불릴 수 있음).
+    // 캐시/프리로드로 메타데이터가 이미 있으면 duration 즉시 반영(loadedmetadata 가 안 불릴 수 있음).
     const known = audio.duration;
     setTtsDuration(isFinite(known) && known > 0 ? known : 0);
     setIsTtsPlaying(true);
