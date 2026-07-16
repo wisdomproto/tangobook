@@ -53,6 +53,7 @@ function withTimeout<T>(p: Promise<T>, ms: number, label: string): Promise<T> {
 
 interface Args {
   book: string | null;
+  books: string[] | null;
   limit: number | null;
   dryRun: boolean;
   thumbsOnly: boolean;
@@ -63,6 +64,7 @@ interface Args {
 function parseArgs(argv: string[]): Args {
   const a: Args = {
     book: null,
+    books: null,
     limit: null,
     dryRun: false,
     thumbsOnly: false,
@@ -77,6 +79,11 @@ function parseArgs(argv: string[]): Args {
     if (key === '--dry-run') a.dryRun = true;
     else if (key === '--thumbs-only') a.thumbsOnly = true;
     else if (key === '--book') a.book = next();
+    else if (key === '--books')
+      a.books = next()
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
     else if (key === '--limit') a.limit = parseInt(next(), 10);
     else if (key === '--owner-email') a.ownerEmail = next();
     else if (key === '--category') a.category = next();
@@ -97,8 +104,8 @@ async function main() {
   const serveUrl = await bundle({ entryPoint: remotionEntry });
 
   // 2. 대상 id 결정
-  let ids = args.book ? [args.book] : resolveClassicBookIds();
-  if (!args.book && args.limit != null) ids = ids.slice(0, args.limit);
+  let ids = args.books ? args.books : args.book ? [args.book] : resolveClassicBookIds();
+  if (!args.book && !args.books && args.limit != null) ids = ids.slice(0, args.limit);
   console.log(`[render-book-reels] 대상 ${ids.length}권`);
 
   // 3. genreMap (1회) + ownerUserId (프로덕션만)
