@@ -7,6 +7,7 @@ import {
   useGa4Overview,
   useGa4Traffic,
   useGa4TopBooks,
+  useGa4PwaInstalls,
   useGa4Country,
   useGa4Source,
   useGa4Language,
@@ -21,6 +22,7 @@ import { DailyTrafficChart } from './DailyTrafficChart';
 import { HourlyTrafficChart } from './HourlyTrafficChart';
 import { TrafficChart } from './TrafficChart';
 import { BookPerformance } from './BookPerformance';
+import { PwaInstallCard } from './PwaInstallCard';
 import { CountryTraffic } from './CountryTraffic';
 import { BreakdownCard } from './BreakdownCard';
 
@@ -68,6 +70,7 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
   const overview = useGa4Overview(projectId, period, enabled);
   const traffic = useGa4Traffic(projectId, period, enabled);
   const topBooks = useGa4TopBooks(projectId, period, enabled);
+  const pwaInstalls = useGa4PwaInstalls(projectId, enabled);
   const country = useGa4Country(projectId, period, enabled);
   const source = useGa4Source(projectId, period, enabled);
   const language = useGa4Language(projectId, period, enabled);
@@ -158,6 +161,8 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
       {overview.data && (
         <>
           <OverviewCards data={overview.data} />
+          {/* PWA 홈 화면 설치 (누적, 기간 무관) */}
+          <PwaInstallCard data={pwaInstalls.data ?? undefined} isLoading={pwaInstalls.isLoading} />
           {/* 날짜별 트래픽 — 지표 pills + 평일/주말 막대 */}
           <DailyTrafficChart data={daily.data ?? []} isLoading={daily.isLoading} />
           {/* 사용자 구분 — 신규/재방문 + 회원/비회원 */}

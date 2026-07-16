@@ -22,6 +22,7 @@ import {
   analyticsTraffic,
   analyticsTopPages,
   analyticsTopBooks,
+  analyticsPwaInstalls,
   analyticsCountryTraffic,
   analyticsContentPerformance,
   analyticsSource,
@@ -92,6 +93,7 @@ router.post('/analytics/overview', analyticsOverview);
 router.post('/analytics/traffic', analyticsTraffic);
 router.post('/analytics/top-pages', analyticsTopPages);
 router.post('/analytics/top-books', analyticsTopBooks);
+router.post('/analytics/pwa-installs', analyticsPwaInstalls);
 router.post('/analytics/country-traffic', analyticsCountryTraffic);
 router.post('/analytics/content-performance', analyticsContentPerformance);
 router.post('/analytics/source', analyticsSource);

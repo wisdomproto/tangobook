@@ -60,6 +60,12 @@ export interface GA4TopBooksResult {
   others: GA4TopPage[]; // 비-책 페이지(랜딩·라이브러리 허브·게임 등)
 }
 
+// PWA "홈에 설치" 누적 — installs=실설치(Android/데스크톱), standaloneUsers=홈 실행 기기(iOS 포함 추정)
+export interface GA4PwaInstalls {
+  installs: number;
+  standaloneUsers: number;
+}
+
 // --- 임포트된 전략 데이터 ---
 export interface ImportedStrategy {
   importedAt: string;

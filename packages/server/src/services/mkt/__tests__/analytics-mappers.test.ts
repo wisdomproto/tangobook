@@ -21,6 +21,7 @@ import {
   mapContent,
   extractBookId,
   mapTopBooks,
+  mapPwaInstalls,
   resolveGa4Config,
 } from '../analytics.service.js';
 import type { GA4Report } from '../external/ga4.js';
@@ -230,6 +231,27 @@ describe('mapTopBooks (group GA4 page rows by book + split non-book pages)', () 
     expect(books[0].bookId).toBe('100');
     expect(others).toHaveLength(1);
     expect(others[0].path).toBe('/');
+  });
+});
+
+describe('mapPwaInstalls (pwa_install eventCount + pwa_standalone totalUsers)', () => {
+  it('reads installs from eventCount and standaloneUsers from totalUsers by eventName', () => {
+    // dims [eventName], metrics [eventCount, totalUsers]
+    const report = ga4Report([
+      { d: ['pwa_install'], m: ['12', '11'] },
+      { d: ['pwa_standalone'], m: ['40', '17'] },
+    ]);
+    expect(mapPwaInstalls(report)).toEqual({ installs: 12, standaloneUsers: 17 });
+  });
+  it('returns zeros when there is no data', () => {
+    expect(mapPwaInstalls(ga4Report([]))).toEqual({ installs: 0, standaloneUsers: 0 });
+  });
+  it('ignores unrelated event rows', () => {
+    const report = ga4Report([
+      { d: ['page_view'], m: ['999', '500'] },
+      { d: ['pwa_install'], m: ['3', '3'] },
+    ]);
+    expect(mapPwaInstalls(report)).toEqual({ installs: 3, standaloneUsers: 0 });
   });
 });
 

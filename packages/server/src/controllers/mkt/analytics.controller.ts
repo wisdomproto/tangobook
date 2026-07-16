@@ -7,6 +7,7 @@ import {
   getTraffic,
   getTopPages,
   getTopBooks,
+  getPwaInstalls,
   getCountry,
   getContent,
   getSource,
@@ -62,6 +63,15 @@ export const analyticsTopBooks = asyncHandler(async (req: Request, res: Response
   if (!projectId) throw new AppError(400, 'projectId is required');
   const cfg = await resolveGa4Config(projectId);
   const data = await getTopBooks(cfg, period ?? '30d');
+  res.json({ success: true, data });
+});
+
+/** POST /api/mkt/analytics/pwa-installs  Body: { projectId } — PWA 홈 설치 누적(기간 무관) */
+export const analyticsPwaInstalls = asyncHandler(async (req: Request, res: Response) => {
+  const { projectId } = req.body as AnalyticsBody;
+  if (!projectId) throw new AppError(400, 'projectId is required');
+  const cfg = await resolveGa4Config(projectId);
+  const data = await getPwaInstalls(cfg);
   res.json({ success: true, data });
 });
 

@@ -77,6 +77,15 @@ export interface GA4TopBooksResult {
   books: GA4BookRow[];
   others: GA4TopPage[];
 }
+/**
+ * PWA "홈에 설치" 누적 지표.
+ * - `installs`: `pwa_install` 이벤트 수 (Android/데스크톱 Chrome 실설치 — iOS 미포함).
+ * - `standaloneUsers`: `pwa_standalone` 이벤트 사용자 수 (홈에서 실행 중인 기기 — iOS 포함 추정).
+ */
+export interface GA4PwaInstalls {
+  installs: number;
+  standaloneUsers: number;
+}
 export interface GA4DailyRow {
   date: string; // YYYYMMDD
   pv: number; // screenPageViews
@@ -294,6 +303,21 @@ export function mapTopBooks(report: GA4Report, bookLimit = 15, otherLimit = 8): 
   return { books, others: others.slice(0, otherLimit) };
 }
 
+/**
+ * PWA 설치 지표 매퍼 — rows dims [eventName], metrics [eventCount, totalUsers].
+ * `pwa_install` 은 eventCount(설치 횟수), `pwa_standalone` 은 totalUsers(고유 기기).
+ */
+export function mapPwaInstalls(report: GA4Report): GA4PwaInstalls {
+  let installs = 0;
+  let standaloneUsers = 0;
+  for (const r of report.rows ?? []) {
+    const name = r.dimensionValues?.[0]?.value ?? '';
+    if (name === 'pwa_install') installs = int(r.metricValues?.[0]?.value);
+    else if (name === 'pwa_standalone') standaloneUsers = int(r.metricValues?.[1]?.value);
+  }
+  return { installs, standaloneUsers };
+}
+
 // ─── Report builders (build the runReport body per §4.2, map rows) ────────────
 
 type Period = 'today' | 'yesterday' | '7d' | '30d';
@@ -399,6 +423,28 @@ export async function getTopBooks(cfg: ResolvedGa4, period: Period): Promise<GA4
     limit: 300,
   });
   return mapTopBooks(report);
+}
+
+// 누적 집계용 전체 기간 시작일 — GA4 데이터 보존 한도 내에서 클램프됨(현재 속성 기준 사실상 전체).
+const ALL_TIME_START = '2020-01-01';
+
+/**
+ * PWA "홈에 설치" 누적 — 기간 토글과 무관하게 전체 기간을 조회한다.
+ * eventName in [pwa_install, pwa_standalone] 로 필터해 두 이벤트만 가져온다.
+ */
+export async function getPwaInstalls(cfg: ResolvedGa4): Promise<GA4PwaInstalls> {
+  const report = await runReport(cfg, {
+    dateRanges: [{ startDate: ALL_TIME_START, endDate: 'today' }],
+    metrics: [{ name: 'eventCount' }, { name: 'totalUsers' }],
+    dimensions: [{ name: 'eventName' }],
+    dimensionFilter: {
+      filter: {
+        fieldName: 'eventName',
+        inListFilter: { values: ['pwa_install', 'pwa_standalone'] },
+      },
+    },
+  });
+  return mapPwaInstalls(report);
 }
 
 /**

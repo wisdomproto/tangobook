@@ -38,6 +38,8 @@ export const mktKeys = {
     ['mkt', 'analytics', 'top-pages', projectId, period] as const,
   analyticsTopBooks: (projectId: string, period: string) =>
     ['mkt', 'analytics', 'top-books', projectId, period] as const,
+  analyticsPwaInstalls: (projectId: string) =>
+    ['mkt', 'analytics', 'pwa-installs', projectId] as const,
   analyticsCountry: (projectId: string, period: string) =>
     ['mkt', 'analytics', 'country', projectId, period] as const,
   analyticsContent: (projectId: string, period: string) =>

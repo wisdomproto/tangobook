@@ -15,6 +15,27 @@ let deferred: BeforeInstallPromptEvent | null = null;
 const listeners = new Set<() => void>();
 const notify = () => listeners.forEach((l) => l());
 
+/**
+ * GA4 이벤트 발화 (설치 수 집계용). 내부/테스트 계정은 index.html 의 ga-disable +
+ * __tbNoTrack 로 이미 차단되므로 여기선 방어적으로 한 번 더 확인만 한다.
+ */
+function fireGaEvent(name: string, params?: Record<string, unknown>): void {
+  if (typeof window === 'undefined' || window.__tbNoTrack) return;
+  window.gtag?.('event', name, params);
+}
+
+/** 홈에서 실행(standalone) 중이면 세션당 1회 pwa_standalone 발화 (iOS 설치 추정용). */
+function trackStandaloneOnce(): void {
+  if (typeof window === 'undefined' || !isStandalone()) return;
+  try {
+    if (sessionStorage.getItem('tb_pwa_standalone_tracked')) return;
+    sessionStorage.setItem('tb_pwa_standalone_tracked', '1');
+  } catch {
+    /* ignore */
+  }
+  fireGaEvent('pwa_standalone');
+}
+
 if (typeof window !== 'undefined') {
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault(); // 브라우저 기본 미니 배너 억제 → 우리 버튼으로 유도
@@ -23,8 +44,10 @@ if (typeof window !== 'undefined') {
   });
   window.addEventListener('appinstalled', () => {
     deferred = null;
+    fireGaEvent('pwa_install'); // 실제 설치 완료(Android/데스크톱 Chrome) — iOS 미발화
     notify();
   });
+  trackStandaloneOnce();
 }
 
 /** 설치 프롬프트가 준비됐는지 (Chrome/Android/데스크탑). */

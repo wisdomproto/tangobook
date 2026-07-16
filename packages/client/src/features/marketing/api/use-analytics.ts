@@ -5,6 +5,7 @@ import type {
   GA4TrafficSource,
   GA4TopPage,
   GA4TopBooksResult,
+  GA4PwaInstalls,
   GA4CountryRow,
   GA4ContentRow,
   GA4DailyRow,
@@ -109,6 +110,16 @@ export function useGa4TopBooks(
     enabled: enabled && !!projectId,
     staleTime: STALE_TIME,
     queryFn: () => postMkt<GA4TopBooksResult>('/analytics/top-books', { projectId, period }),
+  });
+}
+
+/** POST /api/mkt/analytics/pwa-installs  Body: { projectId } — PWA 홈 설치 누적(기간 무관) */
+export function useGa4PwaInstalls(projectId: string, enabled = !!projectId) {
+  return useQuery({
+    queryKey: mktKeys.analyticsPwaInstalls(projectId),
+    enabled: enabled && !!projectId,
+    staleTime: STALE_TIME,
+    queryFn: () => postMkt<GA4PwaInstalls>('/analytics/pwa-installs', { projectId }),
   });
 }
 
