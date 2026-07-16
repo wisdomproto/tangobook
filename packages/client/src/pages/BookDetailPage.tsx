@@ -13,7 +13,7 @@ import {
 import { StateScreen, Skeleton, Chip, PageHeader, BookCover } from '@/design-system';
 import { cn } from '@/lib/cn';
 import { useSeo } from '@/lib/useSeo';
-import { useStyleGenreLabel } from '@/lib/art-style-genre';
+import { useStyleGenreLabel, useStyleGenreMap } from '@/lib/art-style-genre';
 import { YouTubeModal } from '@/features/viewer/components/YouTubeModal';
 import {
   SUPPORTED_LANGUAGES,
@@ -65,6 +65,7 @@ export default function BookDetailPage() {
   // 유료화 접근 권한 (체험/구독). 현재는 가입일 기반 체험만 — Supabase 연동 시 구독·레퍼럴 주입.
   const access = useAccess();
   const styleGenreLabel = useStyleGenreLabel();
+  const { map: styleGenreMap } = useStyleGenreMap();
   const { account } = useAuth();
   // "영상으로 보기" 모드는 아직 준비 중 — 개발자에게만 노출.
   const showVideoMode = isDevEmail(account?.email);
@@ -173,8 +174,14 @@ export default function BookDetailPage() {
     selectedLevel ??
     (launchLevel && levels.includes(launchLevel) ? launchLevel : levels[0]) ??
     baseLevel;
+  // 기본 그림체 = 라이브러리 기본 그림풍(페이퍼 3D)과 일치 — 명작 책에 페이퍼3D 표지가 있으면
+  // 그걸 기본 선택(2026-07-16, "라이브러리는 페이퍼3D인데 들어가면 수채화" 불일치 fix).
+  // 없으면 기존 폴백(styles[0]). 사용자가 그림체 칩으로 바꾸면 selectedStyle 우선.
+  const paper3dStyle = styles.find((s) => styleGenreMap[s] === 'paper3d');
   const effectiveStyle =
-    (selectedStyle && styles.includes(selectedStyle) ? selectedStyle : undefined) ?? styles[0];
+    (selectedStyle && styles.includes(selectedStyle) ? selectedStyle : undefined) ??
+    paper3dStyle ??
+    styles[0];
   // 언어 토글 = 현재 그림체에서 공개된 언어만 + 선택 언어가 비공개면 첫 공개 언어로 보정.
   const visibleLangs = allLanguages.filter((l) => isCellPublic(effectiveStyle, l));
   const languages = visibleLangs.length > 0 ? visibleLangs : allLanguages;
