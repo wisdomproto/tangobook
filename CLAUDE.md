@@ -28,7 +28,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - **백엔드 레이어**: `routes(URL 매핑) → controllers(req 파싱 + try/catch + next(err)) → services(비즈니스 로직, AppError throw) → repositories(R2) / providers(Gemini·R2 SDK 싱글톤)`
 - **응답 통일**: `res.json({ success: true, data })` / 실패는 `throw new AppError(404, '메시지')` (errorMiddleware)
 - **프론트 상태**: TanStack Query = 서버 데이터 / Zustand(`store/editor.store.ts`) = UI 상태만. **Zustand 에 서버 데이터 금지**.
-- **API 패턴**: `apiGet/apiPost/apiDelete`(`lib/axios.ts`) → `features/{name}/api/*.api.ts` → `features/{name}/hooks/use*.ts`
+- **API 패턴**: `apiGet/apiPost/apiDelete`(`lib/axios.ts`) → `features/{name}/api/*.api.ts` → `features/{name}/hooks/use*.ts`. 🔴 **transient 방어**(2026-07-16): `lib/axios.ts` 에러 인터셉터가 프록시/서버 재시작 창(응답없음·5xx·비-JSON 평문 "no healthy upstream" 등, serverMsg 없는 경우)을 감지해 파싱 에러 노출 대신 친절 메시지+`transient` 플래그 반환. 결제 `useCheckout` 는 주문생성이 transient면 1.5s 후 1회 자동 재시도(Railway 단일 인스턴스 재시작 blip 흡수 — healthcheck `/health` 는 배포 무중단, replicas=1 유지). → memory `api-error-resilience-2026-07-16`.
 - **Feature 모듈**: `features/{name}/{api,hooks,components,index.ts}`
 
 ## 디자인 시스템
