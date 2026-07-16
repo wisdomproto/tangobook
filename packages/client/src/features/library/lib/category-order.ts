@@ -1,10 +1,12 @@
 // 카테고리 표시 순서 — LibraryPage(메인)와 연속재생 빌더가 공유.
 // config(categoryOrder) 우선, 없으면 default, 둘 다에 없는 카테고리는 권수 desc.
 
+// 생활동화 먼저, 그다음 세계 명작 (2026-07-16 사용자 요청). 실제 카테고리명은 '생활동화'(붙임).
+// ⚠️ 실효 순서는 R2 LibraryConfig.categoryOrder 가 우선 — 이 default 는 config 부재 시 폴백.
 export const DEFAULT_PRIORITY_CATEGORIES = [
+  '생활동화',
   '세계 명작',
   '자연 관찰',
-  '생활 동화',
   '전래 동화',
   '기타',
 ];
