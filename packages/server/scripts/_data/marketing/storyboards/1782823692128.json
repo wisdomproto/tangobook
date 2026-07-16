@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782823692128",
+  "title": "보글보글 뽀득뽀득!",
+  "hook": "놀이터에서 모래를 만지작거리던 손 그대로, 아이가 간식을 덥석 집어 먹는…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "놀이터에서 모래를 만지작거리던 손 그대로, 아이가 간식을 덥석 집어 먹는 모습.",
+      "screen": "손 안 씻고 먹는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "손 안 씻고 먹는 우리 아이",
+      "imagePrompt": "A cute squirrel cub with sandy hands grabbing a piece of bread at a playground snack time, tiny cheerful invisible germ creatures hopping onto the bread, playful whimsical style, bright outdoor scene, warm children book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "유아기는 손으로 세상을 탐색하는 시기라, 밥 먹기 전과 바깥놀이 뒤 손씻기 습관을 들이는 것이 건강의 기본입니다. 손에 붙은 눈에 안 보이는 세균이 음식을 타고 배 속으로 들어가면 배가 아플 수 있…",
+      "screen": "손씻기 습관이 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "손씻기 습관이 중요한 이유",
+      "imagePrompt": "A close-up of two little paws being washed under running water with fluffy white soap bubbles, tiny germ creatures being rinsed away down the drain, clean bright bathroom, warm children book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "『보글보글 뽀득뽀득!』의 콩이는 모래 묻은 손으로 빵을 먹었다가 배 속에서 꾸르륵, 배가 살살 아파 옵니다. 눈물이 찔끔 나는 콩이에게 친구 호리가 얼른 다가오지요.",
+      "screen": "콩이의 배탈과 손씻기 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "콩이의 배탈과 손씻기 이야기",
+      "imagePrompt": "A baby tiger cub and a squirrel cub standing side by side at a bathroom sink washing hands together happily, fluffy soap bubbles like clouds, warm supportive friendship mood, warm children book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북에서는 콩이와 호리의 이야기를 부모님 목소리로 읽어 주거나 다정한 나레이션으로 들려줄 수 있어요. 보글보글 뽀득뽀득 후렴을 손 비비는 동작과 함께 읽으면, 이야기가 끝날 즈음 아이가 먼저 손을…",
+      "screen": "탱고북에서 함께 읽어요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북에서 함께 읽어요",
+      "imagePrompt": "A parent and toddler reading a picture book together before a meal, the child rubbing hands together imitating washing, cozy warm kitchen light, tender bonding moment, warm children book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "보글보글 뽀득뽀득!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

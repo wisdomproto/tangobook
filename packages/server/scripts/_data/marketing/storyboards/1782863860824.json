@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782863860824",
+  "title": "여기선 조용조용, 살금살금",
+  "hook": "도서관, 식당, 지하철처럼 조용해야 하는 곳에서 아이가 뛰고 큰 소리를…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "도서관, 식당, 지하철처럼 조용해야 하는 곳에서 아이가 뛰고 큰 소리를 내면 부모는 진땀이 납니다.",
+      "screen": "도서관에서도 뛰어다니는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "도서관에서도 뛰어다니는 우리 아이",
+      "imagePrompt": "A warm needle-felt style children's illustration, a little tiger cub running and shouting in a quiet library while others look up startled, warm indoor light, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "공공장소 예절은 '나 말고 다른 사람도 있다'는 감각에서 출발합니다. 내 행동이 남에게 어떤 영향을 주는지 아는 아이는, 어디서나 배려할 줄 아는 사람으로 자라지요.",
+      "screen": "공공장소 예절이 왜 중요할까요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "공공장소 예절이 왜 중요할까요",
+      "imagePrompt": "A warm needle-felt style children's illustration, a cub tiptoeing quietly and holding a book with two hands carefully in a cozy library, gentle warm tones, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "『여기선 조용조용, 살금살금』의 호리는 도서관에서 신나 뛰어다니다 친구들을 놀라게 합니다. 그런데 이번엔 다른 아이의 소음에 호리가 읽던 줄을 놓치지요.",
+      "screen": "조용조용 요정이 된 호리의 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "조용조용 요정이 된 호리의 이야기",
+      "imagePrompt": "A warm needle-felt style children's illustration, a cub playing a quiet fairy game tiptoeing with finger on lips, rainbow sparkle, cozy library, warm light, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북에서는 이야기를 읽은 뒤 '조용조용', '살금살금', '소중하게' 같은 낱말을 놀이로 다시 만납니다. 아이는 예절에 필요한 말과 행동을 눈과 귀와 손으로 익히지요.",
+      "screen": "탱고북으로 예절의 말 익히기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 예절의 말 익히기",
+      "imagePrompt": "A warm needle-felt style children's illustration, a child and tiger cub interacting quietly with a glowing storybook frame, cozy home, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "여기선 조용조용, 살금살금, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782824086419",
+  "title": "호리는 호리니까!",
+  "hook": "달리기가 느려서, 키가 작아서, 친구만큼 잘 못해서 — 아이는 자라면서…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "달리기가 느려서, 키가 작아서, 친구만큼 잘 못해서 — 아이는 자라면서 자연스럽게 친구와 자신을 비교하기 시…",
+      "screen": "\"나는 왜 이럴까\"라고 말하는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "\"나는 왜 이럴까\"라고 말하는 우리 아이",
+      "imagePrompt": "A small tiger cub sitting alone with drooping shoulders after a race, other cubs playing in the background, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "자존감은 '남보다 잘하는 것'이 아니라 '나를 있는 그대로 좋아하는 마음'입니다. 어릴 때 이 마음이 단단히 자리 잡으면, 아이는 실패 앞에서도 쉽게 무너지지 않습니다.",
+      "screen": "자존감, 왜 어릴 때 뿌리내려야 할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "자존감, 왜 어릴 때 뿌리내려야 할까요?",
+      "imagePrompt": "A tiger cub looking at its own colorful rainbow-striped tail in a mirror thoughtfully, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "동화 호리는 호리니까! 에서 호리는 짧고 알록달록하기만 한 자기 꼬리를 원망합니다.",
+      "screen": "엄마가 호리에게 물어본 것 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "엄마가 호리에게 물어본 것",
+      "imagePrompt": "A mother tiger gently holding a cub on her lap talking warmly, cozy indoor scene, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "이 이야기의 핵심은 남과 달라도 걱정 없다, 나만의 색이 곧 나의 특별함이다 라는 메시지입니다. 저마다 다른 점이 저마다의 매력이라는 걸 아이는 자연스럽게 느낍니다.",
+      "screen": "탱고북에서 만나는 나만의 특별함 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북에서 만나는 나만의 특별함",
+      "imagePrompt": "A tiger cub proudly showing a colorful rainbow drawing to admiring friends, joyful, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "호리는 호리니까!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

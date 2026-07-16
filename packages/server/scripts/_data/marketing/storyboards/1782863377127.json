@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782863377127",
+  "title": "안녕! 같이 놀자!",
+  "hook": "다른 아이들은 금세 어울려 노는데, 우리 아이만 저만치서 빙빙 서성이는…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "다른 아이들은 금세 어울려 노는데, 우리 아이만 저만치서 빙빙 서성이는 모습을 보면 마음이 짠합니다.",
+      "screen": "놀이터에서 혼자 서성이는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "놀이터에서 혼자 서성이는 우리 아이",
+      "imagePrompt": "A warm needle-felt style children's illustration, a shy little animal peeking from behind a friend at a playground, other children playing in background, soft warm light, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "먼저 다가가는 경험은 아이의 자신감과 사회성을 함께 키웁니다. 인사 한마디로 친구가 생기는 성공을 맛본 아이는, 다음번엔 조금 더 쉽게 다가갑니다.",
+      "screen": "먼저 인사하는 용기가 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "먼저 인사하는 용기가 중요한 이유",
+      "imagePrompt": "A warm needle-felt style children's illustration, a little animal waving hello with a brave smile, a new friend turning to look, gentle sunny playground, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "『안녕! 같이 놀자!』의 보리는 새 친구와 놀고 싶지만 발끝만 꼼지락거립니다.",
+      "screen": "부끄럼 많은 보리의 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "부끄럼 많은 보리의 이야기",
+      "imagePrompt": "A warm needle-felt style children's illustration, three little animal friends holding hands and spinning happily, yellow sparkle detail, warm playground, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북에서는 이야기를 읽은 뒤 '안녕', '친구', '같이 놀자' 같은 말을 놀이로 다시 만납니다. 아이는 친구에게 건넬 말을 눈과 귀와 손으로 익히며, 실제 상황에서 떠올리기 쉬워집니다.",
+      "screen": "탱고북으로 인사 말 익히기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 인사 말 익히기",
+      "imagePrompt": "A warm needle-felt style children's illustration, a child and tiger cub practicing a hello wave in front of a glowing storybook frame, cozy home, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "안녕! 같이 놀자!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1783608743331",
+  "title": "하나 둘, 준비 끝!",
+  "hook": "외출할 때마다 물통, 간식, 여벌 옷을 챙기는 건 언제나 부모님입니다.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "외출할 때마다 물통, 간식, 여벌 옷을 챙기는 건 언제나 부모님입니다.",
+      "screen": "챙기는 건 늘 부모 몫 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "챙기는 건 늘 부모 몫",
+      "imagePrompt": "A warm needle-felt style children illustration of a tiger cub excitedly running out the door with an empty flat backpack, parent noticing behind, cheerful home entrance, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "스스로 준비하는 습관은 아이에게 자립심과 책임감을 심어 줍니다. 무엇이 필요한지 미리 생각하고, 빠뜨리지 않도록 챙기는 과정에서 아이는 계획하는 힘을 배웁니다.",
+      "screen": "스스로 준비하기가 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "스스로 준비하기가 중요한 이유",
+      "imagePrompt": "A warm needle-felt style children illustration of a father tiger and cub laying out a water bottle, snack, and hat side by side to pack, counting on fingers, warm room, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "「하나 둘, 준비 끝!」의 호리도 소풍이 신나 빈 가방으로 나가려 합니다. 하지만 아빠가 가방을 흔들자 텅— 소리가 나지요.",
+      "screen": "호리의 소풍 준비 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호리의 소풍 준비 이야기",
+      "imagePrompt": "A warm needle-felt style children illustration of a cub zipping up a full round backpack and putting it on proudly, ready for a picnic, sunny cheerful mood, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북의 생활동화는 '이거 챙겨' 하는 지시 대신, 스스로 준비하는 즐거움을 이야기로 전합니다. 호리가 필요한 것을 미리 그려 보고 하나씩 세며 챙기는 과정을, 아이는 자기 일처럼 따라갑니다.",
+      "screen": "탱고북으로 준비 습관 배우기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 준비 습관 배우기",
+      "imagePrompt": "A warm needle-felt style children illustration of a child watching a story on a tablet with a small backpack beside, getting ready to go out, warm bright room, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "하나 둘, 준비 끝!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1783990306507",
+  "title": "알맞은 소리로, 사이좋게",
+  "hook": "집에서도, 식당에서도, 도서관에서도 늘 큰 소리로 말하는 아이.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "집에서도, 식당에서도, 도서관에서도 늘 큰 소리로 말하는 아이.",
+      "screen": "실내에서도 목소리가 우렁찬 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "실내에서도 목소리가 우렁찬 우리 아이",
+      "imagePrompt": "A warm needle-felt style children's illustration, a little tiger cub shouting loudly while friends cover their ears, cozy playroom, gentle warm light, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "목소리 크기를 조절하는 힘은 아이의 자기 조절력과 배려심을 함께 키웁니다. 때와 장소에 맞게 소리를 낼 줄 아는 아이는 어디서나 환영받고, 친구들과의 관계도 편안해집니다.",
+      "screen": "소리 조절이 왜 중요할까요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "소리 조절이 왜 중요할까요",
+      "imagePrompt": "A warm needle-felt style children's illustration, a little animal whispering softly indoors and shouting joyfully outdoors, split cozy scene, warm tones, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "『알맞은 소리로, 사이좋게』의 토토는 놀이방 문을 벌컥 열며 꽥 소리칩니다. 친구들이 깜짝 놀라 하나둘 멀어지지만, 토토는 이유를 모르지요.",
+      "screen": "우렁찬 토토의 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "우렁찬 토토의 이야기",
+      "imagePrompt": "A warm needle-felt style children's illustration, a tiger cub joyfully shouting yahoo in a sunny yard with a yellow sparkle, warm cheerful mood, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북에서는 이야기를 읽은 뒤 '조용조용', '소곤소곤', '야호' 같은 낱말을 놀이로 다시 만납니다. 아이는 소리 크기를 나타내는 말을 눈과 귀로 익히며, 소리 조절을 자연스럽게 배웁니다.",
+      "screen": "탱고북으로 소리말 익히기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 소리말 익히기",
+      "imagePrompt": "A warm needle-felt style children's illustration, a child and tiger cub playing a whisper game near a glowing storybook frame, cozy home, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "알맞은 소리로, 사이좋게, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

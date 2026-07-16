@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782831062275",
+  "title": "깜깜해도 괜찮아, 옆에 있어!",
+  "hook": "낮에는 그렇게 씩씩하던 아이가, 방에 불이 꺼지면 갑자기 이불을 코까지…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "낮에는 그렇게 씩씩하던 아이가, 방에 불이 꺼지면 갑자기 이불을 코까지 끌어올립니다.",
+      "screen": "불만 끄면 무섭다는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "불만 끄면 무섭다는 우리 아이",
+      "imagePrompt": "A small tiger cub pulling a blanket up to its nose in a dark bedroom, nervous expression, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "아이의 무서움을 \"별거 아니야\"라고 넘기면, 아이는 자기 감정이 인정받지 못한다고 느껴 오히려 불안이 커집니다. 반대로 \"무서웠구나\" 하고 감정을 먼저 읽어 준 뒤, 무서움의 정체를 함께 확인해 주…",
+      "screen": "밤 공포, 무시하면 더 커집니다 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "밤 공포, 무시하면 더 커집니다",
+      "imagePrompt": "A father tiger sitting beside a cub in the dark holding a small flashlight and holding hands, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "동화 깜깜해도 괜찮아, 옆에 있어! 에서 보리는 벽의 뾰족한 그림자를 괴물이라며 무서워합니다.",
+      "screen": "보리와 아빠의 그림자 탐험 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "보리와 아빠의 그림자 탐험",
+      "imagePrompt": "A tiger cub holding a flashlight and discovering a scary shadow is just a coat on a hanger, relieved surprise, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "이 이야기의 핵심은 아이가 외우기 쉬운 세 가지 방법입니다. 하나, \"무서워\"라고 말하기!",
+      "screen": "탱고북에서 배우는 무서움 이기는 3가지 방법 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북에서 배우는 무서움 이기는 3가지…",
+      "imagePrompt": "A tiger cub snuggled next to a friend under a soft night light, peaceful sleepy expression, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "깜깜해도 괜찮아, 옆에 있어!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

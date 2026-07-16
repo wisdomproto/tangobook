@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782863858779",
+  "title": "할머니 최고, 폭 안겨!",
+  "hook": "명절이나 방학에 할머니 댁에 가면, 반갑게 맞아 주시는데도 아이는 쭈뼛쭈…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "명절이나 방학에 할머니 댁에 가면, 반갑게 맞아 주시는데도 아이는 쭈뼛쭈뼛 엄마 뒤로 숨곤 하지요.",
+      "screen": "할머니 댁을 낯설어하는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "할머니 댁을 낯설어하는 우리 아이",
+      "imagePrompt": "A warm needle-felt style children's illustration, a little tiger cub shyly peeking from behind a parent as grandparents welcome them at a countryside house, warm light, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "조부모와 보내는 시간은 아이에게 '넓은 사랑'을 경험하게 합니다. 부모와는 또 다른 방식으로 아낌없이 사랑받는 경험은 아이의 정서적 안정감을 키우지요.",
+      "screen": "조부모와의 시간이 왜 소중할까요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "조부모와의 시간이 왜 소중할까요",
+      "imagePrompt": "A warm needle-felt style children's illustration, a grandfather and cub picking cherry tomatoes together in a garden, joyful discovery, warm sunny tones, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "『할머니 최고, 폭 안겨!』의 호리는 낯선 시골집이 어색해 시무룩합니다. 그때 할머니가 김 나는 찐 고구마를 건네고, 할아버지는 텃밭에서 토마토를 따게 해 주지요.",
+      "screen": "시골집이 정겨워진 호리의 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "시골집이 정겨워진 호리의 이야기",
+      "imagePrompt": "A warm needle-felt style children's illustration, a cub hugging a warm grandmother tightly, rainbow sparkle, tender cozy countryside home, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북에서는 이야기를 읽으며 아이와 조부모에 대한 추억을 자연스럽게 나눌 수 있습니다. 호리의 하루를 따라가다 보면, 아이도 할머니 댁을 더 기대하게 되지요.",
+      "screen": "탱고북으로 가족 이야기 나누기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 가족 이야기 나누기",
+      "imagePrompt": "A warm needle-felt style children's illustration, a parent and child reading a glowing storybook together, cozy warm home evening, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "할머니 최고, 폭 안겨!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

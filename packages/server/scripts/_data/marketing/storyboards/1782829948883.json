@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782829948883",
+  "title": "쭉쭉 기지개, 좋은 아침!",
+  "hook": "아침마다 같은 장면이 반복됩니다.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "아침마다 같은 장면이 반복됩니다.",
+      "screen": "매일 아침 깨우기 전쟁 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "매일 아침 깨우기 전쟁",
+      "imagePrompt": "A warm needle-felt style children illustration of a tiger cub burrowing under a blanket refusing to wake up while morning sun shines through the window, cozy bedroom, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "규칙적인 기상은 하루 전체의 리듬을 만듭니다. 아침을 여유롭게 시작한 아이는 기분도 안정되고, 등원 준비도 훨씬 수월해집니다.",
+      "screen": "아침 루틴이 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "아침 루틴이 중요한 이유",
+      "imagePrompt": "A warm needle-felt style children illustration of a mother tiger and cub stretching arms up high together in the morning, bright sunlight, cheerful energetic mood, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "「쭉쭉 기지개, 좋은 아침!」의 호리도 아침마다 '오 분만 더'를 외치다 늦잠을 잡니다. 해가 벌써 높이 뜬 걸 보고 깜짝 놀라 아침이 온통 정신없이 바빠지지요.",
+      "screen": "호리의 좋은 아침 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호리의 좋은 아침 이야기",
+      "imagePrompt": "A warm needle-felt style children illustration of a cub opening the window to greet the morning with arms wide, birds and fresh breeze, joyful sunrise, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북의 생활동화는 '빨리 일어나'라는 재촉 대신, 아침을 여는 즐거움을 이야기로 전합니다. 호리가 기지개부터 시작해 스스로 아침을 여는 과정을, 아이는 자기 아침처럼 따라갑니다.",
+      "screen": "탱고북으로 기상 습관 배우기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 기상 습관 배우기",
+      "imagePrompt": "A warm needle-felt style children illustration of a child watching a cheerful morning story on a tablet at the breakfast table, bright kitchen, warm start of the day, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "쭉쭉 기지개, 좋은 아침!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

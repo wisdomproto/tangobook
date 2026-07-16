@@ -1,0 +1,48 @@
+{
+  "storybookId": "1783990076840",
+  "title": "찰칵! 벨트 매고 출발!",
+  "hook": "차에 타면 카시트 벨트가 답답하다며 자꾸 빼려는 아이.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "차에 타면 카시트 벨트가 답답하다며 자꾸 빼려는 아이.",
+      "screen": "벨트가 답답하다며 빼려는 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "벨트가 답답하다며 빼려는 아이",
+      "imagePrompt": "A warm needle-felt style children illustration of a tiger cub in a car seat pushing the shoulder belt aside with a pouting face, cozy car interior, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "카시트와 안전벨트는 자동차 사고에서 아이를 지키는 가장 기본적인 보호 장치입니다. 짧은 거리에서도, 급정거 한 번에 아이 몸은 크게 쏠릴 수 있습니다.",
+      "screen": "안전벨트 습관이 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "안전벨트 습관이 중요한 이유",
+      "imagePrompt": "A warm needle-felt style children illustration of a cub feeling the seatbelt gently hold it firm as the car stops suddenly, safe reassuring moment, warm car interior, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "「찰칵! 벨트 매고 출발!」의 호리도 벨트가 답답하다며 밀어 놓습니다.",
+      "screen": "호리의 우주 로켓 벨트 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호리의 우주 로켓 벨트 이야기",
+      "imagePrompt": "A warm needle-felt style children illustration of a cub imagining the car seat as a sparkling rocket while buckling its own seatbelt, joyful space fantasy, warm car, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북의 생활동화는 '벨트 매'라는 실랑이 대신, 벨트의 의미를 이야기로 전합니다. 호리가 벨트의 고마움을 경험하고 스스로 매는 과정을, 아이는 자기 일처럼 따라갑니다.",
+      "screen": "탱고북으로 자동차 안전 배우기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 자동차 안전 배우기",
+      "imagePrompt": "A warm needle-felt style children illustration of a child watching a car-safety story on a tablet before a car trip, cozy home, cheerful anticipation, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "찰칵! 벨트 매고 출발!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

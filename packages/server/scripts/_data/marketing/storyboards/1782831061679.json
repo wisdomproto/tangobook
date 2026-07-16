@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782831061679",
+  "title": "싫어요! 안 돼요! 엄마한테 말해요!",
+  "hook": "부모라면 누구나 아이에게 낯선 사람을 조심하라고 말합니다.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "부모라면 누구나 아이에게 낯선 사람을 조심하라고 말합니다.",
+      "screen": "\"모르는 사람 따라가면 안 돼\"만으로 충분할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "\"모르는 사람 따라가면 안 돼\"만으로 충…",
+      "imagePrompt": "A small tiger cub playing in a sandbox at a playground while a stranger figure approaches gently in the background, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "아이에게 세상이 무섭다고 가르치면 불안만 커집니다. 진짜 필요한 것은 '나는 스스로를 지킬 수 있다'는 자신감입니다.",
+      "screen": "안전 교육, 공포가 아니라 자신감으로 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "안전 교육, 공포가 아니라 자신감으로",
+      "imagePrompt": "A mother tiger and cub holding hands and practicing saying no together warmly at home, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "동화 싫어요! 안 돼요!",
+      "screen": "호리가 스스로를 지킨 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호리가 스스로를 지킨 이야기",
+      "imagePrompt": "A brave tiger cub holding up its palm and stepping back firmly, confident expression, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "이 이야기의 핵심은 아이가 외우기 쉬운 세 마디입니다. 하나, 싫으면 큰 소리로 \"싫어요!\" 둘, 따라 안 가고 \"안 돼요!\" 셋, 얼른 엄마한테 말해요!",
+      "screen": "탱고북에서 배우는 약속의 말 세 마디 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북에서 배우는 약속의 말 세 마디",
+      "imagePrompt": "A tiger cub running to its mother and being embraced with open arms at a playground, relief and warmth, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "싫어요! 안 돼요! 엄마한테 말해요!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

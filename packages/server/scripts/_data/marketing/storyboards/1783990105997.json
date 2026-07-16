@@ -1,0 +1,48 @@
+{
+  "storybookId": "1783990105997",
+  "title": "흔들흔들, 책상 밑으로!",
+  "hook": "거실에서 놀던 중 갑자기 집이 흔들린다면, 어른도 순간 당황합니다.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "거실에서 놀던 중 갑자기 집이 흔들린다면, 어른도 순간 당황합니다.",
+      "screen": "갑자기 땅이 흔들리면, 우리 아이는? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "갑자기 땅이 흔들리면, 우리 아이는?",
+      "imagePrompt": "A cozy living room where a small tiger cub looks startled as toys wobble on a shelf, warm needle-felt children illustration, soft lighting, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "지진 상황에서 아이의 안전을 좌우하는 것은 '침착함'과 '몸에 밴 대피 행동'입니다. 위험한 순간에 처음 배우기는 늦습니다.",
+      "screen": "지진 안전, 왜 미리 배워야 할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "지진 안전, 왜 미리 배워야 할까요?",
+      "imagePrompt": "A father tiger calmly guiding a small tiger cub under a sturdy wooden desk, reassuring gesture, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "동화 흔들흔들, 책상 밑으로! 에서 아기 호랑이 호리는 집이 흔들리자 어쩔 줄 모릅니다.",
+      "screen": "호리와 아빠의 거북이 놀이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호리와 아빠의 거북이 놀이",
+      "imagePrompt": "A small tiger cub curled under a desk covering its head with both paws, imagining itself as a cozy turtle in a shell, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "이 이야기의 핵심은 아이가 외우기 쉬운 세 가지 약속입니다. 하나, 흔들리면 튼튼한 책상 밑으로!",
+      "screen": "탱고북에서 배우는 대피 3가지 약속 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북에서 배우는 대피 3가지 약속",
+      "imagePrompt": "A tiger cub and father holding hands walking slowly out after the shaking stops, gentle relief, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "흔들흔들, 책상 밑으로!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

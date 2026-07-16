@@ -1,0 +1,48 @@
+{
+  "storybookId": "1783990181590",
+  "title": "천천히, 앞을 봐요!",
+  "hook": "새 킥보드나 자전거가 생기면 아이는 속도의 즐거움에 푹 빠집니다.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "새 킥보드나 자전거가 생기면 아이는 속도의 즐거움에 푹 빠집니다.",
+      "screen": "씽씽 달리는 게 마냥 좋은 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "씽씽 달리는 게 마냥 좋은 우리 아이",
+      "imagePrompt": "A small tiger cub riding a kickboard fast in a park with no helmet, excited expression, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "킥보드 사고는 대부분 '속도'와 '앞을 보지 않는 것'에서 시작됩니다. 작은 돌멩이 하나, 갑자기 지나가는 사람 하나에도 균형을 잃기 쉽지요.",
+      "screen": "킥보드 안전, 왜 습관이 중요할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "킥보드 안전, 왜 습관이 중요할까요?",
+      "imagePrompt": "A tiger cub kickboard wobbling over a small stone on a path, nearly losing balance, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "동화 천천히, 앞을 봐요! 에서 토토는 헬멧도 없이 달리다 돌멩이에 걸려 넘어질 뻔합니다.",
+      "screen": "호리가 토토에게 알려준 것 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호리가 토토에게 알려준 것",
+      "imagePrompt": "A tiger cub gently placing a blue helmet on another cub's head, warm friendly moment, needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "이 이야기의 핵심은 아이가 외우기 쉬운 세 가지 약속입니다. 하나, 탈 땐 꼭 헬멧을 써요!",
+      "screen": "탱고북에서 배우는 안전 3가지 약속 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북에서 배우는 안전 3가지 약속",
+      "imagePrompt": "A tiger cub wearing a helmet riding slowly and stopping with its foot as a puppy passes by, careful expression, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "천천히, 앞을 봐요!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

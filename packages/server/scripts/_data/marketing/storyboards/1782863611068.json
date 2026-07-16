@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782863611068",
+  "title": "처음엔 떨려도, 곧 친구!",
+  "hook": "입학을 앞두고 \"안 갈래\", \"엄마랑 있을래\" 하며 우는 아이를 보면 부…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "입학을 앞두고 \"안 갈래\", \"엄마랑 있을래\" 하며 우는 아이를 보면 부모 마음도 무겁습니다.",
+      "screen": "유치원 간다니 눈물부터 나는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "유치원 간다니 눈물부터 나는 우리 아이",
+      "imagePrompt": "A warm needle-felt style children's illustration, a little animal hiding behind a parent's leg near a yellow school bus, teary eyes, soft morning light, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "유치원 적응은 아이가 처음 겪는 '작은 사회생활'입니다. 이 첫 경험을 잘 넘기면 아이는 새로운 곳, 새로운 사람 앞에서 덜 불안해하고 더 씩씩해집니다.",
+      "screen": "새 환경 적응이 왜 중요할까요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "새 환경 적응이 왜 중요할까요",
+      "imagePrompt": "A warm needle-felt style children's illustration, a gentle rabbit teacher holding a shy little animal's hand in a classroom, warm reassuring mood, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "『처음엔 떨려도, 곧 친구!』의 보리는 낯선 교실 구석에 쪼그리고 앉아 눈물을 글썽입니다. 그때 토끼 선생님이 손을 내밀지요.",
+      "screen": "유치원 첫날, 보리의 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "유치원 첫날, 보리의 이야기",
+      "imagePrompt": "A warm needle-felt style children's illustration, little animal friends playing blocks and laughing together in a bright classroom, joyful warm scene, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북에서는 이야기를 읽으며 아이가 유치원 생활을 미리 그려 볼 수 있습니다. 보리의 하루를 따라가다 보면, 낯선 곳도 곧 즐거워진다는 걸 마음으로 알게 되지요.",
+      "screen": "탱고북으로 입학 마음 준비하기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 입학 마음 준비하기",
+      "imagePrompt": "A warm needle-felt style children's illustration, a parent and child reading a glowing storybook together before bedtime, cozy warm lamp light, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "처음엔 떨려도, 곧 친구!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

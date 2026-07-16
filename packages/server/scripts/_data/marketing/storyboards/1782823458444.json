@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782823458444",
+  "title": "주사 콕, 병균 뿅!",
+  "hook": "병원에 가자는 말만 해도 아이는 꼬리가 축 처지고, 대기실에서 다른 아이…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "병원에 가자는 말만 해도 아이는 꼬리가 축 처지고, 대기실에서 다른 아이 우는 소리에 심장이 콩닥거립니다.",
+      "screen": "병원만 가면 울음부터 터지는 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "병원만 가면 울음부터 터지는 아이",
+      "imagePrompt": "A warm needle-felt style children illustration of a little tiger cub with teary eyes and drooping tail in a doctor's waiting room, gentle clinic setting, tender mood, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "주사에 대한 두려움을 잘 넘긴 경험은, 아이가 앞으로 만날 다른 무서운 순간에도 큰 힘이 됩니다. 무섭지만 이유를 이해하고 스스로 마음을 다잡는 연습은, 감정을 조절하는 능력의 씨앗이 됩니다.",
+      "screen": "두려움을 다스리는 힘이 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "두려움을 다스리는 힘이 중요한 이유",
+      "imagePrompt": "A warm needle-felt style children illustration of a tiger cub taking a deep breath and bravely extending its arm, imagining tiny sparkling defender soldiers inside its body, warm clinic, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "「주사 콕, 병균 뿅!」의 호리도 주사가 무서워 대기실에서 심장이 콩닥거립니다. 그때 다정한 코끼리 선생님이 '네 몸속에 씩씩한 병사들이 산다'는 이야기를 들려주지요.",
+      "screen": "호리의 몸속 병사 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호리의 몸속 병사 이야기",
+      "imagePrompt": "A warm needle-felt style children illustration of a kind elephant doctor showing a cub a picture of brave little defenders inside the body, gentle explaining, warm clinic room, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북의 생활동화는 '괜찮아'라는 막연한 위로 대신, 두려움을 이해하고 다스리는 법을 이야기로 전합니다. 호리가 상상과 작은 용기로 주사를 이겨내는 과정을, 아이는 자기 경험처럼 따라갑니다.",
+      "screen": "탱고북으로 두려움 이겨내기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 두려움 이겨내기",
+      "imagePrompt": "A warm needle-felt style children illustration of a child watching a courage-themed story on a tablet at home before a clinic visit, cozy calm room, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "주사 콕, 병균 뿅!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

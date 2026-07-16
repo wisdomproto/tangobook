@@ -1,0 +1,48 @@
+{
+  "storybookId": "1783990336946",
+  "title": "고마워, 자연아!",
+  "hook": "모처럼 자연으로 나들이를 나왔는데, 아이는 스마트폰만 찾거나 \"심심해,…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "모처럼 자연으로 나들이를 나왔는데, 아이는 스마트폰만 찾거나 \"심심해, 언제 가?\" 하며 시큰둥합니다.",
+      "screen": "숲에 가도 \"심심해\"만 하는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "숲에 가도 \"심심해\"만 하는 우리 아이",
+      "imagePrompt": "A warm needle-felt style children's illustration, a little tiger cub sitting bored on a rock in a colorful autumn forest, family nearby, soft warm light, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "자연을 오감으로 느끼는 경험은 아이의 호기심과 정서를 함께 키웁니다. 낙엽 소리, 흙 냄새, 도토리의 감촉을 아는 아이는 세상을 더 풍부하게 바라보지요.",
+      "screen": "자연 감수성이 왜 중요할까요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "자연 감수성이 왜 중요할까요",
+      "imagePrompt": "A warm needle-felt style children's illustration, a cub with eyes closed listening to forest sounds, leaves and birds around, gentle warm autumn tones, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "『고마워, 자연아!』의 호리는 가을 숲이 시큰둥합니다. 그때 엄마가 눈을 감겨 주며 \"무슨 소리가 들려?\"라고 묻지요.",
+      "screen": "숲의 고마움을 알게 된 호리의 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "숲의 고마움을 알게 된 호리의 이야기",
+      "imagePrompt": "A warm needle-felt style children's illustration, a cub hugging a big tree and saying thank you, holding autumn leaves, rainbow sparkle, warm forest light, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북에서는 이야기를 읽은 뒤 '낙엽', '바람', '도토리', '고마워' 같은 낱말을 놀이로 다시 만납니다. 아이는 자연을 나타내는 말을 눈과 귀와 손으로 익히지요.",
+      "screen": "탱고북으로 자연의 말 익히기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 자연의 말 익히기",
+      "imagePrompt": "A warm needle-felt style children's illustration, a child and tiger cub exploring nature words on a glowing storybook frame, cozy home with autumn leaves, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "고마워, 자연아!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

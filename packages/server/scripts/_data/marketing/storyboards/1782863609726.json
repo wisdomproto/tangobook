@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782863609726",
+  "title": "울어도 괜찮아, 안아줄게",
+  "hook": "넘어져 아프거나 속상한 일이 생겨도 눈물을 꾹 참는 아이가 있습니다.",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "넘어져 아프거나 속상한 일이 생겨도 눈물을 꾹 참는 아이가 있습니다.",
+      "screen": "슬퍼도 꾹 참는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "슬퍼도 꾹 참는 우리 아이",
+      "imagePrompt": "A small tiger cub holding back tears with a tight throat after falling, a bunny doll in a puddle nearby, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "슬픔은 없애야 할 감정이 아니라, 건강하게 흘려보내야 할 감정입니다. 실컷 울고 위로받은 아이는 감정을 스스로 다루는 힘을 기릅니다.",
+      "screen": "감정을 표현하는 것도 배워야 합니다 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "감정을 표현하는 것도 배워야 합니다",
+      "imagePrompt": "A mother tiger kneeling to meet a cub's eyes with a gentle, understanding expression, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "동화 울어도 괜찮아, 안아줄게 에서 호야는 넘어져 아프고 인형까지 물에 빠지자 눈물을 참습니다. 그때 엄마 호랑이가 눈을 맞추며 \"울어도 괜찮아.",
+      "screen": "호야와 엄마의 따뜻한 포옹 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호야와 엄마의 따뜻한 포옹",
+      "imagePrompt": "A cub crying freely while being hugged warmly by mother tiger with open arms, comforting, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "이 이야기의 핵심은 아이가 기억하기 쉬운 세 가지입니다. 하나, \"슬퍼\"라고 말하기!",
+      "screen": "탱고북에서 배우는 슬픔 다루기 3가지 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북에서 배우는 슬픔 다루기 3가지",
+      "imagePrompt": "A cub smiling brightly again while hugging a cleaned bunny doll, relief and joy, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "울어도 괜찮아, 안아줄게, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

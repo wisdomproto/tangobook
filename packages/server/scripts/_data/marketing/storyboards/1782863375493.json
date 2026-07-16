@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782863375493",
+  "title": "나누면, 더 맛있어!",
+  "hook": "좋아하는 간식이나 장난감이 생기면 아이는 꼭 끌어안고 \"내 거야!\"를 외…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "좋아하는 간식이나 장난감이 생기면 아이는 꼭 끌어안고 \"내 거야!\"를 외칩니다.",
+      "screen": "\"이건 다 내 거야!\"라는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "\"이건 다 내 거야!\"라는 우리 아이",
+      "imagePrompt": "A small squirrel cub hugging a basket of acorns tightly and turning away from friends, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "혼자 다 가지면 더 행복할 것 같지만, 신기하게도 나눌 때 즐거움은 더 커집니다. 함께 먹고 함께 웃는 경험이 마음을 채워 주기 때문이지요.",
+      "screen": "나눔은 손해가 아니라 두 배의 기쁨 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "나눔은 손해가 아니라 두 배의 기쁨",
+      "imagePrompt": "A squirrel cub sitting alone with many acorns but looking bored and lonely, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "동화 나누면, 더 맛있어! 에서 콩이는 도토리를 잔뜩 안고도 혼자라 심심합니다.",
+      "screen": "콩이가 깨달은 나눔의 즐거움 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "콩이가 깨달은 나눔의 즐거움",
+      "imagePrompt": "A squirrel cub happily sharing acorns with friends who gather around smiling, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "이 이야기의 핵심은 아이가 따라 하기 쉬운 세 가지 규칙입니다. 하나, 친구에게 먼저 물어봐요!",
+      "screen": "탱고북에서 배우는 나눔의 규칙 3가지 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북에서 배우는 나눔의 규칙 3가지",
+      "imagePrompt": "Friends eating acorns together happily in a circle, warm and joyful sharing, needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "나누면, 더 맛있어!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

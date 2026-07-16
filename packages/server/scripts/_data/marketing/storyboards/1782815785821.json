@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782815785821",
+  "title": "골고루 먹으면 무지개 힘!",
+  "hook": "저녁 밥상 앞, 초록 브로콜리와 주황 당근은 어느새 접시 가장자리로 밀려…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "저녁 밥상 앞, 초록 브로콜리와 주황 당근은 어느새 접시 가장자리로 밀려나 있지 않나요?",
+      "screen": "채소 밀어내는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "채소 밀어내는 우리 아이",
+      "imagePrompt": "A cozy warm-lit dinner table scene, a cute round baby tiger cub sitting at the table pushing green broccoli and orange carrot to the edge of the plate, only eating white rice, gentle mother tiger in a peach apron nearby, soft evening sunset light through window, warm children book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "골고루 먹기는 단순한 식사 예절이 아니라 아이 성장의 토대입니다. 다양한 색의 채소와 과일은 저마다 다른 영양을 담고 있어, 골고루 먹을수록 몸이 튼튼해지고 기운이 납니다.",
+      "screen": "골고루 먹기가 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "골고루 먹기가 중요한 이유",
+      "imagePrompt": "A colorful vegetable garden filled with red tomatoes, orange carrots, green broccoli, yellow corn, glowing softly like a rainbow, cheerful atmosphere, warm children book illustration, bright saturated colors, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "『골고루 먹으면 무지개 힘!』의 주인공은 하얀 밥과 고기만 좋아하는 아기 호랑이 호리예요. 채소를 밀어낸 다음 날, 호리는 이상하게 기운이 하나도 없습니다.",
+      "screen": "호리의 무지개 텃밭 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호리의 무지개 텃밭 이야기",
+      "imagePrompt": "A brave baby tiger cub taking a first crunchy bite of an orange carrot with wide sparkling eyes of surprise and delight, a friendly squirrel friend cheering beside, warm cozy garden background, warm children book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북에서는 호리의 이야기를 부모님 목소리로 읽어 주거나, 다정한 나레이션으로 들려줄 수 있어요. 골고루 냠냠, 무지개 힘이 쑥쑥 후렴을 아이와 함께 노래하듯 읽으면 채소가 즐거운 놀이가 됩니다.",
+      "screen": "탱고북에서 함께 읽어요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북에서 함께 읽어요",
+      "imagePrompt": "A parent and toddler reading a picture book together on a cozy sofa, warm lamp light, the child pointing happily at a colorful vegetable illustration on the page, tender bonding moment, warm children book illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "골고루 먹으면 무지개 힘!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

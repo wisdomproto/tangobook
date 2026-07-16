@@ -1,0 +1,48 @@
+{
+  "storybookId": "1783990244878",
+  "title": "몸에 힘 쑥 빼면, 둥실!",
+  "hook": "친구들은 첨벙첨벙 신나게 노는데, 우리 아이만 물가에서 튜브를 끌어안고…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "친구들은 첨벙첨벙 신나게 노는데, 우리 아이만 물가에서 튜브를 끌어안고 발을 딱 멈춥니다.",
+      "screen": "물가에서 발이 딱 멈추는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "물가에서 발이 딱 멈추는 우리 아이",
+      "imagePrompt": "A small tiger cub hugging a yellow float tube tightly at the edge of a shallow pool, hesitant expression, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "무서움은 한 번에 없앨 수 없습니다. 억지로 밀어 넣으면 오히려 더 깊이 각인되지요.",
+      "screen": "두려움은 조금씩 이겨내는 것입니다 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "두려움은 조금씩 이겨내는 것입니다",
+      "imagePrompt": "A father tiger reaching out a big warm hand to a hesitant cub near the water, reassuring, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "동화 몸에 힘 쑥 빼면, 둥실! 에서 보리는 물이 무서워 물가에 물러나 앉습니다.",
+      "screen": "보리와 아빠의 한 걸음씩 물놀이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "보리와 아빠의 한 걸음씩 물놀이",
+      "imagePrompt": "A cub floating on a tube with body relaxed, delighted surprise, father tiger supporting nearby, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "이 이야기의 핵심은 아이가 따라 하기 쉬운 세 가지입니다. 하나, 발끝부터 조금씩!",
+      "screen": "탱고북에서 배우는 물과 친해지는 3가지 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북에서 배우는 물과 친해지는 3가지",
+      "imagePrompt": "A cub and friend playing happily on tubes together in shallow water, splashing joyfully, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "몸에 힘 쑥 빼면, 둥실!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

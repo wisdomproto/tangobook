@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782824600368",
+  "title": "손 꼭! 엄마 곁에!",
+  "hook": "마트나 놀이공원처럼 사람 많은 곳에서, 아이는 눈길을 끄는 것이 보이면…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "마트나 놀이공원처럼 사람 많은 곳에서, 아이는 눈길을 끄는 것이 보이면 순식간에 손을 놓고 달려갑니다.",
+      "screen": "한눈파는 사이 사라지는 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "한눈파는 사이 사라지는 아이",
+      "imagePrompt": "A warm needle-felt style children illustration of a cub letting go of its mother's hand to run toward a colorful balloon display in a big store, busy market aisle, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "길을 잃은 순간 아이가 겁에 질려 이리저리 뛰어다니면 오히려 더 찾기 어려워집니다. 반대로 그 자리에 멈춰 기다리고 안전한 어른에게 도움을 청하면, 훨씬 빠르고 안전하게 다시 만날 수 있습니다.",
+      "screen": "길 잃음 대처법이 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "길 잃음 대처법이 중요한 이유",
+      "imagePrompt": "A warm needle-felt style children illustration of a cub standing still and taking a deep breath in a busy store instead of running, calm brave expression, warm market setting, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "「손 꼭! 엄마 곁에!」의 호리도 풍선 코너에 정신이 팔려 손을 놓고 달려갑니다.",
+      "screen": "호리의 손 꼭 엄마 곁에 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호리의 손 꼭 엄마 곁에 이야기",
+      "imagePrompt": "A warm needle-felt style children illustration of a cub bravely telling a kind store employee in a green apron that it lost its mom, gentle helpful adult kneeling down, warm store, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북의 생활동화는 무서운 경고 대신, 위급한 순간의 대처법을 이야기로 전합니다. 호리가 두려움을 이겨내고 침착하게 엄마를 다시 만나는 과정을, 아이는 자기 일처럼 새깁니다.",
+      "screen": "탱고북으로 안전 대처법 배우기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 안전 대처법 배우기",
+      "imagePrompt": "A warm needle-felt style children illustration of a child watching a safety story on a tablet before going shopping, cozy home, gentle attentive mood, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "손 꼭! 엄마 곁에!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782863610441",
+  "title": "조심조심, 살살!",
+  "hook": "동생을 예뻐하는 마음은 가득한데, 안아 준다며 세게 잡거나 뽀뽀하다 밀치…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "동생을 예뻐하는 마음은 가득한데, 안아 준다며 세게 잡거나 뽀뽀하다 밀치는 아이를 보면 조마조마하지요.",
+      "screen": "동생이 좋은데, 손이 자꾸 거친 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "동생이 좋은데, 손이 자꾸 거친 아이",
+      "imagePrompt": "A warm needle-felt style children's illustration, an older cub reaching to hug a baby a bit too eagerly, parent watching nearby, warm home light, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "자기 힘을 조절하는 능력은 배려심의 시작입니다. 나보다 작고 약한 존재를 부드럽게 대할 줄 아는 아이는, 친구 사이에서도 다정하고 안전하게 어울립니다.",
+      "screen": "힘을 조절하는 배려가 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "힘을 조절하는 배려가 중요한 이유",
+      "imagePrompt": "A warm needle-felt style children's illustration, an older cub gently cradling a baby like holding a feather, tender careful pose, soft warm tones, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "『조심조심, 살살!』의 호리는 동생과 놀고 싶어 팔을 세게 잡았다가 호야가 울 뻔하자 깜짝 놀랍니다. 엄마가 알려 주지요.",
+      "screen": "다정한 형이 되어 가는 호리의 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "다정한 형이 되어 가는 호리의 이야기",
+      "imagePrompt": "A warm needle-felt style children's illustration, an older cub tidying away sharp blocks to keep a baby safe, careful expression, rainbow sparkle, warm light, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북에서는 이야기를 읽은 뒤 '살살', '조심', '양보' 같은 낱말을 놀이로 다시 만납니다. 아이는 배려에 필요한 말과 행동을 눈과 귀와 손으로 익히지요.",
+      "screen": "탱고북으로 배려의 말 익히기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 배려의 말 익히기",
+      "imagePrompt": "A warm needle-felt style children's illustration, a child and tiger cub gently pressing palms together near a glowing storybook frame, cozy home, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "조심조심, 살살!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

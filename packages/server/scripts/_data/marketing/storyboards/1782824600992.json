@@ -1,0 +1,48 @@
+{
+  "storybookId": "1782824600992",
+  "title": "화가 나면, 후~ 하고 크게 숨!",
+  "hook": "시합에서 지거나, 하고 싶은 대로 안 되면 얼굴이 새빨개지며 소리를 지르…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "시합에서 지거나, 하고 싶은 대로 안 되면 얼굴이 새빨개지며 소리를 지르는 아이.",
+      "screen": "뜻대로 안 되면 버럭 하는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "뜻대로 안 되면 버럭 하는 우리 아이",
+      "imagePrompt": "A small tiger cub with a red angry face stomping after falling in a race, other cubs stepping back, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "화 자체는 잘못이 아닙니다. 문제는 그 화를 어떻게 표현하느냐지요.",
+      "screen": "화는 나쁜 감정이 아닙니다 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "화는 나쁜 감정이 아닙니다",
+      "imagePrompt": "A tiger cub sitting quietly beside an upset friend, offering comfort, gentle scene, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "동화 화가 나면, 후~ 하고 크게 숨! 에서 호리는 화가 난 토토에게 다가가 말합니다.",
+      "screen": "호리가 알려준 마법의 숨쉬기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "호리가 알려준 마법의 숨쉬기",
+      "imagePrompt": "Two tiger cubs breathing deeply together with hands on their bellies, calm expressions, warm needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "이 이야기의 핵심은 화는 나쁜 게 아니라 다스릴 수 있는 마음 이라는 것입니다. 큰 소리나 발 구르기가 아니라 깊은 숨으로 화를 흘려보내면 된다는 걸 아이는 자연스럽게 배웁니다.",
+      "screen": "탱고북에서 배우는 감정 다스리기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북에서 배우는 감정 다스리기",
+      "imagePrompt": "A tiger cub apologizing to friends who welcome it back with smiles, warm reconciliation, needle-felt children illustration, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "화가 나면, 후~ 하고 크게 숨!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

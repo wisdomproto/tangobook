@@ -1,0 +1,48 @@
+{
+  "storybookId": "1783990046124",
+  "title": "다 같이 앉아, 맛있게!",
+  "hook": "온 가족이 모인 식사 자리, 아직 어른이 앉지도 않았는데 배고픈 아이는…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "온 가족이 모인 식사 자리, 아직 어른이 앉지도 않았는데 배고픈 아이는 먼저 젓가락을 뻗습니다.",
+      "screen": "어른보다 먼저 먹으려는 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "어른보다 먼저 먹으려는 아이",
+      "imagePrompt": "A warm needle-felt style children illustration of a young animal friend reaching chopsticks toward food while the head seat at the table is still empty, warm family dinner setting, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "식사 예절은 단순한 규칙이 아니라, 다른 사람을 배려하고 기다릴 줄 아는 마음을 배우는 과정입니다. 어른을 기다리고 함께 인사하며 먹는 시간 속에서, 아이는 자연스럽게 배려와 공동체 감각을 익힙니다…",
+      "screen": "함께 먹는 예절이 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "함께 먹는 예절이 중요한 이유",
+      "imagePrompt": "A warm needle-felt style children illustration of a big family including a grandfather sharing a warm meal together, passing side dishes, laughter around the table, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "「다 같이 앉아, 맛있게!」의 토토도 배가 고파 할아버지보다 먼저 먹으려 젓가락을 뻗습니다. 호야가 '어?",
+      "screen": "토토의 다 같이 앉아 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "토토의 다 같이 앉아 이야기",
+      "imagePrompt": "A warm needle-felt style children illustration of a kind grandfather gently holding a young friend's hand at the dinner table, warm smiles, cozy family gathering, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북의 생활동화는 '예의를 지켜'라는 꾸중 대신, 함께 먹는 즐거움을 이야기로 전합니다. 토토가 기다림과 배려를 배우고 함께 먹는 밥의 맛을 알게 되는 과정을, 아이는 자기 식사처럼 따라갑니다.",
+      "screen": "탱고북으로 식사 예절 배우기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 식사 예절 배우기",
+      "imagePrompt": "A warm needle-felt style children illustration of a child watching a family-meal story on a tablet before dinner, warm dining room, gentle mood, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "다 같이 앉아, 맛있게!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}

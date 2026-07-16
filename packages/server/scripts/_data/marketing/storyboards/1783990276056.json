@@ -1,0 +1,48 @@
+{
+  "storybookId": "1783990276056",
+  "title": "다 같이 하면, 더 신나!",
+  "hook": "블록도, 그림도, 뭐든 혼자 하겠다며 친구 손을 밀어내는 아이를 보면 걱…",
+  "totalSec": 36,
+  "scenes": [
+    {
+      "label": "훅",
+      "sec": 4,
+      "narration": "블록도, 그림도, 뭐든 혼자 하겠다며 친구 손을 밀어내는 아이를 보면 걱정이 앞섭니다.",
+      "screen": "\"나 혼자 할래!\"만 외치는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "\"나 혼자 할래!\"만 외치는 우리 아이",
+      "imagePrompt": "A warm needle-felt style children's illustration, a small tiger cub hugging a pile of blocks alone, friends nearby wanting to help, cozy playroom, cinematic 9:16, no text"
+    },
+    {
+      "label": "원작·배경",
+      "sec": 8,
+      "narration": "함께 무언가를 해내는 경험은 아이의 사회성과 문제 해결력을 함께 키웁니다. 역할을 나누고, 도움을 주고받고, 결과를 함께 기뻐하는 과정에서 아이는 '우리'라는 감각을 배웁니다.",
+      "screen": "협동의 즐거움이 왜 중요할까요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "협동의 즐거움이 왜 중요할까요",
+      "imagePrompt": "A warm needle-felt style children's illustration, four little animal friends building a tall block castle together, each doing a part, joyful teamwork, warm light, cinematic 9:16, no text"
+    },
+    {
+      "label": "줄거리",
+      "sec": 8,
+      "narration": "『다 같이 하면, 더 신나!』의 호리는 세상에서 제일 큰 성을 혼자 쌓겠다고 고집합니다. 하지만 꼭대기에 손이 안 닿아 세 번이나 와르르 무너지고 울상이 되지요.",
+      "screen": "혼자 쌓다 무너진 호리의 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "혼자 쌓다 무너진 호리의 이야기",
+      "imagePrompt": "A warm needle-felt style children's illustration, four animal friends high-fiving in front of a big finished castle, rainbow sparkle, joyful warm scene, cinematic 9:16, no text"
+    },
+    {
+      "label": "교훈",
+      "sec": 8,
+      "narration": "탱고북에서는 이야기를 읽은 뒤 '같이', '도와줘', '함께' 같은 낱말을 놀이로 다시 만납니다. 아이는 협동에 필요한 말을 눈과 귀와 손으로 익히지요.",
+      "screen": "탱고북으로 함께하는 말 익히기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "탱고북으로 함께하는 말 익히기",
+      "imagePrompt": "A warm needle-felt style children's illustration, a child and tiger cub interacting with a glowing storybook frame together, cozy home evening, cinematic 9:16, no text"
+    },
+    {
+      "label": "CTA",
+      "sec": 8,
+      "narration": "다 같이 하면, 더 신나!, 아이와 함께 탱고북에서 만나요.",
+      "screen": "부모·아이가 그림책을 함께 보는 장면 → 탱고북 로고 + 7일 무료체험.",
+      "subtitle": "탱고북 · 7일 무료체험",
+      "imagePrompt": "A parent and child reading a picture book together, Tangobook logo, warm coral, 9:16, no text"
+    }
+  ]
+}
