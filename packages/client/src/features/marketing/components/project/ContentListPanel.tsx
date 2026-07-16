@@ -57,6 +57,7 @@ interface SortableContentItemProps {
   isSelected: boolean;
   onSelect: () => void;
   onDelete: () => void;
+  disabled?: boolean;
 }
 
 function SortableContentItem({
@@ -64,9 +65,11 @@ function SortableContentItem({
   isSelected,
   onSelect,
   onDelete,
+  disabled = false,
 }: SortableContentItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: content.id,
+    disabled,
   });
 
   const style: CSSProperties = {
@@ -84,15 +87,19 @@ function SortableContentItem({
       data-testid="content-item"
       className="group flex items-center overflow-hidden rounded-lg"
     >
-      {/* Drag handle */}
-      <button
-        {...attributes}
-        {...listeners}
-        aria-label="드래그 핸들"
-        className="shrink-0 px-1 cursor-grab active:cursor-grabbing text-muted-foreground/50 hover:text-muted-foreground"
-      >
-        <GripVertical size={12} />
-      </button>
+      {/* Drag handle (제목순 정렬 중엔 숨김 — 순서 고정) */}
+      {disabled ? (
+        <span className="shrink-0 px-1 w-[20px]" aria-hidden />
+      ) : (
+        <button
+          {...attributes}
+          {...listeners}
+          aria-label="드래그 핸들"
+          className="shrink-0 px-1 cursor-grab active:cursor-grabbing text-muted-foreground/50 hover:text-muted-foreground"
+        >
+          <GripVertical size={12} />
+        </button>
+      )}
 
       {/* Main select button */}
       <button
@@ -151,6 +158,7 @@ export function ContentListPanel() {
   const [createOpen, setCreateOpen] = useState(false);
   const [statusOpen, setStatusOpen] = useState(false);
   const [catFilter, setCatFilter] = useState<string | null>(null);
+  const [sortByTitle, setSortByTitle] = useState(false);
 
   const {
     selectedProjectId,
@@ -189,12 +197,20 @@ export function ContentListPanel() {
     ? sorted.filter((c) => getCatLetter(c.category) === catFilter)
     : sorted;
 
+  // 제목순 정렬(옵션) — numeric 인식(01·02·10 정확 정렬). 카테고리 필터 안에서 동작.
+  const displayed = sortByTitle
+    ? [...filtered].sort((a, b) =>
+        (a.title ?? '').localeCompare(b.title ?? '', 'ko', { numeric: true })
+      )
+    : filtered;
+
   function switchKind(kind: 'regular' | 'ad') {
     setContentKindTab(kind);
     setCatFilter(null);
   }
 
   function handleDragEnd(event: DragEndEvent) {
+    if (sortByTitle) return; // 제목순 정렬 중엔 수동 재정렬 비활성
     const { active, over } = event;
     if (!over || active.id === over.id) return;
     const oldIdx = filtered.findIndex((c) => c.id === active.id);
@@ -261,6 +277,19 @@ export function ContentListPanel() {
               <Button
                 size="sm"
                 variant="ghost"
+                className={cn(
+                  'h-7 px-1.5 text-[11px]',
+                  sortByTitle && 'bg-primary/10 text-foreground'
+                )}
+                onClick={() => setSortByTitle((v) => !v)}
+                title={sortByTitle ? '제목순 정렬 (클릭 시 수동 순서로)' : '제목순으로 정렬'}
+                aria-pressed={sortByTitle}
+              >
+                🔤 제목순
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
                 className="h-7 px-1.5 text-[11px]"
                 onClick={() => setStatusOpen(true)}
                 title="콘텐츠 현황 (언어 × 채널 준비/배포 상태)"
@@ -318,7 +347,7 @@ export function ContentListPanel() {
 
         {/* List */}
         <div className="flex-1 overflow-y-auto px-1 py-2 space-y-0.5">
-          {filtered.length === 0 ? (
+          {displayed.length === 0 ? (
             <div className="text-center py-8 text-xs text-muted-foreground">
               {isAd ? '광고 콘텐츠가 없습니다' : '콘텐츠가 없습니다'}
               <br />
@@ -336,16 +365,17 @@ export function ContentListPanel() {
               onDragEnd={handleDragEnd}
             >
               <SortableContext
-                items={filtered.map((c) => c.id)}
+                items={displayed.map((c) => c.id)}
                 strategy={verticalListSortingStrategy}
               >
-                {filtered.map((content) => (
+                {displayed.map((content) => (
                   <SortableContentItem
                     key={content.id}
                     content={content}
                     isSelected={selectedContentId === content.id}
                     onSelect={() => setSelectedContentId(content.id)}
                     onDelete={() => handleDelete(content)}
+                    disabled={sortByTitle}
                   />
                 ))}
               </SortableContext>
