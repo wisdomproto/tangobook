@@ -52,7 +52,7 @@ export function ParentGate({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-cream-50 to-peach-100 p-6">
+    <div className="min-h-[100dvh] flex items-center justify-center bg-gradient-to-b from-cream-50 to-peach-100 p-6">
       <div className="w-full max-w-sm bg-white rounded-3xl shadow-soft p-8 text-center">
         <div className="text-4xl mb-3">🧑‍🏫</div>
         <h1 className="font-display text-xl font-black text-ink-900 break-keep">

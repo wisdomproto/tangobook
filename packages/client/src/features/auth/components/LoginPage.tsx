@@ -83,7 +83,7 @@ export default function LoginPage() {
   }
   if (step === 'setPin') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-cream-50 p-4">
+      <div className="min-h-[100dvh] flex items-center justify-center bg-cream-50 p-4">
         <SetPinStep />
       </div>
     );

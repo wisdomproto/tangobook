@@ -74,7 +74,7 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
   // ── 이메일 확인 대기 화면 ──────────────────────────────────────────────
   if (sentTo) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-cream-50 p-4">
+      <div className="min-h-[100dvh] flex items-center justify-center bg-cream-50 p-4">
         <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-sm w-full shadow-pop flex flex-col gap-4 text-center">
           <div className="text-5xl" aria-hidden>
             📬
@@ -112,7 +112,7 @@ export function SignUpForm({ onSwitchToSignIn }: Props) {
 
   // ── 가입 폼 ───────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cream-50 p-4">
+    <div className="min-h-[100dvh] flex items-center justify-center bg-cream-50 p-4">
       <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-sm w-full shadow-pop flex flex-col gap-4">
         <div className="text-center">
           <h1 className="text-3xl font-black text-ink-900">{t('signUp.title')}</h1>
