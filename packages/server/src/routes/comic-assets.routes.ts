@@ -15,7 +15,7 @@ import {
  */
 const router = Router();
 
-const SAFE = /^[a-z0-9-]{1,64}$/;
+const SAFE = /^[A-Za-z0-9-]{1,64}$/; // 대소문자 허용 (yuchiwon-Y01 등 대문자 docId 지원)
 const EXT_BY_MIME: Record<string, string> = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
