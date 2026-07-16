@@ -71,57 +71,66 @@ export function SignInForm({ onSwitchToSignUp }: Props) {
 
   return (
     <div className="min-h-[100dvh] flex items-center justify-center bg-cream-50 p-4">
-      <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-sm w-full shadow-pop flex flex-col gap-4">
+      {/* short(모바일 가로) = 세로 공간 부족 → 소셜 | 이메일 2단으로 눕혀 로그인 버튼이 접힘 위로. */}
+      <div className="bg-white rounded-2xl p-6 sm:p-8 short:p-5 max-w-sm short:max-w-2xl w-full shadow-pop flex flex-col gap-4 short:gap-3">
         <div className="text-center">
-          <h1 className="text-3xl font-black text-ink-900">{t('signIn.title')}</h1>
-          <p className="text-sm text-ink-500 mt-1 break-keep">{t('signIn.subtitle')}</p>
-        </div>
-        <SocialAuthButtons mode="signin" />
-        <div className="flex items-center gap-3 text-sm text-ink-400">
-          <div className="h-px flex-1 bg-ink-100" />
-          {t('signIn.orWithEmail')}
-          <div className="h-px flex-1 bg-ink-100" />
-        </div>
-        {error && (
-          <p className="rounded-xl bg-danger/10 text-danger text-sm font-bold px-4 py-3 break-keep">
-            {error}
+          <h1 className="text-3xl short:text-2xl font-black text-ink-900">{t('signIn.title')}</h1>
+          <p className="text-sm text-ink-500 mt-1 break-keep short:hidden">
+            {t('signIn.subtitle')}
           </p>
-        )}
-        {unconfirmedEmail && (
-          <button
-            onClick={handleResendConfirmation}
-            className="h-11 rounded-xl border-2 border-coral-400 text-coral-600 text-sm font-black hover:bg-coral-50"
-          >
-            {t('signIn.resendConfirmation')}
-          </button>
-        )}
-        {notice && (
-          <p className="rounded-xl bg-mint-50 text-mint-700 text-sm font-bold px-4 py-3 break-keep">
-            {notice}
-          </p>
-        )}
-        <input
-          type="email"
-          placeholder={t('signIn.emailPlaceholder')}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="h-14 text-xl rounded-xl border-2 border-ink-100 px-4 focus:border-coral-500 outline-none"
-        />
-        <input
-          type="password"
-          placeholder={t('signIn.passwordPlaceholder')}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="h-14 text-xl rounded-xl border-2 border-ink-100 px-4 focus:border-coral-500 outline-none"
-        />
-        <button
-          onClick={handleSignIn}
-          disabled={busy || !email || !password}
-          className="h-14 rounded-xl bg-coral-500 text-white font-black text-lg hover:brightness-110 disabled:bg-ink-300"
-        >
-          {busy ? t('signIn.submitting') : t('signIn.submit')}
-        </button>
-        <div className="flex justify-between text-sm text-ink-500 mt-2">
+        </div>
+        <div className="flex flex-col gap-4 short:flex-row short:items-center short:gap-6">
+          <div className="short:flex-1">
+            <SocialAuthButtons mode="signin" />
+          </div>
+          <div className="flex items-center gap-3 text-sm text-ink-400 short:hidden">
+            <div className="h-px flex-1 bg-ink-100" />
+            {t('signIn.orWithEmail')}
+            <div className="h-px flex-1 bg-ink-100" />
+          </div>
+          <div className="flex flex-col gap-4 short:flex-1 short:gap-3">
+            {error && (
+              <p className="rounded-xl bg-danger/10 text-danger text-sm font-bold px-4 py-3 break-keep">
+                {error}
+              </p>
+            )}
+            {unconfirmedEmail && (
+              <button
+                onClick={handleResendConfirmation}
+                className="h-11 rounded-xl border-2 border-coral-400 text-coral-600 text-sm font-black hover:bg-coral-50"
+              >
+                {t('signIn.resendConfirmation')}
+              </button>
+            )}
+            {notice && (
+              <p className="rounded-xl bg-mint-50 text-mint-700 text-sm font-bold px-4 py-3 break-keep">
+                {notice}
+              </p>
+            )}
+            <input
+              type="email"
+              placeholder={t('signIn.emailPlaceholder')}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="h-14 short:h-12 text-xl rounded-xl border-2 border-ink-100 px-4 focus:border-coral-500 outline-none"
+            />
+            <input
+              type="password"
+              placeholder={t('signIn.passwordPlaceholder')}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="h-14 short:h-12 text-xl rounded-xl border-2 border-ink-100 px-4 focus:border-coral-500 outline-none"
+            />
+            <button
+              onClick={handleSignIn}
+              disabled={busy || !email || !password}
+              className="h-14 short:h-12 rounded-xl bg-coral-500 text-white font-black text-lg hover:brightness-110 disabled:bg-ink-300"
+            >
+              {busy ? t('signIn.submitting') : t('signIn.submit')}
+            </button>
+          </div>
+        </div>
+        <div className="flex justify-between text-sm text-ink-500 mt-2 short:mt-0">
           <button onClick={onSwitchToSignUp} className="font-bold hover:text-coral-500">
             {t('signIn.signUpLink')}
           </button>

@@ -22,6 +22,11 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      // 짧은 높이(모바일 가로) 대응 변형 — `short:` 로 세로 공간 부족 시 레이아웃 압축.
+      // (데스크톱·모바일 세로는 높이가 커서 미적용.)
+      screens: {
+        short: { raw: '(max-height: 480px)' },
+      },
       colors: {
         ...colors,
         // Marketing semantic colors — var() passthroughs for .marketing-scope OKLCH tokens.
