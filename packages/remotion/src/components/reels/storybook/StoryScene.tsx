@@ -117,8 +117,11 @@ export const StoryScene: React.FC<Props> = ({ title, body, imageUrls, hero }) =>
         background: 'linear-gradient(165deg, #FFF3E9 0%, #FFE1CC 100%)',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '140px 24px 150px',
+        // 이미지+자막을 한 덩어리로 묶어 세로 중앙에(인스타 safe zone). 전엔 space-between 이라
+        // 이미지(가운데)와 자막(맨 아래)이 ~200px 벌어져 한 화면에 같이 안 보인다는 피드백.
+        justifyContent: 'center',
+        gap: 52,
+        padding: '96px 24px',
       }}
     >
       {/* 상단: 브랜드 키커 + 카드 제목 */}
@@ -159,26 +162,37 @@ export const StoryScene: React.FC<Props> = ({ title, body, imageUrls, hero }) =>
         </div>
       </div>
 
-      {/* 가운데: 16:9 삽화 (잘림 없음) */}
-      <ImageBox imageUrls={imageUrls} />
-
-      {/* 하단: 내용 텍스트 */}
+      {/* 이미지 + 자막을 한 덩어리로 (가깝게 붙여 한 화면에 같이 보이게) */}
       <div
         style={{
-          fontFamily,
-          fontWeight: 700,
-          fontSize: bodyFont,
-          color: '#4A3B33',
-          textAlign: 'center',
-          lineHeight: 1.4,
-          whiteSpace: 'pre-line',
-          wordBreak: 'keep-all',
-          maxWidth: 980,
-          transform: `translateY(${bodyUp}px)`,
-          opacity: bodyOpacity,
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 40,
         }}
       >
-        {shownBody}
+        {/* 16:9 삽화 (잘림 없음) */}
+        <ImageBox imageUrls={imageUrls} />
+
+        {/* 자막: 이미지 바로 아래 */}
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 700,
+            fontSize: bodyFont,
+            color: '#4A3B33',
+            textAlign: 'center',
+            lineHeight: 1.4,
+            whiteSpace: 'pre-line',
+            wordBreak: 'keep-all',
+            maxWidth: 980,
+            transform: `translateY(${bodyUp}px)`,
+            opacity: bodyOpacity,
+          }}
+        >
+          {shownBody}
+        </div>
       </div>
     </AbsoluteFill>
   );
