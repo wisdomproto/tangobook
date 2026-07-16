@@ -65,36 +65,27 @@ function pickSentence(sentences: string[], currentTime: number, duration: number
   return { idx: sentences.length - 1, progress: 1 };
 }
 
-/** 문장 내 토큰을 progress(0~1)만큼 노출 */
-function visibleTokenSlice(tokens: string[], progress: number): string {
-  const wordIndices = tokens.map((t, i) => (t.trim().length > 0 ? i : -1)).filter((i) => i >= 0);
-  if (wordIndices.length === 0) return '';
-  const lead = 1.08; // 자막이 TTS보다 살짝 선행
-  const visibleWords = Math.max(1, Math.ceil(wordIndices.length * progress * lead));
-  const limit = wordIndices[Math.min(visibleWords, wordIndices.length) - 1] + 1;
-  return tokens.slice(0, limit).join('');
-}
-
 /**
- * 노출된 토큰들 + 현재 노출 중인 단어쌍 표시.
- * 어린 독자용으로 단어를 **2개씩** 노출하고, 방금 나온 2단어 쌍을 강조한다.
+ * 문장(줄) 전체를 한 번에 표시하고, TTS 진행에 맞춰 **2단어씩** 이동하는
+ * 하이라이트 창을 얹는다. (단어가 하나씩 등장하던 방식은 정신없다는 피드백으로 폐기.)
  */
-function visibleTokenParts(
+function highlightTokenParts(
   tokens: string[],
   progress: number
 ): Array<{ text: string; current: boolean }> {
   const wordIndices = tokens.map((t, i) => (t.trim().length > 0 ? i : -1)).filter((i) => i >= 0);
-  if (wordIndices.length === 0) return [];
-  const lead = 1.08;
-  const raw = Math.max(1, Math.ceil(wordIndices.length * progress * lead));
-  // 2단어 단위로 올림 — 단어가 짝으로 등장.
-  const visibleWords = Math.min(wordIndices.length, Math.ceil(raw / 2) * 2);
-  const currentIdx = wordIndices[visibleWords - 1];
-  // 현재 쌍의 첫 단어(강조 시작).
-  const pairStartIdx = wordIndices[Math.max(0, visibleWords - 2)];
-  return tokens
-    .slice(0, currentIdx + 1)
-    .map((t, i) => ({ text: t, current: i >= pairStartIdx && i <= currentIdx }));
+  const wordCount = wordIndices.length;
+  if (wordCount === 0) return tokens.map((t) => ({ text: t, current: false }));
+  const lead = 1.08; // 하이라이트가 TTS보다 살짝 선행
+  // 현재 읽고 있는 단어 순번(1-based).
+  const currentWord = Math.min(wordCount, Math.max(1, Math.ceil(wordCount * progress * lead)));
+  // 2단어 단위로 묶어 현재 쌍을 강조.
+  const pairIndex = Math.floor((currentWord - 1) / 2);
+  const firstWord = pairIndex * 2;
+  const lastWord = Math.min(wordCount - 1, firstWord + 1);
+  const startTokenIdx = wordIndices[firstWord];
+  const endTokenIdx = wordIndices[lastWord];
+  return tokens.map((t, i) => ({ text: t, current: i >= startTokenIdx && i <= endTokenIdx }));
 }
 
 export function PageSubtitle({
@@ -151,7 +142,7 @@ export function PageSubtitle({
   const currentSentence = sentences[idx] ?? '';
   const tokens = tokenize(currentSentence);
   const displayParts = active
-    ? visibleTokenParts(tokens, progress)
+    ? highlightTokenParts(tokens, progress)
     : [{ text, current: false as const }];
   const overall = active && duration > 0 ? Math.min(1, Math.max(0, currentTime / duration)) : 0;
 
@@ -159,9 +150,8 @@ export function PageSubtitle({
   let displaySub: string | null = null;
   if (subText && subSentences.length > 0) {
     const subIdx = Math.min(idx, subSentences.length - 1);
-    const subSentence = subSentences[subIdx] ?? '';
-    const subToks = tokenize(subSentence);
-    displaySub = active ? visibleTokenSlice(subToks, progress) : subText;
+    // 서브(번역)도 현재 문장 전체를 정적으로 표시 (메인과 동일하게 줄 단위 노출).
+    displaySub = active ? (subSentences[subIdx] ?? '') : subText;
   }
 
   return (
