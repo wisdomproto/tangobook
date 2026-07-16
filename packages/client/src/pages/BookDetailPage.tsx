@@ -430,29 +430,53 @@ export default function BookDetailPage() {
                     </div>
                   )}
                   {languages.length > 1 && (
-                    <div className="flex items-center gap-1 bg-white rounded-full px-1.5 py-1.5 shadow-soft shrink-0">
-                      {languages.map((code) => {
-                        const label = LANG_LABEL[code] ?? { flag: '🌐', name: code };
-                        const active = lang === code;
-                        return (
-                          <button
-                            key={code}
-                            type="button"
-                            onClick={() => setLang(code)}
-                            aria-pressed={active}
-                            aria-label={t('lang.toggleAria', { name: label.name })}
-                            className={cn(
-                              'w-10 h-10 rounded-full text-xl flex items-center justify-center transition',
-                              active
-                                ? 'bg-coral-500 text-white shadow-soft'
-                                : 'bg-peach-100 hover:bg-peach-200 text-ink-900'
-                            )}
-                          >
-                            {label.flag}
-                          </button>
-                        );
-                      })}
-                    </div>
+                    <>
+                      {/* 모바일 = 드롭박스 (국기 칩 5개가 공간을 너무 차지 → select 로 압축) */}
+                      <div className="relative shrink-0 sm:hidden">
+                        <select
+                          value={lang}
+                          onChange={(e) => setLang(e.target.value)}
+                          aria-label={t('lang.selectAria')}
+                          className="h-full min-h-[2.75rem] appearance-none bg-white rounded-full pl-3.5 pr-9 shadow-soft text-base font-black text-ink-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-300"
+                        >
+                          {languages.map((code) => {
+                            const label = LANG_LABEL[code] ?? { flag: '🌐', name: code };
+                            return (
+                              <option key={code} value={code}>
+                                {label.flag} {label.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-ink-500">
+                          ▾
+                        </span>
+                      </div>
+                      {/* 데스크톱 = 국기 칩 행 (공간 여유) */}
+                      <div className="hidden sm:flex items-center gap-1 bg-white rounded-full px-1.5 py-1.5 shadow-soft shrink-0">
+                        {languages.map((code) => {
+                          const label = LANG_LABEL[code] ?? { flag: '🌐', name: code };
+                          const active = lang === code;
+                          return (
+                            <button
+                              key={code}
+                              type="button"
+                              onClick={() => setLang(code)}
+                              aria-pressed={active}
+                              aria-label={t('lang.toggleAria', { name: label.name })}
+                              className={cn(
+                                'w-10 h-10 rounded-full text-xl flex items-center justify-center transition',
+                                active
+                                  ? 'bg-coral-500 text-white shadow-soft'
+                                  : 'bg-peach-100 hover:bg-peach-200 text-ink-900'
+                              )}
+                            >
+                              {label.flag}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </>
                   )}
                 </div>
               )}

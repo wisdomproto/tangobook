@@ -31,6 +31,7 @@
   },
   "lang": {
     "toggleAria": "语言 {{name}}",
+    "selectAria": "选择阅读语言",
     "coverMissing": "{{lang}} 封面还没有哦"
   },
   "modes": {

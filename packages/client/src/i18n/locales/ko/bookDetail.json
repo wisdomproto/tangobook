@@ -31,6 +31,7 @@
   },
   "lang": {
     "toggleAria": "언어 {{name}}",
+    "selectAria": "읽기 언어 선택",
     "coverMissing": "{{lang}} 표지가 아직 없어요"
   },
   "modes": {

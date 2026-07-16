@@ -31,6 +31,7 @@
   },
   "lang": {
     "toggleAria": "ภาษา {{name}}",
+    "selectAria": "เลือกภาษาการอ่าน",
     "coverMissing": "ยังไม่มีปกภาษา {{lang}}"
   },
   "modes": {

@@ -31,6 +31,7 @@
   },
   "lang": {
     "toggleAria": "Ngôn ngữ {{name}}",
+    "selectAria": "Chọn ngôn ngữ đọc",
     "coverMissing": "Bìa {{lang}} chưa có"
   },
   "modes": {
