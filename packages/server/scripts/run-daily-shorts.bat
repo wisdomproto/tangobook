@@ -8,3 +8,4 @@ cd /d "%REPO%\packages\server"
 echo. >> "%REPO%\docs\marketing\drafts\shorts-upload.log"
 echo ===== %date% %time% ===== >> "%REPO%\docs\marketing\drafts\shorts-upload.log"
 call npx tsx scripts\upload-shorts-youtube.mjs --count=3 >> "%REPO%\docs\marketing\drafts\shorts-upload.log" 2>&1
+call npx tsx scripts\comment-shorts.mjs >> "%REPO%\docs\marketing\drafts\shorts-upload.log" 2>&1

@@ -89,15 +89,15 @@ function buildDescription(cat, title, caps, hashtags, deeplink) {
   const hook = oneLine(caps[0]);
   const body = cat === 'classic' ? oneLine(caps[2] || caps[1] || '') : oneLine(caps[1] || '');
   const lines = [];
+  // 🔴 유입이 목적 → 링크를 맨 첫 줄로. 유튜브 설명은 첫 2~3줄만 접힌 채 노출되므로
+  // CTA + 딥링크를 최상단에 둬 클릭(사이트 유입)을 극대화한다.
+  lines.push(`👉 「${title}」 전체를 그림책으로 보기: ${deeplink}`);
+  lines.push('탱고북 — 광고 없는 명작·자연관찰 동화 · 7일 무료 체험 (tangobook.co.kr)');
+  lines.push('');
   lines.push(hook);
   if (body) { lines.push(''); lines.push(body); }
   lines.push('');
-  lines.push(`📖 방금 본 「${title}」, 그림책으로 바로 보기 👇`);
-  lines.push(`${deeplink}`);
-  lines.push('탱고북 — 7일 무료 체험 · 광고 없음  (tangobook.co.kr)');
-  lines.push('');
-  lines.push('탱고북은 AI로 양산하지 않고 큐레이션한 명작·자연관찰 동화 플랫폼이에요.');
-  lines.push('같은 동화를 그림체 여러 종으로, 한국어·영어로 만나고, 어휘 게임으로 익혀요.');
+  lines.push('같은 동화를 그림체 여러 종으로, 한국어·영어로 — AI 양산이 아닌 큐레이션 동화 플랫폼이에요.');
   lines.push('');
   lines.push(hashtags.join(' '));
   return lines.join('\n');
