@@ -1,5 +1,8 @@
 # 롱폼 오디오북 마케팅 영상 — Implementation Plan
 
+> ✅ **구현 완료 (2026-07-15)**. 전 태스크 반영 + 명작 48권 × 메인 3그림체 × 한국어 = **144개 렌더·등록 완료**. 이후 변경: 메타/자막 Gemini 제거(Claude 작성 JSON + 기존 translations), 렌더 가속(concurrency 8 + jpeg q92), 명작 일괄 러너 `render-classics-ko.ts` 추가. 상세 → memory `longform-audiobook-marketing-2026-07-15`.
+
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** editor2 동화책의 오디오북을 (그림체 × 언어) 조합별 1080p/30fps 롱폼 영상으로 렌더하고, 제목·캡션·태그 자동생성 + 다국어 자막 + 디자인 썸네일과 함께 마케팅 롱폼 탭(`mkt_youtube_contents`)에 등록·표시한다. 첫 산출물 = 개구리 왕자 × paper-craft × ko 샘플.

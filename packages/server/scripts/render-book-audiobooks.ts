@@ -273,13 +273,17 @@ async function main() {
       composition,
       serveUrl,
       codec: 'h264',
-      imageFormat: 'png',
+      // 원본 삽화가 webp(손실)라 png 무손실 중간프레임의 이점이 없음 → jpeg(q92)로 렌더 가속.
+      // 최종은 어차피 h264(crf16)라 실질 화질 차이 무시 가능. (Railway 온디맨드는 audiobook.service 가 png 유지)
+      imageFormat: 'jpeg',
+      jpegQuality: 92,
       scale: 1.5,
       crf: 16,
       outputLocation: outputPath,
       inputProps: renderData,
       timeoutInMilliseconds: 600000,
-      concurrency: 1,
+      // 로컬 배치는 코어를 살려 병렬 렌더(출력 동일, 속도만 ↑). Railway(audiobook.service)는 여전히 1.
+      concurrency: Number(process.env.RENDER_CONCURRENCY || 8),
       ...browserOpts,
       onProgress: ({ progress }: { progress: number }) => {
         if (Math.round(progress * 100) % 10 === 0) {
