@@ -17,8 +17,9 @@ import { getSupabaseAdmin } from '../src/providers/supabase-admin.provider.js';
 const LANG = 'ko';
 const API = process.env.TTS_API_ORIGIN || 'http://localhost:3500';
 
-// 자연관찰 카테고리(동물/곤충/공룡/몸/우주/식물). 명작·생활동화·파닉스는 제외.
-const NATURE_CATEGORY = /동물|곤충|공룡|우리 몸|우주와 자연|식물/;
+// 기본 카테고리 = 자연관찰(동물/곤충/공룡/몸/우주/식물). 명작·파닉스 제외.
+// --category='생활동화' 로 다른 base-이미지(그림체 없는 실사·니들펠트) 카테고리도 렌더 가능.
+const DEFAULT_CATEGORY = '동물|곤충|공룡|우리 몸|우주와 자연|식물';
 
 /** 현재 라이브 공개 자연관찰 id (서버 요약 API 실시간 조회). */
 async function fetchPublicNatureIds(): Promise<string[]> {
@@ -32,7 +33,7 @@ async function fetchPublicNatureIds(): Promise<string[]> {
     isPublic?: boolean;
   }>;
   return list
-    .filter((b) => NATURE_CATEGORY.test(b.category ?? '') && b.isPublic !== false)
+    .filter((b) => CATEGORY_RE.test(b.category ?? '') && b.isPublic !== false)
     .map((b) => String(b.id));
 }
 
@@ -45,6 +46,8 @@ const val = (f: string) => {
 const DRY = has('--dry-run');
 const FORCE = has('--force');
 const LIMIT = Number(val('--limit') || 0);
+const catArg = val('--category');
+const CATEGORY_RE = new RegExp(catArg || DEFAULT_CATEGORY);
 
 interface Combo {
   bookId: string;
@@ -60,7 +63,9 @@ function pickBaseStyle(book: any): string {
 
 async function main() {
   const bookIds = await fetchPublicNatureIds();
-  console.log(`자연관찰 ${bookIds.length}권 · lang=${LANG}${FORCE ? ' · FORCE' : ''}`);
+  console.log(
+    `base-이미지 책 ${bookIds.length}권 (category ~ ${CATEGORY_RE}) · lang=${LANG}${FORCE ? ' · FORCE' : ''}`
+  );
 
   // 이미 완료된 (book|style|lang) — video_url 있는 mkt_youtube_contents 행에서 수집.
   const done = new Set<string>();
