@@ -15,6 +15,7 @@ export interface MemberSummary {
   trialStartedAt: string | null;
   lastActiveAt: string | null;
   completedBooks: number;
+  invitedCount: number;
   banned: boolean;
 }
 export interface MembersOverview {
@@ -25,6 +26,7 @@ export interface MembersOverview {
     trial: number;
     subscribed: number;
     expired: number;
+    invitesRedeemed: number;
   };
   members: MemberSummary[];
 }
@@ -64,8 +66,10 @@ export interface MemberDetail {
     trialStartedAt: string | null;
     referralCode: string | null;
     referredBy: string | null;
+    referredByEmail: string | null;
   };
   invitedCount: number;
+  invitedEmails: string[];
   payments: Array<{
     orderId: string;
     plan: string;

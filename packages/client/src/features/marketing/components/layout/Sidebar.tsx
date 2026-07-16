@@ -38,7 +38,10 @@ const navGroups = [
   },
   {
     label: '사용자',
-    items: [{ to: '/marketing/feedback', icon: '💬', label: '건의함' }],
+    items: [
+      { to: '/marketing/members', icon: '👥', label: '회원 관리' },
+      { to: '/marketing/feedback', icon: '💬', label: '건의함' },
+    ],
   },
 ] as const;
 

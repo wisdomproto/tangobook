@@ -60,6 +60,7 @@ export interface MemberSummary {
   trialStartedAt: string | null;
   lastActiveAt: string | null;
   completedBooks: number;
+  invitedCount: number;
   banned: boolean;
 }
 
@@ -71,6 +72,7 @@ export interface MembersOverview {
     trial: number;
     subscribed: number;
     expired: number;
+    invitesRedeemed: number;
   };
   members: MemberSummary[];
 }
@@ -100,6 +102,14 @@ export async function listMembers(): Promise<MembersOverview> {
   const entByAccount = new Map(
     (entRes.data ?? []).map((e: EntitlementRow) => [e.account_id, e] as const)
   );
+  // 초대 집계 — referred_by(피초대자 행에 저장된 초대자 id)를 역으로 세어 계정별 "초대한 수" 계산.
+  const invitedCountByAccount = new Map<string, number>();
+  let invitesRedeemed = 0;
+  for (const e of (entRes.data ?? []) as EntitlementRow[]) {
+    if (!e.referred_by) continue;
+    invitesRedeemed++;
+    invitedCountByAccount.set(e.referred_by, (invitedCountByAccount.get(e.referred_by) ?? 0) + 1);
+  }
 
   // 계정별 자녀 id 셋 + 이벤트 묶기
   const accountByProfile = new Map(profiles.map((p) => [p.id, p.account_id]));
@@ -138,6 +148,7 @@ export async function listMembers(): Promise<MembersOverview> {
       trialStartedAt: ent?.trial_started_at ?? null,
       lastActiveAt,
       completedBooks: completed,
+      invitedCount: invitedCountByAccount.get(a.id) ?? 0,
       banned: isBanned(bannedMap.get(a.id), now),
     };
   });
@@ -151,6 +162,7 @@ export async function listMembers(): Promise<MembersOverview> {
       trial: members.filter((m) => m.status === 'trial').length,
       subscribed: members.filter((m) => m.status === 'subscribed').length,
       expired: members.filter((m) => m.status === 'expired').length,
+      invitesRedeemed,
     },
     members,
   };
@@ -171,8 +183,10 @@ export interface MemberDetail {
     trialStartedAt: string | null;
     referralCode: string | null;
     referredBy: string | null;
+    referredByEmail: string | null;
   };
   invitedCount: number;
+  invitedEmails: string[];
   payments: Array<{
     orderId: string;
     plan: string;
@@ -231,6 +245,22 @@ export async function getMemberDetail(accountId: string): Promise<MemberDetail> 
   const bannedUntil =
     (userRes.data?.user as { banned_until?: string | null } | null)?.banned_until ?? null;
 
+  // 초대자(referred_by) + 피초대자(invitedRes) 계정 id → 이메일 해석(accounts 1회 조회).
+  const invitedAccountIds = (invitedRes.data ?? []).map((r) => r.account_id as string);
+  const referredById = ent?.referred_by ?? null;
+  const emailIds = [...new Set([...invitedAccountIds, ...(referredById ? [referredById] : [])])];
+  const emailById = new Map<string, string>();
+  if (emailIds.length > 0) {
+    const { data: emailRows, error: emailErr } = await admin
+      .from('accounts')
+      .select('id, email')
+      .in('id', emailIds);
+    if (emailErr) throw new AppError(500, `초대 이메일 조회 실패: ${emailErr.message}`);
+    for (const r of emailRows ?? []) emailById.set(r.id, r.email ?? '(이메일 없음)');
+  }
+  const invitedEmails = invitedAccountIds.map((id) => emailById.get(id) ?? '(알 수 없음)');
+  const referredByEmail = referredById ? (emailById.get(referredById) ?? '(알 수 없음)') : null;
+
   return {
     account: {
       id: account.id,
@@ -246,8 +276,10 @@ export async function getMemberDetail(accountId: string): Promise<MemberDetail> 
       trialStartedAt: ent?.trial_started_at ?? null,
       referralCode: ent?.referral_code ?? null,
       referredBy: ent?.referred_by ?? null,
+      referredByEmail,
     },
-    invitedCount: (invitedRes.data ?? []).length,
+    invitedCount: invitedAccountIds.length,
+    invitedEmails,
     payments: (paymentsRes.data ?? []).map((p) => ({
       orderId: p.order_id,
       plan: p.plan,

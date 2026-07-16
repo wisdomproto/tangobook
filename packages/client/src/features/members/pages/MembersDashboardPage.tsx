@@ -86,7 +86,12 @@ function MembersPasswordGate({
   );
 }
 
-export default function MembersDashboardPage() {
+/**
+ * @param embedded marketing 레이아웃(/marketing/members) 안에서 렌더될 때 true.
+ *   marketing 게이트(owner 세션)가 이미 ops 인증을 만족하므로 자체 비밀번호 게이트를 건너뛰고,
+ *   풀스크린 래퍼(min-h-screen) 대신 marketing <main> 스크롤 영역에 맞춘다.
+ */
+export default function MembersDashboardPage({ embedded = false }: { embedded?: boolean } = {}) {
   const { account } = useAuth();
   const qc = useQueryClient();
   const [pwEntered, setPwEntered] = useState(() => !!getStoredOpsPassword());
@@ -94,7 +99,7 @@ export default function MembersDashboardPage() {
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState<string | null>(null); // accountId
 
-  const canTry = isDevEmail(account?.email) || pwEntered;
+  const canTry = embedded || isDevEmail(account?.email) || pwEntered;
   const { data, isLoading, isError } = useQuery({
     queryKey: MEMBERS_KEY,
     queryFn: async () => {
@@ -138,12 +143,12 @@ export default function MembersDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-cream-50 p-4 sm:p-8">
+    <div className={`${embedded ? 'min-h-full' : 'min-h-screen'} bg-cream-50 p-4 sm:p-8`}>
       <div className="max-w-[1200px] mx-auto">
         <h1 className="text-2xl font-black text-ink-900 mb-4">👥 회원 관리</h1>
         {/* 요약 바 */}
         {data && (
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
             {(
               [
                 ['총 회원', data.totals.members],
@@ -151,6 +156,7 @@ export default function MembersDashboardPage() {
                 ['체험중', data.totals.trial],
                 ['구독중', data.totals.subscribed],
                 ['만료', data.totals.expired],
+                ['초대 성사', data.totals.invitesRedeemed],
               ] as const
             ).map(([label, v]) => (
               <div key={label} className="bg-white rounded-2xl shadow-soft px-4 py-3">
@@ -175,7 +181,7 @@ export default function MembersDashboardPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="text-left text-ink-500 border-b border-ink-100">
-                  {['이메일', '가입일', '자녀', '상태', '마지막 활동', '완독'].map((h) => (
+                  {['이메일', '가입일', '자녀', '초대', '상태', '마지막 활동', '완독'].map((h) => (
                     <th key={h} className="px-4 py-3 font-black whitespace-nowrap">
                       {h}
                     </th>
@@ -192,6 +198,13 @@ export default function MembersDashboardPage() {
                     <td className="px-4 py-3 font-bold text-ink-900">{m.email}</td>
                     <td className="px-4 py-3 whitespace-nowrap">{fmtDate(m.createdAt)}</td>
                     <td className="px-4 py-3">{m.children}</td>
+                    <td className="px-4 py-3">
+                      {m.invitedCount > 0 ? (
+                        <span className="font-black text-coral-600">{m.invitedCount}</span>
+                      ) : (
+                        <span className="text-ink-300">—</span>
+                      )}
+                    </td>
                     <td className="px-4 py-3">
                       <StatusBadge m={m} />
                     </td>

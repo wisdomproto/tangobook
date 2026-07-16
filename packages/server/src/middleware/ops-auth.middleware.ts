@@ -14,6 +14,12 @@ const OPS_EMAILS = (process.env.OPS_EMAILS ?? 'kil210@tangobook.co.kr')
   .split(',')
   .map((e) => e.trim().toLowerCase())
   .filter(Boolean);
+// 마케팅 게이트(8054) 통과 시 owner 계정(MKT_OWNER_EMAIL) 세션으로 로그인된다.
+// 같은 운영자가 회원 관리(/marketing/members)도 볼 수 있도록 owner 이메일을 allowlist 에 자동 포함.
+const MKT_OWNER_EMAIL = process.env.MKT_OWNER_EMAIL?.trim().toLowerCase();
+const ALLOWED_OPS_EMAILS = MKT_OWNER_EMAIL
+  ? [...new Set([...OPS_EMAILS, MKT_OWNER_EMAIL])]
+  : OPS_EMAILS;
 
 /** 타이밍 공격 방어 비교 — 길이 다르면 timingSafeEqual 없이 즉시 false. */
 function safeCompare(a: string, b: string): boolean {
@@ -48,7 +54,7 @@ export async function assertOpsUser(req: Request): Promise<void> {
   if (error || !data.user) throw new AppError(401, '인증이 필요합니다');
 
   const email = data.user.email?.toLowerCase() ?? '';
-  if (!OPS_EMAILS.includes(email)) throw new AppError(403, '접근 권한이 없습니다');
+  if (!ALLOWED_OPS_EMAILS.includes(email)) throw new AppError(403, '접근 권한이 없습니다');
 }
 
 /** ops 계열 라우트 공용 인증 미들웨어 — 비번(x-ops-password) 또는 OPS_EMAILS 로그인. */

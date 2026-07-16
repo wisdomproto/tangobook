@@ -68,8 +68,7 @@ export function MemberDetailDrawer({
             <section>
               <h2 className="text-xl font-black text-ink-900 break-keep">{data.account.email}</h2>
               <p className="text-sm text-ink-500 font-bold break-keep">
-                가입 {fmt(data.account.createdAt)} · 초대코드 {data.entitlement.referralCode ?? '—'}{' '}
-                · 초대한 {data.invitedCount}명 · 받은초대 {data.entitlement.referredBy ? 'O' : '—'}
+                가입 {fmt(data.account.createdAt)} · 초대코드 {data.entitlement.referralCode ?? '—'}
                 {data.account.banned ? ' · 🚫 차단됨' : ''}
               </p>
               <p className="text-sm text-ink-700 font-bold mt-1 break-keep">
@@ -77,6 +76,37 @@ export function MemberDetailDrawer({
                 {data.entitlement.bonusDays}일 · 유료 ~{fmt(data.entitlement.paidUntil)} · 체험시작{' '}
                 {fmt(data.entitlement.trialStartedAt)}
               </p>
+            </section>
+            {/* 친구 초대 */}
+            <section className="rounded-2xl bg-cream-50 p-4 space-y-2">
+              <h3 className="font-black text-ink-900">🤝 친구 초대</h3>
+              <p className="text-sm font-bold text-ink-700 break-keep">
+                받은 초대:{' '}
+                {data.entitlement.referredByEmail ? (
+                  <span className="text-ink-900">{data.entitlement.referredByEmail}</span>
+                ) : (
+                  <span className="text-ink-400">없음</span>
+                )}
+              </p>
+              <div>
+                <p className="text-sm font-bold text-ink-700 break-keep">
+                  초대한 회원 ({data.invitedCount})
+                </p>
+                {data.invitedEmails.length > 0 ? (
+                  <ul className="mt-1 space-y-0.5">
+                    {data.invitedEmails.map((email, i) => (
+                      <li
+                        key={`${email}-${i}`}
+                        className="text-sm font-bold text-ink-900 break-all"
+                      >
+                        · {email}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-sm font-bold text-ink-400">아직 없음</p>
+                )}
+              </div>
             </section>
             {/* 액션 */}
             <section className="space-y-2">

@@ -395,15 +395,8 @@ export const router = createBrowserRouter([
         ),
       },
       { path: 'ops', element: <Navigate to="/admin" replace /> },
-      // 회원 관리 대시보드 — /admin 과 동일 인증(비번/OPS_EMAILS), 독립 페이지
-      {
-        path: 'members',
-        element: (
-          <ErrorBoundary>
-            <MembersDashboardPage />
-          </ErrorBoundary>
-        ),
-      },
+      // 회원 관리 — marketing 레이아웃 안으로 이동(/marketing/members). 옛 북마크 호환 redirect.
+      { path: 'members', element: <Navigate to="/marketing/members" replace /> },
       // 법적 문서 — AppShell 밖 문서 페이지 (토스 가맹 심사 확인 대상)
       { path: 'terms', element: <TermsPage /> },
       { path: 'privacy', element: <PrivacyPage /> },
@@ -513,6 +506,7 @@ export const router = createBrowserRouter([
           { path: 'strategy', element: <StrategyPage /> },
           { path: 'ads', element: <AdsPage /> },
           { path: 'feedback', element: <FeedbackPage /> },
+          { path: 'members', element: <MembersDashboardPage embedded /> },
         ],
       },
       { path: '*', element: <NotFoundPage /> },
