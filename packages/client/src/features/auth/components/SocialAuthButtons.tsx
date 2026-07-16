@@ -1,6 +1,7 @@
 import { useState, type ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { authApi } from '../api/auth.api';
+import { isInAppBrowser, isAndroid, openInExternalBrowser } from '@/lib/in-app-browser';
 
 interface Props {
   mode: 'signin' | 'signup';
@@ -28,6 +29,20 @@ const FACEBOOK_LOGIN_ENABLED = false;
 export function SocialAuthButtons({ mode }: Props) {
   const { t, i18n } = useTranslation('auth');
   const [busy, setBusy] = useState<Provider | null>(null);
+  const [inApp] = useState(isInAppBrowser);
+  const [copied, setCopied] = useState(false);
+
+  const handleOpenExternal = () => {
+    if (openInExternalBrowser()) return; // 안드로이드 → Chrome 으로 전환
+    // iOS 등 → Safari 자동 전환 불가. 링크 복사 후 수동 안내.
+    navigator.clipboard?.writeText(window.location.href).then(
+      () => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 3000);
+      },
+      () => undefined
+    );
+  };
 
   // 한국어 UI = 카카오+구글, 그 외 = 구글(+페이스북 준비되면). 구글은 어디서나, 이메일은 항상 별도.
   const providers: Provider[] =
@@ -74,6 +89,21 @@ export function SocialAuthButtons({ mode }: Props) {
 
   return (
     <div className="flex flex-col gap-3">
+      {inApp && (
+        <div className="rounded-xl border-2 border-amber-300 bg-amber-50 p-4 text-left flex flex-col gap-2">
+          <p className="font-black text-ink-900 break-keep">{t('inAppWarning.title')}</p>
+          <p className="text-sm text-ink-700 break-keep">
+            {isAndroid() ? t('inAppWarning.androidStep') : t('inAppWarning.iosStep')}
+          </p>
+          <button
+            onClick={handleOpenExternal}
+            className="h-11 rounded-lg bg-ink-900 text-white font-bold text-sm hover:brightness-125 transition"
+          >
+            {copied ? t('inAppWarning.copied') : t('inAppWarning.openButton')}
+          </button>
+          <p className="text-xs text-ink-500 break-keep">{t('inAppWarning.emailHint')}</p>
+        </div>
+      )}
       {providers.map((p) => {
         const c = config[p];
         return (
