@@ -106,51 +106,51 @@ export default function RandomVocabStudyPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cream-50 to-peach-100">
-      <div className="px-6 max-w-[1600px] mx-auto">
+      <div className="px-4 sm:px-8 max-w-[1600px] mx-auto">
         <PageHeader
           onBack={() => navigate('/library')}
           onHome={() => navigate('/library')}
           right={
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  if (classicIds.length === 0) return;
-                  // 직전 책과 다른 책으로 재추첨
-                  let next = sessionBookId;
-                  for (let i = 0; i < 8 && next === sessionBookId; i++) {
-                    next = classicIds[Math.floor(Math.random() * classicIds.length)];
-                  }
-                  sessionBookId = next;
-                  setSeed((s) => s + 1);
-                }}
-                className="rounded-full bg-white px-4 py-2.5 shadow-soft text-base font-black text-ink-700 hover:shadow-pop transition"
-                aria-label={t('vocabHub.anotherBookAria')}
-              >
-                🎲 {t('vocabHub.anotherBook')}
-              </button>
-              {availableLangs.length > 1 && (
-                <div className="bg-white rounded-full px-2 py-1.5 shadow-soft flex gap-1 flex-wrap">
-                  {availableLangs.map((c) => (
-                    <Chip
-                      key={c.code}
-                      variant="coral"
-                      active={effectiveLang === c.code}
-                      onClick={() => setLang(c.code)}
-                      aria-label={c.label}
-                      className="!text-base sm:!text-lg !px-4 sm:!px-6 !py-2.5"
-                    >
-                      {c.label}
-                    </Chip>
-                  ))}
-                </div>
-              )}
-            </div>
+            <button
+              type="button"
+              onClick={() => {
+                if (classicIds.length === 0) return;
+                // 직전 책과 다른 책으로 재추첨
+                let next = sessionBookId;
+                for (let i = 0; i < 8 && next === sessionBookId; i++) {
+                  next = classicIds[Math.floor(Math.random() * classicIds.length)];
+                }
+                sessionBookId = next;
+                setSeed((s) => s + 1);
+              }}
+              className="shrink-0 rounded-full bg-white px-3 py-2.5 sm:px-4 shadow-soft text-sm sm:text-base font-black text-ink-700 hover:shadow-pop transition break-keep"
+              aria-label={t('vocabHub.anotherBookAria')}
+            >
+              🎲 {t('vocabHub.anotherBook')}
+            </button>
           }
         >
           {/* 책 제목은 아래 카드(📖)에 나오므로 헤더는 중복 제거 — 좁은 폭 확보 */}
           <span className="truncate">🎮 {t('vocabHub.title')}</span>
         </PageHeader>
+        {/* 언어 선택 — 헤더 우측에 넣으면 5칩이 모바일에서 가로 오버플로우 → 헤더 아래 별도
+            줄로 내려 flex-wrap. (2026-07-16 모바일 검수) */}
+        {availableLangs.length > 1 && (
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {availableLangs.map((c) => (
+              <Chip
+                key={c.code}
+                variant="coral"
+                active={effectiveLang === c.code}
+                onClick={() => setLang(c.code)}
+                aria-label={c.label}
+                className="!text-sm sm:!text-base !px-3 sm:!px-5 !py-2"
+              >
+                {c.label}
+              </Chip>
+            ))}
+          </div>
+        )}
       </div>
 
       <main className="px-4 sm:px-8 pt-4 pb-6 max-w-[1600px] mx-auto">

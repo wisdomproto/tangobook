@@ -180,7 +180,7 @@ export function HiddenObjectPlayer({ storybookId, gameData, onComplete, onBack }
           </div>
         </div>
 
-        <p className="shrink-0 text-base sm:text-lg font-bold text-ink-900 dark:text-peach-200">
+        <p className="shrink-0 text-base sm:text-lg font-bold text-ink-900 dark:text-peach-200 break-keep">
           그림 속에서 {remaining.length}개 더 찾아보세요!
         </p>
       </div>

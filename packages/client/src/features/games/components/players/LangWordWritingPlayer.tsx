@@ -174,14 +174,14 @@ export function LangWordWritingPlayer({
         total={items.length}
         onBack={onBack}
       />
-      <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
+      <div className="flex flex-col items-center gap-3 sm:gap-4 w-full flex-1 min-h-0">
         <div className="flex flex-col items-center justify-center gap-2 sm:gap-3 shrink-0">
           {currentItem.imageUrl && (
             <img
               src={currentItem.imageUrl}
               alt=""
               aria-hidden
-              className="h-44 sm:h-56 lg:h-64 w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
+              className="h-[clamp(4rem,18vh,16rem)] w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
             />
           )}
           <p
@@ -193,7 +193,7 @@ export function LangWordWritingPlayer({
         </div>
 
         <div className="flex-1 min-h-0 w-full flex items-center justify-center">
-          <div style={{ width: 'min(680px, 92vw)' }}>
+          <div style={{ width: 'min(680px, 92vw, 75vh)' }}>
             <WordFillCanvas
               key={currentIndex}
               word={currentItem.word}

@@ -22,7 +22,7 @@ export function ViewerLoading({ label }: ViewerLoadingProps) {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-cream-50 px-10">
+    <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-cream-50 px-6 sm:px-10">
       <div className="w-full max-w-[280px]">
         <div className="h-5 w-full overflow-hidden rounded-full bg-peach-100 shadow-inner">
           <div

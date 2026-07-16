@@ -143,7 +143,7 @@ function StoryImagePlayerInner({
 
   const getOptionClass = (url: string) => {
     const base =
-      'relative w-full aspect-video rounded-2xl overflow-hidden border-4 transition-all cursor-pointer bg-white shadow-card';
+      'relative w-full aspect-video max-h-[clamp(4rem,22vh,12rem)] rounded-2xl overflow-hidden border-4 transition-all cursor-pointer bg-white shadow-card';
     const isThisCorrect =
       feedback === 'correct' && (selectedUrl === url || url === current.correctImageUrl);
     const isThisWrong = feedback === 'wrong' && selectedUrl === url;
@@ -161,11 +161,11 @@ function StoryImagePlayerInner({
 
   return (
     <GamePlayerLayout maxWidth="2xl" onBack={onBack}>
-      <div className="flex flex-col items-center gap-4 sm:gap-6 w-full">
+      <div className="flex flex-col items-center gap-4 sm:gap-6 w-full flex-1 min-h-0">
         <GameProgressBar current={currentIdx} total={rounds.length} score={score} />
 
         <div className="text-center space-y-3">
-          <p className="text-lg sm:text-xl font-bold text-ink-900 dark:text-peach-200">
+          <p className="text-lg sm:text-xl font-bold text-ink-900 dark:text-peach-200 break-keep">
             이야기를 듣고 어울리는 그림을 골라보세요!
           </p>
           <button
@@ -178,7 +178,7 @@ function StoryImagePlayerInner({
         </div>
 
         {/* 세로 스택: 한 줄에 이미지 한 개씩, 16:9 비율 */}
-        <div className="flex flex-col gap-4 w-full max-w-3xl mx-auto">
+        <div className="flex-1 min-h-0 overflow-y-auto flex flex-col gap-4 w-full max-w-3xl mx-auto">
           {shuffledOptions.map((url) => {
             const isCorrectOpt =
               feedback === 'correct' && (selectedUrl === url || url === current.correctImageUrl);

@@ -52,7 +52,7 @@ export function GamePlayerLayout({
         {onBack && (
           <button
             onClick={onBack}
-            className="self-start mb-[clamp(0.25rem,1vh,0.75rem)] inline-flex items-center gap-2 px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.375rem,1.25vh,0.75rem)] text-[clamp(0.875rem,2vh,1.125rem)] rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition shrink-0"
+            className="self-start mb-[clamp(0.25rem,1vh,0.75rem)] inline-flex items-center gap-2 px-[clamp(0.75rem,2vw,1.25rem)] py-[clamp(0.375rem,1.25vh,0.75rem)] text-[clamp(0.875rem,2vh,1.125rem)] rounded-full bg-white shadow-soft text-ink-700 font-bold hover:shadow-pop transition shrink-0 break-keep"
           >
             ← 돌아가기
           </button>

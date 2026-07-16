@@ -30,7 +30,7 @@ export function YouTubeModal({ videoId, open, onClose, title }: YouTubeModalProp
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6"
+      className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6"
       onClick={onClose}
     >
       <div
@@ -38,11 +38,11 @@ export function YouTubeModal({ videoId, open, onClose, title }: YouTubeModalProp
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center px-4 py-3">
-          <div className="text-white font-black text-sm flex items-center gap-2">
-            <span>🎬</span>
-            <span>{title ?? t('video.defaultTitle')}</span>
+          <div className="text-white font-black text-sm flex items-center gap-2 min-w-0">
+            <span className="shrink-0">🎬</span>
+            <span className="truncate">{title ?? t('video.defaultTitle')}</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <a
               href={watchUrl}
               target="_blank"

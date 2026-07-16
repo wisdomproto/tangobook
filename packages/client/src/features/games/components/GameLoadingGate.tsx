@@ -23,7 +23,7 @@ export function GameLoadingGate({
   if (!show) return null;
   const pct = total > 0 ? Math.round((loaded / total) * 100) : 0;
   return (
-    <div className="fixed inset-0 z-[60] bg-cream-50 flex flex-col items-center justify-center gap-6 p-8">
+    <div className="fixed inset-0 z-[60] bg-cream-50 flex flex-col items-center justify-center gap-6 p-6 sm:p-8">
       <p className="text-2xl font-black text-ink-900 font-display break-keep text-center">
         {t('loadingGate.preparing')}
       </p>

@@ -85,7 +85,7 @@ export function RewardScreen({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-40 flex flex-col items-center justify-center text-center p-10 bg-gradient-to-b from-cream-50 via-coral-100 to-peach-200"
+          className="fixed inset-0 z-40 flex flex-col items-center justify-center text-center overflow-y-auto p-6 sm:p-8 md:p-10 bg-gradient-to-b from-cream-50 via-coral-100 to-peach-200"
         >
           <motion.div
             initial={reduce ? { opacity: 0 } : { scale: 0.5, y: 40 }}
@@ -110,7 +110,7 @@ export function RewardScreen({
             initial={reduce ? { opacity: 0 } : { y: 20, opacity: 0 }}
             animate={reduce ? { opacity: 1 } : { y: 0, opacity: 1 }}
             transition={reduce ? { duration: 0.2 } : { delay: 0.25 }}
-            className="text-4xl font-black text-ink-900 mt-3 font-display"
+            className="text-2xl sm:text-3xl md:text-4xl font-black text-ink-900 mt-3 font-display break-keep"
           >
             {caseType === 'D' ? t('reward.titleEnd') : t('reward.titleDone')}
           </motion.h1>

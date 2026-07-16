@@ -81,7 +81,7 @@ export function TitleIntro({
       <div className="absolute inset-0 bg-gradient-to-b from-ink-900/45 via-transparent to-ink-900/65" />
 
       {/* 제목 (글래스 필) */}
-      <div className="relative z-10 mx-6 max-w-[88%] rounded-2xl border border-white/25 bg-ink-900/45 px-8 py-5 backdrop-blur-md">
+      <div className="relative z-10 mx-6 max-w-[88%] rounded-2xl border border-white/25 bg-ink-900/45 px-5 py-4 sm:px-8 sm:py-5 backdrop-blur-md">
         <h1 className="text-center font-display text-3xl font-black text-white break-keep drop-shadow-lg sm:text-4xl">
           {title}
         </h1>

@@ -740,9 +740,10 @@ export function ViewerContainer({ storybookId, playlist }: ViewerContainerProps)
         />
       )}
 
-      {/* 페이지 진행률 — Toolbar 와 같은 line (가운데). 풀스크린에선 탭 시에만 함께 표시. */}
+      {/* 페이지 진행률 — 데스크톱은 Toolbar 와 같은 line(가운데). 모바일(<sm)은 좁아 우측
+          설정 pill 과 겹치므로 툴바 아래로 내림(top-16). 풀스크린에선 탭 시에만 함께 표시. */}
       {controlsVisible && (
-        <div className="absolute top-2 left-1/2 -translate-x-1/2 z-20 bg-white/90 backdrop-blur-sm px-3 h-10 flex items-center rounded-md shadow-soft pointer-events-none">
+        <div className="absolute top-16 sm:top-2 left-1/2 -translate-x-1/2 z-20 bg-white/90 backdrop-blur-sm px-3 h-9 sm:h-10 flex items-center rounded-md shadow-soft pointer-events-none">
           <BookSpineProgress current={pageIndex} total={pages.length} />
         </div>
       )}

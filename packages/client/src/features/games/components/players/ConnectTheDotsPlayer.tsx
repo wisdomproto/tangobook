@@ -481,9 +481,9 @@ function ConnectTheDotsPlayer({
         total={items.length}
         onBack={onBack}
       />
-      <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
+      <div className="flex flex-col items-center gap-3 sm:gap-4 w-full flex-1 min-h-0">
         {/* 안내 텍스트 */}
-        <div className="h-14 sm:h-16 flex items-center justify-center shrink-0">
+        <div className="h-[clamp(2.5rem,8vh,4rem)] flex items-center justify-center shrink-0">
           {completed ? (
             <p className="text-3xl sm:text-4xl font-black text-success">
               🎉 {t('connectDots.done')}
@@ -501,7 +501,7 @@ function ConnectTheDotsPlayer({
             <img
               src={currentItem.originalImageUrl}
               alt={currentItem.objectName ?? `Page ${currentItem.pageNumber}`}
-              className="block max-h-[60vh] w-auto transition-opacity duration-700"
+              className="block max-h-[58vh] w-auto transition-opacity duration-700"
               style={{ opacity: showImage ? 1 : 0.55 }}
               draggable={false}
               onLoad={handleImgLoad}

@@ -178,13 +178,13 @@ export function EnglishWordWritingPlayer({
         total={items.length}
         onBack={onBack}
       />
-      <div className="flex flex-col items-center gap-3 sm:gap-4 w-full h-full">
+      <div className="flex flex-col items-center gap-3 sm:gap-4 w-full flex-1 min-h-0">
         <div className="flex flex-col items-center justify-center gap-2 sm:gap-3 shrink-0">
           {currentItem.imageUrl && (
             <img
               src={currentItem.imageUrl}
               alt={currentItem.word}
-              className="h-48 sm:h-60 lg:h-72 w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
+              className="h-[clamp(4rem,20vh,18rem)] w-auto object-contain drop-shadow-[0_6px_8px_rgba(0,0,0,0.15)]"
             />
           )}
           <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-ink-900">
@@ -193,7 +193,7 @@ export function EnglishWordWritingPlayer({
         </div>
 
         <div className="flex-1 min-h-0 w-full flex items-center justify-center">
-          <div style={{ width: 'min(680px, 92vw)' }}>
+          <div style={{ width: 'min(680px, 92vw, 75vh)' }}>
             <WordFillCanvas
               key={currentIndex}
               word={currentItem.word}
