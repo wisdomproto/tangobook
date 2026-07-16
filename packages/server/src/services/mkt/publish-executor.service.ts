@@ -17,6 +17,7 @@ import {
 } from './external/meta-graph-publish.js';
 import { getBundle, findPageToken } from './meta-connection.store.js';
 import { YouTubeProvider } from '../../providers/youtube.provider.js';
+import { matchYoutubeRow } from '../reel/longform-publish.js';
 
 export interface ExecResult {
   ok: boolean;
@@ -26,9 +27,10 @@ export interface ExecResult {
 
 /** mkt_publish_records.metadata 에 저장하는 발행 파라미터. */
 export interface PublishMeta {
-  target_id?: string; // Graph 타겟 id (ig business id / page id / threads id)
+  target_id?: string; // Graph 타겟 id (ig business id / page id / threads id) / YouTube 내부 채널 id
   page_name?: string; // 표시용
-  content_kind?: 'cardnews' | 'post' | 'reels';
+  content_kind?: 'cardnews' | 'post' | 'reels' | 'longform';
+  art_style?: string; // 롱폼: mkt_youtube_contents 에서 (artStyle,language) 행 선택용
 }
 
 // 자동 재시도 정책: 실패 시 백오프 재예약. retry_count 0→1: 15분, 1→2: 1시간, 2→3: 3시간. 소진 시 최종 failed.
@@ -205,6 +207,9 @@ async function publishYouTube(
     privacy?: 'public' | 'unlisted' | 'private';
   };
 
+  // 롱폼(오디오북) 발행 — 쇼츠와 달리 mkt_youtube_contents 에서 (artStyle,language) 행을 로드.
+  if (meta.content_kind === 'longform') return publishLongformYouTube(sb, q, recordId, lang, meta);
+
   const reel = await loadReel(sb, q.content_id as string, lang);
   if (!reel.videoUrl) return fail(sb, recordId, '유튜브에 올릴 릴스 영상이 없습니다.');
 
@@ -248,6 +253,91 @@ async function publishYouTube(
     return { ok: true, postId: up.videoId };
   } catch (e) {
     return fail(sb, recordId, e instanceof Error ? e.message : 'YouTube 발행 실패');
+  }
+}
+
+/**
+ * 롱폼(오디오북) 유튜브 발행. mkt_youtube_contents 의 (artStyle,language) 행에서 롱폼 영상·메타를 읽어
+ * 기존 youtube.provider 로 업로드한다. 쇼츠와 달리 #Shorts 없이 categoryId 27(교육) + 롱폼 태그.
+ * 썸네일 = 언어별 표지(thumbnail_url) — best-effort(맞춤 썸네일은 채널 인증 필요, 실패해도 발행은 성공).
+ */
+async function publishLongformYouTube(
+  sb: SupabaseClient,
+  q: Record<string, unknown>,
+  recordId: string,
+  lang: string,
+  meta: PublishMeta & { title?: string; privacy?: 'public' | 'unlisted' | 'private' }
+): Promise<ExecResult> {
+  const artStyle = meta.art_style;
+  if (!artStyle) return fail(sb, recordId, '롱폼 발행에 art_style(그림체)이 없습니다.');
+
+  const { data: rows } = await sb
+    .from('mkt_youtube_contents')
+    .select(
+      'id, video_settings, video_url, thumbnail_url, video_title, video_description, video_tags'
+    )
+    .eq('content_id', q.content_id as string);
+  const row = matchYoutubeRow((rows ?? []) as any[], artStyle, lang) as {
+    video_url?: string | null;
+    thumbnail_url?: string | null;
+    video_title?: string | null;
+    video_description?: string | null;
+    video_tags?: string[] | null;
+  } | null;
+
+  if (!row?.video_url)
+    return fail(sb, recordId, `발행할 롱폼 영상이 없습니다 (${artStyle}/${lang}).`);
+
+  const title = (meta.title || row.video_title || '탱고북 동화').slice(0, 100);
+  const description = row.video_description || '';
+  const tags = Array.isArray(row.video_tags) ? row.video_tags : ['탱고북', '동화', '오디오북'];
+
+  try {
+    const res = await fetch(encodeURI(row.video_url));
+    if (!res.ok) return fail(sb, recordId, `영상 다운로드 실패 (${res.status})`);
+    const buf = Buffer.from(await res.arrayBuffer());
+    const up = await YouTubeProvider.uploadVideo(
+      buf,
+      {
+        title,
+        description,
+        privacy: meta.privacy || 'public',
+        categoryId: '27', // Education
+        tags,
+        language: lang,
+      },
+      undefined,
+      meta.target_id || undefined
+    );
+
+    // 썸네일(언어별 표지) 세팅 — best-effort. 맞춤 썸네일은 인증 채널만 허용되므로 실패해도 무시.
+    if (row.thumbnail_url) {
+      try {
+        const tRes = await fetch(encodeURI(row.thumbnail_url));
+        if (tRes.ok) {
+          const tBuf = Buffer.from(await tRes.arrayBuffer());
+          await YouTubeProvider.setThumbnail(up.videoId, tBuf, meta.target_id || undefined);
+        }
+      } catch (e) {
+        console.warn('[longform-yt] 썸네일 세팅 실패(무시):', (e as Error).message);
+      }
+    }
+
+    const now = new Date().toISOString();
+    await sb
+      .from('mkt_publish_records')
+      .update({
+        status: 'published',
+        platform_post_id: up.videoId,
+        published_url: up.videoUrl,
+        published_at: now,
+        error_message: null,
+        updated_at: now,
+      })
+      .eq('id', recordId);
+    return { ok: true, postId: up.videoId };
+  } catch (e) {
+    return fail(sb, recordId, e instanceof Error ? e.message : 'YouTube 롱폼 발행 실패');
   }
 }
 

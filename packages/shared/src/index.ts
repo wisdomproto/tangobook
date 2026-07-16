@@ -23,6 +23,7 @@ export {
 export {
   buildAudiobookRenderData,
   buildStyledAudiobookRenderData,
+  buildBaseAudiobookRenderData,
 } from './utils/audiobook-props.js';
 export type { AudiobookSlideData, AudiobookRenderData } from './utils/audiobook-props.js';
 export { getEffectiveVocabulary } from './utils/effective-vocabulary.js';

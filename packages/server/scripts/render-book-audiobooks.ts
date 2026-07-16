@@ -29,8 +29,30 @@ import { getSupabaseAdmin } from '../src/providers/supabase-admin.provider.js';
 import { uploadBufferToR2 } from '../src/providers/r2.provider.js';
 import { getAudioDuration } from '../src/utils/audio-duration.js';
 import { generateSrt } from '../src/utils/srt-generator.js';
-import { buildStyledAudiobookRenderData } from '@tangobook/shared';
+import { buildStyledAudiobookRenderData, buildBaseAudiobookRenderData } from '@tangobook/shared';
 import type { AudiobookRenderData, Storybook } from '@tangobook/shared';
+
+/**
+ * 렌더 데이터 빌더 선택 — 그림체(styleAssets[style].pageIllustrations)가 있으면 styled,
+ * 없으면(자연관찰 실사책처럼 이미지가 base pages[].illustrationUrl 에 있는 경우) base 빌더.
+ * 두 경로 모두 텍스트/TTS 는 translations[lang](ko=base)로 언어축을 바꾼다.
+ */
+function isBaseImageStyle(storybook: Storybook, artStyle: string): boolean {
+  const styleAsset = (storybook.styleAssets ?? {})[artStyle] as
+    | { pageIllustrations?: Record<string, unknown> }
+    | undefined;
+  return Object.keys(styleAsset?.pageIllustrations ?? {}).length === 0;
+}
+
+function buildRenderDataFor(
+  storybook: Storybook,
+  artStyle: string,
+  lang: string
+): AudiobookRenderData {
+  return isBaseImageStyle(storybook, artStyle)
+    ? buildBaseAudiobookRenderData(storybook, { language: lang })
+    : buildStyledAudiobookRenderData(storybook, { artStyle, language: lang });
+}
 
 // Remotion 은 Chromium 이 필요하므로 lazy import (config 로드 시점 부담 회피).
 async function loadRemotion() {
@@ -152,7 +174,7 @@ function generateCaptions(
 
   const otherLangs = (storybook.languages ?? []).filter((l) => l !== baseLang);
   for (const tl of otherLangs) {
-    const langData = buildStyledAudiobookRenderData(storybook, { artStyle, language: tl });
+    const langData = buildRenderDataFor(storybook, artStyle, tl);
     // 자막 언어만 바뀌고 타이밍(오디오)은 base 언어 그대로 — 슬라이드는 그림체가 같아 1:1 정렬.
     langData.slides.forEach((s, i) => {
       s.ttsDuration = renderData.slides[i]?.ttsDuration;
@@ -197,11 +219,15 @@ async function main() {
   // 1. 동화책 로드
   const storybook = (await fetchStorybook(book)) as Storybook;
 
-  // 2. 스타일드 렌더 데이터 빌드
-  const renderData = buildStyledAudiobookRenderData(storybook, { artStyle: style, language: lang });
+  // 2. 렌더 데이터 빌드 (그림체 있으면 styled, 없으면 base 이미지)
+  const useBase = isBaseImageStyle(storybook, style);
+  const renderData = buildRenderDataFor(storybook, style, lang);
   if (renderData.slides.length === 0) {
-    throw new Error(`(${style}) 그림체에 삽화가 있는 페이지가 없습니다 — 렌더 불가.`);
+    throw new Error(
+      `(${style}) ${useBase ? 'base pages 에 삽화가' : '그림체에 삽화가 있는 페이지가'} 없습니다 — 렌더 불가.`
+    );
   }
+  console.log(`[render-book-audiobooks] mode=${useBase ? 'base(실사)' : 'styled'}`);
   console.log(`[render-book-audiobooks] slides=${renderData.slides.length}`);
 
   // 2.5. 랜덤 BGM — 롱폼 영상은 기본 5곡 중 무작위 1곡을 은은한 배경음으로 넣는다.

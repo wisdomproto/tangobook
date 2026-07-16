@@ -151,3 +151,54 @@ export function buildStyledAudiobookRenderData(
     fps: 30,
   };
 }
+
+/**
+ * 실사(자연관찰) 책용 렌더 데이터. 그림체(styleAssets.pageIllustrations)가 없고 이미지가
+ * base `pages[].illustrationUrl` 에 있는 책 — buildStyledAudiobookRenderData 는 0슬라이드가 된다.
+ * 이미지는 실사 단일본이라 언어와 무관하게 동일하고, 텍스트/TTS 만 translations[lang] 로 바뀐다.
+ * (buildStyledAudiobookRenderData 의 base-이미지 버전 — 롱폼 배치 렌더가 style 유무로 분기한다.)
+ */
+export function buildBaseAudiobookRenderData(
+  storybook: Storybook,
+  opts: { language: string }
+): AudiobookRenderData {
+  const { language: lang } = opts;
+
+  const slides: AudiobookSlideData[] = (storybook.pages ?? [])
+    .map((page): AudiobookSlideData | null => {
+      if (!page.illustrationUrl) return null; // 삽화 없는 페이지 스킵
+      const isTranslation = lang !== 'ko' && page.translations?.[lang];
+      const text = isTranslation ? page.translations![lang].text : page.text;
+      const ttsUrl = isTranslation ? page.translations![lang].ttsUrl : page.ttsUrl;
+
+      return {
+        imageUrl: page.illustrationUrl,
+        ttsUrl,
+        ttsDuration: undefined,
+        subtitleText: text,
+      };
+    })
+    .filter((s): s is AudiobookSlideData => s !== null);
+
+  const coverImageUrl = storybook.primaryCoverByLang?.[lang] || storybook.coverImage;
+  const cover = coverImageUrl
+    ? { imageUrl: coverImageUrl, title: storybook.title || '', duration: 3, showTitle: true }
+    : undefined;
+
+  return {
+    slides,
+    aspectRatio: '16:9',
+    cover,
+    bgmUrl: storybook.backgroundMusicUrl,
+    bgmVolume: 30,
+    subtitleStyle: {
+      fontSize: 24,
+      color: '#ffffff',
+      backgroundColor: '#00000080',
+      position: 'bottom',
+      wordsPerGroup: 2,
+    },
+    enableParticles: true,
+    fps: 30,
+  };
+}
