@@ -53,6 +53,21 @@ function publishAtIso(hhmm, dayOffset) {
   return d.toISOString();
 }
 
+/** YouTube 썸네일 2MB 한도 대응: 초과 시 sharp 로 축소/재인코딩해 2MB 아래로. */
+async function fitThumbnail(buf) {
+  const LIMIT = 2_000_000;
+  if (buf.length <= LIMIT) return buf;
+  const sharp = (await import('sharp')).default;
+  // 1) 너비 1080 로 축소 + png 최대 압축
+  let out = await sharp(buf).resize({ width: 1080, withoutEnlargement: true })
+    .png({ compressionLevel: 9 }).toBuffer();
+  if (out.length <= LIMIT) return out;
+  // 2) 여전히 크면 jpeg q82 (포스터라 화질 손실 미미)
+  out = await sharp(buf).resize({ width: 1080, withoutEnlargement: true })
+    .jpeg({ quality: 82 }).toBuffer();
+  return out;
+}
+
 async function download(url, tries = 3) {
   for (let i = 0; i < tries; i++) {
     try {
@@ -113,9 +128,28 @@ async function main() {
         buf, meta, (p) => process.stdout.write(`\r  진행 ${p}%   `), target.id
       );
       process.stdout.write('\n');
+
+      // 맞춤 썸네일(릴스 표지 = catalog coverUrl) 지정 — best-effort.
+      // ⚠️ 맞춤 썸네일은 채널 인증(전화)된 계정만 API 허용 → 실패해도 영상 발행은 성공 유지.
+      let thumbSetAt = null;
+      if (r.coverUrl) {
+        try {
+          const tRes = await fetch(encodeURI(r.coverUrl));
+          if (tRes.ok) {
+            const tBuf = await fitThumbnail(Buffer.from(await tRes.arrayBuffer()));
+            await YouTubeProvider.setThumbnail(videoId, tBuf, target.id);
+            thumbSetAt = new Date().toISOString();
+            console.log('  🖼️ 썸네일 지정 완료');
+          }
+        } catch (e) {
+          console.warn(`  ⚠️ 썸네일 지정 실패(무시): ${String(e?.message || e)}`);
+        }
+      }
+
       state.uploaded[r.bookId] = {
         videoId, ytUrl: videoUrl, title: r.ytTitle, category: r.category,
         privacy: meta.privacy, publishAt: publishAt ?? null, uploadedAt: new Date().toISOString(),
+        thumbSetAt,
       };
       saveJson(STATE, state);
       console.log(`  ✅ ${videoUrl}`);

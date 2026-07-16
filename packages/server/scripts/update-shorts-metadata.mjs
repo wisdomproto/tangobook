@@ -8,6 +8,8 @@
 //   node scripts/update-shorts-metadata.mjs                     # 달라진 것만 갱신
 //   node scripts/update-shorts-metadata.mjs --book=1772009873865  # 특정 책만
 //   node scripts/update-shorts-metadata.mjs --force             # state==catalog 여도 전부 재적용
+//   node scripts/update-shorts-metadata.mjs --thumbs            # 이미 올라간 영상에 표지 썸네일 소급 지정
+//   node scripts/update-shorts-metadata.mjs --thumbs --force-thumbs  # 이미 지정된 것도 다시
 import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -26,11 +28,26 @@ const args = Object.fromEntries(process.argv.slice(2).map((a) => {
 }));
 const DRY = !!args['dry-run'];
 const FORCE = !!args.force;
+const THUMBS = !!args.thumbs;               // 표지 썸네일 소급 지정 패스 실행
+const FORCE_THUMBS = !!args['force-thumbs']; // 이미 thumbSetAt 있어도 다시
 const ONLY_BOOK = args.book ? String(args.book) : null;
 const CHANNEL_TITLE = args.channel ?? '탱고북스';
 
 const readJson = (p, fb) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf-8')) : fb);
 const saveJson = (p, o) => fs.writeFileSync(p, JSON.stringify(o, null, 2), 'utf-8');
+
+/** YouTube 썸네일 2MB 한도 대응: 초과 시 sharp 로 축소/재인코딩. */
+async function fitThumbnail(buf) {
+  const LIMIT = 2_000_000;
+  if (buf.length <= LIMIT) return buf;
+  const sharp = (await import('sharp')).default;
+  let out = await sharp(buf).resize({ width: 1080, withoutEnlargement: true })
+    .png({ compressionLevel: 9 }).toBuffer();
+  if (out.length <= LIMIT) return out;
+  out = await sharp(buf).resize({ width: 1080, withoutEnlargement: true })
+    .jpeg({ quality: 82 }).toBuffer();
+  return out;
+}
 
 async function main() {
   const catalog = readJson(CATALOG, null);
@@ -42,6 +59,37 @@ async function main() {
   const target = channels.find((c) => c.channelTitle === CHANNEL_TITLE || c.name === CHANNEL_TITLE);
   if (!target) { console.error(`채널 "${CHANNEL_TITLE}" 미연동.`); process.exit(1); }
   const youtube = await YouTubeProvider.getAuthenticatedClient(target.id);
+
+  // ── 썸네일 소급 지정 패스 (--thumbs) ──
+  if (THUMBS) {
+    const tCands = Object.entries(state.uploaded)
+      .filter(([bid]) => (ONLY_BOOK ? bid === ONLY_BOOK : true))
+      .filter(([bid, v]) => byBook[bid]?.coverUrl && (FORCE_THUMBS || !v.thumbSetAt));
+    console.log(`채널: ${target.channelTitle} | 썸네일 지정 대상: ${tCands.length}건`);
+    let ok = 0, fail = 0;
+    for (const [bid, v] of tCands) {
+      const r = byBook[bid];
+      console.log(`\n[${r.subject}] ${v.videoId}\n  표지: ${r.coverUrl.slice(0, 80)}`);
+      if (DRY) { console.log('  (dry-run)'); continue; }
+      try {
+        const tRes = await fetch(encodeURI(r.coverUrl));
+        if (!tRes.ok) throw new Error(`표지 fetch HTTP ${tRes.status}`);
+        await YouTubeProvider.setThumbnail(v.videoId, Buffer.from(await tRes.arrayBuffer()), target.id);
+        state.uploaded[bid] = { ...v, thumbSetAt: new Date().toISOString() };
+        saveJson(STATE, state);
+        ok++; console.log('  🖼️ 썸네일 지정 완료');
+      } catch (e) {
+        fail++;
+        const msg = String(e?.message || e);
+        console.error(`  ❌ 실패: ${msg}`);
+        if (/403|forbidden|ineligible|not.*eligible|verify|verified/i.test(msg)) {
+          console.error('  → 맞춤 썸네일은 채널 전화 인증이 필요합니다. 스튜디오에서 인증 후 다시 실행하세요.');
+        }
+      }
+    }
+    console.log(`\n썸네일 완료: 성공 ${ok} · 실패 ${fail}`);
+    return;
+  }
 
   // 갱신 후보: 업로드됨 + 카탈로그에 존재 + (제목 달라짐 or force) [+ 특정 책 필터]
   const candidates = Object.entries(state.uploaded)

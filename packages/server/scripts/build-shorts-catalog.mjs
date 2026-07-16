@@ -10,6 +10,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createClient } from '@supabase/supabase-js';
+import { listR2Objects } from '../src/providers/r2.provider.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(__dirname, '../../..');
@@ -113,6 +114,29 @@ async function main() {
     .select('content_id, video_settings');
   if (error) { console.error('DB error:', error.message); process.exit(1); }
 
+  // 표지(coverUrl) = 각 책의 R2 릴스 폴더에서 "가장 오래된 thumb" 우선.
+  // 07-16에 커버 디자인이 그림체3종 세로 포스터로 개편돼 DB coverUrl 이 그걸 가리키지만,
+  // 인스타에 실제 발행된 07-12 카드(카테고리 배지+삽화+제목)를 유튜브에도 통일하기 위함.
+  // R2 에 옛/새 thumb 가 모두 남아있으므로 가장 오래된 것 = 인스타 발행 커버.
+  const reelFolders = new Set();
+  for (const r of data || []) {
+    const v = r.video_settings?.reels?.ko?.videoUrl;
+    const fm = v && v.match(/\/(mkt\/[^/]+\/reels)\//);
+    if (fm) reelFolders.add(`${fm[1]}/`);
+  }
+  const oldestThumb = {}; // bookId -> { mod, key }
+  for (const folder of reelFolders) {
+    for (const o of await listR2Objects(folder)) {
+      const tm = o.Key.match(/\/(\d+)-thumb-\d+\.(png|jpg|jpeg|webp)$/i);
+      if (!tm) continue;
+      const bid = tm[1];
+      const mod = new Date(o.LastModified).getTime();
+      if (!oldestThumb[bid] || mod < oldestThumb[bid].mod) oldestThumb[bid] = { mod, key: o.Key };
+    }
+  }
+  const coverFor = (bookId, dbCover) =>
+    oldestThumb[bookId] ? `${R2_PUBLIC}/${oldestThumb[bookId].key}` : (dbCover || '');
+
   const rows = [];
   const seenBook = new Set();
   for (const r of data || []) {
@@ -138,7 +162,7 @@ async function main() {
     rows.push({
       bookId, subject: title, category: cat,
       ytTitle, description: desc, hashtags: hashtags.join(' '),
-      deeplink, videoUrl, coverUrl: ko.coverUrl || '',
+      deeplink, videoUrl, coverUrl: coverFor(bookId, ko.coverUrl),
     });
   }
 
