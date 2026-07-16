@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Chip, Mascot, PageHeader } from '@/design-system';
+import { Mascot, PageHeader } from '@/design-system';
 import { useStorybooks, useStorybook } from '@/features/storybook';
 import { deriveStorybookUnit } from '@/features/vocabulary-unit/lib/derive-storybook-unit';
 import { availableVocabLangs, resolveVocabLang } from '@/features/vocabulary-unit/lib/vocab-lang';
 import { VocabularyStudyContent } from '@/features/vocabulary-unit/components/VocabularyStudyContent';
+import { VocabLangSelect } from '@/features/vocabulary-unit/components/VocabLangSelect';
 import type { Lang } from '@tangobook/shared';
 
 /**
@@ -133,22 +134,10 @@ export default function RandomVocabStudyPage() {
           {/* 책 제목은 아래 카드(📖)에 나오므로 헤더는 중복 제거 — 좁은 폭 확보 */}
           <span className="truncate">🎮 {t('vocabHub.title')}</span>
         </PageHeader>
-        {/* 언어 선택 — 헤더 우측에 넣으면 5칩이 모바일에서 가로 오버플로우 → 헤더 아래 별도
-            줄로 내려 flex-wrap. (2026-07-16 모바일 검수) */}
+        {/* 언어 선택 — 칩 5개는 모바일에서 가로 오버플로우/줄바꿈이 지저분해 드롭박스로 압축. */}
         {availableLangs.length > 1 && (
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {availableLangs.map((c) => (
-              <Chip
-                key={c.code}
-                variant="coral"
-                active={effectiveLang === c.code}
-                onClick={() => setLang(c.code)}
-                aria-label={c.label}
-                className="!text-sm sm:!text-base !px-3 sm:!px-5 !py-2"
-              >
-                {c.label}
-              </Chip>
-            ))}
+          <div className="mt-2">
+            <VocabLangSelect langs={availableLangs} value={effectiveLang} onChange={setLang} />
           </div>
         )}
       </div>

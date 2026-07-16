@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { Skeleton, Chip, Mascot, PageHeader } from '@/design-system';
+import { Skeleton, Mascot, PageHeader } from '@/design-system';
 import i18n from '@/i18n';
 import { useStorybook } from '@/features/storybook/hooks/useStorybooks';
 import type { Lang, Storybook, VocabularyUnit } from '@tangobook/shared';
@@ -9,6 +9,7 @@ import { useVocabularyUnit } from '../hooks/useVocabularyUnits';
 import { isStorybookUnitId, storybookIdFromUnitId } from '../lib/derive-storybook-unit';
 import { availableVocabLangs, resolveVocabLang } from '../lib/vocab-lang';
 import { VocabularyStudyContent } from './VocabularyStudyContent';
+import { VocabLangSelect } from './VocabLangSelect';
 
 function getDisplayUnitName(unit: VocabularyUnit, lang: Lang, storybook?: Storybook): string {
   if (lang === 'ko') return unit.nameKo;
@@ -108,20 +109,7 @@ export function VocabularyStudyPage() {
           onHome={() => navigate('/library')}
           right={
             availableLangs.length > 1 ? (
-              <div className="bg-white rounded-full px-2 py-1.5 shadow-soft flex gap-1 flex-wrap">
-                {availableLangs.map((c) => (
-                  <Chip
-                    key={c.code}
-                    variant="coral"
-                    active={effectiveLang === c.code}
-                    onClick={() => setLang(c.code)}
-                    aria-label={c.label}
-                    className="!text-base sm:!text-lg !px-4 sm:!px-6 !py-2.5"
-                  >
-                    {c.label}
-                  </Chip>
-                ))}
-              </div>
+              <VocabLangSelect langs={availableLangs} value={effectiveLang} onChange={setLang} />
             ) : null
           }
         >
