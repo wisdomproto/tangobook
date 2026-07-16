@@ -31,7 +31,7 @@ features/viewer/
 
 - **진입 시 TTS+이미지 버퍼링** → 완료 전 Mascot reading "준비 중" 로딩(`ttsReady` 게이트). `waitForTts` 는 **첫 페이지만** + `canplay`(readyState≥3) 대기(나머지 풀 백그라운드). **게이트엔 첫 페이지 이미지 로드(`new Image` onload)도 포함** — 음성/자막만 먼저 나오고 이미지가 늦게 뜨는 것 방지(`Promise.all([waitForTts, 첫이미지])`). **자동 넘김(`handleTtsEnded`)도 다음 페이지 이미지 onload 후 넘김**(캐시면 즉시, 상한 1.2s) → 빈 장면 방지. 완료 후 첫 페이지 + 자동재생(300ms). video/games/파닉스(비story) 는 버퍼링 skip.
 - TTS 끝나면 800ms 뒤 자동 페이지 넘김. **마지막 페이지** TTS 끝 or onNext → **RewardScreen/WordRevealScreen 오버레이** 표시(key_objects 있으면 WordReveal, 없으면 Reward). ⚠️ "BookDetailPage 자동 이동" 은 틀린 설명이었음(2026-07-01 정정).
-- **프리로드 풀**: `preloadTts` 가 현재+다음 페이지 TTS 를 풀(url→Audio)에 적재, `playTts` 가 풀 객체 **재사용**(이미 버퍼 → 즉시 재생, AbortController 리스너). 이미지는 다음 5페이지 `new Image()`. 같은 컴포넌트 풀이라 HTTP 캐시/CORS 의존 X. TTS 는 immutable Cache-Control(재방문 캐시). 상세 → memory `viewer-tts-buffering-2026-06-09`.
+- **프리로드 풀 + 🔴 단일 재생 엘리먼트 (2026-07-16 in-app 브라우저 fix)**: `preloadTts` 가 현재+다음 페이지 TTS 를 풀(url→Audio)에 적재해 **HTTP 캐시 워밍**만 담당. **`playTts` 는 항상 하나의 재사용 엘리먼트(`ttsRef`)로 재생**(`ttsRef.src` 스왑) — 페이지마다 풀의 다른 Audio 를 재생하면 **인스타그램 등 인앱 WebView 가 제스처로 해금된 그 엘리먼트만 재생 허용**해서 2페이지째 차단→`ended` 미발화→자동넘김 멈춤(크롬/PWA 는 관대). 정상 뷰어 모드엔 stall-guard 없음(playlist 모드만). 이미지는 다음 5페이지 `new Image()`. TTS 는 immutable Cache-Control(재방문 캐시). → memory `inapp-browser-tts-and-mobile-fixes-2026-07-16` · `viewer-tts-buffering-2026-06-09`.
 - **⏸(autoPlayTts OFF) 게이트 (2026-06-12)**: 페이지 변경 자동재생 effect 가 `stateRef.current.autoPlayTts` 를 조건 + 타이머 발화 시점 양쪽에서 확인 — OFF 동안 페이지를 넘겨도 TTS 재생 안 되고, 전환 직후 ⏸ 눌러도 뒤늦게 재생되지 않음. deps 가 아닌 stateRef 로 읽는 이유: ON 토글 시 effect 재실행되면 `onTogglePlayback` 의 resume/play 와 이중 재생됨. `toggleBgm` 은 `play()` 성공 시에만 ON 표시(차단/실패 시 켜진 척 X).
 - **▶ 토글 stale-resume 방어 (2026-07-02)**: `onTogglePlayback` ON 은 `lastPlayedTtsRef === currentTtsUrl` 일 때만 resume — ⏸ 상태로 페이지 넘기면 ttsRef 가 옛 페이지 오디오라 resume 하면 무음/엉뚱한 음성("자동재생 눌러도 TTS 안 나옴" 테스터 버그). 아니면 현재 페이지 playTts. `resumeTts` 도 play() 성공 시에만 재생 표시.
 - **언어 토글 (2026-07-02)**: `onToggleLanguage` 첫 줄에서 `stopTts()` + `lastPlayedTtsRef=null` — 안 하면 재버퍼링 동안 옛 언어가 끝까지 재생("다음 페이지부터 바뀜"+음성·자막 언어 불일치).
@@ -40,6 +40,7 @@ features/viewer/
 - **기본 BGM 폴백 (2026-07-03)**: 저작 `backgroundMusicUrl` 없는 책은 `/sounds/bgm/default-{1..5}.mp3`(90s 루프) 중 **책 ID 해시로 고정 선택**(ViewerContainer `bgmUrl` useMemo — 같은 책=항상 같은 곡). 저작 BGM 우선, hasBgm 은 이제 항상 true. 자동재생/탭게이트/음소거 연동은 기존 로직 그대로.
 - **그림체 resolution**: `?style` → 없으면 **`defaultStyle`(대표)** → `artStyle` 폴백 (2026-07-02: 연속재생 등 style 미지정 진입이 라이브러리 표지와 같은 그림체로 재생).
 - 홈 버튼 → `/library` · 뒤로 버튼 → 책 상세(`/library/:id`)
+- **풀스크린 좌상단 뒤로가기 (2026-07-16)**: 컨트롤 숨김(풀스크린 기본) 상태에 **좌상단 상시 ← 버튼**(→`/library/:id` 책 상세) — 우상단 🏠✕ 와 대칭. 없으면 인앱 브라우저(인스타) 하단 뒤로 눌러 앱 이탈. `!playlist && !controlsVisible` 조건.
 
 ## 자막 시스템 (`PageSubtitle.tsx`)
 
