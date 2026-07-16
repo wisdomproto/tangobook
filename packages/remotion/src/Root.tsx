@@ -18,6 +18,12 @@ import {
   FROG_DURATION,
 } from './compositions/FrogPrinceReel';
 import { StorybookReel } from './compositions/StorybookReel';
+import { NatureReel } from './compositions/NatureReel';
+import {
+  NatureReelPropsSchema,
+  type NatureReelProps,
+  computeNatureReelFrames,
+} from './data/nature-reel';
 import { AdReel, AD_DURATION, AD_FPS, AD_WIDTH, AD_HEIGHT } from './compositions/AdReel';
 import { AdThumbnail, AD_THUMB_W, AD_THUMB_H } from './compositions/AdThumbnail';
 import {
@@ -32,6 +38,9 @@ import {
   ThumbHybrid,
   THUMB_FROG,
   ThumbSchema,
+  NatureThumb,
+  NatureThumbSchema,
+  THUMB_NATURE_SAMPLE,
 } from './compositions/ReelThumbnail';
 import {
   StorybookReelPropsSchema,
@@ -159,6 +168,17 @@ const FROG_DEFAULT: StorybookReelProps = {
   },
 };
 
+const NATURE_DEFAULT: NatureReelProps = {
+  bookTitle: '기가노토사우루스',
+  category: '공룡 친구들',
+  scenes: FROG_DEFAULT.scenes.slice(0, 3),
+  series: {
+    covers: Array(8).fill(FROG_DEFAULT.scenes[0].imageUrls[0]),
+    labels: ['공룡', '육지', '식물', '곤충', '바다', '하늘', '우주', '우리몸'],
+    headline: '우리 아이 첫 자연도감 100권+',
+  },
+};
+
 export const RemotionRoot: React.FC = () => {
   return (
     <>
@@ -242,6 +262,27 @@ export const RemotionRoot: React.FC = () => {
         height={REEL_HEIGHT}
         defaultProps={FROG_DEFAULT}
         calculateMetadata={({ props }) => ({ durationInFrames: computeReelFrames(props) })}
+      />
+      <Composition
+        id="NatureReel"
+        component={NatureReel}
+        schema={NatureReelPropsSchema}
+        durationInFrames={computeNatureReelFrames(NATURE_DEFAULT)}
+        fps={REEL_FPS}
+        width={REEL_WIDTH}
+        height={REEL_HEIGHT}
+        defaultProps={NATURE_DEFAULT}
+        calculateMetadata={({ props }) => ({ durationInFrames: computeNatureReelFrames(props) })}
+      />
+      <Composition
+        id="NatureThumb"
+        component={NatureThumb}
+        schema={NatureThumbSchema}
+        durationInFrames={1}
+        fps={REEL_FPS}
+        width={REEL_WIDTH}
+        height={REEL_HEIGHT}
+        defaultProps={THUMB_NATURE_SAMPLE}
       />
       <Composition
         id="ReelThumbPoster"

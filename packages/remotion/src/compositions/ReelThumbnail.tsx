@@ -221,6 +221,191 @@ export const ThumbHybrid: React.FC<ThumbProps> = ({ bookTitle, styles }) => {
   );
 };
 
+export const NatureThumbSchema = z.object({
+  bookTitle: z.string(),
+  coverUrl: z.string(),
+  headline: z.string(),
+  categoryLabel: z.string(),
+});
+export type NatureThumbProps = z.infer<typeof NatureThumbSchema>;
+
+export const THUMB_NATURE_SAMPLE: NatureThumbProps = {
+  bookTitle: '기가노토사우루스',
+  coverUrl: THUMB_FROG.coverUrl,
+  headline: '티라노보다 컸다고?',
+  categoryLabel: '공룡 친구들',
+};
+
+export const NatureThumb: React.FC<NatureThumbProps> = ({
+  bookTitle,
+  coverUrl,
+  headline,
+  categoryLabel,
+}) => {
+  return (
+    <AbsoluteFill
+      style={{
+        background: 'linear-gradient(165deg, #FFF3E9 0%, #FFDCC6 100%)',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '130px 60px 120px',
+      }}
+    >
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ ...chip(), marginBottom: 28 }}>{categoryLabel}</div>
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 800,
+            fontSize: 104,
+            color: '#2B2B2B',
+            lineHeight: 1.12,
+            wordBreak: 'keep-all',
+          }}
+        >
+          {bookTitle}
+        </div>
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 800,
+            fontSize: 66,
+            color: '#FF6B5E',
+            lineHeight: 1.2,
+            marginTop: 22,
+            wordBreak: 'keep-all',
+          }}
+        >
+          {headline}
+        </div>
+      </div>
+      <div
+        style={{
+          width: '100%',
+          aspectRatio: '1 / 1',
+          borderRadius: 40,
+          overflow: 'hidden',
+          boxShadow: '0 30px 70px rgba(120,60,30,0.28)',
+          border: '10px solid #fff',
+          backgroundColor: '#241a14',
+        }}
+      >
+        <Img src={coverUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+/**
+ * ④ 중앙정렬 포스터 (그리드 안전): 글자 없는 삽화를 풀블리드로 깔고, 제목·배지를
+ *    세로 정중앙에 배치. 인스타 프로필 그리드가 위·아래를 잘라도(1:1~4:5 크롭) 제목이
+ *    항상 보인다. 명작·자연관찰 공용 — 배지=카테고리/브랜드, headline=선택(자연관찰 훅).
+ */
+export const CenterPosterSchema = z.object({
+  bookTitle: z.string(),
+  heroUrl: z.string(),
+  badge: z.string(),
+  bg: z.string().optional(), // 배경 그라디언트 CSS (시리즈별 테마). 없으면 네이비.
+  glowRgb: z.string().optional(), // 글로우 색 "r,g,b". 없으면 블루.
+  badgeBg: z.string().optional(), // 배지 배경색 (시리즈별). 없으면 coral.
+  headline: z.string().optional(),
+});
+export type CenterPosterProps = z.infer<typeof CenterPosterSchema>;
+
+const DEFAULT_BG =
+  'radial-gradient(ellipse 95% 62% at 50% 42%, #17436e 0%, #0b2540 46%, #050f1e 100%)';
+const DEFAULT_GLOW = '120,185,255';
+const DEFAULT_BADGE = '#FF6B5E';
+
+export const THUMB_CENTER_SAMPLE: CenterPosterProps = {
+  bookTitle: '개구리 왕자',
+  heroUrl: THUMB_FROG.styles[0].url,
+  badge: '명작 그림책',
+};
+
+export const CenterPoster: React.FC<CenterPosterProps> = ({
+  bookTitle,
+  heroUrl,
+  badge,
+  bg,
+  glowRgb,
+  badgeBg,
+}) => {
+  const glow = glowRgb || DEFAULT_GLOW;
+  const badgeColor = badgeBg || DEFAULT_BADGE;
+  return (
+    <AbsoluteFill style={{ background: bg || DEFAULT_BG }}>
+      {/* 카드 뒤 은은한 컬러 글로우 (시리즈 테마색) */}
+      <AbsoluteFill
+        style={{
+          background: `radial-gradient(ellipse 68% 40% at 50% 46%, rgba(${glow},0.24) 0%, rgba(${glow},0) 62%)`,
+        }}
+      />
+      {/* 중앙 스택: 배지 + 온전한 16:9 삽화(크롭 없음) + 큰 제목 — 세로 정중앙(그리드 안전) */}
+      <AbsoluteFill
+        style={{
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0 52px',
+          gap: 46,
+        }}
+      >
+        <div
+          style={{
+            ...chip(),
+            fontSize: 62,
+            padding: '20px 60px',
+            backgroundColor: badgeColor,
+            boxShadow: `0 0 36px rgba(${glow},0.55), 0 10px 26px rgba(0,0,0,0.35)`,
+          }}
+        >
+          {badge}
+        </div>
+        <div
+          style={{
+            width: '100%',
+            aspectRatio: '16 / 9',
+            borderRadius: 32,
+            overflow: 'hidden',
+            border: '6px solid rgba(255,255,255,0.96)',
+            boxShadow: `0 0 64px rgba(${glow},0.6), 0 0 26px rgba(255,255,255,0.5), 0 20px 50px rgba(0,0,0,0.5)`,
+            backgroundColor: '#0a1626',
+          }}
+        >
+          <Img src={heroUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        </div>
+        {/* 제목 영역 고정 높이(2줄분) + 위 정렬 → 1줄/2줄 상관없이 이미지 위치 불변 */}
+        <div
+          style={{
+            height: 340,
+            width: '100%',
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+          }}
+        >
+          <div
+            style={{
+              fontFamily,
+              fontWeight: 800,
+              fontSize: 150,
+              color: '#fff',
+              textAlign: 'center',
+              lineHeight: 1.06,
+              wordBreak: 'keep-all',
+              textShadow: `0 0 38px rgba(${glow},0.8), 0 0 14px rgba(255,255,255,0.55), 0 4px 18px rgba(0,0,0,0.5)`,
+            }}
+          >
+            {bookTitle}
+          </div>
+        </div>
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
 /** ② 그림체 3분할: 같은 장면을 3개 그림체로 세로 스택 + 제목 오버레이 */
 export const ThumbStyles: React.FC<ThumbProps> = ({ bookTitle, styles }) => {
   return (
