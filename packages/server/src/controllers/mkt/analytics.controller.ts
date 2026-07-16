@@ -6,6 +6,7 @@ import {
   getOverview,
   getTraffic,
   getTopPages,
+  getTopBooks,
   getCountry,
   getContent,
   getSource,
@@ -52,6 +53,15 @@ export const analyticsTopPages = asyncHandler(async (req: Request, res: Response
   if (!projectId) throw new AppError(400, 'projectId is required');
   const cfg = await resolveGa4Config(projectId);
   const data = await getTopPages(cfg, period ?? '30d');
+  res.json({ success: true, data });
+});
+
+/** POST /api/mkt/analytics/top-books  Body: { projectId, period? } — 동화책별 인기 */
+export const analyticsTopBooks = asyncHandler(async (req: Request, res: Response) => {
+  const { projectId, period } = req.body as AnalyticsBody;
+  if (!projectId) throw new AppError(400, 'projectId is required');
+  const cfg = await resolveGa4Config(projectId);
+  const data = await getTopBooks(cfg, period ?? '30d');
   res.json({ success: true, data });
 });
 

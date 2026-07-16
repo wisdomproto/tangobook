@@ -4,6 +4,7 @@ import type {
   GA4OverviewData,
   GA4TrafficSource,
   GA4TopPage,
+  GA4TopBooksResult,
   GA4CountryRow,
   GA4ContentRow,
   GA4DailyRow,
@@ -94,6 +95,20 @@ export function useGa4TopPages(
     enabled: enabled && !!projectId,
     staleTime: STALE_TIME,
     queryFn: () => postMkt<GA4TopPage[]>('/analytics/top-pages', { projectId, period }),
+  });
+}
+
+/** POST /api/mkt/analytics/top-books  Body: { projectId, period } — 동화책별 인기 */
+export function useGa4TopBooks(
+  projectId: string,
+  period: 'today' | 'yesterday' | '7d' | '30d' = '30d',
+  enabled = !!projectId
+) {
+  return useQuery({
+    queryKey: mktKeys.analyticsTopBooks(projectId, period),
+    enabled: enabled && !!projectId,
+    staleTime: STALE_TIME,
+    queryFn: () => postMkt<GA4TopBooksResult>('/analytics/top-books', { projectId, period }),
   });
 }
 

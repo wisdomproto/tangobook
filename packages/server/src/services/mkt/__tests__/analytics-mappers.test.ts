@@ -19,6 +19,8 @@ import {
   mapTopPages,
   mapCountry,
   mapContent,
+  extractBookId,
+  mapTopBooks,
   resolveGa4Config,
 } from '../analytics.service.js';
 import type { GA4Report } from '../external/ga4.js';
@@ -156,6 +158,78 @@ describe('GA4 row → viewmodel mappers', () => {
       { path: '/blog/a', sessions: 150, avgDuration: 88.4, bounceRate: 33.3 },
       { path: '/blog/b', sessions: 60, avgDuration: 42.1, bounceRate: 55.5 },
     ]);
+  });
+});
+
+describe('extractBookId (pagePath → storybook id | null)', () => {
+  it('extracts id from the book detail path', () => {
+    expect(extractBookId('/library/100')).toBe('100');
+  });
+  it('extracts id from the SEO about path', () => {
+    expect(extractBookId('/library/100/about')).toBe('100');
+  });
+  it('extracts id from a lang-prefixed about path', () => {
+    expect(extractBookId('/en/library/100/about')).toBe('100');
+    expect(extractBookId('/vi/library/1772510956605/about')).toBe('1772510956605');
+  });
+  it('extracts id from the viewer path', () => {
+    expect(extractBookId('/viewer/200')).toBe('200');
+  });
+  it('strips a trailing slash and query/hash before matching', () => {
+    expect(extractBookId('/library/100/')).toBe('100');
+    expect(extractBookId('/library/100?ref=x')).toBe('100');
+  });
+  it('returns null for non-book paths', () => {
+    expect(extractBookId('/')).toBeNull();
+    expect(extractBookId('/library')).toBeNull();
+    expect(extractBookId('/library/phonics')).toBeNull();
+    expect(extractBookId('/library/phonics/korean')).toBeNull();
+    expect(extractBookId('/library-master')).toBeNull();
+    expect(extractBookId('/games/vocab')).toBeNull();
+    expect(extractBookId('')).toBeNull();
+  });
+});
+
+describe('mapTopBooks (group GA4 page rows by book + split non-book pages)', () => {
+  // dims [pagePath, pageTitle], metrics [screenPageViews, activeUsers, sessions, averageSessionDuration]
+  const report = ga4Report([
+    { d: ['/library/100', '신데렐라 | 탱고북'], m: ['300', '200', '250', '120'] },
+    { d: ['/viewer/100', '신데렐라'], m: ['100', '80', '90', '200'] },
+    { d: ['/library/100/about', '신데렐라 소개'], m: ['20', '15', '18', '30'] },
+    { d: ['/library/200', '인어공주 | 탱고북'], m: ['150', '100', '120', '90'] },
+    { d: ['/', '탱고북'], m: ['80', '60', '70', '15'] },
+    { d: ['/library', '라이브러리'], m: ['50', '40', '45', '20'] },
+  ]);
+
+  it('aggregates all paths of a book (views/users/sessions summed, duration session-weighted)', () => {
+    const { books } = mapTopBooks(report);
+    expect(books[0].bookId).toBe('100');
+    expect(books[0].views).toBe(420); // 300+100+20
+    expect(books[0].users).toBe(295); // 200+80+15
+    expect(books[0].sessions).toBe(358); // 250+90+18
+    // weighted avg = (120*250 + 200*90 + 30*18) / 358 = 48540 / 358
+    expect(books[0].avgDuration).toBeCloseTo(48540 / 358, 3);
+    // representative title = the highest-view row's title
+    expect(books[0].title).toBe('신데렐라 | 탱고북');
+  });
+
+  it('sorts books by views desc', () => {
+    const { books } = mapTopBooks(report);
+    expect(books.map((b) => b.bookId)).toEqual(['100', '200']);
+  });
+
+  it('collects non-book paths into others (as GA4TopPage), sorted by views desc', () => {
+    const { others } = mapTopBooks(report);
+    expect(others.map((o) => o.path)).toEqual(['/', '/library']);
+    expect(others[0]).toEqual({ path: '/', title: '탱고북', views: 80, users: 60 });
+  });
+
+  it('respects the book/other limits', () => {
+    const { books, others } = mapTopBooks(report, 1, 1);
+    expect(books).toHaveLength(1);
+    expect(books[0].bookId).toBe('100');
+    expect(others).toHaveLength(1);
+    expect(others[0].path).toBe('/');
   });
 });
 

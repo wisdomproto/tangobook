@@ -3,13 +3,11 @@ import { RefreshCw, Settings } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { useProject } from '../../api/use-projects';
 import { useQueryClient } from '@tanstack/react-query';
-import { mktKeys } from '../../api/queries';
 import {
   useGa4Overview,
   useGa4Traffic,
-  useGa4TopPages,
+  useGa4TopBooks,
   useGa4Country,
-  useGa4Content,
   useGa4Source,
   useGa4Language,
   useGa4NewReturning,
@@ -22,9 +20,8 @@ import { OverviewCards } from './OverviewCards';
 import { DailyTrafficChart } from './DailyTrafficChart';
 import { HourlyTrafficChart } from './HourlyTrafficChart';
 import { TrafficChart } from './TrafficChart';
-import { TopPagesTable } from './TopPagesTable';
+import { BookPerformance } from './BookPerformance';
 import { CountryTraffic } from './CountryTraffic';
-import { ContentPerformance } from './ContentPerformance';
 import { BreakdownCard } from './BreakdownCard';
 
 // 앱 UI 언어코드 → 표시 라벨 (customUser:app_language 값 = i18n.language).
@@ -70,9 +67,8 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
 
   const overview = useGa4Overview(projectId, period, enabled);
   const traffic = useGa4Traffic(projectId, period, enabled);
-  const topPages = useGa4TopPages(projectId, period, enabled);
+  const topBooks = useGa4TopBooks(projectId, period, enabled);
   const country = useGa4Country(projectId, period, enabled);
-  const content = useGa4Content(projectId, period, enabled);
   const source = useGa4Source(projectId, period, enabled);
   const language = useGa4Language(projectId, period, enabled);
   const newReturning = useGa4NewReturning(projectId, period, enabled);
@@ -82,8 +78,7 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
   const hourly = useGa4Hourly(projectId, period, enabled);
 
   // Surface first error as a banner (GA4 quota / 429 → banner, not crash)
-  const firstError =
-    overview.error ?? traffic.error ?? topPages.error ?? country.error ?? content.error;
+  const firstError = overview.error ?? traffic.error ?? topBooks.error ?? country.error;
 
   function handleRefresh() {
     void queryClient.invalidateQueries({
@@ -213,11 +208,11 @@ export function AnalyticsDashboard({ projectId }: AnalyticsDashboardProps) {
             />
             <HourlyTrafficChart data={hourly.data ?? []} isLoading={hourly.isLoading} />
           </div>
-          <TopPagesTable
-            pages={topPages.data ?? []}
+          <BookPerformance
+            books={topBooks.data?.books ?? []}
+            others={topBooks.data?.others ?? []}
             websiteUrl={funnelConfig?.websiteUrl ?? undefined}
           />
-          <ContentPerformance data={content.data ?? []} />
         </>
       )}
 

@@ -46,6 +46,20 @@ export interface GA4TopPage {
   users: number;
 }
 
+// 동화책별 인기 — 서버가 pagePath 를 책 id 로 묶어서 반환 (analytics.service.ts mapTopBooks).
+export interface GA4BookRow {
+  bookId: string;
+  title: string; // GA4 pageTitle 폴백 — 클라에서 실제 책 제목/커버로 보강
+  views: number;
+  users: number;
+  sessions: number;
+  avgDuration: number; // 세션 가중 평균(초)
+}
+export interface GA4TopBooksResult {
+  books: GA4BookRow[];
+  others: GA4TopPage[]; // 비-책 페이지(랜딩·라이브러리 허브·게임 등)
+}
+
 // --- 임포트된 전략 데이터 ---
 export interface ImportedStrategy {
   importedAt: string;

@@ -21,6 +21,7 @@ import {
   analyticsOverview,
   analyticsTraffic,
   analyticsTopPages,
+  analyticsTopBooks,
   analyticsCountryTraffic,
   analyticsContentPerformance,
   analyticsSource,
@@ -90,6 +91,7 @@ router.get('/youtube/status', youtubeStatus);
 router.post('/analytics/overview', analyticsOverview);
 router.post('/analytics/traffic', analyticsTraffic);
 router.post('/analytics/top-pages', analyticsTopPages);
+router.post('/analytics/top-books', analyticsTopBooks);
 router.post('/analytics/country-traffic', analyticsCountryTraffic);
 router.post('/analytics/content-performance', analyticsContentPerformance);
 router.post('/analytics/source', analyticsSource);

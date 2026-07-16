@@ -63,6 +63,20 @@ export interface GA4ContentRow {
   avgDuration: number;
   bounceRate: number;
 }
+/** One storybook's aggregated traffic (all of its paths merged by book id). */
+export interface GA4BookRow {
+  bookId: string;
+  title: string; // GA4 pageTitle fallback (client enriches with the real book title/cover)
+  views: number;
+  users: number;
+  sessions: number;
+  avgDuration: number; // session-weighted average, seconds
+}
+/** 동화책별 인기 = books (grouped) + others (non-book pages: landing/library hub/games…). */
+export interface GA4TopBooksResult {
+  books: GA4BookRow[];
+  others: GA4TopPage[];
+}
 export interface GA4DailyRow {
   date: string; // YYYYMMDD
   pv: number; // screenPageViews
@@ -193,6 +207,93 @@ export function mapContent(report: GA4Report): GA4ContentRow[] {
   }));
 }
 
+// Leading UI-language prefix (only meaningful in front of `/library/…/about`).
+const LANG_PREFIX_RE = /^\/(?:ko|en|ja|zh|vi|th|es|fr|de|ms|id)(?=\/library\/)/;
+
+/**
+ * Extract the storybook id a GA4 pagePath belongs to, or null for non-book pages.
+ * Book paths: `/library/:id`, `/library/:id/about`, `/:lang/library/:id/about`,
+ * `/viewer/:id`. Excludes the phonics hub (`/library/phonics…`) and any deeper path.
+ */
+export function extractBookId(pathRaw: string): string | null {
+  if (!pathRaw) return null;
+  let p = pathRaw.split(/[?#]/)[0].replace(LANG_PREFIX_RE, '');
+  if (p.length > 1) p = p.replace(/\/$/, ''); // drop trailing slash (keep bare "/")
+  const lib = p.match(/^\/library\/([^/]+)(?:\/about)?$/);
+  if (lib) return lib[1] === 'phonics' ? null : lib[1];
+  const viewer = p.match(/^\/viewer\/([^/]+)$/);
+  if (viewer) return viewer[1];
+  return null;
+}
+
+/**
+ * Group GA4 page rows (dims [pagePath, pageTitle], metrics [views, users,
+ * sessions, avgSessionDuration]) by book id. Non-book rows are returned
+ * separately as `others` (GA4TopPage shape). Book duration is session-weighted.
+ */
+export function mapTopBooks(report: GA4Report, bookLimit = 15, otherLimit = 8): GA4TopBooksResult {
+  const byBook = new Map<
+    string,
+    {
+      views: number;
+      users: number;
+      sessions: number;
+      durWeighted: number;
+      title: string;
+      topViews: number;
+    }
+  >();
+  const others: GA4TopPage[] = [];
+
+  for (const r of report.rows ?? []) {
+    const path = r.dimensionValues?.[0]?.value ?? '';
+    const title = r.dimensionValues?.[1]?.value ?? '';
+    const views = int(r.metricValues?.[0]?.value);
+    const users = int(r.metricValues?.[1]?.value);
+    const sessions = int(r.metricValues?.[2]?.value);
+    const avgDur = flt(r.metricValues?.[3]?.value);
+
+    const bookId = extractBookId(path);
+    if (!bookId) {
+      others.push({ path, title, views, users });
+      continue;
+    }
+    const acc = byBook.get(bookId) ?? {
+      views: 0,
+      users: 0,
+      sessions: 0,
+      durWeighted: 0,
+      title: '',
+      topViews: -1,
+    };
+    acc.views += views;
+    acc.users += users;
+    acc.sessions += sessions;
+    acc.durWeighted += avgDur * sessions;
+    // Representative title = the title of this book's highest-traffic path.
+    if (title && views > acc.topViews) {
+      acc.title = title;
+      acc.topViews = views;
+    }
+    byBook.set(bookId, acc);
+  }
+
+  const books: GA4BookRow[] = Array.from(byBook.entries())
+    .map(([bookId, a]) => ({
+      bookId,
+      title: a.title,
+      views: a.views,
+      users: a.users,
+      sessions: a.sessions,
+      avgDuration: a.sessions > 0 ? a.durWeighted / a.sessions : 0,
+    }))
+    .sort((x, y) => y.views - x.views)
+    .slice(0, bookLimit);
+
+  others.sort((x, y) => y.views - x.views);
+  return { books, others: others.slice(0, otherLimit) };
+}
+
 // ─── Report builders (build the runReport body per §4.2, map rows) ────────────
 
 type Period = 'today' | 'yesterday' | '7d' | '30d';
@@ -277,6 +378,27 @@ export async function getContent(cfg: ResolvedGa4, period: Period): Promise<GA4C
     limit: 15,
   });
   return mapContent(report);
+}
+
+/**
+ * 동화책별 인기 — pull a wide slice of page rows (one book spans up to ~4 paths
+ * across ~149 books), then group by book id server-side. Non-book pages come
+ * back as `others`.
+ */
+export async function getTopBooks(cfg: ResolvedGa4, period: Period): Promise<GA4TopBooksResult> {
+  const report = await runReport(cfg, {
+    dateRanges: [dateRangeFor(period)],
+    metrics: [
+      { name: 'screenPageViews' },
+      { name: 'activeUsers' },
+      { name: 'sessions' },
+      { name: 'averageSessionDuration' },
+    ],
+    dimensions: [{ name: 'pagePath' }, { name: 'pageTitle' }],
+    orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
+    limit: 300,
+  });
+  return mapTopBooks(report);
 }
 
 /**
