@@ -8,6 +8,8 @@
     "iosTitle": "添加到主屏幕",
     "iosStep1": "点击底部的分享按钮（⬆️）。",
     "iosStep2": "选择「添加到主屏幕」即可！",
+    "otherStep1": "打开浏览器菜单(⋮),点击「安装应用」或「添加到主屏幕」。",
+    "otherStep2": "如果没有,请用 Chrome 或 Safari 打开本站。(Instagram 等应用内浏览器无法安装)",
     "gotIt": "知道了"
   },
   "sidebar": {

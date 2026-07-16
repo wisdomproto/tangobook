@@ -8,6 +8,8 @@
     "iosTitle": "Add to Home Screen",
     "iosStep1": "Tap the Share button (⬆️) at the bottom.",
     "iosStep2": "Choose 'Add to Home Screen' — done!",
+    "otherStep1": "Open the browser menu (⋮) and tap 'Install app' or 'Add to Home screen'.",
+    "otherStep2": "If it's not there, open this site in Chrome or Safari. (In-app browsers like Instagram can't install.)",
     "gotIt": "Got it"
   },
   "sidebar": {

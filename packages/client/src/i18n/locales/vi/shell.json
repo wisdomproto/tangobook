@@ -8,6 +8,8 @@
     "iosTitle": "Thêm vào Màn hình chính",
     "iosStep1": "Nhấn nút Chia sẻ (⬆️) ở dưới cùng.",
     "iosStep2": "Chọn 'Thêm vào Màn hình chính' là xong!",
+    "otherStep1": "Mở menu trình duyệt (⋮) rồi chọn 'Cài đặt ứng dụng' hoặc 'Thêm vào Màn hình chính'.",
+    "otherStep2": "Nếu không thấy, hãy mở trang này bằng Chrome hoặc Safari. (Trình duyệt trong ứng dụng như Instagram không cài được.)",
     "gotIt": "Đã hiểu"
   },
   "sidebar": {
