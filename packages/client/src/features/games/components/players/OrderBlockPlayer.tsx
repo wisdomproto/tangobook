@@ -6,6 +6,7 @@ import type { OrderBlockData } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { MobileLandscapeGate } from '../MobileLandscapeGate';
+import { gameSafeAreaStyle } from '../../lib/game-safe-area';
 import { useGameAudio } from '../../hooks/useGameAudio';
 import { FeedbackOverlay } from '../FeedbackOverlay';
 import { SceneReveal } from '../SceneReveal';
@@ -254,7 +255,10 @@ export function OrderBlockPlayer({ storybookId, gameData, onBack }: GamePlayerPr
 
   return (
     <MobileLandscapeGate>
-      <div className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-b from-sky-200 via-cream-50 to-peach-100 overflow-hidden">
+      <div
+        className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-b from-sky-200 via-cream-50 to-peach-100 overflow-hidden"
+        style={gameSafeAreaStyle()}
+      >
         <div className="px-2 pt-2 shrink-0">
           <GameHeader
             title={t('cards.block.label')}

@@ -7,6 +7,7 @@ import { isEnglishVowel } from '@tangobook/shared';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { MobileLandscapeGate } from '../MobileLandscapeGate';
+import { gameSafeAreaStyle } from '../../lib/game-safe-area';
 import {
   TutorialProvider,
   useTutorialHighlight,
@@ -506,7 +507,10 @@ function EnglishBlockPlayerInner({
   return (
     <MobileLandscapeGate>
       {/* vocab launch wrapper 가 viewport 0 부터 안 시작하는 케이스 차단 — fixed inset-0 z-[60] 으로 직접 덮음. */}
-      <div className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-br from-cream-50 to-peach-100 overflow-hidden">
+      <div
+        className="fixed inset-0 z-[60] flex flex-col bg-gradient-to-br from-cream-50 to-peach-100 overflow-hidden"
+        style={gameSafeAreaStyle()}
+      >
         <div className="px-2 pt-2 shrink-0">
           <GameHeader
             title={t('cards.block.labelEn')}

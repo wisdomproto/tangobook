@@ -17,6 +17,7 @@ import { useGameLogger, type GameWordResult } from '@/features/learning';
 import { GameHeader } from '../GameHeader';
 import { GameResultScreen } from '../GameResultScreen';
 import { MobileLandscapeGate } from '../MobileLandscapeGate';
+import { gameSafeAreaStyle } from '../../lib/game-safe-area';
 import {
   TutorialProvider,
   useTutorialHighlight,
@@ -639,6 +640,7 @@ function KoreanBlockPlayerInner({
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
+          ...gameSafeAreaStyle(),
         }}
       >
         <div className="px-2 pt-2 shrink-0">

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { MobileLandscapeGate } from './MobileLandscapeGate';
-import { isInAppBrowser } from '@/lib/in-app-browser';
+import { gameSafeAreaStyle } from '../lib/game-safe-area';
 
 type MaxWidth = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'full';
 
@@ -35,10 +35,8 @@ export function GamePlayerLayout({
   maxWidth = '2xl',
   bgImageUrl,
 }: GamePlayerLayoutProps) {
-  // 🔴 인앱 브라우저(인스타·페북 등)는 가로 모드에서 페이지 위에 자체 컨트롤 바(뒤로/닫기)를
-  // 좌우 가장자리에 겹쳐 그린다 → 화면 끝에 붙은 카드가 그 밑으로 잘려 보임. 인앱일 때만
-  // 좌우 안전 여백을 넉넉히 줘서 컨트롤 바를 피한다. (일반 브라우저·PWA 는 기존 px 유지.)
-  const inApp = isInAppBrowser();
+  // 좌우 시스템 UI(안드 내비바·노치·인앱 컨트롤) 회피 + 동적 뷰포트 높이 캡 → gameSafeAreaStyle.
+  // 세로 여백은 className py-clamp 로 유지(헬퍼는 세로 미관여).
   const bgStyle = bgImageUrl
     ? {
         backgroundImage: `url(${bgImageUrl})`,
@@ -47,17 +45,11 @@ export function GamePlayerLayout({
         backgroundRepeat: 'no-repeat',
       }
     : undefined;
-  const safePad = inApp
-    ? {
-        paddingLeft: 'max(3rem, env(safe-area-inset-left))',
-        paddingRight: 'max(3rem, env(safe-area-inset-right))',
-      }
-    : undefined;
   return (
     <MobileLandscapeGate>
       <div
-        className="fixed inset-0 z-[60] flex flex-col px-4 sm:px-6 py-[clamp(0.375rem,1.5vh,1.5rem)] bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden"
-        style={bgStyle || safePad ? { ...bgStyle, ...safePad } : undefined}
+        className="fixed inset-0 z-[60] flex flex-col py-[clamp(0.375rem,1.5vh,1.5rem)] bg-gradient-to-b from-cream-50 to-peach-100 overflow-hidden"
+        style={{ ...bgStyle, ...gameSafeAreaStyle() }}
       >
         {onBack && (
           <button
