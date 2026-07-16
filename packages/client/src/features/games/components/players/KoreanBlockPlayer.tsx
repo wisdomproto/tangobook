@@ -1041,7 +1041,9 @@ function BlockTile({
       }
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className={cn(
-        'w-[clamp(1.75rem,4.5vh,3rem)] h-[clamp(1.75rem,4.5vh,3rem)] rounded-xl flex items-center justify-center font-black text-[clamp(0.75rem,2.5vh,1.5rem)] select-none',
+        // 🔴 그리드 열 너비에 맞춰 축소(고정폭이면 grid-cols-11 에서 좁은 폭 시 타일끼리 겹침).
+        // 정사각 유지 + 큰 화면은 3rem 캡(기존 룩), 좁은 폰트는 min(2.5vh,열폭)로 자연 축소.
+        'w-full aspect-square max-w-[3rem] mx-auto rounded-xl flex items-center justify-center font-black text-[clamp(0.75rem,3vh,1.4rem)] leading-none select-none',
         interactable ? 'cursor-grab' : 'cursor-not-allowed',
         interactable && 'hover:scale-110 active:scale-95 active:cursor-grabbing',
         'shadow-md transition-all',
