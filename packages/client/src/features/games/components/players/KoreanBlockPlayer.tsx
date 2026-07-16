@@ -671,14 +671,14 @@ function KoreanBlockPlayerInner({
 
         {/* 메인 — 3 섹션 세로 stack. 세로 비율 1.5:1.5:1 (flex-[3]:[3]:[2]). 가로 풀폭. */}
         <div className="flex-1 flex flex-col items-stretch gap-[clamp(0.5rem,1.25vh,1rem)] px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(0.25rem,0.875vh,0.75rem)] min-h-0">
-          {/* 섹션 1 — 타겟 단어 + 그림 hero. 가로 풀폭, 세로 비중 3 (1.5). */}
-          <section className="flex-[3] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] flex items-center justify-center gap-[clamp(1rem,3vw,3rem)]">
+          {/* 섹션 1 — 타겟 단어 + 그림 hero. 세로 비중 2 (짧은 가로화면에서 자모 키보드에 공간 양보). */}
+          <section className="flex-[2] min-h-0 rounded-3xl bg-white/85 backdrop-blur-sm shadow-pop border-2 border-white px-[clamp(1.25rem,3vw,2.5rem)] py-[clamp(0.5rem,1.5vh,1.25rem)] flex items-center justify-center gap-[clamp(1rem,3vw,3rem)]">
             {currentItem.imageUrl && (
               <div className="relative shrink-0">
                 <img
                   src={currentItem.imageUrl}
                   alt={currentItem.word}
-                  className="h-[clamp(5rem,22vh,14rem)] w-[clamp(5rem,22vh,14rem)] object-cover rounded-3xl drop-shadow-[0_8px_12px_rgba(0,0,0,0.18)] border-[5px] border-white"
+                  className="h-[clamp(3.5rem,20vh,14rem)] w-[clamp(3.5rem,20vh,14rem)] object-cover rounded-3xl drop-shadow-[0_8px_12px_rgba(0,0,0,0.18)] border-[5px] border-white"
                 />
                 <span className="absolute -top-2 -right-2 text-3xl sm:text-4xl">✨</span>
               </div>
@@ -850,8 +850,8 @@ function KoreanBlockPlayerInner({
               disabled={roundCorrect}
             />
           ) : (
-            // 자음/모음 패널 — 가로 풀폭 50/50, 세로 비중 2 (1).
-            <div className="flex-[2] min-h-0 flex flex-row gap-[clamp(0.625rem,2vw,1.5rem)] items-stretch">
+            // 자음/모음 패널 — 가로 풀폭 50/50, 세로 비중 3 (짧은 화면에서 2줄 타일 확보).
+            <div className="flex-[3] min-h-0 flex flex-row gap-[clamp(0.625rem,2vw,1.5rem)] items-stretch">
               <div className="flex-1 flex">
                 <BlockPanel title={t('blockGame.consonants')} tone="consonant">
                   {ALL_CONSONANTS.map((b) => (
@@ -998,7 +998,7 @@ function BlockPanel({
           ⭐ {title} ⭐
         </span>
       </div>
-      <div className="grid grid-cols-10 gap-[clamp(0.25rem,0.75vh,0.5rem)]">{children}</div>
+      <div className="grid grid-cols-11 gap-[clamp(0.25rem,0.75vh,0.5rem)]">{children}</div>
     </div>
   );
 }
