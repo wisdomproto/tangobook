@@ -35,6 +35,20 @@ export interface LongformMeta {
 }
 
 /**
+ * 롱폼 썸네일용 언어별 표지 URL.
+ * 언어별 구운 표지(primaryCoverByLang[lang])가 있으면 그것, 없으면 그림체 표지 → 책 대표 표지 폴백.
+ * (별도 썸네일 렌더 대신 실제 표지 이미지를 썸네일로 씀 — 파이프라인·백필 공용.)
+ */
+export function resolveLongformCoverUrl(
+  storybook: any,
+  artStyle: string,
+  language: string
+): string {
+  const sa = storybook?.styleAssets?.[artStyle] ?? {};
+  return sa.primaryCoverByLang?.[language] || sa.coverImage || storybook?.coverImage || '';
+}
+
+/**
  * 렌더된 롱폼 오디오북 영상을 마케팅 롱폼 탭(mkt_youtube_contents)에 등록.
  * - mkt_contents(memo='storybook:<bookId>') 없으면 'skipped'
  * - 같은 (artStyle, language) 행 있으면 update, 없으면 insert (조합당 1행)

@@ -22,6 +22,7 @@ import {
 import {
   connectLongformToMarketing,
   matchYoutubeRow,
+  resolveLongformCoverUrl,
   type LongformMeta,
 } from '../src/services/reel/longform-publish.js';
 import { getSupabaseAdmin } from '../src/providers/supabase-admin.provider.js';
@@ -29,7 +30,7 @@ import { uploadBufferToR2 } from '../src/providers/r2.provider.js';
 import { getAudioDuration } from '../src/utils/audio-duration.js';
 import { generateSrt } from '../src/utils/srt-generator.js';
 import { buildStyledAudiobookRenderData } from '@tangobook/shared';
-import type { AudiobookRenderData, Storybook, StyleAssets } from '@tangobook/shared';
+import type { AudiobookRenderData, Storybook } from '@tangobook/shared';
 
 // Remotion 은 Chromium 이 필요하므로 lazy import (config 로드 시점 부담 회피).
 async function loadRemotion() {
@@ -241,7 +242,7 @@ async function main() {
   }
 
   // 5. Remotion 번들
-  const { bundle, selectComposition, renderMedia, renderStill } = await loadRemotion();
+  const { bundle, selectComposition, renderMedia } = await loadRemotion();
   const isProd = process.env.NODE_ENV === 'production';
   const remotionEntry = isProd
     ? path.resolve('/app/packages/remotion/src/entry.ts')
@@ -305,42 +306,21 @@ async function main() {
       console.warn('[render-book-audiobooks] faststart 실패, 원본 사용:', (err as Error).message);
     }
 
-    // 7. 썸네일 렌더 (LongformThumbnail, 16:9)
-    const styleAsset = (storybook.styleAssets ?? {})[style] as StyleAssets | undefined;
-    const heroImageUrl =
-      styleAsset?.pageIllustrations?.[1]?.illustrationUrl ??
-      styleAsset?.cleanCoverImage ??
-      styleAsset?.coverImage ??
-      storybook.coverImage ??
-      '';
-    if (!heroImageUrl) {
-      console.warn('[render-book-audiobooks] 썸네일용 이미지 없음 — 빈 배경으로 렌더됩니다.');
+    // 7. 썸네일 = 언어별 표지 (별도 LongformThumbnail 렌더 대신 실제 표지 이미지 URL 사용).
+    const thumbnailUrl = resolveLongformCoverUrl(storybook, style, lang);
+    if (!thumbnailUrl) {
+      console.warn('[render-book-audiobooks] 표지 URL 없음 — 썸네일 없이 등록됩니다.');
     }
-    const thumbProps = { title: storybook.title, heroImageUrl, lang, styleLabel: style };
-    const thumbComposition = await selectComposition({
-      serveUrl,
-      id: 'LongformThumbnail',
-      inputProps: thumbProps,
-      ...browserOpts,
-    });
-    const thumbPath = path.join(workDir, 'thumb.png');
-    console.log('[render-book-audiobooks] rendering thumbnail...');
-    await renderStill({
-      composition: thumbComposition,
-      serveUrl,
-      output: thumbPath,
-      inputProps: thumbProps,
-      ...browserOpts,
-    });
+    console.log(`[render-book-audiobooks] thumbnail(cover) → ${thumbnailUrl}`);
 
     if (args.dryRun) {
       console.log(`\n[render-book-audiobooks] DRY-RUN 완료 — 업로드/등록 없음.`);
-      console.log(`  mp4  → ${outputPath}`);
-      console.log(`  thumb→ ${thumbPath}`);
+      console.log(`  mp4   → ${outputPath}`);
+      console.log(`  thumb → ${thumbnailUrl} (표지)`);
       return;
     }
 
-    // 8. R2 업로드
+    // 8. R2 업로드 (영상만 — 썸네일은 이미 공개 표지 URL)
     const projectId = target?.projectId ?? book;
     const ts = Date.now();
     console.log('[render-book-audiobooks] uploading to R2...');
@@ -354,18 +334,8 @@ async function main() {
       120_000,
       'upload mp4'
     );
-    const thumbBuffer = fs.readFileSync(thumbPath);
-    const thumbnailUrl = await withTimeout(
-      uploadBufferToR2(
-        thumbBuffer,
-        `mkt/${projectId}/longform/${book}-${style}-${lang}-thumb-${ts}.png`,
-        'image/png'
-      ),
-      60_000,
-      'upload thumb'
-    );
     console.log(`  video → ${videoUrl}`);
-    console.log(`  thumb → ${thumbnailUrl}`);
+    console.log(`  thumb → ${thumbnailUrl} (표지)`);
 
     // 9. YouTube 메타 (Claude 작성 데이터, Gemini 미사용)
     const meta = buildLongformMeta(storybook, lang);
