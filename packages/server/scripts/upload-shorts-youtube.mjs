@@ -17,12 +17,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { YouTubeProvider } from '../src/providers/youtube.provider.js';
+import { loadState, saveState } from './lib/shorts-state.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(__dirname, '../../..');
 const DRAFTS = path.join(REPO, 'docs', 'marketing', 'drafts');
 const CATALOG = path.join(DRAFTS, 'shorts-upload-catalog.json');
-const STATE = path.join(DRAFTS, 'shorts-upload-state.json');
 
 // ── args ──
 const args = Object.fromEntries(
@@ -40,7 +40,6 @@ const MADE_FOR_KIDS = !!args['made-for-kids']; // 기본 false — 아래 주의
 const PUBLISH_AT = args['publish-at'] ? String(args['publish-at']) : null; // "HH:MM" KST
 
 const readJson = (p, fb) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf-8')) : fb);
-const saveJson = (p, o) => fs.writeFileSync(p, JSON.stringify(o, null, 2), 'utf-8');
 
 /** HH:MM(KST) → i일 뒤 그 시각의 RFC3339(UTC). 이미 지난 오늘 시각이면 +1일. */
 function publishAtIso(hhmm, dayOffset) {
@@ -84,7 +83,7 @@ async function download(url, tries = 3) {
 async function main() {
   const catalog = readJson(CATALOG, null);
   if (!catalog) { console.error('카탈로그 없음. 먼저 build-shorts-catalog.mjs 실행.'); process.exit(1); }
-  const state = readJson(STATE, { uploaded: {} });
+  const state = await loadState();
 
   // 연동 채널 확인
   const channels = await YouTubeProvider.listChannels();
@@ -151,7 +150,7 @@ async function main() {
         privacy: meta.privacy, publishAt: publishAt ?? null, uploadedAt: new Date().toISOString(),
         thumbSetAt,
       };
-      saveJson(STATE, state);
+      await saveState(state);
       console.log(`  ✅ ${videoUrl}`);
     } catch (e) {
       const msg = String(e?.message || e);

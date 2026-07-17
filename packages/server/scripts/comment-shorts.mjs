@@ -12,12 +12,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { YouTubeProvider } from '../src/providers/youtube.provider.js';
+import { loadState, saveState } from './lib/shorts-state.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(__dirname, '../../..');
 const DRAFTS = path.join(REPO, 'docs', 'marketing', 'drafts');
 const CATALOG = path.join(DRAFTS, 'shorts-upload-catalog.json');
-const STATE = path.join(DRAFTS, 'shorts-upload-state.json');
 
 const args = Object.fromEntries(process.argv.slice(2).map((a) => {
   const [k, v] = a.replace(/^--/, '').split('=');
@@ -29,7 +29,6 @@ const ONLY_BOOK = args.book ? String(args.book) : null;
 const CHANNEL_TITLE = args.channel ?? '탱고북스';
 
 const readJson = (p, fb) => (fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf-8')) : fb);
-const saveJson = (p, o) => fs.writeFileSync(p, JSON.stringify(o, null, 2), 'utf-8');
 
 const buildComment = (r) =>
   `📖 「${r.subject}」 전체를 그림책으로 여기서 볼 수 있어요 👉 ${r.deeplink}\n` +
@@ -39,7 +38,7 @@ async function main() {
   const catalog = readJson(CATALOG, null);
   if (!catalog) { console.error('카탈로그 없음.'); process.exit(1); }
   const byBook = Object.fromEntries(catalog.map((r) => [r.bookId, r]));
-  const state = readJson(STATE, { uploaded: {} });
+  const state = await loadState();
 
   const channels = await YouTubeProvider.listChannels();
   const target = channels.find((c) => c.channelTitle === CHANNEL_TITLE || c.name === CHANNEL_TITLE);
@@ -66,7 +65,7 @@ async function main() {
         },
       });
       state.uploaded[bid] = { ...v, commentedAt: new Date().toISOString() };
-      saveJson(STATE, state);
+      await saveState(state);
       ok++; console.log('  💬 댓글 완료');
     } catch (e) {
       fail++;
