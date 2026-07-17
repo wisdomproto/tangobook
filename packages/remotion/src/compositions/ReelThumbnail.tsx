@@ -224,22 +224,99 @@ export const ThumbHybrid: React.FC<ThumbProps> = ({ bookTitle, styles }) => {
 export const NatureThumbSchema = z.object({
   bookTitle: z.string(),
   coverUrl: z.string(),
-  /** 배지 = 시리즈 이름(호리네 생활동화 / 공룡 친구들 …). */
+  headline: z.string(),
   categoryLabel: z.string(),
-  /** 표지 아래 훅 문장(릴스 첫 씬 자막). 16:9 표지는 세로 화면의 1/3 뿐이라 이게 없으면
-   *  위아래가 텅 빈다 — 본편 StoryScene 과 같은 프레임을 만들어 주는 역할. */
-  caption: z.string().optional(),
 });
 export type NatureThumbProps = z.infer<typeof NatureThumbSchema>;
 
 export const THUMB_NATURE_SAMPLE: NatureThumbProps = {
   bookTitle: '기가노토사우루스',
   coverUrl: THUMB_FROG.coverUrl,
+  headline: '티라노보다 컸다고?',
   categoryLabel: '공룡 친구들',
-  caption: '티라노보다 컸다고?',
 };
 
 export const NatureThumb: React.FC<NatureThumbProps> = ({
+  bookTitle,
+  coverUrl,
+  headline,
+  categoryLabel,
+}) => {
+  return (
+    <AbsoluteFill
+      style={{
+        background: 'linear-gradient(165deg, #FFF3E9 0%, #FFDCC6 100%)',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '130px 60px 120px',
+      }}
+    >
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ ...chip(), marginBottom: 28 }}>{categoryLabel}</div>
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 800,
+            fontSize: 104,
+            color: '#2B2B2B',
+            lineHeight: 1.12,
+            wordBreak: 'keep-all',
+          }}
+        >
+          {bookTitle}
+        </div>
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 800,
+            fontSize: 66,
+            color: '#FF6B5E',
+            lineHeight: 1.2,
+            marginTop: 22,
+            wordBreak: 'keep-all',
+          }}
+        >
+          {headline}
+        </div>
+      </div>
+      <div
+        style={{
+          width: '100%',
+          aspectRatio: '1 / 1',
+          borderRadius: 40,
+          overflow: 'hidden',
+          boxShadow: '0 30px 70px rgba(120,60,30,0.28)',
+          border: '10px solid #fff',
+          backgroundColor: '#241a14',
+        }}
+      >
+        <Img src={coverUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+/** 호리네 생활동화 릴스 썸네일 — 본편 StoryScene 과 같은 프레임(배지 + 이 화 제목 + 16:9 표지
+ *  + 훅 자막 + 로고). 🔴 자연도감(NatureThumb)과 분리한 이유: 자연은 배지 아래 시리즈 규모 문구
+ *  ("우리 아이 첫 자연도감 100권+")가 스크롤 스토퍼인데, 생활동화는 그 자리에 제목이 와야 한다.
+ *  한 컴포넌트에 욱여넣으면 한쪽 요구가 다른 쪽을 조용히 망가뜨린다. */
+export const LifeThumbSchema = z.object({
+  bookTitle: z.string(),
+  coverUrl: z.string(),
+  categoryLabel: z.string(), // 배지 = '호리네 생활동화'
+  caption: z.string().optional(), // 훅 문장(릴스 첫 씬 자막) — 16:9 표지 아래 빈 공간을 채운다
+});
+export type LifeThumbProps = z.infer<typeof LifeThumbSchema>;
+
+export const THUMB_LIFE_SAMPLE: LifeThumbProps = {
+  bookTitle: '골고루 먹으면 무지개 힘!',
+  coverUrl: THUMB_FROG.coverUrl,
+  categoryLabel: '호리네 생활동화',
+  caption: '"당근은 싫어! 브로콜리도 싫어!" 호리는 초록이랑 주황은 저 멀리 밀어 놓아요.',
+};
+
+export const LifeThumb: React.FC<LifeThumbProps> = ({
   bookTitle,
   coverUrl,
   categoryLabel,
@@ -251,14 +328,10 @@ export const NatureThumb: React.FC<NatureThumbProps> = ({
         background: 'linear-gradient(165deg, #FFF3E9 0%, #FFE1CC 100%)',
         flexDirection: 'column',
         alignItems: 'center',
-        // 릴스 본편(StoryScene)과 같은 헤더/본문/푸터 3단 프레임 — 썸네일만 혼자 다른 영상처럼
-        // 보이면 안 된다. 예전엔 아래 1/3 이 통째로 비어 있었다.
         justifyContent: 'space-between',
         padding: '90px 0 80px',
       }}
     >
-      {/* 헤더 = 배지(시리즈 이름) + 이 화 제목. 릴스 본편 헤더와 같은 구성.
-          시리즈 규모("45편")는 본편 시리즈 씬이 45개 표지로 보여주므로 여기선 제목이 우선. */}
       <div style={{ textAlign: 'center', padding: '0 48px' }}>
         <div style={{ ...chip(), marginBottom: 28 }}>{categoryLabel}</div>
         <div
@@ -274,7 +347,7 @@ export const NatureThumb: React.FC<NatureThumbProps> = ({
           {bookTitle}
         </div>
       </div>
-      {/* 표지 + 훅 자막을 한 덩어리로 — 본편 StoryScene 과 같은 배치 */}
+
       <div
         style={{
           width: '100%',
@@ -287,7 +360,7 @@ export const NatureThumb: React.FC<NatureThumbProps> = ({
         <div
           style={{
             width: '100%',
-            // 🔴 표지는 16:9 — 1/1 + cover 로 담으면 좌우가 ~33% 잘려 표지에 박힌 제목이 날아간다.
+            // 표지는 16:9 — 1/1 + cover 로 담으면 좌우가 ~33% 잘려 표지에 박힌 제목이 날아간다.
             aspectRatio: '16 / 9',
             overflow: 'hidden',
             boxShadow: '0 24px 60px rgba(120,60,30,0.26)',
@@ -314,7 +387,7 @@ export const NatureThumb: React.FC<NatureThumbProps> = ({
           </div>
         ) : null}
       </div>
-      {/* 푸터: 릴스 본편과 동일(로고 + 주소) */}
+
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 22 }}>
         <Img src={staticFile('reels/logo/logo-kr.webp')} style={{ height: 76 }} />
         <div

@@ -82,11 +82,10 @@ async function main() {
     try {
       const storybook = await fetchStorybook(id);
       const storyboard = loadStoryboard(id);
+      const isLife = /생활동화/.test(storybook.category || '');
       // 시리즈 씬은 그 책과 같은 라인을 보여준다(생활동화 릴스 → 호리 시리즈, 자연 → 자연도감).
       // resolveSeriesCovers 는 종류별 캐시라 루프 안에서 불러도 비용 없음.
-      const series = await resolveSeriesCovers(
-        /생활동화/.test(storybook.category || '') ? 'life' : 'nature'
-      );
+      const series = await resolveSeriesCovers(isLife ? 'life' : 'nature');
       const props = buildNatureReelProps({
         storybook,
         storyboard,
@@ -120,20 +119,30 @@ async function main() {
         ...browserOpts,
       });
 
-      // 썸네일 (NatureThumb) — 배지(시리즈) + 이 화 제목 + 16:9 표지 + 훅 자막 + 로고.
+      // 썸네일 — 시리즈별로 컴포지션이 다르다(한 컴포넌트에 욱여넣으면 한쪽 요구가 다른 쪽을 망친다).
+      //  · 생활동화(LifeThumb) = 배지 + 이 화 제목 + 16:9 표지 + 훅 자막 + 로고.
+      //  · 자연도감(NatureThumb) = 배지 + 제목 + 시리즈 규모 문구("자연도감 100권+") — 그 문구가
+      //    스크롤 스토퍼라 제목으로 대체하면 안 된다.
       // 클린 표지(제목 제거본)가 있으면 우선. 없으면 원본 표지(제목 박힌 것).
-      const thumbProps = {
-        bookTitle: props.bookTitle,
-        coverUrl:
-          loadCleanCover(id) || storybook.coverImage || props.scenes[0]?.imageUrls?.[0] || '',
-        // 생활동화 카테고리명은 '생활동화' 인데 배지는 시리즈 이름을 그대로 보여준다.
-        categoryLabel: /생활동화/.test(props.category) ? '호리네 생활동화' : props.category,
-        // 훅 자막 = 릴스 첫 씬과 같은 문장 — 16:9 표지 아래 빈 공간을 본편과 같은 프레임으로 채운다.
-        caption: props.scenes[0]?.body ?? '',
-      };
+      const coverUrlForThumb =
+        loadCleanCover(id) || storybook.coverImage || props.scenes[0]?.imageUrls?.[0] || '';
+      const thumbId = isLife ? 'LifeThumb' : 'NatureThumb';
+      const thumbProps = isLife
+        ? {
+            bookTitle: props.bookTitle,
+            coverUrl: coverUrlForThumb,
+            categoryLabel: '호리네 생활동화',
+            caption: props.scenes[0]?.body ?? '',
+          }
+        : {
+            bookTitle: props.bookTitle,
+            coverUrl: coverUrlForThumb,
+            headline: props.series.headline,
+            categoryLabel: props.category,
+          };
       const thumbComp = await selectComposition({
         serveUrl,
-        id: 'NatureThumb',
+        id: thumbId,
         inputProps: thumbProps,
         timeoutInMilliseconds: 60000,
         ...browserOpts,

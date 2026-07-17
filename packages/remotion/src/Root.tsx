@@ -41,6 +41,9 @@ import {
   NatureThumb,
   NatureThumbSchema,
   THUMB_NATURE_SAMPLE,
+  LifeThumb,
+  LifeThumbSchema,
+  THUMB_LIFE_SAMPLE,
 } from './compositions/ReelThumbnail';
 import {
   StorybookReelPropsSchema,
@@ -283,6 +286,16 @@ export const RemotionRoot: React.FC = () => {
         width={REEL_WIDTH}
         height={REEL_HEIGHT}
         defaultProps={THUMB_NATURE_SAMPLE}
+      />
+      <Composition
+        id="LifeThumb"
+        component={LifeThumb}
+        schema={LifeThumbSchema}
+        durationInFrames={1}
+        fps={REEL_FPS}
+        width={REEL_WIDTH}
+        height={REEL_HEIGHT}
+        defaultProps={THUMB_LIFE_SAMPLE}
       />
       <Composition
         id="ReelThumbPoster"

@@ -1,9 +1,9 @@
 import { firstClause, splitIntoBuckets, type ReelScene } from './reel-props.js';
 
 // 씬별 길이(초): 훅 · 신기한 사실(핵심·길게) · 관찰 포인트.
-// [훅, 본문…] 초. 🔴 예전 [4,12,5] 는 2번 씬이 12초 동안 같은 제목으로 고정 → "멈춘 줄 알았다"(리뷰).
-// 자연 = [훅, 신기한 사실, 관찰 포인트] → 4+8+7=19s (+시리즈4+CTA4 = 27s)
-export const NATURE_SCENE_DURS = [4, 8, 7];
+// 🔴 자연도감 값은 건드리지 않는다 — 라이브 릴스 101개가 이 타이밍으로 나가 있고,
+//    생활동화 리뷰에서 나온 피드백을 다른 시리즈에 흘리면 조용히 바뀐다.
+export const NATURE_SCENE_DURS = [4, 12, 5];
 // 생활동화 = [훅(편식 장면), 호리 이야기] — **오직 책 이야기만**.
 // 🔴 "왜 중요할까"(영양 교육)와 "집에서 이렇게"(육아 팁) 둘 다 뺐다.
 //    - 왜 중요할까: 엄마들은 이미 안다. 가르치려 들면 반감만 생긴다.
@@ -60,14 +60,11 @@ export function buildNatureReelProps({
   // 생활동화 제목의 선두 번호("01. …")는 내부 정렬용 — 마케팅 영상엔 노출하지 않는다.
   const bookTitle = (storybook.title || '').replace(/^\s*\d+\.\s*/, '');
 
-  // 🔴 본문 = 나레이션(실제 메시지). 예전엔 subtitle(=블로그 h2 제목)을 우선해서 화면에
-  // 제목만 뜨고 알맹이가 없었다("왜 중요할까 / 골고루 먹기가 중요한 이유" 처럼 라벨+제목 반복).
-  // StoryScene 이 긴 본문을 문장 단위로 순차 노출 + 폰트 자동축소하므로 나레이션을 그대로 넘긴다.
+  // 🔴 자연도감 원본 그대로 — 라이브 101개가 이 자막으로 나가 있다.
+  //    생활동화는 이 값을 안 쓴다(씬에 `bodies`(페이지 원문)를 따로 넘겨 덮어쓴다).
   const bodyOf = (sc: any, i: number) => {
     const hand = captions?.[i]?.trim();
     if (hand) return hand;
-    const narration = (sc?.narration ?? '').trim();
-    if (narration) return narration;
     return sc?.subtitle?.trim() ? sc.subtitle.trim() : firstClause(sc?.narration ?? '');
   };
 
@@ -143,8 +140,9 @@ export function buildNatureReelProps({
     category: storybook.category || '',
     scenes: [
       {
-        // 씬 제목은 비운다 — 헤더가 이미 책 제목을 달고 있어 중복(리뷰 피드백).
-        label: '',
+        // 생활동화는 씬 제목을 비운다 — 헤더가 이미 책 제목을 달고 있어 중복(리뷰 피드백).
+        // 자연도감은 원본대로 훅 씬 제목 = 책 제목(그쪽엔 헤더 제목 바가 없다).
+        label: isLife ? '' : bookTitle,
         // 🔴 생활동화 훅 = 책의 **편식 장면 그대로**(그림 + 그 페이지 원문 "당근은 싫어!").
         //    예전엔 엄마용 블로그 카피라 이야기가 "다음 날 아침 기운이 없어요"부터 시작해
         //    편식했다는 원인이 이야기 안에 없었다(사용자 피드백). 자연/명작은 기존대로 표지+블로그 훅.
