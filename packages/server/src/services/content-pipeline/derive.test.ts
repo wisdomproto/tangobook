@@ -294,7 +294,7 @@ describe('deriveTodos', () => {
     expect(t!.command).toContain('render-nature-reels.ts');
   });
 
-  it('life reel-ko 는 derive-cardnews-storyboards 파생 체인을 언급한다', () => {
+  it('life reel-ko: command 는 단일 실행 커맨드, 파생 체인 안내는 label 로', () => {
     const todos = deriveTodos([
       row({
         series: 'life',
@@ -302,11 +302,12 @@ describe('deriveTodos', () => {
       }),
     ]);
     const t = todos.find((x) => x.kind === 'reel-ko');
-    expect(t!.command).toContain('derive-cardnews-storyboards.mjs');
+    expect(t!.label).toContain('derive-cardnews-storyboards.mjs');
     expect(t!.command).toContain('render-nature-reels.ts');
+    expect(t!.command).not.toContain('derive-cardnews-storyboards.mjs');
   });
 
-  it('longform-ko: styles3 는 render-book-audiobooks / base 는 render-nature-ko --category', () => {
+  it('longform-ko: styles3 는 render-classics-ko 일괄 러너 / base 는 render-nature-ko --category', () => {
     const todos = deriveTodos([
       row({ bookId: '1' }),
       row({
@@ -317,14 +318,17 @@ describe('deriveTodos', () => {
       }),
     ]);
     const classic = todos.find((x) => x.kind === 'longform-ko' && x.series === 'classic');
-    expect(classic!.command).toContain('render-book-audiobooks.ts');
-    expect(classic!.command).toContain('--book=1');
+    // render-book-audiobooks 는 --book 단일 id + --style/--lang 필수라 일괄 커맨드 불가 —
+    // 재개 가능한(이미 렌더된 조합 자동 스킵) 일괄 러너를 쓴다. bookIds 는 라벨용으로 유지.
+    expect(classic!.command).toContain('render-classics-ko.ts');
+    expect(classic!.command).not.toContain('render-book-audiobooks.ts');
+    expect(classic!.bookIds).toEqual(['1']);
     const nature = todos.find((x) => x.kind === 'longform-ko' && x.series === 'nature');
     expect(nature!.command).toContain('render-nature-ko.ts');
     expect(nature!.command).toContain("--category '공룡 친구들'");
   });
 
-  it('en 계열: en 4항목 완비 책만 커맨드, 미완 책은 blocked:translation 으로 분리(커맨드 없음)', () => {
+  it('en 계열: en 렌더 파이프라인 미구축 — 완비 책도 커맨드 없음(blocked:pipeline), 미완 책은 blocked:translation 으로 분리', () => {
     const todos = deriveTodos([
       row({ bookId: '1' }), // en 완비
       row({
@@ -341,12 +345,21 @@ describe('deriveTodos', () => {
       }),
     ]);
     const reelEn = todos.filter((x) => x.kind === 'reel-en');
-    const ready = reelEn.find((x) => !x.blocked);
+    const ready = reelEn.find((x) => x.blocked === 'pipeline');
     const blocked = reelEn.find((x) => x.blocked === 'translation');
     expect(ready!.bookIds).toEqual(['1']);
-    expect(ready!.command).toBeTruthy();
+    expect(ready!.command).toBeUndefined();
+    expect(ready!.label).toContain('파이프라인 미구축');
     expect(blocked!.bookIds).toEqual(['2', '3']);
     expect(blocked!.command).toBeUndefined();
+
+    // longform-en 도 동일 원칙 — styles3/base 모두 en 배치 러너 미구축이라 커맨드 없음.
+    const lfEn = todos.filter((x) => x.kind === 'longform-en');
+    const lfReady = lfEn.find((x) => x.blocked === 'pipeline');
+    expect(lfReady!.bookIds).toEqual(['1']);
+    expect(lfReady!.command).toBeUndefined();
+    expect(lfEn.find((x) => x.blocked === 'translation')!.bookIds).toEqual(['2', '3']);
+    expect(todos.filter((x) => x.kind === 'longform-en' && !x.blocked)).toEqual([]);
   });
 
   it('reelPipeline none 시리즈(comic)는 릴스/롱폼 할일을 만들지 않는다', () => {

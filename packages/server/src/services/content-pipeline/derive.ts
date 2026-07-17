@@ -69,7 +69,8 @@ export interface Todo {
   bookIds: string[];
   label: string;
   command?: string;
-  blocked?: 'translation';
+  /** translation = en 저작(번역/TTS/표지) 미완 대기 / pipeline = en 렌더 파이프라인 미구축 */
+  blocked?: 'translation' | 'pipeline';
 }
 
 // ── deriveAuthoring ──
@@ -186,25 +187,26 @@ function ruleFor(series: string): SeriesRule | undefined {
   return SERIES_RULES.find((r) => r.key === series);
 }
 
+/** command 는 복사-실행 가능한 단일 커맨드만 — 사전 단계 등 안내는 label 로. */
 function reelCommand(rule: SeriesRule, bookIds: string[]): string | undefined {
   const list = bookIds.join(',');
   switch (rule.reelPipeline) {
     case 'storyboard':
       return `${RUN} scripts/render-book-reels.ts --books=${list}`;
     case 'nature':
-      return `${RUN} scripts/render-nature-reels.ts --books=${list}`;
     case 'derive':
-      // 생활/유치원동화 = 기본글+블로그 → 스토리보드 파생 체인 후 자연 릴스 렌더러 공용.
-      return `node packages/server/scripts/derive-cardnews-storyboards.mjs 후 ${RUN} scripts/render-nature-reels.ts --books=${list}`;
+      // derive(생활/유치원동화)도 스토리보드 파생 후엔 자연 릴스 렌더러 공용 — 파생 안내는 label 에.
+      return `${RUN} scripts/render-nature-reels.ts --books=${list}`;
     default:
       return undefined;
   }
 }
 
-function longformCommand(rule: SeriesRule, rows: PipelineRow[], lang: 'ko' | 'en'): string {
-  const langFlag = lang === 'en' ? ' --lang=en' : '';
+function longformKoCommand(rule: SeriesRule, rows: PipelineRow[]): string {
   if (rule.artStyleMode === 'styles3') {
-    return `${RUN} scripts/render-book-audiobooks.ts --book=${rows.map((r) => r.bookId).join(',')}${langFlag}`;
+    // render-book-audiobooks 는 --book 단일 id + --style/--lang 필수라 일괄 커맨드로 부적합.
+    // classic/folk 는 라이브 일괄 러너(재개 가능 — mkt_youtube_contents 등록분 자동 스킵) 사용.
+    return `${RUN} scripts/render-classics-ko.ts`;
   }
   // base 시리즈 = render-nature-ko 가 카테고리 단위로 일괄 렌더 (책 실카테고리 사용).
   const cats = [...new Set(rows.map((r) => r.category).filter((c): c is string => !!c))];
@@ -243,11 +245,15 @@ export function deriveTodos(rows: PipelineRow[]): Todo[] {
     // reel-ko
     const needReelKo = group.filter((r) => !r.marketing.reels.ko);
     if (needReelKo.length > 0) {
+      const deriveNote =
+        rule.reelPipeline === 'derive'
+          ? ' — 사전에 derive-cardnews-storyboards.mjs 로 스토리보드 파생 필요'
+          : '';
       todos.push({
         kind: 'reel-ko',
         series,
         bookIds: needReelKo.map((r) => r.bookId),
-        label: `${rule.label} 한국어 릴스 렌더 (${needReelKo.length}권)`,
+        label: `${rule.label} 한국어 릴스 렌더 (${needReelKo.length}권)${deriveNote}`,
         command: reelCommand(
           rule,
           needReelKo.map((r) => r.bookId)
@@ -255,7 +261,8 @@ export function deriveTodos(rows: PipelineRow[]): Todo[] {
       });
     }
 
-    // reel-en — en 저작 4항목 완비 책만 커맨드, 미완은 번역 blocked 로 분리
+    // reel-en — 번역 대기(translation)와 파이프라인 미구축(pipeline)은 별개 할일.
+    // en 렌더 파이프라인 미구축: 릴스는 ko 자막이 영상에 구워져 있어 완비 책도 커맨드 없음.
     const needReelEn = group.filter((r) => !r.marketing.reels.en);
     const [reelEnReady, reelEnBlocked] = partition(needReelEn, isEnComplete);
     if (reelEnReady.length > 0) {
@@ -263,11 +270,8 @@ export function deriveTodos(rows: PipelineRow[]): Todo[] {
         kind: 'reel-en',
         series,
         bookIds: reelEnReady.map((r) => r.bookId),
-        label: `${rule.label} 영어 릴스 렌더 (${reelEnReady.length}권)`,
-        command: reelCommand(
-          rule,
-          reelEnReady.map((r) => r.bookId)
-        ),
+        label: `${rule.label} en 릴스 파이프라인 미구축 (릴스는 ko 자막이 영상에 구워짐 — en 렌더 러너 필요) (${reelEnReady.length}권)`,
+        blocked: 'pipeline',
       });
     }
     if (reelEnBlocked.length > 0) {
@@ -288,11 +292,12 @@ export function deriveTodos(rows: PipelineRow[]): Todo[] {
         series,
         bookIds: needLfKo.map((r) => r.bookId),
         label: `${rule.label} 한국어 롱폼 렌더 (${needLfKo.length}권)`,
-        command: longformCommand(rule, needLfKo, 'ko'),
+        command: longformKoCommand(rule, needLfKo),
       });
     }
 
-    // longform-en
+    // longform-en — en 배치 러너·en 메타(longform-meta) 미구축: styles3/base 모두 일괄 커맨드 없음.
+    // (render-nature-ko 는 LANG='ko' 하드코딩 / render-book-audiobooks --lang=en 은 단일 책·그림체 단위만 가능.)
     const needLfEn = group.filter((r) => (r.marketing.longform.en ?? []).length === 0);
     const [lfEnReady, lfEnBlocked] = partition(needLfEn, isEnComplete);
     if (lfEnReady.length > 0) {
@@ -300,8 +305,8 @@ export function deriveTodos(rows: PipelineRow[]): Todo[] {
         kind: 'longform-en',
         series,
         bookIds: lfEnReady.map((r) => r.bookId),
-        label: `${rule.label} 영어 롱폼 렌더 (${lfEnReady.length}권)`,
-        command: longformCommand(rule, lfEnReady, 'en'),
+        label: `${rule.label} en 롱폼 배치 러너/메타 미구축 — render-book-audiobooks --lang=en 은 단일 책·그림체 단위만 가능 (${lfEnReady.length}권)`,
+        blocked: 'pipeline',
       });
     }
     if (lfEnBlocked.length > 0) {
