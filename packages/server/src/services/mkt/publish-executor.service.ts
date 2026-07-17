@@ -192,9 +192,49 @@ export async function deleteChannelPost(recordId: string): Promise<ExecResult> {
   }
 }
 
+/** "01. 골고루 먹으면 무지개 힘!" → "골고루 먹으면 무지개 힘!"
+ *  선두 번호는 호리네 생활동화 회차 정렬용 내부 표기라 외부 발행물에 나가면 안 된다. */
+export function stripLeadingNumber(title: string): string {
+  return title.replace(/^\s*\d+\.\s*/, '').trim() || title;
+}
+
+/** 같은 책의 롱폼 메타(줄거리·태그) — 쇼츠 설명/태그 재사용용. 행이 없으면 null.
+ *  🔴 `video_settings` 는 5개 언어 자막 전문이 든 수 MB짜리라 select 하지 않는다 —
+ *  언어 매칭은 JSON 연산자로 DB 쪽에서 거른다. */
+async function loadYoutubeMetaForShorts(
+  sb: SupabaseClient,
+  contentId: string,
+  lang: string
+): Promise<{ description: string; tags: string[] } | null> {
+  type Row = { video_description?: string | null; video_tags?: string[] | null };
+  const pick = (rows: Row[] | null) => {
+    const r = (rows ?? [])[0];
+    if (!r) return null;
+    return {
+      description: r.video_description ?? '',
+      tags: Array.isArray(r.video_tags) ? r.video_tags : [],
+    };
+  };
+  const { data } = await sb
+    .from('mkt_youtube_contents')
+    .select('video_description, video_tags')
+    .eq('content_id', contentId)
+    .eq('video_settings->>language', lang)
+    .limit(1);
+  // 그 언어 롱폼이 아직 없으면(렌더 전) 아무 행이나 — 태그는 언어 무관하게 쓸 만하다.
+  if (pick(data as Row[])) return pick(data as Row[]);
+  const { data: any0 } = await sb
+    .from('mkt_youtube_contents')
+    .select('video_description, video_tags')
+    .eq('content_id', contentId)
+    .limit(1);
+  return pick(any0 as Row[]);
+}
+
 /**
  * YouTube(쇼츠) 발행. 릴스 mp4 를 R2에서 받아 기존 youtube.provider 로 업로드.
- * target_id(metadata) = 내부 유튜브 채널 id(선택, 없으면 첫 채널). 제목=콘텐츠 제목, 설명=캡션+#Shorts.
+ * target_id(metadata) = 내부 유튜브 채널 id(선택, 없으면 첫 채널). 제목=콘텐츠 제목(선두 번호 제거),
+ * 설명·태그=릴스 캡션 우선, 없으면 같은 책의 롱폼 메타 재사용.
  */
 async function publishYouTube(
   sb: SupabaseClient,
@@ -218,8 +258,18 @@ async function publishYouTube(
     .select('title')
     .eq('id', q.content_id as string)
     .single();
-  const title = (meta.title || (c?.title as string) || '탱고북 동화').slice(0, 100);
-  const description = [reel.caption?.trim(), '#Shorts #탱고북 #동화'].filter(Boolean).join('\n\n');
+  // 🔴 제목 앞 번호("01. ")는 생활동화 내부 정렬용 — 유튜브에 그대로 나가면 안 된다.
+  const rawTitle = meta.title || (c?.title as string) || '탱고북 동화';
+  const title = stripLeadingNumber(rawTitle).slice(0, 100);
+  // 릴스 캡션·해시태그가 비어 있는 시리즈(생활동화)는 설명이 "#Shorts #탱고북 #동화" 뿐이라
+  // 검색에 안 걸린다 → 같은 책의 롱폼 메타(줄거리·태그)를 재사용한다.
+  // 🔴 롱폼 **제목**은 안 쓴다("… | 호리네 생활동화 오디오북" — 36초 쇼츠엔 안 맞는 접미사).
+  const yt = await loadYoutubeMetaForShorts(sb, q.content_id as string, lang);
+  const body = reel.caption?.trim() || yt?.description?.trim();
+  const description = [body, '#Shorts #탱고북 #동화'].filter(Boolean).join('\n\n');
+  const tags = yt?.tags?.length
+    ? [...yt.tags.slice(0, 12), 'shorts']
+    : ['탱고북', '동화', 'shorts'];
 
   try {
     const res = await fetch(encodeURI(reel.videoUrl));
@@ -232,12 +282,28 @@ async function publishYouTube(
         description,
         privacy: meta.privacy || 'public',
         categoryId: '22',
-        tags: ['탱고북', '동화', 'shorts'],
+        tags,
         language: lang,
       },
       undefined,
       meta.target_id || undefined
     );
+
+    // 썸네일(릴스 표지) — best-effort. 🔴 쇼츠 **피드**는 유튜브가 영상 프레임을 쓰므로 여기서
+    // 올린 썸네일이 안 보인다. 그래도 채널 페이지 Shorts 선반·검색·구독 피드에는 반영되므로
+    // 올려 둔다(예전엔 아예 안 올려서 그 자리에도 잘린 중간 프레임이 나왔다).
+    if (reel.coverUrl) {
+      try {
+        const tRes = await fetch(encodeURI(reel.coverUrl));
+        if (tRes.ok) {
+          const tBuf = Buffer.from(await tRes.arrayBuffer());
+          await YouTubeProvider.setThumbnail(up.videoId, tBuf, meta.target_id || undefined);
+        }
+      } catch (e) {
+        console.warn('[shorts-yt] 썸네일 세팅 실패(무시):', (e as Error).message);
+      }
+    }
+
     const now = new Date().toISOString();
     await sb
       .from('mkt_publish_records')

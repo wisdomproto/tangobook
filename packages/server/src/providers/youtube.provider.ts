@@ -298,6 +298,32 @@ export const YouTubeProvider = {
     console.log(`[youtube] Privacy set to ${privacy} for video ${videoId}`);
   },
 
+  /**
+   * Update a published video's title/description/tags (videos.update, `snippet` part only).
+   * 🔴 categoryId is required by the API on a snippet update — omitting it wipes the category,
+   * so callers must pass the one the video already has.
+   */
+  async setSnippet(
+    videoId: string,
+    snippet: { title: string; description: string; tags: string[]; categoryId: string },
+    channelId?: string
+  ): Promise<void> {
+    const youtube = await this.getAuthenticatedClient(channelId);
+    await youtube.videos.update({
+      part: ['snippet'],
+      requestBody: {
+        id: videoId,
+        snippet: {
+          title: snippet.title.slice(0, 100),
+          description: snippet.description,
+          tags: snippet.tags,
+          categoryId: snippet.categoryId,
+        },
+      },
+    });
+    console.log(`[youtube] Snippet updated for video ${videoId}`);
+  },
+
   /** Set thumbnail for a YouTube video */
   async setThumbnail(videoId: string, imageBuffer: Buffer, channelId?: string): Promise<void> {
     const youtube = await this.getAuthenticatedClient(channelId);
