@@ -46,6 +46,7 @@ import { strategyTemplates } from '../controllers/mkt/strategy.controller.js';
 import { monitoringSearch, monitoringComment } from '../controllers/mkt/monitoring.controller.js';
 import { gateLogin } from '../controllers/mkt/gate.controller.js';
 import { feedbackList } from '../controllers/mkt/feedback.controller.js';
+import { pipelineOverview } from '../controllers/mkt/pipeline.controller.js';
 
 const router = Router();
 
@@ -130,5 +131,8 @@ router.post('/monitoring/comment', monitoringComment);
 
 // ── 건의함 (사용자 피드백 열람 — service-role 전체 조회) ─────────────────────────
 router.get('/feedback', feedbackList);
+
+// ── 콘텐츠 파이프라인 관제탑 (대표용 — 저작+마케팅+할일 전체) ────────────────────
+router.get('/pipeline', pipelineOverview);
 
 export default router;
