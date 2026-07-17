@@ -1,6 +1,8 @@
 # 롱폼 오디오북 마케팅 영상 — Implementation Plan
 
 > ✅ **구현 완료 (2026-07-15)**. 전 태스크 반영 + 명작 48권 × 메인 3그림체 × 한국어 = **144개 렌더·등록 완료**. 이후 변경: 메타/자막 Gemini 제거(Claude 작성 JSON + 기존 translations), 렌더 가속(concurrency 8 + jpeg q92), 명작 일괄 러너 `render-classics-ko.ts` 추가. 상세 → memory `longform-audiobook-marketing-2026-07-15`.
+>
+> 🚀 **확장 완료 (2026-07-17) — YouTube 자동발행 라이브**. ①썸네일=언어별 표지로 전환. ②**실사(자연관찰) 지원** — 그림체 없는 책은 base `pages[].illustrationUrl` 사용하는 shared `buildBaseAudiobookRenderData` + `isBaseImageStyle` 자동분기, 러너 `render-nature-ko.ts --category`(자연·생활동화 공용) → **자연 101권 렌더·등록 완료**. ③**자동발행 경로** `publish-executor.service.ts` `publishLongformYouTube`(레코드 `content_kind:'longform'`+`art_style` → 롱폼 메타 업로드, #Shorts 없음·categoryId 27·표지 썸네일). ④**예약 스크립트** `schedule-longform-youtube.ts`(classic/nature/life 트랙, 각 1/일, 멱등, dry-run 기본) → **명작 143 + 자연 101 = 244개 예약**(2026-07-17~12-06, 탱고북스, 하루 2개). ⑤메타 소급 `patch-longform-meta.ts`. 🔴 트랙 분류는 **책 카테고리** 기준(genreMap 상 photographic=watercolor 라 자연 오분류). 🔜 다국어(en·vi·zh·th) 롱폼 · 생활동화 롱폼 미착수 · YouTube 쿼터(6/일) 감시.
 
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
