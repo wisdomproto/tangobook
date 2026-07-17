@@ -1,10 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import type { Storybook } from '@tangobook/shared';
 import {
+  collectFetchFailed,
   deriveAuthoring,
   deriveMarketing,
   deriveTodos,
   filterPipelineTargets,
+  shouldCacheBuild,
+  SHORTS_STATE_FAILED,
   type MarketingSources,
   type MarketingStatus,
   type PipelineRow,
@@ -258,6 +261,28 @@ describe('filterPipelineTargets', () => {
       { id: '500L2' }, // __L 패턴 아님 — 유지
     ]);
     expect(out.map((s) => s.id)).toEqual(['100', '500L2']);
+  });
+});
+
+// ── collectFetchFailed / shouldCacheBuild ──
+
+describe('collectFetchFailed / shouldCacheBuild', () => {
+  it('로드 실패(null) 책 id 만 수집한다 (targets[i]↔books[i] 짝)', () => {
+    const failed = collectFetchFailed(['1', '2', '3'], [{ id: '1' }, null, { id: '3' }]);
+    expect(failed).toEqual(['2']);
+  });
+
+  it('책 실패율 >10% 면 캐시 저장 스킵, shorts-state 마커는 비율에서 제외', () => {
+    expect(shouldCacheBuild(100, [])).toBe(true);
+    expect(shouldCacheBuild(95, ['1', '2', '3', '4', '5'])).toBe(true); // 5% ≤ 10%
+    expect(
+      shouldCacheBuild(
+        50,
+        Array.from({ length: 20 }, (_, i) => String(i))
+      )
+    ).toBe(false); // ~29%
+    expect(shouldCacheBuild(100, [SHORTS_STATE_FAILED])).toBe(true); // 소스 마커만 = 저장 OK
+    expect(shouldCacheBuild(0, [])).toBe(true); // 빈 감사도 저장
   });
 });
 

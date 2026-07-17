@@ -179,6 +179,26 @@ export function filterPipelineTargets<T extends { id: string; phonicsLanguage?: 
   return summaries.filter((s) => s.phonicsLanguage == null && !VARIANT_RE.test(s.id));
 }
 
+// ── 감사 빌드 보조 (순수 — 서비스 buildRows/캐시 정책에서 사용) ──
+
+/** 마케팅 소스 로드 실패 마커 (책 id 가 아닌 소스 단위 실패 표시) */
+export const SHORTS_STATE_FAILED = 'shorts-state';
+
+/** targets[i] 와 books[i] 가 짝 — 풀 JSON 로드 실패(null)한 책 id 수집 */
+export function collectFetchFailed(ids: string[], books: ReadonlyArray<unknown | null>): string[] {
+  return ids.filter((_, i) => !books[i]);
+}
+
+/**
+ * 책 로드 실패 비율 > 10% 면 캐시 저장 스킵 — 일시 blip 이 5분(TTL) 동안 굳지 않게.
+ * 'shorts-state' 등 소스 단위 마커는 비율 계산에서 제외.
+ */
+export function shouldCacheBuild(rowCount: number, fetchFailed: string[]): boolean {
+  const bookFailed = fetchFailed.filter((f) => f !== SHORTS_STATE_FAILED).length;
+  const total = rowCount + bookFailed;
+  return total === 0 || bookFailed / total <= 0.1;
+}
+
 // ── deriveTodos ──
 
 const RUN = 'pnpm --filter server exec tsx';
@@ -206,6 +226,7 @@ function longformKoCommand(rule: SeriesRule, rows: PipelineRow[]): string {
   if (rule.artStyleMode === 'styles3') {
     // render-book-audiobooks 는 --book 단일 id + --style/--lang 필수라 일괄 커맨드로 부적합.
     // classic/folk 는 라이브 일괄 러너(재개 가능 — mkt_youtube_contents 등록분 자동 스킵) 사용.
+    // TODO: folk(전래동화) 첫 책 등록 시 render-classics-ko 카테고리 필터(/세계|명작/) 확장 필요
     return `${RUN} scripts/render-classics-ko.ts`;
   }
   // base 시리즈 = render-nature-ko 가 카테고리 단위로 일괄 렌더 (책 실카테고리 사용).

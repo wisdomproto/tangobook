@@ -12,9 +12,9 @@ const router = Router();
 router.get('/authoring', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const refresh = req.query.refresh === '1';
-    const { rows, generatedAt } = await getPipeline(refresh);
+    const { rows, generatedAt, fetchFailed } = await getPipeline(refresh);
     const authoringRows = rows.map(({ marketing: _marketing, ...rest }) => rest);
-    res.json({ success: true, data: { rows: authoringRows, generatedAt } });
+    res.json({ success: true, data: { rows: authoringRows, generatedAt, fetchFailed } });
   } catch (err) {
     next(err);
   }

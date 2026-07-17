@@ -11,12 +11,16 @@ import type { Storybook } from '@tangobook/shared';
 import { R2Repository } from '../../repositories/r2.repository.js';
 import { r2PublicUrl } from '../../providers/r2.provider.js';
 import { getSupabaseAdmin } from '../../providers/supabase-admin.provider.js';
+import { AppError } from '../../middleware/error.middleware.js';
 import { loadApprovals } from './approval-store.js';
 import {
+  collectFetchFailed,
   deriveAuthoring,
   deriveMarketing,
   deriveTodos,
   filterPipelineTargets,
+  shouldCacheBuild,
+  SHORTS_STATE_FAILED,
   type MarketingSources,
   type PipelineRow,
   type Todo,
@@ -32,12 +36,20 @@ export interface PipelineResult {
   rows: PipelineRow[];
   todos: Todo[];
   generatedAt: string;
+  /** 이번 감사에서 풀 JSON 로드에 실패한 책 id (+ 'shorts-state' 소스 마커) — 조용한 누락 가시화 */
+  fetchFailed: string[];
 }
 
 type CachedRow = Omit<PipelineRow, 'approved'>;
 
-let cache: { rows: CachedRow[]; at: number } | null = null;
-let inFlight: Promise<CachedRow[]> | null = null;
+interface Built {
+  rows: CachedRow[];
+  fetchFailed: string[];
+  at: number;
+}
+
+let cache: Built | null = null;
+let inFlight: Promise<Built> | null = null;
 
 /** 동시 N개 제한 매퍼 (기존 공용 유틸 없음 — 로컬 구현) */
 async function mapPool<T, R>(items: T[], size: number, fn: (item: T) => Promise<R>): Promise<R[]> {
@@ -53,7 +65,11 @@ async function mapPool<T, R>(items: T[], size: number, fn: (item: T) => Promise<
   return out;
 }
 
-/** supabase 1000행 기본 limit 대응 — 페이지네이션 전체 조회 */
+/**
+ * supabase 1000행 기본 limit 대응 — 페이지네이션 전체 조회.
+ * 🔴 query 는 반드시 명시적 .order() 를 포함해야 한다 — PostgREST .range() 는
+ * order 없이 페이지 간 순서를 보장하지 않아 1,000행 초과 시 행 누락/중복 가능.
+ */
 async function selectAll<T>(
   query: (
     from: number,
@@ -65,7 +81,7 @@ async function selectAll<T>(
   const all: T[] = [];
   for (let from = 0; ; from += PAGE) {
     const { data, error } = await query(from, from + PAGE - 1);
-    if (error) throw new Error(`${label} 조회 실패: ${error.message}`);
+    if (error) throw new AppError(502, `${label} 조회 실패: ${error.message}`);
     const rows = data ?? [];
     all.push(...rows);
     if (rows.length < PAGE) break;
@@ -84,7 +100,9 @@ function emptySources(): MarketingSources {
   };
 }
 
-async function loadShortsUploaded(): Promise<Record<string, { videoId: string }>> {
+async function loadShortsUploaded(
+  failures: string[]
+): Promise<Record<string, { videoId: string }>> {
   try {
     const res = await axios.get<{ uploaded?: Record<string, { videoId: string }> }>(
       `${r2PublicUrl}/${SHORTS_STATE_KEY}`,
@@ -93,14 +111,16 @@ async function loadShortsUploaded(): Promise<Record<string, { videoId: string }>
     return res.data?.uploaded ?? {};
   } catch (err) {
     if (axios.isAxiosError(err) && err.response?.status === 404) return {}; // 아직 R2 이동 전/미존재
+    // 비-404 실패 = 쇼츠 업로드 현황이 이번 감사에서 전부 미업로드로 보임 — fetchFailed 마커로 가시화.
     console.warn('[content-pipeline] shorts-upload-state 로드 실패:', (err as Error).message);
+    failures.push(SHORTS_STATE_FAILED);
     return {};
   }
 }
 
-export async function loadMarketingSources(): Promise<MarketingSources> {
+export async function loadMarketingSources(failures: string[] = []): Promise<MarketingSources> {
   const src = emptySources();
-  src.shortsUploaded = await loadShortsUploaded();
+  src.shortsUploaded = await loadShortsUploaded(failures);
 
   const sb = getSupabaseAdmin();
   if (!sb) {
@@ -112,7 +132,12 @@ export async function loadMarketingSources(): Promise<MarketingSources> {
   // bookId 매핑의 근간: mkt_contents.memo = 'storybook:<bookId>' (register/seed 스크립트 규약)
   const contents = await selectAll<{ id: string; memo: string | null }>(
     (from, to) =>
-      sb.from('mkt_contents').select('id, memo').like('memo', 'storybook:%').range(from, to),
+      sb
+        .from('mkt_contents')
+        .select('id, memo')
+        .like('memo', 'storybook:%')
+        .order('id', { ascending: true })
+        .range(from, to),
     'mkt_contents'
   );
   const bookIdByContentId = new Map<string, string>();
@@ -128,7 +153,11 @@ export async function loadMarketingSources(): Promise<MarketingSources> {
     video_settings: Record<string, any> | null;
   }>(
     (from, to) =>
-      sb.from('mkt_instagram_contents').select('id, content_id, video_settings').range(from, to),
+      sb
+        .from('mkt_instagram_contents')
+        .select('id, content_id, video_settings')
+        .order('id', { ascending: true })
+        .range(from, to),
     'mkt_instagram_contents'
   );
   const contentIdByIgId = new Map<string, string>();
@@ -151,7 +180,11 @@ export async function loadMarketingSources(): Promise<MarketingSources> {
     video_settings: Record<string, any> | null;
   }>(
     (from, to) =>
-      sb.from('mkt_youtube_contents').select('video_url, video_settings').range(from, to),
+      sb
+        .from('mkt_youtube_contents')
+        .select('video_url, video_settings')
+        .order('id', { ascending: true })
+        .range(from, to),
     'mkt_youtube_contents'
   );
   for (const row of ytRows) {
@@ -169,7 +202,12 @@ export async function loadMarketingSources(): Promise<MarketingSources> {
 
   // 블로그: mkt_blog_contents.content_id → memo 매핑 (seed-marketing-blogs 규약 — 신뢰 가능)
   const blogRows = await selectAll<{ content_id: string }>(
-    (from, to) => sb.from('mkt_blog_contents').select('content_id').range(from, to),
+    (from, to) =>
+      sb
+        .from('mkt_blog_contents')
+        .select('content_id')
+        .order('id', { ascending: true })
+        .range(from, to),
     'mkt_blog_contents'
   );
   for (const row of blogRows) {
@@ -179,7 +217,12 @@ export async function loadMarketingSources(): Promise<MarketingSources> {
 
   // 카드뉴스: mkt_instagram_cards.instagram_content_id → ig 행 → content_id → memo 매핑
   const cardRows = await selectAll<{ instagram_content_id: string }>(
-    (from, to) => sb.from('mkt_instagram_cards').select('instagram_content_id').range(from, to),
+    (from, to) =>
+      sb
+        .from('mkt_instagram_cards')
+        .select('instagram_content_id')
+        .order('id', { ascending: true })
+        .range(from, to),
     'mkt_instagram_cards'
   );
   for (const row of cardRows) {
@@ -200,6 +243,7 @@ export async function loadMarketingSources(): Promise<MarketingSources> {
       sb
         .from('mkt_publish_records')
         .select('content_id, channel, status, metadata')
+        .order('id', { ascending: true })
         .range(from, to),
     'mkt_publish_records'
   );
@@ -216,17 +260,27 @@ export async function loadMarketingSources(): Promise<MarketingSources> {
   return src;
 }
 
-async function buildRows(): Promise<CachedRow[]> {
+async function buildRows(): Promise<Built> {
+  const sourceFailures: string[] = [];
   const summaries = await R2Repository.listStorybooks();
   const targets = filterPipelineTargets(summaries);
   const [books, sources] = await Promise.all([
     mapPool(targets, POOL_SIZE, (s) => R2Repository.getStorybook(s.id)),
-    loadMarketingSources(),
+    loadMarketingSources(sourceFailures),
   ]);
+
+  // 풀 JSON 로드 실패(null) 책은 행에서 빠짐 — 조용한 누락 대신 fetchFailed 로 가시화.
+  const fetchFailed = [
+    ...collectFetchFailed(
+      targets.map((t) => t.id),
+      books
+    ),
+    ...sourceFailures,
+  ];
 
   const rows: CachedRow[] = [];
   for (const book of books) {
-    if (!book) continue; // 개별 로드 실패 무시 (listStorybooks 와 동일 정책)
+    if (!book) continue;
     const sb = book as Storybook;
     const authoring = deriveAuthoring(sb);
     rows.push({
@@ -238,26 +292,40 @@ async function buildRows(): Promise<CachedRow[]> {
       category: sb.category,
     });
   }
-  return rows;
+  return { rows, fetchFailed, at: Date.now() };
 }
 
 export async function getPipeline(refresh = false): Promise<PipelineResult> {
-  const stale = !cache || Date.now() - cache.at > CACHE_TTL;
+  let current = cache;
+  const stale = !current || Date.now() - current.at > CACHE_TTL;
   if (refresh || stale) {
     if (!inFlight) {
       inFlight = buildRows().finally(() => {
         inFlight = null;
       });
     }
-    const rows = await inFlight;
-    cache = { rows, at: Date.now() };
+    const built = await inFlight;
+    // 책 로드 실패 비율 > 10% 면 캐시 저장 스킵 — 일시 blip 이 TTL 동안 굳지 않게 (이번 응답엔 사용).
+    if (shouldCacheBuild(built.rows.length, built.fetchFailed)) {
+      cache = built;
+    } else {
+      console.warn(
+        `[content-pipeline] 책 로드 실패 ${built.fetchFailed.length}건 (rows=${built.rows.length}) — 캐시 저장 스킵`
+      );
+    }
+    current = built;
   }
 
   // 승인은 매 요청 fresh — editor2 토글이 즉시 반영돼야 함 (R2 1콜).
   const approvals = await loadApprovals();
-  const rows: PipelineRow[] = cache!.rows.map((r) => ({
+  const rows: PipelineRow[] = current!.rows.map((r) => ({
     ...r,
     approved: !!approvals[r.bookId],
   }));
-  return { rows, todos: deriveTodos(rows), generatedAt: new Date(cache!.at).toISOString() };
+  return {
+    rows,
+    todos: deriveTodos(rows),
+    generatedAt: new Date(current!.at).toISOString(),
+    fetchFailed: current!.fetchFailed,
+  };
 }
