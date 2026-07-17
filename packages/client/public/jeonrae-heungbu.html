@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 흥부와 놀부</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 1 #1</div>
+  <h1>🏠 흥부와 놀부</h1>
+  <div class="sub">마음씨 착한 흥부와 욕심쟁이 놀부 — 제비가 물어다 준 박씨 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 선행·형제애 &nbsp;·&nbsp;
+  <b>분량</b> 15 스프레드 &nbsp;·&nbsp; <b>후렴</b> 박 타기 노래 &nbsp;·&nbsp;
+  <b>핵심단어</b> 박 · 지게 · 톱 · 엽전 · 짚신 &nbsp;·&nbsp;
+  <b>순화</b> 놀부 벌 = 도깨비 코믹 골탕 + 뉘우침·화해 / 구렁이 위협은 은근히 암시만
+</div>
+<div class="refrain">🪚 반복 후렴 — "슬근슬근 톱질하세, 스르릉 슬근! 무엇이 나올까, 스르릉 슬근!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-heungbu</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(따뜻한 수채 그림책풍 + 한국 전통 정취)를 모든 컷에 먼저 적용. 골든 idle 1장 확정 → 표정·포즈 확장 → 전 페이지 컷에 ref 첨부.</p>
+
+<div class="char-prompt" data-char="가난한 흥부" data-key="char-heungbu-poor">
+  <div class="head"><span class="face">🧑‍🌾</span><b>가난한 흥부</b> <span class="rom">HeungbuPoor · 착한 동생(가난)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: HeungbuPoor — the kind-hearted younger brother while still poor, a gentle warm grown-up drawn cute and round (not a realistic adult).
+FACE (identical to HeungbuRich): warm oval face, soft rounded cheeks, kind almond eyes with a tender gaze, gentle arched brows, small friendly nose, a soft warm closed-mouth smile — an honest, humble, hard-working air.
+HAIR: black hair pulled up into a neat topknot (상투) held by a thin horsehair headband (망건) across the forehead.
+CLOTHES (poor state): a threadbare handwoven-cotton (무명) hanbok — an off-white cream jeogori jacket (#EDE4D0) and baggy trousers, both faded, patched at the elbows and knees with mismatched scraps of pale faded indigo (#6E7F94), a plain hemp waist sash, and woven straw sandals (짚신). Worn and a little dusty but clean and dignified — poor, never shabby or scary.
+BUILD & SILHOUETTE: soft rounded build with a mildly stylized adult head and natural adult limbs, a humble slightly-hunched storybook posture; reads instantly as the gentle poor younger brother (slimmer and softer than the plumper, smug, rounder Nolbu).
+REFERENCE SHEET: one sheet on a plain hanji-cream background — full-body front idle (gentle smile, hands relaxed) + a 3/4 turn + three face close-ups (warm smile / joyful surprise / tender concern). Single character only, no text, no watermark.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="부자 흥부" data-key="char-heungbu-rich">
+  <div class="head"><span class="face">🧑‍🌾</span><b>부자 흥부</b> <span class="rom">HeungbuRich · 복 받은 흥부</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: HeungbuRich — the SAME kind younger brother AFTER the magic gourd blessed him, now well-off.
+🔴 IDENTICAL FACE to HeungbuPoor: same warm oval face, same soft cheeks, same kind almond eyes, same gentle brows, same small nose, same warm humble closed-mouth smile. Riches did NOT change his face or make him proud, smug or haughty — he must NEVER look like Nolbu; still soft, grateful and generous.
+HAIR: the same neat topknot (상투), now with a clean tidy horsehair headband, and optionally a proper black horsehair hat (갓).
+CLOTHES (blessed state): a clean, neat, comfortably fine hanbok — a soft jade-green jeogori jacket (#4E9A86) with cream trim over cream trousers, a tidy pale-beige overcoat (두루마기), a woven waist sash, and clean leather cloth shoes (태사혜) instead of straw sandals. Modestly fine and cozy (warm storybook-nice, NOT flashy silk, NOT gold-drenched like Nolbu).
+BUILD & SILHOUETTE: the same soft rounded cute build as HeungbuPoor (mild adult stylization, natural adult limbs), now standing a touch more relaxed and healthy — clearly the SAME person, just better clothes.
+REFERENCE SHEET: one sheet on a plain hanji-cream background — full-body front idle (gentle grateful smile, hands relaxed) + a 3/4 turn + three face close-ups (warm smile / joyful surprise / gentle). Single character only, no text, no watermark.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="놀부" data-key="char-nolbu">
+  <div class="head"><span class="face">🧔</span><b>놀부</b> <span class="rom">Nolbu · 욕심쟁이 형</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Nolbu — the greedy older brother, comically greedy but never scary (a funny pouty rich man).
+FACE: a round plump face with a double chin, small squinty greedy eyes, one thick raised eyebrow, a smug down-turned pout, ruddy flushed cheeks, and a thin sparse mustache.
+HAIR: black topknot (상투) with a horsehair headband; often a shiny black horsehair hat (갓) tilted a bit smugly.
+CLOTHES: a well-fed rich look — a glossy silk hanbok with a deep pine-green jeogori (#1E5A46) and gold-ochre trousers and vest (#C79A3E), a fine embroidered waist sash, and leather shoes. Prosperous, slightly overdressed, a bit gaudy next to Heungbu.
+PROP: almost always holds a long slim tobacco pipe (곰방대).
+BUILD & SILHOUETTE: short, plump and round pot-bellied with a mildly stylized adult head and natural adult limbs — chubbier and rounder than the softer, slimmer Heungbu; cute-comical and huggable, not frightening.
+REFERENCE SHEET: one sheet on a plain hanji-cream background — full-body front idle (smug, one hand resting on his belly, pipe in the other) + a 3/4 turn + three face close-ups (smug pout / greedy delight / comical shock). Single character only, no text, no watermark.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="가난한 흥부 아내" data-key="char-heungbu-wife-poor">
+  <div class="head"><span class="face">👩‍🌾</span><b>가난한 흥부 아내</b> <span class="rom">HeungbuWifePoor · 고운 아내(가난)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: HeungbuWifePoor — Heungbu's wife while still poor, a warm kind grown-up drawn cute and round (not a realistic adult).
+FACE (identical to HeungbuWifeRich): a soft round face, rosy round cheeks, kind curved smiling eyes, thin gentle brows, a small nose, a cheerful caring closed-mouth smile.
+HAIR: black hair parted in the middle and gathered into a neat low married-woman's bun (쪽머리) at the nape, held by a plain wooden hairpin (비녀).
+CLOTHES (poor state): a humble handwoven-cotton (무명) skirt-and-jacket hanbok (치마저고리) — a faded soft-green jeogori (#8FA98C) with cream chest ties (고름) and a faded earth-persimmon skirt (#B07A52), patched here and there, with a plain cotton work apron (앞치마) tied at the waist. Threadbare but tidy and clean.
+BUILD & SILHOUETTE: soft rounded petite build with a mildly stylized adult head, gentle and motherly; reads as the poor but cheerful wife (opposite of the fancy, haughty NolbuWife).
+REFERENCE SHEET: one sheet on a plain hanji-cream background — full-body front idle (warm smile, hands folded at waist) + a 3/4 turn + three face close-ups (warm smile / gentle worry / soft laugh). Single character only, no text, no watermark.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="부자 흥부 아내" data-key="char-heungbu-wife-rich">
+  <div class="head"><span class="face">👩‍🌾</span><b>부자 흥부 아내</b> <span class="rom">HeungbuWifeRich · 복 받은 아내</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: HeungbuWifeRich — the SAME kind wife AFTER the blessing, now well-off.
+🔴 IDENTICAL FACE to HeungbuWifePoor: same soft round face, same rosy cheeks, same kind curved smiling eyes, same gentle brows, same warm smile — never haughty or proud (must NOT look like NolbuWife).
+HAIR: the same neat low bun (쪽머리), now with a nicer polished wood or jade hairpin (비녀).
+CLOTHES (blessed state): a clean, fine skirt-and-jacket hanbok (치마저고리) — a cream jeogori (#F3E9D4) with soft-coral chest ties (고름) and a gentle jade-green skirt (#5E9E88) in fine cotton and light silk, tidy and lovely. Modestly fine and cozy (warm storybook-lovely, NOT flashy, NOT heavily gold-embroidered like NolbuWife). No apron now.
+BUILD & SILHOUETTE: the same soft rounded petite build (mild adult stylization) as the poor version — clearly the SAME person, just better clothes.
+REFERENCE SHEET: one sheet on a plain hanji-cream background — full-body front idle (warm grateful smile, hands folded at waist) + a 3/4 turn + three face close-ups (warm smile / joyful surprise / gentle). Single character only, no text, no watermark.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="놀부아내" data-key="char-nolbu-wife">
+  <div class="head"><span class="face">💁‍♀️</span><b>놀부 아내</b> <span class="rom">NolbuWife · 새침한 아내</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: NolbuWife — Nolbu's fussy, well-off wife, comically snobbish but not scary.
+FACE: a narrow face with a haughty little chin tilted up, sharp pursed thin lips, thin arched eyebrows, half-lidded looking-down eyes, and a small upturned nose.
+HAIR: black hair in an elaborate high married bun (쪽머리) with a shiny ornamental hairpin (비녀) and a decorative back-pin (뒤꽂이).
+CLOTHES: a fancy glossy silk hanbok — a plum-purple jeogori (#7A3B5D) richly embroidered with gold thread over a wine-and-gold skirt, a dangling ornamental knot (노리개) at the chest, jeweled accents. Over-fancy and showy.
+BUILD & SILHOUETTE: soft rounded build with a mildly stylized adult head, in a prim, upright, nose-in-the-air posture; cute-comical and snobbish, instantly distinct from the warm, plain, patched HeungbuWifePoor.
+REFERENCE SHEET: one sheet on a plain hanji-cream background — full-body front idle (arms crossed, nose up) + a 3/4 turn + three face close-ups (snooty pout / smug delight / comical fright). Single character only, no text, no watermark.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="제비" data-key="char-swallow">
+  <div class="head"><span class="face">🐦</span><b>제비</b> <span class="rom">Swallow · 은혜 갚는 제비</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Swallow — a cute little barn swallow with soft picture-book roundness (not realistic). A glossy blue-black head and back (#1E2A3A) with a faint steel-blue sheen, a creamy off-white belly (#F4ECD8), a small rusty-orange throat-and-forehead patch (#C4622D), a short black beak, big friendly round eyes, and a deeply forked tail. Sweet, gentle and grateful in mood.
+REFERENCE SHEET: one sheet on a plain hanji-cream background — a side-profile perched pose + a front view + a wings-open flying pose + two face close-ups (happy / grateful). Show TWO STATES, distinguished by pose: (a) a HEALTHY adult swallow, sleek and bright; (b) a tiny BABY swallow with one little leg gently splinted and wrapped in a thin thread bandage, slightly droopy but cozy and cute. Single character only, no text, no watermark.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="도깨비" data-key="char-dokkaebi">
+  <div class="head"><span class="face">👹</span><b>도깨비</b> <span class="rom">Dokkaebi · 놀부 박 · 장난꾸러기</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Dokkaebi — a Korean goblin, FRIENDLY and mischievous rather than scary, cute-comical (appears in a playful group to tease Nolbu, never to hurt).
+FACE: big round googly eyes, a wide goofy toothy grin with one little tusk, chubby ruddy cheeks, a bulbous nose, one small stubby horn on top, and wild flame-orange topknot-ish hair. Skin a warm russet-brown (#9C5A3C) with a rosy flush.
+BUILD: short, round, chubby pot-bellied body with stubby arms and legs — huggable and silly, NOT frightening (no fangs, no menace).
+CLOTHES & PROP: a spotted leopard-print loincloth (호피), and always carries a knobbly wooden magic club/mallet (도깨비 방망이) studded with little bumps.
+SILHOUETTE: round body + single horn + knobbly club = instantly readable and comic.
+REFERENCE SHEET: one sheet on a plain hanji-cream background — full-body front idle (club over shoulder, playful grin) + a 3/4 turn + three face close-ups (mischievous grin / laughing / surprised). Single character only, no text, no watermark.</pre></details>
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="char-prompt" data-char="박" data-key="word-bak">
+  <div class="head"><span class="face">🫧</span><b>박</b> <span class="rom">bak — a round bottle gourd</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "bak — a Korean bottle gourd (박)". A big round plump bottle gourd with smooth pale jade-green skin (#B7C99A) and a faint downy fuzz, a short curly green stem and a tendril on top, a soft highlight showing its rounded volume. Show TWO forms on the card so the word reads clearly: (1) the fresh whole green gourd, and (2) the ripe DRIED gourd cut in half into a pale tan hollow half-shell bowl (#D9C7A0) — the classic 박 bowl. Centered icon-style word card, vivid and proud, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="지게" data-key="word-jige">
+  <div class="head"><span class="face">🎒</span><b>지게</b> <span class="rom">jige — a Korean A-frame back carrier</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jige — a traditional Korean wooden A-frame back-carrier for firewood and loads (지게)". Two natural pine/alder upright wooden posts (warm honey-brown wood grain #B07A3C) joined by cross-rungs lashed with twisted straw rope, woven rice-straw shoulder straps, and its matching Y-shaped support stick (지게작대기) leaning beside it. Show the frame at a slight 3/4 angle so the A-frame shape reads clearly. Sturdy, handcrafted, warm wood tones. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="톱" data-key="word-top">
+  <div class="head"><span class="face">🪚</span><b>톱</b> <span class="rom">top — a two-person frame saw</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "top — a traditional Korean two-person frame saw (틀톱, 톱) used to saw a big gourd in half". A wide wooden H/bow frame in honey-brown wood (#B07A3C) with two handles, a long flat steel blade (soft steel-grey #9AA3A8) spanning the frame, and a twisted rope tensioner with a little toggle stick at the top. FRIENDLY, not menacing — gently rounded blunt teeth, a cheerful clean look. Shown at a slight 3/4 angle. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="엽전" data-key="word-yeopjeon">
+  <div class="head"><span class="face">🪙</span><b>엽전</b> <span class="rom">yeopjeon — old Korean coins</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "yeopjeon — old Korean brass coins (엽전, 상평통보)". Round warm-brass coins (#C9A227) with a neat square hole in the center and tiny raised hanja marks on the face, a faint green-bronze patina in the grooves. Show TWO forms: (1) a string of coins threaded on a red cord into a coin-string (꿰미), and (2) a loose sparkling pile of coins spilling beside it. Treasure-bright, vivid sparkling gold. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="짚신" data-key="word-jipsin">
+  <div class="head"><span class="face">🥿</span><b>짚신</b> <span class="rom">jipsin — woven straw shoes</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jipsin — traditional Korean straw-woven sandals (짚신)". A neat pair of sandals braided from golden rice-straw (#D8B45A), showing the woven sole texture, the looped toe and heel, and the ankle-tie cords, in a warm hand-crafted straw gold. Cozy, humble, tidy craftsmanship. Present the pair at a slight 3/4 angle (one showing the top, one the side) so the weave reads clearly. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 15 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 한 마을 큰 기와집에 형제가 함께 살았어요. 부모님이 물려주신 집이었지요. 형은 놀부, 동생은 흥부예요. 동생 흥부는 마음씨가 비단결처럼 고왔지만, 형 놀부는 욕심이 아주 많았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 형제 둘이 함께 사는 한 집 앞에서 소개하는 넓은 도입 컷.<br/><b>장소·시간</b> 옛 한국 시골 마을, 부모에게서 물려받아 형제가 함께 사는 큰 기와집 앞마당, 화창한 낮. 뒤로 나지막한 산과 소나무, 정겨운 옛 마을 공기.<br/><b>인물</b> HeungbuPoor(가난한 흥부)는 화면 왼쪽에서 소박한 기운 한복에 짚신을 신고 두 손을 앞에 모은 채 온화하게 방긋 웃으며 서 있음. Nolbu(놀부)는 오른쪽에서 번들거리는 진초록·금빛 한복을 입고 배에 한 손을 얹고 다른 손에 곰방대를 든 채 눈썹을 치켜올린 새침한 표정. 둘의 옷차림·표정이 착함/욕심으로 뚜렷이 대비.<br/><b>배경·소품</b> 형제가 함께 사는 하나의 큰 기와집(솟을대문·반질반질한 기와지붕), 마당의 넉넉한 장독대와 곳간, 담장 너머 박넝쿨, 흙마당, 파란 하늘과 흰 구름. (두 집이 아니라 형제가 함께 사는 한 집임이 분명히.)<br/><b>톤</b> 부드럽고 고른 한낮 햇빛, 옛이야기를 여는 포근하고 정겨운 정서, 따뜻한 흙빛과 한지 크림색.</pre></details>
+</div>
+
+<!-- ② 발단(선/악 대비) : P2, P3, P4 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(욕심쟁이 형)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">형 놀부는 집안 살림과 곳간 열쇠를 혼자 꽉 쥐고 있었어요. 같은 집에 사는 동생 흥부에게도 쌀 한 톨 나누지 않았지요. "내 것은 내 것, 한 톨도 못 줘!" 옆에서 놀부 아내도 새침하게 고개를 홱 돌렸답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글. 함께 사는 한 집 곳간 앞에서 쌀을 독차지하는 놀부.<br/><b>장소·시간</b> 형제가 함께 사는 기와집 곳간 앞마당, 한낮. 넉넉하지만 형이 혼자 움켜쥔 인색한 공기.<br/><b>인물</b> Nolbu(놀부)는 화면 중앙에서 곳간 열쇠 꾸러미를 허리에 찬 채 커다란 쌀가마니를 두 팔로 욕심스럽게 끌어안고 볼을 부풀리며 "안 돼!" 하듯 눈을 부릅뜬 코믹한 표정, 몸을 가마니 위로 웅크림. NolbuWife(놀부 아내)는 오른쪽에서 턱을 살짝 치켜들고 고개를 홱 돌리며 새침하게 팔짱을 낌. 화면 왼쪽 뒤편엔 HeungbuPoor(가난한 흥부)가 빈 그릇을 들고 머쓱하게 서서 형을 순하게 바라봄(같은 집에 얹혀 사는 동생).<br/><b>배경·소품</b> 곳간 안 가득 쌓인 쌀가마니와 항아리, 곳간 문에 걸린 커다란 자물쇠, 처마 밑 곶감·마늘 두름, 반질반질한 기와지붕, 마당의 장독대.<br/><b>톤</b> 밝은 한낮 햇빛이지만 놀부 표정에 살짝 과장된 그림자로 인색함 강조, 우스꽝스럽되 밉지 않은 코믹한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(따로 살게 된 흥부)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 날 놀부가 말했어요. "이제 이 집에서 나가 따로 살아라!" 흥부는 서운했지만 형에게 꾸벅 인사하고, 아내와 함께 큰 기와집을 나와 작은 초가집으로 옮겨 갔어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 형제가 함께 살던 집 대문 앞에서 흥부가 쫓겨나 떠나는 순간.<br/><b>장소·시간</b> 형제가 함께 살던 큰 기와집 대문 앞, 늦은 오후. 살짝 서운한 이별의 공기, 부드러운 저녁 빛.<br/><b>인물</b> Nolbu(놀부)는 화면 오른쪽 대문 앞에 버티고 서서 한 손을 휘휘 저으며 "나가라"는 손짓, 얼굴은 무뚝뚝하지만 무섭지 않게. HeungbuPoor(가난한 흥부)는 왼쪽에서 형을 향해 허리를 굽혀 공손히 꾸벅 인사하며 대문 밖으로 걸음을 옮김, 표정은 서운하나 순하게 미소. HeungbuWifePoor(가난한 흥부 아내)는 흥부 곁에서 작은 봇짐을 안고 남편을 따라 걸으며 뒤를 살짝 돌아봄.<br/><b>배경·소품</b> 형제가 함께 살던 큰 기와집 대문과 담장, 흥부 부부가 든 조촐한 봇짐 보따리, 대문 밖으로 멀리 작은 초가집으로 이어진 흙길과 들판, 노을빛 하늘.<br/><b>톤</b> 따뜻한 오후 노을빛, 조금 쓸쓸하지만 아이가 무겁지 않게 느낄 부드럽고 애틋한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>발단(가난해도 정답게)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">흥부네는 가난했어요. 하지만 부지런했지요. 흥부는 지게를 지고 나무를 해 오고, 저녁이면 짚신을 삼았어요. 아내는 옆에서 콧노래를 불렀답니다. 가난해도 웃음은 넉넉했어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 초가집 마당에서 함께 일하는 저녁 정경.<br/><b>장소·시간</b> 흥부네 작은 초가집 마당, 저녁 무렵. 소박하지만 따뜻한 공기, 부드러운 노을빛.<br/><b>인물</b> HeungbuPoor(가난한 흥부)는 화면 왼쪽에서 등에 나뭇짐을 얹은 <b>지게(jige)</b>를 막 내려놓으며 이마의 땀을 닦고 환하게 웃음. 오른쪽 툇마루엔 다시 앉아 짚풀을 엮어 <b>짚신(jipsin)</b>을 삼는 손놀림도 함께 보이게(같은 저녁의 흥부, 부지런함 강조). HeungbuWifePoor(가난한 흥부 아내)는 흥부 곁에 앉아 바느질하며 콧노래하듯 입을 방긋, 다정하게 남편을 바라봄.<br/><b>배경·소품</b> 다 삼은 짚신 몇 켤레가 툇마루에 나란히, 지게에 얹힌 장작, 초가지붕과 흙벽, 마당의 작은 장독, 처마에 걸린 등불.<br/><b>톤</b> 포근한 노을빛과 등불빛, 가난하지만 정겹고 화목한 정서, 따뜻한 흙빛 색조.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P5, P6, P7, P8 -->
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(처마의 제비 둥지)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">봄이 되자 흥부네 처마 밑에 제비 한 쌍이 둥지를 틀었어요. 얼마 뒤 아기 제비들이 뾰족뾰족 입을 벌리고 "짹짹!" 노래했지요. 흥부는 날마다 그 모습을 보며 빙그레 웃었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 로우앵글로 처마를 올려다봄. 둥지와 흥부를 함께 담음.<br/><b>장소·시간</b> 흥부네 초가집 처마 밑, 화창한 봄날 아침. 새싹과 꽃이 돋는 상쾌한 공기.<br/><b>인물</b> HeungbuPoor(가난한 흥부)는 화면 아래쪽 마당에서 처마를 올려다보며 두 손을 모으고 흐뭇하게 방긋 웃음, 눈이 초승달 모양. 처마 밑 둥지 안에서 아기 Swallow(제비) 세 마리가 노란 부리를 크게 벌리고 짹짹, 어미 Swallow가 둥지 가장자리에 앉아 먹이를 물어다 줌.<br/><b>배경·소품</b> 초가지붕 처마와 진흙 둥지, 둥지 속 아기 제비들, 마당의 봄꽃과 새싹, 파란 하늘과 흰 구름, 담장 너머 연둣빛 나무.<br/><b>톤</b> 밝고 화창한 봄 아침 햇빛, 생명이 움트는 산뜻하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(아기 제비가 그만…)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 어느 날, 스르륵— 담장 아래로 커다란 그림자가 지나갔어요. 놀란 아기 제비 한 마리가 둥지에서 그만 톡 떨어져, 작은 다리를 다치고 말았어요. "짹… 짹…" 흥부가 얼른 두 손으로 살며시 감쌌지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 하이앵글로 흥부의 손 안을 내려다봄. 위협은 배경에 은근히만.<br/><b>장소·시간</b> 흥부네 초가집 마당, 봄날 한낮. 잠깐 놀란 듯 숨죽인 공기.<br/><b>인물</b> HeungbuPoor(가난한 흥부)는 화면 중앙에서 무릎을 굽혀 두 손을 오목하게 모아 떨어진 아기 Swallow(제비)를 살며시 감싸 안음, 걱정스러운 다정한 눈. 손 안의 아기 제비는 한쪽 작은 다리를 살짝 접은 채 눈을 찡그리며 "짹…" 하는 안쓰러운 표정.<br/><b>배경·소품</b> 처마 위 둥지에서 어미 제비가 놀라 파닥이고, 화면 구석 담장 아래로 길고 흐릿한 그림자 자락이 스르륵 지나가는 실루엣만 암시(형체는 보이지 않게, 무섭지 않게 아주 작고 흐리게), 마당의 봄꽃.<br/><b>톤</b> 밝은 낮이지만 순간 살짝 차분해진 조명, 위협은 그림자 암시로만 절제, 안쓰럽되 곧 보살핌으로 이어지는 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(다리를 고쳐 주는 흥부)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">흥부는 아기 제비의 다리를 가느다란 실로 살살 동여매 주었어요. "괜찮아, 금방 나을 거야." 며칠이 지나자 제비는 다시 포르르— 하늘을 날았답니다. "고마워요!" 하듯 흥부네 마당을 빙글 돌았어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 툇마루에 앉아 제비를 치료하는 다정한 장면.<br/><b>장소·시간</b> 흥부네 초가집 툇마루, 봄날 오후. 포근하고 조용한 공기.<br/><b>인물</b> HeungbuPoor(가난한 흥부)는 화면 왼쪽에 앉아 아기 Swallow(제비)를 한 손에 살포시 얹고 다른 손으로 가느다란 실을 제비의 작은 다리에 조심조심 감아 줌, 입을 오므리고 아주 집중한 다정한 표정. HeungbuWifePoor(가난한 흥부 아내)는 옆에서 작은 그릇에 물을 떠 와 거들며 걱정 어린 미소.<br/><b>배경·소품</b> 실패와 실, 물그릇, 툇마루 옆 짚신 몇 켤레, 처마의 둥지, 마당의 봄꽃. (오른쪽 위 여백에 며칠 뒤 하늘을 나는 제비 실루엣을 작게 곁들여 회복 암시해도 좋음.)<br/><b>톤</b> 부드러운 오후 햇살, 보살핌과 사랑이 가득한 뭉클하고 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(박씨를 물어다 준 제비)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가을이 오자 제비들은 강남으로 훌쩍 떠났어요. 이듬해 봄, 그 제비가 다시 날아와 흥부 앞에 무언가를 톡 떨어뜨렸어요. 반질반질한 박씨 한 알이었지요! 흥부는 마당가에 정성껏 심었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 로우앵글. 제비가 박씨를 건네는 결정적 순간.<br/><b>장소·시간</b> 흥부네 초가집 마당, 이듬해 봄 아침. 다시 찾아온 반가운 공기, 화창한 빛.<br/><b>인물</b> HeungbuPoor(가난한 흥부)는 화면 중앙 아래에서 두 손바닥을 오목하게 내밀고 눈을 동그랗게 뜬 채 입을 작게 벌려 "어?" 하는 놀라운 반가움. 그 위로 Swallow(제비)가 날개를 펴고 포르르 날며 부리로 반질반질한 박씨 한 알을 흥부 손바닥으로 톡 떨어뜨림.<br/><b>배경·소품</b> 반짝이는 갈색 박씨 한 알(공중에 살짝 반짝임), 초가지붕과 처마, 마당가에 파 놓은 작은 흙 구덩이(곧 심을 자리), 봄꽃과 새싹, 파란 하늘.<br/><b>톤</b> 밝고 화창한 봄 아침 햇빛, 은혜가 돌아오는 설레고 뭉클한 정서, 박씨에 살짝 신비로운 반짝임.</pre></details>
+</div>
+
+<!-- ④ 절정 : P9, P10, P11, P12, P13 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(흥부네 박 타기)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">박씨는 무럭무럭 자라 지붕 위에 커다란 박이 주렁주렁 열렸어요. 흥부 부부는 톱을 마주 잡고 박을 탔지요. "슬근슬근 톱질하세, 스르릉 슬근! 무엇이 나올까, 스르릉 슬근!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 지붕 위 큰 박을 마주 잡고 톱질하는 흥겨운 절정 컷.<br/><b>장소·시간</b> 흥부네 초가집 앞마당, 화창한 낮. 흥이 오른 즐거운 공기.<br/><b>인물</b> HeungbuPoor(가난한 흥부)와 HeungbuWifePoor(가난한 흥부 아내)가 커다란 <b>박(bak)</b>을 사이에 두고 마주 앉아, 긴 두 사람용 <b>톱(top)</b>의 양쪽 손잡이를 각각 붙잡고 앞뒤로 밀고 당기며 박을 탐. 둘 다 입을 크게 벌려 노래하듯 활짝 웃고, 몸을 리듬 있게 기울임.<br/><b>배경·소품</b> 초가지붕과 마당에 주렁주렁 열린 큼직한 박 여러 개와 넝쿨, 마주 잡은 큰 톱, 흙마당, 파란 하늘. 박 둘레에 곧 무언가 나올 듯한 은은한 설렘의 빛.<br/><b>톤</b> 밝고 화창한 낮 햇빛, 신명 나고 흥겨운 정서, 옛이야기 박 타기의 리듬감.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(쏟아지는 보물)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">쩌억— 박이 두 쪽으로 갈라지자, 세상에! 반짝반짝 엽전이 와르르, 쌀이 소복소복, 고운 비단이 스르르 쏟아졌어요. 흥부네는 착한 마음 덕분에 큰 복을 받았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 박이 갈라지며 보물이 쏟아지는 그림책 "펼침면 한 방".<br/><b>장소·시간</b> 흥부네 초가집 마당, 화창한 낮. 벅차고 눈부신 공기.<br/><b>인물</b> HeungbuPoor(가난한 흥부)와 HeungbuWifePoor(가난한 흥부 아내)는 갈라진 박 앞에서 두 팔을 번쩍 들고 입을 크게 벌려 "우와아!" 하며 눈이 휘둥그레진 기쁨의 표정, 얼굴에 보물의 반짝임이 비침. (보물이 막 쏟아지는 순간이라 아직 기운 소박한 한복 차림.)<br/><b>배경·소품</b> 두 쪽으로 쩍 갈라진 커다란 박에서 <b>엽전(yeopjeon, 가운데 네모 구멍 뚫린 금빛 옛 동전)</b>이 와르르 쏟아지고, 하얀 쌀과 색색 비단 두루마리가 함께 넘쳐흐름, 공중에 반짝이는 금빛 입자, 뒤로 초가집과 박넝쿨, 파란 하늘.<br/><b>톤</b> 밝은 낮 햇빛에 금빛 반짝임이 폭죽처럼 튀는 화려하고 벅찬 정서, 착함이 복으로 보답받는 환희.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(샘이 난 놀부)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이 소식을 들은 놀부는 배가 아팠어요. "나도 제비를 잡아야지!" 놀부는 멀쩡한 제비를 억지로 붙잡아, 다치지도 않은 다리에 실을 칭칭 감아 주는 척했어요. 제비는 놀부의 속셈을 다 알았지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 놀부의 얄미운 속셈이 드러나는 코믹한 장면.<br/><b>장소·시간</b> 놀부네 기와집 마당, 낮. 욕심이 부글대는 우스꽝스러운 공기.<br/><b>인물</b> Nolbu(놀부)는 화면 중앙에서 한 손에 파닥이는 Swallow(제비)를 조심스레(다치지 않게, 그러나 안달난 표정으로) 감싸 쥐고, 다른 손으로 실을 어설프게 감아 주는 척하며 눈을 가늘게 뜨고 능청스러운 미소. 제비는 놀부 손 안에서 눈을 흘기듯 시큰둥한 표정으로 놀부를 빤히 쳐다봄(속셈을 안다는 듯). NolbuWife(놀부 아내)는 옆에서 손뼉을 치며 부추기는 얄미운 웃음.<br/><b>배경·소품</b> 놀부네 기와집과 넉넉한 곳간, 처마 밑 제비 둥지, 마당의 장독대와 곰방대. (폭력적 묘사 없이 놀부의 욕심스러운 '연기'가 우스꽝스럽게 보이도록.)<br/><b>톤</b> 밝은 낮 햇빛, 놀부의 능청에 코믹한 과장, 밉지만 웃긴 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>절정(놀부네 박 타기)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이듬해, 놀부도 제비가 물어다 준 박씨를 심었어요. 지붕 가득 박이 열리자 놀부는 신이 나서 톱질을 했지요. "슬근슬근 톱질하세, 스르릉 슬근! 금은보화 나와라, 스르릉 슬근!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 잔뜩 기대에 부푼 놀부의 박 타기.<br/><b>장소·시간</b> 놀부네 기와집 앞마당, 화창한 낮. 욕심으로 들뜬 공기.<br/><b>인물</b> Nolbu(놀부)와 NolbuWife(놀부 아내)가 커다란 <b>박(bak)</b>을 사이에 두고 마주 앉아 큰 <b>톱(top)</b>의 양쪽 손잡이를 붙잡고 힘차게 톱질, 둘 다 입꼬리가 귀에 걸린 채 눈에 금은보화가 아른거리는 욕심 가득한 표정, 침을 꼴깍 삼키듯 신남.<br/><b>배경·소품</b> 기와지붕과 마당에 주렁주렁 열린 큰 박들, 마주 잡은 톱, 반질반질한 기와집과 넉넉한 곳간, 장독대, 파란 하늘.<br/><b>톤</b> 밝은 낮 햇빛, 흥부의 박 타기와 대칭되는 구도(후렴 반복), 그러나 욕심이 서린 살짝 들뜬 코믹한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>절정(박에서 나온 도깨비들)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">쩌억— 박이 갈라지자, 이번엔 금은보화 대신 도깨비들이 우르르 튀어나왔어요! "욕심쟁이 놀부야, 골탕 먹어라!" 방망이를 휘휘, 놀부 집 마당은 순식간에 뒤죽박죽. 놀부는 엉덩방아를 콩! 찧었지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 박에서 도깨비들이 쏟아져 나오는 왁자지껄 코믹 절정.<br/><b>장소·시간</b> 놀부네 기와집 마당, 낮. 소란스럽고 우스꽝스러운 공기.<br/><b>인물</b> 갈라진 박에서 Dokkaebi(도깨비) 여러 마리가 우르르 튀어나와 저마다 방망이를 휘휘 흔들며 장난스럽게 활짝 웃음(전혀 무섭지 않고 통통하고 귀엽게). Nolbu(놀부)는 화면 앞쪽에서 두 팔을 허우적대며 엉덩방아를 찧고 눈이 뱅글뱅글, 갓이 벗겨져 날아가는 코믹한 놀란 표정. NolbuWife(놀부 아내)는 옆에서 비녀가 삐뚤어진 채 입을 딱 벌리고 발을 동동.<br/><b>배경·소품</b> 두 쪽 난 큰 박, 마당에 널브러진 장독·소반이 데굴데굴, 공중에 만화적인 '뿅뿅' 별·소용돌이 효과, 기와집과 곳간. (해코지가 아니라 장난스러운 골탕임이 분명히 보이게.)<br/><b>톤</b> 밝은 낮 햇빛에 왁자한 소동, 무섭지 않고 폭소를 자아내는 명랑 코믹 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P14, P15 -->
+<div class="page-card" data-page="p14">
+  <div class="page-head"><span class="pnum">P14</span><b>결말(놀부의 뉘우침)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">엉덩이를 문지르던 놀부는 그제야 부끄러워졌어요. "내가 너무 욕심을 부렸구나… 흥부에게 미안해." 눈물이 찔끔 났어요. 그 마음을 알았는지, 도깨비들은 씩 웃고는 스르륵 사라졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 아이레벨. 뉘우치는 놀부의 표정이 화면을 채움.<br/><b>장소·시간</b> 놀부네 기와집 마당, 소동이 잦아든 늦은 오후. 차분해진 뉘우침의 공기.<br/><b>인물</b> Nolbu(놀부)는 화면 중앙에서 땅에 주저앉아 엉덩이를 한 손으로 문지르며 고개를 푹 숙이고, 눈가에 눈물이 찔끔 맺힌 부끄러운 표정으로 "미안해" 하듯 입을 오므림. 뒤쪽에서 Dokkaebi(도깨비) 한둘이 방망이를 어깨에 걸치고 씩 웃으며 몸이 반쯤 투명해져 스르륵 사라지는 중. NolbuWife(놀부 아내)도 옆에서 머쓱하게 고개를 숙임.<br/><b>배경·소품</b> 어질러졌다 조금 정돈되어 가는 마당, 두 쪽 난 박, 벗겨졌던 갓이 발치에, 노을빛 하늘, 사라지는 도깨비의 옅은 반짝임 자국.<br/><b>톤</b> 부드러운 오후 노을빛, 소란 뒤의 잔잔한 반성, 부끄럽지만 마음이 풀리는 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p15">
+  <div class="page-head"><span class="pnum">P15</span><b>결말(형제의 화해)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">소식을 들은 흥부는 한걸음에 달려와 형의 손을 꼭 잡았어요. "형님, 우리 함께 나눠요!" 흥부는 쌀도 엽전도 형과 나누었지요. 그날부터 두 형제는 오순도순, 오래오래 정답게 살았답니다. 마음을 나누면 복도 두 배가 된대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 두 가족이 손을 맞잡고 화해하는 훈훈한 마무리 컷.<br/><b>장소·시간</b> 흥부네와 놀부네 사이 마을 마당, 화창한 낮. 화해의 벅차고 따뜻한 공기.<br/><b>인물</b> HeungbuRich(부자 흥부)는 화면 왼쪽에서 두 손으로 형 Nolbu(놀부)의 손을 꼭 맞잡고 환하게 웃음, 복 받아 깨끗하고 넉넉한 좋은 한복 차림이지만 얼굴은 예전 그대로 따뜻하고 겸손함(거만하지 않게). Nolbu(놀부)는 오른쪽에서 겸연쩍지만 마음이 풀린 미소로 동생의 손을 마주 잡음. HeungbuWifeRich(부자 흥부 아내)는 고운 치마저고리 차림으로 뒤에서 NolbuWife(놀부 아내)와 서로 마주 보며 다정하게 웃고, 곁의 Swallow(제비)가 머리 위를 빙글 돌며 지저귐.<br/><b>배경·소품</b> 두 사람 사이에 흥부가 나눠 온 쌀자루와 <b>엽전(yeopjeon)</b> 꾸러미, 뒤로 복 받아 말끔히 새로 단장한 흥부네 집과 놀부네 기와집이 나란히, 하늘에 옅은 무지갯빛, 박넝쿨과 장독대, 파란 하늘과 흰 구름.<br/><b>톤</b> 밝고 화창한 낮 햇빛, 형제애가 피어나는 뭉클하고 따뜻한 마무리 정서, 넉넉한 흙빛과 한지 크림색.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 흥부와 놀부 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: Warm Korean traditional storybook illustration for ages 5-7 — soft hand-painted watercolor with colored-pencil texture on gentle hanji-paper grain, visible brush washes and soft edges, rounded friendly huggable forms with gentle rosy cheeks. Tender, cozy picture-book warmth.",
+    "PALETTE: rich but cozy earth tones — hanji-paper cream (#F6EFE0), warm ochre and persimmon, jade green (#1F7A6D), vermilion (#CF4B34), gold ochre (#C79A3E), soft indigo.",
+    "LIGHTING: soft, even, warm daylight; gentle natural shadows, no harsh contrast, no drama lighting.",
+    "SETTING: old Korean folk village true to the Joseon countryside — thatched-roof cottages (초가집), tiled-roof houses (기와집), earthen-jar terraces (장독대), gourd vines (박넝쿨), low mountains and pine trees, dirt yards. Everyone wears traditional hanbok.",
+    "CHARACTER DESIGN (cute storybook, ages 5–7): gently stylized, warm and rounded — soft rounded forms, smooth simple features, kind friendly eyes (expressive, not huge baby eyes), soft rosy cheeks, warm gentle smiles. Grown-up characters MUST read clearly as ADULTS, not babies: near-adult proportions with only mild stylization — head about 1/5 to 1/6 of standing height (NOT 1/4, NOT chibi, NOT toddler), a grown person's height and build, a mature-but-soft kind face. Age-accurate: Heungbu is a young father, Nolbu a grown man. Cute and huggable in spirit but never infantile.",
+    "NOT: flat vector, NOT glossy 3D CG, NOT anime cel-shading, NOT photoreal, NOT baby/toddler or super-deformed chibi proportions for adults, NOT dark or scary. No modern objects.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'HeungbuPoor',     name: '가난한 흥부',      desc: '착한 동생(가난) — 기운 소박한 한복·짚신, 온화한 미소',            aliases: ['HeungbuPoor'] },
+    { token: 'HeungbuRich',     name: '부자 흥부',        desc: '복 받은 흥부 — 넉넉한 좋은 한복, 같은 따뜻한 얼굴(거만 X)',       aliases: ['HeungbuRich'] },
+    { token: 'Nolbu',           name: '놀부',            desc: '욕심쟁이 형 — 번들거리는 진초록·금빛 한복, 새침·코믹',            aliases: ['Nolbu'] },
+    { token: 'HeungbuWifePoor', name: '가난한 흥부 아내', desc: '고운 아내(가난) — 기운 치마저고리, 낮은 쪽머리·앞치마',           aliases: ['HeungbuWifePoor'] },
+    { token: 'HeungbuWifeRich', name: '부자 흥부 아내',   desc: '복 받은 아내 — 고운 치마저고리, 같은 따뜻한 얼굴',                aliases: ['HeungbuWifeRich'] },
+    { token: 'NolbuWife',       name: '놀부 아내',        desc: '새침한 아내 — 화려한 자두빛 한복, 비녀',                          aliases: ['NolbuWife'] },
+    { token: 'Swallow',         name: '제비',            desc: '은혜 갚는 제비 — 남색 등·크림 배·갈래꼬리, 둥근 그림책 톤',       aliases: ['Swallow'] },
+    { token: 'Dokkaebi',        name: '도깨비',          desc: '장난꾸러기 도깨비 — 뿔 하나·방망이, 무섭지 않고 코믹',            aliases: ['Dokkaebi'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

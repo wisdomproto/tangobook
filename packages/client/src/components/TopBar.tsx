@@ -26,6 +26,18 @@ const RESOURCES: ResourceItem[] = [
     desc: '무지개반 + 양 선생님 · 유치원 적응·사회정서 20편 (대발이 유치원동화 역설계) + 회차별 대본(☰ 회차)',
   },
   {
+    href: '/jeonrae-plan.html',
+    icon: '🏮',
+    label: '탱고북 전래동화 기획서',
+    desc: '우리 옛이야기 순수 각색 · 5~7세 · 시장조사·순화정책·작법 + 20편 커리큘럼(인기도 순)',
+  },
+  {
+    href: '/jeonrae-heungbu.html',
+    icon: '🏠',
+    label: '전래동화 1 · 흥부와 놀부',
+    desc: '15스프레드 대본 + 등장인물 8(가난/부자 상태별)·핵심단어 5 + 전체 프롬프트 복사(☰ 회차)',
+  },
+  {
     href: '/learning-comic-franchise.html',
     icon: '🗺️',
     label: '학습만화 「타임 티코」 프랜차이즈',

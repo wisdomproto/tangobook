@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 시리즈 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade: #1f7a6d; --jade-dark: #145c52; --vermilion: #cf4b34; --gold: #c79a3e;
+    --hanji: #f6efe0; --paper: #fffdf7; --ink: #2a2620; --ink-soft: #6d645a;
+    --line: #e7dcc6; --mint: #2fa38f; --sky: #eaf3ef;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--hanji); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; position: sticky; top: 0; z-index: 20; background: var(--hanji); padding: 10px 0; border-bottom: 2px solid var(--line); }
+  nav.tabs a { text-decoration: none; font-weight: 800; font-size: 14px; color: var(--ink-soft); background: var(--paper); border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 18px; }
+  nav.tabs a.active { background: var(--jade); border-color: var(--jade); color: #fff; }
+  header.hero { text-align: center; padding: 40px 0; border-bottom: 3px solid var(--jade); margin-bottom: 40px; }
+  .hero .kicker { color: var(--vermilion); font-weight: 800; letter-spacing: .2em; font-size: 13px; }
+  .hero h1 { font-size: 44px; font-weight: 900; margin: 10px 0 6px; }
+  .hero .sub { color: var(--ink-soft); font-size: 16px; font-weight: 600; }
+  .hero .meta { margin-top: 18px; font-size: 13px; color: var(--ink-soft); }
+  nav.toc { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 20px 24px; margin-bottom: 48px; }
+  nav.toc b { display:block; margin-bottom: 8px; color: var(--jade-dark); }
+  nav.toc a { color: var(--ink); text-decoration: none; font-weight: 600; font-size: 14px; }
+  nav.toc a:hover { color: var(--vermilion); }
+  nav.toc ol { padding-left: 20px; }
+  h2 { font-size: 26px; font-weight: 900; margin: 64px 0 8px; padding-top: 16px; border-top: 2px solid var(--line); }
+  h2 .no { color: var(--jade); margin-right: 8px; }
+  h3 { font-size: 18px; font-weight: 800; margin: 28px 0 8px; color: var(--jade-dark); }
+  p { margin: 8px 0; }
+  .lead { font-size: 16px; color: var(--ink-soft); font-weight: 600; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; background: var(--paper); font-size: 13.5px; }
+  th { background: var(--sky); text-align: left; padding: 9px 12px; font-weight: 800; }
+  td { border-top: 1px solid var(--line); padding: 9px 12px; vertical-align: top; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 20px 24px; margin: 16px 0; }
+  .card.accent { border-left: 5px solid var(--jade); }
+  .card.vermilion { border-left: 5px solid var(--vermilion); }
+  .card.gold { border-left: 5px solid var(--gold); }
+  .rule { display:flex; gap:12px; margin: 10px 0; }
+  .rule .n { flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--jade); color:#fff; font-weight: 900; display:flex; align-items:center; justify-content:center; }
+  .tag { display:inline-block; background: var(--sky); color: var(--jade-dark); border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 800; margin-right: 6px; }
+  .tag.t1 { background:#fdeee9; color: var(--vermilion); }
+  .tag.t2 { background:#fbf3df; color: #9a7620; }
+  .note { font-size: 13px; color: var(--ink-soft); background: var(--sky); border-radius: 10px; padding: 10px 14px; margin: 12px 0; }
+  .copy-btn { background: var(--paper); color: var(--mint); border: 1.5px solid var(--mint); border-radius: 999px; padding: 4px 14px; font-weight: 800; font-size: 12.5px; cursor: pointer; }
+  .copy-btn:hover, .copy-btn.done { background: var(--mint); color: #fff; }
+  .char-prompt { margin: 14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .char-prompt .head b { font-size: 15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt details { margin-top: 8px; }
+  .char-prompt summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--ink-soft); }
+  .char-prompt pre { white-space: pre-wrap; background: var(--hanji); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: inherit; font-size: 13px; line-height: 1.7; margin-top: 6px; }
+  .paste-box { position: relative; border: 2px dashed var(--line); border-radius: 10px; min-height: 72px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--ink-soft); font-weight: 700; cursor: pointer; outline: none; padding: 8px; background: #fffdf7; margin-top: 10px; }
+  .paste-del { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(42,38,32,.6); color: #fff; font-size: 12px; font-weight: 800; cursor: pointer; line-height: 1; }
+  .paste-del:hover { background: var(--vermilion); }
+  .paste-box:focus { border-color: var(--jade); color: var(--jade-dark); }
+  .paste-box.has-img { padding: 0; min-height: 0; border-style: solid; border-color: var(--mint); }
+  .paste-box img { width: 100%; border-radius: 8px; display: block; }
+  .paste-box.busy { opacity: .5; }
+  footer { margin-top: 80px; text-align: center; color: var(--ink-soft); font-size: 12px; }
+  @media print { body { background:#fff } .wrap { max-width: none; padding: 0 } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화</div>
+  <h1>탱고북 전래동화</h1>
+  <div class="sub">우리 옛이야기를 5~7세 눈높이로 다시 그린 그림책 — 시리즈 기획서</div>
+  <div class="meta">v1.2 · 2026-07-16 · 대상: 5~7세 코어 · 시즌1 = 20편 · 분량 = 이야기별 가변(10~16스프레드) · 순수 각색형(세계명작 라이브러리와 같은 결) · 편당 핵심단어 = 전통 공예 사물(문화 수출) · 편마다 comic-editor 검수 필수 · 회차별 대본은 준비되는 대로 상단 탭</div>
+</header>
+
+<nav class="toc">
+  <b>차례</b>
+  <ol>
+    <li><a href="#s1">시리즈 개요 &amp; 포지셔닝</a></li>
+    <li><a href="#s2">시장·인기도 분석 (3사 실측)</a></li>
+    <li><a href="#s3">각색·순화 정책 (전래동화 핵심)</a></li>
+    <li><a href="#s4">작법 공식 (옛이야기 5비트 + 7규칙)</a></li>
+    <li><a href="#s5">20편 커리큘럼 (인기도 순)</a></li>
+    <li><a href="#s6">그림체 &amp; 편별 캐스트 모델</a></li>
+    <li><a href="#s7">핵심단어 — 전통 공예 사물 (문화 수출)</a></li>
+    <li><a href="#s8">회차별 대본 → 상단 탭</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<h2 id="s1"><span class="no">1</span>시리즈 개요 &amp; 포지셔닝</h2>
+<p class="lead">"흥부와 놀부, 도깨비방망이… 누구나 아는 우리 옛이야기를, 무섭지 않고 따뜻하게 다시 그린다."</p>
+<table>
+  <tr><th style="width:130px">형태</th><td>탱고북 앱 내 그림책 — 기존 뷰어·TTS 그대로 사용 (한 스프레드 = 큰 그림 1컷 + 하단 텍스트, 탭 시 낭독)</td></tr>
+  <tr><th>타겟</th><td><b>5~7세 코어</b> (4~8세 확장). 세계명작을 읽는 독서 연령대와 동일 — 호리 생활동화(3~5세)보다 위로 스펙트럼 확장</td></tr>
+  <tr><th>규모</th><td>시즌1 = <b>20편</b>. <b>분량은 이야기별 가변</b>(대략 10~16스프레드) — 단순한 옛이야기는 짧게, 서사가 풍부한 편은 넉넉히. 정전(canon) 위주라 이야기마다 등장인물이 다름</td></tr>
+  <tr><th>포지션</th><td><b>순수 각색형</b> — 마스코트·호스트 없이 이야기 자체에 집중. 라이브러리 <b>「세계 명작」과 나란한 새 카테고리 「우리 옛이야기(전래동화)」</b></td></tr>
+  <tr><th>제작</th><td>대본(텍스트·프롬프트) 전량 선행 완성 → 이미지 AI 생성은 마지막 단계 (호리 라인과 동일 파이프라인)</td></tr>
+  <tr><th>학습 연계</th><td>편당 <b>핵심단어 5개 내외 = 전통 공예·생활 사물</b>(한복·꽃신·가마솥·지게·베틀…) → 탱고북 단어익히기·어휘게임에 연동 + 다국어(en·vi·zh·th)로 <b>한국 문화 수출</b>. 상세 <a href="#s7" style="color:var(--vermilion);font-weight:800">7장</a></td></tr>
+</table>
+<div class="card accent">
+  <b>차별점:</b> 유튜브 전래동화 시장은 핑크퐁·깨비키즈式 <b>양산형 애니메이션</b>이 지배한다. 우리는 세계명작 라이브러리처럼 <b>정통 "그림책" 톤 + 여러 그림체 표지 + 다국어(한·영·베·중·태)</b>로 결을 달리한다. 애니가 아닌, "부모가 아이에게 읽어주는 우리 옛이야기 그림책".
+</div>
+<div class="note">🐯 <b>왜 마스코트를 안 얹나?</b> 초기 검토에서 "이야기꾼 호리"를 도입/마무리에 넣는 안이 있었으나, 전래동화의 타겟(5~7세)이 호리(3~5세)와 달라 브랜드 톤이 어긋난다. 세계명작과 같은 순수 각색이 더 깔끔하고 확장성이 높다고 판단.</div>
+
+<!-- ============================================================ -->
+<h2 id="s2"><span class="no">2</span>시장·인기도 분석 — 3사 실측</h2>
+<p class="lead">유튜브 전래동화 시장 3대 브랜드(핑크퐁·깨비키즈·지니키즈)의 실제 편성·조회수를 교차 분석해 "시장 검증된 정전"을 역설계했다(2026-07-16).</p>
+
+<h3>발견 1 — 핵심 정전은 3사가 완전히 수렴</h3>
+<p>흥부와 놀부 · 콩쥐팥쥐 · 혹부리 영감 · 호랑이와 곶감 · 선녀와 나무꾼 · 도깨비방망이 · 방귀쟁이 며느리 · 금도끼 은도끼 — 이 8편은 세 브랜드 모두가 편성. <b>= 시장 표준 정전.</b> 우리 20편 리스트의 뼈대로 삼는다.</p>
+
+<h3>발견 2 — 조회수 헤드라인 = 인지도 최상위 신호</h3>
+<table>
+  <tr><th>작품</th><th>인기 근거 (썸네일 헤드라인 = 최상위 인지도)</th></tr>
+  <tr><td><b>도깨비 방망이</b></td><td>핑크퐁 전래동화 모음집 <b>620만 뷰</b> 헤드라인 1번</td></tr>
+  <tr><td><b>팥죽 할멈과 호랑이</b></td><td>핑크퐁 620만 뷰 헤드라인</td></tr>
+  <tr><td><b>방귀쟁이 며느리</b></td><td>핑크퐁 620만 + 신비아파트 130만 헤드라인 (양쪽 채택)</td></tr>
+  <tr><td><b>흥부와 놀부</b></td><td>핑크퐁 옛날이야기 40편 모음 <b>대표 타이틀</b> 130만 뷰</td></tr>
+  <tr><td><b>금도끼 은도끼</b></td><td>예림TV 170만 헤드라인 + 교보 추천</td></tr>
+  <tr><td><b>토끼와 자라</b>(별주부전)</td><td>신비아파트 130만 헤드라인 (토끼의 간)</td></tr>
+  <tr><td><b>혹부리 영감</b></td><td>신비 헤드라인 + 교보 수상작(노마콩쿠르)</td></tr>
+  <tr><td><b>청개구리</b></td><td>핑크퐁 「오싹오싹 전래동화」 헤드라인</td></tr>
+</table>
+
+<h3>발견 3 — 브랜드 카탈로그 규모 = 시장 큐레이션 기준</h3>
+<div class="card gold">
+  <b>깨비키즈</b>(유아교육 사이트 1위 표방): 앱 총 230편 중 <b>전래동화 40편</b> 편성. 정전 + 자체 스핀오프(흥부와 놀부의 자식들 등).<br>
+  <b>핑크퐁</b>: 「전래동화」 재생목록 <b>33편</b> — "유아 교육 전문가 자체 제작"이라 유아 적합성 검증된 큐레이션.<br>
+  → 우리 <b>시즌1 20편</b>은 시장 핵심 정전을 놓치지 않으면서, 대본 품질에 집중할 수 있는 현실적 규모.
+</div>
+<div class="note">근거 출처: 핑크퐁 전래동화 모음집(620만) · 옛날이야기 40편(130만) · 신비아파트 전래동화(130만) · 예림TV 금도끼은도끼(170만) · 깨비키즈 kebikids.com 전래동화 카탈로그 · 교보문고 전래동화 유아 카테고리 (2026-07-16 조사).</div>
+
+<!-- ============================================================ -->
+<h2 id="s3"><span class="no">3</span>각색·순화 정책 — 전래동화의 핵심 엔진</h2>
+<p class="lead">전래동화 원작 상당수는 유아에게 그대로 보여줄 수 없다. 시중 전래동화는 <b>전부 순화된 버전</b>이다. 우리의 순화 원칙을 못 박아, 편마다 흔들리지 않게 한다.</p>
+
+<div class="card vermilion">
+  <b>왜 순화가 필수인가:</b> 콩쥐팥쥐 원작은 팥쥐를 젓갈로 담가 그 어미에게 먹인다. 해와 달이 된 오누이 원작은 호랑이가 어머니를 잡아먹고 그 옷을 입고 찾아온다. → <b>죽음·폭력의 직접 묘사는 5~7세에 부적합.</b> 그러나 지나친 각색은 옛이야기의 해학과 교훈이라는 정체성을 잃는다. 그 사이를 잡는 게 이 정책이다.
+</div>
+
+<div class="rule"><div class="n">1</div><div><b>죽음·폭력의 직접 묘사 제거.</b> "잡아먹다·죽이다·젓갈" → "쫓아오다·혼나다·멀리 떠나다"로. 위협은 그림자·거리감으로 암시하되 직접 그리지 않는다.</div></div>
+<div class="rule"><div class="n">2</div><div><b>악역의 벌 = 코믹한 골탕 + 뉘우침.</b> 놀부 박 → 도깨비가 나와 "욕심을 버려라!" 하며 우스꽝스럽게 골탕. 잔혹한 응징 대신 부끄러움과 반성.</div></div>
+<div class="rule"><div class="n">3</div><div><b>결말 = 권선징악 유지 + 화해의 여지.</b> 착한 이는 복 받고 나쁜 이는 벌 받되, 마지막엔 뉘우침·용서·도움으로 따뜻하게 닫는다(현대 전래동화 표준).</div></div>
+<div class="rule"><div class="n">4</div><div><b>공포는 유머·상상으로 완충.</b> 호랑이는 무섭지만 어리숙하게(호랑이와 곶감), 도깨비는 무섭기보다 장난꾸러기로. 무서운 소재를 웃음으로 뒤집는다.</div></div>
+<div class="rule"><div class="n">5</div><div><b>5~7세 문장 + 옛이야기 리듬.</b> 짧고 또렷한 문장, "슬근슬근 톱질하세" 같은 <b>반복 리듬·의성어·의태어</b>를 살려 낭독의 맛을 낸다.</div></div>
+<div class="rule"><div class="n">6</div><div><b>옛이야기 정체성은 보존.</b> 한복·초가집·기와집·엽전·박넝쿨 등 전통 배경을 고증하고, 원작의 해학과 교훈은 남긴다. "순화"가 "탈색"이 되지 않게.</div></div>
+
+<!-- ============================================================ -->
+<h2 id="s4"><span class="no">4</span>작법 공식 — 옛이야기 5비트 + 7규칙</h2>
+<p class="lead">전래동화는 민담 구조라 호리(일상→문제→해결)와 다르다. 옛이야기 고유의 아크를 가변 분량(10~16스프레드)에 얹는다.</p>
+
+<h3>5비트 아크 (전편 고정)</h3>
+<div class="card">
+  <p><b>① 옛날옛적(도입)</b> — "옛날 옛날 아주 먼 옛날에~" 정형구로 열고 인물·상황을 소개 → <b>② 발단(선/악 대비)</b> — 착한 이와 욕심쟁이, 가난과 시련을 세운다 → <b>③ 사건·시련</b> — 제비 다리, 박씨, 요술 방망이 등 이야기의 엔진 → <b>④ 절정</b> — 박 타기·요술·대결의 결정적 장면(반복 리듬 후렴 절정) → <b>⑤ 결말</b> — 권선징악 + 한 줄 교훈 + 여운("그래서 오래오래 행복하게 살았답니다").</p>
+</div>
+
+<h3>7규칙</h3>
+<div class="rule"><div class="n">1</div><div><b>도입 정형구.</b> "옛날 옛날에~"로 시작 = 옛이야기의 각인 신호.</div></div>
+<div class="rule"><div class="n">2</div><div><b>선인/악인 대비를 1~2쪽 안에.</b> 5~7세가 "누가 착하고 누가 욕심쟁이인지" 곧바로 알게.</div></div>
+<div class="rule"><div class="n">3</div><div><b>반복 리듬·의성어 후렴 1개.</b> 편마다 낭독 후렴(예: 박 타기 "슬근슬근 톱질하세, 스르릉 슬근!"). 아이가 따라 하게.</div></div>
+<div class="rule"><div class="n">4</div><div><b>순화 6원칙 준수</b>(3장). 죽음·폭력 직접 묘사 금지, 벌은 코믹+뉘우침.</div></div>
+<div class="rule"><div class="n">5</div><div><b>절정은 시각적 한 장면으로.</b> 박에서 보물이 쏟아지는 컷처럼, 그림책의 "펼침면 한 방"을 만든다.</div></div>
+<div class="rule"><div class="n">6</div><div><b>결말 = 교훈 1줄 + 여운.</b> 설교가 아니라 이야기가 남기는 감정으로. "정직하면 복이 온대요" 정도로 가볍게.</div></div>
+<div class="rule"><div class="n">7</div><div><b>전통 배경 고증.</b> 한복·초가집·기와집·엽전·장독대·박넝쿨 — 매 편 "우리 옛날"의 정취를 유지(브랜드 정체성).</div></div>
+
+<h3>분량 &amp; 검수 원칙</h3>
+<div class="card gold">
+  <b>① 분량은 가변 — "적당히".</b> 고정 쪽수를 두지 않는다(타임티코 "36쪽 고정" = 늘어짐의 주범 교훈). <b>이야기 논리가 요구하는 만큼만.</b> 대략 10~16스프레드:<br>
+  · <b>짧게(10~11)</b> = 단순 구조 (금도끼 은도끼·방귀쟁이 며느리·호랑이와 곶감)<br>
+  · <b>표준(12~13)</b> = 대부분의 정전<br>
+  · <b>넉넉히(14~16)</b> = 서사·인물이 풍부한 편 (흥부와 놀부·해와 달이 된 오누이·콩쥐 팥쥐)<br>
+  🔴 <b>늘어짐 금지</b>(같은 사건·감정 반복으로 쪽 때우기 X) · <b>비약 금지</b>(논리 단계 생략 X). 5비트 아크는 유지하되 비트 안 장면 수를 이야기에 맞춰 조절.
+</div>
+<div class="card vermilion">
+  <b>② 검수 필수 — 예외 없음.</b> 모든 편은 <b>comic-writer 집필 → comic-editor 검수</b>를 거친다. 검수 축 = <b>순화 6원칙 준수 · 5~7세 적합성 · 전통 고증(한복·사물) 정확성 · 5비트 아크 완성도 · 분량 적정성(늘어짐/비약)</b>. <b>P0/P1 0건</b>이 되어야 그 편 완료(호리·타임티코와 동일 규율).
+</div>
+
+<!-- ============================================================ -->
+<h2 id="s5"><span class="no">5</span>20편 커리큘럼 — 인기도 순</h2>
+<p class="lead">시장 조사(2장) 기반 인기도 순 배치. Tier 1(8편) = 파일럿 우선 집필 대상. 각 편 = 교훈 + 순화 포인트.</p>
+
+<h3>🥇 Tier 1 — 시장 검증 최상위 (파일럿 코어 8편)</h3>
+<table>
+  <tr><th style="width:34px">#</th><th>작품</th><th>교훈</th><th>순화 포인트</th></tr>
+  <tr><td>1</td><td><b>흥부와 놀부</b></td><td>선행·형제애</td><td>놀부 박 → 도깨비 골탕 + 놀부 뉘우침·화해</td></tr>
+  <tr><td>2</td><td><b>도깨비방망이</b></td><td>정직·욕심 경계</td><td>욕심쟁이의 벌은 코믹하게(혹 붙이기式)</td></tr>
+  <tr><td>3</td><td><b>팥죽 할멈과 호랑이</b></td><td>지혜·협동</td><td>호랑이는 어리숙·골탕, 위협은 유머로</td></tr>
+  <tr><td>4</td><td><b>방귀쟁이 며느리</b></td><td>유머·있는 그대로</td><td>순함 — 유쾌함 그대로</td></tr>
+  <tr><td>5</td><td><b>금도끼 은도끼</b></td><td>정직</td><td>순함 — 그대로 OK</td></tr>
+  <tr><td>6</td><td><b>토끼와 자라</b>(별주부전)</td><td>지혜·기지</td><td>용왕 병환·간 적출 위협 → 톤 가볍게, 토끼 꾀 중심</td></tr>
+  <tr><td>7</td><td><b>혹부리 영감</b></td><td>정직·욕심 경계</td><td>순함 — 도깨비 코믹</td></tr>
+  <tr><td>8</td><td><b>말 안 듣는 청개구리</b></td><td>부모 말 소중함</td><td>어머니 죽음 → "멀리 떠남/그리움"으로 완화, 애틋하게</td></tr>
+</table>
+
+<h3>🥈 Tier 2 — 정전 필수 (7편)</h3>
+<table>
+  <tr><th style="width:34px">#</th><th>작품</th><th>교훈</th><th>순화 포인트</th></tr>
+  <tr><td>9</td><td><b>해와 달이 된 오누이</b></td><td>용기·지혜</td><td>🔴 호랑이가 엄마 잡아먹음 → "엄마를 쫓아옴"으로, 동아줄 결말은 희망차게</td></tr>
+  <tr><td>10</td><td><b>콩쥐 팥쥐</b></td><td>착함·인내</td><td>🔴 젓갈 결말 삭제 → 팥쥐·계모 반성/화해</td></tr>
+  <tr><td>11</td><td><b>선녀와 나무꾼</b></td><td>약속·그리움</td><td>사슴 보은 중심, 결말 밝게(가족 재회 여지)</td></tr>
+  <tr><td>12</td><td><b>호랑이와 곶감</b></td><td>유머·용기</td><td>순함 — 호랑이 어리숙함이 웃음 포인트</td></tr>
+  <tr><td>13</td><td><b>은혜 갚은 까치</b></td><td>은혜·보은</td><td>구렁이 위협 완화, 까치의 희생은 애틋하게</td></tr>
+  <tr><td>14</td><td><b>젊어지는 샘물</b></td><td>욕심 경계·나눔</td><td>욕심쟁이가 아기 됨 → 코믹, 이웃이 돌봐줌</td></tr>
+  <tr><td>15</td><td><b>견우와 직녀</b></td><td>사랑·약속·성실</td><td>순함 — 칠월칠석 오작교의 서정</td></tr>
+</table>
+
+<h3>🥉 Tier 3 — 20편 채움 (5편)</h3>
+<table>
+  <tr><th style="width:34px">#</th><th>작품</th><th>교훈</th><th>순화 포인트</th></tr>
+  <tr><td>16</td><td><b>우렁각시</b></td><td>사랑·성실</td><td>순함 — 따뜻한 결말로</td></tr>
+  <tr><td>17</td><td><b>재주 많은 삼형제</b></td><td>협동·개성</td><td>순함 — 저마다의 재주로 힘 합치기</td></tr>
+  <tr><td>18</td><td><b>임금님 귀는 당나귀 귀</b></td><td>정직·유머</td><td>순함 — 대나무숲의 비밀이 유쾌</td></tr>
+  <tr><td>19</td><td><b>소가 된 게으름뱅이</b></td><td>근면</td><td>소가 되는 벌 → 꿈/상상처럼 코믹하게, 뉘우침</td></tr>
+  <tr><td>20</td><td><b>의좋은 형제</b></td><td>형제애·나눔</td><td>순함 — 볏단 나르기의 훈훈함</td></tr>
+</table>
+
+<div class="note">⬜ <b>대본 상태 — 착수 전.</b> 이 기획서 승인 후 집필 시작. 워크플로우 = <b>comic-writer(전래동화 집필) → comic-editor(순화·연령·고증 검수)</b>. Tier 1의 8편을 파일럿으로 먼저 완성해 톤을 확정한 뒤 나머지 12편 확장.</div>
+
+<!-- ============================================================ -->
+<h2 id="s6"><span class="no">6</span>그림체 &amp; 편별 캐스트 모델</h2>
+<p class="lead">호리는 고정 앙상블 8인을 전권 재사용했지만, 전래동화는 <b>편마다 등장인물이 다르다.</b> 그래서 "공통 스타일 앵커 1개 + 편별 캐스트 정의" 모델로 간다(학습만화 EP_GUESTS 방식).</p>
+
+<h3>공통 스타일 앵커 <button class="copy-btn" id="copy-style">스타일 복사 ⧉</button></h3>
+<p style="font-size:13px;color:var(--ink-soft)">모든 편·모든 컷에 붙는 시각 기준. 따뜻한 수채 그림책풍 + 한국 전통 정취. 세계명작 라이브러리와 결을 맞추되 "우리 옛날"의 색을 얹는다. (그림체는 확정 전 — 라이브러리 기존 그림체(수채·페이퍼3D·콜라주)와 A/B 후 확정.)</p>
+<div class="char-prompt" data-char="스타일" data-key="style-anchor">
+  <div class="head"><span class="face">🎨</span><b>전래동화 공통 스타일 앵커 (초안)</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre>Style: Warm Korean traditional storybook illustration for ages 5-7 — soft hand-painted watercolor with colored-pencil texture on gentle hanji-paper grain, visible brush washes and soft edges, rounded friendly huggable forms with gentle rosy cheeks. Tender, cozy picture-book warmth.
+PALETTE: rich but cozy earth tones — hanji-paper cream (#F6EFE0), warm ochre and persimmon, jade green (#1F7A6D), vermilion (#CF4B34), gold ochre (#C79A3E), soft indigo.
+LIGHTING: soft, even, warm daylight; gentle natural shadows, no harsh contrast, no drama lighting.
+SETTING: old Korean folk village true to the Joseon countryside — thatched-roof cottages (초가집), tiled-roof houses (기와집), earthen-jar terraces (장독대), gourd vines (박넝쿨), low mountains and pine trees, dirt yards. Everyone wears traditional hanbok.
+CHARACTER DESIGN (cute storybook, ages 5–7): gently stylized, warm and rounded — soft rounded forms, smooth simple features, kind friendly eyes (expressive, not huge baby eyes), soft rosy cheeks, warm gentle smiles. Grown-up characters MUST read clearly as ADULTS, not babies: near-adult proportions with only mild stylization — head about 1/5 to 1/6 of standing height (NOT 1/4, NOT chibi, NOT toddler), a grown person's height and build, a mature-but-soft kind face. Age-accurate (e.g. a young father is a grown man, not a baby). Cute and huggable in spirit but never infantile.
+NOT: flat vector, NOT glossy 3D CG, NOT anime cel-shading, NOT photoreal, NOT baby/toddler or super-deformed chibi proportions for adults, NOT dark or scary. No modern objects.
+CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.</pre></details>
+</div>
+
+<h3>편별 캐스트 정의 (예시 — 흥부와 놀부)</h3>
+<p style="font-size:13px;color:var(--ink-soft)">각 회차 HTML 상단에 그 편의 등장인물 시트를 정의한다. 골든 idle 1장 확정 → 표정/포즈로 확장 → 전 페이지 컷에 ref로 첨부(호리와 동일 방식, 캐스트만 편별).</p>
+
+<div class="char-prompt" data-char="흥부" data-key="ex-heungbu">
+  <div class="head"><span class="face">🧑‍🌾</span><b>흥부 (착한 동생)</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Heungbu — the kind-hearted younger brother, a gentle warm grown-up drawn cute and round (not a realistic adult).
+FACE: warm oval face, soft rounded cheeks, big round friendly eyes with a tender gaze, gentle arched brows, a tiny simple nose, rosy cheek blush, a soft warm closed-mouth smile — an honest, humble air.
+HAIR: black hair in a neat topknot (상투) held by a thin horsehair headband (망건).
+CLOTHES: a threadbare handwoven-cotton (무명) hanbok — an off-white cream jeogori (#EDE4D0) and baggy trousers, faded and patched at elbows and knees with pale faded-indigo scraps (#6E7F94), a hemp waist sash, woven straw sandals (짚신). Poor but clean and dignified, never shabby-scary.
+BUILD & SILHOUETTE: soft rounded build with a mildly stylized adult head and natural adult limbs, a humble slightly-hunched storybook posture; instantly the gentle poor brother (slimmer and softer than the plumper, smug, rounder Nolbu).
+REFERENCE SHEET: one sheet on a plain background — full-body front idle (gentle smile, hands relaxed) + a 3/4 turn + three face close-ups (warm smile / joyful surprise / tender concern). Single character only, no text.
+※ 견본: 구체 색(hex)·옷감명(무명·비단)·머리모양·신발까지 지정하고, 마지막 REFERENCE SHEET 줄에 멀티뷰(정면 idle + 3/4 turn + 표정 클로즈업 3)를 반드시 명시한다.</pre></details>
+</div>
+<div class="char-prompt" data-char="놀부" data-key="ex-nolbu">
+  <div class="head"><span class="face">🧔</span><b>놀부 (욕심쟁이 형)</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Nolbu — the greedy older brother, comically greedy but never scary (a funny pouty rich man).
+FACE: round plump face with a soft double chin, small squinty greedy eyes, one thick raised eyebrow, a smug down-turned pout, ruddy blushing cheeks, a tiny simple nose, a thin sparse mustache (cute-comical, not a realistic adult).
+HAIR: black topknot (상투) with a horsehair headband; often a shiny black horsehair hat (갓) tilted smugly.
+CLOTHES: a well-fed rich look — glossy silk hanbok, deep pine-green jeogori (#1E5A46) and gold-ochre trousers/vest (#C79A3E), embroidered waist sash, leather shoes. Slightly overdressed and gaudy next to Heungbu.
+PROP: almost always holds a long slim tobacco pipe (곰방대).
+BUILD & SILHOUETTE: short, plump and round pot-bellied with a mildly stylized adult head and natural adult limbs — chubbier and rounder than the softer, slimmer Heungbu; cute-comical and huggable, not frightening.
+REFERENCE SHEET: one sheet on a plain background — full-body front idle (smug, one hand on belly, pipe in the other) + a 3/4 turn + three face close-ups (smug pout / greedy delight / comical shock). Single character only, no text.</pre></details>
+</div>
+<div class="char-prompt" data-char="도깨비" data-key="ex-dokkaebi">
+  <div class="head"><span class="face">👹</span><b>도깨비 (놀부 박 · 장난꾸러기)</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Dokkaebi — a Korean goblin, FRIENDLY and mischievous rather than scary, cute-comical (teases the greedy, never hurts).
+FACE: big round googly eyes, a wide goofy toothy grin with one little tusk, chubby ruddy cheeks, a bulbous nose, one small stubby horn on top, wild flame-orange topknot-ish hair. Skin a warm russet-brown (#9C5A3C) with a rosy flush.
+BUILD: short, round, chubby pot-bellied body with stubby limbs — huggable and silly, NOT frightening (no fangs, no menace).
+CLOTHES & PROP: a spotted leopard-print loincloth (호피), and always a knobbly wooden magic club/mallet (도깨비 방망이) studded with little bumps.
+SILHOUETTE: round body + single horn + knobbly club = instantly readable and comic.
+REFERENCE SHEET: one sheet on a plain background — full-body front idle (club over shoulder, playful grin) + a 3/4 turn + three face close-ups (mischievous grin / laughing / surprised). Single character only, no text.</pre></details>
+</div>
+<div class="note">🖼️ 위 박스에 확정된 레퍼런스 시트를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-plan</code>). 편별 회차 HTML이 생기면 그 편 캐스트는 각 회차 파일에 정의(호리 회차 구조와 동일).</div>
+
+<h3>🔴 변신·상태 변형 캐릭터 = 상태별 레퍼런스 필수</h3>
+<div class="card vermilion">
+  전래동화는 <b>같은 인물이 이야기 도중 외형이 크게 바뀌는</b> 경우가 많다(가난↔부자, 평상복↔날개옷, 노인↔아기, 사람↔동물). 이때 <b>레퍼런스 시트를 상태마다 따로</b> 만들고 <b>@image를 분리</b>한다. 안 그러면 한 시트로 전 페이지를 그려 부자 장면에도 누더기 흥부가 나온다.
+  <div style="margin-top:10px;font-size:13px;line-height:1.9">
+    · <b>흥부와 놀부</b> — 가난한 흥부 / 부자 흥부 (아내도 동일). 초가집·기운 한복 ↔ 좋은 한복·넉넉함<br>
+    · <b>선녀와 나무꾼</b> — 선녀 평상복(사람 마을) / 날개옷(선녀)<br>
+    · <b>콩쥐 팥쥐</b> — 콩쥐 누더기 / 원님 만나는 고운 옷<br>
+    · <b>젊어지는 샘물</b> — 할아버지·할머니 / 젊어진 모습 / (욕심쟁이) 아기<br>
+    · <b>소가 된 게으름뱅이</b> — 게으름뱅이(사람) / 소
+  </div>
+  <b style="color:var(--vermilion)">규칙</b> — ① 상태별 카드·붙여넣기 박스를 각각 둔다. ② SCENE의 인식 토큰을 상태별로 구분(예: <code>HeungbuPoor(가난한 흥부)</code> / <code>HeungbuRich(부자 흥부)</code>) — 서로 부분문자열로 겹치지 않게. ③ 각 쪽 SCENE은 그 시점의 상태 토큰만 쓴다(부자 된 뒤 장면 = Rich 토큰). ④ <code>window.JR_EPISODE.cast</code> 에 상태별 항목을 각각 등록(@image 순서에 나란히).
+</div>
+
+<!-- ============================================================ -->
+<h2 id="s7"><span class="no">7</span>핵심단어 — 전통 공예 사물 (문화 수출)</h2>
+<p class="lead">편마다 핵심단어 5개 내외를 <b>한국 전통 공예·생활 사물</b>로 채운다. 옛이야기라는 그릇에 "우리 물건"을 담아, 학습과 문화 전파를 동시에.</p>
+
+<div class="card vermilion">
+  <b>왜 전통 사물인가 — 세 마리 토끼:</b><br>
+  ① <b>학습 연동</b> — 핵심단어(KeyObject)는 탱고북 <b>단어익히기·어휘게임</b>에 그대로 흘러간다(기존 시스템 재사용).<br>
+  ② <b>문화 수출</b> — 해외 아이가 <i>hanbok · jige · gamasot · kkotsin</i> 을 배운다. 일본이 <i>kimono·sushi</i> 를 세계어로 만든 것처럼, 옛이야기가 <b>한국 물질문화의 통로</b>가 된다.<br>
+  ③ <b>다국어 확장</b> — 각 사물의 <code>nameTranslations</code>(en·vi·zh·th)를 채워 5개 언어 어휘로. 고유명은 로마자 음차 + 짧은 설명(예: "jige — a Korean A-frame back carrier").
+</div>
+
+<h3>사물 렌더 무드 — "멋진 현대 한국 전통" <button class="copy-btn" id="copy-object-style">사물 스타일 복사 ⧉</button></h3>
+<p style="font-size:13px;color:var(--ink-soft)">장면 삽화는 5~7세용 <b>따뜻한 그림책 톤</b>을 유지하되, <b>핵심단어 사물 카드</b>는 팝(pop)을 얹는다 — 쨍한 채도, 깔끔한 아이코닉 실루엣, 자개·단청 패턴 악센트, 살짝의 광채. (내부 무드 레퍼런스 = "케데헌" 감성이지만, 🔴 <b>실제 생성 프롬프트엔 영화·작품명을 넣지 않는다</b> — IP 리스크. 아래처럼 묘사어로만.) 🔴 <b>구체 재질·색·형태 원칙</b>: 막연한 "brass coins" 대신 재질·색(가능하면 hex)·형태 디테일까지 지정하고(상평통보 네모 구멍·붉은 실 꿰미, 지게작대기, 짚 어깨끈 등), 형태가 복잡하거나 상태가 둘 이상이면 <b>한 카드에 멀티뷰/멀티상태</b>를 함께 배치한다(호리 캐릭터 시트 수준의 구체성 = 목표).</p>
+<div class="char-prompt" data-char="사물스타일" data-key="object-style-anchor">
+  <div class="head"><span class="face">🏮</span><b>전통 사물 단어카드 스타일 노트</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre>Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary "cool" and proud.
+NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave, silk embroidery).
+Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark.
+OBJECT: {{사물 이름 + 구체 묘사 — 재질·색(가능하면 hex)·형태 디테일}}  e.g. "kkotsin — traditional Korean embroidered flower shoes, silk, upturned toe, red and green floral pattern (#C0392B & #27795B), gold-thread trim".
+MULTI-VIEW (권장): 형태가 복잡하거나 상태가 둘 이상이면 한 카드에 2~3앵글/상태를 함께 배치 (예: 박 = 생박 통째 + 반으로 자른 바가지, 엽전 = 꿰미 + 흩어진 더미).</pre></details>
+</div>
+
+<h3>편별 핵심단어 (전통 사물 큐레이션)</h3>
+<p style="font-size:13px;color:var(--ink-soft)">이야기 배경에 자연스레 등장하는 사물 위주. 의복·신발 / 주방·살림 / 도구·공예로 고루 분포. (집필 시 comic-writer 가 장면에 실제로 등장시키고, 최종 KeyObject 로 확정.)</p>
+<table>
+  <tr><th style="width:34px">#</th><th>작품</th><th>핵심단어 — 전통 공예·생활 사물</th></tr>
+  <tr><td>1</td><td>흥부와 놀부</td><td>박 · 지게 · 톱 · 엽전 · 짚신</td></tr>
+  <tr><td>2</td><td>도깨비방망이</td><td>도깨비방망이 · 호롱불 · 보따리 · 개암 · 곰방대</td></tr>
+  <tr><td>3</td><td>팥죽 할멈과 호랑이</td><td>가마솥 · 맷돌 · 멍석 · 지게 · 소쿠리</td></tr>
+  <tr><td>4</td><td>방귀쟁이 며느리</td><td>치마저고리 · 족두리 · 소반 · 부채 · 놋그릇</td></tr>
+  <tr><td>5</td><td>금도끼 은도끼</td><td>도끼 · 지게 · 짚신 · 물동이 · 무명옷</td></tr>
+  <tr><td>6</td><td>토끼와 자라</td><td>갓 · 도포 · 부채 · 약탕관 · 곰방대</td></tr>
+  <tr><td>7</td><td>혹부리 영감</td><td>갓 · 도포 · 호롱불 · 지팡이 · 초가집</td></tr>
+  <tr><td>8</td><td>말 안 듣는 청개구리</td><td>삿갓 · 도롱이 · 초가집 · 짚신 · 소쿠리</td></tr>
+  <tr><td>9</td><td>해와 달이 된 오누이</td><td>동아줄 · 가마솥 · 떡 · 두레박 · 삼베옷</td></tr>
+  <tr><td>10</td><td>콩쥐 팥쥐</td><td>꽃신 · 옹기항아리 · 베틀 · 호미 · 소쿠리</td></tr>
+  <tr><td>11</td><td>선녀와 나무꾼</td><td>날개옷 · 두레박 · 지게 · 물레 · 비녀</td></tr>
+  <tr><td>12</td><td>호랑이와 곶감</td><td>곶감 · 멍석 · 지게 · 호롱불 · 소달구지</td></tr>
+  <tr><td>13</td><td>은혜 갚은 까치</td><td>종(범종) · 활 · 갓 · 도포 · 봇짐</td></tr>
+  <tr><td>14</td><td>젊어지는 샘물</td><td>물동이 · 표주박 · 지게 · 짚신 · 무명옷</td></tr>
+  <tr><td>15</td><td>견우와 직녀</td><td>베틀 · 실타래 · 소달구지 · 한복 · 부채</td></tr>
+  <tr><td>16</td><td>우렁각시</td><td>소반 · 옹기 · 가마솥 · 조리 · 함지박</td></tr>
+  <tr><td>17</td><td>재주 많은 삼형제</td><td>활 · 그물 · 톱 · 나막신 · 지게</td></tr>
+  <tr><td>18</td><td>임금님 귀는 당나귀 귀</td><td>익선관 · 곤룡포 · 복두 · 갓 · 부채</td></tr>
+  <tr><td>19</td><td>소가 된 게으름뱅이</td><td>소머리탈 · 멍에 · 쟁기 · 지게 · 멍석</td></tr>
+  <tr><td>20</td><td>의좋은 형제</td><td>볏단 · 지게 · 낫 · 멍석 · 초가집</td></tr>
+</table>
+<div class="note">🗂️ <b>어휘 도메인 커버리지</b> — 의복/신발(한복·치마저고리·날개옷·갓·도포·삿갓·도롱이·족두리·비녀·꽃신·짚신·나막신·무명옷·삼베옷·익선관·곤룡포) · 주방/살림(가마솥·맷돌·소반·옹기·놋그릇·물동이·표주박·조리·함지박·두레박) · 도구/공예(지게·톱·도끼·베틀·물레·낫·쟁기·멍에·활·그물·소달구지·멍석·소쿠리·봇짐·엽전·범종). 중복 사물(지게·멍석·갓 등)은 여러 편 반복 노출 = 자연 복습.</div>
+
+<!-- ============================================================ -->
+<h2 id="s8"><span class="no">8</span>회차별 대본 → 상단 탭</h2>
+<p class="lead"><b>시즌1 20편 — 대본 착수 전 ⬜.</b> 이 기획서 승인 후, Tier 1 8편부터 회차별 HTML(페이지별 텍스트 + 장면 프롬프트 5라벨 콘티 + 편별 배치 프롬프트 + 이미지 붙여넣기)을 생성한다. 회차가 생기면 호리처럼 상단 탭·좌측 사이드바(jeonrae-core.js)로 연결.</p>
+<table class="eps">
+  <tr><th style="width:34px">#</th><th>회차</th><th>교훈</th><th style="width:64px;text-align:center">대본</th></tr>
+  <tr><th class="grp" colspan="4" style="background:var(--jade);color:#fff;font-size:13px;padding:9px 12px;font-weight:800">Tier 1 · 파일럿 코어 (8)</th></tr>
+  <tr><td>1</td><td><a href="jeonrae-heungbu.html" style="color:var(--vermilion);font-weight:800;text-decoration:none">🏠 흥부와 놀부</a></td><td>선행·형제애</td><td style="text-align:center;color:var(--mint);font-weight:800">✅</td></tr>
+  <tr><td>2</td><td>🔨 도깨비방망이</td><td>정직·욕심 경계</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>3</td><td>🥣 팥죽 할멈과 호랑이</td><td>지혜·협동</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>4</td><td>💨 방귀쟁이 며느리</td><td>유머·있는 그대로</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>5</td><td>🪓 금도끼 은도끼</td><td>정직</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>6</td><td>🐢 토끼와 자라</td><td>지혜·기지</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>7</td><td>👴 혹부리 영감</td><td>정직·욕심 경계</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>8</td><td>🐸 말 안 듣는 청개구리</td><td>부모 말 소중함</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><th class="grp" colspan="4" style="background:var(--gold);color:#fff;font-size:13px;padding:9px 12px;font-weight:800">Tier 2 · 정전 필수 (7)</th></tr>
+  <tr><td>9</td><td>🌞 해와 달이 된 오누이</td><td>용기·지혜</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>10</td><td>👟 콩쥐 팥쥐</td><td>착함·인내</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>11</td><td>🧚 선녀와 나무꾼</td><td>약속·그리움</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>12</td><td>🐯 호랑이와 곶감</td><td>유머·용기</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>13</td><td>🐦 은혜 갚은 까치</td><td>은혜·보은</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>14</td><td>💧 젊어지는 샘물</td><td>욕심 경계·나눔</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>15</td><td>🌌 견우와 직녀</td><td>사랑·약속</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><th class="grp" colspan="4" style="background:var(--vermilion);color:#fff;font-size:13px;padding:9px 12px;font-weight:800">Tier 3 · 20편 채움 (5)</th></tr>
+  <tr><td>16</td><td>🐚 우렁각시</td><td>사랑·성실</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>17</td><td>👬 재주 많은 삼형제</td><td>협동·개성</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>18</td><td>👑 임금님 귀는 당나귀 귀</td><td>정직·유머</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>19</td><td>🐮 소가 된 게으름뱅이</td><td>근면</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+  <tr><td>20</td><td>🌾 의좋은 형제</td><td>형제애·나눔</td><td style="text-align:center;color:var(--ink-soft)">⬜</td></tr>
+</table>
+
+<footer>탱고북 전래동화 시리즈 기획서 v1.0 · TangoBook Original · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 프롬프트 복사 (개별 + 스타일) ──
+(function () {
+  function flash(btn, label) {
+    var orig = btn.textContent; btn.textContent = label; btn.classList.add('done');
+    setTimeout(function () { btn.textContent = orig; btn.classList.remove('done'); }, 1600);
+  }
+  async function copy(text, btn) {
+    try { await navigator.clipboard.writeText(text); flash(btn, '복사됨 ✓'); }
+    catch (e) { window.prompt('복사가 막혔어요 — 직접 복사하세요:', text); }
+  }
+  document.querySelectorAll('.char-prompt').forEach(function (card) {
+    var btn = card.querySelector('.copy-btn'); var pre = card.querySelector('pre');
+    if (btn && pre) btn.addEventListener('click', function () { copy(pre.textContent, btn); });
+  });
+  var styleBtn = document.getElementById('copy-style');
+  if (styleBtn) styleBtn.addEventListener('click', function () {
+    var anchor = document.querySelector('.char-prompt[data-key="style-anchor"] pre');
+    if (anchor) copy(anchor.textContent.trim(), styleBtn);
+  });
+  var objStyleBtn = document.getElementById('copy-object-style');
+  if (objStyleBtn) objStyleBtn.addEventListener('click', function () {
+    var anchor = document.querySelector('.char-prompt[data-key="object-style-anchor"] pre');
+    if (anchor) copy(anchor.textContent.trim(), objStyleBtn);
+  });
+})();
+
+
+// ── 레퍼런스 이미지 붙여넣기 (R2: comic-assets/jeonrae-plan) ──
+(async function () {
+  var ASSET_API = '/api/comic-assets/jeonrae-plan';
+  var assets = {};
+  try { var r = await fetch(ASSET_API); var j = await r.json(); assets = (j && j.data) || {}; } catch (e) {}
+  function createPasteBox(key) {
+    var box = document.createElement('div');
+    box.className = 'paste-box'; box.tabIndex = 0;
+    var hint = '🖼️ 클릭 후 Ctrl+V — 확정된 레퍼런스 시트 붙여넣기';
+    function reset() { box.classList.remove('has-img'); box.innerHTML = ''; box.textContent = hint; }
+    function setImg(url) {
+      box.classList.add('has-img');
+      box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del">✕</button>';
+      box.querySelector('.paste-del').addEventListener('click', async function (e) {
+        e.stopPropagation(); if (!confirm('이 이미지를 삭제할까요?')) return;
+        try { await fetch(ASSET_API + '/' + key, { method: 'DELETE' }); reset(); } catch (err) { alert('삭제 실패 — 서버(3500) 확인'); }
+      });
+    }
+    if (assets[key]) setImg(assets[key] + '?t=' + Date.now()); else box.textContent = hint;
+    async function upload(file) {
+      if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+      box.classList.add('busy');
+      var fr = new FileReader();
+      fr.onload = async function () {
+        try {
+          var r = await fetch(ASSET_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ key: key, dataUrl: fr.result }) });
+          var j = await r.json();
+          if (j.success) setImg(j.data.url + '?t=' + Date.now()); else alert('저장 실패: ' + (j.error || ''));
+        } catch (e) { alert('저장 실패 — 서버(3500) 확인'); }
+        box.classList.remove('busy');
+      };
+      fr.readAsDataURL(file);
+    }
+    box.addEventListener('paste', function (e) {
+      var items = (e.clipboardData && e.clipboardData.items) || [];
+      for (var i = 0; i < items.length; i++) { if (items[i].type && items[i].type.indexOf('image/') === 0) { e.preventDefault(); upload(items[i].getAsFile()); return; } }
+    });
+    box.addEventListener('dragover', function (e) { e.preventDefault(); });
+    box.addEventListener('drop', function (e) { e.preventDefault(); var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if (f) upload(f); });
+    box.addEventListener('click', function () { box.focus(); });
+    return box;
+  }
+  document.querySelectorAll('.char-prompt[data-key]').forEach(function (card) {
+    card.appendChild(createPasteBox(card.getAttribute('data-key')));
+  });
+})();
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>
