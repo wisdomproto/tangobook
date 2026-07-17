@@ -9,6 +9,9 @@ describe('resolveSeries', () => {
     expect(resolveSeries('육지 동물 친구들')?.key).toBe('nature');
     expect(resolveSeries('공룡 친구들')?.key).toBe('nature');
     expect(resolveSeries('우리 몸 이야기')?.key).toBe('nature');
+    // 저작도구 상수(STORYBOOK_CATEGORIES) 표기 혼용 대비
+    expect(resolveSeries('전래 동화')?.key).toBe('folk');
+    expect(resolveSeries('자연 관찰')?.key).toBe('nature');
   });
 
   it('모르는 카테고리는 null (미분류 노출용)', () => {

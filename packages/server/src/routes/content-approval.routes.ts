@@ -1,29 +1,13 @@
 import { Router, type Request, type Response, type NextFunction } from 'express';
-import axios from 'axios';
-import { uploadJsonToR2, r2PublicUrl } from '../providers/r2.provider.js';
+import { loadApprovals, saveApprovals } from '../services/content-pipeline/approval-store.js';
 
 /**
- * 저작 승인 상태 — editor2 콘텐츠 현황 모달의 유일한 수동 게이트.
- * R2 `_index/content-approval.json` = { bookId: { approvedAt: ISO } }.
+ * 저작 승인 API — editor2 콘텐츠 현황 모달의 유일한 수동 게이트.
+ * R2 저장/조회 로직은 services/content-pipeline/approval-store 에 위임.
  */
 const router = Router();
 
-const KEY = '_index/content-approval.json';
-const BOOK_RE = /^\d{6,20}$/;
-
-export type ApprovalMap = Record<string, { approvedAt: string }>;
-
-export async function loadApprovals(): Promise<ApprovalMap> {
-  try {
-    const res = await axios.get<ApprovalMap>(`${r2PublicUrl}/${KEY}`, {
-      timeout: 5000,
-      params: { t: Date.now() },
-    });
-    return res.data && typeof res.data === 'object' ? res.data : {};
-  } catch {
-    return {};
-  }
-}
+const BOOK_RE = /^\d{6,20}$/; // base storybook id only (variants __L*/phonics 제외)
 
 router.get('/', async (_req: Request, res: Response, next: NextFunction) => {
   try {
@@ -43,9 +27,9 @@ router.put('/', async (req: Request, res: Response, next: NextFunction) => {
       return;
     }
     const map = await loadApprovals();
-    if (approved) map[id] = { approvedAt: new Date().toISOString() };
+    if (approved === true) map[id] = { approvedAt: new Date().toISOString() };
     else delete map[id];
-    await uploadJsonToR2({ ...map }, KEY);
+    await saveApprovals(map);
     res.json({ success: true, data: map });
   } catch (err) {
     next(err);

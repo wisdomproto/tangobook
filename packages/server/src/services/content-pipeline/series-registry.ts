@@ -29,6 +29,7 @@ const NATURE_CATEGORIES = [
   '우리 몸 이야기',
   '우주와 자연',
   '식물 친구들',
+  '자연 관찰', // 저작도구 상수(STORYBOOK_CATEGORIES) 표기 — 실데이터 혼용 대비
 ];
 
 export const SERIES_RULES: SeriesRule[] = [
@@ -65,7 +66,8 @@ export const SERIES_RULES: SeriesRule[] = [
   {
     key: 'folk',
     label: '전래동화',
-    categories: ['전래동화'],
+    // 저작도구 상수는 '전래 동화'(띄어쓰기) — 실데이터 혼용 대비 두 표기 다 매칭
+    categories: ['전래동화', '전래 동화'],
     artStyleMode: 'styles3',
     reelPipeline: 'storyboard',
   },
