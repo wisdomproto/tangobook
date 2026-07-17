@@ -225,16 +225,15 @@
 <p class="lead">호리는 고정 앙상블 8인을 전권 재사용했지만, 전래동화는 <b>편마다 등장인물이 다르다.</b> 그래서 "공통 스타일 앵커 1개 + 편별 캐스트 정의" 모델로 간다(학습만화 EP_GUESTS 방식).</p>
 
 <h3>공통 스타일 앵커 <button class="copy-btn" id="copy-style">스타일 복사 ⧉</button></h3>
-<p style="font-size:13px;color:var(--ink-soft)">모든 편·모든 컷에 붙는 시각 기준. 따뜻한 수채 그림책풍 + 한국 전통 정취. 세계명작 라이브러리와 결을 맞추되 "우리 옛날"의 색을 얹는다. (그림체는 확정 전 — 라이브러리 기존 그림체(수채·페이퍼3D·콜라주)와 A/B 후 확정.)</p>
+<p style="font-size:13px;color:var(--ink-soft)">모든 편·모든 컷에 붙는 시각 기준. <b>그림체 확정(2026-07-17): 햇살 낙서 점눈</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어. 스타일 ref = <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)</b>, 신규 생성 시 이 2장을 항상 첨부한다.</p>
 <div class="char-prompt" data-char="스타일" data-key="style-anchor">
-  <div class="head"><span class="face">🎨</span><b>전래동화 공통 스타일 앵커 (초안)</b> <button class="copy-btn">프롬프트 복사</button></div>
-  <details open><summary>프롬프트 보기</summary><pre>Style: Warm Korean traditional storybook illustration for ages 5-7 — soft hand-painted watercolor with colored-pencil texture on gentle hanji-paper grain, visible brush washes and soft edges, rounded friendly huggable forms with gentle rosy cheeks. Tender, cozy picture-book warmth.
-PALETTE: rich but cozy earth tones — hanji-paper cream (#F6EFE0), warm ochre and persimmon, jade green (#1F7A6D), vermilion (#CF4B34), gold ochre (#C79A3E), soft indigo.
-LIGHTING: soft, even, warm daylight; gentle natural shadows, no harsh contrast, no drama lighting.
-SETTING: old Korean folk village true to the Joseon countryside — thatched-roof cottages (초가집), tiled-roof houses (기와집), earthen-jar terraces (장독대), gourd vines (박넝쿨), low mountains and pine trees, dirt yards. Everyone wears traditional hanbok.
-CHARACTER DESIGN (cute storybook, ages 5–7): gently stylized, warm and rounded — soft rounded forms, smooth simple features, kind friendly eyes (expressive, not huge baby eyes), soft rosy cheeks, warm gentle smiles. Grown-up characters MUST read clearly as ADULTS, not babies: near-adult proportions with only mild stylization — head about 1/5 to 1/6 of standing height (NOT 1/4, NOT chibi, NOT toddler), a grown person's height and build, a mature-but-soft kind face. Age-accurate (e.g. a young father is a grown man, not a baby). Cute and huggable in spirit but never infantile.
-NOT: flat vector, NOT glossy 3D CG, NOT anime cel-shading, NOT photoreal, NOT baby/toddler or super-deformed chibi proportions for adults, NOT dark or scary. No modern objects.
-CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.</pre></details>
+  <div class="head"><span class="face">🎨</span><b>전래동화 공통 스타일 앵커 (확정 — 햇살 낙서 점눈)</b> <button class="copy-btn">프롬프트 복사</button></div>
+  <details open><summary>프롬프트 보기</summary><pre>Style: "Sunlit scribble" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.
+RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.
+PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.
+CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not "improve" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.
+CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.
+NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick.</pre></details>
 </div>
 
 <h3>편별 캐스트 정의 (예시 — 흥부와 놀부)</h3>
@@ -243,34 +242,30 @@ CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at t
 <div class="char-prompt" data-char="흥부" data-key="ex-heungbu">
   <div class="head"><span class="face">🧑‍🌾</span><b>흥부 (착한 동생)</b> <button class="copy-btn">프롬프트 복사</button></div>
   <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
-CHARACTER: Heungbu — the kind-hearted younger brother, a gentle warm grown-up drawn cute and round (not a realistic adult).
-FACE: warm oval face, soft rounded cheeks, big round friendly eyes with a tender gaze, gentle arched brows, a tiny simple nose, rosy cheek blush, a soft warm closed-mouth smile — an honest, humble air.
-HAIR: black hair in a neat topknot (상투) held by a thin horsehair headband (망건).
-CLOTHES: a threadbare handwoven-cotton (무명) hanbok — an off-white cream jeogori (#EDE4D0) and baggy trousers, faded and patched at elbows and knees with pale faded-indigo scraps (#6E7F94), a hemp waist sash, woven straw sandals (짚신). Poor but clean and dignified, never shabby-scary.
-BUILD & SILHOUETTE: soft rounded build with a mildly stylized adult head and natural adult limbs, a humble slightly-hunched storybook posture; instantly the gentle poor brother (slimmer and softer than the plumper, smug, rounder Nolbu).
-REFERENCE SHEET: one sheet on a plain background — full-body front idle (gentle smile, hands relaxed) + a 3/4 turn + three face close-ups (warm smile / joyful surprise / tender concern). Single character only, no text.
-※ 견본: 구체 색(hex)·옷감명(무명·비단)·머리모양·신발까지 지정하고, 마지막 REFERENCE SHEET 줄에 멀티뷰(정면 idle + 3/4 turn + 표정 클로즈업 3)를 반드시 명시한다.</pre></details>
+CHARACTER: Heungbu — the kind-hearted younger brother. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot), hair as one solid dark mass tied into a small topknot (sangtu), and two or three tiny stubble dots on the chin so he reads as a grown man.
+SILHOUETTE (his signature): tall, lean and floppy-soft — a long loose posture with rounded shoulders, slightly stooped in a humble good-natured way. The exact opposite of the short round pot-bellied Nolbu.
+CLOTHES: a plain everyday hanbok suggested in soft blue-grey pencil strokes — a simple jacket and baggy trousers left mostly as open paper with loose hatching, a couple of small scribbled patches at the knees and elbows, straw sandals in a few pale straw-yellow strokes. Humble and tidy, suggested with few strokes rather than filled in.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (relaxed hands, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) gentle one-line smile, (2) surprised small O mouth with lifted brow strokes, (3) soft worried downcurved mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.
+※ 견본: 이 언어의 카드는 실루엣·시그니처·자세가 본체다. 색은 소프트 톤 이름으로만(짙은 hex 강제 X), 표정 3종은 입선·눈썹 획·자세로 구분, 마지막 줄에 반드시 "승인 렌더 2장 첨부"를 명시한다.</pre></details>
 </div>
 <div class="char-prompt" data-char="놀부" data-key="ex-nolbu">
   <div class="head"><span class="face">🧔</span><b>놀부 (욕심쟁이 형)</b> <button class="copy-btn">프롬프트 복사</button></div>
   <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
-CHARACTER: Nolbu — the greedy older brother, comically greedy but never scary (a funny pouty rich man).
-FACE: round plump face with a soft double chin, small squinty greedy eyes, one thick raised eyebrow, a smug down-turned pout, ruddy blushing cheeks, a tiny simple nose, a thin sparse mustache (cute-comical, not a realistic adult).
-HAIR: black topknot (상투) with a horsehair headband; often a shiny black horsehair hat (갓) tilted smugly.
-CLOTHES: a well-fed rich look — glossy silk hanbok, deep pine-green jeogori (#1E5A46) and gold-ochre trousers/vest (#C79A3E), embroidered waist sash, leather shoes. Slightly overdressed and gaudy next to Heungbu.
-PROP: almost always holds a long slim tobacco pipe (곰방대).
-BUILD & SILHOUETTE: short, plump and round pot-bellied with a mildly stylized adult head and natural adult limbs — chubbier and rounder than the softer, slimmer Heungbu; cute-comical and huggable, not frightening.
-REFERENCE SHEET: one sheet on a plain background — full-body front idle (smug, one hand on belly, pipe in the other) + a 3/4 turn + three face close-ups (smug pout / greedy delight / comical shock). Single character only, no text.</pre></details>
+CHARACTER: Nolbu — the greedy older brother, comic and never scary. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a smug little downcurved line mouth, and his signature — a mustache drawn as just two short curved strokes above the mouth. Hair as one solid dark mass in a topknot (sangtu), often under a wide black horsehair hat (gat) drawn as one simple dark shape.
+SILHOUETTE (his signature): short and pot-bellied — a squat, round, tummy-first silhouette, chin slightly up. The exact opposite of the tall lean Heungbu.
+CLOTHES: the one flashy thing in the cast — a fancy vest hatched in a slightly richer straw-gold tone with a hint of scribbled pattern, over soft blue-grey trousers. May hold a long thin tobacco pipe drawn as one long stroke.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (belly out, one hand on belly, pipe in the other) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) smug downcurved pout, (2) wide greedy line grin, (3) comic shock with a big O mouth and lifted brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
 </div>
 <div class="char-prompt" data-char="도깨비" data-key="ex-dokkaebi">
   <div class="head"><span class="face">👹</span><b>도깨비 (놀부 박 · 장난꾸러기)</b> <button class="copy-btn">프롬프트 복사</button></div>
   <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
-CHARACTER: Dokkaebi — a Korean goblin, FRIENDLY and mischievous rather than scary, cute-comical (teases the greedy, never hurts).
-FACE: big round googly eyes, a wide goofy toothy grin with one little tusk, chubby ruddy cheeks, a bulbous nose, one small stubby horn on top, wild flame-orange topknot-ish hair. Skin a warm russet-brown (#9C5A3C) with a rosy flush.
-BUILD: short, round, chubby pot-bellied body with stubby limbs — huggable and silly, NOT frightening (no fangs, no menace).
-CLOTHES & PROP: a spotted leopard-print loincloth (호피), and always a knobbly wooden magic club/mallet (도깨비 방망이) studded with little bumps.
-SILHOUETTE: round body + single horn + knobbly club = instantly readable and comic.
-REFERENCE SHEET: one sheet on a plain background — full-body front idle (club over shoulder, playful grin) + a 3/4 turn + three face close-ups (mischievous grin / laughing / surprised). Single character only, no text.</pre></details>
+CHARACTER: Dokkaebi — a small playful Korean imp, mischievous and never scary. Dot-eye design language: a flat cream face like everyone else, two dot eyes, and a wide grin drawn as a single line with a few tiny teeth strokes across it. His signature — a wild shaggy mop of dark scribbled hair (the one place where the scribble goes wild) with TWO small horns poking out of the mop.
+SILHOUETTE: small and round — a little imp with a round tummy and stubby limbs. Small imp + mop hair + two horns + knobbly club = instantly readable.
+CLOTHES & PROP: a simple ragged loincloth in a few strokes, and always a knobbly wooden magic club (dokkaebi bangmangi) with a small red tassel — the picture's single red accent when he appears.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (club over shoulder, toothy line grin) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) mischievous toothy line grin, (2) big open laughing mouth, (3) surprised small O mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
 </div>
 <div class="note">🖼️ 위 박스에 확정된 레퍼런스 시트를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-plan</code>). 편별 회차 HTML이 생기면 그 편 캐스트는 각 회차 파일에 정의(호리 회차 구조와 동일).</div>
 

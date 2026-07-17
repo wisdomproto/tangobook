@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 그림체 베이크오프</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:1000px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:24px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:38px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:12px 16px; margin:16px 0; }
+  .const { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin:16px 0 30px; }
+  .const h3 { font-size:15px; font-weight:900; color:var(--jade-dark); margin-bottom:6px; }
+  .const details { margin-top:8px; }
+  .const summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .const pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .cand { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:20px 22px; margin:18px 0; }
+  .cand.rec { border-left:5px solid var(--vermilion); }
+  .cand .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:4px; }
+  .cand .head b { font-size:19px; }
+  .badge { display:inline-block; background:#fdeee9; color:var(--vermilion); border-radius:999px; padding:2px 10px; font-size:11.5px; font-weight:800; }
+  .why { font-size:13.5px; color:var(--ink-soft); margin:6px 0 10px; }
+  .why b { color:var(--ink); }
+  .risk { font-size:12.5px; color:var(--vermilion); font-weight:700; }
+  .copy-btn { background:var(--jade); color:#fff; border:none; border-radius:999px; padding:8px 18px; font-weight:800; font-size:13px; cursor:pointer; }
+  .copy-btn:hover, .copy-btn.done { background:var(--jade-dark); }
+  .copy-btn.ghost { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); padding:4px 14px; font-size:12.5px; }
+  .copy-btn.ghost:hover, .copy-btn.ghost.done { background:var(--mint); color:#fff; }
+  .cand details { margin-top:10px; }
+  .cand summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .cand pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:120px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:12px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · 그림체 A/B</div>
+  <h1>🎨 그림체 베이크오프</h1>
+  <div class="sub">같은 장면(흥부와 놀부 P1 도입)에 그림체만 바꿔 비교 — "글로벌하게 통할 우리 그림체" 찾기</div>
+</header>
+
+<div class="note">
+  <b>왜 하나?</b> 현재 그림체(따뜻한 수채 + 한지 질감)는 잘 만들었지만 <b>기존 한국 전래동화 그림책의 표준</b>이라 첫인상에서 멈춰 세우는 힘이 약하다. 내용은 한국 고유인데 형식은 범용 서양 수채라 <b>조합의 필연성</b>이 없다. 세계가 주목한 한국 그림책은 형식 자체가 무기였다(백희나 「구름빵」 = 입체 디오라마 → 린드그렌상).<br><br>
+  <b>방법</b> — 아래 4개 후보는 <b>장면·캐릭터 규칙이 완전히 동일</b>하고 <b>그림체만</b> 다르다. 각 카드의 [이 그림체로 P1 복사] → GPT 생성 → 결과를 그 카드에 붙여넣어 <b>나란히 비교</b>한다. 공정성을 위해 SCENE의 톤에서 "흙빛·한지 크림색" 같은 <b>수채 편향 색 지정은 제거</b>했다.
+</div>
+
+<div class="const">
+  <h3>🔒 고정값 (4개 후보 공통 — 이것만 같고 그림체만 다름)</h3>
+  <p style="font-size:13px;color:var(--ink-soft)">캐릭터 디자인 규칙(귀엽되 어른)·배경·캔버스·장면(P1)이 전부 동일. <b>변수는 그림체 하나뿐.</b></p>
+  <details><summary>공통 규칙 + P1 장면 보기</summary><pre id="const-pre"></pre></details>
+</div>
+
+<!-- ============ A ============ -->
+<div class="cand rec" data-key="style-a-minhwa">
+  <div class="head"><b>A. 민화 팝</b> <span class="badge">추천</span> <button class="copy-btn" data-copy="a">🎨 이 그림체로 P1 복사</button></div>
+  <p class="why"><b>조선 민화의 현대 재해석</b> — 오방색·까치호랑이·평면적 장식성·상징. <b>전래동화와 민화는 같은 뿌리</b>라 내용-형식의 필연성이 있고, 민화는 세계에 거의 안 알려진 <b>미개척 시각 자산</b>. 평면·대담해서 표지·썸네일·굿즈까지 강함.<br><span class="risk">⚠ 순수 민화는 얼굴이 굳어 감정 표현이 약함 → 민화의 색·모티프·평면성 + 현대 그림책의 표정을 섞는 게 스윗스팟.</span></p>
+  <details><summary>스타일 앵커 보기</summary><pre id="style-a"></pre></details>
+</div>
+
+<!-- ============ B ============ -->
+<div class="cand" data-key="style-b-modernk">
+  <div class="head"><b>B. 모던 K 그래픽</b> <button class="copy-btn" data-copy="b">🎨 이 그림체로 P1 복사</button></div>
+  <p class="why"><b>지금 가장 핫한 한국 비주얼 언어</b> — 쨍한 채도, 그래픽 실루엣, 자개·단청 악센트, 시네마틱 글로우. 릴스·유튜브 썸네일에서 <b>스크롤을 멈추게 하는 힘</b>이 가장 큼.<br><span class="risk">⚠ 5~7세 잠자리 그림책엔 살짝 셀(cool) 수 있음 — 따뜻함을 잃으면 안 됨.</span></p>
+  <details><summary>스타일 앵커 보기</summary><pre id="style-b"></pre></details>
+</div>
+
+<!-- ============ C ============ -->
+<div class="cand" data-key="style-c-diorama">
+  <div class="head"><b>C. 입체 디오라마</b> <button class="copy-btn" data-copy="c">🎨 이 그림체로 P1 복사</button></div>
+  <p class="why"><b>백희나式 물성</b> — 종이·점토·천으로 실제로 만들어 찍은 듯한 촉감. 그림책계에서 <b>세계적으로 검증된 길</b>(구름빵 → 린드그렌상).<br><span class="risk">⚠ 호리(니들펠트 양모)와 영역이 겹침 → 여기선 <b>종이·점토·천 혼합</b>으로 양모와 명확히 구분했으나, 그래도 라인 차별화가 약해질 위험.</span></p>
+  <details><summary>스타일 앵커 보기</summary><pre id="style-c"></pre></details>
+</div>
+
+<!-- ============ D ============ -->
+<div class="cand" data-key="style-d-hybrid">
+  <div class="head"><b>A+B 하이브리드 — 민화 × 모던 그래픽</b> <button class="copy-btn" data-copy="d">🎨 이 그림체로 P1 복사</button></div>
+  <p class="why"><b>전통의 뼈대 + 현대의 표면</b> — 오방색·민화 모티프·평면 장식성을 뿌리로 쓰되, 구성·라이팅·마감은 현대 프리미엄 일러스트로. <b>한국적이면서 동시에 "지금 것"</b>.<br><span class="risk">⚠ 잘못 섞으면 이도저도 아닌 무국적이 될 수 있음 — 민화 색·모티프가 확실히 주도해야 함.</span></p>
+  <details><summary>스타일 앵커 보기</summary><pre id="style-d"></pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 그림체 베이크오프 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 고정값: 캐릭터 디자인 규칙 + 배경 + 캔버스 (4후보 공통) ──
+var COMMON = [
+  "CHARACTER DESIGN (cute storybook, ages 5–7): gently stylized, warm and rounded — soft rounded forms, smooth simple features, kind friendly eyes (expressive, not huge baby eyes), soft rosy cheeks, warm gentle smiles. Grown-up characters MUST read clearly as ADULTS, not babies: near-adult proportions with only mild stylization — head about 1/5 to 1/6 of standing height (NOT 1/4, NOT chibi, NOT toddler), a grown person's height and build, a mature-but-soft kind face. Age-accurate: Heungbu is a young father, Nolbu a grown man. Cute and huggable in spirit but never infantile.",
+  "SETTING: old Korean folk village — thatched-roof cottages (초가집), tiled-roof houses (기와집), earthen jars (장독대), gourd vines (박넝쿨), low mountains and pine trees. Characters wear traditional hanbok.",
+  "CANVAS: 16:9 spread illustration, one big scene, ample space at the bottom for a caption strip. No text baked into the image, no watermark."
+].join("\n");
+
+// ── 고정 장면: 흥부와 놀부 P1 (톤에서 수채 편향 색 지정 제거) ──
+var SCENE_P1 = [
+  "컷: 대형, 아이레벨 정면. 형제 둘이 함께 사는 한 집 앞에서 소개하는 넓은 도입 컷.",
+  "장소·시간: 옛 한국 시골 마을, 부모에게서 물려받아 형제가 함께 사는 큰 기와집 앞마당, 화창한 낮. 뒤로 나지막한 산과 소나무, 정겨운 옛 마을 공기.",
+  "인물: Heungbu(가난한 흥부)는 화면 왼쪽에서 소박한 기운 한복에 짚신을 신고 두 손을 앞에 모은 채 온화하게 방긋 웃으며 서 있음. Nolbu(놀부)는 오른쪽에서 번들거리는 진초록·금빛 한복을 입고 배에 한 손을 얹고 다른 손에 곰방대를 든 채 눈썹을 치켜올린 새침한 표정. 둘의 옷차림·표정이 착함/욕심으로 뚜렷이 대비.",
+  "배경·소품: 형제가 함께 사는 하나의 큰 기와집(솟을대문·반질반질한 기와지붕), 마당의 넉넉한 장독대와 곳간, 담장 너머 박넝쿨, 흙마당, 파란 하늘과 흰 구름. (두 집이 아니라 형제가 함께 사는 한 집임이 분명히.)",
+  "톤: 부드럽고 고른 한낮 햇빛, 옛이야기를 여는 포근하고 정겨운 정서."
+].join("\n");
+
+// ── 후보 4종 스타일 앵커 ──
+var STYLES = {
+  a: [
+    "Style: A modern reinterpretation of Joseon-era Korean folk painting (민화 minhwa) — bold flat decorative shapes, confident brush-ink outlines, symbolic naive charm, like a classic magpie-and-tiger (까치호랑이) folk painting brought to life.",
+    "PALETTE (obangsaek 오방색, bold and saturated, laid in flat areas): deep indigo blue #2A4B8D, vermilion red #C8332B, golden yellow #E8B33A, cream white #F4EDDD, ink black #221E1C. Subtle mineral-pigment grain and hanji paper fiber texture over the flat colors.",
+    "DECORATION: patterned fills everywhere — peony, cloud, wave and magpie motifs woven into clothing, roof tiles and borders. Composition is charmingly flat and stacked (no realistic perspective), objects tilted to show their most characteristic angle, just like minhwa.",
+    "MODERN TWIST: unlike museum minhwa (stiff, blank faces), our characters have warm, clearly readable, lovable expressions — folk-painting surface, picture-book heart.",
+    "NOT muted, NOT soft watercolor, NOT western storybook, NOT anime, NOT photoreal, NOT realistic depth."
+  ].join("\n"),
+  b: [
+    "Style: Bold contemporary Korean graphic illustration — striking saturated color, clean confident shapes with crisp graphic silhouettes, cinematic focal lighting with soft glow and rim light. Premium modern Korean animated-feature key-art energy, but warm and kind enough for young children.",
+    "PALETTE: deep jewel tones (inky teal, royal indigo, rich plum) against luminous warm accents (gold, vermilion), high contrast, confident negative space.",
+    "ACCENTS: subtle mother-of-pearl (najeon) iridescence and dancheong pattern details on clothing, roof beams and props — a quiet shimmer, never gaudy.",
+    "MOOD: cool and stylish but never cold or scary — the warmth lives in the faces and the light.",
+    "NOT dusty museum-traditional, NOT muted watercolor, NOT flat clipart, NOT anime cel-shading, NOT dark or menacing."
+  ].join("\n"),
+  c: [
+    "Style: A handmade miniature diorama photographed with a real camera — the entire scene physically built from paper, clay, fabric and wood. Tiny hanbok sewn from real cloth with visible stitching, a tiled roof made of cut paper tiles, earthen jars sculpted in clay with thumb marks, a dirt yard of real sand.",
+    "CAMERA: soft studio lighting, real gentle shadows, shallow depth of field with a slightly blurred background — tangible stop-motion film feel, you can almost touch it.",
+    "TEXTURE: visible material honesty — hanji paper edges, cloth weave, clay fingerprints, thread, tiny wood grain.",
+    "🔴 Mixed-media PAPER / CLAY / CLOTH diorama — NOT needle-felted wool (that is a different Tangobook line and must stay distinct).",
+    "NOT a 2D drawing, NOT painted, NOT smooth glossy CG, NOT photoreal live-action."
+  ].join("\n"),
+  d: [
+    "Style: Joseon folk-painting (민화 minhwa) DNA rendered with modern graphic polish — traditional soul, contemporary surface. Instantly Korean, instantly now.",
+    "FROM MINHWA (must lead): the obangsaek palette — deep indigo #2A4B8D, vermilion #C8332B, golden yellow #E8B33A, cream #F4EDDD, ink black #221E1C; minhwa motifs (magpie, tiger, peony, cloud, wave); flat decorative patterning on clothing and architecture; bold confident ink linework.",
+    "FROM MODERN ILLUSTRATION: clean shape design, cinematic focal lighting with soft glow, restrained gradients and depth, a touch of mother-of-pearl (najeon) shimmer on key accents, elegant composition and negative space.",
+    "CHARACTERS: minhwa's charm but alive — warm, clearly readable, lovable expressions (never the stiff blank faces of museum minhwa).",
+    "NOT literal museum minhwa, NOT generic western storybook, NOT anime, NOT photoreal, NOT muted/dusty."
+  ].join("\n")
+};
+
+// 화면에 앵커/고정값 표시
+document.getElementById('const-pre').textContent = COMMON + "\n\n[SCENE — 흥부와 놀부 P1 (도입)]\n" + SCENE_P1;
+['a','b','c','d'].forEach(function (k) { document.getElementById('style-' + k).textContent = STYLES[k]; });
+
+function compose(k) {
+  return STYLES[k] + "\n\n" + COMMON + "\n\n[SCENE — 흥부와 놀부 P1 (도입)]\n" + SCENE_P1;
+}
+
+// ── 복사 ──
+(function () {
+  function flash(btn, label) {
+    var orig = btn.getAttribute('data-orig') || btn.textContent;
+    btn.setAttribute('data-orig', orig);
+    btn.textContent = label; btn.classList.add('done');
+    setTimeout(function () { btn.textContent = orig; btn.classList.remove('done'); }, 1600);
+  }
+  async function copy(text, btn) {
+    try { await navigator.clipboard.writeText(text); flash(btn, '복사됨 ✓'); }
+    catch (e) { window.prompt('복사가 막혔어요 — 직접 복사하세요:', text); }
+  }
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () { copy(compose(btn.getAttribute('data-copy')), btn); });
+  });
+})();
+
+// ── 결과 이미지 붙여넣기 (R2: comic-assets/jeonrae-style-bakeoff) ──
+(async function () {
+  var ASSET_API = '/api/comic-assets/jeonrae-style-bakeoff';
+  var assets = {};
+  try { var r = await fetch(ASSET_API); var j = await r.json(); assets = (j && j.data) || {}; } catch (e) {}
+  function createPasteBox(key) {
+    var box = document.createElement('div'); box.className = 'paste-box'; box.tabIndex = 0;
+    var hint = '🖼️ 클릭 후 Ctrl+V — 이 그림체로 생성한 P1 결과 붙여넣기';
+    function reset() { box.classList.remove('has-img'); box.innerHTML = ''; box.textContent = hint; }
+    function setImg(url) {
+      box.classList.add('has-img');
+      box.innerHTML = '<img src="' + url + '" alt="" /><button type="button" class="paste-del">✕</button>';
+      box.querySelector('.paste-del').addEventListener('click', async function (e) {
+        e.stopPropagation(); if (!confirm('이 이미지를 삭제할까요?')) return;
+        try { await fetch(ASSET_API + '/' + key, { method: 'DELETE' }); reset(); } catch (err) { alert('삭제 실패 — 서버(3500) 확인'); }
+      });
+    }
+    if (assets[key]) setImg(assets[key] + '?t=' + Date.now()); else box.textContent = hint;
+    async function upload(file) {
+      if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type)) return;
+      box.classList.add('busy'); var fr = new FileReader();
+      fr.onload = async function () {
+        try {
+          var r2 = await fetch(ASSET_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ key: key, dataUrl: fr.result }) });
+          var j2 = await r2.json();
+          if (j2.success) setImg(j2.data.url + '?t=' + Date.now()); else alert('저장 실패: ' + (j2.error || ''));
+        } catch (e) { alert('저장 실패 — 서버(3500) 확인'); }
+        box.classList.remove('busy');
+      };
+      fr.readAsDataURL(file);
+    }
+    box.addEventListener('paste', function (e) {
+      var its = (e.clipboardData && e.clipboardData.items) || [];
+      for (var i = 0; i < its.length; i++) { if (its[i].type && its[i].type.indexOf('image/') === 0) { e.preventDefault(); upload(its[i].getAsFile()); return; } }
+    });
+    box.addEventListener('dragover', function (e) { e.preventDefault(); });
+    box.addEventListener('drop', function (e) { e.preventDefault(); var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if (f) upload(f); });
+    box.addEventListener('click', function () { box.focus(); });
+    return box;
+  }
+  document.querySelectorAll('.cand[data-key]').forEach(function (card) {
+    card.appendChild(createPasteBox(card.getAttribute('data-key')));
+  });
+})();
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

@@ -96,3 +96,6 @@ packages/server/scripts/_enc.txt
 
 # YouTube Shorts 자동 업로드 런타임 상태 (매 실행마다 갱신 — 로컬 기록, 커밋 안 함)
 docs/marketing/drafts/shorts-upload-state.json
+
+# WIA award reference images — internal viewing only, never commit/deploy (copyright)
+packages/client/public/_wia-refs/
