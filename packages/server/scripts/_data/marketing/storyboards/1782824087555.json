@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "둘째가 태어난 뒤, 첫째 아이가 갑자기 떼를 쓰거나 아기처럼 굴어 당황스러우셨나요?",
+      "narration": "둘째가 태어난 뒤, 첫째 아이가 갑자기 떼를 쓰거나 아기처럼 굴어 당황스러우셨나요? \"동생 미워!\"라는 말에 마음이 철렁하기도 하셨을 거예요.",
       "screen": "동생이 생긴 뒤 부쩍 예민해진 첫째 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "동생이 생긴 뒤 부쩍 예민해진 첫째",
       "imagePrompt": "A warm needle-felt style children's illustration, a little tiger cub pouting alone while parent cradles a baby in the background, soft warm home light, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "첫째 아이의 질투는 억누른다고 사라지지 않습니다. 오히려 \"그런 마음 가지면 안 돼\"라는 말은 아이를 더 외롭게 만들지요.",
       "screen": "첫째의 서운함을 인정하는 것이 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A warm needle-felt style children's illustration, a parent gently hugging an older cub who looks relieved, tender warm moment, soft tones, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "『형아니까, 내가 도와줘!』의 호리는 엄마 품이 온통 동생 차지가 된 것 같아 이불 속에 숨어 웁니다. 그때 아빠가 말하지요.",
+      "narration": "『형아니까, 내가 도와줘!』의 호리는 엄마 품이 온통 동생 차지가 된 것 같아 이불 속에 숨어 웁니다. 그때 아빠가 말하지요. \"형아만 할 수 있는 일이 있는데?\" 호리가 우는 동생에게 딸랑이를 쥐여 주자, 호야가 울음을 뚝 그치고 까르르 웃습니다.",
       "screen": "서운함이 사랑으로 자라는 호리의 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "서운함이 사랑으로 자라는 호리의 이야기",
       "imagePrompt": "A warm needle-felt style children's illustration, an older cub gently handing a rattle to a giggling baby, tender sibling moment, rainbow sparkle, warm light, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북에서는 이야기를 읽으며 첫째 아이의 마음을 자연스럽게 이야기해 볼 수 있습니다. 호리의 감정을 따라가다 보면, 아이도 자기 마음을 슬며시 꺼내 놓지요.",
-      "screen": "탱고북으로 마음을 나누는 시간 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북으로 마음을 나누는 시간",
-      "imagePrompt": "A warm needle-felt style children's illustration, a parent and child reading a glowing storybook together at bedtime, cozy warm lamp light, cinematic 9:16, no text"
+      "narration": "먼저 아이의 서운함을 말로 읽어 주세요. \"질투하면 안 돼\" 대신 \"엄마 품이 그리웠구나\"라고요.",
+      "screen": "집에서 첫째 마음을 다독이는 법 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 첫째 마음을 다독이는 법",
+      "imagePrompt": "A warm needle-felt style children's illustration, a parent praising an older child who is helping a baby sibling, all smiling, warm cozy home, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

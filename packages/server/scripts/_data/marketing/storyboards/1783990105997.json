@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "거실에서 놀던 중 갑자기 집이 흔들린다면, 어른도 순간 당황합니다.",
+      "narration": "거실에서 놀던 중 갑자기 집이 흔들린다면, 어른도 순간 당황합니다. 하물며 아이는 어떨까요?",
       "screen": "갑자기 땅이 흔들리면, 우리 아이는? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "갑자기 땅이 흔들리면, 우리 아이는?",
       "imagePrompt": "A cozy living room where a small tiger cub looks startled as toys wobble on a shelf, warm needle-felt children illustration, soft lighting, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "지진 상황에서 아이의 안전을 좌우하는 것은 '침착함'과 '몸에 밴 대피 행동'입니다. 위험한 순간에 처음 배우기는 늦습니다.",
       "screen": "지진 안전, 왜 미리 배워야 할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A father tiger calmly guiding a small tiger cub under a sturdy wooden desk, reassuring gesture, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "동화 흔들흔들, 책상 밑으로! 에서 아기 호랑이 호리는 집이 흔들리자 어쩔 줄 모릅니다.",
+      "narration": "동화 흔들흔들, 책상 밑으로! 에서 아기 호랑이 호리는 집이 흔들리자 어쩔 줄 모릅니다. 하지만 아빠는 겁주는 대신 차분하게 손을 내밀며 튼튼한 책상 밑으로 데려가지요.",
       "screen": "호리와 아빠의 거북이 놀이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "호리와 아빠의 거북이 놀이",
       "imagePrompt": "A small tiger cub curled under a desk covering its head with both paws, imagining itself as a cozy turtle in a shell, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "이 이야기의 핵심은 아이가 외우기 쉬운 세 가지 약속입니다. 하나, 흔들리면 튼튼한 책상 밑으로!",
-      "screen": "탱고북에서 배우는 대피 3가지 약속 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북에서 배우는 대피 3가지 약속",
-      "imagePrompt": "A tiger cub and father holding hands walking slowly out after the shaking stops, gentle relief, warm needle-felt children illustration, cinematic 9:16, no text"
+      "narration": "책을 읽은 뒤에는 실제로 연습해 보세요. 집에서 가장 튼튼한 식탁이나 책상을 정해 두고, \"흔들흔들!\" 하고 외치면 함께 그 밑으로 들어가 머리를 감싸는 놀이를 해보는 겁니다.",
+      "screen": "집에서 함께 해보는 지진 연습 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 해보는 지진 연습",
+      "imagePrompt": "A parent and child practicing hiding under a dining table together at home, playful and warm, needle-felt children illustration, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

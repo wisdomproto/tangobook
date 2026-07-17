@@ -7,7 +7,7 @@ import {
   NatureReelProps,
   natureSceneDurations,
   computeNatureReelFrames,
-  NATURE_SERIES_SEC,
+  natureSeriesFrames,
   NATURE_CTA_SEC,
   REEL_FPS,
   pickBgm,
@@ -31,14 +31,25 @@ export const NatureReel: React.FC<NatureReelProps> = (props) => {
       <Series>
         {props.scenes.map((sc, i) => (
           <Series.Sequence key={i} durationInFrames={durs[i]}>
-            <StoryScene title={sc.label} body={sc.body} imageUrls={sc.imageUrls} hero={i === 0} />
+            <StoryScene
+              title={sc.label}
+              body={sc.body}
+              bodies={sc.bodies}
+              imageUrls={sc.imageUrls}
+              hero={i === 0}
+              // 🔴 책 제목은 **전 씬 상시**. 예전엔 첫 씬에만 뒀지만(리뷰: "내내 박히면 광고 티"),
+              // 제목이 곧 이 화의 주제("골고루 먹으면 무지개 힘!")라 중간부터 본 사람도 뭘 보는지
+              // 알아야 한다(사용자 피드백). 헤더가 고정되니 씬이 넘어가도 프레임이 흔들리지 않는다.
+              headerTitle={props.bookTitle}
+            />
           </Series.Sequence>
         ))}
-        <Series.Sequence durationInFrames={NATURE_SERIES_SEC * REEL_FPS}>
+        <Series.Sequence durationInFrames={natureSeriesFrames(props)}>
           <SeriesShowcase
             headline={props.series.headline}
             covers={props.series.covers}
             labels={props.series.labels}
+            headerTitle={props.bookTitle}
           />
         </Series.Sequence>
         <Series.Sequence durationInFrames={NATURE_CTA_SEC * REEL_FPS}>

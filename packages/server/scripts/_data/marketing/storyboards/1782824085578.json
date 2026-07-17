@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "불을 끄려 하면 '안 졸려!'를 외치고, 방바닥에 블록을 쏟으며 노는 아이.",
+      "narration": "불을 끄려 하면 '안 졸려!'를 외치고, 방바닥에 블록을 쏟으며 노는 아이. 늦은 밤 부모님의 인내심은 바닥이 나기 마련입니다.",
       "screen": "밤마다 안 자겠다는 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "밤마다 안 자겠다는 아이",
       "imagePrompt": "A warm needle-felt style children illustration of a tiger cub playing with scattered blocks at night while rubbing sleepy eyes, dim bedroom light, cozy mood, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "매일 같은 순서로 반복되는 잠자리 루틴은 아이의 몸에 '이제 잘 시간'이라는 신호를 보냅니다. 이 닦기, 이불 덮기, 불 끄기처럼 예측 가능한 흐름은 아이의 불안을 줄이고 마음을 진정시킵니다.",
       "screen": "잠자리 루틴이 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A warm needle-felt style children illustration of a family of tigers brushing teeth and getting under a fluffy blanket together at bedtime, gentle warm lighting, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "「잘 자요, 코~ 잘 자요, 코~」의 호리도 밤이 깊었는데 안 자겠다며 버팁니다. 하지만 눈이 자꾸 감기고 블록도 손에서 툭 떨어지지요.",
+      "narration": "「잘 자요, 코~ 잘 자요, 코~」의 호리도 밤이 깊었는데 안 자겠다며 버팁니다. 하지만 눈이 자꾸 감기고 블록도 손에서 툭 떨어지지요. 그때 아빠가 아기 호야를 안고 와 '다 같이 잘 준비 하자'고 합니다.",
       "screen": "호리네 가족의 잠자리 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "호리네 가족의 잠자리 이야기",
       "imagePrompt": "A warm needle-felt style children illustration of a cub softly singing a lullaby to a baby sibling under starlight through the window, peaceful dark bedroom, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북의 생활동화는 '빨리 자'라는 재촉 대신, 잠자리를 포근한 이야기로 감싸 줍니다. 호리가 가족과 함께 잘 준비를 하며 스르르 잠드는 과정을, 아이는 자기 밤처럼 따라갑니다.",
-      "screen": "탱고북으로 수면 습관 배우기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북으로 수면 습관 배우기",
-      "imagePrompt": "A warm needle-felt style children illustration of a child listening to a calm bedtime story on a tablet in bed, soft night lamp, drowsy peaceful atmosphere, cinematic 9:16, no text"
+      "narration": "첫째, 매일 같은 순서로 이 닦기·이불 덮기·불 끄기를 이어 가면 아이의 몸이 잘 시간을 기억합니다. 둘째, 잠들기 전 이 책을 나지막이 읽고 '잘 자요, 코~' 후렴을 자장가처럼 반복해 주세요.",
+      "screen": "집에서 함께 실천해요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 실천해요",
+      "imagePrompt": "A warm needle-felt style children illustration of a cub waking up refreshed in the morning stretching arms, bright morning light through window, cheerful mood, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

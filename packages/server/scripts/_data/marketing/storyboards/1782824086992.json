@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "친구의 장난감을 망가뜨리거나 실수를 했을 때, 아이는 미안하다는 걸 알면서도 그 말을 쉽게 꺼내지 못합니다.",
+      "narration": "친구의 장난감을 망가뜨리거나 실수를 했을 때, 아이는 미안하다는 걸 알면서도 그 말을 쉽게 꺼내지 못합니다. 부끄러움에 오히려 등을 홱 돌려 버리기도 하지요.",
       "screen": "미안한 걸 알면서도 말을 못 하는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "미안한 걸 알면서도 말을 못 하는 우리…",
       "imagePrompt": "A small tiger cub standing frozen after knocking over a friend's block tower, embarrassed expression, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "사과는 '지는 것'이 아니라 '관계를 회복하는 용기'입니다. 하지만 아이에게 미안하다는 말은 생각보다 큰 용기가 필요한 일이지요.",
       "screen": "사과에는 용기가 필요합니다 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A cub sitting with a heavy heart, a mother tiger gently comforting on her lap, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "동화 미안해 한마디면, 마음이 폭신! 에서 호리는 토토의 블록 탑을 무너뜨리고도 부끄러워 사과하지 못합니다.",
+      "narration": "동화 미안해 한마디면, 마음이 폭신! 에서 호리는 토토의 블록 탑을 무너뜨리고도 부끄러워 사과하지 못합니다. 그때 토토가 먼저 \"같이 놀고 싶어\"라며 손을 내밀지요.",
       "screen": "호리의 용기 낸 한마디 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "호리의 용기 낸 한마디",
       "imagePrompt": "A cub looking a friend in the eyes and apologizing sincerely, tender reconciliation moment, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "이 이야기의 핵심은 사과에는 용기가 필요하고, 진심 어린 미안해 한마디가 마음을 폭신하게 만든다 는 것입니다. 사과는 우정을 더 단단하게 만드는 다리가 됩니다.",
-      "screen": "탱고북에서 배우는 사과의 마음 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북에서 배우는 사과의 마음",
-      "imagePrompt": "Two cubs happily building a tall block tower together again, joyful friendship restored, warm needle-felt children illustration, cinematic 9:16, no text"
+      "narration": "책을 읽은 뒤에는 아이가 잘못했을 때 \"빨리 사과해\" 대신 \"미안한데 말이 안 나왔구나\"라고 마음을 먼저 읽어 주세요. 부끄러움을 이해받은 아이는 진심으로 사과할 용기를 냅니다.",
+      "screen": "집에서 함께 키우는 사과의 용기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 키우는 사과의 용기",
+      "imagePrompt": "A parent gently apologizing to a child at home, warm honest moment, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

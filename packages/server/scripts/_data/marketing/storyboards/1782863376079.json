@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "\"야, 저리 비켜!\", \"그거 못 만들었잖아.\" 아이의 입에서 툭 튀어나오는 뾰족한 말에 마음이 철렁했던 적…",
+      "narration": "\"야, 저리 비켜!\", \"그거 못 만들었잖아.\" 아이의 입에서 툭 튀어나오는 뾰족한 말에 마음이 철렁했던 적 있으신가요? 나쁜 뜻이 있어서가 아니라, 아직 자기 말이 친구 마음에 어떻게 닿는지 모르…",
       "screen": "혹시 우리 아이도 말이 뾰족한가요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "혹시 우리 아이도 말이 뾰족한가요",
       "imagePrompt": "A warm needle-felt style children's illustration, a small tiger cub pouting with crossed arms among friends, cozy playroom with wooden blocks, soft warm lighting, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "유아기의 말버릇은 단순한 습관을 넘어 아이의 사회성과 자존감의 뿌리가 됩니다. 고운 말을 쓰는 아이는 친구에게 다가가기 쉽고, 갈등이 생겨도 말로 풀어 가는 힘을 기릅니다.",
       "screen": "말버릇이 자라는 힘을 만드는 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A warm needle-felt style children's illustration, two little animal friends smiling and speaking kindly to each other, gentle mint and peach tones, soft focus, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "『고운 말 하면, 고운 말 와요』의 토토는 오늘도 말이 뾰족뾰족합니다. 친구 보리의 블록탑을 보고 \"못 만들었네!\"라고 내뱉자, 하나둘 친구들이 자리를 떠나고 결국 혼자 남지요.",
+      "narration": "『고운 말 하면, 고운 말 와요』의 토토는 오늘도 말이 뾰족뾰족합니다. 친구 보리의 블록탑을 보고 \"못 만들었네!\"라고 내뱉자, 하나둘 친구들이 자리를 떠나고 결국 혼자 남지요. 그때 호리가 다가와 말합니다.",
       "screen": "아기 호랑이 토토의 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "아기 호랑이 토토의 이야기",
       "imagePrompt": "A warm needle-felt style children's illustration, a tiger cub apologizing with a shy smile to a friend, both looking relieved, warm playroom, rainbow sparkle detail, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북에서는 이야기를 읽는 데서 끝나지 않습니다. 이야기 속에 나온 '고마워', '미안해', '같이 하자' 같은 낱말을 놀이로 다시 만나며, 아이는 좋은 말을 눈과 귀와 손으로 익힙니다.",
-      "screen": "탱고북으로 말 습관 익히기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북으로 말 습관 익히기",
-      "imagePrompt": "A warm needle-felt style children's illustration, a child and tiger cub reading a glowing storybook together on a tablet-like frame, cozy home, warm evening light, cinematic 9:16, no text"
+      "narration": "책 속 세 가지 규칙을 우리 집 놀이로 바꿔 보세요. '하나, 먼저 생각해요 / 둘, 고운 말로 바꿔요 / 셋, 고마워·미안해를 잊지 않아요.' 아이가 '비켜'라고 말하면 \"같이 하자로 바꿔 볼까?…",
+      "screen": "집에서 함께 해 보는 고운 말 놀이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 해 보는 고운 말 놀이",
+      "imagePrompt": "A warm needle-felt style children's illustration, a parent and child high-fiving at a kitchen table, small heart motifs floating, soft warm home lighting, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

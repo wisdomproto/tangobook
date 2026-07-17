@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "간식 바구니를 보면 눈이 왕방울만 해지는 아이.",
+      "narration": "간식 바구니를 보면 눈이 왕방울만 해지는 아이. 한 접시로는 성에 안 차 자꾸 더 찾고, 정작 저녁 밥상 앞에서는 배불러 못 먹겠다며 고개를 숙이지요.",
       "screen": "간식만 찾는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "간식만 찾는 우리 아이",
       "imagePrompt": "A cute squirrel cub with wide sparkling eyes looking excitedly at a basket full of snacks, cheeks already puffing, cozy warm home living room, playful mood, warm children book illustration, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "유아기는 식사 리듬이 자리 잡는 시기라, 간식을 적당히 먹고 밥을 제때 챙기는 습관이 건강한 성장의 바탕이 됩니다. 간식으로 배를 꽉 채우면 정작 밥이 들어올 자리가 없어지거든요.",
       "screen": "간식 조절이 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A whimsical scene of a small tummy drawn like a little room stuffed full of snacks, a cute rice friend character stuck outside the door unable to enter, playful imaginative style, warm colors, warm children book illustration, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "『간식은 요만큼, 밥이 먼저!』의 콩이는 참지 못하고 간식 바구니를 몰래 비웁니다. 저녁이 되자 배가 빵빵하고 살살 아파, 좋아하는 밥을 앞에 두고도 한 입도 못 먹지요.",
+      "narration": "『간식은 요만큼, 밥이 먼저!』의 콩이는 참지 못하고 간식 바구니를 몰래 비웁니다. 저녁이 되자 배가 빵빵하고 살살 아파, 좋아하는 밥을 앞에 두고도 한 입도 못 먹지요. 엄마가 배를 문지르며 들려준 이야기 속에서, 뱃속은 작은 방이 됩니다.",
       "screen": "콩이의 간식 바구니 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "콩이의 간식 바구니 이야기",
       "imagePrompt": "A squirrel cub proudly setting down a snack plate after eating just a little, showing self-control with a determined happy face, a baby tiger cub encouraging beside, cozy warm home, warm children book illustration, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북에서는 콩이의 이야기를 부모님 목소리로 읽어 주거나 다정한 나레이션으로 들려줄 수 있어요. 간식은 요만큼, 밥이 먼저 후렴을 즐겁게 함께 외치면, 아이가 이야기 속 규칙을 자기 것으로 받아들입…",
-      "screen": "탱고북에서 함께 읽어요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북에서 함께 읽어요",
-      "imagePrompt": "A parent and toddler reading a picture book together on a cozy sofa, child listening attentively with a thoughtful smile, warm home light, tender bonding moment, warm children book illustration, cinematic 9:16, no text"
+      "narration": "첫째, 간식 양을 함께 정하세요. 둘째, 간식은 정한 시간에만 먹는 규칙을 세우세요.",
+      "screen": "집에서 실천하는 간식 규칙 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 실천하는 간식 규칙",
+      "imagePrompt": "A simple friendly chart showing one plate of snacks at a set time and a meal first, with a cheerful squirrel cub character, warm pastel colors, warm children book illustration, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

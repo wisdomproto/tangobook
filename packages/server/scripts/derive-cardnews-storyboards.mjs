@@ -111,17 +111,51 @@ function deriveCardnews(blog, base) {
 }
 
 function deriveStoryboard(blog, base) {
-  const secs = (blog.sections || []).filter((s) => h2of(s.text_html) && !/자주 묻는 질문/.test(h2of(s.text_html)));
+  let secs = (blog.sections || []).filter((s) => h2of(s.text_html) && !/자주 묻는 질문/.test(h2of(s.text_html)));
   const isNature = base.category === 'nature';
+  const isLife = base.category === 'life'; // 호리네 생활동화 = 창작 습관·안전 동화(원작 없음)
+  // 🔴 생활동화는 블로그 논리(공감 → 왜 중요 → 호리 이야기 → 집에서 실천)를 그대로 따른다.
+  // 블로그의 "탱고북에서 함께 읽어요" 섹션은 마지막 CTA 씬과 중복(홍보 2연타)이라 본문에서 제외 —
+  // 그 자리에 엄마에게 실제로 쓸모있는 "집에서 실천" 섹션이 들어간다.
+  if (isLife) secs = secs.filter((s) => !/탱고북/.test(h2of(s.text_html)));
   const labels = isNature
     ? ['훅', '신기한 사실', '탱고북 내용', '관찰 포인트']
-    : ['훅', '원작·배경', '줄거리', '교훈'];
+    : isLife
+      ? ['훅', '왜 중요할까', '호리 이야기', '집에서 이렇게']
+      : ['훅', '원작·배경', '줄거리', '교훈'];
 
   const scenes = [];
   // 훅 + 본문 3 (sections 1..4)
   for (let i = 0; i < Math.min(secs.length, 4); i++) {
     const s = secs[i];
-    const narr = truncate(sentences(pText(s.text_html)).slice(0, i === 0 ? 1 : 2).join(' '), i === 0 ? 60 : 110);
+    // 🔴 "몇 가지 방법을 소개할게요" 류 예고 문장만 뽑혀 정작 방법을 안 알려주던 문제(리뷰 피드백)
+    // → 내용 없는 도입/예고 문장을 걸러내고 실제 알맹이 문장부터 담는다.
+    const allSents = sentences(pText(s.text_html));
+    const meaty = allSents.filter(
+      (x) =>
+        !/(소개할게요|차례예요|살펴볼까요|알아볼까요|알려드릴게요|정리해 볼게요|해 볼까요)[.!?]*\s*$/.test(
+          x.trim()
+        )
+    );
+    const src = meaty.length ? meaty : allSents;
+    // 씬별 분량: 훅은 짧게(1문장). 생활동화 "호리 이야기"(i=2)는 릴스에서 책 원문 미리보기로 대체된다.
+    const isStoryScene = isLife && i === 2;
+    // 🔴 "집에서 이렇게"(i=3)는 첫째만 나오고 끊겨 "잘리다 만 느낌"(리뷰) → 첫째·둘째 두 팁을
+    //    각각 한 문장씩 뽑아 완결시킨다(설명 문장은 빼고 팁 헤드라인만).
+    const isTipScene = isLife && i === 3;
+    let narr;
+    if (isTipScene) {
+      const tips = src.filter((x) => /^(첫째|둘째|셋째)[,.\s]/.test(x.trim())).slice(0, 2);
+      narr = tips.length >= 2 ? tips.join(' ') : truncate(src.slice(0, 2).join(' '), 110);
+    } else if (isLife && i === 0) {
+      // 🔴 생활동화 훅 = **공감**. 릴스에서 "왜 중요할까"(영양 교육)를 뺐으므로 훅이 공감을 온전히
+      //    담당한다 — 블로그 도입부 2문장("…밀려나 있지 않나요? …보며 한숨 쉰…")이 그대로 공감이다.
+      narr = truncate(src.slice(0, 2).join(' '), 110);
+    } else {
+      const takeSents = i === 0 ? 1 : isStoryScene ? 3 : 2;
+      const maxChars = i === 0 ? 60 : isStoryScene ? 190 : 110;
+      narr = truncate(src.slice(0, takeSents).join(' '), maxChars);
+    }
     const title = cleanTitle(h2of(s.text_html));
     scenes.push({
       label: labels[i] || '',

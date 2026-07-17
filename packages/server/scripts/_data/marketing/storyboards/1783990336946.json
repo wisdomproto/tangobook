@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "모처럼 자연으로 나들이를 나왔는데, 아이는 스마트폰만 찾거나 \"심심해, 언제 가?\" 하며 시큰둥합니다.",
+      "narration": "모처럼 자연으로 나들이를 나왔는데, 아이는 스마트폰만 찾거나 \"심심해, 언제 가?\" 하며 시큰둥합니다. 예쁜 숲을 앞에 두고도 그냥 지나치는 모습에 아쉬움이 남지요.",
       "screen": "숲에 가도 \"심심해\"만 하는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "숲에 가도 \"심심해\"만 하는 우리 아이",
       "imagePrompt": "A warm needle-felt style children's illustration, a little tiger cub sitting bored on a rock in a colorful autumn forest, family nearby, soft warm light, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "자연을 오감으로 느끼는 경험은 아이의 호기심과 정서를 함께 키웁니다. 낙엽 소리, 흙 냄새, 도토리의 감촉을 아는 아이는 세상을 더 풍부하게 바라보지요.",
       "screen": "자연 감수성이 왜 중요할까요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A warm needle-felt style children's illustration, a cub with eyes closed listening to forest sounds, leaves and birds around, gentle warm autumn tones, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "『고마워, 자연아!』의 호리는 가을 숲이 시큰둥합니다. 그때 엄마가 눈을 감겨 주며 \"무슨 소리가 들려?\"라고 묻지요.",
+      "narration": "『고마워, 자연아!』의 호리는 가을 숲이 시큰둥합니다. 그때 엄마가 눈을 감겨 주며 \"무슨 소리가 들려?\"라고 묻지요. 바스락 낙엽, 사르르 바람, 짹짹 새소리가 들려오자 호리는 놀랍니다.",
       "screen": "숲의 고마움을 알게 된 호리의 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "숲의 고마움을 알게 된 호리의 이야기",
       "imagePrompt": "A warm needle-felt style children's illustration, a cub hugging a big tree and saying thank you, holding autumn leaves, rainbow sparkle, warm forest light, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북에서는 이야기를 읽은 뒤 '낙엽', '바람', '도토리', '고마워' 같은 낱말을 놀이로 다시 만납니다. 아이는 자연을 나타내는 말을 눈과 귀와 손으로 익히지요.",
-      "screen": "탱고북으로 자연의 말 익히기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북으로 자연의 말 익히기",
-      "imagePrompt": "A warm needle-felt style children's illustration, a child and tiger cub exploring nature words on a glowing storybook frame, cozy home with autumn leaves, cinematic 9:16, no text"
+      "narration": "숲이나 공원에 가면 '눈 감고 소리 듣기' 놀이를 해 보세요. 낙엽 소리, 바람 소리, 새소리에 귀 기울이면 아이가 자연을 오감으로 만납니다.",
+      "screen": "나들이에서 함께 하는 자연 놀이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "나들이에서 함께 하는 자연 놀이",
+      "imagePrompt": "A warm needle-felt style children's illustration, a parent and child picking up litter and collecting leaves together in a park, warm caring mood, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

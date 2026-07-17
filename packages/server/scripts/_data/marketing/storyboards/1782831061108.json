@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "바닥에 떨어진 것, 화단의 알갱이, 처음 보는 물건까지.",
+      "narration": "바닥에 떨어진 것, 화단의 알갱이, 처음 보는 물건까지. 호기심 많은 아이는 무엇이든 일단 입으로 가져가려 합니다.",
       "screen": "낯선 것을 자꾸 입에 넣으려는 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "낯선 것을 자꾸 입에 넣으려는 아이",
       "imagePrompt": "A warm needle-felt style children illustration of a curious puppy reaching toward a shiny red pellet in a flower bed at a park, sunny outdoor scene, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "부모가 늘 곁에서 지켜볼 수는 없습니다. 그래서 아이 스스로 '이건 이상해 보이니 먼저 물어봐야겠다'고 멈출 수 있는 판단력이 중요합니다.",
       "screen": "스스로 판단하는 습관이 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A warm needle-felt style children illustration of animal friends stopping a puppy's paw and bringing the object to a father to ask, caring teamwork, warm park, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "「이상하면 안 먹어, 퉤!」의 먹보 콩이는 공원 화단에서 반짝이는 빨간 알갱이를 발견하고 입에 넣으려 합니다. 그때 호리와 토토가 달려와 손을 잡고, 셋은 아빠에게 달려가 보여 주지요.",
+      "narration": "「이상하면 안 먹어, 퉤!」의 먹보 콩이는 공원 화단에서 반짝이는 빨간 알갱이를 발견하고 입에 넣으려 합니다. 그때 호리와 토토가 달려와 손을 잡고, 셋은 아빠에게 달려가 보여 주지요. 아빠는 '우리 입은 소중한 문이야'라는 이야기로 세 가지 약속을 알려 줍니다.",
       "screen": "콩이의 이상하면 안 먹어 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "콩이의 이상하면 안 먹어 이야기",
       "imagePrompt": "A warm needle-felt style children illustration of a father telling a gentle story to puppies about the mouth being a precious door, imaginative warm mood, sunny park, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북의 생활동화는 '먹지 마'라는 금지 대신, 스스로 판단하는 힘을 이야기로 전합니다. 콩이가 친구들과 함께 안전 약속을 배우고 스스로 지키는 과정을, 아이는 자기 일처럼 새깁니다.",
-      "screen": "탱고북으로 안전 약속 배우기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북으로 안전 약속 배우기",
-      "imagePrompt": "A warm needle-felt style children illustration of a child watching a safety story on a tablet before going outside to play, cozy home, attentive gentle mood, cinematic 9:16, no text"
+      "narration": "첫째, '아무거나 먹지 마'라는 금지보다 왜 위험한지를 '입은 소중한 문'처럼 이야기로 설명해 주세요. 둘째, 이상한 것을 보면 먼저 '이거 먹어도 돼요?' 하고 어른에게 묻는 습관을 약속으로 정해 주세요.",
+      "screen": "집에서 함께 실천해요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 실천해요",
+      "imagePrompt": "A warm needle-felt style children illustration of a puppy proudly showing an object to an adult to ask before eating, responsible cautious gesture, warm outdoor scene, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

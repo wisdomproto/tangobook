@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "기저귀를 떼야 할 시기가 왔는데, 아이는 변기 앞에서 싫어 안 앉을래를 외치며 도망갑니다.",
+      "narration": "기저귀를 떼야 할 시기가 왔는데, 아이는 변기 앞에서 싫어 안 앉을래를 외치며 도망갑니다. 실수한 뒤 눈치를 보는 아이를 보면 부모 마음도 조급해지지요.",
       "screen": "변기 앞에서 도망가는 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "변기 앞에서 도망가는 아이",
       "imagePrompt": "A tiny baby tiger cub looking nervously at a small potty, one paw reaching back hesitantly, a gentle mother tiger kneeling with open arms nearby, soft warm nursery room, tender reassuring mood, warm children book illustration, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "배변훈련은 아이마다 속도가 다른 발달 과정입니다. 어떤 아이는 금방, 어떤 아이는 천천히 해내고, 그 사이의 실수는 잘못이 아니라 배움의 자연스러운 한 부분이에요.",
       "screen": "배변훈련은 속도가 달라요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A gentle mother tiger softly touching a baby cub's tummy explaining the tickly feeling of needing to go, warm supportive expression, cozy nursery background, warm children book illustration, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "『쉬야 쑥, 참 잘했어요!』의 주인공 아기 호야는 처음엔 변기가 무서워 도망갑니다. 그때 엄마가 호야를 폭 안고 말하지요.",
+      "narration": "『쉬야 쑥, 참 잘했어요!』의 주인공 아기 호야는 처음엔 변기가 무서워 도망갑니다. 그때 엄마가 호야를 폭 안고 말하지요. 한꺼번에 안 해도 돼, 조금씩 한 걸음씩!",
       "screen": "호야의 첫 변기 성공 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "호야의 첫 변기 성공 이야기",
       "imagePrompt": "A happy baby tiger cub sitting proudly on a small potty with arms raised in triumph, mother tiger and an older tiger cub brother clapping and cheering joyfully, bright warm nursery, celebratory mood, warm children book illustration, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북에서는 호야와 호리의 이야기를 부모님 목소리로 읽어 주거나 다정한 나레이션으로 들려줄 수 있어요. 쉬야 쑥, 참 잘했어요",
-      "screen": "탱고북에서 함께 읽어요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북에서 함께 읽어요",
-      "imagePrompt": "A parent and toddler reading a picture book together on the floor, the child smiling with growing confidence, warm cozy home light, tender bonding moment, warm children book illustration, cinematic 9:16, no text"
+      "narration": "첫째, 작은 성공에도 듬뿍 칭찬해 주세요. 둘째, 조금씩 한 걸음씩 나아가세요.",
+      "screen": "집에서 다정하게 배변훈련 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 다정하게 배변훈련",
+      "imagePrompt": "A simple friendly step chart showing potty training progress with a cheerful baby tiger cub, from sitting to success, warm pastel colors, warm children book illustration, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

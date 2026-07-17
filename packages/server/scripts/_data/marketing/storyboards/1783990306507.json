@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "집에서도, 식당에서도, 도서관에서도 늘 큰 소리로 말하는 아이.",
+      "narration": "집에서도, 식당에서도, 도서관에서도 늘 큰 소리로 말하는 아이. \"조용히 해\"를 몇 번이나 말해도 그때뿐이라 난감하셨을 거예요.",
       "screen": "실내에서도 목소리가 우렁찬 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "실내에서도 목소리가 우렁찬 우리 아이",
       "imagePrompt": "A warm needle-felt style children's illustration, a little tiger cub shouting loudly while friends cover their ears, cozy playroom, gentle warm light, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "목소리 크기를 조절하는 힘은 아이의 자기 조절력과 배려심을 함께 키웁니다. 때와 장소에 맞게 소리를 낼 줄 아는 아이는 어디서나 환영받고, 친구들과의 관계도 편안해집니다.",
       "screen": "소리 조절이 왜 중요할까요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A warm needle-felt style children's illustration, a little animal whispering softly indoors and shouting joyfully outdoors, split cozy scene, warm tones, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "『알맞은 소리로, 사이좋게』의 토토는 놀이방 문을 벌컥 열며 꽥 소리칩니다. 친구들이 깜짝 놀라 하나둘 멀어지지만, 토토는 이유를 모르지요.",
+      "narration": "『알맞은 소리로, 사이좋게』의 토토는 놀이방 문을 벌컥 열며 꽥 소리칩니다. 친구들이 깜짝 놀라 하나둘 멀어지지만, 토토는 이유를 모르지요. 호리가 알려 줍니다.",
       "screen": "우렁찬 토토의 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "우렁찬 토토의 이야기",
       "imagePrompt": "A warm needle-felt style children's illustration, a tiger cub joyfully shouting yahoo in a sunny yard with a yellow sparkle, warm cheerful mood, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북에서는 이야기를 읽은 뒤 '조용조용', '소곤소곤', '야호' 같은 낱말을 놀이로 다시 만납니다. 아이는 소리 크기를 나타내는 말을 눈과 귀로 익히며, 소리 조절을 자연스럽게 배웁니다.",
-      "screen": "탱고북으로 소리말 익히기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북으로 소리말 익히기",
-      "imagePrompt": "A warm needle-felt style children's illustration, a child and tiger cub playing a whisper game near a glowing storybook frame, cozy home, cinematic 9:16, no text"
+      "narration": "소리 조절은 놀이로 익히면 즐겁습니다. 집에서 '속삭임 놀이'와 '야호 놀이'를 번갈아 해 보세요.",
+      "screen": "집에서 함께 하는 소리 놀이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 하는 소리 놀이",
+      "imagePrompt": "A warm needle-felt style children's illustration, a parent and child playing a quiet whisper game with fingers on lips at home, warm cozy tones, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

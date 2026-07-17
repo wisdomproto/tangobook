@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "미끄럼틀, 그네, 놀이 순서 앞에서 우리 아이는 \"내가 먼저!\"를 외치며 줄 앞으로 쏙 끼어듭니다.",
+      "narration": "미끄럼틀, 그네, 놀이 순서 앞에서 우리 아이는 \"내가 먼저!\"를 외치며 줄 앞으로 쏙 끼어듭니다. 하고 싶은 마음이 앞서 순서를 기다리지 못하지요.",
       "screen": "자꾸 새치기하는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "자꾸 새치기하는 우리 아이",
       "imagePrompt": "A small tiger cub cutting in front of a line at a playground slide while other cubs look upset, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "차례를 지키는 것은 단순한 예절이 아니라, 함께 살아가는 사회의 기본입니다. 순서를 기다릴 줄 아는 아이는 자기 조절력과 배려심을 함께 키웁니다.",
       "screen": "차례 지키기, 왜 중요할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A cub gently asking a friend to imagine how others feel, thoughtful conversation, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "동화 차례차례, 나도 너도! 에서 토토는 자꾸 새치기를 합니다.",
+      "narration": "동화 차례차례, 나도 너도! 에서 토토는 자꾸 새치기를 합니다. 그때 콩이가 손을 잡고 묻지요.",
       "screen": "토토와 콩이의 놀이터 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "토토와 콩이의 놀이터 이야기",
       "imagePrompt": "Cubs lining up neatly at a playground slide taking turns, patient and cheerful, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "이 이야기의 핵심은 아이가 외우기 쉬운 세 가지 규칙입니다. 하나, 줄을 서요!",
-      "screen": "탱고북에서 배우는 차례의 규칙 3가지 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북에서 배우는 차례의 규칙 3가지",
-      "imagePrompt": "A cub joyfully sliding down while friends clap and cheer, waited its turn, warm needle-felt children illustration, cinematic 9:16, no text"
+      "narration": "책을 읽은 뒤에는 놀이터에서 \"차례차례!\"를 함께 외치며 줄 서기를 연습해 보세요. 미끄럼틀이든 그네든 순서를 지키는 것을 놀이로 만들면 자연스럽게 몸에 뱁니다.",
+      "screen": "집에서 함께 하는 차례 지키기 놀이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 하는 차례 지키기 놀이",
+      "imagePrompt": "A parent and child practicing lining up and taking turns at a playground, cheerful, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "차가 막히거나, 병원 대기실에서, 식당에서 기다려야 할 때 아이는 \"심심해\"를 연발하며 몸을 배배 꼽니다.",
+      "narration": "차가 막히거나, 병원 대기실에서, 식당에서 기다려야 할 때 아이는 \"심심해\"를 연발하며 몸을 배배 꼽니다. 발을 동동 구르고 입을 삐죽이지요.",
       "screen": "\"심심해, 아직도 멀었어?\"라는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "\"심심해, 아직도 멀었어?\"라는 우리 아…",
       "imagePrompt": "A small tiger cub fidgeting in a car seat looking bored while stuck in traffic, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "지루함은 나쁜 것이 아닙니다. 오히려 아이가 스스로 놀이를 만들어 내는 창의력의 출발점이 될 수 있지요.",
       "screen": "지루함은 창의력의 재료가 됩니다 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A mother tiger winking playfully at a cub in the car, suggesting a fun game, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "동화 심심할 땐, 상상 놀이! 에서 호리는 차가 막혀 심심해합니다.",
+      "narration": "동화 심심할 땐, 상상 놀이! 에서 호리는 차가 막혀 심심해합니다. 그때 엄마가 \"네 의자가 커다란 배라고 상상해 봐!\"라고 제안하지요.",
       "screen": "호리와 엄마의 상상 놀이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "호리와 엄마의 상상 놀이",
       "imagePrompt": "A cub imagining a car seat turning into a boat sailing on blue waves, whimsical dreamy scene, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "이 이야기의 핵심은 아이가 따라 하기 쉬운 세 가지입니다. 하나, 눈앞의 물건을 다른 걸로 상상하기!",
-      "screen": "탱고북에서 배우는 상상 놀이 3가지 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북에서 배우는 상상 놀이 3가지",
-      "imagePrompt": "A cub and mother pointing at clouds shaped like animals through a window, laughing together, warm needle-felt children illustration, cinematic 9:16, no text"
+      "narration": "책을 읽은 뒤에는 지루한 순간이 올 때 \"저 구름은 뭐 같아?\", \"이 의자는 뭐가 될 수 있을까?\"라고 물어보세요. 부모가 하나, 아이가 하나 번갈아 상상하면 놀이가 됩니다.",
+      "screen": "집에서 함께 하는 번갈아 상상 놀이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 하는 번갈아 상상 놀이",
+      "imagePrompt": "A parent and child playing an imagination game together at home, cheerful and creative, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

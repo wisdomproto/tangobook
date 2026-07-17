@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "넘어져 아프거나 속상한 일이 생겨도 눈물을 꾹 참는 아이가 있습니다.",
+      "narration": "넘어져 아프거나 속상한 일이 생겨도 눈물을 꾹 참는 아이가 있습니다. \"우는 건 아기 같아\"라고 생각하며 슬픔을 억누르지요.",
       "screen": "슬퍼도 꾹 참는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "슬퍼도 꾹 참는 우리 아이",
       "imagePrompt": "A small tiger cub holding back tears with a tight throat after falling, a bunny doll in a puddle nearby, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "슬픔은 없애야 할 감정이 아니라, 건강하게 흘려보내야 할 감정입니다. 실컷 울고 위로받은 아이는 감정을 스스로 다루는 힘을 기릅니다.",
       "screen": "감정을 표현하는 것도 배워야 합니다 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A mother tiger kneeling to meet a cub's eyes with a gentle, understanding expression, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "동화 울어도 괜찮아, 안아줄게 에서 호야는 넘어져 아프고 인형까지 물에 빠지자 눈물을 참습니다. 그때 엄마 호랑이가 눈을 맞추며 \"울어도 괜찮아.",
+      "narration": "동화 울어도 괜찮아, 안아줄게 에서 호야는 넘어져 아프고 인형까지 물에 빠지자 눈물을 참습니다. 그때 엄마 호랑이가 눈을 맞추며 \"울어도 괜찮아. 눈물을 참지 않아도 돼\"라고 말하지요.",
       "screen": "호야와 엄마의 따뜻한 포옹 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "호야와 엄마의 따뜻한 포옹",
       "imagePrompt": "A cub crying freely while being hugged warmly by mother tiger with open arms, comforting, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "이 이야기의 핵심은 아이가 기억하기 쉬운 세 가지입니다. 하나, \"슬퍼\"라고 말하기!",
-      "screen": "탱고북에서 배우는 슬픔 다루기 3가지 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북에서 배우는 슬픔 다루기 3가지",
-      "imagePrompt": "A cub smiling brightly again while hugging a cleaned bunny doll, relief and joy, warm needle-felt children illustration, cinematic 9:16, no text"
+      "narration": "책을 읽은 뒤에는 아이가 슬퍼할 때 \"울지 마\" 대신 \"많이 속상했구나, 울어도 괜찮아\"라고 말해 주세요. 감정을 허락하는 한마디가 아이를 더 빨리 회복시킵니다.",
+      "screen": "집에서 함께 하는 감정 표현 연습 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 하는 감정 표현 연습",
+      "imagePrompt": "A parent embracing a child gently at home, warm and reassuring, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

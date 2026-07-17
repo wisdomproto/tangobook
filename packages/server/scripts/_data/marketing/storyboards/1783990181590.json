@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "새 킥보드나 자전거가 생기면 아이는 속도의 즐거움에 푹 빠집니다.",
+      "narration": "새 킥보드나 자전거가 생기면 아이는 속도의 즐거움에 푹 빠집니다. \"더 빨리, 더 빨리!\"를 외치며 헬멧은 답답하다고 벗어 던지고, 앞도 안 보고 달리기 일쑤지요.",
       "screen": "씽씽 달리는 게 마냥 좋은 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "씽씽 달리는 게 마냥 좋은 우리 아이",
       "imagePrompt": "A small tiger cub riding a kickboard fast in a park with no helmet, excited expression, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "킥보드 사고는 대부분 '속도'와 '앞을 보지 않는 것'에서 시작됩니다. 작은 돌멩이 하나, 갑자기 지나가는 사람 하나에도 균형을 잃기 쉽지요.",
       "screen": "킥보드 안전, 왜 습관이 중요할까요? 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A tiger cub kickboard wobbling over a small stone on a path, nearly losing balance, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "동화 천천히, 앞을 봐요! 에서 토토는 헬멧도 없이 달리다 돌멩이에 걸려 넘어질 뻔합니다.",
+      "narration": "동화 천천히, 앞을 봐요! 에서 토토는 헬멧도 없이 달리다 돌멩이에 걸려 넘어질 뻔합니다. 헐레벌떡 달려온 호리는 토토를 나무라지 않아요.",
       "screen": "호리가 토토에게 알려준 것 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "호리가 토토에게 알려준 것",
       "imagePrompt": "A tiger cub gently placing a blue helmet on another cub's head, warm friendly moment, needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "이 이야기의 핵심은 아이가 외우기 쉬운 세 가지 약속입니다. 하나, 탈 땐 꼭 헬멧을 써요!",
-      "screen": "탱고북에서 배우는 안전 3가지 약속 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북에서 배우는 안전 3가지 약속",
-      "imagePrompt": "A tiger cub wearing a helmet riding slowly and stopping with its foot as a puppy passes by, careful expression, warm needle-felt children illustration, cinematic 9:16, no text"
+      "narration": "책을 읽은 뒤에는 헬멧 씌우기를 즐거운 의식으로 만들어 보세요. 아이가 직접 헬멧을 고르고, \"딸깍!\" 소리와 함께 잠그는 것을 놀이처럼 하면 헬멧을 거부하지 않게 됩니다.",
+      "screen": "집에서 함께 해보는 안전 놀이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 해보는 안전 놀이",
+      "imagePrompt": "A parent and child practicing helmet fastening and slow riding together in a yard, cheerful, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

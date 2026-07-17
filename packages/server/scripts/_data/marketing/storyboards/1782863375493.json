@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "좋아하는 간식이나 장난감이 생기면 아이는 꼭 끌어안고 \"내 거야!\"를 외칩니다.",
+      "narration": "좋아하는 간식이나 장난감이 생기면 아이는 꼭 끌어안고 \"내 거야!\"를 외칩니다. 친구가 다가오면 등을 홱 돌려 버리기도 하지요.",
       "screen": "\"이건 다 내 거야!\"라는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "\"이건 다 내 거야!\"라는 우리 아이",
       "imagePrompt": "A small squirrel cub hugging a basket of acorns tightly and turning away from friends, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "혼자 다 가지면 더 행복할 것 같지만, 신기하게도 나눌 때 즐거움은 더 커집니다. 함께 먹고 함께 웃는 경험이 마음을 채워 주기 때문이지요.",
       "screen": "나눔은 손해가 아니라 두 배의 기쁨 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A squirrel cub sitting alone with many acorns but looking bored and lonely, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "동화 나누면, 더 맛있어! 에서 콩이는 도토리를 잔뜩 안고도 혼자라 심심합니다.",
+      "narration": "동화 나누면, 더 맛있어! 에서 콩이는 도토리를 잔뜩 안고도 혼자라 심심합니다. 그때 엄마가 \"맛있는 건 나눠 먹으면 더 맛있단다\"라고 말해 주지요.",
       "screen": "콩이가 깨달은 나눔의 즐거움 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "콩이가 깨달은 나눔의 즐거움",
       "imagePrompt": "A squirrel cub happily sharing acorns with friends who gather around smiling, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "이 이야기의 핵심은 아이가 따라 하기 쉬운 세 가지 규칙입니다. 하나, 친구에게 먼저 물어봐요!",
-      "screen": "탱고북에서 배우는 나눔의 규칙 3가지 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북에서 배우는 나눔의 규칙 3가지",
-      "imagePrompt": "Friends eating acorns together happily in a circle, warm and joyful sharing, needle-felt children illustration, cinematic 9:16, no text"
+      "narration": "책을 읽은 뒤에는 쿠키나 과일을 아이가 직접 가족·친구에게 나눠 주는 활동으로 이어 가 보세요. 나눔을 시키기보다, 함께 나눠 먹는 즐거움을 직접 느끼게 하는 것이 핵심입니다.",
+      "screen": "집에서 함께 하는 나눔 연습 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 하는 나눔 연습",
+      "imagePrompt": "A parent and child sharing snacks together with family at home, warm and cheerful, warm needle-felt children illustration, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

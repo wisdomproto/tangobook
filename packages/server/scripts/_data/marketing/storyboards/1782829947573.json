@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "저녁마다 벌어지는 실랑이가 있습니다.",
+      "narration": "저녁마다 벌어지는 실랑이가 있습니다. 하루 종일 신나게 뛰어논 아이에게 목욕하자고 하면, 몸을 배배 꼬며 도망가지요.",
       "screen": "목욕만 하자고 하면 도망가는 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "목욕만 하자고 하면 도망가는 아이",
       "imagePrompt": "A warm needle-felt style children illustration of a little tiger cub wrapped in a towel, peeking out reluctantly near a bathroom door, soft evening light, cozy home, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "목욕은 단순한 청결을 넘어, 아이가 자기 몸을 돌보는 첫 경험입니다. 땀이 나면 씻고, 씻으면 개운하다는 감각을 반복하면서 아이는 '내 몸은 내가 챙긴다'는 자립의 기초를 배웁니다.",
       "screen": "목욕 습관이 중요한 진짜 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A warm needle-felt style children illustration of a tiger cub happily splashing in a bubble-filled bathtub with colorful rubber ducks, mountains of white foam, joyful mood, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "「첨벙첨벙 보글보글!」의 주인공 호리도 처음엔 목욕이 싫어 수건을 쓰고 거실로 도망갑니다. 하지만 소파에 앉으니 끈적끈적하고 근질근질한 몸이 영 불편하지요.",
+      "narration": "「첨벙첨벙 보글보글!」의 주인공 호리도 처음엔 목욕이 싫어 수건을 쓰고 거실로 도망갑니다. 하지만 소파에 앉으니 끈적끈적하고 근질근질한 몸이 영 불편하지요. 그때 아빠가 스펀지와 목욕 장난감을 들고 '거품 나라 대탐험 갈래?' 하고 손을 내밉니다.",
       "screen": "호리의 거품 나라 대탐험 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "호리의 거품 나라 대탐험 이야기",
       "imagePrompt": "A warm needle-felt style children illustration of a father tiger and cub playing an imaginative bubble adventure in a bathtub, soap foam shaped like a mountain, tender bonding, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북의 생활동화는 잔소리 대신 이야기로 습관을 전합니다. 호리가 스스로 개운함을 느끼고 목욕 순서를 놀이처럼 익히는 과정을, 아이는 자기 이야기처럼 따라갑니다.",
-      "screen": "탱고북으로 목욕 습관 배우기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북으로 목욕 습관 배우기",
-      "imagePrompt": "A warm needle-felt style children illustration of a cozy child watching a storybook on a tablet at home, soft lamp light, calm bedtime atmosphere, cinematic 9:16, no text"
+      "narration": "첫째, 목욕 전에 '첨벙첨벙 보글보글' 후렴을 함께 외치며 기대감을 만들어 줍니다. 둘째, 머리 감기·거품칠·헹구기를 폭포·눈사람·반짝처럼 이름 붙여 순서 놀이로 만들어 주세요.",
+      "screen": "집에서 함께 실천해요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 실천해요",
+      "imagePrompt": "A warm needle-felt style children illustration of a dry, fresh cub being hugged in a fluffy towel after bath, glowing clean skin, warm smiles, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

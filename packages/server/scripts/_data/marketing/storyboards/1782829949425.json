@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "어느 날부터 아이가 '내가 할래!'를 외치기 시작합니다.",
+      "narration": "어느 날부터 아이가 '내가 할래!'를 외치기 시작합니다. 반가운 신호지만, 티셔츠 목에 머리가 걸리고 팔은 엉뚱한 곳으로 들어가면 아이는 금세 '못 해'라며 속상해하지요.",
       "screen": "혼자 하고 싶은데 자꾸 안 되는 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "혼자 하고 싶은데 자꾸 안 되는 아이",
       "imagePrompt": "A warm needle-felt style children illustration of a baby tiger cub struggling with a t-shirt stuck over its head, arms tangled, cozy bright room, gentle mood, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "혼자 옷 입기는 단순한 기술이 아니라, 아이가 '나도 할 수 있다'는 자기효능감을 쌓는 경험입니다. 작은 일이라도 스스로 해내면 아이의 자신감이 자라고, 다른 도전으로도 이어집니다.",
       "screen": "스스로 하기가 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A warm needle-felt style children illustration of a cub proudly poking its head through a t-shirt neckline like a tunnel, playful peekaboo moment, warm family room, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "「쏙쏙 팔, 쑥쑥 다리!」의 아기 호야도 형처럼 혼자 입고 싶어 하지만, 머리가 목에 걸려 '호야는 옷도 못 입어…' 하며 시무룩해집니다. 그때 엄마가 '이건 옷이 아니라 재미있는 터널이야!' 하고…",
+      "narration": "「쏙쏙 팔, 쑥쑥 다리!」의 아기 호야도 형처럼 혼자 입고 싶어 하지만, 머리가 목에 걸려 '호야는 옷도 못 입어…' 하며 시무룩해집니다. 그때 엄마가 '이건 옷이 아니라 재미있는 터널이야!' 하고, 형 호리도 '머리 터널, 팔 터널, 다리 터널이 있대!' 하며 외칩니다. 머리 터널을 쑤욱 지나 까꿍!",
       "screen": "호야의 옷 터널 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "호야의 옷 터널 이야기",
       "imagePrompt": "A warm needle-felt style children illustration of a big brother tiger cheering as a little cub successfully pulls on pants by itself, joyful teamwork, warm morning light, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북의 생활동화는 '엄마가 해 줄게' 대신, 스스로 해내는 기쁨을 이야기로 전합니다. 호야가 옷을 터널로 상상하며 한 단계씩 성공하는 과정을, 아이는 자기 도전처럼 응원합니다.",
-      "screen": "탱고북으로 자립심 키우기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북으로 자립심 키우기",
-      "imagePrompt": "A warm needle-felt style children illustration of a child watching an encouraging story on a tablet while sitting on the floor with clothes nearby, warm bedroom, cinematic 9:16, no text"
+      "narration": "첫째, 잘 안 될 때의 속상함을 먼저 인정해 주세요. 둘째, 옷 입기를 머리·팔·다리 단계로 나누고 터널 지나기 놀이로 바꿔 주세요.",
+      "screen": "집에서 함께 실천해요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 실천해요",
+      "imagePrompt": "A warm needle-felt style children illustration of a parent gently guiding a cub to put an arm through a sleeve, encouraging smile, soft home lighting, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

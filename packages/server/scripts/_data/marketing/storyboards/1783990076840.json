@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "차에 타면 카시트 벨트가 답답하다며 자꾸 빼려는 아이.",
+      "narration": "차에 타면 카시트 벨트가 답답하다며 자꾸 빼려는 아이. 운전하며 뒤를 돌아볼 수도 없어 마음이 조마조마하지요.",
       "screen": "벨트가 답답하다며 빼려는 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "벨트가 답답하다며 빼려는 아이",
       "imagePrompt": "A warm needle-felt style children illustration of a tiger cub in a car seat pushing the shoulder belt aside with a pouting face, cozy car interior, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "카시트와 안전벨트는 자동차 사고에서 아이를 지키는 가장 기본적인 보호 장치입니다. 짧은 거리에서도, 급정거 한 번에 아이 몸은 크게 쏠릴 수 있습니다.",
       "screen": "안전벨트 습관이 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A warm needle-felt style children illustration of a cub feeling the seatbelt gently hold it firm as the car stops suddenly, safe reassuring moment, warm car interior, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "「찰칵! 벨트 매고 출발!」의 호리도 벨트가 답답하다며 밀어 놓습니다.",
+      "narration": "「찰칵! 벨트 매고 출발!」의 호리도 벨트가 답답하다며 밀어 놓습니다. 그런데 강아지가 튀어나와 차가 끼익 멈추는 순간, 벨트가 몸을 꼭 잡아 줘요.",
       "screen": "호리의 우주 로켓 벨트 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "호리의 우주 로켓 벨트 이야기",
       "imagePrompt": "A warm needle-felt style children illustration of a cub imagining the car seat as a sparkling rocket while buckling its own seatbelt, joyful space fantasy, warm car, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북의 생활동화는 '벨트 매'라는 실랑이 대신, 벨트의 의미를 이야기로 전합니다. 호리가 벨트의 고마움을 경험하고 스스로 매는 과정을, 아이는 자기 일처럼 따라갑니다.",
-      "screen": "탱고북으로 자동차 안전 배우기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북으로 자동차 안전 배우기",
-      "imagePrompt": "A warm needle-felt style children illustration of a child watching a car-safety story on a tablet before a car trip, cozy home, cheerful anticipation, cinematic 9:16, no text"
+      "narration": "첫째, 억지로 채우기보다 벨트가 왜 필요한지를 '나를 지켜 주는 팔'이라는 표현으로 알려 주세요. 둘째, 카시트를 로켓으로 상상하는 놀이로 벨트 매기를 즐겁게 만들어 주세요.",
+      "screen": "집에서 함께 실천해요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 실천해요",
+      "imagePrompt": "A warm needle-felt style children illustration of a cub proudly buckled in its car seat shouting go, thumbs up, sunny road trip mood, warm car interior, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

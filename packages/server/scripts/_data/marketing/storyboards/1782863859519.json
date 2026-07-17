@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "아이가 반려동물을 키우고 싶어 조를 때, 부모는 반가우면서도 걱정이 앞섭니다.",
+      "narration": "아이가 반려동물을 키우고 싶어 조를 때, 부모는 반가우면서도 걱정이 앞섭니다. 처음엔 좋아하다가 밥 주기, 산책 같은 돌봄은 금세 미루기 쉽기 때문이지요.",
       "screen": "\"강아지 키우고 싶어요\"라는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "\"강아지 키우고 싶어요\"라는 우리 아이",
       "imagePrompt": "A warm needle-felt style children's illustration, a little tiger cub playing with blocks while a puppy waits by an empty food bowl, cozy home, gentle warm light, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "반려동물을 돌보는 경험은 아이에게 '나를 필요로 하는 존재'를 책임지는 법을 가르칩니다. 밥과 물을 챙기고, 아픈 곳을 살피는 과정에서 아이는 배려와 성실함을 함께 배우지요.",
       "screen": "책임감과 생명존중이 왜 중요할까요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A warm needle-felt style children's illustration, a cub gently feeding and petting a happy puppy, tender caring moment, warm tones, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "『밥 주고 쓰다듬, 내 친구 두부!』의 호리는 놀이에 빠져 두부 밥 챙기기를 자꾸 미룹니다. 배고파 힘없이 늘어진 두부를 보고서야, 엄마의 말에 가슴이 쿵 내려앉지요.",
+      "narration": "『밥 주고 쓰다듬, 내 친구 두부!』의 호리는 놀이에 빠져 두부 밥 챙기기를 자꾸 미룹니다. 배고파 힘없이 늘어진 두부를 보고서야, 엄마의 말에 가슴이 쿵 내려앉지요. \"호리가 챙겨 줘야 살 수 있단다.\" 호리는 얼른 밥과 물을 챙기고, 산책도 시키고 발도 살펴 주는 다정한 친구가 됩니다.",
       "screen": "두부를 돌보게 된 호리의 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "두부를 돌보게 된 호리의 이야기",
       "imagePrompt": "A warm needle-felt style children's illustration, a cub hugging a sleeping puppy at night with a rainbow sparkle, tender cozy bedroom, warm light, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북에서는 이야기를 읽은 뒤 '밥', '물', '쓰다듬' 같은 낱말을 놀이로 다시 만납니다. 아이는 돌봄에 필요한 말과 행동을 눈과 귀와 손으로 익히지요.",
-      "screen": "탱고북으로 돌봄의 말 익히기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북으로 돌봄의 말 익히기",
-      "imagePrompt": "A warm needle-felt style children's illustration, a child and tiger cub interacting with a glowing storybook frame with a puppy nearby, cozy home, cinematic 9:16, no text"
+      "narration": "이야기를 읽으며 \"두부가 배고플 때 마음이 어땠을까?\"라고 물어 아이가 동물의 감정을 상상하게 해 주세요. 공감이 돌봄의 첫걸음입니다.",
+      "screen": "집에서 함께 하는 돌봄 실천 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 하는 돌봄 실천",
+      "imagePrompt": "A warm needle-felt style children's illustration, a parent and child filling a pet water bowl together, warm cozy home, soft tones, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

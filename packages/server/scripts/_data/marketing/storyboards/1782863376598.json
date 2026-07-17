@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "장난감 하나를 두고 다투다 아이가 친구를 밀거나 잡아당길 때, 부모 마음은 덜컥 내려앉습니다.",
+      "narration": "장난감 하나를 두고 다투다 아이가 친구를 밀거나 잡아당길 때, 부모 마음은 덜컥 내려앉습니다. 하지만 이 시기의 아이는 아직 속상한 마음을 말로 옮기는 법을 배우는 중입니다.",
       "screen": "손이 먼저 나가는 우리 아이, 왜 그럴까요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "손이 먼저 나가는 우리 아이, 왜 그럴까…",
       "imagePrompt": "A warm needle-felt style children's illustration, two little animal friends tugging a toy car from both sides, worried faces, cozy sandbox playroom, soft warm light, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "다툼을 말로 푸는 경험은 아이의 감정 조절력과 사회성을 함께 키웁니다. 자기 마음을 말로 표현할 수 있는 아이는 갈등 앞에서 덜 불안하고, 친구와의 관계도 더 오래 이어 갑니다.",
       "screen": "말로 푸는 힘이 왜 중요할까요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A warm needle-felt style children's illustration, two animal friends sitting face to face talking calmly, speech bubbles with hearts, gentle peach background, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "『손 말고 말로, 사이좋게!』에서 토토와 콩이는 빨간 자동차를 서로 잡아당기다 하마터면 망가뜨릴 뻔합니다. 자동차도 못 갖고 마음도 상해 시무룩해진 두 친구.",
+      "narration": "『손 말고 말로, 사이좋게!』에서 토토와 콩이는 빨간 자동차를 서로 잡아당기다 하마터면 망가뜨릴 뻔합니다. 자동차도 못 갖고 마음도 상해 시무룩해진 두 친구. 호리가 다가와 말합니다.",
       "screen": "토토와 콩이의 자동차 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "토토와 콩이의 자동차 이야기",
       "imagePrompt": "A warm needle-felt style children's illustration, two animal friends happily rolling a toy car together on a sand road, laughing, rainbow sparkle, warm light, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북에서는 이야기를 읽은 뒤, '먼저', '같이', '미안해' 같은 말을 놀이로 다시 만납니다. 아이는 다툼의 순간에 쓸 수 있는 말을 눈과 귀와 손으로 익히지요.",
-      "screen": "탱고북으로 감정 표현 익히기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북으로 감정 표현 익히기",
-      "imagePrompt": "A warm needle-felt style children's illustration, a child and tiger cub tapping words on a glowing storybook frame, cozy home evening, cinematic 9:16, no text"
+      "narration": "다툼이 벌어지면 먼저 '손을 멈추고, 말로 하기' 신호를 정해 두세요. 책 속 후렴처럼 '때리지 말고, 말로 말로'를 함께 외치면 아이도 기억하기 쉽습니다.",
+      "screen": "집에서 함께 해 보는 말로 하기 연습 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 해 보는 말로 하기 연습",
+      "imagePrompt": "A warm needle-felt style children's illustration, a parent gently guiding two children to talk, calm home setting, soft warm tones, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

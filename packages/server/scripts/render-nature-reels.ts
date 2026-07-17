@@ -64,7 +64,6 @@ async function main() {
       : resolveNatureBookIds();
   console.log(`[render-nature-reels] 대상 ${ids.length}권${DRY ? ' · DRY' : ''}`);
 
-  const series = await resolveSeriesCovers();
   let ownerUserId = '';
   if (!DRY) ownerUserId = await resolveOwnerUserId(OWNER);
 
@@ -83,6 +82,11 @@ async function main() {
     try {
       const storybook = await fetchStorybook(id);
       const storyboard = loadStoryboard(id);
+      // 시리즈 씬은 그 책과 같은 라인을 보여준다(생활동화 릴스 → 호리 시리즈, 자연 → 자연도감).
+      // resolveSeriesCovers 는 종류별 캐시라 루프 안에서 불러도 비용 없음.
+      const series = await resolveSeriesCovers(
+        /생활동화/.test(storybook.category || '') ? 'life' : 'nature'
+      );
       const props = buildNatureReelProps({
         storybook,
         storyboard,
@@ -116,13 +120,16 @@ async function main() {
         ...browserOpts,
       });
 
-      // 썸네일 (NatureThumb)
+      // 썸네일 (NatureThumb) — 배지(시리즈) + 이 화 제목 + 16:9 표지 + 훅 자막 + 로고.
+      // 클린 표지(제목 제거본)가 있으면 우선. 없으면 원본 표지(제목 박힌 것).
       const thumbProps = {
         bookTitle: props.bookTitle,
         coverUrl:
           loadCleanCover(id) || storybook.coverImage || props.scenes[0]?.imageUrls?.[0] || '',
-        headline: props.series.headline,
-        categoryLabel: props.category,
+        // 생활동화 카테고리명은 '생활동화' 인데 배지는 시리즈 이름을 그대로 보여준다.
+        categoryLabel: /생활동화/.test(props.category) ? '호리네 생활동화' : props.category,
+        // 훅 자막 = 릴스 첫 씬과 같은 문장 — 16:9 표지 아래 빈 공간을 본편과 같은 프레임으로 채운다.
+        caption: props.scenes[0]?.body ?? '',
       };
       const thumbComp = await selectComposition({
         serveUrl,

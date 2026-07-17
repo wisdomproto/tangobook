@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "이 닦자는 말에 이불 속으로 쏙 숨거나 고개를 절레절레 흔드는 아이.",
+      "narration": "이 닦자는 말에 이불 속으로 쏙 숨거나 고개를 절레절레 흔드는 아이. 하루의 마지막 관문인 양치 시간이 매일 실랑이가 되곤 하지요.",
       "screen": "양치 시간마다 실랑이인가요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "양치 시간마다 실랑이인가요",
       "imagePrompt": "A cute baby tiger cub hiding under a fluffy blanket at bedtime, peeking out reluctantly, a gentle mother tiger holding a toothbrush nearby with a soft smile, cozy warm bedroom night light, warm children book illustration, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "젖니가 자라는 유아기는 양치 습관을 들이는 가장 중요한 시기입니다. 밥과 간식 뒤 이에 남은 음식 찌꺼기를 그대로 두면 이가 텁텁하고 근질거리게 되지요.",
       "screen": "양치 습관이 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A close-up of sparkling clean white teeth with tiny playful purple cavity bugs running away scared from bubbly toothpaste foam, whimsical friendly style, bright clean mood, warm children book illustration, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "『치카치카 쓱쓱, 반짝반짝!』의 주인공 호리는 양치가 귀찮아 딱 한 번만 건너뛰고 잠이 듭니다. 그런데 자다가 이 사이가 근질근질!",
+      "narration": "『치카치카 쓱쓱, 반짝반짝!』의 주인공 호리는 양치가 귀찮아 딱 한 번만 건너뛰고 잠이 듭니다. 그런데 자다가 이 사이가 근질근질! 낮에 먹은 과자 부스러기가 이 사이에 숨은 거예요.",
       "screen": "호리와 충치벌레 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "호리와 충치벌레 이야기",
       "imagePrompt": "A brave baby tiger cub standing at a bathroom sink brushing teeth energetically, fluffy white toothpaste bubbles everywhere, sparkling eyes full of determination, bright cheerful bathroom, warm children book illustration, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북에서는 호리의 이야기를 부모님 목소리로 읽어 주거나 다정한 나레이션으로 들려줄 수 있어요. 치카치카 쓱쓱 후렴을 칫솔질 흉내와 함께 읽으면, 이야기가 끝날 즈음 아이 손이 자연스럽게 칫솔로 향…",
-      "screen": "탱고북에서 함께 읽어요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북에서 함께 읽어요",
-      "imagePrompt": "A parent and toddler reading a bedtime picture book together, child pretending to brush teeth with a happy face, warm lamp light in a cozy bedroom, tender bonding moment, warm children book illustration, cinematic 9:16, no text"
+      "narration": "첫째, 양치 직전에 이 책을 함께 읽으세요. 둘째, 아침에 한 번, 자기 전에 한 번이라는 규칙을 눈에 보이게 정해 주세요.",
+      "screen": "집에서 실천하는 양치 습관 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 실천하는 양치 습관",
+      "imagePrompt": "A simple friendly chart showing morning and night toothbrushing routine with a cheerful baby tiger cub character, up and down brushing motion, warm pastel colors, warm children book illustration, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

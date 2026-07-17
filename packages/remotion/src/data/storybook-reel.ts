@@ -15,6 +15,9 @@ export const SceneSchema = z.object({
   label: z.string(),
   body: z.string(),
   imageUrls: z.array(z.string()).min(1),
+  /** 그림별 자막(imageUrls 와 1:1). 주면 body 대신 사용 — 같은 책 페이지에서 나온 글·그림이라
+   *  자막과 삽화가 어긋나지 않는다(이야기 씬 = 실제 책 미리보기). */
+  bodies: z.array(z.string()).optional(),
   durSec: z.number().optional(), // 씬별 길이(초). 없으면 훅=4·나머지=8.
 });
 export const MorphStyleSchema = z.object({ url: z.string(), label: z.string() });

@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "맛있는 걸 보면 우물우물도 없이 꿀꺽 삼키고, 볼이 미어지게 입에 잔뜩 넣는 아이.",
+      "narration": "맛있는 걸 보면 우물우물도 없이 꿀꺽 삼키고, 볼이 미어지게 입에 잔뜩 넣는 아이. 빨리 먹어야 더 먹는다는 조급함에 딸꾹질이 나거나 목이 답답해지곤 하지요.",
       "screen": "급하게 삼키는 우리 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "급하게 삼키는 우리 아이",
       "imagePrompt": "A cute squirrel cub with cheeks stuffed full of food swallowing quickly, a bit of hiccup with watery eyes, a warm cozy kitchen snack table, gentle worried mother nearby, warm children book illustration, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "유아기는 씹는 힘과 식사 속도가 자리 잡는 시기라, 꼭꼭 씹어 천천히 먹는 습관이 건강한 소화의 기본이 됩니다. 급하게 삼키면 딸꾹질이 나고 목이 답답하지만, 천천히 씹으면 배가 편안해지거든요.",
       "screen": "천천히 씹어야 하는 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A whimsical imaginative scene of tiny white teeth pounding food like a traditional mill turning a sweet potato soft and fluffy, playful magical style, warm bright colors, warm children book illustration, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "『꼭꼭 냠냠, 천천히!』의 콩이는 찐 고구마를 덥석 베어 물고 꿀꺽 삼키다 딸꾹질이 납니다. 엄마가 등을 쓸어 주며 재미난 이야기를 들려주지요.",
+      "narration": "『꼭꼭 냠냠, 천천히!』의 콩이는 찐 고구마를 덥석 베어 물고 꿀꺽 삼키다 딸꾹질이 납니다. 엄마가 등을 쓸어 주며 재미난 이야기를 들려주지요. 입속에는 방앗간이 있어서, 이가 콩콩 방아를 찧어야 음식이 폭신폭신해진다고요.",
       "screen": "콩이의 입속 방앗간 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "콩이의 입속 방앗간 이야기",
       "imagePrompt": "A happy squirrel cub taking a small bite and chewing carefully with a delighted surprised expression, a baby tiger cub cheering beside like a fun game, cozy warm snack table, warm children book illustration, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북에서는 콩이의 이야기를 부모님 목소리로 읽어 주거나 다정한 나레이션으로 들려줄 수 있어요. 꼭꼭 냠냠, 천천히 후렴을 씹는 흉내와 함께 읽으면, 식사 시간이 즐거운 놀이가 됩니다.",
-      "screen": "탱고북에서 함께 읽어요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북에서 함께 읽어요",
-      "imagePrompt": "A parent and toddler reading a picture book together at a table, child pretending to chew slowly with a happy face, warm cozy home light, tender bonding moment, warm children book illustration, cinematic 9:16, no text"
+      "narration": "첫째, 방아 찧기 놀이를 함께 하세요. 둘째, 무슨 맛이 나?",
+      "screen": "집에서 실천하는 천천히 먹기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 실천하는 천천히 먹기",
+      "imagePrompt": "A simple friendly chart showing a chewing game with a cheerful squirrel cub, small bite then chew many times then swallow, warm pastel colors, warm children book illustration, cinematic 9:16, no text"
     },
     {
       "label": "CTA",

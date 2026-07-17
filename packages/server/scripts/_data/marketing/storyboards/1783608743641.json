@@ -7,13 +7,13 @@
     {
       "label": "훅",
       "sec": 4,
-      "narration": "밥상을 차려 놓으면 한 입 먹고 폴짝 내려가 장난감으로 달려가는 아이.",
+      "narration": "밥상을 차려 놓으면 한 입 먹고 폴짝 내려가 장난감으로 달려가는 아이. 쫓아다니며 한 숟갈씩 떠먹이다 보면 식사 시간은 어느새 전쟁이 됩니다.",
       "screen": "한 입 먹고 뛰어다니는 아이 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "한 입 먹고 뛰어다니는 아이",
       "imagePrompt": "A warm needle-felt style children illustration of a puppy hopping off a dining chair to chase a toy ball while food waits on the table, lively home kitchen, cinematic 9:16, no text"
     },
     {
-      "label": "원작·배경",
+      "label": "왜 중요할까",
       "sec": 8,
       "narration": "자리에 앉아 먹는 습관은 소화에도 좋고, 밥을 흘리거나 사레들리는 위험도 줄여 줍니다. 무엇보다 식사에 집중하는 힘을 길러 줘, 아이가 음식을 충분히 먹고 식사의 즐거움을 느끼게 합니다.",
       "screen": "앉아서 먹는 습관이 중요한 이유 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
@@ -21,20 +21,20 @@
       "imagePrompt": "A warm needle-felt style children illustration of a puppy sitting firmly on a cushioned chair with both paws together ready to eat warm food, cozy dinner table, cinematic 9:16, no text"
     },
     {
-      "label": "줄거리",
+      "label": "호리 이야기",
       "sec": 8,
-      "narration": "「엉덩이 딱! 밥은 앉아서!」의 두부도 한 입 먹고 뛰어가 밥알을 흘리고, 식은 밥에 시무룩해집니다.",
+      "narration": "「엉덩이 딱! 밥은 앉아서!」의 두부도 한 입 먹고 뛰어가 밥알을 흘리고, 식은 밥에 시무룩해집니다. 그때 엄마가 '의자에 자석이 숨어 있대!' 하며 상상 이야기를 들려주지요.",
       "screen": "두부의 엉덩이 딱 이야기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
       "subtitle": "두부의 엉덩이 딱 이야기",
       "imagePrompt": "A warm needle-felt style children illustration of a mother tiger gently seating a puppy back on its chair with an imaginative magnet sparkle under the cushion, warm mealtime, cinematic 9:16, no text"
     },
     {
-      "label": "교훈",
+      "label": "집에서 이렇게",
       "sec": 8,
-      "narration": "탱고북의 생활동화는 '앉아서 먹어'라는 재촉 대신, 앉아서 먹는 즐거움을 이야기로 전합니다. 두부가 상상 놀이와 규칙으로 자리에 앉아 밥을 다 먹는 과정을, 아이는 자기 식사처럼 따라갑니다.",
-      "screen": "탱고북으로 식사 습관 배우기 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
-      "subtitle": "탱고북으로 식사 습관 배우기",
-      "imagePrompt": "A warm needle-felt style children illustration of a child watching a mealtime story on a tablet at the dinner table before eating, warm bright kitchen, cinematic 9:16, no text"
+      "narration": "첫째, 야단치기보다 돌아다니면 밥이 식어 맛없어진다는 것을 느끼게 하고, 앉아서 먹은 밥의 따끈함을 함께 짚어 주세요. 둘째, '엉덩이 딱, 두 손 모아 냠냠'처럼 짧은 규칙을 정하고 자석 상상 놀이로 재미있게 만들어 주세요.",
+      "screen": "집에서 함께 실천해요 장면 — 9:16, 동화풍, 따뜻한 색감. (이미지 프롬프트 참조)",
+      "subtitle": "집에서 함께 실천해요",
+      "imagePrompt": "A warm needle-felt style children illustration of a happy puppy showing an empty food bowl with a wagging tail, parent praising, warm cozy dining scene, cinematic 9:16, no text"
     },
     {
       "label": "CTA",
