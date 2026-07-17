@@ -20,7 +20,9 @@ export function PipelineSummaryCards({ rows, todos, fetchFailed }: PipelineSumma
     const approved = rows.filter((r) => r.approved);
     const noReel = approved.filter((r) => !r.marketing.reels.ko).length;
     const noLongform = approved.filter((r) => (r.marketing.longform.ko ?? []).length === 0).length;
-    const blockedBooks = new Set(todos.filter((t) => t.blocked).flatMap((t) => t.bookIds));
+    const scheduleBooks = new Set(
+      todos.filter((t) => t.kind === 'schedule-longform').flatMap((t) => t.bookIds)
+    );
     return [
       { label: '승인된 책', value: approved.length, sub: `전체 ${rows.length}권` },
       {
@@ -33,7 +35,7 @@ export function PipelineSummaryCards({ rows, todos, fetchFailed }: PipelineSumma
         value: noLongform,
         accent: noLongform > 0 ? 'warn' : 'default',
       },
-      { label: '번역·파이프라인 대기', value: blockedBooks.size, sub: '권 (블록된 할 일)' },
+      { label: '예약 대기', value: scheduleBooks.size, sub: '롱폼 완성·유튜브 예약 없음' },
     ];
   }, [rows, todos]);
 

@@ -16,7 +16,10 @@ function Mark({ ok }: { ok: boolean }) {
 function LongformCell({ styles }: { styles: string[] }) {
   if (styles.length === 0) return <Mark ok={false} />;
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-green-500/10 px-2 py-0.5 text-[11px] font-medium text-green-600">
+    <span
+      title={styles.join(', ')}
+      className="inline-flex items-center gap-1 rounded-full bg-green-500/10 px-2 py-0.5 text-[11px] font-medium text-green-600"
+    >
       ✓ {styles.length}
     </span>
   );
@@ -41,6 +44,7 @@ const HEADERS = [
   '블로그',
   '카드뉴스',
   '쇼츠',
+  '인스타',
   '예약',
 ];
 
@@ -122,6 +126,9 @@ export function PipelineMatrix({ rows }: PipelineMatrixProps) {
                   </td>
                   <td className="px-3 py-2 text-center">
                     <Mark ok={row.marketing.published.youtubeShorts} />
+                  </td>
+                  <td className="px-3 py-2 text-center">
+                    <Mark ok={row.marketing.published.instagram} />
                   </td>
                   <td className="px-3 py-2 text-center">
                     <ScheduleCell state={row.marketing.published.youtubeLongform} />
