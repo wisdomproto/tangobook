@@ -237,13 +237,28 @@ async function main() {
 
   // 3. TTS/BGM 길이 프로브 (SRT 타이밍 정확도를 위해 렌더 전에 완료)
   await probeTtsDurations(renderData);
+  // 🔴 bgmDuration 이 없으면 컴포지션이 BGM 을 **루프 없이** 튼다 → 90초 트랙이 3~4분 영상에서
+  //    도중에 끊기고, 그 뒤 나레이션 사이가 통째로 무음이 된다(09번에서 26.8초 무음으로 발생).
+  //    실패 원인은 대개 일시적 네트워크(`terminated`)라 재시도하고, 그래도 안 되면 **중단**한다.
+  //    경고만 찍고 넘어가면 2만 줄 로그에 묻혀 결함이 그대로 발행된다.
   if (renderData.bgmUrl) {
-    try {
-      renderData.bgmDuration = await getAudioDuration(renderData.bgmUrl);
-    } catch (err) {
-      console.warn(
-        '[render-book-audiobooks] BGM 길이 측정 실패, 루프 없이 재생:',
-        (err as Error).message
+    let lastErr: Error | null = null;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        renderData.bgmDuration = await getAudioDuration(renderData.bgmUrl);
+        lastErr = null;
+        break;
+      } catch (err) {
+        lastErr = err as Error;
+        console.warn(
+          `[render-book-audiobooks] BGM 길이 측정 실패 (${attempt}/3): ${lastErr.message}`
+        );
+        if (attempt < 3) await new Promise((r) => setTimeout(r, attempt * 2000));
+      }
+    }
+    if (lastErr) {
+      throw new Error(
+        `BGM 길이 측정 3회 실패 — 루프 없이 렌더하면 뒷부분이 무음이 된다: ${lastErr.message}`
       );
     }
   }
