@@ -113,6 +113,28 @@ async function collectPublicUrls() {
     }
   }
   console.log(`[indexnow] 공개 책: ${publicCount} → URL ${urls.length}개 (정적 3 포함)`);
+
+  // 공개 내부 블로그(self_hosted published) — sitemap 과 동일 소스(/api/blog).
+  try {
+    const res = await fetch(`${SITE_URL}/api/blog`);
+    if (res.ok) {
+      const json = await res.json();
+      const posts = json?.data ?? json ?? [];
+      let blogCount = 0;
+      urls.push(`${SITE_URL}/blog`);
+      for (const p of Array.isArray(posts) ? posts : []) {
+        if (!p?.slug) continue;
+        urls.push(`${SITE_URL}/blog/${encodeURIComponent(p.slug)}`);
+        blogCount++;
+      }
+      console.log(`[indexnow] 공개 블로그: ${blogCount}`);
+    } else {
+      console.warn(`[indexnow] 블로그 목록 조회 실패(HTTP ${res.status}) — 블로그 URL 스킵`);
+    }
+  } catch (e) {
+    console.warn(`[indexnow] 블로그 목록 조회 실패: ${e.message} — 블로그 URL 스킵`);
+  }
+  console.log(`[indexnow] 총 제출 URL: ${urls.length}개`);
   return urls;
 }
 
