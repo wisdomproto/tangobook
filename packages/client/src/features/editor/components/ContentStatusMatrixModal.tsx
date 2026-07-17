@@ -45,22 +45,32 @@ function LangDots({ done }: { done?: LangDone }) {
 }
 
 export function ContentStatusMatrixModal({ onClose }: { onClose: () => void }) {
-  const { data, isLoading } = useAuthoringPipeline();
+  const { data, isLoading, isError, refetch } = useAuthoringPipeline();
   const refreshMutation = useRefreshAuthoringPipeline();
   const toggleMutation = useToggleApproval();
-  const [seriesFilter, setSeriesFilter] = useState<SeriesKey | 'all'>('all');
+  const [seriesFilter, setSeriesFilter] = useState<string>('all');
   const [onlyUnapproved, setOnlyUnapproved] = useState(false);
 
   const rows = useMemo(() => data?.rows ?? [], [data]);
   const approvedCount = useMemo(() => rows.filter((r) => r.approved).length, [rows]);
 
-  // 시리즈 칩 — rows 의 series 값에서 도출 (SERIES_LABELS 선언 순서 유지) + 권수
+  // 시리즈 칩 — rows 실측 series 값 기준 (서버에 시리즈가 추가돼 클라 라벨 사본이 밀려도
+  // 칩이 뜨고 미지 키가 그대로 보여 드리프트 가시화). 순서=SERIES_LABELS 우선, 미지 키 뒤.
   const seriesChips = useMemo(() => {
-    const counts = new Map<SeriesKey, number>();
+    const counts = new Map<string, number>();
     for (const r of rows) counts.set(r.series, (counts.get(r.series) ?? 0) + 1);
-    return (Object.keys(SERIES_LABELS) as SeriesKey[])
-      .filter((key) => counts.has(key))
-      .map((key) => ({ key, label: SERIES_LABELS[key], count: counts.get(key)! }));
+    const known = Object.keys(SERIES_LABELS);
+    const orderOf = (k: string) => {
+      const i = known.indexOf(k);
+      return i === -1 ? known.length : i;
+    };
+    return [...counts.keys()]
+      .sort((a, b) => orderOf(a) - orderOf(b) || a.localeCompare(b, 'ko'))
+      .map((key) => ({
+        key,
+        label: SERIES_LABELS[key as SeriesKey] ?? key,
+        count: counts.get(key)!,
+      }));
   }, [rows]);
 
   const visibleRows = useMemo(
@@ -134,6 +144,13 @@ export function ContentStatusMatrixModal({ onClose }: { onClose: () => void }) {
           </div>
         )}
 
+        {/* 새로고침(재감사) 실패 배너 */}
+        {refreshMutation.isError && (
+          <div className="border-b border-rose-200 bg-rose-50 px-5 py-2 text-xs font-bold text-rose-700 dark:border-rose-900 dark:bg-rose-950/30 dark:text-rose-400">
+            ⚠️ 새로고침 실패 — 잠시 후 다시 시도해 주세요.
+          </div>
+        )}
+
         {/* filter bar */}
         <div className="flex flex-wrap items-center gap-2 border-b border-slate-100 px-5 py-2.5 dark:border-slate-800">
           <button
@@ -176,10 +193,25 @@ export function ContentStatusMatrixModal({ onClose }: { onClose: () => void }) {
           {isLoading && (
             <div className="py-10 text-center text-slate-400">저작 완성도 감사 중…</div>
           )}
-          {!isLoading && visibleRows.length === 0 && (
+          {/* 서버는 R2/Supabase 장애 시 정직하게 500/502 — 빈 상태로 오표시하지 않는다 */}
+          {!isLoading && isError && (
+            <div className="py-10 text-center">
+              <p className="text-sm font-bold text-rose-600 dark:text-rose-400">
+                ⚠️ 감사 로드 실패 — 서버/R2 상태를 확인하세요.
+              </p>
+              <button
+                type="button"
+                onClick={() => refetch()}
+                className="mt-3 rounded-md bg-slate-100 px-4 py-1.5 text-sm font-bold text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+              >
+                다시 시도
+              </button>
+            </div>
+          )}
+          {!isLoading && !isError && visibleRows.length === 0 && (
             <div className="py-10 text-center text-slate-400">표시할 책이 없어요.</div>
           )}
-          {!isLoading && visibleRows.length > 0 && (
+          {!isLoading && !isError && visibleRows.length > 0 && (
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="sticky top-0 z-10 bg-white text-xs text-slate-500 dark:bg-slate-900 dark:text-slate-400">
@@ -198,7 +230,7 @@ export function ContentStatusMatrixModal({ onClose }: { onClose: () => void }) {
                   <tr
                     key={row.bookId}
                     className={`border-t border-slate-100 dark:border-slate-800 ${
-                      row.approved ? 'bg-green-50 dark:bg-emerald-950/20' : ''
+                      row.approved ? 'bg-emerald-50 dark:bg-emerald-950/20' : ''
                     }`}
                   >
                     <td className="max-w-[16rem] px-2 py-1.5">
