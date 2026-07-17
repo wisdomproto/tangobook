@@ -14,6 +14,7 @@ const navGroups = [
       { to: '/marketing/ideas', icon: '💡', label: '키워드 / 아이디어' },
       { to: '/marketing/content', icon: '📝', label: '콘텐츠 생성' },
       { to: '/marketing/publish', icon: '🚀', label: '발행' },
+      { to: '/marketing/pipeline', icon: '🗼', label: '파이프라인' },
     ],
   },
   {

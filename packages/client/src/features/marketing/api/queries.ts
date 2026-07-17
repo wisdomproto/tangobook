@@ -65,6 +65,7 @@ export const mktKeys = {
   strategyTemplates: () => ['mkt', 'strategy', 'templates'] as const,
   monitoringKeywords: (projectId: string) => ['mkt', 'monitoring', 'keywords', projectId] as const,
   feedback: () => ['mkt', 'feedback'] as const,
+  pipeline: () => ['mkt', 'pipeline'] as const,
 };
 
 // ─── Fetch Helpers ──────────────────────────────────────────────────────────

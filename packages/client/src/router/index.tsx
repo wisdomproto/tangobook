@@ -17,6 +17,7 @@ import {
   MonitoringPage,
   AdsPage,
   FeedbackPage,
+  PipelinePage,
 } from '../features/marketing';
 import LibraryPage from '../pages/LibraryPage';
 import GamesHubPage from '../pages/GamesHubPage';
@@ -506,6 +507,7 @@ export const router = createBrowserRouter([
           { path: 'strategy', element: <StrategyPage /> },
           { path: 'ads', element: <AdsPage /> },
           { path: 'feedback', element: <FeedbackPage /> },
+          { path: 'pipeline', element: <PipelinePage /> },
           { path: 'members', element: <MembersDashboardPage embedded /> },
         ],
       },
