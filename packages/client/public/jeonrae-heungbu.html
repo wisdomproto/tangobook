@@ -60,6 +60,16 @@
   .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
   .paste-box img { width:100%; border-radius:8px; display:block; }
   .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
   footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
   @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
 </style>
@@ -86,6 +96,8 @@
 <!-- ============================================================ -->
 <h2 class="sec"><span class="no">A</span>등장인물</h2>
 <p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.</p>
+
+<div class="cast-grid">
 
 <div class="char-prompt" data-char="가난한 흥부" data-key="char-heungbu-poor">
   <div class="head"><span class="face">🧑‍🌾</span><b>가난한 흥부</b> <span class="rom">HeungbuPoor · 착한 동생(가난)</span> <button class="copy-btn">프롬프트 복사</button></div>
@@ -168,9 +180,13 @@ REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle 
 Attach the two approved style renders as style references.</pre></details>
 </div>
 
+</div>
+
 <!-- ============================================================ -->
 <h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
 <p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
 
 <div class="char-prompt" data-char="박" data-key="word-bak">
   <div class="head"><span class="face">🫧</span><b>박</b> <span class="rom">bak — a round bottle gourd</span> <button class="copy-btn">프롬프트 복사</button></div>
@@ -200,6 +216,8 @@ OBJECT: "yeopjeon — old Korean brass coins (엽전, 상평통보)". Round warm
   <div class="head"><span class="face">🥿</span><b>짚신</b> <span class="rom">jipsin — woven straw shoes</span> <button class="copy-btn">프롬프트 복사</button></div>
   <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
 OBJECT: "jipsin — traditional Korean straw-woven sandals (짚신)". A neat pair of sandals braided from golden rice-straw (#D8B45A), showing the woven sole texture, the looped toe and heel, and the ankle-tie cords, in a warm hand-crafted straw gold. Cozy, humble, tidy craftsmanship. Present the pair at a slight 3/4 angle (one showing the top, one the side) so the weave reads clearly. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
 </div>
 
 <!-- ============================================================ -->
