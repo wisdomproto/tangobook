@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>한글 나무 — ㄹ 배우기</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root{
+    --leaf:#3f8f52; --leaf-dark:#2f6b3d; --leaf-50:#eaf5ec; --apple:#e0533b;
+    --cream:#fbf7ef; --paper:#ffffff; --ink:#2c2015; --ink-soft:#6b5b4a; --line:#e6dccb; --mint:#3f8f52; --gold:#e8a53c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;background:var(--cream);color:var(--ink);line-height:1.75;}
+  .wrap{max-width:900px;margin:0 auto;padding:24px 24px 120px;}
+  header.hero{text-align:center;padding:34px 0;border-bottom:3px solid var(--leaf);margin-bottom:24px;}
+  .hero .kicker{color:var(--apple);font-weight:800;letter-spacing:.14em;font-size:12px;}
+  .hero h1{font-size:40px;font-weight:900;margin:10px 0 6px;}
+  .hero .glyph{display:inline-block;background:#f6d9d2;color:var(--apple);border-radius:14px;padding:2px 14px;margin-right:8px;}
+  .hero .sub{color:var(--ink-soft);font-size:15px;font-weight:600;word-break:keep-all;}
+  .meta-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px 20px;margin-bottom:14px;font-size:13.5px;word-break:keep-all;}
+  .meta-card b{color:var(--leaf-dark);}
+  .note{font-size:13px;color:var(--ink-soft);background:var(--leaf-50);border-radius:10px;padding:10px 14px;margin:18px 0;}
+  .page-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px 22px;margin:16px 0;}
+  .page-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+  .page-head b{font-size:16px;}
+  .page-head .pnum{flex:0 0 auto;width:34px;height:34px;border-radius:10px;background:var(--leaf);color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:13px;}
+  .tag{display:inline-block;background:var(--leaf-50);color:var(--leaf-dark);border-radius:999px;padding:2px 10px;font-size:12px;font-weight:800;}
+  .tag.beat{background:#fdeee9;color:var(--apple);}
+  .ko{font-size:15.5px;margin:8px 0 4px;word-break:keep-all;}
+  .copy-btn{background:var(--paper);color:var(--mint);border:1.5px solid var(--mint);border-radius:999px;padding:4px 14px;font-weight:800;font-size:12.5px;cursor:pointer;}
+  .page-head .copy-btn{margin-left:auto;}
+  .copy-btn:hover,.copy-btn.done{background:var(--mint);color:#fff;}
+  details.scene-d{margin-top:8px;}
+  details.scene-d summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--ink-soft);}
+  pre.scene{white-space:pre-wrap;background:var(--cream);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-family:inherit;font-size:12.5px;line-height:1.65;margin-top:6px;color:var(--ink-soft);}
+  .paste-box{position:relative;border:2px dashed var(--line);border-radius:10px;min-height:68px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;color:var(--ink-soft);font-weight:700;cursor:pointer;outline:none;padding:8px;background:#fff;margin-top:10px;}
+  .paste-del{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;border:none;background:rgba(42,38,32,.6);color:#fff;font-size:12px;font-weight:800;cursor:pointer;line-height:1;}
+  .paste-del:hover{background:var(--apple);}
+  .paste-box:focus{border-color:var(--leaf);color:var(--leaf-dark);}
+  .paste-box.has-img{padding:0;min-height:0;border-style:solid;border-color:var(--mint);}
+  .paste-box img{width:100%;border-radius:8px;display:block;}
+  .paste-box.busy{opacity:.5;}
+  footer{margin-top:70px;text-align:center;color:var(--ink-soft);font-size:12px;}
+  @media print{body{background:#fff}.wrap{max-width:none;padding:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK · 한글 파닉스 · 한글1 · 기본음절 · #5</div>
+  <h1><span class="glyph">ㄹ</span>ㄹ 배우기</h1>
+  <div class="sub">다리를 건너는 오리·너구리·노루</div>
+</header>
+
+<div class="meta-card">
+  <b>오늘의 글자</b> ㄹ &nbsp;·&nbsp;
+  <b>타겟 단어</b> 오리 · 너구리 · 다리 · 노루 &nbsp;·&nbsp;
+  <b>등장</b> 🐯 호리 · 🐰 토토 &nbsp;·&nbsp;
+  <b>분량</b> 8쪽 &nbsp;·&nbsp; <b>그림체</b> 니들펠트
+</div>
+<div class="note">🌳 각 쪽 <b>🎨 버튼</b> = 니들펠트 스타일 + 등장 캐릭터 레퍼런스(@image1~) + 그 쪽 장면을 한 번에 복사. 위쪽에 생기는 <b>전체 프롬프트</b> 버튼은 8쪽을 한 번에. 생성한 컷은 쪽마다 붙여넣기 박스에 보관합니다(R2: <code>comic-assets/hangeul-tree-kr-h1-u05</code>). 캐릭터 레퍼런스 시트는 <a href="/hangeul-tree-plan.html" style="color:var(--apple);font-weight:800">📘 기획서</a>에 보관된 니들펠트 캐스트를 재사용하세요.</div>
+
+<!-- ============================================================ -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>나무 앞에 모이기</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"토토야, 나무 좀 봐!" 한글 나무 가지 끝에 새 열매가 반짝반짝 빛나요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 · 아이레벨 살짝 로우앵글(나무를 올려다보는 느낌)<br/>
+<b>장소·시간</b> 호리네 마을 언덕의 커다란 한글 나무 아래, 맑은 아침. 잎사귀 사이로 부드러운 햇살이 쏟아짐<br/>
+<b>인물</b> 전경 왼쪽 — 호리(Hori)가 두 발로 서서 오른팔을 번쩍 들어 나무 위를 가리키고, 입을 동그랗게 벌린 놀란 표정, 시선은 위쪽 열매로. 전경 오른쪽 — 토토(Toto, bunny)가 두 귀를 쫑긋 세우고 뒷발로 콩콩 뛰며 나무 위를 올려다보는 호기심 가득한 표정<br/>
+<b>배경·소품</b> 굵은 나무줄기와 넓게 퍼진 가지, 가지 끝 한 곳에 아직 글자가 안 보이는 매끈한 열매 하나가 노란빛으로 반짝임(빛 알갱이 몇 개 퐁퐁). 밑동에 작은 풀꽃 몇 송이<br/>
+<b>톤</b> 따뜻한 아침 색온도, 왼쪽 위에서 들어오는 부드러운 광선, 설렘<br/></pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>오늘의 글자 등장</b> <span class="tag beat">② 오늘의 글자</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">톡! 열매를 따니 글자가 두둥 나타났어요. "르, 르, ㄹ!" 호리와 토토가 소리를 크게 냈어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 · 아이레벨(두 얼굴과 열매가 화면 가득)<br/>
+<b>장소·시간</b> 한글 나무 바로 아래, 같은 아침. 방금 열매를 딴 직후<br/>
+<b>인물</b> 왼쪽 — 호리(Hori)가 두 손으로 동그란 열매를 소중히 감싸 들고, 눈을 크게 뜨고 입을 크게 벌려 소리 내는 표정. 오른쪽 — 토토(Toto, bunny)가 앞발을 모아 열매 쪽으로 얼굴을 바짝 들이밀고, 입을 벌려 함께 소리 내며 두 귀가 쫑긋<br/>
+<b>배경·소품</b> 두 손 위 노란 열매 표면에 커다랗고 또렷한 한글 글자 <b>ㄹ</b>이 도톰하게 돋아 빛남(열매 자체가 ㄹ 아이콘). 열매 둘레로 반짝임 별 몇 개. 뒤 배경은 초록 잎이 부드럽게 흐릿<br/>
+<b>톤</b> 밝고 경쾌한 색감, 열매에서 퍼지는 은은한 광채, 신남<br/></pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>타겟 단어 ①② (오리 · 너구리)</b> <span class="tag beat">③ 단어 ①②</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">잎사귀 사이로 단어가 퐁퐁 떠올랐어요. "오~리! 너구~리! 가운데에 '르' 소리가 숨어 있지? ㄹ이야!" 호리가 손가락으로 하나씩 짚었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 · 어깨너머(호리 뒤에서 나뭇잎 글자판을 보는 구도)<br/>
+<b>장소·시간</b> 한글 나무 잎이 우거진 가지 앞, 아침<br/>
+<b>인물</b> 가운데 — 호리(Hori)가 앞으로 손을 뻗어 검지로 나뭇잎 위 글자 '오리'를 또박또박 짚는 포즈, 입을 오므려 읽는 진지한 표정. 오른쪽 아래 — 토토(Toto, bunny)가 앉아서 고개를 갸웃 기울이며 글자를 따라 보는 표정, 귀 하나가 쫑긋<br/>
+<b>배경·소품</b> 넓은 나뭇잎 두 장이 작은 표지판처럼 펼쳐지고, 각각에 또렷한 한글 단어 <b>오리</b>와 <b>너구리</b>. '오리' 잎 옆 작은 그림(뒤뚱뒤뚱 노란 오리), '너구리' 잎 옆 작은 그림(눈가 까만 너구리). 두 단어 속 ㄹ 글자가 더 진한 빨간색으로 강조<br/>
+<b>톤</b> 산뜻한 초록·노랑 색감, 잎 사이 부서지는 햇빛, 차분히 배우는 정서<br/></pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>타겟 단어 ③④ (다리 · 노루)</b> <span class="tag beat">③ 단어 ③④</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"이번엔 다리! 그리고 노루!" 그림이랑 단어를 콕콕 짝지어 맞췄어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 · 아이레벨(두 캐릭터가 나란히, 글자잎을 마주함)<br/>
+<b>장소·시간</b> 같은 나무 앞, 아침<br/>
+<b>인물</b> 왼쪽 — 호리(Hori)가 한 손으로 '다리' 글자잎을, 다른 손으로 '노루' 글자잎을 가리키며 방긋 웃는 표정. 오른쪽 — 토토(Toto, bunny)가 앞발 하나를 들어 '노루' 그림을 톡 건드리며 귀를 팔랑이는 신난 표정<br/>
+<b>배경·소품</b> 나뭇잎 두 장에 또렷한 한글 단어 <b>다리</b>와 <b>노루</b>. '다리' 잎 옆 작은 그림(개울 위 작은 나무다리), '노루' 잎 옆 작은 그림(뿔이 작은 갈색 노루). 단어 속 ㄹ이 빨갛게 강조. 위쪽 가지엔 방금 딴 ㄹ 열매 자리가 살짝 보임<br/>
+<b>톤</b> 밝고 따뜻한 색감, 정면에서 은은한 빛, 뿌듯하게 알아가는 정서<br/></pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>도란도란 수다</b> <span class="tag beat">④ 수다</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"저기 개울에 다리가 있네! 오리가 뒤뚱뒤뚱 놀아." 호리가 손짓했어요. "나는 폴짝폴짝 뛰는 게 제일 좋아!" 토토가 귀를 쫑긋했어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 · 아이레벨(둘의 몸짓이 다 보이는 넉넉한 구도)<br/>
+<b>장소·시간</b> 한글 나무 그늘을 벗어나 작은 개울가로, 낮으로 기우는 늦은 오전<br/>
+<b>인물</b> 왼쪽 — 호리(Hori)가 개울 쪽으로 팔을 뻗어 다리를 가리키며 눈을 반짝이는 밝은 표정. 오른쪽 — 토토(Toto, bunny)가 뒷발로 살짝 뛰어오르며 두 앞발을 들고 신난 웃음, 귀가 위로 쫑긋<br/>
+<b>배경·소품</b> 개울 위에 작고 낮은 나무다리 하나. 다리 아래 물가에 노란 오리 한두 마리가 뒤뚱뒤뚱. 뒤로 한글 나무와 아까 읽은 글자잎들이 부드럽게 흐릿. 물결에 반짝이는 햇빛<br/>
+<b>톤</b> 포근한 낮 색온도, 물가의 부드러운 반사광, 정겹고 느긋한 정서<br/></pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>작은 웃음 포인트 🎈 (재미 훅)</b> <span class="tag beat">⑤ 웃음 🎈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">오리, 너구리, 노루가 줄줄이 다리를 콩콩 건너요. 그런데 토토만 다리를 안 밟고 폴~짝! 뛰어넘었어요. "히히!" 다 같이 까르르 웃었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 · 옆면 아이레벨(개울 다리를 옆에서 길게 보여주는 구도)<br/>
+<b>장소·시간</b> 개울 위 작은 다리, 늦은 오전. 웃음이 터지는 순간<br/>
+<b>인물</b> 다리 위 — 오리, 너구리, 노루가 앞뒤로 줄지어 다리를 조심조심 건너는 모습(각각 발을 다리 판자에 딛고 뒤뚱·아장). 공중 오른쪽 — 토토(Toto, bunny)가 다리를 밟지 않고 개울을 훌쩍 뛰어넘는 순간, 두 귀가 바람에 뒤로 날리고 활짝 웃는 표정. 왼쪽 물가 — 호리(Hori)가 두 손으로 배를 잡고 까르르 웃음이 터진 표정<br/>
+<b>배경·소품</b> 개울 위 낮은 나무다리, 그 위 동물들 줄. 토토의 점프 궤적을 나타내는 곡선 반짝임과 '폴짝' 느낌의 작은 효과선. 물결이 튀는 물방울 몇 개<br/>
+<b>톤</b> 발랄하고 따뜻한 색감, 살짝 과장된 코믹 하이라이트, 까르르 웃음의 정서<br/></pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>다 같이 따라 하기</b> <span class="tag beat">⑥ 따라 하기</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"우리 손으로 그려 볼까? ㄹ, ㄹ, ㄹ!" 호리와 토토가 허공에 커다랗게 ㄹ을 그렸어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 · 정면 아이레벨(두 캐릭터가 나란히 손을 뻗은 대칭 구도)<br/>
+<b>장소·시간</b> 개울가 풀밭, 낮<br/>
+<b>인물</b> 왼쪽 — 호리(Hori)가 검지를 쭉 뻗어 허공에 지그재그로 꺾이는 ㄹ 획을 차례로 그리며 입 벌려 소리 내는 밝은 표정. 오른쪽 — 토토(Toto, bunny)가 앞발을 들어 호리를 따라 같은 획을 그리며 집중한 표정, 두 귀 쫑긋<br/>
+<b>배경·소품</b> 두 캐릭터 손끝을 따라 공중에 빛나는 노란 궤적으로 커다란 <b>ㄹ</b> 글자가 또렷이 그려짐(위·가운데·아래로 꺾이는 획 방향 화살표 느낌의 반짝임). 뒤 한글 나무엔 ㄹ 열매가 매달려 은은히 빛남<br/>
+<b>톤</b> 맑고 경쾌한 색감, 손끝에서 퍼지는 반짝임, 신나게 익히는 정서<br/></pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>마무리 &amp; 다음 예고</b> <span class="tag beat">⑦ 마무리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">톡! 한글 나무에 ㄹ 열매가 반짝반짝 열렸어요. "저 위엔 다음 열매가 익고 있네? 내일 또 오자!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 · 로우앵글(나무 전체를 아래에서 올려다보는 마무리 와이드)<br/>
+<b>장소·시간</b> 한글 나무 아래, 노을이 물들기 시작하는 늦은 오후<br/>
+<b>인물</b> 아래쪽 가운데 — 호리(Hori)가 나무를 올려다보며 두 팔을 활짝 벌려 만족스럽게 웃는 반측면 포즈. 그 옆 — 토토(Toto, bunny)가 호리 곁에 앉아 함께 위를 올려다보며 편안히 웃는 표정, 두 귀가 살랑<br/>
+<b>배경·소품</b> 나무 가운데 가지에 방금 완성된 <b>ㄹ</b> 글자 열매가 또렷하게 매달려 반짝임. 그보다 위쪽 가지엔 아직 글자가 안 보이는 다음 열매(연둣빛, 살짝 덜 익음)가 은은히 빛나며 예고. 배경 하늘에 분홍·주황 노을빛<br/>
+<b>톤</b> 따뜻한 노을 색온도, 뒤에서 번지는 황금빛, 하루를 마무리하는 뿌듯하고 포근한 정서<br/></pre></details>
+</div>
+
+<footer>한글 나무 · 호리네 파닉스 동화 · ㄹ · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (hangeul-tree-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.HT_EPISODE = {
+  cast: [
+    { token: '호리', name: '호리', desc: "아기 호랑이(5세) 주인공 — 주황 털(#F8A755)+갈색 줄무늬, 크림색 배, 분홍 볼터치, 크고 둥근 호기심 눈.", aliases: ["Hori","호리"] },
+    { token: '토토', name: '토토', desc: "토끼(5세) — 흰 털, 연하늘색 귀 안쪽, 길게 선 귀, 자신만만한 눈, 앞으로 기운 활발한 자세, 빨간 손수건.", aliases: ["Toto","bunny","토토"] }
+  ]
+};
+</script>
+<script src="/hangeul-tree-core.js"></script>
+</body>
+</html>

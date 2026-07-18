@@ -44,6 +44,12 @@ const RESOURCES: ResourceItem[] = [
     desc: '같은 P1 장면으로 4개 그림체 A/B (민화 팝·모던 K·디오라마·하이브리드)',
   },
   {
+    href: '/hangeul-tree-plan.html',
+    icon: '🌳',
+    label: '한글 나무 파닉스 동화 기획서',
+    desc: '호리 앙상블 니들펠트 · 한글 파닉스 32유닛 학습 장면형 동화(8쪽) + 회차별 대본·프롬프트(☰ 유닛)',
+  },
+  {
     href: '/learning-comic-franchise.html',
     icon: '🗺️',
     label: '학습만화 「타임 티코」 프랜차이즈',
