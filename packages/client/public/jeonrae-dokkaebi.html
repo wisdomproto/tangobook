@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 도깨비방망이</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 1 #2</div>
+  <h1>🔨 도깨비방망이</h1>
+  <div class="sub">착한 나무꾼과 개암 한 알 — "딱!" 소리에 도깨비들이 두고 간 요술 방망이 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 정직·욕심 경계 &nbsp;·&nbsp;
+  <b>분량</b> 13 스프레드 &nbsp;·&nbsp; <b>후렴</b> 방망이 주문 &nbsp;·&nbsp;
+  <b>핵심단어</b> 도깨비방망이 · 호롱불 · 보따리 · 개암 · 곰방대 &nbsp;·&nbsp;
+  <b>순화</b> 욕심쟁이 벌 = 도깨비 코믹 골탕(빙글빙글·간지럼) + 뉘우침 / 도깨비는 무섭지 않은 장난꾸러기(흥부놀부 확정 디자인 재사용)
+</div>
+<div class="refrain">🔨 반복 후렴 — "금 나와라 뚝딱! 은 나와라 뚝딱!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-dokkaebi</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부. 도깨비는 <b>흥부놀부 확정 디자인 그대로 재사용</b>.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="가난한 나무꾼" data-key="char-woodcutter-poor">
+  <div class="head"><span class="face">🪵</span><b>가난한 나무꾼</b> <span class="rom">WoodcutterPoor · 착한 나무꾼(가난)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: WoodcutterPoor — the kind-hearted young woodcutter while still poor. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot), hair as one solid dark mass tied into a small topknot (sangtu), with a twisted cloth headband (a working man's rolled towel band) drawn as one soft stroke across the forehead. IDENTICAL FACE to WoodcutterRich.
+SILHOUETTE (his signature): sturdy and round-shouldered, medium build, a springy diligent posture that leans slightly forward as if always ready to carry something — earnest, warm and quick to smile. The exact opposite of the lanky grabby GreedyOldMan.
+CLOTHES (poor state): a plain everyday hanbok suggested in soft blue-grey pencil strokes — jacket with sleeves rolled up, baggy trousers left mostly as open paper with loose hatching, one small scribbled patch at the knee, straw sandals in a few pale straw-yellow strokes. Sometimes a simple wooden A-frame carrier (jige) on his back drawn in a few honey-brown strokes. Humble and tidy — poor is told by the patch and the sparseness of the strokes, never by dirt or gloom.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (relaxed hands, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) gentle one-line smile, (2) surprised small O mouth with lifted brow strokes, (3) big happy open laugh drawn as a small curved open mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="복 받은 나무꾼" data-key="char-woodcutter-rich">
+  <div class="head"><span class="face">🪵</span><b>복 받은 나무꾼</b> <span class="rom">WoodcutterRich · 복 받은 나무꾼</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: WoodcutterRich — the SAME kind young woodcutter AFTER the magic club blessed him, now well-off.
+🔴 IDENTICAL FACE to WoodcutterPoor: the same flat cream face, same two dot eyes, same gentle one-line smile, same solid dark topknot hair, same twisted cloth headband now worn loose around the neck or gone. Riches changed his clothes, never his face or bearing — still humble, hardworking and warm, NEVER smug.
+SILHOUETTE: the same sturdy, round-shouldered build and springy diligent posture as WoodcutterPoor, just standing a touch healthier and more at ease — clearly the SAME person, just better clothes.
+CLOTHES (blessed state): a clean, neat hanbok — the jacket suggested in a soft leaf-green pencil tone with a few tidy hatching strokes, cream trousers left as open paper, a simple sash, plain cloth shoes instead of straw sandals. No patches now. Only a few more strokes than the poor version — modest and comfortable, NOT flashy, NOT gold-drenched.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (relaxed hands, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) gentle one-line smile, (2) joyful surprised small O mouth with lifted brow strokes, (3) soft warm smile with a slight friendly tilt of the head while offering something with both hands. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="어머니" data-key="char-mother">
+  <div class="head"><span class="face">👵</span><b>어머니</b> <span class="rom">Mother · 나무꾼의 늙으신 어머니</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Mother — the woodcutter's gentle old mother. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a soft one-line smile, no nose (or one tiny dot), hair as one solid dark mass gathered into a modest LOW bun at the nape with two or three pale grey strokes through it so she reads as elderly, and one plain hairpin drawn as a single short stroke.
+SILHOUETTE (her signature): small and softly rounded with a gently bent back — a warm grandmotherly bearing, hands often folded inside her sleeves or resting on her knees. Age is told entirely by the bent posture, the grey strokes in the bun and her calm slow gestures — never by wrinkled facial detail.
+CLOTHES: a humble skirt-and-jacket hanbok suggested in soft blue-grey and faded straw tones — mostly open paper with loose hatching, a plain work apron drawn in a few strokes. Threadbare but tidy and clean.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded, soft one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) warm one-line smile, (2) astonished small O mouth with lifted brow strokes and hands to cheeks, (3) moved teary smile with a tiny tear stroke and a gentle tilt of the head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="욕심쟁이 영감" data-key="char-greedy-oldman">
+  <div class="head"><span class="face">🧔</span><b>욕심쟁이 영감</b> <span class="rom">GreedyOldMan · 이웃 욕심쟁이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GreedyOldMan — the greedy old neighbor, comic and never scary. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a sly little downcurved line mouth, no nose (or one tiny dot), and his signature — a long thin chin beard drawn as just three wispy strokes. Hair as one solid dark mass in a topknot (sangtu) under a small dark horsehair inner cap (tanggeon) drawn as one simple shape.
+SILHOUETTE (his signature): lanky and hunched forward — a thin, stooping, grabby silhouette with long arms and fingers always reaching toward something, chin jutting out. The exact opposite of the sturdy upright woodcutter.
+CLOTHES: a slightly showy ochre-toned vest hatched with a hint of scribbled pattern over soft blue-grey trousers — a man who has enough but always wants more, told by the vest and the reaching hands.
+PROP: almost always holds a short tobacco pipe (gombangdae) drawn as one long stroke with a tiny bowl.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hunched forward, pipe in one hand, the other hand mid-grab) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) sly downcurved scheming smirk, (2) wide greedy open grin, (3) comic dizzy wail with a big O mouth and swirling flyaway brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="도깨비" data-key="char-dokkaebi">
+  <div class="head"><span class="face">👹</span><b>도깨비</b> <span class="rom">Dokkaebi · 장난꾸러기 (흥부놀부 확정 디자인 재사용)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Dokkaebi — a small playful Korean imp, mischievous and never scary (a merry troop: they feast and dance in the empty house, flee in comic panic from a "ttak!" sound, and later playfully tease the greedy old man — never hurting anyone). Dot-eye design language: a flat cream face like everyone else, two dot eyes, and a wide grin drawn as a single line with a few tiny teeth strokes across it. His signature — a wild shaggy mop of dark scribbled hair (the one place where the scribble goes wild) with TWO small horns poking out of the mop.
+SILHOUETTE: small and round — a little imp with a round tummy and stubby limbs. Small imp + mop hair + two horns + knobbly club = instantly readable and comic.
+CLOTHES & PROP: a simple ragged loincloth in a few strokes, and always a knobbly wooden magic club (bangmangi) with a small red tassel — the picture's single red accent when he appears.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (club over shoulder, toothy line grin) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) mischievous toothy line grin, (2) big open laughing mouth, (3) surprised small O mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="도깨비방망이" data-key="word-bangmangi">
+  <div class="head"><span class="face">🔨</span><b>도깨비방망이</b> <span class="rom">bangmangi — a goblin's magic club</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "bangmangi — a Korean goblin's knobbly magic club (도깨비방망이)". A stout club of dark chestnut wood (#6B4A2B) covered in rounded friendly bumps, a grip wrapped with a twisted cord, and a small bright red tassel (#C0392B) swinging from the pommel on a short cord. Show TWO states: (1) the whole club standing upright so the knobbly silhouette reads clearly, and (2) the club mid-swing with a cheerful burst of golden sparkles and two or three gold coins popping out. Magical and fun, never menacing. Centered icon-style word card, vivid and proud, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="호롱불" data-key="word-horongbul">
+  <div class="head"><span class="face">🏮</span><b>호롱불</b> <span class="rom">horongbul — a small Korean oil lamp</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "horongbul — a small traditional Korean oil lamp (호롱불)". A little rounded white porcelain oil cup (#F2EFE8) with a cotton wick and one small warm teardrop flame (#F5A623), sitting on its simple dark wooden lamp stand (deungjandae, honey-brown #8A6238) with a small drip tray. A soft warm glow halo around the flame. Show TWO views: (1) the lit lamp on its stand seen from the front, and (2) a slight 3/4 view showing the round cup and spout shape. Cozy, warm, hand-made. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="보따리" data-key="word-bottari">
+  <div class="head"><span class="face">🎁</span><b>보따리</b> <span class="rom">bottari — a cloth wrapping bundle</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "bottari — a traditional Korean cloth wrapping bundle (보따리)". A square cotton wrapping cloth in a soft indigo blue (#4A6FA5) with a simple woven texture and a plain border, gathered up and tied into a plump rounded bundle with a neat top knot. Show TWO states: (1) the tied plump bundle sitting proudly, and (2) the cloth half-open flat with glossy brown hazelnuts spilling out of it. Soft cloth folds, warm handcrafted feel. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="개암" data-key="word-gaeam">
+  <div class="head"><span class="face">🌰</span><b>개암</b> <span class="rom">gaeam — a Korean hazelnut</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gaeam — a Korean hazelnut (개암)". Small round glossy chestnut-brown nuts (#8A5A2B) with a pale round tip, some still wearing their frilly leafy green husks (#7BA05B). Show TWO forms: (1) a short hazel branch with two or three nuts nestled in their green husks, and (2) a cheerful little pile of shelled shiny nuts beside it, one cracked neatly in half showing the pale creamy kernel. Plump, glossy, appetizing. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="곰방대" data-key="word-gombangdae">
+  <div class="head"><span class="face">🎋</span><b>곰방대</b> <span class="rom">gombangdae — a short tobacco pipe</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gombangdae — a traditional Korean short tobacco pipe (곰방대)". A slender bamboo stem (#C8A96A) with two visible nodes, a small rounded brass bowl (#B08D2E) with a soft aged patina at one end and a dark horn mouthpiece at the other. Show TWO views: (1) the pipe laid at a gentle diagonal, clean and unlit, and (2) a close 3/4 detail of the little brass bowl so its shape reads. Slim, elegant, old-timey. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 13 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날, 깊은 산골 작은 초가집에 마음씨 착한 나무꾼이 늙으신 어머니와 살았어요. 나무꾼은 날마다 산에 올라 부지런히 나무를 했지요. 가난했지만, 초가집엔 도란도란 웃음소리가 끊이지 않았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 하이앵글 부감 + 극단 여백·스케일 대비. 화면 위 2/3는 겹겹의 산과 하늘을 거의 빈 종이 여백으로 비우고, 작은 초가집과 인물은 아래 구석에 조그맣게 — 깊은 산골의 아득함으로 옛이야기를 연다.<br/><b>장소·시간</b> 깊은 산골짜기 비탈의 외딴 작은 초가집 마당, 화창한 가을 아침. 맑고 고요한 산 공기.<br/><b>인물</b> WoodcutterPoor(가난한 나무꾼)는 마당에서 등에 지게를 지고 막 나서며 뒤돌아 손을 크게 흔들고 활짝 웃음. Mother(어머니)는 사립문 앞 툇마루 곁에서 허리를 살짝 굽힌 채 두 손을 모으고 아들을 배웅하며 온화한 실선 미소. 두 사람 다 화면 아래쪽에 작게, 정겨운 실루엣으로.<br/><b>배경·소품</b> 이엉을 얹은 작은 초가지붕과 흙벽, 낮은 사립문, 마당 구석의 장작더미와 장독 한둘, 뒤로 겹겹이 밀려나는 산등성이(획 몇 개로만 암시), 넓은 아침 하늘.<br/><b>톤</b> 종이의 크림빛이 그대로 아침 햇살, 아득하고 포근한 옛이야기의 시작 정서. 빨강 악센트 1점 = 어머니 저고리의 작은 빨간 옷고름.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(개암 줍기)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 날, 나무꾼은 산에서 개암나무를 만났어요. 반질반질한 개암이 톡, 톡 떨어졌지요. "요건 어머니 드리고, 요건 내가 먹어야지!" 나무꾼은 개암을 주울 때마다 어머니 생각에 벙글벙글 웃었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글 + 전경 겹침. 개암나무 아래에서 가지를 올려다보는 앵글 — 전경에 개암 달린 가지가 프레임 위를 살짝 가리고, 그 사이로 나무꾼을 담는다.<br/><b>장소·시간</b> 산 중턱 개암나무 아래, 화창한 가을 낮. 바스락거리는 낙엽과 맑은 숲 공기.<br/><b>인물</b> WoodcutterPoor(가난한 나무꾼)는 화면 중앙에서 한쪽 무릎을 굽히고 앉아 한 손으로 떨어진 개암 한 알을 집어 들어 올려다보며, 입을 벙글 벌린 환한 웃음 — "어머니 드려야지" 하는 다정한 눈. 다른 손엔 펼친 보따리 자락을 쥠. 지게는 옆 나무에 기대어 둠.<br/><b>배경·소품</b> 전경 가지에 초록 겉껍질을 쓴 <b>개암(gaeam)</b>이 조롱조롱, 바닥에 톡톡 떨어진 반질반질한 개암 알들, 나무꾼 곁에 펼쳐 둔 쪽빛 <b>보따리(bottari)</b> 위로 모아 둔 개암 한 줌, 기대 놓은 지게와 장작 몇 개비, 낙엽.<br/><b>톤</b> 나뭇잎 사이로 스미는 부드러운 가을빛, 소소하고 다정한 기쁨의 정서. 빨강 악센트 1점 = 바닥에 떨어진 새빨간 단풍잎 한 장.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(산속 빈집)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 그만 해가 뉘엿뉘엿 저물고 말았어요. 캄캄한 산속을 헤매던 나무꾼은 다 낡은 빈집 한 채를 찾았지요. "오늘 밤은 여기서 자야겠다." 나무꾼은 먼지 쌓인 호롱불을 밝히고, 보따리를 꼭 안고 웅크렸어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머. 방 안에 웅크린 나무꾼의 어깨 너머로 작은 호롱불과 어두운 방 안을 바라보는 구도 — 불빛 둘레만 밝고 나머지는 어스름에 잠긴다.<br/><b>장소·시간</b> 깊은 산속 다 낡은 빈집의 먼지 쌓인 방 안, 캄캄한 밤. 낯설고 조용한, 그러나 무섭지는 않은 공기.<br/><b>인물</b> WoodcutterPoor(가난한 나무꾼)는 화면 앞쪽에 등을 보이고 앉아 쪽빛 보따리를 두 팔로 꼭 끌어안고 무릎을 세워 웅크림. 어깨 너머로 살짝 보이는 옆얼굴은 눈을 동그랗게 뜨고 입을 오므린, 긴장 반 안심 반의 순한 표정.<br/><b>배경·소품</b> 방바닥에 놓인 작은 <b>호롱불(horongbul)</b> — 등잔대 위 하얀 종지에 콩알만 한 불꽃이 동그란 온기의 빛무리를 만듦, 무릎에 안은 <b>보따리(bottari)</b>, 낡아 기울어진 문짝과 찢어진 창호지, 구석의 먼지와 거미줄 한 획, 창밖의 짙푸른 밤.<br/><b>톤</b> 호롱불의 작고 따뜻한 주황 빛무리 vs 사방의 푸르스름한 어둠, 낯설지만 포근하게 절제된 밤의 정서. 빨강 악센트 1점 = 보따리 매듭의 작은 빨간 끈.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P4, P5, P6 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(도깨비들이 우르르)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">쿵! 쿵! 쿵! 한밤중에 마루가 울리더니, 도깨비들이 우르르 몰려 들어왔어요! 나무꾼은 얼른 다락 위로 올라가 숨을 죽였지요. 도깨비들은 저마다 울퉁불퉁 방망이를 하나씩 메고 있었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글 부감 + 대들보 가림. 다락에 숨은 나무꾼의 시점 — 화면 앞쪽에 어두운 대들보와 다락 마루 틈이 프레임을 가로로 가리고, 그 틈새 아래로 방 안에 몰려드는 도깨비들을 내려다본다.<br/><b>장소·시간</b> 빈집 방 안(다락 위에서 내려다봄), 한밤중. 쿵쿵 울리는 소란하고 우스꽝스러운 공기.<br/><b>인물</b> 화면 맨 앞 다락 틈에 WoodcutterPoor(가난한 나무꾼)의 손가락과 동그란 점눈 한쪽이 빼꼼 — 숨죽여 내려다보는 긴장한 표정. 그 아래 방 안으로 Dokkaebi(도깨비) 대여섯이 우르르 밀려 들어오며 저마다 어깨에 울퉁불퉁 <b>도깨비방망이(bangmangi, the magic club)</b>를 메고 이빨 실선 웃음으로 낄낄, 통통한 몸끼리 서로 부딪히며 뒤엉키는 코믹한 입장.<br/><b>배경·소품</b> 낡은 방 안과 열린 문짝, 구석에 아직 켜진 작은 호롱불, 도깨비들의 방망이 여러 개, 어두운 대들보와 다락 마루의 틈.<br/><b>톤</b> 호롱불의 주황빛이 도깨비들을 아래에서 비추는 왁자한 밤, 무섭지 않고 낄낄대는 소동의 정서. 빨강 악센트 1점 = 우두머리 도깨비 방망이의 빨간 술(나머지 방망이 술은 무채로).</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(방망이 잔치 · 후렴)</b> <span class="tag beat">③ 사건 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">우두머리 도깨비가 방망이를 번쩍 들고 외쳤어요. "금 나와라 뚝딱! 은 나와라 뚝딱!" 그러자 세상에! 금덩이가 데굴데굴, 은덩이가 반짝반짝 쏟아졌지요. 도깨비들은 덩실덩실 신나게 춤을 추었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 로우앵글. 방바닥 높이에서 올려다보는 앵글 — 앞쪽엔 굴러오는 금덩이·은덩이, 그 너머로 방망이를 번쩍 든 우두머리와 춤추는 도깨비들이 커 보인다.<br/><b>장소·시간</b> 빈집 방 안, 한밤중. 잔치처럼 들썩이는 신명 난 공기.<br/><b>인물</b> 화면 중앙 우두머리 Dokkaebi(도깨비)가 <b>도깨비방망이(bangmangi, the magic club)</b>를 머리 위로 번쩍 들고 입을 크게 벌려 "뚝딱!" 외침. 좌우의 Dokkaebi(도깨비) 넷은 서로 팔짱을 끼거나 배를 두드리며 덩실덩실 어깨춤, 저마다 이빨 실선 웃음. (나무꾼은 이 컷에는 보이지 않음 — 잔치에 시선 집중.)<br/><b>배경·소품</b> 방바닥을 데굴데굴 구르는 노란 금덩이들과 반짝이는 은덩이들, 공중에 톡톡 튀는 반짝임 획, 구석의 호롱불, 어두운 방 벽과 열린 문.<br/><b>톤</b> 호롱불 주황빛에 금·은의 반짝임이 더해진 들뜬 밤, 신명 나고 왁자한 잔치의 정서. 빨강 악센트 1점 = 우두머리 방망이의 빨간 술(나머지는 무채).</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(딱! 소리에 혼비백산)</b> <span class="tag beat">③ 사건 · 코믹 피크</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 나무꾼은 배가 너무너무 고팠어요. 살그머니 개암 한 알을 꺼내 꽉 깨물었지요. 딱! "으악! 집이 무너진다!" 도깨비들은 방망이도 팽개친 채, 걸음아 나 살려라 하고 도망쳐 버렸답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 더치 틸트(프레임을 비스듬히 기울임) + 스케일 대비. 기울어진 화면 가득 문으로 쏟아져 나가는 도깨비 무리 vs 위 구석 다락의 조그만 나무꾼 — 커다란 소동과 작은 원인의 대비.<br/><b>장소·시간</b> 빈집 방 안에서 문 밖까지, 한밤중. 혼비백산 뒤죽박죽 소동의 공기.<br/><b>인물</b> Dokkaebi(도깨비) 무리가 화면 아래쪽 대각선으로 우르르 겹쳐 넘어지며 문밖으로 달아남 — 앞엣것은 엉덩방아, 뒤엣것은 그 위로 껑충, 저마다 입이 큰 O 모양 비명, 방망이들이 공중에 팽개쳐져 데굴데굴. 화면 위 구석 다락 틈에는 WoodcutterPoor(가난한 나무꾼)가 <b>개암(gaeam)</b>을 입에 문 채 점눈이 동그래져 "내가 그랬나?" 하는 얼떨떨한 표정으로 조그맣게.<br/><b>배경·소품</b> 활짝 열려 덜컹이는 문짝, 바닥에 나뒹구는 방망이들과 금덩이·은덩이, 구석에 용케 서 있는 호롱불, 만화적인 '딱!' 느낌의 별·번쩍 효과 획(글자 없이 도형으로만).<br/><b>톤</b> 기울어진 프레임의 왁자지껄 폭소 소동, 무섭지 않은 명랑 코믹의 절정 정서. 빨강 악센트 1점 = 바닥에 팽개쳐진 우두머리 방망이의 빨간 술.</pre></details>
+</div>
+
+<!-- ④ 절정 : P7 ~ P11 -->
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>절정(요술 방망이 · 후렴)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">날이 밝자 나무꾼은 도깨비가 두고 간 방망이 하나를 주워 집으로 돌아왔어요. "쌀 나와라 뚝딱! 엽전 나와라 뚝딱!" 방망이를 두드릴 때마다 쌀이 소복소복, 엽전이 짤랑짤랑! 어머니는 눈이 휘둥그레졌지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 수직 평면 부감. 초가집 방바닥을 바로 위에서 내려다보는 구도 — 방바닥 가운데 쏟아진 쌀 무더기와 엽전이 꽃처럼 펼쳐지고, 두 인물이 그 둘레에 마주 앉는다.<br/><b>장소·시간</b> 나무꾼네 초가집 방 안, 이튿날 환한 아침. 믿기지 않는 기쁨으로 가득한 공기.<br/><b>인물</b> WoodcutterPoor(가난한 나무꾼)는 방바닥 한쪽에 무릎 꿇고 앉아 두 손으로 <b>도깨비방망이(bangmangi, the magic club)</b>를 쥐고 바닥을 막 두드린 자세, 위에서 내려다보여도 입이 크게 벌어진 함박웃음. 맞은편의 Mother(어머니)는 두 손을 볼에 대고 입이 작은 O 모양, 눈이 휘둥그레진 놀람 반 기쁨 반의 표정.<br/><b>배경·소품</b> 방바닥 가운데 소복소복 쌓인 하얀 쌀 무더기, 그 둘레로 짤랑 흩어진 가운데 네모 구멍 뚫린 금빛 엽전들, 방망이에서 퍼지는 반짝임 획, 한쪽에 개켜 둔 이부자리와 어머니의 반짇고리, 방문으로 스미는 아침 햇살.<br/><b>톤</b> 위에서 쏟아지는 환한 아침 빛, 복이 쏟아지는 벅차고 명랑한 정서. 빨강 악센트 1점 = 방망이의 빨간 술.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(나눔과 샘)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">나무꾼은 이웃들에게 쌀이며 엽전을 아낌없이 나누어 주며, 도깨비 방망이 이야기도 들려주었어요. 담장 뒤에서 몰래 엿듣던 욕심쟁이 영감은 곰방대를 만지작만지작, 배가 슬슬 아팠지요. "흥! 나는 방망이를 열 개고 스무 개고 몽땅 가져와야지!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 + 담장 겹침. 담장 뒤 영감의 어깨 너머로 마을의 나눔 장면을 훔쳐보는 구도 — 전경의 영감은 크고 어둡게, 나눔 장면은 밝고 환하게 대비.<br/><b>장소·시간</b> 마을 고샅 담장 옆, 환한 낮. 앞은 배 아픈 심술, 뒤는 훈훈한 잔치 같은 공기.<br/><b>인물</b> 화면 앞쪽에 GreedyOldMan(욕심쟁이 영감)이 등과 어깨만 크게 — 담장 모서리에 붙어 고개만 빼꼼 내밀고, 한 손에 쥔 곰방대를 까딱까딱 흔들며 실눈으로 노려보는 얄미운 옆얼굴. 담장 너머 마당에서는 WoodcutterRich(복 받은 나무꾼)가 이웃 아주머니·아이에게 불룩한 쌀자루를 두 손으로 건네며 환한 실선 미소(단역 이웃들은 획 몇 개의 소박한 마을 사람 실루엣으로).<br/><b>배경·소품</b> 영감 손의 <b>곰방대(gombangdae)</b>, 마당에 쌓인 쌀자루와 엽전 꾸러미, 말끔해진 나무꾼네 초가집, 낮은 돌담.<br/><b>톤</b> 담장 너머는 환하고 따뜻한 낮 빛, 전경의 영감 쪽은 살짝 그늘 — 심술과 훈훈함의 대비가 코믹하게. 빨강 악센트 1점 = 담장 위에 널어 말리는 빨간 고추 한 줄.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(욕심보 개암 쓸어 담기)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">욕심쟁이 영감은 그길로 산에 달려가 개암을 몽땅 쓸어 담았어요. "요것도 내 거, 조것도 내 거!" 보따리가 빵빵해지도록 담고 또 담았지요. 어머니 생각도, 이웃 생각도 하나도 없었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글 부감. 개암나무 위에서 영감을 내려다보는 구도 — 빙 둘러 떨어진 개암을 화면 가득 깔고, 그 한가운데서 허겁지겁 쓸어 담는 영감에게 시선 집중.<br/><b>장소·시간</b> 산 중턱 개암나무 아래(P2와 같은 자리), 늦은 오후. 허둥지둥 부산스러운 공기.<br/><b>인물</b> GreedyOldMan(욕심쟁이 영감)이 화면 중앙에 무릎을 꿇고 엎드려 두 팔을 갈퀴처럼 벌려 <b>개암(gaeam)</b>을 제 앞으로 와락와락 쓸어 모음 — 위에서 내려다보여도 벌어진 입꼬리와 치켜뜬 점눈의 욕심 가득한 표정, 탕건이 삐뚤어짐. 그 옆에 입을 쩍 벌린 커다란 <b>보따리(bottari)</b>가 개암으로 빵빵하게 불룩.<br/><b>배경·소품</b> 바닥에 흩뿌려진 개암 알들과 초록 겉껍질, 빵빵한 쪽빛 보따리, 내팽개쳐 둔 곰방대, 개암나무 그림자와 낙엽.<br/><b>톤</b> 비스듬한 늦은 오후 빛, 우스꽝스럽게 과장된 욕심의 정서(밉기보다 웃기게). 빨강 악센트 1점 = 보따리 매듭에 묶인 빨간 끈 한 가닥.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(안 속는 도깨비들)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밤이 되자 빈집에 도깨비들이 다시 나타났어요. 영감은 옳다구나, 냉큼 개암을 꺼내 꽉 깨물었지요. 딱! 그런데 이게 웬일이야? 도깨비들은 도망가기는커녕 씩 웃었어요. "그 소리, 이제 안 속지롱! 우리를 골탕 먹이려는 욕심쟁이로구나!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨 + 겹침/가림(프레임 인). 개암을 문 영감의 얼굴을 화면 한가운데 크게, 그 둘레 사방 프레임 가장자리에서 도깨비 얼굴들이 씩 웃으며 안으로 겹쳐 들어와 포위하는 구도.<br/><b>장소·시간</b> 빈집 방 안, 한밤중. "걸렸다!" 하는 짓궂고 우스운 공기.<br/><b>인물</b> 화면 중앙 GreedyOldMan(욕심쟁이 영감)은 <b>개암(gaeam)</b>을 입에 문 채 얼어붙음 — 점눈이 한껏 벌어지고 식은땀 획 한 방울, "어…?" 하는 큰 O 입. 그 둘레로 Dokkaebi(도깨비) 얼굴 넷이 프레임 네 귀퉁이에서 안쪽으로 빼꼼 겹쳐 들어오며 저마다 이빨 실선 웃음으로 씩 — 무섭지 않게 장난기 가득한 눈.<br/><b>배경·소품</b> 영감 발치의 빵빵한 보따리, 우두머리 도깨비가 어깨에 걸친 <b>도깨비방망이(bangmangi, the magic club)</b>, 구석의 호롱불 빛무리, 어두운 방 벽.<br/><b>톤</b> 호롱불 주황빛 아래 사방에서 조여드는 장난스러운 포위, 무섭기보다 낄낄 웃긴 정서. 빨강 악센트 1점 = 우두머리 방망이의 빨간 술.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(코믹 골탕)</b> <span class="tag beat">④ 절정 · 골탕</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"욕심을 버려라, 뚝딱!" 도깨비들은 영감을 붕 들어 올려 빙글빙글 돌리고, 겨드랑이를 간질간질 간질였어요. "아이고 어지러워! 아이고 간지러워!" 영감의 상투는 풀리고, 보따리 속 개암은 후두둑 다 쏟아졌지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 로우앵글 + 스케일 대비. 방바닥에서 올려다보는 앵글 — 공중에 붕 떠서 빙글빙글 도는 영감이 화면 위쪽에 크게, 그를 받쳐 든 조그만 도깨비들이 아래에 조롱조롱.<br/><b>장소·시간</b> 빈집 방 안, 한밤중. 왁자지껄한 장난 소동의 공기(해코지가 아니라 골탕임이 분명하게).<br/><b>인물</b> GreedyOldMan(욕심쟁이 영감)은 공중에 대(大)자로 붕 떠서 빙글 도는 중 — 풀린 상투 머리카락이 소용돌이 획으로 흩날리고, 입은 큰 O 모양 "아이고!", 점눈은 뱅글뱅글 어지럼 소용돌이. Dokkaebi(도깨비) 둘은 아래에서 까치발로 영감을 번쩍 받쳐 들고, 하나는 겨드랑이를 간질간질, 하나는 배를 잡고 데굴데굴 웃음 — 모두 이빨 실선 웃음의 신난 표정.<br/><b>배경·소품</b> 뒤집힌 보따리에서 후두둑 쏟아져 흩어지는 개암 알들, 벗겨져 날아가는 탕건, 바닥의 곰방대, 공중의 뱅글뱅글 소용돌이·별 효과 획, 호롱불 빛무리.<br/><b>톤</b> 호롱불 주황빛의 들썩이는 밤, 폭소가 터지는 명랑 코믹 절정 — 무서움 0. 빨강 악센트 1점 = 우두머리 방망이의 빨간 술.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P12, P13 -->
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(영감의 뉘우침)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">새벽이 되어서야 영감은 터덜터덜 산을 내려왔어요. "아이고, 내가 욕심을 너무 부렸구나…" 그 모습을 본 나무꾼은 따뜻한 쌀 한 자루를 스윽 내밀었지요. 영감은 코끝이 찡해져 고개를 꾸벅 숙였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 하이앵글. 풀 죽어 웅크린 영감을 부드럽게 내려다보는 앵글 — 화면 안으로 들어오는 나무꾼의 두 손과 쌀자루에 시선 집중.<br/><b>장소·시간</b> 마을 어귀 나무꾼네 집 앞, 뿌옇게 밝아 오는 새벽. 차분하고 머쓱한, 그러나 따뜻한 공기.<br/><b>인물</b> GreedyOldMan(욕심쟁이 영감)은 화면 중앙에 어깨를 축 늘어뜨리고 서서 고개를 꾸벅 숙임 — 풀린 상투가 부스스, 눈가에 작은 눈물 획, 입은 겸연쩍게 오므린 뉘우침의 표정. 화면 한쪽에서 WoodcutterRich(복 받은 나무꾼)의 두 손이 불룩한 쌀자루를 스윽 내밀어 들어옴 — 얼굴은 프레임 가장자리에 반쯤만 보이며 온화한 실선 미소.<br/><b>배경·소품</b> 영감 발치의 홀쭉해진 빈 보따리와 곰방대, 내밀어진 통통한 쌀자루, 뿌연 새벽 안개 속 초가집 실루엣 획 몇 개, 여백 많은 새벽 하늘.<br/><b>톤</b> 엷고 뿌연 새벽빛, 소동 뒤의 잔잔한 반성과 용서의 정서. 빨강 악센트 1점 = 영감 발치 홀쭉한 보따리의 빨간 끈.</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(나누는 마을 · 여운)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날부터 욕심쟁이 영감도 이웃과 도란도란 나누며 살게 되었어요. 나무꾼네 마당에는 오늘도 웃음꽃이 활짝 피었지요. 착하게 나누는 마음에 복이 온대요. 금 나와라 뚝딱! 은 나와라 뚝딱!</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 + 극단 여백. 화면 위쪽 절반은 환한 하늘의 빈 종이 여백으로 비우고, 아래쪽에 잔치처럼 모여 앉은 마을 사람들을 나란히 — 여운으로 닫는 마무리 컷.<br/><b>장소·시간</b> 나무꾼네 초가집 마당, 화창한 낮. 도란도란 훈훈한 잔치의 공기.<br/><b>인물</b> 마당 멍석 위에 WoodcutterRich(복 받은 나무꾼)가 가운데 앉아 개암 한 접시를 이웃에게 돌리며 활짝 웃고, 곁의 Mother(어머니)는 두 손을 모으고 온화하게 웃음. GreedyOldMan(욕심쟁이 영감)은 그 옆에서 머쓱하지만 환해진 실선 미소로 제 보따리에서 개암을 꺼내 아이에게 건넴(단역 이웃 어른·아이 둘셋은 획 몇 개의 소박한 실루엣으로).<br/><b>배경·소품</b> 멍석 위의 개암 접시와 쌀 소쿠리, 툇마루에 살포시 세워 둔 <b>도깨비방망이(bangmangi, the magic club)</b>, 초가지붕과 장독대, 넓게 비운 환한 하늘.<br/><b>톤</b> 종이의 크림빛이 그대로 환한 한낮 햇살, 나눔으로 두 배가 된 복의 훈훈한 여운. 빨강 악센트 1점 = 툇마루 방망이의 빨간 술.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 도깨비방망이 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'WoodcutterPoor', name: '가난한 나무꾼',   desc: '착한 나무꾼(가난) — 소박한 한복·수건 머리띠·짚신, 다부지고 순한 미소',            aliases: ['WoodcutterPoor'] },
+    { token: 'WoodcutterRich', name: '복 받은 나무꾼',  desc: '복 받은 나무꾼 — 말끔한 연둣빛 한복, 같은 따뜻한 얼굴(거만 X)',                   aliases: ['WoodcutterRich'] },
+    { token: 'Mother',         name: '어머니',          desc: '늙으신 어머니 — 낮은 쪽머리에 흰 획 두셋, 굽은 등, 앞치마, 온화한 미소',           aliases: ['Mother'] },
+    { token: 'GreedyOldMan',   name: '욕심쟁이 영감',   desc: '이웃 욕심쟁이 — 길쭉 구부정, 수염 세 획, 탕건, 곰방대, 얄밉지만 웃기게',           aliases: ['GreedyOldMan'] },
+    { token: 'Dokkaebi',       name: '도깨비',          desc: '장난꾸러기 임프 — 더벅머리+작은 뿔 2, 이빨 실선 웃음, 방망이(빨간 술=악센트) · 흥부놀부 확정 디자인 재사용', aliases: ['Dokkaebi'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

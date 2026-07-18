@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 말 안 듣는 청개구리</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 1 #8</div>
+  <h1>🐸 말 안 듣는 청개구리</h1>
+  <div class="sub">뭐든지 거꾸로만 하던 아기 청개구리 — 비 오는 날 개구리가 노래하는 이유</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 부모 말의 소중함 · 후회하기 전에 &nbsp;·&nbsp;
+  <b>분량</b> 12 스프레드 &nbsp;·&nbsp; <b>후렴</b> "개굴개굴, 거꾸로 개굴!" → 말미 변주 "개굴개굴, 엄마 보고파" &nbsp;·&nbsp;
+  <b>핵심단어</b> 삿갓 · 도롱이 · 초가집 · 짚신 · 소쿠리 &nbsp;·&nbsp;
+  <b>순화</b> 엄마 죽음·무덤·임종 전부 제거 → 몸이 약해져 물 맑고 볕 좋은 먼 연못으로 요양 / 유언 → 지킬 수 있는 약속 두 가지(비 오는 날 개울가 X · 버드나무 돌보기) / 슬픔은 애틋하게, 결말은 재회의 여운으로 따뜻하게
+</div>
+<div class="refrain">🐸 반복 후렴 — "개굴개굴, 거꾸로 개굴!" &nbsp;→&nbsp; (마지막) "개굴개굴, 엄마 보고파"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-cheonggaeguri</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 개구리도 점눈이 언어로 — 초록 둥근 몸 + 점눈 + 실선 입, 매력은 실루엣과 자세에. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="청개구리" data-key="char-green-frog">
+  <div class="head"><span class="face">🐸</span><b>청개구리</b> <span class="rom">GreenFrog · 거꾸로쟁이 아기 개구리</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GreenFrog — the little contrary tree-frog kid who does everything backwards; mischievous but lovable, never mean. Dot-eye design language adapted to a frog: a flat bright leaf-green face with zero shading, two dot eyes, and his signature — a cheeky one-line smirk that curls up at one end. No nose. The belly is left as open cream paper with a few loose green strokes around it.
+SILHOUETTE (his signature): small, springy and round — a bouncy little frog with big folded hind legs, almost always mid-hop or leaning the WRONG way from where everyone else is pointing. All his mischief lives in silhouette and posture, never in facial detail.
+CLOTHES: just a tiny cream baby bellyband (baedurungi) suggested with two or three quick strokes. LATER STATES (same sheet): tiny straw sandals (jipsin) on his feet for the diligent pages, and a tiny conical rain hat (satgat) + shaggy straw rain cape (dorongi) for rainy pages, all in loose pale straw-yellow strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (mid-bounce, arms up, cheeky smirk) + a 3/4 turn + the rain state (tiny satgat + dorongi, sitting quietly) + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) cheeky upcurled one-line smirk, (2) surprised small O mouth with lifted brow strokes, (3) missing-mom face — a soft downcurved mouth, drooping brow strokes and one tiny tear stroke. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="엄마 개구리" data-key="char-mother-frog">
+  <div class="head"><span class="face">🪷</span><b>엄마 개구리</b> <span class="rom">MotherFrog · 온화한 엄마</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: MotherFrog — the gentle, patient mother tree-frog, warm and never harsh. Dot-eye design language adapted to a frog: a flat pale moss-green face with zero shading, two dot eyes, and her signature — two tiny SOFT DROOPING brow strokes above the dot eyes (tender, faintly worried), with a gentle one-line smile. No nose. The belly is left as open cream paper.
+SILHOUETTE (her signature): a plump, soft, rounded sitting frog, one size bigger than GreenFrog, always upright and composed with a calm motherly bearing. She reads as "mother" through her kerchief, apron, bearing and the drooping brow strokes — never through realistic facial detail.
+CLOTHES: a small head kerchief knotted under the chin, suggested in soft blue-grey strokes, and a tiny work apron in a few pale straw-yellow hatching strokes with a little stitched leaf-flower (leaf green, NOT red). RAIN / TRAVEL STATE (same sheet, second state): a tiny conical woven rain hat (satgat) and a shaggy straw rain cape (dorongi) worn over her usual clothes, drawn in loose pale straw-yellow strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (sitting upright, hands folded on the apron, gentle one-line smile) + a 3/4 turn + the rain/travel state (satgat + dorongi, small cloth bundle) + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) warm one-line smile under soft drooping brows, (2) a tired gentle sigh with a small downcurved mouth, (3) a tender proud smile with the head tilted slightly. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="고추잠자리" data-key="char-dragonfly">
+  <div class="head"><span class="face">🦋</span><b>고추잠자리</b> <span class="rom">Dragonfly · 엄마의 심부름꾼</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Dragonfly — a little red darter dragonfly (gochu-jamjari), the mother's cheerful messenger and the simplest character in the cast: a slim bright-red body drawn as one or two quick strokes (🔴 when he appears, he IS the picture's single red accent), four long narrow wings left as open cream paper outlined with single light pencil lines, and two dot eyes on a small round head. Sweet and brisk in mood — all told by flight pose, since the face is just dots.
+REFERENCE SHEET: one sheet on plain bright cream paper — a side-profile flying pose + a front hover with all four wings spread + a perched pose on a thin willow twig + one flying pose gently carrying a small green leaf letter with its legs. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.) 이 편의 특징 = 삿갓·도롱이·소쿠리가 <b>개구리 크기의 미니 버전</b>으로 장면에 등장(귀여움 포인트) — 단, 단어카드는 사람 크기의 정식 사물로 그린다.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="삿갓" data-key="word-satgat">
+  <div class="head"><span class="face">👒</span><b>삿갓</b> <span class="rom">satgat — a conical woven rain hat</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "satgat — a traditional Korean conical woven rain hat (삿갓)". A wide, low cone woven from thin bamboo and sedge strips in warm straw gold (#D8B45A) with pale bamboo-green hints, crisp radial weave lines running from the peak down to the broad brim, a neat round inner headband ring, and a red chin-strap cord (#C0392B) tied in a small bow. MULTI-VIEW: (1) a 3/4 view showing the clean cone silhouette, (2) a view from slightly below showing the inner ring and the chin cord. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="도롱이" data-key="word-dorongi">
+  <div class="head"><span class="face">🧥</span><b>도롱이</b> <span class="rom">dorongi — a straw rain cape</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "dorongi — a traditional Korean straw rain cape (도롱이)". A shaggy layered cape woven from golden rice-straw (#D8B45A) and darker sedge strands (#A98A4E), the straw hanging in soft overlapping feather-like layers so rain slides right off, gathered at the neck with a braided straw cord tie. Rustic, cozy, cleverly waterproof. MULTI-VIEW: (1) the cape in its worn shape on an invisible form at a 3/4 angle so the layered feathery silhouette reads clearly, (2) hanging flat from its neck cord. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="초가집" data-key="word-chogajip">
+  <div class="head"><span class="face">🛖</span><b>초가집</b> <span class="rom">chogajip — a thatched-roof cottage</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "chogajip — a traditional Korean thatched-roof cottage (초가집)". A small cozy cottage with a thick, rounded roof of golden rice-straw thatch (#D8B45A) tied down with a criss-cross grid of twisted straw rope, warm ochre earthen walls (#C89F6E), dark wooden pillars and door frame, a small lattice door papered with white hanji, a low clay chimney at one side and a tiny flat stepping stone at the door. Shown at a 3/4 angle so the rounded thatch volume and the rope grid read clearly. Warm, humble, inviting. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="짚신" data-key="word-jipsin">
+  <div class="head"><span class="face">🥿</span><b>짚신</b> <span class="rom">jipsin — woven straw shoes</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jipsin — traditional Korean straw-woven sandals (짚신)". A neat pair of sandals braided from golden rice-straw (#D8B45A), showing the woven sole texture, the looped toe and heel, and the ankle-tie cords, in a warm hand-crafted straw gold. Cozy, humble, tidy craftsmanship. Present the pair at a slight 3/4 angle (one showing the top, one the side) so the weave reads clearly. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="소쿠리" data-key="word-sokuri">
+  <div class="head"><span class="face">🧺</span><b>소쿠리</b> <span class="rom">sokuri — a shallow woven bamboo basket</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "sokuri — a shallow round woven bamboo basket (소쿠리)". A wide, shallow bowl-shaped basket woven from flat pale bamboo strips (#D8B45A) in a clean over-under checker weave, with a sturdy rolled rim bound in a slightly darker bamboo band (#A98A4E). Light, airy, handcrafted. MULTI-VIEW: (1) a 3/4 view showing the shallow bowl depth, (2) a top-down view showing the radial weave pattern from the center. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 12 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 맑은 개울가 작은 초가집에 엄마 개구리와 아기 청개구리가 살았어요. 그런데 이 청개구리, 엄마가 뭐라고 하면 뭐든지 거꾸로만 했지요. "개굴개굴, 거꾸로 개굴!" 마을에 소문난 거꾸로쟁이였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 개구리 눈높이의 초저 로우앵글 — 풀잎과 미나리 줄기가 숲처럼 화면 위로 솟는 미니 스케일의 세계. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 맑은 개울가, 개구리 크기의 작은 초가집 마당, 화창한 봄날 낮. 반짝이는 물소리와 풀내음의 정겨운 공기.<br/><b>인물</b> MotherFrog(엄마 개구리)는 화면 오른쪽 초가집 앞 넓적한 돌 위에 다소곳이 앉아 앞치마에 두 손을 모으고 온화한 실선 미소, 처진 눈썹 획으로 다정함. GreenFrog(청개구리)는 전경 왼쪽에서 엄마가 보는 방향과 반대쪽으로 뒷다리를 쭉 펴고 폴짝 뛰어오르는 중, 입꼬리 한쪽이 올라간 장난기 실선 웃음.<br/><b>배경·소품</b> 개구리 크기의 작은 <b>초가집(chogajip)</b> — 황금빛 짚 지붕에 새끼줄 격자, 흙벽, 처마 밑에 걸린 미니 삿갓과 미니 소쿠리, 풀잎 숲, 반짝이는 개울, 냇둑 너머 멀리 사람 마을의 큰 초가집들 원경.<br/><b>톤</b> 화창한 봄 햇빛(=종이의 크림색이 곧 볕), 명랑하고 정겨운 옛이야기 도입 정서. 빨강 악센트 1점 = 담장 밑 빨간 들꽃 한 송이.</pre></details>
+</div>
+
+<!-- ② 발단(거꾸로 장난) : P2, P3, P4 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(산에 가랬더니 개울로)</b> <span class="tag beat">② 발단 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"오늘은 산에 가서 놀렴." 엄마가 말하면, 청개구리는 폴짝! 개울로 풍덩 뛰어들었어요. 엄마가 삼아 준 짚신도 홱 벗어 던지고요. "개굴개굴, 거꾸로 개굴!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글 부감 — 개울로 뛰어드는 아이를 위에서 내려다보는 대각선 구도. 하단 캡션 여백 확보.<br/><b>장소·시간</b> 초가집 앞 개울, 화창한 낮. 물장난의 신나는 공기.<br/><b>인물</b> GreenFrog(청개구리)는 화면 중앙 아래 개울로 배부터 풍덩 뛰어드는 순간 — 물보라가 사방으로 튀고, 입을 크게 벌린 신난 웃음, 두 팔 만세. MotherFrog(엄마 개구리)는 화면 위쪽 냇둑에서 산 쪽 오솔길을 가리키다 만 자세로 굳어, 처진 눈썹에 어이없는 작은 O 입.<br/><b>배경·소품</b> 홱 벗어 던져져 냇둑에 나뒹구는 미니 <b>짚신(jipsin)</b> 한 켤레, 엄마가 가리키는 산으로 가는 오솔길, 튀는 물방울들, 풀잎과 물풀, 멀리 초가집 지붕 끝.<br/><b>톤</b> 밝은 한낮 햇빛, 물보라가 반짝이는 명랑 코믹 정서. 빨강 악센트 1점 = 던져진 짚신의 빨간 발목 끈.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(소쿠리 데굴데굴)</b> <span class="tag beat">② 발단 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"산딸기 소쿠리, 살살 들고 오렴." 그러면 청개구리는 소쿠리를 데굴데굴 굴려 버렸지요. 산딸기가 와르르! "개굴개굴, 거꾸로 개굴!" 엄마는 허허 웃다가도, 한숨을 폭 쉬었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 기울인 프레임 — 구르는 소쿠리와 장난꾸러기 얼굴에 바짝 붙은 장난 순간 컷. 하단 캡션 여백 확보.<br/><b>장소·시간</b> 개울가 오솔길, 나른한 오후. 왁자한 장난의 공기.<br/><b>인물</b> GreenFrog(청개구리)는 화면 중앙에서 데굴데굴 구르는 소쿠리 뒤를 폴짝폴짝 쫓아가는 옆모습 클로즈업 — 혀를 살짝 내민 장난기 만발 실선 웃음, 뒷다리가 통통 튐. MotherFrog(엄마 개구리)는 배경에 작고 흐릿하게, 두 손을 앞으로 뻗으며 "아이고" 하는 한숨 자세, 처진 눈썹.<br/><b>배경·소품</b> 옆으로 데굴데굴 구르는 미니 <b>소쿠리(sokuri)</b>에서 산딸기가 와르르 쏟아짐(산딸기들은 옅은 분홍·주황 톤으로 흘리고 단 한 알만 선명한 빨강), 흙길과 풀잎, 굴러간 자국.<br/><b>톤</b> 따뜻한 오후 햇살, 얄밉지만 밉지 않은 코믹 정서. 빨강 악센트 1점 = 쏟아진 산딸기 중 또렷한 한 알.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>발단(비 오는 날의 물장난)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">후두둑후두둑, 비 오는 날이었어요. "비 오는 날엔 개울가에 나가면 안 된단다. 물이 불어나서 위험해." 삿갓 쓰고 도롱이 두른 엄마가 말렸지만, 청개구리는 빗속에서 첨벙첨벙 물장난을 쳤지요. 엄마 가슴이 철렁 내려앉았어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 샷 — 처마 밑 엄마의 어깨너머로 빗속의 아이를 바라보는 구도, 전경 엄마 실루엣이 화면 한쪽을 반쯤 가리는 겹침 프레임. 하단 캡션 여백 확보.<br/><b>장소·시간</b> 초가집 처마 밑에서 내다본 비 오는 개울가, 잿빛 오후. 후두둑 빗줄기 소리.<br/><b>인물</b> MotherFrog(엄마 개구리)는 전경 오른쪽 어깨너머 뒷모습 — 미니 <b>삿갓(satgat)</b>을 쓰고 미니 <b>도롱이(dorongi)</b>를 두른 채 걱정으로 어깨가 움츠러듦. GreenFrog(청개구리)는 중경 개울가에서 물웅덩이를 첨벙첨벙 튀기며 신난 웃음, 빗방울 사이로 폴짝.<br/><b>배경·소품</b> 처마 끝에서 똑똑 떨어지는 낙숫물, 살짝 불어난 개울물, 옅은 청회색 연필 빗금의 빗줄기, 풀잎마다 매달린 물방울.<br/><b>톤</b> 잿빛 비 오는 오후(크림 종이 위 옅은 청회색 해칭), 엄마의 걱정 vs 아이의 천진함이 대비되는 조마조마한 정서. 빨강 악센트 1점 = 엄마 삿갓의 빨간 턱끈 매듭.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P5, P6, P7 -->
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(기운 잃은 엄마)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">찬바람이 불기 시작한 어느 날부터, 엄마 개구리는 어쩐지 자꾸 기운이 없어졌어요. 폴짝 뛰지도 못하고, 콧노래 소리도 작아졌지요. "엄마는 물 맑고 볕 좋은 먼 연못에서 푹 쉬고 와야겠구나." 청개구리는 왠지 장난칠 마음이 나지 않았어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 기울인(더치 틸트) 프레임 — 두 개구리에게 바짝 다가간 감정 컷. 하단 캡션 여백 확보.<br/><b>장소·시간</b> 초가집 안 창가, 해질 무렵. 조용하고 차분한 공기.<br/><b>인물</b> MotherFrog(엄마 개구리)는 화면 오른쪽 짚방석에 앉아 어깨에 나뭇잎 담요를 두르고 기운 없이 느릿한 실선 미소 — 처진 눈썹 획이 평소보다 더 처짐. GreenFrog(청개구리)는 왼쪽에서 엄마 곁에 바짝 붙어 처음으로 엄마 손을 두 손으로 꼭 잡음, 눈썹 획이 올라간 걱정스러운 작은 O 입.<br/><b>배경·소품</b> 창밖의 노을, 창가에 놓인 산딸기 한 알(아이가 몰래 가져다 둔 것), 개켜 둔 나뭇잎 담요, 작은 등불의 은은한 불빛.<br/><b>톤</b> 노을빛과 등불의 나지막한 온기 — 노을빛은 종이의 크림색에 옅은 밀짚 노랑 해칭으로만 암시(주홍 채색 금지, 빨강 악센트와 구분). 잔잔한 걱정과 사랑이 스미는 정서(무겁지 않게, 애틋하게). 빨강 악센트 1점 = 창가의 산딸기 한 알.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(버드나무 약속)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">떠나기 전날, 엄마는 청개구리를 개울가 버드나무 아래로 불렀어요. "비 오는 날엔 개울가에 나가지 말기, 엄마가 심은 이 버드나무 돌봐 주기 — 두 가지만 약속해 주렴." 엄마는 나뭇가지에 빨간 실을 꼭꼭 묶어 주었지요. 청개구리는 처음으로 거꾸로가 아니라, 조그맣게 "네…" 하고 대답했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글 와이드 — 커다란 버드나무가 우산처럼 화면 위를 덮고 늘어진 가지들이 전경을 반쯤 가리는 겹침 프레임, 그 아래 작은 두 개구리(스케일 대비). 하단 캡션 여백 확보.<br/><b>장소·시간</b> 개울가 어린 버드나무 아래(개구리들에겐 아름드리 큰 나무), 떠나기 전날 해질 무렵. 바람에 가지가 사르르 흔들리는 공기.<br/><b>인물</b> MotherFrog(엄마 개구리)는 화면 중앙에서 늘어진 버드나무 가지 하나를 붙잡고 빨간 실을 꼭꼭 묶는 중 — 다정하고 진지한 실선 입, 처진 눈썹. GreenFrog(청개구리)는 곁에서 두 손을 모으고 처음으로 얌전히 엄마를 올려다봄, 조그맣게 "네…" 하는 작은 입.<br/><b>배경·소품</b> 늘어진 버드나무 가지 커튼, 가지에 묶이는 빨간 실 매듭, 노을이 반짝이는 개울, 멀리 작은 초가집 실루엣.<br/><b>톤</b> 따뜻한 노을빛 — 종이의 크림색에 옅은 밀짚 노랑 해칭으로만 암시(주홍 채색 금지, 빨강 악센트와 구분). 약속이 맺어지는 경건하고 애틋한 정서. 빨강 악센트 1점 = 가지에 묶인 빨간 실 매듭.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(연잎 배 떠나는 날)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">떠나는 날 아침, 엄마는 삿갓을 쓰고 연잎 배에 올랐어요. "보고 싶으면 버드나무를 보렴. 엄마도 같은 하늘을 보고 있을게. 소식은 고추잠자리 편에 보낼게." 연잎 배는 스르르, 물길 따라 멀어져 갔어요. 청개구리는 코끝이 찡— 해졌지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글 부감 + 극단 여백 — 화면 대부분을 잔잔한 개울 수면(거의 빈 종이)이 차지하고, 연잎 배는 물길 위 작은 점, 배웅하는 아이는 화면 아래 구석. 하단 캡션 여백 확보.<br/><b>장소·시간</b> 개울, 떠나는 날 이른 아침. 옅은 물안개가 낀 잔잔하고 먹먹한 공기.<br/><b>인물</b> MotherFrog(엄마 개구리)는 화면 위쪽 연잎 배 위에 미니 <b>삿갓(satgat)</b>을 쓰고 작은 봇짐을 안고 앉아, 몸을 돌려 아이 쪽으로 손을 흔듦 — 애틋한 실선 미소. GreenFrog(청개구리)는 화면 아래 구석 냇둑 끝에서 두 팔을 힘껏 흔들며 배웅 — 웃으려는 입과 살짝 처진 눈썹 획이 함께(코끝 찡한 표정).<br/><b>배경·소품</b> 연잎 배와 뒤로 번지는 잔잔한 물살 자국, 냇둑의 갈대와 물풀 몇 줄기, 옅은 물안개, 넓은 수면 여백.<br/><b>톤</b> 아침 물안개의 옅은 청회색, 넓은 여백이 이별의 먹먹함을 만드는 잔잔하고 애틋한 정서. 빨강 악센트 1점 = 엄마 봇짐에 묶인 빨간 실 매듭.</pre></details>
+</div>
+
+<!-- ④ 절정 : P8, P9, P10 -->
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(텅 빈 초가집)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 밤, 초가집이 텅 빈 것처럼 조용했어요. 엄마의 잔소리도, 콧노래도 들리지 않았지요. "왜 나는 맨날 거꾸로만 했을까…." 청개구리 눈에서 눈물이 또르르 굴렀어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 극단 여백 — 화면의 70%가 저녁 하늘과 빈 마당(거의 빈 종이), 사건은 오른쪽 아래 구석에만: 불 꺼진 초가집 앞의 작은 청개구리. 아이레벨 원경. 하단 캡션 여백 확보.<br/><b>장소·시간</b> 초가집 앞마당, 밤이 내리는 저녁. 고요하고 텅 빈 공기.<br/><b>인물</b> GreenFrog(청개구리)는 화면 오른쪽 아래 구석에서 무릎을 모으고 조그맣게 쪼그려 앉아 고개를 푹 숙임 — 처진 실선 입, 눈가에 작은 눈물 한 방울이 또르르.<br/><b>배경·소품</b> 불 꺼진 작은 <b>초가집(chogajip)</b>, 툇마루에 남은 엄마의 빈 짚방석과 곱게 개켜 둔 나뭇잎 담요, 처마에 걸린 미니 소쿠리, 하늘의 초승달과 별 몇 점.<br/><b>톤</b> 저녁 어스름의 청회색, 넓은 빈 여백이 곧 허전함 — 슬프지만 별빛과 초승달이 다정하게 지켜주는, 무겁지 않은 애틋함. 빨강 악센트 1점 = 어스름 속 멀리 버드나무 가지의 빨간 실 한 점(어둠 속에서도 또렷한 약속).</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(처음 지킨 약속)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날부터 청개구리는 달라졌어요. 아침마다 버드나무에 물을 주고, 소쿠리로 낙엽을 나르고, 짚신을 신고 부지런히 폴짝폴짝! 거꾸로쟁이 청개구리가 이번엔 엄마 말 그대로 했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글 수직 구도 + 스케일 대비 — 밑동에서 올려다본 버드나무가 하늘로 쭉 뻗고, 그 아래 손톱만 한 개구리가 부지런히 일하는 미니 스케일 컷. 하단 캡션 여백 확보.<br/><b>장소·시간</b> 개울가 버드나무 아래, 맑은 아침. 이슬이 반짝이는 부지런한 공기.<br/><b>인물</b> GreenFrog(청개구리)는 화면 아래 버드나무 밑동 곁에서 미니 <b>짚신(jipsin)</b>을 신고, 도토리 깍정이 물바가지로 뿌리에 물을 주는 중 — 야무지게 다문 실선 입, 이마에 땀방울 한 점, 뒷다리로 야무지게 버팀.<br/><b>배경·소품</b> 하늘로 뻗은 버드나무 줄기와 가지의 빨간 실 매듭(위쪽), 곁에 낙엽을 가득 주워 담은 미니 <b>소쿠리(sokuri)</b>, 풀잎의 아침 이슬, 반짝이는 개울 한 자락.<br/><b>톤</b> 맑은 아침 햇빛, 처음으로 약속을 지키는 뿌듯하고 기특한 정서. 빨강 악센트 1점 = 가지에 묶인 빨간 실 매듭.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(비 오는 날의 노래)</b> <span class="tag beat">④ 절정 · 후렴 변주</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">후두둑후두둑, 비가 내리는 날이면 청개구리는 개울가에 나가지 않았어요. 초가집 처마 밑에서 먼 하늘을 보며 노래했지요. "개굴개굴, 엄마 보고파. 개굴개굴, 약속 지키고 있어요." 비 오는 날 개구리가 우는 건, 사실 엄마를 부르는 노래라는 이야기가 여기서 나왔대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글 부감 — 잿빛 비 내리는 개울가를 높이서 내려다보는 넓은 부감. 회색 세상 한가운데, 처마 밑의 작은 초록 점 하나(청개구리)로 시선이 모이는 구도. 하단 캡션 여백 확보.<br/><b>장소·시간</b> 비 오는 날의 초가집 처마 밑과 개울가 일대, 잿빛 낮. 후두둑 빗소리만 가득한 공기.<br/><b>인물</b> GreenFrog(청개구리)는 초가집 처마 밑에 얌전히 앉아 미니 <b>삿갓(satgat)</b>을 쓰고 미니 <b>도롱이(dorongi)</b>를 두른 채, 개울 쪽이 아니라 물길 저편 먼 하늘(엄마가 있는 쪽)을 올려다보며 입을 동그랗게 모아 노래하는 중.<br/><b>배경·소품</b> 옅은 청회색 연필 빗금의 빗줄기, 불어나 넘실대는 개울(아이와 뚝 떨어져 있어 약속을 지키는 게 보이게), 처마 끝 낙숫물, 비에 젖어 짙어진 버드나무, 노래가 퍼지듯 마당 물웅덩이의 동그란 파문 몇 개.<br/><b>톤</b> 잿빛 비의 청회색 해칭 속에서 아이의 초록만 또렷한, 그립고도 기특한 정서 — 이 편의 "펼침면 한 방". 빨강 악센트 1점 = 청개구리 삿갓의 빨간 턱끈 매듭.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P11, P12 -->
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>결말(나뭇잎 편지)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 맑은 날, 고추잠자리가 포르르 날아와 나뭇잎 편지를 톡 떨어뜨렸어요. "우리 아기, 약속 잘 지키고 있다며? 엄마는 하루하루 튼튼해지고 있단다. 버드나무가 자라는 만큼, 우리 만날 날도 가까워질 거야." 청개구리는 편지를 꼭 끌어안았어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 평면 부감 접사 — 두 손으로 받쳐 든 나뭇잎 편지를 바로 위에서 내려다보는 구도, 화면 가득 작은 손과 편지(앞쪽 P10의 원경 부감과 정반대의 초근접 스케일로 변주). 하단 캡션 여백 확보.<br/><b>장소·시간</b> 비 갠 다음 날의 초가집 마당, 반짝이는 오전. 물웅덩이가 거울처럼 빛나는 상쾌한 공기.<br/><b>인물</b> GreenFrog(청개구리)는 화면 아래에서 두 손으로 나뭇잎 편지를 소중히 받쳐 들고 하늘(카메라 쪽)을 올려다봄 — 눈썹 획이 벙긋 올라간 벅찬 실선 미소. Dragonfly(고추잠자리)는 편지 곁을 포르르 맴돌며 네 날개를 반짝, 실선 몇 획의 경쾌한 비행 포즈.<br/><b>배경·소품</b> 잎맥이 곱게 남은 초록 나뭇잎 편지(글자는 그리지 않고 잎맥 무늬로만), 마당 물웅덩이의 반짝임, 한쪽에 가지런히 놓인 미니 소쿠리와 짚신.<br/><b>톤</b> 비 갠 뒤의 투명하고 맑은 햇빛, 기다리던 소식이 도착한 반갑고 뭉클한 정서. 빨강 악센트 1점 = 새빨간 고추잠자리의 몸.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(씩씩한 그리움)</b> <span class="tag beat">⑤ 결말 · 교훈</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">청개구리는 버드나무 아래에서 씩씩하게 자랐어요. 부모님 말씀에는 우리를 아끼는 마음이 담겨 있답니다. 그리고 이듬해 봄 — 물길 저 끝에서, 낯익은 연잎 배 한 척이 스르르 돌아오고 있었지요. "개굴개굴! 엄마다, 엄마!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 개구리 눈높이 로우앵글 — P1과 수미상관의 미니 스케일 세계. 이번엔 풀잎 숲 사이로 훌쩍 자란 버드나무와 물길 끝까지 한눈에 담는 넓은 구도. 하단 캡션 여백 확보.<br/><b>장소·시간</b> 이듬해 봄의 개울가, 화창한 아침. 새순이 돋고 물이 반짝이는 설레는 공기.<br/><b>인물</b> GreenFrog(청개구리)는 전경 왼쪽 냇둑 끝에서 까치발로 한껏 뛰어오르며 두 팔을 크게 흔듦 — 활짝 웃는 실선 입("엄마다!"). 물길 저 끝 원경 — MotherFrog(엄마 개구리)가 탄 연잎 배가 작은 점처럼 스르르 다가오고, 삿갓 실루엣이 마주 손을 흔듦.<br/><b>배경·소품</b> 한 뼘 훌쩍 자란 버드나무와 가지의 빨간 실 매듭, 새순 돋은 풀잎 숲, 반짝이는 개울 물길, 작은 초가집, 멀리 사람 마을 원경, 파란 하늘과 흰 구름.<br/><b>톤</b> 화창한 봄 아침 햇빛, 그리움이 씩씩하게 자라 재회로 이어지는 따뜻하고 벅찬 마무리 정서. 빨강 악센트 1점 = 버드나무 가지의 빨간 실 매듭(약속의 완성).</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 말 안 듣는 청개구리 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'GreenFrog',  name: '청개구리',    desc: '거꾸로쟁이 아기 개구리 — 밝은 초록 통통 몸, 장난기 실선 입꼬리, 배두렁이 / 후반 미니 짚신·삿갓·도롱이', aliases: ['GreenFrog'] },
+    { token: 'MotherFrog', name: '엄마 개구리',  desc: '온화한 엄마 — 처진 눈썹 획, 머릿수건·앞치마, 비·여행길엔 미니 삿갓·도롱이·봇짐', aliases: ['MotherFrog'] },
+    { token: 'Dragonfly',  name: '고추잠자리',  desc: '엄마의 심부름꾼 — 빨간 몸 한두 획(등장 시 그 컷의 빨강 악센트), 잎맥 나뭇잎 편지', aliases: ['Dragonfly'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

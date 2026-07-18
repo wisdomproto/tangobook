@@ -1,4 +1,19 @@
 [
   { "file": "jeonrae-plan.html", "label": "📘 기획서" },
-  { "file": "jeonrae-heungbu.html", "label": "1 🏠 흥부와 놀부", "title": "흥부와 놀부" }
+  { "file": "jeonrae-heungbu.html", "label": "1 🏠 흥부와 놀부", "title": "흥부와 놀부" },
+  { "file": "jeonrae-dokkaebi.html", "label": "2 🔨 도깨비방망이", "title": "도깨비방망이" },
+  {
+    "file": "jeonrae-patjuk.html",
+    "label": "3 🥣 팥죽 할멈과 호랑이",
+    "title": "팥죽 할멈과 호랑이"
+  },
+  { "file": "jeonrae-bangwi.html", "label": "4 💨 방귀쟁이 며느리", "title": "방귀쟁이 며느리" },
+  { "file": "jeonrae-geumdokki.html", "label": "5 🪓 금도끼 은도끼", "title": "금도끼 은도끼" },
+  { "file": "jeonrae-tokki.html", "label": "6 🐢 토끼와 자라", "title": "토끼와 자라" },
+  { "file": "jeonrae-hokburi.html", "label": "7 👴 혹부리 영감", "title": "혹부리 영감" },
+  {
+    "file": "jeonrae-cheonggaeguri.html",
+    "label": "8 🐸 말 안 듣는 청개구리",
+    "title": "말 안 듣는 청개구리"
+  }
 ]

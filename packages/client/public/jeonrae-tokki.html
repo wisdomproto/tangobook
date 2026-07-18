@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 토끼와 자라</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 1 #6</div>
+  <h1>🐢 토끼와 자라</h1>
+  <div class="sub">꾀 많은 토끼와 성실한 자라 — 바닷속 용궁 이야기 (별주부전)</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 지혜·기지 &nbsp;·&nbsp;
+  <b>분량</b> 13 스프레드 &nbsp;·&nbsp; <b>후렴</b> 자라 걸음 노래 &nbsp;·&nbsp;
+  <b>핵심단어</b> 갓 · 도포 · 부채 · 약탕관 · 곰방대 &nbsp;·&nbsp;
+  <b>순화</b> 간 적출 위협 X — "간이 약이 된다더라" 수준 + 용왕은 미안해하며 부탁 / 용왕·신하 = 코믹(끙끙 앓는 소리·호들갑) / 결말 = 자라도 빈손 아니게(토끼가 약초 선물 → 용왕 쾌차)
+</div>
+<div class="refrain">🐢 반복 후렴 — "엉금엉금 어기여차, 자라 걸음 씩씩하다!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-tokki</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 동물도 같은 언어 — 점눈 2개 + 실선 입 + 실루엣이 본체(토끼=긴 귀, 자라=둥근 등딱지+갓, 용왕=수염 덩어리+왕관), 전부 무섭지 않게. 시트 생성 시 <b>승인 렌더 2장을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="토끼" data-key="char-tokki">
+  <div class="head"><span class="face">🐰</span><b>토끼</b> <span class="rom">Tokki · 꾀 많은 주인공</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Tokki — the quick-witted hero rabbit, bright and cheerful, clever but never mean or sly-looking. Dot-eye design language applied to an animal: a flat cream face and body left mostly as open paper with only sparse loose pencil strokes, two dot eyes, a tiny line mouth (a small V-smile or a little O), a single dot nose, soft pink hinted faintly inside the ears with two or three strokes.
+SILHOUETTE (the signature): TWO LONG upright ears — the tallest, cleanest shapes on the character — plus a small springy body, big soft hind feet and a round scribbled cotton tail. All charm lives in the ear angle and the springy posture: ears straight up = alert, one ear bent = thinking, ears flat back = startled.
+CLOTHES: none — a wild hill rabbit, kept pure animal. The open cream paper IS the white fur; only the outline and a few hatching strokes suggest the body.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body side hop pose + a front sitting idle + three face close-ups where the expression changes ONLY through the mouth line, dot eyes and EAR angle: (1) bright V-smile with both ears straight up, (2) startled small O mouth with ears flat back, (3) clever narrow-eyed grin with one ear bent like a thinking cap. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="자라" data-key="char-jara">
+  <div class="head"><span class="face">🐢</span><b>자라</b> <span class="rom">Jara · 성실한 용궁 신하</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Jara — the earnest soft-shell turtle, loyal envoy of the Dragon Palace. Dutiful, a little slow, endlessly sincere — comic but lovable, never a villain. Dot-eye design language applied to an animal: a small flat cream face on a gently stretched neck, two dot eyes, one earnest straight-line mouth, no nose.
+SILHOUETTE (the signature): one big ROUND domed shell — a single soft dome hatched loosely in soft blue-grey, the belly left as open paper — with four stubby paddling flippers and a tiny tail. Everything about him is round and unhurried.
+CLOTHES (his court-official markers, worn ON the animal): a tiny black horsehair hat (gat) drawn as one simple dark shape sitting on top of his head, tied under the chin with a thin strap, and a small scholar's overcoat (dopo) draped over the front of the shell like a little cape, suggested in a few pale jade strokes. Turtle + tiny gat + little dopo = instantly reads as a loyal palace minister, still fully a turtle.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body side view mid-crawl (엉금엉금 determined waddle, neck stretched forward) + a front idle with flippers together politely + three face close-ups where the expression changes ONLY through the mouth line, dot eyes and neck posture: (1) earnest straight-line mouth with a dutiful forward lean, (2) proud little one-line smile with the chin up, (3) surprised small O mouth with the neck pulled back. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="용왕" data-key="char-dragonking">
+  <div class="head"><span class="face">🐲</span><b>용왕</b> <span class="rom">DragonKing · 끙끙 앓는 바다 임금님</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: DragonKing — the King of the Sea, a grand old dragon down with a comic cold. Kingly but NEVER scary or fierce — he reads like a sweet groaning grandpa. Dot-eye design language applied to a dragon: a flat cream face with zero shading, two droopy dot eyes, a weary downcurved one-line mouth, and his signature — a LONG FULL BEARD drawn as one solid soft dark mass flowing down his chest (the beard is the biggest shape on his face) plus two small rounded antler-horns and a tiny golden crown with one small round red jewel perched on top.
+SILHOUETTE: a big soft rounded serpent body — gentle loops and curves suggested with loose blue-grey hatching and a scribbled fin ridge, no spikes, no claws emphasized, everything rounded like a plush toy. Usually wrapped in a quilted blanket up to the chin, holding it like a sick grandpa.
+PROPS: a folded wet towel resting on his forehead, and his beloved long tobacco pipe (gombangdae) lying untouched beside his pillow — too sick to enjoy it.
+REFERENCE SHEET: one sheet on plain bright cream paper — a full-body sick idle (wrapped in the blanket, towel on forehead, drooping whiskers) + a sitting-up-in-bed pose + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and beard droop: (1) groaning weary downcurved mouth with sagging brow strokes, (2) hopeful small O mouth with lifted brows, (3) recovered warm one-line smile with the beard fluffed up. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="문어 의원" data-key="char-octopusdoctor">
+  <div class="head"><span class="face">🐙</span><b>문어 의원</b> <span class="rom">OctopusDoctor · 호들갑 주치의</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: OctopusDoctor — the fussy royal physician of the Dragon Palace, an anxious round octopus who flaps all eight legs when excited. Comic and warm, never slimy or creepy. Dot-eye design language applied to an animal: one big round soft head-body mass left mostly as open cream paper with loose pale plum-grey hatching, two dot eyes, a tiny worried downcurved line mouth.
+SILHOUETTE (the signature): a plump round head + EIGHT wiggly legs drawn as quick loose single strokes going every direction — the legs are his expression: neat and folded = calm, all eight flailing = panic.
+CLOTHES & PROPS (his scholar-physician markers): a small dark horsehair scholar's cap drawn as one simple shape on top of the round head, and always something medical in a leg or two — an old folded medical book, a long herb list, or a little clay medicine pot (yaktanggwan). One leg often pushes tiny round spectacles up where a nose would be.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body idle (legs folded politely, book held in one leg) + a flustered pose with all eight legs flailing + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and leg posture: (1) serious scholarly straight-line mouth, (2) eureka big O mouth with the book thrust up, (3) comic panic with a wobbly downcurved mouth and flyaway brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="물고기 신하들" data-key="char-fishcourtiers">
+  <div class="head"><span class="face">🐟</span><b>물고기 신하들</b> <span class="rom">FishCourtiers · 호들갑 궁중 물고기</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: FishCourtiers — a small chorus of round court fish, the Dragon Palace's fussy attendants. They always appear as a huddled group, gasping, whispering and fanning together — pure comic relief, never scary. Dot-eye design language applied to animals: simple plump oval fish bodies left mostly as open cream paper with a few loose hatching strokes (one soft blue-grey, one pale straw-yellow, one faint leaf-green — three color variations), two dot eyes each, tiny O mouths that open wider the more shocked they are, quick single-stroke fins and tails.
+SILHOUETTE (the signature): round bodies + each wearing a TINY black horsehair hat (gat) drawn as one simple dark shape, comically small on a fish head — and most carry a little folding fan (buchae) in one fin. Three round hatted fish in a row = instantly the palace court.
+REFERENCE SHEET: one sheet on plain bright cream paper — a row of THREE fish variations (blue-grey, straw-yellow, leaf-green) floating side by side in tiny gat hats, fans in fins + one group reaction pose where all three gasp together with big O mouths and dropped fans + one calm pose where all three fan gently with polite one-line smiles. Group of three only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="갓" data-key="word-gat">
+  <div class="head"><span class="face">🎩</span><b>갓</b> <span class="rom">gat — a horsehair scholar's hat</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gat — a traditional Korean wide-brimmed horsehair hat for scholars and officials (갓)". A tall cylindrical crown and a wide flat circular brim, woven from fine black horsehair (#2A2620) so the weave is slightly SHEER — a delicate see-through mesh that catches the light — with a thin silk chin strap (갓끈) strung with a few amber and jade beads hanging below. Show it at a slight 3/4 angle so both the round brim and the tall crown read clearly, with a subtle elegant sheen along the woven mesh. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="도포" data-key="word-dopo">
+  <div class="head"><span class="face">🥻</span><b>도포</b> <span class="rom">dopo — a scholar's overcoat robe</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "dopo — a traditional Korean scholar's overcoat robe with wide flowing sleeves (도포)". An elegant full-length robe in soft jade green cotton-silk (#7FA98F) with a clean cream inner collar line (동정), VERY wide graceful sleeves, and a slim braided sash cord (세조대) in deep vermilion (#C0392B) tied at the chest with tassel ends hanging down. Present it spread as if floating — front view with both wide sleeves open like gentle wings so the flowing silhouette reads instantly, fabric folds rendered crisp and clean. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="부채" data-key="word-buchae">
+  <div class="head"><span class="face">🪭</span><b>부채</b> <span class="rom">buchae — a Korean folding fan</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "buchae — a traditional Korean folding fan of bamboo and hanji paper (부채, 합죽선)". Slender polished bamboo ribs in warm honey-brown (#B07A3C), a crisp cream hanji-paper leaf with a delicate ink-brush hint of a plum branch, and a red silk tassel knot (#C0392B) swinging from the pivot pin. Show TWO states on the card so the word reads clearly: (1) the fan fully OPEN in a wide elegant arc showing the paper leaf and ribs, and (2) the same fan FOLDED closed into a neat slim bamboo stick lying beside it. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="약탕관" data-key="word-yaktanggwan">
+  <div class="head"><span class="face">🏺</span><b>약탕관</b> <span class="rom">yaktanggwan — a medicine-brewing pot</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "yaktanggwan — a traditional Korean earthenware pot for slowly brewing herbal medicine (약탕관)". A round-bellied dark clay pot (#5B4636) with a warm earthen sheen, a short straight side handle, a small pouring spout and a snug round lid, wisps of gentle white steam curling from under the lid. Show TWO forms: (1) the pot sitting on a small clay charcoal brazier (화로) with a soft warm ember glow (#C0392B) beneath, steam rising, and (2) the pot alone at a slight 3/4 angle so the handle, spout and lid all read clearly. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="곰방대" data-key="word-gombangdae">
+  <div class="head"><span class="face">🚬</span><b>곰방대</b> <span class="rom">gombangdae — a Korean tobacco pipe</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gombangdae — a traditional Korean long-stemmed tobacco pipe (곰방대)". A slender smooth bamboo stem in warm honey-gold (#C9A961) with fine dark node rings, a small rounded brass bowl at one end and a slim brass mouthpiece at the other, both with a gentle aged green-bronze patina in the grooves and a soft polished glint on the metal. Present it lying at a graceful diagonal across the card, resting on a tiny round brass ash dish, so the long elegant silhouette reads instantly. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 13 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날, 깊고 깊은 바닷속에 으리으리한 용궁이 있었어요. 그런데 요즘 용궁이 아주 조용해요. 바다의 임금님인 용왕님이 그만 병이 나서 자리에 누웠거든요. "끙끙… 아이고, 온몸이 찌뿌둥하구나."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 설정 샷, 원거리에서 살짝 하이앵글 — 광활한 바닷속에 우뚝 선 용궁 전경을 한눈에 담는 스케일 컷. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 깊고 깊은 바닷속, 산호 숲 한가운데의 용궁. 푸른 물빛이 은은히 내려앉는 고요한 아침. 잔치 소리 없이 숨죽인 공기.<br/><b>인물</b> FishCourtiers(물고기 신하들) 서너 마리가 화면 아래쪽에서 조그맣게, 갓을 쓴 채 걱정스러운 표정으로 종종(뽀글뽀글 물방울을 내며) 용궁 대문을 향해 헤엄쳐 감 — 다들 지느러미를 모으고 고개를 숙인 조심스러운 자세. (용왕은 이 컷엔 등장하지 않음, 궁 안 창문의 흐린 불빛으로만 암시.)<br/><b>배경·소품</b> 기와지붕을 얹은 웅장한 용궁(느슨한 몇 획의 산호 기둥·솟을대문·진주 등불), 둘레의 산호 숲과 해초, 위로 아득히 일렁이는 수면의 빛, 조용히 오르는 물방울 몇 알. 궁 안 창문 하나에 흐린 불빛.<br/><b>톤</b> 푸르스름하고 잔잔한 바닷속 빛, 걱정이 살짝 깔린 고요하고 신비로운 도입 정서. 빨강 악센트 1점 = 산호 숲의 붉은 산호 한 송이.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(끙끙 앓는 용왕님)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">신하들은 호들갑이 났어요. 문어 의원은 약탕관에 약을 보글보글 달이고, 물고기 신하들은 부채를 살랑살랑 부쳐 드렸지요. 하지만 용왕님은 아끼던 곰방대도 못 물고 끙끙 앓기만 했어요. "무슨 약을 먹어도 소용이 없구나, 끙끙…"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 평면 부감 — 침전을 바로 위에서 내려다본 구도. 이불 덮은 용왕을 한가운데 두고 신하들이 빙 둘러선 원형 배치. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 용궁 침전 안, 낮. 약 냄새가 폴폴 나는 부산스럽고 걱정스러운 공기.<br/><b>인물</b> DragonKing(용왕)은 화면 한가운데 누비이불을 턱까지 덮고 누워 이마에 젖은 수건, 수염이 축 처지고 눈썹이 팔자로 처진 채 입을 삐죽 내리고 "끙끙" 앓는 코믹한 표정. OctopusDoctor(문어 의원)는 왼쪽 아래에서 다리 두 개로 <b>약탕관(yaktanggwan)</b>을 화로 위에 얹어 보글보글 달이며 다른 다리로 부지런히 부채질, 걱정으로 입이 삐뚤빼뚤. FishCourtiers(물고기 신하들) 셋은 용왕 머리맡에 둘러서서 <b>부채(buchae)</b>를 살랑살랑 부치며 서로 눈치를 보는 호들갑스러운 표정.<br/><b>배경·소품</b> 용왕 베개맡에 손도 못 댄 긴 <b>곰방대(gombangdae)</b>가 가지런히 놓임, 김이 모락모락 나는 약사발, 널찍한 비단 이불, 침전 바닥의 조개·진주 무늬, 구석의 작은 화로.<br/><b>톤</b> 침전 안의 은은한 등불빛, 걱정스럽지만 무겁지 않은 코믹한 소동 정서. 빨강 악센트 1점 = 용왕 왕관의 붉은 구슬 한 점.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(자라가 나섰어요)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 문어 의원이 낡고 오래된 의원 책을 펼치며 외쳤어요. "여기 있사옵니다! 뭍에 사는 토끼의 간이 약이 된다고 적혀 있사옵니다!" 그러자 자라가 엉금엉금 앞으로 나왔어요. "제가 뭍에 다녀오겠습니다. 토끼님을 용궁으로 모셔 오지요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글 — 바닥에 납작 엎드린 자라의 눈높이에서 높은 침상 위 용왕을 올려다보는 구도. 작은 자라 vs 높은 침상의 스케일 대비. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 용궁 침전 안, 낮. 반가운 소식에 술렁이는 공기.<br/><b>인물</b> Jara(자라)는 화면 앞쪽 낮은 자리에서 목을 쭉 빼고 앞지느러미를 공손히 모은 채 결연한 일자 입으로 씩씩하게 절하며 나섬 — 등딱지 위 작은 도포 자락이 단정함. OctopusDoctor(문어 의원)는 오른쪽에서 낡은 의원 책을 다리 하나로 번쩍 치켜들고 눈썹을 치켜올린 "유레카!" O자 입. DragonKing(용왕)은 높은 침상 위에서 이불을 쥔 채 상체를 살짝 일으켜 처졌던 눈썹이 반쯤 올라간 희망 어린 표정. FishCourtiers(물고기 신하들)는 뒤에서 서로 붙어 수군수군.<br/><b>배경·소품</b> 계단 위 높은 진주 침상, 펼쳐진 낡은 의원 책(글자는 흐린 획 몇 개로만 암시), 김 오르는 약사발, 산호 기둥, 바닥에 길게 깔린 비단 방석.<br/><b>톤</b> 은은한 등불빛에 한 줄기 밝은 기대감, 씩씩하고 뭉클한 자원(自願)의 정서. 빨강 악센트 1점 = 용왕 왕관의 붉은 구슬 한 점.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P4~P8 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(뭍으로 가는 자라)</b> <span class="tag beat">③ 사건 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">자라는 갓을 단단히 쓰고 도포를 여미고 길을 떠났어요. "엉금엉금 어기여차, 자라 걸음 씩씩하다!" 넓고 넓은 바다를 헤엄치고 또 헤엄쳐, 자라는 마침내 반짝이는 모래밭에 도착했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 극단 여백 — 화면의 70%를 밝은 하늘과 잔잔한 수평선(거의 빈 종이)으로 비우고, 오른쪽 아래 구석 모래밭에 조그만 자라 한 점. 원거리. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 바다와 뭍이 만나는 모래밭, 화창한 낮. 넓고 환하고 낯선 뭍의 공기.<br/><b>인물</b> Jara(자라)가 화면 오른쪽 아래 구석에서 물기를 뚝뚝 흘리며 모래밭 위로 막 기어오르는 중 — 작은 <b>갓(gat)</b>을 턱끈으로 단단히 매고 등딱지에 <b>도포(dopo)</b> 자락을 여민 채, 목을 앞으로 쭉 빼고 결연한 일자 입으로 엉금엉금. 등에 조그만 봇짐 하나.<br/><b>배경·소품</b> 드넓게 비워 둔 밝은 하늘과 수평선, 반짝이는 모래밭의 성근 획 몇 개, 자라 뒤로 이어진 꼬불꼬불한 작은 발자국 줄, 저 멀리 왼쪽 위에 아주 작은 언덕 실루엣(다음 장 예고).<br/><b>톤</b> 환한 한낮 햇빛(빈 종이가 곧 햇빛), 광활한 여백 속 작지만 씩씩한 걸음의 유쾌한 정서. 빨강 악센트 1점 = 자라 봇짐 매듭의 빨간 끈.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(토끼를 꾀는 자라)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">언덕 풀숲에서 자라는 귀가 쫑긋한 토끼를 만났어요. "토끼님, 바닷속 용궁에 가 보실래요? 맛있는 것도 산더미, 반짝반짝 보물도 산더미랍니다!" 토끼는 귀가 솔깃해서 폴짝폴짝 뛰었지요. "우와, 나도 갈래, 갈래!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면(프로파일) 투샷 — 앞쪽 풀포기와 바위에 살짝 가려진 겹침 프레임 너머로 둘의 대화를 옆에서 훔쳐보듯 담는 구도. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 바닷가 언덕의 풀숲, 화창한 낮. 솔깃한 이야기가 오가는 재미난 공기.<br/><b>인물</b> Tokki(토끼)는 오른쪽 바위 위에 앉아 긴 두 귀를 하늘로 쫑긋 세우고 눈을 반짝이며 몸이 앞으로 쏠린 채 뒷발을 들썩들썩 — 입은 신난 V자 웃음. Jara(자라)는 왼쪽 아래 풀밭에서 <b>갓(gat)</b>과 <b>도포(dopo)</b> 차림으로 목을 길게 빼고 앞지느러미를 넓게 펼치며 용궁의 으리으리함을 그려 보이듯 자랑하는 자세, 뿌듯한 한 줄 미소.<br/><b>배경·소품</b> 화면 앞쪽을 스치는 성근 풀포기와 바위(겹침 프레임), 언덕 위 소나무 한 그루의 가지 몇 획, 저 아래 반짝이는 바다, 토끼가 앉은 둥근 바위, 파란 하늘의 흰 구름 한 점.<br/><b>톤</b> 밝고 화창한 낮 햇빛, 솔깃솔깃 들뜨는 장난스러운 정서. 빨강 악센트 1점 = 풀숲의 빨간 들꽃 한 송이.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(자라 등에 타고)</b> <span class="tag beat">③ 사건 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">토끼는 자라 등에 폴짝 올라탔어요. "엉금엉금 어기여차, 자라 걸음 씩씩하다!" 첨벙! 자라는 반짝이는 바다 위를 미끄러지듯 헤엄쳤지요. 토끼는 넘실넘실 파도를 내려다보며 신이 났답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글 부감 — 하늘에서 수직으로 내려다본 반짝이는 바다 한가운데, 헤엄치는 자라와 등에 탄 토끼가 조그맣게. 물결 동심원이 둘레로 퍼짐. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 넓은 바다 한가운데, 화창한 낮. 햇빛에 물비늘이 반짝이는 신나는 공기.<br/><b>인물</b> Jara(자라)는 화면 한가운데서 네 지느러미를 활짝 펴고 씩씩하게 물을 저으며 나아감 — <b>갓(gat)</b>이 물살에 뒤로 살짝 젖혀짐. Tokki(토끼)는 자라의 둥근 등딱지 위에 납작 엎드려 갓끈 옆 도포 자락을 꼭 붙잡고, 긴 귀를 바람에 휘날리며 반짝이는 물속을 신기하게 내려다보는 동그란 O자 입.<br/><b>배경·소품</b> 화면 가득 성근 획으로만 암시한 반짝이는 물비늘, 자라 둘레로 퍼지는 물결 동심원, 뒤로 길게 남는 하얀 물살 자국, 물속에 어른거리는 작은 물고기 그림자 두엇.<br/><b>톤</b> 한낮 햇빛이 물 위에 부서지는 눈부신 반짝임, 모험이 시작되는 상쾌하고 신나는 정서. 빨강 악센트 1점 = 물속에 어른거리는 붉은 산호 한 가지.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(으리으리한 용궁)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바닷속 깊이 들어가자, 눈앞에 어마어마한 용궁이 나타났어요! 산호 기둥은 끝이 안 보이게 높고, 진주 등불은 반짝반짝. 토끼는 입이 떡 벌어졌어요. "우와… 정말로 굉장하잖아!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 스케일 대비 — 화면을 가득 채운 거대한 용궁 대문과 산호 기둥 아래, 왼쪽 아래 구석에 손톱만 하게 조그만 토끼와 자라. 아이레벨 원거리. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 용궁 솟을대문 앞, 바닷속 낮. 웅장하고 신비한 공기.<br/><b>인물</b> Tokki(토끼)는 화면 왼쪽 아래 구석에서 고개를 한껏 뒤로 젖혀 거대한 대문을 올려다보며 입이 떡 벌어진 큰 O자, 긴 두 귀도 뒤로 넘어갈 듯 젖혀짐. Jara(자라)는 그 곁에서 앞지느러미를 대문 쪽으로 펼치며 "어떻습니까!" 하는 뿌듯한 한 줄 미소로 안내.<br/><b>배경·소품</b> 화면 위까지 치솟은 산호 기둥과 겹겹의 기와지붕(성근 획으로 크게), 줄줄이 매달린 진주 등불의 반짝임, 대문 양옆에 도열해 마중 나온 조그만 FishCourtiers(물고기 신하들), 위로 아득한 수면의 빛, 오르는 물방울.<br/><b>톤</b> 푸른 물빛 속 진주 등불의 은은한 반짝임, 압도적 스케일 앞의 경이로운 정서. 빨강 악센트 1점 = 용궁 대문의 붉은 문고리 한 점.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(용왕님의 부탁)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">토끼는 용왕님 앞으로 안내되었어요. 용왕님이 이불을 덮은 채 미안한 얼굴로 말했지요. "토끼야, 먼 길 오느라 고생했다. 실은… 네 간이 내 병에 약이 된다는구나." "네에?!" 토끼는 깜짝 놀라 두 귀가 번쩍 섰어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 — 침상 위 용왕의 어깨와 왕관 너머로, 홀 한가운데 선 토끼를 내려다보듯 담는 구도. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 용궁 대전(침전을 겸한 큰 홀), 낮. 갑자기 조용해진 머쓱하고 긴장된(그러나 무섭지 않은) 공기.<br/><b>인물</b> DragonKing(용왕)은 화면 앞쪽에 등을 보이고 앉아(어깨·왕관·축 처진 수염 덩어리가 앞경 프레임) 이불을 두른 채 고개를 살짝 기울여 미안한 팔자 눈썹으로 말하는 중. Tokki(토끼)는 홀 한가운데서 화면 안쪽 깊이 조그맣게 — 두 귀가 하늘로 번쩍 서고 입은 깜짝 놀란 큰 O자, 뒷발이 얼어붙은 자세. Jara(자라)는 토끼 옆에서 머쓱하게 지느러미를 모으고 눈을 내리깜. FishCourtiers(물고기 신하들)는 양옆에 도열해 부채로 입을 가리고 곁눈질.<br/><b>배경·소품</b> 앞경의 진주 침상 모서리와 이불 자락, 홀 바닥의 긴 비단 카펫, 산호 기둥과 진주 등불, 용왕 곁 김 오르는 약사발. (위협하는 무기·발톱 등 일절 없이, 미안해하는 부탁의 자리임이 분명하게.)<br/><b>톤</b> 은은한 등불빛에 살짝 가라앉은 공기, 놀람이 크지만 무섭지는 않은 머쓱-긴장의 코믹 정서. 빨강 악센트 1점 = 용왕 왕관의 붉은 구슬 한 점.</pre></details>
+</div>
+
+<!-- ④ 절정 : P9~P11 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(반짝! 꾀가 떠올랐어요)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">'큰일났다, 큰일났어! 간은 하나뿐인데, 어떡하지?' 토끼는 콩닥콩닥 뛰는 가슴을 꾹 누르고 곰곰 생각했어요. 그때, 반짝! 아주 좋은 꾀가 떠올랐지요. 토끼는 시치미를 뚝 떼고 천천히 입을 열었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 기울인 더치 앵글 — 토끼의 얼굴과 쫑긋한 귀가 화면을 가득 채우는 감정 컷. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 용궁 대전 한가운데, 낮. 시간이 멈춘 듯 조용한, 머릿속이 팽팽 도는 순간.<br/><b>인물</b> Tokki(토끼)의 얼굴 클로즈업 — 한쪽 귀는 생각하는 모자처럼 꺾이고 다른 귀는 쫑긋, 점눈 두 개가 또르르 옆으로 굴러가다 반짝 빛나는 순간, 입은 시치미 떼는 야무진 한 줄 미소로 바뀌는 중. 앞발 하나를 턱에 살짝 괴어 곰곰 생각하는 자세. 머리 위 여백에 손그림 반짝 표시(작은 별 획) 하나.<br/><b>배경·소품</b> 배경은 성근 획으로만 흐리게 암시한 산호 기둥과 진주 등불 몇 점 — 토끼의 얼굴에만 밀도를 집중. 화면 구석에 산호 가지 하나.<br/><b>톤</b> 은은한 등불빛이 토끼 얼굴에 모이는 집중의 순간, 조마조마하다가 반짝 통쾌해지는 정서. 빨강 악센트 1점 = 배경 구석의 붉은 산호 가지 하나.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정("간을 두고 왔지 뭐예요!")</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아이고, 이를 어쩌지요? 간을 뭍에 두고 왔지 뭐예요! 토끼들은 간을 맑은 물에 깨끗이 씻어서 바위에 널어 두고 다니거든요." 신하들은 화들짝 놀라 부채를 툭툭 떨어뜨렸어요. 용왕님도 벌떡 일어났지요. "저런! 그럼 어서 가서 가져오너라!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글 — 바닥 낮은 곳에서 올려다본, 가슴 펴고 당당히 선언하는 토끼. 둘러선 신하들의 화들짝 반응이 토끼를 감싸는 절정의 한 방 컷. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 용궁 대전, 낮. 선언 한마디에 홀 전체가 뒤집어지는 왁자한 공기.<br/><b>인물</b> Tokki(토끼)는 화면 한가운데서 가슴을 쫙 펴고 한 앞발을 하늘로 번쩍 들어 또박또박 선언 — 두 귀가 자신만만하게 꼿꼿, 입은 시치미 뚝 뗀 야무진 한 줄 미소. FishCourtiers(물고기 신하들)는 양옆에서 일제히 큰 O자 입으로 화들짝, 지느러미에서 <b>부채(buchae)</b>가 툭툭 떨어지는 중. DragonKing(용왕)은 뒤쪽 침상에서 이불을 걷고 상체를 벌떡 일으켜 눈썹이 번쩍 올라간 큰 O자 입. OctopusDoctor(문어 의원)는 여덟 다리를 허공에 파닥이며 뒤집어질 듯 호들갑.<br/><b>배경·소품</b> 바닥에 떨어지는 부채들, 높은 진주 침상과 계단, 산호 기둥, 흔들리는 진주 등불, 공중의 만화적 놀람 표시(작은 획 별·물방울) 두엇.<br/><b>톤</b> 등불빛이 출렁이는 왁자한 소동, 토끼의 재치가 터지는 통쾌하고 명랑한 절정 정서. 빨강 악센트 1점 = 용왕 왕관의 붉은 구슬 한 점.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(다시 뭍으로)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">토끼는 다시 자라 등에 폴짝 올라탔어요. "엉금엉금 어기여차, 자라 걸음 씩씩하다!" 용왕님과 신하들은 용궁 문 앞까지 나와 손을 흔들었지요. "토끼야, 조심히 다녀오너라~!" 자라는 부지런히 뭍을 향해 헤엄쳤답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 와이드, 살짝 하이앵글 — 용궁 대문 앞 배웅 장면을 비스듬히 위에서 넓게 내려다보는 구도. 떠나는 자라·토끼는 화면 오른쪽 위로 멀어지는 중. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 용궁 솟을대문 앞, 낮. 배웅의 손짓이 가득한 부산하고 희망찬 공기.<br/><b>인물</b> Jara(자라)는 화면 오른쪽 위로 네 지느러미를 활짝 저으며 헤엄쳐 나아가고, 그 등딱지 위 Tokki(토끼)는 뒤를 돌아보며 앞발을 크게 흔들어 인사 — 귀가 물살에 나부끼고 입은 신난 V자 웃음(속으로는 살았다는 안도). DragonKing(용왕)은 대문 앞에서 이불을 어깨에 두른 채 수염을 나풀거리며 지느러미 같은 손을 흔들고 눈썹이 올라간 희망찬 O자 입. FishCourtiers(물고기 신하들)와 OctopusDoctor(문어 의원)는 그 곁에서 부채와 다리를 일제히 흔들며 배웅.<br/><b>배경·소품</b> 용궁 솟을대문과 기와지붕 일부, 대문에 걸린 작은 초롱 한 쌍, 퍼져 나가는 물결 자국, 산호 숲, 위로 밝아지는 수면의 빛(뭍 방향 암시).<br/><b>톤</b> 푸른 물빛이 위로 갈수록 환해지는 희망찬 배웅 정서, 손 흔드는 소동이 명랑하게. 빨강 악센트 1점 = 용왕 왕관의 붉은 구슬 한 점.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P12, P13 -->
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(폴짝! 무사히 탈출)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">모래밭에 닿자마자 토끼는 폴짝! 바위 위로 뛰어올랐어요. "자라님, 사실 간은 언제나 배 속에 있는 거예요! 하마터면 큰일 날 뻔했지 뭐예요, 히히!" 토끼는 긴 귀를 팔랑이며 웃었지요. 자라는 눈만 끔뻑끔뻑했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 극단 여백 — 화면의 70%를 훤한 하늘과 잔잔한 수면(거의 빈 종이)으로 비우고, 오른쪽 아래 구석에서 사건이 벌어지는 구도. 원거리보다 살짝 당긴 중원경. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 뭍의 바위 모래밭과 얕은 물가, 화창한 낮. 훤히 트인 해방감의 공기.<br/><b>인물</b> Tokki(토끼)는 오른쪽 아래 물가 바위 꼭대기로 폴짝 뛰어오르는 공중 동작 — 긴 두 귀가 신나게 팔랑, 뒷발이 쭉 펴지고 입은 통쾌한 V자 웃음으로 물속을 돌아봄. Jara(자라)는 그 아래 얕은 물에 머리만 빼꼼 내밀고 점눈을 동그랗게 끔뻑, 작은 O자 입으로 얼떨떨 — 갓이 삐딱하게 젖혀짐(불쌍하기보다 얼떨떨한 코믹).<br/><b>배경·소품</b> 드넓게 비워 둔 밝은 하늘과 수면, 구석의 둥근 바위 두엇과 모래밭 성근 획, 토끼가 차고 오른 자리의 작은 물방울 튐, 바위 틈 풀 한 포기.<br/><b>톤</b> 훤한 한낮 햇빛(빈 종이가 곧 햇빛), 광활한 여백 속에 터지는 통쾌하고 명랑한 해방감. 빨강 악센트 1점 = 바위 틈의 빨간 열매 한 알.</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(약초 선물과 따뜻한 작별)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">토끼는 쪼르르 산에 올라가 향긋한 약초를 캐 왔어요. 시무룩해진 자라에게 약초를 한 보따리 안겨 주었지요. "이걸 푹 달여 드리면 기운이 나실 거예요!" "토끼님, 속여서 데려가 미안했어요." 정말로 용왕님은 그 약초를 먹고 씻은 듯이 나았답니다. 깜짝 놀라도 곰곰 생각하면, 슬기로운 꾀 하나가 나를 지켜 준대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면(프로파일) — 노을 지는 모래밭에서 마주 본 두 실루엣의 따뜻한 작별 투샷. 하단 캡션 띠 여백 확보.<br/><b>장소·시간</b> 뭍의 모래밭 물가, 해 질 녘. 노을빛이 부드럽게 내려앉은 포근한 작별의 공기.<br/><b>인물</b> Tokki(토끼)는 왼쪽에서 앞발 두 개로 향긋한 약초 보따리를 자라에게 살며시 안겨 주며 다정한 한 줄 미소 — 귀가 부드럽게 앞으로 기울어 미안함과 다정함이 함께. Jara(자라)는 오른쪽에서 앞지느러미로 보따리를 받아 안고 처졌던 목이 다시 쭉 펴지며 마음이 풀린 한 줄 미소 — 등딱지 위 갓과 도포가 도로 단정해짐.<br/><b>배경·소품</b> 약초 잎이 빼꼼 나온 보자기 보따리, 잔잔한 노을빛 수면과 낮은 물결 획, 모래밭의 긴 그림자 두 줄, 저 멀리 수면 아래로 은은한 용궁 불빛 한 점(용왕 쾌차의 여운), 하늘의 노을 구름 획 몇 개.<br/><b>톤</b> 주황빛이 아닌 크림 종이 위 부드러운 저녁 빛, 미안함과 고마움이 오가는 뭉클하고 따뜻한 마무리 정서. 빨강 악센트 1점 = 약초 보따리의 빨간 보자기 매듭.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 토끼와 자라 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'Tokki',         name: '토끼',           desc: '꾀 많은 주인공 — 긴 귀 실루엣+점눈, 몸은 빈 종이 그대로, 폴짝폴짝', aliases: ['Tokki'] },
+    { token: 'Jara',          name: '자라',           desc: '성실한 용궁 신하 — 둥근 등딱지+작은 갓+도포 자락, 엉금엉금',        aliases: ['Jara'] },
+    { token: 'DragonKing',    name: '용왕',           desc: '끙끙 앓는 바다 임금님 — 수염 한 덩어리+작은 왕관(붉은 구슬), 무섭지 않게', aliases: ['DragonKing'] },
+    { token: 'OctopusDoctor', name: '문어 의원',      desc: '호들갑 주치의 — 둥근 머리+여덟 다리 획, 작은 관모, 의원 책·약탕관',  aliases: ['OctopusDoctor'] },
+    { token: 'FishCourtiers', name: '물고기 신하들',  desc: '궁중 물고기 3인방 — 조그만 갓+부채, 일제히 O자 입 호들갑',           aliases: ['FishCourtiers'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 방귀쟁이 며느리</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 1 #4</div>
+  <h1>💨 방귀쟁이 며느리</h1>
+  <div class="sub">방귀를 꾹꾹 참던 새색시 며느리 — 온 마당을 들썩인 어마어마한 "복 방귀" 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 유머 · 있는 그대로의 나 · 참지 말고 말하기 &nbsp;·&nbsp;
+  <b>분량</b> 11 스프레드(짧은 편 — 단순 구조, 늘어짐 금지) &nbsp;·&nbsp; <b>후렴</b> 방귀 소리 노래 &nbsp;·&nbsp;
+  <b>핵심단어</b> 치마저고리 · 족두리 · 소반 · 부채 · 놋그릇 &nbsp;·&nbsp;
+  <b>순화</b> 원작부터 순함 — 며느리 구박 없음(시부모는 다정·코믹), "쫓겨남" → "친정에 쉬러 가렴"으로 가볍게, 곧바로 복 방귀 인정·귀가. 방귀는 냄새 아닌 <b>바람·소리</b>의 유쾌한 소동으로만.
+</div>
+<div class="refrain">💨 반복 후렴 — "뽕— 뿌웅— 뿌부부붕! 이게 바로 복 방귀!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-bangwi</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요. 🔴 며느리는 <b>혼례복(MyeoneuriBride, P1만)</b> / <b>평상복(MyeoneuriHome, P2~)</b> 상태별 레퍼런스 분리 — 각 쪽 SCENE은 그 시점의 상태 토큰만 씁니다.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="새색시 며느리(혼례복)" data-key="char-myeoneuri-bride">
+  <div class="head"><span class="face">👰</span><b>며느리 — 혼례복</b> <span class="rom">MyeoneuriBride · 시집오는 날(P1만)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: MyeoneuriBride — the sweet young daughter-in-law on her WEDDING DAY. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a shy small one-line smile, no nose (or one tiny dot), and her wedding signature — two small round red rouge dots (yeonji) on her cheeks plus one small round red dot (gonji) on her forehead, drawn as three simple red dots. Hair as one solid dark mass parted in the middle and gathered into a neat LOW bun at the nape, topped with a tiny black bridal coronet (jokduri) drawn as one small dark shape with a couple of bead dots. IDENTICAL FACE to MyeoneuriHome (the rouge dots and jokduri are the only difference).
+SILHOUETTE (her signature): small, soft and rounded, hands folded neatly in front, head slightly lowered in a shy, sweet way — instantly reads as a gentle new bride.
+CLOTHES (bridal state): a fine skirt-and-jacket hanbok (chima-jeogori) — a pale leaf-green jacket suggested with a few tidy hatching strokes and a full rosy-red skirt hinted with loose warm strokes over open paper, long ribbon ties drawn as two flowing strokes. Festive but soft — told by a few more strokes, never heavy rendering.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded, shy one-line smile, jokduri on the bun) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) shy one-line smile with lowered chin, (2) surprised small O mouth with lifted brow strokes, (3) happy open laugh drawn as a small curved open mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="며느리(평상복)" data-key="char-myeoneuri-home">
+  <div class="head"><span class="face">👩‍🌾</span><b>며느리 — 평상복</b> <span class="rom">MyeoneuriHome · 집안일하는 새댁(P2~)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: MyeoneuriHome — the SAME sweet young daughter-in-law in her EVERYDAY clothes, after the wedding.
+🔴 IDENTICAL FACE to MyeoneuriBride: the same flat cream face, same two dot eyes, same shy one-line smile, same solid dark hair in the same neat LOW bun — now with one plain hairpin drawn as a single short stroke instead of the jokduri, and NO red rouge dots on the cheeks.
+SILHOUETTE: the same small, soft, rounded build and gentle bearing — clearly the SAME person, just in workday clothes, moving busily and cheerfully.
+CLOTHES (everyday state): a simple skirt-and-jacket hanbok — a cream jacket left mostly as open paper with a few soft blue-grey strokes, a muted straw-toned skirt with loose hatching, and a plain work apron drawn in a few strokes. Tidy, humble, diligent.
+KEY ACTING NOTE for the sheet: she has a secret — she is holding in her farts. One of the close-ups must show her signature "holding it in" face: cheeks puffed round, lips pressed into one tight line, tiny strain strokes near the brows — comic and cute, never suffering.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded at the waist, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) gentle one-line smile, (2) the comic "holding-it-in" face with puffed cheeks and a tight pressed line mouth, (3) bright relieved open laugh with a small curved open mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="남편" data-key="char-husband">
+  <div class="head"><span class="face">🧑</span><b>남편</b> <span class="rom">Husband · 순한 새신랑</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Husband — the kind, easy-going young husband. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a mild one-line smile, no nose (or one tiny dot), hair as one solid dark mass tied into a small topknot (sangtu). NO stubble dots — he is the youngest man in the house and should read younger than FatherInLaw.
+SILHOUETTE (his signature): medium height, lanky and a little soft — relaxed shoulders, an amiable slightly bashful posture, always half a step behind his energetic parents.
+CLOTHES: a plain everyday hanbok suggested in soft blue-grey pencil strokes — simple jacket and baggy trousers left mostly as open paper with loose hatching, plain cloth shoes in a couple of strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (relaxed hands, mild one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) mild one-line smile, (2) comic shock with a big O mouth and flyaway brow strokes, (3) proud happy grin drawn as one wide curved line. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="시아버지" data-key="char-father-in-law">
+  <div class="head"><span class="face">👴</span><b>시아버지</b> <span class="rom">FatherInLaw · 호탕한 어른</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: FatherInLaw — the hearty, warm-hearted head of the house, funny and never scary or stern. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a big easy one-line smile, no nose (or one tiny dot), and his age signature — a small scribbled grey-white beard mass on the chin and a few grey strokes at the temples. Hair as one solid dark-grey mass in a topknot (sangtu), often under a wide black horsehair hat (gat) drawn as one simple dark shape.
+SILHOUETTE (his signature): sturdy and barrel-round with a straight proud back — a warm grandpa-bear bearing, chin up when he laughs his big laugh.
+CLOTHES & PROP: a neat everyday hanbok — a pale jacket left as open paper with tidy edges over soft blue-grey trousers, simple cloth shoes. His signature prop — a folding fan (buchae) with a small red tassel knot, either folded in his hand like a baton or snapped open when he laughs.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (one hand behind his back, fan in the other, big easy smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) warm hearty one-line smile, (2) big open belly-laugh mouth with the chin up, (3) comic shock with a big O mouth and the gat tipping sideways. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="시어머니" data-key="char-mother-in-law">
+  <div class="head"><span class="face">👵</span><b>시어머니</b> <span class="rom">MotherInLaw · 다정한 안주인</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: MotherInLaw — the kind, bustling lady of the house, motherly and comic, never mean (she adores her daughter-in-law). Dot-eye design language: a flat cream face with zero shading, two dot eyes, a warm one-line smile, no nose (or one tiny dot), and her age signature — a few soft grey strokes in the hair. Hair as one solid dark-grey mass parted in the middle and gathered into a neat LOW bun with one simple hairpin (binyeo) stroke — her bun sits a touch fuller and rounder than the young Myeoneuri's, and her build tells the rest.
+SILHOUETTE (her signature): short, plump and bustling — a round busy silhouette with quick little steps, hands often clapped together in delight or worry.
+CLOTHES: a tidy matron's skirt-and-jacket hanbok — a soft plum-toned skirt with loose hatching and a cream jacket left as open paper, a practical work apron in a few strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands clasped together at the chest, warm one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) warm doting one-line smile, (2) worried soft downcurved mouth with tilted brow strokes, (3) comic fright with a big O mouth and flyaway brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="배 장수" data-key="char-merchant">
+  <div class="head"><span class="face">🧺</span><b>배 장수</b> <span class="rom">Merchant · 길 가던 장사꾼(2~3명)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Merchant — a cheerful travelling fruit peddler (appears as a small troupe of two or three sharing this design). Dot-eye design language: a flat cream face with zero shading, two dot eyes, a busy open line mouth (always mid-exclamation), no nose (or one tiny dot), two or three tiny stubble dots on the chin, hair as one solid dark mass in a topknot under a wide woven straw hat drawn as one pale straw-yellow cone shape.
+SILHOUETTE (his signature): wiry and springy with rolled-up sleeves and quick bouncy legs — a hard-working road peddler, comic in his hustle.
+CLOTHES & PROP: a rough everyday hanbok in soft blue-grey strokes with the trouser cuffs tied at the ankles, straw sandals — and his signature, a big wooden A-frame back-carrier (jige) stacked with empty baskets, or a large cloth bundle (bojagi) tied on his back.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (jige on his back, one arm raised mid-shout) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) fretting downcurved mouth with knitted brow strokes (the pears are too high!), (2) astonished big O mouth, (3) delighted open cheer with both brows lifted. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="치마저고리" data-key="word-chimajeogori">
+  <div class="head"><span class="face">👘</span><b>치마저고리</b> <span class="rom">chima-jeogori — Korean women's hanbok</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "chima-jeogori — a Korean woman's traditional two-piece hanbok: a short jacket (jeogori) and a full high-waisted wrap skirt (chima) (치마저고리)". Bridal color scheme "green jacket over red skirt" (녹의홍상): a pale leaf-green silk jacket (#7BA05B) with white collar strip (동정) and long flowing ribbon ties (고름) in deep rosy red (#C0392B), over a full bell-shaped crimson-red silk skirt with soft sheen and gentle fold lines. Display the outfit floating upright as if worn by an invisible figure, ribbons fluttering slightly. Show TWO views on the card: (1) full front view with the bell skirt spread, and (2) a smaller 3/4 view showing the wrap of the skirt. Centered icon-style word card, vivid and proud, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="족두리" data-key="word-jokduri">
+  <div class="head"><span class="face">👑</span><b>족두리</b> <span class="rom">jokduri — a bride's small coronet</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jokduri — a Korean bride's small ceremonial coronet worn on top of the hair at a traditional wedding (족두리)". A small rounded seven-sided cap of black silk (#1C1A17) with a softly padded dome, decorated with tiny cloisonné flower dots in jade green (#27795B) and coral red (#C0392B), small white pearl beads around the crown, and a single sparkling bead finial on top. Show TWO views on the card: (1) a slight 3/4 hero view showing the dome and bead decorations, and (2) a smaller top-down view showing the rounded seven-sided shape. Elegant, jewel-like, festive. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="소반" data-key="word-soban">
+  <div class="head"><span class="face">🍱</span><b>소반</b> <span class="rom">soban — a small low dining table</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "soban — a small low portable Korean dining table, carried in to serve one person's meal (소반)". The classic gaedari-soban (dog-leg table): a round-cornered rectangular tray top of lacquered wood in a warm deep persimmon-brown (#8C4A2F) with visible wood grain and a soft hand-rubbed sheen, four gracefully outward-curving carved legs, and a thin raised rim around the tray edge. Show TWO views on the card: (1) a 3/4 hero view of the empty table showing the curved legs, and (2) a smaller top-down view of the tray top with its rim. Handcrafted, warm, sturdy. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="부채" data-key="word-buchae">
+  <div class="head"><span class="face">🪭</span><b>부채</b> <span class="rom">buchae — a Korean folding fan</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "buchae — a traditional Korean folding fan (hapjukseon) of bamboo and hanji paper (부채, 합죽선)". Slim polished bamboo ribs in warm honey tone (#B07A3C), a crisp hanji-paper leaf in soft cream (#F3E9D2) painted with a simple ink stroke of pine branches and one small red-and-blue taegeuk swirl accent (#C0392B / #27548C), and a braided red tassel knot (#C0392B) hanging from the pivot pin. Show TWO states on the card: (1) the fan fully OPEN in a proud arc showing the painted leaf, and (2) the fan neatly FOLDED into a slim baton with the red tassel draping. Breezy, elegant, scholarly-cool. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="놋그릇" data-key="word-notgeureut">
+  <div class="head"><span class="face">🥣</span><b>놋그릇</b> <span class="rom">notgeureut — Korean brassware bowls</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "notgeureut — traditional Korean forged brassware (bangjja) dining bowls with fitted lids (놋그릇, 방짜 유기)". Softly gleaming golden brass (#C9A227) with a warm hand-hammered satin finish and gentle highlight rings, a rounded rice bowl and a slightly wider soup bowl, each with a domed lid topped by a small ring of polished shine. Show TWO forms on the card: (1) a neat pair of bowls with their lids ON, stacked side by side, and (2) one bowl with the lid lifted OFF beside it, revealing fluffy white steamed rice with a wisp of steam. Warm, precious, festive-golden. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 11 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(시집오는 날)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 어느 산골 마을에 경사가 났어요. 마음씨 고운 새색시가 시집을 왔거든요. 머리엔 반짝반짝 족두리, 볼엔 연지 콕콕, 이마엔 곤지 콕! 사르락사르락 고운 치마저고리! 시아버지도 시어머니도 입이 귀에 걸렸답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 하이앵글 부감 — 잔치 마당 전체를 비스듬히 내려다보며 새색시를 중앙에 두는 도입 설정 컷.<br/><b>장소·시간</b> 옛 한국 산골 마을의 아담한 초가집 앞마당, 화창한 날 낮. 혼례 잔치의 들뜨고 정겨운 공기.<br/><b>인물</b> MyeoneuriBride(혼례복 며느리)는 화면 중앙에서 <b>족두리(jokduri)</b>를 얹은 낮은 쪽머리에 볼엔 연지 점 두 개·이마엔 곤지 점 하나, 연둣빛 저고리에 다홍 치마 <b>치마저고리(chima-jeogori)</b> 차림으로 두 손을 앞에 모으고 수줍게 고개를 살짝 숙이며 실선 미소. Husband(남편)는 새색시 곁에서 사모 없이 단정한 한복 차림으로 머쓱하게 뒷머리를 긁으며 싱글벙글. FatherInLaw(시아버지)는 오른쪽에서 부채를 접어 쥐고 턱을 들며 호탕하게 웃고, MotherInLaw(시어머니)는 왼쪽에서 두 손을 가슴에 모으고 함박웃음으로 새색시를 바라봄.<br/><b>배경·소품</b> 초가지붕과 낮은 흙담, 마당에 펼친 잔치 멍석과 떡시루, 담장의 박넝쿨, 감나무 한 그루, 담 너머로 구경하는 마을 아이 한둘의 머리, 파란 하늘과 흰 구름.<br/><b>톤</b> 부드럽고 고른 봄 햇빛, 잔치의 명랑하고 포근한 정서. 빨강 악센트 = 신부 그 자체(다홍 치마+연지곤지를 화면 유일의 빨강 한 덩어리로, 그 외 소품·배경에 빨강 금지). 하단 캡션 여백 넉넉히.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(사랑받는 며느리)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">며느리는 참 부지런했어요. 아침이면 소반에 반질반질 놋그릇을 가지런히 올려 상을 차렸지요. "아이고, 우리 며느리 솜씨 좀 보게!" 온 식구가 며느리를 아주 예뻐했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 시어머니 어깨너머 — 화면 앞쪽에 시어머니의 뒷모습 어깨를 크게 걸치고, 그 너머로 상을 차리는 며느리를 바라보는 구도.<br/><b>장소·시간</b> 초가집 부엌 앞 툇마루, 이른 아침. 밥 짓는 김이 모락모락 오르는 부지런한 공기.<br/><b>인물</b> MyeoneuriHome(평상복 며느리)는 화면 안쪽 중앙에서 앞치마를 두르고 <b>소반(soban)</b>을 두 손으로 조심조심 받쳐 들고 걸어옴, 소반 위엔 뚜껑 덮인 <b>놋그릇(notgeureut)</b>이 가지런히, 입은 야무진 실선 미소. 화면 앞쪽 가장자리엔 MotherInLaw(시어머니)의 뒷모습 어깨와 낮은 쪽머리가 크게 걸리고, 고개를 살짝 기울여 흐뭇해하는 옆얼굴 실루엣.<br/><b>배경·소품</b> 부뚜막의 가마솥에서 오르는 김, 툇마루에 놓인 또 하나의 소반, 벽에 걸린 조리와 소쿠리, 장독대 귀퉁이, 아침 햇살이 비치는 흙마당.<br/><b>톤</b> 맑은 아침 햇살과 밥 김의 따뜻한 기운, 아껴 주고 아끼는 다정한 정서. 빨강 악센트 1점 = 소반 위 놋그릇 곁에 놓인 빨간 대추 한 알. 하단 캡션 여백.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(꾹 참는 방귀)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 며느리에겐 남모를 고민이 하나 있었어요. 뿡— 방귀가 나오려 할 때마다 꾹, 꾹 참았거든요. '새색시가 방귀를 뀌다니, 부끄러워서 안 돼!' 꾹꾹 참다 보니 얼굴은 노래지고, 몸은 점점 시들시들해졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨에서 화면을 살짝 기울인 더치 틸트 — 참느라 안간힘 쓰는 며느리의 상반신이 화면을 가득 채우는 코믹 감정 컷.<br/><b>장소·시간</b> 초가집 마당 빨랫줄 옆, 한낮. 혼자만 아는 비밀스러운 공기.<br/><b>인물</b> MyeoneuriHome(평상복 며느리)가 화면 중앙에서 빨래 바구니를 안은 채 두 볼을 빵빵하게 부풀리고 입술을 한 일자로 앙— 다물고 눈썹에 가는 안간힘 획, 발끝을 안쪽으로 꼬며 몸을 배배 비트는 우스꽝스럽고 귀여운 "꾹 참는 얼굴". 치마 뒤쪽에서 아주 작은 김 같은 바람 표시가 삐질 새어 나오려는 낌새만 살짝.<br/><b>배경·소품</b> 펄럭이는 빨랫줄 빨래 몇 장, 발치의 빨래 바구니, 흐릿한 초가지붕과 담장, 담 위의 참새 한 마리가 갸웃 쳐다봄.<br/><b>톤</b> 밝은 한낮 빛에 볼만 발갛게 달아오른 코믹한 긴장, 안쓰럽기보다 웃음이 나는 정서. 빨강 악센트 1점 = 처마 끝에 매달린 빨간 고추 두름. 하단 캡션 여백.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P4, P5 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(며느리의 고백)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">시아버지가 걱정스레 물었어요. "아가, 어디 아프냐? 얼굴이 꼭 노란 호박 같구나." 며느리는 기어들어 가는 목소리로 말했지요. "실은요… 방귀를 참아서 그래요." 온 식구의 눈이 동그래졌어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글 부감 — 안방에 둘러앉은 네 식구를 위에서 비스듬히 내려다보아, 가운데 움츠린 며느리에게 시선이 모이는 구도.<br/><b>장소·시간</b> 초가집 안방, 저녁. 호롱불이 켜진 도란도란한 공기.<br/><b>인물</b> MyeoneuriHome(평상복 며느리)는 방 가운데 아래쪽에 무릎을 모으고 앉아 어깨를 잔뜩 움츠리고 고개를 숙인 채 손가락을 꼼지락, 기어들어 가는 고백의 표정. FatherInLaw(시아버지)는 맞은편에서 몸을 앞으로 기울이고 눈썹을 팔자로 늘어뜨린 걱정스러운 얼굴, 손엔 접은 부채. MotherInLaw(시어머니)는 옆에서 두 손을 모으고 입이 작은 O로 벌어진 놀란 얼굴. Husband(남편)는 며느리 곁에서 눈이 점 두 개 그대로 동그래져 아내를 돌아봄.<br/><b>배경·소품</b> 방바닥의 호롱불과 반짇고리, 개어 둔 이부자리, 창호지 문, 벽의 옷걸이에 걸린 한복.<br/><b>톤</b> 호롱불의 노르스름하고 아늑한 빛, 심각한 듯 슬며시 웃음이 새는 정서. 빨강 악센트 1점 = 반짇고리 위 빨간 실타래. 하단 캡션 여백.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(뀌어도 된다!)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">시아버지는 부채를 쫙 펴며 껄껄 웃었어요. "아니, 그깟 방귀를 참다니! 어서 시원하게 뀌려무나." 며느리가 조심조심 말했지요. "그럼… 다들 기둥을 꼭 붙잡으세요!" 식구들은 고개를 갸웃갸웃했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 로우앵글 — 호탕하게 선언하는 시아버지를 아래에서 올려다보아 듬직하고 우스꽝스럽게 커 보이는 구도.<br/><b>장소·시간</b> 초가집 안방, 저녁. 걱정이 웃음으로 바뀐 시원한 공기.<br/><b>인물</b> FatherInLaw(시아버지)가 화면 중앙에서 활짝 편 <b>부채(buchae)</b>를 높이 치켜들고 턱을 들어 입을 크게 벌린 호탕한 너털웃음, 수염 점들이 들썩. 화면 아래쪽 구석에 MyeoneuriHome(평상복 며느리)가 두 손을 모으고 올려다보며 "그럼 기둥을 붙잡으세요" 하듯 진지하게 입을 오므린 얼굴 — 진지함과 호탕함의 대비가 웃음 포인트. Husband(남편)와 MotherInLaw(시어머니)는 뒤에서 서로 마주 보며 고개를 갸웃갸웃.<br/><b>배경·소품</b> 활짝 편 부채의 소나무 먹선 그림, 호롱불, 창호지 문, 열린 방문 너머로 보이는 툇마루의 굵은 나무 기둥(다음 장면 복선).<br/><b>톤</b> 호롱불의 따뜻한 빛에 너털웃음이 울리는 명랑한 정서. 빨강 악센트 1점 = 부채 자루의 빨간 매듭 술. 하단 캡션 여백.</pre></details>
+</div>
+
+<!-- ④ 절정 : P6, P7, P8 -->
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>절정(어마어마한 방귀)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이튿날 아침, 식구들은 마당으로 나와 기둥을 꼭 붙잡았어요. 며느리가 드디어 방귀를 뀌었어요. 뽕— 뿌웅— 뿌부부붕! 어마어마한 방귀 바람에 초가지붕이 들썩들썩, 감나무 감이 후두둑, 빨랫줄 빨래가 펄러덕펄러덕! 온 마당이 빙글빙글 춤을 췄답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 초대형 와이드, 스케일 대비 — 마당 전체가 들썩이는 큰 화면 한가운데에 며느리만 조그맣게. 그림책 "펼침면 한 방".<br/><b>장소·시간</b> 초가집 앞마당, 화창한 낮. 회오리 같은 방귀 바람이 온 집을 뒤흔드는 왁자한 순간.<br/><b>인물</b> MyeoneuriHome(평상복 며느리)는 화면 정중앙에 아주 작게 — 치마를 양손으로 꼭 잡고 살짝 엉거주춤 선 채 후련하게 눈을 감고 활짝 웃는 얼굴, 등 뒤로 커다란 소용돌이 바람 획들이 뻗어 나감. 배경 툇마루 쪽에서 Husband(남편)가 기둥을 두 팔로 끌어안고 다리가 수평으로 붕 떠 펄럭임(작게, 코믹하게).<br/><b>배경·소품</b> 들썩 들려 삐뚜름해진 초가지붕(지붕 아래로 벌어진 틈), 감나무에서 후두둑 쏟아지는 감들, 빨랫줄에서 수평으로 펄럭이는 빨래들, 데굴데굴 구르는 바가지와 소쿠리, 화면 가득 크고 시원한 곡선의 바람 획들과 만화적 '뿅' 별 — 냄새 표현 없이 오직 바람과 소리의 소동으로.<br/><b>톤</b> 밝은 한낮 햇빛에 온 마당이 들썩이는 폭소의 정서, 시원하고 통쾌함. 빨강 악센트 1점 = 후두둑 떨어지는 잘 익은 빨간 감 하나. 하단 캡션 여백.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>절정(식구들 반응)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"어이쿠쿠!" 시아버지 부채가 휘리릭 날아가고, 시어머니 치마는 풍선처럼 부풀었어요. 남편은 기둥에 매달려 대롱대롱! 소반 위 놋그릇 뚜껑도 데굴데굴 굴렀지요. "아이고, 세상에 이런 방귀가 다 있나!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업 그룹, 더치 틸트 — 화면을 비스듬히 기울여 바람에 쓸리는 세 식구의 상반신을 바짝 붙어 잡는 코믹 반응 연타 컷.<br/><b>장소·시간</b> 초가집 툇마루 앞, 방귀 바람이 몰아치는 그 순간. 화면 왼쪽에서 오른쪽으로 바람 획이 쏟아지는 공기.<br/><b>인물</b> FatherInLaw(시아버지)는 화면 왼쪽에서 갓이 벗겨져 끈에 대롱대롱 매달린 채 눈이 뱅글, 입이 큰 O로 벌어져 "어이쿠!" — 손에서 놓친 <b>부채(buchae)</b>가 머리 위로 휘리릭 날아감. MotherInLaw(시어머니)는 중앙에서 치마가 풍선처럼 빵빵하게 부풀어 두 손으로 붙잡고 눈썹이 날아갈 듯 화들짝. Husband(남편)는 오른쪽 기둥에 두 팔로 매달려 몸이 바람에 수평으로 펄럭이며 울상 반 웃음 반.<br/><b>배경·소품</b> 넘어진 <b>소반(soban)</b>과 데굴데굴 구르는 <b>놋그릇(notgeureut)</b> 뚜껑들, 바람에 쓸리는 짚단과 낙엽, 화면을 가로지르는 굵은 바람 획, 만화적 소용돌이 표시.<br/><b>톤</b> 한낮 빛 속 아수라장이지만 모두 웃긴 얼굴, 하나도 무섭지 않은 왁자지껄 폭소 정서. 빨강 악센트 1점 = 날아가는 부채의 빨간 매듭 술. 하단 캡션 여백.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(친정 가는 길)</b> <span class="tag beat">④ 절정 · 전환</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">시아버지는 머리를 긁적이며 말했어요. "아가야, 네 방귀는 너무 힘이 세구나. 네가 살던 엄마 아빠 집, 친정에 가서 좀 쉬다 오려무나." 며느리는 시무룩— 고개를 숙였지요. 시아버지는 봇짐을 지고, 며느리와 함께 먼 길을 나섰답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 극단 여백 — 화면의 70%는 빈 크림 종이(넓은 하늘과 들판), 인물 둘은 오른쪽 아래 구석에 조그맣게 걸어가는 구도.<br/><b>장소·시간</b> 마을을 벗어난 고갯길, 이른 아침. 조금 쓸쓸하지만 무겁지 않은 공기.<br/><b>인물</b> MyeoneuriHome(평상복 며느리)는 화면 오른쪽 아래에서 작은 보따리를 안고 고개를 살짝 숙인 채 시무룩한 실선 입으로 타박타박. FatherInLaw(시아버지)는 그 곁에서 등에 봇짐을 지고 지팡이 대신 접은 부채를 쥐고 앞장서 걸으며, 미안한 듯 머리를 긁적이며 며느리를 슬쩍 돌아봄 — 혼내는 게 아니라 같이 가 주는 다정함이 보이게.<br/><b>배경·소품</b> 구불구불 이어지는 가는 흙길 한 줄, 저 멀리 작아진 초가집 실루엣 몇 획, 길가의 들꽃 몇 송이, 나머지는 넓게 비운 종이.<br/><b>톤</b> 연한 아침 빛, 잠깐의 시무룩함과 담담한 동행의 정서 — 다음 장의 반전을 위한 고요. 빨강 악센트 1점 = 며느리 보따리의 빨간 보자기 매듭. 하단 캡션 여백.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P9, P10, P11 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>결말(배나무 아래 장사꾼들)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">고개 너머 커다란 배나무 아래, 장사꾼들이 발을 동동 구르고 있었어요. "저 높은 가지에 주렁주렁 달린 배 좀 봐! 따다가 장에 내다 팔면 좋을 텐데, 너무 높아서 못 따겠네!" 그 말에 며느리 눈이 반짝 빛났지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글 — 배나무 밑동에서 하늘 높이 솟은 가지를 올려다보아 나무의 거대함과 손 닿지 않는 높이를 강조하는 구도.<br/><b>장소·시간</b> 고갯길 옆 커다란 배나무 아래, 한낮. 발만 동동 구르는 안타까운(그러나 우스운) 공기.<br/><b>인물</b> Merchant(배 장수) 두어 명이 화면 아래쪽에서 밀짚모자를 젖히고 까마득한 가지를 올려다보며 발을 동동 — 한 명은 폴짝 뛰어 손을 뻗어도 한참 모자라고, 한 명은 빈 지게 옆에서 팔짱을 끼고 울상. 화면 오른쪽 아래에서 MyeoneuriHome(평상복 며느리)가 손차양을 하고 높은 가지를 올려다보며 눈이 반짝, 입가에 야무진 미소가 번짐. FatherInLaw(시아버지)는 그 곁에서 갸웃하며 며느리와 나무를 번갈아 봄.<br/><b>배경·소품</b> 하늘로 뻗은 굵은 배나무 줄기와 까마득한 높은 가지에 주렁주렁 달린 노란 배들, 나무 밑의 빈 지게와 빈 소쿠리들, 흙길과 들판 몇 획.<br/><b>톤</b> 쨍한 한낮 빛에 높이감이 살아 있는 구도, 안타까움 반 기대 반의 유쾌한 정서. 빨강 악센트 1점 = 장수의 봇짐을 묶은 빨간 끈. 하단 캡션 여백.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>결말(복 방귀 한 방!)</b> <span class="tag beat">⑤ 결말 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">며느리는 배나무 앞에 서서 숨을 크게 모았어요. 뽕— 뿌웅— 뿌부부붕! 방귀 바람에 배나무가 흔들흔들, 노란 배가 후두둑 우수수! 장사꾼들은 신이 나서 덩실덩실 춤을 췄어요. "이야, 이게 바로 복 방귀다!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글 부감 — 나무 위쪽에서 내려다보아, 우수수 쏟아지는 배 비 사이로 환호하는 사람들이 내려다보이는 구도(P9 로우앵글과 정반대 앵글로 대칭).<br/><b>장소·시간</b> 커다란 배나무 아래, 한낮. 배가 비처럼 쏟아지는 통쾌한 순간.<br/><b>인물</b> MyeoneuriHome(평상복 며느리)는 나무 앞에서 치마를 꼭 잡고 뒤로 살짝 기운 자세, 등 뒤로 시원한 소용돌이 바람 획 — 눈을 질끈 감고 후련하게 활짝 웃는 얼굴. Merchant(배 장수)들은 나무 아래에서 두 팔을 번쩍 들고 입이 귀에 걸린 채 덩실덩실, 소쿠리와 밀짚모자를 뒤집어 떨어지는 배를 받음. FatherInLaw(시아버지)는 한쪽에서 갓을 붙잡고 입이 큰 O가 되었다가 웃음이 터지는 표정.<br/><b>배경·소품</b> 흔들흔들 휘어지는 배나무 가지들, 화면 가득 후두둑 쏟아지는 통통한 노란 배들, 바닥에 수북이 쌓이는 배 무더기, 배를 받는 소쿠리와 지게, 큼직한 바람 획과 만화적 '뿅' 별.<br/><b>톤</b> 쨍한 한낮 빛에 배 비가 쏟아지는 환희, 통쾌하고 신명 나는 절정 정서. 빨강 악센트 1점 = 쏟아지는 배 사이 빨간 단풍잎 한 장. 하단 캡션 여백.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>결말(복덩이 며느리)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">장사꾼들은 고맙다며 배를 한 아름 안겨 주었어요. 시아버지는 며느리 손을 꼭 잡았지요. "아가야, 네 방귀는 복 방귀였구나! 어서 집으로 돌아가자." 그날부터 며느리는 방귀를 참지 않고, 온 식구의 사랑을 받으며 오래오래 행복하게 살았답니다. 참지 말고 말하면, 걱정도 복이 된대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면 — 온 식구가 며느리를 가운데 두고 맞이하는 훈훈한 마무리 컷(이 편에서 유일한 정면 아이레벨 = 마지막 안착의 안정감).<br/><b>장소·시간</b> 집으로 돌아온 초가집 앞마당, 해질 무렵. 노을빛이 포근하게 내려앉은 공기.<br/><b>인물</b> MyeoneuriHome(평상복 며느리)는 화면 중앙에서 노란 배가 소복이 담긴 보따리를 안고 활짝 웃음 — 이제 볼을 부풀리지 않은, 후련하고 환한 얼굴. FatherInLaw(시아버지)는 오른쪽에서 며느리의 손을 두 손으로 꼭 잡고 자랑스러운 함박웃음. MotherInLaw(시어머니)는 왼쪽에서 배 하나를 받아 들고 두 손을 모으며 함빡 웃고, Husband(남편)는 며느리 곁에서 배 보따리를 함께 받쳐 들며 싱글벙글.<br/><b>배경·소품</b> 반듯하게 다시 얹힌 초가지붕, 툇마루의 소반 위에 가지런한 놋그릇, 마당에 소복이 쌓인 노란 배들, 빨랫줄의 빨래가 살랑, 노을 진 하늘과 감나무.<br/><b>톤</b> 따뜻한 노을빛, 있는 그대로 사랑받는 뭉클하고 명랑한 마무리 정서. 빨강 악센트 1점 = 배 보따리의 빨간 보자기 매듭. 하단 캡션 여백.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 방귀쟁이 며느리 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'MyeoneuriBride', name: '며느리(혼례복)', desc: '시집오는 새색시 — 족두리+연지곤지, 연두 저고리·다홍 치마 (P1만)',        aliases: ['MyeoneuriBride'] },
+    { token: 'MyeoneuriHome',  name: '며느리(평상복)', desc: '같은 얼굴의 새댁 — 수수한 치마저고리+앞치마, 볼 부풀린 "꾹 참는 얼굴"', aliases: ['MyeoneuriHome'] },
+    { token: 'Husband',        name: '남편',          desc: '순한 새신랑 — 상투, 수염 없음, 어리숙하고 다정',                        aliases: ['Husband'] },
+    { token: 'FatherInLaw',    name: '시아버지',       desc: '호탕한 어른 — 갓+흰 수염 뭉치, 부채(빨간 술), 무섭지 않게 코믹',         aliases: ['FatherInLaw'] },
+    { token: 'MotherInLaw',    name: '시어머니',       desc: '다정한 안주인 — 낮은 쪽머리+비녀, 통통하고 부지런한 실루엣',             aliases: ['MotherInLaw'] },
+    { token: 'Merchant',       name: '배 장수',        desc: '길 가던 장사꾼(2~3명) — 밀짚모자+지게, 방방 뛰는 코믹 행상',             aliases: ['Merchant'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

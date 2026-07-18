@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 금도끼 은도끼</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 1 #5</div>
+  <h1>🪓 금도끼 은도끼</h1>
+  <div class="sub">연못에 퐁당 빠진 쇠도끼 — 정직한 나무꾼과 산신령의 문답 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 정직 &nbsp;·&nbsp;
+  <b>분량</b> 11 스프레드 &nbsp;·&nbsp; <b>후렴</b> 산신령 문답 &nbsp;·&nbsp;
+  <b>핵심단어</b> 도끼 · 지게 · 짚신 · 물동이 · 무명옷 &nbsp;·&nbsp;
+  <b>순화</b> 욕심쟁이 벌 = 빈손 + 머쓱 + 뉘우침의 코믹(가혹 금지) / 산신령은 온화하고 포근하게(무섭지 않게)
+</div>
+<div class="refrain">🪓 반복 후렴 — "이 금도끼가 네 것이냐?" "아니요, 제 도끼가 아니에요!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-geumdokki</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="정직한 나무꾼" data-key="char-honest">
+  <div class="head"><span class="face">🧑‍🌾</span><b>정직한 나무꾼</b> <span class="rom">HonestWoodcutter · 착한 주인공</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: HonestWoodcutter — the honest young woodcutter, the hero. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot), hair as one solid dark mass mostly hidden under his signature — a plain white cotton head-wrap (meoritsugeon) tied with a small knot, drawn in a few quick strokes. A clean chin with no stubble — he reads as a sincere young man through his upright, diligent bearing rather than facial detail.
+SILHOUETTE (his signature): lean and sturdy, straight-backed hardworking posture, sleeves rolled once — the exact opposite of the squat slouchy GreedyWoodcutter.
+CLOTHES: plain undyed cotton everyday hanbok (mumyeonot) left almost entirely as open cream paper with sparse soft blue-grey outline strokes — a simple jacket, baggy trousers with cloth leg-ties, and straw sandals (jipsin) in a few pale straw-yellow strokes. Humble, clean and tidy.
+PROP: his old iron axe — a plain grey head on a honey-brown wooden handle, with a thin red cord tied at the end of the handle (this cord is the story's recurring red accent; show it ONLY on pages where the picture's single red accent is assigned to it).
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (axe resting head-down at his side, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) gentle one-line smile, (2) shocked big O mouth with flyaway brow strokes, (3) firm honest straight-line mouth with a small head-shake tilt. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="욕심쟁이 나무꾼" data-key="char-greedy">
+  <div class="head"><span class="face">🧔</span><b>욕심쟁이 나무꾼</b> <span class="rom">GreedyWoodcutter · 이웃 욕심쟁이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GreedyWoodcutter — the greedy neighbor woodcutter, comic and never scary. Dot-eye design language: a flat cream face with zero shading, two dot eyes set a little close together, a sly downcurved line mouth, and three or four scraggly stubble dots around the chin. Hair as one solid dark mass in a messy topknot (sangtu) that leans sideways.
+SILHOUETTE (his signature): short, squat and pot-bellied with a slouchy lazy posture, chin tucked — the exact opposite of the lean upright HonestWoodcutter.
+CLOTHES: a rumpled everyday hanbok in soft blue-grey loose hatching — sash tied sloppily, one trouser leg-tie hanging loose, worn straw sandals. Scruffy is told by the loose strokes and slouch, never by dirt or gloom.
+PROP: his own plain axe with NO red cord on the handle (only HonestWoodcutter's axe has the red cord).
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (leaning on his axe, slouching, sly grin) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) sly narrow-eyed line grin, (2) comic fake wailing — eyes squeezed into two curved strokes, a huge open crying mouth and two big comic tear drops, (3) sheepish embarrassed pout with tiny blush scribbles on the cheeks. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="산신령" data-key="char-spirit">
+  <div class="head"><span class="face">🧙</span><b>산신령</b> <span class="rom">MountainSpirit · 연못의 신령님</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: MountainSpirit — the gentle spirit of the mountain pond, wondrous but NEVER scary. Dot-eye design language: a flat cream face with two calm dot eyes and a soft one-line smile peeking above his signature — a huge cloud-like white beard drawn as ONE soft rounded pale mass (gentle loose strokes, like a small cumulus cloud), with two soft white eyebrow strokes to match. White hair gathered in a small topknot.
+SILHOUETTE (his signature): large, tall and softly rounded — a calm mountain-shaped presence, always unhurried and warm. His size says "wondrous", his soft round shapes say "kind".
+CLOTHES & PROP: a flowing white-and-pale-grey robe with wide sleeves, left mostly as open cream paper with a few long soft blue-grey strokes; holds a simple gnarled wooden staff drawn as one long stroke. When rising from the pond, his waist-down dissolves into a soft swirl of pale blue-grey water strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (staff in hand, serene one-line smile) + a 3/4 turn + one rising-from-water pose (waist-down a soft water swirl) + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) serene gentle smile, (2) questioning look — one brow stroke lifted with a small o mouth, (3) hearty warm laugh with eyes as two closed curves. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="어머니" data-key="char-mother">
+  <div class="head"><span class="face">👵</span><b>어머니</b> <span class="rom">Mother · 나무꾼의 늙은 어머니</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Mother — the honest woodcutter's old mother, small and warm. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, and a couple of tiny curved wrinkle strokes beside the eyes so she reads as a kind grandmother. Soft grey-white hair as one pale mass gathered in a modest LOW bun with one plain hairpin stroke.
+SILHOUETTE (her signature): small and slightly bent forward with age, hands often folded in front — cozy, patient and kind.
+CLOTHES: a humble undyed cotton skirt-and-jacket hanbok left as open cream paper with sparse soft blue-grey strokes, and a plain work apron drawn in a few strokes.
+PROP: may balance a dark earthenware water jar (muldongi) on her head, resting on a round straw ring cushion (ttoari), steadied with one hand.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded, gentle one-line smile) + a 3/4 turn + one pose balancing the water jar on her head with one steadying hand + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) warm one-line smile, (2) gentle worry with tilted brow strokes and a soft downcurved mouth, (3) proud happy laugh drawn as a small curved open mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="도끼" data-key="word-dokki">
+  <div class="head"><span class="face">🪓</span><b>도끼</b> <span class="rom">dokki — a woodcutter's axe</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "dokki — a traditional Korean woodcutter's axe (도끼)". Show THREE states side by side so the story reads at a glance: (1) the humble IRON axe — a hand-forged grey steel head (#8B9196) on a warm honey-brown wooden handle (#B07A3C) with a thin red cord tied at the butt of the handle; (2) the GOLD axe — the exact same shape gleaming in rich vivid gold (#E8B923) with a soft star sparkle; (3) the SILVER axe — the same shape in gleaming cool blue-silver (#C7CED6). FRIENDLY, not menacing — gently rounded blunt blade edges, cheerful clean look, all three at a slight 3/4 angle. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="지게" data-key="word-jige">
+  <div class="head"><span class="face">🎒</span><b>지게</b> <span class="rom">jige — a Korean A-frame back carrier</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jige — a traditional Korean wooden A-frame back-carrier for firewood and loads (지게)". Two natural pine/alder upright wooden posts (warm honey-brown wood grain #B07A3C) joined by cross-rungs lashed with twisted straw rope, woven rice-straw shoulder straps, and its matching Y-shaped support stick (지게작대기) leaning beside it. Show the frame at a slight 3/4 angle so the A-frame shape reads clearly. Sturdy, handcrafted, warm wood tones. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="짚신" data-key="word-jipsin">
+  <div class="head"><span class="face">🥿</span><b>짚신</b> <span class="rom">jipsin — woven straw shoes</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jipsin — traditional Korean straw-woven sandals (짚신)". A neat pair of sandals braided from golden rice-straw (#D8B45A), showing the woven sole texture, the looped toe and heel, and the ankle-tie cords, in a warm hand-crafted straw gold. Cozy, humble, tidy craftsmanship. Present the pair at a slight 3/4 angle (one showing the top, one the side) so the weave reads clearly. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="물동이" data-key="word-muldongi">
+  <div class="head"><span class="face">🏺</span><b>물동이</b> <span class="rom">muldongi — a water jar carried on the head</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "muldongi — a traditional Korean earthenware water jar carried on the head (물동이)". A rounded dark-brown glazed onggi clay jar (#6B4A32) with a wide open mouth, a warm glossy sheen, and clear water shimmering at the rim. Show TWO forms so the use reads clearly: (1) the jar alone at a slight 3/4 angle showing its plump rounded body, and (2) the jar resting on its round head-cushion ring (ttoari, 똬리) woven from golden straw (#D8B45A) — the pad women placed on their head to balance the jar. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="무명옷" data-key="word-mumyeonot">
+  <div class="head"><span class="face">👘</span><b>무명옷</b> <span class="rom">mumyeonot — plain cotton hanbok clothes</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "mumyeonot — traditional Korean everyday clothes of plain undyed cotton (무명옷)". A humble hanbok set in soft natural undyed cotton (#EDE3D0) with a homespun weave texture and simple hand-stitched seams. Show TWO forms: (1) the set folded in a neat tidy stack — jacket (jeogori) on top of baggy trousers (baji), and (2) the jacket opened flat so the wrapped front, cloth ties (goreum) and curved sleeves read clearly. Clean, modest, softly textured — the cloth of hardworking ordinary people, rendered proudly. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 11 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날, 산기슭 작은 마을에 정직한 나무꾼이 늙은 어머니와 함께 살았어요. 나무꾼은 깨끗한 무명옷을 입고 아침부터 저녁까지 부지런히 일했지요. 틈틈이 짚신도 삼았답니다. 가난해도 거짓말은 한 번도 하지 않았어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 설정 샷, 살짝 높은 시점, 스케일 대비 구도 — 화면 위쪽을 채운 커다란 산자락 vs 아래 구석의 조그만 초가집과 인물(큰 자연 속 작은 사람들).<br/><b>장소·시간</b> 산기슭 작은 산골 마을, 정직한 나무꾼네 초가집 마당, 맑은 아침. 새소리가 들릴 듯 소박하고 정갈한 공기.<br/><b>인물</b> HonestWoodcutter(정직한 나무꾼)는 화면 우하단 툇마루에 앉아 흰 머릿수건에 깨끗한 <b>무명옷(mumyeonot)</b> 차림으로 짚풀을 엮어 <b>짚신(jipsin)</b>을 삼으며 온화한 실선 미소, 손놀림이 야무짐. Mother(어머니)는 곁 마당에서 허리를 살짝 굽히고 나물 바구니를 다듬으며 아들을 다정하게 바라봄.<br/><b>배경·소품</b> 화면 위쪽을 크게 차지한 산과 소나무 몇 획, 초가지붕과 흙벽, 툇마루에 나란한 짚신 두어 켤레, 마당의 작은 장독, 사립문. 배경은 종이 여백을 살려 성기게.<br/><b>톤</b> 밝고 맑은 아침 햇빛(크림 종이가 곧 햇살), 정겹고 부지런한 도입 정서. 빨강 악센트 1점 = 처마 밑에 매단 붉은 고추 한 줄(작게).</pre></details>
+</div>
+
+<!-- ② 발단(선/악 대비) : P2 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(부지런함과 게으름)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 아침, 나무꾼은 지게를 지고 산으로 나무하러 나섰어요. 물동이를 인 어머니가 "조심히 다녀오너라!" 손을 흔들었지요. 그 모습을 담 너머로 본 이웃집 욕심쟁이 나무꾼은 "부지런은 무슨, 귀찮게시리." 하품만 쩌억 했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면 프로필 진행 구도 — 왼쪽에서 오른쪽 산길로 걸어가는 흐름을 옆에서 담음(정면 정지 구도 금지).<br/><b>장소·시간</b> 마을 어귀, 사립문에서 산길로 이어지는 흙길, 맑은 아침. 하루를 여는 씩씩한 공기.<br/><b>인물</b> HonestWoodcutter(정직한 나무꾼)는 화면 중앙에서 오른쪽으로 <b>지게(jige)</b>를 지고 성큼성큼 프로필로 걸음 — 지게 위에 쇠도끼가 얹혀 있고 자루 끝 붉은 끈이 살짝 나부낌, 입은 실선 미소. Mother(어머니)는 왼쪽 사립문 앞에서 머리에 <b>물동이(muldongi)</b>를 이고 한 손으로 균형을 잡은 채 다른 손을 흔들며 배웅. GreedyWoodcutter(욕심쟁이 나무꾼)는 오른쪽 이웃집 담장 너머로 상반신만 내밀어 입을 쩌억 벌린 하품, 실눈의 심드렁한 표정(부지런/게으름 대비).<br/><b>배경·소품</b> 사립문과 낮은 흙담, 산으로 오르는 흙길 몇 획, 아침 하늘은 종이 여백 그대로, 담장 위 박넝쿨 한 줄기.<br/><b>톤</b> 밝은 아침 햇빛, 부지런함과 게으름이 한 화면에서 코믹하게 대비되는 정서. 빨강 악센트 1점 = 지게 위 쇠도끼 자루의 붉은 끈.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P3, P4, P5 -->
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>사건(퐁당! 도끼)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">쿵딱! 쿵딱! 연못가에서 나무를 베던 그때! 손이 미끄덩— 도끼가 그만 연못 속으로 퐁당! 빠지고 말았어요. "아이고, 내 도끼! 하나뿐인 내 도끼!" 나무꾼은 발을 동동 굴렀지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 익스트림 클로즈업, 수면 눈높이 로우 구도 — 카메라가 물 높이에 붙어 퐁당 물보라를 화면 가득 담는 사건의 한순간.<br/><b>장소·시간</b> 산속 맑고 깊은 연못가, 한낮. 순간 멎은 듯한 "아차!"의 공기.<br/><b>인물</b> 전경 수면에 <b>도끼(dokki)</b>가 막 빠지는 순간 — 물보라가 왕관처럼 튀어 오르고 동심원이 퍼지며, 쇠도끼가 반쯤 잠겨 가라앉는 중, 자루 끝 붉은 끈이 수면 위로 마지막으로 보임. 화면 뒤쪽에 HonestWoodcutter(정직한 나무꾼)가 흐릿하게 성긴 획으로 — 두 팔을 앞으로 뻗으며 큰 O입과 치켜 올라간 눈썹 획의 소스라친 표정.<br/><b>배경·소품</b> 퍼져 나가는 물결 동심원, 공중에 튄 물방울 몇 점, 연못가 갈대 몇 획, 베다 만 나무 밑동. 배경은 거의 여백.<br/><b>톤</b> 맑은 한낮 빛, 물보라의 찰나가 정지된 긴박하지만 유쾌한 사고의 정서. 빨강 악센트 1점 = 가라앉는 쇠도끼 자루의 붉은 끈.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(잔잔한 연못)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">연못은 아무 일 없다는 듯 다시 잔잔해졌어요. 나무꾼은 물가에 쪼그려 앉아 한숨을 푸욱 쉬었지요. "도끼가 없으면 나무를 못 하는데… 어머니는 어쩌지." 눈물이 그렁그렁 맺혔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글 부감 + 극단 여백 구도 — 잔잔한 연못 수면(거의 빈 종이)이 화면의 70%를 차지하고, 나무꾼은 아래 구석에 조그맣게.<br/><b>장소·시간</b> 산속 연못가, 조용한 오후. 물결 하나 없이 고요해진 공기.<br/><b>인물</b> HonestWoodcutter(정직한 나무꾼)는 화면 좌하단 물가에 무릎을 안고 쪼그려 앉아 고개를 푹 숙이고 수면을 내려다봄 — 점눈 밑에 조그만 눈물 획이 그렁, 입은 힘없는 내리막 실선. 등이 동그랗게 말린 쓸쓸한 실루엣.<br/><b>배경·소품</b> 거울처럼 잔잔한 넓은 수면(종이 여백 그대로, 옅은 회청 물결 두어 획만), 곁에 내려놓은 <b>지게(jige)</b>와 나뭇단, 갈대 몇 획.<br/><b>톤</b> 차분한 오후 빛, 쓸쓸하지만 무겁지 않은 잠깐의 낙심 — 여백이 곧 고요함. 빨강 악센트 1점 = 물가 갈대 끝에 앉은 빨간 잠자리 한 마리.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(산신령 등장)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때였어요. 연못 한가운데가 반짝반짝 빛나더니 물이 빙글빙글 소용돌이쳤어요. 촤아아— 구름 같은 흰 수염의 산신령님이 스르르 솟아올랐지요! "누가 이 연못에 도끼를 빠뜨렸느냐?"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글 — 물에서 솟아오르는 산신령을 아래에서 올려다보며 거대함과 신비로움 강조(스케일 대비).<br/><b>장소·시간</b> 산속 연못 한가운데, 오후. 물안개가 살짝 피어오르는 신비로운 공기.<br/><b>인물</b> MountainSpirit(산신령)이 연못 한가운데서 상반신을 우뚝 솟음 — 구름 같은 흰 수염 덩어리와 흰 도포, 한 손에 지팡이, 허리 아래는 부드러운 회청 물 소용돌이로 녹아듦. 점눈은 온화하고 입가는 부드러운 실선 미소(전혀 무섭지 않게, 크고 포근하게). HonestWoodcutter(정직한 나무꾼)는 화면 우하단 물가에 등 돌린 작은 실루엣으로 — 고개를 한껏 젖혀 올려다보며 큰 O입의 놀람.<br/><b>배경·소품</b> 빙글 도는 물 소용돌이 획, 공중에 흩어진 반짝임 입자(크림·회청), 갈대와 산그늘 몇 획.<br/><b>톤</b> 은은하고 신비로운 빛(요란하지 않게), 놀랍지만 포근한 등장의 정서. 빨강 악센트 1점 = 물가 수풀의 빨간 산열매 한 송이.</pre></details>
+</div>
+
+<!-- ④ 절정(문답) : P6~P10 -->
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>절정(금도끼 문답)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">산신령님이 번쩍이는 금도끼를 들어 보였어요. "이 금도끼가 네 것이냐?" 나무꾼은 고개를 저었어요. "아니요, 제 도끼가 아니에요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 구도 — 나무꾼의 어깨 너머로 금도끼를 든 산신령을 바라봄(문답의 첫 합).<br/><b>장소·시간</b> 연못가, 오후. 숨을 죽인 문답의 공기.<br/><b>인물</b> 전경 좌하단에 HonestWoodcutter(정직한 나무꾼)의 뒷모습 어깨와 흰 머릿수건이 걸림. 화면 중앙 MountainSpirit(산신령)이 물 위에서 번쩍이는 금도끼를 두 손으로 들어 보이며 눈썹 한 획을 살짝 들고 작은 o입으로 묻는 온화한 표정.<br/><b>배경·소품</b> 금도끼의 반짝임(선명한 노랑 + 별 반짝 획 두어 개), 잔잔한 수면과 소용돌이 자락, 갈대. 배경은 여백을 살려 문답에 집중.<br/><b>톤</b> 차분한 오후 빛 속 금빛만 톡 튀는 설렘 — 금 반짝임은 노랑으로만. 빨강 악센트 1점 = 갈대 끝에 앉은 빨간 잠자리.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>절정(은도끼 문답)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 반짝이는 은도끼였어요. "그럼 이 은도끼가 네 것이냐?" "아니요, 그것도 제 도끼가 아니에요." 나무꾼은 두 손을 휘휘 저었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글 부감(산신령의 시점) — 위에서 내려다보아 작아 보이는 나무꾼, 화면 위 모서리에서 은도끼를 든 산신령의 소매와 손이 프레임 안으로 들어옴(같은 문답을 반대 앵글로 변주).<br/><b>장소·시간</b> 연못가, 오후. 두 번째 문답의 담백한 공기.<br/><b>인물</b> HonestWoodcutter(정직한 나무꾼)는 화면 중앙 아래 물가에서 위를 올려다보며 두 손을 가슴 앞에서 휘휘 젓는 "아니요" 동작 — 입은 곧고 단호한 실선, 점눈은 순함. 화면 좌상단 모서리에 MountainSpirit(산신령)의 넓은 흰 소맷자락과 손에 들린 은도끼(회청 반짝임)만 크게 걸림.<br/><b>배경·소품</b> 나무꾼 발치의 물가 흙과 갈대 그림자 몇 획, 곁의 지게와 나뭇단, 수면 가장자리.<br/><b>톤</b> 담백하고 정직한 반복의 리듬 — 은 반짝임은 회청으로만. 빨강 악센트 1점 = 물가 수풀의 빨간 산열매 한 송이.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(정직의 상)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마지막으로 낡은 쇠도끼가 나왔어요. "이 쇠도끼가 네 것이냐?" "네! 바로 그게 제 도끼예요!" 산신령님은 허허 웃었지요. "참으로 정직하구나. 세 도끼를 모두 가지거라!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글 — 세 자루 도끼가 한꺼번에 반짝이는 절정의 펼침면 한 방.<br/><b>장소·시간</b> 연못가, 해가 기울기 시작한 오후. 환하고 벅찬 상의 공기.<br/><b>인물</b> MountainSpirit(산신령)이 함박 웃음(눈이 두 곡선으로 감긴 허허 웃음)으로 몸을 살짝 숙여 금도끼·은도끼·쇠도끼 세 자루를 두 팔 가득 나무꾼에게 안겨 줌. HonestWoodcutter(정직한 나무꾼)는 화면 아래쪽에서 두 손을 모아 받으며 허리를 굽혀 꾸벅 — 놀란 기쁨의 작은 O입과 들린 눈썹 획.<br/><b>배경·소품</b> 세 자루 <b>도끼(dokki)</b> — 금(선명한 노랑 반짝), 은(회청 반짝), 그리고 낡은 쇠도끼(회색, 자루 끝 붉은 끈). 주위에 반짝임 입자, 잔잔한 수면과 갈대.<br/><b>톤</b> 환하고 벅찬 보답의 정서 — 금·은의 반짝임은 노랑/회청으로만 내고, 빨강 악센트 1점 = 쇠도끼 자루의 붉은 끈.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(일부러 퐁당!)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이 소식을 들은 욕심쟁이 나무꾼은 곧장 연못으로 달려갔어요. 그러고는 제 도끼를 일부러 휙— 퐁당! 던져 놓고 엉엉 우는 시늉을 했지요. "아이고오, 내 도끼! 내 아까운 도끼!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면 프로필 구도 — 도끼가 날아가는 포물선이 한눈에 보이게 옆에서 담음(P3의 퐁당을 다른 앵글로 변주).<br/><b>장소·시간</b> 같은 산속 연못가, 이튿날 낮. 속이 빤히 보이는 능청스러운 공기.<br/><b>인물</b> GreedyWoodcutter(욕심쟁이 나무꾼)는 화면 왼쪽 물가에서 도끼를 막 던진 직후의 자세 — 몸이 앞으로 쏠리고 한 팔이 던진 방향으로 쭉 뻗음. 표정은 실눈 능청에 입만 크게 벌려 엉엉 우는 시늉, 다른 손등으로 마른 눈을 비비는 척, 커다란 가짜 눈물 방울 두 점.<br/><b>배경·소품</b> 도끼(붉은 끈 없는 평범한 도끼)가 점선 포물선의 끝에서 막 수면에 닿아 반쯤 잠기며 물보라 '퐁당', 물가에 아무렇게나 팽개친 낡은 지게, 갈대.<br/><b>톤</b> 밝은 한낮 빛, 과장된 몸짓이 웃음을 자아내는 명랑 코믹 — 밉기보다 우스꽝스럽게. 빨강 악센트 1점 = 놀라 포르르 날아오르는 빨간 잠자리 한 마리.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(욕심쟁이의 거짓말)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">산신령님이 금도끼를 들고 나타나 물었어요. "이 금도끼가 네 것이냐?" 욕심쟁이는 얼른 소리쳤지요. "네네! 금도끼도 은도끼도 몽땅 다 제 거예요!" 산신령님은 천천히 고개를 저으며 스르르 물속으로 사라졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 산신령의 어깨너머 하이앵글 기미 — 산신령의 어깨와 구름 수염 자락 너머로 아래의 욕심쟁이를 내려다봄(P6 어깨너머의 방향을 뒤집은 변주).<br/><b>장소·시간</b> 연못 한가운데와 물가, 낮. 거짓말이 들통나기 직전의 코믹한 공기.<br/><b>인물</b> 전경 위쪽에 MountainSpirit(산신령)의 뒷모습 어깨·흰 수염 자락과, 프레임 안으로 들어온 손의 금도끼(노랑 반짝). 화면 중앙 아래 GreedyWoodcutter(욕심쟁이 나무꾼)는 물가에서 까치발로 두 손을 갈퀴처럼 쫙 뻗으며 "다 제 거예요!" — 눈이 금도끼에 꽂힌 채 입을 한껏 벌린 욕심 가득 표정, 침 튀는 획 두어 개.<br/><b>배경·소품</b> 금도끼의 노랑 반짝임, 산신령 허리 아래의 물 소용돌이가 벌써 스르르 낮아지기 시작한 기색(천천히 고개 젓는 온화한 기류), 잔잔한 수면.<br/><b>톤</b> 코믹한 과장 속에서도 산신령은 끝까지 온화하고 조용하게 — 혼내지 않고 스르르 물러나는 절제. 빨강 악센트 1점 = 욕심쟁이 머리 위에 얌체같이 내려앉은 빨간 잠자리.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P11 -->
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>결말(빈손과 토닥임)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">연못은 다시 조용해졌어요. 욕심쟁이는 빈손을 내려다보며 머쓱— 얼굴이 빨개졌지요. "거짓말을 해서 부끄러워…" 정직한 나무꾼이 다가와 어깨를 토닥였어요. "괜찮아요, 나무는 같이 하면 되지요." 정직한 마음에는 복이 온답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨, 극단 여백의 변주 — 노을빛 잔잔한 수면이 화면을 넓게 비우고, 두 인물은 물가 한쪽에 나란히(고요한 마무리).<br/><b>장소·시간</b> 산속 연못가, 해질녘. 소동이 가라앉은 따뜻하고 잔잔한 공기.<br/><b>인물</b> GreedyWoodcutter(욕심쟁이 나무꾼)는 화면 우측 물가에 털썩 주저앉아 빈 두 손바닥을 내려다봄 — 볼에 발그레한 낙서 획(볼의 발그레 획은 연한 분홍으로만, 빨강 금지 — 이 컷의 빨강 1점은 쇠도끼 끈), 머쓱하게 오므린 입의 뉘우침 표정. HonestWoodcutter(정직한 나무꾼)는 그 곁에 서서 한 손으로 욕심쟁이의 어깨를 다정하게 토닥이며 부드러운 실선 미소로 내려다봄.<br/><b>배경·소품</b> 거울 같은 노을빛 수면(넓은 여백 — 노을은 연한 주황·크림으로만, 빨강으로 번지지 않게), 곁에 세워 둔 나뭇단 얹은 <b>지게(jige)</b>와 그 위의 세 자루 도끼(금·은·쇠), 갈대 실루엣.<br/><b>톤</b> 포근한 해질녘 빛, 용서와 다독임으로 닫는 따뜻한 마무리 — 교훈은 설교가 아니라 토닥임으로. 빨강 악센트 1점 = 지게 위 쇠도끼 자루의 붉은 끈.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 금도끼 은도끼 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'HonestWoodcutter', name: '정직한 나무꾼',   desc: '착한 주인공 — 흰 무명 머릿수건, 무명옷·짚신, 곧고 성실한 몸가짐',                    aliases: ['HonestWoodcutter'] },
+    { token: 'GreedyWoodcutter', name: '욕심쟁이 나무꾼', desc: '이웃 욕심쟁이 — 짜리몽땅 배불뚝이, 삐뚠 상투·수염 점, 능청 실눈(코믹, 안 무섭게)',   aliases: ['GreedyWoodcutter'] },
+    { token: 'MountainSpirit',   name: '산신령',          desc: '연못의 신령님 — 구름 같은 흰 수염 덩어리·흰 도포·지팡이, 온화한 점눈(무섭지 않게)',  aliases: ['MountainSpirit'] },
+    { token: 'Mother',           name: '어머니',          desc: '나무꾼의 늙은 어머니 — 굽은 허리, 흰 낮은 쪽머리, 무명 치마저고리·물동이',            aliases: ['Mother'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>
