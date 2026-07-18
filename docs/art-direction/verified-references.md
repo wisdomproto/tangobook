@@ -130,6 +130,12 @@ curl -s "https://worldillustrationawards.com/wp-json/wp/v2/award?award-category=
 - **종이 자체를 광원으로 쓸 수 있다**(밝은 크림 종이 = 햇빛). §2.1-2 여백 원칙의 확장 — 빈 종이가 구성 요소를 넘어 조명 역할까지 한다. 별도 라이팅 문구가 불필요해짐.
 - 프롬프트에 밀도 배분을 명시하라: "Spend density ONLY on the characters; backgrounds hinted with a few strokes" + "edges left open, hatching never fully fills a shape".
 
+**🔴 보정 (2026-07-18, 점눈이 회차 실측) — "흐리게(faded)" ≠ "미완성 스케치(unfinished sketch)":**
+- **관찰**: 위 문구("backgrounds hinted / airy / a few strokes")를 넣어도 배경(항아리·담·베틀·지붕)이 인물만큼 **다 그려져** 나왔다. 원인 = 모델은 "hinted / looser / hazy" 를 **저채도·안개·연한 색**으로 오해할 뿐 여전히 형태를 완성한다. 이건 **채도가 아니라 완성도(finish)의 문제**인데 문구가 그걸 구분해 주지 못했다.
+- **교정**: 밀도 배분을 "hinted/airy" 같은 애매어로 쓰지 말고 **완성도 위계(finish hierarchy)** 를 명시하라 — characters = finished(line+color) / their handled props = half-finished / **everything else = a LOOSE UNFINISHED PENCIL SKETCH: a few open contour lines and direction strokes, barely any color, bare paper showing through, deliberately not filled in, like the rough underdrawing on a sketchbook page.** 질감을 "unfinished pencil sketch / rough underdrawing" 로 못 박아야 한다.
+- 🔴 **오해 차단 문구 필수**: "this is about how FINISHED each area is, NOT about opacity — the background is not faded, hazy, blurry or low-saturation, it is simply left as rough sketch lines, not drawn to completion." NOT 리스트에도 `NOT a fully rendered background / NOT every jar·roof-tile·leaf drawn to completion / NOT a uniform finish / NOT a hazy·blurry·faded background(그건 흐림이지 스케치가 아님)` 을 넣는다.
+- 🔴 **문구만으론 못 이긴다(§2.3 재확인)**: 근본 원인은 **스타일 ref 2장(P6·놀부 도깨비)이 둘 다 배경 완성형** — 모델이 문구보다 그 ref 를 따라 배경을 완성한다. ref 가 문구와 반대로 말하는 중. → **스타일 ref 세트에 "배경이 러프 스케치로 남은 승인 컷" 1장이 반드시 포함**돼야 이 문구가 먹는다. 밀도 배분은 문구 + ref 가 같은 방향일 때만 성립한다.
+
 ### 2.5 🔴 NOT 문구 운용 규칙 (사고 2건에서 확립)
 - **NOT 은 렌더링 기법에만 쓴다** (에어브러시·그라데이션·CG 광택·셀셰이딩·사진풍…).
 - 🔴 **인체·연령·비율에는 NOT 을 쓰지 마라.** `NOT realistic adult proportions` → 어른이 아기가 된 사고. 모델은 부정어의 *대상*만 집고 방향은 제 맘대로 정한다.
@@ -243,7 +249,7 @@ https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/<FILE>.pdf/page{N}-192
 | 라인 | 그림체 | 상태 |
 |---|---|---|
 | 호리 생활동화 / 유치원동화 (3~5세) | 니들펠트 양모 인형 스톱모션 | ✅ 확정 |
-| **전래동화 (5~7세)** | **점눈이 (Dot-Eye)** — 밝은 크림 종이(=햇빛) + 느슨한 색연필 낙서 해칭 + 점눈 캐릭터 언어(§2.6). 팔레트=크림+짚빛 노랑+청회색+연두 소량+화면당 빨강 1점. 스타일 ref = **승인 렌더 2장(P6 제비 · 놀부 도깨비)**, 앵커 SSOT = `jeonrae-plan.html` §6 + 회차 `JR_EPISODE.style` | ✅ **확정 (2026-07-17)** |
+| **전래동화 (5~7세)** | **점눈이 (Dot-Eye)** — 밝은 크림 종이(=햇빛) + 느슨한 색연필 낙서 해칭 + 점눈 캐릭터 언어(§2.6). 팔레트=크림+짚빛 노랑+청회색+연두 소량+화면당 빨강 1점. 스타일 ref = **승인 렌더 2장(P6 제비 · 놀부 도깨비)** + 🔴 **배경 러프 스케치 컷 1장 확보 예정**(3장째, §2.7 보정 — 현 2장이 배경 완성형이라 배경까지 완성돼 나옴). 앵커 SSOT = `jeonrae-plan.html` §6 + 회차 `JR_EPISODE.style`. 🔴 **RENDERING = 완성도 위계 명시**(2026-07-18 보정: 인물 finished / 만지는 소품 half / 배경 = unfinished pencil sketch, "흐리게" 아님) | ✅ **확정 (2026-07-17)** · RENDERING 보정 (2026-07-18) |
 | 타임 티코 학습만화 (초등 저학년) | — | 별도 |
 | 세계명작·자연관찰 | 멀티 그림체(수채·페이퍼3D·콜라주) | 기존 |
 
@@ -257,6 +263,7 @@ https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/<FILE>.pdf/page{N}-192
 | **수상작 이식 (점눈 디자인 언어)** | WIA 계열 수상작(점눈·실선 입·한 덩어리 머리·둥근 실루엣)의 **렌더링+캐릭터 디자인 언어를 세트로** 스타일 ref 이식 | 🔶 매력 확보 | 렌더 즉시 "ㅋㅋㅋ" 즉발 반응(§2.6 검증 기준). 단 톤이 어둡고 무거움 |
 | **밝기·대충(루스니스) 튜닝** | 어두운 톤 → **밝은 크림 종이(=햇빛) + 빠르고 느슨한 색연필**, 획 절약·열린 모서리·캐릭터에만 밀도 | ✅ | 균일 완성 = AI 티, 획의 절약 = 사람 티 → §2.7 확립 |
 | **최종 = 점눈이 (Dot-Eye)** | 승인 렌더 2장(P6 제비 · 놀부 도깨비) = 스타일 ref 확정, 앵커·시트 전면 재작성 | ✅ **확정 (2026-07-17)** | 신규 생성 = 항상 이 2장 첨부 + 시트 먼저(§2.4). 앵커 SSOT = `jeonrae-plan.html` §6 |
+| **RENDERING 완성도 위계 보정** | 배경이 인물만큼 다 그려져 나옴 → RENDERING 을 "완성도 위계(finish hierarchy)" 로 재작성(인물 finished / 만지는 소품 half / 배경 = unfinished pencil sketch), 오해차단 문구("NOT about opacity, not faded/hazy") + NOT 리스트 강화. 21곳(20편+plan) `JR_EPISODE.style`·앵커 SSOT 일괄 교체 | 🔶 문구 완료, ref 대기 | 🔴 근본 원인 = ref 2장이 배경 완성형(§2.3) → **배경 러프 스케치 승인 컷 3장째 확보가 남은 일**(사용자 생성). "흐리게"가 아니라 "덜 그린 미완성"이 핵심 → §2.7 보정 |
 
 **🔴 A3 실패 5항 (렌더 직접 확인)** — A4 는 이걸 하나씩 막게 설계됐다:
 1. **캐릭터가 배경과 따로 논다 (최대 범인)** — 배경엔 민화가 먹었으나 인물만 매끈한 CG 에어브러시. 원인 = **캐릭터 시트가 수채 톤** → §2.4
