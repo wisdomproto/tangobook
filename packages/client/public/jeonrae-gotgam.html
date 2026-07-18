@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 호랑이와 곶감</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 2 #12</div>
+  <h1>🐯 호랑이와 곶감</h1>
+  <div class="sub">호랑이보다 무서운 곶감?! — 겁쟁이 호랑이와 얼빵한 소도둑의 한밤중 대소동</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 유머·용기(알고 보면 무서울 것 없어요) &nbsp;·&nbsp;
+  <b>분량</b> 11 스프레드 &nbsp;·&nbsp; <b>후렴</b> "곶감이다! 곶감이 온다!" &nbsp;·&nbsp;
+  <b>핵심단어</b> 곶감 · 멍석 · 지게 · 호롱불 · 소달구지 &nbsp;·&nbsp;
+  <b>순화</b> 소도둑 = 얼빵 코믹 단역(잡히거나 벌 받는 묘사 없음 — "다시는 안 훔칠래요!" 셀프 뉘우침 한 줄 + 줄행랑) / 호랑이 = 팥죽·해와달 계열의 얼빵 겁쟁이(위협 묘사 없음)
+</div>
+<div class="refrain">🍊 반복 후렴 — "곶감이다! 곶감이 온다!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-gotgam</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요. 🎥 이 편의 카메라 무기 = <b>밤 장면 극단 여백 + 호랑이 로우앵글(거대함) vs 곶감 클로즈업</b> 대비.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="호랑이" data-key="char-tiger">
+  <div class="head"><span class="face">🐯</span><b>호랑이</b> <span class="rom">Tiger · 얼빵한 겁쟁이 호랑이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Tiger — a HUGE mountain tiger who turns out to be a hopeless scaredy-cat, comic and never scary. Dot-eye design language: a flat face with zero shading, two small dot eyes set a little too close together (instantly dopey), a simple line mouth, one small dark nose dot, small rounded ears. The joke lives in the mismatch — an enormous body carrying the tiniest, most timid dot-eye face.
+SILHOUETTE (his signature): a big soft rounded mass — a boulder-round rump, thick stubby legs, a long tail that curls when he is scared. Muzzle, chest and belly left as open cream paper; the body in soft orange scribbly hatching over open paper with bold dark stripes as a few quick loose strokes that never fully close.
+DETAILS: whiskers as two or three quick strokes per side. When frightened, add small wobble strokes around the body and flyaway brow strokes above the dot eyes — fear is told by posture (crouching, tail tucked, paws over mouth), never by menace. No bared fangs, no claws emphasized.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body side idle (padding softly, hungry droopy one-line mouth) + a front sitting pose + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) hungry droopy one-line mouth with lowered brow strokes, (2) terrified small O mouth with flyaway brow strokes and wobble strokes, (3) full panic — big open mouth mid-sprint, ears back. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="엄마" data-key="char-mother">
+  <div class="head"><span class="face">👩‍🌾</span><b>엄마</b> <span class="rom">Mother · 아기 엄마</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Mother — a warm village mother soothing her baby through a long winter night. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot), hair as one solid dark mass parted in the middle and gathered into a modest LOW bun at the nape, one plain hairpin drawn as a single short stroke.
+SILHOUETTE (her signature): small, soft and rounded with a warm motherly bearing — usually seated cross-legged with the baby on her lap, body curved protectively around him like a nest.
+CLOTHES: a humble winter skirt-and-jacket hanbok suggested in soft blue-grey pencil strokes with a pale straw-yellow skirt — mostly open paper with loose hatching, a padded winter feel told by one or two soft quilting lines, plain socks (beoseon) as open paper shapes. Cozy and tidy, never fancy.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body seated idle (baby-holding arms curved, gentle one-line smile) + a standing 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) warm soothing one-line smile, (2) playful mock-stern "호랑이 왔다!" face — one straight brow stroke and a small firm line mouth, (3) soft open laugh drawn as a small curved open mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="아기" data-key="char-baby">
+  <div class="head"><span class="face">👶</span><b>아기</b> <span class="rom">Baby · 곶감 좋아하는 울보 아기</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Baby — a round dumpling of a baby, the true hero of the night. Dot-eye design language: a big round flat cream face with zero shading, two dot eyes, a tiny line mouth that swings between a HUGE open crying mouth and a tiny happy smile, one single sprout of dark baby hair standing up on top of the head.
+SILHOUETTE (his signature): the roundest character in the cast — a little rice-cake body, stubby arms and legs, always sitting. Head almost as big as the body.
+CLOTHES: a soft padded baby vest (누비 조끼) suggested in pale straw-yellow hatching over open-paper underclothes, told with just a few quilting strokes. No red on the clothes — when he holds a dried persimmon, the gotgam itself is the picture's single red-orange accent.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body sitting idle + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) full bawling — a big open crying mouth, squeezed-shut eyes as two tiny arcs, two teardrop strokes flying, (2) the sudden STOP — dot eyes wide open, mouth shrunk to a tiny o, one leftover teardrop, (3) happy nibbling smile with both stubby hands holding a small dried persimmon. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="소도둑" data-key="char-thief">
+  <div class="head"><span class="face">🥷</span><b>소도둑</b> <span class="rom">Thief · 얼빵한 코믹 단역</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Thief — a scrawny, hopelessly clumsy cattle thief, pure comic relief and never menacing. Dot-eye design language: a flat cream face with zero shading, two dot eyes set a little too close together (his silly look), a wobbly one-line mouth, no nose (or one tiny dot), two or three stubble dots on the chin, and messy scribbled hair escaping from under his signature — a small RED cloth headband tied tight around his head (the picture's single red accent whenever he appears).
+SILHOUETTE (his signature): thin and noodly with a permanently hunched sneak — knees bent, elbows up, always on exaggerated tiptoe. Instantly funny before he does anything.
+CLOTHES & PROP: a patched everyday jacket and baggy trousers in soft blue-grey strokes with one scribbled patch, straw sandals, and a big round cloth bundle (bojagi bundle) strapped on his back, drawn as one soft mass with a knot.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body tiptoe sneaking idle (side view, elbows up) + a front 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) sneaky sideways line grin, (2) delighted greedy grin with lifted brow strokes ("what a fat ox!"), (3) utter panic — a big O mouth, flyaway brow strokes, hair and headband tails flying. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="소" data-key="char-ox">
+  <div class="head"><span class="face">🐮</span><b>소</b> <span class="rom">Ox · 순한 황소</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Ox — the family's gentle ox, the simplest character in the cast: a big soft rounded mass drawn with just a few quick strokes. Warm straw-brown loose hatching over the back, the belly and muzzle left as open cream paper, two small curved horns as two strokes, droopy sleepy dot eyes, one soft line mouth, a rope halter drawn as a single stroke, a tasseled tail as one flick.
+MOOD: utterly calm and a little puzzled — he sleeps through the whole commotion and only tilts his head. All told by pose, since the face is just dots.
+REFERENCE SHEET: one sheet on plain bright cream paper — a standing side profile + a lying-down sleeping pose (legs folded, eyes as two closed arcs, a little "z z" told by two tiny strokes of posture, not letters — simply closed arc eyes and a drooping head) + a head-tilt curious close-up with one dot eye half open. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="곶감" data-key="word-gotgam">
+  <div class="head"><span class="face">🍊</span><b>곶감</b> <span class="rom">gotgam — dried persimmons</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gotgam — Korean dried persimmons (곶감)". Plump, softly wrinkled squat rounds of dried persimmon in a deep sweet persimmon orange-red (#D35B2E) with a delicate powdery white sugar bloom (시설) dusting the surface, each with a small dried star-shaped calyx on top. Show TWO forms so the word reads clearly: (1) a hanging string of dried persimmons threaded on a twisted straw rope (곶감 타래) as they dry under an eave, and (2) one plump single gotgam placed beside it, glowing like a little treasure. Sweet, jewel-like, mouth-watering. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="멍석" data-key="word-meongseok">
+  <div class="head"><span class="face">🧺</span><b>멍석</b> <span class="rom">meongseok — a woven straw mat</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "meongseok — a traditional Korean woven straw floor mat (멍석)". Hand-woven from golden rice-straw (#D8B45A) in a dense coiled braid weave, thick and sturdy, with a darker braided straw border and softly rounded corners. Show TWO forms: (1) the mat unrolled flat at a slight 3/4 angle so the beautiful braided weave texture reads clearly, and (2) the same mat half-rolled into a fat cylinder beside it, tied with a straw cord. Warm hand-crafted straw gold, cozy farmhouse pride. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="지게" data-key="word-jige">
+  <div class="head"><span class="face">🎒</span><b>지게</b> <span class="rom">jige — a Korean A-frame back carrier</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jige — a traditional Korean wooden A-frame back-carrier for firewood and loads (지게)". Two natural pine/alder upright wooden posts (warm honey-brown wood grain #B07A3C) joined by cross-rungs lashed with twisted straw rope, woven rice-straw shoulder straps, and its matching Y-shaped support stick (지게작대기) leaning beside it. Show the frame at a slight 3/4 angle so the A-frame shape reads clearly. Sturdy, handcrafted, warm wood tones. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="호롱불" data-key="word-horongbul">
+  <div class="head"><span class="face">🏮</span><b>호롱불</b> <span class="rom">horongbul — a Korean oil lamp</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "horongbul — a traditional Korean oil lamp (호롱불)". A small rounded white porcelain oil cup (호롱, soft warm porcelain #EDE6D6) with a tiny cotton wick and ONE warm amber teardrop flame, sitting on a simple dark-wood lamp stand (등잔걸이) with a round drip dish, the wood in deep warm brown (#6B4A2B) with visible grain and a small brass ring accent (#C9A227). Shown at a slight 3/4 angle with a soft cozy glowing halo around the flame lighting the card from within. Warm, quiet, precious — the light of an old Korean night. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="소달구지" data-key="word-sodalguji">
+  <div class="head"><span class="face">🛞</span><b>소달구지</b> <span class="rom">sodalguji — an ox cart</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "sodalguji — a traditional Korean wooden ox cart (소달구지)". Warm honey-brown wood (#B07A3C) with visible grain: two BIG wooden spoked wheels with thick rounded rims and sturdy hubs, a plank cargo bed with low wooden side rails, and two long shafts reaching forward to a gently curved wooden yoke for the ox, the joints lashed with twisted straw rope. Shown empty at a slight 3/4 angle so the big wheels, bed and yoke all read clearly. Sturdy, handcrafted, proud farm craftsmanship. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 11 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날, 눈이 소복소복 내리는 깊은 산골 마을이 있었어요. 겨울이 오면 집집마다 처마 밑에 달콤한 곶감을 매달아 두었지요. 그리고 마을 뒷산 깊은 곳에는, 아주아주 커다란 호랑이 한 마리가 살고 있었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 + 극단 여백 — 화면의 70%는 눈 내리는 밤하늘과 눈밭의 빈 종이 여백, 마을은 화면 아래 구석에 조그맣게 모여 있는 스케일 대비 구도.<br/><b>장소·시간</b> 깊은 산골 마을 전경, 눈이 소복소복 내리는 겨울밤. 고요하고 아늑한 옛이야기의 첫 공기.<br/><b>인물</b> Tiger(호랑이)는 화면 위쪽 뒷산 능선에 아주 작은 실루엣으로 웅크려 앉아 마을 쪽을 물끄러미 내려다봄 — 거대한 산과 밤하늘 속에서 호랑이도 마을도 콩알처럼 작게(스케일 시).<br/><b>배경·소품</b> 눈이 소복이 쌓인 초가지붕 몇 채(획 몇 개로만 암시), 전경의 한 집 처마 밑에 매달린 <b>곶감(gotgam)</b> 타래 한 줄 — 이 곶감 타래의 주홍이 이 그림의 유일한 빨간 악센트(다른 집 처마는 blue-grey 선으로만). 능선의 소나무 실루엣 두어 획, 흩날리는 눈송이 점점.<br/><b>톤</b> 푸르스름한 겨울밤의 blue-grey 해칭, 눈밭과 하늘은 크림 종이 여백이 곧 달빛, 고요하고 포근한 도입의 정서.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(호랑이가 내려왔다)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 몹시 추운 겨울밤이었어요. 배가 쪼르륵 고픈 호랑이가 어슬렁어슬렁 마을로 내려왔지요. "킁킁, 어디 맛있는 게 없나?" 호랑이는 발소리를 죽이고 어느 집 담장 아래, 세워 둔 지게 옆으로 살금살금 다가갔어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 극단 로우앵글 — 담장 밑 땅바닥 시점에서 올려다본 호랑이. 화면 위쪽을 꽉 채우는 산만 한 몸집으로 거대함을 강조.<br/><b>장소·시간</b> 마을 어귀 골목의 낮은 흙담 밑, 깊은 겨울밤. 숨죽인 공기.<br/><b>인물</b> Tiger(호랑이)가 몸을 잔뜩 낮추고 앞발 하나를 살며시 든 살금살금 자세로 담장 위에서 골목을 넘겨다봄. 코를 벌름거리며 킁킁, 점눈은 배고파 처진 얼빵한 표정, 입은 힘없는 한 획 — 거대한데 하나도 안 무섭게.<br/><b>배경·소품</b> 눈 쌓인 낮은 흙담과 초가지붕 처마, 담장 옆에 세워 둔 <b>지게(jige)</b>와 그 위 눈, 담장 너머 앙상한 감나무 가지 끝에 까치밥으로 남은 홍시 한 알(=이 그림의 유일한 빨간 악센트), 골목 눈길 위 큼직한 호랑이 발자국.<br/><b>톤</b> 어스름한 달빛의 blue-grey, 눈은 종이 여백 그대로, 거대함과 능청이 겹치는 코믹한 긴장.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(안 그치는 아기)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 집 안에서 아기 울음소리가 들려왔어요. "앙앙! 앙앙!" 엄마가 말했지요. "뚝! 호랑이 왔다!" 그런데 아기는 울음을 그치기는커녕 더 크게 울지 뭐예요. 문밖 호랑이는 고개를 갸우뚱했어요. '아니, 이 무서운 내가 왔다는데도 안 무섭다고?'</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 — 화면 앞쪽 호랑이의 등과 뒤통수 너머로, 불 밝힌 창호지 방문을 바라보는 구도.<br/><b>장소·시간</b> 그 집 마당, 방문(창호지 문) 앞, 밤. 어두운 마당과 따뜻한 방 안 불빛의 대비.<br/><b>인물</b> Tiger(호랑이)는 전경에 등을 보이고 앉아 커다란 귀 한쪽을 문 쪽으로 쫑긋 기울이고 고개를 갸우뚱 — 뒤통수와 갸웃한 귀만으로 어리둥절함이 읽히게. 창호지에는 Mother(엄마)가 Baby(아기)를 안고 어르는 그림자 실루엣이 비침 — 아기 그림자는 몸을 뒤로 활처럼 젖히고 입을 쩍 벌려 앙앙 우는 중.<br/><b>배경·소품</b> 창호지 문살에 번지는 <b>호롱불(horongbul)</b>의 따뜻한 호박빛 불빛, 처마 밑 곶감 타래 한 가닥(주홍 = 이 그림의 유일한 빨간 악센트), 눈 쌓인 툇마루와 섬돌 위 작은 신발, 마당의 어둠은 blue-grey 해칭으로만.<br/><b>톤</b> 캄캄한 마당 vs 창호지의 따뜻한 불빛 대비, 울음소리가 들리는 듯한 코믹한 긴장.</pre></details>
+</div>
+
+<!-- ③ 사건 : P4, P5 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(곶감 줄게!)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그러자 엄마가 말했어요. "옳지, 우리 아기 곶감 줄게!" 그 말에 아기 울음이 뚝! 딱 그쳤어요. 호롱불만 깜빡이는 방 안이 조용— 해졌지요. 문밖에서 듣고 있던 호랑이는 깜짝 놀랐어요. '곶감…? 곶감이 대체 누구길래?'</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨 — 방 안, 엄마의 손끝에 들린 곶감과 아기 얼굴에 바짝 다가간 컷. 곶감이 화면의 주인공.<br/><b>장소·시간</b> 따뜻한 방 안, 호롱불 켠 겨울밤. 울음이 뚝 그친 직후의 웃긴 정적.<br/><b>인물</b> Mother(엄마)가 화면 오른쪽에서 손끝에 <b>곶감(gotgam)</b> 하나를 집어 아기 눈앞에 내밈, 입은 "옳지" 하는 부드러운 한 획 미소. Baby(아기)는 왼쪽에서 울음을 뚝 그친 순간 — 점눈이 동그랗게 커지고 쩍 벌렸던 입이 조그만 o로 오므라들며, 눈가에 미처 못 떨어진 눈물 한 방울, 시선은 오직 곶감에 꽂힘.<br/><b>배경·소품</b> 엄마 손의 곶감 하나만 주홍(=이 그림의 유일한 빨간 악센트), 곁의 <b>호롱불(horongbul)</b>은 호박색 불꽃과 은은한 빛무리로, 깔아 둔 이불과 소반은 획 몇 개로 암시, 창호지 문 한쪽 구석에 호랑이 귀 두 개의 그림자가 빼꼼(개그 — 아주 작게).<br/><b>톤</b> 호롱불의 아늑한 호박빛, "뚝" 소리가 들릴 듯한 코믹한 정적, 포근한 방 안 공기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(곶감이 나보다 무섭다니!)</b> <span class="tag beat">③ 사건 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호랑이는 그만 벌벌 떨기 시작했어요. "이 세상에 나보다 무서운 곶감이라는 놈이 있구나! 곶감이다! 곶감이 온다!" 산만 한 호랑이가 오들오들, 꼬리를 도르르 만 채 캄캄한 외양간 구석으로 슬금슬금 숨어들었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 클로즈업, 극단 로우앵글 — 겁에 질린 호랑이의 커다란 얼굴이 화면을 가득 채움. P2의 "거대한 호랑이" 로우앵글을 그대로 뒤집어, 같은 거대함이 이번엔 벌벌 떠는 대비.<br/><b>장소·시간</b> 마당 구석, 외양간 앞, 밤. 혼자 겁먹은 우스꽝스러운 공기.<br/><b>인물</b> Tiger(호랑이)가 두 앞발로 제 입을 가리고 점눈이 파르르 흔들리는 겁먹은 표정 — 눈썹 획은 여덟팔자로 축 처지고, 몸통 둘레에 오들오들 떨림 획 몇 개, 꼬리는 도르르 말려 앞으로 감김. 거구가 통째로 움츠러든 실루엣.<br/><b>배경·소품</b> 뒤쪽 처마 밑에 매달린 <b>곶감(gotgam)</b> 타래(=이 그림의 유일한 빨간 악센트 — 정작 저게 곶감인 줄은 꿈에도 모르는 개그), 외양간 기둥과 여물통 실루엣, 눈 쌓인 마당.<br/><b>톤</b> 파르스름한 밤의 blue-grey, 산만 한 덩치가 콩알만 해진 코믹, 후렴("곶감이다! 곶감이 온다!")이 터지는 쪽.</pre></details>
+</div>
+
+<!-- ④ 절정 : P6, P7, P8, P9 -->
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>절정(소도둑 등장)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">바로 그때, 얼빵한 소도둑 하나가 이 집 마당에 살금살금 들어왔어요. "히히, 오늘은 살진 소 한 마리 슬쩍 데려가야지." 도둑은 발끝을 세우고 까치발로, 마당에 말아 둔 멍석을 살짝 돌아 캄캄한 외양간으로 다가갔지요. 그 안에 누가 숨어 있는 줄은 까맣게 모르고요!</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글 부감 — 마당 전체를 위에서 내려다보는 연극 무대식 구도. 도둑의 살금살금 동선과 외양간 속 숨은 호랑이를 한눈에 담아 관객(아이)만 진실을 아는 개그.<br/><b>장소·시간</b> 같은 집 마당, 깊은 밤. 소리 죽인 코믹 서스펜스.<br/><b>인물</b> Thief(소도둑)가 화면 가운데 눈 쌓인 마당을 과장된 까치발로 가로지름 — 무릎은 굽고 팔꿈치는 올라간 국수 가락 실루엣, 입은 히히 웃는 비뚤한 한 획, 등에 봇짐. 화면 위쪽 외양간 어둠 속에는 Tiger(호랑이)가 웅크린 커다란 둥근 실루엣으로 숨어 있고(도둑은 전혀 모름), Ox(소)는 외양간 반대편 켠에 다리를 접고 누워 눈을 감은 채 새근새근.<br/><b>배경·소품</b> 마당에 반쯤 말아 둔 <b>멍석(meongseok)</b>과 장독대, 눈 위에 점점이 찍히는 도둑의 까치발 발자국, 도둑 머리에 질끈 동인 붉은 수건(=이 그림의 유일한 빨간 악센트), 외양간 기둥과 낮은 지붕.<br/><b>톤</b> 부감이 만드는 인형극 무대 느낌, 푸른 밤 종이 여백, 관객만 아는 코믹 서스펜스.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>절정(그 등은 소가 아니야)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어둠 속에서 도둑은 더듬더듬, 소달구지 옆에서 크고 따뜻한 등을 쓰다듬었어요. "어이쿠, 이 소 참 살지고 복슬복슬하네!" 도둑은 신이 나서 그 등에 폴짝 올라탔지요. 그런데 이를 어째요. 그건 소가 아니라… 호랑이 등이었지 뭐예요!</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 측면 — 캄캄한 외양간 속, 도둑의 손과 호랑이의 등줄무늬에 바짝 붙은 컷. 주변은 극단적으로 어두운 여백으로 비워 두 사람(?)만 떠오르게.<br/><b>장소·시간</b> 외양간 안, 칠흑같이 캄캄한 밤. 오해가 무르익는 결정적 순간.<br/><b>인물</b> Thief(소도둑)가 두 손바닥으로 커다란 등을 흐뭇하게 쓰다듬으며 한쪽 다리를 걸쳐 막 올라타는 중 — 점눈을 감고 실선으로 히죽 웃는 신난 얼굴. 화면에 보이는 Tiger(호랑이)는 등판만 — 느슨한 줄무늬 획 몇 개와, 소스라치게 곤두서 붓처럼 뻗친 꼬리 끝(놀람은 꼬리로만). 구석에서 Ox(소)가 한쪽 점눈만 게슴츠레 뜨고 고개를 갸웃(정작 소는 멀쩡히 여기 있다는 개그).<br/><b>배경·소품</b> 외양간 기둥과 여물통 실루엣, 구석에 세워 둔 <b>소달구지(sodalguji)</b>의 큰 바퀴 실루엣, 도둑 머리의 붉은 수건(=이 그림의 유일한 빨간 악센트). 어둠은 blue-grey 해칭으로만, 검게 칠하지 않기.<br/><b>톤</b> 깜깜함 속 촉감만으로 벌어지는 오해, 웃음을 참는 코믹 서스펜스의 정점 직전.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(밤새 내달린 호랑이)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"으악! 곶감이다! 곶감이 날 잡으러 왔다!" 호랑이는 펄쩍 뛰어올라 바람같이 내달렸어요. 휘리릭 담을 넘고, 슝슝 산길을 오르고! 등에 탄 도둑은 떨어질세라 호랑이 등을 꼭 붙들었지요. 그렇게 둘은 밤새 산을 넘고 또 넘었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 극단 와이드 + 극단 여백 — 화면의 대부분이 텅 빈 밤하늘의 크림 종이 여백, 화면 아래 눈 덮인 능선 위로 콩알만 한 호랑이와 도둑이 전속력으로 질주하는 스케일 대비 구도(광활한 산 vs 조그만 둘).<br/><b>장소·시간</b> 눈 덮인 밤 산길, 능선 위. 밤새 이어지는 대질주.<br/><b>인물</b> Tiger(호랑이)는 네 발이 전부 공중에 뜬 만화적 전력 질주 자세, 입을 쩍 벌려 "으악!" 비명, 귀는 뒤로 착 눕고 눈썹 획은 사방으로. Thief(소도둑)는 그 등에 납작 엎드려 갈기처럼 매달림 — 봇짐이 들썩이고 머리의 붉은 수건 자락이 뒤로 길게 나부낌(=이 그림의 유일한 빨간 악센트).<br/><b>배경·소품</b> 능선의 소나무 실루엣 두어 획, 흩날리는 눈송이, 둘 뒤로 길게 뻗는 속도선 몇 획, 지나온 능선의 발자국 점선.<br/><b>톤</b> 푸른 밤하늘의 광활한 여백, 질주의 속도감, 후렴("곶감이다! 곶감이 온다!")이 메아리치는 통쾌한 코믹.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(날이 밝았다!)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마침내 날이 훤히 밝았어요. 도둑이 슬쩍 아래를 내려다보니, 세상에! 살진 소가 아니라 줄무늬 호랑이잖아요? "으히익!" 도둑은 마침 머리 위로 지나가는 나뭇가지를 얼른 붙잡고 대롱대롱 매달렸다가, 눈밭에 폴싹 뛰어내렸답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글 — 눈밭에서 올려다본 구도. 소나무 가지에 대롱대롱 매달린 도둑이 화면 위쪽에, 저 아래 길로 멀어지는 호랑이가 화면 구석에 작게.<br/><b>장소·시간</b> 산 고갯마루의 큰 소나무 아래, 동트는 새벽. 밤이 걷히며 정체가 드러나는 순간.<br/><b>인물</b> Thief(소도둑)가 굵은 소나무 가지를 두 손으로 붙잡고 대롱대롱 — 다리는 허공에서 버둥버둥, 점눈이 화들짝 커지고 입은 커다란 O, 눈썹 획과 더벅머리가 사방으로 뻗친 혼비백산. 화면 아래 저만치 Tiger(호랑이)의 뒷모습이 궁둥이를 씰룩이며 달아나는 실루엣으로 작게(등이 가벼워진 줄도 모르고 계속 질주).<br/><b>배경·소품</b> 가지에서 후드득 떨어지는 눈, 살구빛으로 물들기 시작한 새벽 하늘(종이 여백에 옅은 살굿빛 해칭 몇 획), 도둑 머리의 붉은 수건(=이 그림의 유일한 빨간 악센트), 눈길 위 호랑이 발자국.<br/><b>톤</b> 밤의 blue-grey 가 걷히고 새벽빛이 스미는 전환, 정체가 드러난 뒤의 폭소 코믹.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P10, P11 -->
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>결말(둘 다 걸음아 날 살려라)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호랑이는 뒤도 안 돌아보고 깊은 산속으로 걸음아 날 살려라 내뺐어요. 도둑도 반대쪽 길로 부리나케 달아나며 외쳤지요. "다시는 남의 소 안 훔칠래요!" 서로가 서로를 무서워하며, 둘 다 꽁지가 빠지게 도망쳤답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 평면 부감 — 산 아래 갈림길을 바로 위에서 수직으로 내려다본 지도 같은 구도. 왼쪽·오른쪽으로 반대로 달아나는 둘의 코믹한 데칼코마니 대칭.<br/><b>장소·시간</b> 산자락의 눈 덮인 갈림길, 환하게 밝은 아침.<br/><b>인물</b> Tiger(호랑이)는 갈림길 왼쪽 산 위 방향으로 궁둥이를 들썩이며 전력 질주 — 꼬리는 여전히 뒷다리 사이에 만 채, 뒤로 작은 눈먼지 구름. Thief(소도둑)는 오른쪽 마을 반대편 길로 팔다리를 풍차처럼 휘저으며 질주 — 입은 "다시는 안 훔칠래요!" 외치는 커다란 O, 등의 봇짐이 반쯤 벗겨져 덜렁덜렁, 머리의 붉은 수건(=이 그림의 유일한 빨간 악센트).<br/><b>배경·소품</b> 눈 위에 두 갈래로 갈라지는 발자국 행렬(호랑이 발자국 vs 짚신 발자국 — 부감 개그의 핵심 소품), 갈림길 가운데 돌무더기 서낭당과 앙상한 나무 한 그루, 넓은 눈밭은 종이 여백 그대로.<br/><b>톤</b> 환한 아침의 크림 종이 빛, 서로를 무서워하며 반대로 내빼는 대칭 개그, 후련하고 명랑한 결말 공기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>결말(곶감은 달콤해)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날 아침, 아기는 엄마 무릎에 앉아 달콤한 곶감을 냠냠 맛있게 먹었어요. 지난밤의 대소동은 아무도 몰랐지요. 무서워 보이는 것도 알고 보면 별것 아닐 때가 많대요. 어쩌면 곶감처럼 달콤할지도 모르고요!</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 — 햇살 드는 툇마루의 따뜻한 마무리 컷. 인물은 화면 한쪽에 두고 반대쪽은 아침 마당의 여백으로 넉넉하게.<br/><b>장소·시간</b> 이튿날 아침, 그 집 툇마루, 맑은 겨울 햇살. 아무 일 없었다는 듯 평화로운 공기.<br/><b>인물</b> Baby(아기)가 Mother(엄마)의 무릎에 폭 안겨 앉아 두 손으로 <b>곶감(gotgam)</b>을 쥐고 냠냠 — 볼이 볼록하고 입은 행복한 한 획 미소(손의 곶감 하나가 이 그림의 유일한 빨간 악센트). Mother(엄마)는 아기를 감싸 안고 내려다보며 부드러운 한 획 미소. 마당 건너 외양간에는 Ox(소)가 아무 일 없었다는 듯 느긋하게 여물을 우물우물. 저 멀리 뒷산 능선 위로 Tiger(호랑이)의 꽁무니와 말린 꼬리가 산 너머로 사라지는 실루엣이 아주 작게(여운 개그).<br/><b>배경·소품</b> 햇살 드는 툇마루와 섬돌, 처마 밑 곶감 타래는 blue-grey 선으로만 암시(악센트는 아기 손의 곶감 하나), 눈이 반짝이는 마당, 소반 위 곶감 접시도 옅은 선으로만.<br/><b>톤</b> 맑고 포근한 겨울 아침 햇살(크림 종이가 곧 햇빛), 달콤하고 평화로운 마무리, 한 줄 교훈이 사르르 남는 여운.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 호랑이와 곶감 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'Tiger',  name: '호랑이',  desc: '얼빵한 겁쟁이 호랑이 — 바위처럼 둥근 몸, 헐렁한 주황 빗금+굵은 줄무늬, 가운데 몰린 점눈, 겁먹으면 꼬리 도르르', aliases: ['Tiger'] },
+    { token: 'Mother', name: '엄마',    desc: '아기 엄마 — 낮은 쪽머리, 소박한 겨울 치마저고리, 다정한 한 획 미소', aliases: ['Mother'] },
+    { token: 'Baby',   name: '아기',    desc: '울보 아기 — 배냇머리 한 줌, 누비 조끼, 세상에서 곶감이 제일 좋음', aliases: ['Baby'] },
+    { token: 'Thief',  name: '소도둑',  desc: '얼빵한 코믹 소도둑 — 국수 가락 실루엣, 까치발, 봇짐, 붉은 수건(등장 쪽의 빨간 악센트)', aliases: ['Thief'] },
+    { token: 'Ox',     name: '소',      desc: '순한 황소 — 몇 획의 둥근 덩치, 게슴츠레한 점눈, 고삐 한 획, 소동 내내 태평', aliases: ['Ox'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

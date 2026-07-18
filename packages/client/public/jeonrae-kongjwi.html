@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 콩쥐 팥쥐</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 2 #10</div>
+  <h1>👟 콩쥐 팥쥐</h1>
+  <div class="sub">마음씨 고운 콩쥐와 얄미운 팥쥐 — 꽃신 한 짝이 맺어 준 복 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 착함·인내 &nbsp;·&nbsp;
+  <b>분량</b> 15 스프레드 &nbsp;·&nbsp; <b>후렴</b> 조력자들의 "걱정 마, 콩쥐야!" &nbsp;·&nbsp;
+  <b>핵심단어</b> 꽃신 · 옹기항아리 · 베틀 · 호미 · 소쿠리 &nbsp;·&nbsp;
+  <b>순화</b> 🔴 원작 젓갈 결말 완전 삭제 → 팥쥐·계모 뉘우침·화해 / 구박 = 가혹 학대가 아니라 얄미운 몰아주기(코믹 톤)
+</div>
+<div class="refrain">🐂 반복 후렴 — "걱정 마, 콩쥐야! 우리가 도와줄게!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-kongjwi</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부. 🔴 콩쥐는 <b>상태 2종(누더기 일옷 / 고운 차림)</b> 시트·토큰 분리 — 쪽마다 그 시점 상태 토큰만 사용.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="일옷 콩쥐" data-key="char-kongjwi-plain">
+  <div class="head"><span class="face">👧</span><b>일옷 콩쥐</b> <span class="rom">KongjwiPlain · 착한 주인공(일옷)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: KongjwiPlain — the kind, diligent heroine while in her patched work clothes. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot), hair as one solid dark mass combed into a single long braid hanging down her back, tied with a small pale straw-yellow daenggi ribbon (NOT red). IDENTICAL FACE to KongjwiFine.
+SILHOUETTE (her signature): small, slim and light on her feet — a nimble, forward-leaning diligent posture, always mid-task, sleeves slightly rolled. The long single braid swinging behind her is her instant read against the two-bun Patjwi.
+CLOTHES (work state): a humble work hanbok suggested in soft blue-grey pencil strokes — a plain jacket and a faded straw-tone skirt left mostly as open paper with loose hatching, one or two small scribbled patches on the skirt, a simple cloth work apron in a few strokes, straw sandals. Threadbare but tidy and cheerful — poor is told by patches and sparseness, never by dirt or gloom.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands lightly folded over the apron, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) gentle one-line smile, (2) soft worried downcurved mouth with one tiny tear dot, (3) bright happy open smile drawn as a small curved open mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="고운 차림 콩쥐" data-key="char-kongjwi-fine">
+  <div class="head"><span class="face">🌷</span><b>고운 차림 콩쥐</b> <span class="rom">KongjwiFine · 잔치 가는 콩쥐</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: KongjwiFine — the SAME kind girl AFTER her animal friends gift her fine clothes for the magistrate's feast.
+🔴 IDENTICAL FACE to KongjwiPlain: the same flat cream face, same two dot eyes, same gentle one-line smile, same solid dark hair in the same single long braid with the same pale straw-yellow daenggi. Fine clothes changed her outfit, never her face or bearing — still humble, warm and light-footed, NEVER haughty (she must never read like Patjwi or the stepmother).
+SILHOUETTE: the same small, slim, light-on-her-feet build and modest posture as KongjwiPlain — clearly the SAME person, just dressed for the feast. No apron now.
+CLOTHES (fine state): a clean, lovely skirt-and-jacket hanbok — the jacket left as open cream paper with neat edges and a soft leaf-green tone on the collar and sleeve tips, the skirt suggested in a gentle straw-yellow pencil tone with a few tidy hatching strokes, a neat sash bow. On her feet, embroidered silk flower shoes (kkotsin) with ONE tiny red blossom stitched on each toe — this red embroidery is the picture's single red accent whenever she appears. Modestly lovely, NOT flashy.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands lightly folded, gentle one-line smile, kkotsin peeking under the skirt hem) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) shy happy one-line smile, (2) surprised small O mouth with lifted brow strokes, (3) warm open smile with a gentle tilt of the head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="팥쥐" data-key="char-patjwi">
+  <div class="head"><span class="face">😤</span><b>팥쥐</b> <span class="rom">Patjwi · 얄미운 딸</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Patjwi — the stepmother's spoiled daughter, sulky and mischievous but comic and never cruel-looking. Dot-eye design language: a flat cream face with zero shading, two dot eyes set a touch close together, puffed round cheeks, and a tiny pouty downcurved line mouth, chin tilted up.
+SILHOUETTE (her signature): short, round and dumpling-soft — a plump tummy-first little silhouette that flops and lolls about, and hair as one solid dark mass parted into TWO small round buns above the ears, each tied with a little plum-tone ribbon. Two buns + puffed cheeks + pout = instantly distinct from the single-braid Kongjwi.
+CLOTHES: the fussiest outfit in the cast — a jacket with a hint of scribbled pattern and a skirt hatched in a soft plum pencil tone, small pointed cloth shoes. Spoiled is told by the extra strokes, the pout and the lolling posture, never by meanness.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (arms crossed, cheeks puffed, chin up) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) sulky pout with puffed cheeks, (2) smug delighted line grin, (3) ashamed small downcurved mouth with the head bowed low. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="새어머니" data-key="char-stepmother">
+  <div class="head"><span class="face">💁‍♀️</span><b>새어머니(계모)</b> <span class="rom">Stepmother · 새침한 계모</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Stepmother — Kongjwi's fussy stepmother, comically snobbish but NEVER scary or cruel-looking (she piles chores on Kongjwi with a sniffy air, like a bossy auntie). Dot-eye design language: a flat cream face with zero shading, two dot eyes, a tiny pursed pout drawn as one short line, no nose (or one tiny dot), chin always tilted up.
+SILHOUETTE (her signature): tall and angular with a prim, upright, nose-in-the-air bearing — hair as one solid dark mass piled into a tall HIGH bun with an ornamental hairpin (binyeo) drawn as one long decisive stroke. Tall angular frame + high bun + tilted-up chin = instantly the opposite of small nimble Kongjwi.
+CLOTHES: the fanciest hatching among the adults — a skirt suggested in a soft plum pencil tone with a hint of scribbled pattern, a jacket with neat edges, pointed cloth shoes. Showy is told by extra strokes and the high bun, not by heavy rendering.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (arms crossed, chin up) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) snooty pursed pout with the chin up, (2) sing-song scheming line grin, (3) embarrassed small O mouth with drooping brow strokes and a bowed head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="검은 소" data-key="char-blackox">
+  <div class="head"><span class="face">🐂</span><b>검은 소</b> <span class="rom">BlackOx · 든든한 조력자</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: BlackOx — a big, gentle magical black ox who helps Kongjwi, warm and grandfatherly, never intimidating. Dot-eye design language on an animal: the huge body drawn as one soft solid dark scribble mass (the one big dark shape in the scene), the muzzle left as open cream paper with two tiny nostril dots, one dot eye with a single relaxed brow stroke, small rounded horns as two short curved strokes, a tufted tail as one quick stroke.
+SILHOUETTE (his signature): mountain-big and round-backed — a huge gentle mass beside tiny Kongjwi (scale contrast is his charm), standing with a calm, patient, slightly bowed head as if always listening kindly.
+PROP: a simple straw-rope halter around the neck with one small brass bell drawn as a tiny round stroke (bell cord in plain straw tone, NOT red).
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body side view standing + a front view with the head gently lowered toward the viewer + a working pose mid-stride pulling through a field. Expression changes ONLY through the brow stroke, mouth line and head angle: calm kind idle, cheerful "moo" with a small open mouth, gentle affectionate head-bow. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="두꺼비" data-key="char-toad">
+  <div class="head"><span class="face">🐸</span><b>두꺼비</b> <span class="rom">Toad · 항아리 지킴이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Toad — a squat, friendly toad who plugs the hole in the leaky jar, cozy and a little grandpa-like, never slimy or gross. Dot-eye design language on an animal: a plump low lump of a body hatched in a warm olive-brown pencil tone, the belly left as open cream paper, a few scattered dot-bumps on the back (just dots, cute not warty), two dot eyes set high on the head, and a wide contented one-line smile stretching across the face.
+SILHOUETTE (his signature): a round flat pancake-lump with stubby splayed legs — widest creature in the cast for his size, sitting low and steady like a little cushion. Steady and dependable is the whole charm.
+REFERENCE SHEET: one sheet on plain bright cream paper — front sitting idle (wide one-line smile) + a side view mid-hop with stubby legs out + a curled "plug" pose, tucked into a snug ball with the smile peeking, as if stopping a jar hole with his broad back. Expression changes ONLY through the mouth line and eye dots: content wide smile, determined pressed line, cheerful open mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="참새 떼" data-key="char-sparrows">
+  <div class="head"><span class="face">🐦</span><b>참새 떼</b> <span class="rom">Sparrows · 재잘재잘 도우미들</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Sparrows — a cheerful flock of little sparrows who husk the grain for Kongjwi. Each sparrow is the simplest possible bird: a small rounded warm-brown head-and-back mass in a few quick strokes, the belly left as open cream paper, one dot eye, a tiny triangle beak stroke, a short stubby tail, wings as one or two open strokes when flying. All personality lives in the tilt of the head and the bounce of the pose.
+GROUP LANGUAGE: they act as a happy busy cloud — many small identical birds hopping, pecking and fluttering together, a few always mid-bounce. Never crow-like, never dark; small, round and merry.
+REFERENCE SHEET: one sheet on plain bright cream paper — ONE sparrow large in three views (side perched, front, wings-open flying) + below, a small lively flock cluster of six or seven sparrows hopping and pecking around a scatter of grain dots, a couple flying above. No text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="원님" data-key="char-wonnim">
+  <div class="head"><span class="face">🧑‍⚖️</span><b>원님</b> <span class="rom">Wonnim · 다정한 고을 원님</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Wonnim — the young, kind county magistrate, warm and courteous, never stiff or stern. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot), a clean chin with NO stubble dots (he is young) — he reads as an adult official entirely through his hat, robe and composed bearing.
+SILHOUETTE (his signature): straight-backed and graceful — a tall, calm, upright posture with unhurried gestures. On his head, a black official silk hat (samo) with its two small rounded side wings, drawn as one simple dark shape — his instant read.
+CLOTHES: an official's robe (gwanbok) suggested in a soft jade-green pencil tone with loose hatching and open paper, wide sleeves, a simple dark belt (gakdae) as one horizontal stroke, black boots in two strokes. Dignified but friendly — no red robe, no ornament clutter.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded inside the wide sleeves, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) composed warm one-line smile, (2) curious surprised small O mouth with lifted brow strokes, (3) delighted broad smile with a slight forward lean. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="꽃신" data-key="word-kkotsin">
+  <div class="head"><span class="face">👟</span><b>꽃신</b> <span class="rom">kkotsin — embroidered flower shoes</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "kkotsin — traditional Korean embroidered flower shoes (꽃신)". A dainty pair of silk shoes with the classic gently upturned boat-shaped toe, ivory silk body, a red-and-green floral embroidery blossom on each toe (#C0392B & #27795B) with fine gold-thread trim along the rim, a soft satin sheen. Show TWO views so the form reads clearly: (1) the pair side by side at a slight 3/4 angle, and (2) one single shoe in profile showing the upturned toe curve. Precious, festive, jewel-like. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="옹기항아리" data-key="word-onggi">
+  <div class="head"><span class="face">🏺</span><b>옹기항아리</b> <span class="rom">onggi hangari — earthenware jar</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "onggi hangari — a traditional Korean earthenware storage jar (옹기항아리)". A big round-bellied breathing clay jar with a wide shoulder, a short neck and a small open mouth, glazed in deep warm caramel-brown (#7A4E2A) with darker glaze drips down the belly and a soft ceramic sheen, sitting on a flat sturdy base. Show TWO forms: (1) one large jar at a slight 3/4 angle with its flat clay lid on, and (2) a smaller companion jar beside it with the lid off showing the dark open mouth. Earthy, generous, glossy-warm. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="베틀" data-key="word-beteul">
+  <div class="head"><span class="face">🧶</span><b>베틀</b> <span class="rom">beteul — a traditional loom</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "beteul — a traditional Korean wooden weaving loom (베틀)". A hand loom of warm honey-brown wood (#B07A3C) with visible grain: a low angled wooden frame with upright posts, cream cotton warp threads (#F2E8D5) stretched taut across it, a half-woven band of pale hemp cloth, and its boat-shaped wooden shuttle (buk) resting on the threads. Show TWO views: (1) the full loom at a slight 3/4 angle so the frame and stretched threads read clearly, and (2) a close detail of the smooth boat-shaped shuttle with its thread. Handcrafted, precise, warm wood tones. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="호미" data-key="word-homi">
+  <div class="head"><span class="face">🌱</span><b>호미</b> <span class="rom">homi — a Korean hand hoe</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "homi — a traditional Korean hand hoe for weeding (호미)". The classic form: a curved, pointed iron blade in soft dark steel-grey (#5B6266) with a gentle forged sheen, bending down from a short round wooden handle in warm honey-brown (#B07A3C) wrapped with a turn of straw cord at the neck. Show TWO forms: (1) the classic iron-bladed homi in profile showing the elegant goose-neck curve, and (2) beside it, a simple all-wooden homi (the flimsy one from the story) in pale wood tone. Humble, hardworking, beautifully curved. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="소쿠리" data-key="word-sokuri">
+  <div class="head"><span class="face">🧺</span><b>소쿠리</b> <span class="rom">sokuri — a woven bamboo basket</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "sokuri — a traditional Korean shallow woven bamboo basket (소쿠리)". A wide, shallow round basket woven from flat golden-tan bamboo strips (#C9A25A) in a clear over-under lattice, with a neatly braided rim, light and airy. Show TWO forms: (1) one empty basket at a slight 3/4 angle showing the weave texture inside, and (2) a second basket heaped with white hulled rice grains beside a small scatter of red beans. Handwoven, warm, everyday craftsmanship. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 15 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(착한 콩쥐)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 어느 마을에 콩쥐라는 마음씨 곱고 부지런한 아가씨가 살았어요. 콩쥐는 아침이면 마당을 쓸고, 낮이면 베틀에 앉아 달그락달그락 베를 짰지요. 부지런한 콩쥐가 지나가면 꽃도 방긋, 참새도 짹짹 인사했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 하이앵글 부감 — 초가집 마당 전체를 비스듬히 내려다보며 베 짜는 콩쥐에게 시선이 모이는 도입 정경.<br/><b>장소·시간</b> 옛 한국 시골 마을, 콩쥐네 초가집 마당, 화창한 봄날 아침. 갓 쓸어 놓은 흙마당의 상쾌하고 정갈한 공기.<br/><b>인물</b> KongjwiPlain(일옷 콩쥐)은 화면 중앙 툇마루의 <b>베틀(beteul)</b> 앞에 단정히 앉아 북을 좌우로 놀리며 달그락달그락 베를 짬. 등 뒤로 긴 외갈래 땋은 머리가 살랑, 입은 콧노래하듯 방긋한 실선 미소. 마루 끝과 마당에 Sparrows(참새 떼) 두세 마리가 폴짝폴짝 뛰며 콩쥐를 구경함.<br/><b>배경·소품</b> 베틀에 팽팽히 걸린 크림빛 무명실과 반쯤 짜인 베, 벽에 기대 세워 둔 싸리비, 마당 한쪽의 장독대, 초가지붕과 낮은 흙담, 담 너머 살구꽃 핀 가지, 파란 하늘.<br/><b>톤</b> 밝고 고른 봄 아침 햇빛(크림 종이가 곧 햇살), 옛이야기를 여는 포근하고 부지런한 정서. 이 그림의 빨간 악센트 1점 = 베틀 곁에 놓인 작은 붉은 실타래.</pre></details>
+</div>
+
+<!-- ② 발단(선/악 대비) : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(새어머니와 팥쥐)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 날, 새어머니가 팥쥐라는 딸을 데리고 콩쥐네 집에 왔어요. 그런데 이를 어째요. 새어머니와 팥쥐는 새침한 심술꾸러기였지 뭐예요. "흥! 집안일은 몽땅 콩쥐 네 몫이야!" 콩쥐는 눈만 동그래졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 콩쥐 어깨너머 구도 — 전경의 콩쥐 뒷모습 어깨와 땋은 머리 너머로, 대문으로 들어서는 두 사람을 바라봄.<br/><b>장소·시간</b> 콩쥐네 초가집 대문 안, 낮. 낯선 손님이 들어서며 살짝 긴장되는, 그러나 우스꽝스러운 공기.<br/><b>인물</b> 전경 오른쪽 아래 — KongjwiPlain(일옷 콩쥐)의 뒷모습 어깨와 외갈래 땋은 머리가 크게 걸리고, 고개만 살짝 옆으로 돌려 눈이 동그래진 옆얼굴이 보임. 화면 안쪽 대문께 — Stepmother(새어머니)가 턱을 한껏 치켜들고 높은 쪽머리에 비녀를 꽂은 채 새침하게 들어서고, 그 곁에서 Patjwi(팥쥐)가 볼을 빵빵하게 부풀린 뾰로통한 얼굴로 콩쥐를 흘겨보며 보퉁이를 안고 뒤뚱뒤뚱 따라 들어옴.<br/><b>배경·소품</b> 활짝 열린 사립문과 낮은 흙담, 두 사람이 들고 온 보퉁이 짐, 마당의 장독대와 싸리비, 담 너머 마을 길.<br/><b>톤</b> 밝은 한낮 햇빛, 새침한 둘과 순한 콩쥐의 대비가 한눈에 읽히는 코믹한 정서(무섭지 않게). 이 그림의 빨간 악센트 1점 = 팥쥐 보퉁이 매듭의 붉은 끈.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(몽땅 콩쥐 몫)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날부터 콩쥐는 눈코 뜰 새 없이 바빴어요. 물 긷고, 빨래하고, 소쿠리 가득 팥도 골랐지요. 팥쥐는 마루에 벌러덩 누워 "콩쥐야, 부채질도 해 줘~" 하며 놀기만 했어요. 그래도 콩쥐는 뾰로통하지 않고 콧노래를 불렀답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 — 마당을 똑바로 위에서 내려다보는 플랫레이 구도. 부지런한 콩쥐의 일감과 늘어진 팥쥐가 한 화면에 대비됨.<br/><b>장소·시간</b> 콩쥐네 초가집 마당과 툇마루, 한낮. 콩쥐 쪽은 분주하고 팥쥐 쪽은 나른한, 반으로 갈린 공기.<br/><b>인물</b> 화면 아래쪽 마당 — KongjwiPlain(일옷 콩쥐)이 쪼그려 앉아 <b>소쿠리(sokuri)</b>에 담긴 팥을 조몰조몰 고르는 모습이 정수리와 어깨 위주로 보이고, 땋은 머리가 등 위에 가지런함. 입가는 그래도 방긋한 실선 미소. 화면 위쪽 툇마루 — Patjwi(팥쥐)가 팔다리를 아무렇게나 뻗고 벌러덩 누워 부채를 배 위에 얹은 채 입을 헤 벌리고 늘어져 있음.<br/><b>배경·소품</b> 콩쥐 둘레에 오늘의 일감이 빙 둘러 놓임 — 빨랫감이 소복한 함지, 물동이, 널어 둔 빨랫줄 그림자, 낟알 멍석; 팥쥐 곁엔 먹다 둔 강정 접시 하나. 위에서 본 초가지붕 처마선과 장독대 항아리 뚜껑들.<br/><b>톤</b> 고른 한낮 햇빛의 평면 부감, 절반은 부지런·절반은 게으름이 한눈에 읽히는 담백한 코믹 정서. 이 그림의 빨간 악센트 1점 = 소쿠리 속 붉은 팥알들.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P4 ~ P9 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(원님 잔치와 세 가지 숙제)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"원님이 큰 잔치를 여신대!" 새어머니와 팥쥐는 고운 옷을 차려입고 신이 났어요. "콩쥐 너는 자갈밭 매고, 항아리에 물 채우고, 곡식도 다 찧어 놓으렴. 그럼 잔치에 와도 좋아. 호호!" 둘은 얄밉게 웃으며 쪼르르 먼저 가 버렸지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 로우앵글 — 마당에 앉은 콩쥐의 눈높이에서 대문께의 두 사람을 올려다보는 구도. 잔뜩 차려입은 둘이 화면 위쪽에서 내려다봄.<br/><b>장소·시간</b> 콩쥐네 초가집 마당과 사립문 앞, 화창한 낮. 들뜬 둘과 남겨진 콩쥐의 대비가 우스운 공기.<br/><b>인물</b> 화면 위쪽 대문께 — Stepmother(새어머니)는 제일 고운 자두빛 치마를 차려입고 턱을 치켜든 채 손가락 세 개를 펴 숙제를 하나하나 이르는 시늉, 입은 얄미운 호호 웃음. Patjwi(팥쥐)도 새 옷을 입고 그 곁에서 볼을 부풀리며 손을 살랑살랑 "먼저 갈게~" 흔듦. 화면 아래 전경 구석 — KongjwiPlain(일옷 콩쥐)이 나무 <b>호미(homi)</b>와 물동이를 품에 안고 앉아 두 사람을 동그란 점눈으로 올려다봄, 입은 살짝 처진 실선.<br/><b>배경·소품</b> 활짝 열린 사립문 밖으로 잔칫집 방향의 마을 길, 마당의 커다란 옹기항아리와 멍석에 쌓인 곡식 가마(곧 닥칠 숙제들이 배경에 미리 보임), 초가지붕과 흙담.<br/><b>톤</b> 밝은 한낮 햇빛, 얄밉지만 밉살맞게 웃긴 몰아주기(가혹함이 아니라 코믹한 심술로). 이 그림의 빨간 악센트 1점 = 팥쥐 손목에 달랑 매단 붉은 복주머니.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>시련 하나(부러진 나무 호미)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">콩쥐는 나무 호미를 들고 자갈밭으로 갔어요. 그런데 딱딱한 자갈밭을 몇 번 매기도 전에, 나무 호미가 뚝! 부러지고 말았어요. "이걸 어쩌지…" 콩쥐 눈에 눈물이 그렁그렁 맺혔지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 하이앵글 — 콩쥐를 위에서 내려다보며, 두 손에 든 부러진 호미 두 동강에 시선이 모이는 구도.<br/><b>장소·시간</b> 마을 어귀의 넓은 자갈밭, 한낮. 막막하고 조용한 공기.<br/><b>인물</b> KongjwiPlain(일옷 콩쥐)이 화면 중앙에 무릎을 꿇고 앉아 두 손에 뚝 부러진 나무 <b>호미(homi)</b>의 자루와 날 두 동강을 하나씩 받쳐 들고 내려다봄. 점눈 옆에 아주 작은 눈물방울 한 점, 입은 처진 실선, 어깨가 폭 좁아진 웅크린 자세. 땋은 머리가 어깨 앞으로 흘러내림.<br/><b>배경·소품</b> 콩쥐 둘레로 동글동글한 자갈들이 성글게 흩어진 밭, 겨우 몇 뼘 매다 만 고랑 자국, 밭둑의 마른 풀 몇 획. 배경은 거의 빈 종이로 비워 막막함을 살림.<br/><b>톤</b> 고요한 한낮 햇빛, 서럽지만 무겁지 않게 — 곧 도움이 올 것 같은 여백의 정서. 이 그림의 빨간 악센트 1점 = 밭둑에 핀 작은 붉은 들꽃 한 송이.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>조력 하나(검은 소)</b> <span class="tag beat">③ 사건 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때였어요. 음머어— 커다란 검은 소가 성큼성큼 다가왔어요. "걱정 마, 콩쥐야! 내가 도와줄게!" 검은 소는 뿔로 슥슥, 발굽으로 쓱쓱, 눈 깜짝할 새에 자갈밭을 모두 갈아 주었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 로우앵글 + 스케일 대비 — 땅에 붙은 낮은 시점에서 산처럼 커다란 검은 소를 올려다보고, 손톱만 한 콩쥐가 그 앞에 마주 선 구도.<br/><b>장소·시간</b> 같은 자갈밭, 한낮. 막막함이 걷히고 든든해지는 공기.<br/><b>인물</b> BlackOx(검은 소)가 화면 대부분을 채우는 커다란 검은 덩어리로 우뚝 서서, 고개를 다정하게 숙여 콩쥐를 내려다봄 — 점눈 하나에 느긋한 눈썹 획, 크림색 콧등, 작은 입은 "음머" 하듯 벌어짐. 화면 아래 작게 — KongjwiPlain(일옷 콩쥐)이 부러진 호미를 안은 채 올려다보며 눈물이 쏙 들어간 동그란 점눈, 입은 놀란 작은 O.<br/><b>배경·소품</b> 소 목의 짚줄 고삐와 작은 놋방울, 소 등에 단단히 묶인 작은 무명 보따리 하나(무엇이 들었는지는 아직 모르게), 소 뒤편으로 벌써 갈려 나가는 고랑 줄무늬 몇 획, 흩어진 자갈들, 거의 빈 종이 하늘.<br/><b>톤</b> 환한 한낮 햇빛, 거대하지만 조금도 무섭지 않은 포근한 든든함 — 후렴 "걱정 마, 콩쥐야!"의 첫 울림. 이 그림의 빨간 악센트 1점 = 콩쥐 발치의 붉은 들꽃 한 송이(P5의 그 꽃).</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>시련 둘(밑 빠진 항아리)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 커다란 옹기항아리에 물을 채울 차례예요. 콩쥐가 물을 부으면 졸졸졸, 붓는 족족 물이 새어 나왔어요. 이런! 항아리 밑에 구멍이 뻥 뚫려 있지 뭐예요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 + 겹침/가림 구도 — 화면 앞을 커다란 항아리가 막아서고, 그 뒤로 콩쥐가 반쯤 가려진 채 물을 붓는 장면.<br/><b>장소·시간</b> 콩쥐네 집 장독대 옆, 오후. 부어도 부어도 줄지 않는 얄궂은 공기.<br/><b>인물</b> KongjwiPlain(일옷 콩쥐)이 커다란 <b>옹기항아리(onggi hangari)</b> 뒤에서 몸이 반쯤 가려진 채 항아리 어깨 위로 물동이를 기울여 물을 콸콸 부음 — 보이는 것은 까치발 든 발끝, 물동이를 든 두 팔, 항아리 너머로 빼꼼한 이마와 동그란 점눈. 눈썹 획이 살짝 팔자로 처져 "어라?" 하는 표정.<br/><b>배경·소품</b> 전경의 항아리 밑동에서 가느다란 물줄기가 졸졸 새어 나와 흙바닥에 작은 웅덩이를 만듦(구멍은 밑동에 작게 암시), 곁의 장독대 항아리들, 우물가의 두레박과 물동이 하나 더, 초가집 흙벽.<br/><b>톤</b> 부드러운 오후 햇빛, 딱하지만 어딘가 우스운 얄궂음 — 새는 물줄기에 시선이 가는 구도. 이 그림의 빨간 악센트 1점 = 장독대 옆에 핀 붉은 맨드라미 한 송이.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>조력 둘(두꺼비)</b> <span class="tag beat">③ 사건 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때, 엉금엉금 두꺼비가 기어 나왔어요. "걱정 마, 콩쥐야! 내가 도와줄게!" 두꺼비는 폴짝 뛰어들어 넓적한 등으로 구멍을 꼭 막아 주었지요. 콸콸콸— 항아리엔 금세 물이 가득 찼답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 지면 로우앵글 — 흙바닥에 카메라를 붙인 낮은 시점으로 항아리 밑동과 두꺼비를 크게, 뒤로 엎드려 들여다보는 콩쥐 얼굴.<br/><b>장소·시간</b> 장독대 옆, 오후. 걱정이 반가움으로 바뀌는 공기.<br/><b>인물</b> Toad(두꺼비)가 화면 앞 <b>옹기항아리(onggi hangari)</b> 밑동의 작은 구멍 앞에 넓적하게 엎드려, 방석같이 둥근 등을 구멍에 꼭 붙이는 중 — 점눈 두 개가 머리 위에 반짝, 입은 야무지게 다문 실선이었다가 씩 벌어지는 너른 미소. 그 뒤로 KongjwiPlain(일옷 콩쥐)이 흙바닥에 두 손을 짚고 엎드려 고개를 갸웃 기울여 들여다봄, 점눈이 반짝 커지고 입은 기쁜 작은 O.<br/><b>배경·소품</b> 항아리 밑동의 젖은 흙자국(물이 더는 새지 않음), 곁에 놓인 물바가지와 물동이, 장독대 돌단, 배경은 종이 여백으로 시원하게.<br/><b>톤</b> 따뜻한 오후 햇빛, 작은 영웅의 듬직함이 귀여운 정서 — 후렴 "걱정 마, 콩쥐야!" 두 번째 울림. 이 그림의 빨간 악센트 1점 = 물바가지에 동동 뜬 붉은 꽃잎 한 장.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>조력 셋(참새 떼)</b> <span class="tag beat">③ 사건 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마지막은 멍석 가득 쌓인 곡식 찧기예요. 그러자 포르르르— 하늘에서 참새 떼가 구름처럼 날아왔어요. "걱정 마, 콩쥐야! 우리가 도와줄게!" 콕콕콕, 참새들이 부리로 껍질을 벗겨 소쿠리마다 뽀얀 쌀을 소복소복 담아 주었지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 하이앵글 + 스케일 대비 — 마당을 넓게 내려다보며, 구름처럼 쏟아져 내려앉는 참새 떼 한가운데 작은 콩쥐가 서 있는 구도.<br/><b>장소·시간</b> 콩쥐네 집 마당, 늦은 오후. 재잘재잘 왁자하고 신나는 공기.<br/><b>인물</b> Sparrows(참새 떼) 수십 마리가 화면 위쪽 하늘에서 곡선을 그리며 우르르 내려오고, 멍석 위에 먼저 내려앉은 참새들은 통통 뛰며 부리로 낟알을 콕콕 쪼아 껍질을 벗김 — 저마다 점눈 하나, 고개를 갸웃갸웃. 화면 가운데 KongjwiPlain(일옷 콩쥐)이 <b>소쿠리(sokuri)</b>를 두 팔로 안고 서서 입을 활짝 벌린 곡선 웃음, 점눈이 초승달처럼 휘어짐.<br/><b>배경·소품</b> 마당 가득 펼친 멍석과 소복한 곡식 더미, 뽀얀 쌀이 소복소복 쌓여 가는 소쿠리 두엇, 겨 껍질이 폴폴 날리는 잔 점들, 장독대와 초가지붕 처마선.<br/><b>톤</b> 노릇한 늦은 오후 햇빛, 종이 여백 하늘에 참새 곡선이 리듬을 만드는 명랑하고 벅찬 정서 — 후렴 세 번째 울림. 이 그림의 빨간 악센트 1점 = 멍석 귀퉁이에 널어 말리는 붉은 고추 몇 개.</pre></details>
+</div>
+
+<!-- ④ 절정 : P10 ~ P13 -->
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(고운 옷과 꽃신)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"고마워, 얘들아! 정말 고마워!" 그러자 검은 소가 등에 싣고 온 보따리를 스르륵 풀어 주었어요. 세상에! 고운 치마저고리와 예쁜 꽃신이 들어 있었지요. 콩쥐는 고운 옷을 입고 꽃신을 신고, 사뿐사뿐 잔치에 나섰답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 검은 소의 목덜미 너머(어깨너머 변주) — 소의 커다란 검은 목과 뿔이 전경 프레임이 되고, 그 너머 고운 차림의 콩쥐가 공개되는 구도.<br/><b>장소·시간</b> 콩쥐네 집 마당, 해질 무렵. 하루의 수고가 선물로 돌아오는 반짝이는 공기.<br/><b>인물</b> 전경 왼쪽 — BlackOx(검은 소)의 목덜미와 뿔 한 짝이 크게 걸리고 점눈이 흐뭇하게 휘어짐. 그 너머 화면 중앙 — KongjwiFine(고운 차림 콩쥐)이 갓 갈아입은 고운 치마저고리 차림으로 서서 두 손에 <b>꽃신(kkotsin)</b> 한 켤레를 받쳐 들고 내려다봄, 점눈이 반짝 커지고 입은 감격한 작은 O. 발치엔 Toad(두꺼비)가 방석처럼 앉아 너른 실선 미소, 어깨와 머리 위엔 Sparrows(참새 떼) 서너 마리가 앉아 재잘재잘.<br/><b>배경·소품</b> 풀어 헤친 무명 보따리, 벗어 개켜 둔 일옷과 앞치마, 곁의 소쿠리와 물동이(끝낸 숙제들), 노을빛이 스민 초가지붕.<br/><b>톤</b> 주황빛 도는 저녁 햇살, 뭉클하고 설레는 변신의 정서 — 얼굴은 그대로, 마음씨도 그대로. 이 그림의 빨간 악센트 1점 = 꽃신 코의 붉은 꽃 자수.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(개울에 퐁당 꽃신)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">잔칫집 가는 길, 개울가 징검다리를 폴짝폴짝 건널 때였어요. 아차! 꽃신 한 짝이 벗겨져 퐁당, 개울물에 떨어졌어요. 물살이 꽃신을 두둥실 싣고 가 버렸지요. "내 꽃신…!" 하지만 잔치에 늦을까 봐, 콩쥐는 한 짝 신만 신고 종종종 달려가야 했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글 부감 + 극단 여백 — 개울과 징검다리를 높이서 내려다보고, 화면의 칠 할을 옅은 물결과 빈 종이로 비운 채 사건은 아래 구석에 작게.<br/><b>장소·시간</b> 마을 어귀 얕은 개울의 징검다리, 잔치 날 한낮. 반짝이던 걸음이 "아차!" 하고 멈춘 공기.<br/><b>인물</b> 화면 오른쪽 아래 구석 — KongjwiFine(고운 차림 콩쥐)이 징검다리 위에서 한 발을 든 채 몸을 앞으로 기울여 물 위를 내려다봄, 두 손이 입가로 올라가고 점눈이 동그래진 "아차!" 표정, 치맛자락과 땋은 머리가 앞으로 쏠림. 다른 인물 없음.<br/><b>배경·소품</b> 콩쥐의 시선 끝, 화면 왼쪽으로 흘러가는 물살 위에 <b>꽃신(kkotsin)</b> 한 짝이 두둥실 떠내려감 — 넓은 여백 속 가장 진한 색점. 성근 물결 몇 획, 납작한 징검돌들, 개울가 풀 몇 획, 나머지는 거의 빈 종이.<br/><b>톤</b> 환한 한낮 햇빛, 넓은 여백이 "떠내려간다"는 아득함을 만드는 담백한 구도. 이 그림의 빨간 악센트 1점 = 떠내려가는 꽃신 코의 붉은 꽃 자수(콩쥐가 신은 다른 한 짝은 치맛자락에 가려 살짝만).</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>절정(꽃신을 건진 원님)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 마침 원님의 가마가 개울가를 지나고 있었어요. "어? 고운 꽃신이 떠내려오는구나." 원님은 꽃신을 건져 들고 가만히 들여다보았지요. "이렇게 고운 신의 주인은 마음씨도 고울 거야. 잔치에서 꽃신 주인을 찾아야겠다!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 원님 어깨너머 — 원님의 어깨와 사모 날개 너머로, 두 손바닥 위에 받쳐 든 꽃신 한 짝에 시선이 모이는 구도.<br/><b>장소·시간</b> 개울가 물가, 잔치 날 한낮. 물소리만 졸졸, 신기한 발견의 조용한 공기.<br/><b>인물</b> 전경 오른쪽 — Wonnim(원님)의 어깨선과 검은 사모(양옆 작은 날개)가 뒤에서 크게 걸림. 그 너머 화면 중앙 — 원님의 두 손바닥이 물기가 뚝뚝 듣는 <b>꽃신(kkotsin)</b> 한 짝을 소중히 받쳐 들고 있고, 살짝 보이는 옆얼굴은 점눈에 호기심 어린 작은 O 입.<br/><b>배경·소품</b> 발치의 얕은 물가와 성근 물결 획, 뒤편에 멈춰 선 가마와 가마꾼 둘의 작은 실루엣(단순한 몇 획), 징검다리가 저 멀리 작게, 개울가 버드나무 가지 몇 획.<br/><b>톤</b> 맑은 한낮 햇빛, 물방울이 또록 반짝이는 호기심과 설렘의 정서. 이 그림의 빨간 악센트 1점 = 원님 손안 꽃신 코의 붉은 꽃 자수.</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>절정(꼭 맞는 꽃신)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">잔치 마당에서 원님이 외쳤어요. "이 꽃신이 꼭 맞는 사람을 찾습니다!" 팥쥐도 끙끙 발을 밀어 넣어 보았지만 헐렁헐렁, 맞지 않았지요. 마지막으로 콩쥐가 살며시 신어 보았어요. 쏙— 어머나, 발에 꼭 맞았답니다! 게다가 콩쥐 발에는 똑같은 꽃신 한 짝이 신겨 있었지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 살짝 하이앵글 부감 — 잔치 마당 섬돌 앞을 비스듬히 내려다보며, 꽃신에 쏙 들어가는 콩쥐의 발끝에 모두의 시선이 모이는 구도.<br/><b>장소·시간</b> 원님 잔치가 열린 넓은 마당의 섬돌 앞, 오후. 웅성웅성하다가 "어머!" 하고 숨을 삼키는 공기.<br/><b>인물</b> 화면 중앙 — KongjwiFine(고운 차림 콩쥐)이 섬돌에 살짝 걸터앉아 발끝을 모으고, 한쪽 발이 <b>꽃신(kkotsin)</b>에 쏙 들어가는 순간. 다른 발에는 똑같은 꽃신 한 짝이 이미 신겨 있음. 점눈이 동그랗고 입은 수줍은 작은 O. 왼쪽 — Wonnim(원님)이 한쪽 무릎을 굽혀 꽃신을 받쳐 주며 환한 실선 미소로 몸을 앞으로 기울임. 오른쪽 — Patjwi(팥쥐)가 제 발끝을 두 손으로 감싸 쥐고 볼을 빵빵하게 부풀린 뾰로통(코믹, 밉지 않게), 그 뒤 Stepmother(새어머니)는 입이 딱 벌어진 O 모양으로 굳어 있음.<br/><b>배경·소품</b> 잔치 마당의 차일 자락과 잔칫상 모서리, 구경 나온 마을 사람 두엇의 단순한 실루엣, 섬돌 위에 가지런한 신발들, 마당의 흙바닥 몇 획.<br/><b>톤</b> 화사한 오후 햇빛, "쏙—" 하는 순간에 모두의 시선이 모이는 반짝이는 절정의 정서. 이 그림의 빨간 악센트 1점 = 콩쥐 발끝 꽃신 코의 붉은 꽃 자수 — 두 짝을 나란히 모은 발끝의 자수가 한 점으로 읽히게(다른 붉은색 금지).</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P14, P15 -->
+<div class="page-card" data-page="p14">
+  <div class="page-head"><span class="pnum">P14</span><b>결말(뉘우침과 화해)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">새어머니와 팥쥐는 얼굴이 홍당무처럼 화끈거렸어요. "콩쥐야, 미안해. 힘든 일을 너한테만 몽땅 미뤘구나…" 둘은 고개를 폭 숙였지요. 콩쥐는 방긋 웃으며 두 사람의 손을 꼭 잡았어요. "괜찮아요. 이제 우리, 사이좋게 지내요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 아이레벨을 살짝 기울인 구도(가벼운 더치 틸트) — 맞잡은 세 사람의 손과 얼굴을 가깝게, 화면이 살짝 기울어 마음이 흔들리다 풀리는 느낌.<br/><b>장소·시간</b> 잔치 마당 한켠, 해질 무렵. 소란이 잦아들고 마음이 말랑해진 공기.<br/><b>인물</b> 화면 중앙 — KongjwiFine(고운 차림 콩쥐)이 두 손을 앞으로 내밀어 한 손으로 Patjwi(팥쥐)의 손을, 다른 손으로 Stepmother(새어머니)의 손을 꼭 잡음, 점눈이 초승달로 휘고 입은 따뜻한 곡선 웃음. 오른쪽 — Patjwi(팥쥐)는 고개를 폭 숙인 채 볼의 바람이 빠진 부끄러운 표정, 입은 조그맣게 처진 실선. 왼쪽 — Stepmother(새어머니)도 그 높던 턱을 처음으로 내리고 눈썹 획이 팔자로 처진 미안한 얼굴, 비녀 꽂은 쪽머리가 살짝 수그러짐.<br/><b>배경·소품</b> 세 사람의 맞잡은 손이 화면의 중심, 발치에 콩쥐가 신은 꽃신 코가 빼꼼, 배경은 잔치 차일 자락과 노을빛 여백으로 아주 성글게.<br/><b>톤</b> 주황빛 노을, 벌도 복수도 없이 부끄러움이 용서로 풀리는 뭉클하고 따뜻한 정서. 이 그림의 빨간 악센트 1점 = 발치에 빼꼼한 꽃신 코의 붉은 꽃 자수.</pre></details>
+</div>
+
+<div class="page-card" data-page="p15">
+  <div class="page-head"><span class="pnum">P15</span><b>결말(콩쥐의 새 삶)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 뒤로 어여쁘게 자란 콩쥐는 원님과 혼례를 올리고, 고운 마음씨로 마을 사람들을 도우며 살았어요. 팥쥐네도 자주 놀러 와 함께 웃었지요. 검은 소는 음머, 두꺼비는 꾸욱꾸욱, 참새들은 짹짹 노래했답니다. 착한 마음은 이렇게 복이 되어 돌아온대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 정면 — 잔치 마당의 모두를 한 폭에 담는 훈훈한 마무리 정경(도입 P1의 하이앵글과 대구를 이루는 정면 피날레).<br/><b>장소·시간</b> 마을 큰 마당, 화창한 낮. 잔치 음식 냄새와 웃음이 넘치는 넉넉한 공기.<br/><b>인물</b> 화면 중앙 — KongjwiFine(고운 차림 콩쥐)과 Wonnim(원님)이 나란히 서서 마을 사람들에게 떡을 나눠 주는 다정한 몸짓, 둘 다 실선 곡선 웃음. 오른쪽 — Patjwi(팥쥐)가 소쿠리를 들고 조르르 거들며 처음으로 활짝 웃고, Stepmother(새어머니)도 그 곁에서 부드럽게 풀린 얼굴로 웃음. 왼쪽 — BlackOx(검은 소)가 느긋하게 엎드려 점눈을 휘며 "음머", 그 등 위에 Sparrows(참새 떼) 서너 마리가 조르르 앉아 짹짹, 발치엔 Toad(두꺼비)가 방석처럼 앉아 너른 실선 미소.<br/><b>배경·소품</b> 잔칫상 위의 떡 소반과 과일, 차일과 줄줄이 걸린 청사초롱, 뒤로 기와집과 초가집이 정답게 나란한 마을 지붕선, 파란 하늘 여백.<br/><b>톤</b> 밝고 고른 한낮 햇빛, 모두가 한 마당에 모인 넉넉하고 포근한 마무리 — "착한 마음은 복이 되어 돌아온대요"의 여운. 이 그림의 빨간 악센트 1점 = 콩쥐 발의 꽃신 코 붉은 꽃 자수.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 콩쥐 팥쥐 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'KongjwiPlain', name: '일옷 콩쥐',       desc: '착한 주인공(일옷) — 기운 일 한복·앞치마·짚신, 외갈래 땋은 머리(밀짚빛 댕기)', aliases: ['KongjwiPlain'] },
+    { token: 'KongjwiFine',  name: '고운 차림 콩쥐',  desc: '잔치 가는 콩쥐 — 고운 치마저고리+꽃신(붉은 꽃 자수=악센트), 같은 따뜻한 얼굴(거만 X)', aliases: ['KongjwiFine'] },
+    { token: 'Patjwi',       name: '팥쥐',           desc: '얄미운 딸 — 동글동글 찐빵 실루엣, 쌍갈래 올림머리, 빵빵한 볼+뾰로통 입(코믹)', aliases: ['Patjwi'] },
+    { token: 'Stepmother',   name: '새어머니(계모)',  desc: '새침한 계모 — 길쭉 각진 실루엣, 높은 쪽머리+비녀 한 획, 턱 치켜듦(무섭지 않게)', aliases: ['Stepmother'] },
+    { token: 'BlackOx',      name: '검은 소',        desc: '든든한 조력자 — 산처럼 큰 검은 덩어리, 크림 콧등, 짚줄 고삐+놋방울, 다정한 눈썹 획', aliases: ['BlackOx'] },
+    { token: 'Toad',         name: '두꺼비',         desc: '항아리 지킴이 — 방석처럼 넓적한 올리브빛 몸, 등의 점 돌기, 너른 실선 미소', aliases: ['Toad'] },
+    { token: 'Sparrows',     name: '참새 떼',        desc: '재잘재잘 도우미들 — 몇 획짜리 동글 참새 여럿, 크림 배, 통통 튀는 무리', aliases: ['Sparrows'] },
+    { token: 'Wonnim',       name: '원님',           desc: '다정한 고을 원님 — 검은 사모+옥빛 관복, 꼿꼿하고 부드러운 자세, 수염점 없는 젊은 얼굴', aliases: ['Wonnim'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

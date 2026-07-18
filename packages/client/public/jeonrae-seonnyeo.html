@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 선녀와 나무꾼</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 2 #11</div>
+  <h1>🧚 선녀와 나무꾼</h1>
+  <div class="sub">사슴을 구해 준 착한 나무꾼과 하늘나라 선녀 — 은혜가 하늘까지 닿는 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 약속·은혜(보은) &nbsp;·&nbsp;
+  <b>분량</b> 13 스프레드 &nbsp;·&nbsp; <b>후렴</b> 사슴의 보은 후렴 &nbsp;·&nbsp;
+  <b>핵심단어</b> 날개옷 · 두레박 · 지게 · 물레 · 비녀 &nbsp;·&nbsp;
+  <b>순화</b> 날개옷은 "숨긴 것"이 아니라 바람에 날아온 것을 보관 → 나무꾼이 미안해하며 <b>스스로 돌려줌</b> / 결말 = 두레박 타고 하늘로 올라가 <b>가족 재회·하늘에서 함께 행복</b>(수탉 비극·재이별 없음) / 사냥꾼은 코믹, 활은 겨누지 않음
+</div>
+<div class="refrain">🦌 반복 후렴 — "은혜는 꼭 갚는 법이지요!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-seonnyeo</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요. 🔴 선녀는 <b>변신 캐릭터</b> — 날개옷 상태(SeonnyeoWinged)와 마을 옷 상태(SeonnyeoPlain)를 상태별 시트·토큰으로 분리(쪽마다 그 시점 상태 토큰만 사용).</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="나무꾼" data-key="char-namukkun">
+  <div class="head"><span class="face">🪵</span><b>나무꾼</b> <span class="rom">Namukkun · 마음 착한 젊은 나무꾼</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Namukkun — a kind-hearted young woodcutter. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a bright gentle one-line smile, no nose (or one tiny dot). He is YOUNG — no stubble dots, no topknot: hair as one solid dark mass kept under a simple twisted cloth headband (meoritsugeon) drawn as one pale band stroke.
+SILHOUETTE (his signature): lean, sturdy and springy — an honest upright build with broad-ish shoulders, often leaning slightly forward from the habit of carrying a loaded A-frame carrier (jige) on his back. Warm, humble, quick to bow.
+CLOTHES: a plain work hanbok suggested in soft blue-grey pencil strokes — a short jacket with rolled sleeves, baggy trousers tied at the shins with simple leg-ties, straw sandals in a few pale straw-yellow strokes. Mostly open paper with loose hatching; humble and tidy.
+PROP: his wooden A-frame back-carrier (jige) with a Y-shaped support stick — often on his back or standing beside him.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (relaxed hands, bright one-line smile) + a 3/4 turn with the jige on his back + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) bright one-line smile, (2) surprised small O mouth with lifted brow strokes, (3) sorry apologetic downcurved mouth with a slightly lowered head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="선녀(날개옷)" data-key="char-seonnyeo-winged">
+  <div class="head"><span class="face">🧚</span><b>선녀 — 날개옷 차림</b> <span class="rom">SeonnyeoWinged · 하늘 선녀 상태</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: SeonnyeoWinged — the heavenly fairy IN her winged robe. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a serene one-line smile, no nose (or one tiny dot). Hair as one solid dark mass in an elegant high celestial updo with one long trailing hair-ribbon stroke. 🔴 IDENTICAL FACE to SeonnyeoPlain — only the clothes and hair change between states.
+SIGNATURE — THE WINGED ROBE (nalgae-ot): a long flowing celestial robe left mostly as open cream paper with the faintest pearl-rainbow pencil hints along the hems, and TWO very long floating sashes that curl and ripple through the air like slow ribbons. One tiny red knot on the chest ribbon — the picture's single red accent when she appears in this state.
+SILHOUETTE: light and floating — a tall graceful line, toes barely touching the ground, sashes always in gentle motion. Gravity barely holds her.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front floating idle (sashes curling, serene one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) serene one-line smile, (2) joyful surprised small O mouth with lifted brow strokes, (3) warm open laugh drawn as a small curved open mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="선녀(마을 옷)" data-key="char-seonnyeo-plain">
+  <div class="head"><span class="face">👘</span><b>선녀 — 마을 옷차림</b> <span class="rom">SeonnyeoPlain · 사람 마을 상태</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: SeonnyeoPlain — the SAME heavenly fairy WITHOUT her winged robe, living in the human world. 🔴 IDENTICAL FACE to SeonnyeoWinged: the same flat cream face, same two dot eyes, same serene one-line smile. Only hair and clothes change with the state.
+STATE (a) — JUST-LANDED look (pond scenes): a simple plain white under-hanbok suggested as almost bare open paper with a few soft blue-grey strokes, long hair loosely gathered over one shoulder, bearing slightly forlorn — told by a soft downcurved mouth and drooping brow strokes, never by tears drawn heavily.
+STATE (b) — VILLAGE look (married life): a tidy skirt-and-jacket hanbok — the jacket left as open cream paper with neat edges, the skirt suggested in a gentle leaf-green pencil tone with a few tidy hatching strokes; hair now in a modest LOW bun at the nape fixed with one ornamental hairpin (binyeo) drawn as one long decisive stroke. Warm, graceful, motherly.
+SILHOUETTE: the same tall graceful line as SeonnyeoWinged, but standing on the ground now — feet planted, gestures soft and homely.
+REFERENCE SHEET: one sheet on plain bright cream paper — BOTH states side by side, same face: (a) just-landed white look, hands folded, wistful; (b) village look with the low bun and binyeo, warm one-line smile. Plus three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) warm one-line smile, (2) wistful gaze with a soft downcurved mouth and tilted brow strokes, (3) joyful open laugh drawn as a small curved open mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="아이들" data-key="char-kids">
+  <div class="head"><span class="face">👧</span><b>아이들</b> <span class="rom">Kids · 남매(누나·남동생)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Kids — the woodcutter and the fairy's two little children, a big sister and a little brother, always together. Dot-eye design language: tiny flat cream faces, two dot eyes each, big one-line smiles or small O mouths, no noses.
+SILHOUETTE: small round toddling bodies with stubby limbs — about knee-to-hip height next to the adults, always mid-bounce or mid-toddle.
+BIG SISTER: hair as one solid dark mass in two tiny side buns, with one small red ribbon (daenggi) tied on — her red ribbon may serve as the picture's single red accent when designated. A little jacket-and-skirt hanbok in soft blue-grey and pale straw strokes.
+LITTLE BROTHER: hair as one solid dark mass with a tiny sprout-like topknot tuft, a little jacket and baggy trousers in soft blue-grey strokes, round tummy.
+REFERENCE SHEET: one sheet on plain bright cream paper — the two children standing together front idle (holding hands, big smiles) + a 3/4 turn + three shared expression close-ups changing ONLY through mouth lines, brow strokes and posture: (1) big happy one-line smiles, (2) surprised small O mouths, (3) giggling open laughs with heads tilted together. The two children only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="사슴" data-key="char-deer">
+  <div class="head"><span class="face">🦌</span><b>사슴</b> <span class="rom">Deer · 은혜 갚는 사슴</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Deer — the grateful roe deer, gentle and a little wise. Drawn with just a few quick pencil strokes: a warm fawn-brown back mass, the belly and legs left as open cream paper, slender legs as single strokes, a small round tail dot, one dot eye, a tiny line mouth, two soft ears, and small branching antlers drawn as two short forked strokes. A few pale spots on the back as tiny open circles.
+MOOD: kind, calm, quietly playful — all told by posture and the tilt of the neck, since the face is just a dot and a line. When it shares its secret it lowers its head close like a whispering friend.
+REFERENCE SHEET: one sheet on plain bright cream paper — a side standing pose + a front view + a running leap pose (legs stretched, a few motion strokes) + a whispering pose with the neck lowered and head tilted as if murmuring into someone's ear, eyes as happy curved strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="사냥꾼" data-key="char-hunter">
+  <div class="head"><span class="face">🪶</span><b>사냥꾼</b> <span class="rom">Hunter · 어리숙한 사냥꾼(단역)</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Hunter — a comic, bumbling hunter, NEVER scary or menacing. Dot-eye design language: a flat cream face with zero shading, two dot eyes set close in a puzzled squint, a droopy mustache drawn as two long downward strokes, a small confused line mouth.
+SILHOUETTE (his signature): short, round and stocky — a barrel body on stubby legs, always mid-search: leaning, peering, scratching his head. He never finds anything.
+CLOTHES & PROPS: a rough traveler's hanbok in soft blue-grey strokes with a crossed chest strap, a wide-brim black felt hunter's hat (jeonrip) drawn as one simple dark shape with a small red tassel — the picture's single red accent when he appears. A bow and quiver stay slung on his back (NEVER drawn aimed or in hand) and he carries a big floppy empty net over one shoulder.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (net over shoulder, puzzled squint) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) puzzled frown with scratching-head pose, (2) big searching squint leaning forward with a hand shading the eyes, (3) comic give-up sigh with a wavy line mouth and slumped shoulders. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="날개옷" data-key="word-nalgaeot">
+  <div class="head"><span class="face">🧚</span><b>날개옷</b> <span class="rom">nalgae-ot — the fairy's winged robe</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "nalgae-ot — the heavenly fairy's winged feather robe from Korean folklore (날개옷)". A flowing celestial silk robe in pearl-white with a soft iridescent mother-of-pearl sheen (faint pink #F2C9D4, mint #BFE3D2 and lavender #CDC1E8 shimmer), two VERY long floating sashes that curl through the air like slow ribbons, delicate cloud-and-feather embroidery in fine silver thread along the hems, and one small red knot on the chest ribbon. Show TWO forms on the card: (1) the robe floating open in mid-air with the sashes spread like wings, and (2) the robe neatly folded into a soft square bundle with the red knot on top. Centered icon-style word card, vivid and proud, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="두레박" data-key="word-durebak">
+  <div class="head"><span class="face">🪣</span><b>두레박</b> <span class="rom">dure-bak — a well bucket on a rope</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "dure-bak — a traditional Korean well bucket drawn up on a rope (두레박)". A rounded bucket coopered from pale pine-wood staves (#C9A876) bound with two twisted straw-rope hoops, a simple wooden crossbar handle, and a long thick twisted straw rope (#D8B45A) tied to the handle with a small red knot. Show TWO forms: (1) the bucket standing at a slight 3/4 angle with the rope neatly coiled beside it so the stave-and-hoop craftsmanship reads clearly, and (2) the bucket hanging mid-air from the taut rope, tilted slightly, with a few sparkling water drops falling. Sturdy, handcrafted, warm wood and straw tones. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="지게" data-key="word-jige">
+  <div class="head"><span class="face">🎒</span><b>지게</b> <span class="rom">jige — a Korean A-frame back carrier</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jige — a traditional Korean wooden A-frame back-carrier for firewood and loads (지게)". Two natural pine/alder upright wooden posts (warm honey-brown wood grain #B07A3C) joined by cross-rungs lashed with twisted straw rope, woven rice-straw shoulder straps, and its matching Y-shaped support stick (지게작대기) leaning beside it. Show the frame at a slight 3/4 angle so the A-frame shape reads clearly. Sturdy, handcrafted, warm wood tones. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="물레" data-key="word-mulle">
+  <div class="head"><span class="face">🧵</span><b>물레</b> <span class="rom">mulle — a spinning wheel</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "mulle — a traditional Korean hand-turned spinning wheel for cotton thread (물레)". Warm honey-brown wood (#B07A3C): a large open-spoked wheel built from slender wooden ribs joined by taut cords, set on a low wooden base frame, with a small wooden crank handle, a slim iron spindle tip at the other end, and a soft white cotton thread (#F4EEE2) running from the wheel to a fluffy white cotton ball. Show the wheel at a slight 3/4 angle so the spoked wheel, base and spindle all read clearly, plus a small detail inset of the spindle winding white thread. Handcrafted, warm and homely. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="비녀" data-key="word-binyeo">
+  <div class="head"><span class="face">🪷</span><b>비녀</b> <span class="rom">binyeo — an ornamental hairpin</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "binyeo — a traditional Korean ornamental hairpin worn through a low bun (비녀)". One long slender hairpin in pale celadon-jade (#9CC5B0) with a soft silvery sheen along the smooth shaft, and a rounded lotus-bud head finely carved at one end with a hint of gold-thread detailing. Show TWO forms: (1) the single pin lying diagonally across the card at full length so its elegant proportions read clearly, and (2) a small inset of the pin fixed horizontally through a neat low black hair bun. Elegant, precious, quietly luxurious. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 13 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날, 깊은 산골에 마음씨 착한 젊은 나무꾼이 살았어요. 나무꾼은 날마다 지게를 지고 산에 올라 나무를 했지요. 어영차, 어영차! 숲의 새도 다람쥐도 모두 나무꾼을 좋아했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 하이앵글 + 스케일 대비 — 첩첩 산자락이 화면을 넓게 채우고 나무꾼은 산길 위 작은 인물로(거대한 자연 vs 작은 사람).<br/><b>장소·시간</b> 깊은 산골의 오솔길, 맑은 아침. 새소리 가득한 상쾌하고 한가로운 공기.<br/><b>인물</b> Namukkun(나무꾼)은 화면 오른쪽 아래 산길에서 장작을 수북이 얹은 <b>지게(jige)</b>를 지고 지게작대기를 짚으며 씩씩하게 오름, 몸을 앞으로 기울인 부지런한 걸음, 환한 실선 미소. 어깨 곁 나뭇가지에 작은 새 한 마리, 발치 바위에 다람쥐 한 마리가 나무꾼을 올려다봄.<br/><b>배경·소품</b> 몇 획으로 그린 첩첩 산등성이와 소나무들, 굽이도는 흙 산길, 저 멀리 골짜기 아래 작은 초가집 한 채, 파란 하늘 몇 획. 나뭇짐에 꽂힌 빨간 산열매 가지 한 줄기 = 이 그림의 단 하나 빨강 악센트.<br/><b>톤</b> 크림 종이가 그대로 아침 햇살, 맑고 상쾌한 도입 정서, 옛이야기의 한가로운 산골 정취.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(사슴을 숨겨 주다)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그러던 어느 날, 덤불이 부스럭! 사슴 한 마리가 헐레벌떡 뛰어왔어요. "살려 주세요! 사냥꾼이 쫓아와요!" 나무꾼은 얼른 사슴을 나뭇짐 뒤에 숨겨 주었지요. 사냥꾼은 두리번두리번, 아무것도 못 찾고 그냥 지나갔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 — 전경 사냥꾼의 등과 어깨 너머로 나무꾼과 나뭇짐을 바라보는 구도, 숨은 사슴은 관객에게만 살짝 보이게.<br/><b>장소·시간</b> 산길 덤불가, 한낮. 잠깐 숨죽인 듯하지만 코믹한 공기.<br/><b>인물</b> Hunter(사냥꾼)는 화면 왼쪽 전경에 등과 어깨만 크게 걸린 채 몸을 앞으로 기울여 두리번거림(활은 등에 멘 채, 손에는 빈 그물만). Namukkun(나무꾼)은 화면 중앙에서 나뭇짐 실은 지게 앞을 천연덕스럽게 막아서서 딴청 부리는 실선 미소로 먼 산 쪽을 손가락으로 가리킴("저쪽으로 갔던데요?" 하듯). Deer(사슴)는 나뭇짐 뒤에 웅크려 귀 두 개만 빼꼼, 눈을 질끈 감고 숨죽임 — 관객만 알아채게.<br/><b>배경·소품</b> 수북한 나뭇짐과 지게, 부스럭거린 덤불, 흙 산길, 소나무 몇 획. 사냥꾼 전립(모자)의 작은 빨간 술 = 이 그림의 단 하나 빨강 악센트.<br/><b>톤</b> 밝은 한낮 볕, 들킬 듯 말 듯한 장난스러운 긴장 — 무섭지 않고 빙긋 웃음이 나는 코믹 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(사슴의 보은)</b> <span class="tag beat">② 발단 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"고마워요, 나무꾼님. 은혜는 꼭 갚는 법이지요!" 사슴이 목을 길게 빼고 귀엣말로 속삭였어요. "보름달이 뜨는 밤, 산속 선녀못에 하늘나라 선녀님들이 내려온답니다. 세상에서 가장 고운 구경일 거예요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 로우앵글 — 속삭이는 사슴과 귀 기울이는 나무꾼, 두 얼굴이 화면을 가득 채움.<br/><b>장소·시간</b> 사냥꾼이 사라진 뒤의 산길 덤불가, 오후. 비밀을 나누는 다정하고 포근한 공기.<br/><b>인물</b> Deer(사슴)는 화면 오른쪽에서 목을 길게 빼 Namukkun(나무꾼)의 귀에 입을 바싹 대고 속삭이는 포즈, 눈은 기분 좋게 휜 곡선 두 획. Namukkun(나무꾼)은 왼쪽에서 한 손을 귀에 모으고 눈을 동그랗게 뜬 채 놀란 작은 O자 입 — "선녀님들을?" 하는 설렘.<br/><b>배경·소품</b> 배경은 숲 몇 획과 크림 종이 여백으로 비워 두 얼굴에 집중, 발치에 빨간 산딸기 몇 알 = 이 그림의 단 하나 빨강 악센트.<br/><b>톤</b> 부드러운 오후 볕, 은혜와 비밀이 오가는 다정하고 살짝 신비한 정서.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P4~P8 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(달밤의 선녀못)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보름달이 두둥실 뜬 밤, 나무꾼은 살금살금 선녀못으로 갔어요. 정말이었어요! 하늘에서 내려온 선녀님들이 무지갯빛 날개옷을 나뭇가지에 곱게 걸어 두고, 달빛 아래에서 사뿐사뿐 춤을 추며 놀고 있었지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글 부감 + 스케일 대비 — 달빛 연못 전체를 높은 곳에서 내려다보고, 선녀들은 못가의 작은 인물들로.<br/><b>장소·시간</b> 산속 선녀못, 보름달이 뜬 깊은 밤. 고요하고 신비한 공기.<br/><b>인물</b> SeonnyeoPlain(선녀, 흰 옷 모습)은 못가 한가운데서 다른 선녀들보다 조금 크게 — 소박한 흰 한복 자락을 나풀거리며 사뿐 도는 춤 동작, 즐거운 실선 미소. 그 둘레로 비슷한 흰 옷의 선녀 서넛이 작게 손을 잡고 원을 그리며 춤춤. Namukkun(나무꾼)은 화면 아래 구석 바위 뒤에 반쯤 몸을 숨긴 채 넋을 놓고 구경, 작은 O자 입의 감탄.<br/><b>배경·소품</b> 둥근 보름달과 달빛이 잔잔히 비친 못(몇 획의 물결), 못가 나뭇가지에 나란히 걸린 <b>날개옷(nalgae-ot)</b> 여러 벌 — 긴 자락이 밤바람에 살랑임, 맨 앞 날개옷 가슴 고름의 빨간 매듭 하나 = 이 그림의 단 하나 빨강 악센트.<br/><b>톤</b> 푸르스름한 달빛 기운 + 크림 종이의 여백, 숨을 죽이게 되는 고요하고 신비로운 정서. 다른 날개옷들의 고름 매듭은 옅은 색으로(빨강은 맨 앞 한 벌만).</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(바람에 날아온 날개옷)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때, 휘이잉— 밤바람이 세게 불었어요. 날개옷 한 벌이 훨훨 날아와 나무꾼 발치에 사뿐 내려앉았지요. "어이쿠, 바람에 날아왔네. 잘 갖고 있다가 꼭 돌려드려야지." 나무꾼은 날개옷을 고이 접어 품에 안았어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 극단 여백 — 화면 위 3분의 2는 텅 빈 밤하늘 종이, 바람에 실려 온 날개옷의 궤적이 대각선으로 흐르고, 사건은 오른쪽 아래 구석에.<br/><b>장소·시간</b> 선녀못가 바위 뒤, 보름달 밤. 바람이 휙 지나간 서늘하고 신비한 공기.<br/><b>인물</b> Namukkun(나무꾼)은 화면 오른쪽 아래 구석에서 무릎을 굽히고 발치에 내려앉은 <b>날개옷(nalgae-ot)</b>을 두 손으로 조심조심 받쳐 듦 — 눈을 동그랗게 뜨고 놀란 작은 O자 입, 함부로 만지면 안 될 보물을 다루듯 조심스러운 손끝.<br/><b>배경·소품</b> 왼쪽 위에서 오른쪽 아래로 흐르는 바람 곡선 몇 획, 나풀거리는 날개옷의 긴 진주빛 자락, 가슴 고름의 빨간 매듭 = 이 그림의 단 하나 빨강 악센트, 저 멀리 작게 보이는 못과 보름달.<br/><b>톤</b> 밤바람의 서늘함과 달빛, 여백이 만드는 숨죽인 신비 — 나무꾼의 조심스러운 진심이 느껴지는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(홀로 남은 선녀)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">새벽닭이 울기 전, 선녀님들은 하늘로 포르르 올라갔어요. 그런데 한 선녀님만 못가에 남아 훌쩍훌쩍 울고 있었지요. "날개옷이 없으면 하늘로 못 가는데…" 나무꾼은 미안해서 얼굴이 화끈, "저, 저…" 말이 목에 걸렸어요. 우선 추운 선녀님을 따뜻한 마을로 모셔 왔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 겹침/가림 — 전경의 굵은 소나무 줄기에 반쯤 가린 나무꾼이, 화면 건너 못가의 우는 선녀를 머뭇머뭇 바라보는 구도.<br/><b>장소·시간</b> 선녀못가, 동트기 직전 푸르스름한 새벽. 이슬 내린 쓸쓸한 공기.<br/><b>인물</b> SeonnyeoPlain(선녀, 흰 옷 모습)은 화면 오른쪽 못가 바위에 앉아 두 손에 얼굴을 묻고 어깨를 들썩이며 훌쩍임 — 처진 눈썹 획과 곡선 입만으로 슬픔 표현(무겁지 않게). Namukkun(나무꾼)은 왼쪽 전경 소나무 뒤에서 몸을 반쯤 내밀고 품에 안은 날개옷 보퉁이를 꼭 감싼 채, 미안함에 눈썹이 처지고 입을 오므린 표정으로 한 발을 머뭇머뭇 내딛는 중.<br/><b>배경·소품</b> 잔잔한 새벽 못, 이제 텅 빈 나뭇가지(걸려 있던 날개옷들이 사라짐), 못가에 떨어진 빨간 단풍잎 한 장 = 이 그림의 단 하나 빨강 악센트, 옅은 새벽안개 몇 획.<br/><b>톤</b> 푸른 새벽빛, 안쓰러움과 미안함이 겹치는 조용한 정서 — 곧 따뜻한 도움으로 이어질 머뭇거림.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(함께 사는 나날)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">선녀님은 마을 옷을 입고 머리에 비녀를 꽂고, 나무꾼과 한 가족이 되었어요. 귀여운 아이도 둘이나 태어났지요. 선녀님이 물레를 도르르 도르르 돌리면, 나무꾼은 지게 가득 나무를 해 왔어요. 나무꾼은 날개옷 이야기를 꺼내려다가도, 자꾸만 용기가 나지 않아 "내일은 꼭…" 하고 미루고 말았어요. 초가집 마당엔 웃음소리가 가득했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감(수직 탑다운) — 초가집 마당을 바로 위에서 내려다본 구도, 마당이 동그란 무대처럼.<br/><b>장소·시간</b> 산골 초가집 마당, 볕 좋은 한낮. 도란도란 행복한 살림의 공기.<br/><b>인물</b> SeonnyeoPlain(선녀, 마을 옷차림 — 낮은 쪽머리에 <b>비녀(binyeo)</b> 한 획)은 마당 가운데 돗자리에 앉아 <b>물레(mulle)</b>를 도르르 돌리며 하얀 실을 자음, 따뜻한 실선 미소. Kids(아이들) 남매는 풀린 실타래 사이로 아장아장 쫓고 쫓기며 까르르 웃는 입. Namukkun(나무꾼)은 마당 한쪽에서 <b>지게(jige)</b>의 나뭇짐을 막 부려 놓으며 가족을 바라보고 활짝 웃음.<br/><b>배경·소품</b> 위에서 내려다본 초가지붕 처마의 둥근 테두리, 마당의 돗자리·실타래들(그중 빨간 실 한 타래 = 이 그림의 단 하나 빨강 악센트), 장독 두엇, 툇마루에 놓인 작은 고무래·소쿠리.<br/><b>톤</b> 한낮 볕이 마당 가득(크림 종이 그대로), 소꿉장난처럼 정겹고 화목한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(하늘이 그리운 선녀)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">하지만 달 밝은 밤이면, 선녀님은 가만히 하늘을 올려다보았어요. "하늘나라 부모님이 보고 싶구나…" 그 모습을 본 나무꾼은 가슴이 콕콕 아팠어요. "이제 말씀드려야 해. 날개옷을 돌려드려야 해."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 기울인(더치) 앵글 — 달을 올려다보는 선녀의 옆얼굴을 가깝게, 화면을 살짝 기울여 흔들리는 마음을 담음.<br/><b>장소·시간</b> 초가집 툇마루, 보름에 가까운 달이 뜬 밤. 조용하고 아련한 공기.<br/><b>인물</b> SeonnyeoPlain(선녀, 마을 옷차림)은 화면 오른쪽 앞에서 툇마루 기둥에 살며시 기대어 밤하늘의 달을 올려다봄 — 점눈 위 살짝 처진 눈썹 획과 조용한 일자 입으로 그리움 표현, 무릎 위에 두 손을 포갬. 뒤쪽 방문가엔 Namukkun(나무꾼)이 문설주에 반쯤 걸쳐 서서 그 뒷모습을 바라보며 가슴에 한 손을 얹음, 미안함에 처진 눈썹과 오므린 입.<br/><b>배경·소품</b> 툇마루와 문살 몇 획, 하늘의 둥근 달, 마루 끝에 놓인 아이의 빨간 댕기 하나 = 이 그림의 단 하나 빨강 악센트, 방 안에서 새어 나오는 옅은 등잔 불빛.<br/><b>톤</b> 푸른 달밤과 노란 등잔빛의 대비, 그리움과 미안함이 포개지는 잔잔한 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P9~P12 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(스스로 돌려준 날개옷)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">나무꾼은 장롱 깊이 간직해 온 날개옷을 꺼내, 두 손으로 공손히 내밀었어요. "그날 밤 바람에 날아온 걸 제가 갖고 있었어요. 진작 드리지 못해서 정말 미안해요." 선녀님은 날개옷을 꼭 안고 방긋 웃었지요. "솔직하게 말해 줘서 고마워요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 — 선녀의 어깨와 뒷머리(비녀 꽂힌 낮은 쪽머리) 너머로, 날개옷을 내미는 나무꾼을 바라보는 구도.<br/><b>장소·시간</b> 초가집 방 안, 등잔불 켠 밤. 진심이 오가는 따뜻하고 차분한 공기.<br/><b>인물</b> SeonnyeoPlain(선녀, 마을 옷차림)은 화면 왼쪽 전경에 어깨·뒷머리만 크게 걸리고, 한 손이 막 날개옷 자락에 닿는 중. Namukkun(나무꾼)은 맞은편에 무릎 꿇고 앉아 고개를 살짝 숙인 채 고이 접은 <b>날개옷(nalgae-ot)</b>을 두 손으로 받들어 내밈 — 처진 눈썹과 오므린 입의 진심 어린 미안한 표정.<br/><b>배경·소품</b> 문이 열린 작은 장롱, 방바닥의 등잔불, 접힌 날개옷 위 빨간 고름 매듭 = 이 그림의 단 하나 빨강 악센트, 벽에 걸린 소박한 옷가지 몇 획.<br/><b>톤</b> 등잔불의 노랗고 포근한 온기, 사과와 용서가 오가는 뭉클하고 정직한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(하늘로 오르는 선녀)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">선녀님은 오랜만에 날개옷을 입고, 아이들 손을 꼭 잡았어요. "하늘나라 부모님을 뵙고 올게요!" 두둥실— 셋은 달빛 속으로 사뿐사뿐 떠올랐지요. 나무꾼은 오래오래 손을 흔들었어요. 그런데 자꾸자꾸, 보고 싶어졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글 — 마당의 나무꾼 등 뒤 낮은 곳에서 밤하늘로 떠오르는 셋을 올려다보는 구도.<br/><b>장소·시간</b> 초가집 앞마당, 보름달 밤. 벅차면서도 애틋한 배웅의 공기.<br/><b>인물</b> SeonnyeoWinged(선녀, 날개옷 차림)는 화면 위쪽에서 긴 진주빛 자락을 나부끼며 두둥실 떠오르는 중 — 양손에 Kids(아이들) 남매의 손을 하나씩 잡고 아래를 내려다보며 환한 실선 미소. 아이들은 신이 나 발을 동동 구르는 즐거운 O자 입. Namukkun(나무꾼)은 화면 아래 마당에서 까치발로 두 팔을 크게 흔듦 — 웃고 있지만 눈썹이 살짝 처진, 기쁨과 그리움이 섞인 미소.<br/><b>배경·소품</b> 나선을 그리며 흩날리는 날개옷 사슬 자락, 둥근 보름달과 옅은 구름 몇 획, 화면 가장자리의 초가지붕 처마 모서리, 선녀 가슴 고름의 빨간 매듭 하나 = 이 그림의 단 하나 빨강 악센트(딸아이 댕기는 옅은 색으로).<br/><b>톤</b> 달빛 가득한 밤하늘의 크림 여백, 상승감과 애틋함이 함께 흐르는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(다시 나타난 사슴)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">며칠이 지나도 나무꾼은 하늘만 바라보았어요. 그때, 낯익은 목소리가 들렸지요. "나무꾼님, 은혜는 꼭 갚는 법이지요!" 그 사슴이었어요! "보름달 밤 선녀못에 하늘에서 커다란 두레박이 내려온답니다. 그걸 타면 하늘나라에 갈 수 있어요."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글 부감 — 쓸쓸히 앉은 나무꾼을 위에서 지그시 내려다보다, 곁에 다가온 사슴이 온기를 더하는 구도.<br/><b>장소·시간</b> 초가집 툇마루와 마당, 노을 지는 저녁. 쓸쓸함에 반가움이 스미는 공기.<br/><b>인물</b> Namukkun(나무꾼)은 툇마루에 무릎을 안고 앉아 하늘을 올려다봄 — 조용한 일자 입과 처진 눈썹의 쓸쓸한 얼굴. Deer(사슴)는 어느새 곁에 다가와 목을 길게 숙여 나무꾼의 어깨에 코를 대고 속삭이는 포즈, 눈은 기분 좋게 휜 곡선 두 획 — 반가운 옛 친구의 위로.<br/><b>배경·소품</b> 마당에 덩그러니 남은 물레와 실타래, 아이들이 갖고 놀던 팽이 하나, 사슴 발치의 빨간 열매 몇 알 = 이 그림의 단 하나 빨강 악센트, 노을빛 하늘 몇 획.<br/><b>톤</b> 주황빛 노을, 쓸쓸함이 희망으로 바뀌는 따뜻한 전환의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>절정(두레박 타고 하늘로)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">보름달 밤, 정말 하늘에서 커다란 두레박이 스르르 내려왔어요. 나무꾼이 폴짝 올라타자 두레박이 움직였지요. 슬금슬금 스르릉, 두레박이 올라가요! 구름을 지나고 별을 지나, 하늘나라로 쭉쭉 올라갔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 스케일 대비 — 화면 가득 거대한 보름달, 그 달을 배경으로 가로질러 오르는 작은 두레박 하나(거대한 달 vs 작은 사람).<br/><b>장소·시간</b> 선녀못 위 밤하늘, 보름달 밤. 두근두근 상승하는 설렘의 공기.<br/><b>인물</b> Namukkun(나무꾼)은 커다란 <b>두레박(dure-bak)</b> 안에 폴짝 올라탄 채 굵은 밧줄을 두 손으로 꼭 잡고 위를 올려다봄 — 설레는 작은 O자 입과 반짝이는 점눈, 머릿수건 자락이 바람에 나부낌.<br/><b>배경·소품</b> 하늘 끝까지 이어진 굵은 짚 밧줄, 밧줄에 묶인 빨간 매듭 하나 = 이 그림의 단 하나 빨강 악센트, 스쳐 지나가는 구름 몇 획과 별 몇 점, 저 아래로 작아진 산등성이와 달빛 비친 선녀못.<br/><b>톤</b> 보름달의 환한 빛과 밤하늘의 크림 여백, 슬금슬금 스르릉 — 리듬감 있는 상승의 설렘.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P13 -->
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(하늘나라 가족 재회)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"여보! 아빠!" 하늘나라 구름 마당에서 선녀님과 아이들이 달려와 나무꾼을 와락 안았어요. 하늘나라 가족들도 활짝 웃으며 반겨 주었지요. 그날부터 모두 하늘에서 함께 오래오래 행복하게 살았답니다. 가끔은 두레박을 타고 내려와 정든 초가집과 사슴 친구도 만났지요. 은혜를 갚고 약속을 지키면, 행복이 하늘까지 닿는대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 로우앵글 — 와락 안기는 네 가족을 가깝게, 하늘 궁궐은 가장자리 몇 획.<br/><b>장소·시간</b> 하늘나라의 뭉게구름 마당, 별이 총총한 환한 밤(하늘나라는 밤에도 환함). 벅찬 재회의 공기.<br/><b>인물</b> Namukkun(나무꾼)은 화면 가운데에서 두 팔을 활짝 벌리고 무릎을 살짝 굽힘 — 함박 실선 웃음. SeonnyeoWinged(선녀, 날개옷 차림)는 긴 자락을 나부끼며 달려와 나무꾼의 한쪽 팔에 안기며 환한 곡선 웃음, Kids(아이들) 남매는 반대쪽에서 "아빠!" 하고 뛰어들어 다리에 매달림, 만세 하는 즐거운 O자 입. 뒤쪽엔 하늘나라 어른들(선녀의 부모 — 인자한 노부부, 흰 수염 몇 획과 쪽머리 몇 획의 단순한 점눈 인물들)이 손을 모으고 웃으며 맞이함.<br/><b>배경·소품</b> 폭신한 뭉게구름 마당 몇 획, 내려앉은 커다란 두레박과 밧줄, 저 멀리 하늘 궁궐 지붕 선 몇 획, 별 몇 점.<br/><b>톤</b> 환하고 포근한 재회의 빛, 오래오래 행복의 온기로 닫는 옛이야기의 마무리 정서. 빨강 악센트 1점 = 선녀 가슴 고름의 빨간 매듭(딸아이 댕기는 P10과 동일하게 옅은 색으로).</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 선녀와 나무꾼 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'Namukkun',       name: '나무꾼',           desc: '마음 착한 젊은 나무꾼 — 머릿수건, 소박한 일 한복, 지게',                          aliases: ['Namukkun'] },
+    { token: 'SeonnyeoWinged', name: '선녀(날개옷)',      desc: '하늘 선녀 상태 — 진주빛 날개옷·긴 사슬 자락, 높은 쪽머리(빨간 고름 매듭=악센트)', aliases: ['SeonnyeoWinged'] },
+    { token: 'SeonnyeoPlain',  name: '선녀(마을 옷)',     desc: '사람 마을 상태 — (a)못가 흰 한복 / (b)마을 치마저고리·낮은 쪽머리에 비녀',       aliases: ['SeonnyeoPlain'] },
+    { token: 'Kids',           name: '아이들',           desc: '남매 — 누나(쌍갈래 머리·빨간 댕기)와 남동생(새싹 머리), 아장아장',               aliases: ['Kids'] },
+    { token: 'Deer',           name: '사슴',             desc: '은혜 갚는 사슴 — 몇 획의 노루, 작은 뿔 두 갈래, 다정한 점눈',                     aliases: ['Deer'] },
+    { token: 'Hunter',         name: '사냥꾼',           desc: '어리숙한 단역 — 땅딸막, 처진 콧수염, 전립(빨간 술=악센트), 활은 등에만',          aliases: ['Hunter'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

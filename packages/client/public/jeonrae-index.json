@@ -15,5 +15,33 @@
     "file": "jeonrae-cheonggaeguri.html",
     "label": "8 🐸 말 안 듣는 청개구리",
     "title": "말 안 듣는 청개구리"
-  }
+  },
+  {
+    "file": "jeonrae-haewadal.html",
+    "label": "9 🌞 해와 달이 된 오누이",
+    "title": "해와 달이 된 오누이"
+  },
+  { "file": "jeonrae-kongjwi.html", "label": "10 👟 콩쥐 팥쥐", "title": "콩쥐 팥쥐" },
+  { "file": "jeonrae-seonnyeo.html", "label": "11 🧚 선녀와 나무꾼", "title": "선녀와 나무꾼" },
+  { "file": "jeonrae-gotgam.html", "label": "12 🐯 호랑이와 곶감", "title": "호랑이와 곶감" },
+  { "file": "jeonrae-kkachi.html", "label": "13 🐦 은혜 갚은 까치", "title": "은혜 갚은 까치" },
+  { "file": "jeonrae-saemmul.html", "label": "14 💧 젊어지는 샘물", "title": "젊어지는 샘물" },
+  { "file": "jeonrae-gyeonwoo.html", "label": "15 🌌 견우와 직녀", "title": "견우와 직녀" },
+  { "file": "jeonrae-ureong.html", "label": "16 🐚 우렁각시", "title": "우렁각시" },
+  {
+    "file": "jeonrae-samhyeongje.html",
+    "label": "17 👬 재주 많은 삼형제",
+    "title": "재주 많은 삼형제"
+  },
+  {
+    "file": "jeonrae-dangnagwi.html",
+    "label": "18 👑 임금님 귀는 당나귀 귀",
+    "title": "임금님 귀는 당나귀 귀"
+  },
+  {
+    "file": "jeonrae-geeureum.html",
+    "label": "19 🐮 소가 된 게으름뱅이",
+    "title": "소가 된 게으름뱅이"
+  },
+  { "file": "jeonrae-uijoeun.html", "label": "20 🌾 의좋은 형제", "title": "의좋은 형제" }
 ]

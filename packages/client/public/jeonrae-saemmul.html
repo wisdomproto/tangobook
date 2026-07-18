@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 젊어지는 샘물</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 2 #14</div>
+  <h1>💧 젊어지는 샘물</h1>
+  <div class="sub">파랑새가 알려 준 신기한 샘물 — 한 모금이면 충분한데, 벌컥벌컥 마신 욕심쟁이는?</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 욕심 경계·나눔 &nbsp;·&nbsp;
+  <b>분량</b> 12 스프레드 &nbsp;·&nbsp; <b>후렴</b> 샘물 노래 &nbsp;·&nbsp;
+  <b>핵심단어</b> 물동이 · 표주박 · 지게 · 짚신 · 무명옷 &nbsp;·&nbsp;
+  <b>순화</b> 욕심쟁이의 벌(아기 됨) = 조롱이 아닌 귀엽고 우스운 반전 / 결말 = 부부가 아기를 품는 돌봄·가족의 따뜻함
+</div>
+<div class="refrain">💧 반복 후렴 — "꼴깍꼴깍, 한 모금만! 젊어지는 샘물은 딱 한 모금만!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-saemmul</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부. 🔴 <b>변신 캐릭터 3쌍(늙음↔젊음·영감↔아기)은 상태별 시트·토큰을 분리</b>하고, 각 쪽 SCENE 은 그 시점의 상태 토큰만 쓴다.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="할아버지(늙은)" data-key="char-grandpa-old">
+  <div class="head"><span class="face">👴</span><b>할아버지 (늙은)</b> <span class="rom">GrandpaOld · 마음씨 착한 나무꾼</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GrandpaOld — a kind-hearted old woodcutter. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot). His OLD-state markers: hair and a short soft beard drawn as one pale silver-grey mass (the hair tied in a small topknot, sangtu), plus two or three tiny curved wrinkle strokes at the cheeks and one at each eye corner — that is ALL the aging, never realistic wrinkle detail. 🔴 IDENTICAL FACE BONES to GrandpaYoung: same dot eyes, same one-line smile, same round face outline — only hair color, the little beard and the wrinkle strokes differ.
+SILHOUETTE (his signature): lean and gently STOOPED — a soft question-mark curve in the back, knees slightly bent, hands often resting on his lower back. Kindness told entirely by the humble bent posture.
+CLOTHES: plain undyed cotton hanbok (mumyeong-ot) — jacket and baggy trousers left almost entirely as open cream paper with only a few soft blue-grey outline strokes and cloth-tie ribbons (goreum), straw sandals (jipsin) in a few pale straw-yellow strokes. The plainest, airiest clothes in the cast.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (stooped, hands on lower back, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) gentle one-line smile, (2) surprised small O mouth with lifted brow strokes, (3) soft weary sigh with a small downcurved mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="젊어진 할아버지" data-key="char-grandpa-young">
+  <div class="head"><span class="face">🧑</span><b>젊어진 할아버지</b> <span class="rom">GrandpaYoung · 샘물 마신 뒤</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GrandpaYoung — the SAME kind woodcutter AFTER one sip of the magic spring water, now a young man.
+🔴 IDENTICAL FACE BONES to GrandpaOld: the same flat cream face outline, same two dot eyes, same gentle one-line smile, same tiny nose dot. What changed: hair is now one solid DARK mass in the same small topknot (sangtu), the little silver beard is gone, and ALL wrinkle strokes are gone — a smooth open cream face. Two or three tiny stubble dots on the chin so he still reads as a grown man, not a boy. He must be instantly recognizable as the same person made young, never a new character.
+SILHOUETTE: the same lean build UNBENT — the question-mark curve springs straight, shoulders open, standing a full head "taller" simply because the stoop is gone. Bouncy, light-footed joy in every pose.
+CLOTHES: EXACTLY the same plain undyed cotton hanbok (mumyeong-ot) and straw sandals as GrandpaOld — open cream paper, soft blue-grey outline strokes, same cloth ties. The unchanged clothes are the joke and the proof: only the man inside got young.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (upright, arms loose, bright one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) bright one-line smile, (2) astonished big O mouth with lifted brow strokes, (3) joyful open laugh drawn as a curved open mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="할머니(늙은)" data-key="char-grandma-old">
+  <div class="head"><span class="face">👵</span><b>할머니 (늙은)</b> <span class="rom">GrandmaOld · 다정한 아내</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GrandmaOld — the woodcutter's warm-hearted old wife. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot). Her OLD-state markers: hair as one pale silver-grey mass gathered into a modest LOW bun at the nape with one plain hairpin stroke, plus two or three tiny curved wrinkle strokes at the cheeks — that is ALL the aging. 🔴 IDENTICAL FACE BONES to GrandmaYoung: same dot eyes, same one-line smile, same soft round face outline — only hair color and the wrinkle strokes differ.
+SILHOUETTE (her signature): small, soft and rounded, gently stooped, often wiping her hands on her apron — a cozy grandmotherly bearing.
+CLOTHES: a humble undyed cotton skirt-and-jacket hanbok (mumyeong-ot) — mostly open cream paper with soft blue-grey outline strokes and a plain work apron drawn in a few strokes, straw sandals. Plain, tidy, warm.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded on the apron, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) warm one-line smile, (2) astonished big O mouth with flyaway brow strokes, (3) soft tender smile with a slight tilt of the head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="젊어진 할머니" data-key="char-grandma-young">
+  <div class="head"><span class="face">👩</span><b>젊어진 할머니</b> <span class="rom">GrandmaYoung · 샘물 마신 뒤</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GrandmaYoung — the SAME warm-hearted wife AFTER one sip of the magic spring water, now a young woman.
+🔴 IDENTICAL FACE BONES to GrandmaOld: the same flat cream face outline, same two dot eyes, same gentle one-line smile, same tiny nose dot. What changed: hair is now one solid DARK mass in the SAME modest LOW bun with the same plain hairpin stroke, and ALL wrinkle strokes are gone — a smooth open cream face. The low bun stays low: she is the same modest person, never a fancy new beauty.
+SILHOUETTE: the same small, soft, rounded build UNBENT — standing straight and light, a happy bounce in her step, hands sometimes lifted to her own smooth cheeks in delighted disbelief.
+CLOTHES: EXACTLY the same undyed cotton skirt-and-jacket hanbok (mumyeong-ot) as GrandmaOld, apron and all — open cream paper, soft blue-grey outline strokes. Unchanged clothes = same person, just young.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands lightly clasped, bright one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) bright one-line smile, (2) amazed small O mouth with both hands at her cheeks, (3) joyful open laugh drawn as a curved open mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="욕심쟁이 영감" data-key="char-greedy-old">
+  <div class="head"><span class="face">🧔</span><b>욕심쟁이 영감</b> <span class="rom">GreedyOld · 이웃 심술 영감</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GreedyOld — the greedy old neighbor, comic and never scary. Dot-eye design language: a flat cream face with zero shading, two dot eyes set close together, a grumpy little downcurved line mouth, no nose (or one tiny dot). His signature — TWO THICK BUSHY EYEBROWS drawn as two short charcoal-dark scribble strokes, comically heavy over the dot eyes (the one place his face gets extra strokes), plus a thin wispy grey goatee of three or four strokes. Hair as one solid grey mass in a topknot (sangtu). 🔴 The bushy charcoal eyebrows are his identity mark and MUST carry over to GreedyBaby.
+SILHOUETTE (his signature): short, squat and pot-bellied — a round tummy-first silhouette with the chin tucked and eyes darting sideways at other people's things. The exact opposite of the lean stooped GrandpaOld.
+CLOTHES & PROP: the one well-fed outfit in the cast — a vest hatched in a richer straw-gold tone over soft blue-grey trousers, and a small RED lucky pouch (bokjumeoni) tied at his waist, drawn as one small red teardrop shape with a string — the picture's single red accent when he appears.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (belly out, hands clasped behind, sideways glance) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, the bushy brow strokes and posture: (1) grumpy downcurved pout with brows pressed low, (2) greedy wide line grin with brows flying up, (3) comic shock with a big O mouth and brows launched high. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="아기가 된 영감" data-key="char-greedy-baby">
+  <div class="head"><span class="face">👶</span><b>아기가 된 영감</b> <span class="rom">GreedyBaby · 너무 많이 마신 뒤</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: GreedyBaby — the SAME greedy neighbor AFTER gulping far too much spring water, now a tiny baby. Adorable and funny, never mocking or pitiful.
+🔴 IDENTITY CARRY-OVER from GreedyOld: the SAME two thick bushy charcoal eyebrow strokes, now comically oversized on a tiny baby face — that is the whole joke and how readers recognize him. Everything else is pure dot-eye baby: a small round flat cream face, two dot eyes, one tiny O mouth (crying "waah" or blinking innocently), one single curl of dark hair on top of a bald head, no goatee, no wrinkles.
+SILHOUETTE: a tiny plump baby — round tummy, stubby arms and legs, sitting or lying down, roughly the size of a water gourd. Instantly readable as "a baby with the greedy man's eyebrows".
+CLOTHES & PROP: swaddled in (or half-buried under) his own now-giant undyed cotton clothes — huge folds of open cream paper around a tiny baby — with his small RED lucky pouch (bokjumeoni) lying beside him or clutched in one tiny fist, the picture's single red accent when he appears.
+REFERENCE SHEET: one sheet on plain bright cream paper — a sitting front pose (tiny fists up, big O crying mouth, bushy brows knotted) + a 3/4 sitting pose + three face close-ups where the expression changes ONLY through the mouth line and the bushy brow strokes: (1) big wailing O mouth with brows knotted, (2) innocent blink with a tiny line mouth, (3) happy gummy open smile with brows relaxed. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="파랑새" data-key="char-bluebird">
+  <div class="head"><span class="face">🐦</span><b>파랑새</b> <span class="rom">BlueBird · 샘물을 알려 주는 새</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: BlueBird — the magical little bird who leads the way to the spring: the simplest character in the cast, drawn with just a few quick pencil strokes. A small round bird whose head and back are one soft cornflower-blue scribbled mass, the belly left as open cream paper, a short rounded tail of two quick strokes, one dot eye, a tiny beak stroke, and two twig legs. Sweet, bright and a little mysterious — all told by pose and the direction it points, since the face is just a dot.
+FLIGHT MOTIF: when flying it trails a faint dotted pencil line behind it — the "follow me" path the grandpa walks along.
+REFERENCE SHEET: one sheet on plain bright cream paper — a side-profile perched pose + a front view + a wings-open flying pose (wings = a few open blue strokes) + one tiny flying pose with the faint dotted "follow me" trail. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="물동이" data-key="word-muldongi">
+  <div class="head"><span class="face">🏺</span><b>물동이</b> <span class="rom">muldongi — a water jar carried on the head</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "muldongi — a traditional Korean earthenware water jar carried on the head (물동이)". A wide-bellied onggi clay jar in a warm glossy chestnut-brown glaze (#7A4A2B) with a slightly flared open mouth, subtle finger-ridge throwing lines around the belly, and a soft ceramic sheen. Show TWO forms so the word reads clearly: (1) the jar standing alone with a little clear water shimmering at the rim, and (2) the jar resting on its round braided straw head-cushion ring (ttoari, golden straw #D8B45A) the way it sits on a carrier's head. Centered icon-style word card, vivid and proud, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="표주박" data-key="word-pyojubak">
+  <div class="head"><span class="face">🥄</span><b>표주박</b> <span class="rom">pyojubak — a small gourd dipper</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "pyojubak — a small Korean gourd dipper for scooping water (표주박)". A palm-sized half-gourd scoop in smooth pale tan (#D9C7A0) with a warm polished sheen, the natural gourd curve forming a little handle-neck, and a short RED cord loop (#C0392B) tied at the neck for hanging. Show TWO forms: (1) the empty dipper at a slight 3/4 angle showing the hollow bowl, and (2) the dipper brimming with crystal-clear spring water, one sparkling droplet falling from the rim. Fresh, cool, inviting. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="지게" data-key="word-jige">
+  <div class="head"><span class="face">🎒</span><b>지게</b> <span class="rom">jige — a Korean A-frame back carrier</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jige — a traditional Korean wooden A-frame back-carrier for firewood and loads (지게)". Two natural pine/alder upright wooden posts (warm honey-brown wood grain #B07A3C) joined by cross-rungs lashed with twisted straw rope, woven rice-straw shoulder straps, and its matching Y-shaped support stick (지게작대기) leaning beside it. Show the frame at a slight 3/4 angle so the A-frame shape reads clearly. Sturdy, handcrafted, warm wood tones. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="짚신" data-key="word-jipsin">
+  <div class="head"><span class="face">🥿</span><b>짚신</b> <span class="rom">jipsin — woven straw shoes</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jipsin — traditional Korean straw-woven sandals (짚신)". A neat pair of sandals braided from golden rice-straw (#D8B45A), showing the woven sole texture, the looped toe and heel, and the ankle-tie cords, in a warm hand-crafted straw gold. Cozy, humble, tidy craftsmanship. Present the pair at a slight 3/4 angle (one showing the top, one the side) so the weave reads clearly. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="무명옷" data-key="word-mumyeongot">
+  <div class="head"><span class="face">👘</span><b>무명옷</b> <span class="rom">mumyeong-ot — plain undyed cotton hanbok</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "mumyeong-ot — a plain undyed cotton hanbok, everyday clothes of old Korea (무명옷)". A jacket (jeogori) and baggy trousers (baji) in natural ivory hand-woven cotton (#F1E7D4) with a visible soft plain-weave texture, cloth tie-ribbons (goreum) on the jacket, and gentle hand-sewn seam lines. Show TWO forms so the word reads clearly: (1) the jacket and trousers laid out flat as a set, and (2) a neatly folded soft stack of the same cotton clothes beside it. Clean, humble, warmly hand-made — the beauty of plain cloth. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 12 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날, 깊은 산골 마을에 마음씨 착한 할아버지와 할머니가 살았어요. 두 분은 아기가 없어 늘 단둘이었지만, 오순도순 사이좋게 지냈지요. 할아버지는 나무를 하고, 할머니는 물을 긷고 — 부지런한 하루하루였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 하이앵글 부감 + 스케일 대비. 커다란 산자락 품 안에 손톱만 한 초가집과 두 노인 — 화면 위쪽 절반은 산과 하늘의 넓은 여백.<br/><b>장소·시간</b> 깊은 산골 마을, 초가집 마당, 화창한 봄날 아침. 새소리 들릴 듯 맑고 한적한 공기.<br/><b>인물</b> GrandpaOld(할아버지)는 마당 왼쪽에서 허리가 살짝 굽은 채 장작 몇 개를 안고 걸어오며 온화한 실선 미소, 소박한 <b>무명옷(mumyeong-ot)</b> 차림. GrandmaOld(할머니)는 마당 오른쪽 우물가에서 앞치마에 손을 닦으며 남편을 바라보고 방긋 웃음, 낮은 은빛 쪽머리. 두 사람 다 작게 그려 큰 산과 대비.<br/><b>배경·소품</b> 나지막한 초가집 한 채와 낮은 싸리 담장, 마당의 작은 장독 둘, 우물과 두레박, 뒤로 겹겹이 이어지는 커다란 연둣빛 산자락(몇 획으로만 암시), 처마 밑에 걸린 마른 고추 한 두름(이 그림의 빨강 악센트 1점).<br/><b>톤</b> 밝고 고른 봄 아침 햇빛(크림 종이가 곧 햇빛), 옛이야기를 여는 한적하고 정겨운 정서, 종이 여백이 넉넉한 시원한 화면.</pre></details>
+</div>
+
+<!-- ② 발단(선/악 대비) : P2 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(욕심쟁이 이웃)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이웃에는 욕심쟁이 영감이 살았어요. "내 것도 내 것, 네 것도 내 것!" 남의 감이 더 커 보이면 배가 아팠지요. 착한 할아버지네를 보고도 늘 흥, 코웃음을 쳤답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 구도. 화면 앞쪽에 욕심쟁이 영감의 등과 어깨를 크게 걸치고, 그 너머로 담장 건너 할아버지네 마당을 내려다봄.<br/><b>장소·시간</b> 욕심쟁이 영감네 기와집 담장 앞, 한낮. 심술이 부글대는 우스꽝스러운 공기.<br/><b>인물</b> GreedyOld(욕심쟁이 영감)는 전경에서 등을 보인 채 담장 위로 까치발을 들고 고개만 빼꼼 내밀어 이웃집 감나무를 흘겨봄 — 숯덩이 같은 굵은 눈썹이 옆얼굴에서도 또렷하고, 입은 삐죽 심술 실선, 배불뚝이 실루엣에 허리춤의 빨간 복주머니(이 그림의 빨강 악센트 1점). 담장 너머 멀리 GrandpaOld(할아버지)가 감나무 아래에서 지나가는 아이에게 감 하나를 건네주며 웃는 모습이 작게 보임.<br/><b>배경·소품</b> 전경의 반질한 기와 담장, 담 너머 할아버지네 초가집과 주렁주렁 감나무, 영감네 마당 한켠의 넉넉한 곳간 암시(몇 획), 파란 하늘.<br/><b>톤</b> 밝은 한낮 햇빛, 심술은 무섭지 않게 통통하고 코믹하게, 착함/욕심의 대비가 담장 하나로 갈리는 유머러스한 정서.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P3~P8 -->
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>사건(파랑새를 만나다)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 날, 할아버지가 지게를 지고 산으로 나무하러 갔어요. 그때 어디선가 파랑새 한 마리가 포로롱— 날아왔지요. "할아버지, 이리 와요, 이리 와요!" 하듯 고운 소리로 지저귀었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글. 나뭇가지 위 파랑새를 올려다보는 할아버지의 시선을 따라 화면도 위를 향함 — 키 큰 소나무가 화면 양옆에서 거대하게 솟음.<br/><b>장소·시간</b> 마을 뒷산 숲길 어귀, 화창한 낮. 솔잎 냄새 나는 맑은 공기.<br/><b>인물</b> GrandpaOld(할아버지)는 화면 아래쪽에서 나뭇단을 얹은 <b>지게(jige)</b>를 진 채 걸음을 멈추고, 굽은 허리를 펴며 손차양을 하고 위를 올려다봄 — 입이 작은 O 모양으로 "어?" 하는 호기심. BlueBird(파랑새)는 화면 위 소나무 가지에 앉아 할아버지 쪽으로 몸을 기울이고 부리를 벌려 지저귐, 머리와 등이 수레국화빛 파랑.<br/><b>배경·소품</b> 지게 위 나뭇단과 Y자 지게작대기, 화면 양옆의 굵은 소나무 줄기(느슨한 몇 획), 발치의 짚신과 풀포기, 길가 덤불의 빨간 산수유 열매 한 알(이 그림의 빨강 악센트 1점).<br/><b>톤</b> 나뭇잎 사이로 내려오는 밝은 낮 햇살, 신기한 만남이 시작되는 설레고 맑은 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(파랑새를 따라서)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">할아버지는 파랑새를 따라 깊은 산속으로 들어갔어요. 사부작사부작, 짚신 발걸음도 가볍게. 파랑새가 바위틈으로 쏙 — 아! 그 사이에 맑은 샘물이 반짝반짝 솟고 있었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글 부감. 숲을 위에서 내려다보아 꼬불꼬불 이어진 산길과 그 길을 따라가는 작은 할아버지, 앞서 나는 파랑새의 점선 궤적이 화면을 가로지름.<br/><b>장소·시간</b> 깊은 산속, 낮. 안으로 들수록 신비로워지는 고요한 공기.<br/><b>인물</b> GrandpaOld(할아버지)는 화면 가운데 아래쪽 산길 위에 작게, 지게를 진 채 <b>짚신(jipsin)</b> 발걸음을 재게 놀리며 파랑새를 좇음 — 작아도 굽은 실루엣으로 단번에 그인 줄 알게. BlueBird(파랑새)는 그보다 앞쪽 상단에서 날개를 활짝 펴고 날며 뒤로 옅은 점선 자취를 남김, "따라와요" 하듯 고개를 돌림.<br/><b>배경·소품</b> 부감으로 본 꼬불꼬불 오솔길(느슨한 한 획), 듬성듬성 솔포기와 바위(몇 획만), 화면 위쪽 구석의 큰 바위틈과 그 사이 반짝이는 샘물 암시, 길가 덤불의 빨간 산딸기 한 알(이 그림의 빨강 악센트 1점). 나머지는 넓은 크림 종이 여백.<br/><b>톤</b> 밝은 낮이되 숲 안쪽으로 갈수록 청량한 파랑-초록 기운, 신비한 곳으로 이끌리는 두근두근 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(꼴깍, 한 모금)</b> <span class="tag beat">③ 사건 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아이고, 목말라라." 할아버지는 표주박으로 샘물을 떠서 마셨어요. 꼴깍꼴깍, 한 모금만! 아, 이렇게 달고 시원한 물은 태어나 처음이었지요. 그런데 어쩐지 몸이 간질간질했어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨 측면. 표주박을 든 두 손과 마시는 옆얼굴이 화면을 크게 채움 — 배경은 거의 종이 여백.<br/><b>장소·시간</b> 깊은 산속 바위틈 샘가, 낮. 서늘하고 맑은 공기, 물소리만 조용히.<br/><b>인물</b> GrandpaOld(할아버지)가 화면 오른쪽을 향해 옆모습으로 무릎을 꿇고 앉아, 두 손으로 <b>표주박(pyojubak)</b>을 받쳐 들고 입에 대어 꼴깍 마시는 순간 — 눈은 지그시 감기고 은빛 수염 끝에 물방울 한 점, 목울대가 꼴깍 움직일 듯한 옆얼굴. 곁의 낮은 바위엔 BlueBird(파랑새)가 앉아 고개를 갸웃하며 지켜봄.<br/><b>배경·소품</b> 바위틈에서 퐁퐁 솟는 맑은 샘과 잔물결(파르스름한 몇 획), 표주박 목에 묶인 빨간 끈(이 그림의 빨강 악센트 1점), 옆에 내려놓은 지게 한 귀퉁이, 나머지는 시원한 크림 여백.<br/><b>톤</b> 서늘하고 투명한 물빛 기운 속 부드러운 햇살, 달고 시원한 첫 모금의 감각이 전해지는 고요한 정서, 샘물에 아주 옅은 신비로운 반짝임.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(젊어진 할아버지!)</b> <span class="tag beat">③ 사건 · 변신</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">샘물에 얼굴을 비춰 본 할아버지는 깜짝 놀랐어요. 하얗던 머리가 까매지고, 주름살이 반질반질 펴졌지 뭐예요! "아니, 내가 젊어졌잖아?" 젊은이가 된 할아버지는 펄쩍펄쩍 뛰며 좋아했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감(수직 내려다보기). 샘물 수면을 바로 위에서 내려다본 구도 — 화면 대부분이 둥근 수면이고, 그 물거울에 비친 얼굴이 그림의 중심.<br/><b>장소·시간</b> 산속 샘가, 낮. 숨을 삼키는 놀라움의 순간.<br/><b>인물</b> GrandpaYoung(젊어진 할아버지)이 수면 가장자리에서 두 손으로 샘 둘레 바위를 짚고 얼굴을 물 위로 쑥 내밀어 들여다봄 — 화면엔 그의 뒤통수·어깨(검은 상투 머리)와, 수면에 비친 매끈한 젊은 얼굴(점눈 두 개, 크게 벌어진 O 입, 치켜 올라간 눈썹 획)이 마주 봄. 젊은 얼굴은 주름 획 하나 없이 맨들맨들, 놀라움 반 기쁨 반.<br/><b>배경·소품</b> 둥근 샘 수면과 동심원 잔물결(느슨한 몇 획), 수면에 함께 비친 파란 하늘 한 조각과 BlueBird(파랑새)의 작은 반영, 물가에 놓인 표주박과 그 빨간 끈(이 그림의 빨강 악센트 1점), 샘 둘레의 바위 몇 획.<br/><b>톤</b> 투명한 물빛과 밝은 하늘 반사, "이게 나라고?" 하는 코믹하고 벅찬 놀라움, 수면의 옅은 신비로운 반짝임.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(할머니가 못 알아봐요)</b> <span class="tag beat">③ 사건 · 코믹</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집에 돌아오자 할머니가 물동이를 내려놓다 말고 눈이 휘둥그레졌어요. "아이고머니, 댁은 뉘시오?" "허허, 나요, 나! 당신 남편이라오!" 목소리를 듣고서야 할머니는 입을 딱 벌렸지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 구도(P2와 반대 방향). 화면 앞쪽에 할머니의 어깨와 은빛 쪽머리를 걸치고, 그 너머 사립문에 선 낯선 젊은이(=남편)를 바라봄.<br/><b>장소·시간</b> 할아버지네 초가집 마당, 해질 무렵. 놀라서 시간이 멈춘 듯한 코믹한 공기.<br/><b>인물</b> GrandmaOld(할머니)는 전경에 등을 보이고 서서 머리에 이고 온 <b>물동이(muldongi)</b>를 막 내려놓다가 굳음 — 기울어진 물동이에서 물이 찔끔 쏟아지는 중. 어깨너머 사립문 앞의 GrandpaYoung(젊어진 할아버지)은 지게를 진 채 멋쩍게 뒤통수를 긁으며 히죽 웃음 — 검은 상투에 낯익은 무명옷, "나요, 나!" 하는 벌어진 입.<br/><b>배경·소품</b> 흙마당과 사립문, 마당가 멍석에 널어 말리는 빨간 고추 한 줌(이 그림의 빨강 악센트 1점), 장독 둘과 우물, 노을 든 초가지붕.<br/><b>톤</b> 주황빛 감도는 저녁 햇살, 못 알아보는 소동이 빚는 유쾌한 코미디, 이내 반가움으로 풀릴 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(할머니도 꼴깍!)</b> <span class="tag beat">③ 사건 · 후렴 · 변신</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이튿날, 할아버지는 할머니의 손을 잡고 샘물로 갔어요. 할머니도 표주박으로 꼴깍꼴깍, 한 모금만! 어느새 할머니도 곱디고운 새색시처럼 젊어졌답니다. 두 사람은 손을 마주 잡고 빙글빙글 춤을 추었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 로우앵글. 샘가 풀밭에서 손을 맞잡고 빙글 도는 두 사람을 아래에서 올려다보아 하늘로 원을 그리는 춤 동작이 시원하게 열림.<br/><b>장소·시간</b> 산속 샘가 풀밭, 화창한 낮. 웃음소리가 울리는 환한 공기.<br/><b>인물</b> GrandpaYoung(젊어진 할아버지)과 GrandmaYoung(젊어진 할머니)이 두 손을 마주 잡고 빙글빙글 맴을 돎 — 둘 다 활짝 웃는 곡선 입, 무명옷 자락과 치맛자락이 원을 그리며 나부낌. 할머니의 검은 낮은 쪽머리와 매끈한 얼굴이 "같은 사람, 젊어졌을 뿐"임을 또렷이. 샘가 바위엔 BlueBird(파랑새)가 앉아 함께 지저귐.<br/><b>배경·소품</b> 발치의 <b>표주박(pyojubak)</b>과 빨간 끈(이 그림의 빨강 악센트 1점), 퐁퐁 솟는 샘과 잔물결, 흩날리는 풀잎 몇 획, 넓게 비운 파란 하늘과 크림 여백.<br/><b>톤</b> 눈부신 한낮 햇빛, 두 배로 커진 기쁨이 빙글빙글 도는 흥겹고 벅찬 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P9~P11 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(욕심쟁이 출동!)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이 소식을 들은 욕심쟁이 영감은 눈이 번쩍했어요. "한 모금에 저렇게 젊어졌다고? 그럼 많이 마실수록 좋겠지!" 영감은 짚신이 벗겨지는 줄도 모르고 헐레벌떡 산으로 달려갔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨, 극단 여백 구도. 화면의 70%는 텅 빈 크림 종이(민둥한 언덕길과 하늘) — 사건은 오른쪽 아래 구석에서만: 조그맣게 그린 영감이 전속력으로 달림.<br/><b>장소·시간</b> 마을에서 산으로 오르는 언덕길, 낮. 흙먼지가 폴폴 나는 부산한 공기.<br/><b>인물</b> GreedyOld(욕심쟁이 영감)가 화면 오른쪽 아래 구석에서 배불뚝이 몸을 앞으로 잔뜩 기울이고 팔을 휘저으며 우스꽝스럽게 질주 — 굵은 눈썹이 바람에 날리고 입은 크게 벌린 욕심 웃음, 뒤로 흙먼지 구름 몇 획. 한쪽 발은 맨발이고, 벗겨진 <b>짚신(jipsin)</b> 한 짝이 뒤쪽에 데굴 굴러감.<br/><b>배경·소품</b> 언덕길을 나타내는 느슨한 한 획, 멀리 산 능선 한 획, 허리춤에서 나풀거리는 빨간 복주머니(이 그림의 빨강 악센트 1점), 그 밖은 전부 시원한 종이 여백.<br/><b>톤</b> 밝은 낮 햇빛, 텅 빈 화면과 구석의 질주가 만드는 폭소 유머, 서두르는 욕심의 우스꽝스러움.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(벌컥벌컥, 너무 많이!)</b> <span class="tag beat">④ 절정 · 후렴 변주</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">샘물에 도착한 영감은 표주박도 내던지고 엎드려 마셨어요. 벌컥벌컥, 벌컥벌컥! "더 젊게, 더 많이!" 꼴깍꼴깍 한 모금만 마셔야 하는데, 영감은 배가 뽈록해지도록 들이켰지 뭐예요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 로우앵글. 샘물 수면 높이에 카메라를 바짝 낮춰, 엎드려 들이켜는 영감의 얼굴과 볼록해지는 배를 수면 너머로 크게 잡음.<br/><b>장소·시간</b> 산속 샘가, 낮. 꿀꺽꿀꺽 소리만 요란한 우스꽝스러운 공기.<br/><b>인물</b> GreedyOld(욕심쟁이 영감)가 샘가에 넙죽 엎드려 얼굴을 물에 박다시피 하고 벌컥벌컥 들이켬 — 양볼이 개구리처럼 빵빵하게 부풀고, 굵은 눈썹은 신이 나 치켜 올라가고, 배는 이미 뽈록하게 부풀어 풀밭에 닿을 지경. 물결이 출렁출렁 요동침. 뒤쪽 바위 위 BlueBird(파랑새)가 날개를 들며 "어어, 그만!" 하듯 화들짝.<br/><b>배경·소품</b> 영감이 휙 내던져 풀밭에 나뒹구는 <b>표주박(pyojubak)</b>, 그 옆에 떨어진 빨간 복주머니(이 그림의 빨강 악센트 1점), 출렁이는 샘물과 튀는 물방울 몇 획, 벗은 짚신 한 짝. 표주박 끈은 이 컷에선 옅은 청회색 획으로(빨강은 복주머니 1점만).<br/><b>톤</b> 밝은 낮 햇빛, "한 모금만"을 어기는 순간의 아슬아슬 코믹, 과장된 몸개그로 웃기되 밉지 않게.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(응애? 아기가 됐어요!)</b> <span class="tag beat">④ 절정 · 변신 · 펼침면 한 방</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그러자 어떻게 됐을까요? 커다란 무명옷 더미 속에서 "응애, 응애!" 아기 울음소리가 났어요. 너무 많이 마신 영감이 조그마한 아기가 되어 버린 거예요! 그런데 눈썹만은 여전히 숯덩이처럼 짙었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글 부감. 샘가 풀밭 한가운데 산처럼 쌓인 옷 더미와 그 속의 조그만 아기를 위에서 내려다봄 — 거대한 옷 vs 조그만 아기의 스케일 대비가 한눈에.<br/><b>장소·시간</b> 산속 샘가, 낮. 소동이 뚝 그치고 울음소리만 남은 우스운 정적.<br/><b>인물</b> GreedyBaby(아기가 된 영감)가 화면 중앙, 자기가 입고 있던 커다란 <b>무명옷(mumyeong-ot)</b> 더미 한가운데에 폭 파묻혀 앉아 조막만 한 주먹을 쥐고 "응애!" 하고 욺 — 큰 O 입, 머리엔 까만 머리카락 한 가닥, 그리고 아기 얼굴에 어울리지 않게 큼직한 숯덩이 눈썹 두 획(영감임을 알아보는 표식). 무섭거나 불쌍하지 않고 오동통 귀엽게. 옷더미 곁 바위엔 BlueBird(파랑새)가 고개를 갸웃 내려다봄.<br/><b>배경·소품</b> 아기를 감싼 산더미 같은 무명옷 자락과 금빛 조끼가 널브러진 풀밭, 아기 곁에 데굴 굴러온 빨간 복주머니(이 그림의 빨강 악센트 1점), 잔잔해진 둥근 샘과 표주박(표주박 끈은 이 컷에선 옅은 청회색 획으로 — 빨강은 복주머니 1점만), 부감으로 본 풀밭 여백.<br/><b>톤</b> 밝은 낮 햇빛, 벌이 아니라 웃음이 터지는 귀여운 대반전, 짙은 눈썹 개그가 살아 있는 명랑 코믹 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P12 -->
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(우리 아기 하자)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">해가 저물어도 영감이 돌아오지 않자, 걱정이 된 젊은 부부는 서둘러 샘물로 가 보았어요. 그리고 아기를 보고 모든 걸 알았지요. "아이고, 저런. 우리가 키웁시다 — 우리 아기 하자!" 부부는 아기를 포근히 안고 집으로 돌아왔어요. 그날부터 세 식구는 오순도순 오래오래 행복하게 살았답니다. 욕심은 꼴깍, 한 모금만 — 나누는 마음이 제일 큰 복이래요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 기울인 아이레벨. 아기를 안은 두 사람의 상반신이 화면을 포근하게 채우는 마무리 컷 — 세 얼굴이 완만한 삼각 구도.<br/><b>장소·시간</b> 산에서 집으로 돌아오는 노을 진 오솔길, 해질 무렵. 폭신하고 나른한 저녁 공기.<br/><b>인물</b> GrandmaYoung(젊어진 할머니)이 화면 중앙에서 GreedyBaby(아기가 된 영감)를 두 팔로 포근히 안고 내려다보며 다정한 실선 미소 — 아기는 울음을 그치고 짙은 눈썹을 늘어뜨린 채 새근새근 잠들어 조그만 손으로 빨간 복주머니를 꼭 쥠(이 그림의 빨강 악센트 1점). GrandpaYoung(젊어진 할아버지)은 곁에서 어깨를 나란히 붙이고 아기 얼굴을 들여다보며 부드럽게 웃음. 머리 위로 BlueBird(파랑새)가 앞장서 날며 집 쪽을 가리키듯 지저귐.<br/><b>배경·소품</b> 포대기처럼 아기를 감싼 무명옷 자락, 등 뒤의 지게와 물동이 실루엣(몇 획), 멀리 노을빛 능선과 초가집 굴뚝의 저녁 연기 한 줄, 나머지는 따뜻한 종이 여백.<br/><b>톤</b> 주황빛 노을과 부드러운 역광 기운, 벌 준 이야기가 아니라 품어 주는 이야기로 닫히는 뭉클하고 포근한 정서, 가족이 된 세 사람의 온기.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 젊어지는 샘물 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'GrandpaOld',   name: '할아버지(늙은)',   desc: '착한 나무꾼 — 은빛 상투·짧은 수염, 굽은 물음표 실루엣, 무명옷·짚신',            aliases: ['GrandpaOld'] },
+    { token: 'GrandpaYoung', name: '젊어진 할아버지',  desc: '같은 얼굴 뼈대 — 검은 상투, 주름·수염 획 삭제, 허리 쫙 편 실루엣, 옷은 그대로', aliases: ['GrandpaYoung'] },
+    { token: 'GrandmaOld',   name: '할머니(늙은)',     desc: '다정한 아내 — 은빛 낮은 쪽머리, 작고 둥근 실루엣, 무명 치마저고리·앞치마',       aliases: ['GrandmaOld'] },
+    { token: 'GrandmaYoung', name: '젊어진 할머니',    desc: '같은 얼굴 뼈대 — 검은 낮은 쪽머리(그대로 낮게), 주름 획 삭제, 옷은 그대로',      aliases: ['GrandmaYoung'] },
+    { token: 'GreedyOld',    name: '욕심쟁이 영감',    desc: '이웃 심술 영감 — 숯덩이 굵은 눈썹 두 획(표식), 배불뚝이, 금빛 조끼·빨간 복주머니', aliases: ['GreedyOld'] },
+    { token: 'GreedyBaby',   name: '아기가 된 영감',   desc: '같은 굵은 눈썹을 단 오동통 아기 — 머리카락 한 가닥, 거대한 무명옷에 폭, 빨간 복주머니', aliases: ['GreedyBaby'] },
+    { token: 'BlueBird',     name: '파랑새',          desc: '샘물을 알려 주는 새 — 수레국화빛 몇 획, 배는 종이 그대로, 점선 "따라와요" 자취',  aliases: ['BlueBird'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

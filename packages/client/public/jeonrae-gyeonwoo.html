@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 견우와 직녀</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 2 #15</div>
+  <h1>🌌 견우와 직녀</h1>
+  <div class="sub">은하수를 사이에 둔 두 사람 — 칠월 칠석, 까치와 까마귀가 놓아 준 오작교 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 성실·약속·그리움 &nbsp;·&nbsp;
+  <b>분량</b> 13 스프레드 &nbsp;·&nbsp; <b>후렴</b> 베 짜는 소리·소 모는 소리 대구 &nbsp;·&nbsp;
+  <b>핵심단어</b> 베틀 · 실타래 · 소달구지 · 한복 · 부채 &nbsp;·&nbsp;
+  <b>순화</b> 옥황상제의 벌 = "맡은 일을 다시 잘하게 하려는" 어른의 결정(근엄+온화, 화내지 않음) / 이별은 애틋하게만(눈물 바다 X) / 비 = 기쁨의 눈물 한 방울이 단비로 &nbsp;·&nbsp;
+  <b>시각 장치</b> 빨간 실 한 오라기 = 이어진 마음(전 편 관통하는 빨강 악센트)
+</div>
+<div class="refrain">🧵 반복 후렴 — "철커덕 철커덕, 베 짜는 소리! 음매 음매, 소 모는 소리!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-gyeonwoo</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="견우" data-key="char-gyeonwoo">
+  <div class="head"><span class="face">🐂</span><b>견우</b> <span class="rom">Gyeonwoo · 소 치는 성실한 총각</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Gyeonwoo — the diligent young cowherd of the heavenly fields, warm, earnest and hard-working. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a bright one-line smile, no nose (or one tiny dot). Hair as one solid dark mass tied low at the back of his neck, with a twisted cloth headband (meoritsugeon) rolled across his forehead drawn as one soft pale stroke. A YOUNG unmarried man — NO topknot, NO stubble dots.
+SILHOUETTE (his signature): sturdy and boxy-round — broad rounded shoulders, sleeves rolled up to the elbow, a planted reliable wide stance. He reads instantly against the slender graceful long-braided Jiknyeo.
+CLOTHES: a simple work hanbok suggested in soft blue-grey pencil strokes — the jacket mostly open paper with loose hatching, baggy trousers gathered at the ankles, straw sandals in a few pale straw-yellow strokes. May carry a light herding stick drawn as one long stroke. NOTE: from the middle of the story a thin red thread is tied around his left wrist — draw the reference sheet WITHOUT it; it is added per scene.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (herding stick resting on one shoulder, bright one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) bright one-line smile, (2) surprised small O mouth with lifted brow strokes, (3) soft wistful downcurved mouth, chin tilted slightly up as if gazing at the night sky. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="직녀" data-key="char-jiknyeo">
+  <div class="head"><span class="face">🧵</span><b>직녀</b> <span class="rom">Jiknyeo · 베 짜는 하늘나라 아가씨</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Jiknyeo — the heavenly weaver maiden, gentle, graceful and skilled at the loom. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot). Hair as one solid dark mass parted in the middle and woven into ONE long braid down her back, ending in a soft INDIGO daenggi ribbon drawn as two short strokes (NOT red — red is reserved for the story's thread motif).
+SILHOUETTE (her signature): slender and light — an upright graceful posture; the long single braid and the soft bell-shaped skirt make her read instantly against the sturdy Gyeonwoo.
+CLOTHES: a fine hanbok — a cream jacket left as open paper with neat edges and an indigo goreum tie, a full skirt suggested in a soft sky-blue pencil tone with a few airy hatching strokes and a hint of two or three tiny star sparkles near the hem. Often holds a wooden weaving shuttle or a plump skein of thread in her hands.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded in front, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) gentle one-line smile, (2) joyful surprised small O mouth with lifted brow strokes, (3) soft wistful smile with the dot eyes placed slightly low as if eyes lowered. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="옥황상제" data-key="char-heavenking">
+  <div class="head"><span class="face">👑</span><b>옥황상제</b> <span class="rom">HeavenKing · 하늘나라 임금님</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: HeavenKing — the Heavenly Emperor (Okhwang-sangje), grand yet KIND: a stern-but-warm grandfather figure, dignified and calm, NEVER scary and NEVER angry. Dot-eye design language: a flat cream face with zero shading, two dot eyes under soft gentle brow strokes, a calm one-line mouth, and his signature — a LONG white beard drawn as one soft pale cloud-like mass reaching his chest, with a white mustache as two soft strokes. On his head a stately dark crown drawn as ONE simple flat-topped shape with two or three tiny hanging bead strokes at the front.
+SILHOUETTE (his signature): large, broad and mountain-stable — the biggest, calmest shape in any scene, with generous wide sleeves; authority is told entirely by size, stillness and the beard, never by a frown.
+CLOTHES: a grand flowing robe suggested in soft straw-gold pencil strokes — wide hanging sleeves, the body left mostly open paper with a hint of a cloud pattern in one or two light scribbles, a simple dark belt stroke.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded inside the wide sleeves, calm one-line mouth) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) calm dignified one-line mouth, (2) gently firm straight mouth with slightly drawn brow strokes (serious but never angry), (3) warm soft smile with rounded brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="소" data-key="char-ox">
+  <div class="head"><span class="face">🐮</span><b>소</b> <span class="rom">Ox · 견우의 순한 소</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Ox — Gyeonwoo's gentle ox, a big soft friend, calm and loyal. Drawn as one warm rounded mass of loose honey-brown pencil hatching that never fully fills the shape: a big rounded body, sturdy short legs, a pale cream muzzle left as open paper, two small curved horns as single strokes, floppy ears, one kind sleepy dot eye per side, and a thin tail ending in a little scribbled tuft. Sweet and unhurried in mood — all told by the round silhouette and slow posture.
+REFERENCE SHEET: one sheet on plain bright cream paper — a side-profile standing pose + a front view + a lying-down resting pose with legs folded under, plus one head close-up with a happy open "moo" mouth drawn as a small O. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="까치" data-key="char-magpie">
+  <div class="head"><span class="face">🐦</span><b>까치</b> <span class="rom">Magpie · 오작교의 까치</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Magpie — a Korean magpie drawn with just a few quick dark ink-like pencil strokes: a dark head-back-and-tail mass, the belly and a bold wing-patch left as open cream paper (the white patch is its signature), a longish tail as two strokes, one dot eye, a tiny beak stroke. Cheerful, clever and helpful in mood — all told by pose.
+REFERENCE SHEET: one sheet on plain bright cream paper — a side-profile perched pose + a front view + a wings-open flying pose (wings = a few open strokes) + a special "BRIDGE POSE": wings stretched wide, flat and level, head tucked steady, so that many birds can link wing-to-wing into a long bridge. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="까마귀" data-key="char-crow">
+  <div class="head"><span class="face">🐧</span><b>까마귀</b> <span class="rom">Crow · 오작교의 까마귀</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Crow — a friendly round crow, cheerful and helpful, never spooky. Drawn as one round all-dark scribble mass (the one bird where the scribble may go a little wild, like a soft charcoal ball), with one bright dot eye left as a tiny open paper dot inside the dark mass, a small pale beak stroke, and a stubby scribbled tail. Reads instantly against the white-bellied Magpie.
+REFERENCE SHEET: one sheet on plain bright cream paper — a side-profile perched pose + a front view + a wings-open flying pose + the same flat "BRIDGE POSE": wings stretched wide and level so many birds can link wing-to-wing into a long bridge. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="베틀" data-key="word-beteul">
+  <div class="head"><span class="face">🧶</span><b>베틀</b> <span class="rom">beteul — a Korean weaving loom</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "beteul — a traditional Korean wooden weaving loom (베틀)". A low wooden loom frame in warm honey-brown wood with smooth worn grain (#B07A3C), slanted warp threads of natural cotton cream stretched tight across the frame, a comb-like reed bar (badi), and a partly woven bolt of cloth rolling onto the front beam — the woven cloth striped in soft natural-dye jade green (#27795B) and plum. Show the loom at a slight 3/4 angle so the frame and threads read clearly, with a small inset beside it: the boat-shaped wooden shuttle (buk) with red thread (#C0392B) wound inside. Handcrafted, warm and precise. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="실타래" data-key="word-siltarae">
+  <div class="head"><span class="face">🧵</span><b>실타래</b> <span class="rom">siltarae — a skein of thread</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "siltarae — plump skeins of spun thread (실타래)". A small group of fat, softly wound thread skeins in natural-dye colors — deep red (#C0392B), indigo (#33506F), straw yellow (#D8B45A) and jade green (#27795B) — each showing the soft criss-cross winding of cotton thread with a gentle fiber sheen. Show TWO states on the card: (1) the neat plump wound skeins stacked together, and (2) one skein tipped over and HALF-UNWOUND, its long single thread trailing and curling gracefully across the card. Cozy craft warmth, vivid colors. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="소달구지" data-key="word-sodalguji">
+  <div class="head"><span class="face">🛞</span><b>소달구지</b> <span class="rom">sodalguji — an ox-drawn cart</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "sodalguji — a traditional Korean ox-drawn wooden cart (소달구지)". A sturdy flatbed wooden cart in warm honey-brown wood grain (#B07A3C): two BIG wooden spoked wheels with a darker rounded rim, a plank cargo bed, two long shafts reaching forward to a gently curved wooden yoke, the joints lashed with twisted straw rope. Loaded with two golden bundles of hay (#D8B45A) tied with straw cord. Show the cart at a 3/4 angle so the big spoked wheels and the bed read clearly. Sturdy, handcrafted, warm wood tones. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="한복" data-key="word-hanbok">
+  <div class="head"><span class="face">👘</span><b>한복</b> <span class="rom">hanbok — traditional Korean clothes</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "hanbok — traditional Korean clothes (한복)". Show a PAIR displayed side by side as if hung neatly on a wooden rack: (1) a woman's chima-jeogori — a short cream silk jacket (jeogori) with curved sleeves and a long red goreum ribbon (#C0392B) tied at the chest, over a full high-waisted jade-green skirt (chima, #27795B) falling in soft rounded folds; (2) a man's hanbok — a pale sky-blue cotton jacket with a straw-yellow vest (#D8B45A) and roomy white trousers (baji) gathered at the ankles. Soft silk sheen, tiny embroidered flower accents on the woman's cuffs. Elegant, vivid and proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="부채" data-key="word-buchae">
+  <div class="head"><span class="face">🪭</span><b>부채</b> <span class="rom">buchae — a Korean fan</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "buchae — a traditional Korean hand fan (부채)". Show TWO forms side by side: (1) a round rigid fan (taegeukseon) — a smooth polished wooden handle and a round hanji-paper face painted with a red-and-blue taegeuk swirl (#C0392B and #33506F); (2) a folding fan (hapjukseon) HALF-OPEN so its slim bamboo ribs and pleated cream hanji leaf read clearly, the leaf carrying a small plum-branch painting, with a red silk tassel (#C0392B) hanging from the pivot rivet. Light, crisp craftsmanship — bamboo, hanji paper, silk. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 13 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(하늘나라 직녀)</b> <span class="tag beat">① 도입 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날, 구름 위 하늘나라에 '은하수'라는 반짝이는 별의 강이 흘렀어요. 강가 작은 집에는 베 짜는 아가씨 직녀가 살았지요. 철커덕 철커덕, 베 짜는 소리! 직녀가 짠 비단은 노을빛처럼 곱기로 하늘나라에서 제일이었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 하이앵글 부감. 구름 위 하늘나라와 은하수를 화면 가득 넓게 잡고, 직녀와 집은 화면 우하단에 아담하게 놓는 설정 컷.<br/><b>장소·시간</b> 구름 위 하늘나라, 은하수 강가의 작은 초가 툇마루, 맑게 갠 낮. 투명하고 상쾌한 하늘 공기.<br/><b>인물</b> Jiknyeo(직녀)는 화면 우하단 툇마루의 <b>베틀(beteul)</b> 앞에 단정히 앉아 나무 북을 밀며 베를 짜는 중 — 등을 곧게 펴고 몸이 리듬 있게 살짝 앞으로 기울어짐, 긴 땋은 머리가 등 뒤로 늘어지고, 입은 흥얼거리듯 다정한 한 획 미소.<br/><b>배경·소품</b> 반짝이는 별의 강 은하수가 화면 상단을 크게 가로지름, 뭉게구름 언덕, 베틀에 걸린 크림빛 날실과 반쯤 짜인 고운 비단, 베틀 옆 실 바구니 — 바구니 속 <b>빨간 실타래 하나</b>(이 그림의 빨간 악센트, 이야기 전체를 관통할 실의 복선), 작은 초가지붕.<br/><b>톤</b> 크림 종이가 그대로 햇살이 되는 맑은 낮빛, 옛이야기를 여는 서정적이고 포근한 정서, 은하수에만 옅은 별 반짝임.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(들판의 견우)</b> <span class="tag beat">② 발단 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">은하수 건너 넓은 들판에는 소 치는 총각 견우가 살았어요. 아침마다 소달구지에 꼴을 가득 싣고 부지런히 소를 몰았지요. 음매 음매, 소 모는 소리! 견우가 앞서 걸으면 소들이 졸래졸래 뒤를 따라왔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글. 언덕길 아래에서 올려다봐 견우와 소달구지가 파란 하늘을 등지고 씩씩하게 보이는 컷.<br/><b>장소·시간</b> 은하수 건너편 하늘나라 들판의 언덕길, 상쾌한 아침. 풀내음 나는 부지런한 공기.<br/><b>인물</b> Gyeonwoo(견우)는 화면 중앙 언덕길에서 고삐를 잡고 성큼성큼 앞장서 걸음 — 소매를 걷어붙이고 머릿수건을 두른 채 밝은 한 획 미소, 어깨에 가벼운 막대 하나. Ox(소)는 바로 뒤에서 <b>소달구지(sodalguji)</b>를 끌며 순한 점눈으로 "음매" 하듯 입을 작게 벌림, 그 뒤로 소 두어 마리가 단순한 몇 획으로 졸래졸래.<br/><b>배경·소품</b> 꼴 더미를 가득 실은 나무 소달구지(큰 바퀴살 바퀴), 소달구지 멍에에 달린 <b>작은 빨간 방울술</b>(악센트), 언덕의 들꽃 몇 획, 멀리 아래쪽에 반짝이는 은하수 자락, 뭉게구름.<br/><b>톤</b> 상쾌한 아침 햇살, 성실하고 씩씩한 명랑 정서, 로우앵글이 주는 든든함.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(첫 만남)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 봄날, 두 사람은 은하수 강가에서 처음 만났어요. 고운 한복을 차려입은 직녀가 방긋, 씩씩한 견우도 방긋. 마주 보고 웃는 사이, 두 사람의 마음이 반짝 하고 이어졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머. 전경의 견우 어깨너머로 직녀를 바라보는 구도 — 첫 만남의 설렘에 시선이 모이게.<br/><b>장소·시간</b> 은하수 강가, 꽃이 핀 봄날 오후. 반짝이는 물결과 꽃잎이 날리는 설레는 공기.<br/><b>인물</b> 전경 왼쪽에 Gyeonwoo(견우)의 뒷모습 — 어깨와 뒤통수(머릿수건)가 화면 가장자리를 부드럽게 프레임. 그 너머 화면 중앙에 Jiknyeo(직녀)가 강가에 서서 고운 <b>한복(hanbok)</b> 치마저고리 차림으로 두 손을 앞에 모으고 방긋 한 획 미소, 긴 땋은 머리와 하늘빛 치마가 봄바람에 살짝 나풀.<br/><b>배경·소품</b> 은하수 물결의 별 반짝임 몇 점, 흩날리는 봄 꽃잎 사이 빨간 꽃잎 한 점(악센트), 강가의 풀꽃 몇 획, 나머지는 넉넉한 크림 종이 여백.<br/><b>톤</b> 화창한 봄빛, 마음이 이어지는 맑고 수줍은 설렘, 어깨너머 구도가 주는 두근거림.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P4 ~ P9 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(놀기만 한 두 사람)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날부터 두 사람은 만나서 노는 게 세상에서 제일 좋았어요. 꽃밭에 나란히 앉아 부채를 살랑살랑, 까르르 하하! 노래하고 이야기하다 보면 해가 지는 줄도 몰랐지요. 그런데 그만… 해야 할 일을 까맣게 잊어버리고 말았어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 평면 부감. 꽃밭을 바로 위에서 수직으로 내려다보는 구도 — 둥글게 퍼진 꽃과 그 한가운데 두 사람.<br/><b>장소·시간</b> 은하수 강가 꽃밭, 나른한 한낮. 시간 가는 줄 모르는 달콤한 공기.<br/><b>인물</b> 화면 중앙에 나란히 — Jiknyeo(직녀)는 꽃밭에 앉아 <b>부채(buchae)</b>를 들고 살랑살랑 부치며 까르르 웃는 큰 웃음 입, Gyeonwoo(견우)는 그 옆에 팔베개를 하고 벌렁 누워 하하 웃는 활짝 벌린 입. 둘 다 위에서 내려다본 동글동글한 실루엣.<br/><b>배경·소품</b> 두 사람을 중심으로 둥글게 퍼진 꽃과 풀 몇 획, 부채에 달린 <b>빨간 술</b>(악센트), 옆에 놓인 소꿉 소반, 화면 가장자리에 덩그러니 내팽개쳐진 직녀의 실 바구니(일을 잊었음을 은근히 암시), 구석에 심심해서 엎드려 조는 Ox(소) 한 마리.<br/><b>톤</b> 나른하고 즐거운 한낮 빛, 놀이의 행복이 가득하되 가장자리 소품이 살짝 "아차"를 예고하는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(엉망이 된 일)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">직녀의 베틀에는 먼지가 소복소복 쌓이고, 실타래는 방바닥을 데굴데굴 굴러다녔어요. 견우네 소들은 뿔뿔이 흩어져 이 밭 저 밭을 어슬렁어슬렁. 하늘나라가 온통 어수선해졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 아이레벨보다 낮은 시점. 전경에 멈춰 선 베틀을 크게, 열린 문 너머 소동은 작게 — 앞뒤 깊이 대비로 두 곳의 어수선함을 한 컷에.<br/><b>장소·시간</b> 직녀의 방 안(전경) + 열린 문 너머 들판(원경), 낮. 머쓱하고 어수선한 공기.<br/><b>인물</b> 사람은 없고 소동의 흔적만 — 원경의 열린 문 너머로 Ox(소) 두어 마리가 뿔뿔이 흩어져 남의 밭 이랑을 어슬렁어슬렁 넘어가는 작은 실루엣, 한 마리는 태평하게 "음매".<br/><b>배경·소품</b> 전경에 먼지가 소복소복 쌓인 <b>베틀(beteul)</b>과 멈춘 나무 북, 짜다 만 비단, 베틀 모서리의 거미줄 한 획, 방바닥을 데굴데굴 구르는 <b>실타래(siltarae)</b> 여러 개 — 그중 하나가 <b>빨간 실타래</b>(악센트)로 실이 길게 풀려 문지방 쪽으로 흘러감, 문밖 들판의 흩어진 꼴 더미.<br/><b>톤</b> 밝은 낮빛이지만 살짝 머쓱한 정서 — 어수선함이 무겁지 않고 코믹하게, 먼지는 뽀얀 획 몇 개로만.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(옥황상제의 결정)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">하늘나라 임금님 옥황상제가 두 사람을 부르셨어요. 무섭게 화를 내는 대신, 천천히 또박또박 말씀하셨지요. "너희가 맡은 일을 다시 잘하게 되도록, 당분간 은하수 이쪽과 저쪽에서 지내도록 하여라." 점잖지만 따뜻한 목소리였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글. 구름 어좌 위 옥황상제를 아래에서 올려다봐 근엄함을 살리되, 표정은 온화하게 — 아래쪽 두 사람은 작게.<br/><b>장소·시간</b> 하늘나라 구름 궁전 앞, 환한 낮. 조용하고 어른스러운 공기 — 무섭지 않은 근엄함.<br/><b>인물</b> HeavenKing(옥황상제)는 화면 상단 구름 어좌에 앉아 긴 흰 수염을 드리우고, 한 손을 천천히 들어 타이르는 손짓 — 눈썹 획은 부드럽고 입은 차분한 한 획, 화가 아니라 다정한 근엄함. 화면 하단에 Gyeonwoo(견우)와 Jiknyeo(직녀)가 작게 나란히 서서 고개를 숙임 — 둘 다 순하게 반성하는 시무룩한 내리깐 점눈, 손을 앞에 모음.<br/><b>배경·소품</b> 구름 계단과 소박한 구름 어좌, 어좌 옆 깃대에 달린 <b>빨간 술 한 점</b>(악센트), 멀리 은하수 자락, 나머지는 넉넉한 크림 여백.<br/><b>톤</b> 웅장하되 부드러운 낮빛, "혼내기"가 아니라 "바로잡아 주는 어른"의 따뜻한 무게감.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>시련(빨간 실 약속)</b> <span class="tag beat">③ 시련</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">헤어지기 전, 직녀는 실타래에서 빨간 실 한 오라기를 스르르 풀었어요. 그리고 견우의 손목에 살며시 매어 주었지요. "이 실처럼 우리 마음은 이어져 있어요. 우리, 꼭 다시 만나요." 견우는 고개를 크게 끄덕였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨(손 높이 정면). 두 사람의 손과 손목의 빨간 실이 화면 한가운데 — 얼굴은 프레임 위쪽에 부드럽게 걸치는 감정 컷.<br/><b>장소·시간</b> 은하수 강가, 해질 무렵. 조용하고 애틋한, 그러나 단단한 약속의 공기.<br/><b>인물</b> 화면 중앙에 Jiknyeo(직녀)의 두 손이 Gyeonwoo(견우)의 손목에 가느다란 <b>빨간 실 한 오라기</b>(악센트)를 조심조심 매어 주는 순간. 직녀는 점눈을 살짝 내리깔고 애틋한 한 획 미소, 견우는 입을 꾹 다물고 크게 끄덕이는 진지한 표정 — 두 상반신이 프레임 가장자리에 마주 기울어짐.<br/><b>배경·소품</b> 직녀 발치의 <b>실타래(siltarae)</b> 바구니에서 풀려 나온 빨간 실이 손목까지 한 줄로 이어짐, 발밑에서 시작되는 은하수 물결 몇 점, 나머지는 거의 여백의 크림 종이 — 실과 손에만 시선이 모이게.<br/><b>톤</b> 노을빛이 옅게 스민 조용한 저녁, 슬픔보다 약속의 따뜻한 단단함, 빨간 실 하나가 화면의 심장.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>시련(은하수를 사이에 두고)</b> <span class="tag beat">③ 시련 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그렇게 두 사람은 넓고 넓은 은하수를 사이에 두고 떨어져 지내게 되었어요. 직녀는 다시 베틀 앞에 앉아 철커덕 철커덕. 견우는 다시 들판에서 음매 음매. 둘 다 마음을 다해 부지런히 일했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 초대형 와이드, 살짝 하이앵글 — 스케일 대비의 시(詩). 광활한 은하수가 화면 한가운데를 넓게 가로지르고, 두 사람은 양쪽 끝에 아주 작게 — 광활한 강 vs 손톱만 한 두 사람.<br/><b>장소·시간</b> 하늘나라 전경, 해질녘. 담담하고 서정적인 금빛 공기.<br/><b>인물</b> 화면 왼쪽 끝에 아주 작게 — Jiknyeo(직녀)가 툇마루의 <b>베틀(beteul)</b> 앞에 앉아 철커덕 베를 짜는 성실한 실루엣. 화면 오른쪽 끝에 아주 작게 — Gyeonwoo(견우)가 Ox(소)와 함께 들판에서 꼴을 나르는 씩씩한 실루엣. 둘 다 등을 곧게 편 부지런한 자세 — 쓸쓸함보다 담담한 성실함.<br/><b>배경·소품</b> 화면 대부분을 차지하는 반짝이는 은하수의 별 물결과 구름 벌판, 양끝의 작은 집 두 채, 오른쪽 작은 견우의 손목에서 반짝하는 <b>빨간 실 한 점</b>(악센트 — 이 넓은 화면에서 유일한 빨강).<br/><b>톤</b> 해질녘 금빛이 크림 종이에 스미는 광활하고 서정적인 정서, 떨어져 있어도 각자 자리를 지키는 담담한 아름다움.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>시련(그리운 밤)</b> <span class="tag beat">③ 시련</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">밤이 되면 견우는 언덕에 앉아 은하수 건너편을 바라보았어요. 반짝반짝, 저 멀리 직녀네 집 불빛이 별처럼 빛났지요. "직녀도 지금 저 불빛 아래에서 나를 생각할까?" 손목의 빨간 실이 바람에 살랑 흔들렸답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 극단 여백. 화면의 75%가 검푸른 밤하늘 — 사건(견우와 소)은 우하단 구석에만 작게, 아이레벨 뒷모습.<br/><b>장소·시간</b> 견우네 들판 언덕, 별이 가득한 깊은 밤. 고요하고 아득한 공기.<br/><b>인물</b> 화면 우하단 구석에 작게 — Gyeonwoo(견우)가 언덕 위에 무릎을 안고 앉은 뒷모습, 고개를 들어 은하수 건너편을 바라봄. Ox(소)는 곁에 다리를 접고 엎드려 같은 곳을 올려다봄 — 둘의 실루엣이 나란히 다정하게.<br/><b>배경·소품</b> 화면 대부분을 채우는 검푸른 밤하늘과 은하수의 별 무리(별은 종이를 남긴 점들로), 은하수 건너편 끝에 아주 작은 직녀네 집 창의 노란 불빛 한 점, 견우 손목의 <b>빨간 실</b>(악센트)이 어두운 화면에서 유일하게 또렷한 빨강으로 살랑.<br/><b>톤</b> 고요한 밤의 푸른 어둠 속에서도 크림 종이가 은은히 비치는 부드러운 밤, 그리움이 별빛으로 반짝이는 서정 — 슬픔은 옅게, 애틋함만.</pre></details>
+</div>
+
+<!-- ④ 절정 : P10, P11, P12 -->
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(까치와 까마귀)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">두 사람이 다시 부지런히 일하자, 옥황상제가 빙긋 웃으며 말씀하셨어요. "일 년에 한 번, 칠월 칠석에는 만나도 좋다!" 칠석날 저녁, 소문을 들은 까치와 까마귀가 구름처럼 모여들었지요. "우리가 다리가 되어 주자!" 푸드덕 푸드덕, 하늘이 새까매지도록 은하수로 날아갔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글. 땅에서 하늘을 올려다보는 구도 — 까치·까마귀 떼가 하늘 가득 밀려드는 장관.<br/><b>장소·시간</b> 견우네 들판 위 하늘, 칠월 칠석날 저녁. 두근두근 벅찬 기대의 공기.<br/><b>인물</b> 하늘 가득 Magpie(까치) 떼와 Crow(까마귀) 떼가 푸드덕 힘차게 날아 은하수 쪽으로 향함 — 흰 배·흰 날개점의 까치와 동글동글 먹빛 까마귀가 섞여 몇 획씩의 단순한 새들로, 저마다 명랑한 점눈. 화면 하단에 Gyeonwoo(견우)가 눈을 동그랗게 뜨고 입을 벌린 채 올려다보며 한 손을 흔들고, 곁의 Ox(소)도 고개를 들어 "음매".<br/><b>배경·소품</b> 반짝이기 시작한 저녁 은하수, 노을과 첫 별 몇 점, 견우 손목의 <b>빨간 실</b>(악센트).<br/><b>톤</b> 해질녘에서 밤으로 넘어가는 보랏빛 저녁, 힘찬 날갯짓의 리듬, 도움이 모여드는 벅찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(오작교)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">까치와 까마귀는 날개와 날개를 나란히 맞대고 길게 줄을 지었어요. 은하수 위에 다리가 놓인 거예요! 바로 '오작교'라는 다리랍니다. "어서 건너오세요!" 두 사람은 마주 보며 다리 위를 달려갔어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 조감(수직에 가까운 하이앵글 부감) — 이 편의 펼침면 한 방. 은하수 위에 놓인 오작교 전체를 하늘에서 내려다봄.<br/><b>장소·시간</b> 은하수 한복판 상공, 칠월 칠석 밤. 장엄하고 따뜻한 별밤 공기.<br/><b>인물</b> Magpie(까치)와 Crow(까마귀) 수십 마리가 날개를 활짝 펴 나란히 맞대고 은하수를 가로지르는 길고 완만한 곡선의 다리를 이룸 — 위에서 내려다보면 흰 날개점과 먹빛 등이 번갈아 이어지는 예쁜 줄무늬 다리. 다리 양쪽 끝에서 Jiknyeo(직녀)와 Gyeonwoo(견우)가 서로를 향해 달려오는 작은 모습 — 직녀의 하늘빛 치마가 나풀, 견우는 두 팔을 벌림, 견우 손목의 <b>빨간 실 한 점</b>(악센트)이 반짝.<br/><b>배경·소품</b> 다리 아래로 흐르는 반짝이는 은하수 별 물결, 다리의 옅은 그림자, 가장자리의 구름 몇 획, 나머지는 밤의 크림 여백.<br/><b>톤</b> 별빛이 흩뿌려진 장엄하고 따뜻한 밤, 조감이 주는 스케일의 감동 — 작은 새들이 모여 만든 큰 기적.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>절정(다시 만난 날)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다리 한가운데에서 두 사람은 두 손을 꼭 맞잡았어요. "보고 싶었어요!" "나도요, 나도요!" 너무 기뻐서 눈물이 한 방울 톡— 떨어졌지요. 그 눈물은 보슬보슬, 시원한 단비가 되어 땅을 적셨답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 다리 한가운데에서 마주 잡은 두 손과 마주 본 두 얼굴이 화면을 가득 채우는 감정 컷.<br/><b>장소·시간</b> 오작교 한가운데, 칠월 칠석 밤. 벅차고 촉촉한 재회의 공기.<br/><b>인물</b> Jiknyeo(직녀)와 Gyeonwoo(견우)가 서로의 두 손을 꼭 맞잡고 이마가 닿을 듯 마주 봄 — 둘 다 입은 활짝 웃는데 점눈 가에 반짝 눈물 한 방울씩, 슬픔이 아니라 기쁨의 눈물임이 웃는 입으로 분명하게. 맞잡은 손목에 <b>빨간 실</b>(악센트)이 둘 사이를 잇듯 감김.<br/><b>배경·소품</b> 발밑으로 Magpie(까치)와 Crow(까마귀)의 날개 등이 다리처럼 이어지고 새들도 명랑한 점눈으로 위를 올려다봄, 공중에 보슬보슬 떨어지는 반짝이는 작은 빗방울 몇 개(기쁨의 단비 — 가볍고 예쁘게, 비구름 없이), 은하수 별빛.<br/><b>톤</b> 별빛과 빗방울이 함께 반짝이는 촉촉하고 따뜻한 밤, 눈물조차 반짝이는 벅찬 기쁨.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P13 -->
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(약속과 기다림)</b> <span class="tag beat">⑤ 결말 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"내년 칠석에 또 만나요!" 두 사람은 새끼손가락을 걸고 약속했어요. 그리고 저마다 자리로 돌아가 전보다 더 부지런히 일했지요. 철커덕 철커덕, 음매 음매! 맡은 일을 다하며 기다리는 마음은 별처럼 반짝인대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 하이앵글. P8과 짝을 이루는 대칭 구도 — 그러나 이번엔 환한 아침, 은하수 양쪽에서 씩씩하게 일하는 두 사람.<br/><b>장소·시간</b> 하늘나라 전경, 칠석 다음 날 맑은 아침. 밝고 희망찬 새 출발의 공기.<br/><b>인물</b> 화면 왼쪽 — Jiknyeo(직녀)가 툇마루의 <b>베틀(beteul)</b> 앞에서 활기차게 베를 짜며 환한 한 획 미소. 화면 오른쪽 — Gyeonwoo(견우)가 Ox(소)와 함께 꼴을 실은 <b>소달구지(sodalguji)</b>를 끌고 가며 건너편을 향해 씩씩하게 손을 흔듦. 둘 다 P8의 실루엣보다 크고 밝게, 등이 꼿꼿한 즐거운 일하기.<br/><b>배경·소품</b> 화면 가운데 아침 햇살에 반짝이는 은하수, 그 위 하늘을 가로질러 Magpie(까치) 한 마리가 <b>빨간 실 한 오라기</b>(악센트)를 부리에 물고 두 사람 사이를 잇듯 날아감 — 마음이 이어져 있다는 여운. 직녀 곁의 새 비단 두루마리, 견우 쪽 꼴 더미, 아침 해와 구름.<br/><b>톤</b> 크림 종이가 그대로 환한 아침 햇살, 약속을 품고 성실히 기다리는 밝고 반짝이는 여운의 마무리.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 견우와 직녀 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'Gyeonwoo',   name: '견우',     desc: '소 치는 성실한 총각 — 걷어붙인 소매·머릿수건, 든든한 실루엣',              aliases: ['Gyeonwoo'] },
+    { token: 'Jiknyeo',    name: '직녀',     desc: '베 짜는 하늘나라 아가씨 — 긴 땋은 머리·쪽빛 댕기, 하늘빛 치마저고리',       aliases: ['Jiknyeo'] },
+    { token: 'HeavenKing', name: '옥황상제', desc: '하늘나라 임금님 — 구름 같은 흰 수염·너른 도포, 근엄하지만 온화',            aliases: ['HeavenKing'] },
+    { token: 'Ox',         name: '소',       desc: '견우의 순한 소 — 꿀빛 해칭의 둥근 몸, 다정한 점눈',                         aliases: ['Ox'] },
+    { token: 'Magpie',     name: '까치',     desc: '오작교의 까치 — 먹빛 머리·등에 흰 배·흰 날개점, 명랑',                      aliases: ['Magpie'] },
+    { token: 'Crow',       name: '까마귀',   desc: '오작교의 까마귀 — 동글동글 먹빛 낙서 덩어리 새, 유쾌',                      aliases: ['Crow'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

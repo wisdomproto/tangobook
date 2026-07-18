@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 임금님 귀는 당나귀 귀</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 3 #18</div>
+  <h1>👑 임금님 귀는 당나귀 귀</h1>
+  <div class="sub">쑥쑥 자란 임금님의 비밀 귀 — 대나무숲이 속삭인 유쾌한 비밀 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 정직·있는 그대로 받아들이기 &nbsp;·&nbsp;
+  <b>분량</b> 12 스프레드 &nbsp;·&nbsp; <b>후렴</b> "임금님 귀는 당나귀 귀—!" (속닥 → 외침 → 대숲의 합창) &nbsp;·&nbsp;
+  <b>핵심단어</b> 익선관 · 곤룡포 · 복두 · 갓 · 부채 &nbsp;·&nbsp;
+  <b>순화</b> 복두장이 협박·처벌 삭제("약속만 지켜 다오" — 새끼손가락 약속) / 결말 = 임금이 큰 귀를 스스로 받아들임(백성의 소리를 잘 듣는 임금) / 임금의 콤플렉스는 코믹하되 조롱 금지
+</div>
+<div class="refrain">📣 반복 후렴 — "임금님 귀는 당나귀 귀—! 임금님 귀는 당나귀 귀—!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-dangnagwi</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부. 🔴 임금은 <b>귀 숨김/귀 드러남 상태별 시트·@image 분리</b>(변신 캐릭터 규칙).</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="익선관 임금님" data-key="char-king-crowned">
+  <div class="head"><span class="face">👑</span><b>임금님 (익선관 · 귀 숨김)</b> <span class="rom">KingCrowned · 마음씨 좋은 임금</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: KingCrowned — the good-hearted king of the land, wearing his royal winged cap so his ears stay hidden. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a kindly one-line smile, no nose (or one tiny dot), and a short tidy chin-beard drawn as three or four small downward strokes so he reads as a dignified grown man. IDENTICAL FACE to KingEars.
+SILHOUETTE (his signature): comfortably round and stately — a soft egg-shaped body, straight proud-but-gentle posture, small unhurried steps. Warm and approachable, never stern or scary.
+CLOTHES: a royal dragon robe (gonryongpo) suggested in a soft muted brick-red pencil tone (low-saturation, mostly open paper with sparse hatching), wide sleeves, a simple belt — and ONE small round SATURATED red-and-gold dragon emblem (bo) on the chest, the picture's single saturated red accent. On his head the black royal winged cap (ikseongwan) drawn as one solid dark mass with two upright rounded wing shapes at the back.
+HAT STATES (both on the sheet): (a) the ordinary ikseongwan, and (b) the special EXTRA-TALL ikseongwan made later in the story — the same shape but comically taller and rounder, big enough to hide two donkey ears inside.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded inside the wide sleeves, kindly one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) kindly one-line smile, (2) startled small O mouth with lifted brow strokes, (3) flustered wavy mouth with two tiny blush strokes on the cheeks. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="당나귀 귀 임금님" data-key="char-king-ears">
+  <div class="head"><span class="face">🫏</span><b>임금님 (당나귀 귀 · 귀 드러남)</b> <span class="rom">KingEars · 비밀이 드러난 임금</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: KingEars — the SAME king with his secret out: two big donkey ears standing tall on his bare head.
+🔴 IDENTICAL FACE to KingCrowned: the same flat cream face, same two dot eyes, same kindly one-line smile, same three-or-four chin-beard strokes. Only the cap is gone and the ears show — clearly the SAME person.
+EARS (his signature): two tall soft donkey ears rising straight up from the solid dark hair mass (a small topknot sits between them), each ear drawn with a few gentle strokes — long rounded shape, pale open-paper inner ear, a soft grey-brown outer edge, slightly fuzzy tips. Endearing and huggable like a gentle donkey plush, NEVER grotesque or ugly.
+CLOTHES: the same royal dragon robe (gonryongpo) suggested in a soft muted brick-red pencil tone (low-saturation, mostly open paper with sparse hatching), same wide sleeves and simple belt — and the same ONE small round SATURATED red-and-gold dragon emblem (bo) on the chest, the picture's single saturated red accent.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (ears up, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes through the mouth line, brow strokes, EAR POSTURE and body posture: (1) embarrassed — ears drooping sideways, wavy mouth, two tiny blush strokes; (2) startled — ears bolt upright, small O mouth, lifted brow strokes; (3) proud and happy — ears tall and perky, a wide open laughing mouth, chest out. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="복두장이" data-key="char-hatmaker">
+  <div class="head"><span class="face">🎩</span><b>복두장이 할아버지</b> <span class="rom">Hatmaker · 비밀을 아는 모자 장인</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Hatmaker — the royal hat-maker (bokdujangi), a small kindly old craftsman and the only person who learns the king's secret. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a simple line mouth, no nose (or one tiny dot), hair as one solid SOFT-GREY mass tied into a small topknot (sangtu), and a thin wispy white beard drawn as a few soft downward strokes so he reads as a sweet old man.
+SILHOUETTE (his signature): tiny and gently bent — a small hunched back, quick clever hands, quick little steps. The smallest adult in the cast, about half a head shorter than the king.
+CLOTHES & PROPS: a plain everyday hanbok suggested in soft blue-grey strokes with lots of open paper, a craftsman's work apron drawn in a few lines, a measuring string looped around his neck — and a small red thread spool tucked at his apron, the picture's single red accent when he appears without the king.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (a half-finished hat cradled in his hands, humble gentle smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) humble gentle one-line smile, (2) secret-keeping panic — both hands clamped over his mouth, cheeks puffed round, flyaway brow strokes, (3) a huge relieved open laugh with eyes curved shut. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="익선관" data-key="word-ikseongwan">
+  <div class="head"><span class="face">👑</span><b>익선관</b> <span class="rom">ikseongwan — the king's winged court cap</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "ikseongwan — the Korean king's black winged court cap (익선관)". A rounded two-tiered cap of lacquered black silk gauze (#1B1814) with a taller back tier and TWO upright rounded cicada-wing flaps standing at the back, a fine woven gauze texture catching a subtle sheen, a narrow gold-line trim along the rim (#D4AF37). Show TWO views on the card so the shape reads clearly: (1) a front 3/4 view and (2) a side view showing the upright wings. Regal, glossy-black and proud. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="곤룡포" data-key="word-gollyongpo">
+  <div class="head"><span class="face">🐉</span><b>곤룡포</b> <span class="rom">gollyongpo — the king's dragon robe</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gollyongpo — the Korean king's red dragon robe (곤룡포)". A deep vivid red silk robe (#B02233) with wide flowing sleeves, displayed spread open as if on an invisible stand, with round gold-embroidered dragon medallions (bo) on the chest and both shoulders (#D4AF37 gold thread, fine coiled-dragon detail), a jade-and-gold royal belt (#27795B) across the waist, and a subtle silk sheen along the folds. Majestic, saturated red and gold. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="복두" data-key="word-bokdu">
+  <div class="head"><span class="face">🎩</span><b>복두</b> <span class="rom">bokdu — an official's two-tiered cap</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "bokdu — a traditional Korean official's two-tiered black cap (복두), the craft of the royal hat-maker". A squared cap of lacquered black hemp-gauze (#211D18) built in TWO neat steps — a lower front tier and a taller flat-topped back tier — with two stiff rounded side wings spreading from the back, fine gauze weave visible under a soft lacquer sheen. Show TWO views: (1) a front 3/4 view and (2) a side view so the two steps and wings read clearly. Crisp, dignified craftsmanship. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="갓" data-key="word-gat">
+  <div class="head"><span class="face">🤠</span><b>갓</b> <span class="rom">gat — a horsehair gentleman's hat</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gat — the classic Korean horsehair hat (갓)". A wide flat circular brim woven from fine black horsehair (#26211B) — the weave slightly TRANSLUCENT so light passes through the mesh — with a tall cylindrical crown, and a chin-strap cord threaded with small amber beads (#C9822B) hanging below. Shown at a slight 3/4 angle with the see-through horsehair weave catching the light. Elegant, airy, finely crafted. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="부채" data-key="word-buchae">
+  <div class="head"><span class="face">🪭</span><b>부채</b> <span class="rom">buchae — a Korean folding fan</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "buchae — a traditional Korean folding fan (부채, 합죽선)". Slim polished bamboo ribs (#B07A3C) spreading into a crisp hanji-paper leaf painted with a soft plum-blossom branch (a few pink blossoms #D66A7C on an ink branch), and a small red tassel knot at the pivot. Show TWO states on the card: (1) the fan fully OPEN in a wide graceful arc, and (2) the same fan FOLDED closed lying beside it. Light, elegant, breezy. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 12 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 어느 나라에 마음씨 좋은 임금님이 살았어요. 반짝이는 곤룡포를 입고, 백성들의 이야기 듣는 걸 세상에서 제일 좋아했지요. "그래그래, 더 말해 보아라!" 궁궐 마당은 언제나 웃음소리로 가득했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 정면. 궁궐 전각과 마당을 좌우로 넓게 담는 도입 설정 컷 — 전각 지붕선이 화면 위를 가로지르는 안정된 수평 구도.<br/><b>장소·시간</b> 옛 한국 궁궐 앞마당, 화창한 봄 낮. 정겹고 활기찬 공기, 담장 너머로 멀리 마을과 대나무숲이 아주 작게 보임(뒤 이야기의 복선).<br/><b>인물</b> KingCrowned(임금님)는 화면 중앙 전각 섬돌 위에 앉아 소맷자락 넓은 <b>곤룡포(gollyongpo)</b> 차림에 익선관을 쓰고, 몸을 백성 쪽으로 기울여 한 손을 귀에 살짝 갖다 댄 채 "잘 듣는" 다정한 자세, 초승달 눈웃음. 계단 아래에는 보따리를 인 할머니와 아이 등 백성 두엇(단역)이 신나게 이야기하며 웃음. 임금 가슴의 작고 동그란 붉은 용무늬 보(補) 한 점 = 이 그림의 빨강 악센트.<br/><b>배경·소품</b> 궁궐 전각의 기와지붕과 나무 기둥 몇 획, 넓은 흙마당, 섬돌, 담장과 문루, 파란 하늘과 흰 구름, 담장 밖 멀리 초가 마을과 대숲 실루엣.<br/><b>톤</b> 밝고 고른 봄 햇빛, 옛이야기를 여는 넉넉하고 유쾌한 정서, "백성 말을 잘 듣는 임금님"이 첫 그림부터 보이게.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(귀가 쑥쑥!)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 어느 날 아침, 거울을 본 임금님은 소스라치게 놀랐어요. "어어? 내 귀가 왜 이러지?" 임금님의 귀가 당나귀 귀처럼 쑥쑥— 자라나는 게 아니겠어요? 하루하루 조금씩, 쫑긋쫑긋 더 커졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 임금님의 어깨너머 구도 — 뒷모습 어깨 위로 커다란 청동거울 속 얼굴을 들여다봄. 커지는 귀에 시선 집중.<br/><b>장소·시간</b> 궁궐 침전 안, 이른 아침. 창호지로 아침 햇살이 스며드는 조용한 방, 화들짝 놀란 공기.<br/><b>인물</b> KingEars(임금님)는 화면 앞쪽에 뒷모습 어깨선만 크게 걸치고, 둥근 청동거울 속에 비친 얼굴이 화면 중심 — 눈이 동그래지고 입은 작은 O, 머리 위 양쪽 귀가 당나귀 귀처럼 절반쯤 쑥 자라난 중이라 쫑긋 서 있고, 한 손을 들어 한쪽 귀를 조심조심 만져 봄. 눈썹은 하늘로 치켜 올라간 코믹한 경악.<br/><b>배경·소품</b> 놋빛 청동거울과 나무 경대, 개어 둔 이부자리, 경대 옆에 벗어 둔 익선관(귀가 자라 더는 쏙 들어가지 않을 것 같은 암시), 창호 문살의 아침빛. 임금 가슴의 작은 붉은 보 한 점 = 빨강 악센트.<br/><b>톤</b> 맑은 아침 햇살, 무섭지 않고 빵 터지는 화들짝 코믹, 귀는 어디까지나 보들보들 귀엽게.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(무거운 비밀)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아이고, 부끄러워라! 아무도 보면 안 돼!" 임금님은 활짝 편 부채로 귀를 폭 가리고 끙끙 앓았어요. 넓은 대전에 혼자 앉아 있으니, 조그만 비밀이 바위처럼 무겁게 느껴졌지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글 극단 여백 — 위에서 비스듬히 내려다본 텅 빈 대전, 화면의 칠 할이 빈 마룻바닥 여백이고 임금님은 구석에 조그맣게. 여백 자체가 비밀의 무게.<br/><b>장소·시간</b> 궁궐 대전 안, 인적 없는 한낮. 넓고 고요해서 오히려 마음이 조마조마한 공기.<br/><b>인물</b> KingEars(임금님)는 화면 오른쪽 아래 구석에 작게, 무릎을 모으고 웅크려 앉아 활짝 편 <b>부채(buchae)</b>로 쫑긋 자란 두 귀를 폭 가린 채 눈만 빼꼼 — 눈썹이 팔자로 처진 걱정 가득한 표정, 귀 끝만 부채 위로 삐죽 새어 나옴(코믹 포인트).<br/><b>배경·소품</b> 넓은 대전 마루의 나뭇결 몇 획, 저 멀리 위쪽에 작게 보이는 빈 어좌, 기둥 한둘. 임금 가슴의 작은 붉은 보 한 점 = 빨강 악센트.<br/><b>톤</b> 밝은 낮이지만 텅 빈 고요, 혼자 끙끙 앓는 마음이 여백으로 전해지는 조용한 유머와 애틋함.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P4, P5, P6, P7 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(복두장이와의 약속)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">임금님은 모자를 제일 잘 만드는 복두장이 할아버지를 조용히 불렀어요. "내 귀를 폭 덮는 크∼은 익선관을 만들어 다오. 그리고 이 비밀은… 꼭 지켜 다오." "네, 임금님! 꼭꼭 약속드려요." 둘은 새끼손가락을 꼬옥 걸었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨 측면 프로필 투샷 — 속닥이는 입과 마주 건 새끼손가락에 시선 집중. 두 얼굴이 화면을 좌우로 나눠 마주 봄.<br/><b>장소·시간</b> 대전 병풍 뒤 은밀한 구석, 낮. 소곤소곤 숨죽인 공기.<br/><b>인물</b> KingEars(임금님)는 화면 왼쪽에서 커다란 비단 보자기를 머리에 둘러 귀를 어설프게 감춘 코믹한 차림으로, 넓은 소맷자락을 들어 입가를 가리고 Hatmaker(복두장이)의 귀에 대고 속닥속닥 — 눈썹이 팔자로 처진 간절한 표정. Hatmaker(복두장이)는 오른쪽에서 눈이 동그래져 귀를 쫑긋 기울여 듣고, 두 사람의 새끼손가락이 화면 가운데 아래에서 꼬옥 마주 걸려 있음(약속). 등은 공손히 굽힘.<br/><b>배경·소품</b> 뒤로 병풍의 은은한 산수 몇 획, 임금 머리 위 보자기의 어설픈 매듭(귀 모양이 볼록 두 군데 튀어나온 코믹 실루엣), 복두장이 앞치마와 목에 두른 줄자. 임금 가슴의 작은 붉은 보 한 점 = 빨강 악센트.<br/><b>톤</b> 은밀하지만 무섭지 않게 — 협박이 아니라 다정한 새끼손가락 약속임이 한눈에 보이는 따뜻한 코믹.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(세상에서 제일 높은 익선관)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">복두장이는 밤낮으로 뚝딱뚝딱, 바느질 솜씨를 다해 세상에서 제일 높은 익선관을 지었어요. 복두도 갓도 척척 만들던 솜씨였으니까요. 완성된 익선관을 받은 임금님은 한시름 놓았지만— 이제 비밀을 아는 사람은 복두장이 하나뿐이었지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 평면 부감 — 공방 작업대를 바로 위에서 수직으로 내려다본 플랫레이 구도. 작업대 위 사물들이 지도처럼 펼쳐짐.<br/><b>장소·시간</b> 복두장이의 모자 공방, 깊은 밤. 호롱불 하나가 작업대를 동그랗게 밝히는 아늑한 공기.<br/><b>인물</b> Hatmaker(복두장이)는 화면 아래쪽에서 상체와 두 손이 작업대 위로 들어와, 완성 직전의 특별히 높은 <b>익선관(ikseongwan)</b>에 마지막 바느질 — 혀를 살짝 내밀고 눈썹을 모은 몰입한 표정, 굽은 등이 위에서 내려다본 실루엣으로 둥글게.<br/><b>배경·소품</b> 작업대 위에 손님들 몫의 <b>복두(bokdu)</b>와 <b>갓(gat)</b>이 나란히 놓이고, 가위·골무·실패·줄자·바늘겨레가 정갈하게 흩어짐. 작업대 한켠의 작은 붉은 실타래 한 톨 = 이 그림의 빨강 악센트. 호롱불의 동그란 불빛 웅덩이.<br/><b>톤</b> 아늑한 밤 호롱불빛, 장인의 정성이 소복한 조용하고 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(입이 근질근질)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 이를 어째요. 말하고 싶은 비밀을 꾹 참으니, 입이 근질근질, 배가 빵빵! "으으, 말하고 싶어서 병이 날 것 같아!" 복두장이는 두 손으로 입을 꼬옥 틀어막았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 화면을 비스듬히 기울인 더치 틸트 — 꾹 참는 얼굴과 상체가 화면 가득. 기울어진 화면이 안달복달을 증폭.<br/><b>장소·시간</b> 공방 툇마루, 환한 낮. 혼자 배배 꼬이는 우스꽝스러운 공기.<br/><b>인물</b> Hatmaker(복두장이)는 화면 중앙에서 두 손으로 입을 꼬옥 틀어막고 볼이 풍선처럼 빵빵하게 부풀어 오름 — 눈썹은 날아갈 듯 치켜 올라가고, 이마에 땀 한 방울, 몸통은 비밀을 삼키느라 배배 꼬인 자세. 달아오른 두 뺨의 발그레한 점 = 이 그림의 빨강 악센트(앞치마 실타래는 이 컷에서 보이지 않게).<br/><b>배경·소품</b> 입가로 새어 나가려는 말을 나타내는 만화적인 작은 김·뿅뿅 표시가 손가락 틈으로 삐질삐질, 뒤 선반에 걸린 갓과 복두 몇 개, 툇마루 나뭇결 몇 획.<br/><b>톤</b> 밝은 낮 햇빛, 기울어진 구도의 안달복달 폭소 코믹 — 괴로움이 아니라 웃음 포인트로.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(대나무숲으로)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">복두장이는 아무도 없는 곳을 찾아 걷고 또 걸었어요. 그러다 하늘까지 쭉쭉 뻗은 깊은 대나무숲에 다다랐지요. 사락사락… 바람에 댓잎만 흔들릴 뿐, 아무도 없었어요. "여기라면… 괜찮겠지?"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 극단 로우앵글 — 복두장이의 발치쯤에서 하늘로 쭉 올려다본 구도. 대나무들이 화면 위 소실점으로 아득히 모이고, 사람은 아래에 조그맣게(스케일 대비).<br/><b>장소·시간</b> 마을에서 멀리 떨어진 깊은 대나무숲 입구, 해가 기우는 늦은 오후. 서늘하고 고요한 공기.<br/><b>인물</b> Hatmaker(복두장이)는 화면 맨 아래 가장자리에 아주 작게 — 고개를 한껏 젖혀 대나무 꼭대기를 올려다보고, 한 손은 가슴을 누르고 다른 손은 대나무 줄기를 짚음, 두리번거리다 마음을 정한 표정. 앞치마의 작은 붉은 실타래 = 이 그림의 빨강 악센트.<br/><b>배경·소품</b> 하늘 끝까지 수직으로 뻗은 대나무 줄기들의 리듬, 꼭대기에서 사락이는 댓잎, 줄기 사이로 비껴 드는 늦은 오후 햇살 줄기, 발치의 좁은 오솔길.<br/><b>톤</b> 초록 대숲의 압도적인 키와 고요, 비밀을 털어놓기 직전의 두근두근한 정적.</pre></details>
+</div>
+
+<!-- ④ 절정 : P8, P9, P10 -->
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(속이 뻥!)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">복두장이는 숨을 크게 들이쉬고, 목청껏 외쳤어요. "임금님 귀는 당나귀 귀—! 임금님 귀는 당나귀 귀—!" 와아, 속이 뻥 뚫렸어요! 복두장이는 그제야 덩실덩실 어깨춤을 추었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 초와이드, 아이레벨, 극단 여백 — 화면 대부분이 대나무 줄기의 수직 리듬과 빈 공간, 한가운데 조그만 복두장이가 사건의 전부. 그림책 "펼침면 한 방".<br/><b>장소·시간</b> 대나무숲 한복판의 작은 빈터, 늦은 오후. 아무도 없는 넓은 고요를 외침 하나가 가르는 순간.<br/><b>인물</b> Hatmaker(복두장이)는 화면 정중앙에 작게 — 두 발을 벌려 단단히 버티고 두 팔을 하늘로 활짝 펼친 채 고개를 뒤로 젖혀 목청껏 외침, 입은 세상에서 제일 큰 O, 눈은 질끈, 굽었던 등이 시원하게 쫙 펴짐. 앞치마의 작은 붉은 실타래 = 이 그림의 빨강 악센트.<br/><b>배경·소품</b> 외침이 퍼져 나가는 동그란 소리 파문 선이 몇 겹으로 대숲 사이로 번지고, 놀라 포르르 날아오르는 참새 두엇, 흔들리는 댓잎 몇 장이 팔랑팔랑 떨어짐.<br/><b>톤</b> 늦은 오후의 비낀 햇살, 꽉 막혔던 속이 뻥 뚫리는 통쾌한 해방감 — 여백이 클수록 외침이 크게 들리는 구도.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(대숲의 속삭임)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 이게 웬일이에요? 그날부터 바람이 불 때마다 대나무숲이 속삭이기 시작했어요. "임금님 귀는 당나귀 귀…" 사락사락, 솨아솨아. 지나가던 사람들이 걸음을 멈추고 귀를 기울였고, 소문은 바람을 타고 온 나라에 퍼졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨, 겹침/가림 구도 — 전경의 굵은 대나무 줄기 두어 개가 화면을 세로로 가르고, 그 틈새로 오솔길의 사람들을 내다봄. 숲이 속삭이는 시점.<br/><b>장소·시간</b> 대나무숲 가장자리 오솔길, 바람 부는 환한 낮. 댓잎이 일제히 한쪽으로 쏠리는 공기.<br/><b>인물</b> 오솔길을 지나던 백성 두엇(단역) — 소쿠리를 인 아낙은 걸음을 멈추고 눈이 동그래져 한 손을 귀에 갖다 대고, 봇짐 진 사내는 대숲 쪽으로 몸을 기울여 갸웃. 곁의 꼬마 아이(단역)는 두 손으로 입을 가리고 킥킥 웃음.<br/><b>배경·소품</b> 전경을 가리는 굵은 대나무 줄기(화면 프레임 역할), 바람에 크게 휘는 댓잎 물결, 잎 사이로 흘러나오는 속삭임을 나타내는 구불구불한 흐름 선, 흙 오솔길. 꼬마 저고리의 붉은 옷고름 한 끈 = 이 그림의 빨강 악센트.<br/><b>톤</b> 환한 낮의 초록 바람, 신비하고도 간질간질 유쾌한 소문의 정서 — 무섭지 않게, 숲이 장난치듯.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(홍시처럼 빨개진 임금님)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">소문은 마침내 궁궐까지 들려왔어요. "임금님 귀는 당나귀 귀!" 임금님의 얼굴이 홍시처럼 빨개졌지요. "아이고, 이제 온 나라가 다 알아 버렸구나!" 부채를 펄럭펄럭, 임금님은 어쩔 줄 몰랐답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 하이앵글 — 창가의 임금님을 위에서 비스듬히 내려다보며 당황한 얼굴과 펄럭이는 부채에 집중.<br/><b>장소·시간</b> 궁궐 전각의 열린 창가, 낮. 창밖에서 소문이 흘러들어 오는 술렁이는 공기.<br/><b>인물</b> KingCrowned(임금님)는 화면 중앙에서 특별히 높은 익선관을 쓴 채 — 두 뺨이 발그레하게 달아오르고(홍시처럼, 이 그림의 빨강 악센트) 눈은 뱅글뱅글, 입은 구불구불한 울상, 한 손의 활짝 편 <b>부채(buchae)</b>를 펄럭펄럭 부치고 다른 손은 높은 익선관을 꾹 눌러 잡음. (이 컷에서는 곤룡포 보가 부채와 소맷자락에 가려 보이지 않게 — 빨강 악센트는 두 뺨 하나만.)<br/><b>배경·소품</b> 활짝 열린 창호 너머로 마을 지붕들과 저 멀리 대나무숲, 창으로 흘러들어 오는 소문을 나타내는 구불구불한 흐름 선, 창틀에 앉은 참새 한 마리가 임금을 빤히 쳐다봄(코믹).<br/><b>톤</b> 밝은 낮 햇빛, 쩔쩔매는 모습이 밉지 않고 귀여운 명랑 코믹 — 조롱이 아니라 같이 웃어 주는 톤.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P11, P12 -->
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>결말(그래, 내 귀는 크다!)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때, 궁궐 담장 너머로 백성들의 웃음소리가 들려왔어요. 밉게 웃는 게 아니라, 정답게 웃는 소리였지요. 임금님은 곰곰 생각하다가 익선관을 스르륵 벗고 백성들 앞에 당당히 나섰어요. "그래, 내 귀는 크다! 너희들의 소리를 더 잘 들으라는 뜻이구나!" 커다란 귀가 쫑긋, 햇살에 반짝였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글 — 마당의 백성들 쪽에서 문루 단 위의 임금님을 우러러보는 구도. 낮은 앵글이 당당함을 세워 줌. 전경 아래쪽엔 백성들의 뒤통수와 어깨 실루엣이 걸림.<br/><b>장소·시간</b> 궁궐 문루 앞, 햇살 쏟아지는 낮. 술렁이다가 환해지는 공기.<br/><b>인물</b> KingEars(임금님)는 화면 위쪽 단 위에서 — 한 손에 방금 벗은 높은 익선관을 들고, 다른 손을 가슴에 얹은 채 가슴을 쫙 펴고 활짝 웃음, 커다란 당나귀 귀 두 짝이 하늘을 향해 시원하게 쫑긋. 아래 전경의 백성들(단역)은 뒤통수·옆얼굴로 올려다보며 놀라움 반 반가움 반. 임금 가슴의 작은 붉은 보 한 점 = 이 그림의 빨강 악센트.<br/><b>배경·소품</b> 문루의 기와지붕 처마선, 파란 하늘과 흰 구름, 임금의 귀와 어깨에 쏟아지는 햇살 줄기, 벗어 든 높은 익선관.<br/><b>톤</b> 눈부신 한낮 햇살, 부끄러움을 털어 낸 당당하고 후련한 전환의 정서 — 이 편에서 가장 씩씩한 컷.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(제일 잘 듣는 임금님)</b> <span class="tag beat">⑤ 결말 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"임금님 귀는 당나귀 귀! 만세, 만세!" 백성들은 크고 멋진 귀를 보며 환호했어요. 임금님은 복두장이의 손을 꼭 잡고 껄껄 웃었지요. "시원하게 말해 줘서 고맙구나!" 그날부터 임금님은 큰 귀를 쫑긋 세우고 백성들의 말에 귀 기울이는, 세상에서 제일 잘 듣는 임금님이 되었답니다. 있는 그대로의 나도 참 멋지대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 궁궐 마당의 잔치를 넓게 담는 훈훈한 마무리 컷. 가운데 두 사람, 둘레에 둥글게 모인 백성들.<br/><b>장소·시간</b> 궁궐 앞마당, 화창한 낮. 웃음소리 가득한 잔치 공기, 바람이 담장 밖 대숲을 살랑 지나감.<br/><b>인물</b> KingEars(임금님)는 화면 중앙에서 커다란 귀를 자랑스레 쫑긋 세우고 Hatmaker(복두장이)의 두 손을 마주 꼭 잡은 채 껄껄 함박웃음. Hatmaker(복두장이)는 눈이 초승달로 휘어진 후련한 웃음으로 마주 잡음(용서와 고마움이 한눈에). 둘레의 백성들과 아이들(단역)은 만세를 부르고, 꼬마 몇몇은 두 손을 머리 위에 얹어 임금님의 귀를 따라 하며 임금님과 다 같이 까르르 — 놀림이 아니라 신나는 흉내.<br/><b>배경·소품</b> 궁궐 전각과 마당, 담장 너머 바람에 살랑이는 대나무숲(속삭임이 이제 웃음이 된), 파란 하늘의 흰 구름, 마당 한켠의 소반과 떡 접시. 임금 가슴의 작은 붉은 보 한 점 = 이 그림의 빨강 악센트.<br/><b>톤</b> 밝고 넉넉한 한낮 햇빛, 비밀이 웃음으로 풀리는 뭉클하고 유쾌한 마무리 — 오래오래 여운이 남는 훈훈함.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 임금님 귀는 당나귀 귀 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'KingCrowned', name: '임금님(익선관·귀 숨김)', desc: '마음씨 좋은 임금 — 익선관+곤룡포, 가슴의 붉은 보(악센트), 둥근 실루엣·턱수염 서너 획', aliases: ['KingCrowned'] },
+    { token: 'KingEars',    name: '임금님(당나귀 귀)',      desc: '비밀이 드러난 임금 — 쫑긋 큰 당나귀 귀 두 짝+상투, 같은 얼굴·같은 곤룡포(귀엽게, 흉하지 않게)', aliases: ['KingEars'] },
+    { token: 'Hatmaker',    name: '복두장이 할아버지',      desc: '비밀을 아는 모자 장인 — 작고 굽은 등, 회색 상투·흰 수염 획, 앞치마+줄자, 붉은 실타래(악센트)', aliases: ['Hatmaker'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 은혜 갚은 까치</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 2 #13</div>
+  <h1>🐦 은혜 갚은 까치</h1>
+  <div class="sub">까치를 구한 선비, 선비를 구한 종소리 — 은혜가 은혜를 갚는 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 은혜·보은 &nbsp;·&nbsp;
+  <b>분량</b> 13 스프레드 &nbsp;·&nbsp; <b>후렴</b> 종소리 리듬 &nbsp;·&nbsp;
+  <b>핵심단어</b> 종(범종) · 활 · 갓 · 도포 · 봇짐 &nbsp;·&nbsp;
+  <b>순화</b> 활 = 구렁이가 아닌 나뭇가지에 쏴 큰 소리로 쫓음(살상 X) / 구렁이 = 잡아먹기 위협 대신 길을 막고 시험하는 신비한 존재 / 까치 = 지쳐 쓰러지지만 선비의 보살핌으로 회복(죽음 X)
+</div>
+<div class="refrain">🔔 반복 후렴 — "댕— 댕— 댕—! 은혜 갚는 종소리, 댕— 댕— 댕—!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-kkachi</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="선비" data-key="char-seonbi">
+  <div class="head"><span class="face">🎓</span><b>선비</b> <span class="rom">Seonbi · 마음씨 착한 젊은 선비</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Seonbi — a kind young Korean scholar traveling to the state exam in Hanyang. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot), and a clean young face with NO stubble dots — he reads as a grown young man through his gat, dopo and upright scholarly bearing, never through facial detail.
+SILHOUETTE (his signature): tall, slim and straight-backed — a light, neat, springy scholarly poise, chin level, sleeves swaying as he walks.
+CLOTHES & PROPS: a wide-brimmed black horsehair hat (gat) drawn as one simple dark shape with a thin chin cord; a pale jade-cream scholar's overcoat robe (dopo) with wide flowing sleeves, left mostly as open paper with a few soft blue-grey strokes; his signature — a thin braided RED sash cord (sejodae) with small tassels at the waist, the picture's single red accent when he appears; a plump cloth travel bundle (botjim) on his back with a wide cloth shoulder strap; and a small elegant bow (hwal) slung over one shoulder.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (relaxed hands, gentle one-line smile) + a 3/4 walking pose with the bundle and bow on his back + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) gentle one-line smile, (2) surprised small O mouth with lifted brow strokes, (3) firm resolved straight-line mouth with steady dot eyes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="까치" data-key="char-magpie">
+  <div class="head"><span class="face">🐦</span><b>까치</b> <span class="rom">Magpie · 은혜 갚는 까치 가족</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Magpie — a Korean magpie (kkachi) drawn with just a few quick dark pencil strokes: a black head-back-and-long-tail mass, a clean white belly and a white wing patch left as open cream paper, one dot eye, a tiny beak stroke, and a single soft blue-grey stroke hinting the glossy blue of the wing. Brave, loyal and grateful in mood — all told by pose, since the face is just a dot.
+REFERENCE SHEET: one sheet on plain bright cream paper showing THREE STATES, distinguished by pose and a couple of extra strokes: (a) a HEALTHY adult magpie — an upright perched pose + a wings-open flying pose, quick and bright; (b) tiny BABY magpie chicks — round fluff-balls in a twig nest with big open beaks, drawn in two or three strokes each; (c) an EXHAUSTED adult — lying softly on its side with wings loose and eyes drawn as tiny closed curves, chest gently rising as it breathes — cozy and tender, clearly resting and NEVER tragic or hurt-looking. Single character sheet only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="구렁이" data-key="char-serpent">
+  <div class="head"><span class="face">🐍</span><b>구렁이</b> <span class="rom">Serpent · 신비한 산의 구렁이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Serpent — a big, old, mysterious serpent (gureongi) of the deep mountain, solemn and dignified, NEVER scary or monstrous. A long winding body drawn as loose soft blue-grey scribble strokes with the belly left as open cream paper, a rounded gentle snout with NO fangs, two calm moon-pale dot eyes, a forked tongue as one tiny quick stroke, and a faint pale crescent-moon mark on its brow for a touch of mystery.
+SILHOUETTE (its signature): readable entirely by its big slow S-curves and round coils — quiet, heavy and graceful, like a guardian spirit of the mountain testing a traveler, not a monster hunting one.
+REFERENCE SHEET: one sheet on plain bright cream paper — three poses where the mood changes ONLY through head angle and tiny brow strokes: (1) a coiled resting pose, head low and calm; (2) a raised-head "test" pose, body lifted in a tall S-curve blocking a path, gaze level and solemn; (3) a gliding-away pose, the tail end dissolving into a few trailing strokes of mist. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="종" data-key="word-beomjong">
+  <div class="head"><span class="face">🔔</span><b>종 (범종)</b> <span class="rom">beomjong — a Korean temple bell</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "beomjong — a great Korean Buddhist temple bell (범종, 종)". A large bronze bell with a deep warm bronze body (#8A6F3C) washed with a soft green patina (#6E7F6A) in the grooves, a dragon-shaped crown hook (yongnyu) on top, square panels of raised nipple bosses (yugwak) near the shoulder, gentle flying-apsara relief bands, and a lotus-flower striking pad (dangjwa) on the flank. Show TWO elements so the word reads clearly: (1) the bell hanging from a dark wooden crossbeam by an iron loop, and (2) the long horizontal wooden striker log (dangmok) suspended on twin ropes beside it, tip aimed at the lotus pad. Majestic, resonant, softly glowing. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="활" data-key="word-hwal">
+  <div class="head"><span class="face">🏹</span><b>활</b> <span class="rom">hwal — a Korean recurve bow</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "hwal — a traditional Korean recurve bow (각궁, 활)". A small elegant double-recurve bow of laminated horn and mulberry wood in warm dark amber (#7A4A26) with a subtle horn sheen, the grip neatly wrapped in red silk thread (#C0392B), a taut pale bowstring. FRIENDLY and graceful, not menacing — a scholar-hero's tool, never aimed at anyone. Show TWO elements: (1) the strung bow standing at a slight 3/4 angle so the double curve reads clearly, and (2) two arrows with white feather fletching resting in a simple cloth quiver beside it. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="갓" data-key="word-gat">
+  <div class="head"><span class="face">🎩</span><b>갓</b> <span class="rom">gat — a horsehair hat</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gat — a traditional Korean horsehair hat worn by scholars (갓)". A wide flat brim and a tall cylindrical crown woven from fine black horsehair (#2B2B2B), the weave so fine it is faintly translucent with a soft sheen where light passes through, finished with a thin chin cord strung with a few small amber beads (#C9832A). Dignified, light and elegant. Present at a slight 3/4 angle, tilted just enough to show both the round brim and the crown height. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="도포" data-key="word-dopo">
+  <div class="head"><span class="face">🥻</span><b>도포</b> <span class="rom">dopo — a scholar's overcoat robe</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "dopo — a traditional Korean scholar's overcoat robe (도포)". A full-length robe in pale jade-cream silk (#EAE6D4 with a whisper of jade green), wide flowing sleeves, a crossed collar edged with a crisp white dongjeong trim, tied at the waist with a thin braided red sash cord with small tassels (sejodae, #C0392B). Display the robe front-on as if floating on an invisible stand, sleeves spread slightly so the generous drape and wide cuffs read clearly, the sash cord neatly knotted. Graceful, scholarly, softly luminous silk texture. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="봇짐" data-key="word-botjim">
+  <div class="head"><span class="face">🎒</span><b>봇짐</b> <span class="rom">botjim — a cloth travel bundle</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "botjim — a traditional Korean cloth-wrapped travel bundle (봇짐)". A plump rounded bundle wrapped in a naturally dyed indigo-blue cotton bojagi cloth (#4A6B8A) with visible soft cotton weave, the four corners gathered and tied into a neat plump top knot, a wide undyed cotton shoulder strap (#E8DFC8) attached so it can be carried on the back. Show TWO views: (1) the tied bundle sitting upright with the knot facing front, and (2) a side view showing the shoulder strap looping over. Cozy, sturdy, ready for a long journey. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 13 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(길 떠나는 선비)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 글공부를 좋아하는 마음씨 착한 젊은 선비가 살았어요. 어느 봄날, 선비는 갓을 쓰고 도포를 입고, 봇짐을 둘러메고 길을 나섰지요. 한양으로 과거 시험을 보러 가는 길이었답니다. 저벅저벅, 산 넘고 물 건너 먼 길을 걸었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 하이앵글, 스케일 대비 구도 — 넓은 봄 들판과 하늘이 화면 대부분을 차지하고, 길 떠나는 인물은 우하단에 작게.<br/><b>장소·시간</b> 옛 한국 시골, 마을을 벗어나 먼 산줄기로 이어지는 봄 들판의 흙길, 화창한 아침. 새 여정의 설레는 공기.<br/><b>인물</b> Seonbi(선비)는 우하단 흙길 위에 작게 — 검은 <b>갓(gat)</b>을 쓰고 옥빛 <b>도포(dopo)</b> 소매를 나풀거리며, 등에 <b>봇짐(botjim)</b>을 메고 활을 어깨에 걸친 채 씩씩하게 저벅저벅 걸음. 허리의 가는 붉은 술띠(이 그림의 단 하나 빨강 악센트)가 또렷, 입은 실선 미소, 시선은 먼 산.<br/><b>배경·소품</b> 화면 대부분을 차지하는 밝은 크림 여백의 하늘과 봄 들판(획 몇 개의 들꽃·새싹), 저 멀리 겹겹 산등성이는 옅은 청회색 획으로만 암시, 길가에 소나무 한 그루, 마을 초가지붕 두엇이 좌측 구석에 작게.<br/><b>톤</b> 밝고 고른 봄 아침 햇살(=크림 종이 그대로), 넓은 세상으로 나서는 산뜻하고 씩씩한 정서.</pre></details>
+</div>
+
+<!-- ② 발단(까치의 위기) : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(다급한 까치 소리)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">깊은 산속 오솔길에 들어섰을 때였어요. 어디선가 다급한 소리가 들려왔지요. "깍깍! 깍깍!" 까치들이 애타게 울고 있었어요. 선비는 걸음을 멈추고 소리 나는 쪽을 가만히 바라보았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 — 화면 앞 선비의 갓과 어깨 너머로 숲 안쪽의 큰 나무를 바라보는 구도.<br/><b>장소·시간</b> 깊은 산속 오솔길 초입, 한낮이지만 나무 그늘이 짙어지는 숲. 문득 긴장이 스치는 공기.<br/><b>인물</b> Seonbi(선비)는 화면 앞 왼쪽에 등을 보이고 서서(검은 갓·봇짐·어깨에 걸친 활이 프레임을 만듦) 걸음을 멈추고 고개를 소리 쪽으로 살짝 기울임, 허리 옆으로 붉은 술띠 한 점(빨강 악센트). 저편 큰 나무 위 하늘에서 Magpie(까치) 두 마리가 파닥이며 깍깍 다급하게 맴돎(작게).<br/><b>배경·소품</b> 겹겹의 소나무·참나무 기둥(느슨한 청회색 획), 발밑 오솔길, 저편에 우뚝 선 큰 나무의 실루엣, 나무 사이 얼룩진 빛.<br/><b>톤</b> 잎 사이로 떨어지는 얼룩 햇빛, 평화로운 길에서 "무슨 일이지?" 하고 귀 기울이는 궁금한 긴장.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(둥지로 오르는 구렁이)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">커다란 나무 꼭대기에 까치 둥지가 있었어요. 그런데 저런! 시커먼 구렁이 한 마리가 스르르, 스르르 나무를 타고 오르는 게 아니겠어요? 둥지 안 아기 까치들은 바들바들 떨며 울었지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글 — 나무 밑동에서 꼭대기 둥지까지 올려다보며 나무의 높이를 수직으로 강조.<br/><b>장소·시간</b> 숲 한가운데 하늘로 뻗은 커다란 나무 아래, 한낮.<br/><b>인물</b> 나무 꼭대기 둥지에서 아기 Magpie(까치)들이 바들바들 떨며 입을 벌려 울고, 어미 Magpie(까치)가 둥지 위를 파닥이며 애타게 맴돎. 나무 줄기 중간을 Serpent(구렁이)의 검푸른 긴 몸이 스르르 감아 오르는 중 — 머리는 잎 뒤에 반쯤 가려 조용한 어두운 형체감 위주로(무섭지 않게, 송곳니·위협 표정 없이). 화면 최하단 구석에 Seonbi(선비)가 작게 서서 올려다봄, 허리의 붉은 술띠 한 점(빨강 악센트).<br/><b>배경·소품</b> 하늘로 뻗은 나뭇가지와 잎(느슨한 획, 위로 갈수록 종이 여백에 녹아듦), 잔가지·진흙으로 엮은 둥지, 줄기의 거친 껍질 몇 획.<br/><b>톤</b> 잎 사이 역광의 한낮, 위협은 어둡고 은근한 실루엣으로만 절제 — 아이가 감당할 만한 조마조마함.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P4 ~ P8 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(나뭇가지를 겨눈 활)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">선비는 얼른 활을 꺼내 들었어요. "구렁이를 다치게 할 수는 없지. 옳지, 좋은 수가 있다!" 선비는 시위를 팽팽히 당겨 둥지 옆 굵은 나뭇가지를 향해 쏘았지요. 핑— 우지끈! 화살 맞은 가지가 아주 요란한 소리를 냈어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 측면 — 시위를 한껏 당긴 활과 선비의 손·옆얼굴에 바짝 붙어 집중하는 구도.<br/><b>장소·시간</b> 같은 큰 나무 아래, 한낮. 숨을 고르는 고요한 집중의 공기.<br/><b>인물</b> Seonbi(선비)의 측면 상반신 클로즈업 — 두 발을 단단히 딛고 <b>활(hwal)</b>의 시위를 팽팽히 당김. 화살촉은 구렁이가 아니라 둥지 옆 굵은 나뭇가지 쪽, 화면 밖 위쪽을 향해 비스듬히(사람도 동물도 겨누지 않음이 분명히). 점눈은 또렷하고 입은 꾹 다문 결의의 실선, 갓끈이 살짝 날림. (허리 술띠는 프레임 밖 — 이 컷의 빨강 악센트는 활 손잡이의 붉은 실 감개 하나.)<br/><b>배경·소품</b> 활 손잡이에 감긴 붉은 실(빨강 악센트), 등에 멘 봇짐 끈 일부, 배경은 거의 빈 크림 종이로 비워 팽팽한 긴장에 집중.<br/><b>톤</b> 밝은 낮이지만 배경을 비워 만든 고요한 집중 — "다치게 하지 않고 구한다"는 단단하고 착한 결의.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(놀라 달아난 구렁이)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"앗, 깜짝이야!" 요란한 소리에 화들짝 놀란 구렁이는 스르륵 미끄러져 수풀 저편으로 달아났어요. "깍깍! 고마워요, 선비님!" 까치 가족이 선비 머리 위를 빙글빙글 돌며 인사했지요. 선비는 빙그레 웃고 다시 길을 떠났답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글 부감 — 나무 꼭대기 높이에서 둥지와 아래 숲길을 마당처럼 내려다보는 구도.<br/><b>장소·시간</b> 큰 나무 위와 그 아래 숲길, 한낮. 안도가 확 퍼지는 공기.<br/><b>인물</b> 부감 속에서 Serpent(구렁이)가 화면 가장자리 수풀로 스르륵 미끄러져 달아나며 꼬리 끝만 남김(다친 데 하나 없이, 놀라 허둥대는 코믹한 곡선). 둥지의 아기 Magpie(까치)들은 입을 벌려 짹짹 안도하고, 어미 Magpie(까치) 두 마리가 아래의 Seonbi(선비) 머리 위를 빙글빙글 돌며 고맙다고 인사. 선비는 갓을 살짝 들어 올리며 실선 미소로 화답, 허리의 붉은 술띠 한 점(빨강 악센트).<br/><b>배경·소품</b> 우지끈 꺾여 잎이 흔들리는 굵은 나뭇가지와 그 옆에 얌전히 꽂힌 화살 한 대(가지에 맞았음이 분명히 보이게), 둥지, 아래로 이어지는 오솔길.<br/><b>톤</b> 잎 사이로 쏟아지는 밝은 햇살, 위기가 풀린 후련하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>시련(깊은 산속의 불빛)</b> <span class="tag beat">③ 시련</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느새 해가 저물고, 깊은 산속은 깜깜해졌어요. 그때 저 멀리 불빛 하나가 반짝! "옳지, 오늘 밤은 저기서 쉬어 가야겠다." 깊은 산속에 낡은 절 한 채가 홀로 서 있었지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 원경, 아이레벨, 극단 여백 — 화면의 70%가 푸른 어스름의 산과 빈 하늘, 사건(절 불빛과 인물)은 우측 아래 구석에 몰아넣는 구도.<br/><b>장소·시간</b> 해가 진 깊은 산속 능선길, 푸른 어스름의 저녁. 고요하고 아득한 공기.<br/><b>인물</b> Seonbi(선비)는 능선 흙길 위 콩알만 한 실루엣 — 봇짐을 고쳐 메고 불빛 쪽으로 조심조심 걸음을 옮김. 원경 실루엣이라 술띠는 청회색 처리(이 그림의 빨강은 등롱 1점만).<br/><b>배경·소품</b> 겹겹이 물러나는 산 능선(옅은 청회색 획, 멀수록 종이에 녹아듦), 우측 아래 구석의 낡은 산사 — 기와지붕과 높다란 종루의 실루엣, 창호지에 배어나는 작고 따뜻한 불빛, 처마 끝의 작은 붉은 등롱 한 점(빨강 악센트), 하늘에 가는 초승달과 별 두엇.<br/><b>톤</b> 검푸른 저녁 어스름 속 따뜻한 불빛 하나 — 무섭기보다 신비하고 아득한, 옛이야기 밤의 정취.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>시련(길을 막은 구렁이)</b> <span class="tag beat">③ 시련</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 절 문 앞에, 스르르— 커다란 구렁이가 나타나 길을 막았어요. 낮에 쫓겨 간 구렁이의 짝이었지요. 구렁이가 달빛처럼 낮은 목소리로 말했어요. "네가 낮에 내 짝을 놀라게 해 쫓았겠다? 그럼 시험을 하나 내지. 너는 오늘 밤 내 앞에서 한 발짝도 움직일 수 없다. 그런데도 새벽 종이 세 번 울리면, 지나가게 해 주마."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글 — 몸을 높이 세운 커다란 구렁이를 아래에서 올려다보며 거대함과 신비함을 강조.<br/><b>장소·시간</b> 산사 일주문 앞, 달빛 어린 깊은 밤. 어둡지만 위협보다 신비가 감도는 공기.<br/><b>인물</b> Serpent(구렁이)는 화면 오른쪽에서 큰 S자로 몸을 둥글게 세워 문 앞을 막음 — 달빛처럼 옅은 점눈 두 개, 송곳니 없는 둥근 입, 이마의 옅은 초승달 무늬, 무섭기보다 근엄하고 신비한 기품, 갈라진 혀를 가는 한 획으로 낼름. Seonbi(선비)는 왼쪽 아래에 작게 — 갓을 붙잡고 움찔 한 걸음 물러섰다가, 이내 두 손을 모으고 공손히 마주 봄(O자 입의 놀람에서 다잡은 실선 입으로), 허리의 붉은 술띠 한 점(빨강 악센트).<br/><b>배경·소품</b> 낡은 일주문 기둥과 기와, 하늘의 둥근 달, 밤안개는 빈 종이 여백으로, 저 뒤로 높은 종루의 실루엣이 살짝.<br/><b>톤</b> 청회색 달빛, "잡아먹겠다"가 아니라 조용한 '시험'의 고요하고 신비로운 긴장.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>시련(아무도 없는 종루)</b> <span class="tag beat">③ 시련</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">선비는 그 자리에 선 채, 마당 너머 높다란 종루를 올려다보았어요. 낡은 절에는 스님도, 아무도 없었지요. "이 깊은 밤에, 누가 종을 울려 준단 말인가…" 바람만 휘잉— 빈 마당을 쓸고 지나갔어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글 부감 — 텅 빈 절 마당 한가운데 홀로 선 선비를 위에서 내려다봐 막막함을 강조.<br/><b>장소·시간</b> 일주문 안쪽, 구렁이가 지켜보는 자리, 깊은 밤. 바람만 지나가는 텅 빈 공기.<br/><b>인물</b> Seonbi(선비)는 일주문 안쪽 그 자리에 작게 — 고개를 들어 마당 너머 저편 높은 종루를 올려다보며 두 손을 모아 쥐고, 난감하게 내려앉은 실선 입. 달빛에 그림자가 길게 늘어짐. 허리의 붉은 술띠 한 점(빨강 악센트). Serpent(구렁이)가 선비 둘레를 낮고 느슨한 코일로 두르고 조용히 지켜봄(무섭지 않게, 조이지 않고 울타리처럼).<br/><b>배경·소품</b> 마당 저편의 높은 종루 — 기둥 위 지붕 아래 매달린 커다란 <b>종(beomjong)</b>의 어두운 실루엣과 줄에 매달린 당목, 낙엽 몇 장이 휘잉 바람에 굴러가는 곡선 획, 텅 빈 댓돌과 마루(아무도 없음이 보이게), 마당의 넓은 여백.<br/><b>톤</b> 차고 푸른 밤, 넓은 빈 마당의 여백이 만드는 막막함과 고요 — 이야기의 가장 낮은 골짜기.</pre></details>
+</div>
+
+<!-- ④ 절정 : P9, P10, P11 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(어둠을 가르는 날갯짓)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때였어요. 푸드덕 푸드덕! 어두운 새벽하늘 저편에서 날갯짓 소리가 들려왔지요. 밤새 선비님이 걱정돼 몰래 뒤따라온 까치 가족이었어요! "선비님이 우리를 구해 주셨잖아. 이번엔 우리가 갚을 차례야!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 원경, 아이레벨, 극단 여백 — 검푸른 새벽하늘이 화면 대부분을 차지하고, 좌하단에 종루 실루엣, 우상단에서 까치 무리가 날아 들어오는 대각 구도.<br/><b>장소·시간</b> 산사 위 새벽하늘, 동트기 직전의 짙은 남색 하늘.<br/><b>인물</b> Magpie(까치) 가족 여러 마리가 우상단에서 푸드덕 푸드덕 힘찬 브이(V) 대형으로 날아 들어옴 — 어둠 속에 흰 날개깃과 배가 또렷, 부리를 앙다문 씩씩하고 결연한 자세. 좌하단 절 마당에 Seonbi(선비)가 아주 작게 서서 하늘을 올려다봄. 원경 실루엣이라 술띠는 청회색 처리(이 그림의 빨강은 등롱 1점만).<br/><b>배경·소품</b> 별 몇 점이 남은 짙은 남색 하늘(극단 여백), 좌하단의 종루·절 지붕 실루엣, 처마 끝의 작은 붉은 등롱 한 점(빨강 악센트).<br/><b>톤</b> 짙은 남색 새벽, 어둠을 가르고 은혜를 갚으러 달려와 주는 뭉클하고 벅찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(첫 종소리) · 후렴</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">까치들은 온몸으로 힘껏 종에 부딪혔어요. 댕—! 커다란 종이 울렸지요. 쉬지 않고 또 한 번, 댕—! "조금만 더 힘을 내! 은혜 갚는 종소리, 댕— 댕—!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 클로즈업, 로우앵글 — 종루 높이로 올라가 커다란 범종을 화면 가득, 아래에서 올려다보는 구도(이 편의 상징 컷).<br/><b>장소·시간</b> 종루 안, 동트기 직전의 어스름. 숨을 삼키는 순간.<br/><b>인물</b> Magpie(까치)들이 온몸으로 커다란 <b>종(beomjong)</b>에 힘껏 부딪힘 — 한 마리는 막 부딪히는 순간(날개 활짝, 눈 질끈 감은 실눈 곡선), 두 마리는 뒤이어 날아들고, 깃털 두어 장이 흩날림. 아프기보다 힘차고 장하게 — 부딪힘은 '둥—' 하고 퍼지는 울림 효과 선으로 표현.<br/><b>배경·소품</b> 청동 범종의 초록빛 녹청과 꼭대기의 용뉴(용 모양 고리), 종 어깨의 유곽 무늬, 옆에 줄로 매달린 당목, 종에서 동심원으로 퍼지는 커다란 소리 물결 선(댕—), 대들보 단청의 붉은 획 하나(빨강 악센트), 어스름한 종루 기둥.<br/><b>톤</b> 어스름 속 종의 묵직한 존재감과 작은 새들의 커다란 용기 — 장엄하고 뭉클한 절정.</pre></details>
+</div>
+
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>절정(세 번째 종, 밝아 오는 새벽)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">댕— 댕— 댕—! 마침내 종이 세 번 울리고, 동쪽 하늘이 환하게 밝아 왔어요. 구렁이는 약속대로 스르르 몸을 풀었지요. "약속은 약속이지. 참으로 장한 새들이로구나." 그러고는 아침 안개 속으로 조용히 사라졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 — 동트는 산사 전경을 위에서 넓게 내려다보며 절정을 해소하는 구도.<br/><b>장소·시간</b> 산사와 산등성이, 세 번째 종소리와 함께 동이 트는 새벽. 금빛이 번지는 공기.<br/><b>인물</b> 종루에서 마지막 종소리의 물결 선이 크게 퍼지고(댕—), Serpent(구렁이)는 마당 아래쪽에서 몸을 스르르 풀어 아침 안개 속으로 미끄러져 사라지는 중 — 고개를 한 번 돌려 종루를 바라보는 옅은 점눈이 어딘가 흐뭇한 기색, 꼬리 끝은 안개 획 몇 개로 녹아듦. Seonbi(선비)는 마당 가운데서 두 손을 모으고 종루를 올려다봄, 허리의 붉은 술띠 한 점(빨강 악센트).<br/><b>배경·소품</b> 동쪽 능선 위로 번지는 첫 햇살(크림 종이가 그대로 아침빛이 됨), 옅어지는 새벽 안개, 종루와 절 지붕·마당, 겹겹 산등성이.<br/><b>톤</b> 짙은 남색에서 금빛 크림으로 밝아 오는 새벽, 약속이 지켜진 후련하고 신비로운 해소.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P12, P13 -->
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(선비의 보살핌)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">선비가 종루로 달려가 보니, 까치들이 지쳐 쓰러져 있었어요. "아이고, 나를 살리려고 이렇게까지…" 선비는 까치들을 두 손으로 고이 안아, 표주박 물을 호록호록 먹이고 정성껏 보살폈지요. 훌쩍, 선비의 눈에 눈물이 핑 돌았어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 기울인(더치) 아이레벨 — 선비의 두 손과 품 안의 까치에 시선을 모으는 감정 컷.<br/><b>장소·시간</b> 종루 아래, 아침 햇살이 낮게 비껴드는 이른 아침. 조용한 보살핌의 공기.<br/><b>인물</b> Seonbi(선비)는 무릎을 꿇고 지쳐 쓰러진 Magpie(까치) 한 마리를 두 손으로 오목하게 고이 감싸 올림 — 눈가에 눈물 한 방울, 걱정으로 내려앉은 실선 입. 품 안의 까치는 눈을 가는 곡선으로 감고 날개를 축 늘어뜨렸지만, 가슴이 오르내리며 숨 쉬는 것이 또렷이 보임(포근하게, 비극적이지 않게). 곁의 펼친 봇짐 보자기 위에 다른 Magpie(까치)들이 나란히 뉘어져 쌔근쌔근 쉬는 중.<br/><b>배경·소품</b> 펼쳐 놓은 봇짐 보자기, 물을 담은 표주박, 흩어진 깃털 두어 장, 뒤로 종루 기둥 아랫단. 선비 허리의 붉은 술띠 한 점(빨강 악센트).<br/><b>톤</b> 낮고 따뜻한 아침 햇살, 애틋하지만 "곧 괜찮아질 거야"라는 안심이 깔린 조용하고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p13">
+  <div class="page-head"><span class="pnum">P13</span><b>결말(다시 하늘로) · 후렴</b> <span class="tag beat">⑤ 결말 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">따뜻한 아침 햇살 아래, 까치들은 기운을 차리고 포르르 하늘로 날아올랐어요. "깍깍! 고마워요, 선비님!" "고맙다, 까치들아. 너희 덕분에 살았구나." 선비도 씩씩하게 다시 한양 길을 나섰지요. 은혜는 이렇게 서로서로 돌고 돌아, 댕— 댕— 댕— 종소리처럼 멀리멀리 퍼진답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 로우앵글 — 아침 하늘로 날아오르는 까치들을 마당에서 올려다보는 상승 구도, 하늘 여백을 넉넉하게.<br/><b>장소·시간</b> 산사 마당과 그 위의 맑은 아침 하늘, 햇살 가득한 아침.<br/><b>인물</b> 기운을 되찾은 Magpie(까치) 가족이 포르르 줄지어 하늘로 힘차게 날아오르며 깍깍 지저귐 — 날갯짓이 다시 가볍고 씩씩함, 맨 앞 한 마리는 뒤를 돌아보며 인사하듯 고개를 갸웃. 아래 마당의 Seonbi(선비)는 갓을 벗어 높이 흔들며 환한 실선 미소로 배웅 — 봇짐을 메고 다시 길 떠날 채비, 허리의 붉은 술띠 한 점(빨강 악센트).<br/><b>배경·소품</b> 아침 햇살 가득한 크림빛 하늘(화면 위쪽은 넉넉한 여백), 종루 처마 끝과 그곳에서 은은히 퍼지는 종소리 물결 선, 마당 밖 산길로 이어지는 흙길, 멀리 겹겹 산등성이.<br/><b>톤</b> 환한 아침 크림빛, 은혜가 은혜를 갚고 다시 길이 이어지는 따뜻하고 벅찬 여운.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 은혜 갚은 까치 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'Seonbi',  name: '선비',   desc: '마음씨 착한 젊은 선비 — 갓·옥빛 도포·붉은 술띠(악센트), 봇짐과 활',            aliases: ['Seonbi'] },
+    { token: 'Magpie',  name: '까치',   desc: '은혜 갚는 까치 가족 — 먹선 몇 획의 흑백 까치, 흰 배·긴 꼬리, 3상태(건강/아기/지침)', aliases: ['Magpie'] },
+    { token: 'Serpent', name: '구렁이', desc: '신비한 산의 구렁이 — 청회색 낙서 획의 긴 몸, 송곳니 없음, 이마 초승달 무늬, 근엄·신비', aliases: ['Serpent'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

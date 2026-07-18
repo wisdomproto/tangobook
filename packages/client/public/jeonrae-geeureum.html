@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 소가 된 게으름뱅이</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 3 #19</div>
+  <h1>🐮 소가 된 게으름뱅이</h1>
+  <div class="sub">뒹굴뒹굴 게으름뱅이 총각이 소머리탈을 쓰고 소가 되었다가, 땀 흘려 일하는 소중함을 배우는 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 근면 &nbsp;·&nbsp;
+  <b>분량</b> 12 스프레드 &nbsp;·&nbsp; <b>후렴</b> 뒹굴뒹굴 노래 → 결말 변주 &nbsp;·&nbsp;
+  <b>핵심단어</b> 소머리탈 · 멍에 · 쟁기 · 지게 · 멍석 &nbsp;·&nbsp;
+  <b>순화</b> 죽음 언급 0 — 원작 "무를 먹으면 죽는다" 금지 → 노인의 수수께끼 "무밭의 무를 먹으면 다시 사람이 된다"로 탈출 / 노인 = 벌주는 이가 아닌 깨우침을 주는 신비한 존재 / 농부 = 무던하고 소를 아끼는 사람(학대 묘사 0, 여물 듬뿍)
+</div>
+<div class="refrain">🐮 반복 후렴 — "뒹굴뒹굴~ 놀고 먹고 자고!" → (결말 변주) "영차영차, 일하는 게 젤 신나!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-geeureum</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요. 🔴 게으름뱅이 = 변신 캐릭터 — 사람(<code>LazyMan</code>)/소(<code>LazyOx</code>) 상태별 카드·토큰 분리, 각 쪽 SCENE 은 그 시점의 상태 토큰만 사용.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부. 🔴 동일 인물 시그니처 = <b>정수리/이마의 삐죽 머리칼 한 가닥</b>(사람↔소 공통) + 소 상태의 <b>목에 남은 가는 빨간 끈</b>.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="게으름뱅이 총각" data-key="char-lazyman">
+  <div class="head"><span class="face">🥱</span><b>게으름뱅이 총각</b> <span class="rom">LazyMan · 사람 상태</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: LazyMan — a young lazybones bachelor, comic and lovable, never mean. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a slack easy one-line mouth that droops open into a lazy yawn, no nose (or one tiny dot), NO stubble dots (he is a young unmarried man). Hair as one solid dark shaggy mop — no topknot — with his signature: ONE stray sprig of hair sticking straight up from the crown like a little antenna. (This exact sprig survives on the ox's forehead later, marking them as the same person.)
+SILHOUETTE (his signature): long, loose and noodle-limp — a boneless slouching posture, shoulders melted, belly slightly out, always leaning on something or sprawled flat on his back. Everything about him droops.
+CLOTHES: a rumpled plain hanbok suggested in soft blue-grey pencil strokes — jacket ties left loose and dangling, baggy trousers as open paper with lazy loose hatching, one straw sandal half hanging off his foot. Rumpled is told by a few crooked strokes, never by dirt or gloom.
+REFERENCE SHEET: one sheet on plain bright cream paper — a sprawled-on-back lazy idle (arms folded behind the head, one knee crossed over the other, foot dangling) + a standing slouch in 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) blissful lazy smile with two tiny sleepy line-strokes over the dot eyes, (2) sulky sideways pout with a puffed cheek stroke, (3) shocked big O mouth with flyaway brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="소가 된 게으름뱅이" data-key="char-lazyox">
+  <div class="head"><span class="face">🐮</span><b>소가 된 게으름뱅이</b> <span class="rom">LazyOx · 소 상태</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: LazyOx — the SAME young lazybones AFTER the magic ox-head mask turned him into an ox. A gentle Korean ox in the dot-eye language: a soft rounded ox body hatched loosely in a warm pale straw-tan (Korean hanu tone), the belly left as open cream paper, two dot eyes, a simple line mouth on a broad soft muzzle with two tiny nostril dots, two small rounded horns, floppy ears, and a thin tail ending in a scribble tuft.
+🔴 SAME-PERSON SIGNATURES (must appear in every cut): (1) ONE stray sprig of dark hair sticking straight up from his forehead between the horns — the exact same little antenna sprig LazyMan has on his crown; (2) a thin red cord tied loosely around his neck (left over from the mask's ties) — this cord is the picture's single red accent while he is an ox.
+SILHOUETTE & BEARING: a big gentle ox that still carries LazyMan's droop — head hung low, knees wobbly, a long-suffering sigh built into the posture. Sad-comic and safe, never gruesome: he is fed and cared for, just very tired and very sorry.
+REFERENCE SHEET: one sheet on plain bright cream paper — a full-body standing side view + a front view + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) droopy sulky line mouth with the head hung low, (2) startled small O mouth with lifted brow strokes ("eum-meo?!"), (3) welling-up remorseful face — a wobbly downcurved mouth and one tiny tear stroke under a dot eye. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="신비한 노인" data-key="char-oldman">
+  <div class="head"><span class="face">👴</span><b>신비한 노인</b> <span class="rom">OldMan · 소머리탈 만드는 이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: OldMan — a mysterious, kindly mountain elder who carves magic ox-head masks. He is NOT a punisher and never scary — a twinkly, serene teacher who lets a lazybones learn for himself. Dot-eye design language: a flat cream face, two dot eyes, a calm knowing one-line smile, no nose, and his signature — a long white beard drawn as one soft scribbled cloud-mass, with white wisps of hair under a wide woven reed hat (paeraengi) drawn as one simple pale shape.
+SILHOUETTE: small, calm and upright — a compact seated stillness that contrasts with everyone else's bustle. Slow, deliberate, gently amused.
+CLOTHES & PROPS: a plain cream durumagi overcoat left almost entirely as open paper with a few soft grey fold strokes, straw sandals, a small carving knife held loosely, wood shavings curling at his feet, and the half-finished ox-head mask (someori-tal) resting on his knee with its thin red cord ties — the red cord is the picture's single red accent when the mask is present.
+REFERENCE SHEET: one sheet on plain bright cream paper — a seated cross-legged idle carving the mask on his knee + a standing 3/4 turn with a simple walking staff + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) serene knowing one-line smile, (2) a sly twinkling smile with one lifted brow stroke, (3) a gentle warm laugh drawn as a small curved open mouth inside the beard. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="농부" data-key="char-farmer">
+  <div class="head"><span class="face">🧑‍🌾</span><b>농부</b> <span class="rom">Farmer · 무던하고 소를 아끼는 이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Farmer — a steady, good-natured farmer who works hard and cares well for his animals. Never scary or harsh: an easygoing, unhurried man who feeds his ox generously and pats its back after work. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a plain easy one-line smile, no nose, two or three tiny stubble dots on the chin, hair as one solid dark mass in a topknot (sangtu) wrapped with a cotton towel headband drawn as two quick strokes.
+SILHOUETTE (his signature): sturdy and square — a broad, grounded, barrel-chested build, planted wide stances, unhurried steps. Everything about him is steady — the exact opposite of LazyMan's noodle slouch.
+CLOTHES: plain undyed work hanbok suggested in soft blue-grey and pale straw strokes — sleeves and trouser legs rolled up and tied, straw sandals, a hand towel tucked at the waist.
+REFERENCE SHEET: one sheet on plain bright cream paper — a full-body front idle (one hand on hip, easy one-line smile) + a 3/4 turn walking with a straw lead-rope loose in one hand + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) easy plain one-line smile, (2) hearty open laugh drawn as a curved open mouth, (3) mild surprise with a small O mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="어머니" data-key="char-mother">
+  <div class="head"><span class="face">👩‍🌾</span><b>어머니</b> <span class="rom">Mother · 부지런한 어머니</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Mother — LazyMan's hardworking, warm-hearted mother. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile that tips easily into a fond sigh, no nose (or one tiny dot), hair as one solid dark mass parted in the middle and gathered into a modest LOW bun at the nape with one plain hairpin stroke.
+SILHOUETTE (her signature): small, soft and rounded with a busy motherly bearing — always mid-task, sleeves rolled, a work apron on. Warm even when she scolds; her nagging is love, never anger.
+CLOTHES: a humble skirt-and-jacket hanbok suggested in soft blue-grey and faded straw tones — mostly open paper with loose hatching, a plain work apron drawn in a few strokes, and a small red jacket-tie ribbon (goreum) — the picture's single red accent in scenes where the ox's red cord is absent.
+REFERENCE SHEET: one sheet on plain bright cream paper — a full-body front idle (hands folded at the waist, fond one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) fond exasperated smile with one tilted brow stroke, (2) worried soft downcurved mouth, (3) overjoyed tearful smile with one tiny happy tear stroke. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="소머리탈" data-key="word-someoritai">
+  <div class="head"><span class="face">🐂</span><b>소머리탈</b> <span class="rom">someori-tal — an ox-head mask</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "someori-tal — a traditional Korean ox-head folk mask (소머리탈), carved from paulownia wood". Warm honey-brown carved wood (#B07A3C) with visible soft chisel facets and wood grain, two small rounded pale horns, big friendly rounded eye holes, a broad gentle muzzle with two nostril dots, softly carved floppy ears, and two thin RED silk cord ties (#C0392B) hanging from the sides. Friendly and folk-charming, NOT scary — a gentle sleepy-eyed ox face with a hint of a smile in the carving. Show TWO views: (1) the mask front-on, and (2) a slight 3/4 angle showing the hollow inside and the red cord ties. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="멍에" data-key="word-meonge">
+  <div class="head"><span class="face">🪵</span><b>멍에</b> <span class="rom">meonge — a wooden ox yoke</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "meonge — a traditional Korean wooden ox yoke (멍에), laid over an ox's neck to pull a plow or cart". One gracefully curved hardwood bow in warm honey-brown (#B07A3C) with smooth worn wood grain polished by years of gentle use, twisted straw ropes and a soft woven straw neck-pad lashed at both ends, and a strong hemp trace-rope ending in a small wooden toggle. Show TWO forms: (1) the curved yoke alone at a slight 3/4 angle so the bow shape reads clearly, and (2) a small inset of the yoke resting on a simple ox-neck silhouette showing how it sits. Sturdy, handcrafted, warm. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="쟁기" data-key="word-jaenggi">
+  <div class="head"><span class="face">🌾</span><b>쟁기</b> <span class="rom">jaenggi — a Korean wooden plow</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jaenggi — a traditional Korean wooden plow (쟁기), pulled by an ox to turn spring fields". A long gently curved wooden beam and a single upright plow handle in warm honey-brown wood (#B07A3C) with twisted straw-rope lashings at every joint, and at the base a broad iron plowshare (boseup) in a soft clean steel-grey (#9AA3A8) with a polished working edge — sturdy farm craftsmanship, friendly and well-kept, not rusty or menacing. Shown at a slight 3/4 angle so the beam, the handle and the share all read clearly. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="지게" data-key="word-jige">
+  <div class="head"><span class="face">🎒</span><b>지게</b> <span class="rom">jige — a Korean A-frame back carrier</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jige — a traditional Korean wooden A-frame back-carrier for firewood and loads (지게)". Two natural pine/alder upright wooden posts (warm honey-brown wood grain #B07A3C) joined by cross-rungs lashed with twisted straw rope, woven rice-straw shoulder straps, and its matching Y-shaped support stick (지게작대기) leaning beside it. Show the frame at a slight 3/4 angle so the A-frame shape reads clearly. Sturdy, handcrafted, warm wood tones. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="멍석" data-key="word-meongseok">
+  <div class="head"><span class="face">🧺</span><b>멍석</b> <span class="rom">meongseok — a woven straw mat</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "meongseok — a traditional Korean hand-woven rice-straw floor mat (멍석), spread in the yard for drying grain, working and napping". A large rounded-rectangle mat woven from golden rice-straw (#D8B45A), showing the dense over-under weave texture and a neatly braided rim. Show TWO forms: (1) the mat spread open at a gentle high angle so the weave pattern reads clearly, and (2) the same mat rolled into a fat cylinder tied with a straw cord, leaning beside it. Warm, humble, beautifully crafted. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 12 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(뒹굴뒹굴 게으름뱅이)</b> <span class="tag beat">① 도입 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 어느 마을에 지독한 게으름뱅이 총각이 살았어요. 해가 중천에 뜨도록 멍석 위에서 뒹굴뒹굴. "뒹굴뒹굴~ 놀고 먹고 자고!" 일하기는 정말정말 싫어했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 수직에 가까운 평면 부감(하이앵글) — 마당에 펼친 멍석을 바로 위에서 내려다보고, 게으름뱅이가 화면 한가운데 대(大)자로 누운 구도.<br/><b>장소·시간</b> 옛 시골 초가집 앞마당, 해가 중천에 뜬 한낮. 참새 소리가 들릴 듯 나른하고 태평한 공기.<br/><b>인물</b> LazyMan(게으름뱅이)이 마당에 펼친 <b>멍석(meongseok)</b> 위에 대자로 벌렁 누워 두 팔을 머리 뒤에 괴고 한쪽 무릎을 꼬아 발을 까딱까딱, 점눈 위에 졸린 실선 두 획, 입은 헤벌쭉 늘어진 하품 모양. 정수리의 삐죽 머리칼 한 가닥(시그니처)도 옆으로 늘어짐.<br/><b>배경·소품</b> 부감으로 내려다보이는 멍석의 촘촘한 짚 짜임과 땋은 테두리, 옆에 던져 둔 부채, 반쯤 벗겨진 짚신 두 짝, 마당 구석의 장독 뚜껑 몇 개, 초가지붕 처마 끝자락. 툇마루 끝의 잘 익은 홍시 하나 = 화면의 빨간 포인트 1점.<br/><b>톤</b> 쨍한 한낮 햇빛 = 밝은 크림 종이 그대로, 세상 편하고 태평한 코믹 정서.</pre></details>
+</div>
+
+<!-- ② 발단 : P2 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(집을 나가는 게으름뱅이)</b> <span class="tag beat">② 발단 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어머니가 지게를 내밀며 말했어요. "얘야, 나무라도 좀 해 오렴." 게으름뱅이는 입을 삐죽 내밀었지요. "지게는 무겁고 일은 힘들어! 일 안 해도 되는 곳을 찾아갈 테야!" 총각은 콧노래를 부르며 집을 나섰어요. "뒹굴뒹굴~ 놀고 먹고 자고!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 구도(살짝 하이앵글) — 화면 앞에 어머니의 등과 어깨가 크게 걸리고, 그 너머로 꾀부리는 게으름뱅이를 봄.<br/><b>장소·시간</b> 초가집 마당, 아침나절. 잔소리와 꾀부림이 오가는 부산한 공기.<br/><b>인물</b> 전경 왼편 — Mother(어머니)가 등을 보인 채 나무 <b>지게(jige)</b>를 두 손으로 내밀며 한숨 섞인 다정한 잔소리, 고개가 살짝 기울어짐. 그 어깨 너머 — LazyMan(게으름뱅이)이 두 손을 홰홰 내저으며 입을 삐죽, 볼을 부풀린 새침한 표정, 몸은 이미 사립문 쪽으로 반쯤 돌아서 도망갈 자세.<br/><b>배경·소품</b> 지게에 기대 세운 지게작대기, 사립문과 그 너머 흙길, 초가지붕, 장독대, 마당의 멍석 귀퉁이. 어머니 저고리의 빨간 옷고름 = 화면의 빨간 포인트 1점.<br/><b>톤</b> 맑은 아침 햇빛, 얄밉지만 미워할 수 없는 코믹한 정서.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P3~P8 -->
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>사건(소머리탈 만드는 노인)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">고갯길을 넘던 게으름뱅이는 나무 그늘에서 이상한 노인을 만났어요. 노인은 소머리탈을 뚝딱뚝딱 만들고 있었지요. "할아버지, 그게 뭐예요?" "이 탈을 쓰면 아주 편해진다오." 노인의 눈이 반짝, 알 듯 말 듯 웃었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 + 극단 여백 — 화면의 70%가 텅 빈 고갯길과 하늘(빈 종이), 오른쪽 아래 구석 나무 그늘에 두 사람이 조그맣게 자리한 구도.<br/><b>장소·시간</b> 마을을 벗어난 한적한 고갯길, 늦은 오후. 어딘가 신비한 기운이 도는 고요한 공기.<br/><b>인물</b> OldMan(노인)이 화면 오른쪽 아래 나무 그늘에 가부좌로 앉아 무릎 위의 탈을 조각칼로 뚝딱뚝딱 다듬으며 알 듯 말 듯한 실선 미소. LazyMan(게으름뱅이)이 그 앞에 쪼그려 앉아 고개를 쭉 빼고 호기심 가득한 점눈으로 탈을 들여다봄, 정수리 삐죽 머리칼이 궁금한 듯 쫑긋.<br/><b>배경·소품</b> 큰 나무 한 그루와 옅은 그늘, 노인 발치에 도르르 말린 대팻밥과 나무 부스러기, 완성되어 가는 <b>소머리탈(someori-tal)</b>과 탈 옆구리의 가는 빨간 끈 = 화면의 빨간 포인트 1점, 텅 빈 고갯길과 능선 몇 획.<br/><b>톤</b> 늦은 오후의 나른한 빛, 넓은 여백이 주는 신비하고 호젓한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(소가 되어 버렸어요!)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">'편해진다고? 그럼 나도!' 게으름뱅이는 탈을 덥석 뒤집어썼어요. 그런데 이게 웬일이에요! 몸이 근질근질하더니— "음머어?!" 게으름뱅이는 커다란 소가 되어 버렸답니다. 물웅덩이에 비친 얼굴도 영락없는 소였지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 하이앵글 부감 — 물웅덩이를 위에서 내려다보는 구도, 수면에 비친 소 얼굴이 화면의 중심.<br/><b>장소·시간</b> 고갯길 옆 작은 물웅덩이 앞, 늦은 오후. 어리둥절 얼어붙은 공기.<br/><b>인물</b> LazyOx(소가 된 게으름뱅이)가 웅덩이 위로 고개를 푹 숙인 채 한쪽 앞발굽을 어정쩡하게 들어 제 볼을 만지려 하고, 잔물결 이는 수면에 커다란 소 얼굴과 놀란 O자 입이 또렷이 비침. 이마 뿔 사이의 삐죽 머리칼 한 가닥(시그니처)이 수면에도 똑같이 비침. 목에 걸린 가는 빨간 끈(탈의 끈) = 화면의 빨간 포인트 1점.<br/><b>배경·소품</b> 잔물결 몇 획의 웅덩이, 땅에 남은 짚신 두 짝과 구겨진 저고리(사람 시절 흔적), 나무 그늘 가장자리 — 노인의 모습은 이미 온데간데없음.<br/><b>톤</b> 늦은 오후 빛이 수면에 일렁, 놀랍지만 하나도 무섭지 않은 코믹 판타지 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(노인의 수수께끼)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느새 다시 나타난 노인은 소를 무던한 농부에게 데려다주었어요. 그리고 소의 귀에 대고 가만히 속삭였지요. "무밭의 무를 먹으면, 다시 사람이 된다오." 소가 "음머! 음머!(저 사람이에요!)" 아무리 외쳐도, 소 울음소리만 났답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 로우앵글(소 눈높이) — 소의 큰 머리가 화면 앞을 차지하고, 노인이 귀에 입을 가까이 대고 속삭이는 구도.<br/><b>장소·시간</b> 농부네 집 앞 흙길, 해질 무렵. 비밀 한 조각이 건네지는 조용한 공기.<br/><b>인물</b> LazyOx(소가 된 게으름뱅이)의 큰 머리가 화면 오른쪽 앞에 크게, 귀가 쫑긋 서고 점눈이 그렁그렁, "음머!" 하고 벌어진 O자 입. OldMan(노인)이 왼쪽에서 한 손을 입가에 모으고 소의 귀에 대고 가만히 속삭이며 알 듯 말 듯한 실선 미소. 뒤편 — Farmer(농부)가 새 소를 반기며 짚으로 꼰 고삐를 받아 들고 무던한 실선 미소.<br/><b>배경·소품</b> 농부네 초가집과 외양간 지붕 몇 획, 노인의 지팡이와 작은 보따리, 저녁 능선. 소 목의 가는 빨간 끈 = 화면의 빨간 포인트 1점.<br/><b>톤</b> 부드러운 저녁 빛, 수수께끼 같은 신비하고 묘하게 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>시련(멍에 메고 밭갈이)</b> <span class="tag beat">③ 시련</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">봄 내내 소가 된 게으름뱅이는 목에 멍에를 메고 밭을 갈았어요. 쟁기가 어찌나 무거운지, 영차영차, 끙끙. "이랴, 이랴!" 다리가 후들후들 떨렸지요. 멍석 위에서 뒹굴뒹굴 놀던 날들이 까마득했어요. 봄 밭엔 아직 무가 한 포기도 없었지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 사이드뷰 + 스케일 대비(살짝 하이앵글) — 드넓은 봄 밭이 화면을 가로지르고, 그 한가운데를 소와 농부가 조그맣게 가로질러 가는 구도.<br/><b>장소·시간</b> 농부네 넓은 봄 밭, 한낮. 흙내음 가득한 공기.<br/><b>인물</b> LazyOx(소가 된 게으름뱅이)가 목에 <b>멍에(meonge)</b>를 메고 <b>쟁기(jaenggi)</b>를 끌며 옆모습으로 나아감 — 고개는 푹 숙이고 다리는 후들후들, "끙…" 하는 한숨 모양의 벌어진 실선 입, 이마의 삐죽 머리칼도 축 처짐. Farmer(농부)는 뒤에서 쟁기 손잡이를 잡고 "이랴, 이랴!" 하며 무던하고 느긋한 걸음.<br/><b>배경·소품</b> 소가 지나온 길게 갈린 밭고랑들(일한 흔적), 아직 끝없이 남은 밭, 밭머리의 나무 한 그루, 능선 몇 획. 소 목의 가는 빨간 끈 = 화면의 빨간 포인트 1점.<br/><b>톤</b> 환한 봄 햇빛과 드넓은 여백 — 밭의 광활함 vs 작은 소의 대비가 고단함을 말해 주는, 안쓰럽되 우습고 따뜻한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>시련(무거운 짐, 뉘우침)</b> <span class="tag beat">③ 시련</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">여름에는 산더미 같은 장작짐도 날랐어요. 뙤약볕에 땀이 뻘뻘, 숨이 헉헉. '아이고… 일이 이렇게 힘든 것이었구나.' 소가 된 게으름뱅이는 그제야 혼자 일하시던 어머니 생각에 눈물이 핑 돌았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글 — 오르막 산길을 아래에서 올려다보며, 소 등에 얹힌 장작짐이 하늘을 가릴 듯 커 보이는 구도.<br/><b>장소·시간</b> 여름 한낮의 오르막 산길. 뙤약볕에 이글이글 무더운 공기.<br/><b>인물</b> LazyOx(소가 된 게으름뱅이)가 등에 산더미 같은 장작단을 싣고 오르막을 오르며 헉헉, 점눈 아래로 땀방울이 또르르, 이마의 삐죽 머리칼이 땀에 축 처지고 다리는 부들부들, 입은 울먹이는 물결 실선. Farmer(농부)는 곁에서 고삐를 느슨히 쥐고 함께 걸으며 수건으로 소의 목덜미 땀을 닦아 줌(끌고 가는 게 아니라 함께 가는 다정함).<br/><b>배경·소품</b> 밧줄로 단단히 묶인 장작단, 오르막 흙길과 아지랑이 몇 획, 하늘의 쨍한 해. 소 목의 가는 빨간 끈 = 화면의 빨간 포인트 1점.<br/><b>톤</b> 쨍쨍한 여름 햇빛, 고단함이 절정이지만 학대감은 전혀 없이 안쓰럽고 코믹한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>시련(외양간의 저녁, 깊어지는 뉘우침)</b> <span class="tag beat">③ 시련</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">저녁이 되면 무던한 농부는 여물을 듬뿍 주며 소의 등을 쓱쓱 쓰다듬었어요. "오늘도 고생했다, 우리 소." 소가 된 게으름뱅이는 코끝이 찡했지요. '어머니도 나를 이렇게 아껴 주셨는데… 나는 왜 그리 게을렀을까.'</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 + 겹침/가림 구도 — 외양간의 나무 기둥과 문틀이 화면 앞을 세로로 걸치고, 그 틈새로 저녁 정경을 들여다보는 구도.<br/><b>장소·시간</b> 농부네 외양간, 저녁. 호롱불 하나 켜진 아늑하고 조용한 공기.<br/><b>인물</b> Farmer(농부)가 여물통에 김이 모락모락 나는 여물을 듬뿍 부어 주고 다른 손으로 LazyOx(소가 된 게으름뱅이)의 등을 쓱쓱 쓰다듬으며 무던한 실선 미소. LazyOx는 고개를 숙인 채 점눈 밑에 눈물 한 방울이 그렁 — 고마움과 뉘우침과 어머니 그리움이 섞인 울먹이는 물결 실선 입.<br/><b>배경·소품</b> 전경의 나무 기둥과 문틀(겹침 장치), 김이 오르는 여물통, 구석의 짚 더미, 처마에 걸린 호롱불. 소 목의 가는 빨간 끈 = 화면의 빨간 포인트 1점.<br/><b>톤</b> 호롱불의 나지막한 온기, 하루 끝에 마음이 몽글해지는 뭉클한 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P9, P10 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(무밭을 발견하다)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느덧 가을이 되었어요. 밭머리 저편에 하얀 무들이 쑥쑥 자라 있었지요. 그 순간, 노인의 속삭임이 번쩍 떠올랐어요. '무밭의 무를 먹으면, 다시 사람이 된다!' 소가 된 게으름뱅이는 두근두근, 무밭으로 내달렸답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 소의 어깨너머 구도 — 소의 뒤통수와 어깨가 화면 앞에 크게 걸리고, 그 너머로 무밭이 반짝이며 펼쳐지는 구도.<br/><b>장소·시간</b> 가을 아침의 밭머리. 서늘하고 맑은, 두근거리는 공기.<br/><b>인물</b> LazyOx(소가 된 게으름뱅이)가 화면 앞에 뒷모습으로 서서 귀를 쫑긋 세우고 고개를 번쩍 듦 — 뿔 사이 삐죽 머리칼도 함께 번쩍 솟음. 어깨너머 저편, 이슬 맺힌 무밭에서 하얀 무들이 푸른 무청을 달고 흙 위로 통통하게 고개를 내밀고 있음.<br/><b>배경·소품</b> 줄지어 선 무밭 고랑, 밭두렁, 아침 이슬 반짝임 몇 획, 멀리 초가지붕. 소 목의 가는 빨간 끈 = 화면의 빨간 포인트 1점.<br/><b>톤</b> 맑은 가을 아침 빛, 심장이 두근 뛰는 희망의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(다시 사람으로!)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아삭! 무를 한 입 베어 물자, 뿅— 하고 눈앞이 환해졌어요. 세상에! 소가 된 게으름뱅이가 다시 사람으로 돌아왔지 뭐예요! 목에 걸렸던 빨간 끈이 스르르 풀려 떨어졌지요. "돌아왔다! 내 손이야, 내 발이야!" 밭 저편에서 농부가 눈이 휘둥그레졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글 — 무밭 한가운데서 다시 사람이 된 총각이 하늘로 두 팔을 번쩍 뻗은, 이야기의 "펼침면 한 방".<br/><b>장소·시간</b> 가을 무밭 한가운데, 눈부신 아침. 마법이 풀리는 반짝이는 공기.<br/><b>인물</b> LazyMan(게으름뱅이)이 무밭 한가운데 사람으로 돌아와 두 팔을 하늘로 번쩍, 입은 함박 O자로 "돌아왔다!", 정수리의 삐죽 머리칼 한 가닥이 기쁘게 쫑긋, 한 손에는 한 입 베어 문 하얀 무. 밭 저편 — Farmer(농부)가 <b>지게(jige)</b>를 진 채 걸음을 멈추고 작은 O자 입으로 눈이 동그래짐.<br/><b>배경·소품</b> 총각을 감싸는 뿅— 하는 만화적 반짝임과 소용돌이 몇 획, 뽑힌 무와 흩어진 무청, 줄지어 선 하얀 무들, 파란 가을 하늘. 발치에 스르르 풀려 떨어진 가는 빨간 끈 = 화면의 빨간 포인트 1점.<br/><b>톤</b> 눈부신 아침 햇빛과 반짝임, 마법이 풀린 환희와 폭소가 함께 터지는 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P11, P12 -->
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>결말(어머니 품으로)</b> <span class="tag beat">⑤ 결말 · 후렴 변주</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">총각은 한걸음에 집으로 달려가 어머니를 꼭 껴안았어요. "어머니, 이제 제가 일할게요!" 다음 날부터 총각은 누구보다 부지런한 일꾼이 되었지요. 지게 가득 나무를 지고도 콧노래가 절로 났어요. "영차영차, 일하는 게 젤 신나!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글 부감(살짝 기울임) — 초가집 마당에서 얼싸안은 모자를 가깝게 내려다보는 감정 컷.<br/><b>장소·시간</b> 게으름뱅이네 초가집 마당, 가을 한낮. 울다가 웃게 되는 반가운 공기.<br/><b>인물</b> LazyMan(게으름뱅이)이 Mother(어머니)를 두 팔로 꼭 껴안음 — 어머니 어깨에 얼굴을 묻고 눈을 질끈, 입은 울먹이다 웃는 물결 실선, 삐죽 머리칼이 수그러들 만큼 깊이 안김. Mother(어머니)는 아들 등을 토닥토닥, 기쁨의 눈물 한 방울과 함박 실선 미소.<br/><b>배경·소품</b> 마당에 펼쳐진 멍석과 벽에 기대 세운 지게(이제 총각이 쓸 것), 툇마루, 장독대. 어머니 저고리의 빨간 옷고름 = 화면의 빨간 포인트 1점.<br/><b>톤</b> 따뜻한 가을 햇빛, 눈물이 핑 돌지만 환하게 웃게 되는 재회의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(소들에게도 따뜻하게)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">총각은 가끔 농부 아저씨네 외양간에도 찾아갔어요. 여물을 듬뿍 주고, 소들의 등을 쓱쓱 쓸어 주었지요. "소가 얼마나 힘든지, 내가 제일 잘 알거든!" 고갯길의 노인은 다시 만날 수 없었지만, 총각은 오래오래 부지런하고 따뜻하게 살았답니다. 부지런한 손이 제일 고운 손이래요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 — 부지런해진 총각의 새 일상을 담는 훈훈한 마무리 정경.<br/><b>장소·시간</b> 농부네 외양간 앞마당, 맑은 가을 오후. 웃음소리가 담 너머로 들릴 듯한 공기.<br/><b>인물</b> LazyMan(게으름뱅이)이 소매를 걷어붙이고 외양간 앞에서 순한 소의 목덜미를 쓱쓱 쓸어 주며 환한 실선 미소 — 삐죽 머리칼이 씩씩하게 쫑긋, 곁의 여물통엔 방금 부어 준 여물이 김을 모락모락. Farmer(농부)는 옆에서 허리에 손을 얹고 껄껄 웃으며 흐뭇하게 바라봄.<br/><b>배경·소품</b> 외양간의 순한 점눈 소 두어 마리가 총각 쪽으로 다정하게 고개를 내밈, 마당의 볏단과 지게, 파란 가을 하늘. 총각이 소 목에 달아 준 작은 빨간 술 방울 하나 = 화면의 빨간 포인트 1점(지난날 제 목의 빨간 끈을 떠올리게 하는 회수).<br/><b>톤</b> 맑고 환한 가을 햇빛, 부지런함과 다정함이 몸에 밴 따뜻한 마무리 정서.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 소가 된 게으름뱅이 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'LazyMan', name: '게으름뱅이 총각',    desc: '흐물흐물 국수 자세의 게으름뱅이 — 더벅머리+정수리 삐죽 머리칼 한 가닥(시그니처), 구깃한 한복·수염점 없음(총각)', aliases: ['LazyMan'] },
+    { token: 'LazyOx',  name: '소가 된 게으름뱅이', desc: '점눈 소(연한 짚빛 한우) — 이마 뿔 사이 삐죽 머리칼 한 가닥 + 목의 가는 빨간 끈(동일 인물 시그니처)',            aliases: ['LazyOx'] },
+    { token: 'OldMan',  name: '신비한 노인',        desc: '소머리탈을 만드는 노인 — 흰 수염 구름 덩어리+패랭이, 벌주지 않는 깨우침의 존재',                                 aliases: ['OldMan'] },
+    { token: 'Farmer',  name: '농부',              desc: '무던하고 소를 아끼는 농부 — 다부진 몸, 상투+수건 머리띠, 걷어붙인 소매, 여물 듬뿍',                              aliases: ['Farmer'] },
+    { token: 'Mother',  name: '어머니',            desc: '부지런하고 따뜻한 어머니 — 낮은 쪽머리·앞치마, 빨간 옷고름(악센트)',                                             aliases: ['Mother'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

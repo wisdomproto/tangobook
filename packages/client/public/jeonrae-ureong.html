@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 우렁각시</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 3 #16</div>
+  <h1>🐚 우렁각시</h1>
+  <div class="sub">부지런한 총각과 우렁이에서 나온 고운 각시 — 몰래 차려지는 따뜻한 밥상 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 성실·진심 &nbsp;·&nbsp;
+  <b>분량</b> 12 스프레드 &nbsp;·&nbsp; <b>후렴</b> "누구랑 먹고 살꼬?" 문답 &nbsp;·&nbsp;
+  <b>핵심단어</b> 소반 · 옹기 · 가마솥 · 조리 · 함지박 &nbsp;·&nbsp;
+  <b>순화</b> 어두운 갈래(각시를 빼앗는 관리 등) 완전 배제 — 처음부터 끝까지 훈훈·코믹·설렘의 순한 판본만
+</div>
+<div class="refrain">🐚 반복 후렴 — "이 농사 지어 누구랑 먹고 살꼬?" — "나랑 먹고 살지, 누구랑 먹고 살아!"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-ureong</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부. 🔴 우렁각시는 <b>변신 캐릭터</b> — 우렁이 상태(UreongShell)와 각시 상태(UreongBride)의 시트·토큰을 분리한다(§6).</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="총각 농부" data-key="char-chonggak">
+  <div class="head"><span class="face">🧑‍🌾</span><b>총각 농부</b> <span class="rom">Chonggak · 부지런한 외톨이 총각</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Chonggak — a young, hardworking unmarried farmer who lives alone. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot), and NO stubble dots — he is young. His signature: hair as one solid dark mass pulled into a single long braid down his back, tied with a small ribbon (daenggi) — the old Korean marker of an unmarried young man.
+SILHOUETTE (his signature): sturdy and boyish — a medium build with soft rounded shoulders, sleeves and trouser cuffs rolled up from field work, always leaning slightly forward as if ready to get working. Diligent, warm, a little bashful.
+CLOTHES: a plain cotton work hanbok suggested in soft blue-grey pencil strokes — the jacket left mostly as open paper with loose hatching, baggy trousers rolled to the knee, straw sandals in a few pale straw-yellow strokes, and sometimes a folded cloth towel tucked at the waist. Humble and tidy, told with few strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (relaxed hands, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) gentle one-line smile, (2) astonished big O mouth with lifted brow strokes, (3) shy happy smile with a bashful little tilt of the head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="우렁이" data-key="char-ureong-shell">
+  <div class="head"><span class="face">🐚</span><b>우렁이 (변신 전)</b> <span class="rom">UreongShell · 각시의 우렁이 상태</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: UreongShell — the snail state of the snail bride: a big freshwater snail the size of a fist, drawn with only a few quick pencil strokes. A plump rounded spiral shell in pale straw-yellow and soft warm tan tones, the spiral drawn as one loose curling stroke, the opening left as open cream paper. Two tiny dot eyes peek out shyly on two short soft stalks — the ONLY hint that someone lovely is inside. Two or three tiny star-sparkle strokes float near the shell, giving it a gentle magical shimmer.
+SILHOUETTE: one simple rounded shell shape — instantly readable at coin-size in a wide scene.
+REFERENCE SHEET: one sheet on plain bright cream paper — show THREE VIEWS/STATES: (a) the closed shell resting quietly with the spiral facing the viewer; (b) the shy peeking state with the two dot eyes out on their stalks and a tiny sparkle; (c) the EMPTY shell held gently in two cupped hands (for scenes after the bride has come out). Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="우렁각시" data-key="char-ureong-bride">
+  <div class="head"><span class="face">🌸</span><b>우렁각시 (변신 후)</b> <span class="rom">UreongBride · 고운 각시 상태</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: UreongBride — the human state of the snail bride: a lovely, gentle young woman who cooks warm meals in secret. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a soft one-line smile, no nose (or one tiny dot), hair as one solid dark mass parted neatly and falling into a single long braid — the marker of an unmarried maiden.
+SILHOUETTE (her signature): small, graceful and softly rounded, standing lightly as if she might float — quiet diligence in every pose (rinsing rice, tossing greens, carrying a small tray).
+CLOTHES &amp; RED ACCENT: a fine skirt-and-jacket hanbok — a cream jeogori left as open paper with neat edges, a skirt suggested in a gentle leaf-green pencil tone with a few tidy hatching strokes, and her signature: a bright dahong-RED coat ribbon (otgoreum) with a matching red daenggi ribbon on the braid — the picture's single red accent whenever she appears.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded at the waist, soft one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) serene one-line smile, (2) startled small O mouth with lifted brow strokes (caught by surprise), (3) shy joyful smile with a gentle bow of the head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="소반" data-key="word-soban">
+  <div class="head"><span class="face">🍚</span><b>소반</b> <span class="rom">soban — a small portable dining table</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "soban — a traditional Korean small portable dining table (소반)". A low one-person table with a round tray top of glossy lacquered wood in deep warm persimmon-brown (#8C4A2F) showing soft wood grain, standing on four gracefully curved dog-leg legs (gaedari-soban style) joined by a slim stretcher. Show TWO forms on the card: (1) the empty table at a slight 3/4 angle so the curved legs read clearly, and (2) the same table set with a humble warm meal — a steaming brass rice bowl, a small soup bowl and two tiny side-dish saucers with a neat spoon-and-chopsticks pair. Centered icon-style word card, vivid and proud, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="옹기" data-key="word-onggi">
+  <div class="head"><span class="face">🏺</span><b>옹기</b> <span class="rom">onggi — Korean earthenware jar</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "onggi — a traditional Korean breathing earthenware jar (옹기)". A generously round-bellied clay jar with a glossy dark caramel-brown glaze (#6B4226) warming into soft reddish highlights on the belly, a short rolled lip, a matching shallow clay lid, and a few faint comb-pattern finger lines swept around the shoulder. Show TWO forms: (1) the lidded jar standing proud at a slight 3/4 angle, and (2) the open jar in use as a kitchen water jar — clear water inside with a small pale gourd dipper (bagaji) floating on top. Centered icon-style word card, vivid and proud, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="가마솥" data-key="word-gamasot">
+  <div class="head"><span class="face">🍲</span><b>가마솥</b> <span class="rom">gamasot — a cast-iron cauldron</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "gamasot — a traditional Korean heavy cast-iron rice cauldron (가마솥)". A wide round-bellied kettle in deep charcoal-black iron (#2B2B2E) with a subtle blue-grey sheen, a thick rolled rim with two small side lugs, and its domed heavy iron lid with a raised knob handle in the center. Set into the clay rim of a traditional fireplace hearth (agungi) in warm earthen ochre (#B07A3C), with a soft curl of white steam escaping from under the lid and a cozy orange firewood glow in the arch below. Shown at a slight 3/4 angle so the dome lid and round belly read clearly. Centered icon-style word card, vivid and proud, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="조리" data-key="word-jori">
+  <div class="head"><span class="face">🧺</span><b>조리</b> <span class="rom">jori — a woven rice-rinsing scoop</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jori — a traditional Korean hand-woven bamboo rice-rinsing scoop (조리)". A small scoop-shaped strainer woven from thin strips of golden bamboo (#C9A85C), with an open oval mouth, a shallow airy woven bowl that lets water run through, and a long handle of the same twisted weave finished with a small red thread knot at the grip. Show TWO forms: (1) the scoop alone at a 3/4 angle so the criss-cross weave reads clearly, and (2) the scoop in motion, lifting plump white rice grains out of rinse water with a few little water-drip strokes — the classic rice-rinsing gesture. Centered icon-style word card, vivid and proud, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="함지박" data-key="word-hamjibak">
+  <div class="head"><span class="face">🥣</span><b>함지박</b> <span class="rom">hamjibak — a large carved wooden basin</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "hamjibak — a large traditional Korean wooden basin carved from a single log (함지박)". A wide, generous round basin hand-carved from one piece of pale honey-toned wood (#C89B5A), showing soft visible gouge marks and warm swirling grain, thick rounded walls and a gently flared rim. Show TWO forms: (1) the empty basin at a slight 3/4 angle so the carved interior and thick rim read clearly, and (2) the basin in use, holding fresh green vegetables (namul) with a pair of simple wooden utensils resting across the rim. Centered icon-style word card, vivid and proud, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 12 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(부지런한 외톨이 총각)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 산골 마을에 부지런한 총각 농부가 혼자 살았어요. 해가 뜨면 논으로 나가 쓱싹쓱싹, 해가 지면 집으로 돌아와 꼬르륵. 일솜씨는 마을에서 제일이었지만, 밥도 혼자, 잠도 혼자였답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨, 극단 스케일 대비 — 화면 대부분이 너른 들판과 빈 하늘(거의 빈 종이)이고, 총각은 논둑길 위에 작게.<br/><b>장소·시간</b> 옛 한국 산골 마을 어귀의 너른 논과 논둑길, 해질녘. 하루 일을 마치고 혼자 집으로 돌아가는 조용하고 아늑한 공기.<br/><b>인물</b> Chonggak(총각)은 화면 오른쪽 아래 논둑길 위에 작게 — 어깨에 괭이를 메고 터벅터벅 걸어가고, 등 뒤로 땋은 댕기머리가 살랑. 표정은 순하지만 입이 심심한 한 일자, 어깨가 살짝 처져 외로움이 묻어남.<br/><b>배경·소품</b> 줄지어 늘어선 초록 논, 멀리 작은 초가집 한 채(총각의 집)와 낮은 산등성이, 초가집 처마 밑의 붉은 고추 두름, 저녁 하늘을 나는 새 두어 마리. 넓은 하늘과 들판은 거의 빈 종이로 비워 둠.<br/><b>톤</b> 부드러운 해질녘 빛, 정겹지만 한 사람 몫만큼 쓸쓸한 도입 정서. 빨강 악센트 1점 = 처마의 붉은 고추 두름.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3, P4 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(혼잣말 — 후렴 ①)</b> <span class="tag beat">② 발단 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">어느 날, 총각은 논에서 모를 심으며 혼잣말을 했어요. "이 농사 지어 누구랑 먹고 살꼬?" 첨벙첨벙 모 한 포기 심고, 또 한 번. "이 농사 지어 누구랑 먹고 살꼬?" 한숨이 폭 나왔지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글 부감 — 논을 위에서 내려다보며, 줄줄이 심긴 모와 웅크린 총각을 한눈에.<br/><b>장소·시간</b> 모내기가 한창인 무논, 초여름 한낮. 논물이 하늘을 거울처럼 비추는 반짝이는 공기.<br/><b>인물</b> Chonggak(총각)은 화면 가운데 아래쪽에서 바짓단을 걷고 무논에 종아리까지 담근 채 허리를 굽혀 모 한 포기를 첨벙 심는 중. 입을 오물오물 혼잣말하는 모양, 눈썹 획이 살짝 처져 시무룩함과 부지런함이 함께 보임.<br/><b>배경·소품</b> 부감으로 내려다본 논물 위에 초록 모가 줄줄이 콕콕, 논물에 비친 흰 구름, 논둑에 벗어 둔 짚신 한 켤레와 새참 보자기, 멀리 이어지는 논둑길.<br/><b>톤</b> 쨍한 초여름 햇빛이 논물에 반짝, 부지런하지만 마음 한구석이 허전한 정서. 빨강 악센트 1점 = 논둑 새참 보자기의 붉은 매듭.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(어디선가 들려온 대답 — 후렴 ②)</b> <span class="tag beat">② 발단 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때였어요! 어디선가 맑고 고운 목소리가 들려왔어요. "나랑 먹고 살지, 누구랑 먹고 살아!" 총각은 깜짝 놀라 두리번두리번. 그런데 논에는 아무도 없었어요. 개구리만 개굴개굴 울고 있었지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨, 극단 여백 — 화면의 70%를 빈 논과 하늘(빈 종이)로 비우고, 총각은 왼쪽 아래 구석에 작게.<br/><b>장소·시간</b> 같은 무논, 초여름 한낮. 목소리 하나에 온 세상이 조용해진 듯 숨죽인 공기.<br/><b>인물</b> Chonggak(총각)은 화면 왼쪽 아래 구석에서 허리를 벌떡 펴고 점눈이 동그래진 채 두리번두리번 — 몸을 한쪽으로 틀어 소리 난 쪽을 찾는 포즈, 입은 놀란 작은 O.<br/><b>배경·소품</b> 넓게 비워 둔 논과 하늘, 오른쪽 논물 한 귀퉁이에 아주 작게 반짝이는 물결 동그라미(소리의 근원 암시 — 우렁이는 아직 보이지 않게), 연잎 위에 폴짝 앉은 개구리 한 마리, 논둑 풀섶.<br/><b>톤</b> 환한 한낮 빛, 어리둥절함과 설렘이 섞인 유쾌한 미스터리 정서, 목소리의 여운이 남은 고요함. 빨강 악센트 1점 = 논둑 풀섶의 산딸기 한 알.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>발단(우렁이를 물독에 퐁당)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">목소리가 난 자리에는 주먹만 한 우렁이가 반짝반짝 빛나고 있었어요. "아이고, 참 예쁜 우렁이구나!" 총각은 우렁이를 살포시 주워 와, 부엌 옹기 물독에 퐁당 넣어 주었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 어깨너머 하이앵글 — 총각의 어깨너머로, 물독에 우렁이를 넣는 두 손을 내려다봄.<br/><b>장소·시간</b> 총각네 초가집 부엌, 해질녘. 아궁이 온기가 도는 아늑한 공기.<br/><b>인물</b> Chonggak(총각)은 화면 앞쪽에 등과 한쪽 어깨(댕기머리 자락)만 크게 걸리고, 그 어깨너머로 두 손이 UreongShell(우렁이)을 오목하게 받쳐 <b>옹기(onggi)</b> 물독의 물 위로 퐁당 내려놓는 순간. 우렁이는 껍데기에서 점눈 두 개만 빼꼼 내밀어 총각을 올려다보고, 곁에 작은 별 반짝임 두어 획.<br/><b>배경·소품</b> 배불뚝이 옹기 물독과 비스듬히 열린 나무 뚜껑, 물 위에 뜬 바가지, 부뚜막과 살림살이 시렁, 아궁이에서 새어 나오는 은은한 불빛.<br/><b>톤</b> 저녁 아궁이 불빛의 주황 온기, 작은 생명을 소중히 다루는 다정한 정서, 우렁이 둘레의 살짝 신비한 반짝임. 빨강 악센트 1점 = 아궁이 속 불씨 한 점.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P5, P6, P7 -->
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(몰래 차려진 첫 밥상)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날, 일을 마치고 돌아온 총각은 눈이 휘둥그레졌어요. 소반 위에 따끈따끈한 밥상이 차려져 있지 뭐예요! 흰밥에선 김이 모락모락, 된장국은 아직도 보글보글. "아니, 대체 누가 차려 놓았지?"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 수직 평면 부감 — 김이 오르는 밥상을 바로 위에서 내려다보는 톱다운 구도.<br/><b>장소·시간</b> 총각네 초가집 방 안, 저녁. 갓 지은 밥 냄새가 도는 따뜻한 공기.<br/><b>인물</b> 화면 아래 가장자리에 Chonggak(총각)의 정수리와 댕기머리, 벌린 두 손이 부감으로 걸림 — 문지방을 막 넘다 그대로 얼어붙어 두 팔을 벌린 놀란 포즈, 몸이 옆으로 살짝 기울어 "누구지?" 하는 어리둥절함이 실루엣으로 보임.<br/><b>배경·소품</b> 화면 중앙의 <b>소반(soban)</b> 위에 김이 모락모락 나는 흰밥 한 그릇, 보글보글 된장국, 나물 반찬 종지들, 가지런히 놓인 숟가락·젓가락 한 벌, 방바닥의 삿자리 결.<br/><b>톤</b> 따뜻한 저녁 등불빛이 밥상의 김을 뽀얗게 감싸는 아늑함, 미스터리와 군침이 함께 도는 코믹 정서. 빨강 악센트 1점 = 소반 위 종지에 놓인 빨간 대추 한 알.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(날마다 뚝딱 — 코믹 미스터리)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이상한 일은 날마다 이어졌어요. 아침에도 뚝딱, 저녁에도 뚝딱! 총각은 갸웃갸웃 생각했지요. "참새가 차렸나? 바람이 차렸나?" 부엌 가마솥만 시치미를 뚝 떼고 김을 폭폭 내뿜었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨, 겹침/가림 — 앞쪽 가마솥에서 오르는 김 줄기에 얼굴이 반쯤 가려진 총각.<br/><b>장소·시간</b> 총각네 부엌 부뚜막 앞, 아침. 며칠째 이어진 수수께끼에 폭 잠긴 공기.<br/><b>인물</b> Chonggak(총각)은 부뚜막 너머에서 상체를 쑥 내밀어 <b>가마솥(gamasot)</b>을 빤히 들여다봄 — 솥뚜껑 틈에서 폭폭 오르는 흰 김 줄기에 얼굴이 반쯤 가려지고, 김 사이로 보이는 한쪽 점눈과 갸웃 기운 고개, 턱에 얹은 한 손이 "도대체 누굴까" 하는 코믹한 궁리 포즈.<br/><b>배경·소품</b> 묵직한 무쇠 가마솥과 둥근 돔형 솥뚜껑, 아궁이의 장작, 시렁 위 그릇들, 구석의 옹기 물독 — 물독 가장자리로 UreongShell(우렁이)의 점눈 두 개가 살짝 빼꼼(답을 아는 건 관객뿐인 힌트), 벽에 걸린 바가지.<br/><b>톤</b> 아침 햇살이 김 줄기를 뽀얗게 비추는 밝은 조명, 관객만 정답을 아는 유쾌한 미스터리 코믹 정서. 빨강 악센트 1점 = 부뚜막에 놓인 빨간 고추 한 개.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(숨어서 지켜보기)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"오늘은 꼭 알아내야지!" 총각은 일 나가는 척하다가 살금살금 되돌아왔어요. 문틈에 눈을 대고 숨을 죽였지요. 콩닥콩닥, 콩닥콩닥. 그때, 옹기 물독이 환하게 빛나기 시작했어요!</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 — 총각의 등 뒤에서, 문틈으로 새어 나오는 빛을 함께 훔쳐보는 구도.<br/><b>장소·시간</b> 총각네 집 부엌 문 앞 마당, 한낮. 숨소리까지 참은 두근두근한 공기.<br/><b>인물</b> Chonggak(총각)은 화면 앞쪽에 등과 뒤통수(땋은 댕기머리)가 크게 걸린 채 문에 바짝 붙어 문틈에 한쪽 점눈을 대고 있음 — 발끝을 까치발로 세우고 두 손을 문설주에 살그머니 얹은, 숨을 참고 웅크린 포즈. 가느다란 문틈 사이로 부엌의 <b>옹기(onggi)</b> 물독이 금빛 빛무리를 뿜기 시작한 것이 실낱처럼 보임.<br/><b>배경·소품</b> 낡은 나무 문짝과 문틈으로 새어 나오는 금빛 빛줄기, 문설주에 걸어 둔 복조리 한 쌍, 마당의 장독과 봉숭아 화단, 툇마루 끝자락.<br/><b>톤</b> 한낮이지만 문틈의 금빛이 주인공인 조명, 콩닥콩닥 설레는 절정 직전의 정서. 빨강 악센트 1점 = 문설주에 걸린 복조리의 붉은 매듭 끈.</pre></details>
+</div>
+
+<!-- ④ 절정 : P8, P9, P10 -->
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>절정(우렁이에서 나온 각시 — 펼침면 한 방)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">번쩍! 눈부신 빛과 함께, 물독에서 고운 각시가 스르륵 나왔어요. 다홍 옷고름이 나풀나풀, 얼굴은 달덩이처럼 환했지요. 총각은 입이 딱 벌어졌어요. "세상에! 우렁이가 각시였다니!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글 — 부엌 바닥 높이에서 올려다보며, 빛과 함께 나타난 각시를 크고 신비롭게.<br/><b>장소·시간</b> 총각네 부엌, 한낮. 금빛이 가득 차오른 꿈결 같은 공기.<br/><b>인물</b> UreongBride(우렁각시)가 화면 중앙의 <b>옹기(onggi)</b> 물독 위로 스르륵 솟아오르듯 나타남 — 금빛 소용돌이와 별 반짝임에 감싸여 치맛자락이 사뿐히 떠 있고, 다홍 옷고름과 붉은 댕기가 나풀나풀, 두 손을 앞에 모은 채 달덩이처럼 환한 점눈 미소. 화면 왼쪽 구석 문틈에는 Chonggak(총각)의 놀란 점눈 한쪽과 딱 벌어진 O 입 실루엣이 아주 작게 끼어 있음.<br/><b>배경·소품</b> 배불뚝이 옹기 물독과 데굴 굴러떨어진 나무 뚜껑, 물독 가장자리에 반짝 빛나는 UreongShell(우렁이) 빈 껍데기, 공중에 흩날리는 금빛 별 반짝임, 뒤편 부뚜막과 가마솥의 옅은 실루엣.<br/><b>톤</b> 금빛 역광이 각시를 감싸는 눈부신 절정 조명, 신비롭고 설레는 "펼침면 한 방" 정서. 빨강 악센트 1점 = 각시의 다홍 옷고름.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(뚝딱뚝딱 각시의 밥상)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">각시는 콧노래를 흥얼흥얼 부르며 조리로 쌀을 사르륵사르륵 씻어 일었어요. 가마솥에선 밥이 폭폭, 함지박에선 나물이 조물조물. 눈 깜짝할 새에 맛있는 밥상이 뚝딱 차려졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글 부감 — 부뚜막 살림 전체가 한눈에 들어오게 비스듬히 내려다봄.<br/><b>장소·시간</b> 총각네 부엌, 한낮. 콧노래가 흐르는 명랑하고 분주한 공기.<br/><b>인물</b> UreongBride(우렁각시)가 부뚜막 앞에서 소매를 걷고 <b>조리(jori)</b>로 물에 잠긴 쌀을 사르륵 일어 올리는 중 — 몸을 리듬 있게 기울이고 입은 콧노래하듯 작게 방긋, 점눈이 초승달처럼 휨. 손끝마다 익숙하고 정갈한 살림 솜씨.<br/><b>배경·소품</b> 쌀뜨물이 담긴 널찍한 <b>함지박(hamjibak)</b>과 조물조물 무쳐 둔 초록 나물 그릇, 김이 폭폭 오르는 <b>가마솥(gamasot)</b>, 구석의 옹기 물독, 시렁 위 그릇들, 도마 위 채소와 도마질 자국.<br/><b>톤</b> 환한 한낮 빛에 밥 짓는 김과 콧노래가 어우러진 명랑하고 포근한 정서, 살림 손끝의 경쾌한 리듬감. 빨강 악센트 1점 = 각시의 붉은 댕기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(마주침 — "기다려 주세요")</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"각시님!" 총각이 문을 벌컥 열자, 각시는 깜짝 놀라 우렁이 껍데기를 꼭 안았어요. "저를 보셨군요. 때가 될 때까지 기다려 주시면, 그때 함께 살 수 있어요." 총각은 고개를 크게 끄덕였어요. "기다리고말고요, 얼마든지요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업 투샷, 아이레벨에서 살짝 기울인 더치 앵글 — 두 사람의 얼굴과 손이 화면을 가득 채우는 감정 컷.<br/><b>장소·시간</b> 총각네 부엌 문가, 한낮. 심장이 콩닥대는 떨림의 공기.<br/><b>인물</b> Chonggak(총각)은 화면 왼쪽에서 문을 벌컥 연 자세 그대로 두 손을 어쩔 줄 모르게 든 채, 점눈을 크게 뜨고 입은 놀란 O — 뺨 옆에 두근두근 떨림 획 두어 개. UreongBride(우렁각시)는 오른쪽에서 UreongShell(우렁이) 빈 껍데기를 두 손으로 가슴에 꼭 안고 놀란 작은 O 입 — 이내 눈썹 획이 사르르 풀리며 "기다려 주세요" 하듯 고개를 수줍게 살짝 숙임.<br/><b>배경·소품</b> 활짝 열린 문짝과 문지방, 각시 품의 우렁이 껍데기, 뒤로 김 오르는 부뚜막이 흐릿하게, 공중에 남은 옅은 금빛 반짝임 잔상.<br/><b>톤</b> 부드러운 낮빛에 살짝 기운 구도가 두근거림을 살림, 놀람에서 설렘과 약속으로 넘어가는 애틋한 정서. 빨강 악센트 1점 = 각시의 다홍 옷고름.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P11, P12 -->
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>결말(총각의 진심 — 각시의 결심)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날부터 총각은 조르지 않고 기다렸어요. 소반에 각시 몫 숟가락을 가지런히 놓고, 마당을 쓱쓱 쓸고, 고운 꽃 한 송이도 꺾어 두었지요. 그 따뜻한 진심에 각시는 방긋 웃었어요. "이제 때가 되었어요. 저는 사람으로 당신 곁에 남을래요!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 — 각시의 어깨너머로, 소반에 정성을 놓는 총각을 바라보는 구도.<br/><b>장소·시간</b> 총각네 방 안(툇마루로 이어지는 문가), 저녁 무렵. 말없이 쌓이는 정성의 따뜻한 공기.<br/><b>인물</b> 화면 앞쪽에 UreongBride(우렁각시)의 어깨와 뒷머리(붉은 댕기를 드리운 땋은 머리)가 걸리고, 그 너머로 Chonggak(총각)이 <b>소반(soban)</b> 앞에 무릎을 꿇고 각시 몫의 숟가락·젓가락을 가지런히 놓는 중 — 혀를 살짝 내밀 만큼 골똘하고 정성스러운 표정, 소반 한쪽에 고운 꽃 한 송이를 살포시. 각시의 보이는 뺨 선이 방긋 웃음으로 둥글게 부풀어 있음.<br/><b>배경·소품</b> 정갈한 소반과 나란한 두 벌의 수저, 노란 들국화 한 송이, 은은한 등불, 반질하게 쓸린 방바닥, 벽에 기대 세운 빗자루, 열린 문 너머 말끔해진 마당.<br/><b>톤</b> 노을빛과 등불빛이 겹친 포근한 조명, 조르지 않는 기다림과 진심이 전해지는 뭉클한 정서. 빨강 악센트 1점 = 전경 각시의 붉은 댕기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(혼례 — 후렴 문답 마무리)</b> <span class="tag beat">⑤ 결말 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가을이 되어 벼가 누렇게 익자, 마을에 잔치가 열렸어요. 족두리 쓴 각시와 새 옷 입은 총각이 마주 보고 꾸벅! 혼례를 올렸지요. "이제 누구랑 먹고 살꼬?" "나랑 먹고 살지, 누구랑 먹고 살아!" 두 사람은 오순도순 오래오래 행복하게 살았답니다. 부지런한 손과 따뜻한 진심에는 복이 찾아온대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 살짝 하이앵글 부감 — 혼례 잔치가 벌어진 마당 전체를 축제처럼 담는 마무리 컷.<br/><b>장소·시간</b> 가을걷이가 끝난 총각네 초가집 마당, 화창한 가을 낮. 웃음소리 가득한 잔치 공기.<br/><b>인물</b> 화면 중앙의 초례상을 사이에 두고 Chonggak(총각)은 깨끗한 새 한복 차림으로, UreongBride(우렁각시)는 머리에 족두리를 얹고 볼에 연지곤지를 찍은 고운 혼례 치마저고리 차림으로 마주 보며 맞절하듯 꾸벅 — 둘 다 점눈이 초승달로 휘고 입은 함박 한 일자 웃음. (두 사람 모두 얼굴·머리 모양은 평소 시트 그대로, 옷과 장식만 고와진 모습.)<br/><b>배경·소품</b> 청실홍실을 두른 초례상과 나무 기러기 한 쌍, 잔칫상 <b>소반(soban)</b>들에 소복한 햅쌀밥과 시루떡, 마당을 둘러선 마을 사람들의 흥겨운 뒷모습 실루엣(얼굴 디테일 없는 단순한 점눈 군중, 몇 획으로만), 누렇게 익은 들판과 볏단, 파란 가을 하늘의 잠자리 두어 마리. 청실홍실의 홍실은 채도 낮춘 팥죽빛으로 — 선명한 빨강은 각시 볼의 연지곤지 한 점만.<br/><b>톤</b> 높고 파란 가을 하늘 아래 환한 잔치 빛, 오순도순 행복한 대단원의 정서. 빨강 악센트 1점 = 각시 볼의 연지곤지.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 우렁각시 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'Chonggak',    name: '총각 농부',        desc: '부지런한 외톨이 총각 — 댕기 땋은 머리, 걷어 올린 소박한 무명 한복·짚신, 순한 웃음',        aliases: ['Chonggak'] },
+    { token: 'UreongShell', name: '우렁이 (변신 전)',  desc: '각시의 우렁이 상태 — 주먹만 한 소용돌이 껍데기, 점눈 두 개만 빼꼼, 별 반짝임',            aliases: ['UreongShell'] },
+    { token: 'UreongBride', name: '우렁각시 (변신 후)', desc: '고운 각시 상태 — 연둣빛 치마·크림 저고리, 다홍 옷고름·붉은 댕기(빨강 악센트), 초승달 점눈 미소', aliases: ['UreongBride'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

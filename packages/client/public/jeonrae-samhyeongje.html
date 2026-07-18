@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 재주 많은 삼형제</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 3 #17</div>
+  <h1>👬 재주 많은 삼형제</h1>
+  <div class="sub">활 잘 쏘는 첫째, 그물 잘 던지는 둘째, 톱질 잘하는 셋째 — 서로 다른 재주가 모이면</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 협동·개성 존중 &nbsp;·&nbsp;
+  <b>분량</b> 12 스프레드 &nbsp;·&nbsp; <b>후렴</b> "내 재주 좀 보시오!" &nbsp;·&nbsp;
+  <b>핵심단어</b> 활 · 그물 · 톱 · 나막신 · 지게 &nbsp;·&nbsp;
+  <b>순화</b> 순수 협동담(잔혹 요소 없음) / 활은 나뭇가지·조롱박 등 사물만 겨냥(사람·동물 겨냥 절대 금지) / 아기 고양이의 위기는 귀엽고 무섭지 않게
+</div>
+<div class="refrain">🏹 반복 후렴 — "내 재주 좀 보시오!" → 결말에서 "우리 재주 좀 보시오!"로 변주</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-samhyeongje</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부. 삼형제 공통 시그니처 = <b>나막신</b>(딸깍딸깍 나무 신).</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="첫째" data-key="char-firstbro">
+  <div class="head"><span class="face">🏹</span><b>첫째</b> <span class="rom">FirstBro · 천리 활 명수</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: FirstBro — the eldest of three talented brothers, a master archer who never misses. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a calm confident one-line smile, no nose (or one tiny dot). A young unmarried man — hair as one solid dark mass pulled into a single long braid (daenggi) down his back, tied with a plain blue-grey ribbon stroke. No stubble — young and clean.
+SILHOUETTE (his signature): the tallest and straightest of the three — long, upright, arrow-straight posture like a drawn bowstring, chin steady, shoulders squared but relaxed. Always reads "calm and precise" next to the sturdy SecondBro and the small round ThirdBro.
+CLOTHES & PROP: a plain everyday hanbok suggested in soft blue-grey pencil strokes, sleeves neatly tied at the wrists with a cord (archer's habit), wooden clogs (namaksin) in a few pale wood-tone strokes. Always carries a traditional Korean reflex bow (hwal) as one elegant double-curve stroke and a bamboo quiver of arrows slung on his back.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (bow held loosely at his side, calm one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) calm confident one-line smile, (2) sharp focused aim with a flat pressed mouth line and one narrowed brow stroke, (3) comic dismay with a downcurved mouth and drooping brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="둘째" data-key="char-secondbro">
+  <div class="head"><span class="face">🕸️</span><b>둘째</b> <span class="rom">SecondBro · 튼튼한 그물 명수</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: SecondBro — the middle brother, a master of the net who can catch anything that falls. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a big open-hearted one-line grin, no nose (or one tiny dot). A young unmarried man — hair as one solid dark mass in a single long braid (daenggi), tied with a plain blue-grey ribbon stroke. No stubble.
+SILHOUETTE (his signature): broad and sturdy — wide shoulders, thick arms, big capable hands, feet planted apart like a wrestler about to catch something. The widest silhouette of the three; his stance always says "ready to receive".
+CLOTHES & PROP: a plain everyday hanbok in soft blue-grey strokes with the sleeves rolled up to the elbows (working arms), wooden clogs (namaksin) in pale wood-tone strokes. Always carries a big hand-knotted net (geumul) — a loose bundle of scribbled diamond mesh in a warm straw tone slung over one shoulder.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (net bundle over the shoulder, big open grin) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) big warm one-line grin, (2) determined puffed-cheek effort with a small tight O mouth, (3) sheepish embarrassment with a wobbly downcurved mouth and a hand scratching the head. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="셋째" data-key="char-thirdbro">
+  <div class="head"><span class="face">🪚</span><b>셋째</b> <span class="rom">ThirdBro · 신통한 톱 명수</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: ThirdBro — the youngest brother, a wonder-carpenter who can build or fix anything with his saw, quick as a wink. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a bright eager one-line smile, no nose (or one tiny dot). The youngest — hair as one solid dark mass in a single short bouncy braid (daenggi), tied with a plain blue-grey ribbon stroke, with one or two tiny curly wood-shaving strokes caught in his hair (his charm point).
+SILHOUETTE (his signature): the smallest and roundest of the three — short, soft, springy, always mid-bounce with busy hands. Quick eager energy next to the tall FirstBro and the broad SecondBro.
+CLOTHES & PROP: a plain everyday hanbok in soft blue-grey strokes with a simple carpenter's waist apron drawn in a few straw-tone strokes, wooden clogs (namaksin) in pale wood-tone strokes. Always carries his beloved hand saw (top) — a wide friendly blade with gently rounded teeth and a small red thread knot on the wooden grip (the picture's single red accent when no other red is present). Often also shoulders a wooden A-frame carrier (jige) loaded with lumber and tools.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (saw held up proudly, eager one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) bright eager one-line smile, (2) proud puffed chest with a wide line grin, (3) comic panic with a big O mouth and flyaway brow strokes. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="원님" data-key="char-magistrate">
+  <div class="head"><span class="face">🎩</span><b>원님</b> <span class="rom">Magistrate · 마을 원님</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Magistrate — the kind, slightly fussy county magistrate (wonnim) who loves the village festival. Comic and warm, never stern or scary. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a small mustache drawn as two short strokes and a tidy chin-beard drawn as three or four short strokes so he reads as a dignified older man, a friendly one-line mouth.
+SILHOUETTE (his signature): plump and round like a friendly jar, short legs, hands often clasped behind his back or spread wide in astonishment. Dignity told entirely by hat and bearing, comedy by the round tummy.
+CLOTHES: a magistrate's official robe (dallyeong) suggested in a soft jade-green pencil tone with loose hatching and a simple belt stroke, and his signature — a black winged official hat (samo) drawn as one simple dark shape with two small side wings. Cloth shoes in a few strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands clasped behind the back, friendly one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, brow strokes and posture: (1) benevolent one-line smile, (2) comic alarm with a big O mouth and both hands on the hat, (3) delighted admiration with a wide grin and lifted brow strokes (knee-slapping pose). Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="아기 고양이" data-key="char-kitten">
+  <div class="head"><span class="face">🐱</span><b>아기 고양이</b> <span class="rom">Kitten · 빨간 리본 아기 고양이</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Kitten — a tiny village kitten, curious and lovable, drawn with just a few quick pencil strokes. A small rounded pale straw-yellow body left mostly as open paper with a few soft hatching strokes, two triangle-stroke ears, two dot eyes, a tiny 3-shaped mouth stroke, whiskers as four hair-thin strokes, and a curly question-mark tail. Its signature — a small red ribbon tied at the neck, drawn as two tiny red strokes: this ribbon is the picture's single red accent whenever the kitten appears.
+POSES & MOOD: never truly frightened — at worst wide-eyed and wobbly ("야옹?"), mostly curious and cuddly. All feeling told by ear angle, tail curl and body posture, since the face is just dots.
+REFERENCE SHEET: one sheet on plain bright cream paper — a sitting front pose (tail wrapped around the feet) + a side walking pose + two feeling poses distinguished ONLY by ears, tail and posture: (1) curious head-tilt with the tail in a high question-mark curl, (2) wobbly wide-eyed cling with flattened ears and the tail puffed in a few extra strokes — worried but still cute, never scary. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="활" data-key="word-hwal">
+  <div class="head"><span class="face">🏹</span><b>활</b> <span class="rom">hwal — a Korean traditional bow</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "hwal — a traditional Korean reflex bow (활, 각궁)". An elegant deep double-curve composite bow with slim limbs of dark lacquered wood and horn (#6B4226 with a warm sheen), a pale taut bowstring, and a grip neatly wrapped in fine crimson silk cord. Show TWO forms on the card: (1) the strung bow standing upright in its graceful double curve, and (2) a cylindrical bamboo quiver (jeontong) beside it holding a few bamboo arrows with soft white-and-grey feather fletching. Elegant, proud craftsmanship — a noble craft object, NOT menacing, no target, no person. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="그물" data-key="word-geumul">
+  <div class="head"><span class="face">🕸️</span><b>그물</b> <span class="rom">geumul — a hand-knotted net</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "geumul — a traditional Korean hand-knotted net (그물)". A net hand-woven from natural hemp cord in a warm golden tan (#C8A96A), with a clear diamond mesh pattern, tiny knots at every crossing, and small carved wooden floats and round clay weights spaced along the rim. Show TWO forms on the card: (1) the net spread open mid-air like a round lace parachute so the diamond mesh reads clearly, and (2) the same net neatly folded into a soft bundle beside it. Warm handcrafted fiber texture, tidy and sturdy. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="톱" data-key="word-top">
+  <div class="head"><span class="face">🪚</span><b>톱</b> <span class="rom">top — a carpenter's hand saw</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "top — a traditional Korean carpenter's hand saw (톱)". A wide flat steel blade in a soft steel-grey (#9AA3A8) with gently rounded FRIENDLY blunt teeth, set into a warm honey-brown wooden handle (#B07A3C) whose neck is wrapped with a twisted cord and a small red thread knot. Show TWO forms on the card: (1) the saw at a slight 3/4 angle so blade and handle read clearly, and (2) a small freshly-sawn wooden block with two or three curly golden wood shavings beside it — the joy of making. Cheerful clean craftsmanship, NOT menacing. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="나막신" data-key="word-namaksin">
+  <div class="head"><span class="face">🥿</span><b>나막신</b> <span class="rom">namaksin — Korean wooden clogs</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "namaksin — traditional Korean wooden clogs (나막신)". A pair of shoes each carved from a single block of pale honey wood (#C9A876), with a smooth boat-shaped body, a gently upturned toe, and TWO tall heel-teeth carved underneath to lift the foot above mud and rain puddles. Visible soft carved wood grain and a warm hand-polished sheen. Show the pair in TWO views: (1) both shoes at a slight 3/4 angle side by side, and (2) one shoe tipped over to clearly show the two tall teeth on the sole. Sturdy, charming, hand-carved craftsmanship. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="지게" data-key="word-jige">
+  <div class="head"><span class="face">🎒</span><b>지게</b> <span class="rom">jige — a Korean A-frame back carrier</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jige — a traditional Korean wooden A-frame back-carrier for firewood and loads (지게)". Two natural pine/alder upright wooden posts (warm honey-brown wood grain #B07A3C) joined by cross-rungs lashed with twisted straw rope, woven rice-straw shoulder straps, and its matching Y-shaped support stick (지게작대기) leaning beside it. Show the frame at a slight 3/4 angle so the A-frame shape reads clearly. Sturdy, handcrafted, warm wood tones. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 12 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(삼형제 소개)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 넓은 강가 마을에 삼형제가 살았어요. 첫째는 활을 쏘면 백발백중, 둘째는 그물로 무엇이든 척척 받아 냈지요. 막내 셋째는 톱 하나로 뭐든 뚝딱 만들고 고쳤답니다. 셋은 어딜 가든 나막신을 딸깍딸깍 울리며 나란히 걸어 다녔어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 하이앵글 부감 — 마을 길을 비스듬히 내려다보며 삼형제의 행렬과 강가 마을을 한눈에 담는 도입 설정 컷.<br/><b>장소·시간</b> 옛 한국 강가 마을의 흙길, 화창한 봄날 아침. 넓은 강이 마을 옆으로 반짝이며 흐르고, 초가지붕들이 옹기종기 모인 정겨운 공기.<br/><b>인물</b> 삼형제가 흙길을 나란히 걸어감 — FirstBro(첫째)는 맨 앞에서 길쭉하고 꼿꼿한 자세로 등에 <b>활(hwal)</b>과 화살통을 메고 차분한 실선 미소. SecondBro(둘째)는 가운데에서 떡 벌어진 어깨에 <b>그물(geumul)</b> 뭉치를 둘러메고 입이 큰 싱글벙글 웃음. ThirdBro(셋째)는 맨 뒤에서 작고 동글동글한 몸으로 통통 튀듯 걸으며 <b>지게(jige)</b>에 나무토막과 <b>톱(top)</b>을 지고 신난 표정. 셋 다 발에는 <b>나막신(namaksin)</b> — 딸깍딸깍 걷는 리듬이 자세에서 느껴지게.<br/><b>배경·소품</b> 길가의 초가집 몇 채는 지붕 몇 획으로만 암시, 저 멀리 반짝이는 강물결, 담장 위 박넝쿨, 봄꽃 몇 점. 이 그림의 유일한 빨간 점 = 첫째 화살통에 묶인 작은 빨간 술 하나.<br/><b>톤</b> 밝은 봄 아침 햇빛(크림 종이가 곧 햇빛), 옛이야기를 여는 경쾌하고 정겨운 정서, 세 실루엣의 대비(길쭉·다부짐·동글)가 또렷하게.</pre></details>
+</div>
+
+<!-- ② 발단(재주 자랑) : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(첫째의 활 자랑)</b> <span class="tag beat">② 발단 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">첫째가 활을 들고 외쳤어요. "내 재주 좀 보시오!" 피융— 화살이 바람을 가르더니, 저어기 먼 장대 끝 조롱박을 톡! 맞혔지요. "백발백중이지!" 하지만 둘째와 셋째는 흥, 콧방귀를 뀌었어요. "에이, 내 재주가 더 좋은걸."</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 앵글 — 첫째의 어깨와 활 너머로 저 멀리 장대 끝 조롱박을 바라보는 구도. 화면 깊이(가까운 어깨 ↔ 먼 과녁)로 "천리 활" 거리감 강조.<br/><b>장소·시간</b> 삼형제 집 앞 너른 마당, 화창한 낮. 자랑 대결로 들뜬 명랑한 공기.<br/><b>인물</b> FirstBro(첫째)는 화면 앞 왼쪽에 등을 보이고 서서 등에 멘 화살통이 또렷이 보이는 채 <b>활(hwal)</b>의 시위를 한껏 당긴 꼿꼿한 자세 — 화살은 막 날아가 저 멀리 장대 꼭대기의 조롱박에 톡 명중하는 순간(사람·동물이 아닌 사물만 겨냥). 화면 오른쪽 뒤편에서 SecondBro(둘째)는 팔짱을 끼고 입을 삐죽, ThirdBro(셋째)는 볼을 부풀리고 고개를 홱 돌리는 시큰둥 코믹 표정.<br/><b>배경·소품</b> 마당 끝에 세운 긴 장대와 그 꼭대기의 조롱박(화살이 톡 꽂히며 살짝 흔들), 화살의 궤적은 옅은 연필 점선 한 줄, 담장과 초가지붕은 몇 획으로만. 이 그림의 유일한 빨간 점 = 첫째 등 화살통에 묶인 빨간 술(화살 깃은 카드대로 흰·회색).<br/><b>톤</b> 쨍한 한낮 햇빛, 자신만만 vs 시큰둥의 대비가 웃긴 명랑 코믹 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(둘째·셋째의 재주 자랑)</b> <span class="tag beat">② 발단 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">둘째도 질세라 나섰어요. "내 재주 좀 보시오!" 밤나무를 흔들자 후두둑 쏟아지는 알밤을 그물로 몽땅 받아 냈지요. 셋째도 톱을 들고 쓱싹쓱싹— 눈 깜짝할 새 튼튼한 평상을 뚝딱! "내 재주가 최고지요!" 삼형제는 서로 잘났다고 티격태격했답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 평면 부감(마당을 수직으로 똑바로 내려다봄) — 세 재주가 마당 위에 한 판처럼 펼쳐지는 구도.<br/><b>장소·시간</b> 삼형제 집 마당, 화창한 낮. 왁자지껄한 자랑 대결의 공기.<br/><b>인물</b> 위에서 내려다본 마당 — 왼쪽에서 SecondBro(둘째)가 <b>그물(geumul)</b>을 활짝 펼쳐 밤나무에서 후두둑 떨어지는 알밤을 몽땅 받아 내며 의기양양하게 입이 귀에 걸림. 오른쪽에서 ThirdBro(셋째)가 갓 완성한 평상 위에 올라서서 <b>톱(top)</b>을 번쩍 들고 가슴을 쭉 편 뿌듯한 자세, 둘레에 꼬불꼬불 대팻밥. 아래쪽 구석에서 FirstBro(첫째)가 팔짱을 끼고 고개를 절레절레(흥!).<br/><b>배경·소품</b> 부감으로 보이는 밤나무의 둥근 우듬지와 흩어진 알밤들, 갓 짠 나무 평상, 마당 구석의 지게와 나무토막, 담장 선은 몇 획으로만, 마당은 거의 빈 크림 종이. 이 그림의 유일한 빨간 점 = 셋째 톱 자루의 빨간 실 매듭.<br/><b>톤</b> 밝은 한낮, 위에서 본 세 사람의 대비 실루엣이 장난감판처럼 귀엽고 명랑한 정서.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P4 ~ P8 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(잔칫날의 거센 바람)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">마을 잔칫날이 되었어요. 원님도 오시고, 하늘엔 원님이 아끼는 커다란 잔치 연이 두둥실 떠올랐지요. 그런데 그때, 휘이잉— 거센 바람이 몰아쳤어요! 연줄이 뚝 끊어지고, 줄 끝을 갖고 놀던 아기 고양이까지 대롱대롱 매달린 채 하늘로 붕! "야옹?"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글 — 땅에서 하늘을 올려다보는 구도. 화면 위쪽은 바람에 휩쓸려 가는 거대한 연, 아래쪽은 콩알만 한 사람들(스케일 대비).<br/><b>장소·시간</b> 마을 잔치 마당 위 하늘, 화창하다가 바람이 몰아친 낮. 휘이잉 바람 소동의 공기.<br/><b>인물</b> 화면 위쪽 하늘 — 커다란 방패연이 바람에 휙 기울며 날아가고, 끊어진 연줄 끝에 Kitten(아기 고양이)이 앞발로 줄을 꼭 붙잡고 대롱대롱 — 귀는 납작, 눈은 동그랗게 "야옹?" 하는 어리둥절 표정(무섭지 않게 꼬리가 스카프처럼 폴럭). 화면 아래쪽 마당 — Magistrate(원님)가 두 손으로 사모를 붙잡고 입을 딱 벌린 채 동동, 그 곁으로 삼형제 FirstBro(첫째)·SecondBro(둘째)·ThirdBro(셋째)가 나막신을 딸깍딸깍 울리며 달려 나오는 작은 실루엣.<br/><b>배경·소품</b> 바람 획 몇 줄(연필 곡선), 하늘로 흩날리는 잔치 종이 조각과 꽃잎, 마당의 잔치 차일과 청사초롱은 몇 획으로만, 하늘은 넓은 크림 종이 그대로. 이 그림의 유일한 빨간 점 = 아기 고양이 목의 빨간 리본.<br/><b>톤</b> 환한 낮이지만 바람의 곡선 획으로 소동감, 아슬아슬하되 코믹하고 씩씩한 정서(공포 아님).</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(강 건너 나무 꼭대기)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">연은 강 건너 높다란 나무 꼭대기에 툭 걸리고 말았어요. 아기 고양이도 가지 위에 폭 안착했지만, 내려올 수가 없었지요. "야옹, 야옹!" 마을 사람들은 발만 동동 굴렀어요. 강은 넓고, 나무는 까마득히 높았거든요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨, 극단 여백 + 스케일 대비 — 화면의 70%는 텅 빈 강과 하늘(크림 종이 그대로), 오른쪽 위 구석에 거대한 나무 꼭대기, 왼쪽 아래 구석에 콩알만 한 사람들.<br/><b>장소·시간</b> 마을 앞 넓은 강가, 오후. 소동이 잦아들고 막막함이 내려앉은 조용한 공기.<br/><b>인물</b> 오른쪽 위 — 까마득한 나무 꼭대기 가지에 연이 비스듬히 걸려 있고, 그 옆 가지 위에 Kitten(아기 고양이)이 웅크려 앉아 귀를 납작 내리고 아래를 내려다보며 "야옹" 우는 작은 실루엣(안쓰럽지만 귀엽게). 왼쪽 아래 — 강 이쪽 기슭에 FirstBro(첫째)·SecondBro(둘째)·ThirdBro(셋째)·Magistrate(원님)와 마을 사람 몇이 아주 작게, 발을 동동 구르며 건너편을 올려다봄.<br/><b>배경·소품</b> 두 기슭 사이의 넓은 강은 물결 몇 획으로만, 나무는 줄기와 우듬지 몇 획의 큰 덩어리, 하늘은 빈 종이. 다리도 배도 보이지 않음(건널 방법이 없음이 화면으로 읽히게). 이 그림의 유일한 빨간 점 = 나무 위 아기 고양이 목의 빨간 리본 한 점.<br/><b>톤</b> 오후의 잔잔한 빛, 넓은 여백이 "멀고 높다"는 막막함을 말하는 조용한 긴장 — 그러나 무겁지 않게.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>시련(첫째 혼자서는 안 돼)</b> <span class="tag beat">③ 시련 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">첫째가 나섰어요. "내 재주 좀 보시오! 화살로 가지를 톡 끊으면 되지!" 시위를 팽팽 당기다가, 아래를 보니 출렁출렁 강물이었어요. "안 돼! 떨어지면 고양이가 풍덩 빠지잖아!" 첫째는 슬그머니 활을 내려놓았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 살짝 기울인 앵글(더치 틸트) — 활을 당긴 첫째의 얼굴과 두 손이 화면을 가득 채우고, 기울어진 화면이 "망설임"을 말함.<br/><b>장소·시간</b> 강가 기슭, 오후. 숨을 참은 듯 조용한 긴장의 공기.<br/><b>인물</b> FirstBro(첫째)가 화면 중앙에서 <b>활(hwal)</b>의 시위를 팽팽하게 당긴 채 멈칫 — 눈(점눈)이 옆으로 흘끗 아래를 내려다보고, 입은 일자로 꾹, 이마 옆에 식은땀 한 방울(연필 한 획). 당기던 팔이 살짝 풀리며 활 끝이 스르륵 내려가는 순간.<br/><b>배경·소품</b> 화살 끝 너머 저 멀리 흐릿하게 암시된 강물의 물결 획 몇 줄(원경은 종이에 녹아들게), 어깨의 화살통. 고양이와 나무는 화면 밖 — 첫째의 시선만이 그쪽을 가리킴. 이 그림의 유일한 빨간 점 = 어깨 화살통의 빨간 술(화살 깃은 카드대로 흰·회색).<br/><b>톤</b> 잔잔한 오후 빛, 기울어진 구도와 식은땀 한 획이 만드는 "명중해도 받을 수 없다"는 조용한 코믹 난감함.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>시련(둘째 혼자서도 안 돼)</b> <span class="tag beat">③ 시련 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이번엔 둘째예요. "내 재주 좀 보시오! 그물로 받아 내면 되지!" 둘째는 그물을 빙글빙글 돌려 힘껏 던졌어요. 하지만 강이 너무너무 넓었지요. 철푸덕— 그물은 강 한가운데에 빠지고 말았어요. "아이고, 닿지도 않네!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글 부감(비스듬히 내려다봄) — 기슭의 둘째와 강물에 떨어진 그물을 한 화면에 담아 "닿지 않는 거리"를 위에서 보여 줌.<br/><b>장소·시간</b> 강가 기슭, 오후. 머쓱한 실패의 공기.<br/><b>인물</b> SecondBro(둘째)가 화면 아래 기슭에서 <b>그물(geumul)</b> 줄 끝을 두 손에 쥔 채 어깨가 축 — 방금 던진 그물이 화면 가운데 강물 위에 활짝 펼쳐진 채 철푸덕 떠 있고, 그 둘레로 동심원 물결이 퍼짐. 둘째는 뒤통수를 긁적이며 입이 비뚤배뚤(머쓱 코믹). 옆에서 ThirdBro(셋째)가 입을 가리고 킥킥, FirstBro(첫째)는 이마를 짚음.<br/><b>배경·소품</b> 강물의 동심원 물결 몇 획, 젖은 그물에서 튄 물방울 점들, 저 건너편 나무는 화면 위쪽 끝에 아주 작게. 이 그림의 유일한 빨간 점 = 물가 풀섶을 스치는 빨간 고추잠자리 한 마리.<br/><b>톤</b> 부드러운 오후 빛, 물 튀는 소동의 유쾌한 코믹 — "받을 수 있어도 닿지 않는다"가 화면 거리로 읽히게.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>시련(셋째 혼자서도 안 돼)</b> <span class="tag beat">③ 시련 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">셋째도 나섰어요. "내 재주 좀 보시오! 강 건너까지 다리를 놓으면 되지!" 쓱싹쓱싹, 뚝딱뚝딱. 하지만 다리는 겨우 두 발짝만큼 놓였는데, 해가 벌써 뉘엿뉘엿 기울었어요. "아이고, 이러다 밤새 걸리겠어!" 나무 위 아기 고양이는 야옹야옹 울었지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글 — 물가 아래에서 갓 세운 다리 기둥을 올려다보는 구도. 기둥 위의 작은 셋째 너머로 아득히 넓은 강이 펼쳐져 "터무니없이 멀다"가 읽히게.<br/><b>장소·시간</b> 강가 물가, 해질녘. 뉘엿뉘엿 기우는 노을빛, 마음이 급해지는 공기.<br/><b>인물</b> ThirdBro(셋째)가 화면 위쪽, 이제 겨우 두 발짝 길이로 놓인 다리 끝 기둥 위에 엎드려 <b>톱(top)</b>으로 널판을 쓱싹쓱싹 켜는 중 — 이마의 땀방울 한 획, 입은 앙다문 울상 직전의 코믹한 조급함. 다리 아래 기슭에서 FirstBro(첫째)와 SecondBro(둘째)가 나무토막을 안고 올려다보며 발을 동동.<br/><b>배경·소품</b> 두 발짝짜리 짧은 다리와 그 앞으로 끝없이 이어지는 넓은 강(물결 몇 획, 나머지는 노을빛 종이), 기슭에 쌓인 나무토막과 대팻밥, 기슭에 세워 둔 지게. 이 그림의 유일한 빨간 점 = 셋째 톱 자루의 빨간 실 매듭.<br/><b>톤</b> 주홍기 도는 노을빛(빨강 아닌 주황·밀짚색으로), "만들 수 있어도 너무 느리다"는 초조함을 코믹하게 — 무겁지 않게.</pre></details>
+</div>
+
+<!-- ④ 절정 : P9, P10 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(힘을 합친 삼형제)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 삼형제는 서로 얼굴을 마주 보았어요. "그래! 힘을 합치면 되잖아!" 형들이 지게로 나무를 척척 져 나르고, 셋째는 쓱싹쓱싹 — 눈 깜짝할 새 튼튼한 나룻배를 뚝딱! 삼형제는 배를 타고 슝— 강을 건넜답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 평면 부감(강물을 수직으로 똑바로 내려다봄) — 넓은 강물 한가운데를 가르는 갓 만든 작은 나룻배, 뱃길 물살이 긴 V자로 퍼지는 구도.<br/><b>장소·시간</b> 강 한가운데, 해질녘에서 초저녁으로 넘어가는 무렵. 다시 씩씩해진 공기.<br/><b>인물</b> 위에서 내려다본 갓 만든 나룻배 — SecondBro(둘째)가 가운데서 힘차게 노를 젓고, FirstBro(첫째)는 뱃머리에서 <b>활(hwal)</b>을 쥔 채 건너편을 똑바로 가리키고, ThirdBro(셋째)는 배꼬리에서 <b>톱(top)</b>을 번쩍 들고 뿌듯한 표정. 셋의 나막신이 뱃바닥에 나란히.<br/><b>배경·소품</b> 배가 가르는 V자 물살 획, 배 안에 실은 <b>그물(geumul)</b> 뭉치와 여분 널판, 출발한 기슭엔 빈 <b>지게(jige)</b>와 남은 나무토막이 작게, 강물 대부분은 빈 종이에 물결 몇 획. 이 그림의 유일한 빨간 점 = 셋째 톱 자루의 빨간 실 매듭.<br/><b>톤</b> 해질녘의 부드러운 빛, 세 재주가 처음으로 한 배에 모인 설렘 — 속도감 있는 물살 획으로 "슝" 하는 경쾌함.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(펼침면 한 방 — 합동 작전)</b> <span class="tag beat">④ 절정 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">나무 아래서 둘째가 그물을 활짝 폈어요. "자, 쏘시오, 형님!" 첫째가 시위를 팽팽— 피융! 화살이 연 걸린 가지만 톡 끊었지요. 스르륵, 툭— 연도 아기 고양이도 그물 속으로 폭신! "받았다!" "야옹!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글 + 겹침 구도 — 나무 밑에서 하늘을 올려다보는 그림책 "펼침면 한 방". 앞쪽에 활짝 펼쳐진 그물이 화면 아래를 겹치듯 가로지르고, 그 너머 위쪽에서 연과 고양이가 떨어져 내려오는 순간.<br/><b>장소·시간</b> 강 건너 큰 나무 아래, 초저녁 직전의 맑은 빛. 숨을 모았다가 터지는 환호의 공기.<br/><b>인물</b> 화면 아래 — SecondBro(둘째)가 두 팔을 한껏 벌려 <b>그물(geumul)</b>을 활짝 펼치고 입을 크게 벌려 "받았다!" 외치는 순간. 그 옆에서 FirstBro(첫째)는 <b>활(hwal)</b>을 쏜 직후의 꼿꼿한 자세로 시위가 팽 하고 떨리는 중(화살은 사람·동물이 아닌 가지만 톡 끊었음). 화면 위 — 끊어진 가지에서 떨어져 내려오는 연과, 그 위에 폭 올라탄 Kitten(아기 고양이)이 낙하산 타듯 네 발을 쫙 편 귀여운 포즈로 그물을 향해 스르륵. ThirdBro(셋째)는 나무 옆에서 두 손을 모으고 발을 동동(응원).<br/><b>배경·소품</b> 머리 위로 뻗은 큰 나뭇가지들(획 몇 개), 방금 톡 끊긴 가지 끝, 떨어지며 흩날리는 잎사귀 몇 장, 하늘은 빈 크림 종이. 이 그림의 유일한 빨간 점 = 떨어지는 아기 고양이 목의 빨간 리본.<br/><b>톤</b> 맑고 환한 빛, 세 재주가 한 호흡으로 맞물리는 짜릿한 클라이맥스 — 낙하의 곡선 획과 벌어진 그물이 만드는 시원한 동세.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P11, P12 -->
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>결말(뚝딱 고친 연, 원님의 칭찬)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아기 고양이는 그르릉그르릉, 삼형제 품에 폭 안겼어요. 나뭇가지에 걸려 살이 부러졌던 연도 걱정 없지요. 셋째가 톱으로 쓱싹, 대나무 살을 다듬어 뚝딱 고쳐 냈으니까요. "허허, 세 분 재주가 참으로 놀랍구려!" 원님이 무릎을 탁 쳤답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 앵글 — 원님의 어깨와 사모 날개 너머로 삼형제와 고쳐진 연을 바라보는 구도. 감탄하는 시선의 방향이 곧 화면의 방향.<br/><b>장소·시간</b> 잔치 마당 한쪽, 초저녁. 청사초롱에 불이 들어오기 시작하는 훈훈한 공기.<br/><b>인물</b> 화면 앞 오른쪽에 Magistrate(원님)의 뒷모습 어깨와 사모가 크게 걸리고, 그 너머 — ThirdBro(셋째)가 말끔히 고쳐진 방패연을 두 손으로 번쩍 들어 보이며 뿌듯한 함박웃음, 발치에 <b>톱(top)</b>과 꼬불꼬불 대팻밥. FirstBro(첫째)의 품에 Kitten(아기 고양이)이 폭 안겨 눈을 감고 그르릉, SecondBro(둘째)는 그 곁에서 고양이 머리를 큰 손가락으로 살살 쓰다듬음. 원님은 한 손으로 무릎을 탁 치는 감탄 자세.<br/><b>배경·소품</b> 고쳐진 연의 새 대나무 살(밝은 새 나무색 획), 잔치 차일 자락과 청사초롱 몇 개는 몇 획으로만, 바닥의 대팻밥. 이 그림의 유일한 빨간 점 = 첫째 품 아기 고양이 목의 빨간 리본.<br/><b>톤</b> 초저녁의 포근한 등불빛 무드(빛은 종이의 크림색으로), 안도와 칭찬이 도는 뭉클하고 훈훈한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p12">
+  <div class="page-head"><span class="pnum">P12</span><b>결말(우리 재주 좀 보시오!)</b> <span class="tag beat">⑤ 결말 · 후렴 변주</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 밤 잔치는 더욱 흥겨웠어요. 하늘엔 말끔히 고쳐진 연이 두둥실! 삼형제는 나막신을 딸깍딸깍 구르며 어깨동무를 하고 외쳤지요. "우리 재주 좀 보시오!" 서로 다른 재주가 모이면, 못 할 일이 없답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 하이앵글 부감 + 원형 구도 — 잔치 마당을 비스듬히 내려다보며, 사람들이 둥글게 모인 한가운데 어깨동무한 삼형제. 하늘 위 연까지 한 화면에.<br/><b>장소·시간</b> 마을 잔치 마당, 달 뜬 밤. 등불이 점점이 켜진 흥겨운 공기.<br/><b>인물</b> 원 한가운데 — FirstBro(첫째)·SecondBro(둘째)·ThirdBro(셋째)가 어깨동무를 하고 <b>나막신(namaksin)</b>을 딸깍딸깍 구르며 한 발씩 번쩍 든 춤 포즈, 셋 다 입을 크게 벌려 함께 외치는 함박웃음(길쭉·다부짐·동글 세 실루엣의 어깨동무가 한 덩어리로). 셋째의 어깨 위엔 Kitten(아기 고양이)이 올라앉아 꼬리를 물음표로 말아 올림. 둘러선 원 — Magistrate(원님)가 덩실덩실 춤추고, 마을 사람들이 손뼉을 치는 작은 실루엣들.<br/><b>배경·소품</b> 밤하늘에 두둥실 떠오른 말끔히 고쳐진 방패연과 둥근 달(종이 여백 속 먹선 몇 획), 마당 둘레의 청사초롱과 잔치 소반은 몇 획으로만, 바닥은 빈 종이. 이 그림의 유일한 빨간 점 = 셋째 어깨 위 아기 고양이 목의 빨간 리본.<br/><b>톤</b> 달빛과 등불의 포근한 밤 무드(어둡게 칠하지 않고 여백과 먹선으로), 셋이 하나 된 뿌듯함과 잔치의 흥이 넘치는 따뜻한 마무리 정서.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 재주 많은 삼형제 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'FirstBro',   name: '첫째',        desc: '천리 활 명수 — 길쭉하고 꼿꼿한 실루엣, 긴 댕기머리, 활·화살통(화살통 빨간 술)',            aliases: ['FirstBro'] },
+    { token: 'SecondBro',  name: '둘째',        desc: '튼튼한 그물 명수 — 떡 벌어진 어깨·큰 손, 걷어붙인 소매, 어깨에 그물 뭉치',                 aliases: ['SecondBro'] },
+    { token: 'ThirdBro',   name: '셋째',        desc: '신통한 톱 명수 — 작고 동글동글, 짧은 댕기+대팻밥, 목수 앞치마, 톱(자루 빨간 매듭)·지게',    aliases: ['ThirdBro'] },
+    { token: 'Magistrate', name: '원님',        desc: '마을 원님 — 둥글둥글 항아리 실루엣, 사모(날개 달린 검은 관모)+옥빛 관복, 다정한 감탄쟁이', aliases: ['Magistrate'] },
+    { token: 'Kitten',     name: '아기 고양이', desc: '빨간 리본 아기 고양이 — 밀짚빛 작은 몸, 점눈, 물음표 꼬리, 목의 빨간 리본=빨강 악센트',     aliases: ['Kitten'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>

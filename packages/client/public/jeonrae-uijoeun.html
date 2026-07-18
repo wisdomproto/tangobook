@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>탱고북 전래동화 — 의좋은 형제</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root {
+    --jade:#1f7a6d; --jade-dark:#145c52; --vermilion:#cf4b34; --gold:#c79a3e;
+    --hanji:#f6efe0; --paper:#fffdf7; --ink:#2a2620; --ink-soft:#6d645a;
+    --line:#e7dcc6; --mint:#2fa38f; --sky:#eaf3ef;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable', Pretendard, -apple-system, sans-serif; background:var(--hanji); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:900px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:38px 0; border-bottom:3px solid var(--jade); margin-bottom:28px; }
+  .hero .kicker { color:var(--vermilion); font-weight:800; letter-spacing:.18em; font-size:12.5px; }
+  .hero h1 { font-size:40px; font-weight:900; margin:10px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:15px; font-weight:600; }
+  .meta-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:13.5px; }
+  .meta-card b { color:var(--jade-dark); }
+  .refrain { background:var(--sky); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 30px; color:var(--jade-dark); font-size:16px; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--sky); border-radius:10px; padding:10px 14px; margin:18px 0; }
+  h2.sec { font-size:24px; font-weight:900; margin:52px 0 6px; padding-top:14px; border-top:2px solid var(--line); }
+  h2.sec .no { color:var(--jade); margin-right:8px; }
+  .sec-lead { font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:14px; }
+
+  /* 캐릭터 / 사물 카드 */
+  .char-prompt { margin:14px 0; border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--paper); }
+  .char-prompt .head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .char-prompt .head b { font-size:15px; }
+  .char-prompt .face { width:34px; height:34px; border-radius:10px; background:var(--sky); display:inline-flex; align-items:center; justify-content:center; font-size:20px; }
+  .char-prompt .rom { font-size:12.5px; color:var(--ink-soft); font-weight:700; }
+  .char-prompt details { margin-top:8px; }
+  .char-prompt summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  .char-prompt pre { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.7; margin-top:6px; }
+
+  /* 페이지 카드 */
+  .page-card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--jade); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--sky); color:var(--jade-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .tag.beat { background:#fdeee9; color:var(--vermilion); }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:var(--paper); color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .page-head .copy-btn { margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details.scene-d { margin-top:8px; }
+  details.scene-d summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--hanji); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+
+  /* 붙여넣기 박스 */
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:68px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdf7; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(42,38,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:var(--vermilion); }
+  .paste-box:focus { border-color:var(--jade); color:var(--jade-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+
+  /* 등장인물·핵심단어 카드 = 컴팩트 그리드 (풀폭 세로 나열 → 2~3열) */
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:10px; align-items:start; }
+  .cast-grid .char-prompt { margin:0; padding:12px 14px; }
+  .cast-grid .char-prompt .head b { font-size:13.5px; }
+  .cast-grid .char-prompt .rom { font-size:11px; }
+  .cast-grid .char-prompt .face { width:28px; height:28px; font-size:16px; }
+  .cast-grid .copy-btn { padding:3px 10px; font-size:11.5px; }
+  .cast-grid summary { font-size:12px; }
+  .cast-grid .paste-box { min-height:44px; font-size:11px; margin-top:8px; }
+  footer { margin-top:70px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">TANGOBOOK ORIGINAL · 전래동화 · Tier 3 #20</div>
+  <h1>🌾 의좋은 형제</h1>
+  <div class="sub">달밤에 몰래 볏단을 나른 형과 아우 — 서로를 아끼는 마음이 오간 이야기</div>
+</header>
+
+<div class="meta-card">
+  <b>대상</b> 5~7세 &nbsp;·&nbsp; <b>교훈</b> 형제애·나눔 &nbsp;·&nbsp;
+  <b>분량</b> 11 스프레드 &nbsp;·&nbsp; <b>후렴</b> "우리 형님(아우) 몫이 더 많아야지!" 대구 + 갸웃 "이상하다, 볏단이 그대로네?" &nbsp;·&nbsp;
+  <b>핵심단어</b> 볏단 · 지게 · 낫 · 멍석 · 초가집 &nbsp;·&nbsp;
+  <b>순화</b> 순함 — 원작 그대로 훈훈 (순화 이슈 없음)
+</div>
+<div class="refrain">🌾 반복 후렴 — "우리 아우 몫이 더 많아야지!" ↔ "우리 형님 몫이 더 많아야지!" · 갸웃 "이상하다, 볏단이 그대로네?"</div>
+
+<div class="note">🖼️ 아래 <b>등장인물</b>·<b>핵심단어</b> 카드에 확정 레퍼런스를 붙여넣어 보관합니다(R2: <code>comic-assets/jeonrae-uijoeun</code>). 각 페이지 🎨 버튼 = 공통 스타일 앵커 + 그 쪽 장면을 한 번에 복사. 생성한 컷은 쪽마다 붙여넣기 박스에 보관하세요.</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">A</span>등장인물</h2>
+<p class="sec-lead">공통 스타일 앵커(<b>확정: 점눈이 (Dot-Eye)</b> — 밝은 크림 종이 + 느슨한 색연필 + 점눈 캐릭터 언어)를 모든 컷에 먼저 적용. 시트 생성 시 <b>승인 렌더 2장(P6 제비 · 놀부 도깨비)을 스타일 ref 로 첨부</b> → 골든 idle 확정 → 표정·포즈 확장 → 전 페이지 컷에 시트 ref 첨부.</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="형님" data-key="char-hyeongnim">
+  <div class="head"><span class="face">🧑‍🌾</span><b>형님</b> <span class="rom">Hyeongnim · 든든한 형</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Hyeongnim — the sturdy, warm-hearted older brother of a farming family. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a warm one-line smile, no nose (or one tiny dot), hair as one solid dark mass tied into a small topknot (sangtu), and two or three tiny stubble dots on the chin so he reads as a grown family man.
+SILHOUETTE (his signature): broad and solid — wide shoulders, a steady oak-like stance with feet planted apart, everything about him calm and dependable. The clear opposite of the lean, springy younger brother.
+CLOTHES: a plain working hanbok suggested in soft blue-grey pencil strokes — jacket sleeves rolled to the elbow, baggy trousers tied at the ankles, straw sandals in a few pale straw-yellow strokes. Humble, hardworking, tidy.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (relaxed hands, warm one-line smile) + a 3/4 turn + one full-body side pose carrying a wooden A-frame carrier (jige) stacked with rice sheaves, leaning gently forward under the load + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) warm one-line smile, (2) puzzled head-tilt with a small wavy line mouth, (3) happy-tearful smile with one tiny tear stroke beside a dot eye. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="아우" data-key="char-dongsaeng">
+  <div class="head"><span class="face">👦</span><b>아우</b> <span class="rom">Dongsaeng · 씩씩한 동생</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Dongsaeng — the bright, newly-married younger brother. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a cheerful one-line smile, no nose (or one tiny dot), hair as one solid dark mass in a small topknot (sangtu), a clean chin with NO stubble dots (he reads younger than Hyeongnim), and his signature — a plain white cotton cloth headband tied around the forehead with a little knot at the side.
+SILHOUETTE (his signature): lean and springy — a light, quick-footed posture, always looking about to hop into work. The clear opposite of the broad steady older brother.
+CLOTHES: a plain everyday hanbok left mostly as open cream paper with a few soft blue-grey strokes, trousers tied at the ankles, straw sandals in a few pale straw-yellow strokes. Neat and light.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (relaxed hands, cheerful one-line smile) + a 3/4 turn + one full-body side pose carrying a wooden A-frame carrier (jige) stacked with rice sheaves, stepping lightly + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) bright one-line smile, (2) puzzled head-tilt with a small O mouth while counting on his fingers, (3) happy-tearful smile with one tiny tear stroke beside a dot eye. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="형수" data-key="char-hyeongsu">
+  <div class="head"><span class="face">👩‍🌾</span><b>형수</b> <span class="rom">Hyeongsu · 다정한 형 아내</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Hyeongsu — the older brother's warm, motherly wife. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a gentle one-line smile, no nose (or one tiny dot), hair as one solid dark mass parted in the middle and gathered into a modest LOW bun at the nape with one plain hairpin drawn as a single short stroke.
+SILHOUETTE (her signature): soft, round and huggable — a cozy motherly bearing, often with a child tugging at her skirt.
+CLOTHES: a humble skirt-and-jacket hanbok suggested in soft blue-grey and faded straw tones — mostly open paper with loose hatching, and a plain work apron drawn in a few strokes. Simple and warm.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded at the waist, gentle one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) warm one-line smile, (2) surprised small O mouth with lifted brow strokes, (3) happy open laugh drawn as a small curved open mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="아우 아내" data-key="char-saedaek">
+  <div class="head"><span class="face">👰</span><b>아우 아내</b> <span class="rom">Saedaek · 수줍은 새색시</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: Saedaek — the younger brother's young bride, newly married. Dot-eye design language: a flat cream face with zero shading, two dot eyes, a shy one-line smile, no nose (or one tiny dot), hair as one solid dark mass in a neat LOW bun with one small hairpin stroke (married). Everything about her reads tidy and brand-new.
+SILHOUETTE (her signature): small and slight with a light, graceful posture and a slightly bashful tilt of the head — clearly younger and slimmer than the round motherly Hyeongsu.
+CLOTHES: a tidy skirt-and-jacket hanbok — the jacket suggested in a pale straw-yellow pencil tone, the skirt in soft blue-grey, no patches (a new household — modest, never rich). Only a few neat strokes.
+REFERENCE SHEET: one sheet on plain bright cream paper — full-body front idle (hands folded in front, shy one-line smile) + a 3/4 turn + three face close-ups where the expression changes ONLY through the mouth line, tiny brow strokes and posture: (1) shy one-line smile with a small head tilt, (2) curious small O mouth with a puzzled tilt, (3) bright happy laugh drawn as a small curved open mouth. Single character only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="형네 아이들" data-key="char-kids">
+  <div class="head"><span class="face">🧒</span><b>형네 아이들</b> <span class="rom">HyeongKids · 올망졸망 남매</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[공통 스타일 앵커] 를 먼저 적용.
+CHARACTER: HyeongKids — the older brother's two small children, a boy and a girl around four to six. Dot-eye design language: flat cream faces with zero shading, two dot eyes each, big single-line grins, no noses. The boy's hair is one solid dark bowl-cut mass; the girl's is the same dark mass with two tiny pigtail tufts sticking out.
+SILHOUETTE: small round dumpling bodies with stubby arms and legs, always mid-hop, mid-run or mid-tumble — pure bouncing energy next to the working grown-ups.
+CLOTHES: simple children's hanbok suggested in cream and soft blue-grey strokes, barefoot or in tiny straw sandals.
+REFERENCE SHEET: one sheet on plain bright cream paper — the TWO kids together: side-by-side front idle (holding hands, big line grins) + one running-and-hopping pose chasing each other + two face close-ups shared between them where the expression changes ONLY through the mouth line and brow strokes: (1) giggling wide line grin, (2) surprised small O mouth. These two children only, no text, no watermark.
+Attach the two approved style renders as style references.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">B</span>핵심단어 — 전통 공예·생활 사물</h2>
+<p class="sec-lead">사물 단어카드는 팝(pop)을 얹은 무드 — 쨍한 채도, 아이코닉 실루엣, 자개·단청 악센트, 살짝의 광채. 각 사물 = 한글 + 로마자 음차 + 한 줄 영문 설명. (최종 KeyObject 로 확정.)</p>
+
+<div class="cast-grid">
+
+<div class="char-prompt" data-char="볏단" data-key="word-byeotdan">
+  <div class="head"><span class="face">🌾</span><b>볏단</b> <span class="rom">byeotdan — a sheaf of rice</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "byeotdan — a sheaf of harvested rice stalks (볏단)". A plump bundle of golden rice stalks (#D8B45A) with heavy drooping grain heads fanning out at the top, tied snugly around the middle with a twisted rice-straw rope band. Show TWO forms so the word reads clearly: (1) a single fat sheaf standing upright with its grain heads spilling outward, and (2) a tidy stacked pile of several sheaves leaning together. Warm harvest gold, plump and generous. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="지게" data-key="word-jige">
+  <div class="head"><span class="face">🎒</span><b>지게</b> <span class="rom">jige — a Korean A-frame back carrier</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "jige — a traditional Korean wooden A-frame back-carrier for firewood and loads (지게)". Two natural pine/alder upright wooden posts (warm honey-brown wood grain #B07A3C) joined by cross-rungs lashed with twisted straw rope, woven rice-straw shoulder straps, and its matching Y-shaped support stick (지게작대기) leaning beside it. Show the frame at a slight 3/4 angle so the A-frame shape reads clearly. Sturdy, handcrafted, warm wood tones. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="낫" data-key="word-nat">
+  <div class="head"><span class="face">🌙</span><b>낫</b> <span class="rom">nat — a Korean harvest sickle</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "nat — a traditional Korean sickle for harvesting rice (낫)". A gently curved crescent blade in soft steel-grey (#9AA3A8) with a rounded, FRIENDLY blunt tip — never menacing, a cheerful clean farm tool — fitted into a simple warm honey-brown wooden handle (#B07A3C) with a small iron ferrule ring where blade meets wood. Shown at a slight 3/4 angle with two or three golden rice stalks (#D8B45A) laid gently beside it to tell its harvest job. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="멍석" data-key="word-meongseok">
+  <div class="head"><span class="face">🧺</span><b>멍석</b> <span class="rom">meongseok — a woven straw mat</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "meongseok — a large mat woven from rice straw, used for drying grain and sitting (멍석)". Hand-plaited golden straw (#D8B45A) in a dense, neat herringbone weave with a bound rim of twisted straw rope. Show TWO forms so the word reads clearly: (1) the mat spread flat with a shallow, even layer of golden unhusked rice grains drying on it, and (2) the same mat rolled up into a fat cylinder tied with a straw rope. Warm handcrafted straw gold, cozy and sturdy. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+<div class="char-prompt" data-char="초가집" data-key="word-chogajip">
+  <div class="head"><span class="face">🏠</span><b>초가집</b> <span class="rom">chogajip — a thatched-roof cottage</span> <button class="copy-btn">프롬프트 복사</button></div>
+  <details><summary>프롬프트 보기</summary><pre>[전통 사물 단어카드 스타일 노트] 를 먼저 적용.
+OBJECT: "chogajip — a traditional Korean thatched-roof cottage (초가집)". A small cozy farmhouse: a thick, rounded thatched roof of golden rice straw (#D8B45A) with a neatly trimmed edge and a lattice of twisted straw rope over the ridge, warm clay-plaster walls (#D9C7A0) on a low stone base, a simple wooden lattice door and one small window, a short stone-and-clay wall hugging a tiny front yard. Iconic, warm and proud — the classic Korean countryside home. Shown at a slight 3/4 angle so roof and wall read clearly. Centered icon-style word card, subtle glow rim, gentle soft shadow, hanji-cream backdrop, no text.</pre></details>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<h2 class="sec"><span class="no">C</span>본문 — 11 스프레드</h2>
+
+<!-- ① 옛날옛적(도입) : P1 -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>옛날옛적(도입)</b> <span class="tag beat">① 도입</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">옛날 옛날 아주 먼 옛날에, 산 아래 마을 앞뒷집 초가집에 의좋은 형제가 살았어요. 형님네는 아이들이 올망졸망 식구가 많았고, 아우네는 갓 혼인한 새살림이었지요. 두 형제는 무엇이든 "형님 먼저!" "아우 먼저!" 하며 사이좋게 나누었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 설정샷, 아이레벨. 나란한 두 초가집과 두 가족을 한 화면에 좌우로 담는 도입 구도.<br/><b>장소·시간</b> 옛 한국 시골 산 아래 마을, 낮은 언덕에 앞뒷집으로 나란히 앉은 두 채의 초가집, 화창한 가을 낮. 높고 맑은 하늘, 정겨운 공기.<br/><b>인물</b> Hyeongnim(형님)은 왼쪽 초가집 앞에서 어깨 넓은 든든한 자세로 아우 쪽을 향해 한 손을 들어 반갑게 인사, 따뜻한 실선 미소. Hyeongsu(형수)는 그 곁에서 두 손을 앞에 모으고 방긋 웃고, HyeongKids(형네 아이들) 두 꼬마는 마당에서 강아지풀을 들고 폴짝폴짝 뜀. Dongsaeng(아우)은 오른쪽 초가집 앞에서 이마의 무명 수건을 매만지며 형님에게 꾸벅 밝게 인사, Saedaek(아우 아내)은 새색시답게 수줍은 실선 미소로 살짝 목례.<br/><b>배경·소품</b> 나란한 두 채의 <b>초가집(chogajip)</b> — 둥근 초가지붕·흙벽·낮은 돌담, 두 집 사이를 잇는 짧은 오솔길, 뒤로 황금빛 논과 낮은 산, 마당가 감나무 가지 끝의 홍시 한 알(이 그림의 빨간 악센트 1점).<br/><b>톤</b> 밝고 높은 가을 낮 햇빛(크림 종이가 곧 햇빛), 정답고 평화로운 옛이야기 도입의 정서.</pre></details>
+</div>
+
+<!-- ② 발단 : P2, P3 -->
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>발단(가을걷이)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">가을이 왔어요. 형제는 나란히 논에 나가 낫으로 벼를 쓱싹쓱싹 베었지요. "형님, 올해는 풍년이에요!" "허허, 우리 아우가 부지런한 덕분이지!" 황금 들판에 웃음소리가 넘실넘실 퍼졌답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드 + 스케일 대비, 살짝 하이앵글. 넓은 황금 들판이 화면 대부분을 채우고 형제는 그 안에 작게 — 풍년의 규모를 보여주는 구도.<br/><b>장소·시간</b> 마을 앞 넓은 논, 가을걷이 한낮. 잘 익은 벼가 물결치는 풍년의 공기.<br/><b>인물</b> 들판 가운데 Hyeongnim(형님)이 허리를 굽혀 <b>낫(nat)</b>으로 벼 포기를 쓱싹 베는 중 — 소매를 걷은 넓은 어깨, 즐거운 실선 미소. 그 옆에서 Dongsaeng(아우)이 갓 벤 벼를 한 아름 안아 올리며 형님을 돌아보고 활짝 웃음, 이마의 무명 수건. 두 인물 모두 화면에 작게(들판과의 스케일 대비).<br/><b>배경·소품</b> 바람에 넘실대는 황금 벼 이삭의 성근 해칭 물결, 논둑에 벌써 묶어 세워 둔 <b>볏단(byeotdan)</b> 몇 단, 저 멀리 두 초가집 지붕, 하늘에 고추잠자리 한 마리(빨간 악센트 1점).<br/><b>톤</b> 눈부신 가을 한낮 햇빛, 밀짚 노랑이 주조색, 넉넉하고 흥겨운 수확의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>발단(똑같이 나누기)</b> <span class="tag beat">② 발단</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">형제는 볏단을 차곡차곡 묶어 똑같이 나누었어요. 형님네 몫으로 한 더미, 아우네 몫으로 한 더미. 멍석에는 낟알도 소복소복 널었지요. "올겨울은 든든하겠구나!" 형제는 마주 보며 싱글벙글 웃었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 평면 부감(타작 마당을 똑바로 위에서 내려다봄). 화면 좌우로 똑같은 볏단 두 더미가 놓인 대칭 구도 — "정확히 반반"이 한눈에 읽히게.<br/><b>장소·시간</b> 두 집 사이 넓은 타작 마당, 가을 오후. 고소한 낟알 냄새가 나는 뿌듯한 공기.<br/><b>인물</b> 위에서 내려다본 Hyeongnim(형님)과 Dongsaeng(아우)이 마당 한가운데 마주 서서 마지막 볏단 한 단씩을 양쪽 더미에 얹는 중 — 형님은 왼쪽 더미에, 아우는 오른쪽 더미에. 둘 다 고개를 들어 서로를 마주 보며 싱글벙글(부감이라 정수리·어깨·팔 동작이 또렷하게).<br/><b>배경·소품</b> 좌우로 정확히 똑같은 <b>볏단(byeotdan)</b> 두 더미(대칭), 마당 가운데 펼쳐 낟알을 소복이 말리는 <b>멍석(meongseok)</b>, 구석에 기대어 둔 지게와 낫, 멍석 한쪽 작은 소쿠리에 담긴 빨간 고추(빨간 악센트 1점).<br/><b>톤</b> 맑은 가을 오후 햇살, 공평하게 나눈 뿌듯함과 형제의 정이 담긴 명랑한 정서.</pre></details>
+</div>
+
+<!-- ③ 사건·시련 : P4~P8 -->
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>사건(형님의 밤 마실)</b> <span class="tag beat">③ 사건 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 밤, 형님은 잠이 오지 않았어요. '아우는 이제 막 새살림을 차렸는데… 우리 아우 몫이 더 많아야지!' 형님은 살금살금 일어나 지게에 볏단을 지고, 달빛 아래 아우네 집으로 저벅저벅 걸어갔답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면(프로필), 극단 여백 구도. 남빛 밤하늘이 화면의 70%를 차지하고, 볏단 진 형님의 실루엣은 오른쪽 아래 구석에 작게, 둥근 달은 왼쪽 위 — 고요한 밤의 스케일.<br/><b>장소·시간</b> 아우네로 가는 논둑길, 깊은 밤. 온 세상이 잠든 고요한 공기.<br/><b>인물</b> Hyeongnim(형님)이 <b>지게(jige)</b> 가득 <b>볏단(byeotdan)</b>을 지고 몸을 앞으로 숙인 채 살금살금 걷는 옆모습 실루엣 — 넓은 어깨와 지게 위 볏단의 둥근 덩어리가 달빛에 또렷한 윤곽으로 드러남. 발끝을 세워 조심조심, 입가엔 흐뭇한 실선 미소.<br/><b>배경·소품</b> 화면 대부분을 차지하는 성근 남빛 색연필 해칭의 밤하늘(종이 여백이 곧 달빛), 커다란 보름달, 논둑길의 짧은 풀 몇 획, 멀리 아우네 초가집 지붕 실루엣, 지게 끈에 묶인 빨간 매듭 하나(빨간 악센트 1점).<br/><b>톤</b> 푸른 달밤의 고요, 몰래 하는 착한 일의 두근대고 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>사건(아우의 밤 마실)</b> <span class="tag beat">③ 사건 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그런데 바로 그 밤, 아우도 잠이 오지 않았어요. '형님네는 먹을 입이 올망졸망 많은데… 우리 형님 몫이 더 많아야지!' 아우도 살그머니 지게에 볏단을 지고, 다른 길로 형님네 집을 향해 총총총 걸어갔지요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글. 개울 둑길을 오르는 아우를 발치 아래에서 올려다봄 — 볏단 진 실루엣이 달을 등지고 우뚝 서는 구도(P4와 대구, 앵글은 정반대).<br/><b>장소·시간</b> 형님네로 가는 개울 둑길, 같은 깊은 밤. 개울물 소리만 졸졸 흐르는 고요.<br/><b>인물</b> Dongsaeng(아우)이 <b>지게(jige)</b>에 <b>볏단(byeotdan)</b>을 지고 둑길 위로 총총 오르는 모습을 아래에서 올려다봄 — 호리호리한 실루엣, 이마의 무명 수건, 씩씩하게 내딛는 다리, 밝은 실선 미소. 등 뒤 하늘에 둥근 달이 걸려 볏단의 윤곽이 환하게 빛남.<br/><b>배경·소품</b> 화면 아래쪽에 달빛을 받아 반짝이는 개울 물결 몇 획, 둑길가 억새 몇 포기, 저 위로 형님네 초가집 굴뚝 실루엣, 둑길가 빨간 여뀌 꽃 한 포기(빨간 악센트 1점).<br/><b>톤</b> 로우앵글로 우러러본 씩씩하고 기특한 실루엣, 푸른 밤의 맑고 뭉클한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>사건(형님의 갸웃)</b> <span class="tag beat">③ 사건 · 갸웃 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">다음 날 아침, 형님은 마당에 나와 고개를 갸웃갸웃. "이상하다, 볏단이 그대로네?" 분명 어젯밤 아우네에 볏단을 옮겨 놓았는데, 더미가 조금도 줄지 않은 거예요. "오늘 밤엔 더 많이 가져다줘야겠는걸!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨에서 살짝 기울인 앵글. 볏단 더미 앞 형님의 상반신과 갸웃한 얼굴이 화면을 가득 채우는 코믹 감정 컷.<br/><b>장소·시간</b> 형님네 초가집 마당, 이튿날 아침. 서늘하고 맑은 가을 아침 공기.<br/><b>인물</b> Hyeongnim(형님)이 자기네 <b>볏단(byeotdan)</b> 더미 바로 앞에서 한 손으로 뒤통수를 벅벅 긁으며 고개를 옆으로 갸웃 — 점눈 두 개가 동그랗고 입은 "어라?" 하는 작은 물결 실선, 다른 손은 볏단 한 단을 만지작만지작.<br/><b>배경·소품</b> 어젯밤 그대로 수북한 볏단 더미가 형님 옆에 큼직하게, 마당의 멍석과 장독, 처마 그림자 몇 획, 장독 뚜껑에 앉은 고추잠자리 한 마리(빨간 악센트 1점).<br/><b>톤</b> 맑은 아침 햇살, "이상하다?" 웃음이 나는 코믹 미스터리의 갸웃 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>사건(아우의 갸웃)</b> <span class="tag beat">③ 사건 · 갸웃 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아우네 마당에서도 똑같은 소리가 들렸어요. "이상하다, 볏단이 그대로네?" 아우는 볏단을 세어 보고 또 세어 보았지요. 하나, 둘, 셋… 어젯밤 그대로였어요! "오늘 밤엔 형님 댁에 더 많이 가져다드려야지!"</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 샷. 아우의 뒤통수와 어깨 너머로 그대로인 볏단 더미를 바라보는 구도(P6 클로즈업과 같은 "갸웃"을 다른 앵글로 변주).<br/><b>장소·시간</b> 아우네 초가집 마당, 같은 날 아침. 참새 소리 짹짹 들리는 환한 아침.<br/><b>인물</b> 화면 앞쪽에 Dongsaeng(아우)의 뒤통수와 어깨(이마 수건의 옆 매듭이 보임) — 그 너머로 조금도 줄지 않은 <b>볏단(byeotdan)</b> 더미가 수북. 아우는 한 손 손가락을 하나씩 꼽으며 볏단을 세는 중, 고개는 갸웃 기울어짐. 옆에서 Saedaek(아우 아내)이 두 손을 모으고 함께 갸우뚱, 입이 작은 ㅇ 모양.<br/><b>배경·소품</b> 수북한 볏단 더미(화면 중앙), 초가집 처마와 툇마루, 처마에 매단 빨간 고추 두름(빨간 악센트 1점), 마당의 소쿠리.<br/><b>톤</b> 밝은 아침 햇살, P6과 대구를 이루는 갸웃 후렴 — 명랑하고 궁금한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>사건(엇갈리는 두 길)</b> <span class="tag beat">③ 사건</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그날 밤, 형제는 또 볏단을 지고 나섰어요. 형님은 논둑길로 저벅저벅, 아우는 개울 둑길로 총총총. 서로 다른 길로 엇갈려 지나가는 줄은 꿈에도 몰랐지요. 하늘의 둥근 달님만 빙그레 내려다보았답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글 완전 부감. 달밤의 들판을 달님의 눈으로 내려다봄 — 들판을 사이에 두고 엇갈리는 두 길과, 서로 모른 채 지나치는 두 형제를 독자만 한눈에 보는 구도.<br/><b>장소·시간</b> 두 집 사이 들판, 그날 밤. 달빛이 은은히 내려앉은 고요한 밤.<br/><b>인물</b> 부감으로 내려다본 Hyeongnim(형님)은 왼쪽 논둑길을 따라 <b>볏단(byeotdan)</b> 진 <b>지게(jige)</b>를 지고 화면 아래(아우네) 쪽으로 저벅저벅, Dongsaeng(아우)은 오른쪽 개울 둑길을 따라 화면 위(형님네) 쪽으로 총총 — 두 길은 들판을 사이에 두고 X자로 엇갈리지만 두 사람은 서로를 전혀 보지 못함. 위에서 본 각자의 등에 볏단 덩어리가 동그랗게.<br/><b>배경·소품</b> 위에서 내려다본 논밭의 조각보 같은 구획(성근 남빛 해칭), 엇갈리는 두 갈래 흙길, 화면 위·아래 끝에 각자의 <b>초가집(chogajip)</b> 지붕, 들판 가운데 작은 볏가리, 형님 지게 끈의 빨간 매듭 하나(빨간 악센트 1점).<br/><b>톤</b> 달빛의 푸른 은빛 부감, 서로 모르고 엇갈리는 두 마음을 독자만 내려다보는 다정한 아이러니의 정서.</pre></details>
+</div>
+
+<!-- ④ 절정 : P9, P10 -->
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>절정(달빛 아래 딱!)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">며칠 뒤, 달이 가장 밝은 밤이었어요. 길 한가운데서 형제는 딱! 마주치고 말았어요. 볏단을 진 형님과, 볏단을 진 아우가 서로를 바라보았지요. "아니, 형님!" "아니, 아우야!" 달빛 아래 두 형제는 한참을 그대로 서 있었어요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형 와이드, 아이레벨 측면(프로필) + 극단 여백. 지평선에 걸린 커다란 보름달을 화면 한가운데 두고, 볏단 진 두 실루엣이 좌우에서 딱 마주 서는 이야기 전체의 "펼침면 한 방".<br/><b>장소·시간</b> 두 집 사이 길 한가운데, 달이 가장 밝은 밤. 시간이 멈춘 듯 고요한 공기.<br/><b>인물</b> 화면 왼쪽에 <b>볏단(byeotdan)</b>을 <b>지게(jige)</b>에 진 Hyeongnim(형님), 오른쪽에 똑같이 볏단을 진 Dongsaeng(아우) — 둘 다 걸음을 뚝 멈추고 서로를 바라보는 옆모습. 점눈이 동그래지고 입은 작은 ㅇ 모양, 지게 위 볏단이 달빛에 환한 윤곽으로 빛남. 두 실루엣과 달이 화면의 전부, 나머지는 넉넉한 종이 여백.<br/><b>배경·소품</b> 두 사람 사이 지평선에 걸린 커다란 보름달, 발밑 흙길 몇 획, 길가 억새 두어 포기, 두 사람 사이 땅에 떨어진 빨간 단풍잎 한 장(빨간 악센트 1점).<br/><b>톤</b> 극단 여백과 실루엣의 숨죽인 달밤 — 놀람이 곧 뭉클함으로 바뀌기 직전의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>절정(웃음과 눈물의 포옹)</b> <span class="tag beat">④ 절정</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"밤마다 볏단을 날라 주신 게 형님이셨군요!" "너였구나, 우리 아우야!" 형제는 볏단을 내려놓고 서로를 꼬옥 껴안았어요. 웃음이 나는데 눈물이 주르륵 흘렀지요. 하늘의 달님도 환하게 웃었답니다.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형 클로즈업, 살짝 기울인 앵글(감정 컷 = 가깝게·기울여서). 부둥켜안은 두 형제의 얼굴과 어깨가 화면을 가득 채움.<br/><b>장소·시간</b> 길 한가운데, 같은 달밤. 달빛이 두 사람을 포근히 감싸는 시간.<br/><b>인물</b> Hyeongnim(형님)과 Dongsaeng(아우)이 서로를 꼬옥 껴안음 — 형님의 큰 손이 아우의 등을 토닥토닥, 아우는 형님 어깨에 얼굴을 살짝 묻음. 두 얼굴 모두 웃는 실선 입인데 점눈 옆으로 작은 눈물방울이 한두 방울(웃음+눈물이 한 얼굴에).<br/><b>배경·소품</b> 발치에 나란히 기대어 내려놓은 <b>지게(jige)</b> 두 개와 <b>볏단(byeotdan)</b>, 머리 위 둥근 달과 별 몇 점, 볏단을 묶은 새끼줄에 감긴 빨간 끈 한 가닥(빨간 악센트 1점).<br/><b>톤</b> 달빛의 포근한 은빛, 웃음과 눈물이 함께 터지는 이야기의 가장 뭉클한 정서.</pre></details>
+</div>
+
+<!-- ⑤ 결말 : P11 -->
+<div class="page-card" data-page="p11">
+  <div class="page-head"><span class="pnum">P11</span><b>결말(의좋은 형제)</b> <span class="tag beat">⑤ 결말</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그 뒤로 온 마을 사람들이 이 형제 이야기를 알게 되었어요. "저 집 형제처럼 의좋게 지내렴!" 두 초가집 사이 오솔길은 반질반질 정든 길이 되었지요. 형제는 오래오래 나누며 정답게 살았답니다. 나누면 나눌수록, 마음은 더 커진대요.</p>
+  <details class="scene-d"><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형-대형, 살짝 하이앵글. 두 초가집과 그 사이 반질반질 닳은 오솔길, 길 위에 모인 두 가족을 한눈에 — P1과 수미상관의 마무리 구도.<br/><b>장소·시간</b> 이듬해 가을, 또 한 번의 수확을 마친 따뜻한 낮. 웃음소리가 담을 넘는 평화로운 공기.<br/><b>인물</b> 오솔길 한가운데 펼친 멍석 위에 두 가족이 모두 둘러앉음 — Hyeongnim(형님)과 Dongsaeng(아우)이 나란히 앉아 어깨동무를 하고 활짝 웃고, Hyeongsu(형수)가 소반의 떡을 나눠 주고, Saedaek(아우 아내)이 웃으며 곁을 거들고, HyeongKids(형네 아이들) 두 꼬마는 멍석 가장자리에서 뒹굴뒹굴 까르르. 모두 실선 웃음.<br/><b>배경·소품</b> 좌우의 두 <b>초가집(chogajip)</b>과 그 사이 반질반질 닳은 오솔길, 깔고 앉은 <b>멍석(meongseok)</b>, 떡을 올린 소반, 길가 감나무의 홍시 한 알(빨간 악센트 1점 — P1과 수미상관).<br/><b>톤</b> 따뜻한 낮 햇살, 온 마을이 아는 의좋은 형제의 넉넉하고 정다운 마무리 정서.</pre></details>
+</div>
+
+<footer>탱고북 전래동화 · 의좋은 형제 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>
+// ── 회차 데이터 (jeonrae-core.js 가 읽어 전체/쪽별 프롬프트·붙여넣기를 자동 생성) ──
+window.JR_EPISODE = {
+  style: [
+    "Style: \"Dot-eye (점눈이)\" Korean folktale picture-book illustration for ages 5-7, set in the old Korean countryside (thatched cottages, hanbok, no modern objects) — quick, loose colored-pencil drawing on bright warm cream paper, like a single charming page from a master illustrator's sketchbook. Light, playful, confidently unfinished.",
+    "RENDERING: The bright cream paper stays visible across most of the picture and IS the sunlight — no painted light needed. Colored pencil moves fast and loose: scribbly hatching that never fully fills a shape, edges left open, light cheerful pencil pressure. Backgrounds are only hinted — a roof is a few strokes, a yard is almost bare paper, distant things dissolve into the paper. Spend density ONLY on the characters; everything else stays airy. No gloss, no gradients, no uniform texture.",
+    "PALETTE: warm cream paper + pale straw yellow (gourds, thatch) + soft blue-grey (lines, shadows, clothes) + a little leaf green + exactly ONE small red accent per picture.",
+    "CHARACTER DESIGN LANGUAGE (one body with the rendering — inherit it, do not \"improve\" it): flat cream faces with zero shading, two dot eyes, a simple line mouth (a small O mouth or a one-line smile), no nose or a single dot, hair as one solid dark mass, soft rounded body silhouettes. All charm lives in silhouette and posture, not facial detail. Adults read as adults through cultural markers and bearing — a topknot (sangtu), two or three stubble dots, their role and posture — never through realistic facial detail.",
+    "CANVAS: 16:9 spread illustration, one big scene per page, ample clear space at the bottom for a caption strip. No text, letters, speech bubbles or watermark baked into the image.",
+    "NOT (rendering only): no airbrush or smooth CG shading, no glossy 3D render, no anime cel-shading, no watercolor washes, no uniform texture overlay, no evenly-finished fully-colored surfaces — keep the strokes loose, open and hand-quick."
+  ].join("\n"),
+  objectStyle: [
+    "Single traditional Korean object as a centered icon-style vocabulary word card for ages 5-7. Modern stylish Korean-heritage mood: vivid saturated colors, a clean bold iconic silhouette, crisp rendering, subtle mother-of-pearl (najeon) sheen and dancheong-pattern color accents, a soft glow rim and a gentle soft drop shadow — contemporary 'cool' and proud.",
+    "NOT dusty museum realism, NOT flat clipart, NOT a childish scribble. Keep the traditional form and materials accurate (wood grain, straw braid, brass patina, cotton weave).",
+    "Warm neutral hanji-cream (#F6EFE0) backdrop, high clarity, a single object, no people. No text, no letters, no watermark."
+  ].join("\n"),
+  cast: [
+    { token: 'Hyeongnim',  name: '형님',        desc: '든든한 형 — 떡 벌어진 어깨, 상투+턱수염 점, 소박한 무명 한복',            aliases: ['Hyeongnim'] },
+    { token: 'Dongsaeng',  name: '아우',        desc: '씩씩한 동생 — 호리호리, 이마의 무명 수건, 수염 없는 젊은 얼굴',            aliases: ['Dongsaeng'] },
+    { token: 'Hyeongsu',   name: '형수',        desc: '다정한 형 아내 — 낮은 쪽머리, 앞치마, 푸근한 몸집',                        aliases: ['Hyeongsu'] },
+    { token: 'Saedaek',    name: '아우 아내',    desc: '수줍은 새색시 — 단정한 낮은 쪽머리, 연노랑 저고리, 갸웃한 목례',           aliases: ['Saedaek'] },
+    { token: 'HyeongKids', name: '형네 아이들',  desc: '올망졸망 남매 — 까만 더벅머리 꼬마 둘(여아는 양갈래 총총), 통통 폴짝',     aliases: ['HyeongKids'] }
+  ]
+};
+</script>
+<script src="/jeonrae-core.js"></script>
+</body>
+</html>
