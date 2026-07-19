@@ -57,6 +57,8 @@ interface Args {
   limit: number | null;
   dryRun: boolean;
   thumbsOnly: boolean;
+  /** styleMorph 유무와 무관하게 단일표지(ReelThumbPoster) 강제 + 기존 썸네일 skip 우회. */
+  forcePoster: boolean;
   ownerEmail: string;
   category: string;
 }
@@ -68,6 +70,7 @@ function parseArgs(argv: string[]): Args {
     limit: null,
     dryRun: false,
     thumbsOnly: false,
+    forcePoster: false,
     ownerEmail: 'kil210@gmail.com',
     category: 'classics',
   };
@@ -78,6 +81,7 @@ function parseArgs(argv: string[]): Args {
     const next = () => inlineVal ?? argv[++i];
     if (key === '--dry-run') a.dryRun = true;
     else if (key === '--thumbs-only') a.thumbsOnly = true;
+    else if (key === '--force-poster') a.forcePoster = true;
     else if (key === '--book') a.book = next();
     else if (key === '--books')
       a.books = next()
@@ -127,7 +131,8 @@ async function main() {
 
   // 썸네일(9:16) 렌더 → 로컬 PNG 경로 반환. 3그림체 있으면 그림체 3분할, 없으면 포스터.
   async function renderThumb(id: string, props: ReelProps): Promise<string> {
-    const compId = props.styleMorph ? 'ReelThumbStyles' : 'ReelThumbPoster';
+    // --force-poster: styleMorph 있어도 3그림체 그리드 대신 단일 포스터(ReelThumbPoster) 강제.
+    const compId = !args.forcePoster && props.styleMorph ? 'ReelThumbStyles' : 'ReelThumbPoster';
     const thumbProps = {
       bookTitle: props.bookTitle,
       coverUrl: props.scenes[0].imageUrls[0],
@@ -183,7 +188,8 @@ async function main() {
           continue;
         }
         const curCover = (target.igRow?.video_settings as any)?.reels?.ko?.coverUrl ?? '';
-        if (curCover.includes(`${id}-thumb-`)) {
+        // --force-poster 는 기존(3그림체) 썸네일을 단일표지로 갈아끼우는 게 목적이라 skip 하지 않는다.
+        if (!args.forcePoster && curCover.includes(`${id}-thumb-`)) {
           console.log(`  = ${id} 이미 썸네일 있음 — skip`);
           summary.skipped++;
           continue;
