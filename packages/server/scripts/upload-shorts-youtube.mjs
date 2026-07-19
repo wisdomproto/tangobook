@@ -93,12 +93,43 @@ async function main() {
     process.exit(1);
   }
 
-  // 올릴 대상 선별 (카탈로그 순서 = 공룡→자연→명작)
-  let queue = catalog.filter((r) => r.videoUrl && !state.uploaded[r.bookId]);
-  if (CATEGORY_FILTER) queue = queue.filter((r) => CATEGORY_FILTER.includes(r.category));
-  const batch = queue.slice(0, COUNT);
+  // 올릴 대상 선별 — 카테고리 로테이션(공룡→자연→명작 순환). 같은 주제를 같은 날 몰아올리면
+  // YouTube가 같은 시청자군을 두고 서로 경쟁시켜 1개만 밀어주는 자기잠식 발생 → 매 업로드마다
+  // 주제를 번갈아 뽑는다. 커서(state.rotationIdx)는 업로드 성공 시에만 영속(DRY/실패는 미반영).
+  // --category 명시 시엔 로테이션 없이 그 카테고리 순서대로.
+  const CAT_ROTATION = ['nature-dino', 'nature-other', 'classic'];
+  const remaining = catalog.filter((r) => r.videoUrl && !state.uploaded[r.bookId]).length;
+  let batch;
+  if (CATEGORY_FILTER) {
+    batch = catalog
+      .filter((r) => r.videoUrl && !state.uploaded[r.bookId] && CATEGORY_FILTER.includes(r.category))
+      .slice(0, COUNT);
+  } else {
+    const byCat = new Map(CAT_ROTATION.map((c) => [c, []]));
+    for (const r of catalog) {
+      if (!r.videoUrl || state.uploaded[r.bookId]) continue;
+      if (byCat.has(r.category)) byCat.get(r.category).push(r);
+    }
+    let cursor = Number.isInteger(state.rotationIdx) ? state.rotationIdx : 0;
+    batch = [];
+    for (let picked = 0; picked < COUNT; picked++) {
+      let got = null;
+      for (let step = 0; step < CAT_ROTATION.length; step++) {
+        const idx = (cursor + step) % CAT_ROTATION.length;
+        const q = byCat.get(CAT_ROTATION[idx]);
+        if (q && q.length) {
+          got = q.shift();
+          cursor = (idx + 1) % CAT_ROTATION.length; // 다음 픽/다음 실행은 그 다음 카테고리부터
+          got._postCursor = cursor; // 업로드 성공 시 state.rotationIdx 에 저장할 값
+          break;
+        }
+      }
+      if (!got) break; // 모든 카테고리 소진
+      batch.push(got);
+    }
+  }
 
-  console.log(`채널: ${target.channelTitle} | 미업로드 잔여: ${queue.length} | 이번 업로드: ${batch.length}`);
+  console.log(`채널: ${target.channelTitle} | 미업로드 잔여: ${remaining} | 이번 업로드: ${batch.length}`);
   console.log(`카테고리(YT): ${CATEGORY_ID} | Made for Kids: ${MADE_FOR_KIDS} | 공개: ${PUBLISH_AT ? `${PUBLISH_AT} KST 예약` : '즉시 public'}`);
   if (batch.length === 0) { console.log('올릴 것이 없습니다.'); return; }
 
@@ -150,6 +181,8 @@ async function main() {
         privacy: meta.privacy, publishAt: publishAt ?? null, uploadedAt: new Date().toISOString(),
         thumbSetAt,
       };
+      // 로테이션 커서는 실제 업로드 성공 후에만 전진·저장 (DRY/실패 시 유지 → 다음 실행이 같은 주제 재시도).
+      if (r._postCursor != null) state.rotationIdx = r._postCursor;
       await saveState(state);
       console.log(`  ✅ ${videoUrl}`);
     } catch (e) {
