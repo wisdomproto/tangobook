@@ -545,6 +545,21 @@ function replaceTag(html: string, pattern: RegExp, replacement: string): string 
   return pattern.test(html) ? html.replace(pattern, replacement) : html;
 }
 
+/**
+ * 정적 index.html 은 홈용 hreflang(ko·x-default→홈)을 싣고 있는데, 모든 라우트가
+ * 같은 index.html 을 받으므로 이 태그가 SSR/비-홈 페이지에 그대로 누출된다. 그 결과
+ * about 페이지엔 ko·x-default 가 (홈용 1 + 주입용 1) 씩 2개가 돼 hreflang 클러스터가
+ * 모순되고 구글이 hreflang 을 통째로 무시한다. 주입/재작성 전에 기존 hreflang 을 제거.
+ */
+function stripHreflangLinks(html: string): string {
+  return html.replace(/\s*<link\s+rel="alternate"\s+hreflang="[^"]*"\s+href="[^"]*"\s*\/?>/g, '');
+}
+
+/** URL path 를 HTML 속성값에 안전하게 넣기 위한 최소 escape(속성 breakout 방지). */
+function escapeAttrPath(pathname: string): string {
+  return pathname.replace(/"/g, '%22').replace(/</g, '%3C').replace(/>/g, '%3E');
+}
+
 const metaPattern = (attr: 'name' | 'property', key: string) =>
   new RegExp(`<meta\\s+${attr}="${key.replace(/[:]/g, '\\$&')}"\\s+content="[\\s\\S]*?"\\s*/?>`);
 const metaPatternMultiline = (attr: 'name' | 'property', key: string) =>
@@ -605,7 +620,8 @@ export function injectAboutSeo(indexHtml: string, seo: AboutSeo): string {
     else html = html.replace('</head>', `  ${tag}\n  </head>`);
   }
 
-  // hreflang 상호 링크 (다국어 페이지)
+  // 정적 index.html 의 홈용 hreflang 누출 제거 후 이 페이지의 상호 링크만 주입
+  html = stripHreflangLinks(html);
   if (seo.alternatesHtml) {
     html = html.replace('</head>', `  ${seo.alternatesHtml}\n  </head>`);
   }
@@ -616,5 +632,24 @@ export function injectAboutSeo(indexHtml: string, seo: AboutSeo): string {
   // 본문 — #root 안에 주입 (React createRoot 가 마운트 시 교체)
   html = html.replace('<div id="root"></div>', `<div id="root">${seo.bodyHtml}</div>`);
 
+  return html;
+}
+
+/**
+ * SSR 대상이 아닌 클라이언트 라우트(catch-all)용 — 정적 index.html 의 canonical 이
+ * 홈 고정이라 `/library`·`/vocabulary`·`/library/:id` 등 모든 라우트가 "홈의 복사본"으로
+ * 선언돼 색인에서 빠진다("적절한 표준 태그가 포함된 대체 페이지"). 비-홈 경로는 canonical 을
+ * 자기 자신으로 재작성하고 누출된 홈 hreflang 을 제거해 구글이 URL 자체를 색인하게 한다.
+ * 홈(`/`)은 canonical→홈 이 정답이므로 그대로 둔다.
+ */
+export function selfCanonicalizeHtml(indexHtml: string, pathname: string): string {
+  if (pathname === '/' || pathname === '') return indexHtml;
+  const canonical = `${SITE_URL}${escapeAttrPath(pathname)}`;
+  let html = replaceTag(
+    indexHtml,
+    /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/,
+    `<link rel="canonical" href="${canonical}" />`
+  );
+  html = stripHreflangLinks(html);
   return html;
 }

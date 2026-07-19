@@ -206,6 +206,11 @@ export function createApp() {
         });
     app.get('/library/:id/about', aboutHandler(false));
     app.get('/:lang/library/:id/about', aboutHandler(true));
+    // 책 상세(앱) 페이지 — 자체 SEO 서피스가 아니라 /about 으로 신호를 통합한다.
+    // aboutHandler 재사용 시 canonical 이 /library/:id/about 로 주입돼(renderAboutSeo)
+    // 크롤러가 이 URL 을 /about 의 중복으로 인식하고 색인을 /about 에 몰아준다.
+    // 존재하지 않는 id 는 null → next() → catch-all(self-canonical) 폴백.
+    app.get('/library/:id', aboutHandler(false));
 
     app.get('/blog', (_req, res, next) =>
       sendSeo(res, next, async () => {
@@ -257,8 +262,20 @@ export function createApp() {
     }
 
     app.use(express.static(clientDist));
-    app.get('/{*path}', (_req, res) => {
-      res.sendFile(path.join(clientDist, 'index.html'));
+    // catch-all — SPA index.html. 단, 정적 index.html 의 canonical 은 홈 고정이라
+    // 비-홈 라우트가 전부 "홈 복사본"으로 색인에서 빠진다. 비-홈 경로는 canonical 을
+    // 자기 자신으로 재작성해 서빙(selfCanonicalizeHtml). 실패 시 원본 index.html 폴백.
+    app.get('/{*path}', async (req, res) => {
+      try {
+        const { selfCanonicalizeHtml } = await import('./services/seo-ssr.service.js');
+        if (!cachedIndexHtml) {
+          const { readFile } = await import('node:fs/promises');
+          cachedIndexHtml = await readFile(path.join(clientDist, 'index.html'), 'utf-8');
+        }
+        res.type('html').send(selfCanonicalizeHtml(cachedIndexHtml, req.path));
+      } catch {
+        res.sendFile(path.join(clientDist, 'index.html'));
+      }
     });
   }
 

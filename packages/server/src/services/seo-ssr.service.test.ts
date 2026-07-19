@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   renderAboutSeo,
   injectAboutSeo,
+  selfCanonicalizeHtml,
   renderBlogSeo,
   renderBlogListSeo,
   renderHubSeo,
@@ -43,6 +44,8 @@ const INDEX_HTML = `<!doctype html>
   <head>
     <meta charset="UTF-8" />
     <link rel="canonical" href="https://www.tangobook.co.kr/" />
+    <link rel="alternate" hreflang="ko" href="https://www.tangobook.co.kr/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.tangobook.co.kr/" />
     <title>탱고북 — 동화로 자라는 4-7세 한글·영어 학습 플랫폼</title>
     <meta
       name="description"
@@ -338,5 +341,58 @@ describe('injectAboutSeo', () => {
   it('injects the article into #root for JS-less crawlers', () => {
     expect(html).toContain('<div id="root"><article');
     expect(html).toContain('</article></div>');
+  });
+
+  it('single-language book: removes the leaked homepage hreflang entirely (no →home alternate)', () => {
+    // book 은 번역이 없어 alternates 가 없다 → 정적 홈 hreflang 이 남으면 안 된다.
+    expect(html).not.toContain('rel="alternate" hreflang="ko"');
+    expect(html).not.toContain('rel="alternate" hreflang="x-default"');
+  });
+
+  it('multilingual book: emits exactly one clean hreflang cluster (no dup ko / x-default, none →home)', () => {
+    const multiSeo = renderAboutSeo(
+      {
+        ...(book as object),
+        titleTranslations: { zh: '青蛙王子' },
+        parentGuideTranslations: { zh: { overview: '关于承诺的经典童话。' } },
+      } as unknown as Storybook,
+      'ko'
+    );
+    const out = injectAboutSeo(INDEX_HTML, multiSeo);
+    expect(out.match(/hreflang="ko"/g)).toHaveLength(1);
+    expect(out.match(/hreflang="x-default"/g)).toHaveLength(1);
+    // 남은 ko / x-default 는 홈이 아니라 이 about 페이지를 가리킨다
+    expect(out).not.toContain('hreflang="ko" href="https://www.tangobook.co.kr/"');
+    expect(out).not.toContain('hreflang="x-default" href="https://www.tangobook.co.kr/"');
+    expect(out).toContain(
+      'hreflang="ko" href="https://www.tangobook.co.kr/library/1772009873865/about"'
+    );
+    expect(out).toContain('hreflang="zh"');
+  });
+});
+
+describe('selfCanonicalizeHtml', () => {
+  it('leaves the homepage untouched (canonical stays → home)', () => {
+    const out = selfCanonicalizeHtml(INDEX_HTML, '/');
+    expect(out).toContain('rel="canonical" href="https://www.tangobook.co.kr/"');
+  });
+
+  it('rewrites canonical to the page itself for a non-home client route', () => {
+    const out = selfCanonicalizeHtml(INDEX_HTML, '/library');
+    expect(out.match(/rel="canonical"/g)).toHaveLength(1);
+    expect(out).toContain('rel="canonical" href="https://www.tangobook.co.kr/library"');
+    // 홈 고정 canonical 은 사라진다 (중복/오귀속 방지)
+    expect(out).not.toContain('rel="canonical" href="https://www.tangobook.co.kr/"');
+  });
+
+  it('strips the leaked homepage hreflang on non-home routes', () => {
+    const out = selfCanonicalizeHtml(INDEX_HTML, '/library/phonics/korean');
+    expect(out).not.toContain('rel="alternate" hreflang="ko"');
+    expect(out).not.toContain('rel="alternate" hreflang="x-default"');
+  });
+
+  it('escapes quotes in the pathname to prevent attribute breakout', () => {
+    const out = selfCanonicalizeHtml(INDEX_HTML, '/x"><script>');
+    expect(out).not.toContain('/x"><script>');
   });
 });

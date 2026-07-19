@@ -3,7 +3,8 @@
  * R2 에서 공개 책 (isPublic=true, type='storybook', variant 제외) 가져와
  * packages/client/public/sitemap.xml 생성.
  *
- * 포함: 정적 라우트 + 책별 detail (/library/{id}) + 책별 about (/library/{id}/about)
+ * 포함: 정적 라우트 + 책별 about (/library/{id}/about, 언어별 포함). bare /library/{id}(앱
+ *       페이지)는 제외 — canonical 이 /about 으로 통합되므로 색인 서피스는 /about 단일.
  *
  * 사용: pnpm --filter server sitemap
  */
@@ -154,13 +155,9 @@ async function main() {
         '';
       const lastmod = fmtDate(book.updatedAt || book.createdAt);
 
-      entries.push(urlEntry({
-        loc: `${SITE_URL}/library/${book.id}`,
-        lastmod,
-        changefreq: 'monthly',
-        priority: 0.7,
-        image: cover || undefined,
-      }));
+      // 🔴 bare /library/:id 는 sitemap 에 넣지 않는다 — 앱 페이지라 canonical 이 /about 으로
+      // 통합되므로(app.ts), 두 URL 을 다 색인 요청하면 중복("다른 표준 선택")을 유발한다.
+      // 책의 SEO 서피스는 /about 단일. (앱 페이지는 내부 링크로 발견 → about 로 canonical 통합)
       entries.push(urlEntry({
         loc: `${SITE_URL}/library/${book.id}/about`,
         lastmod,
