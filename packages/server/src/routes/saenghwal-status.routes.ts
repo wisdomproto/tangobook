@@ -10,7 +10,7 @@ import { uploadJsonToR2, r2PublicUrl } from '../providers/r2.provider.js';
 const router = Router();
 
 const STATUS_KEY = '_index/saenghwal-status.json';
-const DOC_RE = /^[a-z0-9-]{1,64}$/;
+const DOC_RE = /^[A-Za-z0-9-]{1,64}$/; // 대소문자 허용 (yuchiwon-Y01 등 대문자 docId 지원)
 type Status = 'wip' | 'done';
 type StatusMap = Record<string, Status>;
 
