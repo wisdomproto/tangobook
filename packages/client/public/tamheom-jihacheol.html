@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 세상 탐험 — 땅속을 달려요</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 세상 탐험 · 시즌1 탈것 #T08</div>
+  <h1>🚇 땅속을 달려요</h1>
+  <div class="sub">땅속에서 위이잉 소리가 나요! 호리가 지하철역으로 내려가 노선도·스크린도어·터널을 살펴보고 직접 타 봐요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 지하철 발견 — 실제 부품·작동을 정확히 (핵심단어: 스크린도어·터널·노선도·승강장·운전실) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(호기심·질문쟁이)·엄마(동행 가이드)·보리(동행 친구, 조심·관찰·디테일 발견)·콩이(동행 친구, 먹보·엉뚱한 비유)·기관사 아저씨(운전실 안내자, 단역) &nbsp;·&nbsp;
+  <b>구조</b> 발견 5단계 (궁금→찾아감→살펴봄→해봄→정리) &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🚇 반복 후렴 — "위이잉위이잉, 땅속을 달려요!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>궁금(땅속 소리)</b> <span class="tag">궁금 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">위이잉— 위이잉— 발밑 땅속에서 커다란 소리가 울려요. 호리는 두 귀가 쫑긋! 발을 콩콩 굴러 봐요. "어? 땅속에서 무슨 소리가 나요? 뭐가 달리는 것 같아!" 위이잉위이잉, 땅속을 달려요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 하이앵글. 지하철역 입구 계단 앞 인도에서 발밑을 신기해하는 호리를 위에서 비스듬히 담은 컷.<br/><b>장소·시간</b> 도심 지하철역 입구('지하철' 표지와 아래로 내려가는 계단), 맑은 낮. 사람들이 오가는 활기찬 거리.<br/><b>인물</b> Hori(아기 호랑이)는 화면 앞쪽 인도에 서서 두 귀를 바짝 세우고 눈을 크게 뜬 채, 한 발을 살짝 들어 바닥을 콩콩 굴러 보며 발밑을 내려다보는 신기한 표정. Mom tiger(엄마 호랑이)는 오른쪽에서 호리 손을 잡고 부드럽게 미소 지으며 내려다봄.<br/><b>배경·소품</b> 아래로 이어지는 지하철역 계단과 '지하철' 안내 표지, 계단 난간, 바닥 틈에서 올라오는 듯한 작은 바람과 소리 물결선, 거리의 가로수와 건물.<br/><b>톤</b> 환한 대낮 자연광, 발밑에서 울리는 소리에 대한 두근거리는 호기심의 정서, 밝고 활기찬 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>궁금(질문)</b> <span class="tag">궁금</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"엄마, 기차는 밖으로 다니는데 이건 왜 땅속에서 달려요?" 엄마가 빙긋 웃었어요. "땅속으로 다니는 기차라서 '지하철'이래. 계단 아래로 내려가면 만날 수 있어. 보리랑 콩이랑 같이 가 볼까?"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 계단 앞에서 엄마를 올려다보며 묻는 호리와 곁의 친구들을 담은 컷.<br/><b>장소·시간</b> 지하철역 입구 계단 맨 위, 낮. 계단 아래는 살짝 그늘지고 은은한 조명이 보임.<br/><b>인물</b> Hori는 왼쪽에서 Mom tiger의 손을 두 손으로 잡고 고개를 뒤로 젖혀 궁금한 미소로 올려다보며 질문. Mom tiger는 가운데서 허리를 굽혀 눈을 맞추고 한 손으로 계단 아래를 가리키며 다정하게 웃음. Bori(아기 곰)는 오른쪽에서 계단 아래를 조심스레 기웃거리며 관찰하는 차분한 표정. Kongi(아기 다람쥐)는 그 옆에서 두 손을 모으고 신나서 볼이 통통해진 표정.<br/><b>배경·소품</b> 아래로 이어지는 넓은 계단과 손잡이 난간, '지하철' 표지판, 계단 아래에서 새어 나오는 밝은 조명.<br/><b>톤</b> 계단 위 햇살과 아래 실내 조명의 부드러운 대비, 궁금증이 모험으로 바뀌는 설레는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>찾아감(승강장 도착)</b> <span class="tag">찾아감 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">계단을 또각또각 내려가니 넓고 환한 곳이 나왔어요. 사람들이 노란 선 뒤에 줄지어 기다려요. "여기가 지하철을 타고 내리는 곳, '승강장'이야." 호리는 두리번두리번, 가슴이 콩닥콩닥!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 넓은 지하철 승강장에 막 들어선 호리 일행을 담은 컷.<br/><b>장소·시간</b> 지하철역 승강장 안, 낮(실내). 밝고 깔끔한 지하 조명, 시원한 실내 공기.<br/><b>인물</b> Hori는 화면 가운데서 두리번거리며 두 손을 가슴에 모으고 눈을 반짝이는 설렘 가득한 표정. Mom tiger는 왼쪽에서 호리 어깨에 손을 얹고 앞쪽 안전문을 가리키며 설명하는 미소. Bori는 오른쪽에서 바닥의 노란 안전선을 발끝으로 살피며 조심스레 관찰. Kongi는 그 뒤에서 까치발을 들고 승강장 끝을 기웃거림.<br/><b>배경·소품</b> 넓은 승강장 바닥의 노란 안전선, 벽면의 역 이름 표지, 천장의 밝은 조명, 앞쪽에 늘어선 유리 스크린도어(아직 닫혀 있음), 줄 서서 기다리는 사람들의 실루엣.<br/><b>톤</b> 밝고 깨끗한 지하 실내 조명, 처음 온 곳을 살피는 두근거리는 호기심의 정서, 넓고 시원한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>살펴봄(노선도)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">벽에 알록달록한 그림이 붙어 있어요. 빨강 선, 파랑 선, 초록 선이 구불구불! "이건 '노선도'야. 색깔 선을 따라가면 어느 역에서 내릴지 알 수 있어." 콩이가 고개를 갸웃했어요. "우아, 꼭 알록달록 사탕 지도 같다!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 벽에 붙은 커다란 노선도 앞에 모여 올려다보는 컷.<br/><b>장소·시간</b> 승강장 벽면 노선도 앞, 낮(실내). 밝은 지하 조명.<br/><b>인물</b> Mom tiger는 왼쪽에서 한 손 검지로 노선도의 파란 선을 따라 짚으며 설명하는 다정한 표정. Hori는 가운데서 고개를 들어 색깔 선들을 눈으로 따라가며 입을 동그랗게 벌린 감탄. Bori는 오른쪽에서 손가락으로 작은 동그라미(역) 하나를 콕 짚으며 진지하게 관찰. Kongi는 앞쪽에서 고개를 갸웃 기울이고 두 손을 볼에 대며 사탕을 떠올리는 엉뚱한 표정.<br/><b>배경·소품</b> 벽에 붙은 커다란 지하철 노선도(빨강·파랑·초록·노랑 색깔 선이 구불구불 이어지고 선마다 작은 동그라미 역 표시), 옆에 화살표 안내판, 밝은 실내 조명.<br/><b>톤</b> 환한 실내 조명에 알록달록한 색이 도드라지는 정서, 신기함으로 눈이 커지는 밝고 즐거운 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>살펴봄(스크린도어)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">승강장 앞에는 커다란 투명 유리문이 쭉 서 있어요. "이건 '스크린도어'야. 지하철이 올 때까지 꼭 닫혀 있어서, 선로로 떨어지지 않게 지켜 준단다." 보리가 유리에 콩— 손을 대 봤어요. "튼튼하다! 안전하게 막아 주는구나."</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면. 닫힌 유리 스크린도어를 앞에 두고 살펴보는 컷.<br/><b>장소·시간</b> 승강장 스크린도어 앞, 낮(실내). 밝은 지하 조명.<br/><b>인물</b> Mom tiger는 오른쪽에서 유리 스크린도어를 손바닥으로 가리키며 설명하는 미소. Hori는 가운데서 유리에 얼굴을 가까이 대고 두 손을 유리에 붙인 채 안쪽 선로를 들여다보는 호기심 어린 표정. Bori는 왼쪽에서 한 손으로 유리를 톡톡 두드려 보며 튼튼함을 확인하는 진지한 표정. Kongi는 그 옆에서 유리에 비친 제 얼굴을 보며 신기해함.<br/><b>배경·소품</b> 승강장을 따라 길게 늘어선 투명 유리 스크린도어와 그 사이 은색 문틀, 문 위의 열차 방향 표시등, 유리 너머로 보이는 어둑한 선로, 바닥의 노란 안전선.<br/><b>톤</b> 밝은 실내 조명에 유리가 은은히 반사되는 정서, 안전하고 든든한 느낌의 차분하고 밝은 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>살펴봄(터널·열차 등장)</b> <span class="tag">살펴봄 · 후렴 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"열차가 들어오고 있습니다!" 안내 방송이 울리자, 캄캄한 '터널' 저편에서 두 개의 불빛이 반짝! 위이잉— 지하철이 바람을 몰고 쓩 들어와요. 맨 앞칸 유리 너머, 기관사 아저씨가 호리에게 손을 흔들어요. 위이잉위이잉, 땅속을 달려요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 터널에서 승강장으로 들어오는 지하철의 앞모습을 정면 가까이 담은 역동적인 컷.<br/><b>장소·시간</b> 승강장, 낮(실내). 어두운 터널 입구에서 밝은 승강장으로 열차가 진입하는 순간.<br/><b>인물</b> Hori는 화면 앞쪽 스크린도어 안전선 뒤에서 다가오는 열차를 보며 두 팔을 번쩍 들고 입을 크게 벌린 감탄 포즈. Bori는 왼쪽에서 살짝 뒤로 물러서며 조심스레 지켜봄. Kongi는 오른쪽에서 귀를 막고 눈은 반짝이며 신난 표정. metrodriver(기관사 아저씨)는 열차 맨 앞칸 운전실 유리 너머에서 제복 모자를 쓰고 한 손을 들어 반갑게 손 흔드는 미소.<br/><b>배경·소품</b> 캄캄한 터널에서 나오는 지하철 앞칸(두 개의 둥근 전조등이 밝게 빛남), 맨 앞의 운전실 창, 승강장의 스크린도어와 노란 안전선, 열차가 몰고 오는 바람 물결선.<br/><b>톤</b> 어두운 터널과 밝은 승강장의 강한 대비, 전조등 불빛의 반짝임, 열차가 들어오는 웅장하고 두근거리는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>해봄(타보기·손잡이)</b> <span class="tag">해봄 · 부릉꼬리</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">스크린도어와 열차 문이 스르륵 함께 열려요. "타 볼까?" 호리는 폴짝 올라타 동그란 손잡이를 두 손으로 꼭 잡았어요. 위이잉— 지하철이 부드럽게 출발해도 호리는 씩씩하게 안 넘어져요! 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! "나 혼자 잘 잡았어요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 지하철 객차 안에서 손잡이를 잡고 씩씩하게 선 호리를 담은 결정적 컷.<br/><b>장소·시간</b> 출발하는 지하철 객차 안, 낮(실내). 깔끔하고 환한 객차 조명.<br/><b>인물</b> Hori는 화면 가운데서 머리 위 동그란 손잡이를 두 손으로 꼭 잡고 다리를 살짝 벌려 버틴 채, 흔들려도 안 넘어져 뿌듯하게 활짝 웃는 씩씩한 표정. Mom tiger는 오른쪽에서 옆 손잡이를 잡고 흐뭇하게 호리를 내려다봄. Bori는 왼쪽 좌석에 얌전히 앉아 창밖을 관찰. Kongi는 그 옆에서 손잡이를 잡으려 까치발로 폴짝 뛰는 귀여운 모습.<br/><b>배경·소품</b> 객차 천장에 줄지어 달린 동그란 손잡이들, 옆으로 긴 좌석, 창문, 문 위의 노선 안내판, 특히 Hori 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리).<br/><b>톤</b> 밝고 깨끗한 객차 조명, 혼자 해냈다는 성취감의 뿌듯하고 신나는 정서, 따뜻한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>해봄(창밖 터널)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">창밖을 보니 온통 캄캄해요. 지하철은 땅속 긴 터널을 달리고 있거든요. 벽에 붙은 불빛만 슝슝 지나가요. "지하철은 어떻게 캄캄한 데서 달려요?" "앞에 달린 밝은 불빛으로 길을 비추고, 위에 있는 전깃줄에서 전기를 받아 위이잉 달린단다." 콩이가 눈을 동그랗게 떴어요. "터널이 꼭 기다란 김밥 속 같아!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 앵글. 객차 창문에 붙어 캄캄한 터널을 내다보는 아이들을 뒤에서 담은 컷.<br/><b>장소·시간</b> 달리는 지하철 객차 안, 낮(실내이나 창밖은 캄캄한 터널). 환한 객차와 어두운 창밖의 대비.<br/><b>인물</b> Hori는 화면 가운데 좌석에 무릎을 세우고 앉아 두 손을 창유리에 대고 캄캄한 창밖을 신기하게 내다봄. Kongi는 왼쪽에서 창에 코를 붙이고 눈을 동그랗게 뜬 채 김밥을 떠올리는 엉뚱한 표정. Bori는 오른쪽에서 스쳐 지나가는 벽 불빛을 손가락으로 짚으며 관찰. Mom tiger는 뒤쪽에 서서 창밖을 가리키며 설명하는 다정한 미소.<br/><b>배경·소품</b> 객차 창 너머 캄캄한 지하 터널과 벽을 따라 슝슝 스쳐 지나가는 작은 불빛들, 터널 천장을 따라 이어진 전깃줄(전차선), 열차 지붕 위 전기를 받는 팬터그래프, 객차 안 밝은 조명, 좌석과 손잡이, 창틀.<br/><b>톤</b> 밝은 객차와 어두운 터널 창밖의 강한 대비, 스쳐 가는 불빛의 속도감, 신기함으로 눈이 커지는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>해봄(기관사·운전실)</b> <span class="tag">해봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">내릴 역에 도착! 맨 앞칸 '운전실' 앞에서 기관사 아저씨가 문을 열고 내려왔어요. "지하철은 정해진 길을 따라 안전하게 사람들을 실어 나른단다. 아저씨는 앞에서 출발과 멈춤을 살펴보지." 호리가 꾸벅 인사했어요. "우아, 아저씨 최고예요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 승강장에서 기관사 아저씨와 마주 선 호리 일행을 담은 컷.<br/><b>장소·시간</b> 도착한 역의 승강장 맨 앞, 낮(실내). 밝은 지하 조명, 열차는 문을 열고 멈춰 있음.<br/><b>인물</b> metrodriver(기관사 아저씨)는 화면 오른쪽에서 열차 맨 앞칸 운전실 문 앞에 서서 한 손으로 운전실 안을 가리키며 다정하게 설명하는 미소. Hori는 가운데서 아저씨를 올려다보며 두 손을 모아 꾸벅 인사하는 존경 어린 표정. Bori는 왼쪽에서 열린 운전실 안의 계기판을 눈을 크게 뜨고 관찰. Kongi는 그 옆에서 폴짝 뛰며 신난 표정. Mom tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 열차 맨 앞칸의 운전실 문(열려서 안쪽 계기판과 운전대가 살짝 보임), 승강장 스크린도어, 벽의 역 이름 표지, 바닥의 노란 안전선.<br/><b>톤</b> 밝은 실내 조명, 든든한 어른을 만난 존경과 감탄의 정서, 따뜻하고 예의 바른 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>정리(감탄·감사)</b> <span class="tag">정리 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">계단을 올라 다시 환한 밖으로 나왔어요. 호리는 엄마 손을 잡고 조잘조잘. "노선도로 길을 찾고, 스크린도어가 지켜 주고, 터널 속을 전기 힘으로 달려요! 지하철은 땅속으로 우리를 실어 날라요." 발밑에서 또 위이잉— 소리가 났어요. 위이잉위이잉, 땅속을 달려요!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 뒷모습 살짝 측면. 계단을 올라와 밝은 거리로 나선 따뜻한 마무리 컷.<br/><b>장소·시간</b> 지하철역 입구 밖 거리, 늦은 오후. 부드러운 햇살이 드는 포근하고 뿌듯한 공기.<br/><b>인물</b> Hori는 화면 가운데서 Mom tiger의 손을 잡고 걸으며 고개를 들어 손짓 섞어 조잘조잘 신나게 이야기하는 뿌듯한 표정. Mom tiger는 호리를 내려다보며 다정하게 고개를 끄덕이며 미소. Bori는 왼쪽에서 차분히 함께 걸으며 흐뭇한 표정. Kongi는 오른쪽에서 발밑을 콩콩 굴러 소리를 확인하며 폴짝폴짝 뛰는 신난 모습.<br/><b>배경·소품</b> 뒤로 '지하철' 표지와 계단 입구, 발밑에서 다시 올라오는 소리 물결선, 거리의 가로수와 낮은 건물, 늦은 오후의 부드러운 하늘.<br/><b>톤</b> 따뜻한 오후 햇살 조명, 하루의 발견을 곱씹는 뭉클하고 흐뭇한 정서, 존중과 감탄으로 마무리되는 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 세상 탐험 · T08 땅속을 달려요 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"metrodriver","name":"기관사 아저씨","aliases":["metrodriver","subway driver","metro operator"],"desc":"짙은 남색 철도 제복 재킷(금색 단추 두 줄, 어깨에 견장, 가슴에 작은 명찰)을 입고 챙 달린 남색 제복 모자(앞에 은색 철도 배지)를 쓴 친절하고 듬직한 인상의 어른. 둥글고 다정한 눈에 환한 미소, 목에는 파란 스카프, 허리춤에 작은 무전기. 아이들을 다정하게 안내하는 운전실 가이드"}]</script>
+<script src="/tamheom-core.js"></script>
+</body>
+</html>

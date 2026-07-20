@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 세상 탐험 — 삐뽀삐뽀 불자동차</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 세상 탐험 · 시즌1 탈것 #T01</div>
+  <h1>🚒 삐뽀삐뽀 불자동차</h1>
+  <div class="sub">삐뽀삐뽀 소리를 따라간 호리가 소방서에서 소방차를 하나하나 살펴보고 직접 물까지 뿌려 봐요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 소방차 발견 — 실제 부품·작동을 정확히 (핵심단어: 사이렌·경광등·물탱크·호스·사다리·소방복) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(호기심·질문쟁이)·아빠(동행 가이드)·토토(동행 친구, 성급해서 먼저 만져봄)·소방관 아저씨(현장 안내자, 단역) &nbsp;·&nbsp;
+  <b>구조</b> 발견 5단계 (궁금→찾아감→살펴봄→해봄→정리) &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🚒 반복 후렴 — "삐뽀삐뽀, 불자동차 출동!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>궁금(목격)</b> <span class="tag">궁금 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삐뽀삐뽀! 삐뽀삐뽀! 커다란 빨간 자동차가 번쩍번쩍 불빛을 켜고 쌩— 지나가요. 호리는 두 귀가 쫑긋! "우아, 저 빨간 불자동차는 뭐지?" 삐뽀삐뽀, 불자동차 출동!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 소방차가 화면을 가로질러 지나가고 호리가 이를 올려다보는 컷.<br/><b>장소·시간</b> 동네 큰길가 인도, 맑은 낮. 파란 하늘에 구름 몇 점, 활기차고 상쾌한 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 앞쪽 인도에 서서 두 귀를 쫑긋 세우고 입을 동그랗게 벌린 채, 두 손을 볼 옆에 대고 지나가는 빨간 차를 눈이 반짝반짝 놀라 올려다봄.<br/><b>배경·소품</b> 화면 중앙을 가로지르는 커다란 빨간 소방차(사이렌 스피커와 지붕의 빨간 경광등이 번쩍임), 차 옆면에 은색 호스 감개, 인도의 가로수와 신호등, 뒤로 낮은 건물들.<br/><b>톤</b> 환한 대낮 자연광, 빨간 경광등의 반짝임이 포인트, 신나고 두근거리는 호기심의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>궁금(질문)</b> <span class="tag">궁금</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아빠, 저 자동차는 어떻게 불을 꺼요?" 호리가 아빠 손을 잡고 폴짝폴짝 물어봐요. 아빠가 빙긋 웃었어요. "궁금하면 소방차가 사는 곳에 가 볼까? 토토도 같이!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 아빠를 올려다보며 묻고 토토가 곁에 있는 삼자 컷.<br/><b>장소·시간</b> 같은 길가, 낮. 소방차는 이미 멀어져 저 끝에 작게 보임.<br/><b>인물</b> Hori는 화면 왼쪽에서 Dad tiger(아빠 호랑이)의 손을 두 손으로 잡고 발을 살짝 든 채 고개를 뒤로 젖혀 아빠를 올려다보며 궁금한 미소로 질문. Dad tiger는 가운데서 허리를 살짝 굽혀 호리에게 눈을 맞추며 한 손으로 저 멀리 소방차 쪽을 가리키고 다정하게 웃음. Toto(하얀 아기 토끼)는 오른쪽에서 귀를 쫑긋 세우고 깡충 뛰어오르며 신난 표정.<br/><b>배경·소품</b> 멀어지는 작은 소방차, 가로수와 신호등, 인도 블록, 맑은 하늘.<br/><b>톤</b> 밝은 낮 자연광, 궁금증이 모험으로 바뀌는 설레는 정서, 따뜻하고 활기찬 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>찾아감(소방서 도착)</b> <span class="tag">찾아감</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">커다란 문이 스르륵 열린 소방서 안, 빨간 소방차가 떡— 하니 서 있어요. "안녕! 소방차가 궁금해서 왔구나?" 빨간 소방복을 입은 소방관 아저씨가 손을 흔들어요. 호리는 심장이 콩닥콩닥!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 활짝 열린 소방서 차고 안 소방차를 앞에서 올려다보는 컷.<br/><b>장소·시간</b> 소방서 차고(garage) 입구, 낮. 큰 셔터문이 위로 올라가 있고 안쪽은 시원한 그늘, 바깥은 환함.<br/><b>인물</b> Hori는 화면 앞쪽 가운데서 목을 뒤로 젖혀 커다란 소방차를 입 벌리고 올려다보며 두 손을 가슴에 모음, 놀라움 가득한 표정. Dad tiger는 호리 뒤에서 어깨에 손을 얹고 함께 올려다봄. Toto는 왼쪽에서 발끝을 세워 차를 기웃거림. firefighter(소방관 아저씨)는 빨간 소방복에 노란 헬멧 차림으로 오른쪽 소방차 옆에 서서 한 손을 번쩍 들어 반갑게 인사하며 환하게 웃음.<br/><b>배경·소품</b> 차고 안 커다란 빨간 소방차 전체, 벽에 걸린 빨간 소방복과 노란 헬멧들, 접힌 호스 다발, 위로 올라간 셔터문, 바닥의 노란 안전선.<br/><b>톤</b> 안쪽 그늘과 바깥 햇살의 대비, 크고 든든한 소방차의 위풍, 두근거리는 설렘의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>살펴봄(사이렌·경광등)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"삐뽀삐뽀 소리는 여기 사이렌에서 나와. 빨리 비켜 달라고 알려 주는 거야." 지붕 위 빨간 경광등도 빙글빙글, 번쩍번쩍 돌아요. 멀리서도 잘 보이라고요. 토토가 얼른 손을 뻗자 아저씨가 웃어요. "눈으로 먼저 보자, 토토!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글로 소방차 앞 유리와 지붕을 비스듬히 내려다봄. 사이렌과 경광등이 잘 보이는 컷.<br/><b>장소·시간</b> 소방서 차고 안, 낮. 실내 조명과 셔터문으로 든 빛.<br/><b>인물</b> firefighter(빨간 소방복·노란 헬멧)는 화면 왼쪽에서 소방차 지붕의 경광등을 한 손으로 가리키며 설명하는 다정한 표정. Hori는 앞쪽에서 눈을 크게 뜨고 손가락으로 사이렌 스피커를 가리키며 "우와" 하는 감탄. Toto는 오른쪽에서 경광등을 만지려 팔을 쭉 뻗다가 멈칫, 아저씨를 힐끗 보며 겸연쩍게 귀를 접음. Dad tiger는 뒤에서 토토 어깨를 살짝 잡아 주며 미소.<br/><b>배경·소품</b> 소방차 지붕에서 빙글빙글 도는 빨간 경광등, 앞쪽 은색 사이렌 스피커, 운전석 유리, 빛의 잔상선.<br/><b>톤</b> 실내 조명에 경광등 빨간 빛이 반사되어 반짝, 신기하고 활기찬 정서, 살짝 코믹한 토토의 멋쩍음.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>살펴봄(물탱크·호스)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"불은 물로 꺼야겠지? 소방차 안에는 커다란 물탱크가 물을 가득 싣고 다녀." 아저씨가 옆문을 열자 돌돌 감긴 긴 호스가 나와요. "이 호스로 물을 쭉— 멀리 쏜단다." 호리 입이 딱 벌어졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면. 열린 소방차 옆칸의 호스 감개를 셋이 들여다보는 컷.<br/><b>장소·시간</b> 소방차 옆면, 낮. 차고 안 밝은 조명.<br/><b>인물</b> firefighter는 화면 오른쪽에서 소방차 옆문(수납칸)을 활짝 열어 돌돌 감긴 굵은 호스를 한 손으로 가리키며 설명. Hori는 가운데서 두 손으로 무릎을 짚고 허리를 굽혀 호스에 얼굴을 가까이 대고 입을 딱 벌린 놀란 표정. Toto는 왼쪽에서 까치발로 물탱크 표시를 올려다봄. Dad tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 소방차 옆면 열린 수납칸에 돌돌 감긴 굵은 소방 호스, 그 위쪽 차체에 큰 물탱크임을 보여주는 물방울 그림 표시, 은색 밸브와 손잡이, 바닥의 노란 안전선.<br/><b>톤</b> 밝은 차고 조명, 크고 튼튼한 장비의 든든함, 신기함으로 눈이 커지는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>살펴봄(사다리)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"높은 건물에 불이 나면 어떡해요?" 호리가 묻자 아저씨가 옆에 나란히 선 다른 소방차를 가리켜요. "저건 키다리 사다리차야. 지붕에 접힌 사다리가 쭉— 하늘까지 뻗어 올라가서 높은 곳도 도와준단다." 사다리가 위이잉— 길어지자 모두 "우와!" 했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글로 하늘을 향해 뻗는 사다리를 올려다봄. 사다리차의 높이가 강조되는 컷.<br/><b>장소·시간</b> 소방서 앞마당(차고 바깥), 낮. 파란 하늘과 밝은 햇살.<br/><b>인물</b> Hori는 화면 앞쪽 가운데서 목을 한껏 뒤로 젖혀 하늘로 뻗는 사다리를 올려다보며 두 팔을 번쩍 든 감탄 포즈. Toto는 옆에서 폴짝 뛰며 함께 올려다봄. Dad tiger는 뒤에서 호리 손을 잡고 같이 위를 봄. firefighter(빨간 소방복·노란 헬멧)는 오른쪽에서 사다리차의 조작 손잡이 곁에 서서 한 손을 사다리 쪽으로 뻗어 자랑스레 설명하는 미소.<br/><b>배경·소품</b> 앞서 살펴본 빨간 펌프 소방차 옆에 나란히 선 또 다른 빨간 사다리차, 그 지붕에서 하늘을 향해 길게 뻗어 올라가는 은색 사다리(끝에 작은 바구니), 파란 하늘과 흰 구름, 소방서 건물 벽.<br/><b>톤</b> 환한 야외 자연광, 하늘을 찌르는 사다리의 시원하고 웅장한 정서, 감탄이 터지는 밝은 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>해봄(소방복·헬멧)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"호리도 소방관이 돼 볼까?" 빨간 소방복은 묵직하고, 노란 헬멧은 커다래요. 토토가 헬멧을 급하게 쓰자 눈까지 쑥— 가려져 "앞이 안 보여!" 모두 까르르 웃었어요. 호리는 헬멧을 꾹 눌러쓰고 씩씩하게 섰어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 소방복과 헬멧을 착용해 보는 호리와 토토의 코믹한 컷.<br/><b>장소·시간</b> 소방서 차고 안 장비 걸이 앞, 낮. 실내 조명.<br/><b>인물</b> Hori는 화면 가운데서 커다란 빨간 소방복을 걸치고 노란 헬멧을 두 손으로 꾹 눌러쓴 채 가슴을 펴고 씩씩하게 섬, 뿌듯한 미소. Toto는 왼쪽에서 헬멧이 눈까지 푹 내려와 앞이 안 보여 두 팔을 앞으로 허우적거리며 당황한 표정. firefighter는 오른쪽에서 무릎을 굽혀 호리의 소방복 단추를 채워 주며 껄껄 웃음. Dad tiger는 뒤에서 손뼉 치며 즐겁게 웃음.<br/><b>배경·소품</b> 벽의 소방복·헬멧 걸이, 나란한 노란 헬멧들, 소방 장화, 반사띠가 달린 빨간 소방복, 실내 조명.<br/><b>톤</b> 따뜻한 실내 조명, 옷이 커서 벌어지는 귀엽고 코믹한 정서, 웃음이 번지는 즐거운 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>해봄(호스로 물 쏘기)</b> <span class="tag">해봄 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 진짜 물을 쏴 볼 차례! 아저씨와 호리가 함께 호스를 꼭 잡자, 쏴아아— 물줄기가 무지개처럼 뻗어 나가요! 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! "나도 불 끌 수 있어요!" 삐뽀삐뽀, 불자동차 출동!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 호스에서 물줄기가 시원하게 뻗어 나가는 결정적 순간.<br/><b>장소·시간</b> 소방서 앞마당, 낮. 밝은 햇살에 물보라가 반짝이는 상쾌한 공기.<br/><b>인물</b> Hori는 화면 앞쪽에서 굵은 호스를 두 손으로 꼭 잡고 다리를 벌려 버틴 채, 뻗어 나가는 물줄기에 눈을 반짝이며 활짝 웃는 씩씩한 결의의 표정. firefighter는 호리 바로 뒤에서 함께 호스를 잡아 힘을 보태며 흐뭇하게 웃음. Toto는 왼쪽에서 물보라를 맞고 깜짝 놀라 귀를 쫑긋 세우며 까르르 웃음. Dad tiger는 오른쪽에서 두 손을 번쩍 들어 응원.<br/><b>배경·소품</b> 호스 끝에서 시원하게 뻗어 나가는 물줄기와 햇살에 뜬 작은 무지개, 튀는 물방울, 특히 호리 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리), 뒤로 소방차와 소방서 벽.<br/><b>톤</b> 환한 자연광에 물보라가 반짝이는 시원하고 역동적인 정서, 해냈다는 성취감의 신나는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>해봄(진짜 출동 목격)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 따르릉— 신고 전화가 울렸어요! 소방관 아저씨들이 소방복을 척척 입고 소방차에 훌쩍 올라타요. 삐뽀삐뽀! 커다란 문이 열리고 소방차가 씩씩하게 달려 나가요. 호리와 토토는 손을 흔들었어요. "불 잘 꺼 주세요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 측면. 소방차가 차고를 빠져나가고 아이들이 배웅하는 출동 컷.<br/><b>장소·시간</b> 소방서 차고 입구, 낮. 셔터문이 활짝 열리고 사이렌 불빛이 번쩍이는 긴박하지만 씩씩한 공기.<br/><b>인물</b> firefighter는 소방차 옆문 발판에 한 발을 올리고 몸을 끌어올리며 올라타는 민첩한 동작. 또 다른 소방관 한 명은 그 뒤에서 노란 헬멧의 턱끈을 두 손으로 조이며 서둘러 뛰어감. Hori는 화면 오른쪽 앞에서 발을 동동 구르며 두 손을 힘차게 흔들어 배웅, 응원하는 표정. Toto는 호리 옆에서 함께 손을 흔들며 입을 크게 벌려 외침. Dad tiger는 뒤에서 두 아이의 어깨를 감싸 안전선 안쪽으로 지켜 줌.<br/><b>배경·소품</b> 셔터문 밖으로 나가는 빨간 소방차(빨간 경광등이 번쩍), 바닥의 노란 안전선, 소방서 벽의 표지, 살짝 뻗은 사이렌 불빛 선.<br/><b>톤</b> 밝은 낮 자연광에 경광등 반짝임, 긴박하지만 무섭지 않고 씩씩하고 든든한 정서, 응원의 따뜻한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>정리(감탄·감사)</b> <span class="tag">정리 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집으로 가는 길, 호리는 아빠 손을 꼭 잡고 조잘조잘. "사이렌으로 알려 주고, 물탱크 물을 호스로 쏘고, 사다리로 높이 올라가요! 소방관 아저씨는 불을 꺼서 우리를 지켜 줘요." 호리는 하늘 보며 씩 웃었어요. 삐뽀삐뽀, 불자동차 출동!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 뒷모습 살짝 측면. 노을 진 길을 걸으며 이야기하는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 소방서에서 집으로 가는 동네 길, 해 질 녘. 주황빛 노을이 물든 포근하고 뿌듯한 공기.<br/><b>인물</b> Hori는 화면 가운데서 Dad tiger의 손을 잡고 걸으며 고개를 들어 아빠에게 손짓 섞어 조잘조잘 신나게 이야기하는 뿌듯한 표정. Dad tiger는 호리를 내려다보며 다정하게 고개를 끄덕이며 미소. Toto는 왼쪽에서 폴짝폴짝 뛰며 아직도 신이 난 표정.<br/><b>배경·소품</b> 두 사람 손을 잡은 실루엣, 뒤로 저 멀리 작아진 소방서 건물, 노을빛 하늘에 작은 구름, 가로수와 길가 벤치, 하늘 한켠에 작은 별 반짝임.<br/><b>톤</b> 따뜻한 주황 노을 조명, 하루의 발견을 곱씹는 뭉클하고 흐뭇한 정서, 존중과 감탄으로 마무리되는 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 세상 탐험 · T01 삐뽀삐뽀 불자동차 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"firefighter","name":"소방관 아저씨","aliases":["firefighter","fireman"],"desc":"빨간 소방복(가슴과 소매에 노란 반사띠)을 입고 노란 소방 헬멧을 쓴 튼튼하고 친절한 인상의 어른. 둥글고 다정한 눈에 환한 미소, 짧고 단정한 콧수염, 굵은 팔로 든든한 느낌. 소방 장화와 장갑. 아이들을 다정하게 안내하는 현장 가이드"}]</script>
+<script src="/tamheom-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 세상 탐험 — 우르릉 흙 나르기</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 세상 탐험 · 시즌1 탈것 #T05</div>
+  <h1>🚛 우르릉 흙 나르기</h1>
+  <div class="sub">우르릉 소리를 따라간 호리가 공사장에서 덤프트럭을 하나하나 살펴보고 직접 짐칸을 기울여 흙까지 쏟아 봐요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 덤프트럭 발견 — 실제 부품·작동을 정확히 (핵심단어: 짐칸(적재함)·기울이기·큰 바퀴·운전석·테일게이트) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(호기심·질문쟁이)·아빠(동행 가이드)·콩이(동행 친구, 먹보라 자갈을 도토리로 오해)·덤프트럭 기사 아저씨(현장 안내자, 단역) &nbsp;·&nbsp;
+  <b>구조</b> 발견 5단계 (궁금→찾아감→살펴봄→해봄→정리) &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🚛 반복 후렴 — "우르릉 우르릉, 흙 싣고 나르기!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>궁금(목격)</b> <span class="tag">궁금 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">우르릉 우르릉! 저 멀리서 땅이 부르르 떨려요. 커다란 트럭이 흙을 산더미처럼 싣고 씩씩하게 지나가요. 호리는 두 귀가 쫑긋! "우아, 저 큰 트럭은 뭐지?" 우르릉 우르릉, 흙 싣고 나르기!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 흙을 잔뜩 실은 큰 트럭이 화면을 가로질러 지나가고 호리가 이를 올려다보는 컷.<br/><b>장소·시간</b> 동네 큰길가 인도, 맑은 낮. 파란 하늘에 구름 몇 점, 트럭 뒤로 살짝 이는 흙먼지, 활기찬 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 앞쪽 인도에 서서 두 귀를 쫑긋 세우고 입을 동그랗게 벌린 채, 두 손을 볼 옆에 대고 지나가는 큰 트럭을 눈이 반짝반짝 놀라 올려다봄.<br/><b>배경·소품</b> 화면 중앙을 가로지르는 커다란 덤프트럭(노란 차체, 뒤쪽 짐칸에 흙이 산더미처럼 수북, 아주 큰 바퀴), 인도의 가로수와 신호등, 뒤로 낮은 건물들, 바퀴 근처에 살짝 이는 흙먼지.<br/><b>톤</b> 환한 대낮 자연광, 큼직한 노란 트럭의 든든함이 포인트, 신나고 두근거리는 호기심의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>궁금(질문)</b> <span class="tag">궁금</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아빠, 저 트럭은 어떻게 저렇게 많은 흙을 날라요?" 호리가 아빠 손을 잡고 폴짝폴짝 물어봐요. 아빠가 빙긋 웃었어요. "궁금하면 트럭이 일하는 공사장에 가 볼까? 콩이도 같이 가자!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 아빠를 올려다보며 묻고 콩이가 곁에 있는 삼자 컷.<br/><b>장소·시간</b> 같은 길가, 낮. 트럭은 이미 멀어져 저 끝에 작게 보임.<br/><b>인물</b> Hori는 화면 왼쪽에서 Dad tiger(아빠 호랑이)의 손을 두 손으로 잡고 발을 살짝 든 채 고개를 뒤로 젖혀 아빠를 올려다보며 궁금한 미소로 질문. Dad tiger는 가운데서 허리를 살짝 굽혀 호리에게 눈을 맞추며 한 손으로 저 멀리 트럭 쪽을 가리키고 다정하게 웃음. Kongi(다람쥐)는 오른쪽에서 두 손을 배에 얹고 꼬리를 세운 채 신난 표정으로 깡충 뛰어오름.<br/><b>배경·소품</b> 멀어지는 작은 덤프트럭, 가로수와 신호등, 인도 블록, 맑은 하늘.<br/><b>톤</b> 밝은 낮 자연광, 궁금증이 모험으로 바뀌는 설레는 정서, 따뜻하고 활기찬 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>찾아감(공사장 도착)</b> <span class="tag">찾아감</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">흙먼지 폴폴 날리는 공사장, 커다란 노란 덤프트럭이 떡— 하니 서 있어요. "안녕! 덤프트럭이 궁금해서 왔구나?" 주황색 조끼에 노란 안전모를 쓴 기사 아저씨가 손을 흔들어요. 호리는 가슴이 콩닥콩닥!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 공사장에 우뚝 선 덤프트럭을 앞에서 올려다보는 컷.<br/><b>장소·시간</b> 흙바닥 공사장 마당, 낮. 파헤친 흙더미와 파란 안전 펜스, 맑은 하늘, 흙먼지가 살짝 도는 활기찬 공기.<br/><b>인물</b> Hori는 화면 앞쪽 가운데서 목을 뒤로 젖혀 커다란 덤프트럭을 입 벌리고 올려다보며 두 손을 가슴에 모음, 놀라움 가득한 표정. Dad tiger는 호리 뒤에서 어깨에 손을 얹고 함께 올려다봄. Kongi(다람쥐)는 왼쪽에서 발끝을 세워 트럭 바퀴 쪽을 기웃거림. dumpdriver(덤프트럭 기사 아저씨)는 주황색 안전조끼에 노란 안전모 차림으로 오른쪽 트럭 옆에 서서 한 손을 번쩍 들어 반갑게 인사하며 환하게 웃음.<br/><b>배경·소품</b> 커다란 노란 덤프트럭 전체(높은 운전석, 뒤쪽 큰 짐칸, 아주 큰 바퀴), 뒤로 흙더미와 안전 펜스, 노란 안전 고깔들.<br/><b>톤</b> 환한 대낮 자연광, 크고 든든한 트럭의 위풍, 두근거리는 설렘의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>살펴봄(큰 바퀴)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"우와, 바퀴가 내 키보다 커요!" 호리가 커다란 바퀴를 올려다봐요. "울퉁불퉁 돌밭도, 질척질척 진흙탕도 이 큰 바퀴로 씩씩하게 달린단다." 아저씨가 바퀴를 툭툭 두드려요. 무거운 흙을 실어도 끄떡없대요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 강한 로우앵글. 호리 키를 훌쩍 넘는 커다란 바퀴 하나를 아래에서 올려다보는 컷.<br/><b>장소·시간</b> 공사장 마당의 덤프트럭 옆, 낮. 밝은 햇살.<br/><b>인물</b> Hori는 화면 가운데서 커다란 바퀴 앞에 서서 목을 뒤로 젖히고 손바닥을 바퀴 홈에 대 본 채 "내 키보다 크다!"는 놀란 표정으로 눈이 동그래짐. dumpdriver(주황 조끼·노란 안전모)는 오른쪽에서 바퀴를 손등으로 툭툭 두드리며 다정하게 설명하는 미소. Kongi(다람쥐)는 왼쪽에서 바퀴의 굵은 홈에 폭 안기듯 기어올라 매달려 신기해함. Dad tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 사람 키보다 큰 검은 고무 바퀴(굵은 요철 무늬), 은색 휠, 그 위로 이어지는 노란 차체 일부, 바닥의 흙과 자갈.<br/><b>톤</b> 환한 야외 자연광, 크고 튼튼한 바퀴의 든든함, 신기함으로 눈이 커지는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>살펴봄(짐칸)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">트럭 뒤에는 커다란 짐칸이 있어요. 흙이랑 자갈이 가득가득! "우아, 도토리 창고 같아!" 콩이가 자갈을 도토리인 줄 알고 냉큼 집어 들자 아저씨가 껄껄 웃어요. "그건 돌멩이란다, 콩이야." 짐칸은 무거운 흙을 담는 커다란 그릇이에요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글로 트럭 뒤 짐칸 안을 비스듬히 내려다봄. 흙과 자갈이 가득한 짐칸이 잘 보이는 컷.<br/><b>장소·시간</b> 공사장 덤프트럭 뒤쪽, 낮. 밝은 햇살.<br/><b>인물</b> Kongi(다람쥐)는 화면 앞쪽에서 짐칸 가장자리에 매달려 자갈 하나를 두 손으로 냉큼 집어 들고 눈을 반짝이며 "도토리다!" 하는 착각한 표정. dumpdriver(주황 조끼·노란 안전모)는 오른쪽에서 손을 내저으며 껄껄 웃는 다정한 표정. Hori는 왼쪽에서 까치발로 짐칸 안을 들여다보며 입을 딱 벌린 놀란 표정. Dad tiger는 뒤에서 콩이를 살짝 붙잡아 주며 미소.<br/><b>배경·소품</b> 트럭 뒤의 크고 깊은 철제 짐칸(적재함)에 수북한 흙과 자갈, 짐칸 뒤 여닫는 문(테일게이트), 노란 차체, 뒤로 흙더미.<br/><b>톤</b> 밝은 야외 자연광, 크고 든든한 짐칸의 넉넉함, 콩이의 착각이 주는 살짝 코믹하고 정겨운 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>살펴봄(기울이기)</b> <span class="tag">살펴봄 · 핵심단어 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"이 많은 흙을 어떻게 쏟아요?" 호리가 묻자 아저씨가 운전석에서 손잡이를 당겼어요. 우르릉— 짐칸이 스르르 위로 기울어져요! 힘센 장치가 짐칸을 뒤로 밀어 올리면 흙이 주르륵 쏟아진대요. "우와, 저절로 쏟아진다!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 측면. 짐칸이 뒤로 비스듬히 높이 들려 올라가 흙이 쏟아지는 옆모습 컷.<br/><b>장소·시간</b> 공사장 마당, 낮. 밝은 햇살에 흙먼지가 살짝 이는 공기.<br/><b>인물</b> Hori는 화면 앞쪽 왼편에서 안전한 거리를 두고 서서 위로 들린 짐칸을 두 팔을 번쩍 들고 올려다보며 "저절로 쏟아진다!" 하는 감탄의 표정. Dad tiger는 호리 옆에서 어깨를 감싸 안전선 안쪽으로 지켜 줌. Kongi(다람쥐)는 그 옆에서 폴짝 뛰며 함께 올려다봄. dumpdriver(주황 조끼·노란 안전모)는 오른쪽 높은 운전석 창가에 앉아 손잡이(조작 레버)를 당기며 뒤를 돌아보는 모습.<br/><b>배경·소품</b> 뒤쪽 짐칸이 앞은 낮고 뒤는 높게 비스듬히 들려 올라간 덤프트럭(짐칸을 밀어 올리는 굵은 은색 실린더 장치가 짐칸 아래로 보임), 뒤로 열린 테일게이트에서 주르륵 쏟아지는 흙과 자갈 더미, 노란 차체, 큰 바퀴.<br/><b>톤</b> 환한 자연광, 짐칸이 힘차게 들리는 웅장하고 신기한 정서, 감탄이 터지는 밝은 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>해봄(운전석 타보기)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"호리도 운전석에 앉아 볼까?" 높다란 계단을 조심조심 붙잡고 올라가니, 운전석이 저 아래 세상을 내려다봐요. 커다란 핸들은 호리가 두 팔로 안아야 할 만큼 커요! "우아, 여기 앉으니까 내가 제일 커진 것 같아요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 하이앵글. 높은 운전석에 앉은 호리를 옆·뒤에서 잡아 저 아래 땅이 함께 보이는 컷.<br/><b>장소·시간</b> 덤프트럭 운전석 안, 낮. 창으로 드는 밝은 빛.<br/><b>인물</b> Hori는 화면 가운데 커다란 운전석 의자에 폭 앉아 두 팔로 큼직한 핸들을 끌어안듯 잡고, 창밖 저 아래를 내려다보며 "제일 커진 것 같아!" 하는 신나고 뿌듯한 미소. dumpdriver(주황 조끼·노란 안전모)는 열린 운전석 문 옆 발판에 서서 한 손으로 호리를 붙잡아 안전하게 받쳐 주며 다정하게 웃음. Dad tiger는 계단 아래에서 두 손을 올려 받칠 준비를 하며 올려다봄. Kongi(다람쥐)는 계단 난간에 매달려 운전석을 기웃거림.<br/><b>배경·소품</b> 크고 높은 운전석(큼직한 핸들, 단순한 계기판, 몇 개의 조작 레버와 손잡이), 옆의 오르내리는 발판 계단과 손잡이, 창밖으로 저 아래 흙바닥이 작게 보임.<br/><b>톤</b> 밝은 실내 자연광, 높은 곳에서 세상을 내려다보는 신나는 대리만족의 정서, 든든하고 뿌듯한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>해봄(짐칸 기울이기)</b> <span class="tag">해봄 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">이제 진짜 흙을 쏟아 볼 차례! 아저씨가 손을 포개어 도와주자 호리가 손잡이를 꾹— 당겼어요. 우르릉! 짐칸이 위로 기울며 흙이 주르륵 쏟아져요! 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! "나도 흙 쏟았어요!" 우르릉 우르릉, 흙 싣고 나르기!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 호리가 레버를 당기고 뒤쪽 짐칸이 들려 흙이 쏟아지는 결정적 순간을 한 화면에 담은 컷.<br/><b>장소·시간</b> 덤프트럭 운전석과 뒤쪽 짐칸이 함께 보이는 각도, 낮. 밝은 햇살에 흙먼지가 반짝이는 상쾌한 공기.<br/><b>인물</b> Hori는 화면 앞쪽 운전석에서 두 손으로 조작 레버(손잡이)를 꾹 당기며 눈을 반짝이고 활짝 웃는 씩씩한 결의의 표정. dumpdriver(주황 조끼·노란 안전모)는 호리 바로 뒤에서 자기 손을 호리 손 위에 살짝 포개어 함께 당겨 주며 흐뭇하게 웃음. Dad tiger는 아래쪽에서 두 손을 번쩍 들어 응원. Kongi(다람쥐)는 안전선 밖 옆에서 쏟아지는 흙을 보고 깜짝 놀라 꼬리를 세우며 까르르 웃음.<br/><b>배경·소품</b> 뒤로 비스듬히 들린 짐칸에서 주르륵 쏟아지는 흙과 자갈, 짐칸을 밀어 올린 은색 실린더, 특히 호리 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리), 노란 차체와 큰 바퀴.<br/><b>톤</b> 환한 자연광에 흙먼지가 반짝이는 역동적인 정서, 직접 해냈다는 성취감의 신나는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>해봄(흙 나르기 목격)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 옆에서 포클레인이 흙을 한가득 퍼서 덤프트럭 짐칸에 척척 실어 줘요. 짐칸이 가득 차자 덤프트럭이 우르릉— 흙을 나르러 씩씩하게 떠나요. 호리와 콩이는 손을 흔들었어요. "흙 잘 날라 주세요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 측면. 포클레인이 짐칸에 흙을 붓고 아이들이 배웅하는 작업 컷.<br/><b>장소·시간</b> 공사장 마당, 낮. 흙먼지가 살짝 이는 활기찬 공기.<br/><b>인물</b> Hori는 화면 오른쪽 앞에서 발을 동동 구르며 두 손을 힘차게 흔들어 배웅, 응원하는 밝은 표정. Kongi(다람쥐)는 호리 옆에서 함께 손을 흔들며 입을 크게 벌려 외침. Dad tiger는 뒤에서 두 아이의 어깨를 감싸 안전선 안쪽으로 지켜 줌. dumpdriver(주황 조끼·노란 안전모)는 왼쪽 운전석 창가에서 한 손을 내밀어 아이들에게 손을 흔들며 웃음.<br/><b>배경·소품</b> 왼쪽에서 커다란 버킷으로 흙을 퍼 덤프트럭 짐칸에 붓고 있는 노란 포클레인(굴착기), 흙이 가득 찬 덤프트럭 짐칸, 큰 바퀴, 바닥의 노란 안전 고깔과 흙더미.<br/><b>톤</b> 밝은 낮 자연광, 두 기계가 함께 일하는 든든하고 씩씩한 정서, 응원의 따뜻한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>정리(감탄·감사)</b> <span class="tag">정리 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집으로 가는 길, 호리는 아빠 손을 꼭 잡고 조잘조잘. "큰 바퀴로 돌밭도 달리고, 짐칸에 흙을 가득 싣고, 손잡이를 당기면 기울여서 쏟아요! 덤프트럭은 무거운 흙을 나르는 힘센 일꾼이에요." 호리는 하늘 보며 씩 웃었어요. 우르릉 우르릉, 흙 싣고 나르기!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 뒷모습 살짝 측면. 노을 진 길을 걸으며 이야기하는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 공사장에서 집으로 가는 동네 길, 해 질 녘. 주황빛 노을이 물든 포근하고 뿌듯한 공기.<br/><b>인물</b> Hori는 화면 가운데서 Dad tiger의 손을 잡고 걸으며 고개를 들어 아빠에게 손짓 섞어 조잘조잘 신나게 이야기하는 뿌듯한 표정. Dad tiger는 호리를 내려다보며 다정하게 고개를 끄덕이며 미소. Kongi(다람쥐)는 왼쪽에서 두 손을 배에 얹고 폴짝폴짝 뛰며 아직도 신이 난 표정.<br/><b>배경·소품</b> 세 사람의 손을 잡은 실루엣, 뒤로 저 멀리 작아진 공사장과 노란 덤프트럭, 노을빛 하늘에 작은 구름, 가로수와 길가 벤치, 하늘 한켠에 작은 별 반짝임.<br/><b>톤</b> 따뜻한 주황 노을 조명, 하루의 발견을 곱씹는 뭉클하고 흐뭇한 정서, 존중과 감탄으로 마무리되는 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 세상 탐험 · T05 우르릉 흙 나르기 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"dumpdriver","name":"덤프트럭 기사 아저씨","aliases":["dump truck driver","dumpdriver"],"desc":"주황색 안전조끼(가슴과 어깨에 은색 반사띠)를 걸치고 노란 안전모를 쓴 튼튼하고 친절한 인상의 어른. 둥글고 다정한 눈에 환한 미소, 짧고 단정한 콧수염, 굵은 팔로 든든한 느낌. 회색 작업복 바지와 노란 목장갑, 튼튼한 안전화. 아이들을 다정하게 안내하는 공사장 현장 가이드"}]</script>
+<script src="/tamheom-core.js"></script>
+</body>
+</html>

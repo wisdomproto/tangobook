@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 세상 탐험 — 아파도 걱정 마</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 세상 탐험 · 시즌1 탈것 #T02</div>
+  <h1>🚑 아파도 걱정 마</h1>
+  <div class="sub">삐뽀삐뽀 달려가는 하얀 구급차를 따라간 호리가 119에서 들것·산소마스크·무전기를 살펴보고 아픈 친구를 직접 돌봐 봐요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 구급차 발견 — 실제 부품·작동을 정확히 (핵심단어: 비상등·들것·산소마스크·무전기·사이렌·응급가방) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(호기심·질문쟁이)·엄마(동행 가이드)·보리(동행 친구, 조심스레 관찰·디테일 발견)·구급대원 아저씨(현장 안내자, 단역) &nbsp;·&nbsp;
+  <b>구조</b> 발견 5단계 (궁금→찾아감→살펴봄→해봄→정리) &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🚑 반복 후렴 — "삐뽀삐뽀, 아파도 걱정 마!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>궁금(목격)</b> <span class="tag">궁금 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">삐뽀삐뽀! 삐뽀삐뽀! 하얀 자동차가 빨간 불빛을 번쩍번쩍 켜고 쌩— 달려가요. 호리는 두 귀가 쫑긋! "우아, 저 하얀 자동차는 어디를 저렇게 급하게 가지?" 삐뽀삐뽀, 아파도 걱정 마!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 하얀 구급차가 화면을 가로질러 달려가고 호리가 이를 올려다보는 컷.<br/><b>장소·시간</b> 동네 큰길가 인도, 맑은 낮. 파란 하늘에 구름 몇 점, 활기차고 상쾌한 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 앞쪽 인도에 서서 두 귀를 쫑긋 세우고 입을 동그랗게 벌린 채, 두 손을 볼 옆에 대고 지나가는 하얀 차를 눈이 반짝반짝 놀라 올려다봄.<br/><b>배경·소품</b> 화면 중앙을 가로지르는 하얀 구급차(옆면에 빨간·주황 띠와 녹십자(초록 십자) 마크, '119' 글자, 지붕의 빨간 비상등이 번쩍임), 인도의 가로수와 신호등, 뒤로 낮은 건물들.<br/><b>톤</b> 환한 대낮 자연광, 빨간 비상등의 반짝임이 포인트, 신나고 두근거리는 호기심의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>궁금(질문)</b> <span class="tag">궁금</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"엄마, 저 하얀 차는 뭐 하는 차예요?" 호리가 엄마 손을 잡고 폴짝폴짝 물어봐요. 엄마가 빙긋 웃었어요. "저건 아픈 사람을 돕는 구급차란다. 어떻게 돕는지 보러 가 볼까? 보리도 같이!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 엄마를 올려다보며 묻고 보리가 곁에 있는 삼자 컷.<br/><b>장소·시간</b> 같은 길가, 낮. 구급차는 이미 멀어져 저 끝에 작게 보임.<br/><b>인물</b> Hori는 화면 왼쪽에서 Mom tiger(엄마 호랑이)의 손을 두 손으로 잡고 발을 살짝 든 채 고개를 뒤로 젖혀 엄마를 올려다보며 궁금한 미소로 질문. Mom tiger는 가운데서 허리를 살짝 굽혀 호리에게 눈을 맞추며 한 손으로 멀어지는 구급차 쪽을 가리키고 다정하게 웃음. Bori(아기 곰)는 오른쪽에서 두 손을 모으고 고개를 갸웃하며 얌전히 궁금해하는 표정.<br/><b>배경·소품</b> 멀어지는 작은 하얀 구급차, 가로수와 신호등, 인도 블록, 맑은 하늘.<br/><b>톤</b> 밝은 낮 자연광, 궁금증이 모험으로 바뀌는 설레는 정서, 따뜻하고 활기찬 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>찾아감(119 도착)</b> <span class="tag">찾아감</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">커다란 문이 스르륵 열린 119 안전센터 안, 하얀 구급차가 얌전히 서 있어요. "안녕! 구급차가 궁금해서 왔구나?" 남색 제복을 입은 구급대원 아저씨가 손을 흔들어요. 호리는 심장이 콩닥콩닥!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 활짝 열린 119 차고 안 구급차를 앞에서 올려다보는 컷.<br/><b>장소·시간</b> 119 안전센터 차고 입구, 낮. 큰 셔터문이 위로 올라가 있고 안쪽은 시원한 그늘, 바깥은 환함.<br/><b>인물</b> Hori는 화면 앞쪽 가운데서 목을 뒤로 젖혀 커다란 하얀 구급차를 입 벌리고 올려다보며 두 손을 가슴에 모음, 놀라움 가득한 표정. Mom tiger는 호리 뒤에서 어깨에 손을 얹고 함께 올려다봄. Bori는 왼쪽에서 두 손을 등 뒤로 모으고 조심스레 구급차를 살펴봄. paramedic(구급대원 아저씨, 남색 제복에 주황 반사띠)는 오른쪽 구급차 옆에 서서 한 손을 번쩍 들어 반갑게 인사하며 환하게 웃음.<br/><b>배경·소품</b> 차고 안 하얀 구급차 전체(옆면 녹십자(초록 십자)·'119' 표시, 뒷문), 벽에 걸린 주황 응급가방과 구조 장비, 바닥의 노란 안전선, 위로 올라간 셔터문.<br/><b>톤</b> 안쪽 그늘과 바깥 햇살의 대비, 크고 든든한 구급차의 안심되는 위풍, 두근거리는 설렘의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>살펴봄(비상등·사이렌)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"삐뽀삐뽀 소리랑 반짝이는 비상등은 '길 좀 비켜 주세요!' 하는 신호란다." 지붕 위 빨간 비상등이 빙글빙글, 번쩍번쩍 돌아요. 다른 차들이 얼른 길을 내주면 아픈 사람에게 더 빨리 갈 수 있거든요. 호리 눈이 반짝반짝!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글로 구급차 앞 유리와 지붕을 비스듬히 내려다봄. 비상등과 사이렌이 잘 보이는 컷.<br/><b>장소·시간</b> 119 차고 안, 낮. 실내 조명과 셔터문으로 든 빛.<br/><b>인물</b> paramedic(남색 제복·주황 반사띠)는 화면 왼쪽에서 구급차 지붕의 비상등을 한 손으로 가리키며 설명하는 다정한 표정. Hori는 앞쪽에서 눈을 크게 뜨고 손가락으로 비상등을 가리키며 "우와" 하는 감탄. Bori는 오른쪽에서 두 손으로 귀를 살짝 막고 사이렌 소리를 상상하듯 눈을 찡긋하며 방긋. Mom tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 구급차 지붕에서 빙글빙글 도는 빨간 비상등, 앞쪽 은색 사이렌 스피커, 운전석 유리, 빛의 잔상선.<br/><b>톤</b> 실내 조명에 비상등 빨간 빛이 반사되어 반짝, 신기하고 활기찬 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>살펴봄(들것)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 구급차 뒷문을 활짝 열자, 바퀴 달린 침대가 스르륵 미끄러져 나와요. "이건 들것이야. 아픈 사람을 여기 눕히고 안전벨트로 꼭 매서 안전하게 태우지." 보리가 쪼그려 앉아 바퀴를 콕 짚었어요. "어? 침대에 바퀴가 달렸네!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면. 구급차 뒷문을 열고 들것이 미끄러져 나오는 컷.<br/><b>장소·시간</b> 구급차 뒤편, 낮. 차고 안 밝은 조명.<br/><b>인물</b> paramedic는 화면 오른쪽에서 활짝 연 뒷문 앞에서 바퀴 달린 들것을 두 손으로 스르륵 끌어내며 설명하는 다정한 표정. Hori는 가운데서 두 손으로 무릎을 짚고 허리를 굽혀 들것을 가까이 들여다보며 입을 딱 벌린 놀란 표정. Bori는 왼쪽에서 쪼그려 앉아 들것의 바퀴를 손가락으로 콕 짚으며 조심조심 관찰하는 진지한 표정. Mom tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 바퀴 달린 은색 들것(접이식 다리·주황 안전벨트·얇은 매트), 구급차 뒷칸 내부의 선반과 장비, 바닥의 노란 안전선.<br/><b>톤</b> 밝은 차고 조명, 크고 튼튼한 장비의 안심되는 정서, 신기함으로 눈이 커지는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>살펴봄(산소마스크)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">구급차 안에는 신기한 물건이 가득해요. "숨쉬기 힘든 사람에겐 이 산소마스크를 씌워 준단다. 코와 입에 살짝 대면 숨쉬기 좋은 깨끗한 공기가 나와서 숨쉬기가 편해지지." 보리가 마스크에 달린 가느다란 관을 조심조심 따라가 봐요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머로 구급차 뒷칸 안을 들여다보는 컷.<br/><b>장소·시간</b> 구급차 뒷칸 안, 낮. 차분한 실내 조명.<br/><b>인물</b> paramedic는 화면 오른쪽에서 투명한 산소마스크를 한 손에 들고 자기 코와 입 앞에 살짝 대 보이며 사용법을 설명하는 다정한 표정. Hori는 가운데서 눈을 동그랗게 뜨고 마스크를 신기하게 바라봄. Bori는 왼쪽에서 두 손을 모으고 마스크에 연결된 가느다란 관을 손끝으로 따라가며 조심스레 살펴보는 진지한 표정. Mom tiger는 뒤 문가에서 미소.<br/><b>배경·소품</b> 투명한 산소마스크와 연결된 얇은 관, 벽에 세워 고정된 초록 산소통, 뒷칸 선반의 붕대와 구급 상자, 은색 손잡이.<br/><b>톤</b> 차분한 실내 조명, 아픈 사람을 돕는 물건들의 다정하고 안심되는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>살펴봄(무전기)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"치직— 여기는 구급차, 병원 나와라, 오버!" 아저씨가 검은 무전기에 대고 말하자 병원에서 "네, 준비할게요!" 하고 대답이 와요. "무전기로 병원에 미리 알려 주면, 병원이 딱 기다리고 있다가 얼른 도와준단다." 호리 눈이 동그래졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 클로즈업, 아이레벨. 아저씨가 무전기에 대고 병원과 교신하는 컷.<br/><b>장소·시간</b> 구급차 운전석 옆, 낮. 실내 조명.<br/><b>인물</b> paramedic는 화면 오른쪽에서 안테나 달린 검은 무전기를 입가에 대고 버튼을 누르며 병원과 교신하는 진지하지만 다정한 표정. Hori는 왼쪽에서 두 손을 턱에 괴고 무전기에서 나는 소리에 귀를 쫑긋 세우며 눈을 크게 뜸. Bori는 호리 옆에서 입을 오므리고 신기한 듯 무전기를 바라봄.<br/><b>배경·소품</b> 안테나 달린 검은 무전기(스피커에서 소리가 나는 표시선), 운전석 계기판, 지도, 무선 스피커.<br/><b>톤</b> 실내 조명에 무전기 신호 표시가 반짝, 병원과 이어지는 신기하고 든든한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>해봄(아픈 친구 돌보기)</b> <span class="tag">해봄 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"호리도 아픈 친구를 도와줄까?" 보리가 살포시 들것에 눕자, 호리가 얇은 이불을 폭— 덮어 주고 산소마스크도 살살 대 줘요. 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! "이제 괜찮아. 아파도 걱정 마!" 삐뽀삐뽀, 아파도 걱정 마!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 호리가 들것에 누운 보리를 정성껏 돌봐 주는 결정적 순간.<br/><b>장소·시간</b> 119 차고 안 들것 곁, 낮. 밝은 실내 조명.<br/><b>인물</b> Hori는 화면 가운데서 들것에 누운 Bori에게 얇은 이불을 두 손으로 폭 덮어 주고 투명한 산소마스크를 살포시 대 주며, 씩씩하고 다정한 미소로 돌봄. 이 순간 호리 꼬리 줄무늬가 무지개색으로 반짝임(부릉꼬리 시그니처). Bori는 들것에 편안히 누워 두 손을 배 위에 모으고 안심한 듯 방긋 웃음. paramedic는 오른쪽에서 무릎을 굽혀 호리의 손을 살짝 거들며 흐뭇하게 웃음. Mom tiger는 왼쪽에서 두 손을 모으고 대견하게 바라봄.<br/><b>배경·소품</b> 바퀴 달린 들것과 얇은 이불, 산소마스크와 관, 특히 호리 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처(부릉꼬리), 뒤로 하얀 구급차.<br/><b>톤</b> 따뜻한 실내 조명, 아픈 친구를 돌봐 냈다는 뿌듯한 성취감의 다정한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>해봄(진짜 출동 목격)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">그때 치직— 무전기가 울렸어요! "다친 사람이 있어요, 빨리 와 주세요!" 아저씨가 응급가방을 척 들고 구급차에 훌쩍 올라타요. 삐뽀삐뽀! 비상등을 번쩍이며 구급차가 씩씩하게 달려 나가요. 호리와 보리는 손을 흔들었어요. "아픈 사람 얼른 도와주세요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 측면. 구급차가 차고를 빠져나가고 아이들이 배웅하는 출동 컷.<br/><b>장소·시간</b> 119 차고 입구, 낮. 셔터문이 활짝 열리고 비상등 불빛이 번쩍이는 긴박하지만 씩씩한 공기.<br/><b>인물</b> paramedic는 주황 응급가방을 한 손에 들고 구급차 옆문 발판에 한 발을 올려 몸을 끌어올리며 올라타는 민첩한 동작. Hori는 화면 오른쪽 앞에서 발을 동동 구르며 두 손을 힘차게 흔들어 배웅하는 응원의 표정. Bori는 호리 옆에서 함께 손을 흔들며 걱정 반 응원 반의 표정. Mom tiger는 뒤에서 두 아이의 어깨를 감싸 안전선 안쪽으로 지켜 줌.<br/><b>배경·소품</b> 셔터문 밖으로 나가는 하얀 구급차(빨간 비상등이 번쩍), 바닥의 노란 안전선, 벽의 '119' 표지, 살짝 뻗은 사이렌 불빛 선.<br/><b>톤</b> 밝은 낮 자연광에 비상등 반짝임, 긴박하지만 무섭지 않고 씩씩하고 든든한 정서, 응원의 따뜻한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>정리(감탄·감사)</b> <span class="tag">정리 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집으로 가는 길, 호리는 엄마 손을 꼭 잡고 조잘조잘. "비상등으로 길을 비켜 달라 하고, 들것에 눕히고, 산소마스크로 숨쉬게 하고, 무전기로 병원에 알려요! 구급대원 아저씨는 아픈 사람을 지켜 줘요." 호리는 하늘 보며 씩 웃었어요. 삐뽀삐뽀, 아파도 걱정 마!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 뒷모습 살짝 측면. 노을 진 길을 걸으며 이야기하는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 119 안전센터에서 집으로 가는 동네 길, 해 질 녘. 주황빛 노을이 물든 포근하고 뿌듯한 공기.<br/><b>인물</b> Hori는 화면 가운데서 Mom tiger의 손을 잡고 걸으며 고개를 들어 엄마에게 손짓 섞어 조잘조잘 신나게 이야기하는 뿌듯한 표정. Mom tiger는 호리를 내려다보며 다정하게 고개를 끄덕이며 미소. Bori는 왼쪽에서 두 손을 모으고 사뿐사뿐 걸으며 아직도 신기한 듯 방긋 웃는 표정.<br/><b>배경·소품</b> 세 사람의 실루엣, 뒤로 저 멀리 작아진 119 안전센터 건물, 노을빛 하늘에 작은 구름, 가로수와 길가 벤치, 하늘 한켠에 작은 별 반짝임.<br/><b>톤</b> 따뜻한 주황 노을 조명, 하루의 발견을 곱씹는 뭉클하고 흐뭇한 정서, 존중과 감탄으로 마무리되는 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 세상 탐험 · T02 아파도 걱정 마 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"paramedic","name":"구급대원 아저씨","aliases":["paramedic","EMT","ambulance crew"],"desc":"남색 구급대원 제복(가슴과 소매에 주황·은색 반사띠, 왼쪽 가슴에 '119' 마크)을 입고 남색 캡모자를 쓴 튼튼하고 친절한 인상의 어른. 둥글고 다정한 눈에 환한 미소, 짧고 단정한 머리, 목에 청진기를 걸고 파란 위생장갑을 낌. 어깨엔 주황 응급가방. 아픈 사람을 안심시키는 따뜻하고 침착한 현장 가이드"}]</script>
+<script src="/tamheom-core.js"></script>
+</body>
+</html>

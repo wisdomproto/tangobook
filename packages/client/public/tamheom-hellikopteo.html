@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 세상 탐험 — 빙글빙글 프로펠러</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 세상 탐험 · 시즌1 탈것 #T11</div>
+  <h1>🚁 빙글빙글 프로펠러</h1>
+  <div class="sub">위이잉 소리를 따라간 호리가 헬기장에서 헬리콥터를 하나하나 살펴보고 직접 조종석에 앉아 하늘로 사뿐 떠올라 봐요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 헬리콥터 발견 — 실제 부품·작동을 정확히 (핵심단어: 프로펠러(로터)·꼬리 프로펠러·구조바구니·착륙대) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(호기심·질문쟁이)·아빠(동행 가이드)·보리(동행 친구, 조심조심 관찰·디테일 발견)·헬리콥터 조종사 아저씨(현장 안내자, 단역) &nbsp;·&nbsp;
+  <b>구조</b> 발견 5단계 (궁금→찾아감→살펴봄→해봄→정리) &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🚁 반복 후렴 — "위이잉, 빙글빙글 프로펠러!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>궁금(목격)</b> <span class="tag">궁금 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">위이잉— 위이잉— 하늘에서 빙글빙글 커다란 소리가 들려요. 호리가 고개를 번쩍 들자, 위에 프로펠러가 빙글빙글 도는 빨간 헬리콥터가 두둥실 떠 있어요! "우아, 저건 날개도 없는데 어떻게 하늘에 떠 있지?" 위이잉, 빙글빙글 프로펠러!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글로 하늘을 올려다봄. 헬리콥터가 하늘에 떠 있고 호리가 이를 올려다보는 컷.<br/><b>장소·시간</b> 동네 공원 잔디밭, 맑은 낮. 파란 하늘에 흰 구름 몇 점, 활기차고 상쾌한 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 앞쪽 잔디에 서서 목을 한껏 뒤로 젖히고 두 손으로 이마에 차양을 만든 채, 입을 동그랗게 벌리고 눈이 반짝반짝 놀라 하늘의 헬리콥터를 올려다봄. 두 귀는 쫑긋.<br/><b>배경·소품</b> 화면 위쪽 하늘에 떠 있는 빨간 구조 헬리콥터(머리 위 커다란 프로펠러(로터)가 빙글빙글 돌아 속도선이 흐릿한 원, 꼬리 끝에도 작은 프로펠러), 몸통 옆면에 흰 십자 표시, 아래로 잔디밭과 나무들, 파란 하늘.<br/><b>톤</b> 환한 대낮 자연광, 빙글 도는 프로펠러의 역동감이 포인트, 신나고 두근거리는 호기심의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>궁금(질문)</b> <span class="tag">궁금 · 찾아감</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아빠, 비행기는 길게 달려서 뜨는데 저건 제자리에서 위로 쑥 떠올라요!" 호리가 폴짝폴짝 물어봐요. 함께 온 보리도 눈을 동그랗게 떴어요. 아빠가 빙긋 웃었어요. "그럼 헬리콥터가 내려앉는 곳에 가 볼까? 보리도 같이 가자!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 아빠를 올려다보며 묻고 보리가 곁에 있는 삼자 컷.<br/><b>장소·시간</b> 같은 공원 잔디밭, 낮. 헬리콥터는 저 멀리 작게 날아가고 있음.<br/><b>인물</b> Hori는 화면 왼쪽에서 Dad tiger(아빠 호랑이)의 손을 두 손으로 잡고 발끝을 든 채 고개를 젖혀 아빠를 올려다보며, 다른 손으로 저 멀리 헬리콥터를 가리키는 궁금한 미소. Dad tiger는 가운데서 허리를 굽혀 호리와 눈을 맞추고 한 손을 헬리콥터 쪽으로 뻗어 다정하게 웃음. Bori(아기 곰)는 오른쪽에서 두 앞발을 가슴에 모으고 고개를 갸웃하며 눈을 동그랗게 뜬 조심스러운 호기심 표정.<br/><b>배경·소품</b> 저 멀리 작아진 빨간 헬리콥터, 잔디밭과 나무, 벤치, 맑은 하늘.<br/><b>톤</b> 밝은 낮 자연광, 궁금증이 모험으로 바뀌는 설레는 정서, 따뜻하고 활기찬 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>찾아감(헬기장 도착·착륙대)</b> <span class="tag">찾아감 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">넓은 마당 바닥에 커다란 동그라미와 알파벳 'H'가 그려져 있어요. "여기가 헬리콥터가 내려앉는 착륙대란다." 그 위에 빨간 헬리콥터가 사뿐히 앉아 있어요. "안녕! 헬리콥터가 궁금해서 왔구나?" 조종사 아저씨가 손을 흔들어요. 호리는 심장이 콩닥콩닥!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 하이앵글로 착륙대 전체를 비스듬히 내려다봄. 바닥의 H 표시와 그 위 헬리콥터가 함께 보이는 컷.<br/><b>장소·시간</b> 야외 헬기장(헬리패드), 맑은 낮. 넓고 탁 트인 시원한 공기.<br/><b>인물</b> Hori는 화면 앞쪽 가운데서 착륙대 노란 선 바깥에 서서 두 손을 가슴에 모으고 입 벌린 채 헬리콥터를 놀라 바라봄. Dad tiger는 호리 뒤에서 어깨에 손을 얹고 함께 봄. Bori는 왼쪽에서 발끝으로 서서 바닥의 커다란 'H' 글자를 신기하게 내려다봄. helicopter pilot(조종사 아저씨)은 흰 비행복에 파란 헬멧 차림으로 오른쪽 헬리콥터 옆에 서서 한 손을 번쩍 들어 반갑게 인사하며 환하게 웃음.<br/><b>배경·소품</b> 넓은 콘크리트 착륙대 바닥에 크게 그려진 노란 동그라미와 흰 'H' 표시, 그 위에 사뿐히 앉은 빨간 구조 헬리콥터(프로펠러는 멈춰 살짝 처져 있음), 가장자리 노란 경계선, 뒤로 낮은 관제 건물과 바람자루(윈드삭).<br/><b>톤</b> 환한 야외 자연광, 넓고 탁 트인 개방감, 두근거리는 설렘의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>살펴봄(프로펠러·로터)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"머리 위 커다란 프로펠러를 로터라고 해. 이게 빙글빙글 아주 빠르게 돌면서 바람을 아래로 힘껏 내리눌러. 그 힘에 헬리콥터가 제자리에서 쑥 떠오른단다." 그래서 활주로가 없어도 되는 거예요! 호리 입이 딱 벌어졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 로우앵글로 헬리콥터 머리 위 큰 프로펠러를 올려다봄. 로터의 길고 넓은 날개가 강조되는 컷.<br/><b>장소·시간</b> 헬기장 착륙대, 낮. 밝은 햇살.<br/><b>인물</b> helicopter pilot은 화면 오른쪽에서 헬리콥터 위 커다란 프로펠러(로터)를 한 손으로 가리키며 위를 올려다보고 설명하는 다정한 표정. Hori는 앞쪽 가운데서 목을 뒤로 젖혀 프로펠러를 올려다보며 두 손을 볼에 대고 "우와" 하는 감탄. Bori는 왼쪽에서 두 앞발로 눈 위에 차양을 만들고 로터 날개 수를 세어 보듯 골똘히 올려다봄. Dad tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 헬리콥터 지붕 가운데 축에서 사방으로 뻗은 길고 넓은 로터 날개(멈춘 상태로 뚜렷이 보임), 축의 회전 부분, 빨간 몸통과 흰 십자 표시, 파란 하늘.<br/><b>톤</b> 환한 자연광, 크고 든든한 프로펠러의 위풍, 신기함으로 눈이 커지는 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>살펴봄(꼬리 프로펠러)</b> <span class="tag">살펴봄 · 핵심단어 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">호리가 헬리콥터 꼬리를 돌아보니, 작은 프로펠러가 하나 더 달려 있어요! "저건 왜 있어요?" "큰 프로펠러만 돌면 몸통이 뱅글뱅글 돌아 버려. 그래서 꼬리 프로펠러가 몸을 딱 잡아 준단다." 보리가 고개를 끄덕끄덕. 위이잉, 빙글빙글 프로펠러!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면. 헬리콥터 긴 꼬리 끝의 작은 프로펠러를 셋이 들여다보는 컷.<br/><b>장소·시간</b> 헬기장 착륙대, 낮. 밝은 야외 조명.<br/><b>인물</b> helicopter pilot은 화면 오른쪽에서 꼬리 끝의 작은 프로펠러를 손끝으로 가리키며 몸을 살짝 굽혀 설명. Hori는 가운데서 두 손으로 무릎을 짚고 허리를 굽혀 작은 꼬리 프로펠러에 얼굴을 가까이 대고 입 벌린 놀란 표정. Bori는 왼쪽에서 한 앞발을 턱에 대고 고개를 끄덕이며 알겠다는 듯 눈을 반짝임. Dad tiger는 뒤에서 미소.<br/><b>배경·소품</b> 헬리콥터의 길게 뻗은 빨간 꼬리대(테일붐)와 그 끝 옆면에 세로로 달린 작은 프로펠러(꼬리 로터), 몸통의 큰 로터와 대비되게 작음, 꼬리 방향타 날개, 파란 하늘.<br/><b>톤</b> 밝은 자연광, 작지만 중요한 부품을 발견하는 신기함, 알아차리는 뿌듯한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>살펴봄(구조바구니)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">헬리콥터 옆문 위에는 길다란 줄과 커다란 바구니가 매달려 있어요. "이건 구조바구니야. 산이나 바다에서 위험에 빠진 사람을 만나면, 줄을 스르륵 내려서 바구니에 태우고 위잉— 끌어올려 구해 준단다." 호리와 보리 눈이 왕방울만 해졌어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면 살짝 측면. 헬리콥터 옆문의 구조바구니와 줄을 올려다보는 컷.<br/><b>장소·시간</b> 헬기장 착륙대 헬리콥터 옆, 낮. 밝은 햇살.<br/><b>인물</b> helicopter pilot은 화면 오른쪽에서 옆문 위 도르래에 매달린 구조바구니를 한 손으로 잡아 보이며 설명하는 든든한 표정. Hori는 가운데서 고개를 들어 매달린 바구니를 올려다보며 두 손을 입에 대고 놀라움. Bori는 왼쪽에서 줄이 감긴 도르래(윈치)를 손끝으로 가리키며 조심스레 관찰. Dad tiger는 뒤에서 두 아이를 지켜봄.<br/><b>배경·소품</b> 헬리콥터 열린 옆문 위쪽의 도르래(윈치)와 거기 매달려 늘어진 튼튼한 줄, 줄 끝의 커다란 금속 구조바구니, 빨간 몸통과 흰 십자 표시, 착륙대 바닥.<br/><b>톤</b> 밝은 자연광, 사람을 구하는 장비의 든든하고 뭉클한 느낌, 눈이 커지는 놀라움의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>해봄(조종석에 앉기)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"호리도 조종석에 앉아 볼까?" 안전벨트를 찰칵 매고, 커다란 헤드셋을 귀에 쓰니 조종사 아저씨 목소리가 또렷하게 들려요. 앞에는 반짝이는 버튼이 아주 많아요! 보리가 버튼을 하나하나 가리키며 물어봐요. "이 동그란 건 뭐예요?" 아저씨가 웃어요. "눈으로 먼저 보고, 손은 나중에. 잘 살펴보는구나, 보리!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 어깨너머 앵글로 조종석 안을 들여다봄. 계기판과 앉은 호리가 함께 보이는 컷.<br/><b>장소·시간</b> 헬리콥터 조종석 안, 낮. 유리창으로 든 밝은 빛.<br/><b>인물</b> Hori는 화면 가운데 조종석 의자에 앉아 안전벨트를 매고 커다란 헤드셋을 두 손으로 귀에 눌러쓴 채, 눈을 반짝이며 신기한 버튼들을 바라보는 설레는 표정. helicopter pilot은 오른쪽 옆 좌석에서 몸을 기울여 호리에게 계기판을 손짓하며 다정하게 설명. Bori는 왼쪽 문 옆에서 손은 등 뒤로 모은 채 계기판의 버튼 하나를 앞발로 콕 가리키며 골똘히 관찰하는 진지한 표정. Dad tiger는 문밖에서 고개를 들이밀어 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 조종석 앞 유리창, 여러 버튼과 다이얼이 있는 계기판, 조종간(사이클릭) 손잡이, 헤드셋 줄, 안전벨트 버클, 빨간 몸통 내부.<br/><b>톤</b> 유리창으로 든 밝은 빛, 진짜 조종사가 된 듯 두근거리는 설렘, 꼼꼼히 살펴보는 차분한 호기심.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>해봄(하늘로 사뿐 떠오르기)</b> <span class="tag">해봄 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 조종하자 프로펠러가 빙글빙글 빨라져요. 위이잉— 헬리콥터가 착륙대에서 사뿐— 위로 떠올라요! 발밑으로 땅이 점점 작아지고, 호리는 온 세상이 다 보여요! 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! "우아, 내가 하늘을 날아요!" 위이잉, 빙글빙글 프로펠러!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 헬리콥터가 착륙대에서 막 떠오르는 결정적 순간.<br/><b>장소·시간</b> 헬기장 상공, 낮. 프로펠러 바람에 잔디가 눕고 햇살이 반짝이는 시원한 공기.<br/><b>인물</b> Hori는 조종석 유리창 안에서 안전벨트를 매고 헤드셋을 쓴 채, 두 손을 창에 대고 눈을 반짝이며 활짝 웃는 감격의 표정 — 발밑으로 작아지는 땅을 내려다봄. helicopter pilot은 옆 좌석에서 조종간을 잡고 침착하게 웃으며 앞을 봄. Dad tiger와 Bori는 아래 착륙대에서 두 팔을 번쩍 들어 힘차게 손을 흔들며 응원하는 표정.<br/><b>배경·소품</b> 착륙대 위 조금 떠오른 빨간 헬리콥터(머리 위 큰 프로펠러가 빠르게 돌아 원형 속도선, 꼬리 프로펠러도 회전), 바람에 눕는 잔디와 흩날리는 나뭇잎, 특히 조종석 안 호리 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리), 아래로 작아진 착륙대의 'H' 표시.<br/><b>톤</b> 환한 자연광에 프로펠러 바람이 이는 시원하고 역동적인 정서, 해냈다는 성취감의 벅찬 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>해봄(진짜 구조 출동 목격)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">사뿐히 내려앉자마자 무전기에서 삐— 소리가 났어요. "산에서 다친 사람이 있대요! 출동!" 조종사 아저씨가 얼른 헬멧을 조여 쓰고 조종석에 올라타요. 프로펠러가 위이잉 돌고, 헬리콥터가 하늘로 쑥 떠서 산 쪽으로 날아가요. 호리와 보리는 손을 흔들었어요. "꼭 구해 주세요!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨. 헬리콥터가 하늘로 떠올라 날아가고 아이들이 배웅하는 출동 컷.<br/><b>장소·시간</b> 헬기장 착륙대, 낮. 프로펠러 바람이 일고 하늘이 탁 트인 씩씩한 공기.<br/><b>인물</b> helicopter pilot은 조종석에 올라타 헬멧 턱끈을 조이며 앞을 응시하는 민첩하고 진지한 표정. Hori는 화면 오른쪽 앞에서 착륙대 노란 선 바깥에 서서 발을 동동 구르며 두 손을 힘차게 흔들어 배웅, 응원하는 표정. Bori는 호리 옆에서 함께 앞발을 흔들며 입을 크게 벌려 외침. Dad tiger는 뒤에서 두 아이의 어깨를 감싸 안전선 안쪽으로 지켜 줌.<br/><b>배경·소품</b> 착륙대에서 살짝 떠올라 산 쪽으로 기수를 튼 빨간 구조 헬리콥터(프로펠러 회전, 옆문에 구조바구니), 바람에 눕는 잔디, 바닥의 'H' 표시, 저 멀리 산 능선, 바람자루가 펄럭임.<br/><b>톤</b> 밝은 낮 자연광, 긴박하지만 무섭지 않고 씩씩하고 든든한 정서, 응원의 따뜻한 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>정리(감탄·감사)</b> <span class="tag">정리 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집으로 가는 길, 호리는 아빠 손을 꼭 잡고 조잘조잘. "머리 위 프로펠러로 제자리에서 쑥 뜨고, 꼬리 프로펠러가 몸을 잡아 주고, 구조바구니로 사람을 구해요! 조종사 아저씨는 하늘을 날아 위험한 사람을 도와줘요." 호리는 하늘 보며 씩 웃었어요. 위이잉, 빙글빙글 프로펠러!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 뒷모습 살짝 측면. 노을 진 길을 걸으며 이야기하는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 헬기장에서 집으로 가는 길, 해 질 녘. 주황빛 노을이 물든 포근하고 뿌듯한 공기.<br/><b>인물</b> Hori는 화면 가운데서 Dad tiger의 손을 잡고 걸으며 고개를 들어 아빠에게 손짓 섞어 조잘조잘 신나게 이야기하는 뿌듯한 표정. Dad tiger는 호리를 내려다보며 다정하게 고개를 끄덕이며 미소. Bori는 왼쪽에서 두 앞발을 등 뒤로 모으고 하늘을 올려다보며 아직도 여운에 잠긴 흐뭇한 표정.<br/><b>배경·소품</b> 세 사람의 손잡은 실루엣, 저 멀리 작아진 헬기장 관제 건물과 바람자루, 노을빛 하늘에 작게 날아가는 헬리콥터 실루엣, 가로수, 하늘 한켠에 작은 별 반짝임.<br/><b>톤</b> 따뜻한 주황 노을 조명, 하루의 발견을 곱씹는 뭉클하고 흐뭇한 정서, 존중과 감탄으로 마무리되는 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 세상 탐험 · T11 빙글빙글 프로펠러 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"helipilot","name":"헬리콥터 조종사 아저씨","aliases":["helicopter pilot","helipilot","pilot"],"desc":"흰색 비행복(어깨와 가슴에 파란 계급장과 십자 마크)을 입고 파란 비행 헬멧(투명 바이저는 이마 위로 올림)을 쓴, 튼튼하고 다정한 인상의 어른. 둥글고 따뜻한 눈에 환한 미소, 짧고 단정한 콧수염, 목에는 헤드셋 마이크. 허리에 작은 무전기, 손에는 비행 장갑. 아이들을 침착하고 자상하게 안내하는 현장 가이드"}]</script>
+<script src="/tamheom-core.js"></script>
+</body>
+</html>

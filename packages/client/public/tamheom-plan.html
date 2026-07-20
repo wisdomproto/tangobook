@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 세상 탐험 — 기획서</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif; background:var(--cream); color:var(--ink); line-height:1.75; }
+  .wrap { max-width:920px; margin:0 auto; padding:24px 24px 120px; }
+  header.hero { text-align:center; padding:34px 0; border-bottom:3px solid var(--coral); margin-bottom:28px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:32px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  h2 { font-size:22px; font-weight:900; margin:34px 0 12px; padding-bottom:6px; border-bottom:2px solid var(--line); }
+  h2 .no { display:inline-flex; width:28px; height:28px; border-radius:8px; background:var(--coral); color:#fff; align-items:center; justify-content:center; font-size:15px; margin-right:10px; }
+  h3 { font-size:16.5px; font-weight:800; margin:20px 0 8px; color:var(--coral-dark); }
+  p.lead { color:var(--ink-soft); font-size:14px; margin-bottom:10px; }
+  table { width:100%; border-collapse:collapse; margin:10px 0 16px; font-size:13.5px; }
+  th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+  th { background:var(--peach); color:var(--coral-dark); font-weight:800; }
+  td b { color:var(--coral-dark); }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:11px 15px; margin:16px 0; }
+  .cast-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin:12px 0; }
+  .cast { background:#fff; border:1px solid var(--line); border-radius:14px; padding:10px; text-align:center; }
+  .cast .thumb { width:100%; aspect-ratio:1; border-radius:10px; background:var(--cream); display:flex; align-items:center; justify-content:center; font-size:38px; overflow:hidden; }
+  .cast .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+  .cast b { display:block; margin-top:7px; font-size:14px; }
+  .cast .role { font-size:11.5px; color:var(--ink-soft); }
+  .cast .im { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:6px; padding:0 6px; font-size:11px; font-weight:800; margin-top:4px; }
+  .cast .fixed { font-size:11px; color:var(--mint); font-weight:800; margin-top:3px; }
+  .badge { display:inline-block; background:var(--mint); color:#fff; border-radius:6px; padding:1px 8px; font-size:11.5px; font-weight:800; }
+  .footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">호리네 세상 탐험 · 논픽션 탐험 트랙 · 시즌1 탈것 15편 기획서</div>
+  <h1>🚒 호리네 세상 탐험</h1>
+  <div class="sub">호리가 직접 찾아가 보고 타보는 탈것·직업·세상 — 자연관찰의 지식성 + 호리의 캐릭터 앵커</div>
+</header>
+
+<h2><span class="no">1</span>포지셔닝</h2>
+<table>
+  <tr><th>정체</th><td>기존 <b>생활동화 45편(습관·안전)</b>·<b>유치원동화 20편(사회정서)</b> 과 <b>별개 3번째 호리 트랙</b>. 픽션 스토리가 아니라 <b>논픽션 발견형</b>. 자연관찰이 '살아있는 자연'을 다루듯, 이 라인은 <b>'만들어진 세계'(탈것·기계·직업·우리 동네)</b>를 다룬다.</td></tr>
+  <tr><th>왜 이 라인</th><td>자연관찰 101권이 <b>생물 세계 전체</b>를 이미 덮었으나 <b>기계·탈것은 통째로 비어 있다</b>(유아 관심도 최상위). 호리 파이프라인(캐스트·시트·프롬프트)을 그대로 재사용해 <b>빠른 볼륨</b>으로 그 여백을 채운다.</td></tr>
+  <tr><th>무대·가이드</th><td>고정 무대 <b>없음</b> — 매 회차 새 현장(소방서·기차역·공항…). 호리가 찾아간다. <b>회차별 직업인 게스트</b>(소방관·기관사·조종사…)가 그 현장의 안내자 = <code>SH_GUESTS</code>로 회차 등록.</td></tr>
+  <tr><th>그림체</th><td>니들펠트(양모 인형) — 생활동화·유치원동화와 <b>동일</b>, 호리 8인 <b>레퍼런스 자동 재사용</b>. 탈것·기계도 니들펠트 질감으로. 스타일 SSOT = <code>saenghwal-core.js</code>.</td></tr>
+  <tr><th>앵커(양산물 방지)</th><td>이 라인의 앵커 = <b>실제 소재 + 정확성</b>. 자연관찰의 <b>팩트 정확성 규칙 계승</b> — 실제 작동 원리·부품 이름을 정확히, 판타지 왜곡 금지(소방차가 하늘 날면 안 됨).</td></tr>
+  <tr><th>분량·확장</th><td>시즌1 <b>탈것 15편</b>(각 10 스프레드). 확장 로드맵 → 시즌2 직업·우리 동네 / 시즌3 기계·"어떻게 만들까".</td></tr>
+</table>
+
+<h2><span class="no">2</span>시즌 로드맵</h2>
+<table>
+  <tr><th>시즌</th><th>소재</th><th>상태</th></tr>
+  <tr><td><b>시즌1</b></td><td>탈것 (소방차·기차·비행기·로켓…) 15편</td><td><span class="badge">기획 중</span></td></tr>
+  <tr><td>시즌2</td><td>직업·우리 동네 (병원·시장·소방서 사람들의 하루)</td><td>예정</td></tr>
+  <tr><td>시즌3</td><td>기계·물건 — "이건 어떻게 만들까/움직일까"</td><td>예정</td></tr>
+</table>
+<div class="note">🔴 <b>확장 안전선</b>: 소재가 늘어도 <b>구체·시각적</b>(눈에 보이고 만질 수 있는 것)만. 감정·마음 같은 <b>추상·내면</b>은 발달상 논픽션이 안 맞으니 <b>호리 생활/유치원(스토리 트랙)</b>이 맡는다. 이 트랙에 감정 소재를 넣지 말 것.</div>
+
+<h2><span class="no">3</span>캐스트 — 호리 8인 재사용 + 회차별 직업 게스트</h2>
+<p class="lead">호리 고정 8인(생활동화와 동일 · 레퍼런스 <b>자동 재사용</b>). 회차 HTML은 <code>tamheom-core.js</code>가 이 레퍼런스를 @image1~8로 자동 합성, 직업 게스트는 @image9~ 로 회차 등록.</p>
+<div class="cast-grid" id="cast-grid">
+  <div class="cast" data-key="hori"><div class="thumb">🐯</div><b>호리 <span class="im">@image1</span></b><div class="role">주인공 · 호기심 폭발/질문쟁이/직접 해보기</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="mom"><div class="thumb">🐯</div><b>엄마 <span class="im">@image2</span></b><div class="role">동행 가이드 · 데려다줌/설명 거들기</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="dad"><div class="thumb">🐯</div><b>아빠 <span class="im">@image3</span></b><div class="role">동행 가이드</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="hoya"><div class="thumb">🐯</div><b>호야 <span class="im">@image4</span></b><div class="role">동생 · 엉뚱한 질문/오해(정보를 대화로 풀기)</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="toto"><div class="thumb">🐰</div><b>토토 <span class="im">@image5</span></b><div class="role">동행 친구 · 성급/먼저 만져보다 실수</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="bori"><div class="thumb">🐻</div><b>보리 <span class="im">@image6</span></b><div class="role">동행 친구 · 조심/관찰/디테일 발견</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="kongi"><div class="thumb">🐿️</div><b>콩이 <span class="im">@image7</span></b><div class="role">동행 친구 · 먹보/엉뚱 비유</div><div class="fixed">기존 레퍼런스</div></div>
+  <div class="cast" data-key="dubu"><div class="thumb">🐶</div><b>두부 <span class="im">@image8</span></b><div class="role">펫 · 냄새·소리로 먼저 알아챔</div><div class="fixed">기존 레퍼런스</div></div>
+</div>
+<div class="note">🔴 <b>호리 혼자 보내지 말 것</b> — 매 회차 <b>동행 1~2명</b>(가족/친구)을 붙인다. 혼자면 설명문 나열이 되지만, 동행이 <b>대신 질문·오해·감탄</b>을 하면 정보가 <b>대화</b>로 풀려 유아가 따라간다. 직업 게스트(소방관 등)는 안내자, 동행은 호리의 눈높이.</div>
+
+<h2><span class="no">4</span>작법 — 발견 5단계 <span style="font-size:13px;color:var(--ink-soft);font-weight:700">(스토리 5비트 아님)</span></h2>
+<p class="lead">이 트랙의 뼈대는 <b>갈등→해결</b>이 아니라 <b>궁금→발견</b>. 억지 위기·교훈을 넣지 말 것.</p>
+<table>
+  <tr><th>단계</th><th>내용</th></tr>
+  <tr><td><b>① 궁금</b></td><td>호리가 탈것을 만남(소리·모습). "저게 뭐지? 어떻게 움직이지?" 제목을 첫 상황/의성어로(삐뽀삐뽀·우르릉).</td></tr>
+  <tr><td><b>② 찾아감</b></td><td>그 탈것이 사는 곳으로 (소방서·기차역·공항). 동행과 함께 출발.</td></tr>
+  <tr><td><b>③ 살펴봄</b></td><td>부품·기능을 하나씩(사다리·호스·사이렌). <b>= 핵심단어(KeyObject)</b>. 직업 게스트가 안내.</td></tr>
+  <tr><td><b>④ 해봄</b></td><td>직접 체험 — 타본다/버튼 눌러본다/물 뿌려본다. 유아 대리만족의 핵심 쪽.</td></tr>
+  <tr><td><b>⑤ 정리</b></td><td>"이 탈것은/이 사람은 이런 일을 해." 호리의 감탄 한 줄. 감사·존중으로 착지(교훈질 금지).</td></tr>
+</table>
+<div class="note">
+🔴 <b>정확성 = 자연관찰 계승</b>: 실제 작동 원리·부품 이름을 정확히, 왜곡·판타지 금지.<br/>
+🔴 <b>한 쪽 = 한 이벤트</b>(그림책). SCENE은 학습만화 밀도 <b>5라벨 풀 콘티</b>(컷 / 장소·시간 / 인물(캐릭터별 포즈·표정 개별) / 배경·소품 / 톤). 집합어 대신 개별 서술.<br/>
+🔴 SCENE에 그림체 문구 금지(core가 자동 부착). 캐릭터 인식 토큰 필수(Hori/Mom tiger/Toto bunny/firefighter…).<br/>
+🔴 <b>핵심단어 = 탈것 부품·도구</b> → 어휘 학습 연동(KeyObject). 회차당 4~6개.
+</div>
+
+<h2><span class="no">5</span>시즌1 커리큘럼 — 탈것 15편</h2>
+<p class="lead">한 회차 = 탈것 1종 × 현장 × 직업 게스트 × 핵심단어(부품). 회차 대본은 상단 <b>☰ 회차</b>(대본 착수 후) 또는 아래 표.</p>
+<table>
+  <tr><th>#</th><th>제목</th><th>탈것</th><th>현장</th><th>직업 게스트</th><th>핵심단어(부품)</th></tr>
+  <tr><td>T01</td><td>삐뽀삐뽀 불자동차</td><td>소방차</td><td>소방서</td><td>소방관</td><td>사다리·호스·사이렌·물탱크</td></tr>
+  <tr><td>T02</td><td>아파도 걱정 마</td><td>구급차</td><td>119·병원</td><td>구급대원</td><td>들것·산소·비상등·무전기</td></tr>
+  <tr><td>T03</td><td>도둑 잡는 순찰차</td><td>경찰차</td><td>경찰서</td><td>경찰관</td><td>경광등·무전기·핸들</td></tr>
+  <tr><td>T04</td><td>힘센 땅 파는 친구</td><td>포클레인(굴착기)</td><td>공사장</td><td>기사 아저씨</td><td>버킷·삽·무한궤도·팔</td></tr>
+  <tr><td>T05</td><td>우르릉 흙 나르기</td><td>덤프트럭</td><td>공사장</td><td>기사</td><td>짐칸·기울이기·큰 바퀴</td></tr>
+  <tr><td>T06</td><td>빙글빙글 콘크리트</td><td>레미콘</td><td>공사장</td><td>기사</td><td>회전통·미끄럼관</td></tr>
+  <tr><td>T07</td><td>칙칙폭폭 빠른 기차</td><td>기차·KTX</td><td>기차역</td><td>기관사</td><td>선로·운전실·객차·건널목</td></tr>
+  <tr><td>T08</td><td>땅속을 달려요</td><td>지하철</td><td>지하철역</td><td>기관사</td><td>스크린도어·터널·노선도</td></tr>
+  <tr><td>T09</td><td>다 같이 타는 버스</td><td>버스</td><td>정류장·차고지</td><td>버스기사</td><td>하차벨·손잡이·요금함</td></tr>
+  <tr><td>T10</td><td>하늘을 나는 새</td><td>비행기</td><td>공항</td><td>조종사</td><td>날개·엔진·활주로·바퀴</td></tr>
+  <tr><td>T11</td><td>빙글빙글 프로펠러</td><td>헬리콥터</td><td>헬기장</td><td>조종사</td><td>프로펠러·구조바구니</td></tr>
+  <tr><td>T12</td><td>바다 위 큰 집</td><td>배(여객선)</td><td>항구</td><td>선장</td><td>갑판·닻·조타실·구명조끼</td></tr>
+  <tr><td>T13</td><td>우주로 슝</td><td>로켓</td><td>발사대</td><td>우주비행사</td><td>엔진·연료·캡슐·카운트다운</td></tr>
+  <tr><td>T14</td><td>깨끗깨끗 청소차</td><td>청소차</td><td>우리 동네</td><td>환경미화원</td><td>집게팔·압축칸</td></tr>
+  <tr><td>T15</td><td>편지 배달 왔어요</td><td>우체국차·집배 오토바이</td><td>우체국</td><td>집배원</td><td>우편함·소포·분류함</td></tr>
+</table>
+<div class="note">순서 = 아이 친숙도·구조 안정성 순(긴급차량 → 공사 → 대중교통 → 하늘·바다·우주 → 동네). 확장 후보: 트랙터·견인차·소방보트·굴삭기 종류·전기차·자율주행 등.</div>
+
+<h2><span class="no">6</span>저작 파이프라인 (착수 시)</h2>
+<table>
+  <tr><th>SSOT</th><td><code>tamheom-index.json</code> = 회차 목록(생활동화 <code>saenghwal-index.json</code> 패턴). 신규 회차는 여기 한 줄만 추가.</td></tr>
+  <tr><th>회차 HTML</th><td><code>tamheom-{슬러그}.html</code>(로마자). 기존 회차 복제 + <code>window.SH_GUESTS</code>(직업 게스트) 정의 + <code>tamheom-core.js</code> include. 데이터·마크업만, 인라인 로직 금지.</td></tr>
+  <tr><th>core.js</th><td><code>tamheom-core.js</code> = <code>saenghwal-core.js</code> fork. 니들펠트 STYLE + 호리 8인 캐스트 SSOT 사본 + @image 합성 + [등장] 자동감지 + ☰ 회차 사이드바 + 상태/메모(<code>/api/saenghwal-{status,memo}</code> 공유, docId=파일명이라 무충돌).</td></tr>
+  <tr><th>집필</th><td>"T01 써줘" → <b>comic-writer</b> 집필 → <b>comic-editor</b> 검수. 발견 5단계·정확성·SCENE 5라벨 준수.</td></tr>
+  <tr><th>레퍼런스</th><td>호리 8인 = <code>comic-assets/saenghwal-plan</code> 저장분 자동 재사용(fetch 병합). 직업 게스트 = 회차 <code>comic-assets/tamheom-{슬러그}</code> 저장.</td></tr>
+  <tr><th>editor2 연동</th><td>대본 완성 후 <code>category:"세상탐험"</code>(신규) storybook 으로 연동 — 생활동화 <code>link-saenghwal-illustrations.mjs</code> 패턴.</td></tr>
+</table>
+
+<div class="footer">호리네 세상 탐험 · 시즌1 탈것 15편 기획서 · 내부 저작용</div>
+</div>
+
+<script>
+// ── 호리 8인 레퍼런스: saenghwal-plan 저장분 자동 로드(읽기전용) ──
+fetch('/api/comic-assets/saenghwal-plan').then(function(r){return r.json();}).then(function(j){
+  var a=(j&&j.data)||{};
+  document.querySelectorAll('#cast-grid .cast').forEach(function(c){
+    var k=c.getAttribute('data-key'); if(a[k]){ c.querySelector('.thumb').innerHTML='<img src="'+a[k]+'?t='+Date.now()+'" alt="" />'; }
+  });
+}).catch(function(){});
+</script>
+</body>
+</html>

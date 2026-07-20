@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>호리네 세상 탐험 — 빙글빙글 콘크리트</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+  :root { --coral:#ff7c5c; --coral-dark:#e85c3a; --peach:#ffe8d9; --cream:#fff8f0; --ink:#2b2320; --ink-soft:#6b5d55; --mint:#22b8a6; --line:#f0e0d2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.75; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 24px 120px; }
+  nav.tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; position:sticky; top:0; z-index:20; background:var(--cream); padding:10px 0; border-bottom:2px solid var(--line); }
+  nav.tabs a { text-decoration:none; font-weight:800; font-size:14px; color:var(--ink-soft); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:7px 18px; }
+  nav.tabs a.active { background:var(--coral); border-color:var(--coral); color:#fff; }
+  header.hero { text-align:center; padding:36px 0; border-bottom:3px solid var(--coral); margin-bottom:32px; }
+  .hero .kicker { color:var(--coral-dark); font-weight:800; letter-spacing:.15em; font-size:12px; }
+  .hero h1 { font-size:34px; font-weight:900; margin:8px 0 6px; }
+  .hero .sub { color:var(--ink-soft); font-size:14.5px; font-weight:600; }
+  .meta-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin-bottom:14px; font-size:14px; }
+  .meta-card b { color:var(--coral-dark); }
+  .refrain { background:var(--peach); border-radius:12px; padding:12px 18px; font-weight:800; text-align:center; margin:14px 0 32px; color:var(--coral-dark); font-size:16px; }
+  .page-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 22px; margin:16px 0; }
+  .page-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .page-head b { font-size:16px; }
+  .page-head .pnum { flex:0 0 auto; width:34px; height:34px; border-radius:10px; background:var(--coral); color:#fff; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .tag { display:inline-block; background:var(--peach); color:var(--coral-dark); border-radius:999px; padding:2px 10px; font-size:12px; font-weight:800; }
+  .ko { font-size:15.5px; margin:8px 0 4px; }
+  .copy-btn { background:#fff; color:var(--mint); border:1.5px solid var(--mint); border-radius:999px; padding:4px 14px; font-weight:800; font-size:12.5px; cursor:pointer; margin-left:auto; }
+  .copy-btn:hover, .copy-btn.done { background:var(--mint); color:#fff; }
+  details { margin-top:8px; }
+  summary { cursor:pointer; font-size:13px; font-weight:700; color:var(--ink-soft); }
+  pre.scene { white-space:pre-wrap; background:var(--cream); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font-family:inherit; font-size:12.5px; line-height:1.65; margin-top:6px; color:var(--ink-soft); }
+  .paste-box { position:relative; border:2px dashed var(--line); border-radius:10px; min-height:64px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; color:var(--ink-soft); font-weight:700; cursor:pointer; outline:none; padding:8px; background:#fffdfa; margin-top:10px; }
+  .paste-del { position:absolute; top:6px; right:6px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(43,35,32,.6); color:#fff; font-size:12px; font-weight:800; cursor:pointer; line-height:1; }
+  .paste-del:hover { background:#e85c3a; }
+  .paste-box:focus { border-color:var(--coral); color:var(--coral-dark); }
+  .paste-box.has-img { padding:0; min-height:0; border-style:solid; border-color:var(--mint); }
+  .paste-box img { width:100%; border-radius:8px; display:block; }
+  .paste-box.busy { opacity:.5; }
+  .note { font-size:13px; color:var(--ink-soft); background:var(--peach); border-radius:10px; padding:10px 14px; margin:20px 0; }
+  footer { margin-top:60px; text-align:center; color:var(--ink-soft); font-size:12px; }
+  @media print { body{background:#fff} .wrap{max-width:none;padding:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs" id="doc-tabs"></nav>
+
+<header class="hero">
+  <div class="kicker">호리네 세상 탐험 · 시즌1 탈것 #T06</div>
+  <h1>🚛 빙글빙글 콘크리트</h1>
+  <div class="sub">빙글빙글 도는 통이 궁금한 호리가 공사장에서 레미콘을 하나하나 살펴보고 직접 콘크리트를 주르륵 부어 봐요</div>
+</header>
+
+<div class="meta-card">
+  <b>주제</b> 레미콘(콘크리트 믹서차) 발견 — 실제 부품·작동을 정확히 (핵심단어: 회전통·미끄럼관·콘크리트) &nbsp;·&nbsp;
+  <b>연령</b> 3~5세 &nbsp;·&nbsp; <b>등장</b> 호리(호기심·질문쟁이)·아빠(동행 가이드)·콩이(동행 친구, 엉뚱 비유·먹보)·레미콘 기사 아저씨(현장 안내자, 단역) &nbsp;·&nbsp;
+  <b>구조</b> 발견 5단계 (궁금→찾아감→살펴봄→해봄→정리) &nbsp;·&nbsp; <b>분량</b> 10 스프레드
+</div>
+<div class="refrain">🚛 반복 후렴 — "빙글빙글 우르릉, 레미콘 나가신다!"</div>
+
+<div class="note">🖼️ 상단 <b>[전체 프롬프트 복사]</b> = 스타일(1회) + 캐릭터 레퍼런스(@image1~8 고정 + 단역 9~) + 전 페이지 장면을 한 번에. GPT에 <b>@image 순서대로 캐릭터 시트를 첨부</b>하면 일관된 컷이 나옵니다. 쪽별 🎨 버튼은 그 쪽만. 생성한 컷은 각 박스에 붙여넣어 보관(R2).</div>
+
+<!-- ===== pages ===== -->
+<div class="page-card" data-page="p1">
+  <div class="page-head"><span class="pnum">P1</span><b>궁금(목격)</b> <span class="tag">궁금 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">빙글빙글! 커다란 트럭 뒤에 커다란 통이 빙글빙글 돌면서 우르릉— 지나가요. 호리는 두 눈이 동그래졌어요. "우아, 저 통은 왜 빙글빙글 돌지?" 빙글빙글 우르릉, 레미콘 나가신다!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 아이레벨 정면. 레미콘이 화면을 가로질러 지나가고 호리가 이를 올려다보는 컷.<br/><b>장소·시간</b> 동네 큰길가 인도, 맑은 낮. 파란 하늘에 구름 몇 점, 활기차고 상쾌한 공기.<br/><b>인물</b> Hori(아기 호랑이)는 화면 앞쪽 인도에 서서 두 귀를 쫑긋 세우고 입을 동그랗게 벌린 채, 두 손을 볼 옆에 대고 지나가는 트럭 뒤 빙글빙글 도는 큰 통을 눈이 반짝반짝 놀라 올려다봄.<br/><b>배경·소품</b> 화면 중앙을 가로지르는 커다란 콘크리트 믹서 트럭(앞쪽 운전실, 뒤에 비스듬히 얹힌 커다란 원통형 드럼이 천천히 회전, 드럼 표면에 나선 줄무늬), 인도의 가로수와 신호등, 뒤로 낮은 건물들.<br/><b>톤</b> 환한 대낮 자연광, 빙글빙글 도는 드럼이 포인트, 신나고 두근거리는 호기심의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p2">
+  <div class="page-head"><span class="pnum">P2</span><b>궁금(질문)</b> <span class="tag">궁금</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"아빠, 저 통 안에는 뭐가 들었어요? 왜 계속 돌아요?" 호리가 폴짝폴짝 물어봐요. 아빠가 빙긋 웃었어요. "저건 레미콘이야. 궁금하면 레미콘이 일하는 공사장에 가 볼까? 콩이도 같이!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 정면. 호리가 아빠를 올려다보며 묻고 콩이가 곁에 있는 삼자 컷.<br/><b>장소·시간</b> 같은 길가, 낮. 레미콘은 이미 멀어져 저 끝에 작게 보임.<br/><b>인물</b> Hori는 화면 왼쪽에서 Dad tiger(아빠 호랑이)의 손을 두 손으로 잡고 발을 살짝 든 채 고개를 뒤로 젖혀 아빠를 올려다보며 궁금한 미소로 질문. Dad tiger는 가운데서 허리를 살짝 굽혀 호리에게 눈을 맞추며 한 손으로 저 멀리 트럭 쪽을 가리키고 다정하게 웃음. Kongi(작은 다람쥐)는 오른쪽에서 볼록한 두 볼을 하고 두 손을 배 위에 얹은 채, 통 속을 상상하듯 침을 꼴깍 삼키는 엉뚱한 표정.<br/><b>배경·소품</b> 멀어지는 작은 콘크리트 믹서 트럭, 가로수와 신호등, 인도 블록, 맑은 하늘.<br/><b>톤</b> 밝은 낮 자연광, 궁금증이 모험으로 바뀌는 설레는 정서, 따뜻하고 활기찬 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p3">
+  <div class="page-head"><span class="pnum">P3</span><b>찾아감(공사장 도착)</b> <span class="tag">찾아감</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">뚝딱뚝딱 시끌시끌한 공사장, 커다란 레미콘이 통을 빙글빙글 돌리며 서 있어요. "안녕! 레미콘이 궁금해서 왔구나?" 노란 안전모를 쓴 기사 아저씨가 손을 흔들어요. 호리는 가슴이 두근두근!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 공사장에 선 레미콘을 앞에서 올려다보는 컷.<br/><b>장소·시간</b> 공사장, 낮. 짓다 만 건물 골조와 흙바닥, 활기차고 든든한 공기.<br/><b>인물</b> Hori는 화면 앞쪽 가운데서 목을 뒤로 젖혀 커다란 레미콘을 입 벌리고 올려다보며 두 손을 가슴에 모음, 놀라움 가득한 표정. Dad tiger는 호리 뒤에서 어깨에 손을 얹고 함께 올려다봄. Kongi는 왼쪽에서 까치발로 도는 드럼을 기웃거림. mixerdriver(노란 안전모에 형광 반사띠 작업조끼 차림 기사 아저씨)는 오른쪽 트럭 옆에 서서 한 손을 번쩍 들어 반갑게 인사하며 환하게 웃음.<br/><b>배경·소품</b> 뒤에 비스듬히 얹힌 커다란 드럼이 천천히 도는 콘크리트 믹서 트럭 전체, 뒤로 짓는 건물 골조와 비계, 주황 안전 고깔, 흙바닥, 노란 안전선.<br/><b>톤</b> 밝은 낮 자연광, 크고 든든한 레미콘의 위풍, 두근거리는 설렘의 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p4">
+  <div class="page-head"><span class="pnum">P4</span><b>살펴봄(회전통)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"저 커다란 통은 회전통이야. 안에 든 걸 계속 섞어 주려고 빙글빙글 돌지." 아저씨가 말했어요. "멈추면 안에 든 게 딱딱하게 굳어 버리거든. 그래서 달릴 때도 쉬지 않고 돌아간단다." 호리는 고개를 끄덕끄덕.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 로우앵글로 트럭 뒤쪽 커다란 드럼을 올려다봄. 도는 통이 잘 보이는 컷.<br/><b>장소·시간</b> 공사장 레미콘 뒤편, 낮. 밝은 야외 자연광.<br/><b>인물</b> mixerdriver(노란 안전모·형광 작업조끼)는 화면 왼쪽에서 빙글빙글 도는 드럼을 한 손으로 가리키며 설명하는 다정한 표정. Hori는 앞쪽 가운데서 목을 젖혀 도는 큰 통을 올려다보며 고개를 끄덕이는 진지한 표정. Kongi는 오른쪽에서 도는 통을 따라 두 눈을 뱅글뱅글 굴리며 어질어질한 코믹한 표정. Dad tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 나선 줄무늬가 있는 커다란 원통형 드럼(회전통)이 천천히 회전(회전 방향을 보여주는 부드러운 잔상선), 트럭 뒤 철제 프레임과 사다리, 흙바닥.<br/><b>톤</b> 밝은 자연광, 천천히 도는 큰 통의 신기함, 콩이의 코믹한 어질어질함이 포인트.</pre></details>
+</div>
+
+<div class="page-card" data-page="p5">
+  <div class="page-head"><span class="pnum">P5</span><b>살펴봄(콘크리트)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">아저씨가 통 위 뚜껑을 살짝 열어 보여 줬어요. 안에는 걸쭉한 잿빛 반죽이 출렁출렁! "이게 콘크리트야. 시멘트랑 모래, 자갈, 물을 섞은 거란다." 콩이가 눈을 반짝. "우아, 꼭 도토리죽 같아요!" 모두 까르르 웃었어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 하이앵글로 드럼 투입구 안을 비스듬히 내려다봄. 걸쭉한 반죽이 보이는 컷.<br/><b>장소·시간</b> 레미콘 드럼 위쪽 투입구, 낮. 기사가 발판 위에서 뚜껑을 열어 보여 줌.<br/><b>인물</b> mixerdriver는 화면 오른쪽에서 드럼 투입구 뚜껑을 한 손으로 열어 안을 보여주며 다정하게 설명. Hori는 가운데 발판 아래에서 까치발로 목을 쭉 빼고 안을 들여다보며 입을 딱 벌린 놀란 표정. Kongi는 왼쪽에서 두 손을 뺨에 대고 침을 꼴깍, 먹고 싶다는 엉뚱한 표정. Dad tiger는 호리 뒤에서 안전하게 어깨를 잡아 줌.<br/><b>배경·소품</b> 드럼 투입구 안에서 출렁이는 걸쭉한 잿빛 콘크리트(시멘트·모래·자갈·물이 섞인 죽 같은 질감), 열린 뚜껑, 드럼 옆 발판과 손잡이.<br/><b>톤</b> 밝은 자연광, 처음 보는 잿빛 반죽의 신기함, 콩이의 코믹한 먹보 정서가 웃음을 더함.</pre></details>
+</div>
+
+<div class="page-card" data-page="p6">
+  <div class="page-head"><span class="pnum">P6</span><b>살펴봄(미끄럼관)</b> <span class="tag">살펴봄 · 핵심단어</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"이 콘크리트를 어떻게 부어요?" 호리가 묻자 아저씨가 트럭 뒤에 접힌 기다란 관을 척— 펼쳐 내렸어요. "이건 미끄럼관이야. 여기로 콘크리트가 주르륵— 미끄럼 타고 내려간단다." 정말 미끄럼틀처럼 비스듬했어요. "재밌겠다!"</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 측면. 트럭 뒤에 펼쳐진 기다란 미끄럼관(슈트)을 옆에서 보는 컷.<br/><b>장소·시간</b> 공사장 레미콘 뒤편, 낮. 밝은 야외 조명.<br/><b>인물</b> mixerdriver는 화면 오른쪽에서 접힌 미끄럼관을 두 손으로 비스듬히 펼쳐 내리며 설명하는 다정한 표정. Hori는 가운데서 허리를 굽혀 미끄럼관 아래 끝을 손가락으로 가리키며 눈을 반짝이는 신난 표정. Kongi는 왼쪽에서 미끄럼틀을 타듯 미끄럼관 표면을 손바닥으로 쓸어 보며 들뜬 표정. Dad tiger는 뒤에서 미소.<br/><b>배경·소품</b> 트럭 뒤에서 비스듬히 내려오는 은색 반원통형 미끄럼관(슈트), 그 아래 콘크리트를 부을 나무 거푸집 틀, 흙바닥, 주황 안전 고깔.<br/><b>톤</b> 밝은 자연광, 미끄럼틀 같아 재밌는 정서, 기대감이 부푸는 분위기.</pre></details>
+</div>
+
+<div class="page-card" data-page="p7">
+  <div class="page-head"><span class="pnum">P7</span><b>해봄(통 돌리기)</b> <span class="tag">해봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"호리가 레버로 콘크리트를 내보내 볼까?" 아저씨가 조작 레버를 함께 잡아 줬어요. 호리가 레버를 반대쪽으로 척 밀자, 부릉— 회전통이 반대로 빙그르르 돌기 시작해요! "돌리는 쪽을 바꾸면 섞인 콘크리트가 스르르 밀려 나온단다." 정말 신기했어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 호리가 아저씨와 함께 트럭 옆 조작 손잡이를 잡고 힘주는 컷.<br/><b>장소·시간</b> 레미콘 옆 조작부, 낮. 밝은 야외 자연광.<br/><b>인물</b> mixerdriver는 호리 바로 뒤에서 조작 레버를 함께 잡고 힘을 보태며 흐뭇하게 웃음. Hori는 앞쪽에서 두 손으로 레버를 잡고 다리를 벌려 버틴 채 끙— 힘주며 결의에 찬 표정. Kongi는 왼쪽에서 두 손을 번쩍 들어 "영차!" 응원하는 신난 표정. Dad tiger는 오른쪽에서 지켜보며 미소.<br/><b>배경·소품</b> 트럭 옆 드럼 회전 조작 레버, 그 위로 커다란 드럼이 반대 방향으로 돌기 시작(방향을 보여주는 잔상선), 흙바닥, 노란 안전선.<br/><b>톤</b> 밝은 자연광, 힘을 주는 씩씩한 정서, 무언가 일어날 것 같은 신기한 기대감.</pre></details>
+</div>
+
+<div class="page-card" data-page="p8">
+  <div class="page-head"><span class="pnum">P8</span><b>해봄(콘크리트 붓기)</b> <span class="tag">해봄 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">주르륵— 잿빛 콘크리트가 미끄럼관을 타고 쭉 내려와 바닥 틀에 좌르르 퍼져요! 호리가 폴짝 뛰며 "우아, 내가 부었어요!" 그 순간 호리 꼬리 줄무늬가 무지개색으로 반짝— 부릉! 빙글빙글 우르릉, 레미콘 나가신다!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 대형, 살짝 로우앵글. 콘크리트가 미끄럼관을 타고 내려와 나무 틀에 퍼지는 결정적 순간.<br/><b>장소·시간</b> 공사장 바닥 거푸집 틀 앞, 낮. 밝은 햇살.<br/><b>인물</b> Hori는 화면 앞쪽에서 두 팔을 번쩍 들고 폴짝 뛰며, 콘크리트가 주르륵 흘러내리는 걸 보고 활짝 웃는 뿌듯한 결의의 표정, 꼬리 줄무늬가 무지개빛으로 반짝이는 시그니처 순간(부릉꼬리). mixerdriver는 미끄럼관 옆에서 한 손으로 관 끝을 잡아 방향을 잡아 주며 흐뭇하게 웃음. Kongi는 왼쪽에서 콘크리트가 죽처럼 좌르르 퍼지는 걸 보고 눈이 휘둥그레. Dad tiger는 오른쪽에서 두 손을 번쩍 들어 응원.<br/><b>배경·소품</b> 미끄럼관을 타고 주르륵 내려와 나무 거푸집 틀 안에 좌르르 퍼지는 잿빛 콘크리트, 호리 꼬리의 무지개빛 반짝임(부릉꼬리), 주황 안전 고깔, 흙바닥.<br/><b>톤</b> 환한 자연광, 해냈다는 성취감의 신나고 역동적인 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p9">
+  <div class="page-head"><span class="pnum">P9</span><b>살펴봄(단단하게 굳어요)</b> <span class="tag">살펴봄</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">"이 콘크리트가 마르면 어떻게 돼요?" "시간이 지나면 돌처럼 단단하게 굳어서 튼튼한 바닥이 된단다." 아저씨가 어제 부어 놓은 매끈한 바닥을 콩콩 밟아 보였어요. "우아, 정말 딱딱해요!" 호리도 그 위에서 폴짝폴짝 뛰어 봤어요.</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨. 어제 부어 굳은 매끈한 회색 바닥을 밟아 보는 컷.<br/><b>장소·시간</b> 공사장 한쪽 이미 굳은 바닥 위, 낮. 밝은 야외 자연광.<br/><b>인물</b> mixerdriver는 화면 오른쪽에서 굳은 회색 바닥을 한 손으로 가리키며 설명하는 다정한 표정. Hori는 가운데서 굳은 바닥 위에 서서 발을 콩콩 굴러 보며 "딱딱해!" 하는 놀란 미소. Kongi는 왼쪽에서 바닥에 쪼그려 앉아 두 손으로 매끈한 표면을 만져 보며 신기해하는 표정. Dad tiger는 뒤에서 흐뭇하게 지켜봄.<br/><b>배경·소품</b> 어제 부어 매끈하게 굳은 단단한 회색 콘크리트 바닥, 그 옆에 아직 젖어 걸쭉한 잿빛 콘크리트 구역이 대비되어 보임, 짓는 건물 골조, 흙바닥.<br/><b>톤</b> 밝은 자연광, 물렁하던 반죽이 단단해진 신기함, 발견의 뿌듯한 정서.</pre></details>
+</div>
+
+<div class="page-card" data-page="p10">
+  <div class="page-head"><span class="pnum">P10</span><b>정리(감탄·감사)</b> <span class="tag">정리 · 후렴</span> <button class="copy-btn">🎨 이미지 프롬프트 복사</button></div>
+  <p class="ko">집으로 가는 길, 호리는 아빠 손을 꼭 잡고 조잘조잘. "회전통이 빙글빙글 콘크리트를 섞고, 미끄럼관으로 주르륵 붓고, 마르면 단단한 바닥이 돼요! 기사 아저씨가 튼튼한 집을 지어 줘요." 호리는 하늘 보며 씩 웃었어요. 빙글빙글 우르릉, 레미콘 나가신다!</p>
+  <details><summary>SCENE 프롬프트 보기</summary><pre class="scene"><b>컷</b> 중형, 아이레벨 뒷모습 살짝 측면. 노을 진 길을 걸으며 이야기하는 따뜻한 마무리 컷.<br/><b>장소·시간</b> 공사장에서 집으로 가는 동네 길, 해 질 녘. 주황빛 노을이 물든 포근하고 뿌듯한 공기.<br/><b>인물</b> Hori는 화면 가운데서 Dad tiger의 손을 잡고 걸으며 고개를 들어 아빠에게 손짓 섞어 조잘조잘 신나게 이야기하는 뿌듯한 표정. Dad tiger는 호리를 내려다보며 다정하게 고개를 끄덕이며 미소. Kongi는 왼쪽에서 폴짝폴짝 뛰며 아직도 신이 난 표정.<br/><b>배경·소품</b> 손을 잡은 실루엣, 뒤로 저 멀리 작아진 공사장과 레미콘, 노을빛 하늘에 작은 구름, 가로수와 길가 벤치, 하늘 한켠에 작은 별 반짝임.<br/><b>톤</b> 따뜻한 주황 노을 조명, 하루의 발견을 곱씹는 뭉클하고 흐뭇한 정서, 존중과 감탄으로 마무리되는 포근한 분위기.</pre></details>
+</div>
+
+<footer>호리네 세상 탐험 · T06 빙글빙글 콘크리트 · 대본 v1.0 · 내부 저작용</footer>
+</div>
+
+<script>window.SH_GUESTS=[{"key":"mixerdriver","name":"레미콘 기사 아저씨","aliases":["mixer truck driver","concrete mixer driver"],"desc":"노란 안전모를 쓰고 형광 반사띠가 달린 작업조끼를 입은 튼튼하고 친절한 인상의 어른. 둥글고 다정한 눈에 환한 미소, 살짝 그을린 얼굴, 굵은 팔로 든든한 느낌. 튼튼한 작업 장갑과 안전 장화 차림. 아이들을 다정하게 안내하는 공사장 현장 가이드"}]</script>
+<script src="/tamheom-core.js"></script>
+</body>
+</html>
