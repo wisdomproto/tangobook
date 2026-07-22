@@ -32,12 +32,12 @@ export function CategorySection({
   const hasMore = books.length > limit;
   return (
     <section className="mb-6 sm:mb-10">
-      <header className="flex items-center justify-between mb-3 sm:mb-4 px-1 gap-2">
+      <header className="flex flex-wrap items-center justify-between mb-3 sm:mb-4 px-1 gap-2">
         <h2 className="text-xl sm:text-3xl font-black text-ink-900 font-display flex items-center gap-2 sm:gap-3 min-w-0 truncate">
           <span className="shrink-0">{icon}</span>
           <span className="truncate">{title}</span>
         </h2>
-        <div className="flex items-center gap-2 shrink-0 flex-wrap justify-end">
+        <div className="flex min-w-0 max-w-full items-center gap-2 flex-wrap justify-end">
           {headerExtra}
           <span className="shrink-0 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white shadow-soft text-xs sm:text-base text-ink-700 font-black">
             {t('section.bookCount', { count: books.length })}
@@ -59,7 +59,7 @@ export function CategorySection({
         className="flex gap-3 sm:gap-5 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {visible.map((b) => (
-          <div key={b.id} className="shrink-0 w-40 sm:w-56 lg:w-64">
+          <div key={b.id} className="shrink-0 w-36 sm:w-56 lg:w-64">
             <BookCard book={b} />
           </div>
         ))}
