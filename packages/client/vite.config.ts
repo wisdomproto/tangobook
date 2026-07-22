@@ -22,7 +22,9 @@ export default defineConfig({
     // "연결 거부" 오류를 유발. SharedArrayBuffer 사용처(ffmpeg.wasm 등) 없음.
     proxy: {
       '/api': {
-        target: 'http://localhost:3500',
+        // 기본은 로컬 서버. R2 자격증명 없는 워크트리에서 실제 데이터로 UI 확인할 땐
+        // API_TARGET=https://www.tangobook.co.kr 로 띄운다 (읽기 전용 확인용).
+        target: process.env.API_TARGET || 'http://localhost:3500',
         changeOrigin: true,
         timeout: 300000,
         proxyTimeout: 300000,
