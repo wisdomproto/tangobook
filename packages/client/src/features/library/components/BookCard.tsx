@@ -29,7 +29,9 @@ export function BookCard({ book }: BookCardProps) {
   return (
     <button
       onClick={() => navigate(`/library/${book.id}`)}
-      className="group flex flex-col items-stretch text-left transition-transform hover:-translate-y-1 active:scale-95"
+      /* w-full 필수 — <button> 은 UA 기본이 shrink-to-fit 이라 제목 길이에 따라 카드 폭이
+         제각각이 된다(grid 안에선 셀이 stretch 해줘 안 드러났지만 flex 캐러셀에선 드러남). */
+      className="group flex w-full flex-col items-stretch text-left transition-transform hover:-translate-y-1 active:scale-95"
     >
       <div className="aspect-video rounded-2xl overflow-hidden relative shadow-soft group-hover:shadow-pop transition-shadow">
         <BookCover

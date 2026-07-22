@@ -52,14 +52,17 @@ export function CategorySection({
           )}
         </div>
       </header>
-      {/* 가로 스크롤 행. 스크롤바만 숨기고 스크롤 자체는 네이티브(터치·트랙패드·키보드) 유지. */}
+      {/* 가로 스크롤 행. 스크롤바만 숨기고 스크롤 자체는 네이티브(터치·트랙패드·키보드) 유지.
+          🔴 음수 마진으로 페이지 패딩(px-4/6/8)을 상쇄해 행만 화면 끝까지 흘린다 — 그래야
+          좁은 화면에서 표지를 줄이지 않고도 다음 카드 peek 을 확보한다(패딩 안에 가두면
+          343px 라 160px 카드 2장에 gap 만 넣어도 3번째가 1px 차로 밖으로 밀려 peek 이 0). */}
       <div
         role="region"
         aria-label={title}
-        className="flex gap-3 sm:gap-5 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-2 sm:gap-5 overflow-x-auto pb-2 -mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {visible.map((b) => (
-          <div key={b.id} className="shrink-0 w-36 sm:w-56 lg:w-64">
+          <div key={b.id} className="shrink-0 w-40 sm:w-56 lg:w-64">
             <BookCard book={b} />
           </div>
         ))}
