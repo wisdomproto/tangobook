@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 type LangMap = Record<string, string>;
 
-// key = 표준 한국어 카테고리명(R2 데이터 값). ko 는 원본이라 별도 불필요(폴백).
+// key = 표준 한국어 카테고리명(R2 데이터 값). ko 는 보통 원본 그대로라 생략하지만,
+// 표시명을 데이터 키와 다르게 가져가야 하면(예: 생활동화 → 호리네 생활동화) ko 를 명시한다.
 const CATEGORY_LABELS: Record<string, LangMap> = {
   '세계 명작': {
     en: 'World Classics',
@@ -61,11 +62,14 @@ const CATEGORY_LABELS: Record<string, LangMap> = {
     zh: '我们的身体故事',
     th: 'เรื่องราวร่างกายของเรา',
   },
+  // 🔴 R2 데이터 키는 '생활동화' 그대로 두고 표시 라벨만 '호리네 생활동화'로 바꾼다
+  // (정렬 DEFAULT_PRIORITY_CATEGORIES·스프라이트 맵·마케팅 스크립트가 전부 이 키를 참조).
   생활동화: {
-    en: 'Everyday Stories',
-    vi: 'Truyện đời sống',
-    zh: '生活故事',
-    th: 'นิทานชีวิตประจำวัน',
+    ko: '호리네 생활동화',
+    en: "Hori's Everyday Stories",
+    vi: 'Truyện đời sống của Hori',
+    zh: 'Hori的生活故事',
+    th: 'นิทานชีวิตประจำวันของ Hori',
   },
   // 별칭(구 카테고리/그룹핑명) — 폴백 안전용
   '자연 관찰': {
@@ -87,7 +91,8 @@ const CATEGORY_LABELS: Record<string, LangMap> = {
 
 /** 카테고리 한국어명 → 현재 UI 언어 라벨 (매핑/언어 없으면 원본 그대로). */
 export function categoryLabel(category: string, lang: string): string {
-  if (!category || lang === 'ko') return category;
+  if (!category) return category;
+  // ko 도 딕셔너리를 먼저 본다 — ko 항목이 없으면 원본 키로 폴백이라 기존 동작 그대로.
   return CATEGORY_LABELS[category]?.[lang] ?? category;
 }
 

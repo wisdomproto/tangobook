@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useStorybooks } from '@/features/storybook';
 import {
@@ -208,8 +209,38 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
     [libConfig?.categoryOrder]
   );
   const [search, setSearch] = useState('');
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [readingFilter, setReadingFilter] = useState(false);
+  // 🔴 카테고리·읽는중 필터는 URL 에 둔다(로컬 state X). 사이드바 "동화책"은 /library 로
+  // 가는데, 같은 라우트라 컴포넌트가 remount 되지 않아 로컬 state 면 필터가 그대로 남는다
+  // ("전체 보기"에서 나갈 방법이 없어짐). URL 이면 링크 한 번으로 초기화되고, 덤으로
+  // 뒤로가기·새로고침·공유에서도 필터가 유지된다.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeCategory = searchParams.get('category');
+  const readingFilter = searchParams.get('reading') === '1';
+  const setFilters = useCallback(
+    (
+      next: { category?: string | null; reading?: boolean },
+      /** 칩 토글은 같은 화면의 필터라 replace(히스토리 오염 방지).
+       *  "더 보기" 드릴인만 push — 안드로이드 뒤로가기로 전체 목록에 돌아와야 하므로. */
+      opts: { push?: boolean } = {}
+    ) => {
+      setSearchParams(
+        (prev) => {
+          const p = new URLSearchParams(prev);
+          if ('category' in next) {
+            if (next.category) p.set('category', next.category);
+            else p.delete('category');
+          }
+          if ('reading' in next) {
+            if (next.reading) p.set('reading', '1');
+            else p.delete('reading');
+          }
+          return p;
+        },
+        { replace: !opts.push }
+      );
+    },
+    [setSearchParams]
+  );
   const [phonicsLang, setPhonicsLang] = useState<PhonicsLang>('all');
   // 4-5세 인지부하 ↓ — 카테고리 chip 기본 4개만 노출, "더 ▾" 토글로 펼치기
   const [showAllCategories, setShowAllCategories] = useState(false);
@@ -462,10 +493,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
               <Chip
                 variant="ink"
                 active={activeCategory === null && !readingFilter}
-                onClick={() => {
-                  setActiveCategory(null);
-                  setReadingFilter(false);
-                }}
+                onClick={() => setFilters({ category: null, reading: false })}
                 className="!text-base !px-5 !py-2"
               >
                 {t('chips.all')}
@@ -476,10 +504,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
                   active={readingFilter}
                   icon="📖"
                   trailing={readingCount}
-                  onClick={() => {
-                    setActiveCategory(null);
-                    setReadingFilter((v) => !v);
-                  }}
+                  onClick={() => setFilters({ category: null, reading: !readingFilter })}
                   className="!text-base !px-5 !py-2"
                 >
                   {t('chips.reading')}
@@ -501,10 +526,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
                     active={activeCategory === cat}
                     icon={getCategoryIconNode(cat, 24)}
                     trailing={activeCategory === cat ? count : undefined}
-                    onClick={() => {
-                      setActiveCategory(cat);
-                      setReadingFilter(false);
-                    }}
+                    onClick={() => setFilters({ category: cat, reading: false })}
                     className="!text-base !px-5 !py-2"
                   >
                     {displayCategory(cat)}
@@ -552,8 +574,7 @@ export default function LibraryPage({ type = 'storybook' }: LibraryPageProps) {
               books={books.map(applyGenreCover)}
               headerExtra={cat === '세계 명작' ? genreSelector : undefined}
               onShowMore={() => {
-                setActiveCategory(cat);
-                setReadingFilter(false);
+                setFilters({ category: cat, reading: false }, { push: true });
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
             />
