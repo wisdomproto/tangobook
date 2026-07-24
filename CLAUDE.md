@@ -5,6 +5,7 @@ AI 기반 유아동 동화책 + 파닉스 + 어휘 저작도구. Gemini로 스�
 > 이 파일은 **인덱스**다. 상세는 모듈별 `features/*/CLAUDE.md`, `docs/*`, memory 를 가리킨다. 완료된 마이그레이션·스크립트 나열은 `git log` / 코드 / memory 에서 확인.
 
 ## 기술 스택
+
 - **Monorepo**: pnpm workspaces (`packages/{client,server,shared,remotion}`)
 - **Frontend**: React 18 + TypeScript + Vite + TanStack Query v5 + Zustand v5 + TailwindCSS v3
 - **Backend**: Express v5 + TypeScript + tsx
@@ -14,6 +15,7 @@ AI 기반 유아동 동화책 + 파닉스 + 어휘 저작도구. Gemini로 스�
 - **Auth**: Supabase (게스트 모드 graceful degradation)
 
 ## 폴더 구조
+
 ```
 packages/
   shared/src/{types,constants,utils}/   # Storybook/Page/KeyObject 등 도메인 타입
@@ -25,6 +27,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 ```
 
 ## 아키텍처 규칙
+
 - **백엔드 레이어**: `routes(URL 매핑) → controllers(req 파싱 + try/catch + next(err)) → services(비즈니스 로직, AppError throw) → repositories(R2) / providers(Gemini·R2 SDK 싱글톤)`
 - **응답 통일**: `res.json({ success: true, data })` / 실패는 `throw new AppError(404, '메시지')` (errorMiddleware)
 - **프론트 상태**: TanStack Query = 서버 데이터 / Zustand(`store/editor.store.ts`) = UI 상태만. **Zustand 에 서버 데이터 금지**.
@@ -32,6 +35,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - **Feature 모듈**: `features/{name}/{api,hooks,components,index.ts}`
 
 ## 디자인 시스템
+
 **Single source of truth**: [docs/design-system.md](docs/design-system.md) — 색/폰트/컴포넌트 + GPT 시안 prompt 템플릿 + 시안 protocol. 새 화면 시안 받을 때 매번 참조.
 
 - **색 토큰** (`design-system/tokens/colors.ts`): coral(CTA) · peach(Warm 배경/표면) · mint(Cool, 게임 톤 — 학습=peach / 게임=mint) · cream · ink(실질 검정) · semantic. 새 토큰 추가 시 Tailwind JIT 인식 위해 client dev 서버 재시작.
@@ -48,6 +52,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - **`/members` 회원 관리 대시보드**(`features/members/` + 서버 `/api/ops/members*`): 회원 목록·자녀별 활동(shared 집계 공식 공유 = 부모 리포트와 수치 일치)·무료 체험/유료 부여·차단(Supabase Auth ban)·삭제(Auth deleteUser→accounts FK cascade). 목록 요약바(총회원·오늘활동·체험/구독/만료)+이메일 검색+행 클릭 상세 드로어(권한 부여 버튼·자녀 활동·결제 이력·이메일 확인 삭제). 인증 = /admin 과 동일(비번/OPS_EMAILS, `ops-auth.middleware`). 순수 로직=`members-grant.ts`(grant 검증)·`members-activity.ts`(자녀 요약, TDD). 스펙 → docs/superpowers/specs/2026-07-09-members-admin-dashboard-design.md
 
 ## 학습자 화면 (MVP 정책)
+
 - **사이드바** (`AppShell.PRIMARY_AXES`): 일반/게스트 = **동화책**만. 파닉스/어휘/게임 = `devOnly`(`config/dev.ts` `DEV_EMAILS`=개발자 이메일만 노출, 코드/라우트 보존). **연속재생 진입은 사이드바 아님** — LibraryPage 최상단 "나의 재생 목록" 섹션(`PlaylistLibrarySection`, 로그인 시만).
 - **사이드바 정리** (`AppShell`, 2026-07-14): ①**무료체험 뱃지 제거**(사이드바 `TrialBadge` 미사용 — 컴포넌트/배너 카피는 보존). ②**부모 메뉴 접이식** — 학습 리포팅·친구 초대·부모 설정·건의하기 4개를 "👨‍👩‍👧 부모 메뉴 ▾" 토글(`parentMenuOpen`, **기본 접힘**) 아래로, 로그아웃은 상시 노출. i18n `sidebar.parentMenu`. ③**배너 헤드라인** `promo.trialHeadline` 에서 "· 모든 동화 열려 있어요" 제거(일수만). (⚠️ 로고를 배너로 옮겼다 되돌림 — 로고=사이드바 좌상단, 배너 우측=호랑이 `promo.webp` 원상태.)
 - **프로필 칩** (`AppShell`, 2026-07-14): 로그인+activeProfile 이면 **아이 1명이어도 상시** `[아바타+이름+⌄]` 칩 = **사이드바 상단(로고 아래)**. 탭 → `ProfilePicker`("누가 놀고 있어요?") 수동 오픈 = 여러 명이면 전환 / 어느 경우나 **＋새 친구 추가**(→ `/parent/profiles`, ParentGate). `ProfilePicker` 에 optional `onClose`(✕, 수동 오픈 시만; 2명+ 최초 진입 게이트는 닫기 없이 필수 선택 유지). (이전엔 2명+ 일 때만 전환 칩 노출.)
@@ -58,27 +63,33 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - **한글 파닉스** (`/library/phonics/korean(/:unitId)?`): AppShell 밖 풀화면. 상세 → [features/phonics-learner/CLAUDE.md](packages/client/src/features/phonics-learner/CLAUDE.md).
 
 ## 글자 쓰기 채점 — `LetterFillCanvas` (paint mode)
+
 모든 글자/단어 쓰기 통일 (영/한/일). 글자 회색 fill → 사용자 stroke `source-atop` 으로 글자 안만 painted → `coverage`(painted/mask 픽셀) ≥ `threshold(0.95)` 시 autoCheck 통과. `LINE_WIDTH=60`. 폰트 fidelity 100% (폰트 그대로 채점). **동화책 단어 익히기 경로도 통일 완료**(2026-07-02 — VocabularyStudyContent 가 레거시 `WordWritingPlayer` 직접 import 로 레지스트리를 우회하던 잔재 제거 → `Korean/EnglishWordWritingPlayer`. 레거시 파일은 미사용 보존).
+
 - 데모: `/letter-fill-demo` (TopBar 자료실 🎨).
 - 도입 배경 + deprecated stroke library 인프라(미래 자모 단위 학습용 보관, 학습자 미통합) → memory / `docs/` 참조.
 
 ## 저작도구 자료실 페이지 (TopBar 📁 자료실 ▾)
+
 - `/library-master` — 라이브러리 순서 + 카테고리 CRUD + 책 메타 편집. 셀 단위 isPublic(`Storybook.publicByStyleLang`) + 📊 표 보기(`BookMatrixModal`). 양방향 동기화 `features/library/lib/public-sync.ts`. **셀 비공개는 BookDetailPage 학습자 화면에도 반영**(2026-06-09, 그림체 칩·언어 토글 필터).
 - `/vocabulary-table-ko.html` 📊 — 단어 마스터 표. 동화책 keyObject source, 난이도 분류 + 비명사 필터. `vocab-overrides API`(`GET/PUT /api/vocab-overrides` → R2). 영어판 `vocabulary-master.html`.
 - `/key-object-editor.html` ✏️ — 페이지 텍스트 기반 keyObject 재분류 + 책별 편집. 분석 source `public/_analysis/text-based-classify.json`(gitignored).
 - SEO/마케팅/전략 HTML → 아래 SEO·마케팅 섹션.
 
 ## 서버 gotcha
+
 - **POST /api/storybooks** body 는 `{ storybook: {...} }` wrapper 필수. raw object → 500 "Cannot read properties of undefined (reading 'id')".
 - **동일 title 차단**: `R2Repository.saveStorybook` 에서 신규/title 변경 시 체크. 충돌 = `AppError(409, '같은 이름의 동화책이...')`. variant `__L\d+$`(같은 baseId) / storybook↔phonics 는 예외.
 - `normalizeStorybook` 가 `keyObjectImages[]` null entry 필터링(일부 책 silent 404 방지).
 - **`koCompletion.pagesTts`(summary 완성도 플래그, `r2.repository.ts` `toSummary`)** = **글 있는 페이지만** TTS 요구(`텍스트 페이지.every(ttsUrl)`) — 텍스트 없는 마지막 빈 페이지까지 요구하던 `pages.every` 는 완비된 책을 오분류(공룡 등 연속재생 선택기에서 통째로 빠짐, 2026-07-10 fix). 나레이션 없는 책 **배치 생성** = `scripts/generate-storybook-narration.mjs`(로컬 서버 `/api/tts/generate` gemini + `translation-core` 저장, `--dry-run/--book/--limit`, 멱등). 현재 공개 149권 **전부 나레이션 완비**. 상세 → memory `narration-backfill-completion-flag-2026-07-10`.
 
 ## 영상 렌더 화질
+
 - **Remotion 렌더**(오디오북·이북: `audiobook.service.ts`·`book-v2.service.ts`·`scripts/mosquito-render.ts`) `renderMedia` = `imageFormat:'png'`(기본 jpeg/q80 아티팩트 제거) + `scale:1.5`(컴포지션 720p→1080p) + `crf:16`. **longform**(`longform.service.ts`) = 1080p + preset `medium` + `crf 18`. 컴포지션 기본 해상도 `RESOLUTIONS`(`packages/remotion/src/types.ts`)는 720p — 4K는 생성 이미지 해상도부터 올려야(Imagen `sampleImageSize`).
 - **AI 영상 업스케일**: `scripts/upscale-for-upload.sh` (fast=lanczos 1080p / ai=Real-ESRGAN x4plus). Grok 영상=720p 천장. 상세 → memory `video-quality-upscale-2026-06-30`.
 
 ## 모듈별 가이드 (해당 폴더 작업 시 자동 로드)
+
 - 동화책 (CRUD/사이드바/복사) → [features/storybook/CLAUDE.md](packages/client/src/features/storybook/CLAUDE.md)
 - 학습 게임 → [features/games/CLAUDE.md](packages/client/src/features/games/CLAUDE.md). **어휘 게임(사이드바 "어휘 게임" → `/games/vocab`, 2026-07-08 부활)**: 세계명작 **랜덤 1권**을 `deriveStorybookUnit` → `VocabularyStudyContent`(책 상세 "단어 익히기"와 동일)에 공급 → **동화책 게임 4종**(그림짝·블록·그림 그리기·따라쓰기) 한/영 토글+🎲 다른 책. 파일 `pages/RandomVocabStudyPage.tsx`. 🔴 **1권인 이유**: 게임 플레이어는 `storybookId` 하나로 (1)정답 음원 프리워밍 cache 키 (2)정답 후 "그 단어 나온 동화책 페이지" 장면 리빌 을 결정 — 여러 책 mix 시 storybookId 가 가짜라 음원이 정답 순간 concat 되어 늦고 장면 리빌도 안 뜸(초기 mix 설계 폐기). 진짜 책 1권을 공급하면 책 안 게임과 완전히 동일 경로라 그 fix 들을 그대로 물려받음(keypoints 도 실책 데이터라 그림 그리기 활성). (구 `RandomBlockGamePage` 블록 전용 라우트는 보존.)
 - 롱폼 영상 → [features/longform-video/CLAUDE.md](packages/client/src/features/longform-video/CLAUDE.md)
@@ -106,6 +117,7 @@ memory/                                  # 사용자 auto-memory (장기 컨텍�
 - 학습만화 「타임 티코」 (초등 저학년 — **프랜차이즈=카테고리 구조**: 브랜드(고정 캐스트 5인+티코 머신)→카테고리(시대여행·극한생존·우주·인체…포맷 축)→볼륨(대체로 단독편, 필요시 다부작 아크). **선형 시즌 아님 — 볼륨 사이 하드 브릿지 X**("티코가 이번엔 ~로 데려간다"로 바로 시작). 최상위 인덱스 SSOT=`public/learning-comic-franchise.html`(카테고리 맵·볼륨 7규칙·브랜드 연속성·새 볼륨 체크리스트). **"N화 써줘"→comic-writer 집필→comic-editor 4축 검수 사이클**, 쪽별 프롬프트 복사·**10쪽 묶음 프롬프트**(GPT 배치 생성용, 캐릭터 @image1..(메인 우선→게스트) + 쪽별 [등장]·[의상] 자동추출 + 집합어("아이들") 주인공 명시 + **보리·노아 과거 의상 변형 레퍼런스**)·수정지시(`/api/comic-feedback`)·이미지 붙여넣기/삭제(`/api/comic-assets`→**R2** `comic-assets/{docId}/{key}.{ext}`, 로컬/프로덕션 공용·재배포에도 유지), 캐릭터 시트 5종 확정. **저작도구 공유 스크립트 `public/learning-comic-core.js`** — 회차 HTML 은 `window.EP_GUESTS`·`COSTUME_ZONES` 2줄만 정의+include(신규 회차·S2 도 동일, 변환기 `server/scripts/comic-inject-core.mjs`). **🔴 집필 룰: 한 쪽=한 이벤트**(애니 아님, 그림책 — 목격/껴듦 분리, 별개 플롯신호 감정컷 병치 금지)·**🔴 화=가변 분량(본편 26~33쪽+부록 3쪽; "36쪽 고정" 폐기 2026-07-07 — 억지 패딩이 지루함 주범)**: 표준 단독편 28~30쪽·33쪽은 오리진/피날레/아크 클라이맥스만·**결론 1회 원칙**(같은 사실·추리·감정 결론 3쪽+ 반복 금지 — 그림책은 한 쪽=한 장이라 반복=쪽 낭비)·**비트 변주**(착지 카운트다운·통신 두절·부품 몽타주 정형구는 볼륨당 3~4회만 원형, 나머지 변주)·**피날레(≤33쪽) 그림사건 최대 2개**·**부록 팩트 축소/왜곡 금지**·**🔴 배터리·제한시간("해 뜨기 전 귀환") 폐기(2026-07-05, QA 말썽+다일구조 모순)** — 게이지=부품 수집(12칸)만, 긴장은 미스터리·모험·0호로, 티코 말버릇 "삐빅! 나만 믿어, 인간들!"(바이블 §룰2 뒤 note). **🔴 연속성(설정-회수) 기계검증 필수**: LLM 검수는 "읽기"라 멀리 떨어진 설정↔회수(회상대사 원인장면 등)를 계속 놓침 → 회차 완성/수정 후 `node packages/server/scripts/comic-continuity-check.mjs [epNN]` 로 **FAIL 0** 확인(부품게이지 단조·위험회상어·두-사건 후보 + 배터리 잔재 감시 + **🔁키워드 과반복 렌즈**=결론 반복 후보, 독자 텍스트 스코프). 4축 검수와 별개 렌즈. **🔴 현대 아이 시점 상식 렌즈**(2026-07-06): 보리·노아=지금 한국 초등학생 → 이미 아는 것(한글·직각·자석·이순신 등 위인)을 처음처럼 놀라거나 몰라야 할 전문사실(세계기록급·정확한 연도)을 티코피디아 없이 선수 금지, **시대 고유 '방법'(밧줄 직각·거울글씨·태양석 항해) 학습은 OK**. 12화 전수 8건 교정, writer 룰6·editor 검수축6·plan 룰6·franchise 룰8에 상시 명문화. **① 시대여행 Vol.1**(시간여행 12화, SSOT=`public/learning-comic-plan.html`+회차 `learning-comic-ep{NN}.html` 탭 자동감지, 전편 콘티+**12화 종합검수+연속성 패스+checker 반영 완료**: P0 2건 해결(3화 공룡 각인·11화 첫비행 거리)·공통정책 3종·연속성 실버그 9회차 수정·core.js 이식·checker FAIL 0) · **② 극한생존 Vol.1 「무인도 생존편」**(순수 생존, 시간여행 없음 — 완전체 티코가 먼 무인도 탐험 데려가다 **폭풍에 비행정 추락**·불시착[구 '우주 출발→시간코어 고장' 폐기, 2026-07-04 카테고리 재편], SSOT=`public/learning-comic-s2-plan.html`+회차 `learning-comic-s2-ep{NN}.html`, 조상 생존술+현대과학+"건강해지는 몸"(show-don't-tell·장치금지)+부모감사·철듦, 티코 되찾은 기능 활용(거들기·룰5 유지), **봉수 박사 섬 내내 교신 없음**(피날레에 첫 도달), 피날레=**열린 결말**(ep12와 bookend, 우주 재도전 떡밥 폐기), v2 6화 미션 묶음·전편 콘티+검수 완료; 구 12화판 백업 `docs/comics/s2v1-backup/`). **③ 패딩 제거 재단(2026-07-07)**: 편집장 페이싱 검수로 "36쪽 고정" 패딩 진단(주범=분량보다 리듬 단조+결론 반복) → 규칙 가변화 + checker 키워드 과반복 렌즈 + **7편 재단**(s2-5·ep04·ep05·ep06·ep08·ep09·s2-3, 감축 6~7쪽/편, 전편 checker PASS+편집장 승인) → memory `time-tiko-comic-2026-07-03` · `time-tiko-pacing-recut-2026-07-08`
 
 ## 자주 쓰는 커맨드
+
 ```bash
 pnpm dev              # client + server 동시
 pnpm typecheck        # 모든 패키지
@@ -114,18 +126,22 @@ pnpm --filter {server|client|shared} {dev|build|...}
 ```
 
 ## 환경변수
+
 `packages/server/.env` (template: `.env.example`).
+
 - 선택: `OPENAI_API_KEY`(Whisper) / `VITE_SUPABASE_URL`+`VITE_SUPABASE_ANON_KEY`(`packages/client/.env.local`, 없으면 게스트 모드)
 - Supabase 셋업: `scripts/supabase-setup.sql`
 - 마케팅 자격증명: `NAVER_AD_API_KEY/SECRET/CUSTOMER_ID` · `DATAFORSEO_LOGIN/PASSWORD`. **하드코딩 금지**.
 
 ## Gemini 모델
+
 - Default 텍스트: `gemini-3.1-pro-preview` (`DEFAULT_TEXT_MODEL` shared / `config.gemini.textModel` server, `GEMINI_TEXT_MODEL` env override)
 - 자동 폴백: overload(503/429/RESOURCE_EXHAUSTED 등) 시 `gemini-2.5-flash-lite`
 - retry 래퍼 `withGeminiRetry`: 5회, exp backoff + jitter, 시도당 120s
 - 배치 작업(seed 등)은 `--model gemini-2.5-flash-lite` 권장
 
 ## 코딩 컨벤션
+
 - 파일명: PascalCase(컴포넌트) / camelCase(훅·유틸·API). 컴포넌트 named export (pages default).
 - 에러: `AppError(status, message)` throw (console.error 대신).
 - 주석: 자명한 코드 X, 복잡 로직만.
@@ -133,14 +149,18 @@ pnpm --filter {server|client|shared} {dev|build|...}
 - 새 Feature: `api/{name}.api.ts` → `hooks/use{Name}.ts` → `components/` → `index.ts` → 라우트 `router/index.tsx`.
 
 ## R2 데이터 호환성
+
 - 기존 동화책 211+권 저장됨. `Storybook` 인터페이스 호환 유지. 새 필드는 `optional`. snake_case 혼용은 [docs/architecture-notes.md](docs/architecture-notes.md).
 
 ## 주요 타입 위치
+
 - `Storybook` / `Character` / `Page` / `KeyObject` / `BlendingExercise` / `ParentGuide` / `ReadingLevel` / `VocabularyUnit` / `BookManifest` / `LibraryConfig` / `ApiResponse<T>` → `@tangobook/shared`
 - `AppError` → `packages/server/src/middleware/error.middleware.ts`
 
 ## 다국어(i18n) — 콘텐츠 + UI + SEO (해외 진출 1단계 완료, 2026-07-12)
+
 `SUPPORTED_LANGUAGES`(`shared/constants`, `code·label·nativeName·flag`) = 언어 단일 소스. **새 언어 = `/add-language <code>` 한 줄**(스킬/커맨드 `.claude/commands/add-language.md` = 전체 파이프라인 오케스트레이션). 현재 11개(ko·en·ja·zh·es·fr·de·vi·th·ms·id), **zh = 간체**. 🔴 **콘텐츠·UI 실제 완비 = ko·en·vi·zh·th 5개**(마케팅 타겟). ja·es·fr·de·ms·id 는 코드상 지원되나 콘텐츠·UI 미번역 → `/add-language` 로 추후.
+
 - **콘텐츠 번역** (동화책 149권): `translate-extract/apply/verify.mjs --lang=<code>` + `translation-core.mjs`. **Claude 직접 번역**(Gemini X) — `_data/translations/<lang>/<id>.json`(언어무관 `t` 키) 채워 R2 주입. R2 필드 `languages[]`·`titleTranslations`·`page.translations[lang]`·`KeyObject.nameTranslations`·`parentGuideTranslations`. **vi·zh·th 149/149 완비**. **en = 145/149**(2026-07-14 백필 — 감사로 en 구멍 17권 발견 → 13권 번역+적용, stub 4권(캥거루·판다·코뿔소·하마)만 ko 내용 자체가 비어 대기). 🔴 배치 번역 서브에이전트 = **"워커, Agent 금지, 직접 Read/Edit" 프롬프트 필수**(오케스트레이터 환각 방지). apply 는 책단위 원자성(미완 자동 skip). languages drift(콘텐츠 있는데 플래그 누락) 일괄 점검. **다국어 페이지 나레이션(자막 TTS)** = `generate-narration-i18n.mjs --lang <code>`(gemini Leda, `translations[lang].ttsUrl`, `--book/--dry-run/--force`, 멱등) — ko 는 `generate-storybook-narration.mjs`(ko 전용). **완비 감사** = 스크립트로 149권×5언어 페이지 삽화/자막/TTS 전수(scratchpad `audit-books.mjs`).
 - **UI i18n** (`packages/client/src/i18n/`): **react-i18next**, ko eager 번들(폴백)+그 외 lazy glob, `setUiLanguage(code)`(localStorage `tangobook-ui-lang`). **11 네임스페이스**(common·shell·access·auth·library·bookDetail·payment·viewer·games·learning·continuous, ~500키) × **en·vi·zh·th 완역**(`locales/<lang>/*.json`). 부모설정에 언어 셀렉터. 🔴 **ko 미지정 시 기존 동작 불변**. 검증 `packages/client/scripts/verify-locales.mjs`(키파리티+보간+Trans마크업). **🔴 단일 언어 표시 정책(2026-07-13)**: 학습자 화면은 UI/읽기 언어 **하나만** — 이중언어 병기 금지. 제거된 곳: 뷰어 자막 한국어 원문 보조(`PageView` subText)·책끝 만난단어(`WordRevealScreen` 한/영+한→영 순차TTS→UI언어 하나)·단어 상세 모달(`WordDetailModal` 반대언어 gloss)·어휘 미리보기 카드(`VocabularyStudyContent` sub)·그림짝 카드(`LineMatchingPlayer`/`game-data-adapter` subLabel)·말하기(`SpeakingPlayer` koreanMeaning). 새 학습자 UI 도 단일 언어 유지. memory `single-language-i18n-2026-07-13`.
 - **데이터 라벨 다국어** — 카테고리명·책제목·그림풍 장르는 R2 데이터(t() 아님) → 고정 딕셔너리로 표시 시점 치환: `features/library/lib/category-i18n.ts`(`useCategoryLabel`) · `lib/art-style-genre.ts`(`genreLabel`/`useGenreLabel`) · 책카드 `titleTranslations[uiLang]`. 내부 key(한국어) 유지.
@@ -150,10 +170,13 @@ pnpm --filter {server|client|shared} {dev|build|...}
 - 상세 → memory `i18n-multilingual-2026-07-12` · `translation-pipeline-i18n-2026-05-30` · `global-expansion-design-2026-07-11`(투트랙 결제·세금 등 해외 설계).
 
 ## PRD 문서
+
 `docs/PRD_*.md` (Master / AuthorTool_Storybook / AuthorTool_Phonics / Viewer / Marketing / v2 / UIUX_AuthorTool)
 
 ## SEO 인프라
+
 SPA SEO 기본기. 상세 → memory `seo-infrastructure-2026-05-26.md`.
+
 - 정적: `index.html`(meta/JSON-LD) · `robots.txt` · `sitemap.xml`(자동: `pnpm --filter server sitemap`) · `manifest.json` · `llms.txt`
 - **OG 이미지**: `og-image.png`(기본/사이트) · `og-invite.png`(친구초대 레퍼럴) → 생성기 `pnpm --filter server og`(`generate-og-images.mjs`, sharp+librsvg, 번들 Pretendard `scripts/assets/og-fonts/`). 1200×630, 로고 webp 합성. 책별 OG = BookSeoPage 가 실제 표지 URL 사용.
 - 동적: `src/lib/useSeo.ts` hook — LibraryPage · BookDetailPage · KoreanPhonicsStudyPage · BookSeoPage 적용.
@@ -166,32 +189,39 @@ SPA SEO 기본기. 상세 → memory `seo-infrastructure-2026-05-26.md`.
 - 🔴 다음 할 일(메모리 참조): 책별 OG 카드(표지 합성) / CI 통합 / Core Web Vitals / 유료화 시 무료 11권 selection 재검토 + paywall 구조화데이터(`isAccessibleForFree`).
 
 ## /marketing — ContentFlow 포트 ✅ Phase 0~5 완료 (main 통합)
+
 ContentFlow AI 마케팅 자동화 SaaS 이식 — **전 단계(Phase 0~5) 완료, 포트 종료. 모든 `/marketing` 라우트 라이브**. `features/marketing/` 전담 모듈.
 데이터 레인 2종: **supabase-direct**(`mkt_*` 테이블 싱글 오너 RLS + R2 `mkt/{projectId}/…`) = 콘텐츠/키워드/발행/전략/모니터링 키워드 / **server-proxy**(`/api/mkt/…` 시크릿 서버 전용) = 분석·모니터링 검색·SERP. Express `/api/mkt` (SSE 포함).
+
 - Phase 1(콘텐츠 7채널) · 2(키워드/아이디어) · 3(발행: self_hosted `setInterval` 스케줄러 + 큐/대시보드/5단계 일괄예약 + `supabase-admin.provider` 서비스롤 + `mkt_deploy_webhook_queue`).
 - **Phase 4(분석)**: GA4 서비스계정 JWT(RS256 `node:crypto`, no SDK)→runReport REST + SEO 감사(cheerio) + Meta/YouTube 인사이트 + 경쟁사(갭/순위, Gemini). client는 `recharts` 차트만, 시크릿은 서버에서 프로젝트별 resolve.
 - **Phase 5(전략/모니터링/광고/SERP)**: 전략 HTML 뷰어+클라 파싱 import · 모니터링(지식인/블로그 스크레이프 + YouTube/IG + AI 댓글) · 광고 목업(client-only) · 경쟁사 SERP(DataForSEO).
-마이그레이션은 **Phase 3에서만**(4·5는 기존 컬럼 재사용, 0 SQL). **415 마케팅 tests / 161 서버 mkt tests**.
+  마이그레이션은 **Phase 3에서만**(4·5는 기존 컬럼 재사용, 0 SQL). **415 마케팅 tests / 161 서버 mkt tests**.
 - **계정 연동 + 멀티채널 실발행(2026-07-10, dflo 이식)**: Meta **글로벌 OAuth**(`/api/auth/meta`→암호화 `mkt_meta_connection`, 토큰 서버전용) + YouTube(`youtube.provider` 재활용). 공용 실행기 `publish-executor`가 **카드뉴스(IG캐러셀·FB앨범)·릴스(IG릴스·FB영상·Threads·YouTube쇼츠)** 실발행+백오프재시도, 스케줄러 Step C=예약 자동발행. UI=릴스패널 "소셜 발행"(`ReelsPublishDialog`)·카드뉴스 "소셜 발행"(`MetaPublishDialog`)·발행큐 dflo 보드(언어pills+채널컬럼). 🔴 New Pages Experience 페이지 `/me/accounts` 누락→`META_EXTRA_PAGE_IDS` env · IG=비즈니스계정 페이지연결 필수 · Meta앱=콘텐츠관리 이용사례. env=`META_APP_ID/SECRET·META_REDIRECT_BASE·META_TOKEN_ENC_KEY·CORS_ORIGIN·META_EXTRA_PAGE_IDS`. → memory `meta-connect-publish-2026-07-10`.
 - **정규/광고 콘텐츠 탭 + 광고 릴스 발행(2026-07-12)**: 콘텐츠 목록을 **정규/광고 탭**으로 분리(`mkt_contents.content_kind` regular|ad, ui-store 영속). 광고 콘텐츠는 `ContentTabs`가 **릴스+카드뉴스만** 노출(기본 릴스) — 릴스 업로드+`ReelsPublishDialog` 재사용해 IG/FB/쇼츠 발행. 광고 릴스 시드 헬퍼 `scripts/upload-ad-reel-assets.ts`(R2 업로드) + `mkt_publish_records`(channel=instagram, scheduled_at=now) 직접 삽입 → **프로덕션 스케줄러가 발행**(로컬 enc키 불필요). 🔴 **발행 파이프라인 hardening 3건**: ①`getBundle` 60s 캐시+3회 재시도(tick당 연타 시 간헐 null "Meta 연결 없음" 방지) ②IG 릴스 폴링 60s→~3분(큰 mp4 처리) ③**폴링 5s 간격·transient 15s 백오프**(짧은 간격 연타가 Meta 앱 요청한도 `(#4) Application request limit reached` 트립 → 상태 못 읽어 헛타임아웃). → memory `marketing-ad-tab-publish-2026-07-12`.
-상세 → [features/marketing/CLAUDE.md](packages/client/src/features/marketing/CLAUDE.md) · memory `marketing-port-contentflow-2026-06-07.md`.
+  상세 → [features/marketing/CLAUDE.md](packages/client/src/features/marketing/CLAUDE.md) · memory `marketing-port-contentflow-2026-06-07.md`.
 
 ## 마케팅 자료
+
 `docs/marketing/` — 키워드 리서치·통합·전략 파이프라인. 상세 → [docs/marketing/README.md](docs/marketing/README.md).
+
 - 자료실 HTML: `/seo-strategy.html`(자동 생성, `generate-seo-html.mjs`) · `/operations-playbook.html` · `/viral-magnets-wireframes.html`.
 - **릴스 홍보 영상** (소비자용 9:16, 24s): Remotion 컴포지션 `ReelsPromo`(`packages/remotion/src/compositions/ReelsPromo.tsx`) + 씬 `src/components/reels/*`. 자산은 R2 실제 표지를 `public/reels/`(styles·nature·grid·games·logo)로 복사. 구성: 세계명작(그림체 모핑)→자연관찰→한/영→학습게임→콘텐츠 바둑판→CTA(로고+7일 무료체험+tangobook.co.kr). 렌더 `npx remotion render ReelsPromo out/reels-promo.mp4`(BGM은 무음, 편집기에서 추가). 설계 [docs/superpowers/specs/2026-06-04-reels-promo-video-design.md](docs/superpowers/specs/2026-06-04-reels-promo-video-design.md).
 - **책별 릴스 배치 파이프라인** (9:16 · ~40s · 책마다 자동, 2026-07-10): 마케팅 스토리보드(`_data/marketing/storyboards/{id}.json`)+책 실제 삽화(R2)로 책별 릴스를 렌더해 마케팅 릴스 탭에 연결. **prop 기반 일반 컴포지션 `StorybookReel`**(`packages/remotion/src/compositions/`, 원격 R2 이미지 `<Img>` 직접 로드·🔴`encodeURI` 필수(한글 파일명)·`calculateMetadata` 동적 duration) = 씬(훅=**책 제목** 헤드라인 / 원작·줄거리·교훈=스토리보드 label + **subtitle 자막**(나레이션 아님 — 중간잘림 회피)) + **그림체 3종 모핑**(콜라주→수채→페이퍼3D, 최대 공통페이지) + CTA 로고. 순수 빌더 `packages/server/src/services/reel/reel-props.ts`(`buildReelProps`, TDD 13) · 배치 러너 `packages/server/scripts/render-book-reels.ts`(`bundle`→`selectComposition`→`renderMedia`(`timeoutInMilliseconds`·`gl:'angle'`) + R2 업로드 `mkt/{projectId}/reels/` + Supabase `mkt_instagram_contents[0].video_settings.reels.ko` **병합**(단일 캐러셀행 유지), flags `--book/--limit/--dry-run/--owner-email`(기본 `kil210@gmail.com`)). **명작 46/51 라이브**(4=R2 책데이터 404·1=스토리보드 없음, 원본 보존하면 개별 재실행). 개구리 왕자 손튜닝 원본=`FrogPrinceReel`(보존, 회귀 안전망). 설계·계획 [docs/superpowers/specs/2026-07-09-storybook-reels-batch-pipeline-design.md](docs/superpowers/specs/2026-07-09-storybook-reels-batch-pipeline-design.md) · memory `storybook-reels-pipeline-2026-07-10`.
 - **롱폼 오디오북 마케팅 영상** (16:9 · 1080p/30fps · 책마다 그림체×언어, 2026-07-15): editor2 오디오북(Remotion `Audiobook` 컴포지션)을 (그림체×언어) 조합별 롱폼으로 렌더 → 마케팅 **롱폼 탭**(`mkt_youtube_contents`, ContentTabs id=`youtube` → `LongformPanel` 이 씬 편집기 대체)에 등록. **명작 48권 × 메인 3그림체 × 한국어 = 144개 완성**. 스타일 인식 빌더 `shared` `buildStyledAudiobookRenderData`(`styleAssets[artStyle].pageIllustrations` × `translations[lang]`) + **🖼️ 썸네일=언어별 표지**(2026-07-16 `LongformThumbnail` 렌더 대신 실제 표지 이미지 사용 — `resolveLongformCoverUrl`=`primaryCoverByLang[lang]`→그림체표지 폴백, 렌더·업로드0. 기존 144행 백필 `backfill-longform-cover-thumbs.ts`) + 배치 `scripts/render-book-audiobooks.ts`(+명작 일괄 `render-classics-ko.ts`, 라이브 48권·삽화있는 style만·재개가능·서브프로세스격리) + 등록 `services/reel/longform-publish.ts`(`connectLongformToMarketing` upsert, 조합당1행, 이전R2 정리) + DB `mkt_youtube_contents.video_settings jsonb`. 🔴 **전부 Gemini-free**: 메타=Claude 작성 `scripts/_data/longform-meta.json`(gitignore, `-f` add), 자막=기존 `translations[lang].text` 재구성(ko·en·vi·zh·th). 🔴 속도=`concurrency 8`+`imageFormat jpeg q92`(webp 원본이라 실손 무시, ~2배; audiobook.service 온디맨드는 png·concurrency1 유지). 랜덤 BGM(`default-{1..5}.mp3`). 설계·계획 [docs/superpowers/specs/2026-07-13-longform-audiobook-marketing-design.md](docs/superpowers/specs/2026-07-13-longform-audiobook-marketing-design.md) · memory `longform-audiobook-marketing-2026-07-15`.
 - **🚀 롱폼 YouTube 자동발행 (2026-07-16 라이브)**: 스케줄러가 예약 시각에 탱고북스 채널로 자동 업로드. **명작 143 + 자연 101 = 244개 예약**(2026-07-17~12-06, 하루 2개: 명작 01:00 UTC·자연 07:00 UTC). 명작 순서=**페이퍼3D 전부→수채 전부→콜라주 전부**(사용자 지정). ①발행 경로 `publish-executor.service.ts` **`publishLongformYouTube`**(레코드 metadata `content_kind:'longform'`+`art_style` → `mkt_youtube_contents` 행 로드 → 롱폼 메타로 업로드(#Shorts 없음·categoryId 27) + 언어별 표지 `setThumbnail` best-effort). 비-longform 은 기존 쇼츠 경로(`loadReel`). ②예약 `scripts/schedule-longform-youtube.ts`(트랙=classic(genreMap 버킷)/nature/life, 각 1/일, 멱등, 기본 dry-run·`--apply`·`--classics-only|--nature-only|--life-only`). 🔴 **트랙 분류는 책 카테고리로**(genreMap 아님 — `photographic`이 genreMap상 watercolor라 자연 오분류). ③**자연(실사)·생활동화 렌더** = 그림체 없이 base `pages[].illustrationUrl` 사용 → shared **`buildBaseAudiobookRenderData`** + `render-book-audiobooks.ts` 가 `isBaseImageStyle`로 자동 분기, 일괄 러너 `render-nature-ko.ts`(`--category` 로 자연/생활동화 공용). ④메타 소급 `patch-longform-meta.ts`(`--only-fallback`). ⑤🔴 **메타 없으면 폴백**(제목=책 title 그대로·설명 빈칸·태그 1개)이라 신규 시리즈는 `_data/longform-meta.json` 집필이 렌더와 **세트**. ⑥🔴 **BGM 길이 프로브 실패 = 무음 결함**: `bgmDuration` 없으면 컴포지션이 BGM 을 **루프 없이** 틀어 90초 트랙이 3~4분 영상 중간에 끊기고 이후 나레이션 사이가 통째 무음(09번 실측 26.8초/209초). 원인은 대개 일시적 `terminated` → 3회 재시도 후 **throw**(경고만 찍고 넘어가면 2만 줄 로그에 묻혀 그대로 발행). 검증 = `ffmpeg silencedetect=noise=-50dB:d=0.4`(정상본 무음 ~2건). **✅ 생활동화 45권 완료**(메타 149→194 · 렌더 45/45 · YT 예약 45 = 07-18~08-31 10:00 UTC 하루 1개, 명작 01:00·자연 07:00 과 분리). → memory `longform-audiobook-marketing-2026-07-15`.
-- **🔴 유튜브 쇼츠 발행 = 롱폼과 다른 경로**(`publishYouTube`, `content_kind!=='longform'`): 제목이 `mkt_contents.title` 그대로라 **생활동화 선두 번호("01. ")가 유튜브에 박혔다**(2026-07-17 fix) → `stripLeadingNumber`(테스트 6). 설명·태그도 릴스 캡션 기반인데 생활동화 IG 행은 caption/hashtags `null` → **같은 책 롱폼 메타 재사용**(`loadYoutubeMetaForShorts`, 🔴 `video_settings` 는 5언어 자막 전문이라 select 금지·JSON 연산자로 DB 필터). 🔴 롱폼 **제목**은 재사용 X(`… | 오디오북` 접미사). 썸네일 `setThumbnail` 추가 — **쇼츠 피드는 유튜브가 프레임을 쓰므로 안 보이고**, 채널 Shorts 선반·검색에만 반영. 발행분 소급 = `scripts/patch-published-shorts-meta.ts`(`videos.update`, 재업로드 X; 🔴 그 책 롱폼이 렌더돼 메타 행이 있어야 설명·태그가 채워짐).
+- **🔴 유튜브 쇼츠 발행 = 롱폼과 다른 경로**(`publishYouTube`, `content_kind!=='longform'`): 제목이 `mkt_contents.title` 그대로라 **생활동화 선두 번호("01. ")가 유튜브에 박혔다**(2026-07-17 fix) → `stripLeadingNumber`(테스트 6). 설명·태그도 릴스 캡션 기반인데 생활동화 IG 행은 caption/hashtags `null` → **같은 책 롱폼 메타 재사용**(`loadYoutubeMetaForShorts`, 🔴 `video_settings` 는 5언어 자막 전문이라 select 금지·JSON 연산자로 DB 필터). **제목도 롱폼 메타 재사용**(2026-07-24): `deriveShortsTitle` 이 `… | 오디오북` 접미사만 떼고 가운데 검색키워드(`| 양치 안 하는 아이를 위한 동화`)는 살려 `#Shorts` 부착(테스트 8). 썸네일 `setThumbnail` 추가 — **쇼츠 피드는 유튜브가 프레임을 쓰므로 안 보이고**, 채널 Shorts 선반·검색에만 반영. 발행분 소급 = `scripts/patch-published-shorts-meta.ts`(`videos.update`, 재업로드 X; 🔴 그 책 롱폼이 렌더돼 메타 행이 있어야 설명·태그가 채워짐).
 - **🔴 쇼츠 데일리 자동업로드 = 하루 1개·주제 로테이션 (2026-07-19)**: `run-daily-shorts.bat`(로컬 Windows 작업 스케줄러가 직접 실행) → `upload-shorts-youtube.mjs --count=1`. 같은 주제 몰아올리면 **자기잠식**(YouTube가 같은 시청자군 두고 경쟁시켜 1개만 밀어줌)이라 **카테고리 라운드로빈**(공룡→자연→명작, 커서 `shorts-upload-state.json.rotationIdx`는 업로드 성공 시에만 전진). 호리 생활동화 쇼츠는 별도 `schedule-saenghwal-reels`(하루 1개) → 총 2/일. 저조분 정리 = ≤10회 public 쇼츠 private→삭제→state에서 bookId 제거(로테이션 재업로드). → memory `youtube-shorts-rotation-cleanup-2026-07-19`.
+- **🔴 유튜브 채널 정비 + 제목 우선순위 버그 + 아동용 (2026-07-24)**: ①**제목 우선순위 버그** = 롱폼(`publishLongformYouTube`)·쇼츠(`publishYouTube`) 둘 다 `meta.title || row.video_title` 순서라 예약 레코드의 `metadata.title`(=`mkt_contents.title` 복사본, `게`·`01. 골고루…` 검색키워드 없음)이 공들인 `video_title`을 **가려서** 조회수 0~9회. 폴백이 아니라 **있는 메타를 못 쓴 것** → `row.video_title || meta.title` 로 뒤집음 + 발행분 소급 `scripts/fix-youtube-titles.ts`(롱폼 20·쇼츠 18). ②**아동용(Made for Kids)** = `youtube.provider.ts` 업로드/`setPrivacy`·`publish-pending-shorts.mjs` 전부 `selfDeclaredMadeForKids:true`(콘텐츠가 유아 대상이라 COPPA 필수, API가 채널설정 덮어씀). 발행분 소급 `set-youtube-made-for-kids.ts`(81/81). ③**채널 언어 분리** = 연동 채널 2개(`탱고북스`=한국어 UC1LBt…·`tango books`=영어 UCBt5T…). 한국어 쇼츠 131건이 영어 채널로 잘못 예약돼 있어 `draft`로 취소, 탱고북스 롱폼 3트랙 동시(하루 3개)→**생활동화→자연→명작 순번 1개/일**(자기잠식 방지, 실측=하루 여러개면 1개만 밀어줌). ④**분석 스킬** `.claude/skills/youtube-channel-analysis`(벤치마크 필수·n=1 금지) + `analyze-youtube-channel.ts`(**`--handle=@채널`로 경쟁사 분석**). ⑤`yt-analytics.readonly` 스코프 추가(CTR·시청지속률용, 🔴 재연동해야 유효). → memory `youtube-channel-analysis-skill-2026-07-24` · `analysis-benchmark-first-2026-07-24`.
 - **🔴 릴스 커버 = 단일표지 (3그림체 X)**: IG 릴스는 `mkt_instagram_contents.…reels.ko.coverUrl`을 커버로 올림. `render-book-reels.ts`가 `props.styleMorph ? ReelThumbStyles(3그림체 그리드) : ReelThumbPoster(단일)` — styleMorph 붙은 명작 릴스는 옛 3그림체 커버가 나감. **`--force-poster` 플래그**(`--thumbs-only --force-poster --books=…`)로 단일표지 강제·기존 썸네일 skip 우회·영상 유지·옛 R2 커버 삭제. ⚠️ 이미 올라간 IG 게시물 커버는 못 바꿈. memory `youtube-shorts-rotation-cleanup-2026-07-19`.
 - **🐯 호리 생활동화 = 마케팅 콘텐츠 편입 (2026-07-16)**: 생활동화 45권을 마케팅 **기본 콘텐츠**(`mkt_contents` category=`life`)로 등록 → 롱폼/릴스/블로그/카드뉴스 전 파이프라인 대상화. 등록 = `scripts/register-books-marketing.ts --category='생활동화' --label=life --apply`(멱등, 신규 카테고리 편입 공용). 🔴 **파생 체인**: `기본글(base-articles) + 블로그(blogs)` 집필 → `derive-cardnews-storyboards.mjs` 가 **릴스 스토리보드·카드뉴스 자동 파생**(Gemini-free) — 즉 집필 대상은 기본글·블로그뿐. 🔴 **블로그 섹션 `text_html` 은 `<h2>제목</h2>` 으로 시작 필수**(derive 가 첫 h2에서 슬라이드 제목 추출 — 없으면 파생 실패). 🔴 집필 소스 = **pages 우선**(생활동화 `parentGuide` 에 주인공명 오기 다수). 완료: 44권 기본글+블로그(Claude 집필)·스토리보드/카드뉴스 파생·**블로그 시딩+본책 삽화(`fill-blog-illustrations`)+SEO 보강(`boost-blog-seo`·`add-blog-cta`)+FAQ(`add-blog-faq.ts`+`_data/marketing/saenghwal-faq.json`) → verify-blog-seo 44/44 통과**·릴스 44 렌더(`render-nature-reels --books=`)·**릴스 IG+유튜브쇼츠 각 1/일 예약**(`scripts/schedule-saenghwal-reels.ts`, IG=tangobook_korea·YT=탱고북스). ⚠️ `seed-marketing-base-articles.mjs` 가 mkt_contents 행까지 생성하므로 신규 편입엔 그것만으로 충분(register 는 선택) + **제목은 번호 유지**(기본글 title 이 mkt_contents.title 을 덮어씀 주의 — 🔴 그 번호가 유튜브 제목까지 새어나간 적 있음, 위 쇼츠 항목). → memory `saenghwal-marketing-content-2026-07-16`.
 - **🎬 생활동화 릴스 = 전용 컴포넌트 (2026-07-17 재구성)**: 리뷰/사용자 피드백으로 "엄마를 가르치는" 톤(영양 교육·육아 팁)을 걷어내고 **책 이야기만으로** 재구성 → 36s(훅6+이야기20+시리즈6+CTA4). 이야기 씬 = **실제 책 미리보기**(그 페이지 글 + 그 페이지 그림 **1:1**, 위치비율 0.1훅/0.2·0.3·0.4·0.6·0.9)라 자막-삽화가 어긋날 수 없다. 시리즈 씬 = **45편 전권 4열 스크롤**(8칸은 "45편"이 안 믿긴다). 🔴 **컴포넌트 분리 필수** — `StoryScene`/`SeriesShowcase`/`NatureThumb` 는 **명작 릴스(46 라이브)·자연 릴스(101 라이브) 공유**라 생활동화 손질이 새면 조용히 망가진다(특히 ImageBox 를 자막 1:1 로 바꾸면 그쪽은 자막 1~2문장에 삽화 N장 타이머 순환이라 **문장 수 넘는 삽화가 안 나옴**) → 생활동화 전용 `LifeStoryScene`·`LifeSeriesShowcase`·`LifeThumb`(`NatureReel`·`render-nature-reels` 가 카테고리로 분기). 검증 = main 버전과 props JSON 대조. 🔴 **자연 썸네일은 `CenterPoster`(미병합 `feat/nature-reels` 브랜치)로 이미 렌더돼 라이브가 멀쩡** — main 의 `NatureThumb` 는 죽은 코드라 **자연 재렌더 금지**(`connectReelToMarketing` 이 coverUrl 통째 교체 → 퇴행). → memory `saenghwal-reels-redesign-2026-07-17`.
 - **광고 릴스(AdReel)** (9:16 · 전환광고 · 손제작, 2026-07-12): 배치 파이프라인과 별개 — 프로덕트 전체를 파는 단일 손제작 광고. `packages/remotion/src/compositions/AdReel.tsx`(fade TransitionSeries)+`AdThumbnail.tsx`(커버 스틸), `Root.tsx` 등록. 흐름=감성훅→동화 실제 읽어주기(백설공주 한글·**영어** 2p)→배우는 6단어→학습게임(따라쓰기·그림짝·블록)→**사과 맞추면 즉시 사과 페이지**→콘텐츠 그리드(명작9+자연6)→그림체 모핑→CTA. 🔴 **오디오 생성 금지, 있는 콘텐츠 사용**(`page.ttsUrl`/`translations[en].ttsUrl`, silencedetect로 자막 경계 트림)·자막=실제 첫 문장·그림체=**페이퍼3D**(photographic 비공개 X)·게임 효과음+파닉스 실음원. 산출물 `docs/marketing/ad-reel{,-ig}.mp4`·`ad-reel-thumbnail.png`. IG 발행 스크립트 `packages/server/scripts/publish-ad-reel.ts`(🔴 컨테이너 무한 IN_PROGRESS 미해결 — 대안=`mkt_publish_records` 삽입→프로덕션 스케줄러). `scripts/_enc.txt`=시크릿 gitignore. → memory `ad-reel-composition-2026-07-12`.
 
 ## strategy.html — 가로 슬라이드 deck (Series A 투자자용)
+
 **15 슬라이드** 가로 deck. 🔴 deck 작업 규칙: [docs/strategy-deck-rules.md](docs/strategy-deck-rules.md) **매번 참조** (헤더 통일·자랑 표현·AI 모델·마케팅 채널·§9 zero-knowledge 톤·§10 Phase 1 트랙션 전제).
+
 - **구조 gotcha**: `<main>`(clipper) + `<div class="deck-track">`(translateX 대상) + `<section>`(100vw×100vh) + `.slide-content`(scale 자동 fit). ⚠️ main 직접 transform 시 identity matrix 됨 — 반드시 inner deck-track 분리.
 - **자동 fit**: `fitSlide()` = `min(slideH/contentH, slideW/contentW, 1)` → `transform: scale(N)`. `document.fonts.ready`+`window.load`+`resize` 마다 재계산.
 - narrative 백업 `/strategy-detail.html`. 일러스트 풀 `strategy-samples/illustrators/`.

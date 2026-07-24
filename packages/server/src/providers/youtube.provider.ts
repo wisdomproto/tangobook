@@ -9,6 +9,9 @@ const SCOPES = [
   'https://www.googleapis.com/auth/youtube.upload',
   'https://www.googleapis.com/auth/youtube.readonly',
   'https://www.googleapis.com/auth/youtube.force-ssl',
+  // 노출수·CTR·시청지속률·트래픽소스(YouTube Analytics API). 공개 통계(youtube.readonly)만으로는
+  // "왜 조회수가 안 나오는지"를 추측밖에 못 한다. 🔴 기존 저장 토큰에는 없으므로 채널 재연동 후에야 유효.
+  'https://www.googleapis.com/auth/yt-analytics.readonly',
 ];
 
 interface StoredTokens {
@@ -217,7 +220,8 @@ export const YouTubeProvider = {
           },
           status: {
             privacyStatus: meta.publishAt ? 'private' : meta.privacy,
-            selfDeclaredMadeForKids: false,
+            // 탱고북 유튜브 콘텐츠(동화·오디오북)는 전부 아동 대상 → COPPA상 아동용 선언 필수.
+            selfDeclaredMadeForKids: true,
             ...(meta.publishAt ? { publishAt: meta.publishAt } : {}),
           },
         },
@@ -293,7 +297,12 @@ export const YouTubeProvider = {
     const youtube = await this.getAuthenticatedClient(channelId);
     await youtube.videos.update({
       part: ['status'],
-      requestBody: { id: videoId, status: { privacyStatus: privacy } },
+      // 🔴 status part 를 업데이트할 때 selfDeclaredMadeForKids 를 생략하면 아동용 플래그가
+      // 초기화될 수 있으므로(공개 전환 시 not-for-kids 로 되돌아감) 항상 true 로 재선언한다.
+      requestBody: {
+        id: videoId,
+        status: { privacyStatus: privacy, selfDeclaredMadeForKids: true },
+      },
     });
     console.log(`[youtube] Privacy set to ${privacy} for video ${videoId}`);
   },
