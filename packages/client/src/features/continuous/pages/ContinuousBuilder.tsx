@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { SUPPORTED_LANGUAGES } from '@tangobook/shared';
 import {
@@ -28,6 +28,7 @@ export default function ContinuousBuilder() {
   const { t, i18n } = useTranslation('continuous');
   const navigate = useNavigate();
   const { id: editId } = useParams(); // /continuous/edit/:id → 편집 모드
+  const [searchParams] = useSearchParams(); // ?books=&name=&lang= → 묶음 수정 프리필
   const { account } = useAuth();
   const { data: books } = useStorybooks();
   const { map: styleGenreMap } = useStyleGenreMap();
@@ -58,6 +59,22 @@ export default function ContinuousBuilder() {
       setLanguage(editingSet.language);
     }
   }, [editId, editingSet]);
+
+  // 쿼리 프리필: 라이브러리 「묶어 보기」의 카테고리 묶음을 "수정"으로 열었을 때
+  // (`/continuous/new?books=id1,id2&name=…&lang=ko`). 묶음은 저장된 세트가 아니라
+  // 매번 파생되는 값이므로 편집하려면 이렇게 폼에 실어 보내는 수밖에 없다.
+  // 🔴 editId 프리필과 같은 ref 를 공유해 두 경로가 서로 덮어쓰지 않게 한다.
+  useEffect(() => {
+    if (editId || prefilledRef.current) return;
+    const ids = (searchParams.get('books') ?? '').split(',').filter(Boolean);
+    if (!ids.length) return;
+    prefilledRef.current = true;
+    setSelectedIds(ids);
+    const presetName = searchParams.get('name');
+    if (presetName) setName(presetName);
+    const presetLang = searchParams.get('lang');
+    if (presetLang) setLanguage(presetLang);
+  }, [editId, searchParams]);
 
   const titleOf = (id: string) => (books ?? []).find((b) => b.id === id)?.title ?? id;
 

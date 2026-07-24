@@ -10,13 +10,13 @@ interface PlaylistCardProps {
   coverUrls: string[];
   /** 카드 탭 → 재생 시작. */
   onPlay: () => void;
-  /** 삭제. */
-  onDelete: () => void;
+  /** 삭제. 없으면 삭제 버튼 숨김 (카테고리 묶음은 저장된 세트가 아니라 지울 대상이 없다). */
+  onDelete?: () => void;
   /** 편집 (책/순서/이름 수정). 없으면 편집 버튼 숨김. */
   onEdit?: () => void;
 }
 
-/** 저장된 연속재생 세트 카드 — 이름 + 책 수 + 커버 썸네일 + 삭제 버튼. 순수 표현 컴포넌트. */
+/** 연속재생 세트 카드 — 이름 + 책 수 + 커버 썸네일. 순수 표현 컴포넌트. */
 export function PlaylistCard({
   name,
   bookCount,
@@ -71,19 +71,22 @@ export function PlaylistCard({
           type="button"
           onClick={onEdit}
           aria-label={t('playlist.editAria', { name })}
-          className="absolute top-2.5 right-12 h-9 w-9 rounded-full bg-white/90 text-ink-600 shadow-soft backdrop-blur transition hover:bg-white hover:text-coral-500 flex items-center justify-center font-black"
+          // 삭제 버튼이 없으면(카테고리 묶음) 편집이 맨 오른쪽 자리를 차지한다.
+          className={`absolute top-2.5 ${onDelete ? 'right-12' : 'right-2.5'} h-9 w-9 rounded-full bg-white/90 text-ink-600 shadow-soft backdrop-blur transition hover:bg-white hover:text-coral-500 flex items-center justify-center font-black`}
         >
           ✏️
         </button>
       )}
-      <button
-        type="button"
-        onClick={onDelete}
-        aria-label={t('playlist.deleteAria', { name })}
-        className="absolute top-2.5 right-2.5 w-9 h-9 rounded-full bg-white/90 backdrop-blur text-ink-500 hover:text-red-500 hover:bg-white shadow-soft flex items-center justify-center font-black transition"
-      >
-        ✕
-      </button>
+      {onDelete && (
+        <button
+          type="button"
+          onClick={onDelete}
+          aria-label={t('playlist.deleteAria', { name })}
+          className="absolute top-2.5 right-2.5 w-9 h-9 rounded-full bg-white/90 backdrop-blur text-ink-500 hover:text-red-500 hover:bg-white shadow-soft flex items-center justify-center font-black transition"
+        >
+          ✕
+        </button>
+      )}
     </div>
   );
 }

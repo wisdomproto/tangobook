@@ -43,8 +43,8 @@
     "free": "Miễn phí"
   },
   "playlist": {
-    "title": "Danh sách phát của tôi",
-    "subtitle": "Danh sách phát chọn nhiều cuốn để đọc nối tiếp cho bé trước giờ ngủ",
+    "title": "Bộ truyện có sẵn",
+    "subtitle": "Bộ đã soạn sẵn, phát nhiều cuốn nối tiếp nhau",
     "newSet": "+ Bộ mới",
     "createTitle": "Tạo phát nối tiếp",
     "createSubtitle": "Chọn nhiều cuốn để đọc nối tiếp cho bé trước giờ ngủ",
@@ -52,6 +52,7 @@
     "bookCount": "{{count}} cuốn sách",
     "play": "▶ Phát",
     "editAria": "Chỉnh sửa bộ {{name}}",
-    "deleteAria": "Xóa bộ {{name}}"
+    "deleteAria": "Xóa bộ {{name}}",
+    "mySets": "Bộ của tôi"
   }
 }

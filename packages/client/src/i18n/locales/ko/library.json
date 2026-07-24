@@ -43,8 +43,8 @@
     "free": "무료"
   },
   "playlist": {
-    "title": "나의 재생 목록",
-    "subtitle": "여러 권을 골라 잠자리에 연달아 들려주는 재생 목록",
+    "title": "묶어 보기",
+    "subtitle": "여러 권을 이어서 들려주는 묶음이에요",
     "newSet": "+ 새 세트",
     "createTitle": "이어재생 만들기",
     "createSubtitle": "여러 권을 골라 잠자리에 연달아 들려주세요",
@@ -52,6 +52,7 @@
     "bookCount": "책 {{count}}권",
     "play": "▶ 재생",
     "editAria": "{{name}} 세트 편집",
-    "deleteAria": "{{name}} 세트 삭제"
+    "deleteAria": "{{name}} 세트 삭제",
+    "mySets": "내가 만든 세트"
   }
 }
